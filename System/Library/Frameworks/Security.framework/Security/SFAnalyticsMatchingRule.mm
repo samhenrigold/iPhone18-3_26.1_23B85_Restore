@@ -14,7 +14,7 @@
 
 - (unsigned)doAction:(id)action attributes:(id)attributes logger:(id)logger
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   actionCopy = action;
   attributesCopy = attributes;
   loggerCopy = logger;
@@ -30,17 +30,17 @@
       drop = v14;
       if (!v13)
       {
-        v48 = loggerCopy;
-        v49 = attributesCopy;
+        v47 = loggerCopy;
+        v48 = attributesCopy;
         if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
           rule2 = [(SFAnalyticsMatchingRule *)self rule];
           eventType = [rule2 eventType];
           cachedMatchDictionary = [(SFAnalyticsMatchingRule *)self cachedMatchDictionary];
           *buf = 138412546;
-          v51 = eventType;
-          v52 = 2112;
-          v53 = cachedMatchDictionary;
+          v50 = eventType;
+          v51 = 2112;
+          v52 = cachedMatchDictionary;
           _os_log_impl(&dword_1887D2000, drop, OS_LOG_TYPE_DEFAULT, "SFACollection action trigger ttr: %@: %@", buf, 0x16u);
         }
 
@@ -51,11 +51,11 @@
         componentName = [drop componentName];
         componentVersion = [drop componentVersion];
         componentID = [drop componentID];
-        attributesCopy = v49;
-        [actionCopy tapToRadar:alert description:v30 radar:radarnumber componentName:componentName componentVersion:componentVersion componentID:componentID attributes:v49];
+        attributesCopy = v48;
+        [actionCopy tapToRadar:alert description:v30 radar:radarnumber componentName:componentName componentVersion:componentVersion componentID:componentID attributes:v48];
 
         v18 = 0;
-        loggerCopy = v48;
+        loggerCopy = v47;
         goto LABEL_31;
       }
 
@@ -64,7 +64,7 @@
         rule3 = [(SFAnalyticsMatchingRule *)self rule];
         eventType2 = [rule3 eventType];
         *buf = 138412290;
-        v51 = eventType2;
+        v50 = eventType2;
         _os_log_impl(&dword_1887D2000, drop, OS_LOG_TYPE_INFO, "SFACollection ratelimit ttr: %@", buf, 0xCu);
       }
 
@@ -88,9 +88,9 @@ LABEL_31:
           eventType3 = [rule4 eventType];
           cachedMatchDictionary2 = [(SFAnalyticsMatchingRule *)self cachedMatchDictionary];
           *buf = 138412546;
-          v51 = eventType3;
-          v52 = 2112;
-          v53 = cachedMatchDictionary2;
+          v50 = eventType3;
+          v51 = 2112;
+          v52 = cachedMatchDictionary2;
           _os_log_impl(&dword_1887D2000, drop, OS_LOG_TYPE_DEFAULT, "SFACollection action trigger abc: %@ %@", buf, 0x16u);
         }
 
@@ -127,7 +127,7 @@ LABEL_29:
       type2 = [(SFAnalyticsMatchingRule *)self rule];
       subtype = [type2 eventType];
       *buf = 138412290;
-      v51 = subtype;
+      v50 = subtype;
       v23 = "SFACollection ratelimit abc: %@";
       v24 = drop;
       v25 = OS_LOG_TYPE_INFO;
@@ -145,7 +145,7 @@ LABEL_29:
           rule5 = [(SFAnalyticsMatchingRule *)self rule];
           eventType4 = [rule5 eventType];
           *buf = 138412290;
-          v51 = eventType4;
+          v50 = eventType4;
           _os_log_impl(&dword_1887D2000, drop, OS_LOG_TYPE_DEFAULT, "SFACollection action trigger drop: %@", buf, 0xCu);
         }
 
@@ -172,7 +172,7 @@ LABEL_29:
       type2 = [(SFAnalyticsMatchingRule *)self rule];
       subtype = [type2 eventType];
       *buf = 138412290;
-      v51 = subtype;
+      v50 = subtype;
       v23 = "SFACollection unknown action: %@";
       v24 = drop;
       v25 = OS_LOG_TYPE_DEFAULT;
@@ -185,7 +185,6 @@ LABEL_29:
   v18 = 0;
 LABEL_32:
 
-  v46 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
@@ -343,7 +342,7 @@ LABEL_26:
 
 - (id)cachedMatchDictionary
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   matchingDictionary = [(SFAnalyticsMatchingRule *)selfCopy matchingDictionary];
@@ -356,9 +355,9 @@ LABEL_26:
   v5 = MEMORY[0x1E696AE40];
   rule = [(SFAnalyticsMatchingRule *)selfCopy rule];
   match = [rule match];
-  v16 = 0;
-  v8 = [v5 propertyListWithData:match options:0 format:0 error:&v16];
-  v9 = v16;
+  v15 = 0;
+  v8 = [v5 propertyListWithData:match options:0 format:0 error:&v15];
+  v9 = v15;
 
   if (!v8 || v9)
   {
@@ -369,7 +368,7 @@ LABEL_26:
     }
 
     *buf = 138412290;
-    v18 = v9;
+    v17 = v9;
     v11 = "SFAnalyticsMatchingRule match dictionary wrong: %@";
     v12 = v10;
     v13 = 12;
@@ -405,7 +404,6 @@ LABEL_10:
   objc_sync_exit(selfCopy);
   matchingDictionary2 = 0;
 LABEL_11:
-  v14 = *MEMORY[0x1E69E9840];
 
   return matchingDictionary2;
 }
@@ -422,33 +420,33 @@ LABEL_11:
 
 - (BOOL)isSubsetMatch:(id)match target:(id)target
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   matchCopy = match;
   targetCopy = target;
   v8 = [matchCopy count];
   if (v8 <= [targetCopy count])
   {
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v10 = matchCopy;
-    v11 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v22;
+      v13 = *v21;
       while (2)
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v22 != v13)
+          if (*v21 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v21 + 1) + 8 * i);
-          v16 = [targetCopy objectForKeyedSubscript:{v15, v21}];
+          v15 = *(*(&v20 + 1) + 8 * i);
+          v16 = [targetCopy objectForKeyedSubscript:{v15, v20}];
           v17 = [v10 objectForKeyedSubscript:v15];
           v18 = [(SFAnalyticsMatchingRule *)self valueMatch:v17 target:v16];
 
@@ -459,7 +457,7 @@ LABEL_11:
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
         if (v12)
         {
           continue;
@@ -478,13 +476,12 @@ LABEL_13:
     v9 = 0;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (BOOL)valueMatch:(id)match target:(id)target
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   matchCopy = match;
   targetCopy = target;
   objc_opt_class();
@@ -506,34 +503,34 @@ LABEL_4:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v12 = matchCopy;
-    v24 = targetCopy;
+    v11 = matchCopy;
+    v23 = targetCopy;
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
-    obj = v12;
-    v23 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
-    if (v23)
+    obj = v11;
+    v22 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
+    if (v22)
     {
-      v22 = *v30;
+      v21 = *v29;
       while (2)
       {
-        for (i = 0; i != v23; ++i)
+        for (i = 0; i != v22; ++i)
         {
-          if (*v30 != v22)
+          if (*v29 != v21)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = *(*(&v29 + 1) + 8 * i);
+          v13 = *(*(&v28 + 1) + 8 * i);
+          v24 = 0u;
           v25 = 0u;
           v26 = 0u;
           v27 = 0u;
-          v28 = 0u;
-          v15 = v24;
-          v16 = [v15 countByEnumeratingWithState:&v25 objects:v33 count:16];
-          if (!v16)
+          v14 = v23;
+          v15 = [v14 countByEnumeratingWithState:&v24 objects:v32 count:16];
+          if (!v15)
           {
 
 LABEL_28:
@@ -541,35 +538,35 @@ LABEL_28:
             goto LABEL_29;
           }
 
-          v17 = v16;
-          v18 = 0;
-          v19 = *v26;
+          v16 = v15;
+          v17 = 0;
+          v18 = *v25;
           do
           {
-            for (j = 0; j != v17; ++j)
+            for (j = 0; j != v16; ++j)
             {
-              if (*v26 != v19)
+              if (*v25 != v18)
               {
-                objc_enumerationMutation(v15);
+                objc_enumerationMutation(v14);
               }
 
-              v18 |= [(SFAnalyticsMatchingRule *)self valueMatch:v14 target:*(*(&v25 + 1) + 8 * j)];
+              v17 |= [(SFAnalyticsMatchingRule *)self valueMatch:v13 target:*(*(&v24 + 1) + 8 * j)];
             }
 
-            v17 = [v15 countByEnumeratingWithState:&v25 objects:v33 count:16];
+            v16 = [v14 countByEnumeratingWithState:&v24 objects:v32 count:16];
           }
 
-          while (v17);
+          while (v16);
 
-          if ((v18 & 1) == 0)
+          if ((v17 & 1) == 0)
           {
             goto LABEL_28;
           }
         }
 
         v9 = 1;
-        v23 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
-        if (v23)
+        v22 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
+        if (v22)
         {
           continue;
         }
@@ -593,7 +590,6 @@ LABEL_29:
 
 LABEL_5:
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

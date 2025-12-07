@@ -134,7 +134,6 @@ LABEL_6:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    rscp = self->_rscp;
     PBDataWriterWriteSint32Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -154,7 +153,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  rxagc = self->_rxagc;
   PBDataWriterWriteSint32Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -169,12 +167,10 @@ LABEL_4:
   }
 
 LABEL_11:
-  ecio = self->_ecio;
   PBDataWriterWriteSint32Field();
   if ((*&self->_has & 8) != 0)
   {
 LABEL_5:
-    ulIf = self->_ulIf;
     PBDataWriterWriteSint32Field();
   }
 

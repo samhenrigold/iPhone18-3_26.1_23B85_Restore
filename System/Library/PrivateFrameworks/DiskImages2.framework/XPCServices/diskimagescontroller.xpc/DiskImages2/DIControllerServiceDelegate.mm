@@ -60,14 +60,14 @@
   while (1)
   {
     v10 = [[DIController2IO_XPCHandlerAttach alloc] initWithParams:paramsCopy];
-    v41 = 0;
-    v11 = [(DIController2IO_XPCHandlerAttach *)v10 runWithError:&v41];
-    v12 = v41;
+    v52 = 0;
+    v11 = [(DIController2IO_XPCHandlerAttach *)v10 runWithError:&v52];
+    v12 = v52;
     if (v11)
     {
-      v40 = v12;
-      v13 = [DIControllerServiceDelegate sendHandleToClient:v11 clientConnection:connectionCopy outError:&v40];
-      v14 = v40;
+      v51 = v12;
+      v13 = [DIControllerServiceDelegate sendHandleToClient:v11 clientConnection:connectionCopy outError:&v51];
+      v14 = v51;
 
       v12 = v14;
       if ((v13 & 1) == 0)
@@ -76,12 +76,12 @@
       }
     }
 
-    [(DIBaseXPCHandler *)v10 closeConnection:v34];
+    [(DIBaseXPCHandler *)v10 closeConnection];
     if (!v12)
     {
 
-      v32 = 1;
-      goto LABEL_40;
+      v43 = 1;
+      goto LABEL_49;
     }
 
     if ([(DIController2IO_XPCHandlerAttach *)v12 code]== 155 || [(DIController2IO_XPCHandlerAttach *)v12 code]== 151 || [(DIController2IO_XPCHandlerAttach *)v12 code]== 4097 || [(DIController2IO_XPCHandlerAttach *)v12 code]== 4099)
@@ -89,44 +89,55 @@
       v15 = v9 + 1;
       if (v9 == 5)
       {
-        goto LABEL_38;
+        goto LABEL_47;
       }
 
       if (v9)
       {
         v16 = *__error();
-        if (sub_1000E044C())
+        v17 = sub_1000E044C();
+        if (v17)
         {
-          v17 = sub_1000E03D8();
-          os_log_type_enabled(v17, OS_LOG_TYPE_ERROR);
+          v50 = 0;
+          v19 = sub_1000E03D8(v17, v18);
+          v20 = os_log_type_enabled(v19, OS_LOG_TYPE_ERROR);
           *buf = 68158210;
-          *&buf[4] = 77;
-          v43 = 2080;
-          v44 = "+[DIControllerServiceDelegate tryAttachWithParams:clientConnection:outError:]";
-          v45 = 2114;
-          v46 = v12;
-          LODWORD(v35) = 28;
-          v34 = buf;
-          v18 = _os_log_send_and_compose_impl();
-
-          if (v18)
+          if (v20)
           {
-            fprintf(__stderrp, "%s\n", v18);
-            free(v18);
+            v21 = 3;
+          }
+
+          else
+          {
+            v21 = 2;
+          }
+
+          *&buf[4] = 77;
+          v54 = 2080;
+          v55 = "+[DIControllerServiceDelegate tryAttachWithParams:clientConnection:outError:]";
+          v56 = 2114;
+          v57 = v12;
+          LODWORD(v45) = 28;
+          v22 = _os_log_send_and_compose_impl(v21, &v50, 0, 0, &_mh_execute_header, v19, 16, "%.*s: Connection attempt failed: %{public}@, retrying", buf, v45);
+
+          if (v22)
+          {
+            fprintf(__stderrp, "%s\n", v22);
+            free(v22);
           }
         }
 
         else
         {
-          v22 = sub_1000E03D8();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+          v30 = sub_1000E03D8(v17, v18);
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
           {
             *buf = 0x4D04100302;
-            v43 = 2080;
-            v44 = "+[DIControllerServiceDelegate tryAttachWithParams:clientConnection:outError:]";
-            v45 = 2114;
-            v46 = v12;
-            _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "%.*s: Connection attempt failed: %{public}@, retrying", buf, 0x1Cu);
+            v54 = 2080;
+            v55 = "+[DIControllerServiceDelegate tryAttachWithParams:clientConnection:outError:]";
+            v56 = 2114;
+            v57 = v12;
+            _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, "%.*s: Connection attempt failed: %{public}@, retrying", buf, 0x1Cu);
           }
         }
 
@@ -138,44 +149,55 @@
 
       else
       {
-        v19 = *__error();
-        if (sub_1000E044C())
+        v23 = *__error();
+        v24 = sub_1000E044C();
+        if (v24)
         {
-          v20 = sub_1000E03D8();
-          os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
+          v50 = 0;
+          v26 = sub_1000E03D8(v24, v25);
+          v27 = os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT);
           *buf = 68158210;
-          *&buf[4] = 77;
-          v43 = 2080;
-          v44 = "+[DIControllerServiceDelegate tryAttachWithParams:clientConnection:outError:]";
-          v45 = 2114;
-          v46 = v12;
-          LODWORD(v35) = 28;
-          v34 = buf;
-          v21 = _os_log_send_and_compose_impl();
-
-          if (v21)
+          if (v27)
           {
-            fprintf(__stderrp, "%s\n", v21);
-            free(v21);
+            v28 = 3;
+          }
+
+          else
+          {
+            v28 = 2;
+          }
+
+          *&buf[4] = 77;
+          v54 = 2080;
+          v55 = "+[DIControllerServiceDelegate tryAttachWithParams:clientConnection:outError:]";
+          v56 = 2114;
+          v57 = v12;
+          LODWORD(v45) = 28;
+          v29 = _os_log_send_and_compose_impl(v28, &v50, 0, 0, &_mh_execute_header, v26, 0, "%.*s: First connection attempt failed: %{public}@, retrying", buf, v45);
+
+          if (v29)
+          {
+            fprintf(__stderrp, "%s\n", v29);
+            free(v29);
           }
         }
 
         else
         {
-          v23 = sub_1000E03D8();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+          v31 = sub_1000E03D8(v24, v25);
+          if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 68158210;
             *&buf[4] = 77;
-            v43 = 2080;
-            v44 = "+[DIControllerServiceDelegate tryAttachWithParams:clientConnection:outError:]";
-            v45 = 2114;
-            v46 = v12;
-            _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "%.*s: First connection attempt failed: %{public}@, retrying", buf, 0x1Cu);
+            v54 = 2080;
+            v55 = "+[DIControllerServiceDelegate tryAttachWithParams:clientConnection:outError:]";
+            v56 = 2114;
+            v57 = v12;
+            _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "%.*s: First connection attempt failed: %{public}@, retrying", buf, 0x1Cu);
           }
         }
 
-        *__error() = v19;
+        *__error() = v23;
         usleep(0x186A0u);
         v8 = 0;
         v9 = 1;
@@ -186,12 +208,12 @@
     {
       if ([(DIController2IO_XPCHandlerAttach *)v12 code]!= 170)
       {
-LABEL_38:
+LABEL_47:
         v14 = v12;
         break;
       }
 
-      v24 = v8 + 1;
+      v32 = v8 + 1;
       if (v8 == 34)
       {
         v14 = [DIError errorWithEnumValue:159 verboseInfo:@"Timeout waiting for a completion of an ongoing eject"];
@@ -201,65 +223,75 @@ LABEL_38:
 
       if (!v8)
       {
-        v25 = *__error();
-        if (sub_1000E044C())
+        v33 = *__error();
+        v34 = sub_1000E044C();
+        if (v34)
         {
-          v37 = v25;
-          v36 = sub_1000E03D8();
-          os_log_type_enabled(v36, OS_LOG_TYPE_ERROR);
+          v47 = v33;
+          v50 = 0;
+          v46 = sub_1000E03D8(v34, v35);
+          if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+          {
+            v36 = 3;
+          }
+
+          else
+          {
+            v36 = 2;
+          }
+
           inputURL = [paramsCopy inputURL];
           path = [inputURL path];
           *buf = 68158211;
           *&buf[4] = 77;
-          v43 = 2080;
-          v44 = "+[DIControllerServiceDelegate tryAttachWithParams:clientConnection:outError:]";
-          v45 = 2113;
-          v46 = path;
-          LODWORD(v35) = 28;
-          v34 = buf;
-          v28 = _os_log_send_and_compose_impl();
+          v54 = 2080;
+          v55 = "+[DIControllerServiceDelegate tryAttachWithParams:clientConnection:outError:]";
+          v56 = 2113;
+          v57 = path;
+          LODWORD(v45) = 28;
+          v39 = _os_log_send_and_compose_impl(v36, &v50, 0, 0, &_mh_execute_header, v46, 16, "%.*s: Waiting for completion of an ongoing eject of %{private}@", buf, v45);
 
-          v25 = v37;
-          if (v28)
+          v33 = v47;
+          if (v39)
           {
-            fprintf(__stderrp, "%s\n", v28);
-            free(v28);
+            fprintf(__stderrp, "%s\n", v39);
+            free(v39);
           }
         }
 
         else
         {
-          v29 = sub_1000E03D8();
-          if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+          v40 = sub_1000E03D8(v34, v35);
+          if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
           {
-            v38 = v25;
+            v48 = v33;
             inputURL2 = [paramsCopy inputURL];
             path2 = [inputURL2 path];
             *buf = 68158211;
             *&buf[4] = 77;
-            v43 = 2080;
-            v44 = "+[DIControllerServiceDelegate tryAttachWithParams:clientConnection:outError:]";
-            v45 = 2113;
-            v46 = path2;
-            _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "%.*s: Waiting for completion of an ongoing eject of %{private}@", buf, 0x1Cu);
+            v54 = 2080;
+            v55 = "+[DIControllerServiceDelegate tryAttachWithParams:clientConnection:outError:]";
+            v56 = 2113;
+            v57 = path2;
+            _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_ERROR, "%.*s: Waiting for completion of an ongoing eject of %{private}@", buf, 0x1Cu);
 
-            v25 = v38;
+            v33 = v48;
           }
         }
 
-        *__error() = v25;
+        *__error() = v33;
       }
 
       sleep(1u);
-      v8 = v24;
+      v8 = v32;
     }
   }
 
-  v32 = [DIError failWithInError:v14 outError:error];
+  v43 = [DIError failWithInError:v14 outError:error];
   v10 = v14;
-LABEL_40:
+LABEL_49:
 
-  return v32;
+  return v43;
 }
 
 - (BOOL)checkAttachEntitlementWithError:(id *)error
@@ -270,47 +302,59 @@ LABEL_40:
   if (v5 && (objc_opt_respondsToSelector() & 1) != 0 && ([v5 BOOLValue] & 1) != 0)
   {
     v6 = *__error();
-    if (sub_1000E044C())
+    v7 = sub_1000E044C();
+    if (v7)
     {
-      v7 = sub_1000E03D8();
-      os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
-      *buf = 68157954;
-      v14 = 63;
-      v15 = 2080;
-      v16 = "[DIControllerServiceDelegate checkAttachEntitlementWithError:]";
-      v8 = _os_log_send_and_compose_impl();
-
-      if (v8)
+      v17 = 0;
+      v9 = sub_1000E03D8(v7, v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        fprintf(__stderrp, "%s\n", v8);
-        free(v8);
+        v10 = 3;
+      }
+
+      else
+      {
+        v10 = 2;
+      }
+
+      *buf = 68157954;
+      v19 = 63;
+      v20 = 2080;
+      v21 = "[DIControllerServiceDelegate checkAttachEntitlementWithError:]";
+      LODWORD(v16) = 18;
+      v11 = _os_log_send_and_compose_impl(v10, &v17, 0, 0, &_mh_execute_header, v9, 0, "%.*s: Client is entitled to attach disk images", buf, v16);
+
+      if (v11)
+      {
+        fprintf(__stderrp, "%s\n", v11);
+        free(v11);
       }
     }
 
     else
     {
-      v12 = sub_1000E03D8();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v15 = sub_1000E03D8(v7, v8);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 68157954;
-        v14 = 63;
-        v15 = 2080;
-        v16 = "[DIControllerServiceDelegate checkAttachEntitlementWithError:]";
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%.*s: Client is entitled to attach disk images", buf, 0x12u);
+        v19 = 63;
+        v20 = 2080;
+        v21 = "[DIControllerServiceDelegate checkAttachEntitlementWithError:]";
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%.*s: Client is entitled to attach disk images", buf, 0x12u);
       }
     }
 
     *__error() = v6;
-    v10 = 1;
+    v13 = 1;
   }
 
   else
   {
-    v9 = [NSString stringWithFormat:@"Missing entitlement: %@", @"com.apple.diskimages.attach"];
-    v10 = [DIError failWithEnumValue:158 verboseInfo:v9 error:error];
+    v12 = [NSString stringWithFormat:@"Missing entitlement: %@", @"com.apple.diskimages.attach"];
+    v13 = [DIError failWithEnumValue:158 verboseInfo:v12 error:error];
   }
 
-  return v10;
+  return v13;
 }
 
 - (void)attachWithParams:(id)params reply:(id)reply
@@ -354,47 +398,59 @@ LABEL_40:
   v6 = fileno(__stderrp);
   if (dup2(handle, v6) < 0)
   {
-    v10 = [DIError errorWithEnumValue:154 verboseInfo:@"Error duplicating stderr"];
+    v13 = [DIError errorWithEnumValue:154 verboseInfo:@"Error duplicating stderr"];
   }
 
   else
   {
     v7 = *__error();
-    if (sub_1000E044C())
+    v8 = sub_1000E044C();
+    if (v8)
     {
-      v8 = sub_1000E03D8();
-      os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
-      *buf = 68157954;
-      v13 = 57;
-      v14 = 2080;
-      v15 = "[DIControllerServiceDelegate dupWithStderrHandle:reply:]";
-      v9 = _os_log_send_and_compose_impl();
-
-      if (v9)
+      v16 = 0;
+      v10 = sub_1000E03D8(v8, v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        fprintf(__stderrp, "%s\n", v9);
-        free(v9);
+        v11 = 3;
+      }
+
+      else
+      {
+        v11 = 2;
+      }
+
+      *buf = 68157954;
+      v18 = 57;
+      v19 = 2080;
+      v20 = "[DIControllerServiceDelegate dupWithStderrHandle:reply:]";
+      LODWORD(v15) = 18;
+      v12 = _os_log_send_and_compose_impl(v11, &v16, 0, 0, &_mh_execute_header, v10, 0, "%.*s: stderr duplicated", buf, v15);
+
+      if (v12)
+      {
+        fprintf(__stderrp, "%s\n", v12);
+        free(v12);
       }
     }
 
     else
     {
-      v11 = sub_1000E03D8();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v14 = sub_1000E03D8(v8, v9);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 68157954;
-        v13 = 57;
-        v14 = 2080;
-        v15 = "[DIControllerServiceDelegate dupWithStderrHandle:reply:]";
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%.*s: stderr duplicated", buf, 0x12u);
+        v18 = 57;
+        v19 = 2080;
+        v20 = "[DIControllerServiceDelegate dupWithStderrHandle:reply:]";
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%.*s: stderr duplicated", buf, 0x12u);
       }
     }
 
-    v10 = 0;
+    v13 = 0;
     *__error() = v7;
   }
 
-  replyCopy[2](replyCopy, v10);
+  replyCopy[2](replyCopy, v13);
 }
 
 - (id)convertWithParams:(id)params reply:(id)reply

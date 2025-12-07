@@ -7,12 +7,12 @@ void __33___ASWebsiteNameProvider_prewarm__block_invoke(uint64_t a1, void *a2)
 {
   v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXWebsiteNameProvider();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v5 = WBS_LOG_CHANNEL_PREFIXWebsiteNameProvider(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 134217984;
     v9 = [v3 count];
-    _os_log_impl(&dword_1B1C8D000, v4, OS_LOG_TYPE_INFO, "prewarm found %lu entries", buf, 0xCu);
+    _os_log_impl(&dword_1B1C8D000, v5, OS_LOG_TYPE_INFO, "prewarm found %lu entries", buf, 0xCu);
   }
 
   v7[0] = MEMORY[0x1E69E9820];
@@ -27,8 +27,6 @@ void __33___ASWebsiteNameProvider_prewarm__block_invoke(uint64_t a1, void *a2)
   v6[3] = &unk_1E7AF80E8;
   v6[4] = *(a1 + 32);
   dispatch_async(MEMORY[0x1E69E96A0], v6);
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __77___ASWebsiteNameProvider_beginLoadingBuiltInAndRemotelyUpdatableWebsiteNames__block_invoke(uint64_t a1, void *a2)
@@ -75,12 +73,13 @@ void __78___ASWebsiteNameProvider_debug_fetchWebsiteNamesForDomains_completionHa
   (*(*(a1 + 32) + 16))(*(a1 + 32), WeakRetained);
 }
 
-void __54___ASWebsiteNameProvider_debug_deleteAllPersistedData__block_invoke(uint64_t a1, char a2)
+void __54___ASWebsiteNameProvider_debug_deleteAllPersistedData__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v3 = WBS_LOG_CHANNEL_PREFIXWebsiteNameProvider();
+  v2 = a2;
+  v3 = WBS_LOG_CHANNEL_PREFIXWebsiteNameProvider(a1, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __54___ASWebsiteNameProvider_debug_deleteAllPersistedData__block_invoke_cold_1(a2, v3);
+    __54___ASWebsiteNameProvider_debug_deleteAllPersistedData__block_invoke_cold_1(v2, v3);
   }
 }
 
@@ -152,35 +151,35 @@ uint64_t __56___ASWebsiteNameProvider__bestTitleFromCandidateTitles___block_invo
 
 void __70___ASWebsiteNameProvider_fetchWebsiteNameForDomain_completionHandler___block_invoke(void *a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
+  v8 = v6;
   if (v5)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXWebsiteNameProvider();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v9 = WBS_LOG_CHANNEL_PREFIXWebsiteNameProvider(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v13 = a1[4];
-      v14 = [v5 siteName];
-      v15 = [v5 title];
-      v16 = [v5 originalTitle];
-      v17 = 138740739;
-      v18 = v13;
-      v19 = 2117;
-      v20 = v14;
-      v21 = 2117;
-      v22 = v15;
-      v23 = 2117;
-      v24 = v16;
-      _os_log_debug_impl(&dword_1B1C8D000, v7, OS_LOG_TYPE_DEBUG, "WebsiteNameProvider got metadata for domain %{sensitive}@: siteName: %{sensitive}@, title: %{sensitive}@, originalTitle: %{sensitive}@", &v17, 0x2Au);
+      v14 = a1[4];
+      v15 = [v5 siteName];
+      v16 = [v5 title];
+      v17 = [v5 originalTitle];
+      v18 = 138740739;
+      v19 = v14;
+      v20 = 2117;
+      v21 = v15;
+      v22 = 2117;
+      v23 = v16;
+      v24 = 2117;
+      v25 = v17;
+      _os_log_debug_impl(&dword_1B1C8D000, v9, OS_LOG_TYPE_DEBUG, "WebsiteNameProvider got metadata for domain %{sensitive}@: siteName: %{sensitive}@, title: %{sensitive}@, originalTitle: %{sensitive}@", &v18, 0x2Au);
     }
 
-    v8 = a1[6];
-    v9 = [objc_opt_class() websiteNameForLinkMetadata:v5];
-    v10 = WBS_LOG_CHANNEL_PREFIXWebsiteNameProvider();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v10 = [objc_opt_class() websiteNameForLinkMetadata:v5];
+    v12 = WBS_LOG_CHANNEL_PREFIXWebsiteNameProvider(v10, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      __70___ASWebsiteNameProvider_fetchWebsiteNameForDomain_completionHandler___block_invoke_cold_1(v9, a1, v10);
+      __70___ASWebsiteNameProvider_fetchWebsiteNameForDomain_completionHandler___block_invoke_cold_1(v10, a1, v12);
     }
 
     (*(a1[5] + 16))();
@@ -188,16 +187,14 @@ void __70___ASWebsiteNameProvider_fetchWebsiteNameForDomain_completionHandler___
 
   else
   {
-    v11 = WBS_LOG_CHANNEL_PREFIXWebsiteNameProvider();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = WBS_LOG_CHANNEL_PREFIXWebsiteNameProvider(v6, v7);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      __70___ASWebsiteNameProvider_fetchWebsiteNameForDomain_completionHandler___block_invoke_cold_2(a1, v6, v11);
+      __70___ASWebsiteNameProvider_fetchWebsiteNameForDomain_completionHandler___block_invoke_cold_2(a1, v8, v13);
     }
 
     (*(a1[5] + 16))();
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 id __66___ASWebsiteNameProvider__trimErrantLeadingAndTrailingCharacters___block_invoke(uint64_t a1, void *a2)
@@ -217,7 +214,7 @@ id __66___ASWebsiteNameProvider__trimErrantLeadingAndTrailingCharacters___block_
 
 void __47___ASWebsiteNameProvider__openDatabaseIfNeeded__block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (*(v2 + 24) == 1)
   {
@@ -227,27 +224,26 @@ void __47___ASWebsiteNameProvider__openDatabaseIfNeeded__block_invoke(uint64_t a
   else
   {
     v3 = *(v2 + 40);
-    v10 = 0;
-    v4 = [v3 openWithAccessType:1 error:&v10];
-    v5 = v10;
+    v11 = 0;
+    v4 = [v3 openWithAccessType:1 error:&v11];
+    v5 = v11;
+    v7 = v5;
     *(*(a1 + 32) + 24) = v4;
-    v6 = *(*(a1 + 32) + 24);
-    if ((v6 & 1) == 0)
+    v8 = *(*(a1 + 32) + 24);
+    if ((v8 & 1) == 0)
     {
-      v7 = WBS_LOG_CHANNEL_PREFIXWebsiteNameProvider();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v9 = WBS_LOG_CHANNEL_PREFIXWebsiteNameProvider(v5, v6);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        v8 = [v5 safari_privacyPreservingDescription];
-        __47___ASWebsiteNameProvider__openDatabaseIfNeeded__block_invoke_cold_1(v8, buf, v7);
+        v10 = [v7 safari_privacyPreservingDescription];
+        __47___ASWebsiteNameProvider__openDatabaseIfNeeded__block_invoke_cold_1(v10, buf, v9);
       }
 
-      v6 = *(*(a1 + 32) + 24);
+      v8 = *(*(a1 + 32) + 24);
     }
 
-    *(*(*(a1 + 40) + 8) + 24) = v6;
+    *(*(*(a1 + 40) + 8) + 24) = v8;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __60___ASWebsiteNameProvider_setWebsiteNameConsumer_completion___block_invoke(uint64_t a1)
@@ -261,10 +257,7 @@ uint64_t __60___ASWebsiteNameProvider_setWebsiteNameConsumer_completion___block_
 
 uint64_t __52___ASWebsiteNameProvider_knownWebsiteNameForDomain___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 96) objectForKeyedSubscript:a1[5]];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 96) objectForKeyedSubscript:a1[5]];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -284,20 +277,14 @@ void __52___ASWebsiteNameProvider_knownWebsiteNameForDomain___block_invoke_2(voi
 
 uint64_t __52___ASWebsiteNameProvider_knownWebsiteNameForDomain___block_invoke_3(void *a1)
 {
-  v2 = [*(a1[4] + 88) objectForKeyedSubscript:a1[5]];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 88) objectForKeyedSubscript:a1[5]];
 
   return MEMORY[0x1EEE66BB8]();
 }
 
 uint64_t __52___ASWebsiteNameProvider_knownWebsiteNameForDomain___block_invoke_4(void *a1)
 {
-  v2 = [*(a1[4] + 80) objectForKeyedSubscript:a1[5]];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 80) objectForKeyedSubscript:a1[5]];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -310,7 +297,7 @@ void __52___ASWebsiteNameProvider_knownWebsiteNameForDomain___block_invoke_5(uin
 
 void __71___ASWebsiteNameProvider_fetchOperation_finishedWithResult_completion___block_invoke(uint64_t a1)
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   v2 = (a1 + 32);
   v3 = [*(a1 + 32) domain];
   v4 = [*v2 metadataEntry];
@@ -320,20 +307,18 @@ void __71___ASWebsiteNameProvider_fetchOperation_finishedWithResult_completion__
   [v6 _cacheFetchedAndKeychainBackedWebsiteName:v5 forDomain:v3 dateLastRefreshed:v7];
 
   v8 = *(*(a1 + 48) + 112);
-  v14[0] = v3;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+  v13[0] = v3;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
   [v8 knownWebsiteNamesDidChangeOnDomains:v9];
 
   [v4 updateWebsiteName:v5];
   v10 = *(*(a1 + 48) + 56);
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __71___ASWebsiteNameProvider_fetchOperation_finishedWithResult_completion___block_invoke_2;
-  v12[3] = &unk_1E7AF8370;
-  v13 = *(a1 + 56);
-  [v10 saveMetadataEntry:v4 forDomain:v3 completionHandler:v12];
-
-  v11 = *MEMORY[0x1E69E9840];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __71___ASWebsiteNameProvider_fetchOperation_finishedWithResult_completion___block_invoke_2;
+  v11[3] = &unk_1E7AF8370;
+  v12 = *(a1 + 56);
+  [v10 saveMetadataEntry:v4 forDomain:v3 completionHandler:v11];
 }
 
 uint64_t __68___ASWebsiteNameProvider__fetchDataForDomainIfNeeded_metadataEntry___block_invoke(uint64_t a1, void *a2)
@@ -367,8 +352,6 @@ void __68___ASWebsiteNameProvider__cacheDatabaseBackedWebsiteName_forDomain___bl
   else
   {
     v5 = [MEMORY[0x1E695DFB0] null];
-    v6 = a1[6];
-    v7 = v5;
     [*(a1[5] + 96) setObject:? forKeyedSubscript:?];
   }
 }
@@ -395,35 +378,32 @@ uint64_t __96___ASWebsiteNameProvider__cacheFetchedAndKeychainBackedWebsiteName_
 
 void __54___ASWebsiteNameProvider_debug_deleteAllPersistedData__block_invoke_cold_1(char a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109120;
-  v3[1] = a1 & 1;
-  _os_log_debug_impl(&dword_1B1C8D000, a2, OS_LOG_TYPE_DEBUG, "Deleting all persisted data with success: %d", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = a1 & 1;
+  _os_log_debug_impl(&dword_1B1C8D000, a2, OS_LOG_TYPE_DEBUG, "Deleting all persisted data with success: %d", v2, 8u);
 }
 
 void __70___ASWebsiteNameProvider_fetchWebsiteNameForDomain_completionHandler___block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *(a2 + 32);
-  v5 = 138740227;
-  v6 = a1;
-  v7 = 2117;
-  v8 = v3;
-  _os_log_debug_impl(&dword_1B1C8D000, log, OS_LOG_TYPE_DEBUG, "WebsiteNameProvider found %{sensitive}@ as a website name for domain %{sensitive}@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138740227;
+  v5 = a1;
+  v6 = 2117;
+  v7 = v3;
+  _os_log_debug_impl(&dword_1B1C8D000, log, OS_LOG_TYPE_DEBUG, "WebsiteNameProvider found %{sensitive}@ as a website name for domain %{sensitive}@", &v4, 0x16u);
 }
 
 void __70___ASWebsiteNameProvider_fetchWebsiteNameForDomain_completionHandler___block_invoke_cold_2(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
-  v5 = 138740227;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_1B1C8D000, log, OS_LOG_TYPE_ERROR, "Fetch for %{sensitive}@ failed with error %@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138740227;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_1B1C8D000, log, OS_LOG_TYPE_ERROR, "Fetch for %{sensitive}@ failed with error %@", &v4, 0x16u);
 }
 
 void __47___ASWebsiteNameProvider__openDatabaseIfNeeded__block_invoke_cold_1(void *a1, uint8_t *buf, os_log_t log)

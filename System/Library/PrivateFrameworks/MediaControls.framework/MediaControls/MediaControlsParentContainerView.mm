@@ -393,7 +393,7 @@ void *__65__MediaControlsParentContainerView__toggleRoutingPickerAnimated___bloc
 {
   if (self->_style == 3)
   {
-    v5 = ([recognizer state] - 3) < 0xFFFFFFFFFFFFFFFELL;
+    v5 = (objc_msgSend_state(recognizer, a2) - 3) < 0xFFFFFFFFFFFFFFFELL;
 
     [(MediaControlsParentContainerView *)self setClipsToBounds:v5];
   }

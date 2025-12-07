@@ -17,13 +17,13 @@
     _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "Now running %@", v11, 0xCu);
   }
 
-  profileExtension = [(HDClinicalIngestionOperation *)self profileExtension];
-  clinicalSharingManager = [profileExtension clinicalSharingManager];
+  v6 = [(HDClinicalIngestionOperation *)self profileExtension:*v11];
+  clinicalSharingManager = [v6 clinicalSharingManager];
 
   if (clinicalSharingManager)
   {
-    profileExtension2 = [(HDClinicalIngestionOperation *)self profileExtension];
-    clinicalSharingManager2 = [profileExtension2 clinicalSharingManager];
+    profileExtension = [(HDClinicalIngestionOperation *)self profileExtension];
+    clinicalSharingManager2 = [profileExtension clinicalSharingManager];
     [clinicalSharingManager2 scheduleSharing];
   }
 

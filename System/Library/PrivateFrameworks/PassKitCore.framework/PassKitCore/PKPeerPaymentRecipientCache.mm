@@ -340,9 +340,9 @@ void __43__PKPeerPaymentRecipientCache__canWriteMap__block_invoke(uint64_t a1, u
 {
   object = [notification object];
   _instanceName = [objc_opt_class() _instanceName];
-  v6 = [object isEqualToString:_instanceName];
+  isEqualToString = objc_msgSend_isEqualToString_(object);
 
-  if ((v6 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     os_unfair_lock_lock(&self->_mapAccessLock);
     [(PKMapContainer *)self->_mapContainer removeAllObjects];
@@ -355,9 +355,9 @@ void __43__PKPeerPaymentRecipientCache__canWriteMap__block_invoke(uint64_t a1, u
 {
   object = [notification object];
   _instanceName = [objc_opt_class() _instanceName];
-  v6 = [object isEqualToString:_instanceName];
+  isEqualToString = objc_msgSend_isEqualToString_(object);
 
-  if ((v6 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
 
     [(PKPeerPaymentRecipientCache *)self _updateMapsFromDisk];
@@ -571,14 +571,14 @@ void __46__PKPeerPaymentRecipientCache__writeMapToDisk__block_invoke(uint64_t a1
   return v2;
 }
 
-void __44__PKPeerPaymentRecipientCache__instanceName__block_invoke()
+void __44__PKPeerPaymentRecipientCache__instanceName__block_invoke(uint64_t a1)
 {
-  v0 = MEMORY[0x1E696AEC0];
-  v1 = objc_opt_class();
-  v4 = NSStringFromClass(v1);
-  v2 = [v0 stringWithFormat:@"%@-%i", v4, PKGetMyPid()];
-  v3 = qword_1ED6D2258;
-  qword_1ED6D2258 = v2;
+  v1 = MEMORY[0x1E696AEC0];
+  v2 = objc_opt_class();
+  v5 = NSStringFromClass(v2);
+  v3 = [v1 stringWithFormat:@"%@-%i", v5, PKGetMyPid()];
+  v4 = qword_1ED6D2258;
+  qword_1ED6D2258 = v3;
 }
 
 @end

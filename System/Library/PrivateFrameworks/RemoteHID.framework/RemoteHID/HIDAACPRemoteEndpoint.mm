@@ -42,7 +42,7 @@
   _Block_object_dispose(&v7, 8);
 }
 
-uint64_t __41__HIDAACPRemoteEndpoint_removeAllDevices__block_invoke(uint64_t a1, void *a2)
+void *__41__HIDAACPRemoteEndpoint_removeAllDevices__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 enableTS];
   if (result)

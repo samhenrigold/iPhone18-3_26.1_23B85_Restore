@@ -88,14 +88,13 @@
 {
   listenerCopy = listener;
   connectionCopy = connection;
-  v8 = MBGetDefaultLog();
+  v8 = MBGetDefaultLog(connectionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 67109120;
     HIDWORD(buf) = [connectionCopy processIdentifier];
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "New connection from pid:%d", &buf, 8u);
-    processIdentifier = [connectionCopy processIdentifier];
-    _MBLog(@"Df", "New connection from pid:%d", v10, v11, v12, v13, v14, v15, processIdentifier);
+    _MBLog(@"Df", "New connection from pid:%d", [connectionCopy processIdentifier]);
   }
 
   if (qword_10002A150 != -1)
@@ -105,18 +104,18 @@
 
   objc_initWeak(&buf, connectionCopy);
   [connectionCopy setExportedInterface:qword_10002A148];
-  v16 = objc_opt_new();
-  [connectionCopy setExportedObject:v16];
-  v18[0] = _NSConcreteStackBlock;
-  v18[1] = 3221225472;
-  v18[2] = sub_100005EB8;
-  v18[3] = &unk_100024898;
-  objc_copyWeak(&v19, &buf);
-  v18[4] = self;
-  [connectionCopy setInvalidationHandler:v18];
+  v9 = objc_opt_new();
+  [connectionCopy setExportedObject:v9];
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_100005EB8;
+  v11[3] = &unk_100024898;
+  objc_copyWeak(&v12, &buf);
+  v11[4] = self;
+  [connectionCopy setInvalidationHandler:v11];
   [(MBHelperServiceDelegate *)self _addConnection:connectionCopy];
   [connectionCopy resume];
-  objc_destroyWeak(&v19);
+  objc_destroyWeak(&v12);
 
   objc_destroyWeak(&buf);
   return 1;

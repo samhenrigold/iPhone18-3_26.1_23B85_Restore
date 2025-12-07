@@ -239,7 +239,6 @@ LABEL_11:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -259,7 +258,6 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  connectionType = self->_connectionType;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -274,7 +272,6 @@ LABEL_6:
   }
 
 LABEL_17:
-  linkQuality = self->_linkQuality;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -289,7 +286,6 @@ LABEL_7:
   }
 
 LABEL_18:
-  receiveOffset = self->_receiveOffset;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -304,7 +300,6 @@ LABEL_8:
   }
 
 LABEL_19:
-  payloadSize = self->_payloadSize;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -319,12 +314,10 @@ LABEL_9:
   }
 
 LABEL_20:
-  isFromStorage = self->_isFromStorage;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_10:
-    dualChannelState = self->_dualChannelState;
     PBDataWriterWriteUint32Field();
   }
 
@@ -554,7 +547,6 @@ LABEL_9:
     guid = self->_guid;
     if (!(guid | *(equal + 3)) || (v5 = [(NSString *)guid isEqual:?]) != 0)
     {
-      v7 = *(equal + 56);
       if (*&self->_has)
       {
         if ((*(equal + 56) & 1) == 0 || self->_timestamp != *(equal + 1))

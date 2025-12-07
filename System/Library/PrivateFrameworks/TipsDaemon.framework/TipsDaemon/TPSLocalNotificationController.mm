@@ -29,7 +29,7 @@
 
 - (void)showNotificationForNotificationCache:(id)cache attachmentURL:(id)l
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   cacheCopy = cache;
   lCopy = l;
   if (([MEMORY[0x277D71740] suppressNotifications] & 1) == 0)
@@ -48,7 +48,7 @@
     if (([v11 length] || objc_msgSend(v13, "length")) && identifier | collectionIdentifier)
     {
       [cacheCopy extensionPayload];
-      v23 = notification;
+      v22 = notification;
       v17 = lCopy;
       v18 = v13;
       v20 = v19 = correlationID;
@@ -57,7 +57,7 @@
       correlationID = v19;
       v13 = v18;
       lCopy = v17;
-      notification = v23;
+      notification = v22;
     }
 
     else
@@ -66,40 +66,36 @@
       if (os_log_type_enabled(daemon, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138413058;
-        v25 = v11;
-        v26 = 2112;
-        v27 = v13;
-        v28 = 2112;
-        v29 = identifier;
-        v30 = 2112;
-        v31 = collectionIdentifier;
+        v24 = v11;
+        v25 = 2112;
+        v26 = v13;
+        v27 = 2112;
+        v28 = identifier;
+        v29 = 2112;
+        v30 = collectionIdentifier;
         _os_log_impl(&dword_232D6F000, daemon, OS_LOG_TYPE_DEFAULT, "Notification document missing information Title: %@ text: %@ identifier: %@ collectionID: %@.", buf, 0x2Au);
       }
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendNotificationWithIdentifier:(id)identifier collectionID:(id)d correlationID:(id)iD title:(id)title text:(id)text attachmentURL:(id)l extensionPayload:(id)payload
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   dCopy = d;
   iDCopy = iD;
   daemon = [MEMORY[0x277D71778] daemon];
   if (os_log_type_enabled(daemon, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 138412802;
-    v17 = identifierCopy;
-    v18 = 2112;
-    v19 = dCopy;
-    v20 = 2112;
-    v21 = iDCopy;
-    _os_log_impl(&dword_232D6F000, daemon, OS_LOG_TYPE_DEFAULT, "Send notification with identifier %@, collectionID %@, correlationID %@", &v16, 0x20u);
+    v15 = 138412802;
+    v16 = identifierCopy;
+    v17 = 2112;
+    v18 = dCopy;
+    v19 = 2112;
+    v20 = iDCopy;
+    _os_log_impl(&dword_232D6F000, daemon, OS_LOG_TYPE_DEFAULT, "Send notification with identifier %@, collectionID %@, correlationID %@", &v15, 0x20u);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeAllNotifications
@@ -114,22 +110,20 @@
 
 - (void)removeNotificationWithIdentifier:(id)identifier
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   daemon = [MEMORY[0x277D71778] daemon];
   if (os_log_type_enabled(daemon, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = identifierCopy;
-    _os_log_impl(&dword_232D6F000, daemon, OS_LOG_TYPE_DEFAULT, "Remove notification for identifier: %@.", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = identifierCopy;
+    _os_log_impl(&dword_232D6F000, daemon, OS_LOG_TYPE_DEFAULT, "Remove notification for identifier: %@.", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notificationCompletedForIdentifier:(id)identifier collectionID:(id)d correlationID:(id)iD error:(id)error
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   dCopy = d;
   iDCopy = iD;
@@ -150,11 +144,11 @@
     daemon = [MEMORY[0x277D71778] daemon];
     if (os_log_type_enabled(daemon, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = 138412290;
-      v22 = errorCopy;
+      v20 = 138412290;
+      v21 = errorCopy;
       v18 = "Notification error %@";
 LABEL_8:
-      _os_log_impl(&dword_232D6F000, daemon, OS_LOG_TYPE_DEFAULT, v18, &v21, 0xCu);
+      _os_log_impl(&dword_232D6F000, daemon, OS_LOG_TYPE_DEFAULT, v18, &v20, 0xCu);
     }
   }
 
@@ -166,14 +160,12 @@ LABEL_8:
     daemon = [MEMORY[0x277D71778] daemon];
     if (os_log_type_enabled(daemon, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = 138412290;
-      v22 = identifierCopy;
+      v20 = 138412290;
+      v21 = identifierCopy;
       v18 = "Notification sent for identifier %@";
       goto LABEL_8;
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 @end

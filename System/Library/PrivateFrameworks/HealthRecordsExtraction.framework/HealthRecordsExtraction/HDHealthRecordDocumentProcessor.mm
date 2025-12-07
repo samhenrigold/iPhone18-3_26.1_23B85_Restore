@@ -32,80 +32,80 @@
 
 - (id)processExtractionRequest:(id)request error:(id *)error
 {
-  v74[3] = *MEMORY[0x277D85DE8];
+  v73[3] = *MEMORY[0x277D85DE8];
   requestCopy = request;
-  v74[0] = objc_opt_class();
-  v74[1] = objc_opt_class();
-  v74[2] = objc_opt_class();
-  v39 = [MEMORY[0x277CBEA60] arrayWithObjects:v74 count:3];
+  v73[0] = objc_opt_class();
+  v73[1] = objc_opt_class();
+  v73[2] = objc_opt_class();
+  v38 = [MEMORY[0x277CBEA60] arrayWithObjects:v73 count:3];
   resources = [requestCopy resources];
   v6 = [(HDHealthRecordDocumentProcessor *)self _resourceObjectsBatchedPerFHIRRelease:resources];
 
-  v47 = objc_alloc_init(HKHealthRecordsExtractor);
-  v69[0] = 0;
-  v69[1] = v69;
-  v69[2] = 0x2810000000;
-  v69[3] = "";
-  v70 = 0;
+  v46 = objc_alloc_init(HKHealthRecordsExtractor);
+  v68[0] = 0;
+  v68[1] = v68;
+  v68[2] = 0x2810000000;
+  v68[3] = "";
+  v69 = 0;
   v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v67 = 0u;
-  v68 = 0u;
-  v65 = 0u;
   v66 = 0u;
+  v67 = 0u;
+  v64 = 0u;
+  v65 = 0u;
   v8 = v6;
-  v35 = [v8 countByEnumeratingWithState:&v65 objects:v73 count:16];
-  v41 = v8;
-  if (v35)
+  v34 = [v8 countByEnumeratingWithState:&v64 objects:v72 count:16];
+  v40 = v8;
+  if (v34)
   {
-    v36 = *v66;
+    v35 = *v65;
     while (2)
     {
-      for (i = 0; i != v35; ++i)
+      for (i = 0; i != v34; ++i)
       {
-        if (*v66 != v36)
+        if (*v65 != v35)
         {
           objc_enumerationMutation(v8);
         }
 
-        v37 = *(*(&v65 + 1) + 8 * i);
+        v36 = *(*(&v64 + 1) + 8 * i);
         v9 = [v8 objectForKeyedSubscript:?];
         v10 = [v9 mutableCopy];
 
         v11 = dispatch_group_create();
+        v60 = 0u;
         v61 = 0u;
         v62 = 0u;
         v63 = 0u;
-        v64 = 0u;
         v12 = [v10 copy];
-        v13 = [v12 countByEnumeratingWithState:&v61 objects:v72 count:16];
+        v13 = [v12 countByEnumeratingWithState:&v60 objects:v71 count:16];
         if (v13)
         {
-          v14 = *v62;
+          v14 = *v61;
           do
           {
             for (j = 0; j != v13; ++j)
             {
-              if (*v62 != v14)
+              if (*v61 != v14)
               {
                 objc_enumerationMutation(v12);
               }
 
-              v16 = *(*(&v61 + 1) + 8 * j);
+              v16 = *(*(&v60 + 1) + 8 * j);
               dispatch_group_enter(v11);
-              v54[0] = MEMORY[0x277D85DD0];
-              v54[1] = 3221225472;
-              v54[2] = __66__HDHealthRecordDocumentProcessor_processExtractionRequest_error___block_invoke;
-              v54[3] = &unk_2796E2AF8;
-              v60 = v69;
-              v55 = v7;
-              v56 = v10;
-              v57 = v16;
+              v53[0] = MEMORY[0x277D85DD0];
+              v53[1] = 3221225472;
+              v53[2] = __66__HDHealthRecordDocumentProcessor_processExtractionRequest_error___block_invoke;
+              v53[3] = &unk_2796E2AF8;
+              v59 = v68;
+              v54 = v7;
+              v55 = v10;
+              v56 = v16;
               selfCopy = self;
-              v59 = v11;
-              [(HKHealthRecordsExtractor *)v47 extractResource:v16 completion:v54];
+              v58 = v11;
+              [(HKHealthRecordsExtractor *)v46 extractResource:v16 completion:v53];
             }
 
-            v13 = [v12 countByEnumeratingWithState:&v61 objects:v72 count:16];
+            v13 = [v12 countByEnumeratingWithState:&v60 objects:v71 count:16];
           }
 
           while (v13);
@@ -114,48 +114,48 @@
         dispatch_group_wait(v11, 0xFFFFFFFFFFFFFFFFLL);
         if ([v10 count])
         {
-          v38 = [(HDHealthRecordDocumentTypeConfiguration *)self->_configuration extractionRulesetForRelease:v37];
-          if (!v38)
+          v37 = [(HDHealthRecordDocumentTypeConfiguration *)self->_configuration extractionRulesetForRelease:v36];
+          if (!v37)
           {
-            [MEMORY[0x277CCA9B8] hk_assignError:error code:100 format:{@"HDHealthRecordDocumentProcessor: No extraction ruleset is available for release %@", v37}];
+            [MEMORY[0x277CCA9B8] hk_assignError:error code:100 format:{@"HDHealthRecordDocumentProcessor: No extraction ruleset is available for release %@", v36}];
 LABEL_36:
 
             v27 = 0;
             goto LABEL_37;
           }
 
-          v46 = [[HDHealthRecordProcessingContext alloc] initWithRuleset:v38 resources:v10];
-          v52 = 0u;
-          v53 = 0u;
-          v50 = 0u;
+          v45 = [[HDHealthRecordProcessingContext alloc] initWithRuleset:v37 resources:v10];
           v51 = 0u;
-          obj = v39;
-          v17 = [obj countByEnumeratingWithState:&v50 objects:v71 count:16];
+          v52 = 0u;
+          v49 = 0u;
+          v50 = 0u;
+          obj = v38;
+          v17 = [obj countByEnumeratingWithState:&v49 objects:v70 count:16];
           if (v17)
           {
-            v45 = *v51;
+            v44 = *v50;
             while (2)
             {
-              v44 = v17;
-              for (k = 0; k != v44; ++k)
+              v43 = v17;
+              for (k = 0; k != v43; ++k)
               {
-                if (*v51 != v45)
+                if (*v50 != v44)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v19 = *(*(&v50 + 1) + 8 * k);
+                v19 = *(*(&v49 + 1) + 8 * k);
                 v20 = objc_autoreleasePoolPush();
-                v21 = [[v19 alloc] initWithProcessingContext:v46];
+                v21 = [[v19 alloc] initWithProcessingContext:v45];
                 if (([v21 conformsToProtocol:&unk_28641D570] & 1) == 0)
                 {
                   currentHandler = [MEMORY[0x277CCA890] currentHandler];
                   [currentHandler handleFailureInMethod:a2 object:self file:@"HDHealthRecordDocumentProcessor.m" lineNumber:105 description:{@"HDHealthRecordDocumentProcessor: Trying to run invalid task instance, must conform to HDHealthRecordPipelineTask"}];
                 }
 
-                v49 = 0;
-                v22 = [v21 processWithError:&v49];
-                v23 = v49;
+                v48 = 0;
+                v22 = [v21 processWithError:&v48];
+                v23 = v48;
 
                 objc_autoreleasePoolPop(v20);
                 if ((v22 & 1) == 0)
@@ -180,7 +180,7 @@ LABEL_36:
                 }
               }
 
-              v17 = [obj countByEnumeratingWithState:&v50 objects:v71 count:16];
+              v17 = [obj countByEnumeratingWithState:&v49 objects:v70 count:16];
               if (v17)
               {
                 continue;
@@ -190,12 +190,12 @@ LABEL_36:
             }
           }
 
-          v48 = 0;
-          v25 = [(HDHealthRecordProcessingContext *)v46 createExtractionResultWithError:&v48];
-          obj = v48;
+          v47 = 0;
+          v25 = [(HDHealthRecordProcessingContext *)v45 createExtractionResultWithError:&v47];
+          obj = v47;
           if (!v25)
           {
-            v29 = [MEMORY[0x277CCACA8] stringWithFormat:@"HDHealthRecordDocumentProcessor: Failed to create extraction result for release %@", v37];
+            v29 = [MEMORY[0x277CCACA8] stringWithFormat:@"HDHealthRecordDocumentProcessor: Failed to create extraction result for release %@", v36];
             [MEMORY[0x277CCA9B8] hk_assignError:error code:100 description:v29 underlyingError:obj];
 LABEL_35:
 
@@ -206,11 +206,11 @@ LABEL_35:
           [v7 addObjectsFromArray:items];
         }
 
-        v8 = v41;
+        v8 = v40;
       }
 
-      v35 = [v41 countByEnumeratingWithState:&v65 objects:v73 count:16];
-      if (v35)
+      v34 = [v40 countByEnumeratingWithState:&v64 objects:v72 count:16];
+      if (v34)
       {
         continue;
       }
@@ -222,8 +222,7 @@ LABEL_35:
   v27 = [objc_alloc(MEMORY[0x277D12358]) initWithItems:v7];
 LABEL_37:
 
-  _Block_object_dispose(v69, 8);
-  v31 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v68, 8);
 
   return v27;
 }
@@ -249,7 +248,7 @@ void __66__HDHealthRecordDocumentProcessor_processExtractionRequest_error___bloc
       v8 = *MEMORY[0x277CCC2C0];
       if (os_log_type_enabled(*MEMORY[0x277CCC2C0], OS_LOG_TYPE_ERROR))
       {
-        __66__HDHealthRecordDocumentProcessor_processExtractionRequest_error___block_invoke_cold_1(a1, v8);
+        __66__HDHealthRecordDocumentProcessor_processExtractionRequest_error___block_invoke_cold_1(a1, v8, v7);
       }
     }
   }
@@ -356,7 +355,7 @@ void __66__HDHealthRecordDocumentProcessor_processExtractionRequest_error___bloc
   return v14;
 }
 
-id __70__HDHealthRecordDocumentProcessor_processOptInRequest_redactor_error___block_invoke(uint64_t *a1, void *a2)
+id __70__HDHealthRecordDocumentProcessor_processOptInRequest_redactor_error___block_invoke(void *a1, void *a2)
 {
   v3 = a2;
   v4 = [v3 FHIRVersion];
@@ -392,7 +391,7 @@ id __70__HDHealthRecordDocumentProcessor_processOptInRequest_redactor_error___bl
       v15 = *MEMORY[0x277CCC2C0];
       if (os_log_type_enabled(*MEMORY[0x277CCC2C0], OS_LOG_TYPE_ERROR))
       {
-        __70__HDHealthRecordDocumentProcessor_processOptInRequest_redactor_error___block_invoke_cold_1(a1 + 4, v15);
+        __70__HDHealthRecordDocumentProcessor_processOptInRequest_redactor_error___block_invoke_cold_1((a1 + 4), v15, v25);
       }
 
       v16 = *(a1[7] + 8);
@@ -416,7 +415,7 @@ id __70__HDHealthRecordDocumentProcessor_processOptInRequest_redactor_error___bl
     v20 = *MEMORY[0x277CCC2C0];
     if (os_log_type_enabled(*MEMORY[0x277CCC2C0], OS_LOG_TYPE_ERROR))
     {
-      __70__HDHealthRecordDocumentProcessor_processOptInRequest_redactor_error___block_invoke_cold_2(a1 + 4, v20);
+      __70__HDHealthRecordDocumentProcessor_processOptInRequest_redactor_error___block_invoke_cold_2((a1 + 4), v20, v12);
     }
 
     v21 = *(a1[7] + 8);
@@ -440,29 +439,29 @@ LABEL_16:
 
 - (id)_resourceObjectsBatchedPerFHIRRelease:(id)release
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   releaseCopy = release;
   v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v5 = releaseCopy;
-  v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v17;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
+        v10 = *(*(&v16 + 1) + 8 * i);
         fHIRVersion = [v10 FHIRVersion];
         fHIRRelease = [fHIRVersion FHIRRelease];
 
@@ -476,14 +475,13 @@ LABEL_16:
         [v13 addObject:v10];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v7);
   }
 
   v14 = [v4 copy];
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

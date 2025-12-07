@@ -48,30 +48,27 @@
 
 void __36__HFWallpaperManager_sharedInstance__block_invoke()
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (+[HFExecutionEnvironment isHomeApp])
   {
     v0 = objc_alloc_init(HFWallpaperManager);
     v1 = _MergedGlobals_318;
     _MergedGlobals_318 = v0;
-    v2 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v3 = HFLogForCategory(0x4EuLL);
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v2 = HFLogForCategory(0x4EuLL);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      v6 = +[HFExecutionEnvironment sharedInstance];
+      v4 = +[HFExecutionEnvironment sharedInstance];
       *buf = 134217984;
-      v8 = [v6 hostProcess];
-      _os_log_error_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_ERROR, "HFWallpaperManager shouldn't ever be created or used outside of Home App currentProcess:%ld", buf, 0xCu);
+      v6 = [v4 hostProcess];
+      _os_log_error_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_ERROR, "HFWallpaperManager shouldn't ever be created or used outside of Home App currentProcess:%ld", buf, 0xCu);
     }
 
-    v4 = +[HFExecutionEnvironment sharedInstance];
-    NSLog(&cfstr_Hfwallpaperman.isa, [v4 hostProcess]);
-
-    v5 = *MEMORY[0x277D85DE8];
+    v3 = +[HFExecutionEnvironment sharedInstance];
+    NSLog(&cfstr_Hfwallpaperman.isa, [v3 hostProcess]);
   }
 }
 
@@ -172,7 +169,7 @@ void __36__HFWallpaperManager_sharedInstance__block_invoke()
 void __34__HFWallpaperManager_preheatCache__block_invoke(uint64_t a1)
 {
   v2 = +[HFHomeKitDispatcher sharedDispatcher];
-  v4 = [v2 home];
+  v4 = objc_msgSend_home(v2);
 
   v3 = v4;
   if (v4)
@@ -221,7 +218,7 @@ void __34__HFWallpaperManager_preheatCache__block_invoke(uint64_t a1)
 
 void __73__HFWallpaperManager_wallpaperForHomeKitObject_dispatchToMainOnComplete___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) uniqueIdentifier];
   v4 = [v2 _cachedWallpaperForKey:v3];
@@ -233,7 +230,7 @@ void __73__HFWallpaperManager_wallpaperForHomeKitObject_dispatchToMainOnComplete
     {
       v7 = *(a1 + 40);
       *buf = 138412290;
-      v16 = v7;
+      v15 = v7;
       _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "Loading wallpaper for HomeKit object %@", buf, 0xCu);
     }
 
@@ -245,16 +242,16 @@ void __73__HFWallpaperManager_wallpaperForHomeKitObject_dispatchToMainOnComplete
 
     if (*(a1 + 56) == 1)
     {
-      v9[0] = MEMORY[0x277D85DD0];
-      v9[1] = 3221225472;
-      v9[2] = __73__HFWallpaperManager_wallpaperForHomeKitObject_dispatchToMainOnComplete___block_invoke_28;
-      v9[3] = &unk_277DF3370;
-      v10 = *(a1 + 48);
+      v8[0] = MEMORY[0x277D85DD0];
+      v8[1] = 3221225472;
+      v8[2] = __73__HFWallpaperManager_wallpaperForHomeKitObject_dispatchToMainOnComplete___block_invoke_28;
+      v8[3] = &unk_277DF3370;
+      v9 = *(a1 + 48);
       v4 = v4;
-      v11 = v4;
-      dispatch_async(MEMORY[0x277D85CD0], v9);
+      v10 = v4;
+      dispatch_async(MEMORY[0x277D85CD0], v8);
 
-      v5 = v10;
+      v5 = v9;
       goto LABEL_10;
     }
 
@@ -272,21 +269,20 @@ LABEL_11:
   block[1] = 3221225472;
   block[2] = __73__HFWallpaperManager_wallpaperForHomeKitObject_dispatchToMainOnComplete___block_invoke_2;
   block[3] = &unk_277DF3370;
-  v13 = *(a1 + 48);
+  v12 = *(a1 + 48);
   v4 = v4;
-  v14 = v4;
+  v13 = v4;
   dispatch_async(MEMORY[0x277D85CD0], block);
 
-  v5 = v13;
+  v5 = v12;
 LABEL_10:
 
 LABEL_12:
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)wallpaperImageForWallpaper:(id)wallpaper variant:(int64_t)variant
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   wallpaperCopy = wallpaper;
   v7 = HFLogForCategory(0x35uLL);
   v8 = os_signpost_id_generate(v7);
@@ -297,10 +293,10 @@ LABEL_12:
   {
     assetIdentifier = [wallpaperCopy assetIdentifier];
     *buf = 138412802;
-    v21 = assetIdentifier;
-    v22 = 2048;
+    v20 = assetIdentifier;
+    v21 = 2048;
     type = [wallpaperCopy type];
-    v24 = 2048;
+    v23 = 2048;
     variantCopy = variant;
     _os_signpost_emit_with_name_impl(&dword_20D9BF000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v8, "LoadDashboardWallpaper", "wallpaperImageForWallpaper: Loading asset %@ of type %ld variant %ld", buf, 0x20u);
   }
@@ -308,13 +304,13 @@ LABEL_12:
   if (variant)
   {
     imageCache = [(HFWallpaperManager *)self imageCache];
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __57__HFWallpaperManager_wallpaperImageForWallpaper_variant___block_invoke;
-    v18[3] = &unk_277E01590;
-    v18[4] = self;
-    v19 = wallpaperCopy;
-    v13 = [imageCache imageForVariant:variant wallpaper:v19 withOriginalImageGenerator:v18];
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __57__HFWallpaperManager_wallpaperImageForWallpaper_variant___block_invoke;
+    v17[3] = &unk_277E01590;
+    v17[4] = self;
+    v18 = wallpaperCopy;
+    v13 = [imageCache imageForVariant:variant wallpaper:v18 withOriginalImageGenerator:v17];
   }
 
   else
@@ -327,11 +323,9 @@ LABEL_12:
   if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
   {
     *buf = 134217984;
-    v21 = v13;
+    v20 = v13;
     _os_signpost_emit_with_name_impl(&dword_20D9BF000, v15, OS_SIGNPOST_INTERVAL_END, v8, "LoadDashboardWallpaper", "Resulted in %p", buf, 0xCu);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -439,7 +433,7 @@ LABEL_12:
 
 void __38__HFWallpaperManager__migrateIfNeeded__block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) userDefaults];
   v3 = [v2 integerForKey:@"Version"];
 
@@ -450,7 +444,7 @@ void __38__HFWallpaperManager__migrateIfNeeded__block_invoke(uint64_t a1)
     if (v5)
     {
       *buf = 134217984;
-      v11 = 2;
+      v10 = 2;
       _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "Wallpaper cache up-to-date (v%ld)", buf, 0xCu);
     }
   }
@@ -464,12 +458,12 @@ void __38__HFWallpaperManager__migrateIfNeeded__block_invoke(uint64_t a1)
     }
 
     v6 = [*(a1 + 32) legacyFileManager];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __38__HFWallpaperManager__migrateIfNeeded__block_invoke_34;
-    v9[3] = &unk_277E015B8;
-    v9[4] = *(a1 + 32);
-    [v6 migrateCache:v9];
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __38__HFWallpaperManager__migrateIfNeeded__block_invoke_34;
+    v8[3] = &unk_277E015B8;
+    v8[4] = *(a1 + 32);
+    [v6 migrateCache:v8];
 
     v7 = HFLogForCategory(0x4EuLL);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -481,8 +475,6 @@ void __38__HFWallpaperManager__migrateIfNeeded__block_invoke(uint64_t a1)
     v4 = [*(a1 + 32) userDefaults];
     [v4 setInteger:2 forKey:@"Version"];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_migrateToSunriseWallpaperIfNeeded
@@ -550,7 +542,7 @@ void __56__HFWallpaperManager__migrateToSunriseWallpaperIfNeeded__block_invoke_2
 
 - (void)_migrateWallpaperDict:(id)dict forHomeKitIdentifier:(id)identifier
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   if (dict)
   {
@@ -562,19 +554,17 @@ void __56__HFWallpaperManager__migrateToSunriseWallpaperIfNeeded__block_invoke_2
       v9 = HFLogForCategory(0x4EuLL);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = 138412546;
-        v13 = v8;
-        v14 = 2112;
-        v15 = identifierCopy;
-        _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "Remove old default wallpaper: %@ for homeKitIdentifier: %@", &v12, 0x16u);
+        v11 = 138412546;
+        v12 = v8;
+        v13 = 2112;
+        v14 = identifierCopy;
+        _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "Remove old default wallpaper: %@ for homeKitIdentifier: %@", &v11, 0x16u);
       }
 
       userDefaults = [(HFWallpaperManager *)self userDefaults];
       [userDefaults removeObjectForKey:identifierCopy];
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setWallpaper:(id)wallpaper image:(id)image forHomeKitObject:(id)object
@@ -635,17 +625,17 @@ uint64_t __59__HFWallpaperManager__setWallpaper_image_forHomeKitObject___block_i
 
 - (void)_setWallpaper:(id)wallpaper forHomeKitIdentifier:(id)identifier
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   wallpaperCopy = wallpaper;
   identifierCopy = identifier;
   v8 = HFLogForCategory(0x4EuLL);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 138412546;
-    v15 = wallpaperCopy;
-    v16 = 2112;
-    v17 = identifierCopy;
-    _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "Setting wallpaper %@ for HomeKit object %@", &v14, 0x16u);
+    v13 = 138412546;
+    v14 = wallpaperCopy;
+    v15 = 2112;
+    v16 = identifierCopy;
+    _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "Setting wallpaper %@ for HomeKit object %@", &v13, 0x16u);
   }
 
   wallpapersCache = [(HFWallpaperManager *)self wallpapersCache];
@@ -657,7 +647,6 @@ uint64_t __59__HFWallpaperManager__setWallpaper_image_forHomeKitObject___block_i
   [userDefaults setObject:dictionaryRepresentation forKey:uUIDString];
 
   [(HFWallpaperManager *)self _logUserMetricsAfterSettingWallpaper];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setImageCacheForWallpaper:(id)wallpaper image:(id)image forHomeKitIdentifier:(id)identifier
@@ -692,37 +681,36 @@ void __76__HFWallpaperManager__setImageCacheForWallpaper_image_forHomeKitIdentif
 
 - (void)_logUserMetricsAfterSettingWallpaper
 {
-  v18[2] = *MEMORY[0x277D85DE8];
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
-  v16 = 0;
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x2020000000;
+  v17[2] = *MEMORY[0x277D85DE8];
   v12 = 0;
+  v13 = &v12;
+  v14 = 0x2020000000;
+  v15 = 0;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v11 = 0;
   userDefaults = [(HFWallpaperManager *)self userDefaults];
   v3 = [userDefaults persistentDomainForName:@"com.apple.Home.wallpaper"];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __58__HFWallpaperManager__logUserMetricsAfterSettingWallpaper__block_invoke;
-  v8[3] = &unk_277E01630;
-  v8[4] = &v13;
-  v8[5] = &v9;
-  [v3 enumerateKeysAndObjectsUsingBlock:v8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __58__HFWallpaperManager__logUserMetricsAfterSettingWallpaper__block_invoke;
+  v7[3] = &unk_277E01630;
+  v7[4] = &v12;
+  v7[5] = &v8;
+  [v3 enumerateKeysAndObjectsUsingBlock:v7];
 
-  v17[0] = @"NamedWallpaperCount";
-  v4 = [MEMORY[0x277CCABB0] numberWithInteger:v14[3]];
-  v17[1] = @"CustomWallpaperCount";
-  v18[0] = v4;
-  v5 = [MEMORY[0x277CCABB0] numberWithInteger:v10[3]];
-  v18[1] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
+  v16[0] = @"NamedWallpaperCount";
+  v4 = [MEMORY[0x277CCABB0] numberWithInteger:v13[3]];
+  v16[1] = @"CustomWallpaperCount";
+  v17[0] = v4;
+  v5 = [MEMORY[0x277CCABB0] numberWithInteger:v9[3]];
+  v17[1] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
 
   [HFAnalytics sendEvent:32 withData:v6];
-  _Block_object_dispose(&v9, 8);
-  _Block_object_dispose(&v13, 8);
-  v7 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v8, 8);
+  _Block_object_dispose(&v12, 8);
 }
 
 void __58__HFWallpaperManager__logUserMetricsAfterSettingWallpaper__block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -829,7 +817,7 @@ void __64__HFWallpaperManager__dispatchWallpaperChangedforHomeKitObject___block_
   v4 = a2;
   if (objc_opt_respondsToSelector())
   {
-    v3 = [*(a1 + 32) home];
+    v3 = objc_msgSend_home(*(a1 + 32));
     [v4 home:v3 didUpdateWallpaperForRoom:*(a1 + 32)];
   }
 }
@@ -993,16 +981,16 @@ void __75__HFWallpaperManager__pruneUnusedWallpapersWithExistingHomeKitIdentifie
 
 void __75__HFWallpaperManager__pruneUnusedWallpapersWithExistingHomeKitIdentifiers___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 objectForKeyedSubscript:*(a1 + 32)];
   v5 = HFLogForCategory(0x4EuLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(a1 + 40);
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Pruning wallpaper data for unknown HomeKit identifier %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Pruning wallpaper data for unknown HomeKit identifier %@", &v8, 0xCu);
   }
 
   v7 = [*(a1 + 48) userDefaults];
@@ -1012,8 +1000,6 @@ void __75__HFWallpaperManager__pruneUnusedWallpapersWithExistingHomeKitIdentifie
   {
     [v3 removeObjectForKey:*(a1 + 32)];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_cachedWallpaperForKey:(id)key
@@ -1062,7 +1048,7 @@ void __75__HFWallpaperManager__pruneUnusedWallpapersWithExistingHomeKitIdentifie
 
 void __64__HFWallpaperManager__wallpaperForHomeKitObject_createIfNeeded___block_invoke(uint64_t a1, void *a2)
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 objectForKeyedSubscript:*(a1 + 32)];
   v5 = *(*(a1 + 48) + 8);
@@ -1105,9 +1091,9 @@ void __64__HFWallpaperManager__wallpaperForHomeKitObject_createIfNeeded___block_
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         v17 = *(*(*(a1 + 48) + 8) + 40);
-        v48 = 138412290;
-        v49 = v17;
-        _os_log_error_impl(&dword_20D9BF000, v16, OS_LOG_TYPE_ERROR, "Unable to locate original image for wallpaper %@", &v48, 0xCu);
+        v46 = 138412290;
+        v47 = v17;
+        _os_log_error_impl(&dword_20D9BF000, v16, OS_LOG_TYPE_ERROR, "Unable to locate original image for wallpaper %@", &v46, 0xCu);
       }
     }
 
@@ -1117,13 +1103,13 @@ LABEL_10:
       v16 = HFLogForCategory(0x4EuLL);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        v46 = [*(a1 + 32) uniqueIdentifier];
-        v47 = [v46 UUIDString];
-        v48 = 138412546;
-        v49 = v47;
-        v50 = 2112;
-        v51 = v10;
-        _os_log_error_impl(&dword_20D9BF000, v16, OS_LOG_TYPE_ERROR, "Failed to create wallpaper for HomeKit identifier %@ from dict %@", &v48, 0x16u);
+        v44 = [*(a1 + 32) uniqueIdentifier];
+        v45 = [v44 UUIDString];
+        v46 = 138412546;
+        v47 = v45;
+        v48 = 2112;
+        v49 = v10;
+        _os_log_error_impl(&dword_20D9BF000, v16, OS_LOG_TYPE_ERROR, "Failed to create wallpaper for HomeKit identifier %@ from dict %@", &v46, 0x16u);
       }
     }
 
@@ -1146,51 +1132,50 @@ LABEL_10:
       v20 = [v19 UUIDString];
       v21 = [*(a1 + 40) userDefaults];
       v22 = [v21 dictionaryRepresentation];
-      v48 = 138412546;
-      v49 = v20;
-      v50 = 2112;
-      v51 = v22;
-      _os_log_error_impl(&dword_20D9BF000, v18, OS_LOG_TYPE_ERROR, "No content in user default for HomeKit identifier %@. \nCurrent Content of user default %@", &v48, 0x16u);
+      v46 = 138412546;
+      v47 = v20;
+      v48 = 2112;
+      v49 = v22;
+      _os_log_error_impl(&dword_20D9BF000, v18, OS_LOG_TYPE_ERROR, "No content in user default for HomeKit identifier %@. \nCurrent Content of user default %@", &v46, 0x16u);
     }
   }
 
 LABEL_14:
   if (!*(*(*(a1 + 48) + 8) + 40) && *(a1 + 56) == 1)
   {
-    v27 = *(a1 + 32);
     objc_opt_class();
-    v28 = [*(a1 + 40) defaultWallpaperForCollectionType:(objc_opt_isKindOfClass() & 1) == 0];
-    v29 = *(*(a1 + 48) + 8);
-    v30 = *(v29 + 40);
-    *(v29 + 40) = v28;
+    v27 = [*(a1 + 40) defaultWallpaperForCollectionType:(objc_opt_isKindOfClass() & 1) == 0];
+    v28 = *(*(a1 + 48) + 8);
+    v29 = *(v28 + 40);
+    *(v28 + 40) = v27;
 
-    v31 = HFLogForCategory(0x4EuLL);
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+    v30 = HFLogForCategory(0x4EuLL);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
     {
-      v32 = *(*(*(a1 + 48) + 8) + 40);
-      v33 = *(a1 + 32);
-      v48 = 138412546;
+      v31 = *(*(*(a1 + 48) + 8) + 40);
+      v32 = *(a1 + 32);
+      v46 = 138412546;
+      v47 = v31;
+      v48 = 2112;
       v49 = v32;
-      v50 = 2112;
-      v51 = v33;
-      _os_log_impl(&dword_20D9BF000, v31, OS_LOG_TYPE_DEFAULT, "Using default wallpaper %@ for HomeKit object %@", &v48, 0x16u);
+      _os_log_impl(&dword_20D9BF000, v30, OS_LOG_TYPE_DEFAULT, "Using default wallpaper %@ for HomeKit object %@", &v46, 0x16u);
     }
 
-    v34 = [*(a1 + 40) userDefaults];
-    v35 = [*(*(*(a1 + 48) + 8) + 40) dictionaryRepresentation];
-    v36 = [*(a1 + 32) uniqueIdentifier];
-    v37 = [v36 UUIDString];
-    [v34 setObject:v35 forKey:v37];
+    v33 = [*(a1 + 40) userDefaults];
+    v34 = [*(*(*(a1 + 48) + 8) + 40) dictionaryRepresentation];
+    v35 = [*(a1 + 32) uniqueIdentifier];
+    v36 = [v35 UUIDString];
+    [v33 setObject:v34 forKey:v36];
 
     if ([*(*(*(a1 + 48) + 8) + 40) type] != 1 && objc_msgSend(*(*(*(a1 + 48) + 8) + 40), "type") != 6)
     {
-      v38 = [*(a1 + 40) namedWallpaperSource];
-      v39 = [v38 imageForWallpaper:*(*(*(a1 + 48) + 8) + 40)];
+      v37 = [*(a1 + 40) namedWallpaperSource];
+      v38 = [v37 imageForWallpaper:*(*(*(a1 + 48) + 8) + 40)];
 
-      v40 = *(a1 + 40);
-      v41 = *(*(*(a1 + 48) + 8) + 40);
-      v42 = [*(a1 + 32) uniqueIdentifier];
-      [v40 _setImageCacheForWallpaper:v41 image:v39 forHomeKitIdentifier:v42];
+      v39 = *(a1 + 40);
+      v40 = *(*(*(a1 + 48) + 8) + 40);
+      v41 = [*(a1 + 32) uniqueIdentifier];
+      [v39 _setImageCacheForWallpaper:v40 image:v38 forHomeKitIdentifier:v41];
     }
 
     [*(a1 + 40) _dispatchWallpaperChangedforHomeKitObjectAsync:*(a1 + 32)];
@@ -1200,12 +1185,11 @@ LABEL_14:
     }
   }
 
-  v43 = *(*(*(a1 + 48) + 8) + 40);
-  v44 = [*(a1 + 32) uniqueIdentifier];
-  [v3 na_safeSetObject:v43 forKey:v44];
+  v42 = *(*(*(a1 + 48) + 8) + 40);
+  v43 = [*(a1 + 32) uniqueIdentifier];
+  [v3 na_safeSetObject:v42 forKey:v43];
 
 LABEL_24:
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_preloadWallpaperForHomeKitObject:(id)object
@@ -1228,25 +1212,23 @@ LABEL_24:
 
 void __56__HFWallpaperManager__preloadWallpaperForHomeKitObject___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = HFLogForCategory(0x4EuLL);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) uniqueIdentifier];
     *buf = 138412290;
-    v9 = v3;
+    v8 = v3;
     _os_log_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEFAULT, "Preloading wallpaper slices for key: %@", buf, 0xCu);
   }
 
   v4 = [*(a1 + 40) wallpaperForHomeKitObject:*(a1 + 32) dispatchToMainOnComplete:0];
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __56__HFWallpaperManager__preloadWallpaperForHomeKitObject___block_invoke_54;
-  v7[3] = &unk_277E016A8;
-  v7[4] = *(a1 + 40);
-  v5 = [v4 addSuccessBlock:v7];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __56__HFWallpaperManager__preloadWallpaperForHomeKitObject___block_invoke_54;
+  v6[3] = &unk_277E016A8;
+  v6[4] = *(a1 + 40);
+  v5 = [v4 addSuccessBlock:v6];
 }
 
 - (id)_originalImageForWallpaper:(id)wallpaper forProcessingGenerator:(BOOL)generator
@@ -1331,12 +1313,12 @@ void __73__HFWallpaperManager__originalImageFromNamedWallpaperSourceForWallpaper
 - (void)homeManagerDidFinishInitialDatabaseLoad:(id)load
 {
   v4 = +[HFHomeKitDispatcher sharedDispatcher];
-  home = [v4 home];
+  v5 = objc_msgSend_home(v4);
 
-  if (home)
+  if (v5)
   {
     [(HFWallpaperManager *)self _migrateToSunriseWallpaperIfNeeded];
-    [(HFWallpaperManager *)self _preloadWallpaperForHomeKitObject:home];
+    [(HFWallpaperManager *)self _preloadWallpaperForHomeKitObject:v5];
   }
 }
 

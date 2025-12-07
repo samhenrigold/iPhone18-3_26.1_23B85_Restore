@@ -58,12 +58,12 @@
   if (self->_allowed != isHealthDataSubmissionAllowed)
   {
     self->_allowed = isHealthDataSubmissionAllowed;
-    v5 = sub_10000132C();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_10000132C(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6[0] = 67240192;
-      v6[1] = isHealthDataSubmissionAllowed;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "HRCImproveHealthAndActivityMonitor enabled : %{public,BOOL}d", v6, 8u);
+      v7[0] = 67240192;
+      v7[1] = isHealthDataSubmissionAllowed;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "HRCImproveHealthAndActivityMonitor enabled : %{public,BOOL}d", v7, 8u);
     }
 
     [(HRCAnalyticsReporter *)self->_analyticsReporter setImproveHealthAndActivityAllowed:isHealthDataSubmissionAllowed];

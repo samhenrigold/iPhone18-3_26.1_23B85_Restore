@@ -192,40 +192,19 @@ LABEL_13:
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"name"];
   v6 = [coderCopy decodeIntegerForKey:@"valueType"];
-  if (![coderCopy containsValueForKey:@"value"])
+  if ([coderCopy containsValueForKey:@"value"] && (v6 == 1 || v6 == 2) && (v7 = objc_opt_class()) != 0)
   {
-    goto LABEL_8;
-  }
-
-  if (v6 == 1)
-  {
-    v7 = 0x277CCACA8;
+    v8 = [coderCopy decodeObjectOfClass:v7 forKey:@"value"];
   }
 
   else
   {
-    if (v6 != 2)
-    {
-LABEL_8:
-      v10 = 0;
-      goto LABEL_9;
-    }
-
-    v7 = 0x277CCABB0;
+    v8 = 0;
   }
 
-  v8 = *v7;
-  v9 = objc_opt_class();
-  if (!v9)
-  {
-    goto LABEL_8;
-  }
+  v9 = [(MXMSampleAttribute *)self initWithAttributeName:v5 valueType:v6 value:v8];
 
-  v10 = [coderCopy decodeObjectOfClass:v9 forKey:@"value"];
-LABEL_9:
-  v11 = [(MXMSampleAttribute *)self initWithAttributeName:v5 valueType:v6 value:v10];
-
-  return v11;
+  return v9;
 }
 
 - (BOOL)isEqual:(id)equal

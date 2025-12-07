@@ -104,7 +104,7 @@
 
 void __69__HDMedicationDataDonator__performDataDonationForProfile_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   _HKInitializeLogging();
@@ -115,9 +115,9 @@ void __69__HDMedicationDataDonator__performDataDonationForProfile_completion___b
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v9 = *(a1 + 32);
-      v11 = 138543362;
-      v12 = v9;
-      _os_log_impl(&dword_25181C000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Preparing to donate all active medications in the user's list.", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v9;
+      _os_log_impl(&dword_25181C000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Preparing to donate all active medications in the user's list.", &v10, 0xCu);
     }
 
     [*(a1 + 32) _donateActiveConceptsForStream:v5 activeMedications:*(a1 + 40) error:v6 completion:*(a1 + 48)];
@@ -132,43 +132,41 @@ void __69__HDMedicationDataDonator__performDataDonationForProfile_completion___b
 
     (*(*(a1 + 48) + 16))();
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_donateActiveConceptsForStream:(id)stream activeMedications:(id)medications error:(id)error completion:(id)completion
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   streamCopy = stream;
   medicationsCopy = medications;
   errorCopy = error;
   completionCopy = completion;
   v13 = objc_alloc_init(MEMORY[0x277D22D28]);
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   v14 = medicationsCopy;
-  v15 = [v14 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v29;
+    v17 = *v28;
     while (2)
     {
       v18 = 0;
       v19 = errorCopy;
       do
       {
-        if (*v29 != v17)
+        if (*v28 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v20 = *(*(&v28 + 1) + 8 * v18);
-        v27 = v19;
-        completionCopy = [(HDMedicationDataDonator *)self _registerItemForDonationForConcept:v20 builder:v13 fullStream:streamCopy error:&v27, completionCopy];
-        errorCopy = v27;
+        v20 = *(*(&v27 + 1) + 8 * v18);
+        v26 = v19;
+        completionCopy = [(HDMedicationDataDonator *)self _registerItemForDonationForConcept:v20 builder:v13 fullStream:streamCopy error:&v26, completionCopy];
+        errorCopy = v26;
 
         if (!completionCopy)
         {
@@ -190,7 +188,7 @@ void __69__HDMedicationDataDonator__performDataDonationForProfile_completion___b
       }
 
       while (v16 != v18);
-      v16 = [v14 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v27 objects:v31 count:16];
       if (v16)
       {
         continue;
@@ -204,8 +202,6 @@ void __69__HDMedicationDataDonator__performDataDonationForProfile_completion___b
   v23 = completionCopy;
   [(HDMedicationDataDonator *)selfCopy _finishStreamingForStream:streamCopy completion:completionCopy];
 LABEL_13:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_registerItemForDonationForConcept:(id)concept builder:(id)builder fullStream:(id)stream error:(id *)error
@@ -287,7 +283,7 @@ LABEL_13:
 
 void __64__HDMedicationDataDonator__finishStreamingForStream_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = HKLogMedication();
@@ -303,37 +299,36 @@ void __64__HDMedicationDataDonator__finishStreamingForStream_completion___block_
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(a1 + 32);
-    v8 = 138543362;
-    v9 = v6;
-    _os_log_impl(&dword_25181C000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Finished data donation.", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v6;
+    _os_log_impl(&dword_25181C000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Finished data donation.", &v7, 0xCu);
   }
 
   (*(*(a1 + 40) + 16))();
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_medicationUserDomainConceptsForProfile:(id)profile error:(id *)error
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CCDB50];
   profileCopy = profile;
   medicationUserDomainConceptTypeIdentifier = [v5 medicationUserDomainConceptTypeIdentifier];
   v8 = HDUserDomainConceptEntityPredicateForConceptsWithTypeIdentifier();
   v9 = MEMORY[0x277D10B20];
-  v21[0] = v8;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
+  v20[0] = v8;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
   v11 = [v9 predicateMatchingAllPredicates:v10];
 
   v12 = objc_alloc_init(MEMORY[0x277CBEB58]);
   userDomainConceptManager = [profileCopy userDomainConceptManager];
 
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __73__HDMedicationDataDonator__medicationUserDomainConceptsForProfile_error___block_invoke;
-  v19[3] = &unk_2796CD5A0;
-  v20 = v12;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __73__HDMedicationDataDonator__medicationUserDomainConceptsForProfile_error___block_invoke;
+  v18[3] = &unk_2796CD5A0;
+  v19 = v12;
   v14 = v12;
-  LODWORD(error) = [userDomainConceptManager enumerateUserDomainConceptsWithPredicate:v11 error:error enumerationHandler:v19];
+  LODWORD(error) = [userDomainConceptManager enumerateUserDomainConceptsWithPredicate:v11 error:error enumerationHandler:v18];
 
   if (error)
   {
@@ -347,7 +342,6 @@ void __64__HDMedicationDataDonator__finishStreamingForStream_completion___block_
 
   v16 = v15;
 
-  v17 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -414,7 +408,7 @@ uint64_t __63__HDMedicationDataDonator__medicationUDCHasChangedForUDCArray___blo
 
 - (void)_donateWithReason:(id)reason
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   _HKInitializeLogging();
   v5 = HKLogMedication();
@@ -422,22 +416,20 @@ uint64_t __63__HDMedicationDataDonator__medicationUDCHasChangedForUDCArray___blo
   {
     *buf = 138543618;
     selfCopy = self;
-    v12 = 2112;
-    v13 = reasonCopy;
+    v11 = 2112;
+    v12 = reasonCopy;
     _os_log_impl(&dword_25181C000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] %@", buf, 0x16u);
   }
 
   [(HDMedicationDataDonator *)self setDonationRequiredOnNextUnlock:0];
   WeakRetained = objc_loadWeakRetained(&self->_profileExtension);
   profile = [WeakRetained profile];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __45__HDMedicationDataDonator__donateWithReason___block_invoke;
-  v9[3] = &unk_2796CE3B0;
-  v9[4] = self;
-  [(HDMedicationDataDonator *)self _performDataDonationForProfile:profile completion:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __45__HDMedicationDataDonator__donateWithReason___block_invoke;
+  v8[3] = &unk_2796CE3B0;
+  v8[4] = self;
+  [(HDMedicationDataDonator *)self _performDataDonationForProfile:profile completion:v8];
 }
 
 void __45__HDMedicationDataDonator__donateWithReason___block_invoke(uint64_t a1, char a2, void *a3)
@@ -461,52 +453,44 @@ void __45__HDMedicationDataDonator__donateWithReason___block_invoke(uint64_t a1,
 
 void __69__HDMedicationDataDonator__performDataDonationForProfile_completion___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v4 = 138543362;
-  v5 = v2;
-  _os_log_error_impl(&dword_25181C000, a2, OS_LOG_TYPE_ERROR, "[%{public}@] [Error] Stream was nil, unable to donate medications.", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138543362;
+  v4 = v2;
+  _os_log_error_impl(&dword_25181C000, a2, OS_LOG_TYPE_ERROR, "[%{public}@] [Error] Stream was nil, unable to donate medications.", &v3, 0xCu);
 }
 
 - (void)_donateActiveConceptsForStream:(uint64_t)a1 activeMedications:error:completion:.cold.1(uint64_t a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  LODWORD(v4) = 138543618;
-  *(&v4 + 4) = a1;
+  LODWORD(v3) = 138543618;
+  *(&v3 + 4) = a1;
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_1(&dword_25181C000, v1, v2, "[%{public}@] [Error] Error while registering item for donation, unable to donate medication: %@", v4, DWORD2(v4));
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_25181C000, v1, v2, "[%{public}@] [Error] Error while registering item for donation, unable to donate medication: %@", v3, DWORD2(v3));
 }
 
 - (void)_registerItemForStream:(uint64_t)a1 item:(void *)a2 error:(NSObject *)a3 .cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  *v4 = 138543618;
-  *&v4[4] = a1;
-  *&v4[12] = 2112;
-  *&v4[14] = *a2;
-  OUTLINED_FUNCTION_1(&dword_25181C000, a2, a3, "[%{public}@] [Error] Failed to register item during data donation %@", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 138543618;
+  *&v3[4] = a1;
+  *&v3[12] = 2112;
+  *&v3[14] = *a2;
+  OUTLINED_FUNCTION_1(&dword_25181C000, a2, a3, "[%{public}@] [Error] Failed to register item during data donation %@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 void __64__HDMedicationDataDonator__finishStreamingForStream_completion___block_invoke_cold_1(uint64_t a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  LODWORD(v4) = 138543618;
-  *(&v4 + 4) = *(a1 + 32);
+  LODWORD(v3) = 138543618;
+  *(&v3 + 4) = *(a1 + 32);
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_1(&dword_25181C000, v1, v2, "[%{public}@] [Error] Failed to finish stream during data donation %@", v4, DWORD2(v4));
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_25181C000, v1, v2, "[%{public}@] [Error] Failed to finish stream during data donation %@", v3, DWORD2(v3));
 }
 
 void __45__HDMedicationDataDonator__donateWithReason___block_invoke_cold_1(uint64_t a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  LODWORD(v4) = 138543618;
-  *(&v4 + 4) = *(a1 + 32);
+  LODWORD(v3) = 138543618;
+  *(&v3 + 4) = *(a1 + 32);
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_1(&dword_25181C000, v1, v2, "[%{public}@] [Error] Failed to donate items due to error: %@", v4, DWORD2(v4));
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_25181C000, v1, v2, "[%{public}@] [Error] Failed to donate items due to error: %@", v3, DWORD2(v3));
 }
 
 @end

@@ -423,32 +423,31 @@ void __88__NSFileProviderExtension_fetchContentsForItemWithIdentifier_version_co
 {
   if (a2)
   {
-    v3 = *(a1 + 64);
-    v4 = *(*(a1 + 64) + 16);
+    v3 = *(*(a1 + 64) + 16);
 
-    v4();
+    v3();
   }
 
   else
   {
-    v5 = *(a1 + 32);
-    v6 = *(a1 + 40);
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __88__NSFileProviderExtension_fetchContentsForItemWithIdentifier_version_completionHandler___block_invoke_3;
-    v13[3] = &unk_1E793D910;
-    v16 = *(a1 + 64);
-    v12 = *(a1 + 32);
-    v7 = *(a1 + 48);
-    v8 = *(a1 + 56);
-    v9 = *(a1 + 40);
-    *&v10 = v8;
-    *(&v10 + 1) = v9;
-    *&v11 = v12;
-    *(&v11 + 1) = v7;
-    v14 = v11;
-    v15 = v10;
-    [v5 startProvidingItemAtURL:v6 completionHandler:v13];
+    v4 = *(a1 + 32);
+    v5 = *(a1 + 40);
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __88__NSFileProviderExtension_fetchContentsForItemWithIdentifier_version_completionHandler___block_invoke_3;
+    v12[3] = &unk_1E793D910;
+    v15 = *(a1 + 64);
+    v11 = *(a1 + 32);
+    v6 = *(a1 + 48);
+    v7 = *(a1 + 56);
+    v8 = *(a1 + 40);
+    *&v9 = v7;
+    *(&v9 + 1) = v8;
+    *&v10 = v11;
+    *(&v10 + 1) = v6;
+    v13 = v10;
+    v14 = v9;
+    [v4 startProvidingItemAtURL:v5 completionHandler:v12];
   }
 }
 
@@ -698,29 +697,28 @@ LABEL_12:
 
 - (id)performActionWithIdentifier:(id)identifier onItemsWithIdentifiers:(id)identifiers completionHandler:(id)handler
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   handlerCopy = handler;
   v9 = fp_current_or_default_log();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    v14 = objc_opt_class();
-    v15 = v14;
-    v16 = NSStringFromSelector(a2);
-    v17 = 138412802;
-    v18 = v14;
-    v19 = 2112;
-    v20 = v16;
-    v21 = 2112;
-    v22 = identifierCopy;
-    _os_log_debug_impl(&dword_1AAAE1000, v9, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ must implement method %@ and not call super (action identifier: %@)", &v17, 0x20u);
+    v13 = objc_opt_class();
+    v14 = v13;
+    v15 = NSStringFromSelector(a2);
+    v16 = 138412802;
+    v17 = v13;
+    v18 = 2112;
+    v19 = v15;
+    v20 = 2112;
+    v21 = identifierCopy;
+    _os_log_debug_impl(&dword_1AAAE1000, v9, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ must implement method %@ and not call super (action identifier: %@)", &v16, 0x20u);
   }
 
   v10 = FPNotSupportedError();
   handlerCopy[2](handlerCopy, v10);
 
   v11 = objc_opt_new();
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -780,7 +778,7 @@ LABEL_12:
 
 - (BOOL)_fp_itemsMightBeTheSame:(id)same otherItem:(id)item url:(id)url
 {
-  v72[5] = *MEMORY[0x1E69E9840];
+  v71[5] = *MEMORY[0x1E69E9840];
   sameCopy = same;
   itemCopy = item;
   urlCopy = url;
@@ -837,83 +835,83 @@ LABEL_30:
 
   if ((v17 & 1) == 0)
   {
-    v63 = 0;
+    v62 = 0;
     if (urlCopy)
     {
       defaultManager = [MEMORY[0x1E696AC08] defaultManager];
       path = [urlCopy path];
-      [defaultManager fileExistsAtPath:path isDirectory:&v63];
+      [defaultManager fileExistsAtPath:path isDirectory:&v62];
 
-      if (v63)
+      if (v62)
       {
         itemIdentifier = [itemCopy itemIdentifier];
         v27 = [(NSFileProviderExtension *)self URLForItemWithPersistentIdentifier:itemIdentifier];
 
         v28 = urlCopy;
         v29 = v27;
-        memset(&v70, 0, sizeof(v70));
         memset(&v69, 0, sizeof(v69));
+        memset(&v68, 0, sizeof(v68));
         path2 = [v28 path];
-        v31 = lstat([path2 fileSystemRepresentation], &v70);
+        v31 = lstat([path2 fileSystemRepresentation], &v69);
 
         if ((v31 & 0x80000000) == 0)
         {
           path3 = [v29 path];
-          v33 = lstat([path3 fileSystemRepresentation], &v69);
+          v33 = lstat([path3 fileSystemRepresentation], &v68);
 
-          if ((v33 & 0x80000000) == 0 && (v70.st_mode & 0xF000) == 0x4000 && (v69.st_mode & 0xF000) == 0x4000 && v70.st_mtimespec.tv_sec == v69.st_mtimespec.tv_sec)
+          if ((v33 & 0x80000000) == 0 && (v69.st_mode & 0xF000) == 0x4000 && (v68.st_mode & 0xF000) == 0x4000 && v69.st_mtimespec.tv_sec == v68.st_mtimespec.tv_sec)
           {
-            v68 = 0;
+            v67 = 0;
             path4 = [v28 path];
-            if ((fpfs_num_entries([path4 fileSystemRepresentation], 0, &v68 + 1) & 0x80000000) == 0)
+            if ((fpfs_num_entries([path4 fileSystemRepresentation], 0, &v67 + 1) & 0x80000000) == 0)
             {
-              v56 = v28;
+              v55 = v28;
               path5 = [v29 path];
-              v36 = fpfs_num_entries([path5 fileSystemRepresentation], 0, &v68);
+              v36 = fpfs_num_entries([path5 fileSystemRepresentation], 0, &v67);
 
-              if (v36 < 0 || HIDWORD(v68) != v68)
+              if (v36 < 0 || HIDWORD(v67) != v67)
               {
               }
 
               else
               {
                 v37 = *MEMORY[0x1E695DA98];
-                v72[0] = *MEMORY[0x1E695DB50];
-                v72[1] = v37;
+                v71[0] = *MEMORY[0x1E695DB50];
+                v71[1] = v37;
                 v38 = *MEMORY[0x1E695DBC8];
-                v72[2] = *MEMORY[0x1E695DB78];
-                v72[3] = v38;
-                v72[4] = *MEMORY[0x1E695DBB8];
-                v39 = [MEMORY[0x1E695DEC8] arrayWithObjects:v72 count:5];
+                v71[2] = *MEMORY[0x1E695DB78];
+                v71[3] = v38;
+                v71[4] = *MEMORY[0x1E695DBB8];
+                v39 = [MEMORY[0x1E695DEC8] arrayWithObjects:v71 count:5];
                 defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
-                v60 = v39;
-                v41 = [defaultManager2 enumeratorAtURL:v56 includingPropertiesForKeys:v39 options:16 errorHandler:0];
+                v59 = v39;
+                v41 = [defaultManager2 enumeratorAtURL:v55 includingPropertiesForKeys:v39 options:16 errorHandler:0];
 
-                v66 = 0u;
-                v67 = 0u;
-                v64 = 0u;
                 v65 = 0u;
+                v66 = 0u;
+                v63 = 0u;
+                v64 = 0u;
                 obj = v41;
-                v59 = [obj countByEnumeratingWithState:&v64 objects:v71 count:16];
-                if (v59)
+                v58 = [obj countByEnumeratingWithState:&v63 objects:v70 count:16];
+                if (v58)
                 {
-                  v58 = *v65;
+                  v57 = *v64;
                   while (2)
                   {
-                    for (i = 0; i != v59; ++i)
+                    for (i = 0; i != v58; ++i)
                     {
-                      if (*v65 != v58)
+                      if (*v64 != v57)
                       {
                         objc_enumerationMutation(obj);
                       }
 
-                      v43 = *(*(&v64 + 1) + 8 * i);
+                      v43 = *(*(&v63 + 1) + 8 * i);
                       relativePath = [v43 relativePath];
-                      v62 = [v29 URLByAppendingPathComponent:relativePath];
+                      v61 = [v29 URLByAppendingPathComponent:relativePath];
 
-                      v61 = [v43 resourceValuesForKeys:v60 error:0];
-                      v45 = [v62 resourceValuesForKeys:v60 error:0];
-                      v46 = [v61 isEqual:v45];
+                      v60 = [v43 resourceValuesForKeys:v59 error:0];
+                      v45 = [v61 resourceValuesForKeys:v59 error:0];
+                      v46 = [v60 isEqual:v45];
 
                       if (!v46)
                       {
@@ -922,8 +920,8 @@ LABEL_30:
                       }
                     }
 
-                    v59 = [obj countByEnumeratingWithState:&v64 objects:v71 count:16];
-                    if (v59)
+                    v58 = [obj countByEnumeratingWithState:&v63 objects:v70 count:16];
+                    if (v58)
                     {
                       continue;
                     }
@@ -942,8 +940,8 @@ LABEL_48:
               }
 
 LABEL_42:
-              v55 = fp_current_or_default_log();
-              if (os_log_type_enabled(v55, OS_LOG_TYPE_DEBUG))
+              v54 = fp_current_or_default_log();
+              if (os_log_type_enabled(v54, OS_LOG_TYPE_DEBUG))
               {
                 [NSFileProviderExtension(CreateItem) _fp_itemsMightBeTheSame:otherItem:url:];
               }
@@ -963,9 +961,9 @@ LABEL_46:
 
     documentSize = [sameCopy documentSize];
     documentSize2 = [itemCopy documentSize];
-    v54 = [documentSize isEqual:documentSize2];
+    v53 = [documentSize isEqual:documentSize2];
 
-    if ((v54 & 1) == 0)
+    if ((v53 & 1) == 0)
     {
       v29 = fp_current_or_default_log();
       if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
@@ -981,7 +979,6 @@ LABEL_46:
   v49 = 1;
 LABEL_31:
 
-  v50 = *MEMORY[0x1E69E9840];
   return v49;
 }
 
@@ -1230,7 +1227,7 @@ LABEL_26:
 
 void __107__NSFileProviderExtension_CreateItem__createItemBasedOnTemplate_fields_contents_options_completionHandler___block_invoke_346(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a5;
   if (!v8)
@@ -1249,11 +1246,11 @@ LABEL_6:
     {
       v12 = *(a1 + 32);
       v13 = [v8 fp_prettyDescription];
-      v19 = 138412546;
-      v20 = v12;
-      v21 = 2112;
-      v22 = v13;
-      _os_log_impl(&dword_1AAAE1000, v10, OS_LOG_TYPE_DEFAULT, "[WARNING] Item %@ created, but the provider failed to apply properties afterwards. Returning error: %@", &v19, 0x16u);
+      v17 = 138412546;
+      v18 = v12;
+      v19 = 2112;
+      v20 = v13;
+      _os_log_impl(&dword_1AAAE1000, v10, OS_LOG_TYPE_DEFAULT, "[WARNING] Item %@ created, but the provider failed to apply properties afterwards. Returning error: %@", &v17, 0x16u);
     }
 
     goto LABEL_6;
@@ -1263,19 +1260,16 @@ LABEL_6:
   {
     v15 = *(a1 + 32);
     v16 = [v8 fp_prettyDescription];
-    v19 = 138412546;
-    v20 = v15;
-    v21 = 2112;
-    v22 = v16;
-    _os_log_impl(&dword_1AAAE1000, v10, OS_LOG_TYPE_DEFAULT, "[WARNING] Item %@ created, but the provider failed to apply properties afterwards. Error ignored: %@", &v19, 0x16u);
+    v17 = 138412546;
+    v18 = v15;
+    v19 = 2112;
+    v20 = v16;
+    _os_log_impl(&dword_1AAAE1000, v10, OS_LOG_TYPE_DEFAULT, "[WARNING] Item %@ created, but the provider failed to apply properties afterwards. Error ignored: %@", &v17, 0x16u);
   }
 
-  v17 = *(a1 + 32);
   v14 = *(*(a1 + 40) + 16);
 LABEL_10:
   v14();
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deleteItemWithIdentifier:(id)identifier baseVersion:(id)version options:(unint64_t)options completionHandler:(id)handler

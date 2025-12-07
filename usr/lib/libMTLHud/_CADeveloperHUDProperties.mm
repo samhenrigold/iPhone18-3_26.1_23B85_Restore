@@ -5,6 +5,7 @@
 - (BOOL)featureRegisterPopover:(HUDUserFeatureDescriptor *)popover items:(id)items selectedIndex:(unint64_t)index didChange:(id)change;
 - (BOOL)featureRegisterPopover:(id)popover envVar:(id)var description:(id)description documtationTitles:(id)titles documentLinks:(id)links options:(unint64_t)options defaultValue:(id)value items:(id)self0 selectedIndex:(unint64_t)self1 didChange:(id)self2;
 - (BOOL)featureRegisterPopover:(id)popover title:(id)title envVar:(id)var description:(id)description documtationTitles:(id)titles documentLinks:(id)links options:(unint64_t)options defaultValue:(id)self0 items:(id)self1 selectedIndex:(unint64_t)self2 didChange:(id)self3;
+- (BOOL)featureRegisterToggle:(HUDUserFeatureDescriptor *)toggle state:(BOOL)state didChange:(id)change;
 - (BOOL)featureRegisterToggle:(id)toggle envVar:(id)var description:(id)description documtationTitles:(id)titles documentLinks:(id)links options:(unint64_t)options defaultValue:(id)value state:(BOOL)self0 didChange:(id)self1;
 - (BOOL)featureRegisterToggle:(id)toggle envVar:(id)var description:(id)description documtationTitles:(id)titles documentLinks:(id)links options:(unint64_t)options defaultValue:(id)value state:(BOOL)self0 valueRef:(char *)self1;
 - (BOOL)featureRegisterToggle:(id)toggle title:(id)title envVar:(id)var description:(id)description documtationTitles:(id)titles documentLinks:(id)links options:(unint64_t)options defaultValue:(id)self0 state:(BOOL)self1 didChange:(id)self2;
@@ -24,8 +25,11 @@
 - (id)getMetric:(id)metric;
 - (id)insertMetric:(HUDMetricDescriptor *)metric after:(id)after;
 - (id)metricForStandardMetric:(unint64_t)metric;
+- (void)addInsight:(HUDInsightDescriptor *)insight isPrototype:(BOOL)prototype;
+- (void)addInsight:(id)insight message:(id)message documtationTitles:(id)titles documentLinks:(id)links options:(unint64_t)options isPrototype:(BOOL)prototype;
 - (void)addInsight:(id)insight name:(id)name category:(id)category message:(id)message documtationTitles:(id)titles documentLinks:(id)links supportedAPI:(unint64_t)i options:(unint64_t)self0 isPrototype:(BOOL)self1;
 - (void)addWindow:(id)window frame:(CGRect)frame;
+- (void)enableInsight:(id)insight enabled:(BOOL)enabled;
 - (void)framePacingCommandBufferCommitted:(void *)committed;
 - (void)framePacingCommandBufferCreated:(void *)created creationMAT:(unint64_t)t;
 - (void)markAccelerationStructureEncoder:(id)encoder component:(unsigned int)component;
@@ -42,6 +46,7 @@
 - (void)removeMetric:(id)metric;
 - (void)resetMetricHistory:(id)history;
 - (void)setHUDElementEnabled:(unint64_t)enabled flag:(BOOL)flag mainLayer:(BOOL)layer;
+- (void)setMetricEnabled:(id)enabled enabled:(BOOL)a4;
 - (void)setPosition:(CGPoint)position;
 - (void)updateFloatMetric:(id)metric value:(float)value;
 - (void)updateIntegerMetric:(id)metric value:(int)value;
@@ -238,7 +243,7 @@
 {
   layerCopy = layer;
   flagCopy = flag;
-  v8 = HUDGetGlobalConfig();
+  v8 = HUDGetGlobalConfig(self, a2);
   if (flagCopy)
   {
     if (layerCopy)
@@ -270,7 +275,7 @@ LABEL_6:
 - (BOOL)isHUDElementEnabled:(unint64_t)enabled mainLayer:(BOOL)layer
 {
   layerCopy = layer;
-  v6 = HUDGetGlobalConfig();
+  v6 = HUDGetGlobalConfig(self, a2);
   v7 = 40;
   if (layerCopy)
   {
@@ -433,6 +438,31 @@ LABEL_12:
   return result;
 }
 
+- (void)addInsight:(id)insight message:(id)message documtationTitles:(id)titles documentLinks:(id)links options:(unint64_t)options isPrototype:(BOOL)prototype
+{
+  prototypeCopy = prototype;
+  insightCopy = insight;
+  messageCopy = message;
+  titlesCopy = titles;
+  linksCopy = links;
+  v22[0] = insightCopy;
+  v18 = v22[0];
+  v22[1] = v18;
+  v19 = messageCopy;
+  v22[2] = v19;
+  v22[3] = @"Other Insights";
+  v22[4] = 0;
+  v22[5] = 0;
+  v20 = linksCopy;
+  v22[6] = v20;
+  v21 = titlesCopy;
+  v22[7] = v21;
+  v22[8] = options;
+  v22[9] = &dword_4 + 3;
+  [(_CADeveloperHUDProperties *)self addInsight:v22 isPrototype:prototypeCopy];
+  __destructor_8_s0_s8_s16_s24_s32_s40_s48_s56(v22);
+}
+
 - (void)addInsight:(id)insight name:(id)name category:(id)category message:(id)message documtationTitles:(id)titles documentLinks:(id)links supportedAPI:(unint64_t)i options:(unint64_t)self0 isPrototype:(BOOL)self1
 {
   insightCopy = insight;
@@ -459,6 +489,13 @@ LABEL_12:
   v29[9] = i;
   [(_CADeveloperHUDProperties *)self addInsight:v29 isPrototype:prototype];
   __destructor_8_s0_s8_s16_s24_s32_s40_s48_s56(v29);
+}
+
+- (void)addInsight:(HUDInsightDescriptor *)insight isPrototype:(BOOL)prototype
+{
+  prototypeCopy = prototype;
+  insightsWindow = [(_CADeveloperHUDProperties *)self insightsWindow];
+  [insightsWindow addInsight:insight isPrototype:prototypeCopy];
 }
 
 - (BOOL)insertMetric:(id)metric after:(id)after name:(id)name unit:(id)unit nameColor:(unsigned int)color valueColor:(unsigned int)valueColor visualType:(unsigned int)type options:(unint64_t)self0
@@ -497,21 +534,22 @@ LABEL_5:
       intValue = 0x80000000;
     }
 
-    v31 = intValue;
+    v34 = intValue;
     v27 = HUDReportingComponentFromIdentifier(metricCopy);
     v28 = [(NSDictionary *)self->_knownGPTKMetrics objectForKeyedSubscript:metricCopy];
 
     if ((options & 1) != 0 || v28)
     {
-      HUDMTLOverlaySetIsInGPTK(1);
+      HUDMTLOverlaySetIsInGPTK(1, v29);
       v27 = 2;
     }
 
     else if (v27 == 3)
     {
-      if (([metricCopy isEqualToString:@"com.apple.hud-label.metalfx.v2.scaling"] & 1) != 0 || objc_msgSend(metricCopy, "isEqualToString:", @"com.apple.hud-label.metalfx.v2.interpolator"))
+      v30 = [metricCopy isEqualToString:@"com.apple.hud-label.metalfx.v2.scaling"];
+      if ((v30 & 1) != 0 || (v30 = [metricCopy isEqualToString:@"com.apple.hud-label.metalfx.v2.interpolator"], v30))
       {
-        *(HUDGetGlobalConfig() + 11) = 1;
+        *(HUDGetGlobalConfig(v30, v31) + 11) = 1;
       }
 
       if ([metricCopy isEqualToString:@"com.apple.hud-label.metalfx"])
@@ -546,21 +584,21 @@ LABEL_27:
     }
 
 LABEL_20:
-    v40 = 0u;
+    v43 = 0u;
     nameCopy = nameCopy;
-    v32 = nameCopy;
-    v33 = metricCopy;
+    v35 = nameCopy;
+    v36 = metricCopy;
     unitCopy = unitCopy;
-    v34 = unitCopy;
+    v37 = unitCopy;
     colorCopy = color;
     valueColorCopy = valueColor;
-    v37 = v31;
-    v38 = v27;
+    v40 = v34;
+    v41 = v27;
     optionsCopy = options;
-    LODWORD(v40) = type;
-    *(&v40 + 4) = 0x1E00000000;
-    v29 = [[HUDUserClientMetric alloc] initWithDescriptor:&v32];
-    [v21 addMetric:v29 after:afterCopy];
+    LODWORD(v43) = type;
+    *(&v43 + 4) = 0x1E00000000;
+    v32 = [[HUDUserClientMetric alloc] initWithDescriptor:&v35];
+    [v21 addMetric:v32 after:afterCopy];
 
 LABEL_21:
     v25 = 1;
@@ -704,6 +742,14 @@ LABEL_22:
   }
 }
 
+- (void)enableInsight:(id)insight enabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  insightCopy = insight;
+  insightsWindow = [(_CADeveloperHUDProperties *)self insightsWindow];
+  [insightsWindow enableInsight:insightCopy enabled:enabledCopy];
+}
+
 - (BOOL)isInsightEnabled:(id)enabled
 {
   enabledCopy = enabled;
@@ -720,6 +766,19 @@ LABEL_22:
   v6 = [insightsWindow getInsight:insightCopy];
 
   return v6;
+}
+
+- (void)setMetricEnabled:(id)enabled enabled:(BOOL)a4
+{
+  v4 = a4;
+  enabledCopy = enabled;
+  mainWindow = [(_CADeveloperHUDProperties *)self mainWindow];
+  v7 = [mainWindow getMetric:enabledCopy];
+
+  if (v7)
+  {
+    [v7 setEnabled:v4];
+  }
 }
 
 - (BOOL)isMetricEnabled:(id)enabled
@@ -925,6 +984,33 @@ LABEL_22:
   return linksCopy;
 }
 
+- (BOOL)featureRegisterToggle:(HUDUserFeatureDescriptor *)toggle state:(BOOL)state didChange:(id)change
+{
+  stateCopy = state;
+  changeCopy = change;
+  v9 = [[HUDUserClientFeatureEntry alloc] initToggle:toggle state:stateCopy didChange:changeCopy];
+
+  if (v9)
+  {
+    userClientFeatures = self->_userClientFeatures;
+    v11 = +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", [v9 componenet]);
+    v12 = [(NSMutableDictionary *)userClientFeatures objectForKeyedSubscript:v11];
+
+    if (!v12)
+    {
+      v12 = -[HUDUserClientFeatureGroup initWithCategory:]([HUDUserClientFeatureGroup alloc], "initWithCategory:", [v9 componenet]);
+      v13 = self->_userClientFeatures;
+      v14 = +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", [v9 componenet]);
+      [(NSMutableDictionary *)v13 setObject:v12 forKeyedSubscript:v14];
+    }
+
+    features = [(HUDUserClientFeatureGroup *)v12 features];
+    [features addObject:v9];
+  }
+
+  return v9 != 0;
+}
+
 - (BOOL)featureRegisterPopover:(HUDUserFeatureDescriptor *)popover items:(id)items selectedIndex:(unint64_t)index didChange:(id)change
 {
   changeCopy = change;
@@ -954,8 +1040,9 @@ LABEL_22:
 
 - (void)markExplicitFrameBoundary
 {
-  *(HUDGetGlobalConfig() + 8) = 1;
-  GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance();
+  v2 = HUDGetGlobalConfig(self, a2);
+  *(v2 + 8) = 1;
+  GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance(v2, v3);
 
   HUDGPUTimeTrackerMarkFrameBoundary(GlobalInstance);
 }
@@ -971,64 +1058,66 @@ LABEL_22:
 - (void)markCommandBuffer:(id)buffer component:(unsigned int)component
 {
   bufferCopy = buffer;
-  GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance();
+  GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance(bufferCopy, v5);
   HUDGPUTimeTrackerMarkCommandBuffer(GlobalInstance, bufferCopy, component);
 }
 
 - (void)markRenderEncoder:(id)encoder component:(unsigned int)component
 {
   encoderCopy = encoder;
-  GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance();
+  GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance(encoderCopy, v5);
   HUDGPUTimeTrackerMarkEncoder(GlobalInstance, encoderCopy, component);
 }
 
 - (void)markComputeEncoder:(id)encoder component:(unsigned int)component
 {
   encoderCopy = encoder;
-  GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance();
+  GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance(encoderCopy, v5);
   HUDGPUTimeTrackerMarkEncoder(GlobalInstance, encoderCopy, component);
 }
 
 - (void)markBlitEncoder:(id)encoder component:(unsigned int)component
 {
   encoderCopy = encoder;
-  GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance();
+  GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance(encoderCopy, v5);
   HUDGPUTimeTrackerMarkEncoder(GlobalInstance, encoderCopy, component);
 }
 
 - (void)markAccelerationStructureEncoder:(id)encoder component:(unsigned int)component
 {
   encoderCopy = encoder;
-  GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance();
+  GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance(encoderCopy, v5);
   HUDGPUTimeTrackerMarkEncoder(GlobalInstance, encoderCopy, component);
 }
 
 - (void)markResourceStateEncoder:(id)encoder component:(unsigned int)component
 {
   encoderCopy = encoder;
-  GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance();
+  GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance(encoderCopy, v5);
   HUDGPUTimeTrackerMarkEncoder(GlobalInstance, encoderCopy, component);
 }
 
 - (void)metalFXFrameInterpolatorEncodingEnd:(id)end
 {
   endCopy = end;
-  if ((HUDGetGlobalConfig()[6] & 1) == 0)
+  v6 = HUDGetGlobalConfig(endCopy, v5);
+  if ((v6[6] & 1) == 0)
   {
     [(_CADeveloperHUDProperties *)self addMetric:@"com.apple.hud-label.metalfx.v2.interpolator" name:@"Frame Interpolator" unit:&stru_6ADA0 nameColor:0xFFFFFFFFLL valueColor:0xFFFFFFFFLL visualType:1 options:0];
-    LODWORD(v7) = 1;
-    [(_CADeveloperHUDProperties *)self insertMetric:@"com.apple.hud-label.metalfx.v2.interpolator.deltaTime" after:@"com.apple.hud-label.metalfx.v2.interpolator" name:@"Interpolator Delta Time" unit:@"ms" nameColor:0xFFFFFFFFLL valueColor:0xFFFFFFFFLL visualType:v7 options:0];
-    [(_CADeveloperHUDProperties *)self updateLabelMetric:@"com.apple.hud-label.metalfx.v2.interpolator" label:@"Enabled"];
-    *(HUDGetGlobalConfig() + 12) = 1;
+    LODWORD(v12) = 1;
+    [(_CADeveloperHUDProperties *)self insertMetric:@"com.apple.hud-label.metalfx.v2.interpolator.deltaTime" after:@"com.apple.hud-label.metalfx.v2.interpolator" name:@"Interpolator Delta Time" unit:@"ms" nameColor:0xFFFFFFFFLL valueColor:0xFFFFFFFFLL visualType:v12 options:0];
+    v8 = [(_CADeveloperHUDProperties *)self updateLabelMetric:@"com.apple.hud-label.metalfx.v2.interpolator" label:@"Enabled"];
+    v6 = HUDGetGlobalConfig(v8, v9);
+    *(v6 + 12) = 1;
   }
 
-  *(HUDGetGlobalConfig() + 13) = 1;
-  v8 = endCopy;
+  *(HUDGetGlobalConfig(v6, v7) + 13) = 1;
+  v13 = endCopy;
   if (objc_opt_respondsToSelector())
   {
-    [v8 deltaTime];
-    *&v6 = v5 * 1000.0;
-    [(_CADeveloperHUDProperties *)self updateFloatMetric:@"com.apple.hud-label.metalfx.v2.interpolator.deltaTime" value:v6];
+    [v13 deltaTime];
+    *&v11 = v10 * 1000.0;
+    [(_CADeveloperHUDProperties *)self updateFloatMetric:@"com.apple.hud-label.metalfx.v2.interpolator.deltaTime" value:v11];
   }
 }
 
@@ -1045,9 +1134,9 @@ LABEL_22:
 
 - (void)metalFXFrameInterpolatorDisable
 {
-  GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance();
+  GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance(self, a2);
   HUDGPUTimeTrackerReset(GlobalInstance);
-  *(HUDGetGlobalConfig() + 12) = 0;
+  *(HUDGetGlobalConfig(v4, v5) + 12) = 0;
   [(_CADeveloperHUDProperties *)self removeMetric:@"com.apple.hud-label.metalfx.v2.interpolator"];
 
   [(_CADeveloperHUDProperties *)self removeMetric:@"com.apple.hud-label.metalfx.v2.interpolator.deltaTime"];
@@ -1055,14 +1144,14 @@ LABEL_22:
 
 - (void)framePacingCommandBufferCreated:(void *)created creationMAT:(unint64_t)t
 {
-  GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance();
+  GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance(self, a2);
 
   HUDGPUTimeTrackerCommandBufferCreate(GlobalInstance, created);
 }
 
 - (void)framePacingCommandBufferCommitted:(void *)committed
 {
-  GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance();
+  GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance(self, a2);
 
   HUDGPUTimeTrackerCommandBufferCommit(GlobalInstance, committed);
 }
@@ -1083,33 +1172,33 @@ LABEL_22:
   v10 = +[MTLCaptureManager sharedCaptureManager];
   if (([v10 isCapturing] & 1) != 0 || !objc_msgSend(v10, "supportsDestination:", v9))
   {
-    v15 = 0;
+    v18 = 0;
   }
 
   else
   {
     v11 = objc_alloc_init(MTLCaptureDescriptor);
     [v11 setDestination:v9];
-    [v11 setOutputURL:traceCopy];
-    GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance();
-    v13 = HUDGPUTimeTrackerGetFrameCaptureScopeAndStartCapture(GlobalInstance);
-    [v11 setCaptureObject:v13];
+    v12 = [v11 setOutputURL:traceCopy];
+    GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance(v12, v13);
+    v16 = HUDGPUTimeTrackerGetFrameCaptureScopeAndStartCapture(GlobalInstance, v15);
+    [v11 setCaptureObject:v16];
 
-    v14 = [v10 startCaptureWithDescriptor:v11 error:error];
-    v15 = v14;
-    if (out && v14)
+    v17 = [v10 startCaptureWithDescriptor:v11 error:error];
+    v18 = v17;
+    if (out && v17)
     {
-      v16 = dispatch_time(0, out);
+      v19 = dispatch_time(0, out);
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = __76___CADeveloperHUDProperties_captureGPUTrace_capturableObject_timeOut_error___block_invoke;
       block[3] = &unk_6A3A0;
-      v19 = v10;
-      dispatch_after(v16, &_dispatch_main_q, block);
+      v22 = v10;
+      dispatch_after(v19, &_dispatch_main_q, block);
     }
   }
 
-  return v15;
+  return v18;
 }
 
 - (id)getMetric:(id)metric

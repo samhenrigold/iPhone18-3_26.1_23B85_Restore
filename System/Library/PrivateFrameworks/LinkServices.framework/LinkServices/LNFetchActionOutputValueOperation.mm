@@ -31,10 +31,10 @@
 
 - (void)start
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v12.receiver = self;
-  v12.super_class = LNFetchActionOutputValueOperation;
-  [(LNConnectionOperation *)&v12 start];
+  v16 = *MEMORY[0x1E69E9840];
+  v11.receiver = self;
+  v11.super_class = LNFetchActionOutputValueOperation;
+  [(LNConnectionOperation *)&v11 start];
   v3 = getLNLogCategoryConnection();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
@@ -42,22 +42,20 @@
     identifier = [actionOutput identifier];
     identifier2 = [(LNConnectionOperation *)self identifier];
     *buf = 138543618;
-    v14 = identifier;
-    v15 = 2114;
-    v16 = identifier2;
+    v13 = identifier;
+    v14 = 2114;
+    v15 = identifier2;
   }
 
   connectionInterface = [(LNInterfaceConnectionOperation *)self connectionInterface];
   actionOutput2 = [(LNFetchActionOutputValueOperation *)self actionOutput];
   identifier3 = [actionOutput2 identifier];
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __42__LNFetchActionOutputValueOperation_start__block_invoke;
-  v11[3] = &unk_1E74B1010;
-  v11[4] = self;
-  [connectionInterface fetchActionOutputValueWithIdentifier:identifier3 completionHandler:v11];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __42__LNFetchActionOutputValueOperation_start__block_invoke;
+  v10[3] = &unk_1E74B1010;
+  v10[4] = self;
+  [connectionInterface fetchActionOutputValueWithIdentifier:identifier3 completionHandler:v10];
 }
 
 void __42__LNFetchActionOutputValueOperation_start__block_invoke(uint64_t a1, void *a2, void *a3)

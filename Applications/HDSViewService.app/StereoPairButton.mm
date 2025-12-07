@@ -2,6 +2,7 @@
 - (BOOL)isHighlighted;
 - (_TtC14HDSViewService16StereoPairButton)initWithFrame:(CGRect)frame;
 - (void)layoutSubviews;
+- (void)setHighlighted:(BOOL)highlighted;
 @end
 
 @implementation StereoPairButton
@@ -11,6 +12,16 @@
   v3.receiver = self;
   v3.super_class = type metadata accessor for StereoPairButton();
   return [(StereoPairButton *)&v3 isHighlighted];
+}
+
+- (void)setHighlighted:(BOOL)highlighted
+{
+  highlightedCopy = highlighted;
+  v5.receiver = self;
+  v5.super_class = type metadata accessor for StereoPairButton();
+  v4 = v5.receiver;
+  [(StereoPairButton *)&v5 setHighlighted:highlightedCopy];
+  sub_100061C28();
 }
 
 - (void)layoutSubviews

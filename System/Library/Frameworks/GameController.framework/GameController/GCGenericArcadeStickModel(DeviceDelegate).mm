@@ -6,40 +6,40 @@
 
 - (_GCControllerInputComponentDescription)logicalDevice:()DeviceDelegate makeControllerInputDescriptionWithIdentifier:bindings:
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   v7 = a4;
   v8 = a5;
   physicalInput = [self physicalInput];
   if (physicalInput)
   {
-    v44 = v8;
-    v45 = v7;
-    v43 = physicalInput;
+    v43 = v8;
+    v44 = v7;
+    v42 = physicalInput;
     elements = [physicalInput elements];
     v11 = objc_opt_new();
+    v46 = 0u;
     v47 = 0u;
     v48 = 0u;
     v49 = 0u;
-    v50 = 0u;
     obj = elements;
-    v12 = [obj countByEnumeratingWithState:&v47 objects:v51 count:16];
+    v12 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
     if (!v12)
     {
       goto LABEL_20;
     }
 
     v13 = v12;
-    v14 = *v48;
+    v14 = *v47;
     while (1)
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v48 != v14)
+        if (*v47 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v47 + 1) + 8 * i);
+        v16 = *(*(&v46 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -121,18 +121,18 @@
         [v11 addObject:v18];
       }
 
-      v13 = [obj countByEnumeratingWithState:&v47 objects:v51 count:16];
+      v13 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
       if (!v13)
       {
 LABEL_20:
 
         v39 = objc_opt_new();
         [v39 setElements:v11];
-        v8 = v44;
-        v7 = v45;
-        v40 = [[_GCControllerInputComponentDescription alloc] initWithIdentifier:v45 controllerInputs:v39 bindings:v44];
+        v8 = v43;
+        v7 = v44;
+        v40 = [[_GCControllerInputComponentDescription alloc] initWithIdentifier:v44 controllerInputs:v39 bindings:v43];
 
-        physicalInput = v43;
+        physicalInput = v42;
         goto LABEL_22;
       }
     }
@@ -140,8 +140,6 @@ LABEL_20:
 
   v40 = 0;
 LABEL_22:
-
-  v41 = *MEMORY[0x1E69E9840];
 
   return v40;
 }

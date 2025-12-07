@@ -223,47 +223,48 @@ void __51__WBSTOTPGenerator__keyDataForBase32EncodedString___block_invoke()
 
 - (WBSTOTPGenerator)initWithOTPAuthURL:(id)l
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   lCopy = l;
   v5 = [objc_alloc(MEMORY[0x1E696AF20]) initWithURL:lCopy resolvingAgainstBaseURL:1];
   selfCopy = self;
-  if (([objc_opt_class() _urlWithComponentsHasValidOtpauthURLScheme:v5] & 1) == 0)
+  v6 = [objc_opt_class() _urlWithComponentsHasValidOtpauthURLScheme:v5];
+  if ((v6 & 1) == 0)
   {
-    v9 = WBS_LOG_CHANNEL_PREFIXPasswords();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v13 = WBS_LOG_CHANNEL_PREFIXPasswords(v6, v7);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [(WBSTOTPGenerator *)v9 initWithOTPAuthURL:lCopy];
+      [(WBSTOTPGenerator *)v13 initWithOTPAuthURL:lCopy];
     }
 
     goto LABEL_7;
   }
 
   host = [v5 host];
-  v7 = [host caseInsensitiveCompare:@"totp"];
+  v9 = [host caseInsensitiveCompare:@"totp"];
 
-  if (v7)
+  if (v9)
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXPasswords();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v12 = WBS_LOG_CHANNEL_PREFIXPasswords(v10, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [(WBSTOTPGenerator *)v8 initWithOTPAuthURL:lCopy];
+      [(WBSTOTPGenerator *)v12 initWithOTPAuthURL:lCopy];
     }
 
 LABEL_7:
-    v10 = 0;
+    v14 = 0;
     goto LABEL_8;
   }
 
-  v13 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSince1970:0.0];
+  v16 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSince1970:0.0];
   path = [v5 path];
-  v44 = path;
+  v52 = path;
   if (path)
   {
-    v15 = [path componentsSeparatedByString:@":"];
-    if ([v15 count] == 2)
+    v18 = [path componentsSeparatedByString:@":"];
+    if ([v18 count] == 2)
     {
-      firstObject = [v15 firstObject];
-      lastObject = [v15 lastObject];
+      firstObject = [v18 firstObject];
+      lastObject = [v18 lastObject];
     }
 
     else
@@ -272,64 +273,64 @@ LABEL_7:
       firstObject = 0;
     }
 
-    v48 = firstObject;
+    v56 = firstObject;
   }
 
   else
   {
     lastObject = 0;
-    v48 = 0;
+    v56 = 0;
   }
 
-  v43 = lastObject;
-  v45 = v13;
-  v46 = v5;
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
-  v53 = 0u;
+  v51 = lastObject;
+  v53 = v16;
+  v54 = v5;
+  v62 = 0u;
+  v63 = 0u;
+  v60 = 0u;
+  v61 = 0u;
   queryItems = [v5 queryItems];
-  v19 = [queryItems countByEnumeratingWithState:&v52 objects:v58 count:16];
-  if (!v19)
+  v22 = [queryItems countByEnumeratingWithState:&v60 objects:v66 count:16];
+  if (!v22)
   {
-    v21 = 0;
+    v24 = 0;
     integerValue = 6;
-    v50 = 0;
+    v58 = 0;
     integerValue2 = 30;
     goto LABEL_38;
   }
 
-  v20 = v19;
-  v21 = 0;
-  v22 = *v53;
+  v23 = v22;
+  v24 = 0;
+  v25 = *v61;
   integerValue = 6;
-  v50 = 0;
+  v58 = 0;
   integerValue2 = 30;
   do
   {
-    v23 = 0;
+    v26 = 0;
     do
     {
-      if (*v53 != v22)
+      if (*v61 != v25)
       {
         objc_enumerationMutation(queryItems);
       }
 
-      v24 = *(*(&v52 + 1) + 8 * v23);
-      name = [v24 name];
+      v27 = *(*(&v60 + 1) + 8 * v26);
+      name = [v27 name];
       if (![name caseInsensitiveCompare:@"secret"])
       {
-        value = [v24 value];
+        value = [v27 value];
         uppercaseString = [value uppercaseString];
 
-        v21 = uppercaseString;
+        v24 = uppercaseString;
         goto LABEL_32;
       }
 
       if (![name caseInsensitiveCompare:@"algorithm"])
       {
-        value2 = [v24 value];
-        v50 = [(WBSTOTPGenerator *)selfCopy _algorithmForQueryItemValue:value2];
+        value2 = [v27 value];
+        v58 = [(WBSTOTPGenerator *)selfCopy _algorithmForQueryItemValue:value2];
 LABEL_31:
 
         goto LABEL_32;
@@ -337,82 +338,83 @@ LABEL_31:
 
       if (![name caseInsensitiveCompare:@"digits"])
       {
-        value2 = [v24 value];
+        value2 = [v27 value];
         integerValue = [value2 integerValue];
         goto LABEL_31;
       }
 
       if (![name caseInsensitiveCompare:@"period"])
       {
-        value2 = [v24 value];
+        value2 = [v27 value];
         integerValue2 = [value2 integerValue];
         goto LABEL_31;
       }
 
-      if ([name caseInsensitiveCompare:@"issuer"])
+      v29 = [name caseInsensitiveCompare:@"issuer"];
+      if (v29)
       {
-        v26 = WBS_LOG_CHANNEL_PREFIXPasswords();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+        v31 = WBS_LOG_CHANNEL_PREFIXPasswords(v29, v30);
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
         {
-          v27 = v26;
+          v32 = v31;
           absoluteString = [lCopy absoluteString];
           *buf = 138739971;
-          v57 = absoluteString;
-          _os_log_impl(&dword_1B8447000, v27, OS_LOG_TYPE_INFO, "Found invalid parameter in otpauth URL. url=%{sensitive}@", buf, 0xCu);
+          v65 = absoluteString;
+          _os_log_impl(&dword_1B8447000, v32, OS_LOG_TYPE_INFO, "Found invalid parameter in otpauth URL. url=%{sensitive}@", buf, 0xCu);
         }
       }
 
       else
       {
-        value3 = [v24 value];
+        value3 = [v27 value];
 
-        v48 = value3;
+        v56 = value3;
       }
 
 LABEL_32:
 
-      ++v23;
+      ++v26;
     }
 
-    while (v20 != v23);
-    v33 = [queryItems countByEnumeratingWithState:&v52 objects:v58 count:16];
-    v20 = v33;
+    while (v23 != v26);
+    v38 = [queryItems countByEnumeratingWithState:&v60 objects:v66 count:16];
+    v23 = v38;
   }
 
-  while (v33);
+  while (v38);
 LABEL_38:
 
-  if ([v21 length])
+  if ([v24 length])
   {
-    v5 = v46;
-    scheme = [v46 scheme];
-    v35 = [scheme isEqualToString:@"apple-otpauth"];
+    v5 = v54;
+    scheme = [v54 scheme];
+    v41 = [scheme isEqualToString:@"apple-otpauth"];
 
-    v36 = v45;
-    v37 = v48;
-    v38 = v43;
-    if (v35)
+    v44 = v53;
+    v45 = v56;
+    v46 = v51;
+    if (v41)
     {
-      v39 = WBS_LOG_CHANNEL_PREFIXPasswords();
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
+      v47 = WBS_LOG_CHANNEL_PREFIXPasswords(v42, v43);
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_1B8447000, v39, OS_LOG_TYPE_INFO, "Rewriting apple-otpauth:// URL.", buf, 2u);
+        _os_log_impl(&dword_1B8447000, v47, OS_LOG_TYPE_INFO, "Rewriting apple-otpauth:// URL.", buf, 2u);
       }
 
-      [v46 setScheme:@"otpauth"];
-      v40 = [v46 URL];
+      [v54 setScheme:@"otpauth"];
+      v48 = [v54 URL];
 
-      lCopy = v40;
+      lCopy = v48;
     }
 
-    v41 = [objc_opt_class() _keyDataForBase32EncodedString:v21];
-    v10 = [(WBSTOTPGenerator *)selfCopy initWithKeyData:v41 initialDate:v45 codeGenerationPeriod:integerValue2 numberOfDigits:integerValue algorithm:v50 issuer:v48 accountName:v43 originalURL:lCopy];
+    v49 = [objc_opt_class() _keyDataForBase32EncodedString:v24];
+    v14 = [(WBSTOTPGenerator *)selfCopy initWithKeyData:v49 initialDate:v53 codeGenerationPeriod:integerValue2 numberOfDigits:integerValue algorithm:v58 issuer:v56 accountName:v51 originalURL:lCopy];
 
-    if (v10)
+    if (v14)
     {
-      v10 = v10;
-      selfCopy = v10;
+      v14 = v14;
+      selfCopy = v14;
     }
 
     else
@@ -423,22 +425,21 @@ LABEL_38:
 
   else
   {
-    v42 = WBS_LOG_CHANNEL_PREFIXPasswords();
-    v36 = v45;
-    v5 = v46;
-    v37 = v48;
-    v38 = v43;
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+    v50 = WBS_LOG_CHANNEL_PREFIXPasswords(0, v39);
+    v44 = v53;
+    v5 = v54;
+    v45 = v56;
+    v46 = v51;
+    if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
     {
-      [(WBSTOTPGenerator *)v42 initWithOTPAuthURL:lCopy];
+      [(WBSTOTPGenerator *)v50 initWithOTPAuthURL:lCopy];
     }
 
-    v10 = 0;
+    v14 = 0;
   }
 
 LABEL_8:
-  v11 = *MEMORY[0x1E69E9840];
-  return v10;
+  return v14;
 }
 
 - (WBSTOTPGenerator)initWithASCIIEncodedKey:(id)key initialDate:(id)date codeGenerationPeriod:(unint64_t)period numberOfDigits:(unint64_t)digits algorithm:(unint64_t)algorithm
@@ -568,7 +569,7 @@ LABEL_8:
 
 - (NSURL)exportableURL
 {
-  v24[4] = *MEMORY[0x1E69E9840];
+  v23[4] = *MEMORY[0x1E69E9840];
   originalURL = self->_originalURL;
   if (originalURL)
   {
@@ -581,31 +582,29 @@ LABEL_8:
     [v5 setScheme:@"otpauth"];
     [v5 setHost:@"totp"];
     v6 = MEMORY[0x1E696AF60];
-    v23 = [objc_opt_class() _base32EncodedStringForKeyData:self->_key];
-    v22 = [v23 stringByReplacingOccurrencesOfString:@"=" withString:&stru_1F3064D08];
-    v21 = [v6 queryItemWithName:@"secret" value:v22];
-    v24[0] = v21;
+    v22 = [objc_opt_class() _base32EncodedStringForKeyData:self->_key];
+    v21 = [v22 stringByReplacingOccurrencesOfString:@"=" withString:&stru_1F3064D08];
+    v20 = [v6 queryItemWithName:@"secret" value:v21];
+    v23[0] = v20;
     v7 = MEMORY[0x1E696AF60];
     v8 = [(WBSTOTPGenerator *)self _stringForAlgorithm:self->_algorithm];
     v9 = [v7 queryItemWithName:@"algorithm" value:v8];
-    v24[1] = v9;
+    v23[1] = v9;
     v10 = MEMORY[0x1E696AF60];
     v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_numberOfDigitsInCode];
     stringValue = [v11 stringValue];
     v13 = [v10 queryItemWithName:@"digits" value:stringValue];
-    v24[2] = v13;
+    v23[2] = v13;
     v14 = MEMORY[0x1E696AF60];
     v15 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_codeGenerationPeriod];
     stringValue2 = [v15 stringValue];
     v17 = [v14 queryItemWithName:@"period" value:stringValue2];
-    v24[3] = v17;
-    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:4];
+    v23[3] = v17;
+    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:4];
     [v5 setQueryItems:v18];
 
     v4 = [v5 URL];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -809,24 +808,24 @@ LABEL_5:
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v18[5] = *MEMORY[0x1E69E9840];
+  v17[5] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E695DF90];
   key = self->_key;
-  v17[0] = @"secret";
-  v17[1] = @"_initialDate";
+  v16[0] = @"secret";
+  v16[1] = @"_initialDate";
   initialDate = self->_initialDate;
-  v18[0] = key;
-  v18[1] = initialDate;
-  v17[2] = @"digits";
+  v17[0] = key;
+  v17[1] = initialDate;
+  v16[2] = @"digits";
   v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_numberOfDigitsInCode];
-  v18[2] = v6;
-  v17[3] = @"period";
+  v17[2] = v6;
+  v16[3] = @"period";
   v7 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_codeGenerationPeriod];
-  v18[3] = v7;
-  v17[4] = @"algorithm";
+  v17[3] = v7;
+  v16[4] = @"algorithm";
   v8 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_algorithm];
-  v18[4] = v8;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:5];
+  v17[4] = v8;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:5];
   v10 = [v3 dictionaryWithDictionary:v9];
 
   issuer = self->_issuer;
@@ -848,14 +847,12 @@ LABEL_5:
     [v10 setObject:absoluteString forKeyedSubscript:@"originalURL"];
   }
 
-  v15 = *MEMORY[0x1E69E9840];
-
   return v10;
 }
 
 - (id)codeForDate:(id)date
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   algorithm = self->_algorithm;
   dateCopy = date;
   v6 = [(WBSTOTPGenerator *)self _HMACLengthForAlgorithm:algorithm];
@@ -869,9 +866,8 @@ LABEL_5:
   CCHmac(v8, [(NSData *)self->_key bytes:data], [(NSData *)self->_key length], &data, 8uLL, v10);
   LODWORD(v6) = bswap32(*&v10[v10[v6 - 1] & 0xF] & 0xFFFFFF7F);
   numberOfDigitsInCode = self->_numberOfDigitsInCode;
-  v16 = v6 % __exp10(numberOfDigitsInCode);
-  v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%0*u", numberOfDigitsInCode, v16];
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = v6 % __exp10(numberOfDigitsInCode);
+  v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%0*u", numberOfDigitsInCode, v15];
 
   return v13;
 }
@@ -972,32 +968,29 @@ LABEL_7:
 
 - (void)initWithOTPAuthURL:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = [a2 absoluteString];
-  OUTLINED_FUNCTION_2(&dword_1B8447000, v5, v6, "Attempting to create a TOTP generator from a URL with a non-otpauth scheme. url=%{sensitive}@", v7, v8, v9, v10, 3u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  LODWORD(v11) = 138739971;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_2(&dword_1B8447000, v5, v6, "Attempting to create a TOTP generator from a URL with a non-otpauth scheme. url=%{sensitive}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 - (void)initWithOTPAuthURL:(void *)a1 .cold.2(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = [a2 absoluteString];
-  OUTLINED_FUNCTION_2(&dword_1B8447000, v5, v6, "Attempting to create a TOTP generator from a URL with a non-TOTP host portion. url=%{sensitive}@", v7, v8, v9, v10, 3u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  LODWORD(v11) = 138739971;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_2(&dword_1B8447000, v5, v6, "Attempting to create a TOTP generator from a URL with a non-TOTP host portion. url=%{sensitive}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 - (void)initWithOTPAuthURL:(void *)a1 .cold.3(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = [a2 absoluteString];
-  OUTLINED_FUNCTION_2(&dword_1B8447000, v5, v6, "Otpauth URL is missing a secret. url=%{sensitive}@", v7, v8, v9, v10, 3u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  LODWORD(v11) = 138739971;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_2(&dword_1B8447000, v5, v6, "Otpauth URL is missing a secret. url=%{sensitive}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 @end

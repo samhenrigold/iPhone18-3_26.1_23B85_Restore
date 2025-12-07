@@ -10,19 +10,17 @@
 
 - (id)defaultWallpapers
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   v2 = +[CRSUISystemWallpaper defaultWallpaper];
-  v6[0] = v2;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v5[0] = v2;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
 
   return v3;
 }
 
 - (id)dynamicAppearanceWallpapersForVehicle:(id)vehicle
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   previousSystemWallpaperData = [vehicle previousSystemWallpaperData];
   if (previousSystemWallpaperData)
   {
@@ -35,9 +33,9 @@
 
       if (supportsDynamicAppearance)
       {
-        v17[0] = v6;
+        v16[0] = v6;
         v9 = MEMORY[0x277CBEA60];
-        v10 = v17;
+        v10 = v16;
 LABEL_8:
         v12 = [v9 arrayWithObjects:v10 count:1];
         goto LABEL_12;
@@ -50,9 +48,9 @@ LABEL_8:
 
   if (v6)
   {
-    v16 = v6;
+    v15 = v6;
     v9 = MEMORY[0x277CBEA60];
-    v10 = &v16;
+    v10 = &v15;
     goto LABEL_8;
   }
 
@@ -64,8 +62,6 @@ LABEL_8:
 
   v12 = MEMORY[0x277CBEBF8];
 LABEL_12:
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -94,7 +90,7 @@ uint64_t __70__CRSUISystemWallpaperProvider_dynamicAppearanceWallpapersForVehicl
     v7 = CRSUILogForCategory(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      [CRSUISystemWallpaperProvider loadWallpaperFromData:];
+      [CRSUISystemWallpaperProvider loadWallpaperFromData:dataCopy];
     }
 
     v6 = 0;
@@ -117,7 +113,7 @@ uint64_t __70__CRSUISystemWallpaperProvider_dynamicAppearanceWallpapersForVehicl
     v5 = CRSUILogForCategory(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      [CRSUISystemWallpaperProvider loadWallpaperFromData:];
+      [CRSUISystemWallpaperProvider loadWallpaperFromData:wallpaperCopy];
     }
 
     resolveWallpaper = 0;
@@ -133,14 +129,13 @@ uint64_t __70__CRSUISystemWallpaperProvider_dynamicAppearanceWallpapersForVehicl
   return WeakRetained;
 }
 
-- (void)loadWallpaperFromData:.cold.1()
+- (void)loadWallpaperFromData:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
-  OUTLINED_FUNCTION_0_1(&dword_243218000, v2, v3, "Unsupported wallpaper type: %{public}@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
+  LODWORD(v9) = 138543362;
+  *(&v9 + 4) = v2;
+  OUTLINED_FUNCTION_0_1(&dword_243218000, v3, v4, "Unsupported wallpaper type: %{public}@", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
 @end

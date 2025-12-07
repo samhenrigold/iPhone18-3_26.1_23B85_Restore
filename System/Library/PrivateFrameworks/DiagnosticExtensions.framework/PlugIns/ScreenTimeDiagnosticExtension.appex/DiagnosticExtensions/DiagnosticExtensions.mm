@@ -1,7 +1,8 @@
-void sub_1000015C0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000015C0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void variable initialization expression of STDiagnosticCollector.baseDirectory()
@@ -22,150 +23,132 @@ id STDiagnosticCollector.init()()
   v1 = v0;
   ObjectType = swift_getObjectType();
   v2 = sub_100003074();
-  v40 = *(v2 - 8);
-  v41 = v2;
-  v3 = *(v40 + 64);
-  __chkstk_darwin();
-  v39 = &v38 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = sub_100003004();
-  v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  __chkstk_darwin();
-  v9 = &v38 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = OBJC_IVAR____TtC29ScreenTimeDiagnosticExtension21STDiagnosticCollector_baseDirectory;
-  v11 = [objc_opt_self() diagnosticsDirectory];
+  v38 = *(v2 - 8);
+  v39 = v2;
+  __chkstk_darwin(v2);
+  v37 = &v36 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = sub_100003004();
+  v5 = *(v4 - 8);
+  __chkstk_darwin(v4);
+  v7 = &v36 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = OBJC_IVAR____TtC29ScreenTimeDiagnosticExtension21STDiagnosticCollector_baseDirectory;
+  v9 = [objc_opt_self() diagnosticsDirectory];
   sub_100002FE4();
 
-  (*(v6 + 32))(&v1[v10], v9, v5);
-  v38 = OBJC_IVAR____TtC29ScreenTimeDiagnosticExtension21STDiagnosticCollector_logger;
+  (*(v5 + 32))(&v1[v8], v7, v4);
+  v36 = OBJC_IVAR____TtC29ScreenTimeDiagnosticExtension21STDiagnosticCollector_logger;
   sub_100003064();
-  v12 = [objc_opt_self() defaultManager];
-  v13 = *(v6 + 16);
-  v42 = v10;
-  v13(v9, &v1[v10], v5);
+  v10 = [objc_opt_self() defaultManager];
+  v11 = *(v5 + 16);
+  v40 = v8;
+  v11(v7, &v1[v8], v4);
   sub_100002FF4(1);
-  v14 = *(v6 + 8);
-  v14(v9, v5);
-  v15 = sub_100003084();
+  v12 = *(v5 + 8);
+  v12(v7, v4);
+  v13 = sub_100003084();
 
-  v16 = [v12 fileExistsAtPath:v15];
+  v14 = [v10 fileExistsAtPath:v13];
 
-  if (v16)
+  if (v14)
   {
 
-    v17 = v1;
+    v15 = v1;
   }
 
   else
   {
-    v13(v9, &v42[v1], v5);
-    sub_100002FC4(v18);
-    v20 = v19;
-    v14(v9, v5);
-    v46 = 0;
-    v21 = [v12 createDirectoryAtURL:v20 withIntermediateDirectories:1 attributes:0 error:&v46];
+    v11(v7, &v40[v1], v4);
+    sub_100002FC4(v16);
+    v18 = v17;
+    v12(v7, v4);
+    v44 = 0;
+    v19 = [v10 createDirectoryAtURL:v18 withIntermediateDirectories:1 attributes:0 error:&v44];
 
-    v17 = v1;
-    if (v21)
+    v15 = v1;
+    if (v19)
     {
-      v22 = v46;
+      v20 = v44;
     }
 
     else
     {
-      v23 = v46;
-      v24 = sub_100002FB4();
+      v21 = v44;
+      v22 = sub_100002FB4();
 
       swift_willThrow();
+      v24 = v37;
+      v23 = v38;
+      v25 = &v1[v36];
       v26 = v39;
-      v25 = v40;
-      v27 = &v1[v38];
-      v28 = v41;
-      (*(v40 + 16))(v39, v27, v41);
+      (*(v38 + 16))(v37, v25, v39);
       swift_errorRetain();
-      v29 = sub_100003054();
-      v30 = sub_1000030B4();
+      v27 = sub_100003054();
+      v28 = sub_1000030B4();
 
-      if (os_log_type_enabled(v29, v30))
+      if (os_log_type_enabled(v27, v28))
       {
-        v31 = swift_slowAlloc();
-        v42 = v17;
-        v32 = v31;
-        v46 = swift_slowAlloc();
-        v33 = v46;
-        *v32 = 136446210;
-        v44 = v24;
+        v29 = swift_slowAlloc();
+        v40 = v15;
+        v30 = v29;
+        v44 = swift_slowAlloc();
+        v31 = v44;
+        *v30 = 136446210;
+        v42 = v22;
         swift_errorRetain();
         sub_1000025DC(&qword_1000082D8, &unk_1000035D0);
-        v34 = sub_100003094();
-        v36 = sub_100002034(v34, v35, &v46);
+        v32 = sub_100003094();
+        v34 = sub_100002034(v32, v33, &v44);
 
-        *(v32 + 4) = v36;
-        _os_log_impl(&_mh_execute_header, v29, v30, "Failed to create diagnostics directory: %{public}s", v32, 0xCu);
-        sub_100002624(v33);
+        *(v30 + 4) = v34;
+        _os_log_impl(&_mh_execute_header, v27, v28, "Failed to create diagnostics directory: %{public}s", v30, 0xCu);
+        sub_100002624(v31);
 
-        v17 = v42;
+        v15 = v40;
 
-        (*(v25 + 8))(v26, v41);
+        (*(v23 + 8))(v24, v39);
       }
 
       else
       {
 
-        (*(v25 + 8))(v26, v28);
+        (*(v23 + 8))(v24, v26);
       }
     }
   }
 
-  v45.receiver = v17;
-  v45.super_class = ObjectType;
-  return objc_msgSendSuper2(&v45, "init");
+  v43.receiver = v15;
+  v43.super_class = ObjectType;
+  return objc_msgSendSuper2(&v43, "init");
 }
 
 Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X21,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> STDiagnosticCollector.collectScreenTimeDatabase()()
 {
   v0 = sub_100003004();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
-  __chkstk_darwin();
-  v4 = &v21 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = [objc_opt_self() defaultManager];
+  __chkstk_darwin(v0);
+  v3 = &v20 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = [objc_opt_self() defaultManager];
   sub_100002FD4();
-  sub_100002FC4(v6);
-  v8 = v7;
-  v21 = 0;
-  v9 = [v5 createDirectoryAtURL:v7 withIntermediateDirectories:1 attributes:0 error:&v21];
+  sub_100002FC4(v5);
+  v7 = v6;
+  v20 = 0;
+  v8 = [v4 createDirectoryAtURL:v6 withIntermediateDirectories:1 attributes:0 error:&v20];
 
-  v10 = v21;
-  if (!v9)
+  v9 = v20;
+  if (v8 && (v10 = objc_allocWithZone(STManagementState), v11 = v9, v12 = [v10 init], sub_100002FC4(v13), v15 = v14, v20 = 0, v16 = objc_msgSend(v12, "exportDatabaseToURL:error:", v14, &v20), v12, v15, v9 = v20, (v16 & 1) != 0))
   {
-    goto LABEL_4;
-  }
-
-  v11 = objc_allocWithZone(STManagementState);
-  v12 = v10;
-  v13 = [v11 init];
-  sub_100002FC4(v14);
-  v16 = v15;
-  v21 = 0;
-  v17 = [v13 exportDatabaseToURL:v15 error:&v21];
-
-  v10 = v21;
-  if (v17)
-  {
-    v18 = *(v1 + 8);
-    v19 = v21;
-    v18(v4, v0);
+    v17 = *(v1 + 8);
+    v18 = v20;
+    v17(v3, v0);
   }
 
   else
   {
-LABEL_4:
-    v20 = v10;
+    v19 = v9;
     sub_100002FB4();
 
     swift_willThrow();
-    (*(v1 + 8))(v4, v0);
+    (*(v1 + 8))(v3, v0);
   }
 }
 
@@ -276,11 +259,9 @@ LABEL_8:
 
 char *sub_10000220C(uint64_t a1, unint64_t a2)
 {
-  v4 = sub_100002258(a1, a2);
+  v3 = sub_100002258(a1, a2);
   sub_100002388(&off_100004318);
-  result = v4;
-  v3 = *(v4 + 2) - 1;
-  return result;
+  return v3;
 }
 
 char *sub_100002258(uint64_t a1, unint64_t a2)
@@ -380,7 +361,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -394,15 +374,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = sub_1000024E8(result, v12, 1, v3);
+  result = sub_1000024E8(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -417,15 +397,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -434,12 +414,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 
@@ -552,7 +532,6 @@ uint64_t sub_1000025DC(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -578,136 +557,133 @@ uint64_t sub_100002670()
 {
   v1 = sub_100003034();
   v2 = *(v1 - 8);
-  v3 = *(v2 + 64);
-  (__chkstk_darwin)();
-  v5 = v36 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = sub_100003004();
-  v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  v9 = (__chkstk_darwin)();
-  v11 = v36 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = __chkstk_darwin(v9);
-  v14 = v36 - v13;
-  __chkstk_darwin(v12);
-  v16 = v36 - v15;
+  __chkstk_darwin(v1);
+  v4 = v34 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = sub_100003004();
+  v6 = *(v5 - 8);
+  v7 = __chkstk_darwin(v5);
+  v9 = v34 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = __chkstk_darwin(v7);
+  v12 = v34 - v11;
+  __chkstk_darwin(v10);
+  v14 = v34 - v13;
   sub_100003024();
   sub_100003014();
-  (*(v2 + 8))(v5, v1);
-  v17 = [objc_opt_self() diagnosticsDirectory];
+  (*(v2 + 8))(v4, v1);
+  v15 = [objc_opt_self() diagnosticsDirectory];
   sub_100002FE4();
 
   sub_100002FD4();
-  v18 = *(v7 + 8);
-  v18(v11, v6);
-  v19 = [objc_opt_self() defaultManager];
+  v16 = *(v6 + 8);
+  v16(v9, v5);
+  v17 = [objc_opt_self() defaultManager];
   sub_100002FF4(1);
-  v20 = sub_100003084();
+  v18 = sub_100003084();
 
-  LODWORD(v17) = [v19 fileExistsAtPath:v20];
+  LODWORD(v15) = [v17 fileExistsAtPath:v18];
 
-  if (v17)
+  if (v15)
   {
-    sub_100002FC4(v21);
-    v23 = v22;
-    v37 = 0;
-    v24 = [v19 removeItemAtURL:v22 error:&v37];
+    sub_100002FC4(v19);
+    v21 = v20;
+    v35 = 0;
+    v22 = [v17 removeItemAtURL:v20 error:&v35];
 
-    v25 = v37;
-    if (!v24)
+    v23 = v35;
+    if (!v22)
     {
       goto LABEL_6;
     }
 
-    v26 = v37;
+    v24 = v35;
   }
 
-  v36[1] = v0;
-  sub_100002FC4(v21);
-  v28 = v27;
-  sub_100002FC4(v29);
-  v31 = v30;
-  v37 = 0;
-  v32 = [v19 copyItemAtURL:v28 toURL:v30 error:&v37];
+  v34[1] = v0;
+  sub_100002FC4(v19);
+  v26 = v25;
+  sub_100002FC4(v27);
+  v29 = v28;
+  v35 = 0;
+  v30 = [v17 copyItemAtURL:v26 toURL:v28 error:&v35];
 
-  v25 = v37;
-  if (v32)
+  v23 = v35;
+  if (v30)
   {
-    v33 = v37;
+    v31 = v35;
 
-    v18(v14, v6);
-    return (v18)(v16, v6);
+    v16(v12, v5);
+    return (v16)(v14, v5);
   }
 
 LABEL_6:
-  v35 = v25;
+  v33 = v23;
   sub_100002FB4();
 
   swift_willThrow();
-  v18(v14, v6);
-  return (v18)(v16, v6);
+  v16(v12, v5);
+  return (v16)(v14, v5);
 }
 
 void sub_100002A2C()
 {
   v0 = sub_100003004();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
-  v3 = __chkstk_darwin(v0);
-  v5 = &v23 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v3);
-  v7 = &v23 - v6;
-  v8 = [objc_opt_self() diagnosticsDirectory];
+  v2 = __chkstk_darwin(v0);
+  v4 = &v22 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v2);
+  v6 = &v22 - v5;
+  v7 = [objc_opt_self() diagnosticsDirectory];
   sub_100002FE4();
 
   sub_100002FD4();
-  v9 = *(v1 + 8);
-  v9(v5, v0);
-  v10 = [objc_opt_self() defaultManager];
+  v8 = *(v1 + 8);
+  v8(v4, v0);
+  v9 = [objc_opt_self() defaultManager];
   sub_100002FF4(1);
-  v11 = sub_100003084();
+  v10 = sub_100003084();
 
-  LODWORD(v5) = [v10 fileExistsAtPath:v11];
+  LODWORD(v4) = [v9 fileExistsAtPath:v10];
 
-  if (v5)
+  if (v4)
   {
-    sub_100002FC4(v12);
-    v14 = v13;
-    v23 = 0;
-    v15 = [v10 removeItemAtURL:v13 error:&v23];
+    sub_100002FC4(v11);
+    v13 = v12;
+    v22 = 0;
+    v14 = [v9 removeItemAtURL:v12 error:&v22];
 
-    v16 = v23;
-    if (!v15)
+    v15 = v22;
+    if (!v14)
     {
       goto LABEL_6;
     }
 
-    v17 = v23;
+    v16 = v22;
   }
 
-  sub_100002FC4(v12);
-  v19 = v18;
-  v23 = 0;
-  v20 = [v10 createDirectoryAtURL:v18 withIntermediateDirectories:1 attributes:0 error:&v23];
+  sub_100002FC4(v11);
+  v18 = v17;
+  v22 = 0;
+  v19 = [v9 createDirectoryAtURL:v17 withIntermediateDirectories:1 attributes:0 error:&v22];
 
-  v16 = v23;
-  if (v20)
+  v15 = v22;
+  if (v19)
   {
-    v21 = v23;
+    v20 = v22;
     sub_100003044();
-    v9(v7, v0);
+    v8(v6, v0);
 
     return;
   }
 
 LABEL_6:
-  v22 = v16;
+  v21 = v15;
   sub_100002FB4();
 
   swift_willThrow();
-  v9(v7, v0);
+  v8(v6, v0);
 }
 
-uint64_t type metadata accessor for STDiagnosticCollector()
+uint64_t type metadata accessor for STDiagnosticCollector(uint64_t a1)
 {
   result = qword_100008320;
   if (!qword_100008320)
@@ -718,16 +694,14 @@ uint64_t type metadata accessor for STDiagnosticCollector()
   return result;
 }
 
-uint64_t sub_100002D34()
+uint64_t sub_100002D34(uint64_t a1)
 {
   result = sub_100003004();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
-    v3 = *(result - 8) + 64;
     result = sub_100003074();
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
-      v4 = *(result - 8) + 64;
       result = swift_updateClassMetadata2();
       if (!result)
       {
@@ -745,4 +719,25 @@ uint64_t sub_100002E00(uint64_t a1, uint64_t a2)
   *(a2 + 24) = v3;
   (**(v3 - 8))(a2, a1);
   return a2;
+}
+
+void sub_100002E60(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  sub_1000015C0(&_mh_execute_header, a2, a3, "Failed to collect ScreenTime database: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100002ECC(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  sub_1000015C0(&_mh_execute_header, a2, a3, "Failed to collect DeviceActivity database: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100002F38(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  sub_1000015C0(&_mh_execute_header, a2, a3, "Failed to collect Biome streams: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }

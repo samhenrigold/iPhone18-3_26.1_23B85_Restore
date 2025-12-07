@@ -78,179 +78,159 @@ void __63__CPLProxyPushSession_commitChangeBatch_withCompletionHandler___block_i
   dispatch_async(v13, v19);
 }
 
-uint64_t __63__CPLProxyPushSession_commitChangeBatch_withCompletionHandler___block_invoke_2_2(void *a1)
+uint64_t __63__CPLProxyPushSession_commitChangeBatch_withCompletionHandler___block_invoke_2_2(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  if (a1[4])
-  {
-    if ((_CPLSilentLogging & 1) == 0)
-    {
-      v2 = __CPLProxyPushSessionOSLogDomain();
-      if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
-      {
-        v3 = a1[4];
-        v8 = 138412290;
-        v9 = v3;
-        _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEBUG, "Commiting failed with error %@", &v8, 0xCu);
-      }
-
-      v4 = a1[4];
-    }
-
-    v5 = a1[5];
-    result = (*(a1[7] + 16))();
-  }
-
-  else
-  {
-    result = __63__CPLProxyPushSession_commitChangeBatch_withCompletionHandler___block_invoke_2_2_cold_1(_CPLSilentLogging, a1);
-  }
-
   v7 = *MEMORY[0x1E69E9840];
-  return result;
+  if (!*(a1 + 32))
+  {
+    return __63__CPLProxyPushSession_commitChangeBatch_withCompletionHandler___block_invoke_2_2_cold_1(_CPLSilentLogging, a1);
+  }
+
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v2 = __CPLProxyPushSessionOSLogDomain(_CPLSilentLogging);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+    {
+      v3 = *(a1 + 32);
+      v5 = 138412290;
+      v6 = v3;
+      _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEBUG, "Commiting failed with error %@", &v5, 0xCu);
+    }
+  }
+
+  return (*(*(a1 + 56) + 16))();
 }
 
 - (void)commitChangeBatch:(id)batch withCompletionHandler:(id)handler
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   batchCopy = batch;
   handlerCopy = handler;
+  v8 = handlerCopy;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v8 = __CPLProxyPushSessionOSLogDomain();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v9 = __CPLProxyPushSessionOSLogDomain(handlerCopy);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v18 = batchCopy;
-      OUTLINED_FUNCTION_1_1(&dword_1DC05A000, v8, v9, "Comitting %@", buf);
+      v19 = batchCopy;
+      OUTLINED_FUNCTION_1_1(&dword_1DC05A000, v9, v10, "Comitting %@", buf);
     }
 
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v10 = __CPLProxyPushSessionOSLogDomain();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v12 = __CPLProxyPushSessionOSLogDomain(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         *buf = 0;
-        _os_log_impl(&dword_1DC05A000, v10, OS_LOG_TYPE_DEBUG, "Sending commit message to connection", buf, 2u);
+        _os_log_impl(&dword_1DC05A000, v12, OS_LOG_TYPE_DEBUG, "Sending commit message to connection", buf, 2u);
       }
     }
   }
 
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __63__CPLProxyPushSession_commitChangeBatch_withCompletionHandler___block_invoke;
-  v14[3] = &unk_1E861ABE0;
-  v15 = batchCopy;
-  v16 = handlerCopy;
-  v14[4] = self;
-  v11 = batchCopy;
-  v12 = handlerCopy;
-  [(CPLProxySession *)self dispatchBlockWhenLibraryIsOpen:v14];
-
-  v13 = *MEMORY[0x1E69E9840];
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __63__CPLProxyPushSession_commitChangeBatch_withCompletionHandler___block_invoke;
+  v15[3] = &unk_1E861ABE0;
+  v16 = batchCopy;
+  v17 = v8;
+  v15[4] = self;
+  v13 = batchCopy;
+  v14 = v8;
+  [(CPLProxySession *)self dispatchBlockWhenLibraryIsOpen:v15];
 }
 
 void __63__CPLProxyPushSession_commitChangeBatch_withCompletionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v3 = a2;
+  v9 = *MEMORY[0x1E69E9840];
+  v2 = a2;
+  v3 = v2;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v4 = __CPLProxyPushSessionOSLogDomain();
+    v4 = __CPLProxyPushSessionOSLogDomain(v2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      v9 = 138412290;
-      v10 = v3;
-      OUTLINED_FUNCTION_1_1(&dword_1DC05A000, v4, v5, "Commiting failed with error %@", &v9);
+      v7 = 138412290;
+      v8 = v3;
+      OUTLINED_FUNCTION_1_1(&dword_1DC05A000, v4, v5, "Commiting failed with error %@", &v7);
     }
   }
 
-  v6 = *(*(a1 + 32) + 16);
   OUTLINED_FUNCTION_0_0();
-  v7();
-
-  v8 = *MEMORY[0x1E69E9840];
+  v6();
 }
 
 void __63__CPLProxyPushSession_commitChangeBatch_withCompletionHandler___block_invoke_5(uint64_t a1)
 {
   v18 = *MEMORY[0x1E69E9840];
   v2 = [CPLErrors cplErrorWithCode:150 description:@"Exception raised while trying to send a batch to the daemon: %@", *(a1 + 32)];
+  v3 = v2;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = __CPLProxyPushSessionOSLogDomain();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v4 = __CPLProxyPushSessionOSLogDomain(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v13 = v2;
-      OUTLINED_FUNCTION_1_1(&dword_1DC05A000, v3, v4, "Commiting failed with error %@", buf);
+      v13 = v3;
+      OUTLINED_FUNCTION_1_1(&dword_1DC05A000, v4, v5, "Commiting failed with error %@", buf);
     }
 
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v5 = __CPLProxyPushSessionOSLogDomain();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v7 = __CPLProxyPushSessionOSLogDomain(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        v6 = *(a1 + 32);
-        v7 = [MEMORY[0x1E696AAF0] stringFromByteCount:objc_msgSend(*(a1 + 40) countStyle:{"estimatedBatchSize"), 1}];
-        v8 = *(a1 + 40);
+        v8 = *(a1 + 32);
+        v9 = [MEMORY[0x1E696AAF0] stringFromByteCount:objc_msgSend(*(a1 + 40) countStyle:{"estimatedBatchSize"), 1}];
+        v10 = *(a1 + 40);
         *buf = 138412802;
-        v13 = v6;
+        v13 = v8;
         v14 = 2112;
-        v15 = v7;
+        v15 = v9;
         v16 = 2112;
-        v17 = v8;
-        _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_ERROR, "Unable to send batch to daemon for commit: %@\nBatch (estimated size: %@): %@", buf, 0x20u);
+        v17 = v10;
+        _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_ERROR, "Unable to send batch to daemon for commit: %@\nBatch (estimated size: %@): %@", buf, 0x20u);
       }
     }
   }
 
-  v9 = *(*(a1 + 48) + 16);
   OUTLINED_FUNCTION_0_0();
-  v10();
-
-  v11 = *MEMORY[0x1E69E9840];
+  v11();
 }
 
 void __63__CPLProxyPushSession_commitChangeBatch_withCompletionHandler___block_invoke_8(uint64_t a1)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v2 = __CPLProxyPushSessionOSLogDomain();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+    v1 = __CPLProxyPushSessionOSLogDomain(a1);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEBUG, "Proxy has disappeared", v7, 2u);
+      *v4 = 0;
+      _os_log_impl(&dword_1DC05A000, v1, OS_LOG_TYPE_DEBUG, "Proxy has disappeared", v4, 2u);
     }
   }
 
-  v3 = *(a1 + 32);
-  v4 = +[CPLErrors libraryClosedError];
-  v5 = *(v3 + 16);
+  v2 = +[CPLErrors libraryClosedError];
   OUTLINED_FUNCTION_0_0();
-  v6();
+  v3();
 }
 
-uint64_t __63__CPLProxyPushSession_commitChangeBatch_withCompletionHandler___block_invoke_2_2_cold_1(char a1, void *a2)
+uint64_t __63__CPLProxyPushSession_commitChangeBatch_withCompletionHandler___block_invoke_2_2_cold_1(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if ((a1 & 1) == 0)
   {
-    v3 = __CPLProxyPushSessionOSLogDomain();
+    v3 = __CPLProxyPushSessionOSLogDomain(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      v5 = a2[6];
-      v10 = 138412290;
-      v11 = v5;
-      OUTLINED_FUNCTION_1_1(&dword_1DC05A000, v3, v4, "Committing succeeded with new library version: %@", &v10);
+      v5 = *(a2 + 48);
+      v7 = 138412290;
+      v8 = v5;
+      OUTLINED_FUNCTION_1_1(&dword_1DC05A000, v3, v4, "Committing succeeded with new library version: %@", &v7);
     }
   }
 
-  v6 = a2[8];
-  v7 = a2[6];
-  result = (*(a2[7] + 16))();
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a2 + 56) + 16))();
 }
 
 @end

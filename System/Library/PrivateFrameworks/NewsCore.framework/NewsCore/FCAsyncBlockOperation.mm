@@ -111,25 +111,25 @@ void __64__FCAsyncBlockOperation_asyncBlockOperationWithMainThreadBlock___block_
 
 - (FCAsyncBlockOperation)initWithBlock:(id)block
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   if (!blockCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "block"];
+    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "block"];
     *buf = 136315906;
-    v13 = "[FCAsyncBlockOperation initWithBlock:]";
-    v14 = 2080;
-    v15 = "FCAsyncBlockOperation.m";
-    v16 = 1024;
-    v17 = 45;
-    v18 = 2114;
-    v19 = v10;
+    v12 = "[FCAsyncBlockOperation initWithBlock:]";
+    v13 = 2080;
+    v14 = "FCAsyncBlockOperation.m";
+    v15 = 1024;
+    v16 = 45;
+    v17 = 2114;
+    v18 = v9;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v11.receiver = self;
-  v11.super_class = FCAsyncBlockOperation;
-  v5 = [(FCAsyncBlockOperation *)&v11 init];
+  v10.receiver = self;
+  v10.super_class = FCAsyncBlockOperation;
+  v5 = [(FCAsyncBlockOperation *)&v10 init];
   if (v5)
   {
     v6 = [blockCopy copy];
@@ -137,7 +137,6 @@ void __64__FCAsyncBlockOperation_asyncBlockOperationWithMainThreadBlock___block_
     v5->_block = v6;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

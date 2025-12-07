@@ -142,7 +142,7 @@ uint64_t __71__CBTrialSettingsProvider_registerAutoBrightnessSettingsUpdateHandl
       _os_log_impl(&dword_1DE8E5000, inited, OS_LOG_TYPE_DEFAULT, "Trial settings: %@", v10, 0xCu);
     }
 
-    longValue = [v7 longValue];
+    return [v7 longValue];
   }
 
   else
@@ -164,11 +164,8 @@ uint64_t __71__CBTrialSettingsProvider_registerAutoBrightnessSettingsUpdateHandl
       _os_log_impl(&dword_1DE8E5000, v5, OS_LOG_TYPE_DEFAULT, "Trial is not set => use default: %@", v9, 0xCu);
     }
 
-    longValue = 2;
+    return 2;
   }
-
-  *MEMORY[0x1E69E9840];
-  return longValue;
 }
 
 @end

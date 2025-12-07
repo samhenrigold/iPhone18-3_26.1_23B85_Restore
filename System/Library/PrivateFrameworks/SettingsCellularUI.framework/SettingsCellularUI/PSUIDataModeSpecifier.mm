@@ -107,7 +107,7 @@
 
 - (void)setFooterText
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   currentDevice = [MEMORY[0x277D75418] currentDevice];
   sf_isChinaRegionCellularDevice = [currentDevice sf_isChinaRegionCellularDevice];
   v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
@@ -127,53 +127,51 @@
   getLogger = [(PSUIDataModeSpecifier *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEBUG))
   {
-    v11 = 138412290;
-    v12 = v8;
-    _os_log_debug_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEBUG, "Adding Footer Text: %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v8;
+    _os_log_debug_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEBUG, "Adding Footer Text: %@", &v10, 0xCu);
   }
 
   [(PSUIDataModeSpecifier *)self setProperty:v8 forKey:*MEMORY[0x277D40118]];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)populateDrillDownSpecifiers
 {
-  v16[3] = *MEMORY[0x277D85DE8];
+  v15[3] = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   array2 = [MEMORY[0x277CBEB18] array];
   v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v6 = [v5 localizedStringForKey:@"DATA_MODE_HIGH" value:&stru_287733598 table:@"Aries"];
-  v16[0] = v6;
+  v15[0] = v6;
   v7 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v8 = [v7 localizedStringForKey:@"DATA_MODE_STANDARD" value:&stru_287733598 table:@"Aries"];
-  v16[1] = v8;
+  v15[1] = v8;
   v9 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v10 = [v9 localizedStringForKey:@"DATA_MODE_LOW" value:&stru_287733598 table:@"Aries"];
-  v16[2] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:3];
+  v15[2] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
   [array addObjectsFromArray:v11];
 
   [array2 addObjectsFromArray:&unk_287749320];
   getLogger = [(PSUIDataModeSpecifier *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEBUG))
   {
-    v14 = 138412290;
-    v15 = array;
-    _os_log_debug_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEBUG, "Adding Data Modes : %@", &v14, 0xCu);
+    v13 = 138412290;
+    v14 = array;
+    _os_log_debug_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEBUG, "Adding Data Modes : %@", &v13, 0xCu);
   }
 
   [(PSUIDataModeSpecifier *)self setValues:array2 titles:array shortTitles:array];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isHighDataModeSupported
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   ctClient = self->_ctClient;
   serviceDescriptor = self->_serviceDescriptor;
-  v12 = 0;
-  v5 = [(CoreTelephonyClient *)ctClient isHighDataModeSupported:serviceDescriptor error:&v12];
-  v6 = v12;
+  v11 = 0;
+  v5 = [(CoreTelephonyClient *)ctClient isHighDataModeSupported:serviceDescriptor error:&v11];
+  v6 = v11;
   getLogger = [(PSUIDataModeSpecifier *)self getLogger];
   v8 = getLogger;
   if (v6)
@@ -181,7 +179,7 @@
     if (os_log_type_enabled(getLogger, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v14 = v6;
+      v13 = v6;
       _os_log_error_impl(&dword_2658DE000, v8, OS_LOG_TYPE_ERROR, "Failed to get high data mode support state with error: %@", buf, 0xCu);
     }
 
@@ -197,11 +195,10 @@
     }
 
     *buf = 138412290;
-    v14 = v9;
+    v13 = v9;
     _os_log_impl(&dword_2658DE000, v8, OS_LOG_TYPE_DEFAULT, "Successfully retrieved high data mode support value : %@", buf, 0xCu);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -266,7 +263,7 @@
 
 - (void)setDataMode:(id)mode specifier:(id)specifier
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   modeCopy = mode;
   specifierCopy = specifier;
   v8 = [(PSUIDataModeSpecifier *)self getDataMode:specifierCopy];
@@ -277,10 +274,10 @@
   {
     if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEBUG))
     {
-      v20 = [(PSUIDataModeSpecifier *)self dataModeFromNumber:modeCopy];
-      v21 = 138412290;
-      v22 = v20;
-      _os_log_debug_impl(&dword_2658DE000, v11, OS_LOG_TYPE_DEBUG, "Data mode is already set to the requested state: %@", &v21, 0xCu);
+      v19 = [(PSUIDataModeSpecifier *)self dataModeFromNumber:modeCopy];
+      v20 = 138412290;
+      v21 = v19;
+      _os_log_debug_impl(&dword_2658DE000, v11, OS_LOG_TYPE_DEBUG, "Data mode is already set to the requested state: %@", &v20, 0xCu);
     }
 
     goto LABEL_18;
@@ -290,11 +287,11 @@
   {
     v12 = [(PSUIDataModeSpecifier *)self dataModeFromNumber:v8];
     v13 = [(PSUIDataModeSpecifier *)self dataModeFromNumber:modeCopy];
-    v21 = 138412546;
-    v22 = v12;
-    v23 = 2112;
-    v24 = v13;
-    _os_log_impl(&dword_2658DE000, v11, OS_LOG_TYPE_DEFAULT, "Changing data mode %@ -> %@", &v21, 0x16u);
+    v20 = 138412546;
+    v21 = v12;
+    v22 = 2112;
+    v23 = v13;
+    _os_log_impl(&dword_2658DE000, v11, OS_LOG_TYPE_DEFAULT, "Changing data mode %@ -> %@", &v20, 0x16u);
   }
 
   intValue = [modeCopy intValue];
@@ -322,22 +319,21 @@ LABEL_13:
   getLogger2 = [(PSUIDataModeSpecifier *)self getLogger];
   if (os_log_type_enabled(getLogger2, OS_LOG_TYPE_ERROR))
   {
-    LOWORD(v21) = 0;
-    _os_log_error_impl(&dword_2658DE000, getLogger2, OS_LOG_TYPE_ERROR, "Setting data mode to an unknown value", &v21, 2u);
+    LOWORD(v20) = 0;
+    _os_log_error_impl(&dword_2658DE000, getLogger2, OS_LOG_TYPE_ERROR, "Setting data mode to an unknown value", &v20, 2u);
   }
 
 LABEL_18:
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)isLowDataModeEnabled:(id)enabled
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   ctClient = self->_ctClient;
   serviceDescriptor = self->_serviceDescriptor;
-  v14 = 0;
-  v6 = [(CoreTelephonyClient *)ctClient lowDataMode:serviceDescriptor error:&v14];
-  v7 = v14;
+  v13 = 0;
+  v6 = [(CoreTelephonyClient *)ctClient lowDataMode:serviceDescriptor error:&v13];
+  v7 = v13;
   getLogger = [(PSUIDataModeSpecifier *)self getLogger];
   v9 = getLogger;
   if (v7)
@@ -345,7 +341,7 @@ LABEL_18:
     if (os_log_type_enabled(getLogger, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v16 = v7;
+      v15 = v7;
       _os_log_error_impl(&dword_2658DE000, v9, OS_LOG_TYPE_ERROR, "Failed to get low data mode state with error: %@", buf, 0xCu);
     }
 
@@ -358,21 +354,19 @@ LABEL_18:
     {
       v11 = [(PSUIDataModeSpecifier *)self lowDataModeFromBool:v6];
       *buf = 138412290;
-      v16 = v11;
+      v15 = v11;
       _os_log_impl(&dword_2658DE000, v9, OS_LOG_TYPE_DEFAULT, "Successfully retrieved low data mode state : %@", buf, 0xCu);
     }
 
     v10 = [MEMORY[0x277CCABB0] numberWithBool:v6];
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (void)setLowDataMode:(id)mode specifier:(id)specifier
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   bOOLValue = [mode BOOLValue];
   v6 = [(CoreTelephonyClient *)self->_ctClient setLowDataMode:self->_serviceDescriptor enable:bOOLValue];
   getLogger = [(PSUIDataModeSpecifier *)self getLogger];
@@ -382,11 +376,11 @@ LABEL_18:
     if (os_log_type_enabled(getLogger, OS_LOG_TYPE_ERROR))
     {
       v9 = [(PSUIDataModeSpecifier *)self lowDataModeFromBool:bOOLValue];
-      v11 = 138412546;
-      v12 = v9;
-      v13 = 2112;
-      v14 = v6;
-      _os_log_error_impl(&dword_2658DE000, v8, OS_LOG_TYPE_ERROR, "Failed to set low data mode to: %@ with error: %@", &v11, 0x16u);
+      v10 = 138412546;
+      v11 = v9;
+      v12 = 2112;
+      v13 = v6;
+      _os_log_error_impl(&dword_2658DE000, v8, OS_LOG_TYPE_ERROR, "Failed to set low data mode to: %@ with error: %@", &v10, 0x16u);
 LABEL_6:
     }
   }
@@ -394,13 +388,11 @@ LABEL_6:
   else if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
     v9 = [(PSUIDataModeSpecifier *)self lowDataModeFromBool:bOOLValue];
-    v11 = 138412290;
-    v12 = v9;
-    _os_log_impl(&dword_2658DE000, v8, OS_LOG_TYPE_DEFAULT, "Successfully set low data mode to: %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v9;
+    _os_log_impl(&dword_2658DE000, v8, OS_LOG_TYPE_DEFAULT, "Successfully set low data mode to: %@", &v10, 0xCu);
     goto LABEL_6;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)lowDataModeGroupSpecifier
@@ -415,12 +407,12 @@ LABEL_6:
 
 - (id)isInterfaceCostExpensive:(id)expensive
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   ctClient = self->_ctClient;
   serviceDescriptor = self->_serviceDescriptor;
-  v14 = 0;
-  v6 = [(CoreTelephonyClient *)ctClient interfaceCostExpensive:serviceDescriptor error:&v14];
-  v7 = v14;
+  v13 = 0;
+  v6 = [(CoreTelephonyClient *)ctClient interfaceCostExpensive:serviceDescriptor error:&v13];
+  v7 = v13;
   getLogger = [(PSUIDataModeSpecifier *)self getLogger];
   v9 = getLogger;
   if (v7)
@@ -428,7 +420,7 @@ LABEL_6:
     if (os_log_type_enabled(getLogger, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v16 = v7;
+      v15 = v7;
       _os_log_error_impl(&dword_2658DE000, v9, OS_LOG_TYPE_ERROR, "Failed to get interface cost with error: %@", buf, 0xCu);
     }
 
@@ -441,21 +433,19 @@ LABEL_6:
     {
       v11 = [(PSUIDataModeSpecifier *)self interfaceCostFromBool:v6];
       *buf = 138412290;
-      v16 = v11;
+      v15 = v11;
       _os_log_impl(&dword_2658DE000, v9, OS_LOG_TYPE_DEFAULT, "Successfully retrieved interface cost: %@", buf, 0xCu);
     }
 
     v10 = [MEMORY[0x277CCABB0] numberWithBool:v6];
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (void)setInterfaceCostExpensive:(id)expensive specifier:(id)specifier
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   bOOLValue = [expensive BOOLValue];
   v6 = [(PSUIDataModeSpecifier *)self interfaceCostFromBool:bOOLValue];
   v7 = [(CoreTelephonyClient *)self->_ctClient setInterfaceCost:self->_serviceDescriptor expensive:bOOLValue];
@@ -465,22 +455,20 @@ LABEL_6:
   {
     if (os_log_type_enabled(getLogger, OS_LOG_TYPE_ERROR))
     {
-      v11 = 138412546;
-      v12 = v6;
-      v13 = 2112;
-      v14 = v7;
-      _os_log_error_impl(&dword_2658DE000, v9, OS_LOG_TYPE_ERROR, "Failed to set interface cost to: %@ with error: %@", &v11, 0x16u);
+      v10 = 138412546;
+      v11 = v6;
+      v12 = 2112;
+      v13 = v7;
+      _os_log_error_impl(&dword_2658DE000, v9, OS_LOG_TYPE_ERROR, "Failed to set interface cost to: %@ with error: %@", &v10, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = v6;
-    _os_log_impl(&dword_2658DE000, v9, OS_LOG_TYPE_DEFAULT, "Successfully set interface cost to: %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v6;
+    _os_log_impl(&dword_2658DE000, v9, OS_LOG_TYPE_DEFAULT, "Successfully set interface cost to: %@", &v10, 0xCu);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)dataModeFromNumber:(id)number

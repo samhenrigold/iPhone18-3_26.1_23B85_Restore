@@ -28,7 +28,7 @@
 
 - (WFCurrencyQuantityFieldParameter)initWithDefinition:(id)definition
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   definitionCopy = definition;
   v5 = [definitionCopy objectForKey:@"PossibleUnits"];
   if (v5)
@@ -56,20 +56,19 @@
   {
     iSOCurrencyCodes = [MEMORY[0x1E695DF58] ISOCurrencyCodes];
 
-    v15 = @"PossibleUnits";
-    v16[0] = iSOCurrencyCodes;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+    v14 = @"PossibleUnits";
+    v15[0] = iSOCurrencyCodes;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
     v10 = [definitionCopy definitionByAddingEntriesInDictionary:v9];
 
     v7 = iSOCurrencyCodes;
     definitionCopy = v10;
   }
 
-  v14.receiver = self;
-  v14.super_class = WFCurrencyQuantityFieldParameter;
-  v11 = [(WFQuantityFieldParameter *)&v14 initWithDefinition:definitionCopy];
+  v13.receiver = self;
+  v13.super_class = WFCurrencyQuantityFieldParameter;
+  v11 = [(WFQuantityFieldParameter *)&v13 initWithDefinition:definitionCopy];
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

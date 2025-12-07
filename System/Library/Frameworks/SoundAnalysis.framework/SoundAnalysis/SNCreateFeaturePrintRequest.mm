@@ -14,9 +14,9 @@
 - (SNTimeDurationConstraint)windowDurationConstraint
 {
   selfCopy = self;
-  v3 = sub_1C997D6C4();
+  v5 = sub_1C997D6C4(selfCopy, v3, v4);
 
-  return v3;
+  return v5;
 }
 
 - (void)setOverlapFactor:(float)factor
@@ -41,7 +41,7 @@
   v4 = *&duration->var1;
   var3 = duration->var3;
   selfCopy = self;
-  sub_1C997DC00(var0, v4, var3);
+  sub_1C997DC00(var0, v4, var3, v6);
 }
 
 - (id)copyWithZone:(void *)zone
@@ -73,7 +73,7 @@
 
   v6 = SNCreateFeaturePrintRequest.isEqual(_:)(v8);
 
-  sub_1C97DA1E0(v8, &unk_1EC3C5E60);
+  sub_1C97DA1E0(v8, &unk_1EC3C5E60, qword_1C9A9AE10);
   return v6;
 }
 

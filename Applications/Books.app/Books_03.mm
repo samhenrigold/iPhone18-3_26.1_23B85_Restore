@@ -1,3 +1,45 @@
+void sub_10007A280(uint64_t a1)
+{
+  v2 = [NSUserDefaults alloc];
+  v5 = [*(a1 + 32) _iBooksContainerURL];
+  v3 = [v2 _initWithSuiteName:@"com.apple.iBooks.indexing" container:v5];
+  v4 = qword_100AF7488;
+  qword_100AF7488 = v3;
+}
+
+void sub_10007A998(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  v5 = *(a1 + 32);
+  v4 = *(a1 + 40);
+  v6 = *(v5 + 40);
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_10007AAF4;
+  block[3] = &unk_100A03440;
+  block[4] = v5;
+  v16 = v4;
+  dispatch_sync(v6, block);
+  v7 = *(a1 + 32);
+  v8 = *(v7 + 24);
+  v13[0] = _NSConcreteStackBlock;
+  v13[1] = 3221225472;
+  v13[2] = sub_10007ABB4;
+  v13[3] = &unk_100A03440;
+  v13[4] = v7;
+  v14 = v3;
+  v9 = v3;
+  dispatch_async(v8, v13);
+  v10 = *(a1 + 32);
+  v11 = *(v10 + 24);
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = sub_10007B154;
+  v12[3] = &unk_100A033C8;
+  v12[4] = v10;
+  dispatch_async(v11, v12);
+}
+
 void sub_10007AAF4(uint64_t a1)
 {
   objc_storeStrong((*(a1 + 32) + 8), *(a1 + 40));
@@ -101,9 +143,9 @@ void sub_10007ABB4(uint64_t a1)
   }
 }
 
-void sub_10007AF54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_10007AF54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -734,11 +776,12 @@ LABEL_15:
   _Block_object_dispose(&v36, 8);
 }
 
-void sub_10007DE5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35)
+void sub_10007DE5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
 {
-  _Block_object_dispose(&a35, 8);
-  _Block_object_dispose((v35 - 144), 8);
-  _Block_object_dispose((v35 - 96), 8);
+  va_start(va, a34);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v34 - 144), 8);
+  _Block_object_dispose((v34 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -920,10 +963,11 @@ void sub_10007E6F0(id *a1, void *a2)
   }
 }
 
-void sub_10007E930(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10007E930(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x16u);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
 void sub_10007ED7C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
@@ -1068,9 +1112,9 @@ void sub_100080430(uint64_t a1)
   }
 }
 
-void sub_1000805E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000805E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1083,9 +1127,9 @@ void sub_1000805F8(uint64_t a1)
   *(v3 + 40) = v2;
 }
 
-void sub_100080794(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100080794(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1142,9 +1186,9 @@ void sub_100080B88(uint64_t a1, uint64_t a2)
   [v6 updateItemWithIdentifier:*(a1 + 40) state:v7];
 }
 
-void sub_100081414(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100081414(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1250,9 +1294,9 @@ void sub_100081B90(uint64_t a1)
   }
 }
 
-void sub_100081D48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100081D48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1276,7 +1320,7 @@ void sub_100081D60(uint64_t a1)
   *(v8 + 32) = 0;
 }
 
-uint64_t sub_100083BBC()
+uint64_t sub_100083BBC(double a1, double a2)
 {
   CGRectMakeWithSize();
 
@@ -1510,9 +1554,9 @@ void sub_100088B4C(uint64_t a1)
   qword_100AF74A0 = v1;
 }
 
-void sub_100088DF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100088DF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1581,16 +1625,16 @@ void sub_100089AA8(uint64_t a1)
   UIAccessibilityPostNotification(v2, v3);
 }
 
-id sub_100089C18()
+id sub_100089C18(uint64_t a1)
 {
   if (qword_100AF74B8 != -1)
   {
     sub_10078B39C();
   }
 
-  v1 = qword_100AF74B0;
+  v2 = qword_100AF74B0;
 
-  return v1;
+  return v2;
 }
 
 void sub_100089C5C(id a1)
@@ -1837,7 +1881,7 @@ id sub_10008AE14(uint64_t a1, double a2, double a3)
     v6 = BCImageCacheLog();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_10078B3B0();
+      sub_10078B3B0(v6, v7, v8);
     }
 
     BCReportAssertionFailureWithMessage();
@@ -1845,18 +1889,18 @@ id sub_10008AE14(uint64_t a1, double a2, double a3)
 
   if (a2 <= 0.0 || a3 <= 0.0)
   {
-    v7 = +[UIScreen mainScreen];
-    [v7 bounds];
-    a2 = v8;
-    a3 = v9;
+    v9 = +[UIScreen mainScreen];
+    [v9 bounds];
+    a2 = v10;
+    a3 = v11;
   }
 
-  v10 = [*(a1 + 32) _bookFlowAssetPresentingForShowAssetAction:*(a1 + 40)];
-  v11 = [v10 presenterFirstVisibleChildConformingToProtocol:&OBJC_PROTOCOL___BCUCoverEffectsEnvironment];
-  v12 = [BKLibraryManager fetchImageForAsset:*(a1 + 48) size:1 includeSpine:1 allowGeneric:v11 coverEffectsEnvironment:a2 timeout:a3, 0.01];
-  v13 = +[UIImage imageWithCGImage:](UIImage, "imageWithCGImage:", [v12 CGImage]);
+  v12 = [*(a1 + 32) _bookFlowAssetPresentingForShowAssetAction:*(a1 + 40)];
+  v13 = [v12 presenterFirstVisibleChildConformingToProtocol:&OBJC_PROTOCOL___BCUCoverEffectsEnvironment];
+  v14 = [BKLibraryManager fetchImageForAsset:*(a1 + 48) size:1 includeSpine:1 allowGeneric:v13 coverEffectsEnvironment:a2 timeout:a3, 0.01];
+  v15 = +[UIImage imageWithCGImage:](UIImage, "imageWithCGImage:", [v14 CGImage]);
 
-  return v13;
+  return v15;
 }
 
 void sub_10008B898(_Unwind_Exception *a1)
@@ -1871,7 +1915,7 @@ void sub_10008B8C8(uint64_t a1, void *a2)
 {
   objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
   v4 = a2;
-  v5 = sub_100089C18();
+  v5 = sub_100089C18(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -1885,7 +1929,7 @@ void sub_10008B964(uint64_t a1, void *a2)
 {
   objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
   v4 = a2;
-  v5 = sub_100089C18();
+  v5 = sub_100089C18(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -1903,11 +1947,11 @@ void sub_10008BA00(uint64_t a1, void *a2)
   v6 = *(v5 + 40);
   *(v5 + 40) = v4;
 
-  v7 = sub_100089C18();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = sub_100089C18(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    *v8 = 0;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "_obtainImageForAsset: got shadow", v8, 2u);
+    *v9 = 0;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "_obtainImageForAsset: got shadow", v9, 2u);
   }
 
   dispatch_group_leave(*(a1 + 32));
@@ -1915,7 +1959,7 @@ void sub_10008BA00(uint64_t a1, void *a2)
 
 void sub_10008BAC0(uint64_t a1)
 {
-  v2 = sub_100089C18();
+  v2 = sub_100089C18(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v9 = 0;
@@ -2566,7 +2610,7 @@ void sub_100090CFC(uint64_t a1, int a2)
 void sub_100090D70(uint64_t a1)
 {
   v2 = [*(a1 + 32) _bookFlowAssetPresentingForShowAssetAction:*(a1 + 40)];
-  v3 = sub_100089C18();
+  v3 = sub_100089C18(v2);
   v4 = v3;
   if (v2)
   {
@@ -2574,52 +2618,52 @@ void sub_100090D70(uint64_t a1)
     {
       v5 = *(a1 + 48);
       *buf = 141558274;
-      v20 = 1752392040;
-      v21 = 2112;
-      v22 = v5;
+      v22 = 1752392040;
+      v23 = 2112;
+      v24 = v5;
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "showAssetWithTransaction step 4: presenterWaitForAssetPresenterTransitionsToFinishIfNeededWithCompletion begin. assetID: %{mask.hash}@", buf, 0x16u);
     }
 
-    v14[0] = _NSConcreteStackBlock;
-    v14[1] = 3221225472;
-    v14[2] = sub_100090F68;
-    v14[3] = &unk_100A05240;
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_100090F68;
+    v16[3] = &unk_100A05240;
     v6 = *(a1 + 48);
-    v13 = *(a1 + 32);
-    v7 = v13.i64[1];
+    v15 = *(a1 + 32);
+    v7 = v15.i64[1];
     v8 = *(a1 + 56);
     v9.i64[0] = v6;
     v9.i64[1] = v8;
-    v10 = vzip2q_s64(v13, v9);
-    v9.i64[1] = v13.i64[0];
-    v15 = v9;
-    v16 = v10;
-    v17 = *(a1 + 64);
-    v18 = *(a1 + 72);
-    [v2 presenterWaitForAssetPresenterTransitionsToFinishIfNeededWithCompletion:v14];
+    v10 = vzip2q_s64(v15, v9);
+    v9.i64[1] = v15.i64[0];
+    v17 = v9;
+    v18 = v10;
+    v19 = *(a1 + 64);
+    v20 = *(a1 + 72);
+    [v2 presenterWaitForAssetPresenterTransitionsToFinishIfNeededWithCompletion:v16];
 
-    v11 = v15.i64[0];
+    v11 = v17.i64[0];
   }
 
   else
   {
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      sub_10078B628();
+      sub_10078B628(v4, v12, v13);
     }
 
-    v12 = objc_retainBlock(*(a1 + 72));
-    v11 = v12;
-    if (v12)
+    v14 = objc_retainBlock(*(a1 + 72));
+    v11 = v14;
+    if (v14)
     {
-      (*(v12 + 2))(v12, 0, 0, 0);
+      (*(v14 + 2))(v14, 0, 0, 0);
     }
   }
 }
 
 id sub_100090F68(uint64_t a1)
 {
-  v2 = sub_100089C18();
+  v2 = sub_100089C18(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -2647,37 +2691,38 @@ void sub_100091034(id *a1, void *a2)
     if ((v7 & 1) == 0)
     {
 
-      v8 = sub_100089C18();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = sub_100089C18(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = a1[5];
-        v10 = [a1[6] objectForKeyedSubscript:AEAssetLogID];
+        v10 = a1[5];
+        v11 = [a1[6] objectForKeyedSubscript:AEAssetLogID];
         *buf = 141558530;
-        v22 = 1752392040;
-        v23 = 2112;
-        v24 = v9;
-        v25 = 2114;
+        v24 = 1752392040;
+        v25 = 2112;
         v26 = v10;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "showAssetWithTransaction step 3: asset %{mask.hash}@ is explicit which is not allowed logID: %{public}@", buf, 0x20u);
+        v27 = 2114;
+        v28 = v11;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "showAssetWithTransaction step 3: asset %{mask.hash}@ is explicit which is not allowed logID: %{public}@", buf, 0x20u);
       }
 
       v3 = 0;
     }
   }
 
-  v11 = [v3 streamable];
-  v12 = sub_100089C18();
-  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
-  if (v11)
+  v12 = [v3 streamable];
+  v13 = v12;
+  v14 = sub_100089C18(v12);
+  v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+  if (v13)
   {
-    if (v13)
+    if (v15)
     {
-      v14 = a1[5];
+      v16 = a1[5];
       *buf = 141558274;
-      v22 = 1752392040;
-      v23 = 2112;
-      v24 = v14;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "showAssetWithTransaction step 3: asset is streamable. assetID: %{mask.hash}@", buf, 0x16u);
+      v24 = 1752392040;
+      v25 = 2112;
+      v26 = v16;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "showAssetWithTransaction step 3: asset is streamable. assetID: %{mask.hash}@", buf, 0x16u);
     }
 
     (*(a1[7] + 2))();
@@ -2685,52 +2730,52 @@ void sub_100091034(id *a1, void *a2)
 
   else
   {
-    if (v13)
+    if (v15)
     {
-      v15 = a1[5];
-      v16 = [v3 title];
+      v17 = a1[5];
+      v18 = [v3 title];
       *buf = 141558786;
-      v22 = 1752392040;
-      v23 = 2112;
-      v24 = v15;
-      v25 = 2160;
-      v26 = 1752392040;
-      v27 = 2112;
-      v28 = v16;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "showAssetWithTransaction step 3: resolveLibraryAsset begin. assetID: %{mask.hash}@ title: %{mask.hash}@", buf, 0x2Au);
+      v24 = 1752392040;
+      v25 = 2112;
+      v26 = v17;
+      v27 = 2160;
+      v28 = 1752392040;
+      v29 = 2112;
+      v30 = v18;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "showAssetWithTransaction step 3: resolveLibraryAsset begin. assetID: %{mask.hash}@ title: %{mask.hash}@", buf, 0x2Au);
     }
 
-    v17 = [a1[4] libraryAssetProvider];
-    v18[0] = _NSConcreteStackBlock;
-    v18[1] = 3221225472;
-    v18[2] = sub_100091310;
-    v18[3] = &unk_100A05290;
-    v19 = a1[5];
-    v20 = a1[7];
-    [v17 resolveLibraryAsset:v3 completion:v18];
+    v19 = [a1[4] libraryAssetProvider];
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = sub_100091310;
+    v20[3] = &unk_100A05290;
+    v21 = a1[5];
+    v22 = a1[7];
+    [v19 resolveLibraryAsset:v3 completion:v20];
   }
 }
 
 void sub_100091310(uint64_t a1, uint64_t a2, int a3, void *a4)
 {
   v6 = a4;
-  v7 = sub_100089C18();
+  v7 = sub_100089C18(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = *(a1 + 32);
     *buf = 141558530;
-    v17 = 1752392040;
-    v18 = 2112;
-    v19 = v8;
-    v20 = 2112;
-    v21 = v6;
+    v18 = 1752392040;
+    v19 = 2112;
+    v20 = v8;
+    v21 = 2112;
+    v22 = v6;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "showAssetWithTransaction step 3: resolveLibraryAsset end. assetID: %{mask.hash}@ error: %@", buf, 0x20u);
   }
 
   if (v6)
   {
-    v9 = sub_100089C18();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = sub_100089C18(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_10078B668();
     }
@@ -2738,33 +2783,33 @@ void sub_100091310(uint64_t a1, uint64_t a2, int a3, void *a4)
 
   else if (a3)
   {
-    v10 = +[BKLibraryManager defaultManager];
-    v14[0] = _NSConcreteStackBlock;
-    v14[1] = 3221225472;
-    v14[2] = sub_100091548;
-    v14[3] = &unk_100A03920;
-    v15 = *(a1 + 40);
-    [v10 addCustomOperationBlock:v14];
+    v11 = +[BKLibraryManager defaultManager];
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = sub_100091548;
+    v15[3] = &unk_100A03920;
+    v16 = *(a1 + 40);
+    [v11 addCustomOperationBlock:v15];
 
-    v9 = v15;
+    v10 = v16;
   }
 
   else
   {
-    v11 = sub_100089C18();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_100089C18(v9);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "showAssetWithTransaction step 3: done with didResolve=NO", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "showAssetWithTransaction step 3: done with didResolve=NO", buf, 2u);
     }
 
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = sub_1000915DC;
-    v12[3] = &unk_100A03920;
-    v13 = *(a1 + 40);
-    dispatch_async(&_dispatch_main_q, v12);
-    v9 = v13;
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_1000915DC;
+    v13[3] = &unk_100A03920;
+    v14 = *(a1 + 40);
+    dispatch_async(&_dispatch_main_q, v13);
+    v10 = v14;
   }
 }
 
@@ -2804,7 +2849,7 @@ void sub_1000915EC(uint64_t a1, void *a2)
 
   else
   {
-    v5 = sub_100089C18();
+    v5 = sub_100089C18(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_10078B6E0();
@@ -2848,7 +2893,7 @@ void sub_100091748(uint64_t a1, int a2)
 
   else
   {
-    v5 = sub_100089C18();
+    v5 = sub_100089C18(a1);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_10078B758();
@@ -2868,19 +2913,19 @@ void sub_1000918A8(uint64_t a1)
   v2 = [*(a1 + 32) libraryAssetProvider];
   v3 = [v2 libraryAssetOnMainQueueWithAssetIdentifier:*(a1 + 40)];
 
-  (*(*(a1 + 48) + 16))();
-  v4 = sub_100089C18();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v4 = (*(*(a1 + 48) + 16))();
+  v5 = sub_100089C18(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "showAssetWithTransaction step 1: libraryAsset: %@", &v6, 0xCu);
+    v8 = 138412290;
+    v9 = v3;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "showAssetWithTransaction step 1: libraryAsset: %@", &v8, 0xCu);
   }
 
-  v5 = sub_100089C18();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+  v7 = sub_100089C18(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
   {
-    sub_10078B7D0(v5);
+    sub_10078B7D0(v7);
   }
 }
 
@@ -2888,7 +2933,7 @@ void sub_100091D10(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
   v7 = a3;
   v8 = a4;
-  v9 = sub_100089C18();
+  v9 = sub_100089C18(v8);
   v10 = v9;
   if (a2)
   {
@@ -2931,7 +2976,7 @@ id sub_100091E54(uint64_t a1, uint64_t a2)
 
 void sub_100091F30(uint64_t a1)
 {
-  v2 = sub_100089C18();
+  v2 = sub_100089C18(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) assetID];
@@ -2962,41 +3007,42 @@ void sub_1000920BC(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v5)
   {
-    v7 = [v5 url];
-    v8 = sub_100089C18();
-    v9 = v8;
-    if (v7)
+    v8 = [v5 url];
+    v9 = sub_100089C18(v8);
+    v10 = v9;
+    if (v8)
     {
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = [v5 assetID];
-        v11 = *(a1 + 32);
-        v15 = 141559042;
-        v16 = 1752392040;
-        v17 = 2112;
-        v18 = v10;
-        v19 = 2160;
-        v20 = 1752392040;
-        v21 = 2112;
-        v22 = v7;
-        v23 = 2112;
-        v24 = v11;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "_openPDFAsset: Launching Preview. assetID: %{mask.hash}@ url: %{mask.hash}@, dataSource: %@", &v15, 0x34u);
+        v11 = [v5 assetID];
+        v12 = *(a1 + 32);
+        v16 = 141559042;
+        v17 = 1752392040;
+        v18 = 2112;
+        v19 = v11;
+        v20 = 2160;
+        v21 = 1752392040;
+        v22 = 2112;
+        v23 = v8;
+        v24 = 2112;
+        v25 = v12;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "_openPDFAsset: Launching Preview. assetID: %{mask.hash}@ url: %{mask.hash}@, dataSource: %@", &v16, 0x34u);
       }
 
-      v12 = *(a1 + 40);
-      v13 = [v5 assetID];
-      v14 = +[NSDate date];
-      [v12 updateLibraryAssetWithID:v13 withLastOpenDate:v14 completion:0];
+      v13 = *(a1 + 40);
+      v14 = [v5 assetID];
+      v15 = +[NSDate date];
+      [v13 updateLibraryAssetWithID:v14 withLastOpenDate:v15 completion:0];
 
       [+[BCAppKitBundleLoader appKitBundleClass](BCAppKitBundleLoader "appKitBundleClass")];
     }
 
     else
     {
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         sub_10078B9F0(v5);
       }
@@ -3005,8 +3051,8 @@ void sub_1000920BC(uint64_t a1, void *a2, void *a3)
 
   else
   {
-    v7 = sub_100089C18();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = sub_100089C18(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_10078BA98();
     }
@@ -3031,7 +3077,7 @@ id sub_100092928(uint64_t a1)
 void sub_100092980(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_100089C18();
+  v4 = sub_100089C18(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
@@ -3079,7 +3125,7 @@ void sub_100092980(uint64_t a1, void *a2)
 
 void sub_100092BF0(uint64_t a1)
 {
-  v2 = sub_100089C18();
+  v2 = sub_100089C18(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -3089,24 +3135,24 @@ void sub_100092BF0(uint64_t a1)
     *&buf[12] = 2112;
     *&buf[14] = v3;
     *&buf[22] = 2114;
-    v174 = v4;
+    v176 = v4;
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "_showAssetWithoutStateRestoration: Committing the show asset transaction. assetID: %{mask.hash}@ logID: %{public}@", buf, 0x20u);
   }
 
   objc_opt_class();
   v5 = [*(a1 + 48) objectForKeyedSubscript:@"BKBookPresentingUseLargeCoverIfNeeded"];
   v6 = BUDynamicCast();
-  v85 = [v6 BOOLValue];
+  v87 = [v6 BOOLValue];
 
   objc_opt_class();
   v7 = [*(a1 + 48) objectForKeyedSubscript:@"BKBookPresentingForceLargeCover"];
   v8 = BUDynamicCast();
-  v90 = [v8 BOOLValue];
+  v92 = [v8 BOOLValue];
 
   objc_opt_class();
   v9 = [*(a1 + 48) objectForKeyedSubscript:@"BKBookPresentingCanPresentOverStore"];
   v10 = BUDynamicCast();
-  v87 = [v10 BOOLValue];
+  v89 = [v10 BOOLValue];
 
   objc_opt_class();
   v11 = [*(a1 + 48) objectForKeyedSubscript:@"BKBookPresentingSkipExistingPresenterCheck"];
@@ -3116,17 +3162,17 @@ void sub_100092BF0(uint64_t a1)
   objc_opt_class();
   v14 = [*(a1 + 48) objectForKeyedSubscript:@"BKBookPresentingResetLocationForMiniToFullTransition"];
   v15 = BUDynamicCast();
-  v86 = [v15 BOOLValue];
+  v88 = [v15 BOOLValue];
 
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v174 = sub_100093CD0;
-  v175 = sub_100093CFC;
-  v163[0] = _NSConcreteStackBlock;
-  v163[1] = 3221225472;
-  v163[2] = sub_100093D04;
-  v163[3] = &unk_100A05438;
+  v176 = sub_100093CD0;
+  v177 = sub_100093CFC;
+  v165[0] = _NSConcreteStackBlock;
+  v165[1] = 3221225472;
+  v165[2] = sub_100093D04;
+  v165[3] = &unk_100A05438;
   v16 = *(a1 + 32);
   v17 = *(a1 + 40);
   v18 = *(a1 + 56);
@@ -3135,64 +3181,64 @@ void sub_100092BF0(uint64_t a1)
   *(&v20 + 1) = *(a1 + 64);
   *&v21 = v16;
   *(&v21 + 1) = v17;
-  v164 = v21;
-  v165 = v20;
-  v168 = *(a1 + 144);
-  v167 = *(a1 + 120);
-  v166 = v19;
-  v176 = objc_retainBlock(v163);
-  v157 = 0;
-  v158 = &v157;
-  v159 = 0x3032000000;
-  v160 = sub_100093CD0;
-  v161 = sub_100093CFC;
-  v152[0] = _NSConcreteStackBlock;
-  v152[1] = 3221225472;
-  v152[2] = sub_100093F84;
-  v152[3] = &unk_100A05488;
+  v166 = v21;
+  v167 = v20;
+  v170 = *(a1 + 144);
+  v169 = *(a1 + 120);
+  v168 = v19;
+  v178 = objc_retainBlock(v165);
+  v159 = 0;
+  v160 = &v159;
+  v161 = 0x3032000000;
+  v162 = sub_100093CD0;
+  v163 = sub_100093CFC;
+  v154[0] = _NSConcreteStackBlock;
+  v154[1] = 3221225472;
+  v154[2] = sub_100093F84;
+  v154[3] = &unk_100A05488;
   v22 = *(a1 + 32);
   v23 = *(a1 + 40);
-  v92 = *(a1 + 64);
+  v94 = *(a1 + 64);
   v24 = *(a1 + 72);
   *&v25 = v22;
   *(&v25 + 1) = v23;
-  v153 = v25;
-  v154 = v92;
-  v155 = *(a1 + 80);
-  v156 = *(a1 + 104);
-  v162 = objc_retainBlock(v152);
-  v149[0] = _NSConcreteStackBlock;
-  v149[1] = 3221225472;
-  v149[2] = sub_100094304;
-  v149[3] = &unk_100A054B0;
+  v155 = v25;
+  v156 = v94;
+  v157 = *(a1 + 80);
+  v158 = *(a1 + 104);
+  v164 = objc_retainBlock(v154);
+  v151[0] = _NSConcreteStackBlock;
+  v151[1] = 3221225472;
+  v151[2] = sub_100094304;
+  v151[3] = &unk_100A054B0;
   v26 = *(a1 + 56);
   v27 = *(a1 + 64);
-  v150 = v26;
-  v151 = v27;
-  v93 = objc_retainBlock(v149);
+  v152 = v26;
+  v153 = v27;
+  v95 = objc_retainBlock(v151);
   v28 = [*(a1 + 40) objectForKeyedSubscript:AEAudioBookForceAudiobookPlayIfCurrentAsset];
   v29 = [v28 BOOLValue];
 
-  v147[0] = _NSConcreteStackBlock;
-  v147[1] = 3221225472;
-  v147[2] = sub_100094374;
-  v147[3] = &unk_100A054D0;
-  v148 = v29;
-  v91 = objc_retainBlock(v147);
+  v149[0] = _NSConcreteStackBlock;
+  v149[1] = 3221225472;
+  v149[2] = sub_100094374;
+  v149[3] = &unk_100A054D0;
+  v150 = v29;
+  v93 = objc_retainBlock(v149);
   if (!*(a1 + 72) && *(a1 + 145) == 1 && *(*(*(a1 + 128) + 8) + 40) && [*(a1 + 64) _isPresenterAudiobook:?] && objc_msgSend(*(*(*(a1 + 136) + 8) + 40), "count") >= 2)
   {
-    v89 = *(*(*(a1 + 128) + 8) + 40);
+    v91 = *(*(*(a1 + 128) + 8) + 40);
   }
 
   else if (*(*(*(a1 + 128) + 8) + 40) && [*(a1 + 64) _isPresenterAudiobook:?] && !*(a1 + 72) && objc_msgSend(*(*(*(a1 + 136) + 8) + 40), "count") >= 2)
   {
-    v89 = [*(*(*(a1 + 136) + 8) + 40) objectAtIndexedSubscript:{objc_msgSend(*(*(*(a1 + 136) + 8) + 40), "count") - 2}];
-    v90 = 1;
+    v91 = [*(*(*(a1 + 136) + 8) + 40) objectAtIndexedSubscript:{objc_msgSend(*(*(*(a1 + 136) + 8) + 40), "count") - 2}];
+    v92 = 1;
   }
 
   else
   {
-    v89 = 0;
+    v91 = 0;
   }
 
   v30 = [*(a1 + 32) permanentOrTemporaryAssetID];
@@ -3204,7 +3250,7 @@ void sub_100092BF0(uint64_t a1)
 
   v34 = (*(*(a1 + 112) + 16))();
   v35 = v30 ^ 1;
-  v36 = (v30 ^ 1) & v90 & (v32 ^ 1 | v13);
+  v36 = (v30 ^ 1) & v92 & (v32 ^ 1 | v13);
   if (([v34 canOpen] & 1) == 0 && ((objc_msgSend(v34, "isCloud") & 1) != 0 || objc_msgSend(v34, "isDownloading")))
   {
     v36 = 1;
@@ -3215,102 +3261,102 @@ void sub_100092BF0(uint64_t a1)
 
   if (v38)
   {
-    v39 = 1;
+    v40 = 1;
   }
 
   else
   {
-    v40 = [*(a1 + 40) objectForKeyedSubscript:@"BKBookPresentWithoutCloseAnimation"];
-    v39 = [v40 BOOLValue];
+    v41 = [*(a1 + 40) objectForKeyedSubscript:@"BKBookPresentWithoutCloseAnimation"];
+    v40 = [v41 BOOLValue];
   }
 
-  v41 = *(a1 + 72);
-  if (v41 && (*(a1 + 146) & 1) == 0)
+  v42 = *(a1 + 72);
+  if (v42 && (*(a1 + 146) & 1) == 0)
   {
-    if (v41 != *(*(*(a1 + 128) + 8) + 40))
+    if (v42 != *(*(*(a1 + 128) + 8) + 40))
     {
-      v69 = *(a1 + 64);
-      v140[0] = _NSConcreteStackBlock;
-      v140[1] = 3221225472;
-      v140[2] = sub_100094410;
-      v140[3] = &unk_100A05520;
-      v141 = *(a1 + 88);
-      v142 = *(a1 + 72);
-      v146 = v29;
-      v143 = *(a1 + 56);
-      v144 = v91;
-      v145 = &v157;
-      [v69 _popToPresenterIfNeeded:v41 completion:v140];
+      v71 = *(a1 + 64);
+      v142[0] = _NSConcreteStackBlock;
+      v142[1] = 3221225472;
+      v142[2] = sub_100094410;
+      v142[3] = &unk_100A05520;
+      v143 = *(a1 + 88);
+      v144 = *(a1 + 72);
+      v148 = v29;
+      v145 = *(a1 + 56);
+      v146 = v93;
+      v147 = &v159;
+      [v71 _popToPresenterIfNeeded:v42 completion:v142];
 
       goto LABEL_63;
     }
 
     if (*(a1 + 88) || *(a1 + 145) == 1)
     {
-      v75 = sub_100089C18();
-      if (os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
+      v77 = sub_100089C18(v39);
+      if (os_log_type_enabled(v77, OS_LOG_TYPE_DEFAULT))
       {
-        v76 = *(a1 + 88);
-        v77 = v38 ^ 1;
-        *v169 = 138543618;
-        v170 = v76;
-        v171 = 1024;
-        LODWORD(v172) = v77;
-        _os_log_impl(&_mh_execute_header, v75, OS_LOG_TYPE_DEFAULT, "_showAssetWithoutStateRestoration: Reusing current audiobook presenter with new location:%{public}@ animated:%u", v169, 0x12u);
+        v78 = *(a1 + 88);
+        v79 = v38 ^ 1;
+        *v171 = 138543618;
+        v172 = v78;
+        v173 = 1024;
+        LODWORD(v174) = v79;
+        _os_log_impl(&_mh_execute_header, v77, OS_LOG_TYPE_DEFAULT, "_showAssetWithoutStateRestoration: Reusing current audiobook presenter with new location:%{public}@ animated:%u", v171, 0x12u);
       }
 
       else
       {
-        v77 = v38 ^ 1;
+        v79 = v38 ^ 1;
       }
 
-      [*(a1 + 72) assetPresenterOpenToLocation:*(a1 + 88) animated:v77];
-      v83 = [*(a1 + 72) assetPresenterAssetViewController];
-      (v91[2])(v91, v83);
+      [*(a1 + 72) assetPresenterOpenToLocation:*(a1 + 88) animated:v79];
+      v85 = [*(a1 + 72) assetPresenterAssetViewController];
+      (v93[2])(v93, v85);
     }
 
-    v84 = objc_retainBlock(v158[5]);
-    v80 = v84;
-    if (v84)
+    v86 = objc_retainBlock(v160[5]);
+    v82 = v86;
+    if (v86)
     {
-      (*(v84 + 2))(v84, 1, 0, 0);
+      (*(v86 + 2))(v86, 1, 0, 0);
     }
 
     goto LABEL_62;
   }
 
-  v42 = *(*(*(a1 + 128) + 8) + 40);
-  if (v42 && (*(a1 + 147) & 1) == 0)
+  v43 = *(*(*(a1 + 128) + 8) + 40);
+  if (v43 && (*(a1 + 147) & 1) == 0)
   {
-    v43 = (v93[2])();
-    if (v89)
+    v44 = (v95[2])();
+    if (v91)
     {
-      v44 = 1;
+      v45 = 1;
     }
 
     else
     {
-      v44 = v43;
+      v45 = v44;
     }
 
-    if (v44 == 1)
+    if (v45 == 1)
     {
-      v42 = *(*(*(a1 + 128) + 8) + 40);
+      v43 = *(*(*(a1 + 128) + 8) + 40);
       goto LABEL_31;
     }
 
-    v78 = sub_100089C18();
-    if (os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT))
+    v80 = sub_100089C18(v44);
+    if (os_log_type_enabled(v80, OS_LOG_TYPE_DEFAULT))
     {
-      *v169 = 0;
-      _os_log_impl(&_mh_execute_header, v78, OS_LOG_TYPE_DEFAULT, "_showAssetWithoutStateRestoration: Nothing to do", v169, 2u);
+      *v171 = 0;
+      _os_log_impl(&_mh_execute_header, v80, OS_LOG_TYPE_DEFAULT, "_showAssetWithoutStateRestoration: Nothing to do", v171, 2u);
     }
 
-    v79 = objc_retainBlock(*(*&buf[8] + 40));
-    v80 = v79;
-    if (v79)
+    v81 = objc_retainBlock(*(*&buf[8] + 40));
+    v82 = v81;
+    if (v81)
     {
-      (*(v79 + 2))(v79, 0, 0, 0);
+      (*(v81 + 2))(v81, 0, 0, 0);
     }
 
 LABEL_62:
@@ -3319,155 +3365,156 @@ LABEL_62:
   }
 
 LABEL_31:
-  if (((v93[2])(v93, v42) & 1) == 0 && ((v36 & 1) != 0 || (v35 & v85) != 0 && [*(a1 + 64) _shouldOpenBookUsingLargeCover:*(a1 + 96)]))
+  v46 = (v95[2])(v95, v43);
+  if ((v46 & 1) == 0 && ((v36 & 1) != 0 || (v35 & v87) != 0 && (v46 = [*(a1 + 64) _shouldOpenBookUsingLargeCover:*(a1 + 96)], v46)))
   {
-    if (v89)
+    if (v91)
     {
-      v70 = +[(BKBasePresentingViewController *)BKAssetPresentingViewController];
-      v71 = [*(a1 + 64) _largeCoverViewControllerForBook:v34 options:*(a1 + 48) transaction:*(a1 + 96) minifiedPresenter:*(a1 + 56) holdAnimationAssertion:v70];
-      v134[0] = _NSConcreteStackBlock;
-      v134[1] = 3221225472;
-      v134[2] = sub_100094694;
-      v134[3] = &unk_100A05598;
-      v72 = *(a1 + 96);
-      v73 = *(a1 + 64);
-      v135 = v72;
-      v136 = v73;
-      v137 = v89;
-      v74 = v70;
-      v138 = v74;
-      v139 = buf;
-      [v71 get:v134];
+      v72 = +[(BKBasePresentingViewController *)BKAssetPresentingViewController];
+      v73 = [*(a1 + 64) _largeCoverViewControllerForBook:v34 options:*(a1 + 48) transaction:*(a1 + 96) minifiedPresenter:*(a1 + 56) holdAnimationAssertion:v72];
+      v136[0] = _NSConcreteStackBlock;
+      v136[1] = 3221225472;
+      v136[2] = sub_100094694;
+      v136[3] = &unk_100A05598;
+      v74 = *(a1 + 96);
+      v75 = *(a1 + 64);
+      v137 = v74;
+      v138 = v75;
+      v139 = v91;
+      v76 = v72;
+      v140 = v76;
+      v141 = buf;
+      [v73 get:v136];
     }
 
     else
     {
-      v81 = *(a1 + 96);
-      v127[0] = _NSConcreteStackBlock;
-      v127[1] = 3221225472;
-      v127[2] = sub_100094994;
-      v127[3] = &unk_100A055E8;
-      v82 = *(a1 + 64);
-      v132 = *(a1 + 120);
-      v127[4] = v82;
-      v128 = v81;
-      v129 = v34;
-      v130 = *(a1 + 48);
-      v131 = *(a1 + 56);
-      v133 = buf;
-      [v128 requireTargetSceneController:v127];
+      v83 = *(a1 + 96);
+      v129[0] = _NSConcreteStackBlock;
+      v129[1] = 3221225472;
+      v129[2] = sub_100094994;
+      v129[3] = &unk_100A055E8;
+      v84 = *(a1 + 64);
+      v134 = *(a1 + 120);
+      v129[4] = v84;
+      v130 = v83;
+      v131 = v34;
+      v132 = *(a1 + 48);
+      v133 = *(a1 + 56);
+      v135 = buf;
+      [v130 requireTargetSceneController:v129];
     }
   }
 
   else
   {
-    v45 = sub_100089C18();
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+    v47 = sub_100089C18(v46);
+    if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
     {
-      v46 = *(a1 + 32);
-      *v169 = 141558274;
-      v170 = 1752392040;
-      v171 = 2112;
-      v172 = v46;
-      _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "_showAssetWithoutStateRestoration: Default path. assetID: %{mask.hash}@", v169, 0x16u);
+      v48 = *(a1 + 32);
+      *v171 = 141558274;
+      v172 = 1752392040;
+      v173 = 2112;
+      v174 = v48;
+      _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "_showAssetWithoutStateRestoration: Default path. assetID: %{mask.hash}@", v171, 0x16u);
     }
 
-    v114[0] = _NSConcreteStackBlock;
-    v114[1] = 3221225472;
-    v114[2] = sub_100094B54;
-    v114[3] = &unk_100A056D8;
-    v115 = *(a1 + 32);
-    v47 = *(a1 + 112);
-    v48 = *(a1 + 64);
-    v121 = v47;
-    v116 = v48;
-    v117 = *(a1 + 48);
-    v118 = *(a1 + 96);
-    v119 = *(a1 + 56);
-    v124 = v87;
-    v125 = v86;
-    v122 = v91;
-    v123 = buf;
-    v126 = v38;
-    v120 = *(a1 + 40);
-    v49 = objc_retainBlock(v114);
-    v106[0] = _NSConcreteStackBlock;
-    v106[1] = 3221225472;
-    v106[2] = sub_100095DB0;
-    v106[3] = &unk_100A05700;
+    v116[0] = _NSConcreteStackBlock;
+    v116[1] = 3221225472;
+    v116[2] = sub_100094B54;
+    v116[3] = &unk_100A056D8;
+    v117 = *(a1 + 32);
+    v49 = *(a1 + 112);
     v50 = *(a1 + 64);
-    v111 = *(a1 + 136);
-    v106[4] = v50;
-    v51 = *(a1 + 96);
-    v52 = *(a1 + 128);
-    v107 = v51;
-    v112 = v52;
-    v109 = v93;
-    v108 = *(a1 + 32);
-    v113 = v39;
-    v53 = v49;
-    v110 = v53;
-    v54 = objc_retainBlock(v106);
-    v102[0] = _NSConcreteStackBlock;
-    v102[1] = 3221225472;
-    v102[2] = sub_100096040;
-    v102[3] = &unk_100A04FE8;
-    v88 = *(a1 + 56);
-    v55 = *(a1 + 56);
-    v103 = vextq_s8(v88, v88, 8uLL);
-    v104 = *(a1 + 32);
-    v56 = v54;
-    v105 = v56;
-    v57 = objc_retainBlock(v102);
-    v96[0] = _NSConcreteStackBlock;
-    v96[1] = 3221225472;
-    v96[2] = sub_1000961D4;
-    v96[3] = &unk_100A05750;
-    v97 = *(a1 + 32);
-    v58 = *(a1 + 96);
-    v101 = *(a1 + 120);
-    v59 = *(a1 + 64);
-    v98 = v58;
-    v99 = v59;
-    v60 = v57;
+    v123 = v49;
+    v118 = v50;
+    v119 = *(a1 + 48);
+    v120 = *(a1 + 96);
+    v121 = *(a1 + 56);
+    v126 = v89;
+    v127 = v88;
+    v124 = v93;
+    v125 = buf;
+    v128 = v38;
+    v122 = *(a1 + 40);
+    v51 = objc_retainBlock(v116);
+    v108[0] = _NSConcreteStackBlock;
+    v108[1] = 3221225472;
+    v108[2] = sub_100095DB0;
+    v108[3] = &unk_100A05700;
+    v52 = *(a1 + 64);
+    v113 = *(a1 + 136);
+    v108[4] = v52;
+    v53 = *(a1 + 96);
+    v54 = *(a1 + 128);
+    v109 = v53;
+    v114 = v54;
+    v111 = v95;
+    v110 = *(a1 + 32);
+    v115 = v40;
+    v55 = v51;
+    v112 = v55;
+    v56 = objc_retainBlock(v108);
+    v104[0] = _NSConcreteStackBlock;
+    v104[1] = 3221225472;
+    v104[2] = sub_100096040;
+    v104[3] = &unk_100A04FE8;
+    v90 = *(a1 + 56);
+    v57 = *(a1 + 56);
+    v105 = vextq_s8(v90, v90, 8uLL);
+    v106 = *(a1 + 32);
+    v58 = v56;
+    v107 = v58;
+    v59 = objc_retainBlock(v104);
+    v98[0] = _NSConcreteStackBlock;
+    v98[1] = 3221225472;
+    v98[2] = sub_1000961D4;
+    v98[3] = &unk_100A05750;
+    v99 = *(a1 + 32);
+    v60 = *(a1 + 96);
+    v103 = *(a1 + 120);
+    v61 = *(a1 + 64);
     v100 = v60;
-    v61 = objc_retainBlock(v96);
-    v62 = v61;
+    v101 = v61;
+    v62 = v59;
+    v102 = v62;
+    v63 = objc_retainBlock(v98);
+    v64 = v63;
     if (*(a1 + 56))
     {
-      v63 = sub_100089C18();
-      if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
+      v65 = sub_100089C18(v63);
+      if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
       {
-        v64 = *(a1 + 32);
-        *v169 = 141558274;
-        v170 = 1752392040;
-        v171 = 2112;
-        v172 = v64;
-        _os_log_impl(&_mh_execute_header, v63, OS_LOG_TYPE_DEFAULT, "_showAssetWithoutStateRestoration: minifiedPresenterPrepareToOpen begin. assetID: %{mask.hash}@", v169, 0x16u);
+        v66 = *(a1 + 32);
+        *v171 = 141558274;
+        v172 = 1752392040;
+        v173 = 2112;
+        v174 = v66;
+        _os_log_impl(&_mh_execute_header, v65, OS_LOG_TYPE_DEFAULT, "_showAssetWithoutStateRestoration: minifiedPresenterPrepareToOpen begin. assetID: %{mask.hash}@", v171, 0x16u);
       }
 
-      v65 = [*(a1 + 64) minifiedPresenter];
-      v66 = v53;
-      v67 = *(a1 + 56);
-      v94[0] = _NSConcreteStackBlock;
-      v94[1] = 3221225472;
-      v94[2] = sub_1000964D8;
-      v94[3] = &unk_100A03920;
-      v95 = v62;
-      v68 = v67;
-      v53 = v66;
-      [v65 minifiedPresenterPrepareToOpen:v68 animated:v38 ^ 1 completion:v94];
+      v67 = [*(a1 + 64) minifiedPresenter];
+      v68 = v55;
+      v69 = *(a1 + 56);
+      v96[0] = _NSConcreteStackBlock;
+      v96[1] = 3221225472;
+      v96[2] = sub_1000964D8;
+      v96[3] = &unk_100A03920;
+      v97 = v64;
+      v70 = v69;
+      v55 = v68;
+      [v67 minifiedPresenterPrepareToOpen:v70 animated:v38 ^ 1 completion:v96];
     }
 
     else
     {
-      (v61[2])(v61);
+      (v63[2])(v63);
     }
   }
 
 LABEL_63:
 
-  _Block_object_dispose(&v157, 8);
+  _Block_object_dispose(&v159, 8);
   _Block_object_dispose(buf, 8);
 }
 
@@ -3489,7 +3536,7 @@ void sub_100093D04(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
   v7 = a3;
   v8 = a4;
-  v9 = sub_100089C18();
+  v9 = sub_100089C18(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = *(a1 + 32);
@@ -3554,7 +3601,7 @@ void sub_100093F84(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
   v7 = a3;
   v8 = a4;
-  v9 = sub_100089C18();
+  v9 = sub_100089C18(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = *(a1 + 32);
@@ -3647,55 +3694,57 @@ id sub_100094304(uint64_t a1, void *a2)
   return v6;
 }
 
-void sub_100094374(uint64_t a1)
+void sub_100094374(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 32) == 1)
   {
-    v6 = v1;
-    v7 = v2;
-    v3 = BUProtocolCast();
-    if (v3)
+    v8 = v2;
+    v9 = v3;
+    v4 = BUProtocolCast();
+    v5 = v4;
+    if (v4)
     {
-      v4 = sub_100089C18();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v6 = sub_100089C18(v4);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        *v5 = 0;
-        _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "_showAssetWithoutStateRestoration: Playing audiobook", v5, 2u);
+        *v7 = 0;
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "_showAssetWithoutStateRestoration: Playing audiobook", v7, 2u);
       }
 
-      [v3 play];
+      [v5 play];
     }
   }
 }
 
-void sub_100094410(uint64_t a1)
+void sub_100094410(void *a1)
 {
-  if (*(a1 + 32))
+  v1 = a1;
+  if (a1[4])
   {
-    v2 = sub_100089C18();
+    v2 = sub_100089C18(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = *(a1 + 32);
+      v3 = v1[4];
       *buf = 138543362;
       v17 = v3;
       _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "_showAssetWithoutStateRestoration: Changing asset presenter location:%{public}@", buf, 0xCu);
     }
 
-    [*(a1 + 40) assetPresenterOpenToLocation:*(a1 + 32) animated:1];
+    a1 = [v1[5] assetPresenterOpenToLocation:v1[4] animated:1];
   }
 
-  v4 = sub_100089C18();
+  v4 = sub_100089C18(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(a1 + 72);
+    v5 = *(v1 + 72);
     *buf = 67109120;
     LODWORD(v17) = v5;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "_showAssetWithoutStateRestoration: AEAudioBookForceAudiobookPlayIfCurrentAsset = %{BOOL}d", buf, 8u);
   }
 
-  if (*(a1 + 72) == 1)
+  if (*(v1 + 72) == 1)
   {
-    v6 = *(a1 + 48);
+    v6 = v1[6];
     if (v6)
     {
       v7 = [v6 minifiedAssetPresenterAssetViewControllerFuture];
@@ -3703,8 +3752,8 @@ void sub_100094410(uint64_t a1)
       v13[1] = 3221225472;
       v13[2] = sub_100094618;
       v13[3] = &unk_100A054F8;
-      v8 = *(a1 + 56);
-      v9 = *(a1 + 64);
+      v8 = v1[7];
+      v9 = v1[8];
       v14 = v8;
       v15 = v9;
       [v7 get:v13];
@@ -3712,12 +3761,12 @@ void sub_100094410(uint64_t a1)
       goto LABEL_13;
     }
 
-    v10 = *(a1 + 56);
-    v11 = [*(a1 + 40) assetPresenterAssetViewController];
+    v10 = v1[7];
+    v11 = [v1[5] assetPresenterAssetViewController];
     (*(v10 + 16))(v10, v11);
   }
 
-  v12 = objc_retainBlock(*(*(*(a1 + 64) + 8) + 40));
+  v12 = objc_retainBlock(*(*(v1[8] + 8) + 40));
   v7 = v12;
   if (v12)
   {
@@ -3855,42 +3904,42 @@ void sub_100094AE0(uint64_t a1)
 
 void sub_100094B54(uint64_t a1)
 {
-  kdebug_trace();
-  v2 = sub_100089C18();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v2 = kdebug_trace();
+  v3 = sub_100089C18(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
+    v4 = *(a1 + 32);
     *buf = 141558274;
-    v25 = 1752392040;
-    v26 = 2112;
-    v27 = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "_showAssetWithoutStateRestoration: openBlock: _obtainImageForAsset begin. assetID: %{mask.hash}@", buf, 0x16u);
+    v26 = 1752392040;
+    v27 = 2112;
+    v28 = v4;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "_showAssetWithoutStateRestoration: openBlock: _obtainImageForAsset begin. assetID: %{mask.hash}@", buf, 0x16u);
   }
 
-  v4 = (*(*(a1 + 80) + 16))();
-  v5 = *(a1 + 32);
-  v6 = *(a1 + 40);
-  v7 = *(a1 + 48);
-  v8 = *(a1 + 56);
-  v13[0] = _NSConcreteStackBlock;
-  v13[1] = 3221225472;
-  v13[2] = sub_100094D50;
-  v13[3] = &unk_100A056B0;
-  v14 = v5;
-  v15 = *(a1 + 56);
-  v16 = *(a1 + 48);
-  v9 = *(a1 + 64);
-  v10 = *(a1 + 40);
-  v17 = v9;
+  v5 = (*(*(a1 + 80) + 16))();
+  v6 = *(a1 + 32);
+  v7 = *(a1 + 40);
+  v8 = *(a1 + 48);
+  v9 = *(a1 + 56);
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = sub_100094D50;
+  v14[3] = &unk_100A056B0;
+  v15 = v6;
+  v16 = *(a1 + 56);
+  v17 = *(a1 + 48);
+  v10 = *(a1 + 64);
+  v11 = *(a1 + 40);
   v18 = v10;
-  v22 = *(a1 + 104);
-  v11 = *(a1 + 88);
-  v12 = *(a1 + 96);
-  v20 = v11;
+  v19 = v11;
+  v23 = *(a1 + 104);
+  v12 = *(a1 + 88);
+  v13 = *(a1 + 96);
   v21 = v12;
-  v23 = *(a1 + 106);
-  v19 = *(a1 + 72);
-  [v6 _obtainImageForAsset:v4 withAssetIdentifier:v14 options:v7 withTransaction:v8 completion:v13];
+  v22 = v13;
+  v24 = *(a1 + 106);
+  v20 = *(a1 + 72);
+  [v7 _obtainImageForAsset:v5 withAssetIdentifier:v15 options:v8 withTransaction:v9 completion:v14];
 }
 
 void sub_100094D50(uint64_t a1, void *a2, void *a3, void *a4)
@@ -3898,45 +3947,45 @@ void sub_100094D50(uint64_t a1, void *a2, void *a3, void *a4)
   v7 = a2;
   v8 = a3;
   v9 = a4;
-  kdebug_trace();
-  v10 = sub_100089C18();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v10 = kdebug_trace();
+  v11 = sub_100089C18(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = *(a1 + 32);
+    v12 = *(a1 + 32);
     *buf = 141558530;
-    v34 = 1752392040;
-    v35 = 2112;
-    v36 = v11;
-    v37 = 2112;
-    v38 = v9;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "_showAssetWithoutStateRestoration: openBlock: _obtainImageForAsset end. assetID: %{mask.hash}@ error: %@", buf, 0x20u);
+    v35 = 1752392040;
+    v36 = 2112;
+    v37 = v12;
+    v38 = 2112;
+    v39 = v9;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "_showAssetWithoutStateRestoration: openBlock: _obtainImageForAsset end. assetID: %{mask.hash}@ error: %@", buf, 0x20u);
   }
 
-  v19[0] = _NSConcreteStackBlock;
-  v19[1] = 3221225472;
-  v19[2] = sub_100094F78;
-  v19[3] = &unk_100A05688;
-  v12 = *(a1 + 40);
-  v20 = *(a1 + 48);
-  v21 = v7;
-  v22 = v8;
-  v13 = *(a1 + 56);
-  v14 = *(a1 + 64);
-  v23 = v13;
+  v20[0] = _NSConcreteStackBlock;
+  v20[1] = 3221225472;
+  v20[2] = sub_100094F78;
+  v20[3] = &unk_100A05688;
+  v13 = *(a1 + 40);
+  v21 = *(a1 + 48);
+  v22 = v7;
+  v23 = v8;
+  v14 = *(a1 + 56);
+  v15 = *(a1 + 64);
   v24 = v14;
-  v25 = *(a1 + 40);
-  v30 = *(a1 + 96);
-  v26 = *(a1 + 32);
-  v31 = *(a1 + 97);
-  v15 = *(a1 + 80);
-  v16 = *(a1 + 88);
-  v28 = v15;
+  v25 = v15;
+  v26 = *(a1 + 40);
+  v31 = *(a1 + 96);
+  v27 = *(a1 + 32);
+  v32 = *(a1 + 97);
+  v16 = *(a1 + 80);
+  v17 = *(a1 + 88);
   v29 = v16;
-  v32 = *(a1 + 98);
-  v27 = *(a1 + 72);
-  v17 = v8;
-  v18 = v7;
-  [v12 commit:v19];
+  v30 = v17;
+  v33 = *(a1 + 98);
+  v28 = *(a1 + 72);
+  v18 = v8;
+  v19 = v7;
+  [v13 commit:v20];
 }
 
 void sub_100094F78(uint64_t a1)
@@ -3960,29 +4009,29 @@ void sub_100094F78(uint64_t a1)
   {
     v5 = [v4 minifiedAssetPresenterAssetViewControllerFuture];
     v6 = objc_opt_new();
-    v29[0] = _NSConcreteStackBlock;
-    v29[1] = 3221225472;
-    v29[2] = sub_100095318;
-    v29[3] = &unk_100A05610;
-    v30 = *(a1 + 56);
+    v30[0] = _NSConcreteStackBlock;
+    v30[1] = 3221225472;
+    v30[2] = sub_100095318;
+    v30[3] = &unk_100A05610;
+    v31 = *(a1 + 56);
     v7 = *(a1 + 80);
     v8 = *(a1 + 64);
-    v31 = v7;
-    v32 = v8;
-    v33 = *(a1 + 32);
-    v36 = *(a1 + 113);
+    v32 = v7;
+    v33 = v8;
+    v34 = *(a1 + 32);
+    v37 = *(a1 + 113);
     v9 = v6;
-    v34 = v9;
-    v35 = *(a1 + 96);
-    [v5 get:v29];
-    v27[0] = _NSConcreteStackBlock;
-    v27[1] = 3221225472;
-    v27[2] = sub_10009547C;
-    v27[3] = &unk_100A04008;
-    v28 = v5;
+    v35 = v9;
+    v36 = *(a1 + 96);
+    [v5 get:v30];
+    v28[0] = _NSConcreteStackBlock;
+    v28[1] = 3221225472;
+    v28[2] = sub_10009547C;
+    v28[3] = &unk_100A04008;
+    v29 = v5;
     v10 = v5;
-    [v9 get:v27];
-    v11 = v28;
+    [v9 get:v28];
+    v11 = v29;
     v12 = v9;
   }
 
@@ -3994,32 +4043,32 @@ LABEL_6:
     v12 = [(BKBasePresentingViewController *)BKAssetPresentingViewController futureViewControllerWithAssetIdentifier:v13 libraryAssetProvider:v10 options:*(a1 + 32)];
   }
 
-  v14 = sub_100089C18();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = sub_100089C18(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = *(a1 + 80);
+    v16 = *(a1 + 80);
     *buf = 141558274;
-    v38 = 1752392040;
-    v39 = 2112;
-    v40 = v15;
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "_showAssetWithoutStateRestoration: openBlock: Getting futureViewController. assetID: %{mask.hash}@", buf, 0x16u);
+    v39 = 1752392040;
+    v40 = 2112;
+    v41 = v16;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "_showAssetWithoutStateRestoration: openBlock: Getting futureViewController. assetID: %{mask.hash}@", buf, 0x16u);
   }
 
-  v18[0] = _NSConcreteStackBlock;
-  v18[1] = 3221225472;
-  v18[2] = sub_100095508;
-  v18[3] = &unk_100A05660;
-  v19 = *(a1 + 80);
-  v20 = *(a1 + 72);
-  v21 = 0;
-  v17 = *(a1 + 56);
-  v16 = v17.i64[0];
-  v22 = vextq_s8(v17, v17, 8uLL);
-  v25 = *(a1 + 104);
-  v26 = *(a1 + 114);
-  v23 = *(a1 + 88);
-  v24 = *(a1 + 32);
-  [v12 get:v18];
+  v19[0] = _NSConcreteStackBlock;
+  v19[1] = 3221225472;
+  v19[2] = sub_100095508;
+  v19[3] = &unk_100A05660;
+  v20 = *(a1 + 80);
+  v21 = *(a1 + 72);
+  v22 = 0;
+  v18 = *(a1 + 56);
+  v17 = v18.i64[0];
+  v23 = vextq_s8(v18, v18, 8uLL);
+  v26 = *(a1 + 104);
+  v27 = *(a1 + 114);
+  v24 = *(a1 + 88);
+  v25 = *(a1 + 32);
+  [v12 get:v19];
 }
 
 void sub_100095318(uint64_t a1, void *a2, void *a3)
@@ -4083,7 +4132,7 @@ void sub_100095508(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v7 = sub_100089C18();
+  v7 = sub_100089C18(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = *(a1 + 32);
@@ -4138,93 +4187,93 @@ void sub_100095768(uint64_t a1)
 {
   if (*(a1 + 32))
   {
-    v2 = sub_100089C18();
+    v2 = sub_100089C18(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       v3 = *(a1 + 40);
       *buf = 141558274;
-      v35 = 1752392040;
-      v36 = 2112;
-      v37 = v3;
+      v36 = 1752392040;
+      v37 = 2112;
+      v38 = v3;
       _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "_showAssetWithoutStateRestoration: openBlock: minifiedPresenterOpenMinified begin. assetID: %{mask.hash}@", buf, 0x16u);
     }
 
     v4 = [*(a1 + 48) minifiedPresenter];
     v5 = *(a1 + 56);
-    v29[0] = _NSConcreteStackBlock;
-    v29[1] = 3221225472;
-    v29[2] = sub_100095A7C;
-    v29[3] = &unk_100A05548;
+    v30[0] = _NSConcreteStackBlock;
+    v30[1] = 3221225472;
+    v30[2] = sub_100095A7C;
+    v30[3] = &unk_100A05548;
     v6 = *(a1 + 40);
     v7 = *(a1 + 48);
     v8 = *(a1 + 56);
-    v30 = v6;
-    v31 = v7;
+    v31 = v6;
+    v32 = v7;
     v9 = v8;
     v10 = *(a1 + 104);
-    v32 = v9;
-    v33 = v10;
-    [v4 minifiedPresenterPrepareToOpen:v5 animated:0 completion:v29];
+    v33 = v9;
+    v34 = v10;
+    [v4 minifiedPresenterPrepareToOpen:v5 animated:0 completion:v30];
 
-    v11 = v30;
+    v11 = v31;
   }
 
   else if (*(a1 + 64) && !*(a1 + 72))
   {
-    v16 = sub_100089C18();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = sub_100089C18(a1);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = *(a1 + 40);
+      v18 = *(a1 + 40);
       *buf = 141558274;
-      v35 = 1752392040;
-      v36 = 2112;
-      v37 = v17;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "_showAssetWithoutStateRestoration: openBlock: _presentViewController begin. assetID: %{mask.hash}@", buf, 0x16u);
+      v36 = 1752392040;
+      v37 = 2112;
+      v38 = v18;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "_showAssetWithoutStateRestoration: openBlock: _presentViewController begin. assetID: %{mask.hash}@", buf, 0x16u);
     }
 
-    v18 = *(a1 + 48);
-    v19 = *(a1 + 64);
-    v20 = *(a1 + 112) == 0;
-    v21 = *(a1 + 80);
-    v22 = [v18 _viewForCardOverlayFromOptions:*(a1 + 88)];
-    v23 = *(a1 + 96);
-    v26[0] = _NSConcreteStackBlock;
-    v26[1] = 3221225472;
-    v26[2] = sub_100095BA0;
-    v26[3] = &unk_100A037D8;
-    v24 = *(a1 + 40);
-    v25 = *(a1 + 104);
-    v27 = v24;
+    v19 = *(a1 + 48);
+    v20 = *(a1 + 64);
+    v21 = *(a1 + 112) == 0;
+    v22 = *(a1 + 80);
+    v23 = [v19 _viewForCardOverlayFromOptions:*(a1 + 88)];
+    v24 = *(a1 + 96);
+    v27[0] = _NSConcreteStackBlock;
+    v27[1] = 3221225472;
+    v27[2] = sub_100095BA0;
+    v27[3] = &unk_100A037D8;
+    v25 = *(a1 + 40);
+    v26 = *(a1 + 104);
     v28 = v25;
-    [v18 _presentViewController:v19 transaction:v21 animated:v20 overlayView:v22 options:v23 completion:v26];
+    v29 = v26;
+    [v19 _presentViewController:v20 transaction:v22 animated:v21 overlayView:v23 options:v24 completion:v27];
 
-    v11 = v27;
+    v11 = v28;
   }
 
   else
   {
-    v12 = sub_100089C18();
+    v12 = sub_100089C18(a1);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      sub_10078BB54();
+      sub_10078BB54(a1, v12, v13);
     }
 
-    v13 = objc_retainBlock(*(*(*(a1 + 104) + 8) + 40));
-    v11 = v13;
-    if (v13)
+    v14 = objc_retainBlock(*(*(*(a1 + 104) + 8) + 40));
+    v11 = v14;
+    if (v14)
     {
-      (*(v13 + 2))(v13, 0, *(a1 + 72), 0);
+      (*(v14 + 2))(v14, 0, *(a1 + 72), 0);
     }
 
-    v14 = *(*(a1 + 104) + 8);
-    v15 = *(v14 + 40);
-    *(v14 + 40) = 0;
+    v15 = *(*(a1 + 104) + 8);
+    v16 = *(v15 + 40);
+    *(v15 + 40) = 0;
   }
 }
 
 void sub_100095A7C(uint64_t a1)
 {
-  v2 = sub_100089C18();
+  v2 = sub_100089C18(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -4252,7 +4301,7 @@ void sub_100095A7C(uint64_t a1)
 
 void sub_100095BA0(uint64_t a1)
 {
-  v2 = sub_100089C18();
+  v2 = sub_100089C18(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -4277,7 +4326,7 @@ void sub_100095BA0(uint64_t a1)
 
 void sub_100095CA8(uint64_t a1)
 {
-  v2 = sub_100089C18();
+  v2 = sub_100089C18(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -4308,46 +4357,47 @@ void sub_100095DB0(uint64_t a1)
   *(v3 + 40) = v2;
 
   v5 = objc_opt_new();
-  v17 = 0u;
-  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v6 = *(*(*(a1 + 72) + 8) + 40);
-  v7 = [v6 countByEnumeratingWithState:&v17 objects:v25 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v19 objects:v27 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v20;
 LABEL_3:
     v10 = 0;
     while (1)
     {
-      if (*v18 != v9)
+      if (*v20 != v9)
       {
         objc_enumerationMutation(v6);
       }
 
-      objc_storeStrong((*(*(a1 + 80) + 8) + 40), *(*(&v17 + 1) + 8 * v10));
-      if ((*(*(a1 + 56) + 16))())
+      objc_storeStrong((*(*(a1 + 80) + 8) + 40), *(*(&v19 + 1) + 8 * v10));
+      v11 = (*(*(a1 + 56) + 16))();
+      if (v11)
       {
         break;
       }
 
-      v11 = sub_100089C18();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = sub_100089C18(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = *(a1 + 48);
+        v13 = *(a1 + 48);
         *buf = 141558274;
-        v22 = 1752392040;
-        v23 = 2112;
-        v24 = v12;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "_showAssetWithoutStateRestoration: closePresenterIfNeededThenOpenBlock: going to close presenter in order to open assetID: %{mask.hash}@", buf, 0x16u);
+        v24 = 1752392040;
+        v25 = 2112;
+        v26 = v13;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "_showAssetWithoutStateRestoration: closePresenterIfNeededThenOpenBlock: going to close presenter in order to open assetID: %{mask.hash}@", buf, 0x16u);
       }
 
       [v5 addObject:*(*(*(a1 + 80) + 8) + 40)];
       if (v8 == ++v10)
       {
-        v8 = [v6 countByEnumeratingWithState:&v17 objects:v25 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v19 objects:v27 count:16];
         if (v8)
         {
           goto LABEL_3;
@@ -4361,20 +4411,20 @@ LABEL_3:
   else
   {
 LABEL_11:
-    v13 = *(*(a1 + 80) + 8);
-    v14 = *(v13 + 40);
-    *(v13 + 40) = 0;
+    v14 = *(*(a1 + 80) + 8);
+    v15 = *(v14 + 40);
+    *(v14 + 40) = 0;
   }
 
-  v15 = sub_100089C18();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v17 = sub_100089C18(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = *(a1 + 48);
+    v18 = *(a1 + 48);
     *buf = 141558274;
-    v22 = 1752392040;
-    v23 = 2112;
-    v24 = v16;
-    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "_showAssetWithoutStateRestoration: closePresenterIfNeededThenOpenBlock: closing any presenters necessary, then opening assetID: %{mask.hash}@", buf, 0x16u);
+    v24 = 1752392040;
+    v25 = 2112;
+    v26 = v18;
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "_showAssetWithoutStateRestoration: closePresenterIfNeededThenOpenBlock: closing any presenters necessary, then opening assetID: %{mask.hash}@", buf, 0x16u);
   }
 
   [*(a1 + 32) _closePresenters:v5 animated:(*(a1 + 88) & 1) == 0 completion:*(a1 + 64)];
@@ -4387,7 +4437,7 @@ void sub_100096040(uint64_t a1)
 
   v4 = [*(a1 + 40) minifiedAssetPresenterAssetID];
   v5 = [*(a1 + 40) minifiedAssetPresenterIsAudiobook];
-  v6 = sub_100089C18();
+  v6 = sub_100089C18(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = *(a1 + 48);
@@ -4409,7 +4459,7 @@ void sub_100096040(uint64_t a1)
 
 void sub_1000961D4(uint64_t a1)
 {
-  v2 = sub_100089C18();
+  v2 = sub_100089C18(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -4443,7 +4493,7 @@ void sub_100096338(uint64_t a1)
   *(v5 + 40) = v4;
 
   v7 = [*(a1 + 32) _bookFlowAssetPresentingForShowAssetAction:*(a1 + 40)];
-  v8 = sub_100089C18();
+  v8 = sub_100089C18(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = *(a1 + 48);
@@ -4485,9 +4535,9 @@ void sub_100096A90(uint64_t a1)
   [*(a1 + 48) _closeMinifiedPresenters:v2 excludeAssetID:*(a1 + 56) isAudiobook:*(a1 + 72) completion:*(a1 + 64)];
 }
 
-void sub_100096EF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_100096EF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4565,9 +4615,9 @@ void sub_100097BF4(uint64_t a1)
   [v4 openSensitiveURL:v5 withOptions:0];
 }
 
-void sub_100097EBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100097EBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5021,11 +5071,12 @@ void sub_10009C5E0(uint64_t a1)
   }
 }
 
-void sub_10009CA80(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, char a17)
+void sub_10009CA80(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, ...)
 {
-  objc_destroyWeak((v17 + 40));
+  va_start(va, location);
+  objc_destroyWeak((v16 + 40));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a17, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -5044,11 +5095,11 @@ void sub_10009CAE0(uint64_t a1)
       v7 = BALog();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        sub_10078BE48();
+        sub_10078BE48(v5, v7, v8);
       }
 
-      v8 = +[UIApplication sharedApplication];
-      [v8 endBackgroundTask:*(*(*v5 + 8) + 24)];
+      v9 = +[UIApplication sharedApplication];
+      [v9 endBackgroundTask:*(*(*v5 + 8) + 24)];
 
       [v3 setAnalyticsBackgroundTaskIdentifier:UIBackgroundTaskInvalid];
     }
@@ -5325,9 +5376,9 @@ void sub_10009E8EC(uint64_t a1)
   }
 }
 
-void sub_10009EBF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_10009EBF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5749,6 +5800,13 @@ void sub_1000A06D4(uint64_t a1)
   _Block_object_dispose(&v34, 8);
 }
 
+void sub_1000A0AF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
+{
+  va_start(va, a32);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t sub_1000A0B34(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
@@ -5915,7 +5973,7 @@ void sub_1000A1F9C(uint64_t a1, void *a2)
 {
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v5 = sub_1000AC6E8();
+  v5 = sub_1000AC6E8(WeakRetained);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
   if (v3)
   {
@@ -5969,37 +6027,38 @@ void sub_1000A23D8(uint64_t a1, void *a2)
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
-    if ([v3 length])
+    v5 = [v3 length];
+    if (v5)
     {
-      v5 = sub_1000AC6E8();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = sub_1000AC6E8(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Attempting to transfer device slot.", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Attempting to transfer device slot.", buf, 2u);
       }
 
-      v6 = objc_alloc_init(BKAcquireSlotRequest);
-      [WeakRetained setAcquireSlotRequest:v6];
-
-      v7 = [WeakRetained acquireSlotRequest];
-      [v7 setAdditionalParams:v3];
+      v7 = objc_alloc_init(BKAcquireSlotRequest);
+      [WeakRetained setAcquireSlotRequest:v7];
 
       v8 = [WeakRetained acquireSlotRequest];
-      v10[0] = _NSConcreteStackBlock;
-      v10[1] = 3221225472;
-      v10[2] = sub_1000A254C;
-      v10[3] = &unk_100A04A50;
-      v10[4] = WeakRetained;
-      [v8 performRequestWithResponseHandler:v10];
+      [v8 setAdditionalParams:v3];
+
+      v9 = [WeakRetained acquireSlotRequest];
+      v11[0] = _NSConcreteStackBlock;
+      v11[1] = 3221225472;
+      v11[2] = sub_1000A254C;
+      v11[3] = &unk_100A04A50;
+      v11[4] = WeakRetained;
+      [v9 performRequestWithResponseHandler:v11];
     }
 
     else
     {
-      v9 = [WeakRetained completion];
-      v8 = v9;
-      if (v9)
+      v10 = [WeakRetained completion];
+      v9 = v10;
+      if (v10)
       {
-        (*(v9 + 16))(v9);
+        (*(v10 + 16))(v10);
       }
 
       [WeakRetained setCompletion:0];
@@ -6010,7 +6069,7 @@ void sub_1000A23D8(uint64_t a1, void *a2)
 void sub_1000A254C(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_1000AC6E8();
+  v4 = sub_1000AC6E8(v3);
   v5 = v4;
   if (v3)
   {
@@ -6053,7 +6112,7 @@ LABEL_7:
     (*(v10 + 16))(v10);
   }
 
-  [*(a1 + 32) setCompletion:{0, *v12, *&v12[16]}];
+  [*(a1 + 32) setCompletion:{0, *v12, *&v12[8]}];
 }
 
 void sub_1000A287C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
@@ -6322,7 +6381,7 @@ void sub_1000A453C(uint64_t a1, void *a2, unint64_t a3)
   [*(a1 + 56) addObject:v15];
 }
 
-uint64_t sub_1000A4730()
+uint64_t sub_1000A4730(uint64_t a1, uint64_t a2)
 {
   if (qword_100AF74D0 != -1)
   {
@@ -6385,7 +6444,7 @@ void sub_1000A5C70(uint64_t a1)
     {
       if (v8)
       {
-        sub_10078C774(a1 + 32, v7, v9, v10, v11, v12, v13, v14);
+        sub_10078C774((a1 + 32), v7, v9, v10, v11, v12, v13, v14);
       }
 
       v15 = [*(a1 + 48) _lastOpenBookManager];
@@ -6399,15 +6458,15 @@ void sub_1000A5C70(uint64_t a1)
     {
       if (v8)
       {
-        sub_10078C704(a1 + 32, v7, v9, v10, v11, v12, v13, v14);
+        sub_10078C704((a1 + 32), v7, v9, v10, v11, v12, v13, v14);
       }
     }
   }
 }
 
-void sub_1000A60E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000A60E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6861,24 +6920,24 @@ void *sub_1000A8360(uint64_t a1)
           v13 = [v11 initWithIdentifier:v12 title:*(a1 + 48) type:10 artwork:v9 artist:*(a1 + 64)];
 
           v14 = [INPlayMediaIntent alloc];
-          v25 = v13;
-          v15 = [NSArray arrayWithObjects:&v25 count:1];
+          v26 = v13;
+          v15 = [NSArray arrayWithObjects:&v26 count:1];
           v16 = [v14 initWithMediaItems:v15 mediaContainer:0 playShuffled:&__kCFBooleanFalse playbackRepeatMode:1 resumePlayback:&__kCFBooleanFalse playbackQueueLocation:1 playbackSpeed:&off_100A434D0 mediaSearch:0];
 
           v17 = [[INInteraction alloc] initWithIntent:v16 response:0];
           v18 = [*(a1 + 72) persistentIdentifier];
           [v17 setGroupIdentifier:v18];
 
-          v21[0] = _NSConcreteStackBlock;
-          v21[1] = 3221225472;
-          v21[2] = sub_1000A86A8;
-          v21[3] = &unk_100A05ED0;
-          v22 = v16;
-          v23 = *(a1 + 48);
-          v24 = v9;
+          v22[0] = _NSConcreteStackBlock;
+          v22[1] = 3221225472;
+          v22[2] = sub_1000A86A8;
+          v22[3] = &unk_100A05ED0;
+          v23 = v16;
+          v24 = *(a1 + 48);
+          v25 = v9;
           v19 = v9;
           v20 = v16;
-          [v17 donateInteractionWithCompletion:v21];
+          [v17 donateInteractionWithCompletion:v22];
         }
 
         else
@@ -6886,7 +6945,7 @@ void *sub_1000A8360(uint64_t a1)
           v13 = BooksSiriLog();
           if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
           {
-            sub_10078C908();
+            sub_10078C908(a1 + 48, v13, v21);
           }
         }
       }
@@ -6986,34 +7045,34 @@ void sub_1000A94E8(id *a1)
     if (v5)
     {
       v6 = a1[4];
-      v13[0] = _NSConcreteStackBlock;
-      v13[1] = 3221225472;
-      v13[2] = sub_1000A9730;
-      v13[3] = &unk_100A05F70;
-      v14 = v6;
-      v15 = v3;
-      v16 = a1[6];
-      objc_copyWeak(&v17, &location);
-      [v4 requestSceneWithAssetID:v14 completion:v13];
-      objc_destroyWeak(&v17);
+      v14[0] = _NSConcreteStackBlock;
+      v14[1] = 3221225472;
+      v14[2] = sub_1000A9730;
+      v14[3] = &unk_100A05F70;
+      v15 = v6;
+      v16 = v3;
+      v17 = a1[6];
+      objc_copyWeak(&v18, &location);
+      [v4 requestSceneWithAssetID:v15 completion:v14];
+      objc_destroyWeak(&v18);
 
-      v7 = v14;
+      v7 = v15;
     }
 
     else
     {
-      v8[0] = _NSConcreteStackBlock;
-      v8[1] = 3221225472;
-      v8[2] = sub_1000A9824;
-      v8[3] = &unk_100A05F70;
-      v9 = a1[4];
-      v10 = v3;
-      v11 = a1[6];
-      objc_copyWeak(&v12, &location);
-      [v4 requestPrimaryScene:v8];
-      objc_destroyWeak(&v12);
+      v9[0] = _NSConcreteStackBlock;
+      v9[1] = 3221225472;
+      v9[2] = sub_1000A9824;
+      v9[3] = &unk_100A05F70;
+      v10 = a1[4];
+      v11 = v3;
+      v12 = a1[6];
+      objc_copyWeak(&v13, &location);
+      [v4 requestPrimaryScene:v9];
+      objc_destroyWeak(&v13);
 
-      v7 = v9;
+      v7 = v10;
     }
 
     objc_destroyWeak(&location);
@@ -7024,7 +7083,7 @@ void sub_1000A94E8(id *a1)
     v4 = BCSceneLog();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      sub_10078CC1C();
+      sub_10078CC1C((a1 + 4), v4, v8);
     }
   }
 }
@@ -7360,16 +7419,16 @@ void sub_1000AC694(id a1, NSError *a2)
   }
 }
 
-id sub_1000AC6E8()
+id sub_1000AC6E8(uint64_t a1)
 {
   if (qword_100AF7500 != -1)
   {
     sub_10078D09C();
   }
 
-  v1 = qword_100AF74F8;
+  v2 = qword_100AF74F8;
 
-  return v1;
+  return v2;
 }
 
 void sub_1000AC72C(id a1)
@@ -8766,144 +8825,5 @@ void sub_1000BE480(uint64_t a1)
     }
 
     while (v4);
-  }
-}
-
-void sub_1000BE768(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
-{
-  va_start(va, a15);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1000BE784(void *a1)
-{
-  v2 = a1[4];
-  if ((*(v2 + 24) & 1) == 0)
-  {
-    v7 = [*(v2 + 16) objectForKeyedSubscript:a1[5]];
-    v4 = [v7 copy];
-    v5 = *(a1[6] + 8);
-    v6 = *(v5 + 40);
-    *(v5 + 40) = v4;
-  }
-}
-
-void sub_1000BE7FC(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  v4 = &_sBi16_WV_ptr;
-  v5 = +[BKLibraryManager defaultManager];
-  v54 = *(a1 + 32);
-  v6 = [NSArray arrayWithObjects:&v54 count:1];
-  v7 = [v5 libraryAssetsWithAssetIDsContainedInList:v6 tempAssetIDs:0 inManagedObjectContext:v3];
-
-  v8 = [v7 firstObject];
-  v9 = v8;
-  if (v8)
-  {
-    v34 = a1;
-    v36 = v7;
-    v37 = v3;
-    v33 = [v8 seriesStackAssetIDs];
-    v35 = v9;
-    v10 = [BKLibraryManager seriesStackBooksForBook:v9];
-    v11 = +[NSMutableArray array];
-    v47 = 0u;
-    v48 = 0u;
-    v49 = 0u;
-    v50 = 0u;
-    obj = v10;
-    v12 = [obj countByEnumeratingWithState:&v47 objects:v53 count:16];
-    if (v12)
-    {
-      v13 = v12;
-      v14 = *v48;
-      v15 = BCCoverCacheProcessingOptionsKey;
-      v16 = BCCoverCacheAssetIDKey;
-      do
-      {
-        for (i = 0; i != v13; i = i + 1)
-        {
-          if (*v48 != v14)
-          {
-            objc_enumerationMutation(obj);
-          }
-
-          v18 = *(*(&v47 + 1) + 8 * i);
-          v19 = [v4[265] processingOptionsFor:v18 coverEffectsEnvironment:0];
-          v20 = [v18 assetID];
-          v51[0] = v15;
-          v21 = [NSNumber numberWithUnsignedShort:v19];
-          v51[1] = v16;
-          v52[0] = v21;
-          v52[1] = v20;
-          [NSDictionary dictionaryWithObjects:v52 forKeys:v51 count:2];
-          v23 = v22 = v4;
-          [v11 addObject:v23];
-
-          v4 = v22;
-        }
-
-        v13 = [obj countByEnumeratingWithState:&v47 objects:v53 count:16];
-      }
-
-      while (v13);
-    }
-
-    v24 = v33;
-    if ([v11 count])
-    {
-      while (1)
-      {
-        v25 = [v11 count];
-        if (v25 >= [v33 count])
-        {
-          break;
-        }
-
-        v26 = [v11 firstObject];
-        [v11 addObject:v26];
-      }
-    }
-
-    v27 = *(v34 + 40);
-    v44[0] = _NSConcreteStackBlock;
-    v44[1] = 3221225472;
-    v44[2] = sub_1000BEC40;
-    v44[3] = &unk_100A03A30;
-    v44[4] = v27;
-    v45 = *(v34 + 32);
-    v28 = v11;
-    v46 = v28;
-    os_unfair_lock_lock(v27 + 2);
-    sub_1000BEC40(v44);
-    os_unfair_lock_unlock(v27 + 2);
-    v29 = *(*(v34 + 40) + 48);
-    block[0] = _NSConcreteStackBlock;
-    block[1] = 3221225472;
-    block[2] = sub_1000BEC88;
-    block[3] = &unk_100A03A58;
-    v30 = *(v34 + 48);
-    v42 = v28;
-    v43 = v30;
-    v31 = v28;
-    dispatch_async(v29, block);
-
-    v7 = v36;
-    v3 = v37;
-    v9 = v35;
-  }
-
-  else
-  {
-    v32 = *(*(a1 + 40) + 48);
-    v39[0] = _NSConcreteStackBlock;
-    v39[1] = 3221225472;
-    v39[2] = sub_1000BECE4;
-    v39[3] = &unk_100A03920;
-    v40 = *(a1 + 48);
-    dispatch_async(v32, v39);
-    v24 = v40;
   }
 }

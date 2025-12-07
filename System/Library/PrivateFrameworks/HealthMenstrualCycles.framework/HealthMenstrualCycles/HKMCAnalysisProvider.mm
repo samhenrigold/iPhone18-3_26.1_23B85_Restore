@@ -57,7 +57,7 @@ void __42__HKMCAnalysisProvider_startAnalysisQuery__block_invoke(uint64_t a1, ui
 
 - (void)_handleAnalysisQueryResult:(id)result error:(id)error
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   errorCopy = error;
   os_unfair_lock_lock(&self->_lock);
@@ -68,14 +68,14 @@ void __42__HKMCAnalysisProvider_startAnalysisQuery__block_invoke(uint64_t a1, ui
     self->_lastError = 0;
 
     observers = self->_observers;
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __57__HKMCAnalysisProvider__handleAnalysisQueryResult_error___block_invoke;
-    v25[3] = &unk_2796D5210;
-    v25[4] = self;
-    v26 = resultCopy;
-    [(HKObserverSet *)observers notifyObservers:v25];
-    v11 = v26;
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __57__HKMCAnalysisProvider__handleAnalysisQueryResult_error___block_invoke;
+    v24[3] = &unk_2796D5210;
+    v24[4] = self;
+    v25 = resultCopy;
+    [(HKObserverSet *)observers notifyObservers:v24];
+    v11 = v25;
 LABEL_3:
 
     goto LABEL_9;
@@ -92,9 +92,9 @@ LABEL_3:
   {
     if (!errorCopy)
     {
-      v20 = [MEMORY[0x277CCA9B8] hk_error:100 description:@"Query returned with no analysis and no error"];
+      v19 = [MEMORY[0x277CCA9B8] hk_error:100 description:@"Query returned with no analysis and no error"];
       v11 = self->_lastError;
-      self->_lastError = v20;
+      self->_lastError = v19;
       goto LABEL_3;
     }
 
@@ -105,38 +105,36 @@ LABEL_9:
   v13 = [(NSMutableArray *)self->_nextAnalysisQueryResultBlocks copy];
   [(NSMutableArray *)self->_nextAnalysisQueryResultBlocks removeAllObjects];
   os_unfair_lock_unlock(&self->_lock);
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v14 = v13;
-  v15 = [v14 countByEnumeratingWithState:&v21 objects:v27 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v20 objects:v26 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v22;
+    v17 = *v21;
     do
     {
       v18 = 0;
       do
       {
-        if (*v22 != v17)
+        if (*v21 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        (*(*(*(&v21 + 1) + 8 * v18) + 16))(*(*(&v21 + 1) + 8 * v18));
+        (*(*(*(&v20 + 1) + 8 * v18) + 16))(*(*(&v20 + 1) + 8 * v18));
         ++v18;
       }
 
       while (v16 != v18);
-      v16 = [v14 countByEnumeratingWithState:&v21 objects:v27 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v20 objects:v26 count:16];
     }
 
     while (v16);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description
@@ -202,16 +200,14 @@ LABEL_9:
 
 - (void)_handleAnalysisQueryResult:(uint64_t)a3 error:.cold.1(void *a1, uint64_t a2, uint64_t a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = a1;
-  v7 = 138543618;
-  v8 = objc_opt_class();
-  v9 = 2114;
-  v10 = a3;
-  v5 = v8;
-  _os_log_error_impl(&dword_2518FC000, v4, OS_LOG_TYPE_ERROR, "[%{public}@] Error in analysis query: %{public}@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138543618;
+  v7 = objc_opt_class();
+  v8 = 2114;
+  v9 = a3;
+  v5 = v7;
+  _os_log_error_impl(&dword_2518FC000, v4, OS_LOG_TYPE_ERROR, "[%{public}@] Error in analysis query: %{public}@", &v6, 0x16u);
 }
 
 @end

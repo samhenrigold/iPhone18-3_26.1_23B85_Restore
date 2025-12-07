@@ -24,8 +24,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v14[3] = *MEMORY[0x1E69E9840];
-  v13[0] = @"enable";
+  v13[3] = *MEMORY[0x1E69E9840];
+  v12[0] = @"enable";
   enable = [(INSetDefrosterSettingsInCarIntent *)self enable];
   null = enable;
   if (!enable)
@@ -33,8 +33,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v14[0] = null;
-  v13[1] = @"defroster";
+  v13[0] = null;
+  v12[1] = @"defroster";
   defroster = [(INSetDefrosterSettingsInCarIntent *)self defroster];
   if ((defroster - 1) > 2)
   {
@@ -47,8 +47,8 @@
   }
 
   v7 = v6;
-  v14[1] = v7;
-  v13[2] = @"carName";
+  v13[1] = v7;
+  v12[2] = @"carName";
   carName = [(INSetDefrosterSettingsInCarIntent *)self carName];
   null2 = carName;
   if (!carName)
@@ -56,8 +56,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v14[2] = null2;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:3];
+  v13[2] = null2;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:3];
   if (!carName)
   {
   }
@@ -65,8 +65,6 @@
   if (!enable)
   {
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

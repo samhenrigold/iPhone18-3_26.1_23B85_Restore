@@ -13,7 +13,7 @@
   selfCopy = self;
   sub_261155CD4();
   v3.receiver = selfCopy;
-  v3.super_class = type metadata accessor for PASUICDPEnrollmentObserver();
+  v3.super_class = type metadata accessor for PASUICDPEnrollmentObserver(0);
   [(PASUICDPEnrollmentObserver *)&v3 dealloc];
 }
 
@@ -50,21 +50,20 @@
 {
   v0 = sub_26115AD64();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
   MEMORY[0x28223BE20](v0);
-  v4 = &v9 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = &v8 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_26115AD44();
-  v5 = sub_26115AD54();
-  v6 = sub_26115B834();
-  if (os_log_type_enabled(v5, v6))
+  v4 = sub_26115AD54();
+  v5 = sub_26115B834();
+  if (os_log_type_enabled(v4, v5))
   {
-    v7 = swift_slowAlloc();
-    *v7 = 0;
-    _os_log_impl(&dword_261107000, v5, v6, "PASUICDPEnrollmentObserver uiController(_:didPresentRootViewController:)", v7, 2u);
-    MEMORY[0x2666FA930](v7, -1, -1);
+    v6 = swift_slowAlloc();
+    *v6 = 0;
+    _os_log_impl(&dword_261107000, v4, v5, "PASUICDPEnrollmentObserver uiController(_:didPresentRootViewController:)", v6, 2u);
+    MEMORY[0x2666FA930](v6, -1, -1);
   }
 
-  return (*(v1 + 8))(v4, v0);
+  return (*(v1 + 8))(v3, v0);
 }
 
 @end

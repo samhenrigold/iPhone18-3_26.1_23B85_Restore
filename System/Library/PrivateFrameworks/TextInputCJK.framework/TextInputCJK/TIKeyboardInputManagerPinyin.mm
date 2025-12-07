@@ -8,6 +8,7 @@
 - (id)remapInput:(id)input isFacemarkInput:(BOOL *)facemarkInput;
 - (id)validCharacterSetForAutocorrection;
 - (unint64_t)initialSelectedIndex;
+- (void)adjustPhraseBoundaryInForwardDirection:(BOOL)direction granularity:(int)granularity;
 @end
 
 @implementation TIKeyboardInputManagerPinyin
@@ -64,6 +65,104 @@
   shuangpinType = [wordSearch shuangpinType];
 
   return shuangpinType == 7 || shuangpinType == 2;
+}
+
+- (void)adjustPhraseBoundaryInForwardDirection:(BOOL)direction granularity:(int)granularity
+{
+  directionCopy = direction;
+  if (granularity == 1)
+  {
+    phraseBoundary = [(TIKeyboardInputManagerChinesePhonetic *)self phraseBoundary];
+    if (phraseBoundary <= [(TIKeyboardInputManagerChinesePhonetic *)self inputCount]&& [(TIKeyboardInputManagerChinesePhonetic *)self supportsSetPhraseBoundary])
+    {
+      if (directionCopy)
+      {
+        v7 = 1;
+      }
+
+      else
+      {
+        v7 = -1;
+      }
+
+      if (directionCopy)
+      {
+        inputCount = [(TIKeyboardInputManagerChinesePhonetic *)self inputCount];
+      }
+
+      else
+      {
+        inputCount = 0;
+      }
+
+      inputCount2 = [(TIKeyboardInputManagerChinesePhonetic *)self inputCount];
+      inputString = [(TIKeyboardInputManagerChinesePhonetic *)self inputString];
+      convertedInput = [(TIKeyboardInputManagerChinesePhonetic *)self convertedInput];
+      v11 = [convertedInput length];
+
+      if (v11 <= inputCount)
+      {
+        v12 = inputCount;
+      }
+
+      else
+      {
+        v12 = v11;
+      }
+
+      v19 = v12;
+      v13 = phraseBoundary - inputCount2;
+      v14 = v7;
+      v15 = phraseBoundary;
+      while (1)
+      {
+        if (phraseBoundary == v12)
+        {
+          v15 = v19;
+          goto LABEL_26;
+        }
+
+        if (!(v13 + v14) || !(phraseBoundary + v14))
+        {
+          v15 = phraseBoundary + v14;
+          goto LABEL_26;
+        }
+
+        if (!(phraseBoundary - 0x7FFFFFFFFFFFFFFFLL + v14))
+        {
+          break;
+        }
+
+        v15 += v7;
+        if (phraseBoundary + v14 + 1 <= [inputString length])
+        {
+          v16 = [inputString substringWithRange:{phraseBoundary + v14, 1}];
+          syllableSeparator = [(TIKeyboardInputManagerMecabra *)self syllableSeparator];
+          v18 = [v16 isEqualToString:syllableSeparator];
+
+          v14 += v7;
+          v12 -= v7;
+          if ((v18 & 1) == 0)
+          {
+            continue;
+          }
+        }
+
+        goto LABEL_26;
+      }
+
+      v15 = 0x7FFFFFFFFFFFFFFFLL;
+LABEL_26:
+      [(TIKeyboardInputManagerChinesePhonetic *)self setPhraseBoundary:v15];
+    }
+  }
+
+  else
+  {
+    v21.receiver = self;
+    v21.super_class = TIKeyboardInputManagerPinyin;
+    [(TIKeyboardInputManagerMecabra *)&v21 adjustPhraseBoundaryInForwardDirection:direction granularity:?];
+  }
 }
 
 - (id)validCharacterSetForAutocorrection

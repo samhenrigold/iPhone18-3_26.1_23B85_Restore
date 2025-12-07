@@ -16,7 +16,7 @@
 {
   if ((atomic_load_explicit(&qword_280A38980, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_280A38980))
   {
-    sub_275C8E754(qword_280A38968, dword_275D0BEF8, &dword_275D0BEF8[2]);
+    sub_275C8E754(qword_280A38968, &unk_275D0BEF8, dword_275D0BF00);
     __cxa_guard_release(&qword_280A38980);
   }
 

@@ -159,12 +159,12 @@
 {
   if (equal == self)
   {
-    LOBYTE(v8) = 1;
-    return v8;
+    LOBYTE(isEqualToString) = 1;
+    return isEqualToString;
   }
 
-  v24 = v3;
-  v25 = v4;
+  v26 = v3;
+  v27 = v4;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
@@ -174,20 +174,24 @@
   portType = self->_portType;
   if (portType != [equal portType])
   {
-    v8 = -[NSString isEqualToString:](self->_portType, "isEqualToString:", [equal portType]);
-    if (!v8)
+    v8 = self->_portType;
+    [equal portType];
+    isEqualToString = objc_msgSend_isEqualToString_(v8);
+    if (!isEqualToString)
     {
-      return v8;
+      return isEqualToString;
     }
   }
 
   sensorIDString = self->_sensorIDString;
   if (sensorIDString != [equal sensorIDString])
   {
-    v8 = -[NSString isEqualToString:](self->_sensorIDString, "isEqualToString:", [equal sensorIDString]);
-    if (!v8)
+    v11 = self->_sensorIDString;
+    [equal sensorIDString];
+    isEqualToString = objc_msgSend_isEqualToString_(v11);
+    if (!isEqualToString)
     {
-      return v8;
+      return isEqualToString;
     }
   }
 
@@ -206,26 +210,26 @@
   bracketSettings = self->_bracketSettings;
   if (bracketSettings != [equal bracketSettings])
   {
-    v8 = -[BWBracketSettings isEqual:](self->_bracketSettings, "isEqual:", [equal bracketSettings]);
-    if (!v8)
+    isEqualToString = -[BWBracketSettings isEqual:](self->_bracketSettings, "isEqual:", [equal bracketSettings]);
+    if (!isEqualToString)
     {
-      return v8;
+      return isEqualToString;
     }
   }
 
   validBracketedCaptureSequenceNumbers = self->_validBracketedCaptureSequenceNumbers;
   if (validBracketedCaptureSequenceNumbers != [equal validBracketedCaptureSequenceNumbers])
   {
-    v8 = -[NSArray isEqual:](self->_validBracketedCaptureSequenceNumbers, "isEqual:", [equal validBracketedCaptureSequenceNumbers]);
-    if (!v8)
+    isEqualToString = -[NSArray isEqual:](self->_validBracketedCaptureSequenceNumbers, "isEqual:", [equal validBracketedCaptureSequenceNumbers]);
+    if (!isEqualToString)
     {
-      return v8;
+      return isEqualToString;
     }
   }
 
   if (equal)
   {
-    [equal preferredTimeMachinePTS];
+    objc_msgSend_preferredTimeMachinePTS(equal);
   }
 
   else
@@ -237,30 +241,30 @@
   if (CMTimeCompare(&preferredTimeMachinePTS, &time2) || (timeMachineFrameCount = self->_timeMachineFrameCount, timeMachineFrameCount != [equal timeMachineFrameCount]) || (referenceFrameIndex = self->_referenceFrameIndex, referenceFrameIndex != objc_msgSend(equal, "referenceFrameIndex")))
   {
 LABEL_29:
-    LOBYTE(v8) = 0;
-    return v8;
+    LOBYTE(isEqualToString) = 0;
+    return isEqualToString;
   }
 
   timeMachineBracketedCaptureParams = self->_timeMachineBracketedCaptureParams;
-  if (timeMachineBracketedCaptureParams == [equal timeMachineBracketedCaptureParams] || (v8 = -[NSArray isEqual:](self->_timeMachineBracketedCaptureParams, "isEqual:", objc_msgSend(equal, "timeMachineBracketedCaptureParams"))) != 0)
+  if (timeMachineBracketedCaptureParams == [equal timeMachineBracketedCaptureParams] || (isEqualToString = -[NSArray isEqual:](self->_timeMachineBracketedCaptureParams, "isEqual:", objc_msgSend(equal, "timeMachineBracketedCaptureParams"))) != 0)
   {
     preBracketFrameCaptureParams = self->_preBracketFrameCaptureParams;
-    if (preBracketFrameCaptureParams == [equal preBracketFrameCaptureParams] || (v8 = -[NSDictionary isEqual:](self->_preBracketFrameCaptureParams, "isEqual:", objc_msgSend(equal, "preBracketFrameCaptureParams"))) != 0)
+    if (preBracketFrameCaptureParams == [equal preBracketFrameCaptureParams] || (isEqualToString = -[NSDictionary isEqual:](self->_preBracketFrameCaptureParams, "isEqual:", objc_msgSend(equal, "preBracketFrameCaptureParams"))) != 0)
     {
       unifiedBracketedCaptureParams = self->_unifiedBracketedCaptureParams;
-      if (unifiedBracketedCaptureParams == [equal unifiedBracketedCaptureParams] || (v8 = -[NSArray isEqual:](self->_unifiedBracketedCaptureParams, "isEqual:", objc_msgSend(equal, "unifiedBracketedCaptureParams"))) != 0)
+      if (unifiedBracketedCaptureParams == [equal unifiedBracketedCaptureParams] || (isEqualToString = -[NSArray isEqual:](self->_unifiedBracketedCaptureParams, "isEqual:", objc_msgSend(equal, "unifiedBracketedCaptureParams"))) != 0)
       {
         captureFrameInfos = self->_captureFrameInfos;
-        if (captureFrameInfos == *(equal + 14) || (v8 = [(NSArray *)captureFrameInfos isEqual:?]) != 0)
+        if (captureFrameInfos == *(equal + 14) || (isEqualToString = [(NSArray *)captureFrameInfos isEqual:?]) != 0)
         {
           lensStabilizationEnabledForClientBracket = self->_lensStabilizationEnabledForClientBracket;
-          LOBYTE(v8) = lensStabilizationEnabledForClientBracket == [equal lensStabilizationEnabledForClientBracket];
+          LOBYTE(isEqualToString) = lensStabilizationEnabledForClientBracket == [equal lensStabilizationEnabledForClientBracket];
         }
       }
     }
   }
 
-  return v8;
+  return isEqualToString;
 }
 
 - (BOOL)hasValidFrames
@@ -810,7 +814,7 @@ LABEL_17:
     v9 = v8;
     ImageBuffer = CMSampleBufferGetImageBuffer(processing);
     PixelFormatType = CVPixelBufferGetPixelFormatType(ImageBuffer);
-    v12 = [objc_msgSend(v5 objectForKeyedSubscript:{*off_1E798B540), "isEqualToString:", *off_1E798A0E8}];
+    isEqualToString = objc_msgSend_isEqualToString_([v5 objectForKeyedSubscript:*off_1E798B540]);
     IsVersatileRaw = FigCapturePixelFormatIsVersatileRaw(PixelFormatType);
     if (IsVersatileRaw)
     {
@@ -822,7 +826,7 @@ LABEL_17:
       v14 = 0x2000000000000000;
     }
 
-    if ((IsVersatileRaw & 1) == 0 && v12)
+    if ((IsVersatileRaw & 1) == 0 && isEqualToString)
     {
       if (BWPixelFormatIsFixedPoint(PixelFormatType))
       {
@@ -1920,42 +1924,42 @@ BOOL __79__BWStillImageCaptureStreamSettings_adaptiveBracketingFrameParametersFo
   {
     if ([(NSArray *)self->_captureFrameInfos count])
     {
-      OUTLINED_FUNCTION_1_13();
+      v3 = OUTLINED_FUNCTION_1_13();
       captureFrameInfos = self->_captureFrameInfos;
-      v12 = OUTLINED_FUNCTION_2_0(v4, v5, v6, v7, v8, v9, v10, v11, v27, v29, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59);
-      if (v12)
+      v13 = OUTLINED_FUNCTION_2_0(v5, v6, v7, v8, v9, v10, v11, v12, v28, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v3);
+      if (v13)
       {
-        v13 = v12;
-        v14 = *v62;
+        v14 = v13;
+        v15 = *v61;
         while (2)
         {
-          v15 = 0;
+          v16 = 0;
           do
           {
             OUTLINED_FUNCTION_4_10();
-            if (v16 != v14)
+            if (v17 != v15)
             {
               objc_enumerationMutation(captureFrameInfos);
             }
 
-            v17 = *(v61 + 8 * v15);
+            v18 = *(v60 + 8 * v16);
             objc_opt_class();
             isKindOfClass = objc_opt_isKindOfClass();
             if (isKindOfClass)
             {
-              isKindOfClass = [v17 mainFlags];
+              isKindOfClass = [v18 mainFlags];
               if ((isKindOfClass & 0x10) != 0)
               {
-                return [v17 timeMachineIndex];
+                return [v18 timeMachineIndex];
               }
             }
 
-            ++v15;
+            ++v16;
           }
 
-          while (v13 != v15);
-          v13 = OUTLINED_FUNCTION_2_0(isKindOfClass, v19, v20, v21, v22, v23, v24, v25, v28, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60);
-          if (v13)
+          while (v14 != v16);
+          v14 = OUTLINED_FUNCTION_2_0(isKindOfClass, v20, v21, v22, v23, v24, v25, v26, v29, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59);
+          if (v14)
           {
             continue;
           }
@@ -1976,9 +1980,9 @@ BOOL __79__BWStillImageCaptureStreamSettings_adaptiveBracketingFrameParametersFo
     return 0;
   }
 
-  OUTLINED_FUNCTION_1_13();
+  v6 = OUTLINED_FUNCTION_1_13();
   captureFrameInfos = self->_captureFrameInfos;
-  if (!OUTLINED_FUNCTION_2_0(v7, v8, v9, v10, v11, v12, v13, v14, v27, v29, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59))
+  if (!OUTLINED_FUNCTION_2_0(v8, v9, v10, v11, v12, v13, v14, v15, v29, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v6))
   {
     return 0;
   }
@@ -1986,27 +1990,27 @@ BOOL __79__BWStillImageCaptureStreamSettings_adaptiveBracketingFrameParametersFo
   OUTLINED_FUNCTION_7_11();
   do
   {
-    v15 = 0;
+    v16 = 0;
     do
     {
       OUTLINED_FUNCTION_4_10();
-      if (v16 != v4)
+      if (v17 != v4)
       {
         objc_enumerationMutation(captureFrameInfos);
       }
 
-      v17 = *(v61 + 8 * v15);
-      mainFlags = [v17 mainFlags];
+      v18 = *(v61 + 8 * v16);
+      mainFlags = [v18 mainFlags];
       if ((mainFlags & 8) != 0)
       {
-        OUTLINED_FUNCTION_0_17([v17 mainFlags]);
+        *&v27 = OUTLINED_FUNCTION_0_17([v18 mainFlags]);
       }
 
-      ++v15;
+      ++v16;
     }
 
-    while (v3 != v15);
-    v3 = OUTLINED_FUNCTION_2_0(mainFlags, v19, v20, v21, v22, v23, v24, v25, v28, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60);
+    while (v3 != v16);
+    v3 = OUTLINED_FUNCTION_2_0(mainFlags, v20, v21, v22, v23, v24, v25, v26, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v27);
   }
 
   while (v3);
@@ -2020,9 +2024,9 @@ BOOL __79__BWStillImageCaptureStreamSettings_adaptiveBracketingFrameParametersFo
     return 0;
   }
 
-  OUTLINED_FUNCTION_1_13();
+  v6 = OUTLINED_FUNCTION_1_13();
   captureFrameInfos = self->_captureFrameInfos;
-  if (!OUTLINED_FUNCTION_2_0(v7, v8, v9, v10, v11, v12, v13, v14, v28, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60))
+  if (!OUTLINED_FUNCTION_2_0(v8, v9, v10, v11, v12, v13, v14, v15, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v6))
   {
     return 0;
   }
@@ -2030,32 +2034,32 @@ BOOL __79__BWStillImageCaptureStreamSettings_adaptiveBracketingFrameParametersFo
   OUTLINED_FUNCTION_7_11();
   do
   {
-    v15 = 0;
+    v16 = 0;
     do
     {
       OUTLINED_FUNCTION_4_10();
-      if (v16 != v4)
+      if (v17 != v4)
       {
         objc_enumerationMutation(captureFrameInfos);
       }
 
-      v17 = *(v62 + 8 * v15);
-      if (([v17 mainFlags] & 0x100) != 0)
+      v18 = *(v62 + 8 * v16);
+      if (([v18 mainFlags] & 0x100) != 0)
       {
-        *&v18 = OUTLINED_FUNCTION_0_17([v17 mainFlags]);
+        *&v19 = OUTLINED_FUNCTION_0_17([v18 mainFlags]);
       }
 
-      sifrFlags = [v17 sifrFlags];
+      sifrFlags = [v18 sifrFlags];
       if ((sifrFlags & 0x100) != 0)
       {
-        OUTLINED_FUNCTION_0_17([v17 sifrFlags]);
+        *&v28 = OUTLINED_FUNCTION_0_17([v18 sifrFlags]);
       }
 
-      ++v15;
+      ++v16;
     }
 
-    while (v3 != v15);
-    v3 = OUTLINED_FUNCTION_2_0(sifrFlags, v20, v21, v22, v23, v24, v25, v26, v29, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61);
+    while (v3 != v16);
+    v3 = OUTLINED_FUNCTION_2_0(sifrFlags, v21, v22, v23, v24, v25, v26, v27, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, v28);
   }
 
   while (v3);

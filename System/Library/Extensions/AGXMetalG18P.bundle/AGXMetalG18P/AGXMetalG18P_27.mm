@@ -3089,7 +3089,7 @@ LABEL_71:
   return AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)19,8u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)0>::compressSubblock(v11, a4 + 7, (v13 + v17 + 384), a2, v32, v31, a7, a8);
 }
 
-unint64_t AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)19,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)1>::compressSubblock(unint64_t a1, _BYTE *a2, int16x8_t *a3, uint64_t a4, unsigned int a5, unsigned int a6, int a7)
+unint64_t AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)19,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)1>::compressSubblock(unint64_t a1, _BYTE *a2, int16x8_t *a3, uint64_t a4, unsigned int a5, unsigned int a6, uint64_t a7)
 {
   v7 = (a3 + 2 * a4);
   v9 = *v7;
@@ -4147,8 +4147,9 @@ unint64_t AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::Pixe
   return result;
 }
 
-uint64_t AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)19,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)1>::compressLossyCompressedSubblock(unint64_t a1, _BYTE *a2, uint64_t a3, uint64_t a4, unsigned int a5, unsigned int a6, int a7)
+uint64_t AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)19,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)1>::compressLossyCompressedSubblock(unint64_t a1, _BYTE *a2, uint64_t a3, uint64_t a4, unsigned int a5, unsigned int a6, uint64_t a7)
 {
+  v7 = a7;
   v82 = *MEMORY[0x29EDCA608];
   v80 = 0u;
   v81 = 0u;
@@ -4360,7 +4361,7 @@ LABEL_9:
     v47 = v44;
   }
 
-  v48 = AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)19,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)1>::compressLossyCompressedSubblockDQuad(a1 + 32, &v58, a7, v41, v47);
+  v48 = AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)19,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)1>::compressLossyCompressedSubblockDQuad(a1 + 32, &v58, v7, v41, v47);
   v58 = vmovl_u16(*&v74);
   v59 = vmovl_u16(*&v76);
   v60 = vmovl_u16(*(&v74 + 8));
@@ -4381,7 +4382,7 @@ LABEL_9:
 
   v64 = v49;
   v65 = v50;
-  v52 = AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)19,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)1>::compressLossyCompressedSubblockDQuad(a1 + 64, &v58, a7, v51, v43);
+  v52 = AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)19,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)1>::compressLossyCompressedSubblockDQuad(a1 + 64, &v58, v7, v51, v43);
   v58 = vmovl_u16(*&v75);
   v59 = vmovl_u16(*&v77);
   v60 = vmovl_u16(*(&v75 + 8));
@@ -4390,7 +4391,7 @@ LABEL_9:
   v63 = vmovl_u16(*&v81);
   v64 = vmovl_u16(*(&v79 + 8));
   v65 = vmovl_u16(*(&v81 + 8));
-  result = AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)19,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)1>::compressLossyCompressedSubblockDQuad(a1 + 96, &v58, a7, v51, v47);
+  result = AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)19,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)1>::compressLossyCompressedSubblockDQuad(a1 + 96, &v58, v7, v51, v47);
   if (v52)
   {
     v54 = 4;
@@ -5305,7 +5306,7 @@ LABEL_210:
         }
       }
 
-      if (v137 != 2 && (v145 - v134 + (v136 << 6) + v139) <= 0x100)
+      if (v137 != 2 && v145 - v134 + (v136 << 6) + v139 <= 0x100)
       {
         v150 = 0;
         v151 = v137 - 2;
@@ -5348,7 +5349,7 @@ LABEL_294:
         }
       }
 
-      if (v138 != 2 && (v145 - v134 + (v136 << 6) + v140) <= 0x100)
+      if (v138 != 2 && v145 - v134 + (v136 << 6) + v140 <= 0x100)
       {
         v156 = 0;
         v157 = v138 - 2;
@@ -5390,7 +5391,7 @@ LABEL_304:
         }
       }
 
-      if (v142 != 2 && (v145 - v134 + (v136 << 6) + v143) <= 0x100)
+      if (v142 != 2 && v145 - v134 + (v136 << 6) + v143 <= 0x100)
       {
         v161 = 0;
         v162 = v142 - 2;
@@ -5429,7 +5430,7 @@ LABEL_314:
         if (v144 <= 0x100)
         {
 LABEL_318:
-          if (v141 != 2 && (v145 - v134 + (v136 << 6) + v144) <= 0x100)
+          if (v141 != 2 && v145 - v134 + (v136 << 6) + v144 <= 0x100)
           {
             v166 = 0;
             v167 = v141 - 2;
@@ -5520,7 +5521,7 @@ LABEL_335:
     v316 = 2;
   }
 
-  if ((v176 - v134) <= 0xFD)
+  if (v176 - v134 <= 0xFD)
   {
     *v133 = (v178 << v176) | v175;
     v176 = v134 | 6;
@@ -5554,7 +5555,7 @@ LABEL_343:
     v185 = 2;
   }
 
-  if ((v176 - v134 - 254) >= 0xFFFFFFFFFFFFFEFFLL)
+  if (v176 - v134 - 254 >= 0xFFFFFFFFFFFFFEFFLL)
   {
     v186 = 0;
     v187 = 0;
@@ -5658,7 +5659,7 @@ LABEL_343:
     v200 = 1;
   }
 
-  if ((v176 - v134 + (v186 << 6) + 3) <= 0x100)
+  if (v176 - v134 + (v186 << 6) + 3 <= 0x100)
   {
     v201 = 0;
     v202 = 3;
@@ -5855,7 +5856,7 @@ LABEL_430:
     }
 
 LABEL_409:
-    if ((v176 - v134 + (v186 << 6) + v198) > 0x100)
+    if (v176 - v134 + (v186 << 6) + v198 > 0x100)
     {
       v222 = 1;
     }
@@ -5998,7 +5999,7 @@ LABEL_531:
   v252 = v320;
   if (v320)
   {
-    if ((v176 - v134 + (v186 << 6) + 3) <= 0x100)
+    if (v176 - v134 + (v186 << 6) + 3 <= 0x100)
     {
       v253 = 0;
       v254 = v338[0];
@@ -6028,7 +6029,7 @@ LABEL_531:
   v258 = v321;
   if (v321)
   {
-    if ((v176 - v134 + (v186 << 6) + 3) <= 0x100)
+    if (v176 - v134 + (v186 << 6) + 3 <= 0x100)
     {
       v259 = 0;
       v260 = v338[1];
@@ -6058,7 +6059,7 @@ LABEL_531:
   v264 = v322;
   if (v322)
   {
-    if ((v176 - v134 + (v186 << 6) + 3) <= 0x100)
+    if (v176 - v134 + (v186 << 6) + 3 <= 0x100)
     {
       v265 = 0;
       v266 = v338[2];
@@ -6088,7 +6089,7 @@ LABEL_531:
   v270 = v323;
   if (v323)
   {
-    if ((v176 - v134 + (v186 << 6) + 3) <= 0x100)
+    if (v176 - v134 + (v186 << 6) + 3 <= 0x100)
     {
       v271 = 0;
       v272 = v338[3];

@@ -241,7 +241,7 @@ void __64__FBSLegacySignatureValidationService_trustStateForApplication___block_
 {
   if (a3)
   {
-    v5 = FBLogCommon();
+    v5 = FBLogCommon(a1);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __64__FBSLegacySignatureValidationService_trustStateForApplication___block_invoke_2_cold_1(a1, a3, v5);

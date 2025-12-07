@@ -22,7 +22,6 @@
 
 uint64_t __29__ADIDManager_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   sharedInstance__instance_1 = objc_alloc_init(objc_opt_class());
 
   return MEMORY[0x2821F96F8]();
@@ -154,7 +153,7 @@ void __30__ADIDManager_AdCore__loadIDs__block_invoke(uint64_t a1, uint64_t a2)
 
 - (id)loadFakeRecord:(id)record
 {
-  v69[3] = *MEMORY[0x277D85DE8];
+  v68[3] = *MEMORY[0x277D85DE8];
   recordCopy = record;
   recordCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"Loading fake records for DSID %@", recordCopy];
   _ADLog(@"iAdStateLogging", recordCopy, 0);
@@ -162,68 +161,68 @@ void __30__ADIDManager_AdCore__loadIDs__block_invoke(uint64_t a1, uint64_t a2)
   v5 = [@"BAAAAAAD" length];
   obj = self;
   objc_sync_enter(obj);
-  v68[0] = @"iAdIDRecordsVersion";
-  v68[1] = @"kADiADIDMonthResetKey";
-  v69[0] = @"3";
-  v69[1] = MEMORY[0x277CBEBF8];
-  v68[2] = @"kADiAdIDManager_RecordsKey";
-  v66 = recordCopy;
-  v64 = @"kADDSIDRecord_iAdIDRecordsKey";
-  v62[0] = @"0";
-  v60 = @"kADiAdIDRecord_iAdIDKey";
+  v67[0] = @"iAdIDRecordsVersion";
+  v67[1] = @"kADiADIDMonthResetKey";
+  v68[0] = @"3";
+  v68[1] = MEMORY[0x277CBEBF8];
+  v67[2] = @"kADiAdIDManager_RecordsKey";
+  v65 = recordCopy;
+  v63 = @"kADDSIDRecord_iAdIDRecordsKey";
+  v61[0] = @"0";
+  v59 = @"kADiAdIDRecord_iAdIDKey";
   uUID = [MEMORY[0x277CCAD78] UUID];
   uUIDString = [uUID UUIDString];
-  v45 = [uUIDString stringByReplacingCharactersInRange:0 withString:{v5, @"BAAAAAAD"}];
-  v61 = v45;
-  v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v61 forKeys:&v60 count:1];
-  v63[0] = v44;
-  v62[1] = @"1";
-  v58 = @"kADiAdIDRecord_iAdIDKey";
+  v44 = [uUIDString stringByReplacingCharactersInRange:0 withString:{v5, @"BAAAAAAD"}];
+  v60 = v44;
+  v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v60 forKeys:&v59 count:1];
+  v62[0] = v43;
+  v61[1] = @"1";
+  v57 = @"kADiAdIDRecord_iAdIDKey";
   uUID2 = [MEMORY[0x277CCAD78] UUID];
   uUIDString2 = [uUID2 UUIDString];
-  v41 = [uUIDString2 stringByReplacingCharactersInRange:0 withString:{v5, @"BAAAAAAD"}];
-  v59 = v41;
-  v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
-  v63[1] = v40;
-  v62[2] = @"2";
-  v56 = @"kADiAdIDRecord_iAdIDKey";
+  v40 = [uUIDString2 stringByReplacingCharactersInRange:0 withString:{v5, @"BAAAAAAD"}];
+  v58 = v40;
+  v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v58 forKeys:&v57 count:1];
+  v62[1] = v39;
+  v61[2] = @"2";
+  v55 = @"kADiAdIDRecord_iAdIDKey";
   uUID3 = [MEMORY[0x277CCAD78] UUID];
   uUIDString3 = [uUID3 UUIDString];
-  v37 = [uUIDString3 stringByReplacingCharactersInRange:0 withString:{v5, @"BAAAAAAD"}];
-  v57 = v37;
-  v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
-  v63[2] = v36;
-  v62[3] = @"3";
-  v54 = @"kADiAdIDRecord_iAdIDKey";
+  v36 = [uUIDString3 stringByReplacingCharactersInRange:0 withString:{v5, @"BAAAAAAD"}];
+  v56 = v36;
+  v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
+  v62[2] = v35;
+  v61[3] = @"3";
+  v53 = @"kADiAdIDRecord_iAdIDKey";
   uUID4 = [MEMORY[0x277CCAD78] UUID];
   uUIDString4 = [uUID4 UUIDString];
-  v33 = [uUIDString4 stringByReplacingCharactersInRange:0 withString:{v5, @"BAAAAAAD"}];
-  v55 = v33;
-  v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v55 forKeys:&v54 count:1];
-  v63[3] = v32;
-  v62[4] = @"4";
-  v52 = @"kADiAdIDRecord_iAdIDKey";
+  v32 = [uUIDString4 stringByReplacingCharactersInRange:0 withString:{v5, @"BAAAAAAD"}];
+  v54 = v32;
+  v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v54 forKeys:&v53 count:1];
+  v62[3] = v31;
+  v61[4] = @"4";
+  v51 = @"kADiAdIDRecord_iAdIDKey";
   uUID5 = [MEMORY[0x277CCAD78] UUID];
   uUIDString5 = [uUID5 UUIDString];
-  v29 = [uUIDString5 stringByReplacingCharactersInRange:0 withString:{v5, @"BAAAAAAD"}];
-  v53 = v29;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
-  v63[4] = v6;
-  v62[5] = @"6";
-  v50 = @"kADiAdIDRecord_iAdIDKey";
+  v28 = [uUIDString5 stringByReplacingCharactersInRange:0 withString:{v5, @"BAAAAAAD"}];
+  v52 = v28;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
+  v62[4] = v6;
+  v61[5] = @"6";
+  v49 = @"kADiAdIDRecord_iAdIDKey";
   uUID6 = [MEMORY[0x277CCAD78] UUID];
   uUIDString6 = [uUID6 UUIDString];
   v9 = [uUIDString6 stringByReplacingCharactersInRange:0 withString:{v5, @"BAAAAAAD"}];
-  v51 = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
-  v63[5] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v63 forKeys:v62 count:6];
-  v65 = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
-  v67 = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v67 forKeys:&v66 count:1];
-  v69[2] = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v69 forKeys:v68 count:3];
+  v50 = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
+  v62[5] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v62 forKeys:v61 count:6];
+  v64 = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v64 forKeys:&v63 count:1];
+  v66 = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v66 forKeys:&v65 count:1];
+  v68[2] = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v68 forKeys:v67 count:3];
 
   v15 = [(ADIDManager *)obj dsidRecord:recordCopy fromDict:v14];
   [(ADIDManager *)obj setActiveDSIDRecord:v15];
@@ -259,8 +258,6 @@ void __30__ADIDManager_AdCore__loadIDs__block_invoke(uint64_t a1, uint64_t a2)
   _ADLog(@"iAdStateLogging", v25, 0);
 
   activeDSIDRecord4 = [(ADIDManager *)obj activeDSIDRecord];
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return activeDSIDRecord4;
 }

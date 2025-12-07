@@ -147,20 +147,8 @@ void __41__HMFKeyValueDatabase_valueForKey_error___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) inMemoryDictionary];
 
-  if (!v2)
+  if (!v2 || ([*(a1 + 32) inMemoryDictionary], v3 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v3, "objectForKey:", *(a1 + 40)), v4 = objc_claimAutoreleasedReturnValue(), v5 = *(*(a1 + 48) + 8), v6 = *(v5 + 40), *(v5 + 40) = v4, v6, v3, !*(*(*(a1 + 48) + 8) + 40)))
   {
-    goto LABEL_9;
-  }
-
-  v3 = [*(a1 + 32) inMemoryDictionary];
-  v4 = [v3 objectForKey:*(a1 + 40)];
-  v5 = *(*(a1 + 48) + 8);
-  v6 = *(v5 + 40);
-  *(v5 + 40) = v4;
-
-  if (!*(*(*(a1 + 48) + 8) + 40))
-  {
-LABEL_9:
     v7 = [*(a1 + 32) diskRepresentation];
 
     if (v7)
@@ -252,7 +240,7 @@ void __28__HMFKeyValueDatabase_sync___block_invoke(uint64_t a1)
 
 - (BOOL)_syncWithoutTimerHandling:(id *)handling
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   if (dispatch_get_specific(&kHMFKeyValueDatabaseQueueSpecificKey) != &kHMFKeyValueDatabaseQueueSpecificKey)
   {
     _HMFPreconditionFailure(@"Must be called on database serial queue");
@@ -321,16 +309,16 @@ void __28__HMFKeyValueDatabase_sync___block_invoke(uint64_t a1)
     else
     {
       v22 = MEMORY[0x277CCA9B8];
-      v27 = *MEMORY[0x277CCA450];
-      v28[0] = @"Failed to create memory-mapped data";
-      v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+      v26 = *MEMORY[0x277CCA450];
+      v27[0] = @"Failed to create memory-mapped data";
+      v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:&v26 count:1];
       v21 = [v22 errorWithDomain:@"HMFKeyValueDatabaseErrorDomain" code:1 userInfo:v23];
 
       if (!handling)
       {
 LABEL_21:
 
-        goto LABEL_22;
+        return v19;
       }
 
       v24 = v21;
@@ -347,10 +335,7 @@ LABEL_21:
     *handling = 0;
   }
 
-  v19 = 1;
-LABEL_22:
-  v25 = *MEMORY[0x277D85DE8];
-  return v19;
+  return 1;
 }
 
 - (void)_startDelayedSyncTimerIfNeeded
@@ -541,7 +526,7 @@ void __27__HMFKeyValueDatabase_keys__block_invoke(uint64_t a1)
 
 void __29__HMFKeyValueDatabase_values__block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) diskRepresentation];
 
   if (v2)
@@ -551,27 +536,27 @@ void __29__HMFKeyValueDatabase_values__block_invoke(uint64_t a1)
 
     if (v4)
     {
-      v20 = 0u;
-      v21 = 0u;
-      v18 = 0u;
       v19 = 0u;
+      v20 = 0u;
+      v17 = 0u;
+      v18 = 0u;
       v5 = v4;
-      v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v6)
       {
         v7 = v6;
-        v8 = *v19;
+        v8 = *v18;
         do
         {
           v9 = 0;
           do
           {
-            if (*v19 != v8)
+            if (*v18 != v8)
             {
               objc_enumerationMutation(v5);
             }
 
-            v10 = *(*(&v18 + 1) + 8 * v9);
+            v10 = *(*(&v17 + 1) + 8 * v9);
             v11 = [*(a1 + 32) diskRepresentation];
             v12 = [v11 hmf_objectForKey:v10];
 
@@ -584,7 +569,7 @@ void __29__HMFKeyValueDatabase_values__block_invoke(uint64_t a1)
           }
 
           while (v7 != v9);
-          v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+          v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
         }
 
         while (v7);
@@ -601,8 +586,6 @@ void __29__HMFKeyValueDatabase_values__block_invoke(uint64_t a1)
     v16 = [v14 inMemoryDictionary];
     [v15 addEntriesFromDictionary:v16];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)dictionary

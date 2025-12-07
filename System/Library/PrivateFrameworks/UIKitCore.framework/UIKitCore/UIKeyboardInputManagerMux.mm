@@ -100,9 +100,9 @@ LABEL_13:
   v14 = +[UIKeyboardInputModeController sharedInputModeController];
   currentInputMode = [v14 currentInputMode];
   v16 = +[UIKeyboardInputMode dictationInputMode];
-  v17 = [currentInputMode isEqual:v16];
+  isEqual = objc_msgSend_isEqual_(currentInputMode);
 
-  if (v17 || ![(UIKeyboardInputManagerMux *)self _systemHasKbd])
+  if (isEqual || ![(UIKeyboardInputManagerMux *)self _systemHasKbd])
   {
     goto LABEL_13;
   }

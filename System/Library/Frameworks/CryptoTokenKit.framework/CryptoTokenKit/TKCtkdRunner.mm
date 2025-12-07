@@ -153,7 +153,7 @@ LABEL_12:
 
 - (void)run
 {
-  v3 = sub_100003EC4();
+  v3 = sub_100003EC4(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_10001D9D4(self, v3);

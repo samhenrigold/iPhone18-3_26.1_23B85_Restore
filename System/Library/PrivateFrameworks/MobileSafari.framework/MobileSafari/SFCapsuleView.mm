@@ -502,7 +502,7 @@ LABEL_21:
 
   else
   {
-    [(SFCapsuleView *)self transform];
+    objc_msgSend_transform(self);
     shadowView = self->_shadowView;
     v7 = v10;
     v8 = v11;

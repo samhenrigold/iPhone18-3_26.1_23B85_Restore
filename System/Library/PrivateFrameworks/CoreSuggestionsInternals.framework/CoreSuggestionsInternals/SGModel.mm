@@ -148,29 +148,27 @@ LABEL_5:
 
 + (id)featurize:(id)featurize
 {
-  v19[3] = *MEMORY[0x277D85DE8];
+  v18[3] = *MEMORY[0x277D85DE8];
   featurizeCopy = featurize;
   v5 = [featurizeCopy rangeOfString:@"%PHONE%"];
   v7 = [[SGDataDetectorMatch alloc] initWithMatchType:0 range:0 labelRange:0 labelString:0 valueRange:0 valueString:&stru_284703F00, v5, v6, @"%PHONE%"];
-  v18[0] = @"INPUT_TEXT";
-  v18[1] = @"TARGET_MATCH";
-  v19[0] = featurizeCopy;
-  v19[1] = v7;
-  v18[2] = @"DD_MATCHES";
-  v17 = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
-  v19[2] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:3];
+  v17[0] = @"INPUT_TEXT";
+  v17[1] = @"TARGET_MATCH";
+  v18[0] = featurizeCopy;
+  v18[1] = v7;
+  v17[2] = @"DD_MATCHES";
+  v16 = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
+  v18[2] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:3];
 
   v10 = [self transformerInstanceForLanguage:@"en"];
   transformer = [v10 transformer];
 
   transformers = [transformer transformers];
-  v13 = [transformer transform:v9 stopAfterTransformerWithIndex:{objc_msgSend(transformers, "count") - 2}];
+  v13 = [transformer transform:v9 stopAfterTransformerWithIndex:objc_msgSend_count(transformers) - 2];
 
   v14 = [v13 _pas_componentsJoinedByString:@" "];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

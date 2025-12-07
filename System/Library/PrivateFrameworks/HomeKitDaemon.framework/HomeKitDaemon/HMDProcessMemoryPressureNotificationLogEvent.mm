@@ -8,17 +8,15 @@
 
 - (NSDictionary)coreAnalyticsEventDictionary
 {
-  v9[2] = *MEMORY[0x277D85DE8];
-  v8[0] = @"processMemoryState";
+  v8[2] = *MEMORY[0x277D85DE8];
+  v7[0] = @"processMemoryState";
   processMemoryStateString = [(HMDProcessMemoryPressureNotificationLogEvent *)self processMemoryStateString];
-  v8[1] = @"dataSyncState";
-  v9[0] = processMemoryStateString;
+  v7[1] = @"dataSyncState";
+  v8[0] = processMemoryStateString;
   [(HMDProcessMemoryPressureNotificationLogEvent *)self dataSyncState];
   v4 = HMHomeManagerDataSyncStateToString();
-  v9[1] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v8[1] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
 
   return v5;
 }

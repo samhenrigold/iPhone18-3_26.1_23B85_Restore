@@ -3,7 +3,7 @@
 
 @implementation AXSLowercaseKeyboardDisplayEnabled
 
-uint64_t ___AXSLowercaseKeyboardDisplayEnabled_block_invoke()
+void *___AXSLowercaseKeyboardDisplayEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

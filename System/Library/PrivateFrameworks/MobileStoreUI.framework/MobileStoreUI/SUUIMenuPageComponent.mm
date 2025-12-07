@@ -22,7 +22,7 @@
     componentDictionary = [contextCopy componentDictionary];
     v6 = [componentDictionary objectForKey:@"type"];
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) != 0 && [v6 isEqualToString:@"popup"])
+    if ((objc_opt_isKindOfClass() & 1) != 0 && objc_msgSend_isEqualToString_(v6))
     {
       v52->_menuStyle = 1;
     }

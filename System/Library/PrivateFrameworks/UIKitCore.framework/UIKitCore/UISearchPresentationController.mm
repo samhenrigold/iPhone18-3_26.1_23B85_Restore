@@ -3,7 +3,7 @@
 
 @implementation UISearchPresentationController
 
-uint64_t __97___UISearchPresentationController__presentationTransitionWithSearchBarNotHostedByNavBarWillBegin__block_invoke_2(uint64_t a1, void *a2)
+void *__97___UISearchPresentationController__presentationTransitionWithSearchBarNotHostedByNavBarWillBegin__block_invoke_2(uint64_t a1, void *a2)
 {
   v4 = *(a1 + 32);
   v5 = [*(a1 + 40) edgeForHidingNavigationBar];

@@ -309,10 +309,11 @@ void sub_1000017A8(id a1, OS_xpc_object *a2)
   objc_autoreleasePoolPop(v3);
 }
 
-void sub_1000018E0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000018E0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 BOOL sub_100001908()
@@ -453,9 +454,9 @@ id sub_100001E00()
   return v1;
 }
 
-void sub_100001EC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100001EC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -467,9 +468,9 @@ void sub_100001F24(id a1)
   _objc_release_x1();
 }
 
-void sub_100002480(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100002480(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -503,7 +504,7 @@ id sub_100004E74(uint64_t a1)
   return v2;
 }
 
-uint64_t sub_1000056EC()
+uint64_t sub_1000056EC(uint64_t a1)
 {
   if (!qword_100014B20)
   {
@@ -515,7 +516,6 @@ uint64_t sub_1000056EC()
 
 uint64_t sub_1000057BC(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100014B20 = result;
   return result;
@@ -539,10 +539,19 @@ void sub_100005830(uint64_t a1)
 
 void sub_100005888()
 {
-  if (!sub_1000056EC())
+  v2 = 0;
+  v0 = sub_1000056EC(&v2);
+  v1 = v2;
+  if (!v0)
   {
-    v0 = abort_report_np();
-    free(v0);
+    v1 = abort_report_np("%s", v2);
+    goto LABEL_5;
+  }
+
+  if (v2)
+  {
+LABEL_5:
+    free(v1);
   }
 }
 
@@ -638,10 +647,11 @@ BOOL sub_100007564()
   return os_log_type_enabled(v0, OS_LOG_TYPE_ERROR);
 }
 
-void sub_100007594(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100007594(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 void sub_1000075B0(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -656,13 +666,6 @@ void sub_10000766C(uint64_t a1, NSObject *a2)
   v2 = 138412290;
   v3 = a1;
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "Received unexpected message %@", &v2, 0xCu);
-}
-
-void sub_100007804(uint64_t *a1)
-{
-  v6 = *a1;
-  sub_100005930();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
 void sub_100007998(int a1, uint8_t *buf, os_log_t log)
@@ -775,11 +778,11 @@ void sub_100008284(uint64_t a1, uint64_t a2, NSObject *a3)
   sub_1000075B0(&_mh_execute_header, a2, a3, "Wrote %ld bytes to file %{public}@", *v3, *&v3[8], *&v3[16]);
 }
 
-void sub_100008438(uint64_t a1)
+void sub_100008364(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v1 = *(a1 + 16);
-  sub_100007588();
-  sub_1000075B0(&_mh_execute_header, v2, v3, "Life time stats for domain %@: %@");
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  sub_100007594(&_mh_execute_header, a2, a3, "Successfully Read from file %{public}@.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_1000084B0(int a1)
@@ -803,13 +806,6 @@ void sub_100008554()
   }
 }
 
-void sub_100008624(uint64_t *a1)
-{
-  v1 = *a1;
-  sub_100007588();
-  _os_log_error_impl(&_mh_execute_header, v2, OS_LOG_TYPE_ERROR, "IOReportCreateSubscription error: %{public}@", v3, 0xCu);
-}
-
 void sub_10000869C(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
   v8 = off_100014B00;
@@ -831,10 +827,9 @@ void sub_1000087B0()
   sub_10000757C();
   if (sub_100007564())
   {
-    v2 = *v1;
     sub_100007588();
     sub_10000751C();
-    _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
+    _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
   }
 
   *v0 = 0;
@@ -849,6 +844,13 @@ void sub_100008850(void *a1)
   }
 
   *a1 = 0;
+}
+
+void sub_1000088B0(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_100007594(&_mh_execute_header, a2, a3, "On-disk lifetimeStats: %@\n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_10000891C()
@@ -879,10 +881,9 @@ void sub_100008A2C()
   sub_10000757C();
   if (sub_100007564())
   {
-    v2 = *v1;
     sub_100007588();
     sub_10000751C();
-    _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
+    _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
   }
 
   *v0 = 0;
@@ -897,11 +898,4 @@ void sub_100008ACC(void *a1)
   }
 
   *a1 = 0;
-}
-
-void sub_100008B2C(uint64_t a1)
-{
-  v1 = *(*a1 + 40);
-  sub_100007588();
-  sub_100007594(&_mh_execute_header, v2, v3, "Returning lifetime stats: %@", v4, v5, v6, v7, v8);
 }

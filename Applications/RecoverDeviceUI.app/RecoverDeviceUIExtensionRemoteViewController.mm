@@ -34,6 +34,7 @@
 - (void)setInitialCardForResume;
 - (void)setInitialCardForSetup;
 - (void)setupStop;
+- (void)showCollectCodeCard:(int)card inFlags:(unsigned int)flags inThrottleSeconds:(int)seconds;
 - (void)showEACSApprovalCard;
 - (void)showEACSCard;
 - (void)showLearnMoreCard;
@@ -46,6 +47,8 @@
 - (void)showScanningCard;
 - (void)updateCodeCardToSettingUpState;
 - (void)updateProgressCardOnMainQueueWithInfo:(id)info;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 - (void)waitForServerResponse;
 @end
@@ -740,9 +743,9 @@ void __70__RecoverDeviceUIExtensionRemoteViewController__setupKitEventHandler___
           v6 = @"AuthenticationPresent";
 LABEL_44:
           *buf = 67109378;
-          *v113 = v4;
-          *&v113[4] = 2114;
-          *&v113[6] = v6;
+          *v112 = v4;
+          *&v112[4] = 2114;
+          *&v112[6] = v6;
           _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "SetupKitEventHandler invoked for event : %d (%{public}@)", buf, 0x12u);
           goto LABEL_45;
       }
@@ -766,7 +769,7 @@ LABEL_45:
     {
       v10 = [*(a1 + 40) error];
       *buf = 138543362;
-      *v113 = v10;
+      *v112 = v10;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Got error from SetupKit: %{public}@", buf, 0xCu);
     }
 
@@ -819,7 +822,7 @@ LABEL_52:
     {
       v25 = [v22 basicConfig];
       *buf = 138543362;
-      *v113 = v25;
+      *v112 = v25;
       _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Remote device sent config: %{public}@", buf, 0xCu);
     }
 
@@ -847,9 +850,9 @@ LABEL_71:
       }
 
       *buf = 134218240;
-      *v113 = v29;
-      *&v113[8] = 2048;
-      *&v113[10] = 2;
+      *v112 = v29;
+      *&v112[8] = 2048;
+      *&v112[10] = 2;
       v32 = "Remote device got higher version: %ld, our version is: %ld";
       v33 = v31;
       v34 = 22;
@@ -858,42 +861,42 @@ LABEL_69:
       goto LABEL_70;
     }
 
-    v52 = [v22 basicConfig];
-    v53 = [v52 objectForKeyedSubscript:@"NeRDIntent"];
-    if ([v53 isEqual:@"NeRDIntentStatus"])
+    v51 = [v22 basicConfig];
+    v52 = [v51 objectForKeyedSubscript:@"NeRDIntent"];
+    if ([v52 isEqual:@"NeRDIntentStatus"])
     {
-      v54 = [*(a1 + 32) setupkitClient];
-      v55 = [v54 skipWifi];
+      v53 = [*(a1 + 32) setupkitClient];
+      v54 = [v53 skipWifi];
 
-      if (v55)
+      if (v54)
       {
-        v56 = [*(a1 + 32) logger];
-        v57 = [v56 oslog];
+        v55 = [*(a1 + 32) logger];
+        v56 = [v55 oslog];
 
-        if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEFAULT, "Remote device wants to send status, showing progress", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_DEFAULT, "Remote device wants to send status, showing progress", buf, 2u);
         }
 
         [*(a1 + 32) setSetupCompleted:1];
-        v58 = [*(a1 + 32) showingResultCard];
-        v59 = *(a1 + 32);
-        if ((v58 & 1) == 0)
+        v57 = [*(a1 + 32) showingResultCard];
+        v58 = *(a1 + 32);
+        if ((v57 & 1) == 0)
         {
-          v96 = [v22 basicConfig];
-          [v59 showProgressCard:v96];
+          v95 = [v22 basicConfig];
+          [v58 showProgressCard:v95];
 
-          v97 = *(a1 + 32);
-          v110 = @"NeRDOOBCommand";
-          v111 = @"NeRDOOBCommandStatus";
-          v36 = [NSDictionary dictionaryWithObjects:&v111 forKeys:&v110 count:1];
-          [v97 sendMessage:v36 completionHandler:0];
+          v96 = *(a1 + 32);
+          v109 = @"NeRDOOBCommand";
+          v110 = @"NeRDOOBCommandStatus";
+          v36 = [NSDictionary dictionaryWithObjects:&v110 forKeys:&v109 count:1];
+          [v96 sendMessage:v36 completionHandler:0];
           goto LABEL_144;
         }
 
-        v60 = [*(a1 + 32) logger];
-        v36 = [v60 oslog];
+        v59 = [*(a1 + 32) logger];
+        v36 = [v59 oslog];
 
         if (!os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
         {
@@ -903,7 +906,7 @@ LABEL_144:
         }
 
         *buf = 0;
-        v61 = "Already showing result card, nothing to do";
+        v60 = "Already showing result card, nothing to do";
         goto LABEL_128;
       }
     }
@@ -912,14 +915,14 @@ LABEL_144:
     {
     }
 
-    v82 = [v22 basicConfig];
-    v83 = [v82 objectForKeyedSubscript:@"NeRDIntent"];
-    v84 = [v83 isEqual:@"NeRDIntentRecovery"];
+    v81 = [v22 basicConfig];
+    v82 = [v81 objectForKeyedSubscript:@"NeRDIntent"];
+    v83 = [v82 isEqual:@"NeRDIntentRecovery"];
 
-    if (v84)
+    if (v83)
     {
-      v85 = [*(a1 + 32) logger];
-      v36 = [v85 oslog];
+      v84 = [*(a1 + 32) logger];
+      v36 = [v84 oslog];
 
       if (!os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
       {
@@ -927,19 +930,19 @@ LABEL_144:
       }
 
       *buf = 0;
-      v61 = "Remote device wants to do recovery";
+      v60 = "Remote device wants to do recovery";
     }
 
     else
     {
-      v88 = [v22 basicConfig];
-      v89 = [v88 objectForKeyedSubscript:@"NeRDIntent"];
-      v90 = [v89 isEqual:@"NeRDIntentRecoveryMenu"];
+      v87 = [v22 basicConfig];
+      v88 = [v87 objectForKeyedSubscript:@"NeRDIntent"];
+      v89 = [v88 isEqual:@"NeRDIntentRecoveryMenu"];
 
-      if (v90)
+      if (v89)
       {
-        v91 = [*(a1 + 32) logger];
-        v36 = [v91 oslog];
+        v90 = [*(a1 + 32) logger];
+        v36 = [v90 oslog];
 
         if (!os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
         {
@@ -947,19 +950,19 @@ LABEL_144:
         }
 
         *buf = 0;
-        v61 = "Remote device wants to show recovery menu";
+        v60 = "Remote device wants to show recovery menu";
       }
 
       else
       {
-        v92 = [v22 basicConfig];
-        v93 = [v92 objectForKeyedSubscript:@"NeRDIntent"];
+        v91 = [v22 basicConfig];
+        v92 = [v91 objectForKeyedSubscript:@"NeRDIntent"];
 
-        v94 = *(a1 + 32);
-        if (v93)
+        v93 = *(a1 + 32);
+        if (v92)
         {
-          v95 = [v94 logger];
-          v31 = [v95 oslog];
+          v94 = [v93 logger];
+          v31 = [v94 oslog];
 
           if (!os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
           {
@@ -973,14 +976,14 @@ LABEL_144:
           goto LABEL_69;
         }
 
-        v105 = [v94 extendedMode];
-        v106 = [*(a1 + 32) logger];
-        v36 = [v106 oslog];
+        v104 = [v93 extendedMode];
+        v105 = [*(a1 + 32) logger];
+        v36 = [v105 oslog];
 
-        v107 = os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT);
-        if (v105)
+        v106 = os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT);
+        if (v104)
         {
-          if (v107)
+          if (v106)
           {
             *buf = 0;
             _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "Remote device got no intent and in extended mode, failing", buf, 2u);
@@ -990,18 +993,18 @@ LABEL_144:
           goto LABEL_71;
         }
 
-        if (!v107)
+        if (!v106)
         {
           goto LABEL_144;
         }
 
         *buf = 0;
-        v61 = "Remote device got no intent and in regular mode, assuming recovery intent";
+        v60 = "Remote device got no intent and in regular mode, assuming recovery intent";
       }
     }
 
 LABEL_128:
-    _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, v61, buf, 2u);
+    _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, v60, buf, 2u);
     goto LABEL_144;
   }
 
@@ -1037,32 +1040,31 @@ LABEL_128:
 
       else
       {
-        v45 = *(a1 + 40);
         objc_opt_class();
         isKindOfClass = objc_opt_isKindOfClass();
-        v47 = [*(a1 + 32) logger];
-        v48 = [v47 oslog];
+        v46 = [*(a1 + 32) logger];
+        v47 = [v46 oslog];
 
-        v49 = os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT);
+        v48 = os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT);
         if (isKindOfClass)
         {
-          if (v49)
+          if (v48)
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEFAULT, "Attempting to display auth screen", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "Attempting to display auth screen", buf, 2u);
           }
 
-          v51 = a1 + 32;
-          v50 = *(a1 + 32);
-          v22 = *(v51 + 8);
-          [v50 showCollectCodeCard:-[NSObject passwordType](v22 inFlags:"passwordType") inThrottleSeconds:{-[NSObject pairingFlags](v22, "pairingFlags"), -[NSObject throttleSeconds](v22, "throttleSeconds")}];
+          v50 = a1 + 32;
+          v49 = *(a1 + 32);
+          v22 = *(v50 + 8);
+          [v49 showCollectCodeCard:-[NSObject passwordType](v22 inFlags:"passwordType") inThrottleSeconds:{-[NSObject pairingFlags](v22, "pairingFlags"), -[NSObject throttleSeconds](v22, "throttleSeconds")}];
           goto LABEL_181;
         }
 
-        if (v49)
+        if (v48)
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEFAULT, "SKEventTypeAuthenticationRequest does not match expected class.", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "SKEventTypeAuthenticationRequest does not match expected class.", buf, 2u);
         }
 
         v21 = 10002;
@@ -1215,12 +1217,12 @@ LABEL_72:
           v40 = @"AuthenticationPresent";
 LABEL_179:
           *buf = 67109378;
-          *v113 = v38;
-          *&v113[4] = 2114;
-          *&v113[6] = v40;
-          v72 = "Unhandled event %d (%{public}@) received by setupKitEventHandler";
-          v73 = v22;
-          v74 = 18;
+          *v112 = v38;
+          *&v112[4] = 2114;
+          *&v112[6] = v40;
+          v71 = "Unhandled event %d (%{public}@) received by setupKitEventHandler";
+          v72 = v22;
+          v73 = 18;
           goto LABEL_180;
       }
     }
@@ -1237,11 +1239,11 @@ LABEL_179:
 
   else
   {
-    v62 = [*(a1 + 32) serverConfig];
-    v63 = [v62 objectForKeyedSubscript:@"NeRDIntent"];
-    v64 = [v63 isEqual:@"NeRDIntentRecovery"];
+    v61 = [*(a1 + 32) serverConfig];
+    v62 = [v61 objectForKeyedSubscript:@"NeRDIntent"];
+    v63 = [v62 isEqual:@"NeRDIntentRecovery"];
 
-    if (!v64)
+    if (!v63)
     {
       goto LABEL_98;
     }
@@ -1249,41 +1251,41 @@ LABEL_179:
 
   [*(a1 + 32) persistRecoveringDevice];
 LABEL_98:
-  v65 = [*(a1 + 32) serverConfig];
-  v66 = [v65 objectForKeyedSubscript:@"NeRDIntent"];
-  v67 = [v66 isEqual:@"NeRDIntentRecoveryMenu"];
+  v64 = [*(a1 + 32) serverConfig];
+  v65 = [v64 objectForKeyedSubscript:@"NeRDIntent"];
+  v66 = [v65 isEqual:@"NeRDIntentRecoveryMenu"];
 
-  v68 = *(a1 + 32);
-  if (v67)
+  v67 = *(a1 + 32);
+  if (v66)
   {
-    if ([v68 setupCompleted])
+    if ([v67 setupCompleted])
     {
       return;
     }
 
     [*(a1 + 32) setSetupCompleted:1];
-    v69 = [*(a1 + 32) showingResultCard];
-    v70 = [*(a1 + 32) logger];
-    v22 = [v70 oslog];
+    v68 = [*(a1 + 32) showingResultCard];
+    v69 = [*(a1 + 32) logger];
+    v22 = [v69 oslog];
 
-    v71 = os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
-    if (v69)
+    v70 = os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
+    if (v68)
     {
-      if (!v71)
+      if (!v70)
       {
         goto LABEL_181;
       }
 
       *buf = 0;
-      v72 = "Already showing result card, nothing to do";
-      v73 = v22;
-      v74 = 2;
+      v71 = "Already showing result card, nothing to do";
+      v72 = v22;
+      v73 = 2;
 LABEL_180:
-      _os_log_impl(&_mh_execute_header, v73, OS_LOG_TYPE_DEFAULT, v72, buf, v74);
+      _os_log_impl(&_mh_execute_header, v72, OS_LOG_TYPE_DEFAULT, v71, buf, v73);
       goto LABEL_181;
     }
 
-    if (v71)
+    if (v70)
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Remote device setup complete, showing menu", buf, 2u);
@@ -1294,25 +1296,25 @@ LABEL_180:
 
   else
   {
-    v75 = [v68 serverConfig];
-    v76 = [v75 objectForKeyedSubscript:@"NeRDSupportsMessaging"];
-    v77 = [v76 BOOLValue];
+    v74 = [v67 serverConfig];
+    v75 = [v74 objectForKeyedSubscript:@"NeRDSupportsMessaging"];
+    v76 = [v75 BOOLValue];
 
-    v78 = *(a1 + 32);
-    if (v77)
+    v77 = *(a1 + 32);
+    if (v76)
     {
-      if ([v78 setupCompleted])
+      if ([v77 setupCompleted])
       {
         return;
       }
 
       [*(a1 + 32) setSetupCompleted:1];
-      v79 = [*(a1 + 32) showingResultCard];
-      v80 = *(a1 + 32);
-      if (v79)
+      v78 = [*(a1 + 32) showingResultCard];
+      v79 = *(a1 + 32);
+      if (v78)
       {
-        v81 = [v80 logger];
-        v13 = [v81 oslog];
+        v80 = [v79 logger];
+        v13 = [v80 oslog];
 
         if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
@@ -1323,23 +1325,23 @@ LABEL_180:
         goto LABEL_52;
       }
 
-      v98 = [v80 serverConfig];
-      v99 = [v98 objectForKeyedSubscript:@"NeRDSupportsSlowRoll"];
-      if ([v99 BOOLValue])
+      v97 = [v79 serverConfig];
+      v98 = [v97 objectForKeyedSubscript:@"NeRDSupportsSlowRoll"];
+      if ([v98 BOOLValue])
       {
-        v100 = [*(a1 + 32) serverConfig];
-        v101 = [v100 objectForKeyedSubscript:@"NeRDIntent"];
-        v102 = [v101 isEqual:@"NeRDIntentRecovery"];
+        v99 = [*(a1 + 32) serverConfig];
+        v100 = [v99 objectForKeyedSubscript:@"NeRDIntent"];
+        v101 = [v100 isEqual:@"NeRDIntentRecovery"];
 
-        if ((v102 & 1) == 0)
+        if ((v101 & 1) == 0)
         {
-          v103 = [*(a1 + 32) logger];
-          v104 = [v103 oslog];
+          v102 = [*(a1 + 32) logger];
+          v103 = [v102 oslog];
 
-          if (os_log_type_enabled(v104, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v103, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v104, OS_LOG_TYPE_DEFAULT, "Remote device setup complete, waiting for scan results", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v103, OS_LOG_TYPE_DEFAULT, "Remote device setup complete, waiting for scan results", buf, 2u);
           }
 
           [*(a1 + 32) showScanningCard];
@@ -1351,13 +1353,13 @@ LABEL_180:
       {
       }
 
-      v108 = [*(a1 + 32) logger];
-      v109 = [v108 oslog];
+      v107 = [*(a1 + 32) logger];
+      v108 = [v107 oslog];
 
-      if (os_log_type_enabled(v109, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v108, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v109, OS_LOG_TYPE_DEFAULT, "Remote device setup complete, showing progress", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v108, OS_LOG_TYPE_DEFAULT, "Remote device setup complete, showing progress", buf, 2u);
       }
 
       [*(a1 + 32) showProgressCard:0];
@@ -1365,13 +1367,13 @@ LABEL_180:
 
     else
     {
-      v86 = [v78 logger];
-      v87 = [v86 oslog];
+      v85 = [v77 logger];
+      v86 = [v85 oslog];
 
-      if (os_log_type_enabled(v87, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v86, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v87, OS_LOG_TYPE_DEFAULT, "Remote device setup complete, messaging not supported, finish", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v86, OS_LOG_TYPE_DEFAULT, "Remote device setup complete, messaging not supported, finish", buf, 2u);
       }
 
       [*(a1 + 32) showOverallResultCard:0 resultType:1];
@@ -4493,6 +4495,19 @@ LABEL_9:
   return v8;
 }
 
+- (void)showCollectCodeCard:(int)card inFlags:(unsigned int)flags inThrottleSeconds:(int)seconds
+{
+  recoverDeviceOperationsQueue = [(RecoverDeviceUIExtensionRemoteViewController *)self recoverDeviceOperationsQueue];
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = __94__RecoverDeviceUIExtensionRemoteViewController_showCollectCodeCard_inFlags_inThrottleSeconds___block_invoke;
+  v9[3] = &unk_1000207A8;
+  v9[4] = self;
+  flagsCopy = flags;
+  secondsCopy = seconds;
+  dispatch_async(recoverDeviceOperationsQueue, v9);
+}
+
 void __94__RecoverDeviceUIExtensionRemoteViewController_showCollectCodeCard_inFlags_inThrottleSeconds___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) logger];
@@ -5222,6 +5237,58 @@ id __69__RecoverDeviceUIExtensionRemoteViewController_learnMoreButtonAction__blo
   }
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  logger = [(RecoverDeviceUIExtensionRemoteViewController *)self logger];
+  oslog = [logger oslog];
+
+  if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, oslog, OS_LOG_TYPE_DEFAULT, "RecoverDeviceUI ViewDidAppear", buf, 2u);
+  }
+
+  v7 = objc_alloc_init(PRXIconContentViewController);
+  [(RecoverDeviceUIExtensionRemoteViewController *)self setInitialCard:v7];
+  setupkitClient = [(RecoverDeviceUIExtensionRemoteViewController *)self setupkitClient];
+  skipWifi = [setupkitClient skipWifi];
+
+  if (skipWifi)
+  {
+    [(RecoverDeviceUIExtensionRemoteViewController *)self setInitialCardForResume];
+  }
+
+  else
+  {
+    [(RecoverDeviceUIExtensionRemoteViewController *)self setInitialCardForSetup];
+  }
+
+  logger2 = [(RecoverDeviceUIExtensionRemoteViewController *)self logger];
+  oslog2 = [logger2 oslog];
+
+  if (os_log_type_enabled(oslog2, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, oslog2, OS_LOG_TYPE_DEFAULT, "Attempting to display first prox card", buf, 2u);
+  }
+
+  v15.receiver = self;
+  v15.super_class = RecoverDeviceUIExtensionRemoteViewController;
+  [(RecoverDeviceUIExtensionRemoteViewController *)&v15 viewDidAppear:appearCopy];
+  initialCard = [(RecoverDeviceUIExtensionRemoteViewController *)self initialCard];
+  v13 = [(RecoverDeviceUIExtensionRemoteViewController *)self presentProxCardFlowWithDelegate:self initialViewController:initialCard];
+  [(RecoverDeviceUIExtensionRemoteViewController *)self setProxCardNavController:v13];
+
+  setupkitClient2 = [(RecoverDeviceUIExtensionRemoteViewController *)self setupkitClient];
+  LODWORD(v13) = [setupkitClient2 skipWifi];
+
+  if (v13)
+  {
+    [(RecoverDeviceUIExtensionRemoteViewController *)self recoverButtonPressed];
+  }
+}
+
 - (id)uiImage
 {
   kLocalizedDeviceType = [(RecoverDeviceUIExtensionRemoteViewController *)self kLocalizedDeviceType];
@@ -5487,6 +5554,27 @@ id __76__RecoverDeviceUIExtensionRemoteViewController_doneWaitingForServerRespon
   [v4 invalidate];
 
   return [*(a1 + 32) setSetupTimer:0];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v8.receiver = self;
+  v8.super_class = RecoverDeviceUIExtensionRemoteViewController;
+  [(RecoverDeviceUIExtensionRemoteViewController *)&v8 viewDidDisappear:disappear];
+  logger = [(RecoverDeviceUIExtensionRemoteViewController *)self logger];
+  oslog = [logger oslog];
+
+  if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
+  {
+    *v7 = 0;
+    _os_log_impl(&_mh_execute_header, oslog, OS_LOG_TYPE_DEFAULT, "RecoverDeviceUI ViewDidDissapear", v7, 2u);
+  }
+
+  sfClient = [(RecoverDeviceUIExtensionRemoteViewController *)self sfClient];
+  [sfClient invalidate];
+
+  [(RecoverDeviceUIExtensionRemoteViewController *)self setSfClient:0];
+  [(RecoverDeviceUIExtensionRemoteViewController *)self setupStop];
 }
 
 - (void)proxCardFlowWillPresent

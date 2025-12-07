@@ -351,7 +351,7 @@ LABEL_19:
     goto LABEL_18;
   }
 
-  _AXLogWithFacility();
+  _AXLogWithFacility(2, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"This item already activated once and is not repeat scan. %@");
 LABEL_20:
 
   return v7 ^ 1;

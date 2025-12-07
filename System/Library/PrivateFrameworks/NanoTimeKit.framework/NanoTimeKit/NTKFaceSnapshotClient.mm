@@ -96,38 +96,38 @@ void __34__NTKFaceSnapshotClient__xpcQueue__block_invoke()
     self->_daemonConnection = v4;
 
     v6 = self->_daemonConnection;
-    v7 = NTKFaceSnapshotServerInterface();
-    [(NSXPCConnection *)v6 setRemoteObjectInterface:v7];
+    v8 = NTKFaceSnapshotServerInterface(v7);
+    [(NSXPCConnection *)v6 setRemoteObjectInterface:v8];
 
-    v8 = self->_daemonConnection;
-    v9 = NTKFaceSnapshotClientInterface();
-    [(NSXPCConnection *)v8 setExportedInterface:v9];
+    v9 = self->_daemonConnection;
+    v11 = NTKFaceSnapshotClientInterface(v10);
+    [(NSXPCConnection *)v9 setExportedInterface:v11];
 
-    v10 = [[_NTKFaceSnapshotClientProxy alloc] initWithWeakProxy:self];
-    [(NSXPCConnection *)self->_daemonConnection setExportedObject:v10];
-    v11 = self->_daemonConnection;
-    v12 = +[NTKFaceSnapshotClient _xpcQueue];
-    [(NSXPCConnection *)v11 _setQueue:v12];
+    v12 = [[_NTKFaceSnapshotClientProxy alloc] initWithWeakProxy:self];
+    [(NSXPCConnection *)self->_daemonConnection setExportedObject:v12];
+    v13 = self->_daemonConnection;
+    v14 = +[NTKFaceSnapshotClient _xpcQueue];
+    [(NSXPCConnection *)v13 _setQueue:v14];
 
     objc_initWeak(&location, self);
-    v13 = self->_daemonConnection;
+    v15 = self->_daemonConnection;
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __47__NTKFaceSnapshotClient__setupDaemonConnection__block_invoke;
+    v19[3] = &unk_27877DC58;
+    objc_copyWeak(&v20, &location);
+    [(NSXPCConnection *)v15 setInterruptionHandler:v19];
+    v16 = self->_daemonConnection;
     v17[0] = MEMORY[0x277D85DD0];
     v17[1] = 3221225472;
-    v17[2] = __47__NTKFaceSnapshotClient__setupDaemonConnection__block_invoke;
+    v17[2] = __47__NTKFaceSnapshotClient__setupDaemonConnection__block_invoke_2;
     v17[3] = &unk_27877DC58;
     objc_copyWeak(&v18, &location);
-    [(NSXPCConnection *)v13 setInterruptionHandler:v17];
-    v14 = self->_daemonConnection;
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __47__NTKFaceSnapshotClient__setupDaemonConnection__block_invoke_2;
-    v15[3] = &unk_27877DC58;
-    objc_copyWeak(&v16, &location);
-    [(NSXPCConnection *)v14 setInvalidationHandler:v15];
+    [(NSXPCConnection *)v16 setInvalidationHandler:v17];
     [(NSXPCConnection *)self->_daemonConnection resume];
     [(NTKFaceSnapshotClient *)self _register];
-    objc_destroyWeak(&v16);
     objc_destroyWeak(&v18);
+    objc_destroyWeak(&v20);
     objc_destroyWeak(&location);
   }
 }
@@ -772,19 +772,19 @@ void __57__NTKFaceSnapshotClient_snapshotFace_options_completion___block_invoke(
   aBlock[2] = __66__NTKFaceSnapshotClient_requestSnapshotOfFace_options_completion___block_invoke;
   aBlock[3] = &unk_2787808C8;
   v11 = faceCopy;
-  v34 = v11;
+  v35 = v11;
   selfCopy = self;
   v12 = optionsCopy;
-  v36 = v12;
+  v37 = v12;
   v13 = completionCopy;
-  v37 = v13;
+  v38 = v13;
   v14 = _Block_copy(aBlock);
-  if (NTKAlwaysGenerateSnapshots())
+  if (NTKAlwaysGenerateSnapshots(v14, v15))
   {
     goto LABEL_15;
   }
 
-  v15 = [v12 valueForKey:@"NTKSnapshotPersistableKey"];
+  v16 = [v12 valueForKey:@"NTKSnapshotPersistableKey"];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
@@ -792,7 +792,7 @@ void __57__NTKFaceSnapshotClient_snapshotFace_options_completion___block_invoke(
     goto LABEL_15;
   }
 
-  bOOLValue = [v15 BOOLValue];
+  bOOLValue = [v16 BOOLValue];
 
   if (!bOOLValue)
   {
@@ -803,69 +803,69 @@ LABEL_15:
     block[2] = __66__NTKFaceSnapshotClient_requestSnapshotOfFace_options_completion___block_invoke_5;
     block[3] = &unk_2787808C8;
     block[4] = self;
-    v26 = instanceDescriptor;
-    v27 = v12;
-    v28 = v13;
-    v17 = instanceDescriptor;
+    v27 = instanceDescriptor;
+    v28 = v12;
+    v29 = v13;
+    v18 = instanceDescriptor;
     dispatch_async(MEMORY[0x277D85CD0], block);
 
-    v23 = v26;
+    v24 = v27;
     goto LABEL_16;
   }
 
-  v17 = [v12 valueForKey:@"NTKSnapshotPriorityKey"];
+  v18 = [v12 valueForKey:@"NTKSnapshotPriorityKey"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    unsignedIntegerValue = [v17 unsignedIntegerValue];
+    unsignedIntegerValue = [v18 unsignedIntegerValue];
     if (unsignedIntegerValue == 2)
     {
-      v19 = 21;
+      v20 = 21;
     }
 
     else
     {
-      v19 = 17;
+      v20 = 17;
     }
 
     if (unsignedIntegerValue == 3)
     {
-      v20 = QOS_CLASS_USER_INITIATED;
+      v21 = QOS_CLASS_USER_INITIATED;
     }
 
     else
     {
-      v20 = v19;
+      v21 = v20;
     }
 
     if (unsignedIntegerValue == 3)
     {
-      v21 = -1;
+      v22 = -1;
     }
 
     else
     {
-      v21 = 0;
+      v22 = 0;
     }
   }
 
   else
   {
-    v21 = 0;
-    v20 = QOS_CLASS_UTILITY;
+    v22 = 0;
+    v21 = QOS_CLASS_UTILITY;
   }
 
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __66__NTKFaceSnapshotClient_requestSnapshotOfFace_options_completion___block_invoke_3;
-  v29[3] = &unk_278784548;
-  v30 = v11;
-  v31 = v13;
-  v32 = v14;
-  v24 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, v20, v21, v29);
-  dispatch_async(self->_snapshotFileQueue, v24);
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __66__NTKFaceSnapshotClient_requestSnapshotOfFace_options_completion___block_invoke_3;
+  v30[3] = &unk_278784548;
+  v31 = v11;
+  v32 = v13;
+  v33 = v14;
+  v25 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, v21, v22, v30);
+  dispatch_async(self->_snapshotFileQueue, v25);
 
-  v23 = v30;
+  v24 = v31;
 LABEL_16:
 }
 
@@ -952,25 +952,25 @@ void __85__NTKFaceSnapshotClient_snapshotLibrarySelectedFaceForDeviceUUID_option
 
 - (void)faceSnapshotChangedForKey:(id)key
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   v4 = _NTKLoggingObjectForDomain(4, "NTKLoggingDomainSnapshot");
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v10 = keyCopy;
+    v11 = keyCopy;
     _os_log_impl(&dword_22D9C5000, v4, OS_LOG_TYPE_DEFAULT, "snapshot changed for key:%@", buf, 0xCu);
   }
 
-  v5 = NTKSnapshotMappedImageCache();
-  [v5 _noteExternalChangeForKey:keyCopy];
+  v6 = NTKSnapshotMappedImageCache(v5);
+  [v6 _noteExternalChangeForKey:keyCopy];
 
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __51__NTKFaceSnapshotClient_faceSnapshotChangedForKey___block_invoke;
   block[3] = &unk_27877DB10;
-  v8 = keyCopy;
-  v6 = keyCopy;
+  v9 = keyCopy;
+  v7 = keyCopy;
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 

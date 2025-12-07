@@ -117,8 +117,8 @@ uint64_t start()
   v1 = *DMCLogObjects();
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v12[0]) = 0;
-    _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEFAULT, "mc_mobile_tunnel starting.", v12, 2u);
+    LOWORD(v14[0]) = 0;
+    _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEFAULT, "mc_mobile_tunnel starting.", v14, 2u);
   }
 
   v2 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_USER_INITIATED, 0);
@@ -137,35 +137,36 @@ uint64_t start()
   }
 
   geteuid();
-  if (seteuid(pw_uid))
-  {
-    sub_1000082F4();
-  }
-
-  v6 = lockdown_checkin_xpc();
+  v6 = seteuid(pw_uid);
   if (v6)
   {
-    v10 = v6;
-    v11 = *DMCLogObjects();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    sub_1000082F4(v6, v7);
+  }
+
+  v8 = lockdown_checkin_xpc();
+  if (v8)
+  {
+    v12 = v8;
+    v13 = *DMCLogObjects();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v12[0] = 67109120;
-      v12[1] = v10;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Failed to checkin with lockdown: 0x%08x", v12, 8u);
+      v14[0] = 67109120;
+      v14[1] = v12;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Failed to checkin with lockdown: 0x%08x", v14, 8u);
     }
 
     exit(1);
   }
 
   objc_autoreleasePoolPop(v0);
-  v7 = +[NSRunLoop currentRunLoop];
-  [v7 run];
+  v9 = +[NSRunLoop currentRunLoop];
+  [v9 run];
 
-  v8 = *DMCLogObjects();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v10 = *DMCLogObjects();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v12[0]) = 0;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "mc_mobile_tunnel shutting down.", v12, 2u);
+    LOWORD(v14[0]) = 0;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "mc_mobile_tunnel shutting down.", v14, 2u);
   }
 
   return 0;
@@ -462,30 +463,29 @@ void sub_100005F40(id *a1, uint64_t a2, void *a3)
   if (v6)
   {
     v7 = a1[6];
-    v8 = a1[4];
-    v9 = [objc_opt_class() responseWithError:v6];
-    v7[2](v7, v9);
+    v8 = [objc_opt_class() responseWithError:v6];
+    v7[2](v7, v8);
   }
 
   else
   {
-    v10 = [a1[5] objectForKeyedSubscript:@"MDMUsername"];
-    v11 = [a1[5] objectForKeyedSubscript:@"MDMPassword"];
-    v12 = [v5 objectForKeyedSubscript:kCCConfigurationURLKey];
-    v13 = [NSURL URLWithString:v12];
+    v9 = [a1[5] objectForKeyedSubscript:@"MDMUsername"];
+    v10 = [a1[5] objectForKeyedSubscript:@"MDMPassword"];
+    v11 = [v5 objectForKeyedSubscript:kCCConfigurationURLKey];
+    v12 = [NSURL URLWithString:v11];
 
-    v14 = [v5 objectForKeyedSubscript:kCCAnchorCertificatesKey];
-    v15 = certificatesFromDERCertificateDataArray();
-    v18[0] = _NSConcreteStackBlock;
-    v18[1] = 3221225472;
-    v18[2] = sub_10000612C;
-    v18[3] = &unk_100010AE8;
-    v16 = a1[6];
-    v17 = a1[4];
-    v20 = v16;
-    v18[4] = v17;
-    v19 = v5;
-    [MDMMCInterface retrieveCloudConfigurationFromURL:v13 username:v10 password:v11 anchorCertificates:v15 completion:v18];
+    v13 = [v5 objectForKeyedSubscript:kCCAnchorCertificatesKey];
+    v14 = certificatesFromDERCertificateDataArray();
+    v17[0] = _NSConcreteStackBlock;
+    v17[1] = 3221225472;
+    v17[2] = sub_10000612C;
+    v17[3] = &unk_100010AE8;
+    v15 = a1[6];
+    v16 = a1[4];
+    v19 = v15;
+    v17[4] = v16;
+    v18 = v5;
+    [MDMMCInterface retrieveCloudConfigurationFromURL:v12 username:v9 password:v10 anchorCertificates:v14 completion:v17];
   }
 }
 
@@ -496,25 +496,24 @@ void sub_10000612C(uint64_t a1, void *a2, void *a3)
   if (v5)
   {
     v7 = *(a1 + 48);
-    v8 = *(a1 + 32);
-    v9 = [objc_opt_class() responseWithError:v5];
-    (*(v7 + 16))(v7, v9);
+    v8 = [objc_opt_class() responseWithError:v5];
+    (*(v7 + 16))(v7, v8);
   }
 
   else
   {
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3221225472;
-    v13[2] = sub_100006258;
-    v13[3] = &unk_100010AC0;
-    v10 = *(a1 + 40);
-    v11 = *(a1 + 48);
-    v12 = *(a1 + 32);
-    v16 = v11;
-    v13[4] = v12;
-    v14 = v6;
-    v15 = *(a1 + 40);
-    [MDMMCInterface storeCloudConfigurationDetails:v10 completion:v13];
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_100006258;
+    v12[3] = &unk_100010AC0;
+    v9 = *(a1 + 40);
+    v10 = *(a1 + 48);
+    v11 = *(a1 + 32);
+    v15 = v10;
+    v12[4] = v11;
+    v13 = v6;
+    v14 = *(a1 + 40);
+    [MDMMCInterface storeCloudConfigurationDetails:v9 completion:v12];
   }
 }
 
@@ -524,31 +523,30 @@ void sub_100006258(uint64_t a1, void *a2)
   if (v3)
   {
     v4 = *(a1 + 56);
-    v5 = *(a1 + 32);
-    v6 = [objc_opt_class() responseWithError:v3];
-    (*(v4 + 16))(v4, v6);
+    v5 = [objc_opt_class() responseWithError:v3];
+    (*(v4 + 16))(v4, v5);
   }
 
   else
   {
-    v7 = +[MDMClient sharedClient];
-    [v7 monitorDEPPushTokenIfNeededWithCompletion:&stru_1000109E8];
+    v6 = +[MDMClient sharedClient];
+    [v6 monitorDEPPushTokenIfNeededWithCompletion:&stru_1000109E8];
 
-    v8 = dispatch_get_global_queue(0, 0);
+    v7 = dispatch_get_global_queue(0, 0);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_100006468;
     block[3] = &unk_100010A98;
-    v9 = *(a1 + 40);
-    v10 = *(a1 + 56);
-    *&v11 = v9;
-    *(&v11 + 1) = *(a1 + 32);
-    v13 = v11;
-    *&v12 = *(a1 + 48);
-    *(&v12 + 1) = v10;
-    v15 = v13;
-    v16 = v12;
-    dispatch_async(v8, block);
+    v8 = *(a1 + 40);
+    v9 = *(a1 + 56);
+    *&v10 = v8;
+    *(&v10 + 1) = *(a1 + 32);
+    v12 = v10;
+    *&v11 = *(a1 + 48);
+    *(&v11 + 1) = v9;
+    v14 = v12;
+    v15 = v11;
+    dispatch_async(v7, block);
   }
 }
 
@@ -589,50 +587,47 @@ void sub_100006524(uint64_t a1, void *a2)
   if (v3)
   {
     v4 = *(a1 + 48);
-    v5 = *(a1 + 32);
-    v6 = [objc_opt_class() responseWithError:v3];
-    (*(v4 + 16))(v4, v6);
+    v5 = [objc_opt_class() responseWithError:v3];
+    (*(v4 + 16))(v4, v5);
   }
 
   else
   {
-    v9[0] = _NSConcreteStackBlock;
-    v9[1] = 3221225472;
-    v9[2] = sub_100006620;
-    v9[3] = &unk_100010978;
-    v7 = *(a1 + 40);
-    v8 = *(a1 + 32);
+    v8[0] = _NSConcreteStackBlock;
+    v8[1] = 3221225472;
+    v8[2] = sub_100006620;
+    v8[3] = &unk_100010978;
+    v6 = *(a1 + 40);
+    v7 = *(a1 + 32);
+    v9 = v6;
     v10 = v7;
-    v11 = v8;
-    v12 = *(a1 + 48);
-    [MDMMCInterface installStoredProfileDataWithCompletion:v9];
+    v11 = *(a1 + 48);
+    [MDMMCInterface installStoredProfileDataWithCompletion:v8];
   }
 }
 
 void sub_100006620(uint64_t a1, void *a2)
 {
-  v7 = a2;
-  if (v7)
+  v5 = a2;
+  if (v5)
   {
     [MDMMCInterface storeCloudConfigurationDetails:*(a1 + 32) completion:&stru_100010A08];
     [MDMMCInterface storeProfileData:0 completion:&stru_100010A48];
-    v3 = *(a1 + 40);
-    [objc_opt_class() responseWithError:v7];
+    [objc_opt_class() responseWithError:v5];
   }
 
   else
   {
-    v4 = [*(a1 + 32) mutableCopy];
-    [v4 setObject:&__kCFBooleanTrue forKeyedSubscript:kCCCloudConfigurationUICompleteKey];
-    [v4 setObject:&__kCFBooleanTrue forKeyedSubscript:kCCCloudConfigurationWasAppliedKey];
-    [v4 setObject:&__kCFBooleanTrue forKeyedSubscript:kCCPostSetupProfileWasInstalledKey];
-    [MDMMCInterface storeCloudConfigurationDetails:v4 completion:&stru_100010A28];
+    v3 = [*(a1 + 32) mutableCopy];
+    [v3 setObject:&__kCFBooleanTrue forKeyedSubscript:kCCCloudConfigurationUICompleteKey];
+    [v3 setObject:&__kCFBooleanTrue forKeyedSubscript:kCCCloudConfigurationWasAppliedKey];
+    [v3 setObject:&__kCFBooleanTrue forKeyedSubscript:kCCPostSetupProfileWasInstalledKey];
+    [MDMMCInterface storeCloudConfigurationDetails:v3 completion:&stru_100010A28];
 
     [MDMMCInterface storeProfileData:0 completion:&stru_100010A48];
-    v5 = *(a1 + 40);
     [objc_opt_class() responseWithStatus:kMCTPStatusAcknowledged];
   }
-  v6 = ;
+  v4 = ;
   (*(*(a1 + 48) + 16))();
 }
 
@@ -757,41 +752,41 @@ void sub_100007680(uint64_t a1, void *a2)
 void sub_100007760(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
-  v10 = [*(a1 + 32) _configuratorProvisionalEnrollmentErrorWithDetails:v5 error:a2];
-  if (v10)
+  v9 = [*(a1 + 32) _configuratorProvisionalEnrollmentErrorWithDetails:v5 error:a2];
+  if (v9)
   {
-    v6 = *(a1 + 32);
-    v7 = *(a1 + 40);
-    v8 = [objc_opt_class() responseWithError:v10];
-    (*(v7 + 16))(v7, v8);
+    v6 = *(a1 + 40);
+    v7 = [objc_opt_class() responseWithError:v9];
+    (*(v6 + 16))(v6, v7);
   }
 
   else
   {
-    v9 = [MTIPCUTunnelParser responseWithStatus:kMCTPStatusAcknowledged];
-    v8 = v9;
+    v8 = [MTIPCUTunnelParser responseWithStatus:kMCTPStatusAcknowledged];
+    v7 = v8;
     if (v5)
     {
-      [v9 setObject:v5 forKeyedSubscript:@"ProvisionalEnrollmentDetails"];
+      [v8 setObject:v5 forKeyedSubscript:@"ProvisionalEnrollmentDetails"];
     }
 
-    (*(*(a1 + 40) + 16))(*(a1 + 40), v8);
+    (*(*(a1 + 40) + 16))(*(a1 + 40), v7);
   }
 }
 
-void sub_1000082C4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000082C4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0x20u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0x20u);
 }
 
-void sub_1000082F4()
+void sub_1000082F4(uint64_t a1, uint64_t a2)
 {
-  v0 = *DMCLogObjects();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v2 = *DMCLogObjects();
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    *v1 = 0;
-    _os_log_impl(&_mh_execute_header, v0, OS_LOG_TYPE_ERROR, "seteuid failed. Exiting.", v1, 2u);
+    *v3 = 0;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_ERROR, "seteuid failed. Exiting.", v3, 2u);
   }
 
   abort();
@@ -801,33 +796,33 @@ void sub_100008360()
 {
   sub_1000082B4();
   sub_1000082A0();
-  sub_1000082C4(&_mh_execute_header, v0, v1, "<%s %s:%lu>", v2, v3, v4, v5, v6);
+  sub_1000082C4(&_mh_execute_header, v0, v1, "<%s %s:%lu>", v2, v3, v4, v5);
 }
 
 void sub_1000083E8()
 {
   sub_1000082B4();
   sub_1000082A0();
-  sub_1000082C4(&_mh_execute_header, v0, v1, "<%s %s:%lu>", v2, v3, v4, v5, v6);
+  sub_1000082C4(&_mh_execute_header, v0, v1, "<%s %s:%lu>", v2, v3, v4, v5);
 }
 
 void sub_100008470()
 {
   sub_1000082B4();
   sub_1000082A0();
-  sub_1000082C4(&_mh_execute_header, v0, v1, "<%s %s:%lu>", v2, v3, v4, v5, v6);
+  sub_1000082C4(&_mh_execute_header, v0, v1, "<%s %s:%lu>", v2, v3, v4, v5);
 }
 
 void sub_1000084F8()
 {
   sub_1000082B4();
   sub_1000082A0();
-  sub_1000082C4(&_mh_execute_header, v0, v1, "<%s %s:%lu>", v2, v3, v4, v5, v6);
+  sub_1000082C4(&_mh_execute_header, v0, v1, "<%s %s:%lu>", v2, v3, v4, v5);
 }
 
 void sub_100008580()
 {
   sub_1000082B4();
   sub_1000082A0();
-  sub_1000082C4(&_mh_execute_header, v0, v1, "<%s %s:%lu>", v2, v3, v4, v5, v6);
+  sub_1000082C4(&_mh_execute_header, v0, v1, "<%s %s:%lu>", v2, v3, v4, v5);
 }

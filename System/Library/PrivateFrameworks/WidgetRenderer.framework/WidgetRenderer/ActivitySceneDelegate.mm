@@ -27,7 +27,7 @@
 - (id)scene:(id)scene handleActions:(id)actions
 {
   sub_1DAD674D4(0, &unk_1EE00A880, 0x1E698E5F0);
-  sub_1DAD8D6A4(&qword_1EE00A870, &unk_1EE00A880, 0x1E698E5F0);
+  sub_1DAD8D6A4(&qword_1EE00A870, &unk_1EE00A880, 0x1E698E5F0, MEMORY[0x1E69E81B8]);
   v6 = sub_1DAED1F6C();
   sceneCopy = scene;
   selfCopy = self;
@@ -73,7 +73,7 @@
   *(&self->super.super.isa + OBJC_IVAR____TtC14WidgetRenderer21ActivitySceneDelegate__cancellables) = v2;
   *(&self->super.super.isa + OBJC_IVAR____TtC14WidgetRenderer21ActivitySceneDelegate__appSceneDiffInspector) = 0;
   v4.receiver = self;
-  v4.super_class = type metadata accessor for ActivitySceneDelegate();
+  v4.super_class = type metadata accessor for ActivitySceneDelegate(0);
   return [(ActivitySceneDelegateBase *)&v4 init];
 }
 

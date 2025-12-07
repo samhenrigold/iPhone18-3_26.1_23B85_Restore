@@ -44,21 +44,37 @@
 
 - (void)layoutSubviews
 {
-  v7.receiver = self;
-  v7.super_class = PKImageViewCell;
-  [(PKImageViewCell *)&v7 layoutSubviews];
-  v6.receiver = self;
-  v6.super_class = PKImageViewCell;
-  imageView = [(PKImageViewCell *)&v6 imageView];
+  v34.receiver = self;
+  v34.super_class = PKImageViewCell;
+  [(PKImageViewCell *)&v34 layoutSubviews];
+  v33.receiver = self;
+  v33.super_class = PKImageViewCell;
+  imageView = [(PKImageViewCell *)&v33 imageView];
   contentView = [(PKImageViewCell *)self contentView];
   [contentView bounds];
+  v6 = v5;
+  v8 = v7;
+  v10 = v9;
+  v12 = v11;
   [imageView layoutMargins];
+  v14 = v6 + v13;
+  v16 = v8 + v15;
+  v18 = v10 - (v13 + v17);
+  v20 = v12 - (v15 + v19);
 
   image = [imageView image];
   [image size];
   PKSizeAspectFit();
+  v23 = v22;
+  v25 = v24;
 
-  PKSizeAlignedInRect();
+  v26.n128_u64[0] = v23;
+  v27.n128_u64[0] = v25;
+  v28.n128_f64[0] = v14;
+  v29.n128_f64[0] = v16;
+  v30.n128_f64[0] = v18;
+  v31.n128_f64[0] = v20;
+  PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v26, v27, v28, v29, v30, v31, v32);
   [imageView setFrame:?];
 }
 

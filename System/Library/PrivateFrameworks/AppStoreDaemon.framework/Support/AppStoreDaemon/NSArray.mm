@@ -8,7 +8,7 @@
 - (void)lib_enumerateObjectsUsingAsyncBlock:(id)block completionHandler:
 {
   v4 = v3;
-  v7 = sub_100085D40(&qword_10059C3E0);
+  v7 = sub_100085D40(&qword_10059C3E0, &qword_1004344C0);
   __chkstk_darwin(v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(block);

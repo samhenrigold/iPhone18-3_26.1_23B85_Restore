@@ -47,18 +47,18 @@
 
 - (void)layoutSubviews
 {
-  v3 = sub_10010FC20(&qword_1011B7710);
-  __chkstk_darwin(v3 - 8);
-  v5 = &v10 - v4;
-  v6 = type metadata accessor for VerticalToggleSlider();
-  v10.receiver = self;
-  v10.super_class = v6;
+  sub_10010FC20(&qword_1011B7710, &qword_100EFF6F0);
+  __chkstk_darwin();
+  v4 = &v9 - v3;
+  v5 = type metadata accessor for VerticalToggleSlider();
+  v9.receiver = self;
+  v9.super_class = v5;
   selfCopy = self;
-  [(VerticalToggleSlider *)&v10 layoutSubviews];
-  v8 = sub_100BFF28C();
+  [(VerticalToggleSlider *)&v9 layoutSubviews];
+  v7 = sub_100BFF28C();
   static UIView.Corner.rounded.getter();
-  v9 = type metadata accessor for UIView.Corner();
-  (*(*(v9 - 8) + 56))(v5, 0, 1, v9);
+  v8 = type metadata accessor for UIView.Corner();
+  (*(*(v8 - 8) + 56))(v4, 0, 1, v8);
   UIView.corner.setter();
 }
 

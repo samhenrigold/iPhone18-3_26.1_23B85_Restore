@@ -19,17 +19,18 @@
 
 - (void)music_inheritedLayoutInsetsDidChange
 {
-  v4.receiver = self;
-  v4.super_class = type metadata accessor for GroupedTextListView();
-  v2 = v4.receiver;
-  [(GroupedTextListView *)&v4 music_inheritedLayoutInsetsDidChange];
+  v5.receiver = self;
+  v5.super_class = type metadata accessor for GroupedTextListView();
+  v2 = v5.receiver;
+  [(GroupedTextListView *)&v5 music_inheritedLayoutInsetsDidChange];
   [v2 setNeedsLayout];
   v3 = *&v2[OBJC_IVAR____TtC16MusicApplication19GroupedTextListView_layoutInvalidationHandler];
   if (v3)
   {
+    v4 = *&v2[OBJC_IVAR____TtC16MusicApplication19GroupedTextListView_layoutInvalidationHandler + 8];
 
     v3(v2);
-    sub_17654(v3);
+    sub_17654(v3, v4);
   }
 }
 
@@ -52,7 +53,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_3EEEA8();
+  sub_3EEEA8(selfCopy);
 }
 
 - (NSArray)accessibilityStackViews
@@ -68,11 +69,11 @@
 - (NSArray)accessibilityListGroupStrings
 {
   selfCopy = self;
-  sub_3F083C();
+  sub_3F083C(v3);
 
-  v3.super.isa = sub_AB9740().super.isa;
+  v4.super.isa = sub_AB9740().super.isa;
 
-  return v3.super.isa;
+  return v4.super.isa;
 }
 
 - (_TtC16MusicApplication19GroupedTextListView)initWithCoder:(id)coder

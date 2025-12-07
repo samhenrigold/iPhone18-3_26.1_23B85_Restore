@@ -180,7 +180,7 @@ uint64_t __47__SSAppPurchaseHistoryCache_allUncachedImages___block_invoke(uint64
   return 1;
 }
 
-uint64_t __47__SSAppPurchaseHistoryCache_allUncachedImages___block_invoke_2(uint64_t a1, sqlite3_stmt *a2)
+void *__47__SSAppPurchaseHistoryCache_allUncachedImages___block_invoke_2(uint64_t a1, sqlite3_stmt *a2)
 {
   result = [*(a1 + 32) statementHasRowAfterStepping:a2];
   if (result)

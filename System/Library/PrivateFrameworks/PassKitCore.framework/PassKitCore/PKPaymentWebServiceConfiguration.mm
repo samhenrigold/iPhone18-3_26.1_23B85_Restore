@@ -791,21 +791,21 @@ LABEL_5:
   v7 = v6;
   if (v6)
   {
-    bOOLValue = [v6 BOOLValue];
+    isEqualToString = [v6 BOOLValue];
   }
 
   else
   {
-    if (([(__CFString *)regionCopy isEqualToString:@"US"]& 1) != 0 || ([(__CFString *)regionCopy isEqualToString:@"GB"]& 1) != 0 || ([(__CFString *)regionCopy isEqualToString:@"CA"]& 1) != 0 || ([(__CFString *)regionCopy isEqualToString:@"DE"]& 1) != 0)
+    if (objc_msgSend_isEqualToString_(regionCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(regionCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(regionCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(regionCopy))
     {
       v9 = 1;
       goto LABEL_11;
     }
 
-    bOOLValue = [(__CFString *)regionCopy isEqualToString:@"NL"];
+    isEqualToString = objc_msgSend_isEqualToString_(regionCopy);
   }
 
-  v9 = bOOLValue;
+  v9 = isEqualToString;
 LABEL_11:
   os_unfair_lock_unlock(&self->_lock);
 
@@ -1456,22 +1456,22 @@ LABEL_37:
   v7 = v6;
   if (v6)
   {
-    LOBYTE(v8) = [v6 BOOLValue];
+    LOBYTE(isEqualToString) = [v6 BOOLValue];
   }
 
   else
   {
-    LOBYTE(v8) = 0;
+    LOBYTE(isEqualToString) = 0;
   }
 
   v9 = PKAccountServiceOverrideURL();
 
-  if ((v8 & 1) == 0 && v9)
+  if ((isEqualToString & 1) == 0 && v9)
   {
-    v8 = [(__CFString *)regionCopy isEqualToString:@"US"];
+    isEqualToString = objc_msgSend_isEqualToString_(regionCopy);
     v10 = PKLogFacilityTypeGetObject(0xFuLL);
     v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
-    if (v8)
+    if (isEqualToString)
     {
       if (v11)
       {
@@ -1494,7 +1494,7 @@ LABEL_11:
 
   os_unfair_lock_unlock(&self->_lock);
 
-  return v8;
+  return isEqualToString;
 }
 
 - (BOOL)applyServiceEnabledForRegion:(id)region
@@ -1507,22 +1507,22 @@ LABEL_11:
   v7 = v6;
   if (v6)
   {
-    LOBYTE(v8) = [v6 BOOLValue];
+    LOBYTE(isEqualToString) = [v6 BOOLValue];
   }
 
   else
   {
-    LOBYTE(v8) = 0;
+    LOBYTE(isEqualToString) = 0;
   }
 
   v9 = PKApplyServiceOverrideURL();
 
-  if ((v8 & 1) == 0 && v9)
+  if ((isEqualToString & 1) == 0 && v9)
   {
-    v8 = [(__CFString *)regionCopy isEqualToString:@"US"];
+    isEqualToString = objc_msgSend_isEqualToString_(regionCopy);
     v10 = PKLogFacilityTypeGetObject(0xEuLL);
     v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
-    if (v8)
+    if (isEqualToString)
     {
       if (v11)
       {
@@ -1545,7 +1545,7 @@ LABEL_11:
 
   os_unfair_lock_unlock(&self->_lock);
 
-  return v8;
+  return isEqualToString;
 }
 
 - (id)applyServiceFeaturesForRegion:(id)region

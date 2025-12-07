@@ -62,83 +62,77 @@
   dispatch_async(queue, v15);
 }
 
-void __118__HKMHValenceDistributionSummaryQuery_client_deliverValenceDistributionSummaries_clearPending_isFinalBatch_queryUUID___block_invoke(uint64_t a1)
+void __118__HKMHValenceDistributionSummaryQuery_client_deliverValenceDistributionSummaries_clearPending_isFinalBatch_queryUUID___block_invoke(uint64_t a1, uint64_t a2)
 {
   _HKInitializeLogging();
-  v2 = *MEMORY[0x277CCC2F0];
+  v3 = *MEMORY[0x277CCC2F0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2F0], OS_LOG_TYPE_DEBUG))
   {
-    __118__HKMHValenceDistributionSummaryQuery_client_deliverValenceDistributionSummaries_clearPending_isFinalBatch_queryUUID___block_invoke_cold_1(a1, v2);
+    __118__HKMHValenceDistributionSummaryQuery_client_deliverValenceDistributionSummaries_clearPending_isFinalBatch_queryUUID___block_invoke_cold_1(a1, v3);
   }
 
-  v3 = *(*(a1 + 32) + 160);
-  if (v3 && *(a1 + 56) != 1)
+  v4 = *(*(a1 + 32) + 160);
+  if (v4 && *(a1 + 56) != 1)
   {
-    [v3 addObjectsFromArray:*(a1 + 40)];
+    [v4 addObjectsFromArray:*(a1 + 40)];
   }
 
   else
   {
-    v4 = [*(a1 + 40) mutableCopy];
-    v5 = *(a1 + 32);
-    v6 = *(v5 + 160);
-    *(v5 + 160) = v4;
+    v5 = [*(a1 + 40) mutableCopy];
+    v6 = *(a1 + 32);
+    v7 = *(v6 + 160);
+    *(v6 + 160) = v5;
   }
 
   if (*(a1 + 57) == 1)
   {
-    v7 = *(*(a1 + 32) + 160);
-    v8 = *(a1 + 32);
-    v9 = *(v8 + 160);
-    *(v8 + 160) = 0;
+    v8 = *(*(a1 + 32) + 160);
+    v9 = *(a1 + 32);
+    v10 = *(v9 + 160);
+    *(v9 + 160) = 0;
 
-    v10 = MEMORY[0x259C8F310](*(*(a1 + 32) + 152));
-    if (v10)
+    v11 = MEMORY[0x259C8F310](*(*(a1 + 32) + 152));
+    if (v11)
     {
-      v11 = *(a1 + 32);
-      v12 = *(a1 + 48);
-      v13[0] = MEMORY[0x277D85DD0];
-      v13[1] = 3221225472;
-      v13[2] = __118__HKMHValenceDistributionSummaryQuery_client_deliverValenceDistributionSummaries_clearPending_isFinalBatch_queryUUID___block_invoke_293;
-      v13[3] = &unk_2798A9958;
-      v13[4] = v11;
-      v14 = v7;
-      v15 = v10;
-      [v11 queue_dispatchToClientForUUID:v12 shouldDeactivate:1 block:v13];
+      v12 = *(a1 + 32);
+      v13 = *(a1 + 48);
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
+      v14[2] = __118__HKMHValenceDistributionSummaryQuery_client_deliverValenceDistributionSummaries_clearPending_isFinalBatch_queryUUID___block_invoke_293;
+      v14[3] = &unk_2798A9958;
+      v14[4] = v12;
+      v15 = v8;
+      v16 = v11;
+      [v12 queue_dispatchToClientForUUID:v13 shouldDeactivate:1 block:v14];
     }
   }
 }
 
-uint64_t __118__HKMHValenceDistributionSummaryQuery_client_deliverValenceDistributionSummaries_clearPending_isFinalBatch_queryUUID___block_invoke_293(void *a1)
+uint64_t __118__HKMHValenceDistributionSummaryQuery_client_deliverValenceDistributionSummaries_clearPending_isFinalBatch_queryUUID___block_invoke_293(void *a1, uint64_t a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
-  v2 = *MEMORY[0x277CCC2F0];
+  v3 = *MEMORY[0x277CCC2F0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2F0], OS_LOG_TYPE_DEFAULT))
   {
-    v3 = a1[4];
-    v4 = v2;
+    v4 = v3;
     v5 = objc_opt_class();
     v6 = MEMORY[0x277CCABB0];
     v7 = a1[5];
     v8 = v5;
     v9 = [v6 numberWithUnsignedInteger:{objc_msgSend(v7, "count")}];
-    v10 = a1[5];
-    v11 = HKSensitiveLogItem();
-    v16 = 138543874;
-    v17 = v5;
-    v18 = 2112;
-    v19 = v9;
-    v20 = 2112;
-    v21 = v11;
-    _os_log_impl(&dword_25895E000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Delivering %@ summaries: %@", &v16, 0x20u);
+    v10 = HKSensitiveLogItem();
+    v12 = 138543874;
+    v13 = v5;
+    v14 = 2112;
+    v15 = v9;
+    v16 = 2112;
+    v17 = v10;
+    _os_log_impl(&dword_25895E000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Delivering %@ summaries: %@", &v12, 0x20u);
   }
 
-  v12 = a1[5];
-  v13 = a1[4];
-  result = (*(a1[6] + 16))();
-  v15 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(a1[6] + 16))();
 }
 
 - (void)queue_populateConfiguration:(id)configuration
@@ -180,28 +174,25 @@ uint64_t __118__HKMHValenceDistributionSummaryQuery_client_deliverValenceDistrib
   dispatch_async(clientQueue, block);
 }
 
-uint64_t __58__HKMHValenceDistributionSummaryQuery_queue_deliverError___block_invoke(void *a1)
+uint64_t __58__HKMHValenceDistributionSummaryQuery_queue_deliverError___block_invoke(void *a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
-  v2 = *MEMORY[0x277CCC2F0];
+  v3 = *MEMORY[0x277CCC2F0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2F0], OS_LOG_TYPE_DEFAULT))
   {
-    v3 = a1[4];
-    v4 = v2;
+    v4 = v3;
     v5 = objc_opt_class();
     v6 = a1[5];
-    v10 = 138543618;
-    v11 = v5;
-    v12 = 2114;
-    v13 = v6;
+    v9 = 138543618;
+    v10 = v5;
+    v11 = 2114;
+    v12 = v6;
     v7 = v5;
-    _os_log_impl(&dword_25895E000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Throwing error: %{public}@", &v10, 0x16u);
+    _os_log_impl(&dword_25895E000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Throwing error: %{public}@", &v9, 0x16u);
   }
 
-  result = (*(a1[6] + 16))(a1[6], a1[4], 0, a1[5]);
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(a1[6] + 16))(a1[6], a1[4], 0, a1[5]);
 }
 
 - (void)queue_validate
@@ -236,37 +227,34 @@ uint64_t __58__HKMHValenceDistributionSummaryQuery_queue_deliverError___block_in
 
 void __118__HKMHValenceDistributionSummaryQuery_client_deliverValenceDistributionSummaries_clearPending_isFinalBatch_queryUUID___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = objc_opt_class();
-  v6 = MEMORY[0x277CCABB0];
-  v7 = *(a1 + 40);
-  v18 = v5;
-  v8 = [v6 numberWithUnsignedInteger:{objc_msgSend(v7, "count")}];
-  v9 = MEMORY[0x277CCABB0];
-  v10 = [*(a1 + 40) firstObject];
-  v11 = [v9 numberWithInteger:{objc_msgSend(v10, "dayIndexRange")}];
-  v12 = MEMORY[0x277CCABB0];
-  v13 = [*(a1 + 40) lastObject];
-  v14 = [v12 numberWithInteger:{objc_msgSend(v13, "dayIndexRange")}];
-  v15 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 56)];
-  v16 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 57)];
+  v29 = *MEMORY[0x277D85DE8];
+  v3 = a2;
+  v4 = objc_opt_class();
+  v5 = MEMORY[0x277CCABB0];
+  v6 = *(a1 + 40);
+  v16 = v4;
+  v7 = [v5 numberWithUnsignedInteger:{objc_msgSend(v6, "count")}];
+  v8 = MEMORY[0x277CCABB0];
+  v9 = [*(a1 + 40) firstObject];
+  v10 = [v8 numberWithInteger:{objc_msgSend(v9, "dayIndexRange")}];
+  v11 = MEMORY[0x277CCABB0];
+  v12 = [*(a1 + 40) lastObject];
+  v13 = [v11 numberWithInteger:{objc_msgSend(v12, "dayIndexRange")}];
+  v14 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 56)];
+  v15 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 57)];
   *buf = 138544642;
-  v20 = v5;
+  v18 = v4;
+  v19 = 2112;
+  v20 = v7;
   v21 = 2112;
-  v22 = v8;
+  v22 = v10;
   v23 = 2112;
-  v24 = v11;
+  v24 = v13;
   v25 = 2112;
   v26 = v14;
   v27 = 2112;
   v28 = v15;
-  v29 = 2112;
-  v30 = v16;
-  _os_log_debug_impl(&dword_25895E000, v4, OS_LOG_TYPE_DEBUG, "[%{public}@] Received batch of %@ summaries (%@ - %@), clear pending: %@, is final: %@", buf, 0x3Eu);
-
-  v17 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_25895E000, v3, OS_LOG_TYPE_DEBUG, "[%{public}@] Received batch of %@ summaries (%@ - %@), clear pending: %@, is final: %@", buf, 0x3Eu);
 }
 
 @end

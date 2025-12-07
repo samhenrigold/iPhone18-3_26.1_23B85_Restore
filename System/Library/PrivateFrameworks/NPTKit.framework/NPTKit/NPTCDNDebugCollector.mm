@@ -44,7 +44,7 @@
 
 void __54__NPTCDNDebugCollector_startCollectingWithCompletion___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a4;
   v8 = objc_alloc_init(MEMORY[0x277CBEB38]);
@@ -66,29 +66,29 @@ void __54__NPTCDNDebugCollector_startCollectingWithCompletion___block_invoke(uin
   }
 
 LABEL_6:
-  v28 = v7;
-  v29 = v6;
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
+  v27 = v7;
+  v28 = v6;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v10 = v8;
-  v11 = [v10 countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v31;
+    v13 = *v30;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v31 != v13)
+        if (*v30 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v30 + 1) + 8 * i);
-        v16 = [v10 valueForKey:{v15, v28}];
+        v15 = *(*(&v29 + 1) + 8 * i);
+        v16 = [v10 valueForKey:{v15, v27}];
         if (v16)
         {
           v17 = *(a1 + 32);
@@ -98,7 +98,7 @@ LABEL_6:
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
     while (v12);
@@ -110,9 +110,9 @@ LABEL_6:
 
   v22 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v23 = v22;
-  if (v28)
+  if (v27)
   {
-    [v22 addObject:v28];
+    [v22 addObject:v27];
   }
 
   v24 = *(a1 + 48);
@@ -122,8 +122,6 @@ LABEL_6:
     v26 = [v23 copy];
     (*(v24 + 16))(v24, v25, v26);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopCollecting

@@ -54,106 +54,106 @@
 
 + (void)layoutZoomSlider:(CGFloat)slider forLayoutStyle:(CGFloat)style bottomBarAlignmentRect:(CGFloat)rect bottomBarTransparent:(CGFloat)transparent shutterButtonAlignmentRect:(CGFloat)alignmentRect previewViewAlignmentRect:(CGFloat)viewAlignmentRect viewfinderViewAlignmentRect:(uint64_t)viewfinderViewAlignmentRect
 {
-  v34 = a11;
-  v35 = [CAMBottomBar wantsVerticalBarForLayoutStyle:a12];
-  v57.origin.x = self;
-  v57.origin.y = a2;
+  v31 = a11;
+  v32 = [CAMBottomBar wantsVerticalBarForLayoutStyle:a12];
+  v54.origin.x = self;
+  v54.origin.y = a2;
   styleCopy = style;
-  v57.size.width = slider;
-  v57.size.height = style;
-  IsEmpty = CGRectIsEmpty(v57);
-  v58.origin.x = rect;
-  v58.origin.y = transparent;
-  v58.size.width = alignmentRect;
-  v58.size.height = viewAlignmentRect;
-  v37 = CGRectIsEmpty(v58);
-  v38 = [v34 minimumTrackImageForState:0];
-  [v38 size];
-  v40 = *(MEMORY[0x1E695EFD0] + 16);
-  *&v56.a = *MEMORY[0x1E695EFD0];
-  *&v56.c = v40;
-  *&v56.tx = *(MEMORY[0x1E695EFD0] + 32);
-  if (!v35)
+  v54.size.width = slider;
+  v54.size.height = style;
+  IsEmpty = CGRectIsEmpty(v54);
+  v55.origin.x = rect;
+  v55.origin.y = transparent;
+  v55.size.width = alignmentRect;
+  v55.size.height = viewAlignmentRect;
+  v34 = CGRectIsEmpty(v55);
+  v35 = [v31 minimumTrackImageForState:0];
+  [v35 size];
+  v37 = *(MEMORY[0x1E695EFD0] + 16);
+  *&v53.a = *MEMORY[0x1E695EFD0];
+  *&v53.c = v37;
+  *&v53.tx = *(MEMORY[0x1E695EFD0] + 32);
+  if (!v32)
   {
-    v53 = v39;
+    v50 = v36;
     mainScreen = [MEMORY[0x1E69DCEB0] mainScreen];
     [mainScreen scale];
-    v45 = 1.0 / v50 * 2.0 + 35.0;
+    v42 = 1.0 / v47 * 2.0 + 35.0;
 
     if ((IsEmpty | a13))
     {
-      if (v37)
+      if (v34)
       {
-        v61.size.width = a16;
-        v61.size.height = a17;
-        v61.origin.x = a14;
-        v61.origin.y = a15;
-        MaxY = CGRectGetMaxY(v61);
-        v44 = 20.0;
-        v45 = 10.0;
+        v58.size.width = a16;
+        v58.size.height = a17;
+        v58.origin.x = a14;
+        v58.origin.y = a15;
+        MaxY = CGRectGetMaxY(v58);
+        v41 = 20.0;
+        v42 = 10.0;
 LABEL_9:
-        v48 = 30.0;
-        v64.origin.x = a18;
-        v64.origin.y = a19;
-        v64.size.width = a20;
-        v64.size.height = a21;
-        MinX = CGRectGetMinX(v64);
-        v65.origin.y = a19;
-        v41 = MinX;
-        v65.origin.x = a18;
-        v65.size.width = a20;
-        v65.size.height = a21;
-        Width = CGRectGetWidth(v65);
-        v47 = v45 + v53 + 30.0;
-        v43 = MaxY - v47;
+        v45 = 30.0;
+        v61.origin.x = a18;
+        v61.origin.y = a19;
+        v61.size.width = a20;
+        v61.size.height = a21;
+        MinX = CGRectGetMinX(v61);
+        v62.origin.y = a19;
+        v38 = MinX;
+        v62.origin.x = a18;
+        v62.size.width = a20;
+        v62.size.height = a21;
+        Width = CGRectGetWidth(v62);
+        v44 = v42 + v50 + 30.0;
+        v40 = MaxY - v44;
         goto LABEL_10;
       }
 
-      v63.origin.x = rect;
-      v63.origin.y = transparent;
-      v63.size.width = alignmentRect;
-      v63.size.height = viewAlignmentRect;
-      MaxY = CGRectGetMinY(v63);
+      v60.origin.x = rect;
+      v60.origin.y = transparent;
+      v60.size.width = alignmentRect;
+      v60.size.height = viewAlignmentRect;
+      MaxY = CGRectGetMinY(v60);
     }
 
     else
     {
-      v62.origin.x = self;
-      v62.origin.y = a2;
-      v62.size.width = slider;
-      v62.size.height = styleCopy;
-      MaxY = CGRectGetMinY(v62) + 10.0;
-      v45 = v45 + 10.0;
+      v59.origin.x = self;
+      v59.origin.y = a2;
+      v59.size.width = slider;
+      v59.size.height = styleCopy;
+      MaxY = CGRectGetMinY(v59) + 10.0;
+      v42 = v42 + 10.0;
     }
 
-    v44 = 20.0;
+    v41 = 20.0;
     goto LABEL_9;
   }
 
-  CGAffineTransformMakeRotation(&v55, -1.57079633);
+  CGAffineTransformMakeRotation(&v52, -1.57079633);
   UIIntegralTransform();
-  v59.origin.x = a18;
-  v59.origin.y = a19;
-  v59.size.width = a20;
-  v59.size.height = a21;
-  v41 = CGRectGetMinX(v59);
-  v60.origin.x = a18;
-  v60.origin.y = a19;
-  v60.size.width = a20;
-  v60.size.height = a21;
-  CGRectGetHeight(v60);
+  v56.origin.x = a18;
+  v56.origin.y = a19;
+  v56.size.width = a20;
+  v56.size.height = a21;
+  v38 = CGRectGetMinX(v56);
+  v57.origin.x = a18;
+  v57.origin.y = a19;
+  v57.size.width = a20;
+  v57.size.height = a21;
+  CGRectGetHeight(v57);
   UIRoundToViewScale();
-  v43 = v42;
-  v44 = 25.0;
-  v45 = 0.0;
+  v40 = v39;
+  v41 = 25.0;
+  v42 = 0.0;
   Width = 64.0;
-  v47 = 320.0;
-  v48 = 0.0;
+  v44 = 320.0;
+  v45 = 0.0;
 LABEL_10:
-  [v34 setAlignmentRectInsets:{v48, v44, v45, v44}];
-  v55 = v56;
-  [v34 setTransform:&v55];
-  [v34 setFrame:{v41, v43, Width, v47}];
+  [v31 setAlignmentRectInsets:{v45, v41, v42, v41}];
+  v52 = v53;
+  [v31 setTransform:&v52];
+  [v31 setFrame:{v38, v40, Width, v44}];
 }
 
 @end

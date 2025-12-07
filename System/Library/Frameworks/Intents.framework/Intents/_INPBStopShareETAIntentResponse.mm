@@ -3,6 +3,7 @@
 - (_INPBStopShareETAIntentResponse)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)mediumsAsString:(int)string;
 - (int)StringAsMediums:(id)mediums;
 - (void)addMedium:(int)medium;
 - (void)addRecipient:(id)recipient;
@@ -16,7 +17,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if (self->_mediums.count)
   {
@@ -51,30 +52,30 @@
   if ([(NSArray *)self->_recipients count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v9 = self->_recipients;
-    v10 = [(NSArray *)v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v10 = [(NSArray *)v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v18;
+      v12 = *v17;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v18 != v12)
+          if (*v17 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          dictionaryRepresentation = [*(*(&v17 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v16 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation];
         }
 
-        v11 = [(NSArray *)v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v11 = [(NSArray *)v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v11);
@@ -82,8 +83,6 @@
 
     [dictionary setObject:array forKeyedSubscript:@"recipient"];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -173,14 +172,13 @@ LABEL_9:
 
 - (void)writeTo:(id)to
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (self->_mediums.count)
   {
     v5 = 0;
     do
     {
-      v6 = self->_mediums.list[v5];
       PBDataWriterWriteInt32Field();
       ++v5;
     }
@@ -188,36 +186,36 @@ LABEL_9:
     while (v5 < self->_mediums.count);
   }
 
-  v16 = 0u;
-  v17 = 0u;
+  v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v7 = self->_recipients;
-  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
-  if (v8)
+  v11 = 0u;
+  v12 = 0u;
+  v6 = self->_recipients;
+  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
   {
-    v9 = v8;
-    v10 = *v15;
+    v8 = v7;
+    v9 = *v12;
     do
     {
-      for (i = 0; i != v9; ++i)
+      v10 = 0;
+      do
       {
-        if (*v15 != v10)
+        if (*v12 != v9)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v14 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
+        ++v10;
       }
 
-      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      while (v8 != v10);
+      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v9);
+    while (v8);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addRecipient:(id)recipient
@@ -273,6 +271,21 @@ LABEL_9:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)mediumsAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1E7287990 + string);
   }
 
   return v4;

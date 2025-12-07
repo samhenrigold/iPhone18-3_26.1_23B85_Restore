@@ -29,7 +29,7 @@
   {
     objc_storeStrong(&v16->_target, target);
     objc_storeStrong(&v17->_sequenceRecord, sequence);
-    v18 = [changesCopy copy];
+    v18 = objc_msgSend_copy(changesCopy);
     changeRecords = v17->_changeRecords;
     v17->_changeRecords = v18;
   }
@@ -39,7 +39,7 @@
 
 - (void)main
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   progress = [(HDCloudSyncOperation *)self progress];
   [progress setTotalUnitCount:0];
 
@@ -51,33 +51,33 @@
     changeRecords = self->_changeRecords;
     v7 = v5;
     *buf = 138543618;
-    *v43 = self;
-    *&v43[8] = 2048;
-    *&v43[10] = [(NSArray *)changeRecords count];
+    *v42 = self;
+    *&v42[8] = 2048;
+    *&v42[10] = [(NSArray *)changeRecords count];
     _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: Beginning pull for sequence with %ld required record(s).", buf, 0x16u);
   }
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   obj = self->_changeRecords;
-  v8 = [(NSArray *)obj countByEnumeratingWithState:&v37 objects:v44 count:16];
+  v8 = [(NSArray *)obj countByEnumeratingWithState:&v36 objects:v43 count:16];
   if (v8)
   {
     v9 = v8;
     v10 = 0;
-    v11 = *v38;
+    v11 = *v37;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v38 != v11)
+        if (*v37 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v37 + 1) + 8 * i);
+        v13 = *(*(&v36 + 1) + 8 * i);
         _HKInitializeLogging();
         v14 = *v4;
         if (os_log_type_enabled(*v4, OS_LOG_TYPE_DEFAULT))
@@ -87,11 +87,11 @@
           v17 = v16 = v4;
           decodedSyncAnchorRangeMap = [v13 decodedSyncAnchorRangeMap];
           *buf = 67109634;
-          *v43 = v10;
-          *&v43[4] = 2114;
-          *&v43[6] = v17;
-          *&v43[14] = 2114;
-          *&v43[16] = decodedSyncAnchorRangeMap;
+          *v42 = v10;
+          *&v42[4] = 2114;
+          *&v42[6] = v17;
+          *&v42[14] = 2114;
+          *&v42[16] = decodedSyncAnchorRangeMap;
           _os_log_impl(&dword_228986000, v15, OS_LOG_TYPE_DEFAULT, "\t%02d: %{public}@: %{public}@", buf, 0x1Cu);
 
           v4 = v16;
@@ -99,7 +99,7 @@
         }
       }
 
-      v9 = [(NSArray *)obj countByEnumeratingWithState:&v37 objects:v44 count:16];
+      v9 = [(NSArray *)obj countByEnumeratingWithState:&v36 objects:v43 count:16];
     }
 
     while (v9);
@@ -109,26 +109,26 @@
   configuration = [(HDCloudSyncOperation *)self configuration];
   v21 = [(HDCloudSyncCompoundOperation *)v19 initWithConfiguration:configuration cloudState:0 name:@"Pull Changes" continueOnSubOperationError:0];
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   obja = self->_changeRecords;
-  v22 = [(NSArray *)obja countByEnumeratingWithState:&v33 objects:v41 count:16];
+  v22 = [(NSArray *)obja countByEnumeratingWithState:&v32 objects:v40 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v34;
+    v24 = *v33;
     do
     {
       for (j = 0; j != v23; ++j)
       {
-        if (*v34 != v24)
+        if (*v33 != v24)
         {
           objc_enumerationMutation(obja);
         }
 
-        v26 = *(*(&v33 + 1) + 8 * j);
+        v26 = *(*(&v32 + 1) + 8 * j);
         v27 = [HDCloudSyncPullChangeRecordOperation alloc];
         configuration2 = [(HDCloudSyncOperation *)self configuration];
         v29 = [(HDCloudSyncPullChangeRecordOperation *)v27 initWithConfiguration:configuration2 cloudState:0 target:self->_target sequenceRecord:self->_sequenceRecord changeRecord:v26];
@@ -136,14 +136,13 @@
         [(HDCloudSyncCompoundOperation *)v21 addOperation:v29 transitionHandler:0];
       }
 
-      v23 = [(NSArray *)obja countByEnumeratingWithState:&v33 objects:v41 count:16];
+      v23 = [(NSArray *)obja countByEnumeratingWithState:&v32 objects:v40 count:16];
     }
 
     while (v23);
   }
 
   [(HDCloudSyncOperation *)self delegateToOperation:v21];
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -51,7 +51,7 @@
 - (void)addNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = _ANLogSystem();
+  v5 = _ANLogSystem(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [ANAccountNotifier addNotification:];
@@ -59,8 +59,8 @@
 
   if (self->_callbackMachService)
   {
-    v6 = _ANLogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = _ANLogSystem(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       [ANAccountNotifier addNotification:];
     }
@@ -69,24 +69,25 @@
   }
 
   _daemonConnection = [(ANAccountNotifier *)self _daemonConnection];
-  v8 = [_daemonConnection synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_0];
+  v9 = [_daemonConnection synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_0];
 
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __37__ANAccountNotifier_addNotification___block_invoke_3;
-  v10[3] = &unk_278BF92F0;
-  v11 = notificationCopy;
-  v9 = notificationCopy;
-  [v8 addNotification:v9 withCompletion:v10];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __37__ANAccountNotifier_addNotification___block_invoke_3;
+  v11[3] = &unk_278BF92F0;
+  v12 = notificationCopy;
+  v10 = notificationCopy;
+  [v9 addNotification:v10 withCompletion:v11];
 }
 
 void __37__ANAccountNotifier_addNotification___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v3 = v2;
   if (v2)
   {
-    v3 = _ANLogSystem();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = _ANLogSystem(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __37__ANAccountNotifier_addNotification___block_invoke_cold_1();
     }
@@ -95,34 +96,32 @@ void __37__ANAccountNotifier_addNotification___block_invoke(uint64_t a1, void *a
 
 void __37__ANAccountNotifier_addNotification___block_invoke_3(uint64_t a1, char a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v5 = a3;
-  v6 = _ANLogSystem();
-  v7 = v6;
+  v11 = *MEMORY[0x277D85DE8];
+  v4 = a3;
+  v5 = _ANLogSystem(v4);
+  v6 = v5;
   if (a2)
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 136315394;
-      v10 = "[ANAccountNotifier addNotification:]_block_invoke";
-      v11 = 1024;
-      v12 = 79;
-      _os_log_impl(&dword_23DC5E000, v7, OS_LOG_TYPE_DEFAULT, "%s (%d) Notification added successfully!", &v9, 0x12u);
+      v7 = 136315394;
+      v8 = "[ANAccountNotifier addNotification:]_block_invoke";
+      v9 = 1024;
+      v10 = 79;
+      _os_log_impl(&dword_23DC5E000, v6, OS_LOG_TYPE_DEFAULT, "%s (%d) Notification added successfully!", &v7, 0x12u);
     }
   }
 
-  else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __37__ANAccountNotifier_addNotification___block_invoke_3_cold_1(a1);
+    __37__ANAccountNotifier_addNotification___block_invoke_3_cold_1();
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeNotificationWithIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v5 = _ANLogSystem();
+  v5 = _ANLogSystem(identifierCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [ANAccountNotifier removeNotificationWithIdentifier:];
@@ -143,10 +142,11 @@ void __37__ANAccountNotifier_addNotification___block_invoke_3(uint64_t a1, char 
 void __54__ANAccountNotifier_removeNotificationWithIdentifier___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v3 = v2;
   if (v2)
   {
-    v3 = _ANLogSystem();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = _ANLogSystem(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __54__ANAccountNotifier_removeNotificationWithIdentifier___block_invoke_cold_1();
     }
@@ -155,34 +155,32 @@ void __54__ANAccountNotifier_removeNotificationWithIdentifier___block_invoke(uin
 
 void __54__ANAccountNotifier_removeNotificationWithIdentifier___block_invoke_7(uint64_t a1, char a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v5 = a3;
-  v6 = _ANLogSystem();
-  v7 = v6;
+  v11 = *MEMORY[0x277D85DE8];
+  v4 = a3;
+  v5 = _ANLogSystem(v4);
+  v6 = v5;
   if (a2)
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 136315394;
-      v10 = "[ANAccountNotifier removeNotificationWithIdentifier:]_block_invoke";
-      v11 = 1024;
-      v12 = 98;
-      _os_log_impl(&dword_23DC5E000, v7, OS_LOG_TYPE_DEFAULT, "%s (%d) Notification removed successfully!", &v9, 0x12u);
+      v7 = 136315394;
+      v8 = "[ANAccountNotifier removeNotificationWithIdentifier:]_block_invoke";
+      v9 = 1024;
+      v10 = 98;
+      _os_log_impl(&dword_23DC5E000, v6, OS_LOG_TYPE_DEFAULT, "%s (%d) Notification removed successfully!", &v7, 0x12u);
     }
   }
 
-  else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __54__ANAccountNotifier_removeNotificationWithIdentifier___block_invoke_7_cold_1(a1);
+    __54__ANAccountNotifier_removeNotificationWithIdentifier___block_invoke_7_cold_1();
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeNotificationsWithEventIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v5 = _ANLogSystem();
+  v5 = _ANLogSystem(identifierCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [ANAccountNotifier removeNotificationsWithEventIdentifier:];
@@ -203,10 +201,11 @@ void __54__ANAccountNotifier_removeNotificationWithIdentifier___block_invoke_7(u
 void __60__ANAccountNotifier_removeNotificationsWithEventIdentifier___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v3 = v2;
   if (v2)
   {
-    v3 = _ANLogSystem();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = _ANLogSystem(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __60__ANAccountNotifier_removeNotificationsWithEventIdentifier___block_invoke_cold_1();
     }
@@ -215,28 +214,26 @@ void __60__ANAccountNotifier_removeNotificationsWithEventIdentifier___block_invo
 
 void __60__ANAccountNotifier_removeNotificationsWithEventIdentifier___block_invoke_10(uint64_t a1, char a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v5 = a3;
-  v6 = _ANLogSystem();
-  v7 = v6;
+  v11 = *MEMORY[0x277D85DE8];
+  v4 = a3;
+  v5 = _ANLogSystem(v4);
+  v6 = v5;
   if (a2)
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 136315394;
-      v10 = "[ANAccountNotifier removeNotificationsWithEventIdentifier:]_block_invoke";
-      v11 = 1024;
-      v12 = 117;
-      _os_log_impl(&dword_23DC5E000, v7, OS_LOG_TYPE_DEFAULT, "%s (%d) Notifications removed successfully!", &v9, 0x12u);
+      v7 = 136315394;
+      v8 = "[ANAccountNotifier removeNotificationsWithEventIdentifier:]_block_invoke";
+      v9 = 1024;
+      v10 = 117;
+      _os_log_impl(&dword_23DC5E000, v6, OS_LOG_TYPE_DEFAULT, "%s (%d) Notifications removed successfully!", &v7, 0x12u);
     }
   }
 
-  else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __60__ANAccountNotifier_removeNotificationsWithEventIdentifier___block_invoke_10_cold_1(a1);
+    __60__ANAccountNotifier_removeNotificationsWithEventIdentifier___block_invoke_10_cold_1();
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_daemonConnection
@@ -256,14 +253,14 @@ void __60__ANAccountNotifier_removeNotificationsWithEventIdentifier___block_invo
 
 - (id)_createDaemonConnection
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v3 = _ANLogSystem();
+  v18 = *MEMORY[0x277D85DE8];
+  v3 = _ANLogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v16 = "[ANAccountNotifier _createDaemonConnection]";
-    v17 = 1024;
-    v18 = 137;
+    v15 = "[ANAccountNotifier _createDaemonConnection]";
+    v16 = 1024;
+    v17 = 137;
     _os_log_impl(&dword_23DC5E000, v3, OS_LOG_TYPE_DEFAULT, "%s (%d) Starting new connection...", buf, 0x12u);
   }
 
@@ -272,23 +269,22 @@ void __60__ANAccountNotifier_removeNotificationsWithEventIdentifier___block_invo
   [v4 setRemoteObjectInterface:v5];
 
   objc_initWeak(buf, self);
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __44__ANAccountNotifier__createDaemonConnection__block_invoke;
-  v13[3] = &unk_278BF9318;
-  objc_copyWeak(&v14, buf);
-  [v4 setInvalidationHandler:v13];
-  v8 = MEMORY[0x277D85DD0];
-  v9 = 3221225472;
-  v10 = __44__ANAccountNotifier__createDaemonConnection__block_invoke_2;
-  v11 = &unk_278BF9318;
-  objc_copyWeak(&v12, buf);
-  [v4 setInterruptionHandler:&v8];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __44__ANAccountNotifier__createDaemonConnection__block_invoke;
+  v12[3] = &unk_278BF9318;
+  objc_copyWeak(&v13, buf);
+  [v4 setInvalidationHandler:v12];
+  v7 = MEMORY[0x277D85DD0];
+  v8 = 3221225472;
+  v9 = __44__ANAccountNotifier__createDaemonConnection__block_invoke_2;
+  v10 = &unk_278BF9318;
+  objc_copyWeak(&v11, buf);
+  [v4 setInterruptionHandler:&v7];
   [v4 resume];
-  objc_destroyWeak(&v12);
-  objc_destroyWeak(&v14);
+  objc_destroyWeak(&v11);
+  objc_destroyWeak(&v13);
   objc_destroyWeak(buf);
-  v6 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -317,57 +313,51 @@ void __44__ANAccountNotifier__createDaemonConnection__block_invoke_2(uint64_t a1
 
 - (void)_disconnectFromDaemon
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_daemonConnectionWasInterrupted
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_daemonConnectionWasInvalidated
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v3 = _ANLogSystem();
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = _ANLogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315394;
-    v7 = "[ANAccountNotifier _daemonConnectionWasInvalidated]";
-    v8 = 1024;
-    v9 = 179;
-    _os_log_impl(&dword_23DC5E000, v3, OS_LOG_TYPE_DEFAULT, "%s (%d) called", &v6, 0x12u);
+    v5 = 136315394;
+    v6 = "[ANAccountNotifier _daemonConnectionWasInvalidated]";
+    v7 = 1024;
+    v8 = 179;
+    _os_log_impl(&dword_23DC5E000, v3, OS_LOG_TYPE_DEFAULT, "%s (%d) called", &v5, 0x12u);
   }
 
   daemonConnection = self->_daemonConnection;
   self->_daemonConnection = 0;
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startNotificationCallbackListenerWithMachServiceName:(id)name
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   bulletinResponseListener = self->_bulletinResponseListener;
-  v6 = _ANLogSystem();
+  v6 = _ANLogSystem(nameCopy);
   v7 = v6;
   if (bulletinResponseListener)
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 136315394;
-      v12 = "[ANAccountNotifier _startNotificationCallbackListenerWithMachServiceName:]";
-      v13 = 1024;
-      v14 = 190;
-      _os_log_impl(&dword_23DC5E000, v7, OS_LOG_TYPE_DEFAULT, "%s (%d) Notification response listener is already running!", &v11, 0x12u);
+      v10 = 136315394;
+      v11 = "[ANAccountNotifier _startNotificationCallbackListenerWithMachServiceName:]";
+      v12 = 1024;
+      v13 = 190;
+      _os_log_impl(&dword_23DC5E000, v7, OS_LOG_TYPE_DEFAULT, "%s (%d) Notification response listener is already running!", &v10, 0x12u);
     }
   }
 
@@ -385,29 +375,26 @@ void __44__ANAccountNotifier__createDaemonConnection__block_invoke_2(uint64_t a1
     [(NSXPCListener *)self->_bulletinResponseListener setDelegate:self];
     [(NSXPCListener *)self->_bulletinResponseListener resume];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopNotificationCallbackListener
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   v6 = [connectionCopy valueForEntitlement:@"com.apple.and.manager"];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v8 = _ANLogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = _ANLogSystem(isKindOfClass);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [ANAccountNotifier listener:shouldAcceptNewConnection:];
     }
@@ -415,53 +402,52 @@ void __44__ANAccountNotifier__createDaemonConnection__block_invoke_2(uint64_t a1
     goto LABEL_10;
   }
 
-  if (([v6 BOOLValue] & 1) == 0)
+  bOOLValue = [v6 BOOLValue];
+  if ((bOOLValue & 1) == 0)
   {
-    v8 = _ANLogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = _ANLogSystem(bOOLValue);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [ANAccountNotifier listener:shouldAcceptNewConnection:];
     }
 
 LABEL_10:
-    v9 = 0;
+    v11 = 0;
     goto LABEL_11;
   }
 
-  v7 = +[ANClientCallbackInterface XPCInterface];
-  [connectionCopy setExportedInterface:v7];
+  v9 = +[ANClientCallbackInterface XPCInterface];
+  [connectionCopy setExportedInterface:v9];
 
   [connectionCopy setExportedObject:self];
-  [connectionCopy resume];
-  v8 = _ANLogSystem();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v10 = _ANLogSystem([connectionCopy resume]);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 136315394;
-    v13 = "[ANAccountNotifier listener:shouldAcceptNewConnection:]";
-    v14 = 1024;
-    v15 = 227;
-    _os_log_impl(&dword_23DC5E000, v8, OS_LOG_TYPE_DEFAULT, "%s (%d) Accepted new connection.", &v12, 0x12u);
+    v13 = 136315394;
+    v14 = "[ANAccountNotifier listener:shouldAcceptNewConnection:]";
+    v15 = 1024;
+    v16 = 227;
+    _os_log_impl(&dword_23DC5E000, v10, OS_LOG_TYPE_DEFAULT, "%s (%d) Accepted new connection.", &v13, 0x12u);
   }
 
-  v9 = 1;
+  v11 = 1;
 LABEL_11:
 
-  v10 = *MEMORY[0x277D85DE8];
-  return v9;
+  return v11;
 }
 
 - (void)notificationWasActivated:(id)activated
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   activatedCopy = activated;
-  v5 = _ANLogSystem();
+  v5 = _ANLogSystem(activatedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 136315394;
-    v11 = "[ANAccountNotifier notificationWasActivated:]";
-    v12 = 1024;
-    v13 = 234;
-    _os_log_impl(&dword_23DC5E000, v5, OS_LOG_TYPE_DEFAULT, "%s (%d) called", &v10, 0x12u);
+    v9 = 136315394;
+    v10 = "[ANAccountNotifier notificationWasActivated:]";
+    v11 = 1024;
+    v12 = 234;
+    _os_log_impl(&dword_23DC5E000, v5, OS_LOG_TYPE_DEFAULT, "%s (%d) called", &v9, 0x12u);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -472,22 +458,20 @@ LABEL_11:
     v8 = objc_loadWeakRetained(&self->_delegate);
     [v8 accountNotifier:self didActivateNotification:activatedCopy];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notificationWasDismissed:(id)dismissed
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   dismissedCopy = dismissed;
-  v5 = _ANLogSystem();
+  v5 = _ANLogSystem(dismissedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 136315394;
-    v11 = "[ANAccountNotifier notificationWasDismissed:]";
-    v12 = 1024;
-    v13 = 243;
-    _os_log_impl(&dword_23DC5E000, v5, OS_LOG_TYPE_DEFAULT, "%s (%d) called", &v10, 0x12u);
+    v9 = 136315394;
+    v10 = "[ANAccountNotifier notificationWasDismissed:]";
+    v11 = 1024;
+    v12 = 243;
+    _os_log_impl(&dword_23DC5E000, v5, OS_LOG_TYPE_DEFAULT, "%s (%d) called", &v9, 0x12u);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -498,22 +482,20 @@ LABEL_11:
     v8 = objc_loadWeakRetained(&self->_delegate);
     [v8 accountNotifier:self didDismissNotification:dismissedCopy];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notificationWasCleared:(id)cleared
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   clearedCopy = cleared;
-  v5 = _ANLogSystem();
+  v5 = _ANLogSystem(clearedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 136315394;
-    v11 = "[ANAccountNotifier notificationWasCleared:]";
-    v12 = 1024;
-    v13 = 252;
-    _os_log_impl(&dword_23DC5E000, v5, OS_LOG_TYPE_DEFAULT, "%s (%d) called", &v10, 0x12u);
+    v9 = 136315394;
+    v10 = "[ANAccountNotifier notificationWasCleared:]";
+    v11 = 1024;
+    v12 = 252;
+    _os_log_impl(&dword_23DC5E000, v5, OS_LOG_TYPE_DEFAULT, "%s (%d) called", &v9, 0x12u);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -524,8 +506,6 @@ LABEL_11:
     v8 = objc_loadWeakRetained(&self->_delegate);
     [v8 accountNotifier:self didClearNotification:clearedCopy];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (ANAccountNotifierDelegate)delegate
@@ -537,132 +517,103 @@ LABEL_11:
 
 - (void)addNotification:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addNotification:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __37__ANAccountNotifier_addNotification___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void __37__ANAccountNotifier_addNotification___block_invoke_3_cold_1(uint64_t a1)
+void __37__ANAccountNotifier_addNotification___block_invoke_3_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v5 = 136315906;
+  v2 = 136315906;
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_23DC5E000, v2, v3, "%s (%d) Failed to add notification %@! Error: %@", v5);
-  v4 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_23DC5E000, v0, v1, "%s (%d) Failed to add notification %@! Error: %@", v2);
 }
 
 - (void)removeNotificationWithIdentifier:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __54__ANAccountNotifier_removeNotificationWithIdentifier___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void __54__ANAccountNotifier_removeNotificationWithIdentifier___block_invoke_7_cold_1(uint64_t a1)
+void __54__ANAccountNotifier_removeNotificationWithIdentifier___block_invoke_7_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v5 = 136315906;
+  v2 = 136315906;
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_23DC5E000, v2, v3, "%s (%d) Failed to remove notification %@! Error: %@", v5);
-  v4 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_23DC5E000, v0, v1, "%s (%d) Failed to remove notification %@! Error: %@", v2);
 }
 
 - (void)removeNotificationsWithEventIdentifier:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __60__ANAccountNotifier_removeNotificationsWithEventIdentifier___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void __60__ANAccountNotifier_removeNotificationsWithEventIdentifier___block_invoke_10_cold_1(uint64_t a1)
+void __60__ANAccountNotifier_removeNotificationsWithEventIdentifier___block_invoke_10_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v5 = 136315906;
+  v2 = 136315906;
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_23DC5E000, v2, v3, "%s (%d) Failed to remove notifications with event ID %@! Error: %@", v5);
-  v4 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_23DC5E000, v0, v1, "%s (%d) Failed to remove notifications with event ID %@! Error: %@", v2);
 }
 
 - (void)_startNotificationCallbackListenerWithMachServiceName:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)listener:shouldAcceptNewConnection:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)listener:shouldAcceptNewConnection:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

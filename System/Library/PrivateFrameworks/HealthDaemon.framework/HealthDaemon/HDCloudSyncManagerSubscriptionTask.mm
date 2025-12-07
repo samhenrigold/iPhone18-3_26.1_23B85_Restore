@@ -13,7 +13,7 @@
   v13 = [(HDCloudSyncManagerPipelineTask *)&v17 initWithManager:manager context:context accessibilityAssertion:assertion completion:completion];
   if (v13)
   {
-    v14 = [subscriptionsCopy copy];
+    v14 = objc_msgSend_copy(subscriptionsCopy);
     subscriptions = v13->_subscriptions;
     v13->_subscriptions = v14;
   }

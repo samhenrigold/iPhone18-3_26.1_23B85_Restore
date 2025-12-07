@@ -88,7 +88,7 @@ uint64_t __61__TPSURLSessionACAuthHandler_canAuthenticateWithURLResponse___block
 
 - (void)authenticateForURLResponse:(id)response completion:(id)completion
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v7 = [response URL];
   host = [v7 host];
@@ -98,9 +98,9 @@ uint64_t __61__TPSURLSessionACAuthHandler_canAuthenticateWithURLResponse___block
     goto LABEL_5;
   }
 
-  v15 = 0;
-  v9 = [(TPSURLSessionACAuthHandler *)self _authenticationTokenForHost:host error:&v15];
-  v10 = v15;
+  v14 = 0;
+  v9 = [(TPSURLSessionACAuthHandler *)self _authenticationTokenForHost:host error:&v14];
+  v10 = v14;
   v11 = v10;
   if (!v9)
   {
@@ -111,34 +111,31 @@ LABEL_5:
   }
 
   v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Bearer %@", v9];
-  v16 = @"Authorization";
-  v17[0] = v12;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+  v15 = @"Authorization";
+  v16[0] = v12;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
   (*(completionCopy + 2))(completionCopy, 0, 0, v13, 0);
 
 LABEL_6:
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)customHeaderFields
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   authContext = [(TPSURLSessionACAuthHandler *)self authContext];
   clientIdentifier = [authContext clientIdentifier];
 
   if ([clientIdentifier length])
   {
-    v7 = @"X-Client-Id";
-    v8[0] = clientIdentifier;
-    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+    v6 = @"X-Client-Id";
+    v7[0] = clientIdentifier;
+    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   }
 
   else
   {
     v4 = 0;
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -182,65 +179,65 @@ void __60__TPSURLSessionACAuthHandler__authenticateWithAppleConnect___block_invo
   {
   }
 
-  else if (PingPongClientLibraryCore())
+  else if (PingPongClientLibraryCore(0))
   {
-    v16 = 0;
-    v17 = &v16;
-    v18 = 0x2050000000;
-    v3 = getPPCExtensibleSSOAuthenticatorClass_softClass;
-    v19 = getPPCExtensibleSSOAuthenticatorClass_softClass;
+    v19 = 0;
+    v20 = &v19;
+    v21 = 0x2050000000;
+    v6 = getPPCExtensibleSSOAuthenticatorClass_softClass;
+    v22 = getPPCExtensibleSSOAuthenticatorClass_softClass;
     if (!getPPCExtensibleSSOAuthenticatorClass_softClass)
     {
-      v15[0] = MEMORY[0x1E69E9820];
-      v15[1] = 3221225472;
-      v15[2] = __getPPCExtensibleSSOAuthenticatorClass_block_invoke;
-      v15[3] = &unk_1E8102A50;
-      v15[4] = &v16;
-      __getPPCExtensibleSSOAuthenticatorClass_block_invoke(v15);
-      v3 = v17[3];
+      v18[0] = MEMORY[0x1E69E9820];
+      v18[1] = 3221225472;
+      v18[2] = __getPPCExtensibleSSOAuthenticatorClass_block_invoke;
+      v18[3] = &unk_1E8102A50;
+      v18[4] = &v19;
+      __getPPCExtensibleSSOAuthenticatorClass_block_invoke(v18, v3, v4, v5);
+      v6 = v20[3];
     }
 
-    v4 = v3;
-    _Block_object_dispose(&v16, 8);
-    v5 = objc_alloc_init(v3);
-    [*(a1 + 32) setSsoAuthenticator:v5];
+    v7 = v6;
+    _Block_object_dispose(&v19, 8);
+    v8 = objc_alloc_init(v6);
+    [*(a1 + 32) setSsoAuthenticator:v8];
   }
 
-  v6 = [*(a1 + 32) authContext];
-  v7 = [v6 appIdentifier];
-  v8 = [*(a1 + 32) ssoAuthenticator];
-  [v8 setAppIdentifier:v7];
-
   v9 = [*(a1 + 32) authContext];
-  v10 = [v9 enviromentIdentifier];
+  v10 = [v9 appIdentifier];
   v11 = [*(a1 + 32) ssoAuthenticator];
-  [v11 setEnvIdentifier:v10];
+  [v11 setAppIdentifier:v10];
 
   v12 = [*(a1 + 32) authContext];
-  v13 = [v12 interactivityMode];
+  v13 = [v12 enviromentIdentifier];
   v14 = [*(a1 + 32) ssoAuthenticator];
-  [v14 setInteractivity:v13];
+  [v14 setEnvIdentifier:v13];
+
+  v15 = [*(a1 + 32) authContext];
+  v16 = [v15 interactivityMode];
+  v17 = [*(a1 + 32) ssoAuthenticator];
+  [v17 setInteractivity:v16];
 }
 
 void __60__TPSURLSessionACAuthHandler__authenticateWithAppleConnect___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v26[3] = *MEMORY[0x1E69E9840];
+  v25[3] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x2020000000;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x2020000000;
   v7 = getkExtensibleSSOUsernameKeySymbolLoc_ptr;
-  v22 = getkExtensibleSSOUsernameKeySymbolLoc_ptr;
+  v21 = getkExtensibleSSOUsernameKeySymbolLoc_ptr;
   if (!getkExtensibleSSOUsernameKeySymbolLoc_ptr)
   {
     v8 = PingPongClientLibrary();
-    v20[3] = dlsym(v8, "kExtensibleSSOUsernameKey");
-    getkExtensibleSSOUsernameKeySymbolLoc_ptr = v20[3];
-    v7 = v20[3];
+    v19[3] = dlsym(v8, "kExtensibleSSOUsernameKey");
+    getkExtensibleSSOUsernameKeySymbolLoc_ptr = v19[3];
+    v7 = v19[3];
   }
 
-  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v18, 8);
   if (!v7)
   {
     goto LABEL_15;
@@ -249,20 +246,20 @@ void __60__TPSURLSessionACAuthHandler__authenticateWithAppleConnect___block_invo
   v9 = *v7;
   v10 = [v5 objectForKeyedSubscript:v9];
 
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x2020000000;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x2020000000;
   v11 = getkExtensibleSSOTokenKeySymbolLoc_ptr;
-  v22 = getkExtensibleSSOTokenKeySymbolLoc_ptr;
+  v21 = getkExtensibleSSOTokenKeySymbolLoc_ptr;
   if (!getkExtensibleSSOTokenKeySymbolLoc_ptr)
   {
     v12 = PingPongClientLibrary();
-    v20[3] = dlsym(v12, "kExtensibleSSOTokenKey");
-    getkExtensibleSSOTokenKeySymbolLoc_ptr = v20[3];
-    v11 = v20[3];
+    v19[3] = dlsym(v12, "kExtensibleSSOTokenKey");
+    getkExtensibleSSOTokenKeySymbolLoc_ptr = v19[3];
+    v11 = v19[3];
   }
 
-  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v18, 8);
   if (!v11)
   {
 LABEL_15:
@@ -280,22 +277,22 @@ LABEL_15:
   {
     if ([v16 length])
     {
-      v25[0] = @"X-AppleConnect-User";
-      v25[1] = @"X-AppleConnect-Token";
-      v26[0] = v10;
-      v26[1] = v14;
-      v25[2] = @"X-Client-Id";
-      v26[2] = v16;
-      [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:3];
+      v24[0] = @"X-AppleConnect-User";
+      v24[1] = @"X-AppleConnect-Token";
+      v25[0] = v10;
+      v25[1] = v14;
+      v24[2] = @"X-Client-Id";
+      v25[2] = v16;
+      [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:3];
     }
 
     else
     {
-      v23[0] = @"X-AppleConnect-User";
-      v23[1] = @"X-AppleConnect-Token";
-      v24[0] = v10;
-      v24[1] = v14;
-      [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:2];
+      v22[0] = @"X-AppleConnect-User";
+      v22[1] = @"X-AppleConnect-Token";
+      v23[0] = v10;
+      v23[1] = v14;
+      [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:2];
     }
     v17 = ;
   }
@@ -306,26 +303,24 @@ LABEL_15:
   }
 
   (*(*(a1 + 40) + 16))(*(a1 + 40), v10, v14, v17);
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_authenticationTokenForHost:(id)host error:(id *)error
 {
-  v18[4] = *MEMORY[0x1E69E9840];
+  v17[4] = *MEMORY[0x1E69E9840];
   hostCopy = host;
   v6 = *MEMORY[0x1E697B008];
   v7 = *MEMORY[0x1E697AE88];
-  v17[0] = *MEMORY[0x1E697AFF8];
-  v17[1] = v7;
-  v18[0] = v6;
-  v18[1] = @"ipcdn";
+  v16[0] = *MEMORY[0x1E697AFF8];
+  v16[1] = v7;
+  v17[0] = v6;
+  v17[1] = @"ipcdn";
   v8 = *MEMORY[0x1E697B318];
-  v17[2] = *MEMORY[0x1E697AC30];
-  v17[3] = v8;
-  v18[2] = hostCopy;
-  v18[3] = MEMORY[0x1E695E118];
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:4];
+  v16[2] = *MEMORY[0x1E697AC30];
+  v16[3] = v8;
+  v17[2] = hostCopy;
+  v17[3] = MEMORY[0x1E695E118];
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:4];
   cf = 0;
   v10 = SecItemCopyMatching(v9, &cf);
   if (v10)
@@ -358,16 +353,14 @@ LABEL_15:
   v11 = 0;
 LABEL_10:
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return v11;
 }
 
-uint64_t __60__TPSURLSessionACAuthHandler__authenticateWithAppleConnect___block_invoke_2_cold_1()
+void __60__TPSURLSessionACAuthHandler__authenticateWithAppleConnect___block_invoke_2_cold_1()
 {
-  dlerror();
-  v0 = abort_report_np();
-  return [TPSURLSessionACAuthHandler _authenticationTokenForHost:v0 error:?];
+  v0 = dlerror();
+  v1 = abort_report_np("%s", v0);
+  [TPSURLSessionACAuthHandler _authenticationTokenForHost:v1 error:?];
 }
 
 @end

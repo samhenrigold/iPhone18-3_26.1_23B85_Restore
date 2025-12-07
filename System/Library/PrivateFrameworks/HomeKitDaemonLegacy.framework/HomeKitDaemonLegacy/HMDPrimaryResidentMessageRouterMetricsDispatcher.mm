@@ -7,7 +7,7 @@
 
 - (void)submitFailureEventWithMessageName:(id)name failureType:(int64_t)type
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v7 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -26,21 +26,19 @@
     }
 
     v12 = v11;
-    v16 = 138543874;
-    v17 = v10;
-    v18 = 2112;
-    v19 = nameCopy;
-    v20 = 2112;
-    v21 = v12;
-    _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Submitting failure event with message name: %@ failure type: %@", &v16, 0x20u);
+    v15 = 138543874;
+    v16 = v10;
+    v17 = 2112;
+    v18 = nameCopy;
+    v19 = 2112;
+    v20 = v12;
+    _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Submitting failure event with message name: %@ failure type: %@", &v15, 0x20u);
   }
 
   objc_autoreleasePoolPop(v7);
   v13 = [[HMDPrimaryResidentMessageRouterFailureEvent alloc] initWithMessageName:nameCopy failureType:type];
   logEventSubmitter = [(HMDPrimaryResidentMessageRouterMetricsDispatcher *)selfCopy logEventSubmitter];
   [logEventSubmitter submitLogEvent:v13];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDPrimaryResidentMessageRouterMetricsDispatcher)initWithLogEventSubmitter:(id)submitter

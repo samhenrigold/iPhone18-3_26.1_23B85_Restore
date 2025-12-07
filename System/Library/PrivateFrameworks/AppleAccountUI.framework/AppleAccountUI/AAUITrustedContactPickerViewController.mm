@@ -58,14 +58,14 @@
 
 + (id)addressKindAndHandleForSingleAddressContact:(id)contact
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   contactCopy = contact;
-  v4 = _AAUILogSystem();
+  v4 = _AAUILogSystem(contactCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = 138412290;
-    v22 = contactCopy;
-    _os_log_impl(&dword_1C5355000, v4, OS_LOG_TYPE_DEFAULT, "AAUITrustedContactPickerViewController extracting handle and type for contact: %@", &v21, 0xCu);
+    v23 = 138412290;
+    v24 = contactCopy;
+    _os_log_impl(&dword_1C5355000, v4, OS_LOG_TYPE_DEFAULT, "AAUITrustedContactPickerViewController extracting handle and type for contact: %@", &v23, 0xCu);
   }
 
   phoneNumbers = [contactCopy phoneNumbers];
@@ -103,15 +103,15 @@ LABEL_10:
     value = [firstObject value];
     stringValue = [value stringValue];
 
-    v15 = _AAUILogSystem();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = _AAUILogSystem(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = 138412290;
-      v22 = stringValue;
-      _os_log_impl(&dword_1C5355000, v15, OS_LOG_TYPE_DEFAULT, "AAUITrustedContactPickerViewController extracted phone number: %@", &v21, 0xCu);
+      v23 = 138412290;
+      v24 = stringValue;
+      _os_log_impl(&dword_1C5355000, v16, OS_LOG_TYPE_DEFAULT, "AAUITrustedContactPickerViewController extracted phone number: %@", &v23, 0xCu);
     }
 
-    v16 = 1;
+    v17 = 1;
 LABEL_13:
 
     goto LABEL_19;
@@ -123,25 +123,25 @@ LABEL_13:
     firstObject2 = [emailAddresses3 firstObject];
     stringValue = [firstObject2 value];
 
-    v15 = _AAUILogSystem();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = _AAUILogSystem(v20);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = 138412290;
-      v22 = stringValue;
-      _os_log_impl(&dword_1C5355000, v15, OS_LOG_TYPE_DEFAULT, "AAUITrustedContactPickerViewController extracted email: %@", &v21, 0xCu);
+      v23 = 138412290;
+      v24 = stringValue;
+      _os_log_impl(&dword_1C5355000, v16, OS_LOG_TYPE_DEFAULT, "AAUITrustedContactPickerViewController extracted email: %@", &v23, 0xCu);
     }
 
-    v16 = 0;
+    v17 = 0;
     goto LABEL_13;
   }
 
 LABEL_18:
   stringValue = 0;
-  v16 = 5;
+  v17 = 5;
 LABEL_19:
-  v19 = [[AAUIHandleWithKind alloc] initWithHandle:stringValue kind:v16];
+  v21 = [[AAUIHandleWithKind alloc] initWithHandle:stringValue kind:v17];
 
-  return v19;
+  return v21;
 }
 
 @end

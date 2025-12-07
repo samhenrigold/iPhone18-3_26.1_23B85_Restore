@@ -5,7 +5,7 @@
 
 void __66___GCCollectionEventHIDAdapter_initWithRootParser_source_service___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (IOHIDEventGetType() == 37)
   {
     v4 = *(a1 + 40);
@@ -14,38 +14,36 @@ void __66___GCCollectionEventHIDAdapter_initWithRootParser_source_service___bloc
       v5 = [[_GCCollectionEventImpl alloc] initWithTimeStamp:IOHIDEventGetTimeStamp() keys:0 values:0 count:0];
       [*(a1 + 32) parse:a2 into:v5];
       v6 = objc_getProperty(*(a1 + 48), sel_observers, 32, 1);
+      v11 = 0u;
       v12 = 0u;
       v13 = 0u;
       v14 = 0u;
-      v15 = 0u;
-      v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v7)
       {
         v8 = v7;
-        v9 = *v13;
+        v9 = *v12;
         do
         {
           v10 = 0;
           do
           {
-            if (*v13 != v9)
+            if (*v12 != v9)
             {
               objc_enumerationMutation(v6);
             }
 
-            (*(*(*(&v12 + 1) + 8 * v10++) + 16))();
+            (*(*(*(&v11 + 1) + 8 * v10++) + 16))();
           }
 
           while (v8 != v10);
-          v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+          v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
         }
 
         while (v8);
       }
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __56___GCCollectionEventHIDAdapter_observeCollectionEvents___block_invoke(uint64_t a1)

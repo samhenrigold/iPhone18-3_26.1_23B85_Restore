@@ -10,7 +10,7 @@
 
 + (id)samplesOfType:(id)type predicate:(id)predicate healthStore:(id)store anchor:(id *)anchor error:(id *)error
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   v12 = MEMORY[0x277CBEA60];
   storeCopy = store;
@@ -18,9 +18,7 @@
   typeCopy2 = type;
   v16 = [v12 arrayWithObjects:&typeCopy count:1];
 
-  v17 = [self samplesOfTypes:v16 predicate:predicateCopy healthStore:storeCopy anchor:anchor error:{error, typeCopy, v21}];
-
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = [self samplesOfTypes:v16 predicate:predicateCopy healthStore:storeCopy anchor:anchor error:{error, typeCopy, v20}];
 
   return v17;
 }
@@ -146,7 +144,7 @@ void __76__ASDatabaseSampleEntity_samplesOfTypes_predicate_healthStore_anchor_er
 
 + (BOOL)enumerateSamplesOfType:(id)type predicate:(id)predicate healthStore:(id)store anchor:(id *)anchor error:(id *)error handler:(id)handler
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   v14 = MEMORY[0x277CBEA60];
   handlerCopy = handler;
@@ -155,49 +153,47 @@ void __76__ASDatabaseSampleEntity_samplesOfTypes_predicate_healthStore_anchor_er
   typeCopy2 = type;
   v19 = [v14 arrayWithObjects:&typeCopy count:1];
 
-  LOBYTE(error) = [self enumerateSamplesOfTypes:v19 predicate:predicateCopy healthStore:storeCopy anchor:anchor error:error handler:{handlerCopy, typeCopy, v23}];
-  v20 = *MEMORY[0x277D85DE8];
+  LOBYTE(error) = [self enumerateSamplesOfTypes:v19 predicate:predicateCopy healthStore:storeCopy anchor:anchor error:error handler:{handlerCopy, typeCopy, v22}];
   return error;
 }
 
 + (BOOL)enumerateSamplesOfTypes:(id)types predicate:(id)predicate healthStore:(id)store anchor:(id *)anchor error:(id *)error handler:(id)handler
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v15 = [self samplesOfTypes:types predicate:predicate healthStore:store anchor:anchor error:error];
   v16 = v15;
   v17 = *error;
   if (!*error)
   {
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
-    v18 = [v15 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
+    v18 = [v15 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v25;
+      v20 = *v24;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v25 != v20)
+          if (*v24 != v20)
           {
             objc_enumerationMutation(v16);
           }
 
-          handlerCopy[2](handlerCopy, *(*(&v24 + 1) + 8 * i));
+          handlerCopy[2](handlerCopy, *(*(&v23 + 1) + 8 * i));
         }
 
-        v19 = [v16 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v19 = [v16 countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v19);
     }
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v17 == 0;
 }
 

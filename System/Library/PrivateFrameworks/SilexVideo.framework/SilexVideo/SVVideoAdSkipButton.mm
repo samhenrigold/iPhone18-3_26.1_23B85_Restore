@@ -92,7 +92,7 @@
 
 - (id)titleForDuration:(unint64_t)duration
 {
-  v42[1] = *MEMORY[0x277D85DE8];
+  v41[1] = *MEMORY[0x277D85DE8];
   v4 = duration + 1;
   mode = [(SVVideoAdSkipButton *)self mode];
   if (v4 > 1)
@@ -106,7 +106,7 @@
 
     else
     {
-      v11 = SVBundle();
+      v11 = SVBundle(mode);
       v8 = [v11 localizedStringForKey:@"Skip in %lu" value:&stru_2877C2D00 table:0];
 
       [MEMORY[0x277CCACA8] stringWithFormat:v8, duration];
@@ -125,7 +125,7 @@
 
     else
     {
-      v9 = SVBundle();
+      v9 = SVBundle(mode);
       v6 = [v9 localizedStringForKey:@"Skip" value:&stru_2877C2D00 table:0];
     }
 
@@ -149,12 +149,12 @@
 
   v17 = [MEMORY[0x277D75520] metricsForTextStyle:*v15];
   v18 = [MEMORY[0x277D74300] systemFontOfSize:13.0 weight:*v16];
-  v39 = v17;
+  v38 = v17;
   v19 = [v17 scaledFontForFont:v18];
 
   [v13 addAttribute:*MEMORY[0x277D740A8] value:v19 range:{0, objc_msgSend(v13, "length")}];
   [v13 addAttribute:*MEMORY[0x277D740C0] value:v12 range:{0, objc_msgSend(v13, "length")}];
-  v40 = v6;
+  v39 = v6;
   if ([(__CFString *)v6 length])
   {
     v20 = objc_alloc_init(MEMORY[0x277D74270]);
@@ -184,10 +184,10 @@
   v30 = v29;
   [v19 capHeight];
   v32 = v31 - v30;
-  v41 = *MEMORY[0x277D74078];
+  v40 = *MEMORY[0x277D74078];
   v33 = [MEMORY[0x277CCABB0] numberWithDouble:v31 - v30];
-  v42[0] = v33;
-  v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:&v41 count:1];
+  v41[0] = v33;
+  v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:&v40 count:1];
 
   [v26 setBounds:{0.0, v32 * -0.5, v28, v30}];
   v35 = [MEMORY[0x277CCA898] attributedStringWithAttachment:v26 attributes:v34];
@@ -195,8 +195,6 @@
   v36 = objc_alloc_init(MEMORY[0x277D74240]);
   [v36 setAlignment:1];
   [v13 addAttribute:*MEMORY[0x277D74118] value:v36 range:{0, objc_msgSend(v13, "length")}];
-
-  v37 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

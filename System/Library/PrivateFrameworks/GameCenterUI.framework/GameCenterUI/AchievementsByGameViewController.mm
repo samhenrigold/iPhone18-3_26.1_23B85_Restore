@@ -31,8 +31,9 @@
 
 - (void)viewDidDisappear:(BOOL)disappear
 {
+  disappearCopy = disappear;
   selfCopy = self;
-  sub_24DFDE280(disappear);
+  sub_24DFDE280(disappearCopy);
 }
 
 - (BOOL)collectionView:(id)view shouldHighlightItemAtIndexPath:(id)path

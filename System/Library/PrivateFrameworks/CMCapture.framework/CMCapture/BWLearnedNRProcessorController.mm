@@ -1,23 +1,23 @@
 @interface BWLearnedNRProcessorController
 + (void)initialize;
 - (BWLearnedNRProcessorController)initWithConfiguration:(id)configuration;
+- (id)_inputFormat;
+- (id)_landscapeCropInputFormat;
+- (id)_portraitCropInputFormat;
+- (id)_primaryInputFormat;
+- (id)_process;
+- (id)_quadraInputFormat;
+- (id)_quadraUltraHighResolutionInputFormat;
+- (id)_quadraZoomBasedInputFormat;
+- (id)_serviceNextRequest;
+- (id)_squareCropInputFormat;
+- (id)_updateStateIfNeeded;
 - (id)inputInferenceVideoFormatForAttachedMediaKey:(id)key;
 - (int)enqueueInputForProcessing:(id)processing delegate:(id)delegate;
 - (int)prepareWithPixelBufferPoolProvider:(id)provider;
 - (uint64_t)_addInferenceType:(uint64_t)type outputVideoRequirements:;
 - (uint64_t)_attachedMediaKeyForOutputFormat:(uint64_t)result;
 - (uint64_t)_configureInference;
-- (uint64_t)_inputFormat;
-- (uint64_t)_landscapeCropInputFormat;
-- (uint64_t)_portraitCropInputFormat;
-- (uint64_t)_primaryInputFormat;
-- (uint64_t)_process;
-- (uint64_t)_quadraInputFormat;
-- (uint64_t)_quadraUltraHighResolutionInputFormat;
-- (uint64_t)_quadraZoomBasedInputFormat;
-- (uint64_t)_serviceNextRequest;
-- (uint64_t)_squareCropInputFormat;
-- (uint64_t)_updateStateIfNeeded;
 - (void)cancelProcessing;
 - (void)dealloc;
 - (void)input:(id)input setInputFrame:(opaqueCMSampleBuffer *)frame;
@@ -91,17 +91,17 @@
   [(NSMutableArray *)self->_requestQueue removeAllObjects];
   [(BWLearnedNRRequest *)self->_currentRequest setErr:4294950490];
 
-  [(BWLearnedNRProcessorController *)self _serviceNextRequest];
+  [(BWLearnedNRProcessorController *)&self->super.super.isa _serviceNextRequest];
 }
 
 - (id)inputInferenceVideoFormatForAttachedMediaKey:(id)key
 {
-  if (![key isEqualToString:@"PrimaryFormat"])
+  if (!objc_msgSend_isEqualToString_(key, a2, @"PrimaryFormat"))
   {
     return 0;
   }
 
-  [(BWLearnedNRProcessorController *)self inputInferenceVideoFormatForAttachedMediaKey:?];
+  [(BWLearnedNRProcessorController *)&self->super.super.isa inputInferenceVideoFormatForAttachedMediaKey:?];
   return v5;
 }
 
@@ -255,7 +255,7 @@ LABEL_32:
 
 LABEL_36:
     OUTLINED_FUNCTION_0();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     return 4294935585;
   }
 
@@ -327,26 +327,27 @@ LABEL_33:
     return 0;
   }
 
-  v5 = -[BWLearnedNRInferenceConfiguration initWithMetalCommandQueue:sensorConfigurationsByPortType:inferenceType:outputVideoRequirements:]([BWLearnedNRInferenceConfiguration alloc], "initWithMetalCommandQueue:sensorConfigurationsByPortType:inferenceType:outputVideoRequirements:", [self[8] metalCommandQueue], objc_msgSend(self[8], "sensorConfigurationsByPortType"), a2, type);
-  v6 = [self[13] addInferenceOfType:a2 version:BWInferenceVersionMakeMajor(1) & 0xFFFFFFFFFFFFLL configuration:v5];
-  if (v6)
+  v6 = -[BWLearnedNRInferenceConfiguration initWithMetalCommandQueue:sensorConfigurationsByPortType:inferenceType:outputVideoRequirements:]([BWLearnedNRInferenceConfiguration alloc], "initWithMetalCommandQueue:sensorConfigurationsByPortType:inferenceType:outputVideoRequirements:", [self[8] metalCommandQueue], objc_msgSend(self[8], "sensorConfigurationsByPortType"), a2, type);
+  v7 = [self[13] addInferenceOfType:a2 version:BWInferenceVersionMakeMajor(1) & 0xFFFFFFFFFFFFLL configuration:v6];
+  v8 = v7;
+  if (v7)
   {
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v3, v10, v11, v12, v13, v14, v15);
   }
 
   else
   {
-    [self[14] setObject:v5 forKeyedSubscript:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithInt:", a2)}];
+    [self[14] setObject:v6 forKeyedSubscript:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithInt:", a2)}];
   }
 
-  return v6;
+  return v8;
 }
 
-- (uint64_t)_inputFormat
+- (id)_inputFormat
 {
   if (result)
   {
-    [*(result + 64) inputFormatsByResolutionFlavor];
+    [result[8] inputFormatsByResolutionFlavor];
     OUTLINED_FUNCTION_0_106();
 
     return lnrpc_formatFromInputFormatsByResolutionFlavor(v1, v2, v3, v4, v5, v6, v7, 0);
@@ -355,11 +356,11 @@ LABEL_33:
   return result;
 }
 
-- (uint64_t)_quadraInputFormat
+- (id)_quadraInputFormat
 {
   if (result)
   {
-    [*(result + 64) inputFormatsByResolutionFlavor];
+    [result[8] inputFormatsByResolutionFlavor];
     OUTLINED_FUNCTION_0_106();
 
     return lnrpc_formatFromInputFormatsByResolutionFlavor(v1, v2, v3, v4, v5, v6, v7, 1);
@@ -368,11 +369,11 @@ LABEL_33:
   return result;
 }
 
-- (uint64_t)_quadraZoomBasedInputFormat
+- (id)_quadraZoomBasedInputFormat
 {
   if (result)
   {
-    [*(result + 64) inputFormatsByResolutionFlavor];
+    [result[8] inputFormatsByResolutionFlavor];
     OUTLINED_FUNCTION_4_83();
 
     return lnrpc_formatFromInputFormatsByResolutionFlavor(v1, v2, v3, v4, v5, v6, v7, 1);
@@ -381,11 +382,11 @@ LABEL_33:
   return result;
 }
 
-- (uint64_t)_landscapeCropInputFormat
+- (id)_landscapeCropInputFormat
 {
   if (result)
   {
-    [*(result + 64) inputFormatsByResolutionFlavor];
+    [result[8] inputFormatsByResolutionFlavor];
     OUTLINED_FUNCTION_10_49();
     OUTLINED_FUNCTION_72();
 
@@ -395,11 +396,11 @@ LABEL_33:
   return result;
 }
 
-- (uint64_t)_portraitCropInputFormat
+- (id)_portraitCropInputFormat
 {
   if (result)
   {
-    [*(result + 64) inputFormatsByResolutionFlavor];
+    [result[8] inputFormatsByResolutionFlavor];
     OUTLINED_FUNCTION_5_76();
     OUTLINED_FUNCTION_7_66();
 
@@ -409,11 +410,11 @@ LABEL_33:
   return result;
 }
 
-- (uint64_t)_squareCropInputFormat
+- (id)_squareCropInputFormat
 {
   if (result)
   {
-    [*(result + 64) inputFormatsByResolutionFlavor];
+    [result[8] inputFormatsByResolutionFlavor];
     OUTLINED_FUNCTION_3_93();
     OUTLINED_FUNCTION_14_38();
 
@@ -423,11 +424,11 @@ LABEL_33:
   return result;
 }
 
-- (uint64_t)_quadraUltraHighResolutionInputFormat
+- (id)_quadraUltraHighResolutionInputFormat
 {
   if (result)
   {
-    [*(result + 64) inputFormatsByResolutionFlavor];
+    [result[8] inputFormatsByResolutionFlavor];
     OUTLINED_FUNCTION_1_114();
 
     return lnrpc_formatFromInputFormatsByResolutionFlavor(v1, v2, v3, v4, v5, v6, 1, 1);
@@ -436,17 +437,17 @@ LABEL_33:
   return result;
 }
 
-- (uint64_t)_primaryInputFormat
+- (id)_primaryInputFormat
 {
   if (result)
   {
     v1 = result;
-    [*(result + 64) inputFormatsByResolutionFlavor];
+    [result[8] inputFormatsByResolutionFlavor];
     OUTLINED_FUNCTION_0_106();
     result = lnrpc_formatFromInputFormatsByResolutionFlavor(v2, v3, v4, v5, v6, v7, v8, 0);
     if (!result)
     {
-      [*(v1 + 64) inputFormatsByResolutionFlavor];
+      [v1[8] inputFormatsByResolutionFlavor];
       OUTLINED_FUNCTION_1_114();
 
       return lnrpc_formatFromInputFormatsByResolutionFlavor(v9, v10, v11, v12, v13, v14, 1, 1);
@@ -485,24 +486,24 @@ LABEL_33:
   return 0;
 }
 
-- (uint64_t)_serviceNextRequest
+- (id)_serviceNextRequest
 {
   if (result)
   {
     v1 = result;
-    delegate = [*(result + 88) delegate];
-    input = [*(v1 + 88) input];
-    v4 = [*(v1 + 88) err];
+    delegate = [result[11] delegate];
+    input = [v1[11] input];
+    v4 = [v1[11] err];
 
-    *(v1 + 88) = 0;
+    v1[11] = 0;
     [delegate processorController:v1 didFinishProcessingInput:input err:v4];
 
-    firstObject = [*(v1 + 80) firstObject];
-    *(v1 + 88) = firstObject;
+    firstObject = [v1[10] firstObject];
+    v1[11] = firstObject;
     if (firstObject)
     {
-      [*(v1 + 80) removeObjectAtIndex:0];
-      [objc_msgSend(*(v1 + 88) "input")];
+      [v1[10] removeObjectAtIndex:0];
+      [objc_msgSend(v1[11] "input")];
     }
 
     return [(BWLearnedNRProcessorController *)v1 _updateStateIfNeeded];
@@ -511,13 +512,13 @@ LABEL_33:
   return result;
 }
 
-- (uint64_t)_updateStateIfNeeded
+- (id)_updateStateIfNeeded
 {
   if (result)
   {
     v1 = result;
-    v2 = *(result + 88);
-    currentState = [*(result + 72) currentState];
+    v2 = result[11];
+    currentState = [result[9] currentState];
     if (v2)
     {
       if (currentState == 2)
@@ -527,7 +528,7 @@ LABEL_33:
 
       else if (currentState == 4)
       {
-        v4 = [*(v2 + 8) inputFrame] ? 8 : 4;
+        v4 = [v2[1] inputFrame] ? 8 : 4;
       }
 
       else
@@ -541,10 +542,10 @@ LABEL_33:
       v4 = 1;
     }
 
-    result = [*(v1 + 72) currentState];
+    result = [v1[9] currentState];
     if (v4 != result)
     {
-      v5 = *(v1 + 72);
+      v5 = v1[9];
 
       return [v5 transitionToState:v4];
     }
@@ -553,7 +554,7 @@ LABEL_33:
   return result;
 }
 
-- (uint64_t)_process
+- (id)_process
 {
   if (!result)
   {
@@ -562,21 +563,21 @@ LABEL_33:
 
   v1 = result;
   v2 = &OBJC_IVAR___BWAudioSourceNode__keepAudioSessionActiveOnStop;
-  if ([*(result + 88) err])
+  if ([result[11] err])
   {
     OUTLINED_FUNCTION_9_56();
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, v210))
+    if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, v212))
     {
-      v168 = v211;
+      v170 = v213;
     }
 
     else
     {
-      v168 = v211 & 0xFFFFFFFE;
+      v170 = v213 & 0xFFFFFFFE;
     }
 
-    if (v168)
+    if (v170)
     {
       [OUTLINED_FUNCTION_13_37() input];
       [OUTLINED_FUNCTION_13_37() err];
@@ -586,7 +587,7 @@ LABEL_33:
 
     OUTLINED_FUNCTION_15_37();
     fig_log_call_emit_and_clean_up_after_send_and_compose();
-    v130 = 0;
+    v132 = 0;
     goto LABEL_57;
   }
 
@@ -595,20 +596,20 @@ LABEL_33:
   {
     OUTLINED_FUNCTION_9_56();
     v4 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    if (os_log_type_enabled(v4, v210))
+    if (os_log_type_enabled(v4, v212))
     {
-      v5 = v211;
+      v5 = v213;
     }
 
     else
     {
-      v5 = v211 & 0xFFFFFFFE;
+      v5 = v213 & 0xFFFFFFFE;
     }
 
     if (v5)
     {
       [objc_msgSend(objc_msgSend(v1[11] "input")];
-      BWStillImageSampleBufferToDisplayString(v3);
+      BWStillImageSampleBufferToDisplayString(v3, v6);
       OUTLINED_FUNCTION_76();
       _os_log_send_and_compose_impl();
     }
@@ -621,69 +622,69 @@ LABEL_33:
   if (!ImageBuffer)
   {
     OUTLINED_FUNCTION_0();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v171, v173, v175, r2, r2_8, r2_16, r2_24, v186);
     goto LABEL_46;
   }
 
-  v7 = ImageBuffer;
-  v8 = CMGetAttachment(v3, *off_1E798A3C8, 0);
-  Width = CVPixelBufferGetWidth(v7);
-  Height = CVPixelBufferGetHeight(v7);
-  v11 = Width | (Height << 32);
-  v12 = 1.0;
+  v8 = ImageBuffer;
+  v9 = CMGetAttachment(v3, *off_1E798A3C8, 0);
+  Width = CVPixelBufferGetWidth(v8);
+  Height = CVPixelBufferGetHeight(v8);
+  v12 = Width | (Height << 32);
+  v13 = 1.0;
   if ([OUTLINED_FUNCTION_8_54() stillImageProcessingMode] == 1)
   {
     FinalCropRect = 0.0;
-    v14 = 0.0;
-    v15 = 1.0;
+    v15 = 0.0;
     v16 = 1.0;
+    v17 = 1.0;
   }
 
   else
   {
-    FinalCropRect = FigCaptureMetadataUtilitiesGetFinalCropRect();
+    FinalCropRect = FigCaptureMetadataUtilitiesGetFinalCropRect(v9);
   }
 
-  FigCaptureMetadataUtilitiesDenormalizeCropRect(FinalCropRect, v14, v15, v16);
-  v18 = v17;
-  v20 = v19;
-  v22 = v21;
-  v24 = v23;
-  r2 = FigCaptureMetadataUtilitiesGetValidBufferRect();
-  v26 = v25;
-  v28 = v27;
-  v30 = v29;
-  v31 = [objc_msgSend(OUTLINED_FUNCTION_8_54() "finalCropRectOverscanMultiplierByPortType")];
-  if (v31)
+  FigCaptureMetadataUtilitiesDenormalizeCropRect(FinalCropRect, v15, v16, v17, Width, Height);
+  v19 = v18;
+  v21 = v20;
+  v23 = v22;
+  v25 = v24;
+  r2a = FigCaptureMetadataUtilitiesGetValidBufferRect(v9);
+  v27 = v26;
+  v29 = v28;
+  v31 = v30;
+  v32 = [objc_msgSend(OUTLINED_FUNCTION_8_54() "finalCropRectOverscanMultiplierByPortType")];
+  if (v32)
   {
-    [v31 floatValue];
-    v12 = v32;
+    [v32 floatValue];
+    v13 = v34;
   }
 
-  v33 = FigCaptureMetadataUtilitiesScaleRect(v18, v20, v22, v24, v12);
-  v212.origin.x = (floorf(v33) + -2.0);
-  *&v34 = v34;
-  v212.origin.y = (floorf(*&v34) + -2.0);
-  *&v35 = v35;
-  v212.size.width = (ceilf(*&v35) + 4.0);
+  v35 = FigCaptureMetadataUtilitiesScaleRect(v19, v21, v23, v25, v13, v33);
+  v214.origin.x = (floorf(v35) + -2.0);
   *&v36 = v36;
-  v212.size.height = (ceilf(*&v36) + 4.0);
-  v215.origin.x = r2;
-  v215.origin.y = v26;
-  v215.size.width = v28;
-  v215.size.height = v30;
-  v213 = CGRectIntersection(v212, v215);
-  x = v213.origin.x;
-  y = v213.origin.y;
-  v39 = v213.size.width;
-  v40 = v213.size.height;
-  if (!CGRectIsNull(v213))
+  v214.origin.y = (floorf(*&v36) + -2.0);
+  *&v37 = v37;
+  v214.size.width = (ceilf(*&v37) + 4.0);
+  *&v38 = v38;
+  v214.size.height = (ceilf(*&v38) + 4.0);
+  v217.origin.x = r2a;
+  v217.origin.y = v27;
+  v217.size.width = v29;
+  v217.size.height = v31;
+  v215 = CGRectIntersection(v214, v217);
+  x = v215.origin.x;
+  y = v215.origin.y;
+  v41 = v215.size.width;
+  v42 = v215.size.height;
+  if (!CGRectIsNull(v215))
   {
-    v214.origin.x = x;
-    v214.origin.y = y;
-    v214.size.width = v39;
-    v214.size.height = v40;
-    DictionaryRepresentation = CGRectCreateDictionaryRepresentation(v214);
+    v216.origin.x = x;
+    v216.origin.y = y;
+    v216.size.width = v41;
+    v216.size.height = v42;
+    DictionaryRepresentation = CGRectCreateDictionaryRepresentation(v216);
     CMSetAttachment(v3, @"LearnedNRRegionOfInterest", DictionaryRepresentation, 0);
     if (DictionaryRepresentation)
     {
@@ -691,12 +692,12 @@ LABEL_33:
     }
   }
 
-  if ([objc_msgSend(v8 objectForKeyedSubscript:{*off_1E798B588), "intValue"}] != 1)
+  if ([objc_msgSend(v9 objectForKeyedSubscript:{*off_1E798B588), "intValue"}] != 1)
   {
     [OUTLINED_FUNCTION_8_54() inputFormatsByResolutionFlavor];
     OUTLINED_FUNCTION_10_49();
     OUTLINED_FUNCTION_72();
-    if (Width == [lnrpc_formatFromInputFormatsByResolutionFlavor(v50 v51] && (objc_msgSend(OUTLINED_FUNCTION_8_54(), "inputFormatsByResolutionFlavor"), OUTLINED_FUNCTION_10_49(), OUTLINED_FUNCTION_72(), objc_msgSend(lnrpc_formatFromInputFormatsByResolutionFlavor(v57, v58, v59, v60, v61, v62, v63, 0), "height") == Height))
+    if (Width == [lnrpc_formatFromInputFormatsByResolutionFlavor(v52 v53] && (objc_msgSend(OUTLINED_FUNCTION_8_54(), "inputFormatsByResolutionFlavor"), OUTLINED_FUNCTION_10_49(), OUTLINED_FUNCTION_72(), objc_msgSend(lnrpc_formatFromInputFormatsByResolutionFlavor(v59, v60, v61, v62, v63, v64, v65, 0), "height") == Height))
     {
       [OUTLINED_FUNCTION_8_54() inputFormatsByResolutionFlavor];
       OUTLINED_FUNCTION_10_49();
@@ -707,7 +708,7 @@ LABEL_33:
       [OUTLINED_FUNCTION_8_54() inputFormatsByResolutionFlavor];
       OUTLINED_FUNCTION_5_76();
       OUTLINED_FUNCTION_7_66();
-      if (Width == [lnrpc_formatFromInputFormatsByResolutionFlavor(v64 v65] && (objc_msgSend(OUTLINED_FUNCTION_8_54(), "inputFormatsByResolutionFlavor"), OUTLINED_FUNCTION_5_76(), OUTLINED_FUNCTION_7_66(), objc_msgSend(lnrpc_formatFromInputFormatsByResolutionFlavor(v72, v73, v74, v75, v76, v77, v78, v79), "height") == Height))
+      if (Width == [lnrpc_formatFromInputFormatsByResolutionFlavor(v66 v67] && (objc_msgSend(OUTLINED_FUNCTION_8_54(), "inputFormatsByResolutionFlavor"), OUTLINED_FUNCTION_5_76(), OUTLINED_FUNCTION_7_66(), objc_msgSend(lnrpc_formatFromInputFormatsByResolutionFlavor(v74, v75, v76, v77, v78, v79, v80, v81), "height") == Height))
       {
         [OUTLINED_FUNCTION_8_54() inputFormatsByResolutionFlavor];
         OUTLINED_FUNCTION_5_76();
@@ -718,7 +719,7 @@ LABEL_33:
         [OUTLINED_FUNCTION_8_54() inputFormatsByResolutionFlavor];
         OUTLINED_FUNCTION_3_93();
         OUTLINED_FUNCTION_14_38();
-        if (Width == [lnrpc_formatFromInputFormatsByResolutionFlavor(v80 v81] && (objc_msgSend(OUTLINED_FUNCTION_8_54(), "inputFormatsByResolutionFlavor"), OUTLINED_FUNCTION_3_93(), OUTLINED_FUNCTION_14_38(), objc_msgSend(lnrpc_formatFromInputFormatsByResolutionFlavor(v88, v89, v90, v91, v92, v93, v94, v95), "height") == Height))
+        if (Width == [lnrpc_formatFromInputFormatsByResolutionFlavor(v82 v83] && (objc_msgSend(OUTLINED_FUNCTION_8_54(), "inputFormatsByResolutionFlavor"), OUTLINED_FUNCTION_3_93(), OUTLINED_FUNCTION_14_38(), objc_msgSend(lnrpc_formatFromInputFormatsByResolutionFlavor(v90, v91, v92, v93, v94, v95, v96, v97), "height") == Height))
         {
           [OUTLINED_FUNCTION_8_54() inputFormatsByResolutionFlavor];
           OUTLINED_FUNCTION_3_93();
@@ -732,31 +733,31 @@ LABEL_33:
     }
 
     OUTLINED_FUNCTION_14_38();
-    v111 = lnrpc_formatFromInputFormatsByResolutionFlavor(v103, v104, v105, v106, v107, v108, v109, v110);
-    v112 = 171;
-    v113 = 170;
+    v113 = lnrpc_formatFromInputFormatsByResolutionFlavor(v105, v106, v107, v108, v109, v110, v111, v112);
+    v114 = 171;
+    v115 = 170;
     goto LABEL_38;
   }
 
-  v42 = [objc_msgSend(objc_msgSend(OUTLINED_FUNCTION_13_37() "input")];
+  v44 = [objc_msgSend(objc_msgSend(OUTLINED_FUNCTION_13_37() "input")];
   [OUTLINED_FUNCTION_8_54() inputFormatsByResolutionFlavor];
   OUTLINED_FUNCTION_0_106();
-  if ([lnrpc_formatFromInputFormatsByResolutionFlavor(v43 v44] >= Width)
+  if ([lnrpc_formatFromInputFormatsByResolutionFlavor(v45 v46] >= Width)
   {
     [OUTLINED_FUNCTION_8_54() inputFormatsByResolutionFlavor];
     OUTLINED_FUNCTION_0_106();
-    [lnrpc_formatFromInputFormatsByResolutionFlavor(v96 v97];
-    if ((v42 & 0x100000000) != 0)
+    [lnrpc_formatFromInputFormatsByResolutionFlavor(v98 v99];
+    if ((v44 & 0x100000000) != 0)
     {
 LABEL_34:
       [OUTLINED_FUNCTION_8_54() inputFormatsByResolutionFlavor];
       OUTLINED_FUNCTION_1_114();
-      v120 = 1;
+      v122 = 1;
       goto LABEL_37;
     }
   }
 
-  else if ((v42 & 0x100000000) != 0)
+  else if ((v44 & 0x100000000) != 0)
   {
     goto LABEL_34;
   }
@@ -764,73 +765,73 @@ LABEL_34:
   [OUTLINED_FUNCTION_8_54() inputFormatsByResolutionFlavor];
   OUTLINED_FUNCTION_4_83();
 LABEL_37:
-  v111 = lnrpc_formatFromInputFormatsByResolutionFlavor(v114, v115, v116, v117, v118, v119, v120, 1);
-  v112 = 170;
-  v113 = 171;
+  v113 = lnrpc_formatFromInputFormatsByResolutionFlavor(v116, v117, v118, v119, v120, v121, v122, 1);
+  v114 = 170;
+  v115 = 171;
 LABEL_38:
-  width = [v111 width];
-  height = [v111 height];
+  width = [v113 width];
+  height = [v113 height];
   if (width != Width || height != Height)
   {
     v2 = &OBJC_IVAR___BWAudioSourceNode__keepAudioSessionActiveOnStop;
 LABEL_77:
     [OUTLINED_FUNCTION_13_37() setErr:4294954516];
-    v130 = 0;
+    v132 = 0;
     goto LABEL_57;
   }
 
-  pixelFormat = [v111 pixelFormat];
+  pixelFormat = [v113 pixelFormat];
   v2 = &OBJC_IVAR___BWAudioSourceNode__keepAudioSessionActiveOnStop;
-  if (pixelFormat != CVPixelBufferGetPixelFormatType(v7))
+  if (pixelFormat != CVPixelBufferGetPixelFormatType(v8))
   {
     goto LABEL_77;
   }
 
-  if ([v1[13] performInferencesOnSampleBuffer:v3 attachingResultsToSampleBuffer:v3 skippingInferencesWithTypes:{objc_msgSend(MEMORY[0x1E695DFD8], "setWithObject:", objc_msgSend(MEMORY[0x1E696AD98], "numberWithInt:", v112))}])
+  if ([v1[13] performInferencesOnSampleBuffer:v3 attachingResultsToSampleBuffer:v3 skippingInferencesWithTypes:{objc_msgSend(MEMORY[0x1E695DFD8], "setWithObject:", objc_msgSend(MEMORY[0x1E696AD98], "numberWithInt:", v114))}])
   {
-    v128 = OUTLINED_FUNCTION_13_37();
+    v130 = OUTLINED_FUNCTION_13_37();
     goto LABEL_47;
   }
 
-  [objc_msgSend(v1[14] objectForKeyedSubscript:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithInt:", v113)), "outputAttachedMediaKeyForInputDimensions:", v11}];
-  v125 = OUTLINED_FUNCTION_10_29();
-  AttachedMedia = BWSampleBufferGetAttachedMedia(v125, v126);
+  [objc_msgSend(v1[14] objectForKeyedSubscript:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithInt:", v115)), "outputAttachedMediaKeyForInputDimensions:", v12}];
+  v127 = OUTLINED_FUNCTION_10_29();
+  AttachedMedia = BWSampleBufferGetAttachedMedia(v127, v128);
   if (AttachedMedia)
   {
-    v131 = CFRetain(AttachedMedia);
-    if (v131)
+    v133 = CFRetain(AttachedMedia);
+    if (v133)
     {
-      v130 = v131;
-      v132 = BWSampleBufferCopyDictionaryOfAttachedMedia(v3);
-      v133 = [v132 mutableCopy];
-      [v133 setObject:0 forKeyedSubscript:0x1F219ECF0];
+      v132 = v133;
+      v134 = BWSampleBufferCopyDictionaryOfAttachedMedia(v3);
+      v135 = [v134 mutableCopy];
+      [v135 setObject:0 forKeyedSubscript:0x1F219ECF0];
       OUTLINED_FUNCTION_18_30();
       OUTLINED_FUNCTION_18_30();
       OUTLINED_FUNCTION_18_30();
       OUTLINED_FUNCTION_18_30();
       OUTLINED_FUNCTION_18_30();
-      v134 = OUTLINED_FUNCTION_18_30();
-      v142 = OUTLINED_FUNCTION_21_30(v134, v135, v136, v137, v138, v139, v140, v141, v169, v171, v173, *&r2, r2_8, r2_16, r2_24, v183, v185, v187, v189, v191, v193, v195, v197, v199, v201, v203, v205, v207, 0);
-      if (v142)
+      v136 = OUTLINED_FUNCTION_18_30();
+      v144 = OUTLINED_FUNCTION_21_30(v136, v137, v138, v139, v140, v141, v142, v143, v171, v173, v175, *&r2a, r2_8, r2_16, r2_24, v186, v188, v190, v192, v194, v196, v198, v200, v202, v204, v206, v208, v210);
+      if (v144)
       {
-        v143 = v142;
-        v144 = MEMORY[0];
+        v145 = v144;
+        v146 = MEMORY[0];
         do
         {
-          for (i = 0; i != v143; ++i)
+          for (i = 0; i != v145; ++i)
           {
-            if (MEMORY[0] != v144)
+            if (MEMORY[0] != v146)
             {
-              objc_enumerationMutation(v133);
+              objc_enumerationMutation(v135);
             }
 
-            BWSampleBufferSetAttachedMedia(v130, *(8 * i), [v133 objectForKeyedSubscript:*(8 * i)]);
+            BWSampleBufferSetAttachedMedia(v132, *(8 * i), [v135 objectForKeyedSubscript:*(8 * i)]);
           }
 
-          v143 = OUTLINED_FUNCTION_21_30(v146, v147, v148, v149, v150, v151, v152, v153, v170, v172, v174, r2a, r2_8a, r2_16a, r2_24a, v184, v186, v188, v190, v192, v194, v196, v198, v200, v202, v204, v206, v208, v209);
+          v145 = OUTLINED_FUNCTION_21_30(v148, v149, v150, v151, v152, v153, v154, v155, v172, v174, v176, r2b, r2_8a, r2_16a, r2_24a, v187, v189, v191, v193, v195, v197, v199, v201, v203, v205, v207, v209, v211);
         }
 
-        while (v143);
+        while (v145);
       }
 
       goto LABEL_57;
@@ -838,27 +839,27 @@ LABEL_77:
   }
 
 LABEL_46:
-  v128 = OUTLINED_FUNCTION_13_37();
-  v129 = 4294954510;
+  v130 = OUTLINED_FUNCTION_13_37();
+  v131 = 4294954510;
 LABEL_47:
-  [v128 setErr:v129];
-  v130 = 0;
+  [v130 setErr:v131];
+  v132 = 0;
 LABEL_57:
   if (dword_1EB58E120)
   {
     OUTLINED_FUNCTION_9_56();
-    v154 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    if (os_log_type_enabled(v154, v210))
+    v156 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    if (os_log_type_enabled(v156, v212))
     {
-      v155 = v211;
+      v157 = v213;
     }
 
     else
     {
-      v155 = v211 & 0xFFFFFFFE;
+      v157 = v213 & 0xFFFFFFFE;
     }
 
-    if (v155)
+    if (v157)
     {
       [*(v1 + v2[221]) err];
       [objc_msgSend(objc_msgSend(OUTLINED_FUNCTION_13_37() "input")];
@@ -870,34 +871,34 @@ LABEL_57:
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v156 = [OUTLINED_FUNCTION_13_37() err];
+  v158 = [OUTLINED_FUNCTION_13_37() err];
   delegate = [OUTLINED_FUNCTION_13_37() delegate];
   input = [OUTLINED_FUNCTION_13_37() input];
-  v159 = input;
-  if (v156)
+  v161 = input;
+  if (v158)
   {
     inputFrame = [input inputFrame];
     input2 = [OUTLINED_FUNCTION_13_37() input];
-    v160 = [OUTLINED_FUNCTION_13_37() err];
-    v161 = delegate;
-    v162 = v1;
-    v163 = inputFrame;
-    v164 = input2;
+    v162 = [OUTLINED_FUNCTION_13_37() err];
+    v163 = delegate;
+    v164 = v1;
+    v165 = inputFrame;
+    v166 = input2;
   }
 
   else
   {
-    v160 = [OUTLINED_FUNCTION_13_37() err];
-    v161 = delegate;
-    v162 = v1;
-    v163 = v130;
-    v164 = v159;
+    v162 = [OUTLINED_FUNCTION_13_37() err];
+    v163 = delegate;
+    v164 = v1;
+    v165 = v132;
+    v166 = v161;
   }
 
-  [v161 processorController:v162 didFinishProcessingSampleBuffer:v163 type:1 processorInput:v164 err:v160];
-  if (v130)
+  [v163 processorController:v164 didFinishProcessingSampleBuffer:v165 type:1 processorInput:v166 err:v162];
+  if (v132)
   {
-    CFRelease(v130);
+    CFRelease(v132);
   }
 
   return [(BWLearnedNRProcessorController *)v1 _updateStateIfNeeded];
@@ -907,10 +908,10 @@ LABEL_57:
 {
   [(BWLearnedNRRequest *)self->_currentRequest input:input];
 
-  [(BWLearnedNRProcessorController *)self _updateStateIfNeeded];
+  [(BWLearnedNRProcessorController *)&self->super.super.isa _updateStateIfNeeded];
 }
 
-- (BWInferenceVideoFormat)inputInferenceVideoFormatForAttachedMediaKey:(uint64_t)a1 .cold.1(uint64_t a1, BWInferenceVideoFormat **a2)
+- (BWInferenceVideoFormat)inputInferenceVideoFormatForAttachedMediaKey:(id *)a1 .cold.1(id *a1, BWInferenceVideoFormat **a2)
 {
   WORD2(v4) = 0;
   LODWORD(v4) = 0;

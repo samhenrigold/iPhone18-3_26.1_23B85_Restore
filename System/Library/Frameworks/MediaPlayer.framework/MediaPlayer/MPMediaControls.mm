@@ -324,7 +324,7 @@ void __54__MPMediaControls_listener_shouldAcceptNewConnection___block_invoke(uin
   MRMediaRemotePresentMediaControlsCommand();
 }
 
-uint64_t __26__MPMediaControls_present__block_invoke(uint64_t result, uint64_t a2)
+id *__26__MPMediaControls_present__block_invoke(id *result, uint64_t a2)
 {
   v7 = *MEMORY[0x1E69E9840];
   if (a2)
@@ -338,7 +338,7 @@ uint64_t __26__MPMediaControls_present__block_invoke(uint64_t result, uint64_t a
       _os_log_impl(&dword_1A238D000, v4, OS_LOG_TYPE_ERROR, "Error occurred while attempting to present remote view controller. %@", &v5, 0xCu);
     }
 
-    return [*(v3 + 32) _reset];
+    return [v3[4] _reset];
   }
 
   return result;

@@ -7,7 +7,7 @@
 
 - (void)playInternalWithCompletionHandler:(id)handler
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v5 = [(ANTrackPlayer *)self log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -17,20 +17,20 @@
     v8 = currentItem;
     if (currentItem)
     {
-      [currentItem duration];
+      objc_msgSend_duration(currentItem);
     }
 
     else
     {
-      memset(&v15, 0, sizeof(v15));
+      memset(&v14, 0, sizeof(v14));
     }
 
-    Seconds = CMTimeGetSeconds(&v15);
-    LODWORD(v15.value) = 136315394;
-    *(&v15.value + 4) = "[ANSimpleTrackPlayer playInternalWithCompletionHandler:]";
-    LOWORD(v15.flags) = 2048;
-    *(&v15.flags + 2) = Seconds;
-    _os_log_impl(&dword_23F525000, v5, OS_LOG_TYPE_DEFAULT, "%s: Duration = %fs", &v15, 0x16u);
+    Seconds = CMTimeGetSeconds(&v14);
+    LODWORD(v14.value) = 136315394;
+    *(&v14.value + 4) = "[ANSimpleTrackPlayer playInternalWithCompletionHandler:]";
+    LOWORD(v14.flags) = 2048;
+    *(&v14.flags + 2) = Seconds;
+    _os_log_impl(&dword_23F525000, v5, OS_LOG_TYPE_DEFAULT, "%s: Duration = %fs", &v14, 0x16u);
   }
 
   queuePlayer2 = [(ANTrackPlayer *)self queuePlayer];
@@ -49,8 +49,6 @@
   }
 
   handlerCopy[2](handlerCopy, error);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleInterruptionDelay:(double)delay
@@ -60,7 +58,7 @@
   v5 = queuePlayer;
   if (queuePlayer)
   {
-    [queuePlayer currentTime];
+    objc_msgSend_currentTime(queuePlayer);
   }
 
   else
@@ -79,7 +77,7 @@
     v11 = queuePlayer2;
     if (queuePlayer2)
     {
-      [queuePlayer2 currentTime];
+      objc_msgSend_currentTime(queuePlayer2);
       LODWORD(queuePlayer2) = v15;
     }
 
@@ -106,7 +104,7 @@
 
 void __47__ANSimpleTrackPlayer_handleInterruptionDelay___block_invoke(uint64_t a1, int a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = [*(a1 + 32) log];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
@@ -116,23 +114,20 @@ void __47__ANSimpleTrackPlayer_handleInterruptionDelay___block_invoke(uint64_t a
       v4 = "successful";
     }
 
-    v6 = 136315394;
-    v7 = "[ANSimpleTrackPlayer handleInterruptionDelay:]_block_invoke";
-    v8 = 2080;
-    v9 = v4;
-    _os_log_impl(&dword_23F525000, v3, OS_LOG_TYPE_INFO, "%s: Attempt to restart announcement after interruption was %s.", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[ANSimpleTrackPlayer handleInterruptionDelay:]_block_invoke";
+    v7 = 2080;
+    v8 = v4;
+    _os_log_impl(&dword_23F525000, v3, OS_LOG_TYPE_INFO, "%s: Attempt to restart announcement after interruption was %s.", &v5, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)playInternalWithCompletionHandler:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_23F525000, a2, OS_LOG_TYPE_ERROR, "Failed to play AVQueuePlayer %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_23F525000, a2, OS_LOG_TYPE_ERROR, "Failed to play AVQueuePlayer %@", &v2, 0xCu);
 }
 
 @end

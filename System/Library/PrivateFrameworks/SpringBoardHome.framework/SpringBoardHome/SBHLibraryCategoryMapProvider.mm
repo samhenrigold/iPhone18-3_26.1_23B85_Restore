@@ -40,34 +40,33 @@
 
 void __62__SBHLibraryCategoryMapProvider__workQueue_performNextRequest__block_invoke_2_161(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = WeakRetained;
   if (WeakRetained)
   {
-    [WeakRetained _callbackQueue_notifyObserversBeginningRefreshSession:*(a1 + 48) requests:*(a1 + 32)];
-    v4 = SBLogProactiveAppLibrary();
+    v4 = SBLogProactiveAppLibrary([WeakRetained _callbackQueue_notifyObserversBeginningRefreshSession:*(a1 + 48) requests:*(a1 + 32)]);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = *(a1 + 48);
       v6 = *(a1 + 32);
-      v10 = 134218242;
-      v11 = v5;
-      v12 = 2112;
-      v13 = v6;
-      _os_log_impl(&dword_1BEB18000, v4, OS_LOG_TYPE_DEFAULT, "(%ld) Starting Library Category Map refresh from requests '%@'", &v10, 0x16u);
+      v11 = 134218242;
+      v12 = v5;
+      v13 = 2112;
+      v14 = v6;
+      _os_log_impl(&dword_1BEB18000, v4, OS_LOG_TYPE_DEFAULT, "(%ld) Starting Library Category Map refresh from requests '%@'", &v11, 0x16u);
     }
 
-    v7 = SBLogProactiveAppLibrary();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = SBLogProactiveAppLibrary(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 48);
-      v9 = NSDictionaryFromSBHLibraryCategoryMapRefreshOptions(*(a1 + 56));
-      v10 = 134218242;
-      v11 = v8;
-      v12 = 2112;
-      v13 = v9;
-      _os_log_impl(&dword_1BEB18000, v7, OS_LOG_TYPE_DEFAULT, "(%ld) Refresh options: %@", &v10, 0x16u);
+      v9 = *(a1 + 48);
+      v10 = NSDictionaryFromSBHLibraryCategoryMapRefreshOptions(*(a1 + 56));
+      v11 = 134218242;
+      v12 = v9;
+      v13 = 2112;
+      v14 = v10;
+      _os_log_impl(&dword_1BEB18000, v8, OS_LOG_TYPE_DEFAULT, "(%ld) Refresh options: %@", &v11, 0x16u);
     }
 
     [v3 _callbackQueue_notifyObserversWillRefresh:*(a1 + 48) options:*(a1 + 56)];
@@ -99,8 +98,8 @@ void __62__SBHLibraryCategoryMapProvider__workQueue_performNextRequest__block_in
 
       if (isCategoryMapOverriddenForTesting)
       {
-        v7 = SBLogProactiveAppLibrary();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+        v8 = SBLogProactiveAppLibrary(v7);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
           [SBHLibraryCategoryMapProvider _workQueue_performNextRequest];
         }
@@ -108,107 +107,107 @@ void __62__SBHLibraryCategoryMapProvider__workQueue_performNextRequest__block_in
 
       else
       {
-        v36 = NSStringFromSelector(a2);
+        v37 = NSStringFromSelector(a2);
         Current = CFAbsoluteTimeGetCurrent();
         [(NSMutableArray *)self->_pendingRefreshRequests removeAllObjects];
         objc_storeStrong(&self->_inflightRefreshRequests, v4);
-        v9 = [objc_opt_class() derivedOptionsFromArrayOfRequests:v4];
+        v10 = [objc_opt_class() derivedOptionsFromArrayOfRequests:v4];
         hasCachedLibraryCategoryMapOnFileSystem = [(SBHLibraryCategoryMapProvider *)selfCopy hasCachedLibraryCategoryMapOnFileSystem];
-        v11 = v9 | 0x10;
+        v12 = v10 | 0x10;
         if (hasCachedLibraryCategoryMapOnFileSystem)
         {
-          v11 = v9;
+          v12 = v10;
         }
 
-        v40 = v11;
+        v41 = v12;
         _nextSessionIdentifier = [(SBHLibraryCategoryMapProvider *)selfCopy _nextSessionIdentifier];
         libraryCategoryMap = [(SBHLibraryCategoryMapProvider *)selfCopy libraryCategoryMap];
-        v13 = self->_workQueue;
-        v14 = selfCopy->_callbackQueue;
+        v14 = self->_workQueue;
+        v15 = selfCopy->_callbackQueue;
         objc_initWeak(location, selfCopy);
         aBlock[0] = MEMORY[0x1E69E9820];
         aBlock[1] = 3221225472;
         aBlock[2] = __62__SBHLibraryCategoryMapProvider__workQueue_performNextRequest__block_invoke;
         aBlock[3] = &unk_1E808C600;
-        v15 = v13;
-        v64 = v15;
-        objc_copyWeak(v67, location);
         v16 = v14;
         v65 = v16;
-        v67[1] = _nextSessionIdentifier;
-        v17 = v4;
+        objc_copyWeak(v68, location);
+        v17 = v15;
         v66 = v17;
-        v67[2] = *&Current;
-        v18 = _Block_copy(aBlock);
-        v56[0] = MEMORY[0x1E69E9820];
-        v56[1] = 3221225472;
-        v56[2] = __62__SBHLibraryCategoryMapProvider__workQueue_performNextRequest__block_invoke_141;
-        v56[3] = &unk_1E808C650;
-        v19 = v15;
-        v57 = v19;
-        objc_copyWeak(v62, location);
-        v35 = v36;
-        v58 = v35;
-        v62[1] = _nextSessionIdentifier;
-        v20 = v17;
-        v59 = v20;
-        v21 = v16;
+        v68[1] = _nextSessionIdentifier;
+        v18 = v4;
+        v67 = v18;
+        v68[2] = *&Current;
+        v19 = _Block_copy(aBlock);
+        v57[0] = MEMORY[0x1E69E9820];
+        v57[1] = 3221225472;
+        v57[2] = __62__SBHLibraryCategoryMapProvider__workQueue_performNextRequest__block_invoke_141;
+        v57[3] = &unk_1E808C650;
+        v20 = v16;
+        v58 = v20;
+        objc_copyWeak(v63, location);
+        v36 = v37;
+        v59 = v36;
+        v63[1] = _nextSessionIdentifier;
+        v21 = v18;
         v60 = v21;
-        v22 = v18;
+        v22 = v17;
         v61 = v22;
-        v37 = _Block_copy(v56);
-        v50[0] = MEMORY[0x1E69E9820];
-        v50[1] = 3221225472;
-        v50[2] = __62__SBHLibraryCategoryMapProvider__workQueue_performNextRequest__block_invoke_3;
-        v50[3] = &unk_1E808C678;
         v23 = v19;
-        v51 = v23;
-        objc_copyWeak(v55, location);
-        v55[1] = _nextSessionIdentifier;
-        v39 = libraryCategoryMap;
-        v52 = v39;
-        v24 = v21;
-        v53 = v24;
-        v33 = v22;
-        v54 = v33;
-        v55[2] = v40;
-        v25 = _Block_copy(v50);
+        v62 = v23;
+        v38 = _Block_copy(v57);
+        v51[0] = MEMORY[0x1E69E9820];
+        v51[1] = 3221225472;
+        v51[2] = __62__SBHLibraryCategoryMapProvider__workQueue_performNextRequest__block_invoke_3;
+        v51[3] = &unk_1E808C678;
+        v24 = v20;
+        v52 = v24;
+        objc_copyWeak(v56, location);
+        v56[1] = _nextSessionIdentifier;
+        v40 = libraryCategoryMap;
+        v53 = v40;
+        v25 = v22;
+        v54 = v25;
+        v34 = v23;
+        v55 = v34;
+        v56[2] = v41;
+        v26 = _Block_copy(v51);
         block[0] = MEMORY[0x1E69E9820];
         block[1] = 3221225472;
         block[2] = __62__SBHLibraryCategoryMapProvider__workQueue_performNextRequest__block_invoke_2_161;
         block[3] = &unk_1E808C6A0;
-        objc_copyWeak(v49, location);
-        v49[1] = _nextSessionIdentifier;
-        v26 = v20;
-        v48 = v26;
-        v49[2] = v40;
-        v34 = v24;
-        dispatch_async(v24, block);
+        objc_copyWeak(v50, location);
+        v50[1] = _nextSessionIdentifier;
+        v27 = v21;
+        v49 = v27;
+        v50[2] = v41;
+        v35 = v25;
+        dispatch_async(v25, block);
         libraryCategoryMapProviderSource = selfCopy->_libraryCategoryMapProviderSource;
         forbiddenApplicationIdentifiers = selfCopy->_forbiddenApplicationIdentifiers;
         workQueue = self->_workQueue;
-        v41[0] = MEMORY[0x1E69E9820];
-        v41[1] = 3221225472;
-        v41[2] = __62__SBHLibraryCategoryMapProvider__workQueue_performNextRequest__block_invoke_162;
-        v41[3] = &unk_1E808C6C8;
-        v32 = v23;
-        v42 = v32;
-        v30 = v37;
-        v44 = v30;
-        v43 = v26;
-        v46 = _nextSessionIdentifier;
-        v31 = v25;
+        v42[0] = MEMORY[0x1E69E9820];
+        v42[1] = 3221225472;
+        v42[2] = __62__SBHLibraryCategoryMapProvider__workQueue_performNextRequest__block_invoke_162;
+        v42[3] = &unk_1E808C6C8;
+        v33 = v24;
+        v43 = v33;
+        v31 = v38;
         v45 = v31;
-        [(SBHLibraryCategoryMapProviderSource *)libraryCategoryMapProviderSource requestLibraryCategoryMapWithOptions:v40 existingLibraryCategoryMap:v39 forbiddenApplicationIdentifiers:forbiddenApplicationIdentifiers sessionId:_nextSessionIdentifier queue:workQueue completion:v41];
+        v44 = v27;
+        v47 = _nextSessionIdentifier;
+        v32 = v26;
+        v46 = v32;
+        [(SBHLibraryCategoryMapProviderSource *)libraryCategoryMapProviderSource requestLibraryCategoryMapWithOptions:v41 existingLibraryCategoryMap:v40 forbiddenApplicationIdentifiers:forbiddenApplicationIdentifiers sessionId:_nextSessionIdentifier queue:workQueue completion:v42];
 
-        objc_destroyWeak(v49);
-        objc_destroyWeak(v55);
+        objc_destroyWeak(v50);
+        objc_destroyWeak(v56);
 
-        objc_destroyWeak(v62);
-        objc_destroyWeak(v67);
+        objc_destroyWeak(v63);
+        objc_destroyWeak(v68);
 
         objc_destroyWeak(location);
-        v7 = v35;
+        v8 = v36;
       }
     }
   }
@@ -362,113 +361,115 @@ void __62__SBHLibraryCategoryMapProvider__workQueue_performNextRequest__block_in
 
 void __62__SBHLibraryCategoryMapProvider__workQueue_performNextRequest__block_invoke_3(uint64_t a1, void *a2)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v3 = a2;
   BSDispatchQueueAssert();
   WeakRetained = objc_loadWeakRetained((a1 + 64));
+  v5 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = SBLogProactiveAppLibrary();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = SBLogProactiveAppLibrary(WeakRetained);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(a1 + 72);
+      v7 = *(a1 + 72);
       *buf = 134217984;
-      v30 = v6;
-      _os_log_impl(&dword_1BEB18000, v5, OS_LOG_TYPE_DEFAULT, "(%ld) Finished Library Category Map refresh", buf, 0xCu);
+      v34 = v7;
+      _os_log_impl(&dword_1BEB18000, v6, OS_LOG_TYPE_DEFAULT, "(%ld) Finished Library Category Map refresh", buf, 0xCu);
     }
 
-    if ([v3 isEqualToCategoryMap:*(a1 + 40)])
+    v8 = [v3 isEqualToCategoryMap:*(a1 + 40)];
+    if (v8)
     {
-      v7 = SBLogProactiveAppLibrary();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v9 = SBLogProactiveAppLibrary(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = *(a1 + 72);
+        v10 = *(a1 + 72);
         *buf = 134217984;
-        v30 = v8;
-        _os_log_impl(&dword_1BEB18000, v7, OS_LOG_TYPE_DEFAULT, "(%ld) Library category map refresh yielded no changes to map; bailing.", buf, 0xCu);
+        v34 = v10;
+        _os_log_impl(&dword_1BEB18000, v9, OS_LOG_TYPE_DEFAULT, "(%ld) Library category map refresh yielded no changes to map; bailing.", buf, 0xCu);
       }
 
-      v9 = *(a1 + 48);
+      v11 = *(a1 + 48);
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __62__SBHLibraryCategoryMapProvider__workQueue_performNextRequest__block_invoke_155;
       block[3] = &unk_1E8088C90;
-      block[4] = WeakRetained;
-      dispatch_async(v9, block);
+      block[4] = v5;
+      dispatch_async(v11, block);
       (*(*(a1 + 56) + 16))();
     }
 
     else
     {
-      v10 = *(a1 + 40);
-      v11 = SBLogProactiveAppLibrary();
-      v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
-      if (v3 && v10)
+      v12 = *(a1 + 40);
+      v13 = SBLogProactiveAppLibrary(v8);
+      v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+      if (v3 && v12)
       {
-        if (v12)
+        if (v14)
         {
-          v13 = *(a1 + 72);
-          v14 = *(a1 + 40);
+          v15 = *(a1 + 72);
+          v16 = *(a1 + 40);
           *buf = 134218240;
-          v30 = v13;
-          v31 = 2048;
-          v32 = v14;
-          _os_log_impl(&dword_1BEB18000, v11, OS_LOG_TYPE_DEFAULT, "(%ld) Existing Library category map: %p", buf, 0x16u);
+          v34 = v15;
+          v35 = 2048;
+          v36 = v16;
+          _os_log_impl(&dword_1BEB18000, v13, OS_LOG_TYPE_DEFAULT, "(%ld) Existing Library category map: %p", buf, 0x16u);
         }
 
-        v15 = SBLogProactiveAppLibrary();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        v18 = SBLogProactiveAppLibrary(v17);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
-          v16 = *(a1 + 72);
+          v19 = *(a1 + 72);
           *buf = 134218240;
-          v30 = v16;
-          v31 = 2048;
-          v32 = v3;
-          _os_log_impl(&dword_1BEB18000, v15, OS_LOG_TYPE_DEFAULT, "(%ld) Refreshed Library category map: %p", buf, 0x16u);
+          v34 = v19;
+          v35 = 2048;
+          v36 = v3;
+          _os_log_impl(&dword_1BEB18000, v18, OS_LOG_TYPE_DEFAULT, "(%ld) Refreshed Library category map: %p", buf, 0x16u);
         }
 
-        v11 = SBLogProactiveAppLibrary();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v13 = SBLogProactiveAppLibrary(v20);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
-          v17 = *(a1 + 72);
-          v18 = [SBHLibraryCategoryMap diffMap:v3 withMap:*(a1 + 40)];
+          v21 = *(a1 + 72);
+          v22 = [SBHLibraryCategoryMap diffMap:v3 withMap:*(a1 + 40)];
           *buf = 134218242;
-          v30 = v17;
-          v31 = 2112;
-          v32 = v18;
-          _os_log_impl(&dword_1BEB18000, v11, OS_LOG_TYPE_DEFAULT, "(%ld) Library category map changes: %@", buf, 0x16u);
+          v34 = v21;
+          v35 = 2112;
+          v36 = v22;
+          _os_log_impl(&dword_1BEB18000, v13, OS_LOG_TYPE_DEFAULT, "(%ld) Library category map changes: %@", buf, 0x16u);
         }
       }
 
-      else if (v12)
+      else if (v14)
       {
-        v19 = *(a1 + 72);
+        v23 = *(a1 + 72);
         *buf = 134218242;
-        v30 = v19;
-        v31 = 2112;
-        v32 = v3;
-        _os_log_impl(&dword_1BEB18000, v11, OS_LOG_TYPE_DEFAULT, "(%ld) Library category map was freshly generated: %@", buf, 0x16u);
+        v34 = v23;
+        v35 = 2112;
+        v36 = v3;
+        _os_log_impl(&dword_1BEB18000, v13, OS_LOG_TYPE_DEFAULT, "(%ld) Library category map was freshly generated: %@", buf, 0x16u);
       }
 
-      [WeakRetained _workQueue_updateLibraryCategoryMap:v3 withSessionId:*(a1 + 72) shouldPersist:1 reason:@"_performNextRequest"];
-      v20 = *(a1 + 48);
-      v25[0] = MEMORY[0x1E69E9820];
-      v25[1] = 3221225472;
-      v25[2] = __62__SBHLibraryCategoryMapProvider__workQueue_performNextRequest__block_invoke_159;
-      v25[3] = &unk_1E808A090;
-      v21 = *(a1 + 80);
-      v25[4] = WeakRetained;
-      v27 = v21;
-      v26 = v3;
-      dispatch_async(v20, v25);
-      (*(*(a1 + 56) + 16))(*(a1 + 56), 0, v22, v23, v24);
+      [v5 _workQueue_updateLibraryCategoryMap:v3 withSessionId:*(a1 + 72) shouldPersist:1 reason:@"_performNextRequest"];
+      v24 = *(a1 + 48);
+      v29[0] = MEMORY[0x1E69E9820];
+      v29[1] = 3221225472;
+      v29[2] = __62__SBHLibraryCategoryMapProvider__workQueue_performNextRequest__block_invoke_159;
+      v29[3] = &unk_1E808A090;
+      v25 = *(a1 + 80);
+      v29[4] = v5;
+      v31 = v25;
+      v30 = v3;
+      dispatch_async(v24, v29);
+      (*(*(a1 + 56) + 16))(*(a1 + 56), 0, v26, v27, v28);
     }
   }
 }
 
 void __62__SBHLibraryCategoryMapProvider__workQueue_performNextRequest__block_invoke(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v3 = a2;
   BSDispatchQueueAssert();
   WeakRetained = objc_loadWeakRetained((a1 + 56));
@@ -481,38 +482,38 @@ void __62__SBHLibraryCategoryMapProvider__workQueue_performNextRequest__block_in
     block[3] = &unk_1E808A090;
     v6 = *(a1 + 64);
     block[4] = WeakRetained;
-    v16 = v6;
+    v17 = v6;
     v7 = *(a1 + 40);
-    v15 = *(a1 + 48);
+    v16 = *(a1 + 48);
     dispatch_async(v7, block);
     v8 = v5[9];
     v5[9] = 0;
 
-    v9 = SBLogProactiveAppLibrary();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = SBLogProactiveAppLibrary(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = *(a1 + 64);
+      v11 = *(a1 + 64);
       if (v3)
       {
-        v11 = @"UNSUCCESSFULLY";
+        v12 = @"UNSUCCESSFULLY";
       }
 
       else
       {
-        v11 = @"SUCCESSFULLY";
+        v12 = @"SUCCESSFULLY";
       }
 
-      v12 = CFAbsoluteTimeGetCurrent() - *(a1 + 72);
-      v13 = *(a1 + 48);
+      v13 = CFAbsoluteTimeGetCurrent() - *(a1 + 72);
+      v14 = *(a1 + 48);
       *buf = 134218754;
-      v18 = v10;
-      v19 = 2112;
-      v20 = v11;
-      v21 = 2048;
-      v22 = v12;
-      v23 = 2112;
-      v24 = v13;
-      _os_log_impl(&dword_1BEB18000, v9, OS_LOG_TYPE_DEFAULT, "(%ld) Session completed '%@'; Request fulfillment time: %f -- Requests fulfilled: %@", buf, 0x2Au);
+      v19 = v11;
+      v20 = 2112;
+      v21 = v12;
+      v22 = 2048;
+      v23 = v13;
+      v24 = 2112;
+      v25 = v14;
+      _os_log_impl(&dword_1BEB18000, v10, OS_LOG_TYPE_DEFAULT, "(%ld) Session completed '%@'; Request fulfillment time: %f -- Requests fulfilled: %@", buf, 0x2Au);
     }
 
     [v5 _workQueue_scheduleRefreshIfNotScheduled];
@@ -542,65 +543,69 @@ void __62__SBHLibraryCategoryMapProvider__workQueue_performNextRequest__block_in
 uint64_t __73__SBHLibraryCategoryMapProvider__workQueue_scheduleRefreshIfNotScheduled__block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
     if (*(WeakRetained + 80) == 1)
     {
       *(WeakRetained + 80) = 0;
-      v3 = WeakRetained;
-      if (![*(WeakRetained + 9) count])
+      v4 = WeakRetained;
+      WeakRetained = [WeakRetained[9] count];
+      v2 = v4;
+      if (!WeakRetained)
       {
-        [v3 _workQueue_performNextRequest];
+        WeakRetained = [v4 _workQueue_performNextRequest];
+        v2 = v4;
       }
     }
   }
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](WeakRetained, v2);
 }
 
 + (void)clearCachesForReason:(id)reason
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   reasonCopy = reason;
   os_unfair_lock_lock(&__lock);
-  v5 = SBLogProactiveAppLibrary();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = SBLogProactiveAppLibrary(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v15 = reasonCopy;
-    _os_log_impl(&dword_1BEB18000, v5, OS_LOG_TYPE_DEFAULT, "Marking SBHLibraryCategoryMapProvider caches are needing to be wiped for reason: %@", buf, 0xCu);
+    v18 = reasonCopy;
+    _os_log_impl(&dword_1BEB18000, v6, OS_LOG_TYPE_DEFAULT, "Marking SBHLibraryCategoryMapProvider caches are needing to be wiped for reason: %@", buf, 0xCu);
   }
 
   cacheDirectory = [self cacheDirectory];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v13 = 0;
-  [defaultManager removeItemAtPath:cacheDirectory error:&v13];
-  v8 = v13;
+  v16 = 0;
+  [defaultManager removeItemAtPath:cacheDirectory error:&v16];
+  v9 = v16;
 
-  v9 = SBLogProactiveAppLibrary();
-  v10 = v9;
-  if (v8)
+  v11 = SBLogProactiveAppLibrary(v10);
+  v12 = v11;
+  if (v9)
   {
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       +[SBHLibraryCategoryMapProvider clearCachesForReason:];
     }
   }
 
-  else if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1BEB18000, v10, OS_LOG_TYPE_DEFAULT, "Success in deleting app library cache.", buf, 2u);
+    _os_log_impl(&dword_1BEB18000, v12, OS_LOG_TYPE_DEFAULT, "Success in deleting app library cache.", buf, 2u);
   }
 
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
   [defaultCenter postNotificationName:@"SBHLibraryCategoryMapProviderCachesWereClearedNotification" object:0];
 
-  v12 = SBLogProactiveAppLibrary();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v15 = SBLogProactiveAppLibrary(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1BEB18000, v12, OS_LOG_TYPE_DEFAULT, "SBHLibraryCategoryMapProvider caches have been cleaned.  Hopefully successfully.", buf, 2u);
+    _os_log_impl(&dword_1BEB18000, v15, OS_LOG_TYPE_DEFAULT, "SBHLibraryCategoryMapProvider caches have been cleaned.  Hopefully successfully.", buf, 2u);
   }
 
   os_unfair_lock_unlock(&__lock);
@@ -735,7 +740,7 @@ uint64_t __73__SBHLibraryCategoryMapProvider__workQueue_scheduleRefreshIfNotSche
 + (NSString)cacheDirectory
 {
   v2 = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, 1uLL, 1);
-  v3 = [v2 objectAtIndex:0];
+  v3 = objc_msgSend_objectAtIndex_(v2);
 
   v4 = [v3 stringByAppendingPathComponent:@"com.apple.springboard.appLibrary"];
 
@@ -1236,214 +1241,215 @@ void __84__SBHLibraryCategoryMapProvider_requestLibraryCategoryMapRefreshWithOpt
 - (BOOL)_workQueue_updateLibraryCategoryMap:(id)map withSessionId:(unint64_t)id shouldPersist:(BOOL)persist reason:(id)reason
 {
   persistCopy = persist;
-  v35 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   mapCopy = map;
   reasonCopy = reason;
   BSDispatchQueueAssert();
   v13 = self->_serializationQueue;
   selfCopy = self;
-  objc_sync_enter(selfCopy);
-  v15 = SBLogProactiveAppLibrary();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v15 = objc_sync_enter(selfCopy);
+  v16 = SBLogProactiveAppLibrary(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
     idCopy7 = id;
-    _os_log_impl(&dword_1BEB18000, v15, OS_LOG_TYPE_DEFAULT, "(%ld) Will update library category map", buf, 0xCu);
+    _os_log_impl(&dword_1BEB18000, v16, OS_LOG_TYPE_DEFAULT, "(%ld) Will update library category map", buf, 0xCu);
   }
 
   objc_storeStrong(&selfCopy->_libraryCategoryMap, map);
   isCategoryMapOverriddenForTesting = selfCopy->_isCategoryMapOverriddenForTesting;
-  v17 = SBLogProactiveAppLibrary();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v19 = SBLogProactiveAppLibrary(v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
     idCopy7 = id;
-    _os_log_impl(&dword_1BEB18000, v17, OS_LOG_TYPE_DEFAULT, "(%ld) Did update library category map", buf, 0xCu);
+    _os_log_impl(&dword_1BEB18000, v19, OS_LOG_TYPE_DEFAULT, "(%ld) Did update library category map", buf, 0xCu);
   }
 
   objc_sync_exit(selfCopy);
-  v18 = selfCopy->_cacheFilePath;
-  v19 = v18;
+  v20 = selfCopy->_cacheFilePath;
+  v21 = v20;
   if (persistCopy)
   {
     if (isCategoryMapOverriddenForTesting)
     {
-      v20 = SBLogProactiveAppLibrary();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v22 = SBLogProactiveAppLibrary(v20);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
         idCopy7 = id;
-        v21 = "(%ld) Skipping library category map persistence; testing is running and so the data there is bupkis";
+        v23 = "(%ld) Skipping library category map persistence; testing is running and so the data there is bupkis";
 LABEL_18:
-        _os_log_impl(&dword_1BEB18000, v20, OS_LOG_TYPE_DEFAULT, v21, buf, 0xCu);
+        _os_log_impl(&dword_1BEB18000, v22, OS_LOG_TYPE_DEFAULT, v23, buf, 0xCu);
         goto LABEL_19;
       }
 
       goto LABEL_19;
     }
 
-    v22 = [(NSString *)v18 length]== 0;
-    v20 = SBLogProactiveAppLibrary();
-    v23 = os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
-    if (v22)
+    v24 = [(NSString *)v20 length];
+    v25 = v24 == 0;
+    v22 = SBLogProactiveAppLibrary(v24);
+    v26 = os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
+    if (v25)
     {
-      if (v23)
+      if (v26)
       {
         *buf = 134217984;
         idCopy7 = id;
-        v21 = "(%ld) Skipping library category map persistence; no path specified";
+        v23 = "(%ld) Skipping library category map persistence; no path specified";
         goto LABEL_18;
       }
 
 LABEL_19:
-      v24 = 0;
+      v27 = 0;
       goto LABEL_20;
     }
 
-    if (v23)
+    if (v26)
     {
       *buf = 134218242;
       idCopy7 = id;
-      v33 = 2112;
-      v34 = reasonCopy;
-      _os_log_impl(&dword_1BEB18000, v20, OS_LOG_TYPE_DEFAULT, "(%ld) Attempting to persist library category map, updated for reason: %@", buf, 0x16u);
+      v36 = 2112;
+      v37 = reasonCopy;
+      _os_log_impl(&dword_1BEB18000, v22, OS_LOG_TYPE_DEFAULT, "(%ld) Attempting to persist library category map, updated for reason: %@", buf, 0x16u);
     }
 
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __104__SBHLibraryCategoryMapProvider__workQueue_updateLibraryCategoryMap_withSessionId_shouldPersist_reason___block_invoke;
-    v26[3] = &unk_1E808B200;
-    v27 = mapCopy;
-    v28 = v19;
-    v29 = selfCopy;
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = __104__SBHLibraryCategoryMapProvider__workQueue_updateLibraryCategoryMap_withSessionId_shouldPersist_reason___block_invoke;
+    v29[3] = &unk_1E808B200;
+    v30 = mapCopy;
+    v31 = v21;
+    v32 = selfCopy;
     idCopy6 = id;
-    dispatch_async(v13, v26);
+    dispatch_async(v13, v29);
 
-    v20 = v27;
+    v22 = v30;
   }
 
   else
   {
-    v20 = SBLogProactiveAppLibrary();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v22 = SBLogProactiveAppLibrary(v20);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218242;
       idCopy7 = id;
-      v33 = 2112;
-      v34 = reasonCopy;
-      _os_log_impl(&dword_1BEB18000, v20, OS_LOG_TYPE_DEFAULT, "(%ld) Skipping library category map persistence; reason '%@' didn't want it", buf, 0x16u);
+      v36 = 2112;
+      v37 = reasonCopy;
+      _os_log_impl(&dword_1BEB18000, v22, OS_LOG_TYPE_DEFAULT, "(%ld) Skipping library category map persistence; reason '%@' didn't want it", buf, 0x16u);
     }
   }
 
-  v24 = 1;
+  v27 = 1;
 LABEL_20:
 
-  return v24;
+  return v27;
 }
 
 void __104__SBHLibraryCategoryMapProvider__workQueue_updateLibraryCategoryMap_withSessionId_shouldPersist_reason___block_invoke(uint64_t a1)
 {
-  v59[1] = *MEMORY[0x1E69E9840];
+  v61[1] = *MEMORY[0x1E69E9840];
   if (*(a1 + 32))
   {
     v2 = MEMORY[0x1E695DFF8];
     v3 = [*(a1 + 40) stringByDeletingLastPathComponent];
     v4 = [v2 fileURLWithPath:v3];
 
-    v51 = 0;
+    v53 = 0;
     v5 = [MEMORY[0x1E696AC08] defaultManager];
     v6 = [v4 path];
-    v7 = [v5 fileExistsAtPath:v6 isDirectory:&v51];
+    v7 = [v5 fileExistsAtPath:v6 isDirectory:&v53];
 
     v8 = [*(a1 + 48) hasCachedLibraryCategoryMapOnFileSystem];
-    if (v7 && (v51 & 1) != 0 && (v8 & 1) != 0)
+    if (v7 && (v53 & 1) != 0 && (v8 & 1) != 0)
     {
-      v9 = SBLogProactiveAppLibrary();
+      v9 = SBLogProactiveAppLibrary(v8);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         v10 = *(a1 + 56);
         v11 = *(a1 + 40);
         *buf = 134218242;
-        v53 = v10;
-        v54 = 2112;
-        v55 = v11;
+        v55 = v10;
+        v56 = 2112;
+        v57 = v11;
         _os_log_impl(&dword_1BEB18000, v9, OS_LOG_TYPE_DEFAULT, "(%ld) Library category map caches directory exists @ '%@'; skipping creation...", buf, 0x16u);
       }
 
 LABEL_23:
-      v33 = *(a1 + 32);
-      v48 = 0;
-      v34 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v33 requiringSecureCoding:1 error:&v48];
-      v14 = v48;
-      v35 = SBLogProactiveAppLibrary();
-      v36 = v35;
+      v35 = *(a1 + 32);
+      v50 = 0;
+      v36 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v35 requiringSecureCoding:1 error:&v50];
+      v14 = v50;
+      v37 = SBLogProactiveAppLibrary(v14);
+      v38 = v37;
       if (v14)
       {
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
         {
           __104__SBHLibraryCategoryMapProvider__workQueue_updateLibraryCategoryMap_withSessionId_shouldPersist_reason___block_invoke_cold_2();
         }
       }
 
-      else if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+      else if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
       {
-        v37 = *(a1 + 56);
+        v39 = *(a1 + 56);
         *buf = 134217984;
-        v53 = v37;
-        _os_log_impl(&dword_1BEB18000, v36, OS_LOG_TYPE_DEFAULT, "(%ld) Library category map update persisted; contacting observers about successful refresh.", buf, 0xCu);
+        v55 = v39;
+        _os_log_impl(&dword_1BEB18000, v38, OS_LOG_TYPE_DEFAULT, "(%ld) Library category map update persisted; contacting observers about successful refresh.", buf, 0xCu);
       }
 
-      v38 = *(a1 + 40);
-      v47 = 0;
-      [v34 writeToFile:v38 options:268435457 error:&v47];
-      v39 = v47;
-      v40 = SBLogProactiveAppLibrary();
-      v41 = v40;
-      if (v39)
+      v40 = *(a1 + 40);
+      v49 = 0;
+      [v36 writeToFile:v40 options:268435457 error:&v49];
+      v41 = v49;
+      v42 = SBLogProactiveAppLibrary(v41);
+      v43 = v42;
+      if (v41)
       {
-        if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
         {
           __104__SBHLibraryCategoryMapProvider__workQueue_updateLibraryCategoryMap_withSessionId_shouldPersist_reason___block_invoke_cold_3();
         }
       }
 
-      else if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+      else if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
       {
-        v42 = *(a1 + 56);
+        v44 = *(a1 + 56);
         *buf = 134217984;
-        v53 = v42;
-        _os_log_impl(&dword_1BEB18000, v41, OS_LOG_TYPE_DEFAULT, "(%ld) Library category map successfully written to file.", buf, 0xCu);
+        v55 = v44;
+        _os_log_impl(&dword_1BEB18000, v43, OS_LOG_TYPE_DEFAULT, "(%ld) Library category map successfully written to file.", buf, 0xCu);
       }
 
       goto LABEL_34;
     }
 
-    v16 = [MEMORY[0x1E696AC08] defaultManager];
-    v17 = MEMORY[0x1E695DFF8];
-    v18 = [objc_opt_class() cacheDirectory];
-    v19 = [v17 fileURLWithPath:v18];
-    [v16 removeItemAtURL:v19 error:0];
+    v17 = [MEMORY[0x1E696AC08] defaultManager];
+    v18 = MEMORY[0x1E695DFF8];
+    v19 = [objc_opt_class() cacheDirectory];
+    v20 = [v18 fileURLWithPath:v19];
+    [v17 removeItemAtURL:v20 error:0];
 
-    v20 = [MEMORY[0x1E696AC08] defaultManager];
-    v58 = *MEMORY[0x1E696A3A0];
-    v59[0] = *MEMORY[0x1E696A3A8];
-    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v59 forKeys:&v58 count:1];
-    v50 = 0;
-    v22 = [v20 createDirectoryAtURL:v4 withIntermediateDirectories:1 attributes:v21 error:&v50];
-    v23 = v50;
+    v21 = [MEMORY[0x1E696AC08] defaultManager];
+    v60 = *MEMORY[0x1E696A3A0];
+    v61[0] = *MEMORY[0x1E696A3A8];
+    v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v61 forKeys:&v60 count:1];
+    v52 = 0;
+    v23 = [v21 createDirectoryAtURL:v4 withIntermediateDirectories:1 attributes:v22 error:&v52];
+    v24 = v52;
 
-    if (v22)
+    if (v23)
     {
-      v24 = SBLogProactiveAppLibrary();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      v26 = SBLogProactiveAppLibrary(v25);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
       {
-        v25 = *(a1 + 56);
-        v26 = *(a1 + 40);
+        v27 = *(a1 + 56);
+        v28 = *(a1 + 40);
         *buf = 134218242;
-        v53 = v25;
-        v54 = 2112;
-        v55 = v26;
-        _os_log_impl(&dword_1BEB18000, v24, OS_LOG_TYPE_DEFAULT, "(%ld) Library category map caches directory was created at URL '%@'", buf, 0x16u);
+        v55 = v27;
+        v56 = 2112;
+        v57 = v28;
+        _os_log_impl(&dword_1BEB18000, v26, OS_LOG_TYPE_DEFAULT, "(%ld) Library category map caches directory was created at URL '%@'", buf, 0x16u);
       }
 
       v14 = 0;
@@ -1451,40 +1457,40 @@ LABEL_23:
 
     else
     {
-      v14 = v23;
-      v24 = SBLogProactiveAppLibrary();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v14 = v24;
+      v26 = SBLogProactiveAppLibrary(v14);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
-        v44 = *(a1 + 56);
-        v45 = *(a1 + 40);
+        v46 = *(a1 + 56);
+        v47 = *(a1 + 40);
         *buf = 134218498;
-        v53 = v44;
-        v54 = 2112;
-        v55 = v45;
+        v55 = v46;
         v56 = 2112;
-        v57 = v14;
-        _os_log_error_impl(&dword_1BEB18000, v24, OS_LOG_TYPE_ERROR, "(%ld) Error creating directory path '%@'  with error: %@", buf, 0x20u);
+        v57 = v47;
+        v58 = 2112;
+        v59 = v14;
+        _os_log_error_impl(&dword_1BEB18000, v26, OS_LOG_TYPE_ERROR, "(%ld) Error creating directory path '%@'  with error: %@", buf, 0x20u);
       }
     }
 
-    v27 = *MEMORY[0x1E695DB80];
-    v49 = 0;
-    v28 = [v4 setResourceValue:MEMORY[0x1E695E118] forKey:v27 error:&v49];
-    v29 = v49;
-    v30 = SBLogProactiveAppLibrary();
-    v31 = v30;
-    if (v28)
+    v29 = *MEMORY[0x1E695DB80];
+    v51 = 0;
+    v30 = [v4 setResourceValue:MEMORY[0x1E695E118] forKey:v29 error:&v51];
+    v31 = v51;
+    v32 = SBLogProactiveAppLibrary(v31);
+    v33 = v32;
+    if (v30)
     {
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
       {
-        v32 = *(a1 + 56);
+        v34 = *(a1 + 56);
         *buf = 134217984;
-        v53 = v32;
-        _os_log_impl(&dword_1BEB18000, v31, OS_LOG_TYPE_DEFAULT, "(%ld) Library category map cache directory path tagged excluded from backup successfully.", buf, 0xCu);
+        v55 = v34;
+        _os_log_impl(&dword_1BEB18000, v33, OS_LOG_TYPE_DEFAULT, "(%ld) Library category map cache directory path tagged excluded from backup successfully.", buf, 0xCu);
       }
     }
 
-    else if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       __104__SBHLibraryCategoryMapProvider__workQueue_updateLibraryCategoryMap_withSessionId_shouldPersist_reason___block_invoke_cold_1();
     }
@@ -1499,25 +1505,25 @@ LABEL_23:
   {
     v12 = [MEMORY[0x1E696AC08] defaultManager];
     v13 = *(a1 + 40);
-    v46 = 0;
-    [v12 removeItemAtPath:v13 error:&v46];
-    v14 = v46;
+    v48 = 0;
+    [v12 removeItemAtPath:v13 error:&v48];
+    v14 = v48;
 
-    v15 = SBLogProactiveAppLibrary();
-    v4 = v15;
+    v16 = SBLogProactiveAppLibrary(v15);
+    v4 = v16;
     if (v14)
     {
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         __104__SBHLibraryCategoryMapProvider__workQueue_updateLibraryCategoryMap_withSessionId_shouldPersist_reason___block_invoke_cold_4();
       }
     }
 
-    else if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    else if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v43 = *(a1 + 56);
+      v45 = *(a1 + 56);
       *buf = 134217984;
-      v53 = v43;
+      v55 = v45;
       _os_log_impl(&dword_1BEB18000, v4, OS_LOG_TYPE_DEFAULT, "(%ld) Library category map update persisted; requested deletion of internal cache. Contacting observers about successful refresh.", buf, 0xCu);
     }
   }
@@ -1527,13 +1533,13 @@ LABEL_34:
 
 void __62__SBHLibraryCategoryMapProvider__workQueue_performNextRequest__block_invoke_141(uint64_t a1, void *a2)
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   v3 = a2;
   BSDispatchQueueAssert();
   WeakRetained = objc_loadWeakRetained((a1 + 72));
   if (WeakRetained)
   {
-    v32 = WeakRetained;
+    v36 = WeakRetained;
     v5 = [v3 userInfo];
     v6 = v5;
     if (!v5)
@@ -1553,7 +1559,7 @@ void __62__SBHLibraryCategoryMapProvider__workQueue_performNextRequest__block_in
       v8 = @"No reason?";
     }
 
-    v33 = v7;
+    v37 = v7;
     [v7 setObject:v8 forKeyedSubscript:@"SBHLibraryCategoryMapProviderUpdateReason"];
     v9 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 80)];
     [v7 setObject:v9 forKeyedSubscript:@"SBHLibraryCategoryMapProviderUpdateSessionId"];
@@ -1562,117 +1568,119 @@ void __62__SBHLibraryCategoryMapProvider__workQueue_performNextRequest__block_in
     v11 = [v3 domain];
     v12 = [v10 errorWithDomain:v11 code:objc_msgSend(v3 userInfo:{"code"), v7}];
 
-    v13 = SBLogProactiveAppLibrary();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = SBLogProactiveAppLibrary(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       __62__SBHLibraryCategoryMapProvider__workQueue_performNextRequest__block_invoke_141_cold_1();
     }
 
-    v14 = SBLogProactiveAppLibrary();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v16 = SBLogProactiveAppLibrary(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       __62__SBHLibraryCategoryMapProvider__workQueue_performNextRequest__block_invoke_141_cold_2();
     }
 
-    v15 = objc_opt_new();
-    v16 = objc_opt_new();
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
-    v44 = 0u;
-    v17 = *(a1 + 48);
-    v18 = [v17 countByEnumeratingWithState:&v43 objects:v47 count:16];
-    if (v18)
+    v17 = objc_opt_new();
+    v18 = objc_opt_new();
+    v49 = 0u;
+    v50 = 0u;
+    v47 = 0u;
+    v48 = 0u;
+    v19 = *(a1 + 48);
+    v20 = [v19 countByEnumeratingWithState:&v47 objects:v51 count:16];
+    if (v20)
     {
-      v19 = *v44;
+      v21 = *v48;
       do
       {
-        for (i = 0; i != v18; ++i)
+        for (i = 0; i != v20; ++i)
         {
-          if (*v44 != v19)
+          if (*v48 != v21)
           {
-            objc_enumerationMutation(v17);
+            objc_enumerationMutation(v19);
           }
 
-          v21 = *(*(&v43 + 1) + 8 * i);
-          [v21 accumulateFailure:v12 forSession:*(a1 + 80)];
-          if ([v21 hasFailedSeveralTimes])
+          v23 = *(*(&v47 + 1) + 8 * i);
+          [v23 accumulateFailure:v12 forSession:*(a1 + 80)];
+          if ([v23 hasFailedSeveralTimes])
           {
-            v22 = v16;
+            v24 = v18;
           }
 
           else
           {
-            v22 = v15;
+            v24 = v17;
           }
 
-          [v22 addObject:v21];
+          [v24 addObject:v23];
         }
 
-        v18 = [v17 countByEnumeratingWithState:&v43 objects:v47 count:16];
+        v20 = [v19 countByEnumeratingWithState:&v47 objects:v51 count:16];
       }
 
-      while (v18);
+      while (v20);
     }
 
-    if ([v15 count])
+    v25 = [v17 count];
+    if (v25)
     {
-      v23 = SBLogProactiveAppLibrary();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v26 = SBLogProactiveAppLibrary(v25);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         __62__SBHLibraryCategoryMapProvider__workQueue_performNextRequest__block_invoke_141_cold_3();
       }
 
-      [v32[8] addObjectsFromArray:v15];
-      v24 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithArray:v15 copyItems:1];
-      v25 = *(a1 + 56);
+      [v36[8] addObjectsFromArray:v17];
+      v27 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithArray:v17 copyItems:1];
+      v28 = *(a1 + 56);
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __62__SBHLibraryCategoryMapProvider__workQueue_performNextRequest__block_invoke_152;
       block[3] = &unk_1E808C628;
-      objc_copyWeak(&v42, (a1 + 72));
-      v41 = v24;
-      v26 = v24;
-      dispatch_async(v25, block);
+      objc_copyWeak(&v46, (a1 + 72));
+      v45 = v27;
+      v29 = v27;
+      dispatch_async(v28, block);
 
-      objc_destroyWeak(&v42);
+      objc_destroyWeak(&v46);
     }
 
-    if ([v16 count])
+    v30 = [v18 count];
+    if (v30)
     {
-      v27 = SBLogProactiveAppLibrary();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+      v31 = SBLogProactiveAppLibrary(v30);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
         __62__SBHLibraryCategoryMapProvider__workQueue_performNextRequest__block_invoke_141_cold_4();
       }
 
-      v28 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithArray:v16 copyItems:1];
-      v29 = *(a1 + 56);
-      v37[0] = MEMORY[0x1E69E9820];
-      v37[1] = 3221225472;
-      v37[2] = __62__SBHLibraryCategoryMapProvider__workQueue_performNextRequest__block_invoke_153;
-      v37[3] = &unk_1E808C628;
-      objc_copyWeak(&v39, (a1 + 72));
-      v38 = v28;
-      v30 = v28;
-      dispatch_async(v29, v37);
+      v32 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithArray:v18 copyItems:1];
+      v33 = *(a1 + 56);
+      v41[0] = MEMORY[0x1E69E9820];
+      v41[1] = 3221225472;
+      v41[2] = __62__SBHLibraryCategoryMapProvider__workQueue_performNextRequest__block_invoke_153;
+      v41[3] = &unk_1E808C628;
+      objc_copyWeak(&v43, (a1 + 72));
+      v42 = v32;
+      v34 = v32;
+      dispatch_async(v33, v41);
 
-      objc_destroyWeak(&v39);
+      objc_destroyWeak(&v43);
     }
 
-    v31 = *(a1 + 56);
-    v34[0] = MEMORY[0x1E69E9820];
-    v34[1] = 3221225472;
-    v34[2] = __62__SBHLibraryCategoryMapProvider__workQueue_performNextRequest__block_invoke_2_154;
-    v34[3] = &unk_1E808C628;
-    objc_copyWeak(&v36, (a1 + 72));
+    v35 = *(a1 + 56);
+    v38[0] = MEMORY[0x1E69E9820];
+    v38[1] = 3221225472;
+    v38[2] = __62__SBHLibraryCategoryMapProvider__workQueue_performNextRequest__block_invoke_2_154;
+    v38[3] = &unk_1E808C628;
+    objc_copyWeak(&v40, (a1 + 72));
     v3 = v12;
-    v35 = v3;
-    dispatch_async(v31, v34);
+    v39 = v3;
+    dispatch_async(v35, v38);
     (*(*(a1 + 64) + 16))();
 
-    objc_destroyWeak(&v36);
-    WeakRetained = v32;
+    objc_destroyWeak(&v40);
+    WeakRetained = v36;
   }
 }
 
@@ -1739,45 +1747,46 @@ void __62__SBHLibraryCategoryMapProvider__workQueue_performNextRequest__block_in
 
 - (void)_kickoffInitialHydration
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E695DFF8] fileURLWithPath:self->_cacheFilePath];
-  v20 = 0;
-  v4 = [v3 checkResourceIsReachableAndReturnError:&v20];
-  v5 = v20;
+  v23 = 0;
+  v4 = [v3 checkResourceIsReachableAndReturnError:&v23];
+  v5 = v23;
+  v6 = v5;
   if (v4)
   {
-    v19 = v5;
-    v6 = [objc_opt_class() categoryMapFromURL:v3 error:&v19];
-    v7 = v19;
+    v22 = v5;
+    v7 = [objc_opt_class() categoryMapFromURL:v3 error:&v22];
+    v8 = v22;
 
     libraryCategoryMap = self->_libraryCategoryMap;
-    self->_libraryCategoryMap = v6;
+    self->_libraryCategoryMap = v7;
 
-    v9 = self->_libraryCategoryMap;
-    v10 = SBLogProactiveAppLibrary();
-    v11 = v10;
-    if (v9 && !v7)
+    v10 = self->_libraryCategoryMap;
+    v12 = SBLogProactiveAppLibrary(v11);
+    v13 = v12;
+    if (v10 && !v8)
     {
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = self->_libraryCategoryMap;
+        v14 = self->_libraryCategoryMap;
         *buf = 138412290;
-        v22 = v12;
-        v13 = "Initialized app library w/ persisted library category map: %@";
-        v14 = v11;
-        v15 = 12;
+        v25 = v14;
+        v15 = "Initialized app library w/ persisted library category map: %@";
+        v16 = v13;
+        v17 = 12;
 LABEL_18:
-        _os_log_impl(&dword_1BEB18000, v14, OS_LOG_TYPE_DEFAULT, v13, buf, v15);
+        _os_log_impl(&dword_1BEB18000, v16, OS_LOG_TYPE_DEFAULT, v15, buf, v17);
       }
 
 LABEL_19:
-      v7 = 0;
+      v8 = 0;
       goto LABEL_20;
     }
 
-    if (v7)
+    if (v8)
     {
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         [SBHLibraryCategoryMapProvider _kickoffInitialHydration];
       }
@@ -1785,49 +1794,49 @@ LABEL_19:
       goto LABEL_20;
     }
 
-    if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_19;
     }
 
     *buf = 0;
-    v13 = "Unable to open library catalog map; carrying on...";
+    v15 = "Unable to open library catalog map; carrying on...";
 LABEL_17:
-    v14 = v11;
-    v15 = 2;
+    v16 = v13;
+    v17 = 2;
     goto LABEL_18;
   }
 
-  v16 = SBLogProactiveAppLibrary();
-  v11 = v16;
-  if (!v5)
+  v18 = SBLogProactiveAppLibrary(v5);
+  v13 = v18;
+  if (!v6)
   {
-    if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    if (!os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_19;
     }
 
     *buf = 0;
-    v13 = "Initialized app library w/o persisted library category map.";
+    v15 = "Initialized app library w/o persisted library category map.";
     goto LABEL_17;
   }
 
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
   {
     [SBHLibraryCategoryMapProvider _kickoffInitialHydration];
   }
 
-  v7 = v5;
+  v8 = v6;
 LABEL_20:
 
-  v17 = SBLogProactiveAppLibrary();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v20 = SBLogProactiveAppLibrary(v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1BEB18000, v17, OS_LOG_TYPE_DEFAULT, "Kicking off initial hydration...", buf, 2u);
+    _os_log_impl(&dword_1BEB18000, v20, OS_LOG_TYPE_DEFAULT, "Kicking off initial hydration...", buf, 2u);
   }
 
-  v18 = [(SBHLibraryCategoryMapProvider *)self requestLibraryCategoryMapRefreshWithOptions:14 reason:@"initial hydration"];
+  v21 = [(SBHLibraryCategoryMapProvider *)self requestLibraryCategoryMapRefreshWithOptions:14 reason:@"initial hydration"];
 }
 
 - (void)_setupClearCacheNotification
@@ -1888,32 +1897,34 @@ void __57__SBHLibraryCategoryMapProvider__setupLocaleNotification__block_invoke(
 - (void)_workQueue_queueUpNextRequests:(id)requests runNow:(BOOL)now
 {
   nowCopy = now;
-  v14 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   requestsCopy = requests;
   BSDispatchQueueAssert();
-  if ([requestsCopy count])
+  v7 = [requestsCopy count];
+  if (v7)
   {
-    v7 = SBLogProactiveAppLibrary();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = SBLogProactiveAppLibrary(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       pendingRefreshRequests = self->_pendingRefreshRequests;
-      v10 = 138412546;
-      v11 = requestsCopy;
-      v12 = 2112;
-      v13 = pendingRefreshRequests;
-      _os_log_impl(&dword_1BEB18000, v7, OS_LOG_TYPE_DEFAULT, "Accumulating pending requests: %@ / Current Request Queue: %@", &v10, 0x16u);
+      v12 = 138412546;
+      v13 = requestsCopy;
+      v14 = 2112;
+      v15 = pendingRefreshRequests;
+      _os_log_impl(&dword_1BEB18000, v8, OS_LOG_TYPE_DEFAULT, "Accumulating pending requests: %@ / Current Request Queue: %@", &v12, 0x16u);
     }
 
     [(NSMutableArray *)self->_pendingRefreshRequests addObjectsFromArray:requestsCopy];
   }
 
-  if ([(NSArray *)self->_inflightRefreshRequests count])
+  v10 = [(NSArray *)self->_inflightRefreshRequests count];
+  if (v10)
   {
-    v9 = SBLogProactiveAppLibrary();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = SBLogProactiveAppLibrary(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v10) = 0;
-      _os_log_impl(&dword_1BEB18000, v9, OS_LOG_TYPE_DEFAULT, "Requests are inflight; deferring pending requests until after current requests are finished.", &v10, 2u);
+      LOWORD(v12) = 0;
+      _os_log_impl(&dword_1BEB18000, v11, OS_LOG_TYPE_DEFAULT, "Requests are inflight; deferring pending requests until after current requests are finished.", &v12, 2u);
     }
   }
 
@@ -1943,6 +1954,14 @@ void __104__SBHLibraryCategoryMapProvider__workQueue_updateLibraryCategoryMap_wi
   OUTLINED_FUNCTION_5(&dword_1BEB18000, v0, v1, "(%ld) Error persisting library category map: %@");
 }
 
+void __104__SBHLibraryCategoryMapProvider__workQueue_updateLibraryCategoryMap_withSessionId_shouldPersist_reason___block_invoke_cold_3()
+{
+  OUTLINED_FUNCTION_5_2(*MEMORY[0x1E69E9840]);
+  LODWORD(v7) = 134217984;
+  *(&v7 + 4) = v0;
+  OUTLINED_FUNCTION_0_3(&dword_1BEB18000, v1, v2, "(%ld) Error writing library category map to file.", v3, v4, v5, v6, v7, DWORD2(v7));
+}
+
 void __104__SBHLibraryCategoryMapProvider__workQueue_updateLibraryCategoryMap_withSessionId_shouldPersist_reason___block_invoke_cold_4()
 {
   OUTLINED_FUNCTION_5_2(*MEMORY[0x1E69E9840]);
@@ -1955,6 +1974,14 @@ void __62__SBHLibraryCategoryMapProvider__workQueue_performNextRequest__block_in
   OUTLINED_FUNCTION_4_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_8();
   OUTLINED_FUNCTION_5(&dword_1BEB18000, v0, v1, "(%ld) Finished Library Category Map refresh WITH ERROR: %@");
+}
+
+void __62__SBHLibraryCategoryMapProvider__workQueue_performNextRequest__block_invoke_141_cold_2()
+{
+  OUTLINED_FUNCTION_4_2(*MEMORY[0x1E69E9840]);
+  LODWORD(v7) = 134217984;
+  *(&v7 + 4) = v0;
+  OUTLINED_FUNCTION_0_3(&dword_1BEB18000, v1, v2, "(%ld) Updating requests w/ failure...", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 void __62__SBHLibraryCategoryMapProvider__workQueue_performNextRequest__block_invoke_141_cold_3()

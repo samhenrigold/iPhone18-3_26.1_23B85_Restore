@@ -65,7 +65,7 @@
     goto LABEL_13;
   }
 
-  v9 = MTLoggingTouchSensitiveButtonHIDService();
+  v9 = MTLoggingTouchSensitiveButtonHIDService(v7);
   v10 = v5->_log;
   v5->_log = v9;
 
@@ -407,7 +407,7 @@ void __56__TouchSensitiveButtonHIDServicePlugin_initWithService___block_invoke_1
   v3 = OUTLINED_FUNCTION_2();
   v4 = NSStringFromSelector(v3);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_0, v5, v6, "%{public}@", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_0(&dword_0, v5, v6, "%{public}@", v7, v8, v9, v10);
 }
 
 - (void)setDispatchQueue:(void *)a1 .cold.2(void *a1)

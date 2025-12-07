@@ -230,15 +230,14 @@ uint64_t __62__NCNotificationShortLookViewAccessibility_accessibilityLabel__bloc
 
 void __59__NCNotificationShortLookViewAccessibility__axShowLongLook__block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
+  v2 = a2;
   objc_opt_class();
-  v5 = __UIAccessibilityCastAsClass();
-  v6 = *(a1 + 32);
-  v4 = v5;
+  v4 = __UIAccessibilityCastAsClass();
+  v3 = v4;
   AXPerformSafeBlock();
 }
 
-uint64_t __59__NCNotificationShortLookViewAccessibility__axShowLongLook__block_invoke_2(uint64_t a1)
+void *__59__NCNotificationShortLookViewAccessibility__axShowLongLook__block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) presentLongLookAnimated:1 trigger:6 completion:0];
   *(*(*(a1 + 40) + 8) + 24) = 1;

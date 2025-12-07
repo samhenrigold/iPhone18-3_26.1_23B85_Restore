@@ -17,6 +17,7 @@
 - (void)_raise:(id)_raise;
 - (void)_remove;
 - (void)_removeSnapshotForID:(unint64_t)d backupUDID:(id)iD;
+- (void)addDisabledDomainNames:(id)names restricted:(BOOL)restricted;
 - (void)addRestoreFailure:(id)failure;
 - (void)close;
 - (void)dealloc;
@@ -105,7 +106,7 @@
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Removing cache db", buf, 2u);
-    _MBLog();
+    _MBLog(@"I ", "Removing cache db");
   }
 
   [+[NSFileManager defaultManager](NSFileManager removeItemAtPath:"removeItemAtPath:error:" error:self->_path, 0];
@@ -143,7 +144,7 @@
 
 - (void)_raise:(id)_raise
 {
-  v4 = [[NSString alloc] initWithFormat:_raise arguments:&v15];
+  v4 = [[NSString alloc] initWithFormat:_raise arguments:&v13];
   db = self->_db;
   if (db)
   {
@@ -156,17 +157,15 @@
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109378;
-        v12 = v6;
-        v13 = 2080;
-        v14 = v7;
+        v10 = v6;
+        v11 = 2080;
+        v12 = v7;
         _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Removing corrupt backup cache db (%d/%s)", buf, 0x12u);
-        v9 = v6;
-        v10 = v7;
-        _MBLog();
+        _MBLog(@"Df", "Removing corrupt backup cache db (%d/%s)", v6, v7);
       }
 
       self->_corrupt = 1;
-      [(MBServiceCache *)self close:v9];
+      [(MBServiceCache *)self close];
       [(MBServiceCache *)self _remove];
     }
   }
@@ -210,36 +209,36 @@
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEBUG, "SQL: Profile", buf, 2u);
-      _MBLog();
+      _MBLog(@"Db", "SQL: Profile");
     }
 
     allKeys = [(NSMutableDictionary *)self->_countAndTimeBySQL allKeys];
-    v25[0] = _NSConcreteStackBlock;
-    v25[1] = 3221225472;
-    v25[2] = sub_100012DD8;
-    v25[3] = &unk_1000FD568;
-    v25[4] = self;
-    v6 = [allKeys sortedArrayUsingComparator:v25];
+    v23[0] = _NSConcreteStackBlock;
+    v23[1] = 3221225472;
+    v23[2] = sub_100012DD8;
+    v23[3] = &unk_1000FD568;
+    v23[4] = self;
+    v6 = [allKeys sortedArrayUsingComparator:v23];
+    v19 = 0u;
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
-    v24 = 0u;
-    v7 = [v6 countByEnumeratingWithState:&v21 objects:v32 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v19 objects:v30 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v22;
+      v9 = *v20;
       do
       {
         for (i = 0; i != v8; i = i + 1)
         {
-          if (*v22 != v9)
+          if (*v20 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v21 + 1) + 8 * i);
-          v12 = [(NSMutableDictionary *)self->_countAndTimeBySQL objectForKeyedSubscript:v11, v18, v19, v20];
+          v11 = *(*(&v19 + 1) + 8 * i);
+          v12 = [(NSMutableDictionary *)self->_countAndTimeBySQL objectForKeyedSubscript:v11];
           v13 = [objc_msgSend(v12 objectAtIndexedSubscript:{0), "integerValue"}];
           [objc_msgSend(v12 objectAtIndexedSubscript:{1), "doubleValue"}];
           v15 = v14;
@@ -248,20 +247,18 @@
           {
             v17 = sub_100012EB0(v11);
             *buf = 134218498;
-            v27 = v13;
-            v28 = 2048;
-            v29 = v15;
-            v30 = 2112;
-            v31 = v17;
+            v25 = v13;
+            v26 = 2048;
+            v27 = v15;
+            v28 = 2112;
+            v29 = v17;
             _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEBUG, "SQL: %6ld  %6.3f s  %@", buf, 0x20u);
-            v20 = sub_100012EB0(v11);
-            v19 = v15;
-            v18 = v13;
-            _MBLog();
+            v18 = sub_100012EB0(v11);
+            _MBLog(@"Db", "SQL: %6ld  %6.3f s  %@", v13, v15, v18);
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v21 objects:v32 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v19 objects:v30 count:16];
       }
 
       while (v8);
@@ -324,13 +321,13 @@
 
 - (void)open
 {
-  v12 = 0;
+  v10 = 0;
   if (self->_openCount < 1)
   {
     stringByDeletingLastPathComponent = [(NSString *)self->_path stringByDeletingLastPathComponent];
     if (![+[NSFileManager createDirectoryAtPath:"createDirectoryAtPath:withIntermediateDirectories:attributes:error:"]
     {
-      [(MBServiceCache *)self _raise:@"Error creating cache dir at %@: %@", stringByDeletingLastPathComponent, v12];
+      [(MBServiceCache *)self _raise:@"Error creating cache dir at %@: %@", stringByDeletingLastPathComponent, v10];
     }
 
     v4 = MBGetDefaultLog();
@@ -338,7 +335,7 @@
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEBUG, "Opening cache db", buf, 2u);
-      _MBLog();
+      _MBLog(@"Db", "Opening cache db");
     }
 
     if (sqlite3_open([(NSString *)self->_path fileSystemRepresentation], &self->_db))
@@ -377,16 +374,14 @@ LABEL_20:
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v14 = v7;
-        v15 = 2112;
-        v16 = @"26";
+        v12 = v7;
+        v13 = 2112;
+        v14 = @"26";
         _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Re-creating cache db because schema version changed (%@ != %@)", buf, 0x16u);
-        v10 = v7;
-        v11 = @"26";
-        _MBLog();
+        _MBLog(@"Df", "Re-creating cache db because schema version changed (%@ != %@)", v7, @"26");
       }
 
-      [(MBServiceCache *)self _finalizeAll:v10];
+      [(MBServiceCache *)self _finalizeAll];
       [(MBServiceCache *)self _exec:@"drop table if exists Properties;\ndrop table if exists Backups;\ndrop table if exists Snapshots;\ndrop table if exists Files;\ndrop table if exists FileExtendedAttributes;\ndrop table if exists DisabledDomains;\ndrop table if exists FileChanges;\ndrop table if exists FilesMissingEncryptionKey;\ndrop table if exists FileEncryptionKeys;\ndrop table if exists Restores;\ndrop table if exists RestoreFiles;\ndrop table if exists PlaceholderIcons;\ndrop table if exists FileProtectionClassesToRestore;\ndrop table if exists RestoreFailures;\ndrop table if exists PlaceholderResources;\ndrop table if exists KeyBagInfo;\n"];
       [(MBServiceCache *)self _exec:@"create table if not exists Properties (\n    key                    text primary key, \n    value                  text\n);\n"];
     }
@@ -424,7 +419,7 @@ LABEL_22:
       {
         *v5 = 0;
         _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEBUG, "Closing cache db", v5, 2u);
-        _MBLog();
+        _MBLog(@"Db", "Closing cache db");
       }
 
       [(MBServiceCache *)self _finalizeAll];
@@ -510,14 +505,14 @@ LABEL_3:
 
 - (id)configuration
 {
-  v8 = 0;
+  v7 = 0;
   result = self->_configuration;
   if (!result)
   {
     v4 = [(MBServiceCache *)self propertyForKey:@"Configuration"];
     if (v4)
     {
-      v5 = +[NSPropertyListSerialization propertyListWithData:options:format:error:](NSPropertyListSerialization, "propertyListWithData:options:format:error:", [v4 dataUsingEncoding:4], 0, 0, &v8);
+      v5 = +[NSPropertyListSerialization propertyListWithData:options:format:error:](NSPropertyListSerialization, "propertyListWithData:options:format:error:", [v4 dataUsingEncoding:4], 0, 0, &v7);
       if (v5)
       {
 LABEL_8:
@@ -530,13 +525,12 @@ LABEL_8:
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v10 = v8;
+        v9 = v7;
         _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Error deserializing configuration from cache: %@", buf, 0xCu);
-        v7 = v8;
-        _MBLog();
+        _MBLog(@"Df", "Error deserializing configuration from cache: %@", v7);
       }
 
-      [(MBServiceCache *)self removePropertyForKey:@"Configuration", v7];
+      [(MBServiceCache *)self removePropertyForKey:@"Configuration"];
     }
 
     v5 = 0;
@@ -684,7 +678,18 @@ LABEL_9:
 
     if ([v11 committed])
     {
-      if (v10 < [v9 count] - 1)
+      if (v10 >= [v9 count] - 1)
+      {
+        v20 = MBGetDefaultLog();
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+        {
+          *buf = 0;
+          _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "Removing last snapshot", buf, 2u);
+          _MBLog(@"I ", "Removing last snapshot");
+        }
+      }
+
+      else
       {
         v12 = [objc_msgSend(v9 objectAtIndexedSubscript:{v10 + 1), "snapshotID"}];
         v13 = MBGetDefaultLog();
@@ -692,15 +697,13 @@ LABEL_9:
         {
           *buf = 134218240;
           dCopy = d;
-          v26 = 2048;
-          v27 = v12;
+          v23 = 2048;
+          v24 = v12;
           _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Merging snapshot %lu into snapshot %lu", buf, 0x16u);
-          dCopy2 = d;
-          v23 = v12;
-          _MBLog();
+          _MBLog(@"I ", "Merging snapshot %lu into snapshot %lu", d, v12);
         }
 
-        v14 = [(MBServiceCache *)self _prepare:@"update or ignore Files set snapshotID = ? where backupUDID = ? and snapshotID = ?", dCopy2, v23];
+        v14 = [(MBServiceCache *)self _prepare:@"update or ignore Files set snapshotID = ? where backupUDID = ? and snapshotID = ?"];
         [v14 bindInteger:v12 atIndex:1];
         [v14 bindText:iD atIndex:2];
         [v14 bindInteger:d atIndex:3];
@@ -720,11 +723,10 @@ LABEL_9:
             *buf = 134217984;
             dCopy = v12;
             _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "Discarding deleted files from snapshot %lu", buf, 0xCu);
-            v22 = v12;
-            _MBLog();
+            _MBLog(@"I ", "Discarding deleted files from snapshot %lu", v12);
           }
 
-          v17 = [(MBServiceCache *)self _prepare:@"delete from Files where backupUDID = ? and snapshotID = ? and deleted = 1", v22];
+          v17 = [(MBServiceCache *)self _prepare:@"delete from Files where backupUDID = ? and snapshotID = ? and deleted = 1"];
           [v17 bindText:iD atIndex:1];
           [v17 bindInteger:v12 atIndex:2];
           [v17 step];
@@ -737,15 +739,6 @@ LABEL_9:
         [v18 bindInteger:v12 atIndex:3];
         [v18 step];
         [v18 reset];
-        goto LABEL_20;
-      }
-
-      v20 = MBGetDefaultLog();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
-      {
-        *buf = 0;
-        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "Removing last snapshot", buf, 2u);
-        goto LABEL_19;
       }
     }
 
@@ -756,12 +749,10 @@ LABEL_9:
       {
         *buf = 0;
         _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "Removing uncommitted snapshot", buf, 2u);
-LABEL_19:
-        _MBLog();
+        _MBLog(@"I ", "Removing uncommitted snapshot");
       }
     }
 
-LABEL_20:
     [(MBServiceCache *)self _removeSnapshotForID:d backupUDID:iD];
   }
 }
@@ -776,6 +767,46 @@ LABEL_20:
   -[MBServiceCache addDisabledDomainNames:restricted:](self, "addDisabledDomainNames:restricted:", [-[MBServiceCache configuration](self "configuration")], 1);
 
   [(MBServiceCache *)self end];
+}
+
+- (void)addDisabledDomainNames:(id)names restricted:(BOOL)restricted
+{
+  restrictedCopy = restricted;
+  v7 = [(MBServiceCache *)self _prepare:@"insert or replace into DisabledDomains values (?, ?)"];
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v8 = [names countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v8)
+  {
+    v9 = v8;
+    v10 = *v13;
+    do
+    {
+      v11 = 0;
+      do
+      {
+        if (*v13 != v10)
+        {
+          objc_enumerationMutation(names);
+        }
+
+        [v7 bindText:*(*(&v12 + 1) + 8 * v11) atIndex:1];
+        [v7 bindInt:restrictedCopy atIndex:2];
+        [v7 step];
+        [v7 reset];
+        v11 = v11 + 1;
+      }
+
+      while (v9 != v11);
+      v9 = [names countByEnumeratingWithState:&v12 objects:v16 count:16];
+    }
+
+    while (v9);
+  }
+
+  -[NSMutableSet addObjectsFromArray:](self->_disabledDomainNames, "addObjectsFromArray:", [names allObjects]);
 }
 
 - (void)removeAllDisabledDomains
@@ -844,24 +875,23 @@ LABEL_20:
       if (v12)
       {
         v13 = v12;
-        if (([v12 isUninstalledAppDomain] & 1) == 0)
+        if ([v12 isUninstalledAppDomain])
         {
-          [v7 setObject:+[NSNumber numberWithUnsignedChar:](NSNumber forKeyedSubscript:{"numberWithUnsignedChar:", v11), objc_msgSend(objc_msgSend(v13, "rootPath"), "stringByAppendingPathComponent:", v10)}];
-          continue;
+          v14 = MBGetDefaultLog();
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 138412546;
+            v18 = v13;
+            v19 = 2112;
+            v20 = v10;
+            _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "App uninstalled for protection class to restore: %@:%@", buf, 0x16u);
+            _MBLog(@"Df", "App uninstalled for protection class to restore: %@:%@", v13, v10);
+          }
         }
 
-        v14 = MBGetDefaultLog();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        else
         {
-          *buf = 138412546;
-          v20 = v13;
-          v21 = 2112;
-          v22 = v10;
-          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "App uninstalled for protection class to restore: %@:%@", buf, 0x16u);
-          v17 = v13;
-          v18 = v10;
-LABEL_8:
-          _MBLog();
+          [v7 setObject:+[NSNumber numberWithUnsignedChar:](NSNumber forKeyedSubscript:{"numberWithUnsignedChar:", v11), objc_msgSend(objc_msgSend(v13, "rootPath"), "stringByAppendingPathComponent:", v10)}];
         }
       }
 
@@ -871,13 +901,11 @@ LABEL_8:
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          v20 = 0;
-          v21 = 2112;
-          v22 = v10;
+          v18 = 0;
+          v19 = 2112;
+          v20 = v10;
           _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Domain not found for protection class to restore: %@:%@", buf, 0x16u);
-          v17 = 0;
-          v18 = v10;
-          goto LABEL_8;
+          _MBLog(@"Df", "Domain not found for protection class to restore: %@:%@", 0, v10);
         }
       }
     }

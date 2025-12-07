@@ -123,7 +123,7 @@
 
 - (id)createPersistentContainer
 {
-  v71[1] = *MEMORY[0x277D85DE8];
+  v70[1] = *MEMORY[0x277D85DE8];
   v3 = +[SKADatabaseProvider logger];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -133,71 +133,71 @@
   }
 
   containerName = [(SKADatabaseProvider *)self containerName];
-  v39 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v38 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v4 = MEMORY[0x277CBE450];
-  v71[0] = v39;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v71 count:1];
-  v37 = [v4 mergedModelFromBundles:v5];
+  v70[0] = v38;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v70 count:1];
+  v36 = [v4 mergedModelFromBundles:v5];
 
-  v6 = [objc_alloc(MEMORY[0x277CBE470]) initWithName:containerName managedObjectModel:v37];
+  v6 = [objc_alloc(MEMORY[0x277CBE470]) initWithName:containerName managedObjectModel:v36];
   localPersistentStoreDescription = [(SKADatabaseProvider *)self localPersistentStoreDescription];
-  v70[0] = localPersistentStoreDescription;
+  v69[0] = localPersistentStoreDescription;
   cloudPersistentStoreDescription = [(SKADatabaseProvider *)self cloudPersistentStoreDescription];
-  v70[1] = cloudPersistentStoreDescription;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v70 count:2];
+  v69[1] = cloudPersistentStoreDescription;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v69 count:2];
   [v6 setPersistentStoreDescriptions:v9];
 
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x2020000000;
-  v59 = 0;
-  v52 = 0;
-  v53 = &v52;
-  v54 = 0x2020000000;
   v55 = 0;
+  v56 = &v55;
+  v57 = 0x2020000000;
+  v58 = 0;
+  v51 = 0;
+  v52 = &v51;
+  v53 = 0x2020000000;
+  v54 = 0;
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v66 = 0x3032000000;
-  v67 = __Block_byref_object_copy__0;
-  v68 = __Block_byref_object_dispose__0;
-  v69 = 0;
-  v36 = [SKACALogger startLoggingEvent:4 forClient:0];
-  v46[0] = MEMORY[0x277D85DD0];
-  v46[1] = 3221225472;
-  v46[2] = __48__SKADatabaseProvider_createPersistentContainer__block_invoke;
-  v46[3] = &unk_27843E738;
-  v49 = &v52;
+  v65 = 0x3032000000;
+  v66 = __Block_byref_object_copy__0;
+  v67 = __Block_byref_object_dispose__0;
+  v68 = 0;
+  v35 = [SKACALogger startLoggingEvent:4 forClient:0];
+  v45[0] = MEMORY[0x277D85DD0];
+  v45[1] = 3221225472;
+  v45[2] = __48__SKADatabaseProvider_createPersistentContainer__block_invoke;
+  v45[3] = &unk_27843E738;
+  v48 = &v51;
   p_buf = &buf;
-  v47 = v6;
+  v46 = v6;
   selfCopy = self;
-  v51 = &v56;
-  v40 = v47;
-  [v47 loadPersistentStoresWithCompletionHandler:v46];
+  v50 = &v55;
+  v39 = v46;
+  [v46 loadPersistentStoresWithCompletionHandler:v45];
   v10 = *(*(&buf + 1) + 40);
   if (v10)
   {
-    [SKACALogger logFailureWithError:v10 forToken:v36];
+    [SKACALogger logFailureWithError:v10 forToken:v35];
   }
 
   else
   {
-    [SKACALogger logSuccessForToken:v36];
+    [SKACALogger logSuccessForToken:v35];
   }
 
-  if (v53[3])
+  if (v52[3])
   {
     if (_os_feature_enabled_impl())
     {
-      v45 = 0;
-      v11 = [v40 initializeCloudKitSchemaWithOptions:0 error:&v45];
-      v12 = v45;
+      v44 = 0;
+      v11 = [v39 initializeCloudKitSchemaWithOptions:0 error:&v44];
+      v12 = v44;
       if (v11)
       {
         v13 = +[SKADatabaseProvider logger];
         if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
-          *v62 = 0;
-          _os_log_impl(&dword_220099000, v13, OS_LOG_TYPE_DEFAULT, "Successfully inited schema", v62, 2u);
+          *v61 = 0;
+          _os_log_impl(&dword_220099000, v13, OS_LOG_TYPE_DEFAULT, "Successfully inited schema", v61, 2u);
         }
       }
 
@@ -211,7 +211,7 @@
       }
     }
 
-    if (*(v57 + 24) == 1)
+    if (*(v56 + 24) == 1)
     {
       v16 = +[SKADatabaseProvider logger];
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
@@ -219,32 +219,32 @@
         [SKADatabaseProvider createPersistentContainer];
       }
 
-      [v40 loadPersistentStoresWithCompletionHandler:&__block_literal_global_14];
+      [v39 loadPersistentStoresWithCompletionHandler:&__block_literal_global_14];
     }
 
-    v43 = 0u;
-    v44 = 0u;
-    v41 = 0u;
     v42 = 0u;
-    persistentStoreCoordinator = [v40 persistentStoreCoordinator];
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
+    persistentStoreCoordinator = [v39 persistentStoreCoordinator];
     persistentStores = [persistentStoreCoordinator persistentStores];
 
-    v19 = [persistentStores countByEnumeratingWithState:&v41 objects:v64 count:16];
+    v19 = [persistentStores countByEnumeratingWithState:&v40 objects:v63 count:16];
     if (v19)
     {
       v20 = 0;
       v21 = 0;
-      v22 = *v42;
+      v22 = *v41;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v42 != v22)
+          if (*v41 != v22)
           {
             objc_enumerationMutation(persistentStores);
           }
 
-          v24 = *(*(&v41 + 1) + 8 * i);
+          v24 = *(*(&v40 + 1) + 8 * i);
           configurationName = [v24 configurationName];
           v26 = [configurationName isEqualToString:@"Local"];
 
@@ -254,9 +254,9 @@
             if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
             {
               v28 = [v24 URL];
-              *v62 = 138412290;
-              v63 = v28;
-              _os_log_impl(&dword_220099000, v27, OS_LOG_TYPE_DEFAULT, "Found local store: %@", v62, 0xCu);
+              *v61 = 138412290;
+              v62 = v28;
+              _os_log_impl(&dword_220099000, v27, OS_LOG_TYPE_DEFAULT, "Found local store: %@", v61, 0xCu);
             }
 
             v21 = 1;
@@ -273,9 +273,9 @@
               if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
               {
                 v31 = [v24 URL];
-                *v62 = 138412290;
-                v63 = v31;
-                _os_log_impl(&dword_220099000, v27, OS_LOG_TYPE_DEFAULT, "Found cloud store: %@", v62, 0xCu);
+                *v61 = 138412290;
+                v62 = v31;
+                _os_log_impl(&dword_220099000, v27, OS_LOG_TYPE_DEFAULT, "Found cloud store: %@", v61, 0xCu);
               }
 
               v20 = 1;
@@ -287,19 +287,19 @@
               if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
               {
                 v32 = [v24 URL];
-                [(SKADatabaseProvider *)v32 createPersistentContainer:v60];
+                [(SKADatabaseProvider *)v32 createPersistentContainer:v59];
               }
             }
           }
         }
 
-        v19 = [persistentStores countByEnumeratingWithState:&v41 objects:v64 count:16];
+        v19 = [persistentStores countByEnumeratingWithState:&v40 objects:v63 count:16];
       }
 
       while (v19);
       if (v20 & v21)
       {
-        v33 = v40;
+        v33 = v39;
       }
 
       else
@@ -328,17 +328,15 @@
   }
 
   _Block_object_dispose(&buf, 8);
-  _Block_object_dispose(&v52, 8);
-  _Block_object_dispose(&v56, 8);
-
-  v34 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v51, 8);
+  _Block_object_dispose(&v55, 8);
 
   return v15;
 }
 
 void __48__SKADatabaseProvider_createPersistentContainer__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   *(*(*(a1 + 48) + 8) + 24) = 1;
@@ -361,9 +359,9 @@ void __48__SKADatabaseProvider_createPersistentContainer__block_invoke(uint64_t 
     v10 = [v5 URL];
     v11 = [v5 type];
     v12 = [v5 options];
-    v17 = 0;
-    v13 = [v9 destroyPersistentStoreAtURL:v10 withType:v11 options:v12 error:&v17];
-    v14 = v17;
+    v16 = 0;
+    v13 = [v9 destroyPersistentStoreAtURL:v10 withType:v11 options:v12 error:&v16];
+    v14 = v16;
 
     if (v13)
     {
@@ -387,17 +385,15 @@ void __48__SKADatabaseProvider_createPersistentContainer__block_invoke(uint64_t 
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v19 = v5;
+      v18 = v5;
       _os_log_impl(&dword_220099000, v14, OS_LOG_TYPE_DEFAULT, "Completed loading of persistent store: %@", buf, 0xCu);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __48__SKADatabaseProvider_createPersistentContainer__block_invoke_27(uint64_t a1, void *a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   v6 = +[SKADatabaseProvider logger];
@@ -412,12 +408,10 @@ void __48__SKADatabaseProvider_createPersistentContainer__block_invoke_27(uint64
 
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412290;
-    v10 = v4;
-    _os_log_impl(&dword_220099000, v7, OS_LOG_TYPE_DEFAULT, "Completed loading of persistent store: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v4;
+    _os_log_impl(&dword_220099000, v7, OS_LOG_TYPE_DEFAULT, "Completed loading of persistent store: %@", &v8, 0xCu);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)hasInitialCloudKitImportOccurred:(id)occurred
@@ -549,7 +543,7 @@ void __56__SKADatabaseProvider_hasInitialCloudKitImportOccurred___block_invoke(u
 
 - (id)cloudPersistentStoreDescription
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   cloudDatabaseFileURL = [(SKADatabaseProvider *)self cloudDatabaseFileURL];
   v4 = [MEMORY[0x277CBE4E0] persistentStoreDescriptionWithURL:cloudDatabaseFileURL];
   [v4 setType:*MEMORY[0x277CBE2E8]];
@@ -565,15 +559,15 @@ void __56__SKADatabaseProvider_hasInitialCloudKitImportOccurred___block_invoke(u
   v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ Setup Voucher", @"statuskit-cloud.db"];
   v10 = [v8 initWithLabel:v9 forEventsOfType:1 withConfiguration:v7 affectingObjectsMatching:0];
 
-  v18[0] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+  v17[0] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
   [v6 setActivityVouchers:v11];
 
   v12 = +[SKADatabaseProvider logger];
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v17 = v10;
+    v16 = v10;
     _os_log_impl(&dword_220099000, v12, OS_LOG_TYPE_DEFAULT, "Boosting import priority with voucher: %@", buf, 0xCu);
   }
 
@@ -584,14 +578,12 @@ void __56__SKADatabaseProvider_hasInitialCloudKitImportOccurred___block_invoke(u
   [v4 setOption:v13 forKey:*MEMORY[0x277CBE1D8]];
   [v4 setOption:v13 forKey:*MEMORY[0x277CBE178]];
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 - (id)extractModifiedChannelFromPersistentStoreRemoteChangeForChannel:(id)channel managedObjectContext:(id)context
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   channelCopy = channel;
   contextCopy = context;
   changeType = [channelCopy changeType];
@@ -602,9 +594,9 @@ void __56__SKADatabaseProvider_hasInitialCloudKitImportOccurred___block_invoke(u
       v10 = +[SKADatabaseProvider logger];
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = 138412290;
-        v18 = channelCopy;
-        _os_log_impl(&dword_220099000, v10, OS_LOG_TYPE_DEFAULT, "Ignoring delete channel change: %@", &v17, 0xCu);
+        v16 = 138412290;
+        v17 = channelCopy;
+        _os_log_impl(&dword_220099000, v10, OS_LOG_TYPE_DEFAULT, "Ignoring delete channel change: %@", &v16, 0xCu);
       }
     }
 
@@ -631,11 +623,11 @@ void __56__SKADatabaseProvider_hasInitialCloudKitImportOccurred___block_invoke(u
     {
       if (v12)
       {
-        v17 = 138412546;
-        v18 = v10;
-        v19 = 2112;
-        v20 = channelCopy;
-        _os_log_impl(&dword_220099000, v11, OS_LOG_TYPE_DEFAULT, "Have channel matching persistent history change. Channel: %@ Change: %@", &v17, 0x16u);
+        v16 = 138412546;
+        v17 = v10;
+        v18 = 2112;
+        v19 = channelCopy;
+        _os_log_impl(&dword_220099000, v11, OS_LOG_TYPE_DEFAULT, "Have channel matching persistent history change. Channel: %@ Change: %@", &v16, 0x16u);
       }
 
       v10 = v10;
@@ -646,23 +638,21 @@ void __56__SKADatabaseProvider_hasInitialCloudKitImportOccurred___block_invoke(u
     {
       if (v12)
       {
-        v17 = 138412290;
-        v18 = channelCopy;
-        _os_log_impl(&dword_220099000, v11, OS_LOG_TYPE_DEFAULT, "Could not find channel matching persisent history change: %@", &v17, 0xCu);
+        v16 = 138412290;
+        v17 = channelCopy;
+        _os_log_impl(&dword_220099000, v11, OS_LOG_TYPE_DEFAULT, "Could not find channel matching persisent history change: %@", &v16, 0xCu);
       }
 
       v13 = 0;
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 - (id)extractModifiedChannelFromPersistentStoreRemoteChangeForReceivedInvitation:(id)invitation managedObjectContext:(id)context
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   invitationCopy = invitation;
   contextCopy = context;
   changeType = [invitationCopy changeType];
@@ -673,9 +663,9 @@ void __56__SKADatabaseProvider_hasInitialCloudKitImportOccurred___block_invoke(u
       v10 = +[SKADatabaseProvider logger];
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = 138412290;
-        v20 = invitationCopy;
-        _os_log_impl(&dword_220099000, v10, OS_LOG_TYPE_DEFAULT, "Ignoring delete received invitation change: %@", &v19, 0xCu);
+        v18 = 138412290;
+        v19 = invitationCopy;
+        _os_log_impl(&dword_220099000, v10, OS_LOG_TYPE_DEFAULT, "Ignoring delete received invitation change: %@", &v18, 0xCu);
       }
     }
 
@@ -702,11 +692,11 @@ void __56__SKADatabaseProvider_hasInitialCloudKitImportOccurred___block_invoke(u
     {
       if (v12)
       {
-        v19 = 138412546;
-        v20 = v10;
-        v21 = 2112;
-        v22 = invitationCopy;
-        _os_log_impl(&dword_220099000, channel, OS_LOG_TYPE_DEFAULT, "Have received invitation matching persistent history change. ReceivedInvitation: %@ Change: %@", &v19, 0x16u);
+        v18 = 138412546;
+        v19 = v10;
+        v20 = 2112;
+        v21 = invitationCopy;
+        _os_log_impl(&dword_220099000, channel, OS_LOG_TYPE_DEFAULT, "Have received invitation matching persistent history change. ReceivedInvitation: %@ Change: %@", &v18, 0x16u);
       }
 
       channel = [v10 channel];
@@ -716,11 +706,11 @@ void __56__SKADatabaseProvider_hasInitialCloudKitImportOccurred___block_invoke(u
       {
         if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
-          v19 = 138412546;
-          v20 = channel;
-          v21 = 2112;
-          v22 = invitationCopy;
-          _os_log_impl(&dword_220099000, v14, OS_LOG_TYPE_DEFAULT, "ReceivedInvitation matching persistent history change has channel. Channel: %@ Change: %@", &v19, 0x16u);
+          v18 = 138412546;
+          v19 = channel;
+          v20 = 2112;
+          v21 = invitationCopy;
+          _os_log_impl(&dword_220099000, v14, OS_LOG_TYPE_DEFAULT, "ReceivedInvitation matching persistent history change has channel. Channel: %@ Change: %@", &v18, 0x16u);
         }
 
         channel = channel;
@@ -742,26 +732,24 @@ void __56__SKADatabaseProvider_hasInitialCloudKitImportOccurred___block_invoke(u
     {
       if (v12)
       {
-        v19 = 138412290;
-        v20 = invitationCopy;
-        _os_log_impl(&dword_220099000, channel, OS_LOG_TYPE_DEFAULT, "Could not find encryption key matching persisent history change: %@", &v19, 0xCu);
+        v18 = 138412290;
+        v19 = invitationCopy;
+        _os_log_impl(&dword_220099000, channel, OS_LOG_TYPE_DEFAULT, "Could not find encryption key matching persisent history change: %@", &v18, 0xCu);
       }
 
       v15 = 0;
     }
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
 - (id)existingManagedObjectWithID:(id)d managedObjectContext:(id)context
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v12 = 0;
-  v4 = [context existingObjectWithID:d error:&v12];
-  v5 = v12;
+  v14 = *MEMORY[0x277D85DE8];
+  v11 = 0;
+  v4 = [context existingObjectWithID:d error:&v11];
+  v5 = v11;
   v6 = v5;
   if (!v4)
   {
@@ -776,7 +764,7 @@ void __56__SKADatabaseProvider_hasInitialCloudKitImportOccurred___block_invoke(u
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v14 = v6;
+          v13 = v6;
           _os_log_impl(&dword_220099000, v9, OS_LOG_TYPE_DEFAULT, "Did not find object matching change history event. Object has already been deleted. Error: %@", buf, 0xCu);
         }
 
@@ -801,101 +789,97 @@ LABEL_9:
 
 LABEL_10:
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 - (void)_onQueue_expireCloudKitVouchers
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_internalWorkQueue);
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   persistentContainer = [(SKADatabaseProvider *)self persistentContainer];
   persistentStoreDescriptions = [persistentContainer persistentStoreDescriptions];
 
-  v5 = [persistentStoreDescriptions countByEnumeratingWithState:&v29 objects:v36 count:16];
+  v5 = [persistentStoreDescriptions countByEnumeratingWithState:&v28 objects:v35 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v30;
-    v22 = *v30;
+    v7 = *v29;
+    v21 = *v29;
     do
     {
       v8 = 0;
-      v23 = v6;
+      v22 = v6;
       do
       {
-        if (*v30 != v7)
+        if (*v29 != v7)
         {
           objc_enumerationMutation(persistentStoreDescriptions);
         }
 
-        v24 = v8;
-        v9 = *(*(&v29 + 1) + 8 * v8);
+        v23 = v8;
+        v9 = *(*(&v28 + 1) + 8 * v8);
         v10 = [v9 URL];
         cloudDatabaseFileURL = [(SKADatabaseProvider *)self cloudDatabaseFileURL];
         v12 = [v10 isEqual:cloudDatabaseFileURL];
 
         if (v12)
         {
-          v27 = 0u;
-          v28 = 0u;
-          v25 = 0u;
           v26 = 0u;
+          v27 = 0u;
+          v24 = 0u;
+          v25 = 0u;
           cloudKitContainerOptions = [v9 cloudKitContainerOptions];
           activityVouchers = [cloudKitContainerOptions activityVouchers];
 
-          v15 = [activityVouchers countByEnumeratingWithState:&v25 objects:v35 count:16];
+          v15 = [activityVouchers countByEnumeratingWithState:&v24 objects:v34 count:16];
           if (v15)
           {
             v16 = v15;
-            v17 = *v26;
+            v17 = *v25;
             do
             {
               for (i = 0; i != v16; ++i)
               {
-                if (*v26 != v17)
+                if (*v25 != v17)
                 {
                   objc_enumerationMutation(activityVouchers);
                 }
 
-                v19 = *(*(&v25 + 1) + 8 * i);
+                v19 = *(*(&v24 + 1) + 8 * i);
                 v20 = +[SKADatabaseProvider logger];
                 if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412290;
-                  v34 = v19;
+                  v33 = v19;
                   _os_log_impl(&dword_220099000, v20, OS_LOG_TYPE_DEFAULT, "Expiring voucher %@", buf, 0xCu);
                 }
 
                 [(NSPersistentCloudKitContainer *)self->_persistentContainer expireActivityVoucher:v19];
               }
 
-              v16 = [activityVouchers countByEnumeratingWithState:&v25 objects:v35 count:16];
+              v16 = [activityVouchers countByEnumeratingWithState:&v24 objects:v34 count:16];
             }
 
             while (v16);
           }
 
-          v7 = v22;
-          v6 = v23;
+          v7 = v21;
+          v6 = v22;
         }
 
-        v8 = v24 + 1;
+        v8 = v23 + 1;
       }
 
-      while (v24 + 1 != v6);
-      v6 = [persistentStoreDescriptions countByEnumeratingWithState:&v29 objects:v36 count:16];
+      while (v23 + 1 != v6);
+      v6 = [persistentStoreDescriptions countByEnumeratingWithState:&v28 objects:v35 count:16];
     }
 
     while (v6);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_onQueue_fetchInitialImportState
@@ -1128,7 +1112,7 @@ void __76__SKADatabaseProvider_deviceToDeviceEncryptedDatabaseCapableWithComplet
 
 void __76__SKADatabaseProvider_deviceToDeviceEncryptedDatabaseCapableWithCompletion___block_invoke_2(id *a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = +[SKADatabaseProvider logger];
@@ -1138,7 +1122,7 @@ void __76__SKADatabaseProvider_deviceToDeviceEncryptedDatabaseCapableWithComplet
     if (v8)
     {
       *buf = 138412290;
-      v20 = v6;
+      v19 = v6;
       v9 = "Failed to fetch account info: %@";
 LABEL_9:
       _os_log_impl(&dword_220099000, v7, OS_LOG_TYPE_DEFAULT, v9, buf, 0xCu);
@@ -1159,7 +1143,7 @@ LABEL_9:
     }
 
     *buf = 138412290;
-    v20 = v11;
+    v19 = v11;
     v9 = "Account status is: %@";
     goto LABEL_9;
   }
@@ -1169,14 +1153,13 @@ LABEL_9:
   block[1] = 3221225472;
   block[2] = __76__SKADatabaseProvider_deviceToDeviceEncryptedDatabaseCapableWithCompletion___block_invoke_78;
   block[3] = &unk_27843E7A8;
-  objc_copyWeak(&v18, a1 + 6);
-  v16 = v5;
-  v17 = a1[5];
+  objc_copyWeak(&v17, a1 + 6);
+  v15 = v5;
+  v16 = a1[5];
   v13 = v5;
   dispatch_async(v12, block);
 
-  objc_destroyWeak(&v18);
-  v14 = *MEMORY[0x277D85DE8];
+  objc_destroyWeak(&v17);
 }
 
 void __76__SKADatabaseProvider_deviceToDeviceEncryptedDatabaseCapableWithCompletion___block_invoke_78(uint64_t a1)
@@ -1361,33 +1344,33 @@ void __64__SKADatabaseProvider_handleCloudKitAccountChangedNotification___block_
 
 void __67__SKADatabaseProvider__onQueue_processPersistentStoreRemoteChanges__block_invoke(uint64_t a1)
 {
-  v71[1] = *MEMORY[0x277D85DE8];
+  v70[1] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBE4C8] fetchRequest];
   v3 = [*(a1 + 32) appTransactionAuthorName];
   v4 = MEMORY[0x277CCAC30];
-  v51 = v3;
-  v71[0] = v3;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v71 count:1];
+  v50 = v3;
+  v70[0] = v3;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v70 count:1];
   v6 = [v4 predicateWithFormat:@"author != %@" argumentArray:v5];
 
   [v2 setPredicate:v6];
-  v49 = [*(a1 + 32) lastProcessedPersistentHistoryToken];
+  v48 = [*(a1 + 32) lastProcessedPersistentHistoryToken];
   v7 = [MEMORY[0x277CBE4B0] fetchHistoryAfterToken:?];
   [v7 setFetchRequest:v2];
   v8 = *(a1 + 40);
-  v66 = 0;
-  v9 = [v8 executeRequest:v7 error:&v66];
-  v10 = v66;
+  v65 = 0;
+  v9 = [v8 executeRequest:v7 error:&v65];
+  v10 = v65;
   v11 = [v9 result];
   v12 = v11;
-  v50 = v10;
+  v49 = v10;
   if (v10)
   {
     v13 = +[SKADatabaseProvider logger];
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v70 = v10;
+      v69 = v10;
       _os_log_impl(&dword_220099000, v13, OS_LOG_TYPE_DEFAULT, "Recovering from history token expiration: %@", buf, 0xCu);
     }
 
@@ -1395,23 +1378,23 @@ void __67__SKADatabaseProvider__onQueue_processPersistentStoreRemoteChanges__blo
 
     [v14 setFetchRequest:v2];
     v15 = *(a1 + 40);
-    v65 = 0;
-    v16 = [v15 executeRequest:v14 error:&v65];
-    v17 = v65;
+    v64 = 0;
+    v16 = [v15 executeRequest:v14 error:&v64];
+    v17 = v64;
 
     v18 = [v16 result];
 
     if (v17)
     {
       v19 = +[SKADatabaseProvider logger];
-      v20 = v51;
+      v20 = v50;
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         __67__SKADatabaseProvider__onQueue_processPersistentStoreRemoteChanges__block_invoke_cold_1();
       }
 
 LABEL_36:
-      v43 = v49;
+      v43 = v48;
       goto LABEL_37;
     }
 
@@ -1425,7 +1408,7 @@ LABEL_36:
     v21 = v11;
   }
 
-  v20 = v51;
+  v20 = v50;
   if (![v21 count])
   {
     v18 = v21;
@@ -1439,55 +1422,55 @@ LABEL_36:
     goto LABEL_36;
   }
 
-  v45 = v16;
-  v46 = v14;
-  v47 = v6;
-  v48 = v2;
-  v63 = 0u;
-  v64 = 0u;
-  v61 = 0u;
+  v44 = v16;
+  v45 = v14;
+  v46 = v6;
+  v47 = v2;
   v62 = 0u;
+  v63 = 0u;
+  v60 = 0u;
+  v61 = 0u;
   obj = v21;
-  v54 = [obj countByEnumeratingWithState:&v61 objects:v68 count:16];
-  if (!v54)
+  v53 = [obj countByEnumeratingWithState:&v60 objects:v67 count:16];
+  if (!v53)
   {
     goto LABEL_33;
   }
 
-  v53 = *v62;
+  v52 = *v61;
   do
   {
     v22 = 0;
     do
     {
-      if (*v62 != v53)
+      if (*v61 != v52)
       {
         objc_enumerationMutation(obj);
       }
 
-      v56 = v22;
-      v23 = *(*(&v61 + 1) + 8 * v22);
+      v55 = v22;
+      v23 = *(*(&v60 + 1) + 8 * v22);
       context = objc_autoreleasePoolPush();
+      v56 = 0u;
       v57 = 0u;
       v58 = 0u;
       v59 = 0u;
-      v60 = 0u;
       v24 = [v23 changes];
-      v25 = [v24 countByEnumeratingWithState:&v57 objects:v67 count:16];
+      v25 = [v24 countByEnumeratingWithState:&v56 objects:v66 count:16];
       if (v25)
       {
         v26 = v25;
-        v27 = *v58;
+        v27 = *v57;
         do
         {
           for (i = 0; i != v26; ++i)
           {
-            if (*v58 != v27)
+            if (*v57 != v27)
             {
               objc_enumerationMutation(v24);
             }
 
-            v29 = *(*(&v57 + 1) + 8 * i);
+            v29 = *(*(&v56 + 1) + 8 * i);
             v30 = objc_autoreleasePoolPush();
             v31 = [v29 changedObjectID];
             v32 = [v31 entity];
@@ -1531,21 +1514,21 @@ LABEL_29:
             objc_autoreleasePoolPop(v30);
           }
 
-          v26 = [v24 countByEnumeratingWithState:&v57 objects:v67 count:16];
+          v26 = [v24 countByEnumeratingWithState:&v56 objects:v66 count:16];
         }
 
         while (v26);
       }
 
       objc_autoreleasePoolPop(context);
-      v22 = v56 + 1;
+      v22 = v55 + 1;
     }
 
-    while (v56 + 1 != v54);
-    v54 = [obj countByEnumeratingWithState:&v61 objects:v68 count:16];
+    while (v55 + 1 != v53);
+    v53 = [obj countByEnumeratingWithState:&v60 objects:v67 count:16];
   }
 
-  while (v54);
+  while (v53);
 LABEL_33:
   v18 = obj;
 
@@ -1553,20 +1536,18 @@ LABEL_33:
   v17 = [v42 token];
 
   [*(a1 + 32) setLastProcessedPersistentHistoryToken:v17];
-  v6 = v47;
-  v2 = v48;
-  v20 = v51;
-  v43 = v49;
-  v16 = v45;
-  v14 = v46;
+  v6 = v46;
+  v2 = v47;
+  v20 = v50;
+  v43 = v48;
+  v16 = v44;
+  v14 = v45;
 LABEL_37:
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_onQueue_processPersistentStoreEventChangedNotification:(id)notification
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   dispatch_assert_queue_V2(self->_internalWorkQueue);
   userInfo = [notificationCopy userInfo];
@@ -1588,9 +1569,9 @@ LABEL_37:
 
     endDate = [v6 endDate];
     *buf = 138412546;
-    v44 = v9;
-    v45 = 2112;
-    v46 = endDate;
+    v43 = v9;
+    v44 = 2112;
+    v45 = endDate;
     _os_log_impl(&dword_220099000, v7, OS_LOG_TYPE_DEFAULT, "%@ notification received: endDate = %@", buf, 0x16u);
   }
 
@@ -1609,7 +1590,7 @@ LABEL_37:
           endDate3 = [v6 endDate];
           v31 = [endDate3 dateByAddingTimeInterval:-15552000.0];
           *buf = 138412290;
-          v44 = v31;
+          v43 = v31;
           _os_log_impl(&dword_220099000, v29, OS_LOG_TYPE_DEFAULT, "Export completed, will clear persistent history before %@ in maintenance activity", buf, 0xCu);
         }
 
@@ -1628,29 +1609,29 @@ LABEL_37:
     {
       [(SKADatabaseProvider *)self _onQueue_expireCloudKitVouchers];
       [(SKADatabaseProvider *)self setOnQueue_isInitialImportDBStateQueryable:1];
-      v35 = 0u;
-      v36 = 0u;
-      v33 = 0u;
       v34 = 0u;
+      v35 = 0u;
+      v32 = 0u;
+      v33 = 0u;
       importCompletionHandlers = [(SKADatabaseProvider *)self importCompletionHandlers];
-      v21 = [importCompletionHandlers countByEnumeratingWithState:&v33 objects:v41 count:16];
+      v21 = [importCompletionHandlers countByEnumeratingWithState:&v32 objects:v40 count:16];
       if (v21)
       {
         v22 = v21;
-        v23 = *v34;
+        v23 = *v33;
         do
         {
           for (i = 0; i != v22; ++i)
           {
-            if (*v34 != v23)
+            if (*v33 != v23)
             {
               objc_enumerationMutation(importCompletionHandlers);
             }
 
-            (*(*(*(&v33 + 1) + 8 * i) + 16))();
+            (*(*(*(&v32 + 1) + 8 * i) + 16))();
           }
 
-          v22 = [importCompletionHandlers countByEnumeratingWithState:&v33 objects:v41 count:16];
+          v22 = [importCompletionHandlers countByEnumeratingWithState:&v32 objects:v40 count:16];
         }
 
         while (v22);
@@ -1691,29 +1672,29 @@ LABEL_35:
     {
       [(SKADatabaseProvider *)self setOnQueue_isInitialImportDBStateQueryable:1];
       [(SKADatabaseProvider *)self _onQueue_fetchInitialImportState];
+      v36 = 0u;
       v37 = 0u;
       v38 = 0u;
       v39 = 0u;
-      v40 = 0u;
       importCompletionHandlers3 = [(SKADatabaseProvider *)self importCompletionHandlers];
-      v14 = [importCompletionHandlers3 countByEnumeratingWithState:&v37 objects:v42 count:16];
+      v14 = [importCompletionHandlers3 countByEnumeratingWithState:&v36 objects:v41 count:16];
       if (v14)
       {
         v15 = v14;
-        v16 = *v38;
+        v16 = *v37;
         do
         {
           for (j = 0; j != v15; ++j)
           {
-            if (*v38 != v16)
+            if (*v37 != v16)
             {
               objc_enumerationMutation(importCompletionHandlers3);
             }
 
-            (*(*(*(&v37 + 1) + 8 * j) + 16))();
+            (*(*(*(&v36 + 1) + 8 * j) + 16))();
           }
 
-          v15 = [importCompletionHandlers3 countByEnumeratingWithState:&v37 objects:v42 count:16];
+          v15 = [importCompletionHandlers3 countByEnumeratingWithState:&v36 objects:v41 count:16];
         }
 
         while (v15);
@@ -1724,19 +1705,17 @@ LABEL_35:
       goto LABEL_35;
     }
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)clearPersistentHistoryIfNeeded
 {
-  v29 = *MEMORY[0x277D85DE8];
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3032000000;
-  v22 = __Block_byref_object_copy__0;
-  v23 = __Block_byref_object_dispose__0;
-  v24 = 0;
+  v28 = *MEMORY[0x277D85DE8];
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__0;
+  v22 = __Block_byref_object_dispose__0;
+  v23 = 0;
   v3 = CFPreferencesCopyAppValue(@"lastDatabaseExportDate", @"com.apple.StatusKitAgent");
   if (v3 && ([MEMORY[0x277CBEAA8] now], v4 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "timeIntervalSinceDate:", v3), v6 = v5 > 0.0, v4, v6))
   {
@@ -1745,23 +1724,23 @@ LABEL_35:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v26 = v7;
-      v27 = 2112;
-      v28 = v3;
+      v25 = v7;
+      v26 = 2112;
+      v27 = v3;
       _os_log_impl(&dword_220099000, v8, OS_LOG_TYPE_DEFAULT, "Attempting to clear persistent history before %@ (export date: %@)", buf, 0x16u);
     }
 
     newBackgroundContext = [(SKADatabaseProvider *)self newBackgroundContext];
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __53__SKADatabaseProvider_clearPersistentHistoryIfNeeded__block_invoke;
-    v15[3] = &unk_27843E558;
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __53__SKADatabaseProvider_clearPersistentHistoryIfNeeded__block_invoke;
+    v14[3] = &unk_27843E558;
     v10 = v7;
-    v16 = v10;
+    v15 = v10;
     v11 = newBackgroundContext;
-    v17 = v11;
-    v18 = &v19;
-    [v11 performBlockAndWait:v15];
+    v16 = v11;
+    v17 = &v18;
+    [v11 performBlockAndWait:v14];
   }
 
   else
@@ -1774,16 +1753,15 @@ LABEL_35:
     }
   }
 
-  v12 = v20[5] == 0;
-  _Block_object_dispose(&v19, 8);
+  v12 = v19[5] == 0;
+  _Block_object_dispose(&v18, 8);
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 void __53__SKADatabaseProvider_clearPersistentHistoryIfNeeded__block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   v3 = [MEMORY[0x277CBE4B0] deleteHistoryBeforeDate:*(a1 + 32)];
   [v3 setFetchLimit:10000];
@@ -1811,13 +1789,11 @@ void __53__SKADatabaseProvider_clearPersistentHistoryIfNeeded__block_invoke(uint
     v12 = *v2;
     v13 = [v8 result];
     *buf = 138412546;
-    v17 = v12;
-    v18 = 2112;
-    v19 = v13;
+    v16 = v12;
+    v17 = 2112;
+    v18 = v13;
     _os_log_impl(&dword_220099000, v11, OS_LOG_TYPE_DEFAULT, "Clearing persistent history before %@ succeeded with result: %@", buf, 0x16u);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_onQueue_processCloudKitAccountChangedNotification:(id)notification
@@ -1836,7 +1812,7 @@ void __53__SKADatabaseProvider_clearPersistentHistoryIfNeeded__block_invoke(uint
 
 - (void)_onQueue_processCloudKitWillResetNotification:(id)notification
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   internalWorkQueue = self->_internalWorkQueue;
   notificationCopy = notification;
   dispatch_assert_queue_V2(internalWorkQueue);
@@ -1870,7 +1846,7 @@ void __53__SKADatabaseProvider_clearPersistentHistoryIfNeeded__block_invoke(uint
       }
 
       *buf = 138412290;
-      v32 = v12;
+      v31 = v12;
       _os_log_impl(&dword_220099000, v10, OS_LOG_TYPE_DEFAULT, "Resetting CloudKit store for reason: %@", buf, 0xCu);
     }
 
@@ -1886,7 +1862,7 @@ void __53__SKADatabaseProvider_clearPersistentHistoryIfNeeded__block_invoke(uint
         localPersistentStoreDescription = [(SKADatabaseProvider *)self localPersistentStoreDescription];
         v15 = [localPersistentStoreDescription URL];
         *buf = 138412290;
-        v32 = v15;
+        v31 = v15;
         _os_log_impl(&dword_220099000, v13, OS_LOG_TYPE_DEFAULT, "Destroying local store %@", buf, 0xCu);
       }
 
@@ -1898,15 +1874,15 @@ void __53__SKADatabaseProvider_clearPersistentHistoryIfNeeded__block_invoke(uint
       type = [localPersistentStoreDescription3 type];
       localPersistentStoreDescription4 = [(SKADatabaseProvider *)self localPersistentStoreDescription];
       options = [localPersistentStoreDescription4 options];
-      v30 = 0;
-      v27 = [persistentStoreCoordinator destroyPersistentStoreAtURL:v18 withType:type options:options error:&v30];
-      v29 = v30;
+      v29 = 0;
+      v26 = [persistentStoreCoordinator destroyPersistentStoreAtURL:v18 withType:type options:options error:&v29];
+      v28 = v29;
 
       v23 = +[SKADatabaseProvider logger];
       v24 = v23;
-      if (v27)
+      if (v26)
       {
-        v25 = v29;
+        v25 = v28;
         if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
@@ -1916,7 +1892,7 @@ void __53__SKADatabaseProvider_clearPersistentHistoryIfNeeded__block_invoke(uint
 
       else
       {
-        v25 = v29;
+        v25 = v28;
         if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
           [SKADatabaseProvider _onQueue_processCloudKitWillResetNotification:?];
@@ -1935,8 +1911,6 @@ void __53__SKADatabaseProvider_clearPersistentHistoryIfNeeded__block_invoke(uint
       [SKADatabaseProvider _onQueue_processCloudKitWillResetNotification:];
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __29__SKADatabaseProvider_logger__block_invoke()
@@ -1960,67 +1934,34 @@ uint64_t __29__SKADatabaseProvider_logger__block_invoke()
   _os_log_error_impl(&dword_220099000, log, OS_LOG_TYPE_ERROR, "Unexpected store configuration name: %@", buf, 0xCu);
 }
 
-void __48__SKADatabaseProvider_createPersistentContainer__block_invoke_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_4(&dword_220099000, v0, v1, "Failed to load persistent store. Error: %@ Store: %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
 void __48__SKADatabaseProvider_createPersistentContainer__block_invoke_cold_2(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 URL];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_4_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __48__SKADatabaseProvider_createPersistentContainer__block_invoke_cold_3(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 URL];
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_4_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void __48__SKADatabaseProvider_createPersistentContainer__block_invoke_27_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_4(&dword_220099000, v0, v1, "Failed to load %@ on second attempt due to %@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)extractModifiedChannelFromPersistentStoreRemoteChangeForChannel:managedObjectContext:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_fault_impl(&dword_220099000, v0, OS_LOG_TYPE_FAULT, "Unhandled NSPersistentHistoryChangeType: %ld", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
-}
-
-- (void)extractModifiedChannelFromPersistentStoreRemoteChangeForReceivedInvitation:managedObjectContext:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_4(&dword_220099000, v0, v1, "ReceivedInvitation matching persistent history change has not channel. ReceivedInvitation: %@ Change: %@");
   v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0();
+  _os_log_fault_impl(&dword_220099000, v0, OS_LOG_TYPE_FAULT, "Unhandled NSPersistentHistoryChangeType: %ld", v1, 0xCu);
 }
 
 - (void)existingManagedObjectWithID:managedObjectContext:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_onQueue_fetchInitialImportState
@@ -2032,20 +1973,16 @@ void __48__SKADatabaseProvider_createPersistentContainer__block_invoke_27_cold_1
 
 - (void)lastProcessedPersistentHistoryToken
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setLastProcessedPersistentHistoryToken:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setLastProcessedPersistentHistoryToken:.cold.2()
@@ -2057,11 +1994,9 @@ void __48__SKADatabaseProvider_createPersistentContainer__block_invoke_27_cold_1
 
 - (void)setLastProcessedPersistentHistoryToken:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __76__SKADatabaseProvider_deviceToDeviceEncryptedDatabaseCapableWithCompletion___block_invoke_78_cold_1()
@@ -2073,30 +2008,26 @@ void __76__SKADatabaseProvider_deviceToDeviceEncryptedDatabaseCapableWithComplet
 
 void __67__SKADatabaseProvider__onQueue_processPersistentStoreRemoteChanges__block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_onQueue_processPersistentStoreEventChangedNotification:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   [a1 type];
   OUTLINED_FUNCTION_1_0();
-  _os_log_fault_impl(&dword_220099000, a2, OS_LOG_TYPE_FAULT, "Unhandled NSPersistentCloudKitContainerEventType: %ld", v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_220099000, a2, OS_LOG_TYPE_FAULT, "Unhandled NSPersistentCloudKitContainerEventType: %ld", v3, 0xCu);
 }
 
 void __53__SKADatabaseProvider_clearPersistentHistoryIfNeeded__block_invoke_cold_1(void *a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138412546;
-  *&v4[4] = *a1;
-  *&v4[12] = 2112;
-  *&v4[14] = *(*(*a2 + 8) + 40);
-  OUTLINED_FUNCTION_4(&dword_220099000, a2, a3, "Clearing persistent history before %@ failed with error: %@", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 138412546;
+  *&v3[4] = *a1;
+  *&v3[12] = 2112;
+  *&v3[14] = *(*(*a2 + 8) + 40);
+  OUTLINED_FUNCTION_4(&dword_220099000, a2, a3, "Clearing persistent history before %@ failed with error: %@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 - (void)_onQueue_processCloudKitWillResetNotification:.cold.1()
@@ -2108,14 +2039,11 @@ void __53__SKADatabaseProvider_clearPersistentHistoryIfNeeded__block_invoke_cold
 
 - (void)_onQueue_processCloudKitWillResetNotification:(void *)a1 .cold.2(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 localPersistentStoreDescription];
   v2 = [v1 URL];
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_4_0();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

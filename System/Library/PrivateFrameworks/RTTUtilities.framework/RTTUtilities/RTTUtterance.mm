@@ -1,5 +1,6 @@
 @interface RTTUtterance
 + (BOOL)contactPathIsMe:(id)me;
++ (id)utteranceWithContactPath:(id)path andText:(id)text translatedText:(id)translatedText isTranscription:(BOOL)transcription;
 - (BOOL)hasTimedOut;
 - (BOOL)hasTranslation;
 - (BOOL)isComplete;
@@ -14,6 +15,24 @@
 @end
 
 @implementation RTTUtterance
+
++ (id)utteranceWithContactPath:(id)path andText:(id)text translatedText:(id)translatedText isTranscription:(BOOL)transcription
+{
+  transcriptionCopy = transcription;
+  translatedTextCopy = translatedText;
+  textCopy = text;
+  pathCopy = path;
+  v12 = objc_alloc_init(RTTUtterance);
+  [(RTTUtterance *)v12 setContactPath:pathCopy];
+  [(RTTUtterance *)v12 updateText:textCopy];
+
+  v13 = [RTTUtterance contactPathIsMe:pathCopy];
+  [(RTTUtterance *)v12 setIsMe:v13];
+  [(RTTUtterance *)v12 setIsTranscription:transcriptionCopy];
+  [(RTTUtterance *)v12 updateTranslation:translatedTextCopy];
+
+  return v12;
+}
 
 - (id)copyWithZone:(_NSZone *)zone
 {
@@ -156,43 +175,40 @@
 
 - (BOOL)isComplete
 {
-  v17[5] = *MEMORY[0x277D85DE8];
+  v16[5] = *MEMORY[0x277D85DE8];
   text = [(RTTUtterance *)self text];
   v4 = [text length];
 
-  if (v4)
+  if (!v4)
   {
-    v5 = ttyLocString(@"TTYMessageCompleteString");
-    v17[0] = v5;
-    v6 = ttyLocString(@"TTYMessageGoodbyeString");
-    v17[1] = v6;
-    v7 = ttyLocString(@"TTYMessageHangupString");
-    v17[2] = v7;
-    v8 = ttyLocString(@"TTYMessagePoliteHangupString");
-    v17[3] = v8;
-    v9 = ttyLocString(@"TTYMessageHoldString");
-    v17[4] = v9;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:5];
+    return 0;
+  }
 
-    whitespaceCharacterSet = [MEMORY[0x277CCA900] whitespaceCharacterSet];
-    text2 = [(RTTUtterance *)self text];
-    LODWORD(v7) = [whitespaceCharacterSet characterIsMember:{objc_msgSend(text2, "characterAtIndex:", v4 - 1)}];
+  v5 = ttyLocString(@"TTYMessageCompleteString");
+  v16[0] = v5;
+  v6 = ttyLocString(@"TTYMessageGoodbyeString");
+  v16[1] = v6;
+  v7 = ttyLocString(@"TTYMessageHangupString");
+  v16[2] = v7;
+  v8 = ttyLocString(@"TTYMessagePoliteHangupString");
+  v16[3] = v8;
+  v9 = ttyLocString(@"TTYMessageHoldString");
+  v16[4] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:5];
 
-    if (v7)
-    {
-      v16[0] = MEMORY[0x277D85DD0];
-      v16[1] = 3221225472;
-      v16[2] = __26__RTTUtterance_isComplete__block_invoke;
-      v16[3] = &unk_279AE85A8;
-      v16[4] = self;
-      v16[5] = v4;
-      v13 = [v10 indexOfObjectPassingTest:v16] != 0x7FFFFFFFFFFFFFFFLL;
-    }
+  whitespaceCharacterSet = [MEMORY[0x277CCA900] whitespaceCharacterSet];
+  text2 = [(RTTUtterance *)self text];
+  LODWORD(v7) = [whitespaceCharacterSet characterIsMember:{objc_msgSend(text2, "characterAtIndex:", v4 - 1)}];
 
-    else
-    {
-      v13 = 0;
-    }
+  if (v7)
+  {
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __26__RTTUtterance_isComplete__block_invoke;
+    v15[3] = &unk_279AE85A8;
+    v15[4] = self;
+    v15[5] = v4;
+    v13 = [v10 indexOfObjectPassingTest:v15] != 0x7FFFFFFFFFFFFFFFLL;
   }
 
   else
@@ -200,7 +216,6 @@
     v13 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 

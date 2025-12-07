@@ -287,7 +287,7 @@ void __69__CPLDerivativesFilter_shouldDropDerivativeWithDropDerivativeRecipe___b
 
 - (BOOL)addServerDropDerivativesRecipe:(id)recipe
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   recipeCopy = recipe;
   v5 = [recipeCopy uti];
   sourceResourceType = [recipeCopy sourceResourceType];
@@ -299,7 +299,7 @@ void __69__CPLDerivativesFilter_shouldDropDerivativeWithDropDerivativeRecipe___b
     v10 = v9 != 0;
     if (v9)
     {
-      v25 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:sourceResourceType];
+      v24 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:sourceResourceType];
       v11 = [v9 objectForKeyedSubscript:?];
       v12 = v11;
       if (v11)
@@ -314,20 +314,20 @@ void __69__CPLDerivativesFilter_shouldDropDerivativeWithDropDerivativeRecipe___b
 
       v15 = v13;
 
-      v26[0] = MEMORY[0x1E69E9820];
-      v26[1] = 3221225472;
-      v26[2] = __55__CPLDerivativesFilter_addServerDropDerivativesRecipe___block_invoke;
-      v26[3] = &unk_1E861CFB0;
+      v25[0] = MEMORY[0x1E69E9820];
+      v25[1] = 3221225472;
+      v25[2] = __55__CPLDerivativesFilter_addServerDropDerivativesRecipe___block_invoke;
+      v25[3] = &unk_1E861CFB0;
       v16 = v15;
-      v27 = v16;
+      v26 = v16;
       v17 = v5;
-      v28 = v17;
-      v30 = sourceResourceType;
+      v27 = v17;
+      v29 = sourceResourceType;
       v18 = derivativeTypes;
-      v29 = v18;
-      v31 = changeType;
-      [v18 enumerateObjectsUsingBlock:v26];
-      [v9 setObject:v16 forKeyedSubscript:v25];
+      v28 = v18;
+      v30 = changeType;
+      [v18 enumerateObjectsUsingBlock:v25];
+      [v9 setObject:v16 forKeyedSubscript:v24];
       if ((_CPLSilentLogging & 1) == 0)
       {
         v19 = __CPLDerivativesOSLogDomain();
@@ -337,20 +337,20 @@ void __69__CPLDerivativesFilter_shouldDropDerivativeWithDropDerivativeRecipe___b
           v21 = _shortDescriptionForArrayOfCPLResourceTypes(v18);
           v22 = [CPLDropDerivativesRecipe shortDescriptionForResourceChangeRecordType:changeType];
           *buf = 138413058;
-          v33 = v20;
-          v34 = 2112;
-          v35 = v17;
-          v36 = 2112;
-          v37 = v21;
-          v38 = 2112;
-          v39 = v22;
+          v32 = v20;
+          v33 = 2112;
+          v34 = v17;
+          v35 = 2112;
+          v36 = v21;
+          v37 = 2112;
+          v38 = v22;
           _os_log_impl(&dword_1DC05A000, v19, OS_LOG_TYPE_DEFAULT, "Added server supported derivative upload skip info to derivativesFilter. SourceType: %@, UTI: %@, derivativeTypes: %@, recordChangetype: %@", buf, 0x2Au);
         }
 
         v10 = v9 != 0;
       }
 
-      v14 = v25;
+      v14 = v24;
 LABEL_18:
 
       goto LABEL_19;
@@ -362,7 +362,7 @@ LABEL_18:
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         *buf = 134217984;
-        v33 = changeType;
+        v32 = changeType;
         _os_log_impl(&dword_1DC05A000, v14, OS_LOG_TYPE_ERROR, "Invalid derivative dropping rule. Record change type not supported: %lu", buf, 0xCu);
       }
 
@@ -384,7 +384,7 @@ LABEL_18:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v33 = recipeCopy;
+      v32 = recipeCopy;
       _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_ERROR, "Invalid derivative dropping rule: %@", buf, 0xCu);
     }
   }
@@ -393,7 +393,6 @@ LABEL_18:
 LABEL_19:
 
 LABEL_20:
-  v23 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -445,7 +444,7 @@ void __55__CPLDerivativesFilter_addServerDropDerivativesRecipe___block_invoke(ui
 
 void __55__CPLDerivativesFilter_addServerDropDerivativesRecipe___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v6 = *(a1 + 32);
   v7 = [MEMORY[0x1E69C08F0] typeWithIdentifier:a2];
   LODWORD(v6) = [v6 conformsToType:v7];
@@ -463,20 +462,18 @@ void __55__CPLDerivativesFilter_addServerDropDerivativesRecipe___block_invoke_2(
         v10 = *(a1 + 40);
         v11 = _shortDescriptionForArrayOfCPLResourceTypes(*(a1 + 48));
         v12 = [CPLDropDerivativesRecipe shortDescriptionForResourceChangeRecordType:*(a1 + 72)];
-        v14 = 138413058;
-        v15 = v9;
-        v16 = 2112;
-        v17 = v10;
-        v18 = 2112;
-        v19 = v11;
-        v20 = 2112;
-        v21 = v12;
-        _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_DEFAULT, "Duplicate server rule found in response, sourceType: %@, UTI: %@, derivativeTypes: %@, recordChangetype: %@", &v14, 0x2Au);
+        v13 = 138413058;
+        v14 = v9;
+        v15 = 2112;
+        v16 = v10;
+        v17 = 2112;
+        v18 = v11;
+        v19 = 2112;
+        v20 = v12;
+        _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_DEFAULT, "Duplicate server rule found in response, sourceType: %@, UTI: %@, derivativeTypes: %@, recordChangetype: %@", &v13, 0x2Au);
       }
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)addServerDropDerivativesRecipes:(id)recipes
@@ -499,7 +496,7 @@ void __55__CPLDerivativesFilter_addServerDropDerivativesRecipe___block_invoke_2(
   return self;
 }
 
-uint64_t __56__CPLDerivativesFilter_addServerDropDerivativesRecipes___block_invoke(uint64_t a1, uint64_t a2)
+void *__56__CPLDerivativesFilter_addServerDropDerivativesRecipes___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) addServerDropDerivativesRecipe:a2];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -508,7 +505,7 @@ uint64_t __56__CPLDerivativesFilter_addServerDropDerivativesRecipes___block_invo
 
 - (BOOL)_isValidDropDerivativeRecipeWithUTI:(id)i sourceType:(unint64_t)type derivativeTypes:(id)types changeType:(unint64_t)changeType
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   iCopy = i;
   typesCopy = types;
   v11 = [MEMORY[0x1E69C08F0] typeWithIdentifier:iCopy];
@@ -535,28 +532,27 @@ uint64_t __56__CPLDerivativesFilter_addServerDropDerivativesRecipes___block_invo
       v15 = [CPLResource shortDescriptionForResourceType:type];
       v16 = _shortDescriptionForArrayOfCPLResourceTypes(typesCopy);
       v17 = [CPLDropDerivativesRecipe shortDescriptionForResourceChangeRecordType:changeType];
-      v20 = 138413058;
-      v21 = v15;
-      v22 = 2112;
-      v23 = iCopy;
-      v24 = 2112;
-      v25 = v16;
-      v26 = 2112;
-      v27 = v17;
-      _os_log_impl(&dword_1DC05A000, v14, OS_LOG_TYPE_ERROR, "Invalid CPLDropDerivativesRecipe, sourceType: %@, UTI: %@, derivativeTypes: %@, recordChangetype: %@", &v20, 0x2Au);
+      v19 = 138413058;
+      v20 = v15;
+      v21 = 2112;
+      v22 = iCopy;
+      v23 = 2112;
+      v24 = v16;
+      v25 = 2112;
+      v26 = v17;
+      _os_log_impl(&dword_1DC05A000, v14, OS_LOG_TYPE_ERROR, "Invalid CPLDropDerivativesRecipe, sourceType: %@, UTI: %@, derivativeTypes: %@, recordChangetype: %@", &v19, 0x2Au);
     }
   }
 
   v13 = 0;
 LABEL_12:
 
-  v18 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 - (id)_getTargetDictionaryForChangeType:(unint64_t)type
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (type == 1)
   {
     v4 = 16;
@@ -577,15 +573,14 @@ LABEL_5:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = [CPLDropDerivativesRecipe shortDescriptionForResourceChangeRecordType:type];
-      v10 = 138412290;
-      v11 = v7;
-      _os_log_impl(&dword_1DC05A000, v6, OS_LOG_TYPE_ERROR, "Unknown upload skip record type: %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v7;
+      _os_log_impl(&dword_1DC05A000, v6, OS_LOG_TYPE_ERROR, "Unknown upload skip record type: %@", &v9, 0xCu);
     }
   }
 
   v5 = 0;
 LABEL_11:
-  v8 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

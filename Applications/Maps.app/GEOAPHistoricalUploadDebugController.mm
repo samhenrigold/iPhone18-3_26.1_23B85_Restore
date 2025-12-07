@@ -16,7 +16,7 @@
   *(v5 + 3) = 0;
   type metadata accessor for GEOAPHistoricalModelItem();
   sub_1005699E8();
-  sub_10056DA5C(&unk_101927710, type metadata accessor for GEOAPHistoricalModelItem);
+  sub_10056DA5C(&unk_101927710, type metadata accessor for GEOAPHistoricalModelItem, &unk_1012113E0);
   NSDiffableDataSourceSnapshot.init()();
   *(v5 + OBJC_IVAR____TtC4Maps30GEOAPHistoricalUploadDataModel_dataSource) = 0;
   *(v5 + 2) = _swiftEmptyDictionarySingleton;
@@ -34,7 +34,7 @@
   *(v6 + 3) = 0;
   type metadata accessor for GEOAPHistoricalModelItem();
   sub_1005699E8();
-  sub_10056DA5C(&unk_101927710, type metadata accessor for GEOAPHistoricalModelItem);
+  sub_10056DA5C(&unk_101927710, type metadata accessor for GEOAPHistoricalModelItem, &unk_1012113E0);
   NSDiffableDataSourceSnapshot.init()();
   *(v6 + OBJC_IVAR____TtC4Maps30GEOAPHistoricalUploadDataModel_dataSource) = 0;
   *(v6 + 2) = _swiftEmptyDictionarySingleton;
@@ -47,7 +47,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_10056C548();
+  sub_10056C548(selfCopy);
 }
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path

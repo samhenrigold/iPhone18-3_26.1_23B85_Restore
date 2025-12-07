@@ -1,3 +1,39 @@
+void WebKit::InjectedBundlePageLoaderClient::didFailProvisionalLoadWithErrorForFrame(uint64_t a1, uint64_t a2, uint64_t a3, atomic_uint **this, uint64_t *a5)
+{
+  v5 = *(a1 + 40);
+  if (v5)
+  {
+    v13 = 0;
+    v8 = *(a2 + 8);
+    v9 = *(a3 + 8);
+    API::Error::create(this, &v14);
+    v10 = v14;
+    if (v14)
+    {
+      v5(v8, v9, v14->var1, &v13, *(a1 + 16));
+      CFRelease(v10->var1);
+    }
+
+    else
+    {
+      v5(v8, v9, 0, &v13, *(a1 + 16));
+    }
+
+    v11 = v13;
+    if (v13)
+    {
+      v11 = [v13 _apiObject];
+    }
+
+    v12 = *a5;
+    *a5 = v11;
+    if (v12)
+    {
+      CFRelease(*(v12 + 8));
+    }
+  }
+}
+
 void WebKit::InjectedBundlePageLoaderClient::didCommitLoadForFrame(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v4 = *(a1 + 48);
@@ -87,8 +123,8 @@ void WebKit::InjectedBundlePageLoaderClient::didFailLoadWithErrorForFrame(uint64
     v10 = v14;
     if (v14)
     {
-      v5(v8, v9, *(v14 + 1), &v13, *(a1 + 16));
-      CFRelease(*(v10 + 1));
+      v5(v8, v9, v14->var1, &v13, *(a1 + 16));
+      CFRelease(v10->var1);
     }
 
     else
@@ -353,10 +389,10 @@ void WebKit::InjectedBundlePageLoaderClient::didClearWindowObjectForFrame(WebKit
   {
     v6 = *(a2 + 1);
     v7 = *(a3 + 1);
-    WebKit::InjectedBundleScriptWorld::getOrCreate(a4, &v10);
+    WebKit::InjectedBundleScriptWorld::getOrCreate(&v10, a4);
     if (v10)
     {
-      v8 = *(v10 + 1);
+      v8 = *(v10 + 8);
     }
 
     else
@@ -369,7 +405,7 @@ void WebKit::InjectedBundlePageLoaderClient::didClearWindowObjectForFrame(WebKit
     v10 = 0;
     if (v9)
     {
-      CFRelease(*(v9 + 1));
+      CFRelease(*(v9 + 8));
     }
   }
 }
@@ -422,15 +458,15 @@ void WebKit::InjectedBundlePageLoaderClient::globalObjectIsAvailableForFrame(Web
 {
   if (*(this + 25))
   {
-    WebKit::InjectedBundleScriptWorld::getOrCreate(a4, &v11);
+    WebKit::InjectedBundleScriptWorld::getOrCreate(&v11, a4);
     v7 = v11;
     v8 = *(this + 25);
     v9 = *(a2 + 1);
     v10 = *(a3 + 1);
     if (v11)
     {
-      v8(v9, v10, *(v11 + 1), *(this + 2));
-      CFRelease(*(v7 + 1));
+      v8(v9, v10, *(v11 + 8), *(this + 2));
+      CFRelease(*(v7 + 8));
     }
 
     else
@@ -444,15 +480,15 @@ void WebKit::InjectedBundlePageLoaderClient::serviceWorkerGlobalObjectIsAvailabl
 {
   if (*(this + 41))
   {
-    WebKit::InjectedBundleScriptWorld::getOrCreate(a4, &v11);
+    WebKit::InjectedBundleScriptWorld::getOrCreate(&v11, a4);
     v7 = v11;
     v8 = *(this + 41);
     v9 = *(a2 + 1);
     v10 = *(a3 + 1);
     if (v11)
     {
-      v8(v9, v10, *(v11 + 1), *(this + 2));
-      CFRelease(*(v7 + 1));
+      v8(v9, v10, *(v11 + 8), *(this + 2));
+      CFRelease(*(v7 + 8));
     }
 
     else
@@ -466,15 +502,15 @@ void WebKit::InjectedBundlePageLoaderClient::willInjectUserScriptForFrame(WebKit
 {
   if (*(this + 39))
   {
-    WebKit::InjectedBundleScriptWorld::getOrCreate(a4, &v11);
+    WebKit::InjectedBundleScriptWorld::getOrCreate(&v11, a4);
     v7 = v11;
     v8 = *(this + 39);
     v9 = *(a2 + 1);
     v10 = *(a3 + 1);
     if (v11)
     {
-      v8(v9, v10, *(v11 + 1), *(this + 2));
-      CFRelease(*(v7 + 1));
+      v8(v9, v10, *(v11 + 8), *(this + 2));
+      CFRelease(*(v7 + 8));
     }
 
     else
@@ -600,12 +636,12 @@ uint64_t WebKit::InjectedBundlePageLoaderClient::shouldForceUniversalAccessFromL
   }
 
 LABEL_7:
-  v10 = v3(v5, *(v9 + 1), *(this + 2));
-  CFRelease(*(v9 + 1));
+  v10 = v3(v5, v9->var1, *(this + 2));
+  CFRelease(v9->var1);
   return v10;
 }
 
-void WebKit::InjectedBundlePageLoaderClient::featuresUsedInPage(uint64_t a1, uint64_t a2, uint64_t a3)
+void WebKit::InjectedBundlePageLoaderClient::featuresUsedInPage(uint64_t a1, unint64_t a2, uint64_t a3)
 {
   v3 = *(a1 + 272);
   if (v3)
@@ -614,20 +650,20 @@ void WebKit::InjectedBundlePageLoaderClient::featuresUsedInPage(uint64_t a1, uin
     API::Array::createStringArray(a3, &v8);
     if (v8)
     {
-      v6 = *(v8 + 1);
+      var1 = v8->var1;
     }
 
     else
     {
-      v6 = 0;
+      var1 = 0;
     }
 
-    v3(v5, v6, *(a1 + 16));
+    v3(v5, var1, *(a1 + 16));
     v7 = v8;
     v8 = 0;
     if (v7)
     {
-      CFRelease(*(v7 + 1));
+      CFRelease(v7->var1);
     }
   }
 }
@@ -718,7 +754,7 @@ uint64_t mpark::detail::move_constructor<mpark::detail::traits<IPC::ConnectionSe
   return a1;
 }
 
-WTF::DeferrableRefCountedBase *JSC::JSGenericTypedArrayView<JSC::Uint8Adaptor>::possiblySharedTypedImpl@<X0>(JSC::JSArrayBufferView *this@<X0>, uint64_t *a2@<X8>)
+WTF::DeferrableRefCountedBase *JSC::JSGenericTypedArrayView<JSC::Uint8Adaptor>::possiblySharedTypedImpl@<X0>(uint64_t *__return_ptr a1@<X8>, JSC::JSArrayBufferView *this@<X0>)
 {
   v4 = *(this + 40);
   v5 = v4 - 88;
@@ -778,7 +814,7 @@ LABEL_12:
     v8 = 1;
   }
 
-  JSC::GenericTypedArrayView<JSC::Uint8Adaptor>::tryCreate(&v10, *(this + 4), v7, v8, a2);
+  JSC::GenericTypedArrayView<JSC::Uint8Adaptor>::tryCreate(&v10, *(this + 4), v7, v8, a1);
   result = v10;
   v10 = 0;
   if (result)
@@ -802,7 +838,7 @@ void WebKit::InjectedBundleHitTestResult::~InjectedBundleHitTestResult(WebKit::I
   JUMPOUT(0x19EB14CF0);
 }
 
-IPC::Decoder *IPC::Decoder::operator>><std::tuple<WebKit::UserData>>(IPC::Decoder *a1, uint64_t a2, __n128 a3)
+IPC::Decoder *IPC::Decoder::operator>><std::tuple<WebKit::UserData>>(IPC::Decoder *a1, uint64_t *a2, __n128 a3)
 {
   IPC::ArgumentCoder<std::tuple<WebKit::UserData>,void>::decode<IPC::Decoder>(a1, &v11, a3);
   if ((v12 & 1) == 0)
@@ -832,7 +868,7 @@ IPC::Decoder *IPC::Decoder::operator>><std::tuple<WebKit::UserData>>(IPC::Decode
   return a1;
 }
 
-void std::__optional_storage_base<std::tuple<WebKit::UserData>,false>::__assign_from[abi:sn200100]<std::__optional_move_assign_base<std::tuple<WebKit::UserData>,false>>(uint64_t a1, uint64_t a2)
+void std::__optional_storage_base<std::tuple<WebKit::UserData>,false>::__assign_from[abi:sn200100]<std::__optional_move_assign_base<std::tuple<WebKit::UserData>,false>>(uint64_t *a1, uint64_t *a2)
 {
   if (*(a1 + 8) == *(a2 + 8))
   {
@@ -992,7 +1028,7 @@ uint64_t WTF::HashTable<WTF::UUID,WTF::KeyValuePair<WTF::UUID,WTF::String>,WTF::
   v3 = *a1;
   if (*a1 && (v4 = *(v3 - 4)) != 0)
   {
-    v5 = v4 << (6 * *(v3 - 12) >= (2 * v4));
+    v5 = (v4 << (6 * *(v3 - 12) >= (2 * v4)));
   }
 
   else
@@ -1003,8 +1039,9 @@ uint64_t WTF::HashTable<WTF::UUID,WTF::KeyValuePair<WTF::UUID,WTF::String>,WTF::
   return WTF::HashTable<WTF::UUID,WTF::KeyValuePair<WTF::UUID,WTF::String>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::UUID,WTF::String>>,WTF::DefaultHash<WTF::UUID>,WTF::HashMap<WTF::UUID,WTF::String,WTF::DefaultHash<WTF::UUID>,WTF::HashTraits<WTF::UUID>,WTF::HashTraits<WTF::String>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::UUID>,WTF::FastMalloc>::rehash(a1, v5, a2);
 }
 
-uint64_t WTF::HashTable<WTF::UUID,WTF::KeyValuePair<WTF::UUID,WTF::String>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::UUID,WTF::String>>,WTF::DefaultHash<WTF::UUID>,WTF::HashMap<WTF::UUID,WTF::String,WTF::DefaultHash<WTF::UUID>,WTF::HashTraits<WTF::UUID>,WTF::HashTraits<WTF::String>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::UUID>,WTF::FastMalloc>::rehash(uint64_t *a1, unsigned int a2, uint64_t a3)
+uint64_t WTF::HashTable<WTF::UUID,WTF::KeyValuePair<WTF::UUID,WTF::String>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::UUID,WTF::String>>,WTF::DefaultHash<WTF::UUID>,WTF::HashMap<WTF::UUID,WTF::String,WTF::DefaultHash<WTF::UUID>,WTF::HashTraits<WTF::UUID>,WTF::HashTraits<WTF::String>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::UUID>,WTF::FastMalloc>::rehash(uint64_t *a1, unint64_t a2, uint64_t a3)
 {
+  v4 = a2;
   v6 = *a1;
   if (*a1)
   {
@@ -1019,10 +1056,10 @@ uint64_t WTF::HashTable<WTF::UUID,WTF::KeyValuePair<WTF::UUID,WTF::String>,WTF::
   }
 
   v9 = a2;
-  v10 = WTF::fastMalloc(((32 * a2) | 0x10));
-  if (a2)
+  v10 = WTF::fastMalloc(0x10, ((32 * a2) | 0x10));
+  if (v4)
   {
-    v12 = v10 + 4;
+    v12 = v10 + 2;
     do
     {
       *v12 = 0;
@@ -1035,11 +1072,11 @@ uint64_t WTF::HashTable<WTF::UUID,WTF::KeyValuePair<WTF::UUID,WTF::String>,WTF::
     while (v9);
   }
 
-  *a1 = (v10 + 4);
-  v10[2] = a2 - 1;
-  v10[3] = a2;
+  *a1 = (v10 + 2);
+  *(v10 + 2) = v4 - 1;
+  *(v10 + 3) = v4;
   *v10 = 0;
-  v10[1] = v8;
+  *(v10 + 1) = v8;
   if (v7)
   {
     v13 = 0;
@@ -1289,7 +1326,7 @@ unsigned int **WTF::HashTable<WTF::WeakRef<WebCore::DOMWindowExtension,WTF::Defa
   v3 = *a1;
   if (*a1 && (v4 = *(v3 - 4)) != 0)
   {
-    v5 = v4 << (6 * *(v3 - 12) >= (2 * v4));
+    v5 = (v4 << (6 * *(v3 - 12) >= (2 * v4)));
   }
 
   else
@@ -1300,8 +1337,9 @@ unsigned int **WTF::HashTable<WTF::WeakRef<WebCore::DOMWindowExtension,WTF::Defa
   return WTF::HashTable<WTF::WeakRef<WebCore::DOMWindowExtension,WTF::DefaultWeakPtrImpl>,WTF::KeyValuePair<WTF::WeakRef<WebCore::DOMWindowExtension,WTF::DefaultWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleDOMWindowExtension,WTF::DefaultWeakPtrImpl>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::WeakRef<WebCore::DOMWindowExtension,WTF::DefaultWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleDOMWindowExtension,WTF::DefaultWeakPtrImpl>>>,WTF::DefaultHash<WTF::WeakRef<WebCore::DOMWindowExtension,WTF::DefaultWeakPtrImpl>>,WTF::HashMap<WTF::WeakRef<WebCore::DOMWindowExtension,WTF::DefaultWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleDOMWindowExtension,WTF::DefaultWeakPtrImpl>,WTF::DefaultHash<WTF::WeakRef<WebCore::DOMWindowExtension,WTF::DefaultWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebCore::DOMWindowExtension,WTF::DefaultWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebKit::InjectedBundleDOMWindowExtension,WTF::DefaultWeakPtrImpl>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::WeakRef<WebCore::DOMWindowExtension,WTF::DefaultWeakPtrImpl>>,WTF::FastMalloc>::rehash(a1, v5, a2);
 }
 
-unsigned int **WTF::HashTable<WTF::WeakRef<WebCore::DOMWindowExtension,WTF::DefaultWeakPtrImpl>,WTF::KeyValuePair<WTF::WeakRef<WebCore::DOMWindowExtension,WTF::DefaultWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleDOMWindowExtension,WTF::DefaultWeakPtrImpl>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::WeakRef<WebCore::DOMWindowExtension,WTF::DefaultWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleDOMWindowExtension,WTF::DefaultWeakPtrImpl>>>,WTF::DefaultHash<WTF::WeakRef<WebCore::DOMWindowExtension,WTF::DefaultWeakPtrImpl>>,WTF::HashMap<WTF::WeakRef<WebCore::DOMWindowExtension,WTF::DefaultWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleDOMWindowExtension,WTF::DefaultWeakPtrImpl>,WTF::DefaultHash<WTF::WeakRef<WebCore::DOMWindowExtension,WTF::DefaultWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebCore::DOMWindowExtension,WTF::DefaultWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebKit::InjectedBundleDOMWindowExtension,WTF::DefaultWeakPtrImpl>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::WeakRef<WebCore::DOMWindowExtension,WTF::DefaultWeakPtrImpl>>,WTF::FastMalloc>::rehash(uint64_t *a1, unsigned int a2, unsigned int **a3)
+unsigned int **WTF::HashTable<WTF::WeakRef<WebCore::DOMWindowExtension,WTF::DefaultWeakPtrImpl>,WTF::KeyValuePair<WTF::WeakRef<WebCore::DOMWindowExtension,WTF::DefaultWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleDOMWindowExtension,WTF::DefaultWeakPtrImpl>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::WeakRef<WebCore::DOMWindowExtension,WTF::DefaultWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleDOMWindowExtension,WTF::DefaultWeakPtrImpl>>>,WTF::DefaultHash<WTF::WeakRef<WebCore::DOMWindowExtension,WTF::DefaultWeakPtrImpl>>,WTF::HashMap<WTF::WeakRef<WebCore::DOMWindowExtension,WTF::DefaultWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleDOMWindowExtension,WTF::DefaultWeakPtrImpl>,WTF::DefaultHash<WTF::WeakRef<WebCore::DOMWindowExtension,WTF::DefaultWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebCore::DOMWindowExtension,WTF::DefaultWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebKit::InjectedBundleDOMWindowExtension,WTF::DefaultWeakPtrImpl>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::WeakRef<WebCore::DOMWindowExtension,WTF::DefaultWeakPtrImpl>>,WTF::FastMalloc>::rehash(uint64_t *a1, unint64_t a2, unsigned int **a3)
 {
+  v4 = a2;
   v6 = *a1;
   if (*a1)
   {
@@ -1317,8 +1355,8 @@ unsigned int **WTF::HashTable<WTF::WeakRef<WebCore::DOMWindowExtension,WTF::Defa
 
   v9 = WTF::fastZeroedMalloc((16 * a2 + 16));
   *a1 = (v9 + 4);
-  v9[2] = a2 - 1;
-  v9[3] = a2;
+  v9[2] = v4 - 1;
+  v9[3] = v4;
   *v9 = 0;
   v9[1] = v8;
   if (v7)
@@ -1482,7 +1520,7 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::InjectedBundlePageLoaderClient::wi
   if (v3 && atomic_fetch_add(v3 + 2, 0xFFFFFFFF) == 1)
   {
     atomic_store(1u, v3 + 2);
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   return WTF::fastFree(this, a2);
@@ -1499,10 +1537,10 @@ void WebKit::InjectedBundlePageResourceLoadClient::didInitiateLoadForResource(ui
     v14 = API::Object::Object(v13);
     *v14 = &unk_1F110EC40;
     WebCore::ResourceRequest::ResourceRequest(v14 + 2, a5);
-    v6(v11, v12, a4, *(v13 + 1), a6, *(a1 + 16));
-    v15 = *(v13 + 1);
+    v6(v11, v12, a4, v13->var1, a6, *(a1 + 16));
+    var1 = v13->var1;
 
-    CFRelease(v15);
+    CFRelease(var1);
   }
 }
 
@@ -1517,8 +1555,8 @@ void WebKit::InjectedBundlePageResourceLoadClient::willSendRequestForFrame(uint6
     v14 = API::Object::Object(v13);
     *v14 = &unk_1F110EC40;
     WebCore::ResourceRequest::ResourceRequest(v14 + 2, a5);
-    v15 = v13[1];
-    API::URLResponse::create(a6, v41);
+    var1 = v13->var1;
+    API::URLResponse::create(v41, a6);
     v16 = v41[0];
     if (v41[0])
     {
@@ -1530,7 +1568,7 @@ void WebKit::InjectedBundlePageResourceLoadClient::willSendRequestForFrame(uint6
       v17 = 0;
     }
 
-    v18 = v6(v11, v12, a4, v15, v17, *(a1 + 16));
+    v18 = v6(v11, v12, a4, var1, v17, *(a1 + 16));
     v19 = v18;
     if (v18)
     {
@@ -1552,7 +1590,7 @@ void WebKit::InjectedBundlePageResourceLoadClient::willSendRequestForFrame(uint6
       CFRelease(*(v16 + 1));
     }
 
-    CFRelease(v13[1]);
+    CFRelease(v13->var1);
     if (v19)
     {
       WebCore::ResourceRequestBase::httpBody(v41, (v20 + 2));
@@ -1674,12 +1712,12 @@ void WebKit::InjectedBundlePageResourceLoadClient::didReceiveResponseForResource
   {
     v8 = *(a2 + 8);
     v9 = *(a3 + 8);
-    API::URLResponse::create(this, &v11);
+    API::URLResponse::create(&v11, this);
     v10 = v11;
     if (v11)
     {
-      v5(v8, v9, a4, *(v11 + 1), *(a1 + 16));
-      CFRelease(*(v10 + 1));
+      v5(v8, v9, a4, v11->var1, *(a1 + 16));
+      CFRelease(v10->var1);
     }
 
     else
@@ -1722,8 +1760,8 @@ void WebKit::InjectedBundlePageResourceLoadClient::didFailLoadForResource(uint64
     v10 = v11;
     if (v11)
     {
-      v5(v8, v9, a4, *(v11 + 1), *(a1 + 16));
-      CFRelease(*(v10 + 1));
+      v5(v8, v9, a4, v11->var1, *(a1 + 16));
+      CFRelease(v10->var1);
     }
 
     else
@@ -1868,8 +1906,8 @@ void WebKit::InjectedBundlePageUIClient::willAddMessageToConsole(uint64_t a1, ui
     else if (v13)
     {
 LABEL_9:
-      v6(v9, *(v13 + 1), a6, *(a1 + 16));
-      CFRelease(*(v13 + 1));
+      v6(v9, v13->var1, a6, *(a1 + 16));
+      CFRelease(v13->var1);
       return;
     }
 
@@ -1911,18 +1949,18 @@ void WebKit::InjectedBundlePageUIClient::willAddMessageWithArgumentsToConsole(ui
 
     if (v19)
     {
-      v20 = *(v19 + 1);
+      var1 = v19->var1;
     }
 
     else
     {
-      v20 = 0;
+      var1 = 0;
     }
 
     API::Array::createStringArray(a6, a7, &v26);
     if (v26)
     {
-      v21 = *(v26 + 1);
+      v21 = v26->var1;
     }
 
     else
@@ -1948,8 +1986,8 @@ void WebKit::InjectedBundlePageUIClient::willAddMessageWithArgumentsToConsole(ui
       if (v25)
       {
 LABEL_18:
-        v10(v15, v20, v21, a8, a9, *(v25 + 1), *(a1 + 16));
-        CFRelease(*(v25 + 1));
+        v10(v15, var1, v21, a8, a9, v25->var1, *(a1 + 16));
+        CFRelease(v25->var1);
         if (!v19)
         {
           return;
@@ -1964,11 +2002,11 @@ LABEL_18:
       goto LABEL_18;
     }
 
-    v10(v15, v20, v21, a8, a9, 0, *(a1 + 16));
+    v10(v15, var1, v21, a8, a9, 0, *(a1 + 16));
     if (v19)
     {
 LABEL_19:
-      CFRelease(*(v19 + 1));
+      CFRelease(v19->var1);
     }
   }
 }
@@ -2006,7 +2044,7 @@ void WebKit::InjectedBundlePageUIClient::willRunJavaScriptAlert(WebKit::Injected
       if (v11)
       {
 LABEL_9:
-        v12 = *(v11 + 1);
+        var1 = v11->var1;
         if (a4)
         {
 LABEL_10:
@@ -2017,10 +2055,10 @@ LABEL_10:
 LABEL_16:
         v13 = 0;
 LABEL_11:
-        v4(v7, v12, v13, *(this + 2));
+        v4(v7, var1, v13, *(this + 2));
         if (v11)
         {
-          CFRelease(*(v11 + 1));
+          CFRelease(v11->var1);
         }
 
         return;
@@ -2032,7 +2070,7 @@ LABEL_11:
       goto LABEL_9;
     }
 
-    v12 = 0;
+    var1 = 0;
     if (a4)
     {
       goto LABEL_10;
@@ -2075,7 +2113,7 @@ void WebKit::InjectedBundlePageUIClient::willRunJavaScriptConfirm(WebKit::Inject
       if (v11)
       {
 LABEL_9:
-        v12 = *(v11 + 1);
+        var1 = v11->var1;
         if (a4)
         {
 LABEL_10:
@@ -2086,10 +2124,10 @@ LABEL_10:
 LABEL_16:
         v13 = 0;
 LABEL_11:
-        v4(v7, v12, v13, *(this + 2));
+        v4(v7, var1, v13, *(this + 2));
         if (v11)
         {
-          CFRelease(*(v11 + 1));
+          CFRelease(v11->var1);
         }
 
         return;
@@ -2101,7 +2139,7 @@ LABEL_11:
       goto LABEL_9;
     }
 
-    v12 = 0;
+    var1 = 0;
     if (a4)
     {
       goto LABEL_10;
@@ -2153,11 +2191,11 @@ void WebKit::InjectedBundlePageUIClient::willRunJavaScriptPrompt(WebKit::Injecte
   else if (v13)
   {
 LABEL_9:
-    v14 = *(v13 + 1);
+    var1 = v13->var1;
     goto LABEL_10;
   }
 
-  v14 = 0;
+  var1 = 0;
 LABEL_10:
   v15 = *a4;
   if (*a4)
@@ -2197,7 +2235,7 @@ LABEL_26:
   }
 
 LABEL_15:
-  v19 = *(v18 + 1);
+  v19 = v18->var1;
   if (!a5)
   {
     goto LABEL_26;
@@ -2206,15 +2244,15 @@ LABEL_15:
 LABEL_16:
   v20 = *(a5 + 1);
 LABEL_17:
-  v5(v9, v14, v19, v20, *(this + 2));
+  v5(v9, var1, v19, v20, *(this + 2));
   if (v18)
   {
-    CFRelease(*(v18 + 1));
+    CFRelease(v18->var1);
   }
 
   if (v13)
   {
-    CFRelease(*(v13 + 1));
+    CFRelease(v13->var1);
   }
 }
 
@@ -2237,15 +2275,15 @@ void WebKit::InjectedBundlePageUIClient::mouseDidMoveOverElement(uint64_t a1, ui
     v10 = v15;
     if (v15)
     {
-      v11 = *(v15 + 1);
+      var1 = v15->var1;
     }
 
     else
     {
-      v11 = 0;
+      var1 = 0;
     }
 
-    (*(a1 + 64))(v9, v11, a4 & 0x1F, &v14, *(a1 + 16));
+    (*(a1 + 64))(v9, var1, a4 & 0x1F, &v14, *(a1 + 16));
     v12 = v14;
     if (v14)
     {
@@ -2268,7 +2306,7 @@ void WebKit::InjectedBundlePageUIClient::mouseDidMoveOverElement(uint64_t a1, ui
     if (v10)
     {
 LABEL_10:
-      CFRelease(*(v10 + 1));
+      CFRelease(v10->var1);
     }
   }
 }
@@ -2438,11 +2476,11 @@ LABEL_5:
   else if (v19)
   {
 LABEL_10:
-    v20 = *(v19 + 1);
+    var1 = v19->var1;
     goto LABEL_11;
   }
 
-  v20 = 0;
+  var1 = 0;
 LABEL_11:
   v21 = *a5;
   if (*a5)
@@ -2464,7 +2502,7 @@ LABEL_11:
     }
 
 LABEL_23:
-    v25 = v9(v27, v15, v20, 0, a6, a7, a8, a9, *(this + 2));
+    v25 = v9(v27, v15, var1, 0, a6, a7, a8, a9, *(this + 2));
     if (!v19)
     {
       return v25;
@@ -2480,12 +2518,12 @@ LABEL_23:
   }
 
 LABEL_16:
-  v25 = v9(v27, v15, v20, *(v24 + 1), a6, a7, a8, a9, *(this + 2));
-  CFRelease(*(v24 + 1));
+  v25 = v9(v27, v15, var1, v24->var1, a6, a7, a8, a9, *(this + 2));
+  CFRelease(v24->var1);
   if (v19)
   {
 LABEL_17:
-    CFRelease(*(v19 + 1));
+    CFRelease(v19->var1);
   }
 
   return v25;
@@ -2535,47 +2573,47 @@ void WebKit::InjectedBundlePageUIClient::didResignInputElementStrongPasswordAppe
   }
 }
 
-WTF::StringImpl *WebKit::InjectedBundleScriptWorld::create@<X0>(WebKit::InjectedBundleScriptWorld **a1@<X8>)
+WTF::StringImpl *WebKit::InjectedBundleScriptWorld::create@<X0>(Object **x8_0@<X8>)
 {
-  v2 = WebKit::uniqueWorldName(void)::uniqueWorldNameNumber++;
-  WTF::makeString<WTF::ASCIILiteral,unsigned long long>("UniqueWorld_", 13, v2, &v5);
-  WebKit::InjectedBundleScriptWorld::create(&v5, a1);
-  result = v5;
-  v5 = 0;
+  v3 = WebKit::uniqueWorldName(void)::uniqueWorldNameNumber++;
+  WTF::makeString<WTF::ASCIILiteral,unsigned long long>("UniqueWorld_", 0xD, v3, &v6);
+  WebKit::InjectedBundleScriptWorld::create(&v6, x8_0);
+  result = v6;
+  v6 = 0;
   if (result)
   {
     if (atomic_fetch_add_explicit(result, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      return WTF::StringImpl::destroy(result, v3);
+      return WTF::StringImpl::destroy(result, v4);
     }
   }
 
   return result;
 }
 
-WebCore::DOMWrapperWorld *WebKit::InjectedBundleScriptWorld::create@<X0>(atomic_uint **a1@<X0>, WebKit::InjectedBundleScriptWorld **a2@<X8>)
+WebCore::DOMWrapperWorld *WebKit::InjectedBundleScriptWorld::create@<X0>(atomic_uint **a1@<X0>, Object **a3@<X8>)
 {
-  v4 = API::Object::newObject(0x28uLL, 145);
+  v5 = API::Object::newObject(0x28uLL, 145);
   WebCore::ScriptController::createWorld();
-  WebKit::InjectedBundleScriptWorld::InjectedBundleScriptWorld(v4, v6, a1);
-  *a2 = v4;
-  result = v6;
-  if (v6)
+  WebKit::InjectedBundleScriptWorld::InjectedBundleScriptWorld(v5, v7, a1);
+  *a3 = v5;
+  result = v7;
+  if (v7)
   {
-    return WTF::RefCounted<WebCore::DOMWrapperWorld>::deref(v6);
+    return WTF::RefCounted<WebCore::DOMWrapperWorld>::deref(v7);
   }
 
   return result;
 }
 
-WTF::StringImpl *WebKit::InjectedBundleScriptWorld::getOrCreate@<X0>(WebKit::InjectedBundleScriptWorld *this@<X0>, WebKit::InjectedBundleScriptWorld **a2@<X8>)
+WTF::StringImpl *WebKit::InjectedBundleScriptWorld::getOrCreate@<X0>(uint64_t *__return_ptr a1@<X8>, WebKit::InjectedBundleScriptWorld *this@<X0>)
 {
-  v5 = WebCore::mainThreadNormalWorldSingleton(this);
-  if (v5 == this)
+  v4 = WebCore::mainThreadNormalWorldSingleton(this);
+  if (v4 == this)
   {
-    v6 = WebKit::InjectedBundleScriptWorld::normalWorldSingleton(v5);
-    result = CFRetain(*(v6 + 1));
-    *a2 = v6;
+    v5 = WebKit::InjectedBundleScriptWorld::normalWorldSingleton(v4);
+    result = CFRetain(*(v5 + 1));
+    *a1 = v5;
     return result;
   }
 
@@ -2591,72 +2629,72 @@ WTF::StringImpl *WebKit::InjectedBundleScriptWorld::getOrCreate@<X0>(WebKit::Inj
     goto LABEL_16;
   }
 
-  v8 = *(qword_1ED642C30 - 8);
-  v9 = (this + ~(this << 32)) ^ ((this + ~(this << 32)) >> 22);
-  v10 = 9 * ((v9 + ~(v9 << 13)) ^ ((v9 + ~(v9 << 13)) >> 8));
-  v11 = (v10 ^ (v10 >> 15)) + ~((v10 ^ (v10 >> 15)) << 27);
-  v12 = v8 & ((v11 >> 31) ^ v11);
+  v7 = *(qword_1ED642C30 - 8);
+  v8 = (this + ~(this << 32)) ^ ((this + ~(this << 32)) >> 22);
+  v9 = 9 * ((v8 + ~(v8 << 13)) ^ ((v8 + ~(v8 << 13)) >> 8));
+  v10 = (v9 ^ (v9 >> 15)) + ~((v9 ^ (v9 >> 15)) << 27);
+  v11 = v7 & ((v10 >> 31) ^ v10);
   for (i = 1; ; ++i)
   {
-    v14 = *(qword_1ED642C30 + 16 * v12);
-    if (!v14)
+    v13 = *(qword_1ED642C30 + 16 * v11);
+    if (!v13)
     {
       goto LABEL_16;
     }
 
-    if (v14 != -1)
+    if (v13 != -1)
     {
-      v15 = *(v14 + 8);
-      if (!v15)
+      v14 = *(v13 + 8);
+      if (!v14)
       {
         __break(0xC471u);
         goto LABEL_22;
       }
 
-      if (v15 == this)
+      if (v14 == this)
       {
         break;
       }
     }
 
-    v12 = (v12 + i) & v8;
+    v11 = (v11 + i) & v7;
   }
 
-  v16 = *(qword_1ED642C30 + 16 * v12 + 8);
-  if (v16)
+  v15 = *(qword_1ED642C30 + 16 * v11 + 8);
+  if (v15)
   {
-    v17 = *(v16 + 8);
-    if (v17)
+    v16 = *(v15 + 8);
+    if (v16)
     {
-      result = CFRetain(v17[1]);
-      *a2 = v17;
+      result = CFRetain(*(v16 + 8));
+      *a1 = v16;
       return result;
     }
   }
 
 LABEL_16:
-  v18 = API::Object::newObject(0x28uLL, 145);
-  v19 = WebKit::uniqueWorldName(void)::uniqueWorldNameNumber++;
-  v23[0] = "UniqueWorld_";
-  v23[1] = 13;
-  v22 = v19;
-  WTF::tryMakeString<WTF::ASCIILiteral,unsigned long long>(v23, &v22, &v21);
-  if (!v21)
+  v17 = API::Object::newObject(0x28uLL, 145);
+  v18 = WebKit::uniqueWorldName(void)::uniqueWorldNameNumber++;
+  v22[0] = "UniqueWorld_";
+  v22[1] = 13;
+  v21 = v18;
+  WTF::tryMakeString<WTF::ASCIILiteral,unsigned long long>(v22, &v21, &v20);
+  if (!v20)
   {
     __break(0xC471u);
 LABEL_22:
     JUMPOUT(0x19E2E3208);
   }
 
-  WebKit::InjectedBundleScriptWorld::InjectedBundleScriptWorld(v18, this, &v21);
-  *a2 = v18;
-  result = v21;
-  v21 = 0;
+  WebKit::InjectedBundleScriptWorld::InjectedBundleScriptWorld(v17, this, &v20);
+  *a1 = v17;
+  result = v20;
+  v20 = 0;
   if (result)
   {
     if (atomic_fetch_add_explicit(result, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      return WTF::StringImpl::destroy(result, v20);
+      return WTF::StringImpl::destroy(result, v19);
     }
   }
 
@@ -2731,7 +2769,7 @@ WebKit::InjectedBundleScriptWorld *WebKit::InjectedBundleScriptWorld::InjectedBu
   }
 
   v12 = qword_1ED642C30;
-  if (qword_1ED642C30 || (WTF::HashTable<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::KeyValuePair<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>>,WTF::DefaultHash<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashMap<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>,WTF::DefaultHash<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::FastMalloc>::expand(), (v12 = qword_1ED642C30) != 0))
+  if (qword_1ED642C30 || (WTF::HashTable<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::KeyValuePair<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>>,WTF::DefaultHash<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashMap<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>,WTF::DefaultHash<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::FastMalloc>::expand(0), (v12 = qword_1ED642C30) != 0))
   {
     v13 = *(v12 - 8);
   }
@@ -2802,7 +2840,7 @@ WebKit::InjectedBundleScriptWorld *WebKit::InjectedBundleScriptWorld::InjectedBu
     goto LABEL_23;
   }
 
-  WTF::HashTable<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::KeyValuePair<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>>,WTF::DefaultHash<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashMap<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>,WTF::DefaultHash<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::FastMalloc>::expand();
+  WTF::HashTable<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::KeyValuePair<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>>,WTF::DefaultHash<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashMap<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>,WTF::DefaultHash<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::FastMalloc>::expand(v18);
 LABEL_23:
   if (v26)
   {
@@ -2968,7 +3006,7 @@ LABEL_8:
   return result;
 }
 
-void WKBundlePostSynchronousMessage(void *a1, void *a2, void *a3, API::Object **a4)
+void WKBundlePostSynchronousMessage(void *a1, void *a2, void *a3, CFTypeRef **a4)
 {
   v14 = 0;
   if (a1)
@@ -3274,16 +3312,16 @@ uint64_t WKBundleResetOriginAccessAllowLists(void *a1)
   return WebKit::InjectedBundle::resetOriginAccessAllowLists(v1);
 }
 
-uint64_t WKBundleSetAsynchronousSpellCheckingEnabledForTesting(void *a1, char a2)
+uint64_t WKBundleSetAsynchronousSpellCheckingEnabledForTesting(void *a1, unint64_t a2)
 {
   if (a1)
   {
     a1 = [a1 _apiObject];
   }
 
-  v3 = WTF::downcast<WebKit::InjectedBundle,API::Object>(a1);
+  WTF::downcast<WebKit::InjectedBundle,API::Object>(a1);
 
-  return WebKit::InjectedBundle::setAsynchronousSpellCheckingEnabled(v3, a2);
+  return WebKit::InjectedBundle::setAsynchronousSpellCheckingEnabled(a2, v3);
 }
 
 void *WKBundleGetLiveDocumentURLsForTesting(void *a1, char a2)
@@ -3360,12 +3398,12 @@ LABEL_16:
       API::String::create(&v30);
       if (v30)
       {
-        v21 = *(v30 + 1);
+        var1 = v30->var1;
       }
 
       else
       {
-        v21 = 0;
+        var1 = 0;
       }
 
       v22 = v28;
@@ -3378,7 +3416,7 @@ LABEL_16:
       API::String::create(&v30);
       if (v30)
       {
-        v23 = *(v30 + 1);
+        v23 = v30->var1;
       }
 
       else
@@ -3386,7 +3424,7 @@ LABEL_16:
         v23 = 0;
       }
 
-      WKDictionarySetItem(v15, v17, v21);
+      WKDictionarySetItem(v15, v17, var1);
       WKDictionarySetItem(v15, v19, v23);
       WKArrayAppendItem(v5, v15);
       if (v23)
@@ -3394,9 +3432,9 @@ LABEL_16:
         CFRelease(*([(CFTypeRef *)v23 _apiObject]+ 8));
       }
 
-      if (v21)
+      if (var1)
       {
-        CFRelease(*([(CFTypeRef *)v21 _apiObject]+ 8));
+        CFRelease(*([(CFTypeRef *)var1 _apiObject]+ 8));
       }
 
       if (v19)
@@ -3460,33 +3498,33 @@ LABEL_16:
   return v5;
 }
 
-WTF::StringImpl *WKBundleSetDatabaseQuota(WebCore::DatabaseTracker *a1)
+WTF::StringImpl *WKBundleSetDatabaseQuota(WebCore::DatabaseTracker *a1, unint64_t a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = WebCore::DatabaseTracker::singleton(a1);
+  v11 = *MEMORY[0x1E69E9840];
+  v2 = WebCore::DatabaseTracker::singleton(a1);
   WebCore::SecurityOriginData::fromDatabaseIdentifier();
-  if ((v9 & 1) == 0)
+  if ((v10 & 1) == 0)
   {
     __break(1u);
   }
 
-  result = WebCore::DatabaseTracker::setQuota(v1, &v6);
-  if (v9 == 1 && v8 == 0)
+  result = WebCore::DatabaseTracker::setQuota(v2, &v7);
+  if (v10 == 1 && v9 == 0)
   {
-    v5 = v7;
-    v7 = 0;
-    if (v5 && atomic_fetch_add_explicit(v5, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    v6 = v8;
+    v8 = 0;
+    if (v6 && atomic_fetch_add_explicit(v6, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v5, v3);
+      WTF::StringImpl::destroy(v6, v4);
     }
 
-    result = v6;
-    v6 = 0;
+    result = v7;
+    v7 = 0;
     if (result)
     {
       if (atomic_fetch_add_explicit(result, 0xFFFFFFFE, memory_order_relaxed) == 2)
       {
-        return WTF::StringImpl::destroy(result, v3);
+        return WTF::StringImpl::destroy(result, v4);
       }
     }
   }
@@ -3494,7 +3532,7 @@ WTF::StringImpl *WKBundleSetDatabaseQuota(WebCore::DatabaseTracker *a1)
   return result;
 }
 
-uint64_t WKBundleCreateWKDataFromUInt8Array(void *a1, uint64_t a2, const OpaqueJSValue *a3)
+uint64_t WKBundleCreateWKDataFromUInt8Array(void *a1, const OpaqueJSContext *a2, const OpaqueJSValue *a3)
 {
   if (a1)
   {
@@ -3502,10 +3540,10 @@ uint64_t WKBundleCreateWKDataFromUInt8Array(void *a1, uint64_t a2, const OpaqueJ
   }
 
   WTF::downcast<WebKit::InjectedBundle,API::Object>(a1);
-  WebKit::InjectedBundle::createWebDataFromUint8Array(a3, &v5);
+  WebKit::InjectedBundle::createWebDataFromUint8Array(&v5, a3);
   if (v5)
   {
-    return *(v5 + 1);
+    return *(v5 + 8);
   }
 
   else
@@ -3564,7 +3602,7 @@ uint64_t WKBundlePageNumberForElementById(void *a1, void *a2, void *a3, double a
   return v13;
 }
 
-uint64_t WKBundlePageSizeAndMarginsInPixels(void *a1, void *a2, WebCore::LocalFrame *a3, int a4, int a5, int a6, int a7, int a8, int a9)
+void *WKBundlePageSizeAndMarginsInPixels(void *a1, void *a2, WebCore::LocalFrame *a3, int a4, int a5, int a6, int a7, int a8, int a9)
 {
   if (a1)
   {
@@ -3577,12 +3615,12 @@ uint64_t WKBundlePageSizeAndMarginsInPixels(void *a1, void *a2, WebCore::LocalFr
   API::String::create(&v22);
   if (v22)
   {
-    v18 = *(v22 + 1);
+    var1 = v22->var1;
   }
 
   else
   {
-    v18 = 0;
+    var1 = 0;
   }
 
   v19 = v21;
@@ -3592,7 +3630,7 @@ uint64_t WKBundlePageSizeAndMarginsInPixels(void *a1, void *a2, WebCore::LocalFr
     WTF::StringImpl::destroy(v19, v17);
   }
 
-  return v18;
+  return var1;
 }
 
 uint64_t WKBundleIsPageBoxVisible(void *a1, void *a2, WebCore::LocalFrame *a3)
@@ -3615,32 +3653,32 @@ WTF::StringImpl *WKBundleSetUserStyleSheetLocationForTesting(void *a1, void *a2)
     a1 = [a1 _apiObject];
   }
 
-  v3 = WTF::downcast<WebKit::InjectedBundle,API::Object>(a1);
+  WTF::downcast<WebKit::InjectedBundle,API::Object>(a1);
   if (a2)
   {
-    WebKit::toProtectedImpl<OpaqueWKString const*,API::String>(a2, &v8);
+    WebKit::toProtectedImpl<OpaqueWKString const*,API::String>(a2, &v7);
     WTF::String::isolatedCopy();
-    v4 = v8;
-    v8 = 0;
-    if (v4)
+    v3 = v7;
+    v7 = 0;
+    if (v3)
     {
-      CFRelease(*(v4 + 8));
+      CFRelease(*(v3 + 8));
     }
   }
 
   else
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  WebKit::InjectedBundle::setUserStyleSheetLocation(v3, &v7);
-  result = v7;
-  v7 = 0;
+  WebKit::InjectedBundle::setUserStyleSheetLocation(&v6, v3);
+  result = v6;
+  v6 = 0;
   if (result)
   {
     if (atomic_fetch_add_explicit(result, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      return WTF::StringImpl::destroy(result, v5);
+      return WTF::StringImpl::destroy(result, v4);
     }
   }
 
@@ -3670,9 +3708,9 @@ uint64_t WKBundleCopyWebNotificationID(void *a1, const OpaqueJSContext *a2, JSVa
 
   WTF::downcast<WebKit::InjectedBundle,API::Object>(a1);
   WebKit::InjectedBundle::webNotificationID(a2, a3, v7);
-  if (v7[16] == 1 && (API::Data::create(0x10, v7, &v6), v6))
+  if (v7[16] == 1 && (API::Data::create(v7, 0x10, &v6), v6))
   {
-    return *(v6 + 1);
+    return *(v6 + 8);
   }
 
   else
@@ -3708,14 +3746,14 @@ uint64_t WKBundleResourceLoadStatisticsNotifyObserver(WebCore::ResourceLoadObser
   if (v5)
   {
     v6 = WebCore::ResourceLoadObserver::shared(v5);
-    v7 = WTF::fastMalloc(0x18);
-    *v7 = &unk_1F112B688;
-    v7[1] = a2;
-    v7[2] = a3;
-    v10 = v7;
-    (*(*v6 + 96))(v6, &v10);
-    result = v10;
-    v10 = 0;
+    v8 = WTF::fastMalloc(v7, 0x18);
+    *v8 = &unk_1F112B688;
+    v8[1] = a2;
+    v8[2] = a3;
+    v11 = v8;
+    (*(*v6 + 96))(v6, &v11);
+    result = v11;
+    v11 = 0;
     if (result)
     {
       return (*(*result + 8))(result);
@@ -3810,7 +3848,7 @@ uint64_t WebKit::toImpl<OpaqueWKBundleDOMWindowExtension const*,WebKit::Injected
 uint64_t WKBundleDOMWindowExtensionGetScriptWorld(void *a1)
 {
   v1 = WebKit::toImpl<OpaqueWKBundleDOMWindowExtension const*,WebKit::InjectedBundleDOMWindowExtension>(a1);
-  result = WebKit::InjectedBundleDOMWindowExtension::world(v1);
+  result = WebKit::InjectedBundleDOMWindowExtension::world(v1, v2);
   if (result)
   {
     return *(result + 8);
@@ -3829,7 +3867,7 @@ BOOL WKBundleFrameIsMainFrame(void *a1)
 const void *WKBundleFrameGetParentFrame(void *a1)
 {
   v1 = WebKit::toImpl<OpaqueWKBundleFrame const*,WebKit::WebFrame>(a1);
-  WebKit::WebFrame::parentFrame(v1, &v4);
+  WebKit::WebFrame::parentFrame(&v4, v1);
   if (!v4)
   {
     return 0;
@@ -3849,7 +3887,7 @@ uint64_t WKBundleFrameCopyURL(void *a1)
     return 0;
   }
 
-  API::URL::create(v6, &v7);
+  API::URL::create(&v7, v6);
   if (v7)
   {
     v3 = *(v7 + 1);
@@ -3873,13 +3911,13 @@ uint64_t WKBundleFrameCopyURL(void *a1)
 uint64_t WKBundleFrameCopyProvisionalURL(void *a1)
 {
   v1 = WebKit::toImpl<OpaqueWKBundleFrame const*,WebKit::WebFrame>(a1);
-  WebKit::WebFrame::provisionalURL(v1, &v6);
+  WebKit::WebFrame::provisionalURL(&v6, v1);
   if (!v6)
   {
     return 0;
   }
 
-  API::URL::create(&v6, &v7);
+  API::URL::create(&v7, &v6);
   if (v7)
   {
     v3 = *(v7 + 1);
@@ -3932,13 +3970,13 @@ uint64_t WKBundleFrameGetFrameLoadState(void *a1)
   return result;
 }
 
-uint64_t WKBundleFrameCopyChildFrames(void *a1)
+void *WKBundleFrameCopyChildFrames(void *a1)
 {
   v1 = WebKit::toImpl<OpaqueWKBundleFrame const*,WebKit::WebFrame>(a1);
-  WebKit::WebFrame::childFrames(v1, &v3);
+  WebKit::WebFrame::childFrames(&v3, v1);
   if (v3)
   {
-    return *(v3 + 1);
+    return v3->var1;
   }
 
   else
@@ -3956,7 +3994,7 @@ uint64_t WKBundleFrameGetJavaScriptContext(void *a1)
 
 const void *WKBundleFrameForJavaScriptContext(WebKit::WebFrame *a1, const OpaqueJSContext *a2)
 {
-  WebKit::WebFrame::frameForContext(a1, a2, &v4);
+  WebKit::WebFrame::frameForContext(&v4, a1, a2);
   if (!v4)
   {
     return 0;
@@ -4015,19 +4053,19 @@ uint64_t WKBundleFrameGetJavaScriptWrapperForRangeForWorld(void *a1, WebKit::Inj
   return result;
 }
 
-uint64_t WKBundleFrameCopyName(void *a1)
+void *WKBundleFrameCopyName(void *a1)
 {
   v1 = WebKit::toImpl<OpaqueWKBundleFrame const*,WebKit::WebFrame>(a1);
-  WebKit::WebFrame::name(v1, &v6);
+  WebKit::WebFrame::name(&v6, v1);
   API::String::create(&v7);
   if (v7)
   {
-    v3 = *(v7 + 1);
+    var1 = v7->var1;
   }
 
   else
   {
-    v3 = 0;
+    var1 = 0;
   }
 
   v4 = v6;
@@ -4037,22 +4075,22 @@ uint64_t WKBundleFrameCopyName(void *a1)
     WTF::StringImpl::destroy(v4, v2);
   }
 
-  return v3;
+  return var1;
 }
 
-uint64_t WKBundleFrameCopyCounterValue(void *a1, uint64_t a2)
+void *WKBundleFrameCopyCounterValue(void *a1, WebKit::WebFrame *a2)
 {
   WebKit::toImpl<OpaqueWKBundleFrame const*,WebKit::WebFrame>(a1);
-  WebKit::WebFrame::counterValue(a2, v3, &v8);
+  WebKit::WebFrame::counterValue(&v8, a2, v3);
   API::String::create(&v9);
   if (v9)
   {
-    v5 = *(v9 + 1);
+    var1 = v9->var1;
   }
 
   else
   {
-    v5 = 0;
+    var1 = 0;
   }
 
   v6 = v8;
@@ -4062,7 +4100,7 @@ uint64_t WKBundleFrameCopyCounterValue(void *a1, uint64_t a2)
     WTF::StringImpl::destroy(v6, v4);
   }
 
-  return v5;
+  return var1;
 }
 
 uint64_t WKBundleFrameGetPendingUnloadCount(void *a1)
@@ -4075,7 +4113,7 @@ uint64_t WKBundleFrameGetPendingUnloadCount(void *a1)
 uint64_t WKBundleFrameGetPage(void *a1)
 {
   v1 = WebKit::toImpl<OpaqueWKBundleFrame const*,WebKit::WebFrame>(a1);
-  result = WebKit::WebFrame::page(v1);
+  result = WebKit::WebFrame::page(v1, v2);
   if (result)
   {
     return *(result + 8);
@@ -4091,19 +4129,19 @@ uint64_t WKBundleFrameStopLoading(void *a1)
   return WebKit::WebFrame::stopLoading(v1);
 }
 
-uint64_t WKBundleFrameCopyLayerTreeAsText(void *a1)
+void *WKBundleFrameCopyLayerTreeAsText(void *a1)
 {
   v1 = WebKit::toImpl<OpaqueWKBundleFrame const*,WebKit::WebFrame>(a1);
-  WebKit::WebFrame::layerTreeAsText(v1, &v6);
+  WebKit::WebFrame::layerTreeAsText(&v6, v1);
   API::String::create(&v7);
   if (v7)
   {
-    v3 = *(v7 + 1);
+    var1 = v7->var1;
   }
 
   else
   {
-    v3 = 0;
+    var1 = 0;
   }
 
   v4 = v6;
@@ -4113,7 +4151,7 @@ uint64_t WKBundleFrameCopyLayerTreeAsText(void *a1)
     WTF::StringImpl::destroy(v4, v2);
   }
 
-  return v3;
+  return var1;
 }
 
 uint64_t WKBundleFrameAllowsFollowingLink(void *a1, uint64_t a2)
@@ -4191,7 +4229,7 @@ uint64_t WKBundleFrameGetDocumentBackgroundColor(void *a1, double *a2, double *a
   return WebKit::WebFrame::getDocumentBackgroundColor(v9, a2, a3, a4, a5);
 }
 
-uint64_t WKBundleFrameCopySuggestedFilenameForResourceWithURL(void *a1, uint64_t a2)
+void *WKBundleFrameCopySuggestedFilenameForResourceWithURL(void *a1, uint64_t a2)
 {
   v3 = WebKit::toImpl<OpaqueWKBundleFrame const*,WebKit::WebFrame>(a1);
   if (!a2)
@@ -4222,16 +4260,16 @@ LABEL_7:
 
 LABEL_8:
   MEMORY[0x19EB01DD0](v13, &v12, 0);
-  WebKit::WebFrame::suggestedFilenameForResourceWithURL(v3, v13, &v14);
+  WebKit::WebFrame::suggestedFilenameForResourceWithURL(&v14, v3, v13);
   API::String::create(&v15);
   if (v15)
   {
-    v7 = *(v15 + 1);
+    var1 = v15->var1;
   }
 
   else
   {
-    v7 = 0;
+    var1 = 0;
   }
 
   v8 = v14;
@@ -4255,10 +4293,10 @@ LABEL_8:
     WTF::StringImpl::destroy(v10, v6);
   }
 
-  return v7;
+  return var1;
 }
 
-uint64_t WKBundleFrameCopyMIMETypeForResourceWithURL(void *a1, uint64_t a2)
+void *WKBundleFrameCopyMIMETypeForResourceWithURL(void *a1, uint64_t a2)
 {
   v3 = WebKit::toImpl<OpaqueWKBundleFrame const*,WebKit::WebFrame>(a1);
   if (!a2)
@@ -4289,16 +4327,16 @@ LABEL_7:
 
 LABEL_8:
   MEMORY[0x19EB01DD0](v13, &v12, 0);
-  WebKit::WebFrame::mimeTypeForResourceWithURL(v3, v13, &v14);
+  WebKit::WebFrame::mimeTypeForResourceWithURL(&v14, v3, v13);
   API::String::create(&v15);
   if (v15)
   {
-    v7 = *(v15 + 1);
+    var1 = v15->var1;
   }
 
   else
   {
-    v7 = 0;
+    var1 = 0;
   }
 
   v8 = v14;
@@ -4322,7 +4360,7 @@ LABEL_8:
     WTF::StringImpl::destroy(v10, v6);
   }
 
-  return v7;
+  return var1;
 }
 
 uint64_t WKBundleFrameContainsAnyFormElements(void *a1)
@@ -4376,7 +4414,7 @@ WTF::StringImpl *WKBundleFrameSetTextDirection(WTF::StringImpl *result, void *a2
   return result;
 }
 
-void *WKBundleFrameSetAccessibleName(void *result, WTF::StringImpl *a2)
+WTF::StringImpl *WKBundleFrameSetAccessibleName(WTF::StringImpl *result, WTF::StringImpl *a2)
 {
   if (result)
   {
@@ -4449,10 +4487,10 @@ uint64_t WKBundleFrameCopyWebArchiveFilteringSubframes(void *a1, uint64_t a2, ui
 
   BytePtr = CFDataGetBytePtr(theData);
   Length = CFDataGetLength(theData);
-  API::Data::create(Length, BytePtr, v14);
+  API::Data::create(BytePtr, Length, v14);
   if (v14[0])
   {
-    v10 = *(v14[0] + 1);
+    v10 = *(v14[0] + 8);
   }
 
   else
@@ -4494,13 +4532,13 @@ uint64_t WKBundleFrameCallShouldCloseOnWebView(void *a1)
   return WebCore::FrameLoader::shouldClose(v3);
 }
 
-uint64_t WKBundleFrameCreateHitTestResult(void *a1)
+uint64_t WKBundleFrameCreateHitTestResult(void *a1, double a2, double a3)
 {
-  v1 = WebKit::toImpl<OpaqueWKBundleFrame const*,WebKit::WebFrame>(a1);
-  WebKit::WebFrame::hitTest(v1, &v3);
-  if (v3)
+  v3 = WebKit::toImpl<OpaqueWKBundleFrame const*,WebKit::WebFrame>(a1);
+  WebKit::WebFrame::hitTest(v3, &v5);
+  if (v5)
   {
-    return *(v3 + 8);
+    return *(v5 + 8);
   }
 
   else
@@ -4509,12 +4547,12 @@ uint64_t WKBundleFrameCreateHitTestResult(void *a1)
   }
 }
 
-uint64_t WKBundleFrameCopySecurityOrigin(void *a1)
+void *WKBundleFrameCopySecurityOrigin(void *a1)
 {
   v1 = *(WebKit::toImpl<OpaqueWKBundleFrame const*,WebKit::WebFrame>(a1) + 40);
   if (v1 && (v2 = *(v1 + 8)) != 0 && (*(v2 + 136) & 1) == 0 && (WebCore::SecurityContext::securityOrigin((*(v2 + 224) + 208)), API::SecurityOrigin::create(&v4), v4))
   {
-    return *(v4 + 8);
+    return v4->var1;
   }
 
   else
@@ -4795,46 +4833,46 @@ LABEL_30:
 
 void API::InjectedBundle::PageUIClient::plugInStartLabelTitle(atomic_uint **a1@<X8>)
 {
-  v3 = *MEMORY[0x1E696EBA8];
+  v1 = *MEMORY[0x1E696EBA8];
   if (*MEMORY[0x1E696EBA8])
   {
-    atomic_fetch_add_explicit(v3, 2u, memory_order_relaxed);
+    atomic_fetch_add_explicit(v1, 2u, memory_order_relaxed);
   }
 
-  *a1 = v3;
+  *a1 = v1;
 }
 
 void API::InjectedBundle::PageUIClient::plugInStartLabelSubtitle(atomic_uint **a1@<X8>)
 {
-  v3 = *MEMORY[0x1E696EBA8];
+  v1 = *MEMORY[0x1E696EBA8];
   if (*MEMORY[0x1E696EBA8])
   {
-    atomic_fetch_add_explicit(v3, 2u, memory_order_relaxed);
+    atomic_fetch_add_explicit(v1, 2u, memory_order_relaxed);
   }
 
-  *a1 = v3;
+  *a1 = v1;
 }
 
 void API::InjectedBundle::PageUIClient::plugInExtraStyleSheet(atomic_uint **a1@<X8>)
 {
-  v2 = *MEMORY[0x1E696EBA8];
+  v1 = *MEMORY[0x1E696EBA8];
   if (*MEMORY[0x1E696EBA8])
   {
-    atomic_fetch_add_explicit(v2, 2u, memory_order_relaxed);
+    atomic_fetch_add_explicit(v1, 2u, memory_order_relaxed);
   }
 
-  *a1 = v2;
+  *a1 = v1;
 }
 
 void API::InjectedBundle::PageUIClient::plugInExtraScript(atomic_uint **a1@<X8>)
 {
-  v2 = *MEMORY[0x1E696EBA8];
+  v1 = *MEMORY[0x1E696EBA8];
   if (*MEMORY[0x1E696EBA8])
   {
-    atomic_fetch_add_explicit(v2, 2u, memory_order_relaxed);
+    atomic_fetch_add_explicit(v1, 2u, memory_order_relaxed);
   }
 
-  *a1 = v2;
+  *a1 = v1;
 }
 
 uint64_t WebKit::InjectedBundleClient::operator new(WebKit::InjectedBundleClient *this, void *a2)
@@ -4850,17 +4888,19 @@ uint64_t WebKit::InjectedBundleClient::operator new(WebKit::InjectedBundleClient
   }
 }
 
-_DWORD *WTF::HashTable<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::KeyValuePair<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>>,WTF::DefaultHash<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashMap<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>,WTF::DefaultHash<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::FastMalloc>::expand()
+_DWORD *WTF::HashTable<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::KeyValuePair<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>>,WTF::DefaultHash<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashMap<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>,WTF::DefaultHash<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::FastMalloc>::expand(unint64_t a1)
 {
-  if (qword_1ED642C30 && (v0 = *(qword_1ED642C30 - 4)) != 0)
+  if (qword_1ED642C30 && (v2 = *(qword_1ED642C30 - 4)) != 0)
   {
-    return WTF::HashTable<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::KeyValuePair<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>>,WTF::DefaultHash<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashMap<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>,WTF::DefaultHash<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::FastMalloc>::rehash(v0 << (6 * *(qword_1ED642C30 - 12) >= (2 * v0)));
+    v3 = v2 << (6 * *(qword_1ED642C30 - 12) >= (2 * v2));
   }
 
   else
   {
-    return WTF::HashTable<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::KeyValuePair<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>>,WTF::DefaultHash<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashMap<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>,WTF::DefaultHash<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::FastMalloc>::rehash(8u);
+    v3 = 8;
   }
+
+  return WTF::HashTable<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::KeyValuePair<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>>,WTF::DefaultHash<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashMap<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>,WTF::DefaultHash<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::FastMalloc>::rehash(v3, a1);
 }
 
 unsigned int *WTF::HashMapTranslator<WTF::HashMap<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>,WTF::DefaultHash<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::DefaultHash<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>>::translate<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::KeyValuePair<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>,WTF::HashTableAddResult<WTF::HashTableIterator<WTF::HashTable<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::KeyValuePair<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>>,WTF::DefaultHash<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashMap<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>,WTF::DefaultHash<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::FastMalloc>,WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::KeyValuePair<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>>,WTF::DefaultHash<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashMap<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>,WTF::DefaultHash<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>>> WTF::HashMap<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>,WTF::DefaultHash<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::inlineAdd<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WebKit::InjectedBundleScriptWorld&>(WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl> &&,WebKit::InjectedBundleScriptWorld&)::{lambda(void)#1}>(uint64_t a1, uint64_t *a2, uint64_t *a3)
@@ -4914,19 +4954,19 @@ unsigned int *WTF::HashMapTranslator<WTF::HashMap<WTF::WeakRef<WebCore::DOMWrapp
   return result;
 }
 
-_DWORD *WTF::HashTable<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::KeyValuePair<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>>,WTF::DefaultHash<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashMap<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>,WTF::DefaultHash<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::FastMalloc>::rehash(unsigned int a1)
+_DWORD *WTF::HashTable<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::KeyValuePair<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>>,WTF::DefaultHash<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashMap<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>,WTF::DefaultHash<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::FastMalloc>::rehash(unsigned int a1, unint64_t a2)
 {
-  v2 = qword_1ED642C30;
+  v3 = qword_1ED642C30;
   if (qword_1ED642C30)
   {
-    v3 = *(qword_1ED642C30 - 4);
-    v4 = *(qword_1ED642C30 - 12);
+    v4 = *(qword_1ED642C30 - 4);
+    v5 = *(qword_1ED642C30 - 12);
   }
 
   else
   {
-    v3 = 0;
     v4 = 0;
+    v5 = 0;
   }
 
   result = WTF::fastZeroedMalloc((16 * a1 + 16));
@@ -4934,36 +4974,36 @@ _DWORD *WTF::HashTable<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWe
   result[2] = a1 - 1;
   result[3] = a1;
   *result = 0;
-  result[1] = v4;
-  if (v3)
+  result[1] = v5;
+  if (v4)
   {
-    v7 = v3;
-    v8 = v2;
+    v8 = v4;
+    v9 = v3;
     do
     {
-      if (*v8 != -1)
+      if (*v9 != -1)
       {
-        if (*v8)
+        if (*v9)
         {
-          WTF::HashTable<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::KeyValuePair<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>>,WTF::DefaultHash<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashMap<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>,WTF::DefaultHash<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::FastMalloc>::reinsert(v8);
+          WTF::HashTable<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::KeyValuePair<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>>,WTF::DefaultHash<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashMap<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>,WTF::DefaultHash<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::FastMalloc>::reinsert(v9);
         }
 
-        WTF::KeyValuePair<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>::~KeyValuePair(v8, v6);
+        WTF::KeyValuePair<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>::~KeyValuePair(v9, v7);
       }
 
-      v8 += 2;
-      --v7;
+      v9 += 2;
+      --v8;
     }
 
-    while (v7);
+    while (v8);
   }
 
-  else if (!v2)
+  else if (!v3)
   {
     return result;
   }
 
-  return WTF::fastFree((v2 - 16), v6);
+  return WTF::fastFree((v3 - 16), v7);
 }
 
 uint64_t WTF::KeyValuePair<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>::~KeyValuePair(uint64_t a1, void *a2)
@@ -5079,33 +5119,33 @@ BOOL WTF::PtrHashBase<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWea
   return v2 == a1;
 }
 
-uint64_t WTF::HashMap<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>,WTF::DefaultHash<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::remove(uint64_t a1, void *a2)
+uint64_t WTF::HashMap<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>,WTF::DefaultHash<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::remove(uint64_t result, void *a2)
 {
   if (qword_1ED642C30)
   {
     v2 = qword_1ED642C30 + 16 * *(qword_1ED642C30 - 4);
-    if (v2 == a1)
+    if (v2 == result)
     {
-      return a1;
+      return result;
     }
   }
 
   else
   {
-    if (!a1)
+    if (!result)
     {
-      return a1;
+      return result;
     }
 
     v2 = 0;
   }
 
-  if (v2 != a1)
+  if (v2 != result)
   {
-    return WTF::HashTable<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::KeyValuePair<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>>,WTF::DefaultHash<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashMap<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>,WTF::DefaultHash<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::FastMalloc>::remove(a1, a2);
+    return WTF::HashTable<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::KeyValuePair<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>>,WTF::DefaultHash<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashMap<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>,WTF::DefaultHash<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::FastMalloc>::remove(result, a2);
   }
 
-  return a1;
+  return result;
 }
 
 unsigned int *WTF::HashTable<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::KeyValuePair<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>>,WTF::DefaultHash<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashMap<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>,WTF::DefaultHash<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::FastMalloc>::remove(uint64_t a1, void *a2)
@@ -5118,7 +5158,7 @@ unsigned int *WTF::HashTable<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleTh
   if (6 * v4.i32[1] < v5 && v5 >= 9)
   {
 
-    return WTF::HashTable<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::KeyValuePair<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>>,WTF::DefaultHash<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashMap<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>,WTF::DefaultHash<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::FastMalloc>::rehash(v5 >> 1);
+    return WTF::HashTable<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::KeyValuePair<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>>,WTF::DefaultHash<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashMap<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>,WTF::DefaultHash<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebKit::InjectedBundleScriptWorld,WTF::DefaultWeakPtrImpl>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::WeakRef<WebCore::DOMWrapperWorld,WTF::SingleThreadWeakPtrImpl>>,WTF::FastMalloc>::rehash(v5 >> 1, 0);
   }
 
   return result;
@@ -5299,7 +5339,7 @@ uint64_t WKBundleHitTestResultCopyAbsoluteImageURL(void *a1)
     return 0;
   }
 
-  API::URL::create(&v6, &v7);
+  API::URL::create(&v7, &v6);
   if (v7)
   {
     v3 = *(v7 + 1);
@@ -5329,7 +5369,7 @@ uint64_t WKBundleHitTestResultCopyAbsolutePDFURL(void *a1)
     return 0;
   }
 
-  API::URL::create(&v6, &v7);
+  API::URL::create(&v7, &v6);
   if (v7)
   {
     v3 = *(v7 + 1);
@@ -5359,7 +5399,7 @@ uint64_t WKBundleHitTestResultCopyAbsoluteLinkURL(void *a1)
     return 0;
   }
 
-  API::URL::create(&v6, &v7);
+  API::URL::create(&v7, &v6);
   if (v7)
   {
     v3 = *(v7 + 1);
@@ -5389,7 +5429,7 @@ uint64_t WKBundleHitTestResultCopyAbsoluteMediaURL(void *a1)
     return 0;
   }
 
-  API::URL::create(&v6, &v7);
+  API::URL::create(&v7, &v6);
   if (v7)
   {
     v3 = *(v7 + 1);
@@ -5468,19 +5508,19 @@ uint64_t WKBundleHitTestResultGetIsSelected(void *a1)
   return WebCore::HitTestResult::isSelected(v1);
 }
 
-uint64_t WKBundleHitTestResultCopyLinkLabel(void *a1)
+void *WKBundleHitTestResultCopyLinkLabel(void *a1)
 {
   v1 = WebKit::toImpl<OpaqueWKBundleHitTestResult const*,WebKit::InjectedBundleHitTestResult>(a1);
   WebCore::HitTestResult::textContent(&v6, (v1 + 16));
   API::String::create(&v7);
   if (v7)
   {
-    v3 = *(v7 + 1);
+    var1 = v7->var1;
   }
 
   else
   {
-    v3 = 0;
+    var1 = 0;
   }
 
   v4 = v6;
@@ -5490,22 +5530,22 @@ uint64_t WKBundleHitTestResultCopyLinkLabel(void *a1)
     WTF::StringImpl::destroy(v4, v2);
   }
 
-  return v3;
+  return var1;
 }
 
-uint64_t WKBundleHitTestResultCopyLinkTitle(void *a1)
+void *WKBundleHitTestResultCopyLinkTitle(void *a1)
 {
   v1 = WebKit::toImpl<OpaqueWKBundleHitTestResult const*,WebKit::InjectedBundleHitTestResult>(a1);
   WebCore::HitTestResult::titleDisplayString(&v6, (v1 + 16));
   API::String::create(&v7);
   if (v7)
   {
-    v3 = *(v7 + 1);
+    var1 = v7->var1;
   }
 
   else
   {
-    v3 = 0;
+    var1 = 0;
   }
 
   v4 = v6;
@@ -5515,22 +5555,22 @@ uint64_t WKBundleHitTestResultCopyLinkTitle(void *a1)
     WTF::StringImpl::destroy(v4, v2);
   }
 
-  return v3;
+  return var1;
 }
 
-uint64_t WKBundleHitTestResultCopyLinkSuggestedFilename(void *a1)
+void *WKBundleHitTestResultCopyLinkSuggestedFilename(void *a1)
 {
   v1 = WebKit::toImpl<OpaqueWKBundleHitTestResult const*,WebKit::InjectedBundleHitTestResult>(a1);
   WebCore::HitTestResult::linkSuggestedFilename(&v6, (v1 + 16));
   API::String::create(&v7);
   if (v7)
   {
-    v3 = *(v7 + 1);
+    var1 = v7->var1;
   }
 
   else
   {
-    v3 = 0;
+    var1 = 0;
   }
 
   v4 = v6;
@@ -5540,7 +5580,7 @@ uint64_t WKBundleHitTestResultCopyLinkSuggestedFilename(void *a1)
     WTF::StringImpl::destroy(v4, v2);
   }
 
-  return v3;
+  return var1;
 }
 
 uint64_t WKBundleNodeHandleCreate(uint64_t a1, const OpaqueJSContext *a2, JSValue a3)
@@ -5650,25 +5690,25 @@ uint64_t WKBundleNodeHandleSetHTMLInputElementSpellcheckEnabled(void *a1, int a2
   return WebKit::InjectedBundleNodeHandle::setHTMLInputElementSpellcheckEnabled(v3, a2);
 }
 
-uint64_t WKBundleNodeHandleSetHTMLInputElementAutoFilled(void *a1)
+uint64_t WKBundleNodeHandleSetHTMLInputElementAutoFilled(void *a1, BOOL a2)
 {
-  v1 = WebKit::toImpl<OpaqueWKBundleNodeHandle const*,WebKit::InjectedBundleNodeHandle>(a1);
+  v3 = WebKit::toImpl<OpaqueWKBundleNodeHandle const*,WebKit::InjectedBundleNodeHandle>(a1);
 
-  return WebKit::InjectedBundleNodeHandle::setHTMLInputElementAutoFilled(v1);
+  return WebKit::InjectedBundleNodeHandle::setHTMLInputElementAutoFilled(v3, a2);
 }
 
-uint64_t WKBundleNodeHandleSetHTMLInputElementAutoFilledAndViewable(void *a1)
+uint64_t WKBundleNodeHandleSetHTMLInputElementAutoFilledAndViewable(void *a1, BOOL a2)
 {
-  v1 = WebKit::toImpl<OpaqueWKBundleNodeHandle const*,WebKit::InjectedBundleNodeHandle>(a1);
+  v3 = WebKit::toImpl<OpaqueWKBundleNodeHandle const*,WebKit::InjectedBundleNodeHandle>(a1);
 
-  return WebKit::InjectedBundleNodeHandle::setHTMLInputElementAutoFilledAndViewable(v1);
+  return WebKit::InjectedBundleNodeHandle::setHTMLInputElementAutoFilledAndViewable(v3, a2);
 }
 
-uint64_t WKBundleNodeHandleSetHTMLInputElementAutoFilledAndObscured(void *a1)
+uint64_t WKBundleNodeHandleSetHTMLInputElementAutoFilledAndObscured(void *a1, BOOL a2)
 {
-  v1 = WebKit::toImpl<OpaqueWKBundleNodeHandle const*,WebKit::InjectedBundleNodeHandle>(a1);
+  v3 = WebKit::toImpl<OpaqueWKBundleNodeHandle const*,WebKit::InjectedBundleNodeHandle>(a1);
 
-  return WebKit::InjectedBundleNodeHandle::setHTMLInputElementAutoFilledAndObscured(v1);
+  return WebKit::InjectedBundleNodeHandle::setHTMLInputElementAutoFilledAndObscured(v3, a2);
 }
 
 uint64_t WKBundleNodeHandleSetHTMLInputElementAutoFillButtonEnabledWithButtonType(void *a1)
@@ -5759,11 +5799,11 @@ uint64_t WKBundleNodeHandleCopyHTMLIFrameElementContentFrame(void *a1)
   }
 }
 
-uint64_t WKBundleNodeHandleSetHTMLInputElementAutofilled(void *a1)
+uint64_t WKBundleNodeHandleSetHTMLInputElementAutofilled(void *a1, BOOL a2)
 {
-  v1 = WebKit::toImpl<OpaqueWKBundleNodeHandle const*,WebKit::InjectedBundleNodeHandle>(a1);
+  v3 = WebKit::toImpl<OpaqueWKBundleNodeHandle const*,WebKit::InjectedBundleNodeHandle>(a1);
 
-  return WebKit::InjectedBundleNodeHandle::setHTMLInputElementAutoFilled(v1);
+  return WebKit::InjectedBundleNodeHandle::setHTMLInputElementAutoFilled(v3, a2);
 }
 
 uint64_t WKBundleNodeHandleCopyOwningDocumentFrame(void *a1)
@@ -5879,7 +5919,7 @@ uint64_t WKBundlePageSetEditorClient(void *a1, __int128 *a2)
   return result;
 }
 
-uint64_t WKBundlePageSetFormClient(void *a1, unsigned int *a2)
+_OWORD *WKBundlePageSetFormClient(void *a1, unsigned int *a2)
 {
   v4 = WebKit::toImpl<OpaqueWKBundlePage const*,WebKit::WebPage>(a1);
   if (WebKit::InjectedBundlePageFormClient::s_heapRef)
@@ -5997,7 +6037,7 @@ uint64_t WKBundlePageSetResourceLoadClient(void *a1, __int128 *a2)
   return result;
 }
 
-uint64_t WKBundlePageSetUIClient(void *a1, _OWORD *a2)
+_OWORD *WKBundlePageSetUIClient(void *a1, _OWORD *a2)
 {
   v4 = WebKit::toImpl<OpaqueWKBundlePage const*,WebKit::WebPage>(a1);
   if (WebKit::InjectedBundlePageUIClient::s_heapRef)
@@ -6180,7 +6220,7 @@ LABEL_17:
   return result;
 }
 
-uint64_t WKAccessibilityFocusedObject(void *a1)
+WebCore::FocusController **WKAccessibilityFocusedObject(void *a1)
 {
   if (!a1)
   {
@@ -6302,7 +6342,7 @@ void *WKAccessibilityAnnounce(void *result, void *a2)
   return result;
 }
 
-WebCore::Page *WKBundlePageSetEditable(void *a1)
+WebCore::Page *WKBundlePageSetEditable(void *a1, BOOL a2)
 {
   result = WebKit::toImpl<OpaqueWKBundlePage const*,WebKit::WebPage>(a1);
   if (result)
@@ -6318,19 +6358,42 @@ WebCore::Page *WKBundlePageSetEditable(void *a1)
   return result;
 }
 
-uint64_t WKBundlePageCopyRenderTreeExternalRepresentation(void *a1)
+void *WKBundlePageCopyRenderTreeExternalRepresentation(void *a1, char a2)
 {
-  v1 = WebKit::toImpl<OpaqueWKBundlePage const*,WebKit::WebPage>(a1);
-  WebKit::WebPage::renderTreeExternalRepresentation(v1);
-  API::String::create(&v6);
-  if (v6)
+  v3 = WebKit::toImpl<OpaqueWKBundlePage const*,WebKit::WebPage>(a1);
+  WebKit::WebPage::renderTreeExternalRepresentation(v3, a2);
+  API::String::create(&v8);
+  if (v8)
   {
-    v3 = *(v6 + 1);
+    var1 = v8->var1;
   }
 
   else
   {
-    v3 = 0;
+    var1 = 0;
+  }
+
+  if (v7 && atomic_fetch_add_explicit(v7, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  {
+    WTF::StringImpl::destroy(v7, v4);
+  }
+
+  return var1;
+}
+
+void *WKBundlePageCopyRenderTreeExternalRepresentationForPrinting(void *a1)
+{
+  v1 = WebKit::toImpl<OpaqueWKBundlePage const*,WebKit::WebPage>(a1);
+  WebKit::WebPage::renderTreeExternalRepresentationForPrinting(v1);
+  API::String::create(&v6);
+  if (v6)
+  {
+    var1 = v6->var1;
+  }
+
+  else
+  {
+    var1 = 0;
   }
 
   if (v5 && atomic_fetch_add_explicit(v5, 0xFFFFFFFE, memory_order_relaxed) == 2)
@@ -6338,32 +6401,7 @@ uint64_t WKBundlePageCopyRenderTreeExternalRepresentation(void *a1)
     WTF::StringImpl::destroy(v5, v2);
   }
 
-  return v3;
-}
-
-uint64_t WKBundlePageCopyRenderTreeExternalRepresentationForPrinting(void *a1)
-{
-  v1 = WebKit::toImpl<OpaqueWKBundlePage const*,WebKit::WebPage>(a1);
-  WebKit::WebPage::renderTreeExternalRepresentationForPrinting(&v6, v1);
-  API::String::create(&v7);
-  if (v7)
-  {
-    v3 = *(v7 + 1);
-  }
-
-  else
-  {
-    v3 = 0;
-  }
-
-  v4 = v6;
-  v6 = 0;
-  if (v4 && atomic_fetch_add_explicit(v4, 0xFFFFFFFE, memory_order_relaxed) == 2)
-  {
-    WTF::StringImpl::destroy(v4, v2);
-  }
-
-  return v3;
+  return var1;
 }
 
 IPC::Encoder *WKBundlePageClose(void *a1)
@@ -6387,7 +6425,7 @@ double WKBundlePageGetPageZoomFactor(void *a1)
   return WebKit::WebPage::pageZoomFactor(v1);
 }
 
-uint64_t WKBundlePageDumpHistoryForTesting(void *a1, void *a2)
+void *WKBundlePageDumpHistoryForTesting(void *a1, void *a2)
 {
   v3 = WebKit::toImpl<OpaqueWKBundlePage const*,WebKit::WebPage>(a1);
   if (a2)
@@ -6398,7 +6436,7 @@ uint64_t WKBundlePageDumpHistoryForTesting(void *a1, void *a2)
     v12 = 0;
     if (v4)
     {
-      CFRelease(*(v4 + 1));
+      CFRelease(v4->var1);
     }
   }
 
@@ -6407,16 +6445,16 @@ uint64_t WKBundlePageDumpHistoryForTesting(void *a1, void *a2)
     v10 = 0;
   }
 
-  WebKit::WebPage::dumpHistoryForTesting(v3, &v10, &v11);
+  WebKit::WebPage::dumpHistoryForTesting(&v11, v3, &v10);
   API::String::create(&v12);
   if (v12)
   {
-    v6 = *(v12 + 1);
+    var1 = v12->var1;
   }
 
   else
   {
-    v6 = 0;
+    var1 = 0;
   }
 
   v7 = v11;
@@ -6433,7 +6471,7 @@ uint64_t WKBundlePageDumpHistoryForTesting(void *a1, void *a2)
     WTF::StringImpl::destroy(v8, v5);
   }
 
-  return v6;
+  return var1;
 }
 
 uint64_t WKBundlePageInstallPageOverlay(void *a1, void *a2)
@@ -6561,65 +6599,66 @@ uint64_t WKBundlePageCanHandleRequest(uint64_t result)
   return result;
 }
 
-WTF *WKBundlePageReplaceStringMatches(void *a1, void *a2, void *a3)
+WTF *WKBundlePageReplaceStringMatches(void *a1, void *a2, void *a3, uint64_t a4)
 {
-  v5 = WebKit::toImpl<OpaqueWKArray const*,API::Array>(a2);
-  v21 = 0;
-  v22 = 0;
-  v6 = *(v5 + 28);
-  if (v6)
+  v7 = WebKit::toImpl<OpaqueWKArray const*,API::Array>(a2);
+  v24 = 0;
+  v25 = 0;
+  v8 = *(v7 + 28);
+  if (v8)
   {
-    if (v6 >> 30)
+    v9 = (v8 >> 30);
+    if (v9)
     {
       __break(0xC471u);
       goto LABEL_30;
     }
 
-    v7 = v5;
-    LODWORD(v22) = *(v5 + 28);
-    v21 = WTF::fastMalloc((4 * v6));
-    v8 = *(v7 + 28);
-    if (v8)
+    v10 = v7;
+    LODWORD(v25) = *(v7 + 28);
+    v24 = WTF::fastMalloc(v9, (4 * v8));
+    v11 = *(v10 + 28);
+    if (v11)
     {
-      v9 = 0;
-      while (v9 < *(v7 + 28))
+      v12 = 0;
+      while (v12 < *(v10 + 28))
       {
-        v10 = *(*(v7 + 16) + 8 * v9);
-        if (v10 && (*(*v10 + 16))(v10) == 33)
+        v13 = *(*(v10 + 16) + 8 * v12);
+        if (v13 && (*(*v13 + 16))(v13) == 33)
         {
-          v11 = v10[2];
-          v12 = HIDWORD(v22);
-          if (HIDWORD(v22) == v22)
+          v14 = v13[2];
+          v15 = HIDWORD(v25);
+          if (HIDWORD(v25) == v25)
           {
-            if (HIDWORD(v22) + (HIDWORD(v22) >> 1) <= HIDWORD(v22) + 1)
+            if (HIDWORD(v25) + (HIDWORD(v25) >> 1) <= HIDWORD(v25) + 1)
             {
-              v13 = HIDWORD(v22) + 1;
+              v16 = HIDWORD(v25) + 1;
             }
 
             else
             {
-              v13 = HIDWORD(v22) + (HIDWORD(v22) >> 1);
+              v16 = HIDWORD(v25) + (HIDWORD(v25) >> 1);
             }
 
-            if (v13 <= 0x10)
+            if (v16 <= 0x10)
             {
-              v14 = 16;
+              v17 = 16;
             }
 
             else
             {
-              v14 = v13;
+              v17 = v16;
             }
 
-            WTF::Vector<unsigned int,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::reserveCapacity<(WTF::FailureAction)0>(&v21, v14);
-            v12 = HIDWORD(v22);
+            WTF::Vector<unsigned int,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::reserveCapacity<(WTF::FailureAction)0>(&v24, v17);
+            v15 = HIDWORD(v25);
           }
 
-          *(v21 + v12) = v11;
-          ++HIDWORD(v22);
+          *(v24 + v15) = v14;
+          ++HIDWORD(v25);
         }
 
-        if (v8 == ++v9)
+        if (v11 == ++v12)
         {
           goto LABEL_18;
         }
@@ -6632,38 +6671,38 @@ LABEL_30:
   }
 
 LABEL_18:
-  v15 = WebKit::toImpl<OpaqueWKBundlePage const*,WebKit::WebPage>(a1);
+  v18 = WebKit::toImpl<OpaqueWKBundlePage const*,WebKit::WebPage>(a1);
   if (a3)
   {
-    WebKit::toProtectedImpl<OpaqueWKString const*,API::String>(a3, &v23);
+    WebKit::toProtectedImpl<OpaqueWKString const*,API::String>(a3, &v26);
     WTF::String::isolatedCopy();
-    v16 = v23;
-    v23 = 0;
-    if (v16)
+    v19 = v26;
+    v26 = 0;
+    if (v19)
     {
-      CFRelease(*(v16 + 8));
+      CFRelease(*(v19 + 8));
     }
   }
 
   else
   {
-    v20 = 0;
+    v23 = 0;
   }
 
-  WebKit::FindController::replaceMatches(*(v15 + 408), &v21, &v20);
-  v18 = v20;
-  v20 = 0;
-  if (v18 && atomic_fetch_add_explicit(v18, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  WebKit::FindController::replaceMatches(*(v18 + 408), &v24, &v23, a4);
+  v21 = v23;
+  v23 = 0;
+  if (v21 && atomic_fetch_add_explicit(v21, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v18, v17);
+    WTF::StringImpl::destroy(v21, v20);
   }
 
-  result = v21;
-  if (v21)
+  result = v24;
+  if (v24)
   {
-    v21 = 0;
-    LODWORD(v22) = 0;
-    return WTF::fastFree(result, v17);
+    v24 = 0;
+    LODWORD(v25) = 0;
+    return WTF::fastFree(result, v20);
   }
 
   return result;
@@ -6741,11 +6780,36 @@ uint64_t WKBundlePageCreateScaledSnapshotInDocumentCoordinates(void *a1, char a2
   }
 }
 
-_DWORD *WKBundlePageListenForLayoutMilestones(void *a1)
+_DWORD *WKBundlePageListenForLayoutMilestones(void *a1, __int16 a2)
 {
-  v1 = WebKit::toImpl<OpaqueWKBundlePage const*,WebKit::WebPage>(a1);
+  v3 = WebKit::toImpl<OpaqueWKBundlePage const*,WebKit::WebPage>(a1);
+  v4 = (a2 & 1) != 0;
+  if ((a2 & 2) != 0)
+  {
+    v4 |= 2u;
+  }
 
-  return WebKit::WebPage::listenForLayoutMilestones(v1);
+  if ((a2 & 4) != 0)
+  {
+    v4 |= 4u;
+  }
+
+  if ((a2 & 0x10) != 0)
+  {
+    v4 |= 0x10u;
+  }
+
+  if ((a2 & 0x20) != 0)
+  {
+    v4 |= 0x20u;
+  }
+
+  if ((a2 & 0x80) != 0)
+  {
+    v4 |= 0x80u;
+  }
+
+  return WebKit::WebPage::listenForLayoutMilestones(v3, v4 | (a2 & 0x100));
 }
 
 uint64_t WKBundlePageCloseInspectorForTest(void *a1)
@@ -6805,7 +6869,7 @@ uint64_t WKBundlePageFlushPendingEditorStateUpdate(void *a1)
   return WebKit::WebPage::flushPendingEditorStateUpdate(v1);
 }
 
-_DWORD *WKBundlePageGetRenderTreeSize(void *a1)
+WebCore::Page *WKBundlePageGetRenderTreeSize(void *a1)
 {
   v1 = WebKit::toImpl<OpaqueWKBundlePage const*,WebKit::WebPage>(a1);
 
@@ -6819,13 +6883,13 @@ uint64_t WKBundlePageIsTrackingRepaints(void *a1)
   return WebKit::WebPage::isTrackingRepaints(v1);
 }
 
-uint64_t WKBundlePageCopyTrackedRepaintRects(void *a1)
+void *WKBundlePageCopyTrackedRepaintRects(void *a1)
 {
   v1 = WebKit::toImpl<OpaqueWKBundlePage const*,WebKit::WebPage>(a1);
-  WebKit::WebPage::trackedRepaintRects(v1, &v3);
+  WebKit::WebPage::trackedRepaintRects(&v3, v1);
   if (v3)
   {
-    return *(v3 + 1);
+    return v3->var1;
   }
 
   else
@@ -6836,9 +6900,9 @@ uint64_t WKBundlePageCopyTrackedRepaintRects(void *a1)
 
 uint64_t WKBundlePageSetComposition(void *a1, void *a2, int a3, int a4, char a5, void *a6, void *a7)
 {
-  v129 = *MEMORY[0x1E69E9840];
-  v123 = 0;
+  v130 = *MEMORY[0x1E69E9840];
   v124 = 0;
+  v125 = 0;
   if (a6)
   {
     v8 = WebKit::toImpl<OpaqueWKArray const*,API::Array>(a6);
@@ -6852,271 +6916,272 @@ LABEL_185:
         JUMPOUT(0x19E2E91A0);
       }
 
-      LODWORD(v124) = 40 * v9 / 0x28u;
-      v123 = WTF::fastMalloc((40 * v9));
+      v10 = (5 * v9);
+      LODWORD(v125) = 8 * v10 / 0x28u;
+      v124 = WTF::fastMalloc(v10, (8 * v10));
     }
 
-    v111 = a7;
-    API::Array::elementsOfType<API::Dictionary>(v125, v8);
-    v10 = v126;
-    v11 = v128;
-    if (v126 != v128)
+    v112 = a7;
+    API::Array::elementsOfType<API::Dictionary>(v126, v8);
+    v11 = v127;
+    v12 = v129;
+    if (v127 != v129)
     {
-      v12 = v127;
+      v13 = v128;
       do
       {
-        v13 = *v10;
-        API::Array::GetObjectTransform<API::Dictionary>::operator()(*v10);
+        v14 = *v11;
+        API::Array::GetObjectTransform<API::Dictionary>::operator()(*v11);
         WTF::StringImpl::createWithoutCopyingNonEmpty();
-        v121 = v113[0];
-        v15 = WTF::HashMap<WTF::String,WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::get<WTF::IdentityHashTranslator<WTF::HashMap<WTF::String,WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::DefaultHash<WTF::String>>,WTF::String>((v13 + 16), &v121, v14);
-        v17 = v15;
-        if (v15 && (*(*v15 + 16))(v15) != 33)
+        v122 = v114[0];
+        v16 = WTF::HashMap<WTF::String,WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::get<WTF::IdentityHashTranslator<WTF::HashMap<WTF::String,WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::DefaultHash<WTF::String>>,WTF::String>((v14 + 16), &v122, v15);
+        v18 = v16;
+        if (v16 && (*(*v16 + 16))(v16) != 33)
         {
           __break(0xC471u);
           goto LABEL_185;
         }
 
-        v18 = *(v17 + 2);
-        v19 = v121;
-        v121 = 0;
-        if (v19 && atomic_fetch_add_explicit(v19, 0xFFFFFFFE, memory_order_relaxed) == 2)
+        v19 = *(v18 + 2);
+        v20 = v122;
+        v122 = 0;
+        if (v20 && atomic_fetch_add_explicit(v20, 0xFFFFFFFE, memory_order_relaxed) == 2)
         {
-          WTF::StringImpl::destroy(v19, v16);
+          WTF::StringImpl::destroy(v20, v17);
         }
 
-        LOBYTE(v121) = 0;
-        v122 = 0;
-        LOBYTE(v119) = 0;
-        v120 = 0;
+        LOBYTE(v122) = 0;
+        v123 = 0;
+        LOBYTE(v120) = 0;
+        v121 = 0;
         WTF::StringImpl::createWithoutCopyingNonEmpty();
-        v118 = v113[0];
-        v22 = WTF::HashMap<WTF::String,WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::get<WTF::IdentityHashTranslator<WTF::HashMap<WTF::String,WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::DefaultHash<WTF::String>>,WTF::String>((v13 + 16), &v118, v20);
-        v23 = v118;
-        v118 = 0;
-        if (v23 && atomic_fetch_add_explicit(v23, 0xFFFFFFFE, memory_order_relaxed) == 2)
+        v119 = v114[0];
+        v23 = WTF::HashMap<WTF::String,WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::get<WTF::IdentityHashTranslator<WTF::HashMap<WTF::String,WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::DefaultHash<WTF::String>>,WTF::String>((v14 + 16), &v119, v21);
+        v24 = v119;
+        v119 = 0;
+        if (v24 && atomic_fetch_add_explicit(v24, 0xFFFFFFFE, memory_order_relaxed) == 2)
         {
-          WTF::StringImpl::destroy(v23, v21);
-          if (!v22)
+          WTF::StringImpl::destroy(v24, v22);
+          if (!v23)
           {
             goto LABEL_21;
           }
         }
 
-        else if (!v22)
+        else if (!v23)
         {
           goto LABEL_21;
         }
 
-        if ((*(*v22 + 16))(v22) != 20)
+        if ((*(*v23 + 16))(v23) != 20)
         {
           __break(0xC471u);
           JUMPOUT(0x19E2E91C0);
         }
 
         WTF::String::isolatedCopy();
-        v117 = 7;
+        v118 = 7;
         WebCore::CSSPropertyParserHelpers::deprecatedParseColorRawWithoutContext();
-        std::optional<WebCore::Color>::operator=[abi:sn200100]<WebCore::Color,void>(&v121, v113);
-        if ((v113[0] & 0x8000000000000) != 0)
+        std::optional<WebCore::Color>::operator=[abi:sn200100]<WebCore::Color,void>(&v122, v114);
+        if ((v114[0] & 0x8000000000000) != 0)
         {
-          v45 = (v113[0] & 0xFFFFFFFFFFFFLL);
-          if (atomic_fetch_add((v113[0] & 0xFFFFFFFFFFFFLL), 0xFFFFFFFF) == 1)
+          v46 = (v114[0] & 0xFFFFFFFFFFFFLL);
+          if (atomic_fetch_add((v114[0] & 0xFFFFFFFFFFFFLL), 0xFFFFFFFF) == 1)
           {
-            atomic_store(1u, v45);
-            WTF::fastFree(v45, v24);
+            atomic_store(1u, v46);
+            WTF::fastFree(v46, v25);
           }
         }
 
-        v25 = v118;
-        v118 = 0;
-        if (v25 && atomic_fetch_add_explicit(v25, 0xFFFFFFFE, memory_order_relaxed) == 2)
+        v26 = v119;
+        v119 = 0;
+        if (v26 && atomic_fetch_add_explicit(v26, 0xFFFFFFFE, memory_order_relaxed) == 2)
         {
-          WTF::StringImpl::destroy(v25, v24);
+          WTF::StringImpl::destroy(v26, v25);
         }
 
 LABEL_21:
         WTF::StringImpl::createWithoutCopyingNonEmpty();
-        v118 = v113[0];
-        v28 = WTF::HashMap<WTF::String,WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::get<WTF::IdentityHashTranslator<WTF::HashMap<WTF::String,WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::DefaultHash<WTF::String>>,WTF::String>((v13 + 16), &v118, v26);
-        v29 = v118;
-        v118 = 0;
-        if (v29 && atomic_fetch_add_explicit(v29, 0xFFFFFFFE, memory_order_relaxed) == 2)
+        v119 = v114[0];
+        v29 = WTF::HashMap<WTF::String,WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::get<WTF::IdentityHashTranslator<WTF::HashMap<WTF::String,WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::DefaultHash<WTF::String>>,WTF::String>((v14 + 16), &v119, v27);
+        v30 = v119;
+        v119 = 0;
+        if (v30 && atomic_fetch_add_explicit(v30, 0xFFFFFFFE, memory_order_relaxed) == 2)
         {
-          WTF::StringImpl::destroy(v29, v27);
-          if (!v28)
+          WTF::StringImpl::destroy(v30, v28);
+          if (!v29)
           {
             goto LABEL_30;
           }
         }
 
-        else if (!v28)
+        else if (!v29)
         {
           goto LABEL_30;
         }
 
-        if ((*(*v28 + 16))(v28) != 20)
+        if ((*(*v29 + 16))(v29) != 20)
         {
           __break(0xC471u);
           JUMPOUT(0x19E2E91E0);
         }
 
         WTF::String::isolatedCopy();
-        v117 = 7;
+        v118 = 7;
         WebCore::CSSPropertyParserHelpers::deprecatedParseColorRawWithoutContext();
-        std::optional<WebCore::Color>::operator=[abi:sn200100]<WebCore::Color,void>(&v119, v113);
-        if ((v113[0] & 0x8000000000000) != 0)
+        std::optional<WebCore::Color>::operator=[abi:sn200100]<WebCore::Color,void>(&v120, v114);
+        if ((v114[0] & 0x8000000000000) != 0)
         {
-          v46 = (v113[0] & 0xFFFFFFFFFFFFLL);
-          if (atomic_fetch_add((v113[0] & 0xFFFFFFFFFFFFLL), 0xFFFFFFFF) == 1)
+          v47 = (v114[0] & 0xFFFFFFFFFFFFLL);
+          if (atomic_fetch_add((v114[0] & 0xFFFFFFFFFFFFLL), 0xFFFFFFFF) == 1)
           {
-            atomic_store(1u, v46);
-            WTF::fastFree(v46, v30);
+            atomic_store(1u, v47);
+            WTF::fastFree(v47, v31);
           }
         }
 
-        v31 = v118;
-        v118 = 0;
-        if (v31 && atomic_fetch_add_explicit(v31, 0xFFFFFFFE, memory_order_relaxed) == 2)
+        v32 = v119;
+        v119 = 0;
+        if (v32 && atomic_fetch_add_explicit(v32, 0xFFFFFFFE, memory_order_relaxed) == 2)
         {
-          WTF::StringImpl::destroy(v31, v30);
+          WTF::StringImpl::destroy(v32, v31);
         }
 
 LABEL_30:
         WTF::StringImpl::createWithoutCopyingNonEmpty();
-        v118 = v113[0];
-        v33 = WTF::HashMap<WTF::String,WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::get<WTF::IdentityHashTranslator<WTF::HashMap<WTF::String,WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::DefaultHash<WTF::String>>,WTF::String>((v13 + 16), &v118, v32);
-        v35 = v33;
-        if (v33 && (*(*v33 + 16))(v33) != 33)
+        v119 = v114[0];
+        v34 = WTF::HashMap<WTF::String,WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::get<WTF::IdentityHashTranslator<WTF::HashMap<WTF::String,WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::DefaultHash<WTF::String>>,WTF::String>((v14 + 16), &v119, v33);
+        v36 = v34;
+        if (v34 && (*(*v34 + 16))(v34) != 33)
         {
           __break(0xC471u);
           JUMPOUT(0x19E2E9200);
         }
 
-        v113[0] = __PAIR64__(*(v35 + 4) + v18, v18);
-        LOBYTE(v113[1]) = 0;
-        v114 = 0;
-        if (v122 == 1)
+        v114[0] = __PAIR64__(*(v36 + 4) + v19, v19);
+        LOBYTE(v114[1]) = 0;
+        v115 = 0;
+        if (v123 == 1)
         {
-          v113[1] = v121;
-          if ((v121 & 0x8000000000000) != 0)
+          v114[1] = v122;
+          if ((v122 & 0x8000000000000) != 0)
           {
-            atomic_fetch_add((v121 & 0xFFFFFFFFFFFFLL), 1u);
+            atomic_fetch_add((v122 & 0xFFFFFFFFFFFFLL), 1u);
           }
 
-          v114 = 1;
+          v115 = 1;
         }
 
-        LOBYTE(v115) = 0;
-        v116 = 0;
-        if (v120 == 1)
+        LOBYTE(v116) = 0;
+        v117 = 0;
+        if (v121 == 1)
         {
-          v115 = v119;
-          if ((v119 & 0x8000000000000) != 0)
+          v116 = v120;
+          if ((v120 & 0x8000000000000) != 0)
           {
-            atomic_fetch_add((v119 & 0xFFFFFFFFFFFFLL), 1u);
+            atomic_fetch_add((v120 & 0xFFFFFFFFFFFFLL), 1u);
           }
 
-          v116 = 1;
+          v117 = 1;
         }
 
-        if (HIDWORD(v124) == v124)
+        if (HIDWORD(v125) == v125)
         {
-          WTF::Vector<WebCore::CompositionHighlight,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WebCore::CompositionHighlight>(&v123, v113);
+          WTF::Vector<WebCore::CompositionHighlight,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WebCore::CompositionHighlight>(&v124, v114);
         }
 
         else
         {
-          v36 = v123 + 40 * HIDWORD(v124);
-          *v36 = v113[0];
-          *(v36 + 8) = 0;
-          *(v36 + 16) = 0;
-          if (v114 == 1)
+          v37 = &v124[5 * HIDWORD(v125)];
+          *v37 = v114[0];
+          *(v37 + 8) = 0;
+          *(v37 + 16) = 0;
+          if (v115 == 1)
           {
-            *(v36 + 8) = 0;
-            if (v36 != v113)
+            v37[1] = 0;
+            if (v37 != v114)
             {
-              v39 = v113[1];
-              v113[1] = 0;
-              *(v36 + 8) = v39;
+              v40 = v114[1];
+              v114[1] = 0;
+              v37[1] = v40;
             }
 
-            *(v36 + 16) = 1;
+            *(v37 + 16) = 1;
           }
 
-          *(v36 + 24) = 0;
-          *(v36 + 32) = 0;
-          if (v116 == 1)
+          *(v37 + 24) = 0;
+          *(v37 + 32) = 0;
+          if (v117 == 1)
           {
-            *(v36 + 24) = 0;
-            if (v36 != v113)
+            v37[3] = 0;
+            if (v37 != v114)
             {
-              v40 = v115;
-              v115 = 0;
-              *(v36 + 24) = v40;
+              v41 = v116;
+              v116 = 0;
+              v37[3] = v41;
             }
 
-            *(v36 + 32) = 1;
+            *(v37 + 32) = 1;
           }
 
-          ++HIDWORD(v124);
+          ++HIDWORD(v125);
         }
 
-        if (v116 == 1 && (v115 & 0x8000000000000) != 0)
+        if (v117 == 1 && (v116 & 0x8000000000000) != 0)
         {
-          v41 = (v115 & 0xFFFFFFFFFFFFLL);
-          if (atomic_fetch_add((v115 & 0xFFFFFFFFFFFFLL), 0xFFFFFFFF) == 1)
-          {
-            atomic_store(1u, v41);
-            WTF::fastFree(v41, v34);
-          }
-        }
-
-        if (v114 == 1 && (v113[1] & 0x8000000000000) != 0)
-        {
-          v42 = (v113[1] & 0xFFFFFFFFFFFFLL);
-          if (atomic_fetch_add((v113[1] & 0xFFFFFFFFFFFFLL), 0xFFFFFFFF) == 1)
+          v42 = (v116 & 0xFFFFFFFFFFFFLL);
+          if (atomic_fetch_add((v116 & 0xFFFFFFFFFFFFLL), 0xFFFFFFFF) == 1)
           {
             atomic_store(1u, v42);
-            WTF::fastFree(v42, v34);
+            WTF::fastFree(v42, v35);
           }
         }
 
-        v37 = v118;
-        v118 = 0;
-        if (v37 && atomic_fetch_add_explicit(v37, 0xFFFFFFFE, memory_order_relaxed) == 2)
+        if (v115 == 1 && (v114[1] & 0x8000000000000) != 0)
         {
-          WTF::StringImpl::destroy(v37, v34);
-        }
-
-        if (v120 == 1 && (v119 & 0x8000000000000) != 0)
-        {
-          v43 = (v119 & 0xFFFFFFFFFFFFLL);
-          if (atomic_fetch_add((v119 & 0xFFFFFFFFFFFFLL), 0xFFFFFFFF) == 1)
+          v43 = (v114[1] & 0xFFFFFFFFFFFFLL);
+          if (atomic_fetch_add((v114[1] & 0xFFFFFFFFFFFFLL), 0xFFFFFFFF) == 1)
           {
             atomic_store(1u, v43);
-            WTF::fastFree(v43, v34);
+            WTF::fastFree(v43, v35);
           }
         }
 
-        if (v122 == 1 && (v121 & 0x8000000000000) != 0)
+        v38 = v119;
+        v119 = 0;
+        if (v38 && atomic_fetch_add_explicit(v38, 0xFFFFFFFE, memory_order_relaxed) == 2)
         {
-          v44 = (v121 & 0xFFFFFFFFFFFFLL);
-          if (atomic_fetch_add((v121 & 0xFFFFFFFFFFFFLL), 0xFFFFFFFF) == 1)
+          WTF::StringImpl::destroy(v38, v35);
+        }
+
+        if (v121 == 1 && (v120 & 0x8000000000000) != 0)
+        {
+          v44 = (v120 & 0xFFFFFFFFFFFFLL);
+          if (atomic_fetch_add((v120 & 0xFFFFFFFFFFFFLL), 0xFFFFFFFF) == 1)
           {
             atomic_store(1u, v44);
-            WTF::fastFree(v44, v34);
+            WTF::fastFree(v44, v35);
           }
         }
 
-        v38 = v10 + 1;
-        while (v38 - 1 != v12)
+        if (v123 == 1 && (v122 & 0x8000000000000) != 0)
         {
-          v10 = v38;
-          if (v38 != v12)
+          v45 = (v122 & 0xFFFFFFFFFFFFLL);
+          if (atomic_fetch_add((v122 & 0xFFFFFFFFFFFFLL), 0xFFFFFFFF) == 1)
           {
-            ++v38;
-            if ((*(**v10 + 16))() != 9)
+            atomic_store(1u, v45);
+            WTF::fastFree(v45, v35);
+          }
+        }
+
+        v39 = v11 + 1;
+        while (v39 - 1 != v13)
+        {
+          v11 = v39;
+          if (v39 != v13)
+          {
+            ++v39;
+            if ((*(**v11 + 16))() != 9)
             {
               continue;
             }
@@ -7125,137 +7190,141 @@ LABEL_30:
           goto LABEL_62;
         }
 
-        v10 = v38 - 1;
+        v11 = v39 - 1;
 LABEL_62:
         ;
       }
 
-      while (v10 != v11);
+      while (v11 != v12);
     }
 
-    a7 = v111;
+    a7 = v112;
   }
 
-  v121 = 0;
+  v122 = 0;
   if (!a7)
   {
     goto LABEL_164;
   }
 
-  v47 = WebKit::toImpl<OpaqueWKArray const*,API::Array>(a7);
-  if (!v47)
+  v48 = WebKit::toImpl<OpaqueWKArray const*,API::Array>(a7);
+  if (!v48)
   {
     goto LABEL_164;
   }
 
-  API::Array::elementsOfType<API::Dictionary>(v125, v47);
-  v48 = v126;
-  v112 = v128;
-  if (v126 == v128)
-  {
-    goto LABEL_164;
-  }
-
+  API::Array::elementsOfType<API::Dictionary>(v126, v48);
   v49 = v127;
+  v113 = v129;
+  if (v127 == v129)
+  {
+    goto LABEL_164;
+  }
+
+  v50 = v128;
   do
   {
-    v50 = *v48;
-    API::Array::GetObjectTransform<API::Dictionary>::operator()(*v48);
+    v51 = *v49;
+    API::Array::GetObjectTransform<API::Dictionary>::operator()(*v49);
     WTF::StringImpl::createWithoutCopyingNonEmpty();
-    v119 = v113[0];
-    v52 = WTF::HashMap<WTF::String,WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::get<WTF::IdentityHashTranslator<WTF::HashMap<WTF::String,WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::DefaultHash<WTF::String>>,WTF::String>((v50 + 16), &v119, v51);
-    v54 = v52;
-    if (v52 && (*(*v52 + 16))(v52) != 33)
+    v120 = v114[0];
+    v53 = WTF::HashMap<WTF::String,WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::get<WTF::IdentityHashTranslator<WTF::HashMap<WTF::String,WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::DefaultHash<WTF::String>>,WTF::String>((v51 + 16), &v120, v52);
+    v55 = v53;
+    if (v53 && (*(*v53 + 16))(v53) != 33)
     {
       __break(0xC471u);
       JUMPOUT(0x19E2E9260);
     }
 
-    v55 = *(v54 + 2);
-    v56 = v119;
-    v119 = 0;
-    if (v56 && atomic_fetch_add_explicit(v56, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    v56 = *(v55 + 2);
+    v57 = v120;
+    v120 = 0;
+    if (v57 && atomic_fetch_add_explicit(v57, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v56, v53);
+      WTF::StringImpl::destroy(v57, v54);
     }
 
     WTF::StringImpl::createWithoutCopyingNonEmpty();
-    v119 = v113[0];
-    v58 = WTF::HashMap<WTF::String,WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::get<WTF::IdentityHashTranslator<WTF::HashMap<WTF::String,WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::DefaultHash<WTF::String>>,WTF::String>((v50 + 16), &v119, v57);
-    v60 = v58;
-    if (v58 && (*(*v58 + 16))(v58) != 33)
+    v120 = v114[0];
+    v59 = WTF::HashMap<WTF::String,WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::get<WTF::IdentityHashTranslator<WTF::HashMap<WTF::String,WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::DefaultHash<WTF::String>>,WTF::String>((v51 + 16), &v120, v58);
+    v61 = v59;
+    if (v59 && (*(*v59 + 16))(v59) != 33)
     {
       __break(0xC471u);
       JUMPOUT(0x19E2E9280);
     }
 
-    v61 = *(v60 + 2);
-    v62 = v119;
-    v119 = 0;
-    if (v62 && atomic_fetch_add_explicit(v62, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    v62 = *(v61 + 2);
+    v63 = v120;
+    v120 = 0;
+    if (v63 && atomic_fetch_add_explicit(v63, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v62, v59);
+      WTF::StringImpl::destroy(v63, v60);
     }
 
     WTF::StringImpl::createWithoutCopyingNonEmpty();
-    v118 = v113[0];
-    v64 = WTF::HashMap<WTF::String,WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::get<WTF::IdentityHashTranslator<WTF::HashMap<WTF::String,WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::DefaultHash<WTF::String>>,WTF::String>((v50 + 16), &v118, v63);
-    WTF::downcast<API::String,API::Object>(v64);
+    v119 = v114[0];
+    v65 = WTF::HashMap<WTF::String,WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::get<WTF::IdentityHashTranslator<WTF::HashMap<WTF::String,WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::DefaultHash<WTF::String>>,WTF::String>((v51 + 16), &v119, v64);
+    WTF::downcast<API::String,API::Object>(v65);
     WTF::String::isolatedCopy();
-    v67 = v118;
-    v118 = 0;
-    if (v67 && atomic_fetch_add_explicit(v67, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    v69 = v119;
+    v119 = 0;
+    if (v69)
     {
-      WTF::StringImpl::destroy(v67, v65);
+      add_explicit = atomic_fetch_add_explicit(v69, 0xFFFFFFFE, memory_order_relaxed);
+      if (add_explicit == 2)
+      {
+        WTF::StringImpl::destroy(v69, v66);
+      }
     }
 
-    v68 = v121;
-    if (v121)
+    v70 = v122;
+    if (v122)
     {
-      if (v119 == -1)
+      if (v120 == -1)
       {
         __break(0xC471u);
         JUMPOUT(0x19E2E92A0);
       }
 
-      if (!v119)
+      if (!v120)
       {
         __break(0xC471u);
         JUMPOUT(0x19E2E92C0);
       }
 
-      v69 = *(v121 - 2);
-      v70 = *(v119 + 4);
-      if (v70 < 0x100)
+      v71 = *(v122 - 2);
+      v72 = *(v120 + 4);
+      if (v72 < 0x100)
       {
-        v71 = WTF::StringImpl::hashSlowCase(v119);
+        v73 = WTF::StringImpl::hashSlowCase(v120);
       }
 
       else
       {
-        v71 = v70 >> 8;
+        v73 = v72 >> 8;
       }
 
-      for (i = 0; ; v71 = i + v73)
+      for (i = 0; ; v73 = i + v75)
       {
-        v73 = v71 & v69;
-        v74 = (v68 + 24 * (v71 & v69));
-        v75 = *v74;
-        if (*v74 != -1)
+        v75 = v73 & v71;
+        v76 = (v70 + 24 * (v73 & v71));
+        v77 = *v76;
+        if (*v76 != -1)
         {
-          if (!v75)
+          if (!v77)
           {
-            v76 = v121;
-            if (!v121)
+            add_explicit = v122;
+            if (!v122)
             {
               goto LABEL_117;
             }
 
-            v74 = (v121 + 24 * *(v121 - 1));
+            v76 = (v122 + 24 * *(v122 - 1));
             goto LABEL_113;
           }
 
-          if (WTF::equal(v75, v119, v66))
+          if (WTF::equal(v77, v120, v67))
           {
             break;
           }
@@ -7264,183 +7333,183 @@ LABEL_62:
         ++i;
       }
 
-      v76 = v121;
-      if (!v121)
+      add_explicit = v122;
+      if (!v122)
       {
         goto LABEL_114;
       }
 
 LABEL_113:
-      v76 = (v76 + 24 * *(v76 - 1));
+      add_explicit += 3 * *(add_explicit - 1);
 LABEL_114:
-      if (v76 != v74)
+      if (add_explicit != v76)
       {
-        v113[0] = v55;
-        v113[1] = v61;
-        v77 = *(v74 + 5);
-        if (v77 == *(v74 + 4))
+        v114[0] = v56;
+        v114[1] = v62;
+        v78 = *(v76 + 5);
+        if (v78 == *(v76 + 4))
         {
-          v78 = WTF::Vector<WTF::UUID,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(v74 + 8, v77 + 1, v113);
-          v77 = *(v74 + 5);
-          v79 = *(v74 + 1);
-          v80 = *v78;
+          v79 = WTF::Vector<WTF::UUID,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(v76 + 1, v78 + 1, v114);
+          v78 = *(v76 + 5);
+          v80 = v76[1];
+          v81 = *v79;
         }
 
         else
         {
-          v79 = *(v74 + 1);
-          v80 = *v113;
+          v80 = v76[1];
+          v81 = *v114;
         }
 
-        *(v79 + 16 * v77) = v80;
-        ++*(v74 + 5);
+        *(v80 + 16 * v78) = v81;
+        ++*(v76 + 5);
         goto LABEL_148;
       }
     }
 
 LABEL_117:
-    v81 = WTF::fastMalloc(0x10);
-    *v81 = v55;
-    *(v81 + 1) = v61;
-    if (v119 == -1)
+    v82 = WTF::fastMalloc(add_explicit, 0x10);
+    *v82 = v56;
+    v82[1] = v62;
+    if (v120 == -1)
     {
       __break(0xC471u);
       JUMPOUT(0x19E2E9220);
     }
 
-    if (!v119)
+    if (!v120)
     {
       __break(0xC471u);
       JUMPOUT(0x19E2E9240);
     }
 
-    v83 = v81;
-    v84 = v121;
-    if (v121 || (WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,WTF::Vector<WebCore::CharacterRange,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,WTF::Vector<WebCore::CharacterRange,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,WTF::Vector<WebCore::CharacterRange,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Vector<WebCore::CharacterRange,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::expand(&v121, 0), (v84 = v121) != 0))
+    v84 = v82;
+    v85 = v122;
+    if (v122 || (WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,WTF::Vector<WebCore::CharacterRange,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,WTF::Vector<WebCore::CharacterRange,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,WTF::Vector<WebCore::CharacterRange,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Vector<WebCore::CharacterRange,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::expand(&v122, 0), (v85 = v122) != 0))
     {
-      v85 = *(v84 - 2);
+      v86 = *(v85 - 2);
     }
 
     else
     {
-      v85 = 0;
+      v86 = 0;
     }
 
-    v86 = *(v119 + 4);
-    if (v86 < 0x100)
+    v87 = *(v120 + 4);
+    if (v87 < 0x100)
     {
-      v87 = WTF::StringImpl::hashSlowCase(v119);
+      v88 = WTF::StringImpl::hashSlowCase(v120);
     }
 
     else
     {
-      v87 = v86 >> 8;
+      v88 = v87 >> 8;
     }
 
-    v88 = 0;
+    v89 = 0;
     for (j = 1; ; ++j)
     {
-      v90 = v87 & v85;
-      v91 = v84 + 24 * (v87 & v85);
-      v92 = *v91;
-      if (*v91 == -1)
+      v91 = v88 & v86;
+      v92 = v85 + 24 * (v88 & v86);
+      v93 = *v92;
+      if (*v92 == -1)
       {
-        v88 = (v84 + 24 * v90);
+        v89 = (v85 + 24 * v91);
         goto LABEL_130;
       }
 
-      if (!v92)
+      if (!v93)
       {
         break;
       }
 
-      if (WTF::equal(v92, v119, v82))
+      if (WTF::equal(v93, v120, v83))
       {
-        WTF::fastFree(v83, v65);
+        WTF::fastFree(v84, v66);
         goto LABEL_148;
       }
 
 LABEL_130:
-      v87 = j + v90;
+      v88 = j + v91;
     }
 
-    if (v88)
+    if (v89)
     {
-      v92 = 0;
-      *v88 = 0;
-      v88[1] = 0;
-      v88[2] = 0;
-      --*(v121 - 4);
-      v91 = v88;
+      v93 = 0;
+      *v89 = 0;
+      v89[1] = 0;
+      v89[2] = 0;
+      --*(v122 - 4);
+      v92 = v89;
     }
 
-    v93 = v119;
-    if (v119)
+    v94 = v120;
+    if (v120)
     {
-      atomic_fetch_add_explicit(v119, 2u, memory_order_relaxed);
-      v92 = *v91;
+      atomic_fetch_add_explicit(v120, 2u, memory_order_relaxed);
+      v93 = *v92;
     }
 
-    *v91 = v93;
-    if (v92 && atomic_fetch_add_explicit(v92, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    *v92 = v94;
+    if (v93 && atomic_fetch_add_explicit(v93, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v92, v65);
+      WTF::StringImpl::destroy(v93, v66);
     }
 
-    v94 = *(v91 + 8);
-    if (v94)
+    v95 = *(v92 + 8);
+    if (v95)
     {
-      *(v91 + 8) = 0;
-      *(v91 + 16) = 0;
-      WTF::fastFree(v94, v65);
+      *(v92 + 8) = 0;
+      *(v92 + 16) = 0;
+      WTF::fastFree(v95, v66);
     }
 
-    *(v91 + 8) = v83;
-    *(v91 + 16) = 0x100000001;
-    v95 = v121;
-    if (v121)
+    *(v92 + 8) = v84;
+    *(v92 + 16) = 0x100000001;
+    v96 = v122;
+    if (v122)
     {
-      v96 = *(v121 - 3) + 1;
+      v97 = *(v122 - 3) + 1;
     }
 
     else
     {
-      v96 = 1;
+      v97 = 1;
     }
 
-    *(v121 - 3) = v96;
-    v97 = (*(v95 - 4) + v96);
-    v98 = *(v95 - 1);
-    if (v98 > 0x400)
+    *(v122 - 3) = v97;
+    v98 = (*(v96 - 4) + v97);
+    v99 = *(v96 - 1);
+    if (v99 > 0x400)
     {
-      if (v98 <= 2 * v97)
+      if (v99 <= 2 * v98)
       {
 LABEL_147:
-        WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,WTF::Vector<WebCore::CharacterRange,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,WTF::Vector<WebCore::CharacterRange,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,WTF::Vector<WebCore::CharacterRange,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Vector<WebCore::CharacterRange,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::expand(&v121, v91);
+        WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,WTF::Vector<WebCore::CharacterRange,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,WTF::Vector<WebCore::CharacterRange,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,WTF::Vector<WebCore::CharacterRange,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Vector<WebCore::CharacterRange,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::expand(&v122, v92);
       }
     }
 
-    else if (3 * v98 <= 4 * v97)
+    else if (3 * v99 <= 4 * v98)
     {
       goto LABEL_147;
     }
 
 LABEL_148:
-    v99 = v119;
-    v119 = 0;
-    if (v99 && atomic_fetch_add_explicit(v99, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    v100 = v120;
+    v120 = 0;
+    if (v100 && atomic_fetch_add_explicit(v100, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v99, v65);
+      WTF::StringImpl::destroy(v100, v66);
     }
 
-    v100 = v48 + 1;
-    while (v100 - 1 != v49)
+    v101 = v49 + 1;
+    while (v101 - 1 != v50)
     {
-      v48 = v100;
-      if (v100 != v49)
+      v49 = v101;
+      if (v101 != v50)
       {
-        ++v100;
-        if ((*(**v48 + 16))() != 9)
+        ++v101;
+        if ((*(**v49 + 16))() != 9)
         {
           continue;
         }
@@ -7449,48 +7518,48 @@ LABEL_148:
       goto LABEL_157;
     }
 
-    v48 = v100 - 1;
+    v49 = v101 - 1;
 LABEL_157:
     ;
   }
 
-  while (v48 != v112);
+  while (v49 != v113);
 LABEL_164:
-  v101 = WebKit::toImpl<OpaqueWKBundlePage const*,WebKit::WebPage>(a1);
+  v102 = WebKit::toImpl<OpaqueWKBundlePage const*,WebKit::WebPage>(a1);
   if (a2)
   {
-    WebKit::toProtectedImpl<OpaqueWKString const*,API::String>(a2, v125);
+    WebKit::toProtectedImpl<OpaqueWKString const*,API::String>(a2, v126);
     WTF::String::isolatedCopy();
-    v102 = v125[0];
-    v125[0] = 0;
-    if (v102)
+    v103 = v126[0];
+    v126[0] = 0;
+    if (v103)
     {
-      CFRelease(*(v102 + 8));
+      CFRelease(*(v103 + 8));
     }
   }
 
   else
   {
-    v113[0] = 0;
+    v114[0] = 0;
   }
 
-  WebKit::WebPage::setCompositionForTesting(v101, v113, a3, a4, a5);
-  v104 = v113[0];
-  v113[0] = 0;
-  if (v104 && atomic_fetch_add_explicit(v104, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  WebKit::WebPage::setCompositionForTesting(v102, v114, a3, a4, a5, &v124, &v122);
+  v105 = v114[0];
+  v114[0] = 0;
+  if (v105 && atomic_fetch_add_explicit(v105, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v104, v103);
+    WTF::StringImpl::destroy(v105, v104);
   }
 
-  if (v121)
+  if (v122)
   {
-    WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,WTF::Vector<WebCore::CharacterRange,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,WTF::Vector<WebCore::CharacterRange,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,WTF::Vector<WebCore::CharacterRange,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Vector<WebCore::CharacterRange,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::deallocateTable(v121, v103);
+    WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,WTF::Vector<WebCore::CharacterRange,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,WTF::Vector<WebCore::CharacterRange,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,WTF::Vector<WebCore::CharacterRange,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Vector<WebCore::CharacterRange,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::deallocateTable(v122, v104);
   }
 
-  return WTF::Vector<WebCore::CompositionHighlight,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v123, v103);
+  return WTF::Vector<WebCore::CompositionHighlight,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v124, v104);
 }
 
-uint64_t API::Array::elementsOfType<API::Dictionary>(uint64_t result, uint64_t a2)
+void *API::Array::elementsOfType<API::Dictionary>(void *result, uint64_t a2)
 {
   v2 = result;
   v3 = *(a2 + 16);
@@ -7594,7 +7663,7 @@ WTF::StringImpl *WKBundlePageConfirmCompositionWithText(void *a1, void *a2)
   return result;
 }
 
-WebCore::Page *WKBundlePageSetUseDarkAppearance(void *a1)
+WebCore::Page *WKBundlePageSetUseDarkAppearance(void *a1, BOOL a2)
 {
   result = WebKit::toImpl<OpaqueWKBundlePage const*,WebKit::WebPage>(a1);
   if (result)
@@ -7623,16 +7692,16 @@ uint64_t WKBundlePageIsUsingDarkAppearance(void *a1)
 
 uint64_t WKBundlePageCanShowMIMEType(void *a1, void *a2)
 {
-  v3 = WebKit::toImpl<OpaqueWKBundlePage const*,WebKit::WebPage>(a1);
+  v4 = WebKit::toImpl<OpaqueWKBundlePage const*,WebKit::WebPage>(a1);
   if (a2)
   {
     WebKit::toProtectedImpl<OpaqueWKString const*,API::String>(a2, &v10);
     WTF::String::isolatedCopy();
-    v4 = v10;
+    v3 = v10;
     v10 = 0;
-    if (v4)
+    if (v3)
     {
-      CFRelease(*(v4 + 8));
+      CFRelease(*(v3 + 8));
     }
   }
 
@@ -7641,7 +7710,7 @@ uint64_t WKBundlePageCanShowMIMEType(void *a1, void *a2)
     v9 = 0;
   }
 
-  canShowMIMEType = WebKit::WebPage::canShowMIMEType(v3, &v9);
+  canShowMIMEType = WebKit::WebPage::canShowMIMEType(v4, &v9, v3);
   v7 = v9;
   v9 = 0;
   if (v7 && atomic_fetch_add_explicit(v7, 0xFFFFFFFE, memory_order_relaxed) == 2)
@@ -7659,7 +7728,7 @@ uint64_t WKBundlePageExtendIncrementalRenderingSuppression(void *a1)
   return WebKit::WebPage::extendIncrementalRenderingSuppression(v1);
 }
 
-_DWORD *WKBundlePageStopExtendingIncrementalRenderingSuppression(void *a1, int a2)
+uint64_t *WKBundlePageStopExtendingIncrementalRenderingSuppression(void *a1, int a2)
 {
   v3 = WebKit::toImpl<OpaqueWKBundlePage const*,WebKit::WebPage>(a1);
 
@@ -7734,25 +7803,25 @@ uint64_t WKBundlePageRegisterScrollOperationCompletionCallback(void *a1, uint64_
       result = WebCore::Page::isMonitoringWheelEvents(*(result + 56));
       if (result)
       {
-        WebCore::Page::wheelEventTestMonitor(&v13, v8);
-        if (v13)
+        WebCore::Page::wheelEventTestMonitor(&v14, v8);
+        if (v14)
         {
-          v9 = WTF::fastMalloc(0x18);
-          *v9 = &unk_1F112B748;
-          v9[1] = a2;
-          v9[2] = a5;
-          v12 = v9;
+          v10 = WTF::fastMalloc(v9, 0x18);
+          *v10 = &unk_1F112B748;
+          v10[1] = a2;
+          v10[2] = a5;
+          v13 = v10;
           WebCore::WheelEventTestMonitor::setTestCallbackAndStartMonitoring();
-          if (v12)
+          if (v13)
           {
-            (*(*v12 + 8))(v12);
+            (*(*v13 + 8))(v13);
           }
 
-          v11 = v13;
-          v13 = 0;
-          if (v11)
+          v12 = v14;
+          v14 = 0;
+          if (v12)
           {
-            WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::WheelEventTestMonitor,(WTF::DestructionThread)0>::deref(v11, v10);
+            WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::WheelEventTestMonitor,(WTF::DestructionThread)0>::deref(v12, v11);
           }
         }
 
@@ -7784,7 +7853,7 @@ void *WKBundlePageCallAfterTasksAndTimers(void *result, uint64_t a2, uint64_t a3
         {
           if ((*(v6 + 136) & 1) == 0 && *(v6 + 224))
           {
-            v7 = WTF::fastMalloc(0x18);
+            v7 = WTF::fastMalloc(v6, 0x18);
             *v7 = &unk_1F112B770;
             v7[1] = a2;
             v7[2] = a3;
@@ -7860,16 +7929,16 @@ LABEL_6:
 
 WTF::StringImpl *WKBundlePagePostMessageWithAsyncReply(void *a1, void *a2, void *a3, uint64_t a4, uint64_t a5)
 {
-  v9 = WebKit::toImpl<OpaqueWKBundlePage const*,WebKit::WebPage>(a1);
+  v10 = WebKit::toImpl<OpaqueWKBundlePage const*,WebKit::WebPage>(a1);
   if (a2)
   {
     WebKit::toProtectedImpl<OpaqueWKString const*,API::String>(a2, &v15);
     WTF::String::isolatedCopy();
-    v10 = v15;
+    v9 = v15;
     v15 = 0;
-    if (v10)
+    if (v9)
     {
-      CFRelease(*(v10 + 8));
+      CFRelease(*(v9 + 8));
     }
 
     if (a3)
@@ -7888,12 +7957,12 @@ LABEL_5:
     }
   }
 
-  v11 = WTF::fastMalloc(0x18);
+  v11 = WTF::fastMalloc(v9, 0x18);
   *v11 = &unk_1F112B810;
   v11[1] = a4;
   v11[2] = a5;
   v15 = v11;
-  WebKit::WebPage::postMessageWithAsyncReply(v9, &v14, a3, &v15);
+  WebKit::WebPage::postMessageWithAsyncReply(v10, &v14, a3, &v15);
   if (v15)
   {
     (*(*v15 + 8))(v15);
@@ -8093,33 +8162,34 @@ WTF::StringImpl *WKBundlePageAddUserScriptInWorld(void *a1, void *a2, void *a3, 
   return result;
 }
 
-uint64_t WKBundlePageAddUserStyleSheet(void *a1, void *a2)
+WTF::StringImpl *WKBundlePageAddUserStyleSheet(void *a1, void *a2, int a3)
 {
-  v3 = WebKit::toImpl<OpaqueWKBundlePage const*,WebKit::WebPage>(a1);
+  v5 = WebKit::toImpl<OpaqueWKBundlePage const*,WebKit::WebPage>(a1);
   if (a2)
   {
-    WebKit::toProtectedImpl<OpaqueWKString const*,API::String>(a2, &v8);
+    WebKit::toProtectedImpl<OpaqueWKString const*,API::String>(a2, &v10);
     WTF::String::isolatedCopy();
-    v4 = v8;
-    v8 = 0;
-    if (v4)
+    v6 = v10;
+    v10 = 0;
+    if (v6)
     {
-      CFRelease(*(v4 + 8));
+      CFRelease(*(v6 + 8));
     }
   }
 
   else
   {
-    v7 = 0;
+    v9 = 0;
   }
 
-  WebKit::WebPage::addUserStyleSheet(v3);
-  result = v7;
-  if (v7)
+  WebKit::WebPage::addUserStyleSheet(v5, &v9, a3 == 1);
+  result = v9;
+  v9 = 0;
+  if (result)
   {
-    if (atomic_fetch_add_explicit(v7, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    if (atomic_fetch_add_explicit(result, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      return WTF::StringImpl::destroy(v7, v5);
+      return WTF::StringImpl::destroy(result, v7);
     }
   }
 
@@ -8133,13 +8203,13 @@ uint64_t WKBundlePageRemoveAllUserContent(void *a1)
   return WebKit::WebPage::removeAllUserContent(v1, v2);
 }
 
-uint64_t WKBundlePageCopyGroupIdentifier(void *a1)
+void *WKBundlePageCopyGroupIdentifier(void *a1)
 {
   WebKit::toImpl<OpaqueWKBundlePage const*,WebKit::WebPage>(a1);
   API::String::create(&v2);
   if (v2)
   {
-    return *(v2 + 1);
+    return v2->var1;
   }
 
   else
@@ -8148,7 +8218,7 @@ uint64_t WKBundlePageCopyGroupIdentifier(void *a1)
   }
 }
 
-uint64_t WKBundlePageSetCaptionDisplayMode(void *a1, void *a2)
+WTF::StringImpl *WKBundlePageSetCaptionDisplayMode(void *a1, void *a2)
 {
   v3 = WebKit::toImpl<OpaqueWKBundlePage const*,WebKit::WebPage>(a1);
   v4 = WebCore::Page::group(*(v3 + 56));
@@ -8176,7 +8246,7 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  if ((WTF::equalLettersIgnoringASCIICaseCommon<WTF::StringImpl>(v11, "forcedonly", 0xAuLL) & 1) == 0)
+  if (!WTF::equalLettersIgnoringASCIICaseCommon<WTF::StringImpl>(v11, "forcedonly", 0xAuLL))
   {
     if (WTF::equalLettersIgnoringASCIICaseCommon<WTF::StringImpl>(v11, "manual", 6uLL))
     {
@@ -8225,7 +8295,7 @@ LABEL_9:
   return result;
 }
 
-uint64_t WKBundlePageCreateCaptionUserPreferencesTestingModeToken(void *a1)
+void *WKBundlePageCreateCaptionUserPreferencesTestingModeToken(void *a1)
 {
   v1 = WebKit::toImpl<OpaqueWKBundlePage const*,WebKit::WebPage>(a1);
   v2 = WebCore::Page::group(*(v1 + 56));
@@ -8264,15 +8334,15 @@ uint64_t WKBundlePageCreateCaptionUserPreferencesTestingModeToken(void *a1)
   *v7 = v11;
   ++*(v3 + 136);
   API::Object::Object(v5);
-  *v5 = &unk_1F112B6B0;
+  v5->var0 = &unk_1F112B6B0;
   v12 = *v7;
   if (*v7)
   {
     atomic_fetch_add(v12, 1u);
   }
 
-  *(v5 + 2) = v12;
-  return *(v5 + 1);
+  v5[1].var0 = v12;
+  return v5->var1;
 }
 
 _DWORD *WKBundlePageLayoutIfNeeded(void *a1)
@@ -8289,19 +8359,19 @@ uint64_t WKBundlePageSetSkipDecidePolicyForResponseIfPossible(void *a1, char a2)
   return result;
 }
 
-uint64_t WKBundlePageCopyFrameTextForTesting(void *a1, char a2)
+void *WKBundlePageCopyFrameTextForTesting(void *a1, char a2)
 {
   v3 = WebKit::toImpl<OpaqueWKBundlePage const*,WebKit::WebPage>(a1);
-  WebKit::WebFrame::frameTextForTesting(*(v3 + 88), a2, &v8);
+  WebKit::WebFrame::frameTextForTesting(&v8, *(v3 + 88), a2);
   API::String::create(&v8, &v9);
   if (v9)
   {
-    v5 = *(v9 + 1);
+    var1 = v9->var1;
   }
 
   else
   {
-    v5 = 0;
+    var1 = 0;
   }
 
   v6 = v8;
@@ -8312,7 +8382,7 @@ uint64_t WKBundlePageCopyFrameTextForTesting(void *a1, char a2)
     WTF::StringImpl::destroy(v6, v4);
   }
 
-  return v5;
+  return var1;
 }
 
 uint64_t WKBundlePageOverlayCreate(__int128 *a1, void *a2)
@@ -8377,7 +8447,7 @@ uint64_t WKBundlePageOverlayCreate(__int128 *a1, void *a2)
   }
 
   v16 = NonCompact;
-  WebKit::WebPageOverlay::create(&v16, &v17);
+  WebKit::WebPageOverlay::create(&v16, 0, &v17);
   if (v17)
   {
     v14 = *(v17 + 1);
@@ -8437,12 +8507,12 @@ _DWORD *WKBundlePageOverlayClear(void *a1)
   return WebKit::WebPageOverlay::clear(v1);
 }
 
-uint64_t WKBundleRangeHandleCreate(WebCore::JSRange **a1, const OpaqueJSContext *a2, JSValue a3)
+void *WKBundleRangeHandleCreate(WebCore::JSRange **a1, const OpaqueJSContext *a2, JSValue a3)
 {
   WebKit::InjectedBundleRangeHandle::getOrCreate(a1, a2, a3, &v4);
   if (v4)
   {
-    return *(v4 + 8);
+    return v4->var1;
   }
 
   else
@@ -8472,12 +8542,13 @@ uint64_t WebKit::toImpl<OpaqueWKBundleRangeHandle const*,WebKit::InjectedBundleR
 uint64_t WKBundleRangeHandleCopySnapshotWithOptions(void *a1, unsigned int a2)
 {
   v2 = a2;
-  v3 = a2 >> 4;
+  v3 = a2 >> 8;
+  v4 = a2 >> 4;
   WebKit::toImpl<OpaqueWKBundleRangeHandle const*,WebKit::InjectedBundleRangeHandle>(a1);
-  WebKit::InjectedBundleRangeHandle::renderedImage(v2 & 0xF | ((v3 & 7) << 6), &v5);
-  if (v5)
+  WebKit::InjectedBundleRangeHandle::renderedImage(v2 & 0xF | ((v4 & 7) << 6) & 0xFDFF | ((v3 & 1) << 9), &v6);
+  if (v6)
   {
-    return *(v5 + 1);
+    return *(v6 + 1);
   }
 
   else
@@ -8509,12 +8580,12 @@ uint64_t WKBundleRangeHandleCopyDocumentFrame(void *a1)
   }
 }
 
-uint64_t WKBundleScriptWorldCreateWorld()
+void *WKBundleScriptWorldCreateWorld()
 {
   WebKit::InjectedBundleScriptWorld::create(&v1);
   if (v1)
   {
-    return *(v1 + 1);
+    return v1->var1;
   }
 
   else
@@ -8551,13 +8622,13 @@ uint64_t WKBundleScriptWorldDisableOverrideBuiltinsBehavior(void *a1)
   return result;
 }
 
-uint64_t WKBundleScriptWorldCopyName(void *a1)
+void *WKBundleScriptWorldCopyName(void *a1)
 {
   WebKit::toImpl<OpaqueWKBundleScriptWorld const*,WebKit::InjectedBundleScriptWorld>(a1);
   API::String::create(&v2);
   if (v2)
   {
-    return *(v2 + 1);
+    return v2->var1;
   }
 
   else
@@ -8660,7 +8731,7 @@ uint64_t PageOverlayClientImpl::didMoveToPage(uint64_t result, uint64_t a2, uint
   return result;
 }
 
-atomic_uchar **PageOverlayClientImpl::drawRect(atomic_uchar **this, WebKit::WebPageOverlay *a2, WebCore::GraphicsContext *a3, const WebCore::IntRect *a4)
+WTF **PageOverlayClientImpl::drawRect(WTF **this, WebKit::WebPageOverlay *a2, WebCore::GraphicsContext *a3, const WebCore::IntRect *a4)
 {
   if (this[5])
   {
@@ -8777,7 +8848,7 @@ LABEL_8:
   return v6(v7, v9, a1[2], a4, a5);
 }
 
-uint64_t PageOverlayClientImpl::copyAccessibilityAttributeStringValueForPoint(uint64_t a1, uint64_t a2, float a3, float a4, uint64_t a5, WTF::StringImpl **a6)
+uint64_t PageOverlayClientImpl::copyAccessibilityAttributeStringValueForPoint(uint64_t a1, uint64_t a2, API::String *a3, WTF::StringImpl **a4, float a5, float a6)
 {
   v6 = *(a1 + 128);
   if (!v6)
@@ -8787,12 +8858,12 @@ uint64_t PageOverlayClientImpl::copyAccessibilityAttributeStringValueForPoint(ui
 
   v11 = *(a2 + 8);
   API::String::create(&v23);
-  v12 = v23 ? *(v23 + 1) : 0;
+  v12 = v23 ? v23->var1 : 0;
   v13 = API::Object::newObject(0x20uLL, 35);
   v14 = API::Object::Object(v13);
   *v14 = &unk_1F10E7C90;
-  *(v14 + 2) = a3;
-  *(v14 + 3) = a4;
+  *(v14 + 2) = a5;
+  *(v14 + 3) = a6;
   v15 = v6(v11, v12, *(v14 + 1), *(a1 + 120));
   v16 = [v15 _apiObject];
   if ((*(*v16 + 16))(v16) != 20)
@@ -8808,7 +8879,7 @@ uint64_t PageOverlayClientImpl::copyAccessibilityAttributeStringValueForPoint(ui
     v23 = 0;
     if (v18)
     {
-      CFRelease(*(v18 + 1));
+      CFRelease(v18->var1);
     }
 
     v19 = v22;
@@ -8819,8 +8890,8 @@ uint64_t PageOverlayClientImpl::copyAccessibilityAttributeStringValueForPoint(ui
     v19 = 0;
   }
 
-  v21 = *a6;
-  *a6 = v19;
+  v21 = *a4;
+  *a4 = v19;
   if (v21)
   {
     if (atomic_fetch_add_explicit(v21, 0xFFFFFFFE, memory_order_relaxed) == 2)
@@ -8832,7 +8903,7 @@ uint64_t PageOverlayClientImpl::copyAccessibilityAttributeStringValueForPoint(ui
   return 1;
 }
 
-uint64_t PageOverlayClientImpl::copyAccessibilityAttributeBoolValueForPoint(uint64_t a1, uint64_t a2, float a3, float a4, uint64_t a5, _BYTE *a6)
+uint64_t PageOverlayClientImpl::copyAccessibilityAttributeBoolValueForPoint(uint64_t a1, uint64_t a2, API::String *a3, _BYTE *a4, float a5, float a6)
 {
   v6 = *(a1 + 128);
   if (!v6)
@@ -8842,12 +8913,12 @@ uint64_t PageOverlayClientImpl::copyAccessibilityAttributeBoolValueForPoint(uint
 
   v11 = *(a2 + 8);
   API::String::create(&v18);
-  v12 = v18 ? *(v18 + 1) : 0;
+  v12 = v18 ? v18->var1 : 0;
   v13 = API::Object::newObject(0x20uLL, 35);
   v14 = API::Object::Object(v13);
   *v14 = &unk_1F10E7C90;
-  *(v14 + 2) = a3;
-  *(v14 + 3) = a4;
+  *(v14 + 2) = a5;
+  *(v14 + 3) = a6;
   v15 = v6(v11, v12, *(v14 + 1), *(a1 + 120));
   v16 = [v15 _apiObject];
   if ((*(*v16 + 16))(v16) != 31)
@@ -8855,7 +8926,7 @@ uint64_t PageOverlayClientImpl::copyAccessibilityAttributeBoolValueForPoint(uint
     return 0;
   }
 
-  *a6 = WKBooleanGetValue(v15);
+  *a4 = WKBooleanGetValue(v15);
   return 1;
 }
 
@@ -8868,85 +8939,86 @@ unsigned int *PageOverlayClientImpl::copyAccessibilityAttributeNames@<X0>(unsign
   {
     v6 = v4(*(a2 + 1), a3, *(this + 15));
     this = WebKit::toImpl<OpaqueWKArray const*,API::Array>(v6);
-    v7 = this[7];
-    if (v7)
+    v8 = this[7];
+    if (v8)
     {
-      if (v7 >> 29)
+      v9 = (v8 >> 29);
+      if (v9)
       {
         __break(0xC471u);
         return this;
       }
 
-      v8 = WTF::fastMalloc((8 * v7));
-      v9 = 0;
-      *(a4 + 8) = v7;
-      *a4 = v8;
+      v10 = WTF::fastMalloc(v9, (8 * v8));
+      v11 = 0;
+      *(a4 + 8) = v8;
+      *a4 = v10;
       do
       {
-        ItemAtIndex = WKArrayGetItemAtIndex(v6, v9);
-        v11 = [ItemAtIndex _apiObject];
-        if ((*(*v11 + 16))(v11) == 20)
+        ItemAtIndex = WKArrayGetItemAtIndex(v6, v11);
+        v13 = [(CFTypeRef *)ItemAtIndex _apiObject];
+        if ((*(*v13 + 16))(v13) == 20)
         {
           if (ItemAtIndex)
           {
-            WebKit::toProtectedImpl<OpaqueWKString const*,API::String>(ItemAtIndex, &v21);
+            WebKit::toProtectedImpl<OpaqueWKString const*,API::String>(ItemAtIndex, &v23);
             WTF::String::isolatedCopy();
-            v13 = v21;
-            v21 = 0;
-            if (v13)
+            v15 = v23;
+            v23 = 0;
+            if (v15)
             {
-              CFRelease(*(v13 + 8));
+              CFRelease(*(v15 + 8));
             }
           }
 
           else
           {
-            v20 = 0;
+            v22 = 0;
           }
 
-          v14 = *(a4 + 12);
-          if (v14 == *(a4 + 8))
+          v16 = *(a4 + 12);
+          if (v16 == *(a4 + 8))
           {
-            v18 = WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(a4, v14 + 1, &v20);
-            v14 = *(a4 + 12);
-            v15 = *a4;
-            v16 = *v18;
-            *v18 = 0;
+            v20 = WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(a4, v16 + 1, &v22);
+            v16 = *(a4 + 12);
+            v17 = *a4;
+            v18 = *v20;
+            *v20 = 0;
           }
 
           else
           {
-            v15 = *a4;
-            v16 = v20;
-            v20 = 0;
+            v17 = *a4;
+            v18 = v22;
+            v22 = 0;
           }
 
-          *(v15 + 8 * v14) = v16;
-          *(a4 + 12) = v14 + 1;
-          v17 = v20;
-          v20 = 0;
-          if (v17)
+          *(v17 + 8 * v16) = v18;
+          *(a4 + 12) = v16 + 1;
+          v19 = v22;
+          v22 = 0;
+          if (v19)
           {
-            if (atomic_fetch_add_explicit(v17, 0xFFFFFFFE, memory_order_relaxed) == 2)
+            if (atomic_fetch_add_explicit(v19, 0xFFFFFFFE, memory_order_relaxed) == 2)
             {
-              WTF::StringImpl::destroy(v17, v12);
+              WTF::StringImpl::destroy(v19, v14);
             }
           }
         }
 
-        ++v9;
+        ++v11;
       }
 
-      while (v7 != v9);
-      v19 = *(a4 + 12);
+      while (v8 != v11);
+      v21 = *(a4 + 12);
     }
 
     else
     {
-      v19 = 0;
+      v21 = 0;
     }
 
-    return WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrinkCapacity(a4, v19);
+    return WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrinkCapacity(a4, v21, v7);
   }
 
   return this;
@@ -8995,27 +9067,27 @@ uint64_t API::Array::GetObjectTransform<API::Dictionary>::operator()(uint64_t a1
   return result;
 }
 
-uint64_t WTF::Detail::CallableWrapper<WKBundlePageCallAfterTasksAndTimers::$_0,void,WebCore::ScriptExecutionContext &>::call(uint64_t a1)
+uint64_t WTF::Detail::CallableWrapper<WKBundlePageCallAfterTasksAndTimers::$_0,void,WebCore::ScriptExecutionContext &>::call@<X0>(uint64_t a1@<X0>, uint64_t *a3@<X8>)
 {
-  v8 = *(a1 + 8);
-  v1 = WTF::fastMalloc(0x18);
-  *v1 = &unk_1F112B7E8;
-  *(v1 + 8) = v8;
-  v3 = WebCore::Timer::operator new(0x38, v2);
-  v4 = WTF::fastMalloc(0x10);
-  *v4 = &unk_1F112B798;
-  WebCore::TimerBase::TimerBase(v3);
-  *v3 = &unk_1F10EB388;
-  *(v3 + 6) = v4;
-  v5 = WTF::fastMalloc(0x18);
-  *v5 = &unk_1F112B7C0;
-  v5[1] = v3;
-  v5[2] = v1;
-  v6 = *(v3 + 6);
-  *(v3 + 6) = v5;
-  if (v6)
+  v12 = *(a1 + 8);
+  v3 = WTF::fastMalloc(a3, 0x18);
+  *v3 = &unk_1F112B7E8;
+  *(v3 + 1) = v12;
+  v5 = WebCore::Timer::operator new(0x38, v4);
+  v7 = WTF::fastMalloc(v6, 0x10);
+  *v7 = &unk_1F112B798;
+  WebCore::TimerBase::TimerBase(v5);
+  *v5 = &unk_1F10EB388;
+  *(v5 + 6) = v7;
+  v9 = WTF::fastMalloc(v8, 0x18);
+  *v9 = &unk_1F112B7C0;
+  v9[1] = v5;
+  v9[2] = v3;
+  v10 = *(v5 + 6);
+  *(v5 + 6) = v9;
+  if (v10)
   {
-    (*(*v6 + 8))(v6);
+    (*(*v10 + 8))(v10);
   }
 
   return WebCore::TimerBase::start();
@@ -9041,7 +9113,7 @@ uint64_t WTF::Detail::CallableWrapper<WebCore::Timer::schedule(WTF::Seconds,WTF:
   *(this + 2) = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   return WTF::fastFree(this, a2);
@@ -9076,230 +9148,230 @@ uint64_t WTF::Detail::CallableWrapper<WKBundlePagePostMessageWithAsyncReply::$_0
   return (*(a1 + 8))(v2, *(a1 + 16));
 }
 
-uint64_t *WebKit::InjectedBundleCSSStyleDeclarationHandle::getOrCreate@<X0>(const OpaqueJSContext *a1@<X1>, JSValue a2@<X2>, uint64_t *a3@<X8>)
+uint64_t *WebKit::InjectedBundleCSSStyleDeclarationHandle::getOrCreate@<X0>(Object **__return_ptr a1@<X8>, const OpaqueJSContext *a2@<X1>, JSValue a3@<X2>)
 {
-  v5 = (a1 - 16);
-  if ((a1 & 8) == 0)
+  v4 = (a2 - 16);
+  if ((a2 & 8) == 0)
   {
-    v5 = (a1 & 0xFFFFFFFFFFFFC000 | 8);
+    v4 = (a2 & 0xFFFFFFFFFFFFC000 | 8);
   }
 
-  result = WebCore::JSCSSStyleDeclaration::toWrapped(*v5, a1, a2);
+  result = WebCore::JSCSSStyleDeclaration::toWrapped(*v4, a2, a3);
   if (result)
   {
-    v7 = result;
+    v6 = result;
     (**result)(result);
-    WebKit::InjectedBundleCSSStyleDeclarationHandle::getOrCreate(v7, a3);
-    v8 = *(*v7 + 8);
+    WebKit::InjectedBundleCSSStyleDeclarationHandle::getOrCreate(v6, a1);
+    v7 = *(*v6 + 8);
 
-    return v8(v7);
+    return v7(v6);
   }
 
   else
   {
-    *a3 = 0;
+    *a1 = 0;
   }
 
   return result;
 }
 
-uint64_t *WebKit::InjectedBundleCSSStyleDeclarationHandle::getOrCreate@<X0>(uint64_t *result@<X0>, uint64_t *a2@<X8>)
+WTF *WebKit::InjectedBundleCSSStyleDeclarationHandle::getOrCreate@<X0>(WTF *result@<X0>, Object **a3@<X8>)
 {
   if (!result)
   {
-    v19 = 0;
+    v20 = 0;
     goto LABEL_41;
   }
 
-  v3 = result;
+  v4 = result;
   if ((_MergedGlobals_112 & 1) == 0)
   {
     qword_1ED642C40 = 0;
     _MergedGlobals_112 = 1;
   }
 
-  if (!result[1])
+  if (!*(result + 1))
   {
-    v5 = WTF::fastCompactMalloc(0x10);
-    *v5 = 1;
-    *(v5 + 8) = v3;
-    v6 = v3[1];
-    v3[1] = v5;
-    if (v6)
+    v6 = WTF::fastCompactMalloc(0x10);
+    *v6 = 1;
+    *(v6 + 8) = v4;
+    v7 = *(v4 + 1);
+    *(v4 + 1) = v6;
+    if (v7)
     {
-      if (*v6 == 1)
+      if (*v7 == 1)
       {
-        WTF::fastFree(v6, v4);
+        WTF::fastFree(v7, v5);
       }
 
       else
       {
-        --*v6;
+        --*v7;
       }
     }
   }
 
-  v7 = v3[1];
-  ++*v7;
-  if (v7 == -1)
+  v8 = *(v4 + 1);
+  ++*v8;
+  if (v8 == -1)
   {
     __break(0xC471u);
     JUMPOUT(0x19E2EB924);
   }
 
-  if (!v7)
+  if (!v8)
   {
     __break(0xC471u);
     JUMPOUT(0x19E2EB944);
   }
 
-  v8 = qword_1ED642C40;
-  if (qword_1ED642C40 || (WTF::HashTable<WTF::WeakRef<WebCore::CSSStyleDeclaration,WTF::SingleThreadWeakPtrImpl>,WTF::KeyValuePair<WTF::WeakRef<WebCore::CSSStyleDeclaration,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleCSSStyleDeclarationHandle,WTF::DefaultWeakPtrImpl>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::WeakRef<WebCore::CSSStyleDeclaration,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleCSSStyleDeclarationHandle,WTF::DefaultWeakPtrImpl>>>,WTF::DefaultHash<WTF::WeakRef<WebCore::CSSStyleDeclaration,WTF::SingleThreadWeakPtrImpl>>,WTF::HashMap<WTF::WeakRef<WebCore::CSSStyleDeclaration,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleCSSStyleDeclarationHandle,WTF::DefaultWeakPtrImpl>,WTF::DefaultHash<WTF::WeakRef<WebCore::CSSStyleDeclaration,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebCore::CSSStyleDeclaration,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebKit::InjectedBundleCSSStyleDeclarationHandle,WTF::DefaultWeakPtrImpl>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::WeakRef<WebCore::CSSStyleDeclaration,WTF::SingleThreadWeakPtrImpl>>,WTF::FastMalloc>::expand(), (v8 = qword_1ED642C40) != 0))
+  v9 = qword_1ED642C40;
+  if (qword_1ED642C40 || (WTF::HashTable<WTF::WeakRef<WebCore::CSSStyleDeclaration,WTF::SingleThreadWeakPtrImpl>,WTF::KeyValuePair<WTF::WeakRef<WebCore::CSSStyleDeclaration,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleCSSStyleDeclarationHandle,WTF::DefaultWeakPtrImpl>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::WeakRef<WebCore::CSSStyleDeclaration,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleCSSStyleDeclarationHandle,WTF::DefaultWeakPtrImpl>>>,WTF::DefaultHash<WTF::WeakRef<WebCore::CSSStyleDeclaration,WTF::SingleThreadWeakPtrImpl>>,WTF::HashMap<WTF::WeakRef<WebCore::CSSStyleDeclaration,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleCSSStyleDeclarationHandle,WTF::DefaultWeakPtrImpl>,WTF::DefaultHash<WTF::WeakRef<WebCore::CSSStyleDeclaration,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebCore::CSSStyleDeclaration,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebKit::InjectedBundleCSSStyleDeclarationHandle,WTF::DefaultWeakPtrImpl>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::WeakRef<WebCore::CSSStyleDeclaration,WTF::SingleThreadWeakPtrImpl>>,WTF::FastMalloc>::expand(0), (v9 = qword_1ED642C40) != 0))
   {
-    v9 = *(v8 - 8);
+    v10 = *(v9 - 8);
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
-  v10 = WTF::PtrHashBase<WTF::WeakRef<WebCore::CSSStyleDeclaration,WTF::SingleThreadWeakPtrImpl>,true>::hash(v7[1]);
-  v12 = 0;
+  v11 = WTF::PtrHashBase<WTF::WeakRef<WebCore::CSSStyleDeclaration,WTF::SingleThreadWeakPtrImpl>,true>::hash(v8[1]);
+  v13 = 0;
   for (i = 1; ; ++i)
   {
-    v14 = v10 & v9;
-    v15 = (v8 + 16 * (v10 & v9));
-    v16 = *v15;
-    if (*v15 == -1)
+    v15 = v11 & v10;
+    v16 = (v9 + 16 * (v11 & v10));
+    v17 = *v16;
+    if (*v16 == -1)
     {
-      v12 = (v8 + 16 * v14);
+      v13 = (v9 + 16 * v15);
       goto LABEL_21;
     }
 
-    if (!v16)
+    if (!v17)
     {
-      if (v12)
+      if (v13)
       {
-        *v12 = 0;
-        v12[1] = 0;
+        *v13 = 0;
+        v13[1] = 0;
         --*(qword_1ED642C40 - 16);
-        *v12 = v7;
+        *v13 = v8;
       }
 
       else
       {
-        *v15 = v7;
-        v12 = v15;
+        *v16 = v8;
+        v13 = v16;
       }
 
-      v19 = API::Object::newObject(0x20uLL, 136);
-      v20 = API::Object::Object(v19);
-      *(v20 + 2) = 0;
-      *v20 = &unk_1F112B8D0;
-      (**v3)(v3);
-      *(v19 + 24) = v3;
-      if (!*(v19 + 16))
+      v20 = API::Object::newObject(0x20uLL, 136);
+      v21 = API::Object::Object(v20);
+      *(v21 + 2) = 0;
+      *v21 = &unk_1F112B8D0;
+      (**v4)(v4);
+      v20[1].var1 = v4;
+      if (!v20[1].var0)
       {
-        v22 = WTF::fastCompactMalloc(0x10);
-        *v22 = 1;
-        *(v22 + 8) = v19;
-        v23 = *(v19 + 16);
-        *(v19 + 16) = v22;
-        if (v23)
+        v23 = WTF::fastCompactMalloc(0x10);
+        *v23 = 1;
+        *(v23 + 8) = v20;
+        var0 = v20[1].var0;
+        v20[1].var0 = v23;
+        if (var0)
         {
-          if (atomic_fetch_add(v23, 0xFFFFFFFF) == 1)
+          if (atomic_fetch_add(var0, 0xFFFFFFFF) == 1)
           {
-            atomic_store(1u, v23);
-            WTF::fastFree(v23, v21);
+            atomic_store(1u, var0);
+            WTF::fastFree(var0, v22);
           }
         }
       }
 
-      v24 = *(v19 + 16);
-      atomic_fetch_add(v24, 1u);
-      result = v12[1];
-      v12[1] = v24;
+      v25 = v20[1].var0;
+      atomic_fetch_add(v25, 1u);
+      result = v13[1];
+      v13[1] = v25;
       if (result && atomic_fetch_add(result, 0xFFFFFFFF) == 1)
       {
         atomic_store(1u, result);
-        result = WTF::fastFree(result, v21);
+        result = WTF::fastFree(result, v22);
       }
 
-      v25 = qword_1ED642C40;
+      v26 = qword_1ED642C40;
       if (qword_1ED642C40)
       {
-        v26 = *(qword_1ED642C40 - 12) + 1;
+        v27 = *(qword_1ED642C40 - 12) + 1;
       }
 
       else
       {
-        v26 = 1;
+        v27 = 1;
       }
 
-      *(qword_1ED642C40 - 12) = v26;
-      v27 = (*(v25 - 16) + v26);
-      v28 = *(v25 - 4);
-      if (v28 > 0x400)
+      *(qword_1ED642C40 - 12) = v27;
+      v28 = (*(v26 - 16) + v27);
+      v29 = *(v26 - 4);
+      if (v29 > 0x400)
       {
-        if (v28 > 2 * v27)
+        if (v29 > 2 * v28)
         {
           goto LABEL_41;
         }
       }
 
-      else if (3 * v28 > 4 * v27)
+      else if (3 * v29 > 4 * v28)
       {
         goto LABEL_41;
       }
 
-      result = WTF::HashTable<WTF::WeakRef<WebCore::CSSStyleDeclaration,WTF::SingleThreadWeakPtrImpl>,WTF::KeyValuePair<WTF::WeakRef<WebCore::CSSStyleDeclaration,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleCSSStyleDeclarationHandle,WTF::DefaultWeakPtrImpl>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::WeakRef<WebCore::CSSStyleDeclaration,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleCSSStyleDeclarationHandle,WTF::DefaultWeakPtrImpl>>>,WTF::DefaultHash<WTF::WeakRef<WebCore::CSSStyleDeclaration,WTF::SingleThreadWeakPtrImpl>>,WTF::HashMap<WTF::WeakRef<WebCore::CSSStyleDeclaration,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleCSSStyleDeclarationHandle,WTF::DefaultWeakPtrImpl>,WTF::DefaultHash<WTF::WeakRef<WebCore::CSSStyleDeclaration,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebCore::CSSStyleDeclaration,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebKit::InjectedBundleCSSStyleDeclarationHandle,WTF::DefaultWeakPtrImpl>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::WeakRef<WebCore::CSSStyleDeclaration,WTF::SingleThreadWeakPtrImpl>>,WTF::FastMalloc>::expand();
+      result = WTF::HashTable<WTF::WeakRef<WebCore::CSSStyleDeclaration,WTF::SingleThreadWeakPtrImpl>,WTF::KeyValuePair<WTF::WeakRef<WebCore::CSSStyleDeclaration,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleCSSStyleDeclarationHandle,WTF::DefaultWeakPtrImpl>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::WeakRef<WebCore::CSSStyleDeclaration,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleCSSStyleDeclarationHandle,WTF::DefaultWeakPtrImpl>>>,WTF::DefaultHash<WTF::WeakRef<WebCore::CSSStyleDeclaration,WTF::SingleThreadWeakPtrImpl>>,WTF::HashMap<WTF::WeakRef<WebCore::CSSStyleDeclaration,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleCSSStyleDeclarationHandle,WTF::DefaultWeakPtrImpl>,WTF::DefaultHash<WTF::WeakRef<WebCore::CSSStyleDeclaration,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebCore::CSSStyleDeclaration,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebKit::InjectedBundleCSSStyleDeclarationHandle,WTF::DefaultWeakPtrImpl>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::WeakRef<WebCore::CSSStyleDeclaration,WTF::SingleThreadWeakPtrImpl>>,WTF::FastMalloc>::expand(v13);
       goto LABEL_41;
     }
 
-    v17 = v16[1];
-    if (!v17)
+    v18 = v17[1];
+    if (!v18)
     {
       goto LABEL_53;
     }
 
-    v18 = v7[1];
-    if (!v18)
+    v19 = v8[1];
+    if (!v19)
     {
       __break(0xC471u);
       JUMPOUT(0x19E2EB904);
     }
 
-    if (v18 == v17)
+    if (v19 == v18)
     {
       break;
     }
 
 LABEL_21:
-    v10 = i + v14;
+    v11 = i + v15;
   }
 
-  if (*v7 == 1)
+  if (*v8 == 1)
   {
-    WTF::fastFree(v7, v11);
+    WTF::fastFree(v8, v12);
   }
 
   else
   {
-    --*v7;
+    --*v8;
   }
 
-  v19 = v15[1][1];
-  if (!v19)
+  v20 = v16[1][1];
+  if (!v20)
   {
 LABEL_53:
     __break(0xC471u);
     JUMPOUT(0x19E2EB8E4);
   }
 
-  result = CFRetain(*(v19 + 8));
+  result = CFRetain(v20->var1);
 LABEL_41:
-  *a2 = v19;
+  *a3 = v20;
   return result;
 }
 
@@ -9381,7 +9453,7 @@ LABEL_18:
       v18 = *(v16 - 4);
       if (6 * v17.i32[1] < v18 && v18 >= 9)
       {
-        WTF::HashTable<WTF::WeakRef<WebCore::CSSStyleDeclaration,WTF::SingleThreadWeakPtrImpl>,WTF::KeyValuePair<WTF::WeakRef<WebCore::CSSStyleDeclaration,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleCSSStyleDeclarationHandle,WTF::DefaultWeakPtrImpl>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::WeakRef<WebCore::CSSStyleDeclaration,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleCSSStyleDeclarationHandle,WTF::DefaultWeakPtrImpl>>>,WTF::DefaultHash<WTF::WeakRef<WebCore::CSSStyleDeclaration,WTF::SingleThreadWeakPtrImpl>>,WTF::HashMap<WTF::WeakRef<WebCore::CSSStyleDeclaration,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleCSSStyleDeclarationHandle,WTF::DefaultWeakPtrImpl>,WTF::DefaultHash<WTF::WeakRef<WebCore::CSSStyleDeclaration,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebCore::CSSStyleDeclaration,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebKit::InjectedBundleCSSStyleDeclarationHandle,WTF::DefaultWeakPtrImpl>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::WeakRef<WebCore::CSSStyleDeclaration,WTF::SingleThreadWeakPtrImpl>>,WTF::FastMalloc>::rehash(v18 >> 1);
+        WTF::HashTable<WTF::WeakRef<WebCore::CSSStyleDeclaration,WTF::SingleThreadWeakPtrImpl>,WTF::KeyValuePair<WTF::WeakRef<WebCore::CSSStyleDeclaration,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleCSSStyleDeclarationHandle,WTF::DefaultWeakPtrImpl>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::WeakRef<WebCore::CSSStyleDeclaration,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleCSSStyleDeclarationHandle,WTF::DefaultWeakPtrImpl>>>,WTF::DefaultHash<WTF::WeakRef<WebCore::CSSStyleDeclaration,WTF::SingleThreadWeakPtrImpl>>,WTF::HashMap<WTF::WeakRef<WebCore::CSSStyleDeclaration,WTF::SingleThreadWeakPtrImpl>,WTF::WeakRef<WebKit::InjectedBundleCSSStyleDeclarationHandle,WTF::DefaultWeakPtrImpl>,WTF::DefaultHash<WTF::WeakRef<WebCore::CSSStyleDeclaration,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebCore::CSSStyleDeclaration,WTF::SingleThreadWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebKit::InjectedBundleCSSStyleDeclarationHandle,WTF::DefaultWeakPtrImpl>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::WeakRef<WebCore::CSSStyleDeclaration,WTF::SingleThreadWeakPtrImpl>>,WTF::FastMalloc>::rehash(v18 >> 1, 0);
       }
     }
 
@@ -9392,7 +9464,7 @@ LABEL_19:
   *v4 = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   v20 = *(this + 2);
@@ -9432,10 +9504,11 @@ WebKit::RemoteWebInspectorUI *WebKit::RemoteWebInspectorUI::RemoteWebInspectorUI
   v5 = *(a2 + 7);
   if (v5)
   {
-    ++*(v5 + 8);
+    v4 = (*(v5 + 8) + 1);
+    *(v5 + 8) = v4;
   }
 
-  WTF::fastMalloc(0x38);
+  WTF::fastMalloc(v4, 0x38);
   *(this + 6) = WebCore::InspectorFrontendAPIDispatcher::InspectorFrontendAPIDispatcher();
   WTF::RefCounted<WebCore::Page>::deref((v5 + 8));
   *(this + 7) = 0;
@@ -9574,7 +9647,7 @@ uint64_t WebKit::RemoteWebInspectorUI::initialize(uint64_t a1, uint64_t a2, atom
     CFRelease(*(v12 - 8));
     WebCore::InspectorFrontendAPIDispatcher::reset(*(a1 + 48));
     WTF::StringImpl::createWithoutCopyingNonEmpty();
-    WTF::JSONImpl::Value::create(1);
+    WTF::JSONImpl::Value::create(v20, 1);
     WTF::Vector<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(v18, v20, 1uLL);
     WebCore::InspectorFrontendAPIDispatcher::dispatchCommandWithResultAsync();
     WTF::Vector<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(v18, v14);
@@ -9644,62 +9717,6 @@ WTF::StringImpl *WebKit::RemoteWebInspectorUI::updateFindString(WebKit::RemoteWe
     {
       return WTF::StringImpl::destroy(result, v5);
     }
-  }
-
-  return result;
-}
-
-uint64_t WebKit::RemoteWebInspectorUI::sendMessageToBackend(WebKit::RemoteWebInspectorUI *this, const WTF::String *a2)
-{
-  {
-    v4 = WebKit::WebProcess::singleton(void)::process;
-  }
-
-  else
-  {
-    v15 = WebKit::WebProcess::operator new(0x370, a2);
-    v4 = WebKit::WebProcess::WebProcess(v15);
-    WebKit::WebProcess::singleton(void)::process = v4;
-  }
-
-  WebKit::AuxiliaryProcess::protectedParentProcessConnection(v4, &v16);
-  v6 = *(*(this + 5) + 8);
-  if (v6)
-  {
-    v7 = v16;
-    v8 = *(v6 + 32);
-    v9 = IPC::Encoder::operator new(0x238, v5);
-    *v9 = 1690;
-    *(v9 + 2) = 0;
-    *(v9 + 3) = 0;
-    *(v9 + 1) = v8;
-    *(v9 + 68) = 0;
-    *(v9 + 70) = 0;
-    *(v9 + 69) = 0;
-    IPC::Encoder::encodeHeader(v9);
-    v17 = v9;
-    IPC::ArgumentCoder<WTF::String,void>::encode<IPC::Encoder>(v9, a2);
-    IPC::Connection::sendMessageImpl(v7, &v17, 0, 0);
-    v11 = v17;
-    v17 = 0;
-    if (v11)
-    {
-      IPC::Encoder::~Encoder(v11, v10);
-      bmalloc::api::tzoneFree(v13, v14);
-    }
-
-    result = v16;
-    v16 = 0;
-    if (result)
-    {
-      return WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(result);
-    }
-  }
-
-  else
-  {
-    result = 92;
-    __break(0xC471u);
   }
 
   return result;

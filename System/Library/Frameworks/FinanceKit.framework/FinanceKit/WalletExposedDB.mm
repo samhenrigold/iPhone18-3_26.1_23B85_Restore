@@ -15,10 +15,10 @@
   v3 = (*(&self->super.isa + OBJC_IVAR____TtC10FinanceKit15WalletExposedDB_store))[2];
   selfCopy = self;
   newBackgroundContext = [v3 newBackgroundContext];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB99DC40);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB99DC40, &qword_1B786ABA8);
   sub_1B7801468();
 
-  sub_1B7205540(0, &unk_1EDAF6430);
+  sub_1B7205540(0, &unk_1EDAF6430, off_1E7CA8B00);
   v5 = sub_1B7800C18();
 
   return v5;
@@ -77,7 +77,7 @@
 
 - (BOOL)insertOrUpdateTransactions:(id)transactions forAppleAccountWithID:(id)d error:(id *)error
 {
-  sub_1B7205540(0, &qword_1EB99AA20);
+  sub_1B7205540(0, &qword_1EB99AA20, off_1E7CA8C00);
   v7 = sub_1B7800C38();
   v8 = sub_1B7800868();
   v10 = v9;

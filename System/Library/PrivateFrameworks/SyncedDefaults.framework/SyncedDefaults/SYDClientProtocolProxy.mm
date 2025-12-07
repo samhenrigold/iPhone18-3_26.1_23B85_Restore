@@ -34,7 +34,7 @@
 
   else
   {
-    target2 = SYDGetConnectionLog();
+    target2 = SYDGetConnectionLog(0);
     if (os_log_type_enabled(target2, OS_LOG_TYPE_INFO))
     {
       *v10 = 0;

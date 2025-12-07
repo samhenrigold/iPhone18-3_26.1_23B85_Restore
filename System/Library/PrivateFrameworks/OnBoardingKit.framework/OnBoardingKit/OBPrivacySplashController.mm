@@ -14,7 +14,9 @@
 - (void)traitCollectionDidChange:(id)change;
 - (void)updateFontForPrivacyGateway;
 - (void)updateFontForUnifiedAboutButton;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation OBPrivacySplashController
@@ -51,6 +53,22 @@
   v5 = [OBUtilities localizedString:@"SPLASH_CONTINUE" forTable:@"Localizable" inBundle:v3 forLanguage:displayLanguage];
 
   return v5;
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = OBPrivacySplashController;
+  [(OBWelcomeController *)&v6 viewDidAppear:appear];
+  if (![(OBPrivacySplashController *)self suppressPerPageAnalyticsLogging])
+  {
+    if ([(OBPrivacySplashController *)self isMovingToParentViewController])
+    {
+      v4 = +[OBAnalyticsManager sharedManager];
+      identifier = [(OBPrivacyFlow *)self->_flow identifier];
+      [v4 logPresentationOfPrivacySplashWithIdentifier:identifier];
+    }
+  }
 }
 
 - (OBPrivacySplashController)initWithFlow:(id)flow
@@ -140,57 +158,84 @@ LABEL_6:
 
 - (void)viewDidLoad
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v16.receiver = self;
-  v16.super_class = OBPrivacySplashController;
-  [(OBWelcomeController *)&v16 viewDidLoad];
+  v22 = *MEMORY[0x1E69E9840];
+  v17.receiver = self;
+  v17.super_class = OBPrivacySplashController;
+  [(OBWelcomeController *)&v17 viewDidLoad];
   [(OBPrivacySplashController *)self _initializeFromBundle];
   additionalDisplayLanguageManager = [(OBPrivacySplashController *)self additionalDisplayLanguageManager];
 
   if (!additionalDisplayLanguageManager)
   {
-    v4 = [OBAdditionalDisplayLanguageManager alloc];
+    v5 = [OBAdditionalDisplayLanguageManager alloc];
     displayLanguage = [(OBPrivacySplashController *)self displayLanguage];
-    v6 = [(OBAdditionalDisplayLanguageManager *)v4 initWithDisplayLanguage:displayLanguage];
-    [(OBPrivacySplashController *)self setAdditionalDisplayLanguageManager:v6];
+    v7 = [(OBAdditionalDisplayLanguageManager *)v5 initWithDisplayLanguage:displayLanguage];
+    [(OBPrivacySplashController *)self setAdditionalDisplayLanguageManager:v7];
 
-    v7 = _OBLoggingFacility();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = _OBLoggingFacility(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       displayLanguage2 = [(OBPrivacySplashController *)self displayLanguage];
       additionalDisplayLanguageManager2 = [(OBPrivacySplashController *)self additionalDisplayLanguageManager];
       *buf = 138412546;
-      v18 = displayLanguage2;
-      v19 = 2112;
-      v20 = additionalDisplayLanguageManager2;
-      _os_log_impl(&dword_1B4FB6000, v7, OS_LOG_TYPE_DEFAULT, "splash controller with displayLanguage %@ created %@", buf, 0x16u);
+      v19 = displayLanguage2;
+      v20 = 2112;
+      v21 = additionalDisplayLanguageManager2;
+      _os_log_impl(&dword_1B4FB6000, v9, OS_LOG_TYPE_DEFAULT, "splash controller with displayLanguage %@ created %@", buf, 0x16u);
     }
   }
 
-  v10 = _OBLoggingFacility();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v12 = _OBLoggingFacility(v4);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     additionalDisplayLanguageManager3 = [(OBPrivacySplashController *)self additionalDisplayLanguageManager];
     *buf = 138412290;
-    v18 = additionalDisplayLanguageManager3;
-    _os_log_impl(&dword_1B4FB6000, v10, OS_LOG_TYPE_DEFAULT, "splash controller using %@", buf, 0xCu);
+    v19 = additionalDisplayLanguageManager3;
+    _os_log_impl(&dword_1B4FB6000, v12, OS_LOG_TYPE_DEFAULT, "splash controller using %@", buf, 0xCu);
   }
 
   identifier = [(OBPrivacyFlow *)self->_flow identifier];
-  v13 = [identifier isEqualToString:@"com.apple.onboarding.privacypane"];
+  v15 = [identifier isEqualToString:@"com.apple.onboarding.privacypane"];
 
-  if (v13)
+  if (v15)
   {
-    v14 = 2;
+    v16 = 2;
   }
 
   else
   {
-    v14 = 1;
+    v16 = 1;
   }
 
-  [(OBWelcomeController *)self setTemplateType:v14];
-  v15 = *MEMORY[0x1E69E9840];
+  [(OBWelcomeController *)self setTemplateType:v16];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v5 = _OBLoggingFacility(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_1B4FB6000, v5, OS_LOG_TYPE_DEFAULT, "splash controller viewWillAppear", buf, 2u);
+  }
+
+  v11.receiver = self;
+  v11.super_class = OBPrivacySplashController;
+  [(OBWelcomeController *)&v11 viewWillAppear:appearCopy];
+  navigationItem = [(OBBaseWelcomeController *)self navigationItem];
+  [navigationItem setTitle:0];
+
+  v8 = _OBLoggingFacility(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_1B4FB6000, v8, OS_LOG_TYPE_DEFAULT, "splash controller viewWillAppear will configure navigation item", buf, 2u);
+  }
+
+  additionalDisplayLanguageManager = [(OBPrivacySplashController *)self additionalDisplayLanguageManager];
+  displayLanguage = [(OBPrivacySplashController *)self displayLanguage];
+  [additionalDisplayLanguageManager configureNavigationItemRightBarButtonItemForWelcomeController:self currentDisplayLanguage:displayLanguage action:sel__languageToggleTapped];
 }
 
 - (void)setCustomTintColor:(id)color
@@ -203,7 +248,7 @@ LABEL_6:
 
 - (void)_initializeFromBundle
 {
-  v128[3] = *MEMORY[0x1E69E9840];
+  v127[3] = *MEMORY[0x1E69E9840];
   v3 = +[OBCapabilities sharedCapabilities];
   if ([v3 preventURLDataDetection])
   {
@@ -224,12 +269,12 @@ LABEL_6:
 
   v10 = [OBPrivacySplashListView alloc];
   scrollView = [(OBWelcomeController *)self scrollView];
-  v124 = v9;
+  v123 = v9;
   v12 = [(OBPrivacySplashListView *)v10 initWithContentList:v9 dataDetectorTypes:v4 displayingPrivacyPane:v6 scrollView:scrollView];
 
   [(OBPrivacySplashListView *)v12 setUnderlineLinks:[(OBPrivacySplashController *)self underlineLinks]];
   [(OBPrivacySplashListView *)v12 setTranslatesAutoresizingMaskIntoConstraints:0];
-  v125 = v12;
+  v124 = v12;
   if ([(OBPrivacySplashController *)self showLinkToPrivacyGateway])
   {
     if ([(OBPrivacySplashController *)self allowsOpeningSafari])
@@ -357,22 +402,22 @@ LABEL_6:
     v63 = ;
     v64 = [leadingAnchor constraintEqualToAnchor:v63];
 
-    v120 = MEMORY[0x1E696ACD8];
+    v119 = MEMORY[0x1E696ACD8];
     unifiedAboutButton9 = [(OBPrivacySplashController *)self unifiedAboutButton];
     topAnchor = [unifiedAboutButton9 topAnchor];
     topAnchor2 = [v57 topAnchor];
     v68 = [topAnchor constraintEqualToAnchor:topAnchor2];
-    v128[0] = v68;
+    v127[0] = v68;
     unifiedAboutButton10 = [(OBPrivacySplashController *)self unifiedAboutButton];
     bottomAnchor = [unifiedAboutButton10 bottomAnchor];
-    v122 = v57;
+    v121 = v57;
     bottomAnchor2 = [v57 bottomAnchor];
     v72 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-    v128[1] = v72;
-    v128[2] = v64;
-    v121 = v64;
-    v73 = [MEMORY[0x1E695DEC8] arrayWithObjects:v128 count:3];
-    [v120 activateConstraints:v73];
+    v127[1] = v72;
+    v127[2] = v64;
+    v120 = v64;
+    v73 = [MEMORY[0x1E695DEC8] arrayWithObjects:v127 count:3];
+    [v119 activateConstraints:v73];
 
     customTintColor = [(OBPrivacySplashController *)self customTintColor];
 
@@ -383,8 +428,8 @@ LABEL_6:
       [headerView setTintColor:customTintColor2];
     }
 
-    v12 = v125;
-    [(OBPrivacySplashListView *)v125 addArrangedSubview:v122];
+    v12 = v124;
+    [(OBPrivacySplashListView *)v124 addArrangedSubview:v121];
 
     v45 = 0x1E695D000uLL;
   }
@@ -397,8 +442,8 @@ LABEL_6:
   topAnchor3 = [contentView2 topAnchor];
   topAnchor4 = [(OBPrivacySplashListView *)v12 topAnchor];
   v82 = [topAnchor3 constraintEqualToAnchor:topAnchor4];
-  v127 = v82;
-  v83 = [*(v45 + 3784) arrayWithObjects:&v127 count:1];
+  v126 = v82;
+  v83 = [*(v45 + 3784) arrayWithObjects:&v126 count:1];
   [array addObjectsFromArray:v83];
 
   contentView3 = [(OBWelcomeController *)self contentView];
@@ -411,13 +456,13 @@ LABEL_6:
   leadingAnchor2 = [contentView4 leadingAnchor];
   leadingAnchor3 = [(OBPrivacySplashListView *)v12 leadingAnchor];
   v90 = [leadingAnchor2 constraintEqualToAnchor:leadingAnchor3];
-  v126[0] = v90;
+  v125[0] = v90;
   contentView5 = [(OBWelcomeController *)self contentView];
   trailingAnchor = [contentView5 trailingAnchor];
   trailingAnchor2 = [(OBPrivacySplashListView *)v12 trailingAnchor];
   v94 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v126[1] = v94;
-  v95 = [*(v45 + 3784) arrayWithObjects:v126 count:2];
+  v125[1] = v94;
+  v95 = [*(v45 + 3784) arrayWithObjects:v125 count:2];
   [array addObjectsFromArray:v95];
 
   [MEMORY[0x1E696ACD8] activateConstraints:array];
@@ -437,7 +482,7 @@ LABEL_6:
   {
     templateType = [(OBWelcomeController *)self templateType];
 
-    v103 = v125;
+    v103 = v124;
     if (templateType == 2)
     {
       v104 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
@@ -459,7 +504,7 @@ LABEL_23:
   else
   {
 
-    v103 = v125;
+    v103 = v124;
   }
 
   _iconSymbolName = [(OBPrivacyFlow *)self->_flow _iconSymbolName];
@@ -488,8 +533,6 @@ LABEL_23:
   }
 
 LABEL_24:
-
-  v119 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setDismissHandlerForDefaultButton:(id)button
@@ -554,7 +597,7 @@ LABEL_24:
 
 - (void)_languageToggleTapped
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   additionalDisplayLanguageManager = [(OBPrivacySplashController *)self additionalDisplayLanguageManager];
   displayLanguage = [(OBPrivacySplashController *)self displayLanguage];
   v5 = [additionalDisplayLanguageManager didTapRightBarButtonItemForWelcomeController:self currentDisplayLanguage:displayLanguage];
@@ -564,33 +607,33 @@ LABEL_24:
   displayLanguage2 = [(OBPrivacySplashController *)self displayLanguage];
   [additionalDisplayLanguageManager2 configureNavigationItemRightBarButtonItemForWelcomeController:self currentDisplayLanguage:displayLanguage2 action:sel__languageToggleTapped];
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   contentView = [(OBWelcomeController *)self contentView];
   _allSubviews = [contentView _allSubviews];
 
-  v10 = [_allSubviews countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v10 = [_allSubviews countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v17;
+    v12 = *v16;
     do
     {
       v13 = 0;
       do
       {
-        if (*v17 != v12)
+        if (*v16 != v12)
         {
           objc_enumerationMutation(_allSubviews);
         }
 
-        [*(*(&v16 + 1) + 8 * v13++) removeFromSuperview];
+        [*(*(&v15 + 1) + 8 * v13++) removeFromSuperview];
       }
 
       while (v11 != v13);
-      v11 = [_allSubviews countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v11 = [_allSubviews countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v11);
@@ -599,8 +642,6 @@ LABEL_24:
   [(OBPrivacySplashController *)self _initializeFromBundle];
   navigationItem = [(OBBaseWelcomeController *)self navigationItem];
   [navigationItem setTitle:0];
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 @end

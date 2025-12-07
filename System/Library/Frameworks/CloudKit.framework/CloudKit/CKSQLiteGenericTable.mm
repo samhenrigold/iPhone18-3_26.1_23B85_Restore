@@ -6,7 +6,9 @@
 + (id)uniqueSubclassClassNameForClassName:(id)name;
 + (unsigned)propertyInfo:(id)info;
 + (void)enumeratePropertyDataWithBlock:(id)block;
++ (void)setValue:(id)value forProperty:(id)property propertyInfo:(unsigned int)info inObject:(id)object;
 - (CKSQLiteGenericTable)initWithTOCEntry:(id)entry;
+- (void)setValue:(id)value forProperty:(id)property propertyInfo:(unsigned int)info inObject:(id)object;
 @end
 
 @implementation CKSQLiteGenericTable
@@ -81,17 +83,17 @@
 
 + (Class)genericTableClassForTOCTableEntry:(id)entry
 {
-  v30[2] = *MEMORY[0x1E69E9840];
+  v29[2] = *MEMORY[0x1E69E9840];
   entryCopy = entry;
   v5 = objc_opt_class();
   objc_sync_enter(v5);
   v8 = objc_msgSend_propertyData(entryCopy, v6, v7);
   v11 = objc_msgSend_dbVersion(entryCopy, v9, v10);
-  v29[0] = @"dbVersion";
-  v29[1] = @"propertyData";
-  v30[0] = v11;
-  v30[1] = v8;
-  v13 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v12, v30, v29, 2);
+  v28[0] = @"dbVersion";
+  v28[1] = @"propertyData";
+  v29[0] = v11;
+  v29[1] = v8;
+  v13 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v12, v29, v28, 2);
   v17 = objc_msgSend_objectForKey_(0, v14, v13);
   if (!v17)
   {
@@ -106,7 +108,6 @@
   objc_sync_exit(v5);
   v26 = v17;
 
-  v27 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
@@ -133,6 +134,32 @@
   }
 
   return v9;
+}
+
++ (void)setValue:(id)value forProperty:(id)property propertyInfo:(unsigned int)info inObject:(id)object
+{
+  if (value)
+  {
+    objc_msgSend_setObject_forKey_(object, a2, value, property, *&info);
+  }
+
+  else
+  {
+    objc_msgSend_removeObjectForKey_(object, a2, property);
+  }
+}
+
+- (void)setValue:(id)value forProperty:(id)property propertyInfo:(unsigned int)info inObject:(id)object
+{
+  if (value)
+  {
+    objc_msgSend_setObject_forKey_(object, a2, value, property, *&info);
+  }
+
+  else
+  {
+    objc_msgSend_removeObjectForKey_(object, a2, property);
+  }
 }
 
 + (id)objectClassesForProperty:(id)property

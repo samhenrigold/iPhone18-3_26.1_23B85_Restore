@@ -5,6 +5,7 @@
 - (float)scalarFromDecibel:(float)decibel;
 - (float)scalarValue;
 - (id)coreAudioClassName;
+- (id)diagnosticDescriptionWithIndent:(id)indent walkTree:(BOOL)tree;
 - (void)setDecibelValue:(float)value;
 - (void)setScalarValue:(float)value;
 @end
@@ -101,6 +102,25 @@
   }
 
   return v5;
+}
+
+- (id)diagnosticDescriptionWithIndent:(id)indent walkTree:(BOOL)tree
+{
+  treeCopy = tree;
+  v14.receiver = self;
+  v14.super_class = ASALevelControl;
+  indentCopy = indent;
+  v7 = [(ASAControl *)&v14 diagnosticDescriptionWithIndent:indentCopy walkTree:treeCopy];
+  [(ASALevelControl *)self scalarValue];
+  [v7 appendFormat:@"%@|    Scalar Value: %f\n", indentCopy, v8];
+  [(ASALevelControl *)self decibelValue];
+  [v7 appendFormat:@"%@|    Decibel Value: %f\n", indentCopy, v9];
+  [(ASALevelControl *)self minimumDecibelValue];
+  v11 = v10;
+  [(ASALevelControl *)self maximumDecibelValue];
+  [v7 appendFormat:@"%@|    Decibel Range: Min %f Max %f\n", indentCopy, *&v11, v12];
+
+  return v7;
 }
 
 - (id)coreAudioClassName

@@ -281,7 +281,7 @@
   v5.receiver = self;
   v5.super_class = PBFPosterGalleryPreviewWithDescriptionCell;
   [(PBFPosterGalleryPreviewWithDescriptionCell *)&v5 layoutSubviews];
-  [(PBFPosterGalleryPreviewWithDescriptionCell *)self metrics];
+  objc_msgSend_metrics(self);
   posterDescriptionLabel = [(PBFPosterGalleryPreviewWithDescriptionCell *)self posterDescriptionLabel];
   posterPreviewView = [(PBFPosterGalleryPreviewWithDescriptionCell *)self posterPreviewView];
   [posterPreviewView frame];
@@ -305,7 +305,7 @@
 
 - (CGSize)intrinsicContentSize
 {
-  [(PBFPosterGalleryPreviewWithDescriptionCell *)self metrics];
+  objc_msgSend_metrics(self, a2);
   v2 = v4;
   v3 = v5;
   result.height = v3;

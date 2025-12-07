@@ -110,18 +110,28 @@ LABEL_19:
   v12 = v5[5];
   if (lastSetupInfo)
   {
-    if (v12)
+    if (!v12)
     {
-      [(HMAccessoryDiagnosticInfoProtoSetupInfo *)lastSetupInfo mergeFrom:?];
+      goto LABEL_28;
     }
+
+    lastSetupInfo = [(HMAccessoryDiagnosticInfoProtoSetupInfo *)lastSetupInfo mergeFrom:?];
   }
 
-  else if (v12)
+  else
   {
-    [(HMAccessoryDiagnosticInfoProtoDiagnosticInfo *)self setLastSetupInfo:?];
+    if (!v12)
+    {
+      goto LABEL_28;
+    }
+
+    lastSetupInfo = [(HMAccessoryDiagnosticInfoProtoDiagnosticInfo *)self setLastSetupInfo:?];
   }
 
-  MEMORY[0x1EEE66BB8]();
+  v5 = v13;
+LABEL_28:
+
+  MEMORY[0x1EEE66BB8](lastSetupInfo, v5);
 }
 
 - (unint64_t)hash
@@ -208,7 +218,6 @@ LABEL_7:
     goto LABEL_28;
   }
 
-  v5 = *(equalCopy + 64);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 64) & 2) == 0 || self->_version != *(equalCopy + 2))
@@ -220,7 +229,7 @@ LABEL_7:
   else if ((*(equalCopy + 64) & 2) != 0)
   {
 LABEL_28:
-    v10 = 0;
+    v8 = 0;
     goto LABEL_29;
   }
 
@@ -239,7 +248,6 @@ LABEL_28:
     }
   }
 
-  v8 = *(equalCopy + 64);
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 64) & 4) == 0 || self->_homeHubVersion != *(equalCopy + 8))
@@ -282,17 +290,17 @@ LABEL_28:
   lastSetupInfo = self->_lastSetupInfo;
   if (lastSetupInfo | *(equalCopy + 5))
   {
-    v10 = [(HMAccessoryDiagnosticInfoProtoSetupInfo *)lastSetupInfo isEqual:?];
+    v8 = [(HMAccessoryDiagnosticInfoProtoSetupInfo *)lastSetupInfo isEqual:?];
   }
 
   else
   {
-    v10 = 1;
+    v8 = 1;
   }
 
 LABEL_29:
 
-  return v10;
+  return v8;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -421,32 +429,30 @@ LABEL_11:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v10 = toCopy;
+  v6 = toCopy;
   if ((*&self->_has & 2) != 0)
   {
-    version = self->_version;
     PBDataWriterWriteUint64Field();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_appleMediaAccessoryDiagnosticInfo)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_primaryResidentDiagnosticInfo)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 4) != 0)
   {
-    homeHubVersion = self->_homeHubVersion;
     PBDataWriterWriteInt32Field();
-    toCopy = v10;
+    toCopy = v6;
     has = self->_has;
     if ((has & 8) == 0)
     {
@@ -465,22 +471,20 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  numHomes = self->_numHomes;
   PBDataWriterWriteInt32Field();
-  toCopy = v10;
+  toCopy = v6;
   if (*&self->_has)
   {
 LABEL_10:
-    generationTime = self->_generationTime;
     PBDataWriterWriteDoubleField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
 LABEL_11:
   if (self->_lastSetupInfo)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 }
 

@@ -33,7 +33,8 @@
     v3 = 0;
   }
 
-  return CRLImageFaceAnalyzerResult.init(faceRectValues:)(v3);
+  CRLImageFaceAnalyzerResult.init(faceRectValues:)(v3);
+  return result;
 }
 
 - (CGPoint)maskCenterForFacesWithImageSize:(CGSize)size maskSize:(CGSize)maskSize defaultCenter:(CGPoint)center

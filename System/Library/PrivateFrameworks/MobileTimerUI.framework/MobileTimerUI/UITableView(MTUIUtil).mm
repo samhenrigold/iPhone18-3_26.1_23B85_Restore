@@ -44,9 +44,9 @@
     +[UITableView(MTUIUtil) wordWrapParagraphStyle];
   }
 
-  v1 = wordWrapParagraphStyle_style;
+  v2 = wordWrapParagraphStyle_style;
 
-  return v1;
+  return v2;
 }
 
 @end

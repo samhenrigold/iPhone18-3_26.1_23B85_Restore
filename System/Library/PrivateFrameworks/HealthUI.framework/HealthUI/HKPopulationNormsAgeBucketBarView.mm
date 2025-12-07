@@ -64,7 +64,7 @@
     [(CATextLayer *)v11->_highlightedTopLabelLayer setFont:v25];
     [(CATextLayer *)v11->_highlightedTopLabelLayer setFontSize:12.0];
     mainScreen = [MEMORY[0x1E69DCEB0] mainScreen];
-    [mainScreen scale];
+    objc_msgSend_scale(mainScreen);
     [(CATextLayer *)v11->_highlightedTopLabelLayer setContentsScale:?];
 
     v31 = *MEMORY[0x1E6979560];
@@ -79,7 +79,7 @@
     [(CATextLayer *)v11->_highlightedBottomLabelLayer setFont:v25];
     [(CATextLayer *)v11->_highlightedBottomLabelLayer setFontSize:12.0];
     mainScreen2 = [MEMORY[0x1E69DCEB0] mainScreen];
-    [mainScreen2 scale];
+    objc_msgSend_scale(mainScreen2);
     [(CATextLayer *)v11->_highlightedBottomLabelLayer setContentsScale:?];
 
     [(CATextLayer *)v11->_highlightedBottomLabelLayer setAlignmentMode:v31];

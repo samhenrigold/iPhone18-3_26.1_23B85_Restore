@@ -134,29 +134,29 @@
 
 - (id)firstItemWithValue:(id)value forKey:(id)key
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   keyCopy = key;
   os_unfair_lock_lock_with_options();
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   internal = [(HMMutableArray *)self internal];
-  v9 = [internal countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v9 = [internal countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v9)
   {
-    v10 = *v19;
+    v10 = *v18;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(internal);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * i);
+        v12 = *(*(&v17 + 1) + 8 * i);
         v13 = [v12 valueForKeyPath:keyCopy];
         v14 = [v13 isEqual:valueCopy];
 
@@ -168,7 +168,7 @@
         }
       }
 
-      v9 = [internal countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v9 = [internal countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v9)
       {
         continue;
@@ -182,38 +182,36 @@
 LABEL_11:
   os_unfair_lock_unlock(&self->_lock);
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return v15;
 }
 
 - (id)itemsWithValue:(id)value forKey:(id)key
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   keyCopy = key;
   os_unfair_lock_lock_with_options();
   selfCopy = self;
   array = [MEMORY[0x1E695DF70] array];
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   internal = [(HMMutableArray *)self internal];
-  v10 = [internal countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v10 = [internal countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v10)
   {
-    v11 = *v20;
+    v11 = *v19;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v20 != v11)
+        if (*v19 != v11)
         {
           objc_enumerationMutation(internal);
         }
 
-        v13 = *(*(&v19 + 1) + 8 * i);
+        v13 = *(*(&v18 + 1) + 8 * i);
         v14 = [v13 valueForKeyPath:keyCopy];
         v15 = [v14 isEqual:valueCopy];
 
@@ -223,14 +221,13 @@ LABEL_11:
         }
       }
 
-      v10 = [internal countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v10 = [internal countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v10);
   }
 
   os_unfair_lock_unlock(&selfCopy->_lock);
-  v16 = *MEMORY[0x1E69E9840];
 
   return array;
 }

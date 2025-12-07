@@ -182,7 +182,7 @@ LABEL_5:
             v20 = WTF::Vector<WTF::HashSet<WTF::String,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v35, HIDWORD(v36) + 1, &v30);
             v19 = HIDWORD(v36);
             v21 = v35;
-            *(v35 + 8 * HIDWORD(v36)) = 0;
+            v35[HIDWORD(v36)] = 0;
             v22 = *v20;
             *v20 = 0;
           }
@@ -190,7 +190,7 @@ LABEL_5:
           else
           {
             v21 = v35;
-            *(v35 + 8 * HIDWORD(v36)) = 0;
+            v35[HIDWORD(v36)] = 0;
             v22 = v30;
             v30 = 0;
           }
@@ -220,7 +220,7 @@ LABEL_5:
   if (!(result >> 29))
   {
     LODWORD(v36) = result;
-    v35 = WTF::fastMalloc((8 * result));
+    v35 = WTF::fastMalloc(0, (8 * result));
     goto LABEL_5;
   }
 

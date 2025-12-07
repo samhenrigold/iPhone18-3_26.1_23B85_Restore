@@ -308,7 +308,7 @@ LABEL_12:
   return v11;
 }
 
-uint64_t __48__VTFrameProcessor_processWithParameters_error___block_invoke(void *a1)
+void *__48__VTFrameProcessor_processWithParameters_error___block_invoke(void *a1)
 {
   result = [*(a1[4] + 24) processWithParams:a1[5] error:*(a1[7] + 8) + 40];
   *(*(a1[6] + 8) + 24) = result;
@@ -381,7 +381,7 @@ uint64_t __61__VTFrameProcessor_processWithParameters_frameOutputHandler___block
   v2 = [*(a1 + 32) destinationFrame];
   if (v2)
   {
-    [v2 presentationTimeStamp];
+    objc_msgSend_presentationTimeStamp(v2);
   }
 
   else
@@ -490,9 +490,9 @@ void __56__VTFrameProcessor_processWithCommandBuffer_parameters___block_invoke_5
 
 - (VTFrameProcessor)init
 {
-  v6.receiver = self;
-  v6.super_class = VTFrameProcessor;
-  v2 = [(VTFrameProcessor *)&v6 init];
+  v7.receiver = self;
+  v7.super_class = VTFrameProcessor;
+  v2 = [(VTFrameProcessor *)&v7 init];
   if (v2)
   {
     if (loadVEFrameworkOnce_veLibraryLoaderOnce != -1)
@@ -501,10 +501,10 @@ void __56__VTFrameProcessor_processWithCommandBuffer_parameters___block_invoke_5
     }
 
     v2->_veFrameProcessor = 0;
-    v5 = 0;
-    asprintf(&v5, "vtframeprocessor-queue-%p", v2);
+    v6 = 0;
+    asprintf(&v6, "vtframeprocessor-queue-%p", v2);
     v2->_processFrameQueue = FigDispatchQueueCreateWithPriority();
-    free(v5);
+    free(v6);
     if (v2->_processFrameQueue && (v3 = MTLCreateSystemDefaultDevice(), (v2->_device = v3) != 0))
     {
       v2->_sharedEventListLock._os_unfair_lock_opaque = 0;
@@ -516,7 +516,7 @@ void __56__VTFrameProcessor_processWithCommandBuffer_parameters___block_invoke_5
     else
     {
       fig_log_get_emitter();
-      FigSignalErrorAtGM();
+      FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v5, v6, LODWORD(v7.receiver));
       return 0;
     }
   }
@@ -612,7 +612,7 @@ LABEL_8:
       v16 = 0;
       if (v8)
       {
-        [v8 presentationTimeStamp];
+        objc_msgSend_presentationTimeStamp(v8);
       }
 
       v9 = [MEMORY[0x1E696ABC0] errorWithDomain:@"VTFrameProcessorErrorDomain" code:-19740 userInfo:0];

@@ -26,129 +26,127 @@
 
 - (void)handleGroupSessionKeyValues:(id)values
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   valuesCopy = values;
-  v4 = 0x1E695D000uLL;
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
   groupSessionKeyValueDelivery = [MEMORY[0x1E69A5270] GroupSessionKeyValueDelivery];
-  v7 = groupSessionKeyValueDelivery;
+  v6 = groupSessionKeyValueDelivery;
   if (isKindOfClass)
   {
     if (os_log_type_enabled(groupSessionKeyValueDelivery, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v45 = valuesCopy;
-      _os_log_impl(&dword_1959FF000, v7, OS_LOG_TYPE_DEFAULT, "handleGroupSessionKeyValues: received dictionary %@", buf, 0xCu);
+      v42 = valuesCopy;
+      _os_log_impl(&dword_1959FF000, v6, OS_LOG_TYPE_DEFAULT, "handleGroupSessionKeyValues: received dictionary %@", buf, 0xCu);
     }
 
-    v42 = 0u;
-    v43 = 0u;
+    v39 = 0u;
     v40 = 0u;
-    v41 = 0u;
-    v7 = valuesCopy;
-    v8 = [v7 countByEnumeratingWithState:&v40 objects:v51 count:16];
-    if (v8)
+    v37 = 0u;
+    v38 = 0u;
+    v6 = valuesCopy;
+    v7 = [v6 countByEnumeratingWithState:&v37 objects:v48 count:16];
+    if (v7)
     {
-      v9 = v8;
-      v29 = valuesCopy;
-      v10 = *v41;
-      v30 = *v41;
-      v31 = v7;
+      v8 = v7;
+      v26 = valuesCopy;
+      v9 = *v38;
+      v27 = *v38;
+      v28 = v6;
       do
       {
-        v11 = 0;
-        v32 = v9;
+        v10 = 0;
+        v29 = v8;
         do
         {
-          if (*v41 != v10)
+          if (*v38 != v9)
           {
-            objc_enumerationMutation(v7);
+            objc_enumerationMutation(v6);
           }
 
-          v12 = *(*(&v40 + 1) + 8 * v11);
-          v13 = [v7 objectForKeyedSubscript:v12];
-          v14 = *(v4 + 3872);
+          v11 = *(*(&v37 + 1) + 8 * v10);
+          v12 = [v6 objectForKeyedSubscript:v11];
           objc_opt_class();
-          v34 = v13;
-          LOBYTE(v13) = objc_opt_isKindOfClass();
+          v31 = v12;
+          LOBYTE(v12) = objc_opt_isKindOfClass();
           groupSessionKeyValueDelivery2 = [MEMORY[0x1E69A5270] GroupSessionKeyValueDelivery];
-          v16 = groupSessionKeyValueDelivery2;
-          if (v13)
+          v14 = groupSessionKeyValueDelivery2;
+          if (v12)
           {
-            v33 = v11;
+            v30 = v10;
             if (os_log_type_enabled(groupSessionKeyValueDelivery2, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v45 = v12;
-              _os_log_impl(&dword_1959FF000, v16, OS_LOG_TYPE_DEFAULT, "handleGroupSessionKeyValues: key %@", buf, 0xCu);
+              v42 = v11;
+              _os_log_impl(&dword_1959FF000, v14, OS_LOG_TYPE_DEFAULT, "handleGroupSessionKeyValues: key %@", buf, 0xCu);
             }
 
-            v38 = 0u;
-            v39 = 0u;
+            v35 = 0u;
             v36 = 0u;
-            v37 = 0u;
-            v16 = v34;
-            v17 = [v16 countByEnumeratingWithState:&v36 objects:v50 count:16];
-            if (v17)
+            v33 = 0u;
+            v34 = 0u;
+            v14 = v31;
+            v15 = [v14 countByEnumeratingWithState:&v33 objects:v47 count:16];
+            if (v15)
             {
-              v18 = v17;
-              v19 = *v37;
+              v16 = v15;
+              v17 = *v34;
               do
               {
-                for (i = 0; i != v18; ++i)
+                for (i = 0; i != v16; ++i)
                 {
-                  if (*v37 != v19)
+                  if (*v34 != v17)
                   {
-                    objc_enumerationMutation(v16);
+                    objc_enumerationMutation(v14);
                   }
 
-                  v21 = *(*(&v36 + 1) + 8 * i);
+                  v19 = *(*(&v33 + 1) + 8 * i);
                   objc_opt_class();
-                  v22 = objc_opt_isKindOfClass();
+                  v20 = objc_opt_isKindOfClass();
                   groupSessionKeyValueDelivery3 = [MEMORY[0x1E69A5270] GroupSessionKeyValueDelivery];
-                  v24 = groupSessionKeyValueDelivery3;
-                  if (v22)
+                  v22 = groupSessionKeyValueDelivery3;
+                  if (v20)
                   {
                     if (os_log_type_enabled(groupSessionKeyValueDelivery3, OS_LOG_TYPE_DEFAULT))
                     {
                       *buf = 138412546;
-                      v45 = v12;
-                      v46 = 2112;
-                      v47 = v21;
-                      _os_log_impl(&dword_1959FF000, v24, OS_LOG_TYPE_DEFAULT, "handleGroupSessionKeyValues: key:%@ participantID:%@", buf, 0x16u);
+                      v42 = v11;
+                      v43 = 2112;
+                      v44 = v19;
+                      _os_log_impl(&dword_1959FF000, v22, OS_LOG_TYPE_DEFAULT, "handleGroupSessionKeyValues: key:%@ participantID:%@", buf, 0x16u);
                     }
 
-                    v24 = [v16 objectForKeyedSubscript:v21];
+                    v22 = [v14 objectForKeyedSubscript:v19];
                     objc_opt_class();
-                    v25 = objc_opt_isKindOfClass();
+                    v23 = objc_opt_isKindOfClass();
                     groupSessionKeyValueDelivery4 = [MEMORY[0x1E69A5270] GroupSessionKeyValueDelivery];
                     WeakRetained = groupSessionKeyValueDelivery4;
-                    if (v25)
+                    if (v23)
                     {
                       if (os_log_type_enabled(groupSessionKeyValueDelivery4, OS_LOG_TYPE_DEFAULT))
                       {
                         *buf = 138412802;
-                        v45 = v12;
-                        v46 = 2112;
-                        v47 = v21;
-                        v48 = 2112;
-                        v49 = v24;
+                        v42 = v11;
+                        v43 = 2112;
+                        v44 = v19;
+                        v45 = 2112;
+                        v46 = v22;
                         _os_log_impl(&dword_1959FF000, WeakRetained, OS_LOG_TYPE_DEFAULT, "handleGroupSessionKeyValues: key:%@ participantID:%@ data:%@", buf, 0x20u);
                       }
 
                       WeakRetained = objc_loadWeakRetained(&self->_handler);
-                      -[NSObject handleGroupSessionValue:forKey:participant:](WeakRetained, "handleGroupSessionValue:forKey:participant:", v24, [v12 intValue], objc_msgSend(v21, "unsignedLongLongValue"));
+                      -[NSObject handleGroupSessionValue:forKey:participant:](WeakRetained, "handleGroupSessionValue:forKey:participant:", v22, [v11 intValue], objc_msgSend(v19, "unsignedLongLongValue"));
                     }
 
                     else if (os_log_type_enabled(groupSessionKeyValueDelivery4, OS_LOG_TYPE_ERROR))
                     {
                       *buf = 138412802;
-                      v45 = v12;
-                      v46 = 2112;
-                      v47 = v21;
-                      v48 = 2112;
-                      v49 = v24;
+                      v42 = v11;
+                      v43 = 2112;
+                      v44 = v19;
+                      v45 = 2112;
+                      v46 = v22;
                       _os_log_error_impl(&dword_1959FF000, WeakRetained, OS_LOG_TYPE_ERROR, "handleGroupSessionKeyValues: invalid value for key:%@ participantID:%@ value:%@", buf, 0x20u);
                     }
                   }
@@ -156,53 +154,50 @@
                   else if (os_log_type_enabled(groupSessionKeyValueDelivery3, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 138412546;
-                    v45 = v12;
-                    v46 = 2112;
-                    v47 = v21;
-                    _os_log_error_impl(&dword_1959FF000, v24, OS_LOG_TYPE_ERROR, "handleGroupSessionKeyValues: invalid participantID for key:%@ participantID:%@", buf, 0x16u);
+                    v42 = v11;
+                    v43 = 2112;
+                    v44 = v19;
+                    _os_log_error_impl(&dword_1959FF000, v22, OS_LOG_TYPE_ERROR, "handleGroupSessionKeyValues: invalid participantID for key:%@ participantID:%@", buf, 0x16u);
                   }
                 }
 
-                v18 = [v16 countByEnumeratingWithState:&v36 objects:v50 count:16];
+                v16 = [v14 countByEnumeratingWithState:&v33 objects:v47 count:16];
               }
 
-              while (v18);
-              v4 = 0x1E695D000;
-              v10 = v30;
-              v7 = v31;
-              v9 = v32;
+              while (v16);
+              v9 = v27;
+              v6 = v28;
+              v8 = v29;
             }
 
-            v11 = v33;
+            v10 = v30;
           }
 
           else if (os_log_type_enabled(groupSessionKeyValueDelivery2, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412546;
-            v45 = v12;
-            v46 = 2112;
-            v47 = v34;
-            _os_log_error_impl(&dword_1959FF000, v16, OS_LOG_TYPE_ERROR, "handleGroupSessionKeyValues: remoteParticipantIDToData is not a dictionary for key:%@ data: %@", buf, 0x16u);
+            v42 = v11;
+            v43 = 2112;
+            v44 = v31;
+            _os_log_error_impl(&dword_1959FF000, v14, OS_LOG_TYPE_ERROR, "handleGroupSessionKeyValues: remoteParticipantIDToData is not a dictionary for key:%@ data: %@", buf, 0x16u);
           }
 
-          ++v11;
+          ++v10;
         }
 
-        while (v11 != v9);
-        v9 = [v7 countByEnumeratingWithState:&v40 objects:v51 count:16];
+        while (v10 != v8);
+        v8 = [v6 countByEnumeratingWithState:&v37 objects:v48 count:16];
       }
 
-      while (v9);
-      valuesCopy = v29;
+      while (v8);
+      valuesCopy = v26;
     }
   }
 
   else if (os_log_type_enabled(groupSessionKeyValueDelivery, OS_LOG_TYPE_ERROR))
   {
-    sub_195B3D380(valuesCopy, v7);
+    sub_195B3D380(valuesCopy, v6);
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (IDSGroupSessionKeyValueDeliveryHandler)handler

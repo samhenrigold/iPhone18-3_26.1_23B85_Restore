@@ -1,4 +1,4 @@
-uint64_t mlir::OpBuilder::create<mlir::anec::Reshape,mlir::MemRefType &,mlir::Value>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
+char *mlir::OpBuilder::create<mlir::anec::Reshape,mlir::MemRefType &,mlir::Value>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
   v17[38] = *MEMORY[0x1E69E9840];
   v14 = a2;
@@ -12,7 +12,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::Reshape,mlir::MemRefType &,mlir::Va
   mlir::OperationState::OperationState(v17, a2, v9);
   mlir::arith::BitcastOp::build(a1, v17, *a3, *a4);
   v11 = mlir::OpBuilder::create(a1, v17);
-  if (*(*(v11 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::Reshape,void>::id)
+  if (*(*(v11 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::Reshape,void>::id)
   {
     v12 = v11;
   }
@@ -26,35 +26,35 @@ uint64_t mlir::OpBuilder::create<mlir::anec::Reshape,mlir::MemRefType &,mlir::Va
   return v12;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::InputView,mlir::Value &,unsigned long long &,int,int>(uint64_t **a1, uint64_t a2, uint64_t *a3, uint64_t *a4, int *a5, int *a6)
+char *mlir::OpBuilder::create<mlir::anec::InputView,mlir::Value &,unsigned long long &,int,int>(uint64_t **a1, uint64_t a2, uint64_t *a3, uint64_t *a4, int *a5, int *a6)
 {
-  v21[38] = *MEMORY[0x1E69E9840];
-  v18 = a2;
-  Context = mlir::Attribute::getContext(&v18);
+  v22[38] = *MEMORY[0x1E69E9840];
+  v19 = a2;
+  Context = mlir::Attribute::getContext(&v19);
   v13 = mlir::RegisteredOperationName::lookup(&mlir::detail::TypeIDResolver<mlir::anec::InputView,void>::id, Context);
   if ((v14 & 1) == 0)
   {
-    mlir::OpBuilder::create<mlir::anec::InputView,mlir::Value &,unsigned long long &,int,int>(v21, v20, v19);
+    mlir::OpBuilder::create<mlir::anec::InputView,mlir::Value &,unsigned long long &,int,int>(v22, v21, v20);
   }
 
-  mlir::OperationState::OperationState(v21, a2, v13);
-  mlir::anec::InputView::build(a1, v21, *a3, *a4, *a5, *a6);
-  v15 = mlir::OpBuilder::create(a1, v21);
-  if (*(*(v15 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::InputView,void>::id)
+  v15 = mlir::OperationState::OperationState(v22, a2, v13);
+  mlir::anec::InputView::build(a1, v22, *a3, *a4, *a5, *a6, v15);
+  v16 = mlir::OpBuilder::create(a1, v22);
+  if (*(*(v16 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::InputView,void>::id)
   {
-    v16 = v15;
+    v17 = v16;
   }
 
   else
   {
-    v16 = 0;
+    v17 = 0;
   }
 
-  mlir::OperationState::~OperationState(v21);
-  return v16;
+  mlir::OperationState::~OperationState(v22);
+  return v17;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::GOC,mlir::Value &,mlir::mps::ConstantOp &,mlir::mps::ConstantOp &>(uint64_t *a1, uint64_t a2, uint64_t *a3, void *a4, void *a5)
+char *mlir::OpBuilder::create<mlir::anec::GOC,mlir::Value &,mlir::mps::ConstantOp &,mlir::mps::ConstantOp &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, void *a4, void *a5)
 {
   v19[38] = *MEMORY[0x1E69E9840];
   v16 = a2;
@@ -68,7 +68,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::GOC,mlir::Value &,mlir::mps::Consta
   mlir::OperationState::OperationState(v19, a2, v11);
   mlir::anec::GOC::build(a1, v19, *a3, *a4 - 16, *a5 - 16);
   v13 = mlir::OpBuilder::create(a1, v19);
-  if (*(*(v13 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::GOC,void>::id)
+  if (*(*(v13 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::GOC,void>::id)
   {
     v14 = v13;
   }
@@ -82,7 +82,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::GOC,mlir::Value &,mlir::mps::Consta
   return v14;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::Concat,mlir::ValueRange,unsigned long long &,BOOL>(uint64_t **a1, uint64_t a2, uint64_t a3, uint64_t *a4, unsigned __int8 *a5)
+char *mlir::OpBuilder::create<mlir::anec::Concat,mlir::ValueRange,unsigned long long &,BOOL>(uint64_t **a1, uint64_t a2, uint64_t *a3, uint64_t *a4, unsigned __int8 *a5)
 {
   v19[38] = *MEMORY[0x1E69E9840];
   v16 = a2;
@@ -94,9 +94,9 @@ uint64_t mlir::OpBuilder::create<mlir::anec::Concat,mlir::ValueRange,unsigned lo
   }
 
   mlir::OperationState::OperationState(v19, a2, v11);
-  mlir::anec::Concat::build(a1, v19, *a3, *(a3 + 8), *a4, *a5);
+  mlir::anec::Concat::build(a1, v19, *a3, a3[1], *a4, *a5);
   v13 = mlir::OpBuilder::create(a1, v19);
-  if (*(*(v13 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::Concat,void>::id)
+  if (*(*(v13 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::Concat,void>::id)
   {
     v14 = v13;
   }
@@ -110,7 +110,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::Concat,mlir::ValueRange,unsigned lo
   return v14;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::Broadcast,mlir::MemRefType &,mlir::Value &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
+char *mlir::OpBuilder::create<mlir::anec::Broadcast,mlir::MemRefType &,mlir::Value &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
   v17[38] = *MEMORY[0x1E69E9840];
   v14 = a2;
@@ -124,7 +124,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::Broadcast,mlir::MemRefType &,mlir::
   mlir::OperationState::OperationState(v17, a2, v9);
   mlir::arith::BitcastOp::build(a1, v17, *a3, *a4);
   v11 = mlir::OpBuilder::create(a1, v17);
-  if (*(*(v11 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::Broadcast,void>::id)
+  if (*(*(v11 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::Broadcast,void>::id)
   {
     v12 = v11;
   }
@@ -146,7 +146,7 @@ void *llvm::SmallVector<long long,5u>::SmallVector<long long,void>(void *a1, con
   if (v5 >= 6)
   {
     v6 = a2;
-    llvm::SmallVectorBase<unsigned int>::grow_pod(a1, (a1 + 2), v5, 8);
+    llvm::SmallVectorBase<unsigned int>::grow_pod(a1, a1 + 2, v5, 8);
     a2 = v6;
     v7 = *(a1 + 2);
     v8 = 8 * a3;
@@ -172,7 +172,7 @@ LABEL_6:
   return a1;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::CropResize,mlir::ValueRange,mlir::NamedAttrList &>(mlir::UnknownLoc **a1, uint64_t a2, uint64_t *a3, mlir::NamedAttrList *a4)
+char *mlir::OpBuilder::create<mlir::anec::CropResize,mlir::ValueRange,mlir::NamedAttrList &>(mlir::UnknownLoc **a1, uint64_t a2, uint64_t *a3, mlir::NamedAttrList *a4)
 {
   v21[38] = *MEMORY[0x1E69E9840];
   v18 = a2;
@@ -189,7 +189,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::CropResize,mlir::ValueRange,mlir::N
   Attrs = mlir::NamedAttrList::getAttrs(a4);
   mlir::anec::CropResize::build(a1, v21, v12, v11, Attrs, v14);
   v15 = mlir::OpBuilder::create(a1, v21);
-  if (*(*(v15 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::CropResize,void>::id)
+  if (*(*(v15 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::CropResize,void>::id)
   {
     v16 = v15;
   }
@@ -442,7 +442,7 @@ void mlir::anonymous namespace::ConvertDepthwiseConv3D::matchAndRewriteWithStati
 
   v73[0] = v12;
   v73[1] = v13;
-  v14 = (v9[1] & 0xFFFFFFFFFFFFFFF8);
+  v14 = (*(v9 + 1) & 0xFFFFFFFFFFFFFFF8);
   if (v14)
   {
     v15 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v14 + 8);
@@ -528,7 +528,7 @@ void mlir::anonymous namespace::ConvertDepthwiseConv3D::matchAndRewriteWithStati
               v33 = 0;
             }
 
-            v69 = mlir::DenseElementsAttr::getFromRawBuffer(v26, v33, v32, 8 * v86, 8, 1, 0);
+            v69 = mlir::DenseElementsAttr::getFromRawBuffer(v26, v33, v32, 8 * v86);
             v82 = v84;
             v83 = 0x300000000;
             InputAttributeNames = mlir::pdl_interp::CreateOperationOp::getInputAttributeNames(&v76);
@@ -555,7 +555,7 @@ void mlir::anonymous namespace::ConvertDepthwiseConv3D::matchAndRewriteWithStati
               v37 = 0;
             }
 
-            v68 = mlir::DenseElementsAttr::getFromRawBuffer(v26, v37, v82, 8 * v83, 8, 1, 0);
+            v68 = mlir::DenseElementsAttr::getFromRawBuffer(v26, v37, v82, 8 * v83);
             ArgAttrsAttr = mlir::CallableOpInterface::getArgAttrsAttr(v72);
             v39 = *(v82 + 1) * (*(ArgAttrsAttr + 16) - 1) + 1;
             v40 = mlir::CallableOpInterface::getArgAttrsAttr(v72);
@@ -637,7 +637,7 @@ void mlir::anonymous namespace::ConvertDepthwiseConv3D::matchAndRewriteWithStati
 
                 __p = mlir::reshapeElementsAttr(v52, v53, v51, v54);
                 *&v78 = v55;
-                v74 = (mlir::OpBuilder::create<mlir::mps::ConstantOp,mlir::ShapedType &,mlir::ElementsAttr &>((a4 + 1), v7, &ArgOperands, &__p) - 16);
+                v74 = mlir::OpBuilder::create<mlir::mps::ConstantOp,mlir::ShapedType &,mlir::ElementsAttr &>((a4 + 1), v7, &ArgOperands, &__p) - 16;
                 v59 = 0;
                 __p = 0;
                 ArgOperands = 0;
@@ -817,7 +817,7 @@ LABEL_18:
   return result;
 }
 
-uint64_t mlir::DenseIntElementsAttr::get<unsigned long long>(void *a1, uint64_t *a2)
+uint64_t mlir::DenseIntElementsAttr::get<unsigned long long>(uint64_t *a1, uint64_t *a2)
 {
   v2 = a2[1];
   if (v2)
@@ -830,10 +830,10 @@ uint64_t mlir::DenseIntElementsAttr::get<unsigned long long>(void *a1, uint64_t 
     v3 = 0;
   }
 
-  return mlir::DenseElementsAttr::getFromRawBuffer(*a1, a1[1], v3, 8 * v2, 8, 1, 0);
+  return mlir::DenseElementsAttr::getFromRawBuffer(*a1, a1[1], v3, 8 * v2);
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::Convolution,mlir::Value &,mlir::Value &,mlir::DenseIntElementsAttr &,mlir::DenseIntElementsAttr &,mlir::DenseIntElementsAttr &,mlir::anec::PaddingMode &,int,BOOL,decltype(nullptr),decltype(nullptr),decltype(nullptr),decltype(nullptr)>(uint64_t **a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, int *a9, char *a10)
+char *mlir::OpBuilder::create<mlir::anec::Convolution,mlir::Value &,mlir::Value &,mlir::DenseIntElementsAttr &,mlir::DenseIntElementsAttr &,mlir::DenseIntElementsAttr &,mlir::anec::PaddingMode &,int,BOOL,decltype(nullptr),decltype(nullptr),decltype(nullptr),decltype(nullptr)>(uint64_t **a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, int *a9, char *a10)
 {
   v27[38] = *MEMORY[0x1E69E9840];
   v24 = a2;
@@ -847,7 +847,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::Convolution,mlir::Value &,mlir::Val
   mlir::OperationState::OperationState(v27, a2, v19);
   mlir::anec::Convolution::build(a1, v27, *a3, *a4, *a5, *a6, *a7, *a8, *a9, *a10, 0, 0, 0, 0);
   v21 = mlir::OpBuilder::create(a1, v27);
-  if (*(*(v21 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::Convolution,void>::id)
+  if (*(*(v21 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::Convolution,void>::id)
   {
     v22 = v21;
   }
@@ -870,7 +870,7 @@ uint64_t mlir::ShapedType::clone(mlir::ElementsAttr *a1, uint64_t a2, uint64_t a
   return mlir::ShapedType::cloneWith(a1, &v6, isSplat);
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::Convolution,mlir::Value &,mlir::Value &,mlir::DenseIntElementsAttr &,mlir::DenseIntElementsAttr &,mlir::DenseIntElementsAttr &,mlir::anec::PaddingMode &,long long &,BOOL,decltype(nullptr),decltype(nullptr),decltype(nullptr),decltype(nullptr)>(uint64_t **a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, uint64_t *a9, char *a10)
+char *mlir::OpBuilder::create<mlir::anec::Convolution,mlir::Value &,mlir::Value &,mlir::DenseIntElementsAttr &,mlir::DenseIntElementsAttr &,mlir::DenseIntElementsAttr &,mlir::anec::PaddingMode &,long long &,BOOL,decltype(nullptr),decltype(nullptr),decltype(nullptr),decltype(nullptr)>(uint64_t **a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, uint64_t *a9, char *a10)
 {
   v27[38] = *MEMORY[0x1E69E9840];
   v24 = a2;
@@ -884,7 +884,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::Convolution,mlir::Value &,mlir::Val
   mlir::OperationState::OperationState(v27, a2, v19);
   mlir::anec::Convolution::build(a1, v27, *a3, *a4, *a5, *a6, *a7, *a8, *a9, *a10, 0, 0, 0, 0);
   v21 = mlir::OpBuilder::create(a1, v27);
-  if (*(*(v21 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::Convolution,void>::id)
+  if (*(*(v21 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::Convolution,void>::id)
   {
     v22 = v21;
   }
@@ -2001,7 +2001,7 @@ uint64_t mlir::anonymous namespace::ConvertState::matchAndRewriteWithStaticShape
   }
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::State,mlir::ShapedType &,mlir::Value>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
+char *mlir::OpBuilder::create<mlir::anec::State,mlir::ShapedType &,mlir::Value>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
   v17[38] = *MEMORY[0x1E69E9840];
   v14 = a2;
@@ -2015,7 +2015,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::State,mlir::ShapedType &,mlir::Valu
   mlir::OperationState::OperationState(v17, a2, v9);
   mlir::arith::BitcastOp::build(a1, v17, *a3, *a4);
   v11 = mlir::OpBuilder::create(a1, v17);
-  if (*(*(v11 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::State,void>::id)
+  if (*(*(v11 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::State,void>::id)
   {
     v12 = v11;
   }
@@ -2549,67 +2549,56 @@ LABEL_34:
 
 uint64_t mlir::anonymous namespace::ConvertElementwiseBinary<mlir::mps::AddOp,mlir::anec::ElementwiseAdd,(mlir::anec::Family)2>::matchAndRewriteWithStaticShapes(uint64_t a1, uint64_t a2, uint64_t a3, mlir::StringAttr **a4)
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   v7 = *(a3 + 40);
   v6 = *(a3 + 48);
-  v8 = v37;
-  v35 = v37;
-  v36 = 0x200000000;
+  v8 = v39;
+  v37 = v39;
+  v38 = 0x200000000;
   if (v6 >= 3)
   {
-    llvm::SmallVectorBase<unsigned int>::grow_pod(&v35, v37, v6, 8);
-    v9 = v36;
-    v8 = v35;
+    llvm::SmallVectorBase<unsigned int>::grow_pod(&v37, v39, v6, 8);
+    v9 = v38;
+    v8 = v37;
     RankPromotionTypeForANE = v7;
-    v39 = 0;
+    v41 = 0;
     goto LABEL_4;
   }
 
   v9 = 0;
   RankPromotionTypeForANE = v7;
-  v39 = 0;
+  v41 = 0;
   if (v6)
   {
 LABEL_4:
     v10 = &v8[8 * v9];
-    for (i = 0; i != v6; v39 = i)
+    for (i = 0; i != v6; v41 = i)
     {
       *v10++ = mlir::ValueRange::dereference_iterator(&RankPromotionTypeForANE, i);
-      i = v39 + 1;
+      i = v41 + 1;
     }
 
-    v12 = v36;
+    v12 = v38;
     goto LABEL_7;
   }
 
   v12 = 0;
 LABEL_7:
-  LODWORD(v36) = v12 + v6;
-  mlir::ValueRange::ValueRange(v34, v35, v36);
-  v41 = *v34;
-  v40 = 261;
+  LODWORD(v38) = v12 + v6;
+  mlir::ValueRange::ValueRange(v36, v37, v38);
+  v43 = *v36;
+  v42 = 261;
   RankPromotionTypeForANE = "add";
-  v39 = 3;
+  v41 = 3;
   StringAttr = mlir::Builder::getStringAttr(a4 + 1, &RankPromotionTypeForANE);
   F32FloatAttr = mlir::Builder::getF32FloatAttr(a4 + 1, 1.0, v13);
-  v31 = mlir::Builder::getF32FloatAttr(a4 + 1, 1.0, v14);
-  v30 = mlir::Builder::getF32FloatAttr(a4 + 1, 0.0, v15);
-  BoolAttr = mlir::Builder::getBoolAttr(a4 + 1, 0);
-  v28 = mlir::Builder::getBoolAttr(a4 + 1, 0);
+  v33 = mlir::Builder::getF32FloatAttr(a4 + 1, 1.0, v14);
+  v32 = mlir::Builder::getF32FloatAttr(a4 + 1, 0.0, v15);
+  BoolAttr = mlir::Builder::getBoolAttr(a4 + 1, 0, v16);
+  v30 = mlir::Builder::getBoolAttr(a4 + 1, 0, v17);
   if (*(a2 + 36))
   {
-    v16 = a2 - 16;
-  }
-
-  else
-  {
-    v16 = 0;
-  }
-
-  v17 = (*(mlir::detail::OpResultImpl::getNextResultAtOffset(v16, 0) + 8) & 0xFFFFFFFFFFFFFFF8);
-  if (v17)
-  {
-    v18 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v17 + 8);
+    v18 = a2 - 16;
   }
 
   else
@@ -2617,8 +2606,19 @@ LABEL_7:
     v18 = 0;
   }
 
-  RankPromotionTypeForANE = mlir::getRankPromotionTypeForANE(v17, v18);
-  v39 = v19;
+  v19 = (*(mlir::detail::OpResultImpl::getNextResultAtOffset(v18, 0) + 8) & 0xFFFFFFFFFFFFFFF8);
+  if (v19)
+  {
+    v20 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v19 + 8);
+  }
+
+  else
+  {
+    v20 = 0;
+  }
+
+  RankPromotionTypeForANE = mlir::getRankPromotionTypeForANE(v19, v20);
+  v41 = v21;
   isSplat = mlir::ElementsAttr::isSplat(&RankPromotionTypeForANE);
   if (mlir::Type::isSignlessInteger(&isSplat, 1))
   {
@@ -2626,20 +2626,20 @@ LABEL_7:
   }
 
   ArgAttrsAttr = mlir::CallableOpInterface::getArgAttrsAttr(&RankPromotionTypeForANE);
-  v26 = mlir::MemRefType::get(ArgAttrsAttr, v21, isSplat, 0, 0, 0);
-  v25 = mlir::ValueRange::dereference_iterator(&v41, 0);
-  v24 = mlir::ValueRange::dereference_iterator(&v41, 1);
-  v22 = mlir::OpBuilder::create<mlir::anec::ScaledElementWise,mlir::MemRefType &,mlir::Value,mlir::Value,mlir::StringAttr &,mlir::FloatAttr &,mlir::FloatAttr &,mlir::FloatAttr &,mlir::BoolAttr &,mlir::BoolAttr &>((a4 + 1), *(a2 + 24), &v26, &v25, &v24, &StringAttr, &F32FloatAttr, &v31, &v30, &BoolAttr, &v28);
-  (*(*a4 + 1))(a4, a2, v22);
-  if (v35 != v37)
+  v28 = mlir::MemRefType::get(ArgAttrsAttr, v23, isSplat, 0, 0, 0);
+  v27 = mlir::ValueRange::dereference_iterator(&v43, 0);
+  v26 = mlir::ValueRange::dereference_iterator(&v43, 1);
+  v24 = mlir::OpBuilder::create<mlir::anec::ScaledElementWise,mlir::MemRefType &,mlir::Value,mlir::Value,mlir::StringAttr &,mlir::FloatAttr &,mlir::FloatAttr &,mlir::FloatAttr &,mlir::BoolAttr &,mlir::BoolAttr &>((a4 + 1), *(a2 + 24), &v28, &v27, &v26, &StringAttr, &F32FloatAttr, &v33, &v32, &BoolAttr, &v30);
+  (*(*a4 + 1))(a4, a2, v24);
+  if (v37 != v39)
   {
-    free(v35);
+    free(v37);
   }
 
   return 1;
 }
 
-void mlir::anonymous namespace::anonymous namespace::assembleBroadcastOperands(uint64_t a1, uint64_t a2, uint64_t a3)
+void mlir::anonymous namespace::anonymous namespace::assembleBroadcastOperands(uint64_t a1, uint64_t a2, _DWORD *a3)
 {
   v6 = *(a1 + 72);
   v7 = *(v6 + 24);
@@ -2652,8 +2652,8 @@ void mlir::anonymous namespace::anonymous namespace::assembleBroadcastOperands(u
     }
 
     v11 = v15;
-    *(a3 + 8) = 0;
-    if (*(a3 + 12) <= 1u)
+    a3[2] = 0;
+    if (a3[3] <= 1u)
     {
       goto LABEL_3;
     }
@@ -2664,20 +2664,20 @@ LABEL_6:
   }
 
   BroadcastOperands = v12;
-  *(a3 + 8) = 0;
-  if (*(a3 + 12) >= 2u)
+  a3[2] = 0;
+  if (a3[3] >= 2u)
   {
     goto LABEL_6;
   }
 
 LABEL_3:
-  llvm::SmallVectorBase<unsigned int>::grow_pod(a3, a3 + 16, 2uLL, 8);
-  v14 = *(a3 + 8);
+  llvm::SmallVectorBase<unsigned int>::grow_pod(a3, a3 + 4, 2uLL, 8);
+  v14 = a3[2];
 LABEL_7:
   v16 = (*a3 + 8 * v14);
   *v16 = v11;
   v16[1] = BroadcastOperands;
-  *(a3 + 8) += 2;
+  a3[2] += 2;
 }
 
 BOOL mlir::anonymous namespace::anonymous namespace::isBroadcastWithFullRank(uint64_t a1, uint64_t a2)
@@ -2809,7 +2809,7 @@ LABEL_12:
   return v26;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::ScaledElementWise,mlir::MemRefType &,mlir::Value,mlir::Value,mlir::StringAttr &,mlir::FloatAttr &,mlir::FloatAttr &,mlir::FloatAttr &,mlir::BoolAttr &,mlir::BoolAttr &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, uint64_t *a9, uint64_t *a10, uint64_t *a11)
+char *mlir::OpBuilder::create<mlir::anec::ScaledElementWise,mlir::MemRefType &,mlir::Value,mlir::Value,mlir::StringAttr &,mlir::FloatAttr &,mlir::FloatAttr &,mlir::FloatAttr &,mlir::BoolAttr &,mlir::BoolAttr &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, uint64_t *a9, uint64_t *a10, uint64_t *a11)
 {
   v28[38] = *MEMORY[0x1E69E9840];
   v25 = a2;
@@ -2823,7 +2823,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::ScaledElementWise,mlir::MemRefType 
   mlir::OperationState::OperationState(v28, a2, v20);
   mlir::anec::ScaledElementWise::build(a1, v28, *a3, *a4, *a5, *a6, *a7, *a8, *a9, *a10, *a11);
   v22 = mlir::OpBuilder::create(a1, v28);
-  if (*(*(v22 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::ScaledElementWise,void>::id)
+  if (*(*(v22 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::ScaledElementWise,void>::id)
   {
     v23 = v22;
   }
@@ -2911,7 +2911,7 @@ uint64_t mlir::anonymous namespace::anonymous namespace::isCompatibleWithGOC(uin
   return result;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::ElementwiseAdd,llvm::SmallVector<mlir::Value,2u> &>(uint64_t *a1, uint64_t a2, uint64_t a3)
+char *mlir::OpBuilder::create<mlir::anec::ElementwiseAdd,llvm::SmallVector<mlir::Value,2u> &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t a3)
 {
   v15[5] = *MEMORY[0x1E69E9840];
   v12 = a2;
@@ -2926,7 +2926,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::ElementwiseAdd,llvm::SmallVector<ml
   mlir::ValueRange::ValueRange(v15, *a3, *(a3 + 8));
   mlir::anec::Ceil::build(a1, v14, v15[0], v15[1], 0, 0);
   v9 = mlir::OpBuilder::create(a1, v14);
-  if (*(*(v9 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseAdd,void>::id)
+  if (*(*(v9 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseAdd,void>::id)
   {
     v10 = v9;
   }
@@ -3180,67 +3180,56 @@ LABEL_34:
 
 uint64_t mlir::anonymous namespace::ConvertElementwiseBinary<mlir::mps::MultiplyOp,mlir::anec::ElementwiseMult,(mlir::anec::Family)2>::matchAndRewriteWithStaticShapes(uint64_t a1, uint64_t a2, uint64_t a3, mlir::StringAttr **a4)
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   v7 = *(a3 + 40);
   v6 = *(a3 + 48);
-  v8 = v37;
-  v35 = v37;
-  v36 = 0x200000000;
+  v8 = v39;
+  v37 = v39;
+  v38 = 0x200000000;
   if (v6 >= 3)
   {
-    llvm::SmallVectorBase<unsigned int>::grow_pod(&v35, v37, v6, 8);
-    v9 = v36;
-    v8 = v35;
+    llvm::SmallVectorBase<unsigned int>::grow_pod(&v37, v39, v6, 8);
+    v9 = v38;
+    v8 = v37;
     RankPromotionTypeForANE = v7;
-    v39 = 0;
+    v41 = 0;
     goto LABEL_4;
   }
 
   v9 = 0;
   RankPromotionTypeForANE = v7;
-  v39 = 0;
+  v41 = 0;
   if (v6)
   {
 LABEL_4:
     v10 = &v8[8 * v9];
-    for (i = 0; i != v6; v39 = i)
+    for (i = 0; i != v6; v41 = i)
     {
       *v10++ = mlir::ValueRange::dereference_iterator(&RankPromotionTypeForANE, i);
-      i = v39 + 1;
+      i = v41 + 1;
     }
 
-    v12 = v36;
+    v12 = v38;
     goto LABEL_7;
   }
 
   v12 = 0;
 LABEL_7:
-  LODWORD(v36) = v12 + v6;
-  mlir::ValueRange::ValueRange(v34, v35, v36);
-  v41 = *v34;
-  v40 = 261;
+  LODWORD(v38) = v12 + v6;
+  mlir::ValueRange::ValueRange(v36, v37, v38);
+  v43 = *v36;
+  v42 = 261;
   RankPromotionTypeForANE = "mul";
-  v39 = 3;
+  v41 = 3;
   StringAttr = mlir::Builder::getStringAttr(a4 + 1, &RankPromotionTypeForANE);
   F32FloatAttr = mlir::Builder::getF32FloatAttr(a4 + 1, 1.0, v13);
-  v31 = mlir::Builder::getF32FloatAttr(a4 + 1, 1.0, v14);
-  v30 = mlir::Builder::getF32FloatAttr(a4 + 1, 0.0, v15);
-  BoolAttr = mlir::Builder::getBoolAttr(a4 + 1, 0);
-  v28 = mlir::Builder::getBoolAttr(a4 + 1, 0);
+  v33 = mlir::Builder::getF32FloatAttr(a4 + 1, 1.0, v14);
+  v32 = mlir::Builder::getF32FloatAttr(a4 + 1, 0.0, v15);
+  BoolAttr = mlir::Builder::getBoolAttr(a4 + 1, 0, v16);
+  v30 = mlir::Builder::getBoolAttr(a4 + 1, 0, v17);
   if (*(a2 + 36))
   {
-    v16 = a2 - 16;
-  }
-
-  else
-  {
-    v16 = 0;
-  }
-
-  v17 = (*(mlir::detail::OpResultImpl::getNextResultAtOffset(v16, 0) + 8) & 0xFFFFFFFFFFFFFFF8);
-  if (v17)
-  {
-    v18 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v17 + 8);
+    v18 = a2 - 16;
   }
 
   else
@@ -3248,8 +3237,19 @@ LABEL_7:
     v18 = 0;
   }
 
-  RankPromotionTypeForANE = mlir::getRankPromotionTypeForANE(v17, v18);
-  v39 = v19;
+  v19 = (*(mlir::detail::OpResultImpl::getNextResultAtOffset(v18, 0) + 8) & 0xFFFFFFFFFFFFFFF8);
+  if (v19)
+  {
+    v20 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v19 + 8);
+  }
+
+  else
+  {
+    v20 = 0;
+  }
+
+  RankPromotionTypeForANE = mlir::getRankPromotionTypeForANE(v19, v20);
+  v41 = v21;
   isSplat = mlir::ElementsAttr::isSplat(&RankPromotionTypeForANE);
   if (mlir::Type::isSignlessInteger(&isSplat, 1))
   {
@@ -3257,20 +3257,20 @@ LABEL_7:
   }
 
   ArgAttrsAttr = mlir::CallableOpInterface::getArgAttrsAttr(&RankPromotionTypeForANE);
-  v26 = mlir::MemRefType::get(ArgAttrsAttr, v21, isSplat, 0, 0, 0);
-  v25 = mlir::ValueRange::dereference_iterator(&v41, 0);
-  v24 = mlir::ValueRange::dereference_iterator(&v41, 1);
-  v22 = mlir::OpBuilder::create<mlir::anec::ScaledElementWise,mlir::MemRefType &,mlir::Value,mlir::Value,mlir::StringAttr &,mlir::FloatAttr &,mlir::FloatAttr &,mlir::FloatAttr &,mlir::BoolAttr &,mlir::BoolAttr &>((a4 + 1), *(a2 + 24), &v26, &v25, &v24, &StringAttr, &F32FloatAttr, &v31, &v30, &BoolAttr, &v28);
-  (*(*a4 + 1))(a4, a2, v22);
-  if (v35 != v37)
+  v28 = mlir::MemRefType::get(ArgAttrsAttr, v23, isSplat, 0, 0, 0);
+  v27 = mlir::ValueRange::dereference_iterator(&v43, 0);
+  v26 = mlir::ValueRange::dereference_iterator(&v43, 1);
+  v24 = mlir::OpBuilder::create<mlir::anec::ScaledElementWise,mlir::MemRefType &,mlir::Value,mlir::Value,mlir::StringAttr &,mlir::FloatAttr &,mlir::FloatAttr &,mlir::FloatAttr &,mlir::BoolAttr &,mlir::BoolAttr &>((a4 + 1), *(a2 + 24), &v28, &v27, &v26, &StringAttr, &F32FloatAttr, &v33, &v32, &BoolAttr, &v30);
+  (*(*a4 + 1))(a4, a2, v24);
+  if (v37 != v39)
   {
-    free(v35);
+    free(v37);
   }
 
   return 1;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::ElementwiseMult,llvm::SmallVector<mlir::Value,2u> &>(uint64_t *a1, uint64_t a2, uint64_t a3)
+char *mlir::OpBuilder::create<mlir::anec::ElementwiseMult,llvm::SmallVector<mlir::Value,2u> &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t a3)
 {
   v15[5] = *MEMORY[0x1E69E9840];
   v12 = a2;
@@ -3285,7 +3285,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::ElementwiseMult,llvm::SmallVector<m
   mlir::ValueRange::ValueRange(v15, *a3, *(a3 + 8));
   mlir::anec::Ceil::build(a1, v14, v15[0], v15[1], 0, 0);
   v9 = mlir::OpBuilder::create(a1, v14);
-  if (*(*(v9 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseMult,void>::id)
+  if (*(*(v9 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseMult,void>::id)
   {
     v10 = v9;
   }
@@ -3550,12 +3550,14 @@ uint64_t mlir::anonymous namespace::ConvertElementwiseBinary<mlir::mps::Subtract
     llvm::SmallVectorBase<unsigned int>::grow_pod(&v33, v35, v6, 8);
     v9 = v34;
     v8 = v33;
-    *v38 = v7;
+    v38[0] = v7;
+    v38[1] = 0;
     goto LABEL_4;
   }
 
   v9 = 0;
-  *v38 = v7;
+  v38[0] = v7;
+  v38[1] = 0;
   if (v6)
   {
 LABEL_4:
@@ -3613,7 +3615,7 @@ LABEL_7:
     v36 = 1;
     v27 = mlir::Builder::getF16Type(a4 + 1, v25);
     v37 = mlir::MemRefType::get(&v36, 1, v27, 0, 0, 0);
-    v20 = (mlir::OpBuilder::create<mlir::mps::ConstantOp,mlir::ShapedType &,mlir::ElementsAttr &>((a4 + 1), v26, &v37, v30) - 16);
+    v20 = mlir::OpBuilder::create<mlir::mps::ConstantOp,mlir::ShapedType &,mlir::ElementsAttr &>((a4 + 1), v26, &v37, v30) - 16;
     v17 = a4;
     v18 = a2;
     v19 = v14;
@@ -3622,7 +3624,7 @@ LABEL_7:
 
   {
 LABEL_17:
-    v28 = mlir::OpBuilder::create<mlir::anec::ElementwiseSub,llvm::SmallVector<mlir::Value,2u> &>(a4 + 1, *(a2 + 24), &v33);
+    v28 = mlir::OpBuilder::create<mlir::anec::ElementwiseSub,llvm::SmallVector<mlir::Value,2u> &>((a4 + 1), *(a2 + 24), &v33);
     (*(*a4 + 1))(a4, a2, v28);
   }
 
@@ -3634,7 +3636,7 @@ LABEL_17:
   return 1;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::ElementwiseSub,llvm::SmallVector<mlir::Value,2u> &>(uint64_t *a1, uint64_t a2, uint64_t a3)
+char *mlir::OpBuilder::create<mlir::anec::ElementwiseSub,llvm::SmallVector<mlir::Value,2u> &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t a3)
 {
   v15[5] = *MEMORY[0x1E69E9840];
   v12 = a2;
@@ -3649,7 +3651,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::ElementwiseSub,llvm::SmallVector<ml
   mlir::ValueRange::ValueRange(v15, *a3, *(a3 + 8));
   mlir::anec::Ceil::build(a1, v14, v15[0], v15[1], 0, 0);
   v9 = mlir::OpBuilder::create(a1, v14);
-  if (*(*(v9 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseSub,void>::id)
+  if (*(*(v9 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseSub,void>::id)
   {
     v10 = v9;
   }
@@ -3901,7 +3903,7 @@ LABEL_34:
   return result;
 }
 
-uint64_t mlir::anonymous namespace::ConvertElementwiseBinary<mlir::mps::MaximumOp,mlir::anec::ElementwiseMax,(mlir::anec::Family)2>::matchAndRewriteWithStaticShapes(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+uint64_t mlir::anonymous namespace::ConvertElementwiseBinary<mlir::mps::MaximumOp,mlir::anec::ElementwiseMax,(mlir::anec::Family)2>::matchAndRewriteWithStaticShapes(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v20 = *MEMORY[0x1E69E9840];
   v7 = *(a3 + 40);
@@ -3942,7 +3944,7 @@ LABEL_7:
   LODWORD(v16) = v12 + v6;
   mlir::ValueRange::ValueRange(&v18, v15, v16);
   mlir::ValueRange::ValueRange(&v18, v15, v16);
-  v13 = mlir::OpBuilder::create<mlir::anec::ElementwiseMax,llvm::SmallVector<mlir::Value,2u> &>(a4 + 1, *(a2 + 24), &v15);
+  v13 = mlir::OpBuilder::create<mlir::anec::ElementwiseMax,llvm::SmallVector<mlir::Value,2u> &>((a4 + 8), *(a2 + 24), &v15);
   (*(*a4 + 8))(a4, a2, v13);
   if (v15 != v17)
   {
@@ -3952,7 +3954,7 @@ LABEL_7:
   return 1;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::ElementwiseMax,llvm::SmallVector<mlir::Value,2u> &>(uint64_t *a1, uint64_t a2, uint64_t a3)
+char *mlir::OpBuilder::create<mlir::anec::ElementwiseMax,llvm::SmallVector<mlir::Value,2u> &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t a3)
 {
   v15[5] = *MEMORY[0x1E69E9840];
   v12 = a2;
@@ -3967,7 +3969,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::ElementwiseMax,llvm::SmallVector<ml
   mlir::ValueRange::ValueRange(v15, *a3, *(a3 + 8));
   mlir::anec::Ceil::build(a1, v14, v15[0], v15[1], 0, 0);
   v9 = mlir::OpBuilder::create(a1, v14);
-  if (*(*(v9 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseMax,void>::id)
+  if (*(*(v9 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseMax,void>::id)
   {
     v10 = v9;
   }
@@ -4219,7 +4221,7 @@ LABEL_34:
   return result;
 }
 
-uint64_t mlir::anonymous namespace::ConvertElementwiseBinary<mlir::mps::MinimumOp,mlir::anec::ElementwiseMin,(mlir::anec::Family)2>::matchAndRewriteWithStaticShapes(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+uint64_t mlir::anonymous namespace::ConvertElementwiseBinary<mlir::mps::MinimumOp,mlir::anec::ElementwiseMin,(mlir::anec::Family)2>::matchAndRewriteWithStaticShapes(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v20 = *MEMORY[0x1E69E9840];
   v7 = *(a3 + 40);
@@ -4260,7 +4262,7 @@ LABEL_7:
   LODWORD(v16) = v12 + v6;
   mlir::ValueRange::ValueRange(&v18, v15, v16);
   mlir::ValueRange::ValueRange(&v18, v15, v16);
-  v13 = mlir::OpBuilder::create<mlir::anec::ElementwiseMin,llvm::SmallVector<mlir::Value,2u> &>(a4 + 1, *(a2 + 24), &v15);
+  v13 = mlir::OpBuilder::create<mlir::anec::ElementwiseMin,llvm::SmallVector<mlir::Value,2u> &>((a4 + 8), *(a2 + 24), &v15);
   (*(*a4 + 8))(a4, a2, v13);
   if (v15 != v17)
   {
@@ -4270,7 +4272,7 @@ LABEL_7:
   return 1;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::ElementwiseMin,llvm::SmallVector<mlir::Value,2u> &>(uint64_t *a1, uint64_t a2, uint64_t a3)
+char *mlir::OpBuilder::create<mlir::anec::ElementwiseMin,llvm::SmallVector<mlir::Value,2u> &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t a3)
 {
   v15[5] = *MEMORY[0x1E69E9840];
   v12 = a2;
@@ -4285,7 +4287,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::ElementwiseMin,llvm::SmallVector<ml
   mlir::ValueRange::ValueRange(v15, *a3, *(a3 + 8));
   mlir::anec::Ceil::build(a1, v14, v15[0], v15[1], 0, 0);
   v9 = mlir::OpBuilder::create(a1, v14);
-  if (*(*(v9 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseMin,void>::id)
+  if (*(*(v9 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseMin,void>::id)
   {
     v10 = v9;
   }
@@ -4537,7 +4539,7 @@ LABEL_34:
   return result;
 }
 
-uint64_t mlir::anonymous namespace::ConvertElementwiseBinary<mlir::mps::PowerOp,mlir::anec::ElementwisePower,(mlir::anec::Family)2>::matchAndRewriteWithStaticShapes(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+uint64_t mlir::anonymous namespace::ConvertElementwiseBinary<mlir::mps::PowerOp,mlir::anec::ElementwisePower,(mlir::anec::Family)2>::matchAndRewriteWithStaticShapes(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v20 = *MEMORY[0x1E69E9840];
   v7 = *(a3 + 40);
@@ -4578,7 +4580,7 @@ LABEL_7:
   LODWORD(v16) = v12 + v6;
   mlir::ValueRange::ValueRange(&v18, v15, v16);
   mlir::ValueRange::ValueRange(&v18, v15, v16);
-  v13 = mlir::OpBuilder::create<mlir::anec::ElementwisePower,llvm::SmallVector<mlir::Value,2u> &>(a4 + 1, *(a2 + 24), &v15);
+  v13 = mlir::OpBuilder::create<mlir::anec::ElementwisePower,llvm::SmallVector<mlir::Value,2u> &>((a4 + 8), *(a2 + 24), &v15);
   (*(*a4 + 8))(a4, a2, v13);
   if (v15 != v17)
   {
@@ -4588,7 +4590,7 @@ LABEL_7:
   return 1;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::ElementwisePower,llvm::SmallVector<mlir::Value,2u> &>(uint64_t *a1, uint64_t a2, uint64_t a3)
+char *mlir::OpBuilder::create<mlir::anec::ElementwisePower,llvm::SmallVector<mlir::Value,2u> &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t a3)
 {
   v15[5] = *MEMORY[0x1E69E9840];
   v12 = a2;
@@ -4603,7 +4605,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::ElementwisePower,llvm::SmallVector<
   mlir::ValueRange::ValueRange(v15, *a3, *(a3 + 8));
   mlir::anec::Ceil::build(a1, v14, v15[0], v15[1], 0, 0);
   v9 = mlir::OpBuilder::create(a1, v14);
-  if (*(*(v9 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::ElementwisePower,void>::id)
+  if (*(*(v9 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::ElementwisePower,void>::id)
   {
     v10 = v9;
   }
@@ -4651,7 +4653,7 @@ void mlir::anonymous namespace::ConvertElementwiseBinaryA14Minus<mlir::mps::AddO
   operator delete(__p);
 }
 
-uint64_t mlir::anonymous namespace::ConvertElementwiseBinary<mlir::mps::AddOp,mlir::anec::ElementwiseAdd,(mlir::anec::Family)1>::matchAndRewriteWithStaticShapes(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+uint64_t mlir::anonymous namespace::ConvertElementwiseBinary<mlir::mps::AddOp,mlir::anec::ElementwiseAdd,(mlir::anec::Family)1>::matchAndRewriteWithStaticShapes(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v26 = *MEMORY[0x1E69E9840];
   v7 = *(a3 + 40);
@@ -4711,7 +4713,7 @@ LABEL_11:
     }
   }
 
-  v19 = mlir::OpBuilder::create<mlir::anec::ElementwiseAdd,llvm::SmallVector<mlir::Value,2u> &>(a4 + 1, *(a2 + 24), &v22);
+  v19 = mlir::OpBuilder::create<mlir::anec::ElementwiseAdd,llvm::SmallVector<mlir::Value,2u> &>((a4 + 8), *(a2 + 24), &v22);
   (*(*a4 + 8))(a4, a2, v19);
 LABEL_13:
   if (v22 != v24)
@@ -4756,7 +4758,7 @@ void mlir::anonymous namespace::ConvertElementwiseBinaryA14Minus<mlir::mps::Mult
   operator delete(__p);
 }
 
-uint64_t mlir::anonymous namespace::ConvertElementwiseBinary<mlir::mps::MultiplyOp,mlir::anec::ElementwiseMult,(mlir::anec::Family)1>::matchAndRewriteWithStaticShapes(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+uint64_t mlir::anonymous namespace::ConvertElementwiseBinary<mlir::mps::MultiplyOp,mlir::anec::ElementwiseMult,(mlir::anec::Family)1>::matchAndRewriteWithStaticShapes(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v26 = *MEMORY[0x1E69E9840];
   v7 = *(a3 + 40);
@@ -4816,7 +4818,7 @@ LABEL_11:
     }
   }
 
-  v19 = mlir::OpBuilder::create<mlir::anec::ElementwiseMult,llvm::SmallVector<mlir::Value,2u> &>(a4 + 1, *(a2 + 24), &v22);
+  v19 = mlir::OpBuilder::create<mlir::anec::ElementwiseMult,llvm::SmallVector<mlir::Value,2u> &>((a4 + 8), *(a2 + 24), &v22);
   (*(*a4 + 8))(a4, a2, v19);
 LABEL_13:
   if (v22 != v24)
@@ -4936,7 +4938,7 @@ LABEL_7:
     v36 = 1;
     v27 = mlir::Builder::getF16Type(a4 + 1, v25);
     v37 = mlir::MemRefType::get(&v36, 1, v27, 0, 0, 0);
-    v20 = (mlir::OpBuilder::create<mlir::mps::ConstantOp,mlir::ShapedType &,mlir::ElementsAttr &>((a4 + 1), v26, &v37, v30) - 16);
+    v20 = mlir::OpBuilder::create<mlir::mps::ConstantOp,mlir::ShapedType &,mlir::ElementsAttr &>((a4 + 1), v26, &v37, v30) - 16;
     v17 = a4;
     v18 = a2;
     v19 = v14;
@@ -4945,7 +4947,7 @@ LABEL_7:
 
   {
 LABEL_17:
-    v28 = mlir::OpBuilder::create<mlir::anec::ElementwiseSub,llvm::SmallVector<mlir::Value,2u> &>(a4 + 1, *(a2 + 24), &v33);
+    v28 = mlir::OpBuilder::create<mlir::anec::ElementwiseSub,llvm::SmallVector<mlir::Value,2u> &>((a4 + 1), *(a2 + 24), &v33);
     (*(*a4 + 1))(a4, a2, v28);
   }
 
@@ -4991,7 +4993,7 @@ void mlir::anonymous namespace::ConvertElementwiseBinaryA14Minus<mlir::mps::Maxi
   operator delete(__p);
 }
 
-uint64_t mlir::anonymous namespace::ConvertElementwiseBinary<mlir::mps::MaximumOp,mlir::anec::ElementwiseMax,(mlir::anec::Family)1>::matchAndRewriteWithStaticShapes(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+uint64_t mlir::anonymous namespace::ConvertElementwiseBinary<mlir::mps::MaximumOp,mlir::anec::ElementwiseMax,(mlir::anec::Family)1>::matchAndRewriteWithStaticShapes(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v20 = *MEMORY[0x1E69E9840];
   v7 = *(a3 + 40);
@@ -5031,7 +5033,7 @@ uint64_t mlir::anonymous namespace::ConvertElementwiseBinary<mlir::mps::MaximumO
 LABEL_7:
   LODWORD(v16) = v12 + v6;
   mlir::ValueRange::ValueRange(&v18, v15, v16);
-  v13 = mlir::OpBuilder::create<mlir::anec::ElementwiseMax,llvm::SmallVector<mlir::Value,2u> &>(a4 + 1, *(a2 + 24), &v15);
+  v13 = mlir::OpBuilder::create<mlir::anec::ElementwiseMax,llvm::SmallVector<mlir::Value,2u> &>((a4 + 8), *(a2 + 24), &v15);
   (*(*a4 + 8))(a4, a2, v13);
   if (v15 != v17)
   {
@@ -5075,7 +5077,7 @@ void mlir::anonymous namespace::ConvertElementwiseBinaryA14Minus<mlir::mps::Mini
   operator delete(__p);
 }
 
-uint64_t mlir::anonymous namespace::ConvertElementwiseBinary<mlir::mps::MinimumOp,mlir::anec::ElementwiseMin,(mlir::anec::Family)1>::matchAndRewriteWithStaticShapes(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+uint64_t mlir::anonymous namespace::ConvertElementwiseBinary<mlir::mps::MinimumOp,mlir::anec::ElementwiseMin,(mlir::anec::Family)1>::matchAndRewriteWithStaticShapes(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v20 = *MEMORY[0x1E69E9840];
   v7 = *(a3 + 40);
@@ -5115,7 +5117,7 @@ uint64_t mlir::anonymous namespace::ConvertElementwiseBinary<mlir::mps::MinimumO
 LABEL_7:
   LODWORD(v16) = v12 + v6;
   mlir::ValueRange::ValueRange(&v18, v15, v16);
-  v13 = mlir::OpBuilder::create<mlir::anec::ElementwiseMin,llvm::SmallVector<mlir::Value,2u> &>(a4 + 1, *(a2 + 24), &v15);
+  v13 = mlir::OpBuilder::create<mlir::anec::ElementwiseMin,llvm::SmallVector<mlir::Value,2u> &>((a4 + 8), *(a2 + 24), &v15);
   (*(*a4 + 8))(a4, a2, v13);
   if (v15 != v17)
   {
@@ -5159,7 +5161,7 @@ void mlir::anonymous namespace::ConvertElementwiseBinaryA14Minus<mlir::mps::Powe
   operator delete(__p);
 }
 
-uint64_t mlir::anonymous namespace::ConvertElementwiseBinary<mlir::mps::PowerOp,mlir::anec::ElementwisePower,(mlir::anec::Family)1>::matchAndRewriteWithStaticShapes(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+uint64_t mlir::anonymous namespace::ConvertElementwiseBinary<mlir::mps::PowerOp,mlir::anec::ElementwisePower,(mlir::anec::Family)1>::matchAndRewriteWithStaticShapes(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v20 = *MEMORY[0x1E69E9840];
   v7 = *(a3 + 40);
@@ -5199,7 +5201,7 @@ uint64_t mlir::anonymous namespace::ConvertElementwiseBinary<mlir::mps::PowerOp,
 LABEL_7:
   LODWORD(v16) = v12 + v6;
   mlir::ValueRange::ValueRange(&v18, v15, v16);
-  v13 = mlir::OpBuilder::create<mlir::anec::ElementwisePower,llvm::SmallVector<mlir::Value,2u> &>(a4 + 1, *(a2 + 24), &v15);
+  v13 = mlir::OpBuilder::create<mlir::anec::ElementwisePower,llvm::SmallVector<mlir::Value,2u> &>((a4 + 8), *(a2 + 24), &v15);
   (*(*a4 + 8))(a4, a2, v13);
   if (v15 != v17)
   {
@@ -5243,7 +5245,7 @@ void mlir::anonymous namespace::ConvertElementwiseBinaryA14Minus<mlir::mps::AddO
   operator delete(__p);
 }
 
-uint64_t mlir::anonymous namespace::ConvertElementwiseBinary<mlir::mps::AddOp,mlir::anec::ElementwiseAdd,(mlir::anec::Family)0>::matchAndRewriteWithStaticShapes(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+uint64_t mlir::anonymous namespace::ConvertElementwiseBinary<mlir::mps::AddOp,mlir::anec::ElementwiseAdd,(mlir::anec::Family)0>::matchAndRewriteWithStaticShapes(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v26 = *MEMORY[0x1E69E9840];
   v7 = *(a3 + 40);
@@ -5303,7 +5305,7 @@ LABEL_11:
     }
   }
 
-  v19 = mlir::OpBuilder::create<mlir::anec::ElementwiseAdd,llvm::SmallVector<mlir::Value,2u> &>(a4 + 1, *(a2 + 24), &v22);
+  v19 = mlir::OpBuilder::create<mlir::anec::ElementwiseAdd,llvm::SmallVector<mlir::Value,2u> &>((a4 + 8), *(a2 + 24), &v22);
   (*(*a4 + 8))(a4, a2, v19);
 LABEL_13:
   if (v22 != v24)
@@ -5348,7 +5350,7 @@ void mlir::anonymous namespace::ConvertElementwiseBinaryA14Minus<mlir::mps::Mult
   operator delete(__p);
 }
 
-uint64_t mlir::anonymous namespace::ConvertElementwiseBinary<mlir::mps::MultiplyOp,mlir::anec::ElementwiseMult,(mlir::anec::Family)0>::matchAndRewriteWithStaticShapes(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+uint64_t mlir::anonymous namespace::ConvertElementwiseBinary<mlir::mps::MultiplyOp,mlir::anec::ElementwiseMult,(mlir::anec::Family)0>::matchAndRewriteWithStaticShapes(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v26 = *MEMORY[0x1E69E9840];
   v7 = *(a3 + 40);
@@ -5408,7 +5410,7 @@ LABEL_11:
     }
   }
 
-  v19 = mlir::OpBuilder::create<mlir::anec::ElementwiseMult,llvm::SmallVector<mlir::Value,2u> &>(a4 + 1, *(a2 + 24), &v22);
+  v19 = mlir::OpBuilder::create<mlir::anec::ElementwiseMult,llvm::SmallVector<mlir::Value,2u> &>((a4 + 8), *(a2 + 24), &v22);
   (*(*a4 + 8))(a4, a2, v19);
 LABEL_13:
   if (v22 != v24)
@@ -5528,7 +5530,7 @@ LABEL_7:
     v36 = 1;
     v27 = mlir::Builder::getF16Type(a4 + 1, v25);
     v37 = mlir::MemRefType::get(&v36, 1, v27, 0, 0, 0);
-    v20 = (mlir::OpBuilder::create<mlir::mps::ConstantOp,mlir::ShapedType &,mlir::ElementsAttr &>((a4 + 1), v26, &v37, v30) - 16);
+    v20 = mlir::OpBuilder::create<mlir::mps::ConstantOp,mlir::ShapedType &,mlir::ElementsAttr &>((a4 + 1), v26, &v37, v30) - 16;
     v17 = a4;
     v18 = a2;
     v19 = v14;
@@ -5537,7 +5539,7 @@ LABEL_7:
 
   {
 LABEL_17:
-    v28 = mlir::OpBuilder::create<mlir::anec::ElementwiseSub,llvm::SmallVector<mlir::Value,2u> &>(a4 + 1, *(a2 + 24), &v33);
+    v28 = mlir::OpBuilder::create<mlir::anec::ElementwiseSub,llvm::SmallVector<mlir::Value,2u> &>((a4 + 1), *(a2 + 24), &v33);
     (*(*a4 + 1))(a4, a2, v28);
   }
 
@@ -5583,7 +5585,7 @@ void mlir::anonymous namespace::ConvertElementwiseBinaryA14Minus<mlir::mps::Maxi
   operator delete(__p);
 }
 
-uint64_t mlir::anonymous namespace::ConvertElementwiseBinary<mlir::mps::MaximumOp,mlir::anec::ElementwiseMax,(mlir::anec::Family)0>::matchAndRewriteWithStaticShapes(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+uint64_t mlir::anonymous namespace::ConvertElementwiseBinary<mlir::mps::MaximumOp,mlir::anec::ElementwiseMax,(mlir::anec::Family)0>::matchAndRewriteWithStaticShapes(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v20 = *MEMORY[0x1E69E9840];
   v7 = *(a3 + 40);
@@ -5623,7 +5625,7 @@ uint64_t mlir::anonymous namespace::ConvertElementwiseBinary<mlir::mps::MaximumO
 LABEL_7:
   LODWORD(v16) = v12 + v6;
   mlir::ValueRange::ValueRange(&v18, v15, v16);
-  v13 = mlir::OpBuilder::create<mlir::anec::ElementwiseMax,llvm::SmallVector<mlir::Value,2u> &>(a4 + 1, *(a2 + 24), &v15);
+  v13 = mlir::OpBuilder::create<mlir::anec::ElementwiseMax,llvm::SmallVector<mlir::Value,2u> &>((a4 + 8), *(a2 + 24), &v15);
   (*(*a4 + 8))(a4, a2, v13);
   if (v15 != v17)
   {
@@ -5667,7 +5669,7 @@ void mlir::anonymous namespace::ConvertElementwiseBinaryA14Minus<mlir::mps::Mini
   operator delete(__p);
 }
 
-uint64_t mlir::anonymous namespace::ConvertElementwiseBinary<mlir::mps::MinimumOp,mlir::anec::ElementwiseMin,(mlir::anec::Family)0>::matchAndRewriteWithStaticShapes(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+uint64_t mlir::anonymous namespace::ConvertElementwiseBinary<mlir::mps::MinimumOp,mlir::anec::ElementwiseMin,(mlir::anec::Family)0>::matchAndRewriteWithStaticShapes(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v20 = *MEMORY[0x1E69E9840];
   v7 = *(a3 + 40);
@@ -5707,7 +5709,7 @@ uint64_t mlir::anonymous namespace::ConvertElementwiseBinary<mlir::mps::MinimumO
 LABEL_7:
   LODWORD(v16) = v12 + v6;
   mlir::ValueRange::ValueRange(&v18, v15, v16);
-  v13 = mlir::OpBuilder::create<mlir::anec::ElementwiseMin,llvm::SmallVector<mlir::Value,2u> &>(a4 + 1, *(a2 + 24), &v15);
+  v13 = mlir::OpBuilder::create<mlir::anec::ElementwiseMin,llvm::SmallVector<mlir::Value,2u> &>((a4 + 8), *(a2 + 24), &v15);
   (*(*a4 + 8))(a4, a2, v13);
   if (v15 != v17)
   {
@@ -5751,7 +5753,7 @@ void mlir::anonymous namespace::ConvertElementwiseBinaryA14Minus<mlir::mps::Powe
   operator delete(__p);
 }
 
-uint64_t mlir::anonymous namespace::ConvertElementwiseBinary<mlir::mps::PowerOp,mlir::anec::ElementwisePower,(mlir::anec::Family)0>::matchAndRewriteWithStaticShapes(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+uint64_t mlir::anonymous namespace::ConvertElementwiseBinary<mlir::mps::PowerOp,mlir::anec::ElementwisePower,(mlir::anec::Family)0>::matchAndRewriteWithStaticShapes(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v20 = *MEMORY[0x1E69E9840];
   v7 = *(a3 + 40);
@@ -5791,7 +5793,7 @@ uint64_t mlir::anonymous namespace::ConvertElementwiseBinary<mlir::mps::PowerOp,
 LABEL_7:
   LODWORD(v16) = v12 + v6;
   mlir::ValueRange::ValueRange(&v18, v15, v16);
-  v13 = mlir::OpBuilder::create<mlir::anec::ElementwisePower,llvm::SmallVector<mlir::Value,2u> &>(a4 + 1, *(a2 + 24), &v15);
+  v13 = mlir::OpBuilder::create<mlir::anec::ElementwisePower,llvm::SmallVector<mlir::Value,2u> &>((a4 + 8), *(a2 + 24), &v15);
   (*(*a4 + 8))(a4, a2, v13);
   if (v15 != v17)
   {
@@ -5801,73 +5803,73 @@ LABEL_7:
   return 1;
 }
 
-void mlir::anonymous namespace::ConvertElementwiseUnary<mlir::mps::AbsoluteOp,mlir::anec::ElementwiseAbs>::~ConvertElementwiseUnary(uint64_t a1)
+void mlir::anonymous namespace::ConvertElementwiseUnary<mlir::mps::AbsoluteOp,mlir::anec::ElementwiseAbs>::~ConvertElementwiseUnary(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   *a1 = &unk_1F5B0DB00;
-  v2 = *(a1 + 128);
-  v3 = *(a1 + 136);
-  if (v3)
+  v5 = *(a1 + 128);
+  v6 = *(a1 + 136);
+  if (v6)
   {
-    v4 = -56 * v3;
-    v5 = v2 + 56 * v3 - 48;
+    v7 = -56 * v6;
+    v8 = v5 + 56 * v6 - 48;
     do
     {
-      if (*(v5 + 47) < 0)
+      if (*(v8 + 47) < 0)
       {
-        operator delete(*(v5 + 24));
+        operator delete(*(v8 + 24));
       }
 
-      v6 = *v5;
-      if (llvm::APFloatBase::PPCDoubleDouble(v2) == v6)
+      v9 = *v8;
+      if (llvm::APFloatBase::PPCDoubleDouble(v5) == v9)
       {
-        llvm::detail::DoubleAPFloat::~DoubleAPFloat(v5);
+        llvm::detail::DoubleAPFloat::~DoubleAPFloat(v8);
       }
 
       else
       {
-        llvm::detail::IEEEFloat::~IEEEFloat(v5);
+        llvm::detail::IEEEFloat::~IEEEFloat(v8);
       }
 
-      v5 -= 56;
-      v4 += 56;
+      v8 -= 56;
+      v7 += 56;
     }
 
-    while (v4);
-    v2 = *(a1 + 128);
+    while (v7);
+    v5 = *(a1 + 128);
   }
 
-  if (v2 != (a1 + 144))
+  if (v5 != (a1 + 144))
   {
-    free(v2);
+    free(v5);
   }
 
-  v7 = *(a1 + 120);
-  v8 = *(a1 + 104);
-  if (v7)
+  v10 = *(a1 + 120);
+  v11 = *(a1 + 104);
+  if (v10)
   {
-    v9 = 32 * v7;
+    v12 = 32 * v10;
     do
     {
-      if (*v8 <= 0xFFFFFFFD && *(v8 + 31) < 0)
+      if (*v11 <= 0xFFFFFFFD && *(v11 + 31) < 0)
       {
-        operator delete(*(v8 + 8));
+        operator delete(*(v11 + 8));
       }
 
-      v8 += 32;
-      v9 -= 32;
+      v11 += 32;
+      v12 -= 32;
     }
 
-    while (v9);
-    v8 = *(a1 + 104);
-    v10 = (32 * *(a1 + 120));
+    while (v12);
+    v11 = *(a1 + 104);
+    v13 = (32 * *(a1 + 120));
   }
 
   else
   {
-    v10 = 0;
+    v13 = 0;
   }
 
-  llvm::deallocate_buffer(v8, v10);
+  llvm::deallocate_buffer(v11, v13);
 }
 
 {
@@ -6097,24 +6099,24 @@ LABEL_34:
 uint64_t mlir::anonymous namespace::ConvertElementwiseUnary<mlir::mps::AbsoluteOp,mlir::anec::ElementwiseAbs>::matchAndRewriteWithStaticShapes(llvm::APFloatBase *a1, uint64_t a2, uint64_t a3, mlir::Float16Type **a4)
 {
   v5 = a1;
-  v69[9] = *MEMORY[0x1E69E9840];
+  v72[9] = *MEMORY[0x1E69E9840];
   v6 = *(a3 + 40);
   v7 = *(a3 + 48);
-  v68[0] = v69;
-  v68[1] = 0x400000000;
-  v69[8] = 4;
-  v64 = 0;
-  v65 = v67;
-  v66 = 0x400000000;
-  v62 = 0;
-  v63 = v6;
+  v71[0] = v72;
+  v71[1] = 0x400000000;
+  v72[8] = 4;
+  v67 = 0;
+  v68 = v70;
+  v69 = 0x400000000;
+  v65 = 0;
+  v66 = v6;
   if (v7)
   {
     v8 = 0;
     v9 = 0;
     while (1)
     {
-      a1 = mlir::ValueRange::dereference_iterator(&v63, v9);
+      a1 = mlir::ValueRange::dereference_iterator(&v66, v9);
       v10 = *(v5 + 30);
       if (!v10)
       {
@@ -6135,100 +6137,100 @@ LABEL_7:
         goto LABEL_8;
       }
 
-      v56 = &v58;
-      v57 = 0x100000000;
-      matched = mlir::matchConstantWithFloatVector<float>(a1, &v56);
-      v16 = matched & (v57 == 1);
-      if (v16)
+      v59 = &v61;
+      v60 = 0x100000000;
+      matched = mlir::matchConstantWithFloatVector<float>(a1, &v59);
+      v19 = matched & (v60 == 1);
+      if (v19)
       {
-        v17 = llvm::detail::IEEEFloat::IEEEFloat(v59, *v56);
-        v18 = llvm::APFloatBase::IEEEsingle(v17);
-        llvm::APFloat::Storage::Storage(&v61, v59, v18);
-        llvm::detail::IEEEFloat::~IEEEFloat(v59);
-        v20 = llvm::APFloatBase::IEEEhalf(v19);
-        v59[0] = 0;
-        llvm::APFloat::convert(&__p, v20, 1, v59);
-        v22 = v11 + 32 * v12;
-        v25 = *(v22 + 8);
-        v23 = v22 + 8;
-        v24 = v25;
-        v26 = *(v23 + 23);
-        if (v26 >= 0)
+        v20 = llvm::detail::IEEEFloat::IEEEFloat(v62, *v59, v16, v17, v18);
+        v21 = llvm::APFloatBase::IEEEsingle(v20);
+        llvm::APFloat::Storage::Storage(&v64, v62, v21);
+        llvm::detail::IEEEFloat::~IEEEFloat(v62);
+        v23 = llvm::APFloatBase::IEEEhalf(v22);
+        LOBYTE(v62[0]) = 0;
+        llvm::APFloat::convert(&__p, v23, 1, v62);
+        v25 = v11 + 32 * v12;
+        v28 = *(v25 + 8);
+        v26 = v25 + 8;
+        v27 = v28;
+        v29 = *(v26 + 23);
+        if (v29 >= 0)
         {
-          v27 = v23;
+          v30 = v26;
         }
 
         else
         {
-          v27 = v24;
+          v30 = v27;
         }
 
-        v28 = *(v23 + 8);
-        if (v26 >= 0)
+        v31 = *(v26 + 8);
+        if (v29 >= 0)
         {
-          v29 = v26;
+          v32 = v29;
         }
 
         else
         {
-          v29 = v28;
+          v32 = v31;
         }
 
-        F16Type = mlir::Builder::getF16Type(a4 + 1, v21);
+        F16Type = mlir::Builder::getF16Type(a4 + 1, v24);
         FloatAttr = mlir::Builder::getFloatAttr((a4 + 1), F16Type, &__p);
-        v32 = mlir::NamedAttrList::set(v68, v27, v29, FloatAttr);
-        v33 = v61;
-        if (llvm::APFloatBase::PPCDoubleDouble(v32) == v33)
+        v35 = mlir::NamedAttrList::set(v71, v30, v32, FloatAttr);
+        v36 = v64;
+        if (llvm::APFloatBase::PPCDoubleDouble(v35) == v36)
         {
-          llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v61);
+          llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v64);
         }
 
         else
         {
-          llvm::detail::IEEEFloat::~IEEEFloat(&v61);
+          llvm::detail::IEEEFloat::~IEEEFloat(&v64);
         }
       }
 
       else
       {
         __p = operator new(0x30uLL);
-        v61 = xmmword_1E0982700;
+        v64 = xmmword_1E0982700;
         strcpy(__p, "Failed to extract fpValues from the operand");
-        v54 = mlir::logMatchFailure(&__p, *(a2 + 24), a4);
-        if (SHIBYTE(v61) < 0)
+        v57 = mlir::logMatchFailure(&__p, *(a2 + 24), a4);
+        if (SHIBYTE(v64) < 0)
         {
           operator delete(__p);
         }
       }
 
-      a1 = v56;
-      if (v56 != &v58)
+      a1 = v59;
+      if (v59 != &v61)
       {
-        free(v56);
+        free(v59);
       }
 
-      if ((v16 & 1) == 0)
+      if ((v19 & 1) == 0)
       {
-        v52 = v54;
+        v55 = v57;
         goto LABEL_45;
       }
 
 LABEL_4:
-      v8 = v62 + 1;
-      v9 = v64 + 1;
-      ++v62;
-      v64 = v9;
+      v8 = v65 + 1;
+      v9 = v67 + 1;
+      ++v65;
+      v67 = v9;
       if (v9 == v7)
       {
         goto LABEL_29;
       }
     }
 
-    v35 = 1;
+    v38 = 1;
     while (v13 != -1)
     {
-      v36 = v12 + v35++;
-      v12 = v36 & (v10 - 1);
+      v39 = v12 + v38++;
+      v12 = v39 & (v10 - 1);
       v13 = *(v11 + 32 * v12);
       if (v13 == v8)
       {
@@ -6237,101 +6239,101 @@ LABEL_4:
     }
 
 LABEL_8:
-    v14 = v66;
-    if (v66 >= HIDWORD(v66))
+    v14 = v69;
+    if (v69 >= HIDWORD(v69))
     {
-      v34 = a1;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(&v65, v67, v66 + 1, 8);
-      a1 = v34;
-      v14 = v66;
+      v37 = a1;
+      llvm::SmallVectorBase<unsigned int>::grow_pod(&v68, v70, v69 + 1, 8);
+      a1 = v37;
+      v14 = v69;
     }
 
-    *(v65 + v14) = a1;
-    LODWORD(v66) = v66 + 1;
+    *(v68 + v14) = a1;
+    LODWORD(v69) = v69 + 1;
     goto LABEL_4;
   }
 
 LABEL_29:
-  v37 = *(v5 + 34);
-  if (v37)
+  v40 = *(v5 + 34);
+  if (v40)
   {
-    v38 = *(v5 + 16);
-    v39 = llvm::APFloatBase::PPCDoubleDouble(a1);
-    v40 = v38 + 32;
-    v41 = 56 * v37;
+    v41 = *(v5 + 16);
+    v42 = llvm::APFloatBase::PPCDoubleDouble(a1);
+    v43 = v41 + 32;
+    v44 = 56 * v40;
     do
     {
-      v42 = (v40 - 24);
-      if (v39 == *(v40 - 24))
+      v45 = (v43 - 24);
+      if (v42 == *(v43 - 24))
       {
-        v43 = llvm::detail::DoubleAPFloat::DoubleAPFloat(&v61, v42);
+        v46 = llvm::detail::DoubleAPFloat::DoubleAPFloat(&v64, v45);
       }
 
       else
       {
-        v43 = llvm::detail::IEEEFloat::IEEEFloat(&v61, v42);
+        v46 = llvm::detail::IEEEFloat::IEEEFloat(&v64, v45);
       }
 
-      v44 = llvm::APFloatBase::IEEEhalf(v43);
-      v59[0] = 0;
-      llvm::APFloat::convert(&__p, v44, 1, v59);
-      v46 = *(v40 + 23);
-      if (v46 >= 0)
+      v47 = llvm::APFloatBase::IEEEhalf(v46);
+      LOBYTE(v62[0]) = 0;
+      llvm::APFloat::convert(&__p, v47, 1, v62);
+      v49 = *(v43 + 23);
+      if (v49 >= 0)
       {
-        v47 = v40;
+        v50 = v43;
       }
 
       else
       {
-        v47 = *v40;
+        v50 = *v43;
       }
 
-      if (v46 >= 0)
+      if (v49 >= 0)
       {
-        v48 = *(v40 + 23);
+        v51 = *(v43 + 23);
       }
 
       else
       {
-        v48 = *(v40 + 8);
+        v51 = *(v43 + 8);
       }
 
-      v49 = mlir::Builder::getF16Type(a4 + 1, v45);
-      v50 = mlir::Builder::getFloatAttr((a4 + 1), v49, &__p);
-      mlir::NamedAttrList::append(v68, v47, v48, v50);
-      if (v39 == v61)
+      v52 = mlir::Builder::getF16Type(a4 + 1, v48);
+      v53 = mlir::Builder::getFloatAttr((a4 + 1), v52, &__p);
+      mlir::NamedAttrList::append(v71, v50, v51, v53);
+      if (v42 == v64)
       {
-        llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v61);
+        llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v64);
       }
 
       else
       {
-        llvm::detail::IEEEFloat::~IEEEFloat(&v61);
+        llvm::detail::IEEEFloat::~IEEEFloat(&v64);
       }
 
-      v40 += 56;
-      v41 -= 56;
+      v43 += 56;
+      v44 -= 56;
     }
 
-    while (v41);
+    while (v44);
   }
 
-  mlir::ValueRange::ValueRange(&__p, v65, v66);
-  v51 = mlir::OpBuilder::create<mlir::anec::ElementwiseAbs,mlir::ValueRange,mlir::NamedAttrList &>(a4 + 1, *(a2 + 24), &__p, v68);
-  (*(*a4 + 1))(a4, a2, v51);
-  v52 = 1;
+  mlir::ValueRange::ValueRange(&__p, v68, v69);
+  v54 = mlir::OpBuilder::create<mlir::anec::ElementwiseAbs,mlir::ValueRange,mlir::NamedAttrList &>((a4 + 1), *(a2 + 24), &__p, v71);
+  (*(*a4 + 1))(a4, a2, v54);
+  v55 = 1;
 LABEL_45:
-  if (v65 != v67)
+  if (v68 != v70)
   {
-    free(v65);
+    free(v68);
   }
 
-  if (v68[0] != v69)
+  if (v71[0] != v72)
   {
-    free(v68[0]);
+    free(v71[0]);
   }
 
-  return v52;
+  return v55;
 }
 
 uint64_t llvm::DenseMap<unsigned int,std::string,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,std::string>>::DenseMap<std::pair<unsigned int,std::string> const*>(uint64_t a1, uint64_t *a2, uint64_t *a3)
@@ -6793,69 +6795,68 @@ void llvm::SmallVectorImpl<std::pair<llvm::APFloat,std::string>>::append<std::pa
   v7 = a1[2];
   if (v6 + v7 > a1[3])
   {
-    v20 = 0;
+    v19 = 0;
     v8 = a1 + 4;
-    llvm::SmallVectorBase<unsigned int>::mallocForGrow(a1, a1 + 4, v6 + v7, 56, &v20);
-    v10 = v9;
+    v9 = llvm::SmallVectorBase<unsigned int>::mallocForGrow(a1, a1 + 4, v6 + v7, 56, &v19);
     llvm::SmallVectorTemplateBase<std::pair<llvm::APFloat,std::string>,false>::moveElementsForGrow(v5, v9);
-    v11 = v20;
+    v10 = v19;
     a1 = *v5;
     if (*v5 != v8)
     {
       free(a1);
     }
 
-    *v5 = v10;
-    v5[3] = v11;
+    *v5 = v9;
+    v5[3] = v10;
     LODWORD(v7) = v5[2];
   }
 
   if (a2 != a3)
   {
-    v12 = *v5 + 56 * v7;
-    v13 = llvm::APFloatBase::PPCDoubleDouble(a1);
-    v14 = 0;
+    v11 = *v5 + 56 * v7;
+    v12 = llvm::APFloatBase::PPCDoubleDouble(a1);
+    v13 = 0;
     do
     {
-      v15 = (a2 + v14 + 8);
-      v16 = (v12 + v14 + 8);
-      if (v13 == *v15)
+      v14 = (a2 + v13 + 8);
+      v15 = (v11 + v13 + 8);
+      if (v12 == *v14)
       {
-        llvm::detail::DoubleAPFloat::DoubleAPFloat(v16, v15);
+        llvm::detail::DoubleAPFloat::DoubleAPFloat(v15, v14);
       }
 
       else
       {
-        llvm::detail::IEEEFloat::IEEEFloat(v16, v15);
+        llvm::detail::IEEEFloat::IEEEFloat(v15, v14);
       }
 
-      v17 = v12 + v14;
-      v18 = a2 + v14;
-      if (*(a2 + v14 + 55) < 0)
+      v16 = v11 + v13;
+      v17 = a2 + v13;
+      if (*(a2 + v13 + 55) < 0)
       {
-        std::string::__init_copy_ctor_external((v17 + 32), *(v18 + 32), *(v18 + 40));
+        std::string::__init_copy_ctor_external((v16 + 32), *(v17 + 32), *(v17 + 40));
       }
 
       else
       {
-        v19 = *(v18 + 32);
-        *(v17 + 48) = *(v18 + 48);
-        *(v17 + 32) = v19;
+        v18 = *(v17 + 32);
+        *(v16 + 48) = *(v17 + 48);
+        *(v16 + 32) = v18;
       }
 
-      v14 += 56;
+      v13 += 56;
     }
 
-    while (a2 + v14 != a3);
+    while (a2 + v13 != a3);
     LODWORD(v7) = v5[2];
   }
 
   v5[2] = v7 + v6;
 }
 
-void llvm::SmallVectorTemplateBase<std::pair<llvm::APFloat,std::string>,false>::moveElementsForGrow(unsigned int *a1, uint64_t a2)
+void llvm::SmallVectorTemplateBase<std::pair<llvm::APFloat,std::string>,false>::moveElementsForGrow(llvm::APFloatBase *a1, uint64_t a2)
 {
-  v2 = a1[2];
+  v2 = *(a1 + 2);
   if (v2)
   {
     v5 = *a1;
@@ -6889,7 +6890,7 @@ void llvm::SmallVectorTemplateBase<std::pair<llvm::APFloat,std::string>,false>::
     }
 
     while (v8);
-    v13 = a1[2];
+    v13 = *(a1 + 2);
     if (v13)
     {
       v14 = -56 * v13;
@@ -6920,7 +6921,7 @@ void llvm::SmallVectorTemplateBase<std::pair<llvm::APFloat,std::string>,false>::
   }
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::ElementwiseAbs,mlir::ValueRange,mlir::NamedAttrList &>(uint64_t *a1, uint64_t a2, uint64_t *a3, mlir::NamedAttrList *a4)
+char *mlir::OpBuilder::create<mlir::anec::ElementwiseAbs,mlir::ValueRange,mlir::NamedAttrList &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, mlir::NamedAttrList *a4)
 {
   v21[38] = *MEMORY[0x1E69E9840];
   v18 = a2;
@@ -6937,7 +6938,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::ElementwiseAbs,mlir::ValueRange,mli
   Attrs = mlir::NamedAttrList::getAttrs(a4);
   mlir::anec::Ceil::build(a1, v21, v12, v11, Attrs, v14);
   v15 = mlir::OpBuilder::create(a1, v21);
-  if (*(*(v15 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseAbs,void>::id)
+  if (*(*(v15 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseAbs,void>::id)
   {
     v16 = v15;
   }
@@ -7216,13 +7217,13 @@ uint64_t mlir::anonymous namespace::ConvertExponent::matchAndRewriteWithStaticSh
   v23[0] = mlir::createSplatF16ElementsAttr(v17, 1.4427);
   v23[1] = v18;
   v22 = mlir::OpBuilder::create<mlir::mps::ConstantOp,mlir::ShapedType &,mlir::ElementsAttr &>((a4 + 1), v8, &v24, v23);
-  v21 = mlir::OpBuilder::create<mlir::anec::ElementwiseMult,mlir::Value &,mlir::mps::ConstantOp &>(a4 + 1, v8, &v26, &v22);
-  v19 = mlir::OpBuilder::create<mlir::anec::Exp2,mlir::anec::ElementwiseMult &>(a4 + 1, v8, &v21);
+  v21 = mlir::OpBuilder::create<mlir::anec::ElementwiseMult,mlir::Value &,mlir::mps::ConstantOp &>((a4 + 1), v8, &v26, &v22);
+  v19 = mlir::OpBuilder::create<mlir::anec::Exp2,mlir::anec::ElementwiseMult &>((a4 + 1), v8, &v21);
   mlir::ConversionPatternRewriter::replaceOp(a4, a2, v19);
   return 1;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::ElementwiseMult,mlir::Value &,mlir::mps::ConstantOp &>(uint64_t *a1, uint64_t a2, uint64_t *a3, void *a4)
+char *mlir::OpBuilder::create<mlir::anec::ElementwiseMult,mlir::Value &,mlir::mps::ConstantOp &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, void *a4)
 {
   v17[38] = *MEMORY[0x1E69E9840];
   v14 = a2;
@@ -7236,7 +7237,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::ElementwiseMult,mlir::Value &,mlir:
   mlir::OperationState::OperationState(v17, a2, v9);
   mlir::anec::ElementwiseAdd::build(a1, v17, *a3, *a4 - 16);
   v11 = mlir::OpBuilder::create(a1, v17);
-  if (*(*(v11 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseMult,void>::id)
+  if (*(*(v11 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseMult,void>::id)
   {
     v12 = v11;
   }
@@ -7250,7 +7251,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::ElementwiseMult,mlir::Value &,mlir:
   return v12;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::Exp2,mlir::anec::ElementwiseMult &>(uint64_t *a1, uint64_t a2, void *a3)
+char *mlir::OpBuilder::create<mlir::anec::Exp2,mlir::anec::ElementwiseMult &>(mlir::OpBuilder *a1, uint64_t a2, void *a3)
 {
   v15[38] = *MEMORY[0x1E69E9840];
   v12 = a2;
@@ -7264,7 +7265,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::Exp2,mlir::anec::ElementwiseMult &>
   mlir::OperationState::OperationState(v15, a2, v7);
   mlir::anec::ElementwiseEqualZero::build(a1, v15, *a3 - 16);
   v9 = mlir::OpBuilder::create(a1, v15);
-  if (*(*(v9 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::Exp2,void>::id)
+  if (*(*(v9 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::Exp2,void>::id)
   {
     v10 = v9;
   }
@@ -7546,13 +7547,13 @@ uint64_t mlir::anonymous namespace::ConvertLogarithm::matchAndRewriteWithStaticS
   v30[1] = 0;
   v24 = mlir::ValueRange::dereference_iterator(v30, 0);
   F16FloatAttr = mlir::Builder::getF16FloatAttr(a4 + 1, 0.0, v20);
-  v30[0] = mlir::OpBuilder::create<mlir::anec::Log2,mlir::Value,mlir::FloatAttr>(a4 + 1, v9, &v24, &F16FloatAttr);
-  v21 = mlir::OpBuilder::create<mlir::anec::ElementwiseMult,mlir::anec::Log2 &,mlir::mps::ConstantOp &>(a4 + 1, *(a2 + 24), v30, &v25);
+  v30[0] = mlir::OpBuilder::create<mlir::anec::Log2,mlir::Value,mlir::FloatAttr>((a4 + 1), v9, &v24, &F16FloatAttr);
+  v21 = mlir::OpBuilder::create<mlir::anec::ElementwiseMult,mlir::anec::Log2 &,mlir::mps::ConstantOp &>((a4 + 1), *(a2 + 24), v30, &v25);
   (*(*a4 + 1))(a4, a2, v21);
   return 1;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::Log2,mlir::Value,mlir::FloatAttr>(uint64_t *a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
+char *mlir::OpBuilder::create<mlir::anec::Log2,mlir::Value,mlir::FloatAttr>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
   v17[38] = *MEMORY[0x1E69E9840];
   v14 = a2;
@@ -7566,7 +7567,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::Log2,mlir::Value,mlir::FloatAttr>(u
   mlir::OperationState::OperationState(v17, a2, v9);
   mlir::anec::Invert::build(a1, v17, *a3, *a4);
   v11 = mlir::OpBuilder::create(a1, v17);
-  if (*(*(v11 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::Log2,void>::id)
+  if (*(*(v11 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::Log2,void>::id)
   {
     v12 = v11;
   }
@@ -7580,7 +7581,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::Log2,mlir::Value,mlir::FloatAttr>(u
   return v12;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::ElementwiseMult,mlir::anec::Log2 &,mlir::mps::ConstantOp &>(uint64_t *a1, uint64_t a2, void *a3, void *a4)
+char *mlir::OpBuilder::create<mlir::anec::ElementwiseMult,mlir::anec::Log2 &,mlir::mps::ConstantOp &>(mlir::OpBuilder *a1, uint64_t a2, void *a3, void *a4)
 {
   v17[38] = *MEMORY[0x1E69E9840];
   v14 = a2;
@@ -7594,7 +7595,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::ElementwiseMult,mlir::anec::Log2 &,
   mlir::OperationState::OperationState(v17, a2, v9);
   mlir::anec::ElementwiseAdd::build(a1, v17, *a3 - 16, *a4 - 16);
   v11 = mlir::OpBuilder::create(a1, v17);
-  if (*(*(v11 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseMult,void>::id)
+  if (*(*(v11 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseMult,void>::id)
   {
     v12 = v11;
   }
@@ -7857,27 +7858,27 @@ uint64_t mlir::anonymous namespace::ConvertSelect::matchAndRewriteWithStaticShap
   v19 = v10;
   v20 = 0;
   v19 = mlir::ValueRange::dereference_iterator(&v19, 0);
-  v17 = mlir::OpBuilder::create<mlir::anec::ElementwiseEqualZero,mlir::Value>(a4 + 1, v9, &v19) - 16;
+  v17 = mlir::OpBuilder::create<mlir::anec::ElementwiseEqualZero,mlir::Value>((a4 + 1), v9, &v19) - 16;
   v11 = *(a2 + 24);
   v19 = *(a3 + 40);
   v20 = 1;
   v19 = mlir::ValueRange::offset_base(&v19, 1);
   v20 = 0;
   v19 = mlir::ValueRange::dereference_iterator(&v19, 0);
-  v16 = mlir::OpBuilder::create<mlir::anec::ElementwiseMult,mlir::Value,mlir::Value&>(a4 + 1, v11, &v19, &v18);
+  v16 = mlir::OpBuilder::create<mlir::anec::ElementwiseMult,mlir::Value,mlir::Value&>((a4 + 1), v11, &v19, &v18);
   v12 = *(a2 + 24);
   v19 = *(a3 + 40);
   v20 = 2;
   v19 = mlir::ValueRange::offset_base(&v19, 2);
   v20 = 0;
   v15 = mlir::ValueRange::dereference_iterator(&v19, 0);
-  v19 = mlir::OpBuilder::create<mlir::anec::ElementwiseMult,mlir::Value,mlir::Value&>(a4 + 1, v12, &v15, &v17);
-  v13 = mlir::OpBuilder::create<mlir::anec::ElementwiseAdd,mlir::anec::ElementwiseMult &,mlir::anec::ElementwiseMult &>(a4 + 1, *(a2 + 24), &v16, &v19);
+  v19 = mlir::OpBuilder::create<mlir::anec::ElementwiseMult,mlir::Value,mlir::Value&>((a4 + 1), v12, &v15, &v17);
+  v13 = mlir::OpBuilder::create<mlir::anec::ElementwiseAdd,mlir::anec::ElementwiseMult &,mlir::anec::ElementwiseMult &>((a4 + 1), *(a2 + 24), &v16, &v19);
   ((*a4)[1])(a4, a2, v13);
   return 1;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::ElementwiseNotEqualZero,mlir::Value>(uint64_t **a1, uint64_t a2, uint64_t *a3)
+char *mlir::OpBuilder::create<mlir::anec::ElementwiseNotEqualZero,mlir::Value>(uint64_t **a1, uint64_t a2, uint64_t *a3)
 {
   v15[38] = *MEMORY[0x1E69E9840];
   v12 = a2;
@@ -7891,7 +7892,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::ElementwiseNotEqualZero,mlir::Value
   mlir::OperationState::OperationState(v15, a2, v7);
   mlir::anec::ElementwiseGreaterThanEqualZero::build(a1, v15, *a3);
   v9 = mlir::OpBuilder::create(a1, v15);
-  if (*(*(v9 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseNotEqualZero,void>::id)
+  if (*(*(v9 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseNotEqualZero,void>::id)
   {
     v10 = v9;
   }
@@ -7905,7 +7906,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::ElementwiseNotEqualZero,mlir::Value
   return v10;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::ElementwiseEqualZero,mlir::Value>(uint64_t *a1, uint64_t a2, uint64_t *a3)
+char *mlir::OpBuilder::create<mlir::anec::ElementwiseEqualZero,mlir::Value>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3)
 {
   v15[38] = *MEMORY[0x1E69E9840];
   v12 = a2;
@@ -7919,7 +7920,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::ElementwiseEqualZero,mlir::Value>(u
   mlir::OperationState::OperationState(v15, a2, v7);
   mlir::anec::ElementwiseEqualZero::build(a1, v15, *a3);
   v9 = mlir::OpBuilder::create(a1, v15);
-  if (*(*(v9 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseEqualZero,void>::id)
+  if (*(*(v9 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseEqualZero,void>::id)
   {
     v10 = v9;
   }
@@ -7933,7 +7934,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::ElementwiseEqualZero,mlir::Value>(u
   return v10;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::ElementwiseMult,mlir::Value,mlir::Value&>(uint64_t *a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
+char *mlir::OpBuilder::create<mlir::anec::ElementwiseMult,mlir::Value,mlir::Value&>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
   v17[38] = *MEMORY[0x1E69E9840];
   v14 = a2;
@@ -7947,7 +7948,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::ElementwiseMult,mlir::Value,mlir::V
   mlir::OperationState::OperationState(v17, a2, v9);
   mlir::anec::ElementwiseAdd::build(a1, v17, *a3, *a4);
   v11 = mlir::OpBuilder::create(a1, v17);
-  if (*(*(v11 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseMult,void>::id)
+  if (*(*(v11 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseMult,void>::id)
   {
     v12 = v11;
   }
@@ -7961,7 +7962,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::ElementwiseMult,mlir::Value,mlir::V
   return v12;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::ElementwiseAdd,mlir::anec::ElementwiseMult &,mlir::anec::ElementwiseMult &>(uint64_t *a1, uint64_t a2, void *a3, void *a4)
+char *mlir::OpBuilder::create<mlir::anec::ElementwiseAdd,mlir::anec::ElementwiseMult &,mlir::anec::ElementwiseMult &>(mlir::OpBuilder *a1, uint64_t a2, void *a3, void *a4)
 {
   v17[38] = *MEMORY[0x1E69E9840];
   v14 = a2;
@@ -7975,7 +7976,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::ElementwiseAdd,mlir::anec::Elementw
   mlir::OperationState::OperationState(v17, a2, v9);
   mlir::anec::ElementwiseAdd::build(a1, v17, *a3 - 16, *a4 - 16);
   v11 = mlir::OpBuilder::create(a1, v17);
-  if (*(*(v11 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseAdd,void>::id)
+  if (*(*(v11 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseAdd,void>::id)
   {
     v12 = v11;
   }
@@ -8419,7 +8420,7 @@ LABEL_26:
   v58 = v39;
   if ((v55 & 1) == 0)
   {
-    v50 = std::__throw_bad_optional_access[abi:nn200100]();
+    std::__throw_bad_optional_access[abi:nn200100]();
   }
 
   v42 = *v53[0];
@@ -8723,7 +8724,7 @@ uint64_t mlir::anonymous namespace::ConvertDivideImpl<(mlir::anec::Family)0,mlir
   {
     __p = mlir::Builder::getF16FloatAttr((a4 + 8), 0.0, v8);
     v12 = mlir::OpBuilder::create<mlir::anec::Invert,mlir::Value &,mlir::FloatAttr &>((a4 + 8), v6, &v15, &__p);
-    __p = (mlir::OpBuilder::create<mlir::anec::ElementwiseMult,mlir::Value &,mlir::mps::ConstantOp &>((a4 + 8), *(a2 + 24), &v16, &v12) - 16);
+    __p = mlir::OpBuilder::create<mlir::anec::ElementwiseMult,mlir::Value &,mlir::mps::ConstantOp &>((a4 + 8), *(a2 + 24), &v16, &v12) - 16;
     matched = 1;
     mlir::ConversionPatternRewriter::replaceOp(a4, a2, &__p, 1);
   }
@@ -8744,7 +8745,7 @@ LABEL_7:
   return matched;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::Invert,mlir::Value &,mlir::FloatAttr &>(uint64_t *a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
+char *mlir::OpBuilder::create<mlir::anec::Invert,mlir::Value &,mlir::FloatAttr &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
   v17[38] = *MEMORY[0x1E69E9840];
   v14 = a2;
@@ -8758,7 +8759,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::Invert,mlir::Value &,mlir::FloatAtt
   mlir::OperationState::OperationState(v17, a2, v9);
   mlir::anec::Invert::build(a1, v17, *a3, *a4);
   v11 = mlir::OpBuilder::create(a1, v17);
-  if (*(*(v11 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::Invert,void>::id)
+  if (*(*(v11 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::Invert,void>::id)
   {
     v12 = v11;
   }
@@ -8829,7 +8830,7 @@ uint64_t mlir::anonymous namespace::ConvertDivideImpl<(mlir::anec::Family)1,mlir
   {
     __p = mlir::Builder::getF16FloatAttr((a4 + 8), 0.0, v8);
     v12 = mlir::OpBuilder::create<mlir::anec::Invert,mlir::Value &,mlir::FloatAttr &>((a4 + 8), v6, &v15, &__p);
-    __p = (mlir::OpBuilder::create<mlir::anec::ElementwiseMult,mlir::Value &,mlir::mps::ConstantOp &>((a4 + 8), *(a2 + 24), &v16, &v12) - 16);
+    __p = mlir::OpBuilder::create<mlir::anec::ElementwiseMult,mlir::Value &,mlir::mps::ConstantOp &>((a4 + 8), *(a2 + 24), &v16, &v12) - 16;
     matched = 1;
     mlir::ConversionPatternRewriter::replaceOp(a4, a2, &__p, 1);
   }
@@ -8895,7 +8896,7 @@ uint64_t mlir::anonymous namespace::ConvertDivideImpl<(mlir::anec::Family)2,mlir
   return 1;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::ElementwiseDiv,mlir::Value &,mlir::Value &>(uint64_t *a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
+char *mlir::OpBuilder::create<mlir::anec::ElementwiseDiv,mlir::Value &,mlir::Value &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
   v17[38] = *MEMORY[0x1E69E9840];
   v14 = a2;
@@ -8909,7 +8910,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::ElementwiseDiv,mlir::Value &,mlir::
   mlir::OperationState::OperationState(v17, a2, v9);
   mlir::anec::ElementwiseAdd::build(a1, v17, *a3, *a4);
   v11 = mlir::OpBuilder::create(a1, v17);
-  if (*(*(v11 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseDiv,void>::id)
+  if (*(*(v11 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseDiv,void>::id)
   {
     v12 = v11;
   }
@@ -9411,7 +9412,7 @@ uint64_t mlir::anonymous namespace::ConvertDivideImpl<(mlir::anec::Family)0,mlir
     __p = mlir::Builder::getF16FloatAttr((a4 + 8), 0.0, v8);
     v12 = mlir::OpBuilder::create<mlir::anec::Invert,mlir::Value &,mlir::FloatAttr &>((a4 + 8), v6, &v16, &__p);
     v15 = mlir::OpBuilder::create<mlir::anec::ElementwiseMult,mlir::Value &,mlir::mps::ConstantOp &>((a4 + 8), *(a2 + 24), &v17, &v12) - 16;
-    __p = (mlir::OpBuilder::create<mlir::anec::Floor,mlir::Value &>((a4 + 8), *(a2 + 24), &v15) - 16);
+    __p = mlir::OpBuilder::create<mlir::anec::Floor,mlir::Value &>((a4 + 8), *(a2 + 24), &v15) - 16;
     matched = 1;
     mlir::ConversionPatternRewriter::replaceOp(a4, a2, &__p, 1);
   }
@@ -9432,7 +9433,7 @@ LABEL_7:
   return matched;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::Floor,mlir::Value &>(uint64_t *a1, uint64_t a2, uint64_t *a3)
+char *mlir::OpBuilder::create<mlir::anec::Floor,mlir::Value &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3)
 {
   v15[38] = *MEMORY[0x1E69E9840];
   v12 = a2;
@@ -9446,7 +9447,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::Floor,mlir::Value &>(uint64_t *a1, 
   mlir::OperationState::OperationState(v15, a2, v7);
   mlir::anec::ElementwiseEqualZero::build(a1, v15, *a3);
   v9 = mlir::OpBuilder::create(a1, v15);
-  if (*(*(v9 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::Floor,void>::id)
+  if (*(*(v9 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::Floor,void>::id)
   {
     v10 = v9;
   }
@@ -9519,7 +9520,7 @@ uint64_t mlir::anonymous namespace::ConvertDivideImpl<(mlir::anec::Family)1,mlir
     __p = mlir::Builder::getF16FloatAttr((a4 + 8), 0.0, v8);
     v12 = mlir::OpBuilder::create<mlir::anec::Invert,mlir::Value &,mlir::FloatAttr &>((a4 + 8), v6, &v16, &__p);
     v15 = mlir::OpBuilder::create<mlir::anec::ElementwiseMult,mlir::Value &,mlir::mps::ConstantOp &>((a4 + 8), *(a2 + 24), &v17, &v12) - 16;
-    __p = (mlir::OpBuilder::create<mlir::anec::Floor,mlir::Value &>((a4 + 8), *(a2 + 24), &v15) - 16);
+    __p = mlir::OpBuilder::create<mlir::anec::Floor,mlir::Value &>((a4 + 8), *(a2 + 24), &v15) - 16;
     matched = 1;
     mlir::ConversionPatternRewriter::replaceOp(a4, a2, &__p, 1);
   }

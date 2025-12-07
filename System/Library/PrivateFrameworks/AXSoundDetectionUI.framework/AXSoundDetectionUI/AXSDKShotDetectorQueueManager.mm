@@ -60,25 +60,25 @@
   }
 }
 
-void __60__AXSDKShotDetectorQueueManager_addGeneralApplianceDetector__block_invoke(uint64_t a1)
+void __60__AXSDKShotDetectorQueueManager_addGeneralApplianceDetector__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = AXLogUltronKShot();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = AXLogUltronKShot();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v14 = 0;
-    _os_log_impl(&dword_23D62D000, v2, OS_LOG_TYPE_DEFAULT, "Controller: add general detector", v14, 2u);
+    *v15 = 0;
+    _os_log_impl(&dword_23D62D000, v3, OS_LOG_TYPE_DEFAULT, "Controller: add general detector", v15, 2u);
   }
 
-  v3 = [*(a1 + 32) delegate];
-  v4 = [v3 detectorManager];
-  v5 = [v4 addGeneralApplianceDetector];
+  v4 = [*(a1 + 32) delegate];
+  v5 = [v4 detectorManager];
+  v6 = [v5 addGeneralApplianceDetector];
 
-  if ((v5 & 1) == 0)
+  if ((v6 & 1) == 0)
   {
-    v6 = AXLogUltronKShot();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = AXLogUltronKShot();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __60__AXSDKShotDetectorQueueManager_addGeneralApplianceDetector__block_invoke_cold_1(v6, v7, v8, v9, v10, v11, v12, v13);
+      __60__AXSDKShotDetectorQueueManager_addGeneralApplianceDetector__block_invoke_cold_1(v7, v8, v9, v10, v11, v12, v13, v14);
     }
   }
 }
@@ -115,25 +115,25 @@ void __60__AXSDKShotDetectorQueueManager_addGeneralApplianceDetector__block_invo
   }
 }
 
-void __63__AXSDKShotDetectorQueueManager_removeGeneralApplianceDetector__block_invoke(uint64_t a1)
+void __63__AXSDKShotDetectorQueueManager_removeGeneralApplianceDetector__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = AXLogUltronKShot();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = AXLogUltronKShot();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v14 = 0;
-    _os_log_impl(&dword_23D62D000, v2, OS_LOG_TYPE_DEFAULT, "Controller: remove general detector", v14, 2u);
+    *v15 = 0;
+    _os_log_impl(&dword_23D62D000, v3, OS_LOG_TYPE_DEFAULT, "Controller: remove general detector", v15, 2u);
   }
 
-  v3 = [*(a1 + 32) delegate];
-  v4 = [v3 detectorManager];
-  v5 = [v4 removeGeneralApplianceDetector];
+  v4 = [*(a1 + 32) delegate];
+  v5 = [v4 detectorManager];
+  v6 = [v5 removeGeneralApplianceDetector];
 
-  if ((v5 & 1) == 0)
+  if ((v6 & 1) == 0)
   {
-    v6 = AXLogUltronKShot();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = AXLogUltronKShot();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __63__AXSDKShotDetectorQueueManager_removeGeneralApplianceDetector__block_invoke_cold_1(v6, v7, v8, v9, v10, v11, v12, v13);
+      __63__AXSDKShotDetectorQueueManager_removeGeneralApplianceDetector__block_invoke_cold_1(v7, v8, v9, v10, v11, v12, v13, v14);
     }
   }
 }
@@ -191,7 +191,7 @@ void __61__AXSDKShotDetectorQueueManager_assetsReadyForUltronManager___block_inv
 
 - (void)assetsNotReadyForUltronManager:(id)manager
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   self->_ready = 0;
   v4 = AXLogUltron();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -200,38 +200,38 @@ void __61__AXSDKShotDetectorQueueManager_assetsReadyForUltronManager___block_inv
     _os_log_impl(&dword_23D62D000, v4, OS_LOG_TYPE_DEFAULT, "Controller: Assets are not ready will add current detectors to queue.", buf, 2u);
   }
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   currentDetectionTypes = [(AXSDDetectorQueueManager *)self currentDetectionTypes];
-  v6 = [currentDetectionTypes countByEnumeratingWithState:&v13 objects:v19 count:16];
+  v6 = [currentDetectionTypes countByEnumeratingWithState:&v12 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(currentDetectionTypes);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * i);
+        v10 = *(*(&v12 + 1) + 8 * i);
         v11 = AXLogUltron();
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v18 = v10;
+          v17 = v10;
           _os_log_impl(&dword_23D62D000, v11, OS_LOG_TYPE_DEFAULT, "Controller: Adding %@ to queue.", buf, 0xCu);
         }
 
         [(AXSDDetectorQueueManager *)self addListenType:v10];
       }
 
-      v7 = [currentDetectionTypes countByEnumeratingWithState:&v13 objects:v19 count:16];
+      v7 = [currentDetectionTypes countByEnumeratingWithState:&v12 objects:v18 count:16];
     }
 
     while (v7);
@@ -242,8 +242,6 @@ void __61__AXSDKShotDetectorQueueManager_assetsReadyForUltronManager___block_inv
   {
     self->_queueGeneralDetector = 1;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

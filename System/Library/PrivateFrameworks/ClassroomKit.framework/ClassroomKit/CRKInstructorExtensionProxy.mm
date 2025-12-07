@@ -26,7 +26,7 @@
   return v3;
 }
 
-uint64_t __51__CRKInstructorExtensionProxy_sharedExtensionProxy__block_invoke()
+uint64_t __51__CRKInstructorExtensionProxy_sharedExtensionProxy__block_invoke(uint64_t a1, uint64_t a2)
 {
   sharedExtensionProxy_extension = objc_opt_new();
 
@@ -74,7 +74,7 @@ uint64_t __51__CRKInstructorExtensionProxy_sharedExtensionProxy__block_invoke()
 
 - (void)fetchListenerEndpointForExtensionBundleIdentifier:(id)identifier fromClassroomBundleWithURL:(id)l completionBlock:(id)block
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   lCopy = l;
   blockCopy = block;
@@ -95,60 +95,61 @@ uint64_t __51__CRKInstructorExtensionProxy_sharedExtensionProxy__block_invoke()
       if (identifierCopy)
       {
         v12 = identifierCopy;
+        v13 = v12;
       }
 
       else
       {
-        v13 = +[CRKClassroomInstallation preferredInstallation];
-        instructordBundleIdentifier = [v13 instructordBundleIdentifier];
-        v15 = instructordBundleIdentifier;
-        v16 = @"com.apple.classroom.instructord";
+        v14 = +[CRKClassroomInstallation preferredInstallation];
+        instructordBundleIdentifier = [v14 instructordBundleIdentifier];
+        v16 = instructordBundleIdentifier;
+        v17 = @"com.apple.classroom.instructord";
         if (instructordBundleIdentifier)
         {
-          v16 = instructordBundleIdentifier;
+          v17 = instructordBundleIdentifier;
         }
 
-        v12 = v16;
+        v13 = v17;
       }
 
-      v17 = _CRKLogGeneral_6();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v18 = _CRKLogGeneral_6(v12);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         path = [lCopy path];
         *buf = 138543618;
-        v29 = v12;
-        v30 = 2112;
-        v31 = path;
-        _os_log_impl(&dword_243550000, v17, OS_LOG_TYPE_DEFAULT, "Connecting to instructord with identifier %{public}@ in Classroom App with path %@", buf, 0x16u);
+        v30 = v13;
+        v31 = 2112;
+        v32 = path;
+        _os_log_impl(&dword_243550000, v18, OS_LOG_TYPE_DEFAULT, "Connecting to instructord with identifier %{public}@ in Classroom App with path %@", buf, 0x16u);
       }
 
       if (lCopy)
       {
-        v19 = [(CRKInstructorExtensionProxy *)self extensionAttributesForExtensionIdentifier:v12 containingAppURL:lCopy];
+        v20 = [(CRKInstructorExtensionProxy *)self extensionAttributesForExtensionIdentifier:v13 containingAppURL:lCopy];
         objc_initWeak(buf, self);
-        v20 = MEMORY[0x277CCA9C8];
-        v23[0] = MEMORY[0x277D85DD0];
-        v23[1] = 3221225472;
-        v23[2] = __124__CRKInstructorExtensionProxy_fetchListenerEndpointForExtensionBundleIdentifier_fromClassroomBundleWithURL_completionBlock___block_invoke;
-        v23[3] = &unk_278DC2498;
-        objc_copyWeak(&v26, buf);
-        v24 = identifierCopy;
-        v25 = blockCopy;
-        [v20 extensionsWithMatchingAttributes:v19 completion:v23];
+        v21 = MEMORY[0x277CCA9C8];
+        v24[0] = MEMORY[0x277D85DD0];
+        v24[1] = 3221225472;
+        v24[2] = __124__CRKInstructorExtensionProxy_fetchListenerEndpointForExtensionBundleIdentifier_fromClassroomBundleWithURL_completionBlock___block_invoke;
+        v24[3] = &unk_278DC2498;
+        objc_copyWeak(&v27, buf);
+        v25 = identifierCopy;
+        v26 = blockCopy;
+        [v21 extensionsWithMatchingAttributes:v20 completion:v24];
 
-        objc_destroyWeak(&v26);
+        objc_destroyWeak(&v27);
         objc_destroyWeak(buf);
       }
 
       else
       {
-        v27 = 0;
-        v21 = [MEMORY[0x277CCA9C8] extensionWithIdentifier:v12 error:&v27];
-        v19 = v27;
+        v28 = 0;
+        v22 = [MEMORY[0x277CCA9C8] extensionWithIdentifier:v13 error:&v28];
+        v20 = v28;
         mInstructorExtension = self->mInstructorExtension;
-        self->mInstructorExtension = v21;
+        self->mInstructorExtension = v22;
 
-        [(CRKInstructorExtensionProxy *)self configureInstructorExtensionAfterFetchError:v19 completionBlock:blockCopy];
+        [(CRKInstructorExtensionProxy *)self configureInstructorExtensionAfterFetchError:v20 completionBlock:blockCopy];
       }
     }
   }
@@ -195,14 +196,14 @@ void __124__CRKInstructorExtensionProxy_fetchListenerEndpointForExtensionBundleI
     {
       if (!v5 || *(a1 + 40))
       {
-        v8 = _CRKLogGeneral_6();
+        v8 = _CRKLogGeneral_6(v5);
         if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
           __124__CRKInstructorExtensionProxy_fetchListenerEndpointForExtensionBundleIdentifier_fromClassroomBundleWithURL_completionBlock___block_invoke_2_cold_1(a1, v8);
         }
       }
 
-      v9 = _CRKLogGeneral_6();
+      v9 = _CRKLogGeneral_6(v5);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *v10 = 0;

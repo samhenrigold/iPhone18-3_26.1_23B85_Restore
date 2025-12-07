@@ -3,6 +3,7 @@
 - (BOOL)removeRowID:(id)d error:(id *)error;
 - (CKDZoneIDCacheTable)init;
 - (id)entryForZoneID:(id)d addIfNotFound:(BOOL)found error:(id *)error;
+- (id)rowIDForZoneID:(id)d addIfNotFound:(BOOL)found error:(id *)error;
 - (id)zoneIDForRowID:(id)d error:(id *)error;
 @end
 
@@ -17,13 +18,12 @@
 
 + (id)dbProperties
 {
-  v6[2] = *MEMORY[0x277D85DE8];
-  v5[0] = @"rowID";
-  v5[1] = @"zoneIDString";
-  v6[0] = &unk_2838C82B0;
-  v6[1] = &unk_2838C82C8;
-  v2 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], a2, v6, v5, 2);
-  v3 = *MEMORY[0x277D85DE8];
+  v5[2] = *MEMORY[0x277D85DE8];
+  v4[0] = @"rowID";
+  v4[1] = @"zoneIDString";
+  v5[0] = &unk_2838C82B0;
+  v5[1] = &unk_2838C82C8;
+  v2 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], a2, v5, v4, 2);
 
   return v2;
 }
@@ -31,14 +31,14 @@
 - (id)entryForZoneID:(id)d addIfNotFound:(BOOL)found error:(id *)error
 {
   foundCopy = found;
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   v8 = objc_msgSend_sqliteRepresentation(d, a2, d);
-  v23 = @"zoneIDString";
-  v24[0] = v8;
-  v10 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v9, v24, &v23, 1);
-  v22 = 0;
-  v12 = objc_msgSend_entryWithValues_label_error_setupBlock_(self, v11, v10, off_27D719D30, &v22, &unk_28385C860);
-  v13 = v22;
+  v22 = @"zoneIDString";
+  v23[0] = v8;
+  v10 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v9, v23, &v22, 1);
+  v21 = 0;
+  v12 = objc_msgSend_entryWithValues_label_error_setupBlock_(self, v11, v10, off_27D719D30, &v21, &unk_28385C860);
+  v13 = v21;
 
   if (v13)
   {
@@ -71,12 +71,12 @@ LABEL_5:
 
   if (foundCopy)
   {
-    v18 = [CKDZoneIDCacheEntry alloc];
-    v12 = objc_msgSend_initWithZoneIDString_(v18, v19, v8);
-    v21 = objc_msgSend_insertObject_(self, v20, v12);
-    if (v21)
+    v17 = [CKDZoneIDCacheEntry alloc];
+    v12 = objc_msgSend_initWithZoneIDString_(v17, v18, v8);
+    v20 = objc_msgSend_insertObject_(self, v19, v12);
+    if (v20)
     {
-      v13 = v21;
+      v13 = v20;
       goto LABEL_2;
     }
 
@@ -93,9 +93,37 @@ LABEL_5:
 
 LABEL_7:
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v14;
+}
+
+- (id)rowIDForZoneID:(id)d addIfNotFound:(BOOL)found error:(id *)error
+{
+  v14 = 0;
+  v6 = objc_msgSend_entryForZoneID_addIfNotFound_error_(self, a2, d, found, &v14);
+  v9 = v14;
+  v10 = 0;
+  if (v9)
+  {
+    v11 = 1;
+  }
+
+  else
+  {
+    v11 = v6 == 0;
+  }
+
+  if (!v11)
+  {
+    v10 = objc_msgSend_rowID(v6, v7, v8);
+  }
+
+  if (error)
+  {
+    v12 = v9;
+    *error = v9;
+  }
+
+  return v10;
 }
 
 - (id)zoneIDForRowID:(id)d error:(id *)error

@@ -49,7 +49,7 @@
 
 + (BOOL)isValidTemplate:(id)template requiredUsageTypes:(id)types error:(id *)error
 {
-  v37[2] = *MEMORY[0x1E69E9840];
+  v35[2] = *MEMORY[0x1E69E9840];
   typesCopy = types;
   v8 = [UAFAssetExpansion getTemplatePart:template];
   if ([v8 count] < 2 || (objc_msgSend(v8, "objectAtIndexedSubscript:", 1), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(typesCopy, "containsObject:", v9), v9, (v10 & 1) != 0))
@@ -71,65 +71,63 @@
     if (error)
     {
       v13 = MEMORY[0x1E696ABC0];
-      v14 = *MEMORY[0x1E696A578];
       if (*error)
       {
-        v36[0] = *MEMORY[0x1E696A578];
-        v15 = MEMORY[0x1E696AEC0];
-        v16 = [v8 objectAtIndexedSubscript:1];
-        typesCopy = [v15 stringWithFormat:@"Templated usage type %@ is not in required usage types %@", v16, typesCopy];
-        v36[1] = *MEMORY[0x1E696AA08];
-        v37[0] = typesCopy;
-        v37[1] = *error;
-        v18 = MEMORY[0x1E695DF20];
-        v19 = v37;
-        v20 = v36;
-        v21 = 2;
+        v34[0] = *MEMORY[0x1E696A578];
+        v14 = MEMORY[0x1E696AEC0];
+        v15 = [v8 objectAtIndexedSubscript:1];
+        typesCopy = [v14 stringWithFormat:@"Templated usage type %@ is not in required usage types %@", v15, typesCopy];
+        v34[1] = *MEMORY[0x1E696AA08];
+        v35[0] = typesCopy;
+        v35[1] = *error;
+        v17 = MEMORY[0x1E695DF20];
+        v18 = v35;
+        v19 = v34;
+        v20 = 2;
       }
 
       else
       {
-        v34 = *MEMORY[0x1E696A578];
-        v22 = MEMORY[0x1E696AEC0];
-        v16 = [v8 objectAtIndexedSubscript:1];
-        typesCopy = [v22 stringWithFormat:@"Templated usage type %@ is not in required usage types %@", v16, typesCopy];
-        v35 = typesCopy;
-        v18 = MEMORY[0x1E695DF20];
-        v19 = &v35;
-        v20 = &v34;
-        v21 = 1;
+        v32 = *MEMORY[0x1E696A578];
+        v21 = MEMORY[0x1E696AEC0];
+        v15 = [v8 objectAtIndexedSubscript:1];
+        typesCopy = [v21 stringWithFormat:@"Templated usage type %@ is not in required usage types %@", v15, typesCopy];
+        v33 = typesCopy;
+        v17 = MEMORY[0x1E695DF20];
+        v18 = &v33;
+        v19 = &v32;
+        v20 = 1;
       }
 
-      v23 = [v18 dictionaryWithObjects:v19 forKeys:v20 count:v21];
-      *error = [v13 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:-1 userInfo:v23];
+      v22 = [v17 dictionaryWithObjects:v18 forKeys:v19 count:v20];
+      *error = [v13 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:-1 userInfo:v22];
     }
 
-    v24 = UAFGetLogCategory(&UAFLogContextConfiguration);
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    v23 = UAFGetLogCategory(&UAFLogContextConfiguration);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
-      v25 = [v8 objectAtIndexedSubscript:1];
+      v24 = [v8 objectAtIndexedSubscript:1];
       *buf = 136315650;
-      v29 = "+[UAFAssetExpansion isValidTemplate:requiredUsageTypes:error:]";
+      v27 = "+[UAFAssetExpansion isValidTemplate:requiredUsageTypes:error:]";
+      v28 = 2112;
+      v29 = v24;
       v30 = 2112;
-      v31 = v25;
-      v32 = 2112;
-      v33 = typesCopy;
-      _os_log_impl(&dword_1BCF2C000, v24, OS_LOG_TYPE_DEFAULT, "%s Templated usage type %@ is not in required usage types %@", buf, 0x20u);
+      v31 = typesCopy;
+      _os_log_impl(&dword_1BCF2C000, v23, OS_LOG_TYPE_DEFAULT, "%s Templated usage type %@ is not in required usage types %@", buf, 0x20u);
     }
 
     v11 = 0;
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 + (id)specializeTemplate:(id)template usages:(id)usages invalid:(BOOL *)invalid error:(id *)error
 {
-  v43[1] = *MEMORY[0x1E69E9840];
+  v42[1] = *MEMORY[0x1E69E9840];
   templateCopy = template;
   usagesCopy = usages;
-  v35 = 0;
+  v34 = 0;
   v11 = objc_autoreleasePoolPush();
   v12 = [UAFAssetExpansion getTemplatePart:templateCopy];
   if ([v12 count] == 1)
@@ -140,7 +138,7 @@
 
   else
   {
-    v33 = v11;
+    v32 = v11;
     if ([v12 count] < 2 || (objc_msgSend(v12, "objectAtIndexedSubscript:", 1), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(usagesCopy, "objectForKey:", v15), v16 = objc_claimAutoreleasedReturnValue(), v16, v15, v16))
     {
       v17 = [v12 objectAtIndexedSubscript:1];
@@ -154,12 +152,12 @@
         if ([v12 count] > 2)
         {
           v21 = [v12 objectAtIndexedSubscript:2];
-          v34 = 0;
-          v22 = [UAFAssetExpansion specializeTemplate:v21 usages:usagesCopy invalid:&v35 error:&v34];
-          v14 = v34;
+          v33 = 0;
+          v22 = [UAFAssetExpansion specializeTemplate:v21 usages:usagesCopy invalid:&v34 error:&v33];
+          v14 = v33;
 
           v13 = 0;
-          if (!v35)
+          if (!v34)
           {
             v13 = [v20 stringByAppendingString:v22];
           }
@@ -179,55 +177,53 @@
         *invalid = 1;
       }
 
-      v11 = v33;
+      v11 = v32;
     }
 
     else
     {
-      v26 = MEMORY[0x1E696ABC0];
-      v42 = *MEMORY[0x1E696A578];
-      v27 = MEMORY[0x1E696AEC0];
-      v28 = [v12 objectAtIndexedSubscript:1];
-      usagesCopy = [v27 stringWithFormat:@"Templated usage for type %@ is not in provided usages %@", v28, usagesCopy];
-      v43[0] = usagesCopy;
-      v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v43 forKeys:&v42 count:1];
-      v14 = [v26 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:-1 userInfo:v30];
+      v25 = MEMORY[0x1E696ABC0];
+      v41 = *MEMORY[0x1E696A578];
+      v26 = MEMORY[0x1E696AEC0];
+      v27 = [v12 objectAtIndexedSubscript:1];
+      usagesCopy = [v26 stringWithFormat:@"Templated usage for type %@ is not in provided usages %@", v27, usagesCopy];
+      v42[0] = usagesCopy;
+      v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v42 forKeys:&v41 count:1];
+      v14 = [v25 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:-1 userInfo:v29];
 
-      v31 = UAFGetLogCategory(&UAFLogContextConfiguration);
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+      v30 = UAFGetLogCategory(&UAFLogContextConfiguration);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
       {
-        v32 = [v12 objectAtIndexedSubscript:1];
+        v31 = [v12 objectAtIndexedSubscript:1];
         *buf = 136315650;
-        v37 = "+[UAFAssetExpansion specializeTemplate:usages:invalid:error:]";
-        v38 = 2112;
-        v39 = v32;
-        v40 = 2112;
-        v41 = usagesCopy;
-        _os_log_impl(&dword_1BCF2C000, v31, OS_LOG_TYPE_DEFAULT, "%s Templated usage for type %@ is not in provided usages %@", buf, 0x20u);
+        v36 = "+[UAFAssetExpansion specializeTemplate:usages:invalid:error:]";
+        v37 = 2112;
+        v38 = v31;
+        v39 = 2112;
+        v40 = usagesCopy;
+        _os_log_impl(&dword_1BCF2C000, v30, OS_LOG_TYPE_DEFAULT, "%s Templated usage for type %@ is not in provided usages %@", buf, 0x20u);
       }
 
       v13 = 0;
-      v35 = 1;
-      v11 = v33;
+      v34 = 1;
+      v11 = v32;
     }
   }
 
   objc_autoreleasePoolPop(v11);
-  *invalid = v35;
+  *invalid = v34;
   if (error)
   {
     v23 = v14;
     *error = v14;
   }
 
-  v24 = *MEMORY[0x1E69E9840];
-
   return v13;
 }
 
 + (BOOL)isValid:(id)valid validUsageTypes:(id)types error:(id *)error
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v68 = *MEMORY[0x1E69E9840];
   validCopy = valid;
   typesCopy = types;
   if (![UAFConfiguration isValidValue:validCopy key:@"RequiredUsageTypes" kind:objc_opt_class() required:0 error:error])
@@ -237,39 +233,39 @@
 
   if (typesCopy)
   {
-    v54 = 0u;
-    v55 = 0u;
     v52 = 0u;
     v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
     v9 = [validCopy objectForKeyedSubscript:@"RequiredUsageTypes"];
-    v10 = [v9 countByEnumeratingWithState:&v52 objects:v69 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v50 objects:v67 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v53;
+      v12 = *v51;
       while (2)
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v53 != v12)
+          if (*v51 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v52 + 1) + 8 * i);
+          v14 = *(*(&v50 + 1) + 8 * i);
           if (([typesCopy containsObject:v14] & 1) == 0)
           {
             v16 = UAFGetLogCategory(&UAFLogContextConfiguration);
             if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136315906;
-              v62 = "+[UAFAssetExpansion isValid:validUsageTypes:error:]";
+              v60 = "+[UAFAssetExpansion isValid:validUsageTypes:error:]";
+              v61 = 2112;
+              v62 = @"RequiredUsageTypes";
               v63 = 2112;
-              v64 = @"RequiredUsageTypes";
+              v64 = v14;
               v65 = 2112;
-              v66 = v14;
-              v67 = 2112;
-              v68 = typesCopy;
+              v66 = typesCopy;
               _os_log_impl(&dword_1BCF2C000, v16, OS_LOG_TYPE_DEFAULT, "%s %@ has value %@ which isn't one of %@", buf, 0x2Au);
             }
 
@@ -277,7 +273,7 @@
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v52 objects:v69 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v50 objects:v67 count:16];
         if (v11)
         {
           continue;
@@ -301,45 +297,44 @@
     {
       if (error)
       {
-        v39 = MEMORY[0x1E696ABC0];
-        v40 = *MEMORY[0x1E696A578];
+        v38 = MEMORY[0x1E696ABC0];
         if (*error)
         {
-          v59[0] = *MEMORY[0x1E696A578];
-          v41 = [MEMORY[0x1E696AEC0] stringWithFormat:@"One of keys %@ and %@ must have a value", @"TrialFactorTemplate", @"AutoAssetSpecifierTemplate"];
-          v59[1] = *MEMORY[0x1E696AA08];
-          v60[0] = v41;
-          v60[1] = *error;
-          v42 = MEMORY[0x1E695DF20];
-          v43 = v60;
-          v44 = v59;
-          v45 = 2;
+          v57[0] = *MEMORY[0x1E696A578];
+          v39 = [MEMORY[0x1E696AEC0] stringWithFormat:@"One of keys %@ and %@ must have a value", @"TrialFactorTemplate", @"AutoAssetSpecifierTemplate"];
+          v57[1] = *MEMORY[0x1E696AA08];
+          v58[0] = v39;
+          v58[1] = *error;
+          v40 = MEMORY[0x1E695DF20];
+          v41 = v58;
+          v42 = v57;
+          v43 = 2;
         }
 
         else
         {
-          v57 = *MEMORY[0x1E696A578];
-          v41 = [MEMORY[0x1E696AEC0] stringWithFormat:@"One of keys %@ and %@ must have a value", @"TrialFactorTemplate", @"AutoAssetSpecifierTemplate"];
-          v58 = v41;
-          v42 = MEMORY[0x1E695DF20];
-          v43 = &v58;
-          v44 = &v57;
-          v45 = 1;
+          v55 = *MEMORY[0x1E696A578];
+          v39 = [MEMORY[0x1E696AEC0] stringWithFormat:@"One of keys %@ and %@ must have a value", @"TrialFactorTemplate", @"AutoAssetSpecifierTemplate"];
+          v56 = v39;
+          v40 = MEMORY[0x1E695DF20];
+          v41 = &v56;
+          v42 = &v55;
+          v43 = 1;
         }
 
-        v46 = [v42 dictionaryWithObjects:v43 forKeys:v44 count:v45];
-        *error = [v39 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:-1 userInfo:v46];
+        v44 = [v40 dictionaryWithObjects:v41 forKeys:v42 count:v43];
+        *error = [v38 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:-1 userInfo:v44];
       }
 
       v9 = UAFGetLogCategory(&UAFLogContextConfiguration);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v62 = "+[UAFAssetExpansion isValid:validUsageTypes:error:]";
+        v60 = "+[UAFAssetExpansion isValid:validUsageTypes:error:]";
+        v61 = 2112;
+        v62 = @"TrialFactorTemplate";
         v63 = 2112;
-        v64 = @"TrialFactorTemplate";
-        v65 = 2112;
-        v66 = @"AutoAssetSpecifierTemplate";
+        v64 = @"AutoAssetSpecifierTemplate";
         _os_log_impl(&dword_1BCF2C000, v9, OS_LOG_TYPE_DEFAULT, "%s One of keys %@ and %@ must have a value", buf, 0x20u);
       }
 
@@ -349,64 +344,7 @@ LABEL_17:
     }
   }
 
-  if (![UAFConfiguration isValidValue:validCopy key:@"TrialFactorTemplate" kind:objc_opt_class() required:0 error:error])
-  {
-    goto LABEL_41;
-  }
-
-  v19 = [validCopy objectForKeyedSubscript:@"TrialFactorTemplate"];
-
-  if (v19)
-  {
-    v20 = [validCopy objectForKeyedSubscript:@"TrialFactorTemplate"];
-    v21 = [validCopy objectForKeyedSubscript:@"RequiredUsageTypes"];
-    v22 = [UAFAssetExpansion isValidTemplate:v20 requiredUsageTypes:v21 error:error];
-
-    if (!v22)
-    {
-      goto LABEL_41;
-    }
-  }
-
-  if (![UAFConfiguration isValidValue:validCopy key:@"TrialFactorFallbackTemplate" kind:objc_opt_class() required:0 error:error])
-  {
-    goto LABEL_41;
-  }
-
-  v23 = [validCopy objectForKeyedSubscript:@"TrialFactorFallbackTemplate"];
-  if (v23)
-  {
-    v24 = v23;
-    v25 = [validCopy objectForKeyedSubscript:@"TrialFactorFallbackTemplate"];
-    v26 = [validCopy objectForKeyedSubscript:@"RequiredUsageTypes"];
-    v47 = [UAFAssetExpansion isValidTemplate:v25 requiredUsageTypes:v26 error:error];
-
-    if (!v47)
-    {
-      goto LABEL_41;
-    }
-  }
-
-  if (![UAFConfiguration isValidValue:validCopy key:@"AutoAssetSpecifierTemplate" kind:objc_opt_class() required:0 error:error])
-  {
-    goto LABEL_41;
-  }
-
-  v27 = [validCopy objectForKeyedSubscript:@"AutoAssetSpecifierTemplate"];
-
-  if (v27)
-  {
-    v28 = [validCopy objectForKeyedSubscript:@"AutoAssetSpecifierTemplate"];
-    v29 = [validCopy objectForKeyedSubscript:@"RequiredUsageTypes"];
-    v30 = [UAFAssetExpansion isValidTemplate:v28 requiredUsageTypes:v29 error:error];
-
-    if (!v30)
-    {
-      goto LABEL_41;
-    }
-  }
-
-  if (![UAFConfiguration isValidValue:validCopy key:@"UsageValues" kind:objc_opt_class() required:0 error:error])
+  if (!+[UAFConfiguration isValidValue:key:kind:required:error:](UAFConfiguration, "isValidValue:key:kind:required:error:", validCopy, @"TrialFactorTemplate", objc_opt_class(), 0, error) || ([validCopy objectForKeyedSubscript:@"TrialFactorTemplate"], v19 = objc_claimAutoreleasedReturnValue(), v19, v19) && (objc_msgSend(validCopy, "objectForKeyedSubscript:", @"TrialFactorTemplate"), v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(validCopy, "objectForKeyedSubscript:", @"RequiredUsageTypes"), v21 = objc_claimAutoreleasedReturnValue(), v22 = +[UAFAssetExpansion isValidTemplate:requiredUsageTypes:error:](UAFAssetExpansion, "isValidTemplate:requiredUsageTypes:error:", v20, v21, error), v21, v20, !v22) || !+[UAFConfiguration isValidValue:key:kind:required:error:](UAFConfiguration, "isValidValue:key:kind:required:error:", validCopy, @"TrialFactorFallbackTemplate", objc_opt_class(), 0, error) || (objc_msgSend(validCopy, "objectForKeyedSubscript:", @"TrialFactorFallbackTemplate"), (v23 = objc_claimAutoreleasedReturnValue()) != 0) && (v24 = v23, objc_msgSend(validCopy, "objectForKeyedSubscript:", @"TrialFactorFallbackTemplate"), v25 = objc_claimAutoreleasedReturnValue(), objc_msgSend(validCopy, "objectForKeyedSubscript:", @"RequiredUsageTypes"), v26 = objc_claimAutoreleasedReturnValue(), v45 = +[UAFAssetExpansion isValidTemplate:requiredUsageTypes:error:](UAFAssetExpansion, "isValidTemplate:requiredUsageTypes:error:", v25, v26, error), v26, v25, v24, !v45) || !+[UAFConfiguration isValidValue:key:kind:required:error:](UAFConfiguration, "isValidValue:key:kind:required:error:", validCopy, @"AutoAssetSpecifierTemplate", objc_opt_class(), 0, error) || (objc_msgSend(validCopy, "objectForKeyedSubscript:", @"AutoAssetSpecifierTemplate"), v27 = objc_claimAutoreleasedReturnValue(), v27, v27) && (objc_msgSend(validCopy, "objectForKeyedSubscript:", @"AutoAssetSpecifierTemplate"), v28 = objc_claimAutoreleasedReturnValue(), objc_msgSend(validCopy, "objectForKeyedSubscript:", @"RequiredUsageTypes"), v29 = objc_claimAutoreleasedReturnValue(), v30 = +[UAFAssetExpansion isValidTemplate:requiredUsageTypes:error:](UAFAssetExpansion, "isValidTemplate:requiredUsageTypes:error:", v28, v29, error), v29, v28, !v30) || !+[UAFConfiguration isValidValue:key:kind:required:error:](UAFConfiguration, "isValidValue:key:kind:required:error:", validCopy, @"UsageValues", objc_opt_class(), 0, error))
   {
 LABEL_41:
     v17 = 0;
@@ -414,25 +352,25 @@ LABEL_41:
   }
 
   [validCopy objectForKeyedSubscript:@"UsageValues"];
+  v46 = 0u;
+  v47 = 0u;
   v48 = 0u;
-  v49 = 0u;
-  v50 = 0u;
-  v9 = v51 = 0u;
-  v31 = [v9 countByEnumeratingWithState:&v48 objects:v56 count:16];
+  v9 = v49 = 0u;
+  v31 = [v9 countByEnumeratingWithState:&v46 objects:v54 count:16];
   if (v31)
   {
     v32 = v31;
-    v33 = *v49;
+    v33 = *v47;
     while (2)
     {
       for (j = 0; j != v32; ++j)
       {
-        if (*v49 != v33)
+        if (*v47 != v33)
         {
           objc_enumerationMutation(v9);
         }
 
-        v35 = *(*(&v48 + 1) + 8 * j);
+        v35 = *(*(&v46 + 1) + 8 * j);
         v36 = [v9 objectForKeyedSubscript:v35];
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0 || typesCopy && ![typesCopy containsObject:v35])
@@ -443,7 +381,7 @@ LABEL_41:
         }
       }
 
-      v32 = [v9 countByEnumeratingWithState:&v48 objects:v56 count:16];
+      v32 = [v9 countByEnumeratingWithState:&v46 objects:v54 count:16];
       v17 = 1;
       if (v32)
       {
@@ -464,7 +402,6 @@ LABEL_52:
 LABEL_18:
 LABEL_42:
 
-  v37 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
@@ -496,28 +433,28 @@ LABEL_42:
 
 - (BOOL)isValidUsages:(id)usages
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   usagesCopy = usages;
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   requiredUsageTypes = [(UAFAssetExpansion *)self requiredUsageTypes];
-  v6 = [(NSDictionary *)requiredUsageTypes countByEnumeratingWithState:&v27 objects:v32 count:16];
+  v6 = [(NSDictionary *)requiredUsageTypes countByEnumeratingWithState:&v26 objects:v31 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v28;
+    v8 = *v27;
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v28 != v8)
+      if (*v27 != v8)
       {
         objc_enumerationMutation(requiredUsageTypes);
       }
 
-      v10 = [usagesCopy objectForKey:*(*(&v27 + 1) + 8 * v9)];
+      v10 = [usagesCopy objectForKey:*(*(&v26 + 1) + 8 * v9)];
 
       if (!v10)
       {
@@ -526,7 +463,7 @@ LABEL_3:
 
       if (v7 == ++v9)
       {
-        v7 = [(NSDictionary *)requiredUsageTypes countByEnumeratingWithState:&v27 objects:v32 count:16];
+        v7 = [(NSDictionary *)requiredUsageTypes countByEnumeratingWithState:&v26 objects:v31 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -542,27 +479,27 @@ LABEL_3:
     usageValues = self->_usageValues;
     if (usageValues)
     {
-      v25 = 0u;
-      v26 = 0u;
-      v23 = 0u;
       v24 = 0u;
+      v25 = 0u;
+      v22 = 0u;
+      v23 = 0u;
       requiredUsageTypes = usageValues;
-      v12 = [(NSDictionary *)requiredUsageTypes countByEnumeratingWithState:&v23 objects:v31 count:16];
+      v12 = [(NSDictionary *)requiredUsageTypes countByEnumeratingWithState:&v22 objects:v30 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v24;
+        v14 = *v23;
         while (2)
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v24 != v14)
+            if (*v23 != v14)
             {
               objc_enumerationMutation(requiredUsageTypes);
             }
 
-            v16 = *(*(&v23 + 1) + 8 * i);
-            v17 = [usagesCopy objectForKeyedSubscript:{v16, v23}];
+            v16 = *(*(&v22 + 1) + 8 * i);
+            v17 = [usagesCopy objectForKeyedSubscript:{v16, v22}];
             if (v17)
             {
               v18 = v17;
@@ -577,7 +514,7 @@ LABEL_3:
             }
           }
 
-          v13 = [(NSDictionary *)requiredUsageTypes countByEnumeratingWithState:&v23 objects:v31 count:16];
+          v13 = [(NSDictionary *)requiredUsageTypes countByEnumeratingWithState:&v22 objects:v30 count:16];
           LOBYTE(v10) = 1;
           if (v13)
           {
@@ -602,7 +539,6 @@ LABEL_24:
   LOBYTE(v10) = 1;
 LABEL_25:
 
-  v21 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

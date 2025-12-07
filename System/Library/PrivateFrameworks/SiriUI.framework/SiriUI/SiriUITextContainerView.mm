@@ -94,7 +94,7 @@
   v32 = 0u;
   v33 = 0u;
   v31 = 0u;
-  [(SiriUITextContainerView *)self textContainerStyle];
+  objc_msgSend_textContainerStyle(self);
   [(SiriUITextContainerView *)self frame];
   x = v36.origin.x;
   y = v36.origin.y;
@@ -156,7 +156,7 @@
   v6 = objc_opt_class();
   text = [(SiriSharedUIContentLabel *)self->_label text];
   font = [(SiriSharedUIContentLabel *)self->_label font];
-  [(SiriUITextContainerView *)self textContainerStyle];
+  objc_msgSend_textContainerStyle(self);
   [v6 sizeThatFits:text text:font font:v15 textContainerStyle:{width, height}];
   v10 = v9;
   v12 = v11;

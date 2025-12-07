@@ -1,6 +1,6 @@
-void sub_29C845260(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_29C845260(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -95,7 +95,7 @@ uint64_t sub_29C845A18(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   return result;
 }
 
-void sub_29C845B54(void **a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void sub_29C845B54(id *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v6 = objc_msgSend_mutableCopy(a1[4], a2, a3, a4, a5);
   v11 = objc_msgSend_appleID(a1[5], v7, v8, v9, v10);
@@ -137,7 +137,7 @@ void sub_29C845B54(void **a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t
 
 void sub_29C845D18(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v67 = *MEMORY[0x29EDCA608];
+  v66 = *MEMORY[0x29EDCA608];
   v6 = a3;
   v7 = a4;
   if (objc_msgSend_statusCode(v6, v8, v9, v10, v11) != 401)
@@ -200,18 +200,17 @@ LABEL_13:
   v62 = _AALogSystem();
   if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
   {
-    v64[0] = 67109378;
-    v64[1] = v16;
-    v65 = 2112;
-    v66 = v13;
-    _os_log_impl(&dword_29C844000, v62, OS_LOG_TYPE_DEFAULT, "createAppleIDWithParameters calling handler with success %d error %@", v64, 0x12u);
+    v63[0] = 67109378;
+    v63[1] = v16;
+    v64 = 2112;
+    v65 = v13;
+    _os_log_impl(&dword_29C844000, v62, OS_LOG_TYPE_DEFAULT, "createAppleIDWithParameters calling handler with success %d error %@", v63, 0x12u);
   }
 
   (*(*(a1 + 32) + 16))();
-  v63 = *MEMORY[0x29EDCA608];
 }
 
-void sub_29C8460D4(void **a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void sub_29C8460D4(id *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v6 = objc_msgSend_mutableCopy(a1[4], a2, a3, a4, a5);
   v11 = objc_msgSend_appleID(a1[5], v7, v8, v9, v10);
@@ -250,7 +249,7 @@ void sub_29C8460D4(void **a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t
 
 void sub_29C846284(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v65 = *MEMORY[0x29EDCA608];
+  v64 = *MEMORY[0x29EDCA608];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -310,15 +309,14 @@ LABEL_11:
   v60 = _AALogSystem();
   if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
   {
-    v62[0] = 67109378;
-    v62[1] = v55;
-    v63 = 2112;
-    v64 = v53;
-    _os_log_impl(&dword_29C844000, v60, OS_LOG_TYPE_DEFAULT, "updateAppleIDWithParameters calling handler with success %d error %@", v62, 0x12u);
+    v61[0] = 67109378;
+    v61[1] = v55;
+    v62 = 2112;
+    v63 = v53;
+    _os_log_impl(&dword_29C844000, v60, OS_LOG_TYPE_DEFAULT, "updateAppleIDWithParameters calling handler with success %d error %@", v61, 0x12u);
   }
 
   (*(*(a1 + 32) + 16))();
-  v61 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29C84660C(uint64_t a1)
@@ -364,7 +362,7 @@ void sub_29C84660C(uint64_t a1)
 
 void sub_29C8467F8(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v59 = *MEMORY[0x29EDCA608];
+  v58 = *MEMORY[0x29EDCA608];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -417,13 +415,12 @@ LABEL_11:
   v55 = _AALogSystem();
   if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
   {
-    v57 = 138412290;
-    v58 = v53;
-    _os_log_impl(&dword_29C844000, v55, OS_LOG_TYPE_DEFAULT, "setupDelegateAccountsWithParameters calling handler with error %@", &v57, 0xCu);
+    v56 = 138412290;
+    v57 = v53;
+    _os_log_impl(&dword_29C844000, v55, OS_LOG_TYPE_DEFAULT, "setupDelegateAccountsWithParameters calling handler with error %@", &v56, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v56 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29C846B38(uint64_t a1)
@@ -469,7 +466,7 @@ void sub_29C846B38(uint64_t a1)
 
 void sub_29C846D24(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v54[1] = *MEMORY[0x29EDCA608];
+  v53[1] = *MEMORY[0x29EDCA608];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -486,10 +483,10 @@ void sub_29C846D24(uint64_t a1, void *a2, void *a3, void *a4)
       v16 = v15;
       if (v29)
       {
-        v53 = *MEMORY[0x29EDB9ED8];
+        v52 = *MEMORY[0x29EDB9ED8];
         v34 = objc_msgSend_statusMessage(v10, v30, v31, v32, v33);
-        v54[0] = v34;
-        v36 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v35, v54, &v53, 1);
+        v53[0] = v34;
+        v36 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v35, v53, &v52, 1);
 
         v37 = MEMORY[0x29EDB9FA0];
         v42 = objc_msgSend_status(v10, v38, v39, v40, v41);
@@ -502,13 +499,12 @@ void sub_29C846D24(uint64_t a1, void *a2, void *a3, void *a4)
   v49 = _AALogSystem();
   if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
   {
-    v51 = 138412290;
-    v52 = v16;
-    _os_log_impl(&dword_29C844000, v49, OS_LOG_TYPE_DEFAULT, "loginDelegatesWithParameters calling completion handler with error %@", &v51, 0xCu);
+    v50 = 138412290;
+    v51 = v16;
+    _os_log_impl(&dword_29C844000, v49, OS_LOG_TYPE_DEFAULT, "loginDelegatesWithParameters calling completion handler with error %@", &v50, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v50 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29C847144(uint64_t a1)
@@ -539,7 +535,7 @@ void sub_29C847144(uint64_t a1)
 
 void sub_29C84724C(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   v6 = a3;
   v11 = a4;
   if (v6)
@@ -551,16 +547,16 @@ void sub_29C84724C(uint64_t a1, uint64_t a2, void *a3, void *a4)
     {
       if (v14)
       {
-        LOWORD(v17) = 0;
-        _os_log_impl(&dword_29C844000, v13, OS_LOG_TYPE_DEFAULT, "We got the new iCloud Terms from the server", &v17, 2u);
+        LOWORD(v16) = 0;
+        _os_log_impl(&dword_29C844000, v13, OS_LOG_TYPE_DEFAULT, "We got the new iCloud Terms from the server", &v16, 2u);
       }
     }
 
     else if (v14)
     {
-      v17 = 138412290;
-      v18 = v11;
-      _os_log_impl(&dword_29C844000, v13, OS_LOG_TYPE_DEFAULT, "Fetching iCloud Terms failed with error: %@", &v17, 0xCu);
+      v16 = 138412290;
+      v17 = v11;
+      _os_log_impl(&dword_29C844000, v13, OS_LOG_TYPE_DEFAULT, "Fetching iCloud Terms failed with error: %@", &v16, 0xCu);
     }
 
     (*(*(a1 + 32) + 16))();
@@ -571,20 +567,18 @@ void sub_29C84724C(uint64_t a1, uint64_t a2, void *a3, void *a4)
     v15 = _AALogSystem();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 138412290;
-      v18 = v11;
-      _os_log_impl(&dword_29C844000, v15, OS_LOG_TYPE_DEFAULT, "Fetching iCloud Terms failed with error: %@", &v17, 0xCu);
+      v16 = 138412290;
+      v17 = v11;
+      _os_log_impl(&dword_29C844000, v15, OS_LOG_TYPE_DEFAULT, "Fetching iCloud Terms failed with error: %@", &v16, 0xCu);
     }
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v16 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29C8475DC(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v33 = *MEMORY[0x29EDCA608];
+  v32 = *MEMORY[0x29EDCA608];
   v6 = a3;
   v7 = a4;
   if (v6)
@@ -597,8 +591,8 @@ void sub_29C8475DC(uint64_t a1, uint64_t a2, void *a3, void *a4)
     {
       if (v15)
       {
-        LOWORD(v29) = 0;
-        _os_log_impl(&dword_29C844000, v14, OS_LOG_TYPE_DEFAULT, "We got the upgrade status from the server", &v29, 2u);
+        LOWORD(v28) = 0;
+        _os_log_impl(&dword_29C844000, v14, OS_LOG_TYPE_DEFAULT, "We got the upgrade status from the server", &v28, 2u);
       }
 
       v20 = *(a1 + 32);
@@ -611,11 +605,11 @@ void sub_29C8475DC(uint64_t a1, uint64_t a2, void *a3, void *a4)
       if (v15)
       {
         v27 = objc_msgSend_responseDictionary(v8, v16, v17, v18, v19);
-        v29 = 138412546;
-        v30 = v7;
-        v31 = 2112;
-        v32 = v27;
-        _os_log_impl(&dword_29C844000, v14, OS_LOG_TYPE_DEFAULT, "Fetching upgrade status failed with error: %@ response: %@", &v29, 0x16u);
+        v28 = 138412546;
+        v29 = v7;
+        v30 = 2112;
+        v31 = v27;
+        _os_log_impl(&dword_29C844000, v14, OS_LOG_TYPE_DEFAULT, "Fetching upgrade status failed with error: %@ response: %@", &v28, 0x16u);
       }
 
       (*(*(a1 + 32) + 16))(*(a1 + 32), 1, v7);
@@ -627,24 +621,22 @@ void sub_29C8475DC(uint64_t a1, uint64_t a2, void *a3, void *a4)
     v26 = _AALogSystem();
     if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
-      v29 = 138412290;
-      v30 = v7;
-      _os_log_impl(&dword_29C844000, v26, OS_LOG_TYPE_DEFAULT, "Fetching upgrade status got no response and error: %@", &v29, 0xCu);
+      v28 = 138412290;
+      v29 = v7;
+      _os_log_impl(&dword_29C844000, v26, OS_LOG_TYPE_DEFAULT, "Fetching upgrade status got no response and error: %@", &v28, 0xCu);
     }
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v28 = *MEMORY[0x29EDCA608];
 }
 
-uint64_t sub_29C847E30()
+uint64_t sub_29C847E30(uint64_t a1)
 {
   v10 = *MEMORY[0x29EDCA608];
   v3 = 0;
   v4 = &v3;
   v5 = 0x2020000000;
-  v0 = qword_2A1795018;
+  v1 = qword_2A1795018;
   v6 = qword_2A1795018;
   if (!qword_2A1795018)
   {
@@ -653,42 +645,44 @@ uint64_t sub_29C847E30()
     v9 = 0;
     v4[3] = _sl_dlopen();
     qword_2A1795018 = v4[3];
-    v0 = v4[3];
+    v1 = v4[3];
   }
 
   _Block_object_dispose(&v3, 8);
-  v1 = *MEMORY[0x29EDCA608];
-  return v0;
+  return v1;
 }
 
-void sub_29C847F44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_29C847F44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_29C847F5C(uint64_t a1)
 {
-  v5 = *MEMORY[0x29EDCA608];
-  v2 = *(a1 + 40);
   result = _sl_dlopen();
   *(*(*(a1 + 32) + 8) + 24) = result;
   qword_2A1795018 = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 uint64_t sub_29C847FF4()
 {
-  v5 = 0;
-  result = sub_29C847E30();
-  if (!result)
+  v7 = 0;
+  v0 = sub_29C847E30(&v7);
+  if (!v0)
   {
-    sub_29C84E484(&v5, v1, v2, v3, v4);
+    sub_29C84E484(&v7, v1, v2, v3, v4);
   }
 
-  return result;
+  v5 = v0;
+  if (v7)
+  {
+    free(v7);
+  }
+
+  return v5;
 }
 
 uint64_t sub_29C848048()
@@ -710,9 +704,9 @@ uint64_t sub_29C848048()
   return v0;
 }
 
-void sub_29C84811C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_29C84811C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -756,9 +750,9 @@ uint64_t sub_29C8481B4()
   return v0;
 }
 
-void sub_29C848288(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_29C848288(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -807,9 +801,9 @@ id sub_29C848320()
   return v1;
 }
 
-void sub_29C8483E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_29C8483E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -847,9 +841,9 @@ uint64_t sub_29C848458()
   return v0;
 }
 
-void sub_29C84852C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_29C84852C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -917,7 +911,7 @@ void sub_29C8489A8(uint64_t a1, void *a2, void *a3)
 
 void sub_29C848ACC(uint64_t a1, void *a2, void *a3)
 {
-  v30 = *MEMORY[0x29EDCA608];
+  v29 = *MEMORY[0x29EDCA608];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -933,41 +927,41 @@ LABEL_4:
 
   else
   {
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
-    v9 = v5;
-    v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v25, v29, 16);
-    if (v11)
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
+    v8 = v5;
+    v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v24, v28, 16);
+    if (v10)
     {
-      v16 = v11;
-      v17 = *v26;
+      v15 = v10;
+      v16 = *v25;
       while (2)
       {
-        for (i = 0; i != v16; ++i)
+        for (i = 0; i != v15; ++i)
         {
-          if (*v26 != v17)
+          if (*v25 != v16)
           {
-            objc_enumerationMutation(v9);
+            objc_enumerationMutation(v8);
           }
 
-          if (objc_msgSend_isActive(*(*(&v25 + 1) + 8 * i), v12, v13, v14, v15))
+          if (objc_msgSend_isActive(*(*(&v24 + 1) + 8 * i), v11, v12, v13, v14))
           {
 
             v7 = _AALogSystem();
             if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
             {
-              *v24 = 0;
-              _os_log_impl(&dword_29C844000, v7, OS_LOG_TYPE_DEFAULT, "Secondary accounts still present, leaving the follow up", v24, 2u);
+              *v23 = 0;
+              _os_log_impl(&dword_29C844000, v7, OS_LOG_TYPE_DEFAULT, "Secondary accounts still present, leaving the follow up", v23, 2u);
             }
 
             goto LABEL_4;
           }
         }
 
-        v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v12, &v25, v29, 16);
-        if (v16)
+        v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v11, &v24, v28, 16);
+        if (v15)
         {
           continue;
         }
@@ -976,22 +970,20 @@ LABEL_4:
       }
     }
 
-    v19 = _AALogSystem();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v18 = _AALogSystem();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      *v24 = 0;
-      _os_log_impl(&dword_29C844000, v19, OS_LOG_TYPE_DEFAULT, "No active secondary accounts found, removing our follow up.", v24, 2u);
+      *v23 = 0;
+      _os_log_impl(&dword_29C844000, v18, OS_LOG_TYPE_DEFAULT, "No active secondary accounts found, removing our follow up.", v23, 2u);
     }
 
-    objc_msgSend__dismissStartUsingFollowUp(*(a1 + 32), v20, v21, v22, v23);
+    objc_msgSend__dismissStartUsingFollowUp(*(a1 + 32), v19, v20, v21, v22);
   }
-
-  v8 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29C849008(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   v6 = objc_msgSend_aa_appleAccounts(*(a1 + 32), a2, a3, a4, a5);
   v10 = objc_msgSend_aaf_firstObjectPassingTest_(v6, v7, &unk_2A23CBE18, v8, v9);
 
@@ -1001,9 +993,9 @@ void sub_29C849008(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64
   {
     if (v12)
     {
-      v17 = 138412290;
-      v18 = v10;
-      _os_log_impl(&dword_29C844000, v11, OS_LOG_TYPE_DEFAULT, "Found another account needing terms: %@", &v17, 0xCu);
+      v16 = 138412290;
+      v17 = v10;
+      _os_log_impl(&dword_29C844000, v11, OS_LOG_TYPE_DEFAULT, "Found another account needing terms: %@", &v16, 0xCu);
     }
 
     objc_msgSend_postFollowUpWithIdentifier_forAccount_userInfo_completion_(*(*(a1 + 40) + 8), v13, *MEMORY[0x29EDBE2E8], v10, 0, 0);
@@ -1013,14 +1005,12 @@ void sub_29C849008(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64
   {
     if (v12)
     {
-      LOWORD(v17) = 0;
-      _os_log_impl(&dword_29C844000, v11, OS_LOG_TYPE_DEFAULT, "No other accounts need terms, dismissing...", &v17, 2u);
+      LOWORD(v16) = 0;
+      _os_log_impl(&dword_29C844000, v11, OS_LOG_TYPE_DEFAULT, "No other accounts need terms, dismissing...", &v16, 2u);
     }
 
     objc_msgSend_dismissFollowUpWithIdentifier_completion_(*(*(a1 + 40) + 8), v14, *MEMORY[0x29EDBE2E8], 0, v15);
   }
-
-  v16 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t sub_29C849158(uint64_t a1, void *a2)
@@ -1063,38 +1053,35 @@ void sub_29C849730(uint64_t a1)
 
 void sub_29C8497D0(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   v2 = a2;
   v3 = _AALogSystem();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_29C844000, v3, OS_LOG_TYPE_DEFAULT, "Dismissed child migration followup with error: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_29C844000, v3, OS_LOG_TYPE_DEFAULT, "Dismissed child migration followup with error: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29C849904(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v14[2] = *MEMORY[0x29EDCA608];
+  v13[2] = *MEMORY[0x29EDCA608];
   v5 = MEMORY[0x29EDB8E50];
   v6 = *MEMORY[0x29EDB82D8];
-  v14[0] = *MEMORY[0x29EDB8230];
-  v14[1] = v6;
-  v7 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x29EDB8D80], a2, v14, 2, a5);
+  v13[0] = *MEMORY[0x29EDB8230];
+  v13[1] = v6;
+  v7 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x29EDB8D80], a2, v13, 2, a5);
   v11 = objc_msgSend_setWithArray_(v5, v8, v7, v9, v10);
   v12 = qword_2A1795040;
   qword_2A1795040 = v11;
-
-  v13 = *MEMORY[0x29EDCA608];
 }
 
-void sub_29C849AA8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_29C849AA8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
 void sub_29C84A470(uint64_t a1)
@@ -1129,13 +1116,13 @@ void sub_29C84AF6C(uint64_t a1)
 
 void sub_29C84B1BC(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v23 = *MEMORY[0x29EDCA608];
+  v22 = *MEMORY[0x29EDCA608];
   objc_msgSend_setWarmingUp_(*(a1 + 32), a2, 0, a4, a5);
   v7 = *(a1 + 32);
   v6 = *(a1 + 40);
-  v16 = 0;
-  v10 = objc_msgSend_saveVerifiedAccount_error_(v6, v8, v7, &v16, v9);
-  v11 = v16;
+  v15 = 0;
+  v10 = objc_msgSend_saveVerifiedAccount_error_(v6, v8, v7, &v15, v9);
+  v11 = v15;
   v12 = _AALogSystem();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
@@ -1147,160 +1134,146 @@ void sub_29C84B1BC(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64
       v14 = @"YES";
     }
 
-    v18 = v13;
-    v19 = 2112;
-    v20 = v14;
-    v21 = 2112;
-    v22 = v11;
+    v17 = v13;
+    v18 = 2112;
+    v19 = v14;
+    v20 = 2112;
+    v21 = v11;
     _os_log_impl(&dword_29C844000, v12, OS_LOG_TYPE_DEFAULT, "Ended account warmup for account %@ with success: %@, error: %@", buf, 0x20u);
   }
-
-  v15 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t sub_29C84B42C(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v25 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   v6 = objc_msgSend_childAccountsWithAccountTypeIdentifier_(*(a1 + 32), a2, *MEMORY[0x29EDB8208], a4, a5);
   v11 = objc_msgSend_count(v6, v7, v8, v9, v10);
 
   if (v11)
   {
     v14 = *(a1 + 32);
-    v15 = *MEMORY[0x29EDCA608];
 
     return MEMORY[0x2A1C70FE8](AAFindMyAccountController, sel_updateDeviceLocatorChildAccountForAppleAccount_, v14, v12, v13);
   }
 
   else
   {
-    v16 = _AALogSystem();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v15 = _AALogSystem();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = *(a1 + 32);
-      v23 = 138412290;
-      v24 = v17;
-      _os_log_impl(&dword_29C844000, v16, OS_LOG_TYPE_DEFAULT, "AppleAccount (%@) does not have a device locator child account.", &v23, 0xCu);
+      v16 = *(a1 + 32);
+      v21 = 138412290;
+      v22 = v16;
+      _os_log_impl(&dword_29C844000, v15, OS_LOG_TYPE_DEFAULT, "AppleAccount (%@) does not have a device locator child account.", &v21, 0xCu);
     }
 
-    result = objc_msgSend_addDeviceLocatorChildAccountToAppleAccount_(AAFindMyAccountController, v18, *(a1 + 32), v19, v20);
-    v21 = *MEMORY[0x29EDCA608];
+    return objc_msgSend_addDeviceLocatorChildAccountToAppleAccount_(AAFindMyAccountController, v17, *(a1 + 32), v18, v19);
   }
-
-  return result;
 }
 
 uint64_t sub_29C84B560(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v25 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   v6 = objc_msgSend_childAccountsWithAccountTypeIdentifier_(*(a1 + 32), a2, *MEMORY[0x29EDB8220], a4, a5);
   v11 = objc_msgSend_count(v6, v7, v8, v9, v10);
 
   if (v11)
   {
     v14 = *(a1 + 32);
-    v15 = *MEMORY[0x29EDCA608];
 
     return MEMORY[0x2A1C70FE8](AAFindMyAccountController, sel_updateFMFChildAccountForAppleAccount_, v14, v12, v13);
   }
 
   else
   {
-    v16 = _AALogSystem();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v15 = _AALogSystem();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = *(a1 + 32);
-      v23 = 138412290;
-      v24 = v17;
-      _os_log_impl(&dword_29C844000, v16, OS_LOG_TYPE_DEFAULT, "AppleAccount (%@) does not have a FMF child account.", &v23, 0xCu);
+      v16 = *(a1 + 32);
+      v21 = 138412290;
+      v22 = v16;
+      _os_log_impl(&dword_29C844000, v15, OS_LOG_TYPE_DEFAULT, "AppleAccount (%@) does not have a FMF child account.", &v21, 0xCu);
     }
 
-    result = objc_msgSend_addFMFChildAccountToAppleAccount_(AAFindMyAccountController, v18, *(a1 + 32), v19, v20);
-    v21 = *MEMORY[0x29EDCA608];
+    return objc_msgSend_addFMFChildAccountToAppleAccount_(AAFindMyAccountController, v17, *(a1 + 32), v18, v19);
   }
-
-  return result;
 }
 
 void sub_29C84B968(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v19[12] = *MEMORY[0x29EDCA608];
+  v18[12] = *MEMORY[0x29EDCA608];
   v5 = MEMORY[0x29EDB8E50];
   v6 = *MEMORY[0x29EDB8230];
-  v19[0] = *MEMORY[0x29EDB81C8];
-  v19[1] = v6;
+  v18[0] = *MEMORY[0x29EDB81C8];
+  v18[1] = v6;
   v7 = *MEMORY[0x29EDB8268];
-  v19[2] = *MEMORY[0x29EDB82D8];
-  v19[3] = v7;
+  v18[2] = *MEMORY[0x29EDB82D8];
+  v18[3] = v7;
   v8 = *MEMORY[0x29EDB8248];
-  v19[4] = *MEMORY[0x29EDB81F8];
-  v19[5] = v8;
+  v18[4] = *MEMORY[0x29EDB81F8];
+  v18[5] = v8;
   v9 = *MEMORY[0x29EDB8218];
-  v19[6] = *MEMORY[0x29EDB81D0];
-  v19[7] = v9;
+  v18[6] = *MEMORY[0x29EDB81D0];
+  v18[7] = v9;
   v10 = *MEMORY[0x29EDB8258];
-  v19[8] = *MEMORY[0x29EDB8260];
-  v19[9] = v10;
+  v18[8] = *MEMORY[0x29EDB8260];
+  v18[9] = v10;
   v11 = *MEMORY[0x29EDB81E8];
-  v19[10] = *MEMORY[0x29EDB81F0];
-  v19[11] = v11;
-  v12 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x29EDB8D80], a2, v19, 12, a5);
+  v18[10] = *MEMORY[0x29EDB81F0];
+  v18[11] = v11;
+  v12 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x29EDB8D80], a2, v18, 12, a5);
   v16 = objc_msgSend_setWithArray_(v5, v13, v12, v14, v15);
   v17 = qword_2A1795050;
   qword_2A1795050 = v16;
-
-  v18 = *MEMORY[0x29EDCA608];
 }
 
-void sub_29C84BCA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_29C84BCA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void sub_29C84BCC0(uint64_t a1, uint64_t a2, void *a3)
 {
-  v15 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
   v4 = a3;
   v5 = _AALogSystem();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v9 = objc_msgSend_numberWithBool_(MEMORY[0x29EDBA070], v6, a2, v7, v8);
-    v11 = 138412546;
-    v12 = v9;
-    v13 = 2112;
-    v14 = v4;
-    _os_log_impl(&dword_29C844000, v5, OS_LOG_TYPE_DEFAULT, "clearBridgeAppleIDFollowUp result : %@ error: %@", &v11, 0x16u);
+    v10 = 138412546;
+    v11 = v9;
+    v12 = 2112;
+    v13 = v4;
+    _os_log_impl(&dword_29C844000, v5, OS_LOG_TYPE_DEFAULT, "clearBridgeAppleIDFollowUp result : %@ error: %@", &v10, 0x16u);
   }
-
-  v10 = *MEMORY[0x29EDCA608];
 }
 
 Class sub_29C84BDA0(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v15 = *MEMORY[0x29EDCA608];
-  v12[0] = 0;
+  v14 = *MEMORY[0x29EDCA608];
+  v11[0] = 0;
   if (!qword_2A1795068)
   {
-    v12[1] = MEMORY[0x29EDCA5F8];
-    v12[2] = 3221225472;
-    v12[3] = sub_29C84BECC;
-    v12[4] = &unk_29F329810;
-    v12[5] = v12;
-    v13 = xmmword_29F3297F8;
-    v14 = 0;
+    v11[1] = MEMORY[0x29EDCA5F8];
+    v11[2] = 3221225472;
+    v11[3] = sub_29C84BECC;
+    v11[4] = &unk_29F329810;
+    v11[5] = v11;
+    v12 = xmmword_29F3297F8;
+    v13 = 0;
     qword_2A1795068 = _sl_dlopen();
   }
 
   if (!qword_2A1795068)
   {
-    sub_29C84ECD8(v12, a2, a3, a4, a5);
+    sub_29C84ECD8(v11, a2, a3, a4, a5);
   }
 
-  if (v12[0])
+  if (v11[0])
   {
-    free(v12[0]);
+    free(v11[0]);
   }
 
   result = objc_getClass("FLFollowUpController");
@@ -1311,23 +1284,19 @@ Class sub_29C84BDA0(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint6
   }
 
   qword_2A1795060 = *(*(*(a1 + 32) + 8) + 24);
-  v11 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 uint64_t sub_29C84BECC(uint64_t a1)
 {
-  v4 = *MEMORY[0x29EDCA608];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_2A1795068 = result;
-  v3 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 uint64_t sub_29C84C70C(uint64_t a1, void *a2)
 {
-  v59 = *MEMORY[0x29EDCA608];
+  v58 = *MEMORY[0x29EDCA608];
   v3 = a2;
   v8 = objc_msgSend_parentAccountIdentifier(v3, v4, v5, v6, v7);
   v13 = objc_msgSend_identifier(*(a1 + 32), v9, v10, v11, v12);
@@ -1349,13 +1318,13 @@ uint64_t sub_29C84C70C(uint64_t a1, void *a2)
     {
       v39 = *(a1 + 32);
       v38 = *(a1 + 40);
-      v55 = 138412546;
-      v56 = v38;
-      v57 = 2112;
-      v58 = v39;
+      v54 = 138412546;
+      v55 = v38;
+      v56 = 2112;
+      v57 = v39;
       v40 = "Found an orphaned accountType %@ for username of AppleAccount %@";
 LABEL_9:
-      _os_log_impl(&dword_29C844000, v37, OS_LOG_TYPE_DEFAULT, v40, &v55, 0x16u);
+      _os_log_impl(&dword_29C844000, v37, OS_LOG_TYPE_DEFAULT, v40, &v54, 0x16u);
       goto LABEL_10;
     }
 
@@ -1373,10 +1342,10 @@ LABEL_9:
     {
       v52 = *(a1 + 32);
       v51 = *(a1 + 40);
-      v55 = 138412546;
-      v56 = v51;
-      v57 = 2112;
-      v58 = v52;
+      v54 = 138412546;
+      v55 = v51;
+      v56 = 2112;
+      v57 = v52;
       v40 = "Found an orphaned accountType %@ for alias of AppleAccount %@";
       goto LABEL_9;
     }
@@ -1391,13 +1360,12 @@ LABEL_2:
   v22 = 0;
 LABEL_11:
 
-  v53 = *MEMORY[0x29EDCA608];
   return v22;
 }
 
 void sub_29C84D848(uint64_t a1, int a2, void *a3, void *a4)
 {
-  v59 = *MEMORY[0x29EDCA608];
+  v58 = *MEMORY[0x29EDCA608];
   v7 = a3;
   v8 = a4;
   v9 = _AALogSystem();
@@ -1408,7 +1376,7 @@ void sub_29C84D848(uint64_t a1, int a2, void *a3, void *a4)
     {
       v11 = *(a1 + 32);
       *buf = 138412290;
-      v56 = v11;
+      v55 = v11;
       v12 = "Successfully sent AK account %@. Now moving on to main account.";
       v13 = v9;
       v14 = 12;
@@ -1421,9 +1389,9 @@ LABEL_6:
   {
     v15 = *(a1 + 32);
     *buf = 138412546;
-    v56 = v15;
-    v57 = 2112;
-    v58 = v8;
+    v55 = v15;
+    v56 = 2112;
+    v57 = v8;
     v12 = "Failed to send AK account %@ to paired device. Error: %@";
     v13 = v9;
     v14 = 22;
@@ -1446,22 +1414,20 @@ LABEL_6:
 
   v46 = objc_msgSend_remoteDeviceProxy(*(a1 + 56), v41, v42, v43, v44);
   v47 = *(a1 + 64);
-  v52[0] = MEMORY[0x29EDCA5F8];
-  v52[1] = 3221225472;
-  v52[2] = sub_29C84DA84;
-  v52[3] = &unk_29F329860;
+  v51[0] = MEMORY[0x29EDCA5F8];
+  v51[1] = 3221225472;
+  v51[2] = sub_29C84DA84;
+  v51[3] = &unk_29F329860;
   v48 = *(a1 + 40);
   v49 = *(a1 + 48);
-  v53 = v48;
-  v54 = v49;
-  objc_msgSend_sendCommand_withAccount_options_completion_(v46, v50, v47, v20, v45, v52);
-
-  v51 = *MEMORY[0x29EDCA608];
+  v52 = v48;
+  v53 = v49;
+  objc_msgSend_sendCommand_withAccount_options_completion_(v46, v50, v47, v20, v45, v51);
 }
 
 void sub_29C84DA84(uint64_t a1, int a2, void *a3, void *a4)
 {
-  v39 = *MEMORY[0x29EDCA608];
+  v38 = *MEMORY[0x29EDCA608];
   v7 = a3;
   v8 = a4;
   v13 = v8;
@@ -1471,13 +1437,13 @@ void sub_29C84DA84(uint64_t a1, int a2, void *a3, void *a4)
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       v15 = *(a1 + 32);
-      v35 = 138412290;
-      v36 = v15;
+      v34 = 138412290;
+      v35 = v15;
       v16 = "Successfully signed in with account %@ on remote device!";
       v17 = v14;
       v18 = 12;
 LABEL_12:
-      _os_log_impl(&dword_29C844000, v17, OS_LOG_TYPE_DEFAULT, v16, &v35, v18);
+      _os_log_impl(&dword_29C844000, v17, OS_LOG_TYPE_DEFAULT, v16, &v34, v18);
       goto LABEL_13;
     }
 
@@ -1493,10 +1459,10 @@ LABEL_10:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       v33 = *(a1 + 32);
-      v35 = 138412546;
-      v36 = v33;
-      v37 = 2112;
-      v38 = v13;
+      v34 = 138412546;
+      v35 = v33;
+      v36 = 2112;
+      v37 = v13;
       v16 = "Error encountered with signing in with account %@ on remote device: %@";
       v17 = v14;
       v18 = 22;
@@ -1519,15 +1485,13 @@ LABEL_13:
   if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
   {
     v29 = *(a1 + 32);
-    v35 = 138412290;
-    v36 = v29;
-    _os_log_impl(&dword_29C844000, v28, OS_LOG_TYPE_DEFAULT, "Error! Cannot sign in with account %@. Two-factor auth is required.", &v35, 0xCu);
+    v34 = 138412290;
+    v35 = v29;
+    _os_log_impl(&dword_29C844000, v28, OS_LOG_TYPE_DEFAULT, "Error! Cannot sign in with account %@. Two-factor auth is required.", &v34, 0xCu);
   }
 
   objc_msgSend__showRedirectToBridgeAlertForAccount_(*(a1 + 40), v30, *(a1 + 32), v31, v32);
 LABEL_14:
-
-  v34 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29C84E0FC(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -1651,20 +1615,18 @@ void sub_29C84E670(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64
 
 void sub_29C84E6E8(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x29EDCA608];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_29C844000, a2, OS_LOG_TYPE_ERROR, "Failed to query for primary account, error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x29EDCA608];
+  v4 = *MEMORY[0x29EDCA608];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_29C844000, a2, OS_LOG_TYPE_ERROR, "Failed to query for primary account, error: %@", &v2, 0xCu);
 }
 
 void sub_29C84E760(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x29EDCA608];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_29C844000, a2, OS_LOG_TYPE_ERROR, "Failed to determine if we have any secondary accounts, error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x29EDCA608];
+  v4 = *MEMORY[0x29EDCA608];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_29C844000, a2, OS_LOG_TYPE_ERROR, "Failed to determine if we have any secondary accounts, error: %@", &v2, 0xCu);
 }
 
 void sub_29C84E894()
@@ -1676,29 +1638,23 @@ void sub_29C84E894()
 
 void sub_29C84E8D0()
 {
-  v6 = *MEMORY[0x29EDCA608];
   sub_29C84BB28();
   sub_29C84BB10();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29C84E940()
 {
-  v6 = *MEMORY[0x29EDCA608];
   sub_29C84BB28();
   sub_29C84BB10();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29C84E9B0()
 {
-  v6 = *MEMORY[0x29EDCA608];
   sub_29C84BB28();
   sub_29C84BB10();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29C84EA20()
@@ -1715,17 +1671,15 @@ void sub_29C84EA5C()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_29C84EA98(void *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void sub_29C84EA98(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v13 = *MEMORY[0x29EDCA608];
+  v12 = *MEMORY[0x29EDCA608];
   v7 = objc_msgSend_aa_accountClass(a1, a2, a3, a4, a5);
-  v9 = 138412546;
-  v10 = a1;
-  v11 = 2112;
-  v12 = v7;
-  _os_log_debug_impl(&dword_29C844000, a2, OS_LOG_TYPE_DEBUG, "Updated account class for account: %@ (%@)", &v9, 0x16u);
-
-  v8 = *MEMORY[0x29EDCA608];
+  v8 = 138412546;
+  v9 = a1;
+  v10 = 2112;
+  v11 = v7;
+  _os_log_debug_impl(&dword_29C844000, a2, OS_LOG_TYPE_DEBUG, "Updated account class for account: %@ (%@)", &v8, 0x16u);
 }
 
 void sub_29C84EB88()
@@ -1737,12 +1691,11 @@ void sub_29C84EB88()
 
 void sub_29C84EBC4()
 {
-  v6 = *MEMORY[0x29EDCA608];
+  v5 = *MEMORY[0x29EDCA608];
   sub_29C84BB28();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_error_impl(&dword_29C844000, v1, OS_LOG_TYPE_ERROR, "Error deleting unsupported account (%@): %@", v3, 0x16u);
-  v2 = *MEMORY[0x29EDCA608];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_29C844000, v1, OS_LOG_TYPE_ERROR, "Error deleting unsupported account (%@): %@", v2, 0x16u);
 }
 
 void sub_29C84EC5C(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -1765,9 +1718,8 @@ void sub_29C84ECD8(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t 
 
 void sub_29C84ED58(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x29EDCA608];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_29C844000, a2, OS_LOG_TYPE_ERROR, "AppleAccount for %@ is not on disk. Unable to assign parent. Stopping.", &v3, 0xCu);
-  v2 = *MEMORY[0x29EDCA608];
+  v4 = *MEMORY[0x29EDCA608];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_29C844000, a2, OS_LOG_TYPE_ERROR, "AppleAccount for %@ is not on disk. Unable to assign parent. Stopping.", &v2, 0xCu);
 }

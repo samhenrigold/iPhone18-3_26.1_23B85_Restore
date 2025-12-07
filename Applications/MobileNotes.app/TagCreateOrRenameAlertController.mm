@@ -63,7 +63,7 @@
 
   sub_1003A6234();
 
-  sub_1000073B4(v6, &qword_1006BE7A0);
+  sub_1000073B4(v6, &qword_1006BE7A0, &unk_100535E20);
 }
 
 - (_TtC11MobileNotes32TagCreateOrRenameAlertController)init

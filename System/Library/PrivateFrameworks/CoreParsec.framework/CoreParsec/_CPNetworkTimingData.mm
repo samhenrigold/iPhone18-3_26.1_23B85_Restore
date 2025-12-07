@@ -301,7 +301,6 @@ LABEL_35:
 
   if (interfaceIdentifier)
   {
-    interfaceIdentifier = self->_interfaceIdentifier;
     PBDataWriterWriteStringField();
   }
 
@@ -309,19 +308,16 @@ LABEL_35:
 
   if (peerAddress)
   {
-    peerAddress = self->_peerAddress;
     PBDataWriterWriteDataField();
   }
 
   if ([(_CPNetworkTimingData *)self connectionRace])
   {
-    connectionRace = self->_connectionRace;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPNetworkTimingData *)self connectionReused])
   {
-    connectionReused = self->_connectionReused;
     PBDataWriterWriteBOOLField();
   }
 
@@ -345,7 +341,6 @@ LABEL_35:
 
   if (connectionUUID)
   {
-    connectionUUID = self->_connectionUUID;
     PBDataWriterWriteStringField();
   }
 
@@ -353,134 +348,112 @@ LABEL_35:
 
   if (networkProtocolName)
   {
-    networkProtocolName = self->_networkProtocolName;
     PBDataWriterWriteStringField();
   }
 
   if ([(_CPNetworkTimingData *)self QUICWhitelistedDomain])
   {
-    QUICWhitelistedDomain = self->_QUICWhitelistedDomain;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPNetworkTimingData *)self redirectCount])
   {
-    redirectCount = self->_redirectCount;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPNetworkTimingData *)self redirectCountW3C])
   {
-    redirectCountW3C = self->_redirectCountW3C;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPNetworkTimingData *)self requestHeaderSize])
   {
-    requestHeaderSize = self->_requestHeaderSize;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPNetworkTimingData *)self responseBodyBytesDecoded])
   {
-    responseBodyBytesDecoded = self->_responseBodyBytesDecoded;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPNetworkTimingData *)self responseBodyBytesReceived])
   {
-    responseBodyBytesReceived = self->_responseBodyBytesReceived;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPNetworkTimingData *)self responseHeaderSize])
   {
-    responseHeaderSize = self->_responseHeaderSize;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPNetworkTimingData *)self TFOSuccess])
   {
-    TFOSuccess = self->_TFOSuccess;
     PBDataWriterWriteBOOLField();
   }
 
   [(_CPNetworkTimingData *)self timingDataInit];
-  if (v26 != 0.0)
+  if (v12 != 0.0)
   {
-    timingDataInit = self->_timingDataInit;
     PBDataWriterWriteDoubleField();
   }
 
   if ([(_CPNetworkTimingData *)self connectStart])
   {
-    connectStart = self->_connectStart;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPNetworkTimingData *)self connectEnd])
   {
-    connectEnd = self->_connectEnd;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPNetworkTimingData *)self domainLookupStart])
   {
-    domainLookupStart = self->_domainLookupStart;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPNetworkTimingData *)self domainLookupEnd])
   {
-    domainLookupEnd = self->_domainLookupEnd;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPNetworkTimingData *)self fetchStart])
   {
-    fetchStart = self->_fetchStart;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPNetworkTimingData *)self redirectStart])
   {
-    redirectStart = self->_redirectStart;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPNetworkTimingData *)self redirectEnd])
   {
-    redirectEnd = self->_redirectEnd;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPNetworkTimingData *)self requestStart])
   {
-    requestStart = self->_requestStart;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPNetworkTimingData *)self requestEnd])
   {
-    requestEnd = self->_requestEnd;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPNetworkTimingData *)self responseStart])
   {
-    responseStart = self->_responseStart;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPNetworkTimingData *)self responseEnd])
   {
-    responseEnd = self->_responseEnd;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPNetworkTimingData *)self secureConnectStart])
   {
-    secureConnectStart = self->_secureConnectStart;
     PBDataWriterWriteUint32Field();
   }
 
@@ -489,34 +462,34 @@ LABEL_35:
 
 - (_CPNetworkTimingData)initWithTelemetryDictionary:(id)dictionary
 {
-  v94 = *MEMORY[0x1E69E9840];
+  v91 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v5 = [(_CPNetworkTimingData *)self init];
   v6 = v5;
   if (v5)
   {
-    v80 = v5;
+    v77 = v5;
     startMetricsForNormalization = [objc_opt_class() startMetricsForNormalization];
+    v83 = 0u;
+    v84 = 0u;
+    v85 = 0u;
     v86 = 0u;
-    v87 = 0u;
-    v88 = 0u;
-    v89 = 0u;
-    v8 = [startMetricsForNormalization countByEnumeratingWithState:&v86 objects:v93 count:16];
+    v8 = [startMetricsForNormalization countByEnumeratingWithState:&v83 objects:v90 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v87;
+      v10 = *v84;
       v11 = 1.79769313e308;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v87 != v10)
+          if (*v84 != v10)
           {
             objc_enumerationMutation(startMetricsForNormalization);
           }
 
-          v13 = [dictionaryCopy parsec_numberForKey:*(*(&v86 + 1) + 8 * i)];
+          v13 = [dictionaryCopy parsec_numberForKey:*(*(&v83 + 1) + 8 * i)];
           [v13 doubleValue];
           v15 = v14;
 
@@ -526,7 +499,7 @@ LABEL_35:
           }
         }
 
-        v9 = [startMetricsForNormalization countByEnumeratingWithState:&v86 objects:v93 count:16];
+        v9 = [startMetricsForNormalization countByEnumeratingWithState:&v83 objects:v90 count:16];
       }
 
       while (v9);
@@ -537,521 +510,519 @@ LABEL_35:
       v11 = 1.79769313e308;
     }
 
-    v78 = dictionaryCopy;
-    v79 = startMetricsForNormalization;
-    v84 = 0u;
-    v85 = 0u;
+    v75 = dictionaryCopy;
+    v76 = startMetricsForNormalization;
+    v81 = 0u;
     v82 = 0u;
-    v83 = 0u;
+    v79 = 0u;
+    v80 = 0u;
     v17 = dictionaryCopy;
-    v18 = [v17 countByEnumeratingWithState:&v82 objects:v92 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v79 objects:v89 count:16];
     if (v18)
     {
       v19 = v18;
       v20 = @"timing_data_key_unknown";
       v21 = @"_kCFNTimingDataConnectionReused";
-      v22 = *v83;
-      v81 = *v83;
+      v22 = *v80;
+      v78 = *v80;
       do
       {
         v23 = 0;
         do
         {
-          if (*v83 != v22)
+          if (*v80 != v22)
           {
             objc_enumerationMutation(v17);
           }
 
-          v24 = *(*(&v82 + 1) + 8 * v23);
+          v24 = *(*(&v79 + 1) + 8 * v23);
           if (![v24 compare:v20 options:3])
           {
 LABEL_70:
 
-            goto LABEL_154;
+            goto LABEL_152;
           }
 
-          if (![v24 compare:v21 options:3])
+          if ([v24 compare:v21 options:3])
           {
-            v25 = 1;
-LABEL_72:
-            v26 = 0x1E696AD98;
-            goto LABEL_79;
-          }
-
-          if (![v24 compare:@"_kCFNTimingDataConnectionPeerAddress" options:3])
-          {
-            v25 = 2;
-            v26 = 0x1E695DEF0;
-            goto LABEL_79;
-          }
-
-          v25 = 3;
-          if (![v24 compare:@"_kCFNTimingDataConnectionInterfaceIdentifier" options:3])
-          {
-            goto LABEL_75;
-          }
-
-          if (![v24 compare:@"omit" options:3])
-          {
-            v25 = 4;
-LABEL_75:
-            v26 = 0x1E696AEC0;
-            goto LABEL_79;
-          }
-
-          if ([v24 compare:@"_kCFNTimingDataConnectionStartTimeCounts" options:3])
-          {
-            if ([v24 compare:@"_kCFNTimingDataConnectionStopTimeCounts" options:3])
+            if ([v24 compare:@"_kCFNTimingDataConnectionPeerAddress" options:3])
             {
-              if (![v24 compare:@"_kCFNTimingDataNStatRXPackets" options:3] || !objc_msgSend(v24, "compare:options:", @"_kCFNTimingDataNStatRXBytes", 3) || !objc_msgSend(v24, "compare:options:", @"_kCFNTimingDataNStatTXPackets", 3) || !objc_msgSend(v24, "compare:options:", @"_kCFNTimingDataNStatTXBytes", 3) || !objc_msgSend(v24, "compare:options:", @"_kCFNTimingDataNStatRXDuplicateBytes", 3) || !objc_msgSend(v24, "compare:options:", @"_kCFNTimingDataNStatRXOutOfOrderBytes", 3) || !objc_msgSend(v24, "compare:options:", @"_kCFNTimingDataNStatTXRetransmit", 3) || !objc_msgSend(v24, "compare:options:", @"_kCFNTimingDataNStatConnectAttempts", 3) || !objc_msgSend(v24, "compare:options:", @"_kCFNTimingDataNStatConnectSuccesses", 3) || !objc_msgSend(v24, "compare:options:", @"_kCFNTimingDataNStatMinRTT", 3) || !objc_msgSend(v24, "compare:options:", @"_kCFNTimingDataNStatAvgRTT", 3) || !objc_msgSend(v24, "compare:options:", @"_kCFNTimingDataNStatVarRTT", 3) || !objc_msgSend(v24, "compare:options:", @"_kCFNTimingDataNStatCellRXPackets", 3) || !objc_msgSend(v24, "compare:options:", @"_kCFNTimingDataNStatCellTXPackets", 3) || !objc_msgSend(v24, "compare:options:", @"_kCFNTimingDataNStatWifiRXPackets", 3) || !objc_msgSend(v24, "compare:options:", @"_kCFNTimingDataNStatWifiTXPackets", 3) || !objc_msgSend(v24, "compare:options:", @"_kCFNTimingDataNStatWiredRXPackets", 3) || !objc_msgSend(v24, "compare:options:", @"_kCFNTimingDataNStatWiredTXPackets", 3))
+              v25 = 3;
+              if ([v24 compare:@"_kCFNTimingDataConnectionInterfaceIdentifier" options:3])
               {
-                goto LABEL_70;
-              }
-
-              if ([v24 compare:@"_kCFNTimingDataTCPFastOpenStats" options:3])
-              {
-                if (![v24 compare:@"_kCFNTimingDataTCPInfoAtStart" options:3] || !objc_msgSend(v24, "compare:options:", @"_kCFNTimingDataTCPInfoAtStop", 3) || !objc_msgSend(v24, "compare:options:", @"omit", 3) || !objc_msgSend(v24, "compare:options:", @"_kCFNTimingDataRemoteAddressAndPort", 3))
+                if ([v24 compare:@"omit" options:3])
                 {
-                  goto LABEL_70;
-                }
-
-                if ([v24 compare:@"_kCFNTimingDataNetworkProtocolName" options:3])
-                {
-                  if ([v24 compare:@"_kCFNTimingDataConnectionRace" options:3])
+                  if ([v24 compare:@"_kCFNTimingDataConnectionStartTimeCounts" options:3])
                   {
-                    if ([v24 compare:@"_kCFNTimingDataQUICWhitelistedDomain" options:3])
+                    if ([v24 compare:@"_kCFNTimingDataConnectionStopTimeCounts" options:3])
                     {
-                      if ([v24 compare:@"_kCFNTimingDataRequestHeaderSize" options:3])
+                      if (![v24 compare:@"_kCFNTimingDataNStatRXPackets" options:3] || !objc_msgSend(v24, "compare:options:", @"_kCFNTimingDataNStatRXBytes", 3) || !objc_msgSend(v24, "compare:options:", @"_kCFNTimingDataNStatTXPackets", 3) || !objc_msgSend(v24, "compare:options:", @"_kCFNTimingDataNStatTXBytes", 3) || !objc_msgSend(v24, "compare:options:", @"_kCFNTimingDataNStatRXDuplicateBytes", 3) || !objc_msgSend(v24, "compare:options:", @"_kCFNTimingDataNStatRXOutOfOrderBytes", 3) || !objc_msgSend(v24, "compare:options:", @"_kCFNTimingDataNStatTXRetransmit", 3) || !objc_msgSend(v24, "compare:options:", @"_kCFNTimingDataNStatConnectAttempts", 3) || !objc_msgSend(v24, "compare:options:", @"_kCFNTimingDataNStatConnectSuccesses", 3) || !objc_msgSend(v24, "compare:options:", @"_kCFNTimingDataNStatMinRTT", 3) || !objc_msgSend(v24, "compare:options:", @"_kCFNTimingDataNStatAvgRTT", 3) || !objc_msgSend(v24, "compare:options:", @"_kCFNTimingDataNStatVarRTT", 3) || !objc_msgSend(v24, "compare:options:", @"_kCFNTimingDataNStatCellRXPackets", 3) || !objc_msgSend(v24, "compare:options:", @"_kCFNTimingDataNStatCellTXPackets", 3) || !objc_msgSend(v24, "compare:options:", @"_kCFNTimingDataNStatWifiRXPackets", 3) || !objc_msgSend(v24, "compare:options:", @"_kCFNTimingDataNStatWifiTXPackets", 3) || !objc_msgSend(v24, "compare:options:", @"_kCFNTimingDataNStatWiredRXPackets", 3) || !objc_msgSend(v24, "compare:options:", @"_kCFNTimingDataNStatWiredTXPackets", 3))
                       {
-                        if ([v24 compare:@"_kCFNTimingDataResponseHeaderSize" options:3])
+                        goto LABEL_70;
+                      }
+
+                      if ([v24 compare:@"_kCFNTimingDataTCPFastOpenStats" options:3])
+                      {
+                        if (![v24 compare:@"_kCFNTimingDataTCPInfoAtStart" options:3] || !objc_msgSend(v24, "compare:options:", @"_kCFNTimingDataTCPInfoAtStop", 3) || !objc_msgSend(v24, "compare:options:", @"omit", 3) || !objc_msgSend(v24, "compare:options:", @"_kCFNTimingDataRemoteAddressAndPort", 3))
                         {
-                          if ([v24 compare:@"_kCFNTimingDataResponseBodyBytesReceived" options:3])
+                          goto LABEL_70;
+                        }
+
+                        if ([v24 compare:@"_kCFNTimingDataNetworkProtocolName" options:3])
+                        {
+                          if ([v24 compare:@"_kCFNTimingDataConnectionRace" options:3])
                           {
-                            if ([v24 compare:@"_kCFNTimingDataResponseBodyBytesDecoded" options:3])
+                            if ([v24 compare:@"_kCFNTimingDataQUICWhitelistedDomain" options:3])
                             {
-                              if ([v24 compare:@"_kCFNTimingDataFetchStart" options:3])
+                              if ([v24 compare:@"_kCFNTimingDataRequestHeaderSize" options:3])
                               {
-                                if ([v24 compare:@"_kCFNTimingDataDomainLookupStart" options:3])
+                                if ([v24 compare:@"_kCFNTimingDataResponseHeaderSize" options:3])
                                 {
-                                  if ([v24 compare:@"_kCFNTimingDataDomainLookupEnd" options:3])
+                                  if ([v24 compare:@"_kCFNTimingDataResponseBodyBytesReceived" options:3])
                                   {
-                                    if ([v24 compare:@"_kCFNTimingDataConnectStart" options:3])
+                                    if ([v24 compare:@"_kCFNTimingDataResponseBodyBytesDecoded" options:3])
                                     {
-                                      if ([v24 compare:@"_kCFNTimingDataSecureConnectionStart" options:3])
+                                      if ([v24 compare:@"_kCFNTimingDataFetchStart" options:3])
                                       {
-                                        if ([v24 compare:@"_kCFNTimingDataConnectEnd" options:3])
+                                        if ([v24 compare:@"_kCFNTimingDataDomainLookupStart" options:3])
                                         {
-                                          if ([v24 compare:@"_kCFNTimingDataRequestStart" options:3])
+                                          if ([v24 compare:@"_kCFNTimingDataDomainLookupEnd" options:3])
                                           {
-                                            if ([v24 compare:@"_kCFNTimingDataRequestEnd" options:3])
+                                            if ([v24 compare:@"_kCFNTimingDataConnectStart" options:3])
                                             {
-                                              if ([v24 compare:@"_kCFNTimingDataResponseStart" options:3])
+                                              if ([v24 compare:@"_kCFNTimingDataSecureConnectionStart" options:3])
                                               {
-                                                if ([v24 compare:@"_kCFNTimingDataResponseEnd" options:3])
+                                                if ([v24 compare:@"_kCFNTimingDataConnectEnd" options:3])
                                                 {
-                                                  if ([v24 compare:@"_kCFNTimingDataRedirectStart" options:3])
+                                                  if ([v24 compare:@"_kCFNTimingDataRequestStart" options:3])
                                                   {
-                                                    if ([v24 compare:@"_kCFNTimingDataRedirectEnd" options:3])
+                                                    if ([v24 compare:@"_kCFNTimingDataRequestEnd" options:3])
                                                     {
-                                                      goto LABEL_70;
+                                                      if ([v24 compare:@"_kCFNTimingDataResponseStart" options:3])
+                                                      {
+                                                        if ([v24 compare:@"_kCFNTimingDataResponseEnd" options:3])
+                                                        {
+                                                          if ([v24 compare:@"_kCFNTimingDataRedirectStart" options:3])
+                                                          {
+                                                            if ([v24 compare:@"_kCFNTimingDataRedirectEnd" options:3])
+                                                            {
+                                                              goto LABEL_70;
+                                                            }
+
+                                                            v25 = 48;
+                                                          }
+
+                                                          else
+                                                          {
+                                                            v25 = 47;
+                                                          }
+                                                        }
+
+                                                        else
+                                                        {
+                                                          v25 = 46;
+                                                        }
+                                                      }
+
+                                                      else
+                                                      {
+                                                        v25 = 45;
+                                                      }
                                                     }
 
-                                                    v25 = 48;
+                                                    else
+                                                    {
+                                                      v25 = 44;
+                                                    }
                                                   }
 
                                                   else
                                                   {
-                                                    v25 = 47;
+                                                    v25 = 43;
                                                   }
                                                 }
 
                                                 else
                                                 {
-                                                  v25 = 46;
+                                                  v25 = 42;
                                                 }
                                               }
 
                                               else
                                               {
-                                                v25 = 45;
+                                                v25 = 41;
                                               }
                                             }
 
                                             else
                                             {
-                                              v25 = 44;
+                                              v25 = 40;
                                             }
                                           }
 
                                           else
                                           {
-                                            v25 = 43;
+                                            v25 = 39;
                                           }
                                         }
 
                                         else
                                         {
-                                          v25 = 42;
+                                          v25 = 38;
                                         }
                                       }
 
                                       else
                                       {
-                                        v25 = 41;
+                                        v25 = 37;
                                       }
                                     }
 
                                     else
                                     {
-                                      v25 = 40;
+                                      v25 = 36;
                                     }
                                   }
 
                                   else
                                   {
-                                    v25 = 39;
+                                    v25 = 35;
                                   }
                                 }
 
                                 else
                                 {
-                                  v25 = 38;
+                                  v25 = 34;
                                 }
                               }
 
                               else
                               {
-                                v25 = 37;
+                                v25 = 33;
                               }
                             }
 
                             else
                             {
-                              v25 = 36;
+                              v25 = 32;
                             }
                           }
 
                           else
                           {
-                            v25 = 35;
+                            v25 = 31;
                           }
                         }
 
                         else
                         {
-                          v25 = 34;
+                          v25 = 30;
                         }
                       }
 
                       else
                       {
-                        v25 = 33;
+                        v25 = 25;
                       }
                     }
 
                     else
                     {
-                      v25 = 32;
+                      v25 = 6;
                     }
                   }
 
                   else
                   {
-                    v25 = 31;
+                    v25 = 5;
                   }
-
-                  goto LABEL_72;
                 }
 
-                v25 = 30;
-                goto LABEL_75;
+                else
+                {
+                  v25 = 4;
+                }
               }
-
-              v25 = 25;
             }
 
             else
             {
-              v25 = 6;
+              v25 = 2;
             }
           }
 
           else
           {
-            v25 = 5;
+            v25 = 1;
           }
 
-          v26 = 0x1E695DF20;
-LABEL_79:
-
-          v27 = *v26;
           objc_opt_self();
           if (objc_claimAutoreleasedReturnValue())
           {
-            v28 = [v17 objectForKey:v24];
+            v26 = [v17 objectForKey:v24];
             isKindOfClass = objc_opt_isKindOfClass();
 
             if (isKindOfClass)
             {
-              v30 = v21;
-              v31 = v20;
-              v32 = [v17 parsec_numberForKey:v24];
-              v33 = [v17 parsec_dictionaryForKey:v24];
-              v34 = [v17 parsec_stringForKey:v24];
-              v35 = [v17 parsec_dataForKey:v24];
+              v28 = v21;
+              v29 = v20;
+              v30 = [v17 parsec_numberForKey:v24];
+              v31 = [v17 parsec_dictionaryForKey:v24];
+              v32 = [v17 parsec_stringForKey:v24];
+              v33 = [v17 parsec_dataForKey:v24];
               switch(v25)
               {
                 case 1:
-                  -[_CPNetworkTimingData setConnectionReused:](v80, "setConnectionReused:", [v32 BOOLValue]);
+                  -[_CPNetworkTimingData setConnectionReused:](v77, "setConnectionReused:", [v30 BOOLValue]);
                   break;
                 case 2:
-                  [(_CPNetworkTimingData *)v80 setPeerAddress:v35];
+                  [(_CPNetworkTimingData *)v77 setPeerAddress:v33];
                   break;
                 case 3:
-                  [(_CPNetworkTimingData *)v80 setInterfaceIdentifier:v34];
+                  [(_CPNetworkTimingData *)v77 setInterfaceIdentifier:v32];
                   break;
                 case 4:
-                  [(_CPNetworkTimingData *)v80 setConnectionUUID:v34];
+                  [(_CPNetworkTimingData *)v77 setConnectionUUID:v32];
                   break;
                 case 5:
-                  if (v33)
+                  if (v31)
                   {
-                    v49 = [[_CPTCPInfo alloc] initWithTelemetryDictionary:v33];
-                    [(_CPNetworkTimingData *)v80 setStartTimeCounts:v49];
-                    goto LABEL_128;
+                    v47 = [[_CPTCPInfo alloc] initWithTelemetryDictionary:v31];
+                    [(_CPNetworkTimingData *)v77 setStartTimeCounts:v47];
+                    goto LABEL_126;
                   }
 
                   break;
                 case 6:
-                  if (v33)
+                  if (v31)
                   {
-                    v49 = [[_CPTCPInfo alloc] initWithTelemetryDictionary:v33];
-                    [(_CPNetworkTimingData *)v80 setStopTimeCounts:v49];
-                    goto LABEL_128;
+                    v47 = [[_CPTCPInfo alloc] initWithTelemetryDictionary:v31];
+                    [(_CPNetworkTimingData *)v77 setStopTimeCounts:v47];
+                    goto LABEL_126;
                   }
 
                   break;
                 case 25:
-                  if (v33)
+                  if (v31)
                   {
-                    v49 = [v33 parsec_numberForKey:@"TFOSuccess"];
-                    [(_CPNetworkTimingData *)v80 setTFOSuccess:[(_CPTCPInfo *)v49 BOOLValue]];
-LABEL_128:
+                    v47 = [v31 parsec_numberForKey:@"TFOSuccess"];
+                    [(_CPNetworkTimingData *)v77 setTFOSuccess:[(_CPTCPInfo *)v47 BOOLValue]];
+LABEL_126:
                   }
 
                   break;
                 case 30:
-                  if ([v34 length])
+                  if ([v32 length])
                   {
-                    [(_CPNetworkTimingData *)v80 setNetworkProtocolName:v34];
+                    [(_CPNetworkTimingData *)v77 setNetworkProtocolName:v32];
                   }
 
                   break;
                 case 31:
-                  -[_CPNetworkTimingData setConnectionRace:](v80, "setConnectionRace:", [v32 BOOLValue]);
+                  -[_CPNetworkTimingData setConnectionRace:](v77, "setConnectionRace:", [v30 BOOLValue]);
                   break;
                 case 32:
-                  -[_CPNetworkTimingData setQUICWhitelistedDomain:](v80, "setQUICWhitelistedDomain:", [v32 BOOLValue]);
+                  -[_CPNetworkTimingData setQUICWhitelistedDomain:](v77, "setQUICWhitelistedDomain:", [v30 BOOLValue]);
                   break;
                 case 33:
-                  -[_CPNetworkTimingData setRequestHeaderSize:](v80, "setRequestHeaderSize:", [v32 unsignedIntegerValue]);
+                  -[_CPNetworkTimingData setRequestHeaderSize:](v77, "setRequestHeaderSize:", [v30 unsignedIntegerValue]);
                   break;
                 case 34:
-                  -[_CPNetworkTimingData setResponseHeaderSize:](v80, "setResponseHeaderSize:", [v32 unsignedIntegerValue]);
+                  -[_CPNetworkTimingData setResponseHeaderSize:](v77, "setResponseHeaderSize:", [v30 unsignedIntegerValue]);
                   break;
                 case 35:
-                  -[_CPNetworkTimingData setResponseBodyBytesReceived:](v80, "setResponseBodyBytesReceived:", [v32 unsignedIntegerValue]);
+                  -[_CPNetworkTimingData setResponseBodyBytesReceived:](v77, "setResponseBodyBytesReceived:", [v30 unsignedIntegerValue]);
                   break;
                 case 36:
-                  -[_CPNetworkTimingData setResponseBodyBytesDecoded:](v80, "setResponseBodyBytesDecoded:", [v32 unsignedIntegerValue]);
+                  -[_CPNetworkTimingData setResponseBodyBytesDecoded:](v77, "setResponseBodyBytesDecoded:", [v30 unsignedIntegerValue]);
                   break;
                 case 37:
-                  [v32 doubleValue];
-                  v60 = vcvtad_u64_f64((v59 - v11) * 1000.0);
-                  if (v59 <= v11)
+                  [v30 doubleValue];
+                  v58 = vcvtad_u64_f64((v57 - v11) * 1000.0);
+                  if (v57 <= v11)
                   {
-                    v61 = 0;
+                    v59 = 0;
                   }
 
                   else
                   {
-                    v61 = v60;
+                    v59 = v58;
                   }
 
-                  [(_CPNetworkTimingData *)v80 setFetchStart:v61, v78];
+                  [(_CPNetworkTimingData *)v77 setFetchStart:v59, v75];
                   break;
                 case 38:
-                  [v32 doubleValue];
-                  v63 = vcvtad_u64_f64((v62 - v11) * 1000.0);
-                  if (v62 <= v11)
+                  [v30 doubleValue];
+                  v61 = vcvtad_u64_f64((v60 - v11) * 1000.0);
+                  if (v60 <= v11)
                   {
-                    v64 = 0;
+                    v62 = 0;
                   }
 
                   else
                   {
-                    v64 = v63;
+                    v62 = v61;
                   }
 
-                  [(_CPNetworkTimingData *)v80 setDomainLookupStart:v64, v78];
+                  [(_CPNetworkTimingData *)v77 setDomainLookupStart:v62, v75];
                   break;
                 case 39:
-                  [v32 doubleValue];
-                  v69 = vcvtad_u64_f64((v68 - v11) * 1000.0);
-                  if (v68 <= v11)
+                  [v30 doubleValue];
+                  v67 = vcvtad_u64_f64((v66 - v11) * 1000.0);
+                  if (v66 <= v11)
                   {
-                    v70 = 0;
+                    v68 = 0;
                   }
 
                   else
                   {
-                    v70 = v69;
+                    v68 = v67;
                   }
 
-                  [(_CPNetworkTimingData *)v80 setDomainLookupEnd:v70, v78];
+                  [(_CPNetworkTimingData *)v77 setDomainLookupEnd:v68, v75];
                   break;
                 case 40:
-                  [v32 doubleValue];
-                  v66 = vcvtad_u64_f64((v65 - v11) * 1000.0);
-                  if (v65 <= v11)
+                  [v30 doubleValue];
+                  v64 = vcvtad_u64_f64((v63 - v11) * 1000.0);
+                  if (v63 <= v11)
                   {
-                    v67 = 0;
+                    v65 = 0;
                   }
 
                   else
                   {
-                    v67 = v66;
+                    v65 = v64;
                   }
 
-                  [(_CPNetworkTimingData *)v80 setConnectStart:v67, v78];
+                  [(_CPNetworkTimingData *)v77 setConnectStart:v65, v75];
                   break;
                 case 41:
-                  [v32 doubleValue];
-                  v38 = vcvtad_u64_f64((v37 - v11) * 1000.0);
-                  if (v37 <= v11)
+                  [v30 doubleValue];
+                  v36 = vcvtad_u64_f64((v35 - v11) * 1000.0);
+                  if (v35 <= v11)
                   {
-                    v39 = 0;
+                    v37 = 0;
                   }
 
                   else
                   {
-                    v39 = v38;
+                    v37 = v36;
                   }
 
-                  [(_CPNetworkTimingData *)v80 setSecureConnectStart:v39, v78];
+                  [(_CPNetworkTimingData *)v77 setSecureConnectStart:v37, v75];
                   break;
                 case 42:
-                  [v32 doubleValue];
-                  v54 = vcvtad_u64_f64((v53 - v11) * 1000.0);
-                  if (v53 <= v11)
+                  [v30 doubleValue];
+                  v52 = vcvtad_u64_f64((v51 - v11) * 1000.0);
+                  if (v51 <= v11)
                   {
-                    v55 = 0;
+                    v53 = 0;
                   }
 
                   else
                   {
-                    v55 = v54;
+                    v53 = v52;
                   }
 
-                  [(_CPNetworkTimingData *)v80 setConnectEnd:v55, v78];
+                  [(_CPNetworkTimingData *)v77 setConnectEnd:v53, v75];
                   break;
                 case 43:
-                  [v32 doubleValue];
-                  v72 = vcvtad_u64_f64((v71 - v11) * 1000.0);
-                  if (v71 <= v11)
+                  [v30 doubleValue];
+                  v70 = vcvtad_u64_f64((v69 - v11) * 1000.0);
+                  if (v69 <= v11)
                   {
-                    v73 = 0;
+                    v71 = 0;
                   }
 
                   else
                   {
-                    v73 = v72;
+                    v71 = v70;
                   }
 
-                  [(_CPNetworkTimingData *)v80 setRequestStart:v73, v78, v79];
+                  [(_CPNetworkTimingData *)v77 setRequestStart:v71, v75, v76];
                   break;
                 case 44:
-                  [v32 doubleValue];
-                  v41 = vcvtad_u64_f64((v40 - v11) * 1000.0);
-                  if (v40 <= v11)
+                  [v30 doubleValue];
+                  v39 = vcvtad_u64_f64((v38 - v11) * 1000.0);
+                  if (v38 <= v11)
                   {
-                    v42 = 0;
+                    v40 = 0;
                   }
 
                   else
                   {
-                    v42 = v41;
+                    v40 = v39;
                   }
 
-                  [(_CPNetworkTimingData *)v80 setRequestEnd:v42, v78];
+                  [(_CPNetworkTimingData *)v77 setRequestEnd:v40, v75];
                   break;
                 case 45:
-                  [v32 doubleValue];
-                  v51 = vcvtad_u64_f64((v50 - v11) * 1000.0);
-                  if (v50 <= v11)
+                  [v30 doubleValue];
+                  v49 = vcvtad_u64_f64((v48 - v11) * 1000.0);
+                  if (v48 <= v11)
                   {
-                    v52 = 0;
+                    v50 = 0;
                   }
 
                   else
                   {
-                    v52 = v51;
+                    v50 = v49;
                   }
 
-                  [(_CPNetworkTimingData *)v80 setResponseStart:v52, v78];
+                  [(_CPNetworkTimingData *)v77 setResponseStart:v50, v75];
                   break;
                 case 46:
-                  [v32 doubleValue];
-                  v47 = vcvtad_u64_f64((v46 - v11) * 1000.0);
-                  if (v46 <= v11)
+                  [v30 doubleValue];
+                  v45 = vcvtad_u64_f64((v44 - v11) * 1000.0);
+                  if (v44 <= v11)
                   {
-                    v48 = 0;
+                    v46 = 0;
                   }
 
                   else
                   {
-                    v48 = v47;
+                    v46 = v45;
                   }
 
-                  [(_CPNetworkTimingData *)v80 setResponseEnd:v48, v78];
+                  [(_CPNetworkTimingData *)v77 setResponseEnd:v46, v75];
                   break;
                 case 47:
-                  [v32 doubleValue];
-                  v57 = vcvtad_u64_f64((v56 - v11) * 1000.0);
-                  if (v56 <= v11)
+                  [v30 doubleValue];
+                  v55 = vcvtad_u64_f64((v54 - v11) * 1000.0);
+                  if (v54 <= v11)
                   {
-                    v58 = 0;
+                    v56 = 0;
                   }
 
                   else
                   {
-                    v58 = v57;
+                    v56 = v55;
                   }
 
-                  [(_CPNetworkTimingData *)v80 setRedirectStart:v58, v78];
+                  [(_CPNetworkTimingData *)v77 setRedirectStart:v56, v75];
                   break;
                 case 48:
-                  [v32 doubleValue];
-                  v44 = vcvtad_u64_f64((v43 - v11) * 1000.0);
-                  if (v43 <= v11)
+                  [v30 doubleValue];
+                  v42 = vcvtad_u64_f64((v41 - v11) * 1000.0);
+                  if (v41 <= v11)
                   {
-                    v45 = 0;
+                    v43 = 0;
                   }
 
                   else
                   {
-                    v45 = v44;
+                    v43 = v42;
                   }
 
-                  [(_CPNetworkTimingData *)v80 setRedirectEnd:v45, v78];
+                  [(_CPNetworkTimingData *)v77 setRedirectEnd:v43, v75];
                   break;
                 default:
                   break;
               }
 
-              v20 = v31;
-              v21 = v30;
-              v22 = v81;
+              v20 = v29;
+              v21 = v28;
+              v22 = v78;
             }
 
             else
@@ -1061,35 +1032,34 @@ LABEL_128:
                 dispatch_once(&PARLogHandleForCategory_onceToken_1349, &__block_literal_global_155);
               }
 
-              v36 = PARLogHandleForCategory_logHandles_2_1350;
+              v34 = PARLogHandleForCategory_logHandles_2_1350;
               if (os_log_type_enabled(PARLogHandleForCategory_logHandles_2_1350, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                v91 = v24;
-                _os_log_error_impl(&dword_1B1064000, v36, OS_LOG_TYPE_ERROR, "Got data of unexpected type for metric %@.", buf, 0xCu);
+                v88 = v24;
+                _os_log_error_impl(&dword_1B1064000, v34, OS_LOG_TYPE_ERROR, "Got data of unexpected type for metric %@.", buf, 0xCu);
               }
             }
           }
 
-LABEL_154:
+LABEL_152:
           ++v23;
         }
 
         while (v19 != v23);
-        v74 = [v17 countByEnumeratingWithState:&v82 objects:v92 count:16];
-        v19 = v74;
+        v72 = [v17 countByEnumeratingWithState:&v79 objects:v89 count:16];
+        v19 = v72;
       }
 
-      while (v74);
+      while (v72);
     }
 
-    v6 = v80;
-    v75 = v80;
+    v6 = v77;
+    v73 = v77;
 
-    dictionaryCopy = v78;
+    dictionaryCopy = v75;
   }
 
-  v76 = *MEMORY[0x1E69E9840];
   return v6;
 }
 

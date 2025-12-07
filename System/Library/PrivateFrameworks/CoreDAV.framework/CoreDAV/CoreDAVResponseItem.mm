@@ -124,65 +124,65 @@
 
 - (id)successfulPropertiesToValues
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   obj = [(CoreDAVResponseItem *)self propStats];
-  v2 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
+  v2 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
   if (v2)
   {
     v3 = v2;
     dictionary = 0;
-    v5 = *v33;
-    v24 = *v33;
+    v5 = *v32;
+    v23 = *v32;
     do
     {
       v6 = 0;
-      v25 = v3;
+      v24 = v3;
       do
       {
-        if (*v33 != v5)
+        if (*v32 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v32 + 1) + 8 * v6);
+        v7 = *(*(&v31 + 1) + 8 * v6);
         status = [v7 status];
         payloadAsString = [status payloadAsString];
         v10 = [payloadAsString CDVIsHTTPStatusLineWithStatusCode:200];
 
         if (v10)
         {
-          v27 = v6;
+          v26 = v6;
           if (!dictionary)
           {
             dictionary = [MEMORY[0x277CBEB38] dictionary];
           }
 
-          v30 = 0u;
-          v31 = 0u;
-          v28 = 0u;
           v29 = 0u;
+          v30 = 0u;
+          v27 = 0u;
+          v28 = 0u;
           prop = [v7 prop];
           extraChildItems = [prop extraChildItems];
 
-          v13 = [extraChildItems countByEnumeratingWithState:&v28 objects:v36 count:16];
+          v13 = [extraChildItems countByEnumeratingWithState:&v27 objects:v35 count:16];
           if (v13)
           {
             v14 = v13;
-            v15 = *v29;
+            v15 = *v28;
             do
             {
               for (i = 0; i != v14; ++i)
               {
-                if (*v29 != v15)
+                if (*v28 != v15)
                 {
                   objc_enumerationMutation(extraChildItems);
                 }
 
-                v17 = *(*(&v28 + 1) + 8 * i);
+                v17 = *(*(&v27 + 1) + 8 * i);
                 v18 = MEMORY[0x277CCACA8];
                 nameSpace = [v17 nameSpace];
                 name = [v17 name];
@@ -191,22 +191,22 @@
                 [dictionary setObject:v17 forKey:v21];
               }
 
-              v14 = [extraChildItems countByEnumeratingWithState:&v28 objects:v36 count:16];
+              v14 = [extraChildItems countByEnumeratingWithState:&v27 objects:v35 count:16];
             }
 
             while (v14);
           }
 
-          v5 = v24;
-          v3 = v25;
-          v6 = v27;
+          v5 = v23;
+          v3 = v24;
+          v6 = v26;
         }
 
         ++v6;
       }
 
       while (v6 != v3);
-      v3 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
+      v3 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
     }
 
     while (v3);
@@ -217,45 +217,35 @@
     dictionary = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-
   return dictionary;
 }
 
 - (BOOL)hasPropertyError
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   errorItem = [(CoreDAVResponseItem *)self errorItem];
 
-  if (errorItem)
+  if (!errorItem && ((-[CoreDAVResponseItem propStats](self, "propStats"), v5 = objc_claimAutoreleasedReturnValue(), v6 = [v5 count], v5, v6) || (-[CoreDAVResponseItem status](self, "status"), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "payloadAsString"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "CDVIsHTTPStatusLineWithStatusCode:", 200), v8, v7, v9)))
   {
-    goto LABEL_2;
-  }
-
-  propStats = [(CoreDAVResponseItem *)self propStats];
-  v6 = [propStats count];
-
-  if (v6 || (-[CoreDAVResponseItem status](self, "status"), v7 = objc_claimAutoreleasedReturnValue(), [v7 payloadAsString], v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "CDVIsHTTPStatusLineWithStatusCode:", 200), v8, v7, v9))
-  {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
-    propStats2 = [(CoreDAVResponseItem *)self propStats];
-    v4 = [propStats2 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
+    propStats = [(CoreDAVResponseItem *)self propStats];
+    v4 = [propStats countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v4)
     {
-      v11 = *v19;
+      v11 = *v18;
       while (2)
       {
         for (i = 0; i != v4; ++i)
         {
-          if (*v19 != v11)
+          if (*v18 != v11)
           {
-            objc_enumerationMutation(propStats2);
+            objc_enumerationMutation(propStats);
           }
 
-          status = [*(*(&v18 + 1) + 8 * i) status];
+          status = [*(*(&v17 + 1) + 8 * i) status];
           payloadAsString = [status payloadAsString];
           v15 = [payloadAsString CDVIsHTTPStatusLineWithStatusCode:200];
 
@@ -266,7 +256,7 @@
           }
         }
 
-        v4 = [propStats2 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v4 = [propStats countByEnumeratingWithState:&v17 objects:v21 count:16];
         if (v4)
         {
           continue;
@@ -281,11 +271,9 @@ LABEL_15:
 
   else
   {
-LABEL_2:
     LOBYTE(v4) = 1;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v4;
 }
 

@@ -458,17 +458,15 @@ void __57__FAChecklistViewController__checkAndReloadAllSpecifiers__block_invoke_
   v2 = [*(a1 + 32) checklistStore];
   [v2 notifyObservable];
 
-  v3 = _FALogSystem();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = _FALogSystem(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = [*(a1 + 32) checklistStore];
-    v5 = [v4 incompleteItems];
+    v5 = [*(a1 + 32) checklistStore];
+    v6 = [v5 incompleteItems];
     v7 = 138412290;
-    v8 = v5;
-    _os_log_impl(&dword_21BB35000, v3, OS_LOG_TYPE_DEFAULT, "FAChecklistViewController _checkAndReloadAllSpecifiers end count %@", &v7, 0xCu);
+    v8 = v6;
+    _os_log_impl(&dword_21BB35000, v4, OS_LOG_TYPE_DEFAULT, "FAChecklistViewController _checkAndReloadAllSpecifiers end count %@", &v7, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateLocationSpecifierThen:(id)then
@@ -620,32 +618,32 @@ uint64_t __60__FAChecklistViewController__updateICloudPlusSpecifierThen___block_
 
 - (void)_updateScreenTimeSpecifierThen:(id)then
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   thenCopy = then;
   v4 = dispatch_group_create();
   dispatch_group_enter(v4);
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   obj = self->_listOfChildren;
-  v5 = [(NSArray *)obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v5 = [(NSArray *)obj countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v5)
   {
     v6 = v5;
     LODWORD(v7) = 0;
-    v23 = *v29;
+    v22 = *v28;
     do
     {
       v8 = 0;
       do
       {
-        if (*v29 != v23)
+        if (*v28 != v22)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v28 + 1) + 8 * v8);
+        v9 = *(*(&v27 + 1) + 8 * v8);
         dispatch_group_enter(v4);
         checklistStore = [(FAChecklistViewController *)self checklistStore];
         if ([checklistStore screenTimeEnabledForChild:v9] & 1) != 0 || (objc_msgSend(v9, "hasAskToBuyEnabled"))
@@ -671,20 +669,20 @@ uint64_t __60__FAChecklistViewController__updateICloudPlusSpecifierThen___block_
         [(NSMutableDictionary *)parentalControlsForChildren setObject:v13 forKey:appleID2];
 
         v7 = v7 + ((v11 & 1) == 0);
-        v26[0] = MEMORY[0x277D85DD0];
-        v26[1] = 3221225472;
-        v26[2] = __60__FAChecklistViewController__updateScreenTimeSpecifierThen___block_invoke;
-        v26[3] = &unk_2782F4288;
-        v26[4] = self;
-        v26[5] = v9;
-        v27 = v4;
-        [(FAChecklistViewController *)self _fetchScreenTimeModifiedDate:v9 completionHandler:v26];
+        v25[0] = MEMORY[0x277D85DD0];
+        v25[1] = 3221225472;
+        v25[2] = __60__FAChecklistViewController__updateScreenTimeSpecifierThen___block_invoke;
+        v25[3] = &unk_2782F4288;
+        v25[4] = self;
+        v25[5] = v9;
+        v26 = v4;
+        [(FAChecklistViewController *)self _fetchScreenTimeModifiedDate:v9 completionHandler:v25];
 
         ++v8;
       }
 
       while (v6 != v8);
-      v17 = [(NSArray *)obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v17 = [(NSArray *)obj countByEnumeratingWithState:&v27 objects:v31 count:16];
       v6 = v17;
     }
 
@@ -705,11 +703,9 @@ uint64_t __60__FAChecklistViewController__updateICloudPlusSpecifierThen___block_
   block[2] = __60__FAChecklistViewController__updateScreenTimeSpecifierThen___block_invoke_2;
   block[3] = &unk_2782F3088;
   block[4] = self;
-  v25 = thenCopy;
+  v24 = thenCopy;
   v19 = thenCopy;
   dispatch_group_notify(v4, MEMORY[0x277D85CD0], block);
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __60__FAChecklistViewController__updateScreenTimeSpecifierThen___block_invoke(void *a1, void *a2, uint64_t a3)
@@ -730,29 +726,29 @@ void __60__FAChecklistViewController__updateScreenTimeSpecifierThen___block_invo
 
 uint64_t __60__FAChecklistViewController__updateScreenTimeSpecifierThen___block_invoke_2(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if ([*(*(a1 + 32) + 1208) count])
   {
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     v2 = *(*(a1 + 32) + 1208);
-    v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v3)
     {
       v4 = v3;
-      v5 = *v12;
+      v5 = *v11;
       do
       {
         for (i = 0; i != v4; ++i)
         {
-          if (*v12 != v5)
+          if (*v11 != v5)
           {
             objc_enumerationMutation(v2);
           }
 
-          v7 = [*(*(a1 + 32) + 1208) objectForKey:{*(*(&v11 + 1) + 8 * i), v11}];
+          v7 = [*(*(a1 + 32) + 1208) objectForKey:{*(*(&v10 + 1) + 8 * i), v10}];
           v8 = v7;
           if (v7 && ([v7 isEqualToDate:*(*(a1 + 32) + 1192)] & 1) == 0)
           {
@@ -760,44 +756,42 @@ uint64_t __60__FAChecklistViewController__updateScreenTimeSpecifierThen___block_
           }
         }
 
-        v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
       while (v4);
     }
   }
 
-  result = (*(*(a1 + 40) + 16))();
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 - (void)_updateCommunicationLimitsSpecifierThen:(id)then
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   thenCopy = then;
   v4 = dispatch_group_create();
   dispatch_group_enter(v4);
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   obj = self->_listOfChildren;
-  v28 = [(NSArray *)obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+  v27 = [(NSArray *)obj countByEnumeratingWithState:&v32 objects:v36 count:16];
   v5 = 0;
-  if (v28)
+  if (v27)
   {
-    v6 = *v34;
+    v6 = *v33;
     do
     {
-      for (i = 0; i != v28; ++i)
+      for (i = 0; i != v27; ++i)
       {
-        if (*v34 != v6)
+        if (*v33 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v33 + 1) + 8 * i);
+        v8 = *(*(&v32 + 1) + 8 * i);
         dispatch_group_enter(v4);
         checklistStore = [(FAChecklistViewController *)self checklistStore];
         v10 = [checklistStore contactManagementEnabledForChild:v8];
@@ -836,20 +830,20 @@ uint64_t __60__FAChecklistViewController__updateScreenTimeSpecifierThen___block_
         }
 
         v5 = (v5 + v21);
-        v31[0] = MEMORY[0x277D85DD0];
-        v31[1] = 3221225472;
-        v31[2] = __69__FAChecklistViewController__updateCommunicationLimitsSpecifierThen___block_invoke;
-        v31[3] = &unk_2782F4288;
-        v31[4] = self;
-        v31[5] = v8;
-        v32 = v4;
-        [(FAChecklistViewController *)self _fetchCommunicationLimitsModifiedDate:v8 completionHandler:v31];
+        v30[0] = MEMORY[0x277D85DD0];
+        v30[1] = 3221225472;
+        v30[2] = __69__FAChecklistViewController__updateCommunicationLimitsSpecifierThen___block_invoke;
+        v30[3] = &unk_2782F4288;
+        v30[4] = self;
+        v30[5] = v8;
+        v31 = v4;
+        [(FAChecklistViewController *)self _fetchCommunicationLimitsModifiedDate:v8 completionHandler:v30];
       }
 
-      v28 = [(NSArray *)obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v27 = [(NSArray *)obj countByEnumeratingWithState:&v32 objects:v36 count:16];
     }
 
-    while (v28);
+    while (v27);
   }
 
   checklistStore4 = [(FAChecklistViewController *)self checklistStore];
@@ -861,11 +855,9 @@ uint64_t __60__FAChecklistViewController__updateScreenTimeSpecifierThen___block_
   block[2] = __69__FAChecklistViewController__updateCommunicationLimitsSpecifierThen___block_invoke_2;
   block[3] = &unk_2782F3088;
   block[4] = self;
-  v30 = thenCopy;
+  v29 = thenCopy;
   v23 = thenCopy;
   dispatch_group_notify(v4, MEMORY[0x277D85CD0], block);
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __69__FAChecklistViewController__updateCommunicationLimitsSpecifierThen___block_invoke(void *a1, void *a2, uint64_t a3)
@@ -886,29 +878,29 @@ void __69__FAChecklistViewController__updateCommunicationLimitsSpecifierThen___b
 
 uint64_t __69__FAChecklistViewController__updateCommunicationLimitsSpecifierThen___block_invoke_2(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if ([*(*(a1 + 32) + 1216) count])
   {
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     v2 = *(*(a1 + 32) + 1216);
-    v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v3)
     {
       v4 = v3;
-      v5 = *v12;
+      v5 = *v11;
       do
       {
         for (i = 0; i != v4; ++i)
         {
-          if (*v12 != v5)
+          if (*v11 != v5)
           {
             objc_enumerationMutation(v2);
           }
 
-          v7 = [*(*(a1 + 32) + 1216) objectForKey:{*(*(&v11 + 1) + 8 * i), v11}];
+          v7 = [*(*(a1 + 32) + 1216) objectForKey:{*(*(&v10 + 1) + 8 * i), v10}];
           v8 = v7;
           if (v7 && ([v7 isEqualToDate:*(*(a1 + 32) + 1200)] & 1) == 0)
           {
@@ -916,51 +908,49 @@ uint64_t __69__FAChecklistViewController__updateCommunicationLimitsSpecifierThen
           }
         }
 
-        v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
       while (v4);
     }
   }
 
-  result = (*(*(a1 + 40) + 16))();
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 - (id)_childrenRecord
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   familyCircle = [(FAChecklistViewController *)self familyCircle];
   members = [familyCircle members];
 
-  v6 = [members countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [members countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(members);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         if ([v10 memberType] == 1 || objc_msgSend(v10, "memberType") == 2)
         {
           [v3 addObject:v10];
         }
       }
 
-      v7 = [members countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [members countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
@@ -968,38 +958,36 @@ uint64_t __69__FAChecklistViewController__updateCommunicationLimitsSpecifierThen
 
   v11 = [MEMORY[0x277CBEA60] arrayWithArray:v3];
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 - (id)_getOrganizer
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   familyCircle = [(FAChecklistViewController *)self familyCircle];
   members = [familyCircle members];
 
-  v4 = [members countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v4 = [members countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
     v7 = 0;
-    v8 = *v19;
+    v8 = *v18;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(members);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * i);
+        v10 = *(*(&v17 + 1) + 8 * i);
         if ([v10 isOrganizer])
         {
           firstName = [v10 firstName];
@@ -1012,7 +1000,7 @@ uint64_t __69__FAChecklistViewController__updateCommunicationLimitsSpecifierThen
         }
       }
 
-      v5 = [members countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v5 = [members countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v5);
@@ -1036,7 +1024,6 @@ uint64_t __69__FAChecklistViewController__updateCommunicationLimitsSpecifierThen
 
   v15 = v14;
 
-  v16 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -1057,13 +1044,13 @@ uint64_t __69__FAChecklistViewController__updateCommunicationLimitsSpecifierThen
 
 - (id)_childCommunicationLimitsForContactManagement:(id)management
 {
-  v79[3] = *MEMORY[0x277D85DE8];
+  v78[3] = *MEMORY[0x277D85DE8];
   managementCopy = management;
   v5 = MEMORY[0x277CCACA8];
   v6 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v7 = [v6 localizedStringForKey:@"FAMILY_CHECKLIST_COMMUNICATION_LIMITS_CARD" value:&stru_282D9AA68 table:@"Localizable"];
   firstName = [managementCopy firstName];
-  v77 = [v5 localizedStringWithFormat:v7, firstName];
+  v76 = [v5 localizedStringWithFormat:v7, firstName];
 
   v9 = MEMORY[0x277CCACA8];
   v10 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
@@ -1073,16 +1060,16 @@ uint64_t __69__FAChecklistViewController__updateCommunicationLimitsSpecifierThen
 
   v14 = MEMORY[0x277D755B8];
   v15 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v76 = [v14 imageNamed:@"communicationLimitsIcon" inBundle:v15];
+  v75 = [v14 imageNamed:@"communicationLimitsIcon" inBundle:v15];
 
   fa_checklistDateFormatter = [MEMORY[0x277CCA968] fa_checklistDateFormatter];
-  v65 = [(FAChecklistViewController *)self _contactsStatusForChild:managementCopy];
+  v64 = [(FAChecklistViewController *)self _contactsStatusForChild:managementCopy];
   checklistStore = [(FAChecklistViewController *)self checklistStore];
-  v70 = [checklistStore contactManagementEnabledForChild:managementCopy];
+  v69 = [checklistStore contactManagementEnabledForChild:managementCopy];
 
-  v73 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"commLimits"];
-  v17 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v77 target:self set:0 get:0 detail:0 cell:4 edit:0];
-  v74 = v13;
+  v72 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"commLimits"];
+  v17 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v76 target:self set:0 get:0 detail:0 cell:4 edit:0];
+  v73 = v13;
   v18 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v13 target:self set:0 get:0 detail:0 cell:4 edit:0];
   v19 = *MEMORY[0x277D76F30];
   v20 = [MEMORY[0x277CCABB0] numberWithDouble:*MEMORY[0x277D76F30]];
@@ -1090,36 +1077,36 @@ uint64_t __69__FAChecklistViewController__updateCommunicationLimitsSpecifierThen
   [v17 setProperty:v20 forKey:*MEMORY[0x277D40140]];
 
   v22 = *MEMORY[0x277D40170];
-  [v17 setProperty:v77 forKey:*MEMORY[0x277D40170]];
+  [v17 setProperty:v76 forKey:*MEMORY[0x277D40170]];
   v23 = *MEMORY[0x277D40160];
   [v17 setProperty:0 forKey:*MEMORY[0x277D40160]];
   v24 = *MEMORY[0x277D3FFC0];
-  v72 = v17;
-  [v17 setProperty:v76 forKey:*MEMORY[0x277D3FFC0]];
+  v71 = v17;
+  [v17 setProperty:v75 forKey:*MEMORY[0x277D3FFC0]];
   v25 = [MEMORY[0x277CCABB0] numberWithDouble:v19];
-  v68 = v21;
+  v67 = v21;
   [v18 setProperty:v25 forKey:v21];
 
-  v66 = v22;
+  v65 = v22;
   v26 = v22;
   v27 = v23;
   v28 = v18;
-  [v18 setProperty:v77 forKey:v26];
+  [v18 setProperty:v76 forKey:v26];
   [v18 setProperty:0 forKey:v27];
-  [v18 setProperty:v76 forKey:v24];
+  [v18 setProperty:v75 forKey:v24];
   commLimitsModifiedRecord = self->_commLimitsModifiedRecord;
   dsid = [managementCopy dsid];
   v31 = [(NSMutableDictionary *)commLimitsModifiedRecord objectForKeyedSubscript:dsid];
 
-  switch(v70)
+  switch(v69)
   {
     case 2:
-      v67 = v27;
+      v66 = v27;
       if (!v31)
       {
 LABEL_13:
         v43 = 0;
-        v71 = 0;
+        v70 = 0;
         goto LABEL_14;
       }
 
@@ -1128,10 +1115,10 @@ LABEL_13:
       v46 = [v45 localizedStringForKey:@"FAMILY_CHECKLIST_SECTION_UPDATED_DATE" value:&stru_282D9AA68 table:@"Localizable"];
       firstName4 = [fa_checklistDateFormatter stringFromDate:v31];
       v43 = [v48 localizedStringWithFormat:v46, firstName4];
-      v71 = 0;
+      v70 = 0;
       break;
     case 1:
-      v67 = v27;
+      v66 = v27;
       v39 = MEMORY[0x277CCACA8];
       v40 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
       v41 = [v40 localizedStringForKey:@"FAMILY_CHECKLIST_COMMUNICATION_SUBTITLE_PENDING" value:&stru_282D9AA68 table:@"Localizable"];
@@ -1142,10 +1129,10 @@ LABEL_13:
       v45 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
       v46 = [v45 localizedStringForKey:@"FAMILY_CHECKLIST_COMMUNICATION_LIMITS_SETUP_APPROVAL" value:&stru_282D9AA68 table:@"Localizable"];
       firstName4 = [managementCopy firstName];
-      v71 = [v44 localizedStringWithFormat:v46, firstName4];
+      v70 = [v44 localizedStringWithFormat:v46, firstName4];
       break;
     case 0:
-      v69 = v31;
+      v68 = v31;
       v32 = MEMORY[0x277CCACA8];
       v33 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
       v34 = [v33 localizedStringForKey:@"FAMILY_CHECKLIST_COMMUNICATION_LIMIT_DESCRIPTION" value:&stru_282D9AA68 table:@"Localizable"];
@@ -1153,17 +1140,17 @@ LABEL_13:
       v36 = [v32 localizedStringWithFormat:v34, firstName5];
 
       v37 = @"FAMILY_CHECKLIST_COMMUNICATION_LIMITS_SETUP";
-      if (v65 == 2)
+      if (v64 == 2)
       {
-        v38 = v72;
+        v38 = v71;
       }
 
       else
       {
-        v38 = v72;
-        if (v65 != 4)
+        v38 = v71;
+        if (v64 != 4)
         {
-          if (v65 != 5)
+          if (v64 != 5)
           {
             v58 = 0;
             goto LABEL_20;
@@ -1186,21 +1173,21 @@ LABEL_20:
       dsid2 = [managementCopy dsid];
       [v59 setProperty:dsid2 forKey:@"childDsidKey"];
 
-      v71 = v58;
-      [v59 setProperty:v58 forKey:v66];
+      v70 = v58;
+      [v59 setProperty:v58 forKey:v65];
       [v59 setProperty:objc_opt_class() forKey:v61];
       [v59 setButtonAction:sel__manageChildContactsWasTapped_];
-      v55 = v73;
-      v79[0] = v73;
-      v79[1] = v38;
-      v79[2] = v59;
-      v56 = [MEMORY[0x277CBEA60] arrayWithObjects:v79 count:3];
+      v55 = v72;
+      v78[0] = v72;
+      v78[1] = v38;
+      v78[2] = v59;
+      v56 = [MEMORY[0x277CBEA60] arrayWithObjects:v78 count:3];
 
       v43 = 0;
-      v31 = v69;
+      v31 = v68;
       goto LABEL_21;
     default:
-      v67 = v27;
+      v66 = v27;
       goto LABEL_13;
   }
 
@@ -1213,9 +1200,9 @@ LABEL_14:
 
   [v28 setCellType:1];
   v53 = [MEMORY[0x277CCABB0] numberWithDouble:v19];
-  [v28 setProperty:v53 forKey:v68];
+  [v28 setProperty:v53 forKey:v67];
 
-  [v28 setProperty:v36 forKey:v67];
+  [v28 setProperty:v36 forKey:v66];
   if (v43)
   {
     [v28 setProperty:v43 forKey:*MEMORY[0x277D3FFA8]];
@@ -1226,23 +1213,21 @@ LABEL_14:
   [v28 setProperty:dsid3 forKey:@"childDsidKey"];
 
   [v28 setButtonAction:sel__manageChildContactsWasTapped_];
-  v55 = v73;
-  v78[0] = v73;
-  v78[1] = v28;
-  v56 = [MEMORY[0x277CBEA60] arrayWithObjects:v78 count:2];
-  v38 = v72;
+  v55 = v72;
+  v77[0] = v72;
+  v77[1] = v28;
+  v56 = [MEMORY[0x277CBEA60] arrayWithObjects:v77 count:2];
+  v38 = v71;
 LABEL_21:
-
-  v63 = *MEMORY[0x277D85DE8];
 
   return v56;
 }
 
 - (id)_locationSpecifiersWithSharedCount:(unint64_t)count
 {
-  v46[2] = *MEMORY[0x277D85DE8];
+  v45[2] = *MEMORY[0x277D85DE8];
   v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v44 = [v5 localizedStringForKey:@"FAMILY_CHECKLIST_LOCATION_CARD" value:&stru_282D9AA68 table:@"Localizable"];
+  v43 = [v5 localizedStringForKey:@"FAMILY_CHECKLIST_LOCATION_CARD" value:&stru_282D9AA68 table:@"Localizable"];
 
   v6 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v7 = [v6 localizedStringForKey:@"FAMILY_CHECKLIST_LOCATION_SET" value:&stru_282D9AA68 table:@"Localizable"];
@@ -1255,22 +1240,22 @@ LABEL_21:
   v12 = [v11 localizedStringForKey:@"FAMILY_CHECKLIST_LOCATION_SHARING_INFO" value:&stru_282D9AA68 table:@"Localizable"];
   familyCircle = [(FAChecklistViewController *)self familyCircle];
   members = [familyCircle members];
-  v41 = [v10 localizedStringWithFormat:v12, count, objc_msgSend(members, "count") - 1];
+  v40 = [v10 localizedStringWithFormat:v12, count, objc_msgSend(members, "count") - 1];
 
   v15 = MEMORY[0x277D755B8];
   v16 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v17 = [v15 imageNamed:@"fmfNewIcon" inBundle:v16];
 
-  v40 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"location"];
-  v42 = v9;
-  v38 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v9 target:self set:0 get:0 detail:0 cell:13 edit:0];
-  v18 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v44 target:self set:0 get:0 detail:0 cell:4 edit:0];
-  v43 = v7;
+  v39 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"location"];
+  v41 = v9;
+  v37 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v9 target:self set:0 get:0 detail:0 cell:13 edit:0];
+  v18 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v43 target:self set:0 get:0 detail:0 cell:4 edit:0];
+  v42 = v7;
   v19 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v7 target:self set:0 get:0 detail:0 cell:4 edit:0];
   v20 = *MEMORY[0x277D40170];
-  [v18 setProperty:v44 forKey:*MEMORY[0x277D40170]];
+  [v18 setProperty:v43 forKey:*MEMORY[0x277D40170]];
   v21 = *MEMORY[0x277D3FFC0];
-  v39 = v17;
+  v38 = v17;
   [v18 setProperty:v17 forKey:*MEMORY[0x277D3FFC0]];
   v22 = objc_opt_class();
   v23 = *MEMORY[0x277D3FE58];
@@ -1282,25 +1267,25 @@ LABEL_21:
   {
     v27 = [v25 localizedStringForKey:@"FAMILY_CHECKLIST_LOCATION_CARD_DESCRIPTION_SET" value:&stru_282D9AA68 table:@"Localizable"];
 
-    v28 = v44;
-    [v19 setProperty:v44 forKey:v20];
-    v29 = v39;
-    [v19 setProperty:v39 forKey:v21];
+    v28 = v43;
+    [v19 setProperty:v43 forKey:v20];
+    v29 = v38;
+    [v19 setProperty:v38 forKey:v21];
     [v19 setProperty:objc_opt_class() forKey:v23];
     [v19 setCellType:1];
     v30 = [MEMORY[0x277CCABB0] numberWithDouble:*MEMORY[0x277D76F30]];
     [v19 setProperty:v30 forKey:*MEMORY[0x277D40140]];
 
     [v19 setButtonAction:sel__shareMyLocationButtonWasTapped_];
-    v31 = v41;
-    [v19 setProperty:v41 forKey:*MEMORY[0x277D3FFA8]];
+    v31 = v40;
+    [v19 setProperty:v40 forKey:*MEMORY[0x277D3FFA8]];
     [v19 setProperty:v27 forKey:*MEMORY[0x277D40160]];
-    v32 = v40;
-    v46[0] = v40;
-    v46[1] = v19;
-    v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:2];
-    v34 = v42;
-    v35 = v38;
+    v32 = v39;
+    v45[0] = v39;
+    v45[1] = v19;
+    v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:2];
+    v34 = v41;
+    v35 = v37;
   }
 
   else
@@ -1308,33 +1293,31 @@ LABEL_21:
     v27 = [v25 localizedStringForKey:@"FAMILY_CHECKLIST_LOCATION_CARD_DESCRIPTION" value:&stru_282D9AA68 table:@"Localizable"];
 
     [v18 setProperty:v27 forKey:*MEMORY[0x277D40160]];
-    v34 = v42;
-    [v18 setProperty:v42 forKey:*MEMORY[0x277D3FE10]];
-    v35 = v38;
-    [v38 setProperty:&unk_282DC0798 forKey:*MEMORY[0x277D3FD78]];
-    [v38 setProperty:v42 forKey:v20];
-    [v38 setProperty:objc_opt_class() forKey:v23];
-    [v38 setButtonAction:sel__shareMyLocationButtonWasTapped_];
-    v32 = v40;
-    v45[0] = v40;
-    v45[1] = v18;
-    v45[2] = v38;
-    v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:3];
-    v28 = v44;
-    v31 = v41;
-    v29 = v39;
+    v34 = v41;
+    [v18 setProperty:v41 forKey:*MEMORY[0x277D3FE10]];
+    v35 = v37;
+    [v37 setProperty:&unk_282DC0798 forKey:*MEMORY[0x277D3FD78]];
+    [v37 setProperty:v41 forKey:v20];
+    [v37 setProperty:objc_opt_class() forKey:v23];
+    [v37 setButtonAction:sel__shareMyLocationButtonWasTapped_];
+    v32 = v39;
+    v44[0] = v39;
+    v44[1] = v18;
+    v44[2] = v37;
+    v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:3];
+    v28 = v43;
+    v31 = v40;
+    v29 = v38;
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 
   return v33;
 }
 
 - (id)_medicalSpecifiersWithMedicalIDData
 {
-  v48[2] = *MEMORY[0x277D85DE8];
+  v47[2] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v37 = [v3 localizedStringForKey:@"FAMILY_CHECKLIST_MEDICAL_CARD" value:&stru_282D9AA68 table:@"Localizable"];
+  v36 = [v3 localizedStringForKey:@"FAMILY_CHECKLIST_MEDICAL_CARD" value:&stru_282D9AA68 table:@"Localizable"];
 
   v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v5 = [v4 localizedStringForKey:@"FAMILY_CHECKLIST_MEDICAL_SET" value:&stru_282D9AA68 table:@"Localizable"];
@@ -1356,29 +1339,29 @@ LABEL_21:
   v10 = MEMORY[0x277CCACA8];
   v11 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v12 = [v11 localizedStringForKey:@"FAMILY_CHECKLIST_SECTION_UPDATED_DATE" value:&stru_282D9AA68 table:@"Localizable"];
-  v43 = v9;
-  v44 = fa_checklistDateFormatter;
+  v42 = v9;
+  v43 = fa_checklistDateFormatter;
   v13 = [fa_checklistDateFormatter stringFromDate:v9];
-  v42 = [v10 localizedStringWithFormat:v12, v13];
+  v41 = [v10 localizedStringWithFormat:v12, v13];
 
   v14 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v15 = [v14 localizedStringForKey:@"FAMILY_CHECKLIST_MEDICAL_SETUP" value:&stru_282D9AA68 table:@"Localizable"];
 
-  v41 = [MEMORY[0x277D755D0] configurationWithPointSize:7 weight:35.0];
+  v40 = [MEMORY[0x277D755D0] configurationWithPointSize:7 weight:35.0];
   v16 = [MEMORY[0x277D755B8] systemImageNamed:@"staroflife.fill" withConfiguration:?];
   systemRedColor = [MEMORY[0x277D75348] systemRedColor];
   v18 = [v16 imageWithTintColor:systemRedColor renderingMode:1];
 
-  v38 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"medical"];
-  v19 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v37 target:self set:0 get:0 detail:0 cell:4 edit:0];
-  v45 = v5;
+  v37 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"medical"];
+  v19 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v36 target:self set:0 get:0 detail:0 cell:4 edit:0];
+  v44 = v5;
   v20 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v5 target:self set:0 get:0 detail:0 cell:4 edit:0];
-  v40 = v15;
-  v46 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v15 target:self set:0 get:0 detail:0 cell:13 edit:0];
+  v39 = v15;
+  v45 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v15 target:self set:0 get:0 detail:0 cell:13 edit:0];
   v21 = *MEMORY[0x277D40170];
-  [v19 setProperty:v37 forKey:*MEMORY[0x277D40170]];
+  [v19 setProperty:v36 forKey:*MEMORY[0x277D40170]];
   v22 = *MEMORY[0x277D3FFC0];
-  v39 = v18;
+  v38 = v18;
   [v19 setProperty:v18 forKey:*MEMORY[0x277D3FFC0]];
   v23 = objc_opt_class();
   v24 = *MEMORY[0x277D3FE58];
@@ -1390,23 +1373,23 @@ LABEL_21:
   {
     v28 = [v26 localizedStringForKey:@"FAMILY_CHECKLIST_MEDICAL_CARD_DESCRIPTION_SET" value:&stru_282D9AA68 table:@"Localizable"];
 
-    [v20 setProperty:v37 forKey:v21];
-    v29 = v39;
-    [v20 setProperty:v39 forKey:v22];
+    [v20 setProperty:v36 forKey:v21];
+    v29 = v38;
+    [v20 setProperty:v38 forKey:v22];
     [v20 setProperty:objc_opt_class() forKey:v24];
     [v20 setCellType:1];
     v30 = [MEMORY[0x277CCABB0] numberWithDouble:*MEMORY[0x277D76F30]];
     [v20 setProperty:v30 forKey:*MEMORY[0x277D40140]];
 
     [v20 setButtonAction:sel__updateMedicalIDButtonWasTapped_];
-    v31 = v42;
-    [v20 setProperty:v42 forKey:*MEMORY[0x277D3FFA8]];
+    v31 = v41;
+    [v20 setProperty:v41 forKey:*MEMORY[0x277D3FFA8]];
     [v20 setProperty:v28 forKey:*MEMORY[0x277D40160]];
-    v32 = v38;
-    v48[0] = v38;
-    v48[1] = v20;
-    v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:2];
-    v34 = v40;
+    v32 = v37;
+    v47[0] = v37;
+    v47[1] = v20;
+    v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:2];
+    v34 = v39;
   }
 
   else
@@ -1414,28 +1397,26 @@ LABEL_21:
     v28 = [v26 localizedStringForKey:@"FAMILY_CHECKLIST_MEDICAL_CARD_DESCRIPTION_NOT_SET" value:&stru_282D9AA68 table:@"Localizable"];
 
     [v19 setProperty:v28 forKey:*MEMORY[0x277D40160]];
-    [v46 setProperty:&unk_282DC0798 forKey:*MEMORY[0x277D3FD78]];
-    [v46 setProperty:v40 forKey:v21];
-    [v46 setProperty:objc_opt_class() forKey:v24];
-    [v46 setButtonAction:sel__updateMedicalIDButtonWasTapped_];
-    v32 = v38;
-    v47[0] = v38;
-    v47[1] = v19;
-    v47[2] = v46;
-    v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:3];
-    v31 = v42;
-    v34 = v40;
-    v29 = v39;
+    [v45 setProperty:&unk_282DC0798 forKey:*MEMORY[0x277D3FD78]];
+    [v45 setProperty:v39 forKey:v21];
+    [v45 setProperty:objc_opt_class() forKey:v24];
+    [v45 setButtonAction:sel__updateMedicalIDButtonWasTapped_];
+    v32 = v37;
+    v46[0] = v37;
+    v46[1] = v19;
+    v46[2] = v45;
+    v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:3];
+    v31 = v41;
+    v34 = v39;
+    v29 = v38;
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 
   return v33;
 }
 
 - (id)_childPresetSpecifiers:(id)specifiers
 {
-  v89[2] = *MEMORY[0x277D85DE8];
+  v88[2] = *MEMORY[0x277D85DE8];
   specifiersCopy = specifiers;
   v5 = MEMORY[0x277CCACA8];
   v6 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
@@ -1449,7 +1430,7 @@ LABEL_21:
   v13 = [v12 localizedStringForKey:@"FAMILY_CHECKLIST_CHILD_CARD_REVIEW" value:&stru_282D9AA68 table:@"Localizable"];
   v14 = [v11 localizedStringWithFormat:v13];
 
-  v81 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"children"];
+  v80 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"children"];
   dsid = [specifiersCopy dsid];
   stringValue = [dsid stringValue];
 
@@ -1459,54 +1440,54 @@ LABEL_21:
   v18 = MEMORY[0x277D755B8];
   mainScreen = [MEMORY[0x277D759A0] mainScreen];
   [mainScreen scale];
-  v79 = v17;
-  v85 = [v18 imageWithData:v17 scale:?];
+  v78 = v17;
+  v84 = [v18 imageWithData:v17 scale:?];
 
   v20 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v10 target:self set:0 get:0 detail:0 cell:4 edit:0];
-  v82 = v14;
-  v78 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v14 target:self set:0 get:0 detail:0 cell:4 edit:0];
+  v81 = v14;
+  v77 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v14 target:self set:0 get:0 detail:0 cell:4 edit:0];
   fa_checklistDateFormatter = [MEMORY[0x277CCA968] fa_checklistDateFormatter];
   v22 = objc_alloc_init(MEMORY[0x277CBEAB8]);
   [v22 setMonth:-6];
   v23 = objc_alloc(MEMORY[0x277CBEA80]);
   v24 = [v23 initWithCalendarIdentifier:*MEMORY[0x277CBE5C0]];
   date = [MEMORY[0x277CBEAA8] date];
-  v75 = v24;
-  v76 = v22;
-  v84 = [v24 dateByAddingComponents:v22 toDate:date options:0];
+  v74 = v24;
+  v75 = v22;
+  v83 = [v24 dateByAddingComponents:v22 toDate:date options:0];
 
   screenTimeModifiedRecord = self->_screenTimeModifiedRecord;
   dsid2 = [specifiersCopy dsid];
   v28 = [(NSMutableDictionary *)screenTimeModifiedRecord objectForKeyedSubscript:dsid2];
 
-  v86 = v28;
-  v77 = fa_checklistDateFormatter;
+  v85 = v28;
+  v76 = fa_checklistDateFormatter;
   if (v28)
   {
     v29 = MEMORY[0x277CCACA8];
     v30 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     [v30 localizedStringForKey:@"FAMILY_CHECKLIST_SECTION_UPDATED_DATE" value:&stru_282D9AA68 table:@"Localizable"];
     v32 = v31 = v10;
-    v33 = [fa_checklistDateFormatter stringFromDate:v86];
-    v83 = [v29 localizedStringWithFormat:v32, v33];
+    v33 = [fa_checklistDateFormatter stringFromDate:v85];
+    v82 = [v29 localizedStringWithFormat:v32, v33];
 
     v10 = v31;
-    v28 = v86;
+    v28 = v85;
   }
 
   else
   {
-    v83 = 0;
+    v82 = 0;
   }
 
-  v74 = *MEMORY[0x277D40170];
+  v73 = *MEMORY[0x277D40170];
   [v20 setProperty:v10 forKey:?];
   v34 = *MEMORY[0x277D3FFC0];
-  [v20 setProperty:v85 forKey:*MEMORY[0x277D3FFC0]];
+  [v20 setProperty:v84 forKey:*MEMORY[0x277D3FFC0]];
   v35 = objc_opt_class();
   v36 = *MEMORY[0x277D3FE58];
   [v20 setProperty:v35 forKey:*MEMORY[0x277D3FE58]];
-  if (!v28 || [v28 compare:v84] != -1)
+  if (!v28 || [v28 compare:v83] != -1)
   {
     checklistStore = [(FAChecklistViewController *)self checklistStore];
     if ([checklistStore screenTimeEnabledForChild:specifiersCopy] & 1) != 0 || (objc_msgSend(specifiersCopy, "hasAskToBuyEnabled"))
@@ -1528,23 +1509,23 @@ LABEL_9:
       altDSID = [specifiersCopy altDSID];
       [v20 setProperty:altDSID forKey:@"childAltDsidKey"];
 
-      v46 = v83;
-      if (v83)
+      v46 = v82;
+      if (v82)
       {
-        [v20 setProperty:v83 forKey:*MEMORY[0x277D3FFA8]];
+        [v20 setProperty:v82 forKey:*MEMORY[0x277D3FFA8]];
       }
 
       [v20 setProperty:v42 forKey:*MEMORY[0x277D40160]];
       [v20 setButtonAction:sel__reviewPresetsWasTapped_];
-      v47 = v81;
-      v89[0] = v81;
-      v89[1] = v20;
-      v48 = [MEMORY[0x277CBEA60] arrayWithObjects:v89 count:2];
-      v49 = v78;
+      v47 = v80;
+      v88[0] = v80;
+      v88[1] = v20;
+      v48 = [MEMORY[0x277CBEA60] arrayWithObjects:v88 count:2];
+      v49 = v77;
       goto LABEL_22;
     }
 
-    v73 = v36;
+    v72 = v36;
     if ([(NSSet *)self->_membersWithLocation count])
     {
       membersWithLocation = self->_membersWithLocation;
@@ -1579,22 +1560,22 @@ LABEL_21:
     altDSID2 = [specifiersCopy altDSID];
     [v67 setProperty:altDSID2 forKey:@"childAltDsidKey"];
 
-    [v67 setProperty:v66 forKey:v74];
-    [v67 setProperty:objc_opt_class() forKey:v73];
+    [v67 setProperty:v66 forKey:v73];
+    [v67 setProperty:objc_opt_class() forKey:v72];
     [v67 setButtonAction:sel__reviewPresetsWasTapped_];
-    v47 = v81;
-    v87[0] = v81;
-    v87[1] = v20;
-    v87[2] = v67;
-    v48 = [MEMORY[0x277CBEA60] arrayWithObjects:v87 count:3];
+    v47 = v80;
+    v86[0] = v80;
+    v86[1] = v20;
+    v86[2] = v67;
+    v48 = [MEMORY[0x277CBEA60] arrayWithObjects:v86 count:3];
 
-    v49 = v78;
-    v46 = v83;
+    v49 = v77;
+    v46 = v82;
     goto LABEL_22;
   }
 
-  v73 = v36;
-  if ([v28 compare:v84] != -1)
+  v72 = v36;
+  if ([v28 compare:v83] != -1)
   {
     goto LABEL_21;
   }
@@ -1608,25 +1589,25 @@ LABEL_21:
   }
 
   v52 = MEMORY[0x277CCACA8];
-  v71 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v53 = [v71 localizedStringForKey:@"FAMILY_CHECKLIST_CHILD_CARD_DESCRIPTION_OLD" value:&stru_282D9AA68 table:@"Localizable"];
+  v70 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v53 = [v70 localizedStringForKey:@"FAMILY_CHECKLIST_CHILD_CARD_DESCRIPTION_OLD" value:&stru_282D9AA68 table:@"Localizable"];
   firstName4 = [specifiersCopy firstName];
   v42 = [v52 stringWithFormat:v53, firstName4, objc_msgSend(specifiersCopy, "age")];
 
   v55 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v56 = [v55 localizedStringForKey:@"FAMILY_CHECKLIST_CHILD_SETUP_UPDATE" value:&stru_282D9AA68 table:@"Localizable"];
 
-  v72 = v56;
+  v71 = v56;
   v57 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v56 target:self set:0 get:0 detail:0 cell:13 edit:0];
-  v49 = v78;
-  [v78 setProperty:v10 forKey:v74];
-  [v78 setProperty:v85 forKey:v34];
-  [v78 setProperty:objc_opt_class() forKey:v73];
-  [v78 setProperty:v42 forKey:*MEMORY[0x277D40160]];
-  [v78 setIdentifier:@"checkScreenTimeSettings"];
-  if (v83)
+  v49 = v77;
+  [v77 setProperty:v10 forKey:v73];
+  [v77 setProperty:v84 forKey:v34];
+  [v77 setProperty:objc_opt_class() forKey:v72];
+  [v77 setProperty:v42 forKey:*MEMORY[0x277D40160]];
+  [v77 setIdentifier:@"checkScreenTimeSettings"];
+  if (v82)
   {
-    [v78 setProperty:v83 forKey:*MEMORY[0x277D3FFA8]];
+    [v77 setProperty:v82 forKey:*MEMORY[0x277D3FFA8]];
   }
 
   [v57 setProperty:&unk_282DC0798 forKey:*MEMORY[0x277D3FD78]];
@@ -1635,25 +1616,24 @@ LABEL_21:
   altDSID3 = [specifiersCopy altDSID];
   [v57 setProperty:altDSID3 forKey:@"childAltDsidKey"];
 
-  v46 = v83;
-  [v57 setProperty:v72 forKey:v74];
-  [v57 setProperty:objc_opt_class() forKey:v73];
+  v46 = v82;
+  [v57 setProperty:v71 forKey:v73];
+  [v57 setProperty:objc_opt_class() forKey:v72];
   [v57 setButtonAction:sel__reviewPresetsWasTapped_];
-  v47 = v81;
-  v88[0] = v81;
-  v88[1] = v78;
-  v88[2] = v57;
-  v48 = [MEMORY[0x277CBEA60] arrayWithObjects:v88 count:3];
+  v47 = v80;
+  v87[0] = v80;
+  v87[1] = v77;
+  v87[2] = v57;
+  v48 = [MEMORY[0x277CBEA60] arrayWithObjects:v87 count:3];
 
 LABEL_22:
-  v69 = *MEMORY[0x277D85DE8];
 
   return v48;
 }
 
 - (id)_custodianContactSpecifiers
 {
-  v66[2] = *MEMORY[0x277D85DE8];
+  v65[2] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v4 = [v3 localizedStringForKey:@"FAMILY_CHECKLIST_CUSTODIAN_TITLE" value:&stru_282D9AA68 table:@"Localizable"];
 
@@ -1665,13 +1645,13 @@ LABEL_22:
 
   v9 = MEMORY[0x277D755B8];
   v10 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v63 = [v9 imageNamed:@"RecoveryContactsIcon" inBundle:v10];
+  v62 = [v9 imageNamed:@"RecoveryContactsIcon" inBundle:v10];
 
   fa_checklistDateFormatter = [MEMORY[0x277CCA968] fa_checklistDateFormatter];
   v11 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"custodian"];
   v12 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v4 target:self set:0 get:0 detail:0 cell:4 edit:0];
   v13 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v8 target:self set:0 get:0 detail:0 cell:13 edit:0];
-  v62 = objc_alloc_init(MEMORY[0x277CCABB8]);
+  v61 = objc_alloc_init(MEMORY[0x277CCABB8]);
   v14 = [MEMORY[0x277CCABB0] numberWithInt:{-[NSArray count](self->_custodians, "count")}];
   stringValue = [v14 stringValue];
 
@@ -1680,31 +1660,31 @@ LABEL_22:
   {
     mEMORY[0x277CF0130] = [MEMORY[0x277CF0130] sharedInstance];
     primaryAuthKitAccount = [mEMORY[0x277CF0130] primaryAuthKitAccount];
-    v55 = mEMORY[0x277CF0130];
+    v54 = mEMORY[0x277CF0130];
     v17 = [mEMORY[0x277CF0130] custodianLastModifiedForAccount:?];
-    v56 = v11;
-    v53 = v17;
+    v55 = v11;
+    v52 = v17;
     if (v17)
     {
       v18 = MEMORY[0x277CBEAA8];
       [v17 doubleValue];
-      v60 = [v18 dateWithTimeIntervalSince1970:v19 / 1000.0];
+      v59 = [v18 dateWithTimeIntervalSince1970:v19 / 1000.0];
     }
 
     else
     {
-      v60 = 0;
+      v59 = 0;
     }
 
-    v57 = v8;
-    v59 = v4;
+    v56 = v8;
+    v58 = v4;
     v28 = [(NSArray *)self->_custodians count];
     v29 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v30 = v29;
-    v58 = v6;
+    v57 = v6;
     if (v28 == 1)
     {
-      v52 = [v29 localizedStringForKey:@"FAMILY_CHECKLIST_CUSTODIAN_SINGLE_TITLE" value:&stru_282D9AA68 table:@"Localizable"];
+      v51 = [v29 localizedStringForKey:@"FAMILY_CHECKLIST_CUSTODIAN_SINGLE_TITLE" value:&stru_282D9AA68 table:@"Localizable"];
 
       lastObject = [(NSArray *)self->_custodians lastObject];
       firstName = [lastObject firstName];
@@ -1715,76 +1695,76 @@ LABEL_22:
       if (firstName)
       {
         v36 = [v34 localizedStringForKey:@"FAMILY_CHECKLIST_CUSTODIAN_UPDATED" value:&stru_282D9AA68 table:@"Localizable"];
-        v37 = [fa_checklistDateFormatter stringFromDate:v60];
+        v37 = [fa_checklistDateFormatter stringFromDate:v59];
         [v33 localizedStringWithFormat:v36, firstName, v37];
       }
 
       else
       {
         v36 = [v34 localizedStringForKey:@"FAMILY_CHECKLIST_SECTION_UPDATED_DATE" value:&stru_282D9AA68 table:@"Localizable"];
-        v37 = [fa_checklistDateFormatter stringFromDate:v60];
-        [v33 localizedStringWithFormat:v36, v37, v50];
+        v37 = [fa_checklistDateFormatter stringFromDate:v59];
+        [v33 localizedStringWithFormat:v36, v37, v49];
       }
       v41 = ;
 
-      v39 = v60;
+      v39 = v59;
       v40 = v41;
     }
 
     else
     {
-      v52 = [v29 localizedStringForKey:@"FAMILY_CHECKLIST_CUSTODIAN_ALTERNATE_TITLE" value:&stru_282D9AA68 table:@"Localizable"];
+      v51 = [v29 localizedStringForKey:@"FAMILY_CHECKLIST_CUSTODIAN_ALTERNATE_TITLE" value:&stru_282D9AA68 table:@"Localizable"];
 
       v38 = MEMORY[0x277CCACA8];
       firstName = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
       v35 = [firstName localizedStringForKey:@"FAMILY_CHECKLIST_SECTION_UPDATED_DATE" value:&stru_282D9AA68 table:@"Localizable"];
-      v39 = v60;
-      v36 = [fa_checklistDateFormatter stringFromDate:v60];
+      v39 = v59;
+      v36 = [fa_checklistDateFormatter stringFromDate:v59];
       v40 = [v38 localizedStringWithFormat:v35, v36];
     }
 
     if (v39)
     {
-      v51 = v40;
+      v50 = v40;
     }
 
     else
     {
 
-      v51 = &stru_282D9AA68;
+      v50 = &stru_282D9AA68;
     }
 
-    v42 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v52 target:self set:0 get:0 detail:0 cell:4 edit:0];
+    v42 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v51 target:self set:0 get:0 detail:0 cell:4 edit:0];
     v43 = MEMORY[0x277CCACA8];
     v44 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v45 = [v44 localizedStringForKey:@"FAMILY_CHECKLIST_CUSTODIAN_DESCRIPTION" value:&stru_282D9AA68 table:@"Localizable"];
     v46 = [v43 localizedStringWithFormat:v45, -[NSArray count](self->_custodians, "count")];
 
-    v20 = v63;
-    [v42 setProperty:v63 forKey:*MEMORY[0x277D3FFC0]];
+    v20 = v62;
+    [v42 setProperty:v62 forKey:*MEMORY[0x277D3FFC0]];
     [v42 setProperty:objc_opt_class() forKey:*MEMORY[0x277D3FE58]];
-    [v42 setProperty:v52 forKey:*MEMORY[0x277D40170]];
+    [v42 setProperty:v51 forKey:*MEMORY[0x277D40170]];
     [v42 setCellType:1];
     v47 = [MEMORY[0x277CCABB0] numberWithDouble:*MEMORY[0x277D76F30]];
     [v42 setProperty:v47 forKey:*MEMORY[0x277D40140]];
 
-    [v42 setProperty:v51 forKey:*MEMORY[0x277D3FFA8]];
+    [v42 setProperty:v50 forKey:*MEMORY[0x277D3FFA8]];
     [v42 setProperty:v46 forKey:*MEMORY[0x277D40160]];
     [v42 setButtonAction:sel__setupCustodianTapped_];
-    v26 = v56;
-    v66[0] = v56;
-    v66[1] = v42;
-    v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v66 count:2];
+    v26 = v55;
+    v65[0] = v55;
+    v65[1] = v42;
+    v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v65 count:2];
 
-    v6 = v58;
-    v4 = v59;
-    v8 = v57;
+    v6 = v57;
+    v4 = v58;
+    v8 = v56;
   }
 
   else
   {
-    v20 = v63;
-    [v12 setProperty:v63 forKey:*MEMORY[0x277D3FFC0]];
+    v20 = v62;
+    [v12 setProperty:v62 forKey:*MEMORY[0x277D3FFC0]];
     v21 = objc_opt_class();
     v22 = *MEMORY[0x277D3FE58];
     [v12 setProperty:v21 forKey:*MEMORY[0x277D3FE58]];
@@ -1798,20 +1778,18 @@ LABEL_22:
     [v13 setProperty:v8 forKey:v25];
     [v13 setProperty:objc_opt_class() forKey:v22];
     [v13 setButtonAction:sel__setupCustodianTapped_];
-    v65[0] = v23;
-    v65[1] = v12;
-    v65[2] = v13;
-    v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v65 count:3];
+    v64[0] = v23;
+    v64[1] = v12;
+    v64[2] = v13;
+    v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v64 count:3];
   }
-
-  v48 = *MEMORY[0x277D85DE8];
 
   return v27;
 }
 
 - (id)_icloudPlusSpecifiers:(id)specifiers
 {
-  v63[2] = *MEMORY[0x277D85DE8];
+  v62[2] = *MEMORY[0x277D85DE8];
   specifiersCopy = specifiers;
   v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v5 = [v4 localizedStringForKey:@"FAMILY_CHECKLIST_ICLOUD_PLUS_CARD" value:&stru_282D9AA68 table:@"Localizable"];
@@ -1831,12 +1809,12 @@ LABEL_22:
   v15 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v16 = [v14 imageNamed:@"iCloudStorageIcon" inBundle:v15];
 
-  v56 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"icloudPlus"];
-  v60 = v5;
+  v55 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"icloudPlus"];
+  v59 = v5;
   v17 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v5 target:self set:0 get:0 detail:0 cell:4 edit:0];
-  v58 = v7;
+  v57 = v7;
   v18 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v7 target:self set:0 get:0 detail:0 cell:4 edit:0];
-  v57 = v11;
+  v56 = v11;
   v19 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v11 target:self set:0 get:0 detail:0 cell:4 edit:0];
   v20 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v13 target:self set:0 get:0 detail:0 cell:13 edit:0];
   checklistStore = [(FAChecklistViewController *)self checklistStore];
@@ -1844,9 +1822,9 @@ LABEL_22:
 
   if (countMembersIcloudPlus)
   {
-    v53 = v20;
-    v54 = v16;
-    v55 = v13;
+    v52 = v20;
+    v53 = v16;
+    v54 = v13;
     isOrganizer = [specifiersCopy isOrganizer];
     v24 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v25 = v24;
@@ -1854,7 +1832,7 @@ LABEL_22:
     {
       v26 = [v24 localizedStringForKey:@"FAMILY_CHECKLIST_ICLOUD_PLUS_DESCRIPTION_SHARED" value:&stru_282D9AA68 table:@"Localizable"];
 
-      v52 = v19;
+      v51 = v19;
       v27 = MEMORY[0x277CCACA8];
       v28 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
       v29 = [v28 localizedStringForKey:@"FAMILY_CHECKLIST_ICLOUD_PLUS_SHARING_INFO" value:&stru_282D9AA68 table:@"Localizable"];
@@ -1865,9 +1843,9 @@ LABEL_22:
       v34 = [v27 localizedStringWithFormat:v29, v31, objc_msgSend(members, "count") - 1];
 
       v35 = v26;
-      v36 = v54;
-      [v18 setProperty:v54 forKey:*MEMORY[0x277D3FFC0]];
-      [v18 setProperty:v60 forKey:*MEMORY[0x277D40170]];
+      v36 = v53;
+      [v18 setProperty:v53 forKey:*MEMORY[0x277D3FFC0]];
+      [v18 setProperty:v59 forKey:*MEMORY[0x277D40170]];
       [v18 setProperty:objc_opt_class() forKey:*MEMORY[0x277D3FE58]];
       [v18 setCellType:1];
       v37 = [MEMORY[0x277CCABB0] numberWithDouble:*MEMORY[0x277D76F30]];
@@ -1877,14 +1855,14 @@ LABEL_22:
       [v18 setProperty:v34 forKey:*MEMORY[0x277D3FFA8]];
       [v18 setProperty:v26 forKey:*MEMORY[0x277D40160]];
       [v18 setButtonAction:sel__setupIcloudPlusWasTapped_];
-      v39 = v56;
-      v63[0] = v56;
-      v63[1] = v18;
-      v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v63 count:2];
+      v39 = v55;
+      v62[0] = v55;
+      v62[1] = v18;
+      v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v62 count:2];
 
-      v41 = v52;
-      v20 = v53;
-      v13 = v55;
+      v41 = v51;
+      v20 = v52;
+      v13 = v54;
       goto LABEL_7;
     }
 
@@ -1892,7 +1870,7 @@ LABEL_22:
 
     v36 = v16;
     [v19 setProperty:v16 forKey:*MEMORY[0x277D3FFC0]];
-    [v19 setProperty:v60 forKey:*MEMORY[0x277D40170]];
+    [v19 setProperty:v59 forKey:*MEMORY[0x277D40170]];
     [v19 setProperty:objc_opt_class() forKey:*MEMORY[0x277D3FE58]];
     [v19 setCellType:1];
     [MEMORY[0x277CCABB0] numberWithDouble:*MEMORY[0x277D76F30]];
@@ -1902,10 +1880,10 @@ LABEL_22:
     v41 = v48;
     [v48 setProperty:v35 forKey:*MEMORY[0x277D40160]];
     [v48 setButtonAction:sel__setupIcloudPlusWasTapped_];
-    v39 = v56;
-    v62[0] = v56;
-    v62[1] = v48;
-    v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v62 count:2];
+    v39 = v55;
+    v61[0] = v55;
+    v61[1] = v48;
+    v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:2];
   }
 
   else
@@ -1917,7 +1895,7 @@ LABEL_22:
     v36 = v16;
     [v17 setProperty:v16 forKey:*MEMORY[0x277D3FFC0]];
     v44 = *MEMORY[0x277D40170];
-    [v17 setProperty:v60 forKey:*MEMORY[0x277D40170]];
+    [v17 setProperty:v59 forKey:*MEMORY[0x277D40170]];
     v45 = objc_opt_class();
     v46 = *MEMORY[0x277D3FE58];
     [v17 setProperty:v45 forKey:*MEMORY[0x277D3FE58]];
@@ -1928,73 +1906,71 @@ LABEL_22:
     [v20 setProperty:v13 forKey:v47];
     [v20 setProperty:objc_opt_class() forKey:v46];
     [v20 setButtonAction:sel__setupIcloudPlusWasTapped_];
-    v39 = v56;
-    v61[0] = v56;
-    v61[1] = v17;
-    v61[2] = v20;
-    v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:3];
+    v39 = v55;
+    v60[0] = v55;
+    v60[1] = v17;
+    v60[2] = v20;
+    v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v60 count:3];
   }
 
   v38 = specifiersCopy;
 LABEL_7:
-
-  v50 = *MEMORY[0x277D85DE8];
 
   return v40;
 }
 
 - (id)specifiers
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v55 = 0u;
   v56 = 0u;
   v57 = 0u;
   v58 = 0u;
-  v59 = 0u;
   familyCircle = [(FAChecklistViewController *)self familyCircle];
   members = [familyCircle members];
 
-  v6 = [members countByEnumeratingWithState:&v56 objects:v63 count:16];
+  v6 = [members countByEnumeratingWithState:&v55 objects:v62 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v57;
-    v41 = *v57;
-    v42 = members;
+    v8 = *v56;
+    v40 = *v56;
+    v41 = members;
     do
     {
       v9 = 0;
-      v43 = v7;
+      v42 = v7;
       do
       {
-        if (*v57 != v8)
+        if (*v56 != v8)
         {
           objc_enumerationMutation(members);
         }
 
-        v10 = *(*(&v56 + 1) + 8 * v9);
+        v10 = *(*(&v55 + 1) + 8 * v9);
         if ([v10 isMe] && objc_msgSend(v10, "isParent"))
         {
-          v54 = 0u;
-          v55 = 0u;
-          v52 = 0u;
           v53 = 0u;
+          v54 = 0u;
+          v51 = 0u;
+          v52 = 0u;
           v11 = self->_listOfChildren;
-          v12 = [(NSArray *)v11 countByEnumeratingWithState:&v52 objects:v62 count:16];
+          v12 = [(NSArray *)v11 countByEnumeratingWithState:&v51 objects:v61 count:16];
           if (v12)
           {
             v13 = v12;
-            v14 = *v53;
+            v14 = *v52;
             do
             {
               for (i = 0; i != v13; ++i)
               {
-                if (*v53 != v14)
+                if (*v52 != v14)
                 {
                   objc_enumerationMutation(v11);
                 }
 
-                v16 = *(*(&v52 + 1) + 8 * i);
+                v16 = *(*(&v51 + 1) + 8 * i);
                 checklistStore = [(FAChecklistViewController *)self checklistStore];
                 v18 = [checklistStore screenTimeEnabledForChild:v16];
 
@@ -2008,22 +1984,22 @@ LABEL_7:
                 [v3 addObjectsFromArray:v20];
               }
 
-              v13 = [(NSArray *)v11 countByEnumeratingWithState:&v52 objects:v62 count:16];
+              v13 = [(NSArray *)v11 countByEnumeratingWithState:&v51 objects:v61 count:16];
             }
 
             while (v13);
           }
 
-          v8 = v41;
-          members = v42;
-          v7 = v43;
+          v8 = v40;
+          members = v41;
+          v7 = v42;
         }
 
         ++v9;
       }
 
       while (v9 != v7);
-      v7 = [members countByEnumeratingWithState:&v56 objects:v63 count:16];
+      v7 = [members countByEnumeratingWithState:&v55 objects:v62 count:16];
     }
 
     while (v7);
@@ -2038,28 +2014,28 @@ LABEL_7:
   v22 = [(FAChecklistViewController *)self _locationSpecifiersWithSharedCount:self->_countMembersWithLocation];
   [v3 addObjectsFromArray:v22];
 
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
   v49 = 0u;
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
   familyCircle2 = [(FAChecklistViewController *)self familyCircle];
   members2 = [familyCircle2 members];
 
-  v25 = [members2 countByEnumeratingWithState:&v48 objects:v61 count:16];
+  v25 = [members2 countByEnumeratingWithState:&v47 objects:v60 count:16];
   if (v25)
   {
     v26 = v25;
-    v27 = *v49;
+    v27 = *v48;
     while (2)
     {
       for (j = 0; j != v26; ++j)
       {
-        if (*v49 != v27)
+        if (*v48 != v27)
         {
           objc_enumerationMutation(members2);
         }
 
-        v29 = *(*(&v48 + 1) + 8 * j);
+        v29 = *(*(&v47 + 1) + 8 * j);
         if (-[ACAccount aa_isCloudSubscriber](self->_appleAccount, "aa_isCloudSubscriber") && [v29 isMe])
         {
           v30 = [(FAChecklistViewController *)self _icloudPlusSpecifiers:v29];
@@ -2069,7 +2045,7 @@ LABEL_7:
         }
       }
 
-      v26 = [members2 countByEnumeratingWithState:&v48 objects:v61 count:16];
+      v26 = [members2 countByEnumeratingWithState:&v47 objects:v60 count:16];
       if (v26)
       {
         continue;
@@ -2081,28 +2057,28 @@ LABEL_7:
 
 LABEL_33:
 
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   familyCircle3 = [(FAChecklistViewController *)self familyCircle];
   members3 = [familyCircle3 members];
 
-  v33 = [members3 countByEnumeratingWithState:&v44 objects:v60 count:16];
+  v33 = [members3 countByEnumeratingWithState:&v43 objects:v59 count:16];
   if (v33)
   {
     v34 = v33;
-    v35 = *v45;
+    v35 = *v44;
     while (2)
     {
       for (k = 0; k != v34; ++k)
       {
-        if (*v45 != v35)
+        if (*v44 != v35)
         {
           objc_enumerationMutation(members3);
         }
 
-        v37 = *(*(&v44 + 1) + 8 * k);
+        v37 = *(*(&v43 + 1) + 8 * k);
         if ([v37 isMe] && (!objc_msgSend(v37, "memberType") || objc_msgSend(v37, "memberType") == 1))
         {
           _custodianContactSpecifiers = [(FAChecklistViewController *)self _custodianContactSpecifiers];
@@ -2112,7 +2088,7 @@ LABEL_33:
         }
       }
 
-      v34 = [members3 countByEnumeratingWithState:&v44 objects:v60 count:16];
+      v34 = [members3 countByEnumeratingWithState:&v43 objects:v59 count:16];
       if (v34)
       {
         continue;
@@ -2125,7 +2101,6 @@ LABEL_33:
 LABEL_45:
 
   objc_storeStrong(&self->_specifiers, v3);
-  v39 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -2163,22 +2138,19 @@ void __76__FAChecklistViewController__fetchScreenTimeModifiedDate_completionHand
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
-uint64_t __76__FAChecklistViewController__fetchScreenTimeModifiedDate_completionHandler___block_invoke_2(void *a1)
+uint64_t __76__FAChecklistViewController__fetchScreenTimeModifiedDate_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v2 = a1 + 4;
-  if (a1[4])
+  v2 = (a1 + 32);
+  if (*(a1 + 32))
   {
-    v3 = _FALogSystem();
+    v3 = _FALogSystem(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __76__FAChecklistViewController__fetchScreenTimeModifiedDate_completionHandler___block_invoke_2_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
     }
-
-    v10 = *v2;
   }
 
-  v11 = a1[5];
-  return (*(a1[6] + 16))();
+  return (*(*(a1 + 48) + 16))();
 }
 
 - (void)_fetchCommunicationLimitsModifiedDate:(id)date completionHandler:(id)handler
@@ -2214,44 +2186,39 @@ void __85__FAChecklistViewController__fetchCommunicationLimitsModifiedDate_compl
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
-uint64_t __85__FAChecklistViewController__fetchCommunicationLimitsModifiedDate_completionHandler___block_invoke_2(void *a1)
+uint64_t __85__FAChecklistViewController__fetchCommunicationLimitsModifiedDate_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v2 = a1 + 4;
-  if (a1[4])
+  v2 = (a1 + 32);
+  if (*(a1 + 32))
   {
-    v3 = _FALogSystem();
+    v3 = _FALogSystem(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __85__FAChecklistViewController__fetchCommunicationLimitsModifiedDate_completionHandler___block_invoke_2_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
     }
-
-    v10 = *v2;
   }
 
-  v11 = a1[5];
-  return (*(a1[6] + 16))();
+  return (*(*(a1 + 48) + 16))();
 }
 
 - (id)_childContactsRecord:(id)record
 {
-  v15[4] = *MEMORY[0x277D85DE8];
+  v14[4] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBDAB8] storeForFamilyMember:record];
   v4 = *MEMORY[0x277CBCFF8];
-  v15[0] = *MEMORY[0x277CBD000];
-  v15[1] = v4;
+  v14[0] = *MEMORY[0x277CBD000];
+  v14[1] = v4;
   v5 = *MEMORY[0x277CBCFC0];
-  v15[2] = *MEMORY[0x277CBD098];
-  v15[3] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:4];
+  v14[2] = *MEMORY[0x277CBD098];
+  v14[3] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:4];
   v7 = [MEMORY[0x277CBDA78] descriptorForRequiredKeysForStyle:0];
   v8 = [v6 arrayByAddingObject:v7];
 
   v9 = [objc_alloc(MEMORY[0x277CBDA70]) initWithKeysToFetch:v8];
-  v14 = 0;
-  v10 = [v3 executeFetchRequest:v9 error:&v14];
+  v13 = 0;
+  v10 = [v3 executeFetchRequest:v9 error:&v13];
   value = [v10 value];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return value;
 }
@@ -2261,9 +2228,9 @@ uint64_t __85__FAChecklistViewController__fetchCommunicationLimitsModifiedDate_c
   v3 = [MEMORY[0x277CBDAB8] storeForFamilyMember:child];
   v4 = objc_alloc(MEMORY[0x277CBDA70]);
   v5 = [v4 initWithKeysToFetch:MEMORY[0x277CBEBF8]];
-  v20 = 0;
-  v6 = [v3 contactCountForFetchRequest:v5 error:&v20];
-  v7 = v20;
+  v22 = 0;
+  v6 = [v3 contactCountForFetchRequest:v5 error:&v22];
+  v7 = v22;
   unsignedIntValue = [v6 unsignedIntValue];
   v9 = unsignedIntValue != 0;
   if (v7)
@@ -2279,16 +2246,17 @@ uint64_t __85__FAChecklistViewController__fetchCommunicationLimitsModifiedDate_c
   if (v10)
   {
     [v5 setShouldFailIfAccountNotYetSynced:1];
-    v19 = 0;
-    v11 = [v3 contactCountForFetchRequest:v5 error:&v19];
-    v7 = v19;
+    v21 = 0;
+    v11 = [v3 contactCountForFetchRequest:v5 error:&v21];
+    v7 = v21;
 
     unsignedIntValue2 = [v11 unsignedIntValue];
+    v13 = unsignedIntValue2;
     v9 = unsignedIntValue2 != 0;
-    v13 = _FALogSystem();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v14 = _FALogSystem(unsignedIntValue2);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      [(FAChecklistViewController *)unsignedIntValue2 != 0 _contactsStatusForChild:v7, v13];
+      [(FAChecklistViewController *)v13 != 0 _contactsStatusForChild:v7, v14];
     }
 
     v6 = v11;
@@ -2298,7 +2266,7 @@ uint64_t __85__FAChecklistViewController__fetchCommunicationLimitsModifiedDate_c
   {
     if (v7 == 0 && !v9)
     {
-      v14 = 4;
+      v15 = 4;
       goto LABEL_23;
     }
 
@@ -2309,11 +2277,11 @@ uint64_t __85__FAChecklistViewController__fetchCommunicationLimitsModifiedDate_c
 
       if (code == 1007)
       {
-        v17 = _FALogSystem();
-        v14 = 2;
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+        v19 = _FALogSystem(v18);
+        v15 = 2;
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
         {
-          [FAChecklistViewController _contactsStatusForChild:v17];
+          [FAChecklistViewController _contactsStatusForChild:v19];
         }
 
 LABEL_22:
@@ -2326,20 +2294,20 @@ LABEL_22:
     {
     }
 
-    v17 = _FALogSystem();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v19 = _FALogSystem(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       [FAChecklistViewController _contactsStatusForChild:];
     }
 
-    v14 = 3;
+    v15 = 3;
     goto LABEL_22;
   }
 
-  v14 = 5;
+  v15 = 5;
 LABEL_23:
 
-  return v14;
+  return v15;
 }
 
 - (void)_fetchPresetsForChild:(id)child andCompletionHandler:(id)handler
@@ -2376,20 +2344,19 @@ void __72__FAChecklistViewController__fetchPresetsForChild_andCompletionHandler_
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
-uint64_t __72__FAChecklistViewController__fetchPresetsForChild_andCompletionHandler___block_invoke_2(void *a1)
+uint64_t __72__FAChecklistViewController__fetchPresetsForChild_andCompletionHandler___block_invoke_2(uint64_t a1)
 {
-  v2 = a1 + 4;
-  if (a1[4])
+  v2 = (a1 + 32);
+  if (*(a1 + 32))
   {
-    v3 = _FALogSystem();
+    v3 = _FALogSystem(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __72__FAChecklistViewController__fetchPresetsForChild_andCompletionHandler___block_invoke_2_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
     }
   }
 
-  v10 = a1[5];
-  return (*(a1[6] + 16))();
+  return (*(*(a1 + 48) + 16))();
 }
 
 - (void)_manageChildContactsWasTapped:(id)tapped
@@ -2470,10 +2437,11 @@ void __61__FAChecklistViewController__shareMyLocationButtonWasTapped___block_inv
   v5 = *(v4 + 40);
   *(v4 + 40) = 0;
 
-  if (([v3 loadSuccess] & 1) == 0)
+  v6 = [v3 loadSuccess];
+  if ((v6 & 1) == 0)
   {
-    v6 = _FALogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _FALogSystem(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __61__FAChecklistViewController__shareMyLocationButtonWasTapped___block_invoke_cold_1(v3);
     }
@@ -2585,30 +2553,29 @@ void __53__FAChecklistViewController__reviewPresetsWasTapped___block_invoke(uint
   v5 = *(v4 + 40);
   *(v4 + 40) = 0;
 
-  if ([v3 loadSuccess])
+  v6 = [v3 loadSuccess];
+  if (v6)
   {
-    v6 = *(a1 + 32);
+    v7 = *(a1 + 32);
     v10[0] = MEMORY[0x277D85DD0];
     v10[1] = 3221225472;
     v10[2] = __53__FAChecklistViewController__reviewPresetsWasTapped___block_invoke_695;
     v10[3] = &unk_2782F29E8;
-    v10[4] = v6;
-    [v6 _updateScreenTimeSpecifierThen:v10];
+    v10[4] = v7;
+    [v7 _updateScreenTimeSpecifierThen:v10];
   }
 
   else
   {
-    v7 = _FALogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _FALogSystem(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = [v3 error];
+      v9 = [v3 error];
       *buf = 138412290;
-      v12 = v8;
-      _os_log_impl(&dword_21BB35000, v7, OS_LOG_TYPE_DEFAULT, "Failed to fetch family repair flow %@", buf, 0xCu);
+      v12 = v9;
+      _os_log_impl(&dword_21BB35000, v8, OS_LOG_TYPE_DEFAULT, "Failed to fetch family repair flow %@", buf, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __53__FAChecklistViewController__reviewPresetsWasTapped___block_invoke_695(uint64_t a1)
@@ -2701,21 +2668,22 @@ void __55__FAChecklistViewController__setupIcloudPlusWasTapped___block_invoke(ui
   *(v4 + 40) = 0;
 
   [*(*(a1 + 32) + 1232) setActiveSpecifierID:0];
-  if ([v3 loadSuccess])
+  v6 = [v3 loadSuccess];
+  if (v6)
   {
-    v6 = *(a1 + 32);
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __55__FAChecklistViewController__setupIcloudPlusWasTapped___block_invoke_697;
-    v8[3] = &unk_2782F29E8;
-    v8[4] = v6;
-    [v6 _updateICloudPlusSpecifierThen:v8];
+    v7 = *(a1 + 32);
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __55__FAChecklistViewController__setupIcloudPlusWasTapped___block_invoke_697;
+    v9[3] = &unk_2782F29E8;
+    v9[4] = v7;
+    [v7 _updateICloudPlusSpecifierThen:v9];
   }
 
   else
   {
-    v7 = _FALogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _FALogSystem(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __55__FAChecklistViewController__setupIcloudPlusWasTapped___block_invoke_cold_1(v3);
     }
@@ -2760,7 +2728,7 @@ void __46__FAChecklistViewController__dismissMedicalID__block_invoke_2(uint64_t 
 
 - (void)emergencyContactFlow:(id)flow didSelectContact:(id)contact
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   contactCopy = contact;
   if (([getSOSUtilitiesClass_0() isAllowedToMessageSOSContacts] & 1) == 0)
   {
@@ -2776,30 +2744,29 @@ void __46__FAChecklistViewController__dismissMedicalID__block_invoke_2(uint64_t 
 
   else
   {
-    v13[0] = contactCopy;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+    v12[0] = contactCopy;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
   }
 
   [(_HKMedicalIDData *)self->_medicalIDData setEmergencyContacts:v8];
   medicalIDStore = self->_medicalIDStore;
   medicalIDData = self->_medicalIDData;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __67__FAChecklistViewController_emergencyContactFlow_didSelectContact___block_invoke;
-  v12[3] = &unk_2782F3568;
-  v12[4] = self;
-  [(HKMedicalIDStore *)medicalIDStore updateMedicalIDData:medicalIDData completion:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __67__FAChecklistViewController_emergencyContactFlow_didSelectContact___block_invoke;
+  v11[3] = &unk_2782F3568;
+  v11[4] = self;
+  [(HKMedicalIDStore *)medicalIDStore updateMedicalIDData:medicalIDData completion:v11];
 }
 
 void __67__FAChecklistViewController_emergencyContactFlow_didSelectContact___block_invoke(uint64_t a1, int a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = _FALogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _FALogSystem(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __67__FAChecklistViewController_emergencyContactFlow_didSelectContact___block_invoke_cold_1();
     }
@@ -2807,13 +2774,13 @@ void __67__FAChecklistViewController_emergencyContactFlow_didSelectContact___blo
 
   if (a2)
   {
-    v7 = *(a1 + 32);
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __67__FAChecklistViewController_emergencyContactFlow_didSelectContact___block_invoke_698;
-    v8[3] = &unk_2782F29E8;
-    v8[4] = v7;
-    [v7 _updateMedicalSpecifierThen:v8];
+    v8 = *(a1 + 32);
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __67__FAChecklistViewController_emergencyContactFlow_didSelectContact___block_invoke_698;
+    v9[3] = &unk_2782F29E8;
+    v9[4] = v8;
+    [v8 _updateMedicalSpecifierThen:v9];
   }
 }
 
@@ -2868,76 +2835,57 @@ void __67__FAChecklistViewController_custodianSetupFlowControllerDidFinish___blo
 
 void __76__FAChecklistViewController__fetchScreenTimeModifiedDate_completionHandler___block_invoke_2_cold_1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0_4(&dword_21BB35000, a2, a3, "Failed to retrieve Screen Time state for last modified date: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_4(&dword_21BB35000, a2, a3, "Failed to retrieve Screen Time state for last modified date: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __85__FAChecklistViewController__fetchCommunicationLimitsModifiedDate_completionHandler___block_invoke_2_cold_1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0_4(&dword_21BB35000, a2, a3, "Failed to retrieve Screen Time state for communication limits: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_4(&dword_21BB35000, a2, a3, "Failed to retrieve Screen Time state for communication limits: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_contactsStatusForChild:(os_log_t)log .cold.1(char a1, uint64_t a2, os_log_t log)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 67109378;
-  v4[1] = a1 & 1;
-  v5 = 2112;
-  v6 = a2;
-  _os_log_debug_impl(&dword_21BB35000, log, OS_LOG_TYPE_DEBUG, "RETRIED with shouldFailIfAccountNotYetSynced childHasContacts %i,error %@", v4, 0x12u);
-  v3 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109378;
+  v3[1] = a1 & 1;
+  v4 = 2112;
+  v5 = a2;
+  _os_log_debug_impl(&dword_21BB35000, log, OS_LOG_TYPE_DEBUG, "RETRIED with shouldFailIfAccountNotYetSynced childHasContacts %i,error %@", v3, 0x12u);
 }
 
 - (void)_contactsStatusForChild:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_error_impl(&dword_21BB35000, v1, OS_LOG_TYPE_ERROR, "contactCountForFetchRequest: %@ Error: %@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_21BB35000, v1, OS_LOG_TYPE_ERROR, "contactCountForFetchRequest: %@ Error: %@", v2, 0x16u);
 }
 
 void __72__FAChecklistViewController__fetchPresetsForChild_andCompletionHandler___block_invoke_2_cold_1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0_4(&dword_21BB35000, a2, a3, "Failed to fetch age appropriate preset for the child with error: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_4(&dword_21BB35000, a2, a3, "Failed to fetch age appropriate preset for the child with error: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __61__FAChecklistViewController__shareMyLocationButtonWasTapped___block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 error];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_0(&dword_21BB35000, v2, v3, "Failed to fetch location flow %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_21BB35000, v2, v3, "Failed to fetch location flow %@", v4, v5, v6, v7);
 }
 
 void __55__FAChecklistViewController__setupIcloudPlusWasTapped___block_invoke_cold_1(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v1 = [a1 error];
   v2 = [v1 localizedDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_0(&dword_21BB35000, v3, v4, "Failed to fetch iCloud+ view %@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
-}
-
-void __67__FAChecklistViewController_emergencyContactFlow_didSelectContact___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_4(&dword_21BB35000, v0, v1, "Error updating medicalIDData error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_21BB35000, v3, v4, "Failed to fetch iCloud+ view %@", v5, v6, v7, v8);
 }
 
 @end

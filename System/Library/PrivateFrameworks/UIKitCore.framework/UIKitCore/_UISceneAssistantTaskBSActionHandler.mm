@@ -13,7 +13,7 @@
   {
     if (!actions)
     {
-      v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"outAssistantTasks"];
+      v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", tasks, @"outAssistantTasks"];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
         v20 = NSStringFromSelector(sel__extractAssistantTasksFromActions_intoAssistantTasks_andUnhandledActions_);

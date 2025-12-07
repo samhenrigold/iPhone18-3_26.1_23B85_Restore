@@ -49,6 +49,7 @@
 - (void)URLSession:(id)session task:(id)task needNewBodyStream:(id)stream;
 - (void)URLSession:(id)session task:(id)task willPerformHTTPRedirection:(id)redirection newRequest:(id)request completionHandler:(id)handler;
 - (void)_URLSession:(id)session downloadTask:(id)task didReceiveResponse:(id)response;
+- (void)_URLSession:(id)session openFileAtPath:(id)path mode:(int)mode completionHandler:(id)handler;
 - (void)_URLSession:(id)session task:(id)task getAuthHeadersForResponse:(id)response completionHandler:(id)handler;
 - (void)addOutstandingTaskWithIdentifier:(unint64_t)identifier;
 - (void)allowReconnect;
@@ -74,10 +75,12 @@
 - (void)errorOccurredDuringAuthCallbackDelivery:(id)delivery completionHandler:(id)handler;
 - (void)errorOccurredDuringFinishedCallbackDelivery:(id)delivery;
 - (void)fillInByteCountsForTaskInfo:(id)info withTaskID:(id)d;
+- (void)handleCompletionOfTask:(id)task identifier:(unint64_t)identifier taskInfo:(id)info isRecoverable:(BOOL)recoverable suppressWake:(BOOL)wake;
 - (void)handleEarliestBeginDateForTaskWithIdentifier:(unint64_t)identifier completionHandler:(id)handler;
 - (void)handleWillBeginDelayedRequestForTaskWithIdentifier:(unint64_t)identifier completionHandler:(id)handler;
 - (void)invalidateWithReply:(id)reply;
 - (void)obliterate;
+- (void)performCommonSetupForTask:(id)task taskInfo:(id)info identifier:(unint64_t)identifier discretionaryStatus:(BOOL)status;
 - (void)queueUpdatesForTask:(id)task updateType:(unint64_t)type highPriority:(BOOL)priority;
 - (void)reconnectClient:(id)client withCompletion:(id)completion;
 - (void)removeDownloadFileForTaskInfo:(id)info;
@@ -93,6 +96,8 @@
 - (void)setLoadingPoolPriority:(double)priority forTaskWithIdentifier:(unint64_t)identifier;
 - (void)setPriority:(int64_t)priority forTaskWithIdentifier:(unint64_t)identifier;
 - (void)setPropertyOnStreamWithIdentifier:(unint64_t)identifier propDict:(id)dict propKey:(id)key withReply:(id)reply;
+- (void)setTLSMaximumSupportedProtocolVersion:(unsigned __int16)version forTaskWithIdentifier:(unint64_t)identifier;
+- (void)setTLSMinimumSupportedProtocolVersion:(unsigned __int16)version forTaskWithIdentifier:(unint64_t)identifier;
 - (void)setTLSSessionCachePrefix:(id)prefix;
 - (void)setXPCConnection:(id)connection;
 - (void)setupDASPropertiesOnTask:(id)task taskInfo:(id)info discretionaryStatus:(BOOL)status;
@@ -543,6 +548,96 @@ LABEL_6:
 
     (*(handlerCopy + 2))(handlerCopy, 0, 0, 0);
   }
+}
+
+- (void)_URLSession:(id)session openFileAtPath:(id)path mode:(int)mode completionHandler:(id)handler
+{
+  v7 = *&mode;
+  sessionCopy = session;
+  pathCopy = path;
+  handlerCopy = handler;
+  v13 = qword_1000EB210;
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  {
+    uuid = [(NDBackgroundSession *)self uuid];
+    *buf = 138543618;
+    v36 = uuid;
+    v37 = 2112;
+    v38 = pathCopy;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "NDSession <%{public}@> Need file descriptor for file at path %@", buf, 0x16u);
+  }
+
+  if (self->_sendsLaunchEvents && [(NDApplication *)self->_clientApplication supportsWakes])
+  {
+    goto LABEL_9;
+  }
+
+  clientProxy = self->_clientProxy;
+  v16 = qword_1000EB210;
+  v17 = os_log_type_enabled(v16, OS_LOG_TYPE_ERROR);
+  if (clientProxy)
+  {
+    if (v17)
+    {
+      uuid2 = [(NDBackgroundSession *)self uuid];
+      clientBundleID = self->_clientBundleID;
+      *buf = 138543618;
+      v36 = uuid2;
+      v37 = 2114;
+      v38 = clientBundleID;
+      _os_log_error_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "NDSession <%{public}@> Client %{public}@ does not support app wakes, but it is still running. Will attempt to get file descriptor for download file.", buf, 0x16u);
+    }
+
+LABEL_9:
+    v30 = _NSConcreteStackBlock;
+    v31 = 3221225472;
+    v32 = sub_100025794;
+    v33 = &unk_1000D58B8;
+    v34 = handlerCopy;
+    v18 = objc_retainBlock(&v30);
+    v19 = [PendingCallback alloc];
+    v20 = [NSNumber numberWithInt:v7];
+    v21 = [v18 copy];
+    v22 = [NSArray arrayWithObjects:pathCopy, v20, v21, 0, v30, v31, v32, v33];
+    v23 = [(PendingCallback *)v19 initWithCallbackType:6 taskIdentifier:0 args:v22];
+
+    callbackQueue = self->_callbackQueue;
+    if (self->_sendsLaunchEvents)
+    {
+      if ([(NDApplication *)self->_clientApplication supportsWakes])
+      {
+        v25 = 2;
+      }
+
+      else
+      {
+        v25 = 0;
+      }
+    }
+
+    else
+    {
+      v25 = 0;
+    }
+
+    [(NDCallbackQueue *)callbackQueue addPendingCallback:v23 wakeRequirement:v25];
+
+    goto LABEL_18;
+  }
+
+  if (v17)
+  {
+    uuid3 = [(NDBackgroundSession *)self uuid];
+    v29 = self->_clientBundleID;
+    *buf = 138543618;
+    v36 = uuid3;
+    v37 = 2114;
+    v38 = v29;
+    _os_log_error_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "NDSession <%{public}@> Client %{public}@ does not support app wakes, cannot get file descriptor for download file!", buf, 0x16u);
+  }
+
+  (*(handlerCopy + 2))(handlerCopy, 0xFFFFFFFFLL);
+LABEL_18:
 }
 
 - (id)_URLSession:(id)session downloadTaskNeedsDownloadDirectory:(id)directory
@@ -2378,6 +2473,40 @@ LABEL_15:
   }
 }
 
+- (void)setTLSMaximumSupportedProtocolVersion:(unsigned __int16)version forTaskWithIdentifier:(unint64_t)identifier
+{
+  versionCopy = version;
+  identifiersToTasks = self->_identifiersToTasks;
+  v8 = [NSNumber numberWithUnsignedInteger:identifier];
+  v13 = [(NSMutableDictionary *)identifiersToTasks objectForKeyedSubscript:v8];
+
+  identifiersToTaskInfo = self->_identifiersToTaskInfo;
+  v10 = [NSNumber numberWithUnsignedInteger:identifier];
+  v11 = [(NSMutableDictionary *)identifiersToTaskInfo objectForKeyedSubscript:v10];
+
+  [v13 set_TLSMaximumSupportedProtocolVersion:versionCopy];
+  [v11 set_TLSMaximumSupportedProtocolVersion:versionCopy];
+  v12 = [NSNumber numberWithUnsignedInteger:identifier];
+  [(NDBackgroundSession *)self queueUpdatesForTask:v12 updateType:7 highPriority:0];
+}
+
+- (void)setTLSMinimumSupportedProtocolVersion:(unsigned __int16)version forTaskWithIdentifier:(unint64_t)identifier
+{
+  versionCopy = version;
+  identifiersToTasks = self->_identifiersToTasks;
+  v8 = [NSNumber numberWithUnsignedInteger:identifier];
+  v13 = [(NSMutableDictionary *)identifiersToTasks objectForKeyedSubscript:v8];
+
+  identifiersToTaskInfo = self->_identifiersToTaskInfo;
+  v10 = [NSNumber numberWithUnsignedInteger:identifier];
+  v11 = [(NSMutableDictionary *)identifiersToTaskInfo objectForKeyedSubscript:v10];
+
+  [v13 set_TLSMinimumSupportedProtocolVersion:versionCopy];
+  [v11 set_TLSMinimumSupportedProtocolVersion:versionCopy];
+  v12 = [NSNumber numberWithUnsignedInteger:identifier];
+  [(NDBackgroundSession *)self queueUpdatesForTask:v12 updateType:7 highPriority:0];
+}
+
 - (void)setExpectedProgressTarget:(unint64_t)target forTaskWithIdentifier:(unint64_t)identifier
 {
   identifiersToTasks = self->_identifiersToTasks;
@@ -3200,7 +3329,7 @@ LABEL_26:
         v30 = v23;
         if (v29)
         {
-          [v29 auditToken];
+          objc_msgSend_auditToken(v29, v29);
         }
 
         else
@@ -3298,7 +3427,7 @@ LABEL_26:
         v29 = v21;
         if (v21)
         {
-          [v21 auditToken];
+          objc_msgSend_auditToken(v21, v21);
         }
 
         else
@@ -3361,6 +3490,71 @@ LABEL_26:
 
     replyCopy[2](replyCopy, 0);
   }
+}
+
+- (void)performCommonSetupForTask:(id)task taskInfo:(id)info identifier:(unint64_t)identifier discretionaryStatus:(BOOL)status
+{
+  statusCopy = status;
+  taskCopy = task;
+  infoCopy = info;
+  v12 = [(NDBackgroundSession *)self priorityForDiscretionaryStatus:statusCopy];
+  sub_100008C24(taskCopy, v12, self->_monitoredApplication);
+  [taskCopy setTaskIdentifier:identifier];
+  uniqueIdentifier = [infoCopy uniqueIdentifier];
+  [taskCopy set_uniqueIdentifier:uniqueIdentifier];
+
+  storagePartitionIdentifier = [infoCopy storagePartitionIdentifier];
+  [taskCopy set_storagePartitionIdentifier:storagePartitionIdentifier];
+
+  pathToDownloadTaskFile = [infoCopy pathToDownloadTaskFile];
+  [taskCopy set_pathToDownloadTaskFile:pathToDownloadTaskFile];
+
+  [infoCopy setIdentifier:identifier];
+  +[NSDate timeIntervalSinceReferenceDate];
+  [infoCopy setCreationTime:?];
+  [infoCopy setBasePriority:v12];
+  [infoCopy setDiscretionary:statusCopy];
+  if ([(NDApplication *)self->_monitoredApplication hasForegroundBackgroundStates])
+  {
+    v16 = !self->_discretionary;
+  }
+
+  else
+  {
+    v16 = 0;
+  }
+
+  [infoCopy setMayBeDemotedToDiscretionary:v16];
+  [infoCopy setSuspendCount:1];
+  [(NDBackgroundSession *)self setupDASPropertiesOnTask:taskCopy taskInfo:infoCopy discretionaryStatus:statusCopy];
+  [(NDBackgroundSession *)self addOutstandingTaskWithIdentifier:identifier];
+  v17 = [NSNumber numberWithUnsignedInteger:identifier];
+  [(NSMutableDictionary *)self->_tasksToIdentifiers setObject:v17 forKeyedSubscript:taskCopy];
+
+  identifiersToTasks = self->_identifiersToTasks;
+  v19 = [NSNumber numberWithUnsignedInteger:identifier];
+  [(NSMutableDictionary *)identifiersToTasks setObject:taskCopy forKeyedSubscript:v19];
+
+  identifiersToTaskInfo = self->_identifiersToTaskInfo;
+  v21 = [NSNumber numberWithUnsignedInteger:identifier];
+  [(NSMutableDictionary *)identifiersToTaskInfo setObject:infoCopy forKeyedSubscript:v21];
+
+  v22 = qword_1000EB210;
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  {
+    uuid = [(NDBackgroundSession *)self uuid];
+    _loggableDescription = [taskCopy _loggableDescription];
+    v26 = 138543618;
+    v27 = uuid;
+    v28 = 2114;
+    v29 = _loggableDescription;
+    _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "NDSession <%{public}@> %{public}@ enqueueing", &v26, 0x16u);
+  }
+
+  v25 = [NSNumber numberWithUnsignedInteger:identifier];
+  [(NDBackgroundSession *)self queueUpdatesForTask:v25 updateType:14 highPriority:0];
+
+  [(NDBackgroundSession *)self enqueueTaskWithIdentifier:identifier];
 }
 
 - (void)setupDASPropertiesOnTask:(id)task taskInfo:(id)info discretionaryStatus:(BOOL)status
@@ -3806,7 +4000,6 @@ LABEL_11:
   trackerCopy = tracker;
   urlCopy = url;
   [(NSString *)self->_monitoredAppBundleID UTF8String];
-  neTrackerTCCResult = self->_neTrackerTCCResult;
   host = [urlCopy host];
   [host UTF8String];
   v9 = ne_tracker_check_is_hostname_blocked();
@@ -3819,9 +4012,9 @@ LABEL_11:
       uuid = [(NDBackgroundSession *)self uuid];
       _loggableDescription = [trackerCopy _loggableDescription];
       *buf = 138543618;
-      v17 = uuid;
-      v18 = 2114;
-      v19 = _loggableDescription;
+      v16 = uuid;
+      v17 = 2114;
+      v18 = _loggableDescription;
       _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "NDSession <%{public}@> %{public}@ is blocked due to tracker policy", buf, 0x16u);
     }
 
@@ -5002,6 +5195,16 @@ LABEL_8:
   }
 
   return 0;
+}
+
+- (void)handleCompletionOfTask:(id)task identifier:(unint64_t)identifier taskInfo:(id)info isRecoverable:(BOOL)recoverable suppressWake:(BOOL)wake
+{
+  wakeCopy = wake;
+  taskCopy = task;
+  infoCopy = info;
+  [(NDBackgroundSession *)self cancelMonitorForTask:identifier];
+  sub_10006E370(3, self->_clientBundleID, self->_identifier, self->_monitoredAppBundleID, self->_secondaryID, taskCopy, infoCopy, recoverable);
+  [(NDBackgroundSession *)self finalizeTaskCompletionWithSuppressedWake:wakeCopy];
 }
 
 - (void)removeUploadFileForTaskInfo:(id)info
@@ -6208,7 +6411,7 @@ LABEL_19:
         _directoryForDownloadedFiles2 = [v7 _directoryForDownloadedFiles];
         if (v5)
         {
-          [v5 auditToken];
+          objc_msgSend_auditToken(v5);
         }
 
         else
@@ -6292,7 +6495,7 @@ LABEL_19:
     v39 = v38;
     if (v38)
     {
-      [v38 auditToken];
+      objc_msgSend_auditToken(v38);
     }
 
     else
@@ -6833,7 +7036,7 @@ LABEL_19:
     v14 = self->_xpcConn;
     if (v14)
     {
-      [(NSXPCConnection *)v14 auditToken];
+      objc_msgSend_auditToken(v14);
     }
 
     else

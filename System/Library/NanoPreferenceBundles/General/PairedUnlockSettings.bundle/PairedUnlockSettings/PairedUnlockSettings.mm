@@ -177,18 +177,15 @@ LABEL_17:
 void sub_2410(uint64_t a1)
 {
   v2 = [UIAlertView alloc];
-  v3 = *(a1 + 32);
-  v4 = [NSBundle bundleForClass:objc_opt_class()];
-  v5 = [v4 localizedStringForKey:*(a1 + 40) value:&stru_10840 table:@"PasscodeSettings"];
-  v6 = *(a1 + 32);
+  v3 = [NSBundle bundleForClass:objc_opt_class()];
+  v4 = [v3 localizedStringForKey:*(a1 + 40) value:&stru_10840 table:@"PasscodeSettings"];
+  v5 = [NSBundle bundleForClass:objc_opt_class()];
+  v6 = [v5 localizedStringForKey:@"BUSY_TEXT" value:&stru_10840 table:@"PasscodeSettings"];
   v7 = [NSBundle bundleForClass:objc_opt_class()];
-  v8 = [v7 localizedStringForKey:@"BUSY_TEXT" value:&stru_10840 table:@"PasscodeSettings"];
-  v9 = *(a1 + 32);
-  v10 = [NSBundle bundleForClass:objc_opt_class()];
-  v11 = [v10 localizedStringForKey:@"BUSY_OK_BUTTON" value:&stru_10840 table:@"PasscodeSettings"];
-  v12 = [v2 initWithTitle:v5 message:v8 delegate:0 cancelButtonTitle:v11 otherButtonTitles:0];
+  v8 = [v7 localizedStringForKey:@"BUSY_OK_BUTTON" value:&stru_10840 table:@"PasscodeSettings"];
+  v9 = [v2 initWithTitle:v4 message:v6 delegate:0 cancelButtonTitle:v8 otherButtonTitles:0];
 
-  [v12 show];
+  [v9 show];
 }
 
 void sub_2730(uint64_t a1)
@@ -235,22 +232,20 @@ void sub_2808(uint64_t a1)
 void sub_2974(uint64_t a1)
 {
   v2 = [UIAlertView alloc];
-  v3 = *(a1 + 32);
-  v4 = [NSBundle bundleForClass:objc_opt_class()];
-  v5 = [v4 localizedStringForKey:@"ALERT_NEED_UNLOCK_TITLE" value:&stru_10840 table:@"PasscodeSettings"];
-  v6 = *(a1 + 32);
-  v7 = [NSBundle bundleForClass:objc_opt_class()];
-  v8 = [v7 localizedStringForKey:@"ALERT_NEED_UNLOCK_TEXT" value:&stru_10840 table:@"PasscodeSettings"];
-  v9 = *(a1 + 32);
-  v10 = [NSBundle bundleForClass:objc_opt_class()];
-  v11 = [v10 localizedStringForKey:@"ALERT_NEED_UNLOCK_CANCEL" value:&stru_10840 table:@"PasscodeSettings"];
-  v12 = [v2 initWithTitle:v5 message:v8 delegate:v9 cancelButtonTitle:v11 otherButtonTitles:0];
+  v3 = [NSBundle bundleForClass:objc_opt_class()];
+  v4 = [v3 localizedStringForKey:@"ALERT_NEED_UNLOCK_TITLE" value:&stru_10840 table:@"PasscodeSettings"];
+  v5 = [NSBundle bundleForClass:objc_opt_class()];
+  v6 = [v5 localizedStringForKey:@"ALERT_NEED_UNLOCK_TEXT" value:&stru_10840 table:@"PasscodeSettings"];
+  v7 = *(a1 + 32);
+  v8 = [NSBundle bundleForClass:objc_opt_class()];
+  v9 = [v8 localizedStringForKey:@"ALERT_NEED_UNLOCK_CANCEL" value:&stru_10840 table:@"PasscodeSettings"];
+  v10 = [v2 initWithTitle:v4 message:v6 delegate:v7 cancelButtonTitle:v9 otherButtonTitles:0];
 
-  [v12 setDelegate:*(a1 + 32)];
-  [v12 show];
-  v13 = *(a1 + 32);
-  v14 = *(v13 + 136);
-  *(v13 + 136) = v12;
+  [v10 setDelegate:*(a1 + 32)];
+  [v10 show];
+  v11 = *(a1 + 32);
+  v12 = *(v11 + 136);
+  *(v11 + 136) = v10;
 }
 
 id sub_2DD8(uint64_t a1)
@@ -395,9 +390,9 @@ void sub_46D0(uint64_t a1, int a2, void *a3)
   }
 }
 
-void sub_5E60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_5E60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -426,9 +421,9 @@ id sub_5E78()
   return v1;
 }
 
-void sub_5F40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_5F40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -480,7 +475,7 @@ Class sub_6AB8(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -500,7 +495,6 @@ LABEL_4:
 
 uint64_t sub_6BFC(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_153B8 = result;
   return result;
@@ -531,7 +525,7 @@ void *sub_6C70(uint64_t a1)
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -548,7 +542,6 @@ LABEL_5:
 
 uint64_t sub_6DB0(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_153C8 = result;
   return result;
@@ -563,7 +556,7 @@ void sub_7564(uint64_t a1, NSObject *a2)
 
 void sub_7620()
 {
-  dlerror();
-  abort_report_np();
+  v0 = dlerror();
+  abort_report_np("%s", v0);
   sub_7644();
 }

@@ -20,7 +20,7 @@ uint64_t *std::vector<KB::Candidate>::erase(uint64_t a1, uint64_t *a2, uint64_t 
 
     while (v6 != v7)
     {
-      v6 = (v6 - 1000);
+      v6 -= 125;
       KB::Candidate::~Candidate(v6);
     }
 
@@ -30,19 +30,19 @@ uint64_t *std::vector<KB::Candidate>::erase(uint64_t a1, uint64_t *a2, uint64_t 
   return a2;
 }
 
-void KB::FilterInvalidTextReplacement::filter_candidates(KB::FilterInvalidTextReplacement *this, KB::CandidateCollection *a2, const KB::CandidateFilterLookupContext *a3, const KB::CandidateFilterResources *a4)
+void KB::FilterInvalidTextReplacement::filter_candidates(KB::FilterInvalidTextReplacement *this, KB::Candidate **a2, const KB::CandidateFilterLookupContext *a3, const KB::CandidateFilterResources *a4)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  KB::Candidate::capitalized_string(a3, v10);
+  v11 = *MEMORY[0x277D85DE8];
+  KB::Candidate::capitalized_string(&v9, a3);
   v6 = *(a4 + 7);
-  v9[0] = &unk_283FD72D0;
-  v9[1] = v10;
-  v9[3] = v9;
-  KB::CandidateFilter::remove_candidates_satisfying_predicate(a2, v6, "FilterInvalidTextReplacement", v9);
-  std::__function::__value_func<BOOL ()(KB::Candidate const&,KB::String *)>::~__value_func[abi:nn200100](v9);
-  if (v11)
+  v8[0] = &unk_283FD72D0;
+  v8[1] = &v9;
+  v8[3] = v8;
+  KB::CandidateFilter::remove_candidates_satisfying_predicate(a2, v6, "FilterInvalidTextReplacement", v8);
+  std::__function::__value_func<BOOL ()(KB::Candidate const&,KB::String *)>::~__value_func[abi:nn200100](v8);
+  if (v10)
   {
-    v7 = v10[6] == 1;
+    v7 = BYTE6(v9) == 1;
   }
 
   else
@@ -52,23 +52,19 @@ void KB::FilterInvalidTextReplacement::filter_candidates(KB::FilterInvalidTextRe
 
   if (v7)
   {
-    free(v11);
+    free(v10);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t std::__function::__func<KB::FilterInvalidTextReplacement::filter_candidates(KB::CandidateCollection &,KB::CandidateFilterLookupContext const&,KB::CandidateFilterResources const&)::$_0,std::allocator<KB::FilterInvalidTextReplacement::filter_candidates(KB::CandidateCollection &,KB::CandidateFilterLookupContext const&,KB::CandidateFilterResources const&)::$_0>,BOOL ()(KB::Candidate const&,KB::String *)>::operator()(uint64_t a1, const KB::String *a2, KB::String **a3)
 {
-  v22[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   if (!*a2)
   {
-LABEL_9:
-    result = 0;
-    goto LABEL_21;
+    return 0;
   }
 
-  v18 = *a3;
+  v17 = *a3;
   v3 = *(a2 + 1);
   v4 = *(a1 + 8);
   v5 = 240 * *a2;
@@ -79,7 +75,7 @@ LABEL_8:
     v5 -= 240;
     if (!v5)
     {
-      goto LABEL_9;
+      return 0;
     }
   }
 
@@ -91,23 +87,23 @@ LABEL_8:
   v6 = KB::ns_string(v3, a2);
   v7 = [MEMORY[0x277CCA900] letterCharacterSet];
   v8 = [v6 stringByTrimmingCharactersInSet:v7];
-  if (![v8 length] || (KB::ns_string(v4, v9), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "stringByTrimmingCharactersInSet:", v7), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v8, "isEqualToString:", v11), v11, v10, v12))
+  if (![v8 length] || (KB::ns_string(v4, v9), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "stringByTrimmingCharactersInSet:", v7), v11 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v8), v11, v10, isEqualToString))
   {
 
     goto LABEL_8;
   }
 
 LABEL_11:
-  if (v18)
+  if (v17)
   {
-    KB::Candidate::capitalized_string(a2, v19);
-    v14 = v21;
-    if (!v21)
+    KB::Candidate::capitalized_string(&v18, a2);
+    v14 = v19;
+    if (!v19)
     {
-      v14 = v22;
+      v14 = v20;
     }
 
-    if (v19[0])
+    if (v18)
     {
       v15 = v14;
     }
@@ -117,17 +113,17 @@ LABEL_11:
       v15 = "";
     }
 
-    KB::String::append_format(v18, "Candidate '%s' contains invalid text replacement", v15);
-    if (v21 && v20 == 1)
+    KB::String::append_format(v17, "Candidate '%s' contains invalid text replacement", v15);
+    if (v19)
     {
-      free(v21);
+      if (BYTE6(v18) == 1)
+      {
+        free(v19);
+      }
     }
   }
 
-  result = 1;
-LABEL_21:
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 uint64_t std::__function::__func<KB::FilterInvalidTextReplacement::filter_candidates(KB::CandidateCollection &,KB::CandidateFilterLookupContext const&,KB::CandidateFilterResources const&)::$_0,std::allocator<KB::FilterInvalidTextReplacement::filter_candidates(KB::CandidateCollection &,KB::CandidateFilterLookupContext const&,KB::CandidateFilterResources const&)::$_0>,BOOL ()(KB::Candidate const&,KB::String *)>::__clone(uint64_t result, void *a2)
@@ -138,21 +134,19 @@ uint64_t std::__function::__func<KB::FilterInvalidTextReplacement::filter_candid
   return result;
 }
 
-uint64_t KB::FilterWithoutSupplementalWords::filter_candidates(KB::FilterWithoutSupplementalWords *this, KB::CandidateCollection *a2, const KB::CandidateFilterLookupContext *a3, const KB::CandidateFilterResources *a4)
+uint64_t KB::FilterWithoutSupplementalWords::filter_candidates(KB::FilterWithoutSupplementalWords *this, KB::Candidate **a2, const KB::CandidateFilterLookupContext *a3, const KB::CandidateFilterResources *a4)
 {
-  v8[4] = *MEMORY[0x277D85DE8];
+  v7[4] = *MEMORY[0x277D85DE8];
   v5 = *(a4 + 7);
-  v8[0] = &unk_283FD7318;
-  v8[3] = v8;
-  KB::CandidateFilter::remove_candidates_satisfying_predicate(a2, v5, "FilterWithoutSupplementalWords", v8);
-  result = std::__function::__value_func<BOOL ()(KB::Candidate const&,KB::String *)>::~__value_func[abi:nn200100](v8);
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  v7[0] = &unk_283FD7318;
+  v7[3] = v7;
+  KB::CandidateFilter::remove_candidates_satisfying_predicate(a2, v5, "FilterWithoutSupplementalWords", v7);
+  return std::__function::__value_func<BOOL ()(KB::Candidate const&,KB::String *)>::~__value_func[abi:nn200100](v7);
 }
 
 BOOL std::__function::__func<KB::FilterWithoutSupplementalWords::filter_candidates(KB::CandidateCollection &,KB::CandidateFilterLookupContext const&,KB::CandidateFilterResources const&)::$_0,std::allocator<KB::FilterWithoutSupplementalWords::filter_candidates(KB::CandidateCollection &,KB::CandidateFilterLookupContext const&,KB::CandidateFilterResources const&)::$_0>,BOOL ()(KB::Candidate const&,KB::String *)>::operator()(uint64_t a1, KB::Candidate *a2, KB::String **a3)
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   v3 = *a3;
   if (*a2)
   {
@@ -179,7 +173,7 @@ BOOL std::__function::__func<KB::FilterWithoutSupplementalWords::filter_candidat
     while (!v8);
     if (!v3)
     {
-      goto LABEL_20;
+      return !v7;
     }
   }
 
@@ -188,20 +182,20 @@ BOOL std::__function::__func<KB::FilterWithoutSupplementalWords::filter_candidat
     v7 = 0;
     if (!v3)
     {
-      goto LABEL_20;
+      return !v7;
     }
   }
 
   if (!v7)
   {
-    KB::Candidate::capitalized_string(a2, v13);
-    v9 = v15;
-    if (!v15)
+    KB::Candidate::capitalized_string(&v12, a2);
+    v9 = v13;
+    if (!v13)
     {
-      v9 = v16;
+      v9 = v14;
     }
 
-    if (v13[0])
+    if (v12)
     {
       v10 = v9;
     }
@@ -212,98 +206,94 @@ BOOL std::__function::__func<KB::FilterWithoutSupplementalWords::filter_candidat
     }
 
     KB::String::append_format(v3, "Candidate '%s' does not contain supplemental lexicons", v10);
-    if (v15 && v14 == 1)
+    if (v13 && BYTE6(v12) == 1)
     {
-      free(v15);
+      free(v13);
     }
   }
 
-LABEL_20:
-  v11 = *MEMORY[0x277D85DE8];
   return !v7;
 }
 
-uint64_t KB::FilterPartOfHyphenatedWord::filter_candidates(KB::FilterPartOfHyphenatedWord *this, KB::CandidateCollection *a2, const KB::CandidateFilterLookupContext *a3, const KB::CandidateFilterResources *a4)
+uint64_t KB::FilterPartOfHyphenatedWord::filter_candidates(KB::FilterPartOfHyphenatedWord *this, KB::Candidate **a2, const KB::CandidateFilterLookupContext *a3, const KB::CandidateFilterResources *a4)
 {
-  v7[4] = *MEMORY[0x277D85DE8];
+  v6[4] = *MEMORY[0x277D85DE8];
   if ((*(a3 + 3173) & 1) == 0)
   {
     v4 = *(a4 + 7);
-    v7[0] = &unk_283FD7360;
-    v7[3] = v7;
-    KB::CandidateFilter::remove_candidates_satisfying_predicate(a2, v4, "FilterPartOfHyphenatedWord", v7);
-    result = std::__function::__value_func<BOOL ()(KB::Candidate const&,KB::String *)>::~__value_func[abi:nn200100](v7);
+    v6[0] = &unk_283FD7360;
+    v6[3] = v6;
+    KB::CandidateFilter::remove_candidates_satisfying_predicate(a2, v4, "FilterPartOfHyphenatedWord", v6);
+    return std::__function::__value_func<BOOL ()(KB::Candidate const&,KB::String *)>::~__value_func[abi:nn200100](v6);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t std::__function::__func<KB::FilterPartOfHyphenatedWord::filter_candidates(KB::CandidateCollection &,KB::CandidateFilterLookupContext const&,KB::CandidateFilterResources const&)::$_0,std::allocator<KB::FilterPartOfHyphenatedWord::filter_candidates(KB::CandidateCollection &,KB::CandidateFilterLookupContext const&,KB::CandidateFilterResources const&)::$_0>,BOOL ()(KB::Candidate const&,KB::String *)>::operator()(uint64_t a1, KB::Candidate *a2, KB::String **a3)
 {
-  v16[2] = *MEMORY[0x277D85DE8];
-  if (*a2)
+  v14[2] = *MEMORY[0x277D85DE8];
+  if (!*a2)
   {
-    v3 = *a3;
-    v4 = 240 * *a2 - 240;
-    v5 = (*(a2 + 1) + 104);
-    do
-    {
-      v7 = *v5;
-      v5 += 60;
-      v6 = v7;
-      if ((v7 & 0x10) != 0)
-      {
-        break;
-      }
-
-      v8 = v4;
-      v4 -= 240;
-    }
-
-    while (v8);
-    result = (v6 >> 4) & 1;
-    if (v3 && (v6 & 0x10) != 0)
-    {
-      KB::Candidate::capitalized_string(a2, v13);
-      v10 = v15;
-      if (!v15)
-      {
-        v10 = v16;
-      }
-
-      if (v13[0])
-      {
-        v11 = v10;
-      }
-
-      else
-      {
-        v11 = "";
-      }
-
-      KB::String::append_format(v3, "Candidate '%s' is an incomplete hyphenated word", v11);
-      if (v15 && v14 == 1)
-      {
-        free(v15);
-      }
-
-      result = 1;
-    }
+    return 0;
   }
 
-  else
+  v3 = *a3;
+  v4 = 240 * *a2 - 240;
+  v5 = (*(a2 + 1) + 104);
+  do
   {
-    result = 0;
+    v7 = *v5;
+    v5 += 60;
+    v6 = v7;
+    if ((v7 & 0x10) != 0)
+    {
+      break;
+    }
+
+    v8 = v4;
+    v4 -= 240;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
+  while (v8);
+  result = (v6 >> 4) & 1;
+  if (v3 && (v6 & 0x10) != 0)
+  {
+    KB::Candidate::capitalized_string(&v12, a2);
+    v10 = v13;
+    if (!v13)
+    {
+      v10 = v14;
+    }
+
+    if (v12)
+    {
+      v11 = v10;
+    }
+
+    else
+    {
+      v11 = "";
+    }
+
+    KB::String::append_format(v3, "Candidate '%s' is an incomplete hyphenated word", v11);
+    if (v13)
+    {
+      if (BYTE6(v12) == 1)
+      {
+        free(v13);
+      }
+    }
+
+    return 1;
+  }
+
   return result;
 }
 
-void KB::FilterCommonLearnedTypos::filter_candidates(KB::FilterCommonLearnedTypos *this, KB::CandidateCollection *a2, KB::Word **a3, const KB::CandidateFilterResources *a4)
+void KB::FilterCommonLearnedTypos::filter_candidates(KB::FilterCommonLearnedTypos *this, KB::Candidate **a2, KB::Word **a3, const KB::CandidateFilterResources *a4)
 {
-  v93 = *MEMORY[0x277D85DE8];
+  v91 = *MEMORY[0x277D85DE8];
   v8 = *(this + 8);
   if (v8)
   {
@@ -413,177 +403,177 @@ LABEL_15:
 
   v22 = v21;
   v23 = *(this + 7);
-  if (!v23 || (v24 = *(this + 2), (*(*v23 + 232))(&v90), (v25 = v90) == 0))
+  if (!v23 || ((*(*v23 + 232))(&v88), (v24 = v88) == 0))
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v22);
     goto LABEL_88;
   }
 
-  v26 = v25;
-  v27 = [v25 objectForKeyedSubscript:*MEMORY[0x277D23128]];
-  v28 = v27;
-  if (!v27)
+  v25 = v24;
+  v26 = [v24 objectForKeyedSubscript:*MEMORY[0x277D23128]];
+  v27 = v26;
+  if (!v26)
   {
     goto LABEL_84;
   }
 
-  if (![v27 count])
+  if (![v26 count])
   {
     goto LABEL_84;
   }
 
-  v29 = [v28 objectAtIndexedSubscript:0];
+  v28 = [v27 objectAtIndexedSubscript:0];
+  if (!v28)
+  {
+    goto LABEL_84;
+  }
+
+  v68 = v28;
+  v29 = [v28 objectForKeyedSubscript:@"URL"];
   if (!v29)
-  {
-    goto LABEL_84;
-  }
-
-  v70 = v29;
-  v30 = [v29 objectForKeyedSubscript:@"URL"];
-  if (!v30)
   {
     goto LABEL_83;
   }
 
-  v64 = v28;
-  v65 = v22;
-  v66 = a4;
-  v67 = a3;
-  v68 = a2;
-  v69 = v9;
-  v63 = v30;
-  v31 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfURL:v30];
-  *v84 = 0u;
+  v62 = v27;
+  v63 = v22;
+  v64 = a4;
+  v65 = a3;
+  v66 = a2;
+  v67 = v9;
+  v61 = v29;
+  v30 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfURL:v29];
+  *v82 = 0u;
+  v83 = 0u;
+  v84 = 0u;
   v85 = 0u;
-  v86 = 0u;
-  v87 = 0u;
-  v72 = [v31 countByEnumeratingWithState:v84 objects:&v90 count:16];
-  if (!v72)
+  v70 = [v30 countByEnumeratingWithState:v82 objects:&v88 count:16];
+  if (!v70)
   {
     goto LABEL_82;
   }
 
-  v71 = *v85;
+  v69 = *v83;
   do
   {
-    for (j = 0; j != v72; ++j)
+    for (j = 0; j != v70; ++j)
     {
-      if (*v85 != v71)
+      if (*v83 != v69)
       {
-        objc_enumerationMutation(v31);
+        objc_enumerationMutation(v30);
       }
 
-      v33 = *(v84[1] + j);
+      v32 = *(v82[1] + j);
       *__n = 0u;
-      v82 = 0u;
-      v83 = 1065353216;
-      v34 = [v31 objectForKeyedSubscript:v33];
+      v80 = 0u;
+      v81 = 1065353216;
+      v33 = [v30 objectForKeyedSubscript:v32];
       objc_opt_class();
       isKindOfClass = objc_opt_isKindOfClass();
 
       if (isKindOfClass)
       {
-        v36 = [v31 objectForKeyedSubscript:v33];
+        v35 = [v30 objectForKeyedSubscript:v32];
+        v75 = 0u;
+        v76 = 0u;
         v77 = 0u;
         v78 = 0u;
-        v79 = 0u;
-        v80 = 0u;
-        v37 = [v36 countByEnumeratingWithState:&v77 objects:&v89 count:16];
-        if (v37)
+        v36 = [v35 countByEnumeratingWithState:&v75 objects:&v87 count:16];
+        if (v36)
         {
-          v38 = v37;
-          v39 = *v78;
+          v37 = v36;
+          v38 = *v76;
           do
           {
-            for (k = 0; k != v38; ++k)
+            for (k = 0; k != v37; ++k)
             {
-              if (*v78 != v39)
+              if (*v76 != v38)
               {
-                objc_enumerationMutation(v36);
+                objc_enumerationMutation(v35);
               }
 
-              std::string::basic_string[abi:nn200100]<0>(__p, [*(*(&v77 + 1) + 8 * k) UTF8String]);
-              std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(__n, __p);
-              if (v74 < 0)
+              std::string::basic_string[abi:nn200100]<0>(__p, [*(*(&v75 + 1) + 8 * k) UTF8String]);
+              std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(__n, __p, __p);
+              if (v72 < 0)
               {
                 operator delete(__p[0]);
               }
             }
 
-            v38 = [v36 countByEnumeratingWithState:&v77 objects:&v89 count:16];
+            v37 = [v35 countByEnumeratingWithState:&v75 objects:&v87 count:16];
           }
 
-          while (v38);
+          while (v37);
         }
       }
 
       else
       {
-        v36 = [v31 objectForKeyedSubscript:v33];
-        std::string::basic_string[abi:nn200100]<0>(__p, [v36 UTF8String]);
-        std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(__n, __p);
-        if (v74 < 0)
+        v35 = [v30 objectForKeyedSubscript:v32];
+        std::string::basic_string[abi:nn200100]<0>(__p, [v35 UTF8String]);
+        std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(__n, __p, __p);
+        if (v72 < 0)
         {
           operator delete(__p[0]);
         }
       }
 
-      std::string::basic_string[abi:nn200100]<0>(__p, [v33 UTF8String]);
-      memset(v75, 0, sizeof(v75));
-      v76 = v83;
-      std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__rehash<true>(v75, __n[1]);
-      for (m = v82; m; m = *m)
+      std::string::basic_string[abi:nn200100]<0>(__p, [v32 UTF8String]);
+      memset(v73, 0, sizeof(v73));
+      v74 = v81;
+      std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__rehash<true>(v73, __n[1]);
+      for (m = v80; m; m = *m)
       {
-        std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(v75, (m + 2));
+        std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(v73, (m + 2), (m + 2));
       }
 
-      if ((v74 & 0x80u) == 0)
+      if ((v72 & 0x80u) == 0)
       {
-        v42 = __p;
-      }
-
-      else
-      {
-        v42 = __p[0];
-      }
-
-      if ((v74 & 0x80u) == 0)
-      {
-        v43 = v74;
+        v41 = __p;
       }
 
       else
       {
-        v43 = __p[1];
+        v41 = __p[0];
       }
 
-      v44 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v42, v43);
-      v45 = v44;
-      v46 = *(this + 24);
-      if (!*&v46)
+      if ((v72 & 0x80u) == 0)
+      {
+        v42 = v72;
+      }
+
+      else
+      {
+        v42 = __p[1];
+      }
+
+      v43 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v41, v42);
+      v44 = v43;
+      v45 = *(this + 24);
+      if (!*&v45)
       {
         goto LABEL_77;
       }
 
-      v47 = vcnt_s8(v46);
-      v47.i16[0] = vaddlv_u8(v47);
-      v48 = v47.u32[0];
-      if (v47.u32[0] > 1uLL)
+      v46 = vcnt_s8(v45);
+      v46.i16[0] = vaddlv_u8(v46);
+      v47 = v46.u32[0];
+      if (v46.u32[0] > 1uLL)
       {
-        v49 = v44;
-        if (v44 >= *&v46)
+        v48 = v43;
+        if (v43 >= *&v45)
         {
-          v49 = v44 % *&v46;
+          v48 = v43 % *&v45;
         }
       }
 
       else
       {
-        v49 = (*&v46 - 1) & v44;
+        v48 = (*&v45 - 1) & v43;
       }
 
-      v50 = *(*(this + 2) + 8 * v49);
-      if (!v50 || (v51 = *v50) == 0)
+      v49 = *(*(this + 2) + 8 * v48);
+      if (!v49 || (v50 = *v49) == 0)
       {
 LABEL_77:
         operator new();
@@ -591,45 +581,45 @@ LABEL_77:
 
       while (1)
       {
-        v52 = v51[1];
-        if (v52 == v45)
+        v51 = v50[1];
+        if (v51 == v44)
         {
           break;
         }
 
-        if (v48 > 1)
+        if (v47 > 1)
         {
-          if (v52 >= *&v46)
+          if (v51 >= *&v45)
           {
-            v52 %= *&v46;
+            v51 %= *&v45;
           }
         }
 
         else
         {
-          v52 &= *&v46 - 1;
+          v51 &= *&v45 - 1;
         }
 
-        if (v52 != v49)
+        if (v51 != v48)
         {
           goto LABEL_77;
         }
 
 LABEL_76:
-        v51 = *v51;
-        if (!v51)
+        v50 = *v50;
+        if (!v50)
         {
           goto LABEL_77;
         }
       }
 
-      if (!std::equal_to<std::string>::operator()[abi:nn200100](v51 + 2, __p))
+      if (!std::equal_to<std::string>::operator()[abi:nn200100](v50 + 2, __p))
       {
         goto LABEL_76;
       }
 
-      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(v75);
-      if (v74 < 0)
+      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(v73);
+      if (v72 < 0)
       {
         operator delete(__p[0]);
       }
@@ -637,119 +627,117 @@ LABEL_76:
       std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(__n);
     }
 
-    v72 = [v31 countByEnumeratingWithState:v84 objects:&v90 count:16];
+    v70 = [v30 countByEnumeratingWithState:v82 objects:&v88 count:16];
   }
 
-  while (v72);
+  while (v70);
 LABEL_82:
 
-  a2 = v68;
-  v9 = v69;
-  a4 = v66;
-  a3 = v67;
-  v22 = v65;
-  v30 = v63;
-  v28 = v64;
+  a2 = v66;
+  v9 = v67;
+  a4 = v64;
+  a3 = v65;
+  v22 = v63;
+  v29 = v61;
+  v27 = v62;
 LABEL_83:
 
 LABEL_84:
   std::__shared_weak_count::__release_shared[abi:nn200100](v22);
-  CFRelease(v26);
+  CFRelease(v25);
 LABEL_88:
-  v90 = 0u;
-  v91 = 0u;
-  v92 = 1065353216;
+  v88 = 0u;
+  v89 = 0u;
+  v90 = 1065353216;
   if (*a3)
   {
-    v53 = a4;
-    v54 = a3[1];
-    v55 = (v54 + 240 * *a3);
+    v52 = a4;
+    v53 = a3[1];
+    v54 = (v53 + 240 * *a3);
     do
     {
-      KB::Word::capitalized_string(v54, &v89);
-      size = v89.__r_.__value_.__l.__size_;
-      if (!v89.__r_.__value_.__l.__size_)
+      KB::Word::capitalized_string(&v87, v53);
+      size = v87.__r_.__value_.__l.__size_;
+      if (!v87.__r_.__value_.__l.__size_)
       {
-        size = &v89.__r_.__value_.__s.__data_[16];
+        size = &v87.__r_.__value_.__s.__data_[16];
       }
 
-      if (LOWORD(v89.__r_.__value_.__l.__data_))
+      if (LOWORD(v87.__r_.__value_.__l.__data_))
       {
-        v57 = size;
-      }
-
-      else
-      {
-        v57 = "";
-      }
-
-      std::string::basic_string[abi:nn200100]<0>(v84, v57);
-      if (v89.__r_.__value_.__l.__size_)
-      {
-        v58 = v89.__r_.__value_.__s.__data_[6] == 1;
+        v56 = size;
       }
 
       else
       {
-        v58 = 0;
+        v56 = "";
       }
 
+      std::string::basic_string[abi:nn200100]<0>(v82, v56);
+      if (v87.__r_.__value_.__l.__size_)
+      {
+        v57 = v87.__r_.__value_.__s.__data_[6] == 1;
+      }
+
+      else
+      {
+        v57 = 0;
+      }
+
+      if (v57)
+      {
+        free(v87.__r_.__value_.__l.__size_);
+      }
+
+      v58 = std::__hash_table<std::__hash_value_type<std::string,std::unordered_set<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_set<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_set<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_set<std::string>>>>::find<std::string>(this + 2, v82);
       if (v58)
       {
-        free(v89.__r_.__value_.__l.__size_);
-      }
-
-      v59 = std::__hash_table<std::__hash_value_type<std::string,std::unordered_set<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_set<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_set<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_set<std::string>>>>::find<std::string>(this + 2, v84);
-      if (v59)
-      {
-        for (n = v59[7]; n; n = *n)
+        for (n = v58[7]; n; n = *n)
         {
           if (*(n + 39) < 0)
           {
-            std::string::__init_copy_ctor_external(&v89, n[2], n[3]);
+            std::string::__init_copy_ctor_external(&v87, n[2], n[3]);
           }
 
           else
           {
-            v89 = *(n + 2);
+            v87 = *(n + 2);
           }
 
-          std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(&v90, &v89);
-          if (SHIBYTE(v89.__r_.__value_.__r.__words[2]) < 0)
+          std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(&v88, &v87, &v87);
+          if (SHIBYTE(v87.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v89.__r_.__value_.__l.__data_);
+            operator delete(v87.__r_.__value_.__l.__data_);
           }
         }
       }
 
-      if (SBYTE7(v85) < 0)
+      if (SBYTE7(v83) < 0)
       {
-        operator delete(v84[0]);
+        operator delete(v82[0]);
       }
 
-      v54 = (v54 + 240);
+      v53 = (v53 + 240);
     }
 
-    while (v54 != v55);
-    if (*(&v91 + 1))
+    while (v53 != v54);
+    if (*(&v89 + 1))
     {
-      v61 = *(v53 + 7);
-      v88[0] = &unk_283FD73A8;
-      v88[1] = &v90;
-      v88[2] = a3;
-      v88[3] = v88;
-      KB::CandidateFilter::remove_candidates_satisfying_predicate(a2, v61, "FilterCommonLearnedTypos", v88);
-      std::__function::__value_func<BOOL ()(KB::Candidate const&,KB::String *)>::~__value_func[abi:nn200100](v88);
+      v60 = *(v52 + 7);
+      v86[0] = &unk_283FD73A8;
+      v86[1] = &v88;
+      v86[2] = a3;
+      v86[3] = v86;
+      KB::CandidateFilter::remove_candidates_satisfying_predicate(a2, v60, "FilterCommonLearnedTypos", v86);
+      std::__function::__value_func<BOOL ()(KB::Candidate const&,KB::String *)>::~__value_func[abi:nn200100](v86);
     }
   }
 
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(&v90);
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(&v88);
   if (v9)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v9);
   }
-
-  v62 = *MEMORY[0x277D85DE8];
 }
 
 void *std::__hash_table<std::__hash_value_type<std::string,std::unordered_set<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_set<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_set<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_set<std::string>>>>::find<std::string>(void *a1, uint64_t a2)
@@ -850,56 +838,56 @@ void *std::__hash_table<std::__hash_value_type<std::string,std::unordered_set<st
   return v14;
 }
 
-BOOL std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(void *a1, uint64_t a2)
+void std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(void *a1, uint64_t a2, uint64_t a3)
 {
-  v4 = *(a2 + 23);
-  if (v4 >= 0)
+  v5 = *(a2 + 23);
+  if (v5 >= 0)
   {
-    v5 = a2;
+    v6 = a2;
   }
 
   else
   {
-    v5 = *a2;
+    v6 = *a2;
   }
 
-  if (v4 >= 0)
+  if (v5 >= 0)
   {
-    v6 = *(a2 + 23);
+    v7 = *(a2 + 23);
   }
 
   else
   {
-    v6 = *(a2 + 8);
+    v7 = *(a2 + 8);
   }
 
-  v7 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v5, v6);
-  v8 = v7;
-  v9 = a1[1];
-  if (!*&v9)
+  v8 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v6, v7);
+  v9 = v8;
+  v10 = a1[1];
+  if (!*&v10)
   {
     goto LABEL_24;
   }
 
-  v10 = vcnt_s8(v9);
-  v10.i16[0] = vaddlv_u8(v10);
-  v11 = v10.u32[0];
-  if (v10.u32[0] > 1uLL)
+  v11 = vcnt_s8(v10);
+  v11.i16[0] = vaddlv_u8(v11);
+  v12 = v11.u32[0];
+  if (v11.u32[0] > 1uLL)
   {
-    v12 = v7;
-    if (v7 >= *&v9)
+    v13 = v8;
+    if (v8 >= *&v10)
     {
-      v12 = v7 % *&v9;
+      v13 = v8 % *&v10;
     }
   }
 
   else
   {
-    v12 = (*&v9 - 1) & v7;
+    v13 = (*&v10 - 1) & v8;
   }
 
-  v13 = *(*a1 + 8 * v12);
-  if (!v13 || (v14 = *v13) == 0)
+  v14 = *(*a1 + 8 * v13);
+  if (!v14 || (v15 = *v14) == 0)
   {
 LABEL_24:
     operator new();
@@ -907,45 +895,42 @@ LABEL_24:
 
   while (1)
   {
-    v15 = v14[1];
-    if (v15 == v8)
+    v16 = v15[1];
+    if (v16 == v9)
     {
       break;
     }
 
-    if (v11 > 1)
+    if (v12 > 1)
     {
-      if (v15 >= *&v9)
+      if (v16 >= *&v10)
       {
-        v15 %= *&v9;
+        v16 %= *&v10;
       }
     }
 
     else
     {
-      v15 &= *&v9 - 1;
+      v16 &= *&v10 - 1;
     }
 
-    if (v15 != v12)
+    if (v16 != v13)
     {
       goto LABEL_24;
     }
 
 LABEL_23:
-    v14 = *v14;
-    if (!v14)
+    v15 = *v15;
+    if (!v15)
     {
       goto LABEL_24;
     }
   }
 
-  result = std::equal_to<std::string>::operator()[abi:nn200100](v14 + 2, a2);
-  if (!result)
+  if (!std::equal_to<std::string>::operator()[abi:nn200100](v15 + 2, a2))
   {
     goto LABEL_23;
   }
-
-  return result;
 }
 
 uint64_t std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(uint64_t a1)
@@ -980,116 +965,112 @@ uint64_t std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std:
 
 uint64_t std::__function::__func<KB::FilterCommonLearnedTypos::filter_candidates(KB::CandidateCollection &,KB::CandidateFilterLookupContext const&,KB::CandidateFilterResources const&)::$_0,std::allocator<KB::FilterCommonLearnedTypos::filter_candidates(KB::CandidateCollection &,KB::CandidateFilterLookupContext const&,KB::CandidateFilterResources const&)::$_0>,BOOL ()(KB::Candidate const&,KB::String *)>::operator()(uint64_t a1, KB::Candidate *a2, KB::String **a3)
 {
-  v24[2] = *MEMORY[0x277D85DE8];
-  if (*a2)
+  v22[2] = *MEMORY[0x277D85DE8];
+  if (!*a2)
   {
-    v5 = *a3;
-    v6 = *(a2 + 1);
-    v7 = *(a1 + 8);
-    v8 = 240 * *a2;
-    while (1)
+    return 0;
+  }
+
+  v5 = *a3;
+  v6 = *(a2 + 1);
+  v7 = *(a1 + 8);
+  v8 = 240 * *a2;
+  while (1)
+  {
+    KB::Word::capitalized_string(&v20, v6);
+    v9 = v21;
+    if (!v21)
     {
-      KB::Word::capitalized_string(v6, v21);
-      v9 = v23;
-      if (!v23)
-      {
-        v9 = v24;
-      }
-
-      if (v21[0])
-      {
-        v10 = v9;
-      }
-
-      else
-      {
-        v10 = "";
-      }
-
-      std::string::basic_string[abi:nn200100]<0>(&__p, v10);
-      v11 = std::__hash_table<std::__hash_value_type<std::string,std::unordered_set<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_set<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_set<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_set<std::string>>>>::find<std::string>(v7, &__p);
-      if ((v20[7] & 0x80000000) != 0)
-      {
-        operator delete(__p);
-      }
-
-      if (v23 && v22 == 1)
-      {
-        free(v23);
-      }
-
-      if (v11)
-      {
-        break;
-      }
-
-      v6 = (v6 + 240);
-      v8 -= 240;
-      if (!v8)
-      {
-        goto LABEL_15;
-      }
+      v9 = v22;
     }
 
-    if (v5)
+    if (v20)
     {
-      KB::Candidate::capitalized_string(a2, v21);
-      v13 = v23;
-      if (!v23)
-      {
-        v13 = v24;
-      }
+      v10 = v9;
+    }
 
-      if (v21[0])
-      {
-        v14 = v13;
-      }
+    else
+    {
+      v10 = "";
+    }
 
-      else
-      {
-        v14 = "";
-      }
+    std::string::basic_string[abi:nn200100]<0>(&__p, v10);
+    v11 = std::__hash_table<std::__hash_value_type<std::string,std::unordered_set<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_set<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_set<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_set<std::string>>>>::find<std::string>(v7, &__p);
+    if ((v19[7] & 0x80000000) != 0)
+    {
+      operator delete(__p);
+    }
 
-      KB::Candidate::capitalized_string(*(a1 + 16), &__p);
+    if (v21 && BYTE6(v20) == 1)
+    {
+      free(v21);
+    }
+
+    if (v11)
+    {
+      break;
+    }
+
+    v6 = (v6 + 240);
+    v8 -= 240;
+    if (!v8)
+    {
+      return 0;
+    }
+  }
+
+  if (v5)
+  {
+    KB::Candidate::capitalized_string(&v20, a2);
+    v13 = v21;
+    if (!v21)
+    {
+      v13 = v22;
+    }
+
+    if (v20)
+    {
+      v14 = v13;
+    }
+
+    else
+    {
+      v14 = "";
+    }
+
+    KB::Candidate::capitalized_string(&__p, *(a1 + 16));
+    v15 = v18;
+    if (!v18)
+    {
       v15 = v19;
-      if (!v19)
-      {
-        v15 = v20;
-      }
-
-      if (__p)
-      {
-        v16 = v15;
-      }
-
-      else
-      {
-        v16 = "";
-      }
-
-      KB::String::append_format(v5, "Candidate '%s' & user input '%s' is/has a known pair of autocorrection candidates to avoid", v14, v16);
-      if (v19 && BYTE6(__p) == 1)
-      {
-        free(v19);
-      }
-
-      if (v23 && v22 == 1)
-      {
-        free(v23);
-      }
     }
 
-    result = 1;
+    if (__p)
+    {
+      v16 = v15;
+    }
+
+    else
+    {
+      v16 = "";
+    }
+
+    KB::String::append_format(v5, "Candidate '%s' & user input '%s' is/has a known pair of autocorrection candidates to avoid", v14, v16);
+    if (v18 && BYTE6(__p) == 1)
+    {
+      free(v18);
+    }
+
+    if (v21)
+    {
+      if (BYTE6(v20) == 1)
+      {
+        free(v21);
+      }
+    }
   }
 
-  else
-  {
-LABEL_15:
-    result = 0;
-  }
-
-  v17 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 BOOL std::equal_to<std::string>::operator()[abi:nn200100](void *a1, void *a2)
@@ -1122,7 +1103,6 @@ BOOL std::equal_to<std::string>::operator()[abi:nn200100](void *a1, void *a2)
     a1 = *a1;
   }
 
-  v6 = *a2;
   if (v5 < 0)
   {
     a2 = *a2;
@@ -1139,56 +1119,56 @@ __n128 std::__function::__func<KB::FilterCommonLearnedTypos::filter_candidates(K
   return result;
 }
 
-BOOL std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(void *a1, uint64_t a2)
+void std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(void *a1, uint64_t a2, uint64_t a3)
 {
-  v4 = *(a2 + 23);
-  if (v4 >= 0)
+  v5 = *(a2 + 23);
+  if (v5 >= 0)
   {
-    v5 = a2;
+    v6 = a2;
   }
 
   else
   {
-    v5 = *a2;
+    v6 = *a2;
   }
 
-  if (v4 >= 0)
+  if (v5 >= 0)
   {
-    v6 = *(a2 + 23);
+    v7 = *(a2 + 23);
   }
 
   else
   {
-    v6 = *(a2 + 8);
+    v7 = *(a2 + 8);
   }
 
-  v7 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v5, v6);
-  v8 = v7;
-  v9 = a1[1];
-  if (!*&v9)
+  v8 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v6, v7);
+  v9 = v8;
+  v10 = a1[1];
+  if (!*&v10)
   {
     goto LABEL_24;
   }
 
-  v10 = vcnt_s8(v9);
-  v10.i16[0] = vaddlv_u8(v10);
-  v11 = v10.u32[0];
-  if (v10.u32[0] > 1uLL)
+  v11 = vcnt_s8(v10);
+  v11.i16[0] = vaddlv_u8(v11);
+  v12 = v11.u32[0];
+  if (v11.u32[0] > 1uLL)
   {
-    v12 = v7;
-    if (v7 >= *&v9)
+    v13 = v8;
+    if (v8 >= *&v10)
     {
-      v12 = v7 % *&v9;
+      v13 = v8 % *&v10;
     }
   }
 
   else
   {
-    v12 = (*&v9 - 1) & v7;
+    v13 = (*&v10 - 1) & v8;
   }
 
-  v13 = *(*a1 + 8 * v12);
-  if (!v13 || (v14 = *v13) == 0)
+  v14 = *(*a1 + 8 * v13);
+  if (!v14 || (v15 = *v14) == 0)
   {
 LABEL_24:
     operator new();
@@ -1196,45 +1176,42 @@ LABEL_24:
 
   while (1)
   {
-    v15 = v14[1];
-    if (v15 == v8)
+    v16 = v15[1];
+    if (v16 == v9)
     {
       break;
     }
 
-    if (v11 > 1)
+    if (v12 > 1)
     {
-      if (v15 >= *&v9)
+      if (v16 >= *&v10)
       {
-        v15 %= *&v9;
+        v16 %= *&v10;
       }
     }
 
     else
     {
-      v15 &= *&v9 - 1;
+      v16 &= *&v10 - 1;
     }
 
-    if (v15 != v12)
+    if (v16 != v13)
     {
       goto LABEL_24;
     }
 
 LABEL_23:
-    v14 = *v14;
-    if (!v14)
+    v15 = *v15;
+    if (!v15)
     {
       goto LABEL_24;
     }
   }
 
-  result = std::equal_to<std::string>::operator()[abi:nn200100](v14 + 2, a2);
-  if (!result)
+  if (!std::equal_to<std::string>::operator()[abi:nn200100](v15 + 2, a2))
   {
     goto LABEL_23;
   }
-
-  return result;
 }
 
 uint64_t std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__hash_table(uint64_t result, uint64_t *a2)
@@ -1337,9 +1314,9 @@ uint64_t std::__hash_table<std::__hash_value_type<std::string,std::unordered_set
   return a1;
 }
 
-uint64_t KB::FilterAppNames::filter_candidates(KB::FilterAppNames *this, KB::CandidateCollection *a2, const KB::CandidateFilterLookupContext *a3, const KB::CandidateFilterResources *a4)
+uint64_t KB::FilterAppNames::filter_candidates(KB::FilterAppNames *this, KB::Candidate **a2, const KB::CandidateFilterLookupContext *a3, const KB::CandidateFilterResources *a4)
 {
-  v12[4] = *MEMORY[0x277D85DE8];
+  v11[4] = *MEMORY[0x277D85DE8];
   v7 = *(a4 + 2);
   if (v7)
   {
@@ -1349,78 +1326,72 @@ uint64_t KB::FilterAppNames::filter_candidates(KB::FilterAppNames *this, KB::Can
   v8 = *(v7 + 8) + 144;
   WTF::RefCounted<KB::DictionaryContainer>::deref(v7);
   v9 = *(a4 + 7);
-  v12[0] = &unk_283FD73F0;
-  v12[1] = v8;
-  v12[2] = a3;
-  v12[3] = v12;
-  KB::CandidateFilter::remove_candidates_satisfying_predicate(a2, v9, "FilterAppNames", v12);
-  result = std::__function::__value_func<BOOL ()(KB::Candidate const&,KB::String *)>::~__value_func[abi:nn200100](v12);
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  v11[0] = &unk_283FD73F0;
+  v11[1] = v8;
+  v11[2] = a3;
+  v11[3] = v11;
+  KB::CandidateFilter::remove_candidates_satisfying_predicate(a2, v9, "FilterAppNames", v11);
+  return std::__function::__value_func<BOOL ()(KB::Candidate const&,KB::String *)>::~__value_func[abi:nn200100](v11);
 }
 
-uint64_t std::__function::__func<KB::FilterAppNames::filter_candidates(KB::CandidateCollection &,KB::CandidateFilterLookupContext const&,KB::CandidateFilterResources const&)::$_0,std::allocator<KB::FilterAppNames::filter_candidates(KB::CandidateCollection &,KB::CandidateFilterLookupContext const&,KB::CandidateFilterResources const&)::$_0>,BOOL ()(KB::Candidate const&,KB::String *)>::operator()(uint64_t a1, KB::Candidate *a2, KB::String **a3)
+uint64_t std::__function::__func<KB::FilterAppNames::filter_candidates(KB::CandidateCollection &,KB::CandidateFilterLookupContext const&,KB::CandidateFilterResources const&)::$_0,std::allocator<KB::FilterAppNames::filter_candidates(KB::CandidateCollection &,KB::CandidateFilterLookupContext const&,KB::CandidateFilterResources const&)::$_0>,BOOL ()(KB::Candidate const&,KB::String *)>::operator()(uint64_t a1, KB::Candidate *a2, KB::String **a3, uint64_t a4, uint64_t a5)
 {
   v16[2] = *MEMORY[0x277D85DE8];
-  v4 = *a3;
-  v5 = KB::Candidate::num_words_matching_input(a2, *(a1 + 16), *(a1 + 8));
-  if (*a2 == v5)
+  v6 = *a3;
+  v7 = KB::Candidate::num_words_matching_input(a2, *(a1 + 16), *(a1 + 8), a4, a5);
+  if (*a2 == v7)
   {
-LABEL_5:
-    result = 0;
+    return 0;
   }
 
-  else
+  v8 = (240 * v7 + *(a2 + 1) + 104);
+  v9 = -240 * v7 + 240 * *a2;
+  while (1)
   {
-    v6 = (240 * v5 + *(a2 + 1) + 104);
-    v7 = -240 * v5 + 240 * *a2;
-    while (1)
+    v10 = *v8;
+    v8 += 60;
+    if (v10 < 0)
     {
-      v8 = *v6;
-      v6 += 60;
-      if (v8 < 0)
-      {
-        break;
-      }
-
-      v7 -= 240;
-      if (!v7)
-      {
-        goto LABEL_5;
-      }
+      break;
     }
 
-    if (v4)
+    v9 -= 240;
+    if (!v9)
     {
-      KB::Candidate::capitalized_string(a2, v13);
-      v10 = v15;
-      if (!v15)
-      {
-        v10 = v16;
-      }
+      return 0;
+    }
+  }
 
-      if (v13[0])
-      {
-        v11 = v10;
-      }
+  if (v6)
+  {
+    KB::Candidate::capitalized_string(&v14, a2);
+    v12 = v15;
+    if (!v15)
+    {
+      v12 = v16;
+    }
 
-      else
-      {
-        v11 = "";
-      }
+    if (v14)
+    {
+      v13 = v12;
+    }
 
-      KB::String::append_format(v4, "Candidate '%s' is a completion for an app name", v11);
-      if (v15 && v14 == 1)
+    else
+    {
+      v13 = "";
+    }
+
+    KB::String::append_format(v6, "Candidate '%s' is a completion for an app name", v13);
+    if (v15)
+    {
+      if (BYTE6(v14) == 1)
       {
         free(v15);
       }
     }
-
-    result = 1;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 __n128 std::__function::__func<KB::FilterAppNames::filter_candidates(KB::CandidateCollection &,KB::CandidateFilterLookupContext const&,KB::CandidateFilterResources const&)::$_0,std::allocator<KB::FilterAppNames::filter_candidates(KB::CandidateCollection &,KB::CandidateFilterLookupContext const&,KB::CandidateFilterResources const&)::$_0>,BOOL ()(KB::Candidate const&,KB::String *)>::__clone(uint64_t a1, uint64_t a2)
@@ -1630,7 +1601,7 @@ void KB::LanguageModelContext::debug_string_for_token(unint64_t a1@<X1>, uint64_
   else
   {
     StringForSpecialTokenID = LMLanguageModelCreateStringForSpecialTokenID();
-    KB::utf8_string(StringForSpecialTokenID, a3);
+    KB::utf8_string(a3, StringForSpecialTokenID);
     if (StringForSpecialTokenID)
     {
 
@@ -1641,28 +1612,28 @@ void KB::LanguageModelContext::debug_string_for_token(unint64_t a1@<X1>, uint64_
 
 void KB::LanguageModelContext::description(int **this@<X0>, KB::String *a2@<X8>)
 {
-  v44 = *MEMORY[0x277D85DE8];
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x4802000000;
-  v37 = __Block_byref_object_copy__1572;
-  v38 = __Block_byref_object_dispose__1573;
-  v39 = 0x100000;
+  v43 = *MEMORY[0x277D85DE8];
+  v33 = 0;
+  v34 = &v33;
+  v35 = 0x4802000000;
+  v36 = __Block_byref_object_copy__1572;
+  v37 = __Block_byref_object_dispose__1573;
+  v38 = 0x100000;
+  v39 = 0;
   v40 = 0;
   v41 = 0;
   v42 = 0;
-  v43 = 0;
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 0x40000000;
-  v25 = ___ZNK2KB20LanguageModelContext11descriptionEv_block_invoke;
-  v26 = &unk_27872F2D8;
-  v27 = &v34;
-  v28 = this;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 0x40000000;
+  v24 = ___ZNK2KB20LanguageModelContext11descriptionEv_block_invoke;
+  v25 = &unk_27872F2D8;
+  v26 = &v33;
+  v27 = this;
   v4 = this[7];
   v5 = this[5];
   if (v4 != v5)
   {
-    KB::String::append(&v39, "<blocklisted> ", 0xFFFFuLL);
+    KB::String::append(&v38, "<blocklisted> ", 0xFFFFuLL);
   }
 
   v6 = this[2];
@@ -1674,38 +1645,38 @@ void KB::LanguageModelContext::description(int **this@<X0>, KB::String *a2@<X8>)
     {
       if (v4 != v5 && v6 == &this[2][2 * this[7]])
       {
-        KB::String::append(v35 + 20, "</blocklisted> ", 0xFFFFuLL);
+        KB::String::append(v34 + 20, "</blocklisted> ", 0xFFFFuLL);
       }
 
       v9 = *v6;
       v6 += 2;
-      v25(v24, v9, v7);
-      v7 += 24;
+      v24(v23, v9, v7);
+      v7 += 6;
     }
 
     while (v7 != v8);
     v6 = this[2];
   }
 
-  v10 = v35;
+  v10 = v34;
   v11 = this[3];
   v12 = v11 - v6;
   if (v11 == v6)
   {
+    v29 = 0;
     v30 = 0;
-    v31 = 0;
-    v32 = "(empty)";
-    v29 = 1048583;
-    v33[1] = 0;
+    v31 = "(empty)";
+    v28 = 1048583;
+    v32[1] = 0;
   }
 
   else
   {
-    v29 = 0x100000;
+    v28 = 0x100000;
+    v29 = 0;
     v30 = 0;
     v31 = 0;
-    v32 = 0;
-    v33[0] = 0;
+    v32[0] = 0;
     v13 = TILocaleIdentifierForLexiconID(*v6);
     if (v13)
     {
@@ -1717,7 +1688,7 @@ void KB::LanguageModelContext::description(int **this@<X0>, KB::String *a2@<X8>)
       v14 = "";
     }
 
-    KB::String::append_format(&v29, "[%s]%u", v14, v6[1]);
+    KB::String::append_format(&v28, "[%s]%u", v14, v6[1]);
     if (v12 != 8)
     {
       v15 = 2;
@@ -1736,7 +1707,7 @@ void KB::LanguageModelContext::description(int **this@<X0>, KB::String *a2@<X8>)
           v19 = "";
         }
 
-        KB::String::append_format(&v29, " [%s]%u", v19, v17[1]);
+        KB::String::append_format(&v28, " [%s]%u", v19, v17[1]);
         v16 = v15;
       }
 
@@ -1744,13 +1715,13 @@ void KB::LanguageModelContext::description(int **this@<X0>, KB::String *a2@<X8>)
     }
   }
 
-  v21 = v32;
-  if (!v32)
+  v21 = v31;
+  if (!v31)
   {
-    v21 = v33;
+    v21 = v32;
   }
 
-  if (v29)
+  if (v28)
   {
     v22 = v21;
   }
@@ -1761,19 +1732,20 @@ void KB::LanguageModelContext::description(int **this@<X0>, KB::String *a2@<X8>)
   }
 
   KB::String::append_format((v10 + 20), "(%s)", v22);
-  if (v32 && v31 == 1)
+  if (v31 && v30 == 1)
   {
-    free(v32);
+    free(v31);
   }
 
-  KB::String::String(a2, (v35 + 20));
-  _Block_object_dispose(&v34, 8);
-  if (v42 && v41 == 1)
+  KB::String::String(a2, (v34 + 20));
+  _Block_object_dispose(&v33, 8);
+  if (v41)
   {
-    free(v42);
+    if (v40 == 1)
+    {
+      free(v41);
+    }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __Block_byref_object_copy__1572(uint64_t a1, uint64_t a2)
@@ -1800,15 +1772,15 @@ void __Block_byref_object_dispose__1573(uint64_t a1)
 
 void ___ZNK2KB20LanguageModelContext11descriptionEv_block_invoke(uint64_t a1, unint64_t a2, uint64_t a3)
 {
-  v10[2] = *MEMORY[0x277D85DE8];
-  KB::LanguageModelContext::debug_string_for_token(a2, a3, v7);
-  v4 = v9;
-  if (!v9)
+  v9[2] = *MEMORY[0x277D85DE8];
+  KB::LanguageModelContext::debug_string_for_token(a2, a3, v6);
+  v4 = v8;
+  if (!v8)
   {
-    v4 = v10;
+    v4 = v9;
   }
 
-  if (v7[0])
+  if (v6[0])
   {
     v5 = v4;
   }
@@ -1819,12 +1791,13 @@ void ___ZNK2KB20LanguageModelContext11descriptionEv_block_invoke(uint64_t a1, un
   }
 
   KB::String::append_format((*(*(a1 + 32) + 8) + 40), "%s ", v5);
-  if (v9 && v8 == 1)
+  if (v8)
   {
-    free(v9);
+    if (v7 == 1)
+    {
+      free(v8);
+    }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t KB::LanguageModelContext::clear(KB::LanguageModelContext *this)
@@ -2606,7 +2579,6 @@ LABEL_13:
     while (v16);
     if (v15 != v14)
     {
-      v21 = *(this + 4);
       *(this + 4) = v15;
     }
   }
@@ -2622,7 +2594,7 @@ void std::__allocate_at_least[abi:nn200100]<std::allocator<TI::CP::PathSample>>(
   std::vector<unsigned long>::__throw_length_error[abi:nn200100]();
 }
 
-void TI::CP::Path::append(TI::CP::Path *this, CGPoint a2, double a3, double a4, double a5, double a6)
+void TI::CP::Path::append(TI::CP::Path *this, CGPoint a2, CGFloat a3, CGFloat a4, double a5, CGFloat a6)
 {
   y = a2.y;
   x = a2.x;
@@ -2791,12 +2763,12 @@ void TI::CP::Path::set_sample_is_inflection_point(TI::CP::Path *this, unsigned i
     goto LABEL_8;
   }
 
-  v6 = v3 - 4;
+  v6 = v3 - 1;
   v7 = *(this + 4);
   while (*v6 > a2)
   {
-    v7 -= 4;
-    v6 -= 4;
+    --v7;
+    --v6;
     if (v7 == v4)
     {
       goto LABEL_7;
@@ -2817,7 +2789,7 @@ LABEL_8:
     v8 = *(this + 5);
     if (v3 >= v8)
     {
-      v11 = ((v3 - v4) >> 2) + 1;
+      v11 = v3 - v4 + 1;
       if (v11 >> 62)
       {
         std::vector<unsigned long>::__throw_length_error[abi:nn200100]();
@@ -2889,12 +2861,12 @@ LABEL_8:
     else if (v5 == v3)
     {
       *v3 = a2;
-      *(this + 4) = v3 + 4;
+      *(this + 4) = v3 + 1;
     }
 
     else
     {
-      v9 = v5 + 4;
+      v9 = (v5 + 1);
       if (v3 < 4)
       {
         v10 = *(this + 4);
@@ -2903,13 +2875,13 @@ LABEL_8:
       else
       {
         *v3 = *(v3 - 1);
-        v10 = (v3 + 4);
+        v10 = v3 + 1;
       }
 
       *(this + 4) = v10;
       if (v3 != v9)
       {
-        memmove(v5 + 4, v5, v3 - v9);
+        memmove(v5 + 1, v5, v3 - v9);
         v10 = *(this + 4);
       }
 
@@ -2925,7 +2897,7 @@ LABEL_8:
   }
 }
 
-void TI::CP::Path::resample(CGPoint **this@<X0>, double a2@<D0>, void *a3@<X8>)
+void TI::CP::Path::resample(CGPoint **this@<X0>, double a2@<D0>, uint64_t *a3@<X8>)
 {
   *v6 = a2;
   v6[1] = 1;
@@ -2963,7 +2935,7 @@ void TI::CP::Path::resample(CGPoint **this@<X0>, double a2@<D0>, void *a3@<X8>)
   a3[5] = 0;
   if (v12 != v11[1])
   {
-    std::vector<unsigned int>::__vallocate[abi:nn200100]((a3 + 3), (v12 - v11[1]) >> 2);
+    std::vector<unsigned int>::__vallocate[abi:nn200100](a3 + 3, (v12 - v11[1]) >> 2);
   }
 
   if (__p[1])
@@ -2991,7 +2963,7 @@ void TI::CP::Path::resample(CGPoint **this@<X0>, double a2@<D0>, void *a3@<X8>)
   }
 }
 
-void std::vector<TI::CP::PathSample>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<TI::CP::PathSample>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x555555555555556)
   {
@@ -3033,16 +3005,19 @@ uint64_t TI::CP::Path::is_local_max(void *a1, int a2, uint64_t a3, double a4)
   return 1;
 }
 
-uint64_t std::function<double ()(unsigned int)>::operator()(uint64_t a1, int a2)
+void std::function<double ()(unsigned int)>::operator()(uint64_t a1, int a2)
 {
-  v5 = a2;
+  v4 = a2;
   if (a1)
   {
-    return (*(*a1 + 48))(a1, &v5);
+    (*(*a1 + 48))(a1, &v4);
   }
 
-  v3 = std::__throw_bad_function_call[abi:nn200100]();
-  return TI::CP::Path::curvature(v3, v4);
+  else
+  {
+    v2 = std::__throw_bad_function_call[abi:nn200100]();
+    TI::CP::Path::curvature(v2, v3);
+  }
 }
 
 void TI::CP::Path::curvature(TI::CP::Path *this, unsigned int a2)
@@ -3059,23 +3034,18 @@ void TI::CP::Path::curvature(TI::CP::Path *this, unsigned int a2)
 
 uint64_t TI::CP::Path::is_curvature_local_max(TI::CP::Path *this, unsigned int a2, double a3)
 {
-  v10[4] = *MEMORY[0x277D85DE8];
+  v9[4] = *MEMORY[0x277D85DE8];
   TI::CP::Path::curvature(this, a2);
   if (fabs(v6) <= 0.02)
   {
-    is_local_max = 0;
+    return 0;
   }
 
-  else
-  {
-    v10[0] = &unk_283FD74D8;
-    v10[1] = this;
-    v10[3] = v10;
-    is_local_max = TI::CP::Path::is_local_max(this, a2, v10, a3);
-    std::__function::__value_func<double ()>::~__value_func[abi:nn200100](v10);
-  }
-
-  v8 = *MEMORY[0x277D85DE8];
+  v9[0] = &unk_283FD74D8;
+  v9[1] = this;
+  v9[3] = v9;
+  is_local_max = TI::CP::Path::is_local_max(this, a2, v9, a3);
+  std::__function::__value_func<double ()>::~__value_func[abi:nn200100](v9);
   return is_local_max;
 }
 
@@ -3152,7 +3122,7 @@ double KB::DataFile::DataFile(KB::DataFile *this)
 
 KB::DataFile *KB::DataFile::DataFile(KB::DataFile *this, const char *__s1, int a3, uint64_t a4)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   *this = a3;
   *(this + 1) = a4;
   *(this + 8) = 0;
@@ -3174,15 +3144,15 @@ KB::DataFile *KB::DataFile::DataFile(KB::DataFile *this, const char *__s1, int a
       v9 = TIOSLogFacility();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
-        v12 = *(this + 3);
-        v13 = __error();
-        v14 = strerror(*v13);
+        v11 = *(this + 3);
+        v12 = __error();
+        v13 = strerror(*v12);
         *buf = 136315650;
-        v16 = "DataFile";
-        v17 = 2082;
-        v18 = v12;
-        v19 = 2082;
-        v20 = v14;
+        v15 = "DataFile";
+        v16 = 2082;
+        v17 = v11;
+        v18 = 2082;
+        v19 = v13;
         _os_log_debug_impl(&dword_22CA55000, v9, OS_LOG_TYPE_DEBUG, "%s DataFile: file open error: %{public}s, (%{public}s)", buf, 0x20u);
       }
     }
@@ -3193,7 +3163,6 @@ KB::DataFile *KB::DataFile::DataFile(KB::DataFile *this, const char *__s1, int a
     *(this + 8) = 1;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return this;
 }
 
@@ -3238,7 +3207,7 @@ double KB::MappedDataFile::MappedDataFile(KB::MappedDataFile *this)
 
 KB::MappedDataFile *KB::MappedDataFile::MappedDataFile(KB::MappedDataFile *this, const char *a2, int a3, uint64_t a4, int a5)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v8 = KB::DataFile::DataFile(this, a2, a3, a4);
   *(v8 + 4) = 0;
   *(v8 + 5) = 0;
@@ -3260,13 +3229,13 @@ KB::MappedDataFile *KB::MappedDataFile::MappedDataFile(KB::MappedDataFile *this,
         goto LABEL_11;
       }
 
-      v25 = *(this + 12);
-      v30.st_dev = 136315394;
-      *&v30.st_mode = "MappedDataFile";
-      WORD2(v30.st_ino) = 1024;
-      *(&v30.st_ino + 6) = v25;
+      v24 = *(this + 12);
+      v29.st_dev = 136315394;
+      *&v29.st_mode = "MappedDataFile";
+      WORD2(v29.st_ino) = 1024;
+      *(&v29.st_ino + 6) = v24;
       v13 = "%s MappedDataFile: illegal protection mode: %d";
-      v14 = &v30;
+      v14 = &v29;
       v15 = v17;
       v16 = 18;
 LABEL_24:
@@ -3274,7 +3243,7 @@ LABEL_24:
       goto LABEL_11;
     }
 
-    if (stat(a2, &v30))
+    if (stat(a2, &v29))
     {
       if (TICanLogMessageAtLevel_onceToken != -1)
       {
@@ -3289,32 +3258,32 @@ LABEL_24:
 
       v11 = __error();
       v12 = strerror(*v11);
-      v26 = 136315394;
-      v27 = "MappedDataFile";
-      v28 = 2082;
-      v29 = v12;
+      v25 = 136315394;
+      v26 = "MappedDataFile";
+      v27 = 2082;
+      v28 = v12;
       v13 = "%s MappedDataFile: stat error: %{public}s";
-      v14 = &v26;
+      v14 = &v25;
       v15 = v10;
       v16 = 22;
       goto LABEL_24;
     }
 
-    st_size = v30.st_size;
-    *v9 = v30.st_size;
+    st_size = v29.st_size;
+    *v9 = v29.st_size;
     if (st_size)
     {
-      v21 = getpagesize();
-      v22 = st_size / v21;
-      if (st_size == v22 * v21)
+      v20 = getpagesize();
+      v21 = st_size / v20;
+      if (st_size == v21 * v20)
       {
 LABEL_21:
         *(this + 5) = st_size;
         KB::MappedDataFile::map(this, 0);
-        goto LABEL_12;
+        return this;
       }
 
-      v23 = v21 + v21 * v22;
+      v22 = v20 + v20 * v21;
     }
 
     else
@@ -3323,35 +3292,33 @@ LABEL_21:
       {
 LABEL_11:
         *(this + 8) = 0;
-        goto LABEL_12;
+        return this;
       }
 
-      v23 = getpagesize();
+      v22 = getpagesize();
     }
 
-    if (v23 != st_size)
+    if (v22 != st_size)
     {
       if ((*(this + 48) & 2) != 0)
       {
-        v24 = getpagesize();
-        KB::MappedDataFile::resize(this, v23 / v24);
-        goto LABEL_12;
+        v23 = getpagesize();
+        KB::MappedDataFile::resize(this, v22 / v23);
+        return this;
       }
 
-      st_size = v23;
+      st_size = v22;
     }
 
     goto LABEL_21;
   }
 
-LABEL_12:
-  v18 = *MEMORY[0x277D85DE8];
   return this;
 }
 
 uint64_t KB::MappedDataFile::resize(KB::MappedDataFile *this, int a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     KB::MappedDataFile::sync(this);
@@ -3374,13 +3341,13 @@ uint64_t KB::MappedDataFile::resize(KB::MappedDataFile *this, int a2)
       v8 = TIOSLogFacility();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
-        v11 = __error();
-        v12 = strerror(*v11);
-        v13 = 136315394;
-        v14 = "resize";
-        v15 = 2082;
-        v16 = v12;
-        _os_log_debug_impl(&dword_22CA55000, v8, OS_LOG_TYPE_DEBUG, "%s MappedDataFile: error in resize: %{public}s", &v13, 0x16u);
+        v10 = __error();
+        v11 = strerror(*v10);
+        v12 = 136315394;
+        v13 = "resize";
+        v14 = 2082;
+        v15 = v11;
+        _os_log_debug_impl(&dword_22CA55000, v8, OS_LOG_TYPE_DEBUG, "%s MappedDataFile: error in resize: %{public}s", &v12, 0x16u);
       }
 
       v7 = 0;
@@ -3401,13 +3368,12 @@ uint64_t KB::MappedDataFile::resize(KB::MappedDataFile *this, int a2)
     v7 = 1;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v7 & 1;
 }
 
 void KB::MappedDataFile::map(KB::MappedDataFile *this, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = mmap(a2, *(this + 5), *(this + 12), 1, *(this + 4), 0);
   *(this + 7) = v3;
   if (v3 == -1)
@@ -3420,19 +3386,17 @@ void KB::MappedDataFile::map(KB::MappedDataFile *this, void *a2)
     v4 = TIOSLogFacility();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      v6 = __error();
-      v7 = strerror(*v6);
-      v8 = 136315394;
-      v9 = "map";
-      v10 = 2082;
-      v11 = v7;
-      _os_log_debug_impl(&dword_22CA55000, v4, OS_LOG_TYPE_DEBUG, "%s MappedDataFile: mmap error: %{public}s", &v8, 0x16u);
+      v5 = __error();
+      v6 = strerror(*v5);
+      v7 = 136315394;
+      v8 = "map";
+      v9 = 2082;
+      v10 = v6;
+      _os_log_debug_impl(&dword_22CA55000, v4, OS_LOG_TYPE_DEBUG, "%s MappedDataFile: mmap error: %{public}s", &v7, 0x16u);
     }
 
     *(this + 8) = 0;
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t KB::MappedDataFile::sync(uint64_t this)
@@ -3524,7 +3488,7 @@ void *KB::InputStream::InputStream(void *this, const void *a2, uint64_t a3)
 
 uint64_t KB::InputStream::read_null_terminated_string(KB::InputStream *this, KB::String *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = *this;
   v5 = *(this + 1);
   v6 = *(this + 2);
@@ -3538,25 +3502,37 @@ uint64_t KB::InputStream::read_null_terminated_string(KB::InputStream *this, KB:
     v7 = strlen((v4 + v6));
   }
 
-  if (v6 + v7 + 1 > v5 || (v8 = v7 + 1 + v6, v5) && v8 > v5 || (*(this + 2) = v8, !v4))
+  if (v6 + v7 + 1 > v5)
   {
-    result = 0;
+    return 0;
   }
 
-  else
+  v8 = v7 + 1 + v6;
+  if (v5)
   {
-    KB::String::String(v11, (v4 + v6), v7);
-    KB::String::operator=(a2, v11);
-    if (v12 && v11[6] == 1)
+    if (v8 > v5)
     {
-      free(v12);
+      return 0;
     }
-
-    result = 1;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  *(this + 2) = v8;
+  if (!v4)
+  {
+    return 0;
+  }
+
+  KB::String::String(v10, (v4 + v6), v7);
+  KB::String::operator=(a2, v10);
+  if (v11)
+  {
+    if (v10[6] == 1)
+    {
+      free(v11);
+    }
+  }
+
+  return 1;
 }
 
 uint64_t KB::InputStream::step(KB::InputStream *this, unsigned int a2)
@@ -3920,7 +3896,7 @@ KB::DataFile *KB::WritableDataFile::WritableDataFile(KB::DataFile *a1, const cha
 
 void KB::WritableDataFile::write_data(KB::WritableDataFile *this, char *a2, uint64_t a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (*(this + 8) == 1)
   {
     v6 = 0;
@@ -3943,25 +3919,23 @@ void KB::WritableDataFile::write_data(KB::WritableDataFile *this, char *a2, uint
         v8 = TIOSLogFacility();
         if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
         {
-          v10 = *(this + 3);
-          v11 = __error();
-          v12 = strerror(*v11);
-          v13 = 136315650;
-          v14 = "write_data";
-          v15 = 2082;
-          v16 = v10;
-          v17 = 2082;
-          v18 = v12;
-          _os_log_debug_impl(&dword_22CA55000, v8, OS_LOG_TYPE_DEBUG, "%s cannot write to file: %{public}s (%{public}s)", &v13, 0x20u);
+          v9 = *(this + 3);
+          v10 = __error();
+          v11 = strerror(*v10);
+          v12 = 136315650;
+          v13 = "write_data";
+          v14 = 2082;
+          v15 = v9;
+          v16 = 2082;
+          v17 = v11;
+          _os_log_debug_impl(&dword_22CA55000, v8, OS_LOG_TYPE_DEBUG, "%s cannot write to file: %{public}s (%{public}s)", &v12, 0x20u);
         }
 
         *(this + 8) = 0;
-        break;
+        return;
       }
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void KB::WritableDataFile::write_string(KB::WritableDataFile *this, char *__s)
@@ -3981,7 +3955,6 @@ void KB::WritableDataFile::write_string(KB::WritableDataFile *this, const KB::St
     v4 = a2 + 16;
   }
 
-  *a2;
   if (*a2)
   {
     v5 = v4;
@@ -4073,15 +4046,15 @@ LABEL_6:
   KB::WritableDataFile::write_data(this, v4, v5);
 }
 
-void UnikeySetInputMethod(unsigned int a1)
+void UnikeySetInputMethod(uint64_t result)
 {
-  if (a1 < 3)
+  if (result < 3)
   {
 LABEL_4:
     v1 = pShMem;
-    *(pShMem + 48) = a1;
+    *(pShMem + 48) = result;
     v2 = (v1 + 48);
-    if (a1 >= 4)
+    if (result >= 4)
     {
       *v2 = 0;
       v3 = "Z";
@@ -4089,16 +4062,16 @@ LABEL_4:
 
     else
     {
-      v3 = (&off_278730168)[a1];
+      v3 = (&off_278730168)[result];
     }
 
     UkInputProcessor::useBuiltIn(v2, v3);
     goto LABEL_8;
   }
 
-  if (a1 != 4)
+  if (result != 4)
   {
-    if (a1 != 5)
+    if (result != 5)
     {
       return;
     }
@@ -4685,9 +4658,11 @@ Class initTapToRadarService(void)
 
 uint64_t ___ZL28_typologyProfileOptInManagerv_block_invoke()
 {
-  _typologyProfileOptInManager(void)::optInManager = objc_alloc_init(TITypologyProfileOptInManager);
+  v0 = objc_alloc_init(TITypologyProfileOptInManager);
+  v1 = _typologyProfileOptInManager(void)::optInManager;
+  _typologyProfileOptInManager(void)::optInManager = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 KB::DictionaryCursors *KB::DictionaryCursors::DictionaryCursors(KB::DictionaryCursors *this, const KB::StaticDictionary **a2)
@@ -4905,12 +4880,10 @@ uint64_t KB::DictionaryCursors::dynamic_has_children(KB::DictionaryCursors *this
 
 void KB::DictionaryCursors::probability_of_static_trie(KB::DictionaryCursors *this, const KB::DictionaryContainer *a2)
 {
-  v4 = *(this + 17);
   KB::StaticDictionaryCursor::conditional_probability(this);
-  v5 = *(this + 17);
   if (*(this + 16))
   {
-    v6 = ((*(**(this + 7) + 80))(*(this + 7), *(a2 + 3)) / *(this + 16));
+    (*(**(this + 7) + 80))(*(this + 7), *(a2 + 3));
   }
 }
 
@@ -4978,137 +4951,110 @@ float KB::DictionaryCursors::advance(KB::DictionaryCursors *this, const KB::Dict
 
 float KB::DictionaryCursors::advance(KB::DictionaryCursors *this, const KB::DictionaryContainer *a2, unsigned int a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
-  v6 = *this;
+  v30 = *MEMORY[0x277D85DE8];
   IsRoot = LXCursorIsRoot();
-  v8 = (*(**(a2 + 3) + 72))(*(a2 + 3), 0xFFFFFFFFLL);
+  v7 = (*(**(a2 + 3) + 72))(*(a2 + 3), 0xFFFFFFFFLL);
   if (IsRoot)
   {
-    v9 = v8;
-    v10 = 65536.0 / (v8 + 65536.0);
+    v8 = v7;
+    v9 = 65536.0 / (v7 + 65536.0);
   }
 
   else
   {
-    v9 = (*(**(this + 7) + 80))(*(this + 7), *(a2 + 3));
+    v8 = (*(**(this + 7) + 80))(*(this + 7), *(a2 + 3));
     KB::DictionaryCursors::probability_of_static_trie(this, a2);
-    v10 = v11;
+    v9 = v10;
   }
 
-  v12 = KB::StaticDictionaryCursor::advance(this, a3);
-  v13 = *(this + 7);
-  v14 = *(a2 + 3);
-  KB::String::String(&v27, a3);
-  v15 = (*(*v13 + 56))(v13, v14, &v27, v9);
-  if (v28 && BYTE6(v27) == 1)
+  v11 = KB::StaticDictionaryCursor::advance(this, a3);
+  v12 = *(this + 7);
+  v13 = *(a2 + 3);
+  KB::String::String(&v25, a3);
+  v14 = (*(*v12 + 56))(v12, v13, &v25, v8);
+  if (v26 && BYTE6(v25) == 1)
   {
-    free(v28);
+    free(v26);
   }
 
-  if (KB::StaticDictionaryCursor::valid(this))
+  if ((KB::StaticDictionaryCursor::valid(this) & 1) != 0 || (v15 = *(this + 7), v21 = 0, v22 = &v21, v23 = 0x2000000000, v24 = 0, v25 = MEMORY[0x277D85DD0], v26 = 0x40000000, v27 = ___ZNK2KB23DynamicDictionaryCursor5validEv_block_invoke, v28 = &unk_278732A48, v29 = &v21, (*(*v15 + 40))(v15, &v25), v16 = *(v22 + 24), _Block_object_dispose(&v21, 8), v17 = 0, v16 == 1))
   {
-    goto LABEL_9;
+    v17 = a3;
   }
 
-  v16 = *(this + 7);
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x2000000000;
-  v26 = 0;
-  v27 = MEMORY[0x277D85DD0];
-  v28 = 0x40000000;
-  v29 = ___ZNK2KB23DynamicDictionaryCursor5validEv_block_invoke;
-  v30 = &unk_278732A48;
-  v31 = &v23;
-  (*(*v16 + 40))(v16, &v27);
-  v17 = *(v24 + 24);
-  _Block_object_dispose(&v23, 8);
-  v18 = 0;
-  if (v17 == 1)
-  {
-LABEL_9:
-    v18 = a3;
-  }
-
-  v19 = 1.0;
+  v18 = 1.0;
   if (IsRoot)
   {
-    v19 = 1.0 / v10;
+    v18 = 1.0 / v9;
   }
 
-  *(this + 18) = v18;
-  *(this + 17) = v10;
-  *(this + 16) = v9;
-  v20 = *MEMORY[0x277D85DE8];
-  v21 = (1.0 - v10) * v15;
-  return v19 * ((v10 * v12) + v21);
+  *(this + 18) = v17;
+  *(this + 17) = v9;
+  *(this + 16) = v8;
+  v19 = (1.0 - v9) * v14;
+  return v18 * ((v9 * v11) + v19);
 }
 
-void KB::DictionaryCursors::fill_vector_with_static_trie_children(uint64_t a1, uint64_t *a2)
+void KB::DictionaryCursors::fill_vector_with_static_trie_children(uint64_t a1, uint64_t (*a2)(), uint64_t a3)
 {
-  v5 = *a2;
-  for (i = a2[1]; i != v5; std::allocator_traits<std::allocator<KB::DictionaryCursors>>::destroy[abi:nn200100]<KB::DictionaryCursors,void,0>(i))
+  v6 = *a2;
+  for (i = *(a2 + 1); i != v6; std::allocator_traits<std::allocator<KB::DictionaryCursors>>::destroy[abi:nn200100]<KB::DictionaryCursors,void,0>(i))
   {
     i -= 80;
   }
 
-  a2[1] = v5;
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x4002000000;
-  v21 = __Block_byref_object_copy__20014;
-  v22 = __Block_byref_object_dispose__20015;
-  memset(v23, 0, sizeof(v23));
+  *(a2 + 1) = v6;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x4002000000;
+  v19 = __Block_byref_object_copy__20014;
+  v20 = __Block_byref_object_dispose__20015;
+  memset(v21, 0, sizeof(v21));
   if (*(a1 + 40))
   {
-    v6 = 0;
     v7 = MEMORY[0x277D85DD0];
     v8 = 1;
     do
     {
-      v9 = *(a1 + 8 * v6);
-      v16[3] = v7;
-      v16[4] = 0x40000000;
-      v16[5] = ___ZNK2KB22StaticDictionaryCursor8childrenEv_block_invoke;
-      v16[6] = &unk_278732F60;
-      v16[7] = &v18;
-      v16[8] = a1;
-      v17 = v8 - 1;
+      v14[3] = v7;
+      v14[4] = 0x40000000;
+      v14[5] = ___ZNK2KB22StaticDictionaryCursor8childrenEv_block_invoke;
+      v14[6] = &unk_278732F60;
+      v14[7] = &v16;
+      v14[8] = a1;
+      v15 = v8 - 1;
       LXCursorEnumerateChildren();
-      v6 = v8;
     }
 
     while (*(a1 + 40) > v8++);
-    v11 = v19;
-    v12 = v19[5];
+    v10 = v17;
+    v11 = v17[5];
   }
 
   else
   {
-    v12 = 0;
-    v11 = &v18;
+    v11 = 0;
+    v10 = &v16;
   }
 
-  memset(v16, 0, 24);
-  v13 = v11[6];
-  if (v13 != v12)
+  memset(v14, 0, 24);
+  v12 = v10[6];
+  if (v12 != v11)
   {
-    v14 = 0x6DB6DB6DB6DB6DB7 * (v13 - v12);
-    if (v14 < 0x492492492492493)
+    v13 = 0x6DB6DB6DB6DB6DB7 * (v12 - v11);
+    if (v13 < 0x492492492492493)
     {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<KB::StaticDictionaryCursor>>(v14);
+      std::__allocate_at_least[abi:nn200100]<std::allocator<KB::StaticDictionaryCursor>>(v13);
     }
 
     std::vector<unsigned long>::__throw_length_error[abi:nn200100]();
   }
 
-  _Block_object_dispose(&v18, 8);
-  v24 = v23;
-  std::vector<KB::StaticDictionaryCursor>::__destroy_vector::operator()[abi:nn200100](&v24);
-  v15 = *a2;
-  a2[2];
-  v18 = v16;
-  std::vector<KB::StaticDictionaryCursor>::__destroy_vector::operator()[abi:nn200100](&v18);
+  _Block_object_dispose(&v16, 8);
+  v22 = v21;
+  std::vector<KB::StaticDictionaryCursor>::__destroy_vector::operator()[abi:nn200100](&v22);
+  v16 = v14;
+  std::vector<KB::StaticDictionaryCursor>::__destroy_vector::operator()[abi:nn200100](&v16);
 }
 
 void std::allocator_traits<std::allocator<KB::DictionaryCursors>>::destroy[abi:nn200100]<KB::DictionaryCursors,void,0>(uint64_t a1)
@@ -5405,21 +5351,21 @@ uint64_t KB::DynamicDictionary::named_entity_lexicon(KB::DynamicDictionary *this
   return TITransientLexiconManagerGetNamedEntitiesForLocale(v3);
 }
 
-void *KB::DynamicDictionaryContainer::get_persistent_custom_trie_for_locale(void *a1, void *a2)
+void *KB::DynamicDictionaryContainer::get_persistent_custom_trie_for_locale(void *a1, const KB::String *a2, unsigned int a3)
 {
-  result = std::__hash_table<std::__hash_value_type<KB::String,unsigned long>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,unsigned long>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,unsigned long>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,unsigned long>>>::find<KB::String>(a1 + 24, a2);
+  result = std::__hash_table<std::__hash_value_type<KB::String,unsigned long>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,unsigned long>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,unsigned long>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,unsigned long>>>::find<KB::String>(a1 + 24, a2, a3);
   if (result)
   {
-    v5 = std::__hash_table<std::__hash_value_type<KB::String,unsigned long>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,unsigned long>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,unsigned long>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,unsigned long>>>::find<KB::String>(a1 + 24, a2);
-    if (!v5)
+    v7 = std::__hash_table<std::__hash_value_type<KB::String,unsigned long>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,unsigned long>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,unsigned long>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,unsigned long>>>::find<KB::String>(a1 + 24, a2, v6);
+    if (!v7)
     {
       abort();
     }
 
-    v6 = v5[6];
-    v7 = *(*a1 + 88);
+    v8 = v7[6];
+    v9 = *(*a1 + 88);
 
-    return v7(a1, v6);
+    return v9(a1, v8);
   }
 
   return result;
@@ -5439,142 +5385,142 @@ uint64_t KB::DynamicDictionaryContainer::get_persistent_custom_trie(KB::DynamicD
   }
 }
 
-unint64_t KB::DynamicDictionaryContainer::get_total_usage_count(KB::DynamicDictionaryContainer *this, int a2)
+unint64_t KB::DynamicDictionaryContainer::get_total_usage_count(KB::DynamicDictionaryContainer *this, int a2, double a3)
 {
-  v4 = *(this + 14);
-  v3 = *(this + 15);
+  v5 = *(this + 14);
+  v4 = *(this + 15);
   if (a2 != -1)
   {
-    if (v3 != v4)
+    if (v4 != v5)
     {
-      v6 = 0;
-      v7 = 0.0;
-      v8 = 160;
+      v7 = 0;
+      v8 = 0.0;
+      v9 = 160;
       do
       {
-        if (*(*(this + 11) + v8) == a2)
+        if (*(*(this + 11) + v9) == a2)
         {
-          v9 = 0.0;
-          if (*(v4 + 8 * v6))
+          v10 = 0.0;
+          if (*(v5 + 8 * v7))
           {
             RootCursor = LXLexiconCreateRootCursor();
             if (RootCursor)
             {
-              v11 = RootCursor;
-              v12 = LXCursorUsageCountRecursive();
-              v13 = v12 & ~(v12 >> 31);
-              CFRelease(v11);
-              v9 = v13;
+              v12 = RootCursor;
+              v13 = LXCursorUsageCountRecursive();
+              v14 = v13 & ~(v13 >> 31);
+              CFRelease(v12);
+              v10 = v14;
             }
           }
 
-          v7 = v7 + v9;
-          v4 = *(this + 14);
-          v3 = *(this + 15);
+          v8 = v8 + v10;
+          v5 = *(this + 14);
+          v4 = *(this + 15);
         }
 
-        ++v6;
-        v8 += 176;
+        ++v7;
+        v9 += 176;
       }
 
-      while (v6 < (v3 - v4) >> 3);
+      while (v7 < (v4 - v5) >> 3);
       goto LABEL_22;
     }
 
 LABEL_21:
-    v7 = 0.0;
+    v8 = 0.0;
     goto LABEL_22;
   }
 
-  v14 = v3 - v4;
-  if (!v14)
+  v15 = v4 - v5;
+  if (!v15)
   {
     goto LABEL_21;
   }
 
-  v15 = 0;
-  v16 = v14 >> 3;
-  if (v16 <= 1)
+  v16 = 0;
+  v17 = v15 >> 3;
+  if (v17 <= 1)
   {
-    v17 = 1;
+    v18 = 1;
   }
 
   else
   {
-    v17 = v16;
+    v18 = v17;
   }
 
-  v7 = 0.0;
+  v8 = 0.0;
   do
   {
-    v18 = *(*(this + 21) + 4 * v15);
-    v19 = 0.0;
-    if (*(*(this + 14) + 8 * v15))
+    v19 = *(*(this + 21) + 4 * v16);
+    v20 = 0.0;
+    if (*(*(this + 14) + 8 * v16))
     {
-      v20 = LXLexiconCreateRootCursor();
-      v19 = 0.0;
-      if (v20)
+      v21 = LXLexiconCreateRootCursor();
+      v20 = 0.0;
+      if (v21)
       {
-        v21 = v20;
-        v22 = LXCursorUsageCountRecursive();
-        v23 = v22 & ~(v22 >> 31);
-        CFRelease(v21);
-        v19 = v23;
+        v22 = v21;
+        v23 = LXCursorUsageCountRecursive();
+        v24 = v23 & ~(v23 >> 31);
+        CFRelease(v22);
+        v20 = v24;
       }
     }
 
-    v7 = v7 + (v18 * v19);
-    ++v15;
+    v8 = v8 + (v19 * v20);
+    ++v16;
   }
 
-  while (v17 != v15);
+  while (v18 != v16);
 LABEL_22:
-  v24 = 0.0;
   v25 = 0.0;
+  v26 = 0.0;
   if (*(this + 1))
   {
-    v26 = LXLexiconCreateRootCursor();
-    if (v26)
+    v27 = LXLexiconCreateRootCursor();
+    if (v27)
     {
-      v27 = v26;
-      v28 = LXCursorUsageCountRecursive();
-      v29 = v28 & ~(v28 >> 31);
-      CFRelease(v27);
-      v25 = v29;
+      v28 = v27;
+      v29 = LXCursorUsageCountRecursive();
+      v30 = v29 & ~(v29 >> 31);
+      CFRelease(v28);
+      v26 = v30;
     }
   }
 
   if (*(this + 2))
   {
-    v30 = LXLexiconCreateRootCursor();
-    if (v30)
+    v31 = LXLexiconCreateRootCursor();
+    if (v31)
     {
-      v31 = v30;
-      v32 = LXCursorUsageCountRecursive();
-      v33 = v32 & ~(v32 >> 31);
-      CFRelease(v31);
-      v24 = v33;
+      v32 = v31;
+      v33 = LXCursorUsageCountRecursive();
+      v34 = v33 & ~(v33 >> 31);
+      CFRelease(v32);
+      v25 = v34;
     }
   }
 
-  v34 = *(this + 3);
-  v35 = 0.0;
+  v35 = *(this + 3);
   v36 = 0.0;
-  if (v34)
+  v37 = 0.0;
+  if (v35)
   {
-    v37 = *v34;
-    if (v37)
+    v38 = *v35;
+    if (v38)
     {
-      if (*v37)
+      if (*v38)
       {
-        v38 = LXLexiconCreateRootCursor();
-        if (v38)
+        v39 = LXLexiconCreateRootCursor();
+        if (v39)
         {
-          v39 = v38;
-          v40 = LXCursorUsageCountRecursive();
-          v41 = v40 & ~(v40 >> 31);
-          CFRelease(v39);
-          v36 = v41;
+          v40 = v39;
+          v41 = LXCursorUsageCountRecursive();
+          v42 = v41 & ~(v41 >> 31);
+          CFRelease(v40);
+          v37 = v42;
         }
       }
     }
@@ -5582,41 +5528,41 @@ LABEL_22:
 
   if (KB::DynamicDictionary::named_entity_lexicon(this))
   {
-    v42 = LXLexiconCreateRootCursor();
-    if (v42)
+    v43 = LXLexiconCreateRootCursor();
+    if (v43)
     {
-      v43 = v42;
-      v44 = LXCursorUsageCountRecursive();
-      v45 = v44 & ~(v44 >> 31);
-      CFRelease(v43);
-      v35 = v45;
+      v44 = v43;
+      v45 = LXCursorUsageCountRecursive();
+      v46 = v45 & ~(v45 >> 31);
+      CFRelease(v44);
+      v36 = v46;
     }
   }
 
-  v46 = 0.0;
+  v47 = 0.0;
   if (TITransientLexiconManagerGetActiveSupplementalLexiconWords())
   {
-    v47 = LXLexiconCreateRootCursor();
-    if (v47)
+    v48 = LXLexiconCreateRootCursor();
+    if (v48)
     {
-      v48 = v47;
-      v49 = LXCursorUsageCountRecursive();
-      v50 = v49 & ~(v49 >> 31);
-      CFRelease(v48);
-      v46 = v50;
+      v49 = v48;
+      v50 = LXCursorUsageCountRecursive();
+      v51 = v50 & ~(v50 >> 31);
+      CFRelease(v49);
+      v47 = v51;
     }
   }
 
-  return llroundf(ceilf(((((v7 + v25) + v24) + v36) + v35) + v46));
+  return llroundf(ceilf(((((v8 + v26) + v25) + v37) + v36) + v47));
 }
 
-uint64_t KB::DynamicDictionaryContainer::get_user_frequency(KB::DynamicDictionaryContainer *this, _LXLexicon *a2, KB::String *a3)
+uint64_t KB::DynamicDictionaryContainer::get_user_frequency(KB::DynamicDictionaryContainer *this, _LXLexicon *a2, KB::String *a3, unsigned int a4)
 {
-  v5 = *(this + 14);
-  v6 = *(this + 15);
+  v6 = *(this + 14);
+  v7 = *(this + 15);
   if (a3 == -1)
   {
-    if (v6 == v5)
+    if (v7 == v6)
     {
       v14 = 0.0;
     }
@@ -5627,90 +5573,87 @@ uint64_t KB::DynamicDictionaryContainer::get_user_frequency(KB::DynamicDictionar
       v14 = 0.0;
       do
       {
-        v15 = *(v5 + 8 * v13);
-        KB::DynamicDictionary::entry_matching_string(a2, &v20);
-        v16 = *(*(this + 21) + 4 * v13);
-        v17 = v20;
-        if (v20)
+        KB::DynamicDictionary::entry_matching_string(&v19, a2);
+        v15 = *(*(this + 21) + 4 * v13);
+        v16 = v19;
+        if (v19)
         {
-          v14 = v14 + (v16 * LXEntryGetUsageCount());
-          CFRelease(v17);
+          v14 = v14 + (v15 * LXEntryGetUsageCount());
+          CFRelease(v16);
         }
 
         else
         {
-          v14 = v14 + (v16 * 0.0);
+          v14 = v14 + (v15 * 0.0);
         }
 
         ++v13;
-        v5 = *(this + 14);
       }
 
-      while (v13 < (*(this + 15) - v5) >> 3);
+      while (v13 < (*(this + 15) - *(this + 14)) >> 3);
     }
 
-    v19 = llroundf(ceilf(v14));
-    if (v19 >= 0x7FFFFFFF)
+    v18 = llroundf(ceilf(v14));
+    if (v18 >= 0x7FFFFFFF)
     {
       return 0x7FFFFFFFLL;
     }
 
     else
     {
-      return v19;
+      return v18;
     }
   }
 
   else
   {
-    if (v6 == v5)
+    if (v7 == v6)
     {
-      v9 = 0;
+      v10 = 0;
     }
 
     else
     {
-      v7 = a3;
-      v8 = 0;
+      v8 = a3;
       v9 = 0;
-      v10 = 160;
+      v10 = 0;
+      v11 = 160;
       do
       {
-        if (*(*(this + 11) + v10) == v7)
+        if (*(*(this + 11) + v11) == v8)
         {
-          v11 = *(v5 + 8 * v8);
-          KB::DynamicDictionary::entry_matching_string(a2, &v20);
-          v12 = v20;
-          if (v20)
+          KB::DynamicDictionary::entry_matching_string(&v19, a2);
+          v12 = v19;
+          if (v19)
           {
-            v9 += LXEntryGetUsageCount();
+            v10 += LXEntryGetUsageCount();
             CFRelease(v12);
           }
 
-          v5 = *(this + 14);
-          v6 = *(this + 15);
+          v6 = *(this + 14);
+          v7 = *(this + 15);
         }
 
-        ++v8;
-        v10 += 176;
+        ++v9;
+        v11 += 176;
       }
 
-      while (v8 < (v6 - v5) >> 3);
+      while (v9 < (v7 - v6) >> 3);
     }
 
-    if (v9 >= 0x7FFFFFFF)
+    if (v10 >= 0x7FFFFFFF)
     {
       return 0x7FFFFFFFLL;
     }
 
     else
     {
-      return v9;
+      return v10;
     }
   }
 }
 
-void KB::DynamicDictionary::entry_matching_string(_LXLexicon *a1@<X1>, void *a2@<X8>)
+void KB::DynamicDictionary::entry_matching_string(uint64_t *__return_ptr a1@<X8>, _LXLexicon *a3@<X1>)
 {
   v8 = 0;
   v9 = &v8;
@@ -5718,7 +5661,7 @@ void KB::DynamicDictionary::entry_matching_string(_LXLexicon *a1@<X1>, void *a2@
   v11 = __Block_byref_object_copy__2373;
   v12 = __Block_byref_object_dispose__2374;
   cf = 0;
-  KB::cf_string_impl<KB::String>(&v7, a1);
+  KB::cf_string_impl<KB::String>(&v7, a3);
   v5 = v7;
   LXLexiconEnumerateEntriesForString();
   if (v5)
@@ -5727,11 +5670,11 @@ void KB::DynamicDictionary::entry_matching_string(_LXLexicon *a1@<X1>, void *a2@
   }
 
   v6 = v9[5];
-  *a2 = v6;
+  *a1 = v6;
   if (v6)
   {
     CFRetain(v6);
-    *a2 = v6;
+    *a1 = v6;
   }
 
   _Block_object_dispose(&v8, 8);
@@ -5762,155 +5705,153 @@ void __Block_byref_object_dispose__2374(uint64_t a1)
 
 void ___ZN2KB17DynamicDictionary21entry_matching_stringEPK10_LXLexiconRKNS_6StringEj_block_invoke(uint64_t a1, const void *a2, _BYTE *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  KB::Word::Word(v11, a2, *(a1 + 48));
-  KB::Word::capitalized_string(v11, v9);
-  v6 = KB::String::equal(v9, *(a1 + 40), 1);
-  if (v10)
+  v13 = *MEMORY[0x277D85DE8];
+  KB::Word::Word(v12, a2, *(a1 + 48));
+  KB::Word::capitalized_string(&v10, v12);
+  v8 = KB::String::equal(&v10, *(a1 + 40), 1, v6, v7);
+  if (v11)
   {
-    v7 = v9[6] == 1;
+    v9 = BYTE6(v10) == 1;
   }
 
   else
   {
-    v7 = 0;
+    v9 = 0;
   }
 
-  if (v7)
+  if (v9)
   {
-    free(v10);
+    free(v11);
   }
 
-  if (v6)
+  if (v8)
   {
     KB::retain_ptr<__CFDictionary const*>::operator=((*(*(a1 + 32) + 8) + 40), a2);
     *a3 = 1;
   }
 
-  KB::Word::~Word(v11);
-  v8 = *MEMORY[0x277D85DE8];
+  KB::Word::~Word(v12);
 }
 
 void KB::DynamicDictionaryContainer::get_word_with_string(KB::DynamicDictionaryContainer *this@<X0>, const KB::String *a2@<X1>, uint64_t a3@<X8>)
 {
-  v43 = *MEMORY[0x277D85DE8];
-  memset(v32, 0, sizeof(v32));
-  memset(v35, 0, sizeof(v35));
-  *&v42[8] = 0u;
-  v40 = 0;
-  v38 = 0uLL;
-  memset(v39, 0, sizeof(v39));
-  v36 = 0u;
-  memset(v37, 0, sizeof(v37));
+  v42 = *MEMORY[0x277D85DE8];
+  v5 = 0.0;
+  memset(v31, 0, sizeof(v31));
+  memset(v34, 0, sizeof(v34));
+  *&v41[8] = 0u;
+  v39 = 0;
+  v37 = 0uLL;
+  memset(v38, 0, sizeof(v38));
+  v35 = 0u;
+  memset(v36, 0, sizeof(v36));
+  v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
-  v32[1] = 16;
-  LOBYTE(v32[3]) = 0;
-  *&v34 = 0x3F80000000000000;
-  DWORD2(v34) = 1065353216;
-  v35[1] = 16;
-  LOBYTE(v35[3]) = 0;
+  v31[1] = 16;
+  LOBYTE(v31[3]) = 0;
+  *&v33 = 0x3F80000000000000;
+  DWORD2(v33) = 1065353216;
+  v34[1] = 16;
+  LOBYTE(v34[3]) = 0;
   __asm { FMOV            V9.2S, #1.0 }
 
-  *&v36 = _D9;
-  v39[1] = 16;
-  LOBYTE(v39[3]) = 0;
-  v41 = 0u;
-  *v42 = 0u;
-  *&v42[16] = 1065353216;
-  v10 = *(this + 14);
-  if (*(this + 15) != v10)
+  *&v35 = _D9;
+  v38[1] = 16;
+  LOBYTE(v38[3]) = 0;
+  v40 = 0u;
+  *v41 = 0u;
+  *&v41[16] = 1065353216;
+  v11 = *(this + 14);
+  if (*(this + 15) != v11)
   {
-    v11 = 0;
-    v12 = 1;
+    v12 = 0;
+    v13 = 1;
     do
     {
-      v13 = *(v10 + 8 * v11);
-      v14 = *(*(this + 11) + 176 * v11 + 160);
-      KB::entry_from_lexicon(&v19, a2);
-      v15 = v19;
-      if (v19)
+      v14 = *(*(this + 11) + 176 * v12 + 160);
+      KB::entry_from_lexicon(&v18, a2, v5, *(v11 + 8 * v12), 0);
+      v15 = v18;
+      if (v18)
       {
-        KB::Word::Word(v20, v19, v14);
+        KB::Word::Word(v19, v18, v14);
         CFRelease(v15);
-        if (LOWORD(v20[0]))
+        if (LOWORD(v19[0]))
         {
-          if (v32[0])
+          if (v31[0])
           {
-            *(v37 + 12) = vadd_s32(*(v26 + 12), *(v37 + 12));
+            *(v36 + 12) = vadd_s32(*(v25 + 12), *(v36 + 12));
           }
 
           else
           {
-            KB::String::operator=(v32, v20);
-            KB::ByteString::operator=(&v33, &v21);
-            *&v34 = v22;
-            DWORD2(v34) = v23;
-            KB::String::operator=(v35, v24);
-            v36 = v25;
-            v37[0] = v26[0];
-            v37[1] = v26[1];
-            v38 = v27;
-            KB::String::operator=(v39, v28);
-            LOBYTE(v40) = v29;
-            *&v42[16] = *&v31[16];
-            std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<unsigned long long,void *> *>>(&v41, *v31);
-            DWORD2(v36) |= 0x2000000u;
+            KB::String::operator=(v31, v19);
+            KB::ByteString::operator=(&v32, &v20);
+            *&v33 = v21;
+            DWORD2(v33) = v22;
+            KB::String::operator=(v34, v23);
+            v35 = v24;
+            v36[0] = v25[0];
+            v36[1] = v25[1];
+            v37 = v26;
+            KB::String::operator=(v38, v27);
+            LOBYTE(v39) = v28;
+            *&v41[16] = *&v30[16];
+            std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<unsigned long long,void *> *>>(&v40, *v30);
+            DWORD2(v35) |= 0x2000000u;
           }
         }
       }
 
       else
       {
-        memset(v20, 0, sizeof(v20));
-        memset(v24, 0, sizeof(v24));
-        v27 = 0uLL;
-        *&v31[8] = 0u;
-        v29 = 0;
-        memset(v28, 0, sizeof(v28));
-        v21 = 0u;
-        WORD1(v20[0]) = 16;
-        BYTE6(v20[0]) = 0;
-        v22 = 0x3F80000000000000;
-        v23 = 1065353216;
-        WORD1(v24[0]) = 16;
-        BYTE6(v24[0]) = 0;
-        v25 = _D9;
-        memset(v26, 0, sizeof(v26));
-        v28[1] = 16;
-        LOBYTE(v28[3]) = 0;
-        v30 = 0u;
-        *v31 = 0u;
-        *&v31[16] = 1065353216;
+        memset(v19, 0, sizeof(v19));
+        memset(v23, 0, sizeof(v23));
+        v26 = 0uLL;
+        *&v30[8] = 0u;
+        v28 = 0;
+        memset(v27, 0, sizeof(v27));
+        v20 = 0u;
+        WORD1(v19[0]) = 16;
+        BYTE6(v19[0]) = 0;
+        v21 = 0x3F80000000000000;
+        v22 = 1065353216;
+        WORD1(v23[0]) = 16;
+        BYTE6(v23[0]) = 0;
+        v24 = _D9;
+        memset(v25, 0, sizeof(v25));
+        v27[1] = 16;
+        LOBYTE(v27[3]) = 0;
+        v29 = 0u;
+        *v30 = 0u;
+        *&v30[16] = 1065353216;
       }
 
-      KB::Word::~Word(v20);
-      v11 = v12;
-      v10 = *(this + 14);
-      ++v12;
+      KB::Word::~Word(v19);
+      v12 = v13;
+      v11 = *(this + 14);
+      ++v13;
     }
 
-    while (v11 < (*(this + 15) - v10) >> 3);
+    while (v12 < (*(this + 15) - v11) >> 3);
   }
 
-  v16 = v20;
-  KB::DynamicDictionary::word_from_transient_lexicon_with_string(this, a2, v20);
-  if (v32[0])
+  v16 = v19;
+  KB::DynamicDictionary::word_from_transient_lexicon_with_string(v19, this, a2);
+  if (v31[0])
   {
-    if (LOWORD(v20[0]))
+    if (LOWORD(v19[0]))
     {
-      DWORD2(v36) = DWORD2(v36) & 0x7FFCFEFF | DWORD2(v25) & 0x80030100;
-      *&v42[16] = *&v31[16];
-      std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<unsigned long long,void *> *>>(&v41, *v31);
+      DWORD2(v35) = DWORD2(v35) & 0x7FFCFEFF | DWORD2(v24) & 0x80030100;
+      *&v41[16] = *&v30[16];
+      std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<unsigned long long,void *> *>>(&v40, *v30);
     }
 
-    v16 = v32;
+    v16 = v31;
   }
 
   KB::Word::Word(a3, v16);
-  KB::Word::~Word(v20);
-  KB::Word::~Word(v32);
-  v17 = *MEMORY[0x277D85DE8];
+  KB::Word::~Word(v19);
+  KB::Word::~Word(v31);
 }
 
 double KB::Word::Word(KB::Word *this)
@@ -5949,215 +5890,214 @@ double KB::Word::Word(KB::Word *this)
   return result;
 }
 
-void KB::DynamicDictionary::word_from_transient_lexicon_with_string(KB::DynamicDictionary *this@<X0>, const KB::String *a2@<X1>, uint64_t a3@<X8>)
+double KB::DynamicDictionary::word_from_transient_lexicon_with_string@<D0>(uint64_t *__return_ptr a1@<X8>, KB::DynamicDictionary *this@<X0>, const KB::String *a3@<X1>)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v6 = *((*(*this + 48))(this, 0) + 160);
-  KB::DynamicDictionary::word_from_supplemental_lexicon(this, a2, v15);
-  if (v16 != 1)
+  KB::DynamicDictionary::word_from_supplemental_lexicon(this, a3, 0, v20);
+  if (v21 != 1)
   {
-    if (*(this + 1))
+    v9 = *(this + 1);
+    if (v9)
     {
-      KB::entry_from_lexicon(v15, a2);
-      v7 = v15[0];
-      if (v15[0])
+      KB::entry_from_lexicon(v20, a3, v7, v9, 0);
+      v10 = v20[0];
+      if (v20[0])
       {
-        KB::Word::Word(a3, v15[0], v6);
-        CFRelease(v7);
+        KB::Word::Word(a1, v20[0], v6);
+        CFRelease(v10);
       }
 
       else
       {
-        *(a3 + 208) = 0u;
-        *(a3 + 224) = 0u;
-        *(a3 + 176) = 0u;
-        *(a3 + 192) = 0u;
-        *(a3 + 144) = 0u;
-        *(a3 + 160) = 0u;
-        *(a3 + 112) = 0u;
-        *(a3 + 128) = 0u;
-        *(a3 + 80) = 0u;
-        *(a3 + 96) = 0u;
-        *(a3 + 48) = 0u;
-        *(a3 + 64) = 0u;
-        *(a3 + 16) = 0u;
-        *(a3 + 32) = 0u;
-        *a3 = 0u;
-        KB::Word::Word(a3);
+        *(a1 + 13) = 0u;
+        *(a1 + 14) = 0u;
+        *(a1 + 11) = 0u;
+        *(a1 + 12) = 0u;
+        *(a1 + 9) = 0u;
+        *(a1 + 10) = 0u;
+        *(a1 + 7) = 0u;
+        *(a1 + 8) = 0u;
+        *(a1 + 5) = 0u;
+        *(a1 + 6) = 0u;
+        *(a1 + 3) = 0u;
+        *(a1 + 4) = 0u;
+        *(a1 + 1) = 0u;
+        *(a1 + 2) = 0u;
+        *a1 = 0u;
+        result = KB::Word::Word(a1);
       }
 
-      if (*a3)
+      if (*a1)
       {
-        v8 = *(a3 + 104) | 0x20000;
+        v11 = *(a1 + 26) | 0x20000;
 LABEL_33:
-        *(a3 + 104) = v8;
-        goto LABEL_34;
+        *(a1 + 26) = v11;
+        return result;
       }
 
-      KB::Word::~Word(a3);
+      KB::Word::~Word(a1);
     }
 
-    if (*(this + 2))
+    v12 = *(this + 2);
+    if (v12)
     {
-      KB::entry_from_lexicon(v15, a2);
-      v9 = v15[0];
-      if (v15[0])
+      KB::entry_from_lexicon(v20, a3, v7, v12, 0);
+      v13 = v20[0];
+      if (v20[0])
       {
-        KB::Word::Word(a3, v15[0], v6);
-        CFRelease(v9);
-      }
-
-      else
-      {
-        *(a3 + 208) = 0u;
-        *(a3 + 224) = 0u;
-        *(a3 + 176) = 0u;
-        *(a3 + 192) = 0u;
-        *(a3 + 144) = 0u;
-        *(a3 + 160) = 0u;
-        *(a3 + 112) = 0u;
-        *(a3 + 128) = 0u;
-        *(a3 + 80) = 0u;
-        *(a3 + 96) = 0u;
-        *(a3 + 48) = 0u;
-        *(a3 + 64) = 0u;
-        *(a3 + 16) = 0u;
-        *(a3 + 32) = 0u;
-        *a3 = 0u;
-        KB::Word::Word(a3);
-      }
-
-      if (*a3)
-      {
-        v8 = *(a3 + 104) | 0x80000000;
-        goto LABEL_33;
-      }
-
-      KB::Word::~Word(a3);
-    }
-
-    v10 = *(this + 3);
-    if (v10)
-    {
-      v11 = *v10;
-      if (v11)
-      {
-        if (*v11)
-        {
-          KB::entry_from_lexicon(v15, a2);
-          v12 = v15[0];
-          if (v15[0])
-          {
-            KB::Word::Word(a3, v15[0], v6);
-            CFRelease(v12);
-          }
-
-          else
-          {
-            *(a3 + 208) = 0u;
-            *(a3 + 224) = 0u;
-            *(a3 + 176) = 0u;
-            *(a3 + 192) = 0u;
-            *(a3 + 144) = 0u;
-            *(a3 + 160) = 0u;
-            *(a3 + 112) = 0u;
-            *(a3 + 128) = 0u;
-            *(a3 + 80) = 0u;
-            *(a3 + 96) = 0u;
-            *(a3 + 48) = 0u;
-            *(a3 + 64) = 0u;
-            *(a3 + 16) = 0u;
-            *(a3 + 32) = 0u;
-            *a3 = 0u;
-            KB::Word::Word(a3);
-          }
-
-          if (*a3)
-          {
-            v8 = *(a3 + 104) | 0x10000;
-            goto LABEL_33;
-          }
-
-          KB::Word::~Word(a3);
-        }
-      }
-    }
-
-    if (KB::DynamicDictionary::named_entity_lexicon(this))
-    {
-      KB::entry_from_lexicon(v15, a2);
-      v13 = v15[0];
-      if (v15[0])
-      {
-        KB::Word::Word(a3, v15[0], v6);
+        KB::Word::Word(a1, v20[0], v6);
         CFRelease(v13);
       }
 
       else
       {
-        *(a3 + 208) = 0u;
-        *(a3 + 224) = 0u;
-        *(a3 + 176) = 0u;
-        *(a3 + 192) = 0u;
-        *(a3 + 144) = 0u;
-        *(a3 + 160) = 0u;
-        *(a3 + 112) = 0u;
-        *(a3 + 128) = 0u;
-        *(a3 + 80) = 0u;
-        *(a3 + 96) = 0u;
-        *(a3 + 48) = 0u;
-        *(a3 + 64) = 0u;
-        *(a3 + 16) = 0u;
-        *(a3 + 32) = 0u;
-        *a3 = 0u;
-        KB::Word::Word(a3);
+        *(a1 + 13) = 0u;
+        *(a1 + 14) = 0u;
+        *(a1 + 11) = 0u;
+        *(a1 + 12) = 0u;
+        *(a1 + 9) = 0u;
+        *(a1 + 10) = 0u;
+        *(a1 + 7) = 0u;
+        *(a1 + 8) = 0u;
+        *(a1 + 5) = 0u;
+        *(a1 + 6) = 0u;
+        *(a1 + 3) = 0u;
+        *(a1 + 4) = 0u;
+        *(a1 + 1) = 0u;
+        *(a1 + 2) = 0u;
+        *a1 = 0u;
+        result = KB::Word::Word(a1);
       }
 
-      if (*a3)
+      if (*a1)
       {
-        v8 = *(a3 + 104) | 0x100;
+        v11 = *(a1 + 26) | 0x80000000;
         goto LABEL_33;
       }
 
-      KB::Word::~Word(a3);
+      KB::Word::~Word(a1);
     }
 
-    *(a3 + 208) = 0u;
-    *(a3 + 224) = 0u;
-    *(a3 + 176) = 0u;
-    *(a3 + 192) = 0u;
-    *(a3 + 144) = 0u;
-    *(a3 + 160) = 0u;
-    *(a3 + 112) = 0u;
-    *(a3 + 128) = 0u;
-    *(a3 + 80) = 0u;
-    *(a3 + 96) = 0u;
-    *(a3 + 48) = 0u;
-    *(a3 + 64) = 0u;
-    *(a3 + 16) = 0u;
-    *(a3 + 32) = 0u;
-    *a3 = 0u;
-    KB::Word::Word(a3);
-    goto LABEL_34;
+    v14 = *(this + 3);
+    if (v14)
+    {
+      v15 = *v14;
+      if (v15)
+      {
+        if (*v15)
+        {
+          KB::entry_from_lexicon(v20, a3, v7, *v15, 0);
+          v16 = v20[0];
+          if (v20[0])
+          {
+            KB::Word::Word(a1, v20[0], v6);
+            CFRelease(v16);
+          }
+
+          else
+          {
+            *(a1 + 13) = 0u;
+            *(a1 + 14) = 0u;
+            *(a1 + 11) = 0u;
+            *(a1 + 12) = 0u;
+            *(a1 + 9) = 0u;
+            *(a1 + 10) = 0u;
+            *(a1 + 7) = 0u;
+            *(a1 + 8) = 0u;
+            *(a1 + 5) = 0u;
+            *(a1 + 6) = 0u;
+            *(a1 + 3) = 0u;
+            *(a1 + 4) = 0u;
+            *(a1 + 1) = 0u;
+            *(a1 + 2) = 0u;
+            *a1 = 0u;
+            result = KB::Word::Word(a1);
+          }
+
+          if (*a1)
+          {
+            v11 = *(a1 + 26) | 0x10000;
+            goto LABEL_33;
+          }
+
+          KB::Word::~Word(a1);
+        }
+      }
+    }
+
+    v17 = KB::DynamicDictionary::named_entity_lexicon(this);
+    if (v17)
+    {
+      KB::entry_from_lexicon(v20, a3, v18, v17, 0);
+      v19 = v20[0];
+      if (v20[0])
+      {
+        KB::Word::Word(a1, v20[0], v6);
+        CFRelease(v19);
+      }
+
+      else
+      {
+        *(a1 + 13) = 0u;
+        *(a1 + 14) = 0u;
+        *(a1 + 11) = 0u;
+        *(a1 + 12) = 0u;
+        *(a1 + 9) = 0u;
+        *(a1 + 10) = 0u;
+        *(a1 + 7) = 0u;
+        *(a1 + 8) = 0u;
+        *(a1 + 5) = 0u;
+        *(a1 + 6) = 0u;
+        *(a1 + 3) = 0u;
+        *(a1 + 4) = 0u;
+        *(a1 + 1) = 0u;
+        *(a1 + 2) = 0u;
+        *a1 = 0u;
+        result = KB::Word::Word(a1);
+      }
+
+      if (*a1)
+      {
+        v11 = *(a1 + 26) | 0x100;
+        goto LABEL_33;
+      }
+
+      KB::Word::~Word(a1);
+    }
+
+    *(a1 + 13) = 0u;
+    *(a1 + 14) = 0u;
+    *(a1 + 11) = 0u;
+    *(a1 + 12) = 0u;
+    *(a1 + 9) = 0u;
+    *(a1 + 10) = 0u;
+    *(a1 + 7) = 0u;
+    *(a1 + 8) = 0u;
+    *(a1 + 5) = 0u;
+    *(a1 + 6) = 0u;
+    *(a1 + 3) = 0u;
+    *(a1 + 4) = 0u;
+    *(a1 + 1) = 0u;
+    *(a1 + 2) = 0u;
+    *a1 = 0u;
+    return KB::Word::Word(a1);
   }
 
-  KB::Word::Word(a3, v15);
-  if (v16 == 1)
+  KB::Word::Word(a1, v20);
+  if (v21 == 1)
   {
-    KB::Word::~Word(v15);
+    KB::Word::~Word(v20);
   }
 
-LABEL_34:
-  v14 = *MEMORY[0x277D85DE8];
+  return result;
 }
 
-void KB::entry_from_lexicon(void *a1, uint64_t a2)
+void KB::entry_from_lexicon(void *a1, unsigned __int16 *a2, double a3, uint64_t a4, uint64_t a5)
 {
   RootCursor = LXLexiconCreateRootCursor();
-  *(a2 + 8);
-  *a2;
-  v5 = LXCursorCreateByAdvancingWithUTF8();
-  if (!v5)
+  v7 = LXCursorCreateByAdvancingWithUTF8();
+  if (!v7)
   {
     *a1 = 0;
     if (!RootCursor)
@@ -6168,29 +6108,29 @@ void KB::entry_from_lexicon(void *a1, uint64_t a2)
     goto LABEL_7;
   }
 
-  v6 = v5;
-  v8 = 0;
-  v9 = &v8;
-  v10 = 0x3002000000;
-  v11 = __Block_byref_object_copy__2373;
-  v12 = __Block_byref_object_dispose__2374;
+  v8 = v7;
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x3002000000;
+  v13 = __Block_byref_object_copy__2373;
+  v14 = __Block_byref_object_dispose__2374;
   cf = 0;
   LXCursorEnumerateEntries();
-  v7 = v9[5];
-  *a1 = v7;
-  if (v7)
+  v9 = v11[5];
+  *a1 = v9;
+  if (v9)
   {
-    CFRetain(v7);
-    *a1 = v7;
+    CFRetain(v9);
+    *a1 = v9;
   }
 
-  _Block_object_dispose(&v8, 8);
+  _Block_object_dispose(&v10, 8);
   if (cf)
   {
     CFRelease(cf);
   }
 
-  CFRelease(v6);
+  CFRelease(v8);
   if (RootCursor)
   {
 LABEL_7:
@@ -6273,13 +6213,13 @@ uint64_t KB::Word::Word(uint64_t a1, uint64_t a2)
 
 void ___ZN2KBL18entry_from_lexiconERKNS_6StringEPK10_LXLexiconU13block_pointerFbS2_S2_E_block_invoke(void *a1, const void *a2, _BYTE *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v6 = LXEntryCopyString();
-  KB::utf8_string(v6, v10);
-  v7 = a1[4];
-  if (v7)
+  KB::utf8_string(v11, v6);
+  v9 = a1[4];
+  if (v9)
   {
-    if (((*(v7 + 16))(v7, v10, a1[6]) & 1) == 0)
+    if (((*(v9 + 16))(v9, v11, a1[6]) & 1) == 0)
     {
       goto LABEL_7;
     }
@@ -6287,8 +6227,8 @@ void ___ZN2KBL18entry_from_lexiconERKNS_6StringEPK10_LXLexiconU13block_pointerFb
     goto LABEL_6;
   }
 
-  v8 = a1[6];
-  if (v10 == v8 || KB::String::equal(v10, v8, 1))
+  v10 = a1[6];
+  if (v11 == v10 || KB::String::equal(v11, v10, 1, v7, v8))
   {
 LABEL_6:
     KB::retain_ptr<__CFDictionary const*>::operator=((*(a1[5] + 8) + 40), a2);
@@ -6296,338 +6236,335 @@ LABEL_6:
   }
 
 LABEL_7:
-  if (v11 && v10[6] == 1)
+  if (v12 && v11[6] == 1)
   {
-    free(v11);
+    free(v12);
   }
 
   if (v6)
   {
     CFRelease(v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
-void KB::DynamicDictionary::word_from_supplemental_lexicon(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+void KB::DynamicDictionary::word_from_supplemental_lexicon(uint64_t a1@<X0>, unsigned __int16 *a2@<X1>, uint64_t a3@<X2>, _BYTE *a4@<X8>)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  if (TITransientLexiconManagerGetActiveSupplementalLexiconWords() && (KB::entry_from_lexicon(&v13, a2), (v6 = v13) != 0))
+  v21 = *MEMORY[0x277D85DE8];
+  ActiveSupplementalLexiconWords = TITransientLexiconManagerGetActiveSupplementalLexiconWords();
+  if (ActiveSupplementalLexiconWords && (KB::entry_from_lexicon(&v16, a2, v9, ActiveSupplementalLexiconWords, a3), (v10 = v16) != 0))
   {
-    v7 = (*(*a1 + 48))(a1, 0);
-    KB::Word::Word(v14, v6, *(v7 + 160));
-    TILXEntryGetSupplementalItemIdentifiers(v10);
-    v17 = v12;
-    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<unsigned long long,void *> *>>(v16, v11);
-    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(v10);
-    if (TILXEntryIsPartOfHyphenatedWord())
+    v11 = (*(*a1 + 48))(a1, 0);
+    KB::Word::Word(v17, v10, *(v11 + 160));
+    TILXEntryGetSupplementalItemIdentifiers(v13, v10);
+    v20 = v15;
+    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<unsigned long long,void *> *>>(v19, v14);
+    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(v13);
+    if (TILXEntryIsPartOfHyphenatedWord(v10))
     {
-      v8 = 16;
+      v12 = 16;
     }
 
     else
     {
-      v8 = 0;
+      v12 = 0;
     }
 
-    v15 = v15 & 0xFFFFFFEF | v8;
-    KB::Word::Word(a3, v14);
-    a3[240] = 1;
-    KB::Word::~Word(v14);
-    CFRelease(v6);
+    v18 = v18 & 0xFFFFFFEF | v12;
+    KB::Word::Word(a4, v17);
+    a4[240] = 1;
+    KB::Word::~Word(v17);
+    CFRelease(v10);
   }
 
   else
   {
-    *a3 = 0;
-    a3[240] = 0;
+    *a4 = 0;
+    a4[240] = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t KB::DynamicDictionaryContainer::do_load(uint64_t a1, unsigned __int16 **a2, int a3)
 {
-  v77 = *MEMORY[0x277D85DE8];
-  v65 = (a1 + 112);
+  v78 = *MEMORY[0x277D85DE8];
+  v66 = (a1 + 112);
   if (*(a1 + 112) != *(a1 + 120))
   {
-    goto LABEL_2;
+    return 1;
   }
 
-  v5 = *a2;
-  v67 = a2[1];
-  if (*a2 == v67)
+  v4 = *a2;
+  v68 = a2[1];
+  if (*a2 == v68)
   {
-    goto LABEL_2;
+    return 1;
   }
 
   if (a3)
   {
-    v7 = "Siri-TextInput-Dynamic.";
+    v6 = "Siri-TextInput-Dynamic.";
   }
 
   else
   {
-    v7 = "TextInput-Dynamic.";
+    v6 = "TextInput-Dynamic.";
   }
 
-  v8 = (a1 + 88);
-  __s = v7;
+  v7 = (a1 + 88);
+  __s = v6;
   do
   {
-    KB::String::String(v74, __s);
-    KB::String::append(v74, v5);
-    KB::cf_string_impl<KB::String>(&v69, v74);
-    v9 = v69;
+    KB::String::String(v75, __s);
+    KB::String::append(v75, v4);
+    KB::cf_string_impl<KB::String>(&v70, v75);
+    v8 = v70;
     View = LXLexiconRepositoryCreateView();
-    if (v9)
+    if (v8)
     {
-      CFRelease(v9);
+      CFRelease(v8);
     }
 
-    v12 = *(a1 + 120);
-    v11 = *(a1 + 128);
-    if (v12 >= v11)
+    v11 = *(a1 + 120);
+    v10 = *(a1 + 128);
+    if (v11 >= v10)
     {
-      v14 = (v12 - *v65) >> 3;
-      if ((v14 + 1) >> 61)
+      v13 = (v11 - *v66) >> 3;
+      if ((v13 + 1) >> 61)
       {
         std::vector<unsigned long>::__throw_length_error[abi:nn200100]();
       }
 
-      v15 = v11 - *v65;
-      v16 = v15 >> 2;
-      if (v15 >> 2 <= (v14 + 1))
+      v14 = v10 - *v66;
+      v15 = v14 >> 2;
+      if (v14 >> 2 <= (v13 + 1))
       {
-        v16 = v14 + 1;
+        v15 = v13 + 1;
       }
 
-      if (v15 >= 0x7FFFFFFFFFFFFFF8)
+      if (v14 >= 0x7FFFFFFFFFFFFFF8)
       {
-        v17 = 0x1FFFFFFFFFFFFFFFLL;
+        v16 = 0x1FFFFFFFFFFFFFFFLL;
       }
 
       else
       {
-        v17 = v16;
+        v16 = v15;
       }
 
-      v73 = v65;
-      if (v17)
+      v74 = v66;
+      if (v16)
       {
-        std::__allocate_at_least[abi:nn200100]<std::allocator<__CFString const*>>(v17);
+        std::__allocate_at_least[abi:nn200100]<std::allocator<__CFString const*>>(v16);
       }
 
-      v18 = (8 * v14);
-      *(8 * v14) = View;
+      v17 = (8 * v13);
+      *(8 * v13) = View;
       if (View)
       {
         CFRetain(View);
-        *v18 = View;
+        *v17 = View;
       }
 
-      v13 = v18 + 1;
-      v19 = *(a1 + 112);
-      v20 = *(a1 + 120);
-      v21 = (v18 + v19 - v20);
-      std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<KB::retain_ptr<_LXLexicon const*>>,KB::retain_ptr<_LXLexicon const*>*>(v19, v20, v21);
-      v22 = *(a1 + 112);
-      *(a1 + 112) = v21;
-      *(a1 + 120) = v18 + 1;
-      v23 = *(a1 + 128);
+      v12 = v17 + 1;
+      v18 = *(a1 + 112);
+      v19 = *(a1 + 120);
+      v20 = (v17 + v18 - v19);
+      std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<KB::retain_ptr<_LXLexicon const*>>,KB::retain_ptr<_LXLexicon const*>*>(v18, v19, v20);
+      v21 = *(a1 + 112);
+      *(a1 + 112) = v20;
+      *(a1 + 120) = v17 + 1;
+      v22 = *(a1 + 128);
       *(a1 + 128) = 0;
-      v71 = v22;
-      v72 = v23;
-      v69 = v22;
-      v70 = v22;
-      std::__split_buffer<KB::retain_ptr<_LXLexicon const*>>::~__split_buffer(&v69);
+      v72 = v21;
+      v73 = v22;
+      v70 = v21;
+      v71 = v21;
+      std::__split_buffer<KB::retain_ptr<_LXLexicon const*>>::~__split_buffer(&v70);
     }
 
     else
     {
-      *v12 = View;
+      *v11 = View;
       if (View)
       {
         CFRetain(View);
-        *v12 = View;
+        *v11 = View;
       }
 
-      v13 = v12 + 1;
+      v12 = v11 + 1;
     }
 
-    *(a1 + 120) = v13;
-    v25 = *(a1 + 96);
-    v24 = *(a1 + 104);
-    if (v25 >= v24)
+    *(a1 + 120) = v12;
+    v24 = *(a1 + 96);
+    v23 = *(a1 + 104);
+    if (v24 >= v23)
     {
-      v28 = 0x2E8BA2E8BA2E8BA3 * ((v25 - *v8) >> 4);
-      v29 = v28 + 1;
-      if ((v28 + 1) > 0x1745D1745D1745DLL)
+      v27 = 0x2E8BA2E8BA2E8BA3 * ((v24 - *v7) >> 4);
+      v28 = v27 + 1;
+      if ((v27 + 1) > 0x1745D1745D1745DLL)
       {
         std::vector<unsigned long>::__throw_length_error[abi:nn200100]();
       }
 
-      v30 = 0x2E8BA2E8BA2E8BA3 * ((v24 - *v8) >> 4);
-      if (2 * v30 > v29)
+      v29 = 0x2E8BA2E8BA2E8BA3 * ((v23 - *v7) >> 4);
+      if (2 * v29 > v28)
       {
-        v29 = 2 * v30;
+        v28 = 2 * v29;
       }
 
-      if (v30 >= 0xBA2E8BA2E8BA2ELL)
+      if (v29 >= 0xBA2E8BA2E8BA2ELL)
       {
-        v31 = 0x1745D1745D1745DLL;
+        v30 = 0x1745D1745D1745DLL;
       }
 
       else
       {
-        v31 = v29;
+        v30 = v28;
       }
 
-      v73 = v8;
-      if (v31)
+      v74 = v7;
+      if (v30)
       {
-        std::__allocate_at_least[abi:nn200100]<std::allocator<KB::LexiconInfo>>(v31);
+        std::__allocate_at_least[abi:nn200100]<std::allocator<KB::LexiconInfo>>(v30);
       }
 
-      v32 = 176 * v28;
-      KB::String::String((176 * v28), v5);
-      KB::String::String((176 * v28 + 32), (v5 + 4));
-      KB::String::String((176 * v28 + 64), (v5 + 8));
-      KB::String::String((176 * v28 + 96), (v5 + 12));
-      KB::String::String((176 * v28 + 128), (v5 + 16));
-      v33 = v5[20];
-      *(v32 + 168) = *(v5 + 42);
-      *(v32 + 160) = v33;
-      v27 = 176 * v28 + 176;
-      v34 = *(a1 + 88);
-      v35 = *(a1 + 96);
-      v36 = v32 + v34 - v35;
-      std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<KB::LexiconInfo>,KB::LexiconInfo*>(v34, v35, v36);
-      v37 = *(a1 + 88);
-      *(a1 + 88) = v36;
-      *(a1 + 96) = v27;
-      v38 = *(a1 + 104);
+      v31 = 176 * v27;
+      KB::String::String((176 * v27), v4);
+      KB::String::String((176 * v27 + 32), (v4 + 4));
+      KB::String::String((176 * v27 + 64), (v4 + 8));
+      KB::String::String((176 * v27 + 96), (v4 + 12));
+      KB::String::String((176 * v27 + 128), (v4 + 16));
+      v32 = v4[20];
+      *(v31 + 168) = *(v4 + 42);
+      *(v31 + 160) = v32;
+      v26 = 176 * v27 + 176;
+      v33 = *(a1 + 88);
+      v34 = *(a1 + 96);
+      v35 = v31 + v33 - v34;
+      std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<KB::LexiconInfo>,KB::LexiconInfo*>(v33, v34, v35);
+      v36 = *(a1 + 88);
+      *(a1 + 88) = v35;
+      *(a1 + 96) = v26;
+      v37 = *(a1 + 104);
       *(a1 + 104) = 0;
-      v71 = v37;
-      v72 = v38;
-      v69 = v37;
-      v70 = v37;
-      std::__split_buffer<KB::LexiconInfo>::~__split_buffer(&v69);
+      v72 = v36;
+      v73 = v37;
+      v70 = v36;
+      v71 = v36;
+      std::__split_buffer<KB::LexiconInfo>::~__split_buffer(&v70);
     }
 
     else
     {
-      KB::String::String(*(a1 + 96), v5);
-      KB::String::String((v25 + 32), (v5 + 4));
-      KB::String::String((v25 + 64), (v5 + 8));
-      KB::String::String((v25 + 96), (v5 + 12));
-      KB::String::String((v25 + 128), (v5 + 16));
-      v26 = v5[20];
-      *(v25 + 168) = *(v5 + 42);
-      *(v25 + 160) = v26;
-      v27 = v25 + 176;
+      KB::String::String(*(a1 + 96), v4);
+      KB::String::String((v24 + 32), (v4 + 4));
+      KB::String::String((v24 + 64), (v4 + 8));
+      KB::String::String((v24 + 96), (v4 + 12));
+      KB::String::String((v24 + 128), (v4 + 16));
+      v25 = v4[20];
+      *(v24 + 168) = *(v4 + 42);
+      *(v24 + 160) = v25;
+      v26 = v24 + 176;
     }
 
-    *(a1 + 96) = v27;
-    v40 = *(a1 + 176);
-    v39 = *(a1 + 184);
+    *(a1 + 96) = v26;
+    v39 = *(a1 + 176);
+    v38 = *(a1 + 184);
     cf = View;
-    if (v40 >= v39)
+    if (v39 >= v38)
     {
-      v42 = *(a1 + 168);
-      v43 = v40 - v42;
-      v44 = (v40 - v42) >> 2;
-      v45 = v44 + 1;
-      if ((v44 + 1) >> 62)
+      v41 = *(a1 + 168);
+      v42 = v39 - v41;
+      v43 = (v39 - v41) >> 2;
+      v44 = v43 + 1;
+      if ((v43 + 1) >> 62)
       {
         std::vector<unsigned long>::__throw_length_error[abi:nn200100]();
       }
 
-      v46 = v39 - v42;
-      if (v46 >> 1 > v45)
+      v45 = v38 - v41;
+      if (v45 >> 1 > v44)
       {
-        v45 = v46 >> 1;
+        v44 = v45 >> 1;
       }
 
-      if (v46 >= 0x7FFFFFFFFFFFFFFCLL)
+      if (v45 >= 0x7FFFFFFFFFFFFFFCLL)
       {
-        v47 = 0x3FFFFFFFFFFFFFFFLL;
+        v46 = 0x3FFFFFFFFFFFFFFFLL;
       }
 
       else
       {
-        v47 = v45;
+        v46 = v44;
       }
 
-      if (v47)
+      if (v46)
       {
-        std::__allocate_at_least[abi:nn200100]<std::allocator<unsigned int>>(v47);
+        std::__allocate_at_least[abi:nn200100]<std::allocator<unsigned int>>(v46);
       }
 
-      v48 = v44;
-      v49 = (4 * v44);
-      v50 = &v49[-v48];
-      *v49 = *(v5 + 42);
-      v41 = v49 + 1;
-      memcpy(v50, v42, v43);
-      v51 = *(a1 + 168);
-      *(a1 + 168) = v50;
-      *(a1 + 176) = v41;
+      v47 = v43;
+      v48 = (4 * v43);
+      v49 = &v48[-v47];
+      *v48 = *(v4 + 42);
+      v40 = v48 + 1;
+      memcpy(v49, v41, v42);
+      v50 = *(a1 + 168);
+      *(a1 + 168) = v49;
+      *(a1 + 176) = v40;
       *(a1 + 184) = 0;
-      if (v51)
+      if (v50)
       {
-        operator delete(v51);
+        operator delete(v50);
       }
     }
 
     else
     {
-      *v40 = *(v5 + 42);
-      v41 = v40 + 4;
+      *v39 = *(v4 + 42);
+      v40 = v39 + 4;
     }
 
-    *(a1 + 176) = v41;
-    v53 = *(a1 + 112);
-    v52 = *(a1 + 120);
-    if (v5[1])
+    *(a1 + 176) = v40;
+    v52 = *(a1 + 112);
+    v51 = *(a1 + 120);
+    if (v4[1])
     {
-      v54 = v5[1];
+      v53 = v4[1];
     }
 
     else
     {
-      v54 = (v5 + 2);
+      v53 = (v4 + 2);
     }
 
-    v55 = KB::String::hash(v54, *v5);
-    v56 = v55;
-    v57 = *(a1 + 200);
-    if (!v57)
+    v54 = KB::String::hash(v53, *v4);
+    v57 = v54;
+    v58 = *(a1 + 200);
+    if (!v58)
     {
       goto LABEL_68;
     }
 
-    v58 = v8;
-    v59 = vcnt_s8(v57);
-    v59.i16[0] = vaddlv_u8(v59);
-    v60 = v59.u32[0];
-    if (v59.u32[0] > 1uLL)
+    v59 = v7;
+    v60 = vcnt_s8(v58);
+    v60.i16[0] = vaddlv_u8(v60);
+    v61 = v60.u32[0];
+    if (v60.u32[0] > 1uLL)
     {
-      v61 = v55;
-      if (v57 <= v55)
+      v62 = v54;
+      if (v58 <= v54)
       {
-        v61 = v55 % v57;
+        v62 = v54 % v58;
       }
     }
 
     else
     {
-      v61 = (v57 - 1) & v55;
+      v62 = (v58 - 1) & v54;
     }
 
-    v62 = *(*(a1 + 192) + 8 * v61);
-    if (!v62 || (v63 = *v62) == 0)
+    v63 = *(*(a1 + 192) + 8 * v62);
+    if (!v63 || (v64 = *v63) == 0)
     {
 LABEL_68:
       operator new();
@@ -6635,61 +6572,59 @@ LABEL_68:
 
     while (1)
     {
-      v64 = v63[1];
-      if (v64 == v56)
+      v65 = v64[1];
+      if (v65 == v57)
       {
         break;
       }
 
-      if (v60 > 1)
+      if (v61 > 1)
       {
-        if (v64 >= v57)
+        if (v65 >= v58)
         {
-          v64 %= v57;
+          v65 %= v58;
         }
       }
 
       else
       {
-        v64 &= v57 - 1;
+        v65 &= v58 - 1;
       }
 
-      if (v64 != v61)
+      if (v65 != v62)
       {
         goto LABEL_68;
       }
 
 LABEL_67:
-      v63 = *v63;
-      if (!v63)
+      v64 = *v64;
+      if (!v64)
       {
         goto LABEL_68;
       }
     }
 
-    if (v63 + 2 != v5 && !KB::String::equal((v63 + 2), v5, 1))
+    if (v64 + 2 != v4 && !KB::String::equal((v64 + 2), v4, 1, v55, v56))
     {
       goto LABEL_67;
     }
 
-    v8 = v58;
-    v63[6] = ((v52 - v53) >> 3) - 1;
+    v7 = v59;
+    v64[6] = ((v51 - v52) >> 3) - 1;
     if (cf)
     {
       CFRelease(cf);
     }
 
-    if (v76 && v75 == 1)
+    if (v77 && v76 == 1)
     {
-      free(v76);
+      free(v77);
     }
 
-    v5 += 22;
+    v4 += 22;
   }
 
-  while (v5 != v67);
-LABEL_2:
-  v3 = *MEMORY[0x277D85DE8];
+  while (v4 != v68);
   return 1;
 }
 
@@ -6703,11 +6638,11 @@ void std::__allocate_at_least[abi:nn200100]<std::allocator<KB::LexiconInfo>>(uni
   std::vector<unsigned long>::__throw_length_error[abi:nn200100]();
 }
 
-void std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<KB::LexiconInfo>,KB::LexiconInfo*>(uint64_t a1, uint64_t a2, uint64_t a3)
+void std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<KB::LexiconInfo>,KB::LexiconInfo*>(uint64_t result, uint64_t a2, uint64_t a3)
 {
-  if (a1 != a2)
+  if (result != a2)
   {
-    v5 = a1;
+    v5 = result;
     v6 = 0;
     do
     {
@@ -6868,7 +6803,7 @@ uint64_t std::__split_buffer<KB::retain_ptr<_LXLexicon const*>>::~__split_buffer
   return a1;
 }
 
-void KB::DynamicDictionaryContainer::~DynamicDictionaryContainer(KB::DynamicDictionaryContainer *this)
+void KB::DynamicDictionaryContainer::~DynamicDictionaryContainer(void **this)
 {
   KB::DynamicDictionaryContainer::~DynamicDictionaryContainer(this);
 
@@ -6877,46 +6812,46 @@ void KB::DynamicDictionaryContainer::~DynamicDictionaryContainer(KB::DynamicDict
 
 {
   *this = &unk_283FD75C0;
-  if (*(this + 27))
+  if (this[27])
   {
-    std::__hash_table<std::__hash_value_type<KB::String,unsigned long>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,unsigned long>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,unsigned long>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,unsigned long>>>::__deallocate_node(*(this + 26));
-    *(this + 26) = 0;
-    v2 = *(this + 25);
+    std::__hash_table<std::__hash_value_type<KB::String,unsigned long>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,unsigned long>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,unsigned long>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,unsigned long>>>::__deallocate_node(this[26]);
+    this[26] = 0;
+    v2 = this[25];
     if (v2)
     {
       for (i = 0; i != v2; ++i)
       {
-        *(*(this + 24) + 8 * i) = 0;
+        *(this[24] + i) = 0;
       }
     }
 
-    *(this + 27) = 0;
+    this[27] = 0;
   }
 
-  std::__hash_table<std::__hash_value_type<KB::String,unsigned long>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,unsigned long>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,unsigned long>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,unsigned long>>>::__deallocate_node(*(this + 26));
-  v4 = *(this + 24);
-  *(this + 24) = 0;
+  std::__hash_table<std::__hash_value_type<KB::String,unsigned long>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,unsigned long>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,unsigned long>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,unsigned long>>>::__deallocate_node(this[26]);
+  v4 = this[24];
+  this[24] = 0;
   if (v4)
   {
     operator delete(v4);
   }
 
-  v5 = *(this + 21);
+  v5 = this[21];
   if (v5)
   {
-    *(this + 22) = v5;
+    this[22] = v5;
     operator delete(v5);
   }
 
-  v6 = *(this + 18);
+  v6 = this[18];
   if (v6 && *(this + 142) == 1)
   {
     free(v6);
   }
 
-  v7 = (this + 112);
+  v7 = this + 14;
   std::vector<KB::retain_ptr<_LXLexicon const*>>::__destroy_vector::operator()[abi:nn200100](&v7);
-  v7 = (this + 88);
+  v7 = this + 11;
   std::vector<KB::LexiconInfo>::__destroy_vector::operator()[abi:nn200100](&v7);
 
   KB::DynamicDictionary::~DynamicDictionary(this);
@@ -7131,96 +7066,96 @@ void KB::DynamicDictionarySingle::do_enumerate_entries(KB::DynamicDictionary *a1
   }
 }
 
-uint64_t KB::DynamicDictionarySingle::get_total_usage_count(KB::DynamicDictionarySingle *this)
+uint64_t KB::DynamicDictionarySingle::get_total_usage_count(KB::DynamicDictionarySingle *this, double a2)
 {
   if (*(this + 33) && (RootCursor = LXLexiconCreateRootCursor()) != 0)
   {
-    v3 = RootCursor;
-    v4 = LXCursorUsageCountRecursive();
-    v5 = v4 & ~(v4 >> 31);
-    CFRelease(v3);
+    v4 = RootCursor;
+    v5 = LXCursorUsageCountRecursive();
+    v6 = v5 & ~(v5 >> 31);
+    CFRelease(v4);
   }
 
   else
   {
-    v5 = 0;
+    v6 = 0;
   }
 
-  if (*(this + 1) && (v6 = LXLexiconCreateRootCursor()) != 0)
+  if (*(this + 1) && (v7 = LXLexiconCreateRootCursor()) != 0)
   {
-    v7 = v6;
-    v8 = LXCursorUsageCountRecursive();
-    v9 = v8 & ~(v8 >> 31);
-    CFRelease(v7);
+    v8 = v7;
+    v9 = LXCursorUsageCountRecursive();
+    v10 = v9 & ~(v9 >> 31);
+    CFRelease(v8);
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
-  if (*(this + 2) && (v10 = LXLexiconCreateRootCursor()) != 0)
+  if (*(this + 2) && (v11 = LXLexiconCreateRootCursor()) != 0)
   {
-    v11 = v10;
-    v12 = LXCursorUsageCountRecursive();
-    v13 = v12 & ~(v12 >> 31);
-    CFRelease(v11);
+    v12 = v11;
+    v13 = LXCursorUsageCountRecursive();
+    v14 = v13 & ~(v13 >> 31);
+    CFRelease(v12);
   }
 
   else
   {
-    v13 = 0;
+    v14 = 0;
   }
 
-  v14 = *(this + 3);
-  if (v14 && (v15 = *v14) != 0 && *v15 && (v16 = LXLexiconCreateRootCursor()) != 0)
+  v15 = *(this + 3);
+  if (v15 && (v16 = *v15) != 0 && *v16 && (v17 = LXLexiconCreateRootCursor()) != 0)
   {
-    v17 = v16;
-    v18 = LXCursorUsageCountRecursive();
-    v19 = v18 & ~(v18 >> 31);
-    CFRelease(v17);
+    v18 = v17;
+    v19 = LXCursorUsageCountRecursive();
+    v20 = v19 & ~(v19 >> 31);
+    CFRelease(v18);
   }
 
   else
   {
-    v19 = 0;
+    v20 = 0;
   }
 
-  if (KB::DynamicDictionary::named_entity_lexicon(this) && (v20 = LXLexiconCreateRootCursor()) != 0)
+  if (KB::DynamicDictionary::named_entity_lexicon(this) && (v21 = LXLexiconCreateRootCursor()) != 0)
   {
-    v21 = v20;
-    v22 = LXCursorUsageCountRecursive();
-    v23 = v22 & ~(v22 >> 31);
-    CFRelease(v21);
+    v22 = v21;
+    v23 = LXCursorUsageCountRecursive();
+    v24 = v23 & ~(v23 >> 31);
+    CFRelease(v22);
   }
 
   else
   {
-    v23 = 0;
+    v24 = 0;
   }
 
-  if (TITransientLexiconManagerGetActiveSupplementalLexiconWords() && (v24 = LXLexiconCreateRootCursor()) != 0)
+  if (TITransientLexiconManagerGetActiveSupplementalLexiconWords() && (v25 = LXLexiconCreateRootCursor()) != 0)
   {
-    v25 = v24;
-    v26 = LXCursorUsageCountRecursive();
-    v27 = v26 & ~(v26 >> 31);
-    CFRelease(v25);
+    v26 = v25;
+    v27 = LXCursorUsageCountRecursive();
+    v28 = v27 & ~(v27 >> 31);
+    CFRelease(v26);
   }
 
   else
   {
-    v27 = 0;
+    v28 = 0;
   }
 
-  return (v9 + v5 + v13 + v19 + v23 + v27);
+  return (v10 + v6 + v14 + v20 + v24 + v28);
 }
 
-uint64_t KB::DynamicDictionarySingle::get_user_frequency(KB::DynamicDictionarySingle *this, _LXLexicon *a2)
+uint64_t KB::DynamicDictionarySingle::get_user_frequency(KB::DynamicDictionarySingle *this, _LXLexicon *a2, const KB::String *a3)
 {
   (*(*this + 88))(this, 0);
-  KB::DynamicDictionary::entry_matching_string(a2, &v7);
-  v3 = v7;
-  if (!v7)
+  KB::DynamicDictionary::entry_matching_string(&v8, a2);
+  v4 = v8;
+  if (!v8)
   {
     return 0;
   }
@@ -7228,135 +7163,134 @@ uint64_t KB::DynamicDictionarySingle::get_user_frequency(KB::DynamicDictionarySi
   UsageCount = LXEntryGetUsageCount();
   if (UsageCount >= 0x7FFFFFFF)
   {
-    v5 = 0x7FFFFFFFLL;
+    v6 = 0x7FFFFFFFLL;
   }
 
   else
   {
-    v5 = UsageCount;
+    v6 = UsageCount;
   }
 
-  CFRelease(v3);
-  return v5;
+  CFRelease(v4);
+  return v6;
 }
 
-void KB::DynamicDictionarySingle::get_word_with_string(KB::DynamicDictionarySingle *this@<X0>, const KB::String *a2@<X1>, KB::Word *a3@<X8>)
+void KB::DynamicDictionarySingle::get_word_with_string(KB::DynamicDictionarySingle *this@<X0>, const KB::String *a2@<X1>, uint64_t *a3@<X8>)
 {
-  v30 = *MEMORY[0x277D85DE8];
-  (*(*this + 88))(this, 0);
-  v6 = *((*(*this + 48))(this, 0) + 160);
-  KB::entry_from_lexicon(&v14, a2);
-  v7 = v14;
-  if (!v14)
+  v31 = *MEMORY[0x277D85DE8];
+  v6 = (*(*this + 88))(this, 0);
+  v7 = *((*(*this + 48))(this, 0) + 160);
+  KB::entry_from_lexicon(&v15, a2, v8, v6, 0);
+  v9 = v15;
+  if (!v15)
   {
-    memset(v15, 0, sizeof(v15));
-    v18 = 0u;
+    memset(v16, 0, sizeof(v16));
     v19 = 0u;
-    v23 = 0;
-    v25 = 0u;
+    v20 = 0u;
+    v24 = 0;
     v26 = 0u;
-    v27 = 0;
-    *&v29[8] = 0u;
-    WORD1(v15[0]) = 16;
-    BYTE6(v15[0]) = 0;
-    v16 = 0x3F80000000000000;
-    v17 = 1065353216;
-    WORD1(v18) = 16;
-    BYTE6(v18) = 0;
+    v27 = 0u;
+    v28 = 0;
+    *&v30[8] = 0u;
+    WORD1(v16[0]) = 16;
+    BYTE6(v16[0]) = 0;
+    v17 = 0x3F80000000000000;
+    v18 = 1065353216;
+    WORD1(v19) = 16;
+    BYTE6(v19) = 0;
     __asm { FMOV            V1.2S, #1.0 }
 
-    v20 = _D1;
-    v24 = 0;
+    v21 = _D1;
+    v25 = 0;
+    v23 = 0u;
     v22 = 0u;
-    v21 = 0u;
-    WORD1(v25) = 16;
-    BYTE6(v25) = 0;
-    v28 = 0u;
-    *v29 = 0u;
-    *&v29[16] = 1065353216;
+    WORD1(v26) = 16;
+    BYTE6(v26) = 0;
+    v29 = 0u;
+    *v30 = 0u;
+    *&v30[16] = 1065353216;
     goto LABEL_5;
   }
 
-  KB::Word::Word(v15, v14, v6);
-  CFRelease(v7);
-  if (!LOWORD(v15[0]))
+  KB::Word::Word(v16, v15, v7);
+  CFRelease(v9);
+  if (!LOWORD(v16[0]))
   {
 LABEL_5:
-    KB::DynamicDictionary::word_from_transient_lexicon_with_string(this, a2, a3);
+    KB::DynamicDictionary::word_from_transient_lexicon_with_string(a3, this, a2);
     goto LABEL_6;
   }
 
-  KB::Word::Word(a3, v15);
+  KB::Word::Word(a3, v16);
 LABEL_6:
-  KB::Word::~Word(v15);
-  v13 = *MEMORY[0x277D85DE8];
+  KB::Word::~Word(v16);
 }
 
 uint64_t KB::DynamicDictionarySingle::do_load(uint64_t a1, uint64_t *a2, int a3)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v4 = *a2;
   if (*a2 == a2[1])
   {
-    v16 = 0x100000;
+    v15 = 0x100000;
+    v16 = 0;
     v17 = 0;
     v18 = 0;
     v19 = 0;
-    v20 = 0;
-    v21 = 0x100000;
+    v20 = 0x100000;
+    v21 = 0;
     v22 = 0;
     v23 = 0;
     v24 = 0;
-    v25 = 0;
-    v26 = 0x100000;
+    v25 = 0x100000;
+    v26 = 0;
     v27 = 0;
     v28 = 0;
     v29 = 0;
-    v30 = 0;
-    v31 = 0x100000;
+    v30 = 0x100000;
+    v31 = 0;
     v32 = 0;
     v33 = 0;
     v34 = 0;
-    v35 = 0;
-    v36 = 0x100000;
+    v35 = 0x100000;
+    v36 = 0;
     v37 = 0;
     v38 = 0;
     v39 = 0;
-    v40 = 0;
-    LODWORD(v41) = 0;
-    BYTE4(v41) = 0;
-    v42 = 0;
-    KB::String::operator=(a1 + 88, &v16);
-    KB::String::operator=(a1 + 120, &v21);
-    KB::String::operator=(a1 + 152, &v26);
-    KB::String::operator=(a1 + 184, &v31);
-    KB::String::operator=(a1 + 216, &v36);
-    v12 = v39;
-    *(a1 + 248) = v41;
-    *(a1 + 256) = v42;
-    if (v12 && v38 == 1)
+    LODWORD(v40) = 0;
+    BYTE4(v40) = 0;
+    v41 = 0;
+    KB::String::operator=(a1 + 88, &v15);
+    KB::String::operator=(a1 + 120, &v20);
+    KB::String::operator=(a1 + 152, &v25);
+    KB::String::operator=(a1 + 184, &v30);
+    KB::String::operator=(a1 + 216, &v35);
+    v12 = v38;
+    *(a1 + 248) = v40;
+    *(a1 + 256) = v41;
+    if (v12 && v37 == 1)
     {
       free(v12);
     }
 
-    if (v34 && v33 == 1)
+    if (v33 && v32 == 1)
     {
-      free(v34);
+      free(v33);
     }
 
-    if (v29 && v28 == 1)
+    if (v28 && v27 == 1)
     {
-      free(v29);
+      free(v28);
     }
 
-    if (v24 && v23 == 1)
+    if (v23 && v22 == 1)
     {
-      free(v24);
+      free(v23);
     }
 
-    if (v19 && v18 == 1)
+    if (v18 && v17 == 1)
     {
-      free(v19);
+      free(v18);
     }
 
     v13 = *(a1 + 264);
@@ -7381,10 +7315,10 @@ uint64_t KB::DynamicDictionarySingle::do_load(uint64_t a1, uint64_t *a2, int a3)
       v5 = "TextInput-Dynamic.";
     }
 
-    KB::String::String(&v16, v5);
-    KB::String::append(&v16, v4);
-    KB::cf_string_impl<KB::String>(&v15, &v16);
-    v6 = v15;
+    KB::String::String(&v15, v5);
+    KB::String::append(&v15, v4);
+    KB::cf_string_impl<KB::String>(&v14, &v15);
+    v6 = v14;
     View = LXLexiconRepositoryCreateView();
     v8 = *(a1 + 264);
     if (v8)
@@ -7406,9 +7340,9 @@ uint64_t KB::DynamicDictionarySingle::do_load(uint64_t a1, uint64_t *a2, int a3)
     v9 = *(v4 + 160);
     *(a1 + 256) = *(v4 + 168);
     *(a1 + 248) = v9;
-    if (v19 && v18 == 1)
+    if (v18 && v17 == 1)
     {
-      free(v19);
+      free(v18);
     }
 
     v10 = *(a1 + 264);
@@ -7416,16 +7350,15 @@ uint64_t KB::DynamicDictionarySingle::do_load(uint64_t a1, uint64_t *a2, int a3)
     {
       CFRetain(v10);
       CFRelease(v10);
-      result = 1;
+      return 1;
     }
 
     else
     {
-      result = 0;
+      return 0;
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -7559,7 +7492,7 @@ uint64_t KB::DynamicDictionary::named_entity_phrase_lexicon(KB::DynamicDictionar
   return v5;
 }
 
-unsigned __int16 *KB::DynamicDictionary::dynamic_lexicon_name_with_siri_mode@<X0>(KB::DynamicDictionary *this@<X0>, const KB::String *a2@<X1>, KB::String *a3@<X8>)
+KB::String *KB::DynamicDictionary::dynamic_lexicon_name_with_siri_mode@<X0>(KB::DynamicDictionary *this@<X0>, const KB::String *a2@<X1>, KB::String *a3@<X8>)
 {
   if (a2)
   {
@@ -7576,35 +7509,35 @@ unsigned __int16 *KB::DynamicDictionary::dynamic_lexicon_name_with_siri_mode@<X0
   return KB::String::append(v5, this);
 }
 
-unsigned __int16 *KB::DynamicDictionary::dynamic_lexicon_name@<X0>(KB::DynamicDictionary *this@<X0>, KB::String *a2@<X8>)
+KB::String *KB::DynamicDictionary::dynamic_lexicon_name@<X0>(KB::DynamicDictionary *this@<X0>, KB::String *a2@<X8>)
 {
-  v4 = KB::String::String(a2, "TextInput-Dynamic.");
+  v3 = KB::String::String(a2, "TextInput-Dynamic.");
 
-  return KB::String::append(v4, this);
+  return KB::String::append(v3, this);
 }
 
 void KB::DynamicDictionary::load_address_book(KB::DynamicDictionary *this)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v7 = 0x100000;
+  v11 = *MEMORY[0x277D85DE8];
+  v6 = 0x100000;
+  v7 = 0;
   v8 = 0;
   v9 = 0;
   v10 = 0;
-  v11 = 0;
   if (!(*(*this + 32))(this))
   {
     goto LABEL_5;
   }
 
-  v2 = &v11;
+  v2 = &v10;
   v3 = (*(*this + 48))(this, 0);
-  KB::String::operator=(&v7, v3);
-  if (v10)
+  KB::String::operator=(&v6, v3);
+  if (v9)
   {
-    v2 = v10;
+    v2 = v9;
   }
 
-  if (!v7)
+  if (!v6)
   {
 LABEL_5:
     v2 = "";
@@ -7614,36 +7547,37 @@ LABEL_5:
   v5 = [v4 addressBookLexiconForLocale:v2];
 
   *(this + 1) = v5;
-  if (v10 && v9 == 1)
+  if (v9)
   {
-    free(v10);
+    if (v8 == 1)
+    {
+      free(v9);
+    }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void KB::DynamicDictionary::load_app_names(KB::DynamicDictionary *this)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v7 = 0x100000;
+  v11 = *MEMORY[0x277D85DE8];
+  v6 = 0x100000;
+  v7 = 0;
   v8 = 0;
   v9 = 0;
   v10 = 0;
-  v11 = 0;
   if (!(*(*this + 32))(this))
   {
     goto LABEL_5;
   }
 
-  v2 = &v11;
+  v2 = &v10;
   v3 = (*(*this + 48))(this, 0);
-  KB::String::operator=(&v7, v3);
-  if (v10)
+  KB::String::operator=(&v6, v3);
+  if (v9)
   {
-    v2 = v10;
+    v2 = v9;
   }
 
-  if (!v7)
+  if (!v6)
   {
 LABEL_5:
     v2 = "";
@@ -7653,15 +7587,16 @@ LABEL_5:
   v5 = [v4 appNameLexiconForLocale:v2];
 
   *(this + 2) = v5;
-  if (v10 && v9 == 1)
+  if (v9)
   {
-    free(v10);
+    if (v8 == 1)
+    {
+      free(v9);
+    }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
-BOOL KB::DynamicDictionary::address_book_contains(KB::DynamicDictionary *this, const KB::String *a2)
+BOOL KB::DynamicDictionary::address_book_contains(KB::DynamicDictionary *this, const KB::String *a2, double a3)
 {
   if (!*(this + 1))
   {
@@ -7669,8 +7604,6 @@ BOOL KB::DynamicDictionary::address_book_contains(KB::DynamicDictionary *this, c
   }
 
   RootCursor = LXLexiconCreateRootCursor();
-  *(a2 + 1);
-  *a2;
   v4 = LXCursorCreateByAdvancingWithUTF8();
   if (RootCursor)
   {
@@ -7686,7 +7619,7 @@ BOOL KB::DynamicDictionary::address_book_contains(KB::DynamicDictionary *this, c
   return v5;
 }
 
-BOOL KB::DynamicDictionary::app_names_contains(KB::DynamicDictionary *this, const KB::String *a2)
+BOOL KB::DynamicDictionary::app_names_contains(KB::DynamicDictionary *this, const KB::String *a2, double a3)
 {
   if (!*(this + 2))
   {
@@ -7694,8 +7627,6 @@ BOOL KB::DynamicDictionary::app_names_contains(KB::DynamicDictionary *this, cons
   }
 
   RootCursor = LXLexiconCreateRootCursor();
-  *(a2 + 1);
-  *a2;
   v4 = LXCursorCreateByAdvancingWithUTF8();
   if (RootCursor)
   {
@@ -7719,17 +7650,17 @@ void KB::DynamicDictionary::load_named_entities(KB::DynamicDictionary *this)
 
 uint64_t KB::DynamicDictionary::filter_phrase(KB::DynamicDictionary *this, const __CFString *a2, const KB::StaticDictionary *a3, int a4)
 {
-  v24 = *MEMORY[0x277D85DE8];
-  KB::utf8_string(a2, &v22);
-  WORD2(v20[0]) = 0;
-  BYTE6(v20[0]) = 0;
-  v20[1] = " \t\n";
-  LODWORD(v20[0]) = 1048579;
-  v21 = 0;
-  KB::sbs_string_tokenize(&v22, v20, &v18);
-  if (v20[1])
+  v25 = *MEMORY[0x277D85DE8];
+  KB::utf8_string(&v23, a2);
+  WORD2(v21[0]) = 0;
+  BYTE6(v21[0]) = 0;
+  v21[1] = " \t\n";
+  LODWORD(v21[0]) = 1048579;
+  v22 = 0;
+  KB::sbs_string_tokenize(&v19, &v23, v21);
+  if (v21[1])
   {
-    v7 = BYTE6(v20[0]) == 1;
+    v7 = BYTE6(v21[0]) == 1;
   }
 
   else
@@ -7739,20 +7670,20 @@ uint64_t KB::DynamicDictionary::filter_phrase(KB::DynamicDictionary *this, const
 
   if (v7)
   {
-    free(v20[1]);
+    free(v21[1]);
   }
 
-  if (v23 && BYTE6(v22) == 1)
+  if (v24 && BYTE6(v23) == 1)
   {
-    free(v23);
+    free(v24);
   }
 
-  v8 = v18;
-  v9 = v19;
-  if (v18 == v19)
+  v8 = v19;
+  v9 = v20;
+  if (v19 == v20)
   {
 LABEL_28:
-    v15 = 1;
+    v17 = 1;
     goto LABEL_34;
   }
 
@@ -7779,10 +7710,10 @@ LABEL_28:
       goto LABEL_33;
     }
 
-    KB::StaticDictionary::candidates_for_string(a3, v8, 0, v20);
-    v12 = v20[1];
-    v13 = v20[0];
-    if (v20[0] == v20[1])
+    KB::StaticDictionary::candidates_for_string(v21, a3, v8, 0);
+    v12 = v21[1];
+    v13 = v21[0];
+    if (v21[0] == v21[1])
     {
       goto LABEL_32;
     }
@@ -7793,8 +7724,8 @@ LABEL_28:
     }
 
 LABEL_26:
-    v22 = v20;
-    std::vector<KB::Word>::__destroy_vector::operator()[abi:nn200100](&v22);
+    v23 = v21;
+    std::vector<KB::Word>::__destroy_vector::operator()[abi:nn200100](&v23);
 LABEL_27:
     v8 += 16;
     if (v8 == v9)
@@ -7810,19 +7741,19 @@ LABEL_27:
       goto LABEL_25;
     }
 
-    KB::Word::capitalized_string(v13, &v22);
-    if (&v22 == v8)
+    KB::Word::capitalized_string(&v23, v13);
+    if (&v23 == v8)
     {
       break;
     }
 
-    v14 = KB::String::equal(&v22, v8, 1);
-    if (v23 && BYTE6(v22) == 1)
+    v16 = KB::String::equal(&v23, v8, 1, v14, v15);
+    if (v24 && BYTE6(v23) == 1)
     {
-      free(v23);
+      free(v24);
     }
 
-    if (v14)
+    if (v16)
     {
       goto LABEL_32;
     }
@@ -7835,76 +7766,75 @@ LABEL_25:
     }
   }
 
-  if (v23 && BYTE6(v22) == 1)
+  if (v24 && BYTE6(v23) == 1)
   {
-    free(v23);
+    free(v24);
   }
 
 LABEL_32:
-  v22 = v20;
-  std::vector<KB::Word>::__destroy_vector::operator()[abi:nn200100](&v22);
+  v23 = v21;
+  std::vector<KB::Word>::__destroy_vector::operator()[abi:nn200100](&v23);
 LABEL_33:
-  v15 = 0;
+  v17 = 0;
 LABEL_34:
-  v22 = &v18;
-  std::vector<KB::String>::__destroy_vector::operator()[abi:nn200100](&v22);
-  v16 = *MEMORY[0x277D85DE8];
-  return v15;
+  v23 = &v19;
+  std::vector<KB::String>::__destroy_vector::operator()[abi:nn200100](&v23);
+  return v17;
 }
 
-void KB::DynamicDictionary::retrieve_phrase_candidates(KB::DynamicDictionary *a1, unsigned __int16 *a2)
+void KB::DynamicDictionary::retrieve_phrase_candidates(KB::DynamicDictionary *a1, unsigned __int16 *a2, uint64_t a3, char a4, uint64_t a5)
 {
-  v28 = *MEMORY[0x277D85DE8];
-  v3 = KB::DynamicDictionary::named_entity_phrase_lexicon(a1);
+  v30 = *MEMORY[0x277D85DE8];
+  v6 = KB::DynamicDictionary::named_entity_phrase_lexicon(a1);
   ActiveSupplementalLexiconPhrases = TITransientLexiconManagerGetActiveSupplementalLexiconPhrases();
-  if (!(v3 | ActiveSupplementalLexiconPhrases))
+  if (!(v6 | ActiveSupplementalLexiconPhrases))
   {
-    goto LABEL_40;
+    return;
   }
 
   if (*(a2 + 1))
   {
-    v5 = *(a2 + 1);
+    v8 = *(a2 + 1);
   }
 
   else
   {
-    v5 = a2 + 8;
+    v8 = a2 + 8;
   }
 
-  v6 = *a2;
+  v9 = *a2;
   if (!*a2)
   {
     goto LABEL_16;
   }
 
-  v7 = *a2;
-  v8 = v5;
-  while (*v8 != 32)
+  v10 = *a2;
+  v11 = v8;
+  while (*v11 != 32)
   {
-    ++v8;
-    if (!--v7)
+    v11 = (v11 + 1);
+    if (!--v10)
     {
-      v8 = &v6[v5];
+      v11 = (v8 + v9);
       break;
     }
   }
 
-  if ((v8 - v5) != v6)
+  if (v11 - v8 != v9)
   {
     goto LABEL_27;
   }
 
   if (*a2)
   {
-    v9 = *a2;
-    v10 = v5;
-    while (*v10 != 45)
+    v12 = *a2;
+    v13 = v8;
+    while (*v13 != 45)
     {
-      ++v10;
-      if (!--v9)
+      v13 = (v13 + 1);
+      if (!--v12)
       {
-        v10 = &v6[v5];
+        v13 = (v8 + v9);
         break;
       }
     }
@@ -7913,10 +7843,10 @@ void KB::DynamicDictionary::retrieve_phrase_candidates(KB::DynamicDictionary *a1
   else
   {
 LABEL_16:
-    v10 = v5;
+    v13 = v8;
   }
 
-  if ((v10 - v5) == v6)
+  if (v13 - v8 == v9)
   {
     if (TICanLogMessageAtLevel_onceToken != -1)
     {
@@ -7925,58 +7855,58 @@ LABEL_16:
 
     if (TICanLogMessageAtLevel_logLevel >= 2)
     {
-      v11 = TIOSLogFacility();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      v14 = TIOSLogFacility();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
-        v12 = *(a2 + 1);
-        if (!v12)
+        v15 = *(a2 + 1);
+        if (!v15)
         {
-          v12 = (a2 + 8);
+          v15 = a2 + 8;
         }
 
         if (!*a2)
         {
-          v12 = "";
+          v15 = "";
         }
 
         *buf = 136315394;
         *&buf[4] = "retrieve_phrase_candidates";
-        v24 = 2080;
-        v25 = v12;
-        v13 = "%s %s was filtered out from the list of phrase candidate words because it does not contain a space or hyphen";
-        v14 = v11;
-        v15 = 22;
+        v26 = 2080;
+        v27 = v15;
+        v16 = "%s %s was filtered out from the list of phrase candidate words because it does not contain a space or hyphen";
+        v17 = v14;
+        v18 = 22;
 LABEL_47:
-        _os_log_debug_impl(&dword_22CA55000, v14, OS_LOG_TYPE_DEBUG, v13, buf, v15);
-        goto LABEL_40;
+        _os_log_debug_impl(&dword_22CA55000, v17, OS_LOG_TYPE_DEBUG, v16, buf, v18);
+        return;
       }
     }
 
-    goto LABEL_40;
+    return;
   }
 
 LABEL_27:
   if (ActiveSupplementalLexiconPhrases)
   {
     KB::cf_string_impl<KB::String>(buf, a2);
-    v16 = *buf;
+    v19 = *buf;
     LXLexiconEnumerateEntriesForString();
-    if (v16)
+    if (v19)
     {
-      CFRelease(v16);
+      CFRelease(v19);
     }
   }
 
-  if (v3)
+  if (v6)
   {
-    v17 = a2[2];
+    v20 = a2[2];
     if (!a2[2])
     {
       KB::String::compute_length(a2);
-      v17 = a2[2];
+      v20 = a2[2];
     }
 
-    if (v17 <= 3)
+    if (v20 <= 3)
     {
       if (TICanLogMessageAtLevel_onceToken != -1)
       {
@@ -7985,34 +7915,34 @@ LABEL_27:
 
       if (TICanLogMessageAtLevel_logLevel >= 2)
       {
-        v19 = TIOSLogFacility();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+        v22 = TIOSLogFacility();
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
-          v21 = *(a2 + 1);
-          if (!v21)
+          v23 = *(a2 + 1);
+          if (!v23)
           {
-            v21 = (a2 + 8);
+            v23 = a2 + 8;
           }
 
           if (*a2)
           {
-            v22 = v21;
+            v24 = v23;
           }
 
           else
           {
-            v22 = "";
+            v24 = "";
           }
 
           *buf = 136315650;
           *&buf[4] = "retrieve_phrase_candidates";
-          v24 = 2080;
-          v25 = v22;
-          v26 = 1024;
-          v27 = 4;
-          v13 = "%s %s was filtered out from the list of phrase candidate words because it's less than %u characters long";
-          v14 = v19;
-          v15 = 28;
+          v26 = 2080;
+          v27 = v24;
+          v28 = 1024;
+          v29 = 4;
+          v16 = "%s %s was filtered out from the list of phrase candidate words because it's less than %u characters long";
+          v17 = v22;
+          v18 = 28;
           goto LABEL_47;
         }
       }
@@ -8021,35 +7951,31 @@ LABEL_27:
     else
     {
       KB::cf_string_impl<KB::String>(buf, a2);
-      v18 = *buf;
+      v21 = *buf;
       LXLexiconEnumerateEntriesForString();
-      if (v18)
+      if (v21)
       {
-        CFRelease(v18);
+        CFRelease(v21);
       }
     }
   }
-
-LABEL_40:
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void ___ZN2KB17DynamicDictionary26retrieve_phrase_candidatesERKNS_6StringERKNS_16StaticDictionaryEbRNSt3__16vectorINS_4WordENS7_9allocatorIS9_EEEE_block_invoke(uint64_t a1, uint64_t a2)
 {
   v9 = *MEMORY[0x277D85DE8];
   KB::Word::Word(v6, a2, 0);
-  TILXEntryGetSupplementalItemIdentifiers(v4);
+  TILXEntryGetSupplementalItemIdentifiers(v4, a2);
   v8 = v5;
   std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<unsigned long long,void *> *>>(v7, v4[2]);
   std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(v4);
   std::vector<KB::Word>::push_back[abi:nn200100](*(a1 + 32), v6);
   KB::Word::~Word(v6);
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void ___ZN2KB17DynamicDictionary26retrieve_phrase_candidatesERKNS_6StringERKNS_16StaticDictionaryEbRNSt3__16vectorINS_4WordENS7_9allocatorIS9_EEEE_block_invoke_4(uint64_t a1, uint64_t a2)
 {
-  v27[3] = *MEMORY[0x277D85DE8];
+  v26[3] = *MEMORY[0x277D85DE8];
   v4 = LXEntryCopyString();
   if (KB::DynamicDictionary::filter_phrase(v4, v4, *(a1 + 40), *(a1 + 56)))
   {
@@ -8063,26 +7989,26 @@ void ___ZN2KB17DynamicDictionary26retrieve_phrase_candidatesERKNS_6StringERKNS_1
       v5 = TIOSLogFacility();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
       {
-        KB::utf8_string(v4, &v25);
-        v6 = v26;
-        if (!v26)
+        KB::utf8_string(&v24, v4);
+        v6 = v25;
+        if (!v25)
         {
-          v6 = v27;
+          v6 = v26;
         }
 
-        if (!v25)
+        if (!v24)
         {
           v6 = "";
         }
 
-        v21 = 136315394;
-        v22 = "retrieve_phrase_candidates_block_invoke";
-        v23 = 2080;
-        v24 = v6;
-        _os_log_debug_impl(&dword_22CA55000, v5, OS_LOG_TYPE_DEBUG, "%s %s was filtered out from the list of phrase candidate words", &v21, 0x16u);
-        if (v26 && BYTE6(v25) == 1)
+        v20 = 136315394;
+        v21 = "retrieve_phrase_candidates_block_invoke";
+        v22 = 2080;
+        v23 = v6;
+        _os_log_debug_impl(&dword_22CA55000, v5, OS_LOG_TYPE_DEBUG, "%s %s was filtered out from the list of phrase candidate words", &v20, 0x16u);
+        if (v25 && BYTE6(v24) == 1)
         {
-          free(v26);
+          free(v25);
         }
       }
     }
@@ -8118,7 +8044,7 @@ void ___ZN2KB17DynamicDictionary26retrieve_phrase_candidatesERKNS_6StringERKNS_1
         v14 = v13;
       }
 
-      v27[2] = *(a1 + 48);
+      v26[2] = *(a1 + 48);
       if (v14)
       {
         std::__allocate_at_least[abi:nn200100]<std::allocator<KB::Word>>(v14);
@@ -8132,14 +8058,14 @@ void ___ZN2KB17DynamicDictionary26retrieve_phrase_candidatesERKNS_6StringERKNS_1
       std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<KB::Word>,KB::Word*>(*v7, v16, v17);
       v18 = *v7;
       *v7 = v17;
+      v24 = v18;
       v25 = v18;
-      v26 = v18;
       *(v7 + 8) = v15 + 240;
-      v27[0] = v18;
+      v26[0] = v18;
       v19 = *(v7 + 16);
       *(v7 + 16) = 0;
-      v27[1] = v19;
-      std::__split_buffer<KB::Word>::~__split_buffer(&v25);
+      v26[1] = v19;
+      std::__split_buffer<KB::Word>::~__split_buffer(&v24);
     }
 
     else
@@ -8155,8 +8081,6 @@ void ___ZN2KB17DynamicDictionary26retrieve_phrase_candidatesERKNS_6StringERKNS_1
   {
     CFRelease(v4);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void std::__allocate_at_least[abi:nn200100]<std::allocator<KB::Word>>(unint64_t a1)
@@ -8178,7 +8102,7 @@ void std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<KB::Wo
     do
     {
       KB::Word::Word(a3, v6);
-      v6 += 240;
+      v6 = (v6 + 240);
       a3 += 240;
     }
 
@@ -8286,58 +8210,55 @@ void KB::DynamicDictionary::unload_user_dictionary(KB::DynamicDictionary *this)
 
 uint64_t KB::DynamicDictionary::is_word_in_supplemental_lexicon(KB::DynamicDictionary *this, const KB::String *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
-  if (TITransientLexiconManagerGetActiveSupplementalLexiconWords())
+  v31 = *MEMORY[0x277D85DE8];
+  ActiveSupplementalLexiconWords = TITransientLexiconManagerGetActiveSupplementalLexiconWords();
+  if (!ActiveSupplementalLexiconWords)
   {
-    v4 = *((*(*this + 48))(this, 0) + 160);
-    KB::entry_from_lexicon(&v13, a2);
-    v5 = v13;
-    if (v13)
-    {
-      KB::Word::Word(v14, v13, v4);
-      CFRelease(v5);
-      v5 = LOWORD(v14[0]) != 0;
-    }
+    return 0;
+  }
 
-    else
-    {
-      memset(v14, 0, sizeof(v14));
-      v17 = 0u;
-      v18 = 0u;
-      v22 = 0;
-      v24 = 0u;
-      v25 = 0u;
-      v26 = 0;
-      *&v28[8] = 0u;
-      WORD1(v14[0]) = 16;
-      BYTE6(v14[0]) = 0;
-      v15 = 0x3F80000000000000;
-      WORD1(v17) = 16;
-      WORD1(v24) = 16;
-      v16 = 1065353216;
-      BYTE6(v17) = 0;
-      __asm { FMOV            V1.2S, #1.0 }
-
-      v19 = _D1;
-      v23 = 0;
-      v21 = 0u;
-      v20 = 0u;
-      BYTE6(v24) = 0;
-      v27 = 0u;
-      *v28 = 0u;
-      *&v28[16] = 1065353216;
-    }
-
-    KB::Word::~Word(v14);
+  v5 = ActiveSupplementalLexiconWords;
+  v6 = *((*(*this + 48))(this, 0) + 160);
+  KB::entry_from_lexicon(&v15, a2, v7, v5, 0);
+  v8 = v15;
+  if (v15)
+  {
+    KB::Word::Word(v16, v15, v6);
+    CFRelease(v8);
+    v8 = LOWORD(v16[0]) != 0;
   }
 
   else
   {
-    v5 = 0;
+    memset(v16, 0, sizeof(v16));
+    v19 = 0u;
+    v20 = 0u;
+    v24 = 0;
+    v26 = 0u;
+    v27 = 0u;
+    v28 = 0;
+    *&v30[8] = 0u;
+    WORD1(v16[0]) = 16;
+    BYTE6(v16[0]) = 0;
+    v17 = 0x3F80000000000000;
+    WORD1(v19) = 16;
+    WORD1(v26) = 16;
+    v18 = 1065353216;
+    BYTE6(v19) = 0;
+    __asm { FMOV            V1.2S, #1.0 }
+
+    v21 = _D1;
+    v25 = 0;
+    v23 = 0u;
+    v22 = 0u;
+    BYTE6(v26) = 0;
+    v29 = 0u;
+    *v30 = 0u;
+    *&v30[16] = 1065353216;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-  return v5;
+  KB::Word::~Word(v16);
+  return v8;
 }
 
 void ___ZN33TIInlineCompletionEventDispatcher26did_generate_no_completionEv_block_invoke(uint64_t a1)
@@ -8352,13 +8273,53 @@ void ___ZN33TIInlineCompletionEventDispatcher26did_generate_no_completionEv_bloc
       v5 = *(a1 + 32);
       if (v5)
       {
-        LOBYTE(v10) = 0;
-        v11 = 0;
+        LOBYTE(v14) = 0;
+        v19 = 0;
         LOBYTE(v8) = 0;
-        v9 = 0;
-        v6 = 0;
+        v13 = 0;
+        v6[0] = 0;
         v7 = 0;
-        TIInlineCompletionEventDispatcher::_dispatch_event(v5);
+        TIInlineCompletionEventDispatcher::_dispatch_event(v5, &v14, &v8, v6, 0, 0);
+        if (v7 == 1)
+        {
+          language_modeling::v1::CompletionStem::~CompletionStem(v6);
+        }
+
+        if (v13 == 1)
+        {
+          if (v12[8] == 1)
+          {
+            language_modeling::v1::InlineCompletion::~InlineCompletion(v12);
+          }
+
+          if (v11 < 0)
+          {
+            operator delete(__p);
+          }
+
+          if (v9 < 0)
+          {
+            operator delete(v8);
+          }
+        }
+
+        if (v19 == 1)
+        {
+          if (v18[8] == 1)
+          {
+            language_modeling::v1::InlineCompletion::~InlineCompletion(v18);
+          }
+
+          if (v17 < 0)
+          {
+            operator delete(v16);
+          }
+
+          if (v15 < 0)
+          {
+            operator delete(v14);
+          }
+        }
       }
 
       std::__shared_weak_count::__release_shared[abi:nn200100](v4);
@@ -8388,15 +8349,15 @@ uint64_t __copy_helper_block_a8_32c77_ZTSKZN33TIInlineCompletionEventDispatcher2
   return result;
 }
 
-void TIInlineCompletionEventDispatcher::_dispatch_event(uint64_t a1)
+void TIInlineCompletionEventDispatcher::_dispatch_event(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, char a6)
 {
   analytics_send_event_lazy();
   if (*(a1 + 48) == 1)
   {
-    v2 = *(a1 + 24);
-    if (v2 && *(a1 + 22) == 1)
+    v7 = *(a1 + 24);
+    if (v7 && *(a1 + 22) == 1)
     {
-      free(v2);
+      free(v7);
     }
 
     *(a1 + 48) = 0;
@@ -8404,10 +8365,10 @@ void TIInlineCompletionEventDispatcher::_dispatch_event(uint64_t a1)
 
   if (*(a1 + 88) == 1)
   {
-    v3 = *(a1 + 64);
-    if (v3 && *(a1 + 62) == 1)
+    v8 = *(a1 + 64);
+    if (v8 && *(a1 + 62) == 1)
     {
-      free(v3);
+      free(v8);
     }
 
     *(a1 + 88) = 0;
@@ -8415,10 +8376,10 @@ void TIInlineCompletionEventDispatcher::_dispatch_event(uint64_t a1)
 
   if (*(a1 + 128) == 1)
   {
-    v4 = *(a1 + 104);
-    if (v4 && *(a1 + 102) == 1)
+    v9 = *(a1 + 104);
+    if (v9 && *(a1 + 102) == 1)
     {
-      free(v4);
+      free(v9);
     }
 
     *(a1 + 128) = 0;
@@ -8432,7 +8393,7 @@ void TIInlineCompletionEventDispatcher::_dispatch_event(uint64_t a1)
 
 xpc_object_t ___ZN33TIInlineCompletionEventDispatcher15_dispatch_eventERKNSt3__18optionalI18TIInlineCompletionEES5_RKNS1_IN17language_modeling2v114CompletionStemEEE23TIICSuppressionModalityb_block_invoke(uint64_t a1)
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = xpc_dictionary_create(0, 0, 0);
   v4 = *(a1 + 40);
@@ -8457,9 +8418,9 @@ xpc_object_t ___ZN33TIInlineCompletionEventDispatcher15_dispatch_eventERKNSt3__1
 
     else
     {
-      v31 = *v4;
+      v30 = *v4;
       __dst.__r_.__value_.__r.__words[2] = *(v4 + 2);
-      *&__dst.__r_.__value_.__l.__data_ = v31;
+      *&__dst.__r_.__value_.__l.__data_ = v30;
     }
 
     v8 = _bounded_word_count(&__dst);
@@ -8468,51 +8429,51 @@ xpc_object_t ___ZN33TIInlineCompletionEventDispatcher15_dispatch_eventERKNSt3__1
       operator delete(__dst.__r_.__value_.__l.__data_);
     }
 
-    v32 = *(a1 + 48);
-    if ((v32[5] & 1) == 0)
+    v31 = *(a1 + 48);
+    if ((v31[5] & 1) == 0)
     {
       goto LABEL_136;
     }
 
-    v33 = *(a1 + 56);
-    if ((*(v33 + 8) & 1) == 0)
+    v32 = *(a1 + 56);
+    if ((*(v32 + 8) & 1) == 0)
     {
       goto LABEL_136;
     }
 
-    if (*(v32 + 23) < 0)
+    if (*(v31 + 23) < 0)
     {
-      std::string::__init_copy_ctor_external(&__dst, *v32, *(v32 + 1));
+      std::string::__init_copy_ctor_external(&__dst, *v31, *(v31 + 1));
     }
 
     else
     {
-      v34 = *v32;
-      __dst.__r_.__value_.__r.__words[2] = *(v32 + 2);
-      *&__dst.__r_.__value_.__l.__data_ = v34;
+      v33 = *v31;
+      __dst.__r_.__value_.__r.__words[2] = *(v31 + 2);
+      *&__dst.__r_.__value_.__l.__data_ = v33;
     }
 
-    language_modeling::v1::CompletionStem::prefix(__p, v33);
-    if ((v41 & 0x80u) == 0)
+    language_modeling::v1::CompletionStem::prefix(__p, v32);
+    if ((v40 & 0x80u) == 0)
     {
-      v35 = v41;
+      v34 = v40;
     }
 
     else
     {
-      v35 = __p[1];
+      v34 = __p[1];
     }
 
-    _completion_with_stem_removed(&v42, &__dst, v35);
-    if (v41 < 0)
+    _completion_with_stem_removed(&v41, &__dst, v34);
+    if (v40 < 0)
     {
       operator delete(__p[0]);
     }
 
-    v9 = _bounded_word_count(&v42);
-    if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
+    v9 = _bounded_word_count(&v41);
+    if (SHIBYTE(v41.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v42.__r_.__value_.__l.__data_);
+      operator delete(v41.__r_.__value_.__l.__data_);
     }
 
     if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
@@ -8546,46 +8507,46 @@ xpc_object_t ___ZN33TIInlineCompletionEventDispatcher15_dispatch_eventERKNSt3__1
 
       else
       {
-        v36 = *(v2 + 24);
-        if (!v36)
+        v35 = *(v2 + 24);
+        if (!v35)
         {
-          v36 = (v2 + 32);
+          v35 = (v2 + 32);
         }
 
         if (*(v2 + 16))
         {
-          v37 = v36;
+          v36 = v35;
         }
 
         else
         {
-          v37 = "";
+          v36 = "";
         }
 
-        v38 = strlen(v37);
-        if (v38 >= 0x7FFFFFFFFFFFFFF8)
+        v37 = strlen(v36);
+        if (v37 >= 0x7FFFFFFFFFFFFFF8)
         {
           std::vector<unsigned long>::__throw_length_error[abi:nn200100]();
         }
 
-        v39 = v38;
-        if (v38 >= 0x17)
+        v38 = v37;
+        if (v37 >= 0x17)
         {
           operator new();
         }
 
-        *(&__dst.__r_.__value_.__s + 23) = v38;
-        if (v38)
+        *(&__dst.__r_.__value_.__s + 23) = v37;
+        if (v37)
         {
-          memmove(&__dst, v37, v38);
+          memmove(&__dst, v36, v37);
         }
 
-        __dst.__r_.__value_.__s.__data_[v39] = 0;
-        _completion_with_stem_removed(&v42, &__dst, *(v2 + 56));
-        v13 = _bounded_word_count(&v42);
-        if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
+        __dst.__r_.__value_.__s.__data_[v38] = 0;
+        _completion_with_stem_removed(&v41, &__dst, *(v2 + 56));
+        v13 = _bounded_word_count(&v41);
+        if (SHIBYTE(v41.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v42.__r_.__value_.__l.__data_);
+          operator delete(v41.__r_.__value_.__l.__data_);
         }
 
         if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
@@ -8612,16 +8573,16 @@ xpc_object_t ___ZN33TIInlineCompletionEventDispatcher15_dispatch_eventERKNSt3__1
   if (*(v2 + 472) == 1)
   {
     KB::String::String(&__dst, (v2 + 144));
-    KB::String::String(v44, (v2 + 176));
-    KB::String::String(v46, (v2 + 208));
-    KB::String::String(v48, (v2 + 240));
-    KB::String::String(v50, (v2 + 272));
-    KB::String::String(v52, (v2 + 304));
-    v54 = *(v2 + 336);
-    KB::String::String(v55, (v2 + 344));
-    KB::String::String(v57, (v2 + 376));
-    KB::String::String(v59, (v2 + 408));
-    KB::String::String(v61, (v2 + 440));
+    KB::String::String(v43, (v2 + 176));
+    KB::String::String(v45, (v2 + 208));
+    KB::String::String(v47, (v2 + 240));
+    KB::String::String(v49, (v2 + 272));
+    KB::String::String(v51, (v2 + 304));
+    v53 = *(v2 + 336);
+    KB::String::String(v54, (v2 + 344));
+    KB::String::String(v56, (v2 + 376));
+    KB::String::String(v58, (v2 + 408));
+    KB::String::String(v60, (v2 + 440));
     if (*(v2 + 472))
     {
       if (*(v2 + 144))
@@ -8734,49 +8695,49 @@ xpc_object_t ___ZN33TIInlineCompletionEventDispatcher15_dispatch_eventERKNSt3__1
                             xpc_dictionary_set_string(v3, "trialTreatmentId", v28);
                           }
 
-                          if (v62 && v61[6] == 1)
+                          if (v61 && v60[6] == 1)
                           {
-                            free(v62);
+                            free(v61);
                           }
 
-                          if (v60 && v59[6] == 1)
+                          if (v59 && v58[6] == 1)
                           {
-                            free(v60);
+                            free(v59);
                           }
 
-                          if (v58 && v57[6] == 1)
+                          if (v57 && v56[6] == 1)
                           {
-                            free(v58);
+                            free(v57);
                           }
 
-                          if (v56 && v55[6] == 1)
+                          if (v55 && v54[6] == 1)
                           {
-                            free(v56);
+                            free(v55);
                           }
 
-                          if (v53 && v52[6] == 1)
+                          if (v52 && v51[6] == 1)
                           {
-                            free(v53);
+                            free(v52);
                           }
 
-                          if (v51 && v50[6] == 1)
+                          if (v50 && v49[6] == 1)
                           {
-                            free(v51);
+                            free(v50);
                           }
 
-                          if (v49 && v48[6] == 1)
+                          if (v48 && v47[6] == 1)
                           {
-                            free(v49);
+                            free(v48);
                           }
 
-                          if (v47 && v46[6] == 1)
+                          if (v46 && v45[6] == 1)
                           {
-                            free(v47);
+                            free(v46);
                           }
 
-                          if (v45 && v44[6] == 1)
+                          if (v44 && v43[6] == 1)
                           {
-                            free(v45);
+                            free(v44);
                           }
 
                           if (__dst.__r_.__value_.__l.__size_ && __dst.__r_.__value_.__s.__data_[6] == 1)
@@ -8784,7 +8745,7 @@ xpc_object_t ___ZN33TIInlineCompletionEventDispatcher15_dispatch_eventERKNSt3__1
                             free(__dst.__r_.__value_.__l.__size_);
                           }
 
-                          goto LABEL_100;
+                          return v3;
                         }
                       }
                     }
@@ -8801,14 +8762,12 @@ LABEL_136:
     std::__throw_bad_optional_access[abi:nn200100]();
   }
 
-LABEL_100:
-  v29 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 uint64_t _bounded_word_count(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (*(a1 + 23) >= 0)
   {
     v1 = a1;
@@ -8819,12 +8778,12 @@ uint64_t _bounded_word_count(uint64_t a1)
     v1 = *a1;
   }
 
-  KB::String::String(&v13, v1);
-  KB::String::String(&v8, " \t\n");
-  KB::String::trim(&v13, &v8, v11);
-  if (v12)
+  KB::String::String(&v12, v1);
+  KB::String::String(&v7, " \t\n");
+  KB::String::trim(v10, &v12, &v7);
+  if (v11)
   {
-    v2 = v11[6] == 1;
+    v2 = v10[6] == 1;
   }
 
   else
@@ -8834,30 +8793,30 @@ uint64_t _bounded_word_count(uint64_t a1)
 
   if (v2)
   {
-    free(v12);
+    free(v11);
   }
 
-  if (v9 && BYTE6(v8) == 1)
+  if (v8 && BYTE6(v7) == 1)
   {
-    free(v9);
+    free(v8);
   }
 
-  if (v13)
+  if (v12)
   {
-    WORD2(v8) = 0;
-    BYTE6(v8) = 0;
-    v9 = " \t\n";
-    LODWORD(v8) = 1048579;
-    v10 = 0;
-    KB::sbs_string_tokenize(&v13, &v8, v7);
-    if (v9 && BYTE6(v8) == 1)
+    WORD2(v7) = 0;
+    BYTE6(v7) = 0;
+    v8 = " \t\n";
+    LODWORD(v7) = 1048579;
+    v9 = 0;
+    KB::sbs_string_tokenize(v6, &v12, &v7);
+    if (v8 && BYTE6(v7) == 1)
     {
-      free(v9);
+      free(v8);
     }
 
-    v3 = (v7[1] - v7[0]) >> 5;
-    v8 = v7;
-    std::vector<KB::String>::__destroy_vector::operator()[abi:nn200100](&v8);
+    v3 = (v6[1] - v6[0]) >> 5;
+    v7 = v6;
+    std::vector<KB::String>::__destroy_vector::operator()[abi:nn200100](&v7);
   }
 
   else
@@ -8865,28 +8824,25 @@ uint64_t _bounded_word_count(uint64_t a1)
     LODWORD(v3) = 0;
   }
 
-  if (v14 && BYTE6(v13) == 1)
+  if (v13 && BYTE6(v12) == 1)
   {
-    free(v14);
+    free(v13);
   }
 
   if (v3 >= 5)
   {
-    v4 = 5;
+    return 5;
   }
 
   else
   {
-    v4 = v3;
+    return v3;
   }
-
-  v5 = *MEMORY[0x277D85DE8];
-  return v4;
 }
 
 void _completion_with_stem_removed(std::string *this, std::string *__str, std::string::size_type __pos)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   size = HIBYTE(__str->__r_.__value_.__r.__words[2]);
   v7 = size;
   if ((size & 0x80u) != 0)
@@ -8896,34 +8852,32 @@ void _completion_with_stem_removed(std::string *this, std::string *__str, std::s
 
   if (size >= __pos)
   {
-    std::string::basic_string(this, __str, __pos, 0xFFFFFFFFFFFFFFFFLL, &v10);
+    std::string::basic_string(this, __str, __pos, 0xFFFFFFFFFFFFFFFFLL, &v9);
   }
 
   else
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      v9 = __str->__r_.__value_.__r.__words[0];
+      v8 = __str->__r_.__value_.__r.__words[0];
       if (v7 >= 0)
       {
-        v9 = __str;
+        v8 = __str;
       }
 
-      v10 = 136315650;
-      v11 = "_completion_with_stem_removed";
-      v12 = 2048;
-      v13 = __pos;
-      v14 = 2080;
-      v15 = v9;
-      _os_log_debug_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%s  !!! Stem size:%zu should not be longer than completion: %s", &v10, 0x20u);
+      v9 = 136315650;
+      v10 = "_completion_with_stem_removed";
+      v11 = 2048;
+      v12 = __pos;
+      v13 = 2080;
+      v14 = v8;
+      _os_log_debug_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%s  !!! Stem size:%zu should not be longer than completion: %s", &v9, 0x20u);
     }
 
     this->__r_.__value_.__r.__words[0] = 0;
     this->__r_.__value_.__l.__size_ = 0;
     this->__r_.__value_.__r.__words[2] = 0;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void ___ZL15analytics_queuev_block_invoke()
@@ -8948,50 +8902,49 @@ void ___ZN33TIInlineCompletionEventDispatcher27did_generate_new_completionERK18T
       v5 = *(a1 + 32);
       if (v5)
       {
-        std::optional<TIInlineCompletion>::optional[abi:nn200100]<TIInlineCompletion const&,0>(&v13, (a1 + 48));
-        std::optional<TIInlineCompletion>::optional[abi:nn200100]<TIInlineCompletion const&,0>(&v9, (a1 + 48));
-        language_modeling::v1::CompletionStem::CompletionStem(&v7, (a1 + 128));
-        v8 = 1;
-        v6 = *(a1 + 136);
-        TIInlineCompletionEventDispatcher::_dispatch_event(v5);
-        if (v8 == 1)
+        std::optional<TIInlineCompletion>::optional[abi:nn200100]<TIInlineCompletion const&,0>(&v12, (a1 + 48));
+        std::optional<TIInlineCompletion>::optional[abi:nn200100]<TIInlineCompletion const&,0>(&v8, (a1 + 48));
+        language_modeling::v1::CompletionStem::CompletionStem(&v6, (a1 + 128));
+        v7 = 1;
+        TIInlineCompletionEventDispatcher::_dispatch_event(v5, &v12, &v8, &v6, *(a1 + 136), 0);
+        if (v7 == 1)
         {
-          language_modeling::v1::CompletionStem::~CompletionStem(&v7);
+          language_modeling::v1::CompletionStem::~CompletionStem(&v6);
         }
 
-        if (v12[16] == 1)
+        if (v11[16] == 1)
         {
-          if (v12[8] == 1)
+          if (v11[8] == 1)
           {
-            language_modeling::v1::InlineCompletion::~InlineCompletion(v12);
+            language_modeling::v1::InlineCompletion::~InlineCompletion(v11);
           }
 
-          if (v11 < 0)
+          if (v10 < 0)
           {
             operator delete(__p);
           }
 
-          if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v8.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v9.__r_.__value_.__l.__data_);
+            operator delete(v8.__r_.__value_.__l.__data_);
           }
         }
 
-        if (v16[16] == 1)
+        if (v15[16] == 1)
         {
-          if (v16[8] == 1)
+          if (v15[8] == 1)
           {
-            language_modeling::v1::InlineCompletion::~InlineCompletion(v16);
+            language_modeling::v1::InlineCompletion::~InlineCompletion(v15);
           }
 
-          if (v15 < 0)
+          if (v14 < 0)
           {
-            operator delete(v14);
+            operator delete(v13);
           }
 
-          if (SHIBYTE(v13.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v12.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v13.__r_.__value_.__l.__data_);
+            operator delete(v12.__r_.__value_.__l.__data_);
           }
         }
       }
@@ -9228,50 +9181,49 @@ void ___ZN33TIInlineCompletionEventDispatcher30did_generate_cached_completionERK
       v5 = *(a1 + 32);
       if (v5)
       {
-        std::optional<TIInlineCompletion>::optional[abi:nn200100]<TIInlineCompletion const&,0>(&v13, (a1 + 48));
-        std::optional<TIInlineCompletion>::optional[abi:nn200100]<TIInlineCompletion const&,0>(&v9, (a1 + 128));
-        language_modeling::v1::CompletionStem::CompletionStem(&v7, (a1 + 208));
-        v8 = 1;
-        v6 = *(a1 + 216);
-        TIInlineCompletionEventDispatcher::_dispatch_event(v5);
-        if (v8 == 1)
+        std::optional<TIInlineCompletion>::optional[abi:nn200100]<TIInlineCompletion const&,0>(&v12, (a1 + 48));
+        std::optional<TIInlineCompletion>::optional[abi:nn200100]<TIInlineCompletion const&,0>(&v8, (a1 + 128));
+        language_modeling::v1::CompletionStem::CompletionStem(&v6, (a1 + 208));
+        v7 = 1;
+        TIInlineCompletionEventDispatcher::_dispatch_event(v5, &v12, &v8, &v6, *(a1 + 216), 1);
+        if (v7 == 1)
         {
-          language_modeling::v1::CompletionStem::~CompletionStem(&v7);
+          language_modeling::v1::CompletionStem::~CompletionStem(&v6);
         }
 
-        if (v12[16] == 1)
+        if (v11[16] == 1)
         {
-          if (v12[8] == 1)
+          if (v11[8] == 1)
           {
-            language_modeling::v1::InlineCompletion::~InlineCompletion(v12);
+            language_modeling::v1::InlineCompletion::~InlineCompletion(v11);
           }
 
-          if (v11 < 0)
+          if (v10 < 0)
           {
             operator delete(__p);
           }
 
-          if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v8.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v9.__r_.__value_.__l.__data_);
+            operator delete(v8.__r_.__value_.__l.__data_);
           }
         }
 
-        if (v16[16] == 1)
+        if (v15[16] == 1)
         {
-          if (v16[8] == 1)
+          if (v15[8] == 1)
           {
-            language_modeling::v1::InlineCompletion::~InlineCompletion(v16);
+            language_modeling::v1::InlineCompletion::~InlineCompletion(v15);
           }
 
-          if (v15 < 0)
+          if (v14 < 0)
           {
-            operator delete(v14);
+            operator delete(v13);
           }
 
-          if (SHIBYTE(v13.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v12.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v13.__r_.__value_.__l.__data_);
+            operator delete(v12.__r_.__value_.__l.__data_);
           }
         }
       }
@@ -9412,90 +9364,88 @@ uint64_t TIInlineCompletionEventDispatcher::did_generate_cached_completion(TIInl
 
 void TIInlineCompletionEventDispatcher::did_register_completion_acceptance(uint64_t a1, std::__shared_weak_count *this, const KB::String *a3, const KB::String *a4, const KB::String *a5, int a6)
 {
-  v36 = *MEMORY[0x277D85DE8];
-  std::shared_ptr<TIInlineCompletionEventDispatcher>::shared_ptr[abi:nn200100]<TIInlineCompletionEventDispatcher,0>(&v14, a1, this);
-  v11 = v14;
-  v10 = v15;
-  if (v15)
+  v35 = *MEMORY[0x277D85DE8];
+  std::shared_ptr<TIInlineCompletionEventDispatcher>::shared_ptr[abi:nn200100]<TIInlineCompletionEventDispatcher,0>(&v13, a1, this);
+  v11 = v13;
+  v10 = v14;
+  if (v14)
   {
-    atomic_fetch_add_explicit(&v15->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v14->__shared_weak_owners_, 1uLL, memory_order_relaxed);
     std::__shared_weak_count::__release_shared[abi:nn200100](v10);
   }
 
   v12 = analytics_queue();
-  v23 = MEMORY[0x277D85DD0];
-  v24 = 3321888768;
-  v25 = ___ZN33TIInlineCompletionEventDispatcher34did_register_completion_acceptanceERKN2KB6StringES3_S3_41TIInlineCompletionAcceptanceRejectionType_block_invoke;
-  v26 = &__block_descriptor_152_a8_32c147_ZTSKZN33TIInlineCompletionEventDispatcher34did_register_completion_acceptanceERKN2KB6StringES3_S3_41TIInlineCompletionAcceptanceRejectionTypeE3__0_e5_v8__0l;
-  v14 = v11;
-  v15 = v10;
+  v22 = MEMORY[0x277D85DD0];
+  v23 = 3321888768;
+  v24 = ___ZN33TIInlineCompletionEventDispatcher34did_register_completion_acceptanceERKN2KB6StringES3_S3_41TIInlineCompletionAcceptanceRejectionType_block_invoke;
+  v25 = &__block_descriptor_152_a8_32c147_ZTSKZN33TIInlineCompletionEventDispatcher34did_register_completion_acceptanceERKN2KB6StringES3_S3_41TIInlineCompletionAcceptanceRejectionTypeE3__0_e5_v8__0l;
+  v13 = v11;
+  v14 = v10;
   if (v10)
   {
     atomic_fetch_add_explicit(&v10->__shared_weak_owners_, 1uLL, memory_order_relaxed);
   }
 
-  KB::String::String(v16, a3);
-  KB::String::String(v18, a4);
-  KB::String::String(v20, a5);
-  v22 = a6;
+  KB::String::String(v15, a3);
+  KB::String::String(v17, a4);
+  KB::String::String(v19, a5);
+  v21 = a6;
+  v26 = v13;
   v27 = v14;
-  v28 = v15;
-  if (v15)
+  if (v14)
   {
-    atomic_fetch_add_explicit(&v15->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v14->__shared_weak_owners_, 1uLL, memory_order_relaxed);
   }
 
-  KB::String::String(v29, v16);
-  KB::String::String(v31, v18);
-  KB::String::String(v33, v20);
-  v35 = v22;
+  KB::String::String(v28, v15);
+  KB::String::String(v30, v17);
+  KB::String::String(v32, v19);
+  v34 = v21;
   TIDispatchAsync();
-  if (v21 && v20[6] == 1)
+  if (v20 && v19[6] == 1)
   {
-    free(v21);
+    free(v20);
   }
 
-  if (v19 && v18[6] == 1)
+  if (v18 && v17[6] == 1)
   {
-    free(v19);
+    free(v18);
   }
 
-  if (v17 && v16[6] == 1)
+  if (v16 && v15[6] == 1)
   {
-    free(v17);
+    free(v16);
   }
 
-  if (v15)
+  if (v14)
   {
-    std::__shared_weak_count::__release_weak(v15);
+    std::__shared_weak_count::__release_weak(v14);
   }
 
-  if (v34 && v33[6] == 1)
+  if (v33 && v32[6] == 1)
   {
-    free(v34);
+    free(v33);
   }
 
-  if (v32 && v31[6] == 1)
+  if (v31 && v30[6] == 1)
   {
-    free(v32);
+    free(v31);
   }
 
-  if (v30 && v29[6] == 1)
+  if (v29 && v28[6] == 1)
   {
-    free(v30);
+    free(v29);
   }
 
-  if (v28)
+  if (v27)
   {
-    std::__shared_weak_count::__release_weak(v28);
+    std::__shared_weak_count::__release_weak(v27);
   }
 
   if (v10)
   {
     std::__shared_weak_count::__release_weak(v10);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void ___ZN33TIInlineCompletionEventDispatcher34did_register_completion_acceptanceERKN2KB6StringES3_S3_41TIInlineCompletionAcceptanceRejectionType_block_invoke(uint64_t a1)
@@ -9579,7 +9529,7 @@ KB::String *std::optional<KB::String>::operator=[abi:nn200100]<KB::String const&
   return result;
 }
 
-void std::vector<KB::LexiconInfo>::__init_with_size[abi:nn200100]<KB::LexiconInfo*,KB::LexiconInfo*>(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
+void std::vector<KB::LexiconInfo>::__init_with_size[abi:nn200100]<KB::LexiconInfo*,KB::LexiconInfo*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -9756,5 +9706,16 @@ void std::vector<KB::LanguageModelLexiconGroup>::__destroy_vector::operator()[ab
     v1[1] = v2;
 
     operator delete(v5);
+  }
+}
+
+void std::__destroy_at[abi:nn200100]<KB::LanguageModelLexiconGroup,0>(uint64_t a1)
+{
+  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(a1 + 16);
+  v2 = *(a1 + 8);
+  if (v2)
+  {
+
+    std::__shared_weak_count::__release_shared[abi:nn200100](v2);
   }
 }

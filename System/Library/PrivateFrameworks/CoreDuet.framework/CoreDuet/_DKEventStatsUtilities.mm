@@ -46,36 +46,36 @@
 
 + (id)safeStringsWithStrings:(id)strings
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   stringsCopy = strings;
   v5 = stringsCopy;
   if (stringsCopy)
   {
     v6 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(stringsCopy, "count")}];
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v17;
+      v10 = *v16;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v17 != v10)
+          if (*v16 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = [self safeStringWithString:{*(*(&v16 + 1) + 8 * i), v16}];
+          v12 = [self safeStringWithString:{*(*(&v15 + 1) + 8 * i), v15}];
           [v6 addObject:v12];
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v9);
@@ -83,8 +83,6 @@
   }
 
   v13 = [0 copy];
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

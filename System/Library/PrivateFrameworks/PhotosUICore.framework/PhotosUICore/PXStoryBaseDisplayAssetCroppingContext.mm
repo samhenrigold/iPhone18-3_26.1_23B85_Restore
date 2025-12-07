@@ -32,7 +32,7 @@
     v14 = [(PXStoryBaseDisplayAssetCroppingContext *)self orderedFacesForAsset:assetCopy featuredFaceCount:buf];
     v15 = [v14 count];
     v26[1] = v26;
-    *&v16 = MEMORY[0x1EEE9AC00](v15).n128_u64[0];
+    v16 = MEMORY[0x1EEE9AC00](v15);
     v18 = &v26[-4 * v17];
     if (v17 >= 1)
     {

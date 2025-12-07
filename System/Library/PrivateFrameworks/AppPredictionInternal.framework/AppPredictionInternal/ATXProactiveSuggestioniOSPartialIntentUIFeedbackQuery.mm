@@ -7,9 +7,9 @@
 
 - (id)uiFeedbackPublisherChain
 {
-  v19.receiver = self;
-  v19.super_class = ATXProactiveSuggestioniOSPartialIntentUIFeedbackQuery;
-  uiFeedbackPublisherChain = [(ATXProactiveSuggestionUIFeedbackQuery *)&v19 uiFeedbackPublisherChain];
+  v20.receiver = self;
+  v20.super_class = ATXProactiveSuggestioniOSPartialIntentUIFeedbackQuery;
+  uiFeedbackPublisherChain = [(ATXProactiveSuggestionUIFeedbackQuery *)&v20 uiFeedbackPublisherChain];
   v4 = BiomeLibrary();
   v5 = [v4 App];
   inFocus = [v5 InFocus];
@@ -34,10 +34,10 @@
 
     else
     {
-      v16 = __atxlog_handle_blending_ecosystem();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v17 = __atxlog_handle_blending_ecosystem(v14);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        [ATXProactiveSuggestioniOSPartialIntentUIFeedbackQuery uiFeedbackPublisherChain];
+        [(ATXProactiveSuggestioniOSPartialIntentUIFeedbackQuery *)self uiFeedbackPublisherChain];
       }
 
       if (v8)
@@ -51,10 +51,10 @@ LABEL_8:
         }
 
 LABEL_15:
-        v14 = __atxlog_handle_blending_ecosystem();
-        if (os_log_type_enabled(&v14->super, OS_LOG_TYPE_ERROR))
+        v15 = __atxlog_handle_blending_ecosystem(v14);
+        if (os_log_type_enabled(&v15->super, OS_LOG_TYPE_ERROR))
         {
-          [ATXProactiveSuggestioniOSPartialIntentUIFeedbackQuery uiFeedbackPublisherChain];
+          [(ATXProactiveSuggestioniOSPartialIntentUIFeedbackQuery *)self uiFeedbackPublisherChain];
         }
 
         partialIntentUIFeedbackPublisher = 0;
@@ -62,10 +62,10 @@ LABEL_15:
       }
     }
 
-    v17 = __atxlog_handle_blending_ecosystem();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = __atxlog_handle_blending_ecosystem(v14);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      [ATXProactiveSuggestioniOSPartialIntentUIFeedbackQuery uiFeedbackPublisherChain];
+      [(ATXProactiveSuggestioniOSPartialIntentUIFeedbackQuery *)self uiFeedbackPublisherChain];
     }
 
     if (v13)
@@ -76,8 +76,8 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  v14 = [[ATXProactiveSuggestionPartialIntentHandlingPublisher alloc] initWithUIFeedbackPublisher:uiFeedbackPublisherChain appLaunchPublisher:v8 intentPublisher:v13];
-  partialIntentUIFeedbackPublisher = [(ATXProactiveSuggestionPartialIntentHandlingPublisher *)v14 partialIntentUIFeedbackPublisher];
+  v15 = [[ATXProactiveSuggestionPartialIntentHandlingPublisher alloc] initWithUIFeedbackPublisher:uiFeedbackPublisherChain appLaunchPublisher:v8 intentPublisher:v13];
+  partialIntentUIFeedbackPublisher = [(ATXProactiveSuggestionPartialIntentHandlingPublisher *)v15 partialIntentUIFeedbackPublisher];
 LABEL_18:
 
 LABEL_19:
@@ -87,12 +87,11 @@ LABEL_19:
 
 - (void)uiFeedbackPublisherChain
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
-  OUTLINED_FUNCTION_0_0(&dword_2263AA000, v2, v3, "%@ - could not initialize intentPublisher, returning early", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
+  LODWORD(v9) = 138412290;
+  *(&v9 + 4) = v2;
+  OUTLINED_FUNCTION_0_0(&dword_2263AA000, v3, v4, "%@ - could not initialize intentPublisher, returning early", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
 @end

@@ -106,12 +106,12 @@
 {
   typesCopy = types;
   selfCopy = self;
-  v148 = *MEMORY[0x1E69E9840];
+  v150 = *MEMORY[0x1E69E9840];
   if ((types & 3) == 0)
   {
     array = 0;
     array2 = 0;
-    v120 = 0;
+    v122 = 0;
     goto LABEL_79;
   }
 
@@ -123,11 +123,11 @@
     firstObject = [v5 firstObject];
     photoLibrary = [firstObject photoLibrary];
 
-    v123 = array;
-    v111 = v5;
-    v112 = photoLibrary;
-    v113 = typesCopy;
-    v115 = selfCopy;
+    v125 = array;
+    v113 = v5;
+    v114 = photoLibrary;
+    v115 = typesCopy;
+    v117 = selfCopy;
     if (photoLibrary)
     {
       goto LABEL_4;
@@ -137,7 +137,7 @@
     {
       identifier = [(VCPMADServiceImageAsset *)selfCopy identifier];
       *buf = 138412290;
-      v143 = identifier;
+      v145 = identifier;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[VI][%@] -> face without photoLibrary", buf, 0xCu);
     }
 
@@ -145,178 +145,184 @@
     if (objc_opt_isKindOfClass())
     {
       photoLibrary2 = [(VCPMADServiceImageAsset *)selfCopy photoLibrary];
-      v55 = MediaAnalysisLogLevel();
-      v112 = photoLibrary2;
+      v9 = MediaAnalysisLogLevel();
+      v114 = photoLibrary2;
       if (photoLibrary2)
       {
-        if (v55 >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
+        if (v9 >= 6)
         {
-          identifier2 = [(VCPMADServiceImageAsset *)selfCopy identifier];
-          *buf = 138412546;
-          v143 = identifier2;
-          v144 = 2112;
-          v145 = photoLibrary2;
-          _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[VI][%@] -> asset's photoLibrary %@", buf, 0x16u);
+          v9 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO);
+          if (v9)
+          {
+            identifier2 = [(VCPMADServiceImageAsset *)selfCopy identifier];
+            *buf = 138412546;
+            v145 = identifier2;
+            v146 = 2112;
+            v147 = photoLibrary2;
+            _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[VI][%@] -> asset's photoLibrary %@", buf, 0x16u);
+          }
         }
 
 LABEL_4:
-        v9 = VCPSignPostLog();
-        v10 = os_signpost_id_generate(v9);
+        v10 = VCPSignPostLog(v9);
+        v11 = os_signpost_id_generate(v10);
 
-        v11 = VCPSignPostLog();
-        v12 = v11;
-        type = v10 - 1;
-        if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
+        v13 = VCPSignPostLog(v12);
+        v14 = v13;
+        type = v11 - 1;
+        if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
         {
           *buf = 0;
-          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v10, "MADVIFetchVerifiedPeople", "", buf, 2u);
+          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v11, "MADVIFetchVerifiedPeople", "", buf, 2u);
         }
 
-        spid = v10;
+        spid = v11;
 
-        v119 = [v112 mad_allPersonsFetchOptionsWithDetectionTypes:&unk_1F49BEB48 andVerifiedTypes:&unk_1F49BEB60];
-        v13 = [MEMORY[0x1E6978978] fetchPersonsWithFaces:v5 options:?];
+        v121 = [v114 mad_allPersonsFetchOptionsWithDetectionTypes:&unk_1F49BEB48 andVerifiedTypes:&unk_1F49BEB60];
+        v15 = [MEMORY[0x1E6978978] fetchPersonsWithFaces:v5 options:?];
         if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
         {
-          v14 = [v13 count];
+          v16 = [v15 count];
           *buf = 134217984;
-          v143 = v14;
+          v145 = v16;
           _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "[VI][Identity] Fetched %lu verified identities", buf, 0xCu);
         }
 
-        if ([v13 count])
+        v17 = [v15 count];
+        if (v17)
         {
-          v15 = 0;
-          v16 = MEMORY[0x1E69E9C10];
+          v18 = 0;
+          v19 = MEMORY[0x1E69E9C10];
           do
           {
-            v17 = objc_autoreleasePoolPush();
-            v18 = [v13 objectAtIndexedSubscript:v15];
-            localIdentifier = [v18 localIdentifier];
-            [dictionary setObject:v18 forKeyedSubscript:localIdentifier];
+            v20 = objc_autoreleasePoolPush();
+            v21 = [v15 objectAtIndexedSubscript:v18];
+            localIdentifier = [v21 localIdentifier];
+            [dictionary setObject:v21 forKeyedSubscript:localIdentifier];
 
-            if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+            if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
             {
-              localIdentifier2 = [v18 localIdentifier];
-              verifiedType = [v18 verifiedType];
+              localIdentifier2 = [v21 localIdentifier];
+              verifiedType = [v21 verifiedType];
               *buf = 138412546;
-              v143 = localIdentifier2;
-              v144 = 2048;
-              v145 = verifiedType;
-              _os_log_impl(&dword_1C9B70000, v16, OS_LOG_TYPE_DEBUG, "[VI][Identity] -> identitity %@ with verified type %ld", buf, 0x16u);
+              v145 = localIdentifier2;
+              v146 = 2048;
+              v147 = verifiedType;
+              _os_log_impl(&dword_1C9B70000, v19, OS_LOG_TYPE_DEBUG, "[VI][Identity] -> identitity %@ with verified type %ld", buf, 0x16u);
             }
 
-            objc_autoreleasePoolPop(v17);
-            ++v15;
+            objc_autoreleasePoolPop(v20);
+            ++v18;
+            v17 = [v15 count];
           }
 
-          while (v15 < [v13 count]);
+          while (v18 < v17);
         }
 
-        v22 = VCPSignPostLog();
-        v23 = v22;
-        if (type < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v22))
+        v25 = VCPSignPostLog(v17);
+        v26 = v25;
+        if (type < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v25))
         {
           *buf = 0;
-          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v23, OS_SIGNPOST_INTERVAL_END, spid, "MADVIFetchVerifiedPeople", "", buf, 2u);
+          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v26, OS_SIGNPOST_INTERVAL_END, spid, "MADVIFetchVerifiedPeople", "", buf, 2u);
         }
 
-        typesCopy = v113;
-        if ((v113 & 1) == 0)
+        typesCopy = v115;
+        if ((v115 & 1) == 0)
         {
 LABEL_20:
-          v120 = 0;
+          v122 = 0;
           if ((typesCopy & 2) != 0)
           {
 LABEL_21:
             array2 = [MEMORY[0x1E695DF70] array];
-            v131 = 0u;
-            v132 = 0u;
             v133 = 0u;
             v134 = 0u;
-            v24 = v5;
-            v25 = [v24 countByEnumeratingWithState:&v131 objects:v140 count:16];
-            if (v25)
+            v135 = 0u;
+            v136 = 0u;
+            v27 = v5;
+            v28 = [v27 countByEnumeratingWithState:&v133 objects:v142 count:16];
+            if (v28)
             {
-              v26 = v25;
-              v27 = *v132;
-              v28 = 0x1E69E0000uLL;
-              spida = v24;
+              v29 = v28;
+              v30 = *v134;
+              v31 = 0x1E69E0000uLL;
+              spida = v27;
               do
               {
-                for (i = 0; i != v26; ++i)
+                for (i = 0; i != v29; ++i)
                 {
-                  if (*v132 != v27)
+                  if (*v134 != v30)
                   {
-                    objc_enumerationMutation(v24);
+                    objc_enumerationMutation(v27);
                   }
 
-                  v30 = *(*(&v131 + 1) + 8 * i);
-                  v31 = objc_autoreleasePoolPush();
-                  if ([v30 vcp_hasBody])
+                  v33 = *(*(&v133 + 1) + 8 * i);
+                  v34 = objc_autoreleasePoolPush();
+                  if ([v33 vcp_hasBody])
                   {
-                    [v30 vcp_normalizedBodyBounds];
-                    v33 = v32;
-                    v35 = v34;
-                    v37 = v36;
-                    v39 = v38;
-                    v40 = objc_alloc(*(v28 + 1168));
-                    LODWORD(v41) = 1.0;
-                    v42 = [v40 initWithLabel:@"Human" normalizedBoundingBox:v33 confidence:{v35, v37, v39, v41}];
-                    [array2 addObject:v42];
+                    [v33 vcp_normalizedBodyBounds];
+                    v36 = v35;
+                    v38 = v37;
+                    v40 = v39;
+                    v42 = v41;
+                    v43 = objc_alloc(*(v31 + 1168));
+                    LODWORD(v44) = 1.0;
+                    v45 = [v43 initWithLabel:@"Human" normalizedBoundingBox:v36 confidence:{v38, v40, v42, v44}];
+                    [array2 addObject:v45];
 
-                    personLocalIdentifier = [v30 personLocalIdentifier];
-                    v44 = [dictionary objectForKeyedSubscript:personLocalIdentifier];
+                    personLocalIdentifier = [v33 personLocalIdentifier];
+                    v47 = [dictionary objectForKeyedSubscript:personLocalIdentifier];
 
-                    if (v44 && [v44 faceCount])
+                    if (v47 && [v47 faceCount])
                     {
-                      v45 = v28;
-                      faceCount = [v44 faceCount];
+                      v48 = v31;
+                      faceCount = [v47 faceCount];
                       if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
                       {
-                        personLocalIdentifier2 = [v30 personLocalIdentifier];
-                        name = [v44 name];
+                        personLocalIdentifier2 = [v33 personLocalIdentifier];
+                        name = [v47 name];
                         *buf = 138412802;
-                        v143 = personLocalIdentifier2;
-                        v144 = 2112;
-                        v145 = name;
-                        v146 = 2048;
-                        v147 = faceCount;
+                        v145 = personLocalIdentifier2;
+                        v146 = 2112;
+                        v147 = name;
+                        v148 = 2048;
+                        v149 = faceCount;
                         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "[VI][Identity] Creating VIReducePersonOverTriggerRegionalAnnotation for human (torso) identity %@ (%@) with %ld faces in Photos library", buf, 0x20u);
                       }
 
-                      v49 = objc_alloc(MEMORY[0x1E69E0480]);
-                      personLocalIdentifier3 = [v30 personLocalIdentifier];
-                      LODWORD(v51) = 1.0;
-                      v52 = [v49 initWithLabel:personLocalIdentifier3 boundingBox:faceCount confidence:v33 faceCount:{v35, v37, v39, v51}];
+                      v52 = objc_alloc(MEMORY[0x1E69E0480]);
+                      personLocalIdentifier3 = [v33 personLocalIdentifier];
+                      LODWORD(v54) = 1.0;
+                      v55 = [v52 initWithLabel:personLocalIdentifier3 boundingBox:faceCount confidence:v36 faceCount:{v38, v40, v42, v54}];
 
                       if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
                       {
                         *buf = 138412290;
-                        v143 = v52;
+                        v145 = v55;
                         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "[VI][Identity] Created VIReducePersonOverTriggerRegionalAnnotation %@", buf, 0xCu);
                       }
 
-                      array = v123;
-                      [v123 addObject:v52];
+                      array = v125;
+                      [v125 addObject:v55];
 
-                      v28 = v45;
-                      v24 = spida;
+                      v31 = v48;
+                      v27 = spida;
                     }
                   }
 
-                  objc_autoreleasePoolPop(v31);
+                  objc_autoreleasePoolPop(v34);
                 }
 
-                v26 = [v24 countByEnumeratingWithState:&v131 objects:v140 count:16];
+                v29 = [v27 countByEnumeratingWithState:&v133 objects:v142 count:16];
               }
 
-              while (v26);
+              while (v29);
             }
 
-            typesCopy = v113;
-            selfCopy = v115;
-            v5 = v111;
+            typesCopy = v115;
+            selfCopy = v117;
+            v5 = v113;
             goto LABEL_77;
           }
 
@@ -329,91 +335,91 @@ LABEL_77:
 
 LABEL_57:
         array3 = [MEMORY[0x1E695DF70] array];
-        v135 = 0u;
-        v136 = 0u;
         v137 = 0u;
         v138 = 0u;
-        v64 = v5;
-        v65 = [v64 countByEnumeratingWithState:&v135 objects:v141 count:16];
-        v120 = array3;
-        if (v65)
+        v139 = 0u;
+        v140 = 0u;
+        v66 = v5;
+        v67 = [v66 countByEnumeratingWithState:&v137 objects:v143 count:16];
+        v122 = array3;
+        if (v67)
         {
-          v66 = v65;
-          v67 = *v136;
+          v68 = v67;
+          v69 = *v138;
           do
           {
-            for (j = 0; j != v66; ++j)
+            for (j = 0; j != v68; ++j)
             {
-              if (*v136 != v67)
+              if (*v138 != v69)
               {
-                objc_enumerationMutation(v64);
+                objc_enumerationMutation(v66);
               }
 
-              v69 = *(*(&v135 + 1) + 8 * j);
-              v70 = objc_autoreleasePoolPush();
-              if ([v69 vcp_hasFace])
+              v71 = *(*(&v137 + 1) + 8 * j);
+              v72 = objc_autoreleasePoolPush();
+              if ([v71 vcp_hasFace])
               {
-                [v69 vcp_normalizedFaceBounds];
-                v72 = v71;
+                [v71 vcp_normalizedFaceBounds];
                 v74 = v73;
                 v76 = v75;
                 v78 = v77;
-                v79 = objc_alloc(MEMORY[0x1E69E0490]);
-                LODWORD(v80) = 1.0;
-                v81 = [v79 initWithLabel:@"Face" normalizedBoundingBox:v72 confidence:{v74, v76, v78, v80}];
-                [array3 addObject:v81];
+                v80 = v79;
+                v81 = objc_alloc(MEMORY[0x1E69E0490]);
+                LODWORD(v82) = 1.0;
+                v83 = [v81 initWithLabel:@"Face" normalizedBoundingBox:v74 confidence:{v76, v78, v80, v82}];
+                [array3 addObject:v83];
 
-                personLocalIdentifier4 = [v69 personLocalIdentifier];
-                v83 = [dictionary objectForKeyedSubscript:personLocalIdentifier4];
+                personLocalIdentifier4 = [v71 personLocalIdentifier];
+                v85 = [dictionary objectForKeyedSubscript:personLocalIdentifier4];
 
-                if (v83 && [v83 faceCount])
+                if (v85 && [v85 faceCount])
                 {
-                  faceCount2 = [v83 faceCount];
+                  faceCount2 = [v85 faceCount];
                   if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
                   {
-                    personLocalIdentifier5 = [v69 personLocalIdentifier];
-                    name2 = [v83 name];
+                    personLocalIdentifier5 = [v71 personLocalIdentifier];
+                    name2 = [v85 name];
                     *buf = 138412802;
-                    v143 = personLocalIdentifier5;
-                    v144 = 2112;
-                    v145 = name2;
-                    v146 = 2048;
-                    v147 = faceCount2;
+                    v145 = personLocalIdentifier5;
+                    v146 = 2112;
+                    v147 = name2;
+                    v148 = 2048;
+                    v149 = faceCount2;
                     _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "[VI][Identity] Creating VIReducePersonOverTriggerRegionalAnnotation for face identity %@ (%@) with %ld faces in Photos library", buf, 0x20u);
                   }
 
-                  v87 = objc_alloc(MEMORY[0x1E69E0480]);
-                  personLocalIdentifier6 = [v69 personLocalIdentifier];
-                  LODWORD(v89) = 1.0;
-                  v90 = [v87 initWithLabel:personLocalIdentifier6 boundingBox:faceCount2 confidence:v72 faceCount:{v74, v76, v78, v89}];
+                  v89 = objc_alloc(MEMORY[0x1E69E0480]);
+                  personLocalIdentifier6 = [v71 personLocalIdentifier];
+                  LODWORD(v91) = 1.0;
+                  v92 = [v89 initWithLabel:personLocalIdentifier6 boundingBox:faceCount2 confidence:v74 faceCount:{v76, v78, v80, v91}];
 
                   if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
                   {
                     *buf = 138412290;
-                    v143 = v90;
+                    v145 = v92;
                     _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "[VI][Identity] Created VIReducePersonOverTriggerRegionalAnnotation %@", buf, 0xCu);
                   }
 
-                  array = v123;
-                  [v123 addObject:v90];
+                  array = v125;
+                  [v125 addObject:v92];
 
-                  array3 = v120;
+                  array3 = v122;
                 }
               }
 
-              objc_autoreleasePoolPop(v70);
+              objc_autoreleasePoolPop(v72);
             }
 
-            v66 = [v64 countByEnumeratingWithState:&v135 objects:v141 count:16];
+            v68 = [v66 countByEnumeratingWithState:&v137 objects:v143 count:16];
           }
 
-          while (v66);
+          while (v68);
         }
 
-        typesCopy = v113;
-        selfCopy = v115;
-        v5 = v111;
-        if ((v113 & 2) != 0)
+        typesCopy = v115;
+        selfCopy = v117;
+        v5 = v113;
+        if ((v115 & 2) != 0)
         {
           goto LABEL_21;
         }
@@ -421,11 +427,11 @@ LABEL_57:
         goto LABEL_76;
       }
 
-      if (v55 >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+      if (v9 >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
         identifier3 = [(VCPMADServiceImageAsset *)selfCopy identifier];
         *buf = 138412290;
-        v143 = identifier3;
+        v145 = identifier3;
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[VI][%@] -> asset without photoLibrary", buf, 0xCu);
       }
     }
@@ -433,22 +439,22 @@ LABEL_57:
     else if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       identifier4 = [(VCPMADServiceImageAsset *)selfCopy identifier];
-      v58 = objc_opt_class();
-      v59 = v58;
       v60 = objc_opt_class();
+      v61 = v60;
+      v62 = objc_opt_class();
       *buf = 138412802;
-      v143 = identifier4;
-      v144 = 2112;
-      v145 = v58;
+      v145 = identifier4;
       v146 = 2112;
       v147 = v60;
-      v61 = v60;
+      v148 = 2112;
+      v149 = v62;
+      v63 = v62;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[VI][%@] -> faces from %@ (expected %@)", buf, 0x20u);
 
-      array = v123;
+      array = v125;
     }
 
-    v112 = 0;
+    v114 = 0;
     if ((typesCopy & 1) == 0)
     {
       goto LABEL_20;
@@ -459,20 +465,20 @@ LABEL_57:
 
   array = 0;
   array2 = 0;
-  v120 = 0;
+  v122 = 0;
 LABEL_78:
 
 LABEL_79:
   if ([array count])
   {
-    v91 = [objc_alloc(MEMORY[0x1E69E0478]) initWithRegionsItems:array];
+    v93 = [objc_alloc(MEMORY[0x1E69E0478]) initWithRegionsItems:array];
     if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
     {
-      v92 = [array count];
+      v94 = [array count];
       *buf = 134218242;
-      v143 = v92;
-      v144 = 2112;
-      v145 = v91;
+      v145 = v94;
+      v146 = 2112;
+      v147 = v93;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "[VI][Identity] Packaged VIReducePersonOverTriggerAnnotation with %lu VIReducePersonOverTriggerRegionalAnnotation - %@", buf, 0x16u);
     }
 
@@ -498,7 +504,7 @@ LABEL_104:
 
   else
   {
-    v91 = 0;
+    v93 = 0;
     if ((typesCopy & 4) == 0)
     {
       goto LABEL_84;
@@ -508,60 +514,60 @@ LABEL_104:
   nsfwClassifications = [(VCPMADServiceImageAsset *)selfCopy nsfwClassifications];
   if (nsfwClassifications)
   {
-    typea = v91;
-    v114 = typesCopy;
-    v116 = selfCopy;
-    v124 = array;
+    typea = v93;
+    v116 = typesCopy;
+    v118 = selfCopy;
+    v126 = array;
     array4 = [MEMORY[0x1E695DF70] array];
-    v127 = 0u;
-    v128 = 0u;
     v129 = 0u;
     v130 = 0u;
-    v97 = nsfwClassifications;
-    v98 = [v97 countByEnumeratingWithState:&v127 objects:v139 count:16];
-    if (v98)
+    v131 = 0u;
+    v132 = 0u;
+    v99 = nsfwClassifications;
+    v100 = [v99 countByEnumeratingWithState:&v129 objects:v141 count:16];
+    if (v100)
     {
-      v99 = v98;
-      v100 = *v128;
+      v101 = v100;
+      v102 = *v130;
       do
       {
-        for (k = 0; k != v99; ++k)
+        for (k = 0; k != v101; ++k)
         {
-          if (*v128 != v100)
+          if (*v130 != v102)
           {
-            objc_enumerationMutation(v97);
+            objc_enumerationMutation(v99);
           }
 
-          v102 = *(*(&v127 + 1) + 8 * k);
-          v103 = VCPSpecialLabelFromExtendedSceneClassificationID([v102 extendedSceneIdentifier]);
-          if (v103)
+          v104 = *(*(&v129 + 1) + 8 * k);
+          v105 = VCPSpecialLabelFromExtendedSceneClassificationID([v104 extendedSceneIdentifier]);
+          if (v105)
           {
-            v104 = objc_alloc(MEMORY[0x1E69E0490]);
-            [v102 confidence];
-            *&v106 = v105;
-            v107 = [v104 initWithLabel:v103 normalizedBoundingBox:0.0 confidence:{0.0, 1.0, 1.0, v106}];
-            [array4 addObject:v107];
+            v106 = objc_alloc(MEMORY[0x1E69E0490]);
+            [v104 confidence];
+            *&v108 = v107;
+            v109 = [v106 initWithLabel:v105 normalizedBoundingBox:0.0 confidence:{0.0, 1.0, 1.0, v108}];
+            [array4 addObject:v109];
           }
 
           else if (MediaAnalysisLogLevel() >= 4 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
           {
-            extendedSceneIdentifier = [v102 extendedSceneIdentifier];
+            extendedSceneIdentifier = [v104 extendedSceneIdentifier];
             *buf = 134217984;
-            v143 = extendedSceneIdentifier;
+            v145 = extendedSceneIdentifier;
             _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[NSFW] Failed to find label for identifier %llu", buf, 0xCu);
           }
         }
 
-        v99 = [v97 countByEnumeratingWithState:&v127 objects:v139 count:16];
+        v101 = [v99 countByEnumeratingWithState:&v129 objects:v141 count:16];
       }
 
-      while (v99);
+      while (v101);
     }
 
-    array = v124;
-    typesCopy = v114;
-    selfCopy = v116;
-    v91 = typea;
+    array = v126;
+    typesCopy = v116;
+    selfCopy = v118;
+    v93 = typea;
   }
 
   else
@@ -586,9 +592,9 @@ LABEL_86:
 LABEL_105:
   vcp_scenenetAnnotation = 0;
 LABEL_106:
-  v109 = [objc_alloc(MEMORY[0x1E69E0448]) initWithReducePersonOverTriggerAnnotation:v91 faceAnnotations:v120 humanAnnotations:array2 nsfwAnnotations:array4 textBlockAnnotation:vcp_textAnnotation scenenetAnnotation:vcp_scenenetAnnotation barcodeAnnotation:0];
+  v111 = [objc_alloc(MEMORY[0x1E69E0448]) initWithReducePersonOverTriggerAnnotation:v93 faceAnnotations:v122 humanAnnotations:array2 nsfwAnnotations:array4 textBlockAnnotation:vcp_textAnnotation scenenetAnnotation:vcp_scenenetAnnotation barcodeAnnotation:0];
 
-  return v109;
+  return v111;
 }
 
 - (VCPMADServiceImageAsset)initWithClientBundleID:(id)d clientTeamID:(id)iD

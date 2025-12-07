@@ -37,21 +37,19 @@
 
 - (_TtC15_MapKit_SwiftUI21SwiftUIAnnotationView)initWithCoder:(id)coder
 {
-  v4 = OBJC_IVAR____TtC15_MapKit_SwiftUI21SwiftUIAnnotationView_wrappedView;
   *(&self->super.super.super.super.isa + OBJC_IVAR____TtC15_MapKit_SwiftUI21SwiftUIAnnotationView_wrappedView) = 0;
-  v5 = (&self->super.super.super.super.isa + OBJC_IVAR____TtC15_MapKit_SwiftUI21SwiftUIAnnotationView_contentAnchorPoint);
+  v4 = (&self->super.super.super.super.isa + OBJC_IVAR____TtC15_MapKit_SwiftUI21SwiftUIAnnotationView_contentAnchorPoint);
   coderCopy = coder;
   sub_213D917CC();
-  *v5 = v7;
-  v5[1] = v8;
-  v9 = (&self->super.super.super.super.isa + OBJC_IVAR____TtC15_MapKit_SwiftUI21SwiftUIAnnotationView_accessoryAnchorPoint);
+  *v4 = v6;
+  v4[1] = v7;
+  v8 = (&self->super.super.super.super.isa + OBJC_IVAR____TtC15_MapKit_SwiftUI21SwiftUIAnnotationView_accessoryAnchorPoint);
   sub_213D917CC();
-  v11 = v10;
-  v13 = v12;
+  v10 = v9;
+  v12 = v11;
 
-  *v9 = v11;
-  v9[1] = v13;
-  v14 = *(&self->super.super.super.super.isa + v4);
+  *v8 = v10;
+  v8[1] = v12;
 
   type metadata accessor for SwiftUIAnnotationView();
   swift_deallocPartialClassInstance();
@@ -60,15 +58,14 @@
 
 - (void)prepareForReuse
 {
-  v2 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC15_MapKit_SwiftUI21SwiftUIAnnotationView_wrappedView);
   *(&self->super.super.super.super.isa + OBJC_IVAR____TtC15_MapKit_SwiftUI21SwiftUIAnnotationView_wrappedView) = 0;
   selfCopy = self;
 
   [*(&selfCopy->super.super.super.super.isa + OBJC_IVAR____TtC15_MapKit_SwiftUI21SwiftUIAnnotationView_hostView) removeFromSuperview];
   [(MKAnnotationView *)selfCopy setCenterOffset:0.0, 0.0];
-  v4.receiver = selfCopy;
-  v4.super_class = type metadata accessor for SwiftUIAnnotationView();
-  [(MKAnnotationView *)&v4 prepareForReuse];
+  v3.receiver = selfCopy;
+  v3.super_class = type metadata accessor for SwiftUIAnnotationView();
+  [(MKAnnotationView *)&v3 prepareForReuse];
 }
 
 - (UIEdgeInsets)safeAreaInsets

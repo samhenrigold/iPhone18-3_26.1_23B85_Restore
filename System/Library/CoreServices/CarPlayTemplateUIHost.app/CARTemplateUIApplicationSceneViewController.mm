@@ -19,6 +19,7 @@
 - (void)sceneDidEnterBackground:(id)background;
 - (void)sceneWillEnterForeground:(id)foreground;
 - (void)sceneWillResignActive:(id)active;
+- (void)sendSceneUpdate:(BOOL)update openURLContexts:(id)contexts;
 - (void)setOverlayViewController:(id)controller;
 - (void)setScene:(id)scene;
 - (void)traitCollectionDidChange:(id)change;
@@ -463,6 +464,132 @@ LABEL_9:
   else
   {
     (v6[2])(v6);
+  }
+}
+
+- (void)sendSceneUpdate:(BOOL)update openURLContexts:(id)contexts
+{
+  updateCopy = update;
+  contextsCopy = contexts;
+  if ([(CARTemplateUIApplicationSceneViewController *)self invalidated])
+  {
+    v7 = sub_100001280(7uLL);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      sub_10000E3D4(self, v7);
+    }
+  }
+
+  else
+  {
+    v7 = objc_alloc_init(CPUITemplateApplicationSceneSpecification);
+    scene = [(CARTemplateUIApplicationSceneViewController *)self scene];
+
+    if (scene)
+    {
+      scene2 = [(CARTemplateUIApplicationSceneViewController *)self scene];
+      settings = [scene2 settings];
+      v11 = [settings mutableCopy];
+    }
+
+    else
+    {
+      scene2 = objc_alloc_init([v7 settingsClass]);
+      v11 = [scene2 mutableCopy];
+    }
+
+    v37 = objc_alloc_init([v7 transitionContextClass]);
+    displayConfiguration = [(CARTemplateUIApplicationSceneViewController *)self displayConfiguration];
+    [v11 setDisplayConfiguration:displayConfiguration];
+
+    view = [(CARTemplateUIApplicationSceneViewController *)self view];
+    [view bounds];
+    [v11 setFrame:?];
+
+    [v11 setLevel:1.0];
+    [v11 setInterfaceOrientation:1];
+    [v11 setForeground:updateCopy];
+    templateInstance = [(CARTemplateUIApplicationSceneViewController *)self templateInstance];
+    endpoint = [templateInstance endpoint];
+    [v11 setEndpoint:endpoint];
+
+    traitCollection = [(CARTemplateUIApplicationSceneViewController *)self traitCollection];
+    [v11 setUserInterfaceStyle:{objc_msgSend(traitCollection, "userInterfaceStyle")}];
+
+    [v11 setMapStyle:{-[CARTemplateUIApplicationSceneViewController _mapStyle](self, "_mapStyle")}];
+    _frameRateLimit = [(CARTemplateUIApplicationSceneViewController *)self _frameRateLimit];
+    [v11 setFrameRateLimit:_frameRateLimit];
+
+    v18 = [FBSMutableSceneParameters parametersForSpecification:v7];
+    [v18 setSettings:v11];
+    applicationIdentifier = [(CARTemplateUIApplicationSceneViewController *)self applicationIdentifier];
+    v20 = [RBSProcessIdentity identityForEmbeddedApplicationIdentifier:applicationIdentifier];
+
+    v21 = [FBApplicationUpdateScenesTransaction alloc];
+    v46[0] = _NSConcreteStackBlock;
+    v46[1] = 3221225472;
+    v46[2] = sub_10000B0CC;
+    v46[3] = &unk_10001C510;
+    v22 = v11;
+    v47 = v22;
+    location[1] = _NSConcreteStackBlock;
+    location[2] = 3221225472;
+    location[3] = sub_10000B130;
+    location[4] = &unk_10001C538;
+    v23 = [v21 initWithProcessIdentity:v20 executionContextProvider:v46];
+    v45 = v23;
+    v24 = BSLogAddStateCaptureBlockWithTitle();
+    objc_initWeak(location, self);
+    v40[0] = _NSConcreteStackBlock;
+    v40[1] = 3221225472;
+    v40[2] = sub_10000B198;
+    v40[3] = &unk_10001C670;
+    v25 = v24;
+    v41 = v25;
+    objc_copyWeak(&v43, location);
+    v26 = contextsCopy;
+    v42 = v26;
+    [v23 setCompletionBlock:v40];
+    if (v26)
+    {
+      v38[0] = _NSConcreteStackBlock;
+      v38[1] = 3221225472;
+      v38[2] = sub_10000B348;
+      v38[3] = &unk_10001C588;
+      v27 = objc_alloc_init(NSMutableSet);
+      v39 = v27;
+      [v26 enumerateObjectsUsingBlock:v38];
+      [v37 setActions:v27];
+    }
+
+    v35 = v22;
+    v36 = contextsCopy;
+    v28 = v20;
+    displayConfiguration2 = [(CARTemplateUIApplicationSceneViewController *)self displayConfiguration];
+    identity = [displayConfiguration2 identity];
+    applicationIdentifier2 = [(CARTemplateUIApplicationSceneViewController *)self applicationIdentifier];
+    v32 = [NSString stringWithFormat:@"%@:%@", identity, applicationIdentifier2];
+
+    [v23 setWaitsForSceneCommits:0];
+    v33 = [FBSSceneIdentity identityForIdentifier:v32 workspaceIdentifier:@"kCARTemplateUIAppWorkspaceIdentifier"];
+    [v23 updateSceneWithIdentity:v33 parameters:v18 transitionContext:v37];
+    currentTransaction = [(CARTemplateUIApplicationSceneViewController *)self currentTransaction];
+
+    if (currentTransaction)
+    {
+      [(CARTemplateUIApplicationSceneViewController *)self setPendingTransaction:v23];
+    }
+
+    else
+    {
+      [(CARTemplateUIApplicationSceneViewController *)self setCurrentTransaction:v23];
+      [v23 begin];
+    }
+
+    objc_destroyWeak(&v43);
+    objc_destroyWeak(location);
+
+    contextsCopy = v36;
   }
 }
 

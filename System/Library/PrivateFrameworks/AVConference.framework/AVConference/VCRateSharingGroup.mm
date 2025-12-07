@@ -246,7 +246,7 @@ LABEL_14:
   return v4;
 }
 
-uint64_t __53__VCRateSharingGroup_createMediaQueueWithIdentifier___block_invoke(uint64_t a1, void *a2)
+void *__53__VCRateSharingGroup_createMediaQueueWithIdentifier___block_invoke(uint64_t a1, void *a2)
 {
   if (a2)
   {
@@ -258,6 +258,7 @@ uint64_t __53__VCRateSharingGroup_createMediaQueueWithIdentifier___block_invoke(
 
 - (void)handleMediaQueueSizeExceedThresholdWithQueueSize:(double)size mediaQueueStreamId:(unsigned int)id type:(int)type
 {
+  v6 = *&id;
   v36[2] = *MEMORY[0x1E69E9840];
   v9 = objc_opt_class();
   if (type == 1)
@@ -283,7 +284,7 @@ uint64_t __53__VCRateSharingGroup_createMediaQueueWithIdentifier___block_invoke(
       v30 = 1024;
       v31 = 150;
       v32 = 1024;
-      *v33 = id;
+      *v33 = v6;
       *&v33[4] = 2048;
       *&v33[6] = size;
       v14 = " [%s] %s:%d VCMediaQueue size threshold exceeded for mediaQueueStreamId=%u queueSizeInSecond=%f - FLUSHING!";
@@ -326,7 +327,7 @@ uint64_t __53__VCRateSharingGroup_createMediaQueueWithIdentifier___block_invoke(
       *&v33[8] = 2048;
       *&v33[10] = self;
       *&v33[18] = 1024;
-      typeCopy = id;
+      typeCopy = v6;
       v35 = 2048;
       *v36 = size;
       v14 = " [%s] %s:%d %@(%p) VCMediaQueue size threshold exceeded for mediaQueueStreamId=%u queueSizeInSecond=%f - FLUSHING!";
@@ -336,7 +337,7 @@ uint64_t __53__VCRateSharingGroup_createMediaQueueWithIdentifier___block_invoke(
 
     _os_log_impl(&dword_1DB56E000, v15, OS_LOG_TYPE_DEFAULT, v14, &v26, v16);
 LABEL_19:
-    VCMediaQueue_FlushPacketsInStream(self->_mediaQueue, id, 1u);
+    VCMediaQueue_FlushPacketsInStream(self->_mediaQueue, v6, 1u);
     return;
   }
 
@@ -363,7 +364,7 @@ LABEL_19:
     v32 = 1024;
     *v33 = type;
     *&v33[4] = 1024;
-    *&v33[6] = id;
+    *&v33[6] = v6;
     *&v33[10] = 2048;
     *&v33[12] = size;
     v19 = " [%s] %s:%d Should not handle media queue threshold exceeded with type=%d for mediaQueueStreamId=%u queueSize=%f!";
@@ -403,7 +404,7 @@ LABEL_25:
       *&v33[18] = 1024;
       typeCopy = type;
       v35 = 1024;
-      LODWORD(v36[0]) = id;
+      LODWORD(v36[0]) = v6;
       WORD2(v36[0]) = 2048;
       *(v36 + 6) = size;
       v19 = " [%s] %s:%d %@(%p) Should not handle media queue threshold exceeded with type=%d for mediaQueueStreamId=%u queueSize=%f!";

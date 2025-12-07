@@ -77,11 +77,11 @@
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
   __chkstk_darwin(v6);
-  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  sub_10027761C(viewCopy);
+  sub_10027761C(viewCopy, v9, v12);
 
   (*(v7 + 8))(v9, v6);
 }
@@ -91,7 +91,7 @@
   viewCopy = view;
   annotationViewCopy = annotationView;
   selfCopy = self;
-  sub_10042FC0C(viewCopy, annotationViewCopy);
+  sub_10042FC0C(viewCopy, annotationViewCopy, selfCopy);
 }
 
 - (void)mapView:(id)view didDeselectAnnotationView:(id)annotationView
@@ -155,7 +155,7 @@
   viewCopy = view;
   annotationViewCopy = annotationView;
   selfCopy = self;
-  sub_100430DAC(annotationViewCopy, state);
+  sub_100430DAC(annotationViewCopy, state, selfCopy);
 }
 
 - (id)mapView:(id)view rendererForOverlay:(id)overlay
@@ -163,11 +163,11 @@
   viewCopy = view;
   swift_unknownObjectRetain();
   selfCopy = self;
-  v7 = sub_10043091C(viewCopy);
+  v8 = sub_10043091C(viewCopy, overlay);
 
   swift_unknownObjectRelease();
 
-  return v7;
+  return v8;
 }
 
 - (void)updateSearchResultsForSearchController:(id)controller
@@ -182,7 +182,7 @@
     v7 = static String._unconditionallyBridgeFromObjectiveC(_:)();
     v9 = v8;
 
-    sub_100464D0C(v7, v9);
+    sub_100464D0C(v7, v9, v10);
   }
 }
 
@@ -293,19 +293,19 @@
 - (void)chooseSmallRadiusActionWithSender:(id)sender
 {
   selfCopy = self;
-  sub_100467A98(0x4059000000000000, 0);
+  sub_100467A98(0x4059000000000000, 0, selfCopy);
 }
 
 - (void)chooseMediumRadiusActionWithSender:(id)sender
 {
   selfCopy = self;
-  sub_100467A98(0x406F400000000000, 0);
+  sub_100467A98(0x406F400000000000, 0, selfCopy);
 }
 
 - (void)chooseLargeRadiusActionWithSender:(id)sender
 {
   selfCopy = self;
-  sub_100467A98(0x4077700000000000, 0);
+  sub_100467A98(0x4077700000000000, 0, selfCopy);
 }
 
 - (void)longPressActionWithSender:(id)sender
@@ -325,7 +325,7 @@
 - (void)doneActionWithSender:(id)sender
 {
   selfCopy = self;
-  sub_100466DE4();
+  sub_100466DE4(selfCopy, v3, v4);
 }
 
 - (void)cancelActionWithSender:(id)sender
@@ -351,7 +351,7 @@
     [(FMFenceMapViewController *)selfCopy dismissViewControllerAnimated:1 completion:0];
   }
 
-  sub_100006060(&v8);
+  sub_100006060(v8);
 }
 
 - (_TtC6FindMy24FMFenceMapViewController)initWithNibName:(id)name bundle:(id)bundle

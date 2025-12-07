@@ -167,7 +167,7 @@ LABEL_9:
 
   else
   {
-    v3 = &JavaLangThread_StateEnum_values_;
+    v3 = JavaLangThread_StateEnum_values_;
   }
 
   if ((explicit & 1) == 0)
@@ -187,70 +187,72 @@ LABEL_19:
     JreThrowNullPointerException();
   }
 
-  v3 = getStackTrace;
-  v4 = getStackTrace[2];
-  if (v4 < 1)
+  v4 = getStackTrace;
+  v5 = *(getStackTrace + 8);
+  if (v5 < 1)
   {
-    v6 = 0;
+    v7 = 0;
     goto LABEL_13;
   }
 
-  v5 = 0;
   v6 = 0;
+  v7 = 0;
   while (1)
   {
-    v7 = *&v3[2 * v5 + 6];
-    if (!v7)
+    v8 = *&v4[2 * v6 + 6];
+    if (!v8)
     {
       goto LABEL_19;
     }
 
-    getMethodName = [v7 getMethodName];
+    getMethodName = [v8 getMethodName];
     if (!getMethodName)
     {
       goto LABEL_19;
     }
 
-    v9 = getMethodName;
-    if (![getMethodName contains:@"getStackTrace"])
+    v10 = getMethodName;
+    getStackTrace = [getMethodName contains:@"getStackTrace"];
+    if (!getStackTrace)
     {
       break;
     }
 
-    v6 = v5;
+    v7 = v6;
 LABEL_9:
-    if (++v5 >= v3[2])
+    if (++v6 >= v4[2])
     {
       goto LABEL_13;
     }
   }
 
-  if (([v9 contains:@"mainWithNSStringArray:"] & 1) == 0)
+  getStackTrace = [v10 contains:@"mainWithNSStringArray:"];
+  if ((getStackTrace & 1) == 0)
   {
     goto LABEL_9;
   }
 
-  v4 = v5;
+  v5 = v6;
 LABEL_13:
-  if (v4 - v6 + 1 >= 0)
+  if (v5 - v7 + 1 >= 0)
   {
-    v10 = v3[2];
-    if (v4 + 1 <= v10)
+    v11 = v4[2];
+    if (v5 + 1 <= v11)
     {
-      v11 = (v4 - v6 + 1);
+      v12 = (v5 - v7 + 1);
     }
 
     else
     {
-      v11 = (v10 - v6);
+      v12 = (v11 - v7);
     }
 
-    v12 = [IOSObjectArray arrayWithLength:v11 type:JavaLangStackTraceElement_class_()];
-    JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(v3, v6, v12, 0, v11);
-    return v12;
+    v13 = [IOSObjectArray arrayWithLength:v12 type:JavaLangStackTraceElement_class_(getStackTrace, v3)];
+    JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(v4, v7, v13, 0, v12);
+    return v13;
   }
 
-  return v3;
+  return v4;
 }
 
 - (int)countStackFrames
@@ -339,7 +341,7 @@ LABEL_6:
   result = self->contextClassLoader_;
   if (!result)
   {
-    return JavaLangClassLoader_getSystemClassLoader();
+    return JavaLangClassLoader_getSystemClassLoader(0, a2);
   }
 
   return result;
@@ -541,10 +543,10 @@ LABEL_6:
 
   else
   {
-    sub_10027B634();
+    self = sub_10027B634();
   }
 
-  return JavaUtilCollections_emptyMap();
+  return JavaUtilCollections_emptyMap(self, a2);
 }
 
 - (void)dealloc
@@ -565,8 +567,8 @@ LABEL_6:
 {
   if (objc_opt_class() == self)
   {
-    JreStrongAssignAndConsume(&qword_100556F78, [JavaLangThread_SystemUncaughtExceptionHandler alloc]);
-    +[JavaLangThread initializeThreadClass]_0();
+    v2 = JreStrongAssignAndConsume(&qword_100556F78, [JavaLangThread_SystemUncaughtExceptionHandler alloc]);
+    +[JavaLangThread initializeThreadClass]_0(v2, v3);
     atomic_store(1u, &JavaLangThread__initialized);
   }
 }
@@ -582,30 +584,30 @@ LABEL_6:
   if (!qword_100556F80)
   {
     qword_100556F80 = objc_alloc_init(JavaLangThreadGroup);
-    v0 = [JavaLangThreadGroup alloc];
-    qword_100556F88 = [(JavaLangThreadGroup *)v0 initWithJavaLangThreadGroup:qword_100556F80 withNSString:@"main"];
-    v1 = qword_100556F80;
-    v2 = qword_100556F88;
+    v2 = [JavaLangThreadGroup alloc];
+    qword_100556F88 = [(JavaLangThreadGroup *)v2 initWithJavaLangThreadGroup:qword_100556F80 withNSString:@"main"];
+    v3 = qword_100556F80;
+    v4 = qword_100556F88;
   }
 
-  v3 = [JavaLangThread alloc];
-  v4 = qword_100556F88;
+  v5 = [JavaLangThread alloc];
+  v6 = qword_100556F88;
 
-  return [(JavaLangThread *)v3 initWithJavaLangThreadGroup:v4 withNSString:@"main" withBoolean:0];
+  return [(JavaLangThread *)v5 initWithJavaLangThreadGroup:v6 withNSString:@"main" withBoolean:0];
 }
 
 + (uint64_t)getNextThreadId
 {
   if ((atomic_load_explicit(&JavaLangThread__initialized, memory_order_acquire) & 1) == 0)
   {
-    sub_10027B634();
+    self = sub_10027B634();
   }
 
-  v0 = JavaLangThread_class_();
-  objc_sync_enter(v0);
-  v1 = ++qword_1005538D8;
-  objc_sync_exit(v0);
-  return v1;
+  v2 = JavaLangThread_class_(self, a2);
+  objc_sync_enter(v2);
+  v3 = ++qword_1005538D8;
+  objc_sync_exit(v2);
+  return v3;
 }
 
 @end

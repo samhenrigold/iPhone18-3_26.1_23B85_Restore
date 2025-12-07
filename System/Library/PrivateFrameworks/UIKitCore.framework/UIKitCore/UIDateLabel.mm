@@ -186,7 +186,7 @@ LABEL_11:
 
 - (id)_calendar
 {
-  if (!self->_calendar || ([MEMORY[0x1E695DF58] systemLocale], v3 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v3, "localeIdentifier"), v4 = objc_claimAutoreleasedReturnValue(), -[NSCalendar calendarIdentifier](self->_calendar, "calendarIdentifier"), v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v4, "isEqualToString:", v5), v5, v4, v3, (v6 & 1) == 0))
+  if (!self->_calendar || ([MEMORY[0x1E695DF58] systemLocale], v3 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v3, "localeIdentifier"), v4 = objc_claimAutoreleasedReturnValue(), -[NSCalendar calendarIdentifier](self->_calendar, "calendarIdentifier"), v5 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v4), v5, v4, v3, (isEqualToString & 1) == 0))
   {
     currentCalendar = [MEMORY[0x1E695DEE8] currentCalendar];
     calendar = self->_calendar;

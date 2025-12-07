@@ -58,6 +58,7 @@
 - (void)requestSync:(unint64_t)sync withCompletionBlock:(id)block;
 - (void)retirePersistentStoreAtURL:(id)l;
 - (void)runLegacyMigration;
+- (void)runMaintenanceIncludeLocalVariations:(BOOL)variations;
 - (void)scheduleCacheUpdate:(id)update;
 - (void)unloadPersistentStore;
 @end
@@ -217,15 +218,14 @@
 
 - (void)loadPersistentStoreIfNecessary
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v4 = 136315650;
-  v5 = "[_KSTextReplacementLegacyStore loadPersistentStoreIfNecessary]";
-  v6 = 2112;
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = 136315650;
+  v4 = "[_KSTextReplacementLegacyStore loadPersistentStoreIfNecessary]";
+  v5 = 2112;
   selfCopy = self;
-  v8 = 2112;
-  v9 = a2;
-  _os_log_error_impl(&dword_2557E2000, log, OS_LOG_TYPE_ERROR, "%s  couldn't load persistent store at url: %@, error: %@", &v4, 0x20u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = 2112;
+  v8 = a2;
+  _os_log_error_impl(&dword_2557E2000, log, OS_LOG_TYPE_ERROR, "%s  couldn't load persistent store at url: %@, error: %@", &v3, 0x20u);
 }
 
 - (void)unloadPersistentStore
@@ -237,29 +237,27 @@
   [persistentStoreCoordinator removePersistentStore:persistentStore error:&v8];
   v5 = v8;
 
-  [(_KSTextReplacementLegacyStore *)self setUbiquityStoreLoaded:0];
+  v6 = [(_KSTextReplacementLegacyStore *)self setUbiquityStoreLoaded:0];
   if (v5)
   {
-    v6 = KSCategory();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = KSCategory(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
       v10 = "[_KSTextReplacementLegacyStore unloadPersistentStore]";
-      _os_log_impl(&dword_2557E2000, v6, OS_LOG_TYPE_INFO, "%s  ERROR: failed to unload PSC store", buf, 0xCu);
+      _os_log_impl(&dword_2557E2000, v7, OS_LOG_TYPE_INFO, "%s  ERROR: failed to unload PSC store", buf, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestMinimumUptime
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v3 = KSCategory();
+  v13 = *MEMORY[0x277D85DE8];
+  v3 = KSCategory(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v13 = "[_KSTextReplacementLegacyStore requestMinimumUptime]";
+    v12 = "[_KSTextReplacementLegacyStore requestMinimumUptime]";
     _os_log_impl(&dword_2557E2000, v3, OS_LOG_TYPE_INFO, "%s  persistentstore loaded, requesting minimum uptime", buf, 0xCu);
   }
 
@@ -285,13 +283,11 @@
     block[4] = self;
     dispatch_after(v8, workQueue2, block);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)endMinimumUptime
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   workQueue = [(_KSTextReplacementLegacyStore *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -300,17 +296,14 @@
     uptimeTransaction = self->_uptimeTransaction;
     self->_uptimeTransaction = 0;
 
-    [(_KSTextReplacementLegacyStore *)self setMinimumUptimeDidExpire:1];
-    v5 = KSCategory();
+    v5 = KSCategory([(_KSTextReplacementLegacyStore *)self setMinimumUptimeDidExpire:1]);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v7 = 136315138;
-      v8 = "[_KSTextReplacementLegacyStore endMinimumUptime]";
-      _os_log_impl(&dword_2557E2000, v5, OS_LOG_TYPE_INFO, "%s  Ending minimum uptime", &v7, 0xCu);
+      v6 = 136315138;
+      v7 = "[_KSTextReplacementLegacyStore endMinimumUptime]";
+      _os_log_impl(&dword_2557E2000, v5, OS_LOG_TYPE_INFO, "%s  Ending minimum uptime", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (NSPersistentStore)persistentStore
@@ -324,59 +317,59 @@
 
 - (void)importSampleShortcutsIfNecessary
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   workQueue = [(_KSTextReplacementLegacyStore *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
-  v4 = KSCategory();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v5 = KSCategory(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v20 = "[_KSTextReplacementLegacyStore importSampleShortcutsIfNecessary]";
-    _os_log_impl(&dword_2557E2000, v4, OS_LOG_TYPE_INFO, "%s  importing sample shortcut", buf, 0xCu);
+    v21 = "[_KSTextReplacementLegacyStore importSampleShortcutsIfNecessary]";
+    _os_log_impl(&dword_2557E2000, v5, OS_LOG_TYPE_INFO, "%s  importing sample shortcut", buf, 0xCu);
   }
 
   objc_initWeak(&location, self);
   if (![(_KSTextReplacementLegacyStore *)self pendingSampleShortcutImport])
   {
-    v5 = objc_alloc(MEMORY[0x277CBEBD0]);
-    v6 = +[_KSUtilities userDefaultsSuiteName];
-    v7 = [v5 initWithSuiteName:v6];
+    v6 = objc_alloc(MEMORY[0x277CBEBD0]);
+    v7 = +[_KSUtilities userDefaultsSuiteName];
+    v8 = [v6 initWithSuiteName:v7];
 
-    v8 = [v7 stringForKey:@"kDidInsertSampleShortcutForPeer"];
+    v9 = [v8 stringForKey:@"kDidInsertSampleShortcutForPeer"];
     currentStoreIndentity = [(_KSTextReplacementLegacyStore *)self currentStoreIndentity];
-    if ([v8 isEqualToString:currentStoreIndentity])
+    v11 = [v9 isEqualToString:currentStoreIndentity];
+    if (v11)
     {
-      v10 = KSCategory();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+      v12 = KSCategory(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v20 = "[_KSTextReplacementLegacyStore importSampleShortcutsIfNecessary]";
-        _os_log_impl(&dword_2557E2000, v10, OS_LOG_TYPE_INFO, "%s  already imported sample shortcut", buf, 0xCu);
+        v21 = "[_KSTextReplacementLegacyStore importSampleShortcutsIfNecessary]";
+        _os_log_impl(&dword_2557E2000, v12, OS_LOG_TYPE_INFO, "%s  already imported sample shortcut", buf, 0xCu);
       }
     }
 
     else
     {
       [(_KSTextReplacementLegacyStore *)self setPendingSampleShortcutImport:1];
-      v10 = +[_KSTextReplacementHelper sampleShortcut];
-      v18 = v10;
-      v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
-      v13[0] = MEMORY[0x277D85DD0];
-      v13[1] = 3221225472;
-      v13[2] = __65___KSTextReplacementLegacyStore_importSampleShortcutsIfNecessary__block_invoke;
-      v13[3] = &unk_2797F73A0;
-      objc_copyWeak(&v16, &location);
-      v14 = v7;
-      v15 = currentStoreIndentity;
-      [(_KSTextReplacementLegacyStore *)self addEntries:v11 removeEntries:0 withCompletionHandler:v13];
+      v12 = +[_KSTextReplacementHelper sampleShortcut];
+      v19 = v12;
+      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
+      v14[2] = __65___KSTextReplacementLegacyStore_importSampleShortcutsIfNecessary__block_invoke;
+      v14[3] = &unk_2797F73A0;
+      objc_copyWeak(&v17, &location);
+      v15 = v8;
+      v16 = currentStoreIndentity;
+      [(_KSTextReplacementLegacyStore *)self addEntries:v13 removeEntries:0 withCompletionHandler:v14];
 
-      objc_destroyWeak(&v16);
+      objc_destroyWeak(&v17);
     }
   }
 
   objc_destroyWeak(&location);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)prepareForMigration
@@ -397,6 +390,28 @@
 
   v7 = dispatch_time(0, 180000000000);
   dispatch_semaphore_wait(v6, v7);
+}
+
+- (void)runMaintenanceIncludeLocalVariations:(BOOL)variations
+{
+  variationsCopy = variations;
+  v10 = *MEMORY[0x277D85DE8];
+  v5 = KSCategory(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  {
+    v8 = 136315138;
+    v9 = "[_KSTextReplacementLegacyStore runMaintenanceIncludeLocalVariations:]";
+    _os_log_impl(&dword_2557E2000, v5, OS_LOG_TYPE_INFO, "%s  LS: running maintenance", &v8, 0xCu);
+  }
+
+  workQueue = [(_KSTextReplacementLegacyStore *)self workQueue];
+  dispatch_assert_queue_V2(workQueue);
+
+  v7 = objc_autoreleasePoolPush();
+  [(_KSTextReplacementLegacyStore *)self performMaintenanceIfNecessary];
+  [(_KSTextReplacementLegacyStore *)self mergeEntriesFromAllStoresIncludeLocalVariations:variationsCopy];
+  [(_KSTextReplacementLegacyStore *)self mergeEntriesForUbiquityIdentityChangeIfNecessary];
+  objc_autoreleasePoolPop(v7);
 }
 
 - (void)addEntries:(id)entries removeEntries:(id)removeEntries withCompletionHandler:(id)handler
@@ -452,37 +467,35 @@
 
 - (id)removeEntriesWithPredicate:(id)predicate
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3032000000;
-  v22 = __Block_byref_object_copy__4;
-  v23 = __Block_byref_object_dispose__4;
-  v24 = 0;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__4;
+  v22 = __Block_byref_object_dispose__4;
+  v23 = 0;
   v5 = objc_autoreleasePoolPush();
   v6 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"timestamp" ascending:1 selector:sel_compare_];
-  v25[0] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
+  v24[0] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
 
   v8 = [(_KSTextReplacementLegacyStore *)self entriesMatchingPredicate:predicateCopy sortDescriptors:v7];
   managedObjectContext = [(_KSTextReplacementLegacyStore *)self managedObjectContext];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __60___KSTextReplacementLegacyStore_removeEntriesWithPredicate___block_invoke;
-  v15[3] = &unk_2797F6338;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __60___KSTextReplacementLegacyStore_removeEntriesWithPredicate___block_invoke;
+  v14[3] = &unk_2797F6338;
   v10 = v8;
-  v16 = v10;
+  v15 = v10;
   v11 = managedObjectContext;
-  v17 = v11;
-  v18 = &v19;
-  [v11 performBlockAndWait:v15];
+  v16 = v11;
+  v17 = &v18;
+  [v11 performBlockAndWait:v14];
 
   objc_autoreleasePoolPop(v5);
-  v12 = v20[5];
-  _Block_object_dispose(&v19, 8);
-
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = v19[5];
+  _Block_object_dispose(&v18, 8);
 
   return v12;
 }
@@ -537,29 +550,29 @@
 
 + (id)textReplacementEntriesFromManagedObjects:(id)objects
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   objectsCopy = objects;
   v4 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(objectsCopy, "count")}];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v5 = objectsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v22;
+    v8 = *v21;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v22 != v8)
+        if (*v21 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v21 + 1) + 8 * i);
+        v10 = *(*(&v20 + 1) + 8 * i);
         phrase = [v10 phrase];
         if ([(_KSTextReplacementEntry *)phrase length])
         {
@@ -587,13 +600,11 @@
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v7);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -613,28 +624,26 @@
 
 - (void)queryTextReplacementsWithPredicate:(id)predicate callback:(id)callback
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
   callbackCopy = callback;
   v8 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"timestamp" ascending:1 selector:sel_compare_];
-  v19[0] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+  v18[0] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
 
   workQueue = [(_KSTextReplacementLegacyStore *)self workQueue];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __77___KSTextReplacementLegacyStore_queryTextReplacementsWithPredicate_callback___block_invoke;
-  v15[3] = &unk_2797F6D48;
-  v15[4] = self;
-  v16 = predicateCopy;
-  v17 = v9;
-  v18 = callbackCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __77___KSTextReplacementLegacyStore_queryTextReplacementsWithPredicate_callback___block_invoke;
+  v14[3] = &unk_2797F6D48;
+  v14[4] = self;
+  v15 = predicateCopy;
+  v16 = v9;
+  v17 = callbackCopy;
   v11 = callbackCopy;
   v12 = v9;
   v13 = predicateCopy;
-  dispatch_async(workQueue, v15);
-
-  v14 = *MEMORY[0x277D85DE8];
+  dispatch_async(workQueue, v14);
 }
 
 - (id)entriesFromCache:(id *)cache
@@ -668,17 +677,18 @@
   workQueue = [(_KSTextReplacementLegacyStore *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
-  if (![(_KSTextReplacementLegacyStore *)self didScheduleCacheUpdate])
+  didScheduleCacheUpdate = [(_KSTextReplacementLegacyStore *)self didScheduleCacheUpdate];
+  if ((didScheduleCacheUpdate & 1) == 0)
   {
-    v6 = KSCategory();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = KSCategory(didScheduleCacheUpdate);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
       v17 = "[_KSTextReplacementLegacyStore scheduleCacheUpdate:]";
-      _os_log_impl(&dword_2557E2000, v6, OS_LOG_TYPE_INFO, "%s  Scheduling cache update", buf, 0xCu);
+      _os_log_impl(&dword_2557E2000, v7, OS_LOG_TYPE_INFO, "%s  Scheduling cache update", buf, 0xCu);
     }
 
-    v7 = dispatch_time(0, 500000000);
+    v8 = dispatch_time(0, 500000000);
     workQueue2 = [(_KSTextReplacementLegacyStore *)self workQueue];
     v10 = MEMORY[0x277D85DD0];
     v11 = 3221225472;
@@ -686,12 +696,10 @@
     v13 = &unk_2797F71B8;
     selfCopy = self;
     v15 = updateCopy;
-    dispatch_after(v7, workQueue2, &v10);
+    dispatch_after(v8, workQueue2, &v10);
 
     [(_KSTextReplacementLegacyStore *)self setDidScheduleCacheUpdate:1, v10, v11, v12, v13, selfCopy];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)writeEntriesToCache:(id)cache
@@ -703,7 +711,7 @@
   if (v5)
   {
     v6 = v5;
-    v7 = KSCategory();
+    v7 = KSCategory(v5);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v8 = [v6 description];
@@ -729,7 +737,7 @@ LABEL_7:
 
   if (v6)
   {
-    v7 = KSCategory();
+    v7 = KSCategory(v12);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v8 = [v6 description];
@@ -746,7 +754,6 @@ LABEL_8:
     v11 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -866,7 +873,7 @@ LABEL_8:
 
 - (id)mergeShortcutsFromContext:(id)context
 {
-  v63[2] = *MEMORY[0x277D85DE8];
+  v62[2] = *MEMORY[0x277D85DE8];
   contextCopy = context;
   workQueue = [(_KSTextReplacementLegacyStore *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -889,94 +896,92 @@ LABEL_8:
   propertiesByName2 = [lastObject propertiesByName];
   v17 = [propertiesByName2 objectForKey:@"phrase"];
 
-  v63[0] = v15;
-  v63[1] = v17;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v63 count:2];
-  [v13 setPropertiesToFetch:v18];
-
   v62[0] = v15;
   v62[1] = v17;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v62 count:2];
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v62 count:2];
+  [v13 setPropertiesToFetch:v18];
+
+  v61[0] = v15;
+  v61[1] = v17;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:2];
   [v13 setPropertiesToGroupBy:v19];
 
   [v13 setResultType:2];
-  v55 = 0;
-  v56 = &v55;
-  v57 = 0x3032000000;
-  v58 = __Block_byref_object_copy__4;
-  v59 = __Block_byref_object_dispose__4;
-  v60 = 0;
-  v53[0] = 0;
-  v53[1] = v53;
-  v53[2] = 0x3032000000;
-  v53[3] = __Block_byref_object_copy__4;
-  v53[4] = __Block_byref_object_dispose__4;
   v54 = 0;
-  v48[0] = MEMORY[0x277D85DD0];
-  v48[1] = 3221225472;
-  v48[2] = __59___KSTextReplacementLegacyStore_mergeShortcutsFromContext___block_invoke;
-  v48[3] = &unk_2797F7418;
-  v51 = v53;
+  v55 = &v54;
+  v56 = 0x3032000000;
+  v57 = __Block_byref_object_copy__4;
+  v58 = __Block_byref_object_dispose__4;
+  v59 = 0;
+  v52[0] = 0;
+  v52[1] = v52;
+  v52[2] = 0x3032000000;
+  v52[3] = __Block_byref_object_copy__4;
+  v52[4] = __Block_byref_object_dispose__4;
+  v53 = 0;
+  v47[0] = MEMORY[0x277D85DD0];
+  v47[1] = 3221225472;
+  v47[2] = __59___KSTextReplacementLegacyStore_mergeShortcutsFromContext___block_invoke;
+  v47[3] = &unk_2797F7418;
+  v50 = v52;
   v20 = contextCopy;
-  v49 = v20;
+  v48 = v20;
   v21 = v13;
-  v50 = v21;
-  v52 = &v55;
-  [v20 performBlockAndWait:v48];
-  if (v56[5])
+  v49 = v21;
+  v51 = &v54;
+  [v20 performBlockAndWait:v47];
+  if (v55[5])
   {
     NSLog(&cfstr_ErrorFetchingS.isa);
-    v22 = v56[5];
+    v22 = v55[5];
   }
 
   else
   {
-    v44 = 0;
-    v45 = &v44;
-    v46 = 0x2020000000;
-    v47 = 0;
+    v43 = 0;
+    v44 = &v43;
+    v45 = 0x2020000000;
+    v46 = 0;
     managedObjectContext = [(_KSTextReplacementLegacyStore *)self managedObjectContext];
-    v38[0] = MEMORY[0x277D85DD0];
-    v38[1] = 3221225472;
-    v38[2] = __59___KSTextReplacementLegacyStore_mergeShortcutsFromContext___block_invoke_2;
-    v38[3] = &unk_2797F7468;
-    v41 = v53;
+    v37[0] = MEMORY[0x277D85DD0];
+    v37[1] = 3221225472;
+    v37[2] = __59___KSTextReplacementLegacyStore_mergeShortcutsFromContext___block_invoke_2;
+    v37[3] = &unk_2797F7468;
+    v40 = v52;
     v24 = managedObjectContext;
-    v39 = v24;
-    objc_copyWeak(&v43, &location);
-    v40 = v20;
-    v42 = &v44;
-    [v40 performBlockAndWait:v38];
-    v36[0] = 0;
-    v36[1] = v36;
-    v36[2] = 0x2020000000;
-    v37 = 0;
-    v28 = MEMORY[0x277D85DD0];
-    v29 = 3221225472;
-    v30 = __59___KSTextReplacementLegacyStore_mergeShortcutsFromContext___block_invoke_4;
-    v31 = &unk_2797F7490;
-    v33 = v36;
-    v34 = &v44;
+    v38 = v24;
+    objc_copyWeak(&v42, &location);
+    v39 = v20;
+    v41 = &v43;
+    [v39 performBlockAndWait:v37];
+    v35[0] = 0;
+    v35[1] = v35;
+    v35[2] = 0x2020000000;
+    v36 = 0;
+    v27 = MEMORY[0x277D85DD0];
+    v28 = 3221225472;
+    v29 = __59___KSTextReplacementLegacyStore_mergeShortcutsFromContext___block_invoke_4;
+    v30 = &unk_2797F7490;
+    v32 = v35;
+    v33 = &v43;
     v25 = v24;
-    v32 = v25;
-    v35 = &v55;
-    [v25 performBlockAndWait:&v28];
-    NSLog(&cfstr_CompletedMerge.isa, v45[3], v28, v29, v30, v31);
-    v22 = v56[5];
+    v31 = v25;
+    v34 = &v54;
+    [v25 performBlockAndWait:&v27];
+    NSLog(&cfstr_CompletedMerge.isa, v44[3], v27, v28, v29, v30);
+    v22 = v55[5];
 
-    _Block_object_dispose(v36, 8);
-    objc_destroyWeak(&v43);
+    _Block_object_dispose(v35, 8);
+    objc_destroyWeak(&v42);
 
-    _Block_object_dispose(&v44, 8);
+    _Block_object_dispose(&v43, 8);
   }
 
-  _Block_object_dispose(v53, 8);
-  _Block_object_dispose(&v55, 8);
+  _Block_object_dispose(v52, 8);
+  _Block_object_dispose(&v54, 8);
 
   objc_destroyWeak(&location);
   objc_autoreleasePoolPop(v6);
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v22;
 }
@@ -1015,7 +1020,7 @@ LABEL_8:
 
 - (BOOL)_mergeShortcut:(id)shortcut phrase:(id)phrase fromContext:(id)context
 {
-  v40[1] = *MEMORY[0x277D85DE8];
+  v39[1] = *MEMORY[0x277D85DE8];
   shortcutCopy = shortcut;
   phraseCopy = phrase;
   contextCopy = context;
@@ -1027,22 +1032,22 @@ LABEL_8:
   lastObject = [entities lastObject];
 
   v15 = MEMORY[0x277CBE428];
-  v36 = lastObject;
+  v35 = lastObject;
   name = [lastObject name];
   v17 = [v15 fetchRequestWithEntityName:name];
 
-  v38 = phraseCopy;
+  v37 = phraseCopy;
   phraseCopy = [MEMORY[0x277CCAC30] predicateWithFormat:@"shortcut == %@ && phrase == %@", shortcutCopy, phraseCopy];
   v19 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"timestamp" ascending:0 selector:sel_compare_];
-  v40[0] = v19;
-  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:1];
+  v39[0] = v19;
+  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:1];
 
   [v17 setPredicate:phraseCopy];
   [v17 setSortDescriptors:v20];
   [v17 setFetchLimit:1];
-  v39 = 0;
-  v21 = [contextCopy executeFetchRequest:v17 error:&v39];
-  v22 = v39;
+  v38 = 0;
+  v21 = [contextCopy executeFetchRequest:v17 error:&v38];
+  v22 = v38;
   v23 = v22;
   if (v22)
   {
@@ -1057,18 +1062,18 @@ LABEL_8:
     v24 = firstObject != 0;
     if (firstObject)
     {
-      v33 = objc_alloc(MEMORY[0x277CBE438]);
+      v32 = objc_alloc(MEMORY[0x277CBE438]);
       [(_KSTextReplacementLegacyStore *)selfCopy entityDescription];
-      v27 = v35 = shortcutCopy;
+      v27 = v34 = shortcutCopy;
       managedObjectContext = [(_KSTextReplacementLegacyStore *)selfCopy managedObjectContext];
-      v29 = [v33 initWithEntity:v27 insertIntoManagedObjectContext:managedObjectContext];
-      v34 = contextCopy;
+      v29 = [v32 initWithEntity:v27 insertIntoManagedObjectContext:managedObjectContext];
+      v33 = contextCopy;
       v30 = v29;
 
-      shortcutCopy = v35;
+      shortcutCopy = v34;
       [v30 _copyAttributeValuesFromObject:firstObject];
 
-      contextCopy = v34;
+      contextCopy = v33;
     }
   }
 
@@ -1078,13 +1083,12 @@ LABEL_8:
     NSLog(&cfstr_UnableToMigrat.isa);
   }
 
-  v31 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
 - (BOOL)migrateEntriesFromStoreAtURL:(id)l error:(id *)error
 {
-  v29[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   lCopy = l;
   workQueue = [(_KSTextReplacementLegacyStore *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -1103,9 +1107,9 @@ LABEL_8:
     v15 = [objc_alloc(MEMORY[0x277CBE4D8]) initWithManagedObjectModel:v14];
     v16 = *MEMORY[0x277CBE2E8];
     v17 = *MEMORY[0x277CBE2B0];
-    v28 = *MEMORY[0x277CBE2B0];
-    v29[0] = MEMORY[0x277CBEC38];
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+    v27 = *MEMORY[0x277CBE2B0];
+    v28[0] = MEMORY[0x277CBEC38];
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v27 count:1];
     v19 = [v15 addPersistentStoreWithType:v16 configuration:0 URL:lCopy options:v18 error:error];
 
     v20 = *error;
@@ -1133,9 +1137,9 @@ LABEL_12:
 
     NSLog(&cfstr_LooksLikeWeTri.isa, lCopy);
     NSLog(&cfstr_TryingAgainWit.isa);
-    v26 = v17;
-    v27 = MEMORY[0x277CBEC28];
-    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+    v25 = v17;
+    v26 = MEMORY[0x277CBEC28];
+    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
     v11 = [v15 addPersistentStoreWithType:v16 configuration:0 URL:lCopy options:v22 error:error];
 
     if (!v11)
@@ -1159,13 +1163,12 @@ LABEL_11:
   LOBYTE(v11) = 0;
 LABEL_13:
 
-  v24 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (void)retirePersistentStoreAtURL:(id)l
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   lCopy = l;
   persistentStore = [(_KSTextReplacementLegacyStore *)self persistentStore];
   v6 = [persistentStore URL];
@@ -1173,45 +1176,44 @@ LABEL_13:
 
   if ((v7 & 1) == 0)
   {
-    v8 = KSCategory();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v9 = KSCategory(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v21 = "[_KSTextReplacementLegacyStore retirePersistentStoreAtURL:]";
-      v22 = 2112;
-      v23 = lCopy;
-      _os_log_impl(&dword_2557E2000, v8, OS_LOG_TYPE_INFO, "%s  Retiring store at %@", buf, 0x16u);
+      v22 = "[_KSTextReplacementLegacyStore retirePersistentStoreAtURL:]";
+      v23 = 2112;
+      v24 = lCopy;
+      _os_log_impl(&dword_2557E2000, v9, OS_LOG_TYPE_INFO, "%s  Retiring store at %@", buf, 0x16u);
     }
 
-    v9 = objc_alloc(MEMORY[0x277CBE450]);
+    v10 = objc_alloc(MEMORY[0x277CBE450]);
     managedObjectModelURL = [(_KSTextReplacementLegacyStore *)self managedObjectModelURL];
-    v11 = [v9 initWithContentsOfURL:managedObjectModelURL];
+    v12 = [v10 initWithContentsOfURL:managedObjectModelURL];
 
-    v12 = [objc_alloc(MEMORY[0x277CBE4D8]) initWithManagedObjectModel:v11];
-    v26 = *MEMORY[0x277CCA1B0];
-    v27[0] = *MEMORY[0x277CCA1A0];
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:&v26 count:1];
-    v14 = *MEMORY[0x277CBE2E8];
-    v19 = 0;
-    v15 = [v12 destroyPersistentStoreAtURL:lCopy withType:v14 options:v13 error:&v19];
-    v16 = v19;
-    if ((v15 & 1) == 0)
+    v13 = [objc_alloc(MEMORY[0x277CBE4D8]) initWithManagedObjectModel:v12];
+    v27 = *MEMORY[0x277CCA1B0];
+    v28[0] = *MEMORY[0x277CCA1A0];
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+    v15 = *MEMORY[0x277CBE2E8];
+    v20 = 0;
+    v16 = [v13 destroyPersistentStoreAtURL:lCopy withType:v15 options:v14 error:&v20];
+    v17 = v20;
+    v18 = v17;
+    if ((v16 & 1) == 0)
     {
-      v17 = KSCategory();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+      v19 = KSCategory(v17);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
         *buf = 136315650;
-        v21 = "[_KSTextReplacementLegacyStore retirePersistentStoreAtURL:]";
-        v22 = 2112;
-        v23 = lCopy;
-        v24 = 2112;
-        v25 = v16;
-        _os_log_impl(&dword_2557E2000, v17, OS_LOG_TYPE_INFO, "%s  Could not retire store at %@: %@", buf, 0x20u);
+        v22 = "[_KSTextReplacementLegacyStore retirePersistentStoreAtURL:]";
+        v23 = 2112;
+        v24 = lCopy;
+        v25 = 2112;
+        v26 = v18;
+        _os_log_impl(&dword_2557E2000, v19, OS_LOG_TYPE_INFO, "%s  Could not retire store at %@: %@", buf, 0x20u);
       }
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)storeURLForMergeAfterUbiquityIdentityChangeFromToken:(id)token toToken:(id)toToken withLastKnownToken:(id)knownToken shouldDeleteFirst:(BOOL *)first
@@ -1273,24 +1275,24 @@ LABEL_13:
 
   if ((v9 & 1) == 0)
   {
-    v13 = KSCategory();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v14 = KSCategory(v10);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
       v22 = "[_KSTextReplacementLegacyStore mergeEntriesForUbiquityIdentityChangeFromURL:firstDelete:]";
       v23 = 2112;
       v24 = lCopy;
-      _os_log_impl(&dword_2557E2000, v13, OS_LOG_TYPE_INFO, "%s  file to merge does not exist: %@", buf, 0x16u);
+      _os_log_impl(&dword_2557E2000, v14, OS_LOG_TYPE_INFO, "%s  file to merge does not exist: %@", buf, 0x16u);
     }
 
-    v11 = 0;
+    v12 = 0;
     goto LABEL_9;
   }
 
   v20 = 0;
-  v10 = [(_KSTextReplacementLegacyStore *)self migrateEntriesFromStoreAtURL:lCopy error:&v20];
-  v11 = v20;
-  if (!v10)
+  v11 = [(_KSTextReplacementLegacyStore *)self migrateEntriesFromStoreAtURL:lCopy error:&v20];
+  v12 = v20;
+  if (!v11)
   {
 LABEL_9:
     NSLog(&cfstr_FailedMergeAft.isa);
@@ -1300,19 +1302,18 @@ LABEL_9:
     v18[2] = __90___KSTextReplacementLegacyStore_mergeEntriesForUbiquityIdentityChangeFromURL_firstDelete___block_invoke;
     v18[3] = &unk_2797F6310;
     v19 = managedObjectContext;
-    v15 = managedObjectContext;
-    [v15 performBlockAndWait:v18];
+    v16 = managedObjectContext;
+    [v16 performBlockAndWait:v18];
 
-    v12 = 0;
+    v13 = 0;
     goto LABEL_10;
   }
 
   NSLog(&cfstr_MergeSuccessfu.isa);
-  v12 = 1;
+  v13 = 1;
 LABEL_10:
 
-  v16 = *MEMORY[0x277D85DE8];
-  return v12;
+  return v13;
 }
 
 - (id)currentStoreIndentity
@@ -1419,8 +1420,8 @@ LABEL_10:
         v28 = [(_KSTextReplacementLegacyStore *)self migrateEntriesFromStoreAtURL:v27 error:&v45];
         v29 = v45;
 
-        v30 = KSCategory();
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+        v31 = KSCategory(v30);
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
         {
           *buf = 136315650;
           v51 = "[_KSTextReplacementLegacyStore mergeEntriesFromAllStoresIncludeLocalVariations:]";
@@ -1428,7 +1429,7 @@ LABEL_10:
           v53 = v24;
           v54 = 2112;
           v55 = v29;
-          _os_log_impl(&dword_2557E2000, v30, OS_LOG_TYPE_INFO, "%s  merged entries from db: %@, error: %@", buf, 0x20u);
+          _os_log_impl(&dword_2557E2000, v31, OS_LOG_TYPE_INFO, "%s  merged entries from db: %@, error: %@", buf, 0x20u);
         }
 
         if (v28 || [v29 code] == 134080)
@@ -1442,13 +1443,13 @@ LABEL_10:
         else
         {
           domain = [v29 domain];
-          v33 = domain != v43;
+          v34 = domain != v43;
 
-          if (((v33 | v44) & 1) == 0)
+          if (((v34 | v44) & 1) == 0)
           {
 LABEL_18:
-            v31 = [MEMORY[0x277CBEBC0] fileURLWithPath:v24];
-            [(_KSTextReplacementLegacyStore *)self retirePersistentStoreAtURL:v31];
+            v32 = [MEMORY[0x277CBEBC0] fileURLWithPath:v24];
+            [(_KSTextReplacementLegacyStore *)self retirePersistentStoreAtURL:v32];
           }
         }
 
@@ -1467,11 +1468,11 @@ LABEL_18:
     }
 
     while (v21 != v23);
-    v34 = [v19 countByEnumeratingWithState:&v46 objects:v56 count:16];
-    v21 = v34;
+    v35 = [v19 countByEnumeratingWithState:&v46 objects:v56 count:16];
+    v21 = v35;
   }
 
-  while (v34);
+  while (v35);
 LABEL_30:
 
   v13 = v40;
@@ -1479,15 +1480,15 @@ LABEL_30:
   {
     if (v16)
     {
-      v35 = v40;
+      v36 = v40;
     }
 
     else
     {
-      v35 = 0;
+      v36 = 0;
     }
 
-    [(_KSTextReplacementLegacyStore *)self didMergeEntriesForOtherLocalPeers:v35];
+    [(_KSTextReplacementLegacyStore *)self didMergeEntriesForOtherLocalPeers:v36];
   }
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
@@ -1499,7 +1500,6 @@ LABEL_30:
 LABEL_36:
 
 LABEL_37:
-  v37 = *MEMORY[0x277D85DE8];
   return v16 & 1;
 }
 
@@ -1667,26 +1667,26 @@ LABEL_8:
 
 - (BOOL)detectAndCleanDuplicatesWithContext:(id)context
 {
-  v43[3] = *MEMORY[0x277D85DE8];
+  v42[3] = *MEMORY[0x277D85DE8];
   contextCopy = context;
   workQueue = [(_KSTextReplacementLegacyStore *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
   NSLog(&cfstr_DetectAndClean.isa);
-  v41[0] = 0;
-  v41[1] = v41;
-  v41[2] = 0x2020000000;
-  v41[3] = 0;
-  v37 = 0;
-  v38 = &v37;
-  v39 = 0x2020000000;
-  v40 = 0;
-  v35[0] = 0;
-  v35[1] = v35;
-  v35[2] = 0x3032000000;
-  v35[3] = __Block_byref_object_copy__4;
-  v35[4] = __Block_byref_object_dispose__4;
+  v40[0] = 0;
+  v40[1] = v40;
+  v40[2] = 0x2020000000;
+  v40[3] = 0;
   v36 = 0;
+  v37 = &v36;
+  v38 = 0x2020000000;
+  v39 = 0;
+  v34[0] = 0;
+  v34[1] = v34;
+  v34[2] = 0x3032000000;
+  v34[3] = __Block_byref_object_copy__4;
+  v34[4] = __Block_byref_object_dispose__4;
+  v35 = 0;
   objc_initWeak(&location, self);
   v6 = MEMORY[0x277CBE428];
   entityDescription = [(_KSTextReplacementLegacyStore *)self entityDescription];
@@ -1707,67 +1707,66 @@ LABEL_8:
   propertiesByName2 = [entityDescription3 propertiesByName];
   v17 = [propertiesByName2 objectForKey:@"phrase"];
 
-  v43[0] = v14;
-  v43[1] = v17;
-  v43[2] = v11;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:3];
-  [v9 setPropertiesToFetch:v18];
-
   v42[0] = v14;
   v42[1] = v17;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:2];
+  v42[2] = v11;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:3];
+  [v9 setPropertiesToFetch:v18];
+
+  v41[0] = v14;
+  v41[1] = v17;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:2];
   [v9 setPropertiesToGroupBy:v19];
 
   [v9 setResultType:2];
-  v32[0] = 0;
-  v32[1] = v32;
-  v32[2] = 0x3032000000;
-  v32[3] = __Block_byref_object_copy__4;
-  v32[4] = __Block_byref_object_dispose__4;
-  v33 = 0;
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __69___KSTextReplacementLegacyStore_detectAndCleanDuplicatesWithContext___block_invoke;
-  v24[3] = &unk_2797F74B8;
-  v27 = v32;
+  v31[0] = 0;
+  v31[1] = v31;
+  v31[2] = 0x3032000000;
+  v31[3] = __Block_byref_object_copy__4;
+  v31[4] = __Block_byref_object_dispose__4;
+  v32 = 0;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __69___KSTextReplacementLegacyStore_detectAndCleanDuplicatesWithContext___block_invoke;
+  v23[3] = &unk_2797F74B8;
+  v26 = v31;
   v20 = contextCopy;
-  v25 = v20;
+  v24 = v20;
   v21 = v9;
-  v26 = v21;
-  v28 = v35;
-  v29 = &v37;
-  objc_copyWeak(&v31, &location);
-  v30 = v41;
-  [v20 performBlockAndWait:v24];
-  LOBYTE(v19) = *(v38 + 24);
-  objc_destroyWeak(&v31);
+  v25 = v21;
+  v27 = v34;
+  v28 = &v36;
+  objc_copyWeak(&v30, &location);
+  v29 = v40;
+  [v20 performBlockAndWait:v23];
+  LOBYTE(v19) = *(v37 + 24);
+  objc_destroyWeak(&v30);
 
-  _Block_object_dispose(v32, 8);
+  _Block_object_dispose(v31, 8);
   objc_destroyWeak(&location);
-  _Block_object_dispose(v35, 8);
+  _Block_object_dispose(v34, 8);
 
-  _Block_object_dispose(&v37, 8);
-  _Block_object_dispose(v41, 8);
+  _Block_object_dispose(&v36, 8);
+  _Block_object_dispose(v40, 8);
 
-  v22 = *MEMORY[0x277D85DE8];
   return v19 & 1;
 }
 
 - (void)_deleteDuplicatesOfShortcut:(id)shortcut phrase:(id)phrase count:(int64_t)count withContext:(id)context
 {
-  v42[1] = *MEMORY[0x277D85DE8];
+  v41[1] = *MEMORY[0x277D85DE8];
   shortcutCopy = shortcut;
   phraseCopy = phrase;
   v12 = shortcutCopy;
   v13 = phraseCopy;
   contextCopy = context;
-  v39 = v13;
+  v38 = v13;
   NSLog(&cfstr_FoundDuplicate.isa, v12, v13, count);
   v15 = 0;
   countCopy = count;
   selfCopy = self;
   selfCopy2 = self;
-  v38 = v12;
+  v37 = v12;
   do
   {
     v18 = objc_autoreleasePoolPush();
@@ -1777,19 +1776,19 @@ LABEL_8:
     name = [entityDescription name];
     v22 = [v19 fetchRequestWithEntityName:name];
 
-    v23 = [MEMORY[0x277CCAC30] predicateWithFormat:@"shortcut == %@ && phrase == %@", v12, v39];
+    v23 = [MEMORY[0x277CCAC30] predicateWithFormat:@"shortcut == %@ && phrase == %@", v12, v38];
     v24 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"timestamp" ascending:0 selector:sel_compare_];
-    v42[0] = v24;
-    v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:1];
+    v41[0] = v24;
+    v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:1];
 
     [v22 setPredicate:v23];
     [v22 setSortDescriptors:v25];
     [v22 setFetchBatchSize:1000];
     [v22 setFetchLimit:10000];
     [v22 setResultType:1];
-    v41 = 0;
-    v26 = [contextCopy executeFetchRequest:v22 error:&v41];
-    v27 = v41;
+    v40 = 0;
+    v26 = [contextCopy executeFetchRequest:v22 error:&v40];
+    v27 = v40;
     if (v27)
     {
       v28 = v27;
@@ -1813,9 +1812,9 @@ LABEL_8:
         while (v29 < [v26 count]);
       }
 
-      v40 = 0;
-      v32 = [contextCopy save:&v40];
-      v33 = v40;
+      v39 = 0;
+      v32 = [contextCopy save:&v39];
+      v33 = v39;
       v28 = v33;
       if ((v32 & 1) != 0 || !v33)
       {
@@ -1830,45 +1829,43 @@ LABEL_8:
       }
 
       selfCopy = selfCopy2;
-      v12 = v38;
+      v12 = v37;
     }
 
     objc_autoreleasePoolPop(v18);
   }
 
   while (v15++ != countCopy / 0x2710);
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 + (id)legacyImportFilePaths
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = +[_KSUtilities keyboardDirectory];
   if (v2)
   {
     v3 = [MEMORY[0x277CBEA60] arrayWithObjects:{@"ja", @"zh-Pinyin", @"zh-Zhuyin", @"latin", 0}];
-    v15 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v3, "count")}];
+    v14 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v3, "count")}];
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     v4 = v3;
-    v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v17;
+      v7 = *v16;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v17 != v7)
+          if (*v16 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = [@"SerializedUserWords-" stringByAppendingString:*(*(&v16 + 1) + 8 * i)];
+          v9 = [@"SerializedUserWords-" stringByAppendingString:*(*(&v15 + 1) + 8 * i)];
           v10 = [v2 stringByAppendingPathComponent:v9];
 
           defaultManager = [MEMORY[0x277CCAA00] defaultManager];
@@ -1876,11 +1873,11 @@ LABEL_8:
 
           if (v12)
           {
-            [v15 addObject:v10];
+            [v14 addObject:v10];
           }
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v6);
@@ -1889,59 +1886,55 @@ LABEL_8:
 
   else
   {
-    v15 = 0;
+    v14 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
-  return v15;
+  return v14;
 }
 
 + (id)legacyImportWordKeyPairsFromFiles:(id)files
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   filesCopy = files;
   array = [MEMORY[0x277CBEB18] array];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = filesCopy;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = [MEMORY[0x277CBEA60] arrayWithContentsOfFile:{*(*(&v13 + 1) + 8 * i), v13}];
+        v10 = [MEMORY[0x277CBEA60] arrayWithContentsOfFile:{*(*(&v12 + 1) + 8 * i), v12}];
         if (v10)
         {
           [array addObjectsFromArray:v10];
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return array;
 }
 
 - (void)importLegacyEntries
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   workQueue = [(_KSTextReplacementLegacyStore *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -1974,32 +1967,32 @@ LABEL_8:
         if ([(_KSTextReplacementLegacyStore *)self save])
         {
           defaultManager = [MEMORY[0x277CCAA00] defaultManager];
+          v25 = 0u;
           v26 = 0u;
           v27 = 0u;
           v28 = 0u;
-          v29 = 0u;
-          v24 = legacyImportFilePaths;
+          v23 = legacyImportFilePaths;
           v13 = legacyImportFilePaths;
-          v14 = [v13 countByEnumeratingWithState:&v26 objects:v30 count:16];
+          v14 = [v13 countByEnumeratingWithState:&v25 objects:v29 count:16];
           if (v14)
           {
             v15 = v14;
-            v16 = *v27;
+            v16 = *v26;
             do
             {
               for (j = 0; j != v15; ++j)
               {
-                if (*v27 != v16)
+                if (*v26 != v16)
                 {
                   objc_enumerationMutation(v13);
                 }
 
-                v18 = *(*(&v26 + 1) + 8 * j);
+                v18 = *(*(&v25 + 1) + 8 * j);
                 if ([defaultManager fileExistsAtPath:v18])
                 {
-                  v25 = 0;
-                  v19 = [defaultManager removeItemAtPath:v18 error:&v25];
-                  v20 = v25;
+                  v24 = 0;
+                  v19 = [defaultManager removeItemAtPath:v18 error:&v24];
+                  v20 = v24;
                   v21 = v20;
                   if ((v19 & 1) == 0)
                   {
@@ -2013,7 +2006,7 @@ LABEL_8:
                 }
               }
 
-              v15 = [v13 countByEnumeratingWithState:&v26 objects:v30 count:16];
+              v15 = [v13 countByEnumeratingWithState:&v25 objects:v29 count:16];
             }
 
             while (v15);
@@ -2022,13 +2015,11 @@ LABEL_8:
           defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
           [defaultCenter postNotificationName:@"_KSTRLegacyStoreDidImportChangesNotification" object:0];
 
-          legacyImportFilePaths = v24;
+          legacyImportFilePaths = v23;
         }
       }
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 + (id)legacyStorePath
@@ -2217,13 +2208,13 @@ LABEL_22:
 
 - (void)persistentStoreCoordinatorStoresWillChange:(id)change
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   changeCopy = change;
-  v5 = KSCategory();
+  v5 = KSCategory(changeCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v12 = "[_KSTextReplacementLegacyStore persistentStoreCoordinatorStoresWillChange:]";
+    v11 = "[_KSTextReplacementLegacyStore persistentStoreCoordinatorStoresWillChange:]";
     _os_log_impl(&dword_2557E2000, v5, OS_LOG_TYPE_INFO, "%s  >>> persistentStoreCoordinatorStoresWillChange", buf, 0xCu);
   }
 
@@ -2250,15 +2241,13 @@ LABEL_22:
     block[4] = selfCopy;
     dispatch_sync(workQueue2, block);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)persistentStoreCoordinatorStoresDidChange:(id)change
 {
   v15 = *MEMORY[0x277D85DE8];
   changeCopy = change;
-  v5 = KSCategory();
+  v5 = KSCategory(changeCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
@@ -2284,12 +2273,12 @@ LABEL_22:
     block[4] = selfCopy;
     dispatch_async(workQueue2, block);
 
-    v9 = KSCategory();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v10 = KSCategory(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
       v14 = "[_KSTextReplacementLegacyStore persistentStoreCoordinatorStoresDidChange:]";
-      _os_log_impl(&dword_2557E2000, v9, OS_LOG_TYPE_INFO, "%s  Resuming user dictionary after account change.", buf, 0xCu);
+      _os_log_impl(&dword_2557E2000, v10, OS_LOG_TYPE_INFO, "%s  Resuming user dictionary after account change.", buf, 0xCu);
     }
 
     workQueue3 = [(_KSTextReplacementLegacyStore *)selfCopy workQueue];
@@ -2300,8 +2289,6 @@ LABEL_22:
   {
     objc_sync_exit(selfCopy);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

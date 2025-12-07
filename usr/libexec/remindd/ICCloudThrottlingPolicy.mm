@@ -82,7 +82,7 @@
     stringValue = @"unlimited";
   }
 
-  v7 = +[REMLog cloudkit];
+  v7 = objc_msgSend_cloudkit(REMLog);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     currentBatchCount = [(ICCloudThrottlingPolicy *)self currentBatchCount];
@@ -132,7 +132,7 @@
       {
         [(ICCloudThrottlingPolicy *)self setCurrentLevelIndex:[(ICCloudThrottlingPolicy *)self currentLevelIndex]+ 1];
         [(ICCloudThrottlingPolicy *)self setCurrentBatchCount:0];
-        v9 = +[REMLog cloudkit];
+        v9 = objc_msgSend_cloudkit(REMLog);
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           v10 = [(ICCloudThrottlingPolicy *)self currentLevelIndex]+ 1;
@@ -197,7 +197,7 @@
   [(ICCloudThrottlingPolicy *)self setPolicyStartDate:v4];
 
   [(ICCloudThrottlingPolicy *)self startPolicyResetTimer];
-  v5 = +[REMLog cloudkit];
+  v5 = objc_msgSend_cloudkit(REMLog);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     currentLevel = [(ICCloudThrottlingPolicy *)self currentLevel];

@@ -182,29 +182,29 @@ LABEL_19:
 
 - (id)dataForInvocationPoint:(id)point
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   pointCopy = point;
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   instructions = [(ASCViewMetrics *)self instructions];
-  v7 = [instructions countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [instructions countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v18;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(instructions);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * i);
+        v11 = *(*(&v17 + 1) + 8 * i);
         invocationPoints = [v11 invocationPoints];
         v13 = [invocationPoints containsObject:pointCopy];
 
@@ -215,14 +215,13 @@ LABEL_19:
         }
       }
 
-      v8 = [instructions countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [instructions countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v8);
   }
 
   v15 = [v5 copy];
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }

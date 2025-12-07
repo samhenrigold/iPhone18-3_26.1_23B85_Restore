@@ -24,9 +24,9 @@
 
 - (MPSCNNBatchNormalization)initWithDevice:(id)device dataSource:(id)dataSource fusedNeuronDescriptor:(MPSNNNeuronDescriptor *)fusedNeuronDescriptor
 {
-  v210.receiver = self;
-  v210.super_class = MPSCNNBatchNormalization;
-  v7 = [(MPSCNNKernel *)&v210 initWithDevice:?];
+  v214.receiver = self;
+  v214.super_class = MPSCNNBatchNormalization;
+  v7 = [(MPSCNNKernel *)&v214 initWithDevice:?];
   if (v7)
   {
     MPSDevice = MPSDevice::GetMPSDevice();
@@ -36,8 +36,8 @@
       if ((objc_msgSend_load(dataSource, v9, v10, v11, v12, v13, v14, v15) & 1) == 0 && MTLReportFailureTypeEnabled())
       {
         v207 = objc_opt_class();
-        v208 = NSStringFromClass(v207);
-        MTLReportFailure();
+        v212 = NSStringFromClass(v207);
+        MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNBatchNormalization.mm", 0x194, @"[%@ initWithDevice:dataSource:] dataSource.load should return YES", v208, v209, v210, v211);
       }
 
       v7->_dataSource = dataSource;
@@ -81,7 +81,7 @@
         memcpy(v149, v157, 4 * v7->_numberOfFeatureChannels);
       }
 
-      if (objc_msgSend_beta(dataSource, v142, v143, v144, v145, v146, v147, v148, v208))
+      if (objc_msgSend_beta(dataSource, v142, v143, v144, v145, v146, v147, v148, v212))
       {
         v165 = objc_msgSend_contents(v70, v158, v159, v160, v161, v162, v163, v164);
         v173 = objc_msgSend_beta(dataSource, v166, v167, v168, v169, v170, v171, v172);
@@ -116,13 +116,13 @@
   if (MTLReportFailureTypeEnabled())
   {
     v11 = objc_opt_class();
-    v12 = NSStringFromClass(v11);
-    MTLReportFailure();
+    v16 = NSStringFromClass(v11);
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNBatchNormalization.mm", 0x205, @"[%@ encodeToCommandBuffer:...:destinationState:...] Error: destination states not supported.  Batch normalization state requires a source state.", v12, v13, v14, v15);
   }
 
-  v13.receiver = self;
-  v13.super_class = MPSCNNBatchNormalization;
-  [(MPSCNNKernel *)&v13 encodeToCommandBuffer:commandBuffer sourceImage:sourceImage destinationState:destinationState destinationImage:destinationImage, v12];
+  v17.receiver = self;
+  v17.super_class = MPSCNNBatchNormalization;
+  [(MPSCNNKernel *)&v17 encodeToCommandBuffer:commandBuffer sourceImage:sourceImage destinationState:destinationState destinationImage:destinationImage, v16];
 }
 
 - (MPSImage)encodeToCommandBuffer:(id)commandBuffer sourceImage:(MPSImage *)sourceImage destinationState:(MPSState *)outState destinationStateIsTemporary:(BOOL)isTemporary
@@ -131,13 +131,13 @@
   if (MTLReportFailureTypeEnabled())
   {
     v11 = objc_opt_class();
-    v13 = NSStringFromClass(v11);
-    MTLReportFailure();
+    v17 = NSStringFromClass(v11);
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNBatchNormalization.mm", 0x214, @"[%@ encodeToCommandBuffer:...:destinationState:...] Error: destination states not supported. Batch normalization state requires a source state.", v12, v13, v14, v15);
   }
 
-  v14.receiver = self;
-  v14.super_class = MPSCNNBatchNormalization;
-  return [(MPSCNNKernel *)&v14 encodeToCommandBuffer:commandBuffer sourceImage:sourceImage destinationState:outState destinationStateIsTemporary:v6, v13];
+  v18.receiver = self;
+  v18.super_class = MPSCNNBatchNormalization;
+  return [(MPSCNNKernel *)&v18 encodeToCommandBuffer:commandBuffer sourceImage:sourceImage destinationState:outState destinationStateIsTemporary:v6, v17];
 }
 
 - (void)encodeBatchToCommandBuffer:(id)commandBuffer sourceImages:(MPSImageBatch *)sourceImages destinationStates:(MPSStateBatch *)destinationStates destinationImages:(MPSImageBatch *)destinationImages
@@ -145,13 +145,13 @@
   if (MTLReportFailureTypeEnabled())
   {
     v11 = objc_opt_class();
-    v12 = NSStringFromClass(v11);
-    MTLReportFailure();
+    v16 = NSStringFromClass(v11);
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNBatchNormalization.mm", 0x223, @"[%@ encodeBatchToCommandBuffer:...:destinationState:...] Error: destination states not supported. Batch normalization state requires a source state.", v12, v13, v14, v15);
   }
 
-  v13.receiver = self;
-  v13.super_class = MPSCNNBatchNormalization;
-  [(MPSCNNKernel *)&v13 encodeBatchToCommandBuffer:commandBuffer sourceImages:sourceImages destinationStates:destinationStates destinationImages:destinationImages, v12];
+  v17.receiver = self;
+  v17.super_class = MPSCNNBatchNormalization;
+  [(MPSCNNKernel *)&v17 encodeBatchToCommandBuffer:commandBuffer sourceImages:sourceImages destinationStates:destinationStates destinationImages:destinationImages, v16];
 }
 
 - (MPSImageBatch)encodeBatchToCommandBuffer:(id)commandBuffer sourceImages:(MPSImageBatch *)sourceImages destinationStates:(MPSStateBatch *)outStates destinationStateIsTemporary:(BOOL)isTemporary
@@ -160,13 +160,13 @@
   if (MTLReportFailureTypeEnabled())
   {
     v11 = objc_opt_class();
-    v13 = NSStringFromClass(v11);
-    MTLReportFailure();
+    v17 = NSStringFromClass(v11);
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNBatchNormalization.mm", 0x232, @"[%@ encodeBatchToCommandBuffer:...:destinationState:...] Error: destination states not supported. Batch normalization state requires a source state.", v12, v13, v14, v15);
   }
 
-  v14.receiver = self;
-  v14.super_class = MPSCNNBatchNormalization;
-  return [(MPSCNNKernel *)&v14 encodeBatchToCommandBuffer:commandBuffer sourceImages:sourceImages destinationStates:outStates destinationStateIsTemporary:v6, v13];
+  v18.receiver = self;
+  v18.super_class = MPSCNNBatchNormalization;
+  return [(MPSCNNKernel *)&v18 encodeBatchToCommandBuffer:commandBuffer sourceImages:sourceImages destinationStates:outStates destinationStateIsTemporary:v6, v17];
 }
 
 - (void)encodeToCommandBuffer:(id)commandBuffer sourceImage:(MPSImage *)sourceImage batchNormalizationState:(MPSCNNBatchNormalizationState *)batchNormalizationState destinationImage:(MPSImage *)destinationImage
@@ -174,9 +174,9 @@
   if ((*(&batchNormalizationState->super.super.super.isa + *MEMORY[0x277CD7470]) & 1) != 0 && !*(&batchNormalizationState->super.super.super.isa + *MEMORY[0x277CD7478]) && (v9 = self, v10 = destinationImage, v11 = sourceImage, v12 = commandBuffer, v13 = MTLReportFailureTypeEnabled(), commandBuffer = v12, sourceImage = v11, destinationImage = v10, v14 = v13, self = v9, v14))
   {
     v15 = objc_opt_class();
-    v19 = NSStringFromClass(v15);
-    MTLReportFailure();
-    objc_msgSend_encodeToCommandBuffer_sourceImage_inState_destinationImage_(v9, v16, v12, v11, batchNormalizationState, v10, v17, v18, v19);
+    v23 = NSStringFromClass(v15);
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNBatchNormalization.mm", 0x241, @"[%@ encodeBatchToCommandBuffer:sourceGradients:sourceImages:batchNormalizationState:] Attempting to use statistics from a temporary MPSCNNBatchNormalizationState with readCount of 0.", v16, v17, v18, v19);
+    objc_msgSend_encodeToCommandBuffer_sourceImage_inState_destinationImage_(v9, v20, v12, v11, batchNormalizationState, v10, v21, v22, v23);
   }
 
   else
@@ -192,11 +192,11 @@
   if ((*(&batchNormalizationState->super.super.super.isa + *MEMORY[0x277CD7470]) & 1) != 0 && !*(&batchNormalizationState->super.super.super.isa + *MEMORY[0x277CD7478]) && MTLReportFailureTypeEnabled())
   {
     v31 = objc_opt_class();
-    v32 = NSStringFromClass(v31);
-    MTLReportFailure();
+    v36 = NSStringFromClass(v31);
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNBatchNormalization.mm", 0x252, @"[%@ encodeBatchToCommandBuffer:sourceGradients:sourceImages:batchNormalizationState:] Attempting to use statistics from a temporary MPSCNNBatchNormalizationState with readCount of 0.", v32, v33, v34, v35);
   }
 
-  v13 = objc_msgSend_count(sourceImages, a2, commandBuffer, sourceImages, batchNormalizationState, destinationImages, v6, v7, v32);
+  v13 = objc_msgSend_count(sourceImages, a2, commandBuffer, sourceImages, batchNormalizationState, destinationImages, v6, v7, v36);
   v17 = v13;
   if (!v13)
   {
@@ -261,9 +261,9 @@ LABEL_15:
   if ((*(state + *MEMORY[0x277CD7470]) & 1) != 0 && !*(state + *MEMORY[0x277CD7478]) && (v12 = self, v13 = image, v14 = buffer, v15 = MTLReportFailureTypeEnabled(), buffer = v14, image = v13, v16 = v15, self = v12, v16))
   {
     v17 = objc_opt_class();
-    v22 = NSStringFromClass(v17);
-    MTLReportFailure();
-    v9 = objc_msgSend_encodeToCommandBuffer_sourceImage_inState_(v12, v18, v14, v13, state, v19, v20, v21, v22);
+    v26 = NSStringFromClass(v17);
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNBatchNormalization.mm", 0x262, @"[%@ encodeBatchToCommandBuffer:sourceGradients:sourceImages:batchNormalizationState:] Attempting to use statistics from a temporary MPSCNNBatchNormalizationState with readCount of 0.", v18, v19, v20, v21);
+    v9 = objc_msgSend_encodeToCommandBuffer_sourceImage_inState_(v12, v22, v14, v13, state, v23, v24, v25, v26);
   }
 
   else
@@ -278,12 +278,12 @@ LABEL_15:
 
 - (id)encodeBatchToCommandBuffer:(id)buffer sourceImages:(id)images batchNormalizationState:(id)state
 {
-  v98[1] = *MEMORY[0x277D85DE8];
+  v114[1] = *MEMORY[0x277D85DE8];
   if ((*(state + *MEMORY[0x277CD7470]) & 1) != 0 && !*(state + *MEMORY[0x277CD7478]) && MTLReportFailureTypeEnabled())
   {
-    v92 = objc_opt_class();
-    v94 = NSStringFromClass(v92);
-    MTLReportFailure();
+    v100 = objc_opt_class();
+    v110 = NSStringFromClass(v100);
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNBatchNormalization.mm", 0x272, @"[%@ encodeBatchToCommandBuffer:sourceGradients:sourceImages:batchNormalizationState:] Attempting to use statistics from a temporary MPSCNNBatchNormalizationState with readCount of 0.", v101, v102, v103, v104);
   }
 
   v12 = *MEMORY[0x277CD7378];
@@ -291,20 +291,20 @@ LABEL_15:
   {
     objc_msgSend_clipRect(self, a2, buffer, images, state, v5, v6, v7);
     objc_msgSend_clipRect(self, v13, v14, v15, v16, v17, v18, v19);
-    if (v97)
+    if (v113)
     {
       if (MTLReportFailureTypeEnabled())
       {
-        v93 = objc_opt_class();
-        v94 = NSStringFromClass(v93);
-        MTLReportFailure();
+        v105 = objc_opt_class();
+        v110 = NSStringFromClass(v105);
+        MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNBatchNormalization.mm", 0x27A, @"[%@ encodeBatchToCommandBuffer...] Error: convenience methods that return a image batch must have clipRect.origin.z = 0.  We can't return empty batch nodes in a NSArray.", v106, v107, v108, v109);
       }
     }
   }
 
   v20 = objc_autoreleasePoolPush();
-  v98[0] = objc_msgSend_objectAtIndexedSubscript_(images, v21, 0, v22, v23, v24, v25, v26);
-  v32 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v27, v98, 1, v28, v29, v30, v31);
+  v114[0] = objc_msgSend_objectAtIndexedSubscript_(images, v21, 0, v22, v23, v24, v25, v26);
+  v32 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v27, v114, 1, v28, v29, v30, v31);
   v38 = objc_msgSend_destinationImageDescriptorForSourceImages_sourceStates_(self, v33, v32, 0, v34, v35, v36, v37);
   v46 = v38;
   if (*(&self->super.super.super.isa + v12))
@@ -321,18 +321,18 @@ LABEL_15:
     {
       v47 = objc_opt_class();
       NSStringFromClass(v47);
-      MTLReportFailure();
+      MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNBatchNormalization.mm", 0x284, @"[%@ encodeToCommandBuffer:sourceImage:] Unable to create MPSImageDescriptor for destination.  Encode failed.\n", v48, v49, v50, v51);
     }
 
     goto LABEL_27;
   }
 
-  v48 = objc_msgSend_count(images, v39, v40, v41, v42, v43, v44, v45, v94);
+  v52 = objc_msgSend_count(images, v39, v40, v41, v42, v43, v44, v45, v110);
   destinationImageAllocator = self->super._destinationImageAllocator;
   if (objc_opt_respondsToSelector())
   {
-    v59 = objc_msgSend_imageBatchForCommandBuffer_imageDescriptor_kernel_count_(destinationImageAllocator, v50, buffer, v46, self, v48, v54, v55);
-    if (!v59)
+    v63 = objc_msgSend_imageBatchForCommandBuffer_imageDescriptor_kernel_count_(destinationImageAllocator, v54, buffer, v46, self, v52, v58, v59);
+    if (!v63)
     {
       goto LABEL_27;
     }
@@ -340,68 +340,68 @@ LABEL_15:
     goto LABEL_22;
   }
 
-  v60 = objc_msgSend_arrayWithCapacity_(MEMORY[0x277CBEB18], v50, v48, v51, v52, v53, v54, v55);
-  if (!v60)
+  v64 = objc_msgSend_arrayWithCapacity_(MEMORY[0x277CBEB18], v54, v52, v55, v56, v57, v58, v59);
+  if (!v64)
   {
 LABEL_27:
     objc_autoreleasePoolPop(v20);
     return 0;
   }
 
-  v59 = v60;
-  if (!v48)
+  v63 = v64;
+  if (!v52)
   {
     goto LABEL_28;
   }
 
-  v96 = v20;
-  for (i = 0; i != v48; ++i)
+  v112 = v20;
+  for (i = 0; i != v52; ++i)
   {
-    v63 = objc_msgSend_imageForCommandBuffer_imageDescriptor_kernel_(destinationImageAllocator, v56, buffer, v46, self, v61, v57, v58, v95);
-    objc_msgSend_setObject_atIndexedSubscript_(v59, v64, v63, i, v65, v66, v67, v68);
+    v67 = objc_msgSend_imageForCommandBuffer_imageDescriptor_kernel_(destinationImageAllocator, v60, buffer, v46, self, v65, v61, v62, v111);
+    objc_msgSend_setObject_atIndexedSubscript_(v63, v68, v67, i, v69, v70, v71, v72);
     if ((*(&self->super.super.super.isa + v12) & 1) == 0)
     {
-      objc_msgSend_objectAtIndexedSubscript_(v59, v56, i, v69, v70, v61, v57, v58);
-      if (!objc_msgSend_objectAtIndexedSubscript_(v59, v71, i, v72, v73, v74, v75, v76))
+      objc_msgSend_objectAtIndexedSubscript_(v63, v60, i, v73, v74, v65, v61, v62);
+      if (!objc_msgSend_objectAtIndexedSubscript_(v63, v75, i, v76, v77, v78, v79, v80))
       {
         if (MTLReportFailureTypeEnabled())
         {
-          v77 = objc_opt_class();
-          v95 = NSStringFromClass(v77);
-          MTLReportFailure();
+          v81 = objc_opt_class();
+          v111 = NSStringFromClass(v81);
+          MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Binaries/MetalPerformanceShaders/install/Symbols/BuiltProducts/MPSCore.framework/PrivateHeaders/Internal/MPSImageInternal.h", 0x203, @"[%@ encodeToCommandBuffer:primaryImage:secondaryImage:] Unable to create MPSImage for destination.  Encode failed.\n", v82, v83, v84, v85);
         }
       }
     }
   }
 
-  v20 = v96;
+  v20 = v112;
 LABEL_22:
-  v78 = 0;
-  if (!state || !v48)
+  v86 = 0;
+  if (!state || !v52)
   {
     goto LABEL_35;
   }
 
-  v79 = malloc_type_malloc(8 * v48, 0x80040B8603338uLL);
-  if (v79)
+  v87 = malloc_type_malloc(8 * v52, 0x80040B8603338uLL);
+  if (v87)
   {
-    v82 = v79;
-    if (v48 > 3)
+    v90 = v87;
+    if (v52 > 3)
     {
-      v83 = v48 & 0xFFFFFFFFFFFFFFFCLL;
-      v85 = vdupq_n_s64(state);
-      v86 = v79 + 1;
-      v87 = v48 & 0xFFFFFFFFFFFFFFFCLL;
+      v91 = v52 & 0xFFFFFFFFFFFFFFFCLL;
+      v93 = vdupq_n_s64(state);
+      v94 = v87 + 1;
+      v95 = v52 & 0xFFFFFFFFFFFFFFFCLL;
       do
       {
-        v86[-1] = v85;
-        *v86 = v85;
-        v86 += 2;
-        v87 -= 4;
+        v94[-1] = v93;
+        *v94 = v93;
+        v94 += 2;
+        v95 -= 4;
       }
 
-      while (v87);
-      if (v48 == v83)
+      while (v95);
+      if (v52 == v91)
       {
         goto LABEL_34;
       }
@@ -409,34 +409,34 @@ LABEL_22:
 
     else
     {
-      v83 = 0;
+      v91 = 0;
     }
 
-    v88 = v48 - v83;
-    v89 = v79 + v83;
+    v96 = v52 - v91;
+    v97 = v87 + v91;
     do
     {
-      *v89++ = state;
-      --v88;
+      *v97++ = state;
+      --v96;
     }
 
-    while (v88);
+    while (v96);
 LABEL_34:
-    v90 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v56, v79, v48, v80, v81, v57, v58, v95);
-    free(v82);
-    v78 = v90;
+    v98 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v60, v87, v52, v88, v89, v61, v62, v111);
+    free(v90);
+    v86 = v98;
 LABEL_35:
-    objc_msgSend_encodeBatchToCommandBuffer_sourceImages_inStates_destinationImages_(self, v56, buffer, images, v78, v59, v57, v58, v95);
+    objc_msgSend_encodeBatchToCommandBuffer_sourceImages_inStates_destinationImages_(self, v60, buffer, images, v86, v63, v61, v62, v111);
     goto LABEL_36;
   }
 
 LABEL_28:
-  objc_msgSend_encodeBatchToCommandBuffer_sourceImages_inStates_destinationImages_(self, v56, buffer, images, 0, v59, v57, v58, v95);
+  objc_msgSend_encodeBatchToCommandBuffer_sourceImages_inStates_destinationImages_(self, v60, buffer, images, 0, v63, v61, v62, v111);
 LABEL_36:
   MPSDecrementReadCount(state);
-  v91 = v59;
+  v99 = v63;
   objc_autoreleasePoolPop(v20);
-  return v59;
+  return v63;
 }
 
 - (void)dealloc
@@ -498,7 +498,7 @@ LABEL_36:
 
   if (v24 > self->_numberOfFeatureChannels && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNBatchNormalization.mm", 0x2B0, @"Cannot create state for images with more feature channels than used to initialize batch normalization filter.", v60, v61, v62, v63);
   }
 
   v25 = [MPSCNNBatchNormalizationState alloc];
@@ -550,7 +550,7 @@ LABEL_36:
     v30 = v52;
     if (v53)
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNBatchNormalization.mm", 0x2CE, @"Cannot create state for images with more feature channels than used to initialize batch normalization filter.", v54, v23, v24, v25);
       v30 = v52;
     }
   }
@@ -580,11 +580,11 @@ LABEL_36:
   if ((objc_msgSend_load(deprecated, a2, deprecated, weights, stats, v5, v6, v7) & 1) == 0 && MTLReportFailureTypeEnabled())
   {
     v120 = objc_opt_class();
-    v121 = NSStringFromClass(v120);
-    MTLReportFailure();
+    v125 = NSStringFromClass(v120);
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNBatchNormalization.mm", 0x2E7, @"[%@ reloadDataSource:] dataSource.load should return YES", v121, v122, v123, v124);
   }
 
-  self->_numberOfFeatureChannels = objc_msgSend_numberOfFeatureChannels(deprecated, v12, v13, v14, v15, v16, v17, v18, v121);
+  self->_numberOfFeatureChannels = objc_msgSend_numberOfFeatureChannels(deprecated, v12, v13, v14, v15, v16, v17, v18, v125);
   meanDS = self->_meanDS;
   explicit = atomic_load_explicit(meanDS, memory_order_acquire);
   if (explicit)
@@ -799,7 +799,7 @@ LABEL_9:
 
   if ((!objc_msgSend_gamma(gammaAndBetaState, v11, v12, v13, v14, v15, v16, v17) || !objc_msgSend_beta(gammaAndBetaState, v18, v19, v20, v21, v22, v23, v24)) && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNBatchNormalization.mm", 0x36C, @"state does not have valid gamma and beta buffers.", v28, v29, v30, v31);
   }
 
   gamma = self->_gamma;
@@ -909,7 +909,7 @@ LABEL_7:
 
   if ((!objc_msgSend_mean(meanAndVarianceState, v11, v12, v13, v14, v15, v16, v17) || !objc_msgSend_variance(meanAndVarianceState, v18, v19, v20, v21, v22, v23, v24)) && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNBatchNormalization.mm", 0x381, @"state does not have valid mean and variance buffers.", v28, v29, v30, v31);
   }
 
   meanDS = self->_meanDS;
@@ -1012,8 +1012,8 @@ LABEL_7:
 
 - (MPSCNNBatchNormalization)initWithCoder:(NSCoder *)aDecoder device:(id)device
 {
-  v85.receiver = self;
-  v85.super_class = MPSCNNBatchNormalization;
+  v93.receiver = self;
+  v93.super_class = MPSCNNBatchNormalization;
   v7 = [MPSCNNKernel initWithCoder:sel_initWithCoder_device_ device:?];
   if (v7)
   {
@@ -1021,15 +1021,15 @@ LABEL_7:
     if (MPSDevice)
     {
       v14 = MPSDevice;
-      v86 = 0;
-      v15 = objc_msgSend_decodeBytesForKey_returnedLength_(aDecoder, v9, @"kMPSCNNBatchNormalization.s", &v86, v10, v11, v12, v13);
-      if (v86)
+      v94 = 0;
+      v15 = objc_msgSend_decodeBytesForKey_returnedLength_(aDecoder, v9, @"kMPSCNNBatchNormalization.s", &v94, v10, v11, v12, v13);
+      if (v94)
       {
         v16 = v15;
         if (v15)
         {
           v17 = objc_alloc(MEMORY[0x277CCACA8]);
-          v22 = objc_msgSend_initWithBytes_length_encoding_(v17, v18, v16, v86 - 1, 1, v19, v20, v21);
+          v22 = objc_msgSend_initWithBytes_length_encoding_(v17, v18, v16, v94 - 1, 1, v19, v20, v21);
           v23 = v22;
           if (v22)
           {
@@ -1049,7 +1049,7 @@ LABEL_7:
 
             else if (MTLReportFailureTypeEnabled())
             {
-              MTLReportFailure();
+              MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Binaries/MetalPerformanceShaders/install/Symbols/BuiltProducts/MPSCore.framework/PrivateHeaders/Internal/MPSCoreInternal.h", 0x2ED, @"Error: Can not decode. Unable to find class implementation for %@.", v33, v34, v35, v36);
             }
           }
         }
@@ -1058,10 +1058,10 @@ LABEL_7:
       v32 = 0;
       if (MTLReportFailureTypeEnabled())
       {
-        v33 = objc_opt_class();
-        NSStringFromClass(v33);
+        v37 = objc_opt_class();
+        NSStringFromClass(v37);
         NSStringFromSelector(a2);
-        MTLReportFailure();
+        MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNBatchNormalization.mm", 0x3B3, @"[%@ %@] Error: Unable to decode data source.", v38, v39, v40, v41);
         v32 = 0;
       }
 
@@ -1069,22 +1069,22 @@ LABEL_16:
       v7->_epsilon = 1.1755e-38;
       if (objc_opt_respondsToSelector())
       {
-        objc_msgSend_epsilon(v32, v34, v35, v36, v37, v38, v39, v40);
-        v7->_epsilon = v41;
+        objc_msgSend_epsilon(v32, v42, v43, v44, v45, v46, v47, v48);
+        v7->_epsilon = v49;
       }
 
       if (objc_opt_respondsToSelector())
       {
-        v48 = objc_msgSend_performSelector_(v32, v42, sel_label, v43, v44, v45, v46, v47);
-        objc_msgSend_setLabel_(v7, v49, v48, v50, v51, v52, v53, v54);
+        v56 = objc_msgSend_performSelector_(v32, v50, sel_label, v51, v52, v53, v54, v55);
+        objc_msgSend_setLabel_(v7, v57, v56, v58, v59, v60, v61, v62);
       }
 
-      v55 = 16 * (*(*v14 + 24))(v14);
-      v63 = 4 * objc_msgSend_numberOfFeatureChannels(v32, v56, v57, v58, v59, v60, v61, v62) + 12;
-      objc_msgSend_newBufferWithLength_options_(device, v64, v63 & 0xFFFFFFFFFFFFFFF0, v55, v65, v66, v67, v68);
-      objc_msgSend_newBufferWithLength_options_(device, v69, v63 & 0xFFFFFFFFFFFFFFF0, v55, v70, v71, v72, v73);
-      objc_msgSend_newBufferWithLength_options_(device, v74, v63 & 0xFFFFFFFFFFFFFFF0, v55, v75, v76, v77, v78);
-      objc_msgSend_newBufferWithLength_options_(device, v79, v63 & 0xFFFFFFFFFFFFFFF0, v55, v80, v81, v82, v83);
+      v63 = 16 * (*(*v14 + 24))(v14);
+      v71 = 4 * objc_msgSend_numberOfFeatureChannels(v32, v64, v65, v66, v67, v68, v69, v70) + 12;
+      objc_msgSend_newBufferWithLength_options_(device, v72, v71 & 0xFFFFFFFFFFFFFFF0, v63, v73, v74, v75, v76);
+      objc_msgSend_newBufferWithLength_options_(device, v77, v71 & 0xFFFFFFFFFFFFFFF0, v63, v78, v79, v80, v81);
+      objc_msgSend_newBufferWithLength_options_(device, v82, v71 & 0xFFFFFFFFFFFFFFF0, v63, v83, v84, v85, v86);
+      objc_msgSend_newBufferWithLength_options_(device, v87, v71 & 0xFFFFFFFFFFFFFFF0, v63, v88, v89, v90, v91);
       operator new[]();
     }
 
@@ -1096,9 +1096,9 @@ LABEL_16:
 
 - (void)encodeWithCoder:(id)coder
 {
-  v140.receiver = self;
-  v140.super_class = MPSCNNBatchNormalization;
-  [(MPSCNNKernel *)&v140 encodeWithCoder:?];
+  v144.receiver = self;
+  v144.super_class = MPSCNNBatchNormalization;
+  [(MPSCNNKernel *)&v144 encodeWithCoder:?];
   if (self->_dataSource)
   {
     if (objc_msgSend_conformsToProtocol_(self->_dataSource, v6, &unk_284D09FA0, v7, v8, v9, v10, v11))
@@ -1115,7 +1115,7 @@ LABEL_16:
         NSStringFromClass(v132);
         NSStringFromSelector(a2);
         objc_msgSend_debugDescription(self->_dataSource, v133, v134, v135, v136, v137, v138, v139);
-        MTLReportFailure();
+        MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNBatchNormalization.mm", 0x41F, @"[%@ %@] Error: dataSource does not support NSSecureCoding\n\t%@", v140, v141, v142, v143);
       }
     }
 

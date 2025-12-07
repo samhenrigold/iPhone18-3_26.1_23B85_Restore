@@ -183,9 +183,9 @@
             goto LABEL_17;
           }
 
-          v21 = [v15 isEqual:v20];
+          isEqual = objc_msgSend_isEqual_(v15);
 
-          if (!v21)
+          if (!isEqual)
           {
             goto LABEL_18;
           }
@@ -248,7 +248,7 @@ LABEL_26:
     goto LABEL_29;
   }
 
-  v14 = [action4 isEqual:v13];
+  v14 = objc_msgSend_isEqual_(action4);
 
   if (v14)
   {

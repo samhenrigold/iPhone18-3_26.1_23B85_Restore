@@ -56,7 +56,7 @@
   v4 = v2();
   if (!v4)
   {
-    static os_log_type_t.info.getter();
+    v5 = static os_log_type_t.info.getter();
     result = ASTLogCommon();
     if (!result)
     {
@@ -64,15 +64,14 @@
       return result;
     }
 
-    v6 = result;
-    os_log(_:dso:log:_:_:)();
+    v7 = result;
 
     v4 = [objc_allocWithZone(CAMediaTimingFunction) init];
   }
 
-  v7 = v4;
+  v8 = v4;
 
-  return v7;
+  return v8;
 }
 
 - (HNDSpringAnimationFactory)init

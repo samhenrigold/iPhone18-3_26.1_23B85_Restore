@@ -78,7 +78,7 @@
 
 - (MGFileWatcher)initWithPath:(id)path block:(id)block
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   v7 = objc_autoreleasePoolPush();
   PathComponent = objc_msgSend_stringByDeletingLastPathComponent(path, v8, v9, v10, v11);
   v17 = objc_msgSend_fileSystemRepresentation(PathComponent, v13, v14, v15, v16);
@@ -110,9 +110,9 @@
   else
   {
     v19 = v18;
-    v42.receiver = self;
-    v42.super_class = MGFileWatcher;
-    v20 = [(MGFileWatcher *)&v42 init];
+    v41.receiver = self;
+    v41.super_class = MGFileWatcher;
+    v20 = [(MGFileWatcher *)&v41 init];
     if (v20)
     {
       *(v20 + 1) = path;
@@ -128,12 +128,12 @@
       handler[4] = v20;
       dispatch_source_set_event_handler(v26, handler);
       v27 = *(v20 + 7);
-      v39[0] = MEMORY[0x1E69E9820];
-      v39[1] = 3221225472;
-      v39[2] = sub_1C3939B34;
-      v39[3] = &unk_1E81B14B0;
-      v40 = v19;
-      dispatch_source_set_cancel_handler(v27, v39);
+      v38[0] = MEMORY[0x1E69E9820];
+      v38[1] = 3221225472;
+      v38[2] = sub_1C3939B34;
+      v38[3] = &unk_1E81B14B0;
+      v39 = v19;
+      dispatch_source_set_cancel_handler(v27, v38);
       v28 = *(v20 + 5);
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
@@ -146,7 +146,6 @@
   }
 
   objc_autoreleasePoolPop(v7);
-  v36 = *MEMORY[0x1E69E9840];
   return v20;
 }
 

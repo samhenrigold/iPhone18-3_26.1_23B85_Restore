@@ -47,38 +47,38 @@
   return spinnerImages__spinnerImages;
 }
 
-void __41__CAActivityIndicatorLayer_spinnerImages__block_invoke(uint64_t a1)
+void __41__CAActivityIndicatorLayer_spinnerImages__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = _asvLogHandle;
+  v3 = _asvLogHandle;
   if (!_asvLogHandle)
   {
-    ASVInitLogging();
-    v2 = _asvLogHandle;
+    ASVInitLogging(a1, a2);
+    v3 = _asvLogHandle;
   }
 
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    *v9 = 0;
-    _os_log_impl(&dword_241215000, v2, OS_LOG_TYPE_INFO, "#Inline: Creating spinner images", v9, 2u);
+    *v10 = 0;
+    _os_log_impl(&dword_241215000, v3, OS_LOG_TYPE_INFO, "#Inline: Creating spinner images", v10, 2u);
   }
 
-  v3 = objc_opt_new();
+  v4 = objc_opt_new();
   for (i = 0; i != 16; ++i)
   {
-    v5 = [*(a1 + 32) imageForStep:i withColor:*(*(a1 + 32) + 64)];
-    v6 = [v5 CGImage];
+    v6 = [*(a1 + 32) imageForStep:i withColor:*(*(a1 + 32) + 64)];
+    v7 = [v6 CGImage];
 
-    if (!v6)
+    if (!v7)
     {
       __41__CAActivityIndicatorLayer_spinnerImages__block_invoke_cold_1((a1 + 40), (a1 + 32));
     }
 
-    [v3 addObject:v6];
+    [v4 addObject:v7];
   }
 
-  v7 = [v3 copy];
-  v8 = spinnerImages__spinnerImages;
-  spinnerImages__spinnerImages = v7;
+  v8 = [v4 copy];
+  v9 = spinnerImages__spinnerImages;
+  spinnerImages__spinnerImages = v8;
 }
 
 - (void)startAnimating

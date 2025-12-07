@@ -70,7 +70,7 @@
   {
     Color = EshFill::getColor(self->mFill);
 
-    return EshColor::EshColor(v4, Color);
+    EshColor::EshColor(v4, Color);
   }
 
   else
@@ -79,7 +79,7 @@
     if (mMasterManager)
     {
 
-      return [(OABPropertiesManager *)mMasterManager fillFgColor];
+      return objc_msgSend_fillFgColor(mMasterManager);
     }
 
     else
@@ -197,7 +197,7 @@
   {
     Color2 = EshFill::getColor2(self->mFill);
 
-    return EshColor::EshColor(v4, Color2);
+    EshColor::EshColor(v4, Color2);
   }
 
   else
@@ -206,7 +206,7 @@
     if (mMasterManager)
     {
 
-      return [(OABPropertiesManager *)mMasterManager fillBgColor];
+      return objc_msgSend_fillBgColor(mMasterManager);
     }
 
     else
@@ -352,7 +352,7 @@
   mMasterManager = self->mMasterManager;
   if (mMasterManager)
   {
-    return [(OABPropertiesManager *)mMasterManager strokeFgColor];
+    return objc_msgSend_strokeFgColor(mMasterManager, a2);
   }
 
   else
@@ -368,7 +368,7 @@
   mMasterManager = self->mMasterManager;
   if (mMasterManager)
   {
-    return [(OABPropertiesManager *)mMasterManager strokeBgColor];
+    return objc_msgSend_strokeBgColor(mMasterManager, a2);
   }
 
   else
@@ -384,7 +384,7 @@
   mMasterManager = self->mMasterManager;
   if (mMasterManager)
   {
-    return [(OABPropertiesManager *)mMasterManager shadowColor];
+    return objc_msgSend_shadowColor(mMasterManager, a2);
   }
 
   else

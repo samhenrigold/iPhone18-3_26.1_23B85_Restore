@@ -7,7 +7,7 @@
 
 - (id)initWithBundle:()NSBundle fileManager:
 {
-  v96 = *MEMORY[0x277D85DE8];
+  v95 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   if (v6)
@@ -22,9 +22,9 @@
       {
         v34 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v93 = v34;
-        v94 = 2112;
-        v95 = v6;
+        v92 = v34;
+        v93 = 2112;
+        v94 = v6;
         _os_log_impl(&dword_229538000, v33, OS_LOG_TYPE_DEFAULT, "%{public}@Invalid bundle: %@", buf, 0x16u);
       }
 
@@ -50,83 +50,83 @@
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v93 = v16;
-      v94 = 2112;
-      v95 = v12;
+      v92 = v16;
+      v93 = 2112;
+      v94 = v12;
       _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Parsing using preferred localizations: %@", buf, 0x16u);
     }
 
-    v79 = selfCopy;
+    v78 = selfCopy;
     objc_autoreleasePoolPop(v13);
     v17 = __htmlDocumentForResource(v9, v12, @"ReadMeSummary");
     v18 = __htmlDocumentForResource(v9, v12, @"ReadMe");
-    v80 = __htmlDocumentForResource(v9, v12, @"License");
+    v79 = __htmlDocumentForResource(v9, v12, @"License");
     v19 = v9;
+    v81 = 0u;
     v82 = 0u;
     v83 = 0u;
     v84 = 0u;
-    v85 = 0u;
     v20 = v12;
-    v21 = [v20 countByEnumeratingWithState:&v82 objects:buf count:16];
+    v21 = [v20 countByEnumeratingWithState:&v81 objects:buf count:16];
     if (v21)
     {
-      v73 = v18;
-      v75 = v17;
-      v77 = v7;
-      v22 = *v83;
+      v72 = v18;
+      v74 = v17;
+      v76 = v7;
+      v22 = *v82;
       while (2)
       {
         for (i = 0; i != v21; i = i + 1)
         {
-          if (*v83 != v22)
+          if (*v82 != v22)
           {
             objc_enumerationMutation(v20);
           }
 
-          v24 = [v19 URLForResource:@"ReadMe" withExtension:@"txt" subdirectory:0 localization:*(*(&v82 + 1) + 8 * i)];
+          v24 = [v19 URLForResource:@"ReadMe" withExtension:@"txt" subdirectory:0 localization:*(*(&v81 + 1) + 8 * i)];
           if (v24)
           {
             v29 = v24;
-            v81 = 0;
-            v21 = [objc_alloc(MEMORY[0x277CD1D08]) initWithURL:v24 error:&v81];
-            v30 = v81;
+            v80 = 0;
+            v21 = [objc_alloc(MEMORY[0x277CD1D08]) initWithURL:v24 error:&v80];
+            v30 = v80;
             if (v21)
             {
               v31 = v21;
-              v17 = v75;
-              v7 = v77;
+              v17 = v74;
+              v7 = v76;
             }
 
             else
             {
               v35 = objc_autoreleasePoolPush();
               v36 = HMFGetOSLogHandle();
-              v17 = v75;
+              v17 = v74;
               if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
               {
                 contexta = HMFGetLogIdentifier();
                 [v29 path];
-                v37 = v70 = v35;
-                *v86 = 138543874;
-                v87 = contexta;
-                v88 = 2112;
-                v89 = v37;
-                v90 = 2112;
-                v91 = v30;
-                _os_log_impl(&dword_229538000, v36, OS_LOG_TYPE_INFO, "%{public}@Unable to load document, %@, with error: %@", v86, 0x20u);
+                v37 = v69 = v35;
+                *v85 = 138543874;
+                v86 = contexta;
+                v87 = 2112;
+                v88 = v37;
+                v89 = 2112;
+                v90 = v30;
+                _os_log_impl(&dword_229538000, v36, OS_LOG_TYPE_INFO, "%{public}@Unable to load document, %@, with error: %@", v85, 0x20u);
 
-                v35 = v70;
+                v35 = v69;
               }
 
               objc_autoreleasePoolPop(v35);
-              v7 = v77;
+              v7 = v76;
             }
 
             goto LABEL_28;
           }
         }
 
-        v21 = [v20 countByEnumeratingWithState:&v82 objects:buf count:16];
+        v21 = [v20 countByEnumeratingWithState:&v81 objects:buf count:16];
         if (v21)
         {
           continue;
@@ -135,19 +135,19 @@
         break;
       }
 
-      v17 = v75;
-      v7 = v77;
+      v17 = v74;
+      v7 = v76;
 LABEL_28:
-      v18 = v73;
+      v18 = v72;
     }
 
-    v78 = v6;
+    v77 = v6;
     if (v18 && v21)
     {
       v38 = v21;
       v39 = v18;
       v40 = objc_autoreleasePoolPush();
-      v41 = v79;
+      v41 = v78;
       v42 = HMFGetOSLogHandle();
       if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
       {
@@ -155,7 +155,7 @@ LABEL_28:
         v43 = v17;
         v45 = v44 = v7;
         *buf = 138543362;
-        v93 = v45;
+        v92 = v45;
         _os_log_impl(&dword_229538000, v42, OS_LOG_TYPE_DEFAULT, "%{public}@Both html and text release notes provided, using text notes", buf, 0xCu);
 
         v7 = v44;
@@ -166,10 +166,10 @@ LABEL_28:
       v18 = 0;
       v17 = 0;
       v21 = v38;
-      v6 = v78;
+      v6 = v77;
     }
 
-    if (!v80)
+    if (!v79)
     {
       v49 = 0;
       goto LABEL_39;
@@ -186,95 +186,95 @@ LABEL_28:
 LABEL_37:
 
 LABEL_39:
-        self = [v79 initWithReleaseNotesSummary:v17 releaseNotes:v18 textReleaseNotes:v21 licenseAgreement:v80 licenseAgreementVersion:{v49, v70}];
+        self = [v78 initWithReleaseNotesSummary:v17 releaseNotes:v18 textReleaseNotes:v21 licenseAgreement:v79 licenseAgreementVersion:{v49, v69}];
 
         selfCopy2 = self;
-        v6 = v78;
+        v6 = v77;
 LABEL_40:
 
         goto LABEL_41;
       }
 
-      v74 = v18;
-      v76 = v17;
-      v52 = v7;
-      v63 = objc_autoreleasePoolPush();
-      v64 = v79;
-      v65 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v65, OS_LOG_TYPE_FAULT))
+      v73 = v18;
+      v75 = v17;
+      v51 = v7;
+      v62 = objc_autoreleasePoolPush();
+      v63 = v78;
+      v64 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v64, OS_LOG_TYPE_FAULT))
       {
-        v66 = HMFGetLogIdentifier();
+        v65 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v93 = v66;
-        _os_log_impl(&dword_229538000, v65, OS_LOG_TYPE_FAULT, "%{public}@Submitting ABC event for failure: Missing SLA version", buf, 0xCu);
+        v92 = v65;
+        _os_log_impl(&dword_229538000, v64, OS_LOG_TYPE_FAULT, "%{public}@Submitting ABC event for failure: Missing SLA version", buf, 0xCu);
       }
 
-      objc_autoreleasePoolPop(v63);
-      v67 = [[HMDAssertionLogEvent alloc] initWithReason:@"Missing SLA version"];
-      v68 = +[HMDMetricsManager sharedLogEventSubmitter];
-      [v68 submitLogEvent:v67];
+      objc_autoreleasePoolPop(v62);
+      v66 = [[HMDAssertionLogEvent alloc] initWithReason:@"Missing SLA version"];
+      v67 = +[HMDMetricsManager sharedLogEventSubmitter];
+      [v67 submitLogEvent:v66];
 
       context = objc_autoreleasePoolPush();
-      v69 = v64;
-      v60 = HMFGetOSLogHandle();
-      if (!os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
+      v68 = v63;
+      v59 = HMFGetOSLogHandle();
+      if (!os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
       {
 LABEL_51:
-        v18 = v74;
+        v18 = v73;
 
         objc_autoreleasePoolPop(context);
         v49 = 0;
-        v7 = v52;
-        v17 = v76;
+        v7 = v51;
+        v17 = v75;
         goto LABEL_37;
       }
 
-      v61 = HMFGetLogIdentifier();
+      v60 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v93 = v61;
-      v94 = 2112;
-      v95 = v48;
-      v62 = "%{public}@Missing SLA version from asset properties: %@";
+      v92 = v60;
+      v93 = 2112;
+      v94 = v48;
+      v61 = "%{public}@Missing SLA version from asset properties: %@";
     }
 
     else
     {
-      v74 = v18;
-      v76 = v17;
-      v52 = v7;
-      v53 = objc_autoreleasePoolPush();
-      v54 = v79;
-      v55 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v55, OS_LOG_TYPE_FAULT))
+      v73 = v18;
+      v75 = v17;
+      v51 = v7;
+      v52 = objc_autoreleasePoolPush();
+      v53 = v78;
+      v54 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v54, OS_LOG_TYPE_FAULT))
       {
-        v56 = HMFGetLogIdentifier();
+        v55 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v93 = v56;
-        _os_log_impl(&dword_229538000, v55, OS_LOG_TYPE_FAULT, "%{public}@Submitting ABC event for failure: Missing asset properties", buf, 0xCu);
+        v92 = v55;
+        _os_log_impl(&dword_229538000, v54, OS_LOG_TYPE_FAULT, "%{public}@Submitting ABC event for failure: Missing asset properties", buf, 0xCu);
       }
 
-      objc_autoreleasePoolPop(v53);
-      v57 = [[HMDAssertionLogEvent alloc] initWithReason:@"Missing asset properties"];
-      v58 = +[HMDMetricsManager sharedLogEventSubmitter];
-      [v58 submitLogEvent:v57];
+      objc_autoreleasePoolPop(v52);
+      v56 = [[HMDAssertionLogEvent alloc] initWithReason:@"Missing asset properties"];
+      v57 = +[HMDMetricsManager sharedLogEventSubmitter];
+      [v57 submitLogEvent:v56];
 
       context = objc_autoreleasePoolPush();
-      v59 = v54;
-      v60 = HMFGetOSLogHandle();
-      if (!os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
+      v58 = v53;
+      v59 = HMFGetOSLogHandle();
+      if (!os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_51;
       }
 
-      v61 = HMFGetLogIdentifier();
+      v60 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v93 = v61;
-      v94 = 2112;
-      v95 = infoDictionary;
-      v62 = "%{public}@Missing asset properites from asset info: %@";
+      v92 = v60;
+      v93 = 2112;
+      v94 = infoDictionary;
+      v61 = "%{public}@Missing asset properites from asset info: %@";
     }
 
-    _os_log_impl(&dword_229538000, v60, OS_LOG_TYPE_ERROR, v62, buf, 0x16u);
+    _os_log_impl(&dword_229538000, v59, OS_LOG_TYPE_ERROR, v61, buf, 0x16u);
 
     goto LABEL_51;
   }
@@ -286,7 +286,7 @@ LABEL_51:
   {
     v27 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v93 = v27;
+    v92 = v27;
     _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_ERROR, "%{public}@The bundle parameter is required", buf, 0xCu);
   }
 
@@ -294,7 +294,6 @@ LABEL_51:
   selfCopy2 = 0;
 LABEL_41:
 
-  v50 = *MEMORY[0x277D85DE8];
   return selfCopy2;
 }
 

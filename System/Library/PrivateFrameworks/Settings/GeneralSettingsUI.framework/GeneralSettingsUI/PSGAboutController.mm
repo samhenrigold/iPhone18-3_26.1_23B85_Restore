@@ -10,7 +10,11 @@
 - (void)setDeviceName:(id)name specifier:(id)specifier;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)updateDeviceNameSpecifierIfNeeded;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)willBecomeActive;
 - (void)willResignActive;
 - (void)willUnlock;
@@ -50,20 +54,20 @@
 
 - (id)contextMenuConfiguration:(id)configuration handler:(id)handler
 {
-  v41[2] = *MEMORY[0x277D85DE8];
+  v40[2] = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   handlerCopy = handler;
   v8 = [(PSGAboutController *)self specifierAtIndex:[(PSGAboutController *)self indexForIndexPath:configurationCopy]];
-  v38[0] = MEMORY[0x277D85DD0];
-  v38[1] = 3221225472;
-  v38[2] = __55__PSGAboutController_contextMenuConfiguration_handler___block_invoke;
-  v38[3] = &unk_278324DF8;
-  v38[4] = self;
-  v35 = configurationCopy;
-  v39 = v35;
-  v34 = v8;
-  v40 = v34;
-  v9 = MEMORY[0x223D38F60](v38);
+  v37[0] = MEMORY[0x277D85DD0];
+  v37[1] = 3221225472;
+  v37[2] = __55__PSGAboutController_contextMenuConfiguration_handler___block_invoke;
+  v37[3] = &unk_278324DF8;
+  v37[4] = self;
+  v34 = configurationCopy;
+  v38 = v34;
+  v33 = v8;
+  v39 = v33;
+  v9 = MEMORY[0x223D38F60](v37);
   v10 = MEMORY[0x277D750C8];
   v11 = PSG_LocalizedStringForGeneral(@"COPY");
   v12 = [MEMORY[0x277D755B8] systemImageNamed:@"doc.on.doc"];
@@ -76,9 +80,9 @@
   v18 = [v14 actionWithTitle:v15 image:v16 identifier:@"barcode" handler:handlerCopy];
 
   v19 = MEMORY[0x277CBEB18];
-  v41[0] = v13;
-  v41[1] = v18;
-  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:2];
+  v40[0] = v13;
+  v40[1] = v18;
+  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:2];
   v21 = [v19 arrayWithArray:v20];
 
   v22 = objc_alloc(MEMORY[0x277CC37B0]);
@@ -97,15 +101,13 @@
   }
 
   v29 = MEMORY[0x277D753B0];
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __55__PSGAboutController_contextMenuConfiguration_handler___block_invoke_2;
-  v36[3] = &unk_278324E20;
-  v37 = v21;
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = __55__PSGAboutController_contextMenuConfiguration_handler___block_invoke_2;
+  v35[3] = &unk_278324E20;
+  v36 = v21;
   v30 = v21;
-  v31 = [v29 configurationWithIdentifier:0 previewProvider:0 actionProvider:v36];
-
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = [v29 configurationWithIdentifier:0 previewProvider:0 actionProvider:v35];
 
   return v31;
 }
@@ -182,7 +184,7 @@ LABEL_8:
 
 void __80__PSGAboutController_tableView_contextMenuConfigurationForRowAtIndexPath_point___block_invoke(uint64_t a1, void *a2)
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 identifier];
   v5 = [v4 isEqualToString:@"barcode"];
@@ -204,21 +206,8 @@ void __80__PSGAboutController_tableView_contextMenuConfigurationForRowAtIndexPat
       v11 = [v12 mobileEquipmentInfo:v13];
     }
 
-    if (v10)
+    if (v10 && ([v10 CSN], v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v14, "length"), v14, v16 = v10, v15) || v11 && (objc_msgSend(v11, "CSN"), v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v17, "length"), v17, v16 = v11, v18))
     {
-      v14 = [v10 CSN];
-      v15 = [v14 length];
-
-      v16 = v10;
-      if (v15)
-      {
-        goto LABEL_8;
-      }
-    }
-
-    if (v11 && ([v11 CSN], v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v17, "length"), v17, v16 = v11, v18))
-    {
-LABEL_8:
       v19 = [v16 CSN];
     }
 
@@ -227,9 +216,9 @@ LABEL_8:
       v19 = &stru_282E88A90;
     }
 
-    v24 = @"EidKey";
-    v25[0] = v19;
-    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+    v23 = @"EidKey";
+    v24[0] = v19;
+    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
     [*(a1 + 32) remoteLaunchHelper:v22 flowtype:6 reason:@"SIM Device Info Flow"];
   }
 
@@ -243,13 +232,11 @@ LABEL_8:
       [*(a1 + 32) launchShareIdentityFlow];
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __80__PSGAboutController_tableView_contextMenuConfigurationForRowAtIndexPath_point___block_invoke_2(uint64_t a1, void *a2)
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 identifier];
   v5 = [v4 isEqualToString:@"barcode"];
@@ -294,10 +281,10 @@ void __80__PSGAboutController_tableView_contextMenuConfigurationForRowAtIndexPat
       if (v16 < 2)
       {
 LABEL_12:
-        v24 = v8;
+        v23 = v8;
         v19 = [v14 IMEI];
-        v25[0] = v19;
-        v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+        v24[0] = v19;
+        v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
 
         [*(a1 + 40) remoteLaunchHelper:v20 flowtype:6 reason:@"SIM Device Info Flow"];
         goto LABEL_15;
@@ -322,8 +309,6 @@ LABEL_12:
   }
 
 LABEL_15:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remoteLaunchHelper:(id)helper flowtype:(unint64_t)flowtype reason:(id)reason
@@ -342,25 +327,24 @@ LABEL_15:
   v12 = [MEMORY[0x277CCABB0] numberWithInteger:flowtype];
   [v11 setValue:v12 forKey:@"FlowTypeKey"];
 
-  v13 = _PSGLoggingFacility();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = _PSGLoggingFacility(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     v19 = 136315394;
     v20 = "[PSGAboutController remoteLaunchHelper:flowtype:reason:]";
     v21 = 2112;
     v22 = v11;
-    _os_log_impl(&dword_21CF20000, v13, OS_LOG_TYPE_DEFAULT, "%s \nKey:%@", &v19, 0x16u);
+    _os_log_impl(&dword_21CF20000, v14, OS_LOG_TYPE_DEFAULT, "%s \nKey:%@", &v19, 0x16u);
   }
 
-  v14 = [objc_alloc(MEMORY[0x277D66BD8]) initWithServiceName:@"com.apple.SIMSetupUIService" viewControllerClassName:@"TSSIMSetupSupportViewController"];
-  v15 = objc_alloc_init(MEMORY[0x277D66BD0]);
-  [v15 setUserInfo:v11];
-  v16 = [MEMORY[0x277D66BF0] newHandleWithDefinition:v14 configurationContext:v15];
-  v17 = objc_alloc_init(MEMORY[0x277D66BC0]);
-  [v17 setReason:reasonCopy];
+  v15 = [objc_alloc(MEMORY[0x277D66BD8]) initWithServiceName:@"com.apple.SIMSetupUIService" viewControllerClassName:@"TSSIMSetupSupportViewController"];
+  v16 = objc_alloc_init(MEMORY[0x277D66BD0]);
+  [v16 setUserInfo:v11];
+  v17 = [MEMORY[0x277D66BF0] newHandleWithDefinition:v15 configurationContext:v16];
+  v18 = objc_alloc_init(MEMORY[0x277D66BC0]);
+  [v18 setReason:reasonCopy];
 
-  [v16 activateWithContext:v17];
-  v18 = *MEMORY[0x277D85DE8];
+  [v17 activateWithContext:v18];
 }
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path
@@ -397,6 +381,36 @@ LABEL_5:
 LABEL_6:
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v18[1] = *MEMORY[0x277D85DE8];
+  v17.receiver = self;
+  v17.super_class = PSGAboutController;
+  [(PSGAboutController *)&v17 viewWillAppear:appear];
+  v4 = [MEMORY[0x277CBEBC0] URLWithString:@"settings-navigation://com.apple.Settings.General/About"];
+  v5 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
+  v7 = PSG_BundleForGeneralSettingsUIFramework(currentLocale);
+  bundleURL = [v7 bundleURL];
+  v9 = [v5 initWithKey:@"About" table:@"General" locale:currentLocale bundleURL:bundleURL];
+
+  general_rootPaneComponent = [MEMORY[0x277CCAEB8] general_rootPaneComponent];
+  v18[0] = general_rootPaneComponent;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+  [(PSGAboutController *)self pe_emitNavigationEventForSystemSettingsWithGraphicIconIdentifier:@"com.apple.graphic-icon.about-current-device" title:v9 localizedNavigationComponents:v11 deepLink:v4];
+
+  defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+  v13 = *MEMORY[0x277D25CA0];
+  mainQueue = [MEMORY[0x277CCABD8] mainQueue];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __37__PSGAboutController_viewWillAppear___block_invoke;
+  v16[3] = &unk_278324E98;
+  v16[4] = self;
+  v15 = [defaultCenter addObserverForName:v13 object:0 queue:mainQueue usingBlock:v16];
+  [(PSGAboutController *)self setEffectiveSettingsChangedNotificationObserver:v15];
+}
+
 void __37__PSGAboutController_viewWillAppear___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
@@ -411,10 +425,46 @@ void __37__PSGAboutController_viewWillAppear___block_invoke(uint64_t a1)
   }
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = PSGAboutController;
+  [(PSGAboutController *)&v7 viewDidAppear:appear];
+  if (self->_firstViewDidAppear)
+  {
+    v4 = _CTServerConnectionCreate();
+    if (v4)
+    {
+      v5 = v4;
+      _CTServerConnectionGetUpdatedCarrierBundle();
+      CFRelease(v5);
+    }
+
+    self->_firstViewDidAppear = 0;
+  }
+
+  v6 = dispatch_get_global_queue(0, 0);
+  dispatch_async(v6, &__block_literal_global);
+
+  [(PSGAboutController *)self updateDeviceNameSpecifierIfNeeded];
+}
+
 void __36__PSGAboutController_viewDidAppear___block_invoke()
 {
   v0 = +[(PSSpecifierDataSource *)PSGAboutDataSource];
   [v0 enableMLUpdates:1];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v6.receiver = self;
+  v6.super_class = PSGAboutController;
+  [(PSGAboutController *)&v6 viewDidDisappear:disappear];
+  defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+  effectiveSettingsChangedNotificationObserver = [(PSGAboutController *)self effectiveSettingsChangedNotificationObserver];
+  [defaultCenter removeObserver:effectiveSettingsChangedNotificationObserver];
+
+  [(PSGAboutController *)self setEffectiveSettingsChangedNotificationObserver:0];
 }
 
 - (void)willBecomeActive
@@ -442,27 +492,27 @@ void __36__PSGAboutController_viewDidAppear___block_invoke()
 
 - (BOOL)shouldDeferPushForSpecifierID:(id)d
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dCopy = d;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v5 = [&unk_282E8FCE0 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [&unk_282E8FCE0 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(&unk_282E8FCE0);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         if ([dCopy isEqualToString:v9])
         {
           v10 = [(PSGAboutController *)self specifierForID:v9];
@@ -475,7 +525,7 @@ void __36__PSGAboutController_viewDidAppear___block_invoke()
         }
       }
 
-      v6 = [&unk_282E8FCE0 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [&unk_282E8FCE0 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -488,7 +538,6 @@ void __36__PSGAboutController_viewDidAppear___block_invoke()
   v11 = 0;
 LABEL_12:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -542,9 +591,9 @@ void __33__PSGAboutController_viewDidLoad__block_invoke(uint64_t a1)
 
 void __33__PSGAboutController_viewDidLoad__block_invoke_2(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v8 = [*(a1 + 32) specifierIDPendingPush];
-  if ([v8 length])
+  v10 = *MEMORY[0x277D85DE8];
+  v7 = [*(a1 + 32) specifierIDPendingPush];
+  if ([v7 length])
   {
     v2 = *(a1 + 32);
     v3 = [v2 specifierIDPendingPush];
@@ -552,23 +601,20 @@ void __33__PSGAboutController_viewDidLoad__block_invoke_2(uint64_t a1)
 
     if (v4)
     {
-      v5 = _PSGLoggingFacility();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = _PSGLoggingFacility(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136446210;
-        v10 = "[PSGAboutController viewDidLoad]_block_invoke_2";
-        _os_log_impl(&dword_21CF20000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s: handling deferred url after ndo specifiers did load", buf, 0xCu);
+        v9 = "[PSGAboutController viewDidLoad]_block_invoke_2";
+        _os_log_impl(&dword_21CF20000, v6, OS_LOG_TYPE_DEFAULT, "%{public}s: handling deferred url after ndo specifiers did load", buf, 0xCu);
       }
 
       [*(a1 + 32) handlePendingURL];
     }
-
-    v6 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v7 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -584,9 +630,9 @@ void __33__PSGAboutController_viewDidLoad__block_invoke_419(uint64_t a1)
 
 void __33__PSGAboutController_viewDidLoad__block_invoke_2_420(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v8 = [*(a1 + 32) specifierIDPendingPush];
-  if ([v8 length])
+  v10 = *MEMORY[0x277D85DE8];
+  v7 = [*(a1 + 32) specifierIDPendingPush];
+  if ([v7 length])
   {
     v2 = *(a1 + 32);
     v3 = [v2 specifierIDPendingPush];
@@ -594,24 +640,33 @@ void __33__PSGAboutController_viewDidLoad__block_invoke_2_420(uint64_t a1)
 
     if (v4)
     {
-      v5 = _PSGLoggingFacility();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = _PSGLoggingFacility(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136446210;
-        v10 = "[PSGAboutController viewDidLoad]_block_invoke_2";
-        _os_log_impl(&dword_21CF20000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s: handling deferred url after p&sh specifiers did load", buf, 0xCu);
+        v9 = "[PSGAboutController viewDidLoad]_block_invoke_2";
+        _os_log_impl(&dword_21CF20000, v6, OS_LOG_TYPE_DEFAULT, "%{public}s: handling deferred url after p&sh specifiers did load", buf, 0xCu);
       }
 
       [*(a1 + 32) handlePendingURL];
     }
-
-    v6 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v7 = *MEMORY[0x277D85DE8];
   }
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = PSGAboutController;
+  [(PSGAboutController *)&v5 viewWillDisappear:disappear];
+  v3 = +[(PSSpecifierDataSource *)PSGAboutDataSource];
+  [v3 cleanupMLReloadTimer];
+
+  v4 = +[(PSSpecifierDataSource *)PSGAboutDataSource];
+  [v4 enableMLUpdates:0];
 }
 
 - (void)setDeviceName:(id)name specifier:(id)specifier
@@ -659,20 +714,19 @@ void __33__PSGAboutController_viewDidLoad__block_invoke_2_420(uint64_t a1)
 
 - (void)handleResourceDictionaryWhenAlreadyPresented:(id)presented
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v4 = _PSGLoggingFacility();
+  v8 = *MEMORY[0x277D85DE8];
+  v4 = _PSGLoggingFacility(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315138;
-    v8 = "[PSGAboutController handleResourceDictionaryWhenAlreadyPresented:]";
-    _os_log_impl(&dword_21CF20000, v4, OS_LOG_TYPE_DEFAULT, "%s: reloading the page even though we are already at the destination.", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[PSGAboutController handleResourceDictionaryWhenAlreadyPresented:]";
+    _os_log_impl(&dword_21CF20000, v4, OS_LOG_TYPE_DEFAULT, "%s: reloading the page even though we are already at the destination.", &v6, 0xCu);
   }
 
   v5 = +[(PSSpecifierDataSource *)PSGAboutDataSource];
   [v5 reloadSpecifiers];
 
   [(PSGAboutController *)self reloadSpecifiers];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

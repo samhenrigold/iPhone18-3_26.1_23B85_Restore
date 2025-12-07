@@ -5,6 +5,7 @@
 - (UIEdgeInsets)layoutMarginsForContainer;
 - (void)containerViewDidLayoutArrangedSubviews:(id)subviews;
 - (void)dealloc;
+- (void)hardwareKeyboardAvailabilityChangedAnimated:(BOOL)animated;
 - (void)navigationViewDidInvalidateSizeAnimated:(BOOL)animated;
 @end
 
@@ -12,11 +13,11 @@
 
 - (SPUIPlatterContainerViewController)initWithNavigationController:(id)controller
 {
-  v38[2] = *MEMORY[0x277D85DE8];
+  v37[2] = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
-  v37.receiver = self;
-  v37.super_class = SPUIPlatterContainerViewController;
-  v5 = [(SPUIPlatterContainerViewController *)&v37 initWithNibName:0 bundle:0];
+  v36.receiver = self;
+  v36.super_class = SPUIPlatterContainerViewController;
+  v5 = [(SPUIPlatterContainerViewController *)&v36 initWithNibName:0 bundle:0];
   v6 = v5;
   if (v5)
   {
@@ -74,9 +75,9 @@
     [(SPUIPlatterContainerViewController *)v6 setPlatterBackgroundView:v24];
     [MEMORY[0x277D6F1B8] requireIntrinsicSizeForView:v24];
     v25 = [SPUIBoxView alloc];
-    v38[0] = v24;
-    v38[1] = v9;
-    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:2];
+    v37[0] = v24;
+    v37[1] = v9;
+    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:2];
     v27 = [(NUIContainerBoxView *)v25 initWithArrangedSubviews:v26];
     [(SPUIPlatterContainerViewController *)v6 setView:v27];
 
@@ -101,8 +102,29 @@
     CFNotificationCenterAddObserver(DarwinNotifyCenter, v6, HardwareKeyboardAvailabilityChanged, v34, 0, 0);
   }
 
-  v35 = *MEMORY[0x277D85DE8];
   return v6;
+}
+
+- (void)hardwareKeyboardAvailabilityChangedAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v5 = [objc_opt_class() isHardwareKeyboardAttached] == 0;
+  v6 = 40.0;
+  v7[1] = 3221225472;
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[2] = __82__SPUIPlatterContainerViewController_hardwareKeyboardAvailabilityChangedAnimated___block_invoke;
+  v7[3] = &unk_279D06FF8;
+  v7[4] = self;
+  if (!v5)
+  {
+    v6 = 80.0;
+  }
+
+  *&v7[5] = v6;
+  v7[6] = 0;
+  *&v7[7] = v6;
+  v7[8] = 0;
+  [MEMORY[0x277D4C898] performAnimatableChanges:v7 animated:animatedCopy];
 }
 
 void __82__SPUIPlatterContainerViewController_hardwareKeyboardAvailabilityChangedAnimated___block_invoke(uint64_t a1)

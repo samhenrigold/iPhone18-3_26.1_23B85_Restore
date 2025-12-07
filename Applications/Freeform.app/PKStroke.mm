@@ -54,7 +54,7 @@
 
     v24 = [PKStroke alloc];
     v25 = [(PKStroke *)self ink];
-    [(PKStroke *)self transform];
+    objc_msgSend_transform(self);
     v26 = [v24 initWithInk:v25 strokePath:v23 transform:v38 mask:0];
 
     [v26 renderBounds];
@@ -227,7 +227,7 @@
 
         v56 = [PKStroke alloc];
         v57 = [(PKStroke *)self ink];
-        [(PKStroke *)self transform];
+        objc_msgSend_transform(self);
         v58 = [v56 initWithInk:v57 strokePath:v55 transform:v71 mask:0];
 
         [v58 renderBounds];
@@ -384,7 +384,7 @@
   if (v8)
   {
     v9 = v8;
-    [(PKStroke *)self transform];
+    objc_msgSend_transform(self);
     v10 = sub_100139A00(v64);
     if (v10 == 0.0)
     {
@@ -487,7 +487,7 @@ LABEL_22:
         }
 
         v54 = [PKStroke alloc];
-        [(PKStroke *)self transform];
+        objc_msgSend_transform(self);
         v55 = [v54 initWithInk:v47 strokePath:v44 transform:v64 mask:v52];
         _renderGroupID = [(PKStroke *)self _renderGroupID];
         [v55 _setRenderGroupID:_renderGroupID];

@@ -320,7 +320,7 @@ void __40__PUFilmstripView__updateLayoutIfNeeded__block_invoke(uint64_t a1, void
   if (objc_opt_isKindOfClass())
   {
     v3 = [v8 presentationLayoutInfo];
-    v4 = [v3 indexPath];
+    v4 = objc_msgSend_indexPath(v3);
 
     v5 = *(a1 + 32);
     v6 = v8;
@@ -418,7 +418,7 @@ void __40__PUFilmstripView__updateLayoutIfNeeded__block_invoke(uint64_t a1, void
           v24 = 0u;
           if (firstObject)
           {
-            [firstObject preferredTransform];
+            objc_msgSend_preferredTransform(firstObject);
           }
 
           v27.size.width = v17 * 0.0 + 0.0 * v15;

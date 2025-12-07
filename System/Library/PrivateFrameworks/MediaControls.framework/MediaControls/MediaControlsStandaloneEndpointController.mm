@@ -163,7 +163,8 @@ void __65__MediaControlsStandaloneEndpointController_setEndpointObserver___block
   {
     if (a2)
     {
-      v6 = [WeakRetained _routeForEndpoint:a2];
+      WeakRetained = [WeakRetained _routeForEndpoint:a2];
+      v6 = WeakRetained;
     }
 
     else
@@ -171,7 +172,7 @@ void __65__MediaControlsStandaloneEndpointController_setEndpointObserver___block
       v6 = 0;
     }
 
-    v7 = MCLogCategoryRouting();
+    v7 = MCLogCategoryRouting(WeakRetained);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = *(a1 + 32);
@@ -207,7 +208,7 @@ uint64_t __65__MediaControlsStandaloneEndpointController_setEndpointObserver___b
 - (void)beginObserving
 {
   v8 = *MEMORY[0x1E69E9840];
-  v3 = MCLogCategoryRouting();
+  v3 = MCLogCategoryRouting(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     route = [(MediaControlsEndpointController *)self route];
@@ -223,7 +224,7 @@ uint64_t __65__MediaControlsStandaloneEndpointController_setEndpointObserver___b
 - (void)endObserving
 {
   v8 = *MEMORY[0x1E69E9840];
-  v3 = MCLogCategoryRouting();
+  v3 = MCLogCategoryRouting(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     route = [(MediaControlsEndpointController *)self route];

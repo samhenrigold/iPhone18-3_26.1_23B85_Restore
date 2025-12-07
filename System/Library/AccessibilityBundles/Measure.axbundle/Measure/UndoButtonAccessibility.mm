@@ -27,15 +27,15 @@
 {
   fromCopy = from;
   v5 = AXMeasureAccessibilityStateObserver();
-  [v5 axHasConfirmedRectangle];
+  axHasConfirmedRectangle = [v5 axHasConfirmedRectangle];
 
-  v8.receiver = self;
-  v8.super_class = UndoButtonAccessibility;
-  [(UndoButtonAccessibility *)&v8 undoFrom:fromCopy];
+  v9.receiver = self;
+  v9.super_class = UndoButtonAccessibility;
+  [(UndoButtonAccessibility *)&v9 undoFrom:fromCopy];
 
-  v6 = accessibilityLocalizedString(@"DID_UNDO_LAST_POINT");
-  v7 = accessibilityLocalizedString(@"DID_UNDO_POINT");
-  AXMeasureAnnounceUpdatedMeasurement(v6, v7);
+  v7 = accessibilityLocalizedString(@"DID_UNDO_LAST_POINT");
+  v8 = accessibilityLocalizedString(@"DID_UNDO_POINT");
+  AXMeasureAnnounceUpdatedMeasurement(v7, v8, axHasConfirmedRectangle);
 }
 
 @end

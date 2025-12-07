@@ -16,7 +16,7 @@
 {
   v3 = MEMORY[0x277D755B8];
   v4 = a3;
-  v5 = HRHeartRhythmUIFrameworkBundle();
+  v5 = HRHeartRhythmUIFrameworkBundle(v4);
   v6 = [v3 imageNamed:v4 inBundle:v5 compatibleWithTraitCollection:0];
 
   return v6;
@@ -33,65 +33,65 @@
 
 + (id)hrui_cannotDoImage
 {
-  v0 = MEMORY[0x277D755B8];
-  v1 = HRHeartRhythmUIFrameworkBundle();
-  v2 = [v0 imageNamed:@"cannot_do" inBundle:v1 compatibleWithTraitCollection:0];
+  v2 = MEMORY[0x277D755B8];
+  v3 = HRHeartRhythmUIFrameworkBundle(self);
+  v4 = [v2 imageNamed:@"cannot_do" inBundle:v3 compatibleWithTraitCollection:0];
 
-  return v2;
+  return v4;
 }
 
 + (id)hrui_warningImage
 {
-  v0 = MEMORY[0x277D755B8];
-  v1 = HRHeartRhythmUIFrameworkBundle();
-  v2 = [v0 imageNamed:@"warning" inBundle:v1 compatibleWithTraitCollection:0];
+  v2 = MEMORY[0x277D755B8];
+  v3 = HRHeartRhythmUIFrameworkBundle(self);
+  v4 = [v2 imageNamed:@"warning" inBundle:v3 compatibleWithTraitCollection:0];
 
-  return v2;
+  return v4;
 }
 
 + (id)hrui_ECGAppIconImage
 {
-  v0 = MEMORY[0x277D755B8];
-  v1 = HRHeartRhythmUIFrameworkBundle();
-  v2 = [v0 imageNamed:@"ECG_app_icon_new" inBundle:v1 compatibleWithTraitCollection:0];
+  v2 = MEMORY[0x277D755B8];
+  v3 = HRHeartRhythmUIFrameworkBundle(self);
+  v4 = [v2 imageNamed:@"ECG_app_icon_new" inBundle:v3 compatibleWithTraitCollection:0];
 
-  return v2;
+  return v4;
 }
 
 + (id)hrui_waveformImage
 {
-  v0 = MEMORY[0x277D755B8];
-  v1 = HRHeartRhythmUIFrameworkBundle();
-  v2 = [v0 imageNamed:@"waveform" inBundle:v1 compatibleWithTraitCollection:0];
+  v2 = MEMORY[0x277D755B8];
+  v3 = HRHeartRhythmUIFrameworkBundle(self);
+  v4 = [v2 imageNamed:@"waveform" inBundle:v3 compatibleWithTraitCollection:0];
 
-  return v2;
+  return v4;
 }
 
 + (id)hrui_atrialFibrillationDetectionIllustrationImage
 {
-  v0 = MEMORY[0x277D755B8];
-  v1 = HRHeartRhythmUIFrameworkBundle();
-  v2 = [v0 imageNamed:@"afib_detection_illustration" inBundle:v1 compatibleWithTraitCollection:0];
+  v2 = MEMORY[0x277D755B8];
+  v3 = HRHeartRhythmUIFrameworkBundle(self);
+  v4 = [v2 imageNamed:@"afib_detection_illustration" inBundle:v3 compatibleWithTraitCollection:0];
 
-  return v2;
+  return v4;
 }
 
 + (id)hrui_heartRateIconImage
 {
-  v0 = MEMORY[0x277D755B8];
-  v1 = HRHeartRhythmUIFrameworkBundle();
-  v2 = [v0 imageNamed:@"heart_rate_icon" inBundle:v1 compatibleWithTraitCollection:0];
+  v2 = MEMORY[0x277D755B8];
+  v3 = HRHeartRhythmUIFrameworkBundle(self);
+  v4 = [v2 imageNamed:@"heart_rate_icon" inBundle:v3 compatibleWithTraitCollection:0];
 
-  return v2;
+  return v4;
 }
 
 + (id)hrui_watchIconImage
 {
-  v0 = MEMORY[0x277D755B8];
-  v1 = HRHeartRhythmUIFrameworkBundle();
-  v2 = [v0 imageNamed:@"watch_icon" inBundle:v1 compatibleWithTraitCollection:0];
+  v2 = MEMORY[0x277D755B8];
+  v3 = HRHeartRhythmUIFrameworkBundle(self);
+  v4 = [v2 imageNamed:@"watch_icon" inBundle:v3 compatibleWithTraitCollection:0];
 
-  return v2;
+  return v4;
 }
 
 @end

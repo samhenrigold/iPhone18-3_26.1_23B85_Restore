@@ -111,7 +111,7 @@
     {
       v20 = MEMORY[0x1E69C5D78];
       v21 = objc_opt_class();
-      v22 = __atxlog_handle_default();
+      v22 = __atxlog_handle_default(v21);
       v10 = [v20 robustDecodeObjectOfClass:v21 forKey:@"object" withCoder:coderCopy expectNonNull:1 errorDomain:@"ATXEngagementRecordManagerUtilitiesErrorDomain" errorCode:3 logHandle:v22];
 
       if (v10)
@@ -127,7 +127,7 @@
     {
       v12 = MEMORY[0x1E69C5D78];
       v13 = objc_opt_class();
-      v14 = __atxlog_handle_default();
+      v14 = __atxlog_handle_default(v13);
       v10 = [v12 robustDecodeObjectOfClass:v13 forKey:@"object" withCoder:coderCopy expectNonNull:1 errorDomain:@"ATXEngagementRecordManagerUtilitiesErrorDomain" errorCode:3 logHandle:v14];
 
       if (v10)
@@ -148,7 +148,7 @@ LABEL_18:
     {
       v17 = MEMORY[0x1E69C5D78];
       v18 = objc_opt_class();
-      v19 = __atxlog_handle_default();
+      v19 = __atxlog_handle_default(v18);
       v10 = [v17 robustDecodeObjectOfClass:v18 forKey:@"object" withCoder:coderCopy expectNonNull:1 errorDomain:@"ATXEngagementRecordManagerUtilitiesErrorDomain" errorCode:2 logHandle:v19];
 
       if (v10)
@@ -164,7 +164,7 @@ LABEL_18:
     {
       v7 = MEMORY[0x1E69C5D78];
       v8 = objc_opt_class();
-      v9 = __atxlog_handle_default();
+      v9 = __atxlog_handle_default(v8);
       v10 = [v7 robustDecodeObjectOfClass:v8 forKey:@"object" withCoder:coderCopy expectNonNull:1 errorDomain:@"ATXEngagementRecordManagerUtilitiesErrorDomain" errorCode:1 logHandle:v9];
 
       if (v10)
@@ -182,7 +182,7 @@ LABEL_19:
     }
   }
 
-  v15 = __atxlog_handle_default();
+  v15 = __atxlog_handle_default(v5);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
   {
     [(ATXExecutableIdentifier *)v6 initWithCoder:v15];

@@ -1,368 +1,3 @@
-uint64_t eapttls_eap_read_avp(uint64_t *a1, void *a2, unsigned int *a3)
-{
-  v5 = 0;
-  v41 = *MEMORY[0x277D85DE8];
-  data = 0;
-  v6 = *a1;
-  v7 = *a3;
-  while (1)
-  {
-    processed = 0;
-    v8 = SSLRead(*v6, &data, 8uLL, &processed);
-    if (v8)
-    {
-      break;
-    }
-
-    if (processed != 8)
-    {
-      LogHandle = EAPLogGetLogHandle();
-      v19 = _SC_syslog_os_log_mapping();
-      if (os_log_type_enabled(LogHandle, v19))
-      {
-        *buf = 0;
-        v20 = "EAP AVP is invalid";
-        v21 = LogHandle;
-        v22 = v19;
-        v23 = 2;
-        goto LABEL_25;
-      }
-
-LABEL_26:
-      LODWORD(v14) = 0;
-LABEL_27:
-      if (v5)
-      {
-        goto LABEL_28;
-      }
-
-      goto LABEL_32;
-    }
-
-    v9 = bswap32(HIDWORD(data));
-    v10 = v9 & 0xFFFFFF;
-    if ((v9 & 0xFFFFFF) <= 8)
-    {
-      v24 = EAPLogGetLogHandle();
-      v25 = _SC_syslog_os_log_mapping();
-      if (os_log_type_enabled(v24, v25))
-      {
-        *buf = 67109376;
-        *v39 = v10;
-        *&v39[4] = 1024;
-        *&v39[6] = 8;
-        v20 = "EAP AVP is too short %d <= %d";
-        v21 = v24;
-        v22 = v25;
-        goto LABEL_24;
-      }
-
-      goto LABEL_26;
-    }
-
-    if ((v9 & 3) != 0)
-    {
-      v11 = (v9 & 0xFFFFFC) - 4;
-    }
-
-    else
-    {
-      v11 = (v9 & 0xFFFFFF) - 8;
-    }
-
-    if (v11 > v7)
-    {
-      v26 = EAPLogGetLogHandle();
-      v27 = _SC_syslog_os_log_mapping();
-      if (os_log_type_enabled(v26, v27))
-      {
-        *buf = 67109376;
-        *v39 = v11;
-        *&v39[4] = 1024;
-        *&v39[6] = v7;
-        v20 = "EAP AVP is too large %d > %d";
-        v21 = v26;
-        v22 = v27;
-LABEL_24:
-        v23 = 14;
-LABEL_25:
-        _os_log_impl(&dword_249EFB000, v21, v22, v20, buf, v23);
-      }
-
-      goto LABEL_26;
-    }
-
-    if (v5 & 1 | (data != 1325400064))
-    {
-      MEMORY[0x28223BE20]();
-      v12 = SSLRead(*v6, &processed - ((v11 + 15) & 0x1FFFFFFF0), v11, &processed);
-      if (v12)
-      {
-        v14 = v12;
-        v29 = EAPLogGetLogHandle();
-        v30 = _SC_syslog_os_log_mapping();
-        if (os_log_type_enabled(v29, v30))
-        {
-          v31 = EAPSSLErrorString(v14);
-          *buf = 136315394;
-          *v39 = v31;
-          *&v39[8] = 1024;
-          v40 = v14;
-          _os_log_impl(&dword_249EFB000, v29, v30, "SSLRead failed, %s (%d)", buf, 0x12u);
-        }
-
-        if ((v5 & 1) == 0)
-        {
-          goto LABEL_32;
-        }
-
-LABEL_28:
-        result = 1;
-        goto LABEL_33;
-      }
-    }
-
-    else
-    {
-      v13 = SSLRead(*v6, a2, v11, &processed);
-      if (v13)
-      {
-        v14 = v13;
-        v33 = EAPLogGetLogHandle();
-        v34 = _SC_syslog_os_log_mapping();
-        if (os_log_type_enabled(v33, v34))
-        {
-          v35 = EAPSSLErrorString(v14);
-          *buf = 136315394;
-          *v39 = v35;
-          *&v39[8] = 1024;
-          v40 = v14;
-          _os_log_impl(&dword_249EFB000, v33, v34, "SSLRead failed, %s (%d)", buf, 0x12u);
-        }
-
-        goto LABEL_32;
-      }
-
-      *a3 = processed;
-      v5 = 1;
-    }
-  }
-
-  v14 = v8;
-  if (v8 == -9803)
-  {
-    goto LABEL_27;
-  }
-
-  v15 = EAPLogGetLogHandle();
-  v16 = _SC_syslog_os_log_mapping();
-  if (!os_log_type_enabled(v15, v16))
-  {
-    goto LABEL_27;
-  }
-
-  v17 = EAPSSLErrorString(v14);
-  *buf = 136315394;
-  *v39 = v17;
-  *&v39[8] = 1024;
-  v40 = v14;
-  _os_log_impl(&dword_249EFB000, v15, v16, "SSLRead failed, %s (%d)", buf, 0x12u);
-  if (v5)
-  {
-    goto LABEL_28;
-  }
-
-LABEL_32:
-  result = 0;
-  *(v6 + 124) = v14;
-LABEL_33:
-  v32 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-char *eapttls_eap_process(uint64_t a1, unsigned __int8 *a2, char *a3, signed int *a4, int *a5, _BYTE *a6)
-{
-  v39 = *MEMORY[0x277D85DE8];
-  v11 = *a1;
-  v36 = 0;
-  *a6 = 0;
-  v12 = *a2;
-  if (v12 == 2)
-  {
-    v21 = a2[4];
-    v22 = *(v11 + 296);
-    if (v22)
-    {
-      LODWORD(v22) = EAPClientModulePluginEAPType(v22);
-    }
-
-    if (v22 != v21)
-    {
-      goto LABEL_26;
-    }
-
-    goto LABEL_15;
-  }
-
-  if (v12 == 1)
-  {
-    v13 = a2[4];
-    if (!a2[4])
-    {
-      goto LABEL_26;
-    }
-
-    v15 = *(v11 + 296);
-    if (v15)
-    {
-      LODWORD(v15) = EAPClientModulePluginEAPType(v15);
-    }
-
-    if (v15 != v13)
-    {
-      v16 = a2[4];
-      if (v16 <= 0x1A && ((1 << v16) & 0x4000050) != 0)
-      {
-        eap_client_free_1(v11);
-        v17 = a2[4];
-        v18 = *a1;
-        *(v18 + 472) = 0;
-        *(v18 + 480) = 0;
-        if (*(v18 + 296))
-        {
-          LogHandle = EAPLogGetLogHandle();
-          v20 = _SC_syslog_os_log_mapping();
-          if (os_log_type_enabled(LogHandle, v20))
-          {
-            *buf = 0;
-            _os_log_impl(&dword_249EFB000, LogHandle, v20, "eap_client_init: already initialized\n", buf, 2u);
-          }
-
-          goto LABEL_15;
-        }
-
-        v29 = EAPClientModuleLookup(v17);
-        if (v29)
-        {
-          v30 = v29;
-          my_CFRelease((v18 + 456));
-          my_CFRelease((v18 + 464));
-          *(v18 + 448) = 0;
-          *(v18 + 416) = 0u;
-          *(v18 + 432) = 0u;
-          *(v18 + 384) = 0u;
-          *(v18 + 400) = 0u;
-          *(v18 + 352) = 0u;
-          *(v18 + 368) = 0u;
-          *(v18 + 320) = 0u;
-          *(v18 + 336) = 0u;
-          *(v18 + 304) = 0u;
-          *(v18 + 320) = *(a1 + 16);
-          *(v18 + 344) = *(a1 + 40);
-          *(v18 + 352) = *(a1 + 48);
-          *(v18 + 368) = *(a1 + 64);
-          *(v18 + 376) = *(a1 + 72);
-          *(v18 + 384) = *(a1 + 80);
-          *(v18 + 488) = EAPClientModulePluginInit(v30, v18 + 304, v18 + 456, v18 + 492);
-          *(v18 + 480) = EAPClientModulePluginEAPName(v30);
-          *(v18 + 472) = v17;
-          if (!*(v18 + 488))
-          {
-            *(v18 + 296) = v30;
-            goto LABEL_15;
-          }
-        }
-
-        if (*(v11 + 488) == 3)
-        {
-          *a5 = 3;
-          save_last_packet_0(v11, a2);
-          goto LABEL_26;
-        }
-
-        v33 = EAPLogGetLogHandle();
-        v34 = _SC_syslog_os_log_mapping();
-        if (os_log_type_enabled(v33, v34))
-        {
-          v35 = a2[4];
-          *buf = 67109120;
-          v38 = v35;
-          _os_log_impl(&dword_249EFB000, v33, v34, "eap_client_init type %d failed", buf, 8u);
-        }
-
-        v32 = *(v11 + 488);
-      }
-
-      else
-      {
-        v31 = *(v11 + 1528);
-        if (v31 <= 2)
-        {
-          *(v11 + 1528) = v31 + 1;
-          buf[0] = inner_auth_types_1[v31];
-          v36 = EAPPacketCreate(a3, *a4, 2, a2[1], 3, buf, 1, a4);
-          goto LABEL_26;
-        }
-
-        v32 = 5;
-      }
-
-      *a5 = v32;
-      *(v11 + 104) = 2;
-      goto LABEL_26;
-    }
-  }
-
-LABEL_15:
-  if (*(v11 + 296))
-  {
-    my_CFRelease((v11 + 456));
-    my_CFRelease((v11 + 464));
-    v23 = *a1;
-    *(v23 + 344) = *(a1 + 40);
-    *(v23 + 352) = *(a1 + 48);
-    *(v23 + 368) = *(a1 + 64);
-    *(v23 + 376) = *(a1 + 72);
-    *(v23 + 324) = *(a1 + 20);
-    *(v23 + 384) = *(a1 + 80);
-    v24 = EAPClientModulePluginProcess(*(v23 + 296), v23 + 304, a2, &v36, v23 + 488, v23 + 492);
-    v25 = v36;
-    if (v36)
-    {
-      *a6 = 1;
-      *a4 = EAPPacketGetLength(v25);
-    }
-
-    *(v11 + 464) = EAPClientModulePluginPublishProperties(*(v11 + 296), v11 + 304);
-    if (v24 == 2)
-    {
-      *(v11 + 292) = 2;
-      v26 = *(v11 + 488);
-      goto LABEL_25;
-    }
-
-    if (v24 == 1)
-    {
-      *(v11 + 292) = 1;
-    }
-
-    else if (!v24 && *(v11 + 488) == 3)
-    {
-      *(v11 + 456) = EAPClientModulePluginRequireProperties(*(v11 + 296), v11 + 304);
-      save_last_packet_0(v11, a2);
-      v26 = *(v11 + 488);
-      *(v11 + 128) = v26;
-LABEL_25:
-      *a5 = v26;
-    }
-  }
-
-LABEL_26:
-  result = v36;
-  v28 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
 void save_last_packet_0(uint64_t a1, const void *a2)
 {
   v2 = *(a1 + 496);
@@ -449,137 +84,130 @@ LABEL_13:
   return result;
 }
 
-_BYTE *eapttls_tunnel(uint64_t *a1, uint64_t a2, _DWORD *a3)
+_BYTE *eapttls_tunnel(uint64_t *a1, uint64_t a2, _DWORD *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v34 = *MEMORY[0x277D85DE8];
-  v5 = *a1;
-  v6 = *(a2 + 1);
+  v35 = *MEMORY[0x277D85DE8];
+  v10 = *a1;
+  v11 = *(a2 + 1);
   if (*(*a1 + 137))
   {
-    v7 = *(v5 + 132);
-    if (v7 == 4)
+    v12 = *(v10 + 132);
+    if (v12 == 4)
     {
-      if (*(v5 + 76) != v6)
+      if (*(v10 + 76) != v11)
       {
-        v30 = 0;
+        v31 = 0;
         processed = 0;
         data = 0;
-        v18 = SSLRead(*v5, &data, 0xCuLL, &processed);
-        if (v18)
+        v20 = SSLRead(*v10, &data, 0xCuLL, &processed);
+        if (v20)
         {
-          v19 = v18;
+          v21 = v20;
           LogHandle = EAPLogGetLogHandle();
-          v21 = _SC_syslog_os_log_mapping();
-          if (os_log_type_enabled(LogHandle, v21))
+          v23 = _SC_syslog_os_log_mapping();
+          if (os_log_type_enabled(LogHandle, v23))
           {
-            v22 = EAPSSLErrorString(v19);
+            v24 = EAPSSLErrorString(v21);
             *buf = 136315394;
-            *&buf[4] = v22;
-            v32 = 2048;
-            v33 = v19;
-            _os_log_impl(&dword_249EFB000, LogHandle, v21, "SSLRead failed, %s (%ld)", buf, 0x16u);
+            *&buf[4] = v24;
+            v33 = 2048;
+            v34 = v21;
+            _os_log_impl(&dword_249EFB000, LogHandle, v23, "SSLRead failed, %s (%ld)", buf, 0x16u);
           }
 
-          v17 = 0;
-          *(v5 + 104) = 2;
-          *(v5 + 124) = v19;
-          goto LABEL_29;
+          v19 = 0;
+          *(v10 + 104) = 2;
+          *(v10 + 124) = v21;
+          return v19;
         }
 
-        if (processed == 12 && (v23 = bswap32(HIDWORD(data)), (v23 & 0x80000000) != 0) && data == 436207616 && v30 == 922812416 && (v24 = v23 & 0xFFFFFF, v24 <= 0x20000))
+        if (processed == 12 && (v25 = bswap32(HIDWORD(data)), (v25 & 0x80000000) != 0) && data == 436207616 && v31 == 922812416 && (v26 = v25 & 0xFFFFFF, v26 <= 0x20000))
         {
-          v26 = v24 - 12;
-          *buf = v24 - 12;
-          v27 = malloc_type_malloc(v24 - 12, 0x937C5DADuLL);
-          if (SSLRead(*v5, v27, v26, buf) || *buf < 0x2BuLL)
+          v27 = v26 - 12;
+          *buf = v26 - 12;
+          v28 = malloc_type_malloc(v26 - 12, 0x937C5DADuLL);
+          if (SSLRead(*v10, v28, v27, buf) || *buf < 0x2BuLL)
           {
-            v17 = 0;
-            *(v5 + 104) = 2;
-            if (!v27)
+            v19 = 0;
+            *(v10 + 104) = 2;
+            if (!v28)
             {
-              goto LABEL_29;
+              return v19;
             }
           }
 
-          else if (*v27 == *(v5 + 1588) && MSChap2AuthResponseValid(a1[8], *(a1 + 18), (v5 + 1548), (v5 + 1532), (v5 + 1572), a1[5], v27 + 1))
+          else if (*v28 == *(v10 + 1588) && MSChap2AuthResponseValid(a1[8], *(a1 + 18), (v10 + 1548), (v10 + 1532), (v10 + 1572), a1[5], v28 + 1))
           {
-            v17 = EAPTLSPacketCreate(2, 21, v6, 0, 0, 0);
+            v19 = EAPTLSPacketCreate(2, 21, v11, 0, 0, 0);
           }
 
           else
           {
-            v17 = 0;
-            *(v5 + 104) = 2;
+            v19 = 0;
+            *(v10 + 104) = 2;
           }
 
-          free(v27);
+          free(v28);
         }
 
         else
         {
-          v17 = 0;
-          *(v5 + 104) = 2;
+          v19 = 0;
+          *(v10 + 104) = 2;
         }
 
-LABEL_29:
-        v25 = *MEMORY[0x277D85DE8];
-        return v17;
+        return v19;
       }
     }
 
-    else if (v7 == 5)
+    else if (v12 == 5)
     {
-      if (eapttls_eap())
+      if (eapttls_eap(a1, a2, a3, a4, a5, a6, a7, a8))
       {
-        v9 = *(a2 + 1);
-        v10 = *(v5 + 120);
-        v11 = *MEMORY[0x277D85DE8];
-        v12 = (v5 + 40);
-        v13 = (v5 + 72);
+        v14 = *(a2 + 1);
+        v15 = *(v10 + 120);
+        v16 = (v10 + 40);
+        v17 = (v10 + 72);
 LABEL_14:
 
-        return EAPTLSPacketCreate(2, 21, v9, v10, v12, v13);
+        return EAPTLSPacketCreate(2, 21, v14, v15, v16, v17);
       }
 
-      v17 = 0;
-      goto LABEL_29;
+      return 0;
     }
 
-    v16 = *MEMORY[0x277D85DE8];
-    v9 = *(a2 + 1);
-    v10 = 0;
-    v12 = 0;
-    v13 = 0;
+    v14 = *(a2 + 1);
+    v15 = 0;
+    v16 = 0;
+    v17 = 0;
     goto LABEL_14;
   }
 
-  if (*(v5 + 76) == v6)
+  if (*(v10 + 76) == v11)
   {
-    memoryBufferClear(v5 + 8);
+    memoryBufferClear(v10 + 8);
   }
 
   if (!a1[8])
   {
-    v17 = 0;
+    v19 = 0;
     *a3 = 3;
-    goto LABEL_29;
+    return v19;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
-  return eapttls_start_inner_auth(a1, v6);
+  return eapttls_start_inner_auth(a1, v11);
 }
 
-_BYTE *eapttls_handshake(uint64_t *a1, char a2, _DWORD *a3)
+_BYTE *eapttls_handshake(uint64_t *a1, uint64_t a2, _DWORD *a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v6 = *a1;
   if (*(*a1 + 278) == 1 && (*(v6 + 148) & 1) == 0)
   {
     v7 = eapttls_verify_server(a1, a2, a3);
     if (!*(v6 + 148))
     {
-      goto LABEL_35;
+      return v7;
     }
   }
 
@@ -602,7 +230,7 @@ _BYTE *eapttls_handshake(uint64_t *a1, char a2, _DWORD *a3)
     v7 = eapttls_verify_server(a1, a2, a3);
     if (!*(v6 + 148))
     {
-      goto LABEL_35;
+      return v7;
     }
 
     v8 = SSLHandshake(*v6);
@@ -612,7 +240,7 @@ LABEL_11:
     {
       if (!*(v6 + 40))
       {
-        goto LABEL_35;
+        return v7;
       }
     }
 
@@ -631,7 +259,7 @@ LABEL_11:
             v10 = _SC_syslog_os_log_mapping();
             if (!os_log_type_enabled(LogHandle, v10))
             {
-              goto LABEL_35;
+              return v7;
             }
 
             *buf = 0;
@@ -642,20 +270,19 @@ LABEL_11:
 
         *(v6 + 136) = 1;
         *(v6 + 149) = 0;
-        v13 = *v6;
-        v14 = EAPTLSComputeKeyData();
-        if (v14)
+        v13 = EAPTLSComputeKeyData(*v6, "ttls keying material", 20, v6 + 150, 128);
+        if (v13)
         {
-          v15 = v14;
-          v16 = EAPLogGetLogHandle();
-          v17 = _SC_syslog_os_log_mapping();
-          if (os_log_type_enabled(v16, v17))
+          v14 = v13;
+          v15 = EAPLogGetLogHandle();
+          v16 = _SC_syslog_os_log_mapping();
+          if (os_log_type_enabled(v15, v16))
           {
             *buf = 136315394;
-            v29 = EAPSSLErrorString(v15);
-            v30 = 2048;
-            v31 = v15;
-            _os_log_impl(&dword_249EFB000, v16, v17, "EAPTLSComputeSessionKey failed, %s (%ld)", buf, 0x16u);
+            v26 = EAPSSLErrorString(v14);
+            v27 = 2048;
+            v28 = v14;
+            _os_log_impl(&dword_249EFB000, v15, v16, "EAPTLSComputeSessionKey failed, %s (%ld)", buf, 0x16u);
           }
         }
 
@@ -664,7 +291,6 @@ LABEL_11:
           *(v6 + 149) = 1;
         }
 
-        v25 = *v6;
         if (!SSLGetResumableSessionInfo())
         {
           *(v6 + 289) = 0;
@@ -674,24 +300,21 @@ LABEL_11:
         {
           *(v6 + 128) = 3;
           *a3 = 3;
-          goto LABEL_35;
+          return v7;
         }
 
-        started = eapttls_start_inner_auth(a1, a2);
-LABEL_34:
-        v7 = started;
-        goto LABEL_35;
+        return eapttls_start_inner_auth(a1, a2);
       }
 
-      v18 = EAPLogGetLogHandle();
-      v19 = _SC_syslog_os_log_mapping();
-      if (os_log_type_enabled(v18, v19))
+      v17 = EAPLogGetLogHandle();
+      v18 = _SC_syslog_os_log_mapping();
+      if (os_log_type_enabled(v17, v18))
       {
         *buf = 136315394;
-        v29 = EAPSSLErrorString(v12);
-        v30 = 2048;
-        v31 = v12;
-        _os_log_impl(&dword_249EFB000, v18, v19, "SSLHandshake failed, %s (%ld)", buf, 0x16u);
+        v26 = EAPSSLErrorString(v12);
+        v27 = 2048;
+        v28 = v12;
+        _os_log_impl(&dword_249EFB000, v17, v18, "SSLHandshake failed, %s (%ld)", buf, 0x16u);
       }
 
       *(v6 + 124) = v12;
@@ -703,24 +326,22 @@ LABEL_34:
       {
         if (v12 != -9802)
         {
-          goto LABEL_35;
+          return v7;
         }
 
-        v21 = a2;
-        v20 = 0;
+        v20 = a2;
+        v19 = 0;
+        v21 = 0;
         v22 = 0;
-        v23 = 0;
-        goto LABEL_24;
+        return EAPTLSPacketCreate(2, 21, v20, v19, v21, v22);
       }
     }
 
-    v20 = *(v6 + 120);
-    v21 = a2;
-    v22 = (v6 + 40);
-    v23 = (v6 + 72);
-LABEL_24:
-    started = EAPTLSPacketCreate(2, 21, v21, v20, v22, v23);
-    goto LABEL_34;
+    v19 = *(v6 + 120);
+    v20 = a2;
+    v21 = (v6 + 40);
+    v22 = (v6 + 72);
+    return EAPTLSPacketCreate(2, 21, v20, v19, v21, v22);
   }
 
   LogHandle = EAPLogGetLogHandle();
@@ -733,8 +354,6 @@ LABEL_8:
     _os_log_impl(&dword_249EFB000, LogHandle, v10, v11, buf, 2u);
   }
 
-LABEL_35:
-  v26 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -827,7 +446,7 @@ __CFString *EAPTLSPacketCopyDescription(unsigned __int8 *a1, _BYTE *a2)
       return Mutable;
     }
 
-    v11 = (a1 + 10);
+    v11 = a1 + 10;
     v12 = (v5 - 10);
     v13 = bswap32(*(a1 + 6));
     CFStringAppendFormat(Mutable, 0, @" length=%u", v13);
@@ -840,7 +459,7 @@ __CFString *EAPTLSPacketCopyDescription(unsigned __int8 *a1, _BYTE *a2)
     goto LABEL_14;
   }
 
-  v11 = (a1 + 6);
+  v11 = a1 + 6;
   v12 = (v5 - 6);
   v13 = v12;
   if ((v10 & 0x40) != 0)
@@ -878,7 +497,7 @@ LABEL_15:
 
 uint64_t EAPTLSSecTrustEvaluate(__SecTrust *a1, SecTrustResultType *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   error = 0;
   v4 = SecTrustEvaluateWithError(a1, &error);
   TrustResult = SecTrustGetTrustResult(a1, a2);
@@ -889,7 +508,7 @@ uint64_t EAPTLSSecTrustEvaluate(__SecTrust *a1, SecTrustResultType *a2)
     if (os_log_type_enabled(LogHandle, v7))
     {
       *buf = 138412290;
-      v14 = error;
+      v13 = error;
       _os_log_impl(&dword_249EFB000, LogHandle, v7, "SecTrustEvaluateWithError failed, %@\n", buf, 0xCu);
     }
 
@@ -903,12 +522,11 @@ uint64_t EAPTLSSecTrustEvaluate(__SecTrust *a1, SecTrustResultType *a2)
     if (os_log_type_enabled(v8, v9))
     {
       *buf = 67109120;
-      LODWORD(v14) = TrustResult;
+      LODWORD(v13) = TrustResult;
       _os_log_impl(&dword_249EFB000, v8, v9, "SecTrustGetTrustResult failed, %d\n", buf, 8u);
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return TrustResult;
 }
 
@@ -978,26 +596,26 @@ LABEL_15:
 
 void *EAPTLSSessionCreateContext(const __CFDictionary *a1, int a2, const void *a3, const __CFArray *a4, unsigned int *a5)
 {
-  v38 = *MEMORY[0x277D85DE8];
-  v34 = 0;
+  v37 = *MEMORY[0x277D85DE8];
   v33 = 0;
+  v32 = 0;
   v10 = malloc_type_malloc(0x10uLL, 0xE0040E685C293uLL);
   *v10 = 0;
   v10[1] = 0;
   if (!EAPOLControlPrefsGetUseBoringSSL())
   {
-    v20 = EAPTLSMemIOContextCreate(a1, 0, a3, 0, &v34);
-    if (!v20 || v34)
+    v20 = EAPTLSMemIOContextCreate(a1, 0, a3, 0, &v33);
+    if (!v20 || v33)
     {
       LogHandle = EAPLogGetLogHandle();
       v27 = _SC_syslog_os_log_mapping();
       if (os_log_type_enabled(LogHandle, v27))
       {
-        v28 = EAPSSLErrorString(v34);
+        v28 = EAPSSLErrorString(v33);
         *buf = 136315394;
         *&buf[4] = v28;
         *&buf[12] = 2048;
-        *&buf[14] = v34;
+        *&buf[14] = v33;
         _os_log_impl(&dword_249EFB000, LogHandle, v27, "EAPTLSMemIOContextCreate failed, %s (%ld)", buf, 0x16u);
       }
 
@@ -1009,7 +627,7 @@ void *EAPTLSSessionCreateContext(const __CFDictionary *a1, int a2, const void *a
 
     else
     {
-      if (!a4 || CFArrayGetCount(a4) < 1 || (v34 = SSLSetCertificate(v20, a4)) == 0)
+      if (!a4 || CFArrayGetCount(a4) < 1 || (v33 = SSLSetCertificate(v20, a4)) == 0)
       {
         *v10 = v20;
         v16 = EAPLogGetLogHandle();
@@ -1029,11 +647,11 @@ void *EAPTLSSessionCreateContext(const __CFDictionary *a1, int a2, const void *a
       v22 = _SC_syslog_os_log_mapping();
       if (os_log_type_enabled(v21, v22))
       {
-        v23 = EAPSSLErrorString(v34);
+        v23 = EAPSSLErrorString(v33);
         *buf = 136315394;
         *&buf[4] = v23;
         *&buf[12] = 2048;
-        *&buf[14] = v34;
+        *&buf[14] = v33;
         _os_log_impl(&dword_249EFB000, v21, v22, "SSLSetCertificate failed, %s (%ld)", buf, 0x16u);
       }
     }
@@ -1042,16 +660,16 @@ void *EAPTLSSessionCreateContext(const __CFDictionary *a1, int a2, const void *a
     goto LABEL_28;
   }
 
-  v36 = 0u;
+  v35 = 0u;
   memset(buf, 0, sizeof(buf));
-  v32 = 0;
-  EAPBoringSSLUtilGetPreferredTLSVersions(a1, &v32 + 1, &v32);
-  *&buf[16] = HIWORD(v32);
-  *&buf[18] = v32;
+  v31 = 0;
+  EAPBoringSSLUtilGetPreferredTLSVersions(a1, &v31 + 1, &v31);
+  *&buf[16] = HIWORD(v31);
+  *&buf[18] = v31;
   *&buf[24] = EAPTLSSessionMemoryIORead;
-  *&v36 = EAPTLSSessionMemoryIOWrite;
-  DWORD2(v36) = a2;
-  v37 = a3;
+  *&v35 = EAPTLSSessionMemoryIOWrite;
+  DWORD2(v35) = a2;
+  v36 = a3;
   if (a4 && CFArrayGetCount(a4) >= 1)
   {
     ValueAtIndex = CFArrayGetValueAtIndex(a4, 0);
@@ -1064,14 +682,14 @@ void *EAPTLSSessionCreateContext(const __CFDictionary *a1, int a2, const void *a
     {
       Count = CFArrayGetCount(a4);
       MutableCopy = CFArrayCreateMutableCopy(0, Count, a4);
-      v33 = MutableCopy;
+      v32 = MutableCopy;
       CFArrayRemoveValueAtIndex(MutableCopy, 0);
       *&buf[8] = MutableCopy;
     }
   }
 
   v14 = EAPBoringSSLSessionContextCreate(buf, 0);
-  my_CFRelease(&v33);
+  my_CFRelease(&v32);
   if (v14)
   {
     v10[1] = v14;
@@ -1083,9 +701,9 @@ void *EAPTLSSessionCreateContext(const __CFDictionary *a1, int a2, const void *a
       goto LABEL_28;
     }
 
-    *v31 = 0;
+    *v30 = 0;
     v18 = "TLS(boringssl) session started";
-    v19 = v31;
+    v19 = v30;
 LABEL_27:
     _os_log_impl(&dword_249EFB000, v16, v17, v18, v19, 2u);
     goto LABEL_28;
@@ -1095,18 +713,17 @@ LABEL_27:
   v25 = _SC_syslog_os_log_mapping();
   if (os_log_type_enabled(v24, v25))
   {
-    *v31 = 0;
-    _os_log_impl(&dword_249EFB000, v24, v25, "EAPBoringSSLSessionContextCreate failed", v31, 2u);
+    *v30 = 0;
+    _os_log_impl(&dword_249EFB000, v24, v25, "EAPBoringSSLSessionContextCreate failed", v30, 2u);
   }
 
-  v34 = -67671;
+  v33 = -67671;
 LABEL_28:
   if (a5)
   {
-    *a5 = v34;
+    *a5 = v33;
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -1212,10 +829,10 @@ uint64_t EAPTLSSessionGetState(uint64_t *a1, SSLSessionState *state)
   v4 = a1[1];
   if (v4)
   {
-    v7 = 0;
+    v7 = kSSLIdle;
     result = EAPBoringSSLSessionGetCurrentState(v4, &v7);
     v6 = v7;
-    if (v7 >= 3)
+    if (v7 >= kSSLClosed)
     {
       v6 = kSSLClosed;
     }
@@ -1238,11 +855,10 @@ uint64_t EAPTLSSessionGetState(uint64_t *a1, SSLSessionState *state)
 
 uint64_t EAPTLSSessionHandshake(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (!a1)
   {
-    v2 = 4294967246;
-    goto LABEL_10;
+    return 4294967246;
   }
 
   if (*(a1 + 8))
@@ -1266,15 +882,13 @@ LABEL_8:
   v5 = _SC_syslog_os_log_mapping();
   if (os_log_type_enabled(LogHandle, v5))
   {
-    v8 = 136315394;
-    v9 = EAPSecurityErrorString(v2);
-    v10 = 1024;
-    v11 = v2;
-    _os_log_impl(&dword_249EFB000, LogHandle, v5, "received handshake status [%s]:[%d]", &v8, 0x12u);
+    v7 = 136315394;
+    v8 = EAPSecurityErrorString(v2);
+    v9 = 1024;
+    v10 = v2;
+    _os_log_impl(&dword_249EFB000, LogHandle, v5, "received handshake status [%s]:[%d]", &v7, 0x12u);
   }
 
-LABEL_10:
-  v6 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -1312,15 +926,15 @@ void *EAPTLSSessionGetSecTrust(uint64_t a1, const char *a2)
   return result;
 }
 
-uint64_t EAPTLSSessionIsRevocationStatusCheckRequired(uint64_t result)
+BOOL EAPTLSSessionIsRevocationStatusCheckRequired(_BOOL8 result)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (result)
   {
     v1 = result;
     if (EAPOLControlPrefsGetRevocationCheck() != 1)
     {
-      goto LABEL_11;
+      return 0;
     }
 
     LogHandle = EAPLogGetLogHandle();
@@ -1334,37 +948,27 @@ uint64_t EAPTLSSessionIsRevocationStatusCheckRequired(uint64_t result)
     v4 = *(v1 + 8);
     if (!v4)
     {
-      goto LABEL_11;
+      return 0;
     }
 
-    v9 = 0;
-    NegotiatedTLSVersion = EAPBoringSSLSessionGetNegotiatedTLSVersion(v4, &v9);
+    v8 = 0;
+    NegotiatedTLSVersion = EAPBoringSSLSessionGetNegotiatedTLSVersion(v4, &v8);
     v6 = EAPLogGetLogHandle();
     v7 = _SC_syslog_os_log_mapping();
     if (os_log_type_enabled(v6, v7))
     {
       *buf = 67109120;
-      v11 = v9;
+      v10 = v8;
       _os_log_impl(&dword_249EFB000, v6, v7, "negotiated TLS protocol version is [%04X]", buf, 8u);
     }
 
-    if (!NegotiatedTLSVersion && v9 == 772)
-    {
-      result = 1;
-    }
-
-    else
-    {
-LABEL_11:
-      result = 0;
-    }
+    return !NegotiatedTLSVersion && v8 == 772;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t EAPTLSSessionComputeSessionKey(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, int a5)
+uint64_t EAPTLSSessionComputeSessionKey(uint64_t a1, uint64_t a2, int a3, void *a4, int a5)
 {
   if (!a1)
   {
@@ -1376,9 +980,10 @@ uint64_t EAPTLSSessionComputeSessionKey(uint64_t a1, uint64_t a2, uint64_t a3, v
     return EAPBoringSSLSessionComputeKeyData(*(a1 + 8), a4, a5);
   }
 
-  if (*a1)
+  v6 = *a1;
+  if (v6)
   {
-    return EAPTLSComputeKeyData();
+    return EAPTLSComputeKeyData(v6, a2, a3, a4, a5);
   }
 
   else
@@ -1387,54 +992,50 @@ uint64_t EAPTLSSessionComputeSessionKey(uint64_t a1, uint64_t a2, uint64_t a3, v
   }
 }
 
-void EAPTLSSessionGetSessionResumed(uint64_t a1, BOOL *a2)
+void EAPTLSSessionGetSessionResumed(uint64_t *a1, BOOL *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v10 = 0;
-  if (!a1 || !a2)
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0;
+  if (a1 && a2)
   {
-    goto LABEL_13;
-  }
-
-  if (*(a1 + 8))
-  {
-    SessionResumed = EAPBoringSSLSessionGetSessionResumed(*(a1 + 8), &v10);
-  }
-
-  else
-  {
-    if (!*a1)
+    if (a1[1])
     {
-      v8 = 0;
-      goto LABEL_12;
+      SessionResumed = EAPBoringSSLSessionGetSessionResumed(a1[1], &v9);
     }
 
-    SessionResumed = SSLGetResumableSessionInfo();
-  }
+    else
+    {
+      if (!*a1)
+      {
+        v8 = 0;
+        goto LABEL_12;
+      }
 
-  v4 = SessionResumed;
-  if (!SessionResumed)
-  {
-    v8 = v10 != 0;
+      SessionResumed = SSLGetResumableSessionInfo();
+    }
+
+    v4 = SessionResumed;
+    if (SessionResumed)
+    {
+      LogHandle = EAPLogGetLogHandle();
+      v6 = _SC_syslog_os_log_mapping();
+      if (os_log_type_enabled(LogHandle, v6))
+      {
+        v7 = EAPSSLErrorString(v4);
+        *buf = 136315394;
+        v11 = v7;
+        v12 = 2048;
+        v13 = v4;
+        _os_log_impl(&dword_249EFB000, LogHandle, v6, "EAP-TLS session failed to get session resumed info, %s (%ld)", buf, 0x16u);
+      }
+
+      return;
+    }
+
+    v8 = v9 != 0;
 LABEL_12:
     *a2 = v8;
-    goto LABEL_13;
   }
-
-  LogHandle = EAPLogGetLogHandle();
-  v6 = _SC_syslog_os_log_mapping();
-  if (os_log_type_enabled(LogHandle, v6))
-  {
-    v7 = EAPSSLErrorString(v4);
-    *buf = 136315394;
-    v12 = v7;
-    v13 = 2048;
-    v14 = v4;
-    _os_log_impl(&dword_249EFB000, LogHandle, v6, "EAP-TLS session failed to get session resumed info, %s (%ld)", buf, 0x16u);
-  }
-
-LABEL_13:
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void *EAPTLSSessionGetNegotiatedTLSProtocolVersion(void *result)
@@ -1487,74 +1088,56 @@ SSLContext *EAPTLSSessionGetNegotiatedCipher(SSLContext *result, SSLCipherSuite 
 
 uint64_t eapsim_init(uint64_t a1)
 {
-  v42 = *MEMORY[0x277D85DE8];
-  v39 = 0;
+  v41 = *MEMORY[0x277D85DE8];
+  v38 = 0;
+  v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
-  v2 = SIMStaticInitFromProperties(&v37, *(a1 + 80));
+  v2 = SIMStaticInitFromProperties(&v36, *(a1 + 80));
   v3 = *(a1 + 80);
-  if (v2)
-  {
-    v4 = copy_static_imsi(v3);
-    if (!v4)
-    {
-      LogHandle = EAPLogGetLogHandle();
-      v24 = _SC_syslog_os_log_mapping();
-      if (os_log_type_enabled(LogHandle, v24))
-      {
-        *buf = 0;
-        _os_log_impl(&dword_249EFB000, LogHandle, v24, "eapsim: static triplets specified but IMSI missing", buf, 2u);
-      }
-
-      SIMStaticInitFromProperties(&v37, 0);
-      result = 4;
-      goto LABEL_45;
-    }
-
-    v5 = v4;
-    v6 = 1;
-  }
-
-  else
+  if (!v2)
   {
     v5 = SIMCopyIMSI(v3);
-    v7 = EAPLogGetLogHandle();
+    LogHandle = EAPLogGetLogHandle();
     v8 = _SC_syslog_os_log_mapping();
-    v9 = os_log_type_enabled(v7, v8);
+    v9 = os_log_type_enabled(LogHandle, v8);
     if (!v5)
     {
       if (v9)
       {
         *buf = 0;
-        _os_log_impl(&dword_249EFB000, v7, v8, "EAP-SIM: no SIM available", buf, 2u);
+        _os_log_impl(&dword_249EFB000, LogHandle, v8, "EAP-SIM: no SIM available", buf, 2u);
       }
 
-      goto LABEL_44;
+      return 16;
     }
 
     if (v9)
     {
       *buf = 0;
-      _os_log_impl(&dword_249EFB000, v7, v8, "EAP-SIM: SIM found", buf, 2u);
+      _os_log_impl(&dword_249EFB000, LogHandle, v8, "EAP-SIM: SIM found", buf, 2u);
     }
 
     v6 = 0;
-  }
+LABEL_8:
+    Value = CFDictionaryGetValue(*(a1 + 80), @"TLSTrustExceptionsID");
+    v11 = malloc_type_malloc(0x718uLL, 0x1070040CC9F52CAuLL);
+    if (!v11)
+    {
+      CFRelease(v5);
+      SIMStaticInitFromProperties(&v36, 0);
+      return 2;
+    }
 
-  Value = CFDictionaryGetValue(*(a1 + 80), @"TLSTrustExceptionsID");
-  v11 = malloc_type_malloc(0x718uLL, 0x1070040CC9F52CAuLL);
-  if (v11)
-  {
     v12 = v11;
     bzero(v11, 0x718uLL);
     *(v12 + 16) = -1;
     identity_type = S_get_identity_type(*(a1 + 80));
     *(v12 + 264) = EAPSIMAKAPersistentStateCreate(18, 20, v5, identity_type, Value);
     CFRelease(v5);
-    v14 = v38;
-    *(v12 + 40) = v37;
+    v14 = v37;
+    *(v12 + 40) = v36;
     *(v12 + 56) = v14;
-    *(v12 + 72) = v39;
+    *(v12 + 72) = v38;
     plist_int = S_get_plist_int(*(a1 + 80), @"EAPSIMNumberOfRANDs", 3);
     *(v12 + 24) = plist_int;
     if ((plist_int & 0xFFFFFFFE) != 2)
@@ -1565,7 +1148,7 @@ uint64_t eapsim_init(uint64_t a1)
       {
         v18 = *(v12 + 24);
         *buf = 67109120;
-        v41 = v18;
+        v40 = v18;
         _os_log_impl(&dword_249EFB000, v16, v17, "eapsim: EAPSIMNumberOfRands %d is invalid, using 3 instead", buf, 8u);
       }
 
@@ -1594,17 +1177,17 @@ uint64_t eapsim_init(uint64_t a1)
       v21 = 0;
     }
 
-    v36 = 0;
+    v35 = 0;
     if (*(a1 + 56))
     {
       goto LABEL_26;
     }
 
-    v35 = 0;
-    v25 = EAPSIMAKAInitEncryptedIdentityInfo(18, *(a1 + 80), v6, &v36, &v35);
+    v34 = 0;
+    v25 = EAPSIMAKAInitEncryptedIdentityInfo(18, *(a1 + 80), v6, &v35, &v34);
     *(v12 + 280) = v25;
-    v26 = v36;
-    if (v36 != 1 || v25)
+    v26 = v35;
+    if (v35 != 1 || v25)
     {
 LABEL_36:
       if (v26 == 1)
@@ -1630,10 +1213,10 @@ LABEL_26:
       result = 0;
       *v12 = a1;
       *a1 = v12;
-      goto LABEL_45;
+      return result;
     }
 
-    v27 = v35 == 1 && v21;
+    v27 = v34 == 1 && v21;
     v28 = EAPLogGetLogHandle();
     if (v27)
     {
@@ -1644,7 +1227,7 @@ LABEL_26:
         _os_log_impl(&dword_249EFB000, v28, v29, "EAP-SIM: out-of-band pseudonym is not required as in-band pseudonym is available", buf, 2u);
       }
 
-      v26 = v36;
+      v26 = v35;
       goto LABEL_36;
     }
 
@@ -1656,20 +1239,30 @@ LABEL_26:
     }
 
     EAPSIMContextFree(v12);
-LABEL_44:
-    result = 16;
-    goto LABEL_45;
+    return 16;
   }
 
-  CFRelease(v5);
-  SIMStaticInitFromProperties(&v37, 0);
-  result = 2;
-LABEL_45:
-  v34 = *MEMORY[0x277D85DE8];
-  return result;
+  v4 = copy_static_imsi(v3);
+  if (v4)
+  {
+    v5 = v4;
+    v6 = 1;
+    goto LABEL_8;
+  }
+
+  v23 = EAPLogGetLogHandle();
+  v24 = _SC_syslog_os_log_mapping();
+  if (os_log_type_enabled(v23, v24))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_249EFB000, v23, v24, "eapsim: static triplets specified but IMSI missing", buf, 2u);
+  }
+
+  SIMStaticInitFromProperties(&v36, 0);
+  return 4;
 }
 
-uint64_t eapsim_process(uint64_t *a1, _BYTE *a2, uint64_t *a3, int *a4, _DWORD *a5)
+uint64_t eapsim_process(uint64_t *a1, unsigned __int8 *a2, uint64_t *a3, int *a4, _DWORD *a5)
 {
   v5 = *a1;
   *a4 = 0;
@@ -1772,13 +1365,13 @@ CFDictionaryRef eapsim_publish_props(uint64_t a1)
   }
 }
 
-void *eapsim_user_name_copy(const __CFDictionary *a1)
+CFTypeRef eapsim_user_name_copy(const __CFDictionary *a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
-  v26 = 0;
+  v31 = *MEMORY[0x277D85DE8];
+  v25 = 0;
   v2 = copy_static_imsi(a1);
   v3 = v2;
-  v27 = v2;
+  v26 = v2;
   if (v2)
   {
     v4 = v2;
@@ -1787,7 +1380,7 @@ void *eapsim_user_name_copy(const __CFDictionary *a1)
   else
   {
     v5 = SIMCopyIMSI(a1);
-    v27 = v5;
+    v26 = v5;
     if (!v5)
     {
 LABEL_33:
@@ -1799,10 +1392,10 @@ LABEL_33:
     v4 = v5;
   }
 
-  v6 = EAPSIMAKAInitEncryptedIdentityInfo(18, a1, v3 != 0, &v26 + 1, &v26);
+  v6 = EAPSIMAKAInitEncryptedIdentityInfo(18, a1, v3 != 0, &v25 + 1, &v25);
   identity_type = S_get_identity_type(a1);
   v8 = EAPSIMAKAPersistentStateCreate(18, 20, v4, identity_type, 0);
-  my_CFRelease(&v27);
+  my_CFRelease(&v26);
   if (v8)
   {
     v9 = EAPSIMAKAPersistentStateTemporaryUsernameAvailable(v8);
@@ -1830,9 +1423,9 @@ LABEL_33:
       goto LABEL_21;
     }
 
-    v25 = 0;
-    v10 = sim_identity_create(v8, a1, identity_type, 1, &v25, 0);
-    if (v25)
+    v24 = 0;
+    v10 = sim_identity_create(v8, a1, identity_type, 1, &v24, 0);
+    if (v24)
     {
       v11 = 1;
       EAPSIMAKAPersistentStateSetReauthIDUsed(v8, 1);
@@ -1842,9 +1435,9 @@ LABEL_33:
       {
         SSID = EAPSIMAKAPersistentStateGetSSID(v8);
         *buf = 138412546;
-        v29 = v10;
-        v30 = 2112;
-        v31 = SSID;
+        v28 = v10;
+        v29 = 2112;
+        v30 = SSID;
         _os_log_impl(&dword_249EFB000, v12, v13, "EAP-SIM is using fast re-auth id %@ for ssid : %@", buf, 0x16u);
       }
     }
@@ -1871,12 +1464,12 @@ LABEL_21:
   v15 = 0;
   v10 = 0;
 LABEL_22:
-  if (HIBYTE(v26) != 1 || v6)
+  if (HIBYTE(v25) != 1 || v6)
   {
     goto LABEL_34;
   }
 
-  v19 = v26 == 1 && v15;
+  v19 = v25 == 1 && v15;
   v20 = EAPLogGetLogHandle();
   if (!v19)
   {
@@ -1900,7 +1493,6 @@ LABEL_22:
   v6 = 0;
 LABEL_34:
   EAPSIMAKAClearEncryptedIdentityInfo(v6);
-  v23 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -2389,97 +1981,96 @@ LABEL_55:
   return v22;
 }
 
-uint64_t eapsim_request(uint64_t a1, _BYTE *a2, int *a3, _DWORD *a4)
+uint64_t eapsim_request(uint64_t a1, unsigned __int8 *a2, int *a3, _DWORD *a4)
 {
-  *&v32[5] = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   Length = EAPPacketGetLength(a2);
-  TLVListSizeof();
-  MEMORY[0x28223BE20]();
-  v11 = &buf[-v10];
-  if ((v12 & 0x7FFFFFE00) != 0)
+  v9 = TLVListSizeof();
+  MEMORY[0x28223BE20](v9, v10, v11, v12, v13, v14, v15, v16, *buf, *&buf[8], *&buf[16], v39);
+  v19 = &buf[-v18];
+  if ((v20 & 0x7FFFFFE00) != 0)
   {
-    v13 = 512;
+    v21 = 512;
   }
 
   else
   {
-    v13 = v9;
+    v21 = v17;
   }
 
-  bzero(&buf[-v10], v13);
-  TLVListInit(v11);
+  bzero(&buf[-v18], v21);
+  TLVListInit(v19);
   if (Length <= 8)
   {
     LogHandle = EAPLogGetLogHandle();
-    v15 = _SC_syslog_os_log_mapping();
-    if (os_log_type_enabled(LogHandle, v15))
+    v23 = _SC_syslog_os_log_mapping();
+    if (os_log_type_enabled(LogHandle, v23))
     {
       *buf = 67109376;
-      v32[0] = Length;
-      LOWORD(v32[1]) = 2048;
-      *(&v32[1] + 2) = 8;
-      v16 = "length %d <= %ld";
-      v17 = LogHandle;
-      v18 = v15;
-      v19 = 18;
+      *&buf[4] = Length;
+      *&buf[8] = 2048;
+      *&buf[10] = 8;
+      v24 = "length %d <= %ld";
+      v25 = LogHandle;
+      v26 = v23;
+      v27 = 18;
 LABEL_17:
-      _os_log_impl(&dword_249EFB000, v17, v18, v16, buf, v19);
+      _os_log_impl(&dword_249EFB000, v25, v26, v24, buf, v27);
       goto LABEL_18;
     }
 
     goto LABEL_18;
   }
 
-  if (TLVListParse_0(v11, a2 + 8, Length - 8))
+  if (TLVListParse_0(v19, a2 + 8, Length - 8))
   {
     if (*(a1 + 12) && *(a1 + 16) == a2[1])
     {
-      client_error = a1 + 316;
-      goto LABEL_27;
+      return a1 + 316;
     }
 
-    v21 = a2[5];
-    if (v21 > 0xB)
+    v29 = a2[5];
+    if (v29 > 0xB)
     {
-      if (v21 == 12)
+      if (v29 == 12)
       {
-        v22 = eapsim_notification(a1, a2, v11, a3, a4);
+        v30 = eapsim_notification(a1, a2, v19, a3, a4);
         goto LABEL_36;
       }
 
-      if (v21 == 13)
+      if (v29 == 13)
       {
-        v22 = eapsim_reauthentication(a1, a2, v11, a3);
+        v30 = eapsim_reauthentication(a1, a2, v19, a3);
         goto LABEL_36;
       }
     }
 
     else
     {
-      if (v21 == 10)
+      if (v29 == 10)
       {
-        v22 = eapsim_start(a1, a2, v11, a3);
+        v30 = eapsim_start(a1, a2, v19, a3);
         goto LABEL_36;
       }
 
-      if (v21 == 11)
+      if (v29 == 11)
       {
-        v22 = eapsim_challenge(a1, a2, v11, a3);
+        v30 = eapsim_challenge(a1, a2, v19, a3);
 LABEL_36:
-        client_error = v22;
+        client_error = v30;
         goto LABEL_19;
       }
     }
 
     *a3 = 17;
-    v28 = EAPLogGetLogHandle();
-    v29 = _SC_syslog_os_log_mapping();
-    if (os_log_type_enabled(v28, v29))
+    v35 = EAPLogGetLogHandle();
+    v36 = _SC_syslog_os_log_mapping();
+    if (os_log_type_enabled(v35, v36))
     {
-      String = EAPSIMAKAPacketSubtypeGetString(v21);
+      String = EAPSIMAKAPacketSubtypeGetString(v29);
       *buf = 136315138;
-      *v32 = String;
-      _os_log_impl(&dword_249EFB000, v28, v29, "unexpected Subtype %s", buf, 0xCu);
+      *&buf[4] = String;
+      _os_log_impl(&dword_249EFB000, v35, v36, "unexpected Subtype %s", buf, 0xCu);
     }
 
     client_error = 0;
@@ -2487,17 +2078,17 @@ LABEL_36:
     goto LABEL_19;
   }
 
-  v23 = EAPLogGetLogHandle();
-  v24 = _SC_syslog_os_log_mapping();
-  if (os_log_type_enabled(v23, v24))
+  v31 = EAPLogGetLogHandle();
+  v32 = _SC_syslog_os_log_mapping();
+  if (os_log_type_enabled(v31, v32))
   {
-    v25 = TLVListErrorString(v11);
+    v33 = TLVListErrorString(v19);
     *buf = 136315138;
-    *v32 = v25;
-    v16 = "parse failed: %s";
-    v17 = v23;
-    v18 = v24;
-    v19 = 12;
+    *&buf[4] = v33;
+    v24 = "parse failed: %s";
+    v25 = v31;
+    v26 = v32;
+    v27 = 12;
     goto LABEL_17;
   }
 
@@ -2505,7 +2096,7 @@ LABEL_18:
   client_error = 0;
   *a3 = 17;
 LABEL_19:
-  TLVListFree(v11);
+  TLVListFree(v19);
   if (*a3)
   {
     *(a1 + 8) = 0x500000002;
@@ -2515,47 +2106,44 @@ LABEL_19:
   {
     if (*a3 != 17)
     {
-      client_error = 0;
-      goto LABEL_27;
+      return 0;
     }
 
     client_error = eapsim_make_client_error(a1, a2, 0);
     if (!client_error)
     {
-      goto LABEL_27;
+      return client_error;
     }
   }
 
   *(a1 + 16) = a2[1];
-LABEL_27:
-  v26 = *MEMORY[0x277D85DE8];
   return client_error;
 }
 
 uint64_t eapsim_start(uint64_t a1, uint64_t a2, unsigned __int8 ***a3, int *a4)
 {
-  v89 = *MEMORY[0x277D85DE8];
-  TLVBufferSizeof();
-  MEMORY[0x28223BE20]();
-  v10 = &v84[-v9];
-  if ((v11 & 0x7FFFFFE00) != 0)
+  v94 = *MEMORY[0x277D85DE8];
+  v8 = TLVBufferSizeof();
+  MEMORY[0x28223BE20](v8, v9, v10, v11, v12, v13, v14, v15, v91, v92, *buf, *&buf[8]);
+  v18 = &v91 - v17;
+  if ((v19 & 0x7FFFFFE00) != 0)
   {
-    v12 = 512;
+    v20 = 512;
   }
 
   else
   {
-    v12 = v8;
+    v20 = v16;
   }
 
-  bzero(&v84[-v9], v12);
-  v86 = 0;
-  v13 = TLVListLookupAttribute(a3, 15);
-  if (!v13)
+  bzero(&v91 - v17, v20);
+  v92 = 0;
+  v21 = TLVListLookupAttribute(a3, 15);
+  if (!v21)
   {
     LogHandle = EAPLogGetLogHandle();
-    v21 = _SC_syslog_os_log_mapping();
-    if (!os_log_type_enabled(LogHandle, v21))
+    v29 = _SC_syslog_os_log_mapping();
+    if (!os_log_type_enabled(LogHandle, v29))
     {
 LABEL_13:
       client_error = 0;
@@ -2563,37 +2151,37 @@ LABEL_13:
     }
 
     *buf = 0;
-    v22 = "eapsim: Start is missing AT_VERSION_LIST";
-    v23 = LogHandle;
-    v24 = v21;
-    v25 = 2;
+    v30 = "eapsim: Start is missing AT_VERSION_LIST";
+    v31 = LogHandle;
+    v32 = v29;
+    v33 = 2;
 LABEL_12:
-    _os_log_impl(&dword_249EFB000, v23, v24, v22, buf, v25);
+    _os_log_impl(&dword_249EFB000, v31, v32, v30, buf, v33);
     goto LABEL_13;
   }
 
-  v14 = bswap32(*(v13 + 2));
-  v15 = HIWORD(v14);
-  if (HIWORD(v14) >= 2u)
+  v22 = bswap32(*(v21 + 2));
+  v23 = HIWORD(v22);
+  if (HIWORD(v22) >= 2u)
   {
-    v16 = v14 >> 17;
-    v17 = v14 >> 17;
-    v18 = (v13 + 4);
-    while (*v18 != 256)
+    v24 = v22 >> 17;
+    v25 = v22 >> 17;
+    v26 = (v21 + 4);
+    while (*v26 != 256)
     {
-      ++v18;
-      if (!--v17)
+      ++v26;
+      if (!--v25)
       {
         goto LABEL_9;
       }
     }
 
-    if (v15 < 4)
+    if (v23 < 4)
     {
-      v29 = *(a1 + 304);
-      if (v29)
+      v36 = *(a1 + 304);
+      if (v36)
       {
-        free(v29);
+        free(v36);
         *(a1 + 304) = 0;
         *(a1 + 312) = 0;
       }
@@ -2601,13 +2189,13 @@ LABEL_12:
 
     else
     {
-      EAPSIMContextSetVersionList(a1, (v13 + 4), v16);
+      EAPSIMContextSetVersionList(a1, (v21 + 4), v24);
     }
 
     if (*(a1 + 12) == 1)
     {
-      v30 = *(a1 + 20);
-      if (v30)
+      v37 = *(a1 + 20);
+      if (v37)
       {
         goto LABEL_28;
       }
@@ -2620,157 +2208,157 @@ LABEL_12:
       *(a1 + 28) = 0;
     }
 
-    v31 = 0;
+    v38 = 0;
     do
     {
-      *(a1 + 241 + v31) = arc4random();
-      v31 += 4;
+      *(a1 + 241 + v38) = arc4random();
+      v38 += 4;
     }
 
-    while (v31 != 16);
-    v30 = *(a1 + 20);
+    while (v38 != 16);
+    v37 = *(a1 + 20);
 LABEL_28:
-    *(a1 + 20) = v30 + 1;
-    if (v30 >= 3)
+    *(a1 + 20) = v37 + 1;
+    if (v37 >= 3)
     {
-      v32 = EAPLogGetLogHandle();
-      v33 = _SC_syslog_os_log_mapping();
-      if (!os_log_type_enabled(v32, v33))
+      v39 = EAPLogGetLogHandle();
+      v40 = _SC_syslog_os_log_mapping();
+      if (!os_log_type_enabled(v39, v40))
       {
         goto LABEL_13;
       }
 
-      v34 = *(a1 + 20);
+      v41 = *(a1 + 20);
       *buf = 67109376;
-      *&buf[4] = v34;
+      *&buf[4] = v41;
       *&buf[8] = 1024;
       *&buf[10] = 3;
-      v22 = "eapsim: too many Start packets (%d > %d)";
-      v23 = v32;
-      v24 = v33;
-      v25 = 14;
+      v30 = "eapsim: too many Start packets (%d > %d)";
+      v31 = v39;
+      v32 = v40;
+      v33 = 14;
       goto LABEL_12;
     }
 
-    v35 = TLVListLookupIdentityAttribute(a3);
-    v36 = v35;
-    v37 = *(a1 + 20);
-    switch(v35)
+    v42 = TLVListLookupIdentityAttribute(a3);
+    v43 = v42;
+    v44 = *(a1 + 20);
+    switch(v42)
     {
       case 10:
-        if (v37 >= 2)
+        if (v44 >= 2)
         {
-          v45 = 0;
-          v46 = *(a1 + 28);
-          if (v46 != 13 && v46 != 17)
+          v52 = 0;
+          v53 = *(a1 + 28);
+          if (v53 != 13 && v53 != 17)
           {
-            v41 = EAPLogGetLogHandle();
-            v42 = _SC_syslog_os_log_mapping();
-            if (!os_log_type_enabled(v41, v42))
+            v48 = EAPLogGetLogHandle();
+            v49 = _SC_syslog_os_log_mapping();
+            if (!os_log_type_enabled(v48, v49))
             {
               goto LABEL_13;
             }
 
             String = EAPSIMAKAAttributeTypeGetString(*(a1 + 28));
-            v48 = *(a1 + 20);
+            v55 = *(a1 + 20);
             *buf = 136315394;
             *&buf[4] = String;
             *&buf[12] = 1024;
-            v88 = v48;
-            v22 = "eapsim: AT_PERMANENT_ID_REQ follows %s at Start #%d";
+            *&buf[14] = v55;
+            v30 = "eapsim: AT_PERMANENT_ID_REQ follows %s at Start #%d";
             goto LABEL_50;
           }
 
 LABEL_52:
           *(a1 + 296) = 0;
-          *(a1 + 28) = v35;
-          TLVBufferInit(v10, a1 + 324, 1492);
+          *(a1 + 28) = v42;
+          TLVBufferInit(v18, a1 + 324, 1492);
           *(a1 + 316) = 2;
           *(a1 + 317) = *(a2 + 1);
           *(a1 + 320) = 2578;
-          if (v45)
+          if (v52)
           {
             goto LABEL_53;
           }
 
-          v85 = 0;
-          v53 = *(*a1 + 56);
+          HIBYTE(v91) = 0;
+          v60 = *(*a1 + 56);
           TypeID = CFDataGetTypeID();
-          if (v53 && CFGetTypeID(v53) == TypeID && CFDataGetLength(*(*a1 + 56)) >= 1)
+          if (v60 && CFGetTypeID(v60) == TypeID && CFDataGetLength(*(*a1 + 56)) >= 1)
           {
             ExternalRepresentation = CFRetain(*(*a1 + 56));
-            v86 = ExternalRepresentation;
+            v92 = ExternalRepresentation;
 LABEL_94:
             BytePtr = CFDataGetBytePtr(ExternalRepresentation);
             Length = CFDataGetLength(ExternalRepresentation);
-            if (!TLVBufferAddIdentity(v10, BytePtr, Length))
+            if (!TLVBufferAddIdentity(v18, BytePtr, Length))
             {
-              v81 = EAPLogGetLogHandle();
-              v82 = _SC_syslog_os_log_mapping();
-              if (os_log_type_enabled(v81, v82))
+              v88 = EAPLogGetLogHandle();
+              v89 = _SC_syslog_os_log_mapping();
+              if (os_log_type_enabled(v88, v89))
               {
-                v83 = TLVBufferErrorString(v10);
+                v90 = TLVBufferErrorString(v18);
                 *buf = 136315138;
-                *&buf[4] = v83;
-                _os_log_impl(&dword_249EFB000, v81, v82, "eapsim: can't add AT_IDENTITY, %s", buf, 0xCu);
+                *&buf[4] = v90;
+                _os_log_impl(&dword_249EFB000, v88, v89, "eapsim: can't add AT_IDENTITY, %s", buf, 0xCu);
               }
 
               *a4 = 8;
               goto LABEL_100;
             }
 
-            if (v85)
+            if (HIBYTE(v91))
             {
               goto LABEL_96;
             }
 
 LABEL_53:
             *(a1 + 240) = 0;
-            TLV = TLVBufferAllocateTLV(v10, 16, 4);
+            TLV = TLVBufferAllocateTLV(v18, 16, 4u);
             if (!TLV)
             {
-              v60 = EAPLogGetLogHandle();
-              v61 = _SC_syslog_os_log_mapping();
-              if (os_log_type_enabled(v60, v61))
+              v67 = EAPLogGetLogHandle();
+              v68 = _SC_syslog_os_log_mapping();
+              if (os_log_type_enabled(v67, v68))
               {
-                v62 = TLVBufferErrorString(v10);
+                v69 = TLVBufferErrorString(v18);
                 *buf = 136315138;
-                *&buf[4] = v62;
-                _os_log_impl(&dword_249EFB000, v60, v61, "eapsim: failed allocating AT_SELECTED_VERSION, %s", buf, 0xCu);
+                *&buf[4] = v69;
+                _os_log_impl(&dword_249EFB000, v67, v68, "eapsim: failed allocating AT_SELECTED_VERSION, %s", buf, 0xCu);
               }
 
               client_error = 0;
-              v26 = 8;
+              v34 = 8;
               goto LABEL_15;
             }
 
             *(TLV + 1) = 256;
-            v52 = TLVBufferAllocateTLV(v10, 7, 20);
-            if (v52)
+            v59 = TLVBufferAllocateTLV(v18, 7, 0x14u);
+            if (v59)
             {
-              *(v52 + 1) = 0;
-              *(v52 + 4) = *(a1 + 241);
+              *(v59 + 1) = 0;
+              *(v59 + 4) = *(a1 + 241);
 LABEL_96:
               client_error = a1 + 316;
-              v80 = TLVBufferUsed(v10);
-              EAPPacketSetLength(client_error, (v80 + 8));
+              v87 = TLVBufferUsed(v18);
+              EAPPacketSetLength(client_error, (v87 + 8));
               goto LABEL_16;
             }
 
-            v63 = EAPLogGetLogHandle();
-            v64 = _SC_syslog_os_log_mapping();
-            if (os_log_type_enabled(v63, v64))
+            v70 = EAPLogGetLogHandle();
+            v71 = _SC_syslog_os_log_mapping();
+            if (os_log_type_enabled(v70, v71))
             {
-              v65 = TLVBufferErrorString(v10);
+              v72 = TLVBufferErrorString(v18);
               *buf = 136315138;
-              *&buf[4] = v65;
-              v66 = "eapsim: failed allocating AT_NONCE_MT, %s";
-              v67 = buf;
-              v68 = v63;
-              v69 = v64;
-              v70 = 12;
+              *&buf[4] = v72;
+              v73 = "eapsim: failed allocating AT_NONCE_MT, %s";
+              v74 = buf;
+              v75 = v70;
+              v76 = v71;
+              v77 = 12;
 LABEL_92:
-              _os_log_impl(&dword_249EFB000, v68, v69, v66, v67, v70);
+              _os_log_impl(&dword_249EFB000, v75, v76, v73, v74, v77);
             }
 
 LABEL_100:
@@ -2778,34 +2366,34 @@ LABEL_100:
             goto LABEL_16;
           }
 
-          v56 = *(a1 + 280);
-          if (v56)
+          v63 = *(a1 + 280);
+          if (v63)
           {
-            if (!v56[2])
+            if (!v63[2])
             {
-              v59 = *v56;
-              if (v36 == 10 && v59)
+              v66 = *v63;
+              if (v43 == 10 && v66)
               {
                 *a4 = 17;
                 if (EAPSIMAKAPersistentStateTemporaryUsernameAvailable(*(a1 + 264)))
                 {
-                  v71 = EAPLogGetLogHandle();
-                  v72 = _SC_syslog_os_log_mapping();
-                  if (os_log_type_enabled(v71, v72))
+                  v78 = EAPLogGetLogHandle();
+                  v79 = _SC_syslog_os_log_mapping();
+                  if (os_log_type_enabled(v78, v79))
                   {
                     *buf = 0;
-                    _os_log_impl(&dword_249EFB000, v71, v72, "eapsim: purging all the temporary identities", buf, 2u);
+                    _os_log_impl(&dword_249EFB000, v78, v79, "eapsim: purging all the temporary identities", buf, 2u);
                   }
 
                   EAPSIMAKAPersistentStatePurgeTemporaryIDs(*(a1 + 264));
                 }
 
-                v73 = EAPLogGetLogHandle();
-                v74 = _SC_syslog_os_log_mapping();
-                if (os_log_type_enabled(v73, v74))
+                v80 = EAPLogGetLogHandle();
+                v81 = _SC_syslog_os_log_mapping();
+                if (os_log_type_enabled(v80, v81))
                 {
                   *buf = 0;
-                  _os_log_impl(&dword_249EFB000, v73, v74, "eapsim: requesting out-of-band psuedonym", buf, 2u);
+                  _os_log_impl(&dword_249EFB000, v80, v81, "eapsim: requesting out-of-band psuedonym", buf, 2u);
                 }
 
                 SIMReportDecryptionError(0);
@@ -2813,10 +2401,10 @@ LABEL_100:
               }
 
 LABEL_80:
-              if (v59 && !EAPSIMAKAPersistentStateTemporaryUsernameAvailable(*(a1 + 264)))
+              if (v66 && !EAPSIMAKAPersistentStateTemporaryUsernameAvailable(*(a1 + 264)))
               {
                 ExternalRepresentation = CFStringCreateExternalRepresentation(0, **(a1 + 280), 0x8000100u, 0);
-                v86 = ExternalRepresentation;
+                v92 = ExternalRepresentation;
                 EAPSIMContextSetLastIdentity(a1, ExternalRepresentation);
                 *(a1 + 296) = 1;
                 goto LABEL_94;
@@ -2825,39 +2413,39 @@ LABEL_80:
               goto LABEL_82;
             }
 
-            v57 = EAPSIMAKAPersistentStateTemporaryUsernameAvailable(*(a1 + 264));
-            v58 = *(a1 + 280);
-            if (v36 == 10 || !v57)
+            v64 = EAPSIMAKAPersistentStateTemporaryUsernameAvailable(*(a1 + 264));
+            v65 = *(a1 + 280);
+            if (v43 == 10 || !v64)
             {
-              ExternalRepresentation = CFRetain(v58[2]);
-              v86 = ExternalRepresentation;
+              ExternalRepresentation = CFRetain(v65[2]);
+              v92 = ExternalRepresentation;
               EAPSIMContextSetLastIdentity(a1, ExternalRepresentation);
               goto LABEL_94;
             }
 
-            if (v58)
+            if (v65)
             {
-              v59 = *v58;
+              v66 = *v65;
               goto LABEL_80;
             }
           }
 
 LABEL_82:
-          v75 = sim_identity_create(*(a1 + 264), *(*a1 + 80), v36, 0, &v85, a4);
-          *buf = v75;
-          if (!v75)
+          v82 = sim_identity_create(*(a1 + 264), *(*a1 + 80), v43, 0, &v91 + 7, a4);
+          *buf = v82;
+          if (!v82)
           {
             if (*a4 == 17)
             {
-              v76 = EAPLogGetLogHandle();
-              v77 = _SC_syslog_os_log_mapping();
-              if (!os_log_type_enabled(v76, v77))
+              v83 = EAPLogGetLogHandle();
+              v84 = _SC_syslog_os_log_mapping();
+              if (!os_log_type_enabled(v83, v84))
               {
                 goto LABEL_100;
               }
 
-              *v84 = 0;
-              v66 = "eapsim: protocol error.";
+              LOWORD(v91) = 0;
+              v73 = "eapsim: protocol error.";
             }
 
             else
@@ -2867,26 +2455,26 @@ LABEL_82:
                 goto LABEL_100;
               }
 
-              v76 = EAPLogGetLogHandle();
-              v77 = _SC_syslog_os_log_mapping();
-              if (!os_log_type_enabled(v76, v77))
+              v83 = EAPLogGetLogHandle();
+              v84 = _SC_syslog_os_log_mapping();
+              if (!os_log_type_enabled(v83, v84))
               {
                 goto LABEL_100;
               }
 
-              *v84 = 0;
-              v66 = "eapsim: can't find SIM identity";
+              LOWORD(v91) = 0;
+              v73 = "eapsim: can't find SIM identity";
             }
 
-            v67 = v84;
-            v68 = v76;
-            v69 = v77;
-            v70 = 2;
+            v74 = &v91;
+            v75 = v83;
+            v76 = v84;
+            v77 = 2;
             goto LABEL_92;
           }
 
-          ExternalRepresentation = CFStringCreateExternalRepresentation(0, v75, 0x8000100u, 0);
-          v86 = ExternalRepresentation;
+          ExternalRepresentation = CFStringCreateExternalRepresentation(0, v82, 0x8000100u, 0);
+          v92 = ExternalRepresentation;
           EAPSIMContextSetLastIdentity(a1, ExternalRepresentation);
           my_CFRelease(buf);
           goto LABEL_94;
@@ -2894,214 +2482,213 @@ LABEL_82:
 
         break;
       case 17:
-        if (v37 >= 2 && *(a1 + 28) != 13)
+        if (v44 >= 2 && *(a1 + 28) != 13)
         {
-          v41 = EAPLogGetLogHandle();
-          v42 = _SC_syslog_os_log_mapping();
-          if (!os_log_type_enabled(v41, v42))
+          v48 = EAPLogGetLogHandle();
+          v49 = _SC_syslog_os_log_mapping();
+          if (!os_log_type_enabled(v48, v49))
           {
             goto LABEL_13;
           }
 
-          v43 = EAPSIMAKAAttributeTypeGetString(*(a1 + 28));
-          v44 = *(a1 + 20);
+          v50 = EAPSIMAKAAttributeTypeGetString(*(a1 + 28));
+          v51 = *(a1 + 20);
           *buf = 136315394;
-          *&buf[4] = v43;
+          *&buf[4] = v50;
           *&buf[12] = 1024;
-          v88 = v44;
-          v22 = "eapsim: AT_FULLAUTH_ID_REQ follows %s at Start #%d";
+          *&buf[14] = v51;
+          v30 = "eapsim: AT_FULLAUTH_ID_REQ follows %s at Start #%d";
           goto LABEL_50;
         }
 
         break;
       case 13:
-        if (v37 >= 2)
+        if (v44 >= 2)
         {
-          v38 = EAPLogGetLogHandle();
-          v39 = _SC_syslog_os_log_mapping();
-          if (!os_log_type_enabled(v38, v39))
+          v45 = EAPLogGetLogHandle();
+          v46 = _SC_syslog_os_log_mapping();
+          if (!os_log_type_enabled(v45, v46))
           {
             goto LABEL_13;
           }
 
-          v40 = *(a1 + 20);
+          v47 = *(a1 + 20);
           *buf = 67109120;
-          *&buf[4] = v40;
-          v22 = "eapsim: AT_ANY_ID_REQ at Start #%d";
-          v23 = v38;
-          v24 = v39;
-          v25 = 8;
+          *&buf[4] = v47;
+          v30 = "eapsim: AT_ANY_ID_REQ at Start #%d";
+          v31 = v45;
+          v32 = v46;
+          v33 = 8;
           goto LABEL_12;
         }
 
         break;
       default:
-        if (v37 >= 2)
+        if (v44 >= 2)
         {
-          v41 = EAPLogGetLogHandle();
-          v42 = _SC_syslog_os_log_mapping();
-          if (!os_log_type_enabled(v41, v42))
+          v48 = EAPLogGetLogHandle();
+          v49 = _SC_syslog_os_log_mapping();
+          if (!os_log_type_enabled(v48, v49))
           {
             goto LABEL_13;
           }
 
-          v49 = EAPSIMAKAAttributeTypeGetString(*(a1 + 28));
-          v50 = *(a1 + 20);
+          v56 = EAPSIMAKAAttributeTypeGetString(*(a1 + 28));
+          v57 = *(a1 + 20);
           *buf = 136315394;
-          *&buf[4] = v49;
+          *&buf[4] = v56;
           *&buf[12] = 1024;
-          v88 = v50;
-          v22 = "eapsim: no *ID_REQ follows %s at Start #%d";
+          *&buf[14] = v57;
+          v30 = "eapsim: no *ID_REQ follows %s at Start #%d";
 LABEL_50:
-          v23 = v41;
-          v24 = v42;
-          v25 = 18;
+          v31 = v48;
+          v32 = v49;
+          v33 = 18;
           goto LABEL_12;
         }
 
-        v45 = 1;
+        v52 = 1;
         goto LABEL_52;
     }
 
-    v45 = 0;
+    v52 = 0;
     goto LABEL_52;
   }
 
 LABEL_9:
   client_error = eapsim_make_client_error(a1, a2, 1u);
 LABEL_14:
-  v26 = 17;
+  v34 = 17;
 LABEL_15:
-  *a4 = v26;
+  *a4 = v34;
 LABEL_16:
-  my_CFRelease(&v86);
-  v27 = *MEMORY[0x277D85DE8];
+  my_CFRelease(&v92);
   return client_error;
 }
 
 uint64_t eapsim_challenge(uint64_t a1, _BYTE *a2, unsigned __int8 ***a3, int *a4)
 {
-  v100 = *MEMORY[0x277D85DE8];
+  v107 = *MEMORY[0x277D85DE8];
   data = 256;
   memset(&c, 0, sizeof(c));
-  TLVBufferSizeof();
-  MEMORY[0x28223BE20]();
-  v10 = &v85 - v9;
-  if ((v11 & 0x7FFFFFE00) != 0)
+  v8 = TLVBufferSizeof();
+  MEMORY[0x28223BE20](v8, v9, v10, v11, v12, v13, v14, v15, v92, v93, v94, v95);
+  v18 = &v92 - v17;
+  if ((v19 & 0x7FFFFFE00) != 0)
   {
-    v12 = 512;
+    v20 = 512;
   }
 
   else
   {
-    v12 = v8;
+    v20 = v16;
   }
 
-  bzero(&v85 - v9, v12);
+  bzero(&v92 - v17, v20);
   if (*(a1 + 12) != 1)
   {
     LogHandle = EAPLogGetLogHandle();
-    v20 = _SC_syslog_os_log_mapping();
-    if (os_log_type_enabled(LogHandle, v20))
+    v28 = _SC_syslog_os_log_mapping();
+    if (os_log_type_enabled(LogHandle, v28))
     {
       *buf = 0;
-      v21 = "eapsim: Challenge sent without Start";
+      v29 = "eapsim: Challenge sent without Start";
 LABEL_14:
-      v22 = LogHandle;
-      v23 = v20;
-      v24 = 2;
+      v30 = LogHandle;
+      v31 = v28;
+      v32 = 2;
 LABEL_15:
-      _os_log_impl(&dword_249EFB000, v22, v23, v21, buf, v24);
+      _os_log_impl(&dword_249EFB000, v30, v31, v29, buf, v32);
     }
 
 LABEL_16:
     client_error = 0;
 LABEL_17:
     *a4 = 17;
-    goto LABEL_18;
+    return client_error;
   }
 
   *(a1 + 12) = 2;
   EAPSIMAKAPersistentStateSetCounter(*(a1 + 264), 1);
   EAPSIMAKAPersistentStateSetReauthID(*(a1 + 264), 0);
   *(a1 + 272) = 0;
-  v13 = TLVListLookupAttribute(a3, 1);
-  if (!v13)
+  v21 = TLVListLookupAttribute(a3, 1);
+  if (!v21)
   {
     LogHandle = EAPLogGetLogHandle();
-    v20 = _SC_syslog_os_log_mapping();
-    if (os_log_type_enabled(LogHandle, v20))
+    v28 = _SC_syslog_os_log_mapping();
+    if (os_log_type_enabled(LogHandle, v28))
     {
       *buf = 0;
-      v21 = "eapsim: Challenge is missing AT_RAND";
+      v29 = "eapsim: Challenge is missing AT_RAND";
       goto LABEL_14;
     }
 
     goto LABEL_16;
   }
 
-  v14 = (4 * *(v13 + 1) + 0xFFFFFFFFCLL) >> 4;
-  if (*(a1 + 24) > v14)
+  v22 = (4 * *(v21 + 1) + 0xFFFFFFFFCLL) >> 4;
+  if (*(a1 + 24) > v22)
   {
-    v15 = EAPLogGetLogHandle();
-    v16 = _SC_syslog_os_log_mapping();
-    if (os_log_type_enabled(v15, v16))
+    v23 = EAPLogGetLogHandle();
+    v24 = _SC_syslog_os_log_mapping();
+    if (os_log_type_enabled(v23, v24))
     {
-      v17 = *(a1 + 24);
+      v25 = *(a1 + 24);
       *buf = 67109376;
-      v97 = v14;
-      v98 = 1024;
-      v99 = v17;
-      _os_log_impl(&dword_249EFB000, v15, v16, "eapsim: Challenge AT_RAND has %d RANDs, policy requires %d", buf, 0xEu);
+      v104 = v22;
+      v105 = 1024;
+      v106 = v25;
+      _os_log_impl(&dword_249EFB000, v23, v24, "eapsim: Challenge AT_RAND has %d RANDs, policy requires %d", buf, 0xEu);
     }
 
     client_error = eapsim_make_client_error(a1, a2, 2u);
     goto LABEL_17;
   }
 
-  if (v14 >= 4)
+  if (v22 >= 4)
   {
-    v27 = EAPLogGetLogHandle();
-    v28 = _SC_syslog_os_log_mapping();
-    if (!os_log_type_enabled(v27, v28))
+    v34 = EAPLogGetLogHandle();
+    v35 = _SC_syslog_os_log_mapping();
+    if (!os_log_type_enabled(v34, v35))
     {
       goto LABEL_16;
     }
 
     *buf = 67109376;
-    v97 = v14;
-    v98 = 1024;
-    v99 = 3;
-    v21 = "eapsim: Challenge AT_RAND has %d RANDs > %d";
-    v22 = v27;
-    v23 = v28;
-    v24 = 14;
+    v104 = v22;
+    v105 = 1024;
+    v106 = 3;
+    v29 = "eapsim: Challenge AT_RAND has %d RANDs > %d";
+    v30 = v34;
+    v31 = v35;
+    v32 = 14;
     goto LABEL_15;
   }
 
-  v29 = (v13 + 4);
-  if (v14 >= 2)
+  v36 = (v21 + 4);
+  if (v22 >= 2)
   {
-    v30 = 0;
-    v31 = v14 - 1;
-    v32 = 1;
-    v33 = v14 - 1;
-    v34 = (v13 + 4);
+    v37 = 0;
+    v38 = v22 - 1;
+    v39 = 1;
+    v40 = v22 - 1;
+    v41 = (v21 + 4);
 LABEL_24:
-    v35 = *v34;
-    v36 = v34[1];
-    v34 += 2;
-    ++v30;
-    v37 = v33;
-    v38 = v34;
-    while (v35 != *v38 || v36 != v38[1])
+    v42 = *v41;
+    v43 = v41[1];
+    v41 += 2;
+    ++v37;
+    v44 = v40;
+    v45 = v41;
+    while (v42 != *v45 || v43 != v45[1])
     {
-      v38 += 2;
-      if (!--v37)
+      v45 += 2;
+      if (!--v44)
       {
-        --v33;
-        v32 = v30 < v31;
-        if (v30 != v31)
+        --v40;
+        v39 = v37 < v38;
+        if (v37 != v38)
         {
           goto LABEL_24;
         }
@@ -3110,710 +2697,265 @@ LABEL_24:
       }
     }
 
-    if (v32)
+    if (v39)
     {
       LogHandle = EAPLogGetLogHandle();
-      v20 = _SC_syslog_os_log_mapping();
-      if (!os_log_type_enabled(LogHandle, v20))
+      v28 = _SC_syslog_os_log_mapping();
+      if (!os_log_type_enabled(LogHandle, v28))
       {
         goto LABEL_16;
       }
 
       *buf = 0;
-      v21 = "eapsim: Challenge AT_RAND has duplicate RANDs";
+      v29 = "eapsim: Challenge AT_RAND has duplicate RANDs";
       goto LABEL_14;
     }
   }
 
-  v40 = *(a1 + 40);
-  v89 = &v85;
-  v88 = a4;
-  v90 = v14;
-  if (v40)
+  v47 = *(a1 + 40);
+  v96 = &v92;
+  v95 = a4;
+  v97 = v22;
+  if (v47)
   {
-    if (v14 >= 1)
+    if (v22 >= 1)
     {
-      v41 = 0;
-      v42 = v95;
-      v43 = buf;
-      v85 = a2;
+      v48 = 0;
+      v49 = v102;
+      v50 = buf;
+      v92 = a2;
       do
       {
-        v87 = v43;
-        v44 = *(a1 + 56);
-        if (v44)
+        v94 = v50;
+        v51 = *(a1 + 56);
+        if (v51)
         {
-          v86 = v42;
-          Count = CFArrayGetCount(v44);
+          v93 = v49;
+          Count = CFArrayGetCount(v51);
           if (Count < 1)
           {
 LABEL_56:
-            v61 = EAPLogGetLogHandle();
-            v62 = _SC_syslog_os_log_mapping();
-            if (os_log_type_enabled(v61, v62))
+            v68 = EAPLogGetLogHandle();
+            v69 = _SC_syslog_os_log_mapping();
+            if (os_log_type_enabled(v68, v69))
             {
-              *v93 = 0;
-              v63 = "eapsim: can't find static RAND value";
+              *v100 = 0;
+              v70 = "eapsim: can't find static RAND value";
               goto LABEL_79;
             }
 
             goto LABEL_80;
           }
 
-          v46 = Count;
-          v47 = 0;
-          v48 = 0;
+          v53 = Count;
+          v54 = 0;
+          v55 = 0;
           while (1)
           {
-            ValueAtIndex = CFArrayGetValueAtIndex(*(a1 + 56), v48);
+            ValueAtIndex = CFArrayGetValueAtIndex(*(a1 + 56), v55);
             BytePtr = CFDataGetBytePtr(ValueAtIndex);
-            if (v29->i64[0] == *BytePtr && v29->i64[1] == *(BytePtr + 1))
+            if (v36->i64[0] == *BytePtr && v36->i64[1] == *(BytePtr + 1))
             {
               break;
             }
 
-            ++v48;
-            v47 += 0x100000000;
-            if (v46 == v48)
+            ++v55;
+            v54 += 0x100000000;
+            if (v53 == v55)
             {
               goto LABEL_56;
             }
           }
 
-          v52 = v47 >> 32;
-          a2 = v85;
-          v42 = v86;
+          v59 = v54 >> 32;
+          a2 = v92;
+          v49 = v93;
         }
 
         else
         {
-          v52 = 0;
+          v59 = 0;
         }
 
-        v53 = v87;
-        v54 = CFArrayGetValueAtIndex(*(a1 + 40), v52);
-        *v53 = *CFDataGetBytePtr(v54);
-        v43 = v53 + 8;
-        v55 = CFArrayGetValueAtIndex(*(a1 + 48), v52);
-        *v42 = *CFDataGetBytePtr(v55);
-        v42 += 4;
-        ++v29;
-        ++v41;
+        v60 = v94;
+        v61 = CFArrayGetValueAtIndex(*(a1 + 40), v59);
+        *v60 = *CFDataGetBytePtr(v61);
+        v50 = v60 + 8;
+        v62 = CFArrayGetValueAtIndex(*(a1 + 48), v59);
+        *v49 = *CFDataGetBytePtr(v62);
+        v49 += 4;
+        ++v36;
+        ++v48;
       }
 
-      while (v41 != v90);
+      while (v48 != v97);
     }
 
 LABEL_59:
     CC_SHA1_Init(&c);
-    v64 = *(a1 + 32);
-    if (v64)
+    v71 = *(a1 + 32);
+    if (v71)
     {
-      v65 = CFDataGetBytePtr(v64);
+      v72 = CFDataGetBytePtr(v71);
       Length = CFDataGetLength(*(a1 + 32));
-      v67 = v65;
+      v74 = v72;
     }
 
     else
     {
-      v67 = *(*a1 + 40);
+      v74 = *(*a1 + 40);
       Length = *(*a1 + 48);
     }
 
-    CC_SHA1_Update(&c, v67, Length);
-    v68 = v90;
-    CC_SHA1_Update(&c, buf, 8 * v90);
+    CC_SHA1_Update(&c, v74, Length);
+    v75 = v97;
+    CC_SHA1_Update(&c, buf, 8 * v97);
     CC_SHA1_Update(&c, (a1 + 241), 0x10u);
     p_data = *(a1 + 304);
     if (p_data)
     {
-      v70 = 2 * *(a1 + 312);
+      v77 = 2 * *(a1 + 312);
     }
 
     else
     {
       p_data = &data;
-      v70 = 2;
+      v77 = 2;
     }
 
-    CC_SHA1_Update(&c, p_data, v70);
-    v71 = v88;
+    CC_SHA1_Update(&c, p_data, v77);
+    v78 = v95;
     CC_SHA1_Update(&c, &data, 2u);
     MasterKey = EAPSIMAKAPersistentStateGetMasterKey(*(a1 + 264));
     CC_SHA1_Final(MasterKey, &c);
-    v73 = EAPSIMAKAPersistentStateGetMasterKey(*(a1 + 264));
-    fips186_2prf(v73, a1 + 80);
-    v74 = TLVListLookupAttribute(a3, 11);
-    if (v74)
+    v80 = EAPSIMAKAPersistentStateGetMasterKey(*(a1 + 264));
+    fips186_2prf(v80, a1 + 80);
+    v81 = TLVListLookupAttribute(a3, 11);
+    if (v81)
     {
-      if (EAPSIMAKAKeyInfoVerifyMAC(a1 + 80, a2, v74 + 4, (a1 + 241), 16))
+      if (EAPSIMAKAKeyInfoVerifyMAC(a1 + 80, a2, v81 + 4, (a1 + 241), 16))
       {
         if (eapsim_challenge_process_encr_data(a1, a3))
         {
-          TLVBufferInit(v10, a1 + 324, 1492);
+          TLVBufferInit(v18, a1 + 324, 1492);
           *(a1 + 316) = 2;
           *(a1 + 317) = a2[1];
           *(a1 + 320) = 2834;
-          TLV = TLVBufferAllocateTLV(v10, 11, 20);
+          TLV = TLVBufferAllocateTLV(v18, 11, 0x14u);
           if (TLV)
           {
-            v76 = TLV;
+            v83 = TLV;
             client_error = a1 + 316;
             *(TLV + 1) = 0;
-            v77 = TLVBufferUsed(v10);
-            EAPPacketSetLength(a1 + 316, (v77 + 8));
-            EAPSIMAKAKeyInfoSetMAC(a1 + 80, (a1 + 316), v76 + 4, v95, 4 * v68);
+            v84 = TLVBufferUsed(v18);
+            EAPPacketSetLength(a1 + 316, (v84 + 8));
+            EAPSIMAKAKeyInfoSetMAC(a1 + 80, (a1 + 316), v83 + 4, v102, 4 * v75);
             *(a1 + 12) = 4;
             *(a1 + 240) = 1;
-            goto LABEL_18;
+            return client_error;
           }
 
-          v82 = EAPLogGetLogHandle();
-          v83 = _SC_syslog_os_log_mapping();
-          if (os_log_type_enabled(v82, v83))
+          v89 = EAPLogGetLogHandle();
+          v90 = _SC_syslog_os_log_mapping();
+          if (os_log_type_enabled(v89, v90))
           {
-            v84 = TLVBufferErrorString(v10);
-            *v93 = 136315138;
-            v94 = v84;
-            _os_log_impl(&dword_249EFB000, v82, v83, "eapsim: failed allocating AT_MAC, %s", v93, 0xCu);
+            v91 = TLVBufferErrorString(v18);
+            *v100 = 136315138;
+            v101 = v91;
+            _os_log_impl(&dword_249EFB000, v89, v90, "eapsim: failed allocating AT_MAC, %s", v100, 0xCu);
           }
 
           client_error = 0;
-          v81 = 8;
+          v88 = 8;
 LABEL_76:
-          *v71 = v81;
-          goto LABEL_18;
+          *v78 = v88;
+          return client_error;
         }
 
 LABEL_75:
         client_error = 0;
-        v81 = 17;
+        v88 = 17;
         goto LABEL_76;
       }
 
-      v78 = EAPLogGetLogHandle();
-      v79 = _SC_syslog_os_log_mapping();
-      if (!os_log_type_enabled(v78, v79))
+      v85 = EAPLogGetLogHandle();
+      v86 = _SC_syslog_os_log_mapping();
+      if (!os_log_type_enabled(v85, v86))
       {
         goto LABEL_75;
       }
 
-      *v93 = 0;
-      v80 = "eapsim: Challenge AT_MAC not valid";
+      *v100 = 0;
+      v87 = "eapsim: Challenge AT_MAC not valid";
     }
 
     else
     {
-      v78 = EAPLogGetLogHandle();
-      v79 = _SC_syslog_os_log_mapping();
-      if (!os_log_type_enabled(v78, v79))
+      v85 = EAPLogGetLogHandle();
+      v86 = _SC_syslog_os_log_mapping();
+      if (!os_log_type_enabled(v85, v86))
       {
         goto LABEL_75;
       }
 
-      *v93 = 0;
-      v80 = "eapsim: Challenge is missing AT_MAC";
+      *v100 = 0;
+      v87 = "eapsim: Challenge is missing AT_MAC";
     }
 
-    _os_log_impl(&dword_249EFB000, v78, v79, v80, v93, 2u);
+    _os_log_impl(&dword_249EFB000, v85, v86, v87, v100, 2u);
     goto LABEL_75;
   }
 
   if (*(a1 + 64) && *(a1 + 72))
   {
-    if (v14 >= 1)
+    if (v22 >= 1)
     {
-      v56 = v95;
-      v57 = buf;
-      v58 = v90;
+      v63 = v102;
+      v64 = buf;
+      v65 = v97;
       do
       {
-        v59 = CFDataGetBytePtr(*(a1 + 72));
-        v60 = CFDataGetBytePtr(*(a1 + 64));
-        sim_simulator_gsm_milenage_algo(v59, v60, v29, v56, v57++);
-        v56 += 4;
-        ++v29;
-        --v58;
+        v66 = CFDataGetBytePtr(*(a1 + 72));
+        v67 = CFDataGetBytePtr(*(a1 + 64));
+        sim_simulator_gsm_milenage_algo(v66, v67, v36, v63, v64++);
+        v63 += 4;
+        ++v36;
+        --v65;
       }
 
-      while (v58);
+      while (v65);
     }
 
     goto LABEL_59;
   }
 
-  if (SIMAuthenticateGSM(*(*a1 + 80), v29, v14, buf, v95))
+  if (SIMAuthenticateGSM(*(*a1 + 80), v36, v22, buf, v102))
   {
     goto LABEL_59;
   }
 
-  v61 = EAPLogGetLogHandle();
-  v62 = _SC_syslog_os_log_mapping();
-  if (os_log_type_enabled(v61, v62))
+  v68 = EAPLogGetLogHandle();
+  v69 = _SC_syslog_os_log_mapping();
+  if (os_log_type_enabled(v68, v69))
   {
-    *v93 = 0;
-    v63 = "SIMAuthenticateGSM failed";
+    *v100 = 0;
+    v70 = "SIMAuthenticateGSM failed";
 LABEL_79:
-    _os_log_impl(&dword_249EFB000, v61, v62, v63, v93, 2u);
+    _os_log_impl(&dword_249EFB000, v68, v69, v70, v100, 2u);
   }
 
 LABEL_80:
   client_error = 0;
-  *v88 = 8;
-LABEL_18:
-  v25 = *MEMORY[0x277D85DE8];
+  *v95 = 8;
   return client_error;
 }
 
 uint64_t eapsim_notification(uint64_t a1, _BYTE *a2, unsigned __int8 ***a3, int *a4, _DWORD *a5)
 {
-  v99 = *MEMORY[0x277D85DE8];
-  TLVBufferSizeof();
-  MEMORY[0x28223BE20]();
-  v12 = &v89 - v11;
-  if ((v13 & 0x7FFFFFE00) != 0)
-  {
-    v14 = 512;
-  }
-
-  else
-  {
-    v14 = v10;
-  }
-
-  bzero(&v89 - v11, v14);
-  *a4 = 0;
-  *a5 = 0;
-  v15 = TLVListLookupAttribute(a3, 12);
-  if (!v15)
-  {
-    LogHandle = EAPLogGetLogHandle();
-    v24 = _SC_syslog_os_log_mapping();
-    if (!os_log_type_enabled(LogHandle, v24))
-    {
-      goto LABEL_33;
-    }
-
-    *buf = 0;
-    v19 = "eapsim: Notification does not contain AT_NOTIFICATION attribute";
-LABEL_31:
-    v20 = LogHandle;
-    v21 = v24;
-    v22 = 2;
-    goto LABEL_32;
-  }
-
-  v16 = bswap32(*(v15 + 2)) >> 16;
-  if (v16 >= 0xC000)
-  {
-    v17 = EAPLogGetLogHandle();
-    v18 = _SC_syslog_os_log_mapping();
-    if (os_log_type_enabled(v17, v18))
-    {
-      *buf = 67109120;
-      *v97 = v16;
-      v19 = "eapsim: Notification code '%d' indicates success before authentication";
-      v20 = v17;
-      v21 = v18;
-      v22 = 8;
-LABEL_32:
-      _os_log_impl(&dword_249EFB000, v20, v21, v19, buf, v22);
-    }
-
-LABEL_33:
-    v43 = 0;
-    v44 = 17;
-LABEL_34:
-    *a4 = v44;
-    goto LABEL_35;
-  }
-
-  v25 = TLVListLookupAttribute(a3, 11);
-  if (v25)
-  {
-    if ((v16 & 0x4000) != 0)
-    {
-      LogHandle = EAPLogGetLogHandle();
-      v24 = _SC_syslog_os_log_mapping();
-      if (!os_log_type_enabled(LogHandle, v24))
-      {
-        goto LABEL_33;
-      }
-
-      *buf = 0;
-      v19 = "eapsim: Notification incorrectly contains AT_MAC";
-      goto LABEL_31;
-    }
-
-    if (!EAPSIMAKAKeyInfoVerifyMAC(a1 + 80, a2, v25 + 4, 0, 0))
-    {
-      LogHandle = EAPLogGetLogHandle();
-      v24 = _SC_syslog_os_log_mapping();
-      if (!os_log_type_enabled(LogHandle, v24))
-      {
-        goto LABEL_33;
-      }
-
-      *buf = 0;
-      v19 = "eapsim: Notification AT_MAC not valid";
-      goto LABEL_31;
-    }
-  }
-
-  else if ((v16 & 0x4000) == 0)
-  {
-    LogHandle = EAPLogGetLogHandle();
-    v24 = _SC_syslog_os_log_mapping();
-    if (!os_log_type_enabled(LogHandle, v24))
-    {
-      goto LABEL_33;
-    }
-
-    *buf = 0;
-    v19 = "eapsim: Notification is missing AT_MAC";
-    goto LABEL_31;
-  }
-
-  Counter = EAPSIMAKAPersistentStateGetCounter(*(a1 + 264));
-  v27 = Counter;
-  v28 = ((v16 & 0x4000) == 0) & *(a1 + 272);
-  if (v28 == 1)
-  {
-    v91 = 1;
-    v92 = Counter;
-    TLVListSizeof();
-    v93 = &v89;
-    MEMORY[0x28223BE20]();
-    v31 = (&v89 - v30);
-    if ((v32 & 0x7FFFFFE00) != 0)
-    {
-      v33 = 512;
-    }
-
-    else
-    {
-      v33 = v29;
-    }
-
-    bzero(&v89 - v30, v33);
-    v34 = TLVListLookupAttribute(a3, 130);
-    v35 = TLVListLookupAttribute(a3, 129);
-    v36 = v35;
-    if (v34 && v35)
-    {
-      TLVListInit(v31);
-      v37 = EAPSIMAKAKeyInfoDecryptTLVList((a1 + 80), v34, v36, v31);
-      if (!v37)
-      {
-        v54 = EAPLogGetLogHandle();
-        v55 = _SC_syslog_os_log_mapping();
-        if (os_log_type_enabled(v54, v55))
-        {
-          *buf = 0;
-          _os_log_impl(&dword_249EFB000, v54, v55, "eapsim: failed to decrypt Notification AT_ENCR_DATA", buf, 2u);
-        }
-
-        v53 = 8;
-        goto LABEL_43;
-      }
-
-      v89 = v37;
-      v90 = TLVListCopyDescription(v31);
-      v38 = EAPLogGetLogHandle();
-      v39 = _SC_syslog_os_log_mapping();
-      if (os_log_type_enabled(v38, v39))
-      {
-        *buf = 138412290;
-        *v97 = v90;
-        _os_log_impl(&dword_249EFB000, v38, v39, "Decrypted TLVs:\n%@", buf, 0xCu);
-      }
-
-      CFRelease(v90);
-      v40 = TLVListLookupAttribute(v31, 19);
-      v41 = v40;
-      if (v40)
-      {
-        v42 = bswap32(*(v40 + 2)) >> 16;
-      }
-
-      else
-      {
-        v42 = 0;
-      }
-
-      free(v89);
-      TLVListFree(v31);
-      if (v41)
-      {
-        v27 = v92;
-        if (v42 == v92)
-        {
-          v28 = v91;
-          goto LABEL_48;
-        }
-
-        v87 = EAPLogGetLogHandle();
-        v88 = _SC_syslog_os_log_mapping();
-        if (!os_log_type_enabled(v87, v88))
-        {
-          goto LABEL_39;
-        }
-
-        *buf = 67109376;
-        *v97 = v42;
-        *&v97[4] = 1024;
-        *&v97[6] = v27;
-        v49 = "eapsim: Notification AT_COUNTER (%d) does not match current counter (%d)";
-        v50 = v87;
-        v51 = v88;
-        v52 = 14;
-      }
-
-      else
-      {
-        v85 = EAPLogGetLogHandle();
-        v86 = _SC_syslog_os_log_mapping();
-        if (!os_log_type_enabled(v85, v86))
-        {
-          goto LABEL_39;
-        }
-
-        *buf = 0;
-        v49 = "eapsim:  Notification AT_ENCR_DATA missing AT_COUNTER";
-        v50 = v85;
-        v51 = v86;
-        v52 = 2;
-      }
-    }
-
-    else
-    {
-      v47 = EAPLogGetLogHandle();
-      v48 = _SC_syslog_os_log_mapping();
-      if (!os_log_type_enabled(v47, v48))
-      {
-LABEL_39:
-        v53 = 17;
-LABEL_43:
-        *a4 = v53;
-LABEL_70:
-        v43 = 0;
-        goto LABEL_35;
-      }
-
-      *buf = 134218240;
-      *v97 = v34;
-      *&v97[8] = 2048;
-      v98 = v36;
-      v49 = "eapsim: Notification after re-auth missing AT_ENCR_DATA (%p) or AT_IV (%p)";
-      v50 = v47;
-      v51 = v48;
-      v52 = 22;
-    }
-
-    _os_log_impl(&dword_249EFB000, v50, v51, v49, buf, v52);
-    goto LABEL_39;
-  }
-
-LABEL_48:
-  TLVBufferInit(v12, a1 + 324, 1492);
-  *(a1 + 316) = 2;
-  *(a1 + 317) = a2[1];
-  *(a1 + 320) = 3090;
-  if (!v28)
-  {
-    goto LABEL_54;
-  }
-
-  TLVBufferSizeof();
-  MEMORY[0x28223BE20]();
-  v58 = &v89 - v57;
-  if ((v59 & 0x7FFFFFE00) != 0)
-  {
-    v60 = 512;
-  }
-
-  else
-  {
-    v60 = v56;
-  }
-
-  bzero(&v89 - v57, v60);
-  TLVBufferInit(v58, buf, 16);
-  if (!TLVBufferAddCounter(v58, v27))
-  {
-    v72 = EAPLogGetLogHandle();
-    v73 = _SC_syslog_os_log_mapping();
-    if (os_log_type_enabled(v72, v73))
-    {
-      v74 = TLVBufferErrorString(v58);
-      *v94 = 136315138;
-      v95 = v74;
-      _os_log_impl(&dword_249EFB000, v72, v73, "eapsim: failed to allocate AT_COUNTER, %s", v94, 0xCu);
-    }
-
-    v75 = 2;
-    goto LABEL_69;
-  }
-
-  if (!EAPSIMAKAKeyInfoEncryptTLVs((a1 + 80), v12, v58))
-  {
-    v75 = 8;
-LABEL_69:
-    *a4 = v75;
-    goto LABEL_70;
-  }
-
-LABEL_54:
-  if (v25)
-  {
-    TLV = TLVBufferAllocateTLV(v12, 11, 20);
-    if (!TLV)
-    {
-      v76 = EAPLogGetLogHandle();
-      v77 = _SC_syslog_os_log_mapping();
-      if (os_log_type_enabled(v76, v77))
-      {
-        v78 = TLVBufferErrorString(v12);
-        *buf = 136315138;
-        *v97 = v78;
-        _os_log_impl(&dword_249EFB000, v76, v77, "eapsim: failed allocating AT_MAC, %s", buf, 0xCu);
-      }
-
-      v43 = 0;
-      v44 = 2;
-      goto LABEL_34;
-    }
-
-    v62 = TLV;
-    *(TLV + 1) = 0;
-  }
-
-  else
-  {
-    v62 = 0;
-  }
-
-  v43 = a1 + 316;
-  v63 = TLVBufferUsed(v12);
-  EAPPacketSetLength(a1 + 316, (v63 + 8));
-  if (v62)
-  {
-    EAPSIMAKAKeyInfoSetMAC(a1 + 80, (a1 + 316), v62 + 4, 0, 0);
-  }
-
-  if ((v16 & 0x8000) != 0)
-  {
-    *(a1 + 12) = 4;
-    goto LABEL_35;
-  }
-
-  *(a1 + 12) = 5;
-  *a4 = 1002;
-  *a5 = EAPSIMAKAStatusForATNotificationCode(v16);
-  String = ATNotificationCodeGetString(v16);
-  v65 = EAPLogGetLogHandle();
-  v66 = _SC_syslog_os_log_mapping();
-  v67 = os_log_type_enabled(v65, v66);
-  if (String)
-  {
-    if (!v67)
-    {
-      goto LABEL_77;
-    }
-
-    *buf = 136315138;
-    *v97 = String;
-    v68 = "eapsim: Notification: %s";
-    v69 = v65;
-    v70 = v66;
-    v71 = 12;
-  }
-
-  else
-  {
-    if (!v67)
-    {
-      goto LABEL_77;
-    }
-
-    *buf = 67109120;
-    *v97 = v16;
-    v68 = "eapsim: Notification code '%d' unrecognized failure";
-    v69 = v65;
-    v70 = v66;
-    v71 = 8;
-  }
-
-  _os_log_impl(&dword_249EFB000, v69, v70, v68, buf, v71);
-LABEL_77:
-  v79 = EAPSIMAKAActionInfoForNotificationCode(*(*a1 + 80), v16);
-  if (v79)
-  {
-    v80 = v79;
-    *(a1 + 288) = CFDictionaryCreateCopy(0, v79);
-    v81 = EAPLogGetLogHandle();
-    v82 = _SC_syslog_os_log_mapping();
-    if (os_log_type_enabled(v81, v82))
-    {
-      *buf = 138412290;
-      *v97 = v80;
-      _os_log_impl(&dword_249EFB000, v81, v82, "eapsim: Notification Action Info: %@", buf, 0xCu);
-    }
-  }
-
-  else if (*a5 == 19)
-  {
-    v83 = *(a1 + 280);
-    if (v83)
-    {
-      v84 = *(v83 + 16);
-      if (v84)
-      {
-        SIMReportDecryptionError(v84);
-      }
-    }
-  }
-
-LABEL_35:
-  v45 = *MEMORY[0x277D85DE8];
-  return v43;
-}
-
-uint64_t eapsim_reauthentication(uint64_t a1, _BYTE *a2, unsigned __int8 ***a3, int *a4)
-{
-  v69 = *MEMORY[0x277D85DE8];
-  TLVBufferSizeof();
-  MEMORY[0x28223BE20]();
-  v10 = &v61[-v9];
-  if ((v11 & 0x7FFFFFE00) != 0)
-  {
-    v12 = 512;
-  }
-
-  else
-  {
-    v12 = v8;
-  }
-
-  bzero(&v61[-v9], v12);
-  TLVListSizeof();
-  MEMORY[0x28223BE20]();
-  v15 = &v61[-v14];
-  if ((v16 & 0x7FFFFFE00) != 0)
-  {
-    v17 = 512;
-  }
-
-  else
-  {
-    v17 = v13;
-  }
-
-  bzero(&v61[-v14], v17);
-  TLVBufferSizeof();
-  MEMORY[0x28223BE20]();
-  v20 = &v61[-v19];
+  v121 = *MEMORY[0x277D85DE8];
+  v10 = TLVBufferSizeof();
+  MEMORY[0x28223BE20](v10, v11, v12, v13, v14, v15, v16, v17, v112, v113, v114, v115);
+  v20 = &v112 - v19;
   if ((v21 & 0x7FFFFFE00) != 0)
   {
     v22 = 512;
@@ -3824,195 +2966,634 @@ uint64_t eapsim_reauthentication(uint64_t a1, _BYTE *a2, unsigned __int8 ***a3, 
     v22 = v18;
   }
 
-  bzero(&v61[-v19], v22);
-  TLVListInit(v15);
+  bzero(&v112 - v19, v22);
+  *a4 = 0;
+  *a5 = 0;
+  v23 = TLVListLookupAttribute(a3, 12);
+  if (!v23)
+  {
+    LogHandle = EAPLogGetLogHandle();
+    v32 = _SC_syslog_os_log_mapping();
+    if (!os_log_type_enabled(LogHandle, v32))
+    {
+      goto LABEL_33;
+    }
+
+    *buf = 0;
+    v27 = "eapsim: Notification does not contain AT_NOTIFICATION attribute";
+LABEL_31:
+    v28 = LogHandle;
+    v29 = v32;
+    v30 = 2;
+    goto LABEL_32;
+  }
+
+  v24 = bswap32(*(v23 + 2)) >> 16;
+  if (v24 >= 0xC000)
+  {
+    v25 = EAPLogGetLogHandle();
+    v26 = _SC_syslog_os_log_mapping();
+    if (os_log_type_enabled(v25, v26))
+    {
+      *buf = 67109120;
+      *v119 = v24;
+      v27 = "eapsim: Notification code '%d' indicates success before authentication";
+      v28 = v25;
+      v29 = v26;
+      v30 = 8;
+LABEL_32:
+      _os_log_impl(&dword_249EFB000, v28, v29, v27, buf, v30);
+    }
+
+LABEL_33:
+    v59 = 0;
+    v60 = 17;
+LABEL_34:
+    *a4 = v60;
+    return v59;
+  }
+
+  v33 = TLVListLookupAttribute(a3, 11);
+  if (v33)
+  {
+    if ((v24 & 0x4000) != 0)
+    {
+      LogHandle = EAPLogGetLogHandle();
+      v32 = _SC_syslog_os_log_mapping();
+      if (!os_log_type_enabled(LogHandle, v32))
+      {
+        goto LABEL_33;
+      }
+
+      *buf = 0;
+      v27 = "eapsim: Notification incorrectly contains AT_MAC";
+      goto LABEL_31;
+    }
+
+    if (!EAPSIMAKAKeyInfoVerifyMAC(a1 + 80, a2, v33 + 4, 0, 0))
+    {
+      LogHandle = EAPLogGetLogHandle();
+      v32 = _SC_syslog_os_log_mapping();
+      if (!os_log_type_enabled(LogHandle, v32))
+      {
+        goto LABEL_33;
+      }
+
+      *buf = 0;
+      v27 = "eapsim: Notification AT_MAC not valid";
+      goto LABEL_31;
+    }
+  }
+
+  else if ((v24 & 0x4000) == 0)
+  {
+    LogHandle = EAPLogGetLogHandle();
+    v32 = _SC_syslog_os_log_mapping();
+    if (!os_log_type_enabled(LogHandle, v32))
+    {
+      goto LABEL_33;
+    }
+
+    *buf = 0;
+    v27 = "eapsim: Notification is missing AT_MAC";
+    goto LABEL_31;
+  }
+
+  Counter = EAPSIMAKAPersistentStateGetCounter(*(a1 + 264));
+  v35 = Counter;
+  v36 = ((v24 & 0x4000) == 0) & *(a1 + 272);
+  if (v36 == 1)
+  {
+    LODWORD(v114) = 1;
+    HIDWORD(v114) = Counter;
+    v37 = TLVListSizeof();
+    v115 = &v112;
+    (MEMORY[0x28223BE20])(v37, v38, v39, v40, v41, v42, v43, v44, v112, v113, v114);
+    v47 = (&v112 - v46);
+    if ((v48 & 0x7FFFFFE00) != 0)
+    {
+      v49 = 512;
+    }
+
+    else
+    {
+      v49 = v45;
+    }
+
+    bzero(&v112 - v46, v49);
+    v50 = TLVListLookupAttribute(a3, 130);
+    v51 = TLVListLookupAttribute(a3, 129);
+    v52 = v51;
+    if (v50 && v51)
+    {
+      TLVListInit(v47);
+      v53 = EAPSIMAKAKeyInfoDecryptTLVList((a1 + 80), v50, v52, v47);
+      if (!v53)
+      {
+        v69 = EAPLogGetLogHandle();
+        v70 = _SC_syslog_os_log_mapping();
+        if (os_log_type_enabled(v69, v70))
+        {
+          *buf = 0;
+          _os_log_impl(&dword_249EFB000, v69, v70, "eapsim: failed to decrypt Notification AT_ENCR_DATA", buf, 2u);
+        }
+
+        v68 = 8;
+        goto LABEL_43;
+      }
+
+      v112 = v53;
+      v113 = TLVListCopyDescription(v47);
+      v54 = EAPLogGetLogHandle();
+      v55 = _SC_syslog_os_log_mapping();
+      if (os_log_type_enabled(v54, v55))
+      {
+        *buf = 138412290;
+        *v119 = v113;
+        _os_log_impl(&dword_249EFB000, v54, v55, "Decrypted TLVs:\n%@", buf, 0xCu);
+      }
+
+      CFRelease(v113);
+      v56 = TLVListLookupAttribute(v47, 19);
+      v57 = v56;
+      if (v56)
+      {
+        v58 = bswap32(*(v56 + 2)) >> 16;
+      }
+
+      else
+      {
+        v58 = 0;
+      }
+
+      free(v112);
+      TLVListFree(v47);
+      if (v57)
+      {
+        v35 = HIDWORD(v114);
+        if (v58 == HIDWORD(v114))
+        {
+          v36 = v114;
+          goto LABEL_48;
+        }
+
+        v110 = EAPLogGetLogHandle();
+        v111 = _SC_syslog_os_log_mapping();
+        if (!os_log_type_enabled(v110, v111))
+        {
+          goto LABEL_39;
+        }
+
+        *buf = 67109376;
+        *v119 = v58;
+        *&v119[4] = 1024;
+        *&v119[6] = v35;
+        v64 = "eapsim: Notification AT_COUNTER (%d) does not match current counter (%d)";
+        v65 = v110;
+        v66 = v111;
+        v67 = 14;
+      }
+
+      else
+      {
+        v108 = EAPLogGetLogHandle();
+        v109 = _SC_syslog_os_log_mapping();
+        if (!os_log_type_enabled(v108, v109))
+        {
+          goto LABEL_39;
+        }
+
+        *buf = 0;
+        v64 = "eapsim:  Notification AT_ENCR_DATA missing AT_COUNTER";
+        v65 = v108;
+        v66 = v109;
+        v67 = 2;
+      }
+    }
+
+    else
+    {
+      v62 = EAPLogGetLogHandle();
+      v63 = _SC_syslog_os_log_mapping();
+      if (!os_log_type_enabled(v62, v63))
+      {
+LABEL_39:
+        v68 = 17;
+LABEL_43:
+        *a4 = v68;
+        return 0;
+      }
+
+      *buf = 134218240;
+      *v119 = v50;
+      *&v119[8] = 2048;
+      v120 = v52;
+      v64 = "eapsim: Notification after re-auth missing AT_ENCR_DATA (%p) or AT_IV (%p)";
+      v65 = v62;
+      v66 = v63;
+      v67 = 22;
+    }
+
+    _os_log_impl(&dword_249EFB000, v65, v66, v64, buf, v67);
+    goto LABEL_39;
+  }
+
+LABEL_48:
+  TLVBufferInit(v20, a1 + 324, 1492);
+  *(a1 + 316) = 2;
+  *(a1 + 317) = a2[1];
+  *(a1 + 320) = 3090;
+  if (!v36)
+  {
+    goto LABEL_54;
+  }
+
+  v71 = TLVBufferSizeof();
+  MEMORY[0x28223BE20](v71, v72, v73, v74, v75, v76, v77, v78, v112, v113, v114, v115);
+  v81 = &v112 - v80;
+  if ((v82 & 0x7FFFFFE00) != 0)
+  {
+    v83 = 512;
+  }
+
+  else
+  {
+    v83 = v79;
+  }
+
+  bzero(&v112 - v80, v83);
+  TLVBufferInit(v81, buf, 16);
+  if (!TLVBufferAddCounter(v81, v35))
+  {
+    v95 = EAPLogGetLogHandle();
+    v96 = _SC_syslog_os_log_mapping();
+    if (os_log_type_enabled(v95, v96))
+    {
+      v97 = TLVBufferErrorString(v81);
+      *v116 = 136315138;
+      v117 = v97;
+      _os_log_impl(&dword_249EFB000, v95, v96, "eapsim: failed to allocate AT_COUNTER, %s", v116, 0xCu);
+    }
+
+    v98 = 2;
+    goto LABEL_69;
+  }
+
+  if (!EAPSIMAKAKeyInfoEncryptTLVs((a1 + 80), v20, v81))
+  {
+    v98 = 8;
+LABEL_69:
+    *a4 = v98;
+    return 0;
+  }
+
+LABEL_54:
+  if (v33)
+  {
+    TLV = TLVBufferAllocateTLV(v20, 11, 0x14u);
+    if (!TLV)
+    {
+      v99 = EAPLogGetLogHandle();
+      v100 = _SC_syslog_os_log_mapping();
+      if (os_log_type_enabled(v99, v100))
+      {
+        v101 = TLVBufferErrorString(v20);
+        *buf = 136315138;
+        *v119 = v101;
+        _os_log_impl(&dword_249EFB000, v99, v100, "eapsim: failed allocating AT_MAC, %s", buf, 0xCu);
+      }
+
+      v59 = 0;
+      v60 = 2;
+      goto LABEL_34;
+    }
+
+    v85 = TLV;
+    *(TLV + 1) = 0;
+  }
+
+  else
+  {
+    v85 = 0;
+  }
+
+  v59 = a1 + 316;
+  v86 = TLVBufferUsed(v20);
+  EAPPacketSetLength(a1 + 316, (v86 + 8));
+  if (v85)
+  {
+    EAPSIMAKAKeyInfoSetMAC(a1 + 80, (a1 + 316), v85 + 4, 0, 0);
+  }
+
+  if ((v24 & 0x8000) != 0)
+  {
+    *(a1 + 12) = 4;
+    return v59;
+  }
+
+  *(a1 + 12) = 5;
+  *a4 = 1002;
+  *a5 = EAPSIMAKAStatusForATNotificationCode(v24);
+  String = ATNotificationCodeGetString(v24);
+  v88 = EAPLogGetLogHandle();
+  v89 = _SC_syslog_os_log_mapping();
+  v90 = os_log_type_enabled(v88, v89);
+  if (String)
+  {
+    if (!v90)
+    {
+      goto LABEL_77;
+    }
+
+    *buf = 136315138;
+    *v119 = String;
+    v91 = "eapsim: Notification: %s";
+    v92 = v88;
+    v93 = v89;
+    v94 = 12;
+  }
+
+  else
+  {
+    if (!v90)
+    {
+      goto LABEL_77;
+    }
+
+    *buf = 67109120;
+    *v119 = v24;
+    v91 = "eapsim: Notification code '%d' unrecognized failure";
+    v92 = v88;
+    v93 = v89;
+    v94 = 8;
+  }
+
+  _os_log_impl(&dword_249EFB000, v92, v93, v91, buf, v94);
+LABEL_77:
+  v102 = EAPSIMAKAActionInfoForNotificationCode(*(*a1 + 80), v24);
+  if (v102)
+  {
+    v103 = v102;
+    *(a1 + 288) = CFDictionaryCreateCopy(0, v102);
+    v104 = EAPLogGetLogHandle();
+    v105 = _SC_syslog_os_log_mapping();
+    if (os_log_type_enabled(v104, v105))
+    {
+      *buf = 138412290;
+      *v119 = v103;
+      _os_log_impl(&dword_249EFB000, v104, v105, "eapsim: Notification Action Info: %@", buf, 0xCu);
+    }
+  }
+
+  else if (*a5 == 19)
+  {
+    v106 = *(a1 + 280);
+    if (v106)
+    {
+      v107 = *(v106 + 16);
+      if (v107)
+      {
+        SIMReportDecryptionError(v107);
+      }
+    }
+  }
+
+  return v59;
+}
+
+uint64_t eapsim_reauthentication(uint64_t a1, _BYTE *a2, unsigned __int8 ***a3, int *a4)
+{
+  v92 = *MEMORY[0x277D85DE8];
+  v8 = TLVBufferSizeof();
+  MEMORY[0x28223BE20](v8, v9, v10, v11, v12, v13, v14, v15, v84, v85, v86, v87);
+  v18 = &v84 - v17;
+  if ((v19 & 0x7FFFFFE00) != 0)
+  {
+    v20 = 512;
+  }
+
+  else
+  {
+    v20 = v16;
+  }
+
+  bzero(&v84 - v17, v20);
+  v21 = TLVListSizeof();
+  MEMORY[0x28223BE20](v21, v22, v23, v24, v25, v26, v27, v28, v84, v85, v86, v87);
+  v31 = (&v84 - v30);
+  if ((v32 & 0x7FFFFFE00) != 0)
+  {
+    v33 = 512;
+  }
+
+  else
+  {
+    v33 = v29;
+  }
+
+  bzero(&v84 - v30, v33);
+  v34 = TLVBufferSizeof();
+  MEMORY[0x28223BE20](v34, v35, v36, v37, v38, v39, v40, v41, v84, v85, v86, v87);
+  v44 = &v84 - v43;
+  if ((v45 & 0x7FFFFFE00) != 0)
+  {
+    v46 = 512;
+  }
+
+  else
+  {
+    v46 = v42;
+  }
+
+  bzero(&v84 - v43, v46);
+  TLVListInit(v31);
   if ((*(a1 + 240) & 1) == 0)
   {
     LogHandle = EAPLogGetLogHandle();
-    v44 = _SC_syslog_os_log_mapping();
-    if (!os_log_type_enabled(LogHandle, v44))
+    v68 = _SC_syslog_os_log_mapping();
+    if (!os_log_type_enabled(LogHandle, v68))
     {
       goto LABEL_41;
     }
 
     *buf = 0;
-    v45 = "eapsim: Reauthentication but no key info available";
+    v69 = "eapsim: Reauthentication but no key info available";
 LABEL_40:
-    _os_log_impl(&dword_249EFB000, LogHandle, v44, v45, buf, 2u);
+    _os_log_impl(&dword_249EFB000, LogHandle, v68, v69, buf, 2u);
     goto LABEL_41;
   }
 
   if (!EAPSIMAKAPersistentStateGetReauthID(*(a1 + 264)))
   {
     LogHandle = EAPLogGetLogHandle();
-    v44 = _SC_syslog_os_log_mapping();
-    if (!os_log_type_enabled(LogHandle, v44))
+    v68 = _SC_syslog_os_log_mapping();
+    if (!os_log_type_enabled(LogHandle, v68))
     {
       goto LABEL_41;
     }
 
     *buf = 0;
-    v45 = "eapsim: received Reauthentication but don't have reauth id";
+    v69 = "eapsim: received Reauthentication but don't have reauth id";
     goto LABEL_40;
   }
 
   *(a1 + 8) = 0x300000000;
   EAPSIMAKAPersistentStateSetReauthID(*(a1 + 264), 0);
-  v23 = TLVListLookupAttribute(a3, 11);
-  if (!v23)
+  v47 = TLVListLookupAttribute(a3, 11);
+  if (!v47)
   {
     LogHandle = EAPLogGetLogHandle();
-    v44 = _SC_syslog_os_log_mapping();
-    if (!os_log_type_enabled(LogHandle, v44))
+    v68 = _SC_syslog_os_log_mapping();
+    if (!os_log_type_enabled(LogHandle, v68))
     {
       goto LABEL_41;
     }
 
     *buf = 0;
-    v45 = "eapsim: Reauthentication is missing AT_MAC";
+    v69 = "eapsim: Reauthentication is missing AT_MAC";
     goto LABEL_40;
   }
 
-  if (!EAPSIMAKAKeyInfoVerifyMAC(a1 + 80, a2, v23 + 4, 0, 0))
+  if (!EAPSIMAKAKeyInfoVerifyMAC(a1 + 80, a2, v47 + 4, 0, 0))
   {
     LogHandle = EAPLogGetLogHandle();
-    v44 = _SC_syslog_os_log_mapping();
-    if (!os_log_type_enabled(LogHandle, v44))
+    v68 = _SC_syslog_os_log_mapping();
+    if (!os_log_type_enabled(LogHandle, v68))
     {
       goto LABEL_41;
     }
 
     *buf = 0;
-    v45 = "eapsim: Reauthentication AT_MAC not valid";
+    v69 = "eapsim: Reauthentication AT_MAC not valid";
     goto LABEL_40;
   }
 
-  v24 = TLVListLookupAttribute(a3, 130);
-  v25 = TLVListLookupAttribute(a3, 129);
-  v26 = v25;
-  if (!v24 || !v25)
+  v48 = TLVListLookupAttribute(a3, 130);
+  v49 = TLVListLookupAttribute(a3, 129);
+  v50 = v49;
+  if (!v48 || !v49)
   {
-    if (!v24)
+    if (!v48)
     {
-      v48 = EAPLogGetLogHandle();
-      v49 = _SC_syslog_os_log_mapping();
-      if (os_log_type_enabled(v48, v49))
+      v71 = EAPLogGetLogHandle();
+      v72 = _SC_syslog_os_log_mapping();
+      if (os_log_type_enabled(v71, v72))
       {
         *buf = 0;
-        _os_log_impl(&dword_249EFB000, v48, v49, "eapsim:  Reauthentication missing AT_ENCR_DATA", buf, 2u);
+        _os_log_impl(&dword_249EFB000, v71, v72, "eapsim:  Reauthentication missing AT_ENCR_DATA", buf, 2u);
       }
     }
 
-    if (v26)
+    if (v50)
     {
       goto LABEL_41;
     }
 
     LogHandle = EAPLogGetLogHandle();
-    v44 = _SC_syslog_os_log_mapping();
-    if (!os_log_type_enabled(LogHandle, v44))
+    v68 = _SC_syslog_os_log_mapping();
+    if (!os_log_type_enabled(LogHandle, v68))
     {
       goto LABEL_41;
     }
 
     *buf = 0;
-    v45 = "eapsim:  Reauthentication missing AT_IV";
+    v69 = "eapsim:  Reauthentication missing AT_IV";
     goto LABEL_40;
   }
 
-  v27 = EAPSIMAKAKeyInfoDecryptTLVList((a1 + 80), v24, v25, v15);
-  if (v27)
+  v51 = EAPSIMAKAKeyInfoDecryptTLVList((a1 + 80), v48, v49, v31);
+  if (v51)
   {
-    v64 = v27;
-    v28 = TLVListCopyDescription(v15);
-    v29 = EAPLogGetLogHandle();
-    v30 = _SC_syslog_os_log_mapping();
-    if (os_log_type_enabled(v29, v30))
+    v87 = v51;
+    v52 = TLVListCopyDescription(v31);
+    v53 = EAPLogGetLogHandle();
+    v54 = _SC_syslog_os_log_mapping();
+    if (os_log_type_enabled(v53, v54))
     {
       *buf = 138412290;
-      v68 = v28;
-      _os_log_impl(&dword_249EFB000, v29, v30, "Decrypted TLVs:\n%@", buf, 0xCu);
+      v91 = v52;
+      _os_log_impl(&dword_249EFB000, v53, v54, "Decrypted TLVs:\n%@", buf, 0xCu);
     }
 
-    CFRelease(v28);
-    v31 = TLVListLookupAttribute(v15, 21);
-    v32 = TLVListLookupAttribute(v15, 19);
-    v33 = v32;
-    if (!v31 || !v32)
+    CFRelease(v52);
+    v55 = TLVListLookupAttribute(v31, 21);
+    v56 = TLVListLookupAttribute(v31, 19);
+    v57 = v56;
+    if (!v55 || !v56)
     {
-      if (!v31)
+      if (!v55)
       {
-        v50 = EAPLogGetLogHandle();
-        v51 = _SC_syslog_os_log_mapping();
-        if (os_log_type_enabled(v50, v51))
+        v73 = EAPLogGetLogHandle();
+        v74 = _SC_syslog_os_log_mapping();
+        if (os_log_type_enabled(v73, v74))
         {
           *buf = 0;
-          _os_log_impl(&dword_249EFB000, v50, v51, "eapsim:  Reauthentication AT_ENCR_DATA missing AT_NONCE_S", buf, 2u);
+          _os_log_impl(&dword_249EFB000, v73, v74, "eapsim:  Reauthentication AT_ENCR_DATA missing AT_NONCE_S", buf, 2u);
         }
       }
 
-      if (!v33)
+      if (!v57)
       {
-        v52 = EAPLogGetLogHandle();
-        v53 = _SC_syslog_os_log_mapping();
-        if (os_log_type_enabled(v52, v53))
+        v75 = EAPLogGetLogHandle();
+        v76 = _SC_syslog_os_log_mapping();
+        if (os_log_type_enabled(v75, v76))
         {
           *buf = 0;
-          _os_log_impl(&dword_249EFB000, v52, v53, "eapsim:  Reauthentication AT_ENCR_DATA missing AT_COUNTER", buf, 2u);
+          _os_log_impl(&dword_249EFB000, v75, v76, "eapsim:  Reauthentication AT_ENCR_DATA missing AT_COUNTER", buf, 2u);
         }
       }
 
-      v41 = 0;
-      v54 = 17;
+      v65 = 0;
+      v77 = 17;
       goto LABEL_66;
     }
 
-    v63 = v32;
-    v34 = bswap32(*(v32 + 2)) >> 16;
+    v86 = v56;
+    v58 = bswap32(*(v56 + 2)) >> 16;
     Counter = EAPSIMAKAPersistentStateGetCounter(*(a1 + 264));
-    v36 = Counter;
-    if (v34 >= Counter)
+    v60 = Counter;
+    if (v58 >= Counter)
     {
-      v62 = Counter;
-      StringFromAttribute = TLVListCreateStringFromAttribute(v15, 133);
+      HIDWORD(v85) = Counter;
+      StringFromAttribute = TLVListCreateStringFromAttribute(v31, 133);
       if (StringFromAttribute)
       {
-        v38 = StringFromAttribute;
+        v62 = StringFromAttribute;
         EAPSIMAKAPersistentStateSetReauthID(*(a1 + 264), StringFromAttribute);
-        CFRelease(v38);
+        CFRelease(v62);
       }
 
-      EAPSIMAKAPersistentStateSetCounter(*(a1 + 264), v34 + 1);
-      v36 = v62;
+      EAPSIMAKAPersistentStateSetCounter(*(a1 + 264), v58 + 1);
+      v60 = HIDWORD(v85);
     }
 
-    TLVBufferInit(v20, a1 + 324, 1492);
+    TLVBufferInit(v44, a1 + 324, 1492);
     *(a1 + 316) = 2;
     *(a1 + 317) = a2[1];
     *(a1 + 320) = 3346;
-    TLVBufferInit(v10, buf, 16);
-    if (TLVBufferAddCounter(v10, v34))
+    TLVBufferInit(v18, buf, 16);
+    if (TLVBufferAddCounter(v18, v58))
     {
-      if (v34 >= v36 || TLVBufferAddCounterTooSmall(v10))
+      if (v58 >= v60 || TLVBufferAddCounterTooSmall(v18))
       {
-        if (!EAPSIMAKAKeyInfoEncryptTLVs((a1 + 80), v20, v10))
+        if (!EAPSIMAKAKeyInfoEncryptTLVs((a1 + 80), v44, v18))
         {
           goto LABEL_65;
         }
 
-        TLV = TLVBufferAllocateTLV(v20, 11, 20);
+        TLV = TLVBufferAllocateTLV(v44, 11, 0x14u);
         if (TLV)
         {
-          v40 = TLV;
-          v41 = a1 + 316;
+          v64 = TLV;
+          v65 = a1 + 316;
           *(TLV + 1) = 0;
-          v42 = TLVBufferUsed(v20);
-          EAPPacketSetLength(a1 + 316, (v42 + 8));
-          EAPSIMAKAKeyInfoSetMAC(a1 + 80, (a1 + 316), v40 + 4, (v31 + 4), 16);
-          if (v34 >= v36)
+          v66 = TLVBufferUsed(v44);
+          EAPPacketSetLength(a1 + 316, (v66 + 8));
+          EAPSIMAKAKeyInfoSetMAC(a1 + 80, (a1 + 316), v64 + 4, (v55 + 4), 16);
+          if (v58 >= v60)
           {
             *(a1 + 12) = 4;
-            eapsim_compute_reauth_key(a1, v63, v31);
+            eapsim_compute_reauth_key(a1, v86, v55);
             *(a1 + 240) = 1;
             *(a1 + 272) = 1;
           }
@@ -4025,220 +3606,211 @@ LABEL_40:
           goto LABEL_67;
         }
 
-        v55 = EAPLogGetLogHandle();
-        v56 = _SC_syslog_os_log_mapping();
-        if (!os_log_type_enabled(v55, v56))
+        v78 = EAPLogGetLogHandle();
+        v79 = _SC_syslog_os_log_mapping();
+        if (!os_log_type_enabled(v78, v79))
         {
           goto LABEL_65;
         }
 
-        v60 = TLVBufferErrorString(v20);
-        *v65 = 136315138;
-        v66 = v60;
-        v58 = "eapsim: failed allocating AT_MAC, %s";
+        v83 = TLVBufferErrorString(v44);
+        *v88 = 136315138;
+        v89 = v83;
+        v81 = "eapsim: failed allocating AT_MAC, %s";
         goto LABEL_64;
       }
 
-      v55 = EAPLogGetLogHandle();
-      v56 = _SC_syslog_os_log_mapping();
-      if (os_log_type_enabled(v55, v56))
+      v78 = EAPLogGetLogHandle();
+      v79 = _SC_syslog_os_log_mapping();
+      if (os_log_type_enabled(v78, v79))
       {
-        v59 = TLVBufferErrorString(v20);
-        *v65 = 136315138;
-        v66 = v59;
-        v58 = "eapsim: failed allocating AT_COUNTER_TOO_SMALL, %s";
+        v82 = TLVBufferErrorString(v44);
+        *v88 = 136315138;
+        v89 = v82;
+        v81 = "eapsim: failed allocating AT_COUNTER_TOO_SMALL, %s";
         goto LABEL_64;
       }
     }
 
     else
     {
-      v55 = EAPLogGetLogHandle();
-      v56 = _SC_syslog_os_log_mapping();
-      if (os_log_type_enabled(v55, v56))
+      v78 = EAPLogGetLogHandle();
+      v79 = _SC_syslog_os_log_mapping();
+      if (os_log_type_enabled(v78, v79))
       {
-        v57 = TLVBufferErrorString(v20);
-        *v65 = 136315138;
-        v66 = v57;
-        v58 = "eapsim: failed allocating AT_COUNTER, %s";
+        v80 = TLVBufferErrorString(v44);
+        *v88 = 136315138;
+        v89 = v80;
+        v81 = "eapsim: failed allocating AT_COUNTER, %s";
 LABEL_64:
-        _os_log_impl(&dword_249EFB000, v55, v56, v58, v65, 0xCu);
+        _os_log_impl(&dword_249EFB000, v78, v79, v81, v88, 0xCu);
       }
     }
 
 LABEL_65:
-    v41 = 0;
-    v54 = 8;
+    v65 = 0;
+    v77 = 8;
 LABEL_66:
-    *a4 = v54;
+    *a4 = v77;
 LABEL_67:
-    free(v64);
+    free(v87);
     goto LABEL_42;
   }
 
   LogHandle = EAPLogGetLogHandle();
-  v44 = _SC_syslog_os_log_mapping();
-  if (os_log_type_enabled(LogHandle, v44))
+  v68 = _SC_syslog_os_log_mapping();
+  if (os_log_type_enabled(LogHandle, v68))
   {
     *buf = 0;
-    v45 = "eapsim: failed to decrypt Reauthentication AT_ENCR_DATA";
+    v69 = "eapsim: failed to decrypt Reauthentication AT_ENCR_DATA";
     goto LABEL_40;
   }
 
 LABEL_41:
-  v41 = 0;
+  v65 = 0;
   *a4 = 17;
 LABEL_42:
-  TLVListFree(v15);
-  v46 = *MEMORY[0x277D85DE8];
-  return v41;
+  TLVListFree(v31);
+  return v65;
 }
 
 uint64_t eapsim_make_client_error(uint64_t a1, uint64_t a2, unsigned int a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
-  TLVBufferSizeof();
-  MEMORY[0x28223BE20]();
-  v8 = &buf[-v7];
-  if ((v9 & 0x7FFFFFE00) != 0)
+  v28 = *MEMORY[0x277D85DE8];
+  v6 = TLVBufferSizeof();
+  MEMORY[0x28223BE20](v6, v7, v8, v9, v10, v11, v12, v13, buf, *(&buf + 1), v27, v28);
+  v16 = &buf - v15;
+  if ((v17 & 0x7FFFFFE00) != 0)
   {
-    v10 = 512;
+    v18 = 512;
   }
 
   else
   {
-    v10 = v6;
+    v18 = v14;
   }
 
-  bzero(&buf[-v7], v10);
-  TLVBufferInit(v8, a1 + 324, 1492);
+  bzero(&buf - v15, v18);
+  TLVBufferInit(v16, a1 + 324, 1492);
   *(a1 + 316) = 2;
   *(a1 + 317) = *(a2 + 1);
   *(a1 + 320) = 3602;
-  TLV = TLVBufferAllocateTLV(v8, 22, 4);
+  TLV = TLVBufferAllocateTLV(v16, 22, 4u);
   if (TLV)
   {
-    v12 = a1 + 316;
+    v20 = a1 + 316;
     *(TLV + 1) = __rev16(a3);
-    v13 = TLVBufferUsed(v8);
-    EAPPacketSetLength(v12, (v13 + 8));
+    v21 = TLVBufferUsed(v16);
+    EAPPacketSetLength(v20, (v21 + 8));
   }
 
   else
   {
     LogHandle = EAPLogGetLogHandle();
-    v15 = _SC_syslog_os_log_mapping();
-    if (os_log_type_enabled(LogHandle, v15))
+    v23 = _SC_syslog_os_log_mapping();
+    if (os_log_type_enabled(LogHandle, v23))
     {
-      v16 = TLVBufferErrorString(v8);
-      *buf = 136315138;
-      v20 = v16;
-      _os_log_impl(&dword_249EFB000, LogHandle, v15, "eapsim: failed allocating AT_CLIENT_ERROR_CODE, %s", buf, 0xCu);
+      v24 = TLVBufferErrorString(v16);
+      LODWORD(buf) = 136315138;
+      *(&buf + 4) = v24;
+      _os_log_impl(&dword_249EFB000, LogHandle, v23, "eapsim: failed allocating AT_CLIENT_ERROR_CODE, %s", &buf, 0xCu);
     }
 
-    v12 = 0;
+    return 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-  return v12;
+  return v20;
 }
 
 BOOL eapsim_challenge_process_encr_data(uint64_t a1, unsigned __int8 ***a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
-  TLVListSizeof();
-  MEMORY[0x28223BE20]();
-  v6 = &buf[-v5];
-  if ((v7 & 0x7FFFFFE00) != 0)
+  v35 = *MEMORY[0x277D85DE8];
+  v4 = TLVListSizeof();
+  MEMORY[0x28223BE20](v4, v5, v6, v7, v8, v9, v10, v11, buf, *(&buf + 1), v34, v35);
+  v14 = (&buf - v13);
+  if ((v15 & 0x7FFFFFE00) != 0)
   {
-    v8 = 512;
+    v16 = 512;
   }
 
   else
   {
-    v8 = v4;
+    v16 = v12;
   }
 
-  bzero(&buf[-v5], v8);
-  TLVListInit(v6);
-  v9 = TLVListLookupAttribute(a2, 130);
-  if (v9)
+  bzero(&buf - v13, v16);
+  TLVListInit(v14);
+  v17 = TLVListLookupAttribute(a2, 130);
+  if (!v17)
   {
-    v10 = v9;
-    v11 = TLVListLookupAttribute(a2, 129);
-    if (v11)
-    {
-      v12 = EAPSIMAKAKeyInfoDecryptTLVList((a1 + 80), v10, v11, v6);
-      if (v12)
-      {
-        v13 = v12;
-        v14 = TLVListCopyDescription(v6);
-        LogHandle = EAPLogGetLogHandle();
-        v16 = _SC_syslog_os_log_mapping();
-        if (os_log_type_enabled(LogHandle, v16))
-        {
-          *buf = 138412290;
-          v27 = v14;
-          _os_log_impl(&dword_249EFB000, LogHandle, v16, "Decrypted TLVs:\n%@", buf, 0xCu);
-        }
-
-        CFRelease(v14);
-        StringFromAttribute = TLVListCreateStringFromAttribute(v6, 133);
-        if (StringFromAttribute)
-        {
-          v18 = StringFromAttribute;
-          EAPSIMAKAPersistentStateSetReauthID(*(a1 + 264), StringFromAttribute);
-          CFRelease(v18);
-        }
-
-        v19 = TLVListCreateStringFromAttribute(v6, 132);
-        if (v19)
-        {
-          v20 = v19;
-          EAPSIMAKAPersistentStateSetPseudonym(*(a1 + 264), v19);
-          CFRelease(v20);
-        }
-
-        free(v13);
-        TLVListFree(v6);
-        goto LABEL_14;
-      }
-
-      v22 = EAPLogGetLogHandle();
-      v23 = _SC_syslog_os_log_mapping();
-      result = os_log_type_enabled(v22, v23);
-      if (!result)
-      {
-        goto LABEL_20;
-      }
-
-      *buf = 0;
-      v24 = "eapsim: Challenge decrypt AT_ENCR_DATA failed";
-    }
-
-    else
-    {
-      v22 = EAPLogGetLogHandle();
-      v23 = _SC_syslog_os_log_mapping();
-      result = os_log_type_enabled(v22, v23);
-      if (!result)
-      {
-        goto LABEL_20;
-      }
-
-      *buf = 0;
-      v24 = "eapsim: Challenge missing AT_IV";
-    }
-
-    _os_log_impl(&dword_249EFB000, v22, v23, v24, buf, 2u);
-    result = 0;
-    goto LABEL_20;
+    return 1;
   }
 
-LABEL_14:
-  result = 1;
-LABEL_20:
-  v25 = *MEMORY[0x277D85DE8];
+  v18 = v17;
+  v19 = TLVListLookupAttribute(a2, 129);
+  if (!v19)
+  {
+    LogHandle = EAPLogGetLogHandle();
+    v31 = _SC_syslog_os_log_mapping();
+    result = os_log_type_enabled(LogHandle, v31);
+    if (!result)
+    {
+      return result;
+    }
+
+    LOWORD(buf) = 0;
+    v32 = "eapsim: Challenge missing AT_IV";
+    goto LABEL_19;
+  }
+
+  v20 = EAPSIMAKAKeyInfoDecryptTLVList((a1 + 80), v18, v19, v14);
+  if (v20)
+  {
+    v21 = v20;
+    v22 = TLVListCopyDescription(v14);
+    v23 = EAPLogGetLogHandle();
+    v24 = _SC_syslog_os_log_mapping();
+    if (os_log_type_enabled(v23, v24))
+    {
+      LODWORD(buf) = 138412290;
+      *(&buf + 4) = v22;
+      _os_log_impl(&dword_249EFB000, v23, v24, "Decrypted TLVs:\n%@", &buf, 0xCu);
+    }
+
+    CFRelease(v22);
+    StringFromAttribute = TLVListCreateStringFromAttribute(v14, 133);
+    if (StringFromAttribute)
+    {
+      v26 = StringFromAttribute;
+      EAPSIMAKAPersistentStateSetReauthID(*(a1 + 264), StringFromAttribute);
+      CFRelease(v26);
+    }
+
+    v27 = TLVListCreateStringFromAttribute(v14, 132);
+    if (v27)
+    {
+      v28 = v27;
+      EAPSIMAKAPersistentStateSetPseudonym(*(a1 + 264), v27);
+      CFRelease(v28);
+    }
+
+    free(v21);
+    TLVListFree(v14);
+    return 1;
+  }
+
+  LogHandle = EAPLogGetLogHandle();
+  v31 = _SC_syslog_os_log_mapping();
+  result = os_log_type_enabled(LogHandle, v31);
+  if (result)
+  {
+    LOWORD(buf) = 0;
+    v32 = "eapsim: Challenge decrypt AT_ENCR_DATA failed";
+LABEL_19:
+    _os_log_impl(&dword_249EFB000, LogHandle, v31, v32, &buf, 2u);
+    return 0;
+  }
+
   return result;
 }
 
@@ -4262,7 +3834,7 @@ double eapsim_compute_reauth_key(uint64_t a1, uint64_t a2, uint64_t a3)
   return EAPSIMAKAKeyInfoComputeReauthKey((a1 + 80), v9, BytePtr, Length, a2, a3);
 }
 
-void fips186_2prf(__int128 *a1, uint64_t a2)
+double fips186_2prf(__int128 *a1, uint64_t a2)
 {
   v3 = 0;
   v33 = *MEMORY[0x277D85DE8];
@@ -4329,6 +3901,7 @@ void fips186_2prf(__int128 *a1, uint64_t a2)
 
     *a2 = v28;
     *(a2 + 16) = v29;
+    result = *&v26;
     *(a2 + 20) = v26;
     *(a2 + 36) = v27;
     a2 += 40;
@@ -4336,7 +3909,7 @@ void fips186_2prf(__int128 *a1, uint64_t a2)
   }
 
   while (v3 != 4);
-  v17 = *MEMORY[0x277D85DE8];
+  return result;
 }
 
 uint64_t fr_SHA1Transform(_DWORD *a1, unsigned int *a2)
@@ -5257,9 +4830,9 @@ double fr_SHA1FinalNoLen(uint64_t a1, uint64_t a2)
 __CFDictionary *EAPClientConfigurationCopyShareable(const __CFDictionary *a1)
 {
   valuePtr[1] = *MEMORY[0x277D85DE8];
-  v73 = 0;
-  v74 = 0;
   v72 = 0;
+  v73 = 0;
+  v71 = 0;
   if (a1)
   {
     v2 = CFDictionaryGetValue(a1, @"AcceptEAPTypes");
@@ -5275,7 +4848,7 @@ __CFDictionary *EAPClientConfigurationCopyShareable(const __CFDictionary *a1)
     }
 
     MutableCopy = CFArrayCreateMutableCopy(0, 0, v3);
-    v73 = MutableCopy;
+    v72 = MutableCopy;
     TypeID = CFArrayGetTypeID();
     if (!MutableCopy || CFGetTypeID(MutableCopy) != TypeID)
     {
@@ -5317,10 +4890,10 @@ LABEL_25:
 LABEL_28:
         v12 = 0;
 LABEL_29:
-        my_CFRelease(&v73);
-        my_CFRelease(&v74);
         my_CFRelease(&v72);
-        goto LABEL_30;
+        my_CFRelease(&v73);
+        my_CFRelease(&v71);
+        return v12;
       }
 
       LOWORD(valuePtr[0]) = 0;
@@ -5352,28 +4925,28 @@ LABEL_27:
       goto LABEL_27;
     }
 
-    v20 = CFDictionaryGetValue(a1, @"TLSIdentityHandle");
-    if (!v20)
+    v19 = CFDictionaryGetValue(a1, @"TLSIdentityHandle");
+    if (!v19)
     {
-      v26 = 0;
+      v25 = 0;
       goto LABEL_40;
     }
 
     privateKeyRef = 0;
     identityRef = 0;
-    v77 = 0;
-    v78 = 0;
     v76 = 0;
-    SecIdentity = EAPSecIdentityHandleCreateSecIdentity(v20, &identityRef);
+    v77 = 0;
+    v75 = 0;
+    SecIdentity = EAPSecIdentityHandleCreateSecIdentity(v19, &identityRef);
     if (SecIdentity)
     {
-      v22 = SecIdentity;
-      v23 = EAPLogGetLogHandle();
-      v24 = _SC_syslog_os_log_mapping();
-      if (!os_log_type_enabled(v23, v24))
+      v21 = SecIdentity;
+      v22 = EAPLogGetLogHandle();
+      v23 = _SC_syslog_os_log_mapping();
+      if (!os_log_type_enabled(v22, v23))
       {
 LABEL_36:
-        v72 = 0;
+        v71 = 0;
 LABEL_37:
         LogHandle = EAPLogGetLogHandle();
         v16 = _SC_syslog_os_log_mapping();
@@ -5388,71 +4961,71 @@ LABEL_37:
       }
 
       LODWORD(valuePtr[0]) = 67109120;
-      HIDWORD(valuePtr[0]) = v22;
-      v25 = "EAPSecIdentityHandleCreateSecIdentity() failed: (%d)";
+      HIDWORD(valuePtr[0]) = v21;
+      v24 = "EAPSecIdentityHandleCreateSecIdentity() failed: (%d)";
 LABEL_35:
-      _os_log_impl(&dword_249EFB000, v23, v24, v25, valuePtr, 8u);
+      _os_log_impl(&dword_249EFB000, v22, v23, v24, valuePtr, 8u);
       goto LABEL_36;
     }
 
-    v27 = identityRef;
+    v26 = identityRef;
     if (!identityRef)
     {
-      v23 = EAPLogGetLogHandle();
-      v24 = _SC_syslog_os_log_mapping();
-      if (!os_log_type_enabled(v23, v24))
+      v22 = EAPLogGetLogHandle();
+      v23 = _SC_syslog_os_log_mapping();
+      if (!os_log_type_enabled(v22, v23))
       {
         goto LABEL_36;
       }
 
       valuePtr[0] = 67109120;
-      v25 = "Failed to find identity in the keychain: (%d)";
+      v24 = "Failed to find identity in the keychain: (%d)";
       goto LABEL_35;
     }
 
     valuePtr[0] = 0;
-    v84 = 0;
+    v83 = 0;
     trust = 0;
-    v81 = 0;
-    v75 = 0;
+    v80 = 0;
+    v74 = 0;
     EAP = SecPolicyCreateEAP();
-    v83 = EAP;
+    v82 = EAP;
     if (EAP)
     {
-      v29 = EAP;
-      v30 = SecIdentityCopyCertificate(v27, valuePtr);
-      if (v30)
+      v28 = EAP;
+      v29 = SecIdentityCopyCertificate(v26, valuePtr);
+      if (v29)
       {
-        v31 = v30;
-        v32 = EAPLogGetLogHandle();
-        v33 = _SC_syslog_os_log_mapping();
-        if (os_log_type_enabled(v32, v33))
+        v30 = v29;
+        v31 = EAPLogGetLogHandle();
+        v32 = _SC_syslog_os_log_mapping();
+        if (os_log_type_enabled(v31, v32))
         {
           *buf = 67109120;
-          *&buf[4] = v31;
-          v34 = "SecIdentityCopyCertificate failed: (%d)";
+          *&buf[4] = v30;
+          v33 = "SecIdentityCopyCertificate failed: (%d)";
 LABEL_55:
-          _os_log_impl(&dword_249EFB000, v32, v33, v34, buf, 8u);
+          _os_log_impl(&dword_249EFB000, v31, v32, v33, buf, 8u);
           goto LABEL_56;
         }
 
         goto LABEL_56;
       }
 
-      v38 = CFArrayCreate(0, valuePtr, 1, MEMORY[0x277CBF128]);
-      v84 = v38;
+      v37 = CFArrayCreate(0, valuePtr, 1, MEMORY[0x277CBF128]);
+      v83 = v37;
       my_CFRelease(valuePtr);
-      v31 = SecTrustCreateWithCertificates(v38, v29, &trust);
-      my_CFRelease(&v84);
-      if (v31)
+      v30 = SecTrustCreateWithCertificates(v37, v28, &trust);
+      my_CFRelease(&v83);
+      if (v30)
       {
-        v32 = EAPLogGetLogHandle();
-        v33 = _SC_syslog_os_log_mapping();
-        if (os_log_type_enabled(v32, v33))
+        v31 = EAPLogGetLogHandle();
+        v32 = _SC_syslog_os_log_mapping();
+        if (os_log_type_enabled(v31, v32))
         {
           *buf = 67109120;
-          *&buf[4] = v31;
-          v34 = "SecTrustCreateWithCertificates failed: (%d)";
+          *&buf[4] = v30;
+          v33 = "SecTrustCreateWithCertificates failed: (%d)";
           goto LABEL_55;
         }
 
@@ -5461,28 +5034,28 @@ LABEL_56:
         goto LABEL_57;
       }
 
-      v61 = EAPTLSSecTrustEvaluate(trust, &v81);
-      if (v61)
+      v60 = EAPTLSSecTrustEvaluate(trust, &v80);
+      if (v60)
       {
-        v62 = v61;
-        v63 = EAPLogGetLogHandle();
-        v64 = _SC_syslog_os_log_mapping();
-        if (os_log_type_enabled(v63, v64))
+        v61 = v60;
+        v62 = EAPLogGetLogHandle();
+        v63 = _SC_syslog_os_log_mapping();
+        if (os_log_type_enabled(v62, v63))
         {
           *buf = 67109120;
-          *&buf[4] = v62;
-          _os_log_impl(&dword_249EFB000, v63, v64, "SecTrustEvaluate failed: (%d)", buf, 8u);
+          *&buf[4] = v61;
+          _os_log_impl(&dword_249EFB000, v62, v63, "SecTrustEvaluate failed: (%d)", buf, 8u);
         }
       }
 
       CertificateCount = SecTrustGetCertificateCount(trust);
       if (CertificateCount)
       {
-        v66 = CertificateCount;
+        v65 = CertificateCount;
         Mutable = CFArrayCreateMutable(0, CertificateCount, MEMORY[0x277CBF128]);
-        if (v66 >= 1)
+        if (v65 >= 1)
         {
-          for (i = 0; i != v66; ++i)
+          for (i = 0; i != v65; ++i)
           {
             *buf = 0;
             CertificateAtIndex = SecTrustGetCertificateAtIndex(trust, i);
@@ -5492,180 +5065,180 @@ LABEL_56:
           }
         }
 
-        v31 = 0;
-        v75 = Mutable;
+        v30 = 0;
+        v74 = Mutable;
       }
 
       else
       {
-        v69 = EAPLogGetLogHandle();
-        v70 = _SC_syslog_os_log_mapping();
-        if (os_log_type_enabled(v69, v70))
+        v68 = EAPLogGetLogHandle();
+        v69 = _SC_syslog_os_log_mapping();
+        if (os_log_type_enabled(v68, v69))
         {
           *buf = 0;
-          _os_log_impl(&dword_249EFB000, v69, v70, "SecTrustGetCertificateCount returned 0", buf, 2u);
+          _os_log_impl(&dword_249EFB000, v68, v69, "SecTrustGetCertificateCount returned 0", buf, 2u);
         }
 
         Mutable = 0;
-        v31 = -50;
+        v30 = -50;
       }
     }
 
     else
     {
-      v35 = EAPLogGetLogHandle();
-      v36 = _SC_syslog_os_log_mapping();
-      if (os_log_type_enabled(v35, v36))
+      v34 = EAPLogGetLogHandle();
+      v35 = _SC_syslog_os_log_mapping();
+      if (os_log_type_enabled(v34, v35))
       {
         *buf = 0;
-        _os_log_impl(&dword_249EFB000, v35, v36, "SecPolicyCreateEAP failed", buf, 2u);
+        _os_log_impl(&dword_249EFB000, v34, v35, "SecPolicyCreateEAP failed", buf, 2u);
       }
 
       Mutable = 0;
-      v31 = 0;
+      v30 = 0;
     }
 
 LABEL_57:
     my_CFRelease(&trust);
-    my_CFRelease(&v83);
-    if (v31 || !Mutable)
+    my_CFRelease(&v82);
+    if (v30 || !Mutable)
     {
-      v53 = EAPLogGetLogHandle();
-      v54 = _SC_syslog_os_log_mapping();
-      if (!os_log_type_enabled(v53, v54))
+      v52 = EAPLogGetLogHandle();
+      v53 = _SC_syslog_os_log_mapping();
+      if (!os_log_type_enabled(v52, v53))
       {
         goto LABEL_87;
       }
 
       LODWORD(valuePtr[0]) = 67109120;
-      HIDWORD(valuePtr[0]) = v31;
-      v55 = "Failed to get a certificate chain from identity: (%d)";
+      HIDWORD(valuePtr[0]) = v30;
+      v54 = "Failed to get a certificate chain from identity: (%d)";
     }
 
     else
     {
-      v39 = SecIdentityCopyPrivateKey(identityRef, &privateKeyRef);
-      if (!v39 && privateKeyRef)
+      v38 = SecIdentityCopyPrivateKey(identityRef, &privateKeyRef);
+      if (!v38 && privateKeyRef)
       {
-        v40 = SecKeyCopyExternalRepresentation(privateKeyRef, 0);
-        v76 = v40;
-        if (v40)
+        v39 = SecKeyCopyExternalRepresentation(privateKeyRef, 0);
+        v75 = v39;
+        if (v39)
         {
-          v41 = v40;
-          v42 = MEMORY[0x24C2071F0](privateKeyRef);
-          v78 = v42;
-          if (v42)
+          v40 = v39;
+          v41 = MEMORY[0x24C2071F0](privateKeyRef);
+          v77 = v41;
+          if (v41)
           {
-            v43 = v42;
-            value = v41;
-            v44 = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-            v77 = v44;
-            v45 = *MEMORY[0x277CDBFE0];
-            v46 = CFDictionaryGetValue(v43, *MEMORY[0x277CDBFE0]);
-            v47 = v43;
-            v48 = *MEMORY[0x277CDC028];
-            v49 = CFDictionaryGetValue(v47, *MEMORY[0x277CDC028]);
-            if (v46 && v49)
+            v42 = v41;
+            value = v40;
+            v43 = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+            v76 = v43;
+            v44 = *MEMORY[0x277CDBFE0];
+            v45 = CFDictionaryGetValue(v42, *MEMORY[0x277CDBFE0]);
+            v46 = v42;
+            v47 = *MEMORY[0x277CDC028];
+            v48 = CFDictionaryGetValue(v46, *MEMORY[0x277CDC028]);
+            if (v45 && v48)
             {
-              v50 = v46;
-              v51 = v49;
-              CFDictionaryAddValue(v44, v45, v50);
-              CFDictionaryAddValue(v44, v48, v51);
-              v52 = v44;
-              v26 = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-              CFDictionaryAddValue(v26, @"certificates", Mutable);
-              CFDictionaryAddValue(v26, @"key", value);
-              CFDictionaryAddValue(v26, @"attributes", v52);
+              v49 = v45;
+              v50 = v48;
+              CFDictionaryAddValue(v43, v44, v49);
+              CFDictionaryAddValue(v43, v47, v50);
+              v51 = v43;
+              v25 = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+              CFDictionaryAddValue(v25, @"certificates", Mutable);
+              CFDictionaryAddValue(v25, @"key", value);
+              CFDictionaryAddValue(v25, @"attributes", v51);
               goto LABEL_88;
             }
 
-            v59 = EAPLogGetLogHandle();
-            v60 = _SC_syslog_os_log_mapping();
-            if (os_log_type_enabled(v59, v60))
+            v58 = EAPLogGetLogHandle();
+            v59 = _SC_syslog_os_log_mapping();
+            if (os_log_type_enabled(v58, v59))
             {
               LOWORD(valuePtr[0]) = 0;
-              v55 = "Failed to find class and/or type item attributes for private key";
+              v54 = "Failed to find class and/or type item attributes for private key";
               goto LABEL_85;
             }
 
 LABEL_87:
-            v26 = 0;
+            v25 = 0;
 LABEL_88:
             my_CFRelease(&identityRef);
-            my_CFRelease(&v78);
             my_CFRelease(&v77);
-            my_CFRelease(&v75);
-            my_CFRelease(&privateKeyRef);
-            my_CFRelease(&v75);
             my_CFRelease(&v76);
-            v72 = v26;
-            if (!v26)
+            my_CFRelease(&v74);
+            my_CFRelease(&privateKeyRef);
+            my_CFRelease(&v74);
+            my_CFRelease(&v75);
+            v71 = v25;
+            if (!v25)
             {
               goto LABEL_37;
             }
 
 LABEL_40:
-            v74 = CFDictionaryCreateMutableCopy(0, 0, a1);
-            CFDictionaryRemoveValue(v74, @"TLSIdentityHandle");
-            CFDictionarySetValue(v74, @"AcceptEAPTypes", MutableCopy);
+            v73 = CFDictionaryCreateMutableCopy(0, 0, a1);
+            CFDictionaryRemoveValue(v73, @"TLSIdentityHandle");
+            CFDictionarySetValue(v73, @"AcceptEAPTypes", MutableCopy);
             v12 = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-            CFDictionaryAddValue(v12, @"EAPClientConfiguration", v74);
-            if (v26)
+            CFDictionaryAddValue(v12, @"EAPClientConfiguration", v73);
+            if (v25)
             {
-              CFDictionaryAddValue(v12, @"TLSShareableIdentityInfo", v26);
+              CFDictionaryAddValue(v12, @"TLSShareableIdentityInfo", v25);
             }
 
             goto LABEL_29;
           }
 
-          v59 = EAPLogGetLogHandle();
-          v60 = _SC_syslog_os_log_mapping();
-          if (!os_log_type_enabled(v59, v60))
+          v58 = EAPLogGetLogHandle();
+          v59 = _SC_syslog_os_log_mapping();
+          if (!os_log_type_enabled(v58, v59))
           {
             goto LABEL_87;
           }
 
           LOWORD(valuePtr[0]) = 0;
-          v55 = "Failed to get all the keychain item attributes for private key";
+          v54 = "Failed to get all the keychain item attributes for private key";
         }
 
         else
         {
-          v59 = EAPLogGetLogHandle();
-          v60 = _SC_syslog_os_log_mapping();
-          if (!os_log_type_enabled(v59, v60))
+          v58 = EAPLogGetLogHandle();
+          v59 = _SC_syslog_os_log_mapping();
+          if (!os_log_type_enabled(v58, v59))
           {
             goto LABEL_87;
           }
 
           LOWORD(valuePtr[0]) = 0;
-          v55 = "Failed to get an external representation of private key";
+          v54 = "Failed to get an external representation of private key";
         }
 
 LABEL_85:
+        v55 = v58;
         v56 = v59;
-        v57 = v60;
-        v58 = 2;
+        v57 = 2;
         goto LABEL_86;
       }
 
-      v53 = EAPLogGetLogHandle();
-      v54 = _SC_syslog_os_log_mapping();
-      if (!os_log_type_enabled(v53, v54))
+      v52 = EAPLogGetLogHandle();
+      v53 = _SC_syslog_os_log_mapping();
+      if (!os_log_type_enabled(v52, v53))
       {
         goto LABEL_87;
       }
 
       LODWORD(valuePtr[0]) = 67109120;
-      HIDWORD(valuePtr[0]) = v39;
-      v55 = "Failed to get a private key from identity: (%d)";
+      HIDWORD(valuePtr[0]) = v38;
+      v54 = "Failed to get a private key from identity: (%d)";
     }
 
+    v55 = v52;
     v56 = v53;
-    v57 = v54;
-    v58 = 8;
+    v57 = 8;
 LABEL_86:
-    _os_log_impl(&dword_249EFB000, v56, v57, v55, valuePtr, v58);
+    _os_log_impl(&dword_249EFB000, v55, v56, v54, valuePtr, v57);
     goto LABEL_87;
   }
 
@@ -5677,15 +5250,12 @@ LABEL_86:
     _os_log_impl(&dword_249EFB000, v10, v11, "Invalid parameters", valuePtr, 2u);
   }
 
-  v12 = 0;
-LABEL_30:
-  v18 = *MEMORY[0x277D85DE8];
-  return v12;
+  return 0;
 }
 
 __CFDictionary *EAPClientConfigurationCopyAndImport(const void *a1)
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v72 = *MEMORY[0x277D85DE8];
   TypeID = CFDictionaryGetTypeID();
   if (!a1 || CFGetTypeID(a1) != TypeID)
   {
@@ -5693,17 +5263,15 @@ __CFDictionary *EAPClientConfigurationCopyAndImport(const void *a1)
     v34 = _SC_syslog_os_log_mapping();
     if (os_log_type_enabled(LogHandle, v34))
     {
-      *v70 = 0;
+      *v68 = 0;
       v35 = "Invalid parameters";
 LABEL_28:
-      v36 = v70;
+      v36 = v68;
 LABEL_29:
       _os_log_impl(&dword_249EFB000, LogHandle, v34, v35, v36, 2u);
     }
 
-LABEL_30:
-    MutableCopy = 0;
-    goto LABEL_31;
+    return 0;
   }
 
   Value = CFDictionaryGetValue(a1, @"EAPClientConfiguration");
@@ -5714,67 +5282,66 @@ LABEL_30:
     v34 = _SC_syslog_os_log_mapping();
     if (os_log_type_enabled(LogHandle, v34))
     {
-      *v70 = 0;
+      *v68 = 0;
       v35 = "Missing EAP Configuration dictionary";
       goto LABEL_28;
     }
 
-    goto LABEL_30;
+    return 0;
   }
 
   v5 = CFDictionaryGetValue(a1, @"TLSShareableIdentityInfo");
   v6 = CFDictionaryGetTypeID();
   if (!v5 || CFGetTypeID(v5) != v6)
   {
-    v40 = *MEMORY[0x277D85DE8];
 
     return CFRetain(Value);
   }
 
-  v68 = 0;
-  v69[0] = 0;
+  v66 = 0;
+  v67[0] = 0;
   result = 0;
   v7 = CFDictionaryGetValue(v5, @"certificates");
   v8 = CFArrayGetTypeID();
   if (!v7 || CFGetTypeID(v7) != v8)
   {
-    v41 = EAPLogGetLogHandle();
-    v42 = _SC_syslog_os_log_mapping();
-    if (!os_log_type_enabled(v41, v42))
+    v39 = EAPLogGetLogHandle();
+    v40 = _SC_syslog_os_log_mapping();
+    if (!os_log_type_enabled(v39, v40))
     {
 LABEL_38:
       LogHandle = EAPLogGetLogHandle();
       v34 = _SC_syslog_os_log_mapping();
       if (!os_log_type_enabled(LogHandle, v34))
       {
-        goto LABEL_30;
+        return 0;
       }
 
-      LOWORD(v69[0]) = 0;
+      LOWORD(v67[0]) = 0;
       v35 = "Failed to create shareable identity handle from shareable identity info";
-      v36 = v69;
+      v36 = v67;
       goto LABEL_29;
     }
 
-    *v66 = 0;
-    v43 = "Failed to get certitifate array";
+    *v64 = 0;
+    v41 = "Failed to get certitifate array";
 LABEL_37:
-    _os_log_impl(&dword_249EFB000, v41, v42, v43, v66, 2u);
+    _os_log_impl(&dword_249EFB000, v39, v40, v41, v64, 2u);
     goto LABEL_38;
   }
 
   Count = CFArrayGetCount(v7);
   if (Count <= 0)
   {
-    v41 = EAPLogGetLogHandle();
-    v42 = _SC_syslog_os_log_mapping();
-    if (!os_log_type_enabled(v41, v42))
+    v39 = EAPLogGetLogHandle();
+    v40 = _SC_syslog_os_log_mapping();
+    if (!os_log_type_enabled(v39, v40))
     {
       goto LABEL_38;
     }
 
-    *v66 = 0;
-    v43 = "Failed to get valid certitifate array";
+    *v64 = 0;
+    v41 = "Failed to get valid certitifate array";
     goto LABEL_37;
   }
 
@@ -5783,15 +5350,15 @@ LABEL_37:
   v12 = CFDataGetTypeID();
   if (!v11 || CFGetTypeID(v11) != v12)
   {
-    v41 = EAPLogGetLogHandle();
-    v42 = _SC_syslog_os_log_mapping();
-    if (!os_log_type_enabled(v41, v42))
+    v39 = EAPLogGetLogHandle();
+    v40 = _SC_syslog_os_log_mapping();
+    if (!os_log_type_enabled(v39, v40))
     {
       goto LABEL_38;
     }
 
-    *v66 = 0;
-    v43 = "Failed to get key data";
+    *v64 = 0;
+    v41 = "Failed to get key data";
     goto LABEL_37;
   }
 
@@ -5799,76 +5366,76 @@ LABEL_37:
   v14 = CFDictionaryGetTypeID();
   if (!v13 || CFGetTypeID(v13) != v14)
   {
-    v41 = EAPLogGetLogHandle();
-    v42 = _SC_syslog_os_log_mapping();
-    if (!os_log_type_enabled(v41, v42))
+    v39 = EAPLogGetLogHandle();
+    v40 = _SC_syslog_os_log_mapping();
+    if (!os_log_type_enabled(v39, v40))
     {
       goto LABEL_38;
     }
 
-    *v66 = 0;
-    v43 = "Failed to get attributes dictionary";
+    *v64 = 0;
+    v41 = "Failed to get attributes dictionary";
     goto LABEL_37;
   }
 
   v15 = *MEMORY[0x277CBECE8];
   ValueAtIndex = CFArrayGetValueAtIndex(v7, 0);
-  *v70 = SecCertificateCreateWithData(v15, ValueAtIndex);
-  if (!*v70)
+  *v68 = SecCertificateCreateWithData(v15, ValueAtIndex);
+  if (!*v68)
   {
-    v44 = EAPLogGetLogHandle();
-    v45 = _SC_syslog_os_log_mapping();
-    if (!os_log_type_enabled(v44, v45))
+    v42 = EAPLogGetLogHandle();
+    v43 = _SC_syslog_os_log_mapping();
+    if (!os_log_type_enabled(v42, v43))
     {
       goto LABEL_72;
     }
 
-    *v66 = 0;
+    *v64 = 0;
     v32 = "SecCertificateCreateWithData returned NULL";
 LABEL_52:
-    v46 = v66;
-    v47 = v44;
-    v48 = v45;
-    v49 = 2;
+    v44 = v64;
+    v45 = v42;
+    v46 = v43;
+    v47 = 2;
 LABEL_53:
-    _os_log_impl(&dword_249EFB000, v47, v48, v32, v46, v49);
+    _os_log_impl(&dword_249EFB000, v45, v46, v32, v44, v47);
     goto LABEL_72;
   }
 
-  v69[0] = SecKeyCreateWithData(v11, v13, 0);
-  if (!v69[0])
+  v67[0] = SecKeyCreateWithData(v11, v13, 0);
+  if (!v67[0])
   {
-    v44 = EAPLogGetLogHandle();
-    v45 = _SC_syslog_os_log_mapping();
-    if (!os_log_type_enabled(v44, v45))
+    v42 = EAPLogGetLogHandle();
+    v43 = _SC_syslog_os_log_mapping();
+    if (!os_log_type_enabled(v42, v43))
     {
       goto LABEL_72;
     }
 
-    *v66 = 0;
+    *v64 = 0;
     v32 = "SecKeyCreateWithData returned NULL";
     goto LABEL_52;
   }
 
   v17 = SecIdentityCreate();
-  v68 = v17;
+  v66 = v17;
   if (!v17)
   {
-    v44 = EAPLogGetLogHandle();
-    v45 = _SC_syslog_os_log_mapping();
-    if (!os_log_type_enabled(v44, v45))
+    v42 = EAPLogGetLogHandle();
+    v43 = _SC_syslog_os_log_mapping();
+    if (!os_log_type_enabled(v42, v43))
     {
       goto LABEL_72;
     }
 
-    *v66 = 0;
+    *v64 = 0;
     v32 = "SecIdentityCreate returned NULL";
     goto LABEL_52;
   }
 
   v18 = v17;
   Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-  *v66 = Mutable;
+  *v64 = Mutable;
   v20 = *MEMORY[0x277CDBEC8];
   CFDictionaryAddValue(Mutable, *MEMORY[0x277CDBEC8], @"com.apple.identities");
   v21 = *MEMORY[0x277CBED28];
@@ -5920,10 +5487,10 @@ LABEL_53:
       *&buf[4] = v29;
       v32 = "Failed to get persistent reference for identity in keychain (%d)";
 LABEL_68:
-      v46 = buf;
-      v47 = v30;
-      v48 = v31;
-      v49 = 8;
+      v44 = buf;
+      v45 = v30;
+      v46 = v31;
+      v47 = 8;
       goto LABEL_53;
     }
   }
@@ -5935,97 +5502,95 @@ LABEL_68:
     goto LABEL_71;
   }
 
-  v50 = 1;
+  v48 = 1;
   while (1)
   {
-    v51 = CFArrayGetValueAtIndex(v7, v50);
-    v52 = SecCertificateCreateWithData(v15, v51);
-    *buf = v52;
-    if (!v52)
+    v49 = CFArrayGetValueAtIndex(v7, v48);
+    v50 = SecCertificateCreateWithData(v15, v49);
+    *buf = v50;
+    if (!v50)
     {
       break;
     }
 
-    CFDictionarySetValue(Mutable, v22, v52);
-    v53 = SecItemAdd(Mutable, 0);
-    if (v53)
+    CFDictionarySetValue(Mutable, v22, v50);
+    v51 = SecItemAdd(Mutable, 0);
+    if (v51)
     {
-      v54 = v53;
-      if (v53 == -25299)
+      v52 = v51;
+      if (v51 == -25299)
       {
-        v55 = EAPLogGetLogHandle();
-        v56 = _SC_syslog_os_log_mapping();
-        if (os_log_type_enabled(v55, v56))
+        v53 = EAPLogGetLogHandle();
+        v54 = _SC_syslog_os_log_mapping();
+        if (os_log_type_enabled(v53, v54))
         {
-          *v71 = 0;
-          v57 = v55;
-          v58 = v56;
-          v59 = "The anchor certificate already exists in keychain";
-          v60 = 2;
+          *v69 = 0;
+          v55 = v53;
+          v56 = v54;
+          v57 = "The anchor certificate already exists in keychain";
+          v58 = 2;
 LABEL_63:
-          _os_log_impl(&dword_249EFB000, v57, v58, v59, v71, v60);
+          _os_log_impl(&dword_249EFB000, v55, v56, v57, v69, v58);
         }
       }
 
       else
       {
-        v61 = EAPLogGetLogHandle();
-        v62 = _SC_syslog_os_log_mapping();
-        if (os_log_type_enabled(v61, v62))
+        v59 = EAPLogGetLogHandle();
+        v60 = _SC_syslog_os_log_mapping();
+        if (os_log_type_enabled(v59, v60))
         {
-          *v71 = 67109120;
-          v72 = v54;
-          v57 = v61;
-          v58 = v62;
-          v59 = "Failed to store anchor certificate in keychain (%d)";
-          v60 = 8;
+          *v69 = 67109120;
+          v70 = v52;
+          v55 = v59;
+          v56 = v60;
+          v57 = "Failed to store anchor certificate in keychain (%d)";
+          v58 = 8;
           goto LABEL_63;
         }
       }
     }
 
     my_CFRelease(buf);
-    if (v10 == ++v50)
+    if (v10 == ++v48)
     {
       goto LABEL_71;
     }
   }
 
-  v63 = EAPLogGetLogHandle();
-  v64 = _SC_syslog_os_log_mapping();
-  if (os_log_type_enabled(v63, v64))
+  v61 = EAPLogGetLogHandle();
+  v62 = _SC_syslog_os_log_mapping();
+  if (os_log_type_enabled(v61, v62))
   {
-    *v71 = 0;
-    _os_log_impl(&dword_249EFB000, v63, v64, "SecCertificateCreateWithData returned NULL anchor certificate", v71, 2u);
+    *v69 = 0;
+    _os_log_impl(&dword_249EFB000, v61, v62, "SecCertificateCreateWithData returned NULL anchor certificate", v69, 2u);
   }
 
 LABEL_71:
-  my_CFRelease(v66);
+  my_CFRelease(v64);
 LABEL_72:
-  my_CFRelease(v69);
-  my_CFRelease(v70);
-  my_CFRelease(&v68);
-  v65 = result;
-  *v70 = result;
+  my_CFRelease(v67);
+  my_CFRelease(v68);
+  my_CFRelease(&v66);
+  v63 = result;
+  *v68 = result;
   if (!result)
   {
     goto LABEL_38;
   }
 
   MutableCopy = CFDictionaryCreateMutableCopy(0, 0, Value);
-  CFDictionaryAddValue(MutableCopy, @"TLSIdentityHandle", v65);
-  my_CFRelease(v70);
-LABEL_31:
-  v38 = *MEMORY[0x277D85DE8];
+  CFDictionaryAddValue(MutableCopy, @"TLSIdentityHandle", v63);
+  my_CFRelease(v68);
   return MutableCopy;
 }
 
 uint64_t eapol_socket(uint64_t a1, char a2)
 {
-  v34 = *MEMORY[0x277D85DE8];
-  v30 = -2000189298;
-  v29 = 1;
-  memset(v33, 0, 18);
+  v33 = *MEMORY[0x277D85DE8];
+  v29 = -2000189298;
+  v28 = 1;
+  memset(v32, 0, 18);
   v3 = socket(27, 3, 0);
   if ((v3 & 0x80000000) != 0)
   {
@@ -6036,7 +5601,7 @@ uint64_t eapol_socket(uint64_t a1, char a2)
       v8 = __error();
       v9 = strerror(*v8);
       *buf = 136315138;
-      v32 = v9;
+      v31 = v9;
       _os_log_impl(&dword_249EFB000, LogHandle, v7, "socket() failed: %s", buf, 0xCu);
     }
 
@@ -6045,8 +5610,8 @@ uint64_t eapol_socket(uint64_t a1, char a2)
 
   v4 = v3;
   __strlcpy_chk();
-  *v33 = 6930;
-  if (bind(v4, v33, 0x12u) < 0)
+  *v32 = 6930;
+  if (bind(v4, v32, 0x12u) < 0)
   {
     v10 = EAPLogGetLogHandle();
     v11 = _SC_syslog_os_log_mapping();
@@ -6055,26 +5620,24 @@ uint64_t eapol_socket(uint64_t a1, char a2)
       v12 = __error();
       v13 = strerror(*v12);
       *buf = 136315138;
-      v32 = v13;
+      v31 = v13;
       _os_log_impl(&dword_249EFB000, v10, v11, "bind() failed: %s", buf, 0xCu);
     }
 
     close(v4);
 LABEL_11:
     syslog(5, "eapol_socket: ndrv_socket failed");
-LABEL_21:
-    v4 = 0xFFFFFFFFLL;
-    goto LABEL_22;
+    return 0xFFFFFFFFLL;
   }
 
-  if (ioctl(v4, 0x8004667EuLL, &v29) < 0)
+  if (ioctl(v4, 0x8004667EuLL, &v28) < 0)
   {
     v14 = __error();
     strerror(*v14);
     syslog(5, "eapol_socket: FIONBIO failed, %s");
 LABEL_20:
     close(v4);
-    goto LABEL_21;
+    return 0xFFFFFFFFLL;
   }
 
   if (a2)
@@ -6084,13 +5647,13 @@ LABEL_20:
 
   else
   {
-    *&v33[2] = 0x600060000;
-    *&v33[14] = 0;
-    *&v33[18] = 0;
-    *v33 = 4628;
-    *&v33[12] = 768;
-    *&v33[8] = 12746753;
-    if (setsockopt(v4, 0, 5, v33, 0x14u) < 0)
+    *&v32[2] = 0x600060000;
+    *&v32[14] = 0;
+    *&v32[18] = 0;
+    *v32 = 4628;
+    *&v32[12] = 768;
+    *&v32[8] = 12746753;
+    if (setsockopt(v4, 0, 5, v32, 0x14u) < 0)
     {
       v24 = __error();
       v25 = strerror(*v24);
@@ -6104,14 +5667,14 @@ LABEL_20:
     v5 = 1;
   }
 
-  *&v33[8] = 0;
+  *&v32[8] = 0;
   v15 = v5;
   v16 = malloc_type_malloc(32 * v5, 0x1000040E0EAB150uLL);
-  *v33 = 0x8021EC00000001;
-  *&v33[8] = v5;
-  *&v33[16] = v16;
+  *v32 = 0x8021EC00000001;
+  *&v32[8] = v5;
+  *&v32[16] = v16;
   v17 = v16 + 2;
-  v18 = &v30;
+  v18 = &v29;
   do
   {
     v19 = *v18;
@@ -6123,7 +5686,7 @@ LABEL_20:
   }
 
   while (v15);
-  v20 = setsockopt(v4, 0, 4, v33, 0x18u);
+  v20 = setsockopt(v4, 0, 4, v32, 0x18u);
   free(v16);
   if (v20 < 0)
   {
@@ -6136,8 +5699,6 @@ LABEL_20:
     goto LABEL_20;
   }
 
-LABEL_22:
-  v27 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -6281,22 +5842,22 @@ LABEL_41:
         CFStringAppendFormat(theString, 0, @"%-18s0x%04x\n", "key_information:", v18);
         CFStringAppendFormat(theString, 0, @"%-18s%d\n", "key_length:", v17);
         CFStringAppendFormat(theString, 0, @"%-18s", "replay_counter:");
-        print_bytes_cfstr(theString, (a1 + 9), 8);
+        print_bytes_cfstr(theString, (a1 + 9), 8u);
         CFStringAppendFormat(theString, 0, @"\n");
         CFStringAppendFormat(theString, 0, @"%-18s", "key_nonce:");
-        print_bytes_cfstr(theString, (a1 + 17), 32);
+        print_bytes_cfstr(theString, (a1 + 17), 0x20u);
         CFStringAppendFormat(theString, 0, @"\n");
         CFStringAppendFormat(theString, 0, @"%-18s", "EAPOL_key_IV:");
-        print_bytes_cfstr(theString, (a1 + 49), 16);
+        print_bytes_cfstr(theString, (a1 + 49), 0x10u);
         CFStringAppendFormat(theString, 0, @"\n");
         CFStringAppendFormat(theString, 0, @"%-18s", "key_RSC:");
-        print_bytes_cfstr(theString, (a1 + 65), 8);
+        print_bytes_cfstr(theString, (a1 + 65), 8u);
         CFStringAppendFormat(theString, 0, @"\n");
         CFStringAppendFormat(theString, 0, @"%-18s", "key_reserved:");
-        print_bytes_cfstr(theString, (a1 + 73), 8);
+        print_bytes_cfstr(theString, (a1 + 73), 8u);
         CFStringAppendFormat(theString, 0, @"\n");
         CFStringAppendFormat(theString, 0, @"%-18s", "key_MIC:");
-        print_bytes_cfstr(theString, (a1 + 81), 16);
+        print_bytes_cfstr(theString, (a1 + 81), 0x10u);
         CFStringAppendFormat(theString, 0, @"\n");
         CFStringAppendFormat(theString, 0, @"%-18s%d\n", "key_data_length:", v16);
         if (!v15)
@@ -6305,7 +5866,7 @@ LABEL_41:
         }
 
         CFStringAppendFormat(theString, 0, @"%-18s", "key_data:");
-        v19 = (a1 + 99);
+        v19 = a1 + 99;
         v20 = theString;
         v21 = v16;
         goto LABEL_53;
@@ -6373,18 +5934,18 @@ LABEL_40:
 
   CFStringAppendFormat(theString, 0, @"EAPOL Key Descriptor: type RC4 (%d) length %d %s index %d\n", v14, bswap32(*(a1 + 5)) >> 16, v22, a1[31] & 0x7F);
   CFStringAppendFormat(theString, 0, @"%-16s", "replay_counter:");
-  print_bytes_cfstr(theString, (a1 + 7), 8);
+  print_bytes_cfstr(theString, (a1 + 7), 8u);
   CFStringAppendFormat(theString, 0, @"\n");
   CFStringAppendFormat(theString, 0, @"%-16s", "key_IV:");
-  print_bytes_cfstr(theString, (a1 + 15), 16);
+  print_bytes_cfstr(theString, (a1 + 15), 0x10u);
   CFStringAppendFormat(theString, 0, @"\n");
   CFStringAppendFormat(theString, 0, @"%-16s", "key_signature:");
-  print_bytes_cfstr(theString, (a1 + 32), 16);
+  print_bytes_cfstr(theString, (a1 + 32), 0x10u);
   CFStringAppendFormat(theString, 0, @"\n");
   if (v10 != 44)
   {
     CFStringAppendFormat(theString, 0, @"%-16s", "key:");
-    v19 = (a1 + 48);
+    v19 = a1 + 48;
     v20 = theString;
     v21 = v10 - 44;
 LABEL_53:
@@ -6457,25 +6018,25 @@ void EAPSIMAKAPersistentStateSetReauthID(uint64_t a1, const void *a2)
   }
 }
 
-void EAPSIMAKAPersistentStateSave(uint64_t a1, int a2)
+void EAPSIMAKAPersistentStateSave(unsigned int *result, int a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   theDict = 0;
-  if (*(a1 + 4) != 10)
+  if (*(result + 4) != 10)
   {
-    IMSIListRemoveMatches(*a1, IMSIDoesNotMatch, *(a1 + 8));
-    if (*(a1 + 32))
+    IMSIListRemoveMatches(*result, IMSIDoesNotMatch, *(result + 1));
+    if (*(result + 4))
     {
-      v4 = *(a1 + 40);
+      v4 = *(result + 5);
       Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
       theDict = Mutable;
-      CFDictionarySetValue(Mutable, @"Pseudonym", *(a1 + 32));
+      CFDictionarySetValue(Mutable, @"Pseudonym", *(result + 4));
       if (v4)
       {
         CFDictionarySetValue(Mutable, @"PseudonymStartTime", v4);
       }
 
-      if (!a2 || !*(a1 + 48))
+      if (!a2 || !*(result + 6))
       {
         goto LABEL_20;
       }
@@ -6483,52 +6044,51 @@ void EAPSIMAKAPersistentStateSave(uint64_t a1, int a2)
       if (Mutable)
       {
 LABEL_12:
-        v6 = CFNumberCreate(0, kCFNumberSInt16Type, (a1 + 28));
+        v6 = CFNumberCreate(0, kCFNumberSInt16Type, result + 7);
         CFDictionarySetValue(Mutable, @"ReauthCounter", v6);
         CFRelease(v6);
-        CFDictionarySetValue(Mutable, @"ReauthID", *(a1 + 48));
-        if (*(a1 + 56))
+        CFDictionarySetValue(Mutable, @"ReauthID", *(result + 6));
+        if (*(result + 56))
         {
           CFDictionarySetValue(Mutable, @"IsReauthIDUsedBefore", *MEMORY[0x277CBED28]);
         }
 
-        v7 = CFDataCreate(0, (a1 + 76), *(a1 + 72));
-        v8 = *(*(a1 + 64) + 8);
-        v9 = CFStringCreateWithFormat(0, 0, @"com.apple.network.%@.master-key.%@", v8, *(a1 + 8));
-        if (EAPSecKeychainPasswordItemSet(0, v9, v7))
+        v7 = CFDataCreate(0, result + 76, result[18]);
+        v8 = CFStringCreateWithFormat(0, 0, @"com.apple.network.%@.master-key.%@", *(*(result + 8) + 8), *(result + 1));
+        if (EAPSecKeychainPasswordItemSet(0, v8, v7))
         {
-          v10 = EAPSecKeychainPasswordItemCreateWithAccess(0, 0, v9, 0, 0, 0, v7);
-          CFRelease(v9);
-          if (v10)
+          v9 = EAPSecKeychainPasswordItemCreateWithAccess(0, 0, v8, 0, 0, 0, v7);
+          CFRelease(v8);
+          if (v9)
           {
             LogHandle = EAPLogGetLogHandle();
-            v12 = _SC_syslog_os_log_mapping();
-            if (os_log_type_enabled(LogHandle, v12))
+            v11 = _SC_syslog_os_log_mapping();
+            if (os_log_type_enabled(LogHandle, v11))
             {
               *buf = 67109120;
-              v20 = v10;
-              _os_log_impl(&dword_249EFB000, LogHandle, v12, "Failed to update/create a keychain item: %d", buf, 8u);
+              v18 = v9;
+              _os_log_impl(&dword_249EFB000, LogHandle, v11, "Failed to update/create a keychain item: %d", buf, 8u);
             }
           }
         }
 
         else
         {
-          CFRelease(v9);
+          CFRelease(v8);
         }
 
         CFRelease(v7);
 LABEL_20:
         if (Mutable)
         {
-          v13 = *(a1 + 16);
-          if (v13)
+          v12 = *(result + 2);
+          if (v12)
           {
-            CFDictionarySetValue(Mutable, @"SSID", v13);
-            v14 = CFNumberCreate(0, kCFNumberSInt32Type, (a1 + 24));
+            CFDictionarySetValue(Mutable, @"SSID", v12);
+            v13 = CFNumberCreate(0, kCFNumberSInt32Type, result + 6);
             Mutable = theDict;
-            CFDictionarySetValue(theDict, @"GenerationID", v14);
-            CFRelease(v14);
+            CFDictionarySetValue(theDict, @"GenerationID", v13);
+            CFRelease(v13);
           }
         }
 
@@ -6539,17 +6099,17 @@ LABEL_20:
     else
     {
       Mutable = 0;
-      if (!a2 || !*(a1 + 48))
+      if (!a2 || !*(result + 6))
       {
 LABEL_23:
-        ProtoInfoChangedCheck(*(a1 + 64));
-        v15 = *MEMORY[0x277CBF040];
-        v16 = *MEMORY[0x277CBF010];
-        CFPreferencesSetValue(*(a1 + 8), Mutable, **(a1 + 64), *MEMORY[0x277CBF040], *MEMORY[0x277CBF010]);
+        ProtoInfoChangedCheck(*(result + 8));
+        v14 = *MEMORY[0x277CBF040];
+        v15 = *MEMORY[0x277CBF010];
+        CFPreferencesSetValue(*(result + 1), Mutable, **(result + 8), *MEMORY[0x277CBF040], *MEMORY[0x277CBF010]);
         my_CFRelease(&theDict);
-        CFPreferencesSynchronize(**(a1 + 64), v15, v16);
+        CFPreferencesSynchronize(**(result + 8), v14, v15);
         ProtoInfoNotifyChange();
-        goto LABEL_24;
+        return;
       }
     }
 
@@ -6557,9 +6117,6 @@ LABEL_23:
     theDict = Mutable;
     goto LABEL_12;
   }
-
-LABEL_24:
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void EAPSIMAKAPersistentStateSetPseudonymAndTime(uint64_t a1, const void *a2, const void *a3)
@@ -6587,9 +6144,9 @@ void EAPSIMAKAPersistentStateSetPseudonymAndTime(uint64_t a1, const void *a2, co
   }
 }
 
-void *EAPSIMAKAPersistentStateCreate(int a1, int a2, const __CFString *a3, int a4, const void *a5)
+void *EAPSIMAKAPersistentStateCreate(uint64_t a1, int a2, const __CFString *a3, int a4, const void *a5)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   if (!a3)
   {
     LogHandle = EAPLogGetLogHandle();
@@ -6600,15 +6157,14 @@ void *EAPSIMAKAPersistentStateCreate(int a1, int a2, const __CFString *a3, int a
       _os_log_impl(&dword_249EFB000, LogHandle, v19, "imsi is NULL", buf, 2u);
     }
 
-    goto LABEL_14;
+    return 0;
   }
 
+  v9 = a1;
   v10 = ProtoInfoForType(a1);
   if (!v10)
   {
-LABEL_14:
-    v12 = 0;
-    goto LABEL_58;
+    return 0;
   }
 
   v11 = v10;
@@ -6618,7 +6174,7 @@ LABEL_14:
   *(v12 + 2) = 0u;
   *(v12 + 3) = 0u;
   *(v12 + 4) = 0u;
-  *v12 = a1;
+  *v12 = v9;
   *(v12 + 1) = CFRetain(a3);
   *(v12 + 8) = v11;
   *(v12 + 18) = a2;
@@ -6631,14 +6187,14 @@ LABEL_14:
 
   if (a4 == 10)
   {
-    goto LABEL_58;
+    return v12;
   }
 
-  v44 = 0;
+  v43 = 0;
   valuePtr = 0;
   ProtoInfoChangedCheck(v11);
   v13 = CFPreferencesCopyValue(a3, *v11, *MEMORY[0x277CBF040], *MEMORY[0x277CBF010]);
-  v44 = v13;
+  v43 = v13;
   TypeID = CFDictionaryGetTypeID();
   if (!v13)
   {
@@ -6658,8 +6214,8 @@ LABEL_56:
     }
 
 LABEL_57:
-    my_CFRelease(&v44);
-    goto LABEL_58;
+    my_CFRelease(&v43);
+    return v12;
   }
 
   if (!a5)
@@ -6716,7 +6272,7 @@ LABEL_24:
 LABEL_31:
     if (a4 == 13)
     {
-      v42 = 0;
+      v41 = 0;
       v27 = CFDictionaryGetValue(v13, @"ReauthCounter");
       v28 = CFNumberGetTypeID();
       if (v27 && CFGetTypeID(v27) != v28)
@@ -6757,18 +6313,18 @@ LABEL_31:
         v39 = _SC_syslog_os_log_mapping();
         if (os_log_type_enabled(v38, v39))
         {
-          *v46 = 67109120;
-          v47 = v35;
-          _os_log_impl(&dword_249EFB000, v38, v39, "Failed to read a keychain item: %d", v46, 8u);
+          *v45 = 67109120;
+          v46 = v35;
+          _os_log_impl(&dword_249EFB000, v38, v39, "Failed to read a keychain item: %d", v45, 8u);
         }
 
-        v42 = 0;
+        v41 = 0;
       }
 
       else
       {
         v36 = *buf;
-        v42 = *buf;
+        v41 = *buf;
         if (v27)
         {
           if (v29)
@@ -6778,10 +6334,10 @@ LABEL_31:
               Length = CFDataGetLength(*buf);
               if (Length == a2)
               {
-                v49.length = Length;
+                v48.length = Length;
                 *buf = 0;
-                v49.location = 0;
-                CFDataGetBytes(v36, v49, v12 + 76);
+                v48.location = 0;
+                CFDataGetBytes(v36, v48, v12 + 76);
                 CFNumberGetValue(v27, kCFNumberSInt16Type, buf);
                 *(v12 + 14) = *buf;
                 if (*(v12 + 4) == 13)
@@ -6796,7 +6352,7 @@ LABEL_31:
         }
       }
 
-      my_CFRelease(&v42);
+      my_CFRelease(&v41);
     }
 
     if (!v22)
@@ -6807,48 +6363,41 @@ LABEL_31:
     goto LABEL_56;
   }
 
-  my_CFRelease(&v44);
+  my_CFRelease(&v43);
   IMSIListRemoveMatches(18, IMSIMatchesEverything, 0);
   IMSIListRemoveMatches(23, IMSIMatchesEverything, 0);
-LABEL_58:
-  v40 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
-__CFString **ProtoInfoForType(int a1)
+__CFString **ProtoInfoForType(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if (a1 == 18)
   {
-    result = S_eapsim_info;
+    return S_eapsim_info;
   }
 
-  else if (a1 == 23)
+  v1 = a1;
+  if (a1 == 23)
   {
-    result = S_eapaka_info;
+    return S_eapaka_info;
   }
 
-  else
+  LogHandle = EAPLogGetLogHandle();
+  v4 = _SC_syslog_os_log_mapping();
+  if (os_log_type_enabled(LogHandle, v4))
   {
-    LogHandle = EAPLogGetLogHandle();
-    v4 = _SC_syslog_os_log_mapping();
-    if (os_log_type_enabled(LogHandle, v4))
-    {
-      v6[0] = 67109120;
-      v6[1] = a1;
-      _os_log_impl(&dword_249EFB000, LogHandle, v4, "unrecognized type %d", v6, 8u);
-    }
-
-    result = 0;
+    v5[0] = 67109120;
+    v5[1] = v1;
+    _os_log_impl(&dword_249EFB000, LogHandle, v4, "unrecognized type %d", v5, 8u);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 void ProtoInfoChangedCheck(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   check = 0;
   if ((prefs_did_change_S_token_valid & 1) == 0)
   {
@@ -6858,17 +6407,17 @@ void ProtoInfoChangedCheck(uint64_t a1)
       v3 = v2;
       LogHandle = EAPLogGetLogHandle();
       v5 = _SC_syslog_os_log_mapping();
-      if (os_log_type_enabled(LogHandle, v5))
+      if (!os_log_type_enabled(LogHandle, v5))
       {
-        *buf = 67109120;
-        v14 = v3;
-        v6 = "notify_register_check returned %d";
-LABEL_9:
-        _os_log_impl(&dword_249EFB000, LogHandle, v5, v6, buf, 8u);
-        goto LABEL_14;
+        return;
       }
 
-      goto LABEL_14;
+      *buf = 67109120;
+      v13 = v3;
+      v6 = "notify_register_check returned %d";
+LABEL_9:
+      _os_log_impl(&dword_249EFB000, LogHandle, v5, v6, buf, 8u);
+      return;
     }
 
     prefs_did_change_S_token_valid = 1;
@@ -6880,36 +6429,32 @@ LABEL_9:
     v8 = v7;
     LogHandle = EAPLogGetLogHandle();
     v5 = _SC_syslog_os_log_mapping();
-    if (os_log_type_enabled(LogHandle, v5))
+    if (!os_log_type_enabled(LogHandle, v5))
     {
-      *buf = 67109120;
-      v14 = v8;
-      v6 = "notify_check returned %d";
-      goto LABEL_9;
+      return;
     }
+
+    *buf = 67109120;
+    v13 = v8;
+    v6 = "notify_check returned %d";
+    goto LABEL_9;
   }
 
-  else
+  v9 = prefs_did_change_S_generation;
+  if (check)
   {
-    v9 = prefs_did_change_S_generation;
-    if (check)
-    {
-      v9 = ++prefs_did_change_S_generation;
-    }
-
-    v10 = *(a1 + 16);
-    *(a1 + 16) = v9;
-    if (v10 != v9)
-    {
-      CFPreferencesSynchronize(*a1, *MEMORY[0x277CBF040], *MEMORY[0x277CBF010]);
-    }
+    v9 = ++prefs_did_change_S_generation;
   }
 
-LABEL_14:
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *(a1 + 16);
+  *(a1 + 16) = v9;
+  if (v10 != v9)
+  {
+    CFPreferencesSynchronize(*a1, *MEMORY[0x277CBF040], *MEMORY[0x277CBF010]);
+  }
 }
 
-void IMSIListRemoveMatches(int a1, unsigned int (*a2)(const __CFString *, const void *, uint64_t), uint64_t a3)
+void IMSIListRemoveMatches(uint64_t a1, unsigned int (*a2)(const __CFString *, const void *, uint64_t), uint64_t a3)
 {
   v5 = ProtoInfoForType(a1);
   if (v5)
@@ -6964,7 +6509,7 @@ void IMSIListRemoveMatches(int a1, unsigned int (*a2)(const __CFString *, const 
 
 void ProtoInfoNotifyChange()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v0 = notify_post("com.apple.network.eapclient.eapsimaka.prefs");
   if (v0)
   {
@@ -6973,13 +6518,11 @@ void ProtoInfoNotifyChange()
     v3 = _SC_syslog_os_log_mapping();
     if (os_log_type_enabled(LogHandle, v3))
     {
-      v5[0] = 67109120;
-      v5[1] = v1;
-      _os_log_impl(&dword_249EFB000, LogHandle, v3, "notify_post returned %d", v5, 8u);
+      v4[0] = 67109120;
+      v4[1] = v1;
+      _os_log_impl(&dword_249EFB000, LogHandle, v3, "notify_post returned %d", v4, 8u);
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void EAPSIMAKAPersistentStateRelease(uint64_t a1)
@@ -7159,7 +6702,7 @@ const char *ATNotificationCodeGetString(int a1)
 
 __CFString *EAPSIMAKAPacketCopyDescription(unsigned __int8 *a1, char *a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   Length = EAPPacketGetLength(a1);
   if (*a1 - 1 > 1)
   {
@@ -7176,20 +6719,20 @@ __CFString *EAPSIMAKAPacketCopyDescription(unsigned __int8 *a1, char *a2)
       goto LABEL_6;
     }
 
-    v10 = EAPTypeStr(a1[4]);
+    v9 = EAPTypeStr(a1[4]);
     if (*a1 == 1)
     {
-      v11 = "Request";
+      v10 = "Request";
     }
 
     else
     {
-      v11 = "Response";
+      v10 = "Response";
     }
 
-    v12 = a1[1];
+    v11 = a1[1];
     String = EAPSIMAKAPacketSubtypeGetString(a1[5]);
-    CFStringAppendFormat(Mutable, 0, @"%s %s: Identifier %d Length %d [%s] Length %d\n", v10, v11, v12, v5, String, (v5 - 8));
+    CFStringAppendFormat(Mutable, 0, @"%s %s: Identifier %d Length %d [%s] Length %d\n", v9, v10, v11, v5, String, (v5 - 8));
     if (v5 == 8)
     {
 LABEL_17:
@@ -7197,43 +6740,42 @@ LABEL_17:
       goto LABEL_7;
     }
 
-    v29 = 0;
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
+    v28 = 0;
     v26 = 0u;
-    v23 = 0u;
+    v27 = 0u;
     v24 = 0u;
-    v21 = 0u;
+    v25 = 0u;
     v22 = 0u;
-    v19 = 0;
+    v23 = 0u;
     v20 = 0u;
-    memset(v17, 0, sizeof(v17));
-    v16 = 0;
+    v21 = 0u;
     v18 = 0;
-    if (TLVListParse_0(&v16, a1 + 8, v5 - 8))
+    v19 = 0u;
+    memset(v16, 0, sizeof(v16));
+    v15 = 0;
+    v17 = 0;
+    if (TLVListParse_0(&v15, a1 + 8, v5 - 8))
     {
-      v14 = TLVListCopyDescription(&v16);
-      if (v16 && v16 != v17)
+      v13 = TLVListCopyDescription(&v15);
+      if (v15 && v15 != v16)
       {
-        free(v16);
+        free(v15);
       }
 
-      v16 = 0;
-      v18 = 0;
-      CFStringAppendFormat(Mutable, 0, @"%@", v14);
-      CFRelease(v14);
+      v15 = 0;
+      v17 = 0;
+      CFStringAppendFormat(Mutable, 0, @"%@", v13);
+      CFRelease(v13);
       goto LABEL_17;
     }
 
-    CFStringAppendFormat(Mutable, 0, @"failed to parse TLVs: %s\n", &v19, v15);
+    CFStringAppendFormat(Mutable, 0, @"failed to parse TLVs: %s\n", &v18, v14);
   }
 
 LABEL_6:
   v7 = 0;
 LABEL_7:
   *a2 = v7;
-  v8 = *MEMORY[0x277D85DE8];
   return Mutable;
 }
 
@@ -7246,7 +6788,7 @@ void *TLVListInit(void *result)
 
 __CFString *TLVListCopyDescription(unsigned __int8 ***a1)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   Mutable = CFStringCreateMutable(0, 0);
   if (*(a1 + 22) >= 1)
   {
@@ -7268,7 +6810,7 @@ __CFString *TLVListCopyDescription(unsigned __int8 ***a1)
         {
           case 1u:
             CFStringAppendFormat(Mutable, 0, @"%18s:\t", "(reserved)");
-            print_bytes_cfstr(Mutable, (v5 + 2), 2);
+            print_bytes_cfstr(Mutable, (v5 + 2), 2u);
             v25 = (v7 - 4 + (((v7 - 4) & 0xF000u) >> 12)) >> 4;
             CFStringAppendFormat(Mutable, 0, @"\n%18s: (n=%d)\n", v10, v25);
             if (v6 >= 5)
@@ -7288,7 +6830,7 @@ __CFString *TLVListCopyDescription(unsigned __int8 ***a1)
               do
               {
                 CFStringAppendFormat(Mutable, 0, @"%18d:\t", v26);
-                print_bytes_cfstr(Mutable, v27, 16);
+                print_bytes_cfstr(Mutable, v27, 0x10u);
                 CFStringAppendFormat(Mutable, 0, @"\n");
                 v26 = (v26 + 1);
                 v27 += 16;
@@ -7321,7 +6863,7 @@ __CFString *TLVListCopyDescription(unsigned __int8 ***a1)
           case 6u:
             v18 = (v7 - 2);
             CFStringAppendFormat(Mutable, 0, @"%18s: %d bytes\n", v9 + 3, v18);
-            CFStringAppendFormat(Mutable, 0, @"%18s\t", &unk_249F2FF71, v34);
+            CFStringAppendFormat(Mutable, 0, @"%18s\t", &unk_249F2FF71, v33);
 LABEL_28:
             v12 = (v5 + 2);
             goto LABEL_30;
@@ -7368,7 +6910,7 @@ LABEL_28:
 
 LABEL_5:
             CFStringAppendFormat(Mutable, 0, @"%18s:\t", "(reserved)");
-            print_bytes_cfstr(Mutable, (v5 + 2), 2);
+            print_bytes_cfstr(Mutable, (v5 + 2), 2u);
             CFStringAppendFormat(Mutable, 0, @"\n%18s:\t", v10);
             v12 = (v5 + 4);
             v13 = Mutable;
@@ -7403,7 +6945,7 @@ LABEL_30:
       else if (v11 == 130)
       {
         CFStringAppendFormat(Mutable, 0, @"%18s:\t", "(reserved)");
-        print_bytes_cfstr(Mutable, (v5 + 2), 2);
+        print_bytes_cfstr(Mutable, (v5 + 2), 2u);
         v19 = (v7 - 4);
         CFStringAppendFormat(Mutable, 0, @"\n%18s: Length %d\n", v10, v19);
         print_data_cfstr(Mutable, (v5 + 4), v19);
@@ -7420,7 +6962,7 @@ LABEL_31:
         print_bytes_cfstr(v13, v12, v14);
         v24 = Mutable;
 LABEL_32:
-        CFStringAppendFormat(v24, 0, @"\n", v32, v33);
+        CFStringAppendFormat(v24, 0, @"\n", v31, v32);
       }
 
 LABEL_33:
@@ -7431,7 +6973,6 @@ LABEL_33:
     while (v3 < *(a1 + 22));
   }
 
-  v30 = *MEMORY[0x277D85DE8];
   return Mutable;
 }
 
@@ -7504,46 +7045,42 @@ uint64_t EAPSIMAKAStatusForATNotificationCode(int a1)
 void EAPSIMAKAKeyInfoComputeMAC(uint64_t a1, const void *a2, uint64_t a3, const void *a4, int a5, void *a6)
 {
   data[2] = *MEMORY[0x277D85DE8];
-  memset(&v14, 0, sizeof(v14));
+  memset(&v13, 0, sizeof(v13));
   data[0] = 0;
   data[1] = 0;
   v12 = EAPPacketGetLength(a2) - (a3 - a2);
-  CCHmacInit(&v14, 0, (a1 + 16), 0x10uLL);
-  CCHmacUpdate(&v14, a2, a3 - a2);
-  CCHmacUpdate(&v14, data, 0x10uLL);
-  CCHmacUpdate(&v14, (a3 + 16), v12 - 16);
+  CCHmacInit(&v13, 0, (a1 + 16), 0x10uLL);
+  CCHmacUpdate(&v13, a2, a3 - a2);
+  CCHmacUpdate(&v13, data, 0x10uLL);
+  CCHmacUpdate(&v13, (a3 + 16), v12 - 16);
   if (a4)
   {
-    CCHmacUpdate(&v14, a4, a5);
+    CCHmacUpdate(&v13, a4, a5);
   }
 
-  CCHmacFinal(&v14, a6);
-  v13 = *MEMORY[0x277D85DE8];
+  CCHmacFinal(&v13, a6);
 }
 
 BOOL EAPSIMAKAKeyInfoVerifyMAC(uint64_t a1, const void *a2, uint64_t a3, const void *a4, int a5)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  EAPSIMAKAKeyInfoComputeMAC(a1, a2, a3, a4, a5, v7);
-  result = cc_cmp_safe() == 0;
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  v7 = *MEMORY[0x277D85DE8];
+  EAPSIMAKAKeyInfoComputeMAC(a1, a2, a3, a4, a5, v6);
+  return cc_cmp_safe() == 0;
 }
 
 double EAPSIMAKAKeyInfoSetMAC(uint64_t a1, const void *a2, _OWORD *a3, const void *a4, int a5)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  EAPSIMAKAKeyInfoComputeMAC(a1, a2, a3, a4, a5, v8);
-  result = v8[0];
-  *a3 = *v8;
-  v7 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
+  EAPSIMAKAKeyInfoComputeMAC(a1, a2, a3, a4, a5, v7);
+  result = v7[0];
+  *a3 = *v7;
   return result;
 }
 
 void *EAPSIMAKAKeyInfoDecryptTLVList(const void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  *&v35[5] = *MEMORY[0x277D85DE8];
-  v32 = 0;
+  *&v34[5] = *MEMORY[0x277D85DE8];
+  v31 = 0;
   cryptorRef = 0;
   v8 = 4 * *(a2 + 1) - 4;
   v9 = malloc_type_malloc(v8, 0x100004077774924uLL);
@@ -7556,7 +7093,7 @@ void *EAPSIMAKAKeyInfoDecryptTLVList(const void *a1, uint64_t a2, uint64_t a3, u
     if (os_log_type_enabled(LogHandle, v13))
     {
       *buf = 67109120;
-      v35[0] = v11;
+      v34[0] = v11;
       v14 = "CCCryptoCreate failed with %d";
 LABEL_7:
       v17 = LogHandle;
@@ -7569,7 +7106,7 @@ LABEL_8:
 
   else
   {
-    v15 = CCCryptorUpdate(cryptorRef, (a2 + 4), v8, v9, v8, &v32);
+    v15 = CCCryptorUpdate(cryptorRef, (a2 + 4), v8, v9, v8, &v31);
     if (v15)
     {
       v16 = v15;
@@ -7578,7 +7115,7 @@ LABEL_8:
       if (os_log_type_enabled(LogHandle, v13))
       {
         *buf = 67109120;
-        v35[0] = v16;
+        v34[0] = v16;
         v14 = "CCCryptoUpdate failed with %d";
         goto LABEL_7;
       }
@@ -7586,22 +7123,22 @@ LABEL_8:
 
     else
     {
-      if (v32 != v8)
+      if (v31 != v8)
       {
-        v28 = EAPLogGetLogHandle();
-        v29 = _SC_syslog_os_log_mapping();
-        if (!os_log_type_enabled(v28, v29))
+        v27 = EAPLogGetLogHandle();
+        v28 = _SC_syslog_os_log_mapping();
+        if (!os_log_type_enabled(v27, v28))
         {
           goto LABEL_9;
         }
 
         *buf = 67109376;
-        v35[0] = v32;
-        LOWORD(v35[1]) = 1024;
-        *(&v35[1] + 2) = v8;
+        v34[0] = v31;
+        LOWORD(v34[1]) = 1024;
+        *(&v34[1] + 2) = v8;
         v14 = "decryption consumed %d bytes (!= %d bytes)";
-        v17 = v28;
-        v18 = v29;
+        v17 = v27;
+        v18 = v28;
         v19 = 14;
         goto LABEL_8;
       }
@@ -7612,15 +7149,15 @@ LABEL_8:
         goto LABEL_10;
       }
 
-      v30 = EAPLogGetLogHandle();
-      v31 = _SC_syslog_os_log_mapping();
-      if (os_log_type_enabled(v30, v31))
+      v29 = EAPLogGetLogHandle();
+      v30 = _SC_syslog_os_log_mapping();
+      if (os_log_type_enabled(v29, v30))
       {
         *buf = 136315138;
-        *v35 = a4 + 96;
+        *v34 = a4 + 96;
         v14 = "TLVListParse failed on AT_ENCR_DATA, %s";
-        v17 = v30;
-        v18 = v31;
+        v17 = v29;
+        v18 = v30;
         v19 = 12;
         goto LABEL_8;
       }
@@ -7641,7 +7178,7 @@ LABEL_10:
       if (os_log_type_enabled(v23, v24))
       {
         *buf = 67109120;
-        v35[0] = v22;
+        v34[0] = v22;
         _os_log_impl(&dword_249EFB000, v23, v24, "CCCryptoRelease failed with %d", buf, 8u);
       }
     }
@@ -7660,18 +7197,17 @@ LABEL_10:
   if (v25 == 1)
   {
     free(v9);
-    v9 = 0;
+    return 0;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 BOOL EAPSIMAKAKeyInfoEncryptTLVs(const void *a1, uint64_t a2, uint64_t a3)
 {
-  v62 = *MEMORY[0x277D85DE8];
-  memset(v58, 0, sizeof(v58));
-  v59 = 0;
+  v61 = *MEMORY[0x277D85DE8];
+  memset(v57, 0, sizeof(v57));
+  v58 = 0;
   v6 = *(a3 + 12);
   if (v6 <= 0)
   {
@@ -7683,264 +7219,261 @@ BOOL EAPSIMAKAKeyInfoEncryptTLVs(const void *a1, uint64_t a2, uint64_t a3)
     v7 = v6 & 0xF;
   }
 
-  if (!v7 || (v8 = v6 - v7 + 16, v8 == v6))
+  if (v7)
   {
-LABEL_8:
-    if (v6 == *(a3 + 8))
+    v8 = v6 - v7 + 16;
+    if (v8 != v6)
     {
-      v57 = 0;
-      *&v58[5] = 0;
-      if (TLVListParse_0(&v57, *a3, v6))
+      if (!TLVBufferAddPadding(a3, (v8 - v6)))
       {
-        v9 = TLVListCopyDescription(&v57);
-        if (v57 && v57 != v58)
-        {
-          free(v57);
-        }
-
-        v57 = 0;
-        *&v58[5] = 0;
         LogHandle = EAPLogGetLogHandle();
-        v11 = _SC_syslog_os_log_mapping();
-        if (os_log_type_enabled(LogHandle, v11))
-        {
-          *buf = 138412290;
-          *v61 = v9;
-          _os_log_impl(&dword_249EFB000, LogHandle, v11, "Encrypted TLVs:\n%@", buf, 0xCu);
-        }
-
-        CFRelease(v9);
-        TLV = TLVBufferAllocateTLV(a2, 129, 20);
-        if (TLV)
-        {
-          v13 = 0;
-          *(TLV + 1) = 0;
-          v14 = TLV + 4;
-          do
-          {
-            *&v14[v13] = arc4random();
-            v13 += 4;
-          }
-
-          while (v13 != 16);
-          v15 = TLVBufferAllocateTLV(a2, 130, *(a3 + 12) + 4);
-          if (v15)
-          {
-            v16 = v15;
-            *(v15 + 1) = 0;
-            v17 = *a3;
-            v18 = *(a3 + 12);
-            cryptorRef = 0;
-            dataOutMoved = 0;
-            v19 = CCCryptorCreate(0, 0, 0, a1, 0x10uLL, v14, &cryptorRef);
-            if (v19)
-            {
-              v20 = v19;
-              v21 = EAPLogGetLogHandle();
-              v22 = _SC_syslog_os_log_mapping();
-              if (os_log_type_enabled(v21, v22))
-              {
-                *buf = 67109120;
-                *v61 = v20;
-                v23 = "encrypt CCCryptoCreate failed with %d";
-                v24 = v21;
-                v25 = v22;
-LABEL_40:
-                v45 = 8;
-LABEL_41:
-                _os_log_impl(&dword_249EFB000, v24, v25, v23, buf, v45);
-              }
-            }
-
-            else
-            {
-              v41 = CCCryptorUpdate(cryptorRef, v17, v18, v16 + 4, v18, &dataOutMoved);
-              if (v41)
-              {
-                v42 = v41;
-                v43 = EAPLogGetLogHandle();
-                v44 = _SC_syslog_os_log_mapping();
-                if (os_log_type_enabled(v43, v44))
-                {
-                  *buf = 67109120;
-                  *v61 = v42;
-                  v23 = "encrypt CCCryptoUpdate failed with %d";
-                  v24 = v43;
-                  v25 = v44;
-                  goto LABEL_40;
-                }
-              }
-
-              else
-              {
-                if (dataOutMoved == v18)
-                {
-                  v46 = 1;
-LABEL_43:
-                  v47 = CCCryptorRelease(cryptorRef);
-                  if (v47)
-                  {
-                    v48 = v47;
-                    v49 = EAPLogGetLogHandle();
-                    v50 = _SC_syslog_os_log_mapping();
-                    if (os_log_type_enabled(v49, v50))
-                    {
-                      *buf = 67109120;
-                      *v61 = v48;
-                      _os_log_impl(&dword_249EFB000, v49, v50, "CCCryptoRelease failed with %d", buf, 8u);
-                    }
-                  }
-
-                  if (v46)
-                  {
-                    result = 1;
-                    goto LABEL_34;
-                  }
-
-                  v51 = EAPLogGetLogHandle();
-                  v52 = _SC_syslog_os_log_mapping();
-                  result = os_log_type_enabled(v51, v52);
-                  if (!result)
-                  {
-                    goto LABEL_34;
-                  }
-
-                  *buf = 0;
-                  v31 = "failed to encrypt AT_ENCR_DATA";
-                  v32 = v51;
-                  v33 = v52;
-                  v34 = 2;
-                  goto LABEL_33;
-                }
-
-                v53 = EAPLogGetLogHandle();
-                v54 = _SC_syslog_os_log_mapping();
-                if (os_log_type_enabled(v53, v54))
-                {
-                  *buf = 67109376;
-                  *v61 = dataOutMoved;
-                  *&v61[4] = 1024;
-                  *&v61[6] = v18;
-                  v23 = "encryption consumed %d, should have been %d";
-                  v24 = v53;
-                  v25 = v54;
-                  v45 = 14;
-                  goto LABEL_41;
-                }
-              }
-            }
-
-            v46 = 0;
-            goto LABEL_43;
-          }
-
-          v40 = EAPLogGetLogHandle();
-          v36 = _SC_syslog_os_log_mapping();
-          result = os_log_type_enabled(v40, v36);
-          if (!result)
-          {
-            goto LABEL_34;
-          }
-
-          *buf = 136315138;
-          *v61 = a3 + 16;
-          v31 = "failed to allocate AT_ENCR_DATA, %s";
-          v32 = v40;
-          goto LABEL_31;
-        }
-
-        v35 = EAPLogGetLogHandle();
         v36 = _SC_syslog_os_log_mapping();
-        result = os_log_type_enabled(v35, v36);
-        if (result)
+        result = os_log_type_enabled(LogHandle, v36);
+        if (!result)
         {
-          *buf = 136315138;
-          *v61 = a2 + 16;
-          v31 = "failed to allocate AT_IV, %s";
-          goto LABEL_30;
+          return result;
         }
-      }
 
-      else
-      {
-        v37 = EAPLogGetLogHandle();
-        v38 = _SC_syslog_os_log_mapping();
-        result = os_log_type_enabled(v37, v38);
-        if (result)
-        {
-          *buf = 136315138;
-          *v61 = &v58[5] + 8;
-          v31 = "nested TLVs TLVListParse failed, %s";
-          v32 = v37;
-          v33 = v38;
+        *buf = 136315138;
+        *v60 = a2 + 16;
+        v31 = "failed to add AT_PADDING, %s";
+LABEL_30:
+        v32 = LogHandle;
+LABEL_31:
+        v33 = v36;
 LABEL_32:
-          v34 = 12;
-          goto LABEL_33;
-        }
-      }
-    }
-
-    else
-    {
-      v26 = EAPLogGetLogHandle();
-      v27 = _SC_syslog_os_log_mapping();
-      result = os_log_type_enabled(v26, v27);
-      if (result)
-      {
-        v30 = *(a3 + 8);
-        v29 = *(a3 + 12);
-        *buf = 67109376;
-        *v61 = v29;
-        *&v61[4] = 1024;
-        *&v61[6] = v30;
-        v31 = "nested encrypted TLVs length %d != %d";
-        v32 = v26;
-        v33 = v27;
-        v34 = 14;
+        v34 = 12;
 LABEL_33:
         _os_log_impl(&dword_249EFB000, v32, v33, v31, buf, v34);
-        result = 0;
-        goto LABEL_34;
+        return 0;
       }
+
+      v6 = *(a3 + 12);
+    }
+  }
+
+  if (v6 != *(a3 + 8))
+  {
+    v26 = EAPLogGetLogHandle();
+    v27 = _SC_syslog_os_log_mapping();
+    result = os_log_type_enabled(v26, v27);
+    if (!result)
+    {
+      return result;
     }
 
-    goto LABEL_34;
+    v30 = *(a3 + 8);
+    v29 = *(a3 + 12);
+    *buf = 67109376;
+    *v60 = v29;
+    *&v60[4] = 1024;
+    *&v60[6] = v30;
+    v31 = "nested encrypted TLVs length %d != %d";
+    v32 = v26;
+    v33 = v27;
+    v34 = 14;
+    goto LABEL_33;
   }
 
-  if (TLVBufferAddPadding(a3, v8 - v6))
+  v56 = 0;
+  *&v57[5] = 0;
+  if (!TLVListParse_0(&v56, *a3, v6))
   {
-    v6 = *(a3 + 12);
-    goto LABEL_8;
-  }
+    v37 = EAPLogGetLogHandle();
+    v38 = _SC_syslog_os_log_mapping();
+    result = os_log_type_enabled(v37, v38);
+    if (!result)
+    {
+      return result;
+    }
 
-  v35 = EAPLogGetLogHandle();
-  v36 = _SC_syslog_os_log_mapping();
-  result = os_log_type_enabled(v35, v36);
-  if (result)
-  {
     *buf = 136315138;
-    *v61 = a2 + 16;
-    v31 = "failed to add AT_PADDING, %s";
-LABEL_30:
-    v32 = v35;
-LABEL_31:
-    v33 = v36;
+    *v60 = &v57[5] + 8;
+    v31 = "nested TLVs TLVListParse failed, %s";
+    v32 = v37;
+    v33 = v38;
     goto LABEL_32;
   }
 
-LABEL_34:
-  v39 = *MEMORY[0x277D85DE8];
+  v9 = TLVListCopyDescription(&v56);
+  if (v56 && v56 != v57)
+  {
+    free(v56);
+  }
+
+  v56 = 0;
+  *&v57[5] = 0;
+  v10 = EAPLogGetLogHandle();
+  v11 = _SC_syslog_os_log_mapping();
+  if (os_log_type_enabled(v10, v11))
+  {
+    *buf = 138412290;
+    *v60 = v9;
+    _os_log_impl(&dword_249EFB000, v10, v11, "Encrypted TLVs:\n%@", buf, 0xCu);
+  }
+
+  CFRelease(v9);
+  TLV = TLVBufferAllocateTLV(a2, 129, 0x14u);
+  if (!TLV)
+  {
+    LogHandle = EAPLogGetLogHandle();
+    v36 = _SC_syslog_os_log_mapping();
+    result = os_log_type_enabled(LogHandle, v36);
+    if (!result)
+    {
+      return result;
+    }
+
+    *buf = 136315138;
+    *v60 = a2 + 16;
+    v31 = "failed to allocate AT_IV, %s";
+    goto LABEL_30;
+  }
+
+  v13 = 0;
+  *(TLV + 1) = 0;
+  v14 = TLV + 4;
+  do
+  {
+    *&v14[v13] = arc4random();
+    v13 += 4;
+  }
+
+  while (v13 != 16);
+  v15 = TLVBufferAllocateTLV(a2, 130, *(a3 + 12) + 4);
+  if (!v15)
+  {
+    v39 = EAPLogGetLogHandle();
+    v36 = _SC_syslog_os_log_mapping();
+    result = os_log_type_enabled(v39, v36);
+    if (!result)
+    {
+      return result;
+    }
+
+    *buf = 136315138;
+    *v60 = a3 + 16;
+    v31 = "failed to allocate AT_ENCR_DATA, %s";
+    v32 = v39;
+    goto LABEL_31;
+  }
+
+  v16 = v15;
+  *(v15 + 1) = 0;
+  v17 = *a3;
+  v18 = *(a3 + 12);
+  cryptorRef = 0;
+  dataOutMoved = 0;
+  v19 = CCCryptorCreate(0, 0, 0, a1, 0x10uLL, v14, &cryptorRef);
+  if (v19)
+  {
+    v20 = v19;
+    v21 = EAPLogGetLogHandle();
+    v22 = _SC_syslog_os_log_mapping();
+    if (os_log_type_enabled(v21, v22))
+    {
+      *buf = 67109120;
+      *v60 = v20;
+      v23 = "encrypt CCCryptoCreate failed with %d";
+      v24 = v21;
+      v25 = v22;
+LABEL_40:
+      v44 = 8;
+LABEL_41:
+      _os_log_impl(&dword_249EFB000, v24, v25, v23, buf, v44);
+      goto LABEL_42;
+    }
+
+    goto LABEL_42;
+  }
+
+  v40 = CCCryptorUpdate(cryptorRef, v17, v18, v16 + 4, v18, &dataOutMoved);
+  if (v40)
+  {
+    v41 = v40;
+    v42 = EAPLogGetLogHandle();
+    v43 = _SC_syslog_os_log_mapping();
+    if (os_log_type_enabled(v42, v43))
+    {
+      *buf = 67109120;
+      *v60 = v41;
+      v23 = "encrypt CCCryptoUpdate failed with %d";
+      v24 = v42;
+      v25 = v43;
+      goto LABEL_40;
+    }
+
+LABEL_42:
+    v45 = 0;
+    goto LABEL_43;
+  }
+
+  if (dataOutMoved != v18)
+  {
+    v52 = EAPLogGetLogHandle();
+    v53 = _SC_syslog_os_log_mapping();
+    if (!os_log_type_enabled(v52, v53))
+    {
+      goto LABEL_42;
+    }
+
+    *buf = 67109376;
+    *v60 = dataOutMoved;
+    *&v60[4] = 1024;
+    *&v60[6] = v18;
+    v23 = "encryption consumed %d, should have been %d";
+    v24 = v52;
+    v25 = v53;
+    v44 = 14;
+    goto LABEL_41;
+  }
+
+  v45 = 1;
+LABEL_43:
+  v46 = CCCryptorRelease(cryptorRef);
+  if (v46)
+  {
+    v47 = v46;
+    v48 = EAPLogGetLogHandle();
+    v49 = _SC_syslog_os_log_mapping();
+    if (os_log_type_enabled(v48, v49))
+    {
+      *buf = 67109120;
+      *v60 = v47;
+      _os_log_impl(&dword_249EFB000, v48, v49, "CCCryptoRelease failed with %d", buf, 8u);
+    }
+  }
+
+  if (v45)
+  {
+    return 1;
+  }
+
+  v50 = EAPLogGetLogHandle();
+  v51 = _SC_syslog_os_log_mapping();
+  result = os_log_type_enabled(v50, v51);
+  if (result)
+  {
+    *buf = 0;
+    v31 = "failed to encrypt AT_ENCR_DATA";
+    v32 = v50;
+    v33 = v51;
+    v34 = 2;
+    goto LABEL_33;
+  }
+
   return result;
 }
 
-uint64_t TLVBufferAddPadding(uint64_t a1, unsigned int a2)
+uint64_t TLVBufferAddPadding(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   if (a2 <= 0xC && ((1 << a2) & 0x1110) != 0)
   {
     result = TLVBufferAllocateTLV(a1, 6, a2);
     if (result)
     {
-      bzero((result + 2), a2 - 2);
+      bzero((result + 2), v2 - 2);
       return 1;
     }
 
@@ -7959,7 +7492,7 @@ uint64_t TLVBufferAddPadding(uint64_t a1, unsigned int a2)
   return result;
 }
 
-_BYTE *TLVBufferAllocateTLV(uint64_t a1, char a2, int a3)
+_BYTE *TLVBufferAllocateTLV(uint64_t a1, char a2, unsigned int a3)
 {
   if (a3 < 2)
   {
@@ -7994,7 +7527,6 @@ _BYTE *TLVBufferAllocateTLV(uint64_t a1, char a2, int a3)
       return v3;
     }
 
-    v8 = (*(a1 + 8) - v6);
     snprintf((a1 + 16), 0xA0uLL, "available space %d < required %d");
   }
 
@@ -8008,41 +7540,40 @@ _BYTE *TLVBufferAllocateTLV(uint64_t a1, char a2, int a3)
 
 double EAPSIMAKAKeyInfoComputeReauthKey(_OWORD *a1, uint64_t a2, const void *a3, CC_LONG a4, uint64_t a5, uint64_t a6)
 {
-  v32 = *MEMORY[0x277D85DE8];
-  memset(&v20, 0, sizeof(v20));
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
+  v31 = *MEMORY[0x277D85DE8];
+  memset(&v19, 0, sizeof(v19));
   v29 = 0u;
-  v26 = 0u;
+  v30 = 0u;
   v27 = 0u;
-  v24 = 0u;
+  v28 = 0u;
   v25 = 0u;
-  v22 = 0u;
+  v26 = 0u;
   v23 = 0u;
-  CC_SHA1_Init(&v20);
-  CC_SHA1_Update(&v20, a3, a4);
-  CC_SHA1_Update(&v20, (a5 + 2), 2u);
-  CC_SHA1_Update(&v20, (a6 + 4), 0x10u);
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  CC_SHA1_Init(&v19);
+  CC_SHA1_Update(&v19, a3, a4);
+  CC_SHA1_Update(&v19, (a5 + 2), 2u);
+  CC_SHA1_Update(&v19, (a6 + 4), 0x10u);
   MasterKey = EAPSIMAKAPersistentStateGetMasterKey(a2);
   MasterKeySize = EAPSIMAKAPersistentStateGetMasterKeySize(a2);
-  CC_SHA1_Update(&v20, MasterKey, MasterKeySize);
-  CC_SHA1_Final(&md, &v20);
-  fips186_2prf(&md, &v22);
-  v14 = v23;
-  a1[2] = v22;
+  CC_SHA1_Update(&v19, MasterKey, MasterKeySize);
+  CC_SHA1_Final(&md, &v19);
+  fips186_2prf(&md, &v21);
+  v14 = v22;
+  a1[2] = v21;
   a1[3] = v14;
-  v15 = v25;
-  a1[4] = v24;
+  v15 = v24;
+  a1[4] = v23;
   a1[5] = v15;
-  v16 = v27;
-  a1[6] = v26;
+  v16 = v26;
+  a1[6] = v25;
   a1[7] = v16;
-  result = *&v28;
-  v18 = v29;
-  a1[8] = v28;
+  result = *&v27;
+  v18 = v28;
+  a1[8] = v27;
   a1[9] = v18;
-  v19 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -8424,7 +7955,7 @@ uint64_t TLVBufferAddIdentity(uint64_t a1, const void *a2, signed int a3)
 
 uint64_t TLVBufferAddCounter(uint64_t a1, unsigned int a2)
 {
-  result = TLVBufferAllocateTLV(a1, 19, 4);
+  result = TLVBufferAllocateTLV(a1, 19, 4u);
   if (result)
   {
     *(result + 2) = __rev16(a2);
@@ -8436,7 +7967,7 @@ uint64_t TLVBufferAddCounter(uint64_t a1, unsigned int a2)
 
 uint64_t TLVBufferAddCounterTooSmall(uint64_t a1)
 {
-  result = TLVBufferAllocateTLV(a1, 20, 4);
+  result = TLVBufferAllocateTLV(a1, 20, 4u);
   if (result)
   {
     *(result + 2) = 0;
@@ -8561,8 +8092,7 @@ LABEL_19:
         else
         {
           v9 = 0;
-          v10 = a2 + 2;
-          while (!v10[v9])
+          while (!a2[v9 + 2])
           {
             v6 = 0;
             if (v4 - 2 == ++v9)
@@ -8571,7 +8101,6 @@ LABEL_19:
             }
           }
 
-          v12 = v10[v9];
           snprintf((a1 + 96), 0xA0uLL, "AT_PADDING non-zero value 0x%x at offset %d");
         }
 
@@ -9000,7 +8529,7 @@ LABEL_46:
   return result;
 }
 
-uint64_t eapaka_process(uint64_t *a1, _BYTE *a2, uint64_t *a3, int *a4, _DWORD *a5)
+uint64_t eapaka_process(uint64_t *a1, unsigned __int8 *a2, uint64_t *a3, int *a4, _DWORD *a5)
 {
   v5 = *a1;
   *a4 = 0;
@@ -9103,12 +8632,12 @@ CFDictionaryRef eapaka_publish_props(uint64_t a1)
   }
 }
 
-void *eapaka_user_name_copy(const __CFDictionary *a1)
+CFTypeRef eapaka_user_name_copy(const __CFDictionary *a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
-  v26 = 0;
+  v31 = *MEMORY[0x277D85DE8];
+  v25 = 0;
   v2 = copy_static_imsi_0(a1);
-  v27 = v2;
+  v26 = v2;
   if (v2)
   {
     v3 = v2;
@@ -9118,7 +8647,7 @@ void *eapaka_user_name_copy(const __CFDictionary *a1)
   else
   {
     v5 = SIMCopyIMSI(a1);
-    v27 = v5;
+    v26 = v5;
     if (!v5)
     {
 LABEL_33:
@@ -9131,10 +8660,10 @@ LABEL_33:
     v4 = 0;
   }
 
-  v6 = EAPSIMAKAInitEncryptedIdentityInfo(23, a1, v4, &v26 + 1, &v26);
+  v6 = EAPSIMAKAInitEncryptedIdentityInfo(23, a1, v4, &v25 + 1, &v25);
   identity_type = S_get_identity_type(a1);
   v8 = EAPSIMAKAPersistentStateCreate(23, 20, v3, identity_type, 0);
-  my_CFRelease(&v27);
+  my_CFRelease(&v26);
   if (v8)
   {
     v9 = EAPSIMAKAPersistentStateTemporaryUsernameAvailable(v8);
@@ -9162,9 +8691,9 @@ LABEL_33:
       goto LABEL_21;
     }
 
-    v25 = 0;
-    v10 = sim_identity_create_0(v8, a1, identity_type, 1, &v25, 0);
-    if (v25)
+    v24 = 0;
+    v10 = sim_identity_create_0(v8, a1, identity_type, 1, &v24, 0);
+    if (v24)
     {
       v11 = 1;
       EAPSIMAKAPersistentStateSetReauthIDUsed(v8, 1);
@@ -9174,9 +8703,9 @@ LABEL_33:
       {
         SSID = EAPSIMAKAPersistentStateGetSSID(v8);
         *buf = 138412546;
-        v29 = v10;
-        v30 = 2112;
-        v31 = SSID;
+        v28 = v10;
+        v29 = 2112;
+        v30 = SSID;
         _os_log_impl(&dword_249EFB000, v12, v13, "EAP-AKA is using fast re-auth id %@ for ssid : %@", buf, 0x16u);
       }
     }
@@ -9203,12 +8732,12 @@ LABEL_21:
   v15 = 0;
   v10 = 0;
 LABEL_22:
-  if (HIBYTE(v26) != 1 || v6)
+  if (HIBYTE(v25) != 1 || v6)
   {
     goto LABEL_34;
   }
 
-  v19 = v26 == 1 && v15;
+  v19 = v25 == 1 && v15;
   v20 = EAPLogGetLogHandle();
   if (!v19)
   {
@@ -9232,7 +8761,6 @@ LABEL_22:
   v6 = 0;
 LABEL_34:
   EAPSIMAKAClearEncryptedIdentityInfo(v6);
-  v23 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -9526,12 +9054,12 @@ LABEL_60:
   return v20;
 }
 
-uint64_t eapaka_request(uint64_t a1, _BYTE *a2, int *a3, _DWORD *a4)
+uint64_t eapaka_request(uint64_t a1, unsigned __int8 *a2, int *a3, _DWORD *a4)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   Length = EAPPacketGetLength(a2);
   v9 = TLVListSizeof();
-  MEMORY[0x28223BE20](v9, v10, v11, v12, v13, v14, v15, v16, *buf, *&buf[8], *&buf[16], v40);
+  MEMORY[0x28223BE20](v9, v10, v11, v12, v13, v14, v15, v16, *buf, *&buf[8], *&buf[16], v39);
   v19 = &buf[-v18];
   if ((v20 & 0x7FFFFFE00) != 0)
   {
@@ -9571,8 +9099,7 @@ LABEL_17:
   {
     if (*(a1 + 12) && *(a1 + 16) == a2[1])
     {
-      client_error_packet = a1 + 272;
-      goto LABEL_27;
+      return a1 + 272;
     }
 
     v29 = a2[5];
@@ -9609,14 +9136,14 @@ LABEL_36:
     }
 
     *a3 = 17;
-    v36 = EAPLogGetLogHandle();
-    v37 = _SC_syslog_os_log_mapping();
-    if (os_log_type_enabled(v36, v37))
+    v35 = EAPLogGetLogHandle();
+    v36 = _SC_syslog_os_log_mapping();
+    if (os_log_type_enabled(v35, v36))
     {
       String = EAPSIMAKAPacketSubtypeGetString(v29);
       *buf = 136315138;
       *&buf[4] = String;
-      _os_log_impl(&dword_249EFB000, v36, v37, "unexpected Subtype %s", buf, 0xCu);
+      _os_log_impl(&dword_249EFB000, v35, v36, "unexpected Subtype %s", buf, 0xCu);
     }
 
     client_error_packet = 0;
@@ -9652,28 +9179,25 @@ LABEL_19:
   {
     if (*a3 != 17)
     {
-      client_error_packet = 0;
-      goto LABEL_27;
+      return 0;
     }
 
     client_error_packet = make_client_error_packet(a1, a2);
     if (!client_error_packet)
     {
-      goto LABEL_27;
+      return client_error_packet;
     }
   }
 
   *(a1 + 16) = a2[1];
-LABEL_27:
-  v34 = *MEMORY[0x277D85DE8];
   return client_error_packet;
 }
 
 uint64_t eapaka_challenge(uint64_t a1, _BYTE *a2, unsigned __int8 ***a3, int *a4)
 {
-  v79 = *MEMORY[0x277D85DE8];
-  v75 = 0u;
-  v76 = 0u;
+  v77 = *MEMORY[0x277D85DE8];
+  v73 = 0u;
+  v74 = 0u;
   memset(&c.data[1], 0, 64);
   v8 = TLVBufferSizeof();
   MEMORY[0x28223BE20](v8, v9, v10, v11, v12, v13, v14, v15, 0, 0, 0, 0);
@@ -9689,7 +9213,7 @@ uint64_t eapaka_challenge(uint64_t a1, _BYTE *a2, unsigned __int8 ***a3, int *a4
   }
 
   bzero(&c - v17, v20);
-  AKAAuthResultsInit(&v75);
+  AKAAuthResultsInit(&v73);
   *(a1 + 8) = 0x200000000;
   EAPSIMAKAPersistentStateSetCounter(*(a1 + 208), 1);
   EAPSIMAKAPersistentStateSetReauthID(*(a1 + 208), 0);
@@ -9698,14 +9222,14 @@ uint64_t eapaka_challenge(uint64_t a1, _BYTE *a2, unsigned __int8 ***a3, int *a4
   if (!v21)
   {
     LogHandle = EAPLogGetLogHandle();
-    v32 = _SC_syslog_os_log_mapping();
-    if (!os_log_type_enabled(LogHandle, v32))
+    v31 = _SC_syslog_os_log_mapping();
+    if (!os_log_type_enabled(LogHandle, v31))
     {
       goto LABEL_38;
     }
 
     *buf = 0;
-    v33 = "eapaka: Challenge is missing AT_RAND";
+    v32 = "eapaka: Challenge is missing AT_RAND";
     goto LABEL_37;
   }
 
@@ -9714,14 +9238,14 @@ uint64_t eapaka_challenge(uint64_t a1, _BYTE *a2, unsigned __int8 ***a3, int *a4
   if (!v23)
   {
     LogHandle = EAPLogGetLogHandle();
-    v32 = _SC_syslog_os_log_mapping();
-    if (!os_log_type_enabled(LogHandle, v32))
+    v31 = _SC_syslog_os_log_mapping();
+    if (!os_log_type_enabled(LogHandle, v31))
     {
       goto LABEL_38;
     }
 
     *buf = 0;
-    v33 = "eapaka: Challenge is missing AT_AUTN";
+    v32 = "eapaka: Challenge is missing AT_AUTN";
     goto LABEL_37;
   }
 
@@ -9730,14 +9254,14 @@ uint64_t eapaka_challenge(uint64_t a1, _BYTE *a2, unsigned __int8 ***a3, int *a4
   if (!v25)
   {
     LogHandle = EAPLogGetLogHandle();
-    v32 = _SC_syslog_os_log_mapping();
-    if (!os_log_type_enabled(LogHandle, v32))
+    v31 = _SC_syslog_os_log_mapping();
+    if (!os_log_type_enabled(LogHandle, v31))
     {
       goto LABEL_38;
     }
 
     *buf = 0;
-    v33 = "eapaka: Challenge is missing AT_MAC";
+    v32 = "eapaka: Challenge is missing AT_MAC";
     goto LABEL_37;
   }
 
@@ -9747,55 +9271,55 @@ uint64_t eapaka_challenge(uint64_t a1, _BYTE *a2, unsigned __int8 ***a3, int *a4
   v29 = CFDataCreateWithBytesNoCopy(0, (v24 + 4), 16, v27);
   if (*(a1 + 256))
   {
-    v30 = AKAAuthResultsInit(&v75);
-    AKAAuthResultsSetCK(&v75, *(a1 + 256), v30);
-    AKAAuthResultsSetIK(&v75, *(a1 + 264));
-    AKAAuthResultsSetRES(&v75, *(a1 + 248));
+    AKAAuthResultsInit(&v73);
+    AKAAuthResultsSetCK(&v73, *(a1 + 256));
+    AKAAuthResultsSetIK(&v73, *(a1 + 264));
+    AKAAuthResultsSetRES(&v73, *(a1 + 248));
     CFRelease(v28);
     CFRelease(v29);
   }
 
   else
   {
-    v34 = SIMAuthenticateAKA(*(*a1 + 80), v28, v29, &v75);
+    v33 = SIMAuthenticateAKA(*(*a1 + 80), v28, v29, &v73);
     CFRelease(v28);
     CFRelease(v29);
-    if (!v34)
+    if (!v33)
     {
       goto LABEL_46;
     }
   }
 
-  v35 = v75;
-  if (v75)
+  v34 = v73;
+  if (v73)
   {
     CC_SHA1_Init(&c);
-    v36 = *(a1 + 32);
-    if (v36)
+    v35 = *(a1 + 32);
+    if (v35)
     {
-      BytePtr = CFDataGetBytePtr(v36);
+      BytePtr = CFDataGetBytePtr(v35);
       Length = CFDataGetLength(*(a1 + 32));
-      v39 = BytePtr;
+      v38 = BytePtr;
     }
 
     else
     {
-      v39 = *(*a1 + 40);
+      v38 = *(*a1 + 40);
       Length = *(*a1 + 48);
     }
 
-    CC_SHA1_Update(&c, v39, Length);
-    v51 = *(&v75 + 1);
-    v52 = CFDataGetBytePtr(*(&v75 + 1));
-    v53 = CFDataGetLength(v51);
-    CC_SHA1_Update(&c, v52, v53);
-    v54 = CFDataGetBytePtr(v35);
-    v55 = CFDataGetLength(v35);
-    CC_SHA1_Update(&c, v54, v55);
+    CC_SHA1_Update(&c, v38, Length);
+    v50 = *(&v73 + 1);
+    v51 = CFDataGetBytePtr(*(&v73 + 1));
+    v52 = CFDataGetLength(v50);
+    CC_SHA1_Update(&c, v51, v52);
+    v53 = CFDataGetBytePtr(v34);
+    v54 = CFDataGetLength(v34);
+    CC_SHA1_Update(&c, v53, v54);
     MasterKey = EAPSIMAKAPersistentStateGetMasterKey(*(a1 + 208));
     CC_SHA1_Final(MasterKey, &c);
-    v57 = EAPSIMAKAPersistentStateGetMasterKey(*(a1 + 208));
-    fips186_2prf(v57, a1 + 40);
+    v56 = EAPSIMAKAPersistentStateGetMasterKey(*(a1 + 208));
+    fips186_2prf(v56, a1 + 40);
     if (EAPSIMAKAKeyInfoVerifyMAC(a1 + 40, a2, v26 + 4, 0, 0))
     {
       if (eapaka_challenge_process_encr_data(a1, a3))
@@ -9804,133 +9328,861 @@ uint64_t eapaka_challenge(uint64_t a1, _BYTE *a2, unsigned __int8 ***a3, int *a4
         *(a1 + 272) = 2;
         *(a1 + 273) = a2[1];
         *(a1 + 276) = 279;
-        TLV = TLVBufferAllocateTLV(v18, 11, 20);
+        TLV = TLVBufferAllocateTLV(v18, 11, 0x14u);
         if (TLV)
         {
-          v59 = TLV;
+          v58 = TLV;
           *(TLV + 1) = 0;
-          v60 = v76;
-          v61 = CFDataGetLength(v76);
-          v62 = TLVBufferAllocateTLV(v18, 3, v61 + 4);
-          if (v62)
+          v59 = v74;
+          v60 = CFDataGetLength(v74);
+          v61 = TLVBufferAllocateTLV(v18, 3, v60 + 4);
+          if (v61)
           {
-            v63 = v62;
-            v42 = a1 + 272;
-            *(v62 + 1) = bswap32(8 * v61) >> 16;
-            v64 = CFDataGetBytePtr(v60);
-            memmove(v63 + 4, v64, v61);
-            v65 = TLVBufferUsed(v18);
-            EAPPacketSetLength(a1 + 272, (v65 + 8));
-            EAPSIMAKAKeyInfoSetMAC(a1 + 40, (a1 + 272), v59 + 4, 0, 0);
+            v62 = v61;
+            v41 = a1 + 272;
+            *(v61 + 1) = bswap32(8 * v60) >> 16;
+            v63 = CFDataGetBytePtr(v59);
+            memmove(v62 + 4, v63, v60);
+            v64 = TLVBufferUsed(v18);
+            EAPPacketSetLength(a1 + 272, (v64 + 8));
+            EAPSIMAKAKeyInfoSetMAC(a1 + 40, (a1 + 272), v58 + 4, 0, 0);
             *(a1 + 12) = 4;
             *(a1 + 200) = 1;
             goto LABEL_40;
           }
 
-          v69 = EAPLogGetLogHandle();
-          v70 = _SC_syslog_os_log_mapping();
-          if (!os_log_type_enabled(v69, v70))
+          v67 = EAPLogGetLogHandle();
+          v68 = _SC_syslog_os_log_mapping();
+          if (!os_log_type_enabled(v67, v68))
           {
             goto LABEL_46;
           }
 
-          v73 = TLVBufferErrorString(v18);
+          v71 = TLVBufferErrorString(v18);
           *buf = 136315138;
-          *v78 = v73;
-          v72 = "eapaka: failed allocating AT_RES, %s";
+          *v76 = v71;
+          v70 = "eapaka: failed allocating AT_RES, %s";
           goto LABEL_45;
         }
 
-        v69 = EAPLogGetLogHandle();
-        v70 = _SC_syslog_os_log_mapping();
-        if (os_log_type_enabled(v69, v70))
+        v67 = EAPLogGetLogHandle();
+        v68 = _SC_syslog_os_log_mapping();
+        if (os_log_type_enabled(v67, v68))
         {
-          v71 = TLVBufferErrorString(v18);
+          v69 = TLVBufferErrorString(v18);
           *buf = 136315138;
-          *v78 = v71;
-          v72 = "eapaka: failed allocating AT_MAC, %s";
+          *v76 = v69;
+          v70 = "eapaka: failed allocating AT_MAC, %s";
 LABEL_45:
-          _os_log_impl(&dword_249EFB000, v69, v70, v72, buf, 0xCu);
+          _os_log_impl(&dword_249EFB000, v67, v68, v70, buf, 0xCu);
         }
 
 LABEL_46:
-        v42 = 0;
-        v66 = 8;
+        v41 = 0;
+        v65 = 8;
         goto LABEL_39;
       }
 
 LABEL_38:
-      v42 = 0;
-      v66 = 17;
+      v41 = 0;
+      v65 = 17;
 LABEL_39:
-      *a4 = v66;
+      *a4 = v65;
       goto LABEL_40;
     }
 
     LogHandle = EAPLogGetLogHandle();
-    v32 = _SC_syslog_os_log_mapping();
-    if (!os_log_type_enabled(LogHandle, v32))
+    v31 = _SC_syslog_os_log_mapping();
+    if (!os_log_type_enabled(LogHandle, v31))
     {
       goto LABEL_38;
     }
 
     *buf = 0;
-    v33 = "eapaka: Challenge AT_MAC not valid";
+    v32 = "eapaka: Challenge AT_MAC not valid";
 LABEL_37:
-    _os_log_impl(&dword_249EFB000, LogHandle, v32, v33, buf, 2u);
+    _os_log_impl(&dword_249EFB000, LogHandle, v31, v32, buf, 2u);
     goto LABEL_38;
   }
 
-  v40 = *(&v76 + 1);
-  if (*(&v76 + 1))
+  v39 = *(&v74 + 1);
+  if (*(&v74 + 1))
   {
-    v41 = 4;
+    v40 = 4;
   }
 
   else
   {
-    v41 = 2;
+    v40 = 2;
   }
 
-  v42 = a1 + 272;
+  v41 = a1 + 272;
   TLVBufferInit(v18, a1 + 280, 1492);
   *(a1 + 272) = 2;
   *(a1 + 273) = a2[1];
   *(a1 + 276) = 23;
-  *(a1 + 277) = v41;
+  *(a1 + 277) = v40;
   *(a1 + 278) = 0;
-  if (v40)
+  if (v39)
   {
-    v43 = CFDataGetLength(v40);
-    if (v43 != 14)
+    v42 = CFDataGetLength(v39);
+    if (v42 != 14)
     {
-      v44 = EAPLogGetLogHandle();
-      v45 = _SC_syslog_os_log_mapping();
-      if (os_log_type_enabled(v44, v45))
+      v43 = EAPLogGetLogHandle();
+      v44 = _SC_syslog_os_log_mapping();
+      if (os_log_type_enabled(v43, v44))
       {
         *buf = 67109376;
-        *v78 = v43;
-        *&v78[4] = 1024;
-        *&v78[6] = 14;
-        _os_log_impl(&dword_249EFB000, v44, v45, "eapaka: SIM bogus AUTS size %d (should be %d)", buf, 0xEu);
+        *v76 = v42;
+        *&v76[4] = 1024;
+        *&v76[6] = 14;
+        _os_log_impl(&dword_249EFB000, v43, v44, "eapaka: SIM bogus AUTS size %d (should be %d)", buf, 0xEu);
       }
 
       *a4 = 8;
     }
 
-    v46 = TLVBufferAllocateTLV(v18, 4, 16);
-    v47 = CFDataGetBytePtr(v40);
-    v48 = *(v47 + 6);
-    v49 = *(v47 + 2);
-    *(v46 + 2) = *v47;
-    *(v46 + 10) = v49;
-    *(v46 + 7) = v48;
+    v45 = TLVBufferAllocateTLV(v18, 4, 0x10u);
+    v46 = CFDataGetBytePtr(v39);
+    v47 = *(v46 + 6);
+    v48 = *(v46 + 2);
+    *(v45 + 2) = *v46;
+    *(v45 + 10) = v48;
+    *(v45 + 7) = v47;
   }
 
-  v50 = TLVBufferUsed(v18);
-  EAPPacketSetLength(v42, (v50 + 8));
+  v49 = TLVBufferUsed(v18);
+  EAPPacketSetLength(v41, (v49 + 8));
 LABEL_40:
-  AKAAuthResultsRelease(&v75);
-  v67 = *MEMORY[0x277D85DE8];
-  return v42;
+  AKAAuthResultsRelease(&v73);
+  return v41;
+}
+
+uint64_t eapaka_identity(uint64_t a1, uint64_t a2, int *a3, int *a4)
+{
+  v71 = *MEMORY[0x277D85DE8];
+  HIBYTE(v68) = 0;
+  v8 = TLVBufferSizeof();
+  MEMORY[0x28223BE20](v8, v9, v10, v11, v12, v13, v14, v15, v68, 0, *buf, *&buf[8]);
+  v18 = &v68 - v17;
+  if ((v19 & 0x7FFFFFE00) != 0)
+  {
+    v20 = 512;
+  }
+
+  else
+  {
+    v20 = v16;
+  }
+
+  bzero(&v68 - v17, v20);
+  if (*(a1 + 12) == 1)
+  {
+    v22 = (a1 + 20);
+    v21 = *(a1 + 20);
+    *(a1 + 20) = v21 + 1;
+    if (v21 >= 3)
+    {
+      LogHandle = EAPLogGetLogHandle();
+      v24 = _SC_syslog_os_log_mapping();
+      if (os_log_type_enabled(LogHandle, v24))
+      {
+        v25 = *v22;
+        *buf = 67109376;
+        *&buf[4] = v25;
+        *&buf[8] = 1024;
+        *&buf[10] = 3;
+        v26 = "eapaka: too many Identity packets (%d > %d)";
+        v27 = LogHandle;
+        v28 = v24;
+        v29 = 14;
+LABEL_55:
+        _os_log_impl(&dword_249EFB000, v27, v28, v26, buf, v29);
+        goto LABEL_56;
+      }
+
+      goto LABEL_56;
+    }
+  }
+
+  else
+  {
+    *(a1 + 20) = 1;
+    v22 = (a1 + 20);
+    *(a1 + 8) = 0x100000000;
+    *(a1 + 28) = 0;
+  }
+
+  v30 = TLVListLookupIdentityAttribute(a3);
+  v31 = v30;
+  if (v30 == 10)
+  {
+    if (*v22 < 2)
+    {
+      goto LABEL_22;
+    }
+
+    v39 = *(a1 + 28);
+    if (v39 == 13 || v39 == 17)
+    {
+      goto LABEL_22;
+    }
+
+    v35 = EAPLogGetLogHandle();
+    v36 = _SC_syslog_os_log_mapping();
+    if (!os_log_type_enabled(v35, v36))
+    {
+      goto LABEL_56;
+    }
+
+    String = EAPSIMAKAAttributeTypeGetString(*(a1 + 28));
+    v58 = *(a1 + 20);
+    *buf = 136315394;
+    *&buf[4] = String;
+    *&buf[12] = 1024;
+    *&buf[14] = v58;
+    v26 = "eapaka: AT_PERMANENT_ID_REQ follows %s at Identity #%d";
+LABEL_54:
+    v27 = v35;
+    v28 = v36;
+    v29 = 18;
+    goto LABEL_55;
+  }
+
+  if (v30 == 17)
+  {
+    if (*v22 < 2 || *(a1 + 28) == 13)
+    {
+      goto LABEL_22;
+    }
+
+    v35 = EAPLogGetLogHandle();
+    v36 = _SC_syslog_os_log_mapping();
+    if (!os_log_type_enabled(v35, v36))
+    {
+      goto LABEL_56;
+    }
+
+    v37 = EAPSIMAKAAttributeTypeGetString(*(a1 + 28));
+    v38 = *(a1 + 20);
+    *buf = 136315394;
+    *&buf[4] = v37;
+    *&buf[12] = 1024;
+    *&buf[14] = v38;
+    v26 = "eapaka: AT_FULLAUTH_ID_REQ follows %s at Identity #%d";
+    goto LABEL_54;
+  }
+
+  if (v30 != 13)
+  {
+    v47 = EAPLogGetLogHandle();
+    v48 = _SC_syslog_os_log_mapping();
+    if (os_log_type_enabled(v47, v48))
+    {
+      *buf = 0;
+      v26 = "eapaka: AKA-Identity missing *ID_REQ";
+      v27 = v47;
+      v28 = v48;
+      v29 = 2;
+      goto LABEL_55;
+    }
+
+    goto LABEL_56;
+  }
+
+  if (*v22 >= 2)
+  {
+    v32 = EAPLogGetLogHandle();
+    v33 = _SC_syslog_os_log_mapping();
+    if (os_log_type_enabled(v32, v33))
+    {
+      v34 = *v22;
+      *buf = 67109120;
+      *&buf[4] = v34;
+      v26 = "eapaka: AT_ANY_ID_REQ at Identity #%d";
+      v27 = v32;
+      v28 = v33;
+      v29 = 8;
+      goto LABEL_55;
+    }
+
+LABEL_56:
+    v59 = 0;
+    v60 = 17;
+LABEL_57:
+    *a4 = v60;
+    goto LABEL_58;
+  }
+
+LABEL_22:
+  *(a1 + 240) = 0;
+  *(a1 + 28) = v30;
+  TLVBufferInit(v18, a1 + 280, 1492);
+  *(a1 + 272) = 2;
+  *(a1 + 273) = *(a2 + 1);
+  *(a1 + 276) = 1303;
+  v40 = *(*a1 + 56);
+  TypeID = CFDataGetTypeID();
+  if (v40 && CFGetTypeID(v40) == TypeID && CFDataGetLength(*(*a1 + 56)) >= 1)
+  {
+    ExternalRepresentation = CFRetain(*(*a1 + 56));
+    v69 = ExternalRepresentation;
+    goto LABEL_64;
+  }
+
+  v43 = *(a1 + 224);
+  if (!v43)
+  {
+LABEL_45:
+    v53 = sim_identity_create_0(*(a1 + 208), *(*a1 + 80), v31, 0, &v68 + 7, a4);
+    *buf = v53;
+    if (v53)
+    {
+      ExternalRepresentation = CFStringCreateExternalRepresentation(0, v53, 0x8000100u, 0);
+      v69 = ExternalRepresentation;
+      EAPAKAContextSetLastIdentity(a1, ExternalRepresentation);
+      my_CFRelease(buf);
+      goto LABEL_64;
+    }
+
+    if (*a4 == 17)
+    {
+      v54 = EAPLogGetLogHandle();
+      v55 = _SC_syslog_os_log_mapping();
+      if (!os_log_type_enabled(v54, v55))
+      {
+LABEL_62:
+        v59 = 0;
+        goto LABEL_58;
+      }
+
+      LOWORD(v68) = 0;
+      v56 = "eapaka: protocol error.";
+    }
+
+    else
+    {
+      if (*a4 != 16)
+      {
+        goto LABEL_62;
+      }
+
+      v54 = EAPLogGetLogHandle();
+      v55 = _SC_syslog_os_log_mapping();
+      if (!os_log_type_enabled(v54, v55))
+      {
+        goto LABEL_62;
+      }
+
+      LOWORD(v68) = 0;
+      v56 = "eapaka: can't find SIM identity";
+    }
+
+    _os_log_impl(&dword_249EFB000, v54, v55, v56, &v68, 2u);
+    goto LABEL_62;
+  }
+
+  if (v43[2])
+  {
+    v44 = EAPSIMAKAPersistentStateTemporaryUsernameAvailable(*(a1 + 208));
+    v45 = *(a1 + 224);
+    if (v31 == 10 || !v44)
+    {
+      ExternalRepresentation = CFRetain(v45[2]);
+      v69 = ExternalRepresentation;
+      EAPAKAContextSetLastIdentity(a1, ExternalRepresentation);
+      goto LABEL_64;
+    }
+
+    if (!v45)
+    {
+      goto LABEL_45;
+    }
+
+    v46 = *v45;
+  }
+
+  else
+  {
+    v46 = *v43;
+    if (v31 == 10 && v46)
+    {
+      *a4 = 17;
+      if (EAPSIMAKAPersistentStateTemporaryUsernameAvailable(*(a1 + 208)))
+      {
+        v49 = EAPLogGetLogHandle();
+        v50 = _SC_syslog_os_log_mapping();
+        if (os_log_type_enabled(v49, v50))
+        {
+          *buf = 0;
+          _os_log_impl(&dword_249EFB000, v49, v50, "eapaka: purging all the temporary identities", buf, 2u);
+        }
+
+        EAPSIMAKAPersistentStatePurgeTemporaryIDs(*(a1 + 208));
+      }
+
+      v51 = EAPLogGetLogHandle();
+      v52 = _SC_syslog_os_log_mapping();
+      if (os_log_type_enabled(v51, v52))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_249EFB000, v51, v52, "eapaka: requesting out-of-band psuedonym", buf, 2u);
+      }
+
+      SIMReportDecryptionError(0);
+      goto LABEL_62;
+    }
+  }
+
+  if (!v46 || EAPSIMAKAPersistentStateTemporaryUsernameAvailable(*(a1 + 208)))
+  {
+    goto LABEL_45;
+  }
+
+  ExternalRepresentation = CFStringCreateExternalRepresentation(0, **(a1 + 224), 0x8000100u, 0);
+  v69 = ExternalRepresentation;
+  EAPAKAContextSetLastIdentity(a1, ExternalRepresentation);
+  *(a1 + 240) = 1;
+LABEL_64:
+  BytePtr = CFDataGetBytePtr(ExternalRepresentation);
+  Length = CFDataGetLength(ExternalRepresentation);
+  if (!TLVBufferAddIdentity(v18, BytePtr, Length))
+  {
+    v65 = EAPLogGetLogHandle();
+    v66 = _SC_syslog_os_log_mapping();
+    if (os_log_type_enabled(v65, v66))
+    {
+      v67 = TLVBufferErrorString(v18);
+      *buf = 136315138;
+      *&buf[4] = v67;
+      _os_log_impl(&dword_249EFB000, v65, v66, "eapaka: can't add AT_IDENTITY, %s", buf, 0xCu);
+    }
+
+    v59 = 0;
+    v60 = 8;
+    goto LABEL_57;
+  }
+
+  v59 = a1 + 272;
+  if (!HIBYTE(v68))
+  {
+    *(a1 + 200) = 0;
+  }
+
+  v64 = TLVBufferUsed(v18);
+  EAPPacketSetLength(a1 + 272, (v64 + 8));
+LABEL_58:
+  my_CFRelease(&v69);
+  return v59;
+}
+
+uint64_t eapaka_notification(uint64_t a1, _BYTE *a2, unsigned __int8 ***a3, int *a4, _DWORD *a5)
+{
+  v121 = *MEMORY[0x277D85DE8];
+  v10 = TLVBufferSizeof();
+  MEMORY[0x28223BE20](v10, v11, v12, v13, v14, v15, v16, v17, v112, v113, v114, v115);
+  v20 = &v112 - v19;
+  if ((v21 & 0x7FFFFFE00) != 0)
+  {
+    v22 = 512;
+  }
+
+  else
+  {
+    v22 = v18;
+  }
+
+  bzero(&v112 - v19, v22);
+  *a4 = 0;
+  *a5 = 0;
+  v23 = TLVListLookupAttribute(a3, 12);
+  if (!v23)
+  {
+    LogHandle = EAPLogGetLogHandle();
+    v32 = _SC_syslog_os_log_mapping();
+    if (!os_log_type_enabled(LogHandle, v32))
+    {
+      goto LABEL_33;
+    }
+
+    *buf = 0;
+    v27 = "eapaka: Notification does not contain AT_NOTIFICATION attribute";
+LABEL_31:
+    v28 = LogHandle;
+    v29 = v32;
+    v30 = 2;
+    goto LABEL_32;
+  }
+
+  v24 = bswap32(*(v23 + 2)) >> 16;
+  if (v24 >= 0xC000)
+  {
+    v25 = EAPLogGetLogHandle();
+    v26 = _SC_syslog_os_log_mapping();
+    if (os_log_type_enabled(v25, v26))
+    {
+      *buf = 67109120;
+      *v119 = v24;
+      v27 = "eapaka: Notification code '%d' indicates success before authentication";
+      v28 = v25;
+      v29 = v26;
+      v30 = 8;
+LABEL_32:
+      _os_log_impl(&dword_249EFB000, v28, v29, v27, buf, v30);
+    }
+
+LABEL_33:
+    v59 = 0;
+    v60 = 17;
+LABEL_34:
+    *a4 = v60;
+    return v59;
+  }
+
+  v33 = TLVListLookupAttribute(a3, 11);
+  if (v33)
+  {
+    if ((v24 & 0x4000) != 0)
+    {
+      LogHandle = EAPLogGetLogHandle();
+      v32 = _SC_syslog_os_log_mapping();
+      if (!os_log_type_enabled(LogHandle, v32))
+      {
+        goto LABEL_33;
+      }
+
+      *buf = 0;
+      v27 = "eapaka: Notification incorrectly contains AT_MAC";
+      goto LABEL_31;
+    }
+
+    if (!EAPSIMAKAKeyInfoVerifyMAC(a1 + 40, a2, v33 + 4, 0, 0))
+    {
+      LogHandle = EAPLogGetLogHandle();
+      v32 = _SC_syslog_os_log_mapping();
+      if (!os_log_type_enabled(LogHandle, v32))
+      {
+        goto LABEL_33;
+      }
+
+      *buf = 0;
+      v27 = "eapaka: Notification AT_MAC not valid";
+      goto LABEL_31;
+    }
+  }
+
+  else if ((v24 & 0x4000) == 0)
+  {
+    LogHandle = EAPLogGetLogHandle();
+    v32 = _SC_syslog_os_log_mapping();
+    if (!os_log_type_enabled(LogHandle, v32))
+    {
+      goto LABEL_33;
+    }
+
+    *buf = 0;
+    v27 = "eapaka: Notification is missing AT_MAC";
+    goto LABEL_31;
+  }
+
+  Counter = EAPSIMAKAPersistentStateGetCounter(*(a1 + 208));
+  v35 = Counter;
+  v36 = ((v24 & 0x4000) == 0) & *(a1 + 216);
+  if (v36 == 1)
+  {
+    LODWORD(v114) = 1;
+    HIDWORD(v114) = Counter;
+    v37 = TLVListSizeof();
+    v115 = &v112;
+    (MEMORY[0x28223BE20])(v37, v38, v39, v40, v41, v42, v43, v44, v112, v113, v114);
+    v47 = (&v112 - v46);
+    if ((v48 & 0x7FFFFFE00) != 0)
+    {
+      v49 = 512;
+    }
+
+    else
+    {
+      v49 = v45;
+    }
+
+    bzero(&v112 - v46, v49);
+    v50 = TLVListLookupAttribute(a3, 130);
+    v51 = TLVListLookupAttribute(a3, 129);
+    v52 = v51;
+    if (v50 && v51)
+    {
+      TLVListInit(v47);
+      v53 = EAPSIMAKAKeyInfoDecryptTLVList((a1 + 40), v50, v52, v47);
+      if (!v53)
+      {
+        v69 = EAPLogGetLogHandle();
+        v70 = _SC_syslog_os_log_mapping();
+        if (os_log_type_enabled(v69, v70))
+        {
+          *buf = 0;
+          _os_log_impl(&dword_249EFB000, v69, v70, "eapaka: failed to decrypt Notification AT_ENCR_DATA", buf, 2u);
+        }
+
+        v68 = 8;
+        goto LABEL_43;
+      }
+
+      v112 = v53;
+      v113 = TLVListCopyDescription(v47);
+      v54 = EAPLogGetLogHandle();
+      v55 = _SC_syslog_os_log_mapping();
+      if (os_log_type_enabled(v54, v55))
+      {
+        *buf = 138412290;
+        *v119 = v113;
+        _os_log_impl(&dword_249EFB000, v54, v55, "Decrypted TLVs:\n%@", buf, 0xCu);
+      }
+
+      CFRelease(v113);
+      v56 = TLVListLookupAttribute(v47, 19);
+      v57 = v56;
+      if (v56)
+      {
+        v58 = bswap32(*(v56 + 2)) >> 16;
+      }
+
+      else
+      {
+        v58 = 0;
+      }
+
+      free(v112);
+      TLVListFree(v47);
+      if (v57)
+      {
+        v35 = HIDWORD(v114);
+        if (v58 == HIDWORD(v114))
+        {
+          v36 = v114;
+          goto LABEL_48;
+        }
+
+        v110 = EAPLogGetLogHandle();
+        v111 = _SC_syslog_os_log_mapping();
+        if (!os_log_type_enabled(v110, v111))
+        {
+          goto LABEL_39;
+        }
+
+        *buf = 67109376;
+        *v119 = v58;
+        *&v119[4] = 1024;
+        *&v119[6] = v35;
+        v64 = "eapaka: Notification AT_COUNTER (%d) does not match current counter (%d)";
+        v65 = v110;
+        v66 = v111;
+        v67 = 14;
+      }
+
+      else
+      {
+        v108 = EAPLogGetLogHandle();
+        v109 = _SC_syslog_os_log_mapping();
+        if (!os_log_type_enabled(v108, v109))
+        {
+          goto LABEL_39;
+        }
+
+        *buf = 0;
+        v64 = "eapaka:  Notification AT_ENCR_DATA missing AT_COUNTER";
+        v65 = v108;
+        v66 = v109;
+        v67 = 2;
+      }
+    }
+
+    else
+    {
+      v62 = EAPLogGetLogHandle();
+      v63 = _SC_syslog_os_log_mapping();
+      if (!os_log_type_enabled(v62, v63))
+      {
+LABEL_39:
+        v68 = 17;
+LABEL_43:
+        *a4 = v68;
+        return 0;
+      }
+
+      *buf = 134218240;
+      *v119 = v50;
+      *&v119[8] = 2048;
+      v120 = v52;
+      v64 = "eapaka: Notification after re-auth missing AT_ENCR_DATA (%p) or AT_IV (%p)";
+      v65 = v62;
+      v66 = v63;
+      v67 = 22;
+    }
+
+    _os_log_impl(&dword_249EFB000, v65, v66, v64, buf, v67);
+    goto LABEL_39;
+  }
+
+LABEL_48:
+  TLVBufferInit(v20, a1 + 280, 1492);
+  *(a1 + 272) = 2;
+  *(a1 + 273) = a2[1];
+  *(a1 + 276) = 3095;
+  if (!v36)
+  {
+    goto LABEL_54;
+  }
+
+  v71 = TLVBufferSizeof();
+  MEMORY[0x28223BE20](v71, v72, v73, v74, v75, v76, v77, v78, v112, v113, v114, v115);
+  v81 = &v112 - v80;
+  if ((v82 & 0x7FFFFFE00) != 0)
+  {
+    v83 = 512;
+  }
+
+  else
+  {
+    v83 = v79;
+  }
+
+  bzero(&v112 - v80, v83);
+  TLVBufferInit(v81, buf, 16);
+  if (!TLVBufferAddCounter(v81, v35))
+  {
+    v95 = EAPLogGetLogHandle();
+    v96 = _SC_syslog_os_log_mapping();
+    if (os_log_type_enabled(v95, v96))
+    {
+      v97 = TLVBufferErrorString(v81);
+      *v116 = 136315138;
+      v117 = v97;
+      _os_log_impl(&dword_249EFB000, v95, v96, "eapaka: failed to allocate AT_COUNTER, %s", v116, 0xCu);
+    }
+
+    v98 = 2;
+    goto LABEL_69;
+  }
+
+  if (!EAPSIMAKAKeyInfoEncryptTLVs((a1 + 40), v20, v81))
+  {
+    v98 = 8;
+LABEL_69:
+    *a4 = v98;
+    return 0;
+  }
+
+LABEL_54:
+  if (v33)
+  {
+    TLV = TLVBufferAllocateTLV(v20, 11, 0x14u);
+    if (!TLV)
+    {
+      v99 = EAPLogGetLogHandle();
+      v100 = _SC_syslog_os_log_mapping();
+      if (os_log_type_enabled(v99, v100))
+      {
+        v101 = TLVBufferErrorString(v20);
+        *buf = 136315138;
+        *v119 = v101;
+        _os_log_impl(&dword_249EFB000, v99, v100, "eapaka: failed allocating AT_MAC, %s", buf, 0xCu);
+      }
+
+      v59 = 0;
+      v60 = 2;
+      goto LABEL_34;
+    }
+
+    v85 = TLV;
+    *(TLV + 1) = 0;
+  }
+
+  else
+  {
+    v85 = 0;
+  }
+
+  v59 = a1 + 272;
+  v86 = TLVBufferUsed(v20);
+  EAPPacketSetLength(a1 + 272, (v86 + 8));
+  if (v85)
+  {
+    EAPSIMAKAKeyInfoSetMAC(a1 + 40, (a1 + 272), v85 + 4, 0, 0);
+  }
+
+  if ((v24 & 0x8000) != 0)
+  {
+    *(a1 + 12) = 4;
+    return v59;
+  }
+
+  *(a1 + 12) = 5;
+  *a4 = 1002;
+  *a5 = EAPSIMAKAStatusForATNotificationCode(v24);
+  String = ATNotificationCodeGetString(v24);
+  v88 = EAPLogGetLogHandle();
+  v89 = _SC_syslog_os_log_mapping();
+  v90 = os_log_type_enabled(v88, v89);
+  if (String)
+  {
+    if (!v90)
+    {
+      goto LABEL_77;
+    }
+
+    *buf = 136315138;
+    *v119 = String;
+    v91 = "eapaka: Notification: %s";
+    v92 = v88;
+    v93 = v89;
+    v94 = 12;
+  }
+
+  else
+  {
+    if (!v90)
+    {
+      goto LABEL_77;
+    }
+
+    *buf = 67109120;
+    *v119 = v24;
+    v91 = "eapaka: Notification code '%d' unrecognized failure";
+    v92 = v88;
+    v93 = v89;
+    v94 = 8;
+  }
+
+  _os_log_impl(&dword_249EFB000, v92, v93, v91, buf, v94);
+LABEL_77:
+  v102 = EAPSIMAKAActionInfoForNotificationCode(*(*a1 + 80), v24);
+  if (v102)
+  {
+    v103 = v102;
+    *(a1 + 232) = CFDictionaryCreateCopy(0, v102);
+    v104 = EAPLogGetLogHandle();
+    v105 = _SC_syslog_os_log_mapping();
+    if (os_log_type_enabled(v104, v105))
+    {
+      *buf = 138412290;
+      *v119 = v103;
+      _os_log_impl(&dword_249EFB000, v104, v105, "eapaka: Notification Action Info: %@", buf, 0xCu);
+    }
+  }
+
+  else if (*a5 == 19)
+  {
+    v106 = *(a1 + 224);
+    if (v106)
+    {
+      v107 = *(v106 + 16);
+      if (v107)
+      {
+        SIMReportDecryptionError(v107);
+      }
+    }
+  }
+
+  return v59;
 }

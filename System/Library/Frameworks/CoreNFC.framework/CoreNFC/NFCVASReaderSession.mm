@@ -51,7 +51,7 @@
 
 - (void)beginSession
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = _os_activity_create(&dword_23728C000, "NFCVASReaderSession beginSessionWithConfig:", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_IF_NONE_PRESENT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
@@ -61,26 +61,26 @@
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v5 = objc_opt_new();
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v6 = selfCopy->_vasConfig;
-  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v22;
+    v9 = *v21;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v22 != v9)
+        if (*v21 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v21 + 1) + 8 * i);
+        v11 = *(*(&v20 + 1) + 8 * i);
         v12 = MEMORY[0x277D82BA8];
         mode = [v11 mode];
         passTypeIdentifier = [v11 passTypeIdentifier];
@@ -88,7 +88,7 @@
         [v5 addObject:v15];
       }
 
-      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
     while (v8);
@@ -98,17 +98,16 @@
   alertMessage = [(NFCReaderSession *)selfCopy alertMessage];
   v18 = [v16 sessionConfigWithUIMode:3 sessionType:4 initialScanText:alertMessage vasPass:v5];
 
-  v20.receiver = selfCopy;
-  v20.super_class = NFCVASReaderSession;
-  [(NFCReaderSession *)&v20 beginSessionWithConfig:v18];
+  v19.receiver = selfCopy;
+  v19.super_class = NFCVASReaderSession;
+  [(NFCReaderSession *)&v19 beginSessionWithConfig:v18];
 
   objc_sync_exit(selfCopy);
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_callbackDidBecomeActive
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   if ([(NFCReaderSession *)self delegateType]!= 6)
   {
     Logger = NFLogGetLogger();
@@ -147,14 +146,14 @@
     }
 
     *buf = 67110146;
-    v32 = v15;
-    v33 = 2082;
-    v34 = object_getClassName(self);
-    v35 = 2082;
-    v36 = sel_getName(a2);
-    v37 = 1024;
-    v38 = 183;
-    v39 = 2048;
+    v31 = v15;
+    v32 = 2082;
+    v33 = object_getClassName(self);
+    v34 = 2082;
+    v35 = sel_getName(a2);
+    v36 = 1024;
+    v37 = 183;
+    v38 = 2048;
     delegateType2 = [(NFCReaderSession *)self delegateType];
     v16 = "%c[%{public}s %{public}s]:%i Unknown delegate type: %ld";
     v17 = v13;
@@ -165,31 +164,37 @@
   delegate = [(NFCReaderSession *)self delegate];
   v5 = objc_opt_respondsToSelector();
 
-  if ((v5 & 1) == 0)
+  if (v5)
   {
-    v19 = NFLogGetLogger();
-    if (v19)
-    {
-      v20 = v19;
-      v21 = object_getClass(self);
-      v22 = class_isMetaClass(v21);
-      v23 = object_getClassName(self);
-      v28 = sel_getName(a2);
-      v24 = 45;
-      if (v22)
-      {
-        v24 = 43;
-      }
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = sub_2372C44E4;
+    v29[3] = &unk_278A29F00;
+    v29[4] = self;
+    [(NFCReaderSession *)self submitBlockOnDelegateQueue:v29];
+    return;
+  }
 
-      v20(4, "%c[%{public}s %{public}s]:%i Delegate does not implement -readerSessionDidBecomeActive: method", v24, v23, v28, 180);
+  v19 = NFLogGetLogger();
+  if (v19)
+  {
+    v20 = v19;
+    v21 = object_getClass(self);
+    v22 = class_isMetaClass(v21);
+    v23 = object_getClassName(self);
+    v27 = sel_getName(a2);
+    v24 = 45;
+    if (v22)
+    {
+      v24 = 43;
     }
 
-    v13 = NFSharedLogGetLogger();
-    if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_23;
-    }
+    v20(4, "%c[%{public}s %{public}s]:%i Delegate does not implement -readerSessionDidBecomeActive: method", v24, v23, v27, 180);
+  }
 
+  v13 = NFSharedLogGetLogger();
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+  {
     v25 = object_getClass(self);
     if (class_isMetaClass(v25))
     {
@@ -202,31 +207,21 @@
     }
 
     *buf = 67109890;
-    v32 = v26;
-    v33 = 2082;
-    v34 = object_getClassName(self);
-    v35 = 2082;
-    v36 = sel_getName(a2);
-    v37 = 1024;
-    v38 = 180;
+    v31 = v26;
+    v32 = 2082;
+    v33 = object_getClassName(self);
+    v34 = 2082;
+    v35 = sel_getName(a2);
+    v36 = 1024;
+    v37 = 180;
     v16 = "%c[%{public}s %{public}s]:%i Delegate does not implement -readerSessionDidBecomeActive: method";
     v17 = v13;
     v18 = 34;
 LABEL_22:
     _os_log_impl(&dword_23728C000, v17, OS_LOG_TYPE_ERROR, v16, buf, v18);
-LABEL_23:
-
-    goto LABEL_24;
   }
 
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = sub_2372C44E4;
-  v30[3] = &unk_278A29F00;
-  v30[4] = self;
-  [(NFCReaderSession *)self submitBlockOnDelegateQueue:v30];
-LABEL_24:
-  v27 = *MEMORY[0x277D85DE8];
+LABEL_23:
 }
 
 - (id)_sendVASRequests:(id)requests error:(id *)error
@@ -316,34 +311,34 @@ LABEL_24:
 
 - (void)didDetectTags:(id)tags connectedTagIndex:(unint64_t)index
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   tagsCopy = tags;
-  v33.receiver = self;
-  v33.super_class = NFCVASReaderSession;
-  [(NFCReaderSession *)&v33 didDetectTags:tagsCopy connectedTagIndex:index];
+  v32.receiver = self;
+  v32.super_class = NFCVASReaderSession;
+  [(NFCReaderSession *)&v32 didDetectTags:tagsCopy connectedTagIndex:index];
   currentTag = [(NFCReaderSession *)self currentTag];
   if ([currentTag type] != 3)
   {
 
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     v9 = tagsCopy;
-    currentTag = [v9 countByEnumeratingWithState:&v29 objects:v42 count:16];
+    currentTag = [v9 countByEnumeratingWithState:&v28 objects:v41 count:16];
     if (currentTag)
     {
-      v10 = *v30;
+      v10 = *v29;
       while (2)
       {
         for (i = 0; i != currentTag; i = i + 1)
         {
-          if (*v30 != v10)
+          if (*v29 != v10)
           {
             objc_enumerationMutation(v9);
           }
 
-          v12 = *(*(&v29 + 1) + 8 * i);
+          v12 = *(*(&v28 + 1) + 8 * i);
           if ([v12 type] == 3)
           {
             currentTag = v12;
@@ -351,7 +346,7 @@ LABEL_24:
           }
         }
 
-        currentTag = [v9 countByEnumeratingWithState:&v29 objects:v42 count:16];
+        currentTag = [v9 countByEnumeratingWithState:&v28 objects:v41 count:16];
         if (currentTag)
         {
           continue;
@@ -366,14 +361,14 @@ LABEL_12:
 
   if (currentTag)
   {
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = sub_2372C4D00;
-    v26[3] = &unk_278A2A150;
-    v26[4] = self;
-    v27 = currentTag;
-    v28 = a2;
-    [(NFCReaderSession *)self submitBlockOnSessionQueue:v26];
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = sub_2372C4D00;
+    v25[3] = &unk_278A2A150;
+    v25[4] = self;
+    v26 = currentTag;
+    v27 = a2;
+    [(NFCReaderSession *)self submitBlockOnSessionQueue:v25];
   }
 
   else
@@ -412,20 +407,18 @@ LABEL_12:
       v22 = object_getClassName(self);
       v23 = sel_getName(a2);
       *buf = 67109890;
-      v35 = v21;
-      v36 = 2082;
-      v37 = v22;
-      v38 = 2082;
-      v39 = v23;
-      v40 = 1024;
-      v41 = 297;
+      v34 = v21;
+      v35 = 2082;
+      v36 = v22;
+      v37 = 2082;
+      v38 = v23;
+      v39 = 1024;
+      v40 = 297;
       _os_log_impl(&dword_23728C000, v19, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Restart polling", buf, 0x22u);
     }
 
     [(NFCReaderSession *)self restartPolling];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 @end

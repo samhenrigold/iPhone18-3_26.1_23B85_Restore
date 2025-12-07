@@ -39,10 +39,11 @@ uint64_t __62__CARSessionRequestAgent_wantsCarPlayControlAdvertisingForUSB__bloc
 void __62__CARSessionRequestAgent_wantsCarPlayControlAdvertisingForUSB__block_invoke_2(uint64_t a1, char a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = CarGeneralLogging();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = CarGeneralLogging(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __62__CARSessionRequestAgent_wantsCarPlayControlAdvertisingForUSB__block_invoke_2_cold_1();
     }
@@ -90,35 +91,35 @@ void __62__CARSessionRequestAgent_wantsCarPlayControlAdvertisingForUSB__block_in
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   v6 = [connectionCopy valueForEntitlement:@"com.apple.private.carkit.sessionRequest"];
   bOOLValue = [v6 BOOLValue];
 
-  v8 = CarGeneralLogging();
-  v9 = v8;
+  v9 = CarGeneralLogging(v8);
+  v10 = v9;
   if (bOOLValue)
   {
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v12[0] = 67109120;
-      v12[1] = [connectionCopy processIdentifier];
-      _os_log_impl(&dword_1C81FC000, v9, OS_LOG_TYPE_INFO, "Received CARSessionRequest connection from pid %d", v12, 8u);
+      v13[0] = 67109120;
+      v13[1] = [connectionCopy processIdentifier];
+      _os_log_impl(&dword_1C81FC000, v10, OS_LOG_TYPE_INFO, "Received CARSessionRequest connection from pid %d", v13, 8u);
     }
 
-    v9 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F47F64F8];
-    [v9 setClass:objc_opt_class() forSelector:sel_service_startSessionWithHost_requestIdentifier_reply_ argumentIndex:0 ofReply:0];
-    [v9 setClass:objc_opt_class() forSelector:sel_service_startSessionWithHost_requestIdentifier_reply_ argumentIndex:1 ofReply:0];
-    [connectionCopy setExportedInterface:v9];
+    v10 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F47F64F8];
+    [v10 setClass:objc_opt_class() forSelector:sel_service_startSessionWithHost_requestIdentifier_reply_ argumentIndex:0 ofReply:0];
+    [v10 setClass:objc_opt_class() forSelector:sel_service_startSessionWithHost_requestIdentifier_reply_ argumentIndex:1 ofReply:0];
+    [connectionCopy setExportedInterface:v10];
     handlerProxy = [(CARSessionRequestAgent *)self handlerProxy];
     [connectionCopy setExportedObject:handlerProxy];
 
     [connectionCopy resume];
   }
 
-  else if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    [CARSessionRequestAgent listener:connectionCopy shouldAcceptNewConnection:v9];
+    [CARSessionRequestAgent listener:connectionCopy shouldAcceptNewConnection:v10];
   }
 
   return bOOLValue;
@@ -135,7 +136,7 @@ void __62__CARSessionRequestAgent_wantsCarPlayControlAdvertisingForUSB__block_in
 void __62__CARSessionRequestAgent_wantsCarPlayControlAdvertisingForUSB__block_invoke_45(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = CarGeneralLogging();
+  v3 = CarGeneralLogging(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __62__CARSessionRequestAgent_wantsCarPlayControlAdvertisingForUSB__block_invoke_45_cold_1();
@@ -177,10 +178,11 @@ uint64_t __68__CARSessionRequestAgent_wantsCarPlayControlAdvertisingForWiFiUUID_
 void __68__CARSessionRequestAgent_wantsCarPlayControlAdvertisingForWiFiUUID___block_invoke_2(uint64_t a1, char a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = CarGeneralLogging();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = CarGeneralLogging(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __68__CARSessionRequestAgent_wantsCarPlayControlAdvertisingForWiFiUUID___block_invoke_2_cold_1();
     }
@@ -195,7 +197,7 @@ void __68__CARSessionRequestAgent_wantsCarPlayControlAdvertisingForWiFiUUID___bl
 void __68__CARSessionRequestAgent_wantsCarPlayControlAdvertisingForWiFiUUID___block_invoke_47(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = CarGeneralLogging();
+  v3 = CarGeneralLogging(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __68__CARSessionRequestAgent_wantsCarPlayControlAdvertisingForWiFiUUID___block_invoke_47_cold_1();

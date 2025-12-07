@@ -7,26 +7,26 @@
 
 - (id)signInControllerInHierarchy
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   viewControllers = [self viewControllers];
-  v2 = [viewControllers countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v2 = [viewControllers countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v2)
   {
-    v3 = *v9;
+    v3 = *v8;
     while (2)
     {
       for (i = 0; i != v2; i = i + 1)
       {
-        if (*v9 != v3)
+        if (*v8 != v3)
         {
           objc_enumerationMutation(viewControllers);
         }
 
-        v5 = *(*(&v8 + 1) + 8 * i);
+        v5 = *(*(&v7 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -35,7 +35,7 @@
         }
       }
 
-      v2 = [viewControllers countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v2 = [viewControllers countByEnumeratingWithState:&v7 objects:v11 count:16];
       if (v2)
       {
         continue;
@@ -46,8 +46,6 @@
   }
 
 LABEL_11:
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v2;
 }

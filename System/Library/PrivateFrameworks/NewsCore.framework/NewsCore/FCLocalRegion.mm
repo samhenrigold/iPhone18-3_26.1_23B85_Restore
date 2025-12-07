@@ -5,7 +5,6 @@
 - (CLLocationCoordinate2D)centerLocationCoordinateForEntireRegion;
 - (FCLocalRegion)init;
 - (FCLocalRegion)initWithDictionary:(id)dictionary;
-- (id)description;
 - (unint64_t)hash;
 - (void)addLocalArea:(id)area;
 @end
@@ -100,15 +99,6 @@ id __36__FCLocalRegion_initWithDictionary___block_invoke(uint64_t a1, void *a2)
   objc_exception_throw(v6);
 }
 
-- (id)description
-{
-  v3 = MEMORY[0x1E696AEC0];
-  v4 = objc_opt_class();
-  identifier = self->_identifier;
-  autoFavoriteTagIDs = self->_autoFavoriteTagIDs;
-  return [v3 stringWithFormat:@"%@: id: %@, name: %@, autoFavoriteTagIDs: %@, localVersionTagIDs: %@", v4, identifier, self->_name, autoFavoriteTagIDs, self->_localVersionedTagIDs];
-}
-
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
@@ -165,7 +155,7 @@ id __36__FCLocalRegion_initWithDictionary___block_invoke(uint64_t a1, void *a2)
 
 - (CGRect)rectForEntireRegion
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   areas = [(FCLocalRegion *)self areas];
   if (![areas count])
   {
@@ -174,29 +164,29 @@ id __36__FCLocalRegion_initWithDictionary___block_invoke(uint64_t a1, void *a2)
   }
 
   [(FCLocalRegion *)self rect];
-  IsEmpty = CGRectIsEmpty(v39);
+  IsEmpty = CGRectIsEmpty(v38);
 
   if (!IsEmpty)
   {
 LABEL_21:
-    v32 = MEMORY[0x1E69E9820];
-    v33 = 3221225472;
-    v34 = __36__FCLocalRegion_rectForEntireRegion__block_invoke;
-    v35 = &unk_1E7C37350;
+    v31 = MEMORY[0x1E69E9820];
+    v32 = 3221225472;
+    v33 = __36__FCLocalRegion_rectForEntireRegion__block_invoke;
+    v34 = &unk_1E7C37350;
     selfCopy = self;
     goto LABEL_24;
   }
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   areas2 = [(FCLocalRegion *)self areas];
-  v6 = [areas2 countByEnumeratingWithState:&v28 objects:v37 count:16];
+  v6 = [areas2 countByEnumeratingWithState:&v27 objects:v36 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v29;
+    v8 = *v28;
     v9 = 90.0;
     v10 = -90.0;
     v11 = 180.0;
@@ -205,12 +195,12 @@ LABEL_21:
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v29 != v8)
+        if (*v28 != v8)
         {
           objc_enumerationMutation(areas2);
         }
 
-        v14 = *(*(&v28 + 1) + 8 * i);
+        v14 = *(*(&v27 + 1) + 8 * i);
         if ([v14 isBboxValid])
         {
           [v14 minLat];
@@ -243,7 +233,7 @@ LABEL_21:
         }
       }
 
-      v7 = [areas2 countByEnumeratingWithState:&v28 objects:v37 count:16];
+      v7 = [areas2 countByEnumeratingWithState:&v27 objects:v36 count:16];
     }
 
     while (v7);
@@ -260,7 +250,6 @@ LABEL_21:
   [(FCLocalRegion *)self setRect:v11, v9, v12 - v11, v10 - v9];
 LABEL_24:
   [(FCLocalRegion *)self rect];
-  v27 = *MEMORY[0x1E69E9840];
   result.size.height = v26;
   result.size.width = v25;
   result.origin.y = v24;

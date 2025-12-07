@@ -8,34 +8,34 @@
 
 + (id)rangesOfStrings:(id)strings inString:(id)string
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   stringsCopy = strings;
   stringCopy = string;
   array = [MEMORY[0x1E695DF70] array];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v9 = stringsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v18;
+    v12 = *v17;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v18 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = [self rangesOfString:*(*(&v17 + 1) + 8 * i) inString:{stringCopy, v17}];
+        v14 = [self rangesOfString:*(*(&v16 + 1) + 8 * i) inString:{stringCopy, v16}];
         [array addObjectsFromArray:v14];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v11);
@@ -43,8 +43,6 @@
 
   [array sortUsingComparator:&__block_literal_global_67];
   [self removeOverlappingRanges:array];
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return array;
 }

@@ -15,9 +15,9 @@
     +[FBSceneWorkspace(PosterUIFoundation) pui_posterWorkspace];
   }
 
-  v1 = pui_posterWorkspace___PosterWorkspace;
+  v2 = pui_posterWorkspace___PosterWorkspace;
 
-  return v1;
+  return v2;
 }
 
 + (id)pui_posterKitComplicationsWorkspace
@@ -27,9 +27,9 @@
     +[FBSceneWorkspace(PosterUIFoundation) pui_posterKitComplicationsWorkspace];
   }
 
-  v1 = pui_posterKitComplicationsWorkspace___PosterWorkspace;
+  v2 = pui_posterKitComplicationsWorkspace___PosterWorkspace;
 
-  return v1;
+  return v2;
 }
 
 + (id)pui_posterKitExternallyHostedContentWorkspace
@@ -39,9 +39,9 @@
     +[FBSceneWorkspace(PosterUIFoundation) pui_posterKitExternallyHostedContentWorkspace];
   }
 
-  v1 = pui_posterKitExternallyHostedContentWorkspace___PosterWorkspace;
+  v2 = pui_posterKitExternallyHostedContentWorkspace___PosterWorkspace;
 
-  return v1;
+  return v2;
 }
 
 + (id)pui_posterBoardUIServicesModalWorkspace
@@ -51,9 +51,9 @@
     +[FBSceneWorkspace(PosterUIFoundation) pui_posterBoardUIServicesModalWorkspace];
   }
 
-  v1 = pui_posterBoardUIServicesModalWorkspace___PosterWorkspace;
+  v2 = pui_posterBoardUIServicesModalWorkspace___PosterWorkspace;
 
-  return v1;
+  return v2;
 }
 
 - (id)pui_createScene:()PosterUIFoundation

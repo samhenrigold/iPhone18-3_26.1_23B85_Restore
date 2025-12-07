@@ -1148,7 +1148,7 @@ uint64_t __70__PKSharingMessageExtensionRelayServerPresenter__isMailboxURLForHom
   return v5;
 }
 
-uint64_t __161__PKSharingMessageExtensionRelayServerPresenter__checkIfMessageRequiresSecurityUpgradeToRecipient_isRecipientKnownContact_willSendOverSMS_invitation_completion___block_invoke(uint64_t a1, int a2)
+uint64_t __161__PKSharingMessageExtensionRelayServerPresenter__checkIfMessageRequiresSecurityUpgradeToRecipient_isRecipientKnownContact_willSendOverSMS_invitation_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
@@ -1163,14 +1163,15 @@ uint64_t __161__PKSharingMessageExtensionRelayServerPresenter__checkIfMessageReq
   return (*(*(a1 + 32) + 16))();
 }
 
-uint64_t __161__PKSharingMessageExtensionRelayServerPresenter__checkIfMessageRequiresSecurityUpgradeToRecipient_isRecipientKnownContact_willSendOverSMS_invitation_completion___block_invoke_106(uint64_t a1, int a2)
+uint64_t __161__PKSharingMessageExtensionRelayServerPresenter__checkIfMessageRequiresSecurityUpgradeToRecipient_isRecipientKnownContact_willSendOverSMS_invitation_completion___block_invoke_106(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v9 = *MEMORY[0x1E69E9840];
   v4 = PKLogFacilityTypeGetObject();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = @"Y";
-    if (a2)
+    if (v2)
     {
       v5 = @"N";
     }
@@ -1180,7 +1181,7 @@ uint64_t __161__PKSharingMessageExtensionRelayServerPresenter__checkIfMessageReq
     _os_log_impl(&dword_1BD026000, v4, OS_LOG_TYPE_DEFAULT, "iMessage Extension: Upgrading security for SMS/iMessage: %@", &v7, 0xCu);
   }
 
-  if ((a2 & 1) == 0)
+  if ((v2 & 1) == 0)
   {
     [*(a1 + 32) setActivationOptions:*(a1 + 40)];
   }
@@ -1232,43 +1233,43 @@ LABEL_7:
   return v4;
 }
 
-void __74__PKSharingMessageExtensionRelayServerPresenter__setMessageStatusTo_pass___block_invoke(uint64_t a1)
+void __74__PKSharingMessageExtensionRelayServerPresenter__setMessageStatusTo_pass___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v2 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v19 = *MEMORY[0x1E69E9840];
+  v3 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v3 = PKShareStatusToString();
-    v4 = [*(a1 + 32) uniqueID];
-    v5 = [(PKSharingMessageExtensionRelayServerPresenter *)*(a1 + 40) _mailboxURL];
-    v12 = 138543874;
-    v13 = v3;
-    v14 = 2114;
-    v15 = v4;
-    v16 = 2114;
-    v17 = v5;
-    _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_INFO, "iMessage Extension: Updating message status to %{public}@, for pass: %{public}@, messageURL: %{public}@", &v12, 0x20u);
+    v4 = PKShareStatusToString();
+    v5 = [*(a1 + 32) uniqueID];
+    v6 = [(PKSharingMessageExtensionRelayServerPresenter *)*(a1 + 40) _mailboxURL];
+    v13 = 138543874;
+    v14 = v4;
+    v15 = 2114;
+    v16 = v5;
+    v17 = 2114;
+    v18 = v6;
+    _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_INFO, "iMessage Extension: Updating message status to %{public}@, for pass: %{public}@, messageURL: %{public}@", &v13, 0x20u);
   }
 
   [*(*(a1 + 40) + 24) setStatus:*(a1 + 48)];
-  v6 = [*(*(a1 + 40) + 24) localProperties];
-  v7 = v6;
-  if (v6)
+  v7 = [*(*(a1 + 40) + 24) localProperties];
+  v8 = v7;
+  if (v7)
   {
-    v8 = v6;
+    v9 = v7;
   }
 
   else
   {
-    v8 = objc_alloc_init(PKSharingMessageExtensionRelayServerLocalProperties);
+    v9 = objc_alloc_init(PKSharingMessageExtensionRelayServerLocalProperties);
   }
 
-  v9 = v8;
+  v10 = v9;
 
-  v10 = [*(a1 + 32) uniqueID];
-  [(PKSharingMessageExtensionRelayServerLocalProperties *)v9 setPassUniqueIdentifier:v10];
+  v11 = [*(a1 + 32) uniqueID];
+  [(PKSharingMessageExtensionRelayServerLocalProperties *)v10 setPassUniqueIdentifier:v11];
 
-  [*(*(a1 + 40) + 24) setLocalProperties:v9];
+  [*(*(a1 + 40) + 24) setLocalProperties:v10];
   WeakRetained = objc_loadWeakRetained((*(a1 + 40) + 40));
   [WeakRetained messageDidUpdate];
 }

@@ -35,69 +35,69 @@
 
 - (void)checkIsInFamiliarLocationWithCompletion:(id)completion
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
+  v5 = completionCopy;
   if (self->_manager)
   {
     locationState = self->_locationState;
     if (locationState)
     {
-      v6 = [MEMORY[0x1E695DF00] now];
-      v7 = [(LACDTOLocationState *)locationState isValid:v6];
+      v7 = [MEMORY[0x1E695DF00] now];
+      v8 = [(LACDTOLocationState *)locationState isValid:v7];
 
-      if (v7)
+      if (v8)
       {
-        v8 = LACLogDTOLocation();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+        v10 = LACLogDTOLocation(v9);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
-          v9 = self->_locationState;
+          v11 = self->_locationState;
           *buf = 138543618;
           selfCopy = self;
-          v20 = 2112;
-          v21 = v9;
-          _os_log_impl(&dword_1B0233000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ will use cached value %@", buf, 0x16u);
+          v21 = 2112;
+          v22 = v11;
+          _os_log_impl(&dword_1B0233000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ will use cached value %@", buf, 0x16u);
         }
 
-        completionCopy[2](completionCopy, self->_locationState);
+        (v5)[2](v5, self->_locationState);
         goto LABEL_13;
       }
 
-      v12 = self->_locationState;
+      v14 = self->_locationState;
     }
 
     else
     {
-      v12 = 0;
+      v14 = 0;
     }
 
     self->_locationState = 0;
 
     objc_initWeak(buf, self);
     internalQueue = self->_internalQueue;
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __75__LACDTOLocationProviderCRAdapter_checkIsInFamiliarLocationWithCompletion___block_invoke;
-    v15[3] = &unk_1E7A957E8;
-    objc_copyWeak(&v17, buf);
-    v16 = completionCopy;
-    dispatch_async(internalQueue, v15);
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __75__LACDTOLocationProviderCRAdapter_checkIsInFamiliarLocationWithCompletion___block_invoke;
+    v16[3] = &unk_1E7A957E8;
+    objc_copyWeak(&v18, buf);
+    v17 = v5;
+    dispatch_async(internalQueue, v16);
 
-    objc_destroyWeak(&v17);
+    objc_destroyWeak(&v18);
     objc_destroyWeak(buf);
     goto LABEL_13;
   }
 
-  v10 = LACLogDTOLocation();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  v12 = LACLogDTOLocation(completionCopy);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
-    [(LACDTOLocationProviderCRAdapter *)self checkIsInFamiliarLocationWithCompletion:v10];
+    [(LACDTOLocationProviderCRAdapter *)self checkIsInFamiliarLocationWithCompletion:v12];
   }
 
-  v11 = +[LACDTOLocationState nullInstance];
-  completionCopy[2](completionCopy, v11);
+  v13 = +[LACDTOLocationState nullInstance];
+  (v5)[2](v5, v13);
 
 LABEL_13:
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __75__LACDTOLocationProviderCRAdapter_checkIsInFamiliarLocationWithCompletion___block_invoke(uint64_t a1)
@@ -143,18 +143,17 @@ void __75__LACDTOLocationProviderCRAdapter_checkIsInFamiliarLocationWithCompleti
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
   {
-    v4 = WeakRetained;
-    v3 = *(a1 + 32);
+    v3 = WeakRetained;
     (*(*(a1 + 40) + 16))();
-    WeakRetained = v4;
+    WeakRetained = v3;
   }
 }
 
 - (void)_checkIsInFamiliarLocationWithCompletion:(id)completion
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v5 = LACLogDTOLocation();
+  v5 = LACLogDTOLocation(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -167,19 +166,17 @@ void __75__LACDTOLocationProviderCRAdapter_checkIsInFamiliarLocationWithCompleti
   [v6 send];
 
   manager = self->_manager;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __76__LACDTOLocationProviderCRAdapter__checkIsInFamiliarLocationWithCompletion___block_invoke;
-  v10[3] = &unk_1E7A97090;
-  objc_copyWeak(&v12, buf);
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __76__LACDTOLocationProviderCRAdapter__checkIsInFamiliarLocationWithCompletion___block_invoke;
+  v9[3] = &unk_1E7A97090;
+  objc_copyWeak(&v11, buf);
   v8 = completionCopy;
-  v11 = v8;
-  [(RTRoutineManager *)manager fetchAuthorizedLocationStatus:v10];
+  v10 = v8;
+  [(RTRoutineManager *)manager fetchAuthorizedLocationStatus:v9];
 
-  objc_destroyWeak(&v12);
+  objc_destroyWeak(&v11);
   objc_destroyWeak(buf);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __76__LACDTOLocationProviderCRAdapter__checkIsInFamiliarLocationWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -191,41 +188,40 @@ void __76__LACDTOLocationProviderCRAdapter__checkIsInFamiliarLocationWithComplet
   [v7 send];
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v9 = WeakRetained;
   if (WeakRetained)
   {
-    v9 = LACLogDTOLocation();
-    v10 = v9;
+    v10 = LACLogDTOLocation(WeakRetained);
+    v11 = v10;
     if (v6)
     {
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        __76__LACDTOLocationProviderKVSAdapter_checkIsInFamiliarLocationWithCompletion___block_invoke_2_cold_1(WeakRetained, v6, v10);
+        __76__LACDTOLocationProviderKVSAdapter_checkIsInFamiliarLocationWithCompletion___block_invoke_2_cold_1(v9, v6, v11);
       }
 
-      v11 = *(a1 + 32);
-      v12 = +[LACDTOLocationState nullInstance];
-      (*(v11 + 16))(v11, v12);
+      v12 = *(a1 + 32);
+      v13 = +[LACDTOLocationState nullInstance];
+      (*(v12 + 16))(v12, v13);
     }
 
     else
     {
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         v16 = 138543362;
-        v17 = WeakRetained;
-        _os_log_impl(&dword_1B0233000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ did finish query", &v16, 0xCu);
+        v17 = v9;
+        _os_log_impl(&dword_1B0233000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ did finish query", &v16, 0xCu);
       }
 
-      v13 = -[LACDTOLocationState initWithRawValue:confirmed:]([LACDTOLocationState alloc], "initWithRawValue:confirmed:", [WeakRetained _locationStateRawValueFromLocationEnum:{objc_msgSend(v5, "eStatus")}], 1);
-      v14 = WeakRetained[2];
-      WeakRetained[2] = v13;
-      v12 = v13;
+      v14 = -[LACDTOLocationState initWithRawValue:confirmed:]([LACDTOLocationState alloc], "initWithRawValue:confirmed:", [v9 _locationStateRawValueFromLocationEnum:{objc_msgSend(v5, "eStatus")}], 1);
+      v15 = v9[2];
+      v9[2] = v14;
+      v13 = v14;
 
-      (*(*(a1 + 32) + 16))(*(a1 + 32), v12);
+      (*(*(a1 + 32) + 16))(*(a1 + 32), v13);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (int64_t)_locationStateRawValueFromLocationEnum:(int64_t)enum
@@ -245,11 +241,10 @@ void __76__LACDTOLocationProviderCRAdapter__checkIsInFamiliarLocationWithComplet
 
 - (void)checkIsInFamiliarLocationWithCompletion:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B0233000, a2, OS_LOG_TYPE_ERROR, "%{public}@ Missing required RTRoutineManager dependency", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B0233000, a2, OS_LOG_TYPE_ERROR, "%{public}@ Missing required RTRoutineManager dependency", &v2, 0xCu);
 }
 
 @end

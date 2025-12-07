@@ -137,9 +137,9 @@ LABEL_13:
     v11 = qword_1EA84DC50[0];
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      *buf = 138412290;
-      *&buf[4] = nameCopy;
-      _os_log_impl(&dword_18366B000, v11, OS_LOG_TYPE_ERROR, "Document layout analysis model decoder %@ not found", buf, 0xCu);
+      LODWORD(buf) = 138412290;
+      *(&buf + 4) = nameCopy;
+      _os_log_impl(&dword_18366B000, v11, OS_LOG_TYPE_ERROR, "Document layout analysis model decoder %@ not found", &buf, 0xCu);
     }
 
     if (qword_1EA84DC48 != -1)
@@ -150,9 +150,9 @@ LABEL_13:
     v12 = qword_1EA84DC50[0];
     if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
-      *buf = 138412290;
-      *&buf[4] = nameCopy;
-      _os_log_impl(&dword_18366B000, v12, OS_LOG_TYPE_FAULT, "Document layout analysis model decoder %@ not found", buf, 0xCu);
+      LODWORD(buf) = 138412290;
+      *(&buf + 4) = nameCopy;
+      _os_log_impl(&dword_18366B000, v12, OS_LOG_TYPE_FAULT, "Document layout analysis model decoder %@ not found", &buf, 0xCu);
     }
   }
 
@@ -171,18 +171,18 @@ LABEL_13:
   v144 = v13;
   if (v13)
   {
-    memcpy(buf, __s, v13);
+    memcpy(&buf, __s, v13);
   }
 
-  buf[v17] = 0;
+  *(&buf + v17) = 0;
   if (v144 >= 0)
   {
-    objc_msgSend_stringWithCString_encoding_(MEMORY[0x1E696AEC0], v14, buf, 4, v15, v16);
+    objc_msgSend_stringWithCString_encoding_(MEMORY[0x1E696AEC0], v14, &buf, 4, v15, v16);
   }
 
   else
   {
-    objc_msgSend_stringWithCString_encoding_(MEMORY[0x1E696AEC0], v14, *buf, 4, v15, v16);
+    objc_msgSend_stringWithCString_encoding_(MEMORY[0x1E696AEC0], v14, buf, 4, v15, v16);
   }
   v135 = ;
   v22 = objc_msgSend_stringByAppendingPathComponent_(v135, v18, @"metadata.json", v19, v20, v21);
@@ -342,7 +342,7 @@ LABEL_13:
 
   if (v144 < 0)
   {
-    operator delete(*buf);
+    operator delete(buf);
   }
 
   return v133;
@@ -639,7 +639,7 @@ LABEL_2:
     *&v619[1] = v58;
     LODWORD(v619[2]) = 1;
     HIDWORD(v619[2]) = v64;
-    sub_1837BD608(v56, MEMORY[0x1E695EFF8], 0, &v626);
+    sub_1837BD608(v56, MEMORY[0x1E695EFF8], &v626, 0);
     buf = 0uLL;
     *&v642 = 0;
     p_buf = &buf;
@@ -992,7 +992,7 @@ LABEL_86:
     v359 = objc_msgSend_featureValueForName_(v354, v355, @"stroke_embedding", v356, v357, v358);
     v365 = objc_msgSend_multiArrayValue(v359, v360, v361, v362, v363, v364);
 
-    v366 = sub_1837AA6D8(v365, 65568);
+    v366 = sub_1837AA6D8(v365, 0x10020);
 
     v372 = objc_msgSend_strides(v366, v367, v368, v369, v370, v371);
     v377 = objc_msgSend_objectAtIndexedSubscript_(v372, v373, 1, v374, v375, v376);
@@ -1165,12 +1165,12 @@ LABEL_153:
   v501 = objc_msgSend_featureValueForName_(v600, v497, @"stroke_grouping", v498, v499, v500);
   v507 = objc_msgSend_multiArrayValue(v501, v502, v503, v504, v505, v506);
 
-  v601 = sub_1837AA6D8(v507, 65568);
+  v601 = sub_1837AA6D8(v507, 0x10020);
 
   v512 = objc_msgSend_featureValueForName_(v600, v508, @"script_classification", v509, v510, v511);
   v518 = objc_msgSend_multiArrayValue(v512, v513, v514, v515, v516, v517);
 
-  v602 = sub_1837AA6D8(v518, 65568);
+  v602 = sub_1837AA6D8(v518, 0x10020);
 
   if (qword_1EA84DC48 != -1)
   {
@@ -1223,7 +1223,7 @@ LABEL_153:
       {
         v626 = v538;
         *&buf = &v626;
-        *(sub_18372F7F0(v539, &v626) + 6) = v541;
+        *(sub_18372F7F0(v539, &v626, &unk_1839CD620, &buf) + 6) = v541;
         *(*v540 + ((v538 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v538;
       }
 
@@ -1250,9 +1250,9 @@ LABEL_153:
     if (v617 < v618)
     {
       *v617 = 0;
-      v556[1] = 0;
-      v556[2] = 0;
-      v555 = v556 + 3;
+      *(v556 + 1) = 0;
+      *(v556 + 2) = 0;
+      v555 = v556 + 24;
     }
 
     else
@@ -1405,7 +1405,7 @@ LABEL_153:
       do
       {
         v578 = *(v576 - 3);
-        v576 -= 3;
+        v576 -= 24;
         v577 = v578;
         if (v578)
         {

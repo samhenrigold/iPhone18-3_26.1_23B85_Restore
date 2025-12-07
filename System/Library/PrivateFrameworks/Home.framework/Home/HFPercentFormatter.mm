@@ -117,20 +117,19 @@
 
 - (BOOL)getObjectValue:(id *)value forString:(id)string range:(_NSRange *)range error:(id *)error
 {
-  v15.receiver = self;
-  v15.super_class = HFPercentFormatter;
-  v8 = [(HFPercentFormatter *)&v15 getObjectValue:value forString:string range:range error:error];
+  v14.receiver = self;
+  v14.super_class = HFPercentFormatter;
+  v8 = [(HFPercentFormatter *)&v14 getObjectValue:value forString:string range:range error:error];
   if (v8)
   {
-    v9 = *value;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v10 = objc_opt_class();
-      v11 = *value;
+      v9 = objc_opt_class();
+      v10 = *value;
       minimumValue = [(HFPercentFormatter *)self minimumValue];
       maximumValue = [(HFPercentFormatter *)self maximumValue];
-      *value = [v10 _valueFromPercentage:v11 forMinimumValue:minimumValue maximumValue:maximumValue];
+      *value = [v9 _valueFromPercentage:v10 forMinimumValue:minimumValue maximumValue:maximumValue];
 
       LOBYTE(v8) = 1;
     }

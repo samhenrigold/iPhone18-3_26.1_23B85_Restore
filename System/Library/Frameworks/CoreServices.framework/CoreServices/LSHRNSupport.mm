@@ -1,7 +1,6 @@
 @interface LSHRNSupport
 + (BOOL)deviceConfiguredForHRN;
 + (id)vendorIDFromVendorName:(id)name seedData:(id)data error:(id *)error;
-+ (void)deviceConfiguredForHRN;
 + (void)invalidateCache;
 + (void)setActivationRecordOverride:(BOOL)override;
 + (void)setFeatureFlagOverride:(BOOL)override;
@@ -55,10 +54,10 @@
         break;
       case 0:
         v14 = 0;
-        v6 = softLinkMAECopyActivationRecordWithError[0];
-        if (softLinkMAECopyActivationRecordWithError[0])
+        v6 = softLinkMAECopyActivationRecordWithError;
+        if (softLinkMAECopyActivationRecordWithError)
         {
-          v4 = (softLinkMAECopyActivationRecordWithError[0])(&v14);
+          v4 = softLinkMAECopyActivationRecordWithError(&v14);
           v6 = v14;
         }
 
@@ -67,10 +66,11 @@
           v4 = 0;
         }
 
-        v12 = v6;
+        v11 = v6;
+        v12 = v11;
         if (!v4)
         {
-          v13 = _LSDefaultLog();
+          v13 = _LSDefaultLog(v11);
           if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
           {
             +[LSHRNSupport deviceConfiguredForHRN];
@@ -94,7 +94,7 @@ LABEL_22:
 
         else
         {
-          v9 = _LSDefaultLog();
+          v9 = _LSDefaultLog(0);
           if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
           {
             +[LSHRNSupport deviceConfiguredForHRN];
@@ -114,12 +114,10 @@ LABEL_22:
 LABEL_28:
     os_unfair_lock_unlock(&hrnLock);
     v5 = isHRN;
-    goto LABEL_29;
+    return v5 & 1;
   }
 
   v5 = 0;
-LABEL_29:
-  v10 = *MEMORY[0x1E69E9840];
   return v5 & 1;
 }
 
@@ -156,18 +154,18 @@ LABEL_29:
 
 + (id)vendorIDFromVendorName:(id)name seedData:(id)data error:(id *)error
 {
-  v18[2] = *MEMORY[0x1E69E9840];
+  v17[2] = *MEMORY[0x1E69E9840];
   nameCopy = name;
   dataCopy = data;
-  v18[0] = 0;
-  v18[1] = 0;
+  v17[0] = 0;
+  v17[1] = 0;
   [nameCopy UTF8String];
   strlen([nameCopy UTF8String]);
   Hkdf = CCKDFParametersCreateHkdf();
   if (Hkdf)
   {
     v10 = [MEMORY[0x1E696ABC0] errorWithDomain:@"CCStatusErrorDomain" code:Hkdf userInfo:0];
-    v11 = _LSDefaultLog();
+    v11 = _LSDefaultLog(v10);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       +[LSHRNSupport vendorIDFromVendorName:seedData:error:];
@@ -182,12 +180,12 @@ LABEL_29:
     if (!CCDeriveKey())
     {
       v14 = 0;
-      v13 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:v18];
+      v13 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:v17];
       goto LABEL_8;
     }
 
     v10 = [MEMORY[0x1E696ABC0] errorWithDomain:@"CCStatusErrorDomain" code:0 userInfo:0];
-    v11 = _LSDefaultLog();
+    v11 = _LSDefaultLog(v10);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       +[LSHRNSupport vendorIDFromVendorName:seedData:error:];
@@ -203,33 +201,7 @@ LABEL_8:
     *error = v14;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return v13;
-}
-
-+ (void)deviceConfiguredForHRN
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)vendorIDFromVendorName:seedData:error:.cold.1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)vendorIDFromVendorName:seedData:error:.cold.2()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

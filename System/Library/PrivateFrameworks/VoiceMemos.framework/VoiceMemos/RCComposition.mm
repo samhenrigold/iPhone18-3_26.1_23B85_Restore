@@ -7,6 +7,7 @@
 + (id)_compositionLoadedFromMetadataURL:(id)l composedAVURL:(id)rL savedRecordingUUID:(id)d creationDate:(id)date createIfNeeded:(BOOL)needed;
 + (id)_compositionLoadedFromMetadataURL:(id)l savedRecording:(id)recording;
 + (id)_unitTestingCompositionWithDecomposedFragments:(id)fragments;
++ (id)compositionLoadedForComposedAVURL:(id)l createIfNeeded:(BOOL)needed;
 + (id)compositionLoadedForEditingSavedRecording:(id)recording error:(id *)error;
 + (id)compositionLoadedForSavedRecording:(id)recording;
 + (id)compositionLoadedFromCompositionBundleURL:(id)l;
@@ -188,11 +189,11 @@
 
 - (RCComposition)initWithDictionaryPListRepresentation:(id)representation
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   representationCopy = representation;
-  v43.receiver = self;
-  v43.super_class = RCComposition;
-  v5 = [(RCComposition *)&v43 init];
+  v42.receiver = self;
+  v42.super_class = RCComposition;
+  v5 = [(RCComposition *)&v42 init];
   if (!v5)
   {
     goto LABEL_17;
@@ -210,7 +211,7 @@
   v5->_savedRecordingUUID = v11;
 
   v13 = [representationCopy objectForKey:@"RCSavedRecordingCreationTime"];
-  v38 = v13;
+  v37 = v13;
   if (v13)
   {
     v14 = MEMORY[0x277CBEAA8];
@@ -235,30 +236,30 @@
   v5->_musicMemoMetadata = v19;
 
   array = [MEMORY[0x277CBEB18] array];
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
   v22 = [representationCopy objectForKey:@"RCDecomposedFragments"];
-  v23 = [v22 countByEnumeratingWithState:&v39 objects:v44 count:16];
+  v23 = [v22 countByEnumeratingWithState:&v38 objects:v43 count:16];
   if (v23)
   {
     v24 = v23;
-    v25 = *v40;
+    v25 = *v39;
     do
     {
       for (i = 0; i != v24; ++i)
       {
-        if (*v40 != v25)
+        if (*v39 != v25)
         {
           objc_enumerationMutation(v22);
         }
 
-        v27 = [[RCCompositionFragment alloc] initWithDictionaryPListRepresentation:*(*(&v39 + 1) + 8 * i)];
+        v27 = [[RCCompositionFragment alloc] initWithDictionaryPListRepresentation:*(*(&v38 + 1) + 8 * i)];
         [array addObject:v27];
       }
 
-      v24 = [v22 countByEnumeratingWithState:&v39 objects:v44 count:16];
+      v24 = [v22 countByEnumeratingWithState:&v38 objects:v43 count:16];
     }
 
     while (v24);
@@ -293,13 +294,12 @@ LABEL_17:
   v35 = 0;
 LABEL_18:
 
-  v36 = *MEMORY[0x277D85DE8];
   return v35;
 }
 
 - (id)dictionaryPListRepresentation
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   absoluteString = [(NSURL *)self->_composedAVURL absoluteString];
   if (absoluteString)
@@ -339,37 +339,36 @@ LABEL_18:
   }
 
   array = [MEMORY[0x277CBEB18] array];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v12 = self->_decomposedFragments;
-  v13 = [(NSArray *)v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v13 = [(NSArray *)v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v21;
+    v15 = *v20;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v21 != v15)
+        if (*v20 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        dictionaryPListRepresentation = [*(*(&v20 + 1) + 8 * i) dictionaryPListRepresentation];
+        dictionaryPListRepresentation = [*(*(&v19 + 1) + 8 * i) dictionaryPListRepresentation];
         [array addObject:dictionaryPListRepresentation];
       }
 
-      v14 = [(NSArray *)v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v14 = [(NSArray *)v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v14);
   }
 
   [dictionary setObject:array forKey:@"RCDecomposedFragments"];
-  v18 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
@@ -494,6 +493,16 @@ LABEL_13:
   return v5;
 }
 
++ (id)compositionLoadedForComposedAVURL:(id)l createIfNeeded:(BOOL)needed
+{
+  neededCopy = needed;
+  lCopy = l;
+  v7 = [RCComposition compositionMetadataURLForComposedAVURL:lCopy];
+  v8 = [self _compositionLoadedFromMetadataURL:v7 composedAVURL:lCopy savedRecordingUUID:0 creationDate:0 createIfNeeded:neededCopy];
+
+  return v8;
+}
+
 + (id)uriRepresentationForLegacyComposedAVURL:(id)l
 {
   v3 = [RCComposition compositionMetadataURLForComposedAVURL:l];
@@ -536,51 +545,50 @@ LABEL_13:
     v10 = [recordingCopy url];
     [recordingCopy length];
     v12 = v11;
-    v13 = RCTimeRangeMake(0.0, v11);
-    v15 = v14;
+    RCTimeRangeMake();
+    v14 = v13;
+    v16 = v15;
     pathExtension = [v10 pathExtension];
-    v17 = [v7 newRandomFragmentWithInsertionTimeRangeInComposition:0 trackIndex:pathExtension pathExtension:{v13, v15}];
-    v18 = [v17 mutableCopy];
+    v18 = [v7 newRandomFragmentWithInsertionTimeRangeInComposition:0 trackIndex:pathExtension pathExtension:{v14, v16}];
+    v19 = [v18 mutableCopy];
 
-    [v18 setContentDuration:v12];
-    [v18 setTimeRangeInContentToUse:{v13, v15}];
+    [v19 setContentDuration:v12];
+    [v19 setTimeRangeInContentToUse:{v14, v16}];
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-    aVOutputURL = [v18 AVOutputURL];
-    v21 = [defaultManager moveItemAtURL:v10 toURL:aVOutputURL error:error];
+    aVOutputURL = [v19 AVOutputURL];
+    v22 = [defaultManager moveItemAtURL:v10 toURL:aVOutputURL error:error];
 
-    if (!v21)
+    if (!v22)
     {
 
-      v24 = 0;
+      v25 = 0;
       goto LABEL_9;
     }
 
     if ([v7 hasMultipleTracks])
     {
-      v22 = [v18 mutableCopy];
-      [v22 setTrackIndex:1];
-      v28[0] = v18;
-      v28[1] = v22;
-      v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:2];
-      [v7 setDecomposedFragments:v23];
+      v23 = [v19 mutableCopy];
+      [v23 setTrackIndex:1];
+      v28[0] = v19;
+      v28[1] = v23;
+      v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:2];
+      [v7 setDecomposedFragments:v24];
     }
 
     else
     {
-      v27 = v18;
-      v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
-      [v7 setDecomposedFragments:v22];
+      v27 = v19;
+      v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
+      [v7 setDecomposedFragments:v23];
     }
 
     [v7 saveMetadataToDefaultLocation];
   }
 
-  v24 = v7;
+  v25 = v7;
 LABEL_9:
 
-  v25 = *MEMORY[0x277D85DE8];
-
-  return v24;
+  return v25;
 }
 
 - (BOOL)isContentBeingModified
@@ -775,9 +783,11 @@ uint64_t __33__RCComposition_fileSizeOfAssets__block_invoke(uint64_t a1, void *a
 {
   var1 = range.var1;
   var0 = range.var0;
-  v50 = *MEMORY[0x277D85DE8];
-  v6 = [(RCComposition *)self compositionByClippingToComposedTimeRange:RCTimeRangeMake(-3.40282347e38, range.var0)];
-  v7 = [(RCComposition *)self compositionByClippingToComposedTimeRange:RCTimeRangeMake(var1, 3.40282347e38)];
+  v49 = *MEMORY[0x277D85DE8];
+  RCTimeRangeMake();
+  v6 = [(RCComposition *)self compositionByClippingToComposedTimeRange:?];
+  RCTimeRangeMake();
+  v7 = [(RCComposition *)self compositionByClippingToComposedTimeRange:?];
   v8 = v7;
   if (v6)
   {
@@ -785,46 +795,46 @@ uint64_t __33__RCComposition_fileSizeOfAssets__block_invoke(uint64_t a1, void *a
     decomposedFragments = [v8 decomposedFragments];
     if (decomposedFragments)
     {
-      v33 = v8;
-      v34 = v6;
+      v32 = v8;
+      v33 = v6;
       decomposedFragments2 = [v9 decomposedFragments];
       v11 = [decomposedFragments2 mutableCopy];
 
       v12 = 0;
       v13 = 1;
-      v35 = v9;
+      v34 = v9;
       do
       {
-        v38 = v13;
+        v37 = v13;
         composedFragments = [v9 composedFragments];
         v15 = [composedFragments fragmentsWithTrackIndex:v12];
 
-        v37 = v15;
+        v36 = v15;
         lastObject = [v15 lastObject];
         [lastObject timeRangeInComposition];
         v18 = v17;
 
-        v41 = 0u;
-        v42 = 0u;
-        v39 = 0u;
         v40 = 0u;
+        v41 = 0u;
+        v38 = 0u;
+        v39 = 0u;
         v19 = [decomposedFragments fragmentsWithTrackIndex:v12];
-        v20 = [v19 countByEnumeratingWithState:&v39 objects:v49 count:16];
+        v20 = [v19 countByEnumeratingWithState:&v38 objects:v48 count:16];
         if (v20)
         {
           v21 = v20;
-          v22 = *v40;
+          v22 = *v39;
           do
           {
             v23 = 0;
             do
             {
-              if (*v40 != v22)
+              if (*v39 != v22)
               {
                 objc_enumerationMutation(v19);
               }
 
-              v24 = [*(*(&v39 + 1) + 8 * v23) mutableCopy];
+              v24 = [*(*(&v38 + 1) + 8 * v23) mutableCopy];
               [v24 timeRangeInComposition];
               v27 = RCTimeRangeShift(v25, v26, v18);
               if (var0 >= v27)
@@ -846,11 +856,11 @@ uint64_t __33__RCComposition_fileSizeOfAssets__block_invoke(uint64_t a1, void *a
                 {
                   v30 = NSStringFromRCTimeRange(var0, var1);
                   *buf = 136315650;
-                  v44 = "[RCComposition compositionByDeletingAndSplittingAtComposedTimeRange:]";
-                  v45 = 2112;
-                  v46 = v24;
-                  v47 = 2112;
-                  v48 = v30;
+                  v43 = "[RCComposition compositionByDeletingAndSplittingAtComposedTimeRange:]";
+                  v44 = 2112;
+                  v45 = v24;
+                  v46 = 2112;
+                  v47 = v30;
                   _os_log_error_impl(&dword_272442000, v29, OS_LOG_TYPE_ERROR, "%s -- Invalid fragment times:  %@, composedTimeRange = %@", buf, 0x20u);
                 }
               }
@@ -859,7 +869,7 @@ uint64_t __33__RCComposition_fileSizeOfAssets__block_invoke(uint64_t a1, void *a
             }
 
             while (v21 != v23);
-            v21 = [v19 countByEnumeratingWithState:&v39 objects:v49 count:16];
+            v21 = [v19 countByEnumeratingWithState:&v38 objects:v48 count:16];
           }
 
           while (v21);
@@ -867,14 +877,14 @@ uint64_t __33__RCComposition_fileSizeOfAssets__block_invoke(uint64_t a1, void *a
 
         v13 = 0;
         v12 = 1;
-        v9 = v35;
+        v9 = v34;
       }
 
-      while ((v38 & 1) != 0);
-      [v35 setDecomposedFragments:v11];
+      while ((v37 & 1) != 0);
+      [v34 setDecomposedFragments:v11];
 
-      v8 = v33;
-      v6 = v34;
+      v8 = v32;
+      v6 = v33;
     }
   }
 
@@ -883,8 +893,6 @@ uint64_t __33__RCComposition_fileSizeOfAssets__block_invoke(uint64_t a1, void *a
     v9 = [v7 mutableCopy];
   }
 
-  v31 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
@@ -892,7 +900,7 @@ uint64_t __33__RCComposition_fileSizeOfAssets__block_invoke(uint64_t a1, void *a
 {
   var1 = range.var1;
   var0 = range.var0;
-  v33 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v6 = [(RCComposition *)self composedFragmentsIntersectingTimeRange:?];
   firstObject = [v6 firstObject];
   if ([v6 count] < 2)
@@ -928,39 +936,39 @@ LABEL_7:
   do
   {
     v14 = v13;
-    v30 = 0u;
-    v31 = 0u;
     v28 = 0u;
     v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     v15 = [v6 fragmentsWithTrackIndex:{v12, 0}];
-    v16 = [v15 countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v29;
+      v18 = *v27;
       v19 = 0.0;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v29 != v18)
+          if (*v27 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          v21 = [*(*(&v28 + 1) + 8 * i) mutableCopy];
+          v21 = [*(*(&v26 + 1) + 8 * i) mutableCopy];
           if ([v21 intersectWithTimeRange:{var0, var1}])
           {
             [v21 timeRangeInComposition];
-            v24 = RCTimeRangeDeltaWithExactPrecision(v22, v23);
-            v25 = v19 + v24;
-            [v21 setTimeRangeInComposition:{RCTimeRangeMake(v19, v19 + v24)}];
+            v24 = v19 + RCTimeRangeDeltaWithExactPrecision(v22, v23);
+            RCTimeRangeMake();
+            [v21 setTimeRangeInComposition:?];
             [array addObject:v21];
-            v19 = v25;
+            v19 = v24;
           }
         }
 
-        v17 = [v15 countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v26 objects:v30 count:16];
       }
 
       while (v17);
@@ -976,14 +984,13 @@ LABEL_7:
   [v10 recacheAVURLDerivedValues];
 
 LABEL_19:
-  v26 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 - (id)compositionByOverdubbingWithFragment:(id)fragment
 {
-  v62[1] = *MEMORY[0x277D85DE8];
+  v60[1] = *MEMORY[0x277D85DE8];
   fragmentCopy = fragment;
   if (-[RCComposition hasMultipleTracks](self, "hasMultipleTracks") || [fragmentCopy trackIndex])
   {
@@ -1002,136 +1009,136 @@ LABEL_19:
   else
   {
     [fragmentCopy timeRangeInComposition];
-    v12 = v11;
-    v14 = v13;
+    v11 = v10;
+    v13 = v12;
     [(RCComposition *)self composedDuration];
-    v16 = RCTimeRangeMake(0.0, v15);
-    if (RCTimeRangeContainsRange(v12, v14, v16, v17))
+    RCTimeRangeMake();
+    if (RCTimeRangeContainsRange(v11, v13, v14, v15))
     {
       v5 = [(RCComposition *)self mutableCopy];
-      v62[0] = fragmentCopy;
-      v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v62 count:1];
-      [v5 setDecomposedFragments:v18];
+      v60[0] = fragmentCopy;
+      v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v60 count:1];
+      [v5 setDecomposedFragments:v16];
     }
 
     else
     {
-      v19 = [(RCComposition *)self compositionByClippingToComposedTimeRange:RCTimeRangeMake(-3.40282347e38, v12)];
-      v20 = [(RCComposition *)self compositionByClippingToComposedTimeRange:RCTimeRangeMake(v14, 3.40282347e38)];
-      v21 = v20;
-      if (v19)
+      RCTimeRangeMake();
+      v17 = [(RCComposition *)self compositionByClippingToComposedTimeRange:?];
+      RCTimeRangeMake();
+      v18 = [(RCComposition *)self compositionByClippingToComposedTimeRange:?];
+      v19 = v18;
+      if (v17)
       {
-        v5 = [v19 mutableCopy];
-        decomposedFragments2 = [v19 decomposedFragments];
+        v5 = [v17 mutableCopy];
+        decomposedFragments2 = [v17 decomposedFragments];
         lastObject = [decomposedFragments2 lastObject];
         [lastObject timeRangeInComposition];
-        if (v24 != v12)
+        if (v22 != v11)
         {
-          v25 = OSLogForCategory(@"Default");
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+          v23 = OSLogForCategory(@"Default");
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
           {
-            [(RCComposition *)v12 compositionByOverdubbingWithFragment:v14];
+            [(RCComposition *)v11 compositionByOverdubbingWithFragment:v13, lastObject];
           }
         }
 
-        v26 = [decomposedFragments2 arrayByAddingObject:fragmentCopy];
-        [v5 setDecomposedFragments:v26];
+        v24 = [decomposedFragments2 arrayByAddingObject:fragmentCopy];
+        [v5 setDecomposedFragments:v24];
       }
 
       else
       {
-        v5 = [v20 mutableCopy];
-        v61 = fragmentCopy;
-        decomposedFragments2 = [MEMORY[0x277CBEA60] arrayWithObjects:&v61 count:1];
+        v5 = [v18 mutableCopy];
+        v59 = fragmentCopy;
+        decomposedFragments2 = [MEMORY[0x277CBEA60] arrayWithObjects:&v59 count:1];
         [v5 setDecomposedFragments:decomposedFragments2];
       }
 
-      decomposedFragments3 = [v21 decomposedFragments];
+      decomposedFragments3 = [v19 decomposedFragments];
       if (decomposedFragments3)
       {
-        v47 = v21;
-        v48 = v19;
-        v49 = fragmentCopy;
+        v45 = v19;
+        v46 = v17;
+        v47 = fragmentCopy;
         decomposedFragments4 = [v5 decomposedFragments];
-        v29 = [decomposedFragments4 mutableCopy];
+        v27 = [decomposedFragments4 mutableCopy];
 
         composedFragments = [v5 composedFragments];
         lastObject2 = [composedFragments lastObject];
         [lastObject2 timeRangeInComposition];
-        v33 = v32;
+        v31 = v30;
 
-        v52 = 0u;
-        v53 = 0u;
         v50 = 0u;
         v51 = 0u;
-        v46 = decomposedFragments3;
-        v34 = decomposedFragments3;
-        v35 = [v34 countByEnumeratingWithState:&v50 objects:v60 count:16];
-        if (v35)
+        v48 = 0u;
+        v49 = 0u;
+        v44 = decomposedFragments3;
+        v32 = decomposedFragments3;
+        v33 = [v32 countByEnumeratingWithState:&v48 objects:v58 count:16];
+        if (v33)
         {
-          v36 = v35;
-          v37 = *v51;
+          v34 = v33;
+          v35 = *v49;
           do
           {
-            v38 = 0;
+            v36 = 0;
             do
             {
-              if (*v51 != v37)
+              if (*v49 != v35)
               {
-                objc_enumerationMutation(v34);
+                objc_enumerationMutation(v32);
               }
 
-              v39 = [*(*(&v50 + 1) + 8 * v38) mutableCopy];
-              [v39 timeRangeInComposition];
-              v42 = RCTimeRangeShift(v40, v41, v33);
-              if (v14 >= v42)
+              v37 = [*(*(&v48 + 1) + 8 * v36) mutableCopy];
+              [v37 timeRangeInComposition];
+              v40 = RCTimeRangeShift(v38, v39, v31);
+              if (v13 >= v40)
               {
-                v43 = v14;
+                v41 = v13;
               }
 
               else
               {
-                v43 = v42;
+                v41 = v40;
               }
 
-              [v39 setTimeRangeInComposition:v43];
-              [v29 addObject:v39];
-              if (v43 < v14)
+              [v37 setTimeRangeInComposition:v41];
+              [v27 addObject:v37];
+              if (v41 < v13)
               {
-                v44 = OSLogForCategory(@"Default");
-                if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+                v42 = OSLogForCategory(@"Default");
+                if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
                 {
-                  v45 = NSStringFromRCTimeRange(v12, v14);
+                  v43 = NSStringFromRCTimeRange(v11, v13);
                   *buf = 136315650;
-                  v55 = "[RCComposition compositionByOverdubbingWithFragment:]";
+                  v53 = "[RCComposition compositionByOverdubbingWithFragment:]";
+                  v54 = 2112;
+                  v55 = v37;
                   v56 = 2112;
-                  v57 = v39;
-                  v58 = 2112;
-                  v59 = v45;
-                  _os_log_error_impl(&dword_272442000, v44, OS_LOG_TYPE_ERROR, "%s -- Invalid fragment times:  %@, composedTimeRange = %@", buf, 0x20u);
+                  v57 = v43;
+                  _os_log_error_impl(&dword_272442000, v42, OS_LOG_TYPE_ERROR, "%s -- Invalid fragment times:  %@, composedTimeRange = %@", buf, 0x20u);
                 }
               }
 
-              ++v38;
+              ++v36;
             }
 
-            while (v36 != v38);
-            v36 = [v34 countByEnumeratingWithState:&v50 objects:v60 count:16];
+            while (v34 != v36);
+            v34 = [v32 countByEnumeratingWithState:&v48 objects:v58 count:16];
           }
 
-          while (v36);
+          while (v34);
         }
 
-        [v5 setDecomposedFragments:v29];
-        v19 = v48;
-        fragmentCopy = v49;
-        decomposedFragments3 = v46;
-        v21 = v47;
+        [v5 setDecomposedFragments:v27];
+        v17 = v46;
+        fragmentCopy = v47;
+        decomposedFragments3 = v44;
+        v19 = v45;
       }
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -1210,37 +1217,37 @@ LABEL_19:
 
 - (void)enumerateOrphanedFragmentsWithBlock:(id)block
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   blockCopy = block;
-  v30 = +[RCCaptureFormat fileExtensionsSupported];
+  v29 = +[RCCaptureFormat fileExtensionsSupported];
   v4 = [MEMORY[0x277CBEB58] set];
   if ([(NSArray *)self->_decomposedFragments count])
   {
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
     v37 = 0u;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
     v5 = self->_decomposedFragments;
-    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v36 objects:v41 count:16];
+    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v35 objects:v40 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v37;
+      v8 = *v36;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v37 != v8)
+          if (*v36 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          aVOutputURL = [*(*(&v36 + 1) + 8 * i) AVOutputURL];
+          aVOutputURL = [*(*(&v35 + 1) + 8 * i) AVOutputURL];
           lastPathComponent = [aVOutputURL lastPathComponent];
           [v4 addObject:lastPathComponent];
         }
 
-        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v36 objects:v41 count:16];
+        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v35 objects:v40 count:16];
       }
 
       while (v7);
@@ -1255,26 +1262,26 @@ LABEL_19:
   array = [MEMORY[0x277CBEA60] array];
   v16 = [defaultManager contentsOfDirectoryAtURL:v13 includingPropertiesForKeys:array options:5 error:0];
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   v17 = v16;
-  v18 = [v17 countByEnumeratingWithState:&v32 objects:v40 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v31 objects:v39 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v33;
+    v20 = *v32;
     do
     {
       for (j = 0; j != v19; ++j)
       {
-        if (*v33 != v20)
+        if (*v32 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        v22 = *(*(&v32 + 1) + 8 * j);
+        v22 = *(*(&v31 + 1) + 8 * j);
         lastPathComponent3 = [v22 lastPathComponent];
         if ([v4 containsObject:lastPathComponent3])
         {
@@ -1283,14 +1290,14 @@ LABEL_19:
         else
         {
           pathExtension = [v22 pathExtension];
-          v25 = [v30 containsObject:pathExtension];
+          v25 = [v29 containsObject:pathExtension];
 
           if (v25)
           {
-            v31 = 0;
+            v30 = 0;
             v26 = [[RCCompositionFragment alloc] initWithAVOutputURL:v22 contentDuration:0 timeRangeInContentToUse:0.0 timeRangeInComposition:-1.79769313e308 trackIndex:1.79769313e308, -1.79769313e308, 1.79769313e308];
-            blockCopy[2](blockCopy, v26, &v31);
-            v27 = v31;
+            blockCopy[2](blockCopy, v26, &v30);
+            v27 = v30;
 
             if (v27)
             {
@@ -1300,46 +1307,43 @@ LABEL_19:
         }
       }
 
-      v19 = [v17 countByEnumeratingWithState:&v32 objects:v40 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v31 objects:v39 count:16];
     }
 
     while (v19);
   }
 
 LABEL_21:
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteFromFilesystem
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = OSLogForCategory(@"Default");
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v5 = 136315394;
-    v6 = "[RCComposition deleteFromFilesystem]";
-    v7 = 2112;
+    v4 = 136315394;
+    v5 = "[RCComposition deleteFromFilesystem]";
+    v6 = 2112;
     selfCopy = self;
-    _os_log_impl(&dword_272442000, v3, OS_LOG_TYPE_INFO, "%s -- deleting all composition assets for %@", &v5, 0x16u);
+    _os_log_impl(&dword_272442000, v3, OS_LOG_TYPE_INFO, "%s -- deleting all composition assets for %@", &v4, 0x16u);
   }
 
   [RCComposition deleteFromFilesystem:self->_composedAVURL];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 + (void)deleteFromFilesystem:(id)filesystem
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   filesystemCopy = filesystem;
   v4 = OSLogForCategory(@"Default");
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v11 = 136315394;
-    v12 = "+[RCComposition deleteFromFilesystem:]";
-    v13 = 2112;
-    v14 = filesystemCopy;
-    _os_log_impl(&dword_272442000, v4, OS_LOG_TYPE_INFO, "%s -- deleting all composition assets for %@", &v11, 0x16u);
+    v10 = 136315394;
+    v11 = "+[RCComposition deleteFromFilesystem:]";
+    v12 = 2112;
+    v13 = filesystemCopy;
+    _os_log_impl(&dword_272442000, v4, OS_LOG_TYPE_INFO, "%s -- deleting all composition assets for %@", &v10, 0x16u);
   }
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
@@ -1354,22 +1358,20 @@ LABEL_21:
   v9 = [filesystemCopy rc_URLByReplacingPathExtensionWithExtension:@"composition"];
   [defaultManager removeItemAtURL:filesystemCopy error:0];
   [defaultManager removeItemAtURL:v9 error:0];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)excludeFromBackup:(id)backup error:(id *)error
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   backupCopy = backup;
   v6 = OSLogForCategory(@"Default");
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = 136315394;
-    v19 = "+[RCComposition excludeFromBackup:error:]";
-    v20 = 2112;
-    v21 = backupCopy;
-    _os_log_impl(&dword_272442000, v6, OS_LOG_TYPE_DEFAULT, "%s -- excluding from backup %@", &v18, 0x16u);
+    v17 = 136315394;
+    v18 = "+[RCComposition excludeFromBackup:error:]";
+    v19 = 2112;
+    v20 = backupCopy;
+    _os_log_impl(&dword_272442000, v6, OS_LOG_TYPE_DEFAULT, "%s -- excluding from backup %@", &v17, 0x16u);
   }
 
   path = [backupCopy path];
@@ -1406,22 +1408,21 @@ LABEL_21:
     [v15 setResourceValue:v11 forKey:v10 error:0];
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 + (BOOL)migrateBackupExclusionFlag:(id)flag
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   flagCopy = flag;
   v4 = OSLogForCategory(@"Default");
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 136315394;
-    v12 = "+[RCComposition migrateBackupExclusionFlag:]";
-    v13 = 2112;
-    v14 = flagCopy;
-    _os_log_impl(&dword_272442000, v4, OS_LOG_TYPE_DEFAULT, "%s -- migrating backup exclusion flag %@", &v11, 0x16u);
+    v10 = 136315394;
+    v11 = "+[RCComposition migrateBackupExclusionFlag:]";
+    v12 = 2112;
+    v13 = flagCopy;
+    _os_log_impl(&dword_272442000, v4, OS_LOG_TYPE_DEFAULT, "%s -- migrating backup exclusion flag %@", &v10, 0x16u);
   }
 
   migrateBackupExclusionFlag(flagCopy);
@@ -1437,7 +1438,6 @@ LABEL_21:
   v8 = [flagCopy rc_URLByReplacingPathExtensionWithExtension:@"composition"];
   migrateBackupExclusionFlag(v8);
 
-  v9 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -1587,12 +1587,10 @@ LABEL_22:
 
 - (void)_calculateComposedAVURLDerivedValues
 {
-  v9 = *MEMORY[0x277D85DE8];
   path = [*self path];
+  v8 = 136315650;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_272442000, v2, v3, "%s -- could not open audio file path = %@, error = %@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_272442000, v2, v3, "%s -- could not open audio file path = %@, error = %@", v4, v5, v6, v7, v8);
 }
 
 - (void)_updateCachedValueForHasSpatialAudio
@@ -1619,7 +1617,7 @@ uint64_t __53__RCComposition__updateCachedValueForHasSpatialAudio__block_invoke_
 
 - (id)_calculateComposedFragments
 {
-  v141 = *MEMORY[0x277D85DE8];
+  v113 = *MEMORY[0x277D85DE8];
   if ([(NSArray *)self->_decomposedFragments count])
   {
     array3 = objc_opt_new();
@@ -1628,29 +1626,29 @@ uint64_t __53__RCComposition__updateCachedValueForHasSpatialAudio__block_invoke_
     v3 = 1;
     while (1)
     {
-      v110 = v3;
-      v123 = 0u;
-      v124 = 0u;
-      v121 = 0u;
-      v122 = 0u;
+      v82 = v3;
+      v95 = 0u;
+      v96 = 0u;
+      v93 = 0u;
+      v94 = 0u;
       obj = [(NSArray *)self->_decomposedFragments fragmentsWithTrackIndex:v2];
-      v114 = [obj countByEnumeratingWithState:&v121 objects:v137 count:16];
-      if (!v114)
+      v86 = [obj countByEnumeratingWithState:&v93 objects:v109 count:16];
+      if (!v86)
       {
-        goto LABEL_77;
+        goto LABEL_75;
       }
 
-      v112 = *v122;
+      v84 = *v94;
       do
       {
-        for (i = 0; i != v114; ++i)
+        for (i = 0; i != v86; ++i)
         {
-          if (*v122 != v112)
+          if (*v94 != v84)
           {
             objc_enumerationMutation(obj);
           }
 
-          v5 = *(*(&v121 + 1) + 8 * i);
+          v5 = *(*(&v93 + 1) + 8 * i);
           v6 = array;
           v7 = v5;
           v8 = v6;
@@ -1741,41 +1739,41 @@ LABEL_27:
 
           if (!v20)
           {
-            goto LABEL_62;
+            goto LABEL_60;
           }
 
-          v120 = v9;
-          v118 = i;
+          v92 = v9;
+          v90 = i;
           array2 = [MEMORY[0x277CBEB18] array];
-          v116 = v13;
-          v117 = v8;
-          v115 = v20;
+          v88 = v13;
+          v89 = v8;
+          v87 = v20;
           v23 = [v8 subarrayWithRange:{v13, v20}];
-          v133 = 0u;
-          v134 = 0u;
-          v135 = 0u;
-          v136 = 0u;
-          v119 = v23;
-          v24 = [v23 countByEnumeratingWithState:&v133 objects:v140 count:16];
+          v105 = 0u;
+          v106 = 0u;
+          v107 = 0u;
+          v108 = 0u;
+          v91 = v23;
+          v24 = [v23 countByEnumeratingWithState:&v105 objects:v112 count:16];
           if (!v24)
           {
-            goto LABEL_61;
+            goto LABEL_59;
           }
 
           v25 = v24;
-          v26 = *v134;
+          v26 = *v106;
           do
           {
             v27 = 0;
             do
             {
-              if (*v134 != v26)
+              if (*v106 != v26)
               {
-                objc_enumerationMutation(v119);
+                objc_enumerationMutation(v91);
               }
 
-              v28 = *(*(&v133 + 1) + 8 * v27);
-              [v120 timeRangeInComposition];
+              v28 = *(*(&v105 + 1) + 8 * v27);
+              [v92 timeRangeInComposition];
               v30 = v29;
               v32 = v31;
               v33 = v28;
@@ -1783,221 +1781,205 @@ LABEL_27:
               v35 = v34;
               v37 = v36;
               [v33 timeRangeInComposition];
-              v39 = v38;
               [v33 timeRangeInContentToUse];
-              v42 = RCTimeRangeDeltaWithExactPrecision(v40, v41);
-              v43 = RCTimeRangeMake(v39, v42);
+              RCTimeRangeDeltaWithExactPrecision(v38, v39);
+              RCTimeRangeMake();
               if (v30 >= v37 || v32 <= v35)
               {
-                v46 = [v33 mutableCopy];
-                v138[0] = v46;
+                v41 = [v33 mutableCopy];
+                v110[0] = v41;
                 goto LABEL_38;
               }
 
-              v48 = v43;
-              v49 = v44;
               if (!RCTimeRangeContainsRange(v30, v32, v35, v37))
               {
                 if (RCTimeRangeContainsRange(v35, v37, v30, v32))
                 {
-                  v58 = v37 - v32;
-                  v46 = [v33 mutableCopy];
+                  v41 = [v33 mutableCopy];
                   [v33 timeRangeInContentToUse];
-                  v60 = v59;
                   [v33 timeRangeInContentToUse];
-                  [v46 setTimeRangeInContentToUse:{RCTimeRangeMake(v60, v30 - v35 + v61)}];
-                  [v46 setTimeRangeInComposition:{RCTimeRangeMake(v48, v30)}];
-                  v62 = [v33 mutableCopy];
+                  RCTimeRangeMake();
+                  [v41 setTimeRangeInContentToUse:?];
+                  RCTimeRangeMake();
+                  [v41 setTimeRangeInComposition:?];
+                  v51 = [v33 mutableCopy];
                   [v33 timeRangeInContentToUse];
-                  v64 = v63 - v58;
                   [v33 timeRangeInContentToUse];
-                  [v62 setTimeRangeInContentToUse:{RCTimeRangeMake(v64, v65)}];
-                  [v62 setTimeRangeInComposition:{RCTimeRangeMake(v32, v49)}];
-                  v138[0] = v46;
-                  v138[1] = v62;
-                  v47 = [MEMORY[0x277CBEA60] arrayWithObjects:v138 count:2];
+                  RCTimeRangeMake();
+                  [v51 setTimeRangeInContentToUse:?];
+                  RCTimeRangeMake();
+                  [v51 setTimeRangeInComposition:?];
+                  v110[0] = v41;
+                  v110[1] = v51;
+                  v42 = [MEMORY[0x277CBEA60] arrayWithObjects:v110 count:2];
 
                   goto LABEL_39;
                 }
 
-                if (v32 < v37)
+                if (v32 < v37 || v30 > v35)
                 {
-                  v46 = [v33 mutableCopy];
+                  v41 = [v33 mutableCopy];
                   [v33 timeRangeInContentToUse];
-                  v67 = v32 - v35 + v66;
                   [v33 timeRangeInContentToUse];
-                  [v46 setTimeRangeInContentToUse:{RCTimeRangeMake(v67, v68)}];
-                  v69 = v32;
-                  v70 = v49;
-LABEL_59:
-                  [v46 setTimeRangeInComposition:{RCTimeRangeMake(v69, v70)}];
-                  v138[0] = v46;
+                  RCTimeRangeMake();
+                  [v41 setTimeRangeInContentToUse:?];
+                  RCTimeRangeMake();
+                  [v41 setTimeRangeInComposition:?];
+                  v110[0] = v41;
 LABEL_38:
-                  v47 = [MEMORY[0x277CBEA60] arrayWithObjects:v138 count:1];
+                  v42 = [MEMORY[0x277CBEA60] arrayWithObjects:v110 count:1];
 LABEL_39:
 
                   goto LABEL_42;
                 }
-
-                if (v30 > v35)
-                {
-                  v46 = [v33 mutableCopy];
-                  [v33 timeRangeInContentToUse];
-                  v72 = v71;
-                  [v33 timeRangeInContentToUse];
-                  [v46 setTimeRangeInContentToUse:{RCTimeRangeMake(v72, v73 - (v37 - v30))}];
-                  v69 = v48;
-                  v70 = v30;
-                  goto LABEL_59;
-                }
               }
 
-              v47 = MEMORY[0x277CBEBF8];
+              v42 = MEMORY[0x277CBEBF8];
 LABEL_42:
 
-              v129 = 0u;
-              v130 = 0u;
-              v131 = 0u;
-              v132 = 0u;
-              v50 = v47;
-              v51 = [v50 countByEnumeratingWithState:&v129 objects:v139 count:16];
-              if (v51)
+              v101 = 0u;
+              v102 = 0u;
+              v103 = 0u;
+              v104 = 0u;
+              v43 = v42;
+              v44 = [v43 countByEnumeratingWithState:&v101 objects:v111 count:16];
+              if (v44)
               {
-                v52 = v51;
-                v53 = *v130;
+                v45 = v44;
+                v46 = *v102;
                 do
                 {
-                  for (j = 0; j != v52; ++j)
+                  for (j = 0; j != v45; ++j)
                   {
-                    if (*v130 != v53)
+                    if (*v102 != v46)
                     {
-                      objc_enumerationMutation(v50);
+                      objc_enumerationMutation(v43);
                     }
 
-                    v55 = *(*(&v129 + 1) + 8 * j);
-                    [v55 timeRangeInContentToUse];
-                    if (RCTimeRangeDeltaWithExactPrecision(v56, v57) > 2.22044605e-16)
+                    v48 = *(*(&v101 + 1) + 8 * j);
+                    [v48 timeRangeInContentToUse];
+                    if (RCTimeRangeDeltaWithExactPrecision(v49, v50) > 2.22044605e-16)
                     {
-                      [array2 addObject:v55];
+                      [array2 addObject:v48];
                     }
                   }
 
-                  v52 = [v50 countByEnumeratingWithState:&v129 objects:v139 count:16];
+                  v45 = [v43 countByEnumeratingWithState:&v101 objects:v111 count:16];
                 }
 
-                while (v52);
+                while (v45);
               }
 
               ++v27;
             }
 
             while (v27 != v25);
-            v74 = [v119 countByEnumeratingWithState:&v133 objects:v140 count:16];
-            v25 = v74;
+            v52 = [v91 countByEnumeratingWithState:&v105 objects:v112 count:16];
+            v25 = v52;
           }
 
-          while (v74);
-LABEL_61:
-          v8 = v117;
-          [v117 replaceObjectsInRange:v116 withObjectsFromArray:{v115, array2}];
+          while (v52);
+LABEL_59:
+          v8 = v89;
+          [v89 replaceObjectsInRange:v88 withObjectsFromArray:{v87, array2}];
 
-          i = v118;
-          v9 = v120;
-LABEL_62:
+          i = v90;
+          v9 = v92;
+LABEL_60:
           for (k = 0; k < [v8 count]; ++k)
           {
-            v76 = [v8 objectAtIndexedSubscript:k];
+            v54 = [v8 objectAtIndexedSubscript:k];
             [v9 timeRangeInComposition];
-            v78 = v77;
-            [v76 timeRangeInComposition];
-            v80 = v79;
+            v56 = v55;
+            [v54 timeRangeInComposition];
+            v58 = v57;
 
-            if (v78 <= v80)
+            if (v56 <= v58)
             {
               break;
             }
           }
 
-          v81 = [v9 mutableCopy];
+          v59 = [v9 mutableCopy];
           [v9 timeRangeInComposition];
-          [v81 setTimeRangeInComposition:{RCTimeRangeMake(v82, 0.0)}];
-          [v8 insertObject:v81 atIndex:k];
+          RCTimeRangeMake();
+          [v59 setTimeRangeInComposition:?];
+          [v8 insertObject:v59 atIndex:k];
           [v9 timeRangeInContentToUse];
-          v85 = RCTimeRangeDeltaWithExactPrecision(v83, v84);
+          v62 = RCTimeRangeDeltaWithExactPrecision(v60, v61);
           [v9 timeRangeInComposition];
-          v88 = RCTimeRangeDeltaWithExactPrecision(v86, v87);
-          v89 = k + 1;
-          if (v89 < [v8 count])
+          v65 = RCTimeRangeDeltaWithExactPrecision(v63, v64);
+          v66 = k + 1;
+          if (v66 < [v8 count])
           {
-            v90 = v85 - v88;
+            v67 = v62 - v65;
             do
             {
-              v91 = [v8 objectAtIndexedSubscript:v89];
-              [v91 timeRangeInComposition];
-              [v91 setTimeRangeInComposition:{RCTimeRangeShift(v92, v93, v90)}];
+              v68 = [v8 objectAtIndexedSubscript:v66];
+              [v68 timeRangeInComposition];
+              [v68 setTimeRangeInComposition:{RCTimeRangeShift(v69, v70, v67)}];
 
-              ++v89;
+              ++v66;
             }
 
-            while (v89 < [v8 count]);
+            while (v66 < [v8 count]);
           }
 
-          v127 = 0u;
-          v128 = 0u;
-          v125 = 0u;
-          v126 = 0u;
-          v94 = v8;
-          v95 = [v94 countByEnumeratingWithState:&v125 objects:v138 count:16];
-          if (v95)
+          v99 = 0u;
+          v100 = 0u;
+          v97 = 0u;
+          v98 = 0u;
+          v71 = v8;
+          v72 = [v71 countByEnumeratingWithState:&v97 objects:v110 count:16];
+          if (v72)
           {
-            v96 = v95;
-            v97 = *v126;
+            v73 = v72;
+            v74 = *v98;
             do
             {
-              for (m = 0; m != v96; ++m)
+              for (m = 0; m != v73; ++m)
               {
-                if (*v126 != v97)
+                if (*v98 != v74)
                 {
-                  objc_enumerationMutation(v94);
+                  objc_enumerationMutation(v71);
                 }
 
-                v99 = *(*(&v125 + 1) + 8 * m);
-                [v99 timeRangeInContentToUse];
-                v102 = RCTimeRangeDeltaWithExactPrecision(v100, v101);
-                [v99 timeRangeInComposition];
-                v104 = v103;
-                [v99 timeRangeInComposition];
-                [v99 setTimeRangeInComposition:{RCTimeRangeMake(v104, v102 + v105)}];
+                v76 = *(*(&v97 + 1) + 8 * m);
+                [v76 timeRangeInContentToUse];
+                RCTimeRangeDeltaWithExactPrecision(v77, v78);
+                [v76 timeRangeInComposition];
+                [v76 timeRangeInComposition];
+                RCTimeRangeMake();
+                [v76 setTimeRangeInComposition:?];
               }
 
-              v96 = [v94 countByEnumeratingWithState:&v125 objects:v138 count:16];
+              v73 = [v71 countByEnumeratingWithState:&v97 objects:v110 count:16];
             }
 
-            while (v96);
+            while (v73);
           }
         }
 
-        v114 = [obj countByEnumeratingWithState:&v121 objects:v137 count:16];
+        v86 = [obj countByEnumeratingWithState:&v93 objects:v109 count:16];
       }
 
-      while (v114);
-LABEL_77:
+      while (v86);
+LABEL_75:
 
       [array3 addObjectsFromArray:array];
       [array removeAllObjects];
       v3 = 0;
       v2 = 1;
-      if ((v110 & 1) == 0)
+      if ((v82 & 1) == 0)
       {
 
-        goto LABEL_80;
+        goto LABEL_78;
       }
     }
   }
 
   array3 = [MEMORY[0x277CBEA60] array];
-LABEL_80:
-  v106 = *MEMORY[0x277D85DE8];
+LABEL_78:
 
   return array3;
 }
@@ -2023,7 +2005,7 @@ LABEL_80:
   return v5;
 }
 
-uint64_t __72__RCComposition__isSessionWithModificationAccessActiveForComposedAVURL___block_invoke(uint64_t a1, void *a2)
+void *__72__RCComposition__isSessionWithModificationAccessActiveForComposedAVURL___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 containsObject:*(a1 + 32)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -2069,67 +2051,63 @@ void __53__RCComposition__markCompositionAVURLsBeingModified___block_invoke(uint
 
 - (BOOL)rcs_allAssetsAreMissing
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   composedAVURL = [(RCComposition *)self composedAVURL];
   v4 = [composedAVURL checkResourceIsReachableAndReturnError:0];
 
   if (v4)
   {
-    v5 = 0;
+    return 0;
   }
 
-  else
+  v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  decomposedFragments = [(RCComposition *)self decomposedFragments];
+  v7 = [decomposedFragments countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (v7)
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
-    v16 = 0u;
-    decomposedFragments = [(RCComposition *)self decomposedFragments];
-    v7 = [decomposedFragments countByEnumeratingWithState:&v15 objects:v19 count:16];
-    if (v7)
+    v8 = v7;
+    v9 = *v15;
+    while (2)
     {
-      v8 = v7;
-      v9 = *v16;
-      while (2)
+      for (i = 0; i != v8; ++i)
       {
-        for (i = 0; i != v8; ++i)
+        if (*v15 != v9)
         {
-          if (*v16 != v9)
-          {
-            objc_enumerationMutation(decomposedFragments);
-          }
-
-          aVOutputURL = [*(*(&v15 + 1) + 8 * i) AVOutputURL];
-          v12 = [aVOutputURL checkResourceIsReachableAndReturnError:0];
-
-          if (v12)
-          {
-            v5 = 0;
-            goto LABEL_13;
-          }
+          objc_enumerationMutation(decomposedFragments);
         }
 
-        v8 = [decomposedFragments countByEnumeratingWithState:&v15 objects:v19 count:16];
-        if (v8)
-        {
-          continue;
-        }
+        aVOutputURL = [*(*(&v14 + 1) + 8 * i) AVOutputURL];
+        v12 = [aVOutputURL checkResourceIsReachableAndReturnError:0];
 
-        break;
+        if (v12)
+        {
+          v5 = 0;
+          goto LABEL_13;
+        }
       }
-    }
 
-    v5 = 1;
-LABEL_13:
+      v8 = [decomposedFragments countByEnumeratingWithState:&v14 objects:v18 count:16];
+      if (v8)
+      {
+        continue;
+      }
+
+      break;
+    }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
+  v5 = 1;
+LABEL_13:
+
   return v5;
 }
 
 - (id)moveTo:(id)to recordingID:(id)d error:(id *)error
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   toCopy = to;
   dCopy = d;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
@@ -2139,37 +2117,37 @@ LABEL_13:
   v14 = [RCComposition compositionBundleURLForComposedAVURL:toCopy];
   if ([defaultManager moveItemAtURL:v13 toURL:v14 error:error])
   {
-    v31 = v14;
-    v33 = v13;
-    v34 = defaultManager;
-    v35 = dCopy;
+    v30 = v14;
+    v32 = v13;
+    v33 = defaultManager;
+    v34 = dCopy;
     v15 = [(RCComposition *)self mutableCopy];
     objc_storeStrong(v15 + 7, to);
     objc_storeStrong(v15 + 8, d);
-    v36 = toCopy;
+    v35 = toCopy;
     v16 = [objc_opt_class() _compositionFragmentsFolderForComposedAVURL:toCopy];
     v17 = objc_opt_new();
+    v36 = 0u;
     v37 = 0u;
     v38 = 0u;
     v39 = 0u;
-    v40 = 0u;
-    v32 = v15;
+    v31 = v15;
     decomposedFragments = [v15 decomposedFragments];
-    v19 = [decomposedFragments countByEnumeratingWithState:&v37 objects:v41 count:16];
+    v19 = [decomposedFragments countByEnumeratingWithState:&v36 objects:v40 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v38;
+      v21 = *v37;
       do
       {
         for (i = 0; i != v20; ++i)
         {
-          if (*v38 != v21)
+          if (*v37 != v21)
           {
             objc_enumerationMutation(decomposedFragments);
           }
 
-          v23 = *(*(&v37 + 1) + 8 * i);
+          v23 = *(*(&v36 + 1) + 8 * i);
           v24 = [v23 mutableCopy];
           aVOutputURL = [v23 AVOutputURL];
           lastPathComponent = [aVOutputURL lastPathComponent];
@@ -2179,21 +2157,21 @@ LABEL_13:
           [v17 addObject:v24];
         }
 
-        v20 = [decomposedFragments countByEnumeratingWithState:&v37 objects:v41 count:16];
+        v20 = [decomposedFragments countByEnumeratingWithState:&v36 objects:v40 count:16];
       }
 
       while (v20);
     }
 
-    v28 = v32;
-    [v32 setDecomposedFragments:v17];
-    [v32 saveMetadataToDefaultLocation];
+    v28 = v31;
+    [v31 setDecomposedFragments:v17];
+    [v31 saveMetadataToDefaultLocation];
 
-    dCopy = v35;
-    toCopy = v36;
-    v13 = v33;
-    defaultManager = v34;
-    v14 = v31;
+    dCopy = v34;
+    toCopy = v35;
+    v13 = v32;
+    defaultManager = v33;
+    v14 = v30;
   }
 
   else
@@ -2201,14 +2179,12 @@ LABEL_13:
     v28 = 0;
   }
 
-  v29 = *MEMORY[0x277D85DE8];
-
   return v28;
 }
 
 - (id)playableAsset:(id *)asset
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   composedAVURL = [(RCComposition *)self composedAVURL];
   path = [composedAVURL path];
@@ -2231,10 +2207,10 @@ LABEL_13:
     else if (asset)
     {
       v14 = MEMORY[0x277CCA9B8];
-      v19 = *MEMORY[0x277CCA760];
+      v18 = *MEMORY[0x277CCA760];
       composedAVURL3 = [(RCComposition *)self composedAVURL];
-      v20[0] = composedAVURL3;
-      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+      v19[0] = composedAVURL3;
+      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
       *asset = [v14 errorWithDomain:@"com.apple.VoiceMemos.ErrorDomain" code:1 userInfo:v16];
 
       asset = 0;
@@ -2246,39 +2222,37 @@ LABEL_13:
     asset = [(RCComposition *)self _compositionAsset:asset];
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return asset;
 }
 
 - (id)_compositionAsset:(id *)asset
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CE6548];
-  v26 = *MEMORY[0x277CE6240];
-  v27[0] = MEMORY[0x277CBEC38];
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:&v26 count:1];
+  v25 = *MEMORY[0x277CE6240];
+  v26[0] = MEMORY[0x277CBEC38];
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
   v7 = [v5 compositionWithURLAssetInitializationOptions:v6];
 
   v8 = objc_opt_new();
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __51__RCComposition_RCAVFoundation___compositionAsset___block_invoke;
-  v23[3] = &unk_279E44770;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __51__RCComposition_RCAVFoundation___compositionAsset___block_invoke;
+  v22[3] = &unk_279E44770;
   v9 = v8;
-  v24 = v9;
+  v23 = v9;
   v10 = v7;
-  v25 = v10;
-  v11 = MEMORY[0x2743CA3B0](v23);
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __51__RCComposition_RCAVFoundation___compositionAsset___block_invoke_2;
-  v21[3] = &unk_279E44798;
+  v24 = v10;
+  v11 = MEMORY[0x2743CA3B0](v22);
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __51__RCComposition_RCAVFoundation___compositionAsset___block_invoke_2;
+  v20[3] = &unk_279E44798;
   v12 = v11;
-  v22 = v12;
-  v20 = 0;
-  v13 = [(RCComposition *)self _enumerateTracksForInsertion:v21 error:&v20];
-  v14 = v20;
+  v21 = v12;
+  v19 = 0;
+  v13 = [(RCComposition *)self _enumerateTracksForInsertion:v20 error:&v19];
+  v14 = v19;
   if (v13)
   {
     v15 = v10;
@@ -2304,8 +2278,6 @@ LABEL_13:
       v15 = 0;
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -2342,52 +2314,52 @@ uint64_t __51__RCComposition_RCAVFoundation___compositionAsset___block_invoke_2(
 
 - (BOOL)_enumerateTracksForInsertion:(id)insertion error:(id *)error
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   insertionCopy = insertion;
   composedFragments = [(RCComposition *)self composedFragments];
   if ([composedFragments count])
   {
     errorCopy = error;
     v8 = objc_opt_new();
-    v50[0] = MEMORY[0x277D85DD0];
-    v50[1] = 3221225472;
-    v50[2] = __68__RCComposition_RCAVFoundation___enumerateTracksForInsertion_error___block_invoke;
-    v50[3] = &unk_279E447C0;
-    v38 = v8;
-    v51 = v38;
-    v9 = MEMORY[0x2743CA3B0](v50);
+    v51[0] = MEMORY[0x277D85DD0];
+    v51[1] = 3221225472;
+    v51[2] = __68__RCComposition_RCAVFoundation___enumerateTracksForInsertion_error___block_invoke;
+    v51[3] = &unk_279E447C0;
+    v39 = v8;
+    v52 = v39;
+    v9 = MEMORY[0x2743CA3B0](v51);
     v10 = 0;
     v11 = 1;
     v12 = 0uLL;
     do
     {
       v13 = v11;
-      v48 = v12;
       v49 = v12;
-      v46 = v12;
+      v50 = v12;
       v47 = v12;
+      v48 = v12;
       obj = [composedFragments fragmentsWithTrackIndex:v10];
-      v14 = [obj countByEnumeratingWithState:&v46 objects:v54 count:16];
+      v14 = [obj countByEnumeratingWithState:&v47 objects:v55 count:16];
       if (v14)
       {
         v15 = v14;
-        v16 = *v47;
-        v39 = composedFragments;
-        v37 = v13;
+        v16 = *v48;
+        v40 = composedFragments;
+        v38 = v13;
         while (2)
         {
           for (i = 0; i != v15; ++i)
           {
-            if (*v47 != v16)
+            if (*v48 != v16)
             {
               objc_enumerationMutation(obj);
             }
 
-            v18 = *(*(&v46 + 1) + 8 * i);
+            v18 = *(*(&v47 + 1) + 8 * i);
             aVOutputURL = [v18 AVOutputURL];
             v20 = (v9)[2](v9, aVOutputURL);
 
-            if (RCSpatialFeatureFlagIsEnabled())
+            if (RCSpatialFeatureFlagIsEnabled(v21, v22))
             {
               [v20 rc_audioTracksPreferringSpatial];
             }
@@ -2396,64 +2368,64 @@ uint64_t __51__RCComposition_RCAVFoundation___compositionAsset___block_invoke_2(
             {
               [v20 rc_audioTracks];
             }
-            v21 = ;
-            v22 = [v21 count];
-            if (!v22)
+            v23 = ;
+            v24 = [v23 count];
+            if (!v24)
             {
-              v31 = OSLogForCategory(@"Service");
-              if (os_log_type_enabled(v31, OS_LOG_TYPE_FAULT))
+              v33 = OSLogForCategory(@"Service");
+              if (os_log_type_enabled(v33, OS_LOG_TYPE_FAULT))
               {
-                [RCComposition(RCAVFoundation) _enumerateTracksForInsertion:v31 error:?];
+                [RCComposition(RCAVFoundation) _enumerateTracksForInsertion:v33 error:?];
               }
 
               if (errorCopy)
               {
-                v32 = MEMORY[0x277CCA9B8];
-                v52 = *MEMORY[0x277CCA760];
+                v34 = MEMORY[0x277CCA9B8];
+                v53 = *MEMORY[0x277CCA760];
                 aVOutputURL2 = [v18 AVOutputURL];
-                v53 = aVOutputURL2;
-                v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
-                *errorCopy = [v32 errorWithDomain:@"com.apple.VoiceMemos.ErrorDomain" code:1 userInfo:v34];
+                v54 = aVOutputURL2;
+                v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v54 forKeys:&v53 count:1];
+                *errorCopy = [v34 errorWithDomain:@"com.apple.VoiceMemos.ErrorDomain" code:1 userInfo:v36];
               }
 
 LABEL_26:
               LOBYTE(v10) = 0;
-              composedFragments = v39;
+              composedFragments = v40;
               goto LABEL_27;
             }
 
-            v23 = v22;
-            memset(&v45, 0, sizeof(v45));
+            v25 = v24;
+            memset(&v46, 0, sizeof(v46));
             [v18 timeRangeInContentToUse];
-            CMTimeRangeFromRCTimeRange(&v45, v24, v25);
-            memset(&v44, 0, sizeof(v44));
+            CMTimeRangeFromRCTimeRange(&v46, v26, v27);
+            memset(&v45, 0, sizeof(v45));
             [v18 timeRangeInComposition];
-            CMTimeMakeWithSeconds(&v44, v26, kCMDefaultTimeScale);
-            if (v10 >= v23)
+            CMTimeMakeWithSeconds(&v45, v28, kCMDefaultTimeScale);
+            if (v10 >= v25)
             {
-              v27 = 0;
+              v29 = 0;
             }
 
             else
             {
-              v27 = v10;
+              v29 = v10;
             }
 
-            v28 = [v21 objectAtIndexedSubscript:v27];
-            v29 = insertionCopy[2];
+            v30 = [v23 objectAtIndexedSubscript:v29];
+            v31 = insertionCopy[2];
+            v44 = v46;
             v43 = v45;
-            v42 = v44;
-            v30 = v29(insertionCopy, v10, v28, &v43, &v42, errorCopy);
+            v32 = v31(insertionCopy, v10, v30, &v44, &v43, errorCopy);
 
-            if (!v30)
+            if (!v32)
             {
               goto LABEL_26;
             }
           }
 
-          v15 = [obj countByEnumeratingWithState:&v46 objects:v54 count:16];
-          composedFragments = v39;
-          v13 = v37;
+          v15 = [obj countByEnumeratingWithState:&v47 objects:v55 count:16];
+          composedFragments = v40;
+          v13 = v38;
           if (v15)
           {
             continue;
@@ -2477,7 +2449,6 @@ LABEL_27:
     LOBYTE(v10) = 0;
   }
 
-  v35 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -2504,68 +2475,61 @@ id __68__RCComposition_RCAVFoundation___enumerateTracksForInsertion_error___bloc
 
 - (void)initWithDictionaryPListRepresentation:(id *)a1 .cold.1(id *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [*a1 path];
+  v8 = 136315650;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_272442000, v2, v3, "%s -- WARNING: bogus path (%@) detected for composition %@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_272442000, v2, v3, "%s -- WARNING: bogus path (%@) detected for composition %@", v4, v5, v6, v7, v8);
 }
 
 + (void)_compositionLoadedFromMetadataURL:composedAVURL:savedRecordingUUID:creationDate:createIfNeeded:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3(&dword_272442000, v0, v1, "%s -- ERROR: unable to load composition.  Encountered error = %@ while loading.", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_272442000, v0, v1, "%s -- ERROR: unable to load composition.  Encountered error = %@ while loading.", v2, v3, v4, v5, v6);
 }
 
 + (void)_compositionLoadedFromMetadataURL:savedRecording:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3(&dword_272442000, v0, v1, "%s -- ERROR: unable to load composition.  Encountered error = %@ while loading.", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_272442000, v0, v1, "%s -- ERROR: unable to load composition.  Encountered error = %@ while loading.", v2, v3, v4, v5, v6);
 }
 
-- (void)compositionByOverdubbingWithFragment:(double)a1 .cold.1(double a1, double a2)
+- (void)compositionByOverdubbingWithFragment:(uint64_t)a3 .cold.1(double a1, double a2, uint64_t a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = NSStringFromRCTimeRange(a1, a2);
-  OUTLINED_FUNCTION_1_0(&dword_272442000, v2, v3, "%s -- Invalid fragment times:  %@, composedTimeRange = %@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v4 = NSStringFromRCTimeRange(a1, a2);
+  *v11 = 136315650;
+  *&v11[4] = "[RCComposition compositionByOverdubbingWithFragment:]";
+  *&v11[12] = 2112;
+  *&v11[14] = a3;
+  *&v11[22] = 2112;
+  OUTLINED_FUNCTION_1_0(&dword_272442000, v5, v6, "%s -- Invalid fragment times:  %@, composedTimeRange = %@", v7, v8, v9, v10, *v11, *&v11[8], *&v11[16], v4);
 }
 
 - (void)newRandomFragmentWithInsertionTimeRangeInComposition:(void *)a1 trackIndex:pathExtension:.cold.1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 URLByDeletingLastPathComponent];
+  v8 = 136315650;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_272442000, v2, v3, "%s -- ERROR: couldn't createDirectoryAtURL %@, error = %@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_272442000, v2, v3, "%s -- ERROR: couldn't createDirectoryAtURL %@, error = %@", v4, v5, v6, v7, v8);
 }
 
 - (void)saveMetadataToDefaultLocation
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[RCComposition saveMetadataToDefaultLocation]";
-  _os_log_error_impl(&dword_272442000, log, OS_LOG_TYPE_ERROR, "%s -- ERROR: compositionMetadataURL is nil!", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[RCComposition saveMetadataToDefaultLocation]";
+  _os_log_error_impl(&dword_272442000, log, OS_LOG_TYPE_ERROR, "%s -- ERROR: compositionMetadataURL is nil!", &v1, 0xCu);
 }
 
 void __53__RCComposition__markCompositionAVURLsBeingModified___block_invoke_cold_1(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v1 = [a1 valueForKeyPath:@"path.lastPathComponent"];
   v2 = [v1 allObjects];
   v3 = [v2 componentsJoinedByString:{@", "}];
+  v10 = 136315394;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3_0(&dword_272442000, v4, v5, "%s -- current compositionAVURLs being modified: [ %@ ]", v6, v7, v8, v9, 2u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_0(&dword_272442000, v4, v5, "%s -- current compositionAVURLs being modified: [ %@ ]", v6, v7, v8, v9, v10);
 }
 
 @end

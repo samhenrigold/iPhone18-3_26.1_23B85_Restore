@@ -245,41 +245,36 @@ LABEL_11:
 
 - (void)_rangeValidForContainer
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 134218240;
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 134218240;
   selfCopy = self;
-  v5 = 2048;
-  v6 = a2;
-  _os_log_error_impl(&dword_21AB70000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "The DOMDocument changed under our feet: %p != %p", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = 2048;
+  v5 = a2;
+  _os_log_error_impl(&dword_21AB70000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "The DOMDocument changed under our feet: %p != %p", &v2, 0x16u);
 }
 
 - (void)_createScanQueryForBackend
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   container = [self container];
   endNode = [self endNode];
   OUTLINED_FUNCTION_0_7();
   selfCopy = self;
-  v9 = v4;
-  v10 = v5;
-  _os_log_debug_impl(&dword_21AB70000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Will need to register a continuation for frame %@ (once I, %@, am done; I'll stop at %@)", v7, 0x20u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v8 = v4;
+  v9 = v5;
+  _os_log_debug_impl(&dword_21AB70000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Will need to register a continuation for frame %@ (once I, %@, am done; I'll stop at %@)", v6, 0x20u);
 }
 
 - (void)newOperationForContinuation
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   endNode = [a2 endNode];
   [a2 endOffset];
   OUTLINED_FUNCTION_0_7();
-  v7 = endNode;
-  v8 = 1024;
-  v9 = v4;
-  _os_log_debug_impl(&dword_21AB70000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Creating continuation %@. The new start node is %@, the start offset is %d", v6, 0x1Cu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v6 = endNode;
+  v7 = 1024;
+  v8 = v4;
+  _os_log_debug_impl(&dword_21AB70000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Creating continuation %@. The new start node is %@, the start offset is %d", v5, 0x1Cu);
 }
 
 @end

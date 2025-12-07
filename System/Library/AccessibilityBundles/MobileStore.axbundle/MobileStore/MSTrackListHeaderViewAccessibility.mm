@@ -76,7 +76,7 @@
 
 - (id)_accessibilityHitTest:(CGPoint)test withEvent:(id)event
 {
-  v23 = *MEMORY[0x29EDCA608];
+  v22 = *MEMORY[0x29EDCA608];
   if ([event _gsEvent])
   {
     GSEventGetLocationInWindow();
@@ -90,39 +90,39 @@
     v6 = 0.0;
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   _accessibilityChildren = [(MSTrackListHeaderViewAccessibility *)self _accessibilityChildren];
   reverseObjectEnumerator = [_accessibilityChildren reverseObjectEnumerator];
   allObjects = [reverseObjectEnumerator allObjects];
 
-  v12 = [allObjects countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v12 = [allObjects countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v12)
   {
-    v13 = *v19;
+    v13 = *v18;
     while (2)
     {
       for (i = 0; i != v12; i = i + 1)
       {
-        if (*v19 != v13)
+        if (*v18 != v13)
         {
           objc_enumerationMutation(allObjects);
         }
 
-        v15 = *(*(&v18 + 1) + 8 * i);
+        v15 = *(*(&v17 + 1) + 8 * i);
         [v15 accessibilityFrame];
-        v25.x = v6;
-        v25.y = v8;
-        if (CGRectContainsPoint(v26, v25))
+        v24.x = v6;
+        v24.y = v8;
+        if (CGRectContainsPoint(v25, v24))
         {
           v12 = v15;
           goto LABEL_14;
         }
       }
 
-      v12 = [allObjects countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v12 = [allObjects countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v12)
       {
         continue;
@@ -133,8 +133,6 @@
   }
 
 LABEL_14:
-
-  v16 = *MEMORY[0x29EDCA608];
 
   return v12;
 }

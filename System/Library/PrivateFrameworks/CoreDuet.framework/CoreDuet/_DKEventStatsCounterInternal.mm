@@ -1,7 +1,7 @@
 @interface _DKEventStatsCounterInternal
 - (id)initWithCollectionName:(void *)name eventName:(void *)eventName eventType:(void *)type eventTypePossibleValues:(char)values hasResult:(int)result scalar:;
 - (uint64_t)incrementCountByNumber:(void *)number typeValue:(int)value success:;
-- (uint64_t)indexOfTypeValue:(int)value success:;
+- (unint64_t)indexOfTypeValue:(int)value success:;
 - (void)dealloc;
 @end
 
@@ -23,7 +23,7 @@
 
 - (id)initWithCollectionName:(void *)name eventName:(void *)eventName eventType:(void *)type eventTypePossibleValues:(char)values hasResult:(int)result scalar:
 {
-  v40[2] = *MEMORY[0x1E69E9840];
+  v39[2] = *MEMORY[0x1E69E9840];
   v13 = a2;
   nameCopy = name;
   eventNameCopy = eventName;
@@ -33,9 +33,9 @@
     goto LABEL_24;
   }
 
-  v39.receiver = self;
-  v39.super_class = _DKEventStatsCounterInternal;
-  v17 = objc_msgSendSuper2(&v39, sel_init);
+  v38.receiver = self;
+  v38.super_class = _DKEventStatsCounterInternal;
+  v17 = objc_msgSendSuper2(&v38, sel_init);
   self = v17;
   if (!v17)
   {
@@ -102,16 +102,16 @@ LABEL_20:
           PETScalarEventTrackerClass = getPETDistributionEventTrackerClass();
         }
 
-        v35 = [[PETScalarEventTrackerClass alloc] initWithFeatureId:v13 event:nameCopy registerProperties:v25];
-        v36 = self[8];
-        self[8] = v35;
+        v34 = [[PETScalarEventTrackerClass alloc] initWithFeatureId:v13 event:nameCopy registerProperties:v25];
+        v35 = self[8];
+        self[8] = v34;
 
         goto LABEL_23;
       }
 
-      v40[0] = @"true";
-      v40[1] = @"false";
-      v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:2];
+      v39[0] = @"true";
+      v39[1] = @"false";
+      v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:2];
       v29 = [getPETEventPropertyClass() propertyWithName:@"success" possibleValues:v28];
       if (v29)
       {
@@ -139,13 +139,12 @@ LABEL_23:
   selfCopy4 = self;
 LABEL_25:
 
-  v33 = *MEMORY[0x1E69E9840];
   return selfCopy4;
 }
 
-- (uint64_t)indexOfTypeValue:(int)value success:
+- (unint64_t)indexOfTypeValue:(int)value success:
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = v5;
   if (self)
@@ -192,29 +191,29 @@ LABEL_25:
 
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
       {
-        v16 = 136315394;
-        v17 = "[_DKEventStatsCounterInternal indexOfTypeValue:success:]";
-        v18 = 2112;
-        v19 = v6;
+        v15 = 136315394;
+        v16 = "[_DKEventStatsCounterInternal indexOfTypeValue:success:]";
+        v17 = 2112;
+        v18 = v6;
         v8 = MEMORY[0x1E69E9C10];
         v9 = "Skipping %s due to unrecognized type parameter: %@";
 LABEL_24:
-        _os_log_debug_impl(&dword_191750000, v8, OS_LOG_TYPE_DEBUG, v9, &v16, 0x16u);
+        _os_log_debug_impl(&dword_191750000, v8, OS_LOG_TYPE_DEBUG, v9, &v15, 0x16u);
       }
     }
 
     else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
     {
-      v15 = @"unexpected";
+      v14 = @"unexpected";
       if (*(self + 12))
       {
-        v15 = @"missing";
+        v14 = @"missing";
       }
 
-      v16 = 136315394;
-      v17 = "[_DKEventStatsCounterInternal indexOfTypeValue:success:]";
-      v18 = 2112;
-      v19 = v15;
+      v15 = 136315394;
+      v16 = "[_DKEventStatsCounterInternal indexOfTypeValue:success:]";
+      v17 = 2112;
+      v18 = v14;
       v8 = MEMORY[0x1E69E9C10];
       v9 = "Skipping %s due to %@ type parameter";
       goto LABEL_24;
@@ -233,7 +232,6 @@ LABEL_17:
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return self;
 }
 

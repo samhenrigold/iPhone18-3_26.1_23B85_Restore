@@ -450,7 +450,7 @@ id __64__SBAlertItemsController_descriptionBuilderWithMultilinePrefix___block_in
 
 uint64_t __61__SBAlertItemsController_convertUnlockedAlertsToLockedAlerts__block_invoke(uint64_t a1)
 {
-  v2 = SBLogAlertItems();
+  v2 = SBLogAlertItems(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -544,7 +544,7 @@ LABEL_7:
 
 uint64_t __61__SBAlertItemsController_convertLockedAlertsToUnlockedAlerts__block_invoke(uint64_t a1)
 {
-  v2 = SBLogAlertItems();
+  v2 = SBLogAlertItems(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -628,30 +628,30 @@ LABEL_7:
 - (void)activateAlertItem:(id)item animated:(BOOL)animated
 {
   animatedCopy = animated;
-  v14 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   itemCopy = item;
-  BSDispatchQueueAssertMain();
+  v7 = BSDispatchQueueAssertMain();
   if (!itemCopy)
   {
     goto LABEL_13;
   }
 
-  v7 = SBLogAlertItems();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = SBLogAlertItems(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     _publicDescription = [itemCopy _publicDescription];
-    v12 = 138543362;
-    v13 = _publicDescription;
-    _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "Received request to activate alertItem: %{public}@", &v12, 0xCu);
+    v14 = 138543362;
+    v15 = _publicDescription;
+    _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "Received request to activate alertItem: %{public}@", &v14, 0xCu);
   }
 
-  if (!self->_suppressAlertsForKeynote || ![itemCopy suppressForKeynote])
+  if (!self->_suppressAlertsForKeynote || (v10 = [itemCopy suppressForKeynote], !v10))
   {
     if ([itemCopy behavesSuperModally])
     {
       [(SBAlertItemsObjectQueue *)self->_superModalItemsQueue appendObject:itemCopy];
       p_alertItemsQueue = &self->_alertItemsQueue;
-      if (![(SBAlertItemsObjectQueue *)self->_alertItemsQueue containsObject:itemCopy])
+      if ((objc_msgSend_containsObject_(self->_alertItemsQueue) & 1) == 0)
       {
 LABEL_12:
         [(SBAlertItemsController *)self _processAlertItemQueuesAnimated:animatedCopy];
@@ -663,7 +663,7 @@ LABEL_12:
     {
       [(SBAlertItemsObjectQueue *)self->_alertItemsQueue appendObject:itemCopy];
       p_alertItemsQueue = &self->_superModalItemsQueue;
-      if (![(SBAlertItemsObjectQueue *)self->_superModalItemsQueue containsObject:itemCopy])
+      if (!objc_msgSend_containsObject_(self->_superModalItemsQueue))
       {
         goto LABEL_12;
       }
@@ -673,13 +673,13 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  v9 = SBLogAlertItems();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v11 = SBLogAlertItems(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     _publicDescription2 = [itemCopy _publicDescription];
-    v12 = 138543362;
-    v13 = _publicDescription2;
-    _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "Supressing alertItem: %{public}@, for keynote", &v12, 0xCu);
+    v14 = 138543362;
+    v15 = _publicDescription2;
+    _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, "Supressing alertItem: %{public}@, for keynote", &v14, 0xCu);
   }
 
 LABEL_13:
@@ -874,131 +874,134 @@ void __75__SBAlertItemsController__isAlertItemPresentable_outReasonsNotPresentab
 - (void)_processAlertItemsFromQueue:(id)queue animated:(BOOL)animated
 {
   animatedCopy = animated;
-  v43 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   queueCopy = queue;
   if ([queueCopy hasObject])
   {
-    v30 = queueCopy;
+    v33 = queueCopy;
     dequeueAllObjects = [queueCopy dequeueAllObjects];
-    v34 = 0u;
-    v35 = 0u;
-    v36 = 0u;
     v37 = 0u;
-    v7 = [dequeueAllObjects countByEnumeratingWithState:&v34 objects:v42 count:16];
+    v38 = 0u;
+    v39 = 0u;
+    v40 = 0u;
+    v7 = [dequeueAllObjects countByEnumeratingWithState:&v37 objects:v45 count:16];
     if (!v7)
     {
       goto LABEL_29;
     }
 
     v9 = v7;
-    v10 = *v35;
+    v10 = *v38;
     *&v8 = 138543362;
-    v26 = v8;
-    v31 = dequeueAllObjects;
+    v29 = v8;
+    v34 = dequeueAllObjects;
     while (1)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v35 != v10)
+        if (*v38 != v10)
         {
           objc_enumerationMutation(dequeueAllObjects);
         }
 
-        v12 = *(*(&v34 + 1) + 8 * i);
-        v13 = [(SBAlertItemsController *)self _presentationForAlertItem:v12, v26];
+        v12 = *(*(&v37 + 1) + 8 * i);
+        v13 = [(SBAlertItemsController *)self _presentationForAlertItem:v12, v29];
+        v14 = v13;
         if (v13)
         {
-          v14 = SBLogAlertItems();
-          if (!os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+          v15 = SBLogAlertItems(v13);
+          if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_27;
           }
 
           _publicDescription = [v12 _publicDescription];
-          presenter = [v13 presenter];
+          presenter = [v14 presenter];
           *buf = 138543618;
-          v39 = _publicDescription;
-          v40 = 2114;
-          v41 = presenter;
-          _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, "Activation - ignoring activation attempt for %{public}@ because it's already presented by %{public}@.", buf, 0x16u);
+          v42 = _publicDescription;
+          v43 = 2114;
+          v44 = presenter;
+          _os_log_impl(&dword_21ED4E000, v15, OS_LOG_TYPE_DEFAULT, "Activation - ignoring activation attempt for %{public}@ because it's already presented by %{public}@.", buf, 0x16u);
 
           goto LABEL_15;
         }
 
-        v33 = 0;
-        v17 = [(SBAlertItemsController *)self _isAlertItemPresentable:v12 outReasonsNotPresentable:&v33];
-        v14 = v33;
-        if (v17)
+        v36 = 0;
+        v18 = [(SBAlertItemsController *)self _isAlertItemPresentable:v12 outReasonsNotPresentable:&v36];
+        v19 = v36;
+        v15 = v19;
+        if (v18)
         {
-          v32 = 0;
-          v18 = [(SBAlertItemsController *)self _shouldPendAlertItem:v12 outReasonsPended:&v32];
-          _publicDescription = v32;
-          if (v18)
+          v35 = 0;
+          v20 = [(SBAlertItemsController *)self _shouldPendAlertItem:v12 outReasonsPended:&v35];
+          v21 = v35;
+          _publicDescription = v21;
+          if (v20)
           {
-            v19 = SBLogAlertItems();
-            if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+            v22 = SBLogAlertItems(v21);
+            if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
             {
               _publicDescription2 = [v12 _publicDescription];
               *buf = 138543618;
-              v39 = _publicDescription2;
-              v40 = 2114;
-              v41 = _publicDescription;
-              _os_log_impl(&dword_21ED4E000, v19, OS_LOG_TYPE_DEFAULT, "Activation - Pending activation of %{public}@ due to reason: %{public}@", buf, 0x16u);
+              v42 = _publicDescription2;
+              v43 = 2114;
+              v44 = _publicDescription;
+              _os_log_impl(&dword_21ED4E000, v22, OS_LOG_TYPE_DEFAULT, "Activation - Pending activation of %{public}@ due to reason: %{public}@", buf, 0x16u);
 
-              dequeueAllObjects = v31;
+              dequeueAllObjects = v34;
             }
 
-            [v30 appendObject:v12];
+            [v33 appendObject:v12];
 LABEL_15:
 
             goto LABEL_27;
           }
 
-          v23 = [(SBAlertItemsController *)self _presenterForAlertItem:v12];
-          v24 = SBLogAlertItems();
-          v25 = os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT);
-          if (v23)
+          v26 = [(SBAlertItemsController *)self _presenterForAlertItem:v12];
+          v27 = SBLogAlertItems(v26);
+          v28 = os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT);
+          if (v26)
           {
-            if (v25)
+            if (v28)
             {
               _publicDescription3 = [v12 _publicDescription];
               *buf = 138543618;
-              v39 = _publicDescription3;
-              v40 = 2114;
-              v41 = v23;
-              _os_log_impl(&dword_21ED4E000, v24, OS_LOG_TYPE_DEFAULT, "Activation - Presenting %{public}@ with presenter: %{public}@", buf, 0x16u);
+              v42 = _publicDescription3;
+              v43 = 2114;
+              v44 = v26;
+              _os_log_impl(&dword_21ED4E000, v27, OS_LOG_TYPE_DEFAULT, "Activation - Presenting %{public}@ with presenter: %{public}@", buf, 0x16u);
             }
 
-            [(SBAlertItemsController *)self _presentAlertItem:v12 withPresenter:v23 animated:animatedCopy];
+            [(SBAlertItemsController *)self _presentAlertItem:v12 withPresenter:v26 animated:animatedCopy];
           }
 
           else
           {
-            if (v25)
+            if (v28)
             {
               _publicDescription4 = [v12 _publicDescription];
-              *buf = v26;
-              v39 = _publicDescription4;
-              _os_log_impl(&dword_21ED4E000, v24, OS_LOG_TYPE_DEFAULT, "Activation - Pending activation of %{public}@ because no presenter is capable of presenting it currently.", buf, 0xCu);
+              *buf = v29;
+              v42 = _publicDescription4;
+              _os_log_impl(&dword_21ED4E000, v27, OS_LOG_TYPE_DEFAULT, "Activation - Pending activation of %{public}@ because no presenter is capable of presenting it currently.", buf, 0xCu);
             }
 
-            [v30 appendObject:v12];
+            [v33 appendObject:v12];
           }
 
-          dequeueAllObjects = v31;
+          dequeueAllObjects = v34;
         }
 
         else
         {
-          v21 = SBLogAlertItems();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+          v24 = SBLogAlertItems(v19);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
           {
             _publicDescription5 = [v12 _publicDescription];
             *buf = 138543618;
-            v39 = _publicDescription5;
-            v40 = 2114;
-            v41 = v14;
-            _os_log_impl(&dword_21ED4E000, v21, OS_LOG_TYPE_DEFAULT, "Activation - Failed to activate %{public}@ because it's not allowed at this time for reason: %{public}@", buf, 0x16u);
+            v42 = _publicDescription5;
+            v43 = 2114;
+            v44 = v15;
+            _os_log_impl(&dword_21ED4E000, v24, OS_LOG_TYPE_DEFAULT, "Activation - Failed to activate %{public}@ because it's not allowed at this time for reason: %{public}@", buf, 0x16u);
           }
 
           [v12 didFailToActivate];
@@ -1007,12 +1010,12 @@ LABEL_15:
 LABEL_27:
       }
 
-      v9 = [dequeueAllObjects countByEnumeratingWithState:&v34 objects:v42 count:16];
+      v9 = [dequeueAllObjects countByEnumeratingWithState:&v37 objects:v45 count:16];
       if (!v9)
       {
 LABEL_29:
 
-        queueCopy = v30;
+        queueCopy = v33;
         break;
       }
     }
@@ -1168,7 +1171,7 @@ void __58__SBAlertItemsController__presentedAlertItemForPresenter___block_invoke
               application = [*(*(&v80 + 1) + 8 * i) application];
               bundleIdentifier = [application bundleIdentifier];
 
-              if (bundleIdentifier && [allowedBundleIDs containsObject:bundleIdentifier])
+              if (bundleIdentifier && objc_msgSend_containsObject_(allowedBundleIDs))
               {
                 *(v85 + 24) = 0;
 
@@ -1193,7 +1196,7 @@ LABEL_27:
 
       else
       {
-        v19 = [allowedBundleIDs containsObject:@"com.apple.springboard"];
+        v19 = objc_msgSend_containsObject_(allowedBundleIDs);
         v20 = v85;
         if (v19)
         {
@@ -1558,12 +1561,12 @@ uint64_t __64__SBAlertItemsController__shouldPendAlertItem_outReasonsPended___bl
   }
 
 LABEL_11:
-  v11 = [(NSMutableSet *)self->_activePresenters containsObject:lockScreenModalAlertItemPresenter];
+  v11 = objc_msgSend_containsObject_(self->_activePresenters);
   v12 = lockScreenModalAlertItemPresenter;
   if ((v11 & 1) == 0)
   {
 LABEL_12:
-    v13 = [(NSMutableSet *)self->_activePresenters containsObject:lockScreenNotificationsAlertItemPresenter];
+    v13 = objc_msgSend_containsObject_(self->_activePresenters);
     v12 = lockScreenNotificationsAlertItemPresenter;
     if (!v13)
     {
@@ -1580,9 +1583,9 @@ LABEL_19:
   }
 
 LABEL_14:
-  if (!-[NSMutableSet containsObject:](self->_activePresenters, "containsObject:", systemApertureAlertItemPresenter) || ([itemCopy _systemApertureElement], (v15 = objc_claimAutoreleasedReturnValue()) == 0) || (v16 = v15, v17 = systemApertureAlertItemPresenter, v16, !v17))
+  if (!objc_msgSend_containsObject_(self->_activePresenters) || ([itemCopy _systemApertureElement], (v15 = objc_claimAutoreleasedReturnValue()) == 0) || (v16 = v15, v17 = systemApertureAlertItemPresenter, v16, !v17))
   {
-    if ([(NSMutableSet *)self->_activePresenters containsObject:unlockedAlertItemPresenter])
+    if (objc_msgSend_containsObject_(self->_activePresenters))
     {
       v14 = unlockedAlertItemPresenter;
       goto LABEL_19;
@@ -1680,7 +1683,7 @@ LABEL_3:
   }
 
   v12 = [[SBAlertItemPresentation alloc] initWithAlertItem:itemCopy presenter:v10];
-  v13 = SBLogAlertItems();
+  v13 = SBLogAlertItems(v12);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
@@ -1735,8 +1738,7 @@ LABEL_3:
   v23 = v22;
   v26 = v23;
   [(SBAlertItemsController *)self _notifyObservers:v25];
-  [v23 didActivate];
-  v24 = SBLogAlertItems();
+  v24 = SBLogAlertItems([v23 didActivate]);
   if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
@@ -1756,7 +1758,7 @@ LABEL_3:
   v13 = completionCopy;
   if (itemCopy)
   {
-    v14 = SBLogAlertItems();
+    v14 = SBLogAlertItems(completionCopy);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       v15 = SBStringFromAlertItemDeactivateReason();
@@ -1767,7 +1769,7 @@ LABEL_3:
       _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, "Will deactivate alertItem: %{public}@ for reason: %{public}@", buf, 0x16u);
     }
 
-    v16 = [(SBAlertItemsObjectQueue *)self->_alertItemsQueue containsObject:itemCopy];
+    v16 = objc_msgSend_containsObject_(self->_alertItemsQueue);
     v17 = v16;
     if (v16)
     {
@@ -1775,7 +1777,7 @@ LABEL_3:
       [(SBAlertItemsController *)self _reallyDeactivateAlertItem:itemCopy forReason:v8 deactivateBlock:0];
     }
 
-    if ([(SBAlertItemsObjectQueue *)self->_superModalItemsQueue containsObject:itemCopy])
+    if (objc_msgSend_containsObject_(self->_superModalItemsQueue))
     {
       [(SBAlertItemsObjectQueue *)self->_superModalItemsQueue removeObject:itemCopy];
       [(SBAlertItemsController *)self _reallyDeactivateAlertItem:itemCopy forReason:v8 deactivateBlock:0];
@@ -1850,7 +1852,7 @@ uint64_t __86__SBAlertItemsController__deactivateAlertItem_reason_animated_alert
     v12 = *(a1 + 40);
     v13 = *(a1 + 64);
     [v2 _notifyObservers:v11];
-    v3 = [*(*(a1 + 32) + 32) containsObject:*(a1 + 40)];
+    v3 = objc_msgSend_containsObject_(*(*(a1 + 32) + 32));
     v4 = *(a1 + 32);
     if (v3)
     {
@@ -1876,7 +1878,7 @@ uint64_t __86__SBAlertItemsController__deactivateAlertItem_reason_animated_alert
     }
   }
 
-  v8 = SBLogAlertItems();
+  v8 = SBLogAlertItems(a1);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = [*(a1 + 40) _publicDescription];
@@ -2014,7 +2016,7 @@ LABEL_19:
 - (void)_dismissAlertItem:(id)item fromPresenter:(id)presenter forReason:(int)reason animated:(BOOL)animated completion:(id)completion
 {
   v9 = *&reason;
-  v33 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   presenterCopy = presenter;
   completionCopy = completion;
@@ -2038,44 +2040,44 @@ LABEL_19:
   [SBAlertItemsController _dismissAlertItem:fromPresenter:forReason:animated:completion:];
 LABEL_3:
   v16 = [(SBAlertItemsController *)self _presentationForAlertItem:itemCopy];
+  v17 = v16;
   if (!v16)
   {
     [SBAlertItemsController _dismissAlertItem:a2 fromPresenter:self forReason:itemCopy animated:? completion:?];
   }
 
-  v17 = SBLogAlertItems();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v18 = SBLogAlertItems(v16);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v30 = presenterCopy;
-    v31 = 2114;
-    v32 = v16;
-    _os_log_impl(&dword_21ED4E000, v17, OS_LOG_TYPE_DEFAULT, "Deactivation - Presenter:%{public}@ will dismiss presentation: %{public}@.", buf, 0x16u);
+    v31 = presenterCopy;
+    v32 = 2114;
+    v33 = v17;
+    _os_log_impl(&dword_21ED4E000, v18, OS_LOG_TYPE_DEFAULT, "Deactivation - Presenter:%{public}@ will dismiss presentation: %{public}@.", buf, 0x16u);
   }
 
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __88__SBAlertItemsController__dismissAlertItem_fromPresenter_forReason_animated_completion___block_invoke;
-  v23[3] = &unk_2783ADF00;
-  v23[4] = self;
-  v18 = v16;
-  v24 = v18;
-  v25 = itemCopy;
-  v19 = presenterCopy;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __88__SBAlertItemsController__dismissAlertItem_fromPresenter_forReason_animated_completion___block_invoke;
+  v24[3] = &unk_2783ADF00;
+  v24[4] = self;
+  v19 = v17;
+  v25 = v19;
+  v26 = itemCopy;
+  v20 = presenterCopy;
   animatedCopy = animated;
-  v26 = v19;
-  v27 = completionCopy;
-  v20 = completionCopy;
-  v21 = itemCopy;
-  [(SBAlertItemsController *)self _reallyDeactivateAlertItem:v21 forReason:v9 deactivateBlock:v23];
-  v22 = SBLogAlertItems();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  v27 = v20;
+  v28 = completionCopy;
+  v21 = completionCopy;
+  v22 = itemCopy;
+  v23 = SBLogAlertItems([(SBAlertItemsController *)self _reallyDeactivateAlertItem:v22 forReason:v9 deactivateBlock:v24]);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v30 = v19;
-    v31 = 2114;
-    v32 = v18;
-    _os_log_impl(&dword_21ED4E000, v22, OS_LOG_TYPE_DEFAULT, "Deactivation - Presenter:%{public}@ did dismiss presentation: %{public}@.", buf, 0x16u);
+    v31 = v20;
+    v32 = 2114;
+    v33 = v19;
+    _os_log_impl(&dword_21ED4E000, v23, OS_LOG_TYPE_DEFAULT, "Deactivation - Presenter:%{public}@ did dismiss presentation: %{public}@.", buf, 0x16u);
   }
 }
 
@@ -2238,7 +2240,7 @@ LABEL_19:
   return v3;
 }
 
-uint64_t __54__SBAlertItemsController__hasVisibleModalAlertOfType___block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
+void *__54__SBAlertItemsController__hasVisibleModalAlertOfType___block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
   result = [a3 presentsAlertItemsModally];
   if (result)
@@ -2558,33 +2560,34 @@ void __49__SBAlertItemsController_hasLockScreenModalAlert__block_invoke(uint64_t
 {
   pendCopy = pend;
   reasonCopy = reason;
+  v7 = reasonCopy;
   if (!reasonCopy)
   {
     [SBAlertItemsController setForceAlertsToPend:forReason:];
   }
 
-  v7 = SBLogAlertItems();
-  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
+  v8 = SBLogAlertItems(reasonCopy);
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
   if (pendCopy)
   {
-    if (v8)
+    if (v9)
     {
-      [SBAlertItemsController setForceAlertsToPend:reasonCopy forReason:v7];
+      [SBAlertItemsController setForceAlertsToPend:v7 forReason:v8];
     }
 
-    [(NSMutableSet *)self->_forceAlertsToPendReasons addObject:reasonCopy];
+    [(NSMutableSet *)self->_forceAlertsToPendReasons addObject:v7];
   }
 
   else
   {
-    if (v8)
+    if (v9)
     {
-      [SBAlertItemsController setForceAlertsToPend:reasonCopy forReason:v7];
+      [SBAlertItemsController setForceAlertsToPend:v7 forReason:v8];
     }
 
-    v9 = [(NSMutableSet *)self->_forceAlertsToPendReasons count];
-    [(NSMutableSet *)self->_forceAlertsToPendReasons removeObject:reasonCopy];
-    if (v9 && ![(NSMutableSet *)self->_forceAlertsToPendReasons count])
+    v10 = [(NSMutableSet *)self->_forceAlertsToPendReasons count];
+    [(NSMutableSet *)self->_forceAlertsToPendReasons removeObject:v7];
+    if (v10 && ![(NSMutableSet *)self->_forceAlertsToPendReasons count])
     {
       [(SBAlertItemsController *)self activatePendedAlertsIfNecessary];
     }
@@ -2795,7 +2798,7 @@ LABEL_6:
 
 - (void)captureSuppressionAssertion:(id)assertion reason:(id)reason
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   v7 = MEMORY[0x277CCACC8];
   assertionCopy = assertion;
@@ -2826,7 +2829,7 @@ LABEL_3:
     if (reasonCopy)
     {
 LABEL_5:
-      [(NSMapTable *)suppressionAssertionReasons setObject:reasonCopy forKey:v9];
+      v11 = [(NSMapTable *)suppressionAssertionReasons setObject:reasonCopy forKey:v9];
       goto LABEL_8;
     }
   }
@@ -2834,7 +2837,7 @@ LABEL_5:
   else
   {
     strongToStrongObjectsMapTable = [MEMORY[0x277CCAB00] strongToStrongObjectsMapTable];
-    v12 = self->_suppressionAssertionReasons;
+    v13 = self->_suppressionAssertionReasons;
     self->_suppressionAssertionReasons = strongToStrongObjectsMapTable;
 
     suppressionAssertionReasons = self->_suppressionAssertionReasons;
@@ -2844,30 +2847,30 @@ LABEL_5:
     }
   }
 
-  v13 = [v9 description];
-  [(NSMapTable *)suppressionAssertionReasons setObject:v13 forKey:v9];
+  v14 = [v9 description];
+  [(NSMapTable *)suppressionAssertionReasons setObject:v14 forKey:v9];
 
 LABEL_8:
-  v14 = SBLogAlertItems();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = SBLogAlertItems(v11);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v22 = reasonCopy;
-    _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, "Adding alertItemsSuppression assertion : %{public}@", buf, 0xCu);
+    v23 = reasonCopy;
+    _os_log_impl(&dword_21ED4E000, v15, OS_LOG_TYPE_DEFAULT, "Adding alertItemsSuppression assertion : %{public}@", buf, 0xCu);
   }
 
   [(SBAlertItemsController *)self setForceAlertsToPend:1 forReason:@"suppressionAssertions"];
   [(SBAlertItemsController *)self moveActiveUnlockedAlertsToPendingWithAnimation:1 completion:0];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __61__SBAlertItemsController_captureSuppressionAssertion_reason___block_invoke;
-  v17[3] = &unk_2783A8ED8;
-  v18 = reasonCopy;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __61__SBAlertItemsController_captureSuppressionAssertion_reason___block_invoke;
+  v18[3] = &unk_2783A8ED8;
+  v19 = reasonCopy;
   selfCopy = self;
-  v20 = v9;
-  v15 = v9;
-  v16 = reasonCopy;
-  [v15 activateWithHandler:v17];
+  v21 = v9;
+  v16 = v9;
+  v17 = reasonCopy;
+  [v16 activateWithHandler:v18];
 }
 
 void __61__SBAlertItemsController_captureSuppressionAssertion_reason___block_invoke(uint64_t a1)
@@ -2877,10 +2880,10 @@ void __61__SBAlertItemsController_captureSuppressionAssertion_reason___block_inv
   BSDispatchMain();
 }
 
-uint64_t __61__SBAlertItemsController_captureSuppressionAssertion_reason___block_invoke_2(uint64_t a1)
+void *__61__SBAlertItemsController_captureSuppressionAssertion_reason___block_invoke_2(uint64_t a1)
 {
   v9 = *MEMORY[0x277D85DE8];
-  v2 = SBLogAlertItems();
+  v2 = SBLogAlertItems(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);

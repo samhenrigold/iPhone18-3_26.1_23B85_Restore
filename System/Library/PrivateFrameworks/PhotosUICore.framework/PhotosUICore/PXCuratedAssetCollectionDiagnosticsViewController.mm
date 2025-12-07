@@ -207,11 +207,11 @@ void __101__PXCuratedAssetCollectionDiagnosticsViewController_requestCurationDeb
   [MEMORY[0x1E69DD250] animateWithDuration:v4 animations:v3 completion:0.25];
 }
 
-uint64_t __69__PXCuratedAssetCollectionDiagnosticsViewController_hideItemDetails___block_invoke_2(uint64_t result, int a2)
+void *__69__PXCuratedAssetCollectionDiagnosticsViewController_hideItemDetails___block_invoke_2(void *result, int a2)
 {
   if (a2)
   {
-    return [*(*(result + 32) + 1216) setHidden:1];
+    return [*(result[4] + 1216) setHidden:1];
   }
 
   return result;
@@ -407,11 +407,11 @@ uint64_t __82__PXCuratedAssetCollectionDiagnosticsViewController_showItemDetails
   [MEMORY[0x1E69DD250] animateWithDuration:v4 animations:v3 completion:0.25];
 }
 
-uint64_t __74__PXCuratedAssetCollectionDiagnosticsViewController_hideCurationSettings___block_invoke_2(uint64_t result, int a2)
+void *__74__PXCuratedAssetCollectionDiagnosticsViewController_hideCurationSettings___block_invoke_2(void *result, int a2)
 {
   if (a2)
   {
-    return [*(*(result + 32) + 1200) setHidden:1];
+    return [*(result[4] + 1200) setHidden:1];
   }
 
   return result;
@@ -779,11 +779,11 @@ uint64_t __79__PXCuratedAssetCollectionDiagnosticsViewController_displayCurrentC
   return [MEMORY[0x1E69DD250] animateWithDuration:v3 animations:v2 completion:0.25];
 }
 
-uint64_t __79__PXCuratedAssetCollectionDiagnosticsViewController_displayCurrentCurationType__block_invoke_4(uint64_t result, int a2)
+void *__79__PXCuratedAssetCollectionDiagnosticsViewController_displayCurrentCurationType__block_invoke_4(void *result, int a2)
 {
   if (a2)
   {
-    return [*(*(result + 32) + 1208) setHidden:1];
+    return [*(result[4] + 1208) setHidden:1];
   }
 
   return result;
@@ -1696,7 +1696,7 @@ void __72__PXCuratedAssetCollectionDiagnosticsViewController__updateCachedAssets
           objc_enumerationMutation(v13);
         }
 
-        v19 = [*(*(&v21 + 1) + 8 * v18) indexPath];
+        v19 = objc_msgSend_indexPath(*(*(&v21 + 1) + 8 * v18));
         v20 = [*(a1 + 40) objectAtIndexedSubscript:{objc_msgSend(v19, "item")}];
         [*(*(a1 + 32) + *v17) addObject:v20];
 
@@ -1739,15 +1739,15 @@ void __72__PXCuratedAssetCollectionDiagnosticsViewController__updateCachedAssets
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __78__PXCuratedAssetCollectionDiagnosticsViewController_presentTapToRadarIfNeeded__block_invoke(uint64_t result)
+void *__78__PXCuratedAssetCollectionDiagnosticsViewController_presentTapToRadarIfNeeded__block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = *(result + 4);
   if (*(v1 + 1257) == 1)
   {
     if (*(v1 + 1168))
     {
       *(v1 + 1257) = 0;
-      return [*(result + 32) _tapToRadar:0];
+      return [*(result + 4) _tapToRadar:0];
     }
   }
 

@@ -394,11 +394,11 @@ LABEL_10:
 
 - (id)cloudKitAuthTokenWithError:(id *)error
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = objc_msgSend_ckAccount(self, a2, error);
-  v18 = 0;
-  v7 = objc_msgSend__accountCredentialForAccount_withError_(self, v6, v5, &v18);
-  v10 = v18;
+  v17 = 0;
+  v7 = objc_msgSend__accountCredentialForAccount_withError_(self, v6, v5, &v17);
+  v10 = v17;
   if (v7)
   {
     v12 = objc_msgSend_token(v7, v8, v9);
@@ -432,19 +432,17 @@ LABEL_10:
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v20 = v10;
+      v19 = v10;
       _os_log_error_impl(&dword_22506F000, v15, OS_LOG_TYPE_ERROR, "Error getting cloudKitAuthToken: %@", buf, 0xCu);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 - (id)iCloudAuthTokenWithError:(id *)error
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = objc_msgSend_appleAccount(self, a2, error);
   v7 = objc_msgSend_aa_authToken(v4, v5, v6);
 
@@ -459,9 +457,9 @@ LABEL_10:
     v10 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
     {
-      v14 = 138412290;
-      v15 = v9;
-      _os_log_error_impl(&dword_22506F000, v10, OS_LOG_TYPE_ERROR, "Error getting iCloudAuthToken: %@", &v14, 0xCu);
+      v13 = 138412290;
+      v14 = v9;
+      _os_log_error_impl(&dword_22506F000, v10, OS_LOG_TYPE_ERROR, "Error getting iCloudAuthToken: %@", &v13, 0xCu);
       if (!error)
       {
         goto LABEL_7;
@@ -481,7 +479,6 @@ LABEL_7:
   }
 
 LABEL_8:
-  v12 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -502,7 +499,7 @@ LABEL_8:
 
 - (BOOL)canSuspendedAccountRenewCredentials
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_class();
   v6 = objc_msgSend_credentialRenewalDatesBySuspendedAccountID(v3, v4, v5);
   objc_sync_enter(v6);
@@ -520,24 +517,23 @@ LABEL_8:
   if (os_log_type_enabled(*MEMORY[0x277CBC858], OS_LOG_TYPE_INFO))
   {
     v19 = @" not";
-    v22 = 134218754;
-    v23 = v15;
+    v21 = 134218754;
+    v22 = v15;
     if (v17)
     {
       v19 = &stru_28385ED00;
     }
 
-    v24 = 2112;
-    v25 = v9;
-    v26 = 2112;
-    v27 = v11;
-    v28 = 2112;
-    v29 = v19;
-    _os_log_impl(&dword_22506F000, v18, OS_LOG_TYPE_INFO, "It has been %f s since suspended account %@ last renewal date %@. Can%@ renew credentials", &v22, 0x2Au);
+    v23 = 2112;
+    v24 = v9;
+    v25 = 2112;
+    v26 = v11;
+    v27 = 2112;
+    v28 = v19;
+    _os_log_impl(&dword_22506F000, v18, OS_LOG_TYPE_INFO, "It has been %f s since suspended account %@ last renewal date %@. Can%@ renew credentials", &v21, 0x2Au);
   }
 
   objc_sync_exit(v6);
-  v20 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -688,7 +684,7 @@ LABEL_8:
 - (id)urlForDataclass:(id)dataclass preferringGateway:(BOOL)gateway
 {
   gatewayCopy = gateway;
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dataclassCopy = dataclass;
   v8 = objc_msgSend_accountPropertiesForDataclass_(self, v7, dataclassCopy);
   v10 = v8;
@@ -712,22 +708,20 @@ LABEL_8:
     v12 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
     {
-      v15 = 138543618;
-      v16 = dataclassCopy;
-      v17 = 2114;
-      v18 = v10;
-      _os_log_error_impl(&dword_22506F000, v12, OS_LOG_TYPE_ERROR, "Couldn't create url from dataclass %{public}@ with properties %{public}@", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = dataclassCopy;
+      v16 = 2114;
+      v17 = v10;
+      _os_log_error_impl(&dword_22506F000, v12, OS_LOG_TYPE_ERROR, "Couldn't create url from dataclass %{public}@ with properties %{public}@", &v14, 0x16u);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 - (NSString)sharingURLHostname
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = objc_msgSend_accountPropertiesForDataclass_(self, a2, *MEMORY[0x277CB8950]);
   v5 = objc_msgSend_objectForKeyedSubscript_(v3, v4, @"cloudSharingURLHostname");
   if (!objc_msgSend_length(v5, v6, v7))
@@ -740,17 +734,15 @@ LABEL_8:
     v8 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
     {
-      v14 = 138543362;
-      v15 = v3;
-      _os_log_error_impl(&dword_22506F000, v8, OS_LOG_TYPE_ERROR, "Couldn't get sharing URL host from properties %{public}@. Falling back to legacy hostname.", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v3;
+      _os_log_error_impl(&dword_22506F000, v8, OS_LOG_TYPE_ERROR, "Couldn't get sharing URL host from properties %{public}@. Falling back to legacy hostname.", &v13, 0xCu);
     }
 
     v11 = objc_msgSend_displayedHostname(self, v9, v10);
 
     v5 = v11;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

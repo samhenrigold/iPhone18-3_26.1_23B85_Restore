@@ -278,7 +278,7 @@ LABEL_10:
   controllerCopy = controller;
   resultsCopy = results;
   errorCopy = error;
-  v11 = sub_100003B9C();
+  v11 = sub_100003B9C(errorCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     sub_1000C49FC();
@@ -292,17 +292,17 @@ LABEL_10:
     block[3] = &unk_10010AD48;
     block[4] = self;
     dispatch_async(&_dispatch_main_q, block);
-    v12 = sub_100003B9C();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = sub_100003B9C(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      sub_1000C4A30(errorCopy, v12);
+      sub_1000C4A30(errorCopy, v14);
     }
   }
 
   else
   {
-    v13 = sub_100003B9C();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v15 = sub_100003B9C(v12);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
       sub_1000C4AA8();
     }
@@ -317,58 +317,58 @@ LABEL_10:
       sub_1000C4B04();
     }
 
-    v14 = [resultsCopy objectForKey:qword_1001269E8];
-    v15 = [resultsCopy objectForKey:qword_1001269F8];
-    v16 = v15;
-    if (v14 && v15)
+    v16 = [resultsCopy objectForKey:qword_1001269E8];
+    v17 = [resultsCopy objectForKey:qword_1001269F8];
+    v18 = v17;
+    if (v16 && v17)
     {
-      v17 = sub_100003B9C();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+      v19 = sub_100003B9C(v17);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
       {
         sub_1000C4B6C();
       }
 
-      v30[0] = _NSConcreteStackBlock;
-      v30[1] = 3221225472;
-      v30[2] = sub_100032020;
-      v30[3] = &unk_10010AD48;
-      v30[4] = self;
-      dispatch_async(&_dispatch_main_q, v30);
-      v18 = sub_100003B9C();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+      v34[0] = _NSConcreteStackBlock;
+      v34[1] = 3221225472;
+      v34[2] = sub_100032020;
+      v34[3] = &unk_10010AD48;
+      v34[4] = self;
+      dispatch_async(&_dispatch_main_q, v34);
+      v21 = sub_100003B9C(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
         sub_1000C4BA0();
       }
 
-      v24 = 0;
-      v25 = &v24;
-      v26 = 0x3032000000;
-      v27 = sub_100031A7C;
-      v28 = sub_100031A8C;
-      v29 = [[CNFAccountRegistrar alloc] initWithServiceType:0 presentationViewController:self];
-      v19 = v25[5];
-      v20 = +[IMServiceImpl facetimeService];
-      v23[0] = _NSConcreteStackBlock;
-      v23[1] = 3221225472;
-      v23[2] = sub_100032068;
-      v23[3] = &unk_10010B458;
-      v23[4] = self;
-      v23[5] = &v24;
-      [v19 registerAccountWithUsername:v14 password:v16 service:v20 completionBlock:v23];
+      v28 = 0;
+      v29 = &v28;
+      v30 = 0x3032000000;
+      v31 = sub_100031A7C;
+      v32 = sub_100031A8C;
+      v33 = [[CNFAccountRegistrar alloc] initWithServiceType:0 presentationViewController:self];
+      v22 = v29[5];
+      v23 = +[IMServiceImpl facetimeService];
+      v27[0] = _NSConcreteStackBlock;
+      v27[1] = 3221225472;
+      v27[2] = sub_100032068;
+      v27[3] = &unk_10010B458;
+      v27[4] = self;
+      v27[5] = &v28;
+      [v22 registerAccountWithUsername:v16 password:v18 service:v23 completionBlock:v27];
 
-      _Block_object_dispose(&v24, 8);
+      _Block_object_dispose(&v28, 8);
     }
 
     else
     {
-      v22[0] = _NSConcreteStackBlock;
-      v22[1] = 3221225472;
-      v22[2] = sub_100032078;
-      v22[3] = &unk_10010AD48;
-      v22[4] = self;
-      dispatch_async(&_dispatch_main_q, v22);
-      v21 = sub_100003B9C();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v26[0] = _NSConcreteStackBlock;
+      v26[1] = 3221225472;
+      v26[2] = sub_100032078;
+      v26[3] = &unk_10010AD48;
+      v26[4] = self;
+      dispatch_async(&_dispatch_main_q, v26);
+      v25 = sub_100003B9C(v24);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         sub_1000C4B2C();
       }
@@ -380,7 +380,7 @@ LABEL_10:
 {
   completionCopy = completion;
   controllerCopy = controller;
-  v7 = sub_100003B9C();
+  v7 = sub_100003B9C(controllerCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     sub_1000C4BD4();
@@ -388,8 +388,8 @@ LABEL_10:
 
   if (completionCopy)
   {
-    v8 = sub_100003B9C();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v9 = sub_100003B9C(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       sub_1000C4C3C();
     }
@@ -405,8 +405,8 @@ LABEL_10:
 
   else if (controllerCopy)
   {
-    v11 = sub_100003B9C();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v12 = sub_100003B9C(v8);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       sub_1000C4C08();
     }
@@ -424,7 +424,7 @@ LABEL_10:
 
 - (void)registrationViewSignInPhoneAccount:(id)account
 {
-  v4 = sub_100003B9C();
+  v4 = sub_100003B9C(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -460,7 +460,7 @@ LABEL_10:
         v14 = *(*(&v21 + 1) + 8 * i);
         if ([v14 accountType] == 2)
         {
-          v15 = sub_100003B9C();
+          v15 = sub_100003B9C(2);
           if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
           {
             *buf = v19;
@@ -489,7 +489,7 @@ LABEL_10:
 - (void)_registrationTimedOut:(id)out
 {
   outCopy = out;
-  v5 = sub_100003B9C();
+  v5 = sub_100003B9C(outCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v10 = 0;
@@ -570,7 +570,7 @@ LABEL_10:
 
 - (void)_registrationStatusChanged:(id)changed
 {
-  v4 = sub_100003B9C();
+  v4 = sub_100003B9C(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -581,36 +581,36 @@ LABEL_10:
   v6 = +[IMService facetimeService];
   v7 = [v5 accountsForService:v6];
 
+  v30 = 0u;
+  v31 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v26 = 0u;
-  v27 = 0u;
   v8 = v7;
-  v9 = [v8 countByEnumeratingWithState:&v26 objects:v32 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v28 objects:v34 count:16];
   if (!v9)
   {
     goto LABEL_29;
   }
 
   v10 = v9;
-  v11 = *v27;
+  v11 = *v29;
   while (2)
   {
     for (i = 0; i != v10; i = i + 1)
     {
-      if (*v27 != v11)
+      if (*v29 != v11)
       {
         objc_enumerationMutation(v8);
       }
 
-      v13 = *(*(&v26 + 1) + 8 * i);
+      v13 = *(*(&v28 + 1) + 8 * i);
       if ([v13 accountType] == 2)
       {
         registrationStatus = [v13 registrationStatus];
         v15 = registrationStatus;
         if (registrationStatus == 5)
         {
-          v16 = sub_100003B9C();
+          v16 = sub_100003B9C(5);
           if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
@@ -625,11 +625,11 @@ LABEL_10:
             continue;
           }
 
-          v17 = sub_100003B9C();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+          v18 = sub_100003B9C(-1);
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Phone account failed registration", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Phone account failed registration", buf, 2u);
           }
 
           block[0] = _NSConcreteStackBlock;
@@ -640,11 +640,11 @@ LABEL_10:
           dispatch_async(&_dispatch_main_q, block);
         }
 
-        v18 = sub_100003B9C();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+        v19 = sub_100003B9C(v17);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Registration status change handled", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Registration status change handled", buf, 2u);
         }
 
         registrationTimeout = [(PHRegistrationViewController *)self registrationTimeout];
@@ -655,32 +655,32 @@ LABEL_10:
 
         if (completionBlock)
         {
-          v21 = sub_100003B9C();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+          v23 = sub_100003B9C(v22);
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
           {
-            v22 = @"NO";
+            v24 = @"NO";
             if (v15 == 5)
             {
-              v22 = @"YES";
+              v24 = @"YES";
             }
 
             *buf = 138412290;
-            v31 = v22;
-            _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Calling completion block with result: %@", buf, 0xCu);
+            v33 = v24;
+            _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Calling completion block with result: %@", buf, 0xCu);
           }
 
           completionBlock2 = [(PHRegistrationViewController *)self completionBlock];
           (completionBlock2)[2](completionBlock2, v15 == 5);
         }
 
-        v24 = +[NSNotificationCenter defaultCenter];
-        [v24 removeObserver:self name:IMAccountRegistrationStatusChangedNotification object:0];
+        v26 = +[NSNotificationCenter defaultCenter];
+        [v26 removeObserver:self name:IMAccountRegistrationStatusChangedNotification object:0];
 
         goto LABEL_29;
       }
     }
 
-    v10 = [v8 countByEnumeratingWithState:&v26 objects:v32 count:16];
+    v10 = [v8 countByEnumeratingWithState:&v28 objects:v34 count:16];
     if (v10)
     {
       continue;

@@ -39,9 +39,9 @@
   return _init;
 }
 
-uint64_t __48__RERelevanceEngineDiagnosticRegistration__init__block_invoke()
+uint64_t __48__RERelevanceEngineDiagnosticRegistration__init__block_invoke(uint64_t a1, uint64_t a2)
 {
-  result = _REGetIsInternalBuild();
+  result = _REGetIsInternalBuild(a1, a2);
   _isInternalDevice_8 = result;
   return result;
 }
@@ -135,139 +135,139 @@ void __72__RERelevanceEngineDiagnosticRegistration__defaultRegistrationDirectory
   v60 = 0;
   dictionary = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfURL:v11 error:&v60];
   v16 = v60;
+  v17 = v16;
   if (!dictionary)
   {
     dictionary = [MEMORY[0x277CBEAC0] dictionary];
-    v17 = RELogForDomain(0);
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = RELogForDomain(0);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [RERelevanceEngineDiagnosticRegistration _accessEngineDataForProcess:usingBlock:];
     }
   }
 
-  v45 = v16;
+  v45 = v17;
   v46 = v10;
   v48 = processCopy;
-  v52 = REBuildVersion();
+  v52 = REBuildVersion(v16);
   date = [MEMORY[0x277CBEAA8] date];
-  v19 = [dictionary mutableCopy];
+  v20 = [dictionary mutableCopy];
   v56 = 0u;
   v57 = 0u;
   v58 = 0u;
   v59 = 0u;
   obj = dictionary;
-  v20 = [obj countByEnumeratingWithState:&v56 objects:v61 count:16];
-  if (v20)
+  v21 = [obj countByEnumeratingWithState:&v56 objects:v61 count:16];
+  if (v21)
   {
-    v21 = v20;
-    v22 = *v57;
+    v22 = v21;
+    v23 = *v57;
     do
     {
-      for (i = 0; i != v21; ++i)
+      for (i = 0; i != v22; ++i)
       {
-        if (*v57 != v22)
+        if (*v57 != v23)
         {
           objc_enumerationMutation(obj);
         }
 
-        v24 = *(*(&v56 + 1) + 8 * i);
-        v25 = [v19 objectForKeyedSubscript:v24];
-        v26 = [v25 objectForKeyedSubscript:@"Version"];
-        v27 = [v26 isEqualToString:v52];
+        v25 = *(*(&v56 + 1) + 8 * i);
+        v26 = [v20 objectForKeyedSubscript:v25];
+        v27 = [v26 objectForKeyedSubscript:@"Version"];
+        v28 = [v27 isEqualToString:v52];
 
-        if (!v27 || ([date timeIntervalSinceDate:date], fabs(v28) > 604800.0))
+        if (!v28 || ([date timeIntervalSinceDate:date], fabs(v29) > 604800.0))
         {
-          [v19 removeObjectForKey:v24];
+          [v20 removeObjectForKey:v25];
         }
       }
 
-      v21 = [obj countByEnumeratingWithState:&v56 objects:v61 count:16];
+      v22 = [obj countByEnumeratingWithState:&v56 objects:v61 count:16];
     }
 
-    while (v21);
+    while (v22);
   }
 
   v8 = v47;
-  v47[2](v47, v19);
-  if (![v19 count])
+  v47[2](v47, v20);
+  if (![v20 count])
   {
     processCopy = v48;
     [v50 removeObject:v48];
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
     v54 = 0;
-    v30 = v11;
-    v36 = [defaultManager removeItemAtURL:v11 error:&v54];
-    v32 = v54;
+    v31 = v11;
+    v37 = [defaultManager removeItemAtURL:v11 error:&v54];
+    v33 = v54;
 
-    if (!v36)
+    if (!v37)
     {
-      v33 = v46;
-      v34 = v49;
-      v29 = v50;
+      v34 = v46;
+      v35 = v49;
+      v30 = v50;
       goto LABEL_29;
     }
 
-    v37 = RELogForDomain(0);
-    v33 = v46;
-    v34 = v49;
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+    v38 = RELogForDomain(0);
+    v34 = v46;
+    v35 = v49;
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
     {
       [RERelevanceEngineDiagnosticRegistration _accessEngineDataForProcess:usingBlock:];
     }
 
-    v29 = v50;
+    v30 = v50;
     goto LABEL_27;
   }
 
-  v29 = v50;
+  v30 = v50;
   processCopy = v48;
   [v50 addObject:v48];
   v55 = 0;
-  v30 = v11;
-  v31 = [v19 writeToURL:v11 error:&v55];
-  v32 = v55;
-  if ((v31 & 1) == 0)
+  v31 = v11;
+  v32 = [v20 writeToURL:v11 error:&v55];
+  v33 = v55;
+  if ((v32 & 1) == 0)
   {
-    v37 = RELogForDomain(0);
-    v33 = v46;
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+    v38 = RELogForDomain(0);
+    v34 = v46;
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
     {
       [RERelevanceEngineDiagnosticRegistration _accessEngineDataForProcess:usingBlock:];
     }
 
-    v34 = v49;
+    v35 = v49;
 LABEL_27:
 
     goto LABEL_29;
   }
 
-  v33 = v46;
-  v34 = v49;
+  v34 = v46;
+  v35 = v49;
 LABEL_29:
 
-  if (([v34 isEqualToSet:v29] & 1) == 0)
+  if (([v35 isEqualToSet:v30] & 1) == 0)
   {
-    allObjects = [v29 allObjects];
+    allObjects = [v30 allObjects];
     _processesFileURL = [(RERelevanceEngineDiagnosticRegistration *)selfCopy _processesFileURL];
     v53 = 0;
-    v40 = [allObjects writeToURL:_processesFileURL error:&v53];
-    v41 = v53;
+    v41 = [allObjects writeToURL:_processesFileURL error:&v53];
+    v42 = v53;
 
-    if ((v40 & 1) == 0)
+    if ((v41 & 1) == 0)
     {
-      v42 = RELogForDomain(0);
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+      v43 = RELogForDomain(0);
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
       {
-        [RERelevanceEngineDiagnosticRegistration _accessEngineDataForProcess:v41 usingBlock:v42];
+        [RERelevanceEngineDiagnosticRegistration _accessEngineDataForProcess:v42 usingBlock:v43];
       }
     }
 
-    v34 = v49;
-    v29 = v50;
+    v35 = v49;
+    v30 = v50;
   }
 
 LABEL_36:
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 - (void)checkinEngine:(id)engine
@@ -289,70 +289,66 @@ LABEL_36:
 
 void __57__RERelevanceEngineDiagnosticRegistration_checkinEngine___block_invoke(uint64_t a1, void *a2)
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = a2;
   v4 = [v2 name];
-  v5 = REBuildVersion();
+  v5 = REBuildVersion(v4);
   v6 = [MEMORY[0x277CBEAA8] date];
-  v9[0] = @"Version";
-  v9[1] = @"Date";
-  v10[0] = v5;
-  v10[1] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
+  v8[0] = @"Version";
+  v8[1] = @"Date";
+  v9[0] = v5;
+  v9[1] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
   [v3 setObject:v7 forKeyedSubscript:v4];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enumerateAvailableEngines:(id)engines
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   enginesCopy = engines;
   if (enginesCopy && self->_supportsRegistration)
   {
     _allProcesses = [(RERelevanceEngineDiagnosticRegistration *)self _allProcesses];
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
-    v6 = [_allProcesses countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v6 = [_allProcesses countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v16;
+      v8 = *v15;
       do
       {
         v9 = 0;
         do
         {
-          if (*v16 != v8)
+          if (*v15 != v8)
           {
             objc_enumerationMutation(_allProcesses);
           }
 
-          v10 = *(*(&v15 + 1) + 8 * v9);
-          v13[0] = MEMORY[0x277D85DD0];
-          v13[1] = 3221225472;
-          v13[2] = __69__RERelevanceEngineDiagnosticRegistration_enumerateAvailableEngines___block_invoke;
-          v13[3] = &unk_2785FD4B0;
+          v10 = *(*(&v14 + 1) + 8 * v9);
+          v12[0] = MEMORY[0x277D85DD0];
+          v12[1] = 3221225472;
+          v12[2] = __69__RERelevanceEngineDiagnosticRegistration_enumerateAvailableEngines___block_invoke;
+          v12[3] = &unk_2785FD4B0;
           v11 = enginesCopy;
-          v13[4] = v10;
-          v14 = v11;
-          [(RERelevanceEngineDiagnosticRegistration *)self _accessEngineDataForProcess:v10 usingBlock:v13];
+          v12[4] = v10;
+          v13 = v11;
+          [(RERelevanceEngineDiagnosticRegistration *)self _accessEngineDataForProcess:v10 usingBlock:v12];
 
           ++v9;
         }
 
         while (v7 != v9);
-        v7 = [_allProcesses countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v7 = [_allProcesses countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v7);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __69__RERelevanceEngineDiagnosticRegistration_enumerateAvailableEngines___block_invoke(uint64_t a1, void *a2)
@@ -369,44 +365,18 @@ void __69__RERelevanceEngineDiagnosticRegistration_enumerateAvailableEngines___b
 
 - (void)_allProcesses
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_22859F000, a2, OS_LOG_TYPE_ERROR, "Unable to read registration list: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_accessEngineDataForProcess:usingBlock:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_5(&dword_22859F000, v0, v1, "Unable to read process %@ registration data: %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_accessEngineDataForProcess:usingBlock:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_5(&dword_22859F000, v0, v1, "Unable to write process %@ registration data: %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_accessEngineDataForProcess:usingBlock:.cold.3()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_5(&dword_22859F000, v0, v1, "Unable to remove process %@ registration data: %@");
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_22859F000, a2, OS_LOG_TYPE_ERROR, "Unable to read registration list: %@", &v2, 0xCu);
 }
 
 - (void)_accessEngineDataForProcess:(uint64_t)a1 usingBlock:(NSObject *)a2 .cold.4(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_22859F000, a2, OS_LOG_TYPE_ERROR, "Unable to write registration list: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_22859F000, a2, OS_LOG_TYPE_ERROR, "Unable to write registration list: %@", &v2, 0xCu);
 }
 
 @end

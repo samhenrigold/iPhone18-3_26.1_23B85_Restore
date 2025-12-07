@@ -7,10 +7,9 @@ os_log_t __eligibility_log_handle_block_invoke()
 
 void eligibility_xpc_set_message_type(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x29EDCA608];
+  v7 = *MEMORY[0x29EDCA608];
   if (MEMORY[0x29C2B2380](a2) == MEMORY[0x29EDCAA00])
   {
-    v6 = *MEMORY[0x29EDCA608];
 
     xpc_dictionary_set_uint64(a2, "eligibility_message_type", a1);
   }
@@ -25,18 +24,16 @@ void eligibility_xpc_set_message_type(uint64_t a1, void *a2)
     v4 = eligibility_log_handle_log_handle;
     if (os_log_type_enabled(eligibility_log_handle_log_handle, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136315138;
-      v8 = "eligibility_xpc_set_message_type";
-      _os_log_error_impl(&dword_299DEF000, v4, OS_LOG_TYPE_ERROR, "%s: xpc message type must be a dictionary", &v7, 0xCu);
+      v5 = 136315138;
+      v6 = "eligibility_xpc_set_message_type";
+      _os_log_error_impl(&dword_299DEF000, v4, OS_LOG_TYPE_ERROR, "%s: xpc message type must be a dictionary", &v5, 0xCu);
     }
-
-    v5 = *MEMORY[0x29EDCA608];
   }
 }
 
 int64_t eligibility_xpc_send_message_with_reply(void *a1, void *a2)
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v20 = *MEMORY[0x29EDCA608];
   mach_service = xpc_connection_create_mach_service("com.apple.eligibilityd", 0, 0);
   xpc_connection_set_event_handler(mach_service, &__block_literal_global_7);
   xpc_connection_activate(mach_service);
@@ -80,24 +77,24 @@ int64_t eligibility_xpc_send_message_with_reply(void *a1, void *a2)
           dispatch_once(&eligibility_log_handle_once_token, &__block_literal_global);
         }
 
-        v14 = eligibility_log_handle_log_handle;
+        v13 = eligibility_log_handle_log_handle;
         if (os_log_type_enabled(eligibility_log_handle_log_handle, OS_LOG_TYPE_ERROR))
         {
-          v15 = 136315138;
-          v16 = "eligibility_xpc_get_message_type";
-          _os_log_error_impl(&dword_299DEF000, v14, OS_LOG_TYPE_ERROR, "%s: xpc message type must be a dictionary", &v15, 0xCu);
+          v14 = 136315138;
+          v15 = "eligibility_xpc_get_message_type";
+          _os_log_error_impl(&dword_299DEF000, v13, OS_LOG_TYPE_ERROR, "%s: xpc message type must be a dictionary", &v14, 0xCu);
         }
 
         uint64 = 0;
       }
 
-      v15 = 136315650;
-      v16 = "eligibility_xpc_send_message_with_reply";
-      v17 = 2048;
-      v18 = uint64;
-      v19 = 2080;
-      v20 = string;
-      _os_log_error_impl(&dword_299DEF000, v9, OS_LOG_TYPE_ERROR, "%s: Error returned trying to send xpc message %llu: %s", &v15, 0x20u);
+      v14 = 136315650;
+      v15 = "eligibility_xpc_send_message_with_reply";
+      v16 = 2048;
+      v17 = uint64;
+      v18 = 2080;
+      v19 = string;
+      _os_log_error_impl(&dword_299DEF000, v9, OS_LOG_TYPE_ERROR, "%s: Error returned trying to send xpc message %llu: %s", &v14, 0x20u);
     }
 
     int64 = 54;
@@ -142,7 +139,6 @@ LABEL_14:
     }
   }
 
-  v11 = *MEMORY[0x29EDCA608];
   return int64;
 }
 
@@ -225,12 +221,12 @@ int64_t os_eligibility_set_test_mode(BOOL a1)
 
 uint64_t load_eligibility_answers(const char *a1, void *a2)
 {
-  v17 = *MEMORY[0x29EDCA608];
-  v11 = 0;
+  v16 = *MEMORY[0x29EDCA608];
+  v10 = 0;
   if (a1 == 1)
   {
-    v12 = 0;
-    if (asprintf(&v12, "%s%s", "/", "/private/var/db/eligibilityd/eligibility.plist") == -1)
+    v11 = 0;
+    if (asprintf(&v11, "%s%s", "/", "/private/var/db/eligibilityd/eligibility.plist") == -1)
     {
       if (eligibility_log_handle_once_token != -1)
       {
@@ -241,9 +237,9 @@ uint64_t load_eligibility_answers(const char *a1, void *a2)
       if (os_log_type_enabled(eligibility_log_handle_log_handle, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v14 = "copy_eligibility_domain_public_answer_plist_path";
-        v15 = 2080;
-        v16 = "/private/var/db/eligibilityd/eligibility.plist";
+        v13 = "copy_eligibility_domain_public_answer_plist_path";
+        v14 = 2080;
+        v15 = "/private/var/db/eligibilityd/eligibility.plist";
         goto LABEL_28;
       }
     }
@@ -262,9 +258,9 @@ uint64_t load_eligibility_answers(const char *a1, void *a2)
       if (os_log_type_enabled(eligibility_log_handle_log_handle, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
-        v14 = "copy_eligibility_file_path";
-        v15 = 2048;
-        v16 = a1;
+        v13 = "copy_eligibility_file_path";
+        v14 = 2048;
+        v15 = a1;
         v6 = 22;
         _os_log_fault_impl(&dword_299DEF000, v8, OS_LOG_TYPE_FAULT, "%s: Unknown eligibility answer file type: %llu", buf, 0x16u);
         v5 = 0;
@@ -276,8 +272,8 @@ uint64_t load_eligibility_answers(const char *a1, void *a2)
       goto LABEL_18;
     }
 
-    v12 = 0;
-    if (asprintf(&v12, "%s%s", "/", "/private/var/db/os_eligibility/eligibility.plist") == -1)
+    v11 = 0;
+    if (asprintf(&v11, "%s%s", "/", "/private/var/db/os_eligibility/eligibility.plist") == -1)
     {
       if (eligibility_log_handle_once_token != -1)
       {
@@ -288,17 +284,17 @@ uint64_t load_eligibility_answers(const char *a1, void *a2)
       if (os_log_type_enabled(eligibility_log_handle_log_handle, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v14 = "copy_eligibility_domain_answer_plist_path";
-        v15 = 2080;
-        v16 = "/private/var/db/os_eligibility/eligibility.plist";
+        v13 = "copy_eligibility_domain_answer_plist_path";
+        v14 = 2080;
+        v15 = "/private/var/db/os_eligibility/eligibility.plist";
 LABEL_28:
         _os_log_error_impl(&dword_299DEF000, v4, OS_LOG_TYPE_ERROR, "%s: Failed to construct absolute path for relative path: %s", buf, 0x16u);
       }
     }
   }
 
-  v5 = v12;
-  if (!v12)
+  v5 = v11;
+  if (!v11)
   {
 LABEL_18:
     v7 = 0;
@@ -306,8 +302,8 @@ LABEL_18:
     goto LABEL_19;
   }
 
-  v6 = load_eligibility_plist(v12, &v11);
-  v7 = v11;
+  v6 = load_eligibility_plist(v11, &v10);
+  v7 = v10;
 LABEL_19:
   free(v5);
   if (a2 && !v6 && v7)
@@ -320,19 +316,18 @@ LABEL_19:
     xpc_release(v7);
   }
 
-  v9 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
 uint64_t load_eligibility_plist(const char *a1, void *a2)
 {
-  v40 = *MEMORY[0x29EDCA608];
-  memset(&v31.st_size, 0, 48);
+  v39 = *MEMORY[0x29EDCA608];
+  memset(&v30.st_size, 0, 48);
   v4 = open(a1, 0x20000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
   if ((v4 & 0x80000000) == 0)
   {
     v5 = v4;
-    if (fstat(v4, &v31))
+    if (fstat(v4, &v30))
     {
       v6 = *__error();
       if (eligibility_log_handle_once_token != -1)
@@ -348,13 +343,13 @@ uint64_t load_eligibility_plist(const char *a1, void *a2)
 
       v28 = strerror(v6);
       *buf = 136315906;
-      v33 = "load_eligibility_plist";
-      v34 = 2080;
-      v35 = a1;
-      v36 = 2080;
-      v37 = v28;
-      v38 = 1024;
-      v39 = v6;
+      v32 = "load_eligibility_plist";
+      v33 = 2080;
+      v34 = a1;
+      v35 = 2080;
+      v36 = v28;
+      v37 = 1024;
+      v38 = v6;
       v24 = "%s: Failed to stat %s: %s(%d)";
       v25 = v7;
       v26 = 38;
@@ -374,11 +369,11 @@ LABEL_36:
         xpc_release(v8);
       }
 
-      goto LABEL_42;
+      return v6;
     }
 
-    st_size = v31.st_size;
-    if (v31.st_size >> 31)
+    st_size = v30.st_size;
+    if (v30.st_size >> 31)
     {
       if (eligibility_log_handle_once_token != -1)
       {
@@ -389,9 +384,9 @@ LABEL_36:
       if (os_log_type_enabled(eligibility_log_handle_log_handle, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v33 = "load_eligibility_plist";
-        v34 = 2048;
-        v35 = st_size;
+        v32 = "load_eligibility_plist";
+        v33 = 2048;
+        v34 = st_size;
         _os_log_error_impl(&dword_299DEF000, v11, OS_LOG_TYPE_ERROR, "%s: eligibility plist is too large (%zu)", buf, 0x16u);
       }
 
@@ -400,7 +395,7 @@ LABEL_36:
       goto LABEL_36;
     }
 
-    v12 = mmap(0, v31.st_size, 1, 1026, v5, 0);
+    v12 = mmap(0, v30.st_size, 1, 1026, v5, 0);
     if (v12 == -1)
     {
       v6 = *__error();
@@ -417,11 +412,11 @@ LABEL_36:
 
       v23 = strerror(v6);
       *buf = 136315650;
-      v33 = "load_eligibility_plist";
-      v34 = 2080;
-      v35 = a1;
-      v36 = 2080;
-      v37 = v23;
+      v32 = "load_eligibility_plist";
+      v33 = 2080;
+      v34 = a1;
+      v35 = 2080;
+      v36 = v23;
       v24 = "%s: Failed to map file at %s; error: %s";
       v25 = v22;
       v26 = 32;
@@ -458,9 +453,9 @@ LABEL_35:
 
       name = xpc_type_get_name(v16);
       *buf = 136315394;
-      v33 = "load_eligibility_plist";
-      v34 = 2080;
-      v35 = name;
+      v32 = "load_eligibility_plist";
+      v33 = 2080;
+      v34 = name;
       v19 = "%s: Expected plist to be a dictionary but instead was a %s";
       v20 = v17;
       v21 = 22;
@@ -480,7 +475,7 @@ LABEL_35:
       }
 
       *buf = 136315138;
-      v33 = "load_eligibility_plist";
+      v32 = "load_eligibility_plist";
       v19 = "%s: Failed to parse property list";
       v20 = v27;
       v21 = 12;
@@ -500,24 +495,22 @@ LABEL_35:
   if (os_log_type_enabled(eligibility_log_handle_log_handle, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315906;
-    v33 = "load_eligibility_plist";
-    v34 = 2080;
-    v35 = a1;
-    v36 = 2080;
-    v37 = strerror(v6);
-    v38 = 1024;
-    v39 = v6;
+    v32 = "load_eligibility_plist";
+    v33 = 2080;
+    v34 = a1;
+    v35 = 2080;
+    v36 = strerror(v6);
+    v37 = 1024;
+    v38 = v6;
     _os_log_error_impl(&dword_299DEF000, v9, OS_LOG_TYPE_ERROR, "%s: Failed to open %s: %s(%d)", buf, 0x26u);
   }
 
-LABEL_42:
-  v29 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
 uint64_t os_eligibility_get_domain_answer(const char *a1, int64_t *a2, int64_t *a3, void *a4, xpc_object_t *a5)
 {
-  v40 = *MEMORY[0x29EDCA608];
+  v39 = *MEMORY[0x29EDCA608];
   xdict = 0;
   v8 = a1 - 1;
   if ((a1 - 1) > 0x84)
@@ -531,9 +524,9 @@ uint64_t os_eligibility_get_domain_answer(const char *a1, int64_t *a2, int64_t *
     if (os_log_type_enabled(eligibility_log_handle_log_handle, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v35 = "os_eligibility_get_domain_answer";
-      v36 = 2048;
-      v37 = a1;
+      v34 = "os_eligibility_get_domain_answer";
+      v35 = 2048;
+      v36 = a1;
       v14 = 22;
       _os_log_error_impl(&dword_299DEF000, v15, OS_LOG_TYPE_ERROR, "%s: Invalid domain %llu", buf, 0x16u);
       v12 = 0;
@@ -573,11 +566,11 @@ LABEL_8:
     if (os_log_type_enabled(eligibility_log_handle_log_handle, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v35 = "os_eligibility_get_domain_answer";
-      v36 = 2080;
-      v37 = v11;
-      v38 = 2048;
-      v39 = a1;
+      v34 = "os_eligibility_get_domain_answer";
+      v35 = 2080;
+      v36 = v11;
+      v37 = 2048;
+      v38 = a1;
       _os_log_error_impl(&dword_299DEF000, v23, OS_LOG_TYPE_ERROR, "%s: Domain %s(%llu) missing from plist", buf, 0x20u);
     }
 
@@ -600,9 +593,9 @@ LABEL_8:
     if (os_log_type_enabled(eligibility_log_handle_log_handle, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v35 = "os_eligibility_get_domain_answer";
-      v36 = 2080;
-      v37 = v11;
+      v34 = "os_eligibility_get_domain_answer";
+      v35 = 2080;
+      v36 = v11;
       _os_log_error_impl(&dword_299DEF000, v24, OS_LOG_TYPE_ERROR, "%s: Unable to read eligibility answer for domain: %s", buf, 0x16u);
     }
 
@@ -629,9 +622,9 @@ LABEL_8:
     if (os_log_type_enabled(eligibility_log_handle_log_handle, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v35 = "os_eligibility_get_domain_answer";
-      v36 = 2080;
-      v37 = v11;
+      v34 = "os_eligibility_get_domain_answer";
+      v35 = 2080;
+      v36 = v11;
       _os_log_error_impl(&dword_299DEF000, v27, OS_LOG_TYPE_ERROR, "%s: Unable to read eligibility source for domain: %s", buf, 0x16u);
     }
 
@@ -842,16 +835,15 @@ LABEL_63:
     xpc_release(xdict);
   }
 
-  v31 = *MEMORY[0x29EDCA608];
   return v14;
 }
 
 uint64_t os_eligibility_get_all_domain_answers(void *a1)
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   v2 = xpc_dictionary_create(0, 0, 0);
-  v12 = 0;
-  if (asprintf(&v12, "%s%s", "/", "/private/var/db/os_eligibility/eligibility.plist") == -1)
+  v11 = 0;
+  if (asprintf(&v11, "%s%s", "/", "/private/var/db/os_eligibility/eligibility.plist") == -1)
   {
     if (eligibility_log_handle_once_token != -1)
     {
@@ -862,16 +854,16 @@ uint64_t os_eligibility_get_all_domain_answers(void *a1)
     if (os_log_type_enabled(eligibility_log_handle_log_handle, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v14 = "copy_eligibility_domain_answer_plist_path";
-      v15 = 2080;
-      v16 = "/private/var/db/os_eligibility/eligibility.plist";
+      v13 = "copy_eligibility_domain_answer_plist_path";
+      v14 = 2080;
+      v15 = "/private/var/db/os_eligibility/eligibility.plist";
       _os_log_error_impl(&dword_299DEF000, v3, OS_LOG_TYPE_ERROR, "%s: Failed to construct absolute path for relative path: %s", buf, 0x16u);
     }
   }
 
-  v4 = v12;
-  v12 = 0;
-  if (asprintf(&v12, "%s%s", "/", "/private/var/db/eligibilityd/eligibility.plist") == -1)
+  v4 = v11;
+  v11 = 0;
+  if (asprintf(&v11, "%s%s", "/", "/private/var/db/eligibilityd/eligibility.plist") == -1)
   {
     if (eligibility_log_handle_once_token != -1)
     {
@@ -882,14 +874,14 @@ uint64_t os_eligibility_get_all_domain_answers(void *a1)
     if (os_log_type_enabled(eligibility_log_handle_log_handle, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v14 = "copy_eligibility_domain_public_answer_plist_path";
-      v15 = 2080;
-      v16 = "/private/var/db/eligibilityd/eligibility.plist";
+      v13 = "copy_eligibility_domain_public_answer_plist_path";
+      v14 = 2080;
+      v15 = "/private/var/db/eligibilityd/eligibility.plist";
       _os_log_error_impl(&dword_299DEF000, v5, OS_LOG_TYPE_ERROR, "%s: Failed to construct absolute path for relative path: %s", buf, 0x16u);
     }
   }
 
-  v6 = v12;
+  v6 = v11;
   appended = _append_plist_keys_to_dictionary(v4, v2);
   if (appended)
   {
@@ -903,11 +895,11 @@ uint64_t os_eligibility_get_all_domain_answers(void *a1)
     if (os_log_type_enabled(eligibility_log_handle_log_handle, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v14 = "os_eligibility_get_all_domain_answers";
-      v15 = 2080;
-      v16 = v4;
-      v17 = 1024;
-      v18 = v8;
+      v13 = "os_eligibility_get_all_domain_answers";
+      v14 = 2080;
+      v15 = v4;
+      v16 = 1024;
+      v17 = v8;
 LABEL_27:
       _os_log_error_impl(&dword_299DEF000, v9, OS_LOG_TYPE_ERROR, "%s: Failed to load in plist %s: error=%d", buf, 0x1Cu);
     }
@@ -927,11 +919,11 @@ LABEL_27:
       if (os_log_type_enabled(eligibility_log_handle_log_handle, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
-        v14 = "os_eligibility_get_all_domain_answers";
-        v15 = 2080;
-        v16 = v6;
-        v17 = 1024;
-        v18 = v8;
+        v13 = "os_eligibility_get_all_domain_answers";
+        v14 = 2080;
+        v15 = v6;
+        v16 = 1024;
+        v17 = v8;
         goto LABEL_27;
       }
     }
@@ -952,19 +944,18 @@ LABEL_27:
     *a1 = v2;
   }
 
-  v10 = *MEMORY[0x29EDCA608];
   return v8;
 }
 
 uint64_t _append_plist_keys_to_dictionary(const char *a1, uint64_t a2)
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v20 = *MEMORY[0x29EDCA608];
   xdict = 0;
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x2000000000;
-  v13 = load_eligibility_plist(a1, &xdict);
-  if (*(v11 + 6))
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x2000000000;
+  v12 = load_eligibility_plist(a1, &xdict);
+  if (*(v10 + 6))
   {
     if (eligibility_log_handle_once_token != -1)
     {
@@ -974,13 +965,13 @@ uint64_t _append_plist_keys_to_dictionary(const char *a1, uint64_t a2)
     v4 = eligibility_log_handle_log_handle;
     if (os_log_type_enabled(eligibility_log_handle_log_handle, OS_LOG_TYPE_ERROR))
     {
-      v5 = *(v11 + 6);
+      v5 = *(v10 + 6);
       *buf = 136315650;
-      v16 = "_append_plist_keys_to_dictionary";
-      v17 = 2080;
-      v18 = a1;
-      v19 = 1024;
-      v20 = v5;
+      v15 = "_append_plist_keys_to_dictionary";
+      v16 = 2080;
+      v17 = a1;
+      v18 = 1024;
+      v19 = v5;
       _os_log_error_impl(&dword_299DEF000, v4, OS_LOG_TYPE_ERROR, "%s: Failed to read in plist %s: error=%d", buf, 0x1Cu);
     }
   }
@@ -991,7 +982,7 @@ uint64_t _append_plist_keys_to_dictionary(const char *a1, uint64_t a2)
     applier[1] = 0x40000000;
     applier[2] = ___append_plist_keys_to_dictionary_block_invoke;
     applier[3] = &unk_29F28F130;
-    applier[4] = &v10;
+    applier[4] = &v9;
     applier[5] = a2;
     xpc_dictionary_apply(xdict, applier);
   }
@@ -1002,15 +993,14 @@ uint64_t _append_plist_keys_to_dictionary(const char *a1, uint64_t a2)
     xdict = 0;
   }
 
-  v6 = *(v11 + 6);
-  _Block_object_dispose(&v10, 8);
-  v7 = *MEMORY[0x29EDCA608];
+  v6 = *(v10 + 6);
+  _Block_object_dispose(&v9, 8);
   return v6;
 }
 
 BOOL ___append_plist_keys_to_dictionary_block_invoke(uint64_t a1, const char *a2, xpc_object_t xdict)
 {
-  v13 = *MEMORY[0x29EDCA608];
+  v12 = *MEMORY[0x29EDCA608];
   int64 = xpc_dictionary_get_int64(xdict, "os_eligibility_answer_t");
   if (int64 < 0)
   {
@@ -1022,11 +1012,11 @@ BOOL ___append_plist_keys_to_dictionary_block_invoke(uint64_t a1, const char *a2
     v6 = eligibility_log_handle_log_handle;
     if (os_log_type_enabled(eligibility_log_handle_log_handle, OS_LOG_TYPE_ERROR))
     {
-      v9 = 136315394;
-      v10 = "_append_plist_keys_to_dictionary_block_invoke";
-      v11 = 2080;
-      v12 = a2;
-      _os_log_error_impl(&dword_299DEF000, v6, OS_LOG_TYPE_ERROR, "%s: Unable to read eligibility answer for domain: %s", &v9, 0x16u);
+      v8 = 136315394;
+      v9 = "_append_plist_keys_to_dictionary_block_invoke";
+      v10 = 2080;
+      v11 = a2;
+      _os_log_error_impl(&dword_299DEF000, v6, OS_LOG_TYPE_ERROR, "%s: Unable to read eligibility answer for domain: %s", &v8, 0x16u);
     }
 
     *(*(*(a1 + 32) + 8) + 24) = 33;
@@ -1037,12 +1027,10 @@ BOOL ___append_plist_keys_to_dictionary_block_invoke(uint64_t a1, const char *a2
     xpc_dictionary_set_uint64(*(a1 + 40), a2, int64);
   }
 
-  result = ((int64 >> 63) & 1) == 0;
-  v8 = *MEMORY[0x29EDCA608];
-  return result;
+  return ((int64 >> 63) & 1) == 0;
 }
 
-uint64_t os_eligibility_get_internal_state(void *a1)
+int64_t os_eligibility_get_internal_state(void *a1)
 {
   if (!a1)
   {
@@ -1074,7 +1062,7 @@ uint64_t os_eligibility_get_internal_state(void *a1)
   return v3;
 }
 
-uint64_t os_eligibility_get_state_dump(void *a1)
+int64_t os_eligibility_get_state_dump(void *a1)
 {
   if (!a1)
   {
@@ -1106,7 +1094,7 @@ uint64_t os_eligibility_get_state_dump(void *a1)
   return v3;
 }
 
-uint64_t os_eligibility_dump_sysdiagnose_data_to_dir(const char *a1)
+int64_t os_eligibility_dump_sysdiagnose_data_to_dir(const char *a1)
 {
   if (!a1)
   {
@@ -1134,40 +1122,33 @@ xpc_object_t os_eligibility_precise_locations()
     xpc_release(objects[i]);
   }
 
-  v2 = *MEMORY[0x29EDCA608];
   return v0;
 }
 
 char *os_eligibility_get_domain_notification_name(uint64_t a1)
 {
-  v9 = *MEMORY[0x29EDCA608];
-  if ((a1 - 1) >= 0x85)
+  v8 = *MEMORY[0x29EDCA608];
+  if ((a1 - 1) < 0x85)
   {
-    if (eligibility_log_handle_once_token != -1)
-    {
-      dispatch_once(&eligibility_log_handle_once_token, &__block_literal_global);
-    }
-
-    v3 = eligibility_log_handle_log_handle;
-    if (os_log_type_enabled(eligibility_log_handle_log_handle, OS_LOG_TYPE_ERROR))
-    {
-      v5 = 136315394;
-      v6 = "os_eligibility_get_domain_notification_name";
-      v7 = 2048;
-      v8 = a1;
-      _os_log_error_impl(&dword_299DEF000, v3, OS_LOG_TYPE_ERROR, "%s: Unable to convert domain to notification string: %llu", &v5, 0x16u);
-    }
-
-    result = 0;
+    return (&off_29F28F150)[a1 - 1];
   }
 
-  else
+  if (eligibility_log_handle_once_token != -1)
   {
-    result = (&off_29F28F150)[a1 - 1];
+    dispatch_once(&eligibility_log_handle_once_token, &__block_literal_global);
   }
 
-  v4 = *MEMORY[0x29EDCA608];
-  return result;
+  v3 = eligibility_log_handle_log_handle;
+  if (os_log_type_enabled(eligibility_log_handle_log_handle, OS_LOG_TYPE_ERROR))
+  {
+    v4 = 136315394;
+    v5 = "os_eligibility_get_domain_notification_name";
+    v6 = 2048;
+    v7 = a1;
+    _os_log_error_impl(&dword_299DEF000, v3, OS_LOG_TYPE_ERROR, "%s: Unable to convert domain to notification string: %llu", &v4, 0x16u);
+  }
+
+  return 0;
 }
 
 uint64_t os_eligibility_domain_for_name(uint64_t result)

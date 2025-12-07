@@ -36,7 +36,7 @@
 
 + (id)load__WithIOSClass:(id)class
 {
-  v4 = JavaLangThread_currentThread();
+  v4 = JavaLangThread_currentThread(self, a2);
   if (!v4)
   {
     JreThrowNullPointerException();

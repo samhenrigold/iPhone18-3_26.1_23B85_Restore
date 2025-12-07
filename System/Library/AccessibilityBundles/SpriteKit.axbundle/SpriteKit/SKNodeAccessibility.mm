@@ -64,20 +64,20 @@ void __59__SKNodeAccessibility__accessibilitySpriteKitChildrenNodes__block_invok
 
 - (CGRect)accessibilityFrame
 {
-  v51 = *MEMORY[0x29EDCA608];
-  v48.receiver = self;
-  v48.super_class = SKNodeAccessibility;
-  [(SKNodeAccessibility *)&v48 accessibilityFrame];
-  x = v52.origin.x;
-  y = v52.origin.y;
-  width = v52.size.width;
-  height = v52.size.height;
-  if (!CGRectIsEmpty(v52))
+  v50 = *MEMORY[0x29EDCA608];
+  v47.receiver = self;
+  v47.super_class = SKNodeAccessibility;
+  [(SKNodeAccessibility *)&v47 accessibilityFrame];
+  x = v51.origin.x;
+  y = v51.origin.y;
+  width = v51.size.width;
+  height = v51.size.height;
+  if (!CGRectIsEmpty(v51))
   {
     goto LABEL_35;
   }
 
-  v47 = 0;
+  v46 = 0;
   objc_opt_class();
   v6 = __UIAccessibilityCastAsClass();
   [v6 frame];
@@ -103,25 +103,25 @@ void __59__SKNodeAccessibility__accessibilitySpriteKitChildrenNodes__block_invok
 
   else
   {
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
     v44 = 0u;
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
     v23 = [MEMORY[0x29EDBA168] valueWithCGPoint:{v8, v10 + v14, 0}];
-    v49[0] = v23;
+    v48[0] = v23;
     v24 = [MEMORY[0x29EDBA168] valueWithCGPoint:{v8 + v12, v10 + v14}];
-    v49[1] = v24;
+    v48[1] = v24;
     v25 = [MEMORY[0x29EDBA168] valueWithCGPoint:{v8, v10}];
-    v49[2] = v25;
+    v48[2] = v25;
     v26 = [MEMORY[0x29EDBA168] valueWithCGPoint:{v8 + v12, v10}];
-    v49[3] = v26;
-    v27 = [MEMORY[0x29EDB8D80] arrayWithObjects:v49 count:4];
+    v48[3] = v26;
+    v27 = [MEMORY[0x29EDB8D80] arrayWithObjects:v48 count:4];
 
-    v28 = [v27 countByEnumeratingWithState:&v43 objects:v50 count:16];
+    v28 = [v27 countByEnumeratingWithState:&v42 objects:v49 count:16];
     if (v28)
     {
       v29 = v28;
-      v30 = *v44;
+      v30 = *v43;
       v31 = -INFINITY;
       v32 = INFINITY;
       v33 = INFINITY;
@@ -130,12 +130,12 @@ void __59__SKNodeAccessibility__accessibilitySpriteKitChildrenNodes__block_invok
       {
         for (i = 0; i != v29; ++i)
         {
-          if (*v44 != v30)
+          if (*v43 != v30)
           {
             objc_enumerationMutation(v27);
           }
 
-          [*(*(&v43 + 1) + 8 * i) CGPointValue];
+          [*(*(&v42 + 1) + 8 * i) CGPointValue];
           [scene convertPoint:parent fromNode:?];
           [scene convertPointToView:?];
           if (v36 >= v34)
@@ -159,7 +159,7 @@ void __59__SKNodeAccessibility__accessibilitySpriteKitChildrenNodes__block_invok
           }
         }
 
-        v29 = [v27 countByEnumeratingWithState:&v43 objects:v50 count:16];
+        v29 = [v27 countByEnumeratingWithState:&v42 objects:v49 count:16];
       }
 
       while (v29);
@@ -173,15 +173,15 @@ void __59__SKNodeAccessibility__accessibilitySpriteKitChildrenNodes__block_invok
       v34 = -INFINITY;
     }
 
-    v53.size.width = v34 - v33;
-    v53.size.height = v31 - v32;
-    v53.origin.x = v33;
-    v53.origin.y = v32;
-    v54 = UIAccessibilityConvertFrameToScreenCoordinates(v53, v18);
-    x = v54.origin.x;
-    y = v54.origin.y;
-    width = v54.size.width;
-    height = v54.size.height;
+    v52.size.width = v34 - v33;
+    v52.size.height = v31 - v32;
+    v52.origin.x = v33;
+    v52.origin.y = v32;
+    v53 = UIAccessibilityConvertFrameToScreenCoordinates(v52, v18);
+    x = v53.origin.x;
+    y = v53.origin.y;
+    width = v53.size.width;
+    height = v53.size.height;
   }
 
   if (v22)
@@ -193,15 +193,14 @@ LABEL_35:
     v14 = height;
   }
 
-  v38 = *MEMORY[0x29EDCA608];
-  v39 = v10;
-  v40 = v8;
-  v41 = v12;
-  v42 = v14;
-  result.size.height = v42;
-  result.size.width = v41;
-  result.origin.y = v40;
-  result.origin.x = v39;
+  v38 = v10;
+  v39 = v8;
+  v40 = v12;
+  v41 = v14;
+  result.size.height = v41;
+  result.size.width = v40;
+  result.origin.y = v39;
+  result.origin.x = v38;
   return result;
 }
 

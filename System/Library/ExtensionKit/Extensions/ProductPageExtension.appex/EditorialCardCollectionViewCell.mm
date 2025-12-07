@@ -50,11 +50,12 @@
   v3 = *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC20ProductPageExtension31EditorialCardCollectionViewCell_lockupViewTappedAction);
   if (v3)
   {
+    v4 = *&self->cardContainerView[OBJC_IVAR____TtC20ProductPageExtension31EditorialCardCollectionViewCell_lockupViewTappedAction];
     selfCopy = self;
-    v5 = sub_10001CE50(v3);
-    v3(v5);
+    v6 = sub_10001CE50(v3, v4);
+    v3(v6);
 
-    sub_1000167E0(v3);
+    sub_1000167E0(v3, v4);
   }
 }
 

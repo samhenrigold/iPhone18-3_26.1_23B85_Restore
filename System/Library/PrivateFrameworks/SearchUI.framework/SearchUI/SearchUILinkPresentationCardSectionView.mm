@@ -255,7 +255,7 @@ void __62__SearchUILinkPresentationCardSectionView_updateWithRowModel___block_in
   }
 }
 
-void __92__SearchUILinkPresentationCardSectionView_fetchMetadataFromMessagesWithURL_completionBlock___block_invoke(uint64_t a1, void *a2, void *a3)
+void __92__SearchUILinkPresentationCardSectionView_fetchMetadataFromMessagesWithURL_completionBlock___block_invoke(void *a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
@@ -273,23 +273,23 @@ void __92__SearchUILinkPresentationCardSectionView_fetchMetadataFromMessagesWith
     v9 = [v7 objectForKeyedSubscript:@"payloadData"];
     v10 = [MEMORY[0x1E696ECD8] linkWithDataRepresentation:v9 attachments:v8];
     v11 = [v10 metadata];
-    v12 = *(a1 + 48);
+    v12 = a1[6];
     if (v11)
     {
-      (*(v12 + 16))(*(a1 + 48), v11, v6);
+      (*(v12 + 16))(a1[6], v11, v6);
     }
 
     else
     {
-      v15 = [objc_opt_class() fallbackMetadataWithURL:*(a1 + 40)];
+      v15 = [objc_opt_class() fallbackMetadataWithURL:a1[5]];
       (*(v12 + 16))(v12, v15, v6);
     }
   }
 
   else
   {
-    v13 = *(a1 + 48);
-    v14 = [objc_opt_class() fallbackMetadataWithURL:*(a1 + 40)];
+    v13 = a1[6];
+    v14 = [objc_opt_class() fallbackMetadataWithURL:a1[5]];
     (*(v13 + 16))(v13, v14, v6);
   }
 }

@@ -30,15 +30,22 @@
 - (int64_t)maxVideoDecodesAllowed;
 - (int64_t)sessionToken;
 - (void)_disableRemoteControlForAllParticipants;
+- (void)_updateConfigurationRemoteControlEnabled:(BOOL)enabled;
+- (void)addParticipant:(id)participant withVideoEnabled:(BOOL)enabled audioPaused:(BOOL)paused screenEnabled:(BOOL)screenEnabled;
 - (void)beginParticipantUpdates;
 - (void)commitParticipantUpdates;
 - (void)disableRemoteControl;
+- (void)enableRemoteControlWithCursorCapture:(BOOL)capture;
 - (void)handleUpdatedControllingRemoteScreen:(BOOL)screen;
 - (void)participant:(id)participant didReact:(id)react;
 - (void)participant:(id)participant mediaPrioritiesDidChange:(id)change;
 - (void)participant:(id)participant mixingDidStartForMediaType:(unsigned int)type mixingMediaType:(unsigned int)mediaType;
 - (void)participant:(id)participant mixingDidStopForMediaType:(unsigned int)type;
+- (void)participant:(id)participant remoteAudioEnabledDidChange:(BOOL)change;
+- (void)participant:(id)participant remoteAudioPausedDidChange:(BOOL)change;
 - (void)participant:(id)participant remoteMediaStateDidChange:(unsigned int)change forMediaType:(unsigned int)type;
+- (void)participant:(id)participant remoteScreenEnabledDidChange:(BOOL)change;
+- (void)participant:(id)participant remoteVideoEnabledDidChange:(BOOL)change;
 - (void)participant:(id)participant screenEnabled:(BOOL)enabled didSucceed:(BOOL)succeed error:(id)error;
 - (void)queueAddParticipantRetryBlock:(id)block withVideoEnabled:(BOOL)enabled audioPaused:(BOOL)paused screenEnabled:(BOOL)screenEnabled;
 - (void)removeParticipant:(id)participant;
@@ -46,31 +53,54 @@
 - (void)screenCapture:(id)capture didStop:(BOOL)stop withError:(id)error;
 - (void)screenCapture:(id)capture didUpdateAttributes:(id)attributes error:(id)error;
 - (void)session:(id)session addParticipant:(id)participant didSucceed:(BOOL)succeed error:(id)error;
+- (void)session:(id)session audioEnabled:(BOOL)enabled didSucceed:(BOOL)succeed error:(id)error;
+- (void)session:(id)session audioPaused:(BOOL)paused didSucceed:(BOOL)succeed error:(id)error;
 - (void)session:(id)session didDetectError:(id)error;
 - (void)session:(id)session didReact:(id)react;
+- (void)session:(id)session didStart:(BOOL)start error:(id)error;
 - (void)session:(id)session didStopWithError:(id)error;
 - (void)session:(id)session didStopWithError:(id)error metadata:(id)metadata;
 - (void)session:(id)session didUpdate:(BOOL)update configuration:(id)configuration error:(id)error;
 - (void)session:(id)session mediaStateDidChange:(unsigned int)change forMediaType:(unsigned int)type didSucceed:(BOOL)succeed error:(id)error;
 - (void)session:(id)session mixingDidStartForMediaType:(unsigned int)type mixingMediaType:(unsigned int)mediaType;
 - (void)session:(id)session mixingDidStopForMediaType:(unsigned int)type;
+- (void)session:(id)session oneToOneEnabled:(BOOL)enabled didSucceed:(BOOL)succeed error:(id)error;
+- (void)session:(id)session removeParticipant:(id)participant didSucceed:(BOOL)succeed error:(id)error;
+- (void)session:(id)session screenEnabled:(BOOL)enabled didSucceed:(BOOL)succeed error:(id)error;
+- (void)session:(id)session videoEnabled:(BOOL)enabled didSucceed:(BOOL)succeed error:(id)error;
+- (void)session:(id)session videoPaused:(BOOL)paused didSucceed:(BOOL)succeed error:(id)error;
 - (void)sessionDidStopReacting:(id)reacting;
 - (void)sessionServerDidDisconnect:(id)disconnect;
 - (void)sessionShouldReconnect:(id)reconnect;
+- (void)setAudioAndVideoMuted:(BOOL)muted forParticipantWithIdentifier:(unint64_t)identifier;
+- (void)setAudioEnabled:(BOOL)enabled;
+- (void)setAudioEnabled:(BOOL)enabled forParticipantWithIdentifier:(unint64_t)identifier;
+- (void)setAudioPaused:(BOOL)paused;
+- (void)setAudioPaused:(BOOL)paused forParticipantWithIdentifier:(unint64_t)identifier;
 - (void)setAudioReady:(BOOL)ready;
+- (void)setDownlinkMuted:(BOOL)muted forParticipantWithIdentifier:(unint64_t)identifier;
 - (void)setGridDisplayMode:(unint64_t)mode;
 - (void)setLocalParticipantCluster:(id)cluster;
+- (void)setOneToOneModeEnabled:(BOOL)enabled;
+- (void)setOneToOneModeEnabled:(BOOL)enabled withCompletionBlock:(id)block;
 - (void)setParticipantCluster:(id)cluster forParticipantWithIdentifier:(unint64_t)identifier;
+- (void)setPlaybackSynchronizationGroupMember:(BOOL)member forParticipantWithIdentifier:(unint64_t)identifier;
 - (void)setPresentationRect:(CGRect)rect;
 - (void)setPresentationState:(int)state;
 - (void)setRelaying:(BOOL)relaying;
+- (void)setScreenEnabled:(BOOL)enabled;
 - (void)setScreenEnabled:(BOOL)enabled attributes:(id)attributes;
+- (void)setScreenEnabled:(BOOL)enabled forParticipantWithIdentifier:(unint64_t)identifier;
 - (void)setScreenShareAttributes:(id)attributes;
 - (void)setScreening:(BOOL)screening;
+- (void)setUplinkMuted:(BOOL)muted;
 - (void)setVideo:(BOOL)video;
+- (void)setVideoEnabled:(BOOL)enabled;
+- (void)setVideoPaused:(BOOL)paused;
 - (void)setVideoQuality:(unint64_t)quality forParticipantWithIdentifier:(unint64_t)identifier;
 - (void)setVideoQuality:(unint64_t)quality visibility:(id)visibility prominence:(id)prominence spatialPosition:(CGRect)position isInCanvas:(BOOL)canvas forParticipantWithIdentifier:(unint64_t)identifier;
 - (void)start;
+- (void)startAVCScreenCaptureWithAttributes:(id)attributes preferImmediateActivation:(BOOL)activation screenControlEnabled:(BOOL)enabled capturesCursor:(BOOL)cursor;
 - (void)stopCapture;
 - (void)stopWithError:(id)error;
 - (void)updateConfigurationSessionMode:(int64_t)mode;
@@ -153,7 +183,7 @@
 
       if ((v39 & 1) == 0)
       {
-        v40 = sub_100004778();
+        v40 = sub_100004778(v38);
         if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
@@ -173,7 +203,7 @@
 
     else
     {
-      v41 = sub_100004778();
+      v41 = sub_100004778(0);
       if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
       {
         sub_10047C694();
@@ -353,6 +383,24 @@
   return queue;
 }
 
+- (void)setUplinkMuted:(BOOL)muted
+{
+  mutedCopy = muted;
+  queue = [(CSDAVCSession *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  v7 = sub_100004778(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v9[0] = 67109120;
+    v9[1] = mutedCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "uplinkMuted: %d", v9, 8u);
+  }
+
+  session = [(CSDAVCSession *)self session];
+  [session setAudioMuted:mutedCopy];
+}
+
 - (BOOL)isAudioEnabled
 {
   queue = [(CSDAVCSession *)self queue];
@@ -362,6 +410,24 @@
   LOBYTE(queue) = [session isAudioEnabled];
 
   return queue;
+}
+
+- (void)setAudioEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  queue = [(CSDAVCSession *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  v7 = sub_100004778(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v9[0] = 67109120;
+    v9[1] = enabledCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "audioEnabled: %d", v9, 8u);
+  }
+
+  session = [(CSDAVCSession *)self session];
+  [session setMediaState:enabledCopy forMediaType:0];
 }
 
 - (BOOL)isVideoEnabled
@@ -392,21 +458,21 @@
   queue = [(CSDAVCSession *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v6 = sub_100004778();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100004778(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v8[0] = 67109120;
-    v8[1] = videoCopy;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "setVideo: %d", v8, 8u);
+    v10[0] = 67109120;
+    v10[1] = videoCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "setVideo: %d", v10, 8u);
   }
 
   if (videoCopy)
   {
-    v7 = sub_100004778();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100004778(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v8[0]) = 0;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "[WARN] Switching to video is currently not supported", v8, 2u);
+      LOWORD(v10[0]) = 0;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "[WARN] Switching to video is currently not supported", v10, 2u);
     }
   }
 
@@ -414,6 +480,57 @@
   {
     self->_video = videoCopy;
   }
+}
+
+- (void)setVideoEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  queue = [(CSDAVCSession *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  if (!enabledCopy || (v6 = +[TUConversationManager allowsVideo], v6))
+  {
+    v7 = sub_100004778(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    {
+      v12[0] = 67109120;
+      v12[1] = enabledCopy;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "videoEnabled: %d", v12, 8u);
+    }
+
+    session = [(CSDAVCSession *)self session];
+    [session setVideoEnabled:enabledCopy];
+
+    if ([(CSDAVCSession *)self captureCapabilities]== 1)
+    {
+      isScreenEnabled = [(CSDAVCSession *)self isScreenEnabled];
+      if (isScreenEnabled)
+      {
+        if (enabledCopy)
+        {
+          v10 = sub_100004778(isScreenEnabled);
+          if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+          {
+            LOWORD(v12[0]) = 0;
+            _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Device does not support screen sharing with camera on, also updating screenEnabled", v12, 2u);
+          }
+
+          session2 = [(CSDAVCSession *)self session];
+          [session2 setScreenEnabled:0];
+        }
+      }
+    }
+  }
+}
+
+- (void)setScreenEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  queue = [(CSDAVCSession *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  defaultScreenShareAttributes = [objc_opt_class() defaultScreenShareAttributes];
+  [(CSDAVCSession *)self setScreenEnabled:enabledCopy attributes:defaultScreenShareAttributes];
 }
 
 - (BOOL)isVideoPaused
@@ -427,6 +544,24 @@
   return queue;
 }
 
+- (void)setVideoPaused:(BOOL)paused
+{
+  pausedCopy = paused;
+  queue = [(CSDAVCSession *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  v7 = sub_100004778(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v9[0] = 67109120;
+    v9[1] = pausedCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "videoPaused: %d", v9, 8u);
+  }
+
+  session = [(CSDAVCSession *)self session];
+  [session setVideoPaused:pausedCopy];
+}
+
 - (BOOL)isAudioPaused
 {
   queue = [(CSDAVCSession *)self queue];
@@ -438,6 +573,24 @@
   return queue;
 }
 
+- (void)setAudioPaused:(BOOL)paused
+{
+  pausedCopy = paused;
+  queue = [(CSDAVCSession *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  v7 = sub_100004778(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v9[0] = 67109120;
+    v9[1] = pausedCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "audioPaused: %d", v9, 8u);
+  }
+
+  session = [(CSDAVCSession *)self session];
+  [session setAudioPaused:pausedCopy];
+}
+
 - (BOOL)isOneToOneModeEnabled
 {
   queue = [(CSDAVCSession *)self queue];
@@ -447,6 +600,30 @@
   LOBYTE(queue) = [session isOneToOneEnabled];
 
   return queue;
+}
+
+- (void)setOneToOneModeEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  queue = [(CSDAVCSession *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  session = [(CSDAVCSession *)self session];
+  isOneToOneEnabled = [session isOneToOneEnabled];
+
+  if (isOneToOneEnabled != enabledCopy)
+  {
+
+    [(CSDAVCSession *)self setOneToOneModeEnabled:enabledCopy withCompletionBlock:0];
+  }
+}
+
+- (void)enableRemoteControlWithCursorCapture:(BOOL)capture
+{
+  queue = [(CSDAVCSession *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  [(CSDAVCSession *)self _updateConfigurationRemoteControlEnabled:1];
 }
 
 - (void)handleUpdatedControllingRemoteScreen:(BOOL)screen
@@ -514,11 +691,11 @@ LABEL_13:
   queue = [(CSDAVCSession *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v4 = sub_100004778();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = sub_100004778(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    *v5 = 0;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Disabling remote control on AVCSession and participants", v5, 2u);
+    *v6 = 0;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Disabling remote control on AVCSession and participants", v6, 2u);
   }
 
   [(CSDAVCSession *)self _updateConfigurationRemoteControlEnabled:0];
@@ -530,45 +707,59 @@ LABEL_13:
   queue = [(CSDAVCSession *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v4 = sub_100004778();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = sub_100004778(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Disabling remote control for all participants", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Disabling remote control for all participants", buf, 2u);
   }
 
-  v13 = 0u;
   v14 = 0u;
-  v11 = 0u;
+  v15 = 0u;
   v12 = 0u;
+  v13 = 0u;
   remoteParticipantsByIdentifier = [(CSDAVCSession *)self remoteParticipantsByIdentifier];
   allValues = [remoteParticipantsByIdentifier allValues];
 
-  v7 = [allValues countByEnumeratingWithState:&v11 objects:v16 count:16];
-  if (v7)
+  v8 = [allValues countByEnumeratingWithState:&v12 objects:v17 count:16];
+  if (v8)
   {
-    v8 = v7;
-    v9 = *v12;
+    v9 = v8;
+    v10 = *v13;
     do
     {
-      v10 = 0;
+      v11 = 0;
       do
       {
-        if (*v12 != v9)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(allValues);
         }
 
-        [*(*(&v11 + 1) + 8 * v10) setScreenControlEnabled:0];
-        v10 = v10 + 1;
+        [*(*(&v12 + 1) + 8 * v11) setScreenControlEnabled:0];
+        v11 = v11 + 1;
       }
 
-      while (v8 != v10);
-      v8 = [allValues countByEnumeratingWithState:&v11 objects:v16 count:16];
+      while (v9 != v11);
+      v9 = [allValues countByEnumeratingWithState:&v12 objects:v17 count:16];
     }
 
-    while (v8);
+    while (v9);
   }
+}
+
+- (void)_updateConfigurationRemoteControlEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  queue = [(CSDAVCSession *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  session = [(CSDAVCSession *)self session];
+  configuration = [session configuration];
+
+  [configuration setRemoteScreenControlEnabled:enabledCopy];
+  session2 = [(CSDAVCSession *)self session];
+  [session2 updateConfiguration:configuration];
 }
 
 - (int)presentationState
@@ -580,7 +771,7 @@ LABEL_13:
   v5 = session;
   if (session)
   {
-    [session presentationInfo];
+    objc_msgSend_presentationInfo(session);
     v6 = v8;
 
     if (v6 == 2)
@@ -607,8 +798,8 @@ LABEL_13:
   dispatch_assert_queue_V2(queue);
 
   [(CSDAVCSession *)self beginParticipantUpdates];
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
   if (state == 2)
   {
     v6 = 2;
@@ -619,34 +810,34 @@ LABEL_13:
     v6 = state == 1;
   }
 
-  v11 = 0uLL;
+  v12 = 0uLL;
   session = [(CSDAVCSession *)self session];
   v8 = session;
   if (session)
   {
-    [session presentationInfo];
+    objc_msgSend_presentationInfo(session);
   }
 
   else
   {
-    v12 = 0u;
     v13 = 0u;
-    v11 = 0u;
+    v14 = 0u;
+    v12 = 0u;
   }
 
-  BYTE8(v13) = v6;
-  v9 = sub_100004778();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  BYTE8(v14) = v6;
+  v10 = sub_100004778(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
     *&buf[4] = v6;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "presentationState: %d", buf, 8u);
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "presentationState: %d", buf, 8u);
   }
 
   session2 = [(CSDAVCSession *)self session];
-  *buf = v11;
-  v15 = v12;
+  *buf = v12;
   v16 = v13;
+  v17 = v14;
   [session2 setPresentationInfo:buf];
 
   [(CSDAVCSession *)self commitParticipantUpdates];
@@ -661,7 +852,7 @@ LABEL_13:
   v5 = session;
   if (session)
   {
-    [session presentationInfo];
+    objc_msgSend_presentationInfo(session);
     v6 = v15;
     v7 = v14;
     v8 = v17;
@@ -697,25 +888,25 @@ LABEL_13:
   dispatch_assert_queue_V2(queue);
 
   [(CSDAVCSession *)self beginParticipantUpdates];
-  v15 = 0u;
+  v16 = 0u;
   session = [(CSDAVCSession *)self session];
   v10 = session;
   if (session)
   {
-    [session presentationInfo];
+    objc_msgSend_presentationInfo(session);
   }
 
   else
   {
-    v15 = 0u;
+    v16 = 0u;
   }
 
-  *&v13 = x;
-  *(&v13 + 1) = y;
-  *&v14 = width;
-  *(&v14 + 1) = height;
-  v11 = sub_100004778();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  *&v14 = x;
+  *(&v14 + 1) = y;
+  *&v15 = width;
+  *(&v15 + 1) = height;
+  v12 = sub_100004778(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218752;
     *&buf[4] = x;
@@ -723,15 +914,15 @@ LABEL_13:
     *&buf[14] = y;
     *&buf[22] = 2048;
     *&buf[24] = width;
-    LOWORD(v17) = 2048;
-    *(&v17 + 2) = height;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "presentationRect: (%f, %f, %f, %f)", buf, 0x2Au);
+    LOWORD(v18) = 2048;
+    *(&v18 + 2) = height;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "presentationRect: (%f, %f, %f, %f)", buf, 0x2Au);
   }
 
   session2 = [(CSDAVCSession *)self session];
-  *buf = v13;
-  *&buf[16] = v14;
-  v17 = v15;
+  *buf = v14;
+  *&buf[16] = v15;
+  v18 = v16;
   [session2 setPresentationInfo:buf];
 
   [(CSDAVCSession *)self commitParticipantUpdates];
@@ -743,36 +934,37 @@ LABEL_13:
   dispatch_assert_queue_V2(queue);
 
   [(CSDAVCSession *)self beginParticipantUpdates];
-  v11 = 0u;
   v12 = 0u;
-  v10 = 0u;
+  v13 = 0u;
+  v11 = 0u;
   session = [(CSDAVCSession *)self session];
   v7 = session;
   if (session)
   {
-    [session presentationInfo];
+    objc_msgSend_presentationInfo(session);
   }
 
   else
   {
-    v11 = 0u;
     v12 = 0u;
-    v10 = 0u;
+    v13 = 0u;
+    v11 = 0u;
   }
 
-  DWORD1(v12) = [(CSDAVCSession *)self presentationLayoutForGridDisplayMode:mode];
-  v8 = sub_100004778();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v8 = [(CSDAVCSession *)self presentationLayoutForGridDisplayMode:mode];
+  DWORD1(v13) = v8;
+  v9 = sub_100004778(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    *&buf[4] = DWORD1(v12);
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "setting presentationLayout: (%u)", buf, 8u);
+    *&buf[4] = DWORD1(v13);
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "setting presentationLayout: (%u)", buf, 8u);
   }
 
   session2 = [(CSDAVCSession *)self session];
-  *buf = v10;
-  v14 = v11;
+  *buf = v11;
   v15 = v12;
+  v16 = v13;
   [session2 setPresentationInfo:buf];
 
   [(CSDAVCSession *)self commitParticipantUpdates];
@@ -812,26 +1004,27 @@ LABEL_13:
   dispatch_assert_queue_V2(queue);
 
   v8 = TUSharePlayForceDisabled();
-  v9 = sub_100004778();
-  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
-  if (v8)
+  v9 = v8;
+  v10 = sub_100004778(v8);
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+  if (v9)
   {
-    if (v10)
+    if (v11)
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "screenEnabled is not supported - returning", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "screenEnabled is not supported - returning", buf, 2u);
     }
 
     goto LABEL_32;
   }
 
-  if (v10)
+  if (v11)
   {
     *buf = 67109378;
-    LODWORD(v32[0]) = enabledCopy;
-    WORD2(v32[0]) = 2112;
-    *(v32 + 6) = attributesCopy;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "setScreenEnabled:%d screenShareAttributes: %@", buf, 0x12u);
+    LODWORD(v35[0]) = enabledCopy;
+    WORD2(v35[0]) = 2112;
+    *(v35 + 6) = attributesCopy;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "setScreenEnabled:%d screenShareAttributes: %@", buf, 0x12u);
   }
 
   if (!enabledCopy)
@@ -863,13 +1056,14 @@ LABEL_13:
   captureCapabilities = [(CSDAVCSession *)self captureCapabilities];
   if (captureCapabilities == 1)
   {
-    if ([(CSDAVCSession *)self isVideoEnabled])
+    isVideoEnabled = [(CSDAVCSession *)self isVideoEnabled];
+    if (isVideoEnabled)
     {
-      v17 = sub_100004778();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v19 = sub_100004778(isVideoEnabled);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Device does not support screen sharing with camera on, also updating videoEnabled", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Device does not support screen sharing with camera on, also updating videoEnabled", buf, 2u);
       }
 
       session2 = [(CSDAVCSession *)self session];
@@ -879,62 +1073,253 @@ LABEL_13:
 
   else if (!captureCapabilities)
   {
-    v12 = sub_100004778();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = sub_100004778(captureCapabilities);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "[WARN] Device does not support screen sharing, ignoring to set screenEnabled", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "[WARN] Device does not support screen sharing, ignoring to set screenEnabled", buf, 2u);
     }
 
     goto LABEL_32;
   }
 
   objc_initWeak(&location, self);
-  v23 = _NSConcreteStackBlock;
-  v24 = 3221225472;
-  v25 = sub_1002111CC;
-  v26 = &unk_10061EBB0;
-  objc_copyWeak(&v28, &location);
-  v29 = enabledCopy;
-  v27 = attributesCopy;
-  v19 = objc_retainBlock(&v23);
-  if ([(CSDAVCSession *)self isOneToOneModeEnabled:v23])
+  v26 = _NSConcreteStackBlock;
+  v27 = 3221225472;
+  v28 = sub_1002111CC;
+  v29 = &unk_10061EBB0;
+  objc_copyWeak(&v31, &location);
+  v32 = enabledCopy;
+  v30 = attributesCopy;
+  v21 = objc_retainBlock(&v26);
+  shouldDisableOneToOneModeForScreenShare = [(CSDAVCSession *)self isOneToOneModeEnabled:v26];
+  if (shouldDisableOneToOneModeForScreenShare)
   {
     shouldDisableOneToOneModeForScreenShare = [(CSDAVCSession *)self shouldDisableOneToOneModeForScreenShare];
+    v23 = shouldDisableOneToOneModeForScreenShare;
   }
 
   else
   {
-    shouldDisableOneToOneModeForScreenShare = 0;
+    v23 = 0;
   }
 
-  v21 = sub_100004778();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  v24 = sub_100004778(shouldDisableOneToOneModeForScreenShare);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
-    v22 = @"NO";
-    if (shouldDisableOneToOneModeForScreenShare)
+    v25 = @"NO";
+    if (v23)
     {
-      v22 = @"YES";
+      v25 = @"YES";
     }
 
     *buf = 138412290;
-    v32[0] = v22;
-    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Determined shouldSwitchToGFTMode: %@", buf, 0xCu);
+    v35[0] = v25;
+    _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Determined shouldSwitchToGFTMode: %@", buf, 0xCu);
   }
 
-  if (shouldDisableOneToOneModeForScreenShare)
+  if (v23)
   {
-    [(CSDAVCSession *)self setOneToOneModeEnabled:0 withCompletionBlock:v19];
+    [(CSDAVCSession *)self setOneToOneModeEnabled:0 withCompletionBlock:v21];
   }
 
   else
   {
-    (v19[2])(v19);
+    (v21[2])(v21);
   }
 
-  objc_destroyWeak(&v28);
+  objc_destroyWeak(&v31);
   objc_destroyWeak(&location);
 LABEL_32:
+}
+
+- (void)setOneToOneModeEnabled:(BOOL)enabled withCompletionBlock:(id)block
+{
+  enabledCopy = enabled;
+  blockCopy = block;
+  queue = [(CSDAVCSession *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  if (blockCopy)
+  {
+    v9 = sub_100004778(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      v19 = 67109120;
+      LODWORD(v20) = enabledCopy;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Queueing completion block to execute after updating oneToOneEnabled: %d", &v19, 8u);
+    }
+
+    sessionUpdateCompletionQueue = [(CSDAVCSession *)self sessionUpdateCompletionQueue];
+    v11 = [blockCopy copy];
+    [sessionUpdateCompletionQueue addObject:v11];
+  }
+
+  else
+  {
+    sessionUpdateCompletionQueue = [(CSDAVCSession *)self sessionUpdateCompletionQueue];
+    [sessionUpdateCompletionQueue addObject:&stru_10061EBD0];
+  }
+
+  session = [(CSDAVCSession *)self session];
+  configuration = [session configuration];
+
+  [configuration setOneToOneModeEnabled:enabledCopy];
+  if (enabledCopy)
+  {
+    outOfProcessCodecsEnabled = [configuration outOfProcessCodecsEnabled];
+  }
+
+  else
+  {
+    outOfProcessCodecsEnabled = 0;
+  }
+
+  v15 = sub_100004778([configuration setOutOfProcessCodecsEnabled:outOfProcessCodecsEnabled]);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  {
+    if (enabledCopy)
+    {
+      v16 = @"YES";
+    }
+
+    else
+    {
+      v16 = @"NO";
+    }
+
+    if ([configuration outOfProcessCodecsEnabled])
+    {
+      v17 = @"YES";
+    }
+
+    else
+    {
+      v17 = @"NO";
+    }
+
+    v19 = 138412546;
+    v20 = v16;
+    v21 = 2112;
+    v22 = v17;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "oneToOneEnabled: %@ oopCodecsEnabled %@", &v19, 0x16u);
+  }
+
+  session2 = [(CSDAVCSession *)self session];
+  [session2 updateConfiguration:configuration];
+}
+
+- (void)startAVCScreenCaptureWithAttributes:(id)attributes preferImmediateActivation:(BOOL)activation screenControlEnabled:(BOOL)enabled capturesCursor:(BOOL)cursor
+{
+  cursorCopy = cursor;
+  attributesCopy = attributes;
+  v10 = sub_100004778(attributesCopy);
+  if (os_signpost_enabled(v10))
+  {
+    LOWORD(buf) = 0;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v10, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "screenCaptureStart", "", &buf, 2u);
+  }
+
+  v11 = [objc_opt_class() avcScreenCaptureConfigurationForScreenAttributes:attributesCopy];
+  [v11 setIsCursorCaptured:cursorCopy];
+  [(CSDAVCSession *)self setMostRecentScreenShareAttributes:attributesCopy];
+  featureFlags = [(CSDAVCSession *)self featureFlags];
+  sharePlayInCallsEnabled = [featureFlags sharePlayInCallsEnabled];
+
+  if (sharePlayInCallsEnabled)
+  {
+    buf = 0u;
+    v43 = 0u;
+    BSAuditTokenForCurrentProcess();
+    v14 = [AVCAuditToken alloc];
+    *v40 = buf;
+    v41 = v43;
+    v15 = [v14 initWithAuditToken:v40];
+    v44 = v15;
+    v16 = [NSArray arrayWithObjects:&v44 count:1];
+    [v11 setExcludedAudioAuditTokens:v16];
+  }
+
+  objc_initWeak(&buf, self);
+  v36[0] = _NSConcreteStackBlock;
+  v36[1] = 3221225472;
+  v36[2] = sub_100211A68;
+  v36[3] = &unk_10061CCB0;
+  objc_copyWeak(&v39, &buf);
+  v17 = v11;
+  v37 = v17;
+  selfCopy = self;
+  v18 = objc_retainBlock(v36);
+  v33[0] = _NSConcreteStackBlock;
+  v33[1] = 3221225472;
+  v33[2] = sub_100211BC8;
+  v33[3] = &unk_10061A600;
+  objc_copyWeak(&v35, &buf);
+  v19 = v17;
+  v34 = v19;
+  v20 = objc_retainBlock(v33);
+  avcScreenCapture = [(CSDAVCSession *)self avcScreenCapture];
+
+  if (avcScreenCapture)
+  {
+    v22 = objc_retainBlock(v20);
+    [(CSDAVCSession *)self stopCapture];
+    captureSessionQueue2 = objc_retainBlock(v18);
+
+    if (activation)
+    {
+      v25 = sub_100004778(v24);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+      {
+        *v40 = 0;
+        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Bypassing capture queue and starting AVCScreenCapture immediately", v40, 2u);
+      }
+
+      captureSessionQueue2[2](captureSessionQueue2);
+      goto LABEL_19;
+    }
+
+    v29 = sub_100004778(v24);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    {
+      *v40 = 0;
+      _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Queueing capture completion block to execute after current capture session is stopped", v40, 2u);
+    }
+
+    captureSessionQueue = [(CSDAVCSession *)self captureSessionQueue];
+    v31 = [captureSessionQueue2 copy];
+    [captureSessionQueue addObject:v31];
+
+LABEL_18:
+LABEL_19:
+
+    goto LABEL_20;
+  }
+
+  session = [(CSDAVCSession *)self session];
+  isScreenEnabled = [session isScreenEnabled];
+
+  if ((isScreenEnabled & 1) == 0)
+  {
+    v32 = sub_100004778(v28);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+    {
+      *v40 = 0;
+      _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "Queueing capture completion block to execute after screen becomes enabled", v40, 2u);
+    }
+
+    captureSessionQueue2 = [(CSDAVCSession *)self captureSessionQueue];
+    captureSessionQueue = [v18 copy];
+    [captureSessionQueue2 addObject:captureSessionQueue];
+    goto LABEL_18;
+  }
+
+  (v18[2])(v18);
+LABEL_20:
+
+  objc_destroyWeak(&v35);
+  objc_destroyWeak(&v39);
+  objc_destroyWeak(&buf);
 }
 
 - (id)clientBundleIDForAVCSession
@@ -999,28 +1384,28 @@ LABEL_32:
   queue = [(CSDAVCSession *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v6 = sub_100004778();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100004778(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = attributesCopy;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "screenShareAttributes: %@", &v11, 0xCu);
+    v13 = 138412290;
+    v14 = attributesCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "screenShareAttributes: %@", &v13, 0xCu);
   }
 
   currentLocalScreenShareAttributes = [(CSDAVCSession *)self currentLocalScreenShareAttributes];
-  v8 = [currentLocalScreenShareAttributes isEqualToScreenShareAttributes:attributesCopy];
+  v9 = [currentLocalScreenShareAttributes isEqualToScreenShareAttributes:attributesCopy];
 
-  if (v8)
+  if (v9)
   {
-    v9 = sub_100004778();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = sub_100004778(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       currentLocalScreenShareAttributes2 = [(CSDAVCSession *)self currentLocalScreenShareAttributes];
-      v11 = 138412546;
-      v12 = attributesCopy;
-      v13 = 2112;
-      v14 = currentLocalScreenShareAttributes2;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "[WARN] Asked to set screenShareAttributes %@ when local attributes are: %@", &v11, 0x16u);
+      v13 = 138412546;
+      v14 = attributesCopy;
+      v15 = 2112;
+      v16 = currentLocalScreenShareAttributes2;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "[WARN] Asked to set screenShareAttributes %@ when local attributes are: %@", &v13, 0x16u);
     }
   }
 
@@ -1036,12 +1421,12 @@ LABEL_32:
   queue = [(CSDAVCSession *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v6 = sub_100004778();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100004778(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 134217984;
+    v11 = 134217984;
     modeCopy = mode;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "updatingSessionMode: %ld", &v10, 0xCu);
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "updatingSessionMode: %ld", &v11, 0xCu);
   }
 
   session = [(CSDAVCSession *)self session];
@@ -1058,20 +1443,20 @@ LABEL_32:
   queue = [(CSDAVCSession *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v6 = sub_100004778();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100004778(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = @"NO";
+    v8 = @"NO";
     if (relayingCopy)
     {
-      v7 = @"YES";
+      v8 = @"YES";
     }
 
-    v9 = 136315394;
-    v10 = "[CSDAVCSession setRelaying:]";
-    v11 = 2112;
-    v12 = v7;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%s:  %@", &v9, 0x16u);
+    v10 = 136315394;
+    v11 = "[CSDAVCSession setRelaying:]";
+    v12 = 2112;
+    v13 = v8;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%s:  %@", &v10, 0x16u);
   }
 
   self->_relaying = relayingCopy;
@@ -1136,7 +1521,7 @@ LABEL_32:
   pausedCopy = paused;
   screenEnabledCopy = screenEnabled;
   v13 = objc_retainBlock(&v17);
-  v14 = sub_100004778();
+  v14 = sub_100004778(v13);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -1152,6 +1537,102 @@ LABEL_32:
   objc_destroyWeak(&location);
 }
 
+- (void)addParticipant:(id)participant withVideoEnabled:(BOOL)enabled audioPaused:(BOOL)paused screenEnabled:(BOOL)screenEnabled
+{
+  screenEnabledCopy = screenEnabled;
+  pausedCopy = paused;
+  enabledCopy = enabled;
+  participantCopy = participant;
+  queue = [(CSDAVCSession *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  sessionUpdateCompletionQueue = [(CSDAVCSession *)self sessionUpdateCompletionQueue];
+  v13 = [sessionUpdateCompletionQueue count];
+
+  if (!v13)
+  {
+    delegate = [(CSDAVCSession *)self delegate];
+    v15 = [delegate session:self conversationParticipantWithParticipantIdentifier:{objc_msgSend(participantCopy, "identifier")}];
+
+    if (v15)
+    {
+      remoteParticipantsByIdentifier = [(CSDAVCSession *)self remoteParticipantsByIdentifier];
+      v18 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [participantCopy identifier]);
+      v19 = [remoteParticipantsByIdentifier objectForKeyedSubscript:v18];
+
+      if (!v19)
+      {
+        objc_initWeak(buf, self);
+        v30[0] = _NSConcreteStackBlock;
+        v30[1] = 3221225472;
+        v30[2] = sub_1002128D8;
+        v30[3] = &unk_10061EBF8;
+        objc_copyWeak(&v32, buf);
+        v31 = participantCopy;
+        v33 = enabledCopy;
+        v34 = pausedCopy;
+        v35 = screenEnabledCopy;
+        v24 = objc_retainBlock(v30);
+        remoteParticipantsByIdentifier2 = [(CSDAVCSession *)self remoteParticipantsByIdentifier];
+        allValues = [remoteParticipantsByIdentifier2 allValues];
+        v27 = [allValues count];
+
+        isOneToOneModeEnabled = [(CSDAVCSession *)self isOneToOneModeEnabled];
+        if (v27 == 1)
+        {
+          v29 = isOneToOneModeEnabled;
+        }
+
+        else
+        {
+          v29 = 0;
+        }
+
+        if (v29 == 1)
+        {
+          [(CSDAVCSession *)self setOneToOneModeEnabled:0 withCompletionBlock:v24];
+        }
+
+        else
+        {
+          (v24[2])(v24);
+        }
+
+        objc_destroyWeak(&v32);
+        objc_destroyWeak(buf);
+        goto LABEL_18;
+      }
+
+      v21 = sub_100004778(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      {
+        v22 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [participantCopy identifier]);
+        *buf = 138412290;
+        v37 = v22;
+        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "[WARN] Ignoring request to add participant %@ because they're already in the conversation", buf, 0xCu);
+      }
+    }
+
+    else
+    {
+      v21 = sub_100004778(v16);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      {
+        v23 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [participantCopy identifier]);
+        *buf = 138412290;
+        v37 = v23;
+        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Could not find participant tracking with identifier %@", buf, 0xCu);
+      }
+    }
+
+LABEL_18:
+    goto LABEL_19;
+  }
+
+  [(CSDAVCSession *)self queueAddParticipantRetryBlock:participantCopy withVideoEnabled:enabledCopy audioPaused:pausedCopy screenEnabled:screenEnabledCopy];
+LABEL_19:
+}
+
 - (void)removeParticipant:(id)participant
 {
   participantCopy = participant;
@@ -1164,83 +1645,83 @@ LABEL_32:
   if (v7)
   {
     objc_initWeak(&location, self);
-    v27[0] = _NSConcreteStackBlock;
-    v27[1] = 3221225472;
-    v27[2] = sub_100212EF0;
-    v27[3] = &unk_10061A600;
-    objc_copyWeak(&v29, &location);
-    v8 = participantCopy;
-    v28 = v8;
-    v9 = objc_retainBlock(v27);
-    v10 = sub_100004778();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v29[0] = _NSConcreteStackBlock;
+    v29[1] = 3221225472;
+    v29[2] = sub_100212EF0;
+    v29[3] = &unk_10061A600;
+    objc_copyWeak(&v31, &location);
+    v9 = participantCopy;
+    v30 = v9;
+    v10 = objc_retainBlock(v29);
+    v11 = sub_100004778(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v32 = v8;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Already have oneToOne transition in progress, delaying removeParticipant request for %@", buf, 0xCu);
+      v34 = v9;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Already have oneToOne transition in progress, delaying removeParticipant request for %@", buf, 0xCu);
     }
 
     sessionUpdateCompletionQueue2 = [(CSDAVCSession *)self sessionUpdateCompletionQueue];
-    v12 = [v9 copy];
-    [sessionUpdateCompletionQueue2 addObject:v12];
+    v13 = [v10 copy];
+    [sessionUpdateCompletionQueue2 addObject:v13];
 
-    objc_destroyWeak(&v29);
+    objc_destroyWeak(&v31);
     objc_destroyWeak(&location);
   }
 
   else
   {
-    v13 = sub_100004778();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = sub_100004778(v8);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v32 = participantCopy;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "removeParticipant: %@", buf, 0xCu);
+      v34 = participantCopy;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "removeParticipant: %@", buf, 0xCu);
     }
 
     remoteParticipantsByIdentifier = [(CSDAVCSession *)self remoteParticipantsByIdentifier];
-    v15 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [participantCopy identifier]);
-    v16 = [remoteParticipantsByIdentifier objectForKeyedSubscript:v15];
+    v16 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [participantCopy identifier]);
+    v17 = [remoteParticipantsByIdentifier objectForKeyedSubscript:v16];
 
     pendingRemovedParticipantsByID = [(CSDAVCSession *)self pendingRemovedParticipantsByID];
-    v18 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [participantCopy identifier]);
-    if (v16)
+    v19 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [participantCopy identifier]);
+    if (v17)
     {
-      [pendingRemovedParticipantsByID setObject:participantCopy forKeyedSubscript:v18];
+      [pendingRemovedParticipantsByID setObject:participantCopy forKeyedSubscript:v19];
 
       remoteParticipantsByIdentifier2 = [(CSDAVCSession *)self remoteParticipantsByIdentifier];
-      v20 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [participantCopy identifier]);
-      [remoteParticipantsByIdentifier2 setObject:0 forKeyedSubscript:v20];
+      v21 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [participantCopy identifier]);
+      [remoteParticipantsByIdentifier2 setObject:0 forKeyedSubscript:v21];
 
       session = [(CSDAVCSession *)self session];
-      [session removeParticipant:v16];
+      [session removeParticipant:v17];
     }
 
     else
     {
-      v22 = [pendingRemovedParticipantsByID objectForKeyedSubscript:v18];
+      v23 = [pendingRemovedParticipantsByID objectForKeyedSubscript:v19];
 
-      session = sub_100004778();
-      v23 = os_log_type_enabled(session, OS_LOG_TYPE_DEFAULT);
-      if (v22)
+      session = sub_100004778(v24);
+      v25 = os_log_type_enabled(session, OS_LOG_TYPE_DEFAULT);
+      if (v23)
       {
-        if (v23)
+        if (v25)
         {
           identifier = [participantCopy identifier];
           *buf = 134217984;
-          v32 = identifier;
+          v34 = identifier;
           _os_log_impl(&_mh_execute_header, session, OS_LOG_TYPE_DEFAULT, "[WARN] Could not find participant %lu in the active participant list, but they're in the list of pending removals", buf, 0xCu);
         }
       }
 
-      else if (v23)
+      else if (v25)
       {
         identifier2 = [participantCopy identifier];
         remoteParticipantsByIdentifier3 = [(CSDAVCSession *)self remoteParticipantsByIdentifier];
         *buf = 134218242;
-        v32 = identifier2;
-        v33 = 2112;
-        v34 = remoteParticipantsByIdentifier3;
+        v34 = identifier2;
+        v35 = 2112;
+        v36 = remoteParticipantsByIdentifier3;
         _os_log_impl(&_mh_execute_header, session, OS_LOG_TYPE_DEFAULT, "[WARN] Could not find participant with identifier %lu all participants: %@", buf, 0x16u);
       }
     }
@@ -1256,23 +1737,208 @@ LABEL_32:
   [featureFlags nearbyFaceTimeEnabled];
 }
 
+- (void)setPlaybackSynchronizationGroupMember:(BOOL)member forParticipantWithIdentifier:(unint64_t)identifier
+{
+  v5 = [(CSDAVCSession *)self queue:member];
+  dispatch_assert_queue_V2(v5);
+
+  featureFlags = [(CSDAVCSession *)self featureFlags];
+  [featureFlags nearbyFaceTimeEnabled];
+}
+
 - (void)setLocalParticipantCluster:(id)cluster
 {
   clusterCopy = cluster;
   queue = [(CSDAVCSession *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v6 = sub_100004778();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100004778(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     uUID = [clusterCopy UUID];
-    v9 = 138412290;
-    v10 = uUID;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "setLocalParticipantCluster: clusterID: %@", &v9, 0xCu);
+    v10 = 138412290;
+    v11 = uUID;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "setLocalParticipantCluster: clusterID: %@", &v10, 0xCu);
   }
 
   featureFlags = [(CSDAVCSession *)self featureFlags];
   [featureFlags nearbyFaceTimeEnabled];
+}
+
+- (void)setAudioEnabled:(BOOL)enabled forParticipantWithIdentifier:(unint64_t)identifier
+{
+  enabledCopy = enabled;
+  queue = [(CSDAVCSession *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  remoteParticipantsByIdentifier = [(CSDAVCSession *)self remoteParticipantsByIdentifier];
+  v9 = [NSNumber numberWithUnsignedLongLong:identifier];
+  v10 = [remoteParticipantsByIdentifier objectForKeyedSubscript:v9];
+
+  v12 = sub_100004778(v11);
+  v13 = v12;
+  if (v10)
+  {
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      v14 = 134218240;
+      identifierCopy = identifier;
+      v16 = 1024;
+      v17 = enabledCopy;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "identifier: %llu audioEnabled: %d", &v14, 0x12u);
+    }
+
+    [v10 setMediaState:enabledCopy forMediaType:0];
+  }
+
+  else
+  {
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      sub_10047C714();
+    }
+  }
+}
+
+- (void)setDownlinkMuted:(BOOL)muted forParticipantWithIdentifier:(unint64_t)identifier
+{
+  mutedCopy = muted;
+  queue = [(CSDAVCSession *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  remoteParticipantsByIdentifier = [(CSDAVCSession *)self remoteParticipantsByIdentifier];
+  v9 = [NSNumber numberWithUnsignedLongLong:identifier];
+  v10 = [remoteParticipantsByIdentifier objectForKeyedSubscript:v9];
+
+  v12 = sub_100004778(v11);
+  v13 = v12;
+  if (v10)
+  {
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      v14 = 134218240;
+      identifierCopy = identifier;
+      v16 = 1024;
+      v17 = mutedCopy;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "identifier: %llu downlinkMuted: %d", &v14, 0x12u);
+    }
+
+    [v10 setAudioMuted:mutedCopy];
+  }
+
+  else
+  {
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      sub_10047C714();
+    }
+  }
+}
+
+- (void)setAudioPaused:(BOOL)paused forParticipantWithIdentifier:(unint64_t)identifier
+{
+  pausedCopy = paused;
+  queue = [(CSDAVCSession *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  remoteParticipantsByIdentifier = [(CSDAVCSession *)self remoteParticipantsByIdentifier];
+  v9 = [NSNumber numberWithUnsignedLongLong:identifier];
+  v10 = [remoteParticipantsByIdentifier objectForKeyedSubscript:v9];
+
+  v12 = sub_100004778(v11);
+  v13 = v12;
+  if (v10)
+  {
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      v14 = 134218240;
+      identifierCopy = identifier;
+      v16 = 1024;
+      v17 = pausedCopy;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "identifier: %lu audioPaused: %d", &v14, 0x12u);
+    }
+
+    [v10 setAudioPaused:pausedCopy];
+  }
+
+  else
+  {
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      sub_10047C7A0();
+    }
+  }
+}
+
+- (void)setScreenEnabled:(BOOL)enabled forParticipantWithIdentifier:(unint64_t)identifier
+{
+  enabledCopy = enabled;
+  queue = [(CSDAVCSession *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  remoteParticipantsByIdentifier = [(CSDAVCSession *)self remoteParticipantsByIdentifier];
+  v9 = [NSNumber numberWithUnsignedLongLong:identifier];
+  v10 = [remoteParticipantsByIdentifier objectForKeyedSubscript:v9];
+
+  v12 = sub_100004778(v11);
+  v13 = v12;
+  if (v10)
+  {
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      v14 = 134218240;
+      identifierCopy = identifier;
+      v16 = 1024;
+      v17 = enabledCopy;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "identifier: %lu screenEnabled: %d", &v14, 0x12u);
+    }
+
+    [v10 setScreenEnabled:enabledCopy];
+  }
+
+  else
+  {
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      sub_10047C7A0();
+    }
+  }
+}
+
+- (void)setAudioAndVideoMuted:(BOOL)muted forParticipantWithIdentifier:(unint64_t)identifier
+{
+  mutedCopy = muted;
+  queue = [(CSDAVCSession *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  remoteParticipantsByIdentifier = [(CSDAVCSession *)self remoteParticipantsByIdentifier];
+  v9 = [NSNumber numberWithUnsignedLongLong:identifier];
+  v10 = [remoteParticipantsByIdentifier objectForKeyedSubscript:v9];
+
+  v12 = sub_100004778(v11);
+  v13 = v12;
+  if (v10)
+  {
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      v14 = 134218240;
+      identifierCopy = identifier;
+      v16 = 1024;
+      v17 = mutedCopy;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "identifier: %llu audioAndVideoMuted: %d", &v14, 0x12u);
+    }
+
+    [v10 setAudioMuted:mutedCopy];
+    [v10 setVideoPaused:mutedCopy];
+  }
+
+  else
+  {
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      sub_10047C714();
+    }
+  }
 }
 
 + (unsigned)avcSessionVideoQualityFrom:(unint64_t)from
@@ -1311,8 +1977,8 @@ LABEL_32:
 
   else
   {
-    v9 = sub_100004778();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = sub_100004778(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_10047C7A0();
     }
@@ -1337,61 +2003,62 @@ LABEL_32:
 
   if (v22)
   {
-    v23 = x + width * 0.5;
-    v24 = y + height * 0.5;
-    if ([prominenceCopy integerValue])
+    v24 = x + width * 0.5;
+    v25 = y + height * 0.5;
+    integerValue = [prominenceCopy integerValue];
+    if (integerValue)
     {
-      v25 = 0.0;
+      v27 = 0.0;
     }
 
     else
     {
-      v25 = 1.0;
+      v27 = 1.0;
     }
 
-    v26 = sub_100004778();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    v28 = sub_100004778(integerValue);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
-      v28 = 134220288;
-      *v29 = identifier;
-      *&v29[8] = 2048;
-      *&v29[10] = quality;
-      *&v29[18] = 2048;
-      v30 = COERCE_DOUBLE([visibilityCopy integerValue]);
-      LOWORD(v31) = 2048;
-      *(&v31 + 2) = [prominenceCopy integerValue];
-      WORD5(v31) = 1024;
-      HIDWORD(v31) = canvasCopy;
-      v32 = 2048;
-      v33 = v23;
+      v30 = 134220288;
+      *v31 = identifier;
+      *&v31[8] = 2048;
+      *&v31[10] = quality;
+      *&v31[18] = 2048;
+      v32 = COERCE_DOUBLE([visibilityCopy integerValue]);
+      LOWORD(v33) = 2048;
+      *(&v33 + 2) = [prominenceCopy integerValue];
+      WORD5(v33) = 1024;
+      HIDWORD(v33) = canvasCopy;
       v34 = 2048;
       v35 = v24;
       v36 = 2048;
       v37 = v25;
       v38 = 2048;
-      v39 = width;
+      v39 = v27;
       v40 = 2048;
-      v41 = height;
-      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "identifier: %lu videoQuality: %lu visibility: %lu prominence: %lu positionalInfo: <flags: %u, position: (x: %f, y: %f, z: %f, w: %f, h: %f)>", &v28, 0x62u);
+      v41 = width;
+      v42 = 2048;
+      v43 = height;
+      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "identifier: %lu videoQuality: %lu visibility: %lu prominence: %lu positionalInfo: <flags: %u, position: (x: %f, y: %f, z: %f, w: %f, h: %f)>", &v30, 0x62u);
     }
 
     [v22 setVideoQuality:{objc_msgSend(objc_opt_class(), "avcSessionVideoQualityFrom:", quality)}];
     [v22 setVisibilityIndex:{objc_msgSend(visibilityCopy, "integerValue")}];
     [v22 setProminenceIndex:{objc_msgSend(prominenceCopy, "integerValue")}];
-    v28 = canvasCopy;
-    *v29 = 0;
-    *&v29[4] = width;
-    *&v29[12] = height;
-    v30 = v23;
-    *&v31 = v24;
-    *(&v31 + 1) = v25;
-    [v22 setVideoPositionalInfo:&v28];
+    v30 = canvasCopy;
+    *v31 = 0;
+    *&v31[4] = width;
+    *&v31[12] = height;
+    v32 = v24;
+    *&v33 = v25;
+    *(&v33 + 1) = v27;
+    [v22 setVideoPositionalInfo:&v30];
   }
 
   else
   {
-    v27 = sub_100004778();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v29 = sub_100004778(v23);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       sub_10047C7A0();
     }
@@ -1403,11 +2070,11 @@ LABEL_32:
   queue = [(CSDAVCSession *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v4 = sub_100004778();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = sub_100004778(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    *v6 = 0;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "", v6, 2u);
+    *v7 = 0;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "", v7, 2u);
   }
 
   session = [(CSDAVCSession *)self session];
@@ -1419,11 +2086,11 @@ LABEL_32:
   queue = [(CSDAVCSession *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v4 = sub_100004778();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = sub_100004778(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    *v6 = 0;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "", v6, 2u);
+    *v7 = 0;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "", v7, 2u);
   }
 
   session = [(CSDAVCSession *)self session];
@@ -1435,11 +2102,11 @@ LABEL_32:
   queue = [(CSDAVCSession *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v4 = sub_100004778();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = sub_100004778(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    *v6 = 0;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "", v6, 2u);
+    *v7 = 0;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "", v7, 2u);
   }
 
   [(CSDAVCSession *)self setHasCalledStop:0];
@@ -1453,13 +2120,13 @@ LABEL_32:
 
   if (avcScreenCapture)
   {
-    v4 = sub_100004778();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_100004778(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       avcScreenCapture2 = [(CSDAVCSession *)self avcScreenCapture];
-      v8 = 134217984;
-      v9 = avcScreenCapture2;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Calling stop on screen capture %p", &v8, 0xCu);
+      v9 = 134217984;
+      v10 = avcScreenCapture2;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Calling stop on screen capture %p", &v9, 0xCu);
     }
 
     avcScreenCapture3 = [(CSDAVCSession *)self avcScreenCapture];
@@ -1477,8 +2144,7 @@ LABEL_32:
   dispatch_assert_queue_V2(queue);
 
   [(CSDAVCSession *)self setHasCalledStop:1];
-  [(CSDAVCSession *)self stopCapture];
-  v6 = sub_100004778();
+  v6 = sub_100004778([(CSDAVCSession *)self stopCapture]);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 138412290;
@@ -1516,6 +2182,48 @@ LABEL_32:
   return v7;
 }
 
+- (void)session:(id)session didStart:(BOOL)start error:(id)error
+{
+  startCopy = start;
+  errorCopy = error;
+  queue = [(CSDAVCSession *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  v10 = sub_100004778(v9);
+  if (os_signpost_enabled(v10))
+  {
+    LOWORD(v15[0]) = 0;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v10, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "screenCaptureStart", "", v15, 2u);
+  }
+
+  v12 = sub_100004778(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  {
+    v15[0] = 67109378;
+    v15[1] = startCopy;
+    v16 = 2112;
+    v17 = errorCopy;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "didStart: %d error: %@", v15, 0x12u);
+  }
+
+  v13 = [(CSDAVCSession *)self shouldIgnoreBenignErrorOnStart:errorCopy];
+  if (v13)
+  {
+    delegate = sub_100004778(v13);
+    if (os_log_type_enabled(delegate, OS_LOG_TYPE_DEFAULT))
+    {
+      LOWORD(v15[0]) = 0;
+      _os_log_impl(&_mh_execute_header, delegate, OS_LOG_TYPE_DEFAULT, "[WARN] Ignoring avcSession didStart as the error that was returned was benign", v15, 2u);
+    }
+  }
+
+  else
+  {
+    delegate = [(CSDAVCSession *)self delegate];
+    [delegate session:self didStart:startCopy error:errorCopy];
+  }
+}
+
 - (void)session:(id)session didStopWithError:(id)error
 {
   errorCopy = error;
@@ -1531,37 +2239,37 @@ LABEL_32:
   queue = [(CSDAVCSession *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v10 = sub_100004778();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = sub_100004778(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v25 = 138412290;
-    v26 = errorCopy;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "error: %@", &v25, 0xCu);
+    v27 = 138412290;
+    v28 = errorCopy;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "error: %@", &v27, 0xCu);
   }
 
-  v11 = errorCopy;
+  v12 = errorCopy;
   hasCalledStop = [(CSDAVCSession *)self hasCalledStop];
-  v13 = v11;
-  if (!v11)
+  v14 = v12;
+  if (!v12)
   {
-    v13 = 0;
+    v14 = 0;
     if ((hasCalledStop & 1) == 0)
     {
-      v13 = [[NSError alloc] initWithDomain:@"CSDAVCSessionError" code:505 userInfo:0];
+      v14 = [[NSError alloc] initWithDomain:@"CSDAVCSessionError" code:505 userInfo:0];
     }
   }
 
   integerValue = [metadataCopy objectForKey:@"avcKeySessionSentBytes"];
   if (integerValue)
   {
-    v15 = [metadataCopy objectForKeyedSubscript:@"avcKeySessionSentBytes"];
+    v16 = [metadataCopy objectForKeyedSubscript:@"avcKeySessionSentBytes"];
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
 
     if (isKindOfClass)
     {
-      v17 = [metadataCopy objectForKeyedSubscript:@"avcKeySessionSentBytes"];
-      integerValue = [v17 integerValue];
+      v18 = [metadataCopy objectForKeyedSubscript:@"avcKeySessionSentBytes"];
+      integerValue = [v18 integerValue];
     }
 
     else
@@ -1570,36 +2278,37 @@ LABEL_32:
     }
   }
 
-  v18 = [metadataCopy objectForKey:@"avcKeySessionReceivedBytes"];
-  if (v18)
+  v19 = [metadataCopy objectForKey:@"avcKeySessionReceivedBytes"];
+  if (v19)
   {
-    v19 = v18;
-    v20 = [metadataCopy objectForKeyedSubscript:@"avcKeySessionReceivedBytes"];
+    v20 = v19;
+    v21 = [metadataCopy objectForKeyedSubscript:@"avcKeySessionReceivedBytes"];
     objc_opt_class();
-    v21 = objc_opt_isKindOfClass();
+    v22 = objc_opt_isKindOfClass();
 
-    if (v21)
+    if (v22)
     {
-      v22 = [metadataCopy objectForKeyedSubscript:@"avcKeySessionReceivedBytes"];
-      integerValue += [v22 integerValue];
+      v23 = [metadataCopy objectForKeyedSubscript:@"avcKeySessionReceivedBytes"];
+      integerValue += [v23 integerValue];
     }
   }
 
   delegate = [(CSDAVCSession *)self delegate];
+  v25 = delegate;
   if (integerValue >= 1)
   {
-    v24 = sub_100004778();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    v26 = sub_100004778(delegate);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
-      v25 = 134217984;
-      v26 = integerValue;
-      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Sending delegate bytesOfDataUsageChanged: %ld", &v25, 0xCu);
+      v27 = 134217984;
+      v28 = integerValue;
+      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Sending delegate bytesOfDataUsageChanged: %ld", &v27, 0xCu);
     }
 
-    [delegate session:self changedBytesOfDataUsed:integerValue];
+    [v25 session:self changedBytesOfDataUsed:integerValue];
   }
 
-  [delegate session:self didStopWithError:v13];
+  [v25 session:self didStopWithError:v14];
 }
 
 - (id)pendingRemovedRemoteParticipantByIdentififer:(unint64_t)identififer
@@ -1620,12 +2329,12 @@ LABEL_32:
   queue = [(CSDAVCSession *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v7 = sub_100004778();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = sub_100004778(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412290;
-    v10 = errorCopy;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "didDetectError: %@", &v9, 0xCu);
+    v10 = 138412290;
+    v11 = errorCopy;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "didDetectError: %@", &v10, 0xCu);
   }
 
   delegate = [(CSDAVCSession *)self delegate];
@@ -1638,8 +2347,8 @@ LABEL_32:
   queue = [(CSDAVCSession *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v6 = sub_100004778();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v7 = sub_100004778(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     sub_10047C82C();
   }
@@ -1656,72 +2365,73 @@ LABEL_32:
   queue = [(CSDAVCSession *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v12 = sub_100004778();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = sub_100004778(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    v43 = participantCopy;
-    v44 = 1024;
-    LODWORD(v45[0]) = succeedCopy;
-    WORD2(v45[0]) = 2112;
-    *(v45 + 6) = errorCopy;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "addParticipant: %@ didSucceed: %d error: %@", buf, 0x1Cu);
+    v46 = participantCopy;
+    v47 = 1024;
+    LODWORD(v48[0]) = succeedCopy;
+    WORD2(v48[0]) = 2112;
+    *(v48 + 6) = errorCopy;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "addParticipant: %@ didSucceed: %d error: %@", buf, 0x1Cu);
   }
 
-  v13 = sub_100004778();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v15 = sub_100004778(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     remoteParticipantsByIdentifier = [(CSDAVCSession *)self remoteParticipantsByIdentifier];
     *buf = 138412546;
-    v43 = participantCopy;
-    v44 = 2112;
-    v45[0] = remoteParticipantsByIdentifier;
-    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "addParticipant: %@ Active remote participants: %@", buf, 0x16u);
+    v46 = participantCopy;
+    v47 = 2112;
+    v48[0] = remoteParticipantsByIdentifier;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "addParticipant: %@ Active remote participants: %@", buf, 0x16u);
   }
 
   delegate = [(CSDAVCSession *)self delegate];
+  v18 = delegate;
   if (succeedCopy)
   {
     captionsToken = [participantCopy captionsToken];
-    v17 = sub_100004778();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v20 = sub_100004778(captionsToken);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218242;
-      v43 = captionsToken;
-      v44 = 2112;
-      v45[0] = participantCopy;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Got captions token: %lu for participant %@", buf, 0x16u);
+      v46 = captionsToken;
+      v47 = 2112;
+      v48[0] = participantCopy;
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Got captions token: %lu for participant %@", buf, 0x16u);
     }
 
-    [delegate addedRemoteParticipantWithIdentifier:objc_msgSend(participantCopy updatedAudioEnabled:"participantID") updatedVideoEnabled:1 streamToken:objc_msgSend(participantCopy screenToken:"isVideoEnabled") captionsToken:{objc_msgSend(participantCopy, "videoToken"), objc_msgSend(participantCopy, "screenToken"), captionsToken}];
+    [v18 addedRemoteParticipantWithIdentifier:objc_msgSend(participantCopy updatedAudioEnabled:"participantID") updatedVideoEnabled:1 streamToken:objc_msgSend(participantCopy screenToken:"isVideoEnabled") captionsToken:{objc_msgSend(participantCopy, "videoToken"), objc_msgSend(participantCopy, "screenToken"), captionsToken}];
     pendingRemovedParticipantsByID = [(CSDAVCSession *)self pendingRemovedParticipantsByID];
-    v19 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [participantCopy participantID]);
-    v20 = [pendingRemovedParticipantsByID objectForKeyedSubscript:v19];
+    v22 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [participantCopy participantID]);
+    v23 = [pendingRemovedParticipantsByID objectForKeyedSubscript:v22];
 
-    if (v20)
+    if (v23)
     {
-      [(CSDAVCSession *)self removeParticipant:v20];
+      [(CSDAVCSession *)self removeParticipant:v23];
     }
   }
 
   else
   {
-    v21 = sub_100004778();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v24 = sub_100004778(delegate);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       sub_10047C8A0();
     }
 
     remoteParticipantsByIdentifier2 = [(CSDAVCSession *)self remoteParticipantsByIdentifier];
-    v23 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [participantCopy participantID]);
-    [remoteParticipantsByIdentifier2 setObject:0 forKeyedSubscript:v23];
+    v26 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [participantCopy participantID]);
+    [remoteParticipantsByIdentifier2 setObject:0 forKeyedSubscript:v26];
 
     userInfo = [errorCopy userInfo];
-    v20 = userInfo;
+    v23 = userInfo;
     if (userInfo)
     {
-      v25 = GKSErrorDetailedError;
-      v26 = [userInfo objectForKeyedSubscript:GKSErrorDetailedError];
+      v28 = GKSErrorDetailedError;
+      v29 = [userInfo objectForKeyedSubscript:GKSErrorDetailedError];
       objc_opt_class();
       isKindOfClass = objc_opt_isKindOfClass();
 
@@ -1731,31 +2441,31 @@ LABEL_32:
         goto LABEL_27;
       }
 
-      v28 = [v20 objectForKeyedSubscript:v25];
-      v29 = [v28 isEqualToNumber:&off_10063EDC8];
+      v31 = [v23 objectForKeyedSubscript:v28];
+      v32 = [v31 isEqualToNumber:&off_10063EDC8];
 
-      v30 = v29 ^ 1;
+      v33 = v32 ^ 1;
     }
 
     else
     {
-      v30 = 0;
+      v33 = 0;
     }
 
-    if ([errorCopy code] == 32016 && (v30 & 1) == 0)
+    if ([errorCopy code] == 32016 && (v33 & 1) == 0)
     {
-      v31 = [delegate session:self conversationParticipantWithParticipantIdentifier:{objc_msgSend(participantCopy, "participantID")}];
-      session = sub_100004778();
-      v33 = os_log_type_enabled(session, OS_LOG_TYPE_DEFAULT);
-      v41 = v31;
-      if (v31)
+      v34 = [v18 session:self conversationParticipantWithParticipantIdentifier:{objc_msgSend(participantCopy, "participantID")}];
+      session = sub_100004778(v34);
+      v36 = os_log_type_enabled(session, OS_LOG_TYPE_DEFAULT);
+      v44 = v34;
+      if (v34)
       {
-        if (v33)
+        if (v36)
         {
           *buf = 138412546;
-          v43 = participantCopy;
-          v44 = 2112;
-          v45[0] = errorCopy;
+          v46 = participantCopy;
+          v47 = 2112;
+          v48[0] = errorCopy;
           _os_log_impl(&_mh_execute_header, session, OS_LOG_TYPE_DEFAULT, "Retrying to add participant after one to one mode changes %@: %@", buf, 0x16u);
         }
 
@@ -1766,25 +2476,75 @@ LABEL_32:
         session3 = [(CSDAVCSession *)self session];
         isScreenEnabled = [session3 isScreenEnabled];
         selfCopy = self;
-        v40 = v41;
-        [(CSDAVCSession *)selfCopy queueAddParticipantRetryBlock:v41 withVideoEnabled:isVideoEnabled audioPaused:isAudioPaused screenEnabled:isScreenEnabled];
+        v43 = v44;
+        [(CSDAVCSession *)selfCopy queueAddParticipantRetryBlock:v44 withVideoEnabled:isVideoEnabled audioPaused:isAudioPaused screenEnabled:isScreenEnabled];
       }
 
       else
       {
-        if (v33)
+        if (v36)
         {
           *buf = 138412290;
-          v43 = participantCopy;
+          v46 = participantCopy;
           _os_log_impl(&_mh_execute_header, session, OS_LOG_TYPE_DEFAULT, "[WARN] Delegate responded that we are not tracking active remote participant anymore, not retrying to add participant: %@", buf, 0xCu);
         }
 
-        v40 = 0;
+        v43 = 0;
       }
     }
   }
 
 LABEL_27:
+}
+
+- (void)session:(id)session removeParticipant:(id)participant didSucceed:(BOOL)succeed error:(id)error
+{
+  succeedCopy = succeed;
+  participantCopy = participant;
+  errorCopy = error;
+  queue = [(CSDAVCSession *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  v13 = sub_100004778(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  {
+    v22 = 138412802;
+    v23 = participantCopy;
+    v24 = 1024;
+    v25 = succeedCopy;
+    v26 = 2112;
+    v27 = errorCopy;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "removeParticipant: %@ didSucceed: %d error: %@", &v22, 0x1Cu);
+  }
+
+  if (succeedCopy)
+  {
+    pendingRemovedParticipantsByID = [(CSDAVCSession *)self pendingRemovedParticipantsByID];
+    v16 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [participantCopy participantID]);
+    [pendingRemovedParticipantsByID setObject:0 forKeyedSubscript:v16];
+  }
+
+  else
+  {
+    v17 = sub_100004778(v14);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    {
+      sub_10047C910();
+    }
+
+    remoteParticipantsByIdentifier = [(CSDAVCSession *)self remoteParticipantsByIdentifier];
+    v19 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [participantCopy participantID]);
+    [remoteParticipantsByIdentifier setObject:participantCopy forKeyedSubscript:v19];
+
+    pendingRemovedParticipantsByID = sub_100004778(v20);
+    if (os_log_type_enabled(pendingRemovedParticipantsByID, OS_LOG_TYPE_ERROR))
+    {
+      sub_10047C980(participantCopy, self);
+    }
+  }
+
+  delegate = [(CSDAVCSession *)self delegate];
+  [delegate removedRemoteParticipantWithIdentifier:objc_msgSend(participantCopy didSucceed:{"participantID"), succeedCopy}];
 }
 
 - (void)session:(id)session didUpdate:(BOOL)update configuration:(id)configuration error:(id)error
@@ -1795,24 +2555,353 @@ LABEL_27:
   queue = [(CSDAVCSession *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v12 = sub_100004778();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = sub_100004778(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v14[0] = 67109634;
-    v14[1] = updateCopy;
-    v15 = 2112;
-    v16 = configurationCopy;
+    v16[0] = 67109634;
+    v16[1] = updateCopy;
     v17 = 2112;
-    v18 = errorCopy;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "didUpdate: %d configuration: %@ error: %@", v14, 0x1Cu);
+    v18 = configurationCopy;
+    v19 = 2112;
+    v20 = errorCopy;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "didUpdate: %d configuration: %@ error: %@", v16, 0x1Cu);
   }
 
   if (!updateCopy)
   {
-    v13 = sub_100004778();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = sub_100004778(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       sub_10047CA14();
+    }
+  }
+}
+
+- (void)session:(id)session audioEnabled:(BOOL)enabled didSucceed:(BOOL)succeed error:(id)error
+{
+  succeedCopy = succeed;
+  enabledCopy = enabled;
+  errorCopy = error;
+  queue = [(CSDAVCSession *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  v12 = sub_100004778(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  {
+    v16[0] = 67109634;
+    v16[1] = enabledCopy;
+    v17 = 1024;
+    v18 = succeedCopy;
+    v19 = 2112;
+    v20 = errorCopy;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "audioEnabled: %d didSucceed: %d error: %@", v16, 0x18u);
+  }
+
+  delegate = [(CSDAVCSession *)self delegate];
+  [delegate session:self changedLocalAudioEnabled:enabledCopy didSucceed:succeedCopy error:errorCopy];
+
+  if (errorCopy)
+  {
+    v15 = sub_100004778(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    {
+      sub_10047CA84();
+    }
+  }
+}
+
+- (void)session:(id)session videoEnabled:(BOOL)enabled didSucceed:(BOOL)succeed error:(id)error
+{
+  succeedCopy = succeed;
+  enabledCopy = enabled;
+  errorCopy = error;
+  queue = [(CSDAVCSession *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  v12 = sub_100004778(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  {
+    v16[0] = 67109634;
+    v16[1] = enabledCopy;
+    v17 = 1024;
+    v18 = succeedCopy;
+    v19 = 2112;
+    v20 = errorCopy;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "videoEnabled: %d didSucceed: %d error: %@", v16, 0x18u);
+  }
+
+  delegate = [(CSDAVCSession *)self delegate];
+  [delegate session:self changedLocalVideoEnabled:enabledCopy didSucceed:succeedCopy error:errorCopy];
+
+  if (errorCopy)
+  {
+    v15 = sub_100004778(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    {
+      sub_10047CAF4();
+    }
+  }
+}
+
+- (void)session:(id)session screenEnabled:(BOOL)enabled didSucceed:(BOOL)succeed error:(id)error
+{
+  succeedCopy = succeed;
+  enabledCopy = enabled;
+  errorCopy = error;
+  queue = [(CSDAVCSession *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  v12 = sub_100004778(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109634;
+    v31 = enabledCopy;
+    v32 = 1024;
+    v33 = succeedCopy;
+    v34 = 2112;
+    v35 = errorCopy;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "screenEnabled: %d didSucceed: %d error: %@", buf, 0x18u);
+  }
+
+  delegate = [(CSDAVCSession *)self delegate];
+  [delegate session:self changedScreenEnabled:enabledCopy didSucceed:succeedCopy error:errorCopy];
+
+  if (errorCopy)
+  {
+    captureSessionQueue2 = sub_100004778(v14);
+    if (os_log_type_enabled(captureSessionQueue2, OS_LOG_TYPE_ERROR))
+    {
+      sub_10047CB64();
+    }
+
+LABEL_6:
+
+    goto LABEL_7;
+  }
+
+  captureSessionQueue = [(CSDAVCSession *)self captureSessionQueue];
+  v18 = [captureSessionQueue count];
+
+  if (v18 && enabledCopy)
+  {
+    v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
+    captureSessionQueue2 = [(CSDAVCSession *)self captureSessionQueue];
+    v19 = [captureSessionQueue2 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    if (v19)
+    {
+      v20 = v19;
+      v21 = *v26;
+      do
+      {
+        v22 = 0;
+        do
+        {
+          if (*v26 != v21)
+          {
+            objc_enumerationMutation(captureSessionQueue2);
+          }
+
+          v23 = *(*(&v25 + 1) + 8 * v22);
+          v24 = sub_100004778(v19);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 0;
+            _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "executing queued up block since screen enabled did succeed", buf, 2u);
+          }
+
+          v19 = (*(v23 + 16))(v23);
+          v22 = v22 + 1;
+        }
+
+        while (v20 != v22);
+        v19 = [captureSessionQueue2 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v20 = v19;
+      }
+
+      while (v19);
+    }
+
+    goto LABEL_6;
+  }
+
+LABEL_7:
+  captureSessionQueue3 = [(CSDAVCSession *)self captureSessionQueue];
+  [captureSessionQueue3 removeAllObjects];
+}
+
+- (void)session:(id)session audioPaused:(BOOL)paused didSucceed:(BOOL)succeed error:(id)error
+{
+  succeedCopy = succeed;
+  pausedCopy = paused;
+  errorCopy = error;
+  queue = [(CSDAVCSession *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  v12 = sub_100004778(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  {
+    v16[0] = 67109634;
+    v16[1] = pausedCopy;
+    v17 = 1024;
+    v18 = succeedCopy;
+    v19 = 2112;
+    v20 = errorCopy;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "audioPaused: %d didSucceed: %d error: %@", v16, 0x18u);
+  }
+
+  delegate = [(CSDAVCSession *)self delegate];
+  [delegate session:self changedLocalAudioPaused:pausedCopy didSucceed:succeedCopy error:errorCopy];
+
+  if (errorCopy)
+  {
+    v15 = sub_100004778(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    {
+      sub_10047CBD4();
+    }
+  }
+}
+
+- (void)session:(id)session videoPaused:(BOOL)paused didSucceed:(BOOL)succeed error:(id)error
+{
+  succeedCopy = succeed;
+  pausedCopy = paused;
+  errorCopy = error;
+  queue = [(CSDAVCSession *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  v12 = sub_100004778(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  {
+    v16[0] = 67109634;
+    v16[1] = pausedCopy;
+    v17 = 1024;
+    v18 = succeedCopy;
+    v19 = 2112;
+    v20 = errorCopy;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "videoPaused: %d didSucceed: %d error: %@", v16, 0x18u);
+  }
+
+  delegate = [(CSDAVCSession *)self delegate];
+  [delegate session:self changedLocalVideoPaused:pausedCopy didSucceed:succeedCopy error:errorCopy];
+
+  if (errorCopy)
+  {
+    v15 = sub_100004778(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    {
+      sub_10047CC44();
+    }
+  }
+}
+
+- (void)session:(id)session oneToOneEnabled:(BOOL)enabled didSucceed:(BOOL)succeed error:(id)error
+{
+  succeedCopy = succeed;
+  enabledCopy = enabled;
+  errorCopy = error;
+  queue = [(CSDAVCSession *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  v12 = sub_100004778(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109634;
+    v36 = enabledCopy;
+    v37 = 1024;
+    v38 = succeedCopy;
+    v39 = 2112;
+    v40 = errorCopy;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "oneToOneEnabled: %d didSucceed: %d error: %@", buf, 0x18u);
+  }
+
+  mostRecentCompletedOneToOneEnabledValue = [(CSDAVCSession *)self mostRecentCompletedOneToOneEnabledValue];
+  if (mostRecentCompletedOneToOneEnabledValue && (v14 = mostRecentCompletedOneToOneEnabledValue, -[CSDAVCSession mostRecentCompletedOneToOneEnabledValue](self, "mostRecentCompletedOneToOneEnabledValue"), v15 = objc_claimAutoreleasedReturnValue(), v16 = [v15 intValue], v15, v14, v16 == enabledCopy))
+  {
+    v17 = sub_100004778(mostRecentCompletedOneToOneEnabledValue);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Already received oneToOneEnabled callback with this value, not handling", buf, 2u);
+    }
+  }
+
+  else
+  {
+    if (succeedCopy)
+    {
+      v18 = [NSNumber numberWithBool:enabledCopy];
+      [(CSDAVCSession *)self setMostRecentCompletedOneToOneEnabledValue:v18];
+    }
+
+    if (errorCopy)
+    {
+      v19 = sub_100004778(mostRecentCompletedOneToOneEnabledValue);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      {
+        sub_10047CCB4();
+      }
+    }
+
+    delegate = [(CSDAVCSession *)self delegate];
+    [delegate session:self requestedOneToOneModeEnabled:enabledCopy didSucceed:succeedCopy error:errorCopy];
+
+    sessionUpdateCompletionQueue = [(CSDAVCSession *)self sessionUpdateCompletionQueue];
+    v17 = sessionUpdateCompletionQueue;
+    if (succeedCopy)
+    {
+      v22 = [sessionUpdateCompletionQueue copy];
+
+      sessionUpdateCompletionQueue2 = [(CSDAVCSession *)self sessionUpdateCompletionQueue];
+      [sessionUpdateCompletionQueue2 removeAllObjects];
+
+      v32 = 0u;
+      v33 = 0u;
+      v30 = 0u;
+      v31 = 0u;
+      v17 = v22;
+      v24 = [v17 countByEnumeratingWithState:&v30 objects:v34 count:16];
+      if (v24)
+      {
+        v25 = v24;
+        v26 = *v31;
+        do
+        {
+          v27 = 0;
+          do
+          {
+            if (*v31 != v26)
+            {
+              objc_enumerationMutation(v17);
+            }
+
+            v28 = *(*(&v30 + 1) + 8 * v27);
+            v29 = sub_100004778(v24);
+            if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+            {
+              *buf = 0;
+              _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "executing queued up block since oneToOneEnabled succeeded", buf, 2u);
+            }
+
+            v24 = (*(v28 + 16))(v28);
+            v27 = v27 + 1;
+          }
+
+          while (v25 != v27);
+          v24 = [v17 countByEnumeratingWithState:&v30 objects:v34 count:16];
+          v25 = v24;
+        }
+
+        while (v24);
+      }
+    }
+
+    else
+    {
+      [sessionUpdateCompletionQueue removeAllObjects];
     }
   }
 }
@@ -1824,18 +2913,18 @@ LABEL_27:
   queue = [(CSDAVCSession *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v13 = sub_100004778();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = sub_100004778(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    v14[0] = 67109890;
-    v14[1] = change;
-    v15 = 1024;
+    v15[0] = 67109890;
+    v15[1] = change;
+    v16 = 1024;
     typeCopy = type;
-    v17 = 1024;
-    v18 = succeedCopy;
-    v19 = 2112;
-    v20 = errorCopy;
-    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "mediaStateDidChange: %d forMediaType: %d didSucceed: %d error: %@", v14, 0x1Eu);
+    v18 = 1024;
+    v19 = succeedCopy;
+    v20 = 2112;
+    v21 = errorCopy;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "mediaStateDidChange: %d forMediaType: %d didSucceed: %d error: %@", v15, 0x1Eu);
   }
 }
 
@@ -1845,12 +2934,12 @@ LABEL_27:
   queue = [(CSDAVCSession *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v6 = sub_100004778();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100004778(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = reconnectCopy;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "session: %@", &v8, 0xCu);
+    v9 = 138412290;
+    v10 = reconnectCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "session: %@", &v9, 0xCu);
   }
 
   delegate = [(CSDAVCSession *)self delegate];
@@ -1862,14 +2951,14 @@ LABEL_27:
   queue = [(CSDAVCSession *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v9 = sub_100004778();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_100004778(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v11[0] = 67109376;
-    v11[1] = type;
-    v12 = 1024;
+    v12[0] = 67109376;
+    v12[1] = type;
+    v13 = 1024;
     mediaTypeCopy = mediaType;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "mixingDidStartForMediaType: %d mixingMediaType: %d", v11, 0xEu);
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "mixingDidStartForMediaType: %d mixingMediaType: %d", v12, 0xEu);
   }
 
   if (type == 2 && mediaType == 1)
@@ -1884,12 +2973,12 @@ LABEL_27:
   queue = [(CSDAVCSession *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v7 = sub_100004778();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = sub_100004778(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v9[0] = 67109120;
-    v9[1] = type;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "mixingDidStopForMediaType: %d", v9, 8u);
+    v10[0] = 67109120;
+    v10[1] = type;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "mixingDidStopForMediaType: %d", v10, 8u);
   }
 
   if (type == 2)
@@ -1906,14 +2995,14 @@ LABEL_27:
   queue = [(CSDAVCSession *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v9 = sub_100004778();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_100004778(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412546;
-    v12 = sessionCopy;
-    v13 = 2112;
-    v14 = reactCopy;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "session: %@ didReact: %@", &v11, 0x16u);
+    v12 = 138412546;
+    v13 = sessionCopy;
+    v14 = 2112;
+    v15 = reactCopy;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "session: %@ didReact: %@", &v12, 0x16u);
   }
 
   delegate = [(CSDAVCSession *)self delegate];
@@ -1926,16 +3015,79 @@ LABEL_27:
   queue = [(CSDAVCSession *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v6 = sub_100004778();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100004778(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = reactingCopy;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "session: %@ didStopReacting", &v8, 0xCu);
+    v9 = 138412290;
+    v10 = reactingCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "session: %@ didStopReacting", &v9, 0xCu);
   }
 
   delegate = [(CSDAVCSession *)self delegate];
   [delegate sessionLocalParticipantDidStopReacting:self];
+}
+
+- (void)participant:(id)participant remoteAudioEnabledDidChange:(BOOL)change
+{
+  changeCopy = change;
+  participantCopy = participant;
+  queue = [(CSDAVCSession *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  v9 = sub_100004778(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    v11 = 138412546;
+    v12 = participantCopy;
+    v13 = 1024;
+    v14 = changeCopy;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "participant: %@ remoteAudioEnabledDidChange: %d", &v11, 0x12u);
+  }
+
+  delegate = [(CSDAVCSession *)self delegate];
+  [delegate remoteParticipantWithIdentifier:objc_msgSend(participantCopy updatedAudioEnabled:"participantID") streamToken:changeCopy screenToken:objc_msgSend(participantCopy captionsToken:{"videoToken"), objc_msgSend(participantCopy, "screenToken"), objc_msgSend(participantCopy, "captionsToken")}];
+}
+
+- (void)participant:(id)participant remoteVideoEnabledDidChange:(BOOL)change
+{
+  changeCopy = change;
+  participantCopy = participant;
+  queue = [(CSDAVCSession *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  v9 = sub_100004778(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    v11 = 138412546;
+    v12 = participantCopy;
+    v13 = 1024;
+    v14 = changeCopy;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "participant: %@ remoteVideoEnabledDidChange: %d", &v11, 0x12u);
+  }
+
+  delegate = [(CSDAVCSession *)self delegate];
+  [delegate remoteParticipantWithIdentifier:objc_msgSend(participantCopy updatedVideoEnabled:"participantID") streamToken:changeCopy screenToken:objc_msgSend(participantCopy captionsToken:{"videoToken"), objc_msgSend(participantCopy, "screenToken"), objc_msgSend(participantCopy, "captionsToken")}];
+}
+
+- (void)participant:(id)participant remoteAudioPausedDidChange:(BOOL)change
+{
+  changeCopy = change;
+  participantCopy = participant;
+  queue = [(CSDAVCSession *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  v9 = sub_100004778(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    v11 = 138412546;
+    v12 = participantCopy;
+    v13 = 1024;
+    v14 = changeCopy;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "participant: %@ remoteAudioPausedDidChange: %d", &v11, 0x12u);
+  }
+
+  delegate = [(CSDAVCSession *)self delegate];
+  [delegate remoteParticipantWithIdentifier:objc_msgSend(participantCopy updatedAudioPaused:"participantID") streamToken:{changeCopy, objc_msgSend(participantCopy, "videoToken")}];
 }
 
 - (void)participant:(id)participant screenEnabled:(BOOL)enabled didSucceed:(BOOL)succeed error:(id)error
@@ -1953,23 +3105,52 @@ LABEL_27:
   if (v13)
   {
     v14 = [(CSDAVCSession *)self isRemoteScreenEnabledForParticipant:participantCopy];
-    v15 = sub_100004778();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v15 = v14;
+    v16 = sub_100004778(v14);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 138413058;
-      v18 = participantCopy;
-      v19 = 1024;
-      v20 = enabledCopy;
-      v21 = 1024;
-      v22 = succeedCopy;
-      v23 = 1024;
-      v24 = v14;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "participant: %@ screenEnabled: %d didSucceed: %d remoteScreenEnabled: %d", &v17, 0x1Eu);
+      v18 = 138413058;
+      v19 = participantCopy;
+      v20 = 1024;
+      v21 = enabledCopy;
+      v22 = 1024;
+      v23 = succeedCopy;
+      v24 = 1024;
+      v25 = v15;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "participant: %@ screenEnabled: %d didSucceed: %d remoteScreenEnabled: %d", &v18, 0x1Eu);
     }
 
     delegate = [(CSDAVCSession *)self delegate];
-    [delegate remoteParticipantWithIdentifier:objc_msgSend(participantCopy updatedScreenEnabled:"participantID") streamToken:enabledCopy & v14 screenToken:objc_msgSend(participantCopy captionsToken:{"videoToken"), objc_msgSend(participantCopy, "screenToken"), objc_msgSend(participantCopy, "captionsToken")}];
+    [delegate remoteParticipantWithIdentifier:objc_msgSend(participantCopy updatedScreenEnabled:"participantID") streamToken:enabledCopy & v15 screenToken:objc_msgSend(participantCopy captionsToken:{"videoToken"), objc_msgSend(participantCopy, "screenToken"), objc_msgSend(participantCopy, "captionsToken")}];
   }
+}
+
+- (void)participant:(id)participant remoteScreenEnabledDidChange:(BOOL)change
+{
+  changeCopy = change;
+  participantCopy = participant;
+  queue = [(CSDAVCSession *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  v9 = sub_100004778(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    v11 = 138412802;
+    v12 = participantCopy;
+    v13 = 1024;
+    v14 = changeCopy;
+    v15 = 1024;
+    isScreenEnabled = [participantCopy isScreenEnabled];
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "participant: %@ remoteScreenEnabledDidChange: %d participantScreenEnabled: %d", &v11, 0x18u);
+  }
+
+  if (changeCopy)
+  {
+    changeCopy = [participantCopy isScreenEnabled];
+  }
+
+  delegate = [(CSDAVCSession *)self delegate];
+  [delegate remoteParticipantWithIdentifier:objc_msgSend(participantCopy updatedScreenEnabled:"participantID") streamToken:changeCopy screenToken:objc_msgSend(participantCopy captionsToken:{"videoToken"), objc_msgSend(participantCopy, "screenToken"), objc_msgSend(participantCopy, "captionsToken")}];
 }
 
 - (void)participant:(id)participant mediaPrioritiesDidChange:(id)change
@@ -1998,14 +3179,14 @@ LABEL_27:
   queue = [(CSDAVCSession *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v9 = sub_100004778();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_100004778(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412546;
-    v12 = participantCopy;
-    v13 = 2112;
-    v14 = reactCopy;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "participant: %@ didReact: %@", &v11, 0x16u);
+    v12 = 138412546;
+    v13 = participantCopy;
+    v14 = 2112;
+    v15 = reactCopy;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "participant: %@ didReact: %@", &v12, 0x16u);
   }
 
   delegate = [(CSDAVCSession *)self delegate];
@@ -2018,16 +3199,16 @@ LABEL_27:
   queue = [(CSDAVCSession *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v10 = sub_100004778();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = sub_100004778(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412802;
-    v12 = participantCopy;
-    v13 = 1024;
+    v12 = 138412802;
+    v13 = participantCopy;
+    v14 = 1024;
     changeCopy = change;
-    v15 = 1024;
+    v16 = 1024;
     typeCopy = type;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "participant: %@ remoteMediaStateDidChange: %d forMediaType: %d", &v11, 0x18u);
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "participant: %@ remoteMediaStateDidChange: %d forMediaType: %d", &v12, 0x18u);
   }
 }
 
@@ -2037,16 +3218,16 @@ LABEL_27:
   queue = [(CSDAVCSession *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v10 = sub_100004778();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = sub_100004778(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138412802;
-    v13 = participantCopy;
-    v14 = 1024;
+    v13 = 138412802;
+    v14 = participantCopy;
+    v15 = 1024;
     typeCopy = type;
-    v16 = 1024;
+    v17 = 1024;
     mediaTypeCopy = mediaType;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "participant: %@ mixingDidStartForMediaType: %d mixingMediaType: %d", &v12, 0x18u);
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "participant: %@ mixingDidStartForMediaType: %d mixingMediaType: %d", &v13, 0x18u);
   }
 
   if (type == 2 && mediaType == 1)
@@ -2062,14 +3243,14 @@ LABEL_27:
   queue = [(CSDAVCSession *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v8 = sub_100004778();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = sub_100004778(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412546;
-    v11 = participantCopy;
-    v12 = 1024;
+    v11 = 138412546;
+    v12 = participantCopy;
+    v13 = 1024;
     typeCopy = type;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "participant: %@ mixingDidStopForMediaType: %d", &v10, 0x12u);
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "participant: %@ mixingDidStopForMediaType: %d", &v11, 0x12u);
   }
 
   if (type == 2)
@@ -2102,7 +3283,7 @@ LABEL_27:
   stopCopy = stop;
   captureCopy = capture;
   errorCopy = error;
-  v10 = sub_100004778();
+  v10 = sub_100004778(errorCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
@@ -2131,7 +3312,7 @@ LABEL_27:
   captureCopy = capture;
   attributesCopy = attributes;
   errorCopy = error;
-  v11 = sub_100004778();
+  v11 = sub_100004778(errorCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;

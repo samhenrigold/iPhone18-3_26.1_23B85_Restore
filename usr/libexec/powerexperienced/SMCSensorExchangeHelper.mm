@@ -41,7 +41,7 @@
 
 - (void)updateCLTMChargingPolicy:(unint64_t)policy
 {
-  v4 = sub_100001600();
+  v4 = sub_100001600(self);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_10000BED8;
@@ -52,7 +52,7 @@
 
 - (void)updateCLTMMobileChargingPolicy:(unint64_t)policy
 {
-  v4 = sub_100001600();
+  v4 = sub_100001600(self);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_10000C2AC;
@@ -64,7 +64,7 @@
 - (void)updateSMCDebugKey:(id)key withState:(BOOL)state
 {
   keyCopy = key;
-  v6 = sub_100001600();
+  v6 = sub_100001600(keyCopy);
   v8[0] = _NSConcreteStackBlock;
   v8[1] = 3221225472;
   v8[2] = sub_10000C4A0;
@@ -77,7 +77,7 @@
 
 - (void)updateCLTMThermalPolicy:(unint64_t)policy
 {
-  v4 = sub_100001600();
+  v4 = sub_100001600(self);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_10000C6D4;
@@ -88,7 +88,7 @@
 
 - (void)updateInductiveChargingPowerPolicy:(unint64_t)policy
 {
-  v4 = sub_100001600();
+  v4 = sub_100001600(self);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_10000C88C;

@@ -60,7 +60,7 @@
           v31 = uuid;
           v32 = 2114;
           v33 = configurationCopy;
-          _os_log_send_and_compose_impl();
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_274216000, p_super, 0, "[wifivelocity] %s (%s:%u) generating UUID='%{public}@' for configuration='%{public}@'", &v24, 48);
         }
       }
 
@@ -70,8 +70,8 @@
       goto LABEL_8;
     }
 
-    v22 = W5GetOSLog();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v21 = W5GetOSLog();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       v24 = 136315906;
       v25 = "[W5DiagnosticsMode initWithConfiguration:uuid:]";
@@ -81,7 +81,7 @@
       v29 = 34;
       v30 = 2114;
       v31 = configurationCopy;
-      _os_log_send_and_compose_impl();
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_274216000, v21, 0, "[wifivelocity] %s (%s:%u) peers is nil for configuration='%{public}@'", &v24, 38);
     }
   }
 
@@ -94,7 +94,8 @@
     v27 = "W5DiagnosticsMode.m";
     v28 = 1024;
     v29 = 55;
-    _os_log_send_and_compose_impl();
+    LODWORD(v22) = 28;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_274216000, v18, 0, "[wifivelocity] %s (%s:%u) init error!", &v24, v22, LODWORD(v23.receiver));
   }
 
   v10 = 0;
@@ -103,13 +104,12 @@
 LABEL_8:
 
   v19 = v8;
-  v20 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
 - (void)updatePeer:(id)peer
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   peerCopy = peer;
   peers = [(W5DiagnosticsMode *)self peers];
   v6 = [peers indexOfObject:peerCopy];
@@ -120,20 +120,31 @@ LABEL_8:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       peers2 = [(W5DiagnosticsMode *)self peers];
-      _os_log_send_and_compose_impl();
+      v12 = 136316418;
+      v13 = "[W5DiagnosticsMode updatePeer:]";
+      v14 = 2080;
+      v15 = "W5DiagnosticsMode.m";
+      v16 = 1024;
+      v17 = 64;
+      v18 = 2080;
+      v19 = "[W5DiagnosticsMode updatePeer:]";
+      v20 = 2112;
+      v21 = peerCopy;
+      v22 = 2112;
+      v23 = peers2;
+      v11 = 58;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_274216000, v7, 0, "[wifivelocity] %s (%s:%u) %s: peer='%@' not found in peers list='%@'", &v12, v11);
     }
   }
 
   else
   {
     peers3 = [(W5DiagnosticsMode *)self peers];
-    v9 = [peers3 mutableCopy];
+    v10 = [peers3 mutableCopy];
 
-    [v9 replaceObjectAtIndex:v6 withObject:peerCopy];
-    [(W5DiagnosticsMode *)self setPeers:v9];
+    [v10 replaceObjectAtIndex:v6 withObject:peerCopy];
+    [(W5DiagnosticsMode *)self setPeers:v10];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setState:(int64_t)state
@@ -228,34 +239,34 @@ LABEL_8:
 - (id)description
 {
   selfCopy = self;
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   v3 = [(NSDictionary *)self->_info mutableCopy];
   v4 = [v3 objectForKey:@"Faults"];
 
-  v38 = selfCopy;
+  v37 = selfCopy;
   if (v4)
   {
     array = [MEMORY[0x277CBEB18] array];
+    v44 = 0u;
     v45 = 0u;
     v46 = 0u;
     v47 = 0u;
-    v48 = 0u;
     v6 = [v3 objectForKeyedSubscript:@"Faults"];
-    v7 = [v6 countByEnumeratingWithState:&v45 objects:v50 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v44 objects:v49 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v46;
+      v9 = *v45;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v46 != v9)
+          if (*v45 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v45 + 1) + 8 * i);
+          v11 = *(*(&v44 + 1) + 8 * i);
           v12 = MEMORY[0x277CCACA8];
           v13 = W5DescriptionForDiagnosticsFaultType([v11 integerValue]);
           v14 = [v12 stringWithFormat:@"%@ (%@)", v13, v11];
@@ -263,7 +274,7 @@ LABEL_8:
           [array addObject:v14];
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v45 objects:v50 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v44 objects:v49 count:16];
       }
 
       while (v8);
@@ -272,7 +283,7 @@ LABEL_8:
     v15 = [array componentsJoinedByString:{@", "}];
     [v3 setObject:v15 forKeyedSubscript:@"Faults"];
 
-    selfCopy = v38;
+    selfCopy = v37;
   }
 
   v16 = [v3 objectForKey:@"DetectedFaults"];
@@ -280,26 +291,26 @@ LABEL_8:
   if (v16)
   {
     array2 = [MEMORY[0x277CBEB18] array];
+    v40 = 0u;
     v41 = 0u;
     v42 = 0u;
     v43 = 0u;
-    v44 = 0u;
     v18 = [v3 objectForKeyedSubscript:@"DetectedFaults"];
-    v19 = [v18 countByEnumeratingWithState:&v41 objects:v49 count:16];
+    v19 = [v18 countByEnumeratingWithState:&v40 objects:v48 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v42;
+      v21 = *v41;
       do
       {
         for (j = 0; j != v20; ++j)
         {
-          if (*v42 != v21)
+          if (*v41 != v21)
           {
             objc_enumerationMutation(v18);
           }
 
-          v23 = *(*(&v41 + 1) + 8 * j);
+          v23 = *(*(&v40 + 1) + 8 * j);
           v24 = MEMORY[0x277CCACA8];
           v25 = W5DescriptionForDiagnosticsFaultType([v23 integerValue]);
           v26 = [v24 stringWithFormat:@"%@ (%@)", v25, v23];
@@ -307,7 +318,7 @@ LABEL_8:
           [array2 addObject:v26];
         }
 
-        v20 = [v18 countByEnumeratingWithState:&v41 objects:v49 count:16];
+        v20 = [v18 countByEnumeratingWithState:&v40 objects:v48 count:16];
       }
 
       while (v20);
@@ -316,7 +327,7 @@ LABEL_8:
     v27 = [array2 componentsJoinedByString:{@", "}];
     [v3 setObject:v27 forKeyedSubscript:@"DetectedFaults"];
 
-    selfCopy = v38;
+    selfCopy = v37;
   }
 
   v28 = MEMORY[0x277CCAB68];
@@ -328,18 +339,16 @@ LABEL_8:
   {
     dictionary = [MEMORY[0x277CBEB38] dictionary];
     timestamps = selfCopy->_timestamps;
-    v39[0] = MEMORY[0x277D85DD0];
-    v39[1] = 3221225472;
-    v39[2] = __32__W5DiagnosticsMode_description__block_invoke;
-    v39[3] = &unk_279ECD568;
-    v40 = dictionary;
+    v38[0] = MEMORY[0x277D85DD0];
+    v38[1] = 3221225472;
+    v38[2] = __32__W5DiagnosticsMode_description__block_invoke;
+    v38[3] = &unk_279ECD568;
+    v39 = dictionary;
     v34 = dictionary;
-    [(NSMutableDictionary *)timestamps enumerateKeysAndObjectsUsingBlock:v39];
+    [(NSMutableDictionary *)timestamps enumerateKeysAndObjectsUsingBlock:v38];
     v35 = [MEMORY[0x277CCACA8] stringWithFormat:@" timestamps='%@'", v34];
     [v31 appendString:v35];
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 
   return v31;
 }

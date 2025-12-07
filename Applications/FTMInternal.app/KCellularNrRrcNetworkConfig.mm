@@ -1,8 +1,14 @@
 @interface KCellularNrRrcNetworkConfig
 - (BOOL)isEqual:(id)equal;
+- (id)channelTypeDetailsAsString:(int)string;
+- (id)collectionEndTypeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)establishmentCauseAsString:(int)string;
+- (id)messageNameAsString:(int)string;
+- (id)relaxErrorCodeAsString:(int)string;
+- (id)validationTypeAsString:(int)string;
 - (int)StringAsChannelTypeDetails:(id)details;
 - (int)StringAsCollectionEndType:(id)type;
 - (int)StringAsEstablishmentCause:(id)cause;
@@ -139,6 +145,21 @@
   self->_has = (*&self->_has & 0xFFFFFFEF | v3);
 }
 
+- (id)collectionEndTypeAsString:(int)string
+{
+  if (string >= 6)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1003177F8 + string);
+  }
+
+  return v4;
+}
+
 - (int)StringAsCollectionEndType:(id)type
 {
   typeCopy = type;
@@ -236,6 +257,113 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFFFBF | v3);
+}
+
+- (id)establishmentCauseAsString:(int)string
+{
+  switch(string)
+  {
+    case 101:
+      v4 = @"NR_EST_EMERGENCY";
+
+      break;
+    case 102:
+      v4 = @"NR_EST_HIGH_PRIO_ACC";
+
+      break;
+    case 103:
+      v4 = @"NR_EST_MT_ACC";
+
+      break;
+    case 104:
+    case 108:
+    case 111:
+    case 112:
+    case 118:
+    case 119:
+    case 120:
+    case 121:
+    case 122:
+    case 123:
+    case 124:
+    case 125:
+    case 126:
+    case 127:
+    case 128:
+    case 129:
+      goto LABEL_10;
+    case 105:
+      v4 = @"NR_EST_MO_DATA";
+
+      break;
+    case 106:
+      v4 = @"NR_EST_MO_VOICE_CALL";
+
+      break;
+    case 107:
+      v4 = @"NR_EST_MO_VIDEO_CALL";
+
+      break;
+    case 109:
+      v4 = @"NR_EST_MPS_PRIO_ACC";
+
+      break;
+    case 110:
+      v4 = @"NR_EST_MCS_PRIO_ACC";
+
+      break;
+    case 113:
+      v4 = @"NR_REEST_RECFG_FAIL";
+
+      break;
+    case 114:
+      v4 = @"NR_REEST_HO_FAIL";
+
+      break;
+    case 115:
+      v4 = @"NR_REEST_OTHER_FAIL_INTEG_CHECK";
+
+      break;
+    case 116:
+      v4 = @"NR_REEST_OTHER_FAIL_RADIO_LINK_FAILURE";
+
+      break;
+    case 117:
+      v4 = @"NR_REEST_RES_FALLBACK_CONN_SETUP";
+
+      break;
+    case 130:
+      v4 = @"NR_EST_SUCC_MOB_TO_NR";
+
+      break;
+    case 131:
+      v4 = @"NR_REEST_ARB_CONN_TXRX_SUSPEND";
+
+      break;
+    default:
+      if (string)
+      {
+        if (string == 155)
+        {
+          v4 = @"NR_RESUME_MO_DATA";
+        }
+
+        else
+        {
+LABEL_10:
+          v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+        }
+      }
+
+      else
+      {
+        v4 = @"EST_CAUSE_INVALID";
+      }
+
+      break;
+  }
+
+  return v4;
 }
 
 - (int)StringAsEstablishmentCause:(id)cause
@@ -390,6 +518,22 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFFBFF | v3);
+}
+
+- (id)messageNameAsString:(int)string
+{
+  v4 = string - 1;
+  if (string - 1) < 0xA && ((0x21Bu >> v4))
+  {
+    v5 = *(&off_100317828 + v4);
+  }
+
+  else
+  {
+    v5 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v5;
 }
 
 - (int)StringAsMessageName:(id)name
@@ -621,6 +765,22 @@
   self->_has = (*&self->_has & 0xFFFFFFF7 | v3);
 }
 
+- (id)channelTypeDetailsAsString:(int)string
+{
+  v4 = string - 1;
+  if (string - 1) < 0x1A && ((0x30001FFu >> v4))
+  {
+    v5 = *(&off_100317878 + v4);
+  }
+
+  else
+  {
+    v5 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v5;
+}
+
 - (int)StringAsChannelTypeDetails:(id)details
 {
   detailsCopy = details;
@@ -745,6 +905,29 @@
   self->_has = (*&self->_has & 0xFF7FFFFF | v3);
 }
 
+- (id)validationTypeAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"FAILED";
+    }
+
+    else
+    {
+      v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"SUCCESS";
+  }
+
+  return v4;
+}
+
 - (int)StringAsValidationType:(id)type
 {
   typeCopy = type;
@@ -802,6 +985,21 @@
   }
 
   self->_has = (*&self->_has & 0xFFFF7FFF | v3);
+}
+
+- (id)relaxErrorCodeAsString:(int)string
+{
+  if (string >= 6)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100317948 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsRelaxErrorCode:(id)code
@@ -1452,14 +1650,12 @@ LABEL_60:
   has = self->_has;
   if ((*&has & 2) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
   }
 
   if ((*&has & 0x200) != 0)
   {
-    length = self->_length;
     PBDataWriterWriteUint32Field();
   }
 
@@ -1468,16 +1664,15 @@ LABEL_60:
     PBDataWriterWriteDataField();
   }
 
-  v7 = self->_has;
-  if ((*&v7 & 0x40000) != 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x40000) != 0)
   {
-    seqNum = self->_seqNum;
     PBDataWriterWriteUint32Field();
-    v7 = self->_has;
-    if ((*&v7 & 0x8000000) == 0)
+    v5 = self->_has;
+    if ((*&v5 & 0x8000000) == 0)
     {
 LABEL_9:
-      if ((*&v7 & 0x10) == 0)
+      if ((*&v5 & 0x10) == 0)
       {
         goto LABEL_10;
       }
@@ -1486,18 +1681,17 @@ LABEL_9:
     }
   }
 
-  else if ((*&v7 & 0x8000000) == 0)
+  else if ((*&v5 & 0x8000000) == 0)
   {
     goto LABEL_9;
   }
 
-  lastMessage = self->_lastMessage;
   PBDataWriterWriteBOOLField();
-  v7 = self->_has;
-  if ((*&v7 & 0x10) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x10) == 0)
   {
 LABEL_10:
-    if ((*&v7 & 0x100000) == 0)
+    if ((*&v5 & 0x100000) == 0)
     {
       goto LABEL_11;
     }
@@ -1506,13 +1700,12 @@ LABEL_10:
   }
 
 LABEL_43:
-  collectionEndType = self->_collectionEndType;
   PBDataWriterWriteInt32Field();
-  v7 = self->_has;
-  if ((*&v7 & 0x100000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x100000) == 0)
   {
 LABEL_11:
-    if ((*&v7 & 0x200000) == 0)
+    if ((*&v5 & 0x200000) == 0)
     {
       goto LABEL_12;
     }
@@ -1521,13 +1714,12 @@ LABEL_11:
   }
 
 LABEL_44:
-  timeDeltaPreviousMs = self->_timeDeltaPreviousMs;
   PBDataWriterWriteUint32Field();
-  v7 = self->_has;
-  if ((*&v7 & 0x200000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x200000) == 0)
   {
 LABEL_12:
-    if ((*&v7 & 0x40) == 0)
+    if ((*&v5 & 0x40) == 0)
     {
       goto LABEL_13;
     }
@@ -1536,13 +1728,12 @@ LABEL_12:
   }
 
 LABEL_45:
-  timeElapsedMs = self->_timeElapsedMs;
   PBDataWriterWriteUint32Field();
-  v7 = self->_has;
-  if ((*&v7 & 0x40) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x40) == 0)
   {
 LABEL_13:
-    if ((*&v7 & 0x4000) == 0)
+    if ((*&v5 & 0x4000) == 0)
     {
       goto LABEL_14;
     }
@@ -1551,13 +1742,12 @@ LABEL_13:
   }
 
 LABEL_46:
-  establishmentCause = self->_establishmentCause;
   PBDataWriterWriteInt32Field();
-  v7 = self->_has;
-  if ((*&v7 & 0x4000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x4000) == 0)
   {
 LABEL_14:
-    if ((*&v7 & 0x80) == 0)
+    if ((*&v5 & 0x80) == 0)
     {
       goto LABEL_15;
     }
@@ -1566,13 +1756,12 @@ LABEL_14:
   }
 
 LABEL_47:
-  phyCellId = self->_phyCellId;
   PBDataWriterWriteUint32Field();
-  v7 = self->_has;
-  if ((*&v7 & 0x80) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x80) == 0)
   {
 LABEL_15:
-    if ((*&v7 & 0x400) == 0)
+    if ((*&v5 & 0x400) == 0)
     {
       goto LABEL_16;
     }
@@ -1581,13 +1770,12 @@ LABEL_15:
   }
 
 LABEL_48:
-  freq = self->_freq;
   PBDataWriterWriteUint32Field();
-  v7 = self->_has;
-  if ((*&v7 & 0x400) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x400) == 0)
   {
 LABEL_16:
-    if ((*&v7 & 0x800) == 0)
+    if ((*&v5 & 0x800) == 0)
     {
       goto LABEL_17;
     }
@@ -1596,13 +1784,12 @@ LABEL_16:
   }
 
 LABEL_49:
-  messageName = self->_messageName;
   PBDataWriterWriteInt32Field();
-  v7 = self->_has;
-  if ((*&v7 & 0x800) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x800) == 0)
   {
 LABEL_17:
-    if ((*&v7 & 0x20) == 0)
+    if ((*&v5 & 0x20) == 0)
     {
       goto LABEL_18;
     }
@@ -1611,13 +1798,12 @@ LABEL_17:
   }
 
 LABEL_50:
-  msgType = self->_msgType;
   PBDataWriterWriteUint32Field();
-  v7 = self->_has;
-  if ((*&v7 & 0x20) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x20) == 0)
   {
 LABEL_18:
-    if ((*&v7 & 1) == 0)
+    if ((*&v5 & 1) == 0)
     {
       goto LABEL_19;
     }
@@ -1626,13 +1812,12 @@ LABEL_18:
   }
 
 LABEL_51:
-  dlBw = self->_dlBw;
   PBDataWriterWriteUint32Field();
-  v7 = self->_has;
-  if ((*&v7 & 1) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 1) == 0)
   {
 LABEL_19:
-    if ((*&v7 & 0x100) == 0)
+    if ((*&v5 & 0x100) == 0)
     {
       goto LABEL_20;
     }
@@ -1641,13 +1826,12 @@ LABEL_19:
   }
 
 LABEL_52:
-  cellId = self->_cellId;
   PBDataWriterWriteUint64Field();
-  v7 = self->_has;
-  if ((*&v7 & 0x100) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x100) == 0)
   {
 LABEL_20:
-    if ((*&v7 & 0x400000) == 0)
+    if ((*&v5 & 0x400000) == 0)
     {
       goto LABEL_21;
     }
@@ -1656,13 +1840,12 @@ LABEL_20:
   }
 
 LABEL_53:
-  freqBandInd = self->_freqBandInd;
   PBDataWriterWriteUint32Field();
-  v7 = self->_has;
-  if ((*&v7 & 0x400000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x400000) == 0)
   {
 LABEL_21:
-    if ((*&v7 & 0x10000) == 0)
+    if ((*&v5 & 0x10000) == 0)
     {
       goto LABEL_22;
     }
@@ -1671,13 +1854,12 @@ LABEL_21:
   }
 
 LABEL_54:
-  trackingAreaCode = self->_trackingAreaCode;
   PBDataWriterWriteUint32Field();
-  v7 = self->_has;
-  if ((*&v7 & 0x10000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x10000) == 0)
   {
 LABEL_22:
-    if ((*&v7 & 0x20000) == 0)
+    if ((*&v5 & 0x20000) == 0)
     {
       goto LABEL_23;
     }
@@ -1686,13 +1868,12 @@ LABEL_22:
   }
 
 LABEL_55:
-  selPlmnMcc = self->_selPlmnMcc;
   PBDataWriterWriteUint32Field();
-  v7 = self->_has;
-  if ((*&v7 & 0x20000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x20000) == 0)
   {
 LABEL_23:
-    if ((*&v7 & 0x1000) == 0)
+    if ((*&v5 & 0x1000) == 0)
     {
       goto LABEL_24;
     }
@@ -1701,13 +1882,12 @@ LABEL_23:
   }
 
 LABEL_56:
-  selPlmnMnc = self->_selPlmnMnc;
   PBDataWriterWriteUint32Field();
-  v7 = self->_has;
-  if ((*&v7 & 0x1000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x1000) == 0)
   {
 LABEL_24:
-    if ((*&v7 & 0x80000) == 0)
+    if ((*&v5 & 0x80000) == 0)
     {
       goto LABEL_25;
     }
@@ -1716,13 +1896,12 @@ LABEL_24:
   }
 
 LABEL_57:
-  numMncDigits = self->_numMncDigits;
   PBDataWriterWriteUint32Field();
-  v7 = self->_has;
-  if ((*&v7 & 0x80000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x80000) == 0)
   {
 LABEL_25:
-    if ((*&v7 & 0x2000) == 0)
+    if ((*&v5 & 0x2000) == 0)
     {
       goto LABEL_26;
     }
@@ -1731,13 +1910,12 @@ LABEL_25:
   }
 
 LABEL_58:
-  subsId = self->_subsId;
   PBDataWriterWriteUint32Field();
-  v7 = self->_has;
-  if ((*&v7 & 0x2000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x2000) == 0)
   {
 LABEL_26:
-    if ((*&v7 & 0x4000000) == 0)
+    if ((*&v5 & 0x4000000) == 0)
     {
       goto LABEL_27;
     }
@@ -1746,13 +1924,12 @@ LABEL_26:
   }
 
 LABEL_59:
-  numSubs = self->_numSubs;
   PBDataWriterWriteUint32Field();
-  v7 = self->_has;
-  if ((*&v7 & 0x4000000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x4000000) == 0)
   {
 LABEL_27:
-    if ((*&v7 & 0x1000000) == 0)
+    if ((*&v5 & 0x1000000) == 0)
     {
       goto LABEL_28;
     }
@@ -1761,13 +1938,12 @@ LABEL_27:
   }
 
 LABEL_60:
-  isNrHst = self->_isNrHst;
   PBDataWriterWriteBOOLField();
-  v7 = self->_has;
-  if ((*&v7 & 0x1000000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x1000000) == 0)
   {
 LABEL_28:
-    if ((*&v7 & 8) == 0)
+    if ((*&v5 & 8) == 0)
     {
       goto LABEL_29;
     }
@@ -1776,13 +1952,12 @@ LABEL_28:
   }
 
 LABEL_61:
-  bwpSwitchEver = self->_bwpSwitchEver;
   PBDataWriterWriteBOOLField();
-  v7 = self->_has;
-  if ((*&v7 & 8) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 8) == 0)
   {
 LABEL_29:
-    if ((*&v7 & 4) == 0)
+    if ((*&v5 & 4) == 0)
     {
       goto LABEL_31;
     }
@@ -1791,12 +1966,10 @@ LABEL_29:
   }
 
 LABEL_62:
-  channelTypeDetails = self->_channelTypeDetails;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_30:
-    channel = self->_channel;
     PBDataWriterWriteUint32Field();
   }
 
@@ -1806,16 +1979,15 @@ LABEL_31:
     PBDataWriterWriteStringField();
   }
 
-  v9 = self->_has;
-  if ((*&v9 & 0x2000000) != 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x2000000) != 0)
   {
-    isDataPreferred = self->_isDataPreferred;
     PBDataWriterWriteBOOLField();
-    v9 = self->_has;
-    if ((*&v9 & 0x800000) == 0)
+    v6 = self->_has;
+    if ((*&v6 & 0x800000) == 0)
     {
 LABEL_35:
-      if ((*&v9 & 0x10000000) == 0)
+      if ((*&v6 & 0x10000000) == 0)
       {
         goto LABEL_36;
       }
@@ -1824,18 +1996,17 @@ LABEL_35:
     }
   }
 
-  else if ((*&v9 & 0x800000) == 0)
+  else if ((*&v6 & 0x800000) == 0)
   {
     goto LABEL_35;
   }
 
-  validationType = self->_validationType;
   PBDataWriterWriteInt32Field();
-  v9 = self->_has;
-  if ((*&v9 & 0x10000000) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x10000000) == 0)
   {
 LABEL_36:
-    if ((*&v9 & 0x8000) == 0)
+    if ((*&v6 & 0x8000) == 0)
     {
       goto LABEL_38;
     }
@@ -1844,12 +2015,10 @@ LABEL_36:
   }
 
 LABEL_66:
-  relaxErrorPresent = self->_relaxErrorPresent;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 0x8000) != 0)
   {
 LABEL_37:
-    relaxErrorCode = self->_relaxErrorCode;
     PBDataWriterWriteInt32Field();
   }
 
@@ -2746,7 +2915,6 @@ LABEL_33:
       goto LABEL_168;
     }
 
-    v9 = *(equalCopy + 135);
     if (self->_lastMessage)
     {
       if ((*(equalCopy + 135) & 1) == 0)
@@ -2994,7 +3162,6 @@ LABEL_33:
       goto LABEL_168;
     }
 
-    v10 = *(equalCopy + 134);
     if (self->_isNrHst)
     {
       if ((*(equalCopy + 134) & 1) == 0)
@@ -3021,7 +3188,6 @@ LABEL_33:
       goto LABEL_168;
     }
 
-    v11 = *(equalCopy + 132);
     if (self->_bwpSwitchEver)
     {
       if ((*(equalCopy + 132) & 1) == 0)
@@ -3078,15 +3244,14 @@ LABEL_33:
     has = self->_has;
   }
 
-  v13 = *(equalCopy + 35);
+  v10 = *(equalCopy + 35);
   if ((*&has & 0x2000000) != 0)
   {
-    if ((v13 & 0x2000000) == 0)
+    if ((v10 & 0x2000000) == 0)
     {
       goto LABEL_168;
     }
 
-    v14 = *(equalCopy + 133);
     if (self->_isDataPreferred)
     {
       if ((*(equalCopy + 133) & 1) == 0)
@@ -3101,29 +3266,28 @@ LABEL_33:
     }
   }
 
-  else if ((v13 & 0x2000000) != 0)
+  else if ((v10 & 0x2000000) != 0)
   {
     goto LABEL_168;
   }
 
   if ((*&has & 0x800000) != 0)
   {
-    if ((v13 & 0x800000) == 0 || self->_validationType != *(equalCopy + 32))
+    if ((v10 & 0x800000) == 0 || self->_validationType != *(equalCopy + 32))
     {
       goto LABEL_168;
     }
   }
 
-  else if ((v13 & 0x800000) != 0)
+  else if ((v10 & 0x800000) != 0)
   {
     goto LABEL_168;
   }
 
   if ((*&has & 0x10000000) != 0)
   {
-    if ((v13 & 0x10000000) != 0)
+    if ((v10 & 0x10000000) != 0)
     {
-      v15 = *(equalCopy + 136);
       if (self->_relaxErrorPresent)
       {
         if ((*(equalCopy + 136) & 1) == 0)
@@ -3141,11 +3305,11 @@ LABEL_33:
     }
 
 LABEL_168:
-    v16 = 0;
+    v11 = 0;
     goto LABEL_169;
   }
 
-  if ((v13 & 0x10000000) != 0)
+  if ((v10 & 0x10000000) != 0)
   {
     goto LABEL_168;
   }
@@ -3153,22 +3317,22 @@ LABEL_168:
 LABEL_163:
   if ((*&has & 0x8000) != 0)
   {
-    if ((v13 & 0x8000) == 0 || self->_relaxErrorCode != *(equalCopy + 24))
+    if ((v10 & 0x8000) == 0 || self->_relaxErrorCode != *(equalCopy + 24))
     {
       goto LABEL_168;
     }
 
-    v16 = 1;
+    v11 = 1;
   }
 
   else
   {
-    v16 = (*(equalCopy + 35) & 0x8000) == 0;
+    v11 = (*(equalCopy + 35) & 0x8000) == 0;
   }
 
 LABEL_169:
 
-  return v16;
+  return v11;
 }
 
 - (unint64_t)hash

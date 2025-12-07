@@ -75,12 +75,12 @@ void __68__ListViewControllerAccessibility_tableView_viewForHeaderInSection___bl
   v3 = [*(a1 + 32) dateForCachedOccurrencesInSection:*(a1 + 56) usingFilter:{objc_msgSend(*(a1 + 40), "safeBoolForKey:", @"showFilteredData"}];
   if ([*(a1 + 40) _accessibilityIsDateInCurrentYear:?])
   {
-    _AXGetYearlessStringForDay();
+    _AXGetYearlessStringForDay(v3);
   }
 
   else
   {
-    _AXGetStringForDay();
+    _AXGetStringForDay(v3);
   }
   v2 = ;
   [*(a1 + 48) setAccessibilityLabel:v2];

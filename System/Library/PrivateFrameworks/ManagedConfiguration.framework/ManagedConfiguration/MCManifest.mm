@@ -11,6 +11,7 @@
 - (id)_systemManifest;
 - (id)_userManifest;
 - (id)allInstalledPayloadsOfClass:(Class)class;
+- (id)allProfileIdentifiersInstalledNonInteractivelyWithFilterFlags:(int)flags;
 - (id)identifiersOfProfilesWithFilterFlags:(int)flags;
 - (id)installedMDMProfile;
 - (id)installedProfileWithIdentifier:(id)identifier filterFlags:(int)flags;
@@ -221,39 +222,40 @@ LABEL_8:
 
 - (MCManifest)init
 {
-  v12.receiver = self;
-  v12.super_class = MCManifest;
-  v2 = [(MCManifest *)&v12 init];
+  v14.receiver = self;
+  v14.super_class = MCManifest;
+  v2 = [(MCManifest *)&v14 init];
+  v3 = v2;
   if (v2)
   {
-    v3 = __systemManifestFilePath;
+    v4 = __systemManifestFilePath;
     if (!__systemManifestFilePath)
     {
-      v4 = MCSystemManifestPath();
-      v5 = __systemManifestFilePath;
-      __systemManifestFilePath = v4;
+      v5 = MCSystemManifestPath(v2);
+      v6 = __systemManifestFilePath;
+      __systemManifestFilePath = v5;
 
-      v3 = __systemManifestFilePath;
+      v4 = __systemManifestFilePath;
     }
 
-    objc_storeStrong(&v2->_systemFilePath, v3);
-    v6 = __userManifestFilePath;
+    objc_storeStrong(&v3->_systemFilePath, v4);
+    v8 = __userManifestFilePath;
     if (!__userManifestFilePath)
     {
-      v7 = MCUserManifestPath();
-      v8 = __userManifestFilePath;
-      __userManifestFilePath = v7;
+      v9 = MCUserManifestPath(v7);
+      v10 = __userManifestFilePath;
+      __userManifestFilePath = v9;
 
-      v6 = __userManifestFilePath;
+      v8 = __userManifestFilePath;
     }
 
-    objc_storeStrong(&v2->_userFilePath, v6);
-    v9 = dispatch_queue_create("com.apple.managedconfiguration.MCManifest._syncQueue", 0);
-    syncQueue = v2->_syncQueue;
-    v2->_syncQueue = v9;
+    objc_storeStrong(&v3->_userFilePath, v8);
+    v11 = dispatch_queue_create("com.apple.managedconfiguration.MCManifest._syncQueue", 0);
+    syncQueue = v3->_syncQueue;
+    v3->_syncQueue = v11;
   }
 
-  return v2;
+  return v3;
 }
 
 - (void)dealloc
@@ -346,10 +348,7 @@ LABEL_8:
 
 uint64_t __28__MCManifest_systemManifest__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _systemManifest];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _systemManifest];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -378,10 +377,7 @@ uint64_t __28__MCManifest_systemManifest__block_invoke(uint64_t a1)
 
 uint64_t __26__MCManifest_userManifest__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _userManifest];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _userManifest];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -445,59 +441,117 @@ uint64_t __26__MCManifest_userManifest__block_invoke(uint64_t a1)
   return array;
 }
 
-- (id)allInstalledPayloadsOfClass:(Class)class
+- (id)allProfileIdentifiersInstalledNonInteractivelyWithFilterFlags:(int)flags
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v3 = *&flags;
+  v26 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
-  selfCopy = self;
-  [(MCManifest *)self allInstalledProfileIdentifiers];
-  v25 = 0u;
-  v26 = 0u;
-  v27 = 0u;
-  obj = v28 = 0u;
-  v20 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
-  if (v20)
+  v4 = +[MCManifest sharedManifest];
+  v5 = [v4 identifiersOfProfilesWithFilterFlags:v3];
+
+  v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  obj = v5;
+  v6 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+  if (v6)
   {
-    v18 = *v26;
+    v7 = v6;
+    v8 = *v22;
     do
     {
-      for (i = 0; i != v20; ++i)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v26 != v18)
+        if (*v22 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v25 + 1) + 8 * i);
+        v10 = *(*(&v21 + 1) + 8 * i);
+        v11 = objc_autoreleasePoolPush();
+        v12 = +[MCManifest sharedManifest];
+        v13 = [v12 installedProfileWithIdentifier:v10];
+
+        if (v13)
+        {
+          installOptions = [v13 installOptions];
+          v15 = [installOptions objectForKey:@"isInstalledInteractively"];
+          bOOLValue = [v15 BOOLValue];
+
+          if ((bOOLValue & 1) == 0)
+          {
+            [array addObject:v10];
+          }
+        }
+
+        objc_autoreleasePoolPop(v11);
+      }
+
+      v7 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+    }
+
+    while (v7);
+  }
+
+  v17 = [array copy];
+
+  return v17;
+}
+
+- (id)allInstalledPayloadsOfClass:(Class)class
+{
+  v30 = *MEMORY[0x1E69E9840];
+  array = [MEMORY[0x1E695DF70] array];
+  selfCopy = self;
+  [(MCManifest *)self allInstalledProfileIdentifiers];
+  v24 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  obj = v27 = 0u;
+  v19 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
+  if (v19)
+  {
+    v17 = *v25;
+    do
+    {
+      for (i = 0; i != v19; ++i)
+      {
+        if (*v25 != v17)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v6 = *(*(&v24 + 1) + 8 * i);
         v7 = objc_autoreleasePoolPush();
         v8 = [(MCManifest *)selfCopy installedProfileWithIdentifier:v6];
+        v20 = 0u;
         v21 = 0u;
         v22 = 0u;
         v23 = 0u;
-        v24 = 0u;
         payloads = [v8 payloads];
-        v10 = [payloads countByEnumeratingWithState:&v21 objects:v29 count:16];
+        v10 = [payloads countByEnumeratingWithState:&v20 objects:v28 count:16];
         if (v10)
         {
           v11 = v10;
-          v12 = *v22;
+          v12 = *v21;
           do
           {
             for (j = 0; j != v11; ++j)
             {
-              if (*v22 != v12)
+              if (*v21 != v12)
               {
                 objc_enumerationMutation(payloads);
               }
 
-              v14 = *(*(&v21 + 1) + 8 * j);
+              v14 = *(*(&v20 + 1) + 8 * j);
               if (objc_opt_isKindOfClass())
               {
                 [array addObject:v14];
               }
             }
 
-            v11 = [payloads countByEnumeratingWithState:&v21 objects:v29 count:16];
+            v11 = [payloads countByEnumeratingWithState:&v20 objects:v28 count:16];
           }
 
           while (v11);
@@ -506,13 +560,11 @@ uint64_t __26__MCManifest_userManifest__block_invoke(uint64_t a1)
         objc_autoreleasePoolPop(v7);
       }
 
-      v20 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v19 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
     }
 
-    while (v20);
+    while (v19);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return array;
 }

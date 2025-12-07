@@ -378,7 +378,7 @@
   v7 = [(ADCommunalDeviceUser *)&v73 init];
   if (v7)
   {
-    v8 = [dictionaryCopy objectForKey:@"homeUserId"];
+    v8 = objc_msgSend_objectForKey_(dictionaryCopy);
     if ([v8 isEqualToString:@"empty"])
     {
       v9 = 0;
@@ -391,7 +391,7 @@
 
     objc_storeStrong(&v7->_homeUserUUID, v9);
 
-    v10 = [dictionaryCopy objectForKey:@"sharedUserId"];
+    v10 = objc_msgSend_objectForKey_(dictionaryCopy);
     if ([v10 isEqualToString:@"empty"])
     {
       v11 = 0;
@@ -404,7 +404,7 @@
 
     objc_storeStrong(&v7->_sharedUserID, v11);
 
-    v12 = [dictionaryCopy objectForKey:@"loggableSharedUserId"];
+    v12 = objc_msgSend_objectForKey_(dictionaryCopy);
     if ([v12 isEqualToString:@"empty"])
     {
       v13 = 0;
@@ -417,7 +417,7 @@
 
     objc_storeStrong(&v7->_loggableSharedUserID, v13);
 
-    v14 = [dictionaryCopy objectForKey:@"iCloudAltDSID"];
+    v14 = objc_msgSend_objectForKey_(dictionaryCopy);
     if ([v14 isEqualToString:@"empty"])
     {
       v15 = 0;
@@ -430,7 +430,7 @@
 
     objc_storeStrong(&v7->_iCloudAltDSID, v15);
 
-    v16 = [dictionaryCopy objectForKey:@"companionAssistantId"];
+    v16 = objc_msgSend_objectForKey_(dictionaryCopy);
     if ([v16 isEqualToString:@"empty"])
     {
       v17 = 0;
@@ -443,7 +443,7 @@
 
     objc_storeStrong(&v7->_companionAssistantID, v17);
 
-    v18 = [dictionaryCopy objectForKey:@"companionSpeechId"];
+    v18 = objc_msgSend_objectForKey_(dictionaryCopy);
     if ([v18 isEqualToString:@"empty"])
     {
       v19 = 0;
@@ -456,7 +456,7 @@
 
     objc_storeStrong(&v7->_companionSpeechID, v19);
 
-    v20 = [dictionaryCopy objectForKey:@"companionIDSIdentifier"];
+    v20 = objc_msgSend_objectForKey_(dictionaryCopy);
     if ([v20 isEqualToString:@"empty"])
     {
       v21 = 0;
@@ -469,7 +469,7 @@
 
     objc_storeStrong(&v7->_companionIDSIdentifier, v21);
 
-    v22 = [dictionaryCopy objectForKey:@"enrollmentName"];
+    v22 = objc_msgSend_objectForKey_(dictionaryCopy);
     if ([v22 isEqualToString:@"empty"])
     {
       v23 = 0;
@@ -486,14 +486,14 @@
     attributes = v7->_attributes;
     v7->_attributes = v24;
 
-    v26 = [dictionaryCopy objectForKey:@"speechIdentifier"];
+    v26 = objc_msgSend_objectForKey_(dictionaryCopy);
     speechID = v7->_speechID;
     v7->_speechID = v26;
 
-    v28 = [dictionaryCopy objectForKey:@"companionPeerToPeerHandoffCapable"];
+    v28 = objc_msgSend_objectForKey_(dictionaryCopy);
     v7->_companionPeerToPeerHandoffCapable = [v28 BOOLValue];
 
-    v29 = [dictionaryCopy objectForKey:@"companionSiriLanguage"];
+    v29 = objc_msgSend_objectForKey_(dictionaryCopy);
     if ([v29 isEqualToString:@"empty"])
     {
       v30 = 0;
@@ -506,7 +506,7 @@
 
     objc_storeStrong(&v7->_companionSiriLanguage, v30);
 
-    v31 = [dictionaryCopy objectForKey:@"companionName"];
+    v31 = objc_msgSend_objectForKey_(dictionaryCopy);
     if ([v31 isEqualToString:@"empty"])
     {
       v32 = 0;
@@ -527,34 +527,34 @@
       v7->_speechID = uUIDString;
     }
 
-    v36 = [dictionaryCopy objectForKey:@"cloudShareOwnerName"];
+    v36 = objc_msgSend_objectForKey_(dictionaryCopy);
     shareOwnerName = v7->_shareOwnerName;
     v7->_shareOwnerName = v36;
 
-    v38 = [dictionaryCopy objectForKey:@"voiceIDAllowedByUser"];
+    v38 = objc_msgSend_objectForKey_(dictionaryCopy);
     v7->_voiceIDAllowedByUser = [v38 BOOLValue];
 
-    v39 = [dictionaryCopy objectForKey:@"personalDomainEnabled"];
+    v39 = objc_msgSend_objectForKey_(dictionaryCopy);
     v7->_personalDomainsIsEnabled = [v39 BOOLValue];
 
-    v40 = [dictionaryCopy objectForKey:@"personalDomainUnauthenticatedRequestsAllowed"];
+    v40 = objc_msgSend_objectForKey_(dictionaryCopy);
     v7->_unauthenticatedRequestsAllowed = [v40 BOOLValue];
 
-    v41 = [dictionaryCopy objectForKey:@"allowExplicitContent"];
+    v41 = objc_msgSend_objectForKey_(dictionaryCopy);
     v7->_allowExplicitContent = [v41 BOOLValue];
 
-    v42 = [dictionaryCopy objectForKey:@"isMediafallbackUser"];
+    v42 = objc_msgSend_objectForKey_(dictionaryCopy);
     v7->_isMediaFallbackUser = [v42 BOOLValue];
 
-    v43 = [dictionaryCopy objectForKey:@"userAgent"];
+    v43 = objc_msgSend_objectForKey_(dictionaryCopy);
     productPrefix = v7->_productPrefix;
     v7->_productPrefix = v43;
 
-    v45 = [dictionaryCopy objectForKey:@"aceHost"];
+    v45 = objc_msgSend_objectForKey_(dictionaryCopy);
     aceHost = v7->_aceHost;
     v7->_aceHost = v45;
 
-    v47 = [dictionaryCopy objectForKey:@"loggableCompanionAssistantId"];
+    v47 = objc_msgSend_objectForKey_(dictionaryCopy);
     loggableCompanionAssistantID = v7->_loggableCompanionAssistantID;
     v7->_loggableCompanionAssistantID = v47;
 
@@ -566,7 +566,7 @@
       v7->_loggableCompanionAssistantID = uUIDString2;
     }
 
-    v52 = [dictionaryCopy objectForKey:@"loggableMultiUserSharedUserId"];
+    v52 = objc_msgSend_objectForKey_(dictionaryCopy);
     loggableMultiUserSharedUserID = v7->_loggableMultiUserSharedUserID;
     v7->_loggableMultiUserSharedUserID = v52;
 
@@ -578,7 +578,7 @@
       v7->_loggableMultiUserSharedUserID = uUIDString3;
     }
 
-    v57 = [dictionaryCopy objectForKey:@"loggableMusicSyncSharedUserId"];
+    v57 = objc_msgSend_objectForKey_(dictionaryCopy);
     loggableMusicSyncSharedUserID = v7->_loggableMusicSyncSharedUserID;
     v7->_loggableMusicSyncSharedUserID = v57;
 
@@ -590,7 +590,7 @@
       v7->_loggableMusicSyncSharedUserID = uUIDString4;
     }
 
-    v62 = [dictionaryCopy objectForKey:@"homeMemberSettings"];
+    v62 = objc_msgSend_objectForKey_(dictionaryCopy);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -605,18 +605,18 @@
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
 LABEL_45:
-        v68 = [dictionaryCopy objectForKey:@"personaId"];
+        v68 = objc_msgSend_objectForKey_(dictionaryCopy);
         personaID = v7->_personaID;
         v7->_personaID = v68;
 
-        v70 = [dictionaryCopy objectForKey:@"perceptionIdentifier"];
+        v70 = objc_msgSend_objectForKey_(dictionaryCopy);
         perceptionIdentifier = v7->_perceptionIdentifier;
         v7->_perceptionIdentifier = v70;
 
         goto LABEL_46;
       }
 
-      settings = [dictionaryCopy objectForKey:@"homeMemberSettings"];
+      settings = objc_msgSend_objectForKey_(dictionaryCopy);
       v65 = [AceObject aceObjectWithPlistData:settings];
       dictionary = [v65 dictionary];
       v67 = v7->_settings;

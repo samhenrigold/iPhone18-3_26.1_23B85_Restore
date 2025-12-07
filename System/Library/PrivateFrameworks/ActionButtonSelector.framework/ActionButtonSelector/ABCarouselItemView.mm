@@ -9,11 +9,11 @@
 
 - (ABCarouselItemView)initWithItem:(id)item
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   itemCopy = item;
-  v16.receiver = self;
-  v16.super_class = ABCarouselItemView;
-  v5 = [(ABCarouselItemView *)&v16 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
+  v15.receiver = self;
+  v15.super_class = ABCarouselItemView;
+  v5 = [(ABCarouselItemView *)&v15 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
   v6 = v5;
   if (v5)
   {
@@ -27,8 +27,8 @@
     layer3 = [(ABCarouselItemView *)v6 layer];
     [layer3 setAllowsGroupBlending:0];
 
-    v17[0] = objc_opt_class();
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+    v16[0] = objc_opt_class();
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
     v12 = [(ABCarouselItemView *)v6 registerForTraitChanges:v11 withAction:sel__updateForLayoutDirection];
     traitRegistration = v6->_traitRegistration;
     v6->_traitRegistration = v12;
@@ -36,7 +36,6 @@
     [(ABCarouselItemView *)v6 setItem:itemCopy];
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

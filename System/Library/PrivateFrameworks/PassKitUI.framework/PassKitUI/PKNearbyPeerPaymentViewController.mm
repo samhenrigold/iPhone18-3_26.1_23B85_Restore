@@ -31,9 +31,9 @@
   v7 = _Block_copy(action);
   v8 = _Block_copy(dismissAction);
   v9 = swift_allocObject();
-  *(v9 + 16) = v7;
+  v9[2] = v7;
   v10 = swift_allocObject();
-  *(v10 + 16) = v8;
+  v10[2] = v8;
   return NearbyPeerPaymentViewController.init(context:screenEdgeSwipeAction:dismissAction:)(context, sub_1BD166E88, v9, sub_1BD267094, v10);
 }
 

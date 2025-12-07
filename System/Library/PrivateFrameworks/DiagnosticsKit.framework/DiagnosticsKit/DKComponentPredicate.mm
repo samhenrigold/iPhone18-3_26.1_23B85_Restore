@@ -1,5 +1,6 @@
 @interface DKComponentPredicate
 + (id)componentPredicateMatchingComponentIdentity:(id)identity;
++ (id)componentPredicateWithDomain:(id)domain exactMatch:(BOOL)match;
 + (id)componentPredicateWithType:(id)type identifier:(id)identifier;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToComponentPredicate:(id)predicate;
@@ -10,6 +11,15 @@
 @end
 
 @implementation DKComponentPredicate
+
++ (id)componentPredicateWithDomain:(id)domain exactMatch:(BOOL)match
+{
+  matchCopy = match;
+  domainCopy = domain;
+  v7 = [[self alloc] initWithDomain:domainCopy exactMatch:matchCopy];
+
+  return v7;
+}
 
 - (DKComponentPredicate)initWithDomain:(id)domain exactMatch:(BOOL)match
 {

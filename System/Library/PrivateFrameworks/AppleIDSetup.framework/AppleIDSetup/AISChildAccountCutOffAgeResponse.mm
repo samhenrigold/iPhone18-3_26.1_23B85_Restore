@@ -8,22 +8,20 @@
 
 - (NSString)childCutOffAgeLocalized
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___AISChildAccountCutOffAgeResponse_wrappedResponse);
   selfCopy = self;
   sub_240759894();
 
-  v4 = sub_24075A084();
+  v3 = sub_24075A084();
 
-  return v4;
+  return v3;
 }
 
 - (int64_t)childCutOffAge
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___AISChildAccountCutOffAgeResponse_wrappedResponse);
   selfCopy = self;
-  v4 = sub_240759884();
+  v3 = sub_240759884();
 
-  return v4;
+  return v3;
 }
 
 - (AISChildAccountCutOffAgeResponse)init

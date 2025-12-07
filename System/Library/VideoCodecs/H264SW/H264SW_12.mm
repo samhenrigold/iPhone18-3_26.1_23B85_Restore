@@ -213,7 +213,7 @@ void sub_277350914(uint64_t a1, uint64_t a2, uint64_t a3, double a4, double a5, 
               v373 = &v2770.i8[v363];
               v366 = vzip1q_s8(*v371, v21);
               v374 = vsubq_s16(vshlq_n_s16(vaddq_s16(v369, v368), 2uLL), vaddq_s16(v372, v367));
-              v374.val[0] = vqmovun_s16(vshrq_n_s16(vaddq_s16(vaddq_s16(vaddq_s16(v370, v374), vshlq_n_s16(v374, 2uLL)), vaddq_s16(v366, v22)), 5uLL));
+              *v374.i8 = vqmovun_s16(vshrq_n_s16(vaddq_s16(vaddq_s16(vaddq_s16(v370, v374), vshlq_n_s16(v374, 2uLL)), vaddq_s16(v366, v22)), 5uLL));
               v375 = v21.i64[0];
               vst2_s8(v373, v374);
               v363 += 32;
@@ -518,7 +518,7 @@ LABEL_276:
             v444 = v111;
             v445 = v108 & 7;
             v446 = v114;
-            sub_27729AF04(v2770.i8, v390, v392, 16, v393, v442);
+            sub_27729AF04(v2770.i8, v390, v392, 0x10u, v393, v442);
             v130 = v2738;
             v113 = v391;
             v114 = v446;
@@ -1542,7 +1542,7 @@ LABEL_1164:
                   v2559 = 3;
 LABEL_1165:
                   v2513 = v114;
-                  sub_27729C774(v2770.i8, v2532, v2533, 8, v2534, v2559);
+                  sub_27729C774(v2770.i8, v2532, v2533, 8u, v2534, v2559);
 LABEL_1166:
                   v114 = v2513;
                   v23.i64[0] = 0x20002000200020;
@@ -1837,7 +1837,7 @@ LABEL_1197:
                   v2619 = 3;
 LABEL_1198:
                   v2523 = v114;
-                  sub_27729C774(v2770.i8, v2547, v2548, 16, v2549, v2619);
+                  sub_27729C774(v2770.i8, v2547, v2548, 0x10u, v2549, v2619);
 LABEL_1199:
                   v193 = v2727;
                   v114 = v2523;
@@ -2138,7 +2138,7 @@ LABEL_1199:
                   v1707 = &v2770.i8[v1697];
                   v1700 = vzip1q_s8(*v1705, v21);
                   v1708 = vsubq_s16(vshlq_n_s16(vaddq_s16(v1703, v1702), 2uLL), vaddq_s16(v1706, v1701));
-                  v1708.val[0] = vqmovun_s16(vshrq_n_s16(vaddq_s16(vaddq_s16(vaddq_s16(v1704, v1708), vshlq_n_s16(v1708, 2uLL)), vaddq_s16(v1700, v22)), 5uLL));
+                  *v1708.i8 = vqmovun_s16(vshrq_n_s16(vaddq_s16(vaddq_s16(vaddq_s16(v1704, v1708), vshlq_n_s16(v1708, 2uLL)), vaddq_s16(v1700, v22)), 5uLL));
                   v1709 = v21.i64[0];
                   vst2_s8(v1707, v1708);
                   v1697 += 32;
@@ -2437,7 +2437,7 @@ LABEL_1055:
                 v2768 = v21;
                 v2341 = v114;
                 v2716 = v147;
-                sub_27729AF04(v2770.i8, v1794, v1796, 16, v1797, v2305);
+                sub_27729AF04(v2770.i8, v1794, v1796, 0x10u, v1797, v2305);
                 v157 = v1795;
                 v147 = v2716;
                 v114 = v2341;
@@ -2857,7 +2857,7 @@ LABEL_1081:
                 v1750 = &v2770.i8[v1740];
                 v1743 = vzip1q_s8(*v1748, v21);
                 v1751 = vsubq_s16(vshlq_n_s16(vaddq_s16(v1746, v1745), 2uLL), vaddq_s16(v1749, v1744));
-                v1751.val[0] = vqmovun_s16(vshrq_n_s16(vaddq_s16(vaddq_s16(vaddq_s16(v1747, v1751), vshlq_n_s16(v1751, 2uLL)), vaddq_s16(v1743, v22)), 5uLL));
+                *v1751.i8 = vqmovun_s16(vshrq_n_s16(vaddq_s16(vaddq_s16(vaddq_s16(v1747, v1751), vshlq_n_s16(v1751, 2uLL)), vaddq_s16(v1743, v22)), 5uLL));
                 v1752 = v21.i64[0];
                 vst2_s8(v1750, v1751);
                 v1740 += 32;
@@ -3145,7 +3145,7 @@ LABEL_1058:
               v2769 = v21;
               v2342 = v114;
               v2717 = v147;
-              sub_27729AF04(v2770.i8, v1861, v1862, 8, v1864, v2306);
+              sub_27729AF04(v2770.i8, v1861, v1862, 8u, v1864, v2306);
               v275 = v1863;
               v276 = v2709;
               v147 = v2717;
@@ -4342,7 +4342,7 @@ LABEL_926:
               v2084 = &v2774.i8[v2074];
               v2077 = vzip1q_s8(*v2082, v21);
               v2085 = vsubq_s16(vshlq_n_s16(vaddq_s16(v2080, v2079), 2uLL), vaddq_s16(v2083, v2078));
-              v2085.val[0] = vqmovun_s16(vshrq_n_s16(vaddq_s16(vaddq_s16(vaddq_s16(v2081, v2085), vshlq_n_s16(v2085, 2uLL)), vaddq_s16(v2077, v22)), 5uLL));
+              *v2085.i8 = vqmovun_s16(vshrq_n_s16(vaddq_s16(vaddq_s16(vaddq_s16(v2081, v2085), vshlq_n_s16(v2085, 2uLL)), vaddq_s16(v2077, v22)), 5uLL));
               v2086 = v21.i64[0];
               vst2_s8(v2084, v2085);
               v2074 += 16;
@@ -4552,7 +4552,7 @@ LABEL_952:
                 v1571 = &v2770.i8[v1561];
                 v1564 = vzip1q_s8(*v1569, v21);
                 v1572 = vsubq_s16(vshlq_n_s16(vaddq_s16(v1567, v1566), 2uLL), vaddq_s16(v1570, v1565));
-                v1572.val[0] = vqmovun_s16(vshrq_n_s16(vaddq_s16(vaddq_s16(vaddq_s16(v1568, v1572), vshlq_n_s16(v1572, 2uLL)), vaddq_s16(v1564, v22)), 5uLL));
+                *v1572.i8 = vqmovun_s16(vshrq_n_s16(vaddq_s16(vaddq_s16(vaddq_s16(v1568, v1572), vshlq_n_s16(v1572, 2uLL)), vaddq_s16(v1564, v22)), 5uLL));
                 v1573 = v21.i64[0];
                 vst2_s8(v1571, v1572);
                 v1561 += 16;
@@ -4686,7 +4686,7 @@ LABEL_822:
 LABEL_830:
               v1774 = 3;
 LABEL_831:
-              sub_27729C774(v2770.i8, v1579, v1580, 8, v1581, v1774);
+              sub_27729C774(v2770.i8, v1579, v1580, 8u, v1581, v1774);
 LABEL_832:
               v22.i64[0] = 0x10001000100010;
               v22.i64[1] = 0x10001000100010;
@@ -4788,7 +4788,7 @@ LABEL_832:
                 v1832 = &v2774.i8[v1822];
                 v1825 = vzip1q_s8(*v1830, v21);
                 v1833 = vsubq_s16(vshlq_n_s16(vaddq_s16(v1828, v1827), 2uLL), vaddq_s16(v1831, v1826));
-                v1833.val[0] = vqmovun_s16(vshrq_n_s16(vaddq_s16(vaddq_s16(vaddq_s16(v1829, v1833), vshlq_n_s16(v1833, 2uLL)), vaddq_s16(v1825, v22)), 5uLL));
+                *v1833.i8 = vqmovun_s16(vshrq_n_s16(vaddq_s16(vaddq_s16(vaddq_s16(v1829, v1833), vshlq_n_s16(v1833, 2uLL)), vaddq_s16(v1825, v22)), 5uLL));
                 v1834 = v21.i64[0];
                 vst2_s8(v1832, v1833);
                 v1822 += 16;
@@ -4962,7 +4962,7 @@ LABEL_858:
 LABEL_861:
               v1860 = 3;
 LABEL_862:
-              sub_27729C774(v2774.i8, v1835, v1836, 8, v1837, v1860);
+              sub_27729C774(v2774.i8, v1835, v1836, 8u, v1837, v1860);
 LABEL_863:
               v22.i64[0] = 0x10001000100010;
               v22.i64[1] = 0x10001000100010;
@@ -5220,7 +5220,7 @@ LABEL_863:
                   v1650 = &v2770.i8[v1640];
                   v1643 = vzip1q_s8(*v1648, v21);
                   v1651 = vsubq_s16(vshlq_n_s16(vaddq_s16(v1646, v1645), 2uLL), vaddq_s16(v1649, v1644));
-                  v1651.val[0] = vqmovun_s16(vshrq_n_s16(vaddq_s16(vaddq_s16(vaddq_s16(v1647, v1651), vshlq_n_s16(v1651, 2uLL)), vaddq_s16(v1643, v22)), 5uLL));
+                  *v1651.i8 = vqmovun_s16(vshrq_n_s16(vaddq_s16(vaddq_s16(vaddq_s16(v1647, v1651), vshlq_n_s16(v1651, 2uLL)), vaddq_s16(v1643, v22)), 5uLL));
                   v1652 = v21.i64[0];
                   vst2_s8(v1650, v1651);
                   v1640 += 16;
@@ -5354,7 +5354,7 @@ LABEL_923:
 LABEL_959:
                 v2058 = 3;
 LABEL_960:
-                sub_27729C774(v2770.i8, v1686, v1687, 16, v1688, v2058);
+                sub_27729C774(v2770.i8, v1686, v1687, 0x10u, v1688, v2058);
 LABEL_961:
                 v22.i64[0] = 0x10001000100010;
                 v22.i64[1] = 0x10001000100010;
@@ -5456,7 +5456,7 @@ LABEL_961:
                   v2189 = &v2774.i8[v2179];
                   v2182 = vzip1q_s8(*v2187, v21);
                   v2190 = vsubq_s16(vshlq_n_s16(vaddq_s16(v2185, v2184), 2uLL), vaddq_s16(v2188, v2183));
-                  v2190.val[0] = vqmovun_s16(vshrq_n_s16(vaddq_s16(vaddq_s16(vaddq_s16(v2186, v2190), vshlq_n_s16(v2190, 2uLL)), vaddq_s16(v2182, v22)), 5uLL));
+                  *v2190.i8 = vqmovun_s16(vshrq_n_s16(vaddq_s16(vaddq_s16(vaddq_s16(v2186, v2190), vshlq_n_s16(v2190, 2uLL)), vaddq_s16(v2182, v22)), 5uLL));
                   v2191 = v21.i64[0];
                   vst2_s8(v2189, v2190);
                   v2179 += 16;
@@ -5630,7 +5630,7 @@ LABEL_987:
 LABEL_989:
                 v2217 = 3;
 LABEL_990:
-                sub_27729C774(v2774.i8, v2192, v2193, 16, v2194, v2217);
+                sub_27729C774(v2774.i8, v2192, v2193, 0x10u, v2194, v2217);
 LABEL_991:
                 v22.i64[0] = 0x10001000100010;
                 v22.i64[1] = 0x10001000100010;
@@ -5937,7 +5937,7 @@ LABEL_1012:
             v606 = &v2770.i8[v596];
             v599 = vzip1q_s8(*v604, v21);
             v607 = vsubq_s16(vshlq_n_s16(vaddq_s16(v602, v601), 2uLL), vaddq_s16(v605, v600));
-            v607.val[0] = vqmovun_s16(vshrq_n_s16(vaddq_s16(vaddq_s16(vaddq_s16(v603, v607), vshlq_n_s16(v607, 2uLL)), vaddq_s16(v599, v22)), 5uLL));
+            *v607.i8 = vqmovun_s16(vshrq_n_s16(vaddq_s16(vaddq_s16(vaddq_s16(v603, v607), vshlq_n_s16(v607, 2uLL)), vaddq_s16(v599, v22)), 5uLL));
             v608 = v21.i64[0];
             vst2_s8(v606, v607);
             v596 += 32;
@@ -5969,7 +5969,7 @@ LABEL_1012:
             v621 = &v2771.i8[v609];
             v614 = vzip1q_s8(*v619, v21);
             v622 = vsubq_s16(vshlq_n_s16(vaddq_s16(v617, v616), 2uLL), vaddq_s16(v620, v615));
-            v622.val[0] = vqmovun_s16(vshrq_n_s16(vaddq_s16(vaddq_s16(vaddq_s16(v618, v622), vshlq_n_s16(v622, 2uLL)), vaddq_s16(v614, v22)), 5uLL));
+            *v622.i8 = vqmovun_s16(vshrq_n_s16(vaddq_s16(vaddq_s16(vaddq_s16(v618, v622), vshlq_n_s16(v622, 2uLL)), vaddq_s16(v614, v22)), 5uLL));
             v623 = v21.i64[0];
             vst2_s8(v621, v622);
             v609 += 32;
@@ -6187,7 +6187,7 @@ LABEL_465:
 LABEL_466:
           v2752 = v11;
           v2766 = v21;
-          sub_27729AF04(v2770.i8, v668, v669, 16, v670, v810);
+          sub_27729AF04(v2770.i8, v668, v669, 0x10u, v670, v810);
 LABEL_467:
           v22.i64[0] = 0x10001000100010;
           v22.i64[1] = 0x10001000100010;
@@ -6302,7 +6302,7 @@ LABEL_467:
             v1009 = &v2774.i8[v999];
             v1002 = vzip1q_s8(*v1007, v21);
             v1010 = vsubq_s16(vshlq_n_s16(vaddq_s16(v1005, v1004), 2uLL), vaddq_s16(v1008, v1003));
-            v1010.val[0] = vqmovun_s16(vshrq_n_s16(vaddq_s16(vaddq_s16(vaddq_s16(v1006, v1010), vshlq_n_s16(v1010, 2uLL)), vaddq_s16(v1002, v22)), 5uLL));
+            *v1010.i8 = vqmovun_s16(vshrq_n_s16(vaddq_s16(vaddq_s16(vaddq_s16(v1006, v1010), vshlq_n_s16(v1010, 2uLL)), vaddq_s16(v1002, v22)), 5uLL));
             v1011 = v21.i64[0];
             vst2_s8(v1009, v1010);
             v999 += 32;
@@ -6343,7 +6343,7 @@ LABEL_467:
             v1024 = &v2775.i8[v1012];
             v1017 = vzip1q_s8(*v1022, v21);
             v1025 = vsubq_s16(vshlq_n_s16(vaddq_s16(v1020, v1019), 2uLL), vaddq_s16(v1023, v1018));
-            v1025.val[0] = vqmovun_s16(vshrq_n_s16(vaddq_s16(vaddq_s16(vaddq_s16(v1021, v1025), vshlq_n_s16(v1025, 2uLL)), vaddq_s16(v1017, v22)), 5uLL));
+            *v1025.i8 = vqmovun_s16(vshrq_n_s16(vaddq_s16(vaddq_s16(vaddq_s16(v1021, v1025), vshlq_n_s16(v1025, 2uLL)), vaddq_s16(v1017, v22)), 5uLL));
             v1026 = v21.i64[0];
             vst2_s8(v1024, v1025);
             v1012 += 32;
@@ -6597,7 +6597,7 @@ LABEL_545:
 LABEL_546:
           v2753 = v11;
           v2767 = v21;
-          sub_27729AF04(v2774.i8, v1027, v1028, 16, v1029, v1078);
+          sub_27729AF04(v2774.i8, v1027, v1028, 0x10u, v1029, v1078);
 LABEL_547:
           v22.i64[0] = 0x10001000100010;
           v22.i64[1] = 0x10001000100010;
@@ -7203,7 +7203,7 @@ LABEL_569:
           v634 = &v2770.i8[v624];
           v627 = vzip1q_s8(*v632, v21);
           v635 = vsubq_s16(vshlq_n_s16(vaddq_s16(v630, v629), 2uLL), vaddq_s16(v633, v628));
-          v635.val[0] = vqmovun_s16(vshrq_n_s16(vaddq_s16(vaddq_s16(vaddq_s16(v631, v635), vshlq_n_s16(v635, 2uLL)), vaddq_s16(v627, v22)), 5uLL));
+          *v635.i8 = vqmovun_s16(vshrq_n_s16(vaddq_s16(vaddq_s16(vaddq_s16(v631, v635), vshlq_n_s16(v635, 2uLL)), vaddq_s16(v627, v22)), 5uLL));
           v636 = v21.i64[0];
           vst2_s8(v634, v635);
           v624 += 32;
@@ -7235,7 +7235,7 @@ LABEL_569:
           v649 = &v2771.i8[v637];
           v642 = vzip1q_s8(*v647, v21);
           v650 = vsubq_s16(vshlq_n_s16(vaddq_s16(v645, v644), 2uLL), vaddq_s16(v648, v643));
-          v650.val[0] = vqmovun_s16(vshrq_n_s16(vaddq_s16(vaddq_s16(vaddq_s16(v646, v650), vshlq_n_s16(v650, 2uLL)), vaddq_s16(v642, v22)), 5uLL));
+          *v650.i8 = vqmovun_s16(vshrq_n_s16(vaddq_s16(vaddq_s16(vaddq_s16(v646, v650), vshlq_n_s16(v650, 2uLL)), vaddq_s16(v642, v22)), 5uLL));
           v651 = v21.i64[0];
           vst2_s8(v649, v650);
           v637 += 32;
@@ -7441,7 +7441,7 @@ LABEL_410:
 LABEL_505:
         v811 = 3;
 LABEL_506:
-        sub_27729AF04(v2770.i8, v671, v672, 8, v673, v811);
+        sub_27729AF04(v2770.i8, v671, v672, 8u, v673, v811);
 LABEL_507:
         v22.i64[0] = 0x10001000100010;
         v22.i64[1] = 0x10001000100010;
@@ -7557,7 +7557,7 @@ LABEL_507:
           v1122 = &v2774.i8[v1112];
           v1115 = vzip1q_s8(*v1120, v21);
           v1123 = vsubq_s16(vshlq_n_s16(vaddq_s16(v1118, v1117), 2uLL), vaddq_s16(v1121, v1116));
-          v1123.val[0] = vqmovun_s16(vshrq_n_s16(vaddq_s16(vaddq_s16(vaddq_s16(v1119, v1123), vshlq_n_s16(v1123, 2uLL)), vaddq_s16(v1115, v22)), 5uLL));
+          *v1123.i8 = vqmovun_s16(vshrq_n_s16(vaddq_s16(vaddq_s16(vaddq_s16(v1119, v1123), vshlq_n_s16(v1123, 2uLL)), vaddq_s16(v1115, v22)), 5uLL));
           v1124 = v21.i64[0];
           vst2_s8(v1122, v1123);
           v1112 += 32;
@@ -7598,7 +7598,7 @@ LABEL_507:
           v1137 = &v2775.i8[v1125];
           v1130 = vzip1q_s8(*v1135, v21);
           v1138 = vsubq_s16(vshlq_n_s16(vaddq_s16(v1133, v1132), 2uLL), vaddq_s16(v1136, v1131));
-          v1138.val[0] = vqmovun_s16(vshrq_n_s16(vaddq_s16(vaddq_s16(vaddq_s16(v1134, v1138), vshlq_n_s16(v1138, 2uLL)), vaddq_s16(v1130, v22)), 5uLL));
+          *v1138.i8 = vqmovun_s16(vshrq_n_s16(vaddq_s16(vaddq_s16(vaddq_s16(v1134, v1138), vshlq_n_s16(v1138, 2uLL)), vaddq_s16(v1130, v22)), 5uLL));
           v1139 = v21.i64[0];
           vst2_s8(v1137, v1138);
           v1125 += 32;
@@ -7840,7 +7840,7 @@ LABEL_543:
 LABEL_618:
         v1191 = 3;
 LABEL_619:
-        sub_27729AF04(v2774.i8, v1140, v1141, 8, v1142, v1191);
+        sub_27729AF04(v2774.i8, v1140, v1141, 8u, v1142, v1191);
 LABEL_620:
         v22.i64[0] = 0x10001000100010;
         v22.i64[1] = 0x10001000100010;
@@ -9228,7 +9228,7 @@ LABEL_45:
   v38 = 0;
 LABEL_59:
   v41 = (2 * v37) | (4 * v36) | (8 * v34) | v38;
-  v42 = &byte_280A6AA70;
+  v42 = byte_280A6AA70;
   if (v30 && (*(result + 185) & 1) != 0)
   {
     v43 = *(result + 31);

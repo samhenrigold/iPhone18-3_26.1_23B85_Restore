@@ -64,20 +64,19 @@
   {
     v10 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v11 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = HMFGetOSLogHandle(selfCopy, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v12 = HMFGetLogIdentifier(selfCopy);
+      v13 = HMFGetLogIdentifier(selfCopy);
       *buf = 138543362;
-      v17 = v12;
-      _os_log_impl(&dword_22ADEC000, v11, OS_LOG_TYPE_ERROR, "%{public}@Invalid hostname", buf, 0xCu);
+      v17 = v13;
+      _os_log_impl(&dword_22ADEC000, v12, OS_LOG_TYPE_ERROR, "%{public}@Invalid hostname", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v10);
     v9 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

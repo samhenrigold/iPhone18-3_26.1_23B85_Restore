@@ -29,78 +29,68 @@
 
 - (_retain_ptr<VKLabelNavRoadLabel)updateRoadSignWithNavContext:(const NavContext *)context artworkCache:(void *)cache
 {
-  v40 = v4;
+  v34 = v4;
   if ([(VKLabelNavRouteEta *)self isRepositioning])
   {
-    goto LABEL_12;
+    goto LABEL_9;
   }
 
   orientation = [(VKLabelNavRouteEta *)self orientation];
-  selected = [(VKLabelNavRouteEta *)self selected];
+  [(VKLabelNavRouteEta *)self selected];
   routeInfo = [(VKLabelNavRouteEta *)self routeInfo];
-  hasFocus = [routeInfo hasFocus];
-  etaComparisonToMain = [(VKLabelNavRouteEta *)self etaComparisonToMain];
+  [routeInfo hasFocus];
+  [(VKLabelNavRouteEta *)self etaComparisonToMain];
   route = [(VKRouteInfo *)self->_routeInfo route];
-  transportType = [route transportType];
-  if (transportType >= 7)
-  {
-    v9 = 4;
-  }
-
-  else
-  {
-    v9 = 0x50403020100uLL >> (8 * transportType);
-  }
-
+  [route transportType];
   displayEtaDescription = [(VKLabelNavRouteEta *)self displayEtaDescription];
-  v11 = +[VKLabelNavRouteEta toStyleNavLabelType:](VKLabelNavRouteEta, "toStyleNavLabelType:", [displayEtaDescription routeEtaType]);
+  +[VKLabelNavRouteEta toStyleNavLabelType:](VKLabelNavRouteEta, "toStyleNavLabelType:", [displayEtaDescription routeEtaType]);
   when = [(VKLabelNavRouteEta *)self when];
   routeLegWhen = [(VKLabelNavRouteEta *)self routeLegWhen];
   displayEtaDescription2 = [(VKLabelNavRouteEta *)self displayEtaDescription];
-  styleAttributes = [displayEtaDescription2 styleAttributes];
-  [VKLabelNavRouteEta styleForNavContext:context selected:selected focused:hasFocus etaComparison:etaComparisonToMain transportType:v9 navLabelType:v11 when:*&when routeLegWhen:*&routeLegWhen additionalAttributes:styleAttributes];
+  v12 = objc_msgSend_styleAttributes(displayEtaDescription2);
+  objc_msgSend_styleForNavContext_selected_focused_etaComparison_transportType_navLabelType_when_routeLegWhen_additionalAttributes_(VKLabelNavRouteEta, *&when, *&routeLegWhen, v12);
 
   [(VKLabelNavRouteEta *)self worldPointForStaging];
-  v17 = v16;
-  v19 = v18;
+  v14 = v13;
+  v16 = v15;
   displayEtaDescription3 = [(VKLabelNavRouteEta *)self displayEtaDescription];
-  v41[0] = v17;
-  v41[1] = v19;
+  v35[0] = v14;
+  v35[1] = v16;
   [(VKLabelNavRouteEta *)self selected];
-  artworkAndKeyForEtaLabel(&v42, displayEtaDescription3, context, v44, v41, orientation, cache);
+  artworkAndKeyForEtaLabel(&v36, displayEtaDescription3, context, v38, v35, orientation, cache);
 
   etaLabelArtworkKey = self->_etaLabelArtworkKey;
-  v22 = v42;
-  v23 = v43;
-  self->_didStyleChange = v43 != etaLabelArtworkKey;
+  v19 = v36;
+  v20 = v37;
+  self->_didStyleChange = v37 != etaLabelArtworkKey;
 
-  if (v47)
+  if (v41)
   {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v47);
+    std::__shared_weak_count::__release_shared[abi:nn200100](v41);
   }
 
-  if (v46)
+  if (v40)
   {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v46);
+    std::__shared_weak_count::__release_shared[abi:nn200100](v40);
   }
 
-  isRepositioning = v45;
-  if (v45)
+  isRepositioning = v39;
+  if (v39)
   {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v45);
+    std::__shared_weak_count::__release_shared[abi:nn200100](v39);
   }
 
-  if (v23 == etaLabelArtworkKey)
+  if (v20 == etaLabelArtworkKey)
   {
-    *v40 = off_1F2A59C08;
-    v40[1] = 0;
+    *v34 = off_1F2A59C08;
+    v34[1] = 0;
   }
 
   else
   {
-LABEL_12:
+LABEL_9:
     label = [(VKLabelNavRouteEta *)self label];
-    geo::_retain_ptr<VKLabelNavRoadLabel * {__strong},geo::_retain_objc_arc,geo::_release_objc_arc,geo::_hash_objc,geo::_equal_objc>::_retain_ptr(v40, label);
+    geo::_retain_ptr<VKLabelNavRoadLabel * {__strong},geo::_retain_objc_arc,geo::_release_objc_arc,geo::_hash_objc,geo::_equal_objc>::_retain_ptr(v34, label);
 
     [(VKLabelNavRouteEta *)self clearLabel];
     orientation2 = [(VKLabelNavRouteEta *)self orientation];
@@ -110,15 +100,15 @@ LABEL_12:
     isRepositioning = [(VKLabelNavRouteEta *)self isRepositioning];
     if (isRepositioning)
     {
-      v29 = v40[1];
-      if (v29)
+      v26 = v34[1];
+      if (v26)
       {
-        v30 = v29;
-        v31 = *[v30 label];
-        v31[313] = 0;
-        if (v31[312] == 1)
+        v27 = v26;
+        v28 = *[v27 label];
+        v28[313] = 0;
+        if (v28[312] == 1)
         {
-          v31[314] = 0;
+          v28[314] = 0;
         }
       }
 
@@ -131,14 +121,14 @@ LABEL_12:
       if (isRepositioning)
       {
         label2 = [(VKLabelNavRouteEta *)self label];
-        v33 = *[label2 label];
-        *(v33 + 280) = 1065353216;
-        *(v33 + 284) = 1;
+        v30 = *[label2 label];
+        *(v30 + 280) = 1065353216;
+        *(v30 + 284) = 1;
       }
     }
   }
 
-  result.var1 = v24;
+  result.var1 = v21;
   result.var0 = &isRepositioning->__vftable;
   return result;
 }
@@ -161,97 +151,92 @@ LABEL_12:
   {
     self->_anchorHasNoAltitude = v7;
     self->_anchorFollowsTerrain = v5;
-    md::AnchorManager::newAnchorAtCoordinate(&v12);
+    altitude = self->_coordinate.altitude;
+    if (v7)
+    {
+      altitude = 0.0;
+    }
+
+    v9 = **(context->var4 + 18);
+    v14 = *&self->_coordinate.latitude;
+    v15 = altitude;
+    md::AnchorManager::newAnchorAtCoordinate(&v16, v9, &v14, v5);
   }
 
-  v8 = *[(VKLabelNavRoadLabel *)self->_etaLabel label];
-  md::NavLabel::worldPointForDisplay(v8, context);
-  *(v8 + 17) = v9;
-  *(v8 + 18) = v10;
-  *(v8 + 19) = v11;
+  v10 = *[(VKLabelNavRoadLabel *)self->_etaLabel label];
+  md::NavLabel::worldPointForDisplay(v10, context);
+  *(v10 + 17) = v11;
+  *(v10 + 18) = v12;
+  *(v10 + 19) = v13;
 }
 
 - (void)createLabelWithNavContext:(const NavContext *)context orientation:(unsigned __int8)orientation etaDescription:(id)description selected:(BOOL)selected when:(optional<gss:(optional<gss:(void *)when :RouteLegWhen>)a8 :When>)a7 routeLegWhen:artworkCache:
 {
-  selectedCopy = selected;
   descriptionCopy = description;
   if (!self->_etaLabel)
   {
     displayEtaDescription = self->_displayEtaDescription;
     location = &self->_displayEtaDescription;
-    v46 = descriptionCopy;
+    v38 = descriptionCopy;
     if (displayEtaDescription != descriptionCopy && ![(VKRouteEtaDescription *)displayEtaDescription isEqual:descriptionCopy])
     {
       objc_storeStrong(location, description);
     }
 
-    self->_selected = selectedCopy;
+    self->_selected = selected;
     self->_when = a7;
     self->_routeLegWhen = a8;
     self->_orientation = orientation;
     route = [(VKRouteInfo *)self->_routeInfo route];
     [route pointWithAltitudeCorrectionAtRouteCoordinate:*&self->_routeOffset];
-    v48 = v19;
+    v39 = v19;
     v21 = v20;
     v23 = v22;
 
     routeInfo = [(VKLabelNavRouteEta *)self routeInfo];
-    hasFocus = [routeInfo hasFocus];
-    etaComparisonToMain = [(VKLabelNavRouteEta *)self etaComparisonToMain];
+    [routeInfo hasFocus];
+    [(VKLabelNavRouteEta *)self etaComparisonToMain];
     route2 = [(VKRouteInfo *)self->_routeInfo route];
-    v43 = etaComparisonToMain;
-    v44 = hasFocus;
-    orientationCopy = orientation;
-    transportType = [route2 transportType];
-    if (transportType >= 7)
-    {
-      v28 = 4;
-    }
-
-    else
-    {
-      v28 = 0x50403020100uLL >> (8 * transportType);
-    }
-
+    [route2 transportType];
     displayEtaDescription = [(VKLabelNavRouteEta *)self displayEtaDescription];
-    v30 = +[VKLabelNavRouteEta toStyleNavLabelType:](VKLabelNavRouteEta, "toStyleNavLabelType:", [displayEtaDescription routeEtaType]);
+    +[VKLabelNavRouteEta toStyleNavLabelType:](VKLabelNavRouteEta, "toStyleNavLabelType:", [displayEtaDescription routeEtaType]);
     when = [(VKLabelNavRouteEta *)self when];
-    routeLegWhen = [(VKLabelNavRouteEta *)self routeLegWhen];
-    styleAttributes = [*location styleAttributes];
-    [VKLabelNavRouteEta styleForNavContext:context selected:selectedCopy focused:v44 etaComparison:v43 transportType:v28 navLabelType:v30 when:*&when routeLegWhen:*&routeLegWhen additionalAttributes:styleAttributes];
+    LOWORD(route) = [(VKLabelNavRouteEta *)self routeLegWhen];
+    v27 = objc_msgSend_styleAttributes(*location);
+    objc_msgSend_styleForNavContext_selected_focused_etaComparison_transportType_navLabelType_when_routeLegWhen_additionalAttributes_(VKLabelNavRouteEta, *&when, route, v27);
 
-    v34 = tan(v21 * 0.00872664626 + 0.785398163);
-    v35 = log(v34);
-    v36.f64[0] = v48;
-    v36.f64[1] = v35;
+    v28 = tan(v21 * 0.00872664626 + 0.785398163);
+    v29 = log(v28);
+    v30.f64[0] = v39;
+    v30.f64[1] = v29;
     __asm { FMOV            V2.2D, #0.5 }
 
-    v54 = vmlaq_f64(_Q2, xmmword_1B33B0700, v36);
-    descriptionCopy = v46;
-    artworkAndKeyForEtaLabel(&v55, v46, context, &v50, &v54, orientationCopy, when);
-    v42 = v55;
-    *&v55 = 0;
-    if (v42)
+    v45 = vmlaq_f64(_Q2, xmmword_1B33B0700, v30);
+    descriptionCopy = v38;
+    artworkAndKeyForEtaLabel(&v46, v38, context, &v41, &v45, orientation, when);
+    v36 = v46;
+    *&v46 = 0;
+    if (v36)
     {
       self->_coordinate.latitude = v21;
-      self->_coordinate.longitude = v48;
+      self->_coordinate.longitude = v39;
       self->_coordinate.altitude = v23;
       operator new();
     }
 
-    if (v53)
+    if (v44)
     {
-      std::__shared_weak_count::__release_shared[abi:nn200100](v53);
+      std::__shared_weak_count::__release_shared[abi:nn200100](v44);
     }
 
-    if (v52)
+    if (v43)
     {
-      std::__shared_weak_count::__release_shared[abi:nn200100](v52);
+      std::__shared_weak_count::__release_shared[abi:nn200100](v43);
     }
 
-    if (v51)
+    if (v42)
     {
-      std::__shared_weak_count::__release_shared[abi:nn200100](v51);
+      std::__shared_weak_count::__release_shared[abi:nn200100](v42);
     }
   }
 }
@@ -367,203 +352,198 @@ LABEL_12:
 
 + (RoadSignStyleGroup)styleForNavContext:(SEL)context selected:(const NavContext *)selected focused:(BOOL)focused etaComparison:(BOOL)comparison transportType:(unsigned __int8)type navLabelType:(unsigned __int8)labelType when:(unsigned __int8)when routeLegWhen:(optional<gss:(optional<gss:(id)self2 :RouteLegWhen>)self1 :When>)self0 additionalAttributes:
 {
-  whenCopy = when;
-  labelTypeCopy = labelType;
-  typeCopy = type;
-  comparisonCopy = comparison;
-  focusedCopy = focused;
-  v62[1] = *MEMORY[0x1E69E9840];
+  v57[1] = *MEMORY[0x1E69E9840];
   legWhenCopy = legWhen;
-  v20 = objc_alloc_init(MEMORY[0x1E69A1DB0]);
-  [VKLabelNavRouteEta baseAttributesForEtaLabel:focusedCopy focused:comparisonCopy etaComparison:typeCopy transportType:labelTypeCopy navLabelType:whenCopy when:*&a10 routeLegWhen:*&a11 additionalAttributes:legWhenCopy];
-  [v20 replaceAttributes:? count:?];
-  md::NavContext::styleQueryForFeatureAttributes(&v54, selected, v20);
-  v23 = v54;
-  v22 = v55;
-  v24 = v60;
+  v15 = objc_alloc_init(MEMORY[0x1E69A1DB0]);
+  objc_msgSend_baseAttributesForEtaLabel_focused_etaComparison_transportType_navLabelType_when_routeLegWhen_additionalAttributes_(VKLabelNavRouteEta, *&a11, legWhenCopy);
+  [v15 replaceAttributes:? count:?];
+  md::NavContext::styleQueryForFeatureAttributes(&v49, selected, v15);
+  v18 = v49;
+  v17 = v50;
+  v19 = v55;
   if (legWhenCopy)
   {
-    if (v60 >= v61)
+    if (v55 >= v56)
     {
-      v28 = (v60 - v59) >> 3;
-      if ((v28 + 1) >> 61)
+      v23 = (v55 - v54) >> 3;
+      if ((v23 + 1) >> 61)
       {
         goto LABEL_40;
       }
 
-      v29 = (v61 - v59) >> 2;
-      if (v29 <= v28 + 1)
+      v24 = (v56 - v54) >> 2;
+      if (v24 <= v23 + 1)
       {
-        v29 = v28 + 1;
+        v24 = v23 + 1;
       }
 
-      if (v61 - v59 >= 0x7FFFFFFFFFFFFFF8)
+      if (v56 - v54 >= 0x7FFFFFFFFFFFFFF8)
       {
-        v30 = 0x1FFFFFFFFFFFFFFFLL;
-      }
-
-      else
-      {
-        v30 = v29;
-      }
-
-      v58 = v62;
-      if (v30)
-      {
-        v31 = mdm::zone_mallocator::instance(v21);
-        v32 = geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::allocate<GeoCodecsFeatureStylePair>(v31, v30);
+        v25 = 0x1FFFFFFFFFFFFFFFLL;
       }
 
       else
       {
-        v32 = 0;
+        v25 = v24;
       }
 
-      v33 = &v32[8 * v28];
-      v34 = &v32[8 * v30];
-      *v33 = 0x10001004CLL;
-      v25 = v33 + 8;
-      v35 = &v33[-(v60 - v59)];
-      memcpy(v35, v59, v60 - v59);
-      v36 = v59;
-      v37 = v61;
-      v59 = v35;
-      v60 = v25;
-      v61 = v34;
-      v56 = v36;
-      v57 = v37;
-      v54 = v36;
-      v55 = v36;
-      std::__split_buffer<GeoCodecsFeatureStylePair,geo::allocator_adapter<GeoCodecsFeatureStylePair,mdm::zone_mallocator> &>::~__split_buffer(&v54);
+      v53 = v57;
+      if (v25)
+      {
+        v26 = mdm::zone_mallocator::instance(v16);
+        v27 = geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::allocate<GeoCodecsFeatureStylePair>(v26, v25);
+      }
+
+      else
+      {
+        v27 = 0;
+      }
+
+      v28 = &v27[8 * v23];
+      v29 = &v27[8 * v25];
+      *v28 = 0x10001004CLL;
+      v20 = v28 + 8;
+      v30 = &v28[-(v55 - v54)];
+      memcpy(v30, v54, v55 - v54);
+      v31 = v54;
+      v32 = v56;
+      v54 = v30;
+      v55 = v20;
+      v56 = v29;
+      v51 = v31;
+      v52 = v32;
+      v49 = v31;
+      v50 = v31;
+      std::__split_buffer<GeoCodecsFeatureStylePair,geo::allocator_adapter<GeoCodecsFeatureStylePair,mdm::zone_mallocator> &>::~__split_buffer(&v49);
     }
 
     else
     {
-      *v60 = 0x10001004CLL;
-      v25 = v24 + 8;
+      *v55 = 0x10001004CLL;
+      v20 = v19 + 8;
     }
 
-    v60 = v25;
-    [v20 replaceAttributes:? count:?];
-    md::NavContext::styleQueryForFeatureAttributes(&v54, selected, v20);
-    v27 = v54;
-    v26 = v55;
-    v24 = v60 - 8;
-    v60 -= 8;
+    v55 = v20;
+    [v15 replaceAttributes:? count:?];
+    md::NavContext::styleQueryForFeatureAttributes(&v49, selected, v15);
+    v22 = v49;
+    v21 = v50;
+    v19 = v55 - 8;
+    v55 -= 8;
   }
 
   else
   {
-    v26 = 0;
-    v27 = 0;
+    v21 = 0;
+    v22 = 0;
   }
 
-  if (v24 < v61)
+  if (v19 < v56)
   {
-    *v24 = 0x30001004CLL;
-    v38 = v24 + 8;
+    *v19 = 0x30001004CLL;
+    v33 = v19 + 8;
     goto LABEL_28;
   }
 
-  v39 = (v24 - v59) >> 3;
-  if ((v39 + 1) >> 61)
+  v34 = (v19 - v54) >> 3;
+  if ((v34 + 1) >> 61)
   {
 LABEL_40:
     std::__throw_bad_array_new_length[abi:nn200100]();
   }
 
-  v40 = (v61 - v59) >> 2;
-  if (v40 <= v39 + 1)
+  v35 = (v56 - v54) >> 2;
+  if (v35 <= v34 + 1)
   {
-    v40 = v39 + 1;
+    v35 = v34 + 1;
   }
 
-  if (v61 - v59 >= 0x7FFFFFFFFFFFFFF8)
+  if (v56 - v54 >= 0x7FFFFFFFFFFFFFF8)
   {
-    v41 = 0x1FFFFFFFFFFFFFFFLL;
-  }
-
-  else
-  {
-    v41 = v40;
-  }
-
-  v58 = v62;
-  v53 = legWhenCopy;
-  if (v41)
-  {
-    v42 = mdm::zone_mallocator::instance(v21);
-    v43 = geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::allocate<GeoCodecsFeatureStylePair>(v42, v41);
-    v44 = v23;
+    v36 = 0x1FFFFFFFFFFFFFFFLL;
   }
 
   else
   {
-    v44 = v23;
-    v43 = 0;
+    v36 = v35;
   }
 
-  v46 = &v43[8 * v41];
-  v45 = &v43[8 * v39];
-  *v45 = 0x30001004CLL;
-  v38 = v45 + 8;
-  v47 = &v45[-(v60 - v59)];
-  memcpy(v47, v59, v60 - v59);
-  v48 = v59;
-  v49 = v61;
-  v59 = v47;
-  v60 = v38;
-  v61 = v46;
-  v56 = v48;
-  v57 = v49;
-  v54 = v48;
-  v55 = v48;
-  std::__split_buffer<GeoCodecsFeatureStylePair,geo::allocator_adapter<GeoCodecsFeatureStylePair,mdm::zone_mallocator> &>::~__split_buffer(&v54);
-  v23 = v44;
-  legWhenCopy = v53;
+  v53 = v57;
+  v48 = legWhenCopy;
+  if (v36)
+  {
+    v37 = mdm::zone_mallocator::instance(v16);
+    v38 = geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::allocate<GeoCodecsFeatureStylePair>(v37, v36);
+    v39 = v18;
+  }
+
+  else
+  {
+    v39 = v18;
+    v38 = 0;
+  }
+
+  v41 = &v38[8 * v36];
+  v40 = &v38[8 * v34];
+  *v40 = 0x30001004CLL;
+  v33 = v40 + 8;
+  v42 = &v40[-(v55 - v54)];
+  memcpy(v42, v54, v55 - v54);
+  v43 = v54;
+  v44 = v56;
+  v54 = v42;
+  v55 = v33;
+  v56 = v41;
+  v51 = v43;
+  v52 = v44;
+  v49 = v43;
+  v50 = v43;
+  std::__split_buffer<GeoCodecsFeatureStylePair,geo::allocator_adapter<GeoCodecsFeatureStylePair,mdm::zone_mallocator> &>::~__split_buffer(&v49);
+  v18 = v39;
+  legWhenCopy = v48;
 LABEL_28:
-  v60 = v38;
-  [v20 replaceAttributes:? count:?];
-  md::NavContext::styleQueryForFeatureAttributes(&v54, selected, v20);
-  v50 = v54;
-  v51 = v55;
-  retstr->var0.var0 = v23;
-  retstr->var0.var1 = v22;
-  if (v22)
+  v55 = v33;
+  [v15 replaceAttributes:? count:?];
+  md::NavContext::styleQueryForFeatureAttributes(&v49, selected, v15);
+  v45 = v49;
+  v46 = v50;
+  retstr->var0.var0 = v18;
+  retstr->var0.var1 = v17;
+  if (v17)
   {
-    atomic_fetch_add_explicit(v22 + 1, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(v17 + 1, 1uLL, memory_order_relaxed);
   }
 
-  retstr->var1.var0 = v27;
-  retstr->var1.var1 = v26;
-  if (v26)
+  retstr->var1.var0 = v22;
+  retstr->var1.var1 = v21;
+  if (v21)
   {
-    atomic_fetch_add_explicit(v26 + 1, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(v21 + 1, 1uLL, memory_order_relaxed);
   }
 
-  retstr->var2.var0 = v50;
-  retstr->var2.var1 = v51;
-  if (v51)
+  retstr->var2.var0 = v45;
+  retstr->var2.var1 = v46;
+  if (v46)
   {
-    atomic_fetch_add_explicit(v51 + 1, 1uLL, memory_order_relaxed);
-    std::vector<GeoCodecsFeatureStylePair,geo::allocator_adapter<GeoCodecsFeatureStylePair,mdm::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](&v59);
+    atomic_fetch_add_explicit(v46 + 1, 1uLL, memory_order_relaxed);
+    std::vector<GeoCodecsFeatureStylePair,geo::allocator_adapter<GeoCodecsFeatureStylePair,mdm::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](&v54);
 
-    std::__shared_weak_count::__release_shared[abi:nn200100](v51);
+    std::__shared_weak_count::__release_shared[abi:nn200100](v46);
   }
 
   else
   {
-    std::vector<GeoCodecsFeatureStylePair,geo::allocator_adapter<GeoCodecsFeatureStylePair,mdm::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](&v59);
+    std::vector<GeoCodecsFeatureStylePair,geo::allocator_adapter<GeoCodecsFeatureStylePair,mdm::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](&v54);
   }
 
-  if (v22)
+  if (v17)
   {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v22);
+    std::__shared_weak_count::__release_shared[abi:nn200100](v17);
   }
 
-  if (v26)
+  if (v21)
   {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v26);
+    std::__shared_weak_count::__release_shared[abi:nn200100](v21);
   }
 
   return result;

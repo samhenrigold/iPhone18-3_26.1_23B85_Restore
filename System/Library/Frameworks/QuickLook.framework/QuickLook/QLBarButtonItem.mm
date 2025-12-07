@@ -19,24 +19,7 @@
     {
       v5 = equalCopy;
       qLType = [(QLBarButtonItem *)self QLType];
-      if (qLType != [(QLBarButtonItem *)v5 QLType])
-      {
-        goto LABEL_12;
-      }
-
-      if ([(QLBarButtonItem *)self QLType]== 3)
-      {
-        action = [(QLBarButtonItem *)self action];
-        if (action != [(QLBarButtonItem *)v5 action])
-        {
-          goto LABEL_12;
-        }
-      }
-
-      target = [(QLBarButtonItem *)self target];
-      target2 = [(QLBarButtonItem *)v5 target];
-
-      if (target == target2 && (v10 = [(QLBarButtonItem *)self systemItem], v10 == [(QLBarButtonItem *)v5 systemItem]))
+      if (qLType == [(QLBarButtonItem *)v5 QLType]&& ([(QLBarButtonItem *)self QLType]!= 3 || (v7 = [(QLBarButtonItem *)self action], v7 == [(QLBarButtonItem *)v5 action])) && ([(QLBarButtonItem *)self target], v8 = objc_claimAutoreleasedReturnValue(), [(QLBarButtonItem *)v5 target], v9 = objc_claimAutoreleasedReturnValue(), v9, v8, v8 == v9) && (v10 = [(QLBarButtonItem *)self systemItem], v10 == [(QLBarButtonItem *)v5 systemItem]))
       {
         title = [(QLBarButtonItem *)self title];
         title2 = [(QLBarButtonItem *)v5 title];
@@ -55,7 +38,6 @@
 
       else
       {
-LABEL_12:
         v15 = 0;
       }
     }

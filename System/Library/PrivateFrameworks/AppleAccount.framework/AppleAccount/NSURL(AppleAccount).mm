@@ -7,7 +7,7 @@
 
 + (id)aa_URLWithEndpoint:()AppleAccount
 {
-  v13[2] = *MEMORY[0x1E69E9840];
+  v12[2] = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (!v5)
   {
@@ -15,17 +15,15 @@
   }
 
   v6 = MEMORY[0x1E696AEC0];
-  v13[0] = @"endpoint";
-  v13[1] = v5;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:2];
+  v12[0] = @"endpoint";
+  v12[1] = v5;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
   v8 = [v6 pathWithComponents:v7];
 
   v9 = objc_alloc_init(MEMORY[0x1E696AF20]);
   [v9 setPath:v8];
   [v9 setScheme:@"x-appleaccount"];
   v10 = [v9 URL];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

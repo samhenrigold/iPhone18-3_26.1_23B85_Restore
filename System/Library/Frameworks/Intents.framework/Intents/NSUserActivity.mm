@@ -22,13 +22,13 @@ void __69__NSUserActivity_INCacheSupport__generateCachePayloadWithCompletion___b
 
 void __69__NSUserActivity_INCacheSupport__generateCachePayloadWithCompletion___block_invoke_2(void *a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   v2 = a1[4];
   if (v2 && !a1[5])
   {
-    v5 = @"userActivityData";
-    v6[0] = v2;
-    v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
+    v4 = @"userActivityData";
+    v5[0] = v2;
+    v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
   }
 
   else
@@ -37,8 +37,6 @@ void __69__NSUserActivity_INCacheSupport__generateCachePayloadWithCompletion___b
   }
 
   (*(a1[6] + 16))();
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __78__NSUserActivity_INCacheSupport__buildFromCachePayload_identifier_completion___block_invoke(uint64_t a1)

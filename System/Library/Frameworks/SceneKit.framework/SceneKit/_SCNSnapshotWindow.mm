@@ -96,7 +96,7 @@
       diffuse = [v13 diffuse];
       if (diffuse)
       {
-        [diffuse contentsTransform];
+        objc_msgSend_contentsTransform(diffuse);
       }
 
       else

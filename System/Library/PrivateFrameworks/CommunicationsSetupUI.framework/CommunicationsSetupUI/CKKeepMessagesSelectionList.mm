@@ -31,29 +31,27 @@
 
 - (void)_internalInit
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(CKKeepMessagesPreferenceManager);
   keepMessagesPreferenceManager = self->_keepMessagesPreferenceManager;
   self->_keepMessagesPreferenceManager = v3;
 
   v5 = MessagesSettingsLocalizedString(@"KEEP_MESSAGES_1MONTH");
-  v13 = v5;
+  v12 = v5;
   v6 = MessagesSettingsLocalizedString(@"KEEP_MESSAGES_1YEAR");
-  v14 = v6;
+  v13 = v6;
   v7 = MessagesSettingsLocalizedString(@"KEEP_MESSAGES_FOREVER");
-  v15 = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:3];
+  v14 = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:3];
   durationPreferenceTitles = self->_durationPreferenceTitles;
   self->_durationPreferenceTitles = v8;
 
   durationPreferenceValues = self->_durationPreferenceValues;
   self->_durationPreferenceValues = &unk_2856EB928;
 
-  [(CKKeepMessagesSelectionList *)self _configureInitialSelectedIndexes:v13];
+  [(CKKeepMessagesSelectionList *)self _configureInitialSelectedIndexes:v12];
   keepMessagesPreferenceManager = [(CKKeepMessagesSelectionList *)self keepMessagesPreferenceManager];
   [keepMessagesPreferenceManager addSyncedSettingObserver:self selector:sel__syncedSettingsDidChange_ key:0];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -125,7 +123,7 @@
 
 - (void)_selectionListDidSelectIndexPath:(id)path
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   section = [pathCopy section];
   v6 = [pathCopy row];
@@ -144,13 +142,13 @@
       v10 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
-        v12 = 134218496;
-        v13 = selectedKeepMessagesPreferenceIndex;
-        v14 = 2048;
-        v15 = v8;
-        v16 = 2048;
-        v17 = 0;
-        _os_log_impl(&dword_243BE5000, v10, OS_LOG_TYPE_INFO, "[Conference] Immediately updating preference for duration change (%ld -> %ld) in section={%ld}", &v12, 0x20u);
+        v11 = 134218496;
+        v12 = selectedKeepMessagesPreferenceIndex;
+        v13 = 2048;
+        v14 = v8;
+        v15 = 2048;
+        v16 = 0;
+        _os_log_impl(&dword_243BE5000, v10, OS_LOG_TYPE_INFO, "[Conference] Immediately updating preference for duration change (%ld -> %ld) in section={%ld}", &v11, 0x20u);
       }
     }
 
@@ -165,13 +163,13 @@
       v10 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
-        v12 = 134218496;
-        v13 = selectedKeepMessagesPreferenceIndex;
-        v14 = 2048;
-        v15 = v8;
-        v16 = 2048;
-        v17 = 0;
-        _os_log_impl(&dword_243BE5000, v10, OS_LOG_TYPE_INFO, "[Conference] Showing alert about dataloss from duration change (row %ld -> %ld) in section={%ld}", &v12, 0x20u);
+        v11 = 134218496;
+        v12 = selectedKeepMessagesPreferenceIndex;
+        v13 = 2048;
+        v14 = v8;
+        v15 = 2048;
+        v16 = 0;
+        _os_log_impl(&dword_243BE5000, v10, OS_LOG_TYPE_INFO, "[Conference] Showing alert about dataloss from duration change (row %ld -> %ld) in section={%ld}", &v11, 0x20u);
       }
     }
 
@@ -183,15 +181,13 @@
     v7 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v12 = 134217984;
-      v13 = [pathCopy row];
-      _os_log_impl(&dword_243BE5000, v7, OS_LOG_TYPE_INFO, "[Conference] Selected an indexPath from an unsupported section={%ld}", &v12, 0xCu);
+      v11 = 134217984;
+      v12 = [pathCopy row];
+      _os_log_impl(&dword_243BE5000, v7, OS_LOG_TYPE_INFO, "[Conference] Selected an indexPath from an unsupported section={%ld}", &v11, 0xCu);
     }
   }
 
 LABEL_15:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updatePreferenceAtIndexPath:(id)path

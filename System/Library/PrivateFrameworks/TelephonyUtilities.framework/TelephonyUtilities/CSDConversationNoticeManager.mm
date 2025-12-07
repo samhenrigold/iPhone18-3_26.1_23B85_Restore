@@ -42,87 +42,87 @@
 
   if (isSystemActivity)
   {
-    v12 = sub_100004778();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = sub_100004778(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       sessionUUID = [eventCopy sessionUUID];
       *buf = 138412290;
-      v64 = sessionUUID;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Ignoring event for session %@, since the activity is a system group activity", buf, 0xCu);
+      v68 = sessionUUID;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Ignoring event for session %@, since the activity is a system group activity", buf, 0xCu);
     }
   }
 
   else
   {
-    v14 = [TUConversationNotice alloc];
-    v15 = +[NSUUID UUID];
-    v12 = [v14 initWithUUID:v15];
+    v15 = [TUConversationNotice alloc];
+    v16 = +[NSUUID UUID];
+    v13 = [v15 initWithUUID:v16];
 
-    v16 = sub_100004778();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v18 = sub_100004778(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = [eventCopy description];
+      v19 = [eventCopy description];
       *buf = 138412290;
-      v64 = v17;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Received TUConversationActivityEvent: %@", buf, 0xCu);
+      v68 = v19;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Received TUConversationActivityEvent: %@", buf, 0xCu);
     }
 
     sessionUUID2 = [eventCopy sessionUUID];
-    [v12 setSessionUUID:sessionUUID2];
+    [v13 setSessionUUID:sessionUUID2];
 
     type = [eventCopy type];
     switch(type)
     {
       case 1uLL:
-        v20 = v12;
-        v21 = 1;
+        v22 = v13;
+        v23 = 1;
         goto LABEL_22;
       case 2uLL:
-        v20 = v12;
-        v21 = 2;
+        v22 = v13;
+        v23 = 2;
         goto LABEL_22;
       case 3uLL:
-        v20 = v12;
-        v21 = 3;
+        v22 = v13;
+        v23 = 3;
         goto LABEL_22;
       case 4uLL:
-        v22 = v12;
-        v23 = 4;
+        v24 = v13;
+        v25 = 4;
         goto LABEL_20;
       case 5uLL:
-        v20 = v12;
-        v21 = 5;
+        v22 = v13;
+        v23 = 5;
         goto LABEL_22;
       case 6uLL:
-        v20 = v12;
-        v21 = 6;
+        v22 = v13;
+        v23 = 6;
         goto LABEL_22;
       case 7uLL:
-        v22 = v12;
-        v23 = 7;
+        v24 = v13;
+        v25 = 7;
         goto LABEL_20;
       case 8uLL:
-        v20 = v12;
-        v21 = 8;
+        v22 = v13;
+        v23 = 8;
         goto LABEL_22;
       case 9uLL:
         goto LABEL_23;
       case 0xAuLL:
-        [v12 setSessionEventType:10];
+        [v13 setSessionEventType:10];
         item = [eventCopy item];
-        [v12 setItem:item];
+        [v13 setItem:item];
 
         queueItemType = [eventCopy queueItemType];
         if (queueItemType == 2)
         {
-          v55 = v12;
-          v56 = 2;
+          v59 = v13;
+          v60 = 2;
         }
 
         else if (queueItemType == 1)
         {
-          v55 = v12;
-          v56 = 1;
+          v59 = v13;
+          v60 = 1;
         }
 
         else
@@ -132,54 +132,54 @@
             goto LABEL_23;
           }
 
-          v55 = v12;
-          v56 = 0;
+          v59 = v13;
+          v60 = 0;
         }
 
-        [v55 setQueueItemType:v56];
+        [v59 setQueueItemType:v60];
 LABEL_23:
-        v58 = conversationCopy;
-        v61 = 0u;
-        v62 = 0u;
-        v59 = 0u;
-        v60 = 0u;
+        v62 = conversationCopy;
+        v65 = 0u;
+        v66 = 0u;
+        v63 = 0u;
+        v64 = 0u;
         tuActivitySessions = [conversationCopy tuActivitySessions];
-        v26 = [tuActivitySessions countByEnumeratingWithState:&v59 objects:v67 count:16];
-        if (!v26)
+        v28 = [tuActivitySessions countByEnumeratingWithState:&v63 objects:v71 count:16];
+        if (!v28)
         {
           goto LABEL_33;
         }
 
-        v27 = v26;
-        v28 = *v60;
+        v29 = v28;
+        v30 = *v64;
         break;
       case 0xBuLL:
-        v20 = v12;
-        v21 = 11;
+        v22 = v13;
+        v23 = 11;
         goto LABEL_22;
       case 0xCuLL:
-        v20 = v12;
-        v21 = 12;
+        v22 = v13;
+        v23 = 12;
         goto LABEL_22;
       case 0xDuLL:
-        v22 = v12;
-        v23 = 13;
+        v24 = v13;
+        v25 = 13;
         goto LABEL_20;
       case 0xEuLL:
-        v20 = v12;
-        v21 = 14;
+        v22 = v13;
+        v23 = 14;
 LABEL_22:
-        [v20 setSessionEventType:v21];
+        [v22 setSessionEventType:v23];
         goto LABEL_23;
       default:
         if (type == 99)
         {
-          v22 = v12;
-          v23 = 99;
+          v24 = v13;
+          v25 = 99;
 LABEL_20:
-          [v22 setSessionEventType:v23];
+          [v24 setSessionEventType:v25];
           item2 = [eventCopy item];
-          [v12 setItem:item2];
+          [v13 setItem:item2];
         }
 
         goto LABEL_23;
@@ -187,30 +187,30 @@ LABEL_20:
 
     while (2)
     {
-      for (i = 0; i != v27; i = i + 1)
+      for (i = 0; i != v29; i = i + 1)
       {
-        if (*v60 != v28)
+        if (*v64 != v30)
         {
           objc_enumerationMutation(tuActivitySessions);
         }
 
-        v30 = *(*(&v59 + 1) + 8 * i);
-        uUID = [v30 UUID];
-        sessionUUID3 = [v12 sessionUUID];
-        v33 = [uUID isEqual:sessionUUID3];
+        v32 = *(*(&v63 + 1) + 8 * i);
+        uUID = [v32 UUID];
+        sessionUUID3 = [v13 sessionUUID];
+        v35 = [uUID isEqual:sessionUUID3];
 
-        if (v33)
+        if (v35)
         {
-          activity2 = [v30 activity];
+          activity2 = [v32 activity];
           bundleIdentifier = [activity2 bundleIdentifier];
-          [v12 setBundleIdentifier:bundleIdentifier];
+          [v13 setBundleIdentifier:bundleIdentifier];
 
           goto LABEL_33;
         }
       }
 
-      v27 = [tuActivitySessions countByEnumeratingWithState:&v59 objects:v67 count:16];
-      if (v27)
+      v29 = [tuActivitySessions countByEnumeratingWithState:&v63 objects:v71 count:16];
+      if (v29)
       {
         continue;
       }
@@ -220,75 +220,76 @@ LABEL_20:
 
 LABEL_33:
 
-    bundleIdentifier2 = [v12 bundleIdentifier];
-    v37 = [bundleIdentifier2 length];
+    bundleIdentifier2 = [v13 bundleIdentifier];
+    v39 = [bundleIdentifier2 length];
 
-    if (!v37)
+    if (!v39)
     {
       session2 = [eventCopy session];
       activity3 = [session2 activity];
       bundleIdentifier3 = [activity3 bundleIdentifier];
-      [v12 setBundleIdentifier:bundleIdentifier3];
+      [v13 setBundleIdentifier:bundleIdentifier3];
     }
 
     session3 = [eventCopy session];
-    [v12 setSession:session3];
+    [v13 setSession:session3];
 
-    v42 = [eventCopy url];
-    [v12 setActionURL:v42];
+    v44 = [eventCopy url];
+    [v13 setActionURL:v44];
 
-    bundleIdentifier4 = [v12 bundleIdentifier];
+    bundleIdentifier4 = [v13 bundleIdentifier];
 
     if (bundleIdentifier4)
     {
       originator = [eventCopy originator];
-      conversationCopy = v58;
-      if ([originator isLightweight])
+      isLightweight = [originator isLightweight];
+      conversationCopy = v62;
+      if (isLightweight)
       {
-        v45 = sub_100004778();
-        if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+        v49 = sub_100004778(isLightweight);
+        if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v64 = v12;
-          _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "Notice %@ is from a lightweightMember, trying to translate", buf, 0xCu);
+          v68 = v13;
+          _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEFAULT, "Notice %@ is from a lightweightMember, trying to translate", buf, 0xCu);
         }
 
-        tuConversation = [v58 tuConversation];
+        tuConversation = [v62 tuConversation];
         handle = [originator handle];
-        v48 = [tuConversation remoteParticipantForLightweightParticipantHandle:handle];
+        v52 = [tuConversation remoteParticipantForLightweightParticipantHandle:handle];
 
-        if (v48)
+        if (v52)
         {
-          v49 = v48;
+          v53 = v52;
 
-          originator = v49;
+          originator = v53;
         }
       }
 
-      v50 = objc_autoreleasePoolPush();
-      v51 = sub_100004778();
-      if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
+      v54 = objc_autoreleasePoolPush();
+      v55 = sub_100004778(v54);
+      if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v64 = v12;
-        v65 = 2112;
-        v66 = eventCopy;
-        _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_DEFAULT, "Posting notice: %@ for event: %@", buf, 0x16u);
+        v68 = v13;
+        v69 = 2112;
+        v70 = eventCopy;
+        _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_DEFAULT, "Posting notice: %@ for event: %@", buf, 0x16u);
       }
 
-      delegate = [v57 delegate];
-      [delegate noticeManager:v57 conversation:v58 participant:originator addedNotice:v12];
+      delegate = [v61 delegate];
+      [delegate noticeManager:v61 conversation:v62 participant:originator addedNotice:v13];
 
-      objc_autoreleasePoolPop(v50);
+      objc_autoreleasePoolPop(v54);
     }
 
     else
     {
-      originator = sub_100004778();
-      conversationCopy = v58;
+      originator = sub_100004778(v46);
+      conversationCopy = v62;
       if (os_log_type_enabled(originator, OS_LOG_TYPE_ERROR))
       {
-        sub_10047ABCC(v12, originator);
+        sub_10047ABCC(v13, originator);
       }
     }
   }
@@ -296,7 +297,7 @@ LABEL_33:
 
 - (id)fetchUpcomingNoticeFromQueue
 {
-  v2 = sub_100004778();
+  v2 = sub_100004778(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -313,51 +314,51 @@ LABEL_33:
   queue = [(CSDConversationNoticeManager *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v9 = sub_100004778();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_100004778(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v20 = lCopy;
-    v21 = 2112;
-    v22 = identifierCopy;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Activating conversation notice with URL: %@ and bundleID %@", buf, 0x16u);
+    v22 = lCopy;
+    v23 = 2112;
+    v24 = identifierCopy;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Activating conversation notice with URL: %@ and bundleID %@", buf, 0x16u);
   }
 
   if (lCopy && identifierCopy)
   {
     service = [(CSDConversationNoticeManager *)self service];
-    v17 = FBSOpenApplicationOptionKeyPayloadURL;
+    v19 = FBSOpenApplicationOptionKeyPayloadURL;
+    v20 = lCopy;
+    v13 = [NSDictionary dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+    v14 = [FBSOpenApplicationOptions optionsWithDictionary:v13];
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_1001E5950;
+    v16[3] = &unk_10061E278;
+    v17 = identifierCopy;
     v18 = lCopy;
-    v11 = [NSDictionary dictionaryWithObjects:&v18 forKeys:&v17 count:1];
-    v12 = [FBSOpenApplicationOptions optionsWithDictionary:v11];
-    v14[0] = _NSConcreteStackBlock;
-    v14[1] = 3221225472;
-    v14[2] = sub_1001E5950;
-    v14[3] = &unk_10061E278;
-    v15 = identifierCopy;
-    v16 = lCopy;
-    [service openApplication:v15 withOptions:v12 completion:v14];
+    [service openApplication:v17 withOptions:v14 completion:v16];
 
-    v13 = v15;
+    v15 = v17;
   }
 
   else
   {
-    v13 = sub_100004778();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v15 = sub_100004778(v11);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v20 = lCopy;
-      v21 = 2112;
-      v22 = identifierCopy;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "[WARN] Error activating conversation notice. Could not find action url %@ or bundleID %@", buf, 0x16u);
+      v22 = lCopy;
+      v23 = 2112;
+      v24 = identifierCopy;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "[WARN] Error activating conversation notice. Could not find action url %@ or bundleID %@", buf, 0x16u);
     }
   }
 }
 
 - (void)removeConversationNoticeWithUUID:(id)d
 {
-  v3 = sub_100004778();
+  v3 = sub_100004778(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;

@@ -119,7 +119,7 @@
 
 - (id)unquote
 {
-  if ([self rangeOfString:@"\\""] == 0x7FFFFFFFFFFFFFFFLL)
+  if ([self rangeOfString:@"\"] == 0x7FFFFFFFFFFFFFFFLL)
   {
     selfCopy = self;
   }

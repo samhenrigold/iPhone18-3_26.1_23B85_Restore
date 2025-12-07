@@ -24,48 +24,47 @@
 
 - (NRDeviceProperties)initWithCoder:(id)coder
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v23.receiver = self;
-  v23.super_class = NRDeviceProperties;
-  v5 = [(NRDeviceProperties *)&v23 init];
+  v19.receiver = self;
+  v19.super_class = NRDeviceProperties;
+  v5 = [(NRDeviceProperties *)&v19 init];
   if (!v5)
   {
-    v9 = nrCopyLogObj_1215();
+    v8 = nrCopyLogObj_1215();
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v10 = v9;
-      v11 = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
+      v9 = v8;
+      v10 = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
 
-      if (!v11)
+      if (!v10)
       {
         goto LABEL_7;
       }
     }
 
-    v12 = nrCopyLogObj_1215();
-    _NRLogWithArgs(v12, 16, "%s%.30s:%-4d ABORTING: [super init] failed", v13, v14, v15, v16, v17, "");
+    v11 = nrCopyLogObj_1215();
+    _NRLogWithArgs(v11, 16, "%s%.30s:%-4d ABORTING: [super init] failed", ", "[NRDeviceProperties initWithCoder:]"", 60);
 
 LABEL_7:
-    v18 = _os_log_pack_size();
-    MEMORY[0x28223BE20](v18, v19);
-    v20 = *__error();
-    v21 = _os_log_pack_fill();
-    *v21 = 136446210;
-    *(v21 + 4) = "[NRDeviceProperties initWithCoder:]";
-    v22 = nrCopyLogObj_1215();
-    _NRLogAbortWithPack(v22);
+    v12 = _os_log_pack_size();
+    v14 = &v18 - ((MEMORY[0x28223BE20](v12, v13) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v15 = __error();
+    v16 = _os_log_pack_fill(v14, v12, *v15, &dword_25B98C000, "%{public}s [super init] failed");
+    *v16 = 136446210;
+    *(v16 + 4) = "[NRDeviceProperties initWithCoder:]";
+    v17 = nrCopyLogObj_1215();
+    _NRLogAbortWithPack(v17, v14);
   }
 
   v6 = v5;
   -[NRDeviceProperties setPairingProtocolVersion:](v5, "setPairingProtocolVersion:", [coderCopy decodeInt64ForKey:@"pairingProtocolVersion"]);
   -[NRDeviceProperties setPeerNetworkRelayVersion:](v6, "setPeerNetworkRelayVersion:", [coderCopy decodeInt32ForKey:@"peerNetworkRelayVersion"]);
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

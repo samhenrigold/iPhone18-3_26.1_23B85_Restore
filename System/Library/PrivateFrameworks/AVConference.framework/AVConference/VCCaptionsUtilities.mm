@@ -29,7 +29,7 @@
         }
 
         v10 = *(*(&v14 + 1) + 8 * v9);
-        for (i = [v4 length]; i < objc_msgSend(v10, "range"); ++i)
+        for (i = [v4 length]; i < objc_msgSend_range(v10); ++i)
         {
           [v4 appendString:@" "];
         }

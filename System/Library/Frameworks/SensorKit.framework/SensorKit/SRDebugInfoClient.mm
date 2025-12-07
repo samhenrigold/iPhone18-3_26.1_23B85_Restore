@@ -111,20 +111,18 @@
 
 uint64_t __42__SRDebugInfoClient_dumpClientsWithReply___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = SRDebugInfoClientLog;
   if (os_log_type_enabled(SRDebugInfoClientLog, OS_LOG_TYPE_ERROR))
   {
-    v9 = 138543362;
-    v10 = a2;
-    _os_log_error_impl(&dword_1C914D000, v4, OS_LOG_TYPE_ERROR, "Unable to connect to daemon because %{public}@", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = a2;
+    _os_log_error_impl(&dword_1C914D000, v4, OS_LOG_TYPE_ERROR, "Unable to connect to daemon because %{public}@", &v8, 0xCu);
   }
 
   v5 = *(a1 + 32);
   v6 = [SRError errorWithCode:8193];
-  result = (*(v5 + 16))(v5, MEMORY[0x1E695E0F8], v6);
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(v5 + 16))(v5, MEMORY[0x1E695E0F8], v6);
 }
 
 - (void)dumpStateCacheWithReply:(id)reply
@@ -146,18 +144,16 @@ uint64_t __42__SRDebugInfoClient_dumpClientsWithReply___block_invoke(uint64_t a1
 
 uint64_t __45__SRDebugInfoClient_dumpStateCacheWithReply___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v4 = SRDebugInfoClientLog;
   if (os_log_type_enabled(SRDebugInfoClientLog, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138543362;
-    v8 = a2;
-    _os_log_error_impl(&dword_1C914D000, v4, OS_LOG_TYPE_ERROR, "Unable to connect to daemon because %{public}@", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = a2;
+    _os_log_error_impl(&dword_1C914D000, v4, OS_LOG_TYPE_ERROR, "Unable to connect to daemon because %{public}@", &v6, 0xCu);
   }
 
-  result = (*(*(a1 + 32) + 16))(*(a1 + 32), 0, [SRError errorWithCode:8193]);
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 32) + 16))(*(a1 + 32), 0, [SRError errorWithCode:8193]);
 }
 
 - (void)datastoreListingWithReply:(id)reply
@@ -179,18 +175,16 @@ uint64_t __45__SRDebugInfoClient_dumpStateCacheWithReply___block_invoke(uint64_t
 
 uint64_t __47__SRDebugInfoClient_datastoreListingWithReply___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v4 = SRDebugInfoClientLog;
   if (os_log_type_enabled(SRDebugInfoClientLog, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138543362;
-    v8 = a2;
-    _os_log_error_impl(&dword_1C914D000, v4, OS_LOG_TYPE_ERROR, "Unable to connect to daemon because %{public}@", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = a2;
+    _os_log_error_impl(&dword_1C914D000, v4, OS_LOG_TYPE_ERROR, "Unable to connect to daemon because %{public}@", &v6, 0xCu);
   }
 
-  result = (*(*(a1 + 32) + 16))(*(a1 + 32), 0, [SRError errorWithCode:8193]);
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 32) + 16))(*(a1 + 32), 0, [SRError errorWithCode:8193]);
 }
 
 uint64_t __47__SRDebugInfoClient_datastoreListingWithReply___block_invoke_33(uint64_t a1, uint64_t a2)
@@ -224,20 +218,18 @@ uint64_t __47__SRDebugInfoClient_datastoreListingWithReply___block_invoke_33(uin
 
 uint64_t __49__SRDebugInfoClient_dumpConfigurationsWithReply___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = SRDebugInfoClientLog;
   if (os_log_type_enabled(SRDebugInfoClientLog, OS_LOG_TYPE_ERROR))
   {
-    v9 = 138543362;
-    v10 = a2;
-    _os_log_error_impl(&dword_1C914D000, v4, OS_LOG_TYPE_ERROR, "Unable to connect to daemon because %{public}@", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = a2;
+    _os_log_error_impl(&dword_1C914D000, v4, OS_LOG_TYPE_ERROR, "Unable to connect to daemon because %{public}@", &v8, 0xCu);
   }
 
   v5 = *(a1 + 32);
   v6 = [SRError errorWithCode:8193];
-  result = (*(v5 + 16))(v5, MEMORY[0x1E695E0F8], v6);
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(v5 + 16))(v5, MEMORY[0x1E695E0F8], v6);
 }
 
 - (void)dumpDefaultsWithReply:(id)reply
@@ -259,20 +251,18 @@ uint64_t __49__SRDebugInfoClient_dumpConfigurationsWithReply___block_invoke(uint
 
 uint64_t __43__SRDebugInfoClient_dumpDefaultsWithReply___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = SRDebugInfoClientLog;
   if (os_log_type_enabled(SRDebugInfoClientLog, OS_LOG_TYPE_ERROR))
   {
-    v9 = 138543362;
-    v10 = a2;
-    _os_log_error_impl(&dword_1C914D000, v4, OS_LOG_TYPE_ERROR, "Unable to connect to daemon because %{public}@", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = a2;
+    _os_log_error_impl(&dword_1C914D000, v4, OS_LOG_TYPE_ERROR, "Unable to connect to daemon because %{public}@", &v8, 0xCu);
   }
 
   v5 = *(a1 + 32);
   v6 = [SRError errorWithCode:8193];
-  result = (*(v5 + 16))(v5, MEMORY[0x1E695E0F8], v6);
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(v5 + 16))(v5, MEMORY[0x1E695E0F8], v6);
 }
 
 - (void)fetchEligibilityStatusForBundleIdentifier:(id)identifier sensor:(id)sensor reply:(id)reply
@@ -288,18 +278,16 @@ uint64_t __43__SRDebugInfoClient_dumpDefaultsWithReply___block_invoke(uint64_t a
 
 uint64_t __76__SRDebugInfoClient_fetchEligibilityStatusForBundleIdentifier_sensor_reply___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v4 = SRDebugInfoClientLog;
   if (os_log_type_enabled(SRDebugInfoClientLog, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138543362;
-    v8 = a2;
-    _os_log_error_impl(&dword_1C914D000, v4, OS_LOG_TYPE_ERROR, "Unable to connect to daemon because %{public}@", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = a2;
+    _os_log_error_impl(&dword_1C914D000, v4, OS_LOG_TYPE_ERROR, "Unable to connect to daemon because %{public}@", &v6, 0xCu);
   }
 
-  result = (*(*(a1 + 32) + 16))(*(a1 + 32), 0, [SRError errorWithCode:8193]);
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 32) + 16))(*(a1 + 32), 0, [SRError errorWithCode:8193]);
 }
 
 - (void)fetchDeviceInformationForDeviceIdentifiers:(id)identifiers reply:(id)reply
@@ -315,20 +303,18 @@ uint64_t __76__SRDebugInfoClient_fetchEligibilityStatusForBundleIdentifier_senso
 
 uint64_t __70__SRDebugInfoClient_fetchDeviceInformationForDeviceIdentifiers_reply___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = SRDebugInfoClientLog;
   if (os_log_type_enabled(SRDebugInfoClientLog, OS_LOG_TYPE_ERROR))
   {
-    v9 = 138543362;
-    v10 = a2;
-    _os_log_error_impl(&dword_1C914D000, v4, OS_LOG_TYPE_ERROR, "Unable to connect to daemon because %{public}@", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = a2;
+    _os_log_error_impl(&dword_1C914D000, v4, OS_LOG_TYPE_ERROR, "Unable to connect to daemon because %{public}@", &v8, 0xCu);
   }
 
   v5 = *(a1 + 32);
   v6 = [SRError errorWithCode:8193];
-  result = (*(v5 + 16))(v5, MEMORY[0x1E695E0F0], v6);
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(v5 + 16))(v5, MEMORY[0x1E695E0F0], v6);
 }
 
 @end

@@ -87,7 +87,7 @@
     [NPKProtoStandalonePaymentRemoteCredential writeTo:];
   }
 
-  v7 = toCopy;
+  v6 = toCopy;
   PBDataWriterWriteSubmessage();
   if (self->_identifier)
   {
@@ -99,36 +99,35 @@
     PBDataWriterWriteStringField();
   }
 
-  v5 = v7;
+  v5 = v6;
   if (self->_summaryMetadataDescription)
   {
     PBDataWriterWriteStringField();
-    v5 = v7;
+    v5 = v6;
   }
 
   if (self->_statusDescription)
   {
     PBDataWriterWriteStringField();
-    v5 = v7;
+    v5 = v6;
   }
 
   if (self->_paymentPass)
   {
     PBDataWriterWriteSubmessage();
-    v5 = v7;
+    v5 = v6;
   }
 
   if (*&self->_has)
   {
-    rank = self->_rank;
     PBDataWriterWriteUint32Field();
-    v5 = v7;
+    v5 = v6;
   }
 
   if (self->_productIdentifier)
   {
     PBDataWriterWriteStringField();
-    v5 = v7;
+    v5 = v6;
   }
 }
 
@@ -280,7 +279,6 @@
     }
   }
 
-  v11 = *(equalCopy + 72);
   if (*&self->_has)
   {
     if ((*(equalCopy + 72) & 1) == 0 || self->_rank != *(equalCopy + 12))
@@ -292,24 +290,24 @@
   else if (*(equalCopy + 72))
   {
 LABEL_21:
-    v13 = 0;
+    v12 = 0;
     goto LABEL_22;
   }
 
   productIdentifier = self->_productIdentifier;
   if (productIdentifier | *(equalCopy + 5))
   {
-    v13 = [(NSString *)productIdentifier isEqual:?];
+    v12 = [(NSString *)productIdentifier isEqual:?];
   }
 
   else
   {
-    v13 = 1;
+    v12 = 1;
   }
 
 LABEL_22:
 
-  return v13;
+  return v12;
 }
 
 - (unint64_t)hash

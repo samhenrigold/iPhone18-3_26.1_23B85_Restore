@@ -12,6 +12,7 @@
 - (id)getSiriLanguage;
 - (int)setDeviceLanguage:(id)language andRegion:(id)region matchToSystemLanguage:(BOOL)systemLanguage;
 - (int)setSiriLanguage:(id)language;
+- (void)setSiriIsEnabled:(BOOL)enabled;
 @end
 
 @implementation MSDLanguageAndRegionHelper
@@ -34,72 +35,74 @@
   languageCopy = language;
   regionCopy = region;
   v10 = languageCopy;
-  v11 = sub_100063A54();
+  v11 = sub_100063A54(v10);
   v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
   if (systemLanguageCopy)
   {
     if (v12)
     {
-      LOWORD(v20) = 0;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Comparing to the nearest system language", &v20, 2u);
+      LOWORD(v22) = 0;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Comparing to the nearest system language", &v22, 2u);
     }
 
-    v26 = v10;
-    v13 = [NSArray arrayWithObjects:&v26 count:1];
+    v28 = v10;
+    v13 = [NSArray arrayWithObjects:&v28 count:1];
     v14 = [(MSDLanguageAndRegionHelper *)self _systemLocalizedLanguageCodeFromArray:v13];
 
     v15 = [(MSDLanguageAndRegionHelper *)self _isCurrentDeviceLanguage:v14 andRegion:regionCopy];
+    v16 = v15;
   }
 
   else
   {
     if (v12)
     {
-      LOWORD(v20) = 0;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Comparing to any localized language variant", &v20, 2u);
+      LOWORD(v22) = 0;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Comparing to any localized language variant", &v22, 2u);
     }
 
     v15 = [(MSDLanguageAndRegionHelper *)self _isCurrentDevicePreferredLanguage:v10 andRegion:regionCopy];
+    v16 = v15;
     v14 = v10;
   }
 
-  v16 = sub_100063A54();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v17 = sub_100063A54(v15);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    v20 = 138543874;
-    v21 = v10;
-    v22 = 2114;
-    v23 = v14;
+    v22 = 138543874;
+    v23 = v10;
     v24 = 2114;
-    v25 = regionCopy;
-    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Setting device language to %{public}@ (%{public}@) and region code to %{public}@.", &v20, 0x20u);
+    v25 = v14;
+    v26 = 2114;
+    v27 = regionCopy;
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Setting device language to %{public}@ (%{public}@) and region code to %{public}@.", &v22, 0x20u);
   }
 
-  if (v15)
+  if (v16)
   {
-    v17 = sub_100063A54();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v19 = sub_100063A54(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = 138543874;
-      v21 = v10;
-      v22 = 2114;
-      v23 = v14;
+      v22 = 138543874;
+      v23 = v10;
       v24 = 2114;
-      v25 = regionCopy;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Device already has language %{public}@ (%{public}@) and region %{public}@", &v20, 0x20u);
+      v25 = v14;
+      v26 = 2114;
+      v27 = regionCopy;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Device already has language %{public}@ (%{public}@) and region %{public}@", &v22, 0x20u);
     }
 
-    v18 = 2;
+    v20 = 2;
   }
 
   else
   {
     [IPSettingsUtilities setRegion:regionCopy];
     [IPSettingsUtilities setLanguage:v14];
-    v18 = 0;
+    v20 = 0;
   }
 
-  return v18;
+  return v20;
 }
 
 - (id)getCurrentDeviceLanguage
@@ -138,60 +141,62 @@
 - (int)setSiriLanguage:(id)language
 {
   languageCopy = language;
-  if (![(MSDLanguageAndRegionHelper *)self isSiriEnabled])
+  isSiriEnabled = [(MSDLanguageAndRegionHelper *)self isSiriEnabled];
+  if ((isSiriEnabled & 1) == 0)
   {
-    v5 = sub_100063A54();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100063A54(isSiriEnabled);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Enabling Siri", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Enabling Siri", buf, 2u);
     }
 
-    [(MSDLanguageAndRegionHelper *)self setSiriIsEnabled:1];
+    isSiriEnabled = [(MSDLanguageAndRegionHelper *)self setSiriIsEnabled:1];
   }
 
-  v6 = sub_100063A54();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100063A54(isSiriEnabled);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v20 = languageCopy;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Setting Siri language to %{public}@", buf, 0xCu);
+    v24 = languageCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Setting Siri language to %{public}@", buf, 0xCu);
   }
 
   getSiriLanguage = [(MSDLanguageAndRegionHelper *)self getSiriLanguage];
 
   if (getSiriLanguage == languageCopy)
   {
-    v10 = sub_100063A54();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_100063A54(v9);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v20 = languageCopy;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Device already has a Siri language of %{public}@", buf, 0xCu);
+      v24 = languageCopy;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Device already has a Siri language of %{public}@", buf, 0xCu);
     }
 
-    v15 = 2;
+    v19 = 2;
   }
 
   else
   {
-    v8 = dispatch_semaphore_create(0);
-    v9 = +[AFSettingsConnection sharedInstance];
-    v17[0] = _NSConcreteStackBlock;
-    v17[1] = 3221225472;
-    v17[2] = sub_1000BCD88;
-    v17[3] = &unk_100169B70;
-    v10 = v8;
-    v18 = v10;
-    [v9 setLanguage:languageCopy withCompletion:v17];
+    v10 = dispatch_semaphore_create(0);
+    v11 = +[AFSettingsConnection sharedInstance];
+    v21[0] = _NSConcreteStackBlock;
+    v21[1] = 3221225472;
+    v21[2] = sub_1000BCD88;
+    v21[3] = &unk_100169B70;
+    v12 = v10;
+    v22 = v12;
+    [v11 setLanguage:languageCopy withCompletion:v21];
 
-    v11 = dispatch_time(0, 10000000000);
-    if (dispatch_semaphore_wait(v10, v11))
+    v13 = dispatch_time(0, 10000000000);
+    v14 = dispatch_semaphore_wait(v12, v13);
+    if (v14)
     {
-      v12 = sub_100063A54();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v15 = sub_100063A54(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        sub_1000EAFE8(v12);
+        sub_1000EAFE8(v15);
       }
     }
 
@@ -199,22 +204,22 @@
 
     if (getSiriLanguage2 == languageCopy)
     {
-      v15 = 0;
+      v19 = 0;
     }
 
     else
     {
-      v14 = sub_100063A54();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v18 = sub_100063A54(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        sub_1000EB02C(languageCopy, self, v14);
+        sub_1000EB02C(languageCopy, self, v18);
       }
 
-      v15 = 1;
+      v19 = 1;
     }
   }
 
-  return v15;
+  return v19;
 }
 
 - (id)getSiriLanguage
@@ -231,6 +236,13 @@
   assistantIsEnabled = [v2 assistantIsEnabled];
 
   return assistantIsEnabled;
+}
+
+- (void)setSiriIsEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v4 = +[AFPreferences sharedPreferences];
+  [v4 setAssistantIsEnabled:enabledCopy];
 }
 
 - (BOOL)_isCurrentDeviceLanguage:(id)language andRegion:(id)region

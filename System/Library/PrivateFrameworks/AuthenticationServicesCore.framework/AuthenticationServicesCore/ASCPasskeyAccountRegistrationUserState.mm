@@ -14,47 +14,45 @@
 - (NSPersonNameComponents)name
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EBF23420, &unk_1C2176820);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x1EEE9AC00](v3 - 8);
-  v6 = &v14 - v5;
-  v7 = OBJC_IVAR____TtC26AuthenticationServicesCore38ASCPasskeyAccountRegistrationUserState_name;
+  v5 = &v13 - v4;
+  v6 = OBJC_IVAR____TtC26AuthenticationServicesCore38ASCPasskeyAccountRegistrationUserState_name;
   swift_beginAccess();
-  sub_1C20EB3E8(self + v7, v6, &unk_1EBF23420, &unk_1C2176820);
-  v8 = sub_1C216FF04();
-  v9 = *(v8 - 8);
-  v10 = (*(v9 + 48))(v6, 1, v8);
-  v11 = 0;
-  if (v10 != 1)
+  sub_1C20EB3E8(self + v6, v5, &unk_1EBF23420, &unk_1C2176820);
+  v7 = sub_1C216FF04();
+  v8 = *(v7 - 8);
+  v9 = (*(v8 + 48))(v5, 1, v7);
+  v10 = 0;
+  if (v9 != 1)
   {
-    v12 = sub_1C216FEE4();
-    (*(v9 + 8))(v6, v8);
-    v11 = v12;
+    v11 = sub_1C216FEE4();
+    (*(v8 + 8))(v5, v7);
+    v10 = v11;
   }
 
-  return v11;
+  return v10;
 }
 
 - (void)setName:(id)name
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EBF23420, &unk_1C2176820);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = &v12 - v7;
+  v7 = &v11 - v6;
   if (name)
   {
     sub_1C216FEF4();
-    v9 = sub_1C216FF04();
-    (*(*(v9 - 8) + 56))(v8, 0, 1, v9);
+    v8 = sub_1C216FF04();
+    (*(*(v8 - 8) + 56))(v7, 0, 1, v8);
   }
 
   else
   {
-    v10 = sub_1C216FF04();
-    (*(*(v10 - 8) + 56))(v8, 1, 1, v10);
+    v9 = sub_1C216FF04();
+    (*(*(v9 - 8) + 56))(v7, 1, 1, v9);
   }
 
   selfCopy = self;
-  sub_1C210C1D0(v8);
+  sub_1C210C1D0(v7);
 }
 
 - (void)setEmailAddress:(id)address
@@ -73,7 +71,6 @@
 
   v7 = (self + OBJC_IVAR____TtC26AuthenticationServicesCore38ASCPasskeyAccountRegistrationUserState_emailAddress);
   swift_beginAccess();
-  v8 = v7[1];
   *v7 = v4;
   v7[1] = v6;
   selfCopy = self;

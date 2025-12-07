@@ -43,7 +43,7 @@ LABEL_26:
 
   *(&__dst + v14) = 0;
 
-  std::ofstream::basic_ofstream(&v26);
+  std::ofstream::basic_ofstream(&v26, &__dst, 4);
   v7 = v22;
   if (data)
   {

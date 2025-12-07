@@ -30,9 +30,11 @@
 
 uint64_t __44__VCIDNADecoder_stringByDecodingDomainName___block_invoke()
 {
-  stringByDecodingDomainName__posixLocale = [objc_alloc(MEMORY[0x277CBEAF8]) initWithLocaleIdentifier:@"en_US_POSIX"];
+  v0 = [objc_alloc(MEMORY[0x277CBEAF8]) initWithLocaleIdentifier:@"en_US_POSIX"];
+  v1 = stringByDecodingDomainName__posixLocale;
+  stringByDecodingDomainName__posixLocale = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

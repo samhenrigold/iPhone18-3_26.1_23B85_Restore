@@ -14,6 +14,7 @@
 - (void)_flushCompletions:(BOOL)completions;
 - (void)_ignoreRepostMyriadNotification:(BOOL)notification;
 - (void)_registerForMyriadEvents;
+- (void)_resultSeenWithValue:(BOOL)value;
 - (void)_setDecisionIsPending;
 - (void)dealloc;
 - (void)dequeueBlocksWaitingForMyriadDecision;
@@ -40,6 +41,36 @@
   dispatch_sync(myriadMonitorQueue, v4);
 }
 
+- (void)_resultSeenWithValue:(BOOL)value
+{
+  valueCopy = value;
+  v13 = *MEMORY[0x1E69E9840];
+  if (value)
+  {
+    v5 = 3;
+  }
+
+  else
+  {
+    v5 = 2;
+  }
+
+  self->_state = v5;
+  v6 = AFSiriLogContextConnection;
+  if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
+  {
+    v7 = v6;
+    v8 = [(AFMyriadMonitor *)self _myriadStateToString:v5];
+    v9 = 136315394;
+    v10 = "[AFMyriadMonitor _resultSeenWithValue:]";
+    v11 = 2112;
+    v12 = v8;
+    _os_log_impl(&dword_1912FE000, v7, OS_LOG_TYPE_INFO, "%s Myriad decision seen: state is %@.", &v9, 0x16u);
+  }
+
+  [(AFMyriadMonitor *)self _flushCompletions:valueCopy];
+}
+
 - (void)_flushCompletions:(BOOL)completions
 {
   if (completions)
@@ -60,67 +91,66 @@
 
 - (void)_clear
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     state = self->_state;
     v5 = v3;
     v6 = [(AFMyriadMonitor *)self _myriadStateToString:state];
-    v8 = 136315394;
-    v9 = "[AFMyriadMonitor _clear]";
-    v10 = 2112;
-    v11 = v6;
-    _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s Clear pending for Myriad decision: %@.", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[AFMyriadMonitor _clear]";
+    v9 = 2112;
+    v10 = v6;
+    _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s Clear pending for Myriad decision: %@.", &v7, 0x16u);
   }
 
   self->_state = 0;
   [(AFMyriadMonitor *)self _flushCompletions:0];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_dequeueBlocksWithSignal:(int64_t)signal
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v5 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     completions = self->_completions;
     v7 = v5;
     *buf = 136315394;
-    v21 = "[AFMyriadMonitor _dequeueBlocksWithSignal:]";
-    v22 = 1024;
-    v23 = [(AFQueue *)completions count];
+    v20 = "[AFMyriadMonitor _dequeueBlocksWithSignal:]";
+    v21 = 1024;
+    v22 = [(AFQueue *)completions count];
     _os_log_impl(&dword_1912FE000, v7, OS_LOG_TYPE_INFO, "%s Myriad decision had %d block(s) waiting", buf, 0x12u);
   }
 
   if ([(AFQueue *)self->_completions count])
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v8 = self->_completions;
-    v9 = [(AFQueue *)v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v9 = [(AFQueue *)v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v16;
+      v11 = *v15;
       do
       {
         v12 = 0;
         do
         {
-          if (*v16 != v11)
+          if (*v15 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          [*(*(&v15 + 1) + 8 * v12++) invokeWithSignal:{signal, v15}];
+          [*(*(&v14 + 1) + 8 * v12++) invokeWithSignal:{signal, v14}];
         }
 
         while (v10 != v12);
-        v10 = [(AFQueue *)v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v10 = [(AFQueue *)v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v10);
@@ -128,20 +158,18 @@
 
     dequeueAllObjects = [(AFQueue *)self->_completions dequeueAllObjects];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setDecisionIsPending
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = AFSiriLogContextConnection;
   if (self->_state == 1)
   {
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v15 = "[AFMyriadMonitor _setDecisionIsPending]";
+      v14 = "[AFMyriadMonitor _setDecisionIsPending]";
       _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s Myriad decision is already in pending state.", buf, 0xCu);
       v3 = AFSiriLogContextConnection;
     }
@@ -152,7 +180,7 @@
       if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v15 = "[AFMyriadMonitor _setDecisionIsPending]";
+        v14 = "[AFMyriadMonitor _setDecisionIsPending]";
         _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s Myriad monitor cancelling existing watch dog timer.", buf, 0xCu);
         timer = self->_timer;
       }
@@ -168,7 +196,7 @@
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v15 = "[AFMyriadMonitor _setDecisionIsPending]";
+    v14 = "[AFMyriadMonitor _setDecisionIsPending]";
     _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s Myriad decision is pending.", buf, 0xCu);
     v3 = AFSiriLogContextConnection;
   }
@@ -178,66 +206,64 @@
   {
     myriadEventMonitorTimeout = self->_myriadEventMonitorTimeout;
     *buf = 136315394;
-    v15 = "[AFMyriadMonitor _setDecisionIsPending]";
-    v16 = 2048;
-    v17 = myriadEventMonitorTimeout;
+    v14 = "[AFMyriadMonitor _setDecisionIsPending]";
+    v15 = 2048;
+    v16 = myriadEventMonitorTimeout;
     _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s Myriad monitor initializing safety timer with timeout: %f seconds", buf, 0x16u);
   }
 
   v7 = [AFWatchdogTimer alloc];
   v8 = self->_myriadEventMonitorTimeout;
   myriadMonitorQueue = self->_myriadMonitorQueue;
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __40__AFMyriadMonitor__setDecisionIsPending__block_invoke;
-  v13[3] = &unk_1E73497C8;
-  v13[4] = self;
-  v10 = [(AFWatchdogTimer *)v7 initWithTimeoutInterval:myriadMonitorQueue onQueue:v13 timeoutHandler:v8];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __40__AFMyriadMonitor__setDecisionIsPending__block_invoke;
+  v12[3] = &unk_1E73497C8;
+  v12[4] = self;
+  v10 = [(AFWatchdogTimer *)v7 initWithTimeoutInterval:myriadMonitorQueue onQueue:v12 timeoutHandler:v8];
   v11 = self->_timer;
   self->_timer = v10;
 
   [(AFWatchdogTimer *)self->_timer start];
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void *__40__AFMyriadMonitor__setDecisionIsPending__block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315138;
-    v6 = "[AFMyriadMonitor _setDecisionIsPending]_block_invoke";
-    _os_log_error_impl(&dword_1912FE000, v2, OS_LOG_TYPE_ERROR, "%s Myriad monitor times out, Myriad is probably unable to finish, clear pending blocks", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[AFMyriadMonitor _setDecisionIsPending]_block_invoke";
+    _os_log_error_impl(&dword_1912FE000, v2, OS_LOG_TYPE_ERROR, "%s Myriad monitor times out, Myriad is probably unable to finish, clear pending blocks", &v4, 0xCu);
   }
 
   result = *(a1 + 32);
   if (result[1] == 1)
   {
     [result _deregisterFromRepostedDecisionResultsObservers];
-    result = [*(a1 + 32) _clear];
+    return [*(a1 + 32) _clear];
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)notifyObserver:(id)observer didChangeStateFrom:(unint64_t)from to:(unint64_t)to
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   observerCopy = observer;
   v9 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
-    v12 = 136315906;
-    v13 = "[AFMyriadMonitor notifyObserver:didChangeStateFrom:to:]";
-    v14 = 2048;
-    v15 = observerCopy;
-    v16 = 2048;
+    v11 = 136315906;
+    v12 = "[AFMyriadMonitor notifyObserver:didChangeStateFrom:to:]";
+    v13 = 2048;
+    v14 = observerCopy;
+    v15 = 2048;
     fromCopy = from;
-    v18 = 2048;
+    v17 = 2048;
     toCopy = to;
-    _os_log_impl(&dword_1912FE000, v9, OS_LOG_TYPE_INFO, "%s notifyObserver %p didChangeStateFrom %ld -> %ld", &v12, 0x2Au);
+    _os_log_impl(&dword_1912FE000, v9, OS_LOG_TYPE_INFO, "%s notifyObserver %p didChangeStateFrom %ld -> %ld", &v11, 0x2Au);
   }
 
   if (!from && self->_repostedWonObserver == observerCopy)
@@ -245,13 +271,11 @@ void *__40__AFMyriadMonitor__setDecisionIsPending__block_invoke(uint64_t a1)
     DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
     CFNotificationCenterPostNotification(DarwinNotifyCenter, @"com.apple.siri.myriad.get.decision", 0, 0, 1u);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyObserver:(id)observer didReceiveNotificationWithToken:(int)token
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   observerCopy = observer;
   name = [(AFNotifyObserver *)observerCopy name];
   if (self->_wonObserver == observerCopy)
@@ -259,10 +283,10 @@ void *__40__AFMyriadMonitor__setDecisionIsPending__block_invoke(uint64_t a1)
     v7 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
-      *v14 = 136315394;
-      *&v14[4] = "[AFMyriadMonitor notifyObserver:didReceiveNotificationWithToken:]";
-      *&v14[12] = 2112;
-      *&v14[14] = name;
+      *v13 = 136315394;
+      *&v13[4] = "[AFMyriadMonitor notifyObserver:didReceiveNotificationWithToken:]";
+      *&v13[12] = 2112;
+      *&v13[14] = name;
       v8 = "%s Myriad Delay Monitor result: YES (%@)";
       goto LABEL_9;
     }
@@ -271,7 +295,7 @@ LABEL_10:
     selfCopy2 = self;
     v10 = 1;
 LABEL_14:
-    [(AFMyriadMonitor *)selfCopy2 _resultSeenWithValue:v10, *v14, *&v14[16], v15];
+    [(AFMyriadMonitor *)selfCopy2 _resultSeenWithValue:v10, *v13, *&v13[8], v14];
 LABEL_15:
     [(AFMyriadMonitor *)self _deregisterFromRepostedDecisionResultsObservers];
     goto LABEL_16;
@@ -282,11 +306,11 @@ LABEL_15:
     v11 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
-      *v14 = 136315394;
-      *&v14[4] = "[AFMyriadMonitor notifyObserver:didReceiveNotificationWithToken:]";
-      *&v14[12] = 2112;
-      *&v14[14] = name;
-      _os_log_impl(&dword_1912FE000, v11, OS_LOG_TYPE_INFO, "%s Myriad Delay Monitor result: NO (%@)", v14, 0x16u);
+      *v13 = 136315394;
+      *&v13[4] = "[AFMyriadMonitor notifyObserver:didReceiveNotificationWithToken:]";
+      *&v13[12] = 2112;
+      *&v13[14] = name;
+      _os_log_impl(&dword_1912FE000, v11, OS_LOG_TYPE_INFO, "%s Myriad Delay Monitor result: NO (%@)", v13, 0x16u);
     }
 
     selfCopy2 = self;
@@ -296,14 +320,14 @@ LABEL_15:
 
   if (self->_beginObserver == observerCopy)
   {
-    v13 = AFSiriLogContextConnection;
+    v12 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
-      *v14 = 136315394;
-      *&v14[4] = "[AFMyriadMonitor notifyObserver:didReceiveNotificationWithToken:]";
-      *&v14[12] = 2112;
-      *&v14[14] = name;
-      _os_log_impl(&dword_1912FE000, v13, OS_LOG_TYPE_INFO, "%s Myriad Delay Monitor Begin (%@)", v14, 0x16u);
+      *v13 = 136315394;
+      *&v13[4] = "[AFMyriadMonitor notifyObserver:didReceiveNotificationWithToken:]";
+      *&v13[12] = 2112;
+      *&v13[14] = name;
+      _os_log_impl(&dword_1912FE000, v12, OS_LOG_TYPE_INFO, "%s Myriad Delay Monitor Begin (%@)", v13, 0x16u);
     }
 
     [(AFMyriadMonitor *)self _setDecisionIsPending];
@@ -315,13 +339,13 @@ LABEL_15:
     v7 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
-      *v14 = 136315394;
-      *&v14[4] = "[AFMyriadMonitor notifyObserver:didReceiveNotificationWithToken:]";
-      *&v14[12] = 2112;
-      *&v14[14] = name;
+      *v13 = 136315394;
+      *&v13[4] = "[AFMyriadMonitor notifyObserver:didReceiveNotificationWithToken:]";
+      *&v13[12] = 2112;
+      *&v13[14] = name;
       v8 = "%s Myriad Delay Monitor received reposted result: YES (%@)";
 LABEL_9:
-      _os_log_impl(&dword_1912FE000, v7, OS_LOG_TYPE_INFO, v8, v14, 0x16u);
+      _os_log_impl(&dword_1912FE000, v7, OS_LOG_TYPE_INFO, v8, v13, 0x16u);
       goto LABEL_10;
     }
 
@@ -329,13 +353,11 @@ LABEL_9:
   }
 
 LABEL_16:
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_deregisterFromRepostedDecisionResultsObservers
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   [(AFMyriadMonitor *)self _cancelRepostedMyriadDecisionTimer];
   repostedWonObserver = self->_repostedWonObserver;
   if (repostedWonObserver)
@@ -343,9 +365,9 @@ LABEL_16:
     v4 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
-      v7 = 136315138;
-      v8 = "[AFMyriadMonitor _deregisterFromRepostedDecisionResultsObservers]";
-      _os_log_impl(&dword_1912FE000, v4, OS_LOG_TYPE_INFO, "%s Myriad Delay Monitor: Deregistering from reposted Myriad event notification.", &v7, 0xCu);
+      v6 = 136315138;
+      v7 = "[AFMyriadMonitor _deregisterFromRepostedDecisionResultsObservers]";
+      _os_log_impl(&dword_1912FE000, v4, OS_LOG_TYPE_INFO, "%s Myriad Delay Monitor: Deregistering from reposted Myriad event notification.", &v6, 0xCu);
       repostedWonObserver = self->_repostedWonObserver;
     }
 
@@ -353,22 +375,20 @@ LABEL_16:
     v5 = self->_repostedWonObserver;
     self->_repostedWonObserver = 0;
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_deregisterFromMyriadEventNotifications
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   beginObserver = self->_beginObserver;
   if (*&self->_beginObserver != 0 || self->_lostObserver)
   {
     v4 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
-      v9 = 136315138;
-      v10 = "[AFMyriadMonitor _deregisterFromMyriadEventNotifications]";
-      _os_log_impl(&dword_1912FE000, v4, OS_LOG_TYPE_INFO, "%s Myriad Delay Monitor: Deregistering from Myriad event notifications.", &v9, 0xCu);
+      v8 = 136315138;
+      v9 = "[AFMyriadMonitor _deregisterFromMyriadEventNotifications]";
+      _os_log_impl(&dword_1912FE000, v4, OS_LOG_TYPE_INFO, "%s Myriad Delay Monitor: Deregistering from Myriad event notifications.", &v8, 0xCu);
       beginObserver = self->_beginObserver;
     }
 
@@ -387,20 +407,18 @@ LABEL_16:
     self->_isRegisteredForMyriadEventNotification = 0;
     [(AFMyriadMonitor *)self _deregisterFromRepostedDecisionResultsObservers];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_fetchCurrentMyriadDecisionWithWaitTime:(double)time
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (self->_ignoreRepostMyriadNotification)
   {
     v3 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v13 = "[AFMyriadMonitor _fetchCurrentMyriadDecisionWithWaitTime:]";
+      v12 = "[AFMyriadMonitor _fetchCurrentMyriadDecisionWithWaitTime:]";
       _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s Myriad Delay Monitor: Ignoring Myriad repost notifications.", buf, 0xCu);
     }
 
@@ -411,38 +429,34 @@ LABEL_16:
   {
     v7 = [AFWatchdogTimer alloc];
     myriadMonitorQueue = self->_myriadMonitorQueue;
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __59__AFMyriadMonitor__fetchCurrentMyriadDecisionWithWaitTime___block_invoke;
-    v11[3] = &unk_1E73497C8;
-    v11[4] = self;
-    v4 = [(AFWatchdogTimer *)v7 initWithTimeoutInterval:myriadMonitorQueue onQueue:v11 timeoutHandler:time];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __59__AFMyriadMonitor__fetchCurrentMyriadDecisionWithWaitTime___block_invoke;
+    v10[3] = &unk_1E73497C8;
+    v10[4] = self;
+    v4 = [(AFWatchdogTimer *)v7 initWithTimeoutInterval:myriadMonitorQueue onQueue:v10 timeoutHandler:time];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 void __59__AFMyriadMonitor__fetchCurrentMyriadDecisionWithWaitTime___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   if (*(v1 + 8) == 1 && (*(v1 + 97) & 1) == 0 && *(v1 + 56))
   {
     v2 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
-      v5 = 136315138;
-      v6 = "[AFMyriadMonitor _fetchCurrentMyriadDecisionWithWaitTime:]_block_invoke";
-      _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s Myriad Delay Monitor: Fetching reposted Myriad event notification.", &v5, 0xCu);
+      v4 = 136315138;
+      v5 = "[AFMyriadMonitor _fetchCurrentMyriadDecisionWithWaitTime:]_block_invoke";
+      _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s Myriad Delay Monitor: Fetching reposted Myriad event notification.", &v4, 0xCu);
     }
 
     DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
     CFNotificationCenterPostNotification(DarwinNotifyCenter, @"com.apple.siri.myriad.get.decision", 0, 0, 1u);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_cancelRepostedMyriadDecisionTimer
@@ -458,7 +472,7 @@ void __59__AFMyriadMonitor__fetchCurrentMyriadDecisionWithWaitTime___block_invok
 
 - (void)_registerForMyriadEvents
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v3 = observerWithNotificationName("com.apple.siri.myriad.decision.begin", self->_instanceContext, 1, self, self->_myriadMonitorQueue);
   beginObserver = self->_beginObserver;
   self->_beginObserver = v3;
@@ -483,20 +497,18 @@ void __59__AFMyriadMonitor__fetchCurrentMyriadDecisionWithWaitTime___block_invok
     v13 = self->_wonObserver;
     v14 = self->_lostObserver;
     v15 = self->_repostedWonObserver;
-    v17 = 136316162;
-    v18 = "[AFMyriadMonitor _registerForMyriadEvents]";
-    v19 = 2048;
-    v20 = v12;
-    v21 = 2048;
-    v22 = v13;
-    v23 = 2048;
-    v24 = v14;
-    v25 = 2048;
-    v26 = v15;
-    _os_log_impl(&dword_1912FE000, v11, OS_LOG_TYPE_INFO, "%s Myriad Delay Monitor: Registering for Myriad event notifications (beginObserver: %p, wonObserver: %p, lostObserver: %p, decisionRepostObserver: %p).", &v17, 0x34u);
+    v16 = 136316162;
+    v17 = "[AFMyriadMonitor _registerForMyriadEvents]";
+    v18 = 2048;
+    v19 = v12;
+    v20 = 2048;
+    v21 = v13;
+    v22 = 2048;
+    v23 = v14;
+    v24 = 2048;
+    v25 = v15;
+    _os_log_impl(&dword_1912FE000, v11, OS_LOG_TYPE_INFO, "%s Myriad Delay Monitor: Registering for Myriad event notifications (beginObserver: %p, wonObserver: %p, lostObserver: %p, decisionRepostObserver: %p).", &v16, 0x34u);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_myriadStateToString:(int64_t)string
@@ -626,18 +638,16 @@ _BYTE *__33__AFMyriadMonitor_stopMonitoring__block_invoke(uint64_t a1)
 
 uint64_t __56__AFMyriadMonitor_dequeueBlocksWaitingForMyriadDecision__block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
-    v5 = 136315138;
-    v6 = "[AFMyriadMonitor dequeueBlocksWaitingForMyriadDecision]_block_invoke";
-    _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s ", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[AFMyriadMonitor dequeueBlocksWaitingForMyriadDecision]_block_invoke";
+    _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s ", &v4, 0xCu);
   }
 
-  result = [*(a1 + 32) _dequeueBlocksWithSignal:-1000];
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) _dequeueBlocksWithSignal:-1000];
 }
 
 - (void)ignoreMyriadEvents:(BOOL)events
@@ -654,16 +664,16 @@ uint64_t __56__AFMyriadMonitor_dequeueBlocksWaitingForMyriadDecision__block_invo
 
 void __38__AFMyriadMonitor_ignoreMyriadEvents___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 40);
-    v6 = 136315394;
-    v7 = "[AFMyriadMonitor ignoreMyriadEvents:]_block_invoke";
-    v8 = 1024;
-    v9 = v3;
-    _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s Myriad Delay Monitor: Should ignoring Myriad events -> %d.", &v6, 0x12u);
+    v5 = 136315394;
+    v6 = "[AFMyriadMonitor ignoreMyriadEvents:]_block_invoke";
+    v7 = 1024;
+    v8 = v3;
+    _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s Myriad Delay Monitor: Should ignoring Myriad events -> %d.", &v5, 0x12u);
   }
 
   v4 = *(a1 + 40);
@@ -672,8 +682,6 @@ void __38__AFMyriadMonitor_ignoreMyriadEvents___block_invoke(uint64_t a1)
   {
     [*(a1 + 32) _deregisterFromRepostedDecisionResultsObservers];
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startMonitoringWithTimeoutInterval:(double)interval instanceContext:(id)context
@@ -693,19 +701,19 @@ void __38__AFMyriadMonitor_ignoreMyriadEvents___block_invoke(uint64_t a1)
 
 void __70__AFMyriadMonitor_startMonitoringWithTimeoutInterval_instanceContext___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 48);
     v4 = *(a1 + 32);
-    v10 = 136315650;
-    v11 = "[AFMyriadMonitor startMonitoringWithTimeoutInterval:instanceContext:]_block_invoke";
-    v12 = 2048;
-    v13 = v3;
-    v14 = 2112;
-    v15 = v4;
-    _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s BTLE delay monitor watchdog timeout %f context %@", &v10, 0x20u);
+    v9 = 136315650;
+    v10 = "[AFMyriadMonitor startMonitoringWithTimeoutInterval:instanceContext:]_block_invoke";
+    v11 = 2048;
+    v12 = v3;
+    v13 = 2112;
+    v14 = v4;
+    _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s BTLE delay monitor watchdog timeout %f context %@", &v9, 0x20u);
   }
 
   *(*(a1 + 40) + 98) = 1;
@@ -724,8 +732,6 @@ void __70__AFMyriadMonitor_startMonitoringWithTimeoutInterval_instanceContext___
 
     [*(*(a1 + 40) + 72) start];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)waitForMyriadDecisionForReason:(id)reason withCompletion:(id)completion
@@ -747,7 +753,7 @@ void __70__AFMyriadMonitor_startMonitoringWithTimeoutInterval_instanceContext___
 
 - (void)_enqueueBlock:(id)block forReason:(id)reason
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   reasonCopy = reason;
   v8 = reasonCopy;
@@ -769,25 +775,25 @@ void __70__AFMyriadMonitor_startMonitoringWithTimeoutInterval_instanceContext___
         v16 = v15;
         v17 = [(AFMyriadMonitor *)self _myriadStateToString:1];
         *buf = 136315650;
-        v28 = "[AFMyriadMonitor _enqueueBlock:forReason:]";
-        v29 = 2112;
-        v30 = v17;
-        v31 = 2112;
-        v32 = v10;
+        v27 = "[AFMyriadMonitor _enqueueBlock:forReason:]";
+        v28 = 2112;
+        v29 = v17;
+        v30 = 2112;
+        v31 = v10;
         _os_log_impl(&dword_1912FE000, v16, OS_LOG_TYPE_INFO, "%s Queueing command waiting for Myriad decision: %@ (reason = %@).", buf, 0x20u);
       }
 
       Current = CFAbsoluteTimeGetCurrent();
       completions = self->_completions;
       v20 = [AFSafetyBlock alloc];
-      v23[0] = MEMORY[0x1E69E9820];
-      v23[1] = 3221225472;
-      v23[2] = __43__AFMyriadMonitor__enqueueBlock_forReason___block_invoke;
-      v23[3] = &unk_1E73439C0;
-      v26 = Current;
-      v24 = v10;
-      v25 = blockCopy;
-      v21 = [(AFSafetyBlock *)v20 initWithBlock:v23];
+      v22[0] = MEMORY[0x1E69E9820];
+      v22[1] = 3221225472;
+      v22[2] = __43__AFMyriadMonitor__enqueueBlock_forReason___block_invoke;
+      v22[3] = &unk_1E73439C0;
+      v25 = Current;
+      v23 = v10;
+      v24 = blockCopy;
+      v21 = [(AFSafetyBlock *)v20 initWithBlock:v22];
       [(AFQueue *)completions enqueueObject:v21];
     }
 
@@ -799,11 +805,11 @@ void __70__AFMyriadMonitor_startMonitoringWithTimeoutInterval_instanceContext___
         v13 = v12;
         v14 = [(AFMyriadMonitor *)self _myriadStateToString:state];
         *buf = 136315650;
-        v28 = "[AFMyriadMonitor _enqueueBlock:forReason:]";
-        v29 = 2112;
-        v30 = v14;
-        v31 = 2112;
-        v32 = v10;
+        v27 = "[AFMyriadMonitor _enqueueBlock:forReason:]";
+        v28 = 2112;
+        v29 = v14;
+        v30 = 2112;
+        v31 = v10;
         _os_log_impl(&dword_1912FE000, v13, OS_LOG_TYPE_INFO, "%s Dequeueing command for Myriad decision: %@ (reason = %@).", buf, 0x20u);
       }
 
@@ -818,33 +824,29 @@ void __70__AFMyriadMonitor_startMonitoringWithTimeoutInterval_instanceContext___
       }
     }
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __43__AFMyriadMonitor__enqueueBlock_forReason___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v4 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     v5 = v4;
     v6 = CFAbsoluteTimeGetCurrent() - *(a1 + 48);
     v7 = *(a1 + 32);
-    v10 = 136315906;
-    v11 = "[AFMyriadMonitor _enqueueBlock:forReason:]_block_invoke";
-    v12 = 2048;
-    v13 = v6;
-    v14 = 2112;
-    v15 = v7;
-    v16 = 2048;
-    v17 = a2;
-    _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s Dequeuing after %f seconds for Myriad decision (reason = %@) and dequeue signal %zd.", &v10, 0x2Au);
+    v9 = 136315906;
+    v10 = "[AFMyriadMonitor _enqueueBlock:forReason:]_block_invoke";
+    v11 = 2048;
+    v12 = v6;
+    v13 = 2112;
+    v14 = v7;
+    v15 = 2048;
+    v16 = a2;
+    _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s Dequeuing after %f seconds for Myriad decision (reason = %@) and dequeue signal %zd.", &v9, 0x2Au);
   }
 
-  result = (*(*(a1 + 40) + 16))(*(a1 + 40), a2 == 0);
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 40) + 16))(*(a1 + 40), a2 == 0);
 }
 
 - (void)waitForMyriadDecisionWithCompletion:(id)completion

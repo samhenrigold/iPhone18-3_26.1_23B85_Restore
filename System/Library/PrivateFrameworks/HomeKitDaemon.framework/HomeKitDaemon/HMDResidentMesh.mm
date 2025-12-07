@@ -95,7 +95,7 @@ void __34__HMDResidentMesh_removeObserver___block_invoke(uint64_t a1)
 
 void __31__HMDResidentMesh_addObserver___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -103,18 +103,16 @@ void __31__HMDResidentMesh_addObserver___block_invoke(uint64_t a1)
   {
     v5 = HMFGetLogIdentifier();
     v6 = *(a1 + 40);
-    v9 = 138543618;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v6;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Registering %@ for resident mesh updates", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Registering %@ for resident mesh updates", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
   v7 = [*(a1 + 32) observers];
   [v7 addObject:*(a1 + 40)];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)messageDestination
@@ -159,7 +157,7 @@ void __28__HMDResidentMesh_stateDump__block_invoke(uint64_t a1)
 
 - (id)_stateDump
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDResidentMesh *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -174,26 +172,26 @@ void __28__HMDResidentMesh_stateDump__block_invoke(uint64_t a1)
   }
 
   resident = [(HMDResidentMesh *)selfCopy resident];
+  v66 = 0u;
   v67 = 0u;
   v68 = 0u;
   v69 = 0u;
-  v70 = 0u;
   obj = [(HMDResidentMesh *)selfCopy residents];
-  v7 = [obj countByEnumeratingWithState:&v67 objects:v73 count:16];
+  v7 = [obj countByEnumeratingWithState:&v66 objects:v72 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v68;
+    v9 = *v67;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v68 != v9)
+        if (*v67 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v67 + 1) + 8 * i);
+        v11 = *(*(&v66 + 1) + 8 * i);
         residentDevice = [v11 residentDevice];
         device = [residentDevice device];
 
@@ -237,13 +235,13 @@ void __28__HMDResidentMesh_stateDump__block_invoke(uint64_t a1)
         string2 = [MEMORY[0x277CCAB68] string];
         [string2 appendFormat:@"{"];
         metrics = [v11 metrics];
-        v65[0] = MEMORY[0x277D85DD0];
-        v65[1] = 3221225472;
-        v65[2] = __29__HMDResidentMesh__stateDump__block_invoke;
-        v65[3] = &unk_278689790;
+        v64[0] = MEMORY[0x277D85DD0];
+        v64[1] = 3221225472;
+        v64[2] = __29__HMDResidentMesh__stateDump__block_invoke;
+        v64[3] = &unk_278689790;
         v23 = string2;
-        v66 = v23;
-        [metrics enumerateKeysAndObjectsUsingBlock:v65];
+        v65 = v23;
+        [metrics enumerateKeysAndObjectsUsingBlock:v64];
 
         if ([v23 hasSuffix:{@", "}])
         {
@@ -254,7 +252,7 @@ void __28__HMDResidentMesh_stateDump__block_invoke(uint64_t a1)
         [string appendFormat:@"      Device metrics: %@ \n", v23];
       }
 
-      v8 = [obj countByEnumeratingWithState:&v67 objects:v73 count:16];
+      v8 = [obj countByEnumeratingWithState:&v66 objects:v72 count:16];
     }
 
     while (v8);
@@ -268,26 +266,26 @@ void __28__HMDResidentMesh_stateDump__block_invoke(uint64_t a1)
     [string appendString:@"remote primary residents:\n"];
   }
 
-  v63 = 0u;
-  v64 = 0u;
-  v61 = 0u;
   v62 = 0u;
+  v63 = 0u;
+  v60 = 0u;
+  v61 = 0u;
   obja = [(HMDResidentMesh *)selfCopy reachableAccessories];
-  v26 = [obja countByEnumeratingWithState:&v61 objects:v72 count:16];
+  v26 = [obja countByEnumeratingWithState:&v60 objects:v71 count:16];
   if (v26)
   {
     v27 = v26;
-    v28 = *v62;
+    v28 = *v61;
     do
     {
       for (j = 0; j != v27; ++j)
       {
-        if (*v62 != v28)
+        if (*v61 != v28)
         {
           objc_enumerationMutation(obja);
         }
 
-        v30 = *(*(&v61 + 1) + 8 * j);
+        v30 = *(*(&v60 + 1) + 8 * j);
         residentDevice2 = [v30 residentDevice];
         device2 = [residentDevice2 device];
         identifier2 = [device2 identifier];
@@ -305,7 +303,7 @@ void __28__HMDResidentMesh_stateDump__block_invoke(uint64_t a1)
         [string appendFormat:@"         pending: %s\n", v37];
       }
 
-      v27 = [obja countByEnumeratingWithState:&v61 objects:v72 count:16];
+      v27 = [obja countByEnumeratingWithState:&v60 objects:v71 count:16];
     }
 
     while (v27);
@@ -319,30 +317,30 @@ void __28__HMDResidentMesh_stateDump__block_invoke(uint64_t a1)
     [string appendString:@"primary resident for:\n"];
   }
 
-  v59 = 0u;
-  v60 = 0u;
-  v57 = 0u;
   v58 = 0u;
+  v59 = 0u;
+  v56 = 0u;
+  v57 = 0u;
   primaryResidentForHomes3 = [(HMDResidentMesh *)selfCopy primaryResidentForHomes];
-  v41 = [primaryResidentForHomes3 countByEnumeratingWithState:&v57 objects:v71 count:16];
+  v41 = [primaryResidentForHomes3 countByEnumeratingWithState:&v56 objects:v70 count:16];
   if (v41)
   {
     v42 = v41;
-    v43 = *v58;
+    v43 = *v57;
     do
     {
       for (k = 0; k != v42; ++k)
       {
-        if (*v58 != v43)
+        if (*v57 != v43)
         {
           objc_enumerationMutation(primaryResidentForHomes3);
         }
 
-        uUIDString = [*(*(&v57 + 1) + 8 * k) UUIDString];
+        uUIDString = [*(*(&v56 + 1) + 8 * k) UUIDString];
         [string appendFormat:@"    %@\n", uUIDString];
       }
 
-      v42 = [primaryResidentForHomes3 countByEnumeratingWithState:&v57 objects:v71 count:16];
+      v42 = [primaryResidentForHomes3 countByEnumeratingWithState:&v56 objects:v70 count:16];
     }
 
     while (v42);
@@ -371,43 +369,41 @@ void __28__HMDResidentMesh_stateDump__block_invoke(uint64_t a1)
   [string appendString:v50];
 LABEL_45:
 
-  v51 = *MEMORY[0x277D85DE8];
-
   return string;
 }
 
 - (void)_transmitCurrentDeviceMetricsToPrimaryResidentWithIsUrgent:(BOOL)urgent
 {
   urgentCopy = urgent;
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDResidentMesh *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   homeManager = [(HMDResidentMesh *)self homeManager];
   homes = [homeManager homes];
 
   obj = homes;
-  v7 = [homes countByEnumeratingWithState:&v32 objects:v40 count:16];
+  v7 = [homes countByEnumeratingWithState:&v31 objects:v39 count:16];
   if (v7)
   {
     v9 = v7;
-    v10 = *v33;
+    v10 = *v32;
     *&v8 = 138543362;
-    v29 = v8;
+    v28 = v8;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v33 != v10)
+        if (*v32 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v32 + 1) + 8 * i);
+        v12 = *(*(&v31 + 1) + 8 * i);
         if ([v12 isCurrentDeviceAvailableResident])
         {
           primaryResident = [v12 primaryResident];
@@ -429,8 +425,8 @@ LABEL_45:
                 if (v20)
                 {
                   v21 = HMFGetLogIdentifier();
-                  *buf = v29;
-                  v37 = v21;
+                  *buf = v28;
+                  v36 = v21;
                   _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Immediately transmitting updated metrics", buf, 0xCu);
                 }
 
@@ -443,8 +439,8 @@ LABEL_45:
                 if (v20)
                 {
                   v27 = HMFGetLogIdentifier();
-                  *buf = v29;
-                  v37 = v27;
+                  *buf = v28;
+                  v36 = v27;
                   _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Scheduling transmission of updated metrics", buf, 0xCu);
                 }
 
@@ -464,9 +460,9 @@ LABEL_45:
               v25 = HMFGetLogIdentifier();
               uuid = [v12 uuid];
               *buf = 138543618;
-              v37 = v25;
-              v38 = 2114;
-              v39 = uuid;
+              v36 = v25;
+              v37 = 2114;
+              v38 = uuid;
               _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_INFO, "%{public}@Could not set metric for current device for home %{public}@: no primary resident", buf, 0x16u);
             }
 
@@ -475,13 +471,11 @@ LABEL_45:
         }
       }
 
-      v9 = [obj countByEnumeratingWithState:&v32 objects:v40 count:16];
+      v9 = [obj countByEnumeratingWithState:&v31 objects:v39 count:16];
     }
 
     while (v9);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setMetricForCurrentDevice:(id)device withValue:(id)value isUrgent:(BOOL)urgent
@@ -504,7 +498,7 @@ LABEL_45:
 
 uint64_t __64__HMDResidentMesh_setMetricForCurrentDevice_withValue_isUrgent___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -513,13 +507,13 @@ uint64_t __64__HMDResidentMesh_setMetricForCurrentDevice_withValue_isUrgent___bl
     v5 = HMFGetLogIdentifier();
     v6 = *(a1 + 40);
     v7 = *(a1 + 48);
-    v14 = 138543874;
-    v15 = v5;
-    v16 = 2112;
-    v17 = v6;
-    v18 = 2112;
-    v19 = v7;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Setting local metric with key: %@, value: %@", &v14, 0x20u);
+    v13 = 138543874;
+    v14 = v5;
+    v15 = 2112;
+    v16 = v6;
+    v17 = 2112;
+    v18 = v7;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Setting local metric with key: %@, value: %@", &v13, 0x20u);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -531,63 +525,59 @@ uint64_t __64__HMDResidentMesh_setMetricForCurrentDevice_withValue_isUrgent___bl
   v11 = [*(a1 + 32) resident];
   [v11 setMetrics:v10];
 
-  result = [*(a1 + 32) _transmitCurrentDeviceMetricsToPrimaryResidentWithIsUrgent:*(a1 + 56)];
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _transmitCurrentDeviceMetricsToPrimaryResidentWithIsUrgent:*(a1 + 56)];
 }
 
 - (id)_activeRecordingSessionCameraUUIDs
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDResidentMesh *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
   v4 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   obj = [(HMDResidentMesh *)self residents];
-  v5 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        metrics = [*(*(&v16 + 1) + 8 * i) metrics];
+        metrics = [*(*(&v15 + 1) + 8 * i) metrics];
         v10 = [metrics hmf_dictionaryForKey:@"recordingSessionSummaries"];
 
-        v14[0] = MEMORY[0x277D85DD0];
-        v14[1] = 3221225472;
-        v14[2] = __53__HMDResidentMesh__activeRecordingSessionCameraUUIDs__block_invoke;
-        v14[3] = &unk_278689488;
-        v14[4] = self;
-        v15 = v4;
-        [v10 enumerateKeysAndObjectsUsingBlock:v14];
+        v13[0] = MEMORY[0x277D85DD0];
+        v13[1] = 3221225472;
+        v13[2] = __53__HMDResidentMesh__activeRecordingSessionCameraUUIDs__block_invoke;
+        v13[3] = &unk_278689488;
+        v13[4] = self;
+        v14 = v4;
+        [v10 enumerateKeysAndObjectsUsingBlock:v13];
       }
 
-      v6 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 void __53__HMDResidentMesh__activeRecordingSessionCameraUUIDs__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:v5];
@@ -604,17 +594,15 @@ void __53__HMDResidentMesh__activeRecordingSessionCameraUUIDs__block_invoke(uint
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v13 = 138543618;
-      v14 = v11;
-      v15 = 2112;
-      v16 = v5;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to parse camera UUID string: %@", &v13, 0x16u);
+      v12 = 138543618;
+      v13 = v11;
+      v14 = 2112;
+      v15 = v5;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to parse camera UUID string: %@", &v12, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (NSSet)activeRecordingSessionCameraUUIDs
@@ -650,7 +638,7 @@ void __52__HMDResidentMesh_activeRecordingSessionCameraUUIDs__block_invoke(uint6
 
 - (id)cameraRecordingAnalysisNodesForCamera:(id)camera pendingDecisionsByCameraUUIDByDeviceUUID:(id)d
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   cameraCopy = camera;
   dCopy = d;
   accessory = [cameraCopy accessory];
@@ -665,14 +653,14 @@ void __52__HMDResidentMesh_activeRecordingSessionCameraUUIDs__block_invoke(uint6
     block[2] = __98__HMDResidentMesh_cameraRecordingAnalysisNodesForCamera_pendingDecisionsByCameraUUIDByDeviceUUID___block_invoke;
     block[3] = &unk_278689550;
     block[4] = self;
-    v22 = home;
-    v23 = cameraCopy;
-    v24 = dCopy;
+    v21 = home;
+    v22 = cameraCopy;
+    v23 = dCopy;
     v12 = array;
-    v25 = v12;
+    v24 = v12;
     dispatch_sync(workQueue, block);
 
-    v13 = v25;
+    v13 = v24;
     v14 = v12;
   }
 
@@ -685,7 +673,7 @@ void __52__HMDResidentMesh_activeRecordingSessionCameraUUIDs__block_invoke(uint6
     {
       v18 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v27 = v18;
+      v26 = v18;
       _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@Accessory or home reference was nil when determining camera recording analysis nodes", buf, 0xCu);
     }
 
@@ -693,63 +681,61 @@ void __52__HMDResidentMesh_activeRecordingSessionCameraUUIDs__block_invoke(uint6
     v14 = MEMORY[0x277CBEBF8];
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
 void __98__HMDResidentMesh_cameraRecordingAnalysisNodesForCamera_pendingDecisionsByCameraUUIDByDeviceUUID___block_invoke(uint64_t a1)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) residents];
   v3 = [v2 mutableCopy];
 
   v4 = MEMORY[0x277CBEB98];
-  v28 = a1;
+  v27 = a1;
   v5 = [*(a1 + 40) residentDeviceManager];
   v6 = [v5 availableResidentDevices];
   v7 = [v4 setWithArray:v6];
 
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __98__HMDResidentMesh_cameraRecordingAnalysisNodesForCamera_pendingDecisionsByCameraUUIDByDeviceUUID___block_invoke_2;
-  v35[3] = &unk_27867C000;
-  v25 = v7;
-  v36 = v25;
-  v24 = [v3 indexesOfObjectsPassingTest:v35];
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __98__HMDResidentMesh_cameraRecordingAnalysisNodesForCamera_pendingDecisionsByCameraUUIDByDeviceUUID___block_invoke_2;
+  v34[3] = &unk_27867C000;
+  v24 = v7;
+  v35 = v24;
+  v23 = [v3 indexesOfObjectsPassingTest:v34];
   [v3 removeObjectsAtIndexes:?];
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   obj = v3;
-  v29 = [obj countByEnumeratingWithState:&v31 objects:v37 count:16];
-  if (v29)
+  v28 = [obj countByEnumeratingWithState:&v30 objects:v36 count:16];
+  if (v28)
   {
-    v27 = *v32;
+    v26 = *v31;
     do
     {
       v8 = 0;
       do
       {
-        if (*v32 != v27)
+        if (*v31 != v26)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v31 + 1) + 8 * v8);
-        v30 = [HMDCameraRecordingAnalysisNodeMetrics alloc];
+        v9 = *(*(&v30 + 1) + 8 * v8);
+        v29 = [HMDCameraRecordingAnalysisNodeMetrics alloc];
         v10 = [v9 residentDevice];
-        v11 = v28[6];
-        v12 = v28[7];
+        v11 = v27[6];
+        v12 = v27[7];
         v13 = [v9 residentDevice];
         v14 = [v13 device];
         v15 = [v14 identifier];
         v16 = [v12 objectForKeyedSubscript:v15];
         v17 = [v9 metrics];
-        v18 = [(HMDCameraRecordingAnalysisNodeMetrics *)v30 initWithResidentDevice:v10 cameraProfile:v11 pendingDecisionsByCameraUUID:v16 metrics:v17];
+        v18 = [(HMDCameraRecordingAnalysisNodeMetrics *)v29 initWithResidentDevice:v10 cameraProfile:v11 pendingDecisionsByCameraUUID:v16 metrics:v17];
 
-        v19 = v28[8];
+        v19 = v27[8];
         v20 = [HMDCameraRecordingAnalysisNode alloc];
         v21 = [v9 residentDevice];
         v22 = [(HMDCameraRecordingAnalysisNode *)v20 initWithResidentDevice:v21 metrics:v18];
@@ -758,14 +744,12 @@ void __98__HMDResidentMesh_cameraRecordingAnalysisNodesForCamera_pendingDecision
         ++v8;
       }
 
-      while (v29 != v8);
-      v29 = [obj countByEnumeratingWithState:&v31 objects:v37 count:16];
+      while (v28 != v8);
+      v28 = [obj countByEnumeratingWithState:&v30 objects:v36 count:16];
     }
 
-    while (v29);
+    while (v28);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __98__HMDResidentMesh_cameraRecordingAnalysisNodesForCamera_pendingDecisionsByCameraUUIDByDeviceUUID___block_invoke_2(uint64_t a1, void *a2)
@@ -790,7 +774,7 @@ uint64_t __98__HMDResidentMesh_cameraRecordingAnalysisNodesForCamera_pendingDeci
 
 - (void)_handleMeshUpdateMessage:(id)message
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDResidentMesh *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -802,7 +786,7 @@ uint64_t __98__HMDResidentMesh_cameraRecordingAnalysisNodesForCamera_pendingDeci
     v8 = [(HMDResidentMesh *)self _meshStorageForDeviceIdentifier:v7];
     if (v8)
     {
-      v34 = v6;
+      v33 = v6;
       v9 = [messageCopy numberForKey:@"kMeshDeviceStorageGenerationCount"];
       [v8 setGenerationCount:{objc_msgSend(v9, "unsignedIntegerValue")}];
 
@@ -812,45 +796,45 @@ uint64_t __98__HMDResidentMesh_cameraRecordingAnalysisNodesForCamera_pendingDeci
       v11 = [messageCopy dictionaryForKey:@"kMeshDeviceStorageSystemLoad"];
       [v8 setMetrics:v11];
 
-      v37 = 0u;
-      v38 = 0u;
-      v35 = 0u;
       v36 = 0u;
+      v37 = 0u;
+      v34 = 0u;
+      v35 = 0u;
       observers = [(HMDResidentMesh *)self observers];
-      v13 = [observers countByEnumeratingWithState:&v35 objects:v41 count:16];
+      v13 = [observers countByEnumeratingWithState:&v34 objects:v40 count:16];
       if (v13)
       {
         v14 = v13;
-        v15 = *v36;
+        v15 = *v35;
         do
         {
           for (i = 0; i != v14; ++i)
           {
-            if (*v36 != v15)
+            if (*v35 != v15)
             {
               objc_enumerationMutation(observers);
             }
 
-            v17 = *(*(&v35 + 1) + 8 * i);
+            v17 = *(*(&v34 + 1) + 8 * i);
             _activeRecordingSessionCameraUUIDs = [(HMDResidentMesh *)self _activeRecordingSessionCameraUUIDs];
             [v17 residentMeshDidUpdate:self activeRecordingSessionCameraUUIDs:_activeRecordingSessionCameraUUIDs];
           }
 
-          v14 = [observers countByEnumeratingWithState:&v35 objects:v41 count:16];
+          v14 = [observers countByEnumeratingWithState:&v34 objects:v40 count:16];
         }
 
         while (v14);
       }
 
-      v39 = @"kMeshDeviceStorageEnabled";
+      v38 = @"kMeshDeviceStorageEnabled";
       v19 = MEMORY[0x277CCABB0];
       resident = [(HMDResidentMesh *)self resident];
       v21 = [v19 numberWithBool:{objc_msgSend(resident, "enabled")}];
-      v40 = v21;
-      v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+      v39 = v21;
+      v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
       [messageCopy respondWithPayload:v22];
 
-      v6 = v34;
+      v6 = v33;
     }
 
     else
@@ -863,11 +847,11 @@ uint64_t __98__HMDResidentMesh_cameraRecordingAnalysisNodesForCamera_pendingDeci
         v31 = HMFGetLogIdentifier();
         shortDescription = [messageCopy shortDescription];
         *buf = 138543874;
-        v43 = v31;
-        v44 = 2114;
-        v45 = shortDescription;
-        v46 = 2114;
-        v47 = v7;
+        v42 = v31;
+        v43 = 2114;
+        v44 = shortDescription;
+        v45 = 2114;
+        v46 = v7;
         _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_ERROR, "%{public}@Rejecting message %{public}@ from unknown device: %{public}@", buf, 0x20u);
       }
 
@@ -887,13 +871,13 @@ uint64_t __98__HMDResidentMesh_cameraRecordingAnalysisNodesForCamera_pendingDeci
       v26 = HMFGetLogIdentifier();
       shortDescription2 = [messageCopy shortDescription];
       *buf = 138544130;
-      v43 = v26;
-      v44 = 2112;
-      v45 = v6;
-      v46 = 2048;
-      v47 = 2;
-      v48 = 2114;
-      v49 = shortDescription2;
+      v42 = v26;
+      v43 = 2112;
+      v44 = v6;
+      v45 = 2048;
+      v46 = 2;
+      v47 = 2114;
+      v48 = shortDescription2;
       _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_ERROR, "%{public}@Rejecting message with version %@ lower than current version %ld: %{public}@", buf, 0x2Au);
     }
 
@@ -901,13 +885,11 @@ uint64_t __98__HMDResidentMesh_cameraRecordingAnalysisNodesForCamera_pendingDeci
     v7 = [MEMORY[0x277CCA9B8] hmErrorWithCode:3];
     [messageCopy respondWithError:v7];
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleMeshUpdateRequestMessage:(id)message
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDResidentMesh *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -928,22 +910,22 @@ uint64_t __98__HMDResidentMesh_cameraRecordingAnalysisNodesForCamera_pendingDeci
         v13 = HMFGetLogIdentifier();
         shortDescription = [messageCopy shortDescription];
         *buf = 138543618;
-        v30 = v13;
-        v31 = 2112;
-        v32 = shortDescription;
+        v29 = v13;
+        v30 = 2112;
+        v31 = shortDescription;
         _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Responding to mesh update request message: %@", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v9);
       v15 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v8, "enabled", @"kMeshDeviceStorageEnabled"}];
-      v28[0] = v15;
-      v27[1] = @"kMeshDeviceStorageGenerationCount";
+      v27[0] = v15;
+      v26[1] = @"kMeshDeviceStorageGenerationCount";
       v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v8, "generationCount")}];
-      v28[1] = v16;
-      v27[2] = @"kMeshDeviceStorageSystemLoad";
+      v27[1] = v16;
+      v26[2] = @"kMeshDeviceStorageSystemLoad";
       metrics = [v8 metrics];
-      v28[2] = metrics;
-      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:3];
+      v27[2] = metrics;
+      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:3];
       [messageCopy respondWithPayload:v18];
     }
 
@@ -954,11 +936,11 @@ uint64_t __98__HMDResidentMesh_cameraRecordingAnalysisNodesForCamera_pendingDeci
         v24 = HMFGetLogIdentifier();
         shortDescription2 = [messageCopy shortDescription];
         *buf = 138543874;
-        v30 = v24;
-        v31 = 2114;
-        v32 = shortDescription2;
-        v33 = 2114;
-        v34 = v7;
+        v29 = v24;
+        v30 = 2114;
+        v31 = shortDescription2;
+        v32 = 2114;
+        v33 = v7;
         _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Rejecting message %{public}@ from unknown device: %{public}@", buf, 0x20u);
       }
 
@@ -978,13 +960,13 @@ uint64_t __98__HMDResidentMesh_cameraRecordingAnalysisNodesForCamera_pendingDeci
       v22 = HMFGetLogIdentifier();
       shortDescription3 = [messageCopy shortDescription];
       *buf = 138544130;
-      v30 = v22;
-      v31 = 2112;
-      v32 = v6;
-      v33 = 2048;
-      v34 = 2;
-      v35 = 2114;
-      v36 = shortDescription3;
+      v29 = v22;
+      v30 = 2112;
+      v31 = v6;
+      v32 = 2048;
+      v33 = 2;
+      v34 = 2114;
+      v35 = shortDescription3;
       _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@Rejecting message with version %@ lower than current version %ld: %{public}@", buf, 0x2Au);
     }
 
@@ -992,13 +974,11 @@ uint64_t __98__HMDResidentMesh_cameraRecordingAnalysisNodesForCamera_pendingDeci
     v7 = [MEMORY[0x277CCA9B8] hmErrorWithCode:3];
     [messageCopy respondWithError:v7];
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendMessage:(id)message payload:(id)payload target:(id)target force:(BOOL)force responseHandler:(id)handler
 {
-  v79 = *MEMORY[0x277D85DE8];
+  v78 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   payloadCopy = payload;
   targetCopy = target;
@@ -1006,58 +986,58 @@ uint64_t __98__HMDResidentMesh_cameraRecordingAnalysisNodesForCamera_pendingDeci
   workQueue = [(HMDResidentMesh *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
-  v69 = 0u;
-  v70 = 0u;
-  v67 = 0u;
   v68 = 0u;
+  v69 = 0u;
+  v66 = 0u;
+  v67 = 0u;
   homeManager = [(HMDResidentMesh *)self homeManager];
   homes = [homeManager homes];
 
-  v14 = [homes countByEnumeratingWithState:&v67 objects:v78 count:16];
+  v14 = [homes countByEnumeratingWithState:&v66 objects:v77 count:16];
   if (v14)
   {
     v15 = v14;
     v16 = 0;
-    v17 = *v68;
+    v17 = *v67;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v68 != v17)
+        if (*v67 != v17)
         {
           objc_enumerationMutation(homes);
         }
 
-        v19 = *(*(&v67 + 1) + 8 * i);
+        v19 = *(*(&v66 + 1) + 8 * i);
+        v62 = 0u;
         v63 = 0u;
         v64 = 0u;
         v65 = 0u;
-        v66 = 0u;
         residentDeviceManager = [v19 residentDeviceManager];
         availableResidentDevices = [residentDeviceManager availableResidentDevices];
 
-        v22 = [availableResidentDevices countByEnumeratingWithState:&v63 objects:v77 count:16];
+        v22 = [availableResidentDevices countByEnumeratingWithState:&v62 objects:v76 count:16];
         if (v22)
         {
           v23 = v22;
-          v24 = *v64;
+          v24 = *v63;
           while (2)
           {
             for (j = 0; j != v23; ++j)
             {
-              if (*v64 != v24)
+              if (*v63 != v24)
               {
                 objc_enumerationMutation(availableResidentDevices);
               }
 
-              if ([*(*(&v63 + 1) + 8 * j) isCurrentDevice])
+              if ([*(*(&v62 + 1) + 8 * j) isCurrentDevice])
               {
                 v16 = 1;
                 goto LABEL_16;
               }
             }
 
-            v23 = [availableResidentDevices countByEnumeratingWithState:&v63 objects:v77 count:16];
+            v23 = [availableResidentDevices countByEnumeratingWithState:&v62 objects:v76 count:16];
             if (v23)
             {
               continue;
@@ -1070,7 +1050,7 @@ uint64_t __98__HMDResidentMesh_cameraRecordingAnalysisNodesForCamera_pendingDeci
 LABEL_16:
       }
 
-      v15 = [homes countByEnumeratingWithState:&v67 objects:v78 count:16];
+      v15 = [homes countByEnumeratingWithState:&v66 objects:v77 count:16];
     }
 
     while (v15);
@@ -1095,9 +1075,9 @@ LABEL_16:
     {
       v34 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v72 = v34;
-      v73 = 2112;
-      v74 = messageCopy;
+      v71 = v34;
+      v72 = 2112;
+      v73 = messageCopy;
       _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_DEFAULT, "%{public}@Suppressing message %@ because we are not a resident device.", buf, 0x16u);
     }
 
@@ -1119,9 +1099,9 @@ LABEL_16:
     {
       v41 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v72 = v41;
-      v73 = 2112;
-      v74 = messageCopy;
+      v71 = v41;
+      v72 = 2112;
+      v73 = messageCopy;
       v42 = "%{public}@Suppressing message %@ because target is nil.";
       goto LABEL_34;
     }
@@ -1142,9 +1122,9 @@ LABEL_35:
     {
       v41 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v72 = v41;
-      v73 = 2112;
-      v74 = messageCopy;
+      v71 = v41;
+      v72 = 2112;
+      v73 = messageCopy;
       v42 = "%{public}@Suppressing message %@ because self.resident is nil.";
       goto LABEL_34;
     }
@@ -1164,9 +1144,9 @@ LABEL_35:
     {
       v41 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v72 = v41;
-      v73 = 2112;
-      v74 = messageCopy;
+      v71 = v41;
+      v72 = 2112;
+      v73 = messageCopy;
       v42 = "%{public}@Suppressing message %@ because we are the target.";
 LABEL_34:
       _os_log_impl(&dword_229538000, v40, OS_LOG_TYPE_DEFAULT, v42, buf, 0x16u);
@@ -1177,45 +1157,44 @@ LABEL_34:
     goto LABEL_35;
   }
 
-  v58 = [HMDRemoteMessage messageWithName:messageCopy messagePayload:payloadCopy];
+  v57 = [HMDRemoteMessage messageWithName:messageCopy messagePayload:payloadCopy];
   messageTargetUUID = [(HMDResidentMesh *)self messageTargetUUID];
   device = [targetCopy device];
   remoteDestinationString = [device remoteDestinationString];
 
-  v46 = objc_autoreleasePoolPush();
+  v45 = objc_autoreleasePoolPush();
   selfCopy5 = self;
-  v48 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
+  v47 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
   {
     HMFGetLogIdentifier();
-    v54 = remoteDestinationString;
-    v49 = v55 = v46;
-    shortDescription = [v58 shortDescription];
-    messagePayload = [v58 messagePayload];
+    v53 = remoteDestinationString;
+    v48 = v54 = v45;
+    shortDescription = [v57 shortDescription];
+    messagePayload = [v57 messagePayload];
     *buf = 138543874;
-    v72 = v49;
-    v73 = 2114;
-    v74 = shortDescription;
-    v75 = 2112;
-    v76 = messagePayload;
-    _os_log_impl(&dword_229538000, v48, OS_LOG_TYPE_INFO, "%{public}@Sending message %{public}@ with payload: %@", buf, 0x20u);
+    v71 = v48;
+    v72 = 2114;
+    v73 = shortDescription;
+    v74 = 2112;
+    v75 = messagePayload;
+    _os_log_impl(&dword_229538000, v47, OS_LOG_TYPE_INFO, "%{public}@Sending message %{public}@ with payload: %@", buf, 0x20u);
 
-    v46 = v55;
-    remoteDestinationString = v54;
+    v45 = v54;
+    remoteDestinationString = v53;
   }
 
-  objc_autoreleasePoolPop(v46);
+  objc_autoreleasePoolPop(v45);
   messageDispatcher = [(HMDResidentMesh *)selfCopy5 messageDispatcher];
   workQueue2 = [(HMDResidentMesh *)selfCopy5 workQueue];
-  [messageDispatcher sendSecureMessage:v58 target:messageTargetUUID userID:remoteDestinationString destination:remoteDestinationString responseQueue:workQueue2 responseHandler:handlerCopy];
+  [messageDispatcher sendSecureMessage:v57 target:messageTargetUUID userID:remoteDestinationString destination:remoteDestinationString responseQueue:workQueue2 responseHandler:handlerCopy];
 
 LABEL_36:
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_addResidentStorageResidentDevice:(id)device
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   v5 = [(HMDResidentMesh *)self _residentStorageForResidentDevice:deviceCopy];
   v6 = v5;
@@ -1234,11 +1213,11 @@ LABEL_36:
       v11 = HMFGetLogIdentifier();
       device = [deviceCopy device];
       shortDescription = [device shortDescription];
-      v17 = 138543618;
-      v18 = v11;
-      v19 = 2114;
-      v20 = shortDescription;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Adding resident device to residents list: %{public}@", &v17, 0x16u);
+      v16 = 138543618;
+      v17 = v11;
+      v18 = 2114;
+      v19 = shortDescription;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Adding resident device to residents list: %{public}@", &v16, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -1247,34 +1226,32 @@ LABEL_36:
     [reachableAccessories addObject:v7];
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (id)_residentStorageForResidentDevice:(id)device
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   reachableAccessories = [(HMDResidentMesh *)self reachableAccessories];
-  v6 = [reachableAccessories countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [reachableAccessories countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(reachableAccessories);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         residentDevice = [v9 residentDevice];
         v11 = [residentDevice isEqual:deviceCopy];
 
@@ -1285,7 +1262,7 @@ LABEL_36:
         }
       }
 
-      v6 = [reachableAccessories countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [reachableAccessories countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -1297,14 +1274,12 @@ LABEL_36:
 
 LABEL_11:
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (id)_addMeshStorageResidentDevice:(id)device
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   v5 = [(HMDResidentMesh *)self _meshStorageForResidentDevice:deviceCopy];
   v6 = v5;
@@ -1323,11 +1298,11 @@ LABEL_11:
       v11 = HMFGetLogIdentifier();
       device = [deviceCopy device];
       shortDescription = [device shortDescription];
-      v17 = 138543618;
-      v18 = v11;
-      v19 = 2114;
-      v20 = shortDescription;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Adding resident device to mesh: %{public}@", &v17, 0x16u);
+      v16 = 138543618;
+      v17 = v11;
+      v18 = 2114;
+      v19 = shortDescription;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Adding resident device to mesh: %{public}@", &v16, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -1336,34 +1311,32 @@ LABEL_11:
     [residents addObject:v7];
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (id)_meshStorageForDeviceIdentifier:(id)identifier
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   residents = [(HMDResidentMesh *)self residents];
-  v6 = [residents countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [residents countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
-    v7 = *v17;
+    v7 = *v16;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(residents);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * i);
+        v9 = *(*(&v15 + 1) + 8 * i);
         residentDevice = [v9 residentDevice];
         device = [residentDevice device];
         identifier = [device identifier];
@@ -1376,7 +1349,7 @@ LABEL_11:
         }
       }
 
-      v6 = [residents countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [residents countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v6)
       {
         continue;
@@ -1388,34 +1361,32 @@ LABEL_11:
 
 LABEL_11:
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (id)_meshStorageForResidentDevice:(id)device
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   residents = [(HMDResidentMesh *)self residents];
-  v6 = [residents countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [residents countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(residents);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         residentDevice = [v9 residentDevice];
         v11 = [residentDevice isEqual:deviceCopy];
 
@@ -1426,7 +1397,7 @@ LABEL_11:
         }
       }
 
-      v6 = [residents countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [residents countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -1438,14 +1409,12 @@ LABEL_11:
 
 LABEL_11:
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (void)_buildResidentsWithElection:(id)election device:(id)device
 {
-  v164 = *MEMORY[0x277D85DE8];
+  v163 = *MEMORY[0x277D85DE8];
   electionCopy = election;
   deviceCopy = device;
   workQueue = [(HMDResidentMesh *)self workQueue];
@@ -1456,75 +1425,75 @@ LABEL_11:
   homeManager = [(HMDResidentMesh *)self homeManager];
   homes = [homeManager homes];
 
-  v150[0] = MEMORY[0x277D85DD0];
-  v150[1] = 3221225472;
-  v150[2] = __54__HMDResidentMesh__buildResidentsWithElection_device___block_invoke;
-  v150[3] = &unk_27867BF88;
+  v149[0] = MEMORY[0x277D85DD0];
+  v149[1] = 3221225472;
+  v149[2] = __54__HMDResidentMesh__buildResidentsWithElection_device___block_invoke;
+  v149[3] = &unk_27867BF88;
   v13 = v9;
-  v151 = v13;
+  v150 = v13;
   v14 = dictionary;
-  v152 = v14;
-  [homes hmf_enumerateWithAutoreleasePoolUsingBlock:v150];
-  v147[0] = MEMORY[0x277D85DD0];
-  v147[1] = 3221225472;
-  v147[2] = __54__HMDResidentMesh__buildResidentsWithElection_device___block_invoke_2;
-  v147[3] = &unk_27867BF88;
+  v151 = v14;
+  [homes hmf_enumerateWithAutoreleasePoolUsingBlock:v149];
+  v146[0] = MEMORY[0x277D85DD0];
+  v146[1] = 3221225472;
+  v146[2] = __54__HMDResidentMesh__buildResidentsWithElection_device___block_invoke_2;
+  v146[3] = &unk_27867BF88;
   v15 = v13;
-  v148 = v15;
+  v147 = v15;
   selfCopy = self;
-  v104 = homes;
-  [homes hmf_enumerateWithAutoreleasePoolUsingBlock:v147];
+  v103 = homes;
+  [homes hmf_enumerateWithAutoreleasePoolUsingBlock:v146];
   v16 = [MEMORY[0x277CBEB58] set];
-  v143[0] = MEMORY[0x277D85DD0];
-  v143[1] = 3221225472;
-  v143[2] = __54__HMDResidentMesh__buildResidentsWithElection_device___block_invoke_200;
-  v143[3] = &unk_27867BFB0;
-  v103 = v14;
-  v144 = v103;
+  v142[0] = MEMORY[0x277D85DD0];
+  v142[1] = 3221225472;
+  v142[2] = __54__HMDResidentMesh__buildResidentsWithElection_device___block_invoke_200;
+  v142[3] = &unk_27867BFB0;
+  v102 = v14;
+  v143 = v102;
   v17 = v16;
-  v145 = v17;
+  v144 = v17;
   selfCopy2 = self;
-  [v15 hmf_enumerateWithAutoreleasePoolUsingBlock:v143];
+  [v15 hmf_enumerateWithAutoreleasePoolUsingBlock:v142];
   v18 = [MEMORY[0x277CBEB58] set];
-  v137[0] = MEMORY[0x277D85DD0];
-  v137[1] = 3221225472;
-  v137[2] = __54__HMDResidentMesh__buildResidentsWithElection_device___block_invoke_206;
-  v137[3] = &unk_27867BFD8;
-  v105 = electionCopy;
-  v138 = v105;
-  v101 = deviceCopy;
-  v139 = v101;
+  v136[0] = MEMORY[0x277D85DD0];
+  v136[1] = 3221225472;
+  v136[2] = __54__HMDResidentMesh__buildResidentsWithElection_device___block_invoke_206;
+  v136[3] = &unk_27867BFD8;
+  v104 = electionCopy;
+  v137 = v104;
+  v100 = deviceCopy;
+  v138 = v100;
   selfCopy3 = self;
-  v112 = v15;
-  v141 = v112;
+  v111 = v15;
+  v140 = v111;
   v19 = v18;
-  v142 = v19;
-  v102 = v17;
-  [v17 hmf_enumerateWithAutoreleasePoolUsingBlock:v137];
+  v141 = v19;
+  v101 = v17;
+  [v17 hmf_enumerateWithAutoreleasePoolUsingBlock:v136];
   resident = [(HMDResidentMesh *)self resident];
+  v132 = 0u;
   v133 = 0u;
   v134 = 0u;
   v135 = 0u;
-  v136 = 0u;
   residents = [(HMDResidentMesh *)self residents];
-  v22 = [residents copy];
+  v22 = objc_msgSend_copy(residents);
 
   selfCopy4 = self;
-  obj = [v22 countByEnumeratingWithState:&v133 objects:v163 count:16];
+  obj = [v22 countByEnumeratingWithState:&v132 objects:v162 count:16];
   if (obj)
   {
-    v23 = *v134;
-    v108 = *v134;
+    v23 = *v133;
+    v107 = *v133;
     do
     {
       for (i = 0; i != obj; ++i)
       {
-        if (*v134 != v23)
+        if (*v133 != v23)
         {
           objc_enumerationMutation(v22);
         }
 
-        v25 = *(*(&v133 + 1) + 8 * i);
+        v25 = *(*(&v132 + 1) + 8 * i);
         residentDevice = [v25 residentDevice];
         isCurrentDevice = [residentDevice isCurrentDevice];
 
@@ -1538,30 +1507,30 @@ LABEL_11:
             if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
             {
               HMFGetLogIdentifier();
-              v31 = v110 = resident;
+              v31 = v109 = resident;
               residentDevice2 = [v25 residentDevice];
               [residentDevice2 device];
-              v33 = v107 = v28;
+              v33 = v106 = v28;
               [v33 shortDescription];
               v34 = v22;
               v36 = v35 = v19;
               *buf = 138543618;
-              v156 = v31;
-              v157 = 2114;
-              v158 = v36;
+              v155 = v31;
+              v156 = 2114;
+              v157 = v36;
               _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_INFO, "%{public}@Setting resident device to %{public}@", buf, 0x16u);
 
               v19 = v35;
               v22 = v34;
 
-              v28 = v107;
+              v28 = v106;
               self = selfCopy4;
 
-              resident = v110;
+              resident = v109;
             }
 
             objc_autoreleasePoolPop(v28);
-            v23 = v108;
+            v23 = v107;
           }
 
           v37 = v25;
@@ -1583,37 +1552,37 @@ LABEL_11:
         }
       }
 
-      obj = [v22 countByEnumeratingWithState:&v133 objects:v163 count:16];
+      obj = [v22 countByEnumeratingWithState:&v132 objects:v162 count:16];
     }
 
     while (obj);
   }
 
-  v111 = resident;
+  v110 = resident;
 
-  v131 = 0u;
-  v132 = 0u;
-  v129 = 0u;
   v130 = 0u;
+  v131 = 0u;
+  v128 = 0u;
+  v129 = 0u;
   reachableAccessories = [(HMDResidentMesh *)self reachableAccessories];
-  v43 = [reachableAccessories copy];
+  v43 = objc_msgSend_copy(reachableAccessories);
 
-  v44 = [v43 countByEnumeratingWithState:&v129 objects:v162 count:16];
-  v45 = v112;
+  v44 = [v43 countByEnumeratingWithState:&v128 objects:v161 count:16];
+  v45 = v111;
   if (v44)
   {
     v46 = v44;
-    v47 = *v130;
+    v47 = *v129;
     do
     {
       for (j = 0; j != v46; ++j)
       {
-        if (*v130 != v47)
+        if (*v129 != v47)
         {
           objc_enumerationMutation(v43);
         }
 
-        v49 = *(*(&v129 + 1) + 8 * j);
+        v49 = *(*(&v128 + 1) + 8 * j);
         residentDevice4 = [v49 residentDevice];
         v51 = [v19 containsObject:residentDevice4];
 
@@ -1624,27 +1593,27 @@ LABEL_11:
         }
       }
 
-      v46 = [v43 countByEnumeratingWithState:&v129 objects:v162 count:16];
+      v46 = [v43 countByEnumeratingWithState:&v128 objects:v161 count:16];
     }
 
     while (v46);
   }
 
-  v99 = v19;
-  if ([v105 isEqual:@"HMDResidentDeviceManagerAddResidentNotification"])
+  v98 = v19;
+  if ([v104 isEqual:@"HMDResidentDeviceManagerAddResidentNotification"])
   {
-    v106 = 1;
+    v105 = 1;
   }
 
   else
   {
-    v106 = [v105 isEqual:{@"HMDResidentDeviceManagerUpdateResidentNotification", v19, v101}];
+    v105 = [v104 isEqual:{@"HMDResidentDeviceManagerUpdateResidentNotification", v19, v100}];
   }
 
   primaryResidentForHomes = [(HMDResidentMesh *)self primaryResidentForHomes];
-  v54 = [v112 isSubsetOfSet:primaryResidentForHomes];
+  v54 = [v111 isSubsetOfSet:primaryResidentForHomes];
 
-  if (!v54 || v106)
+  if (!v54 || v105)
   {
     v55 = objc_autoreleasePoolPush();
     selfCopy6 = self;
@@ -1653,33 +1622,33 @@ LABEL_11:
     {
       v58 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v156 = v58;
+      v155 = v58;
       _os_log_impl(&dword_229538000, v57, OS_LOG_TYPE_INFO, "%{public}@Our primary residents list has new items (or some shift in devices happened):", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v55);
-    v127 = 0u;
-    v128 = 0u;
-    v125 = 0u;
     v126 = 0u;
-    obja = v112;
-    v59 = [obja countByEnumeratingWithState:&v125 objects:v161 count:16];
+    v127 = 0u;
+    v124 = 0u;
+    v125 = 0u;
+    obja = v111;
+    v59 = [obja countByEnumeratingWithState:&v124 objects:v160 count:16];
     if (v59)
     {
       v60 = v59;
-      v61 = *v126;
+      v61 = *v125;
       do
       {
         v62 = 0;
-        v109 = v60;
+        v108 = v60;
         do
         {
-          if (*v126 != v61)
+          if (*v125 != v61)
           {
             objc_enumerationMutation(obja);
           }
 
-          v63 = *(*(&v125 + 1) + 8 * v62);
+          v63 = *(*(&v124 + 1) + 8 * v62);
           v64 = objc_autoreleasePoolPush();
           v65 = selfCopy6;
           v66 = HMFGetOSLogHandle();
@@ -1697,15 +1666,15 @@ LABEL_11:
               v72 = "";
             }
 
-            v156 = v67;
-            v157 = 2114;
-            v158 = v69;
-            v159 = 2080;
-            v160 = v72;
+            v155 = v67;
+            v156 = 2114;
+            v157 = v69;
+            v158 = 2080;
+            v159 = v72;
             _os_log_impl(&dword_229538000, v66, OS_LOG_TYPE_INFO, "%{public}@  Home: %{public}@%s", buf, 0x20u);
 
             selfCopy6 = v68;
-            v60 = v109;
+            v60 = v108;
 
             self = selfCopy4;
           }
@@ -1715,35 +1684,35 @@ LABEL_11:
         }
 
         while (v60 != v62);
-        v60 = [obja countByEnumeratingWithState:&v125 objects:v161 count:16];
+        v60 = [obja countByEnumeratingWithState:&v124 objects:v160 count:16];
       }
 
       while (v60);
     }
 
-    v123 = 0u;
-    v124 = 0u;
-    v121 = 0u;
     v122 = 0u;
+    v123 = 0u;
+    v120 = 0u;
+    v121 = 0u;
     objb = [(HMDResidentMesh *)selfCopy6 residents];
-    v73 = [objb countByEnumeratingWithState:&v121 objects:v154 count:16];
-    v74 = v111;
-    v45 = v112;
+    v73 = [objb countByEnumeratingWithState:&v120 objects:v153 count:16];
+    v74 = v110;
+    v45 = v111;
     if (v73)
     {
       v75 = v73;
-      v76 = *v122;
+      v76 = *v121;
       do
       {
         for (k = 0; k != v75; ++k)
         {
-          if (*v122 != v76)
+          if (*v121 != v76)
           {
             objc_enumerationMutation(objb);
           }
 
-          v78 = *(*(&v121 + 1) + 8 * k);
-          if (v74 != v78 && [*(*(&v121 + 1) + 8 * k) enabled])
+          v78 = *(*(&v120 + 1) + 8 * k);
+          if (v74 != v78 && [*(*(&v120 + 1) + 8 * k) enabled])
           {
             updatedOrAddedDevices = [(HMDResidentMesh *)selfCopy6 updatedOrAddedDevices];
             residentDevice5 = [v78 residentDevice];
@@ -1759,16 +1728,16 @@ LABEL_11:
               [updatedOrAddedDevices2 removeObject:device2];
 
               self = selfCopy4;
-              v74 = v111;
+              v74 = v110;
               selfCopy6 = v82;
             }
 
             else
             {
               self = selfCopy4;
-              v74 = v111;
+              v74 = v110;
               selfCopy6 = v82;
-              if (v106)
+              if (v105)
               {
                 continue;
               }
@@ -1778,33 +1747,33 @@ LABEL_11:
           }
         }
 
-        v75 = [objb countByEnumeratingWithState:&v121 objects:v154 count:16];
+        v75 = [objb countByEnumeratingWithState:&v120 objects:v153 count:16];
       }
 
       while (v75);
     }
   }
 
-  v119 = 0u;
-  v120 = 0u;
-  v117 = 0u;
   v118 = 0u;
+  v119 = 0u;
+  v116 = 0u;
+  v117 = 0u;
   primaryResidentForHomes3 = [(HMDResidentMesh *)self primaryResidentForHomes];
-  v88 = [primaryResidentForHomes3 countByEnumeratingWithState:&v117 objects:v153 count:16];
+  v88 = [primaryResidentForHomes3 countByEnumeratingWithState:&v116 objects:v152 count:16];
   if (v88)
   {
     v89 = v88;
-    v90 = *v118;
+    v90 = *v117;
     do
     {
       for (m = 0; m != v89; ++m)
       {
-        if (*v118 != v90)
+        if (*v117 != v90)
         {
           objc_enumerationMutation(primaryResidentForHomes3);
         }
 
-        v92 = *(*(&v117 + 1) + 8 * m);
+        v92 = *(*(&v116 + 1) + 8 * m);
         if (([v45 containsObject:v92] & 1) == 0)
         {
           v93 = objc_autoreleasePoolPush();
@@ -1815,53 +1784,52 @@ LABEL_11:
             v96 = HMFGetLogIdentifier();
             uUIDString = [v92 UUIDString];
             *buf = 138543618;
-            v156 = v96;
-            v157 = 2114;
-            v158 = uUIDString;
+            v155 = v96;
+            v156 = 2114;
+            v157 = uUIDString;
             _os_log_impl(&dword_229538000, v95, OS_LOG_TYPE_INFO, "%{public}@  Home: %{public}@ (removed)", buf, 0x16u);
 
             self = selfCopy4;
           }
 
           objc_autoreleasePoolPop(v93);
-          v45 = v112;
+          v45 = v111;
         }
       }
 
-      v89 = [primaryResidentForHomes3 countByEnumeratingWithState:&v117 objects:v153 count:16];
+      v89 = [primaryResidentForHomes3 countByEnumeratingWithState:&v116 objects:v152 count:16];
     }
 
     while (v89);
   }
 
   [(HMDResidentMesh *)self setPrimaryResidentForHomes:v45];
-  v98 = *MEMORY[0x277D85DE8];
 }
 
 void __54__HMDResidentMesh__buildResidentsWithElection_device___block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   [v3 enabledResidents];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v4 = v17 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = v16 = 0u;
+  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        if ([*(*(&v14 + 1) + 8 * i) isCurrentDevice])
+        if ([*(*(&v13 + 1) + 8 * i) isCurrentDevice])
         {
           v9 = *(a1 + 32);
           v10 = [v3 uuid];
@@ -1871,7 +1839,7 @@ void __54__HMDResidentMesh__buildResidentsWithElection_device___block_invoke(uin
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -1886,13 +1854,11 @@ LABEL_11:
   v11 = *(a1 + 40);
   v12 = [v3 uuid];
   [v11 setObject:v4 forKeyedSubscript:v12];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __54__HMDResidentMesh__buildResidentsWithElection_device___block_invoke_2(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = [v3 uuid];
@@ -1915,23 +1881,21 @@ void __54__HMDResidentMesh__buildResidentsWithElection_device___block_invoke_2(u
       {
         v11 = HMFGetLogIdentifier();
         v12 = [v3 uuid];
-        v14 = 138543618;
-        v15 = v11;
-        v16 = 2114;
-        v17 = v12;
-        _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Could not create resident storage for home %{public}@: no primary resident", &v14, 0x16u);
+        v13 = 138543618;
+        v14 = v11;
+        v15 = 2114;
+        v16 = v12;
+        _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Could not create resident storage for home %{public}@: no primary resident", &v13, 0x16u);
       }
 
       objc_autoreleasePoolPop(v8);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __54__HMDResidentMesh__buildResidentsWithElection_device___block_invoke_200(id *a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [a1[4] objectForKeyedSubscript:v3];
   [a1[5] addObjectsFromArray:v4];
@@ -1942,22 +1906,21 @@ void __54__HMDResidentMesh__buildResidentsWithElection_device___block_invoke_200
   {
     v8 = HMFGetLogIdentifier();
     v9 = [v4 na_map:&__block_literal_global_204];
-    v11 = 138543874;
-    v12 = v8;
-    v13 = 2114;
-    v14 = v3;
-    v15 = 2114;
-    v16 = v9;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Home %{public}@ may use devices: %{public}@", &v11, 0x20u);
+    v10 = 138543874;
+    v11 = v8;
+    v12 = 2114;
+    v13 = v3;
+    v14 = 2114;
+    v15 = v9;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Home %{public}@ may use devices: %{public}@", &v10, 0x20u);
   }
 
   objc_autoreleasePoolPop(v5);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __54__HMDResidentMesh__buildResidentsWithElection_device___block_invoke_206(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([*(a1 + 32) isEqual:@"HMDResidentDeviceManagerRemoveResidentNotification"])
   {
@@ -1974,13 +1937,13 @@ void __54__HMDResidentMesh__buildResidentsWithElection_device___block_invoke_206
         v9 = HMFGetLogIdentifier();
         v10 = [v3 device];
         v11 = [v10 shortDescription];
-        v21 = 138543618;
-        v22 = v9;
-        v23 = 2114;
-        v24 = v11;
+        v20 = 138543618;
+        v21 = v9;
+        v22 = 2114;
+        v23 = v11;
         v12 = "%{public}@Received a remove resident notification for device %{public}@";
 LABEL_12:
-        _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, v12, &v21, 0x16u);
+        _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, v12, &v20, 0x16u);
 
         goto LABEL_13;
       }
@@ -2008,10 +1971,10 @@ LABEL_12:
         v9 = HMFGetLogIdentifier();
         v10 = [v3 device];
         v11 = [v10 shortDescription];
-        v21 = 138543618;
-        v22 = v9;
-        v23 = 2114;
-        v24 = v11;
+        v20 = 138543618;
+        v21 = v9;
+        v22 = 2114;
+        v23 = v11;
         v12 = "%{public}@Not adding unreachable device: %{public}@";
         goto LABEL_12;
       }
@@ -2038,10 +2001,10 @@ LABEL_14:
     v9 = HMFGetLogIdentifier();
     v10 = [v3 device];
     v11 = [v10 shortDescription];
-    v21 = 138543618;
-    v22 = v9;
-    v23 = 2114;
-    v24 = v11;
+    v20 = 138543618;
+    v21 = v9;
+    v22 = 2114;
+    v23 = v11;
     v12 = "%{public}@Not adding the current device because it isn't a part of any homes: %{public}@";
     goto LABEL_12;
   }
@@ -2050,13 +2013,11 @@ LABEL_13:
 
   objc_autoreleasePoolPop(v6);
 LABEL_15:
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_deviceIsNotReachable:(id)reachable
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   reachableCopy = reachable;
   if ([reachableCopy isCurrentDevice])
   {
@@ -2067,7 +2028,7 @@ LABEL_15:
     {
       v8 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v58 = v8;
+      v57 = v8;
       _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Our device lost visibility to the rest of the world. Setting timeout before pulling the plug.", buf, 0xCu);
     }
 
@@ -2084,28 +2045,28 @@ LABEL_15:
 
   else
   {
-    v53 = 0u;
-    v54 = 0u;
-    v51 = 0u;
     v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
     reachableAccessories = [(HMDResidentMesh *)self reachableAccessories];
-    v12 = [reachableAccessories copy];
+    v12 = objc_msgSend_copy(reachableAccessories);
 
-    v13 = [v12 countByEnumeratingWithState:&v51 objects:v61 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v50 objects:v60 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v52;
+      v15 = *v51;
       while (2)
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v52 != v15)
+          if (*v51 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = *(*(&v51 + 1) + 8 * i);
+          v17 = *(*(&v50 + 1) + 8 * i);
           residentDevice = [v17 residentDevice];
           device = [residentDevice device];
           v20 = [reachableCopy isEqual:device];
@@ -2120,9 +2081,9 @@ LABEL_15:
               v24 = HMFGetLogIdentifier();
               shortDescription = [reachableCopy shortDescription];
               *buf = 138543618;
-              v58 = v24;
-              v59 = 2114;
-              v60 = shortDescription;
+              v57 = v24;
+              v58 = 2114;
+              v59 = shortDescription;
               _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_INFO, "%{public}@Removed device %{public}@ from resident storage", buf, 0x16u);
             }
 
@@ -2134,7 +2095,7 @@ LABEL_15:
           }
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v51 objects:v61 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v50 objects:v60 count:16];
         if (v14)
         {
           continue;
@@ -2146,28 +2107,28 @@ LABEL_15:
 
 LABEL_17:
 
-    v49 = 0u;
-    v50 = 0u;
-    v47 = 0u;
     v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
     residents = [(HMDResidentMesh *)self residents];
-    v28 = [residents copy];
+    v28 = objc_msgSend_copy(residents);
 
-    v29 = [v28 countByEnumeratingWithState:&v47 objects:v56 count:16];
+    v29 = [v28 countByEnumeratingWithState:&v46 objects:v55 count:16];
     if (v29)
     {
       v30 = v29;
-      v31 = *v48;
+      v31 = *v47;
       while (2)
       {
         for (j = 0; j != v30; ++j)
         {
-          if (*v48 != v31)
+          if (*v47 != v31)
           {
             objc_enumerationMutation(v28);
           }
 
-          v33 = *(*(&v47 + 1) + 8 * j);
+          v33 = *(*(&v46 + 1) + 8 * j);
           residentDevice2 = [v33 residentDevice];
           device2 = [residentDevice2 device];
           v36 = [reachableCopy isEqual:device2];
@@ -2182,9 +2143,9 @@ LABEL_17:
               v40 = HMFGetLogIdentifier();
               shortDescription2 = [reachableCopy shortDescription];
               *buf = 138543618;
-              v58 = v40;
-              v59 = 2114;
-              v60 = shortDescription2;
+              v57 = v40;
+              v58 = 2114;
+              v59 = shortDescription2;
               _os_log_impl(&dword_229538000, v39, OS_LOG_TYPE_INFO, "%{public}@Removed device %{public}@ from mesh storage", buf, 0x16u);
             }
 
@@ -2201,7 +2162,7 @@ LABEL_17:
           }
         }
 
-        v30 = [v28 countByEnumeratingWithState:&v47 objects:v56 count:16];
+        v30 = [v28 countByEnumeratingWithState:&v46 objects:v55 count:16];
         if (v30)
         {
           continue;
@@ -2213,13 +2174,11 @@ LABEL_17:
 
 LABEL_29:
   }
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 void __41__HMDResidentMesh__deviceIsNotReachable___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) messageDispatcher];
   v3 = [v2 secureRemoteTransport];
   v4 = [v3 deviceMonitor];
@@ -2234,9 +2193,9 @@ void __41__HMDResidentMesh__deviceIsNotReachable___block_invoke(uint64_t a1)
     if (v9)
     {
       v10 = HMFGetLogIdentifier();
-      v16 = 138543362;
-      v17 = v10;
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Nope, we came back.", &v16, 0xCu);
+      v15 = 138543362;
+      v16 = v10;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Nope, we came back.", &v15, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
@@ -2247,9 +2206,9 @@ void __41__HMDResidentMesh__deviceIsNotReachable___block_invoke(uint64_t a1)
     if (v9)
     {
       v11 = HMFGetLogIdentifier();
-      v16 = 138543362;
-      v17 = v11;
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Lost visibility to the rest of the world. Deconstructing the mesh entirely.", &v16, 0xCu);
+      v15 = 138543362;
+      v16 = v11;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Lost visibility to the rest of the world. Deconstructing the mesh entirely.", &v15, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
@@ -2263,8 +2222,6 @@ void __41__HMDResidentMesh__deviceIsNotReachable___block_invoke(uint64_t a1)
     v14 = [MEMORY[0x277CBEB98] set];
     [*(a1 + 32) setPrimaryResidentForHomes:v14];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleAddUpdateOrReachabilityChangeForDevice:(id)device
@@ -2322,12 +2279,12 @@ void __41__HMDResidentMesh__deviceIsNotReachable___block_invoke(uint64_t a1)
 
 void __43__HMDResidentMesh___deviceResidentChanged___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v21 = 0;
+  v26 = *MEMORY[0x277D85DE8];
+  v20 = 0;
   v2 = [*(a1 + 32) userInfo];
-  v3 = [v2 hmf_BOOLForKey:@"kResidentEnabledKey" isPresent:&v21];
+  v3 = [v2 hmf_BOOLForKey:@"kResidentEnabledKey" isPresent:&v20];
 
-  v4 = v21 ^ 1 | v3;
+  v4 = v20 ^ 1 | v3;
   v5 = objc_autoreleasePoolPush();
   v6 = *(a1 + 40);
   v7 = HMFGetOSLogHandle();
@@ -2335,9 +2292,9 @@ void __43__HMDResidentMesh___deviceResidentChanged___block_invoke(uint64_t a1)
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v24 = v8;
-    v25 = 1024;
-    v26 = v4 & 1;
+    v23 = v8;
+    v24 = 1024;
+    v25 = v4 & 1;
     _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Received notification that the current resident's enabled status is now %{BOOL}d", buf, 0x12u);
   }
 
@@ -2347,38 +2304,36 @@ void __43__HMDResidentMesh___deviceResidentChanged___block_invoke(uint64_t a1)
   if (v9)
   {
     [v9 setEnabled:v4 & 1];
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v11 = [*(a1 + 40) reachableAccessories];
-    v12 = [v11 countByEnumeratingWithState:&v17 objects:v22 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v16 objects:v21 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v18;
+      v14 = *v17;
       do
       {
         v15 = 0;
         do
         {
-          if (*v18 != v14)
+          if (*v17 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          [*(*(&v17 + 1) + 8 * v15++) _transmitStatus:1];
+          [*(*(&v16 + 1) + 8 * v15++) _transmitStatus:1];
         }
 
         while (v13 != v15);
-        v13 = [v11 countByEnumeratingWithState:&v17 objects:v22 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v16 objects:v21 count:16];
       }
 
       while (v13);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)__rebuildResidents:(id)residents
@@ -2397,7 +2352,7 @@ void __43__HMDResidentMesh___deviceResidentChanged___block_invoke(uint64_t a1)
 
 void __38__HMDResidentMesh___rebuildResidents___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) userInfo];
   v3 = [v2 valueForKey:@"HMDDeviceNotificationKey"];
 
@@ -2440,19 +2395,17 @@ void __38__HMDResidentMesh___rebuildResidents___block_invoke(uint64_t a1)
     v12 = [*(a1 + 32) name];
     v13 = [v3 identifier];
     v14 = [v13 UUIDString];
-    v16 = 138543874;
-    v17 = v11;
-    v18 = 2114;
-    v19 = v12;
-    v20 = 2114;
-    v21 = v14;
-    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Resident device changed (%{public}@ / %{public}@) notification.", &v16, 0x20u);
+    v15 = 138543874;
+    v16 = v11;
+    v17 = 2114;
+    v18 = v12;
+    v19 = 2114;
+    v20 = v14;
+    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Resident device changed (%{public}@ / %{public}@) notification.", &v15, 0x20u);
   }
 
   objc_autoreleasePoolPop(v8);
   [*(a1 + 40) _buildResidentsWithElection:0 device:0];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)__residentDeviceAddedOrUpdatedNotification:(id)notification
@@ -2471,7 +2424,7 @@ void __38__HMDResidentMesh___rebuildResidents___block_invoke(uint64_t a1)
 
 void __62__HMDResidentMesh___residentDeviceAddedOrUpdatedNotification___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) userInfo];
   v3 = [v2 valueForKey:@"HMDResidentDeviceManagerResidentDeviceNotificationKey"];
 
@@ -2497,21 +2450,19 @@ void __62__HMDResidentMesh___residentDeviceAddedOrUpdatedNotification___block_in
     v10 = [*(a1 + 32) name];
     v11 = [v5 identifier];
     v12 = [v11 UUIDString];
-    v16 = 138543874;
-    v17 = v9;
-    v18 = 2114;
-    v19 = v10;
-    v20 = 2114;
-    v21 = v12;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Resident device changed (%{public}@ / %{public}@) notification.", &v16, 0x20u);
+    v15 = 138543874;
+    v16 = v9;
+    v17 = 2114;
+    v18 = v10;
+    v19 = 2114;
+    v20 = v12;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Resident device changed (%{public}@ / %{public}@) notification.", &v15, 0x20u);
   }
 
   objc_autoreleasePoolPop(v6);
   v13 = *(a1 + 40);
   v14 = [v5 device];
   [v13 _handleAddUpdateOrReachabilityChangeForDevice:v14];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)__residentDeviceRemovedNotification:(id)notification
@@ -2530,7 +2481,7 @@ void __62__HMDResidentMesh___residentDeviceAddedOrUpdatedNotification___block_in
 
 void __55__HMDResidentMesh___residentDeviceRemovedNotification___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) userInfo];
   v3 = [v2 valueForKey:@"HMDResidentDeviceManagerResidentDeviceNotificationKey"];
 
@@ -2557,13 +2508,13 @@ void __55__HMDResidentMesh___residentDeviceRemovedNotification___block_invoke(ui
     v11 = [v5 device];
     v12 = [v11 identifier];
     v13 = [v12 UUIDString];
-    v18 = 138543874;
-    v19 = v9;
-    v20 = 2114;
-    v21 = v10;
-    v22 = 2114;
-    v23 = v13;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Resident device removed (%{public}@ / %{public}@) notification.", &v18, 0x20u);
+    v17 = 138543874;
+    v18 = v9;
+    v19 = 2114;
+    v20 = v10;
+    v21 = 2114;
+    v22 = v13;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Resident device removed (%{public}@ / %{public}@) notification.", &v17, 0x20u);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -2571,8 +2522,6 @@ void __55__HMDResidentMesh___residentDeviceRemovedNotification___block_invoke(ui
   v15 = [*(a1 + 32) name];
   v16 = [v5 device];
   [v14 _buildResidentsWithElection:v15 device:v16];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)__deviceIsNotReachable:(id)reachable
@@ -2591,7 +2540,7 @@ void __55__HMDResidentMesh___residentDeviceRemovedNotification___block_invoke(ui
 
 void __42__HMDResidentMesh___deviceIsNotReachable___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) object];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -2614,17 +2563,15 @@ void __42__HMDResidentMesh___deviceIsNotReachable___block_invoke(uint64_t a1)
     v8 = HMFGetLogIdentifier();
     v9 = [v4 identifier];
     v10 = [v9 UUIDString];
-    v12 = 138543618;
-    v13 = v8;
-    v14 = 2114;
-    v15 = v10;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Device %{public}@ is NOT reachable (notification)", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v8;
+    v13 = 2114;
+    v14 = v10;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Device %{public}@ is NOT reachable (notification)", &v11, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
   [*(a1 + 40) _deviceIsNotReachable:v4];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)__deviceIsReachable:(id)reachable
@@ -2643,7 +2590,7 @@ void __42__HMDResidentMesh___deviceIsNotReachable___block_invoke(uint64_t a1)
 
 void __39__HMDResidentMesh___deviceIsReachable___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) object];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -2666,17 +2613,15 @@ void __39__HMDResidentMesh___deviceIsReachable___block_invoke(uint64_t a1)
     v8 = HMFGetLogIdentifier();
     v9 = [v4 identifier];
     v10 = [v9 UUIDString];
-    v12 = 138543618;
-    v13 = v8;
-    v14 = 2114;
-    v15 = v10;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Device %{public}@ is reachable (notification)", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v8;
+    v13 = 2114;
+    v14 = v10;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Device %{public}@ is reachable (notification)", &v11, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
   [*(a1 + 40) _handleAddUpdateOrReachabilityChangeForDevice:v4];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -2694,11 +2639,11 @@ void __39__HMDResidentMesh___deviceIsReachable___block_invoke(uint64_t a1)
 
 - (HMDResidentMesh)initWithHomeManager:(id)manager residentEnabled:(BOOL)enabled
 {
-  v53[1] = *MEMORY[0x277D85DE8];
+  v52[1] = *MEMORY[0x277D85DE8];
   managerCopy = manager;
-  v51.receiver = self;
-  v51.super_class = HMDResidentMesh;
-  v7 = [(HMDResidentMesh *)&v51 init];
+  v50.receiver = self;
+  v50.super_class = HMDResidentMesh;
+  v7 = [(HMDResidentMesh *)&v50 init];
   if (v7)
   {
     array = [MEMORY[0x277CBEB18] array];
@@ -2746,7 +2691,7 @@ void __39__HMDResidentMesh___deviceIsReachable___block_invoke(uint64_t a1)
     block[2] = __55__HMDResidentMesh_initWithHomeManager_residentEnabled___block_invoke;
     block[3] = &unk_278688650;
     v29 = v7;
-    v49 = v29;
+    v48 = v29;
     enabledCopy = enabled;
     dispatch_sync(v28, block);
     v30 = [objc_alloc(MEMORY[0x277D0F920]) initWithTimeInterval:1 options:2.0];
@@ -2789,23 +2734,22 @@ void __39__HMDResidentMesh___deviceIsReachable___block_invoke(uint64_t a1)
     [v42 setRequiresAccountMessage:1];
     [v42 setRequiresSecureMessage:1];
     [v42 setTransportRestriction:-1];
-    v43 = [v42 copy];
-    v53[0] = v43;
-    v44 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:1];
+    v43 = objc_msgSend_copy(v42);
+    v52[0] = v43;
+    v44 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:1];
     [messageDispatcher registerForMessage:@"kDeviceMeshUpdateRequestKey" receiver:v29 policies:v44 selector:sel__handleMeshUpdateRequestMessage_];
 
-    v52 = v43;
-    v45 = [MEMORY[0x277CBEA60] arrayWithObjects:&v52 count:1];
+    v51 = v43;
+    v45 = [MEMORY[0x277CBEA60] arrayWithObjects:&v51 count:1];
     [messageDispatcher registerForMessage:@"kDeviceMeshUpdateKey" receiver:v29 policies:v45 selector:sel__handleMeshUpdateMessage_];
   }
 
-  v46 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 void __55__HMDResidentMesh_initWithHomeManager_residentEnabled___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) _buildResidentsWithElection:0 device:0];
   v2 = [*(a1 + 32) resident];
   v3 = v2;
@@ -2822,15 +2766,13 @@ void __55__HMDResidentMesh_initWithHomeManager_residentEnabled___block_invoke(ui
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v7 = HMFGetLogIdentifier();
-      v9 = 138543362;
-      v10 = v7;
-      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@We do not have a current device (probably logged out from iCloud).", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v7;
+      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@We do not have a current device (probably logged out from iCloud).", &v8, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (id)logCategory
@@ -2847,10 +2789,9 @@ void __55__HMDResidentMesh_initWithHomeManager_residentEnabled___block_invoke(ui
 
 void __30__HMDResidentMesh_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v67;
-  logCategory__hmf_once_v67 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v67;
+  logCategory__hmf_once_v67 = v0;
 }
 
 @end

@@ -71,10 +71,7 @@
 
 - (void)setEncryptionKeySpecifier:(id)specifier
 {
-  v4 = [specifier copy];
-  rsaEncryptionOperationInternal = self->_rsaEncryptionOperationInternal;
-  v6 = rsaEncryptionOperationInternal[1];
-  rsaEncryptionOperationInternal[1] = v4;
+  *(self->_rsaEncryptionOperationInternal + 1) = [specifier copy];
 
   MEMORY[0x2821F96F8]();
 }

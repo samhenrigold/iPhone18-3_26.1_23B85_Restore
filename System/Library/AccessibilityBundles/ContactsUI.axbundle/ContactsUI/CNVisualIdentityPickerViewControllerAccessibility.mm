@@ -156,7 +156,7 @@ uint64_t __91__CNVisualIdentityPickerViewControllerAccessibility_collectionView_
   return MEMORY[0x2A1C71028]();
 }
 
-uint64_t __91__CNVisualIdentityPickerViewControllerAccessibility_collectionView_cellForItemAtIndexPath___block_invoke_2(uint64_t a1)
+void *__91__CNVisualIdentityPickerViewControllerAccessibility_collectionView_cellForItemAtIndexPath___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) isItemAtIndexPathAddItem:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;

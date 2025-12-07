@@ -416,9 +416,9 @@ LABEL_47:
           {
             v26 = [CCToolKitToolAppDefinitionDevice alloc];
             v27 = CCPBReaderReadDataNoCopy();
-            v52 = 0;
-            v28 = [(CCItemMessage *)v26 initWithData:v27 error:&v52];
-            v8 = v52;
+            v49 = 0;
+            v28 = [(CCItemMessage *)v26 initWithData:v27 error:&v49];
+            v8 = v49;
             device = self->_device;
             self->_device = v28;
 
@@ -478,7 +478,6 @@ LABEL_46:
 
     v39 = objc_opt_class();
     v27 = NSStringFromClass(v39);
-    v40 = *&v5[*v10];
     v8 = CCSkipFieldErrorForMessage();
     goto LABEL_56;
   }
@@ -487,44 +486,42 @@ LABEL_46:
 LABEL_62:
   v8 = 0;
 LABEL_63:
-  v41 = [v9 copy];
+  v40 = [v9 copy];
   synonyms = self->_synonyms;
-  self->_synonyms = v41;
+  self->_synonyms = v40;
 
   if (v8)
   {
     CCSetError();
-    v43 = 0;
-    v44 = dataCopy;
+    v42 = 0;
+    v43 = dataCopy;
   }
 
   else
   {
-    v45 = MEMORY[0x1E6993AA8];
-    v44 = dataCopy;
+    v43 = dataCopy;
     if (*&v5[*MEMORY[0x1E6993AA8]])
     {
-      v46 = objc_opt_class();
-      v47 = NSStringFromClass(v46);
-      v48 = *&v5[*v45];
-      v49 = CCInvalidBufferErrorForMessage();
+      v44 = objc_opt_class();
+      v45 = NSStringFromClass(v44);
+      v46 = CCInvalidBufferErrorForMessage();
       CCSetError();
 
-      v43 = 0;
+      v42 = 0;
     }
 
     else
     {
-      v43 = 1;
+      v42 = 1;
     }
   }
 
-  return v43;
+  return v42;
 }
 
 - (CCToolKitToolAppDefinition)initWithId:(id)id name:(id)name bundleId:(id)bundleId bundleVersion:(id)version teamId:(id)teamId device:(id)device origin:(unsigned int)origin synonyms:(id)self0 error:(id *)self1
 {
-  v66 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   idCopy = id;
   nameCopy = name;
   bundleIdCopy = bundleId;
@@ -533,11 +530,10 @@ LABEL_63:
   deviceCopy = device;
   synonymsCopy = synonyms;
   v22 = objc_opt_new();
-  v23 = 0x1E696A000uLL;
   if (!idCopy)
   {
     errorCopy2 = error;
-    v25 = 0;
+    v24 = 0;
     if (!nameCopy)
     {
       goto LABEL_4;
@@ -545,9 +541,9 @@ LABEL_63:
 
 LABEL_11:
     objc_opt_class();
-    v63 = v25;
+    v59 = v24;
     IsInstanceOfExpectedClass = CCValidateIsInstanceOfExpectedClass();
-    v26 = v25;
+    v25 = v24;
 
     if (!IsInstanceOfExpectedClass)
     {
@@ -555,7 +551,6 @@ LABEL_11:
     }
 
     CCPBDataWriterWriteStringField();
-    v23 = 0x1E696A000uLL;
     if (bundleIdCopy)
     {
       goto LABEL_5;
@@ -565,176 +560,168 @@ LABEL_11:
   }
 
   objc_opt_class();
-  v64 = 0;
-  v24 = CCValidateIsInstanceOfExpectedClass();
-  v25 = 0;
-  if (!v24)
+  v60 = 0;
+  v23 = CCValidateIsInstanceOfExpectedClass();
+  v24 = 0;
+  if (!v23)
   {
     goto LABEL_28;
   }
 
   errorCopy2 = error;
   CCPBDataWriterWriteStringField();
-  v23 = 0x1E696A000uLL;
   if (nameCopy)
   {
     goto LABEL_11;
   }
 
 LABEL_4:
-  v26 = v25;
+  v25 = v24;
   if (bundleIdCopy)
   {
 LABEL_5:
     objc_opt_class();
-    v62 = v26;
-    v27 = CCValidateIsInstanceOfExpectedClass();
-    v25 = v26;
+    v58 = v25;
+    v26 = CCValidateIsInstanceOfExpectedClass();
+    v24 = v25;
 
-    if (!v27)
+    if (!v26)
     {
       goto LABEL_28;
     }
 
     CCPBDataWriterWriteStringField();
-    v23 = 0x1E696A000uLL;
     if (!versionCopy)
     {
 LABEL_7:
-      v26 = v25;
+      v25 = v24;
       if (teamIdCopy)
       {
 LABEL_8:
         objc_opt_class();
-        v60 = v26;
-        v28 = CCValidateIsInstanceOfExpectedClass();
-        v25 = v26;
+        v56 = v25;
+        v27 = CCValidateIsInstanceOfExpectedClass();
+        v24 = v25;
 
-        if (!v28)
+        if (!v27)
         {
           goto LABEL_28;
         }
 
-        v49 = synonymsCopy;
+        v45 = synonymsCopy;
         CCPBDataWriterWriteStringField();
-        v23 = 0x1E696A000;
         goto LABEL_17;
       }
 
 LABEL_16:
-      v49 = synonymsCopy;
-      v25 = v26;
+      v45 = synonymsCopy;
+      v24 = v25;
 LABEL_17:
       if (deviceCopy)
       {
         objc_opt_class();
-        v59 = v25;
-        v31 = CCValidateIsInstanceOfExpectedClass();
-        v32 = v25;
+        v55 = v24;
+        v30 = CCValidateIsInstanceOfExpectedClass();
+        v31 = v24;
 
-        if (!v31)
+        if (!v30)
         {
           CCSetError();
-          v34 = 0;
-          v25 = v32;
+          v33 = 0;
+          v24 = v31;
           selfCopy2 = self;
 LABEL_43:
-          synonymsCopy = v49;
+          synonymsCopy = v45;
           goto LABEL_30;
         }
 
         data = [deviceCopy data];
         CCPBDataWriterWriteDataField();
-
-        v23 = 0x1E696A000;
       }
 
       else
       {
-        v32 = v25;
+        v31 = v24;
       }
 
-      synonymsCopy = v49;
+      synonymsCopy = v45;
       if (!origin)
       {
-        v25 = v32;
-        if (!v49)
+        v24 = v31;
+        if (!v45)
         {
 LABEL_42:
           immutableData = [v22 immutableData];
           selfCopy2 = [(CCItemMessage *)self initWithData:immutableData error:errorCopy2];
 
-          v34 = selfCopy2;
+          v33 = selfCopy2;
           goto LABEL_43;
         }
 
         goto LABEL_33;
       }
 
-      v58 = v32;
-      v47 = CCValidateEnumField();
-      v25 = v32;
+      v54 = v31;
+      v43 = CCValidateEnumField();
+      v24 = v31;
 
-      if (v47)
+      if (v43)
       {
         CCPBDataWriterWriteUint32Field();
-        v23 = 0x1E696A000;
-        if (!v49)
+        if (!v45)
         {
           goto LABEL_42;
         }
 
 LABEL_33:
-        v38 = *(v23 + 3776);
         objc_opt_class();
-        v57 = v25;
-        v39 = CCValidateArrayValues();
-        v26 = v25;
+        v53 = v24;
+        v36 = CCValidateArrayValues();
+        v25 = v24;
 
-        if (v39)
+        if (v36)
         {
-          v48 = v26;
-          v55 = 0u;
-          v56 = 0u;
-          v53 = 0u;
-          v54 = 0u;
-          v40 = v49;
-          v41 = [v40 countByEnumeratingWithState:&v53 objects:v65 count:16];
-          if (v41)
+          v44 = v25;
+          v51 = 0u;
+          v52 = 0u;
+          v49 = 0u;
+          v50 = 0u;
+          v37 = v45;
+          v38 = [v37 countByEnumeratingWithState:&v49 objects:v61 count:16];
+          if (v38)
           {
-            v42 = v41;
-            v43 = *v54;
+            v39 = v38;
+            v40 = *v50;
             do
             {
-              for (i = 0; i != v42; ++i)
+              for (i = 0; i != v39; ++i)
               {
-                if (*v54 != v43)
+                if (*v50 != v40)
                 {
-                  objc_enumerationMutation(v40);
+                  objc_enumerationMutation(v37);
                 }
 
-                v45 = *(*(&v53 + 1) + 8 * i);
                 CCPBDataWriterWriteStringField();
               }
 
-              v42 = [v40 countByEnumeratingWithState:&v53 objects:v65 count:16];
+              v39 = [v37 countByEnumeratingWithState:&v49 objects:v61 count:16];
             }
 
-            while (v42);
+            while (v39);
           }
 
-          v25 = v48;
+          v24 = v44;
           goto LABEL_42;
         }
 
         CCSetError();
-        synonymsCopy = v49;
+        synonymsCopy = v45;
         goto LABEL_21;
       }
 
 LABEL_28:
       CCSetError();
-      v34 = 0;
+      v33 = 0;
       goto LABEL_29;
     }
 
@@ -742,7 +729,7 @@ LABEL_28:
   }
 
 LABEL_13:
-  v25 = v26;
+  v24 = v25;
   if (!versionCopy)
   {
     goto LABEL_7;
@@ -750,14 +737,13 @@ LABEL_13:
 
 LABEL_14:
   objc_opt_class();
-  v61 = v25;
-  v30 = CCValidateIsInstanceOfExpectedClass();
-  v26 = v25;
+  v57 = v24;
+  v29 = CCValidateIsInstanceOfExpectedClass();
+  v25 = v24;
 
-  if (v30)
+  if (v29)
   {
     CCPBDataWriterWriteStringField();
-    v23 = 0x1E696A000uLL;
     if (teamIdCopy)
     {
       goto LABEL_8;
@@ -769,14 +755,13 @@ LABEL_14:
 LABEL_20:
   CCSetError();
 LABEL_21:
-  v34 = 0;
-  v25 = v26;
+  v33 = 0;
+  v24 = v25;
 LABEL_29:
   selfCopy2 = self;
 LABEL_30:
 
-  v36 = *MEMORY[0x1E69E9840];
-  return v34;
+  return v33;
 }
 
 @end

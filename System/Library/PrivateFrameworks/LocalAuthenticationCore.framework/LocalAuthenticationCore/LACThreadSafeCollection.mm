@@ -97,36 +97,36 @@
 
 void __32__LACThreadSafeCollection_count__block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (*(*(a1 + 32) + 20))
   {
-    v12 = 0u;
-    v13 = 0u;
-    v10 = 0u;
     v11 = 0u;
-    v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+    v12 = 0u;
+    v9 = 0u;
+    v10 = 0u;
+    v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v11;
+      v7 = *v10;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v11 != v7)
+          if (*v10 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          if (*(*(&v10 + 1) + 8 * i))
+          if (*(*(&v9 + 1) + 8 * i))
           {
             ++*(*(*(a1 + 40) + 8) + 24);
           }
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
       }
 
       while (v6);
@@ -137,57 +137,54 @@ void __32__LACThreadSafeCollection_count__block_invoke(uint64_t a1, void *a2)
   {
     *(*(*(a1 + 40) + 8) + 24) = [v3 count];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)forEach:(id)each
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   eachCopy = each;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = __Block_byref_object_copy__6;
-  v19 = __Block_byref_object_dispose__6;
-  v20 = 0;
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __35__LACThreadSafeCollection_forEach___block_invoke;
-  v14[3] = &unk_1E7A96E70;
-  v14[4] = &v15;
-  [(LACThreadSafeCollection *)self _synchronizedObjects:v14];
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = __Block_byref_object_copy__6;
+  v18 = __Block_byref_object_dispose__6;
+  v19 = 0;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __35__LACThreadSafeCollection_forEach___block_invoke;
+  v13[3] = &unk_1E7A96E70;
+  v13[4] = &v14;
+  [(LACThreadSafeCollection *)self _synchronizedObjects:v13];
   v11 = 0u;
-  v5 = v16[5];
-  v6 = [v5 countByEnumeratingWithState:&v10 objects:v21 count:16];
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
+  v5 = v15[5];
+  v6 = [v5 countByEnumeratingWithState:&v9 objects:v20 count:16];
   if (v6)
   {
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        eachCopy[2](eachCopy, *(*(&v10 + 1) + 8 * v8++));
+        eachCopy[2](eachCopy, *(*(&v9 + 1) + 8 * v8++));
       }
 
       while (v6 != v8);
-      v6 = [v5 countByEnumeratingWithState:&v10 objects:v21 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v9 objects:v20 count:16];
     }
 
     while (v6);
   }
 
-  _Block_object_dispose(&v15, 8);
-  v9 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v14, 8);
 }
 
 uint64_t __35__LACThreadSafeCollection_forEach___block_invoke(uint64_t a1, void *a2)
@@ -197,7 +194,7 @@ uint64_t __35__LACThreadSafeCollection_forEach___block_invoke(uint64_t a1, void 
   v5 = *(v4 + 40);
   *(v4 + 40) = v3;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v3, v5);
 }
 
 - (void)_synchronizedObjects:(id)objects

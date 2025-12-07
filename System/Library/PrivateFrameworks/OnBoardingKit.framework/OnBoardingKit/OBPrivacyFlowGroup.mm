@@ -24,63 +24,63 @@
 
 + (id)groupFlowsByCombinedHeader:(id)header language:(id)language preferredDeviceType:(unint64_t)type
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   headerCopy = header;
   languageCopy = language;
-  v33 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v32 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
   v7 = headerCopy;
-  v34 = [v7 countByEnumeratingWithState:&v41 objects:v46 count:16];
-  if (!v34)
+  v33 = [v7 countByEnumeratingWithState:&v40 objects:v45 count:16];
+  if (!v33)
   {
 
 LABEL_25:
-    [v33 removeAllObjects];
+    [v32 removeAllObjects];
     firstObject = [[OBPrivacyFlowGroup alloc] initWithIdentifier:0 privacyFlows:v7];
-    [v33 addObject:firstObject];
+    [v32 addObject:firstObject];
     goto LABEL_26;
   }
 
   v8 = 0;
   obj = v7;
-  v30 = *v42;
+  v29 = *v41;
   do
   {
-    for (i = 0; i != v34; ++i)
+    for (i = 0; i != v33; ++i)
     {
-      if (*v42 != v30)
+      if (*v41 != v29)
       {
         objc_enumerationMutation(obj);
       }
 
-      v10 = *(*(&v41 + 1) + 8 * i);
+      v10 = *(*(&v40 + 1) + 8 * i);
       enablesGroupingInCombinedList = [v10 enablesGroupingInCombinedList];
       v12 = [v10 localizedCombinedHeaderForLanguage:languageCopy preferredDeviceType:type];
+      v36 = 0u;
       v37 = 0u;
       v38 = 0u;
       v39 = 0u;
-      v40 = 0u;
-      v13 = v33;
-      v14 = [v13 countByEnumeratingWithState:&v37 objects:v45 count:16];
+      v13 = v32;
+      v14 = [v13 countByEnumeratingWithState:&v36 objects:v44 count:16];
       if (v14)
       {
         v15 = v14;
-        v16 = *v38;
-        v36 = v10;
-        v35 = enablesGroupingInCombinedList;
+        v16 = *v37;
+        v35 = v10;
+        v34 = enablesGroupingInCombinedList;
 LABEL_8:
         v17 = 0;
         while (1)
         {
-          if (*v38 != v16)
+          if (*v37 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = *(*(&v37 + 1) + 8 * v17);
+          v18 = *(*(&v36 + 1) + 8 * v17);
           identifier = [v18 identifier];
           if ([identifier isEqualToString:v12])
           {
@@ -97,9 +97,9 @@ LABEL_8:
 
           if (v15 == ++v17)
           {
-            v15 = [v13 countByEnumeratingWithState:&v37 objects:v45 count:16];
-            v10 = v36;
-            enablesGroupingInCombinedList = v35;
+            v15 = [v13 countByEnumeratingWithState:&v36 objects:v44 count:16];
+            v10 = v35;
+            enablesGroupingInCombinedList = v34;
             if (v15)
             {
               goto LABEL_8;
@@ -112,8 +112,8 @@ LABEL_8:
 LABEL_17:
         v22 = v18;
 
-        v10 = v36;
-        enablesGroupingInCombinedList = v35;
+        v10 = v35;
+        enablesGroupingInCombinedList = v34;
         if (v22)
         {
           goto LABEL_19;
@@ -136,10 +136,10 @@ LABEL_19:
     }
 
     v7 = obj;
-    v34 = [obj countByEnumeratingWithState:&v41 objects:v46 count:16];
+    v33 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
   }
 
-  while (v34);
+  while (v33);
 
   if ((v8 & 1) == 0)
   {
@@ -156,9 +156,7 @@ LABEL_19:
 LABEL_26:
 
 LABEL_27:
-  v26 = [v33 copy];
-
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = [v32 copy];
 
   return v26;
 }

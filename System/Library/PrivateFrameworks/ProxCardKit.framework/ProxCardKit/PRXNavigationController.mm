@@ -7,7 +7,7 @@
 - (void)preferredContentSizeDidChangeForChildContentContainer:(id)container
 {
   containerCopy = container;
-  v5 = PRXDefaultLog();
+  v5 = PRXDefaultLog(containerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [(PRXNavigationController *)containerCopy preferredContentSizeDidChangeForChildContentContainer:v5];

@@ -1,5 +1,6 @@
 @interface ServicePredictionRegistrationAdaptor
 - (_TtC17wirelessinsightsd36ServicePredictionRegistrationAdaptor)init;
+- (void)airplaneModeDidUpdate:(BOOL)update;
 - (void)didChangeCellTo:(id)to;
 - (void)radioStateDidChangeTo:(unint64_t)to;
 @end
@@ -33,6 +34,19 @@
   v6.receiver = self;
   v6.super_class = ObjectType;
   return [(ServicePredictionRegistrationAdaptor *)&v6 init];
+}
+
+- (void)airplaneModeDidUpdate:(BOOL)update
+{
+  updateCopy = update;
+  v4 = sub_1000CE644();
+  if (v4)
+  {
+    v5 = v4;
+    v6 = sub_100168AD4();
+
+    (*((swift_isaMask & *v6) + 0x3A8))(updateCopy);
+  }
 }
 
 @end

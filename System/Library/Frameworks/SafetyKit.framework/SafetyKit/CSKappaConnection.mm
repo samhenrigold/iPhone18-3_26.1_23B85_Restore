@@ -3,7 +3,12 @@
 - (void)bringupFeedbackAssistantWithUUID:(id)d;
 - (void)defaultMessageHandler:(shared_ptr<CLConnectionMessage>)handler;
 - (void)interruptionHandler;
+- (void)sendCommand:(int)command;
+- (void)sendCommand:(int)command withValue:(int)value;
+- (void)sendFeedbackConsent:(BOOL)consent andUUID:(id)d;
 - (void)sendTestAOI:(id)i;
+- (void)sendTestCachedMessage:(int)message;
+- (void)sendTestMessage:(int)message;
 - (void)sendTestPowerAssertion:(double)assertion;
 - (void)sendTestSMSignal:(double)signal;
 - (void)sendTestSOS;
@@ -59,7 +64,7 @@ void __25__CSKappaConnection_init__block_invoke_2(uint64_t a1)
 - (void)defaultMessageHandler:(shared_ptr<CLConnectionMessage>)handler
 {
   var0 = handler.var0;
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (onceToken_CSConnection_Default != -1)
   {
     [CSKappaConnection defaultMessageHandler:];
@@ -83,18 +88,16 @@ void __25__CSKappaConnection_init__block_invoke_2(uint64_t a1)
       v10 = v7;
     }
 
-    v12[0] = 68289538;
-    v12[1] = 0;
-    v13 = 2082;
-    v14 = "";
-    v15 = 2082;
-    v16 = v10;
-    v17 = 2114;
-    v18 = v8;
-    _os_log_impl(&dword_23AA4D000, v4, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:defaultMessageHandler, name:%{public, location:escape_only}s, value:%{public, location:escape_only}@}", v12, 0x26u);
+    v11[0] = 68289538;
+    v11[1] = 0;
+    v12 = 2082;
+    v13 = "";
+    v14 = 2082;
+    v15 = v10;
+    v16 = 2114;
+    v17 = v8;
+    _os_log_impl(&dword_23AA4D000, v4, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:defaultMessageHandler, name:%{public, location:escape_only}s, value:%{public, location:escape_only}@}", v11, 0x26u);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)interruptionHandler
@@ -112,12 +115,32 @@ void __25__CSKappaConnection_init__block_invoke_2(uint64_t a1)
   }
 }
 
+- (void)sendTestMessage:(int)message
+{
+  v3 = *&message;
+  __p[5] = *MEMORY[0x277D85DE8];
+  std::string::basic_string[abi:ne200100]<0>(__p, [@"com.apple.anomalydetectiond.kappa.message.test" UTF8String]);
+  [MEMORY[0x277CCABB0] numberWithInt:v3];
+  objc_claimAutoreleasedReturnValue();
+  std::allocate_shared[abi:ne200100]<CLConnectionMessage,std::allocator<CLConnectionMessage>,std::string,NSNumber * {__strong},0>();
+}
+
 - (void)sendTestAOI:(id)i
 {
   __p[5] = *MEMORY[0x277D85DE8];
   i;
   std::string::basic_string[abi:ne200100]<0>(__p, [@"com.apple.anomalydetectiond.kappa.aoi.test" UTF8String]);
   std::allocate_shared[abi:ne200100]<CLConnectionMessage,std::allocator<CLConnectionMessage>,std::string,NSDictionary<NSString *,objc_object *> * {__strong}&,0>();
+}
+
+- (void)sendTestCachedMessage:(int)message
+{
+  v3 = *&message;
+  __p[5] = *MEMORY[0x277D85DE8];
+  std::string::basic_string[abi:ne200100]<0>(__p, [@"com.apple.anomalydetectiond.kappa.message.test" UTF8String]);
+  [MEMORY[0x277CCABB0] numberWithInt:v3];
+  objc_claimAutoreleasedReturnValue();
+  std::allocate_shared[abi:ne200100]<CLConnectionMessage,std::allocator<CLConnectionMessage>,std::string,NSNumber * {__strong},0>();
 }
 
 - (void)sendTestTrigger
@@ -139,6 +162,22 @@ void __25__CSKappaConnection_init__block_invoke_2(uint64_t a1)
   __p[5] = *MEMORY[0x277D85DE8];
   std::string::basic_string[abi:ne200100]<0>(__p, [@"com.apple.anomalydetectiond.kappa.ttr.test" UTF8String]);
   std::allocate_shared[abi:ne200100]<CLConnectionMessage,std::allocator<CLConnectionMessage>,std::string,0>();
+}
+
+- (void)sendFeedbackConsent:(BOOL)consent andUUID:(id)d
+{
+  consentCopy = consent;
+  v9[2] = *MEMORY[0x277D85DE8];
+  dCopy = d;
+  v8[0] = @"CSKappaFeedbackAssistantConsentKey";
+  v6 = [MEMORY[0x277CCABB0] numberWithBool:consentCopy];
+  v8[1] = @"CSKappaFeedbackAssistantUUIDKey";
+  v9[0] = v6;
+  v9[1] = dCopy;
+  __p[5] = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
+
+  std::string::basic_string[abi:ne200100]<0>(__p, [@"com.apple.anomalydetectiond.kappa.feedbackConsentResponse" UTF8String]);
+  std::allocate_shared[abi:ne200100]<CLConnectionMessage,std::allocator<CLConnectionMessage>,std::string,NSDictionary * {__strong}&,0>();
 }
 
 - (void)bringupFeedbackAssistantWithUUID:(id)d
@@ -200,6 +239,36 @@ void __52__CSKappaConnection_testSensorAccessQueryWithReply___block_invoke(uint6
 
     (*(*(a1 + 32) + 16))();
   }
+}
+
+- (void)sendCommand:(int)command
+{
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"CSKappaCommandKey";
+  v3 = [MEMORY[0x277CCABB0] numberWithInt:*&command];
+  v6[0] = v3;
+  [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
+  objc_claimAutoreleasedReturnValue();
+
+  std::string::basic_string[abi:ne200100]<0>(&__p, [@"com.apple.anomalydetectiond.kappa.command" UTF8String]);
+  std::allocate_shared[abi:ne200100]<CLConnectionMessage,std::allocator<CLConnectionMessage>,std::string,NSDictionary * {__strong}&,0>();
+}
+
+- (void)sendCommand:(int)command withValue:(int)value
+{
+  v4 = *&value;
+  v9[2] = *MEMORY[0x277D85DE8];
+  v8[0] = @"CSKappaCommandKey";
+  v5 = [MEMORY[0x277CCABB0] numberWithInt:*&command];
+  v9[0] = v5;
+  v8[1] = @"CSKappaValueKey";
+  v6 = [MEMORY[0x277CCABB0] numberWithInt:v4];
+  v9[1] = v6;
+  [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
+  objc_claimAutoreleasedReturnValue();
+
+  std::string::basic_string[abi:ne200100]<0>(&__p, [@"com.apple.anomalydetectiond.kappa.command" UTF8String]);
+  std::allocate_shared[abi:ne200100]<CLConnectionMessage,std::allocator<CLConnectionMessage>,std::string,NSDictionary * {__strong}&,0>();
 }
 
 void __43__CSKappaConnection_sendCommand_withValue___block_invoke(uint64_t a1, CLConnectionMessage **a2)

@@ -24,7 +24,7 @@
 - (MKMapItem)mapItem
 {
   swift_getKeyPath();
-  sub_1003023EC(&qword_1019190E8, type metadata accessor for PlaceCardLibraryOperationsCoordinator);
+  sub_1003023EC(&qword_1019190E8, type metadata accessor for PlaceCardLibraryOperationsCoordinator, &protocol conformance descriptor for PlaceCardLibraryOperationsCoordinator);
   selfCopy = self;
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
@@ -44,7 +44,7 @@
 - (int64_t)savedStateOfPlace
 {
   swift_getKeyPath();
-  sub_1003023EC(&qword_1019190E8, type metadata accessor for PlaceCardLibraryOperationsCoordinator);
+  sub_1003023EC(&qword_1019190E8, type metadata accessor for PlaceCardLibraryOperationsCoordinator, &protocol conformance descriptor for PlaceCardLibraryOperationsCoordinator);
   selfCopy = self;
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
@@ -62,7 +62,7 @@
 - (UIViewController)viewControllerForPresentingAlert
 {
   swift_getKeyPath();
-  sub_1003023EC(&qword_1019190E8, type metadata accessor for PlaceCardLibraryOperationsCoordinator);
+  sub_1003023EC(&qword_1019190E8, type metadata accessor for PlaceCardLibraryOperationsCoordinator, &protocol conformance descriptor for PlaceCardLibraryOperationsCoordinator);
   selfCopy = self;
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
@@ -82,7 +82,7 @@
 - (BOOL)shouldDeleteWithoutConfirmation
 {
   swift_getKeyPath();
-  sub_1003023EC(&qword_1019190E8, type metadata accessor for PlaceCardLibraryOperationsCoordinator);
+  sub_1003023EC(&qword_1019190E8, type metadata accessor for PlaceCardLibraryOperationsCoordinator, &protocol conformance descriptor for PlaceCardLibraryOperationsCoordinator);
   selfCopy = self;
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
@@ -121,7 +121,7 @@
 - (BOOL)isPinned
 {
   swift_getKeyPath();
-  sub_1003023EC(&qword_1019190E8, type metadata accessor for PlaceCardLibraryOperationsCoordinator);
+  sub_1003023EC(&qword_1019190E8, type metadata accessor for PlaceCardLibraryOperationsCoordinator, &protocol conformance descriptor for PlaceCardLibraryOperationsCoordinator);
   selfCopy = self;
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
@@ -156,7 +156,7 @@
   dispatch thunk of MapsSyncStore.unsubscribe(_:)();
 
   v6.receiver = v5;
-  v6.super_class = type metadata accessor for PlaceCardLibraryOperationsCoordinator();
+  v6.super_class = type metadata accessor for PlaceCardLibraryOperationsCoordinator(0);
   [(PlaceCardLibraryOperationsCoordinator *)&v6 dealloc];
 }
 
@@ -207,13 +207,13 @@
 - (NSArray)storeSubscriptionTypes
 {
   swift_getKeyPath();
-  sub_1003023EC(&qword_1019190E8, type metadata accessor for PlaceCardLibraryOperationsCoordinator);
+  sub_1003023EC(&qword_1019190E8, type metadata accessor for PlaceCardLibraryOperationsCoordinator, &protocol conformance descriptor for PlaceCardLibraryOperationsCoordinator);
   selfCopy = self;
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
   swift_beginAccess();
 
-  sub_1000CE6B8(&qword_1019083F0);
+  sub_1000CE6B8(&qword_1019083F0, &qword_1011E2EC0);
   v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v4.super.isa;
@@ -221,10 +221,10 @@
 
 - (void)setStoreSubscriptionTypes:(id)types
 {
-  sub_1000CE6B8(&qword_1019083F0);
+  sub_1000CE6B8(&qword_1019083F0, &qword_1011E2EC0);
   static Array._unconditionallyBridgeFromObjectiveC(_:)();
   swift_getKeyPath();
-  sub_1003023EC(&qword_1019190E8, type metadata accessor for PlaceCardLibraryOperationsCoordinator);
+  sub_1003023EC(&qword_1019190E8, type metadata accessor for PlaceCardLibraryOperationsCoordinator, &protocol conformance descriptor for PlaceCardLibraryOperationsCoordinator);
   selfCopy = self;
   ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
 }

@@ -25,10 +25,10 @@
     return -1;
   }
 
-  v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, v2, v4, v5);
-  v11 = objc_msgSend_intValue(v6, v7, v8, v9, v10);
+  v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:v2];
+  intValue = [v3 intValue];
 
-  return v11;
+  return intValue;
 }
 
 - (CGRect)regionOf:(int)of destRect:(CGRect)rect userInfo:(id)info
@@ -38,109 +38,109 @@
   y = rect.origin.y;
   x = rect.origin.x;
   infoCopy = info;
-  v13 = objc_msgSend_objectAtIndexedSubscript_(infoCopy, v10, 2, v11, v12);
-  objc_msgSend_floatValue(v13, v14, v15, v16, v17);
-  v19 = v18;
+  v10 = [infoCopy objectAtIndexedSubscript:2];
+  [v10 floatValue];
+  v12 = v11;
 
-  v23 = objc_msgSend_objectAtIndexedSubscript_(infoCopy, v20, 3, v21, v22);
-  objc_msgSend_floatValue(v23, v24, v25, v26, v27);
-  v29 = v28;
+  v13 = [infoCopy objectAtIndexedSubscript:3];
+  [v13 floatValue];
+  v15 = v14;
 
-  v62.origin.x = x + v19;
-  v62.origin.y = y + v29;
-  v62.size.width = width;
-  v62.size.height = height;
-  v63 = CGRectInset(v62, -1.0, -1.0);
-  v30 = v63.origin.x;
-  v31 = v63.origin.y;
-  v32 = v63.size.width;
-  v33 = v63.size.height;
-  v37 = objc_msgSend_objectAtIndexedSubscript_(infoCopy, v34, 0, v35, v36);
-  objc_msgSend_floatValue(v37, v38, v39, v40, v41);
-  v43 = v42;
+  v34.origin.x = x + v12;
+  v34.origin.y = y + v15;
+  v34.size.width = width;
+  v34.size.height = height;
+  v35 = CGRectInset(v34, -1.0, -1.0);
+  v16 = v35.origin.x;
+  v17 = v35.origin.y;
+  v18 = v35.size.width;
+  v19 = v35.size.height;
+  v20 = [infoCopy objectAtIndexedSubscript:0];
+  [v20 floatValue];
+  v22 = v21;
 
-  v47 = objc_msgSend_objectAtIndexedSubscript_(infoCopy, v44, 1, v45, v46);
-  objc_msgSend_floatValue(v47, v48, v49, v50, v51);
-  v53 = v52;
+  v23 = [infoCopy objectAtIndexedSubscript:1];
+  [v23 floatValue];
+  v25 = v24;
 
-  v67.size.width = v43;
-  v67.size.height = v53;
-  v67.origin.x = 0.0;
-  v67.origin.y = 0.0;
-  v64.origin.x = v30;
-  v64.origin.y = v31;
-  v64.size.width = v32;
-  v64.size.height = v33;
-  v65 = CGRectIntersection(v64, v67);
-  v54 = v65.origin.x;
-  v55 = v65.origin.y;
-  v56 = v65.size.width;
-  v57 = v65.size.height;
+  v39.size.width = v22;
+  v39.size.height = v25;
+  v39.origin.x = 0.0;
+  v39.origin.y = 0.0;
+  v36.origin.x = v16;
+  v36.origin.y = v17;
+  v36.size.width = v18;
+  v36.size.height = v19;
+  v37 = CGRectIntersection(v36, v39);
+  v26 = v37.origin.x;
+  v27 = v37.origin.y;
+  v28 = v37.size.width;
+  v29 = v37.size.height;
 
-  v58 = v54;
-  v59 = v55;
-  v60 = v56;
-  v61 = v57;
-  result.size.height = v61;
-  result.size.width = v60;
-  result.origin.y = v59;
-  result.origin.x = v58;
+  v30 = v26;
+  v31 = v27;
+  v32 = v28;
+  v33 = v29;
+  result.size.height = v33;
+  result.size.width = v32;
+  result.origin.y = v31;
+  result.origin.x = v30;
   return result;
 }
 
 - (id)crop
 {
-  objc_msgSend_extent(self->inputImage, a2, v2, v3, v4);
-  v14 = v13;
+  [(CIImage *)self->inputImage extent];
+  v7 = v6;
   inputCropRect = self->inputCropRect;
   if (inputCropRect)
   {
-    objc_msgSend_X(inputCropRect, v6, v7, v8, v9);
-    v17 = v16;
-    objc_msgSend_Y(self->inputCropRect, v18, v19, v20, v21);
-    v23 = v22;
-    objc_msgSend_W(self->inputCropRect, v24, v25, v26, v27);
-    v29 = v14 - (v23 + v28);
-    objc_msgSend_Z(self->inputCropRect, v30, v31, v32, v33);
-    v35 = v34;
-    objc_msgSend_W(self->inputCropRect, v36, v37, v38, v39);
-    v14 = v40;
+    [(CIVector *)inputCropRect X];
+    v10 = v9;
+    [(CIVector *)self->inputCropRect Y];
+    v12 = v11;
+    [(CIVector *)self->inputCropRect W];
+    v14 = v7 - (v12 + v13);
+    [(CIVector *)self->inputCropRect Z];
+    v16 = v15;
+    [(CIVector *)self->inputCropRect W];
+    v7 = v17;
   }
 
   else
   {
-    v17 = v10;
-    v29 = v11;
-    v35 = v12;
+    v10 = v3;
+    v14 = v4;
+    v16 = v5;
   }
 
-  v41 = MEMORY[0x277CBF788];
+  v18 = MEMORY[0x277CBF788];
 
-  return objc_msgSend_vectorWithX_Y_Z_W_(v41, v6, v7, v8, v9, v17, v29, v35, v14);
+  return [v18 vectorWithX:v10 Y:v14 Z:v16 W:v7];
 }
 
 - (id)range
 {
-  v5 = MEMORY[0x277CCABB0];
-  objc_msgSend_floatValue(self->inputRange, a2, v2, v3, v4);
-  *&v10 = 65535.0 / *&v10;
+  v2 = MEMORY[0x277CCABB0];
+  [(NSNumber *)self->inputRange floatValue];
+  *&v3 = 65535.0 / *&v3;
 
-  return objc_msgSend_numberWithFloat_(v5, v6, v7, v8, v9, v10);
+  return [v2 numberWithFloat:v3];
 }
 
 - (id)blacks
 {
-  v6 = MEMORY[0x277CBF788];
-  objc_msgSend_X(self->inputBlacks, a2, v2, v3, v4);
-  v8 = fmax(v7, 0.0) / 65535.0;
-  objc_msgSend_Y(self->inputBlacks, v9, v10, v11, v12);
-  v14 = fmax(v13, 0.0) / 65535.0;
-  objc_msgSend_Z(self->inputBlacks, v15, v16, v17, v18);
-  v20 = fmax(v19, 0.0) / 65535.0;
-  objc_msgSend_W(self->inputBlacks, v21, v22, v23, v24);
-  v30 = fmax(v29, 0.0) / 65535.0;
+  v3 = MEMORY[0x277CBF788];
+  [(CIVector *)self->inputBlacks X];
+  v5 = fmax(v4, 0.0) / 65535.0;
+  [(CIVector *)self->inputBlacks Y];
+  v7 = fmax(v6, 0.0) / 65535.0;
+  [(CIVector *)self->inputBlacks Z];
+  v9 = fmax(v8, 0.0) / 65535.0;
+  [(CIVector *)self->inputBlacks W];
+  v11 = fmax(v10, 0.0) / 65535.0;
 
-  return objc_msgSend_vectorWithX_Y_Z_W_(v6, v25, v26, v27, v28, v8, v14, v20, v30);
+  return [v3 vectorWithX:v5 Y:v7 Z:v9 W:v11];
 }
 
 - (id)noiseModel
@@ -151,89 +151,89 @@
     inputRepresentativeNoise = &unk_284958B68;
   }
 
-  v8 = inputRepresentativeNoise;
+  v4 = inputRepresentativeNoise;
   inputNoiseModel = self->inputNoiseModel;
   if (inputNoiseModel)
   {
-    v10 = inputNoiseModel;
+    v6 = inputNoiseModel;
   }
 
   else
   {
-    v10 = objc_msgSend_vectorWithX_Y_(MEMORY[0x277CBF788], v4, v5, v6, v7, 0.0, 0.0);
+    v6 = [MEMORY[0x277CBF788] vectorWithX:0.0 Y:0.0];
   }
 
-  v15 = v10;
+  v7 = v6;
   if (!self->inputNoiseModel && self->inputRepresentativeNoise)
   {
-    v16 = MEMORY[0x277CBF788];
-    objc_msgSend_floatValue(v8, v11, v12, v13, v14);
-    v22 = objc_msgSend_vectorWithX_Y_(v16, v18, v19, v20, v21, 0.0, ((v17 / 100.0) * 1.0954));
+    v8 = MEMORY[0x277CBF788];
+    [(NSNumber *)v4 floatValue];
+    v10 = [v8 vectorWithX:0.0 Y:((v9 / 100.0) * 1.0954)];
 
-    v15 = v22;
+    v7 = v10;
   }
 
-  v23 = MEMORY[0x277CBF788];
-  objc_msgSend_floatValue(v8, v11, v12, v13, v14);
-  v25 = v24;
-  objc_msgSend_X(v15, v26, v27, v28, v29);
-  v31 = v30;
-  objc_msgSend_Y(v15, v32, v33, v34, v35);
-  v41 = objc_msgSend_vectorWithX_Y_Z_(v23, v36, v37, v38, v39, v25, v31, v40);
+  v11 = MEMORY[0x277CBF788];
+  [(NSNumber *)v4 floatValue];
+  v13 = v12;
+  [v7 X];
+  v15 = v14;
+  [v7 Y];
+  v17 = [v11 vectorWithX:v13 Y:v15 Z:v16];
 
-  return v41;
+  return v17;
 }
 
 - (id)exposureFactor
 {
-  v5 = MEMORY[0x277CCABB0];
-  objc_msgSend_floatValue(self->inputBaselineExposure, a2, v2, v3, v4);
-  *&v11 = exp2f(v6) + 1.0;
+  v2 = MEMORY[0x277CCABB0];
+  [(NSNumber *)self->inputBaselineExposure floatValue];
+  *&v4 = exp2f(v3) + 1.0;
 
-  return objc_msgSend_numberWithFloat_(v5, v7, v8, v9, v10, v11);
+  return [v2 numberWithFloat:v4];
 }
 
 - (int)versionfor:(int)versionfor
 {
-  v6 = objc_msgSend_intValue(self->inputVersion, a2, *&versionfor, v3, v4);
-  if (v6)
+  intValue = [(NSNumber *)self->inputVersion intValue];
+  if (intValue)
   {
-    v7 = v6;
+    v5 = intValue;
   }
 
   else
   {
-    v7 = -1;
+    v5 = -1;
   }
 
-  if (v7 <= 7)
+  if (v5 <= 7)
   {
-    v8 = 7;
+    v6 = 7;
   }
 
   else
   {
-    v8 = 8;
+    v6 = 8;
   }
 
   if (!versionfor)
   {
-    v7 = v8;
+    v5 = v6;
   }
 
   if (versionfor == 1)
   {
-    v7 = v8;
+    v5 = v6;
   }
 
   if (versionfor == 2)
   {
-    return v8;
+    return v6;
   }
 
   else
   {
-    return v7;
+    return v5;
   }
 }
 
@@ -241,249 +241,249 @@
 {
   if (for == 2)
   {
-    v5 = objc_msgSend_phaseForXtrans(self, a2, *&for, v3, v4);
+    phaseForXtrans = [(RAWDemosaicFilter *)self phaseForXtrans];
   }
 
   else if (for == 1)
   {
-    v5 = objc_msgSend_phaseForQuadra(self, a2, *&for, v3, v4);
+    phaseForXtrans = [(RAWDemosaicFilter *)self phaseForQuadra];
   }
 
   else
   {
     if (for)
     {
-      objc_msgSend_vectorWithX_Y_(MEMORY[0x277CBF788], a2, *&for, v3, v4, 0.0, 0.0);
+      [MEMORY[0x277CBF788] vectorWithX:0.0 Y:0.0];
     }
 
     else
     {
-      objc_msgSend_phaseForBayer(self, a2, *&for, v3, v4);
+      [(RAWDemosaicFilter *)self phaseForBayer];
     }
-    v5 = ;
+    phaseForXtrans = ;
+  }
+
+  return phaseForXtrans;
+}
+
+- (id)phaseForXtrans
+{
+  v30[18] = *MEMORY[0x277D85DE8];
+  intValue = [(NSNumber *)self->inputPattern intValue];
+  v4 = intValue & 0x7F;
+  if (v4 < 0x13)
+  {
+    [(CIImage *)self->inputImage extent];
+    v7 = llround(v6) % 6;
+    v8 = ~v7;
+    v29 = [MEMORY[0x277CBF788] vectorWithX:1.0 Y:v8];
+    v30[0] = v29;
+    v28 = [MEMORY[0x277CBF788] vectorWithX:2.0 Y:v8];
+    v30[1] = v28;
+    v27 = [MEMORY[0x277CBF788] vectorWithX:3.0 Y:v8];
+    v30[2] = v27;
+    v26 = [MEMORY[0x277CBF788] vectorWithX:4.0 Y:v8];
+    v30[3] = v26;
+    v25 = [MEMORY[0x277CBF788] vectorWithX:5.0 Y:v8];
+    v30[4] = v25;
+    v24 = [MEMORY[0x277CBF788] vectorWithX:0.0 Y:v8];
+    v30[5] = v24;
+    v23 = [MEMORY[0x277CBF788] vectorWithX:1.0 Y:(-2 - v7)];
+    v30[6] = v23;
+    v22 = [MEMORY[0x277CBF788] vectorWithX:2.0 Y:(-2 - v7)];
+    v30[7] = v22;
+    v21 = [MEMORY[0x277CBF788] vectorWithX:3.0 Y:(-2 - v7)];
+    v30[8] = v21;
+    v20 = [MEMORY[0x277CBF788] vectorWithX:4.0 Y:(-2 - v7)];
+    v30[9] = v20;
+    v9 = [MEMORY[0x277CBF788] vectorWithX:5.0 Y:(-2 - v7)];
+    v30[10] = v9;
+    v10 = [MEMORY[0x277CBF788] vectorWithX:0.0 Y:(-2 - v7)];
+    v30[11] = v10;
+    v11 = (-3 - v7);
+    v12 = [MEMORY[0x277CBF788] vectorWithX:1.0 Y:v11];
+    v30[12] = v12;
+    v13 = [MEMORY[0x277CBF788] vectorWithX:2.0 Y:v11];
+    v30[13] = v13;
+    v14 = [MEMORY[0x277CBF788] vectorWithX:3.0 Y:v11];
+    v30[14] = v14;
+    v15 = [MEMORY[0x277CBF788] vectorWithX:4.0 Y:v11];
+    v30[15] = v15;
+    v16 = [MEMORY[0x277CBF788] vectorWithX:5.0 Y:v11];
+    v30[16] = v16;
+    v17 = [MEMORY[0x277CBF788] vectorWithX:0.0 Y:v11];
+    v30[17] = v17;
+    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:18];
+    v5 = [v18 objectAtIndexedSubscript:v4];
+  }
+
+  else
+  {
+    printf("unexpected xtrans pattern %d 0x%x\n", intValue, intValue);
+    v5 = [MEMORY[0x277CBF788] vectorWithX:0.0 Y:0.0];
   }
 
   return v5;
 }
 
-- (id)phaseForXtrans
-{
-  v118[18] = *MEMORY[0x277D85DE8];
-  v6 = objc_msgSend_intValue(self->inputPattern, a2, v2, v3, v4);
-  v11 = v6 & 0x7F;
-  if (v11 < 0x13)
-  {
-    objc_msgSend_extent(self->inputImage, v7, v8, v9, v10);
-    v18 = llround(v17) % 6;
-    v19 = ~v18;
-    v117 = objc_msgSend_vectorWithX_Y_(MEMORY[0x277CBF788], v20, v21, v22, v23, 1.0, v19);
-    v118[0] = v117;
-    v116 = objc_msgSend_vectorWithX_Y_(MEMORY[0x277CBF788], v24, v25, v26, v27, 2.0, v19);
-    v118[1] = v116;
-    v115 = objc_msgSend_vectorWithX_Y_(MEMORY[0x277CBF788], v28, v29, v30, v31, 3.0, v19);
-    v118[2] = v115;
-    v114 = objc_msgSend_vectorWithX_Y_(MEMORY[0x277CBF788], v32, v33, v34, v35, 4.0, v19);
-    v118[3] = v114;
-    v113 = objc_msgSend_vectorWithX_Y_(MEMORY[0x277CBF788], v36, v37, v38, v39, 5.0, v19);
-    v118[4] = v113;
-    v112 = objc_msgSend_vectorWithX_Y_(MEMORY[0x277CBF788], v40, v41, v42, v43, 0.0, v19);
-    v118[5] = v112;
-    v111 = objc_msgSend_vectorWithX_Y_(MEMORY[0x277CBF788], v44, v45, v46, v47, 1.0, (-2 - v18));
-    v118[6] = v111;
-    v110 = objc_msgSend_vectorWithX_Y_(MEMORY[0x277CBF788], v48, v49, v50, v51, 2.0, (-2 - v18));
-    v118[7] = v110;
-    v109 = objc_msgSend_vectorWithX_Y_(MEMORY[0x277CBF788], v52, v53, v54, v55, 3.0, (-2 - v18));
-    v118[8] = v109;
-    v108 = objc_msgSend_vectorWithX_Y_(MEMORY[0x277CBF788], v56, v57, v58, v59, 4.0, (-2 - v18));
-    v118[9] = v108;
-    v64 = objc_msgSend_vectorWithX_Y_(MEMORY[0x277CBF788], v60, v61, v62, v63, 5.0, (-2 - v18));
-    v118[10] = v64;
-    v69 = objc_msgSend_vectorWithX_Y_(MEMORY[0x277CBF788], v65, v66, v67, v68, 0.0, (-2 - v18));
-    v118[11] = v69;
-    v70 = (-3 - v18);
-    v75 = objc_msgSend_vectorWithX_Y_(MEMORY[0x277CBF788], v71, v72, v73, v74, 1.0, v70);
-    v118[12] = v75;
-    v80 = objc_msgSend_vectorWithX_Y_(MEMORY[0x277CBF788], v76, v77, v78, v79, 2.0, v70);
-    v118[13] = v80;
-    v85 = objc_msgSend_vectorWithX_Y_(MEMORY[0x277CBF788], v81, v82, v83, v84, 3.0, v70);
-    v118[14] = v85;
-    v90 = objc_msgSend_vectorWithX_Y_(MEMORY[0x277CBF788], v86, v87, v88, v89, 4.0, v70);
-    v118[15] = v90;
-    v95 = objc_msgSend_vectorWithX_Y_(MEMORY[0x277CBF788], v91, v92, v93, v94, 5.0, v70);
-    v118[16] = v95;
-    v100 = objc_msgSend_vectorWithX_Y_(MEMORY[0x277CBF788], v96, v97, v98, v99, 0.0, v70);
-    v118[17] = v100;
-    v103 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v101, v118, 18, v102);
-    v16 = objc_msgSend_objectAtIndexedSubscript_(v103, v104, v11, v105, v106);
-  }
-
-  else
-  {
-    printf("unexpected xtrans pattern %d 0x%x\n", v6, v6);
-    v16 = objc_msgSend_vectorWithX_Y_(MEMORY[0x277CBF788], v12, v13, v14, v15, 0.0, 0.0);
-  }
-
-  return v16;
-}
-
 - (id)phaseForQuadra
 {
-  objc_msgSend_extent(self->inputImage, a2, v2, v3, v4);
-  v7 = v6;
-  v12 = objc_msgSend_intValue(self->inputPattern, v8, v9, v10, v11);
-  v13 = llround(v7) & 1;
-  v22 = objc_msgSend_vectorWithX_Y_(MEMORY[0x277CBF788], v14, v15, v16, v17, 0.0, 0.0);
-  if (v12 > 1094795584)
+  [(CIImage *)self->inputImage extent];
+  v4 = v3;
+  intValue = [(NSNumber *)self->inputPattern intValue];
+  v6 = llround(v4) & 1;
+  v7 = [MEMORY[0x277CBF788] vectorWithX:0.0 Y:0.0];
+  if (intValue > 1094795584)
   {
-    if (v12 == 1094795585)
+    if (intValue == 1094795585)
     {
-      v23 = objc_msgSend_vectorWithX_Y_(MEMORY[0x277CBF788], v18, v19, v20, v21, 2.0, (2 * v13));
+      v8 = [MEMORY[0x277CBF788] vectorWithX:2.0 Y:(2 * v6)];
       goto LABEL_11;
     }
 
-    if (v12 == 1364283729)
+    if (intValue == 1364283729)
     {
-      v23 = objc_msgSend_vectorWithX_Y_(MEMORY[0x277CBF788], v18, v19, v20, v21, 0.0, (2 * v13));
+      v8 = [MEMORY[0x277CBF788] vectorWithX:0.0 Y:(2 * v6)];
       goto LABEL_11;
     }
 
 LABEL_8:
-    printf("unsupported bayer pattern %d 0x%x\n", v12, v12);
+    printf("unsupported bayer pattern %d 0x%x\n", intValue, intValue);
     goto LABEL_12;
   }
 
-  if (v12 == 336860180)
+  if (intValue == 336860180)
   {
-    v23 = objc_msgSend_vectorWithX_Y_(MEMORY[0x277CBF788], v18, v19, v20, v21, 2.0, ((2 * v13) ^ 2u));
+    v8 = [MEMORY[0x277CBF788] vectorWithX:2.0 Y:((2 * v6) ^ 2u)];
     goto LABEL_11;
   }
 
-  if (v12 != 353703189)
+  if (intValue != 353703189)
   {
     goto LABEL_8;
   }
 
-  v23 = objc_msgSend_vectorWithX_Y_(MEMORY[0x277CBF788], v18, v19, v20, v21, 0.0, ((2 * v13) ^ 2u));
+  v8 = [MEMORY[0x277CBF788] vectorWithX:0.0 Y:((2 * v6) ^ 2u)];
 LABEL_11:
-  v24 = v23;
+  v9 = v8;
 
-  v22 = v24;
+  v7 = v9;
 LABEL_12:
 
-  return v22;
+  return v7;
 }
 
 - (id)phaseForBayer
 {
-  objc_msgSend_extent(self->inputImage, a2, v2, v3, v4);
-  v7 = v6;
-  v12 = objc_msgSend_intValue(self->inputPattern, v8, v9, v10, v11);
-  v13 = llround(v7) & 1;
-  v22 = objc_msgSend_vectorWithX_Y_(MEMORY[0x277CBF788], v14, v15, v16, v17, 0.0, 0.0);
-  if (v12 > 1229539656)
+  [(CIImage *)self->inputImage extent];
+  v4 = v3;
+  intValue = [(NSNumber *)self->inputPattern intValue];
+  v6 = llround(v4) & 1;
+  v7 = [MEMORY[0x277CBF788] vectorWithX:0.0 Y:0.0];
+  if (intValue > 1229539656)
   {
-    if (v12 == 1229539657)
+    if (intValue == 1229539657)
     {
-      v23 = objc_msgSend_vectorWithX_Y_(MEMORY[0x277CBF788], v18, v19, v20, v21, 0.0, v13);
+      v8 = [MEMORY[0x277CBF788] vectorWithX:0.0 Y:v6];
       goto LABEL_11;
     }
 
-    if (v12 == 1633771873)
+    if (intValue == 1633771873)
     {
-      v23 = objc_msgSend_vectorWithX_Y_(MEMORY[0x277CBF788], v18, v19, v20, v21, 1.0, (v13 ^ 1));
+      v8 = [MEMORY[0x277CBF788] vectorWithX:1.0 Y:(v6 ^ 1)];
       goto LABEL_11;
     }
 
 LABEL_8:
-    printf("unsupported bayer pattern %d 0x%x\n", v12, v12);
+    printf("unsupported bayer pattern %d 0x%x\n", intValue, intValue);
     goto LABEL_12;
   }
 
-  if (v12 == -1802201964)
+  if (intValue == -1802201964)
   {
-    v23 = objc_msgSend_vectorWithX_Y_(MEMORY[0x277CBF788], v18, v19, v20, v21, 0.0, (v13 ^ 1));
+    v8 = [MEMORY[0x277CBF788] vectorWithX:0.0 Y:(v6 ^ 1)];
     goto LABEL_11;
   }
 
-  if (v12 != 370546198)
+  if (intValue != 370546198)
   {
     goto LABEL_8;
   }
 
-  v23 = objc_msgSend_vectorWithX_Y_(MEMORY[0x277CBF788], v18, v19, v20, v21, 1.0, v13);
+  v8 = [MEMORY[0x277CBF788] vectorWithX:1.0 Y:v6];
 LABEL_11:
-  v24 = v23;
+  v9 = v8;
 
-  v22 = v24;
+  v7 = v9;
 LABEL_12:
 
-  return v22;
+  return v7;
 }
 
 - (int)sensorType
 {
-  v5 = objc_msgSend_intValue(self->inputPattern, a2, v2, v3, v4);
-  v6 = 0;
-  if (v5 <= 1094795584)
+  intValue = [(NSNumber *)self->inputPattern intValue];
+  v3 = 0;
+  if (intValue <= 1094795584)
   {
-    if (v5 <= 353703188)
+    if (intValue <= 353703188)
     {
-      if (v5 != -1802201964)
+      if (intValue != -1802201964)
       {
-        v7 = 336860180;
+        v4 = 336860180;
         goto LABEL_14;
       }
 
-      return v6;
+      return v3;
     }
 
-    if (v5 != 353703189)
+    if (intValue != 353703189)
     {
-      v8 = 370546198;
+      v5 = 370546198;
 LABEL_10:
-      if (v5 != v8)
+      if (intValue != v5)
       {
-        return 2 * (v5 >> 8 == 8487297);
+        return 2 * (intValue >> 8 == 8487297);
       }
 
-      return v6;
+      return v3;
     }
 
     return 1;
   }
 
-  if (v5 <= 1364283728)
+  if (intValue <= 1364283728)
   {
-    if (v5 != 1094795585)
+    if (intValue != 1094795585)
     {
-      v8 = 1229539657;
+      v5 = 1229539657;
       goto LABEL_10;
     }
 
     return 1;
   }
 
-  if (v5 != 1633771873)
+  if (intValue != 1633771873)
   {
-    v7 = 1364283729;
+    v4 = 1364283729;
 LABEL_14:
-    if (v5 == v7)
+    if (intValue == v4)
     {
       return 1;
     }
 
-    return 2 * (v5 >> 8 == 8487297);
+    return 2 * (intValue >> 8 == 8487297);
   }
 
-  return v6;
+  return v3;
 }
 
 - (id)outputImage
 {
-  v278[3] = *MEMORY[0x277D85DE8];
+  v103[3] = *MEMORY[0x277D85DE8];
   if (self->inputImage)
   {
-    v3 = sub_23378E104();
+    v3 = sub_23378E104(self);
     v4 = v3;
     if (&self->super.super.super.isa + 1 >= 2 && os_signpost_enabled(v3))
     {
@@ -491,315 +491,311 @@ LABEL_14:
       _os_signpost_emit_with_name_impl(&dword_23371F000, v4, OS_SIGNPOST_INTERVAL_BEGIN, self, "RAWDemosaicFilter", &unk_233945DBE, buf, 2u);
     }
 
-    v267[0] = MEMORY[0x277D85DD0];
-    v267[1] = 3221225472;
-    v267[2] = sub_2338789E8;
-    v267[3] = &unk_2789EE800;
-    v267[4] = self;
-    v244 = MEMORY[0x2383AC810](v267);
-    v9 = objc_msgSend_sensorType(self, v5, v6, v7, v8);
-    v13 = objc_msgSend_versionfor_(self, v10, v9, v11, v12);
-    v263 = objc_msgSend_phaseFor_(self, v14, v9, v15, v16);
-    v21 = objc_msgSend_forceVersion(self, v17, v18, v19, v20);
-    if (v21 >= 0)
+    v92[0] = MEMORY[0x277D85DD0];
+    v92[1] = 3221225472;
+    v92[2] = sub_2338789E8;
+    v92[3] = &unk_2789EE800;
+    v92[4] = self;
+    v69 = MEMORY[0x2383AC810](v92);
+    sensorType = [(RAWDemosaicFilter *)self sensorType];
+    v6 = [(RAWDemosaicFilter *)self versionfor:sensorType];
+    v88 = [(RAWDemosaicFilter *)self phaseFor:sensorType];
+    forceVersion = [(RAWDemosaicFilter *)self forceVersion];
+    if (forceVersion >= 0)
     {
-      v25 = v21;
+      v8 = forceVersion;
     }
 
     else
     {
-      v25 = v13;
+      v8 = v6;
     }
 
-    v243 = v25;
-    v249 = objc_msgSend_kernelWithName_(DMKernels, v22, @"deXtrans_v7", v23, v24);
-    v248 = objc_msgSend_kernelWithName_(DMKernels, v26, @"deXtrans_v8", v27, v28);
-    v246 = objc_msgSend_kernelWithName_(DMKernels, v29, @"deXtrans_v7_8bit", v30, v31);
-    v257 = objc_msgSend_kernelWithName_(DMKernels, v32, @"deXtrans_draft", v33, v34);
-    v247 = objc_msgSend_kernelWithName_(DMKernels, v35, @"deBayer_v7", v36, v37);
-    v245 = objc_msgSend_kernelWithName_(DMKernels, v38, @"deBayer_v7_8bit", v39, v40);
-    v256 = objc_msgSend_kernelWithName_(DMKernels, v41, @"deBayer_draft", v42, v43);
-    v252 = objc_msgSend_kernelWithName_(DMKernels, v44, @"despeckle_v7", v45, v46);
-    v251 = objc_msgSend_kernelWithName_(DMKernels, v47, @"despeckle_v8", v48, v49);
-    v250 = objc_msgSend_kernelWithName_(DMKernels, v50, @"deBayer_v8", v51, v52);
-    v259 = objc_msgSend_kernelWithName_(DMKernels, v53, @"deQuadra_draft", v54, v55);
-    v262 = objc_msgSend_range(self, v56, v57, v58, v59);
-    v254 = objc_msgSend_exposureFactor(self, v60, v61, v62, v63);
-    v68 = objc_msgSend_crop(self, v64, v65, v66, v67);
-    v261 = objc_msgSend_blacks(self, v69, v70, v71, v72);
-    v253 = objc_msgSend_noiseModel(self, v73, v74, v75, v76);
-    objc_msgSend_extent(self->inputImage, v77, v78, v79, v80);
-    v82 = v81;
-    v84 = v83;
-    objc_msgSend_X(v68, v85, v86, v87, v88);
-    v90 = v89;
-    objc_msgSend_Y(v68, v91, v92, v93, v94);
-    v96 = v95;
-    objc_msgSend_Z(v68, v97, v98, v99, v100);
-    v102 = v101;
-    objc_msgSend_W(v68, v103, v104, v105, v106);
-    v108 = v107;
-    v113 = objc_msgSend_vectorWithX_Y_(MEMORY[0x277CBF788], v109, v110, v111, v112, v82, v84);
-    objc_msgSend_floatValue(self->inputDespeckle, v114, v115, v116, v117);
-    v119 = v118;
-    v266[0] = MEMORY[0x277D85DD0];
-    v266[1] = 3221225472;
-    v266[2] = sub_233878A70;
-    v266[3] = &unk_2789EF848;
-    *&v266[4] = v82;
-    *&v266[5] = v84;
-    v266[6] = v90;
-    v266[7] = v96;
-    v260 = MEMORY[0x2383AC810](v266);
-    v265[0] = MEMORY[0x277D85DD0];
-    v265[1] = 3221225472;
-    v265[2] = sub_233878B00;
-    v265[3] = &unk_2789EF848;
-    *&v265[4] = v82;
-    *&v265[5] = v84;
-    v265[6] = v90;
-    v265[7] = v96;
-    v258 = MEMORY[0x2383AC810](v265);
-    v264[0] = MEMORY[0x277D85DD0];
-    v264[1] = 3221225472;
-    v264[2] = sub_233878B30;
-    v264[3] = &unk_2789EF848;
-    *&v264[4] = v82;
-    *&v264[5] = v84;
-    v264[6] = v90;
-    v264[7] = v96;
-    v255 = MEMORY[0x2383AC810](v264);
-    v124 = objc_msgSend__imageBySamplingNearest(self->inputImage, v120, v121, v122, v123);
-    v125 = sub_2338F28E4();
-    v129 = objc_msgSend_imageByColorMatchingWorkingSpaceToColorSpace_(v124, v126, v125, v127, v128);
+    v68 = v8;
+    v74 = [DMKernels kernelWithName:@"deXtrans_v7"];
+    v73 = [DMKernels kernelWithName:@"deXtrans_v8"];
+    v71 = [DMKernels kernelWithName:@"deXtrans_v7_8bit"];
+    v82 = [DMKernels kernelWithName:@"deXtrans_draft"];
+    v72 = [DMKernels kernelWithName:@"deBayer_v7"];
+    v70 = [DMKernels kernelWithName:@"deBayer_v7_8bit"];
+    v81 = [DMKernels kernelWithName:@"deBayer_draft"];
+    v77 = [DMKernels kernelWithName:@"despeckle_v7"];
+    v76 = [DMKernels kernelWithName:@"despeckle_v8"];
+    v75 = [DMKernels kernelWithName:@"deBayer_v8"];
+    v84 = [DMKernels kernelWithName:@"deQuadra_draft"];
+    range = [(RAWDemosaicFilter *)self range];
+    exposureFactor = [(RAWDemosaicFilter *)self exposureFactor];
+    crop = [(RAWDemosaicFilter *)self crop];
+    blacks = [(RAWDemosaicFilter *)self blacks];
+    noiseModel = [(RAWDemosaicFilter *)self noiseModel];
+    [(CIImage *)self->inputImage extent];
+    v11 = v10;
+    v13 = v12;
+    [crop X];
+    v15 = v14;
+    [crop Y];
+    v17 = v16;
+    [crop Z];
+    v19 = v18;
+    [crop W];
+    v21 = v20;
+    v22 = [MEMORY[0x277CBF788] vectorWithX:v11 Y:v13];
+    [(NSNumber *)self->inputDespeckle floatValue];
+    v24 = v23;
+    v91[0] = MEMORY[0x277D85DD0];
+    v91[1] = 3221225472;
+    v91[2] = sub_233878A70;
+    v91[3] = &unk_2789EF848;
+    *&v91[4] = v11;
+    *&v91[5] = v13;
+    v91[6] = v15;
+    v91[7] = v17;
+    v85 = MEMORY[0x2383AC810](v91);
+    v90[0] = MEMORY[0x277D85DD0];
+    v90[1] = 3221225472;
+    v90[2] = sub_233878B00;
+    v90[3] = &unk_2789EF848;
+    *&v90[4] = v11;
+    *&v90[5] = v13;
+    v90[6] = v15;
+    v90[7] = v17;
+    v83 = MEMORY[0x2383AC810](v90);
+    v89[0] = MEMORY[0x277D85DD0];
+    v89[1] = 3221225472;
+    v89[2] = sub_233878B30;
+    v89[3] = &unk_2789EF848;
+    *&v89[4] = v11;
+    *&v89[5] = v13;
+    v89[6] = v15;
+    v89[7] = v17;
+    v80 = MEMORY[0x2383AC810](v89);
+    _imageBySamplingNearest = [(CIImage *)self->inputImage _imageBySamplingNearest];
+    v26 = [_imageBySamplingNearest imageByColorMatchingWorkingSpaceToColorSpace:sub_2338F28E4()];
 
-    if (v9 == 2)
+    if (sensorType == 2)
     {
-      if (objc_msgSend_BOOLValue(self->inputDraftMode, v130, v131, v132, v133))
+      if ([(NSNumber *)self->inputDraftMode BOOLValue])
       {
-        v166 = v257;
-        v272[0] = v129;
-        v272[1] = v261;
-        v272[2] = v262;
-        v272[3] = v263;
-        v272[4] = v113;
-        v272[5] = v68;
-        v179 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v177, v272, 6, v178);
-        v167 = MEMORY[0x2383AC810](v258);
-        v180 = v179;
-        objc_msgSend_applyWithExtent_roiCallback_arguments_(v166, v181, v167, v179, v182, 0.0, 0.0, v102, v108);
+        v39 = v82;
+        v97[0] = v26;
+        v97[1] = blacks;
+        v97[2] = range;
+        v97[3] = v88;
+        v97[4] = v22;
+        v97[5] = crop;
+        v42 = [MEMORY[0x277CBEA60] arrayWithObjects:v97 count:6];
+        v40 = MEMORY[0x2383AC810](v83);
+        v43 = v42;
       }
 
       else
       {
         inputScaleFactor = self->inputScaleFactor;
-        if (inputScaleFactor && (objc_msgSend_doubleValue(inputScaleFactor, v173, v174, v175, v176), v186 < 0.6))
+        if (inputScaleFactor && ([(NSNumber *)inputScaleFactor doubleValue], v47 < 0.6))
         {
-          v166 = v246;
-          v167 = MEMORY[0x2383AC810](v255);
-          v271[0] = v129;
-          v271[1] = v261;
-          v271[2] = v262;
-          v271[3] = v263;
-          v271[4] = v113;
-          v271[5] = v68;
-          v189 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v187, v271, 6, v188);
+          v39 = v71;
+          v40 = MEMORY[0x2383AC810](v80);
+          v96[0] = v26;
+          v96[1] = blacks;
+          v96[2] = range;
+          v96[3] = v88;
+          v96[4] = v22;
+          v96[5] = crop;
+          v48 = [MEMORY[0x277CBEA60] arrayWithObjects:v96 count:6];
         }
 
         else
         {
-          if (v243 == 8)
+          if (v68 == 8)
           {
-            v166 = v248;
-            v167 = MEMORY[0x2383AC810](v255);
-            v269[0] = v129;
-            v269[1] = v261;
-            v269[2] = v262;
-            v269[3] = v263;
-            v269[4] = v113;
-            v269[5] = v68;
-            v269[6] = v253;
-            v269[7] = v254;
-            v269[8] = self->inputFactors;
-            objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v192, v269, 9, v193);
+            v39 = v73;
+            v40 = MEMORY[0x2383AC810](v80);
+            v94[0] = v26;
+            v94[1] = blacks;
+            v94[2] = range;
+            v94[3] = v88;
+            v94[4] = v22;
+            v94[5] = crop;
+            v94[6] = noiseModel;
+            v94[7] = exposureFactor;
+            v94[8] = self->inputFactors;
+            [MEMORY[0x277CBEA60] arrayWithObjects:v94 count:9];
           }
 
           else
           {
-            v166 = v249;
-            v167 = MEMORY[0x2383AC810](v255);
-            v270[0] = v129;
-            v270[1] = v261;
-            v270[2] = v262;
-            v270[3] = v263;
-            v270[4] = v113;
-            v270[5] = v68;
-            objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v236, v270, 6, v237);
+            v39 = v74;
+            v40 = MEMORY[0x2383AC810](v80);
+            v95[0] = v26;
+            v95[1] = blacks;
+            v95[2] = range;
+            v95[3] = v88;
+            v95[4] = v22;
+            v95[5] = crop;
+            [MEMORY[0x277CBEA60] arrayWithObjects:v95 count:6];
           }
-          v189 = ;
+          v48 = ;
         }
 
-        v180 = v189;
-        objc_msgSend_applyWithExtent_roiCallback_arguments_(v166, v190, v167, v189, v191, 0.0, 0.0, v102, v108);
+        v43 = v48;
       }
     }
 
     else
     {
-      if (v9 == 1)
+      if (sensorType == 1)
       {
-        v165 = objc_msgSend__imageBySamplingNearest(v129, v130, v131, v132, v133);
+        _imageBySamplingNearest2 = [v26 _imageBySamplingNearest];
 
-        v166 = v259;
-        v167 = MEMORY[0x2383AC810](v260);
-        v273[0] = v165;
-        v273[1] = v261;
-        v273[2] = v262;
-        v273[3] = v263;
-        v273[4] = v113;
-        v273[5] = v68;
-        v170 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v168, v273, 6, v169);
+        v39 = v84;
+        v40 = MEMORY[0x2383AC810](v85);
+        v98[0] = _imageBySamplingNearest2;
+        v98[1] = blacks;
+        v98[2] = range;
+        v98[3] = v88;
+        v98[4] = v22;
+        v98[5] = crop;
+        v41 = [MEMORY[0x277CBEA60] arrayWithObjects:v98 count:6];
       }
 
       else
       {
-        if (v9)
+        if (sensorType)
         {
-          v183 = v129;
-          v184 = v183;
+          v44 = v26;
+          v45 = v44;
 LABEL_43:
 
-          v244[2](v244);
+          v69[2](v69);
           goto LABEL_45;
         }
 
-        v134 = objc_msgSend_BOOLValue(self->inputDraftMode, v130, v131, v132, v133);
-        LODWORD(v139) = 1.0;
-        v140 = fminf(v119, 1.0);
-        if ((v134 & 1) == 0 && (v139 = v140, v140 > 0.01) || v243 == 8)
+        bOOLValue = [(NSNumber *)self->inputDraftMode BOOLValue];
+        LODWORD(v28) = 1.0;
+        v29 = fminf(v24, 1.0);
+        if (!bOOLValue && (v28 = v29, v29 > 0.01) || v68 == 8)
         {
-          v141 = MEMORY[0x277CCABB0];
-          objc_msgSend_floatValue(self->inputDespeckle, v135, v136, v137, v138, v139);
-          *&v143 = (v142 * 1.25) + (v142 * 1.25);
-          v148 = objc_msgSend_numberWithFloat_(v141, v144, v145, v146, v147, v143);
-          objc_msgSend_floatValue(self->inputDespeckle, v149, v150, v151, v152);
-          if (v157 <= 0.5)
+          v30 = MEMORY[0x277CCABB0];
+          [(NSNumber *)self->inputDespeckle floatValue];
+          *&v32 = (v31 * 1.25) + (v31 * 1.25);
+          v33 = [v30 numberWithFloat:v32];
+          [(NSNumber *)self->inputDespeckle floatValue];
+          if (v34 <= 0.5)
           {
-            v164 = &unk_284958B68;
+            v37 = &unk_284958B68;
           }
 
           else
           {
-            objc_msgSend_floatValue(self->inputDespeckle, v153, v154, v155, v156);
-            v163 = objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], v159, v160, v161, v162, fmax(v158 * -4.99394315 * v158 + v158 * 20.886197 * v158 * v158 + v158 * -11.5599299 + 5.66767614, 1.25));
+            [(NSNumber *)self->inputDespeckle floatValue];
+            v36 = [MEMORY[0x277CCABB0] numberWithDouble:{fmax(v35 * -4.99394315 * v35 + v35 * 20.886197 * v35 * v35 + v35 * -11.5599299 + 5.66767614, 1.25)}];
 
-            v164 = &unk_284958B78;
-            v148 = v163;
+            v37 = &unk_284958B78;
+            v33 = v36;
           }
 
-          objc_msgSend_extent(v129, v153, v154, v155, v156);
-          if (v243 == 8)
+          [v26 extent];
+          if (v68 == 8)
           {
-            v202 = v198;
-            v203 = v199;
-            v204 = v200;
-            v205 = v201;
-            v277[0] = v129;
-            v277[1] = v113;
-            v277[2] = v263;
-            v277[3] = v148;
-            v277[4] = v164;
-            v206 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v194, v277, 5, v197);
-            objc_msgSend_applyWithExtent_roiCallback_arguments_(v251, v207, &unk_28492C370, v206, v208, v202, v203, v204, v205);
-            v129 = v209 = v129;
+            v53 = v49;
+            v54 = v50;
+            v55 = v51;
+            v56 = v52;
+            v102[0] = v26;
+            v102[1] = v22;
+            v102[2] = v88;
+            v102[3] = v33;
+            v102[4] = v37;
+            v57 = [MEMORY[0x277CBEA60] arrayWithObjects:v102 count:5];
+            [v76 applyWithExtent:&unk_28492C370 roiCallback:v57 arguments:{v53, v54, v55, v56}];
+            v26 = v58 = v26;
           }
 
           else
           {
-            v210 = v198;
-            v211 = v199;
-            v212 = v200;
-            v213 = v201;
-            v278[0] = v129;
-            v278[1] = v113;
-            *&v198 = v140;
-            v206 = objc_msgSend_numberWithFloat_(MEMORY[0x277CCABB0], v194, v195, v196, v197, v198);
-            v278[2] = v206;
-            v209 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v214, v278, 3, v215);
-            v218 = objc_msgSend_applyWithExtent_roiCallback_arguments_(v252, v216, &unk_28492C350, v209, v217, v210, v211, v212, v213);
+            v59 = v49;
+            v60 = v50;
+            v61 = v51;
+            v62 = v52;
+            v103[0] = v26;
+            v103[1] = v22;
+            *&v49 = v29;
+            v57 = [MEMORY[0x277CCABB0] numberWithFloat:v49];
+            v103[2] = v57;
+            v58 = [MEMORY[0x277CBEA60] arrayWithObjects:v103 count:3];
+            v63 = [v77 applyWithExtent:&unk_28492C350 roiCallback:v58 arguments:{v59, v60, v61, v62}];
 
-            v129 = v218;
+            v26 = v63;
           }
         }
 
-        v165 = objc_msgSend__imageBySamplingNearest(v129, v135, v136, v137, v138);
+        _imageBySamplingNearest2 = [v26 _imageBySamplingNearest];
 
-        if (objc_msgSend_BOOLValue(self->inputDraftMode, v219, v220, v221, v222))
+        if ([(NSNumber *)self->inputDraftMode BOOLValue])
         {
-          v166 = v256;
-          v167 = MEMORY[0x2383AC810](v260);
-          v276[0] = v165;
-          v276[1] = v261;
-          v276[2] = v262;
-          v276[3] = v263;
-          v276[4] = v113;
-          v276[5] = v68;
-          v170 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v227, v276, 6, v228);
+          v39 = v81;
+          v40 = MEMORY[0x2383AC810](v85);
+          v101[0] = _imageBySamplingNearest2;
+          v101[1] = blacks;
+          v101[2] = range;
+          v101[3] = v88;
+          v101[4] = v22;
+          v101[5] = crop;
+          v41 = [MEMORY[0x277CBEA60] arrayWithObjects:v101 count:6];
         }
 
-        else if (v243 == 8)
+        else if (v68 == 8)
         {
-          v166 = v250;
-          v167 = MEMORY[0x2383AC810](v258);
-          v274[0] = v165;
-          v274[1] = v261;
-          v274[2] = v262;
-          v274[3] = v263;
-          v274[4] = v113;
-          v274[5] = v68;
-          v274[6] = v253;
-          v274[7] = v254;
-          v274[8] = self->inputFactors;
-          v170 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v229, v274, 9, v230);
+          v39 = v75;
+          v40 = MEMORY[0x2383AC810](v83);
+          v99[0] = _imageBySamplingNearest2;
+          v99[1] = blacks;
+          v99[2] = range;
+          v99[3] = v88;
+          v99[4] = v22;
+          v99[5] = crop;
+          v99[6] = noiseModel;
+          v99[7] = exposureFactor;
+          v99[8] = self->inputFactors;
+          v41 = [MEMORY[0x277CBEA60] arrayWithObjects:v99 count:9];
         }
 
         else
         {
-          v231 = self->inputScaleFactor;
-          if (!v231 || (objc_msgSend_doubleValue(v231, v223, v224, v225, v226), v232 = v245, v233 >= 0.6))
+          v64 = self->inputScaleFactor;
+          if (!v64 || ([(NSNumber *)v64 doubleValue], v65 = v70, v66 >= 0.6))
           {
-            v232 = v247;
+            v65 = v72;
           }
 
-          v166 = v232;
-          v167 = MEMORY[0x2383AC810](v258);
-          v275[0] = v165;
-          v275[1] = v261;
-          v275[2] = v262;
-          v275[3] = v263;
-          v275[4] = v113;
-          v275[5] = v68;
-          v275[6] = self->inputRepresentativeNoise;
-          v170 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v234, v275, 7, v235);
+          v39 = v65;
+          v40 = MEMORY[0x2383AC810](v83);
+          v100[0] = _imageBySamplingNearest2;
+          v100[1] = blacks;
+          v100[2] = range;
+          v100[3] = v88;
+          v100[4] = v22;
+          v100[5] = crop;
+          v100[6] = self->inputRepresentativeNoise;
+          v41 = [MEMORY[0x277CBEA60] arrayWithObjects:v100 count:7];
         }
       }
 
-      v180 = v170;
-      v129 = v165;
-      objc_msgSend_applyWithExtent_roiCallback_arguments_(v166, v171, v167, v170, v172, 0.0, 0.0, v102, v108);
+      v43 = v41;
+      v26 = _imageBySamplingNearest2;
     }
-    v183 = ;
 
-    v238 = sub_2338F28E4();
-    v184 = objc_msgSend_imageByColorMatchingColorSpaceToWorkingSpace_(v183, v239, v238, v240, v241);
+    v44 = [v39 applyWithExtent:v40 roiCallback:v43 arguments:{0.0, 0.0, v19, v21}];
+
+    v45 = [v44 imageByColorMatchingColorSpaceToWorkingSpace:sub_2338F28E4()];
 
     goto LABEL_43;
   }
 
-  v184 = 0;
+  v45 = 0;
 LABEL_45:
 
-  return v184;
+  return v45;
 }
 
 @end

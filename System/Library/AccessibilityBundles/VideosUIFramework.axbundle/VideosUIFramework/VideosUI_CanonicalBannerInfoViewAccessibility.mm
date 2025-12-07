@@ -39,107 +39,106 @@
 
 - (void)_accessibilityLoadAccessibilityInformation
 {
-  v36 = *MEMORY[0x29EDCA608];
-  v33.receiver = self;
-  v33.super_class = VideosUI_CanonicalBannerInfoViewAccessibility;
-  [(VideosUI_CanonicalBannerInfoViewAccessibility *)&v33 _accessibilityLoadAccessibilityInformation];
+  v34 = *MEMORY[0x29EDCA608];
+  v31.receiver = self;
+  v31.super_class = VideosUI_CanonicalBannerInfoViewAccessibility;
+  [(VideosUI_CanonicalBannerInfoViewAccessibility *)&v31 _accessibilityLoadAccessibilityInformation];
   _axHeaderElementSwiftKeys = [objc_opt_class() _axHeaderElementSwiftKeys];
   objc_initWeak(&location, self);
-  v30 = 0u;
-  v31 = 0u;
   v28 = 0u;
   v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   obj = [(VideosUI_CanonicalBannerInfoViewAccessibility *)self safeSwiftArrayForKey:@"buttonViews"];
-  v17 = [obj countByEnumeratingWithState:&v28 objects:v35 count:16];
-  if (v17)
+  v15 = [obj countByEnumeratingWithState:&v26 objects:v33 count:16];
+  if (v15)
   {
-    v16 = *v29;
+    v14 = *v27;
     v3 = *MEMORY[0x29EDC7F80];
 LABEL_3:
     v4 = 0;
     while (1)
     {
-      if (*v29 != v16)
+      if (*v27 != v14)
       {
         objc_enumerationMutation(obj);
       }
 
-      v5 = *(*(&v28 + 1) + 8 * v4);
-      v27 = 0;
+      v25 = 0;
       objc_opt_class();
-      v6 = __UIAccessibilityCastAsClass();
-      if (v27 == 1)
+      v5 = __UIAccessibilityCastAsClass();
+      if (v25 == 1)
       {
 LABEL_23:
         abort();
       }
 
-      if (!v6)
+      if (!v5)
       {
         break;
       }
 
-      v19 = v6;
-      v25 = 0u;
-      v26 = 0u;
+      v17 = v5;
       v23 = 0u;
       v24 = 0u;
-      v7 = _axHeaderElementSwiftKeys;
-      v8 = [v7 countByEnumeratingWithState:&v23 objects:v34 count:16];
-      if (v8)
+      v21 = 0u;
+      v22 = 0u;
+      v6 = _axHeaderElementSwiftKeys;
+      v7 = [v6 countByEnumeratingWithState:&v21 objects:v32 count:16];
+      if (v7)
       {
-        v9 = *v24;
+        v8 = *v22;
         do
         {
-          for (i = 0; i != v8; ++i)
+          for (i = 0; i != v7; ++i)
           {
-            if (*v24 != v9)
+            if (*v22 != v8)
             {
-              objc_enumerationMutation(v7);
+              objc_enumerationMutation(v6);
             }
 
-            v11 = *(*(&v23 + 1) + 8 * i);
-            v27 = 0;
+            v10 = *(*(&v21 + 1) + 8 * i);
+            v25 = 0;
             objc_opt_class();
-            v12 = [(VideosUI_CanonicalBannerInfoViewAccessibility *)self safeSwiftValueForKey:v11];
-            v13 = __UIAccessibilityCastAsClass();
+            v11 = [(VideosUI_CanonicalBannerInfoViewAccessibility *)self safeSwiftValueForKey:v10];
+            v12 = __UIAccessibilityCastAsClass();
 
-            if (v27 == 1)
+            if (v25 == 1)
             {
               goto LABEL_23;
             }
 
-            if (v13 && ([v13 isAccessibilityElement] & 1) != 0)
+            if (v12 && ([v12 isAccessibilityElement] & 1) != 0)
             {
-              [v13 setAccessibilityTraits:{v3 | objc_msgSend(v13, "accessibilityTraits")}];
+              [v12 setAccessibilityTraits:{v3 | objc_msgSend(v12, "accessibilityTraits")}];
             }
 
             else
             {
 
-              v13 = 0;
+              v12 = 0;
             }
           }
 
-          v8 = [v7 countByEnumeratingWithState:&v23 objects:v34 count:16];
+          v7 = [v6 countByEnumeratingWithState:&v21 objects:v32 count:16];
         }
 
-        while (v8);
+        while (v7);
       }
 
-      v20[0] = MEMORY[0x29EDCA5F8];
-      v20[1] = 3221225472;
-      v20[2] = __91__VideosUI_CanonicalBannerInfoViewAccessibility__accessibilityLoadAccessibilityInformation__block_invoke;
-      v20[3] = &unk_29F31C270;
-      objc_copyWeak(&v22, &location);
-      v21 = v7;
-      [v19 _setAccessibilityHeaderElementsBlock:v20];
+      v18[0] = MEMORY[0x29EDCA5F8];
+      v18[1] = 3221225472;
+      v18[2] = __91__VideosUI_CanonicalBannerInfoViewAccessibility__accessibilityLoadAccessibilityInformation__block_invoke;
+      v18[3] = &unk_29F31C270;
+      objc_copyWeak(&v20, &location);
+      v19 = v6;
+      [v17 _setAccessibilityHeaderElementsBlock:v18];
 
-      objc_destroyWeak(&v22);
-      if (++v4 == v17)
+      objc_destroyWeak(&v20);
+      if (++v4 == v15)
       {
-        v17 = [obj countByEnumeratingWithState:&v28 objects:v35 count:16];
-        if (v17)
+        v15 = [obj countByEnumeratingWithState:&v26 objects:v33 count:16];
+        if (v15)
         {
           goto LABEL_3;
         }
@@ -150,7 +149,6 @@ LABEL_23:
   }
 
   objc_destroyWeak(&location);
-  v14 = *MEMORY[0x29EDCA608];
 }
 
 - (void)layoutSubviews

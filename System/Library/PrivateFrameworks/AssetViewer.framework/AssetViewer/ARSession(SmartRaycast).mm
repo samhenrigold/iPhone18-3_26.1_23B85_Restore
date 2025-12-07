@@ -34,7 +34,7 @@
 
   if (trackingState == 2)
   {
-    v12 = float2ToPoint(a3);
+    v12 = float2ToPoint(*&a3);
     v14 = v13;
     currentFrame2 = [self currentFrame];
     v16 = [currentFrame2 raycastQueryFromPoint:2 allowingTarget:2 alignment:{v12, v14}];
@@ -59,7 +59,7 @@
       v21 = [ASVRealHitTestResult alloc];
       v22 = [v17 objectAtIndexedSubscript:v20];
       [self cameraPosition];
-      v19 = [(ASVRealHitTestResult *)v21 initWithRaycastResult:v22 imagePoint:*&a3 assetPosition:a4 cameraPosition:v23];
+      v19 = [(ASVRealHitTestResult *)v21 initWithRaycastResult:v22 imagePoint:a3 assetPosition:a4 cameraPosition:v23];
     }
   }
 

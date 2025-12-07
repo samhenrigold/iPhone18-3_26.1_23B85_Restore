@@ -15,11 +15,11 @@
   v8 = [(HDNotificationInstructionSyncSendEvent *)&v14 init];
   if (v8)
   {
-    v9 = [messageCopy copy];
+    v9 = objc_msgSend_copy(messageCopy);
     message = v8->_message;
     v8->_message = v9;
 
-    v11 = [errorCopy copy];
+    v11 = objc_msgSend_copy(errorCopy);
     sendError = v8->_sendError;
     v8->_sendError = v11;
   }
@@ -29,25 +29,23 @@
 
 - (id)makeIHAGatedEventPayloadWithDataSource:(id)source error:(id *)error
 {
-  v9[1] = *MEMORY[0x277D85DE8];
-  v8 = @"categoryIdentifier";
+  v8[1] = *MEMORY[0x277D85DE8];
+  v7 = @"categoryIdentifier";
   v4 = [(HDNotificationInstructionMessage *)self->_message categoryIdentifier:source];
-  v9[0] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v8[0] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
 
   return v5;
 }
 
 - (id)makeUnrestrictedEventPayloadWithDataSource:(id)source error:(id *)error
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   v5 = objc_alloc(MEMORY[0x277CBEB38]);
-  v17 = @"clientIdentifier";
+  v16 = @"clientIdentifier";
   clientIdentifier = [(HDNotificationInstructionMessage *)self->_message clientIdentifier];
-  v18[0] = clientIdentifier;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+  v17[0] = clientIdentifier;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
   v8 = [v5 initWithDictionary:v7];
 
   sendError = self->_sendError;
@@ -60,9 +58,7 @@
     [v8 setObject:v13 forKeyedSubscript:@"error"];
   }
 
-  v14 = [v8 copy];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = objc_msgSend_copy(v8);
 
   return v14;
 }

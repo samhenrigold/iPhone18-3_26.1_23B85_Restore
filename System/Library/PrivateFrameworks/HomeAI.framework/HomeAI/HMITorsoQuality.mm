@@ -116,14 +116,9 @@
     cv::_OutputArray::_OutputArray(v38, v40);
     cv::Laplacian(__p, v38, (((v44 >> 3) & 0x1FF) + 1), 1, 4, 1.0, 0.0);
     v38[0] = 0;
-    std::vector<int>::vector[abi:ne200100](__p, 0x1F4uLL);
+    std::vector<int>::vector[abi:ne200100](__p, 0x1F4uLL, v38);
     v18 = DWORD2(v40[0]);
-    if (SDWORD2(v40[0]) < 1)
-    {
-      v20 = 0;
-    }
-
-    else
+    if (SDWORD2(v40[0]) >= 1)
     {
       v19 = 0;
       v20 = 0;
@@ -147,7 +142,7 @@
               {
                 v29 = ((v28 + 1020.0) / 4.08);
                 ++v27[v29];
-                v20 = (v20 + 1);
+                ++v20;
               }
 
               v26 += 2;
@@ -170,7 +165,7 @@
     }
 
     free(v10);
-    [HMITorsoQuality entropy:__p numPixels:v20];
+    [HMITorsoQuality entropy:"entropy:numPixels:" numPixels:?];
     v12 = v30;
     if (__p[0])
     {
@@ -264,15 +259,11 @@
 
   v6 = Size;
   v7 = v5;
-  std::vector<int>::vector[abi:ne200100](__p, 0x64uLL);
+  v26 = 0;
+  std::vector<int>::vector[abi:ne200100](__p, 0x64uLL, &v26);
   CVPixelBufferLockBaseAddress(buffer, 1uLL);
   BaseAddress = CVPixelBufferGetBaseAddress(buffer);
-  if (v7 <= 0.0)
-  {
-    v11 = 0;
-  }
-
-  else
+  if (v7 > 0.0)
   {
     v9 = BaseAddress;
     v10 = 0;
@@ -323,7 +314,7 @@
           if (v20 >= 0.0 && v20 < 1.0)
           {
             ++*(__p[0] + (v20 / 0.01));
-            v11 = (v11 + 1);
+            ++v11;
           }
 
           v22 = v12;
@@ -341,7 +332,7 @@
   }
 
   CVPixelBufferUnlockBaseAddress(buffer, 1uLL);
-  [HMITorsoQuality entropy:__p numPixels:v11];
+  [HMITorsoQuality entropy:"entropy:numPixels:" numPixels:?];
   v23 = v24;
   if (__p[0])
   {

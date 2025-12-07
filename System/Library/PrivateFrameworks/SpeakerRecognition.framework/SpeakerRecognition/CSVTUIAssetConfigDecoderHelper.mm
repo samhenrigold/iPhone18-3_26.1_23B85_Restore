@@ -9,7 +9,7 @@
 + (BOOL)getUseRecognizerCombinationFromSecondPassConfigWithSecureAsset:(id)asset
 {
   assetCopy = asset;
-  v4 = _s18SpeakerRecognition30CSVTUIAssetConfigDecoderHelperC041getUseRecognizerCombinationFromSecondPassD011secureAssetSbSo06SecureO0C_tFZ_0();
+  v4 = _s18SpeakerRecognition30CSVTUIAssetConfigDecoderHelperC041getUseRecognizerCombinationFromSecondPassD011secureAssetSbSo06SecureO0C_tFZ_0(assetCopy);
 
   return v4 & 1;
 }
@@ -17,7 +17,7 @@
 + (float)getPreTriggerAudioTimeFromSecondPassConfigWithSecureAsset:(id)asset
 {
   assetCopy = asset;
-  v4 = _s18SpeakerRecognition30CSVTUIAssetConfigDecoderHelperC036getPreTriggerAudioTimeFromSecondPassD011secureAssetSfSo06SecureP0C_tFZ_0();
+  v4 = _s18SpeakerRecognition30CSVTUIAssetConfigDecoderHelperC036getPreTriggerAudioTimeFromSecondPassD011secureAssetSfSo06SecureP0C_tFZ_0(assetCopy);
 
   return v4;
 }

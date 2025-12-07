@@ -104,55 +104,88 @@
 
 - (NSString)substringData:(unsigned int)offset length:(unsigned int)length
 {
-  WebCore::JSMainThreadNullState::JSMainThreadNullState(v16);
-  v5 = WebCore::CharacterData::substringData(self->super.super._internal);
-  if (v14)
+  WebCore::JSMainThreadNullState::JSMainThreadNullState(v19);
+  v5 = WebCore::CharacterData::substringData(&v15, self->super.super._internal);
+  if (v17)
   {
-    if (v14 == 1)
+    if (v17 == 1)
     {
-      v16[80] = v12;
-      v17 = v13;
+      v19[80] = v15;
+      v14 = v16;
+      v16 = 0;
+      v20 = v14;
       raiseDOMErrorException();
     }
 
     mpark::throw_bad_variant_access(v5);
   }
 
-  if (v12)
+  v6 = v15;
+  v15 = 0;
+  if (v6)
   {
-    atomic_fetch_add_explicit(v12, 2u, memory_order_relaxed);
-    MEMORY[0x1CCA63450](&v15);
-    if (atomic_fetch_add_explicit(v12, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    atomic_fetch_add_explicit(v6, 2u, memory_order_relaxed);
+    MEMORY[0x1CCA63450](&v18, v6);
+    if (atomic_fetch_add_explicit(v6, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v12, v6);
+      WTF::StringImpl::destroy(v6, v7);
     }
   }
 
   else
   {
-    v15 = &stru_1F472E7E8;
-    v11 = &stru_1F472E7E8;
+    v18 = &stru_1F472E7E8;
+    v13 = &stru_1F472E7E8;
   }
 
-  v7 = v15;
-  v15 = 0;
-  if (v7)
+  v8 = v18;
+  v18 = 0;
+  if (v8)
   {
-    v8 = v7;
-    v9 = v15;
-    v15 = 0;
-    if (v9)
+    v9 = v8;
+    v10 = v18;
+    v18 = 0;
+    if (v10)
     {
     }
   }
 
-  if (v12 && atomic_fetch_add_explicit(v12, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  if (v6 && atomic_fetch_add_explicit(v6, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v12, v6);
+    WTF::StringImpl::destroy(v6, v7);
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(v16, v6);
-  return v7;
+  if (v17 != 255)
+  {
+    if (v17)
+    {
+      v11 = v16;
+      v16 = 0;
+      if (!v11)
+      {
+        goto LABEL_18;
+      }
+    }
+
+    else
+    {
+      v11 = v15;
+      v15 = 0;
+      if (!v11)
+      {
+        goto LABEL_18;
+      }
+    }
+
+    if (atomic_fetch_add_explicit(v11, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    {
+      WTF::StringImpl::destroy(v11, v7);
+    }
+  }
+
+LABEL_18:
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(v19, v7);
+  return v8;
 }
 
 - (void)appendData:(NSString *)data
@@ -177,7 +210,7 @@
   WebCore::JSMainThreadNullState::JSMainThreadNullState(v15);
   internal = self->super.super._internal;
   MEMORY[0x1CCA63A40](&v11, data);
-  WebCore::CharacterData::insertData(internal, v5, &v11);
+  WebCore::CharacterData::insertData(&v12, internal, &v11, v5);
   if (v14 == 1)
   {
     v15[80] = v12;
@@ -199,16 +232,18 @@
 
 - (void)deleteData:(unsigned int)offset length:(unsigned int)length
 {
-  WebCore::JSMainThreadNullState::JSMainThreadNullState(v9);
-  WebCore::CharacterData::deleteData(self->super.super._internal);
-  if (v8 == 1)
+  WebCore::JSMainThreadNullState::JSMainThreadNullState(v10);
+  WebCore::CharacterData::deleteData(&v7, self->super.super._internal);
+  if (v9 == 1)
   {
-    v9[80] = v6;
-    v10 = v7;
+    v10[80] = v7;
+    v6 = v8;
+    v8 = 0;
+    v11 = v6;
     raiseDOMErrorException();
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(v9, v5);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(v10, v5);
 }
 
 - (void)replaceData:(unsigned int)offset length:(unsigned int)length data:(NSString *)data
@@ -218,7 +253,7 @@
   WebCore::JSMainThreadNullState::JSMainThreadNullState(v17);
   internal = self->super.super._internal;
   MEMORY[0x1CCA63A40](&v13, data);
-  WebCore::CharacterData::replaceData(internal, v7, v6, &v13);
+  WebCore::CharacterData::replaceData(&v14, internal, &v13, v7, v6);
   if (v16 == 1)
   {
     v17[80] = v14;

@@ -99,7 +99,7 @@
 - (void)_updateCycleIdleUntil:(unint64_t)until
 {
   selfCopy = self;
-  ScrollViewHelper.prefetch(until:)();
+  ScrollViewHelper.prefetch(until:)(until);
 }
 
 - (id)accessibilityScrollStatusForScrollView:(id)view

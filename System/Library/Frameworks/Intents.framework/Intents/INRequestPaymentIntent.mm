@@ -1,4 +1,5 @@
 @interface INRequestPaymentIntent
+- (BOOL)configureAttributeSet:(id)set includingData:(BOOL)data;
 - (INCurrencyAmount)currencyAmount;
 - (INPerson)payer;
 - (INRequestPaymentIntent)initWithPayer:(INPerson *)payer currencyAmount:(INCurrencyAmount *)currencyAmount note:(NSString *)note;
@@ -14,6 +15,70 @@
 @end
 
 @implementation INRequestPaymentIntent
+
+- (BOOL)configureAttributeSet:(id)set includingData:(BOOL)data
+{
+  dataCopy = data;
+  v29 = *MEMORY[0x1E69E9840];
+  setCopy = set;
+  v7 = objc_alloc(MEMORY[0x1E695DEC8]);
+  payer = [(INRequestPaymentIntent *)self payer];
+  v9 = [v7 initWithObjects:{payer, 0}];
+
+  v10 = objc_opt_new();
+  v24 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v11 = v9;
+  v12 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  if (v12)
+  {
+    v13 = v12;
+    v14 = *v25;
+    do
+    {
+      v15 = 0;
+      do
+      {
+        if (*v25 != v14)
+        {
+          objc_enumerationMutation(v11);
+        }
+
+        v16 = INPersonToCSPerson(*(*(&v24 + 1) + 8 * v15));
+        if (v16)
+        {
+          [v10 addObject:v16];
+        }
+
+        ++v15;
+      }
+
+      while (v13 != v15);
+      v13 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    }
+
+    while (v13);
+  }
+
+  [setCopy setPrimaryRecipients:v10];
+  v17 = NSStringFromSelector(sel_displayName);
+  v18 = [v10 valueForKey:v17];
+  [setCopy setRecipientNames:v18];
+
+  v19 = [v10 valueForKeyPath:@"handles.@distinctUnionOfArrays.self"];
+  [setCopy setRecipientAddresses:v19];
+
+  note = [(INRequestPaymentIntent *)self note];
+  [setCopy setTextContent:note];
+
+  v23.receiver = self;
+  v23.super_class = INRequestPaymentIntent;
+  v21 = [(INIntent *)&v23 configureAttributeSet:setCopy includingData:dataCopy];
+
+  return v21;
+}
 
 - (void)_redactForMissingPrivacyEntitlementOptions:(unint64_t)options containingAppBundleId:(id)id
 {
@@ -38,8 +103,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v13[3] = *MEMORY[0x1E69E9840];
-  v12[0] = @"payer";
+  v12[3] = *MEMORY[0x1E69E9840];
+  v11[0] = @"payer";
   payer = [(INRequestPaymentIntent *)self payer];
   null = payer;
   if (!payer)
@@ -47,8 +112,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[0] = null;
-  v12[1] = @"currencyAmount";
+  v12[0] = null;
+  v11[1] = @"currencyAmount";
   currencyAmount = [(INRequestPaymentIntent *)self currencyAmount];
   null2 = currencyAmount;
   if (!currencyAmount)
@@ -56,8 +121,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[1] = null2;
-  v12[2] = @"note";
+  v12[1] = null2;
+  v11[2] = @"note";
   note = [(INRequestPaymentIntent *)self note];
   null3 = note;
   if (!note)
@@ -65,8 +130,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[2] = null3;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:3];
+  v12[2] = null3;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:3];
   if (!note)
   {
   }
@@ -78,8 +143,6 @@
   if (!payer)
   {
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

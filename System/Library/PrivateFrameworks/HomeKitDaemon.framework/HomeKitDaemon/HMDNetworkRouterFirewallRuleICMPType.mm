@@ -43,7 +43,7 @@ LABEL_7:
     [v3 appendString:@"*"];
   }
 
-  v8 = [v3 copy];
+  v8 = objc_msgSend_copy(v3);
 
   return v8;
 }
@@ -80,7 +80,7 @@ LABEL_7:
     [v3 setObject:typeValue2 forKeyedSubscript:@"type"];
   }
 
-  v8 = [v3 copy];
+  v8 = objc_msgSend_copy(v3);
 
   return v8;
 }
@@ -119,22 +119,7 @@ LABEL_7:
     }
 
     v6 = v5;
-    if (!v6)
-    {
-      goto LABEL_9;
-    }
-
-    protocol = [(HMDNetworkRouterFirewallRuleICMPType *)self protocol];
-    if (protocol != [(HMDNetworkRouterFirewallRuleICMPType *)v6 protocol])
-    {
-      goto LABEL_9;
-    }
-
-    typeValue = [(HMDNetworkRouterFirewallRuleICMPType *)self typeValue];
-    typeValue2 = [(HMDNetworkRouterFirewallRuleICMPType *)v6 typeValue];
-    v10 = HMFEqualObjects();
-
-    if (v10)
+    if (v6 && (v7 = [(HMDNetworkRouterFirewallRuleICMPType *)self protocol], v7 == [(HMDNetworkRouterFirewallRuleICMPType *)v6 protocol]) && ([(HMDNetworkRouterFirewallRuleICMPType *)self typeValue], v8 = objc_claimAutoreleasedReturnValue(), [(HMDNetworkRouterFirewallRuleICMPType *)v6 typeValue], v9 = objc_claimAutoreleasedReturnValue(), v10 = HMFEqualObjects(), v9, v8, v10))
     {
       jsonDictionary = [(HMDNetworkRouterFirewallRuleICMPType *)self jsonDictionary];
       jsonDictionary2 = [(HMDNetworkRouterFirewallRuleICMPType *)v6 jsonDictionary];
@@ -143,7 +128,6 @@ LABEL_7:
 
     else
     {
-LABEL_9:
       v13 = 0;
     }
   }
@@ -171,7 +155,7 @@ LABEL_9:
 
 + (id)createListWithJSONDictionary:(id)dictionary key:(id)key
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   keyCopy = key;
   v8 = [dictionaryCopy objectForKeyedSubscript:keyCopy];
@@ -191,27 +175,27 @@ LABEL_9:
   if (v10 && ![v10 hmf_isEmpty])
   {
     v16 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v10, "count")}];
+    v33 = 0u;
     v34 = 0u;
     v35 = 0u;
     v36 = 0u;
-    v37 = 0u;
     v17 = v10;
-    v18 = [v17 countByEnumeratingWithState:&v34 objects:v38 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v33 objects:v37 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v35;
-      v33 = keyCopy;
+      v20 = *v34;
+      v32 = keyCopy;
 LABEL_11:
       v21 = 0;
       while (1)
       {
-        if (*v35 != v20)
+        if (*v34 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        v22 = *(*(&v34 + 1) + 8 * v21);
+        v22 = *(*(&v33 + 1) + 8 * v21);
         objc_opt_class();
         v23 = (objc_opt_isKindOfClass() & 1) != 0 ? v22 : 0;
         v24 = v23;
@@ -225,7 +209,7 @@ LABEL_11:
         if (!v25)
         {
 
-          keyCopy = v33;
+          keyCopy = v32;
 LABEL_26:
 
           v15 = 0;
@@ -237,8 +221,8 @@ LABEL_26:
 
         if (v19 == ++v21)
         {
-          v19 = [v17 countByEnumeratingWithState:&v34 objects:v38 count:16];
-          keyCopy = v33;
+          v19 = [v17 countByEnumeratingWithState:&v33 objects:v37 count:16];
+          keyCopy = v32;
           if (v19)
           {
             goto LABEL_11;
@@ -251,16 +235,16 @@ LABEL_26:
       v27 = objc_autoreleasePoolPush();
       selfCopy = self;
       v29 = HMFGetOSLogHandle();
-      keyCopy = v33;
+      keyCopy = v32;
       if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
         v30 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v40 = v30;
-        v41 = 2112;
-        v42 = v33;
-        v43 = 2112;
-        v44 = dictionaryCopy;
+        v39 = v30;
+        v40 = 2112;
+        v41 = v32;
+        v42 = 2112;
+        v43 = dictionaryCopy;
         _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_ERROR, "%{public}@Rule contains an invalid '%@' value: %@", buf, 0x20u);
       }
 
@@ -270,7 +254,7 @@ LABEL_26:
 
 LABEL_21:
 
-    v15 = [v16 copy];
+    v15 = objc_msgSend_copy(v16);
 LABEL_27:
   }
 
@@ -283,11 +267,11 @@ LABEL_27:
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v40 = v14;
-      v41 = 2112;
-      v42 = keyCopy;
-      v43 = 2112;
-      v44 = dictionaryCopy;
+      v39 = v14;
+      v40 = 2112;
+      v41 = keyCopy;
+      v42 = 2112;
+      v43 = dictionaryCopy;
       _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Rule contains an invalid '%@' value: %@", buf, 0x20u);
     }
 
@@ -295,18 +279,16 @@ LABEL_27:
     v15 = 0;
   }
 
-  v31 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
 + (id)createWithJSONDictionary:(id)dictionary
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v19 = 0;
-  v5 = decodeUnsignedIntegerFromJSONDictionary(dictionaryCopy, @"p", 1, 0xFFuLL, &v19);
-  v6 = v19;
+  v18 = 0;
+  v5 = decodeUnsignedIntegerFromJSONDictionary(dictionaryCopy, @"p", 1, 0xFFuLL, &v18);
+  v6 = v18;
   v7 = v6;
   v8 = 0;
   if (v5)
@@ -320,11 +302,11 @@ LABEL_27:
       {
         v15 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v21 = v15;
-        v22 = 2112;
-        v23 = @"p";
-        v24 = 2112;
-        v25 = dictionaryCopy;
+        v20 = v15;
+        v21 = 2112;
+        v22 = @"p";
+        v23 = 2112;
+        v24 = dictionaryCopy;
         _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@JSON contains an invalid '%@' value: %@", buf, 0x20u);
       }
 
@@ -335,9 +317,9 @@ LABEL_27:
     else
     {
       unsignedCharValue = [v7 unsignedCharValue];
-      v18 = 0;
-      v10 = decodeUnsignedIntegerFromJSONDictionary(dictionaryCopy, @"t", 0, 0xFFuLL, &v18);
-      v11 = v18;
+      v17 = 0;
+      v10 = decodeUnsignedIntegerFromJSONDictionary(dictionaryCopy, @"t", 0, 0xFFuLL, &v17);
+      v11 = v17;
       v8 = 0;
       if (v10)
       {
@@ -345,8 +327,6 @@ LABEL_27:
       }
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

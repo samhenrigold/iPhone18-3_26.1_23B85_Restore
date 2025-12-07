@@ -145,7 +145,7 @@ LABEL_12:
   sourceFrame = [params sourceFrame];
   if (sourceFrame)
   {
-    [sourceFrame presentationTimeStamp];
+    objc_msgSend_presentationTimeStamp(sourceFrame);
   }
 
   else
@@ -328,7 +328,7 @@ void __63__VTTemporalNoiseFilterImplementation_processWithParams_error___block_i
       sourceFrame = [discontinuity sourceFrame];
       if (sourceFrame)
       {
-        [sourceFrame presentationTimeStamp];
+        objc_msgSend_presentationTimeStamp(sourceFrame);
       }
 
       else
@@ -345,7 +345,7 @@ void __63__VTTemporalNoiseFilterImplementation_processWithParams_error___block_i
       filterInternal = self->filterInternal;
       if (v10)
       {
-        [v10 presentationTimeStamp];
+        objc_msgSend_presentationTimeStamp(v10);
       }
 
       else
@@ -384,7 +384,7 @@ LABEL_15:
             {
               if (v19)
               {
-                [*(*(&v36 + 1) + 8 * v18) presentationTimeStamp];
+                objc_msgSend_presentationTimeStamp(*(*(&v36 + 1) + 8 * v18));
               }
 
               else
@@ -404,7 +404,7 @@ LABEL_15:
 
             if (v19)
             {
-              [v19 presentationTimeStamp];
+              objc_msgSend_presentationTimeStamp(v19);
               flags = time2.flags;
               epoch = time2.epoch;
             }
@@ -481,7 +481,7 @@ LABEL_35:
               {
                 if (v28)
                 {
-                  [*(*(&v32 + 1) + 8 * v27) presentationTimeStamp];
+                  objc_msgSend_presentationTimeStamp(*(*(&v32 + 1) + 8 * v27));
                 }
 
                 else
@@ -501,7 +501,7 @@ LABEL_35:
 
               if (v28)
               {
-                [v28 presentationTimeStamp];
+                objc_msgSend_presentationTimeStamp(v28);
                 v20 = time2.flags;
                 v21 = time2.epoch;
               }
@@ -769,14 +769,14 @@ LABEL_5:
     goto LABEL_9;
   }
 
-  [sourceFrame presentationTimeStamp];
+  objc_msgSend_presentationTimeStamp(sourceFrame);
   v9 = [(VTTemporalNoiseFilterImplementation *)self _findFrameInQueue:&v16];
   if (v9)
   {
     goto LABEL_5;
   }
 
-  [sourceFrame presentationTimeStamp];
+  objc_msgSend_presentationTimeStamp(sourceFrame);
 LABEL_7:
   v12 = [(VTTemporalNoiseFilterImplementation *)self _createPendingFrame:&v16 inputFrame:sourceFrame];
   if (!v12)
@@ -822,7 +822,7 @@ LABEL_9:
   {
     if (processed)
     {
-      [processed presentationTimeStamp];
+      objc_msgSend_presentationTimeStamp(processed);
       filterInternal = self->filterInternal;
     }
 
@@ -843,10 +843,10 @@ LABEL_12:
 
   if (processed)
   {
-    [processed presentationTimeStamp];
+    objc_msgSend_presentationTimeStamp(processed);
     if (![(VTTemporalNoiseFilterImplementation *)self _findFrameInQueue:&time1])
     {
-      [processed presentationTimeStamp];
+      objc_msgSend_presentationTimeStamp(processed);
 LABEL_14:
       if ([(VTTemporalNoiseFilterImplementation *)self _createPendingFrame:&time1 inputFrame:processed])
       {
@@ -882,7 +882,7 @@ LABEL_14:
   v17 = 0;
   if (frame)
   {
-    [frame presentationTimeStamp];
+    objc_msgSend_presentationTimeStamp(frame);
   }
 
   var0 = self->filterInternal->var0;
@@ -1204,7 +1204,7 @@ void __54__VTTemporalNoiseFilterImplementation__completeFrame___block_invoke(uin
 
     else
     {
-      FigSignalErrorAtGM();
+      FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v12, v13, v14);
     }
   }
 
@@ -1227,91 +1227,91 @@ LABEL_8:
 
 - (uint64_t)startSessionWithConfiguration:(_DWORD *)a1 error:.cold.2(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)_validateParameters:(_DWORD *)a1 error:.cold.1(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)_validateParameters:(_DWORD *)a1 error:.cold.2(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)_validateParameters:(_DWORD *)a1 error:.cold.3(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)_validateParameters:(_DWORD *)a1 error:.cold.4(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)_validateParameters:(_DWORD *)a1 error:.cold.5(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)_validateParameters:(_DWORD *)a1 error:.cold.6(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)_validateParameters:(_DWORD *)a1 error:.cold.7(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)_validateParameters:(_DWORD *)a1 error:.cold.8(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)_validateParameters:(_DWORD *)a1 error:.cold.9(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)_processSourceFrameIfNotProcessed:(_DWORD *)a1 completionHandler:.cold.1(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)_processReferenceFrameIfNotProcessed:(_DWORD *)a1 .cold.1(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)_completeFrame:(_DWORD *)a1 .cold.1(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }

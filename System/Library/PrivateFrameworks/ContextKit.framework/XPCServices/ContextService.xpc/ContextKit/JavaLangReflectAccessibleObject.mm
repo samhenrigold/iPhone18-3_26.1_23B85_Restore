@@ -40,14 +40,14 @@
 {
   if (accessor)
   {
-    v4 = [IOSObjectArray arrayWithLength:0 type:NSObject_class_()];
+    v4 = [IOSObjectArray arrayWithLength:0 type:NSObject_class_(self, a2)];
 
     return [accessor invokeWithId:0 withNSObjectArray:v4];
   }
 
   else
   {
-    v6 = JavaLangAnnotationAnnotation_class_();
+    v6 = JavaLangAnnotationAnnotation_class_(self, a2);
 
     return [IOSObjectArray arrayWithLength:0 type:v6];
   }

@@ -24,9 +24,10 @@
   if (!cdEntityName)
   {
     static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v3 = String._bridgeToObjectiveC()();
-
-    cdEntityName = v3;
+    v4 = v3;
+    v5 = String._bridgeToObjectiveC()();
+    v4, v6, v7, v8, v9, v10, v11, v12;
+    cdEntityName = v5;
   }
 
   return cdEntityName;
@@ -91,6 +92,8 @@
   contextCopy = context;
   v12 = sub_10051FA5C(dCopy, v7, v9, contextCopy);
 
+  v9, v13, v14, v15, v16, v17, v18, v19;
+
   return v12;
 }
 
@@ -115,9 +118,12 @@
 - (void)mergeDataFromRecord:(id)record accountID:(id)d
 {
   static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v7 = v6;
   recordCopy = record;
   selfCopy = self;
   sub_10051FFB8(recordCopy);
+
+  v7, v10, v11, v12, v13, v14, v15, v16;
 }
 
 - (id)newlyCreatedRecord

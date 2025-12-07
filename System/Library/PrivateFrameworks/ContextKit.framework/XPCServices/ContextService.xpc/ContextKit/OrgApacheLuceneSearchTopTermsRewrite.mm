@@ -9,7 +9,7 @@
 
 - (OrgApacheLuceneSearchTopTermsRewrite)initWithInt:(int)int
 {
-  OrgApacheLuceneSearchTermCollectingRewrite_init(self, a2);
+  OrgApacheLuceneSearchTermCollectingRewrite_init();
   self->size_ = int;
   return self;
 }

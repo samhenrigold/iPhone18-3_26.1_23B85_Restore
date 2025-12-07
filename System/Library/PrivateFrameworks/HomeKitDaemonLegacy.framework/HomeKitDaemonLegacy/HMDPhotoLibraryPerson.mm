@@ -28,7 +28,7 @@
     [array addObject:v10];
   }
 
-  v11 = [array copy];
+  v11 = objc_msgSend_copy(array);
 
   return v11;
 }
@@ -96,7 +96,7 @@
   uUID = [(HMDPhotoLibraryPerson *)self UUID];
   v4 = [objc_alloc(MEMORY[0x277CD1C70]) initWithUUID:uUID];
   [(HMDPhotoLibraryPerson *)self updateHMPerson:v4];
-  v5 = [v4 copy];
+  v5 = objc_msgSend_copy(v4);
 
   return v5;
 }
@@ -113,11 +113,11 @@
     v9 = [(HMDPhotoLibraryPerson *)&v18 init];
     if (v9)
     {
-      v10 = [dCopy copy];
+      v10 = objc_msgSend_copy(dCopy);
       UUID = v9->_UUID;
       v9->_UUID = v10;
 
-      v12 = [v8 copy];
+      v12 = objc_msgSend_copy(v8);
       name = v9->_name;
       v9->_name = v12;
     }

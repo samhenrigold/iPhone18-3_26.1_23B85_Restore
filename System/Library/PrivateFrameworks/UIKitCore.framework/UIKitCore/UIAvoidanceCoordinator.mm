@@ -146,7 +146,7 @@
       }
 
       blockadeIdentifier2 = [v7 blockadeIdentifier];
-      if (blockadeIdentifier2 && (v12 = blockadeIdentifier2, [v7 blockadeIdentifier], v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "isEqualToString:", &stru_1EFB14550), v13, v12, (v14 & 1) == 0))
+      if (blockadeIdentifier2 && (v12 = blockadeIdentifier2, [v7 blockadeIdentifier], v13 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v13), v13, v12, (isEqualToString & 1) == 0))
       {
         v15 = self->_blockades;
         blockadeIdentifier3 = [v7 blockadeIdentifier];
@@ -326,7 +326,7 @@ LABEL_14:
   v23 = *MEMORY[0x1E69E9840];
   blockadeCopy = blockade;
   v5 = blockadeCopy;
-  if (blockadeCopy && ![blockadeCopy isEqualToString:&stru_1EFB14550])
+  if (blockadeCopy && !objc_msgSend_isEqualToString_(blockadeCopy))
   {
     v17 = v5;
     v7 = [(UIAvoidanceCoordinator *)self findNamesForBlockade:v5];

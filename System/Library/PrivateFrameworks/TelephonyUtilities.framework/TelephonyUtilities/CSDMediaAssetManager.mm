@@ -10,7 +10,7 @@
   lCopy = l;
   rLCopy = rL;
   completionCopy = completion;
-  v10 = sub_100004778();
+  v10 = sub_100004778(completionCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
@@ -52,36 +52,37 @@
 {
   lCopy = l;
   completionCopy = completion;
-  if (TUAllowLocalVideoRecording())
+  v7 = TUAllowLocalVideoRecording();
+  if (v7)
   {
-    v7 = sub_100004778();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100004778(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(buf) = 138412290;
       *(&buf + 4) = lCopy;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "saveVideoWithURL: %@", &buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "saveVideoWithURL: %@", &buf, 0xCu);
     }
 
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v16 = 0x3032000000;
-    v17 = sub_100028654;
-    v18 = sub_1000328B4;
-    v19 = 0;
+    v17 = 0x3032000000;
+    v18 = sub_100028654;
+    v19 = sub_1000328B4;
+    v20 = 0;
     cUTWeakLinkClass() = [CUTWeakLinkClass() sharedPhotoLibrary];
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = sub_10012A798;
-    v12[3] = &unk_10061C1E0;
-    v13 = lCopy;
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_10012A798;
+    v13[3] = &unk_10061C1E0;
+    v14 = lCopy;
     p_buf = &buf;
-    v9[0] = _NSConcreteStackBlock;
-    v9[1] = 3221225472;
-    v9[2] = sub_10012A850;
-    v9[3] = &unk_10061C1B8;
-    v11 = &buf;
-    v10 = completionCopy;
-    [cUTWeakLinkClass() performChanges:v12 completionHandler:v9];
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 3221225472;
+    v10[2] = sub_10012A850;
+    v10[3] = &unk_10061C1B8;
+    v12 = &buf;
+    v11 = completionCopy;
+    [cUTWeakLinkClass() performChanges:v13 completionHandler:v10];
 
     _Block_object_dispose(&buf, 8);
   }

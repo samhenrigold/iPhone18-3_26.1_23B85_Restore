@@ -9,8 +9,8 @@
   result = lazy protocol witness table cache variable for type [EncodingGraph.Key : EncodingGraph.Value].Keys and conformance [A : B].Keys;
   if (!lazy protocol witness table cache variable for type [EncodingGraph.Key : EncodingGraph.Value].Keys and conformance [A : B].Keys)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSD4KeysVy3XPC13EncodingGraphO3KeyOAE5ValueO_GMd, &_sSD4KeysVy3XPC13EncodingGraphO3KeyOAE5ValueO_GMR);
-    result = swift_getWitnessTable();
+    v3 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSD4KeysVy3XPC13EncodingGraphO3KeyOAE5ValueO_GMd, &_sSD4KeysVy3XPC13EncodingGraphO3KeyOAE5ValueO_GMR);
+    result = swift_getWitnessTable(MEMORY[0x1E69E5D90], v3, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type [EncodingGraph.Key : EncodingGraph.Value].Keys and conformance [A : B].Keys);
   }
 

@@ -92,7 +92,7 @@
 
 + (NSString)IMEI
 {
-  v3 = sub_1000323EC();
+  v3 = sub_1000323EC(self);
   iMEI = [v3 IMEI];
 
   if ([iMEI length])
@@ -142,50 +142,52 @@
 
 + (NSString)ICCID
 {
-  if (+[DMDMobileGestalt hasCellularDataCapability])
+  v3 = +[DMDMobileGestalt hasCellularDataCapability];
+  if (v3)
   {
-    v3 = sub_1000323EC();
-    iCCID = [v3 ICCID];
+    v4 = sub_1000323EC(v3);
+    iCCID = [v4 ICCID];
 
     if ([iCCID length])
     {
-      v5 = [self formattedICCIDStringFromString:iCCID];
+      v6 = [self formattedICCIDStringFromString:iCCID];
     }
 
     else
     {
-      v5 = 0;
+      v6 = 0;
     }
   }
 
   else
   {
-    v5 = 0;
+    v6 = 0;
   }
 
-  return v5;
+  return v6;
 }
 
 + (NSString)currentNetworkName
 {
-  if (!+[DMDMobileGestalt hasCellularDataCapability])
+  v2 = +[DMDMobileGestalt hasCellularDataCapability];
+  if (!v2)
   {
-    v6 = 0;
+    v7 = 0;
     goto LABEL_13;
   }
 
-  v2 = sub_100032A20();
-  v3 = sub_100032A64(v2);
-  if (v3)
+  v3 = sub_100032A20(v2);
+  v4 = sub_100032A64(v3);
+  if (v4)
   {
-    v8 = 0;
-    v4 = [v2 getLocalizedOperatorName:v3 error:&v8];
-    v5 = v8;
-    if (v4)
+    v9 = 0;
+    v5 = [v3 getLocalizedOperatorName:v4 error:&v9];
+    v6 = v9;
+    if (v5)
     {
-      if ([v4 length])
+      if ([v5 length])
       {
-        v6 = v4;
+        v7 = v5;
 LABEL_11:
 
         goto LABEL_12;
@@ -197,21 +199,21 @@ LABEL_11:
       sub_10008143C();
     }
 
-    v6 = 0;
+    v7 = 0;
     goto LABEL_11;
   }
 
-  v6 = 0;
+  v7 = 0;
 LABEL_12:
 
 LABEL_13:
 
-  return v6;
+  return v7;
 }
 
 + (NSString)carrierName
 {
-  v2 = sub_100032A20();
+  v2 = sub_100032A20(self);
   v3 = sub_100032A64(v2);
   v4 = [[CTBundle alloc] initWithBundleType:1];
   v8 = 0;
@@ -227,7 +229,7 @@ LABEL_13:
 
 + (NSString)carrierBundleVersion
 {
-  v2 = sub_100032A20();
+  v2 = sub_100032A20(self);
   v3 = sub_100032A64(v2);
   if (v3)
   {
@@ -252,27 +254,28 @@ LABEL_13:
 
 + (NSString)currentMobileCountryCode
 {
-  if (!+[DMDMobileGestalt hasCellularDataCapability])
+  v2 = +[DMDMobileGestalt hasCellularDataCapability];
+  if (!v2)
   {
     goto LABEL_11;
   }
 
-  v2 = sub_100032A20();
-  v3 = sub_100032A64(v2);
-  if (!v3)
+  v3 = sub_100032A20(v2);
+  v4 = sub_100032A64(v3);
+  if (!v4)
   {
 LABEL_10:
 
 LABEL_11:
-    v5 = 0;
+    v6 = 0;
     goto LABEL_12;
   }
 
-  v4 = v3;
-  v8 = 0;
-  v5 = [v2 copyMobileCountryCode:v3 error:&v8];
-  v6 = v8;
-  if (!v5)
+  v5 = v4;
+  v9 = 0;
+  v6 = [v3 copyMobileCountryCode:v4 error:&v9];
+  v7 = v9;
+  if (!v6)
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
@@ -282,40 +285,41 @@ LABEL_11:
     goto LABEL_10;
   }
 
-  if (![v5 length])
+  if (![v6 length])
   {
 
-    v5 = 0;
+    v6 = 0;
   }
 
 LABEL_12:
 
-  return v5;
+  return v6;
 }
 
 + (NSString)currentMobileNetworkCode
 {
-  if (!+[DMDMobileGestalt hasCellularDataCapability])
+  v2 = +[DMDMobileGestalt hasCellularDataCapability];
+  if (!v2)
   {
     goto LABEL_11;
   }
 
-  v2 = sub_100032A20();
-  v3 = sub_100032A64(v2);
-  if (!v3)
+  v3 = sub_100032A20(v2);
+  v4 = sub_100032A64(v3);
+  if (!v4)
   {
 LABEL_10:
 
 LABEL_11:
-    v5 = 0;
+    v6 = 0;
     goto LABEL_12;
   }
 
-  v4 = v3;
-  v8 = 0;
-  v5 = [v2 copyMobileNetworkCode:v3 error:&v8];
-  v6 = v8;
-  if (!v5)
+  v5 = v4;
+  v9 = 0;
+  v6 = [v3 copyMobileNetworkCode:v4 error:&v9];
+  v7 = v9;
+  if (!v6)
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
@@ -325,15 +329,15 @@ LABEL_11:
     goto LABEL_10;
   }
 
-  if (![v5 length])
+  if (![v6 length])
   {
 
-    v5 = 0;
+    v6 = 0;
   }
 
 LABEL_12:
 
-  return v5;
+  return v6;
 }
 
 + (BOOL)dataRoamingEnabled
@@ -373,16 +377,17 @@ LABEL_12:
 + (void)withCurrentDataServiceDescriptorDo:(id)do
 {
   doCopy = do;
+  v6 = doCopy;
   if (!doCopy)
   {
     sub_100081884(a2, self);
   }
 
-  v6 = sub_100032A20();
-  v9 = 0;
-  v7 = [v6 getCurrentDataServiceDescriptorSync:&v9];
-  v8 = v9;
-  doCopy[2](doCopy, v7, v8);
+  v7 = sub_100032A20(doCopy);
+  v10 = 0;
+  v8 = [v7 getCurrentDataServiceDescriptorSync:&v10];
+  v9 = v10;
+  (v6)[2](v6, v8, v9);
 }
 
 + (BOOL)isSubscriptionRoaming:(id)roaming client:(id)client
@@ -413,7 +418,7 @@ LABEL_12:
   v2 = +[DMDMobileGestalt hasCellularDataCapability];
   if (v2)
   {
-    v3 = sub_100032A20();
+    v3 = sub_100032A20(v2);
     v4 = sub_100032A64(v3);
     v5 = [objc_opt_class() isSubscriptionRoaming:v4 client:v3];
 
@@ -486,25 +491,26 @@ LABEL_12:
 
 + (BOOL)_supportsVoiceRoaming
 {
-  if (!+[DMDMobileGestalt hasTelephonyCapability])
+  v2 = +[DMDMobileGestalt hasTelephonyCapability];
+  if (!v2)
   {
     bOOLValue = 0;
     goto LABEL_12;
   }
 
-  v2 = sub_100032A20();
-  v3 = sub_100032A64(v2);
-  v4 = [[CTBundle alloc] initWithBundleType:1];
-  v11 = 0;
-  v5 = [v2 copyCarrierBundleValue:v3 key:@"ShowVoiceRoamingSwitch" bundleType:v4 error:&v11];
-  v6 = v11;
-  if (v5)
+  v3 = sub_100032A20(v2);
+  v4 = sub_100032A64(v3);
+  v5 = [[CTBundle alloc] initWithBundleType:1];
+  v12 = 0;
+  v6 = [v3 copyCarrierBundleValue:v4 key:@"ShowVoiceRoamingSwitch" bundleType:v5 error:&v12];
+  v7 = v12;
+  if (v6)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      bOOLValue = [v5 BOOLValue];
-      v8 = 1;
+      bOOLValue = [v6 BOOLValue];
+      v9 = 1;
       goto LABEL_11;
     }
 
@@ -519,11 +525,11 @@ LABEL_12:
     sub_100081A74();
   }
 
-  v8 = 0;
+  v9 = 0;
   bOOLValue = 0;
 LABEL_11:
 
-  if (!v8)
+  if (!v9)
   {
     LOBYTE(bOOLValue) = 0;
     return bOOLValue;
@@ -532,14 +538,14 @@ LABEL_11:
 LABEL_12:
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
   {
-    v9 = @"NO";
+    v10 = @"NO";
     if (bOOLValue)
     {
-      v9 = @"YES";
+      v10 = @"YES";
     }
 
     *buf = 138543362;
-    v13 = v9;
+    v14 = v10;
     _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_INFO, "device supports voice roaming: %{public}@", buf, 0xCu);
   }
 

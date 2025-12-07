@@ -57,7 +57,6 @@
 
 - (void)forwardInvocation:(id)invocation
 {
-  remoteTableViewController = self->_remoteTableViewController;
   invocationCopy = invocation;
   [invocationCopy selector];
   if (objc_opt_respondsToSelector())
@@ -67,9 +66,9 @@
 
   else
   {
-    v6.receiver = self;
-    v6.super_class = FAFamilyMemberDetailsPageSurrogate;
-    [(FAFamilyMemberDetailsPageSurrogate *)&v6 forwardInvocation:invocationCopy];
+    v5.receiver = self;
+    v5.super_class = FAFamilyMemberDetailsPageSurrogate;
+    [(FAFamilyMemberDetailsPageSurrogate *)&v5 forwardInvocation:invocationCopy];
   }
 }
 
@@ -88,15 +87,14 @@
 
 - (BOOL)respondsToSelector:(SEL)selector
 {
-  remoteTableViewController = self->_remoteTableViewController;
   if (objc_opt_respondsToSelector())
   {
     return 1;
   }
 
-  v7.receiver = self;
-  v7.super_class = FAFamilyMemberDetailsPageSurrogate;
-  return [(FAFamilyMemberDetailsPageSurrogate *)&v7 respondsToSelector:selector];
+  v6.receiver = self;
+  v6.super_class = FAFamilyMemberDetailsPageSurrogate;
+  return [(FAFamilyMemberDetailsPageSurrogate *)&v6 respondsToSelector:selector];
 }
 
 - (id)tableView:(id)view viewForHeaderInSection:(int64_t)section

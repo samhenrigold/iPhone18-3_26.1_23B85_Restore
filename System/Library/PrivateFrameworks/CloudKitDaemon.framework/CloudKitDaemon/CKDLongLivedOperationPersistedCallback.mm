@@ -78,11 +78,11 @@
 
 - (CKDLongLivedOperationPersistedCallback)initWithCoder:(id)coder
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v56.receiver = self;
-  v56.super_class = CKDLongLivedOperationPersistedCallback;
-  v5 = [(CKDLongLivedOperationPersistedCallback *)&v56 init];
+  v55.receiver = self;
+  v55.super_class = CKDLongLivedOperationPersistedCallback;
+  v5 = [(CKDLongLivedOperationPersistedCallback *)&v55 init];
   if (!v5)
   {
     goto LABEL_6;
@@ -103,7 +103,7 @@
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v58 = v8;
+      v57 = v8;
       _os_log_error_impl(&dword_22506F000, v37, OS_LOG_TYPE_ERROR, "Unknown protocol name %{public}@ in operation info, ignoring", buf, 0xCu);
     }
 
@@ -127,9 +127,9 @@
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v58 = v12;
-      v59 = 2112;
-      v60 = v9;
+      v57 = v12;
+      v58 = 2112;
+      v59 = v9;
       _os_log_error_impl(&dword_22506F000, v38, OS_LOG_TYPE_ERROR, "Unknown selector name %{public}@ not found on protocol %@, ignoring", buf, 0x16u);
     }
 
@@ -139,9 +139,9 @@
 
   v5->_isCompletionCallback = objc_msgSend_decodeBoolForKey_(coderCopy, MethodDescription.types, @"isCompletionCallback");
   v15 = objc_opt_class();
-  v45 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v16, v15, @"ArgumentTypes");
-  v44 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, MethodDescription.types);
-  if ((objc_msgSend_isEqualToString_(v44, v18, v45) & 1) == 0)
+  v44 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v16, v15, @"ArgumentTypes");
+  v43 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, MethodDescription.types);
+  if ((objc_msgSend_isEqualToString_(v43, v18, v44) & 1) == 0)
   {
     if (*MEMORY[0x277CBC880] != -1)
     {
@@ -152,13 +152,13 @@
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
     {
       *buf = 138544130;
-      v58 = v44;
-      v59 = 2114;
-      v60 = v45;
-      v61 = 2114;
-      v62 = v8;
-      v63 = 2114;
-      v64 = v12;
+      v57 = v43;
+      v58 = 2114;
+      v59 = v44;
+      v60 = 2114;
+      v61 = v8;
+      v62 = 2114;
+      v63 = v12;
       _os_log_error_impl(&dword_22506F000, v39, OS_LOG_TYPE_ERROR, "Unexpected live argument types %{public}@ vs. archived argument types %{public}@ on [%{public}@ %{public}@], ignoring", buf, 0x2Au);
     }
 
@@ -168,8 +168,8 @@ LABEL_22:
     goto LABEL_23;
   }
 
-  v43 = objc_msgSend_signatureWithObjCTypes_(MEMORY[0x277CBEB08], v19, MethodDescription.types);
-  v21 = objc_msgSend_invocationWithMethodSignature_(MEMORY[0x277CBEAE8], v20, v43);
+  v42 = objc_msgSend_signatureWithObjCTypes_(MEMORY[0x277CBEB08], v19, MethodDescription.types);
+  v21 = objc_msgSend_invocationWithMethodSignature_(MEMORY[0x277CBEAE8], v20, v42);
   objc_msgSend_retainArguments(v21, v22, v23);
   objc_msgSend_setSelector_(v21, v24, v13);
   aBlock[0] = MEMORY[0x277D85DD0];
@@ -177,29 +177,29 @@ LABEL_22:
   aBlock[2] = sub_22526457C;
   aBlock[3] = &unk_27854B4B8;
   v25 = coderCopy;
-  v54 = v25;
+  v53 = v25;
   v26 = v21;
-  v55 = v26;
-  v42 = _Block_copy(aBlock);
-  v50[0] = MEMORY[0x277D85DD0];
-  v50[1] = 3221225472;
-  v50[2] = sub_2252645FC;
-  v50[3] = &unk_27854B4E0;
+  v54 = v26;
+  v41 = _Block_copy(aBlock);
+  v49[0] = MEMORY[0x277D85DD0];
+  v49[1] = 3221225472;
+  v49[2] = sub_2252645FC;
+  v49[3] = &unk_27854B4E0;
   v27 = v25;
-  v51 = v27;
+  v50 = v27;
   v28 = v26;
-  v52 = v28;
-  v29 = _Block_copy(v50);
-  v47[0] = MEMORY[0x277D85DD0];
-  v47[1] = 3221225472;
-  v47[2] = sub_2252646C4;
-  v47[3] = &unk_27854B4E0;
-  v48 = v27;
+  v51 = v28;
+  v29 = _Block_copy(v49);
+  v46[0] = MEMORY[0x277D85DD0];
+  v46[1] = 3221225472;
+  v46[2] = sub_2252646C4;
+  v46[3] = &unk_27854B4E0;
+  v47 = v27;
   v30 = v28;
-  v49 = v30;
-  v31 = _Block_copy(v47);
-  v34 = objc_msgSend_numberOfArguments(v43, v32, v33);
-  objc_msgSend_CKIterateArgumentsForIndexRange_primitiveTypeBlock_objectBlock_blockBlock_(v30, v35, 2, v34 - 2, v42, v29, v31);
+  v48 = v30;
+  v31 = _Block_copy(v46);
+  v34 = objc_msgSend_numberOfArguments(v42, v32, v33);
+  objc_msgSend_CKIterateArgumentsForIndexRange_primitiveTypeBlock_objectBlock_blockBlock_(v30, v35, 2, v34 - 2, v41, v29, v31);
   objc_storeStrong(&v5->_invocation, v21);
 
   objc_autoreleasePoolPop(context);
@@ -207,7 +207,6 @@ LABEL_6:
   v36 = v5;
 LABEL_23:
 
-  v40 = *MEMORY[0x277D85DE8];
   return v36;
 }
 

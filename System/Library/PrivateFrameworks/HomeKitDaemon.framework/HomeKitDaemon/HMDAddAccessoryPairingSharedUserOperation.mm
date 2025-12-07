@@ -1,6 +1,8 @@
 @interface HMDAddAccessoryPairingSharedUserOperation
 + (id)logCategory;
 - (BOOL)mainWithError:(id *)error;
+- (HMDAddAccessoryPairingSharedUserOperation)initWithAccessory:(id)accessory forSharedUser:(id)user sharedUserPairingIdentity:(id)identity asOwner:(BOOL)owner asSharedAdmin:(BOOL)admin;
+- (HMDAddAccessoryPairingSharedUserOperation)initWithAccessoryUUID:(id)d accessoryIdentifier:(id)identifier forSharedUser:(id)user sharedUserPairingIdentity:(id)identity asOwner:(BOOL)owner asSharedAdmin:(BOOL)admin homeUUIDWhereAccessoryWasPaired:(id)paired;
 - (id)attributeDescriptions;
 - (id)logIdentifier;
 @end
@@ -17,29 +19,27 @@
 
 - (id)attributeDescriptions
 {
-  v13[1] = *MEMORY[0x277D85DE8];
-  v12.receiver = self;
-  v12.super_class = HMDAddAccessoryPairingSharedUserOperation;
-  attributeDescriptions = [(HMDAccessoryBackgroundOperation *)&v12 attributeDescriptions];
+  v12[1] = *MEMORY[0x277D85DE8];
+  v11.receiver = self;
+  v11.super_class = HMDAddAccessoryPairingSharedUserOperation;
+  attributeDescriptions = [(HMDAccessoryBackgroundOperation *)&v11 attributeDescriptions];
   v4 = objc_alloc(MEMORY[0x277D0F778]);
   userData = [(HMDBackgroundOperation *)self userData];
   v6 = [userData objectForKey:@"sharedUserUUIDKey"];
   v7 = [v4 initWithName:@"sharedUserUUID" value:v6];
-  v13[0] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v12[0] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
   v9 = [attributeDescriptions arrayByAddingObjectsFromArray:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 - (BOOL)mainWithError:(id *)error
 {
-  v39 = *MEMORY[0x277D85DE8];
-  v35.receiver = self;
-  v35.super_class = HMDAddAccessoryPairingSharedUserOperation;
-  v5 = [(HMDAddAccessoryPairingOperation *)&v35 mainWithError:?];
+  v38 = *MEMORY[0x277D85DE8];
+  v34.receiver = self;
+  v34.super_class = HMDAddAccessoryPairingSharedUserOperation;
+  v5 = [(HMDAddAccessoryPairingOperation *)&v34 mainWithError:?];
   userData = [(HMDBackgroundOperation *)self userData];
   v7 = [userData objectForKeyedSubscript:@"sharedUserUUIDKey"];
 
@@ -59,47 +59,47 @@
       *&buf[12] = 2112;
       *&buf[14] = v7;
       *&buf[22] = 2112;
-      v37 = accessoryUUID;
-      *v38 = 2112;
-      *&v38[2] = accessoryIdentifier;
+      v36 = accessoryUUID;
+      *v37 = 2112;
+      *&v37[2] = accessoryIdentifier;
       _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Successfully added pairing for the shared user: %@ on the accessory : %@/%@", buf, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v8);
-    v31 = 0;
-    v32 = &v31;
-    v33 = 0x2020000000;
-    v34 = 0;
+    v30 = 0;
+    v31 = &v30;
+    v32 = 0x2020000000;
+    v33 = 0;
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v37 = __Block_byref_object_copy__256343;
-    *v38 = __Block_byref_object_dispose__256344;
-    *&v38[8] = 0;
+    v36 = __Block_byref_object_copy__256343;
+    *v37 = __Block_byref_object_dispose__256344;
+    *&v37[8] = 0;
     v15 = +[HMDCoreData sharedInstance];
     homeUUID = [(HMDAccessoryBackgroundOperation *)selfCopy homeUUID];
     v17 = [v15 contextWithHomeUUID:homeUUID];
 
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __59__HMDAddAccessoryPairingSharedUserOperation_mainWithError___block_invoke;
-    v26[3] = &unk_278687D38;
-    v26[4] = selfCopy;
-    v29 = buf;
-    v27 = v7;
-    v30 = &v31;
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __59__HMDAddAccessoryPairingSharedUserOperation_mainWithError___block_invoke;
+    v25[3] = &unk_278687D38;
+    v25[4] = selfCopy;
+    v28 = buf;
+    v26 = v7;
+    v29 = &v30;
     v18 = v17;
-    v28 = v18;
-    [v18 unsafeSynchronousBlock:v26];
+    v27 = v18;
+    [v18 unsafeSynchronousBlock:v25];
     if (error)
     {
       *error = *(*&buf[8] + 40);
     }
 
-    v19 = *(v32 + 24);
+    v19 = *(v31 + 24);
 
     _Block_object_dispose(buf, 8);
-    _Block_object_dispose(&v31, 8);
+    _Block_object_dispose(&v30, 8);
   }
 
   else
@@ -115,11 +115,11 @@
       *&buf[12] = 2112;
       *&buf[14] = v7;
       *&buf[22] = 2112;
-      v37 = accessoryUUID2;
-      *v38 = 2112;
-      *&v38[2] = accessoryIdentifier2;
-      *&v38[10] = 2112;
-      *&v38[12] = v23;
+      v36 = accessoryUUID2;
+      *v37 = 2112;
+      *&v37[2] = accessoryIdentifier2;
+      *&v37[10] = 2112;
+      *&v37[12] = v23;
       _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Unable to add pairing for shared user : %@ for accessory: %@/%@, error: %@", buf, 0x34u);
     }
 
@@ -127,13 +127,12 @@
     v19 = 0;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v19 & 1;
 }
 
 void __59__HMDAddAccessoryPairingSharedUserOperation_mainWithError___block_invoke(uint64_t a1)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) accessoryUUID];
   v3 = [HMCContext findAccessoryWithModelID:v2];
 
@@ -167,11 +166,11 @@ void __59__HMDAddAccessoryPairingSharedUserOperation_mainWithError___block_invok
           v15 = HMFGetLogIdentifier();
           v16 = *(*(*(a1 + 56) + 8) + 40);
           *buf = 138543874;
-          v36 = v15;
-          v37 = 2112;
-          v38 = v3;
-          v39 = 2112;
-          v40 = v16;
+          v35 = v15;
+          v36 = 2112;
+          v37 = v3;
+          v38 = 2112;
+          v39 = v16;
           _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Unable to save after adding user pairings on accessory : %@, %@", buf, 0x20u);
         }
 
@@ -189,9 +188,9 @@ void __59__HMDAddAccessoryPairingSharedUserOperation_mainWithError___block_invok
         v28 = HMFGetLogIdentifier();
         v29 = *(a1 + 40);
         *buf = 138543618;
-        v36 = v28;
-        v37 = 2112;
-        v38 = v29;
+        v35 = v28;
+        v36 = 2112;
+        v37 = v29;
         _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_ERROR, "%{public}@Unable to find the mkfUser with model id: %@", buf, 0x16u);
       }
 
@@ -216,11 +215,11 @@ void __59__HMDAddAccessoryPairingSharedUserOperation_mainWithError___block_invok
       v21 = [*(a1 + 32) accessoryUUID];
       v22 = [*(a1 + 32) accessoryIdentifier];
       *buf = 138543874;
-      v36 = v20;
-      v37 = 2112;
-      v38 = v21;
-      v39 = 2112;
-      v40 = v22;
+      v35 = v20;
+      v36 = 2112;
+      v37 = v21;
+      v38 = 2112;
+      v39 = v22;
       _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@Unable to find the mkfHAPAccessory or mkfAccessory with model id: %@/%@", buf, 0x20u);
     }
 
@@ -230,8 +229,114 @@ void __59__HMDAddAccessoryPairingSharedUserOperation_mainWithError___block_invok
     v7 = *(v24 + 40);
     *(v24 + 40) = v23;
   }
+}
 
-  v33 = *MEMORY[0x277D85DE8];
+- (HMDAddAccessoryPairingSharedUserOperation)initWithAccessoryUUID:(id)d accessoryIdentifier:(id)identifier forSharedUser:(id)user sharedUserPairingIdentity:(id)identity asOwner:(BOOL)owner asSharedAdmin:(BOOL)admin homeUUIDWhereAccessoryWasPaired:(id)paired
+{
+  adminCopy = admin;
+  ownerCopy = owner;
+  v31 = *MEMORY[0x277D85DE8];
+  dCopy = d;
+  identifierCopy = identifier;
+  userCopy = user;
+  identityCopy = identity;
+  pairedCopy = paired;
+  if (!dCopy)
+  {
+    _HMFPreconditionFailure();
+    goto LABEL_12;
+  }
+
+  if (!identifierCopy)
+  {
+LABEL_12:
+    _HMFPreconditionFailure();
+    goto LABEL_13;
+  }
+
+  if (!userCopy)
+  {
+LABEL_13:
+    _HMFPreconditionFailure();
+LABEL_14:
+    _HMFPreconditionFailure();
+  }
+
+  if (!identityCopy)
+  {
+    goto LABEL_14;
+  }
+
+  v20 = pairedCopy;
+  if (pairedCopy)
+  {
+    dictionary = [MEMORY[0x277CBEB38] dictionary];
+    [dictionary setObject:userCopy forKeyedSubscript:@"sharedUserUUIDKey"];
+    v28.receiver = self;
+    v28.super_class = HMDAddAccessoryPairingSharedUserOperation;
+    selfCopy = [(HMDAddAccessoryPairingOperation *)&v28 initWithAccessoryUUID:dCopy accessoryIdentifier:identifierCopy newPairingIdentity:identityCopy homeUUIDWhereAccessoryWasPaired:v20 asOwner:ownerCopy asAdmin:adminCopy shouldUpdateKeyChainEntry:0 userData:dictionary];
+
+    v23 = selfCopy;
+  }
+
+  else
+  {
+    v24 = objc_autoreleasePoolPush();
+    selfCopy = self;
+    v25 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    {
+      v26 = HMFGetLogIdentifier();
+      *buf = 138543362;
+      v30 = v26;
+      _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_ERROR, "%{public}@Accessory is not associated with a home, cannot create add accessory pairing shared user operation", buf, 0xCu);
+    }
+
+    objc_autoreleasePoolPop(v24);
+    v23 = 0;
+  }
+
+  return v23;
+}
+
+- (HMDAddAccessoryPairingSharedUserOperation)initWithAccessory:(id)accessory forSharedUser:(id)user sharedUserPairingIdentity:(id)identity asOwner:(BOOL)owner asSharedAdmin:(BOOL)admin
+{
+  adminCopy = admin;
+  ownerCopy = owner;
+  accessoryCopy = accessory;
+  userCopy = user;
+  identityCopy = identity;
+  if (!accessoryCopy)
+  {
+    _HMFPreconditionFailure();
+    goto LABEL_6;
+  }
+
+  if (!userCopy)
+  {
+LABEL_6:
+    _HMFPreconditionFailure();
+    goto LABEL_7;
+  }
+
+  v15 = identityCopy;
+  if (identityCopy)
+  {
+    uuid = [accessoryCopy uuid];
+    identifier = [accessoryCopy identifier];
+    uuid2 = [userCopy uuid];
+    home = [accessoryCopy home];
+    uuid3 = [home uuid];
+    v21 = adminCopy;
+    v22 = uuid3;
+    v23 = [(HMDAddAccessoryPairingSharedUserOperation *)self initWithAccessoryUUID:uuid accessoryIdentifier:identifier forSharedUser:uuid2 sharedUserPairingIdentity:v15 asOwner:ownerCopy asSharedAdmin:v21 homeUUIDWhereAccessoryWasPaired:uuid3];
+
+    return v23;
+  }
+
+LABEL_7:
+  v25 = _HMFPreconditionFailure();
+  return +[(HMDAddAccessoryPairingSharedUserOperation *)v25];
 }
 
 + (id)logCategory
@@ -248,10 +353,9 @@ void __59__HMDAddAccessoryPairingSharedUserOperation_mainWithError___block_invok
 
 void __56__HMDAddAccessoryPairingSharedUserOperation_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v7_256376;
-  logCategory__hmf_once_v7_256376 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v7_256376;
+  logCategory__hmf_once_v7_256376 = v0;
 }
 
 @end

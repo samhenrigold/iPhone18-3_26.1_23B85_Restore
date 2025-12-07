@@ -48,18 +48,17 @@
 
 void __92__LNTranscriptObservingProvider_stopObservingNextActionStreamWithConnectionUUID_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = getLNLogCategoryGeneral();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_19763D000, v4, OS_LOG_TYPE_ERROR, "XPC Error when executing stopObservingNextActionStream. error: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_19763D000, v4, OS_LOG_TYPE_ERROR, "XPC Error when executing stopObservingNextActionStream. error: %@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __92__LNTranscriptObservingProvider_stopObservingNextActionStreamWithConnectionUUID_completion___block_invoke_15(uint64_t a1, void *a2)
@@ -118,14 +117,14 @@ void __92__LNTranscriptObservingProvider_stopObservingNextActionStreamWithConnec
 
 void __78__LNTranscriptObservingProvider_startObservingNextActionStreamWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = getLNLogCategoryGeneral();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v12 = 138412290;
-    v13 = v3;
-    _os_log_impl(&dword_19763D000, v4, OS_LOG_TYPE_ERROR, "XPC Error when executing startObservingNextActionStream. error: %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = v3;
+    _os_log_impl(&dword_19763D000, v4, OS_LOG_TYPE_ERROR, "XPC Error when executing startObservingNextActionStream. error: %@", &v11, 0xCu);
   }
 
   v5 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"LNTranscriptErrorDomain" code:1000 userInfo:0];
@@ -138,16 +137,14 @@ void __78__LNTranscriptObservingProvider_startObservingNextActionStreamWithCompl
   v10 = *(a1 + 40);
   if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
   {
-    LOWORD(v12) = 0;
-    _os_signpost_emit_with_name_impl(&dword_19763D000, v9, OS_SIGNPOST_INTERVAL_END, v10, "starting observation", "", &v12, 2u);
+    LOWORD(v11) = 0;
+    _os_signpost_emit_with_name_impl(&dword_19763D000, v9, OS_SIGNPOST_INTERVAL_END, v10, "starting observation", "", &v11, 2u);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __78__LNTranscriptObservingProvider_startObservingNextActionStreamWithCompletion___block_invoke_13(void *a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (!v5)
@@ -156,9 +153,9 @@ void __78__LNTranscriptObservingProvider_startObservingNextActionStreamWithCompl
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v8 = *(*(a1[5] + 8) + 40);
-      v13 = 138412290;
-      v14 = v8;
-      _os_log_impl(&dword_19763D000, v7, OS_LOG_TYPE_ERROR, "Error when executing startObservingNextActionStream. error: %@", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = v8;
+      _os_log_impl(&dword_19763D000, v7, OS_LOG_TYPE_ERROR, "Error when executing startObservingNextActionStream. error: %@", &v12, 0xCu);
     }
   }
 
@@ -167,12 +164,11 @@ void __78__LNTranscriptObservingProvider_startObservingNextActionStreamWithCompl
   v11 = a1[6];
   if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
   {
-    LOWORD(v13) = 0;
-    _os_signpost_emit_with_name_impl(&dword_19763D000, v10, OS_SIGNPOST_INTERVAL_END, v11, "starting observation", "", &v13, 2u);
+    LOWORD(v12) = 0;
+    _os_signpost_emit_with_name_impl(&dword_19763D000, v10, OS_SIGNPOST_INTERVAL_END, v11, "starting observation", "", &v12, 2u);
   }
 
   (*(a1[4] + 16))();
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)configureConnection:(id)connection

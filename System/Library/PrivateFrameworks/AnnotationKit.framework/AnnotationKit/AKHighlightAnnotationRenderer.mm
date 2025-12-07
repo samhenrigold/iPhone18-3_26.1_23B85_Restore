@@ -163,7 +163,7 @@
         memset(&angle[1], 0, 48);
         if (v14)
         {
-          [v14 quadrilateralValue];
+          objc_msgSend_quadrilateralValue(v14);
         }
 
         angle[0] = 0.0;

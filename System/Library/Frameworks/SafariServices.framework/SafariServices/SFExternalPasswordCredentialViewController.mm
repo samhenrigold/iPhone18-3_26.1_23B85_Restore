@@ -7,13 +7,13 @@ void __79___SFExternalPasswordCredentialViewController__connectToServiceWithComp
 {
   v6 = a2;
   v7 = a3;
-  (*(*(a1 + 40) + 16))();
+  v8 = (*(*(a1 + 40) + 16))();
   if (v6)
   {
     objc_storeStrong((*(a1 + 32) + 1008), a2);
     [*(*(a1 + 32) + 1008) setDelegate:?];
-    v8 = [*(*(a1 + 32) + 1008) serviceViewControllerProxy];
-    [*(*(a1 + 32) + 1016) setTarget:v8];
+    v10 = [*(*(a1 + 32) + 1008) serviceViewControllerProxy];
+    [*(*(a1 + 32) + 1016) setTarget:v10];
 
     if ([*(a1 + 32) isViewLoaded])
     {
@@ -23,10 +23,10 @@ void __79___SFExternalPasswordCredentialViewController__connectToServiceWithComp
 
   else
   {
-    v9 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(v8, v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      __79___SFExternalPasswordCredentialViewController__connectToServiceWithCompletion___block_invoke_cold_1(v9, v7);
+      __79___SFExternalPasswordCredentialViewController__connectToServiceWithCompletion___block_invoke_cold_1(v11, v7);
     }
   }
 }

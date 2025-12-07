@@ -104,12 +104,15 @@
 - (void)pauseLightAngleUpdates
 {
   iCRIconLayer = [(SBIconImageView *)self ICRIconLayer];
+  v4 = iCRIconLayer;
   if (iCRIconLayer)
   {
-    [(SBIconImageView *)self pauseLightAngleUpdatesForIconLayer:iCRIconLayer];
+    v5 = iCRIconLayer;
+    iCRIconLayer = [(SBIconImageView *)self pauseLightAngleUpdatesForIconLayer:iCRIconLayer];
+    v4 = v5;
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](iCRIconLayer, v4);
 }
 
 - (ICRIconLayer)ICRIconLayer
@@ -170,15 +173,15 @@
   if (LOBYTE(self[14].size.height) != 1)
   {
     iconView = [(SBIconImageInfo *)self iconView];
-    iconImageCache = [(SBIconImageInfo *)selfCopy iconImageCache];
+    v5 = objc_msgSend_iconImageCache(selfCopy);
     listLayoutProvider = [(SBIconImageInfo *)selfCopy listLayoutProvider];
     location = [(SBIconImageInfo *)selfCopy location];
     v8 = [listLayoutProvider layoutForIconLocation:location];
 
     v9 = iconView;
-    if (iconView || (v9 = iconImageCache) != 0 || (v9 = v8) != 0)
+    if (iconView || (v9 = v5) != 0 || (v9 = v8) != 0)
     {
-      [v9 iconImageInfo];
+      objc_msgSend_iconImageInfo(v9);
     }
   }
 
@@ -319,7 +322,7 @@
 
 - (CGRect)visibleBounds
 {
-  [(SBIconImageView *)self iconImageInfo];
+  objc_msgSend_iconImageInfo(self, a2);
   v3 = v2;
   v5 = v4;
   v6 = 0.0;
@@ -352,7 +355,7 @@
   v23.receiver = self;
   v23.super_class = SBIconImageView;
   [(SBIconImageView *)&v23 layoutSubviews];
-  [(SBIconImageView *)self bounds];
+  objc_msgSend_bounds(self);
   v4 = v3;
   v6 = v5;
   v8 = v7;
@@ -362,7 +365,7 @@
   v21 = v4;
   [(SBIconProgressView *)self->_progressView setFrame:v4, v6, v8, v10];
   contentsLayerView = [(SBIconImageView *)self contentsLayerView];
-  [contentsLayerView bounds];
+  objc_msgSend_bounds(contentsLayerView);
   x = v24.origin.x;
   y = v24.origin.y;
   width = v24.size.width;
@@ -665,7 +668,7 @@
 
 - (void)iconImageInfoDidChange
 {
-  [(SBIconImageView *)self iconImageInfo];
+  objc_msgSend_iconImageInfo(self, a2);
   v4 = v3;
   v6 = v5;
   iconView = [(SBIconImageView *)self iconView];
@@ -1138,7 +1141,7 @@
   if (iconForImage)
   {
     effectiveIconImageAppearance = [(SBIconImageView *)self effectiveIconImageAppearance];
-    [(SBIconImageView *)self iconImageInfo];
+    objc_msgSend_iconImageInfo(self);
     v9 = [iconForImage iconImageIdentityWithIconImageInfo:effectiveIconImageAppearance imageAppearance:-[SBIconImageView showsSquareCorners](self masked:{"showsSquareCorners") ^ 1, v5, v6, v7, v8}];
   }
 
@@ -1156,9 +1159,9 @@
   iconForImage = [(SBIconImageView *)self iconForImage];
   if (iconForImage)
   {
-    iconImageCache = [(SBIconImageView *)self iconImageCache];
+    v6 = objc_msgSend_iconImageCache(self);
     effectiveIconImageAppearance = [(SBIconImageView *)self effectiveIconImageAppearance];
-    v8 = [iconImageCache imageForIcon:iconForImage imageAppearance:effectiveIconImageAppearance options:{-[SBIconImageView imageCacheRetrievalOptions](self, "imageCacheRetrievalOptions") | 4}];
+    v8 = [v6 imageForIcon:iconForImage imageAppearance:effectiveIconImageAppearance options:{-[SBIconImageView imageCacheRetrievalOptions](self, "imageCacheRetrievalOptions") | 4}];
     v9 = v8 != 0;
     if (v8)
     {
@@ -1177,11 +1180,11 @@
 - (void)loadContentsImageAnimated:(BOOL)animated
 {
   animatedCopy = animated;
-  iconImageCache = [(SBIconImageView *)self iconImageCache];
-  v6 = iconImageCache;
-  if (iconImageCache)
+  v5 = objc_msgSend_iconImageCache(self, a2);
+  v6 = v5;
+  if (v5)
   {
-    [(SBIconImageView *)self loadContentsImageFromCache:iconImageCache animated:animatedCopy];
+    [(SBIconImageView *)self loadContentsImageFromCache:v5 animated:animatedCopy];
   }
 
   else
@@ -1202,11 +1205,12 @@
     imageLoadingBehavior = [(SBIconImageView *)self imageLoadingBehavior];
     requestedImageIdentity = [(SBIconImageView *)self requestedImageIdentity];
     v12 = BSEqualObjects();
-    v13 = SBLogIconImageView();
-    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG);
-    if (v12)
+    v13 = v12;
+    v14 = SBLogIconImageView(v12);
+    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG);
+    if (v13)
     {
-      if (v14)
+      if (v15)
       {
         [SBIconImageView loadContentsImageFromCache:animated:];
       }
@@ -1214,7 +1218,7 @@
 
     else
     {
-      if (v14)
+      if (v15)
       {
         [SBIconImageView loadContentsImageFromCache:animated:];
       }
@@ -1223,10 +1227,11 @@
       {
         [(SBIconImageView *)self willBeginAsynchronousImageLoadForIcon:iconForImage imageIdentity:desiredImageIdentity];
         hasIconImage = [iconForImage hasIconImage];
-        if ([(SBIconImageView *)self isDisplayingRealImageContents])
+        isDisplayingRealImageContents = [(SBIconImageView *)self isDisplayingRealImageContents];
+        if (isDisplayingRealImageContents)
         {
-          v16 = SBLogIconImageView();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+          v19 = SBLogIconImageView(isDisplayingRealImageContents);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
           {
             [SBIconImageView loadContentsImageFromCache:animated:];
           }
@@ -1234,44 +1239,45 @@
 
         else
         {
-          v16 = 0;
+          v19 = 0;
           if (imageLoadingBehavior == 1 && hasIconImage)
           {
-            v16 = [cacheCopy cachingPlaceholderImageWithImageAppearance:imageAppearance options:0];
+            isDisplayingRealImageContents = [cacheCopy cachingPlaceholderImageWithImageAppearance:imageAppearance options:0];
+            v19 = isDisplayingRealImageContents;
           }
 
-          v18 = SBLogIconImageView();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+          v21 = SBLogIconImageView(isDisplayingRealImageContents);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
           {
             [SBIconImageView loadContentsImageFromCache:animated:];
           }
 
-          [(SBIconImageView *)self updateImageContentsWithImage:v16 imageAppearance:imageAppearance animated:animatedCopy];
+          [(SBIconImageView *)self updateImageContentsWithImage:v19 imageAppearance:imageAppearance animated:animatedCopy];
         }
 
-        v19 = [(SBIconImageView *)self imageCacheRetrievalOptions]| 4;
+        v22 = [(SBIconImageView *)self imageCacheRetrievalOptions]| 4;
         imageCacheOptions = [(SBIconImageView *)self imageCacheOptions];
-        v25[0] = MEMORY[0x1E69E9820];
-        v25[1] = 3221225472;
-        v25[2] = __55__SBIconImageView_loadContentsImageFromCache_animated___block_invoke;
-        v25[3] = &unk_1E8090D78;
-        v25[4] = self;
-        v26 = desiredImageIdentity;
-        v27 = iconForImage;
-        v28 = cacheCopy;
-        v29 = imageAppearance;
-        v30 = v19;
-        v31 = hasIconImage;
-        v32 = animatedCopy;
-        v20 = [v28 cacheImageForIcon:v27 imageAppearance:v29 priority:3 reason:@"SBIconImageView loadContentsImage" options:imageCacheOptions completionHandler:v25];
+        v28[0] = MEMORY[0x1E69E9820];
+        v28[1] = 3221225472;
+        v28[2] = __55__SBIconImageView_loadContentsImageFromCache_animated___block_invoke;
+        v28[3] = &unk_1E8090D78;
+        v28[4] = self;
+        v29 = desiredImageIdentity;
+        v30 = iconForImage;
+        v31 = cacheCopy;
+        v32 = imageAppearance;
+        v33 = v22;
+        v34 = hasIconImage;
+        v35 = animatedCopy;
+        v23 = [v31 cacheImageForIcon:v30 imageAppearance:v32 priority:3 reason:@"SBIconImageView loadContentsImage" options:imageCacheOptions completionHandler:v28];
         cacheRequestCancellation = [(SBIconImageView *)self cacheRequestCancellation];
         [cacheRequestCancellation cancel];
 
-        requestedImageIdentities = [v20 requestedImageIdentities];
+        requestedImageIdentities = [v23 requestedImageIdentities];
         firstObject = [requestedImageIdentities firstObject];
 
         [(SBIconImageView *)self setRequestedImageIdentity:firstObject];
-        [(SBIconImageView *)self setCacheRequestCancellation:v20];
+        [(SBIconImageView *)self setCacheRequestCancellation:v23];
 
         goto LABEL_25;
       }
@@ -1283,20 +1289,20 @@ LABEL_25:
         goto LABEL_26;
       }
 
-      v17 = SBLogIconImageView();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+      v20 = SBLogIconImageView(v16);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
       {
         [SBIconImageView loadContentsImageFromCache:animated:];
       }
 
-      v13 = [cacheCopy imageForIcon:iconForImage imageAppearance:imageAppearance options:{-[SBIconImageView imageCacheRetrievalOptions](self, "imageCacheRetrievalOptions")}];
-      [(SBIconImageView *)self updateImageContentsWithImage:v13 imageAppearance:imageAppearance animated:animatedCopy];
+      v14 = [cacheCopy imageForIcon:iconForImage imageAppearance:imageAppearance options:{-[SBIconImageView imageCacheRetrievalOptions](self, "imageCacheRetrievalOptions")}];
+      [(SBIconImageView *)self updateImageContentsWithImage:v14 imageAppearance:imageAppearance animated:animatedCopy];
     }
 
     goto LABEL_25;
   }
 
-  desiredImageIdentity = SBLogIconImageView();
+  desiredImageIdentity = SBLogIconImageView(0);
   if (os_log_type_enabled(desiredImageIdentity, OS_LOG_TYPE_DEBUG))
   {
     [SBIconImageView loadContentsImageFromCache:desiredImageIdentity animated:?];
@@ -1307,7 +1313,7 @@ LABEL_26:
 
 void __55__SBIconImageView_loadContentsImageFromCache_animated___block_invoke(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
   v4 = a2;
   v5 = [v3 desiredImageIdentity];
@@ -1318,78 +1324,79 @@ void __55__SBIconImageView_loadContentsImageFromCache_animated___block_invoke(ui
 
   v10 = [v4 isFinished];
   v11 = BSEqualObjects();
-  v12 = SBLogIconImageView();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v12 = v11;
+  v13 = SBLogIconImageView(v11);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
-    v20 = *(a1 + 48);
-    v21 = 138413058;
-    v22 = v20;
-    v23 = 1024;
-    v24 = v9;
-    v25 = 1024;
-    v26 = v10;
-    v27 = 1024;
-    v28 = v11;
-    _os_log_debug_impl(&dword_1BEB18000, v12, OS_LOG_TYPE_DEBUG, "cache load returned for %@, is current: %{BOOL}u, finished: %{BOOL}u, identities match: %{BOOL}u", &v21, 0x1Eu);
+    v23 = *(a1 + 48);
+    v24 = 138413058;
+    v25 = v23;
+    v26 = 1024;
+    v27 = v9;
+    v28 = 1024;
+    v29 = v10;
+    v30 = 1024;
+    v31 = v12;
+    _os_log_debug_impl(&dword_1BEB18000, v13, OS_LOG_TYPE_DEBUG, "cache load returned for %@, is current: %{BOOL}u, finished: %{BOOL}u, identities match: %{BOOL}u", &v24, 0x1Eu);
   }
 
   if (v9)
   {
-    [*(a1 + 32) setCacheRequestCancellation:0];
+    v14 = [*(a1 + 32) setCacheRequestCancellation:0];
   }
 
-  if ((v10 & v11) != 1)
+  if ((v10 & v12) != 1)
   {
-    v13 = SBLogIconImageView();
-    v16 = os_log_type_enabled(v13, OS_LOG_TYPE_INFO);
+    v15 = SBLogIconImageView(v14);
+    v19 = os_log_type_enabled(v15, OS_LOG_TYPE_INFO);
     if (v10)
     {
-      if (!v16)
+      if (!v19)
       {
         goto LABEL_21;
       }
 
-      v17 = *(a1 + 48);
-      v21 = 138412290;
-      v22 = v17;
-      v18 = "discarding results of cache load for %@ because identities no longer match";
+      v20 = *(a1 + 48);
+      v24 = 138412290;
+      v25 = v20;
+      v21 = "discarding results of cache load for %@ because identities no longer match";
     }
 
     else
     {
-      if (!v16)
+      if (!v19)
       {
         goto LABEL_21;
       }
 
-      v19 = *(a1 + 48);
-      v21 = 138412290;
-      v22 = v19;
-      v18 = "discarding results of cache load for %@ because the load didn't finish";
+      v22 = *(a1 + 48);
+      v24 = 138412290;
+      v25 = v22;
+      v21 = "discarding results of cache load for %@ because the load didn't finish";
     }
 
-    _os_log_impl(&dword_1BEB18000, v13, OS_LOG_TYPE_INFO, v18, &v21, 0xCu);
+    _os_log_impl(&dword_1BEB18000, v15, OS_LOG_TYPE_INFO, v21, &v24, 0xCu);
     goto LABEL_21;
   }
 
-  v13 = [*(a1 + 56) imageForIcon:*(a1 + 48) imageAppearance:*(a1 + 64) options:*(a1 + 72)];
-  v14 = SBLogIconImageView();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  v15 = [*(a1 + 56) imageForIcon:*(a1 + 48) imageAppearance:*(a1 + 64) options:*(a1 + 72)];
+  v16 = SBLogIconImageView(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
-    __55__SBIconImageView_loadContentsImageFromCache_animated___block_invoke_cold_1((a1 + 48), v13, v14);
+    __55__SBIconImageView_loadContentsImageFromCache_animated___block_invoke_cold_1((a1 + 48), v15, v16);
   }
 
-  if (v13 || (*(a1 + 80) & 1) == 0)
+  if (v15 || (*(a1 + 80) & 1) == 0)
   {
-    [*(a1 + 32) updateImageContentsWithImage:v13 imageAppearance:*(a1 + 64) animated:*(a1 + 81)];
+    [*(a1 + 32) updateImageContentsWithImage:v15 imageAppearance:*(a1 + 64) animated:*(a1 + 81)];
   }
 
   else
   {
-    v15 = SBLogIconImageView();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v18 = SBLogIconImageView(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      __55__SBIconImageView_loadContentsImageFromCache_animated___block_invoke_cold_2((a1 + 48), v15);
+      __55__SBIconImageView_loadContentsImageFromCache_animated___block_invoke_cold_2((a1 + 48), v18);
     }
 
     [*(a1 + 32) loadContentsImageFromIconAnimated:*(a1 + 81)];
@@ -1410,7 +1417,7 @@ LABEL_21:
     v13 = iconForImage;
     effectiveTraitCollection = [(SBIconImageView *)self effectiveTraitCollection];
     sbh_iconImageAppearance = [effectiveTraitCollection sbh_iconImageAppearance];
-    [(SBIconImageView *)self iconImageInfo];
+    objc_msgSend_iconImageInfo(self);
     v12 = [v13 iconImageWithInfo:effectiveTraitCollection traitCollection:-[SBIconImageView iconImageOptions](self options:{"iconImageOptions"), v8, v9, v10, v11}];
     [(SBIconImageView *)self updateImageContentsWithImage:v12 imageAppearance:sbh_iconImageAppearance animated:animatedCopy];
 
@@ -1615,14 +1622,14 @@ void __51__SBIconImageView_updateExistingIconLayerAnimated___block_invoke(uint64
   animatedCopy = animated;
   viewCopy = view;
   contentsLayerView = [(SBIconImageView *)self contentsLayerView];
-  [(SBIconImageView *)self iconImageInfo];
+  objc_msgSend_iconImageInfo(self);
   v11 = v10;
   v13 = v12;
   [(SBIconImageView *)self pauseLightAngleUpdates];
   if (viewCopy)
   {
     [viewCopy setContentVisibility:{-[SBIconImageView contentVisibility](self, "contentVisibility")}];
-    [(SBIconImageView *)self bounds];
+    objc_msgSend_bounds(self);
     [viewCopy setBounds:{0.0, 0.0, v11, v13}];
     UIRectGetCenter();
     [viewCopy setCenter:?];
@@ -1846,7 +1853,7 @@ void __70__SBIconImageView_clearDisplayedICRIconLayerAfterDelayIfContentHidden__
     if (sbh_iconEffect)
     {
       makeNewEffectView = [sbh_iconEffect makeNewEffectView];
-      [(SBIconImageView *)self bounds];
+      objc_msgSend_bounds(self);
       [(UIView *)makeNewEffectView setFrame:?];
       v7 = self->_effectView;
       self->_effectView = makeNewEffectView;
@@ -1887,7 +1894,7 @@ void __70__SBIconImageView_clearDisplayedICRIconLayerAfterDelayIfContentHidden__
 
 - (void)_updateForegroundViewMask
 {
-  [(SBIconImageView *)self iconImageInfo];
+  objc_msgSend_iconImageInfo(self, a2);
   if (self->_showsSquareCorners)
   {
     v4 = 0.0;
@@ -1907,14 +1914,14 @@ void __70__SBIconImageView_clearDisplayedICRIconLayerAfterDelayIfContentHidden__
 - (void)clearCachedImages
 {
   v7[1] = *MEMORY[0x1E69E9840];
-  iconImageCache = [(SBIconImageView *)self iconImageCache];
+  v3 = objc_msgSend_iconImageCache(self, a2);
   iconForImage = [(SBIconImageView *)self iconForImage];
   v5 = iconForImage;
   if (iconForImage)
   {
     v7[0] = iconForImage;
     v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
-    [iconImageCache purgeCachedImagesForIcons:v6];
+    [v3 purgeCachedImagesForIcons:v6];
   }
 }
 
@@ -1924,7 +1931,7 @@ void __70__SBIconImageView_clearDisplayedICRIconLayerAfterDelayIfContentHidden__
   if (iconForImage)
   {
     effectiveTraitCollection = [(SBIconImageView *)self effectiveTraitCollection];
-    [(SBIconImageView *)self iconImageInfo];
+    objc_msgSend_iconImageInfo(self);
     v8 = v7;
     v10 = v9;
     v12 = v11;
@@ -1986,7 +1993,7 @@ void __70__SBIconImageView_clearDisplayedICRIconLayerAfterDelayIfContentHidden__
 - (CGSize)sizeThatFits:(CGSize)fits
 {
   v4 = [(SBIconImageView *)self iconView:fits.width];
-  if (v4 || ([(SBIconImageView *)self iconImageCache], (v4 = objc_claimAutoreleasedReturnValue()) != 0))
+  if (v4 || (objc_msgSend_iconImageCache(self), (v4 = objc_claimAutoreleasedReturnValue()) != 0))
   {
   }
 
@@ -2002,7 +2009,7 @@ void __70__SBIconImageView_clearDisplayedICRIconLayerAfterDelayIfContentHidden__
     goto LABEL_9;
   }
 
-  [(SBIconImageView *)self iconImageInfo];
+  objc_msgSend_iconImageInfo(self);
 LABEL_9:
   result.height = v6;
   result.width = v5;

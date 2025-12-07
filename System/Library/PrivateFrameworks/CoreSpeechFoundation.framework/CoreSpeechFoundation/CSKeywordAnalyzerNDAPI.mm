@@ -55,7 +55,7 @@
 
 - (float)getRejectLoggingThreshold
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = [(CSNovDetector *)self->_novDetector getOptionValue:@"threshold_reject_logging"];
   v3 = v2;
   if (v2)
@@ -69,21 +69,20 @@
     v6 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
-      v9 = 136315138;
-      v10 = "[CSKeywordAnalyzerNDAPI getRejectLoggingThreshold]";
-      _os_log_error_impl(&dword_1DDA4B000, v6, OS_LOG_TYPE_ERROR, "%s NDAPI config doesn't contain threshold_reject_logging", &v9, 0xCu);
+      v8 = 136315138;
+      v9 = "[CSKeywordAnalyzerNDAPI getRejectLoggingThreshold]";
+      _os_log_error_impl(&dword_1DDA4B000, v6, OS_LOG_TYPE_ERROR, "%s NDAPI config doesn't contain threshold_reject_logging", &v8, 0xCu);
     }
 
     v5 = INFINITY;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (float)getLoggingThreshold
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = [(CSNovDetector *)self->_novDetector getOptionValue:@"threshold_logging"];
   v3 = v2;
   if (v2)
@@ -97,21 +96,20 @@
     v6 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
-      v9 = 136315138;
-      v10 = "[CSKeywordAnalyzerNDAPI getLoggingThreshold]";
-      _os_log_error_impl(&dword_1DDA4B000, v6, OS_LOG_TYPE_ERROR, "%s NDAPI config doesn't contain threshold_logging", &v9, 0xCu);
+      v8 = 136315138;
+      v9 = "[CSKeywordAnalyzerNDAPI getLoggingThreshold]";
+      _os_log_error_impl(&dword_1DDA4B000, v6, OS_LOG_TYPE_ERROR, "%s NDAPI config doesn't contain threshold_logging", &v8, 0xCu);
     }
 
     v5 = INFINITY;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (float)getThreshold
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = [(CSNovDetector *)self->_novDetector getOptionValue:@"threshold_normal"];
   v3 = v2;
   if (v2)
@@ -125,15 +123,14 @@
     v6 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_FAULT))
     {
-      v9 = 136315138;
-      v10 = "[CSKeywordAnalyzerNDAPI getThreshold]";
-      _os_log_fault_impl(&dword_1DDA4B000, v6, OS_LOG_TYPE_FAULT, "%s NDAPI config doesn't contain threshold_normal", &v9, 0xCu);
+      v8 = 136315138;
+      v9 = "[CSKeywordAnalyzerNDAPI getThreshold]";
+      _os_log_fault_impl(&dword_1DDA4B000, v6, OS_LOG_TYPE_FAULT, "%s NDAPI config doesn't contain threshold_normal", &v8, 0xCu);
     }
 
     v5 = INFINITY;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -221,7 +218,7 @@
 
 - (void)_setStartAnalyzeTime:(unint64_t)time
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (!self->_isStartSampleCountMarked)
   {
     self->_isStartSampleCountMarked = 1;
@@ -229,32 +226,30 @@
     v4 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 136315394;
-      v7 = "[CSKeywordAnalyzerNDAPI _setStartAnalyzeTime:]";
-      v8 = 2050;
+      v5 = 136315394;
+      v6 = "[CSKeywordAnalyzerNDAPI _setStartAnalyzeTime:]";
+      v7 = 2050;
       timeCopy = time;
-      _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s set StartAnalyzeSampleCount = %{public}lld", &v6, 0x16u);
+      _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s set StartAnalyzeSampleCount = %{public}lld", &v5, 0x16u);
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (CSKeywordAnalyzerNDAPI)initWithConfigPath:(id)path resourcePath:(id)resourcePath
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   resourcePathCopy = resourcePath;
-  v15.receiver = self;
-  v15.super_class = CSKeywordAnalyzerNDAPI;
-  v8 = [(CSKeywordAnalyzerNDAPI *)&v15 init];
+  v14.receiver = self;
+  v14.super_class = CSKeywordAnalyzerNDAPI;
+  v8 = [(CSKeywordAnalyzerNDAPI *)&v14 init];
   if (v8 && (v9 = [[CSNovDetector alloc] initWithConfigPath:pathCopy resourcePath:resourcePathCopy], novDetector = v8->_novDetector, v8->_novDetector = v9, novDetector, !v8->_novDetector))
   {
     v12 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v17 = "[CSKeywordAnalyzerNDAPI initWithConfigPath:resourcePath:]";
+      v16 = "[CSKeywordAnalyzerNDAPI initWithConfigPath:resourcePath:]";
       _os_log_error_impl(&dword_1DDA4B000, v12, OS_LOG_TYPE_ERROR, "%s NDAPI initialization failed", buf, 0xCu);
     }
 
@@ -266,7 +261,6 @@
     v11 = v8;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

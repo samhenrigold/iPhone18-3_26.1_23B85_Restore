@@ -280,7 +280,7 @@ LABEL_19:
   }
 
   [v10 setAction:v12];
-  if ([v10 action] == 3 && sub_1000B2958())
+  if ([v10 action] == 3 && sub_1000B2958(PDClient))
   {
     [v10 setActionFlags:1];
   }

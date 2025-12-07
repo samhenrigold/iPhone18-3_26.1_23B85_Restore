@@ -94,13 +94,13 @@ CGImageRef __59__CNUIPRLikenessPhotoProvider_cgThumbnailFromData_maxSize___block
   return v5;
 }
 
-id __56__CNUIPRLikenessPhotoProvider__cnui_imageForSize_scale___block_invoke(uint64_t a1)
+id __56__CNUIPRLikenessPhotoProvider__cnui_imageForSize_scale___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = objc_opt_class();
-  v3 = [*(a1 + 32) originalPhotoData];
-  v4 = [v2 cgThumbnailFromData:v3 maxSize:{*(a1 + 40), *(a1 + 48)}];
+  v3 = objc_opt_class();
+  v4 = [*(a1 + 32) originalPhotoData];
+  v5 = [v3 cgThumbnailFromData:v4 maxSize:{*(a1 + 40), *(a1 + 48)}];
 
-  return v4;
+  return v5;
 }
 
 void __64__CNUIPRLikenessPhotoProvider_renderCircularImageForSize_scale___block_invoke(uint64_t a1, CGContext *a2, CGFloat a3, CGFloat a4, CGFloat a5, CGFloat a6)

@@ -32,7 +32,7 @@
 - (id)serialNumber
 {
   v2 = MGCopyAnswer();
-  v3 = _CDPLogSystem();
+  v3 = _CDPLogSystem(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [CDPLocalDevice serialNumber];
@@ -43,10 +43,9 @@
 
 - (void)serialNumber
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(&dword_1DED99000, v0, OS_LOG_TYPE_DEBUG, "Reporting current serial number: %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1DED99000, v0, OS_LOG_TYPE_DEBUG, "Reporting current serial number: %@", v1, 0xCu);
 }
 
 uint64_t __32__CDPLocalDevice_sharedInstance__block_invoke()
@@ -101,20 +100,21 @@ uint64_t __32__CDPLocalDevice_sharedInstance__block_invoke()
     {
       objc_opt_class();
       isKindOfClass = objc_opt_isKindOfClass();
-      v6 = _CDPLogSystem();
-      v7 = v6;
-      if (isKindOfClass)
+      v6 = isKindOfClass;
+      v7 = _CDPLogSystem(isKindOfClass);
+      v8 = v7;
+      if (v6)
       {
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
         {
           [CDPLocalDevice localSecretGeneration];
         }
 
-        v8 = v4;
+        v9 = v4;
         goto LABEL_15;
       }
 
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         [(CDPLocalDevice *)v4 localSecretGeneration];
       }
@@ -122,29 +122,29 @@ uint64_t __32__CDPLocalDevice_sharedInstance__block_invoke()
 
     else
     {
-      v7 = _CDPLogSystem();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = _CDPLogSystem(0);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         [CDPLocalDevice localSecretGeneration];
       }
     }
 
-    v8 = 0;
+    v9 = 0;
 LABEL_15:
 
     goto LABEL_16;
   }
 
-  v3 = _CDPLogSystem();
+  v3 = _CDPLogSystem(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     [CDPLocalDevice localSecretGeneration];
   }
 
-  v8 = 0;
+  v9 = 0;
 LABEL_16:
 
-  return v8;
+  return v9;
 }
 
 - (id)marketingModel
@@ -207,20 +207,21 @@ LABEL_16:
   {
     error = 0;
     v4 = SecTaskCopyValueForEntitlement(currentProcessHasEntitlement__taskRef, entitlementCopy, &error);
+    v5 = v4;
     if (error)
     {
-      v5 = _CDPLogSystem();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v6 = _CDPLogSystem(v4);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        [(CDPLocalDevice *)entitlementCopy currentProcessHasEntitlement:?];
+        [CDPLocalDevice currentProcessHasEntitlement:];
       }
 
       CFRelease(error);
     }
 
-    if (v4 && (v6 = CFGetTypeID(v4), v6 == CFBooleanGetTypeID()))
+    if (v5 && (v7 = CFGetTypeID(v5), v7 == CFBooleanGetTypeID()))
     {
-      bOOLValue = [v4 BOOLValue];
+      bOOLValue = [v5 BOOLValue];
     }
 
     else
@@ -231,8 +232,8 @@ LABEL_16:
 
   else
   {
-    v8 = _CDPLogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _CDPLogSystem(0);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [CDPLocalDevice currentProcessHasEntitlement:];
     }
@@ -252,22 +253,18 @@ SecTaskRef __47__CDPLocalDevice_currentProcessHasEntitlement___block_invoke()
 
 - (void)localSecretGeneration
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-- (void)currentProcessHasEntitlement:(uint64_t)a1 .cold.2(uint64_t a1, uint64_t *a2)
+- (void)currentProcessHasEntitlement:.cold.2()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v2 = *a2;
-  OUTLINED_FUNCTION_1_0();
-  v7 = 2112;
-  v8 = v3;
-  _os_log_error_impl(&dword_1DED99000, v4, OS_LOG_TYPE_ERROR, "Error when checking self process for entitlement %@. error:%@", v6, 0x16u);
   v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0();
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_1DED99000, v1, OS_LOG_TYPE_ERROR, "Error when checking self process for entitlement %@. error:%@", v2, 0x16u);
 }
 
 @end

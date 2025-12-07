@@ -14,20 +14,21 @@
   {
     v12 = 0;
     v6 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:v3 error:&v12];
-    v5 = v12;
-    if (!v5)
+    v8 = v12;
+    v5 = v8;
+    if (!v8)
     {
       [v6 setRequiresSecureCoding:0];
-      v9 = [v6 decodeObjectForKey:*MEMORY[0x277CCA308]];
+      v10 = [v6 decodeObjectForKey:*MEMORY[0x277CCA308]];
       goto LABEL_9;
     }
 
-    v7 = _BKUILoggingFacility();
+    v7 = _BKUILoggingFacility(v8);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = [v5 description];
+      v9 = [v5 description];
       *buf = 138412290;
-      v15 = v8;
+      v15 = v9;
       _os_log_impl(&dword_241B0A000, v7, OS_LOG_TYPE_DEFAULT, "[BKUITypeSafeDeepCopier copy], unarchive failed %@", buf, 0xCu);
     }
 
@@ -35,7 +36,7 @@
   }
 
   v5 = v4;
-  v6 = _BKUILoggingFacility();
+  v6 = _BKUILoggingFacility(v4);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = [v5 description];
@@ -45,11 +46,10 @@
 LABEL_7:
   }
 
-  v9 = 0;
+  v10 = 0;
 LABEL_9:
 
-  v10 = *MEMORY[0x277D85DE8];
-  return v9;
+  return v10;
 }
 
 @end

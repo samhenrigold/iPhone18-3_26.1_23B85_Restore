@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)rachResultAsString:(int)string;
 - (int)StringAsRachResult:(id)result;
 - (int)rachResult;
 - (unint64_t)hash;
@@ -68,6 +69,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFFBF | v3;
+}
+
+- (id)rachResultAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100317E80 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsRachResult:(id)result
@@ -540,7 +556,6 @@ LABEL_20:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x80) == 0)
@@ -560,7 +575,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  retxCounter = self->_retxCounter;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -575,7 +589,6 @@ LABEL_4:
   }
 
 LABEL_25:
-  rachResult = self->_rachResult;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x2000) == 0)
@@ -590,7 +603,6 @@ LABEL_5:
   }
 
 LABEL_26:
-  contentionBased = self->_contentionBased;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -605,7 +617,6 @@ LABEL_6:
   }
 
 LABEL_27:
-  pMax = self->_pMax;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -620,7 +631,6 @@ LABEL_7:
   }
 
 LABEL_28:
-  rsrp = self->_rsrp;
   PBDataWriterWriteSint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -635,7 +645,6 @@ LABEL_8:
   }
 
 LABEL_29:
-  earfcn = self->_earfcn;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x800) == 0)
@@ -650,7 +659,6 @@ LABEL_9:
   }
 
 LABEL_30:
-  tac = self->_tac;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -665,7 +673,6 @@ LABEL_10:
   }
 
 LABEL_31:
-  cellId = self->_cellId;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x1000) == 0)
@@ -680,7 +687,6 @@ LABEL_11:
   }
 
 LABEL_32:
-  cellIsApo = self->_cellIsApo;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 2) == 0)
@@ -695,12 +701,10 @@ LABEL_12:
   }
 
 LABEL_33:
-  accbState = self->_accbState;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_13:
-    numSubs = self->_numSubs;
     PBDataWriterWriteUint32Field();
   }
 
@@ -710,16 +714,15 @@ LABEL_14:
     PBDataWriterWriteDataField();
   }
 
-  v6 = self->_has;
-  if ((v6 & 0x400) != 0)
+  v5 = self->_has;
+  if ((v5 & 0x400) != 0)
   {
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
-    v6 = self->_has;
-    if ((v6 & 0x200) == 0)
+    v5 = self->_has;
+    if ((v5 & 0x200) == 0)
     {
 LABEL_18:
-      if ((v6 & 0x4000) == 0)
+      if ((v5 & 0x4000) == 0)
       {
         goto LABEL_20;
       }
@@ -733,12 +736,10 @@ LABEL_18:
     goto LABEL_18;
   }
 
-  scellIndex = self->_scellIndex;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x4000) != 0)
   {
 LABEL_19:
-    txPowerLimited = self->_txPowerLimited;
     PBDataWriterWriteBOOLField();
   }
 
@@ -1228,7 +1229,6 @@ LABEL_17:
       goto LABEL_88;
     }
 
-    v7 = *(equalCopy + 73);
     if (self->_contentionBased)
     {
       if ((*(equalCopy + 73) & 1) == 0)
@@ -1320,7 +1320,6 @@ LABEL_17:
       goto LABEL_88;
     }
 
-    v8 = *(equalCopy + 72);
     if (self->_cellIsApo)
     {
       if ((*(equalCopy + 72) & 1) == 0)
@@ -1412,7 +1411,7 @@ LABEL_17:
         if (*(equalCopy + 74))
         {
 LABEL_86:
-          v10 = 1;
+          v8 = 1;
           goto LABEL_89;
         }
       }
@@ -1424,14 +1423,14 @@ LABEL_86:
     }
 
 LABEL_88:
-    v10 = 0;
+    v8 = 0;
     goto LABEL_89;
   }
 
-  v10 = (*(equalCopy + 38) & 0x4000) == 0;
+  v8 = (*(equalCopy + 38) & 0x4000) == 0;
 LABEL_89:
 
-  return v10;
+  return v8;
 }
 
 - (unint64_t)hash

@@ -14,7 +14,7 @@
 - (_TtC9RemindersP33_9720CD1AB887D176DDBBBD34D80FC8A023HeaderMainContainerView)initWithCoder:(id)coder
 {
   v4 = OBJC_IVAR____TtC9RemindersP33_9720CD1AB887D176DDBBBD34D80FC8A023HeaderMainContainerView_viewHeightSubject;
-  sub_100058000(&qword_100769E68);
+  sub_100058000(&qword_100769E68, &qword_10062EA18);
   swift_allocObject();
   *&self->NUIContainerView_opaque[v4] = PassthroughSubject.init()();
   v5 = &self->NUIContainerView_opaque[OBJC_IVAR____TtC9RemindersP33_9720CD1AB887D176DDBBBD34D80FC8A023HeaderMainContainerView_safeAreaInsetSnapshot];

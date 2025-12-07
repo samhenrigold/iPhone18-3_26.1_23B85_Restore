@@ -1,12 +1,39 @@
-void gdc::LogicExecutionGraphBuilder::addLogic<md::PuckLocationAnimationTracingLogic>(void *a1)
+void gdc::LogicExecutionGraphBuilder::addLogic<md::RouteLineLogic>(uint64_t a1)
 {
-  v8[0] = 0x1FCDF994595CDE24;
-  v8[1] = "md::PuckLocationAnimationTracingLogic]";
-  v8[2] = 37;
-  *&v5 = 0xA81ACD73F9C92AA1;
-  *(&v5 + 1) = "md::PuckLocationAnimationTracingContext]";
-  v6 = 39;
-  v7 = 1;
+  v7[0] = 0x7173CF8D2BE8FE53;
+  v7[1] = "md::RouteLineLogic]";
+  v7[2] = 18;
+  v5[0] = 0x8E4587A431F9C696;
+  v5[1] = "md::RouteLineContext]";
+  v5[2] = 20;
+  v6 = 1;
+  v3[1] = v4;
+  v3[2] = 4;
+  v3[0] = &unk_1F2A4B610;
+  v4[2] = xmmword_1E7B336D0;
+  v4[3] = unk_1E7B336E0;
+  v4[4] = xmmword_1E7B336F0;
+  v4[5] = *&off_1E7B33700;
+  v4[0] = xmmword_1E7B336B0;
+  v4[1] = unk_1E7B336C0;
+  v2[0] = xmmword_1E7B33710;
+  v2[1] = unk_1E7B33720;
+  v1[1] = v2;
+  v1[2] = 2;
+  v1[0] = &unk_1F2A4B5D0;
+  v2[2] = xmmword_1E7B33730;
+  gdc::LogicExecutionGraphBuilder::addLogic(a1, v7, v5, 0, v3, v1);
+}
+
+void gdc::LogicExecutionGraphBuilder::addLogic<md::PuckLocationAnimationTracingLogic>(uint64_t a1)
+{
+  v7[0] = 0x1FCDF994595CDE24;
+  v7[1] = "md::PuckLocationAnimationTracingLogic]";
+  v7[2] = 37;
+  v5[0] = 0xA81ACD73F9C92AA1;
+  v5[1] = "md::PuckLocationAnimationTracingContext]";
+  v5[2] = 39;
+  v6 = 1;
   v2[1] = &v3;
   v2[2] = 1;
   v1[2] = 0;
@@ -15,18 +42,18 @@ void gdc::LogicExecutionGraphBuilder::addLogic<md::PuckLocationAnimationTracingL
   v4 = 21;
   v1[0] = &unk_1F2A4C258;
   v1[1] = v2;
-  gdc::LogicExecutionGraphBuilder::addLogic(a1, v8, &v5, 0, v2, v1);
+  gdc::LogicExecutionGraphBuilder::addLogic(a1, v7, v5, 0, v2, v1);
 }
 
-void gdc::LogicExecutionGraphBuilder::addLogic<md::OverlaysLogic>(void *a1)
+void gdc::LogicExecutionGraphBuilder::addLogic<md::OverlaysLogic>(uint64_t a1)
 {
-  v7[0] = 0x87668FB4D087F775;
-  v7[1] = "md::OverlaysLogic]";
-  v7[2] = 17;
-  *&v4 = 0xADE8F13E6C18D970;
-  *(&v4 + 1) = "md::OverlaysContext]";
-  v5 = 19;
-  v6 = 1;
+  v6[0] = 0x87668FB4D087F775;
+  v6[1] = "md::OverlaysLogic]";
+  v6[2] = 17;
+  v4[0] = 0xADE8F13E6C18D970;
+  v4[1] = "md::OverlaysContext]";
+  v4[2] = 19;
+  v5 = 1;
   v3[2] = xmmword_1E7B33760;
   v3[3] = unk_1E7B33770;
   v3[4] = xmmword_1E7B33780;
@@ -39,18 +66,18 @@ void gdc::LogicExecutionGraphBuilder::addLogic<md::OverlaysLogic>(void *a1)
   v3[1] = unk_1E7B33750;
   v1[0] = &unk_1F2A4C258;
   v1[1] = v2;
-  gdc::LogicExecutionGraphBuilder::addLogic(a1, v7, &v4, 0, v2, v1);
+  gdc::LogicExecutionGraphBuilder::addLogic(a1, v6, v4, 0, v2, v1);
 }
 
-void gdc::LogicExecutionGraphBuilder::addLogic<md::DrapingLogic>(void *a1)
+void gdc::LogicExecutionGraphBuilder::addLogic<md::DrapingLogic>(uint64_t a1)
 {
-  v7[0] = 0x3B36D43422893971;
-  v7[1] = "md::DrapingLogic]";
-  v7[2] = 16;
-  *&v4 = 0x1B9039CBDAB12E5CLL;
-  *(&v4 + 1) = "md::DrapingContext]";
-  v5 = 18;
-  v6 = 1;
+  v6[0] = 0x3B36D43422893971;
+  v6[1] = "md::DrapingLogic]";
+  v6[2] = 16;
+  v4[0] = 0x1B9039CBDAB12E5CLL;
+  v4[1] = "md::DrapingContext]";
+  v4[2] = 18;
+  v5 = 1;
   v3[2] = xmmword_1E7B337C0;
   v3[3] = unk_1E7B337D0;
   v3[4] = xmmword_1E7B337E0;
@@ -63,18 +90,18 @@ void gdc::LogicExecutionGraphBuilder::addLogic<md::DrapingLogic>(void *a1)
   v3[1] = unk_1E7B337B0;
   v1[0] = &unk_1F2A4C258;
   v1[1] = v2;
-  gdc::LogicExecutionGraphBuilder::addLogic(a1, v7, &v4, 0, v2, v1);
+  gdc::LogicExecutionGraphBuilder::addLogic(a1, v6, v4, 0, v2, v1);
 }
 
-void gdc::LogicExecutionGraphBuilder::addLogic<md::RegistryLogic>(void *a1)
+void gdc::LogicExecutionGraphBuilder::addLogic<md::RegistryLogic>(uint64_t a1)
 {
-  v8[0] = 0xDEBD99099DA2C65BLL;
-  v8[1] = "md::RegistryLogic]";
-  v8[2] = 17;
-  *&v5 = 0xFBD83FDA8879FF7ELL;
-  *(&v5 + 1) = "md::RegistryContext]";
-  v6 = 19;
-  v7 = 1;
+  v7[0] = 0xDEBD99099DA2C65BLL;
+  v7[1] = "md::RegistryLogic]";
+  v7[2] = 17;
+  v5[0] = 0xFBD83FDA8879FF7ELL;
+  v5[1] = "md::RegistryContext]";
+  v5[2] = 19;
+  v6 = 1;
   v2[1] = &v3;
   v2[2] = 1;
   v1[2] = 0;
@@ -83,18 +110,18 @@ void gdc::LogicExecutionGraphBuilder::addLogic<md::RegistryLogic>(void *a1)
   v4 = 16;
   v1[0] = &unk_1F2A4C258;
   v1[1] = v2;
-  gdc::LogicExecutionGraphBuilder::addLogic(a1, v8, &v5, 0, v2, v1);
+  gdc::LogicExecutionGraphBuilder::addLogic(a1, v7, v5, 0, v2, v1);
 }
 
-void gdc::LogicExecutionGraphBuilder::addLogic<md::PendingRegistryLogic>(void *a1)
+void gdc::LogicExecutionGraphBuilder::addLogic<md::PendingRegistryLogic>(uint64_t a1)
 {
-  v8[0] = 0x8B45D3D7944796A2;
-  v8[1] = "md::PendingRegistryLogic]";
-  v8[2] = 24;
-  *&v5 = 0xA8300AA8F44B09FFLL;
-  *(&v5 + 1) = "md::PendingRegistryContext]";
-  v6 = 26;
-  v7 = 1;
+  v7[0] = 0x8B45D3D7944796A2;
+  v7[1] = "md::PendingRegistryLogic]";
+  v7[2] = 24;
+  v5[0] = 0xA8300AA8F44B09FFLL;
+  v5[1] = "md::PendingRegistryContext]";
+  v5[2] = 26;
+  v6 = 1;
   v2[1] = &v3;
   v2[2] = 1;
   v1[2] = 0;
@@ -103,18 +130,18 @@ void gdc::LogicExecutionGraphBuilder::addLogic<md::PendingRegistryLogic>(void *a
   v4 = 23;
   v1[0] = &unk_1F2A4C258;
   v1[1] = v2;
-  gdc::LogicExecutionGraphBuilder::addLogic(a1, v8, &v5, 0, v2, v1);
+  gdc::LogicExecutionGraphBuilder::addLogic(a1, v7, v5, 0, v2, v1);
 }
 
-void gdc::LogicExecutionGraphBuilder::addLogic<md::PolygonLogic>(void *a1)
+void gdc::LogicExecutionGraphBuilder::addLogic<md::PolygonLogic>(uint64_t a1)
 {
-  v7[0] = 0x3C2657D301A7BCF4;
-  v7[1] = "md::PolygonLogic]";
-  v7[2] = 16;
-  *&v4 = 0x401D4CCE847AB1D1;
-  *(&v4 + 1) = "md::PolygonContext]";
-  v5 = 18;
-  v6 = 1;
+  v6[0] = 0x3C2657D301A7BCF4;
+  v6[1] = "md::PolygonLogic]";
+  v6[2] = 16;
+  v4[0] = 0x401D4CCE847AB1D1;
+  v4[1] = "md::PolygonContext]";
+  v4[2] = 18;
+  v5 = 1;
   v3[0] = xmmword_1E7B35820;
   v2[1] = v3;
   v2[2] = 2;
@@ -124,54 +151,54 @@ void gdc::LogicExecutionGraphBuilder::addLogic<md::PolygonLogic>(void *a1)
   v3[2] = xmmword_1E7B35840;
   v1[0] = &unk_1F2A4C258;
   v1[1] = v2;
-  gdc::LogicExecutionGraphBuilder::addLogic(a1, v7, &v4, 0, v2, v1);
+  gdc::LogicExecutionGraphBuilder::addLogic(a1, v6, v4, 0, v2, v1);
 }
 
-void gdc::LogicExecutionGraphBuilder::addLogic<md::RouteOverlayLogic>(void *a1)
+void gdc::LogicExecutionGraphBuilder::addLogic<md::RouteOverlayLogic>(uint64_t a1)
 {
-  v6[0] = 0x5CBBA028798243FLL;
-  v6[1] = "md::RouteOverlayLogic]";
-  v6[2] = 21;
-  *&v3 = 0x13043386C0978CC2;
-  *(&v3 + 1) = "md::RouteOverlayContext]";
-  v4 = 23;
-  v5 = 1;
-  v2[1] = &v3;
+  v5[0] = 0x5CBBA028798243FLL;
+  v5[1] = "md::RouteOverlayLogic]";
+  v5[2] = 21;
+  v3[0] = 0x13043386C0978CC2;
+  v3[1] = "md::RouteOverlayContext]";
+  v3[2] = 23;
+  v4 = 1;
+  v2[1] = v3;
   v2[2] = 0;
   v1[2] = 0;
   v2[0] = &unk_1F2A4C258;
   v1[0] = &unk_1F2A4C258;
   v1[1] = v2;
-  gdc::LogicExecutionGraphBuilder::addLogic(a1, v6, &v3, 0, v2, v1);
+  gdc::LogicExecutionGraphBuilder::addLogic(a1, v5, v3, 0, v2, v1);
 }
 
-void gdc::LogicExecutionGraphBuilder::addLogic<md::LayerDataLogic>(void *a1)
+void gdc::LogicExecutionGraphBuilder::addLogic<md::LayerDataLogic>(uint64_t a1)
 {
-  v6[0] = 0x90C2E4CBBB63E301;
-  v6[1] = "md::LayerDataLogic]";
-  v6[2] = 18;
-  *&v3 = 0x7851AF310F49C988;
-  *(&v3 + 1) = "md::LayerDataLogicContext]";
-  v4 = 25;
-  v5 = 1;
-  v2[1] = &v3;
+  v5[0] = 0x90C2E4CBBB63E301;
+  v5[1] = "md::LayerDataLogic]";
+  v5[2] = 18;
+  v3[0] = 0x7851AF310F49C988;
+  v3[1] = "md::LayerDataLogicContext]";
+  v3[2] = 25;
+  v4 = 1;
+  v2[1] = v3;
   v2[2] = 0;
   v1[2] = 0;
   v2[0] = &unk_1F2A4C258;
   v1[0] = &unk_1F2A4C258;
   v1[1] = v2;
-  gdc::LogicExecutionGraphBuilder::addLogic(a1, v6, &v3, 0, v2, v1);
+  gdc::LogicExecutionGraphBuilder::addLogic(a1, v5, v3, 0, v2, v1);
 }
 
-void gdc::LogicExecutionGraphBuilder::addLogic<md::TileSelectionLogic>(void *a1)
+void gdc::LogicExecutionGraphBuilder::addLogic<md::TileSelectionLogic>(uint64_t a1)
 {
-  v8[0] = 0xAF46DE79C836B0D8;
-  v8[1] = "md::TileSelectionLogic]";
-  v8[2] = 22;
-  *&v5 = 0x64780CBD71DF7CF5;
-  *(&v5 + 1) = "md::TileSelectionContext]";
-  v6 = 24;
-  v7 = 1;
+  v7[0] = 0xAF46DE79C836B0D8;
+  v7[1] = "md::TileSelectionLogic]";
+  v7[2] = 22;
+  v5[0] = 0x64780CBD71DF7CF5;
+  v5[1] = "md::TileSelectionContext]";
+  v5[2] = 24;
+  v6 = 1;
   v3[1] = unk_1E7B33888;
   v3[2] = xmmword_1E7B33898;
   v3[3] = unk_1E7B338A8;
@@ -183,10 +210,10 @@ void gdc::LogicExecutionGraphBuilder::addLogic<md::TileSelectionLogic>(void *a1)
   v3[0] = xmmword_1E7B33878;
   v1[0] = &unk_1F2A4C258;
   v1[1] = v2;
-  gdc::LogicExecutionGraphBuilder::addLogic(a1, v8, &v5, 0, v2, v1);
+  gdc::LogicExecutionGraphBuilder::addLogic(a1, v7, v5, 0, v2, v1);
 }
 
-void gdc::LogicExecutionGraphBuilder::addLogic<md::TileDependencyLogicImpl<md::TileDependencies<>,md::TileDependencies<md::TileDependency<(md::MapDataType)75,md::FlyoverTileDataResolverContext>,md::TileDependency<(md::MapDataType)76,md::FlyoverTileDataResolverContext>,md::TileDependency<(md::MapDataType)77,md::FlyoverTileDataResolverContext>>>>(void *a1)
+void gdc::LogicExecutionGraphBuilder::addLogic<md::TileDependencyLogicImpl<md::TileDependencies<>,md::TileDependencies<md::TileDependency<(md::MapDataType)75,md::FlyoverTileDataResolverContext>,md::TileDependency<(md::MapDataType)76,md::FlyoverTileDataResolverContext>,md::TileDependency<(md::MapDataType)77,md::FlyoverTileDataResolverContext>>>>(uint64_t a1)
 {
   v3 = 0xCBF29CE484222325;
   v4 = 0x26u;
@@ -196,15 +223,15 @@ void gdc::LogicExecutionGraphBuilder::addLogic<md::TileDependencyLogicImpl<md::T
   }
 
   while (v4 != 368);
-  v14[3] = v1;
-  v14[4] = v2;
-  v14[0] = v3;
-  v14[1] = "md::TileDependencyLogicImpl<md::TileDependencies<>, md::TileDependencies<md::TileDependency<md::MapDataType::Flyover, md::FlyoverTileDataResolverContext>, md::TileDependency<md::MapDataType::FlyoverMetadata, md::FlyoverTileDataResolverContext>, md::TileDependency<md::MapDataType::FlyoverDsm, md::FlyoverTileDataResolverContext>>>]";
-  v14[2] = 330;
-  *&v11 = 0x8677AD8BA9352C1DLL;
-  *(&v11 + 1) = "md::ResolvedTileSelectionContext]";
-  v12 = 32;
-  v13 = 1;
+  v13[3] = v1;
+  v13[4] = v2;
+  v13[0] = v3;
+  v13[1] = "md::TileDependencyLogicImpl<md::TileDependencies<>, md::TileDependencies<md::TileDependency<md::MapDataType::Flyover, md::FlyoverTileDataResolverContext>, md::TileDependency<md::MapDataType::FlyoverMetadata, md::FlyoverTileDataResolverContext>, md::TileDependency<md::MapDataType::FlyoverDsm, md::FlyoverTileDataResolverContext>>>]";
+  v13[2] = 330;
+  v11[0] = 0x8677AD8BA9352C1DLL;
+  v11[1] = "md::ResolvedTileSelectionContext]";
+  v11[2] = 32;
+  v12 = 1;
   v8[1] = &v9;
   v8[2] = 1;
   v8[0] = &unk_1F2A4C218;
@@ -215,18 +242,18 @@ void gdc::LogicExecutionGraphBuilder::addLogic<md::TileDependencyLogicImpl<md::T
   v5[0] = &unk_1F2A4C218;
   v6 = xmmword_1E7B33968;
   v7 = 34;
-  gdc::LogicExecutionGraphBuilder::addLogic(a1, v14, &v11, 0, v8, v5);
+  gdc::LogicExecutionGraphBuilder::addLogic(a1, v13, v11, 0, v8, v5);
 }
 
-void gdc::LogicExecutionGraphBuilder::addLogic<md::PendingSceneLogic>(void *a1)
+void gdc::LogicExecutionGraphBuilder::addLogic<md::PendingSceneLogic>(uint64_t a1)
 {
-  v8[0] = 0x87BA2765F9E38E05;
-  v8[1] = "md::PendingSceneLogic]";
-  v8[2] = 21;
-  *&v5 = 0x9F2276D081C2CB20;
-  *(&v5 + 1) = "md::PendingSceneContext]";
-  v6 = 23;
-  v7 = 1;
+  v7[0] = 0x87BA2765F9E38E05;
+  v7[1] = "md::PendingSceneLogic]";
+  v7[2] = 21;
+  v5[0] = 0x9F2276D081C2CB20;
+  v5[1] = "md::PendingSceneContext]";
+  v5[2] = 23;
+  v6 = 1;
   v3[5] = *&off_1E7B339D0;
   v3[6] = xmmword_1E7B339E0;
   v3[0] = xmmword_1E7B33980;
@@ -241,18 +268,18 @@ void gdc::LogicExecutionGraphBuilder::addLogic<md::PendingSceneLogic>(void *a1)
   v3[4] = xmmword_1E7B339C0;
   v1[0] = &unk_1F2A4C258;
   v1[1] = v2;
-  gdc::LogicExecutionGraphBuilder::addLogic(a1, v8, &v5, 0, v2, v1);
+  gdc::LogicExecutionGraphBuilder::addLogic(a1, v7, v5, 0, v2, v1);
 }
 
-void gdc::LogicExecutionGraphBuilder::addLogic<md::ResolvedSceneLogic>(void *a1)
+void gdc::LogicExecutionGraphBuilder::addLogic<md::ResolvedSceneLogic>(uint64_t a1)
 {
-  v8[0] = 0x2B7C4502BD3C99C6;
-  v8[1] = "md::ResolvedSceneLogic]";
-  v8[2] = 22;
-  *&v5 = 0x99BED48DEFBBD82BLL;
-  *(&v5 + 1) = "md::SceneContext]";
-  v6 = 16;
-  v7 = 1;
+  v7[0] = 0x2B7C4502BD3C99C6;
+  v7[1] = "md::ResolvedSceneLogic]";
+  v7[2] = 22;
+  v5[0] = 0x99BED48DEFBBD82BLL;
+  v5[1] = "md::SceneContext]";
+  v5[2] = 16;
+  v6 = 1;
   v3[1] = v4;
   v3[2] = 4;
   v3[0] = &unk_1F2A4B610;
@@ -268,18 +295,18 @@ void gdc::LogicExecutionGraphBuilder::addLogic<md::ResolvedSceneLogic>(void *a1)
   v1[2] = 2;
   v1[0] = &unk_1F2A4B5D0;
   v2[2] = xmmword_1E7B33A78;
-  gdc::LogicExecutionGraphBuilder::addLogic(a1, v8, &v5, 0, v3, v1);
+  gdc::LogicExecutionGraphBuilder::addLogic(a1, v7, v5, 0, v3, v1);
 }
 
-void gdc::LogicExecutionGraphBuilder::addLogic<md::SceneQueryLogic>(void *a1)
+void gdc::LogicExecutionGraphBuilder::addLogic<md::SceneQueryLogic>(uint64_t a1)
 {
-  v8[0] = 0x1F3242C85D9F2F62;
-  v8[1] = "md::SceneQueryLogic]";
-  v8[2] = 19;
-  *&v5 = 0xDFC317497CF9A4BFLL;
-  *(&v5 + 1) = "md::SceneQueryContext]";
-  v6 = 21;
-  v7 = 1;
+  v7[0] = 0x1F3242C85D9F2F62;
+  v7[1] = "md::SceneQueryLogic]";
+  v7[2] = 19;
+  v5[0] = 0xDFC317497CF9A4BFLL;
+  v5[1] = "md::SceneQueryContext]";
+  v5[2] = 21;
+  v6 = 1;
   v3[5] = *&off_1E7B33AD8;
   v3[6] = xmmword_1E7B33AE8;
   v3[0] = xmmword_1E7B33A88;
@@ -294,54 +321,54 @@ void gdc::LogicExecutionGraphBuilder::addLogic<md::SceneQueryLogic>(void *a1)
   v3[4] = xmmword_1E7B33AC8;
   v1[0] = &unk_1F2A4C258;
   v1[1] = v2;
-  gdc::LogicExecutionGraphBuilder::addLogic(a1, v8, &v5, 0, v2, v1);
+  gdc::LogicExecutionGraphBuilder::addLogic(a1, v7, v5, 0, v2, v1);
 }
 
-void gdc::LogicExecutionGraphBuilder::addLogic<md::SettingsLogic>(void *a1)
+void gdc::LogicExecutionGraphBuilder::addLogic<md::SettingsLogic>(uint64_t a1)
 {
-  v6[0] = 0xD2443A61CED86C69;
-  v6[1] = "md::SettingsLogic]";
-  v6[2] = 17;
-  *&v3 = 0xC97B9E962ADF4AD4;
-  *(&v3 + 1) = "md::SettingsContext]";
-  v4 = 19;
-  v5 = 1;
-  v2[1] = &v3;
+  v5[0] = 0xD2443A61CED86C69;
+  v5[1] = "md::SettingsLogic]";
+  v5[2] = 17;
+  v3[0] = 0xC97B9E962ADF4AD4;
+  v3[1] = "md::SettingsContext]";
+  v3[2] = 19;
+  v4 = 1;
+  v2[1] = v3;
   v2[2] = 0;
   v1[2] = 0;
   v2[0] = &unk_1F2A4C258;
   v1[0] = &unk_1F2A4C258;
   v1[1] = v2;
-  gdc::LogicExecutionGraphBuilder::addLogic(a1, v6, &v3, 0, v2, v1);
+  gdc::LogicExecutionGraphBuilder::addLogic(a1, v5, v3, 0, v2, v1);
 }
 
-void gdc::LogicExecutionGraphBuilder::addLogic<md::SharedResourcesLogic>(void *a1)
+void gdc::LogicExecutionGraphBuilder::addLogic<md::SharedResourcesLogic>(uint64_t a1)
 {
-  v6[0] = 0x3F812BA5755E8568;
-  v6[1] = "md::SharedResourcesLogic]";
-  v6[2] = 24;
-  *&v3 = 0xA60DDA5A69582425;
-  *(&v3 + 1) = "md::SharedResourcesContext]";
-  v4 = 26;
-  v5 = 1;
-  v2[1] = &v3;
+  v5[0] = 0x3F812BA5755E8568;
+  v5[1] = "md::SharedResourcesLogic]";
+  v5[2] = 24;
+  v3[0] = 0xA60DDA5A69582425;
+  v3[1] = "md::SharedResourcesContext]";
+  v3[2] = 26;
+  v4 = 1;
+  v2[1] = v3;
   v2[2] = 0;
   v1[2] = 0;
   v2[0] = &unk_1F2A4C258;
   v1[0] = &unk_1F2A4C258;
   v1[1] = v2;
-  gdc::LogicExecutionGraphBuilder::addLogic(a1, v6, &v3, 0, v2, v1);
+  gdc::LogicExecutionGraphBuilder::addLogic(a1, v5, v3, 0, v2, v1);
 }
 
-void gdc::LogicExecutionGraphBuilder::addLogic<md::SkyLogic>(void *a1)
+void gdc::LogicExecutionGraphBuilder::addLogic<md::SkyLogic>(uint64_t a1)
 {
-  v7[0] = 0xDAD5CEE0DC5FF509;
-  v7[1] = "md::SkyLogic]";
-  v7[2] = 12;
-  *&v4 = 0x7C7EC6C7C111B0D0;
-  *(&v4 + 1) = "md::SkyLogicContext]";
-  v5 = 19;
-  v6 = 1;
+  v6[0] = 0xDAD5CEE0DC5FF509;
+  v6[1] = "md::SkyLogic]";
+  v6[2] = 12;
+  v4[0] = 0x7C7EC6C7C111B0D0;
+  v4[1] = "md::SkyLogicContext]";
+  v4[2] = 19;
+  v5 = 1;
   v3[0] = xmmword_1E7B334D0;
   v2[1] = v3;
   v2[2] = 2;
@@ -351,36 +378,36 @@ void gdc::LogicExecutionGraphBuilder::addLogic<md::SkyLogic>(void *a1)
   v3[2] = xmmword_1E7B334F0;
   v1[0] = &unk_1F2A4C258;
   v1[1] = v2;
-  gdc::LogicExecutionGraphBuilder::addLogic(a1, v7, &v4, 0, v2, v1);
+  gdc::LogicExecutionGraphBuilder::addLogic(a1, v6, v4, 0, v2, v1);
 }
 
-void gdc::LogicExecutionGraphBuilder::addLogic<md::StyleLogic>(void *a1)
+void gdc::LogicExecutionGraphBuilder::addLogic<md::StyleLogic>(uint64_t a1)
 {
-  v6[0] = 0x2FED70A4459DFCA1;
-  v6[1] = "md::StyleLogic]";
-  v6[2] = 14;
-  *&v3 = 0xE42D19AFCA302E68;
-  *(&v3 + 1) = "md::StyleLogicContext]";
-  v4 = 21;
-  v5 = 1;
-  v2[1] = &v3;
+  v5[0] = 0x2FED70A4459DFCA1;
+  v5[1] = "md::StyleLogic]";
+  v5[2] = 14;
+  v3[0] = 0xE42D19AFCA302E68;
+  v3[1] = "md::StyleLogicContext]";
+  v3[2] = 21;
+  v4 = 1;
+  v2[1] = v3;
   v2[2] = 0;
   v1[2] = 0;
   v2[0] = &unk_1F2A4C258;
   v1[0] = &unk_1F2A4C258;
   v1[1] = v2;
-  gdc::LogicExecutionGraphBuilder::addLogic(a1, v6, &v3, 0, v2, v1);
+  gdc::LogicExecutionGraphBuilder::addLogic(a1, v5, v3, 0, v2, v1);
 }
 
-void gdc::LogicExecutionGraphBuilder::addLogic<md::PuckLogic>(void *a1)
+void gdc::LogicExecutionGraphBuilder::addLogic<md::PuckLogic>(uint64_t a1)
 {
-  v8[0] = 0x33D44727E59BE9E9;
-  v8[1] = "md::PuckLogic]";
-  v8[2] = 13;
-  *&v5 = 0x9AEE7E062376E454;
-  *(&v5 + 1) = "md::PuckContext]";
-  v6 = 15;
-  v7 = 1;
+  v7[0] = 0x33D44727E59BE9E9;
+  v7[1] = "md::PuckLogic]";
+  v7[2] = 13;
+  v5[0] = 0x9AEE7E062376E454;
+  v5[1] = "md::PuckContext]";
+  v5[2] = 15;
+  v6 = 1;
   v3[10] = xmmword_1E7B33BA0;
   v3[11] = *&off_1E7B33BB0;
   v3[12] = xmmword_1E7B33BC0;
@@ -401,36 +428,36 @@ void gdc::LogicExecutionGraphBuilder::addLogic<md::PuckLogic>(void *a1)
   v4 = 24;
   v1[0] = &unk_1F2A4C258;
   v1[1] = v2;
-  gdc::LogicExecutionGraphBuilder::addLogic(a1, v8, &v5, 0, v2, v1);
+  gdc::LogicExecutionGraphBuilder::addLogic(a1, v7, v5, 0, v2, v1);
 }
 
-void gdc::LogicExecutionGraphBuilder::addLogic<md::NonTiledAssetLogic>(void *a1)
+void gdc::LogicExecutionGraphBuilder::addLogic<md::NonTiledAssetLogic>(uint64_t a1)
 {
-  v6[0] = 0x6139471CB89383CBLL;
-  v6[1] = "md::NonTiledAssetLogic]";
-  v6[2] = 22;
-  *&v3 = 0x932EE29454ABDC4ELL;
-  *(&v3 + 1) = "md::NonTiledAssetContext]";
-  v4 = 24;
-  v5 = 1;
-  v2[1] = &v3;
+  v5[0] = 0x6139471CB89383CBLL;
+  v5[1] = "md::NonTiledAssetLogic]";
+  v5[2] = 22;
+  v3[0] = 0x932EE29454ABDC4ELL;
+  v3[1] = "md::NonTiledAssetContext]";
+  v3[2] = 24;
+  v4 = 1;
+  v2[1] = v3;
   v2[2] = 0;
   v1[2] = 0;
   v2[0] = &unk_1F2A4C258;
   v1[0] = &unk_1F2A4C258;
   v1[1] = v2;
-  gdc::LogicExecutionGraphBuilder::addLogic(a1, v6, &v3, 0, v2, v1);
+  gdc::LogicExecutionGraphBuilder::addLogic(a1, v5, v3, 0, v2, v1);
 }
 
-void gdc::LogicExecutionGraphBuilder::addLogic<md::LocalNorthLogic>(void *a1)
+void gdc::LogicExecutionGraphBuilder::addLogic<md::LocalNorthLogic>(uint64_t a1)
 {
-  v8[0] = 0x738A703709805788;
-  v8[1] = "md::LocalNorthLogic]";
-  v8[2] = 19;
-  *&v5 = 0xC81F81A7CB7767BBLL;
-  *(&v5 + 1) = "md::LocalNorthLogicContext]";
-  v6 = 26;
-  v7 = 1;
+  v7[0] = 0x738A703709805788;
+  v7[1] = "md::LocalNorthLogic]";
+  v7[2] = 19;
+  v5[0] = 0xC81F81A7CB7767BBLL;
+  v5[1] = "md::LocalNorthLogicContext]";
+  v5[2] = 26;
+  v6 = 1;
   v3[1] = unk_1E7B35860;
   v3[2] = xmmword_1E7B35870;
   v3[3] = unk_1E7B35880;
@@ -442,18 +469,18 @@ void gdc::LogicExecutionGraphBuilder::addLogic<md::LocalNorthLogic>(void *a1)
   v3[0] = xmmword_1E7B35850;
   v1[0] = &unk_1F2A4C258;
   v1[1] = v2;
-  gdc::LogicExecutionGraphBuilder::addLogic(a1, v8, &v5, 0, v2, v1);
+  gdc::LogicExecutionGraphBuilder::addLogic(a1, v7, v5, 0, v2, v1);
 }
 
-void gdc::LogicExecutionGraphBuilder::addLogic<md::StandardLogic>(void *a1)
+void gdc::LogicExecutionGraphBuilder::addLogic<md::StandardLogic>(uint64_t a1)
 {
-  v7[0] = 0x652FEFC5C602CC21;
-  v7[1] = "md::StandardLogic]";
-  v7[2] = 17;
-  *&v4 = 0xFFA06A69D924B0E8;
-  *(&v4 + 1) = "md::StandardLogicContext]";
-  v5 = 24;
-  v6 = 1;
+  v6[0] = 0x652FEFC5C602CC21;
+  v6[1] = "md::StandardLogic]";
+  v6[2] = 17;
+  v4[0] = 0xFFA06A69D924B0E8;
+  v4[1] = "md::StandardLogicContext]";
+  v4[2] = 24;
+  v5 = 1;
   v3[0] = xmmword_1E7B33BD8;
   v2[1] = v3;
   v2[2] = 2;
@@ -463,36 +490,36 @@ void gdc::LogicExecutionGraphBuilder::addLogic<md::StandardLogic>(void *a1)
   v3[2] = xmmword_1E7B33BF8;
   v1[0] = &unk_1F2A4C258;
   v1[1] = v2;
-  gdc::LogicExecutionGraphBuilder::addLogic(a1, v7, &v4, 0, v2, v1);
+  gdc::LogicExecutionGraphBuilder::addLogic(a1, v6, v4, 0, v2, v1);
 }
 
-void gdc::LogicExecutionGraphBuilder::addLogic<md::DebugDrawLogic>(void *a1)
+void gdc::LogicExecutionGraphBuilder::addLogic<md::DebugDrawLogic>(uint64_t a1)
 {
-  v6[0] = 0x41948F4CADE567A1;
-  v6[1] = "md::DebugDrawLogic]";
-  v6[2] = 18;
-  *&v3 = 0x3619066E3FB5F2CLL;
-  *(&v3 + 1) = "md::DebugDrawContext]";
-  v4 = 20;
-  v5 = 1;
-  v2[1] = &v3;
+  v5[0] = 0x41948F4CADE567A1;
+  v5[1] = "md::DebugDrawLogic]";
+  v5[2] = 18;
+  v3[0] = 0x3619066E3FB5F2CLL;
+  v3[1] = "md::DebugDrawContext]";
+  v3[2] = 20;
+  v4 = 1;
+  v2[1] = v3;
   v2[2] = 0;
   v1[2] = 0;
   v2[0] = &unk_1F2A4C258;
   v1[0] = &unk_1F2A4C258;
   v1[1] = v2;
-  gdc::LogicExecutionGraphBuilder::addLogic(a1, v6, &v3, 0, v2, v1);
+  gdc::LogicExecutionGraphBuilder::addLogic(a1, v5, v3, 0, v2, v1);
 }
 
-void gdc::LogicExecutionGraphBuilder::addLogic<md::BVHDebugLogic>(void *a1)
+void gdc::LogicExecutionGraphBuilder::addLogic<md::BVHDebugLogic>(uint64_t a1)
 {
-  v7[0] = 0x86A267F81845D1D3;
-  v7[1] = "md::BVHDebugLogic]";
-  v7[2] = 17;
-  *&v4 = 0xEB7D991403622616;
-  *(&v4 + 1) = "md::BVHDebugContext]";
-  v5 = 19;
-  v6 = 1;
+  v6[0] = 0x86A267F81845D1D3;
+  v6[1] = "md::BVHDebugLogic]";
+  v6[2] = 17;
+  v4[0] = 0xEB7D991403622616;
+  v4[1] = "md::BVHDebugContext]";
+  v4[2] = 19;
+  v5 = 1;
   v3[0] = xmmword_1E7B33BD8;
   v2[1] = v3;
   v2[2] = 2;
@@ -502,18 +529,18 @@ void gdc::LogicExecutionGraphBuilder::addLogic<md::BVHDebugLogic>(void *a1)
   v3[2] = xmmword_1E7B33BF8;
   v1[0] = &unk_1F2A4C258;
   v1[1] = v2;
-  gdc::LogicExecutionGraphBuilder::addLogic(a1, v7, &v4, 0, v2, v1);
+  gdc::LogicExecutionGraphBuilder::addLogic(a1, v6, v4, 0, v2, v1);
 }
 
-void gdc::LogicExecutionGraphBuilder::addLogic<md::CollectMapDataLogic<(md::MapDataType)54>>(void *a1)
+void gdc::LogicExecutionGraphBuilder::addLogic<md::CollectMapDataLogic<(md::MapDataType)54>>(uint64_t a1)
 {
-  v8[0] = 0xF1FE4046E5C81374;
-  v8[1] = "md::CollectMapDataLogic<md::MapDataType::DaVinciBuildings>]";
-  v8[2] = 58;
-  *&v5 = 0x5B0BFF71B88387C7;
-  *(&v5 + 1) = "md::CollectMapDataContext<md::MapDataType::DaVinciBuildings>]";
-  v6 = 60;
-  v7 = 1;
+  v7[0] = 0xF1FE4046E5C81374;
+  v7[1] = "md::CollectMapDataLogic<md::MapDataType::DaVinciBuildings>]";
+  v7[2] = 58;
+  v5[0] = 0x5B0BFF71B88387C7;
+  v5[1] = "md::CollectMapDataContext<md::MapDataType::DaVinciBuildings>]";
+  v5[2] = 60;
+  v6 = 1;
   v2[1] = &v3;
   v2[2] = 1;
   v1[2] = 0;
@@ -522,18 +549,18 @@ void gdc::LogicExecutionGraphBuilder::addLogic<md::CollectMapDataLogic<(md::MapD
   v4 = 16;
   v1[0] = &unk_1F2A4C258;
   v1[1] = v2;
-  gdc::LogicExecutionGraphBuilder::addLogic(a1, v8, &v5, 0, v2, v1);
+  gdc::LogicExecutionGraphBuilder::addLogic(a1, v7, v5, 0, v2, v1);
 }
 
-void gdc::LogicExecutionGraphBuilder::addLogic<md::CollectMapDataLogic<(md::MapDataType)62>>(void *a1)
+void gdc::LogicExecutionGraphBuilder::addLogic<md::CollectMapDataLogic<(md::MapDataType)62>>(uint64_t a1)
 {
-  v8[0] = 0xB4DD094975FB84EALL;
-  v8[1] = "md::CollectMapDataLogic<md::MapDataType::InjectedFeatures>]";
-  v8[2] = 58;
-  *&v5 = 0x5A88E3C88DA0DCA1;
-  *(&v5 + 1) = "md::CollectMapDataContext<md::MapDataType::InjectedFeatures>]";
-  v6 = 60;
-  v7 = 1;
+  v7[0] = 0xB4DD094975FB84EALL;
+  v7[1] = "md::CollectMapDataLogic<md::MapDataType::InjectedFeatures>]";
+  v7[2] = 58;
+  v5[0] = 0x5A88E3C88DA0DCA1;
+  v5[1] = "md::CollectMapDataContext<md::MapDataType::InjectedFeatures>]";
+  v5[2] = 60;
+  v6 = 1;
   v2[1] = &v3;
   v2[2] = 1;
   v1[2] = 0;
@@ -542,18 +569,18 @@ void gdc::LogicExecutionGraphBuilder::addLogic<md::CollectMapDataLogic<(md::MapD
   v4 = 16;
   v1[0] = &unk_1F2A4C258;
   v1[1] = v2;
-  gdc::LogicExecutionGraphBuilder::addLogic(a1, v8, &v5, 0, v2, v1);
+  gdc::LogicExecutionGraphBuilder::addLogic(a1, v7, v5, 0, v2, v1);
 }
 
-void gdc::LogicExecutionGraphBuilder::addLogic<md::CollectRenderablesLogic<(md::MapDataType)54,md::DaVinciGroundRenderable>>(void *a1)
+void gdc::LogicExecutionGraphBuilder::addLogic<md::CollectRenderablesLogic<(md::MapDataType)54,md::DaVinciGroundRenderable>>(uint64_t a1)
 {
-  v10[0] = 0x20B829C32C58D309;
-  v10[1] = "md::CollectRenderablesLogic<md::MapDataType::DaVinciBuildings, md::DaVinciGroundRenderable>]";
-  v10[2] = 91;
-  *&v7 = 0xF5BDE3F396AD5C40;
-  *(&v7 + 1) = "md::CollectRenderablesLogicContext<md::MapDataType::DaVinciBuildings>]";
-  v8 = 69;
-  v9 = 1;
+  v9[0] = 0x20B829C32C58D309;
+  v9[1] = "md::CollectRenderablesLogic<md::MapDataType::DaVinciBuildings, md::DaVinciGroundRenderable>]";
+  v9[2] = 91;
+  v7[0] = 0xF5BDE3F396AD5C40;
+  v7[1] = "md::CollectRenderablesLogicContext<md::MapDataType::DaVinciBuildings>]";
+  v7[2] = 69;
+  v8 = 1;
   v4[1] = &v5;
   v4[2] = 1;
   v4[0] = &unk_1F2A4C218;
@@ -564,18 +591,18 @@ void gdc::LogicExecutionGraphBuilder::addLogic<md::CollectRenderablesLogic<(md::
   v1[0] = &unk_1F2A4C218;
   v2 = xmmword_1E7B35898;
   v3 = 60;
-  gdc::LogicExecutionGraphBuilder::addLogic(a1, v10, &v7, 0, v4, v1);
+  gdc::LogicExecutionGraphBuilder::addLogic(a1, v9, v7, 0, v4, v1);
 }
 
-void gdc::LogicExecutionGraphBuilder::addLogic<md::CollectRenderablesLogic<(md::MapDataType)62,md::DaVinciGroundRenderable>>(void *a1)
+void gdc::LogicExecutionGraphBuilder::addLogic<md::CollectRenderablesLogic<(md::MapDataType)62,md::DaVinciGroundRenderable>>(uint64_t a1)
 {
-  v10[0] = 0x13C9C3CF7E2D459BLL;
-  v10[1] = "md::CollectRenderablesLogic<md::MapDataType::InjectedFeatures, md::DaVinciGroundRenderable>]";
-  v10[2] = 91;
-  *&v7 = 0x552ACF95227023D6;
-  *(&v7 + 1) = "md::CollectRenderablesLogicContext<md::MapDataType::InjectedFeatures>]";
-  v8 = 69;
-  v9 = 1;
+  v9[0] = 0x13C9C3CF7E2D459BLL;
+  v9[1] = "md::CollectRenderablesLogic<md::MapDataType::InjectedFeatures, md::DaVinciGroundRenderable>]";
+  v9[2] = 91;
+  v7[0] = 0x552ACF95227023D6;
+  v7[1] = "md::CollectRenderablesLogicContext<md::MapDataType::InjectedFeatures>]";
+  v7[2] = 69;
+  v8 = 1;
   v4[1] = &v5;
   v4[2] = 1;
   v4[0] = &unk_1F2A4C218;
@@ -586,35 +613,35 @@ void gdc::LogicExecutionGraphBuilder::addLogic<md::CollectRenderablesLogic<(md::
   v1[0] = &unk_1F2A4C218;
   v2 = xmmword_1E7B358B0;
   v3 = 60;
-  gdc::LogicExecutionGraphBuilder::addLogic(a1, v10, &v7, 0, v4, v1);
+  gdc::LogicExecutionGraphBuilder::addLogic(a1, v9, v7, 0, v4, v1);
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<md::MapDataType,md::MapDataTypeState>,std::__unordered_map_hasher<md::MapDataType,std::__hash_value_type<md::MapDataType,md::MapDataTypeState>,gdc::IntTypeHash<md::MapDataType,unsigned short>,std::equal_to<md::MapDataType>,true>,std::__unordered_map_equal<md::MapDataType,std::__hash_value_type<md::MapDataType,md::MapDataTypeState>,std::equal_to<md::MapDataType>,gdc::IntTypeHash<md::MapDataType,unsigned short>,true>,std::allocator<std::__hash_value_type<md::MapDataType,md::MapDataTypeState>>>::__emplace_unique_key_args<md::MapDataType,std::piecewise_construct_t const&,std::tuple<md::MapDataType const&>,std::tuple<>>(void *a1, unsigned __int16 a2)
+uint64_t **std::__hash_table<std::__hash_value_type<md::MapDataType,md::MapDataTypeState>,std::__unordered_map_hasher<md::MapDataType,std::__hash_value_type<md::MapDataType,md::MapDataTypeState>,gdc::IntTypeHash<md::MapDataType,unsigned short>,std::equal_to<md::MapDataType>,true>,std::__unordered_map_equal<md::MapDataType,std::__hash_value_type<md::MapDataType,md::MapDataTypeState>,std::equal_to<md::MapDataType>,gdc::IntTypeHash<md::MapDataType,unsigned short>,true>,std::allocator<std::__hash_value_type<md::MapDataType,md::MapDataTypeState>>>::__emplace_unique_key_args<md::MapDataType,std::piecewise_construct_t const&,std::tuple<md::MapDataType const&>,std::tuple<>>(void *a1, unsigned __int16 a2, _WORD **a3)
 {
-  v2 = a1[1];
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (v2 <= a2)
+    v5 = a2;
+    if (v3 <= a2)
     {
-      v4 = a2 % a1[1];
+      v5 = a2 % a1[1];
     }
   }
 
   else
   {
-    v4 = (v2 - 1) & a2;
+    v5 = (v3 - 1) & a2;
   }
 
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -622,47 +649,47 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= v2)
+      if (v8 >= v3)
       {
-        v7 %= v2;
+        v8 %= v3;
       }
     }
 
     else
     {
-      v7 &= v2 - 1;
+      v8 &= v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v6 + 8) != a2)
+  if (*(v7 + 8) != a2)
   {
     goto LABEL_17;
   }
 
-  return v6;
+  return v7;
 }
 
-uint64_t **md::MapEngineMode::addRequiredMapDataTypes(uint64_t **result, unsigned __int16 *a2, uint64_t a3)
+uint64_t **md::MapEngineMode::addRequiredMapDataTypes(uint64_t **result, _WORD *a2, uint64_t a3)
 {
   if (a3)
   {
@@ -671,9 +698,10 @@ uint64_t **md::MapEngineMode::addRequiredMapDataTypes(uint64_t **result, unsigne
     do
     {
       v6 = a2[1];
+      v8 = a2;
       v7 = *a2;
       a2 += 2;
-      result = std::__hash_table<std::__hash_value_type<md::MapDataType,md::MapDataTypeState>,std::__unordered_map_hasher<md::MapDataType,std::__hash_value_type<md::MapDataType,md::MapDataTypeState>,gdc::IntTypeHash<md::MapDataType,unsigned short>,std::equal_to<md::MapDataType>,true>,std::__unordered_map_equal<md::MapDataType,std::__hash_value_type<md::MapDataType,md::MapDataTypeState>,std::equal_to<md::MapDataType>,gdc::IntTypeHash<md::MapDataType,unsigned short>,true>,std::allocator<std::__hash_value_type<md::MapDataType,md::MapDataTypeState>>>::__emplace_unique_key_args<md::MapDataType,std::piecewise_construct_t const&,std::tuple<md::MapDataType const&>,std::tuple<>>(v4 + 10, v7);
+      result = std::__hash_table<std::__hash_value_type<md::MapDataType,md::MapDataTypeState>,std::__unordered_map_hasher<md::MapDataType,std::__hash_value_type<md::MapDataType,md::MapDataTypeState>,gdc::IntTypeHash<md::MapDataType,unsigned short>,std::equal_to<md::MapDataType>,true>,std::__unordered_map_equal<md::MapDataType,std::__hash_value_type<md::MapDataType,md::MapDataTypeState>,std::equal_to<md::MapDataType>,gdc::IntTypeHash<md::MapDataType,unsigned short>,true>,std::allocator<std::__hash_value_type<md::MapDataType,md::MapDataTypeState>>>::__emplace_unique_key_args<md::MapDataType,std::piecewise_construct_t const&,std::tuple<md::MapDataType const&>,std::tuple<>>(v4 + 10, v7, &v8);
       *(result + 18) = v6 << 16;
       v5 -= 4;
     }
@@ -684,7 +712,7 @@ uint64_t **md::MapEngineMode::addRequiredMapDataTypes(uint64_t **result, unsigne
   return result;
 }
 
-uint64_t **md::MapEngineMode::addOptionalMapDataTypes(uint64_t **result, unsigned __int16 *a2, uint64_t a3)
+uint64_t **md::MapEngineMode::addOptionalMapDataTypes(uint64_t **result, _WORD *a2, uint64_t a3)
 {
   if (a3)
   {
@@ -693,9 +721,10 @@ uint64_t **md::MapEngineMode::addOptionalMapDataTypes(uint64_t **result, unsigne
     do
     {
       v6 = a2[1];
+      v8 = a2;
       v7 = *a2;
       a2 += 2;
-      result = std::__hash_table<std::__hash_value_type<md::MapDataType,md::MapDataTypeState>,std::__unordered_map_hasher<md::MapDataType,std::__hash_value_type<md::MapDataType,md::MapDataTypeState>,gdc::IntTypeHash<md::MapDataType,unsigned short>,std::equal_to<md::MapDataType>,true>,std::__unordered_map_equal<md::MapDataType,std::__hash_value_type<md::MapDataType,md::MapDataTypeState>,std::equal_to<md::MapDataType>,gdc::IntTypeHash<md::MapDataType,unsigned short>,true>,std::allocator<std::__hash_value_type<md::MapDataType,md::MapDataTypeState>>>::__emplace_unique_key_args<md::MapDataType,std::piecewise_construct_t const&,std::tuple<md::MapDataType const&>,std::tuple<>>(v4 + 10, v7);
+      result = std::__hash_table<std::__hash_value_type<md::MapDataType,md::MapDataTypeState>,std::__unordered_map_hasher<md::MapDataType,std::__hash_value_type<md::MapDataType,md::MapDataTypeState>,gdc::IntTypeHash<md::MapDataType,unsigned short>,std::equal_to<md::MapDataType>,true>,std::__unordered_map_equal<md::MapDataType,std::__hash_value_type<md::MapDataType,md::MapDataTypeState>,std::equal_to<md::MapDataType>,gdc::IntTypeHash<md::MapDataType,unsigned short>,true>,std::allocator<std::__hash_value_type<md::MapDataType,md::MapDataTypeState>>>::__emplace_unique_key_args<md::MapDataType,std::piecewise_construct_t const&,std::tuple<md::MapDataType const&>,std::tuple<>>(v4 + 10, v7, &v8);
       *(result + 18) = (v6 << 16) | 1;
       v5 -= 4;
     }
@@ -706,7 +735,7 @@ uint64_t **md::MapEngineMode::addOptionalMapDataTypes(uint64_t **result, unsigne
   return result;
 }
 
-uint64_t **md::MapEngineMode::addAllowedMapDataTypes(uint64_t **result, unsigned __int16 *a2, uint64_t a3)
+uint64_t **md::MapEngineMode::addAllowedMapDataTypes(uint64_t **result, _WORD *a2, uint64_t a3)
 {
   if (a3)
   {
@@ -715,9 +744,10 @@ uint64_t **md::MapEngineMode::addAllowedMapDataTypes(uint64_t **result, unsigned
     do
     {
       v6 = a2[1];
+      v8 = a2;
       v7 = *a2;
       a2 += 2;
-      result = std::__hash_table<std::__hash_value_type<md::MapDataType,md::MapDataTypeState>,std::__unordered_map_hasher<md::MapDataType,std::__hash_value_type<md::MapDataType,md::MapDataTypeState>,gdc::IntTypeHash<md::MapDataType,unsigned short>,std::equal_to<md::MapDataType>,true>,std::__unordered_map_equal<md::MapDataType,std::__hash_value_type<md::MapDataType,md::MapDataTypeState>,std::equal_to<md::MapDataType>,gdc::IntTypeHash<md::MapDataType,unsigned short>,true>,std::allocator<std::__hash_value_type<md::MapDataType,md::MapDataTypeState>>>::__emplace_unique_key_args<md::MapDataType,std::piecewise_construct_t const&,std::tuple<md::MapDataType const&>,std::tuple<>>(v4 + 10, v7);
+      result = std::__hash_table<std::__hash_value_type<md::MapDataType,md::MapDataTypeState>,std::__unordered_map_hasher<md::MapDataType,std::__hash_value_type<md::MapDataType,md::MapDataTypeState>,gdc::IntTypeHash<md::MapDataType,unsigned short>,std::equal_to<md::MapDataType>,true>,std::__unordered_map_equal<md::MapDataType,std::__hash_value_type<md::MapDataType,md::MapDataTypeState>,std::equal_to<md::MapDataType>,gdc::IntTypeHash<md::MapDataType,unsigned short>,true>,std::allocator<std::__hash_value_type<md::MapDataType,md::MapDataTypeState>>>::__emplace_unique_key_args<md::MapDataType,std::piecewise_construct_t const&,std::tuple<md::MapDataType const&>,std::tuple<>>(v4 + 10, v7, &v8);
       *(result + 18) = (v6 << 16) | 2;
       v5 -= 4;
     }
@@ -728,32 +758,32 @@ uint64_t **md::MapEngineMode::addAllowedMapDataTypes(uint64_t **result, unsigned
   return result;
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<md::TileSelectionTileSetType,md::TileSelectionTypeUpdateRate>,std::__unordered_map_hasher<md::TileSelectionTileSetType,std::__hash_value_type<md::TileSelectionTileSetType,md::TileSelectionTypeUpdateRate>,std::hash<md::TileSelectionTileSetType>,std::equal_to<md::TileSelectionTileSetType>,true>,std::__unordered_map_equal<md::TileSelectionTileSetType,std::__hash_value_type<md::TileSelectionTileSetType,md::TileSelectionTypeUpdateRate>,std::equal_to<md::TileSelectionTileSetType>,std::hash<md::TileSelectionTileSetType>,true>,std::allocator<std::__hash_value_type<md::TileSelectionTileSetType,md::TileSelectionTypeUpdateRate>>>::__emplace_unique_key_args<md::TileSelectionTileSetType,std::piecewise_construct_t const&,std::tuple<md::TileSelectionTileSetType const&>,std::tuple<>>(void *a1, unsigned __int16 a2)
+uint64_t **std::__hash_table<std::__hash_value_type<md::TileSelectionTileSetType,md::TileSelectionTypeUpdateRate>,std::__unordered_map_hasher<md::TileSelectionTileSetType,std::__hash_value_type<md::TileSelectionTileSetType,md::TileSelectionTypeUpdateRate>,std::hash<md::TileSelectionTileSetType>,std::equal_to<md::TileSelectionTileSetType>,true>,std::__unordered_map_equal<md::TileSelectionTileSetType,std::__hash_value_type<md::TileSelectionTileSetType,md::TileSelectionTypeUpdateRate>,std::equal_to<md::TileSelectionTileSetType>,std::hash<md::TileSelectionTileSetType>,true>,std::allocator<std::__hash_value_type<md::TileSelectionTileSetType,md::TileSelectionTypeUpdateRate>>>::__emplace_unique_key_args<md::TileSelectionTileSetType,std::piecewise_construct_t const&,std::tuple<md::TileSelectionTileSetType const&>,std::tuple<>>(void *a1, unsigned __int16 a2, _WORD **a3)
 {
-  v2 = a1[1];
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (v2 <= a2)
+    v5 = a2;
+    if (v3 <= a2)
     {
-      v4 = a2 % a1[1];
+      v5 = a2 % a1[1];
     }
   }
 
   else
   {
-    v4 = (v2 - 1) & a2;
+    v5 = (v3 - 1) & a2;
   }
 
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -761,44 +791,44 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= v2)
+      if (v8 >= v3)
       {
-        v7 %= v2;
+        v8 %= v3;
       }
     }
 
     else
     {
-      v7 &= v2 - 1;
+      v8 &= v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v6 + 8) != a2)
+  if (*(v7 + 8) != a2)
   {
     goto LABEL_17;
   }
 
-  return v6;
+  return v7;
 }
 
 uint64_t gdc::ServiceLocator::resolve<md::PowerLoggingService>(void *a1, void *a2)
@@ -835,17 +865,17 @@ uint64_t gdc::ServiceLocator::resolve<md::PowerLoggingService>(void *a1, void *a
 
 void md::MapEngineInteractivePowerLogger::didChangeEngineMode(uint64_t a1, __int16 a2, char a3)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v3 = &unk_1F2A3DC08;
-  v5 = a3;
-  v4 = a2;
-  v6 = &v3;
-  std::allocate_shared[abi:nn200100]<geo::Task,std::allocator<geo::Task>,std::function<void ()(void)> &,0>();
+  v8 = *MEMORY[0x1E69E9840];
+  v4 = &unk_1F2A3DC08;
+  v6 = a3;
+  v5 = a2;
+  v7 = &v4;
+  std::allocate_shared[abi:nn200100]<geo::Task,std::allocator<geo::Task>,std::function<void ()(void)> &,0>(&v3, &v4);
 }
 
-void sub_1B28F92C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1B28F92C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__function::__value_func<void ()(void)>::~__value_func[abi:nn200100](va);
   _Unwind_Resume(a1);
 }
@@ -991,10 +1021,10 @@ LABEL_26:
   while (v18 != v19)
   {
     v20 = *v18;
-    if (std::__hash_table<unsigned short,std::hash<unsigned short>,std::equal_to<unsigned short>,std::allocator<unsigned short>>::find<unsigned short>(v31[0], v31[1], *v18) && (v32 = v18, *(std::__hash_table<std::__hash_value_type<md::TileSelectionTileSetType,md::TileSelectionTypeUpdateRate>,std::__unordered_map_hasher<md::TileSelectionTileSetType,std::__hash_value_type<md::TileSelectionTileSetType,md::TileSelectionTypeUpdateRate>,std::hash<md::TileSelectionTileSetType>,std::equal_to<md::TileSelectionTileSetType>,true>,std::__unordered_map_equal<md::TileSelectionTileSetType,std::__hash_value_type<md::TileSelectionTileSetType,md::TileSelectionTypeUpdateRate>,std::equal_to<md::TileSelectionTileSetType>,std::hash<md::TileSelectionTileSetType>,true>,std::allocator<std::__hash_value_type<md::TileSelectionTileSetType,md::TileSelectionTypeUpdateRate>>>::__emplace_unique_key_args<md::TileSelectionTileSetType,std::piecewise_construct_t const&,std::tuple<md::TileSelectionTileSetType const&>,std::tuple<>>(v31, v20) + 18)))
+    if (std::__hash_table<unsigned short,std::hash<unsigned short>,std::equal_to<unsigned short>,std::allocator<unsigned short>>::find<unsigned short>(v31[0], v31[1], *v18) && (v32 = v18, *(std::__hash_table<std::__hash_value_type<md::TileSelectionTileSetType,md::TileSelectionTypeUpdateRate>,std::__unordered_map_hasher<md::TileSelectionTileSetType,std::__hash_value_type<md::TileSelectionTileSetType,md::TileSelectionTypeUpdateRate>,std::hash<md::TileSelectionTileSetType>,std::equal_to<md::TileSelectionTileSetType>,true>,std::__unordered_map_equal<md::TileSelectionTileSetType,std::__hash_value_type<md::TileSelectionTileSetType,md::TileSelectionTypeUpdateRate>,std::equal_to<md::TileSelectionTileSetType>,std::hash<md::TileSelectionTileSetType>,true>,std::allocator<std::__hash_value_type<md::TileSelectionTileSetType,md::TileSelectionTypeUpdateRate>>>::__emplace_unique_key_args<md::TileSelectionTileSetType,std::piecewise_construct_t const&,std::tuple<md::TileSelectionTileSetType const&>,std::tuple<>>(v31, v20, &v32) + 18)))
     {
       v32 = v18;
-      if (*(std::__hash_table<std::__hash_value_type<md::TileSelectionTileSetType,md::TileSelectionTypeUpdateRate>,std::__unordered_map_hasher<md::TileSelectionTileSetType,std::__hash_value_type<md::TileSelectionTileSetType,md::TileSelectionTypeUpdateRate>,std::hash<md::TileSelectionTileSetType>,std::equal_to<md::TileSelectionTileSetType>,true>,std::__unordered_map_equal<md::TileSelectionTileSetType,std::__hash_value_type<md::TileSelectionTileSetType,md::TileSelectionTypeUpdateRate>,std::equal_to<md::TileSelectionTileSetType>,std::hash<md::TileSelectionTileSetType>,true>,std::allocator<std::__hash_value_type<md::TileSelectionTileSetType,md::TileSelectionTypeUpdateRate>>>::__emplace_unique_key_args<md::TileSelectionTileSetType,std::piecewise_construct_t const&,std::tuple<md::TileSelectionTileSetType const&>,std::tuple<>>(v31, *v18) + 18) != 1)
+      if (*(std::__hash_table<std::__hash_value_type<md::TileSelectionTileSetType,md::TileSelectionTypeUpdateRate>,std::__unordered_map_hasher<md::TileSelectionTileSetType,std::__hash_value_type<md::TileSelectionTileSetType,md::TileSelectionTypeUpdateRate>,std::hash<md::TileSelectionTileSetType>,std::equal_to<md::TileSelectionTileSetType>,true>,std::__unordered_map_equal<md::TileSelectionTileSetType,std::__hash_value_type<md::TileSelectionTileSetType,md::TileSelectionTypeUpdateRate>,std::equal_to<md::TileSelectionTileSetType>,std::hash<md::TileSelectionTileSetType>,true>,std::allocator<std::__hash_value_type<md::TileSelectionTileSetType,md::TileSelectionTypeUpdateRate>>>::__emplace_unique_key_args<md::TileSelectionTileSetType,std::piecewise_construct_t const&,std::tuple<md::TileSelectionTileSetType const&>,std::tuple<>>(v31, *v18, &v32) + 18) != 1)
       {
         goto LABEL_34;
       }
@@ -1048,7 +1078,7 @@ LABEL_34:
   return std::__hash_table<md::MuninJunction const*,std::hash<md::MuninJunction const*>,std::equal_to<md::MuninJunction const*>,std::allocator<md::MuninJunction const*>>::~__hash_table(v31);
 }
 
-void sub_1B28F9798(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, void **a16, __int16 a17, char a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_1B28F9798(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, void **a16, __int16 a18, char a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30)
 {
   if (__p)
   {
@@ -1068,9 +1098,9 @@ void sub_1B28F9798(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   }
 
   std::unique_ptr<gdc::LogicExecutionGraph>::~unique_ptr[abi:nn200100](&a16);
-  std::__hash_table<md::MuninJunction const*,std::hash<md::MuninJunction const*>,std::equal_to<md::MuninJunction const*>,std::allocator<md::MuninJunction const*>>::~__hash_table(&a17);
-  std::__hash_table<md::MuninJunction const*,std::hash<md::MuninJunction const*>,std::equal_to<md::MuninJunction const*>,std::allocator<md::MuninJunction const*>>::~__hash_table(&a24);
-  std::__hash_table<md::MuninJunction const*,std::hash<md::MuninJunction const*>,std::equal_to<md::MuninJunction const*>,std::allocator<md::MuninJunction const*>>::~__hash_table(&a29);
+  std::__hash_table<md::MuninJunction const*,std::hash<md::MuninJunction const*>,std::equal_to<md::MuninJunction const*>,std::allocator<md::MuninJunction const*>>::~__hash_table(&a18);
+  std::__hash_table<md::MuninJunction const*,std::hash<md::MuninJunction const*>,std::equal_to<md::MuninJunction const*>,std::allocator<md::MuninJunction const*>>::~__hash_table(&a25);
+  std::__hash_table<md::MuninJunction const*,std::hash<md::MuninJunction const*>,std::equal_to<md::MuninJunction const*>,std::allocator<md::MuninJunction const*>>::~__hash_table(&a30);
   _Unwind_Resume(a1);
 }
 
@@ -3281,7 +3311,7 @@ LABEL_445:
   }
 }
 
-uint64_t md::MapEngineMode::logicGraphWithSettings@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
+uint64_t md::MapEngineMode::logicGraphWithSettings@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X8>)
 {
   v20 = *MEMORY[0x1E69E9840];
   v15 = 0;
@@ -3371,9 +3401,9 @@ LABEL_24:
   return std::__function::__value_func<BOOL ()(gdc::LogicExecutionNode const&)>::~__value_func[abi:nn200100](v14);
 }
 
-void sub_1B28FBBE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1B28FBBE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__function::__value_func<BOOL ()(gdc::LogicExecutionNode const&)>::~__value_func[abi:nn200100](va);
   _Unwind_Resume(a1);
 }
@@ -3428,7 +3458,7 @@ uint64_t std::__function::__value_func<BOOL ()(gdc::LogicExecutionNode const&)>:
   return a1;
 }
 
-void gdc::LogicExecutionGraphBuilder::build(void *a1, uint64_t a2, uint64_t a3)
+void gdc::LogicExecutionGraphBuilder::build(uint64_t *a1, uint64_t a2, uint64_t a3)
 {
   v60 = *MEMORY[0x1E69E9840];
   if (*(a2 + 224) == 1)
@@ -3688,7 +3718,7 @@ LABEL_23:
 
     if (((*(*v59 + 48))(v59, v21) & 1) == 0)
     {
-      v24 = (v22 - 80);
+      v24 = v22 - 5;
       do
       {
         v25 = v24 - v21;
@@ -3829,9 +3859,9 @@ LABEL_93:
   geo::DirectedGraph<gdc::LogicExecutionNode,gdc::LogicExecutionNodeCompare,std::vector<gdc::LogicExecutionNode>>::isAcyclicDFS(v43, v44, v45, v46);
 }
 
-uint64_t geo::DirectedGraph<gdc::LogicExecutionNode,gdc::LogicExecutionNodeCompare,std::vector<gdc::LogicExecutionNode>>::isAcyclicDFS(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t *a4)
+uint64_t geo::DirectedGraph<gdc::LogicExecutionNode,gdc::LogicExecutionNodeCompare,std::vector<gdc::LogicExecutionNode>>::isAcyclicDFS(uint64_t a1, unint64_t a2, unint64_t *a3, unint64_t *a4)
 {
-  v8 = *(a3 + 8);
+  v8 = a3[1];
   v9 = *a2;
   v10 = *(a2 + 24);
   if (v8 != geo::linear_set<gdc::LogicExecutionNode,gdc::LogicExecutionNodeCompare,std::allocator<gdc::LogicExecutionNode>,std::vector<gdc::LogicExecutionNode>>::find(*a3, v8, *a2, v10))
@@ -3858,7 +3888,7 @@ LABEL_27:
       *v35 = v18;
       std::vector<gdc::FlowExecutionNode>::vector[abi:nn200100](&v36, v16 + 4);
       std::vector<gdc::FlowExecutionNode>::vector[abi:nn200100](&v38, v16 + 7);
-      v19 = *(a3 + 8);
+      v19 = a3[1];
       v20 = *v35;
       v21 = v35[24];
       if (v19 == geo::linear_set<gdc::LogicExecutionNode,gdc::LogicExecutionNodeCompare,std::allocator<gdc::LogicExecutionNode>,std::vector<gdc::LogicExecutionNode>>::find(*a3, v19, *v35, v35[24]))
@@ -3951,7 +3981,7 @@ LABEL_31:
   return 1;
 }
 
-uint64_t *geo::linear_set<gdc::LogicExecutionNode,gdc::LogicExecutionNodeCompare,std::allocator<gdc::LogicExecutionNode>,std::vector<gdc::LogicExecutionNode>>::find(unint64_t *a1, uint64_t *a2, unint64_t a3, unsigned __int8 a4)
+unint64_t *geo::linear_set<gdc::LogicExecutionNode,gdc::LogicExecutionNodeCompare,std::allocator<gdc::LogicExecutionNode>,std::vector<gdc::LogicExecutionNode>>::find(unint64_t *a1, unint64_t *a2, unint64_t a3, unsigned __int8 a4)
 {
   if (a1 != a2)
   {
@@ -4065,7 +4095,7 @@ uint64_t std::__tree<std::__value_type<gdc::LogicExecutionNode,geo::linear_set<g
   return v6;
 }
 
-void geo::linear_set<gdc::LogicExecutionNode,gdc::LogicExecutionNodeCompare,std::allocator<gdc::LogicExecutionNode>,std::vector<gdc::LogicExecutionNode>>::erase(uint64_t *a1, unint64_t a2, unsigned __int8 a3)
+void geo::linear_set<gdc::LogicExecutionNode,gdc::LogicExecutionNodeCompare,std::allocator<gdc::LogicExecutionNode>,std::vector<gdc::LogicExecutionNode>>::erase(unint64_t **a1, unint64_t a2, unsigned __int8 a3)
 {
   v6 = *a1;
   v5 = a1[1];
@@ -4175,9 +4205,9 @@ uint64_t std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:nn200100]<gdc:
   return a3;
 }
 
-uint64_t geo::DirectedGraph<gdc::LogicExecutionNode,gdc::LogicExecutionNodeCompare,std::vector<gdc::LogicExecutionNode>>::topologicalSortedDFS(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t *a4)
+unint64_t *geo::DirectedGraph<gdc::LogicExecutionNode,gdc::LogicExecutionNodeCompare,std::vector<gdc::LogicExecutionNode>>::topologicalSortedDFS(uint64_t a1, unint64_t a2, unint64_t **a3, uint64_t *a4)
 {
-  v8 = *(a3 + 8);
+  v8 = a3[1];
   result = geo::linear_set<gdc::LogicExecutionNode,gdc::LogicExecutionNodeCompare,std::allocator<gdc::LogicExecutionNode>,std::vector<gdc::LogicExecutionNode>>::find(*a3, v8, *a2, *(a2 + 24));
   if (v8 == result)
   {
@@ -4194,7 +4224,7 @@ uint64_t geo::DirectedGraph<gdc::LogicExecutionNode,gdc::LogicExecutionNodeCompa
         *v42 = v13;
         std::vector<gdc::FlowExecutionNode>::vector[abi:nn200100](&v43, v11 + 4);
         std::vector<gdc::FlowExecutionNode>::vector[abi:nn200100](&v45, v11 + 7);
-        v14 = *(a3 + 8);
+        v14 = a3[1];
         if (v14 == geo::linear_set<gdc::LogicExecutionNode,gdc::LogicExecutionNodeCompare,std::allocator<gdc::LogicExecutionNode>,std::vector<gdc::LogicExecutionNode>>::find(*a3, v14, *v42, v42[24]))
         {
           v15 = a4;
@@ -4454,7 +4484,7 @@ void geo::Pool<md::MapTileDataRenderable<md::RasterTileData>>::disposeElements(u
   {
     do
     {
-      std::__tree<geo::Pool<gdc::FallbackNode>::Element *,std::less<geo::Pool<gdc::FallbackNode>::Element *>,std::allocator<geo::Pool<gdc::FallbackNode>::Element *>>::__emplace_unique_key_args<geo::Pool<gdc::FallbackNode>::Element *,geo::Pool<gdc::FallbackNode>::Element * const&>(&v22, v2);
+      std::__tree<geo::Pool<gdc::FallbackNode>::Element *,std::less<geo::Pool<gdc::FallbackNode>::Element *>,std::allocator<geo::Pool<gdc::FallbackNode>::Element *>>::__emplace_unique_key_args<geo::Pool<gdc::FallbackNode>::Element *,geo::Pool<gdc::FallbackNode>::Element * const&>(&v22, v2, v3);
       v2 = **v3;
       *v3 = v2;
     }
@@ -4732,7 +4762,7 @@ void geo::Pool<md::RoadTileDataRenderable>::disposeElements(uint64_t a1)
   {
     do
     {
-      std::__tree<geo::Pool<gdc::FallbackNode>::Element *,std::less<geo::Pool<gdc::FallbackNode>::Element *>,std::allocator<geo::Pool<gdc::FallbackNode>::Element *>>::__emplace_unique_key_args<geo::Pool<gdc::FallbackNode>::Element *,geo::Pool<gdc::FallbackNode>::Element * const&>(&v22, v2);
+      std::__tree<geo::Pool<gdc::FallbackNode>::Element *,std::less<geo::Pool<gdc::FallbackNode>::Element *>,std::allocator<geo::Pool<gdc::FallbackNode>::Element *>>::__emplace_unique_key_args<geo::Pool<gdc::FallbackNode>::Element *,geo::Pool<gdc::FallbackNode>::Element * const&>(&v22, v2, v3);
       v2 = **v3;
       *v3 = v2;
     }
@@ -4887,7 +4917,7 @@ void md::RouteRenderLayer::setActive(md::RouteRenderLayer *this, char a2)
   *(this + 32) = a2 & ~[v4 disableRoute];
 }
 
-void md::RoadRenderLayer::renderablesWillLeaveView(uint64_t a1, uint64_t *a2)
+void md::RoadRenderLayer::renderablesWillLeaveView(uint64_t result, uint64_t *a2)
 {
   v2 = *a2;
   v3 = a2[1];
@@ -4899,13 +4929,13 @@ void md::RoadRenderLayer::renderablesWillLeaveView(uint64_t a1, uint64_t *a2)
       v6 = *(v5 + 728);
       if (v6)
       {
-        md::RoadStyling::unsubscribeLayer(*(a1 + 480), v6);
+        md::RoadStyling::unsubscribeLayer(*(result + 480), v6);
       }
 
       v7 = *(v5 + 744);
       if (v7)
       {
-        md::RoadStyling::unsubscribeLayer(*(a1 + 480), v7);
+        md::RoadStyling::unsubscribeLayer(*(result + 480), v7);
       }
 
       v2 += 8;
@@ -5082,10 +5112,10 @@ LABEL_32:
   }
 }
 
-void sub_1B28FDB5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1B28FDB5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
-  std::__function::__value_func<void ()(void)>::~__value_func[abi:nn200100](v10 + 40);
+  va_start(va, a17);
+  std::__function::__value_func<void ()(void)>::~__value_func[abi:nn200100](v17 + 40);
   std::__function::__value_func<void ()(void)>::~__value_func[abi:nn200100](va);
   _Unwind_Resume(a1);
 }
@@ -5150,7 +5180,7 @@ void geo::Pool<md::TransitTileDataRenderable>::disposeElements(uint64_t a1)
   {
     do
     {
-      std::__tree<geo::Pool<gdc::FallbackNode>::Element *,std::less<geo::Pool<gdc::FallbackNode>::Element *>,std::allocator<geo::Pool<gdc::FallbackNode>::Element *>>::__emplace_unique_key_args<geo::Pool<gdc::FallbackNode>::Element *,geo::Pool<gdc::FallbackNode>::Element * const&>(&v22, v2);
+      std::__tree<geo::Pool<gdc::FallbackNode>::Element *,std::less<geo::Pool<gdc::FallbackNode>::Element *>,std::allocator<geo::Pool<gdc::FallbackNode>::Element *>>::__emplace_unique_key_args<geo::Pool<gdc::FallbackNode>::Element *,geo::Pool<gdc::FallbackNode>::Element * const&>(&v22, v2, v3);
       v2 = **v3;
       *v3 = v2;
     }
@@ -5299,7 +5329,7 @@ LABEL_21:
   std::__tree<geo::Pool<gdc::FallbackNode>::Element *,std::less<geo::Pool<gdc::FallbackNode>::Element *>,std::allocator<geo::Pool<gdc::FallbackNode>::Element *>>::destroy(v23);
 }
 
-void md::TransitRenderLayer::renderablesWillLeaveView(uint64_t a1, grl::IconMetricsRenderResult ****a2)
+void md::TransitRenderLayer::renderablesWillLeaveView(uint64_t result, grl::IconMetricsRenderResult ****a2)
 {
   v2 = *a2;
   v3 = a2[1];
@@ -5308,7 +5338,7 @@ void md::TransitRenderLayer::renderablesWillLeaveView(uint64_t a1, grl::IconMetr
     do
     {
       v5 = *v2++;
-      std::__tree<std::shared_ptr<md::TransitTileData>,md::TransitTileSetCompare,std::allocator<std::shared_ptr<md::TransitTileData>>>::__emplace_unique_key_args<std::shared_ptr<md::TransitTileData>,std::shared_ptr<md::TransitTileData> const&>(a1 + 448, v5[49]);
+      std::__tree<std::shared_ptr<md::TransitTileData>,md::TransitTileSetCompare,std::allocator<std::shared_ptr<md::TransitTileData>>>::__emplace_unique_key_args<std::shared_ptr<md::TransitTileData>,std::shared_ptr<md::TransitTileData> const&>((result + 448), v5[49], v5 + 49);
       md::TransitTileDataRenderable::clearAnimation(v5);
     }
 
@@ -5398,7 +5428,7 @@ void geo::Pool<md::MapTileDataRenderable<md::VenueTileData>>::disposeElements(ui
   {
     do
     {
-      std::__tree<geo::Pool<gdc::FallbackNode>::Element *,std::less<geo::Pool<gdc::FallbackNode>::Element *>,std::allocator<geo::Pool<gdc::FallbackNode>::Element *>>::__emplace_unique_key_args<geo::Pool<gdc::FallbackNode>::Element *,geo::Pool<gdc::FallbackNode>::Element * const&>(&v22, v2);
+      std::__tree<geo::Pool<gdc::FallbackNode>::Element *,std::less<geo::Pool<gdc::FallbackNode>::Element *>,std::allocator<geo::Pool<gdc::FallbackNode>::Element *>>::__emplace_unique_key_args<geo::Pool<gdc::FallbackNode>::Element *,geo::Pool<gdc::FallbackNode>::Element * const&>(&v22, v2, v3);
       v2 = **v3;
       *v3 = v2;
     }
@@ -5618,7 +5648,7 @@ void geo::Pool<md::DaVinciGroundRenderable>::disposeElements(uint64_t a1)
   {
     do
     {
-      std::__tree<geo::Pool<gdc::FallbackNode>::Element *,std::less<geo::Pool<gdc::FallbackNode>::Element *>,std::allocator<geo::Pool<gdc::FallbackNode>::Element *>>::__emplace_unique_key_args<geo::Pool<gdc::FallbackNode>::Element *,geo::Pool<gdc::FallbackNode>::Element * const&>(&v22, v2);
+      std::__tree<geo::Pool<gdc::FallbackNode>::Element *,std::less<geo::Pool<gdc::FallbackNode>::Element *>,std::allocator<geo::Pool<gdc::FallbackNode>::Element *>>::__emplace_unique_key_args<geo::Pool<gdc::FallbackNode>::Element *,geo::Pool<gdc::FallbackNode>::Element * const&>(&v22, v2, v3);
       v2 = **v3;
       *v3 = v2;
     }
@@ -5859,7 +5889,7 @@ void md::CartographicTiledRenderLayer<md::DaVinciRoadTileDataRenderable>::clearS
   *(v6 - 1) = v6;
 }
 
-void md::DaVinciCenterLineRoadsRenderLayer::renderablesWillLeaveView(uint64_t a1, uint64_t *a2)
+void md::DaVinciCenterLineRoadsRenderLayer::renderablesWillLeaveView(uint64_t result, uint64_t *a2)
 {
   v2 = *a2;
   v3 = a2[1];
@@ -5871,19 +5901,19 @@ void md::DaVinciCenterLineRoadsRenderLayer::renderablesWillLeaveView(uint64_t a1
       v6 = v5[93];
       if (v6)
       {
-        md::RoadStyling::unsubscribeLayer(*(a1 + 400), v6);
+        md::RoadStyling::unsubscribeLayer(*(result + 400), v6);
       }
 
       v7 = v5[103];
       if (v7)
       {
-        md::RoadStyling::unsubscribeLayer(*(a1 + 400), v7);
+        md::RoadStyling::unsubscribeLayer(*(result + 400), v7);
       }
 
       v8 = v5[94];
       if (v8)
       {
-        md::RoadStyling::unsubscribeLayer(*(a1 + 400), v8);
+        md::RoadStyling::unsubscribeLayer(*(result + 400), v8);
       }
 
       v2 += 8;
@@ -5904,7 +5934,7 @@ void geo::Pool<md::DaVinciRoadTileDataRenderable>::disposeElements(uint64_t a1)
   {
     do
     {
-      std::__tree<geo::Pool<gdc::FallbackNode>::Element *,std::less<geo::Pool<gdc::FallbackNode>::Element *>,std::allocator<geo::Pool<gdc::FallbackNode>::Element *>>::__emplace_unique_key_args<geo::Pool<gdc::FallbackNode>::Element *,geo::Pool<gdc::FallbackNode>::Element * const&>(&v22, v2);
+      std::__tree<geo::Pool<gdc::FallbackNode>::Element *,std::less<geo::Pool<gdc::FallbackNode>::Element *>,std::allocator<geo::Pool<gdc::FallbackNode>::Element *>>::__emplace_unique_key_args<geo::Pool<gdc::FallbackNode>::Element *,geo::Pool<gdc::FallbackNode>::Element * const&>(&v22, v2, v3);
       v2 = **v3;
       *v3 = v2;
     }
@@ -6124,7 +6154,7 @@ void geo::Pool<md::MapTileDataRenderable<md::OverlayTileData>>::disposeElements(
   {
     do
     {
-      std::__tree<geo::Pool<gdc::FallbackNode>::Element *,std::less<geo::Pool<gdc::FallbackNode>::Element *>,std::allocator<geo::Pool<gdc::FallbackNode>::Element *>>::__emplace_unique_key_args<geo::Pool<gdc::FallbackNode>::Element *,geo::Pool<gdc::FallbackNode>::Element * const&>(&v22, v2);
+      std::__tree<geo::Pool<gdc::FallbackNode>::Element *,std::less<geo::Pool<gdc::FallbackNode>::Element *>,std::allocator<geo::Pool<gdc::FallbackNode>::Element *>>::__emplace_unique_key_args<geo::Pool<gdc::FallbackNode>::Element *,geo::Pool<gdc::FallbackNode>::Element * const&>(&v22, v2, v3);
       v2 = **v3;
       *v3 = v2;
     }
@@ -6344,7 +6374,7 @@ void geo::Pool<md::MapTileDataRenderable<md::TrafficTileData>>::disposeElements(
   {
     do
     {
-      std::__tree<geo::Pool<gdc::FallbackNode>::Element *,std::less<geo::Pool<gdc::FallbackNode>::Element *>,std::allocator<geo::Pool<gdc::FallbackNode>::Element *>>::__emplace_unique_key_args<geo::Pool<gdc::FallbackNode>::Element *,geo::Pool<gdc::FallbackNode>::Element * const&>(&v22, v2);
+      std::__tree<geo::Pool<gdc::FallbackNode>::Element *,std::less<geo::Pool<gdc::FallbackNode>::Element *>,std::allocator<geo::Pool<gdc::FallbackNode>::Element *>>::__emplace_unique_key_args<geo::Pool<gdc::FallbackNode>::Element *,geo::Pool<gdc::FallbackNode>::Element * const&>(&v22, v2, v3);
       v2 = **v3;
       *v3 = v2;
     }
@@ -6564,7 +6594,7 @@ void geo::Pool<md::MapTileDataRenderable<md::DaVinciTrafficTileData>>::disposeEl
   {
     do
     {
-      std::__tree<geo::Pool<gdc::FallbackNode>::Element *,std::less<geo::Pool<gdc::FallbackNode>::Element *>,std::allocator<geo::Pool<gdc::FallbackNode>::Element *>>::__emplace_unique_key_args<geo::Pool<gdc::FallbackNode>::Element *,geo::Pool<gdc::FallbackNode>::Element * const&>(&v22, v2);
+      std::__tree<geo::Pool<gdc::FallbackNode>::Element *,std::less<geo::Pool<gdc::FallbackNode>::Element *>,std::allocator<geo::Pool<gdc::FallbackNode>::Element *>>::__emplace_unique_key_args<geo::Pool<gdc::FallbackNode>::Element *,geo::Pool<gdc::FallbackNode>::Element * const&>(&v22, v2, v3);
       v2 = **v3;
       *v3 = v2;
     }
@@ -6791,7 +6821,7 @@ void geo::Pool<md::MapTileDataRenderable<md::PolygonTileData>>::disposeElements(
   {
     do
     {
-      std::__tree<geo::Pool<gdc::FallbackNode>::Element *,std::less<geo::Pool<gdc::FallbackNode>::Element *>,std::allocator<geo::Pool<gdc::FallbackNode>::Element *>>::__emplace_unique_key_args<geo::Pool<gdc::FallbackNode>::Element *,geo::Pool<gdc::FallbackNode>::Element * const&>(&v22, v2);
+      std::__tree<geo::Pool<gdc::FallbackNode>::Element *,std::less<geo::Pool<gdc::FallbackNode>::Element *>,std::allocator<geo::Pool<gdc::FallbackNode>::Element *>>::__emplace_unique_key_args<geo::Pool<gdc::FallbackNode>::Element *,geo::Pool<gdc::FallbackNode>::Element * const&>(&v22, v2, v3);
       v2 = **v3;
       *v3 = v2;
     }
@@ -7011,7 +7041,7 @@ void geo::Pool<md::ElevatedPolygonRenderable>::disposeElements(uint64_t a1)
   {
     do
     {
-      std::__tree<geo::Pool<gdc::FallbackNode>::Element *,std::less<geo::Pool<gdc::FallbackNode>::Element *>,std::allocator<geo::Pool<gdc::FallbackNode>::Element *>>::__emplace_unique_key_args<geo::Pool<gdc::FallbackNode>::Element *,geo::Pool<gdc::FallbackNode>::Element * const&>(&v22, v2);
+      std::__tree<geo::Pool<gdc::FallbackNode>::Element *,std::less<geo::Pool<gdc::FallbackNode>::Element *>,std::allocator<geo::Pool<gdc::FallbackNode>::Element *>>::__emplace_unique_key_args<geo::Pool<gdc::FallbackNode>::Element *,geo::Pool<gdc::FallbackNode>::Element * const&>(&v22, v2, v3);
       v2 = **v3;
       *v3 = v2;
     }
@@ -7220,7 +7250,7 @@ void geo::Pool<md::FlyoverRenderable>::disposeElements(uint64_t a1)
   {
     do
     {
-      std::__tree<geo::Pool<gdc::FallbackNode>::Element *,std::less<geo::Pool<gdc::FallbackNode>::Element *>,std::allocator<geo::Pool<gdc::FallbackNode>::Element *>>::__emplace_unique_key_args<geo::Pool<gdc::FallbackNode>::Element *,geo::Pool<gdc::FallbackNode>::Element * const&>(&v22, v2);
+      std::__tree<geo::Pool<gdc::FallbackNode>::Element *,std::less<geo::Pool<gdc::FallbackNode>::Element *>,std::allocator<geo::Pool<gdc::FallbackNode>::Element *>>::__emplace_unique_key_args<geo::Pool<gdc::FallbackNode>::Element *,geo::Pool<gdc::FallbackNode>::Element * const&>(&v22, v2, v3);
       v2 = **v3;
       *v3 = v2;
     }
@@ -7736,7 +7766,7 @@ LABEL_19:
       operator delete(*&buf[8]);
     }
 
-    std::__hash_table<gdc::TypeInfo,std::hash<gdc::TypeInfo>,std::equal_to<gdc::TypeInfo>,std::allocator<gdc::TypeInfo>>::__emplace_unique_key_args<gdc::TypeInfo,gdc::TypeInfo const&>(v95, *v86);
+    std::__hash_table<gdc::TypeInfo,std::hash<gdc::TypeInfo>,std::equal_to<gdc::TypeInfo>,std::allocator<gdc::TypeInfo>>::__emplace_unique_key_args<gdc::TypeInfo,gdc::TypeInfo const&>(v95, *v86, v86);
     v5 = v86 + 10;
   }
 
@@ -8187,25 +8217,25 @@ void std::vector<md::LogicExecutionData>::__destroy_vector::operator()[abi:nn200
   }
 }
 
-void *std::set<md::TileSelectionTileSetType>::set[abi:nn200100](void *result, void *a2)
+void *std::set<md::TileSelectionTileSetType>::set[abi:nn200100](void *a1, void *a2)
 {
-  result[1] = 0;
-  result[2] = 0;
-  *result = result + 1;
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = a1 + 1;
   v2 = *a2;
   if (*a2 != a2 + 1)
   {
     do
     {
-      v3 = result[1];
-      v4 = result + 1;
-      if (*result == result + 1)
+      v3 = a1[1];
+      v4 = a1 + 1;
+      if (*a1 == a1 + 1)
       {
         goto LABEL_8;
       }
 
-      v5 = result[1];
-      v6 = result + 1;
+      v5 = a1[1];
+      v6 = a1 + 1;
       if (v3)
       {
         do
@@ -8240,16 +8270,16 @@ LABEL_8:
 
         else
         {
-          v9 = result + 1;
+          v9 = a1 + 1;
         }
       }
 
       else
       {
-        v9 = result + 1;
+        v9 = a1 + 1;
         if (v3)
         {
-          v9 = result + 1;
+          v9 = a1 + 1;
           while (1)
           {
             while (1)
@@ -8320,7 +8350,7 @@ LABEL_12:
     while (v11 != a2 + 1);
   }
 
-  return result;
+  return a1;
 }
 
 void md::World::configureLayerDataSources(uint64_t a1, uint64_t *a2, void *a3)
@@ -8380,7 +8410,7 @@ void md::World::configureLayerDataSources(uint64_t a1, uint64_t *a2, void *a3)
   *(a1 + 168) = *(v13 + 4);
   if (v18)
   {
-    v19 = v14[1];
+    v19 = *(v14 + 8);
     v20 = *(a1 + 144);
     if ((v20 & (v20 - 1)) != 0)
     {
@@ -8408,7 +8438,7 @@ void md::World::configureLayerDataSources(uint64_t a1, uint64_t *a2, void *a3)
 
   do
   {
-    v21 = *(v14 + 8);
+    v21 = *(v14 + 16);
     v22 = *(a1 + 32);
     v23 = *(a1 + 40);
     while (v22 != v23)
@@ -8484,7 +8514,7 @@ LABEL_31:
     v32 = 0;
 LABEL_50:
     gdc::LayerDataManager::addLayerDataSource(*(a1 + 24), v21, v24, v27, v32);
-    geo::linear_set<md::TileSelectionTileSetType,std::less<md::TileSelectionTileSetType>,std::allocator<md::TileSelectionTileSetType>,std::vector<md::TileSelectionTileSetType>>::insert((a1 + 176), v14 + 20);
+    geo::linear_set<md::TileSelectionTileSetType,std::less<md::TileSelectionTileSetType>,std::allocator<md::TileSelectionTileSetType>,std::vector<md::TileSelectionTileSetType>>::insert((a1 + 176), (v14 + 20));
     if (!v27)
     {
       goto LABEL_87;
@@ -9200,38 +9230,38 @@ void *std::vector<md::TileSelectionTileSetType>::__swap_out_circular_buffer(uint
   return result;
 }
 
-void md::LabelLayerDataSource::didActivate(md::LabelLayerDataSource *this)
+void md::LabelLayerDataSource::didActivate(md::LabelLayerDataSource *this, uint64_t a2)
 {
-  v2 = *(this + 101);
-  if (v2)
+  v3 = *(this + 101);
+  if (v3)
   {
-    (*(*v2 + 48))(&v7);
-    v4 = v7;
-    v3 = v8;
-    if (v8)
+    (*(*v3 + 48))(&v9);
+    v5 = v9;
+    v4 = v10;
+    if (v10)
     {
-      atomic_fetch_add_explicit(&v8->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v10->__shared_weak_owners_, 1uLL, memory_order_relaxed);
     }
 
-    *(this + 102) = v4;
-    v5 = *(this + 103);
-    *(this + 103) = v3;
-    if (v5)
+    *(this + 102) = v5;
+    v6 = *(this + 103);
+    *(this + 103) = v4;
+    if (v6)
     {
-      std::__shared_weak_count::__release_weak(v5);
-      v3 = v8;
+      std::__shared_weak_count::__release_weak(v6);
+      v4 = v10;
     }
 
-    if (v3)
+    if (v4)
     {
-      std::__shared_weak_count::__release_shared[abi:nn200100](v3);
+      std::__shared_weak_count::__release_shared[abi:nn200100](v4);
     }
   }
 
   else
   {
-    v6 = std::__throw_bad_function_call[abi:nn200100]();
-    std::__function::__func<md::LabelsLogic::labelManagerSource(gdc::WorldType)::$_0,std::allocator<md::LabelsLogic::labelManagerSource(gdc::WorldType)::$_0>,std::shared_ptr<md::LabelManager> ()(void)>::operator()(v6);
+    v7 = std::__throw_bad_function_call[abi:nn200100]();
+    std::__function::__func<md::LabelsLogic::labelManagerSource(gdc::WorldType)::$_0,std::allocator<md::LabelsLogic::labelManagerSource(gdc::WorldType)::$_0>,std::shared_ptr<md::LabelManager> ()(void)>::operator()(v7, v8);
   }
 }
 
@@ -9291,7 +9321,7 @@ uint64_t md::SequentialGEOResourceDataRequester::downloadTileSize(md::Sequential
   return (*(*v1 + 32))(v1, ActiveResourceType) & 0xFFFFFFFFFFLL;
 }
 
-void md::World::setPreliminaryRequestsEnabled(md::World *this, int a2)
+void md::World::setPreliminaryRequestsEnabled(md::World *this, _BOOL4 a2)
 {
   v21 = *MEMORY[0x1E69E9840];
   v2 = *(this + 7);
@@ -9324,16 +9354,7 @@ LABEL_10:
       }
     }
 
-    if (v7 == v6)
-    {
-      v11 = a2;
-    }
-
-    else
-    {
-      v11 = 0;
-    }
-
+    v11 = v7 == v6 && a2;
     gdc::DataKeyRequester::setEnablePreliminaryRequests(*(v2 + 1), v11);
     if (GEOGetVectorKitResourceLoadingLog_onceToken != -1)
     {
@@ -9565,7 +9586,7 @@ LABEL_26:
 
   if (v16 != 2)
   {
-    ++v15;
+    v15 += 8;
     goto LABEL_26;
   }
 

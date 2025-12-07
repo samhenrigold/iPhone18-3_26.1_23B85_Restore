@@ -16,8 +16,10 @@
 - (void)_invalidateParticipant:(id)participant;
 - (void)_participantDidUpdatePreferences:(id)preferences;
 - (void)_participantDidUpdateSettings:(id)settings;
+- (void)_preferencesResolutionStageDidUpdateComponents:(id)components animate:(BOOL)animate;
 - (void)_removeForceResolutionSpecifier;
 - (void)_setNeedsUpdateArbitrationWithClientContext:(id)context defaultContext:(id)defaultContext;
+- (void)_setNeedsUpdateArbitrationWithReason:(id)reason animated:(BOOL)animated;
 - (void)_updateArbitrationWithClientContext:(id)context defaultContext:(id)defaultContext;
 - (void)addObserver:(id)observer;
 - (void)dealloc;
@@ -106,7 +108,7 @@
 
 - (id)_newOrderedPreferencesResolutionStagesWithRolesProvider:(id)provider
 {
-  v44[4] = *MEMORY[0x277D85DE8];
+  v47[4] = *MEMORY[0x277D85DE8];
   providerCopy = provider;
   zOrderStageRoles = [providerCopy zOrderStageRoles];
   zOrderStageRoles = self->_zOrderStageRoles;
@@ -143,43 +145,42 @@
 
   acquiredParticipantsByPreferencesType = self->_acquiredParticipantsByPreferencesType;
   v26 = [MEMORY[0x277CBEB58] set];
-  v27 = TRAStringFromTraitsPreferencesType(0);
-  [(NSMutableDictionary *)acquiredParticipantsByPreferencesType setObject:v26 forKey:v27];
+  v28 = TRAStringFromTraitsPreferencesType(0, v27);
+  [(NSMutableDictionary *)acquiredParticipantsByPreferencesType setObject:v26 forKey:v28];
 
-  v28 = self->_acquiredParticipantsByPreferencesType;
-  v29 = [MEMORY[0x277CBEB58] set];
-  v30 = TRAStringFromTraitsPreferencesType(1uLL);
-  [(NSMutableDictionary *)v28 setObject:v29 forKey:v30];
+  v29 = self->_acquiredParticipantsByPreferencesType;
+  v30 = [MEMORY[0x277CBEB58] set];
+  v32 = TRAStringFromTraitsPreferencesType(1uLL, v31);
+  [(NSMutableDictionary *)v29 setObject:v30 forKey:v32];
 
-  v31 = self->_acquiredParticipantsByPreferencesType;
-  v32 = [MEMORY[0x277CBEB58] set];
-  v33 = TRAStringFromTraitsPreferencesType(2uLL);
-  [(NSMutableDictionary *)v31 setObject:v32 forKey:v33];
+  v33 = self->_acquiredParticipantsByPreferencesType;
+  v34 = [MEMORY[0x277CBEB58] set];
+  v36 = TRAStringFromTraitsPreferencesType(2uLL, v35);
+  [(NSMutableDictionary *)v33 setObject:v34 forKey:v36];
 
-  v34 = self->_acquiredParticipantsByPreferencesType;
-  v35 = [MEMORY[0x277CBEB58] set];
-  v36 = TRAStringFromTraitsPreferencesType(3uLL);
-  [(NSMutableDictionary *)v34 setObject:v35 forKey:v36];
+  v37 = self->_acquiredParticipantsByPreferencesType;
+  v38 = [MEMORY[0x277CBEB58] set];
+  v40 = TRAStringFromTraitsPreferencesType(3uLL, v39);
+  [(NSMutableDictionary *)v37 setObject:v38 forKey:v40];
 
-  v37 = [(NSSet *)self->_zOrderStageRoles setByAddingObjectsFromSet:self->_ambientPresentationStageRoles];
-  v38 = [v37 setByAddingObjectsFromSet:self->_userInterfaceStyleStageRoles];
-  v39 = [v38 setByAddingObjectsFromSet:self->_orientationStageRoles];
+  v41 = [(NSSet *)self->_zOrderStageRoles setByAddingObjectsFromSet:self->_ambientPresentationStageRoles];
+  v42 = [v41 setByAddingObjectsFromSet:self->_userInterfaceStyleStageRoles];
+  v43 = [v42 setByAddingObjectsFromSet:self->_orientationStageRoles];
   allStagesRoles = self->_allStagesRoles;
-  self->_allStagesRoles = v39;
+  self->_allStagesRoles = v43;
 
-  v44[0] = v15;
-  v44[1] = v18;
-  v44[2] = v21;
-  v44[3] = v24;
-  v41 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:4];
+  v47[0] = v15;
+  v47[1] = v18;
+  v47[2] = v21;
+  v47[3] = v24;
+  v45 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:4];
 
-  v42 = *MEMORY[0x277D85DE8];
-  return v41;
+  return v45;
 }
 
 - (id)acquireParticipantWithRole:(id)role delegate:(id)delegate
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   roleCopy = role;
   delegateCopy = delegate;
   v9 = delegateCopy;
@@ -204,21 +205,21 @@
 LABEL_3:
   if (![(NSSet *)self->_allStagesRoles containsObject:roleCopy])
   {
-    v32 = MEMORY[0x277CBEAD8];
-    v33 = MEMORY[0x277CCACA8];
-    v34 = objc_opt_class();
-    v35 = NSStringFromClass(v34);
-    v36 = NSStringFromSelector(a2);
-    roleCopy = [v33 stringWithFormat:@"*** -[%@ %@] called for unknown role: %@", v35, v36, roleCopy];
-    v38 = [v32 exceptionWithName:@"TRAArbiterUnknownRoleException" reason:roleCopy userInfo:0];
-    v39 = v38;
+    v33 = MEMORY[0x277CBEAD8];
+    v34 = MEMORY[0x277CCACA8];
+    v35 = objc_opt_class();
+    v36 = NSStringFromClass(v35);
+    v37 = NSStringFromSelector(a2);
+    roleCopy = [v34 stringWithFormat:@"*** -[%@ %@] called for unknown role: %@", v36, v37, roleCopy];
+    v39 = [v33 exceptionWithName:@"TRAArbiterUnknownRoleException" reason:roleCopy userInfo:0];
+    v40 = v39;
 
-    objc_exception_throw(v38);
+    objc_exception_throw(v39);
   }
 
   v10 = [TRAParticipant alloc];
   v11 = [(TRAArbiter *)self _newUniqueIdentifierForRole:roleCopy];
-  v40 = v9;
+  v41 = v9;
   v12 = [(TRAParticipant *)v10 initWithRole:roleCopy uniqueIdentifier:v11 delegate:v9 arbiter:self];
 
   liveRolesCounter = self->_liveRolesCounter;
@@ -231,46 +232,45 @@ LABEL_3:
   uniqueIdentifier = [(TRAParticipant *)v12 uniqueIdentifier];
   [(NSMutableDictionary *)acquiredParticipantsByUniqueIdentifier setObject:v12 forKey:uniqueIdentifier];
 
-  v43 = 0u;
   v44 = 0u;
-  v41 = 0u;
+  v45 = 0u;
   v42 = 0u;
+  v43 = 0u;
   v19 = self->_preferencesResolutionStages;
-  v20 = [(NSArray *)v19 countByEnumeratingWithState:&v41 objects:v45 count:16];
+  v20 = [(NSArray *)v19 countByEnumeratingWithState:&v42 objects:v46 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v42;
+    v22 = *v43;
     do
     {
       for (i = 0; i != v21; ++i)
       {
-        if (*v42 != v22)
+        if (*v43 != v22)
         {
           objc_enumerationMutation(v19);
         }
 
-        v24 = *(*(&v41 + 1) + 8 * i);
+        v24 = *(*(&v42 + 1) + 8 * i);
         participantsRoles = [v24 participantsRoles];
         v26 = [participantsRoles containsObject:roleCopy];
 
         if (v26)
         {
           acquiredParticipantsByPreferencesType = self->_acquiredParticipantsByPreferencesType;
-          v28 = TRAStringFromTraitsPreferencesType([v24 preferencesType]);
-          v29 = [(NSMutableDictionary *)acquiredParticipantsByPreferencesType objectForKey:v28];
+          preferencesType = [v24 preferencesType];
+          v30 = TRAStringFromTraitsPreferencesType(preferencesType, v29);
+          v31 = [(NSMutableDictionary *)acquiredParticipantsByPreferencesType objectForKey:v30];
 
-          [v29 addObject:v12];
+          [v31 addObject:v12];
         }
       }
 
-      v21 = [(NSArray *)v19 countByEnumeratingWithState:&v41 objects:v45 count:16];
+      v21 = [(NSArray *)v19 countByEnumeratingWithState:&v42 objects:v46 count:16];
     }
 
     while (v21);
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -361,27 +361,27 @@ LABEL_3:
 
 - (id)_resolutionStageWithType:(int64_t)type
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v4 = self->_preferencesResolutionStages;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         if ([v9 preferencesType] == type)
         {
           v10 = v9;
@@ -389,7 +389,7 @@ LABEL_3:
         }
       }
 
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v6)
       {
         continue;
@@ -401,8 +401,6 @@ LABEL_3:
 
   v10 = 0;
 LABEL_11:
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -453,9 +451,15 @@ void __58__TRAArbiter_noteArbiterDidCompleteTransitionWithContext___block_invoke
   }
 }
 
+- (void)_setNeedsUpdateArbitrationWithReason:(id)reason animated:(BOOL)animated
+{
+  v5 = [(TRAArbiter *)self _defaultUpdateContextWithReason:reason animatable:animated];
+  [(TRAArbiter *)self _setNeedsUpdateArbitrationWithClientContext:0 defaultContext:v5];
+}
+
 - (void)_setNeedsUpdateArbitrationWithClientContext:(id)context defaultContext:(id)defaultContext
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   defaultContextCopy = defaultContext;
   if (!defaultContextCopy)
@@ -473,10 +477,10 @@ void __58__TRAArbiter_noteArbiterDidCompleteTransitionWithContext___block_invoke
     v8 = defaultContextCopy;
   }
 
-  v21 = v8;
-  requestingParticipantsUniqueIdentifiers = [v21 requestingParticipantsUniqueIdentifiers];
+  v20 = v8;
+  requestingParticipantsUniqueIdentifiers = [v20 requestingParticipantsUniqueIdentifiers];
   v10 = requestingParticipantsUniqueIdentifiers;
-  v22 = defaultContextCopy;
+  v21 = defaultContextCopy;
   if (requestingParticipantsUniqueIdentifiers)
   {
     allKeys = requestingParticipantsUniqueIdentifiers;
@@ -489,26 +493,26 @@ void __58__TRAArbiter_noteArbiterDidCompleteTransitionWithContext___block_invoke
 
   v12 = allKeys;
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v13 = v12;
-  v14 = [v13 countByEnumeratingWithState:&v23 objects:v31 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v22 objects:v30 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v24;
+    v16 = *v23;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v24 != v16)
+        if (*v23 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = [(NSMutableDictionary *)self->_acquiredParticipantsByUniqueIdentifier objectForKey:*(*(&v23 + 1) + 8 * i)];
+        v18 = [(NSMutableDictionary *)self->_acquiredParticipantsByUniqueIdentifier objectForKey:*(*(&v22 + 1) + 8 * i)];
         if (v18)
         {
           [(NSMutableSet *)self->_participantsNeedingUpdate addObject:v18];
@@ -516,19 +520,19 @@ void __58__TRAArbiter_noteArbiterDidCompleteTransitionWithContext___block_invoke
 
         else
         {
-          v19 = TRALogCommon();
+          v19 = TRALogCommon(0);
           if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543618;
-            v28 = 0;
-            v29 = 2114;
-            v30 = contextCopy;
+            v27 = 0;
+            v28 = 2114;
+            v29 = contextCopy;
             _os_log_error_impl(&dword_26F353000, v19, OS_LOG_TYPE_ERROR, "An update was requested for an unknown participant: %{public}@, with client context: %{public}@", buf, 0x16u);
           }
         }
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v23 objects:v31 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v22 objects:v30 count:16];
     }
 
     while (v15);
@@ -539,15 +543,13 @@ void __58__TRAArbiter_noteArbiterDidCompleteTransitionWithContext___block_invoke
     [(TRAArbiter *)self _addOrientationResolutionPolicySpecifierForClientContext:contextCopy];
   }
 
-  [(TRAArbiter *)self _updateArbitrationWithClientContext:contextCopy defaultContext:v22];
+  [(TRAArbiter *)self _updateArbitrationWithClientContext:contextCopy defaultContext:v21];
   [(TRAArbiter *)self _removeForceResolutionSpecifier];
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_invalidateParticipant:(id)participant
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   participantCopy = participant;
   if (!participantCopy)
   {
@@ -582,30 +584,30 @@ void __58__TRAArbiter_noteArbiterDidCompleteTransitionWithContext___block_invoke
     [(NSMutableDictionary *)self->_liveRolesCounter removeObjectForKey:role];
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   allKeys = [(NSMutableDictionary *)self->_acquiredParticipantsByPreferencesType allKeys];
-  v14 = [allKeys countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v14 = [allKeys countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v22;
+    v16 = *v21;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v22 != v16)
+        if (*v21 != v16)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v18 = [(NSMutableDictionary *)self->_acquiredParticipantsByPreferencesType objectForKey:*(*(&v21 + 1) + 8 * i)];
+        v18 = [(NSMutableDictionary *)self->_acquiredParticipantsByPreferencesType objectForKey:*(*(&v20 + 1) + 8 * i)];
         [v18 removeObject:participantCopy];
       }
 
-      v15 = [allKeys countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v15 = [allKeys countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v15);
@@ -614,8 +616,6 @@ void __58__TRAArbiter_noteArbiterDidCompleteTransitionWithContext___block_invoke
   v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"Participant(%p) with role %@ was invalidated", participantCopy, role];
   [(NSMutableArray *)self->_arbiterNeedsUpdateReasons addObject:v19];
   [(TRAArbiter *)self _setNeedsUpdateArbitrationWithReason:v19 animated:1];
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_participantDidUpdatePreferences:(id)preferences
@@ -660,6 +660,25 @@ void __58__TRAArbiter_noteArbiterDidCompleteTransitionWithContext___block_invoke
 
   [(NSMutableArray *)self->_arbiterNeedsUpdateReasons addObject:v7];
   [(TRAArbiter *)self _setNeedsUpdateArbitrationWithReason:v7 animated:1];
+}
+
+- (void)_preferencesResolutionStageDidUpdateComponents:(id)components animate:(BOOL)animate
+{
+  animateCopy = animate;
+  componentsCopy = components;
+  v10 = componentsCopy;
+  if (!componentsCopy)
+  {
+    [TRAArbiter _preferencesResolutionStageDidUpdateComponents:animate:];
+    componentsCopy = 0;
+  }
+
+  v7 = MEMORY[0x277CCACA8];
+  succinctDescription = [componentsCopy succinctDescription];
+  v9 = [v7 stringWithFormat:@"Stage[%@] did update specifiers.", succinctDescription];
+
+  [(NSMutableArray *)self->_arbiterNeedsUpdateReasons addObject:v9];
+  [(TRAArbiter *)self _setNeedsUpdateArbitrationWithReason:v9 animated:animateCopy];
 }
 
 - (void)_addOrientationResolutionPolicySpecifierForClientContext:(id)context
@@ -731,7 +750,7 @@ void __57__TRAArbiter__defaultUpdateContextWithReason_animatable___block_invoke(
 
 - (void)_updateArbitrationWithClientContext:(id)context defaultContext:(id)defaultContext
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   defaultContextCopy = defaultContext;
   if (!defaultContextCopy)
@@ -752,33 +771,32 @@ void __57__TRAArbiter__defaultUpdateContextWithReason_animatable___block_invoke(
     }
 
     v9 = v8;
-    [(TRAArbiter *)self noteArbiterWillBeginTransitionWithContext:v9];
-    v10 = TRALogCommon();
+    v10 = TRALogCommon([(TRAArbiter *)self noteArbiterWillBeginTransitionWithContext:v9]);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       [(TRAArbiter *)self _updateArbitrationWithClientContext:v9 defaultContext:v10];
     }
 
+    v69 = 0u;
+    v70 = 0u;
     v67 = 0u;
     v68 = 0u;
-    v65 = 0u;
-    v66 = 0u;
     v11 = self->_participantsNeedingUpdate;
-    v12 = [(NSMutableSet *)v11 countByEnumeratingWithState:&v65 objects:v71 count:16];
+    v12 = [(NSMutableSet *)v11 countByEnumeratingWithState:&v67 objects:v73 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v66;
+      v14 = *v68;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v66 != v14)
+          if (*v68 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v65 + 1) + 8 * i);
+          v16 = *(*(&v67 + 1) + 8 * i);
           delegate = [v16 delegate];
           [delegate updatePreferencesForParticipant:v16 updater:v16];
 
@@ -788,13 +806,13 @@ void __57__TRAArbiter__defaultUpdateContextWithReason_animatable___block_invoke(
           }
         }
 
-        v13 = [(NSMutableSet *)v11 countByEnumeratingWithState:&v65 objects:v71 count:16];
+        v13 = [(NSMutableSet *)v11 countByEnumeratingWithState:&v67 objects:v73 count:16];
       }
 
       while (v13);
     }
 
-    v55 = v9;
+    v57 = v9;
 
     if ([(NSMutableSet *)self->_updatedParticipants count]|| [(NSMutableArray *)self->_arbiterNeedsUpdateReasons count])
     {
@@ -813,108 +831,106 @@ void __57__TRAArbiter__defaultUpdateContextWithReason_animatable___block_invoke(
       lastValidatedInputs = self->_lastValidatedInputs;
       self->_lastValidatedInputs = v26;
 
+      v65 = 0u;
+      v66 = 0u;
       v63 = 0u;
       v64 = 0u;
-      v61 = 0u;
-      v62 = 0u;
       obj = self->_preferencesResolutionStages;
-      v28 = [(NSArray *)obj countByEnumeratingWithState:&v61 objects:v70 count:16];
+      v28 = [(NSArray *)obj countByEnumeratingWithState:&v63 objects:v72 count:16];
       if (v28)
       {
         v29 = v28;
-        v30 = *v62;
+        v30 = *v64;
         do
         {
           for (j = 0; j != v29; ++j)
           {
-            if (*v62 != v30)
+            if (*v64 != v30)
             {
               objc_enumerationMutation(obj);
             }
 
-            v32 = *(*(&v61 + 1) + 8 * j);
+            v32 = *(*(&v63 + 1) + 8 * j);
             participantsRoles = [v32 participantsRoles];
             acquiredParticipantsByPreferencesType = self->_acquiredParticipantsByPreferencesType;
-            v35 = TRAStringFromTraitsPreferencesType([v32 preferencesType]);
-            v36 = [(NSMutableDictionary *)acquiredParticipantsByPreferencesType objectForKey:v35];
+            preferencesType = [v32 preferencesType];
+            v37 = TRAStringFromTraitsPreferencesType(preferencesType, v36);
+            v38 = [(NSMutableDictionary *)acquiredParticipantsByPreferencesType objectForKey:v37];
 
-            v37 = [TRAPreferencesResolutionContext alloc];
-            allObjects = [v36 allObjects];
-            v39 = [(TRAPreferencesResolutionContext *)v37 initWithAcquiredParticipants:allObjects stageParticipantsRoles:participantsRoles validatedInputs:self->_lastValidatedInputs rawInputs:self->_lastRawInputs];
+            v39 = [TRAPreferencesResolutionContext alloc];
+            allObjects = [v38 allObjects];
+            v41 = [(TRAPreferencesResolutionContext *)v39 initWithAcquiredParticipants:allObjects stageParticipantsRoles:participantsRoles validatedInputs:self->_lastValidatedInputs rawInputs:self->_lastRawInputs];
 
-            [v32 updateResolutionWithContext:v39];
+            [v32 updateResolutionWithContext:v41];
           }
 
-          v29 = [(NSArray *)obj countByEnumeratingWithState:&v61 objects:v70 count:16];
+          v29 = [(NSArray *)obj countByEnumeratingWithState:&v63 objects:v72 count:16];
         }
 
         while (v29);
       }
 
-      v40 = TRALogCommon();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
+      v43 = TRALogCommon(v42);
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
       {
-        [TRAArbiter _updateArbitrationWithClientContext:v40 defaultContext:?];
+        [TRAArbiter _updateArbitrationWithClientContext:v43 defaultContext:?];
       }
 
-      defaultContextCopy = v53;
-      contextCopy = v54;
+      defaultContextCopy = v55;
+      contextCopy = v56;
     }
 
-    v41 = [(NSMutableSet *)self->_updatedParticipants copy];
+    v44 = [(NSMutableSet *)self->_updatedParticipants copy];
     [(NSMutableSet *)self->_updatedParticipants removeAllObjects];
     [(NSMutableSet *)self->_participantsNeedingUpdate removeAllObjects];
     [(NSMutableArray *)self->_arbiterNeedsUpdateReasons removeAllObjects];
+    v61 = 0u;
+    v62 = 0u;
     v59 = 0u;
     v60 = 0u;
-    v57 = 0u;
-    v58 = 0u;
-    v42 = v41;
-    v43 = [v42 countByEnumeratingWithState:&v57 objects:v69 count:16];
-    if (v43)
+    v45 = v44;
+    v46 = [v45 countByEnumeratingWithState:&v59 objects:v71 count:16];
+    if (v46)
     {
-      v44 = v43;
-      v45 = *v58;
+      v47 = v46;
+      v48 = *v60;
       do
       {
-        for (k = 0; k != v44; ++k)
+        for (k = 0; k != v47; ++k)
         {
-          if (*v58 != v45)
+          if (*v60 != v48)
           {
-            objc_enumerationMutation(v42);
+            objc_enumerationMutation(v45);
           }
 
-          v47 = *(*(&v57 + 1) + 8 * k);
-          if ([v47 hasAnyActuationContext])
+          v50 = *(*(&v59 + 1) + 8 * k);
+          if ([v50 hasAnyActuationContext])
           {
-            v48 = v47;
+            v51 = v50;
           }
 
           else
           {
-            v48 = defaultContextCopy;
+            v51 = defaultContextCopy;
           }
 
-          v49 = v48;
-          delegate2 = [v47 delegate];
-          [delegate2 didChangeSettingsForParticipant:v47 context:v49];
+          v52 = v51;
+          delegate2 = [v50 delegate];
+          [delegate2 didChangeSettingsForParticipant:v50 context:v52];
         }
 
-        v44 = [v42 countByEnumeratingWithState:&v57 objects:v69 count:16];
+        v47 = [v45 countByEnumeratingWithState:&v59 objects:v71 count:16];
       }
 
-      while (v44);
+      while (v47);
     }
 
-    [(TRAArbiter *)self noteArbiterDidCompleteTransitionWithContext:v55];
-    v51 = TRALogCommon();
-    if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
+    v54 = TRALogCommon([(TRAArbiter *)self noteArbiterDidCompleteTransitionWithContext:v57]);
+    if (os_log_type_enabled(v54, OS_LOG_TYPE_DEBUG))
     {
-      [(TRAArbiter *)self _updateArbitrationWithClientContext:v55 defaultContext:v51];
+      [(TRAArbiter *)self _updateArbitrationWithClientContext:v57 defaultContext:v54];
     }
   }
-
-  v52 = *MEMORY[0x277D85DE8];
 }
 
 - (id)succinctDescription
@@ -935,72 +951,71 @@ void __57__TRAArbiter__defaultUpdateContextWithReason_animatable___block_invoke(
 
 - (id)descriptionBuilderWithMultilinePrefix:(id)prefix
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   succinctDescriptionBuilder = [(TRAArbiter *)self succinctDescriptionBuilder];
   v5 = [MEMORY[0x277CBEB18] arrayWithCapacity:{-[NSMutableDictionary count](self->_acquiredParticipantsByUniqueIdentifier, "count")}];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   allValues = [(NSMutableDictionary *)self->_acquiredParticipantsByUniqueIdentifier allValues];
-  v7 = [allValues countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v7 = [allValues countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v30;
+    v9 = *v29;
     do
     {
       v10 = 0;
       do
       {
-        if (*v30 != v9)
+        if (*v29 != v9)
         {
           objc_enumerationMutation(allValues);
         }
 
-        succinctDescription = [*(*(&v29 + 1) + 8 * v10) succinctDescription];
+        succinctDescription = [*(*(&v28 + 1) + 8 * v10) succinctDescription];
         [v5 addObject:succinctDescription];
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [allValues countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v8 = [allValues countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v8);
   }
 
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __52__TRAArbiter_descriptionBuilderWithMultilinePrefix___block_invoke;
-  v25[3] = &unk_279DD4940;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __52__TRAArbiter_descriptionBuilderWithMultilinePrefix___block_invoke;
+  v24[3] = &unk_279DD4940;
   v12 = succinctDescriptionBuilder;
-  v26 = v12;
-  v27 = v5;
+  v25 = v12;
+  v26 = v5;
   selfCopy = self;
   v13 = v5;
-  [v12 appendBodySectionWithName:@"Acquired Participants" multilinePrefix:0 block:v25];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __52__TRAArbiter_descriptionBuilderWithMultilinePrefix___block_invoke_2;
-  v22[3] = &unk_279DD48D0;
+  [v12 appendBodySectionWithName:@"Acquired Participants" multilinePrefix:0 block:v24];
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __52__TRAArbiter_descriptionBuilderWithMultilinePrefix___block_invoke_2;
+  v21[3] = &unk_279DD48D0;
   v14 = v12;
-  v23 = v14;
+  v22 = v14;
   selfCopy2 = self;
-  [v14 appendBodySectionWithName:@"Inputs" multilinePrefix:0 block:v22];
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __52__TRAArbiter_descriptionBuilderWithMultilinePrefix___block_invoke_5;
-  v20[3] = &unk_279DD48D0;
-  v20[4] = self;
+  [v14 appendBodySectionWithName:@"Inputs" multilinePrefix:0 block:v21];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __52__TRAArbiter_descriptionBuilderWithMultilinePrefix___block_invoke_5;
+  v19[3] = &unk_279DD48D0;
+  v19[4] = self;
   v15 = v14;
-  v21 = v15;
-  [v15 appendBodySectionWithName:@"Preferences Resolution Stages" multilinePrefix:0 block:v20];
-  v16 = v21;
+  v20 = v15;
+  [v15 appendBodySectionWithName:@"Preferences Resolution Stages" multilinePrefix:0 block:v19];
+  v16 = v20;
   v17 = v15;
 
-  v18 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -1043,46 +1058,45 @@ void __52__TRAArbiter_descriptionBuilderWithMultilinePrefix___block_invoke_2(uin
 
 void __52__TRAArbiter_descriptionBuilderWithMultilinePrefix___block_invoke_5(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v15 = 0u;
+  v21 = *MEMORY[0x277D85DE8];
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
   obj = *(*(a1 + 32) + 120);
-  v2 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v2 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v16;
+    v4 = *v17;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v16 != v4)
+        if (*v17 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v15 + 1) + 8 * i);
+        v6 = *(*(&v16 + 1) + 8 * i);
         v7 = *(a1 + 40);
-        v8 = TRAStringFromTraitsPreferencesType([v6 preferencesType]);
-        v9 = [*(a1 + 40) activeMultilinePrefix];
-        v12[0] = MEMORY[0x277D85DD0];
-        v12[1] = 3221225472;
-        v12[2] = __52__TRAArbiter_descriptionBuilderWithMultilinePrefix___block_invoke_6;
-        v12[3] = &unk_279DD48D0;
-        v13 = *(a1 + 40);
-        v14 = v6;
-        [v7 appendBodySectionWithName:v8 multilinePrefix:v9 block:v12];
+        v8 = [v6 preferencesType];
+        v10 = TRAStringFromTraitsPreferencesType(v8, v9);
+        v11 = [*(a1 + 40) activeMultilinePrefix];
+        v13[0] = MEMORY[0x277D85DD0];
+        v13[1] = 3221225472;
+        v13[2] = __52__TRAArbiter_descriptionBuilderWithMultilinePrefix___block_invoke_6;
+        v13[3] = &unk_279DD48D0;
+        v14 = *(a1 + 40);
+        v15 = v6;
+        [v7 appendBodySectionWithName:v10 multilinePrefix:v11 block:v13];
       }
 
-      v3 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v3 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v3);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __52__TRAArbiter_descriptionBuilderWithMultilinePrefix___block_invoke_6(uint64_t a1)
@@ -1237,34 +1251,29 @@ __CFString *__29__TRAArbiter__setupStateDump__block_invoke(uint64_t a1)
 
 - (void)_updateArbitrationWithClientContext:(NSObject *)a3 defaultContext:.cold.2(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 134218242;
-  *&v4[4] = a1;
-  *&v4[12] = 2114;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_2(&dword_26F353000, a2, a3, "Arbiter[%p] will update with context: %{public}@", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 134218242;
+  *&v3[4] = a1;
+  *&v3[12] = 2114;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_2(&dword_26F353000, a2, a3, "Arbiter[%p] will update with context: %{public}@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 - (void)_updateArbitrationWithClientContext:(void *)a1 defaultContext:(NSObject *)a2 .cold.3(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 debugDescription];
-  v5 = 138543362;
-  v6 = v3;
-  _os_log_debug_impl(&dword_26F353000, a2, OS_LOG_TYPE_DEBUG, "current resolution:\n%{public}@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138543362;
+  v5 = v3;
+  _os_log_debug_impl(&dword_26F353000, a2, OS_LOG_TYPE_DEBUG, "current resolution:\n%{public}@", &v4, 0xCu);
 }
 
 - (void)_updateArbitrationWithClientContext:(NSObject *)a3 defaultContext:.cold.4(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  LODWORD(v4) = 134218240;
-  *(&v4 + 4) = a1;
-  WORD6(v4) = 2048;
-  HIWORD(v4) = a2;
-  OUTLINED_FUNCTION_2(&dword_26F353000, a2, a3, "Arbiter[%p] did update with context: %p.", v4, *(&v4 + 1));
-  v3 = *MEMORY[0x277D85DE8];
+  LODWORD(v3) = 134218240;
+  *(&v3 + 4) = a1;
+  WORD6(v3) = 2048;
+  HIWORD(v3) = a2;
+  OUTLINED_FUNCTION_2(&dword_26F353000, a2, a3, "Arbiter[%p] did update with context: %p.", v3, *(&v3 + 1));
 }
 
 @end

@@ -6,8 +6,10 @@
 - (id)_getStringPreferencesForKey:(id)key;
 - (void)_hasOcclusionNotificationsThresholdMet;
 - (void)_setPreferencesForKey:(id)key withStringValue:(id)value;
+- (void)_showHearingProtectionOcclusionNotification:(unsigned int)notification;
 - (void)invalidateHearingProtectionOcclusionNotification;
 - (void)presentCleaningInfoArticle;
+- (void)showHearingProtectionOcclusionNotification:(unsigned int)notification forAddress:(id)address;
 @end
 
 @implementation HMOcclusionNotification
@@ -62,48 +64,121 @@ uint64_t __41__HMOcclusionNotification_sharedInstance__block_invoke()
 - (void)presentCleaningInfoArticle
 {
   presentCleaningInfoArticle = [objc_alloc(MEMORY[0x277CBEBC0]) initWithString:@"https://support.apple.com/120409?cid=mc-ols-airpods-article_120409-settings_ui-08232024"];
-  v3 = presentCleaningInfoArticle;
+  v4 = presentCleaningInfoArticle;
   if (presentCleaningInfoArticle)
   {
-    v6 = presentCleaningInfoArticle;
-    if (gLogCategory_HMOcclusionNotification <= 30 && (gLogCategory_HMOcclusionNotification != -1 || _LogCategory_Initialize()))
+    v7 = presentCleaningInfoArticle;
+    if (gLogCategory_HMOcclusionNotification <= 30)
     {
-      [HMOcclusionNotification presentCleaningInfoArticle];
+      if (gLogCategory_HMOcclusionNotification != -1 || (presentCleaningInfoArticle = _LogCategory_Initialize(), presentCleaningInfoArticle))
+      {
+        [(HMOcclusionNotification *)presentCleaningInfoArticle presentCleaningInfoArticle];
+      }
     }
 
     defaultWorkspace = [MEMORY[0x277CC1E80] defaultWorkspace];
-    v5 = [MEMORY[0x277CBEBC0] URLWithString:@"https://support.apple.com/120409?cid=mc-ols-airpods-article_120409-settings_ui-08232024"];
-    [defaultWorkspace openSensitiveURL:v5 withOptions:0];
+    v6 = [MEMORY[0x277CBEBC0] URLWithString:@"https://support.apple.com/120409?cid=mc-ols-airpods-article_120409-settings_ui-08232024"];
+    [defaultWorkspace openSensitiveURL:v6 withOptions:0];
 
     goto LABEL_6;
   }
 
   if (gLogCategory_HMOcclusionNotification <= 30)
   {
-    v6 = 0;
-    if (gLogCategory_HMOcclusionNotification != -1 || (presentCleaningInfoArticle = _LogCategory_Initialize(), v3 = 0, presentCleaningInfoArticle))
+    v7 = 0;
+    if (gLogCategory_HMOcclusionNotification != -1 || (presentCleaningInfoArticle = _LogCategory_Initialize(), v4 = 0, presentCleaningInfoArticle))
     {
-      presentCleaningInfoArticle = [HMOcclusionNotification presentCleaningInfoArticle];
+      presentCleaningInfoArticle = [(HMOcclusionNotification *)presentCleaningInfoArticle presentCleaningInfoArticle];
 LABEL_6:
-      v3 = v6;
+      v4 = v7;
     }
   }
 
-  MEMORY[0x2821F96F8](presentCleaningInfoArticle, v3);
+  MEMORY[0x2821F96F8](presentCleaningInfoArticle, v4);
 }
 
-void __71__HMOcclusionNotification__showHearingProtectionOcclusionNotification___block_invoke(uint64_t a1, unsigned int a2, void *a3)
+- (void)showHearingProtectionOcclusionNotification:(unsigned int)notification forAddress:(id)address
 {
+  v4 = *&notification;
+  objc_storeStrong(&self->_btAddress, address);
+
+  [(HMOcclusionNotification *)self _showHearingProtectionOcclusionNotification:v4];
+}
+
+- (void)_showHearingProtectionOcclusionNotification:(unsigned int)notification
+{
+  v3 = *&notification;
+  if (self->_uiNotificationSessionHearingProtection)
+  {
+    [(HMOcclusionNotification *)self invalidateHearingProtectionOcclusionNotification];
+  }
+
+  v5 = [MEMORY[0x277CCA8D8] bundleWithPath:@"/System/Library/UserNotifications/Bundles/com.apple.HearingModeUserNotifications.bundle"];
+  v6 = objc_alloc_init(MEMORY[0x277D02948]);
+  uiNotificationSessionHearingProtection = self->_uiNotificationSessionHearingProtection;
+  self->_uiNotificationSessionHearingProtection = v6;
+
+  [(CUUserNotificationSession *)v6 setBundleID:@"com.apple.HearingModeUserNotifications"];
+  [(CUUserNotificationSession *)v6 setCategoryID:@"HearingModeUserNotifications"];
+  [(CUUserNotificationSession *)v6 setDispatchQueue:self->_dispatchQueue];
+  [(CUUserNotificationSession *)v6 setFlags:17];
+  [(CUUserNotificationSession *)v6 setLabel:@"HearingMode"];
+  v8 = CULocalizedStringEx();
+  [(CUUserNotificationSession *)v6 setBodyKey:v8];
+
+  v9 = CULocalizedStringEx();
+  [(CUUserNotificationSession *)v6 setTitleKey:v9];
+
+  v10 = [(HMOcclusionNotification *)self _deviceIconForProductID:v3];
+  [(CUUserNotificationSession *)v6 setIcon:v10];
+
+  v11 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v12 = [v11 pathForResource:@"NotificationAudioTone" ofType:@"wav"];
+
+  v13 = [MEMORY[0x277CBEBC0] fileURLWithPath:v12];
+  if (v13)
+  {
+    v14 = [MEMORY[0x277CE1F70] soundWithAlertType:16];
+    [v14 setToneFileURL:v13];
+    [(CUUserNotificationSession *)v6 setSound:v14];
+  }
+
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __71__HMOcclusionNotification__showHearingProtectionOcclusionNotification___block_invoke;
+  v19[3] = &unk_2796F06C8;
+  v19[4] = v6;
+  v19[5] = self;
+  [(CUUserNotificationSession *)v6 setActionHandler:v19];
+  [(CUUserNotificationSession *)v6 activate];
+  v15 = objc_alloc_init(MEMORY[0x277CCA968]);
+  [v15 setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+  if (gLogCategory_HMOcclusionNotification <= 30 && (gLogCategory_HMOcclusionNotification != -1 || _LogCategory_Initialize()))
+  {
+    [HMOcclusionNotification _showHearingProtectionOcclusionNotification:v15];
+  }
+
+  date = [MEMORY[0x277CBEAA8] date];
+  v17 = [v15 stringFromDate:date];
+  [(HMOcclusionNotification *)self _setPreferencesForKey:@"OcclusionNotificationShownDate" withStringValue:v17];
+
+  v18 = +[HMDeviceManager sharedInstance];
+  [v18 occlusionIndicationShownForDeviceAddress:self->_btAddress featureID:2 type:1 action:0];
+}
+
+void __71__HMOcclusionNotification__showHearingProtectionOcclusionNotification___block_invoke(uint64_t a1, uint64_t a2, void *a3)
+{
+  v3 = a2;
   v5 = a3;
   if (*(a1 + 32) == *(*(a1 + 40) + 8))
   {
     v8 = v5;
     if (gLogCategory_HMOcclusionNotification <= 30 && (gLogCategory_HMOcclusionNotification != -1 || _LogCategory_Initialize()))
     {
-      __71__HMOcclusionNotification__showHearingProtectionOcclusionNotification___block_invoke_cold_1(a2);
+      __71__HMOcclusionNotification__showHearingProtectionOcclusionNotification___block_invoke_cold_1(v3, v8);
     }
 
-    if (a2 == 1)
+    if (v3 == 1)
     {
       v7 = +[HMDeviceManager sharedInstance];
       [v7 occlusionIndicationShownForDeviceAddress:*(*(a1 + 40) + 16) featureID:2 type:1 action:3];
@@ -111,10 +186,10 @@ void __71__HMOcclusionNotification__showHearingProtectionOcclusionNotification__
       [*(a1 + 40) presentCleaningInfoArticle];
     }
 
-    else if (a2 != 5)
+    else if (v3 != 5)
     {
       v5 = v8;
-      if (a2 != 2)
+      if (v3 != 2)
       {
         goto LABEL_11;
       }
@@ -174,39 +249,39 @@ LABEL_11:
 
 - (id)_getStringPreferencesForKey:(id)key
 {
-  v7[13] = *MEMORY[0x277D85DE8];
-  LODWORD(v7[0]) = 0;
+  v6[13] = *MEMORY[0x277D85DE8];
+  LODWORD(v6[0]) = 0;
   keyCopy = key;
   CFPreferencesAppSynchronize(@"com.apple.HearingModeService");
   CFPrefs_GetCString();
 
-  v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:{v7 + 4, v7[0]}];
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:{v6 + 4, v6[0]}];
 
   return v4;
 }
 
 - (id)_deviceIconForProductID:(unsigned int)d
 {
-  v4 = [(HMOcclusionNotification *)self _iconTypeForProductID:?];
-  if (v4)
+  v3 = *&d;
+  v5 = [(HMOcclusionNotification *)self _iconTypeForProductID:?];
+  if (v5)
   {
     goto LABEL_6;
   }
 
   if (gLogCategory_HMOcclusionNotification <= 90 && (gLogCategory_HMOcclusionNotification != -1 || _LogCategory_Initialize()))
   {
-    [HMOcclusionNotification _deviceIconForProductID:];
+    [HMOcclusionNotification _deviceIconForProductID:v3];
   }
 
-  v4 = [(HMOcclusionNotification *)self _iconTypeForProductID:8212];
-  if (v4)
+  v5 = [(HMOcclusionNotification *)self _iconTypeForProductID:8212];
+  if (v5)
   {
 LABEL_6:
-    v5 = v4;
-    v6 = MEMORY[0x277CE1FB0];
-    identifier = [v4 identifier];
-    v8 = [v6 iconWithUTI:identifier];
+    v6 = v5;
+    v7 = MEMORY[0x277CE1FB0];
+    identifier = [v5 identifier];
+    v9 = [v7 iconWithUTI:identifier];
   }
 
   else
@@ -216,27 +291,32 @@ LABEL_6:
       [HMOcclusionNotification _deviceIconForProductID:];
     }
 
-    v8 = [MEMORY[0x277CE1FB0] iconForSystemImageNamed:@"airpods.pro"];
+    v9 = [MEMORY[0x277CE1FB0] iconForSystemImageNamed:@"airpods.pro"];
   }
 
-  return v8;
+  return v9;
 }
 
 - (void)_showHearingProtectionOcclusionNotification:(void *)a1 .cold.1(void *a1)
 {
   v2 = [MEMORY[0x277CBEAA8] date];
   v3 = [a1 stringFromDate:v2];
-  LogPrintF();
+  LogPrintF(&gLogCategory_HMOcclusionNotification, "[HMOcclusionNotification _showHearingProtectionOcclusionNotification:]", 30, "Hearing Protection Occlusion Notification shown at: %@", v3);
 }
 
-uint64_t __71__HMOcclusionNotification__showHearingProtectionOcclusionNotification___block_invoke_cold_1(unsigned int a1)
+uint64_t __71__HMOcclusionNotification__showHearingProtectionOcclusionNotification___block_invoke_cold_1(unsigned int a1, uint64_t a2)
 {
-  if (a1 <= 5)
+  if (a1 > 5)
   {
-    v1 = off_2796F06E8[a1];
+    v4 = "?";
   }
 
-  return LogPrintF();
+  else
+  {
+    v4 = off_2796F06E8[a1];
+  }
+
+  return LogPrintF(&gLogCategory_HMOcclusionNotification, "[HMOcclusionNotification _showHearingProtectionOcclusionNotification:]_block_invoke", 30, "HearingModeUserNotifications UINotificationSession action: %s, %{error}", v4, a2, v2, v3);
 }
 
 - (void)_hasOcclusionNotificationsThresholdMet
@@ -244,10 +324,7 @@ uint64_t __71__HMOcclusionNotification__showHearingProtectionOcclusionNotificati
   v7 = [self stringFromDate:a2];
   date = [MEMORY[0x277CBEAA8] date];
   v6 = [self stringFromDate:date];
-  [a3 day];
-  [a3 month];
-  [a3 year];
-  LogPrintF();
+  LogPrintF(&gLogCategory_HMOcclusionNotification, "-[HMOcclusionNotification _hasOcclusionNotificationsThresholdMet]", 30, "Previous shown date %@ current Date: %@ Difference in date components: days %i months %i years %i", v7, v6, [a3 day], objc_msgSend(a3, "month"), objc_msgSend(a3, "year"));
 }
 
 @end

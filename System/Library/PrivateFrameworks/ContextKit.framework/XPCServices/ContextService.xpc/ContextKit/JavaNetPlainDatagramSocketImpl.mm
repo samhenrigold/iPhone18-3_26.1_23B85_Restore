@@ -2,7 +2,9 @@
 - (int)getTimeToLive;
 - (int)peekDataWithJavaNetDatagramPacket:(id)packet;
 - (int)peekWithJavaNetInetAddress:(id)address;
+- (void)bindWithInt:(int)int withJavaNetInetAddress:(id)address;
 - (void)close;
+- (void)connectWithJavaNetInetAddress:(id)address withInt:(int)int;
 - (void)create;
 - (void)dealloc;
 - (void)disconnect;
@@ -16,6 +18,24 @@
 @end
 
 @implementation JavaNetPlainDatagramSocketImpl
+
+- (void)bindWithInt:(int)int withJavaNetInetAddress:(id)address
+{
+  SocketLocalPortWithJavaIoFileDescriptor = int;
+  LibcoreIoIoBridge_bindWithJavaIoFileDescriptor_withJavaNetInetAddress_withInt_(self->super.fd_, address, *&int);
+  if (!SocketLocalPortWithJavaIoFileDescriptor)
+  {
+    SocketLocalPortWithJavaIoFileDescriptor = LibcoreIoIoBridge_getSocketLocalPortWithJavaIoFileDescriptor_(self->super.fd_);
+  }
+
+  self->super.localPort_ = SocketLocalPortWithJavaIoFileDescriptor;
+  if ((atomic_load_explicit(JavaLangBoolean__initialized, memory_order_acquire) & 1) == 0)
+  {
+    objc_opt_class();
+  }
+
+  [(JavaNetPlainDatagramSocketImpl *)self setOptionWithInt:32 withId:JavaLangBoolean_TRUE__];
+}
 
 - (void)close
 {
@@ -210,6 +230,21 @@ LABEL_10:
   v4 = JavaLangInteger_valueOfWithInt_(int);
 
   [(JavaNetPlainDatagramSocketImpl *)self setOptionWithInt:17 withId:v4];
+}
+
+- (void)connectWithJavaNetInetAddress:(id)address withInt:(int)int
+{
+  LibcoreIoIoBridge_connectWithJavaIoFileDescriptor_withJavaNetInetAddress_withInt_(self->super.fd_, address, *&int);
+  if (!address)
+  {
+    JreThrowNullPointerException();
+  }
+
+  getAddress = [address getAddress];
+  v9 = JavaNetInetAddress_getByAddressWithByteArray_(getAddress, v8);
+  JreStrongAssign(&self->guard_, v9);
+  LODWORD(self->connectedAddress_) = int;
+  atomic_store(1u, &self->super.localPort_ + 4);
 }
 
 - (void)disconnect

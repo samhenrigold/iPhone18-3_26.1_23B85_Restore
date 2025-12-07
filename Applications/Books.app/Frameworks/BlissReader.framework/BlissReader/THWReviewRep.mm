@@ -672,7 +672,7 @@ LABEL_11:
     result = [(THWFreeTransformableRepGestureTargetHandler *)[(THWReviewRep *)self freeTransformableHandler] ftc];
     if (result)
     {
-      result = [(CGAffineTransform *)result currentTransform];
+      result = objc_msgSend_currentTransform(result);
     }
 
     else
@@ -785,7 +785,7 @@ LABEL_11:
 {
   if ([(THWFreeTransformController *)[(THWFreeTransformableRepGestureTargetHandler *)[(THWReviewRep *)self freeTransformableHandler] ftc] isFreeTransformInProgress])
   {
-    [(THWFreeTransformController *)[(THWFreeTransformableRepGestureTargetHandler *)[(THWReviewRep *)self freeTransformableHandler] ftc] completionTargetRect];
+    objc_msgSend_completionTargetRect([(THWFreeTransformableRepGestureTargetHandler *)[(THWReviewRep *)self freeTransformableHandler] ftc]);
   }
 
   else
@@ -1048,17 +1048,17 @@ LABEL_11:
     return 0;
   }
 
-  v6 = [(NSMutableDictionary *)self->_cachedImages objectForKey:named];
-  if (!v6)
+  v7 = [(NSMutableDictionary *)self->_cachedImages objectForKey:named];
+  if (!v7)
   {
-    v6 = [TSUImage imageNamed:named inBundle:THBundle()];
-    if (v6)
+    v7 = [TSUImage imageNamed:named inBundle:THBundle(0, v6)];
+    if (v7)
     {
-      [(NSMutableDictionary *)self->_cachedImages setObject:v6 forKey:named];
+      [(NSMutableDictionary *)self->_cachedImages setObject:v7 forKey:named];
     }
   }
 
-  return v6;
+  return v7;
 }
 
 - (int)reviewQuestionInitialState:(id)state
@@ -1744,10 +1744,10 @@ LABEL_9:
 
 - (UIEdgeInsets)contentInsetsForScrollableCanvasController:(id)controller
 {
-  v3 = TSDEdgeInsetsZero[0];
-  v4 = TSDEdgeInsetsZero[1];
-  v5 = TSDEdgeInsetsZero[2];
-  v6 = TSDEdgeInsetsZero[3];
+  v3 = TSDEdgeInsetsZero[0].f64[0];
+  v4 = TSDEdgeInsetsZero[0].f64[1];
+  v5 = TSDEdgeInsetsZero[1].f64[0];
+  v6 = TSDEdgeInsetsZero[1].f64[1];
   result.right = v6;
   result.bottom = v5;
   result.left = v4;

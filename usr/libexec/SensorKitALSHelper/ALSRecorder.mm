@@ -36,25 +36,23 @@
     v2 = qword_10002B248;
     if (os_log_type_enabled(qword_10002B248, OS_LOG_TYPE_DEBUG))
     {
-      v6[0] = 0;
-      _os_log_debug_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEBUG, "stop recording", v6, 2u);
+      v4[0] = 0;
+      _os_log_debug_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEBUG, "stop recording", v4, 2u);
     }
 
     objc_sync_enter(v1);
     if (v1[3])
     {
       IOHIDEventSystemClientUnregisterEventCallback();
-      v3 = v1[3];
-      v4 = v1[4];
       IOHIDEventSystemClientUnscheduleFromDispatchQueue();
       CFRelease(v1[3]);
       v1[3] = 0;
     }
 
     objc_sync_exit(v1);
-    v5 = v1[5];
-    v7 = @"com.apple.sensorkit.launchAlsRecorder";
-    return [v5 unregisterForXPCActivities:{+[NSArray arrayWithObjects:count:](NSArray, "arrayWithObjects:count:", &v7, 1)}];
+    v3 = v1[5];
+    v5 = @"com.apple.sensorkit.launchAlsRecorder";
+    return [v3 unregisterForXPCActivities:{+[NSArray arrayWithObjects:count:](NSArray, "arrayWithObjects:count:", &v5, 1)}];
   }
 
   return result;
@@ -78,10 +76,10 @@
       self->_client = v5;
       if (v5)
       {
-        v18 = 4;
+        v14 = 4;
         valuePtr = 65280;
         v6 = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt32Type, &valuePtr);
-        v7 = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt32Type, &v18);
+        v7 = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt32Type, &v14);
         *keys = *&off_100024A58;
         values[0] = v6;
         values[1] = v7;
@@ -91,16 +89,12 @@
         Mutable = CFArrayCreateMutable(kCFAllocatorDefault, 1, &kCFTypeArrayCallBacks);
         CFArrayAppendValue(Mutable, v8);
         CFRelease(v8);
-        v16 = Mutable;
-        v17 = @"DeviceUsagePairs";
-        v10 = CFDictionaryCreate(kCFAllocatorDefault, &v17, &v16, 1, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+        v12 = Mutable;
+        v13 = @"DeviceUsagePairs";
+        v10 = CFDictionaryCreate(kCFAllocatorDefault, &v13, &v12, 1, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
         CFRelease(Mutable);
-        client = self->_client;
         IOHIDEventSystemClientSetMatching();
-        v12 = self->_client;
-        queue = self->_queue;
         IOHIDEventSystemClientScheduleWithDispatchQueue();
-        v14 = self->_client;
         IOHIDEventSystemClientRegisterEventCallback();
         CFRelease(v10);
       }

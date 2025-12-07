@@ -23,10 +23,10 @@
   configurationCopy = configuration;
   selfCopy = self;
 
-  v9[3] = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD58ED8);
+  v9[3] = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD58ED8, &qword_1BE105908);
   v9[4] = sub_1BD91B3E0();
   __swift_allocate_boxed_opaque_existential_1(v9);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD58EE8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD58EE8, &unk_1BE105910);
   sub_1BD91B444();
   sub_1BE04FCE4();
   MEMORY[0x1BFB3FD10](v9);
@@ -38,8 +38,10 @@
   if (identifier)
   {
     sub_1BE052434();
+    v9 = v8;
     *(&self->super.super.super.super.isa + OBJC_IVAR____TtC9PassKitUI36PKDataReleaseElementsTransactionCell_dataReleaseConfiguration) = 0;
     identifier = sub_1BE052404();
+    v9, v10, v11, v12, v13, v14, v15, v16;
   }
 
   else
@@ -47,11 +49,11 @@
     *(&self->super.super.super.super.isa + OBJC_IVAR____TtC9PassKitUI36PKDataReleaseElementsTransactionCell_dataReleaseConfiguration) = 0;
   }
 
-  v10.receiver = self;
-  v10.super_class = ObjectType;
-  v8 = [(PKDataReleaseElementsTransactionCell *)&v10 initWithStyle:style reuseIdentifier:identifier];
+  v19.receiver = self;
+  v19.super_class = ObjectType;
+  v17 = [(PKDataReleaseElementsTransactionCell *)&v19 initWithStyle:style reuseIdentifier:identifier];
 
-  return v8;
+  return v17;
 }
 
 - (_TtC9PassKitUI36PKDataReleaseElementsTransactionCell)initWithCoder:(id)coder

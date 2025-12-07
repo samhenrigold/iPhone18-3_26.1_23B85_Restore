@@ -1,5 +1,4 @@
 @interface NTKDigitalSecondsGraphicCircularView
-- ($58D15C9700E10FDF418FBC0C790388C2)layoutConstants;
 - (CLKMonochromeFilterProvider)filterProvider;
 - (id)initFullColorImageViewWithDevice:(id)device;
 - (void)_startClockUpdates;
@@ -101,57 +100,58 @@
 - (id)initFullColorImageViewWithDevice:(id)device
 {
   deviceCopy = device;
-  v32.receiver = self;
-  v32.super_class = NTKDigitalSecondsGraphicCircularView;
+  v33.receiver = self;
+  v33.super_class = NTKDigitalSecondsGraphicCircularView;
   y = CGRectZero.origin.y;
   width = CGRectZero.size.width;
   height = CGRectZero.size.height;
-  height = [(NTKDigitalSecondsGraphicCircularView *)&v32 initWithFrame:CGRectZero.origin.x, y, width, height];
+  height = [(NTKDigitalSecondsGraphicCircularView *)&v33 initWithFrame:CGRectZero.origin.x, y, width, height];
   if (height)
   {
-    [objc_opt_class() _layoutConstantsForDevice:deviceCopy];
-    v10 = v9;
-    height->_layoutConstants.secondsTickSize.width = v11;
-    height->_layoutConstants.secondsTickSize.height = v12;
-    height->_layoutConstants.secondsDialDiameter = v13;
-    height->_layoutConstants.timeFontSize = v9;
+    v9 = objc_opt_class();
+    objc_msgSend__layoutConstantsForDevice_(v9);
+    v11 = v10;
+    height->_layoutConstants.secondsTickSize.width = v12;
+    height->_layoutConstants.secondsTickSize.height = v13;
+    height->_layoutConstants.secondsDialDiameter = v14;
+    height->_layoutConstants.timeFontSize = v10;
     height->_inactiveTickAccentAlpha = 0.25;
     height->_activeTickAccentAlpha = 0.9;
-    v30[0] = _NSConcreteStackBlock;
-    v30[1] = 3221225472;
-    v30[2] = sub_70F0;
-    v30[3] = &unk_10508;
-    v30[4] = 60;
-    *&v30[5] = v11;
-    *&v30[6] = v12;
-    v31 = xmmword_CC80;
-    v14 = objc_retainBlock(v30);
-    v15 = [UIColor colorWithWhite:1.0 alpha:height->_inactiveTickAccentAlpha];
-    v16 = (v14[2])(v14, v15);
+    v31[0] = _NSConcreteStackBlock;
+    v31[1] = 3221225472;
+    v31[2] = sub_70F0;
+    v31[3] = &unk_10508;
+    v31[4] = 60;
+    *&v31[5] = v12;
+    *&v31[6] = v13;
+    v32 = xmmword_CC80;
+    v15 = objc_retainBlock(v31);
+    v16 = [UIColor colorWithWhite:1.0 alpha:height->_inactiveTickAccentAlpha];
+    v17 = (v15[2])(v15, v16);
     unfilledSecondsDialView = height->_unfilledSecondsDialView;
-    height->_unfilledSecondsDialView = v16;
+    height->_unfilledSecondsDialView = v17;
 
     [(NTKDigitalSecondsGraphicCircularView *)height addSubview:height->_unfilledSecondsDialView];
-    v18 = +[UIColor systemOrangeColor];
-    v19 = [v18 colorWithAlphaComponent:height->_activeTickAccentAlpha];
+    v19 = +[UIColor systemOrangeColor];
+    v20 = [v19 colorWithAlphaComponent:height->_activeTickAccentAlpha];
 
-    v20 = (v14[2])(v14, v19);
+    v21 = (v15[2])(v15, v20);
     filledSecondsDialView = height->_filledSecondsDialView;
-    height->_filledSecondsDialView = v20;
+    height->_filledSecondsDialView = v21;
 
-    LODWORD(v22) = 0.5;
-    [(NTKRichComplicationDialView *)height->_filledSecondsDialView setProgress:v22];
+    LODWORD(v23) = 0.5;
+    [(NTKRichComplicationDialView *)height->_filledSecondsDialView setProgress:v23];
     [(NTKDigitalSecondsGraphicCircularView *)height addSubview:height->_filledSecondsDialView];
-    v23 = [CLKFont systemFontOfSize:CLKRoundedFontDesignName weight:v10 design:UIFontWeightMedium];
-    cLKFontWithAlternativePunctuation = [v23 CLKFontWithAlternativePunctuation];
+    v24 = [CLKFont systemFontOfSize:CLKRoundedFontDesignName weight:v11 design:UIFontWeightMedium];
+    cLKFontWithAlternativePunctuation = [v24 CLKFontWithAlternativePunctuation];
 
     cLKFontWithMonospacedNumbers = [cLKFontWithAlternativePunctuation CLKFontWithMonospacedNumbers];
-    v26 = [[UILabel alloc] initWithFrame:{CGRectZero.origin.x, y, width, height}];
-    [(UILabel *)v26 setTextAlignment:1];
-    [(UILabel *)v26 setFont:cLKFontWithMonospacedNumbers];
+    v27 = [[UILabel alloc] initWithFrame:{CGRectZero.origin.x, y, width, height}];
+    [(UILabel *)v27 setTextAlignment:1];
+    [(UILabel *)v27 setFont:cLKFontWithMonospacedNumbers];
     timeLabel = height->_timeLabel;
-    height->_timeLabel = v26;
-    v28 = v26;
+    height->_timeLabel = v27;
+    v29 = v27;
 
     [(NTKDigitalSecondsGraphicCircularView *)height addSubview:height->_timeLabel];
   }
@@ -372,15 +372,6 @@ LABEL_6:
   WeakRetained = objc_loadWeakRetained(&self->_filterProvider);
 
   return WeakRetained;
-}
-
-- ($58D15C9700E10FDF418FBC0C790388C2)layoutConstants
-{
-  height = self[2].var0.height;
-  var1 = self[2].var1;
-  var2 = self[2].var2;
-  width = self[3].var0.width;
-  return self;
 }
 
 - (void)setLayoutConstants:(id *)constants

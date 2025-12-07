@@ -129,7 +129,7 @@ void __47__WBSParsecDSession_sharedDomainPolicyProvider__block_invoke()
 
 void __64__WBSParsecDSession_clearAllParsecFeedbackAndEngagedCompletions__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v3 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions();
+  v3 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions(a1, a2);
   v4 = v3;
   if (a2)
   {
@@ -248,7 +248,7 @@ void __37__WBSParsecDSession_setCurrentQuery___block_invoke(uint64_t a1)
 
 void __60__WBSParsecDSession__setCurrentQuery_withKeyboardInputType___block_invoke(uint64_t a1)
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 40);
   v3 = *(*(a1 + 32) + 16);
   if (v3 != v2 && ([v3 isEqual:?] & 1) == 0)
@@ -259,68 +259,69 @@ void __60__WBSParsecDSession__setCurrentQuery_withKeyboardInputType___block_invo
 
     if (v5)
     {
-      v6 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+      v8 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions(v6, v7);
+      v9 = os_log_type_enabled(v8, OS_LOG_TYPE_INFO);
+      if (v9)
       {
         *buf = 0;
-        _os_log_impl(&dword_1BB6F3000, v6, OS_LOG_TYPE_INFO, "Initiating ParsecD query", buf, 2u);
+        _os_log_impl(&dword_1BB6F3000, v8, OS_LOG_TYPE_INFO, "Initiating ParsecD query", buf, 2u);
       }
 
-      v7 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+      v11 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
-        v8 = [*(*(a1 + 32) + 16) queryString];
-        __60__WBSParsecDSession__setCurrentQuery_withKeyboardInputType___block_invoke_cold_1(v8, v36, v7);
+        v12 = [*(*(a1 + 32) + 16) queryString];
+        __60__WBSParsecDSession__setCurrentQuery_withKeyboardInputType___block_invoke_cold_1(v12, v40, v11);
       }
 
-      v9 = MEMORY[0x1E6998648];
-      v10 = [*(*(a1 + 32) + 16) queryString];
-      v11 = [v9 searchRequestWithString:v10 triggerEvent:objc_msgSend(*(a1 + 40) queryId:{"triggerEvent"), objc_msgSend(*(a1 + 40), "queryID")}];
+      v13 = MEMORY[0x1E6998648];
+      v14 = [*(*(a1 + 32) + 16) queryString];
+      v15 = [v13 searchRequestWithString:v14 triggerEvent:objc_msgSend(*(a1 + 40) queryId:{"triggerEvent"), objc_msgSend(*(a1 + 40), "queryID")}];
 
-      if (v11)
+      if (v15)
       {
-        v12 = [*(a1 + 40) queryItems];
-        if ([v12 count])
+        v16 = [*(a1 + 40) queryItems];
+        if ([v16 count])
         {
-          [v11 setQueryItems:v12];
+          [v15 setQueryItems:v16];
         }
 
-        v13 = +[WBSTrialManager shared];
-        v14 = [v13 identifiers];
+        v17 = +[WBSTrialManager shared];
+        v18 = [v17 identifiers];
 
-        v15 = [v14 experimentId];
-        [v11 setExperimentId:v15];
+        v19 = [v18 experimentId];
+        [v15 setExperimentId:v19];
 
-        v16 = [v14 namespaceName];
-        [v11 setExperimentNamespaceId:v16];
+        v20 = [v18 namespaceName];
+        [v15 setExperimentNamespaceId:v20];
 
-        v17 = [v14 treatmentId];
-        [v11 setTreatmentId:v17];
+        v21 = [v18 treatmentId];
+        [v15 setTreatmentId:v21];
 
-        [v11 setScale:*(*(a1 + 32) + 48)];
-        [v11 setKeyboardInputMode:*(a1 + 48)];
-        v18 = [*(*(a1 + 32) + 16) querySuggestions];
-        v19 = [*(*(a1 + 32) + 16) queryString];
+        [v15 setScale:*(*(a1 + 32) + 48)];
+        [v15 setKeyboardInputMode:*(a1 + 48)];
+        v22 = [*(*(a1 + 32) + 16) querySuggestions];
+        v23 = [*(*(a1 + 32) + 16) queryString];
         *buf = MEMORY[0x1E69E9820];
-        v32 = 3221225472;
-        v33 = ___ZL37searchSuggestionsFromQuerySuggestionsP7NSArrayIP18WBSQuerySuggestionEP8NSString_block_invoke;
-        v34 = &unk_1E7FCA580;
-        v35 = v19;
-        v20 = [v18 safari_mapObjectsUsingBlock:buf];
+        v36 = 3221225472;
+        v37 = ___ZL37searchSuggestionsFromQuerySuggestionsP7NSArrayIP18WBSQuerySuggestionEP8NSString_block_invoke;
+        v38 = &unk_1E7FCA580;
+        v39 = v23;
+        v24 = [v22 safari_mapObjectsUsingBlock:buf];
 
-        [v11 setLocalContextualSuggestions:v20];
-        v22 = *(a1 + 32);
-        v21 = *(a1 + 40);
-        v23 = *(v22 + 56);
-        v25 = MEMORY[0x1E69E9820];
-        v26 = 3221225472;
-        v27 = __60__WBSParsecDSession__setCurrentQuery_withKeyboardInputType___block_invoke_38;
-        v28 = &unk_1E7FCA498;
-        v29 = v22;
-        v30 = v21;
-        v24 = [v23 taskWithRequest:v11 completion:&v25];
-        [v24 resume];
-        [*(a1 + 32) setCurrentQueryID:{objc_msgSend(v24, "queryId")}];
+        [v15 setLocalContextualSuggestions:v24];
+        v26 = *(a1 + 32);
+        v25 = *(a1 + 40);
+        v27 = *(v26 + 56);
+        v29 = MEMORY[0x1E69E9820];
+        v30 = 3221225472;
+        v31 = __60__WBSParsecDSession__setCurrentQuery_withKeyboardInputType___block_invoke_38;
+        v32 = &unk_1E7FCA498;
+        v33 = v26;
+        v34 = v25;
+        v28 = [v27 taskWithRequest:v15 completion:&v29];
+        [v28 resume];
+        [*(a1 + 32) setCurrentQueryID:{objc_msgSend(v28, "queryId")}];
       }
     }
   }
@@ -438,118 +439,120 @@ uint64_t __60__WBSParsecDSession__setCurrentQuery_withKeyboardInputType___block_
 
 - (void)_didReceiveResponse:(id)response error:(id)error forTask:(id)task query:(id)query
 {
-  v76 = *MEMORY[0x1E69E9840];
+  v82 = *MEMORY[0x1E69E9840];
   responseCopy = response;
   errorCopy = error;
   taskCopy = task;
   queryCopy = query;
   queryId = [taskCopy queryId];
-  if (queryId == [(WBSParsecDSession *)self currentQueryID])
+  currentQueryID = [(WBSParsecDSession *)self currentQueryID];
+  if (queryId == currentQueryID)
   {
     selfCopy = self;
     if (errorCopy)
     {
-      v11 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v13 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions(currentQueryID, v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         safari_privacyPreservingDescription = [errorCopy safari_privacyPreservingDescription];
         *buf = 134218498;
-        v71 = taskCopy;
-        v72 = 2048;
-        v73 = responseCopy;
-        v74 = 2114;
-        v75 = safari_privacyPreservingDescription;
-        _os_log_error_impl(&dword_1BB6F3000, v11, OS_LOG_TYPE_ERROR, "Response to task %p was %p with error %{public}@", buf, 0x20u);
+        v77 = taskCopy;
+        v78 = 2048;
+        v79 = responseCopy;
+        v80 = 2114;
+        v81 = safari_privacyPreservingDescription;
+        _os_log_error_impl(&dword_1BB6F3000, v13, OS_LOG_TYPE_ERROR, "Response to task %p was %p with error %{public}@", buf, 0x20u);
       }
     }
 
     else
     {
-      v13 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+      v17 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions(currentQueryID, v12);
+      v14 = os_log_type_enabled(v17, OS_LOG_TYPE_INFO);
+      if (v14)
       {
         *buf = 134218240;
-        v71 = taskCopy;
-        v72 = 2048;
-        v73 = responseCopy;
-        _os_log_impl(&dword_1BB6F3000, v13, OS_LOG_TYPE_INFO, "Response to task %p was %p", buf, 0x16u);
+        v77 = taskCopy;
+        v78 = 2048;
+        v79 = responseCopy;
+        _os_log_impl(&dword_1BB6F3000, v17, OS_LOG_TYPE_INFO, "Response to task %p was %p", buf, 0x16u);
       }
     }
 
-    v14 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    v18 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions(v14, v15);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
-      [WBSParsecDSession _didReceiveResponse:taskCopy error:responseCopy forTask:v14 query:?];
+      [WBSParsecDSession _didReceiveResponse:taskCopy error:responseCopy forTask:v18 query:?];
     }
 
     [responseCopy results];
-    v66 = 0u;
-    v67 = 0u;
-    v64 = 0u;
-    obj = v65 = 0u;
-    v15 = [obj countByEnumeratingWithState:&v64 objects:v69 count:16];
-    if (v15)
+    v72 = 0u;
+    v73 = 0u;
+    v70 = 0u;
+    obj = v71 = 0u;
+    v19 = [obj countByEnumeratingWithState:&v70 objects:v75 count:16];
+    if (v19)
     {
-      v16 = *v65;
+      v20 = *v71;
       do
       {
-        for (i = 0; i != v15; ++i)
+        for (i = 0; i != v19; ++i)
         {
-          if (*v65 != v16)
+          if (*v71 != v20)
           {
             objc_enumerationMutation(obj);
           }
 
-          v18 = *(*(&v64 + 1) + 8 * i);
+          v22 = *(*(&v70 + 1) + 8 * i);
           serverCompletion = [responseCopy serverCompletion];
-          [v18 setServerCompletion:serverCompletion];
+          [v22 setServerCompletion:serverCompletion];
         }
 
-        v15 = [obj countByEnumeratingWithState:&v64 objects:v69 count:16];
+        v19 = [obj countByEnumeratingWithState:&v70 objects:v75 count:16];
       }
 
-      while (v15);
+      while (v19);
     }
 
     if ([MEMORY[0x1E69C8880] isSearchEvaluationLoggingEnabled])
     {
       string = [MEMORY[0x1E696AD60] string];
-      v62 = 0u;
-      v63 = 0u;
-      v61 = 0u;
-      v60 = 0u;
-      v21 = obj;
-      v22 = [v21 countByEnumeratingWithState:&v60 objects:v68 count:16];
-      if (v22)
+      v68 = 0u;
+      v69 = 0u;
+      v67 = 0u;
+      v66 = 0u;
+      v25 = obj;
+      v26 = [v25 countByEnumeratingWithState:&v66 objects:v74 count:16];
+      if (v26)
       {
-        v23 = *v61;
+        v27 = *v67;
         do
         {
-          for (j = 0; j != v22; ++j)
+          for (j = 0; j != v26; ++j)
           {
-            if (*v61 != v23)
+            if (*v67 != v27)
             {
-              objc_enumerationMutation(v21);
+              objc_enumerationMutation(v25);
             }
 
-            v25 = *(*(&v60 + 1) + 8 * j);
-            uuidString = [v25 uuidString];
-            v27 = [v25 url];
-            absoluteString = [v27 absoluteString];
+            v29 = *(*(&v66 + 1) + 8 * j);
+            uuidString = [v29 uuidString];
+            v31 = [v29 url];
+            absoluteString = [v31 absoluteString];
             safari_urlHashesOfComponents = [absoluteString safari_urlHashesOfComponents];
             [string appendFormat:@" %@ <%@>, ", uuidString, safari_urlHashesOfComponents];
           }
 
-          v22 = [v21 countByEnumeratingWithState:&v60 objects:v68 count:16];
+          v26 = [v25 countByEnumeratingWithState:&v66 objects:v74 count:16];
         }
 
-        while (v22);
+        while (v26);
       }
 
-      v30 = WBS_LOG_CHANNEL_PREFIXParsec();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+      v36 = WBS_LOG_CHANNEL_PREFIXParsec(v34, v35);
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
       {
-        [WBSParsecDSession _didReceiveResponse:string error:v30 forTask:? query:?];
+        [WBSParsecDSession _didReceiveResponse:string error:v36 forTask:? query:?];
       }
     }
 
@@ -559,46 +562,46 @@ uint64_t __60__WBSParsecDSession__setCurrentQuery_withKeyboardInputType___block_
     [queryCopy setRewrittenQueryStringFromParsec:suggestion];
 
     suggestions = [responseCopy suggestions];
-    v35 = [suggestions safari_setByApplyingBlock:&__block_literal_global_49_1];
+    v41 = [suggestions safari_setByApplyingBlock:&__block_literal_global_49_1];
 
     querySuggestions = [queryCopy querySuggestions];
-    v58[0] = MEMORY[0x1E69E9820];
-    v58[1] = 3221225472;
-    v58[2] = __61__WBSParsecDSession__didReceiveResponse_error_forTask_query___block_invoke_2;
-    v58[3] = &unk_1E7FCA4E0;
-    v37 = v35;
-    v59 = v37;
-    v38 = [querySuggestions safari_filterObjectsUsingBlock:v58];
-    [queryCopy setQuerySuggestions:v38];
+    v64[0] = MEMORY[0x1E69E9820];
+    v64[1] = 3221225472;
+    v64[2] = __61__WBSParsecDSession__didReceiveResponse_error_forTask_query___block_invoke_2;
+    v64[3] = &unk_1E7FCA4E0;
+    v43 = v41;
+    v65 = v43;
+    v44 = [querySuggestions safari_filterObjectsUsingBlock:v64];
+    [queryCopy setQuerySuggestions:v44];
 
-    v39 = selfCopy->_delegate;
+    v45 = selfCopy->_delegate;
     rewrittenQueryStringFromParsec = [queryCopy rewrittenQueryStringFromParsec];
-    v41 = [rewrittenQueryStringFromParsec copy];
+    v47 = [rewrittenQueryStringFromParsec copy];
 
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __61__WBSParsecDSession__didReceiveResponse_error_forTask_query___block_invoke_3;
     block[3] = &unk_1E7FCA508;
     block[4] = selfCopy;
-    v53 = v41;
-    v54 = taskCopy;
-    v55 = v39;
-    v56 = obj;
-    v57 = queryCopy;
-    v42 = obj;
-    v43 = v39;
-    v44 = v41;
+    v59 = v47;
+    v60 = taskCopy;
+    v61 = v45;
+    v62 = obj;
+    v63 = queryCopy;
+    v48 = obj;
+    v49 = v45;
+    v50 = v47;
     dispatch_async(MEMORY[0x1E69E96A0], block);
   }
 
   else
   {
-    v12 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v16 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions(currentQueryID, v12);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       *buf = 134217984;
-      v71 = taskCopy;
-      _os_log_impl(&dword_1BB6F3000, v12, OS_LOG_TYPE_INFO, "Ignoring response to stale task %p", buf, 0xCu);
+      v77 = taskCopy;
+      _os_log_impl(&dword_1BB6F3000, v16, OS_LOG_TYPE_INFO, "Ignoring response to stale task %p", buf, 0xCu);
     }
   }
 }
@@ -619,7 +622,7 @@ uint64_t __61__WBSParsecDSession__didReceiveResponse_error_forTask_query___block
   return v4;
 }
 
-uint64_t __61__WBSParsecDSession__didReceiveResponse_error_forTask_query___block_invoke_3(uint64_t a1)
+void *__61__WBSParsecDSession__didReceiveResponse_error_forTask_query___block_invoke_3(uint64_t a1)
 {
   objc_storeStrong((*(a1 + 32) + 24), *(a1 + 40));
   v2 = [*(a1 + 32) currentQueryID];
@@ -701,62 +704,63 @@ void __80__WBSParsecDSession__startUpdatingAutoFillDataInBackgroundIfPossibleFor
   v3 = a2;
   if (xpc_activity_get_state(v3) == 2)
   {
-    if (xpc_activity_set_state(v3, 4))
+    v4 = xpc_activity_set_state(v3, 4);
+    if (v4)
     {
-      v4 = WBS_LOG_CHANNEL_PREFIXParsec();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v6 = WBS_LOG_CHANNEL_PREFIXParsec(v4, v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1BB6F3000, v4, OS_LOG_TYPE_DEFAULT, "Beginning remote data update", buf, 2u);
+        _os_log_impl(&dword_1BB6F3000, v6, OS_LOG_TYPE_DEFAULT, "Beginning remote data update", buf, 2u);
       }
 
-      v5 = dispatch_group_create();
-      dispatch_group_enter(v5);
-      v6 = a1[6];
-      v7 = a1[4];
-      v27[0] = MEMORY[0x1E69E9820];
-      v27[1] = 3221225472;
-      v27[2] = __80__WBSParsecDSession__startUpdatingAutoFillDataInBackgroundIfPossibleForSession___block_invoke_53;
-      v27[3] = &unk_1E7FB6F80;
-      v28 = v5;
-      v8 = v5;
-      [v6 _updateAutoFillTLDsIfNeededForSession:v7 completionHandler:v27];
+      v7 = dispatch_group_create();
+      dispatch_group_enter(v7);
+      v8 = a1[6];
+      v9 = a1[4];
+      v29[0] = MEMORY[0x1E69E9820];
+      v29[1] = 3221225472;
+      v29[2] = __80__WBSParsecDSession__startUpdatingAutoFillDataInBackgroundIfPossibleForSession___block_invoke_53;
+      v29[3] = &unk_1E7FB6F80;
+      v30 = v7;
+      v10 = v7;
+      [v8 _updateAutoFillTLDsIfNeededForSession:v9 completionHandler:v29];
       *buf = 0;
+      v26 = buf;
+      v27 = 0x2020000000;
+      v28 = 0;
+      v22[0] = MEMORY[0x1E69E9820];
+      v22[1] = 3221225472;
+      v22[2] = __80__WBSParsecDSession__startUpdatingAutoFillDataInBackgroundIfPossibleForSession___block_invoke_54;
+      v22[3] = &unk_1E7FB8798;
       v24 = buf;
-      v25 = 0x2020000000;
-      v26 = 0;
-      v20[0] = MEMORY[0x1E69E9820];
-      v20[1] = 3221225472;
-      v20[2] = __80__WBSParsecDSession__startUpdatingAutoFillDataInBackgroundIfPossibleForSession___block_invoke_54;
-      v20[3] = &unk_1E7FB8798;
-      v22 = buf;
-      v21 = v3;
-      v9 = MEMORY[0x1BFB13CE0](v20);
-      v10 = a1[5];
+      v23 = v3;
+      v11 = MEMORY[0x1BFB13CE0](v22);
+      v12 = a1[5];
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __80__WBSParsecDSession__startUpdatingAutoFillDataInBackgroundIfPossibleForSession___block_invoke_55;
       block[3] = &unk_1E7FB7B80;
-      v11 = v9;
-      v19 = v11;
-      dispatch_group_notify(v8, v10, block);
-      v12 = dispatch_time(0, 1800000000000);
-      v13 = a1[5];
-      v16[0] = MEMORY[0x1E69E9820];
-      v16[1] = 3221225472;
-      v16[2] = __80__WBSParsecDSession__startUpdatingAutoFillDataInBackgroundIfPossibleForSession___block_invoke_2_56;
-      v16[3] = &unk_1E7FB7B80;
-      v17 = v11;
-      v14 = v11;
-      dispatch_after(v12, v13, v16);
+      v13 = v11;
+      v21 = v13;
+      dispatch_group_notify(v10, v12, block);
+      v14 = dispatch_time(0, 1800000000000);
+      v15 = a1[5];
+      v18[0] = MEMORY[0x1E69E9820];
+      v18[1] = 3221225472;
+      v18[2] = __80__WBSParsecDSession__startUpdatingAutoFillDataInBackgroundIfPossibleForSession___block_invoke_2_56;
+      v18[3] = &unk_1E7FB7B80;
+      v19 = v13;
+      v16 = v13;
+      dispatch_after(v14, v15, v18);
 
       _Block_object_dispose(buf, 8);
     }
 
     else
     {
-      v15 = WBS_LOG_CHANNEL_PREFIXParsec();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v17 = WBS_LOG_CHANNEL_PREFIXParsec(v4, v5);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         __80__WBSParsecDSession__startUpdatingAutoFillDataInBackgroundIfPossibleForSession___block_invoke_3_cold_1();
       }
@@ -764,32 +768,33 @@ void __80__WBSParsecDSession__startUpdatingAutoFillDataInBackgroundIfPossibleFor
   }
 }
 
-void __80__WBSParsecDSession__startUpdatingAutoFillDataInBackgroundIfPossibleForSession___block_invoke_53(uint64_t a1)
+void __80__WBSParsecDSession__startUpdatingAutoFillDataInBackgroundIfPossibleForSession___block_invoke_53(uint64_t a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXParsec();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = WBS_LOG_CHANNEL_PREFIXParsec(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v3 = 0;
-    _os_log_impl(&dword_1BB6F3000, v2, OS_LOG_TYPE_DEFAULT, "Completed update of domain list", v3, 2u);
+    *v4 = 0;
+    _os_log_impl(&dword_1BB6F3000, v3, OS_LOG_TYPE_DEFAULT, "Completed update of domain list", v4, 2u);
   }
 
   dispatch_group_leave(*(a1 + 32));
 }
 
-void __80__WBSParsecDSession__startUpdatingAutoFillDataInBackgroundIfPossibleForSession___block_invoke_54(uint64_t a1)
+void __80__WBSParsecDSession__startUpdatingAutoFillDataInBackgroundIfPossibleForSession___block_invoke_54(uint64_t result)
 {
-  if ((*(*(*(a1 + 40) + 8) + 24) & 1) == 0)
+  if ((*(*(*(result + 40) + 8) + 24) & 1) == 0)
   {
-    if (!xpc_activity_set_state(*(a1 + 32), 5))
+    v2 = xpc_activity_set_state(*(result + 32), 5);
+    if (!v2)
     {
-      v2 = WBS_LOG_CHANNEL_PREFIXParsec();
-      if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+      v4 = WBS_LOG_CHANNEL_PREFIXParsec(v2, v3);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
         __80__WBSParsecDSession__startUpdatingAutoFillDataInBackgroundIfPossibleForSession___block_invoke_54_cold_1();
       }
     }
 
-    *(*(*(a1 + 40) + 8) + 24) = 1;
+    *(*(*(result + 40) + 8) + 24) = 1;
   }
 }
 
@@ -818,7 +823,8 @@ void __77__WBSParsecDSession__updateAutoFillTLDsIfNeededForSession_completionHan
   v5 = [v4 rawBag];
   v6 = [v5 objectForKeyedSubscript:@"autofill_tld_whitelist_url"];
 
-  if ([v3 isEqualToString:v6])
+  v7 = [v3 isEqualToString:v6];
+  if (v7)
   {
 LABEL_6:
     (*(a1[6] + 2))();
@@ -827,8 +833,8 @@ LABEL_6:
 
   if (!v6)
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXParsec();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = WBS_LOG_CHANNEL_PREFIXParsec(v7, v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       __77__WBSParsecDSession__updateAutoFillTLDsIfNeededForSession_completionHandler___block_invoke_cold_1();
     }
@@ -836,54 +842,55 @@ LABEL_6:
     goto LABEL_6;
   }
 
-  v7 = a1[4];
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __77__WBSParsecDSession__updateAutoFillTLDsIfNeededForSession_completionHandler___block_invoke_59;
-  v9[3] = &unk_1E7FCA558;
-  v12 = a1[6];
-  v10 = a1[5];
-  v11 = v6;
-  [v7 fileHandleAndAttributesForResource:@"autofill_tld_whitelist_url" completion:v9];
+  v9 = a1[4];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __77__WBSParsecDSession__updateAutoFillTLDsIfNeededForSession_completionHandler___block_invoke_59;
+  v11[3] = &unk_1E7FCA558;
+  v14 = a1[6];
+  v12 = a1[5];
+  v13 = v6;
+  [v9 fileHandleAndAttributesForResource:@"autofill_tld_whitelist_url" completion:v11];
 
 LABEL_7:
 }
 
 void __77__WBSParsecDSession__updateAutoFillTLDsIfNeededForSession_completionHandler___block_invoke_59(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = a4;
-  v11 = MEMORY[0x1BFB13CE0](*(a1 + 48));
+  v8 = MEMORY[0x1BFB13CE0](*(a1 + 48));
+  v14 = v8;
   if (v7)
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXParsec();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = WBS_LOG_CHANNEL_PREFIXParsec(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v9 = [v7 safari_privacyPreservingDescription];
-      __77__WBSParsecDSession__updateAutoFillTLDsIfNeededForSession_completionHandler___block_invoke_59_cold_1(v9, buf, v8);
+      v11 = [v7 safari_privacyPreservingDescription];
+      __77__WBSParsecDSession__updateAutoFillTLDsIfNeededForSession_completionHandler___block_invoke_59_cold_1(v11, buf, v10);
     }
   }
 
   else
   {
-    v8 = [v6 readDataToEndOfFile];
-    if (v8)
+    v10 = [v6 readDataToEndOfFile];
+    if (v10)
     {
-      [*(a1 + 32) setPoliciesWithJSONData:v8 retrievalURLString:*(a1 + 40)];
+      [*(a1 + 32) setPoliciesWithJSONData:v10 retrievalURLString:*(a1 + 40)];
     }
 
     else
     {
-      v10 = WBS_LOG_CHANNEL_PREFIXParsec();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v13 = WBS_LOG_CHANNEL_PREFIXParsec(0, v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         __77__WBSParsecDSession__updateAutoFillTLDsIfNeededForSession_completionHandler___block_invoke_59_cold_2();
       }
     }
   }
 
-  SafariShared::ScopeExitHandler::~ScopeExitHandler(&v11);
+  SafariShared::ScopeExitHandler::~ScopeExitHandler(&v14);
 }
 
 void __60__WBSParsecDSession__setCurrentQuery_withKeyboardInputType___block_invoke_cold_1(void *a1, uint8_t *buf, os_log_t log)

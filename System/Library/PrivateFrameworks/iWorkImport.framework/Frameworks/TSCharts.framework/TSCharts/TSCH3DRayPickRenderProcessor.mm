@@ -112,7 +112,7 @@
 
   if (objc_msgSend_hasOffset(submitCopy, v63, v64, v65, v66))
   {
-    v86 = objc_msgSend_offset(submitCopy, v82, v83, v84, v85);
+    v86 = objc_msgSend_offset(submitCopy, v83, v84, v85);
   }
 
   else
@@ -122,135 +122,135 @@
 
   if (objc_msgSend_hasCount(submitCopy, v82, v83, v84, v85))
   {
-    v92 = objc_msgSend_count(submitCopy, v87, v88, v89, v90);
+    v91 = objc_msgSend_count(submitCopy, v87, v88, v89, v90);
   }
 
   else
   {
-    v92 = objc_msgSend_count(self->_buffer, v87, v88, v89, v90);
+    v91 = objc_msgSend_count(self->_buffer, v87, v88, v89, v90);
   }
 
-  v96 = objc_msgSend_matrix(self, v91, v93, v94, v95);
-  v101 = objc_msgSend_projection(v96, v97, v98, v99, v100);
-  v106 = objc_msgSend_current(v96, v102, v103, v104, v105);
-  sub_2761558A0(v101, v106, &v180);
-  sub_276154AF4(&self->_position, &v180, v179, v107);
-  *&v173[3] = 0;
-  *&v173[1] = 0;
-  v174 = 0;
-  v175 = 0;
-  v177 = xmmword_2764D5F60;
-  v173[0] = 1056964608;
-  v173[5] = 1056964608;
-  v176 = 1056964608;
-  sub_2761558A0(v173, &v180, v178);
-  v180 = v178[0];
-  v181 = v178[1];
-  v182 = v178[2];
-  v183 = v178[3];
-  v108 = v86;
-  v109 = *sub_27616536C(self->_buffer);
-  HIDWORD(v111) = 2139095039;
-  v178[0] = xmmword_2764D5EE0;
-  if (v92 > v86)
+  v95 = objc_msgSend_matrix(self, v92, v93, v94);
+  v99 = objc_msgSend_projection(v95, v96, v97, v98);
+  v104 = objc_msgSend_current(v95, v100, v101, v102, v103);
+  sub_2761558A0(v99, v104, &v176);
+  sub_276154AF4(&self->_position, &v176, v175, v105);
+  *&v169[3] = 0;
+  *&v169[1] = 0;
+  v170 = 0;
+  v171 = 0;
+  v173 = xmmword_2764D5F60;
+  v169[0] = 1056964608;
+  v169[5] = 1056964608;
+  v172 = 1056964608;
+  sub_2761558A0(v169, &v176, v174);
+  v176 = v174[0];
+  v177 = v174[1];
+  v178 = v174[2];
+  v179 = v174[3];
+  v106 = v86;
+  v107 = *sub_27616536C(self->_buffer);
+  HIDWORD(v109) = 2139095039;
+  v174[0] = xmmword_2764D5EE0;
+  if (v91 > v86)
   {
-    v112 = v109 + 12 * v86 + 4;
+    v110 = v107 + 12 * v86 + 4;
     do
     {
       if (self->_slack <= 0.0)
       {
-        memset(v173, 0, 12);
-        v171 = 0;
-        v172 = 0;
-        v170 = 0;
-        if (sub_2761549A0(v179, (v109 + 12 * v108), (v109 + 12 * v108 + 12), (v109 + 12 * v108 + 24), v173, &v171, &v170) && v170)
+        memset(v169, 0, 12);
+        v167 = 0;
+        v168 = 0;
+        v166 = 0;
+        if (sub_2761549A0(v175, (v107 + 12 * v106), (v107 + 12 * v106 + 12), (v107 + 12 * v106 + 24), v169, &v167, &v166) && v166)
         {
-          v121 = objc_msgSend_currentSceneObject(self->_sceneObjectDelegate, v117, v111, v118, v119);
+          v118 = objc_msgSend_currentSceneObject(self->_sceneObjectDelegate, v115, v109, v116, v117);
           sceneObjectDelegate = self->_sceneObjectDelegate;
           if (sceneObjectDelegate)
           {
-            objc_msgSend_currentElement(sceneObjectDelegate, v120, v122, v123, v124);
+            objc_msgSend_currentElement(sceneObjectDelegate, v119, v120, v121);
           }
 
           else
           {
-            v169 = 0;
+            v165 = 0;
           }
 
-          v126 = objc_msgSend_projection(v96, v120, v122, v123, v124);
-          v131 = objc_msgSend_current(v96, v127, v128, v129, v130);
-          v168 = 0;
-          v136 = objc_msgSend_pickedPointWithSceneObject_element_projection_transform_objectSpacePoint_centerProjectionPoint_(TSCH3DPickedPoint, v132, v133, v134, v135, v121, &v169, v126, v131, v173, &v168);
+          v123 = objc_msgSend_projection(v95, v119, v120, v121);
+          v128 = objc_msgSend_current(v95, v124, v125, v126, v127);
+          v164 = 0;
+          v133 = objc_msgSend_pickedPointWithSceneObject_element_projection_transform_objectSpacePoint_centerProjectionPoint_(TSCH3DPickedPoint, v129, v130, v131, v132, v118, &v165, v123, v128, v169, &v164);
 
-          objc_msgSend_addObject_(self->_pickedPoints, v137, v138, v139, v140, v136);
+          objc_msgSend_addObject_(self->_pickedPoints, v134, v135, v136, v137, v133);
         }
       }
 
       else
       {
-        v113 = v112;
-        v114 = 3;
+        v111 = v110;
+        v112 = 3;
         do
         {
-          v115 = *(v113 - 1);
-          v116 = v113[1];
-          *v110.i32 = v183.f32[3] + (((*v113 * v181.f32[3]) + (v180.f32[3] * v115)) + (v182.f32[3] * v116));
-          *v173 = vdiv_f32(vadd_f32(*v183.f32, vmla_n_f32(vmla_n_f32(vmul_n_f32(*v181.f32, *v113), *v180.f32, v115), *v182.f32, v116)), vdup_lane_s32(v110, 0));
-          *&v111 = sub_276152BD8(v178, v173);
-          v113 += 3;
-          --v114;
+          v113 = *(v111 - 1);
+          v114 = v111[1];
+          *v108.i32 = v179.f32[3] + (((*v111 * v177.f32[3]) + (v176.f32[3] * v113)) + (v178.f32[3] * v114));
+          *v169 = vdiv_f32(vadd_f32(*v179.f32, vmla_n_f32(vmla_n_f32(vmul_n_f32(*v177.f32, *v111), *v176.f32, v113), *v178.f32, v114)), vdup_lane_s32(v108, 0));
+          *&v109 = sub_276152BD8(v174, v169);
+          v111 += 3;
+          --v112;
         }
 
-        while (v114);
+        while (v112);
       }
 
-      v108 += 3;
-      v112 += 36;
+      v106 += 3;
+      v110 += 36;
     }
 
-    while (v108 < v92);
+    while (v106 < v91);
   }
 
-  *&v111 = self->_slack;
-  if (*&v111 > 0.0)
+  *&v109 = self->_slack;
+  if (*&v109 > 0.0)
   {
-    v141.i64[0] = v178[0].i64[0];
-    v154 = vcgt_f32(*v178[0].f32, *&v178[0].u32[2]);
-    if ((v154.i32[0] | v154.i32[1]))
+    v138.i64[0] = v174[0].i64[0];
+    v150 = vcgt_f32(*v174[0].f32, *&v174[0].u32[2]);
+    if ((v150.i32[0] | v150.i32[1]))
     {
-      v141 = 0uLL;
+      v138 = 0uLL;
     }
 
     else
     {
-      v141.i64[1] = v178[0].i64[1];
+      v138.i64[1] = v174[0].i64[1];
     }
 
-    v142 = vdupq_lane_s32(*&v111, 0);
-    v143.i64[0] = vsubq_f32(v141, v142).u64[0];
-    v143.i64[1] = vaddq_f32(v141, v142).i64[1];
-    v178[0] = v143;
-    if (sub_276167BFC(v178[0].f32, &self->_position))
+    v139 = vdupq_lane_s32(*&v109, 0);
+    v140.i64[0] = vsubq_f32(v138, v139).u64[0];
+    v140.i64[1] = vaddq_f32(v138, v139).i64[1];
+    v174[0] = v140;
+    if (sub_276167BFC(v174[0].f32, &self->_position))
     {
-      v149 = objc_msgSend_currentSceneObject(self->_sceneObjectDelegate, v144, v145, v146, v147);
-      v153 = self->_sceneObjectDelegate;
-      if (v153)
+      v145 = objc_msgSend_currentSceneObject(self->_sceneObjectDelegate, v141, v142, v143, v144);
+      v149 = self->_sceneObjectDelegate;
+      if (v149)
       {
-        objc_msgSend_currentElement(v153, v148, v150, v151, v152);
+        objc_msgSend_currentElement(v149, v146, v147, v148);
       }
 
       else
       {
-        v171 = 0;
+        v167 = 0;
       }
 
-      v155 = objc_msgSend_projection(v96, v148, v150, v151, v152);
-      v160 = objc_msgSend_current(v96, v156, v157, v158, v159);
-      memset(v173, 0, 12);
-      v169 = vmul_f32(vadd_f32(*v178[0].f32, *&v178[0].u32[2]), 0x3F0000003F000000);
-      v163 = objc_msgSend_pickedPointWithSceneObject_element_projection_transform_objectSpacePoint_centerProjectionPoint_(TSCH3DPickedPoint, v161, *&v169, 0.0000305175853, v162, v149, &v171, v155, v160, v173, &v169);
+      v151 = objc_msgSend_projection(v95, v146, v147, v148);
+      v156 = objc_msgSend_current(v95, v152, v153, v154, v155);
+      memset(v169, 0, 12);
+      v165 = vmul_f32(vadd_f32(*v174[0].f32, *&v174[0].u32[2]), 0x3F0000003F000000);
+      v159 = objc_msgSend_pickedPointWithSceneObject_element_projection_transform_objectSpacePoint_centerProjectionPoint_(TSCH3DPickedPoint, v157, *&v165, 0.0000305175853, v158, v145, &v167, v151, v156, v169, &v165);
 
-      objc_msgSend_addObject_(self->_pickedPoints, v164, v165, v166, v167, v163);
+      objc_msgSend_addObject_(self->_pickedPoints, v160, v161, v162, v163, v159);
     }
   }
 }

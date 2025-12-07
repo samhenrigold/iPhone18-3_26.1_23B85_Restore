@@ -312,8 +312,8 @@ LABEL_11:
   array2 = [MEMORY[0x1E695DF70] array];
   dataPoints = [(AXMDataSeriesDescriptor *)self dataPoints];
   firstObject = [dataPoints firstObject];
-  xValue = [firstObject xValue];
-  category = [xValue category];
+  v5 = objc_msgSend_xValue(firstObject);
+  category = [v5 category];
 
   dataPoints2 = [(AXMDataSeriesDescriptor *)self dataPoints];
   v7 = [dataPoints2 count];
@@ -338,15 +338,15 @@ LABEL_11:
 
       if (category)
       {
-        xValue2 = [v13 xValue];
-        [xValue2 category];
+        v15 = objc_msgSend_xValue(v13);
+        [v15 category];
       }
 
       else
       {
         v16 = MEMORY[0x1E696AD98];
-        xValue2 = [v13 xValue];
-        [xValue2 number];
+        v15 = objc_msgSend_xValue(v13);
+        [v15 number];
         [v16 numberWithDouble:?];
       }
       v17 = ;
@@ -558,9 +558,9 @@ LABEL_41:
   return v3;
 }
 
-id __34__AXMDataSeriesDescriptor_xValues__block_invoke(uint64_t a1, void *a2)
+id __34__AXMDataSeriesDescriptor_xValues__block_invoke(void x0_0, void *a1)
 {
-  v2 = [a2 xValue];
+  v2 = objc_msgSend_xValue(a1);
   v3 = v2;
   if (v2)
   {

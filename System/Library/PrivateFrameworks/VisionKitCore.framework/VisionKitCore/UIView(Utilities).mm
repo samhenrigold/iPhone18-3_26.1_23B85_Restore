@@ -11,8 +11,8 @@
 - (id)vk_renderImageFromViewBackingStoreWithSubrect:()Utilities;
 - (uint64_t)summaryDescription;
 - (uint64_t)vk_renderImageFromViewBackingStore;
-- (uint64_t)vk_setHidden:()Utilities animated:;
 - (void)setVk_backgroundColor:()Utilities;
+- (void)vk_setHidden:()Utilities animated:;
 @end
 
 @implementation UIView(Utilities)
@@ -75,7 +75,7 @@
   return v19;
 }
 
-- (uint64_t)vk_setHidden:()Utilities animated:
+- (void)vk_setHidden:()Utilities animated:
 {
   result = [self isHidden];
   if (result != a3)
@@ -285,9 +285,10 @@
 
 - (double)vk_convertFrameToViewScale:()Utilities shouldRound:
 {
+  v7 = a7;
   traitCollection = [self traitCollection];
   [traitCollection displayScale];
-  v14 = VKMRectForScale(a7, a2, a3, a4, a5, v13);
+  v14 = VKMRectForScale(v7, a2, a3, a4, a5, v13);
 
   return v14;
 }

@@ -2,10 +2,78 @@
 - (id)description;
 - (void)dealloc;
 - (void)endBlockWithOrgApacheLuceneCodecsBlocktreeSegmentTermsEnumFrame:(id)frame;
+- (void)startBlockWithOrgApacheLuceneCodecsBlocktreeSegmentTermsEnumFrame:(id)frame withBoolean:(BOOL)boolean;
 - (void)termWithOrgApacheLuceneUtilBytesRef:(id)ref;
 @end
 
 @implementation OrgApacheLuceneCodecsBlocktreeStats
+
+- (void)startBlockWithOrgApacheLuceneCodecsBlocktreeSegmentTermsEnumFrame:(id)frame withBoolean:(BOOL)boolean
+{
+  ++self->totalBlockCount_;
+  if (boolean)
+  {
+    if (!frame)
+    {
+      goto LABEL_16;
+    }
+
+    if (*(frame + 4) == *(frame + 5))
+    {
+      ++self->floorBlockCount_;
+    }
+
+    v10 = 40;
+  }
+
+  else
+  {
+    v10 = 32;
+  }
+
+  ++*(&self->super.isa + v10);
+  p_blockCountByPrefixLen = &self->blockCountByPrefixLen_;
+  blockCountByPrefixLen = self->blockCountByPrefixLen_;
+  if (!blockCountByPrefixLen)
+  {
+    goto LABEL_16;
+  }
+
+  if (!frame)
+  {
+    goto LABEL_16;
+  }
+
+  v13 = *(frame + 26);
+  if (blockCountByPrefixLen->super.size_ <= v13)
+  {
+    v14 = OrgApacheLuceneUtilArrayUtil_growWithIntArray_withInt_(self->blockCountByPrefixLen_, v13 + 1, frame, boolean, v4, v5, v6, v7);
+    JreStrongAssign(&self->blockCountByPrefixLen_, v14);
+    blockCountByPrefixLen = *p_blockCountByPrefixLen;
+    if (!*p_blockCountByPrefixLen)
+    {
+      goto LABEL_16;
+    }
+  }
+
+  v15 = *(frame + 26);
+  size = blockCountByPrefixLen->super.size_;
+  if (v15 < 0 || v15 >= size)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(size, v15);
+  }
+
+  ++*(&blockCountByPrefixLen->super.size_ + v15 + 1);
+  ++self->startBlockCount_;
+  v17 = *(frame + 8);
+  if (!v17 || (self->totalBlockSuffixBytes_ += [v17 length], (v18 = *(frame + 10)) == 0))
+  {
+LABEL_16:
+    JreThrowNullPointerException();
+  }
+
+  self->totalBlockStatsBytes_ += [v18 length];
+}
 
 - (void)endBlockWithOrgApacheLuceneCodecsBlocktreeSegmentTermsEnumFrame:(id)frame
 {
@@ -87,13 +155,13 @@ LABEL_20:
 
 - (id)description
 {
-  v156 = new_JavaIoByteArrayOutputStream_initWithInt_(0x400u);
+  v152 = new_JavaIoByteArrayOutputStream_initWithInt_(1024);
   if ((atomic_load_explicit(OrgApacheLuceneUtilIOUtils__initialized, memory_order_acquire) & 1) == 0)
   {
     objc_opt_class();
   }
 
-  v2 = new_JavaIoPrintStream_initWithJavaIoOutputStream_withBoolean_withNSString_(v156, 0, OrgApacheLuceneUtilIOUtils_UTF_8_);
+  v2 = new_JavaIoPrintStream_initWithJavaIoOutputStream_withBoolean_withNSString_(v152, 0, OrgApacheLuceneUtilIOUtils_UTF_8_);
   v3 = v2;
   if (!v2)
   {
@@ -101,94 +169,80 @@ LABEL_20:
   }
 
   [(JavaIoPrintStream *)v2 printlnWithNSString:@"  index FST:"];
-  indexNumBytes = self->indexNumBytes_;
   [(JavaIoPrintStream *)v3 printlnWithNSString:JreStrcat("$J$", v4, v5, v6, v7, v8, v9, v10, @"    ")];
   [(JavaIoPrintStream *)v3 printlnWithNSString:@"  terms:"];
-  totalTermCount = self->totalTermCount_;
-  v157 = v3;
-  [(JavaIoPrintStream *)v3 printlnWithNSString:JreStrcat("$J$", v11, v12, v13, v14, v15, v16, v17, @"    ")];
-  totalTermBytes = self->totalTermBytes_;
+  v18 = [(JavaIoPrintStream *)v3 printlnWithNSString:JreStrcat("$J$", v11, v12, v13, v14, v15, v16, v17, @"    ")];
   if (self->totalTermCount_)
   {
     if ((atomic_load_explicit(JavaUtilLocale__initialized, memory_order_acquire) & 1) == 0)
     {
-      sub_1000458CC();
+      v18 = sub_1000458CC();
     }
 
     v26 = JavaUtilLocale_ROOT_;
-    v163 = JavaLangDouble_valueOfWithDouble_(self->totalTermBytes_ / self->totalTermCount_);
-    v27 = [IOSObjectArray arrayWithObjects:&v163 count:1 type:NSObject_class_()];
-    NSString_formatWithJavaUtilLocale_withNSString_withNSObjectArray_(v26, @"%.1f", v27);
-    JreStrcat("$$$", v28, v29, v30, v31, v32, v33, v34, @" (");
+    v158 = JavaLangDouble_valueOfWithDouble_(v18, v19, self->totalTermBytes_ / self->totalTermCount_);
+    v28 = [IOSObjectArray arrayWithObjects:&v158 count:1 type:NSObject_class_(v158, v27)];
+    NSString_formatWithJavaUtilLocale_withNSString_withNSObjectArray_(v26, @"%.1f", v28);
+    JreStrcat("$$$", v29, v30, v31, v32, v33, v34, v35, @" (");
   }
 
-  [(JavaIoPrintStream *)v157 printlnWithNSString:JreStrcat("$J$$", v18, v19, v20, v21, v22, v23, v24, @"    ")];
-  [(JavaIoPrintStream *)v157 printlnWithNSString:@"  blocks:"];
-  totalBlockCount = self->totalBlockCount_;
-  [(JavaIoPrintStream *)v157 printlnWithNSString:JreStrcat("$I$", v35, v36, v37, v38, v39, v40, v41, @"    ")];
-  termsOnlyBlockCount = self->termsOnlyBlockCount_;
-  [(JavaIoPrintStream *)v157 printlnWithNSString:JreStrcat("$I$", v42, v43, v44, v45, v46, v47, v48, @"    ")];
-  subBlocksOnlyBlockCount = self->subBlocksOnlyBlockCount_;
-  [(JavaIoPrintStream *)v157 printlnWithNSString:JreStrcat("$I$", v49, v50, v51, v52, v53, v54, v55, @"    ")];
-  mixedBlockCount = self->mixedBlockCount_;
-  [(JavaIoPrintStream *)v157 printlnWithNSString:JreStrcat("$I$", v56, v57, v58, v59, v60, v61, v62, @"    ")];
-  floorBlockCount = self->floorBlockCount_;
-  [(JavaIoPrintStream *)v157 printlnWithNSString:JreStrcat("$I$", v63, v64, v65, v66, v67, v68, v69, @"    ")];
-  v154 = (self->totalBlockCount_ - self->floorSubBlockCount_);
-  [(JavaIoPrintStream *)v157 printlnWithNSString:JreStrcat("$I$", v70, v71, v72, v73, v74, v75, v76, @"    ")];
-  floorSubBlockCount = self->floorSubBlockCount_;
-  [(JavaIoPrintStream *)v157 printlnWithNSString:JreStrcat("$I$", v77, v78, v79, v80, v81, v82, v83, @"    ")];
-  totalBlockSuffixBytes = self->totalBlockSuffixBytes_;
+  [(JavaIoPrintStream *)v3 printlnWithNSString:JreStrcat("$J$$", v19, v20, v21, v22, v23, v24, v25, @"    ")];
+  [(JavaIoPrintStream *)v3 printlnWithNSString:@"  blocks:"];
+  [(JavaIoPrintStream *)v3 printlnWithNSString:JreStrcat("$I$", v36, v37, v38, v39, v40, v41, v42, @"    ")];
+  [(JavaIoPrintStream *)v3 printlnWithNSString:JreStrcat("$I$", v43, v44, v45, v46, v47, v48, v49, @"    ")];
+  [(JavaIoPrintStream *)v3 printlnWithNSString:JreStrcat("$I$", v50, v51, v52, v53, v54, v55, v56, @"    ")];
+  [(JavaIoPrintStream *)v3 printlnWithNSString:JreStrcat("$I$", v57, v58, v59, v60, v61, v62, v63, @"    ")];
+  [(JavaIoPrintStream *)v3 printlnWithNSString:JreStrcat("$I$", v64, v65, v66, v67, v68, v69, v70, @"    ")];
+  [(JavaIoPrintStream *)v3 printlnWithNSString:JreStrcat("$I$", v71, v72, v73, v74, v75, v76, v77, @"    ")];
+  v85 = [(JavaIoPrintStream *)v3 printlnWithNSString:JreStrcat("$I$", v78, v79, v80, v81, v82, v83, v84, @"    ")];
   if (self->totalBlockCount_)
   {
     if ((atomic_load_explicit(JavaUtilLocale__initialized, memory_order_acquire) & 1) == 0)
     {
-      sub_1000A1594();
+      v85 = sub_1000A1594();
     }
 
-    v92 = JavaUtilLocale_ROOT_;
-    v162 = JavaLangDouble_valueOfWithDouble_(self->totalBlockSuffixBytes_ / self->totalBlockCount_);
-    v93 = [IOSObjectArray arrayWithObjects:&v162 count:1 type:NSObject_class_()];
-    NSString_formatWithJavaUtilLocale_withNSString_withNSObjectArray_(v92, @"%.1f", v93);
-    JreStrcat("$$$", v94, v95, v96, v97, v98, v99, v100, @" (");
+    v93 = JavaUtilLocale_ROOT_;
+    v157 = JavaLangDouble_valueOfWithDouble_(v85, v86, self->totalBlockSuffixBytes_ / self->totalBlockCount_);
+    v95 = [IOSObjectArray arrayWithObjects:&v157 count:1 type:NSObject_class_(v157, v94)];
+    NSString_formatWithJavaUtilLocale_withNSString_withNSObjectArray_(v93, @"%.1f", v95);
+    JreStrcat("$$$", v96, v97, v98, v99, v100, v101, v102, @" (");
   }
 
-  [(JavaIoPrintStream *)v157 printlnWithNSString:JreStrcat("$J$$", v84, v85, v86, v87, v88, v89, v90, @"    ")];
-  totalBlockStatsBytes = self->totalBlockStatsBytes_;
+  v103 = [(JavaIoPrintStream *)v3 printlnWithNSString:JreStrcat("$J$$", v86, v87, v88, v89, v90, v91, v92, @"    ")];
   if (self->totalBlockCount_)
   {
     if ((atomic_load_explicit(JavaUtilLocale__initialized, memory_order_acquire) & 1) == 0)
     {
-      sub_1000A1594();
+      v103 = sub_1000A1594();
     }
 
-    v109 = JavaUtilLocale_ROOT_;
-    v161 = JavaLangDouble_valueOfWithDouble_(self->totalBlockStatsBytes_ / self->totalBlockCount_);
-    v110 = [IOSObjectArray arrayWithObjects:&v161 count:1 type:NSObject_class_()];
-    NSString_formatWithJavaUtilLocale_withNSString_withNSObjectArray_(v109, @"%.1f", v110);
-    JreStrcat("$$$", v111, v112, v113, v114, v115, v116, v117, @" (");
+    v111 = JavaUtilLocale_ROOT_;
+    v156 = JavaLangDouble_valueOfWithDouble_(v103, v104, self->totalBlockStatsBytes_ / self->totalBlockCount_);
+    v113 = [IOSObjectArray arrayWithObjects:&v156 count:1 type:NSObject_class_(v156, v112)];
+    NSString_formatWithJavaUtilLocale_withNSString_withNSObjectArray_(v111, @"%.1f", v113);
+    JreStrcat("$$$", v114, v115, v116, v117, v118, v119, v120, @" (");
   }
 
-  [(JavaIoPrintStream *)v157 printlnWithNSString:JreStrcat("$J$$", v101, v102, v103, v104, v105, v106, v107, @"    ")];
-  totalBlockOtherBytes = self->totalBlockOtherBytes_;
+  v121 = [(JavaIoPrintStream *)v3 printlnWithNSString:JreStrcat("$J$$", v104, v105, v106, v107, v108, v109, v110, @"    ")];
   if (self->totalBlockCount_)
   {
     if ((atomic_load_explicit(JavaUtilLocale__initialized, memory_order_acquire) & 1) == 0)
     {
-      sub_1000A1594();
+      v121 = sub_1000A1594();
     }
 
-    v126 = JavaUtilLocale_ROOT_;
-    v160 = JavaLangDouble_valueOfWithDouble_(self->totalBlockOtherBytes_ / self->totalBlockCount_);
-    v127 = [IOSObjectArray arrayWithObjects:&v160 count:1 type:NSObject_class_()];
-    NSString_formatWithJavaUtilLocale_withNSString_withNSObjectArray_(v126, @"%.1f", v127);
-    JreStrcat("$$$", v128, v129, v130, v131, v132, v133, v134, @" (");
+    v129 = JavaUtilLocale_ROOT_;
+    v155 = JavaLangDouble_valueOfWithDouble_(v121, v122, self->totalBlockOtherBytes_ / self->totalBlockCount_);
+    v131 = [IOSObjectArray arrayWithObjects:&v155 count:1 type:NSObject_class_(v155, v130)];
+    NSString_formatWithJavaUtilLocale_withNSString_withNSObjectArray_(v129, @"%.1f", v131);
+    JreStrcat("$$$", v132, v133, v134, v135, v136, v137, v138, @" (");
   }
 
-  [(JavaIoPrintStream *)v157 printlnWithNSString:JreStrcat("$J$$", v118, v119, v120, v121, v122, v123, v124, @"    ")];
+  [(JavaIoPrintStream *)v3 printlnWithNSString:JreStrcat("$J$$", v122, v123, v124, v125, v126, v127, v128, @"    ")];
   if (self->totalBlockCount_)
   {
-    [(JavaIoPrintStream *)v157 printlnWithNSString:@"    by prefix length:"];
+    [(JavaIoPrintStream *)v3 printlnWithNSString:@"    by prefix length:"];
     blockCountByPrefixLen = self->blockCountByPrefixLen_;
     if (!blockCountByPrefixLen)
     {
@@ -196,25 +250,25 @@ LABEL_33:
       JreThrowNullPointerException();
     }
 
-    v136 = 0;
-    while (v136 < blockCountByPrefixLen->super.size_)
+    v140 = 0;
+    while (v140 < blockCountByPrefixLen->super.size_)
     {
-      if (*(&blockCountByPrefixLen->super.size_ + v136 + 1))
+      if (*(&blockCountByPrefixLen->super.size_ + v140 + 1))
       {
         if ((atomic_load_explicit(JavaUtilLocale__initialized, memory_order_acquire) & 1) == 0)
         {
           sub_1000A1594();
         }
 
-        v137 = JavaUtilLocale_ROOT_;
-        v159 = JavaLangInteger_valueOfWithInt_(v136);
-        v138 = [IOSObjectArray arrayWithObjects:&v159 count:1 type:NSObject_class_()];
-        NSString_formatWithJavaUtilLocale_withNSString_withNSObjectArray_(v137, @"%2d", v138);
-        [(JavaIoPrintStream *)v157 printlnWithNSString:JreStrcat("$$$I", v139, v140, v141, v142, v143, v144, v145, @"      ")];
+        v141 = JavaUtilLocale_ROOT_;
+        v154 = JavaLangInteger_valueOfWithInt_(v140);
+        v143 = [IOSObjectArray arrayWithObjects:&v154 count:1 type:NSObject_class_(v154, v142)];
+        NSString_formatWithJavaUtilLocale_withNSString_withNSObjectArray_(v141, @"%2d", v143);
+        [(JavaIoPrintStream *)v3 printlnWithNSString:JreStrcat("$$$I", v144, v145, v146, v147, v148, v149, v150, @"      ")];
         blockCountByPrefixLen = self->blockCountByPrefixLen_;
       }
 
-      ++v136;
+      ++v140;
       if (!blockCountByPrefixLen)
       {
         goto LABEL_33;
@@ -227,7 +281,7 @@ LABEL_33:
     objc_opt_class();
   }
 
-  return [(JavaIoByteArrayOutputStream *)v156 toStringWithNSString:OrgApacheLuceneUtilIOUtils_UTF_8_];
+  return [(JavaIoByteArrayOutputStream *)v152 toStringWithNSString:OrgApacheLuceneUtilIOUtils_UTF_8_];
 }
 
 - (void)dealloc

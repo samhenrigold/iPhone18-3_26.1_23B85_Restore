@@ -62,7 +62,7 @@
 
 - (void)statisticsManager:(id)manager didReceiveDirectSystemInformation:(id)information
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   informationCopy = information;
   if ([informationCopy count])
   {
@@ -70,9 +70,9 @@
 
     if (v6)
     {
-      v12 = @"kKernelLIMRecord";
-      v13[0] = informationCopy;
-      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+      v11 = @"kKernelLIMRecord";
+      v12[0] = informationCopy;
+      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
       defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
       [defaultCenter postNotificationName:@"kNotificationKernelNewLIMRecord" object:self userInfo:v7];
     }
@@ -83,12 +83,10 @@
     v9 = otherLogHandle;
     if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_ERROR))
     {
-      *v11 = 0;
-      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_ERROR, "directSystemInformation has no params", v11, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_ERROR, "directSystemInformation has no params", v10, 2u);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 + (id)sharedInstance

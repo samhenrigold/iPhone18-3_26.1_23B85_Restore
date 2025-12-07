@@ -89,30 +89,26 @@ void __53__PSGInternalClient_sysdiagnoseInformationWithError___block_invoke(uint
 
 void __25__PSGInternalClient_init__block_invoke_13()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   v0 = psg_default_log_handle();
   if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
   {
-    v2 = 138412290;
-    v3 = @"com.apple.private.psg.internal";
-    _os_log_impl(&dword_260D18000, v0, OS_LOG_TYPE_INFO, "Connection to %@ invalidated.", &v2, 0xCu);
+    v1 = 138412290;
+    v2 = @"com.apple.private.psg.internal";
+    _os_log_impl(&dword_260D18000, v0, OS_LOG_TYPE_INFO, "Connection to %@ invalidated.", &v1, 0xCu);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 void __25__PSGInternalClient_init__block_invoke()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   v0 = psg_default_log_handle();
   if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
   {
-    v2 = 138412290;
-    v3 = @"com.apple.private.psg.internal";
-    _os_log_error_impl(&dword_260D18000, v0, OS_LOG_TYPE_ERROR, "Connection to %@ interrupted.", &v2, 0xCu);
+    v1 = 138412290;
+    v2 = @"com.apple.private.psg.internal";
+    _os_log_error_impl(&dword_260D18000, v0, OS_LOG_TYPE_ERROR, "Connection to %@ interrupted.", &v1, 0xCu);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 + (id)sharedInstance

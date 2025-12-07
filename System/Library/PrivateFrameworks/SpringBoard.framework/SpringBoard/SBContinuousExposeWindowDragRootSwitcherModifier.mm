@@ -82,7 +82,7 @@
   if (![eventCopy phase] && objc_msgSend(eventCopy, "gestureType") == 9)
   {
     v6 = objc_alloc_init(SBInvalidateAdjustedAppLayoutsSwitcherEventResponse);
-    v7 = SBAppendSwitcherModifierResponse(v6, v5);
+    v7 = SBAppendSwitcherModifierResponse();
 
     [(SBChainableModifier *)self setState:1];
     v5 = v7;
@@ -91,7 +91,7 @@
   if ([eventCopy phase] == 1)
   {
     v8 = objc_alloc_init(SBInvalidateAdjustedAppLayoutsSwitcherEventResponse);
-    v9 = SBAppendSwitcherModifierResponse(v8, v5);
+    v9 = SBAppendSwitcherModifierResponse();
 
     v5 = v9;
   }
@@ -150,7 +150,7 @@
   if (initialAppLayout)
   {
     v8 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:30 updateMode:0];
-    v9 = SBAppendSwitcherModifierResponse(v8, v5);
+    v9 = SBAppendSwitcherModifierResponse();
 
     v5 = v9;
   }

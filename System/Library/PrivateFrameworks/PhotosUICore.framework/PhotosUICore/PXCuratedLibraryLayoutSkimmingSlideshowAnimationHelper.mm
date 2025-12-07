@@ -3,7 +3,7 @@
 
 @implementation PXCuratedLibraryLayoutSkimmingSlideshowAnimationHelper
 
-uint64_t __170___PXCuratedLibraryLayoutSkimmingSlideshowAnimationHelper_animation_doubleSidedAnimatedSpriteIndexesForModifiedSpriteIndexes_rootLayout_presentedGeometries_styles_infos___block_invoke(uint64_t a1, uint64_t a2)
+void *__170___PXCuratedLibraryLayoutSkimmingSlideshowAnimationHelper_animation_doubleSidedAnimatedSpriteIndexesForModifiedSpriteIndexes_rootLayout_presentedGeometries_styles_infos___block_invoke(uint64_t a1, uint64_t a2)
 {
   v9 = 0;
   v4 = *(a1 + 32);

@@ -29,10 +29,10 @@
   *v13 = 0;
   v13[1] = 0;
   v14 = OBJC_IVAR____TtC9Reminders40TTRIAccountsListsBaseCell_collectionView_labelAccessory;
-  v15 = sub_100058000(&qword_1007683D8);
+  v15 = sub_100058000(&qword_1007683D8, &qword_10062D4E8);
   (*(*(v15 - 8) + 56))(self + v14, 1, 1, v15);
   v16 = OBJC_IVAR____TtC9Reminders40TTRIAccountsListsBaseCell_collectionView_disclosureIndicatorAccessory;
-  v17 = sub_100058000(&qword_1007683E8);
+  v17 = sub_100058000(&qword_1007683E8, &qword_10062D4F0);
   (*(*(v17 - 8) + 56))(self + v16, 1, 1, v17);
   v19.receiver = self;
   v19.super_class = type metadata accessor for TTRIAccountsListsBaseCell_collectionView(0);
@@ -85,7 +85,7 @@
     v10 = v11;
   }
 
-  sub_100058000(&unk_100771E10);
+  sub_100058000(&unk_100771E10, &qword_100634270);
   v12 = swift_allocObject();
   *(v12 + 16) = xmmword_10062D400;
   *(v12 + 32) = v8;

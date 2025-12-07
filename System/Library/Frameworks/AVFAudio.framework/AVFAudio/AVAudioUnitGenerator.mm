@@ -44,7 +44,7 @@
 
 - (AVAudioUnitGenerator)initWithAudioComponentDescription:(AudioComponentDescription *)audioComponentDescription
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (audioComponentDescription->componentType != 1635084142 && audioComponentDescription->componentType != 1635086951)
   {
     if (AVAudioEngineLogCategory(void)::once != -1)
@@ -60,13 +60,13 @@
       *&buf[12] = 1024;
       *&buf[14] = 71;
       *&buf[18] = 2080;
-      v11 = "AVAudioUnitGenerator.mm";
-      v12 = 1024;
-      v13 = 24;
-      v14 = 2080;
-      v15 = "[AVAudioUnitGenerator initWithAudioComponentDescription:]";
-      v16 = 2080;
-      v17 = "(audioComponentDescription.componentType == kAudioUnitType_Generator) || (audioComponentDescription.componentType == kAudioUnitType_RemoteGenerator)";
+      v10 = "AVAudioUnitGenerator.mm";
+      v11 = 1024;
+      v12 = 24;
+      v13 = 2080;
+      v14 = "[AVAudioUnitGenerator initWithAudioComponentDescription:]";
+      v15 = 2080;
+      v16 = "(audioComponentDescription.componentType == kAudioUnitType_Generator) || (audioComponentDescription.componentType == kAudioUnitType_RemoteGenerator)";
       _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_ERROR, "%25s:%-5d required condition is false: [%s:%d:%s: (%s)]", buf, 0x36u);
     }
 
@@ -75,11 +75,9 @@
 
   *buf = *&audioComponentDescription->componentType;
   *&buf[16] = audioComponentDescription->componentFlagsMask;
-  v9.receiver = self;
-  v9.super_class = AVAudioUnitGenerator;
-  result = [(AVAudioUnit *)&v9 initWithAudioComponentDescription:buf];
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  v8.receiver = self;
+  v8.super_class = AVAudioUnitGenerator;
+  return [(AVAudioUnit *)&v8 initWithAudioComponentDescription:buf];
 }
 
 @end

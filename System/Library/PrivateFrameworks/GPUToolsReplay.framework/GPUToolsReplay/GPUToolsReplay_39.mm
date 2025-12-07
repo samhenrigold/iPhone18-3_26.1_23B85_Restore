@@ -1,5710 +1,3 @@
-void DYTraceDecode_MTLComputeCommandEncoder_useHeaps_count(void *a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v7 = (a2 + 36);
-  v15 = 0;
-  sscanf((a2 + 36), "C@%zutul", &v15);
-  v8 = strlen(v7);
-  v9 = (v8 & 0xFFFFFFFFFFFFFFFCLL) + 12;
-  *a1 = *&v7[(v8 & 0xFFFFFFFFFFFFFFFCLL) + 4];
-  a1[1] = &v7[v9];
-  v10 = v9 + 8 * v15;
-  a1[2] = *&v7[v10];
-  if (a4)
-  {
-    if (v10 + 8 > a3)
-    {
-      v11[0] = *a4;
-      v11[1] = 501;
-      v12 = xmmword_24DA8DAD0;
-      v13 = "offset <= length";
-      v14 = 0;
-      GTError_addError(a4, v11);
-    }
-  }
-}
-
-void DYTraceDecode_MTLComputeCommandEncoder_useResource_usage(void *a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  if (a4 && *(a2 + 36) ^ 0x6C757443 | *(a2 + 40))
-  {
-    v8 = *a4;
-    v9 = 501;
-    v10 = xmmword_24DA8DAE0;
-    v11 = "memcmp((const char*)bytes + offset, (Ctul), sizeof(Ctul)) == 0";
-    v12 = 0;
-    GTError_addError(a4, &v8);
-  }
-
-  *a1 = *(a2 + 44);
-  a1[1] = *(a2 + 52);
-  a1[2] = *(a2 + 60);
-  if (a4)
-  {
-    if (a3 <= 0x1F)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DAE0;
-      v11 = "offset <= length";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-  }
-}
-
-void DYTraceDecode_MTLComputeCommandEncoder_useResources_count_usage(void *a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v7 = (a2 + 36);
-  v15 = 0;
-  sscanf((a2 + 36), "C@%zutulul", &v15);
-  v8 = strlen(v7);
-  v9 = (v8 & 0xFFFFFFFFFFFFFFFCLL) + 12;
-  *a1 = *&v7[(v8 & 0xFFFFFFFFFFFFFFFCLL) + 4];
-  a1[1] = &v7[v9];
-  v10 = v9 + 8 * v15;
-  a1[2] = *&v7[v10];
-  a1[3] = *&v7[v10 + 8];
-  if (a4)
-  {
-    if (v10 + 16 > a3)
-    {
-      v11[0] = *a4;
-      v11[1] = 501;
-      v12 = xmmword_24DA8DAF0;
-      v13 = "offset <= length";
-      v14 = 0;
-      GTError_addError(a4, v11);
-    }
-  }
-}
-
-void DYTraceDecode_MTLComputeCommandEncoder_waitForFence(void *a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  if (a4)
-  {
-    if (*(a2 + 36) ^ 0x7443 | *(a2 + 38))
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DB00;
-      v11 = "memcmp((const char*)bytes + offset, (Ct), sizeof(Ct)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    *a1 = *(a2 + 40);
-    a1[1] = *(a2 + 48);
-    if (a3 <= 0x13)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DB00;
-      v11 = "offset <= length";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-  }
-
-  else
-  {
-    *a1 = *(a2 + 40);
-    a1[1] = *(a2 + 48);
-  }
-}
-
-void DYTraceDecode_MTLComputeCommandEncoder_waitForProgress(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  if (a4)
-  {
-    if (*(a2 + 36) != 6911299)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DB10;
-      v11 = "memcmp((const char*)bytes + offset, (Cui), sizeof(Cui)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    *a1 = *(a2 + 40);
-    *(a1 + 8) = *(a2 + 48);
-    if (a3 <= 0xF)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DB10;
-      v11 = "offset <= length";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-  }
-
-  else
-  {
-    *a1 = *(a2 + 40);
-    *(a1 + 8) = *(a2 + 48);
-  }
-}
-
-void DYTraceDecode_MTLComputePipelineState_allocatedSize(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  if (a4)
-  {
-    if (*(a2 + 36) != 6911299)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DB20;
-      v11 = "memcmp((const char*)bytes + offset, (Cui), sizeof(Cui)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    *a1 = *(a2 + 40);
-    *(a1 + 8) = *(a2 + 48);
-    if (a3 <= 0xF)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DB20;
-      v11 = "offset <= length";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-  }
-
-  else
-  {
-    *a1 = *(a2 + 40);
-    *(a1 + 8) = *(a2 + 48);
-  }
-}
-
-void DYTraceDecode_MTLComputePipelineState_gpuResourceID(void *a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  if (a4)
-  {
-    if (*(a2 + 36) != 7828803)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DB30;
-      v11 = "memcmp((const char*)bytes + offset, (Cuw), sizeof(Cuw)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    *a1 = *(a2 + 40);
-    a1[1] = *(a2 + 48);
-    if (a3 <= 0x13)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DB30;
-      v11 = "offset <= length";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-  }
-
-  else
-  {
-    *a1 = *(a2 + 40);
-    a1[1] = *(a2 + 48);
-  }
-}
-
-void DYTraceDecode_MTLComputePipelineState_timeSinceTouched(void *a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  if (a4)
-  {
-    if (*(a2 + 36) != 7828803)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DB40;
-      v11 = "memcmp((const char*)bytes + offset, (Cuw), sizeof(Cuw)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    *a1 = *(a2 + 40);
-    a1[1] = *(a2 + 48);
-    if (a3 <= 0x13)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DB40;
-      v11 = "offset <= length";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-  }
-
-  else
-  {
-    *a1 = *(a2 + 40);
-    a1[1] = *(a2 + 48);
-  }
-}
-
-void DYTraceDecode_MTLComputePipelineState_dealloc(void *a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  if (a4)
-  {
-    if (*(a2 + 36) != 67)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DB50;
-      v11 = "memcmp((const char*)bytes + offset, (C), sizeof(C)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    *a1 = *(a2 + 40);
-    if (a3 <= 0xB)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DB50;
-      v11 = "offset <= length";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-  }
-
-  else
-  {
-    *a1 = *(a2 + 40);
-  }
-}
-
-void DYTraceDecode_MTLComputePipelineState_functionHandleWithFunction(void *a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  if (a4)
-  {
-    if (*(a2 + 36) ^ 0x7443 | *(a2 + 38))
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DB60;
-      v11 = "memcmp((const char*)bytes + offset, (Ct), sizeof(Ct)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    *a1 = *(a2 + 40);
-    a1[2] = *(a2 + 48);
-    if (*(a2 + 56) != 116)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DB60;
-      v11 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    a1[1] = *(a2 + 60);
-    if (a3 <= 0x1F)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DB60;
-      v11 = "offset <= length";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-  }
-
-  else
-  {
-    *a1 = *(a2 + 40);
-    a1[2] = *(a2 + 48);
-    a1[1] = *(a2 + 60);
-  }
-}
-
-void DYTraceDecode_MTLComputePipelineState_newComputePipelineStateWithAdditionalBinaryFunctions_error(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4 && *v8 != 7624003)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8DB70;
-    v14 = "memcmp((const char*)bytes + offset, (CUt), sizeof(CUt)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  *a1 = *(a2 + 40);
-  v16 = 12;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
-  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 24) = *(v8 + v9);
-  if (a4 && *(v8 + v9 + 8) != 116)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8DB70;
-    v14 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  v10 = (v9 + 13) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v10);
-  if (a4)
-  {
-    if (v10 + 8 > a3)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8DB70;
-      v14 = "offset <= length";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-}
-
-void DYTraceDecode_MTLComputePipelineState_newIntersectionFunctionTableWithDescriptor(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4 && *v8 ^ 0x5543 | *(a2 + 38))
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8DB80;
-    v14 = "memcmp((const char*)bytes + offset, (CU), sizeof(CU)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  *a1 = *(a2 + 40);
-  v16 = 12;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
-  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  if (a4 && *(v8 + v9) != 116)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8DB80;
-    v14 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  v10 = (v9 + 5) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v10);
-  if (a4)
-  {
-    if (v10 + 8 > a3)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8DB80;
-      v14 = "offset <= length";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-}
-
-void DYTraceDecode_MTLComputePipelineState_newVisibleFunctionTableWithDescriptor(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4 && *v8 ^ 0x5543 | *(a2 + 38))
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8DB90;
-    v14 = "memcmp((const char*)bytes + offset, (CU), sizeof(CU)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  *a1 = *(a2 + 40);
-  v16 = 12;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
-  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  if (a4 && *(v8 + v9) != 116)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8DB90;
-    v14 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  v10 = (v9 + 5) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v10);
-  if (a4)
-  {
-    if (v10 + 8 > a3)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8DB90;
-      v14 = "offset <= length";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-}
-
-void DYTraceDecode_MTLCounterSampleBuffer_dealloc(void *a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  if (a4)
-  {
-    if (*(a2 + 36) != 67)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DBA0;
-      v11 = "memcmp((const char*)bytes + offset, (C), sizeof(C)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    *a1 = *(a2 + 40);
-    if (a3 <= 0xB)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DBA0;
-      v11 = "offset <= length";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-  }
-
-  else
-  {
-    *a1 = *(a2 + 40);
-  }
-}
-
-void DYTraceDecode_MTLCounterSampleBuffer_resolveCounterRange(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  if (a4)
-  {
-    if (*(a2 + 36) != 1966227523 || *(a2 + 40) != 108)
-    {
-      v9 = *a4;
-      v10 = 501;
-      v11 = xmmword_24DA8DBB0;
-      v12 = "memcmp((const char*)bytes + offset, (C@2ul), sizeof(C@2ul)) == 0";
-      v13 = 0;
-      GTError_addError(a4, &v9);
-    }
-
-    *a1 = *(a2 + 44);
-    *(a1 + 16) = *(a2 + 52);
-    if (*(a2 + 68) ^ 0x3E623C55 | *(a2 + 72))
-    {
-      v9 = *a4;
-      v10 = 501;
-      v11 = xmmword_24DA8DBB0;
-      v12 = "memcmp((const char*)bytes + offset, (U<b>), sizeof(U<b>)) == 0";
-      v13 = 0;
-      GTError_addError(a4, &v9);
-    }
-  }
-
-  else
-  {
-    *a1 = *(a2 + 44);
-    *(a1 + 16) = *(a2 + 52);
-  }
-
-  v14 = 40;
-  *(a1 + 8) = AppendString_13794((a1 + 8), a2 + 36, &v14);
-  if (a4)
-  {
-    if (((v14 + 3) & 0xFFFFFFFFFFFFFFFCLL) > a3)
-    {
-      v9 = *a4;
-      v10 = 501;
-      v11 = xmmword_24DA8DBB0;
-      v12 = "offset <= length";
-      v13 = 0;
-      GTError_addError(a4, &v9);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDeadlineProfile_dealloc(void *a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  if (a4)
-  {
-    if (*(a2 + 36) != 67)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DBC0;
-      v11 = "memcmp((const char*)bytes + offset, (C), sizeof(C)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    *a1 = *(a2 + 40);
-    if (a3 <= 0xB)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DBC0;
-      v11 = "offset <= length";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-  }
-
-  else
-  {
-    *a1 = *(a2 + 40);
-  }
-}
-
-void DYTraceDecode_MTLDepthStencilState_gpuResourceID(void *a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  if (a4)
-  {
-    if (*(a2 + 36) != 7828803)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DBD0;
-      v11 = "memcmp((const char*)bytes + offset, (Cuw), sizeof(Cuw)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    *a1 = *(a2 + 40);
-    a1[1] = *(a2 + 48);
-    if (a3 <= 0x13)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DBD0;
-      v11 = "offset <= length";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-  }
-
-  else
-  {
-    *a1 = *(a2 + 40);
-    a1[1] = *(a2 + 48);
-  }
-}
-
-void DYTraceDecode_MTLDepthStencilState_uniqueIdentifier(void *a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  if (a4)
-  {
-    if (*(a2 + 36) != 7828803)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DBE0;
-      v11 = "memcmp((const char*)bytes + offset, (Cuw), sizeof(Cuw)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    *a1 = *(a2 + 40);
-    a1[1] = *(a2 + 48);
-    if (a3 <= 0x13)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DBE0;
-      v11 = "offset <= length";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-  }
-
-  else
-  {
-    *a1 = *(a2 + 40);
-    a1[1] = *(a2 + 48);
-  }
-}
-
-void DYTraceDecode_MTLDepthStencilState_dealloc(void *a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  if (a4)
-  {
-    if (*(a2 + 36) != 67)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DBF0;
-      v11 = "memcmp((const char*)bytes + offset, (C), sizeof(C)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    *a1 = *(a2 + 40);
-    if (a3 <= 0xB)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DBF0;
-      v11 = "offset <= length";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-  }
-
-  else
-  {
-    *a1 = *(a2 + 40);
-  }
-}
-
-void DYTraceDecode_MTLDevice_compileVisibleFunction_withDescriptor_completionHandler(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4 && *v8 ^ 0x74557443 | *(a2 + 40))
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8DC00;
-    v14 = "memcmp((const char*)bytes + offset, (CtUt), sizeof(CtUt)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  *a1 = *(a2 + 44);
-  *(a1 + 16) = *(a2 + 52);
-  v16 = 24;
-  *(a1 + 24) = AppendString_13794((a1 + 24), v8, &v16);
-  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 32) = *(v8 + v9);
-  if (a4 && *(v8 + v9 + 8) != 116)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8DC00;
-    v14 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  v10 = (v9 + 13) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v10);
-  if (a4)
-  {
-    if (v10 + 8 > a3)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8DC00;
-      v14 = "offset <= length";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_deviceReference(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  if (a4 && *(a2 + 36) ^ 0x5543 | *(a2 + 38))
-  {
-    v8 = *a4;
-    v9 = 501;
-    v10 = xmmword_24DA8DC10;
-    v11 = "memcmp((const char*)bytes + offset, (CU), sizeof(CU)) == 0";
-    v12 = 0;
-    GTError_addError(a4, &v8);
-  }
-
-  *a1 = *(a2 + 40);
-  v13 = 12;
-  *(a1 + 8) = AppendString_13794((a1 + 8), a2 + 36, &v13);
-  if (a4)
-  {
-    if (((v13 + 3) & 0xFFFFFFFFFFFFFFFCLL) > a3)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DC10;
-      v11 = "offset <= length";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newBufferWithDescriptor(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4 && *v8 != 5592387)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8DC20;
-    v14 = "memcmp((const char*)bytes + offset, (CUU), sizeof(CUU)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  *a1 = *(a2 + 40);
-  v16 = 12;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
-  *(a1 + 24) = AppendString_13794((a1 + 24), v8, &v16);
-  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  if (a4 && *(v8 + v9) != 116)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8DC20;
-    v14 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  v10 = (v9 + 5) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v10);
-  if (a4)
-  {
-    if (v10 + 8 > a3)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8DC20;
-      v14 = "offset <= length";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newSharedEvent(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  if (a4)
-  {
-    if (*(a2 + 36) != 6911299)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DC30;
-      v11 = "memcmp((const char*)bytes + offset, (Cui), sizeof(Cui)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    *a1 = *(a2 + 40);
-    *(a1 + 16) = *(a2 + 48);
-    if (*(a2 + 52) != 116)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DC30;
-      v11 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    *(a1 + 8) = *(a2 + 56);
-    if (a3 <= 0x1B)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DC30;
-      v11 = "offset <= length";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-  }
-
-  else
-  {
-    *a1 = *(a2 + 40);
-    *(a1 + 16) = *(a2 + 48);
-    *(a1 + 8) = *(a2 + 56);
-  }
-}
-
-void DYTraceDecode_MTLDevice_newSharedEventWithHandle(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  if (a4)
-  {
-    if (*(a2 + 36) != 1769305155 || *(a2 + 39) != 7828841)
-    {
-      v9 = *a4;
-      v10 = 501;
-      v11 = xmmword_24DA8DC40;
-      v12 = "memcmp((const char*)bytes + offset, (Ctuiuw), sizeof(Ctuiuw)) == 0";
-      v13 = 0;
-      GTError_addError(a4, &v9);
-    }
-  }
-
-  *a1 = *(a2 + 44);
-  *(a1 + 16) = *(a2 + 52);
-  *(a1 + 32) = *(a2 + 60);
-  *(a1 + 24) = *(a2 + 64);
-  if (a4)
-  {
-    if (*(a2 + 72) != 116)
-    {
-      v9 = *a4;
-      v10 = 501;
-      v11 = xmmword_24DA8DC40;
-      v12 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-      v13 = 0;
-      GTError_addError(a4, &v9);
-    }
-
-    *(a1 + 8) = *(a2 + 76);
-    if (a3 <= 0x2F)
-    {
-      v9 = *a4;
-      v10 = 501;
-      v11 = xmmword_24DA8DC40;
-      v12 = "offset <= length";
-      v13 = 0;
-      GTError_addError(a4, &v9);
-    }
-  }
-
-  else
-  {
-    *(a1 + 8) = *(a2 + 76);
-  }
-}
-
-void DYTraceDecode_MTLDevice_newSharedEventWithMachPort(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  if (a4)
-  {
-    if (*(a2 + 36) != 1969845571 || *(a2 + 40) != 119)
-    {
-      v9 = *a4;
-      v10 = 501;
-      v11 = xmmword_24DA8DC50;
-      v12 = "memcmp((const char*)bytes + offset, (Cuiuw), sizeof(Cuiuw)) == 0";
-      v13 = 0;
-      GTError_addError(a4, &v9);
-    }
-
-    *a1 = *(a2 + 44);
-    *(a1 + 24) = *(a2 + 52);
-    *(a1 + 16) = *(a2 + 56);
-    if (*(a2 + 64) != 116)
-    {
-      v9 = *a4;
-      v10 = 501;
-      v11 = xmmword_24DA8DC50;
-      v12 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-      v13 = 0;
-      GTError_addError(a4, &v9);
-    }
-
-    *(a1 + 8) = *(a2 + 68);
-    if (a3 <= 0x27)
-    {
-      v9 = *a4;
-      v10 = 501;
-      v11 = xmmword_24DA8DC50;
-      v12 = "offset <= length";
-      v13 = 0;
-      GTError_addError(a4, &v9);
-    }
-  }
-
-  else
-  {
-    *a1 = *(a2 + 44);
-    *(a1 + 24) = *(a2 + 52);
-    *(a1 + 16) = *(a2 + 56);
-    *(a1 + 8) = *(a2 + 68);
-  }
-}
-
-void DYTraceDecode_MTLDevice_newSharedTextureWithDescriptor(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4 && *v8 != 7624003)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8DC60;
-    v14 = "memcmp((const char*)bytes + offset, (CUt), sizeof(CUt)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  *a1 = *(a2 + 40);
-  v16 = 12;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
-  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 24) = *(v8 + v9);
-  if (a4 && *(v8 + v9 + 8) != 116)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8DC60;
-    v14 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  v10 = (v9 + 13) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v10);
-  if (a4)
-  {
-    if (v10 + 8 > a3)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8DC60;
-      v14 = "offset <= length";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_setCommandBufferErrorOptions(void *a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  if (a4)
-  {
-    if (*(a2 + 36) != 7107907)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DC70;
-      v11 = "memcmp((const char*)bytes + offset, (Cul), sizeof(Cul)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    *a1 = *(a2 + 40);
-    a1[1] = *(a2 + 48);
-    if (a3 <= 0x13)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DC70;
-      v11 = "offset <= length";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-  }
-
-  else
-  {
-    *a1 = *(a2 + 40);
-    a1[1] = *(a2 + 48);
-  }
-}
-
-void DYTraceDecode_MTLDevice_setMetalAssertionsEnabled(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  if (a4)
-  {
-    if (*(a2 + 36) != 6911299)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DC80;
-      v11 = "memcmp((const char*)bytes + offset, (Cui), sizeof(Cui)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    *a1 = *(a2 + 40);
-    *(a1 + 8) = *(a2 + 48);
-    if (a3 <= 0xF)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DC80;
-      v11 = "offset <= length";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-  }
-
-  else
-  {
-    *a1 = *(a2 + 40);
-    *(a1 + 8) = *(a2 + 48);
-  }
-}
-
-void DYTraceDecode_MTLDevice_setPluginData(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  if (a4)
-  {
-    if (*(a2 + 36) != 1648121155 || *(a2 + 40) != 62)
-    {
-      v9 = *a4;
-      v10 = 501;
-      v11 = xmmword_24DA8DC90;
-      v12 = "memcmp((const char*)bytes + offset, (CU<b>), sizeof(CU<b>)) == 0";
-      v13 = 0;
-      GTError_addError(a4, &v9);
-    }
-  }
-
-  *a1 = *(a2 + 44);
-  v14 = 16;
-  *(a1 + 8) = AppendString_13794((a1 + 8), a2 + 36, &v14);
-  if (a4)
-  {
-    if (((v14 + 3) & 0xFFFFFFFFFFFFFFFCLL) > a3)
-    {
-      v9 = *a4;
-      v10 = 501;
-      v11 = xmmword_24DA8DC90;
-      v12 = "offset <= length";
-      v13 = 0;
-      GTError_addError(a4, &v9);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_setRequiresLegacyCompilerProcessesCount(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  if (a4)
-  {
-    if (*(a2 + 36) != 6911299)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DCA0;
-      v11 = "memcmp((const char*)bytes + offset, (Cui), sizeof(Cui)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    *a1 = *(a2 + 40);
-    *(a1 + 8) = *(a2 + 48);
-    if (a3 <= 0xF)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DCA0;
-      v11 = "offset <= length";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-  }
-
-  else
-  {
-    *a1 = *(a2 + 40);
-    *(a1 + 8) = *(a2 + 48);
-  }
-}
-
-void DYTraceDecode_MTLDevice_setWritableHeapsEnabled(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  if (a4)
-  {
-    if (*(a2 + 36) != 6911299)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DCB0;
-      v11 = "memcmp((const char*)bytes + offset, (Cui), sizeof(Cui)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    *a1 = *(a2 + 40);
-    *(a1 + 8) = *(a2 + 48);
-    if (a3 <= 0xF)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DCB0;
-      v11 = "offset <= length";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-  }
-
-  else
-  {
-    *a1 = *(a2 + 40);
-    *(a1 + 8) = *(a2 + 48);
-  }
-}
-
-void DYTraceDecode_MTLDevice_compileVisibleFunction_withDescriptor_destinationBinaryArchive_error(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4)
-  {
-    if (*v8 != 1951757379 || *(a2 + 40) != 116)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8DCC0;
-      v14 = "memcmp((const char*)bytes + offset, (CtUtt), sizeof(CtUtt)) == 0";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-
-  *a1 = *(a2 + 44);
-  *(a1 + 8) = *(a2 + 52);
-  v16 = 24;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
-  v10 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 24) = *(v8 + v10);
-  *(a1 + 32) = *(v8 + v10 + 8);
-  if (a4)
-  {
-    if (v10 + 16 > a3)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8DCC0;
-      v14 = "offset <= length";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_copyShaderCacheToPath(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4 && *v8 ^ 0x5343 | *(a2 + 38))
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8DCD0;
-    v14 = "memcmp((const char*)bytes + offset, (CS), sizeof(CS)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  *a1 = *(a2 + 40);
-  v16 = 12;
-  *(a1 + 8) = AppendString_13794((a1 + 8), v8, &v16);
-  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  if (a4 && *(v8 + v9) ^ 0x6975 | *(v8 + v9 + 2))
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8DCD0;
-    v14 = "memcmp((const char*)bytes + offset, (ui), sizeof(ui)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  v10 = (v9 + 6) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 16) = *(v8 + v10);
-  if (a4)
-  {
-    if (v10 + 4 > a3)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8DCD0;
-      v14 = "offset <= length";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_dealloc(void *a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  if (a4)
-  {
-    if (*(a2 + 36) != 67)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DCE0;
-      v11 = "memcmp((const char*)bytes + offset, (C), sizeof(C)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    *a1 = *(a2 + 40);
-    if (a3 <= 0xB)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DCE0;
-      v11 = "offset <= length";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-  }
-
-  else
-  {
-    *a1 = *(a2 + 40);
-  }
-}
-
-void DYTraceDecode_MTLDevice_deserializeInstanceAccelerationStructure_fromBytes_primitiveAccelerationStructures_withDescriptor(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  if (a4 && *(a2 + 36) ^ 0x55553E623C557443 | *(a2 + 44))
-  {
-    v8 = *a4;
-    v9 = 501;
-    v10 = xmmword_24DA8DCF0;
-    v11 = "memcmp((const char*)bytes + offset, (CtU<b>UU), sizeof(CtU<b>UU)) == 0";
-    v12 = 0;
-    GTError_addError(a4, &v8);
-  }
-
-  *a1 = *(a2 + 48);
-  *(a1 + 8) = *(a2 + 56);
-  v13 = 28;
-  *(a1 + 16) = AppendString_13794((a1 + 16), a2 + 36, &v13);
-  *(a1 + 24) = AppendString_13794((a1 + 24), a2 + 36, &v13);
-  *(a1 + 32) = AppendString_13794((a1 + 32), a2 + 36, &v13);
-  if (a4)
-  {
-    if (((v13 + 3) & 0xFFFFFFFFFFFFFFFCLL) > a3)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DCF0;
-      v11 = "offset <= length";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_deserializePrimitiveAccelerationStructure_fromBytes_withDescriptor(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  if (a4 && *(a2 + 36) != 0x553E623C557443)
-  {
-    v8 = *a4;
-    v9 = 501;
-    v10 = xmmword_24DA8DD00;
-    v11 = "memcmp((const char*)bytes + offset, (CtU<b>U), sizeof(CtU<b>U)) == 0";
-    v12 = 0;
-    GTError_addError(a4, &v8);
-  }
-
-  *a1 = *(a2 + 44);
-  *(a1 + 8) = *(a2 + 52);
-  v13 = 24;
-  *(a1 + 16) = AppendString_13794((a1 + 16), a2 + 36, &v13);
-  *(a1 + 24) = AppendString_13794((a1 + 24), a2 + 36, &v13);
-  if (a4)
-  {
-    if (((v13 + 3) & 0xFFFFFFFFFFFFFFFCLL) > a3)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DD00;
-      v11 = "offset <= length";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_functionHandleWithFunction(void *a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  if (a4)
-  {
-    if (*(a2 + 36) ^ 0x7443 | *(a2 + 38))
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DD10;
-      v11 = "memcmp((const char*)bytes + offset, (Ct), sizeof(Ct)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    *a1 = *(a2 + 40);
-    a1[2] = *(a2 + 48);
-    if (*(a2 + 56) != 116)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DD10;
-      v11 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    a1[1] = *(a2 + 60);
-    if (a3 <= 0x1F)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DD10;
-      v11 = "offset <= length";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-  }
-
-  else
-  {
-    *a1 = *(a2 + 40);
-    a1[2] = *(a2 + 48);
-    a1[1] = *(a2 + 60);
-  }
-}
-
-__n128 DYTraceDecode_MTLDevice_heapBufferSizeAndAlignWithLength_options(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  if (a4)
-  {
-    if (*(a2 + 36) != 1970042179 || *(a2 + 40) != 108)
-    {
-      v10 = *a4;
-      v11 = 501;
-      v12 = xmmword_24DA8DD20;
-      v13 = "memcmp((const char*)bytes + offset, (Culul), sizeof(Culul)) == 0";
-      v14 = 0;
-      GTError_addError(a4, &v10);
-    }
-
-    *a1 = *(a2 + 44);
-    *(a1 + 24) = *(a2 + 52);
-    *(a1 + 32) = *(a2 + 60);
-    if (*(a2 + 68) ^ 0x6C753240 | *(a2 + 72))
-    {
-      v10 = *a4;
-      v11 = 501;
-      v12 = xmmword_24DA8DD20;
-      v13 = "memcmp((const char*)bytes + offset, (@2ul), sizeof(@2ul)) == 0";
-      v14 = 0;
-      GTError_addError(a4, &v10);
-    }
-
-    result = *(a2 + 76);
-    *(a1 + 8) = result;
-    if (a3 <= 0x37)
-    {
-      v10 = *a4;
-      v11 = 501;
-      v12 = xmmword_24DA8DD20;
-      v13 = "offset <= length";
-      v14 = 0;
-      GTError_addError(a4, &v10);
-    }
-  }
-
-  else
-  {
-    *a1 = *(a2 + 44);
-    *(a1 + 24) = *(a2 + 52);
-    *(a1 + 32) = *(a2 + 60);
-    result = *(a2 + 76);
-    *(a1 + 8) = result;
-  }
-
-  return result;
-}
-
-__n128 DYTraceDecode_MTLDevice_heapTextureSizeAndAlignWithDescriptor(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4 && *v8 ^ 0x5543 | *(a2 + 38))
-  {
-    v12 = *a4;
-    v13 = 501;
-    v14 = xmmword_24DA8DD30;
-    v15 = "memcmp((const char*)bytes + offset, (CU), sizeof(CU)) == 0";
-    v16 = 0;
-    GTError_addError(a4, &v12);
-  }
-
-  *a1 = *(a2 + 40);
-  v17 = 12;
-  *(a1 + 24) = AppendString_13794((a1 + 24), v8, &v17);
-  v9 = (v17 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  if (a4)
-  {
-    v10 = v8 + v9;
-    if (*v10 ^ 0x6C753240 | v10[4])
-    {
-      v12 = *a4;
-      v13 = 501;
-      v14 = xmmword_24DA8DD30;
-      v15 = "memcmp((const char*)bytes + offset, (@2ul), sizeof(@2ul)) == 0";
-      v16 = 0;
-      GTError_addError(a4, &v12);
-    }
-
-    result = *(v10 + 8);
-    *(a1 + 8) = result;
-    if (v9 + 24 > a3)
-    {
-      v12 = *a4;
-      v13 = 501;
-      v14 = xmmword_24DA8DD30;
-      v15 = "offset <= length";
-      v16 = 0;
-      GTError_addError(a4, &v12);
-    }
-  }
-
-  else
-  {
-    result = *(v8 + v9 + 8);
-    *(a1 + 8) = result;
-  }
-
-  return result;
-}
-
-void DYTraceDecode_MTLDevice_loadDynamicLibrariesForComputeDescriptor_options_error(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4)
-  {
-    if (*v8 != 1819628867 || *(a2 + 40) != 116)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8DD40;
-      v14 = "memcmp((const char*)bytes + offset, (CUult), sizeof(CUult)) == 0";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-
-  *a1 = *(a2 + 44);
-  v16 = 16;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
-  v10 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 24) = *(v8 + v10);
-  *(a1 + 32) = *(v8 + v10 + 8);
-  if (a4 && *(v8 + v10 + 16) != 85)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8DD40;
-    v14 = "memcmp((const char*)bytes + offset, (U), sizeof(U)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  v16 = (v10 + 21) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = AppendString_13794((a1 + 8), v8, &v16);
-  if (a4)
-  {
-    if (((v16 + 3) & 0xFFFFFFFFFFFFFFFCLL) > a3)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8DD40;
-      v14 = "offset <= length";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_loadDynamicLibrariesForFunction_insertLibraries_options_error(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4)
-  {
-    if (*v8 != 0x6C75553E623C5543 || *(a2 + 44) != 116)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8DD50;
-      v14 = "memcmp((const char*)bytes + offset, (CU<b>Uult), sizeof(CU<b>Uult)) == 0";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-
-  *a1 = *(a2 + 48);
-  v16 = 20;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
-  *(a1 + 24) = AppendString_13794((a1 + 24), v8, &v16);
-  v10 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 32) = *(v8 + v10);
-  *(a1 + 40) = *(v8 + v10 + 8);
-  if (a4 && *(v8 + v10 + 16) != 85)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8DD50;
-    v14 = "memcmp((const char*)bytes + offset, (U), sizeof(U)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  v16 = (v10 + 21) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = AppendString_13794((a1 + 8), v8, &v16);
-  if (a4)
-  {
-    if (((v16 + 3) & 0xFFFFFFFFFFFFFFFCLL) > a3)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8DD50;
-      v14 = "offset <= length";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_minLinearTextureAlignmentForPixelFormat(void *a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  if (a4)
-  {
-    if (*(a2 + 36) != 7107907)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DD60;
-      v11 = "memcmp((const char*)bytes + offset, (Cul), sizeof(Cul)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    *a1 = *(a2 + 40);
-    a1[2] = *(a2 + 48);
-    if (*(a2 + 56) ^ 0x6C75 | *(a2 + 58))
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DD60;
-      v11 = "memcmp((const char*)bytes + offset, (ul), sizeof(ul)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    a1[1] = *(a2 + 60);
-    if (a3 <= 0x1F)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DD60;
-      v11 = "offset <= length";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-  }
-
-  else
-  {
-    *a1 = *(a2 + 40);
-    a1[2] = *(a2 + 48);
-    a1[1] = *(a2 + 60);
-  }
-}
-
-void DYTraceDecode_MTLDevice_minLinearTextureBaseAddressAlignmentForDescriptor(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4 && *v8 ^ 0x5543 | *(a2 + 38))
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8DD70;
-    v14 = "memcmp((const char*)bytes + offset, (CU), sizeof(CU)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  *a1 = *(a2 + 40);
-  v16 = 12;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
-  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  if (a4 && *(v8 + v9) ^ 0x6C75 | *(v8 + v9 + 2))
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8DD70;
-    v14 = "memcmp((const char*)bytes + offset, (ul), sizeof(ul)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  v10 = (v9 + 6) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v10);
-  if (a4)
-  {
-    if (v10 + 8 > a3)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8DD70;
-      v14 = "offset <= length";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newAccelerationStructureWithBuffer_offset(void *a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  if (a4)
-  {
-    if (*(a2 + 36) ^ 0x6C757443 | *(a2 + 40))
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DD80;
-      v11 = "memcmp((const char*)bytes + offset, (Ctul), sizeof(Ctul)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    *a1 = *(a2 + 44);
-    a1[2] = *(a2 + 52);
-    a1[3] = *(a2 + 60);
-    if (*(a2 + 68) != 116)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DD80;
-      v11 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    a1[1] = *(a2 + 72);
-    if (a3 <= 0x2B)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DD80;
-      v11 = "offset <= length";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-  }
-
-  else
-  {
-    *a1 = *(a2 + 44);
-    a1[2] = *(a2 + 52);
-    a1[3] = *(a2 + 60);
-    a1[1] = *(a2 + 72);
-  }
-}
-
-void DYTraceDecode_MTLDevice_newAccelerationStructureWithBuffer_offset_resourceIndex(void *a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  if (a4)
-  {
-    if (*(a2 + 36) != 1819636803 || *(a2 + 39) != 7828844)
-    {
-      v9 = *a4;
-      v10 = 501;
-      v11 = xmmword_24DA8DD90;
-      v12 = "memcmp((const char*)bytes + offset, (Ctuluw), sizeof(Ctuluw)) == 0";
-      v13 = 0;
-      GTError_addError(a4, &v9);
-    }
-  }
-
-  *a1 = *(a2 + 44);
-  a1[2] = *(a2 + 52);
-  a1[3] = *(a2 + 60);
-  a1[4] = *(a2 + 68);
-  if (a4)
-  {
-    if (*(a2 + 76) != 116)
-    {
-      v9 = *a4;
-      v10 = 501;
-      v11 = xmmword_24DA8DD90;
-      v12 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-      v13 = 0;
-      GTError_addError(a4, &v9);
-    }
-
-    a1[1] = *(a2 + 80);
-    if (a3 <= 0x33)
-    {
-      v9 = *a4;
-      v10 = 501;
-      v11 = xmmword_24DA8DD90;
-      v12 = "offset <= length";
-      v13 = 0;
-      GTError_addError(a4, &v9);
-    }
-  }
-
-  else
-  {
-    a1[1] = *(a2 + 80);
-  }
-}
-
-void DYTraceDecode_MTLDevice_newAccelerationStructureWithDescriptor(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4 && *v8 ^ 0x5543 | *(a2 + 38))
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8DDA0;
-    v14 = "memcmp((const char*)bytes + offset, (CU), sizeof(CU)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  *a1 = *(a2 + 40);
-  v16 = 12;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
-  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  if (a4 && *(v8 + v9) != 116)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8DDA0;
-    v14 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  v10 = (v9 + 5) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v10);
-  if (a4)
-  {
-    if (v10 + 8 > a3)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8DDA0;
-      v14 = "offset <= length";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newAccelerationStructureWithSize(void *a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  if (a4)
-  {
-    if (*(a2 + 36) != 7107907)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DDB0;
-      v11 = "memcmp((const char*)bytes + offset, (Cul), sizeof(Cul)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    *a1 = *(a2 + 40);
-    a1[2] = *(a2 + 48);
-    if (*(a2 + 56) != 116)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DDB0;
-      v11 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    a1[1] = *(a2 + 60);
-    if (a3 <= 0x1F)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DDB0;
-      v11 = "offset <= length";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-  }
-
-  else
-  {
-    *a1 = *(a2 + 40);
-    a1[2] = *(a2 + 48);
-    a1[1] = *(a2 + 60);
-  }
-}
-
-void DYTraceDecode_MTLDevice_newAccelerationStructureWithSize_resourceIndex(void *a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  if (a4)
-  {
-    if (*(a2 + 36) != 1970042179 || *(a2 + 40) != 119)
-    {
-      v9 = *a4;
-      v10 = 501;
-      v11 = xmmword_24DA8DDC0;
-      v12 = "memcmp((const char*)bytes + offset, (Culuw), sizeof(Culuw)) == 0";
-      v13 = 0;
-      GTError_addError(a4, &v9);
-    }
-
-    *a1 = *(a2 + 44);
-    a1[2] = *(a2 + 52);
-    a1[3] = *(a2 + 60);
-    if (*(a2 + 68) != 116)
-    {
-      v9 = *a4;
-      v10 = 501;
-      v11 = xmmword_24DA8DDC0;
-      v12 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-      v13 = 0;
-      GTError_addError(a4, &v9);
-    }
-
-    a1[1] = *(a2 + 72);
-    if (a3 <= 0x2B)
-    {
-      v9 = *a4;
-      v10 = 501;
-      v11 = xmmword_24DA8DDC0;
-      v12 = "offset <= length";
-      v13 = 0;
-      GTError_addError(a4, &v9);
-    }
-  }
-
-  else
-  {
-    *a1 = *(a2 + 44);
-    a1[2] = *(a2 + 52);
-    a1[3] = *(a2 + 60);
-    a1[1] = *(a2 + 72);
-  }
-}
-
-void DYTraceDecode_MTLDevice_newAccelerationStructureWithSize_withDescriptor(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4 && *v8 ^ 0x556C7543 | *(a2 + 40))
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8DDD0;
-    v14 = "memcmp((const char*)bytes + offset, (CulU), sizeof(CulU)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  *a1 = *(a2 + 44);
-  *(a1 + 16) = *(a2 + 52);
-  v16 = 24;
-  *(a1 + 24) = AppendString_13794((a1 + 24), v8, &v16);
-  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  if (a4 && *(v8 + v9) != 116)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8DDD0;
-    v14 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  v10 = (v9 + 5) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v10);
-  if (a4)
-  {
-    if (v10 + 8 > a3)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8DDD0;
-      v14 = "offset <= length";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newArgumentEncoderWithBufferBinding(void *a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  if (a4)
-  {
-    if (*(a2 + 36) ^ 0x7443 | *(a2 + 38))
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DDE0;
-      v11 = "memcmp((const char*)bytes + offset, (Ct), sizeof(Ct)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    *a1 = *(a2 + 40);
-    a1[2] = *(a2 + 48);
-    if (*(a2 + 56) != 116)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DDE0;
-      v11 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    a1[1] = *(a2 + 60);
-    if (a3 <= 0x1F)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DDE0;
-      v11 = "offset <= length";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-  }
-
-  else
-  {
-    *a1 = *(a2 + 40);
-    a1[2] = *(a2 + 48);
-    a1[1] = *(a2 + 60);
-  }
-}
-
-void DYTraceDecode_MTLDevice_newArgumentTableWithDescriptor_error(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4 && *v8 != 7624003)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8DDF0;
-    v14 = "memcmp((const char*)bytes + offset, (CUt), sizeof(CUt)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  *a1 = *(a2 + 40);
-  v16 = 12;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
-  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 24) = *(v8 + v9);
-  if (a4 && *(v8 + v9 + 8) != 116)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8DDF0;
-    v14 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  v10 = (v9 + 13) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v10);
-  if (a4)
-  {
-    if (v10 + 8 > a3)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8DDF0;
-      v14 = "offset <= length";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newBinaryArchiveWithDescriptor_error(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4 && *v8 != 7624003)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8DE00;
-    v14 = "memcmp((const char*)bytes + offset, (CUt), sizeof(CUt)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  *a1 = *(a2 + 40);
-  v16 = 12;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
-  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 24) = *(v8 + v9);
-  if (a4 && *(v8 + v9 + 8) != 116)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8DE00;
-    v14 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  v10 = (v9 + 13) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v10);
-  if (a4)
-  {
-    if (v10 + 8 > a3)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8DE00;
-      v14 = "offset <= length";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newBufferWithBytes_length_options_gpuAddress(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4)
-  {
-    if (*v8 != 0x756C753E623C5543 || *(a2 + 44) != 7828844)
-    {
-      v12 = *a4;
-      v13 = 501;
-      v14 = xmmword_24DA8DE10;
-      v15 = "memcmp((const char*)bytes + offset, (CU<b>ululuw), sizeof(CU<b>ululuw)) == 0";
-      v16 = 0;
-      GTError_addError(a4, &v12);
-    }
-  }
-
-  *a1 = *(a2 + 48);
-  v17 = 20;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v17);
-  v10 = (v17 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 24) = *(v8 + v10);
-  *(a1 + 32) = *(v8 + v10 + 8);
-  *(a1 + 40) = *(v8 + v10 + 16);
-  if (a4 && *(v8 + v10 + 24) != 116)
-  {
-    v12 = *a4;
-    v13 = 501;
-    v14 = xmmword_24DA8DE10;
-    v15 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v16 = 0;
-    GTError_addError(a4, &v12);
-  }
-
-  v11 = (v10 + 29) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v11);
-  if (a4)
-  {
-    if (v11 + 8 > a3)
-    {
-      v12 = *a4;
-      v13 = 501;
-      v14 = xmmword_24DA8DE10;
-      v15 = "offset <= length";
-      v16 = 0;
-      GTError_addError(a4, &v12);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newBufferWithBytesNoCopy_length_options_deallocator(uint64_t a1, void *a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4)
-  {
-    if (*v8 != 0x756C753E623C5543 || *(a2 + 39) != 0x746C756C753E62)
-    {
-      v12 = *a4;
-      v13 = 501;
-      v14 = xmmword_24DA8DE20;
-      v15 = "memcmp((const char*)bytes + offset, (CU<b>ulult), sizeof(CU<b>ulult)) == 0";
-      v16 = 0;
-      GTError_addError(a4, &v12);
-    }
-  }
-
-  *a1 = a2[6];
-  v17 = 20;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v17);
-  v10 = (v17 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 24) = *(v8 + v10);
-  *(a1 + 32) = *(v8 + v10 + 8);
-  *(a1 + 40) = *(v8 + v10 + 16);
-  if (a4 && *(v8 + v10 + 24) != 116)
-  {
-    v12 = *a4;
-    v13 = 501;
-    v14 = xmmword_24DA8DE20;
-    v15 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v16 = 0;
-    GTError_addError(a4, &v12);
-  }
-
-  v11 = (v10 + 29) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v11);
-  if (a4)
-  {
-    if (v11 + 8 > a3)
-    {
-      v12 = *a4;
-      v13 = 501;
-      v14 = xmmword_24DA8DE20;
-      v15 = "offset <= length";
-      v16 = 0;
-      GTError_addError(a4, &v12);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newBufferWithIOSurface(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4 && *v8 ^ 0x5543 | *(a2 + 38))
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8DE30;
-    v14 = "memcmp((const char*)bytes + offset, (CU), sizeof(CU)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  *a1 = *(a2 + 40);
-  v16 = 12;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
-  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  if (a4 && *(v8 + v9) != 116)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8DE30;
-    v14 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  v10 = (v9 + 5) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v10);
-  if (a4)
-  {
-    if (v10 + 8 > a3)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8DE30;
-      v14 = "offset <= length";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newBufferWithLength_options_gpuAddress(void *a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  if (a4)
-  {
-    if (*(a2 + 36) != 0x77756C756C7543)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DE40;
-      v11 = "memcmp((const char*)bytes + offset, (Cululuw), sizeof(Cululuw)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    *a1 = *(a2 + 44);
-    a1[2] = *(a2 + 52);
-    a1[3] = *(a2 + 60);
-    a1[4] = *(a2 + 68);
-    if (*(a2 + 76) != 116)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DE40;
-      v11 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    a1[1] = *(a2 + 80);
-    if (a3 <= 0x33)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DE40;
-      v11 = "offset <= length";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-  }
-
-  else
-  {
-    *a1 = *(a2 + 44);
-    a1[2] = *(a2 + 52);
-    a1[3] = *(a2 + 60);
-    a1[4] = *(a2 + 68);
-    a1[1] = *(a2 + 80);
-  }
-}
-
-void DYTraceDecode_MTLDevice_newCommandAllocator(void *a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  if (a4)
-  {
-    if (*(a2 + 36) != 67)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DE50;
-      v11 = "memcmp((const char*)bytes + offset, (C), sizeof(C)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    *a1 = *(a2 + 40);
-    if (*(a2 + 48) != 116)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DE50;
-      v11 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    a1[1] = *(a2 + 52);
-    if (a3 <= 0x17)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DE50;
-      v11 = "offset <= length";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-  }
-
-  else
-  {
-    *a1 = *(a2 + 40);
-    a1[1] = *(a2 + 52);
-  }
-}
-
-void DYTraceDecode_MTLDevice_newCommandAllocatorWithDescriptor_error(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4 && *v8 != 7624003)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8DE60;
-    v14 = "memcmp((const char*)bytes + offset, (CUt), sizeof(CUt)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  *a1 = *(a2 + 40);
-  v16 = 12;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
-  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 24) = *(v8 + v9);
-  if (a4 && *(v8 + v9 + 8) != 116)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8DE60;
-    v14 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  v10 = (v9 + 13) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v10);
-  if (a4)
-  {
-    if (v10 + 8 > a3)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8DE60;
-      v14 = "offset <= length";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newCommandBuffer(void *a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  if (a4)
-  {
-    if (*(a2 + 36) != 67)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DE70;
-      v11 = "memcmp((const char*)bytes + offset, (C), sizeof(C)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    *a1 = *(a2 + 40);
-    if (*(a2 + 48) != 116)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DE70;
-      v11 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    a1[1] = *(a2 + 52);
-    if (a3 <= 0x17)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DE70;
-      v11 = "offset <= length";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-  }
-
-  else
-  {
-    *a1 = *(a2 + 40);
-    a1[1] = *(a2 + 52);
-  }
-}
-
-void DYTraceDecode_MTLDevice_newCommandQueue(void *a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  if (a4)
-  {
-    if (*(a2 + 36) != 67)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DE80;
-      v11 = "memcmp((const char*)bytes + offset, (C), sizeof(C)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    *a1 = *(a2 + 40);
-    if (*(a2 + 48) != 116)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DE80;
-      v11 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    a1[1] = *(a2 + 52);
-    if (a3 <= 0x17)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DE80;
-      v11 = "offset <= length";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-  }
-
-  else
-  {
-    *a1 = *(a2 + 40);
-    a1[1] = *(a2 + 52);
-  }
-}
-
-void DYTraceDecode_MTLDevice_newCommandQueueWithDescriptor(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4 && *v8 ^ 0x5543 | *(a2 + 38))
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8DE90;
-    v14 = "memcmp((const char*)bytes + offset, (CU), sizeof(CU)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  *a1 = *(a2 + 40);
-  v16 = 12;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
-  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  if (a4 && *(v8 + v9) != 116)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8DE90;
-    v14 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  v10 = (v9 + 5) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v10);
-  if (a4)
-  {
-    if (v10 + 8 > a3)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8DE90;
-      v14 = "offset <= length";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newCommandQueueWithMaxCommandBufferCount(void *a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  if (a4)
-  {
-    if (*(a2 + 36) != 7107907)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DEA0;
-      v11 = "memcmp((const char*)bytes + offset, (Cul), sizeof(Cul)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    *a1 = *(a2 + 40);
-    a1[2] = *(a2 + 48);
-    if (*(a2 + 56) != 116)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DEA0;
-      v11 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    a1[1] = *(a2 + 60);
-    if (a3 <= 0x1F)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DEA0;
-      v11 = "offset <= length";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-  }
-
-  else
-  {
-    *a1 = *(a2 + 40);
-    a1[2] = *(a2 + 48);
-    a1[1] = *(a2 + 60);
-  }
-}
-
-void DYTraceDecode_MTLDevice_newCompilerWithDescriptor_error(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4 && *v8 != 7624003)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8DEB0;
-    v14 = "memcmp((const char*)bytes + offset, (CUt), sizeof(CUt)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  *a1 = *(a2 + 40);
-  v16 = 12;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
-  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 24) = *(v8 + v9);
-  if (a4 && *(v8 + v9 + 8) != 116)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8DEB0;
-    v14 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  v10 = (v9 + 13) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v10);
-  if (a4)
-  {
-    if (v10 + 8 > a3)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8DEB0;
-      v14 = "offset <= length";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newComputePipelineStateWithDescriptor_completionHandler(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4 && *v8 != 7624003)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8DEC0;
-    v14 = "memcmp((const char*)bytes + offset, (CUt), sizeof(CUt)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  *a1 = *(a2 + 40);
-  v16 = 12;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
-  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 24) = *(v8 + v9);
-  if (a4 && *(v8 + v9 + 8) != 116)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8DEC0;
-    v14 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  v10 = (v9 + 13) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v10);
-  if (a4)
-  {
-    if (v10 + 8 > a3)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8DEC0;
-      v14 = "offset <= length";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newComputePipelineStateWithDescriptor_error(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4 && *v8 != 7624003)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8DED0;
-    v14 = "memcmp((const char*)bytes + offset, (CUt), sizeof(CUt)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  *a1 = *(a2 + 40);
-  v16 = 12;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
-  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 24) = *(v8 + v9);
-  if (a4 && *(v8 + v9 + 8) != 116)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8DED0;
-    v14 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  v10 = (v9 + 13) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v10);
-  if (a4)
-  {
-    if (v10 + 8 > a3)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8DED0;
-      v14 = "offset <= length";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newComputePipelineStateWithDescriptor_options_completionHandler(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4)
-  {
-    if (*v8 != 1819628867 || *(a2 + 40) != 116)
-    {
-      v12 = *a4;
-      v13 = 501;
-      v14 = xmmword_24DA8DEE0;
-      v15 = "memcmp((const char*)bytes + offset, (CUult), sizeof(CUult)) == 0";
-      v16 = 0;
-      GTError_addError(a4, &v12);
-    }
-  }
-
-  *a1 = *(a2 + 44);
-  v17 = 16;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v17);
-  v10 = (v17 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 24) = *(v8 + v10);
-  *(a1 + 32) = *(v8 + v10 + 8);
-  if (a4 && *(v8 + v10 + 16) != 116)
-  {
-    v12 = *a4;
-    v13 = 501;
-    v14 = xmmword_24DA8DEE0;
-    v15 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v16 = 0;
-    GTError_addError(a4, &v12);
-  }
-
-  v11 = (v10 + 21) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v11);
-  if (a4)
-  {
-    if (v11 + 8 > a3)
-    {
-      v12 = *a4;
-      v13 = 501;
-      v14 = xmmword_24DA8DEE0;
-      v15 = "offset <= length";
-      v16 = 0;
-      GTError_addError(a4, &v12);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newComputePipelineStateWithFunction_completionHandler(void *a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  if (a4)
-  {
-    if (*(a2 + 36) != 7631939)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DEF0;
-      v11 = "memcmp((const char*)bytes + offset, (Ctt), sizeof(Ctt)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    *a1 = *(a2 + 40);
-    a1[2] = *(a2 + 48);
-    a1[3] = *(a2 + 56);
-    if (*(a2 + 64) != 116)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DEF0;
-      v11 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    a1[1] = *(a2 + 68);
-    if (a3 <= 0x27)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DEF0;
-      v11 = "offset <= length";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-  }
-
-  else
-  {
-    *a1 = *(a2 + 40);
-    a1[2] = *(a2 + 48);
-    a1[3] = *(a2 + 56);
-    a1[1] = *(a2 + 68);
-  }
-}
-
-void DYTraceDecode_MTLDevice_newComputePipelineStateWithFunction_error(void *a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  if (a4)
-  {
-    if (*(a2 + 36) != 7631939)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DF00;
-      v11 = "memcmp((const char*)bytes + offset, (Ctt), sizeof(Ctt)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    *a1 = *(a2 + 40);
-    a1[2] = *(a2 + 48);
-    a1[3] = *(a2 + 56);
-    if (*(a2 + 64) != 116)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DF00;
-      v11 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    a1[1] = *(a2 + 68);
-    if (a3 <= 0x27)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DF00;
-      v11 = "offset <= length";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-  }
-
-  else
-  {
-    *a1 = *(a2 + 40);
-    a1[2] = *(a2 + 48);
-    a1[3] = *(a2 + 56);
-    a1[1] = *(a2 + 68);
-  }
-}
-
-void DYTraceDecode_MTLDevice_newComputePipelineStateWithFunction_options_completionHandler(void *a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  if (a4)
-  {
-    if (*(a2 + 36) != 1819636803 || *(a2 + 40) != 116)
-    {
-      v9 = *a4;
-      v10 = 501;
-      v11 = xmmword_24DA8DF10;
-      v12 = "memcmp((const char*)bytes + offset, (Ctult), sizeof(Ctult)) == 0";
-      v13 = 0;
-      GTError_addError(a4, &v9);
-    }
-  }
-
-  *a1 = *(a2 + 44);
-  a1[2] = *(a2 + 52);
-  a1[3] = *(a2 + 60);
-  a1[4] = *(a2 + 68);
-  if (a4)
-  {
-    if (*(a2 + 76) != 116)
-    {
-      v9 = *a4;
-      v10 = 501;
-      v11 = xmmword_24DA8DF10;
-      v12 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-      v13 = 0;
-      GTError_addError(a4, &v9);
-    }
-
-    a1[1] = *(a2 + 80);
-    if (a3 <= 0x33)
-    {
-      v9 = *a4;
-      v10 = 501;
-      v11 = xmmword_24DA8DF10;
-      v12 = "offset <= length";
-      v13 = 0;
-      GTError_addError(a4, &v9);
-    }
-  }
-
-  else
-  {
-    a1[1] = *(a2 + 80);
-  }
-}
-
-void DYTraceDecode_MTLDevice_newCounterSampleBufferWithDescriptor_error(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4 && *v8 != 7624003)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8DF20;
-    v14 = "memcmp((const char*)bytes + offset, (CUt), sizeof(CUt)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  *a1 = *(a2 + 40);
-  v16 = 12;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
-  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 24) = *(v8 + v9);
-  if (a4 && *(v8 + v9 + 8) != 116)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8DF20;
-    v14 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  v10 = (v9 + 13) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v10);
-  if (a4)
-  {
-    if (v10 + 8 > a3)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8DF20;
-      v14 = "offset <= length";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newDefaultLibrary(void *a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  if (a4)
-  {
-    if (*(a2 + 36) != 67)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DF30;
-      v11 = "memcmp((const char*)bytes + offset, (C), sizeof(C)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    *a1 = *(a2 + 40);
-    if (*(a2 + 48) != 116)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DF30;
-      v11 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    a1[1] = *(a2 + 52);
-    if (a3 <= 0x17)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DF30;
-      v11 = "offset <= length";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-  }
-
-  else
-  {
-    *a1 = *(a2 + 40);
-    a1[1] = *(a2 + 52);
-  }
-}
-
-void DYTraceDecode_MTLDevice_newDefaultLibraryWithBundle_error(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4)
-  {
-    if (*v8 != 1648121155 || *(a2 + 39) != 7618146)
-    {
-      v12 = *a4;
-      v13 = 501;
-      v14 = xmmword_24DA8DF40;
-      v15 = "memcmp((const char*)bytes + offset, (CU<b>t), sizeof(CU<b>t)) == 0";
-      v16 = 0;
-      GTError_addError(a4, &v12);
-    }
-  }
-
-  *a1 = *(a2 + 44);
-  v17 = 16;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v17);
-  v10 = (v17 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 24) = *(v8 + v10);
-  if (a4 && *(v8 + v10 + 8) != 116)
-  {
-    v12 = *a4;
-    v13 = 501;
-    v14 = xmmword_24DA8DF40;
-    v15 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v16 = 0;
-    GTError_addError(a4, &v12);
-  }
-
-  v11 = (v10 + 13) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v11);
-  if (a4)
-  {
-    if (v11 + 8 > a3)
-    {
-      v12 = *a4;
-      v13 = 501;
-      v14 = xmmword_24DA8DF40;
-      v15 = "offset <= length";
-      v16 = 0;
-      GTError_addError(a4, &v12);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newDepthStencilStateWithDescriptor(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4 && *v8 ^ 0x5543 | *(a2 + 38))
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8DF50;
-    v14 = "memcmp((const char*)bytes + offset, (CU), sizeof(CU)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  *a1 = *(a2 + 40);
-  v16 = 12;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
-  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  if (a4 && *(v8 + v9) != 116)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8DF50;
-    v14 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  v10 = (v9 + 5) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v10);
-  if (a4)
-  {
-    if (v10 + 8 > a3)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8DF50;
-      v14 = "offset <= length";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newDynamicLibrary_error(void *a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  if (a4)
-  {
-    if (*(a2 + 36) != 7631939)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DF60;
-      v11 = "memcmp((const char*)bytes + offset, (Ctt), sizeof(Ctt)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    *a1 = *(a2 + 40);
-    a1[2] = *(a2 + 48);
-    a1[3] = *(a2 + 56);
-    if (*(a2 + 64) != 116)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DF60;
-      v11 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    a1[1] = *(a2 + 68);
-    if (a3 <= 0x27)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DF60;
-      v11 = "offset <= length";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-  }
-
-  else
-  {
-    *a1 = *(a2 + 40);
-    a1[2] = *(a2 + 48);
-    a1[3] = *(a2 + 56);
-    a1[1] = *(a2 + 68);
-  }
-}
-
-void DYTraceDecode_MTLDevice_newDynamicLibraryWithURL_error(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4)
-  {
-    if (*v8 != 1648121155 || *(a2 + 39) != 7618146)
-    {
-      v12 = *a4;
-      v13 = 501;
-      v14 = xmmword_24DA8DF70;
-      v15 = "memcmp((const char*)bytes + offset, (CU<b>t), sizeof(CU<b>t)) == 0";
-      v16 = 0;
-      GTError_addError(a4, &v12);
-    }
-  }
-
-  *a1 = *(a2 + 44);
-  v17 = 16;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v17);
-  v10 = (v17 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 24) = *(v8 + v10);
-  if (a4 && *(v8 + v10 + 8) != 116)
-  {
-    v12 = *a4;
-    v13 = 501;
-    v14 = xmmword_24DA8DF70;
-    v15 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v16 = 0;
-    GTError_addError(a4, &v12);
-  }
-
-  v11 = (v10 + 13) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v11);
-  if (a4)
-  {
-    if (v11 + 8 > a3)
-    {
-      v12 = *a4;
-      v13 = 501;
-      v14 = xmmword_24DA8DF70;
-      v15 = "offset <= length";
-      v16 = 0;
-      GTError_addError(a4, &v12);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newDynamicLibraryWithURL_options_error(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4 && *v8 ^ 0x746C753E623C5543 | *(a2 + 44))
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8DF80;
-    v14 = "memcmp((const char*)bytes + offset, (CU<b>ult), sizeof(CU<b>ult)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  *a1 = *(a2 + 48);
-  v16 = 20;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
-  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 24) = *(v8 + v9);
-  *(a1 + 32) = *(v8 + v9 + 8);
-  if (a4 && *(v8 + v9 + 16) != 116)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8DF80;
-    v14 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  v10 = (v9 + 21) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v10);
-  if (a4)
-  {
-    if (v10 + 8 > a3)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8DF80;
-      v14 = "offset <= length";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newEvent(void *a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  if (a4)
-  {
-    if (*(a2 + 36) != 67)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DF90;
-      v11 = "memcmp((const char*)bytes + offset, (C), sizeof(C)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    *a1 = *(a2 + 40);
-    if (*(a2 + 48) != 116)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DF90;
-      v11 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    a1[1] = *(a2 + 52);
-    if (a3 <= 0x17)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DF90;
-      v11 = "offset <= length";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-  }
-
-  else
-  {
-    *a1 = *(a2 + 40);
-    a1[1] = *(a2 + 52);
-  }
-}
-
-void DYTraceDecode_MTLDevice_newFence(void *a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  if (a4)
-  {
-    if (*(a2 + 36) != 67)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DFA0;
-      v11 = "memcmp((const char*)bytes + offset, (C), sizeof(C)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    *a1 = *(a2 + 40);
-    if (*(a2 + 48) != 116)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DFA0;
-      v11 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    a1[1] = *(a2 + 52);
-    if (a3 <= 0x17)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8DFA0;
-      v11 = "offset <= length";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-  }
-
-  else
-  {
-    *a1 = *(a2 + 40);
-    a1[1] = *(a2 + 52);
-  }
-}
-
-void DYTraceDecode_MTLDevice_newFunctionWithGLCoreIR_functionType(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4 && *v8 != 0x6C753E623C5543)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8DFB0;
-    v14 = "memcmp((const char*)bytes + offset, (CU<b>ul), sizeof(CU<b>ul)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  *a1 = *(a2 + 44);
-  v16 = 16;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
-  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 24) = *(v8 + v9);
-  if (a4 && *(v8 + v9 + 8) != 116)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8DFB0;
-    v14 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  v10 = (v9 + 13) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v10);
-  if (a4)
-  {
-    if (v10 + 8 > a3)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8DFB0;
-      v14 = "offset <= length";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newFunctionWithGLCoreIR_inputsDescription_functionType(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4)
-  {
-    if (*v8 != 0x623C553E623C5543 || *(a2 + 44) != 7107902)
-    {
-      v12 = *a4;
-      v13 = 501;
-      v14 = xmmword_24DA8DFC0;
-      v15 = "memcmp((const char*)bytes + offset, (CU<b>U<b>ul), sizeof(CU<b>U<b>ul)) == 0";
-      v16 = 0;
-      GTError_addError(a4, &v12);
-    }
-  }
-
-  *a1 = *(a2 + 48);
-  v17 = 20;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v17);
-  *(a1 + 24) = AppendString_13794((a1 + 24), v8, &v17);
-  v10 = (v17 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 32) = *(v8 + v10);
-  if (a4 && *(v8 + v10 + 8) != 116)
-  {
-    v12 = *a4;
-    v13 = 501;
-    v14 = xmmword_24DA8DFC0;
-    v15 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v16 = 0;
-    GTError_addError(a4, &v12);
-  }
-
-  v11 = (v10 + 13) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v11);
-  if (a4)
-  {
-    if (v11 + 8 > a3)
-    {
-      v12 = *a4;
-      v13 = 501;
-      v14 = xmmword_24DA8DFC0;
-      v15 = "offset <= length";
-      v16 = 0;
-      GTError_addError(a4, &v12);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newFunctionWithGLESIR_functionType(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4 && *v8 != 0x6C753E623C5543)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8DFD0;
-    v14 = "memcmp((const char*)bytes + offset, (CU<b>ul), sizeof(CU<b>ul)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  *a1 = *(a2 + 44);
-  v16 = 16;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
-  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 24) = *(v8 + v9);
-  if (a4 && *(v8 + v9 + 8) != 116)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8DFD0;
-    v14 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  v10 = (v9 + 13) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v10);
-  if (a4)
-  {
-    if (v10 + 8 > a3)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8DFD0;
-      v14 = "offset <= length";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newFunctionWithGLESIR_inputsDescription_functionType(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4)
-  {
-    if (*v8 != 0x623C553E623C5543 || *(a2 + 44) != 7107902)
-    {
-      v12 = *a4;
-      v13 = 501;
-      v14 = xmmword_24DA8DFE0;
-      v15 = "memcmp((const char*)bytes + offset, (CU<b>U<b>ul), sizeof(CU<b>U<b>ul)) == 0";
-      v16 = 0;
-      GTError_addError(a4, &v12);
-    }
-  }
-
-  *a1 = *(a2 + 48);
-  v17 = 20;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v17);
-  *(a1 + 24) = AppendString_13794((a1 + 24), v8, &v17);
-  v10 = (v17 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 32) = *(v8 + v10);
-  if (a4 && *(v8 + v10 + 8) != 116)
-  {
-    v12 = *a4;
-    v13 = 501;
-    v14 = xmmword_24DA8DFE0;
-    v15 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v16 = 0;
-    GTError_addError(a4, &v12);
-  }
-
-  v11 = (v10 + 13) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v11);
-  if (a4)
-  {
-    if (v11 + 8 > a3)
-    {
-      v12 = *a4;
-      v13 = 501;
-      v14 = xmmword_24DA8DFE0;
-      v15 = "offset <= length";
-      v16 = 0;
-      GTError_addError(a4, &v12);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newFunctionWithGLIR_functionType(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4 && *v8 != 0x6C753E623C5543)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8DFF0;
-    v14 = "memcmp((const char*)bytes + offset, (CU<b>ul), sizeof(CU<b>ul)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  *a1 = *(a2 + 44);
-  v16 = 16;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
-  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 24) = *(v8 + v9);
-  if (a4 && *(v8 + v9 + 8) != 116)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8DFF0;
-    v14 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  v10 = (v9 + 13) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v10);
-  if (a4)
-  {
-    if (v10 + 8 > a3)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8DFF0;
-      v14 = "offset <= length";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newFunctionWithGLIR_inputsDescription_functionType(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4)
-  {
-    if (*v8 != 0x623C553E623C5543 || *(a2 + 44) != 7107902)
-    {
-      v12 = *a4;
-      v13 = 501;
-      v14 = xmmword_24DA8E000;
-      v15 = "memcmp((const char*)bytes + offset, (CU<b>U<b>ul), sizeof(CU<b>U<b>ul)) == 0";
-      v16 = 0;
-      GTError_addError(a4, &v12);
-    }
-  }
-
-  *a1 = *(a2 + 48);
-  v17 = 20;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v17);
-  *(a1 + 24) = AppendString_13794((a1 + 24), v8, &v17);
-  v10 = (v17 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 32) = *(v8 + v10);
-  if (a4 && *(v8 + v10 + 8) != 116)
-  {
-    v12 = *a4;
-    v13 = 501;
-    v14 = xmmword_24DA8E000;
-    v15 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v16 = 0;
-    GTError_addError(a4, &v12);
-  }
-
-  v11 = (v10 + 13) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v11);
-  if (a4)
-  {
-    if (v11 + 8 > a3)
-    {
-      v12 = *a4;
-      v13 = 501;
-      v14 = xmmword_24DA8E000;
-      v15 = "offset <= length";
-      v16 = 0;
-      GTError_addError(a4, &v12);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newHeapWithDescriptor(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4 && *v8 ^ 0x5543 | *(a2 + 38))
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8E010;
-    v14 = "memcmp((const char*)bytes + offset, (CU), sizeof(CU)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  *a1 = *(a2 + 40);
-  v16 = 12;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
-  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  if (a4 && *(v8 + v9) != 116)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8E010;
-    v14 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  v10 = (v9 + 5) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v10);
-  if (a4)
-  {
-    if (v10 + 8 > a3)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8E010;
-      v14 = "offset <= length";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newIOCommandQueueWithDescriptor_error(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4 && *v8 != 7624003)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8E020;
-    v14 = "memcmp((const char*)bytes + offset, (CUt), sizeof(CUt)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  *a1 = *(a2 + 40);
-  v16 = 12;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
-  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 24) = *(v8 + v9);
-  if (a4 && *(v8 + v9 + 8) != 116)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8E020;
-    v14 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  v10 = (v9 + 13) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v10);
-  if (a4)
-  {
-    if (v10 + 8 > a3)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8E020;
-      v14 = "offset <= length";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newIOFileHandleWithURL_compressionMethod_error(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4 && *v8 ^ 0x746C753E623C5543 | *(a2 + 44))
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8E030;
-    v14 = "memcmp((const char*)bytes + offset, (CU<b>ult), sizeof(CU<b>ult)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  *a1 = *(a2 + 48);
-  v16 = 20;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
-  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 24) = *(v8 + v9);
-  *(a1 + 32) = *(v8 + v9 + 8);
-  if (a4 && *(v8 + v9 + 16) != 116)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8E030;
-    v14 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  v10 = (v9 + 21) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v10);
-  if (a4)
-  {
-    if (v10 + 8 > a3)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8E030;
-      v14 = "offset <= length";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newIOFileHandleWithURL_error(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4)
-  {
-    if (*v8 != 1648121155 || *(a2 + 39) != 7618146)
-    {
-      v12 = *a4;
-      v13 = 501;
-      v14 = xmmword_24DA8E040;
-      v15 = "memcmp((const char*)bytes + offset, (CU<b>t), sizeof(CU<b>t)) == 0";
-      v16 = 0;
-      GTError_addError(a4, &v12);
-    }
-  }
-
-  *a1 = *(a2 + 44);
-  v17 = 16;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v17);
-  v10 = (v17 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 24) = *(v8 + v10);
-  if (a4 && *(v8 + v10 + 8) != 116)
-  {
-    v12 = *a4;
-    v13 = 501;
-    v14 = xmmword_24DA8E040;
-    v15 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v16 = 0;
-    GTError_addError(a4, &v12);
-  }
-
-  v11 = (v10 + 13) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v11);
-  if (a4)
-  {
-    if (v11 + 8 > a3)
-    {
-      v12 = *a4;
-      v13 = 501;
-      v14 = xmmword_24DA8E040;
-      v15 = "offset <= length";
-      v16 = 0;
-      GTError_addError(a4, &v12);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newIOHandleWithURL_compressionMethod_error(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4 && *v8 ^ 0x746C753E623C5543 | *(a2 + 44))
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8E050;
-    v14 = "memcmp((const char*)bytes + offset, (CU<b>ult), sizeof(CU<b>ult)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  *a1 = *(a2 + 48);
-  v16 = 20;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
-  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 24) = *(v8 + v9);
-  *(a1 + 32) = *(v8 + v9 + 8);
-  if (a4 && *(v8 + v9 + 16) != 116)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8E050;
-    v14 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  v10 = (v9 + 21) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v10);
-  if (a4)
-  {
-    if (v10 + 8 > a3)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8E050;
-      v14 = "offset <= length";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newIOHandleWithURL_error(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4)
-  {
-    if (*v8 != 1648121155 || *(a2 + 39) != 7618146)
-    {
-      v12 = *a4;
-      v13 = 501;
-      v14 = xmmword_24DA8E060;
-      v15 = "memcmp((const char*)bytes + offset, (CU<b>t), sizeof(CU<b>t)) == 0";
-      v16 = 0;
-      GTError_addError(a4, &v12);
-    }
-  }
-
-  *a1 = *(a2 + 44);
-  v17 = 16;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v17);
-  v10 = (v17 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 24) = *(v8 + v10);
-  if (a4 && *(v8 + v10 + 8) != 116)
-  {
-    v12 = *a4;
-    v13 = 501;
-    v14 = xmmword_24DA8E060;
-    v15 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v16 = 0;
-    GTError_addError(a4, &v12);
-  }
-
-  v11 = (v10 + 13) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v11);
-  if (a4)
-  {
-    if (v11 + 8 > a3)
-    {
-      v12 = *a4;
-      v13 = 501;
-      v14 = xmmword_24DA8E060;
-      v15 = "offset <= length";
-      v16 = 0;
-      GTError_addError(a4, &v12);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newIndirectCommandBufferWithDescriptor_maxCount_options(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4)
-  {
-    if (*v8 != 1819628867 || *(a2 + 39) != 7107948)
-    {
-      v12 = *a4;
-      v13 = 501;
-      v14 = xmmword_24DA8E070;
-      v15 = "memcmp((const char*)bytes + offset, (CUulul), sizeof(CUulul)) == 0";
-      v16 = 0;
-      GTError_addError(a4, &v12);
-    }
-  }
-
-  *a1 = *(a2 + 44);
-  v17 = 16;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v17);
-  v10 = (v17 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 24) = *(v8 + v10);
-  *(a1 + 32) = *(v8 + v10 + 8);
-  if (a4 && *(v8 + v10 + 16) != 116)
-  {
-    v12 = *a4;
-    v13 = 501;
-    v14 = xmmword_24DA8E070;
-    v15 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v16 = 0;
-    GTError_addError(a4, &v12);
-  }
-
-  v11 = (v10 + 21) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v11);
-  if (a4)
-  {
-    if (v11 + 8 > a3)
-    {
-      v12 = *a4;
-      v13 = 501;
-      v14 = xmmword_24DA8E070;
-      v15 = "offset <= length";
-      v16 = 0;
-      GTError_addError(a4, &v12);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newIntersectionFunctionTableWithDescriptor(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4 && *v8 ^ 0x5543 | *(a2 + 38))
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8E080;
-    v14 = "memcmp((const char*)bytes + offset, (CU), sizeof(CU)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  *a1 = *(a2 + 40);
-  v16 = 12;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
-  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  if (a4 && *(v8 + v9) != 116)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8E080;
-    v14 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  v10 = (v9 + 5) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v10);
-  if (a4)
-  {
-    if (v10 + 8 > a3)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8E080;
-      v14 = "offset <= length";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newLateEvalEvent(void *a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  if (a4)
-  {
-    if (*(a2 + 36) != 67)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8E090;
-      v11 = "memcmp((const char*)bytes + offset, (C), sizeof(C)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    *a1 = *(a2 + 40);
-    if (*(a2 + 48) != 116)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8E090;
-      v11 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    a1[1] = *(a2 + 52);
-    if (a3 <= 0x17)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8E090;
-      v11 = "offset <= length";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-  }
-
-  else
-  {
-    *a1 = *(a2 + 40);
-    a1[1] = *(a2 + 52);
-  }
-}
-
-void DYTraceDecode_MTLDevice_newLibraryWithCIFilters_imageFilterFunctionInfo_error(uint64_t a1, void *a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4)
-  {
-    if (*v8 != 0x623C553E623C5543 || *(a2 + 39) != 0x743E623C553E62)
-    {
-      v12 = *a4;
-      v13 = 501;
-      v14 = xmmword_24DA8E0A0;
-      v15 = "memcmp((const char*)bytes + offset, (CU<b>U<b>t), sizeof(CU<b>U<b>t)) == 0";
-      v16 = 0;
-      GTError_addError(a4, &v12);
-    }
-  }
-
-  *a1 = a2[6];
-  v17 = 20;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v17);
-  *(a1 + 24) = AppendString_13794((a1 + 24), v8, &v17);
-  v10 = (v17 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 32) = *(v8 + v10);
-  if (a4 && *(v8 + v10 + 8) != 116)
-  {
-    v12 = *a4;
-    v13 = 501;
-    v14 = xmmword_24DA8E0A0;
-    v15 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v16 = 0;
-    GTError_addError(a4, &v12);
-  }
-
-  v11 = (v10 + 13) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v11);
-  if (a4)
-  {
-    if (v11 + 8 > a3)
-    {
-      v12 = *a4;
-      v13 = 501;
-      v14 = xmmword_24DA8E0A0;
-      v15 = "offset <= length";
-      v16 = 0;
-      GTError_addError(a4, &v12);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newLibraryWithCIFiltersForComputePipeline_imageFilterFunctionInfo_error(uint64_t a1, void *a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4)
-  {
-    if (*v8 != 0x623C553E623C5543 || *(a2 + 39) != 0x743E623C553E62)
-    {
-      v12 = *a4;
-      v13 = 501;
-      v14 = xmmword_24DA8E0B0;
-      v15 = "memcmp((const char*)bytes + offset, (CU<b>U<b>t), sizeof(CU<b>U<b>t)) == 0";
-      v16 = 0;
-      GTError_addError(a4, &v12);
-    }
-  }
-
-  *a1 = a2[6];
-  v17 = 20;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v17);
-  *(a1 + 24) = AppendString_13794((a1 + 24), v8, &v17);
-  v10 = (v17 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 32) = *(v8 + v10);
-  if (a4 && *(v8 + v10 + 8) != 116)
-  {
-    v12 = *a4;
-    v13 = 501;
-    v14 = xmmword_24DA8E0B0;
-    v15 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v16 = 0;
-    GTError_addError(a4, &v12);
-  }
-
-  v11 = (v10 + 13) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v11);
-  if (a4)
-  {
-    if (v11 + 8 > a3)
-    {
-      v12 = *a4;
-      v13 = 501;
-      v14 = xmmword_24DA8E0B0;
-      v15 = "offset <= length";
-      v16 = 0;
-      GTError_addError(a4, &v12);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newLibraryWithDAG_functions_error(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4 && *v8 ^ 0x74555343 | *(a2 + 40))
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8E0C0;
-    v14 = "memcmp((const char*)bytes + offset, (CSUt), sizeof(CSUt)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  *a1 = *(a2 + 44);
-  v16 = 16;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
-  *(a1 + 24) = AppendString_13794((a1 + 24), v8, &v16);
-  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 32) = *(v8 + v9);
-  if (a4 && *(v8 + v9 + 8) != 116)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8E0C0;
-    v14 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  v10 = (v9 + 13) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v10);
-  if (a4)
-  {
-    if (v10 + 8 > a3)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8E0C0;
-      v14 = "offset <= length";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newLibraryWithData_error(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4)
-  {
-    if (*v8 != 1648121155 || *(a2 + 39) != 7618146)
-    {
-      v12 = *a4;
-      v13 = 501;
-      v14 = xmmword_24DA8E0D0;
-      v15 = "memcmp((const char*)bytes + offset, (CU<b>t), sizeof(CU<b>t)) == 0";
-      v16 = 0;
-      GTError_addError(a4, &v12);
-    }
-  }
-
-  *a1 = *(a2 + 44);
-  v17 = 16;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v17);
-  v10 = (v17 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 24) = *(v8 + v10);
-  if (a4 && *(v8 + v10 + 8) != 116)
-  {
-    v12 = *a4;
-    v13 = 501;
-    v14 = xmmword_24DA8E0D0;
-    v15 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v16 = 0;
-    GTError_addError(a4, &v12);
-  }
-
-  v11 = (v10 + 13) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v11);
-  if (a4)
-  {
-    if (v11 + 8 > a3)
-    {
-      v12 = *a4;
-      v13 = 501;
-      v14 = xmmword_24DA8E0D0;
-      v15 = "offset <= length";
-      v16 = 0;
-      GTError_addError(a4, &v12);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newLibraryWithDescriptor_completionHandler(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4 && *v8 != 7624003)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8E0E0;
-    v14 = "memcmp((const char*)bytes + offset, (CUt), sizeof(CUt)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  *a1 = *(a2 + 40);
-  v16 = 12;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
-  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 24) = *(v8 + v9);
-  if (a4 && *(v8 + v9 + 8) != 116)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8E0E0;
-    v14 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  v10 = (v9 + 13) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v10);
-  if (a4)
-  {
-    if (v10 + 8 > a3)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8E0E0;
-      v14 = "offset <= length";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newLibraryWithDescriptor_error(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4 && *v8 != 7624003)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8E0F0;
-    v14 = "memcmp((const char*)bytes + offset, (CUt), sizeof(CUt)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  *a1 = *(a2 + 40);
-  v16 = 12;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
-  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 24) = *(v8 + v9);
-  if (a4 && *(v8 + v9 + 8) != 116)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8E0F0;
-    v14 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  v10 = (v9 + 13) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v10);
-  if (a4)
-  {
-    if (v10 + 8 > a3)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8E0F0;
-      v14 = "offset <= length";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newLibraryWithDescriptorSPI_error(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4 && *v8 != 7624003)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8E100;
-    v14 = "memcmp((const char*)bytes + offset, (CUt), sizeof(CUt)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  *a1 = *(a2 + 40);
-  v16 = 12;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
-  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 24) = *(v8 + v9);
-  if (a4 && *(v8 + v9 + 8) != 116)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8E100;
-    v14 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  v10 = (v9 + 13) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v10);
-  if (a4)
-  {
-    if (v10 + 8 > a3)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8E100;
-      v14 = "offset <= length";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newLibraryWithStitchedDescriptor_completionHandler(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4 && *v8 != 7624003)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8E110;
-    v14 = "memcmp((const char*)bytes + offset, (CUt), sizeof(CUt)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  *a1 = *(a2 + 40);
-  v16 = 12;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
-  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 24) = *(v8 + v9);
-  if (a4 && *(v8 + v9 + 8) != 116)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8E110;
-    v14 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  v10 = (v9 + 13) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v10);
-  if (a4)
-  {
-    if (v10 + 8 > a3)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8E110;
-      v14 = "offset <= length";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newLibraryWithStitchedDescriptor_error(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4 && *v8 != 7624003)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8E120;
-    v14 = "memcmp((const char*)bytes + offset, (CUt), sizeof(CUt)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  *a1 = *(a2 + 40);
-  v16 = 12;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
-  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 24) = *(v8 + v9);
-  if (a4 && *(v8 + v9 + 8) != 116)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8E120;
-    v14 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  v10 = (v9 + 13) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v10);
-  if (a4)
-  {
-    if (v10 + 8 > a3)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8E120;
-      v14 = "offset <= length";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newLibraryWithStitchedDescriptorSPI_error(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4 && *v8 != 7624003)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8E130;
-    v14 = "memcmp((const char*)bytes + offset, (CUt), sizeof(CUt)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  *a1 = *(a2 + 40);
-  v16 = 12;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
-  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 24) = *(v8 + v9);
-  if (a4 && *(v8 + v9 + 8) != 116)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8E130;
-    v14 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  v10 = (v9 + 13) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v10);
-  if (a4)
-  {
-    if (v10 + 8 > a3)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8E130;
-      v14 = "offset <= length";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newLibraryWithURL_error(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4)
-  {
-    if (*v8 != 1648121155 || *(a2 + 39) != 7618146)
-    {
-      v12 = *a4;
-      v13 = 501;
-      v14 = xmmword_24DA8E140;
-      v15 = "memcmp((const char*)bytes + offset, (CU<b>t), sizeof(CU<b>t)) == 0";
-      v16 = 0;
-      GTError_addError(a4, &v12);
-    }
-  }
-
-  *a1 = *(a2 + 44);
-  v17 = 16;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v17);
-  v10 = (v17 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 24) = *(v8 + v10);
-  if (a4 && *(v8 + v10 + 8) != 116)
-  {
-    v12 = *a4;
-    v13 = 501;
-    v14 = xmmword_24DA8E140;
-    v15 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v16 = 0;
-    GTError_addError(a4, &v12);
-  }
-
-  v11 = (v10 + 13) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v11);
-  if (a4)
-  {
-    if (v11 + 8 > a3)
-    {
-      v12 = *a4;
-      v13 = 501;
-      v14 = xmmword_24DA8E140;
-      v15 = "offset <= length";
-      v16 = 0;
-      GTError_addError(a4, &v12);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newMTL4CommandQueue(void *a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  if (a4)
-  {
-    if (*(a2 + 36) != 67)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8E150;
-      v11 = "memcmp((const char*)bytes + offset, (C), sizeof(C)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    *a1 = *(a2 + 40);
-    if (*(a2 + 48) != 116)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8E150;
-      v11 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    a1[1] = *(a2 + 52);
-    if (a3 <= 0x17)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8E150;
-      v11 = "offset <= length";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-  }
-
-  else
-  {
-    *a1 = *(a2 + 40);
-    a1[1] = *(a2 + 52);
-  }
-}
-
-void DYTraceDecode_MTLDevice_newMTL4CommandQueueWithDescriptor_error(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4 && *v8 != 7624003)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8E160;
-    v14 = "memcmp((const char*)bytes + offset, (CUt), sizeof(CUt)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  *a1 = *(a2 + 40);
-  v16 = 12;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
-  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 24) = *(v8 + v9);
-  if (a4 && *(v8 + v9 + 8) != 116)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8E160;
-    v14 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  v10 = (v9 + 13) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v10);
-  if (a4)
-  {
-    if (v10 + 8 > a3)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8E160;
-      v14 = "offset <= length";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newMotionEstimationPipelineWithDescriptor(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4 && *v8 ^ 0x5543 | *(a2 + 38))
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8E170;
-    v14 = "memcmp((const char*)bytes + offset, (CU), sizeof(CU)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  *a1 = *(a2 + 40);
-  v16 = 12;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
-  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  if (a4 && *(v8 + v9) != 116)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8E170;
-    v14 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  v10 = (v9 + 5) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v10);
-  if (a4)
-  {
-    if (v10 + 8 > a3)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8E170;
-      v14 = "offset <= length";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newProfileWithExecutionSize(void *a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  if (a4)
-  {
-    if (*(a2 + 36) != 7107907)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8E180;
-      v11 = "memcmp((const char*)bytes + offset, (Cul), sizeof(Cul)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    *a1 = *(a2 + 40);
-    a1[2] = *(a2 + 48);
-    if (*(a2 + 56) != 116)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8E180;
-      v11 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    a1[1] = *(a2 + 60);
-    if (a3 <= 0x1F)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8E180;
-      v11 = "offset <= length";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-  }
-
-  else
-  {
-    *a1 = *(a2 + 40);
-    a1[2] = *(a2 + 48);
-    a1[1] = *(a2 + 60);
-  }
-}
-
-void DYTraceDecode_MTLDevice_newRasterizationRateMapWithDescriptor(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4 && *v8 ^ 0x5543 | *(a2 + 38))
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8E190;
-    v14 = "memcmp((const char*)bytes + offset, (CU), sizeof(CU)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  *a1 = *(a2 + 40);
-  v16 = 12;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
-  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  if (a4 && *(v8 + v9) != 116)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8E190;
-    v14 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  v10 = (v9 + 5) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v10);
-  if (a4)
-  {
-    if (v10 + 8 > a3)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8E190;
-      v14 = "offset <= length";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newRenderPipelineStateWithDescriptor_completionHandler(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4 && *v8 != 7624003)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8E1A0;
-    v14 = "memcmp((const char*)bytes + offset, (CUt), sizeof(CUt)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  *a1 = *(a2 + 40);
-  v16 = 12;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
-  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 24) = *(v8 + v9);
-  if (a4 && *(v8 + v9 + 8) != 116)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8E1A0;
-    v14 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  v10 = (v9 + 13) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v10);
-  if (a4)
-  {
-    if (v10 + 8 > a3)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8E1A0;
-      v14 = "offset <= length";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newRenderPipelineStateWithDescriptor_error(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4 && *v8 != 7624003)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8E1B0;
-    v14 = "memcmp((const char*)bytes + offset, (CUt), sizeof(CUt)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  *a1 = *(a2 + 40);
-  v16 = 12;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
-  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 24) = *(v8 + v9);
-  if (a4 && *(v8 + v9 + 8) != 116)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8E1B0;
-    v14 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  v10 = (v9 + 13) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v10);
-  if (a4)
-  {
-    if (v10 + 8 > a3)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8E1B0;
-      v14 = "offset <= length";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newRenderPipelineStateWithDescriptor_options_completionHandler(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4)
-  {
-    if (*v8 != 1819628867 || *(a2 + 40) != 116)
-    {
-      v12 = *a4;
-      v13 = 501;
-      v14 = xmmword_24DA8E1C0;
-      v15 = "memcmp((const char*)bytes + offset, (CUult), sizeof(CUult)) == 0";
-      v16 = 0;
-      GTError_addError(a4, &v12);
-    }
-  }
-
-  *a1 = *(a2 + 44);
-  v17 = 16;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v17);
-  v10 = (v17 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 24) = *(v8 + v10);
-  *(a1 + 32) = *(v8 + v10 + 8);
-  if (a4 && *(v8 + v10 + 16) != 116)
-  {
-    v12 = *a4;
-    v13 = 501;
-    v14 = xmmword_24DA8E1C0;
-    v15 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v16 = 0;
-    GTError_addError(a4, &v12);
-  }
-
-  v11 = (v10 + 21) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v11);
-  if (a4)
-  {
-    if (v11 + 8 > a3)
-    {
-      v12 = *a4;
-      v13 = 501;
-      v14 = xmmword_24DA8E1C0;
-      v15 = "offset <= length";
-      v16 = 0;
-      GTError_addError(a4, &v12);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newRenderPipelineStateWithMeshDescriptor_completionHandler(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4 && *v8 != 7624003)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8E1D0;
-    v14 = "memcmp((const char*)bytes + offset, (CUt), sizeof(CUt)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  *a1 = *(a2 + 40);
-  v16 = 12;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
-  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 24) = *(v8 + v9);
-  if (a4 && *(v8 + v9 + 8) != 116)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8E1D0;
-    v14 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  v10 = (v9 + 13) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v10);
-  if (a4)
-  {
-    if (v10 + 8 > a3)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8E1D0;
-      v14 = "offset <= length";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newRenderPipelineStateWithMeshDescriptor_error(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4 && *v8 != 7624003)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8E1E0;
-    v14 = "memcmp((const char*)bytes + offset, (CUt), sizeof(CUt)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  *a1 = *(a2 + 40);
-  v16 = 12;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
-  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 24) = *(v8 + v9);
-  if (a4 && *(v8 + v9 + 8) != 116)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8E1E0;
-    v14 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  v10 = (v9 + 13) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v10);
-  if (a4)
-  {
-    if (v10 + 8 > a3)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8E1E0;
-      v14 = "offset <= length";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newRenderPipelineStateWithMeshDescriptor_options_completionHandler(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4)
-  {
-    if (*v8 != 1819628867 || *(a2 + 40) != 116)
-    {
-      v12 = *a4;
-      v13 = 501;
-      v14 = xmmword_24DA8E1F0;
-      v15 = "memcmp((const char*)bytes + offset, (CUult), sizeof(CUult)) == 0";
-      v16 = 0;
-      GTError_addError(a4, &v12);
-    }
-  }
-
-  *a1 = *(a2 + 44);
-  v17 = 16;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v17);
-  v10 = (v17 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 24) = *(v8 + v10);
-  *(a1 + 32) = *(v8 + v10 + 8);
-  if (a4 && *(v8 + v10 + 16) != 116)
-  {
-    v12 = *a4;
-    v13 = 501;
-    v14 = xmmword_24DA8E1F0;
-    v15 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v16 = 0;
-    GTError_addError(a4, &v12);
-  }
-
-  v11 = (v10 + 21) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v11);
-  if (a4)
-  {
-    if (v11 + 8 > a3)
-    {
-      v12 = *a4;
-      v13 = 501;
-      v14 = xmmword_24DA8E1F0;
-      v15 = "offset <= length";
-      v16 = 0;
-      GTError_addError(a4, &v12);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newRenderPipelineStateWithMeshDescriptor_options_reflection_error(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4)
-  {
-    if (*v8 != 0x3E623C556C755543 || *(a2 + 44) != 116)
-    {
-      v13 = *a4;
-      v14 = 501;
-      v15 = xmmword_24DA8E200;
-      v16 = "memcmp((const char*)bytes + offset, (CUulU<b>t), sizeof(CUulU<b>t)) == 0";
-      v17 = 0;
-      GTError_addError(a4, &v13);
-    }
-  }
-
-  *a1 = *(a2 + 48);
-  v18 = 20;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v18);
-  v10 = (v18 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 24) = *(v8 + v10);
-  v18 = v10 + 8;
-  *(a1 + 32) = AppendString_13794((a1 + 32), v8, &v18);
-  v11 = (v18 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 40) = *(v8 + v11);
-  if (a4 && *(v8 + v11 + 8) != 116)
-  {
-    v13 = *a4;
-    v14 = 501;
-    v15 = xmmword_24DA8E200;
-    v16 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v17 = 0;
-    GTError_addError(a4, &v13);
-  }
-
-  v12 = (v11 + 13) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v12);
-  if (a4)
-  {
-    if (v12 + 8 > a3)
-    {
-      v13 = *a4;
-      v14 = 501;
-      v15 = xmmword_24DA8E200;
-      v16 = "offset <= length";
-      v17 = 0;
-      GTError_addError(a4, &v13);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newRenderPipelineStateWithTileDescriptor_completionHandler(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4 && *v8 != 7624003)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8E210;
-    v14 = "memcmp((const char*)bytes + offset, (CUt), sizeof(CUt)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  *a1 = *(a2 + 40);
-  v16 = 12;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
-  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 24) = *(v8 + v9);
-  if (a4 && *(v8 + v9 + 8) != 116)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8E210;
-    v14 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  v10 = (v9 + 13) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v10);
-  if (a4)
-  {
-    if (v10 + 8 > a3)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8E210;
-      v14 = "offset <= length";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newRenderPipelineStateWithTileDescriptor_error(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4 && *v8 != 7624003)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8E220;
-    v14 = "memcmp((const char*)bytes + offset, (CUt), sizeof(CUt)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  *a1 = *(a2 + 40);
-  v16 = 12;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
-  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 24) = *(v8 + v9);
-  if (a4 && *(v8 + v9 + 8) != 116)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8E220;
-    v14 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  v10 = (v9 + 13) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v10);
-  if (a4)
-  {
-    if (v10 + 8 > a3)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8E220;
-      v14 = "offset <= length";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newRenderPipelineStateWithTileDescriptor_options_completionHandler(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4)
-  {
-    if (*v8 != 1819628867 || *(a2 + 40) != 116)
-    {
-      v12 = *a4;
-      v13 = 501;
-      v14 = xmmword_24DA8E230;
-      v15 = "memcmp((const char*)bytes + offset, (CUult), sizeof(CUult)) == 0";
-      v16 = 0;
-      GTError_addError(a4, &v12);
-    }
-  }
-
-  *a1 = *(a2 + 44);
-  v17 = 16;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v17);
-  v10 = (v17 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 24) = *(v8 + v10);
-  *(a1 + 32) = *(v8 + v10 + 8);
-  if (a4 && *(v8 + v10 + 16) != 116)
-  {
-    v12 = *a4;
-    v13 = 501;
-    v14 = xmmword_24DA8E230;
-    v15 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v16 = 0;
-    GTError_addError(a4, &v12);
-  }
-
-  v11 = (v10 + 21) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v11);
-  if (a4)
-  {
-    if (v11 + 8 > a3)
-    {
-      v12 = *a4;
-      v13 = 501;
-      v14 = xmmword_24DA8E230;
-      v15 = "offset <= length";
-      v16 = 0;
-      GTError_addError(a4, &v12);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newResidencySetWithDescriptor_error(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4 && *v8 != 7624003)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8E240;
-    v14 = "memcmp((const char*)bytes + offset, (CUt), sizeof(CUt)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  *a1 = *(a2 + 40);
-  v16 = 12;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
-  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 24) = *(v8 + v9);
-  if (a4 && *(v8 + v9 + 8) != 116)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8E240;
-    v14 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  v10 = (v9 + 13) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v10);
-  if (a4)
-  {
-    if (v10 + 8 > a3)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8E240;
-      v14 = "offset <= length";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newResourceGroupFromResources_count(void *a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v7 = (a2 + 36);
-  v17 = 0;
-  sscanf((a2 + 36), "C@%zutul", &v17);
-  v8 = strlen(v7);
-  *a1 = *&v7[(v8 & 0xFFFFFFFFFFFFFFFCLL) + 4];
-  v9 = (v8 & 0xFFFFFFFFFFFFFFFCLL) + 12;
-  a1[2] = &v7[v9];
-  v10 = v9 + 8 * v17;
-  a1[3] = *&v7[v10];
-  if (a4 && *&v7[v10 + 8] != 116)
-  {
-    v12 = *a4;
-    v13 = 501;
-    v14 = xmmword_24DA8E250;
-    v15 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v16 = 0;
-    GTError_addError(a4, &v12);
-  }
-
-  v11 = (v10 + 13) & 0xFFFFFFFFFFFFFFFCLL;
-  a1[1] = *&v7[v11];
-  if (a4)
-  {
-    if (v11 + 8 > a3)
-    {
-      v12 = *a4;
-      v13 = 501;
-      v14 = xmmword_24DA8E250;
-      v15 = "offset <= length";
-      v16 = 0;
-      GTError_addError(a4, &v12);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newSamplerStateWithDescriptor(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4 && *v8 ^ 0x5543 | *(a2 + 38))
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8E260;
-    v14 = "memcmp((const char*)bytes + offset, (CU), sizeof(CU)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  *a1 = *(a2 + 40);
-  v16 = 12;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
-  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  if (a4 && *(v8 + v9) != 116)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8E260;
-    v14 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  v10 = (v9 + 5) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v10);
-  if (a4)
-  {
-    if (v10 + 8 > a3)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8E260;
-      v14 = "offset <= length";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newTensorWithDescriptor_error(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4 && *v8 != 7624003)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8E270;
-    v14 = "memcmp((const char*)bytes + offset, (CUt), sizeof(CUt)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  *a1 = *(a2 + 40);
-  v16 = 12;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
-  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 24) = *(v8 + v9);
-  if (a4 && *(v8 + v9 + 8) != 116)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8E270;
-    v14 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  v10 = (v9 + 13) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v10);
-  if (a4)
-  {
-    if (v10 + 8 > a3)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8E270;
-      v14 = "offset <= length";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newTextureLayoutWithDescriptor_isHeapOrBufferBacked(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4 && *v8 ^ 0x69755543 | *(a2 + 40))
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8E280;
-    v14 = "memcmp((const char*)bytes + offset, (CUui), sizeof(CUui)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  *a1 = *(a2 + 44);
-  v16 = 16;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
-  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 24) = *(v8 + v9);
-  if (a4 && *(v8 + v9 + 4) != 116)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8E280;
-    v14 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  v10 = (v9 + 9) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v10);
-  if (a4)
-  {
-    if (v10 + 8 > a3)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8E280;
-      v14 = "offset <= length";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newTextureViewPoolWithDescriptor_error(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4 && *v8 != 7624003)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8E290;
-    v14 = "memcmp((const char*)bytes + offset, (CUt), sizeof(CUt)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  *a1 = *(a2 + 40);
-  v16 = 12;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
-  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 24) = *(v8 + v9);
-  if (a4 && *(v8 + v9 + 8) != 116)
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8E290;
-    v14 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  v10 = (v9 + 13) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v10);
-  if (a4)
-  {
-    if (v10 + 8 > a3)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8E290;
-      v14 = "offset <= length";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newTextureWithBytesNoCopy_length_descriptor_deallocator(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4)
-  {
-    if (*v8 != 0x556C753E623C5543 || *(a2 + 44) != 116)
-    {
-      v13 = *a4;
-      v14 = 501;
-      v15 = xmmword_24DA8E2A0;
-      v16 = "memcmp((const char*)bytes + offset, (CU<b>ulUt), sizeof(CU<b>ulUt)) == 0";
-      v17 = 0;
-      GTError_addError(a4, &v13);
-    }
-  }
-
-  *a1 = *(a2 + 48);
-  v18 = 20;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v18);
-  v10 = (v18 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 24) = *(v8 + v10);
-  v18 = v10 + 8;
-  *(a1 + 32) = AppendString_13794((a1 + 32), v8, &v18);
-  v11 = (v18 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 40) = *(v8 + v11);
-  if (a4 && *(v8 + v11 + 8) != 116)
-  {
-    v13 = *a4;
-    v14 = 501;
-    v15 = xmmword_24DA8E2A0;
-    v16 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v17 = 0;
-    GTError_addError(a4, &v13);
-  }
-
-  v12 = (v11 + 13) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v12);
-  if (a4)
-  {
-    if (v12 + 8 > a3)
-    {
-      v13 = *a4;
-      v14 = 501;
-      v15 = xmmword_24DA8E2A0;
-      v16 = "offset <= length";
-      v17 = 0;
-      GTError_addError(a4, &v13);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newTextureWithDescriptor_iosurface_plane(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4)
-  {
-    if (*v8 != 1968526659 || *(a2 + 40) != 108)
-    {
-      v12 = *a4;
-      v13 = 501;
-      v14 = xmmword_24DA8E2B0;
-      v15 = "memcmp((const char*)bytes + offset, (CUUul), sizeof(CUUul)) == 0";
-      v16 = 0;
-      GTError_addError(a4, &v12);
-    }
-  }
-
-  *a1 = *(a2 + 44);
-  v17 = 16;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v17);
-  *(a1 + 24) = AppendString_13794((a1 + 24), v8, &v17);
-  v10 = (v17 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 32) = *(v8 + v10);
-  if (a4 && *(v8 + v10 + 8) != 116)
-  {
-    v12 = *a4;
-    v13 = 501;
-    v14 = xmmword_24DA8E2B0;
-    v15 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v16 = 0;
-    GTError_addError(a4, &v12);
-  }
-
-  v11 = (v10 + 13) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v11);
-  if (a4)
-  {
-    if (v11 + 8 > a3)
-    {
-      v12 = *a4;
-      v13 = 501;
-      v14 = xmmword_24DA8E2B0;
-      v15 = "offset <= length";
-      v16 = 0;
-      GTError_addError(a4, &v12);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newTiledTextureWithBytesNoCopy_length_deallocator_descriptor_offset_bytesPerRow(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4)
-  {
-    if (*v8 != 0x746C753E623C5543 || *(a2 + 42) != 0x6C756C7555746CLL)
-    {
-      v13 = *a4;
-      v14 = 501;
-      v15 = xmmword_24DA8E2C0;
-      v16 = "memcmp((const char*)bytes + offset, (CU<b>ultUulul), sizeof(CU<b>ultUulul)) == 0";
-      v17 = 0;
-      GTError_addError(a4, &v13);
-    }
-  }
-
-  *a1 = *(a2 + 52);
-  v18 = 24;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v18);
-  v10 = (v18 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 24) = *(v8 + v10);
-  *(a1 + 32) = *(v8 + v10 + 8);
-  v18 = v10 + 16;
-  *(a1 + 40) = AppendString_13794((a1 + 40), v8, &v18);
-  v11 = (v18 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 48) = *(v8 + v11);
-  *(a1 + 56) = *(v8 + v11 + 8);
-  if (a4 && *(v8 + v11 + 16) != 116)
-  {
-    v13 = *a4;
-    v14 = 501;
-    v15 = xmmword_24DA8E2C0;
-    v16 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v17 = 0;
-    GTError_addError(a4, &v13);
-  }
-
-  v12 = (v11 + 21) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v12);
-  if (a4)
-  {
-    if (v12 + 8 > a3)
-    {
-      v13 = *a4;
-      v14 = 501;
-      v15 = xmmword_24DA8E2C0;
-      v16 = "offset <= length";
-      v17 = 0;
-      GTError_addError(a4, &v13);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_newTiledTextureWithBytesNoCopy_length_descriptor_offset_bytesPerRow(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4)
-  {
-    if (*v8 != 0x556C753E623C5543 || *(a2 + 41) != 0x6C756C75556C75)
-    {
-      v13 = *a4;
-      v14 = 501;
-      v15 = xmmword_24DA8E2D0;
-      v16 = "memcmp((const char*)bytes + offset, (CU<b>ulUulul), sizeof(CU<b>ulUulul)) == 0";
-      v17 = 0;
-      GTError_addError(a4, &v13);
-    }
-  }
-
-  *a1 = *(a2 + 52);
-  v18 = 24;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v18);
-  v10 = (v18 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 24) = *(v8 + v10);
-  v18 = v10 + 8;
-  *(a1 + 32) = AppendString_13794((a1 + 32), v8, &v18);
-  v11 = (v18 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 40) = *(v8 + v11);
-  *(a1 + 48) = *(v8 + v11 + 8);
-  if (a4 && *(v8 + v11 + 16) != 116)
-  {
-    v13 = *a4;
-    v14 = 501;
-    v15 = xmmword_24DA8E2D0;
-    v16 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
-    v17 = 0;
-    GTError_addError(a4, &v13);
-  }
-
-  v12 = (v11 + 21) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v12);
-  if (a4)
-  {
-    if (v12 + 8 > a3)
-    {
-      v13 = *a4;
-      v14 = 501;
-      v15 = xmmword_24DA8E2D0;
-      v16 = "offset <= length";
-      v17 = 0;
-      GTError_addError(a4, &v13);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_requiredLinearTextureBytesPerRowForDescriptor(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4 && *v8 ^ 0x5543 | *(a2 + 38))
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8E2E0;
-    v14 = "memcmp((const char*)bytes + offset, (CU), sizeof(CU)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  *a1 = *(a2 + 40);
-  v16 = 12;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
-  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  if (a4 && *(v8 + v9) ^ 0x6C75 | *(v8 + v9 + 2))
-  {
-    v11 = *a4;
-    v12 = 501;
-    v13 = xmmword_24DA8E2E0;
-    v14 = "memcmp((const char*)bytes + offset, (ul), sizeof(ul)) == 0";
-    v15 = 0;
-    GTError_addError(a4, &v11);
-  }
-
-  v10 = (v9 + 6) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 8) = *(v8 + v10);
-  if (a4)
-  {
-    if (v10 + 8 > a3)
-    {
-      v11 = *a4;
-      v12 = 501;
-      v13 = xmmword_24DA8E2E0;
-      v14 = "offset <= length";
-      v15 = 0;
-      GTError_addError(a4, &v11);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_serializeStructType_version(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  v8 = (a2 + 36);
-  if (a4 && *v8 != 0x69753E623C5543)
-  {
-    v10 = *a4;
-    v11 = 501;
-    v12 = xmmword_24DA8E2F0;
-    v13 = "memcmp((const char*)bytes + offset, (CU<b>ui), sizeof(CU<b>ui)) == 0";
-    v14 = 0;
-    GTError_addError(a4, &v10);
-  }
-
-  *a1 = *(a2 + 44);
-  v15 = 16;
-  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v15);
-  v9 = (v15 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  *(a1 + 24) = *(v8 + v9);
-  if (a4 && *(v8 + v9 + 4) ^ 0x3E623C55 | *(v8 + v9 + 8))
-  {
-    v10 = *a4;
-    v11 = 501;
-    v12 = xmmword_24DA8E2F0;
-    v13 = "memcmp((const char*)bytes + offset, (U<b>), sizeof(U<b>)) == 0";
-    v14 = 0;
-    GTError_addError(a4, &v10);
-  }
-
-  v15 = v9 + 12;
-  *(a1 + 8) = AppendString_13794((a1 + 8), v8, &v15);
-  if (a4)
-  {
-    if (((v15 + 3) & 0xFFFFFFFFFFFFFFFCLL) > a3)
-    {
-      v10 = *a4;
-      v11 = 501;
-      v12 = xmmword_24DA8E2F0;
-      v13 = "offset <= length";
-      v14 = 0;
-      GTError_addError(a4, &v10);
-    }
-  }
-}
-
-void DYTraceDecode_MTLDevice_sparseTileSizeInBytesForSparsePageSize(void *a1, uint64_t a2, unint64_t a3, int *a4)
-{
-  if (a4)
-  {
-    if (*(a2 + 36) != 7107907)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8E300;
-      v11 = "memcmp((const char*)bytes + offset, (Cul), sizeof(Cul)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    *a1 = *(a2 + 40);
-    a1[2] = *(a2 + 48);
-    if (*(a2 + 56) ^ 0x6C75 | *(a2 + 58))
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8E300;
-      v11 = "memcmp((const char*)bytes + offset, (ul), sizeof(ul)) == 0";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-
-    a1[1] = *(a2 + 60);
-    if (a3 <= 0x1F)
-    {
-      v8 = *a4;
-      v9 = 501;
-      v10 = xmmword_24DA8E300;
-      v11 = "offset <= length";
-      v12 = 0;
-      GTError_addError(a4, &v8);
-    }
-  }
-
-  else
-  {
-    *a1 = *(a2 + 40);
-    a1[2] = *(a2 + 48);
-    a1[1] = *(a2 + 60);
-  }
-}
-
 __n128 DYTraceDecode_MTLDevice_sparseTileSizeWithTextureType_pixelFormat_sampleCount(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
 {
   if (a4)
@@ -9507,6 +3800,5605 @@ void DYTraceDecode_MTLIndirectRenderCommand_drawPrimitives_vertexStart_vertexCou
       v12 = "offset <= length";
       v13 = 0;
       GTError_addError(a4, &v9);
+    }
+  }
+}
+
+void DYTraceDecode_MTLIndirectRenderCommand_reset(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 67)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8E980;
+      v11 = "memcmp((const char*)bytes + offset, (C), sizeof(C)) == 0";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+
+    *a1 = *(a2 + 40);
+    if (a3 <= 0xB)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8E980;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+
+  else
+  {
+    *a1 = *(a2 + 40);
+  }
+}
+
+void DYTraceDecode_MTLIndirectRenderCommand_setBlendColorRed_green_blue_alpha(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 1717986883 || *(a2 + 40) != 102)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8E990;
+      v12 = "memcmp((const char*)bytes + offset, (Cffff), sizeof(Cffff)) == 0";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+
+  *a1 = *(a2 + 44);
+  *(a1 + 8) = *(a2 + 52);
+  *(a1 + 12) = *(a2 + 56);
+  *(a1 + 16) = *(a2 + 60);
+  *(a1 + 20) = *(a2 + 64);
+  if (a4)
+  {
+    if (a3 <= 0x1F)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8E990;
+      v12 = "offset <= length";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+}
+
+void DYTraceDecode_MTLIndirectRenderCommand_setCullMode(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 7107907)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8E9A0;
+      v11 = "memcmp((const char*)bytes + offset, (Cul), sizeof(Cul)) == 0";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+
+    *a1 = *(a2 + 40);
+    a1[1] = *(a2 + 48);
+    if (a3 <= 0x13)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8E9A0;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+
+  else
+  {
+    *a1 = *(a2 + 40);
+    a1[1] = *(a2 + 48);
+  }
+}
+
+void DYTraceDecode_MTLIndirectRenderCommand_setDepthBias_slopeScale_clamp(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4 && *(a2 + 36) ^ 0x66666643 | *(a2 + 40))
+  {
+    v8 = *a4;
+    v9 = 501;
+    v10 = xmmword_24DA8E9B0;
+    v11 = "memcmp((const char*)bytes + offset, (Cfff), sizeof(Cfff)) == 0";
+    v12 = 0;
+    GTError_addError(a4, &v8);
+  }
+
+  *a1 = *(a2 + 44);
+  *(a1 + 8) = *(a2 + 52);
+  *(a1 + 12) = *(a2 + 56);
+  *(a1 + 16) = *(a2 + 60);
+  if (a4)
+  {
+    if (a3 <= 0x1B)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8E9B0;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+}
+
+void DYTraceDecode_MTLIndirectRenderCommand_setDepthClipMode(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 7107907)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8E9C0;
+      v11 = "memcmp((const char*)bytes + offset, (Cul), sizeof(Cul)) == 0";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+
+    *a1 = *(a2 + 40);
+    a1[1] = *(a2 + 48);
+    if (a3 <= 0x13)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8E9C0;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+
+  else
+  {
+    *a1 = *(a2 + 40);
+    a1[1] = *(a2 + 48);
+  }
+}
+
+void DYTraceDecode_MTLIndirectRenderCommand_setDepthStencilState(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) ^ 0x7443 | *(a2 + 38))
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8E9D0;
+      v11 = "memcmp((const char*)bytes + offset, (Ct), sizeof(Ct)) == 0";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+
+    *a1 = *(a2 + 40);
+    a1[1] = *(a2 + 48);
+    if (a3 <= 0x13)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8E9D0;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+
+  else
+  {
+    *a1 = *(a2 + 40);
+    a1[1] = *(a2 + 48);
+  }
+}
+
+void DYTraceDecode_MTLIndirectRenderCommand_setDepthTestMinBound_maxBound(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4 && *(a2 + 36) != 6710851)
+  {
+    v8 = *a4;
+    v9 = 501;
+    v10 = xmmword_24DA8E9E0;
+    v11 = "memcmp((const char*)bytes + offset, (Cff), sizeof(Cff)) == 0";
+    v12 = 0;
+    GTError_addError(a4, &v8);
+  }
+
+  *a1 = *(a2 + 40);
+  *(a1 + 8) = *(a2 + 48);
+  *(a1 + 12) = *(a2 + 52);
+  if (a4)
+  {
+    if (a3 <= 0x13)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8E9E0;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+}
+
+void DYTraceDecode_MTLIndirectRenderCommand_setFragmentBuffer_offset_atIndex(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 1819636803 || *(a2 + 39) != 7107948)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8E9F0;
+      v12 = "memcmp((const char*)bytes + offset, (Ctulul), sizeof(Ctulul)) == 0";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+
+  *a1 = *(a2 + 44);
+  a1[1] = *(a2 + 52);
+  a1[2] = *(a2 + 60);
+  a1[3] = *(a2 + 68);
+  if (a4)
+  {
+    if (a3 <= 0x27)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8E9F0;
+      v12 = "offset <= length";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+}
+
+void DYTraceDecode_MTLIndirectRenderCommand_setFrontFacingWinding(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 7107907)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EA00;
+      v11 = "memcmp((const char*)bytes + offset, (Cul), sizeof(Cul)) == 0";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+
+    *a1 = *(a2 + 40);
+    a1[1] = *(a2 + 48);
+    if (a3 <= 0x13)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EA00;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+
+  else
+  {
+    *a1 = *(a2 + 40);
+    a1[1] = *(a2 + 48);
+  }
+}
+
+void DYTraceDecode_MTLIndirectRenderCommand_setMeshBuffer_offset_atIndex(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 1819636803 || *(a2 + 39) != 7107948)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8EA10;
+      v12 = "memcmp((const char*)bytes + offset, (Ctulul), sizeof(Ctulul)) == 0";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+
+  *a1 = *(a2 + 44);
+  a1[1] = *(a2 + 52);
+  a1[2] = *(a2 + 60);
+  a1[3] = *(a2 + 68);
+  if (a4)
+  {
+    if (a3 <= 0x27)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8EA10;
+      v12 = "offset <= length";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+}
+
+void DYTraceDecode_MTLIndirectRenderCommand_setObjectBuffer_offset_atIndex(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 1819636803 || *(a2 + 39) != 7107948)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8EA20;
+      v12 = "memcmp((const char*)bytes + offset, (Ctulul), sizeof(Ctulul)) == 0";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+
+  *a1 = *(a2 + 44);
+  a1[1] = *(a2 + 52);
+  a1[2] = *(a2 + 60);
+  a1[3] = *(a2 + 68);
+  if (a4)
+  {
+    if (a3 <= 0x27)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8EA20;
+      v12 = "offset <= length";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+}
+
+void DYTraceDecode_MTLIndirectRenderCommand_setObjectThreadgroupMemoryLength_atIndex(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 1970042179 || *(a2 + 40) != 108)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8EA30;
+      v12 = "memcmp((const char*)bytes + offset, (Culul), sizeof(Culul)) == 0";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+
+  *a1 = *(a2 + 44);
+  a1[1] = *(a2 + 52);
+  a1[2] = *(a2 + 60);
+  if (a4)
+  {
+    if (a3 <= 0x1F)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8EA30;
+      v12 = "offset <= length";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+}
+
+void DYTraceDecode_MTLIndirectRenderCommand_setRenderPipelineState(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) ^ 0x7443 | *(a2 + 38))
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EA40;
+      v11 = "memcmp((const char*)bytes + offset, (Ct), sizeof(Ct)) == 0";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+
+    *a1 = *(a2 + 40);
+    a1[1] = *(a2 + 48);
+    if (a3 <= 0x13)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EA40;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+
+  else
+  {
+    *a1 = *(a2 + 40);
+    a1[1] = *(a2 + 48);
+  }
+}
+
+__n128 DYTraceDecode_MTLIndirectRenderCommand_setScissorRect(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 1966358595 || *(a2 + 40) != 108)
+    {
+      v10 = *a4;
+      v11 = 501;
+      v12 = xmmword_24DA8EA50;
+      v13 = "memcmp((const char*)bytes + offset, (C@4ul), sizeof(C@4ul)) == 0";
+      v14 = 0;
+      GTError_addError(a4, &v10);
+    }
+
+    *a1 = *(a2 + 44);
+    result = *(a2 + 52);
+    *(a1 + 24) = *(a2 + 68);
+    *(a1 + 8) = result;
+    if (a3 <= 0x2F)
+    {
+      v10 = *a4;
+      v11 = 501;
+      v12 = xmmword_24DA8EA50;
+      v13 = "offset <= length";
+      v14 = 0;
+      GTError_addError(a4, &v10);
+    }
+  }
+
+  else
+  {
+    *a1 = *(a2 + 44);
+    result = *(a2 + 52);
+    *(a1 + 24) = *(a2 + 68);
+    *(a1 + 8) = result;
+  }
+
+  return result;
+}
+
+void DYTraceDecode_MTLIndirectRenderCommand_setScissorRects_count(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  v8 = (a2 + 36);
+  if (a4 && *v8 != 0x6C753E623C5543)
+  {
+    v10 = *a4;
+    v11 = 501;
+    v12 = xmmword_24DA8EA60;
+    v13 = "memcmp((const char*)bytes + offset, (CU<b>ul), sizeof(CU<b>ul)) == 0";
+    v14 = 0;
+    GTError_addError(a4, &v10);
+  }
+
+  *a1 = *(a2 + 44);
+  v15 = 16;
+  *(a1 + 8) = AppendString_13794((a1 + 8), v8, &v15);
+  v9 = (v15 + 3) & 0xFFFFFFFFFFFFFFFCLL;
+  *(a1 + 16) = *(v8 + v9);
+  if (a4)
+  {
+    if (v9 + 8 > a3)
+    {
+      v10 = *a4;
+      v11 = 501;
+      v12 = xmmword_24DA8EA60;
+      v13 = "offset <= length";
+      v14 = 0;
+      GTError_addError(a4, &v10);
+    }
+  }
+}
+
+void DYTraceDecode_MTLIndirectRenderCommand_setStencilFrontReferenceValue_backReferenceValue(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 1969845571 || *(a2 + 40) != 105)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8EA70;
+      v12 = "memcmp((const char*)bytes + offset, (Cuiui), sizeof(Cuiui)) == 0";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+
+  *a1 = *(a2 + 44);
+  *(a1 + 8) = *(a2 + 52);
+  *(a1 + 12) = *(a2 + 56);
+  if (a4)
+  {
+    if (a3 <= 0x17)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8EA70;
+      v12 = "offset <= length";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+}
+
+void DYTraceDecode_MTLIndirectRenderCommand_setStencilReferenceValue(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 6911299)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EA80;
+      v11 = "memcmp((const char*)bytes + offset, (Cui), sizeof(Cui)) == 0";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+
+    *a1 = *(a2 + 40);
+    *(a1 + 8) = *(a2 + 48);
+    if (a3 <= 0xF)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EA80;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+
+  else
+  {
+    *a1 = *(a2 + 40);
+    *(a1 + 8) = *(a2 + 48);
+  }
+}
+
+void DYTraceDecode_MTLIndirectRenderCommand_setTriangleFillMode(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 7107907)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EA90;
+      v11 = "memcmp((const char*)bytes + offset, (Cul), sizeof(Cul)) == 0";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+
+    *a1 = *(a2 + 40);
+    a1[1] = *(a2 + 48);
+    if (a3 <= 0x13)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EA90;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+
+  else
+  {
+    *a1 = *(a2 + 40);
+    a1[1] = *(a2 + 48);
+  }
+}
+
+void DYTraceDecode_MTLIndirectRenderCommand_setVertexBuffer_offset_atIndex(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 1819636803 || *(a2 + 39) != 7107948)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8EAA0;
+      v12 = "memcmp((const char*)bytes + offset, (Ctulul), sizeof(Ctulul)) == 0";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+
+  *a1 = *(a2 + 44);
+  a1[1] = *(a2 + 52);
+  a1[2] = *(a2 + 60);
+  a1[3] = *(a2 + 68);
+  if (a4)
+  {
+    if (a3 <= 0x27)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8EAA0;
+      v12 = "offset <= length";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+}
+
+void DYTraceDecode_MTLIndirectRenderCommand_setVertexBuffer_offset_attributeStride_atIndex(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4 && *(a2 + 36) ^ 0x6C756C756C757443 | *(a2 + 44))
+  {
+    v8 = *a4;
+    v9 = 501;
+    v10 = xmmword_24DA8EAB0;
+    v11 = "memcmp((const char*)bytes + offset, (Ctululul), sizeof(Ctululul)) == 0";
+    v12 = 0;
+    GTError_addError(a4, &v8);
+  }
+
+  *a1 = *(a2 + 48);
+  a1[1] = *(a2 + 56);
+  a1[2] = *(a2 + 64);
+  a1[3] = *(a2 + 72);
+  a1[4] = *(a2 + 80);
+  if (a4)
+  {
+    if (a3 <= 0x33)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EAB0;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+}
+
+__n128 DYTraceDecode_MTLIndirectRenderCommand_setViewport(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) ^ 0x64364043 | *(a2 + 40))
+    {
+      v11 = *a4;
+      v12 = 501;
+      v13 = xmmword_24DA8EAC0;
+      v14 = "memcmp((const char*)bytes + offset, (C@6d), sizeof(C@6d)) == 0";
+      v15 = 0;
+      GTError_addError(a4, &v11);
+    }
+
+    *a1 = *(a2 + 44);
+    result = *(a2 + 52);
+    v9 = *(a2 + 68);
+    *(a1 + 40) = *(a2 + 84);
+    *(a1 + 24) = v9;
+    *(a1 + 8) = result;
+    if (a3 <= 0x3F)
+    {
+      v11 = *a4;
+      v12 = 501;
+      v13 = xmmword_24DA8EAC0;
+      v14 = "offset <= length";
+      v15 = 0;
+      GTError_addError(a4, &v11);
+    }
+  }
+
+  else
+  {
+    *a1 = *(a2 + 44);
+    result = *(a2 + 52);
+    v10 = *(a2 + 68);
+    *(a1 + 40) = *(a2 + 84);
+    *(a1 + 24) = v10;
+    *(a1 + 8) = result;
+  }
+
+  return result;
+}
+
+void DYTraceDecode_MTLIndirectRenderCommand_setViewports_count(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  v8 = (a2 + 36);
+  if (a4 && *v8 != 0x6C753E623C5543)
+  {
+    v10 = *a4;
+    v11 = 501;
+    v12 = xmmword_24DA8EAD0;
+    v13 = "memcmp((const char*)bytes + offset, (CU<b>ul), sizeof(CU<b>ul)) == 0";
+    v14 = 0;
+    GTError_addError(a4, &v10);
+  }
+
+  *a1 = *(a2 + 44);
+  v15 = 16;
+  *(a1 + 8) = AppendString_13794((a1 + 8), v8, &v15);
+  v9 = (v15 + 3) & 0xFFFFFFFFFFFFFFFCLL;
+  *(a1 + 16) = *(v8 + v9);
+  if (a4)
+  {
+    if (v9 + 8 > a3)
+    {
+      v10 = *a4;
+      v11 = 501;
+      v12 = xmmword_24DA8EAD0;
+      v13 = "offset <= length";
+      v14 = 0;
+      GTError_addError(a4, &v10);
+    }
+  }
+}
+
+void DYTraceDecode_MTLIntersectionFunctionTable_allocatedSize(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 7107907)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EAE0;
+      v11 = "memcmp((const char*)bytes + offset, (Cul), sizeof(Cul)) == 0";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+
+    *a1 = *(a2 + 40);
+    a1[1] = *(a2 + 48);
+    if (a3 <= 0x13)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EAE0;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+
+  else
+  {
+    *a1 = *(a2 + 40);
+    a1[1] = *(a2 + 48);
+  }
+}
+
+void DYTraceDecode_MTLIntersectionFunctionTable_allocationID(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 7828803)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EAF0;
+      v11 = "memcmp((const char*)bytes + offset, (Cuw), sizeof(Cuw)) == 0";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+
+    *a1 = *(a2 + 40);
+    a1[1] = *(a2 + 48);
+    if (a3 <= 0x13)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EAF0;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+
+  else
+  {
+    *a1 = *(a2 + 40);
+    a1[1] = *(a2 + 48);
+  }
+}
+
+void DYTraceDecode_MTLIntersectionFunctionTable_gpuResourceID(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 7828803)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EB00;
+      v11 = "memcmp((const char*)bytes + offset, (Cuw), sizeof(Cuw)) == 0";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+
+    *a1 = *(a2 + 40);
+    a1[1] = *(a2 + 48);
+    if (a3 <= 0x13)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EB00;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+
+  else
+  {
+    *a1 = *(a2 + 40);
+    a1[1] = *(a2 + 48);
+  }
+}
+
+void DYTraceDecode_MTLIntersectionFunctionTable_setBuffers(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4 && *(a2 + 36) ^ 0x5543 | *(a2 + 38))
+  {
+    v8 = *a4;
+    v9 = 501;
+    v10 = xmmword_24DA8EB10;
+    v11 = "memcmp((const char*)bytes + offset, (CU), sizeof(CU)) == 0";
+    v12 = 0;
+    GTError_addError(a4, &v8);
+  }
+
+  *a1 = *(a2 + 40);
+  v13 = 12;
+  *(a1 + 8) = AppendString_13794((a1 + 8), a2 + 36, &v13);
+  if (a4)
+  {
+    if (((v13 + 3) & 0xFFFFFFFFFFFFFFFCLL) > a3)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EB10;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+}
+
+void DYTraceDecode_MTLIntersectionFunctionTable_timeSinceTouched(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 7828803)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EB20;
+      v11 = "memcmp((const char*)bytes + offset, (Cuw), sizeof(Cuw)) == 0";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+
+    *a1 = *(a2 + 40);
+    a1[1] = *(a2 + 48);
+    if (a3 <= 0x13)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EB20;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+
+  else
+  {
+    *a1 = *(a2 + 40);
+    a1[1] = *(a2 + 48);
+  }
+}
+
+void DYTraceDecode_MTLIntersectionFunctionTable_uniqueIdentifier(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 67)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EB30;
+      v11 = "memcmp((const char*)bytes + offset, (C), sizeof(C)) == 0";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+
+    *a1 = *(a2 + 40);
+    if (*(a2 + 48) ^ 0x7775 | *(a2 + 50))
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EB30;
+      v11 = "memcmp((const char*)bytes + offset, (uw), sizeof(uw)) == 0";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+
+    a1[1] = *(a2 + 52);
+    if (a3 <= 0x17)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EB30;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+
+  else
+  {
+    *a1 = *(a2 + 40);
+    a1[1] = *(a2 + 52);
+  }
+}
+
+void DYTraceDecode_MTLIntersectionFunctionTable_setLabel(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4 && *(a2 + 36) ^ 0x5343 | *(a2 + 38))
+  {
+    v8 = *a4;
+    v9 = 501;
+    v10 = xmmword_24DA8EB40;
+    v11 = "memcmp((const char*)bytes + offset, (CS), sizeof(CS)) == 0";
+    v12 = 0;
+    GTError_addError(a4, &v8);
+  }
+
+  *a1 = *(a2 + 40);
+  v13 = 12;
+  *(a1 + 8) = AppendString_13794((a1 + 8), a2 + 36, &v13);
+  if (a4)
+  {
+    if (((v13 + 3) & 0xFFFFFFFFFFFFFFFCLL) > a3)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EB40;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+}
+
+void DYTraceDecode_MTLIntersectionFunctionTable_setResponsibleProcess(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) ^ 0x6943 | *(a2 + 38))
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EB50;
+      v11 = "memcmp((const char*)bytes + offset, (Ci), sizeof(Ci)) == 0";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+
+    *a1 = *(a2 + 40);
+    *(a1 + 8) = *(a2 + 48);
+    if (a3 <= 0xF)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EB50;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+
+  else
+  {
+    *a1 = *(a2 + 40);
+    *(a1 + 8) = *(a2 + 48);
+  }
+}
+
+void DYTraceDecode_MTLIntersectionFunctionTable_dealloc(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 67)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EB60;
+      v11 = "memcmp((const char*)bytes + offset, (C), sizeof(C)) == 0";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+
+    *a1 = *(a2 + 40);
+    if (a3 <= 0xB)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EB60;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+
+  else
+  {
+    *a1 = *(a2 + 40);
+  }
+}
+
+void DYTraceDecode_MTLIntersectionFunctionTable_makeAliasable(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 67)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EB70;
+      v11 = "memcmp((const char*)bytes + offset, (C), sizeof(C)) == 0";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+
+    *a1 = *(a2 + 40);
+    if (a3 <= 0xB)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EB70;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+
+  else
+  {
+    *a1 = *(a2 + 40);
+  }
+}
+
+void DYTraceDecode_MTLIntersectionFunctionTable_setBuffer_offset_atIndex(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 1819636803 || *(a2 + 39) != 7107948)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8EB80;
+      v12 = "memcmp((const char*)bytes + offset, (Ctulul), sizeof(Ctulul)) == 0";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+
+  *a1 = *(a2 + 44);
+  a1[1] = *(a2 + 52);
+  a1[2] = *(a2 + 60);
+  a1[3] = *(a2 + 68);
+  if (a4)
+  {
+    if (a3 <= 0x27)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8EB80;
+      v12 = "offset <= length";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+}
+
+void DYTraceDecode_MTLIntersectionFunctionTable_setBuffers_offsets_withRange(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  v7 = (a2 + 36);
+  v16 = 0;
+  v17 = 0;
+  sscanf((a2 + 36), "C@%zut@%zuul@2ul", &v17, &v16);
+  v8 = strlen(v7);
+  v9 = (v8 & 0xFFFFFFFFFFFFFFFCLL) + 12;
+  *a1 = *&v7[(v8 & 0xFFFFFFFFFFFFFFFCLL) + 4];
+  *(a1 + 8) = &v7[v9];
+  v10 = v17;
+  *(a1 + 16) = &v7[8 * v17 + v9];
+  v11 = v9 + 8 * (v10 + v16);
+  *(a1 + 24) = *&v7[v11];
+  if (a4)
+  {
+    if (v11 + 16 > a3)
+    {
+      v12[0] = *a4;
+      v12[1] = 501;
+      v13 = xmmword_24DA8EB90;
+      v14 = "offset <= length";
+      v15 = 0;
+      GTError_addError(a4, v12);
+    }
+  }
+}
+
+void DYTraceDecode_MTLIntersectionFunctionTable_setFunction_atIndex(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4 && *(a2 + 36) ^ 0x6C757443 | *(a2 + 40))
+  {
+    v8 = *a4;
+    v9 = 501;
+    v10 = xmmword_24DA8EBA0;
+    v11 = "memcmp((const char*)bytes + offset, (Ctul), sizeof(Ctul)) == 0";
+    v12 = 0;
+    GTError_addError(a4, &v8);
+  }
+
+  *a1 = *(a2 + 44);
+  a1[1] = *(a2 + 52);
+  a1[2] = *(a2 + 60);
+  if (a4)
+  {
+    if (a3 <= 0x1F)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EBA0;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+}
+
+void DYTraceDecode_MTLIntersectionFunctionTable_setFunctions_withRange(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  v7 = (a2 + 36);
+  v15 = 0;
+  sscanf((a2 + 36), "C@%zut@2ul", &v15);
+  v8 = strlen(v7);
+  v9 = (v8 & 0xFFFFFFFFFFFFFFFCLL) + 12;
+  *a1 = *&v7[(v8 & 0xFFFFFFFFFFFFFFFCLL) + 4];
+  *(a1 + 8) = &v7[v9];
+  v10 = v9 + 8 * v15;
+  *(a1 + 16) = *&v7[v10];
+  if (a4)
+  {
+    if (v10 + 16 > a3)
+    {
+      v11[0] = *a4;
+      v11[1] = 501;
+      v12 = xmmword_24DA8EBB0;
+      v13 = "offset <= length";
+      v14 = 0;
+      GTError_addError(a4, v11);
+    }
+  }
+}
+
+void DYTraceDecode_MTLIntersectionFunctionTable_setOpaqueCurveIntersectionFunctionWithSignature_atIndex(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 1970042179 || *(a2 + 40) != 108)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8EBC0;
+      v12 = "memcmp((const char*)bytes + offset, (Culul), sizeof(Culul)) == 0";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+
+  *a1 = *(a2 + 44);
+  a1[1] = *(a2 + 52);
+  a1[2] = *(a2 + 60);
+  if (a4)
+  {
+    if (a3 <= 0x1F)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8EBC0;
+      v12 = "offset <= length";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+}
+
+void DYTraceDecode_MTLIntersectionFunctionTable_setOpaqueCurveIntersectionFunctionWithSignature_withRange(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4 && *(a2 + 36) != 0x6C7532406C7543)
+  {
+    v8 = *a4;
+    v9 = 501;
+    v10 = xmmword_24DA8EBD0;
+    v11 = "memcmp((const char*)bytes + offset, (Cul@2ul), sizeof(Cul@2ul)) == 0";
+    v12 = 0;
+    GTError_addError(a4, &v8);
+  }
+
+  *a1 = *(a2 + 44);
+  *(a1 + 8) = *(a2 + 52);
+  *(a1 + 16) = *(a2 + 60);
+  if (a4)
+  {
+    if (a3 <= 0x27)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EBD0;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+}
+
+void DYTraceDecode_MTLIntersectionFunctionTable_setOpaqueTriangleIntersectionFunctionWithSignature_atIndex(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 1970042179 || *(a2 + 40) != 108)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8EBE0;
+      v12 = "memcmp((const char*)bytes + offset, (Culul), sizeof(Culul)) == 0";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+
+  *a1 = *(a2 + 44);
+  a1[1] = *(a2 + 52);
+  a1[2] = *(a2 + 60);
+  if (a4)
+  {
+    if (a3 <= 0x1F)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8EBE0;
+      v12 = "offset <= length";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+}
+
+void DYTraceDecode_MTLIntersectionFunctionTable_setOpaqueTriangleIntersectionFunctionWithSignature_withRange(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4 && *(a2 + 36) != 0x6C7532406C7543)
+  {
+    v8 = *a4;
+    v9 = 501;
+    v10 = xmmword_24DA8EBF0;
+    v11 = "memcmp((const char*)bytes + offset, (Cul@2ul), sizeof(Cul@2ul)) == 0";
+    v12 = 0;
+    GTError_addError(a4, &v8);
+  }
+
+  *a1 = *(a2 + 44);
+  *(a1 + 8) = *(a2 + 52);
+  *(a1 + 16) = *(a2 + 60);
+  if (a4)
+  {
+    if (a3 <= 0x27)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EBF0;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+}
+
+void DYTraceDecode_MTLIntersectionFunctionTable_setPurgeableState(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 7107907)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EC00;
+      v11 = "memcmp((const char*)bytes + offset, (Cul), sizeof(Cul)) == 0";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+
+    *a1 = *(a2 + 40);
+    a1[2] = *(a2 + 48);
+    if (*(a2 + 56) ^ 0x6C75 | *(a2 + 58))
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EC00;
+      v11 = "memcmp((const char*)bytes + offset, (ul), sizeof(ul)) == 0";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+
+    a1[1] = *(a2 + 60);
+    if (a3 <= 0x1F)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EC00;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+
+  else
+  {
+    *a1 = *(a2 + 40);
+    a1[2] = *(a2 + 48);
+    a1[1] = *(a2 + 60);
+  }
+}
+
+void DYTraceDecode_MTLIntersectionFunctionTable_setVisibleFunctionTable_atBufferIndex(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4 && *(a2 + 36) ^ 0x6C757443 | *(a2 + 40))
+  {
+    v8 = *a4;
+    v9 = 501;
+    v10 = xmmword_24DA8EC10;
+    v11 = "memcmp((const char*)bytes + offset, (Ctul), sizeof(Ctul)) == 0";
+    v12 = 0;
+    GTError_addError(a4, &v8);
+  }
+
+  *a1 = *(a2 + 44);
+  a1[1] = *(a2 + 52);
+  a1[2] = *(a2 + 60);
+  if (a4)
+  {
+    if (a3 <= 0x1F)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EC10;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+}
+
+void DYTraceDecode_MTLLateEvalEvent_setEnableBarrier(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 6911299)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EC20;
+      v11 = "memcmp((const char*)bytes + offset, (Cui), sizeof(Cui)) == 0";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+
+    *a1 = *(a2 + 40);
+    *(a1 + 8) = *(a2 + 48);
+    if (a3 <= 0xF)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EC20;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+
+  else
+  {
+    *a1 = *(a2 + 40);
+    *(a1 + 8) = *(a2 + 48);
+  }
+}
+
+void DYTraceDecode_MTLLateEvalEvent_setLabel(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4 && *(a2 + 36) ^ 0x5343 | *(a2 + 38))
+  {
+    v8 = *a4;
+    v9 = 501;
+    v10 = xmmword_24DA8EC30;
+    v11 = "memcmp((const char*)bytes + offset, (CS), sizeof(CS)) == 0";
+    v12 = 0;
+    GTError_addError(a4, &v8);
+  }
+
+  *a1 = *(a2 + 40);
+  v13 = 12;
+  *(a1 + 8) = AppendString_13794((a1 + 8), a2 + 36, &v13);
+  if (a4)
+  {
+    if (((v13 + 3) & 0xFFFFFFFFFFFFFFFCLL) > a3)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EC30;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+}
+
+void DYTraceDecode_MTLLateEvalEvent_setSignaledValue(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 7828803)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EC40;
+      v11 = "memcmp((const char*)bytes + offset, (Cuw), sizeof(Cuw)) == 0";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+
+    *a1 = *(a2 + 40);
+    a1[1] = *(a2 + 48);
+    if (a3 <= 0x13)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EC40;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+
+  else
+  {
+    *a1 = *(a2 + 40);
+    a1[1] = *(a2 + 48);
+  }
+}
+
+void DYTraceDecode_MTLLateEvalEvent_dealloc(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 67)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EC50;
+      v11 = "memcmp((const char*)bytes + offset, (C), sizeof(C)) == 0";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+
+    *a1 = *(a2 + 40);
+    if (a3 <= 0xB)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EC50;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+
+  else
+  {
+    *a1 = *(a2 + 40);
+  }
+}
+
+void DYTraceDecode_MTLLateEvalEvent_newSharedEventHandle(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 67)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EC60;
+      v11 = "memcmp((const char*)bytes + offset, (C), sizeof(C)) == 0";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+
+    *a1 = *(a2 + 40);
+    if (*(a2 + 48) != 116)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EC60;
+      v11 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+
+    a1[1] = *(a2 + 52);
+    if (a3 <= 0x17)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EC60;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+
+  else
+  {
+    *a1 = *(a2 + 40);
+    a1[1] = *(a2 + 52);
+  }
+}
+
+void DYTraceDecode_MTLLateEvalEvent_waitUntilSignaledValue_timeoutMS(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 1970763075 || *(a2 + 40) != 119)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8EC70;
+      v12 = "memcmp((const char*)bytes + offset, (Cuwuw), sizeof(Cuwuw)) == 0";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+
+    *a1 = *(a2 + 44);
+    *(a1 + 8) = *(a2 + 52);
+    *(a1 + 16) = *(a2 + 60);
+    if (*(a2 + 68) ^ 0x6975 | *(a2 + 70))
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8EC70;
+      v12 = "memcmp((const char*)bytes + offset, (ui), sizeof(ui)) == 0";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+
+    *(a1 + 24) = *(a2 + 72);
+    if (a3 <= 0x27)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8EC70;
+      v12 = "offset <= length";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+
+  else
+  {
+    *a1 = *(a2 + 44);
+    *(a1 + 8) = *(a2 + 52);
+    *(a1 + 16) = *(a2 + 60);
+    *(a1 + 24) = *(a2 + 72);
+  }
+}
+
+void DYTraceDecode_MTLLibrary_libraryIdentifier(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4 && *(a2 + 36) ^ 0x5343 | *(a2 + 38))
+  {
+    v8 = *a4;
+    v9 = 501;
+    v10 = xmmword_24DA8EC80;
+    v11 = "memcmp((const char*)bytes + offset, (CS), sizeof(CS)) == 0";
+    v12 = 0;
+    GTError_addError(a4, &v8);
+  }
+
+  *a1 = *(a2 + 40);
+  v13 = 12;
+  *(a1 + 8) = AppendString_13794((a1 + 8), a2 + 36, &v13);
+  if (a4)
+  {
+    if (((v13 + 3) & 0xFFFFFFFFFFFFFFFCLL) > a3)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EC80;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+}
+
+void DYTraceDecode_MTLLibrary_type(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 67)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EC90;
+      v11 = "memcmp((const char*)bytes + offset, (C), sizeof(C)) == 0";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+
+    *a1 = *(a2 + 40);
+    if (*(a2 + 48) ^ 0x6C75 | *(a2 + 50))
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EC90;
+      v11 = "memcmp((const char*)bytes + offset, (ul), sizeof(ul)) == 0";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+
+    a1[1] = *(a2 + 52);
+    if (a3 <= 0x17)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EC90;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+
+  else
+  {
+    *a1 = *(a2 + 40);
+    a1[1] = *(a2 + 52);
+  }
+}
+
+void DYTraceDecode_MTLLibrary_setLabel(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4 && *(a2 + 36) ^ 0x5343 | *(a2 + 38))
+  {
+    v8 = *a4;
+    v9 = 501;
+    v10 = xmmword_24DA8ECA0;
+    v11 = "memcmp((const char*)bytes + offset, (CS), sizeof(CS)) == 0";
+    v12 = 0;
+    GTError_addError(a4, &v8);
+  }
+
+  *a1 = *(a2 + 40);
+  v13 = 12;
+  *(a1 + 8) = AppendString_13794((a1 + 8), a2 + 36, &v13);
+  if (a4)
+  {
+    if (((v13 + 3) & 0xFFFFFFFFFFFFFFFCLL) > a3)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8ECA0;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+}
+
+void DYTraceDecode_MTLLibrary_setOverrideTriple(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4 && *(a2 + 36) ^ 0x5343 | *(a2 + 38))
+  {
+    v8 = *a4;
+    v9 = 501;
+    v10 = xmmword_24DA8ECB0;
+    v11 = "memcmp((const char*)bytes + offset, (CS), sizeof(CS)) == 0";
+    v12 = 0;
+    GTError_addError(a4, &v8);
+  }
+
+  *a1 = *(a2 + 40);
+  v13 = 12;
+  *(a1 + 8) = AppendString_13794((a1 + 8), a2 + 36, &v13);
+  if (a4)
+  {
+    if (((v13 + 3) & 0xFFFFFFFFFFFFFFFCLL) > a3)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8ECB0;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+}
+
+void DYTraceDecode_MTLLibrary_dealloc(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 67)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8ECC0;
+      v11 = "memcmp((const char*)bytes + offset, (C), sizeof(C)) == 0";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+
+    *a1 = *(a2 + 40);
+    if (a3 <= 0xB)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8ECC0;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+
+  else
+  {
+    *a1 = *(a2 + 40);
+  }
+}
+
+void DYTraceDecode_MTLLibrary_newExternFunctionWithName(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  v8 = (a2 + 36);
+  if (a4 && *v8 ^ 0x5343 | *(a2 + 38))
+  {
+    v11 = *a4;
+    v12 = 501;
+    v13 = xmmword_24DA8ECD0;
+    v14 = "memcmp((const char*)bytes + offset, (CS), sizeof(CS)) == 0";
+    v15 = 0;
+    GTError_addError(a4, &v11);
+  }
+
+  *a1 = *(a2 + 40);
+  v16 = 12;
+  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
+  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
+  if (a4 && *(v8 + v9) != 116)
+  {
+    v11 = *a4;
+    v12 = 501;
+    v13 = xmmword_24DA8ECD0;
+    v14 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
+    v15 = 0;
+    GTError_addError(a4, &v11);
+  }
+
+  v10 = (v9 + 5) & 0xFFFFFFFFFFFFFFFCLL;
+  *(a1 + 8) = *(v8 + v10);
+  if (a4)
+  {
+    if (v10 + 8 > a3)
+    {
+      v11 = *a4;
+      v12 = 501;
+      v13 = xmmword_24DA8ECD0;
+      v14 = "offset <= length";
+      v15 = 0;
+      GTError_addError(a4, &v11);
+    }
+  }
+}
+
+void DYTraceDecode_MTLLibrary_newFunctionWithDescriptor_completionHandler(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  v8 = (a2 + 36);
+  if (a4 && *v8 != 7624003)
+  {
+    v11 = *a4;
+    v12 = 501;
+    v13 = xmmword_24DA8ECE0;
+    v14 = "memcmp((const char*)bytes + offset, (CUt), sizeof(CUt)) == 0";
+    v15 = 0;
+    GTError_addError(a4, &v11);
+  }
+
+  *a1 = *(a2 + 40);
+  v16 = 12;
+  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
+  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
+  *(a1 + 24) = *(v8 + v9);
+  if (a4 && *(v8 + v9 + 8) != 116)
+  {
+    v11 = *a4;
+    v12 = 501;
+    v13 = xmmword_24DA8ECE0;
+    v14 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
+    v15 = 0;
+    GTError_addError(a4, &v11);
+  }
+
+  v10 = (v9 + 13) & 0xFFFFFFFFFFFFFFFCLL;
+  *(a1 + 8) = *(v8 + v10);
+  if (a4)
+  {
+    if (v10 + 8 > a3)
+    {
+      v11 = *a4;
+      v12 = 501;
+      v13 = xmmword_24DA8ECE0;
+      v14 = "offset <= length";
+      v15 = 0;
+      GTError_addError(a4, &v11);
+    }
+  }
+}
+
+void DYTraceDecode_MTLLibrary_newFunctionWithDescriptor_error(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  v8 = (a2 + 36);
+  if (a4 && *v8 != 7624003)
+  {
+    v11 = *a4;
+    v12 = 501;
+    v13 = xmmword_24DA8ECF0;
+    v14 = "memcmp((const char*)bytes + offset, (CUt), sizeof(CUt)) == 0";
+    v15 = 0;
+    GTError_addError(a4, &v11);
+  }
+
+  *a1 = *(a2 + 40);
+  v16 = 12;
+  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
+  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
+  *(a1 + 24) = *(v8 + v9);
+  if (a4 && *(v8 + v9 + 8) != 116)
+  {
+    v11 = *a4;
+    v12 = 501;
+    v13 = xmmword_24DA8ECF0;
+    v14 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
+    v15 = 0;
+    GTError_addError(a4, &v11);
+  }
+
+  v10 = (v9 + 13) & 0xFFFFFFFFFFFFFFFCLL;
+  *(a1 + 8) = *(v8 + v10);
+  if (a4)
+  {
+    if (v10 + 8 > a3)
+    {
+      v11 = *a4;
+      v12 = 501;
+      v13 = xmmword_24DA8ECF0;
+      v14 = "offset <= length";
+      v15 = 0;
+      GTError_addError(a4, &v11);
+    }
+  }
+}
+
+void DYTraceDecode_MTLLibrary_newFunctionWithName(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  v8 = (a2 + 36);
+  if (a4 && *v8 ^ 0x5343 | *(a2 + 38))
+  {
+    v11 = *a4;
+    v12 = 501;
+    v13 = xmmword_24DA8ED00;
+    v14 = "memcmp((const char*)bytes + offset, (CS), sizeof(CS)) == 0";
+    v15 = 0;
+    GTError_addError(a4, &v11);
+  }
+
+  *a1 = *(a2 + 40);
+  v16 = 12;
+  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
+  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
+  if (a4 && *(v8 + v9) != 116)
+  {
+    v11 = *a4;
+    v12 = 501;
+    v13 = xmmword_24DA8ED00;
+    v14 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
+    v15 = 0;
+    GTError_addError(a4, &v11);
+  }
+
+  v10 = (v9 + 5) & 0xFFFFFFFFFFFFFFFCLL;
+  *(a1 + 8) = *(v8 + v10);
+  if (a4)
+  {
+    if (v10 + 8 > a3)
+    {
+      v11 = *a4;
+      v12 = 501;
+      v13 = xmmword_24DA8ED00;
+      v14 = "offset <= length";
+      v15 = 0;
+      GTError_addError(a4, &v11);
+    }
+  }
+}
+
+void DYTraceDecode_MTLLibrary_newFunctionWithName_constantValues_completionHandler(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  v8 = (a2 + 36);
+  if (a4 && *v8 != 0x743E623C555343)
+  {
+    v11 = *a4;
+    v12 = 501;
+    v13 = xmmword_24DA8ED10;
+    v14 = "memcmp((const char*)bytes + offset, (CSU<b>t), sizeof(CSU<b>t)) == 0";
+    v15 = 0;
+    GTError_addError(a4, &v11);
+  }
+
+  *a1 = *(a2 + 44);
+  v16 = 16;
+  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
+  *(a1 + 24) = AppendString_13794((a1 + 24), v8, &v16);
+  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
+  *(a1 + 32) = *(v8 + v9);
+  if (a4 && *(v8 + v9 + 8) != 116)
+  {
+    v11 = *a4;
+    v12 = 501;
+    v13 = xmmword_24DA8ED10;
+    v14 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
+    v15 = 0;
+    GTError_addError(a4, &v11);
+  }
+
+  v10 = (v9 + 13) & 0xFFFFFFFFFFFFFFFCLL;
+  *(a1 + 8) = *(v8 + v10);
+  if (a4)
+  {
+    if (v10 + 8 > a3)
+    {
+      v11 = *a4;
+      v12 = 501;
+      v13 = xmmword_24DA8ED10;
+      v14 = "offset <= length";
+      v15 = 0;
+      GTError_addError(a4, &v11);
+    }
+  }
+}
+
+void DYTraceDecode_MTLLibrary_newFunctionWithName_constantValues_pipelineLibrary_completionHandler(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  v8 = (a2 + 36);
+  if (a4 && *v8 ^ 0x74743E623C555343 | *(a2 + 44))
+  {
+    v11 = *a4;
+    v12 = 501;
+    v13 = xmmword_24DA8ED20;
+    v14 = "memcmp((const char*)bytes + offset, (CSU<b>tt), sizeof(CSU<b>tt)) == 0";
+    v15 = 0;
+    GTError_addError(a4, &v11);
+  }
+
+  *a1 = *(a2 + 48);
+  v16 = 20;
+  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
+  *(a1 + 24) = AppendString_13794((a1 + 24), v8, &v16);
+  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
+  *(a1 + 32) = *(v8 + v9);
+  *(a1 + 40) = *(v8 + v9 + 8);
+  if (a4 && *(v8 + v9 + 16) != 116)
+  {
+    v11 = *a4;
+    v12 = 501;
+    v13 = xmmword_24DA8ED20;
+    v14 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
+    v15 = 0;
+    GTError_addError(a4, &v11);
+  }
+
+  v10 = (v9 + 21) & 0xFFFFFFFFFFFFFFFCLL;
+  *(a1 + 8) = *(v8 + v10);
+  if (a4)
+  {
+    if (v10 + 8 > a3)
+    {
+      v11 = *a4;
+      v12 = 501;
+      v13 = xmmword_24DA8ED20;
+      v14 = "offset <= length";
+      v15 = 0;
+      GTError_addError(a4, &v11);
+    }
+  }
+}
+
+void DYTraceDecode_MTLLibrary_newFunctionWithName_constantValues_pipelineLibrary_error(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  v8 = (a2 + 36);
+  if (a4 && *v8 ^ 0x74743E623C555343 | *(a2 + 44))
+  {
+    v11 = *a4;
+    v12 = 501;
+    v13 = xmmword_24DA8ED30;
+    v14 = "memcmp((const char*)bytes + offset, (CSU<b>tt), sizeof(CSU<b>tt)) == 0";
+    v15 = 0;
+    GTError_addError(a4, &v11);
+  }
+
+  *a1 = *(a2 + 48);
+  v16 = 20;
+  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
+  *(a1 + 24) = AppendString_13794((a1 + 24), v8, &v16);
+  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
+  *(a1 + 32) = *(v8 + v9);
+  *(a1 + 40) = *(v8 + v9 + 8);
+  if (a4 && *(v8 + v9 + 16) != 116)
+  {
+    v11 = *a4;
+    v12 = 501;
+    v13 = xmmword_24DA8ED30;
+    v14 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
+    v15 = 0;
+    GTError_addError(a4, &v11);
+  }
+
+  v10 = (v9 + 21) & 0xFFFFFFFFFFFFFFFCLL;
+  *(a1 + 8) = *(v8 + v10);
+  if (a4)
+  {
+    if (v10 + 8 > a3)
+    {
+      v11 = *a4;
+      v12 = 501;
+      v13 = xmmword_24DA8ED30;
+      v14 = "offset <= length";
+      v15 = 0;
+      GTError_addError(a4, &v11);
+    }
+  }
+}
+
+void DYTraceDecode_MTLLibrary_newIntersectionFunctionWithDescriptor_error(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  v8 = (a2 + 36);
+  if (a4 && *v8 != 7624003)
+  {
+    v11 = *a4;
+    v12 = 501;
+    v13 = xmmword_24DA8ED40;
+    v14 = "memcmp((const char*)bytes + offset, (CUt), sizeof(CUt)) == 0";
+    v15 = 0;
+    GTError_addError(a4, &v11);
+  }
+
+  *a1 = *(a2 + 40);
+  v16 = 12;
+  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v16);
+  v9 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
+  *(a1 + 24) = *(v8 + v9);
+  if (a4 && *(v8 + v9 + 8) != 116)
+  {
+    v11 = *a4;
+    v12 = 501;
+    v13 = xmmword_24DA8ED40;
+    v14 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
+    v15 = 0;
+    GTError_addError(a4, &v11);
+  }
+
+  v10 = (v9 + 13) & 0xFFFFFFFFFFFFFFFCLL;
+  *(a1 + 8) = *(v8 + v10);
+  if (a4)
+  {
+    if (v10 + 8 > a3)
+    {
+      v11 = *a4;
+      v12 = 501;
+      v13 = xmmword_24DA8ED40;
+      v14 = "offset <= length";
+      v15 = 0;
+      GTError_addError(a4, &v11);
+    }
+  }
+}
+
+void DYTraceDecode_MTLMotionEstimationPipeline_dealloc(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 67)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8ED50;
+      v11 = "memcmp((const char*)bytes + offset, (C), sizeof(C)) == 0";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+
+    *a1 = *(a2 + 40);
+    if (a3 <= 0xB)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8ED50;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+
+  else
+  {
+    *a1 = *(a2 + 40);
+  }
+}
+
+void DYTraceDecode_MTLParallelRenderCommandEncoder_setLabel(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4 && *(a2 + 36) ^ 0x5343 | *(a2 + 38))
+  {
+    v8 = *a4;
+    v9 = 501;
+    v10 = xmmword_24DA8ED60;
+    v11 = "memcmp((const char*)bytes + offset, (CS), sizeof(CS)) == 0";
+    v12 = 0;
+    GTError_addError(a4, &v8);
+  }
+
+  *a1 = *(a2 + 40);
+  v13 = 12;
+  *(a1 + 8) = AppendString_13794((a1 + 8), a2 + 36, &v13);
+  if (a4)
+  {
+    if (((v13 + 3) & 0xFFFFFFFFFFFFFFFCLL) > a3)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8ED60;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+}
+
+void DYTraceDecode_MTLParallelRenderCommandEncoder_barrierAfterQueueStages_beforeStages(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 1970042179 || *(a2 + 40) != 108)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8ED70;
+      v12 = "memcmp((const char*)bytes + offset, (Culul), sizeof(Culul)) == 0";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+
+  *a1 = *(a2 + 44);
+  a1[1] = *(a2 + 52);
+  a1[2] = *(a2 + 60);
+  if (a4)
+  {
+    if (a3 <= 0x1F)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8ED70;
+      v12 = "offset <= length";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+}
+
+void DYTraceDecode_MTLParallelRenderCommandEncoder_dealloc(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 67)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8ED80;
+      v11 = "memcmp((const char*)bytes + offset, (C), sizeof(C)) == 0";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+
+    *a1 = *(a2 + 40);
+    if (a3 <= 0xB)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8ED80;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+
+  else
+  {
+    *a1 = *(a2 + 40);
+  }
+}
+
+void DYTraceDecode_MTLParallelRenderCommandEncoder_endEncoding(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 67)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8ED90;
+      v11 = "memcmp((const char*)bytes + offset, (C), sizeof(C)) == 0";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+
+    *a1 = *(a2 + 40);
+    if (a3 <= 0xB)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8ED90;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+
+  else
+  {
+    *a1 = *(a2 + 40);
+  }
+}
+
+void DYTraceDecode_MTLParallelRenderCommandEncoder_insertDebugSignpost(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4 && *(a2 + 36) ^ 0x5343 | *(a2 + 38))
+  {
+    v8 = *a4;
+    v9 = 501;
+    v10 = xmmword_24DA8EDA0;
+    v11 = "memcmp((const char*)bytes + offset, (CS), sizeof(CS)) == 0";
+    v12 = 0;
+    GTError_addError(a4, &v8);
+  }
+
+  *a1 = *(a2 + 40);
+  v13 = 12;
+  *(a1 + 8) = AppendString_13794((a1 + 8), a2 + 36, &v13);
+  if (a4)
+  {
+    if (((v13 + 3) & 0xFFFFFFFFFFFFFFFCLL) > a3)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EDA0;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+}
+
+void DYTraceDecode_MTLParallelRenderCommandEncoder_popDebugGroup(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 67)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EDB0;
+      v11 = "memcmp((const char*)bytes + offset, (C), sizeof(C)) == 0";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+
+    *a1 = *(a2 + 40);
+    if (a3 <= 0xB)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EDB0;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+
+  else
+  {
+    *a1 = *(a2 + 40);
+  }
+}
+
+void DYTraceDecode_MTLParallelRenderCommandEncoder_pushDebugGroup(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4 && *(a2 + 36) ^ 0x5343 | *(a2 + 38))
+  {
+    v8 = *a4;
+    v9 = 501;
+    v10 = xmmword_24DA8EDC0;
+    v11 = "memcmp((const char*)bytes + offset, (CS), sizeof(CS)) == 0";
+    v12 = 0;
+    GTError_addError(a4, &v8);
+  }
+
+  *a1 = *(a2 + 40);
+  v13 = 12;
+  *(a1 + 8) = AppendString_13794((a1 + 8), a2 + 36, &v13);
+  if (a4)
+  {
+    if (((v13 + 3) & 0xFFFFFFFFFFFFFFFCLL) > a3)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EDC0;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+}
+
+void DYTraceDecode_MTLParallelRenderCommandEncoder_renderCommandEncoder(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 67)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EDD0;
+      v11 = "memcmp((const char*)bytes + offset, (C), sizeof(C)) == 0";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+
+    *a1 = *(a2 + 40);
+    if (*(a2 + 48) != 116)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EDD0;
+      v11 = "memcmp((const char*)bytes + offset, (t), sizeof(t)) == 0";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+
+    a1[1] = *(a2 + 52);
+    if (a3 <= 0x17)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EDD0;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+
+  else
+  {
+    *a1 = *(a2 + 40);
+    a1[1] = *(a2 + 52);
+  }
+}
+
+void DYTraceDecode_MTLParallelRenderCommandEncoder_setColorStoreAction_atIndex(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 1970042179 || *(a2 + 40) != 108)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8EDE0;
+      v12 = "memcmp((const char*)bytes + offset, (Culul), sizeof(Culul)) == 0";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+
+  *a1 = *(a2 + 44);
+  a1[1] = *(a2 + 52);
+  a1[2] = *(a2 + 60);
+  if (a4)
+  {
+    if (a3 <= 0x1F)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8EDE0;
+      v12 = "offset <= length";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+}
+
+void DYTraceDecode_MTLParallelRenderCommandEncoder_setColorStoreActionOptions_atIndex(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 1970042179 || *(a2 + 40) != 108)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8EDF0;
+      v12 = "memcmp((const char*)bytes + offset, (Culul), sizeof(Culul)) == 0";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+
+  *a1 = *(a2 + 44);
+  a1[1] = *(a2 + 52);
+  a1[2] = *(a2 + 60);
+  if (a4)
+  {
+    if (a3 <= 0x1F)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8EDF0;
+      v12 = "offset <= length";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+}
+
+void DYTraceDecode_MTLParallelRenderCommandEncoder_setDepthStoreAction(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 7107907)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EE00;
+      v11 = "memcmp((const char*)bytes + offset, (Cul), sizeof(Cul)) == 0";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+
+    *a1 = *(a2 + 40);
+    a1[1] = *(a2 + 48);
+    if (a3 <= 0x13)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EE00;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+
+  else
+  {
+    *a1 = *(a2 + 40);
+    a1[1] = *(a2 + 48);
+  }
+}
+
+void DYTraceDecode_MTLParallelRenderCommandEncoder_setDepthStoreActionOptions(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 7107907)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EE10;
+      v11 = "memcmp((const char*)bytes + offset, (Cul), sizeof(Cul)) == 0";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+
+    *a1 = *(a2 + 40);
+    a1[1] = *(a2 + 48);
+    if (a3 <= 0x13)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EE10;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+
+  else
+  {
+    *a1 = *(a2 + 40);
+    a1[1] = *(a2 + 48);
+  }
+}
+
+void DYTraceDecode_MTLParallelRenderCommandEncoder_setStencilStoreAction(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 7107907)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EE20;
+      v11 = "memcmp((const char*)bytes + offset, (Cul), sizeof(Cul)) == 0";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+
+    *a1 = *(a2 + 40);
+    a1[1] = *(a2 + 48);
+    if (a3 <= 0x13)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EE20;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+
+  else
+  {
+    *a1 = *(a2 + 40);
+    a1[1] = *(a2 + 48);
+  }
+}
+
+void DYTraceDecode_MTLParallelRenderCommandEncoder_setStencilStoreActionOptions(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 7107907)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EE30;
+      v11 = "memcmp((const char*)bytes + offset, (Cul), sizeof(Cul)) == 0";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+
+    *a1 = *(a2 + 40);
+    a1[1] = *(a2 + 48);
+    if (a3 <= 0x13)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EE30;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+
+  else
+  {
+    *a1 = *(a2 + 40);
+    a1[1] = *(a2 + 48);
+  }
+}
+
+void DYTraceDecode_MTLPipelineLibrary_dealloc(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 67)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EE40;
+      v11 = "memcmp((const char*)bytes + offset, (C), sizeof(C)) == 0";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+
+    *a1 = *(a2 + 40);
+    if (a3 <= 0xB)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EE40;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+
+  else
+  {
+    *a1 = *(a2 + 40);
+  }
+}
+
+void DYTraceDecode_MTLPipelineLibrary_newComputePipelineDescriptorWithName_error(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  v8 = (a2 + 36);
+  if (a4 && *v8 != 7623491)
+  {
+    v10 = *a4;
+    v11 = 501;
+    v12 = xmmword_24DA8EE50;
+    v13 = "memcmp((const char*)bytes + offset, (CSt), sizeof(CSt)) == 0";
+    v14 = 0;
+    GTError_addError(a4, &v10);
+  }
+
+  *a1 = *(a2 + 40);
+  v15 = 12;
+  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v15);
+  v9 = (v15 + 3) & 0xFFFFFFFFFFFFFFFCLL;
+  *(a1 + 24) = *(v8 + v9);
+  if (a4 && *(v8 + v9 + 8) != 85)
+  {
+    v10 = *a4;
+    v11 = 501;
+    v12 = xmmword_24DA8EE50;
+    v13 = "memcmp((const char*)bytes + offset, (U), sizeof(U)) == 0";
+    v14 = 0;
+    GTError_addError(a4, &v10);
+  }
+
+  v15 = (v9 + 13) & 0xFFFFFFFFFFFFFFFCLL;
+  *(a1 + 8) = AppendString_13794((a1 + 8), v8, &v15);
+  if (a4)
+  {
+    if (((v15 + 3) & 0xFFFFFFFFFFFFFFFCLL) > a3)
+    {
+      v10 = *a4;
+      v11 = 501;
+      v12 = xmmword_24DA8EE50;
+      v13 = "offset <= length";
+      v14 = 0;
+      GTError_addError(a4, &v10);
+    }
+  }
+}
+
+void DYTraceDecode_MTLPipelineLibrary_newRenderPipelineDescriptorWithName_error(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  v8 = (a2 + 36);
+  if (a4 && *v8 != 7623491)
+  {
+    v10 = *a4;
+    v11 = 501;
+    v12 = xmmword_24DA8EE60;
+    v13 = "memcmp((const char*)bytes + offset, (CSt), sizeof(CSt)) == 0";
+    v14 = 0;
+    GTError_addError(a4, &v10);
+  }
+
+  *a1 = *(a2 + 40);
+  v15 = 12;
+  *(a1 + 16) = AppendString_13794((a1 + 16), v8, &v15);
+  v9 = (v15 + 3) & 0xFFFFFFFFFFFFFFFCLL;
+  *(a1 + 24) = *(v8 + v9);
+  if (a4 && *(v8 + v9 + 8) != 85)
+  {
+    v10 = *a4;
+    v11 = 501;
+    v12 = xmmword_24DA8EE60;
+    v13 = "memcmp((const char*)bytes + offset, (U), sizeof(U)) == 0";
+    v14 = 0;
+    GTError_addError(a4, &v10);
+  }
+
+  v15 = (v9 + 13) & 0xFFFFFFFFFFFFFFFCLL;
+  *(a1 + 8) = AppendString_13794((a1 + 8), v8, &v15);
+  if (a4)
+  {
+    if (((v15 + 3) & 0xFFFFFFFFFFFFFFFCLL) > a3)
+    {
+      v10 = *a4;
+      v11 = 501;
+      v12 = xmmword_24DA8EE60;
+      v13 = "offset <= length";
+      v14 = 0;
+      GTError_addError(a4, &v10);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRasterizationRateMap_copyParameterDataToBuffer_offset(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4 && *(a2 + 36) ^ 0x6C757443 | *(a2 + 40))
+  {
+    v8 = *a4;
+    v9 = 501;
+    v10 = xmmword_24DA8EE70;
+    v11 = "memcmp((const char*)bytes + offset, (Ctul), sizeof(Ctul)) == 0";
+    v12 = 0;
+    GTError_addError(a4, &v8);
+  }
+
+  *a1 = *(a2 + 44);
+  a1[1] = *(a2 + 52);
+  a1[2] = *(a2 + 60);
+  if (a4)
+  {
+    if (a3 <= 0x1F)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EE70;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRasterizationRateMap_dealloc(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 67)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EE80;
+      v11 = "memcmp((const char*)bytes + offset, (C), sizeof(C)) == 0";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+
+    *a1 = *(a2 + 40);
+    if (a3 <= 0xB)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EE80;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+
+  else
+  {
+    *a1 = *(a2 + 40);
+  }
+}
+
+void DYTraceDecode_MTLRasterizationRateMap_mapScreenToPhysicalCoordinates_forLayer(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 1714569283 || *(a2 + 39) != 7107942)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8EE90;
+      v12 = "memcmp((const char*)bytes + offset, (C@2ful), sizeof(C@2ful)) == 0";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+
+    *a1 = *(a2 + 44);
+    a1[3] = *(a2 + 52);
+    a1[1] = *(a2 + 60);
+    if (*(a2 + 68) != 6697536)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8EE90;
+      v12 = "memcmp((const char*)bytes + offset, (@2f), sizeof(@2f)) == 0";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+
+    a1[2] = *(a2 + 72);
+    if (a3 <= 0x2B)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8EE90;
+      v12 = "offset <= length";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+
+  else
+  {
+    *a1 = *(a2 + 44);
+    a1[3] = *(a2 + 52);
+    a1[1] = *(a2 + 60);
+    a1[2] = *(a2 + 72);
+  }
+}
+
+__n128 DYTraceDecode_MTLRasterizationRateMap_physicalSizeForLayer(uint64_t a1, __n128 *a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (a2[2].n128_u32[1] != 7107907)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8EEA0;
+      v12 = "memcmp((const char*)bytes + offset, (Cul), sizeof(Cul)) == 0";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+
+    *a1 = a2[2].n128_u64[1];
+    *(a1 + 32) = a2[3].n128_u64[0];
+    if (a2[3].n128_u32[2] ^ 0x6C753340 | a2[3].n128_u8[12])
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8EEA0;
+      v12 = "memcmp((const char*)bytes + offset, (@3ul), sizeof(@3ul)) == 0";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+
+    result = a2[4];
+    *(a1 + 24) = a2[5].n128_u64[0];
+    *(a1 + 8) = result;
+    if (a3 <= 0x33)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8EEA0;
+      v12 = "offset <= length";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+
+  else
+  {
+    *a1 = a2[2].n128_u64[1];
+    *(a1 + 32) = a2[3].n128_u64[0];
+    result = a2[4];
+    *(a1 + 24) = a2[5].n128_u64[0];
+    *(a1 + 8) = result;
+  }
+
+  return result;
+}
+
+void DYTraceDecode_MTLRasterizationRateMap_resetUsingDescriptor(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4 && *(a2 + 36) ^ 0x5543 | *(a2 + 38))
+  {
+    v8 = *a4;
+    v9 = 501;
+    v10 = xmmword_24DA8EEB0;
+    v11 = "memcmp((const char*)bytes + offset, (CU), sizeof(CU)) == 0";
+    v12 = 0;
+    GTError_addError(a4, &v8);
+  }
+
+  *a1 = *(a2 + 40);
+  v13 = 12;
+  *(a1 + 8) = AppendString_13794((a1 + 8), a2 + 36, &v13);
+  if (a4)
+  {
+    if (((v13 + 3) & 0xFFFFFFFFFFFFFFFCLL) > a3)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EEB0;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_executeCommandsInBuffer_indirectBuffer_indirectBufferOffset(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4 && *(a2 + 36) != 0x55556C75747443)
+  {
+    v8 = *a4;
+    v9 = 501;
+    v10 = xmmword_24DA8EEC0;
+    v11 = "memcmp((const char*)bytes + offset, (CttulUU), sizeof(CttulUU)) == 0";
+    v12 = 0;
+    GTError_addError(a4, &v8);
+  }
+
+  *a1 = *(a2 + 44);
+  *(a1 + 8) = *(a2 + 52);
+  *(a1 + 16) = *(a2 + 60);
+  *(a1 + 24) = *(a2 + 68);
+  v13 = 40;
+  *(a1 + 40) = AppendString_13794((a1 + 40), a2 + 36, &v13);
+  *(a1 + 48) = AppendString_13794((a1 + 48), a2 + 36, &v13);
+  if (a4)
+  {
+    if (((v13 + 3) & 0xFFFFFFFFFFFFFFFCLL) > a3)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EEC0;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_executeCommandsInBuffer_withRange(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4 && *(a2 + 36) != 0x556C7532407443)
+  {
+    v8 = *a4;
+    v9 = 501;
+    v10 = xmmword_24DA8EED0;
+    v11 = "memcmp((const char*)bytes + offset, (Ct@2ulU), sizeof(Ct@2ulU)) == 0";
+    v12 = 0;
+    GTError_addError(a4, &v8);
+  }
+
+  *a1 = *(a2 + 44);
+  *(a1 + 8) = *(a2 + 52);
+  *(a1 + 16) = *(a2 + 60);
+  v13 = 40;
+  *(a1 + 40) = AppendString_13794((a1 + 40), a2 + 36, &v13);
+  if (a4)
+  {
+    if (((v13 + 3) & 0xFFFFFFFFFFFFFFFCLL) > a3)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EED0;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_setLabel(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4 && *(a2 + 36) ^ 0x5343 | *(a2 + 38))
+  {
+    v8 = *a4;
+    v9 = 501;
+    v10 = xmmword_24DA8EEE0;
+    v11 = "memcmp((const char*)bytes + offset, (CS), sizeof(CS)) == 0";
+    v12 = 0;
+    GTError_addError(a4, &v8);
+  }
+
+  *a1 = *(a2 + 40);
+  v13 = 12;
+  *(a1 + 8) = AppendString_13794((a1 + 8), a2 + 36, &v13);
+  if (a4)
+  {
+    if (((v13 + 3) & 0xFFFFFFFFFFFFFFFCLL) > a3)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EEE0;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_barrierAfterQueueStages_beforeStages(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 1970042179 || *(a2 + 40) != 108)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8EEF0;
+      v12 = "memcmp((const char*)bytes + offset, (Culul), sizeof(Culul)) == 0";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+
+  *a1 = *(a2 + 44);
+  a1[1] = *(a2 + 52);
+  a1[2] = *(a2 + 60);
+  if (a4)
+  {
+    if (a3 <= 0x1F)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8EEF0;
+      v12 = "offset <= length";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_dealloc(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 67)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EF00;
+      v11 = "memcmp((const char*)bytes + offset, (C), sizeof(C)) == 0";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+
+    *a1 = *(a2 + 40);
+    if (a3 <= 0xB)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8EF00;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+
+  else
+  {
+    *a1 = *(a2 + 40);
+  }
+}
+
+__n128 DYTraceDecode_MTLRenderCommandEncoder_dispatchThreadsPerTile(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 1966293059 || *(a2 + 40) != 108)
+    {
+      v10 = *a4;
+      v11 = 501;
+      v12 = xmmword_24DA8EF10;
+      v13 = "memcmp((const char*)bytes + offset, (C@3ul), sizeof(C@3ul)) == 0";
+      v14 = 0;
+      GTError_addError(a4, &v10);
+    }
+
+    *a1 = *(a2 + 44);
+    result = *(a2 + 52);
+    *(a1 + 24) = *(a2 + 68);
+    *(a1 + 8) = result;
+    if (a3 <= 0x27)
+    {
+      v10 = *a4;
+      v11 = 501;
+      v12 = xmmword_24DA8EF10;
+      v13 = "offset <= length";
+      v14 = 0;
+      GTError_addError(a4, &v10);
+    }
+  }
+
+  else
+  {
+    *a1 = *(a2 + 44);
+    result = *(a2 + 52);
+    *(a1 + 24) = *(a2 + 68);
+    *(a1 + 8) = result;
+  }
+
+  return result;
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_dispatchThreadsPerTile_inRegion(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 0x7536406C75334043 || *(a2 + 44) != 108)
+    {
+      v12 = *a4;
+      v13 = 501;
+      v14 = xmmword_24DA8EF20;
+      v15 = "memcmp((const char*)bytes + offset, (C@3ul@6ul), sizeof(C@3ul@6ul)) == 0";
+      v16 = 0;
+      GTError_addError(a4, &v12);
+    }
+  }
+
+  *a1 = *(a2 + 48);
+  v9 = *(a2 + 56);
+  *(a1 + 24) = *(a2 + 72);
+  *(a1 + 8) = v9;
+  v10 = *(a2 + 80);
+  v11 = *(a2 + 112);
+  *(a1 + 48) = *(a2 + 96);
+  *(a1 + 64) = v11;
+  *(a1 + 32) = v10;
+  if (a4)
+  {
+    if (a3 <= 0x5B)
+    {
+      v12 = *a4;
+      v13 = 501;
+      v14 = xmmword_24DA8EF20;
+      v15 = "offset <= length";
+      v16 = 0;
+      GTError_addError(a4, &v12);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_dispatchThreadsPerTile_inRegion_withRenderTargetArrayIndex(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 0x7536406C75334043 || *(a2 + 44) != 6911340)
+    {
+      v12 = *a4;
+      v13 = 501;
+      v14 = xmmword_24DA8EF30;
+      v15 = "memcmp((const char*)bytes + offset, (C@3ul@6ului), sizeof(C@3ul@6ului)) == 0";
+      v16 = 0;
+      GTError_addError(a4, &v12);
+    }
+  }
+
+  *a1 = *(a2 + 48);
+  v9 = *(a2 + 56);
+  *(a1 + 24) = *(a2 + 72);
+  *(a1 + 8) = v9;
+  v10 = *(a2 + 80);
+  v11 = *(a2 + 112);
+  *(a1 + 48) = *(a2 + 96);
+  *(a1 + 64) = v11;
+  *(a1 + 32) = v10;
+  *(a1 + 80) = *(a2 + 128);
+  if (a4)
+  {
+    if (a3 <= 0x5F)
+    {
+      v12 = *a4;
+      v13 = 501;
+      v14 = xmmword_24DA8EF30;
+      v15 = "offset <= length";
+      v16 = 0;
+      GTError_addError(a4, &v12);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_drawIndexedPatches_patchIndexBuffer_patchIndexBufferOffset_controlPointIndexBuffer_controlPointIndexBufferOffset_indirectBuffer_indirectBufferOffset(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 0x75746C75746C7543 || *(a2 + 41) != 0x6C75746C75746CLL)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8EF40;
+      v12 = "memcmp((const char*)bytes + offset, (Cultultultul), sizeof(Cultultultul)) == 0";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+
+  *a1 = *(a2 + 52);
+  a1[1] = *(a2 + 60);
+  a1[2] = *(a2 + 68);
+  a1[3] = *(a2 + 76);
+  a1[4] = *(a2 + 84);
+  a1[5] = *(a2 + 92);
+  a1[6] = *(a2 + 100);
+  a1[7] = *(a2 + 108);
+  if (a4)
+  {
+    if (a3 <= 0x4F)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8EF40;
+      v12 = "offset <= length";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_drawIndexedPatches_patchStart_patchCount_patchIndexBuffer_patchIndexBufferOffset_controlPointIndexBuffer_controlPointIndexBufferOffset_instanceCount_baseInstance(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    v8 = *(a2 + 36) == 0x746C756C756C7543 && *(a2 + 44) == 0x756C756C75746C75;
+    if (!v8 || *(a2 + 52) != 108)
+    {
+      v10 = *a4;
+      v11 = 501;
+      v12 = xmmword_24DA8EF50;
+      v13 = "memcmp((const char*)bytes + offset, (Cululultultululul), sizeof(Cululultultululul)) == 0";
+      v14 = 0;
+      GTError_addError(a4, &v10);
+    }
+  }
+
+  *a1 = *(a2 + 56);
+  a1[1] = *(a2 + 64);
+  a1[2] = *(a2 + 72);
+  a1[3] = *(a2 + 80);
+  a1[4] = *(a2 + 88);
+  a1[5] = *(a2 + 96);
+  a1[6] = *(a2 + 104);
+  a1[7] = *(a2 + 112);
+  a1[8] = *(a2 + 120);
+  a1[9] = *(a2 + 128);
+  if (a4)
+  {
+    if (a3 <= 0x63)
+    {
+      v10 = *a4;
+      v11 = 501;
+      v12 = xmmword_24DA8EF50;
+      v13 = "offset <= length";
+      v14 = 0;
+      GTError_addError(a4, &v10);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_drawIndexedPrimitives_indexCount_indexType_indexBuffer_indexBufferOffset(void *a1, void *a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 0x746C756C756C7543 || *(a2 + 39) != 0x6C75746C756C75)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8EF60;
+      v12 = "memcmp((const char*)bytes + offset, (Cululultul), sizeof(Cululultul)) == 0";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+
+  *a1 = a2[6];
+  a1[1] = a2[7];
+  a1[2] = a2[8];
+  a1[3] = a2[9];
+  a1[4] = a2[10];
+  a1[5] = a2[11];
+  if (a4)
+  {
+    if (a3 <= 0x3B)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8EF60;
+      v12 = "offset <= length";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_drawIndexedPrimitives_indexCount_indexType_indexBuffer_indexBufferOffset_instanceCount(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 0x746C756C756C7543 || *(a2 + 41) != 0x6C756C75746C75)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8EF70;
+      v12 = "memcmp((const char*)bytes + offset, (Cululultulul), sizeof(Cululultulul)) == 0";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+
+  *a1 = *(a2 + 52);
+  a1[1] = *(a2 + 60);
+  a1[2] = *(a2 + 68);
+  a1[3] = *(a2 + 76);
+  a1[4] = *(a2 + 84);
+  a1[5] = *(a2 + 92);
+  a1[6] = *(a2 + 100);
+  if (a4)
+  {
+    if (a3 <= 0x47)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8EF70;
+      v12 = "offset <= length";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_drawIndexedPrimitives_indexCount_indexType_indexBuffer_indexBufferOffset_instanceCount_baseVertex_baseInstance(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 0x746C756C756C7543 || *(a2 + 44) != 0x6C756C6C756C75)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8EF80;
+      v12 = "memcmp((const char*)bytes + offset, (Cululultulullul), sizeof(Cululultulullul)) == 0";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+
+  *a1 = *(a2 + 52);
+  a1[1] = *(a2 + 60);
+  a1[2] = *(a2 + 68);
+  a1[3] = *(a2 + 76);
+  a1[4] = *(a2 + 84);
+  a1[5] = *(a2 + 92);
+  a1[6] = *(a2 + 100);
+  a1[7] = *(a2 + 108);
+  a1[8] = *(a2 + 116);
+  if (a4)
+  {
+    if (a3 <= 0x57)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8EF80;
+      v12 = "offset <= length";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_drawIndexedPrimitives_indexType_indexBuffer_indexBufferOffset_indirectBuffer_indirectBufferOffset(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 0x6C75746C756C7543 || *(a2 + 44) != 7107956)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8EF90;
+      v12 = "memcmp((const char*)bytes + offset, (Culultultul), sizeof(Culultultul)) == 0";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+
+  *a1 = *(a2 + 48);
+  a1[1] = *(a2 + 56);
+  a1[2] = *(a2 + 64);
+  a1[3] = *(a2 + 72);
+  a1[4] = *(a2 + 80);
+  a1[5] = *(a2 + 88);
+  a1[6] = *(a2 + 96);
+  if (a4)
+  {
+    if (a3 <= 0x43)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8EF90;
+      v12 = "offset <= length";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_drawMeshThreadgroups_threadsPerObjectThreadgroup_threadsPerMeshThreadgroup(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 0x7533406C75334043 || *(a2 + 42) != 0x6C7533406C7533)
+    {
+      v12 = *a4;
+      v13 = 501;
+      v14 = xmmword_24DA8EFA0;
+      v15 = "memcmp((const char*)bytes + offset, (C@3ul@3ul@3ul), sizeof(C@3ul@3ul@3ul)) == 0";
+      v16 = 0;
+      GTError_addError(a4, &v12);
+    }
+  }
+
+  *a1 = *(a2 + 52);
+  v9 = *(a2 + 60);
+  *(a1 + 24) = *(a2 + 76);
+  *(a1 + 8) = v9;
+  v10 = *(a2 + 84);
+  *(a1 + 48) = *(a2 + 100);
+  *(a1 + 32) = v10;
+  v11 = *(a2 + 108);
+  *(a1 + 72) = *(a2 + 124);
+  *(a1 + 56) = v11;
+  if (a4)
+  {
+    if (a3 <= 0x5F)
+    {
+      v12 = *a4;
+      v13 = 501;
+      v14 = xmmword_24DA8EFA0;
+      v15 = "offset <= length";
+      v16 = 0;
+      GTError_addError(a4, &v12);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_drawMeshThreadgroupsWithIndirectBuffer_indirectBufferOffset_threadsPerObjectThreadgroup_threadsPerMeshThreadgroup(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 0x6C7533406C757443 || *(a2 + 41) != 0x6C7533406C7533)
+    {
+      v11 = *a4;
+      v12 = 501;
+      v13 = xmmword_24DA8EFB0;
+      v14 = "memcmp((const char*)bytes + offset, (Ctul@3ul@3ul), sizeof(Ctul@3ul@3ul)) == 0";
+      v15 = 0;
+      GTError_addError(a4, &v11);
+    }
+  }
+
+  *a1 = *(a2 + 52);
+  *(a1 + 8) = *(a2 + 60);
+  *(a1 + 16) = *(a2 + 68);
+  v9 = *(a2 + 76);
+  *(a1 + 40) = *(a2 + 92);
+  *(a1 + 24) = v9;
+  v10 = *(a2 + 100);
+  *(a1 + 64) = *(a2 + 116);
+  *(a1 + 48) = v10;
+  if (a4)
+  {
+    if (a3 <= 0x57)
+    {
+      v11 = *a4;
+      v12 = 501;
+      v13 = xmmword_24DA8EFB0;
+      v14 = "offset <= length";
+      v15 = 0;
+      GTError_addError(a4, &v11);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_drawMeshThreads_threadsPerObjectThreadgroup_threadsPerMeshThreadgroup(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 0x7533406C75334043 || *(a2 + 42) != 0x6C7533406C7533)
+    {
+      v12 = *a4;
+      v13 = 501;
+      v14 = xmmword_24DA8EFC0;
+      v15 = "memcmp((const char*)bytes + offset, (C@3ul@3ul@3ul), sizeof(C@3ul@3ul@3ul)) == 0";
+      v16 = 0;
+      GTError_addError(a4, &v12);
+    }
+  }
+
+  *a1 = *(a2 + 52);
+  v9 = *(a2 + 60);
+  *(a1 + 24) = *(a2 + 76);
+  *(a1 + 8) = v9;
+  v10 = *(a2 + 84);
+  *(a1 + 48) = *(a2 + 100);
+  *(a1 + 32) = v10;
+  v11 = *(a2 + 108);
+  *(a1 + 72) = *(a2 + 124);
+  *(a1 + 56) = v11;
+  if (a4)
+  {
+    if (a3 <= 0x5F)
+    {
+      v12 = *a4;
+      v13 = 501;
+      v14 = xmmword_24DA8EFC0;
+      v15 = "offset <= length";
+      v16 = 0;
+      GTError_addError(a4, &v12);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_drawPatches_patchIndexBuffer_patchIndexBufferOffset_indirectBuffer_indirectBufferOffset(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 0x75746C75746C7543 || *(a2 + 44) != 108)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8EFD0;
+      v12 = "memcmp((const char*)bytes + offset, (Cultultul), sizeof(Cultultul)) == 0";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+
+  *a1 = *(a2 + 48);
+  a1[1] = *(a2 + 56);
+  a1[2] = *(a2 + 64);
+  a1[3] = *(a2 + 72);
+  a1[4] = *(a2 + 80);
+  a1[5] = *(a2 + 88);
+  if (a4)
+  {
+    if (a3 <= 0x3B)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8EFD0;
+      v12 = "offset <= length";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_drawPatches_patchStart_patchCount_patchIndexBuffer_patchIndexBufferOffset_instanceCount_baseInstance(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 0x746C756C756C7543 || *(a2 + 43) != 0x6C756C756C7574)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8EFE0;
+      v12 = "memcmp((const char*)bytes + offset, (Cululultululul), sizeof(Cululultululul)) == 0";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+
+  *a1 = *(a2 + 52);
+  a1[1] = *(a2 + 60);
+  a1[2] = *(a2 + 68);
+  a1[3] = *(a2 + 76);
+  a1[4] = *(a2 + 84);
+  a1[5] = *(a2 + 92);
+  a1[6] = *(a2 + 100);
+  a1[7] = *(a2 + 108);
+  if (a4)
+  {
+    if (a3 <= 0x4F)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8EFE0;
+      v12 = "offset <= length";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_drawPrimitives_indirectBuffer_indirectBufferOffset(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 1953264963 || *(a2 + 39) != 7107956)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8EFF0;
+      v12 = "memcmp((const char*)bytes + offset, (Cultul), sizeof(Cultul)) == 0";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+
+  *a1 = *(a2 + 44);
+  a1[1] = *(a2 + 52);
+  a1[2] = *(a2 + 60);
+  a1[3] = *(a2 + 68);
+  if (a4)
+  {
+    if (a3 <= 0x27)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8EFF0;
+      v12 = "offset <= length";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_drawPrimitives_vertexStart_vertexCount(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4 && *(a2 + 36) != 0x6C756C756C7543)
+  {
+    v8 = *a4;
+    v9 = 501;
+    v10 = xmmword_24DA8F000;
+    v11 = "memcmp((const char*)bytes + offset, (Cululul), sizeof(Cululul)) == 0";
+    v12 = 0;
+    GTError_addError(a4, &v8);
+  }
+
+  *a1 = *(a2 + 44);
+  a1[1] = *(a2 + 52);
+  a1[2] = *(a2 + 60);
+  a1[3] = *(a2 + 68);
+  if (a4)
+  {
+    if (a3 <= 0x27)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8F000;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_drawPrimitives_vertexStart_vertexCount_instanceCount(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 0x756C756C756C7543 || *(a2 + 44) != 108)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8F010;
+      v12 = "memcmp((const char*)bytes + offset, (Culululul), sizeof(Culululul)) == 0";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+
+  *a1 = *(a2 + 48);
+  a1[1] = *(a2 + 56);
+  a1[2] = *(a2 + 64);
+  a1[3] = *(a2 + 72);
+  a1[4] = *(a2 + 80);
+  if (a4)
+  {
+    if (a3 <= 0x33)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8F010;
+      v12 = "offset <= length";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_drawPrimitives_vertexStart_vertexCount_instanceCount_baseInstance(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 0x756C756C756C7543 || *(a2 + 44) != 7107948)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8F020;
+      v12 = "memcmp((const char*)bytes + offset, (Cululululul), sizeof(Cululululul)) == 0";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+
+  *a1 = *(a2 + 48);
+  a1[1] = *(a2 + 56);
+  a1[2] = *(a2 + 64);
+  a1[3] = *(a2 + 72);
+  a1[4] = *(a2 + 80);
+  a1[5] = *(a2 + 88);
+  if (a4)
+  {
+    if (a3 <= 0x3B)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8F020;
+      v12 = "offset <= length";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_endEncoding(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 67)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8F030;
+      v11 = "memcmp((const char*)bytes + offset, (C), sizeof(C)) == 0";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+
+    *a1 = *(a2 + 40);
+    if (a3 <= 0xB)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8F030;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+
+  else
+  {
+    *a1 = *(a2 + 40);
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_insertDebugSignpost(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4 && *(a2 + 36) ^ 0x5343 | *(a2 + 38))
+  {
+    v8 = *a4;
+    v9 = 501;
+    v10 = xmmword_24DA8F040;
+    v11 = "memcmp((const char*)bytes + offset, (CS), sizeof(CS)) == 0";
+    v12 = 0;
+    GTError_addError(a4, &v8);
+  }
+
+  *a1 = *(a2 + 40);
+  v13 = 12;
+  *(a1 + 8) = AppendString_13794((a1 + 8), a2 + 36, &v13);
+  if (a4)
+  {
+    if (((v13 + 3) & 0xFFFFFFFFFFFFFFFCLL) > a3)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8F040;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_memoryBarrierWithResources_count_afterStages_beforeStages(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  v7 = (a2 + 36);
+  v15 = 0;
+  sscanf((a2 + 36), "C@%zutululul", &v15);
+  v8 = strlen(v7);
+  v9 = (v8 & 0xFFFFFFFFFFFFFFFCLL) + 12;
+  *a1 = *&v7[(v8 & 0xFFFFFFFFFFFFFFFCLL) + 4];
+  a1[1] = &v7[v9];
+  v10 = v9 + 8 * v15;
+  a1[2] = *&v7[v10];
+  a1[3] = *&v7[v10 + 8];
+  a1[4] = *&v7[v10 + 16];
+  if (a4)
+  {
+    if (v10 + 24 > a3)
+    {
+      v11[0] = *a4;
+      v11[1] = 501;
+      v12 = xmmword_24DA8F050;
+      v13 = "offset <= length";
+      v14 = 0;
+      GTError_addError(a4, v11);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_memoryBarrierWithScope_afterStages_beforeStages(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4 && *(a2 + 36) != 0x6C756C756C7543)
+  {
+    v8 = *a4;
+    v9 = 501;
+    v10 = xmmword_24DA8F060;
+    v11 = "memcmp((const char*)bytes + offset, (Cululul), sizeof(Cululul)) == 0";
+    v12 = 0;
+    GTError_addError(a4, &v8);
+  }
+
+  *a1 = *(a2 + 44);
+  a1[1] = *(a2 + 52);
+  a1[2] = *(a2 + 60);
+  a1[3] = *(a2 + 68);
+  if (a4)
+  {
+    if (a3 <= 0x27)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8F060;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_popDebugGroup(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 67)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8F070;
+      v11 = "memcmp((const char*)bytes + offset, (C), sizeof(C)) == 0";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+
+    *a1 = *(a2 + 40);
+    if (a3 <= 0xB)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8F070;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+
+  else
+  {
+    *a1 = *(a2 + 40);
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_pushDebugGroup(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4 && *(a2 + 36) ^ 0x5343 | *(a2 + 38))
+  {
+    v8 = *a4;
+    v9 = 501;
+    v10 = xmmword_24DA8F080;
+    v11 = "memcmp((const char*)bytes + offset, (CS), sizeof(CS)) == 0";
+    v12 = 0;
+    GTError_addError(a4, &v8);
+  }
+
+  *a1 = *(a2 + 40);
+  v13 = 12;
+  *(a1 + 8) = AppendString_13794((a1 + 8), a2 + 36, &v13);
+  if (a4)
+  {
+    if (((v13 + 3) & 0xFFFFFFFFFFFFFFFCLL) > a3)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8F080;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_sampleCountersInBuffer_atSampleIndex_withBarrier(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 1819636803 || *(a2 + 39) != 6911340)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8F090;
+      v12 = "memcmp((const char*)bytes + offset, (Ctului), sizeof(Ctului)) == 0";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+
+  *a1 = *(a2 + 44);
+  *(a1 + 8) = *(a2 + 52);
+  *(a1 + 16) = *(a2 + 60);
+  *(a1 + 24) = *(a2 + 68);
+  if (a4)
+  {
+    if (a3 <= 0x23)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8F090;
+      v12 = "offset <= length";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_setAlphaTestReferenceValue(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) ^ 0x6643 | *(a2 + 38))
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8F0A0;
+      v11 = "memcmp((const char*)bytes + offset, (Cf), sizeof(Cf)) == 0";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+
+    *a1 = *(a2 + 40);
+    *(a1 + 8) = *(a2 + 48);
+    if (a3 <= 0xF)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8F0A0;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+
+  else
+  {
+    *a1 = *(a2 + 40);
+    *(a1 + 8) = *(a2 + 48);
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_setBlendColorRed_green_blue_alpha(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 1717986883 || *(a2 + 40) != 102)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8F0B0;
+      v12 = "memcmp((const char*)bytes + offset, (Cffff), sizeof(Cffff)) == 0";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+
+  *a1 = *(a2 + 44);
+  *(a1 + 8) = *(a2 + 52);
+  *(a1 + 12) = *(a2 + 56);
+  *(a1 + 16) = *(a2 + 60);
+  *(a1 + 20) = *(a2 + 64);
+  if (a4)
+  {
+    if (a3 <= 0x1F)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8F0B0;
+      v12 = "offset <= length";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_setColorAttachmentMap(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 1966620739 || *(a2 + 40) != 98)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8F0C0;
+      v12 = "memcmp((const char*)bytes + offset, (C@8ub), sizeof(C@8ub)) == 0";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+
+    *a1 = *(a2 + 44);
+    a1[1] = *(a2 + 52);
+    if (a3 <= 0x17)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8F0C0;
+      v12 = "offset <= length";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+
+  else
+  {
+    *a1 = *(a2 + 44);
+    a1[1] = *(a2 + 52);
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_setColorResolveTexture_slice_depthPlane_level_atIndex(void *a1, void *a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 0x6C756C756C757443 || *(a2 + 39) != 0x6C756C756C756CLL)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8F0D0;
+      v12 = "memcmp((const char*)bytes + offset, (Ctulululul), sizeof(Ctulululul)) == 0";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+
+  *a1 = a2[6];
+  a1[1] = a2[7];
+  a1[2] = a2[8];
+  a1[3] = a2[9];
+  a1[4] = a2[10];
+  a1[5] = a2[11];
+  if (a4)
+  {
+    if (a3 <= 0x3B)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8F0D0;
+      v12 = "offset <= length";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_setColorResolveTexture_slice_depthPlane_level_yInvert_atIndex(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 0x6C756C756C757443 || *(a2 + 41) != 0x6C7569756C756CLL)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8F0E0;
+      v12 = "memcmp((const char*)bytes + offset, (Ctulululuiul), sizeof(Ctulululuiul)) == 0";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+
+  *a1 = *(a2 + 52);
+  *(a1 + 8) = *(a2 + 60);
+  *(a1 + 16) = *(a2 + 68);
+  *(a1 + 24) = *(a2 + 76);
+  *(a1 + 32) = *(a2 + 84);
+  *(a1 + 48) = *(a2 + 92);
+  *(a1 + 40) = *(a2 + 96);
+  if (a4)
+  {
+    if (a3 <= 0x43)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8F0E0;
+      v12 = "offset <= length";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_setColorStoreAction_atIndex(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 1970042179 || *(a2 + 40) != 108)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8F0F0;
+      v12 = "memcmp((const char*)bytes + offset, (Culul), sizeof(Culul)) == 0";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+
+  *a1 = *(a2 + 44);
+  a1[1] = *(a2 + 52);
+  a1[2] = *(a2 + 60);
+  if (a4)
+  {
+    if (a3 <= 0x1F)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8F0F0;
+      v12 = "offset <= length";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_setColorStoreActionOptions_atIndex(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 1970042179 || *(a2 + 40) != 108)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8F100;
+      v12 = "memcmp((const char*)bytes + offset, (Culul), sizeof(Culul)) == 0";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+
+  *a1 = *(a2 + 44);
+  a1[1] = *(a2 + 52);
+  a1[2] = *(a2 + 60);
+  if (a4)
+  {
+    if (a3 <= 0x1F)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8F100;
+      v12 = "offset <= length";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_setCullMode(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 7107907)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8F110;
+      v11 = "memcmp((const char*)bytes + offset, (Cul), sizeof(Cul)) == 0";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+
+    *a1 = *(a2 + 40);
+    a1[1] = *(a2 + 48);
+    if (a3 <= 0x13)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8F110;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+
+  else
+  {
+    *a1 = *(a2 + 40);
+    a1[1] = *(a2 + 48);
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_setDepthBias_slopeScale_clamp(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4 && *(a2 + 36) ^ 0x66666643 | *(a2 + 40))
+  {
+    v8 = *a4;
+    v9 = 501;
+    v10 = xmmword_24DA8F120;
+    v11 = "memcmp((const char*)bytes + offset, (Cfff), sizeof(Cfff)) == 0";
+    v12 = 0;
+    GTError_addError(a4, &v8);
+  }
+
+  *a1 = *(a2 + 44);
+  *(a1 + 8) = *(a2 + 52);
+  *(a1 + 12) = *(a2 + 56);
+  *(a1 + 16) = *(a2 + 60);
+  if (a4)
+  {
+    if (a3 <= 0x1B)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8F120;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_setDepthCleared(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 67)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8F130;
+      v11 = "memcmp((const char*)bytes + offset, (C), sizeof(C)) == 0";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+
+    *a1 = *(a2 + 40);
+    if (a3 <= 0xB)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8F130;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+
+  else
+  {
+    *a1 = *(a2 + 40);
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_setDepthClipMode(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 7107907)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8F140;
+      v11 = "memcmp((const char*)bytes + offset, (Cul), sizeof(Cul)) == 0";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+
+    *a1 = *(a2 + 40);
+    a1[1] = *(a2 + 48);
+    if (a3 <= 0x13)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8F140;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+
+  else
+  {
+    *a1 = *(a2 + 40);
+    a1[1] = *(a2 + 48);
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_setDepthResolveTexture_slice_depthPlane_level(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4 && *(a2 + 36) ^ 0x6C756C756C757443 | *(a2 + 44))
+  {
+    v8 = *a4;
+    v9 = 501;
+    v10 = xmmword_24DA8F150;
+    v11 = "memcmp((const char*)bytes + offset, (Ctululul), sizeof(Ctululul)) == 0";
+    v12 = 0;
+    GTError_addError(a4, &v8);
+  }
+
+  *a1 = *(a2 + 48);
+  a1[1] = *(a2 + 56);
+  a1[2] = *(a2 + 64);
+  a1[3] = *(a2 + 72);
+  a1[4] = *(a2 + 80);
+  if (a4)
+  {
+    if (a3 <= 0x33)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8F150;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_setDepthResolveTexture_slice_depthPlane_level_yInvert(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 0x6C756C756C757443 || *(a2 + 39) != 0x69756C756C756CLL)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8F160;
+      v12 = "memcmp((const char*)bytes + offset, (Ctululului), sizeof(Ctululului)) == 0";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+
+  *a1 = *(a2 + 48);
+  *(a1 + 8) = *(a2 + 56);
+  *(a1 + 16) = *(a2 + 64);
+  *(a1 + 24) = *(a2 + 72);
+  *(a1 + 32) = *(a2 + 80);
+  *(a1 + 40) = *(a2 + 88);
+  if (a4)
+  {
+    if (a3 <= 0x37)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8F160;
+      v12 = "offset <= length";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_setDepthStencilState(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) ^ 0x7443 | *(a2 + 38))
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8F170;
+      v11 = "memcmp((const char*)bytes + offset, (Ct), sizeof(Ct)) == 0";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+
+    *a1 = *(a2 + 40);
+    a1[1] = *(a2 + 48);
+    if (a3 <= 0x13)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8F170;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+
+  else
+  {
+    *a1 = *(a2 + 40);
+    a1[1] = *(a2 + 48);
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_setDepthStoreAction(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 7107907)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8F180;
+      v11 = "memcmp((const char*)bytes + offset, (Cul), sizeof(Cul)) == 0";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+
+    *a1 = *(a2 + 40);
+    a1[1] = *(a2 + 48);
+    if (a3 <= 0x13)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8F180;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+
+  else
+  {
+    *a1 = *(a2 + 40);
+    a1[1] = *(a2 + 48);
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_setDepthStoreActionOptions(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 7107907)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8F190;
+      v11 = "memcmp((const char*)bytes + offset, (Cul), sizeof(Cul)) == 0";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+
+    *a1 = *(a2 + 40);
+    a1[1] = *(a2 + 48);
+    if (a3 <= 0x13)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8F190;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+
+  else
+  {
+    *a1 = *(a2 + 40);
+    a1[1] = *(a2 + 48);
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_setDepthTestMinBound_maxBound(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4 && *(a2 + 36) != 6710851)
+  {
+    v8 = *a4;
+    v9 = 501;
+    v10 = xmmword_24DA8F1A0;
+    v11 = "memcmp((const char*)bytes + offset, (Cff), sizeof(Cff)) == 0";
+    v12 = 0;
+    GTError_addError(a4, &v8);
+  }
+
+  *a1 = *(a2 + 40);
+  *(a1 + 8) = *(a2 + 48);
+  *(a1 + 12) = *(a2 + 52);
+  if (a4)
+  {
+    if (a3 <= 0x13)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8F1A0;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_setFragmentAccelerationStructure_atBufferIndex(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4 && *(a2 + 36) ^ 0x6C757443 | *(a2 + 40))
+  {
+    v8 = *a4;
+    v9 = 501;
+    v10 = xmmword_24DA8F1B0;
+    v11 = "memcmp((const char*)bytes + offset, (Ctul), sizeof(Ctul)) == 0";
+    v12 = 0;
+    GTError_addError(a4, &v8);
+  }
+
+  *a1 = *(a2 + 44);
+  a1[1] = *(a2 + 52);
+  a1[2] = *(a2 + 60);
+  if (a4)
+  {
+    if (a3 <= 0x1F)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8F1B0;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_setFragmentBuffer_offset_atIndex(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 1819636803 || *(a2 + 39) != 7107948)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8F1C0;
+      v12 = "memcmp((const char*)bytes + offset, (Ctulul), sizeof(Ctulul)) == 0";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+
+  *a1 = *(a2 + 44);
+  a1[1] = *(a2 + 52);
+  a1[2] = *(a2 + 60);
+  a1[3] = *(a2 + 68);
+  if (a4)
+  {
+    if (a3 <= 0x27)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8F1C0;
+      v12 = "offset <= length";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_setFragmentBufferOffset_atIndex(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 1970042179 || *(a2 + 40) != 108)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8F1D0;
+      v12 = "memcmp((const char*)bytes + offset, (Culul), sizeof(Culul)) == 0";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+
+  *a1 = *(a2 + 44);
+  a1[1] = *(a2 + 52);
+  a1[2] = *(a2 + 60);
+  if (a4)
+  {
+    if (a3 <= 0x1F)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8F1D0;
+      v12 = "offset <= length";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_setFragmentBuffers_offsets_withRange(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  v7 = (a2 + 36);
+  v16 = 0;
+  v17 = 0;
+  sscanf((a2 + 36), "C@%zut@%zuul@2ul", &v17, &v16);
+  v8 = strlen(v7);
+  v9 = (v8 & 0xFFFFFFFFFFFFFFFCLL) + 12;
+  *a1 = *&v7[(v8 & 0xFFFFFFFFFFFFFFFCLL) + 4];
+  *(a1 + 8) = &v7[v9];
+  v10 = v17;
+  *(a1 + 16) = &v7[8 * v17 + v9];
+  v11 = v9 + 8 * (v10 + v16);
+  *(a1 + 24) = *&v7[v11];
+  if (a4)
+  {
+    if (v11 + 16 > a3)
+    {
+      v12[0] = *a4;
+      v12[1] = 501;
+      v13 = xmmword_24DA8F1E0;
+      v14 = "offset <= length";
+      v15 = 0;
+      GTError_addError(a4, v12);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_setFragmentBytes_length_atIndex(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  v8 = (a2 + 36);
+  if (a4)
+  {
+    if (*v8 != 0x756C753E623C5543 || *(a2 + 44) != 108)
+    {
+      v11 = *a4;
+      v12 = 501;
+      v13 = xmmword_24DA8F1F0;
+      v14 = "memcmp((const char*)bytes + offset, (CU<b>ulul), sizeof(CU<b>ulul)) == 0";
+      v15 = 0;
+      GTError_addError(a4, &v11);
+    }
+  }
+
+  *a1 = *(a2 + 48);
+  v16 = 20;
+  *(a1 + 8) = AppendString_13794((a1 + 8), v8, &v16);
+  v10 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
+  *(a1 + 16) = *(v8 + v10);
+  *(a1 + 24) = *(v8 + v10 + 8);
+  if (a4)
+  {
+    if (v10 + 16 > a3)
+    {
+      v11 = *a4;
+      v12 = 501;
+      v13 = xmmword_24DA8F1F0;
+      v14 = "offset <= length";
+      v15 = 0;
+      GTError_addError(a4, &v11);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_setFragmentIntersectionFunctionTable_atBufferIndex(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4 && *(a2 + 36) ^ 0x6C757443 | *(a2 + 40))
+  {
+    v8 = *a4;
+    v9 = 501;
+    v10 = xmmword_24DA8F200;
+    v11 = "memcmp((const char*)bytes + offset, (Ctul), sizeof(Ctul)) == 0";
+    v12 = 0;
+    GTError_addError(a4, &v8);
+  }
+
+  *a1 = *(a2 + 44);
+  a1[1] = *(a2 + 52);
+  a1[2] = *(a2 + 60);
+  if (a4)
+  {
+    if (a3 <= 0x1F)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8F200;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_setFragmentIntersectionFunctionTables_withBufferRange(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  v7 = (a2 + 36);
+  v15 = 0;
+  sscanf((a2 + 36), "C@%zut@2ul", &v15);
+  v8 = strlen(v7);
+  v9 = (v8 & 0xFFFFFFFFFFFFFFFCLL) + 12;
+  *a1 = *&v7[(v8 & 0xFFFFFFFFFFFFFFFCLL) + 4];
+  *(a1 + 8) = &v7[v9];
+  v10 = v9 + 8 * v15;
+  *(a1 + 16) = *&v7[v10];
+  if (a4)
+  {
+    if (v10 + 16 > a3)
+    {
+      v11[0] = *a4;
+      v11[1] = 501;
+      v12 = xmmword_24DA8F210;
+      v13 = "offset <= length";
+      v14 = 0;
+      GTError_addError(a4, v11);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_setFragmentSamplerState_atIndex(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4 && *(a2 + 36) ^ 0x6C757443 | *(a2 + 40))
+  {
+    v8 = *a4;
+    v9 = 501;
+    v10 = xmmword_24DA8F220;
+    v11 = "memcmp((const char*)bytes + offset, (Ctul), sizeof(Ctul)) == 0";
+    v12 = 0;
+    GTError_addError(a4, &v8);
+  }
+
+  *a1 = *(a2 + 44);
+  a1[1] = *(a2 + 52);
+  a1[2] = *(a2 + 60);
+  if (a4)
+  {
+    if (a3 <= 0x1F)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8F220;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_setFragmentSamplerState_lodMinClamp_lodMaxClamp_atIndex(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 1717990467 || *(a2 + 39) != 7107942)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8F230;
+      v12 = "memcmp((const char*)bytes + offset, (Ctfful), sizeof(Ctfful)) == 0";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+
+  *a1 = *(a2 + 44);
+  *(a1 + 8) = *(a2 + 52);
+  *(a1 + 24) = *(a2 + 60);
+  *(a1 + 28) = *(a2 + 64);
+  *(a1 + 16) = *(a2 + 68);
+  if (a4)
+  {
+    if (a3 <= 0x27)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8F230;
+      v12 = "offset <= length";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_setFragmentSamplerStates_lodMinClamps_lodMaxClamps_withRange(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  v19 = 0;
+  v20 = 0;
+  v7 = (a2 + 36);
+  v18 = 0;
+  sscanf((a2 + 36), "C@%zut@%zuf@%zuf@2ul", &v20, &v19, &v18);
+  v8 = strlen(v7);
+  v9 = (v8 & 0xFFFFFFFFFFFFFFFCLL) + 12;
+  *a1 = *&v7[(v8 & 0xFFFFFFFFFFFFFFFCLL) + 4];
+  *(a1 + 8) = &v7[v9];
+  v10 = v19;
+  v11 = v9 + 8 * v20;
+  v12 = &v7[4 * v19 + v11];
+  *(a1 + 32) = &v7[v11];
+  *(a1 + 40) = v12;
+  v13 = v11 + 4 * (v10 + v18);
+  *(a1 + 16) = *&v7[v13];
+  if (a4)
+  {
+    if (v13 + 16 > a3)
+    {
+      v14[0] = *a4;
+      v14[1] = 501;
+      v15 = xmmword_24DA8F240;
+      v16 = "offset <= length";
+      v17 = 0;
+      GTError_addError(a4, v14);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_setFragmentSamplerStates_withRange(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  v7 = (a2 + 36);
+  v15 = 0;
+  sscanf((a2 + 36), "C@%zut@2ul", &v15);
+  v8 = strlen(v7);
+  v9 = (v8 & 0xFFFFFFFFFFFFFFFCLL) + 12;
+  *a1 = *&v7[(v8 & 0xFFFFFFFFFFFFFFFCLL) + 4];
+  *(a1 + 8) = &v7[v9];
+  v10 = v9 + 8 * v15;
+  *(a1 + 16) = *&v7[v10];
+  if (a4)
+  {
+    if (v10 + 16 > a3)
+    {
+      v11[0] = *a4;
+      v11[1] = 501;
+      v12 = xmmword_24DA8F250;
+      v13 = "offset <= length";
+      v14 = 0;
+      GTError_addError(a4, v11);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_setFragmentTexture_atIndex(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4 && *(a2 + 36) ^ 0x6C757443 | *(a2 + 40))
+  {
+    v8 = *a4;
+    v9 = 501;
+    v10 = xmmword_24DA8F260;
+    v11 = "memcmp((const char*)bytes + offset, (Ctul), sizeof(Ctul)) == 0";
+    v12 = 0;
+    GTError_addError(a4, &v8);
+  }
+
+  *a1 = *(a2 + 44);
+  a1[1] = *(a2 + 52);
+  a1[2] = *(a2 + 60);
+  if (a4)
+  {
+    if (a3 <= 0x1F)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8F260;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_setFragmentTexture_atTextureIndex_samplerState_atSamplerIndex(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4 && *(a2 + 36) != 0x6C75746C757443)
+  {
+    v8 = *a4;
+    v9 = 501;
+    v10 = xmmword_24DA8F270;
+    v11 = "memcmp((const char*)bytes + offset, (Ctultul), sizeof(Ctultul)) == 0";
+    v12 = 0;
+    GTError_addError(a4, &v8);
+  }
+
+  *a1 = *(a2 + 44);
+  a1[1] = *(a2 + 52);
+  a1[2] = *(a2 + 60);
+  a1[3] = *(a2 + 68);
+  a1[4] = *(a2 + 76);
+  if (a4)
+  {
+    if (a3 <= 0x2F)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8F270;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_setFragmentTextures_withRange(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  v7 = (a2 + 36);
+  v15 = 0;
+  sscanf((a2 + 36), "C@%zut@2ul", &v15);
+  v8 = strlen(v7);
+  v9 = (v8 & 0xFFFFFFFFFFFFFFFCLL) + 12;
+  *a1 = *&v7[(v8 & 0xFFFFFFFFFFFFFFFCLL) + 4];
+  *(a1 + 8) = &v7[v9];
+  v10 = v9 + 8 * v15;
+  *(a1 + 16) = *&v7[v10];
+  if (a4)
+  {
+    if (v10 + 16 > a3)
+    {
+      v11[0] = *a4;
+      v11[1] = 501;
+      v12 = xmmword_24DA8F280;
+      v13 = "offset <= length";
+      v14 = 0;
+      GTError_addError(a4, v11);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_setFragmentVisibleFunctionTable_atBufferIndex(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4 && *(a2 + 36) ^ 0x6C757443 | *(a2 + 40))
+  {
+    v8 = *a4;
+    v9 = 501;
+    v10 = xmmword_24DA8F290;
+    v11 = "memcmp((const char*)bytes + offset, (Ctul), sizeof(Ctul)) == 0";
+    v12 = 0;
+    GTError_addError(a4, &v8);
+  }
+
+  *a1 = *(a2 + 44);
+  a1[1] = *(a2 + 52);
+  a1[2] = *(a2 + 60);
+  if (a4)
+  {
+    if (a3 <= 0x1F)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8F290;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_setFragmentVisibleFunctionTables_withBufferRange(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  v7 = (a2 + 36);
+  v15 = 0;
+  sscanf((a2 + 36), "C@%zut@2ul", &v15);
+  v8 = strlen(v7);
+  v9 = (v8 & 0xFFFFFFFFFFFFFFFCLL) + 12;
+  *a1 = *&v7[(v8 & 0xFFFFFFFFFFFFFFFCLL) + 4];
+  *(a1 + 8) = &v7[v9];
+  v10 = v9 + 8 * v15;
+  *(a1 + 16) = *&v7[v10];
+  if (a4)
+  {
+    if (v10 + 16 > a3)
+    {
+      v11[0] = *a4;
+      v11[1] = 501;
+      v12 = xmmword_24DA8F2A0;
+      v13 = "offset <= length";
+      v14 = 0;
+      GTError_addError(a4, v11);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_setFrontFacingWinding(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 7107907)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8F2B0;
+      v11 = "memcmp((const char*)bytes + offset, (Cul), sizeof(Cul)) == 0";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+
+    *a1 = *(a2 + 40);
+    a1[1] = *(a2 + 48);
+    if (a3 <= 0x13)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8F2B0;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+
+  else
+  {
+    *a1 = *(a2 + 40);
+    a1[1] = *(a2 + 48);
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_setLineWidth(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) ^ 0x6643 | *(a2 + 38))
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8F2C0;
+      v11 = "memcmp((const char*)bytes + offset, (Cf), sizeof(Cf)) == 0";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+
+    *a1 = *(a2 + 40);
+    *(a1 + 8) = *(a2 + 48);
+    if (a3 <= 0xF)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8F2C0;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+
+  else
+  {
+    *a1 = *(a2 + 40);
+    *(a1 + 8) = *(a2 + 48);
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_setMeshBuffer_offset_atIndex(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 1819636803 || *(a2 + 39) != 7107948)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8F2D0;
+      v12 = "memcmp((const char*)bytes + offset, (Ctulul), sizeof(Ctulul)) == 0";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+
+  *a1 = *(a2 + 44);
+  a1[1] = *(a2 + 52);
+  a1[2] = *(a2 + 60);
+  a1[3] = *(a2 + 68);
+  if (a4)
+  {
+    if (a3 <= 0x27)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8F2D0;
+      v12 = "offset <= length";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_setMeshBufferOffset_atIndex(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 1970042179 || *(a2 + 40) != 108)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8F2E0;
+      v12 = "memcmp((const char*)bytes + offset, (Culul), sizeof(Culul)) == 0";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+
+  *a1 = *(a2 + 44);
+  a1[1] = *(a2 + 52);
+  a1[2] = *(a2 + 60);
+  if (a4)
+  {
+    if (a3 <= 0x1F)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8F2E0;
+      v12 = "offset <= length";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_setMeshBuffers_offsets_withRange(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  v7 = (a2 + 36);
+  v15 = 0;
+  sscanf((a2 + 36), "C@%zutU<b>@2ul", &v15);
+  v8 = strlen(v7);
+  v9 = (v8 & 0xFFFFFFFFFFFFFFFCLL) + 12;
+  *a1 = *&v7[(v8 & 0xFFFFFFFFFFFFFFFCLL) + 4];
+  *(a1 + 8) = &v7[v9];
+  v16 = v9 + 8 * v15;
+  *(a1 + 16) = AppendString_13794((a1 + 16), v7, &v16);
+  v10 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
+  *(a1 + 24) = *&v7[v10];
+  if (a4)
+  {
+    if (v10 + 16 > a3)
+    {
+      v11[0] = *a4;
+      v11[1] = 501;
+      v12 = xmmword_24DA8F2F0;
+      v13 = "offset <= length";
+      v14 = 0;
+      GTError_addError(a4, v11);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_setMeshBytes_length_atIndex(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  v8 = (a2 + 36);
+  if (a4)
+  {
+    if (*v8 != 0x756C753E623C5543 || *(a2 + 44) != 108)
+    {
+      v11 = *a4;
+      v12 = 501;
+      v13 = xmmword_24DA8F300;
+      v14 = "memcmp((const char*)bytes + offset, (CU<b>ulul), sizeof(CU<b>ulul)) == 0";
+      v15 = 0;
+      GTError_addError(a4, &v11);
+    }
+  }
+
+  *a1 = *(a2 + 48);
+  v16 = 20;
+  *(a1 + 8) = AppendString_13794((a1 + 8), v8, &v16);
+  v10 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
+  *(a1 + 16) = *(v8 + v10);
+  *(a1 + 24) = *(v8 + v10 + 8);
+  if (a4)
+  {
+    if (v10 + 16 > a3)
+    {
+      v11 = *a4;
+      v12 = 501;
+      v13 = xmmword_24DA8F300;
+      v14 = "offset <= length";
+      v15 = 0;
+      GTError_addError(a4, &v11);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_setMeshSamplerState_atIndex(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4 && *(a2 + 36) ^ 0x6C757443 | *(a2 + 40))
+  {
+    v8 = *a4;
+    v9 = 501;
+    v10 = xmmword_24DA8F310;
+    v11 = "memcmp((const char*)bytes + offset, (Ctul), sizeof(Ctul)) == 0";
+    v12 = 0;
+    GTError_addError(a4, &v8);
+  }
+
+  *a1 = *(a2 + 44);
+  a1[1] = *(a2 + 52);
+  a1[2] = *(a2 + 60);
+  if (a4)
+  {
+    if (a3 <= 0x1F)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8F310;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_setMeshSamplerState_lodMinClamp_lodMaxClamp_atIndex(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 1717990467 || *(a2 + 39) != 7107942)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8F320;
+      v12 = "memcmp((const char*)bytes + offset, (Ctfful), sizeof(Ctfful)) == 0";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+
+  *a1 = *(a2 + 44);
+  *(a1 + 8) = *(a2 + 52);
+  *(a1 + 24) = *(a2 + 60);
+  *(a1 + 28) = *(a2 + 64);
+  *(a1 + 16) = *(a2 + 68);
+  if (a4)
+  {
+    if (a3 <= 0x27)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8F320;
+      v12 = "offset <= length";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_setMeshSamplerStates_lodMinClamps_lodMaxClamps_withRange(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  v7 = (a2 + 36);
+  v15 = 0;
+  sscanf((a2 + 36), "C@%zutU<b>U<b>@2ul", &v15);
+  v8 = strlen(v7);
+  v9 = (v8 & 0xFFFFFFFFFFFFFFFCLL) + 12;
+  *a1 = *&v7[(v8 & 0xFFFFFFFFFFFFFFFCLL) + 4];
+  *(a1 + 8) = &v7[v9];
+  v16 = v9 + 8 * v15;
+  *(a1 + 16) = AppendString_13794((a1 + 16), v7, &v16);
+  *(a1 + 24) = AppendString_13794((a1 + 24), v7, &v16);
+  v10 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
+  *(a1 + 32) = *&v7[v10];
+  if (a4)
+  {
+    if (v10 + 16 > a3)
+    {
+      v11[0] = *a4;
+      v11[1] = 501;
+      v12 = xmmword_24DA8F330;
+      v13 = "offset <= length";
+      v14 = 0;
+      GTError_addError(a4, v11);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_setMeshSamplerStates_withRange(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  v7 = (a2 + 36);
+  v15 = 0;
+  sscanf((a2 + 36), "C@%zut@2ul", &v15);
+  v8 = strlen(v7);
+  v9 = (v8 & 0xFFFFFFFFFFFFFFFCLL) + 12;
+  *a1 = *&v7[(v8 & 0xFFFFFFFFFFFFFFFCLL) + 4];
+  *(a1 + 8) = &v7[v9];
+  v10 = v9 + 8 * v15;
+  *(a1 + 16) = *&v7[v10];
+  if (a4)
+  {
+    if (v10 + 16 > a3)
+    {
+      v11[0] = *a4;
+      v11[1] = 501;
+      v12 = xmmword_24DA8F340;
+      v13 = "offset <= length";
+      v14 = 0;
+      GTError_addError(a4, v11);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_setMeshTexture_atIndex(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4 && *(a2 + 36) ^ 0x6C757443 | *(a2 + 40))
+  {
+    v8 = *a4;
+    v9 = 501;
+    v10 = xmmword_24DA8F350;
+    v11 = "memcmp((const char*)bytes + offset, (Ctul), sizeof(Ctul)) == 0";
+    v12 = 0;
+    GTError_addError(a4, &v8);
+  }
+
+  *a1 = *(a2 + 44);
+  a1[1] = *(a2 + 52);
+  a1[2] = *(a2 + 60);
+  if (a4)
+  {
+    if (a3 <= 0x1F)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8F350;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_setMeshTextures_withRange(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  v7 = (a2 + 36);
+  v15 = 0;
+  sscanf((a2 + 36), "C@%zut@2ul", &v15);
+  v8 = strlen(v7);
+  v9 = (v8 & 0xFFFFFFFFFFFFFFFCLL) + 12;
+  *a1 = *&v7[(v8 & 0xFFFFFFFFFFFFFFFCLL) + 4];
+  *(a1 + 8) = &v7[v9];
+  v10 = v9 + 8 * v15;
+  *(a1 + 16) = *&v7[v10];
+  if (a4)
+  {
+    if (v10 + 16 > a3)
+    {
+      v11[0] = *a4;
+      v11[1] = 501;
+      v12 = xmmword_24DA8F360;
+      v13 = "offset <= length";
+      v14 = 0;
+      GTError_addError(a4, v11);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_setObjectBuffer_offset_atIndex(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 1819636803 || *(a2 + 39) != 7107948)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8F370;
+      v12 = "memcmp((const char*)bytes + offset, (Ctulul), sizeof(Ctulul)) == 0";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+
+  *a1 = *(a2 + 44);
+  a1[1] = *(a2 + 52);
+  a1[2] = *(a2 + 60);
+  a1[3] = *(a2 + 68);
+  if (a4)
+  {
+    if (a3 <= 0x27)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8F370;
+      v12 = "offset <= length";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_setObjectBufferOffset_atIndex(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 1970042179 || *(a2 + 40) != 108)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8F380;
+      v12 = "memcmp((const char*)bytes + offset, (Culul), sizeof(Culul)) == 0";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+
+  *a1 = *(a2 + 44);
+  a1[1] = *(a2 + 52);
+  a1[2] = *(a2 + 60);
+  if (a4)
+  {
+    if (a3 <= 0x1F)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8F380;
+      v12 = "offset <= length";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_setObjectBuffers_offsets_withRange(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  v7 = (a2 + 36);
+  v15 = 0;
+  sscanf((a2 + 36), "C@%zutU<b>@2ul", &v15);
+  v8 = strlen(v7);
+  v9 = (v8 & 0xFFFFFFFFFFFFFFFCLL) + 12;
+  *a1 = *&v7[(v8 & 0xFFFFFFFFFFFFFFFCLL) + 4];
+  *(a1 + 8) = &v7[v9];
+  v16 = v9 + 8 * v15;
+  *(a1 + 16) = AppendString_13794((a1 + 16), v7, &v16);
+  v10 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
+  *(a1 + 24) = *&v7[v10];
+  if (a4)
+  {
+    if (v10 + 16 > a3)
+    {
+      v11[0] = *a4;
+      v11[1] = 501;
+      v12 = xmmword_24DA8F390;
+      v13 = "offset <= length";
+      v14 = 0;
+      GTError_addError(a4, v11);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_setObjectBytes_length_atIndex(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  v8 = (a2 + 36);
+  if (a4)
+  {
+    if (*v8 != 0x756C753E623C5543 || *(a2 + 44) != 108)
+    {
+      v11 = *a4;
+      v12 = 501;
+      v13 = xmmword_24DA8F3A0;
+      v14 = "memcmp((const char*)bytes + offset, (CU<b>ulul), sizeof(CU<b>ulul)) == 0";
+      v15 = 0;
+      GTError_addError(a4, &v11);
+    }
+  }
+
+  *a1 = *(a2 + 48);
+  v16 = 20;
+  *(a1 + 8) = AppendString_13794((a1 + 8), v8, &v16);
+  v10 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
+  *(a1 + 16) = *(v8 + v10);
+  *(a1 + 24) = *(v8 + v10 + 8);
+  if (a4)
+  {
+    if (v10 + 16 > a3)
+    {
+      v11 = *a4;
+      v12 = 501;
+      v13 = xmmword_24DA8F3A0;
+      v14 = "offset <= length";
+      v15 = 0;
+      GTError_addError(a4, &v11);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_setObjectSamplerState_atIndex(void *a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4 && *(a2 + 36) ^ 0x6C757443 | *(a2 + 40))
+  {
+    v8 = *a4;
+    v9 = 501;
+    v10 = xmmword_24DA8F3B0;
+    v11 = "memcmp((const char*)bytes + offset, (Ctul), sizeof(Ctul)) == 0";
+    v12 = 0;
+    GTError_addError(a4, &v8);
+  }
+
+  *a1 = *(a2 + 44);
+  a1[1] = *(a2 + 52);
+  a1[2] = *(a2 + 60);
+  if (a4)
+  {
+    if (a3 <= 0x1F)
+    {
+      v8 = *a4;
+      v9 = 501;
+      v10 = xmmword_24DA8F3B0;
+      v11 = "offset <= length";
+      v12 = 0;
+      GTError_addError(a4, &v8);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_setObjectSamplerState_lodMinClamp_lodMaxClamp_atIndex(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  if (a4)
+  {
+    if (*(a2 + 36) != 1717990467 || *(a2 + 39) != 7107942)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8F3C0;
+      v12 = "memcmp((const char*)bytes + offset, (Ctfful), sizeof(Ctfful)) == 0";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+
+  *a1 = *(a2 + 44);
+  *(a1 + 8) = *(a2 + 52);
+  *(a1 + 24) = *(a2 + 60);
+  *(a1 + 28) = *(a2 + 64);
+  *(a1 + 16) = *(a2 + 68);
+  if (a4)
+  {
+    if (a3 <= 0x27)
+    {
+      v9 = *a4;
+      v10 = 501;
+      v11 = xmmword_24DA8F3C0;
+      v12 = "offset <= length";
+      v13 = 0;
+      GTError_addError(a4, &v9);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_setObjectSamplerStates_lodMinClamps_lodMaxClamps_withRange(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  v7 = (a2 + 36);
+  v15 = 0;
+  sscanf((a2 + 36), "C@%zutU<b>U<b>@2ul", &v15);
+  v8 = strlen(v7);
+  v9 = (v8 & 0xFFFFFFFFFFFFFFFCLL) + 12;
+  *a1 = *&v7[(v8 & 0xFFFFFFFFFFFFFFFCLL) + 4];
+  *(a1 + 8) = &v7[v9];
+  v16 = v9 + 8 * v15;
+  *(a1 + 16) = AppendString_13794((a1 + 16), v7, &v16);
+  *(a1 + 24) = AppendString_13794((a1 + 24), v7, &v16);
+  v10 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
+  *(a1 + 32) = *&v7[v10];
+  if (a4)
+  {
+    if (v10 + 16 > a3)
+    {
+      v11[0] = *a4;
+      v11[1] = 501;
+      v12 = xmmword_24DA8F3D0;
+      v13 = "offset <= length";
+      v14 = 0;
+      GTError_addError(a4, v11);
+    }
+  }
+}
+
+void DYTraceDecode_MTLRenderCommandEncoder_setObjectSamplerStates_withRange(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
+{
+  v7 = (a2 + 36);
+  v15 = 0;
+  sscanf((a2 + 36), "C@%zut@2ul", &v15);
+  v8 = strlen(v7);
+  v9 = (v8 & 0xFFFFFFFFFFFFFFFCLL) + 12;
+  *a1 = *&v7[(v8 & 0xFFFFFFFFFFFFFFFCLL) + 4];
+  *(a1 + 8) = &v7[v9];
+  v10 = v9 + 8 * v15;
+  *(a1 + 16) = *&v7[v10];
+  if (a4)
+  {
+    if (v10 + 16 > a3)
+    {
+      v11[0] = *a4;
+      v11[1] = 501;
+      v12 = xmmword_24DA8F3E0;
+      v13 = "offset <= length";
+      v14 = 0;
+      GTError_addError(a4, v11);
     }
   }
 }

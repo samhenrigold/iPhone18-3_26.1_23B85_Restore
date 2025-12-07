@@ -141,7 +141,7 @@
 {
   activityCopy = activity;
   handlerCopy = handler;
-  if (-[SBProximityReaderUISceneController _isHandlingBackgroundActivity:](self, "_isHandlingBackgroundActivity:", activityCopy) || (-[SBSUIFeaturePolicyHostComponent desiredBackgroundActivities](self->_featurePolicyComponent, "desiredBackgroundActivities"), v8 = objc_claimAutoreleasedReturnValue(), v9 = [v8 containsObject:activityCopy], v8, !v9))
+  if ([(SBProximityReaderUISceneController *)self _isHandlingBackgroundActivity:activityCopy]|| ([(SBSUIFeaturePolicyHostComponent *)self->_featurePolicyComponent desiredBackgroundActivities], v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend_containsObject_(v8), v8, !v9))
   {
     v14 = 0;
   }
@@ -188,13 +188,13 @@ void __71__SBProximityReaderUISceneController_handleBackgroundActivity_handler__
   }
 }
 
-uint64_t __71__SBProximityReaderUISceneController_handleBackgroundActivity_handler___block_invoke_2(uint64_t result)
+id *__71__SBProximityReaderUISceneController_handleBackgroundActivity_handler___block_invoke_2(id *result)
 {
   if (*(result + 56) == 1)
   {
     v2 = result;
-    [*(result + 32) _addHandlingBackgroundActivity:*(result + 40)];
-    (*(v2[6] + 16))();
+    [result[4] _addHandlingBackgroundActivity:result[5]];
+    (*(v2[6] + 2))();
     v3 = v2[4];
     v4 = v2[5];
 

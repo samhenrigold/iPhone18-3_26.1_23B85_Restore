@@ -2,9 +2,9 @@
 + (SUTransitionSafetyDelegate)transitionSafetyDelegate;
 + (SUTransitionSafetyInvocationRecorder)transitionSafePerformer:()SUTransitionSafety;
 + (uint64_t)_iTunesStoreUI_dequeueTransitionSafeInvocations;
-+ (uint64_t)endTransitionSafety;
 + (void)_iTunesStoreUI_enqueueTransitionSafeInvocation:()SUTransitionSafety;
 + (void)_iTunesStoreUI_timeoutTransitionSafety;
++ (void)endTransitionSafety;
 - (uint64_t)transitionSafePresentModalViewController:()SUTransitionSafety animated:;
 @end
 
@@ -99,15 +99,21 @@
     shouldLog = [mEMORY[0x1E69D4938] shouldLog];
     if ([mEMORY[0x1E69D4938] shouldLogToDisk])
     {
-      v4 = shouldLog | 2;
+      LODWORD(v4) = shouldLog | 2;
     }
 
     else
     {
-      v4 = shouldLog;
+      LODWORD(v4) = shouldLog;
     }
 
-    if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v4 = v4;
+    }
+
+    else
     {
       v4 &= 2u;
     }
@@ -118,15 +124,13 @@
       v11 = objc_opt_class();
       v12 = 2048;
       v13 = __TransitionSafetyCount;
-      LODWORD(v9) = 22;
-      v8 = &v10;
-      v5 = _os_log_send_and_compose_impl();
-      if (v5)
+      v6 = _os_log_send_and_compose_impl(v4, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "%@: Timing out transition safety with count: %ld", &v10, 22);
+      if (v6)
       {
-        v6 = v5;
-        v7 = [MEMORY[0x1E696AEC0] stringWithCString:v5 encoding:{4, &v10, v9}];
-        free(v6);
-        v8 = v7;
+        v7 = v6;
+        v8 = [MEMORY[0x1E696AEC0] stringWithCString:v6 encoding:4];
+        free(v7);
+        v9 = v8;
         SSFileLog();
       }
     }
@@ -143,7 +147,7 @@
   }
 }
 
-+ (uint64_t)endTransitionSafety
++ (void)endTransitionSafety
 {
   v2 = __TransitionSafetyCount == 1;
   if (__TransitionSafetyCount >= 1)

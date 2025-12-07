@@ -68,7 +68,7 @@
   return v3;
 }
 
-uint64_t __31__REConcurrentDictionary_count__block_invoke(uint64_t a1)
+void *__31__REConcurrentDictionary_count__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 8) count];
   *(*(*(a1 + 40) + 8) + 24) = result;

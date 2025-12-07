@@ -86,9 +86,9 @@
 
   label3 = [(STPersonContactHandle *)self label];
   label4 = [handleCopy label];
-  v9 = [label3 isEqualToString:label4];
+  isEqualToString = objc_msgSend_isEqualToString_(label3);
 
-  if (!v9)
+  if (!isEqualToString)
   {
 LABEL_11:
     v13 = 0;
@@ -111,7 +111,7 @@ LABEL_11:
 LABEL_7:
   handle3 = [(STPersonContactHandle *)self handle];
   handle4 = [handleCopy handle];
-  v13 = [handle3 isEqualToString:handle4];
+  v13 = objc_msgSend_isEqualToString_(handle3);
 
 LABEL_12:
   return v13;

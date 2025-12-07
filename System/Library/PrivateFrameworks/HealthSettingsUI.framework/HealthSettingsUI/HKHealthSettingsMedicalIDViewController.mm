@@ -16,6 +16,8 @@
 - (void)medicalIDViewControllerDidSave:(id)save;
 - (void)setPreferenceValue:(id)value specifier:(id)specifier;
 - (void)showController:(id)controller;
+- (void)showController:(id)controller animate:(BOOL)animate;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -100,6 +102,18 @@ void __54__HKHealthSettingsMedicalIDViewController_viewDidLoad__block_invoke(uin
     [WeakRetained _fetchMedicalIDData];
     WeakRetained = v2;
   }
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v8.receiver = self;
+  v8.super_class = HKHealthSettingsMedicalIDViewController;
+  [(HKHealthSettingsMedicalIDViewController *)&v8 viewDidAppear:appear];
+  settingsNavigationDonatingDelegate = [(HKHealthSettingsMedicalIDViewController *)self settingsNavigationDonatingDelegate];
+  v5 = MEMORY[0x277D0FD48];
+  healthSettingsMedicalIDSpecifier = [MEMORY[0x277D0FD48] healthSettingsMedicalIDSpecifier];
+  v7 = [v5 internalHealthSettingsURLTo:healthSettingsMedicalIDSpecifier];
+  [settingsNavigationDonatingDelegate donateWithDeepLink:v7 andTitle:@"Medical ID"];
 }
 
 - (BOOL)isEditEnabled
@@ -281,6 +295,14 @@ void __62__HKHealthSettingsMedicalIDViewController__fetchMedicalIDData__block_in
   controllerCopy = controller;
   WeakRetained = objc_loadWeakRetained(&self->_parentController);
   [WeakRetained showController:controllerCopy];
+}
+
+- (void)showController:(id)controller animate:(BOOL)animate
+{
+  animateCopy = animate;
+  controllerCopy = controller;
+  WeakRetained = objc_loadWeakRetained(&self->_parentController);
+  [WeakRetained showController:controllerCopy animate:animateCopy];
 }
 
 - (HKHealthSettingsNavigationDonating)settingsNavigationDonatingDelegate

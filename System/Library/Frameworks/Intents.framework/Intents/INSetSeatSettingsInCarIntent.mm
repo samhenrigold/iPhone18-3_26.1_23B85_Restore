@@ -38,8 +38,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v26[7] = *MEMORY[0x1E69E9840];
-  v25[0] = @"enableHeating";
+  v25[7] = *MEMORY[0x1E69E9840];
+  v24[0] = @"enableHeating";
   enableHeating = [(INSetSeatSettingsInCarIntent *)self enableHeating];
   v4 = enableHeating;
   if (!enableHeating)
@@ -47,9 +47,9 @@
     enableHeating = [MEMORY[0x1E695DFB0] null];
   }
 
-  v24 = enableHeating;
-  v26[0] = enableHeating;
-  v25[1] = @"enableCooling";
+  v23 = enableHeating;
+  v25[0] = enableHeating;
+  v24[1] = @"enableCooling";
   enableCooling = [(INSetSeatSettingsInCarIntent *)self enableCooling];
   v6 = enableCooling;
   if (!enableCooling)
@@ -57,9 +57,9 @@
     enableCooling = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23 = enableCooling;
-  v26[1] = enableCooling;
-  v25[2] = @"enableMassage";
+  v22 = enableCooling;
+  v25[1] = enableCooling;
+  v24[2] = @"enableMassage";
   enableMassage = [(INSetSeatSettingsInCarIntent *)self enableMassage];
   v8 = enableMassage;
   if (!enableMassage)
@@ -67,8 +67,8 @@
     enableMassage = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26[2] = enableMassage;
-  v25[3] = @"seat";
+  v25[2] = enableMassage;
+  v24[3] = @"seat";
   seat = [(INSetSeatSettingsInCarIntent *)self seat];
   if ((seat - 1) > 0xB)
   {
@@ -81,8 +81,8 @@
   }
 
   v11 = v10;
-  v26[3] = v11;
-  v25[4] = @"level";
+  v25[3] = v11;
+  v24[4] = @"level";
   level = [(INSetSeatSettingsInCarIntent *)self level];
   null = level;
   if (!level)
@@ -90,8 +90,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26[4] = null;
-  v25[5] = @"relativeLevelSetting";
+  v25[4] = null;
+  v24[5] = @"relativeLevelSetting";
   relativeLevelSetting = [(INSetSeatSettingsInCarIntent *)self relativeLevelSetting];
   if ((relativeLevelSetting - 1) > 3)
   {
@@ -104,8 +104,8 @@
   }
 
   v16 = v15;
-  v26[5] = v16;
-  v25[6] = @"carName";
+  v25[5] = v16;
+  v24[6] = @"carName";
   carName = [(INSetSeatSettingsInCarIntent *)self carName];
   null2 = carName;
   if (!carName)
@@ -113,8 +113,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26[6] = null2;
-  v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:7];
+  v25[6] = null2;
+  v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:7];
   if (!carName)
   {
   }
@@ -134,8 +134,6 @@
   if (!v4)
   {
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v19;
 }

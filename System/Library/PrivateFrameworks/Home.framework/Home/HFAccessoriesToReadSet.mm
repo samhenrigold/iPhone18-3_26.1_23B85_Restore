@@ -28,8 +28,8 @@
 - (void)addCharacteristic:(id)characteristic
 {
   characteristicCopy = characteristic;
-  service = [characteristicCopy service];
-  accessory = [service accessory];
+  v5 = objc_msgSend_service(characteristicCopy);
+  accessory = [v5 accessory];
 
   accessories = [(HFAccessoriesToReadSet *)self accessories];
   uniqueIdentifier = [accessory uniqueIdentifier];
@@ -47,11 +47,11 @@ id __44__HFAccessoriesToReadSet_addCharacteristic___block_invoke()
 
 - (void)markCharacteristicAsRead:(id)read withLogger:(id)logger
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   loggerCopy = logger;
   readCopy = read;
-  service = [readCopy service];
-  accessory = [service accessory];
+  v8 = objc_msgSend_service(readCopy);
+  accessory = [v8 accessory];
 
   accessories = [(HFAccessoriesToReadSet *)self accessories];
   uniqueIdentifier = [accessory uniqueIdentifier];
@@ -71,7 +71,7 @@ id __44__HFAccessoriesToReadSet_addCharacteristic___block_invoke()
       if (loggerCopy)
       {
         loggerActivity = [loggerCopy loggerActivity];
-        os_activity_scope_enter(loggerActivity, &v28);
+        os_activity_scope_enter(loggerActivity, &v27);
 
         v17 = HFLogForCategory(0x3DuLL);
         if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
@@ -81,39 +81,37 @@ id __44__HFAccessoriesToReadSet_addCharacteristic___block_invoke()
           transportKey = [(HFAccessoriesToReadSet *)self transportKey];
           v21 = +[HFCharacteristicReadLogger nameForTransportType:](HFCharacteristicReadLogger, "nameForTransportType:", [transportKey integerValue]);
           *buf = 138412802;
-          v30 = accessory;
-          v31 = 2048;
-          v32 = v19;
-          v33 = 2112;
-          v34 = v21;
+          v29 = accessory;
+          v30 = 2048;
+          v31 = v19;
+          v32 = 2112;
+          v33 = v21;
           _os_log_impl(&dword_20D9BF000, v17, OS_LOG_TYPE_DEFAULT, "Reads Complete Tracking: All reads complete for accessory: %@ (%lu %@ accessories remaining)", buf, 0x20u);
         }
 
-        os_activity_scope_leave(&v28);
+        os_activity_scope_leave(&v27);
       }
 
       else
       {
-        v23 = HFLogForCategory(0x3DuLL);
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+        v22 = HFLogForCategory(0x3DuLL);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
           accessories4 = [(HFAccessoriesToReadSet *)self accessories];
-          v25 = [accessories4 count];
+          v24 = [accessories4 count];
           transportKey2 = [(HFAccessoriesToReadSet *)self transportKey];
-          v27 = +[HFCharacteristicReadLogger nameForTransportType:](HFCharacteristicReadLogger, "nameForTransportType:", [transportKey2 integerValue]);
+          v26 = +[HFCharacteristicReadLogger nameForTransportType:](HFCharacteristicReadLogger, "nameForTransportType:", [transportKey2 integerValue]);
           *buf = 138412802;
-          v30 = accessory;
-          v31 = 2048;
-          v32 = v25;
-          v33 = 2112;
-          v34 = v27;
-          _os_log_impl(&dword_20D9BF000, v23, OS_LOG_TYPE_DEFAULT, "Reads Complete Tracking: All reads complete for accessory: %@ (%lu %@ accessories remaining)", buf, 0x20u);
+          v29 = accessory;
+          v30 = 2048;
+          v31 = v24;
+          v32 = 2112;
+          v33 = v26;
+          _os_log_impl(&dword_20D9BF000, v22, OS_LOG_TYPE_DEFAULT, "Reads Complete Tracking: All reads complete for accessory: %@ (%lu %@ accessories remaining)", buf, 0x20u);
         }
       }
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)count

@@ -136,97 +136,42 @@
   v20 = MEMORY[0x1E69E5928](selfCopy);
   objc_storeStrong(location, 0);
   objc_storeStrong(&selfCopy, 0);
-  *MEMORY[0x1E69E9840];
   return v20;
 }
 
 - (AKAuthorizationCredential)initWithCoder:(id)coder
 {
-  v40 = &selfCopy;
+  v35 = &selfCopy;
   selfCopy = self;
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, coder);
   v3 = selfCopy;
   selfCopy = 0;
-  v42.receiver = v3;
-  v42.super_class = AKAuthorizationCredential;
-  selfCopy = [(AKAuthorizationCredential *)&v42 init];
+  v37.receiver = v3;
+  v37.super_class = AKAuthorizationCredential;
+  selfCopy = [(AKAuthorizationCredential *)&v37 init];
   objc_storeStrong(&selfCopy, selfCopy);
-  if (!selfCopy)
+  if (!selfCopy || (v23 = location[0], v33 = 0x1E696A000uLL, v4 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"AKUserIdentifier"], v5 = *(selfCopy + 2), *(selfCopy + 2) = v4, MEMORY[0x1E69E5920](v5), v26 = location[0], v25 = MEMORY[0x1E695DFD8], v24 = objc_opt_class(), v27 = objc_msgSend(v25, "setWithObjects:", v24, objc_opt_class(), 0), v6 = objc_msgSend(v26, "decodeObjectOfClasses:forKey:"), v7 = *(selfCopy + 3), *(selfCopy + 3) = v6, MEMORY[0x1E69E5920](v7), MEMORY[0x1E69E5920](v27), v28 = location[0], v8 = objc_msgSend(location[0], "decodeObjectOfClass:forKey:", objc_opt_class(), @"AKUserInformation"), v9 = *(selfCopy + 7), *(selfCopy + 7) = v8, MEMORY[0x1E69E5920](v9), v29 = location[0], v30 = 0x1E695D000uLL, v10 = objc_msgSend(location[0], "decodeObjectOfClass:forKey:", objc_opt_class(), @"AKAuthorizationCode"), v11 = *(selfCopy + 5), *(selfCopy + 5) = v10, MEMORY[0x1E69E5920](v11), v31 = location[0], v12 = objc_msgSend(location[0], "decodeObjectOfClass:forKey:", objc_opt_class(), @"AKIdentityToken"), v13 = *(selfCopy + 4), *(selfCopy + 4) = v12, MEMORY[0x1E69E5920](v13), v32 = location[0], v14 = objc_msgSend(location[0], "decodeObjectOfClass:forKey:", objc_opt_class(), @"_state"), v15 = *(selfCopy + 6), *(selfCopy + 6) = v14, MEMORY[0x1E69E5920](v15), v16 = objc_msgSend(location[0], "decodeBoolForKey:", @"_isLikelyRealUser"), *(selfCopy + 8) = v16, v34 = location[0], v17 = objc_msgSend(location[0], "decodeObjectOfClass:forKey:", objc_opt_class(), @"_transactionID"), v18 = *(selfCopy + 8), *(selfCopy + 8) = v17, MEMORY[0x1E69E5920](v18), *(selfCopy + 2)))
   {
-    goto LABEL_4;
-  }
-
-  v28 = location[0];
-  v38 = 0x1E696A000uLL;
-  v4 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"AKUserIdentifier"];
-  v5 = *(selfCopy + 2);
-  *(selfCopy + 2) = v4;
-  MEMORY[0x1E69E5920](v5);
-  v31 = location[0];
-  v30 = MEMORY[0x1E695DFD8];
-  v29 = objc_opt_class();
-  v6 = *(v38 + 3776);
-  v32 = [v30 setWithObjects:{v29, objc_opt_class(), 0}];
-  v7 = [v31 decodeObjectOfClasses:? forKey:?];
-  v8 = *(selfCopy + 3);
-  *(selfCopy + 3) = v7;
-  MEMORY[0x1E69E5920](v8);
-  MEMORY[0x1E69E5920](v32);
-  v33 = location[0];
-  v9 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"AKUserInformation"];
-  v10 = *(selfCopy + 7);
-  *(selfCopy + 7) = v9;
-  MEMORY[0x1E69E5920](v10);
-  v34 = location[0];
-  v35 = 0x1E695D000uLL;
-  v11 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"AKAuthorizationCode"];
-  v12 = *(selfCopy + 5);
-  *(selfCopy + 5) = v11;
-  MEMORY[0x1E69E5920](v12);
-  v36 = location[0];
-  v13 = *(v35 + 3824);
-  v14 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"AKIdentityToken"];
-  v15 = *(selfCopy + 4);
-  *(selfCopy + 4) = v14;
-  MEMORY[0x1E69E5920](v15);
-  v37 = location[0];
-  v16 = *(v38 + 3776);
-  v17 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_state"];
-  v18 = *(selfCopy + 6);
-  *(selfCopy + 6) = v17;
-  MEMORY[0x1E69E5920](v18);
-  v19 = [location[0] decodeBoolForKey:@"_isLikelyRealUser"];
-  v20 = v38;
-  *(selfCopy + 8) = v19;
-  v39 = location[0];
-  v21 = *(v20 + 3776);
-  v22 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_transactionID"];
-  v23 = *(selfCopy + 8);
-  *(selfCopy + 8) = v22;
-  MEMORY[0x1E69E5920](v23);
-  if (*(selfCopy + 2))
-  {
-LABEL_4:
-    v45 = MEMORY[0x1E69E5928](selfCopy);
-    v41 = 1;
+    v40 = MEMORY[0x1E69E5928](selfCopy);
+    v36 = 1;
   }
 
   else
   {
-    v26 = location[0];
-    v27 = [MEMORY[0x1E696ABC0] ak_errorWithCode:-7044];
-    [v26 failWithError:?];
-    MEMORY[0x1E69E5920](v27);
-    v45 = 0;
-    v41 = 1;
+    v21 = location[0];
+    v22 = [MEMORY[0x1E696ABC0] ak_errorWithCode:-7044];
+    [v21 failWithError:?];
+    MEMORY[0x1E69E5920](v22);
+    v40 = 0;
+    v36 = 1;
   }
 
   obj = 0;
   objc_storeStrong(location, 0);
   objc_storeStrong(&selfCopy, obj);
-  return v45;
+  return v40;
 }
 
 - (NSString)description

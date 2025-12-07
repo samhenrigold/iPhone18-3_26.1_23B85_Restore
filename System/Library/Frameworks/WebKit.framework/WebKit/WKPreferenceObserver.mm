@@ -32,9 +32,9 @@
 
 - (WKPreferenceObserver)init
 {
-  v19.receiver = self;
-  v19.super_class = WKPreferenceObserver;
-  v2 = [(WKPreferenceObserver *)&v19 init];
+  v20.receiver = self;
+  v20.super_class = WKPreferenceObserver;
+  v2 = [(WKPreferenceObserver *)&v20 init];
   if (v2)
   {
     for (i = 0; i != 11; ++i)
@@ -46,69 +46,79 @@
       }
 
       v6 = [[WKUserDefaults alloc] initWithSuiteName:v4];
-      v18 = v6;
+      v19 = v6;
       if (!v6)
       {
-        MEMORY[0x19EB02040](&v16, v4);
+        MEMORY[0x19EB02040](&v17, v4);
         WTF::String::utf8();
-        WTFLogAlways();
-        v11 = v17;
-        v17 = 0;
-        if (v11)
+        if (v18)
         {
-          if (*v11 == 1)
+          v10 = v18 + 16;
+        }
+
+        else
+        {
+          v10 = 0;
+        }
+
+        WTFLogAlways("Could not init user defaults instance for domain %s", v10);
+        v12 = v18;
+        v18 = 0;
+        if (v12)
+        {
+          if (*v12 == 1)
           {
-            WTF::fastFree(v11, v10);
+            WTF::fastFree(v12, v11);
           }
 
           else
           {
-            --*v11;
+            --*v12;
           }
         }
 
-        v12 = v16;
-        v16 = 0;
-        if (v12 && atomic_fetch_add_explicit(v12, 0xFFFFFFFE, memory_order_relaxed) == 2)
+        v13 = v17;
+        v17 = 0;
+        if (v13 && atomic_fetch_add_explicit(v13, 0xFFFFFFFE, memory_order_relaxed) == 2)
         {
-          WTF::StringImpl::destroy(v12, v10);
+          WTF::StringImpl::destroy(v13, v11);
         }
 
-        goto LABEL_18;
+        goto LABEL_21;
       }
 
       objc_storeWeak(&v6->m_observer.m_weakReference, v2);
-      [(WKUserDefaults *)v18 addObserver:v18 forKeyPath:@"testkey" options:1 context:0];
-      m_size = v2->m_userDefaults.m_size;
-      if (m_size == v2->m_userDefaults.m_capacity)
+      [(WKUserDefaults *)v19 addObserver:v19 forKeyPath:@"testkey" options:1 context:0];
+      v7 = v2[5];
+      if (v7 == v2[4])
       {
-        v8 = WTF::Vector<WTF::RetainPtr<WKUserDefaults>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v2->m_userDefaults, m_size + 1, &v18);
-        m_size = v2->m_userDefaults.m_size;
+        v8 = WTF::Vector<WTF::RetainPtr<WKUserDefaults>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(v2 + 1, v7 + 1, &v19);
+        v7 = v2[5];
         v9 = *v8;
-        *(v2->m_userDefaults.m_buffer + m_size) = *v8;
+        *(*(v2 + 1) + 8 * v7) = *v8;
         if (v9)
         {
-          goto LABEL_16;
+          goto LABEL_19;
         }
       }
 
       else
       {
-        v9 = v18;
-        *(v2->m_userDefaults.m_buffer + m_size) = v18;
+        v9 = v19;
+        *(*(v2 + 1) + 8 * v7) = v19;
         if (v9)
         {
-LABEL_16:
-          v13 = v9;
-          LODWORD(m_size) = v2->m_userDefaults.m_size;
+LABEL_19:
+          v14 = v9;
+          LODWORD(v7) = v2[5];
         }
       }
 
-      v2->m_userDefaults.m_size = m_size + 1;
-LABEL_18:
-      v14 = v18;
-      v18 = 0;
-      if (v14)
+      v2[5] = v7 + 1;
+LABEL_21:
+      v15 = v19;
+      v19 = 0;
+      if (v15)
       {
       }
 
@@ -139,16 +149,16 @@ LABEL_18:
     valueCopy = value;
   }
 
-  v11 = WTF::fastMalloc(0x20);
-  *v11 = &unk_1F10EA550;
-  v11[1] = change;
-  v11[2] = key;
-  v11[3] = value;
-  v12 = v11;
+  v12 = WTF::fastMalloc(v8, 0x20);
+  *v12 = &unk_1F10EA550;
+  v12[1] = change;
+  v12[2] = key;
+  v12[3] = value;
+  v13 = v12;
   WTF::RunLoop::dispatch();
-  if (v12)
+  if (v13)
   {
-    (*(*v12 + 8))(v12);
+    (*(*v13 + 8))(v13);
   }
 }
 
@@ -202,17 +212,17 @@ LABEL_18:
 
 - (WTF::StringImpl)preferenceDidChange:(void *)change key:encodedValue:
 {
-  LOBYTE(v18) = 0;
-  v19 = 0;
+  LOBYTE(v20) = 0;
+  v21 = 0;
   if (change[3])
   {
-    MEMORY[0x19EB02040](&v20);
-    v3 = v20;
-    v20 = 0;
-    if (v19 == 1)
+    MEMORY[0x19EB02040](&v22);
+    v3 = v22;
+    v22 = 0;
+    if (v21 == 1)
     {
-      v4 = v18;
-      v18 = v3;
+      v4 = v20;
+      v20 = v3;
       if (v4)
       {
         if (atomic_fetch_add_explicit(v4, 0xFFFFFFFE, memory_order_relaxed) == 2)
@@ -220,8 +230,8 @@ LABEL_18:
           WTF::StringImpl::destroy(v4, v2);
         }
 
-        v5 = v20;
-        v20 = 0;
+        v5 = v22;
+        v22 = 0;
         if (v5 && atomic_fetch_add_explicit(v5, 0xFFFFFFFE, memory_order_relaxed) == 2)
         {
           WTF::StringImpl::destroy(v5, v2);
@@ -231,13 +241,13 @@ LABEL_18:
 
     else
     {
-      v18 = v3;
-      v19 = 1;
+      v20 = v3;
+      v21 = 1;
     }
   }
 
-  MEMORY[0x19EB02040](&v17, change[1]);
-  MEMORY[0x19EB02040](&v16, change[2]);
+  MEMORY[0x19EB02040](&v19, change[1]);
+  MEMORY[0x19EB02040](&v18, change[2]);
   {
     if (WebKit::singleton(void)::singleton)
     {
@@ -246,11 +256,11 @@ LABEL_18:
       {
         v7 = (v6 + 16);
         atomic_fetch_add((v6 + 16), 1u);
-        v20 = &v17;
-        v21 = &v16;
-        v22 = &v18;
-        WebKit::AuxiliaryProcessProxy::send<Messages::AuxiliaryProcess::PreferenceDidUpdate>(v6, &v20, 0, 0);
-        WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v7);
+        v22 = &v19;
+        v23 = &v18;
+        v24 = &v20;
+        WebKit::AuxiliaryProcessProxy::send<Messages::AuxiliaryProcess::PreferenceDidUpdate>(v6, &v22, 0, 0);
+        WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v7, v8);
       }
     }
   }
@@ -263,16 +273,16 @@ LABEL_18:
   {
     if (WebKit::NetworkProcessProxy::defaultNetworkProcess(void)::networkProcess)
     {
-      v8 = *(WebKit::NetworkProcessProxy::defaultNetworkProcess(void)::networkProcess + 8);
-      if (v8)
+      v9 = *(WebKit::NetworkProcessProxy::defaultNetworkProcess(void)::networkProcess + 8);
+      if (v9)
       {
-        v9 = (v8 + 16);
-        atomic_fetch_add((v8 + 16), 1u);
-        v20 = &v17;
-        v21 = &v16;
-        v22 = &v18;
-        WebKit::AuxiliaryProcessProxy::send<Messages::AuxiliaryProcess::PreferenceDidUpdate>(v8, &v20, 0, 0);
-        WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v9);
+        v10 = (v9 + 16);
+        atomic_fetch_add((v9 + 16), 1u);
+        v22 = &v19;
+        v23 = &v18;
+        v24 = &v20;
+        WebKit::AuxiliaryProcessProxy::send<Messages::AuxiliaryProcess::PreferenceDidUpdate>(v9, &v22, 0, 0);
+        WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v10, v11);
       }
     }
   }
@@ -282,44 +292,44 @@ LABEL_18:
     WebKit::NetworkProcessProxy::defaultNetworkProcess(void)::networkProcess = 0;
   }
 
-  WebKit::WebProcessPool::allProcessPools(&v20);
-  if (HIDWORD(v21))
+  WebKit::WebProcessPool::allProcessPools(&v22);
+  if (HIDWORD(v23))
   {
-    v11 = v20;
-    v12 = 8 * HIDWORD(v21);
+    v13 = v22;
+    v14 = 8 * HIDWORD(v23);
     do
     {
-      WebKit::WebProcessPool::notifyPreferencesChanged(*v11++, &v17, &v16, &v18);
-      v12 -= 8;
+      WebKit::WebProcessPool::notifyPreferencesChanged(*v13++, &v19, &v18, &v20);
+      v14 -= 8;
     }
 
-    while (v12);
+    while (v14);
   }
 
-  WTF::Vector<WTF::Ref<WebKit::WebProcessPool,WTF::RawPtrTraits<WebKit::WebProcessPool>,WTF::DefaultRefDerefTraits<WebKit::WebProcessPool>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v20, v10);
-  v14 = v16;
-  v16 = 0;
-  if (v14 && atomic_fetch_add_explicit(v14, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  WTF::Vector<WTF::Ref<WebKit::WebProcessPool,WTF::RawPtrTraits<WebKit::WebProcessPool>,WTF::DefaultRefDerefTraits<WebKit::WebProcessPool>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v22, v12);
+  v16 = v18;
+  v18 = 0;
+  if (v16 && atomic_fetch_add_explicit(v16, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v14, v13);
+    WTF::StringImpl::destroy(v16, v15);
   }
 
-  result = v17;
-  v17 = 0;
+  result = v19;
+  v19 = 0;
   if (result && atomic_fetch_add_explicit(result, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    result = WTF::StringImpl::destroy(result, v13);
+    result = WTF::StringImpl::destroy(result, v15);
   }
 
-  if (v19 == 1)
+  if (v21 == 1)
   {
-    result = v18;
-    v18 = 0;
+    result = v20;
+    v20 = 0;
     if (result)
     {
       if (atomic_fetch_add_explicit(result, 0xFFFFFFFE, memory_order_relaxed) == 2)
       {
-        return WTF::StringImpl::destroy(result, v13);
+        return WTF::StringImpl::destroy(result, v15);
       }
     }
   }

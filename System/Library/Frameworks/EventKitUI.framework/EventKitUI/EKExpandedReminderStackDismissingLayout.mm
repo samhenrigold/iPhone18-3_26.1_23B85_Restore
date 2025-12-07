@@ -115,37 +115,37 @@ uint64_t __93__EKExpandedReminderStackDismissingLayout__animationForReusableView
   return result;
 }
 
-uint64_t __93__EKExpandedReminderStackDismissingLayout__animationForReusableView_toLayoutAttributes_type___block_invoke_3(uint64_t a1)
+uint64_t __93__EKExpandedReminderStackDismissingLayout__animationForReusableView_toLayoutAttributes_type___block_invoke_3(uint64_t a1, const char *a2)
 {
-  v2 = *(a1 + 48);
-  v3 = *(a1 + 40);
-  if (v2 == 1)
+  v3 = *(a1 + 48);
+  v4 = *(a1 + 40);
+  if (v3 == 1)
   {
-    [v3 frame];
-    v4 = *(a1 + 32);
+    [v4 frame];
+    v5 = *(a1 + 32);
 
-    return [v4 setFrame:?];
+    return [v5 setFrame:?];
   }
 
   else
   {
-    if (v3)
+    if (v4)
     {
-      [v3 transform];
+      objc_msgSend_transform(v4, a2);
     }
 
     else
     {
-      v9 = 0u;
       v10 = 0u;
-      v8 = 0u;
+      v11 = 0u;
+      v9 = 0u;
     }
 
-    v6 = *(a1 + 32);
-    v7[0] = v8;
-    v7[1] = v9;
-    v7[2] = v10;
-    [v6 setTransform:v7];
+    v7 = *(a1 + 32);
+    v8[0] = v9;
+    v8[1] = v10;
+    v8[2] = v11;
+    [v7 setTransform:v8];
     [*(a1 + 40) alpha];
     return [*(a1 + 32) setAlpha:?];
   }

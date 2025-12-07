@@ -20,9 +20,9 @@
   annotationCopy = annotation;
   viewCopy = view;
   fViewCopy = fView;
-  v20.receiver = self;
-  v20.super_class = PDFKitPopupView;
-  v11 = [(PDFKitPopupView *)&v20 init];
+  v24.receiver = self;
+  v24.super_class = PDFKitPopupView;
+  v11 = [(PDFKitPopupView *)&v24 init];
   if (v11)
   {
     v12 = objc_alloc_init(PDFKitPopupViewPrivate);
@@ -41,8 +41,9 @@
     contents = v17->contents;
     v17->contents = contents;
 
-    v11->_private->deviceIsiPhone = PDFKitDeviceIsiPhone();
-    v11->_private->deviceIsiPad = PDFKitDeviceIsiPad();
+    v21 = PDFKitDeviceIsiPhone(v19, v20);
+    v11->_private->deviceIsiPhone = v21;
+    v11->_private->deviceIsiPad = PDFKitDeviceIsiPad(v21, v22);
     [(PDFKitPopupView *)v11 _setupPopupView];
     [(PDFKitPopupView *)v11 _presentPopupView];
   }
@@ -137,7 +138,8 @@ LABEL_7:
   if (v3->deviceIsiPad)
   {
     v4 = objc_alloc_init(MEMORY[0x1E69DD258]);
-    PDFSizeMake([(UIViewController *)v4 setModalPresentationStyle:7], 300.0, 180.0);
+    [(UIViewController *)v4 setModalPresentationStyle:7];
+    PDFSizeMake();
     [(UIViewController *)v4 setPreferredContentSize:?];
     backgroundColor = [(UITextView *)self->_private->popupTextView backgroundColor];
     view = [(UIViewController *)v4 view];

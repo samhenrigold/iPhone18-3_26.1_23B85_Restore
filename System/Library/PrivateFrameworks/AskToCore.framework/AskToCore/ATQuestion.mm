@@ -80,14 +80,12 @@
 
 - (NSArray)answerChoices
 {
-  v3 = OBJC_IVAR____TtC5AskTo10ATQuestion_answerChoices;
   swift_beginAccess();
-  v4 = *(self + v3);
   type metadata accessor for ATAnswerChoice();
 
-  v5 = sub_2410DF2B0();
+  v2 = sub_2410DF2B0();
 
-  return v5;
+  return v2;
 }
 
 - (void)setAnswerChoices:(id)choices
@@ -96,56 +94,53 @@
   v4 = sub_2410DF2C0();
   v5 = OBJC_IVAR____TtC5AskTo10ATQuestion_answerChoices;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = v4;
 }
 
 - (NSDate)expirationDate
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E525FE8, &qword_2410E39F8);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v14 - v5;
-  v7 = OBJC_IVAR____TtC5AskTo10ATQuestion_expirationDate;
+  v5 = &v13 - v4;
+  v6 = OBJC_IVAR____TtC5AskTo10ATQuestion_expirationDate;
   swift_beginAccess();
-  sub_241082EC4(self + v7, v6, &qword_27E525FE8, &qword_2410E39F8);
-  v8 = sub_2410DEE90();
-  v9 = *(v8 - 8);
-  v10 = (*(v9 + 48))(v6, 1, v8);
-  v11 = 0;
-  if (v10 != 1)
+  sub_241082EC4(self + v6, v5, &qword_27E525FE8, &qword_2410E39F8);
+  v7 = sub_2410DEE90();
+  v8 = *(v7 - 8);
+  v9 = (*(v8 + 48))(v5, 1, v7);
+  v10 = 0;
+  if (v9 != 1)
   {
-    v12 = sub_2410DEE70();
-    (*(v9 + 8))(v6, v8);
-    v11 = v12;
+    v11 = sub_2410DEE70();
+    (*(v8 + 8))(v5, v7);
+    v10 = v11;
   }
 
-  return v11;
+  return v10;
 }
 
 - (void)setExpirationDate:(id)date
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E525FE8, &qword_2410E39F8);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = &v13 - v7;
+  v7 = &v12 - v6;
   if (date)
   {
     sub_2410DEE80();
-    v9 = sub_2410DEE90();
-    (*(*(v9 - 8) + 56))(v8, 0, 1, v9);
+    v8 = sub_2410DEE90();
+    (*(*(v8 - 8) + 56))(v7, 0, 1, v8);
   }
 
   else
   {
-    v10 = sub_2410DEE90();
-    (*(*(v10 - 8) + 56))(v8, 1, 1, v10);
+    v9 = sub_2410DEE90();
+    (*(*(v9 - 8) + 56))(v7, 1, 1, v9);
   }
 
-  v11 = OBJC_IVAR____TtC5AskTo10ATQuestion_expirationDate;
+  v10 = OBJC_IVAR____TtC5AskTo10ATQuestion_expirationDate;
   swift_beginAccess();
   selfCopy = self;
-  sub_2410BC314(v8, self + v11, &qword_27E525FE8, &qword_2410E39F8);
+  sub_2410BC314(v7, self + v10, &qword_27E525FE8, &qword_2410E39F8);
   swift_endAccess();
 }
 
@@ -156,41 +151,49 @@
   v10 = sub_2410DF0C0();
   v12 = v11;
   v13 = sub_2410DF0C0();
+  v15 = v14;
   topicCopy = topic;
-  v15 = sub_2410BBDE8(v7, v9, topicCopy, v10, v12, v13);
+  v17 = sub_2410BBDE8(v7, v9, topicCopy, v10, v12, v13, v15);
 
-  return v15;
+  return v17;
 }
 
 - (_TtC5AskTo10ATQuestion)initWithId:(id)id topic:(id)topic title:(id)title summary:(id)summary shortTitle:(id)shortTitle shortSummary:(id)shortSummary
 {
-  v20 = sub_2410DF0C0();
+  v26 = sub_2410DF0C0();
   v12 = v11;
   v13 = sub_2410DF0C0();
   v15 = v14;
   v16 = sub_2410DF0C0();
+  v18 = v17;
   if (!shortTitle)
   {
-    if (!shortSummary)
+    v19 = 0;
+    if (shortSummary)
     {
-      goto LABEL_5;
+      goto LABEL_3;
     }
 
-    goto LABEL_3;
-  }
-
-  sub_2410DF0C0();
-  if (shortSummary)
-  {
-LABEL_3:
-    sub_2410DF0C0();
-  }
-
 LABEL_5:
-  topicCopy = topic;
-  v18 = sub_2410BC074(v20, v12, topicCopy, v13, v15, v16);
+    v22 = 0;
+    goto LABEL_6;
+  }
 
-  return v18;
+  v19 = sub_2410DF0C0();
+  shortTitle = v20;
+  if (!shortSummary)
+  {
+    goto LABEL_5;
+  }
+
+LABEL_3:
+  shortSummary = sub_2410DF0C0();
+  v22 = v21;
+LABEL_6:
+  topicCopy = topic;
+  v24 = sub_2410BC074(v26, v12, topicCopy, v13, v15, v16, v18, v19, shortTitle, shortSummary, v22);
+
+  return v24;
 }
 
 - (_TtC5AskTo10ATQuestion)initWithSystemId:(id)id version:(double)version id:(id)a5 topic:(id)topic title:(id)title summary:(id)summary longTitle:(id)longTitle longSummary:(id)self0 notificationText:(id)self1 answerChoices:(id)self2
@@ -199,23 +202,22 @@ LABEL_5:
   selfCopy = self;
   longSummaryCopy = longSummary;
   v15 = sub_2410DEF00();
-  v16 = *(*(v15 - 8) + 64);
-  v17 = MEMORY[0x28223BE20](v15 - 8);
-  v19 = &v37 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v17);
-  v21 = &v37 - v20;
+  v16 = MEMORY[0x28223BE20](v15 - 8);
+  v18 = &v36 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v16);
+  v20 = &v36 - v19;
   sub_2410DEEE0();
   sub_2410DEEE0();
-  v22 = sub_2410DF0C0();
-  v39 = v23;
-  v40 = v22;
-  v24 = sub_2410DF0C0();
-  v37 = v25;
-  v38 = v24;
+  v21 = sub_2410DF0C0();
+  v38 = v22;
+  v39 = v21;
+  v23 = sub_2410DF0C0();
+  v36 = v24;
+  v37 = v23;
   if (longTitle)
   {
-    v26 = sub_2410DF0C0();
-    v28 = v27;
+    v25 = sub_2410DF0C0();
+    v27 = v26;
     textCopy2 = text;
     if (longSummary)
     {
@@ -223,19 +225,19 @@ LABEL_5:
     }
 
 LABEL_6:
-    v31 = 0;
+    v30 = 0;
     if (textCopy2)
     {
       goto LABEL_4;
     }
 
 LABEL_7:
-    v33 = 0;
+    v32 = 0;
     goto LABEL_8;
   }
 
-  v26 = 0;
-  v28 = 0;
+  v25 = 0;
+  v27 = 0;
   textCopy2 = text;
   if (!longSummary)
   {
@@ -244,7 +246,7 @@ LABEL_7:
 
 LABEL_3:
   longSummaryCopy = sub_2410DF0C0();
-  v31 = v30;
+  v30 = v29;
   if (!textCopy2)
   {
     goto LABEL_7;
@@ -252,12 +254,12 @@ LABEL_3:
 
 LABEL_4:
   textCopy2 = sub_2410DF0C0();
-  v33 = v32;
+  v32 = v31;
 LABEL_8:
-  v34 = topicCopy;
+  v33 = topicCopy;
   type metadata accessor for ATAnswerChoice();
-  v35 = sub_2410DF2C0();
-  return sub_2410B0FD4(v21, v19, v34, v40, v39, v38, v37, v26, version, v28, longSummaryCopy, v31, textCopy2, v33, v35);
+  v34 = sub_2410DF2C0();
+  return sub_2410B0FD4(v20, v18, v33, v39, v38, v37, v36, v25, version, v27, longSummaryCopy, v30, textCopy2, v32, v34);
 }
 
 - (_TtC5AskTo10ATQuestion)init

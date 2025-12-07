@@ -3,6 +3,7 @@
 - (InitialSyncCompletionMonitor)init;
 - (void)dealloc;
 - (void)forgetPairingID:(id)d;
+- (void)handleInitialSyncStateForPairingID:(id)d hasCompleted:(BOOL)completed error:(id)error;
 - (void)handleNanoRegistryNotificationDeviceDidUnpair:(id)unpair;
 - (void)initialSyncStateObserver:(id)observer initialSyncDidCompleteForPairingIdentifier:(id)identifier;
 - (void)initialSyncStateObserverClientCanRetryFailedRequests:(id)requests;
@@ -190,6 +191,37 @@
 
     objc_destroyWeak(&v9);
     objc_destroyWeak(buf);
+  }
+}
+
+- (void)handleInitialSyncStateForPairingID:(id)d hasCompleted:(BOOL)completed error:(id)error
+{
+  completedCopy = completed;
+  dCopy = d;
+  errorCopy = error;
+  v10 = qword_100021420;
+  if (os_log_type_enabled(qword_100021420, OS_LOG_TYPE_DEFAULT))
+  {
+    v13[0] = 67109634;
+    v13[1] = completedCopy;
+    v14 = 2112;
+    v15 = dCopy;
+    v16 = 2112;
+    v17 = errorCopy;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "InitialSyncCompletionMonitor --- Received initial sync state (%d) for pairingID: (%@); error: (%@)", v13, 0x1Cu);
+  }
+
+  if (!errorCopy)
+  {
+    [(NSMutableSet *)self->_pendingRequests removeObject:dCopy];
+    cachedInitialSyncStateByPairingID = self->_cachedInitialSyncStateByPairingID;
+    v12 = [NSNumber numberWithBool:completedCopy];
+    [(NSMutableDictionary *)cachedInitialSyncStateByPairingID setObject:v12 forKey:dCopy];
+
+    if (completedCopy)
+    {
+      [(InitialSyncCompletionMonitor *)self notifyObserversInitialSyncDidCompleteForPairingID:dCopy];
+    }
   }
 }
 

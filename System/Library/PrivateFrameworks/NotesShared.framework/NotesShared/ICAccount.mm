@@ -286,7 +286,7 @@ LABEL_5:
   [managedObjectContext performBlockAndWait:v5];
 }
 
-uint64_t __54__ICAccount_updateTrashFolderHiddenNoteContainerState__block_invoke(uint64_t a1)
+void *__54__ICAccount_updateTrashFolderHiddenNoteContainerState__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDeleted];
   if ((result & 1) == 0)
@@ -3304,7 +3304,7 @@ void __50__ICAccount_Management__cloudKitAccountInContext___block_invoke_651(uin
   *(v4 + 40) = v3;
 }
 
-uint64_t __50__ICAccount_Management__cloudKitAccountInContext___block_invoke_2(uint64_t a1)
+void *__50__ICAccount_Management__cloudKitAccountInContext___block_invoke_2(uint64_t a1)
 {
   result = [*(*(*(a1 + 40) + 8) + 40) isDeleted];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -3805,7 +3805,7 @@ void __51__ICAccount_Management__hasModernAccountInContext___block_invoke(uint64
   return selfCopy;
 }
 
-uint64_t __40__ICAccount_CloudKit__isInICloudAccount__block_invoke(uint64_t a1)
+void *__40__ICAccount_CloudKit__isInICloudAccount__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) accountType];
   *(*(*(a1 + 40) + 8) + 24) = result == 1;

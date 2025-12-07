@@ -3,7 +3,7 @@
 
 @implementation GetPAPRegistryMutexAndList
 
-CFMutableDictionaryRef __pap_GetPAPRegistryMutexAndList_block_invoke()
+CFMutableDictionaryRef __pap_GetPAPRegistryMutexAndList_block_invoke(uint64_t a1)
 {
   qword_1ED4CAC78 = FigSimpleMutexCreate();
   result = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);

@@ -121,9 +121,9 @@ void sub_100001A5C(id a1)
   qword_100026B80 = v1;
 }
 
-void sub_100001E40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100001E40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -153,8 +153,9 @@ id sub_10000207C(uint64_t a1)
   }
 }
 
-void sub_100002EA4(sqlite3_context *a1, int a2, sqlite3_value **a3)
+void sub_100002EA4(sqlite3_context *a1, uint64_t a2, sqlite3_value **a3)
 {
+  v4 = a2;
   v6 = _FLLogSystem();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
@@ -162,7 +163,7 @@ void sub_100002EA4(sqlite3_context *a1, int a2, sqlite3_value **a3)
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Starting launch arguments conversion", buf, 2u);
   }
 
-  if (a2 == 1)
+  if (v4 == 1)
   {
     if (sqlite3_value_type(*a3) == 5)
     {
@@ -203,9 +204,9 @@ void sub_100002EA4(sqlite3_context *a1, int a2, sqlite3_value **a3)
   }
 }
 
-void sub_100003524(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100003524(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -265,19 +266,8 @@ void sub_100003748(uint64_t a1, uint64_t a2)
     dispatch_sync(v8, block);
     v9 = [v7 delegate];
     v10 = v9;
-    if (a2)
+    if (a2 || ([v9 provider:v7 didActivateNotificationForFollowUpItemWithIdentifier:*(a1 + 32) activationSource:5], objc_msgSend(*(a1 + 48), "notification"), v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v11, "options"), v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v12, "containsObject:", FLNotificationOptionSpringboardAlertActionOnly), v12, v11, (v13 & 1) == 0))
     {
-      goto LABEL_6;
-    }
-
-    [v9 provider:v7 didActivateNotificationForFollowUpItemWithIdentifier:*(a1 + 32) activationSource:5];
-    v11 = [*(a1 + 48) notification];
-    v12 = [v11 options];
-    v13 = [v12 containsObject:FLNotificationOptionSpringboardAlertActionOnly];
-
-    if ((v13 & 1) == 0)
-    {
-LABEL_6:
       v17 = *(a1 + 32);
       v14 = [NSArray arrayWithObjects:&v17 count:1];
       [v10 provider:v7 didClearNotificationsForFollowUpItemsWithIdentifiers:v14 activationSource:5];
@@ -285,9 +275,9 @@ LABEL_6:
   }
 }
 
-void sub_100003B54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100003B54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -413,18 +403,18 @@ void sub_1000047BC(uint64_t a1, void *a2)
   }
 }
 
-void sub_1000049C0(uint64_t a1)
+void sub_1000049C0(uint64_t a1, uint64_t a2)
 {
-  v2 = _FLLogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = _FLLogSystem();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Checking existing UNNotifications", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Checking existing UNNotifications", buf, 2u);
   }
 
-  v3 = [*(a1 + 32) notification];
-  v4 = [*(a1 + 40) getNotificationCenterForItem:*(a1 + 32)];
-  v5 = [v4 deliveredNotifications];
+  v4 = [*(a1 + 32) notification];
+  v5 = [*(a1 + 40) getNotificationCenterForItem:*(a1 + 32)];
+  v6 = [v5 deliveredNotifications];
   *buf = 0;
   v15 = buf;
   v16 = 0x2020000000;
@@ -434,37 +424,35 @@ void sub_1000049C0(uint64_t a1)
   v10[2] = sub_100004BF0;
   v10[3] = &unk_100020898;
   v11 = *(a1 + 32);
-  v6 = v3;
-  v12 = v6;
+  v7 = v4;
+  v12 = v7;
   v13 = buf;
-  [v5 enumerateObjectsUsingBlock:v10];
-  v7 = _FLLogSystem();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  [v6 enumerateObjectsUsingBlock:v10];
+  v8 = _FLLogSystem();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     if (v15[24])
     {
-      v8 = @"found";
+      v9 = @"found";
     }
 
     else
     {
-      v8 = @"not found";
+      v9 = @"not found";
     }
 
     *v18 = 138412290;
-    v19 = v8;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Existing UNNotification that is out of date: %@", v18, 0xCu);
+    v19 = v9;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Existing UNNotification that is out of date: %@", v18, 0xCu);
   }
 
-  v9 = v15[24];
   (*(*(a1 + 48) + 16))();
-
   _Block_object_dispose(buf, 8);
 }
 
-void sub_100004BCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100004BCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -595,19 +583,18 @@ void sub_100005FE4(id a1)
   qword_100026B70 = v1;
 
   v3 = objc_alloc_init(FLItemStoreDecorator);
-  v4 = *(qword_100026B70 + 8);
   *(qword_100026B70 + 8) = v3;
 
   _objc_release_x1();
 }
 
-id sub_100006150(uint64_t a1)
+id sub_100006150(uint64_t a1, uint64_t a2)
 {
-  v2 = _FLLogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = _FLLogSystem();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Processing updating activities", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Processing updating activities", v5, 2u);
   }
 
   return [*(a1 + 32) updateRepeatingActivityState];
@@ -658,17 +645,17 @@ BOOL sub_100006240(id a1, FLFollowUpItem *a2, NSDictionary *a3)
   return v7;
 }
 
-void sub_1000064DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000064DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v11 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v18 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v9 - 96), 8);
+  _Block_object_dispose((v16 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1002,9 +989,9 @@ void sub_100007F14(uint64_t a1, uint64_t a2)
   *(v3 + 40) = 0;
 }
 
-void sub_1000081D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000081D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1108,11 +1095,11 @@ uint64_t sub_10000900C(uint64_t a1)
   return result;
 }
 
-void sub_1000098EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000098EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 48), 8);
+  _Block_object_dispose((v16 - 48), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1126,9 +1113,9 @@ void sub_100009910(void *a1)
   *(*(a1[5] + 8) + 24) = v4;
 }
 
-void sub_10000A094(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10000A094(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1583,9 +1570,9 @@ void sub_10000B098(uint64_t a1, sqlite3_stmt *a2)
   }
 }
 
-void sub_10000B5C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10000B5C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1628,9 +1615,9 @@ id sub_10000B840(uint64_t a1)
   return result;
 }
 
-void sub_10000B9D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10000B9D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1666,9 +1653,9 @@ uint64_t sub_10000BB20(uint64_t a1, sqlite3_stmt *a2)
   return sqlite3_bind_int64(a2, 1, v3);
 }
 
-void sub_10000BE00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000BE00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1684,9 +1671,9 @@ id sub_10000BE24(uint64_t a1)
   return [v1 _unsafeSelectFollowUpActionsForItem:0 orActionID:0 rowHandler:v3];
 }
 
-void sub_10000C040(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000C040(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1702,9 +1689,9 @@ id sub_10000C064(uint64_t a1)
   return [v1 _unsafeSelectFollowUpNotificationsWithRowHandler:v3];
 }
 
-void sub_10000C2D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10000C2D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1917,9 +1904,9 @@ void sub_10000CCF8(uint64_t a1, sqlite3_stmt *a2, uint8_t *a3)
   *a3 = v22;
 }
 
-void sub_10000D2C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_10000D2C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2040,10 +2027,11 @@ void sub_10000D844(uint64_t a1, sqlite3_stmt *a2, _BYTE *a3)
   *a3 = v13;
 }
 
-void sub_10000DB60(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000DB60(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_10000DC0C(id a1)
@@ -2147,9 +2135,9 @@ void sub_10000EB60(uint64_t a1)
   }
 }
 
-void sub_10000EDB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10000EDB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2176,20 +2164,19 @@ void sub_10000EDD8(uint64_t a1, uint64_t a2)
 
 void sub_10000F160(uint64_t a1, void *a2, void *a3)
 {
-  v8 = a2;
+  v7 = a2;
   v5 = a3;
-  v6 = *(a1 + 32);
   os_transaction_needs_more_time();
-  [*(a1 + 40) removeObject:v8];
-  if (*(a1 + 64) != 1 || [*(a1 + 48) containsObject:v8])
+  [*(a1 + 40) removeObject:v7];
+  if (*(a1 + 64) != 1 || [*(a1 + 48) containsObject:v7])
   {
-    v7 = *(a1 + 56);
-    if (v7)
+    v6 = *(a1 + 56);
+    if (v6)
     {
-      [v7 processCurrentItems:v5];
+      [v6 processCurrentItems:v5];
     }
 
-    [ClientInterface refreshBadgesWithItems:v5 forBundleIdentifier:v8];
+    [ClientInterface refreshBadgesWithItems:v5 forBundleIdentifier:v7];
   }
 }
 
@@ -2203,17 +2190,16 @@ void sub_10000F53C(void *a1)
   v5 = _FLLogSystem();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = a1[7];
-    v7 = objc_opt_class();
-    v8 = a1[4];
-    v10 = 138412802;
-    v11 = v7;
-    v12 = 2112;
-    v13 = v4;
-    v14 = 2112;
-    v15 = v8;
-    v9 = v7;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%@: Badged (%@, %@)", &v10, 0x20u);
+    v6 = objc_opt_class();
+    v7 = a1[4];
+    v9 = 138412802;
+    v10 = v6;
+    v11 = 2112;
+    v12 = v4;
+    v13 = 2112;
+    v14 = v7;
+    v8 = v6;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%@: Badged (%@, %@)", &v9, 0x20u);
   }
 }
 
@@ -2229,13 +2215,13 @@ void sub_10000FB44(id a1, NSNotification *a2)
   [ClientInterface updateBadgeCounts:0];
 }
 
-uint64_t sub_1000100BC()
+uint64_t sub_1000100BC(uint64_t a1, uint64_t a2)
 {
-  v0 = _FLLogSystem();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v2 = _FLLogSystem();
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v2 = 0;
-    _os_log_impl(&_mh_execute_header, v0, OS_LOG_TYPE_DEFAULT, "Notified of language change. Will exit when all clear.", v2, 2u);
+    *v4 = 0;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Notified of language change. Will exit when all clear.", v4, 2u);
   }
 
   return xpc_transaction_exit_clean();

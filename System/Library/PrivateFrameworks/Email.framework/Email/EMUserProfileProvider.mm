@@ -147,12 +147,10 @@ void __44__EMUserProfileProvider_refreshCachedValues__block_invoke(uint64_t a1)
 
 - (id)contact
 {
-  v7[1] = *MEMORY[0x1E69E9840];
-  v7[0] = *MEMORY[0x1E695C208];
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
+  v6[1] = *MEMORY[0x1E69E9840];
+  v6[0] = *MEMORY[0x1E695C208];
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
   v4 = [(EMUserProfileProvider *)self contactWithKeysToFetch:v3];
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -174,28 +172,28 @@ void __44__EMUserProfileProvider_refreshCachedValues__block_invoke(uint64_t a1)
 
 + (BOOL)doesAddressList:(id)list containAddressInSet:(id)set
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   listCopy = list;
   setCopy = set;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v7 = listCopy;
-  v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v8)
   {
-    v9 = *v20;
+    v9 = *v19;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v20 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v19 + 1) + 8 * i);
+        v11 = *(*(&v18 + 1) + 8 * i);
         emailAddressValue = [v11 emailAddressValue];
         simpleAddress = [emailAddressValue simpleAddress];
         v14 = simpleAddress;
@@ -219,7 +217,7 @@ void __44__EMUserProfileProvider_refreshCachedValues__block_invoke(uint64_t a1)
         }
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v8)
       {
         continue;
@@ -231,7 +229,6 @@ void __44__EMUserProfileProvider_refreshCachedValues__block_invoke(uint64_t a1)
 
 LABEL_15:
 
-  v17 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -316,53 +313,53 @@ uint64_t __64__EMUserProfileProvider_isMyEmailAddressContainedInAddressList___bl
 
 - (BOOL)_isMyEmailAddressContainedInAddressStrings:(id)strings
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   stringsCopy = strings;
-  v23 = stringsCopy;
+  v22 = stringsCopy;
   if ([stringsCopy count])
   {
     os_unfair_lock_lock(&self->_cacheLock);
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __68__EMUserProfileProvider__isMyEmailAddressContainedInAddressStrings___block_invoke;
-    v29[3] = &unk_1E8270110;
-    v29[4] = self;
-    if ([stringsCopy ef_any:v29])
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = __68__EMUserProfileProvider__isMyEmailAddressContainedInAddressStrings___block_invoke;
+    v28[3] = &unk_1E8270110;
+    v28[4] = self;
+    if ([stringsCopy ef_any:v28])
     {
       LOBYTE(knownToBeMyEmail) = 1;
     }
 
     else
     {
-      v28[0] = MEMORY[0x1E69E9820];
-      v28[1] = 3221225472;
-      v28[2] = __68__EMUserProfileProvider__isMyEmailAddressContainedInAddressStrings___block_invoke_2;
-      v28[3] = &unk_1E8270110;
-      v28[4] = self;
-      v6 = [stringsCopy ef_filter:v28];
-      v22 = v6;
+      v27[0] = MEMORY[0x1E69E9820];
+      v27[1] = 3221225472;
+      v27[2] = __68__EMUserProfileProvider__isMyEmailAddressContainedInAddressStrings___block_invoke_2;
+      v27[3] = &unk_1E8270110;
+      v27[4] = self;
+      v6 = [stringsCopy ef_filter:v27];
+      v21 = v6;
       if ([v6 count])
       {
         v7 = [(NSDictionary *)self->_cache objectForKeyedSubscript:@"_all"];
-        v26 = 0u;
-        v27 = 0u;
-        v24 = 0u;
         v25 = 0u;
+        v26 = 0u;
+        v23 = 0u;
+        v24 = 0u;
         v8 = v6;
-        knownToBeMyEmail = [v8 countByEnumeratingWithState:&v24 objects:v30 count:16];
+        knownToBeMyEmail = [v8 countByEnumeratingWithState:&v23 objects:v29 count:16];
         if (knownToBeMyEmail)
         {
-          v9 = *v25;
+          v9 = *v24;
           while (2)
           {
             for (i = 0; i != knownToBeMyEmail; i = i + 1)
             {
-              if (*v25 != v9)
+              if (*v24 != v9)
               {
                 objc_enumerationMutation(v8);
               }
 
-              v11 = *(*(&v24 + 1) + 8 * i);
+              v11 = *(*(&v23 + 1) + 8 * i);
               emailAddressValue = [v11 emailAddressValue];
               simpleAddress = [emailAddressValue simpleAddress];
               v14 = simpleAddress;
@@ -391,7 +388,7 @@ uint64_t __64__EMUserProfileProvider_isMyEmailAddressContainedInAddressList___bl
               [knownToNotBeMyEmail addObject:v11];
             }
 
-            knownToBeMyEmail = [v8 countByEnumeratingWithState:&v24 objects:v30 count:16];
+            knownToBeMyEmail = [v8 countByEnumeratingWithState:&v23 objects:v29 count:16];
             if (knownToBeMyEmail)
             {
               continue;
@@ -424,7 +421,6 @@ LABEL_21:
     LOBYTE(knownToBeMyEmail) = 0;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return knownToBeMyEmail;
 }
 

@@ -303,7 +303,7 @@ uint64_t __57__PESmartPasteablePreset_sceneCharacteristicDescription___block_inv
 
     sourceAssetUUID = [(PEPasteablePreset *)self sourceAssetUUID];
     v15 = sourceAssetUUID;
-    if (sourceAssetUUID && ![sourceAssetUUID isEqualToString:&stru_2870659C0])
+    if (sourceAssetUUID && !objc_msgSend_isEqualToString_(sourceAssetUUID))
     {
       v19 = MEMORY[0x277CD97A8];
       v27 = v15;

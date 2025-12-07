@@ -120,67 +120,65 @@
 
 - (void)_loadMe
 {
-  v17[15] = *MEMORY[0x1E69E9840];
+  v16[15] = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E695CD80] descriptorForRequiredKeysForStyle:0];
-  v17[0] = v3;
+  v16[0] = v3;
   descriptorForRequiredKeys = [MEMORY[0x1E695D148] descriptorForRequiredKeys];
   v5 = *MEMORY[0x1E695C208];
-  v17[1] = descriptorForRequiredKeys;
-  v17[2] = v5;
+  v16[1] = descriptorForRequiredKeys;
+  v16[2] = v5;
   v6 = *MEMORY[0x1E695C360];
-  v17[3] = *MEMORY[0x1E695C330];
-  v17[4] = v6;
+  v16[3] = *MEMORY[0x1E695C330];
+  v16[4] = v6;
   v7 = *MEMORY[0x1E695C240];
-  v17[5] = *MEMORY[0x1E695C300];
-  v17[6] = v7;
+  v16[5] = *MEMORY[0x1E695C300];
+  v16[6] = v7;
   v8 = *MEMORY[0x1E695C230];
-  v17[7] = *MEMORY[0x1E695C2F0];
-  v17[8] = v8;
+  v16[7] = *MEMORY[0x1E695C2F0];
+  v16[8] = v8;
   v9 = *MEMORY[0x1E695C308];
-  v17[9] = *MEMORY[0x1E695C390];
-  v17[10] = v9;
+  v16[9] = *MEMORY[0x1E695C390];
+  v16[10] = v9;
   v10 = *MEMORY[0x1E695C328];
-  v17[11] = *MEMORY[0x1E695C2C8];
-  v17[12] = v10;
+  v16[11] = *MEMORY[0x1E695C2C8];
+  v16[12] = v10;
   v11 = *MEMORY[0x1E695C1D0];
-  v17[13] = *MEMORY[0x1E695C418];
-  v17[14] = v11;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:15];
+  v16[13] = *MEMORY[0x1E695C418];
+  v16[14] = v11;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:15];
 
   contactStore = [(AFUIContactsController *)self contactStore];
-  v16 = 0;
-  v14 = [contactStore _ios_meContactWithKeysToFetch:v12 error:&v16];
+  v15 = 0;
+  v14 = [contactStore _ios_meContactWithKeysToFetch:v12 error:&v15];
   [(AFUIContactsController *)self setMe:v14];
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_meContactInfosForTextContentType:(id)type meContact:(id)contact
 {
-  v169 = *MEMORY[0x1E69E9840];
+  v168 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   contactCopy = contact;
   v6 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v158 = 0u;
   v159 = 0u;
   v160 = 0u;
   v161 = 0u;
-  v162 = 0u;
   emailAddresses = [contactCopy emailAddresses];
-  v8 = [emailAddresses countByEnumeratingWithState:&v159 objects:v168 count:16];
+  v8 = [emailAddresses countByEnumeratingWithState:&v158 objects:v167 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v160;
+    v10 = *v159;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v160 != v10)
+        if (*v159 != v10)
         {
           objc_enumerationMutation(emailAddresses);
         }
 
-        v12 = *(*(&v159 + 1) + 8 * i);
+        v12 = *(*(&v158 + 1) + 8 * i);
         v13 = MEMORY[0x1E695CEE0];
         label = [v12 label];
         v15 = [v13 localizedStringForLabel:label];
@@ -215,35 +213,35 @@
 LABEL_12:
       }
 
-      v9 = [emailAddresses countByEnumeratingWithState:&v159 objects:v168 count:16];
+      v9 = [emailAddresses countByEnumeratingWithState:&v158 objects:v167 count:16];
     }
 
     while (v9);
   }
 
-  v157 = 0u;
-  v158 = 0u;
-  v155 = 0u;
   v156 = 0u;
+  v157 = 0u;
+  v154 = 0u;
+  v155 = 0u;
   urlAddresses = [contactCopy urlAddresses];
-  v23 = [urlAddresses countByEnumeratingWithState:&v155 objects:v167 count:16];
+  v23 = [urlAddresses countByEnumeratingWithState:&v154 objects:v166 count:16];
   if (!v23)
   {
     goto LABEL_27;
   }
 
   v24 = v23;
-  v25 = *v156;
+  v25 = *v155;
   do
   {
     for (j = 0; j != v24; ++j)
     {
-      if (*v156 != v25)
+      if (*v155 != v25)
       {
         objc_enumerationMutation(urlAddresses);
       }
 
-      v27 = *(*(&v155 + 1) + 8 * j);
+      v27 = *(*(&v154 + 1) + 8 * j);
       v28 = MEMORY[0x1E695CEE0];
       label2 = [v27 label];
       v30 = [v28 localizedStringForLabel:label2];
@@ -278,36 +276,36 @@ LABEL_12:
 LABEL_25:
     }
 
-    v24 = [urlAddresses countByEnumeratingWithState:&v155 objects:v167 count:16];
+    v24 = [urlAddresses countByEnumeratingWithState:&v154 objects:v166 count:16];
   }
 
   while (v24);
 LABEL_27:
 
-  v153 = 0u;
-  v154 = 0u;
-  v151 = 0u;
   v152 = 0u;
+  v153 = 0u;
+  v150 = 0u;
+  v151 = 0u;
   obj = [contactCopy phoneNumbers];
-  v136 = [obj countByEnumeratingWithState:&v151 objects:v166 count:16];
-  if (!v136)
+  v135 = [obj countByEnumeratingWithState:&v150 objects:v165 count:16];
+  if (!v135)
   {
     goto LABEL_51;
   }
 
-  v37 = *v152;
+  v37 = *v151;
   v38 = 0x1E695C000uLL;
   while (2)
   {
     v39 = 0;
     while (2)
     {
-      if (*v152 != v37)
+      if (*v151 != v37)
       {
         objc_enumerationMutation(obj);
       }
 
-      v40 = *(*(&v151 + 1) + 8 * v39);
+      v40 = *(*(&v150 + 1) + 8 * v39);
       v41 = MEMORY[0x1E695CEE0];
       label3 = [v40 label];
       v43 = [v41 localizedStringForLabel:label3];
@@ -373,7 +371,7 @@ LABEL_37:
         else
         {
           [*(v58 + 3920) defaultCountryCode];
-          v133 = v46;
+          v132 = v46;
           v61 = contactCopy;
           v62 = v6;
           v64 = v63 = v37;
@@ -382,7 +380,7 @@ LABEL_37:
           v37 = v63;
           v6 = v62;
           contactCopy = v61;
-          v46 = v133;
+          v46 = v132;
         }
 
         if (v60)
@@ -393,7 +391,7 @@ LABEL_37:
         v38 = 0x1E695C000;
       }
 
-      if (v136 != ++v39)
+      if (v135 != ++v39)
       {
         continue;
       }
@@ -401,8 +399,8 @@ LABEL_37:
       break;
     }
 
-    v136 = [obj countByEnumeratingWithState:&v151 objects:v166 count:16];
-    if (v136)
+    v135 = [obj countByEnumeratingWithState:&v150 objects:v165 count:16];
+    if (v135)
     {
       continue;
     }
@@ -412,30 +410,30 @@ LABEL_37:
 
 LABEL_51:
 
-  v149 = 0u;
-  v150 = 0u;
-  v147 = 0u;
   v148 = 0u;
+  v149 = 0u;
+  v146 = 0u;
+  v147 = 0u;
   postalAddresses = [contactCopy postalAddresses];
-  v65 = [postalAddresses countByEnumeratingWithState:&v147 objects:v165 count:16];
+  v65 = [postalAddresses countByEnumeratingWithState:&v146 objects:v164 count:16];
   if (!v65)
   {
     goto LABEL_68;
   }
 
   v66 = v65;
-  v137 = *v148;
+  v136 = *v147;
   while (2)
   {
     v67 = 0;
     while (2)
     {
-      if (*v148 != v137)
+      if (*v147 != v136)
       {
         objc_enumerationMutation(postalAddresses);
       }
 
-      v68 = *(*(&v147 + 1) + 8 * v67);
+      v68 = *(*(&v146 + 1) + 8 * v67);
       v69 = MEMORY[0x1E695CEE0];
       label4 = [v68 label];
       v71 = [v69 localizedStringForLabel:label4];
@@ -511,7 +509,7 @@ LABEL_61:
       break;
     }
 
-    v66 = [postalAddresses countByEnumeratingWithState:&v147 objects:v165 count:16];
+    v66 = [postalAddresses countByEnumeratingWithState:&v146 objects:v164 count:16];
     if (v66)
     {
       continue;
@@ -531,26 +529,26 @@ LABEL_68:
     [v6 setObject:v97 forKey:&stru_1F4E9A028];
   }
 
-  v145 = 0u;
-  v146 = 0u;
-  v143 = 0u;
   v144 = 0u;
+  v145 = 0u;
+  v142 = 0u;
+  v143 = 0u;
   allKeys2 = [v6 allKeys];
-  v98 = [allKeys2 countByEnumeratingWithState:&v143 objects:v164 count:16];
+  v98 = [allKeys2 countByEnumeratingWithState:&v142 objects:v163 count:16];
   if (v98)
   {
     v99 = v98;
-    v100 = *v144;
+    v100 = *v143;
     do
     {
       for (k = 0; k != v99; ++k)
       {
-        if (*v144 != v100)
+        if (*v143 != v100)
         {
           objc_enumerationMutation(allKeys2);
         }
 
-        v102 = [v6 objectForKey:*(*(&v143 + 1) + 8 * k)];
+        v102 = [v6 objectForKey:*(*(&v142 + 1) + 8 * k)];
         v103 = [MEMORY[0x1E695CD80] stringFromContact:contactCopy style:0];
         [v102 setNameString:v103];
 
@@ -595,7 +593,7 @@ LABEL_68:
         [v102 setBirthdateYearString:stringValue4];
       }
 
-      v99 = [allKeys2 countByEnumeratingWithState:&v143 objects:v164 count:16];
+      v99 = [allKeys2 countByEnumeratingWithState:&v142 objects:v163 count:16];
     }
 
     while (v99);
@@ -608,26 +606,26 @@ LABEL_68:
     [AFUIContactsController _meContactInfosForTextContentType:meContact:];
   }
 
-  v141 = 0u;
-  v142 = 0u;
-  v139 = 0u;
   v140 = 0u;
+  v141 = 0u;
+  v138 = 0u;
+  v139 = 0u;
   v121 = _meContactInfosForTextContentType_meContact__preferredLabelOrder;
-  v122 = [v121 countByEnumeratingWithState:&v139 objects:v163 count:16];
+  v122 = [v121 countByEnumeratingWithState:&v138 objects:v162 count:16];
   if (v122)
   {
     v123 = v122;
-    v124 = *v140;
+    v124 = *v139;
     do
     {
       for (m = 0; m != v123; ++m)
       {
-        if (*v140 != v124)
+        if (*v139 != v124)
         {
           objc_enumerationMutation(v121);
         }
 
-        v126 = [MEMORY[0x1E695CEE0] localizedStringForLabel:*(*(&v139 + 1) + 8 * m)];
+        v126 = [MEMORY[0x1E695CEE0] localizedStringForLabel:*(*(&v138 + 1) + 8 * m)];
         v127 = [v6 objectForKey:v126];
         if (v127)
         {
@@ -636,7 +634,7 @@ LABEL_68:
         }
       }
 
-      v123 = [v121 countByEnumeratingWithState:&v139 objects:v163 count:16];
+      v123 = [v121 countByEnumeratingWithState:&v138 objects:v162 count:16];
     }
 
     while (v123);
@@ -645,31 +643,27 @@ LABEL_68:
   allValues = [v6 allValues];
   [v120 addObjectsFromArray:allValues];
 
-  v129 = *MEMORY[0x1E69E9840];
-
   return v120;
 }
 
 void __70__AFUIContactsController__meContactInfosForTextContentType_meContact___block_invoke()
 {
-  v7[8] = *MEMORY[0x1E69E9840];
+  v6[8] = *MEMORY[0x1E69E9840];
   v0 = *MEMORY[0x1E695CB88];
-  v7[0] = *MEMORY[0x1E695CB90];
-  v7[1] = v0;
+  v6[0] = *MEMORY[0x1E695CB90];
+  v6[1] = v0;
   v1 = *MEMORY[0x1E695CB60];
-  v7[2] = *MEMORY[0x1E695CBC0];
-  v7[3] = v1;
+  v6[2] = *MEMORY[0x1E695CBC0];
+  v6[3] = v1;
   v2 = *MEMORY[0x1E695CBC8];
-  v7[4] = *MEMORY[0x1E695CBD8];
-  v7[5] = v2;
+  v6[4] = *MEMORY[0x1E695CBD8];
+  v6[5] = v2;
   v3 = *MEMORY[0x1E695CBD0];
-  v7[6] = *MEMORY[0x1E695CB68];
-  v7[7] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:8];
+  v6[6] = *MEMORY[0x1E695CB68];
+  v6[7] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:8];
   v5 = _meContactInfosForTextContentType_meContact__preferredLabelOrder;
   _meContactInfosForTextContentType_meContact__preferredLabelOrder = v4;
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (id)meContactInfosForTextContentType:(id)type
@@ -806,16 +800,7 @@ LABEL_24:
     if (!phoneString2)
     {
       v35 = [infosCopy objectForKey:v7];
-      if (!v35)
-      {
-        goto LABEL_41;
-      }
-
-      v36 = v35;
-      v37 = [infosCopy objectForKey:v7];
-      phoneString3 = [v37 phoneString];
-
-      if (phoneString3)
+      if (v35 && (v36 = v35, [infosCopy objectForKey:v7], v37 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v37, "phoneString"), v38 = objc_claimAutoreleasedReturnValue(), v38, v37, v36, v38))
       {
         v39 = [infosCopy objectForKey:v7];
         v40 = [infosCopy objectForKey:v6];
@@ -831,18 +816,8 @@ LABEL_24:
 
       else
       {
-LABEL_41:
         v52 = [infosCopy objectForKey:v8];
-        if (!v52)
-        {
-          goto LABEL_45;
-        }
-
-        v53 = v52;
-        v54 = [infosCopy objectForKey:v8];
-        phoneString4 = [v54 phoneString];
-
-        if (phoneString4)
+        if (v52 && (v53 = v52, [infosCopy objectForKey:v8], v54 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v54, "phoneString"), v55 = objc_claimAutoreleasedReturnValue(), v55, v54, v53, v55))
         {
           v56 = [infosCopy objectForKey:v8];
           v57 = [infosCopy objectForKey:v6];
@@ -858,7 +833,6 @@ LABEL_41:
 
         else
         {
-LABEL_45:
           v59 = [infosCopy objectForKey:v9];
           if (!v59)
           {
@@ -867,9 +841,9 @@ LABEL_45:
 
           v60 = v59;
           v61 = [infosCopy objectForKey:v9];
-          phoneString5 = [v61 phoneString];
+          phoneString3 = [v61 phoneString];
 
-          if (!phoneString5)
+          if (!phoneString3)
           {
             goto LABEL_26;
           }

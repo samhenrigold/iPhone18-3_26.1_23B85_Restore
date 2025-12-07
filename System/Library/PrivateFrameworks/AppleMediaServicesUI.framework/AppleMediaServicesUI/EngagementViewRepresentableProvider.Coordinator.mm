@@ -10,7 +10,7 @@
 {
   dismissCopy = dismiss;
   selfCopy = self;
-  sub_1BB15B140();
+  sub_1BB15B140(selfCopy);
 }
 
 - (void)engagementViewController:(id)controller didFinishWithResult:(id)result error:(id)error

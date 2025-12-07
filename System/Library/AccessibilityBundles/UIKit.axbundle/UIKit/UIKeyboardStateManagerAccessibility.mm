@@ -3,7 +3,7 @@
 
 @implementation UIKeyboardStateManagerAccessibility
 
-uint64_t __71___UIKeyboardStateManagerAccessibility_performKeyboardOutput_userInfo___block_invoke(uint64_t a1)
+uint64_t __71___UIKeyboardStateManagerAccessibility_performKeyboardOutput_userInfo___block_invoke(NSObject *a1)
 {
   v5 = *MEMORY[0x29EDCA608];
   oslog[2] = a1;
@@ -13,7 +13,7 @@ uint64_t __71___UIKeyboardStateManagerAccessibility_performKeyboardOutput_userIn
     oslog[0] = AXLogUIA();
     if (os_log_type_enabled(oslog[0], OS_LOG_TYPE_INFO))
     {
-      __os_log_helper_16_2_1_8_64(v4, *(a1 + 32));
+      __os_log_helper_16_2_1_8_64(v4, a1[4].isa);
       _os_log_impl(&dword_29C4D6000, oslog[0], OS_LOG_TYPE_INFO, "Keyboard event handled - processed keyboardOutput: %@", v4, 0xCu);
     }
 
@@ -99,7 +99,7 @@ double __82___UIKeyboardStateManagerAccessibility__axResetFKAFocusToFirstRespond
   return result;
 }
 
-uint64_t __77___UIKeyboardStateManagerAccessibility__axRegisterForVoiceOverNotifications___block_invoke(id *a1)
+void *__77___UIKeyboardStateManagerAccessibility__axRegisterForVoiceOverNotifications___block_invoke(id *a1)
 {
   location[2] = a1;
   location[1] = a1;

@@ -31,18 +31,19 @@
 {
   handlerCopy = handler;
   v6 = [(NSString *)self->_state isEqualToString:@"added"];
+  v7 = v6;
   if (self->_itemID && self->_state)
   {
-    v7 = +[VUIUpNextRequestManager sharedInstance];
-    [v7 sendRequestForCanonicalID:self->_itemID action:v6 confirmationShouldWaitCompletion:self->_confirmationShouldWaitCompletion];
+    v8 = +[VUIUpNextRequestManager sharedInstance];
+    [v8 sendRequestForCanonicalID:self->_itemID action:v7 confirmationShouldWaitCompletion:self->_confirmationShouldWaitCompletion];
   }
 
   else
   {
-    v7 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = VUIDefaultLogObject(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [(VUIActionUpdateUpNext *)&self->_itemID performWithTargetResponder:v7 completionHandler:?];
+      [(VUIActionUpdateUpNext *)&self->_itemID performWithTargetResponder:v8 completionHandler:?];
     }
   }
 
@@ -51,13 +52,13 @@
     handlerCopy[2](handlerCopy, 1);
   }
 
-  v8 = +[VUIAppReviewManager sharedInstance];
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __70__VUIActionUpdateUpNext_performWithTargetResponder_completionHandler___block_invoke;
-  v9[3] = &__block_descriptor_40_e8_v12__0B8l;
-  v9[4] = v6;
-  [v8 isFeatureEnabled:v9];
+  v9 = +[VUIAppReviewManager sharedInstance];
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __70__VUIActionUpdateUpNext_performWithTargetResponder_completionHandler___block_invoke;
+  v10[3] = &__block_descriptor_40_e8_v12__0B8l;
+  v10[4] = v7;
+  [v9 isFeatureEnabled:v10];
 }
 
 void __70__VUIActionUpdateUpNext_performWithTargetResponder_completionHandler___block_invoke(uint64_t a1, int a2)

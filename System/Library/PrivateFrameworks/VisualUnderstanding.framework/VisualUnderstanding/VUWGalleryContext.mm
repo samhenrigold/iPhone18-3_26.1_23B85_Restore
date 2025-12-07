@@ -7,7 +7,7 @@
 
 - (VUWGalleryContext)initWithMoment:(id)moment asset:(id)asset source:(int64_t)source
 {
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC6D2110);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC6D2110, &unk_1D22527C0);
   v9 = MEMORY[0x1EEE9AC00](v8 - 8);
   v11 = &v19 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v9);

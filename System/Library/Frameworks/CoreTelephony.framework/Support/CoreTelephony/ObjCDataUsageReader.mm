@@ -1,6 +1,8 @@
 @interface ObjCDataUsageReader
 - (ObjCDataUsageReader)initWithRegistry:(const void *)registry withQueue:(queue)queue;
 - (id).cxx_construct;
+- (void)checkDataUsageRecords_sync:(id)records_sync withLastBillingPeriod:(id)period withCurrentSubtag:(unsigned int)subtag;
+- (void)fillDataUsage_sync:(id)usage_sync withPeriod:(unint64_t)period withCurrentBillingPeriod:(id)billingPeriod withLastBillingPeriod:(id)lastBillingPeriod withCurrentEffectiveSubtag:(unsigned int)subtag withPreferredLanguages:(id)languages withBlockedBundleIds:(id)ids;
 - (void)logPerAppUsageData_sync:(BOOL)data_sync withCurrentSubtag:(unsigned int)subtag withCallback:(function<void)(BOOL;
 - (void)resetWorkspace_sync;
 @end
@@ -69,6 +71,156 @@
   objc_autoreleasePoolPop(v3);
 }
 
+- (void)fillDataUsage_sync:(id)usage_sync withPeriod:(unint64_t)period withCurrentBillingPeriod:(id)billingPeriod withLastBillingPeriod:(id)lastBillingPeriod withCurrentEffectiveSubtag:(unsigned int)subtag withPreferredLanguages:(id)languages withBlockedBundleIds:(id)ids
+{
+  v10 = *&subtag;
+  usage_syncCopy = usage_sync;
+  billingPeriodCopy = billingPeriod;
+  lastBillingPeriodCopy = lastBillingPeriod;
+  languagesCopy = languages;
+  idsCopy = ids;
+  DataUsageLog = getDataUsageLog();
+  sub_100002350(usage_syncCopy, period, billingPeriodCopy, lastBillingPeriodCopy, v10, languagesCopy, idsCopy, DataUsageLog, self->_usageSpace);
+}
+
+- (void)checkDataUsageRecords_sync:(id)records_sync withLastBillingPeriod:(id)period withCurrentSubtag:(unsigned int)subtag
+{
+  v5 = *&subtag;
+  records_syncCopy = records_sync;
+  periodCopy = period;
+  v34 = records_syncCopy;
+  if (records_syncCopy && periodCopy)
+  {
+    v33 = periodCopy;
+    memset(v49, 0, sizeof(v49));
+    v10 = *getDataUsageLog();
+    DataUsageLog = getDataUsageLog();
+    v12 = os_signpost_id_generate(*DataUsageLog);
+    v13 = getDataUsageLog();
+    if ((v12 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
+    {
+      v14 = *v13;
+      if (os_signpost_enabled(*v13))
+      {
+        *buf = 0;
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v14, OS_SIGNPOST_INTERVAL_BEGIN, v12, "DataUsageCheckRecords", &unk_100078163, buf, 2u);
+      }
+    }
+
+    *buf = off_100084C98;
+    v44 = buf;
+    v48[0] = v12;
+    v48[1] = os_retain(v10);
+    sub_100043EC0(v49, buf);
+    sub_100043CF4(buf);
+    context = objc_autoreleasePoolPush();
+    v15 = [NSNumber numberWithUnsignedInt:v5];
+    v32 = [NSPredicate predicateWithFormat:@"tag == %@ and kind == 0 and billCycleEnd < %@ && billCycleEnd > %@", v15, v34, v33];
+
+    [(UsageAnalytics *)self->_usageSpace fetchEntityDictionariesWithProperties:&off_10008BE50 predicate:v32];
+    v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    obj = v37 = 0u;
+    v16 = [obj countByEnumeratingWithState:&v36 objects:v47 count:16];
+    if (v16)
+    {
+      v17 = *v37;
+      do
+      {
+        v18 = 0;
+        do
+        {
+          if (*v37 != v17)
+          {
+            objc_enumerationMutation(obj);
+          }
+
+          v19 = *(*(&v36 + 1) + 8 * v18);
+          v20 = [v19 objectForKeyedSubscript:@"billCycleEnd"];
+          v21 = [v19 objectForKeyedSubscript:@"hasProcess.bundleName"];
+          v22 = [v19 objectForKeyedSubscript:@"hasProcess.procName"];
+          v23 = v22;
+          if (v21)
+          {
+            v24 = *getDataUsageLog();
+            if (!os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+            {
+              goto LABEL_19;
+            }
+
+            *buf = 138413058;
+            *&buf[4] = v21;
+            v41 = 2112;
+            v42 = v20;
+            v43 = 2112;
+            v44 = v34;
+            v45 = 2112;
+            v46 = v33;
+            v25 = v24;
+            v26 = "#N lu record for bundle id %@ has billing cycle %@, between %@ and %@";
+LABEL_17:
+            v28 = 42;
+LABEL_18:
+            _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, v26, buf, v28);
+            goto LABEL_19;
+          }
+
+          if (v22)
+          {
+            v27 = *getDataUsageLog();
+            if (!os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+            {
+              goto LABEL_19;
+            }
+
+            *buf = 138413058;
+            *&buf[4] = v23;
+            v41 = 2112;
+            v42 = v20;
+            v43 = 2112;
+            v44 = v34;
+            v45 = 2112;
+            v46 = v33;
+            v25 = v27;
+            v26 = "#N lu record for process name %@ has billing cycle %@, between %@ and %@";
+            goto LABEL_17;
+          }
+
+          v29 = *getDataUsageLog();
+          if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 138412802;
+            *&buf[4] = v20;
+            v41 = 2112;
+            v42 = v34;
+            v43 = 2112;
+            v44 = v33;
+            v25 = v29;
+            v26 = "#N lu record without process name has billing cycle %@, between %@ and %@";
+            v28 = 32;
+            goto LABEL_18;
+          }
+
+LABEL_19:
+
+          v18 = v18 + 1;
+        }
+
+        while (v16 != v18);
+        v30 = [obj countByEnumeratingWithState:&v36 objects:v47 count:16];
+        v16 = v30;
+      }
+
+      while (v30);
+    }
+
+    objc_autoreleasePoolPop(context);
+    sub_100043B88(v48);
+    periodCopy = v33;
+  }
+}
+
 - (void)logPerAppUsageData_sync:(BOOL)data_sync withCurrentSubtag:(unsigned int)subtag withCallback:(function<void)(BOOL
 {
   data_syncCopy = data_sync;
@@ -104,56 +256,56 @@
     v13 = v47[0];
     *(v48 + *(v47[0] - 3) + 8) = 30;
     *(&v47[1] + *(v13 - 3)) = *(&v47[1] + *(v13 - 3)) & 0xFFFFFF4F | 0x80;
-    v14 = sub_100004CC4(v47);
+    v14 = sub_100004CC4(v47, "Process", 7);
     v15 = *v14;
     *(v14 + *(*v14 - 24) + 24) = 30;
     *(v14 + *(v15 - 24) + 8) = *(v14 + *(v15 - 24) + 8) & 0xFFFFFF4F | 0x80;
     LOBYTE(v71[0].__locale_) = 124;
-    v16 = sub_100004CC4(v14);
+    v16 = sub_100004CC4(v14, v71, 1);
     v17 = *v16;
     *(v16 + *(*v16 - 24) + 24) = 25;
     *(v16 + *(v17 - 24) + 8) = *(v16 + *(v17 - 24) + 8) & 0xFFFFFF4F | 0x80;
-    v18 = sub_100004CC4(v16);
+    v18 = sub_100004CC4(v16, "Bundle ID", 9);
     v19 = *v18;
     *(v18 + *(*v18 - 24) + 24) = 25;
     *(v18 + *(v19 - 24) + 8) = *(v18 + *(v19 - 24) + 8) & 0xFFFFFF4F | 0x80;
     LOBYTE(v71[0].__locale_) = 124;
-    v20 = sub_100004CC4(v18);
+    v20 = sub_100004CC4(v18, v71, 1);
     *(v20 + *(*v20 - 24) + 24) = 15;
-    v21 = sub_100004CC4(v20);
+    v21 = sub_100004CC4(v20, "Home IN", 7);
     *(v21 + *(*v21 - 24) + 24) = 15;
     LOBYTE(v71[0].__locale_) = 124;
-    v22 = sub_100004CC4(v21);
+    v22 = sub_100004CC4(v21, v71, 1);
     *(v22 + *(*v22 - 24) + 24) = 15;
-    v23 = sub_100004CC4(v22);
+    v23 = sub_100004CC4(v22, "Home OUT", 8);
     *(v23 + *(*v23 - 24) + 24) = 15;
     LOBYTE(v71[0].__locale_) = 124;
-    v24 = sub_100004CC4(v23);
+    v24 = sub_100004CC4(v23, v71, 1);
     *(v24 + *(*v24 - 24) + 24) = 15;
-    v25 = sub_100004CC4(v24);
+    v25 = sub_100004CC4(v24, "Roaming IN", 10);
     *(v25 + *(*v25 - 24) + 24) = 15;
     LOBYTE(v71[0].__locale_) = 124;
-    v26 = sub_100004CC4(v25);
+    v26 = sub_100004CC4(v25, v71, 1);
     *(v26 + *(*v26 - 24) + 24) = 15;
-    v27 = sub_100004CC4(v26);
+    v27 = sub_100004CC4(v26, "Roaming OUT", 11);
     *(v27 + *(*v27 - 24) + 24) = 15;
     LOBYTE(v71[0].__locale_) = 124;
-    v28 = sub_100004CC4(v27);
+    v28 = sub_100004CC4(v27, v71, 1);
     *(v28 + *(*v28 - 24) + 24) = 15;
-    v29 = sub_100004CC4(v28);
+    v29 = sub_100004CC4(v28, "Satellite IN", 12);
     *(v29 + *(*v29 - 24) + 24) = 15;
     LOBYTE(v71[0].__locale_) = 124;
-    v30 = sub_100004CC4(v29);
+    v30 = sub_100004CC4(v29, v71, 1);
     *(v30 + *(*v30 - 24) + 24) = 15;
-    v31 = sub_100004CC4(v30);
+    v31 = sub_100004CC4(v30, "Satellite OUT", 13);
     *(v31 + *(*v31 - 24) + 24) = 15;
     LOBYTE(v71[0].__locale_) = 124;
-    v32 = sub_100004CC4(v31);
+    v32 = sub_100004CC4(v31, v71, 1);
     *(v32 + *(*v32 - 24) + 24) = 15;
-    v33 = sub_100004CC4(v32);
+    v33 = sub_100004CC4(v32, "Total", 5);
     *(v33 + *(*v33 - 24) + 24) = 15;
     LOBYTE(v71[0].__locale_) = 124;
-    v34 = sub_100004CC4(v33);
+    v34 = sub_100004CC4(v33, v71, 1);
     std::ios_base::getloc((v34 + *(*v34 - 24)));
     v35 = std::locale::use_facet(v71, &std::ctype<char>::id);
     (v35->__vftable[2].~facet_0)(v35, 10);

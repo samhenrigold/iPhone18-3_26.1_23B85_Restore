@@ -1,3 +1,250 @@
+uint64_t SMPTE_RP219::render_4xx<PixelFormatTraits<2016686640u>>(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v5 = a4;
+  v104 = *MEMORY[0x277D85DE8];
+  v6 = a2[2];
+  v62 = a4;
+  if (v6 != *(a3 + 16) * a4)
+  {
+    SMPTE_RP219::render_4xx<PixelFormatTraits<875704438u>>();
+  }
+
+  v7 = a5;
+  v10 = a2[1];
+  v58 = a5;
+  if (v10 != *(a3 + 8) * a5)
+  {
+    SMPTE_RP219::render_4xx<PixelFormatTraits<875704438u>>();
+  }
+
+  v93 = xmmword_25792C160;
+  v73 = 0;
+  v74 = 0;
+  __p = 0;
+  std::vector<double>::__init_with_size[abi:ne200100]<double const*,double const*>(&__p, &v93, &v94, 2uLL);
+  v11 = __p;
+  v12 = v6 / v10;
+  if (v73 != __p)
+  {
+    if (v73 - __p != 8)
+    {
+      v13 = (__p + 8);
+      v14 = *__p;
+      v15 = (__p + 8);
+      do
+      {
+        v16 = *v15++;
+        v17 = v16;
+        if (vabdd_f64(v16, v12) < vabdd_f64(v14, v12))
+        {
+          v14 = v17;
+          v11 = v13;
+        }
+
+        v13 = v15;
+      }
+
+      while (v15 != v73);
+    }
+
+    v12 = *v11;
+  }
+
+  cinematic_bars::render_cinematic_bars<PixelFormatTraits<2016686640u>>(a2, a3, v5, v7, &v69, v12);
+  v19 = *(&v69 + 1);
+  v18 = v70;
+  SMPTE_RP219::Dimensions::Dimensions(&v93, v70, *(&v69 + 1), v7);
+  _CF = v18 >= v102 && v19 >= v103;
+  v21 = _CF;
+  if (_CF)
+  {
+    v57 = v21;
+    v22 = 0;
+    v65 = 0;
+    _ZF = *(a1 + 24) == 0;
+    if (!_ZF)
+    {
+    }
+
+    v87 = *v24;
+    v25 = v24[2];
+    v86 = 152;
+    v88 = v25;
+    v90 = 168;
+    v92 = 176;
+    __asm { FMOV            V0.2D, #-2.0 }
+
+    v59 = _Q0;
+    _D11 = 0;
+    do
+    {
+      v61 = v22;
+      v30 = (&v85 + v22);
+      v64 = *(&v93 + *(&v85 + v22 + 16));
+      _Q1 = *(a1 + 8);
+      _Q0 = vextq_s8(_Q1, _Q1, 8uLL);
+      v75 = _Q1;
+      v76 = 1.0 - *_Q1.i64 - *&_Q1.i64[1];
+      v77 = 0.5 / (1.0 - *&_Q1.i64[1]);
+      v78 = 0.5 / (1.0 - *_Q1.i64);
+      v79 = 1.0 - *_Q1.i64 + 1.0 - *_Q1.i64;
+      v80 = vdivq_f64(vmulq_f64(vmlsq_f64(_Q0, _Q0, _Q0), v59), vdupq_lane_s64(*&v76, 0));
+      v81 = 1.0 - *&_Q1.i64[1] + 1.0 - *&_Q1.i64[1];
+      v82[0] = 0;
+      v83 = 0x4000003FFLL;
+      v84 = 512;
+      __asm { FMLA            D0, D11, V1.D[1]; double }
+
+      v33 = math_color::YCC_coder::YPbPr_to_YCbCr(v82, _Q0.f64[0], v77 * (0.0 - _Q0.f64[0]), v78 * (0.0 - _Q0.f64[0]));
+      v35 = v30[1];
+      if (v35)
+      {
+        v36 = 0;
+        v37 = *v30;
+        v63 = *v30 + 32 * v35;
+        v38 = v34 << 22;
+        v39 = (v33 >> 26) & 0xFFC0;
+        v40 = v33 << 6;
+        do
+        {
+          v41 = *(v37 + 16);
+          v42 = *(v37 + 24);
+          v43 = *(v37 + 8) * v76 + *v75.i64 * *v37 + *&v75.i64[1] * v41;
+          v44 = math_color::YCC_coder::YPbPr_to_YCbCr(v82, v43, v77 * (v41 - v43), v78 * (*v37 - v43));
+          v46 = v45;
+          v47 = *(&v93 + v42);
+          v48 = v44 << 6;
+          v49 = (v44 >> 26) & 0xFFC0;
+          v66 = v45 << 22;
+          v67 = v67 & 0xFFFFFFFF00000000 | v39 | v38;
+          v68 = v68 & 0xFFFFFFFF00000000 | v49 & 0x3FFFFF | (v46 << 22);
+          v36 += v47;
+          v37 += 32;
+          v40 = v48;
+          v38 = v66;
+          LODWORD(v39) = v49;
+        }
+
+        while (v37 != v63);
+      }
+
+      v65 += v64;
+      v22 = v61 + 24;
+    }
+
+    while (v61 != 72);
+    fill_h_ramp<unsigned short>(&v69, v96 + v95, v101.i64[0] + v100.i64[1], v97, v101.i64[1], 0x1000u, 60160);
+    v50 = vaddvq_s64(vaddq_s64(v100, v101));
+    v51 = v99 - 4;
+    v52 = v95 + 2;
+    v53 = v100.i64[0];
+    fill_h_ramp<unsigned short>(&v69, v95 + 2, v50, (v99 - 4) >> 1, v100.i64[0], 0x1000u, 256);
+    fill_h_ramp<unsigned short>(&v69, v52 + (v51 >> 1), v50, v51 - (v51 >> 1), v53, 0x100u, 4096);
+    v54 = v98 - 4;
+    v55 = v95 + v99 + 2;
+    fill_h_ramp<unsigned short>(&v69, v55, v50, (v98 - 4) >> 1, v53, 0xEB00u, 65216);
+    fill_h_ramp<unsigned short>(&v69, v55 + (v54 >> 1), v50, v54 - (v54 >> 1), v53, 0xFEC0u, 60160);
+    v21 = v57;
+  }
+
+  if (__p)
+  {
+    v73 = __p;
+    operator delete(__p);
+  }
+
+  return v21;
+}
+
+void sub_2578E2D94(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, void *__p, uint64_t a34)
+{
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+double cinematic_bars::render_cinematic_bars<PixelFormatTraits<2016686640u>>@<D0>(void *a1@<X0>, __int128 *a2@<X1>, int a3@<W2>, int a4@<W3>, _OWORD *a5@<X8>, double a6@<D0>)
+{
+  v9 = *(a1 + 1);
+  v39 = *a1;
+  v40 = v9;
+  v10 = a2[1];
+  v37 = *a2;
+  v38 = v10;
+  v11 = a1[1];
+  v12 = a1[2];
+  v13 = v12 - llround(v11 * a6);
+  if (v13 >= 1)
+  {
+    v14 = v13 - (v13 >> 1);
+    v15 = (v13 >> 1) / a3;
+    v35 = 0u;
+    v36 = 0u;
+    v16 = v14 / a3;
+    makeCroppedImageBufferView<unsigned short>(a1, 0, 0, v13 >> 1, v11, &v35);
+    v33 = 0u;
+    v34 = 0u;
+    makeCroppedImageBufferView<unsigned short>(a1, a1[2] - v14, 0, v14, a1[1], &v33);
+    makeCroppedImageBufferView<unsigned short>(a1, v13 >> 1, 0, a1[2] - v13, a1[1], &v39);
+    v31 = 0u;
+    v32 = 0u;
+    makeCroppedImageBufferView<math_color::CbCr<unsigned short>>(a2, 0, 0, v15, *(a2 + 1), &v31);
+    v29 = 0u;
+    v30 = 0u;
+    makeCroppedImageBufferView<math_color::CbCr<unsigned short>>(a2, *(a2 + 2) - v16, 0, v16, *(a2 + 1), &v29);
+    v17 = *(a2 + 1);
+    v18 = *(a2 + 2) - v15 - v16;
+    v19 = a2;
+    v20 = v15;
+    v21 = 0;
+LABEL_5:
+    makeCroppedImageBufferView<math_color::CbCr<unsigned short>>(v19, v20, v21, v18, v17, &v37);
+    cinematic_bars::fill_buffer_black<PixelFormatTraits<2016686640u>>(&v35, &v31);
+    cinematic_bars::fill_buffer_black<PixelFormatTraits<2016686640u>>(&v33, &v29);
+    goto LABEL_6;
+  }
+
+  v22 = v11 - llround(v12 / a6);
+  if (v22 >= 1)
+  {
+    v23 = v22 - (v22 >> 1);
+    v24 = (v22 >> 1) / a4;
+    v35 = 0u;
+    v36 = 0u;
+    v25 = v23 / a4;
+    makeCroppedImageBufferView<unsigned short>(a1, 0, 0, v12, v22 >> 1, &v35);
+    v33 = 0u;
+    v34 = 0u;
+    makeCroppedImageBufferView<unsigned short>(a1, 0, a1[1] - v23, a1[2], v23, &v33);
+    makeCroppedImageBufferView<unsigned short>(a1, 0, v22 >> 1, a1[2], a1[1] - v22, &v39);
+    v31 = 0u;
+    v32 = 0u;
+    makeCroppedImageBufferView<math_color::CbCr<unsigned short>>(a2, 0, 0, *(a2 + 2), v24, &v31);
+    v29 = 0u;
+    v30 = 0u;
+    makeCroppedImageBufferView<math_color::CbCr<unsigned short>>(a2, 0, *(a2 + 1) - v25, *(a2 + 2), v25, &v29);
+    v18 = *(a2 + 2);
+    v17 = *(a2 + 1) - v24 - v25;
+    v19 = a2;
+    v20 = 0;
+    v21 = v24;
+    goto LABEL_5;
+  }
+
+LABEL_6:
+  v26 = v40;
+  *a5 = v39;
+  a5[1] = v26;
+  result = *&v37;
+  v28 = v38;
+  a5[2] = v37;
+  a5[3] = v28;
+  return result;
+}
+
 void *fill_h_ramp<unsigned short>(void *result, unint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, unsigned int a6, int a7)
 {
   v7 = a5 + a3;
@@ -459,19 +706,19 @@ void sub_2578E3D24(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t SMPTE_RP219::render_4xx<PixelFormatTraits<2016686642u>>(uint64_t a1, void *a2, void *a3, int a4, int a5)
+uint64_t SMPTE_RP219::render_4xx<PixelFormatTraits<2016686642u>>(uint64_t a1, void *a2, uint64_t a3, int a4, int a5)
 {
   v104 = *MEMORY[0x277D85DE8];
   v6 = a2[2];
   v62 = a4;
-  if (v6 != a3[2] * a4)
+  if (v6 != *(a3 + 16) * a4)
   {
     SMPTE_RP219::render_4xx<PixelFormatTraits<875704438u>>();
   }
 
   v10 = a2[1];
   v58 = a5;
-  if (v10 != a3[1] * a5)
+  if (v10 != *(a3 + 8) * a5)
   {
     SMPTE_RP219::render_4xx<PixelFormatTraits<875704438u>>();
   }
@@ -625,8 +872,9 @@ void sub_2578E4290(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t SMPTE_RP219::render_4xx<PixelFormatTraits<1937125938u>>(uint64_t a1, void *a2, void *a3, int a4, int a5)
+uint64_t SMPTE_RP219::render_4xx<PixelFormatTraits<1937125938u>>(uint64_t a1, void *a2, void *a3, uint64_t a4, uint64_t a5)
 {
+  v7 = a4;
   v102 = *MEMORY[0x277D85DE8];
   v8 = a2[2];
   v62 = a4;
@@ -635,6 +883,7 @@ uint64_t SMPTE_RP219::render_4xx<PixelFormatTraits<1937125938u>>(uint64_t a1, vo
     SMPTE_RP219::render_4xx<PixelFormatTraits<875704438u>>();
   }
 
+  v9 = a5;
   v12 = a2[1];
   v58 = a5;
   if (v12 != a3[1] * a5)
@@ -675,10 +924,10 @@ uint64_t SMPTE_RP219::render_4xx<PixelFormatTraits<1937125938u>>(uint64_t a1, vo
     v14 = *v13;
   }
 
-  cinematic_bars::render_cinematic_bars<PixelFormatTraits<1937125938u>>(a2, a3, a4, a5, &v67, v14);
+  cinematic_bars::render_cinematic_bars<PixelFormatTraits<1937125938u>>(a2, a3, v7, v9, &v67, v14);
   v21 = *(&v67 + 1);
   v20 = v68;
-  SMPTE_RP219::Dimensions::Dimensions(&v91, v68, *(&v67 + 1), a5);
+  SMPTE_RP219::Dimensions::Dimensions(&v91, v68, *(&v67 + 1), v9);
   _CF = v20 >= v100 && v21 >= v101;
   v23 = _CF;
   if (_CF)
@@ -1041,19 +1290,19 @@ void sub_2578E504C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t SMPTE_RP219::render_4xx<PixelFormatTraits<2016687156u>>(uint64_t a1, void *a2, void *a3, int a4, int a5)
+uint64_t SMPTE_RP219::render_4xx<PixelFormatTraits<2016687156u>>(uint64_t a1, void *a2, uint64_t a3, int a4, int a5)
 {
   v104 = *MEMORY[0x277D85DE8];
   v6 = a2[2];
   v62 = a4;
-  if (v6 != a3[2] * a4)
+  if (v6 != *(a3 + 16) * a4)
   {
     SMPTE_RP219::render_4xx<PixelFormatTraits<875704438u>>();
   }
 
   v10 = a2[1];
   v58 = a5;
-  if (v10 != a3[1] * a5)
+  if (v10 != *(a3 + 8) * a5)
   {
     SMPTE_RP219::render_4xx<PixelFormatTraits<875704438u>>();
   }
@@ -1371,26 +1620,26 @@ void sub_2578E5B1C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void frameSequenceValues(unint64_t a1@<X0>, uint64_t a2@<X8>)
+void frameSequenceValues(uint64_t *__return_ptr a1@<X8>, unint64_t a2@<X0>)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  *&v12 = *MEMORY[0x277D85DE8];
   memcpy(__dst, &unk_25792C650, sizeof(__dst));
   v9 = 0;
   v10 = 0;
   __p = 0;
   std::vector<math_color::rgb>::__init_with_size[abi:ne200100]<math_color::rgb const*,math_color::rgb const*>(&__p, __dst, &v12, 0x13uLL);
-  *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   memset(__dst, 0, 24);
   v6 = xmmword_25792C818;
   v7 = 0x3FE0000000000000;
   v4 = xmmword_25792C830;
   v5 = 0x3FF0000000000000;
-  std::vector<math_color::rgb>::insert(a2, 0, a1, &v6);
-  std::vector<BT_2111::rgb>::push_back[abi:ne200100](a2, __dst);
-  std::vector<BT_2111::rgb>::push_back[abi:ne200100](a2, &v4);
-  std::vector<BT_2111::rgb>::__insert_with_size[abi:ne200100]<std::__wrap_iter<BT_2111::rgb const*>,std::__wrap_iter<BT_2111::rgb const*>>(a2, *(a2 + 8), __p, v9, 0xAAAAAAAAAAAAAAABLL * ((v9 - __p) >> 3));
+  std::vector<math_color::rgb>::insert(a1, 0, a2, &v6);
+  std::vector<BT_2111::rgb>::push_back[abi:ne200100](a1, __dst);
+  std::vector<BT_2111::rgb>::push_back[abi:ne200100](a1, &v4);
+  std::vector<BT_2111::rgb>::__insert_with_size[abi:ne200100]<std::__wrap_iter<BT_2111::rgb const*>,std::__wrap_iter<BT_2111::rgb const*>>(a1, a1[1], __p, v9, 0xAAAAAAAAAAAAAAABLL * ((v9 - __p) >> 3));
   if (__p)
   {
     v9 = __p;
@@ -1415,7 +1664,7 @@ void sub_2578E5C7C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-char *std::vector<math_color::rgb>::insert(void *a1, char *__src, unint64_t a3, unint64_t a4)
+char *std::vector<math_color::rgb>::insert(void *a1, char *__src, unint64_t a3, __int128 *a4)
 {
   if (!a3)
   {
@@ -1492,7 +1741,7 @@ LABEL_16:
     {
       v19 = &v8[v18];
       v20 = *a4;
-      *(v19 + 2) = *(a4 + 16);
+      *(v19 + 2) = *(a4 + 2);
       *v19 = v20;
       v18 += 24;
     }
@@ -1544,7 +1793,7 @@ LABEL_16:
   do
   {
     v32 = *a4;
-    *(v31 + 16) = *(a4 + 16);
+    *(v31 + 16) = *(a4 + 2);
     *v31 = v32;
     v31 += 24;
     v30 -= 24;
@@ -1570,7 +1819,7 @@ LABEL_16:
   return v28;
 }
 
-uint64_t ColorSequence::ColorSequence(uint64_t a1, uint64_t *a2, double a3, double a4, double a5, double a6, double a7, double a8)
+uint64_t ColorSequence::ColorSequence(uint64_t a1, uint64_t a2, double a3, double a4, double a5, double a6, double a7, double a8)
 {
   *a1 = &unk_2868CE648;
   *(a1 + 8) = 0;
@@ -1583,7 +1832,7 @@ uint64_t ColorSequence::ColorSequence(uint64_t a1, uint64_t *a2, double a3, doub
   *(a1 + 72) = 0;
   *(a1 + 80) = 0;
   *(a1 + 64) = 0;
-  std::vector<math_color::rgb>::__init_with_size[abi:ne200100]<math_color::rgb*,math_color::rgb*>(a1 + 64, *a2, a2[1], 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 3));
+  std::vector<math_color::rgb>::__init_with_size[abi:ne200100]<math_color::rgb*,math_color::rgb*>((a1 + 64), *a2, *(a2 + 8), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 8) - *a2) >> 3));
   return a1;
 }
 
@@ -1595,7 +1844,7 @@ BOOL ColorSequence::render_monochrome_plane<PixelFormatTraits<1278226488u>>(uint
   {
     *__b = 0u;
     *__len = 0u;
-    makeCroppedImageBufferView<unsigned char>(a2, 1, 1, __b, *(a1 + 48) - *(a1 + 32) * 0.5, *(a1 + 56) - *(a1 + 40) * 0.5, *(a1 + 32), *(a1 + 40));
+    makeCroppedImageBufferView<unsigned char>(a2, __b, 1, 1, *(a1 + 48) - *(a1 + 32) * 0.5, *(a1 + 56) - *(a1 + 40) * 0.5, *(a1 + 32), *(a1 + 40));
     _Q1 = *(a1 + 16);
     __asm { FMOV            V4.2D, #-2.0 }
 
@@ -1639,7 +1888,7 @@ BOOL ColorSequence::render_monochrome_plane<PixelFormatTraits<1278226736u>>(uint
   {
     v34 = 0u;
     v35 = 0u;
-    makeCroppedImageBufferView<unsigned short>(a2, 1, 1, &v34, *(a1 + 48) - *(a1 + 32) * 0.5, *(a1 + 56) - *(a1 + 40) * 0.5, *(a1 + 32), *(a1 + 40));
+    makeCroppedImageBufferView<unsigned short>(a2, &v34, 1, 1, *(a1 + 48) - *(a1 + 32) * 0.5, *(a1 + 56) - *(a1 + 40) * 0.5, *(a1 + 32), *(a1 + 40));
     _Q1 = *(a1 + 16);
     __asm { FMOV            V4.2D, #-2.0 }
 
@@ -2641,7 +2890,7 @@ int32x2_t RecursiveQuads::setFrame(int32x2_t *this, unsigned int a2)
   return result;
 }
 
-void *render_recursive_quads<unsigned char,0>(void *a1, size_t a2, unint64_t a3, size_t a4, unint64_t a5, int a6, int a7, int a8, uint64_t a9)
+void *render_recursive_quads<unsigned char,0>(void *a1, size_t a2, unint64_t a3, size_t a4, unint64_t a5, int a6, unsigned int a7, int a8, _DWORD *a9)
 {
   if ((a6 & 0x80000001) != 0)
   {
@@ -2652,21 +2901,22 @@ LABEL_5:
   v14 = a7 - a6;
   while (v14)
   {
+    v21 = a4 >> 1;
     v15 = a6 - 2;
-    v20 = a6;
-    render_recursive_quads<unsigned char,0>(a1, a2, a3);
+    v22 = a6;
+    render_recursive_quads<unsigned char,0>(a1, a2, a3, a4 >> 1, a5 >> 1, a6 - 2, a7, (*a9 << (a6 - 2)) + a8, a9);
     v16 = a2 + (a4 >> 1);
-    v19 = v16;
+    v20 = v16;
     a4 -= a4 >> 1;
-    render_recursive_quads<unsigned char,0>(a1, v16, a3);
+    render_recursive_quads<unsigned char,0>(a1, v16, a3, a4, a5 >> 1, v15, a7, (a9[1] << v15) + a8, a9);
     a3 += a5 >> 1;
     a5 -= a5 >> 1;
-    render_recursive_quads<unsigned char,0>(a1, a2, a3);
-    a8 += *(a9 + 12) << v15;
+    render_recursive_quads<unsigned char,0>(a1, a2, a3, v21, a5, v15, a7, (a9[2] << v15) + a8, a9);
+    a8 += a9[3] << v15;
     v14 += 2;
-    a2 = v19;
+    a2 = v20;
     a6 = v15;
-    if (v20 <= 1)
+    if (v22 <= 1)
     {
       goto LABEL_5;
     }
@@ -2675,7 +2925,7 @@ LABEL_5:
   return fill_rect<unsigned char>(a1, a2, a3, a4, a5, a8);
 }
 
-void *render_recursive_quads<unsigned short,6>(void *a1, unint64_t a2, unint64_t a3, unint64_t a4, unint64_t a5, int a6, int a7, int a8, uint64_t a9)
+void *render_recursive_quads<unsigned short,6>(void *a1, unint64_t a2, unint64_t a3, unint64_t a4, unint64_t a5, int a6, unsigned int a7, int a8, _DWORD *a9)
 {
   if ((a6 & 0x80000001) != 0)
   {
@@ -2686,21 +2936,22 @@ LABEL_5:
   v14 = a7 - a6;
   while (v14)
   {
+    v21 = a4 >> 1;
     v15 = a6 - 2;
-    v20 = a6;
-    render_recursive_quads<unsigned short,6>(a1, a2, a3);
+    v22 = a6;
+    render_recursive_quads<unsigned short,6>(a1, a2, a3, a4 >> 1, a5 >> 1, a6 - 2, a7, (*a9 << (a6 - 2)) + a8, a9);
     v16 = a2 + (a4 >> 1);
-    v19 = v16;
+    v20 = v16;
     a4 -= a4 >> 1;
-    render_recursive_quads<unsigned short,6>(a1, v16, a3);
+    render_recursive_quads<unsigned short,6>(a1, v16, a3, a4, a5 >> 1, v15, a7, (a9[1] << v15) + a8, a9);
     a3 += a5 >> 1;
     a5 -= a5 >> 1;
-    render_recursive_quads<unsigned short,6>(a1, a2, a3);
-    a8 += *(a9 + 12) << v15;
+    render_recursive_quads<unsigned short,6>(a1, a2, a3, v21, a5, v15, a7, (a9[2] << v15) + a8, a9);
+    a8 += a9[3] << v15;
     v14 += 2;
-    a2 = v19;
+    a2 = v20;
     a6 = v15;
-    if (v20 <= 1)
+    if (v22 <= 1)
     {
       goto LABEL_5;
     }
@@ -2709,7 +2960,7 @@ LABEL_5:
   return fill_rect<unsigned short>(a1, a2, a3, a4, a5, (a8 & 0x3FFu) << 6);
 }
 
-void *RecursiveQuads::render_420<PixelFormatTraits<875704438u>>(int *a1, void *a2, void *a3)
+void *RecursiveQuads::render_420<PixelFormatTraits<875704438u>>(_DWORD *a1, void *a2, void *a3)
 {
   if (a2[2] != 2 * a3[2])
   {
@@ -2739,7 +2990,7 @@ void *RecursiveQuads::render_420<PixelFormatTraits<875704422u>>(int *a1, void *a
   return RecursiveQuads::render_4xx<PixelFormatTraits<875704422u>>(a1, a2, a3);
 }
 
-void *RecursiveQuads::render_420<PixelFormatTraits<2016686640u>>(int *a1, void *a2, void *a3)
+void *RecursiveQuads::render_420<PixelFormatTraits<2016686640u>>(_DWORD *a1, void *a2, void *a3)
 {
   if (a2[2] != 2 * a3[2])
   {
@@ -2769,7 +3020,7 @@ void *RecursiveQuads::render_420<PixelFormatTraits<2019963440u>>(int *a1, void *
   return RecursiveQuads::render_4xx<PixelFormatTraits<2019963440u>>(a1, a2, a3);
 }
 
-void *RecursiveQuads::render_422<PixelFormatTraits<875704950u>>(int *a1, void *a2, void *a3)
+void *RecursiveQuads::render_422<PixelFormatTraits<875704950u>>(_DWORD *a1, void *a2, void *a3)
 {
   if (a2[2] != 2 * a3[2])
   {
@@ -2799,7 +3050,7 @@ void *RecursiveQuads::render_422<PixelFormatTraits<875704934u>>(int *a1, void *a
   return RecursiveQuads::render_4xx<PixelFormatTraits<875704422u>>(a1, a2, a3);
 }
 
-void *RecursiveQuads::render_422<PixelFormatTraits<2016686642u>>(int *a1, void *a2, void *a3)
+void *RecursiveQuads::render_422<PixelFormatTraits<2016686642u>>(_DWORD *a1, void *a2, void *a3)
 {
   if (a2[2] != 2 * a3[2])
   {
@@ -2829,7 +3080,7 @@ void *RecursiveQuads::render_422<PixelFormatTraits<2019963442u>>(int *a1, void *
   return RecursiveQuads::render_4xx<PixelFormatTraits<2019963440u>>(a1, a2, a3);
 }
 
-void *RecursiveQuads::render_422<PixelFormatTraits<1937125938u>>(int *a1, void *a2, void *a3)
+void *RecursiveQuads::render_422<PixelFormatTraits<1937125938u>>(unsigned int *a1, void *a2, void *a3)
 {
   if (a2[2] != 2 * a3[2])
   {
@@ -2844,7 +3095,7 @@ void *RecursiveQuads::render_422<PixelFormatTraits<1937125938u>>(int *a1, void *
   return RecursiveQuads::render_4xx<PixelFormatTraits<1937125938u>>(a1, a2, a3);
 }
 
-void *RecursiveQuads::render_444<PixelFormatTraits<875836534u>>(int *a1, void *a2, void *a3)
+void *RecursiveQuads::render_444<PixelFormatTraits<875836534u>>(_DWORD *a1, void *a2, void *a3)
 {
   if (a2[2] != a3[2])
   {
@@ -2874,7 +3125,7 @@ void *RecursiveQuads::render_444<PixelFormatTraits<875836518u>>(int *a1, void *a
   return RecursiveQuads::render_4xx<PixelFormatTraits<875704422u>>(a1, a2, a3);
 }
 
-void *RecursiveQuads::render_444<PixelFormatTraits<2016687156u>>(int *a1, void *a2, void *a3)
+void *RecursiveQuads::render_444<PixelFormatTraits<2016687156u>>(_DWORD *a1, void *a2, void *a3)
 {
   if (a2[2] != a3[2])
   {
@@ -2904,7 +3155,7 @@ void *RecursiveQuads::render_444<PixelFormatTraits<2019963956u>>(int *a1, void *
   return RecursiveQuads::render_4xx<PixelFormatTraits<2019963440u>>(a1, a2, a3);
 }
 
-void *RecursiveQuads::render_444<PixelFormatTraits<1937126452u>>(int *a1, void *a2, void *a3)
+void *RecursiveQuads::render_444<PixelFormatTraits<1937126452u>>(unsigned int *a1, void *a2, void *a3)
 {
   if (a2[2] != a3[2])
   {
@@ -2919,17 +3170,17 @@ void *RecursiveQuads::render_444<PixelFormatTraits<1937126452u>>(int *a1, void *
   return RecursiveQuads::render_4xx<PixelFormatTraits<1937125938u>>(a1, a2, a3);
 }
 
-void *RecursiveQuads::render_4xx<PixelFormatTraits<875704438u>>(int *a1, void *a2, void *a3)
+void *RecursiveQuads::render_4xx<PixelFormatTraits<875704438u>>(_DWORD *a1, void *a2, void *a3)
 {
-  result = render_recursive_quads<unsigned char,0>(a2, 0, 0, a2[2], a2[1], 8, 0, a1[4], (a1 + 7));
+  result = render_recursive_quads<unsigned char,0>(a2, 0, 0, a2[2], a2[1], 8, 0, a1[4], a1 + 7);
   v6 = a1[6];
   switch(v6)
   {
     case 2:
 
-      return render_chroma_gradient_blocks<unsigned char,8,0,false>(a3, 16, 16);
+      return render_chroma_gradient_blocks<unsigned char,8,0,false>(a3, 16, 0x10u);
     case 1:
-      return render_recursive_quads<math_color::CbCr<unsigned char>,0>(a3, 0, 0, a3[2], a3[1], 8, 0, a1[5], (a1 + 11));
+      return render_recursive_quads<math_color::CbCr<unsigned char>,0>(a3, 0, 0, a3[2], a3[1], 8, 0, a1[5], a1 + 11);
     case 0:
       v8 = a3[1];
       v7 = a3[2];
@@ -2940,7 +3191,7 @@ void *RecursiveQuads::render_4xx<PixelFormatTraits<875704438u>>(int *a1, void *a
   return result;
 }
 
-void *render_recursive_quads<math_color::CbCr<unsigned char>,0>(void *a1, unint64_t a2, unint64_t a3, unint64_t a4, unint64_t a5, int a6, int a7, int a8, uint64_t a9)
+void *render_recursive_quads<math_color::CbCr<unsigned char>,0>(void *a1, unint64_t a2, unint64_t a3, unint64_t a4, unint64_t a5, int a6, unsigned int a7, int a8, _DWORD *a9)
 {
   if ((a6 & 0x80000001) != 0)
   {
@@ -2951,21 +3202,22 @@ LABEL_5:
   v14 = a7 - a6;
   while (v14)
   {
+    v21 = a4 >> 1;
     v15 = a6 - 2;
-    v20 = a6;
-    render_recursive_quads<math_color::CbCr<unsigned char>,0>(a1, a2, a3);
+    v22 = a6;
+    render_recursive_quads<math_color::CbCr<unsigned char>,0>(a1, a2, a3, a4 >> 1, a5 >> 1, a6 - 2, a7, (*a9 << (a6 - 2)) + a8, a9);
     v16 = a2 + (a4 >> 1);
-    v19 = v16;
+    v20 = v16;
     a4 -= a4 >> 1;
-    render_recursive_quads<math_color::CbCr<unsigned char>,0>(a1, v16, a3);
+    render_recursive_quads<math_color::CbCr<unsigned char>,0>(a1, v16, a3, a4, a5 >> 1, v15, a7, (a9[1] << v15) + a8, a9);
     a3 += a5 >> 1;
     a5 -= a5 >> 1;
-    render_recursive_quads<math_color::CbCr<unsigned char>,0>(a1, a2, a3);
-    a8 += *(a9 + 12) << v15;
+    render_recursive_quads<math_color::CbCr<unsigned char>,0>(a1, a2, a3, v21, a5, v15, a7, (a9[2] << v15) + a8, a9);
+    a8 += a9[3] << v15;
     v14 += 2;
-    a2 = v19;
+    a2 = v20;
     a6 = v15;
-    if (v20 <= 1)
+    if (v22 <= 1)
     {
       goto LABEL_5;
     }
@@ -2974,7 +3226,7 @@ LABEL_5:
   return fill_rect<unsigned short>(a1, a2, a3, a4, a5, a8 | (a8 << 8));
 }
 
-void *render_chroma_gradient_blocks<unsigned char,8,0,false>(void *result, int a2, int a3)
+void *render_chroma_gradient_blocks<unsigned char,8,0,false>(void *result, int a2, unsigned int a3)
 {
   if (a3 >= 1)
   {
@@ -3028,15 +3280,15 @@ void *render_chroma_gradient_blocks<unsigned char,8,0,false>(void *result, int a
 
 void *RecursiveQuads::render_4xx<PixelFormatTraits<875704422u>>(int *a1, void *a2, void *a3)
 {
-  result = render_recursive_quads<unsigned char,0>(a2, 0, 0, a2[2], a2[1], 8, 0, a1[4], (a1 + 7));
+  result = render_recursive_quads<unsigned char,0>(a2, 0, 0, a2[2], a2[1], 8, 0, a1[4], a1 + 7);
   v6 = a1[6];
   switch(v6)
   {
     case 2:
 
-      return render_chroma_gradient_blocks<unsigned char,8,0,true>(a3, 16, 16);
+      return render_chroma_gradient_blocks<unsigned char,8,0,true>(a3, 16, 0x10u);
     case 1:
-      return render_recursive_quads<math_color::CbCr<unsigned char>,0>(a3, 0, 0, a3[2], a3[1], 8, 0, a1[5], (a1 + 11));
+      return render_recursive_quads<math_color::CbCr<unsigned char>,0>(a3, 0, 0, a3[2], a3[1], 8, 0, a1[5], a1 + 11);
     case 0:
       v8 = a3[1];
       v7 = a3[2];
@@ -3047,7 +3299,7 @@ void *RecursiveQuads::render_4xx<PixelFormatTraits<875704422u>>(int *a1, void *a
   return result;
 }
 
-void *render_chroma_gradient_blocks<unsigned char,8,0,true>(void *result, int a2, int a3)
+void *render_chroma_gradient_blocks<unsigned char,8,0,true>(void *result, int a2, unsigned int a3)
 {
   if (a3 >= 1)
   {
@@ -3099,17 +3351,17 @@ void *render_chroma_gradient_blocks<unsigned char,8,0,true>(void *result, int a2
   return result;
 }
 
-void *RecursiveQuads::render_4xx<PixelFormatTraits<2016686640u>>(int *a1, void *a2, void *a3)
+void *RecursiveQuads::render_4xx<PixelFormatTraits<2016686640u>>(_DWORD *a1, void *a2, void *a3)
 {
-  result = render_recursive_quads<unsigned short,6>(a2, 0, 0, a2[2], a2[1], 10, 0, a1[4], (a1 + 7));
+  result = render_recursive_quads<unsigned short,6>(a2, 0, 0, a2[2], a2[1], 10, 0, a1[4], a1 + 7);
   v6 = a1[6];
   switch(v6)
   {
     case 2:
 
-      return render_chroma_gradient_blocks<unsigned short,10,6,false>(a3, 32, 32);
+      return render_chroma_gradient_blocks<unsigned short,10,6,false>(a3, 32, 0x20u);
     case 1:
-      return render_recursive_quads<math_color::CbCr<unsigned short>,6>(a3, 0, 0, a3[2], a3[1], 10, 0, a1[5], (a1 + 11));
+      return render_recursive_quads<math_color::CbCr<unsigned short>,6>(a3, 0, 0, a3[2], a3[1], 10, 0, a1[5], a1 + 11);
     case 0:
       v8 = a3[1];
       v7 = a3[2];
@@ -3120,7 +3372,7 @@ void *RecursiveQuads::render_4xx<PixelFormatTraits<2016686640u>>(int *a1, void *
   return result;
 }
 
-void *render_recursive_quads<math_color::CbCr<unsigned short>,6>(void *a1, unint64_t a2, unint64_t a3, unint64_t a4, unint64_t a5, int a6, int a7, int a8, uint64_t a9)
+void *render_recursive_quads<math_color::CbCr<unsigned short>,6>(void *a1, unint64_t a2, unint64_t a3, unint64_t a4, unint64_t a5, int a6, unsigned int a7, int a8, _DWORD *a9)
 {
   if ((a6 & 0x80000001) != 0)
   {
@@ -3131,21 +3383,22 @@ LABEL_5:
   v14 = a7 - a6;
   while (v14)
   {
+    v21 = a4 >> 1;
     v15 = a6 - 2;
-    v20 = a6;
-    render_recursive_quads<math_color::CbCr<unsigned short>,6>(a1, a2, a3);
+    v22 = a6;
+    render_recursive_quads<math_color::CbCr<unsigned short>,6>(a1, a2, a3, a4 >> 1, a5 >> 1, a6 - 2, a7, (*a9 << (a6 - 2)) + a8, a9);
     v16 = a2 + (a4 >> 1);
-    v19 = v16;
+    v20 = v16;
     a4 -= a4 >> 1;
-    render_recursive_quads<math_color::CbCr<unsigned short>,6>(a1, v16, a3);
+    render_recursive_quads<math_color::CbCr<unsigned short>,6>(a1, v16, a3, a4, a5 >> 1, v15, a7, (a9[1] << v15) + a8, a9);
     a3 += a5 >> 1;
     a5 -= a5 >> 1;
-    render_recursive_quads<math_color::CbCr<unsigned short>,6>(a1, a2, a3);
-    a8 += *(a9 + 12) << v15;
+    render_recursive_quads<math_color::CbCr<unsigned short>,6>(a1, a2, a3, v21, a5, v15, a7, (a9[2] << v15) + a8, a9);
+    a8 += a9[3] << v15;
     v14 += 2;
-    a2 = v19;
+    a2 = v20;
     a6 = v15;
-    if (v20 <= 1)
+    if (v22 <= 1)
     {
       goto LABEL_5;
     }
@@ -3154,7 +3407,7 @@ LABEL_5:
   return fill_rect<unsigned int>(a1, a2, a3, a4, a5, ((a8 & 0x3FF) << 6) | (a8 << 22));
 }
 
-void *render_chroma_gradient_blocks<unsigned short,10,6,false>(void *result, int a2, int a3)
+void *render_chroma_gradient_blocks<unsigned short,10,6,false>(void *result, int a2, unsigned int a3)
 {
   if (a3 >= 1)
   {
@@ -3208,15 +3461,15 @@ void *render_chroma_gradient_blocks<unsigned short,10,6,false>(void *result, int
 
 void *RecursiveQuads::render_4xx<PixelFormatTraits<2019963440u>>(int *a1, void *a2, void *a3)
 {
-  result = render_recursive_quads<unsigned short,6>(a2, 0, 0, a2[2], a2[1], 10, 0, a1[4], (a1 + 7));
+  result = render_recursive_quads<unsigned short,6>(a2, 0, 0, a2[2], a2[1], 10, 0, a1[4], a1 + 7);
   v6 = a1[6];
   switch(v6)
   {
     case 2:
 
-      return render_chroma_gradient_blocks<unsigned short,10,6,true>(a3, 32, 32);
+      return render_chroma_gradient_blocks<unsigned short,10,6,true>(a3, 32, 0x20u);
     case 1:
-      return render_recursive_quads<math_color::CbCr<unsigned short>,6>(a3, 0, 0, a3[2], a3[1], 10, 0, a1[5], (a1 + 11));
+      return render_recursive_quads<math_color::CbCr<unsigned short>,6>(a3, 0, 0, a3[2], a3[1], 10, 0, a1[5], a1 + 11);
     case 0:
       v8 = a3[1];
       v7 = a3[2];
@@ -3227,7 +3480,7 @@ void *RecursiveQuads::render_4xx<PixelFormatTraits<2019963440u>>(int *a1, void *
   return result;
 }
 
-void *render_chroma_gradient_blocks<unsigned short,10,6,true>(void *result, int a2, int a3)
+void *render_chroma_gradient_blocks<unsigned short,10,6,true>(void *result, int a2, unsigned int a3)
 {
   if (a3 >= 1)
   {
@@ -3279,18 +3532,18 @@ void *render_chroma_gradient_blocks<unsigned short,10,6,true>(void *result, int 
   return result;
 }
 
-void *RecursiveQuads::render_4xx<PixelFormatTraits<1937125938u>>(int *a1, void *a2, void *a3)
+void *RecursiveQuads::render_4xx<PixelFormatTraits<1937125938u>>(unsigned int *a1, void *a2, void *a3)
 {
-  result = render_recursive_quads<unsigned short,0>(a2, 0, 0, a2[2], a2[1], 16, 0, a1[4], (a1 + 7));
+  result = render_recursive_quads<unsigned short,0>(a2, 0, 0, a2[2], a2[1], 16, 0, a1[4], a1 + 7);
   v6 = a1[6];
   switch(v6)
   {
-    case 2:
+    case 2u:
 
-      return render_chroma_gradient_blocks<unsigned short,16,0,false>(a3, 256, 256);
-    case 1:
-      return render_recursive_quads<math_color::CbCr<unsigned short>,0>(a3, 0, 0, a3[2], a3[1], 16, 0, a1[5], (a1 + 11));
-    case 0:
+      return render_chroma_gradient_blocks<unsigned short,16,0,false>(a3, 256, 0x100u);
+    case 1u:
+      return render_recursive_quads<math_color::CbCr<unsigned short>,0>(a3, 0, 0, a3[2], a3[1], 16, 0, a1[5], a1 + 11);
+    case 0u:
       v8 = a3[1];
       v7 = a3[2];
 
@@ -3300,7 +3553,7 @@ void *RecursiveQuads::render_4xx<PixelFormatTraits<1937125938u>>(int *a1, void *
   return result;
 }
 
-void *render_recursive_quads<unsigned short,0>(void *a1, unint64_t a2, unint64_t a3, unint64_t a4, unint64_t a5, int a6, int a7, int a8, uint64_t a9)
+void *render_recursive_quads<unsigned short,0>(void *a1, unint64_t a2, unint64_t a3, unint64_t a4, unint64_t a5, int a6, unsigned int a7, int a8, _DWORD *a9)
 {
   if ((a6 & 0x80000001) != 0)
   {
@@ -3311,21 +3564,22 @@ LABEL_5:
   v14 = a7 - a6;
   while (v14)
   {
+    v21 = a4 >> 1;
     v15 = a6 - 2;
-    v20 = a6;
-    render_recursive_quads<unsigned short,0>(a1, a2, a3);
+    v22 = a6;
+    render_recursive_quads<unsigned short,0>(a1, a2, a3, a4 >> 1, a5 >> 1, a6 - 2, a7, (*a9 << (a6 - 2)) + a8, a9);
     v16 = a2 + (a4 >> 1);
-    v19 = v16;
+    v20 = v16;
     a4 -= a4 >> 1;
-    render_recursive_quads<unsigned short,0>(a1, v16, a3);
+    render_recursive_quads<unsigned short,0>(a1, v16, a3, a4, a5 >> 1, v15, a7, (a9[1] << v15) + a8, a9);
     a3 += a5 >> 1;
     a5 -= a5 >> 1;
-    render_recursive_quads<unsigned short,0>(a1, a2, a3);
-    a8 += *(a9 + 12) << v15;
+    render_recursive_quads<unsigned short,0>(a1, a2, a3, v21, a5, v15, a7, (a9[2] << v15) + a8, a9);
+    a8 += a9[3] << v15;
     v14 += 2;
-    a2 = v19;
+    a2 = v20;
     a6 = v15;
-    if (v20 <= 1)
+    if (v22 <= 1)
     {
       goto LABEL_5;
     }
@@ -3334,7 +3588,7 @@ LABEL_5:
   return fill_rect<unsigned short>(a1, a2, a3, a4, a5, a8);
 }
 
-void *render_recursive_quads<math_color::CbCr<unsigned short>,0>(void *a1, unint64_t a2, unint64_t a3, unint64_t a4, unint64_t a5, int a6, int a7, int a8, uint64_t a9)
+void *render_recursive_quads<math_color::CbCr<unsigned short>,0>(void *a1, unint64_t a2, unint64_t a3, unint64_t a4, unint64_t a5, int a6, unsigned int a7, int a8, _DWORD *a9)
 {
   if ((a6 & 0x80000001) != 0)
   {
@@ -3345,21 +3599,22 @@ LABEL_5:
   v14 = a7 - a6;
   while (v14)
   {
+    v21 = a4 >> 1;
     v15 = a6 - 2;
-    v20 = a6;
-    render_recursive_quads<math_color::CbCr<unsigned short>,0>(a1, a2, a3);
+    v22 = a6;
+    render_recursive_quads<math_color::CbCr<unsigned short>,0>(a1, a2, a3, a4 >> 1, a5 >> 1, a6 - 2, a7, (*a9 << (a6 - 2)) + a8, a9);
     v16 = a2 + (a4 >> 1);
-    v19 = v16;
+    v20 = v16;
     a4 -= a4 >> 1;
-    render_recursive_quads<math_color::CbCr<unsigned short>,0>(a1, v16, a3);
+    render_recursive_quads<math_color::CbCr<unsigned short>,0>(a1, v16, a3, a4, a5 >> 1, v15, a7, (a9[1] << v15) + a8, a9);
     a3 += a5 >> 1;
     a5 -= a5 >> 1;
-    render_recursive_quads<math_color::CbCr<unsigned short>,0>(a1, a2, a3);
-    a8 += *(a9 + 12) << v15;
+    render_recursive_quads<math_color::CbCr<unsigned short>,0>(a1, a2, a3, v21, a5, v15, a7, (a9[2] << v15) + a8, a9);
+    a8 += a9[3] << v15;
     v14 += 2;
-    a2 = v19;
+    a2 = v20;
     a6 = v15;
-    if (v20 <= 1)
+    if (v22 <= 1)
     {
       goto LABEL_5;
     }
@@ -3368,7 +3623,7 @@ LABEL_5:
   return fill_rect<unsigned int>(a1, a2, a3, a4, a5, a8 | (a8 << 16));
 }
 
-void *render_chroma_gradient_blocks<unsigned short,16,0,false>(void *result, int a2, int a3)
+void *render_chroma_gradient_blocks<unsigned short,16,0,false>(void *result, int a2, unsigned int a3)
 {
   if (a3 >= 1)
   {
@@ -3426,7 +3681,7 @@ uint64_t ITU_R_BT2111::ITU_R_BT2111(uint64_t result, int a2)
   return result;
 }
 
-uint64_t ITU_R_BT2111::render_x420(uint64_t a1, void *a2, void *a3)
+uint64_t ITU_R_BT2111::render_x420(uint64_t a1, void *a2, uint64_t a3)
 {
   if (*(a1 + 8) == 2)
   {
@@ -3446,7 +3701,7 @@ uint64_t ITU_R_BT2111::render_xf20(uint64_t a1, void *a2, void *a3)
   return ITU_R_BT2111::render_4xx<PixelFormatTraits<2019963440u>>(a1, a2, a3, 2, 2);
 }
 
-uint64_t ITU_R_BT2111::render_x422(uint64_t a1, void *a2, void *a3)
+uint64_t ITU_R_BT2111::render_x422(uint64_t a1, void *a2, uint64_t a3)
 {
   if (*(a1 + 8) == 2)
   {
@@ -3476,7 +3731,7 @@ uint64_t ITU_R_BT2111::render_sv22(uint64_t a1, void *a2, void *a3)
   return ITU_R_BT2111::render_4xx<PixelFormatTraits<1937125938u>>(a1, a2, a3, 2, 1);
 }
 
-uint64_t ITU_R_BT2111::render_x444(uint64_t a1, void *a2, void *a3)
+uint64_t ITU_R_BT2111::render_x444(uint64_t a1, void *a2, uint64_t a3)
 {
   if (*(a1 + 8) == 2)
   {
@@ -3506,17 +3761,18 @@ uint64_t ITU_R_BT2111::render_sv44(uint64_t a1, void *a2, void *a3)
   return ITU_R_BT2111::render_4xx<PixelFormatTraits<1937126452u>>(a1, a2, a3, 1, 1);
 }
 
-uint64_t ITU_R_BT2111::render_4xx<PixelFormatTraits<2016686640u>>(uint64_t a1, void *a2, void *a3, int a4, int a5)
+uint64_t ITU_R_BT2111::render_4xx<PixelFormatTraits<2016686640u>>(uint64_t a1, void *a2, uint64_t a3, int a4, uint64_t a5)
 {
   v67 = *MEMORY[0x277D85DE8];
   v6 = a2[2];
-  if (v6 != a3[2] * a4)
+  if (v6 != *(a3 + 16) * a4)
   {
     ITU_R_BT2111::render_4xx<PixelFormatTraits<2016686640u>>();
   }
 
+  v7 = a5;
   v8 = a2[1];
-  if (v8 != a3[1] * a5)
+  if (v8 != *(a3 + 8) * a5)
   {
     ITU_R_BT2111::render_4xx<PixelFormatTraits<2016686640u>>();
   }
@@ -3698,7 +3954,7 @@ LABEL_44:
   return v9;
 }
 
-void sub_2578E9EE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, char a23, uint64_t a24)
+void sub_2578E9EE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, uint64_t a23, void *a24)
 {
   if (a16 < 0)
   {
@@ -3851,8 +4107,9 @@ LABEL_8:
   }
 }
 
-uint64_t ITU_R_BT2111::render_4xx<PixelFormatTraits<2019963440u>>(uint64_t a1, void *a2, void *a3, int a4, int a5)
+uint64_t ITU_R_BT2111::render_4xx<PixelFormatTraits<2019963440u>>(uint64_t a1, void *a2, void *a3, uint64_t a4, uint64_t a5)
 {
+  v5 = a4;
   v67 = *MEMORY[0x277D85DE8];
   v6 = a2[2];
   if (v6 != a3[2] * a4)
@@ -3860,6 +4117,7 @@ uint64_t ITU_R_BT2111::render_4xx<PixelFormatTraits<2019963440u>>(uint64_t a1, v
     ITU_R_BT2111::render_4xx<PixelFormatTraits<2016686640u>>();
   }
 
+  v7 = a5;
   v8 = a2[1];
   if (v8 != a3[1] * a5)
   {
@@ -4043,7 +4301,7 @@ LABEL_44:
   return v9;
 }
 
-void sub_2578EAAAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, char a23, uint64_t a24)
+void sub_2578EAAAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, uint64_t a23, void *a24)
 {
   if (a16 < 0)
   {
@@ -4204,17 +4462,17 @@ void *cinematic_bars::fill_buffer_black<PixelFormatTraits<2019963440u>>(void *a1
   return fill_rect<unsigned int>(a2, 0, 0, a2[2], a2[1], (v4 >> 26) & 0xFFC0 | (v6 << 22));
 }
 
-uint64_t ITU_R_BT2111::render_4xx<PixelFormatTraits<2016686642u>>(uint64_t a1, void *a2, void *a3, int a4, int a5)
+uint64_t ITU_R_BT2111::render_4xx<PixelFormatTraits<2016686642u>>(uint64_t a1, void *a2, uint64_t a3, int a4, int a5)
 {
   v67 = *MEMORY[0x277D85DE8];
   v6 = a2[2];
-  if (v6 != a3[2] * a4)
+  if (v6 != *(a3 + 16) * a4)
   {
     ITU_R_BT2111::render_4xx<PixelFormatTraits<2016686640u>>();
   }
 
   v8 = a2[1];
-  if (v8 != a3[1] * a5)
+  if (v8 != *(a3 + 8) * a5)
   {
     ITU_R_BT2111::render_4xx<PixelFormatTraits<2016686640u>>();
   }
@@ -4396,7 +4654,7 @@ LABEL_44:
   return v9;
 }
 
-void sub_2578EB694(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, char a23, uint64_t a24)
+void sub_2578EB694(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, uint64_t a23, void *a24)
 {
   if (a16 < 0)
   {
@@ -4604,7 +4862,7 @@ LABEL_44:
   return v9;
 }
 
-void sub_2578EBCE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, char a23, uint64_t a24)
+void sub_2578EBCE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, uint64_t a23, void *a24)
 {
   if (a16 < 0)
   {
@@ -4812,7 +5070,7 @@ LABEL_44:
   return v9;
 }
 
-void sub_2578EC34C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, char a23, uint64_t a24)
+void sub_2578EC34C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, uint64_t a23, void *a24)
 {
   if (a16 < 0)
   {
@@ -4884,17 +5142,17 @@ uint64_t anonymous namespace::render_row<PixelFormatTraits<1937125938u>,std::ini
   return v36;
 }
 
-uint64_t ITU_R_BT2111::render_4xx<PixelFormatTraits<2016687156u>>(uint64_t a1, void *a2, void *a3, int a4, int a5)
+uint64_t ITU_R_BT2111::render_4xx<PixelFormatTraits<2016687156u>>(uint64_t a1, void *a2, uint64_t a3, int a4, int a5)
 {
   v67 = *MEMORY[0x277D85DE8];
   v6 = a2[2];
-  if (v6 != a3[2] * a4)
+  if (v6 != *(a3 + 16) * a4)
   {
     ITU_R_BT2111::render_4xx<PixelFormatTraits<2016686640u>>();
   }
 
   v8 = a2[1];
-  if (v8 != a3[1] * a5)
+  if (v8 != *(a3 + 8) * a5)
   {
     ITU_R_BT2111::render_4xx<PixelFormatTraits<2016686640u>>();
   }
@@ -5076,7 +5334,7 @@ LABEL_44:
   return v9;
 }
 
-void sub_2578ECC10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, char a23, uint64_t a24)
+void sub_2578ECC10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, uint64_t a23, void *a24)
 {
   if (a16 < 0)
   {
@@ -5284,7 +5542,7 @@ LABEL_44:
   return v9;
 }
 
-void sub_2578ED264(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, char a23, uint64_t a24)
+void sub_2578ED264(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, uint64_t a23, void *a24)
 {
   if (a16 < 0)
   {
@@ -5492,7 +5750,7 @@ LABEL_44:
   return v9;
 }
 
-void sub_2578ED8C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, char a23, uint64_t a24)
+void sub_2578ED8C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, uint64_t a23, void *a24)
 {
   if (a16 < 0)
   {
@@ -5508,7 +5766,7 @@ void sub_2578ED8C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t Ramp::Ramp(uint64_t a1, uint64_t a2, int a3, double a4, double a5)
+uint64_t Ramp::Ramp(uint64_t a1, double **a2, int a3, double a4, double a5)
 {
   *a1 = &unk_2868CE8B8;
   *(a1 + 8) = 0u;
@@ -5522,7 +5780,7 @@ uint64_t Ramp::Ramp(uint64_t a1, uint64_t a2, int a3, double a4, double a5)
 
   *(a1 + 96) = _Q2;
   *(a1 + 112) = 0x3FE0000000000000;
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a2 + 8) - *a2) >> 3) <= 1)
+  if (0xAAAAAAAAAAAAAAABLL * (a2[1] - *a2) <= 1)
   {
     __assert_rtn("Ramp", "Ramp_renderer.cpp", 184, "rgbColors.size() >= 2");
   }
@@ -5568,12 +5826,12 @@ void anonymous namespace::transform_rgb_to_YPbPr(double **a1, uint64_t a2, doubl
   }
 }
 
-uint64_t Ramp::Ramp(uint64_t a1, uint64_t *a2, double a3, double a4, double a5)
+uint64_t Ramp::Ramp(uint64_t a1, uint64_t a2, double a3, double a4, double a5)
 {
   __p = 0;
   v11 = 0;
   v12 = 0;
-  std::vector<math_color::rgb>::__init_with_size[abi:ne200100]<math_color::rgb*,math_color::rgb*>(&__p, *a2, a2[1], 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 3));
+  std::vector<math_color::rgb>::__init_with_size[abi:ne200100]<math_color::rgb*,math_color::rgb*>(&__p, *a2, *(a2 + 8), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 8) - *a2) >> 3));
   Ramp::Ramp(a1, &__p, 2, a3, a4);
   if (__p)
   {
@@ -5589,7 +5847,7 @@ uint64_t Ramp::Ramp(uint64_t a1, uint64_t *a2, double a3, double a4, double a5)
   __p = 0;
   v11 = 0;
   v12 = 0;
-  std::vector<math_color::rgb>::__init_with_size[abi:ne200100]<math_color::rgb*,math_color::rgb*>(&__p, *a2, a2[1], 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 3));
+  std::vector<math_color::rgb>::__init_with_size[abi:ne200100]<math_color::rgb*,math_color::rgb*>(&__p, *a2, *(a2 + 8), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 8) - *a2) >> 3));
   Ramp::Ramp(a1, &__p, 2, a3, a4);
   if (__p)
   {
@@ -6135,7 +6393,7 @@ void Ramp::render_444<PixelFormatTraits<1937126452u>>(uint64_t a1, uint64_t a2, 
   Ramp::render_4xx<PixelFormatTraits<1937125938u>>(a1, a2, a3);
 }
 
-void *std::vector<math_color::YPbPr>::__assign_with_size[abi:ne200100]<std::__wrap_iter<math_color::YPbPr const*>,std::__wrap_iter<math_color::YPbPr const*>>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<math_color::YPbPr>::__assign_with_size[abi:ne200100]<std::__wrap_iter<math_color::YPbPr const*>,std::__wrap_iter<math_color::YPbPr const*>>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v7 = result;
   v8 = result[2];
@@ -6207,7 +6465,7 @@ void *std::vector<math_color::YPbPr>::__assign_with_size[abi:ne200100]<std::__wr
       do
       {
         v18 = *v15;
-        *(v17 + 2) = *(v15 + 2);
+        *(v17 + 16) = *(v15 + 2);
         *v17 = v18;
         v17 += 24;
         v15 += 24;
@@ -6399,8 +6657,8 @@ LABEL_32:
       if (!v20)
       {
         v22 = *(a2 + 3);
-        v23 = *(a2 + 12);
-        v24 = *(a2 + 15);
+        v23 = a2[12];
+        v24 = a2[15];
         if (v22 == 1)
         {
           v32 = (1.0 - cos(v21 * 3.14159265)) * 0.5;
@@ -6415,12 +6673,12 @@ LABEL_32:
             goto LABEL_27;
           }
 
-          v33 = *(a2 + 12);
-          v34 = *(a2 + 15);
+          v33 = a2[12];
+          v34 = a2[15];
           v32 = v21;
         }
 
-        v25 = std::__lerp[abi:ne200100]<double>(v33, v34, v32);
+        v25 = std::__lerp[abi:ne200100]<double>(*&v33, *&v34, v32);
 LABEL_27:
         v40 = llround(v25 * 219.0 + 16.0);
         if (v40 >= 255)
@@ -6443,8 +6701,8 @@ LABEL_30:
     }
 
     v26 = *(a2 + 3);
-    v27 = *(a2 + 13);
-    v28 = *(a2 + 16);
+    v27 = a2[13];
+    v28 = a2[16];
     if (v26 == 1)
     {
       v21 = (1.0 - cos(v21 * 3.14159265)) * 0.5;
@@ -6472,7 +6730,7 @@ LABEL_20:
       goto LABEL_30;
     }
 
-    v29 = std::__lerp[abi:ne200100]<double>(v27, v28, v21);
+    v29 = std::__lerp[abi:ne200100]<double>(*&v27, *&v28, v21);
     v31 = std::__lerp[abi:ne200100]<double>(*(a2 + 14), *(a2 + 17), v21);
     goto LABEL_20;
   }
@@ -6597,8 +6855,8 @@ LABEL_32:
       if (!v20)
       {
         v22 = *(a2 + 3);
-        v23 = *(a2 + 12);
-        v24 = *(a2 + 15);
+        v23 = a2[12];
+        v24 = a2[15];
         if (v22 == 1)
         {
           v32 = (1.0 - cos(v21 * 3.14159265)) * 0.5;
@@ -6613,12 +6871,12 @@ LABEL_32:
             goto LABEL_27;
           }
 
-          v33 = *(a2 + 12);
-          v34 = *(a2 + 15);
+          v33 = a2[12];
+          v34 = a2[15];
           v32 = v21;
         }
 
-        v25 = std::__lerp[abi:ne200100]<double>(v33, v34, v32);
+        v25 = std::__lerp[abi:ne200100]<double>(*&v33, *&v34, v32);
 LABEL_27:
         v40 = llround(v25 * 255.0 + 1.0e-12);
         if (v40 >= 255)
@@ -6641,8 +6899,8 @@ LABEL_30:
     }
 
     v26 = *(a2 + 3);
-    v27 = *(a2 + 13);
-    v28 = *(a2 + 16);
+    v27 = a2[13];
+    v28 = a2[16];
     if (v26 == 1)
     {
       v21 = (1.0 - cos(v21 * 3.14159265)) * 0.5;
@@ -6670,7 +6928,7 @@ LABEL_20:
       goto LABEL_30;
     }
 
-    v29 = std::__lerp[abi:ne200100]<double>(v27, v28, v21);
+    v29 = std::__lerp[abi:ne200100]<double>(*&v27, *&v28, v21);
     v31 = std::__lerp[abi:ne200100]<double>(*(a2 + 14), *(a2 + 17), v21);
     goto LABEL_20;
   }
@@ -6795,8 +7053,8 @@ LABEL_32:
       if (!v20)
       {
         v22 = *(a2 + 3);
-        v23 = *(a2 + 12);
-        v24 = *(a2 + 15);
+        v23 = a2[12];
+        v24 = a2[15];
         if (v22 == 1)
         {
           v32 = (1.0 - cos(v21 * 3.14159265)) * 0.5;
@@ -6811,12 +7069,12 @@ LABEL_32:
             goto LABEL_27;
           }
 
-          v33 = *(a2 + 12);
-          v34 = *(a2 + 15);
+          v33 = a2[12];
+          v34 = a2[15];
           v32 = v21;
         }
 
-        v25 = std::__lerp[abi:ne200100]<double>(v33, v34, v32);
+        v25 = std::__lerp[abi:ne200100]<double>(*&v33, *&v34, v32);
 LABEL_27:
         v40 = llround((v25 * 219.0 + 16.0) * 4.0);
         if (v40 >= 1023)
@@ -6839,8 +7097,8 @@ LABEL_30:
     }
 
     v26 = *(a2 + 3);
-    v27 = *(a2 + 13);
-    v28 = *(a2 + 16);
+    v27 = a2[13];
+    v28 = a2[16];
     if (v26 == 1)
     {
       v21 = (1.0 - cos(v21 * 3.14159265)) * 0.5;
@@ -6868,7 +7126,7 @@ LABEL_20:
       goto LABEL_30;
     }
 
-    v29 = std::__lerp[abi:ne200100]<double>(v27, v28, v21);
+    v29 = std::__lerp[abi:ne200100]<double>(*&v27, *&v28, v21);
     v31 = std::__lerp[abi:ne200100]<double>(*(a2 + 14), *(a2 + 17), v21);
     goto LABEL_20;
   }
@@ -6993,8 +7251,8 @@ LABEL_32:
       if (!v20)
       {
         v22 = *(a2 + 3);
-        v23 = *(a2 + 12);
-        v24 = *(a2 + 15);
+        v23 = a2[12];
+        v24 = a2[15];
         if (v22 == 1)
         {
           v32 = (1.0 - cos(v21 * 3.14159265)) * 0.5;
@@ -7009,12 +7267,12 @@ LABEL_32:
             goto LABEL_27;
           }
 
-          v33 = *(a2 + 12);
-          v34 = *(a2 + 15);
+          v33 = a2[12];
+          v34 = a2[15];
           v32 = v21;
         }
 
-        v25 = std::__lerp[abi:ne200100]<double>(v33, v34, v32);
+        v25 = std::__lerp[abi:ne200100]<double>(*&v33, *&v34, v32);
 LABEL_27:
         v40 = llround(v25 * 1023.0 + 1.0e-12);
         if (v40 >= 1023)
@@ -7037,8 +7295,8 @@ LABEL_30:
     }
 
     v26 = *(a2 + 3);
-    v27 = *(a2 + 13);
-    v28 = *(a2 + 16);
+    v27 = a2[13];
+    v28 = a2[16];
     if (v26 == 1)
     {
       v21 = (1.0 - cos(v21 * 3.14159265)) * 0.5;
@@ -7066,7 +7324,7 @@ LABEL_20:
       goto LABEL_30;
     }
 
-    v29 = std::__lerp[abi:ne200100]<double>(v27, v28, v21);
+    v29 = std::__lerp[abi:ne200100]<double>(*&v27, *&v28, v21);
     v31 = std::__lerp[abi:ne200100]<double>(*(a2 + 14), *(a2 + 17), v21);
     goto LABEL_20;
   }
@@ -7191,8 +7449,8 @@ LABEL_32:
       if (!v20)
       {
         v22 = *(a2 + 3);
-        v23 = *(a2 + 12);
-        v24 = *(a2 + 15);
+        v23 = a2[12];
+        v24 = a2[15];
         if (v22 == 1)
         {
           v32 = (1.0 - cos(v21 * 3.14159265)) * 0.5;
@@ -7207,12 +7465,12 @@ LABEL_32:
             goto LABEL_27;
           }
 
-          v33 = *(a2 + 12);
-          v34 = *(a2 + 15);
+          v33 = a2[12];
+          v34 = a2[15];
           v32 = v21;
         }
 
-        v25 = std::__lerp[abi:ne200100]<double>(v33, v34, v32);
+        v25 = std::__lerp[abi:ne200100]<double>(*&v33, *&v34, v32);
 LABEL_27:
         v40 = llround((v25 * 219.0 + 16.0) * 256.0);
         if (v40 >= 0xFFFF)
@@ -7235,8 +7493,8 @@ LABEL_30:
     }
 
     v26 = *(a2 + 3);
-    v27 = *(a2 + 13);
-    v28 = *(a2 + 16);
+    v27 = a2[13];
+    v28 = a2[16];
     if (v26 == 1)
     {
       v21 = (1.0 - cos(v21 * 3.14159265)) * 0.5;
@@ -7264,7 +7522,7 @@ LABEL_20:
       goto LABEL_30;
     }
 
-    v29 = std::__lerp[abi:ne200100]<double>(v27, v28, v21);
+    v29 = std::__lerp[abi:ne200100]<double>(*&v27, *&v28, v21);
     v31 = std::__lerp[abi:ne200100]<double>(*(a2 + 14), *(a2 + 17), v21);
     goto LABEL_20;
   }
@@ -9206,10 +9464,10 @@ void render_chroma_gradient<PixelFormatTraits<1937125938u>>(void *a1, double a2,
   }
 }
 
-void sub_2578F3D94(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_2578F3D94(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = MIOq8q2ToL010FrameProcessor;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -9265,13 +9523,13 @@ void sub_2578F73F8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_2578F759C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2578F759C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   _Unwind_Resume(a1);
 }
 
-void sub_2578F7C78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, void *a11)
+void sub_2578F7C78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11)
 {
   std::__tree<std::__value_type<BT_2111::SignalLevel,BT_2111::rgb>,std::__map_value_compare<BT_2111::SignalLevel,std::__value_type<BT_2111::SignalLevel,BT_2111::rgb>,std::less<BT_2111::SignalLevel>,true>,std::allocator<std::__value_type<BT_2111::SignalLevel,BT_2111::rgb>>>::destroy(&a10, a11);
 
@@ -9298,9 +9556,9 @@ void sub_2578F8240(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_2578F841C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2578F841C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   _Unwind_Resume(a1);
 }
 
@@ -9456,18 +9714,19 @@ uint64_t *std::unique_ptr<std::__tree_node<std::__value_type<std::string,anonymo
   return a1;
 }
 
-void *std::set<unsigned int>::set[abi:ne200100](void *a1, unsigned int *a2, uint64_t a3)
+uint64_t **std::set<unsigned int>::set[abi:ne200100](uint64_t **a1, unsigned int *a2, uint64_t a3)
 {
   a1[1] = 0;
-  v4 = a1 + 1;
+  v4 = (a1 + 1);
   a1[2] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   if (a3)
   {
     v6 = 4 * a3;
     do
     {
-      std::__tree<unsigned int>::__emplace_hint_unique_key_args<unsigned int,unsigned int const&>(a1, v4, a2++);
+      std::__tree<unsigned int>::__emplace_hint_unique_key_args<unsigned int,unsigned int const&>(a1, v4, a2, a2);
+      ++a2;
       v6 -= 4;
     }
 
@@ -9477,20 +9736,20 @@ void *std::set<unsigned int>::set[abi:ne200100](void *a1, unsigned int *a2, uint
   return a1;
 }
 
-uint64_t std::__tree<unsigned int>::__emplace_hint_unique_key_args<unsigned int,unsigned int const&>(void *a1, uint64_t *a2, unsigned int *a3)
+uint64_t std::__tree<unsigned int>::__emplace_hint_unique_key_args<unsigned int,unsigned int const&>(uint64_t **a1, uint64_t *a2, unsigned int *a3, _DWORD *a4)
 {
-  v3 = *std::__tree<unsigned int>::__find_equal<unsigned int>(a1, a2, &v6, &v5, a3);
-  if (!v3)
+  v4 = *std::__tree<unsigned int>::__find_equal<unsigned int>(a1, a2, &v7, &v6, a3);
+  if (!v4)
   {
     operator new();
   }
 
-  return v3;
+  return v4;
 }
 
-uint64_t *std::__tree<unsigned int>::__find_equal<unsigned int>(void *a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, unsigned int *a5)
+uint64_t *std::__tree<unsigned int>::__find_equal<unsigned int>(uint64_t **a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, unsigned int *a5)
 {
-  v5 = a1 + 1;
+  v5 = (a1 + 1);
   if (a1 + 1 == a2 || (v6 = *a5, v7 = *(a2 + 7), *a5 < v7))
   {
     v8 = *a2;
@@ -9517,7 +9776,7 @@ LABEL_17:
       do
       {
         v10 = v9;
-        v9 = v9[1];
+        v9 = *(v9 + 8);
       }
 
       while (v9);
@@ -9578,7 +9837,7 @@ LABEL_17:
 
     else
     {
-      v17 = a1 + 1;
+      v17 = (a1 + 1);
     }
 
 LABEL_29:
@@ -9657,7 +9916,7 @@ LABEL_29:
 
     else
     {
-      v21 = a1 + 1;
+      v21 = (a1 + 1);
     }
 
 LABEL_48:
@@ -9677,771 +9936,4 @@ LABEL_48:
   }
 
   return a4;
-}
-
-uint64_t *std::unique_ptr<std::__tree_node<std::__value_type<std::string,anonymous namespace::MetadataRecordingData>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,anonymous namespace::MetadataRecordingData>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t *a1)
-{
-  v2 = *a1;
-  *a1 = 0;
-  if (v2)
-  {
-    if (*(a1 + 16) == 1)
-    {
-
-      if (*(v2 + 55) < 0)
-      {
-        operator delete(*(v2 + 32));
-      }
-    }
-
-    operator delete(v2);
-  }
-
-  return a1;
-}
-
-void MOVStreamHEVCLosslessEncoder::MOVStreamHEVCLosslessEncoder(MOVStreamHEVCLosslessEncoder *this)
-{
-  this->var2 = 0;
-  *&this->var9 = 0x800000000;
-  *&this->var12 = 0;
-  *&this->var3 = 0x2D000000500;
-  this->var5 = 30.0;
-  this->var6 = 0;
-  *&this->var0 = 0;
-  *&this->var7.var0 = xmmword_25792F680;
-  this->var7.var4 = 1.0;
-  *&this->var7.var5 = 257;
-}
-
-uint64_t MOVStreamHEVCLosslessEncoder::Open(uint64_t a1, int32_t a2, int32_t a3, int a4, char a5, const opaqueCMFormatDescription *a6, void (__cdecl *a7)(void *, void *, OSStatus, VTEncodeInfoFlags, CMSampleBufferRef), void *a8, double a9)
-{
-  v106 = *MEMORY[0x277D85DE8];
-  v96 = a1;
-  if (a2 < 64 || a3 <= 63)
-  {
-    v16 = +[MIOLog defaultLog];
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315650;
-      *&buf[4] = "Frame size too small";
-      *&buf[12] = 2080;
-      *&buf[14] = "/Library/Caches/com.apple.xbs/Sources/MOVStreamIO/MOVStreamIO/VTEncoder/MOVStreamHEVCLosslessEncoder.mm";
-      *&buf[22] = 1024;
-      *&buf[24] = 109;
-      _os_log_impl(&dword_257883000, v16, OS_LOG_TYPE_ERROR, "Assert: %s - f: %s, l: %d\n", buf, 0x1Cu);
-    }
-
-    a1 = v96;
-  }
-
-  *(a1 + 24) = a9;
-  v17 = (a1 + 24);
-  *(a1 + 16) = a2;
-  *(a1 + 20) = a3;
-  *(a1 + 104) = 1752589105;
-  *(a1 + 1) = a5;
-  v95 = (a1 + 32);
-  if (*(a1 + 32))
-  {
-LABEL_7:
-    *(a1 + 108) = 0;
-    v18 = a4 - 1;
-    if ((a4 - 1) > 9)
-    {
-      v19 = 8;
-      v20 = 1;
-    }
-
-    else
-    {
-      v19 = dword_25792F690[v18];
-      v20 = dword_25792F6B8[v18];
-    }
-
-    *(a1 + 100) = v19;
-    v21 = (a1 + 100);
-    *(a1 + 48) = v20;
-    *(a1 + 64) = 1;
-    v22 = *(a1 + 8);
-    if (v22)
-    {
-      if (![v22 configureSessionOverride:*v95])
-      {
-        return 4294954394;
-      }
-
-      if (!+[MIOLog debugEnabled])
-      {
-        goto LABEL_17;
-      }
-
-      v23 = +[MIOLog defaultLog];
-      if (!os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
-      {
-        goto LABEL_16;
-      }
-
-      *buf = 0;
-      v24 = "Custom video encoder configuration.";
-      goto LABEL_15;
-    }
-
-    if (+[MIOLog debugEnabled])
-    {
-      v38 = +[MIOLog defaultLog];
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
-      {
-        *buf = 0;
-        _os_log_impl(&dword_257883000, v38, OS_LOG_TYPE_DEBUG, "*-----------------------------------------------------------------------------*", buf, 2u);
-      }
-    }
-
-    v39 = *MEMORY[0x277CBECE8];
-    v40 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberSInt32Type, (v96 + 44));
-    if (+[MIOLog debugEnabled])
-    {
-      v41 = +[MIOLog defaultLog];
-      if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
-      {
-        v42 = *(v96 + 44);
-        *buf = 67109120;
-        *&buf[4] = v42;
-        _os_log_impl(&dword_257883000, v41, OS_LOG_TYPE_DEBUG, "Encoder Config >> kVTCompressionPropertyKey_Usage = %d", buf, 8u);
-      }
-    }
-
-    v43 = VTSessionSetProperty(*v95, *MEMORY[0x277CE2608], v40);
-    CFRelease(v40);
-    if (v43)
-    {
-      v44 = +[MIOLog defaultLog];
-      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 67109890;
-        *&buf[4] = v43;
-        *&buf[8] = 2080;
-        *&buf[10] = "kVTCompressionPropertyKey_Usage failed";
-        *&buf[18] = 2080;
-        *&buf[20] = "/Library/Caches/com.apple.xbs/Sources/MOVStreamIO/MOVStreamIO/VTEncoder/MOVStreamHEVCLosslessEncoder.mm";
-        v104 = 1024;
-        v105 = 438;
-        _os_log_impl(&dword_257883000, v44, OS_LOG_TYPE_ERROR, "Assert: (%d) %s - f: %s, l: %d\n", buf, 0x22u);
-      }
-
-      goto LABEL_97;
-    }
-
-    v45 = *(v96 + 48);
-    if (v45 <= 121)
-    {
-      if (v45 <= 65)
-      {
-        switch(v45)
-        {
-          case 1:
-            v46 = @"HEVC_Main_AutoLevel";
-            goto LABEL_90;
-          case 2:
-            v46 = @"HEVC_Main10_AutoLevel";
-            goto LABEL_90;
-          case 3:
-            v46 = @"HEVC_MainStill_AutoLevel";
-            goto LABEL_90;
-        }
-
-LABEL_120:
-        v44 = [MIOLog defaultLog:outputCallbackRefCon];
-        if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
-        {
-          v62 = *(v96 + 48);
-          *buf = 67109120;
-          *&buf[4] = v62;
-          _os_log_impl(&dword_257883000, v44, OS_LOG_TYPE_ERROR, "Profile passed unrecognized (%d). exit.", buf, 8u);
-        }
-
-        goto LABEL_97;
-      }
-
-      switch(v45)
-      {
-        case 'B':
-          v50 = MEMORY[0x277CE2918];
-          break;
-        case 'M':
-          v50 = MEMORY[0x277CE2988];
-          break;
-        case 'd':
-          v50 = MEMORY[0x277CE2938];
-          break;
-        default:
-          goto LABEL_120;
-      }
-    }
-
-    else if (v45 <= 1309)
-    {
-      switch(v45)
-      {
-        case 122:
-          v50 = MEMORY[0x277CE2928];
-          break;
-        case 244:
-          v50 = MEMORY[0x277CE2930];
-          break;
-        case 1308:
-          v46 = @"HEVC_Main444_AutoLevel";
-          goto LABEL_90;
-        default:
-          goto LABEL_120;
-      }
-    }
-
-    else
-    {
-      if (v45 <= 1311)
-      {
-        if (v45 == 1310)
-        {
-          v46 = @"HEVC_Main44410_AutoLevel";
-        }
-
-        else
-        {
-          v46 = @"HEVC_Monochrome12_AutoLevel";
-        }
-
-LABEL_90:
-        if ([MIOLog debugEnabled:outputCallbackRefCon])
-        {
-          v51 = +[MIOLog defaultLog];
-          if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
-          {
-            *buf = 138543362;
-            *&buf[4] = v46;
-            _os_log_impl(&dword_257883000, v51, OS_LOG_TYPE_DEBUG, "Encoder Config >> kVTCompressionPropertyKey_ProfileLevel = %{public}@", buf, 0xCu);
-          }
-        }
-
-        if (VTSessionSetProperty(*v95, *MEMORY[0x277CE25D8], v46))
-        {
-          v44 = +[MIOLog defaultLog];
-          if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
-          {
-            *buf = 136315650;
-            *&buf[4] = "VTVideoEncoderSetProperty failed";
-            *&buf[12] = 2080;
-            *&buf[14] = "/Library/Caches/com.apple.xbs/Sources/MOVStreamIO/MOVStreamIO/VTEncoder/MOVStreamHEVCLosslessEncoder.mm";
-            *&buf[22] = 1024;
-            *&buf[24] = 511;
-            _os_log_impl(&dword_257883000, v44, OS_LOG_TYPE_ERROR, "Assert: %s - f: %s, l: %d\n", buf, 0x1Cu);
-          }
-        }
-
-        else
-        {
-          v53 = CFNumberCreate(v39, kCFNumberSInt32Type, (v96 + 52));
-          if (+[MIOLog debugEnabled])
-          {
-            v54 = +[MIOLog defaultLog];
-            if (os_log_type_enabled(v54, OS_LOG_TYPE_DEBUG))
-            {
-              v55 = *(v96 + 52);
-              *buf = 67109120;
-              *&buf[4] = v55;
-              _os_log_impl(&dword_257883000, v54, OS_LOG_TYPE_DEBUG, "Encoder Config >> kVTCompressionPropertyKey_Priority = %d", buf, 8u);
-            }
-          }
-
-          v56 = VTSessionSetProperty(*v95, *MEMORY[0x277CE25D0], v53);
-          CFRelease(v53);
-          if (v56)
-          {
-            if (!+[MIOLog debugEnabled])
-            {
-              return 2;
-            }
-
-            v44 = +[MIOLog defaultLog];
-            if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
-            {
-              *buf = 136315650;
-              *&buf[4] = "kVTCompressionPropertyKey_Priority failed";
-              *&buf[12] = 2080;
-              *&buf[14] = "/Library/Caches/com.apple.xbs/Sources/MOVStreamIO/MOVStreamIO/VTEncoder/MOVStreamHEVCLosslessEncoder.mm";
-              *&buf[22] = 1024;
-              *&buf[24] = 528;
-              _os_log_impl(&dword_257883000, v44, OS_LOG_TYPE_DEBUG, "Assert: %s - f: %s, l: %d\n", buf, 0x1Cu);
-            }
-          }
-
-          else
-          {
-            v57 = *MEMORY[0x277CBED28];
-            v58 = *MEMORY[0x277CBED10];
-            if (*(v96 + 67))
-            {
-              v59 = *MEMORY[0x277CBED28];
-            }
-
-            else
-            {
-              v59 = *MEMORY[0x277CBED10];
-            }
-
-            if (+[MIOLog debugEnabled])
-            {
-              v60 = +[MIOLog defaultLog];
-              if (os_log_type_enabled(v60, OS_LOG_TYPE_DEBUG))
-              {
-                v61 = *(v96 + 67);
-                *buf = 67109120;
-                *&buf[4] = v61;
-                _os_log_impl(&dword_257883000, v60, OS_LOG_TYPE_DEBUG, "Encoder Config >> kVTCompressionPropertyKey_AllowFrameReordering = %d", buf, 8u);
-              }
-            }
-
-            if (VTSessionSetProperty(*v95, *MEMORY[0x277CE2500], v59))
-            {
-              v44 = +[MIOLog defaultLog];
-              if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
-              {
-                *buf = 136315650;
-                *&buf[4] = "VTVideoEncoderSetProperty failed";
-                *&buf[12] = 2080;
-                *&buf[14] = "/Library/Caches/com.apple.xbs/Sources/MOVStreamIO/MOVStreamIO/VTEncoder/MOVStreamHEVCLosslessEncoder.mm";
-                *&buf[22] = 1024;
-                *&buf[24] = 544;
-                _os_log_impl(&dword_257883000, v44, OS_LOG_TYPE_ERROR, "Assert: %s - f: %s, l: %d\n", buf, 0x1Cu);
-              }
-            }
-
-            else
-            {
-              v63 = CFNumberCreate(v39, kCFNumberDoubleType, (v96 + 56));
-              if (+[MIOLog debugEnabled])
-              {
-                v64 = +[MIOLog defaultLog];
-                if (os_log_type_enabled(v64, OS_LOG_TYPE_DEBUG))
-                {
-                  v65 = *(v96 + 56);
-                  *buf = 134217984;
-                  *&buf[4] = v65;
-                  _os_log_impl(&dword_257883000, v64, OS_LOG_TYPE_DEBUG, "Encoder Config >> kVTCompressionPropertyKey_MaxKeyFrameIntervalDuration = %f", buf, 0xCu);
-                }
-              }
-
-              v66 = VTSessionSetProperty(*v95, *MEMORY[0x277CE25A8], v63);
-              CFRelease(v63);
-              if (v66)
-              {
-                v44 = +[MIOLog defaultLog];
-                if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
-                {
-                  *buf = 136315650;
-                  *&buf[4] = "VTVideoEncoderSetProperty kVTCompressionPropertyKey_MaxKeyFrameIntervalDuration failed";
-                  *&buf[12] = 2080;
-                  *&buf[14] = "/Library/Caches/com.apple.xbs/Sources/MOVStreamIO/MOVStreamIO/VTEncoder/MOVStreamHEVCLosslessEncoder.mm";
-                  *&buf[22] = 1024;
-                  *&buf[24] = 563;
-                  _os_log_impl(&dword_257883000, v44, OS_LOG_TYPE_ERROR, "Assert: %s - f: %s, l: %d\n", buf, 0x1Cu);
-                }
-              }
-
-              else
-              {
-                v67 = CFNumberCreate(v39, kCFNumberDoubleType, v17);
-                if (+[MIOLog debugEnabled])
-                {
-                  v68 = +[MIOLog defaultLog];
-                  if (os_log_type_enabled(v68, OS_LOG_TYPE_DEBUG))
-                  {
-                    v69 = *v17;
-                    *buf = 134217984;
-                    *&buf[4] = v69;
-                    _os_log_impl(&dword_257883000, v68, OS_LOG_TYPE_DEBUG, "Encoder Config >> kVTCompressionPropertyKey_ExpectedFrameRate = %f", buf, 0xCu);
-                  }
-                }
-
-                v70 = VTSessionSetProperty(*v95, *MEMORY[0x277CE2548], v67);
-                CFRelease(v67);
-                if (!v70)
-                {
-                  *valuePtr = 1.0;
-                  v71 = CFNumberCreate(v39, kCFNumberFloat32Type, valuePtr);
-                  if (+[MIOLog debugEnabled])
-                  {
-                    v72 = +[MIOLog defaultLog];
-                    if (os_log_type_enabled(v72, OS_LOG_TYPE_DEBUG))
-                    {
-                      *buf = 134217984;
-                      *&buf[4] = *valuePtr;
-                      _os_log_impl(&dword_257883000, v72, OS_LOG_TYPE_DEBUG, "Encoder Config >> kVTCompressionPropertyKey_Quality = %f", buf, 0xCu);
-                    }
-                  }
-
-                  v73 = VTSessionSetProperty(*v95, *MEMORY[0x277CE25E0], v71);
-                  CFRelease(v71);
-                  if (v73)
-                  {
-                    v74 = +[MIOLog defaultLog];
-                    if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
-                    {
-                      *buf = 136315650;
-                      *&buf[4] = "VTVideoEncoderSetProperty kVTCompressionPropertyKey_Quality failed";
-                      *&buf[12] = 2080;
-                      *&buf[14] = "/Library/Caches/com.apple.xbs/Sources/MOVStreamIO/MOVStreamIO/VTEncoder/MOVStreamHEVCLosslessEncoder.mm";
-                      *&buf[22] = 1024;
-                      *&buf[24] = 599;
-                      _os_log_impl(&dword_257883000, v74, OS_LOG_TYPE_ERROR, "Assert: %s - f: %s, l: %d\n", buf, 0x1Cu);
-                    }
-                  }
-
-                  else
-                  {
-                    if (*(v96 + 65))
-                    {
-                      v75 = v57;
-                    }
-
-                    else
-                    {
-                      v75 = v58;
-                    }
-
-                    if (*v96)
-                    {
-                      v76 = v58;
-                    }
-
-                    else
-                    {
-                      v76 = v75;
-                    }
-
-                    if (+[MIOLog debugEnabled])
-                    {
-                      v77 = +[MIOLog defaultLog];
-                      if (os_log_type_enabled(v77, OS_LOG_TYPE_DEBUG))
-                      {
-                        v78 = *(v96 + 65);
-                        *buf = 67109120;
-                        *&buf[4] = v78;
-                        _os_log_impl(&dword_257883000, v77, OS_LOG_TYPE_DEBUG, "Encoder Config >> kVTCompressionPropertyKey_RealTime = %d", buf, 8u);
-                      }
-                    }
-
-                    v79 = VTSessionSetProperty(*v95, *MEMORY[0x277CE25F0], v76);
-                    if (v79)
-                    {
-                      v74 = +[MIOLog defaultLog];
-                      if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
-                      {
-                        *buf = 67109890;
-                        *&buf[4] = v79;
-                        *&buf[8] = 2080;
-                        *&buf[10] = "VTVideoEncoderSetProperty kVTCompressionPropertyKey_RealTime failed";
-                        *&buf[18] = 2080;
-                        *&buf[20] = "/Library/Caches/com.apple.xbs/Sources/MOVStreamIO/MOVStreamIO/VTEncoder/MOVStreamHEVCLosslessEncoder.mm";
-                        v104 = 1024;
-                        v105 = 622;
-                        _os_log_impl(&dword_257883000, v74, OS_LOG_TYPE_ERROR, "Assert: (%d) %s - f: %s, l: %d\n", buf, 0x22u);
-                      }
-                    }
-
-                    else
-                    {
-                      if (*v96 != 1)
-                      {
-                        goto LABEL_194;
-                      }
-
-                      if (+[MIOLog debugEnabled])
-                      {
-                        v80 = +[MIOLog defaultLog];
-                        if (os_log_type_enabled(v80, OS_LOG_TYPE_DEBUG))
-                        {
-                          v81 = *(v96 + 65);
-                          *buf = 67109120;
-                          *&buf[4] = v81;
-                          _os_log_impl(&dword_257883000, v80, OS_LOG_TYPE_DEBUG, "Encoder Config >> kVTCompressionPropertyKey_MaximizePowerEfficiency = %d", buf, 8u);
-                        }
-                      }
-
-                      v82 = VTSessionSetProperty(*v95, *MEMORY[0x277CE25B0], v58);
-                      if (v82)
-                      {
-                        v74 = +[MIOLog defaultLog];
-                        if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
-                        {
-                          *buf = 67109890;
-                          *&buf[4] = v82;
-                          *&buf[8] = 2080;
-                          *&buf[10] = "VTVideoEncoderSetProperty kVTCompressionPropertyKey_MaximizePowerEfficiency failed";
-                          *&buf[18] = 2080;
-                          *&buf[20] = "/Library/Caches/com.apple.xbs/Sources/MOVStreamIO/MOVStreamIO/VTEncoder/MOVStreamHEVCLosslessEncoder.mm";
-                          v104 = 1024;
-                          v105 = 640;
-                          _os_log_impl(&dword_257883000, v74, OS_LOG_TYPE_ERROR, "Assert: (%d) %s - f: %s, l: %d\n", buf, 0x22u);
-                        }
-                      }
-
-                      else
-                      {
-LABEL_194:
-                        if (*(v96 + 66))
-                        {
-                          v83 = v57;
-                        }
-
-                        else
-                        {
-                          v83 = v58;
-                        }
-
-                        if (+[MIOLog debugEnabled])
-                        {
-                          v84 = +[MIOLog defaultLog];
-                          if (os_log_type_enabled(v84, OS_LOG_TYPE_DEBUG))
-                          {
-                            v85 = *(v96 + 66);
-                            *buf = 67109120;
-                            *&buf[4] = v85;
-                            _os_log_impl(&dword_257883000, v84, OS_LOG_TYPE_DEBUG, "Encoder Config >> my_kVTCompressionPropertyKey_DebugMetadataSEI2 = %d", buf, 8u);
-                          }
-                        }
-
-                        v86 = VTSessionSetProperty(*v95, @"DebugMetadataSEI", v83);
-                        if (v86)
-                        {
-                          v74 = +[MIOLog defaultLog];
-                          if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
-                          {
-                            *buf = 67109890;
-                            *&buf[4] = v86;
-                            *&buf[8] = 2080;
-                            *&buf[10] = "VTVideoEncoderSetProperty my_kVTCompressionPropertyKey_DebugMetadataSEI2 failed";
-                            *&buf[18] = 2080;
-                            *&buf[20] = "/Library/Caches/com.apple.xbs/Sources/MOVStreamIO/MOVStreamIO/VTEncoder/MOVStreamHEVCLosslessEncoder.mm";
-                            v104 = 1024;
-                            v105 = 655;
-                            _os_log_impl(&dword_257883000, v74, OS_LOG_TYPE_ERROR, "Assert: (%d) %s - f: %s, l: %d\n", buf, 0x22u);
-                          }
-                        }
-
-                        else
-                        {
-                          v87 = CFNumberCreate(v39, kCFNumberSInt32Type, v21);
-                          if (+[MIOLog debugEnabled])
-                          {
-                            v88 = +[MIOLog defaultLog];
-                            if (os_log_type_enabled(v88, OS_LOG_TYPE_DEBUG))
-                            {
-                              v89 = *v21;
-                              *buf = 67109120;
-                              *&buf[4] = v89;
-                              _os_log_impl(&dword_257883000, v88, OS_LOG_TYPE_DEBUG, "Encoder Config >> my_kVTCompressionPropertyKey_OutputBitDepth = %d", buf, 8u);
-                            }
-                          }
-
-                          v90 = VTSessionSetProperty(*v95, @"OutputBitDepth", v87);
-                          CFRelease(v87);
-                          if (!v90)
-                          {
-                            if (!+[MIOLog debugEnabled])
-                            {
-                              goto LABEL_17;
-                            }
-
-                            v23 = +[MIOLog defaultLog];
-                            if (!os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
-                            {
-LABEL_16:
-
-LABEL_17:
-                              *buf = *MEMORY[0x277CBED10];
-                              if (VTSessionCopyProperty(*v95, *MEMORY[0x277CE2500], *MEMORY[0x277CBECE8], buf))
-                              {
-                                v25 = [MEMORY[0x277CCA9B8] writerWarningWithMessage:@"Cannot check AllowFrameReordering status of encoding session. Assuming disabled." code:0];
-                              }
-
-                              else
-                              {
-                                *(v96 + 109) = *buf == *MEMORY[0x277CBED28];
-                                if (+[MIOLog debugEnabled])
-                                {
-                                  v47 = +[MIOLog defaultLog];
-                                  if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
-                                  {
-                                    v48 = *(v96 + 109);
-                                    *valuePtr = 1.5047e-36;
-                                    v98 = v48;
-                                    _os_log_impl(&dword_257883000, v47, OS_LOG_TYPE_DEBUG, "AllowFrameReordering: %d", valuePtr, 8u);
-                                  }
-                                }
-
-                                CFRelease(*buf);
-                              }
-
-                              if (a6)
-                              {
-                                MOVStreamHEVCLosslessEncoder::propagateColorAttachments(v25, a6, *v95);
-                              }
-
-                              else if (+[MIOLog debugEnabled])
-                              {
-                                v49 = +[MIOLog defaultLog];
-                                if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
-                                {
-                                  *valuePtr = 0;
-                                  _os_log_impl(&dword_257883000, v49, OS_LOG_TYPE_DEBUG, "Missing format discription for VTCompressionSession.", valuePtr, 2u);
-                                }
-                              }
-
-                              return 0;
-                            }
-
-                            *buf = 0;
-                            v24 = "*-----------------------------------------------------------------------------*";
-LABEL_15:
-                            _os_log_impl(&dword_257883000, v23, OS_LOG_TYPE_DEBUG, v24, buf, 2u);
-                            goto LABEL_16;
-                          }
-
-                          v74 = +[MIOLog defaultLog];
-                          if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
-                          {
-                            *buf = 136315650;
-                            *&buf[4] = "VTVideoEncoderSetProperty my_kVTCompressionPropertyKey_OutputBitDepth failed";
-                            *&buf[12] = 2080;
-                            *&buf[14] = "/Library/Caches/com.apple.xbs/Sources/MOVStreamIO/MOVStreamIO/VTEncoder/MOVStreamHEVCLosslessEncoder.mm";
-                            *&buf[22] = 1024;
-                            *&buf[24] = 673;
-                            _os_log_impl(&dword_257883000, v74, OS_LOG_TYPE_ERROR, "Assert: %s - f: %s, l: %d\n", buf, 0x1Cu);
-                          }
-                        }
-                      }
-                    }
-                  }
-
-                  return 2;
-                }
-
-                v44 = +[MIOLog defaultLog];
-                if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
-                {
-                  *buf = 136315650;
-                  *&buf[4] = "VTVideoEncoderSetProperty kVTCompressionPropertyKey_ExpectedFrameRate failed";
-                  *&buf[12] = 2080;
-                  *&buf[14] = "/Library/Caches/com.apple.xbs/Sources/MOVStreamIO/MOVStreamIO/VTEncoder/MOVStreamHEVCLosslessEncoder.mm";
-                  *&buf[22] = 1024;
-                  *&buf[24] = 581;
-                  _os_log_impl(&dword_257883000, v44, OS_LOG_TYPE_ERROR, "Assert: %s - f: %s, l: %d\n", buf, 0x1Cu);
-                }
-              }
-            }
-          }
-        }
-
-LABEL_97:
-
-        return 2;
-      }
-
-      if (v45 != 1312)
-      {
-        if (v45 == 1313)
-        {
-          v46 = @"HEVC_Monochrome10_AutoLevel";
-          goto LABEL_90;
-        }
-
-        goto LABEL_120;
-      }
-
-      v50 = MEMORY[0x277CE29C0];
-    }
-
-    v46 = *v50;
-    goto LABEL_90;
-  }
-
-  v26 = MEMORY[0x277CBEC38];
-  v27 = *MEMORY[0x277CE2BB0];
-  v101[0] = *MEMORY[0x277CE2BA8];
-  v101[1] = v27;
-  v102[0] = MEMORY[0x277CBEC38];
-  v102[1] = MEMORY[0x277CBEC38];
-  v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v102 forKeys:v101 count:2];
-  v29 = v96;
-  v30 = *(v96 + 8);
-  if (v30)
-  {
-    v31 = [v30 overrideVideoEncoderSpecification];
-    v32 = v31;
-    if (v31)
-    {
-      v33 = v31;
-
-      v28 = v33;
-      v29 = v96;
-    }
-
-    v34 = [*(v29 + 8) codecTypeOverride];
-    if (v34)
-    {
-      *(v29 + 104) = v34;
-    }
-
-    v29 = v96;
-  }
-
-  if (*(v29 + 1) != 1)
-  {
-    goto LABEL_29;
-  }
-
-  v35 = +[MIOLog defaultLog];
-  if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
-  {
-    *buf = 0;
-    _os_log_impl(&dword_257883000, v35, OS_LOG_TYPE_INFO, "VTCompressionSession: Enabling kVTCompressionSessionOption_AllowClientProcessEncode", buf, 2u);
-  }
-
-  v99 = *MEMORY[0x277CE2618];
-  v100 = v26;
-  compressionSessionOut = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v100 forKeys:&v99 count:1];
-  v93 = v95;
-  outputCallbackRefCon = a8;
-  v36 = VTCompressionSessionCreateWithOptions();
-
-  v29 = v96;
-  if ((*(v96 + 1) & 1) == 0)
-  {
-LABEL_29:
-    v36 = VTCompressionSessionCreate(*MEMORY[0x277CBECE8], a2, a3, *(v29 + 104), v28, 0, 0, a7, a8, v95);
-  }
-
-  if (!v36)
-  {
-
-    a1 = v96;
-    goto LABEL_7;
-  }
-
-  v37 = +[MIOLog defaultLog];
-  if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
-  {
-    *buf = 67109890;
-    *&buf[4] = v36;
-    *&buf[8] = 2080;
-    *&buf[10] = "VTCompressionSessionCreate failed\n";
-    *&buf[18] = 2080;
-    *&buf[20] = "/Library/Caches/com.apple.xbs/Sources/MOVStreamIO/MOVStreamIO/VTEncoder/MOVStreamHEVCLosslessEncoder.mm";
-    v104 = 1024;
-    v105 = 191;
-    _os_log_impl(&dword_257883000, v37, OS_LOG_TYPE_ERROR, "Assert: (%d) %s - f: %s, l: %d\n", buf, 0x22u);
-  }
-
-  return v36;
 }

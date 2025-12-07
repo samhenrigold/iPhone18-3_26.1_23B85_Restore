@@ -44,7 +44,7 @@
 
       propertyNames = self->_propertyNames;
       keyPath = [expressionCopy keyPath];
-      LOBYTE(propertyNames) = [(NSSet *)propertyNames containsObject:keyPath];
+      LOBYTE(propertyNames) = objc_msgSend_containsObject_(propertyNames);
 
       if (propertyNames)
       {

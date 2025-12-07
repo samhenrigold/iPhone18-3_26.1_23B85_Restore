@@ -1,12 +1,12 @@
 @interface BWSmartFramingSceneMonitor
 - (BWSmartFramingSceneMonitor)initWithDynamicFieldOfViewRectsEnabled:(BOOL)enabled;
 - (__CFString)_getOptimalFieldOfViewKeyFromCumulativeFieldOfViewWeights:(int)weights significantFaceOrBodyCount:;
+- (id)_reset;
 - (int)resolveSuggestedFieldOfViewRectWithSampleBuffer:(opaqueCMSampleBuffer *)buffer fromFieldOfViewRects:(id)rects suggestedFieldOfViewRectOut:(CGRect *)out;
 - (int)resolveSuggestedFieldOfViewWithSampleBuffer:(opaqueCMSampleBuffer *)buffer suggestedFieldOfViewOut:(int *)out;
 - (int)setSmartFramingFieldOfViewRects:(id)rects;
-- (uint64_t)_reset;
 - (uint64_t)_resolveSuggestedFieldOfViewWithSampleBuffer:(void *)buffer usingFieldsOfView:(uint64_t)view suggestedFieldOfViewOut:(uint64_t)out suggestedFieldOfViewRectOut:;
-- (uint64_t)_updateFieldOfViewWeightsUsingFaceRect:(void *)rect cumulativeFieldOfViewWeights:(CGFloat)weights fieldsOfView:(CGFloat)view;
+- (void)_updateFieldOfViewWeightsUsingFaceRect:(void *)rect cumulativeFieldOfViewWeights:(CGFloat)weights fieldsOfView:(CGFloat)view;
 - (void)dealloc;
 - (void)setSmartFramingCamGazeProbabilitiesByFaceGroupID:(id)d;
 @end
@@ -69,7 +69,7 @@
   {
     if ([rects count] < 5)
     {
-      [(BWSmartFramingSceneMonitor *)self _reset];
+      [(BWSmartFramingSceneMonitor *)&self->super.isa _reset];
 
       v5 = [rects copy];
       result = 0;
@@ -94,7 +94,7 @@
 {
   if (LOBYTE(self->_lastSuggestedFieldOfViewChangePTS.epoch) == 1)
   {
-    [BWSmartFramingSceneMonitor resolveSuggestedFieldOfViewWithSampleBuffer:suggestedFieldOfViewOut:];
+    [BWSmartFramingSceneMonitor resolveSuggestedFieldOfViewWithSampleBuffer:a2 suggestedFieldOfViewOut:?];
     return -1;
   }
 
@@ -148,7 +148,7 @@
   return -[BWSmartFramingSceneMonitor _resolveSuggestedFieldOfViewWithSampleBuffer:usingFieldsOfView:suggestedFieldOfViewOut:suggestedFieldOfViewRectOut:](self, buffer, [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:2], 0, out);
 }
 
-uint64_t __145__BWSmartFramingSceneMonitor__resolveSuggestedFieldOfViewWithSampleBuffer_usingFieldsOfView_suggestedFieldOfViewOut_suggestedFieldOfViewRectOut___block_invoke(uint64_t a1, uint64_t a2)
+void *__145__BWSmartFramingSceneMonitor__resolveSuggestedFieldOfViewWithSampleBuffer_usingFieldsOfView_suggestedFieldOfViewOut_suggestedFieldOfViewRectOut___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) containsObject:a2];
   if ((result & 1) == 0)
@@ -168,16 +168,16 @@ uint64_t __145__BWSmartFramingSceneMonitor__resolveSuggestedFieldOfViewWithSampl
   return result;
 }
 
-- (uint64_t)_reset
+- (id)_reset
 {
   if (result)
   {
     v1 = result;
-    *(result + 36) = 0;
-    [*(result + 40) removeAllObjects];
-    [*(v1 + 16) removeAllObjects];
-    [*(v1 + 24) removeAllObjects];
-    v2 = *(v1 + 8);
+    *(result + 9) = 0;
+    [result[5] removeAllObjects];
+    [v1[2] removeAllObjects];
+    [v1[3] removeAllObjects];
+    v2 = v1[1];
 
     return [v2 removeAllObjects];
   }
@@ -199,8 +199,8 @@ uint64_t __145__BWSmartFramingSceneMonitor__resolveSuggestedFieldOfViewWithSampl
     return 4294954516;
   }
 
-  memset(&v263, 0, sizeof(v263));
-  CMSampleBufferGetPresentationTimeStamp(&v263, a2);
+  memset(&v265, 0, sizeof(v265));
+  CMSampleBufferGetPresentationTimeStamp(&v265, a2);
   v10 = CMGetAttachment(a2, *off_1E798A5A8, 0);
   v11 = *(v9 + 144);
   outCopy = out;
@@ -209,10 +209,10 @@ uint64_t __145__BWSmartFramingSceneMonitor__resolveSuggestedFieldOfViewWithSampl
     v12 = v10;
 
     *(v9 + 144) = v12;
-    *(v9 + 152) = v263;
+    *(v9 + 152) = v265;
   }
 
-  else if (v11 && (OUTLINED_FUNCTION_3_107(*&v263.value), *&lhs.value = *(v9 + 152), OUTLINED_FUNCTION_12_52(*(v9 + 168)), CMTimeGetSeconds(&time) < 0.3))
+  else if (v11 && (OUTLINED_FUNCTION_3_107(*&v265.value), *&lhs.value = *(v9 + 152), OUTLINED_FUNCTION_12_52(*(v9 + 168)), CMTimeGetSeconds(&time) < 0.3))
   {
     v12 = *(v9 + 144);
   }
@@ -222,32 +222,32 @@ uint64_t __145__BWSmartFramingSceneMonitor__resolveSuggestedFieldOfViewWithSampl
     v12 = 0;
   }
 
-  v168 = v12;
+  v170 = v12;
   v13 = [v12 objectForKeyedSubscript:{*off_1E798ACB8, a2}];
   v14 = *off_1E798ACE8;
   obj = [v13 objectForKeyedSubscript:*off_1E798ACE8];
   array = [MEMORY[0x1E695DF70] array];
   v15 = MEMORY[0x1E695F050];
-  v256 = 0u;
-  v257 = 0u;
   v258 = 0u;
   v259 = 0u;
+  v260 = 0u;
+  v261 = 0u;
   v16 = OUTLINED_FUNCTION_9_65();
   if (v16)
   {
     v24 = v16;
-    v25 = *v257;
+    v25 = *v259;
     do
     {
       v26 = 0;
       do
       {
-        if (*v257 != v25)
+        if (*v259 != v25)
         {
           objc_enumerationMutation(buffer);
         }
 
-        [dictionary setObject:&unk_1F224CBA0 forKeyedSubscript:*(*(&v256 + 1) + 8 * v26++)];
+        [dictionary setObject:&unk_1F224CBA0 forKeyedSubscript:*(*(&v258 + 1) + 8 * v26++)];
       }
 
       while (v24 != v26);
@@ -259,32 +259,32 @@ uint64_t __145__BWSmartFramingSceneMonitor__resolveSuggestedFieldOfViewWithSampl
   }
 
   v27 = *(v15 + 1);
-  v179 = *v15;
+  v181 = *v15;
   v29 = *(v15 + 2);
   v28 = *(v15 + 3);
+  v257 = 0u;
+  v256 = 0u;
   v255 = 0u;
   v254 = 0u;
-  v253 = 0u;
-  v252 = 0u;
-  v30 = OUTLINED_FUNCTION_7_79(v16, v17, v18, v19, v20, v21, v22, v23, sbuf, view, outCopy, v168, buffer, v175, v179, array, dictionary, v191, obj);
+  v30 = OUTLINED_FUNCTION_7_79(v16, v17, v18, v19, v20, v21, v22, v23, sbuf, view, outCopy, v170, buffer, v177, v181, array, dictionary, v193, obj);
   if (v30)
   {
     v31 = v30;
     v32 = 0;
-    v33 = *v253;
+    v33 = *v255;
     v34 = *off_1E798AC70;
     v35 = 0.0;
     do
     {
       for (i = 0; i != v31; ++i)
       {
-        if (*v253 != v33)
+        if (*v255 != v33)
         {
           objc_enumerationMutation(obja);
         }
 
-        v37 = *(*(&v252 + 1) + 8 * i);
-        v38 = sfsm_unpackFaceRectAndAdjustWithExpansionScaleFactor(*(v9 + 64));
+        v37 = *(*(&v254 + 1) + 8 * i);
+        v38 = sfsm_unpackFaceRectAndAdjustWithExpansionScaleFactor(v37, *(v9 + 64));
         v40 = v39;
         v42 = v41;
         v44 = v43;
@@ -297,13 +297,13 @@ uint64_t __145__BWSmartFramingSceneMonitor__resolveSuggestedFieldOfViewWithSampl
           v28 = v44;
           v29 = v42;
           v27 = v40;
-          v180 = *&v38;
+          v182 = *&v38;
         }
 
-        v47 = [v184 addObject:v45];
+        v47 = [v186 addObject:v45];
       }
 
-      v31 = OUTLINED_FUNCTION_7_79(v47, v48, v49, v50, v51, v52, v53, v54, sbufa, v163, v166, v169, v172, v176, v180, v184, v188, v192, obja);
+      v31 = OUTLINED_FUNCTION_7_79(v47, v48, v49, v50, v51, v52, v53, v54, sbufa, v165, v168, v171, v174, v178, v182, v186, v190, v194, obja);
     }
 
     while (v31);
@@ -316,29 +316,29 @@ uint64_t __145__BWSmartFramingSceneMonitor__resolveSuggestedFieldOfViewWithSampl
   }
 
   array2 = [MEMORY[0x1E695DF70] array];
-  v55 = [objc_msgSend(v169 objectForKeyedSubscript:{*off_1E798ACB0), "objectForKeyedSubscript:", v14}];
-  v248 = 0u;
-  v249 = 0u;
+  v55 = [objc_msgSend(v171 objectForKeyedSubscript:{*off_1E798ACB0), "objectForKeyedSubscript:", v14}];
   v250 = 0u;
   v251 = 0u;
-  v56 = [v55 countByEnumeratingWithState:&v248 objects:v247 count:16];
+  v252 = 0u;
+  v253 = 0u;
+  v56 = [v55 countByEnumeratingWithState:&v250 objects:v249 count:16];
   if (v56)
   {
     v57 = v56;
     v58 = 0;
-    v59 = *v249;
+    v59 = *v251;
     v60 = off_1E798AC70;
     v61 = *off_1E798AC70;
     do
     {
       for (j = 0; j != v57; ++j)
       {
-        if (*v249 != v59)
+        if (*v251 != v59)
         {
           objc_enumerationMutation(v55);
         }
 
-        v63 = [objc_msgSend(*(*(&v248 + 1) + 8 * j) objectForKeyedSubscript:{v61), "stringValue"}];
+        v63 = [objc_msgSend(*(*(&v250 + 1) + 8 * j) objectForKeyedSubscript:{v61), "stringValue"}];
         isPersistentlySignificant = [array2 addObject:v63];
         if (v58)
         {
@@ -361,7 +361,7 @@ uint64_t __145__BWSmartFramingSceneMonitor__resolveSuggestedFieldOfViewWithSampl
         }
       }
 
-      v57 = OUTLINED_FUNCTION_1_18(isPersistentlySignificant, v65, &v248, v247);
+      v57 = OUTLINED_FUNCTION_1_18(isPersistentlySignificant, v65, &v250, v249);
     }
 
     while (v57);
@@ -375,12 +375,12 @@ uint64_t __145__BWSmartFramingSceneMonitor__resolveSuggestedFieldOfViewWithSampl
 
   if ((*(v9 + 80) & 1) == 0 || v32)
   {
-    *(v9 + 68) = v263;
+    *(v9 + 68) = v265;
   }
 
   if (!((v32 != 0 || (*(v9 + 120) & 1) == 0) | v58 & 1))
   {
-    OUTLINED_FUNCTION_3_107(*&v263.value);
+    OUTLINED_FUNCTION_3_107(*&v265.value);
     *&lhs.value = *(v9 + 68);
     OUTLINED_FUNCTION_12_52(*(v9 + 84));
     if (CMTimeGetSeconds(&time) > *(v9 + 92) && *(v9 + 36) != 2)
@@ -404,67 +404,68 @@ uint64_t __145__BWSmartFramingSceneMonitor__resolveSuggestedFieldOfViewWithSampl
     }
 
     [obja count];
-    v246 = 0;
+    v248 = 0;
     v70 = OUTLINED_FUNCTION_2_120();
     *&v71 = v35;
     *&v72 = v35;
-    v193 = v73;
+    v195 = v73;
     [v74 updateStatesIfNeededUsingFaceRect:v66 faceSize:v67 gazeProbabilitiesData:v70 largestFaceTrack:v27 largestFaceSize:v29 totalDetectedFaceCount:v28 currentPTS:v71 isSignificantOut:v72];
-    HIDWORD(v176) = 0;
+    HIDWORD(v178) = 0;
     array3 = [MEMORY[0x1E695DF70] array];
     v76 = *(v9 + 8);
-    v245[0] = MEMORY[0x1E69E9820];
-    v245[1] = 3221225472;
-    v245[2] = __145__BWSmartFramingSceneMonitor__resolveSuggestedFieldOfViewWithSampleBuffer_usingFieldsOfView_suggestedFieldOfViewOut_suggestedFieldOfViewRectOut___block_invoke;
-    v245[3] = &unk_1E799D4A8;
-    v245[4] = v184;
-    v245[5] = array2;
-    v245[6] = v169;
-    v245[7] = array3;
-    [v76 enumerateKeysAndObjectsUsingBlock:v245];
+    v247[0] = MEMORY[0x1E69E9820];
+    v247[1] = 3221225472;
+    v247[2] = __145__BWSmartFramingSceneMonitor__resolveSuggestedFieldOfViewWithSampleBuffer_usingFieldsOfView_suggestedFieldOfViewOut_suggestedFieldOfViewRectOut___block_invoke;
+    v247[3] = &unk_1E799D4A8;
+    v247[4] = v186;
+    v247[5] = array2;
+    v247[6] = v171;
+    v247[7] = array3;
+    [v76 enumerateKeysAndObjectsUsingBlock:v247];
     v77 = [*(v9 + 8) removeObjectsForKeys:array3];
+    v245 = 0u;
+    v246 = 0u;
     v243 = 0u;
     v244 = 0u;
-    v241 = 0u;
-    v242 = 0u;
-    v85 = OUTLINED_FUNCTION_8_61(v77, v78, v79, v80, v81, v82, v83, v84, sbufa, v163, v166, v169, v172, v176, v180, v184, v188, v193, obja);
+    v85 = OUTLINED_FUNCTION_8_61(v77, v78, v79, v80, v81, v82, v83, v84, sbufa, v165, v168, v171, v174, v178, v182, v186, v190, v195, obja);
     if (v85)
     {
       v93 = v85;
-      v94 = *v242;
+      v94 = *v244;
       v95 = *v60;
       do
       {
         v96 = 0;
         do
         {
-          if (*v242 != v94)
+          if (*v244 != v94)
           {
             objc_enumerationMutation(objb);
           }
 
-          v97 = [objc_msgSend(*(*(&v241 + 1) + 8 * v96) objectForKeyedSubscript:{v95), "stringValue"}];
-          v114 = [v97 isEqualToString:v32];
-          if ((v114 & 1) == 0)
+          v97 = *(*(&v243 + 1) + 8 * v96);
+          v98 = [objc_msgSend(v97 objectForKeyedSubscript:{v95), "stringValue"}];
+          isEqualToString = objc_msgSend_isEqualToString_(v98);
+          if ((isEqualToString & 1) == 0)
           {
-            if (![*(v9 + 8) objectForKeyedSubscript:v97])
+            if (![*(v9 + 8) objectForKeyedSubscript:v98])
             {
-              v106 = [TrackedFace alloc];
-              LODWORD(v107) = *(v9 + 60);
-              [*(v9 + 8) setObject:-[TrackedFace initWithFaceGroupID:signficanceDetectionThreshold:](v106 forKeyedSubscript:{"initWithFaceGroupID:signficanceDetectionThreshold:", v97, v107), v97}];
+              v107 = [TrackedFace alloc];
+              LODWORD(v108) = *(v9 + 60);
+              [*(v9 + 8) setObject:-[TrackedFace initWithFaceGroupID:signficanceDetectionThreshold:](v107 forKeyedSubscript:{"initWithFaceGroupID:signficanceDetectionThreshold:", v98, v108), v98}];
             }
 
-            v108 = sfsm_unpackFaceRectAndAdjustWithExpansionScaleFactor(*(v9 + 64));
-            v110 = v109;
-            v112 = v111;
-            v114 = v113;
-            [*(v9 + 40) objectForKeyedSubscript:v97];
-            v115 = OUTLINED_FUNCTION_2_120();
-            v114 = [v116 updateStatesIfNeededUsingFaceRect:v115 faceSize:v110 gazeProbabilitiesData:v112 largestFaceTrack:v114 largestFaceSize:? totalDetectedFaceCount:? currentPTS:? isSignificantOut:?];
-            if (v246 == 1)
+            v109 = sfsm_unpackFaceRectAndAdjustWithExpansionScaleFactor(v97, *(v9 + 64));
+            v111 = v110;
+            v113 = v112;
+            v115 = v114;
+            [*(v9 + 40) objectForKeyedSubscript:v98];
+            v116 = OUTLINED_FUNCTION_2_120();
+            isEqualToString = [v117 updateStatesIfNeededUsingFaceRect:v116 faceSize:v111 gazeProbabilitiesData:v113 largestFaceTrack:v115 largestFaceSize:? totalDetectedFaceCount:? currentPTS:? isSignificantOut:?];
+            if (v248 == 1)
             {
-              v114 = [(BWSmartFramingSceneMonitor *)v9 _updateFieldOfViewWeightsUsingFaceRect:v189 cumulativeFieldOfViewWeights:v173 fieldsOfView:v108, v110, v112, v114];
-              ++HIDWORD(v177);
+              isEqualToString = [(BWSmartFramingSceneMonitor *)v9 _updateFieldOfViewWeightsUsingFaceRect:v191 cumulativeFieldOfViewWeights:v175 fieldsOfView:v109, v111, v113, v115];
+              ++HIDWORD(v179);
             }
           }
 
@@ -472,167 +473,167 @@ uint64_t __145__BWSmartFramingSceneMonitor__resolveSuggestedFieldOfViewWithSampl
         }
 
         while (v93 != v96);
-        v85 = OUTLINED_FUNCTION_8_61(v114, v99, v100, v101, v102, v103, v104, v105, sbufb, v164, v167, v170, v173, v177, v181, v185, v189, v194, objb);
+        v85 = OUTLINED_FUNCTION_8_61(isEqualToString, v100, v101, v102, v103, v104, v105, v106, sbufb, v166, v169, v172, v175, v179, v183, v187, v191, v196, objb);
         v93 = v85;
       }
 
       while (v85);
     }
 
+    v241 = 0u;
+    v242 = 0u;
     v239 = 0u;
     v240 = 0u;
-    v237 = 0u;
-    v238 = 0u;
-    v117 = OUTLINED_FUNCTION_10_55(v85, v86, v87, v88, v89, v90, v91, v92, sbufb, v164, v167, v170, v173, v177, v181, v185, v189, v194, objb, array2, time1.value, *&time1.timescale, time1.epoch, v203.value, *&v203.timescale, v203.epoch, v204, v205, v206, v207, v208, v209, v210, v211, v212, v213, v214, v215, v216, v217, v218, v219, v220, *(&v220 + 1), v221, *(&v221 + 1), v222, *(&v222 + 1), v223, *(&v223 + 1), v224, v225, v226, v227, v228, v229, v230, v231, v232, v233, v234, v235, v236);
-    if (v117)
+    v118 = OUTLINED_FUNCTION_10_55(v85, v86, v87, v88, v89, v90, v91, v92, sbufb, v166, v169, v172, v175, v179, v183, v187, v191, v196, objb, array2, time1.value, *&time1.timescale, time1.epoch, v205.value, *&v205.timescale, v205.epoch, v206, v207, v208, v209, v210, v211, v212, v213, v214, v215, v216, v217, v218, v219, v220, v221, v222, *(&v222 + 1), v223, *(&v223 + 1), v224, *(&v224 + 1), v225, *(&v225 + 1), v226, v227, v228, v229, v230, v231, v232, v233, v234, v235, v236, v237, v238);
+    if (v118)
     {
-      v119 = v117;
-      v120 = *v238;
-      v121 = v186;
-      v118 = HIDWORD(v178);
+      v120 = v118;
+      v121 = *v240;
+      v122 = v188;
+      v119 = HIDWORD(v180);
       do
       {
-        for (k = 0; k != v119; ++k)
+        for (k = 0; k != v120; ++k)
         {
-          if (*v238 != v120)
+          if (*v240 != v121)
           {
-            objc_enumerationMutation(v201);
+            objc_enumerationMutation(v203);
           }
 
-          v123 = *(*(&v237 + 1) + 8 * k);
-          isPersistentlySignificant2 = [*(v9 + 8) objectForKeyedSubscript:v123];
+          v124 = *(*(&v239 + 1) + 8 * k);
+          isPersistentlySignificant2 = [*(v9 + 8) objectForKeyedSubscript:v124];
           if (isPersistentlySignificant2)
           {
-            v132 = isPersistentlySignificant2;
-            isPersistentlySignificant2 = [v121 containsObject:v123];
+            v133 = isPersistentlySignificant2;
+            isPersistentlySignificant2 = [v122 containsObject:v124];
             if ((isPersistentlySignificant2 & 1) == 0)
             {
-              isPersistentlySignificant2 = [v132 isPersistentlySignificant];
-              v118 += isPersistentlySignificant2;
+              isPersistentlySignificant2 = [v133 isPersistentlySignificant];
+              v119 += isPersistentlySignificant2;
             }
           }
         }
 
-        v119 = OUTLINED_FUNCTION_10_55(isPersistentlySignificant2, v125, v126, v127, v128, v129, v130, v131, sbufc, v163, v166, v171, v174, v178, v182, v186, v190, v195, objc, v201, time1.value, *&time1.timescale, time1.epoch, v203.value, *&v203.timescale, v203.epoch, v204, v205, v206, v207, v208, v209, v210, v211, v212, v213, v214, v215, v216, v217, v218, v219, v220, *(&v220 + 1), v221, *(&v221 + 1), v222, *(&v222 + 1), v223, *(&v223 + 1), v224, v225, v226, v227, v228, v229, v230, v231, v232, v233, v234, v235, v236);
+        v120 = OUTLINED_FUNCTION_10_55(isPersistentlySignificant2, v126, v127, v128, v129, v130, v131, v132, sbufc, v165, v168, v173, v176, v180, v184, v188, v192, v197, objc, v203, time1.value, *&time1.timescale, time1.epoch, v205.value, *&v205.timescale, v205.epoch, v206, v207, v208, v209, v210, v211, v212, v213, v214, v215, v216, v217, v218, v219, v220, v221, v222, *(&v222 + 1), v223, *(&v223 + 1), v224, *(&v224 + 1), v225, *(&v225 + 1), v226, v227, v228, v229, v230, v231, v232, v233, v234, v235, v236, v237, v238);
       }
 
-      while (v119);
+      while (v120);
     }
 
     else
     {
-      v118 = HIDWORD(v178);
+      v119 = HIDWORD(v180);
     }
 
-    v133 = [(BWSmartFramingSceneMonitor *)v9 _getOptimalFieldOfViewKeyFromCumulativeFieldOfViewWeights:v190 significantFaceOrBodyCount:v118];
-    v134 = [*(v9 + 24) count];
+    v134 = [(BWSmartFramingSceneMonitor *)v9 _getOptimalFieldOfViewKeyFromCumulativeFieldOfViewWeights:v192 significantFaceOrBodyCount:v119];
+    v135 = [*(v9 + 24) count];
     if ([*(v9 + 24) count])
     {
-      v135 = 0;
+      v136 = 0;
       while (1)
       {
         memset(&time, 0, sizeof(time));
-        [objc_msgSend(*(v9 + 24) objectAtIndex:{v135), "doubleValue"}];
-        CMTimeMakeWithSeconds(&rhs, v136, v263.timescale);
-        lhs = v263;
+        [objc_msgSend(*(v9 + 24) objectAtIndex:{v136), "doubleValue"}];
+        CMTimeMakeWithSeconds(&rhs, v137, v265.timescale);
+        lhs = v265;
         CMTimeSubtract(&time, &lhs, &rhs);
-        CMTimeMakeWithSeconds(&rhs, 1.0, v263.timescale);
+        CMTimeMakeWithSeconds(&rhs, 1.0, v265.timescale);
         OUTLINED_FUNCTION_5_88();
         if (CMTimeCompare(&lhs, &rhs) < 1)
         {
           break;
         }
 
-        if (++v135 >= [*(v9 + 24) count])
+        if (++v136 >= [*(v9 + 24) count])
         {
           goto LABEL_81;
         }
       }
 
-      v134 = v135;
+      v135 = v136;
     }
 
 LABEL_81:
-    [*(v9 + 16) removeObjectsInRange:{0, v134}];
-    [*(v9 + 24) removeObjectsInRange:{0, v134}];
-    [*(v9 + 16) addObject:v133];
-    v137 = *(v9 + 24);
-    time = v263;
-    [v137 addObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithDouble:", CMTimeGetSeconds(&time))}];
-    v138 = [MEMORY[0x1E696AB50] setWithArray:*(v9 + 16)];
-    v220 = 0u;
-    v221 = 0u;
+    [*(v9 + 16) removeObjectsInRange:{0, v135}];
+    [*(v9 + 24) removeObjectsInRange:{0, v135}];
+    [*(v9 + 16) addObject:v134];
+    v138 = *(v9 + 24);
+    time = v265;
+    [v138 addObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithDouble:", CMTimeGetSeconds(&time))}];
+    v139 = [MEMORY[0x1E696AB50] setWithArray:*(v9 + 16)];
     v222 = 0u;
     v223 = 0u;
-    v139 = [v138 countByEnumeratingWithState:&v220 objects:&v204 count:16];
-    if (v139)
+    v224 = 0u;
+    v225 = 0u;
+    v140 = [v139 countByEnumeratingWithState:&v222 objects:&v206 count:16];
+    if (v140)
     {
-      v140 = v139;
-      v141 = 0;
+      v141 = v140;
       v142 = 0;
-      v143 = *v221;
+      v143 = 0;
+      v144 = *v223;
       do
       {
-        for (m = 0; m != v140; ++m)
+        for (m = 0; m != v141; ++m)
         {
-          if (*v221 != v143)
+          if (*v223 != v144)
           {
-            objc_enumerationMutation(v138);
+            objc_enumerationMutation(v139);
           }
 
-          v145 = *(*(&v220 + 1) + 8 * m);
-          v146 = [v138 countForObject:v145];
-          if (v146 > v141)
+          v146 = *(*(&v222 + 1) + 8 * m);
+          v147 = [v139 countForObject:v146];
+          if (v147 > v142)
           {
-            v147 = v146;
-            v142 = BWSmartFramingSceneMonitorFieldOfViewTypeFromKey(v145);
-            v141 = v147;
+            v149 = v147;
+            v143 = BWSmartFramingSceneMonitorFieldOfViewTypeFromKey(v146, v148);
+            v142 = v149;
           }
         }
 
-        v140 = [v138 countByEnumeratingWithState:&v220 objects:&v204 count:16];
+        v141 = [v139 countByEnumeratingWithState:&v222 objects:&v206 count:16];
       }
 
-      while (v140);
-      v148 = v141;
+      while (v141);
+      v150 = v142;
     }
 
     else
     {
-      v142 = 0;
-      v148 = 0.0;
+      v143 = 0;
+      v150 = 0.0;
     }
 
-    memset(&v203, 0, sizeof(v203));
+    memset(&v205, 0, sizeof(v205));
     [objc_msgSend(*(v9 + 24) "firstObject")];
-    CMTimeMakeWithSeconds(&time, v149, v263.timescale);
-    OUTLINED_FUNCTION_3_107(*&v263.value);
-    CMTimeSubtract(&v203, &rhs, &time);
-    v150 = [*(v9 + 16) count];
-    v151 = [*(v9 + 16) count];
-    v152 = *(v9 + 36);
-    if (!v142)
+    CMTimeMakeWithSeconds(&time, v151, v265.timescale);
+    OUTLINED_FUNCTION_3_107(*&v265.value);
+    CMTimeSubtract(&v205, &rhs, &time);
+    v152 = [*(v9 + 16) count];
+    v153 = [*(v9 + 16) count];
+    v154 = *(v9 + 36);
+    if (!v143)
     {
       goto LABEL_106;
     }
 
-    v153 = *(v9 + 32);
-    v154 = v153 * v151;
-    CMTimeMakeWithSeconds(&time, 1.0 - v153, v263.timescale);
-    rhs = v203;
-    if (CMTimeCompare(&rhs, &time) < 1 || (v150 - v154) >= v148)
+    v155 = *(v9 + 32);
+    v156 = v155 * v153;
+    CMTimeMakeWithSeconds(&time, 1.0 - v155, v265.timescale);
+    rhs = v205;
+    if (CMTimeCompare(&rhs, &time) < 1 || (v152 - v156) >= v150)
     {
       goto LABEL_106;
     }
 
-    if (v142 == *(v9 + 36))
+    if (v143 == *(v9 + 36))
     {
       goto LABEL_106;
     }
 
-    BWSmartFramingSceneMonitorFieldOfViewKeyFromType(v142);
-    v156 = [OUTLINED_FUNCTION_4() indexOfObject:?];
-    if (v156 <= [*(v9 + 128) indexOfObject:BWSmartFramingSceneMonitorFieldOfViewKeyFromType(*(v9 + 36))] && *(v9 + 56) != 1)
+    BWSmartFramingSceneMonitorFieldOfViewKeyFromType(v143);
+    v158 = [OUTLINED_FUNCTION_4() indexOfObject:?];
+    if (v158 <= [*(v9 + 128) indexOfObject:BWSmartFramingSceneMonitorFieldOfViewKeyFromType(*(v9 + 36))] && *(v9 + 56) != 1)
     {
       goto LABEL_106;
     }
@@ -660,28 +661,28 @@ LABEL_81:
       *(v9 + 96) = time;
     }
 
-    v152 = v142;
+    v154 = v143;
 LABEL_106:
-    if (*(v9 + 36) != v152)
+    if (*(v9 + 36) != v154)
     {
-      *(v9 + 36) = v152;
+      *(v9 + 36) = v154;
     }
   }
 
 LABEL_108:
-  v157 = *(v9 + 120);
-  if (v163 && (v157 & 1) == 0)
+  v159 = *(v9 + 120);
+  if (v165 && (v159 & 1) == 0)
   {
-    *v163 = *(v9 + 36);
+    *v165 = *(v9 + 36);
   }
 
   result = 0;
-  if (v166 && v157)
+  if (v168 && v159)
   {
-    v158 = *(v9 + 36);
-    if (v158)
+    v160 = *(v9 + 36);
+    if (v160)
     {
-      BWSmartFramingSceneMonitorFieldOfViewKeyFromType(v158);
+      BWSmartFramingSceneMonitorFieldOfViewKeyFromType(v160);
     }
 
     FigCFDictionaryGetCGRectIfPresent();
@@ -700,7 +701,7 @@ LABEL_108:
   }
 }
 
-- (uint64_t)_updateFieldOfViewWeightsUsingFaceRect:(void *)rect cumulativeFieldOfViewWeights:(CGFloat)weights fieldsOfView:(CGFloat)view
+- (void)_updateFieldOfViewWeightsUsingFaceRect:(void *)rect cumulativeFieldOfViewWeights:(CGFloat)weights fieldsOfView:(CGFloat)view
 {
   if (result)
   {
@@ -739,7 +740,7 @@ LABEL_108:
           *&v19 = v18 + v17;
           [MEMORY[0x1E696AD98] numberWithFloat:v19];
           v20 = [OUTLINED_FUNCTION_4() setObject:? forKeyedSubscript:?];
-          ++v15;
+          v15 = v15 + 1;
         }
 
         while (v13 != v15);
@@ -761,26 +762,26 @@ LABEL_108:
     return 0;
   }
 
-  v163 = 0u;
-  v164 = 0u;
   v161 = 0u;
   v162 = 0u;
+  v159 = 0u;
+  v160 = 0u;
   allKeys = [a2 allKeys];
-  v7 = [allKeys countByEnumeratingWithState:&v161 objects:v160 count:16];
+  v7 = [allKeys countByEnumeratingWithState:&v159 objects:v158 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v162;
+    v9 = *v160;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v162 != v9)
+        if (*v160 != v9)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v11 = *(*(&v161 + 1) + 8 * i);
+        v11 = *(*(&v159 + 1) + 8 * i);
         v12 = MEMORY[0x1E696AD98];
         [objc_msgSend(a2 objectForKeyedSubscript:{v11), "doubleValue"}];
         v14 = v13;
@@ -803,7 +804,7 @@ LABEL_108:
         }
       }
 
-      v8 = [allKeys countByEnumeratingWithState:&v161 objects:v160 count:16];
+      v8 = [allKeys countByEnumeratingWithState:&v159 objects:v158 count:16];
     }
 
     while (v8);
@@ -818,7 +819,7 @@ LABEL_108:
   }
 
   array = [MEMORY[0x1E695DF70] array];
-  v27 = OUTLINED_FUNCTION_11_54(array, v20, v21, v22, v23, v24, v25, v26, v62, v65, v68, v71, v74, v77, v80, v83, v86, v89, v92, v95, v98, v101, v104, v107, v110, v113, v115, v117, v119, v121, v123, v125, v127, v129, v131, v133, v135, v137, v139, v141, v143, v145, v147, v149, v151, v153, v155, v157, 0);
+  v27 = OUTLINED_FUNCTION_11_54(array, v20, v21, v22, v23, v24, v25, v26, v62, v65, v68, v71, v74, v77, v80, v83, v86, v89, v92, v95, v98, v101, v104, v107, v110, v112, v114, v116, v118, v120, v122, v124, v126, v128, v130, v132, v134, v136, v138, v140, v142, v144, v146, v148, v150, v152, v154, v156);
   if (v27)
   {
     v35 = v27;
@@ -844,7 +845,7 @@ LABEL_108:
       }
 
       while (v35 != v37);
-      v27 = OUTLINED_FUNCTION_11_54(v39, v40, v41, v42, v43, v44, v45, v46, v63, v66, v69, v72, v75, v78, v81, v84, v87, v90, v93, v96, v99, v102, v105, v108, v111, v114, v116, v118, v120, v122, v124, v126, v128, v130, v132, v134, v136, v138, v140, v142, v144, v146, v148, v150, v152, v154, v156, v158, v159);
+      v27 = OUTLINED_FUNCTION_11_54(v39, v40, v41, v42, v43, v44, v45, v46, v63, v66, v69, v72, v75, v78, v81, v84, v87, v90, v93, v96, v99, v102, v105, v108, v111, v113, v115, v117, v119, v121, v123, v125, v127, v129, v131, v133, v135, v137, v139, v141, v143, v145, v147, v149, v151, v153, v155, v157);
       v35 = v27;
     }
 
@@ -852,7 +853,7 @@ LABEL_108:
   }
 
   v47 = *(self + 128);
-  v48 = OUTLINED_FUNCTION_2_0(v27, v28, v29, v30, v31, v32, v33, v34, v63, v66, v69, v72, v75, v78, v81, v84, v87, v90, v93, v96, v99, v102, v105, v108, 0);
+  v48 = OUTLINED_FUNCTION_2_0(v27, v28, v29, v30, v31, v32, v33, v34, v63, v66, v69, v72, v75, v78, v81, v84, v87, v90, v93, v96, v99, v102, v105, v108);
   if (!v48)
   {
     return @"FieldOfViewNone";
@@ -878,7 +879,7 @@ LABEL_27:
 
     if (v49 == ++v51)
     {
-      v49 = OUTLINED_FUNCTION_2_0(v53, v54, v55, v56, v57, v58, v59, v60, v64, v67, v70, v73, v76, v79, v82, v85, v88, v91, v94, v97, v100, v103, v106, v109, v112);
+      v49 = OUTLINED_FUNCTION_2_0(v53, v54, v55, v56, v57, v58, v59, v60, v64, v67, v70, v73, v76, v79, v82, v85, v88, v91, v94, v97, v100, v103, v106, v109);
       if (v49)
       {
         goto LABEL_27;
@@ -887,41 +888,6 @@ LABEL_27:
       return @"FieldOfViewNone";
     }
   }
-}
-
-- (uint64_t)setSmartFramingFieldOfViewRects:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)setSmartFramingFieldOfViewRects:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)resolveSuggestedFieldOfViewWithSampleBuffer:suggestedFieldOfViewOut:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)resolveSuggestedFieldOfViewRectWithSampleBuffer:fromFieldOfViewRects:suggestedFieldOfViewRectOut:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)resolveSuggestedFieldOfViewRectWithSampleBuffer:fromFieldOfViewRects:suggestedFieldOfViewRectOut:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
 }
 
 @end

@@ -614,11 +614,11 @@ LABEL_33:
 
 - (void)makeZonesWithBoundaryIn:(id)in
 {
-  v206 = *MEMORY[0x1E69E9840];
+  v199 = *MEMORY[0x1E69E9840];
   v4 = [in count];
   v5 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v4];
   v6 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v4];
-  v185 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v4];
+  v178 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v4];
   v7 = objc_alloc_init(CPZoneBorder);
   [(CPZoneBorder *)v7 setSide:1 ofPage:in];
   [(CPZoneBorder *)v7 addToArray:v5];
@@ -636,16 +636,16 @@ LABEL_33:
   [(CPZoneBorder *)v10 setSide:4 ofPage:in];
   [(CPZoneBorder *)v10 addToArray:v6];
 
-  v184 = v5;
+  v177 = v5;
   if (v4)
   {
     v11 = 0;
-    v12 = &v197 + 1;
-    v174 = v4;
-    v173 = &v197 + 8;
+    v12 = &v190 + 1;
+    v167 = v4;
+    v166 = &v190 + 8;
     do
     {
-      v13 = [inCopy childAtIndex:{v11, v173}];
+      v13 = [inCopy childAtIndex:{v11, v166}];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -660,7 +660,7 @@ LABEL_33:
             *(v12 + 1) = 0u;
             *(v12 + 2) = 0u;
             *v12 = 0u;
-            *&v197 = v13;
+            *&v190 = v13;
             if (path)
             {
               LODWORD(info) = 0;
@@ -673,25 +673,25 @@ LABEL_33:
               v66 = 0;
             }
 
-            HIDWORD(v197) = v66;
-            v198 = 0u;
-            v199 = 0u;
-            v200 = COERCE_DOUBLE(malloc_type_malloc(16 * v66, 0x1000040451B5BE8uLL));
-            LODWORD(v201) = 0;
-            v202 = v5;
-            v203 = v6;
-            v204 = [v5 count];
-            v205 = [v6 count];
-            CGPathApply(v65, &v197, findLineSegments);
-            free(*&v200);
-            [v185 addObject:v13];
+            HIDWORD(v190) = v66;
+            v191 = 0u;
+            v192 = 0u;
+            v193 = COERCE_DOUBLE(malloc_type_malloc(16 * v66, 0x1000040451B5BE8uLL));
+            LODWORD(v194) = 0;
+            v195 = v5;
+            v196 = v6;
+            v197 = [v5 count];
+            v198 = [v6 count];
+            CGPathApply(v65, &v190, findLineSegments);
+            free(*&v193);
+            [v178 addObject:v13];
             break;
           case 2:
             [v13 bounds];
             v19 = v18;
             v21 = v20;
-            v187 = v22;
-            v181 = v23;
+            v180 = v22;
+            v174 = v23;
             [v13 renderedBounds];
             v25 = v24;
             v27 = v26;
@@ -699,31 +699,31 @@ LABEL_33:
             v31 = v30;
             [v13 lineWidth];
             v32 = 0;
-            *&v197 = v25;
-            *(&v197 + 1) = v27;
-            *&v198 = v25;
-            v201 = v27;
-            *(&v198 + 1) = v31 + v27;
-            *(&v199 + 1) = v31 + v27;
-            *&v199 = v29 + v25;
-            v200 = v29 + v25;
+            *&v190 = v25;
+            *(&v190 + 1) = v27;
+            *&v191 = v25;
+            v194 = v27;
+            *(&v191 + 1) = v31 + v27;
+            *(&v192 + 1) = v31 + v27;
+            *&v192 = v29 + v25;
+            v193 = v29 + v25;
             v34 = v33 * 0.5;
             v35 = v21;
             v36 = v21 + v33 * 0.5;
             v37 = v19;
-            v177 = v19 + v33 * 0.5;
-            v179 = v36;
+            v170 = v19 + v33 * 0.5;
+            v172 = v36;
             do
             {
               v38 = v32++;
               v39 = *(v12 - 1);
               v40 = *v12;
-              v41 = (&v197 + (v32 & 3));
+              v41 = (&v190 + (v32 & 3));
               v42 = *v41;
               v43 = v41[1];
-              v44 = fmax(v34 + v39 - v37 - v187, 0.0);
+              v44 = fmax(v34 + v39 - v37 - v180, 0.0);
               v45 = v39 + v44 * -0.5;
-              v46 = fmax(v179 - *v12, 0.0);
+              v46 = fmax(v172 - *v12, 0.0);
               v47 = *v12 + v46 * 0.5;
               if (v38 == 2)
               {
@@ -766,8 +766,8 @@ LABEL_33:
                 v50 = 1;
               }
 
-              v51 = fmax(v177 - v39, 0.0);
-              v52 = fmax(v34 + v40 - v35 - v181, 0.0);
+              v51 = fmax(v170 - v39, 0.0);
+              v52 = fmax(v34 + v40 - v35 - v174, 0.0);
               if (v38)
               {
                 v43 = v40 + v52 * -0.5;
@@ -874,17 +874,17 @@ LABEL_33:
               [(CPZoneBorderNeighbor *)v62 setShapeSide:v59];
               [(CPZoneBorder *)v61 addNeighbor:v62];
 
-              v63 = [(CPZoneBorder *)v61 isHorizontal]? v184 : v6;
+              v63 = [(CPZoneBorder *)v61 isHorizontal]? v177 : v6;
               [(CPZoneBorder *)v61 addToArray:v63];
 
               v12 += 2;
             }
 
             while (v32 != 4);
-            [v185 addObject:v13];
-            v5 = v184;
-            v4 = v174;
-            v12 = v173;
+            [v178 addObject:v13];
+            v5 = v177;
+            v4 = v167;
+            v12 = v166;
             break;
           case 1:
             v15 = [[CPZoneBorder alloc] initWithGraphicObject:v13];
@@ -919,21 +919,21 @@ LABEL_33:
 LABEL_63:
   [v5 sortUsingSelector:sel_compareYBounds_];
   [v6 sortUsingSelector:sel_compareXBounds_];
-  [v185 sortUsingSelector:sel_compareZ_];
-  v67 = [v185 count];
+  [v178 sortUsingSelector:sel_compareZ_];
+  v67 = [v178 count];
   if (v67 >= 1)
   {
     v68 = (v67 & 0x7FFFFFFF) + 1;
     do
     {
-      v69 = [v185 objectAtIndex:v68 - 2];
+      v69 = [v178 objectAtIndex:v68 - 2];
       if ([v69 isUprightRectangle])
       {
         fillColor = [v69 fillColor];
         if (fillColor)
         {
-          v78 = (fillColor & 0x8000000000000000) != 0 ? CGTaggedColorGetAlpha(fillColor, v71, v72, v73, v74, v75, v76, v77) : *(fillColor + 8 * *(fillColor + 56) + 64);
-          if (v78 >= 1.0)
+          v71 = (fillColor & 0x8000000000000000) != 0 ? CGTaggedColorGetAlpha(fillColor) : *(fillColor + 8 * *(fillColor + 56) + 64);
+          if (v71 >= 1.0)
           {
             [(CPZoneMaker *)self cutHorizontalBorders:v5 whereObscuredByShape:v69];
             [(CPZoneMaker *)self cutVerticalBorders:v6 whereObscuredByShape:v69];
@@ -951,333 +951,333 @@ LABEL_63:
   [(CPCharSequence *)self->charactersOnPage map:cutBordersCrossingText passing:v6];
   if ([v5 count] >= 2)
   {
-    v79 = 1;
-    v80 = 1;
+    v72 = 1;
+    v73 = 1;
     do
     {
-      v81 = [v5 objectAtIndex:v79];
-      if (v80 >= 1)
+      v74 = [v5 objectAtIndex:v72];
+      if (v73 >= 1)
       {
-        v82 = v81;
-        for (i = 0; i < v80; ++i)
+        v75 = v74;
+        for (i = 0; i < v73; ++i)
         {
-          v84 = [v5 objectAtIndex:i];
-          if ([v82 continues:v84])
+          v77 = [v5 objectAtIndex:i];
+          if ([v75 continues:v77])
           {
-            [v82 combine:v84];
+            [v75 combine:v77];
             --i;
-            --v80;
+            --v73;
           }
         }
       }
 
-      v79 = ++v80;
+      v72 = ++v73;
     }
 
-    while ([v5 count] > v80);
+    while ([v5 count] > v73);
   }
 
   if ([v6 count] >= 2)
   {
-    v85 = 1;
-    v86 = 1;
+    v78 = 1;
+    v79 = 1;
     do
     {
-      v87 = [v6 objectAtIndex:v85];
-      if (v86 >= 1)
+      v80 = [v6 objectAtIndex:v78];
+      if (v79 >= 1)
       {
-        v88 = v87;
-        for (j = 0; j < v86; ++j)
+        v81 = v80;
+        for (j = 0; j < v79; ++j)
         {
-          v90 = [v6 objectAtIndex:j];
-          if ([v88 continues:v90])
+          v83 = [v6 objectAtIndex:j];
+          if ([v81 continues:v83])
           {
-            [v88 combine:v90];
+            [v81 combine:v83];
             --j;
-            --v86;
+            --v79;
           }
         }
       }
 
-      v85 = ++v86;
+      v78 = ++v79;
     }
 
-    while ([v6 count] > v86);
+    while ([v6 count] > v79);
   }
 
   if ([v5 count])
   {
-    v91 = 0;
+    v84 = 0;
+    v85 = 0;
+    do
+    {
+      v86 = [v5 objectAtIndex:v84];
+      if ([v86 graphicObjectCount] > 0x32 || (objc_msgSend(v86, "bounds"), v87 > 25.0))
+      {
+        [(CPZoneMaker *)self addZonesWithBoundaryIn:inCopy withBorder:v86];
+        --v85;
+      }
+
+      v84 = ++v85;
+    }
+
+    while ([v5 count] > v85);
+  }
+
+  if ([v6 count])
+  {
+    v88 = 0;
+    v89 = 0;
+    do
+    {
+      v90 = [v6 objectAtIndex:v88];
+      if ([v90 graphicObjectCount] > 0x32 || (objc_msgSend(v90, "bounds"), v91 > 25.0))
+      {
+        [(CPZoneMaker *)self addZonesWithBoundaryIn:inCopy withBorder:v90];
+        --v89;
+      }
+
+      v88 = ++v89;
+    }
+
+    while ([v6 count] > v89);
+  }
+
+  v190 = 0u;
+  v191 = 0u;
+  if ([v5 count])
+  {
     v92 = 0;
     do
     {
-      v93 = [v5 objectAtIndex:v91];
-      if ([v93 graphicObjectCount] > 0x32 || (objc_msgSend(v93, "bounds"), v94 > 25.0))
+      v93 = [v5 objectAtIndex:v92];
+      if ([v6 count])
       {
-        [(CPZoneMaker *)self addZonesWithBoundaryIn:inCopy withBorder:v93];
-        --v92;
+        v94 = 0;
+        do
+        {
+          v95 = [v6 objectAtIndex:v94];
+          if ([v93 intersectsWith:v95 atRect:&v190])
+          {
+            [CPZoneBorder addIntersectionBetweenBorder:v93 andBorder:v95 atRect:v190, v191];
+          }
+
+          ++v94;
+        }
+
+        while ([v6 count] > v94);
       }
 
-      v91 = ++v92;
+      ++v92;
     }
 
     while ([v5 count] > v92);
   }
 
-  if ([v6 count])
-  {
-    v95 = 0;
-    v96 = 0;
-    do
-    {
-      v97 = [v6 objectAtIndex:v95];
-      if ([v97 graphicObjectCount] > 0x32 || (objc_msgSend(v97, "bounds"), v98 > 25.0))
-      {
-        [(CPZoneMaker *)self addZonesWithBoundaryIn:inCopy withBorder:v97];
-        --v96;
-      }
-
-      v95 = ++v96;
-    }
-
-    while ([v6 count] > v96);
-  }
-
-  v197 = 0u;
-  v198 = 0u;
   if ([v5 count])
   {
-    v99 = 0;
+    v96 = 0;
+    v97 = 0;
     do
     {
-      v100 = [v5 objectAtIndex:v99];
-      if ([v6 count])
+      v98 = [v5 objectAtIndex:v96];
+      if ([v98 intersectionCount] <= 1)
       {
-        v101 = 0;
-        do
+        if ([v98 intersectionCount] == 1)
         {
-          v102 = [v6 objectAtIndex:v101];
-          if ([v100 intersectsWith:v102 atRect:&v197])
-          {
-            [CPZoneBorder addIntersectionBetweenBorder:v100 andBorder:v102 atRect:v197, v198];
-          }
-
-          ++v101;
+          [v98 removeLooseThreadsStartingFrom:0];
+          v97 = [v5 indexOfObject:v98];
         }
 
-        while ([v6 count] > v101);
+        [v98 removeFromArray];
+        --v97;
       }
 
-      ++v99;
+      v96 = ++v97;
     }
 
-    while ([v5 count] > v99);
+    while ([v5 count] > v97);
+  }
+
+  if ([v6 count])
+  {
+    v99 = 0;
+    v100 = 0;
+    do
+    {
+      v101 = [v6 objectAtIndex:v99];
+      if ([v101 intersectionCount] <= 1)
+      {
+        if ([v101 intersectionCount] == 1)
+        {
+          [v101 removeLooseThreadsStartingFrom:0];
+          v100 = [v6 indexOfObject:v101];
+        }
+
+        [v101 removeFromArray];
+        --v100;
+      }
+
+      v99 = ++v100;
+    }
+
+    while ([v6 count] > v100);
   }
 
   if ([v5 count])
   {
-    v103 = 0;
+    v102 = 0;
+    do
+    {
+      v103 = [v5 objectAtIndex:v102];
+      [v103 trimToLastIntersections];
+      [v103 instantiateVectors];
+      ++v102;
+    }
+
+    while ([v5 count] > v102);
+  }
+
+  if ([v6 count])
+  {
     v104 = 0;
     do
     {
-      v105 = [v5 objectAtIndex:v103];
-      if ([v105 intersectionCount] <= 1)
-      {
-        if ([v105 intersectionCount] == 1)
-        {
-          [v105 removeLooseThreadsStartingFrom:0];
-          v104 = [v5 indexOfObject:v105];
-        }
-
-        [v105 removeFromArray];
-        --v104;
-      }
-
-      v103 = ++v104;
+      v105 = [v6 objectAtIndex:v104];
+      [v105 trimToLastIntersections];
+      [v105 instantiateVectors];
+      ++v104;
     }
 
-    while ([v5 count] > v104);
+    while ([v6 count] > v104);
   }
 
-  if ([v6 count])
-  {
-    v106 = 0;
-    v107 = 0;
-    do
-    {
-      v108 = [v6 objectAtIndex:v106];
-      if ([v108 intersectionCount] <= 1)
-      {
-        if ([v108 intersectionCount] == 1)
-        {
-          [v108 removeLooseThreadsStartingFrom:0];
-          v107 = [v6 indexOfObject:v108];
-        }
-
-        [v108 removeFromArray];
-        --v107;
-      }
-
-      v106 = ++v107;
-    }
-
-    while ([v6 count] > v107);
-  }
-
-  if ([v5 count])
-  {
-    v109 = 0;
-    do
-    {
-      v110 = [v5 objectAtIndex:v109];
-      [v110 trimToLastIntersections];
-      [v110 instantiateVectors];
-      ++v109;
-    }
-
-    while ([v5 count] > v109);
-  }
-
-  if ([v6 count])
-  {
-    v111 = 0;
-    do
-    {
-      v112 = [v6 objectAtIndex:v111];
-      [v112 trimToLastIntersections];
-      [v112 instantiateVectors];
-      ++v111;
-    }
-
-    while ([v6 count] > v111);
-  }
-
-  v113 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:1];
+  v106 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:1];
   while ([v6 count])
   {
     LODWORD(info) = 0;
-    v114 = [v6 count];
-    v115 = v114;
-    if (!v114)
+    v107 = [v6 count];
+    v108 = v107;
+    if (!v107)
     {
       break;
     }
 
-    v116 = 0;
+    v109 = 0;
     while (1)
     {
-      v117 = [v6 objectAtIndex:v116];
-      if ([v117 hasVectorGoingForward:1 startingAtIndex:&info])
+      v110 = [v6 objectAtIndex:v109];
+      if ([v110 hasVectorGoingForward:1 startingAtIndex:&info])
       {
         break;
       }
 
-      if (v115 == ++v116)
+      if (v108 == ++v109)
       {
         goto LABEL_141;
       }
     }
 
-    v118 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:4];
-    if ([v117 extractCycleTo:v118 goingForward:1 startingAtIndex:info])
+    v111 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:4];
+    if ([v110 extractCycleTo:v111 goingForward:1 startingAtIndex:info])
     {
-      if ([CPZoneBorder clockwiseWindingNumberOfShapeWithBorders:v118]<= 0)
+      if ([CPZoneBorder clockwiseWindingNumberOfShapeWithBorders:v111]<= 0)
       {
-        v119 = &off_1E6E04288;
+        v112 = &off_1E6E04288;
       }
 
       else
       {
-        v119 = off_1E6E04280;
+        v112 = off_1E6E04280;
       }
 
-      v120 = objc_alloc_init(*v119);
-      [v120 setPage:inCopy];
-      [v120 setShrinksWithChildren:0];
-      [v120 setZoneBorders:v118];
-      [v113 addObject:v120];
+      v113 = objc_alloc_init(*v112);
+      [v113 setPage:inCopy];
+      [v113 setShrinksWithChildren:0];
+      [v113 setZoneBorders:v111];
+      [v106 addObject:v113];
     }
   }
 
 LABEL_141:
-  [v113 sortUsingSelector:sel_compareArea_];
-  v121 = [v113 count];
-  v122 = v121;
-  v123 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v121];
-  v188 = v121;
-  if (v121)
+  [v106 sortUsingSelector:sel_compareArea_];
+  v114 = [v106 count];
+  v115 = v114;
+  v116 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v114];
+  v181 = v114;
+  if (v114)
   {
-    v124 = 0;
-    v125 = 1;
+    v117 = 0;
+    v118 = 1;
     do
     {
-      v126 = [v113 objectAtIndex:v124++];
-      v127 = v125;
-      if (v124 >= v122)
+      v119 = [v106 objectAtIndex:v117++];
+      v120 = v118;
+      if (v117 >= v115)
       {
 LABEL_146:
-        [v123 addObject:v126];
+        [v116 addObject:v119];
       }
 
       else
       {
         while (1)
         {
-          v128 = [v113 objectAtIndex:v127];
-          if ([v128 contains:v126])
+          v121 = [v106 objectAtIndex:v120];
+          if ([v121 contains:v119])
           {
             break;
           }
 
-          if (v188 == ++v127)
+          if (v181 == ++v120)
           {
             goto LABEL_146;
           }
         }
 
-        [v128 add:v126];
+        [v121 add:v119];
       }
 
-      ++v125;
+      ++v118;
     }
 
-    while (v124 != v122);
+    while (v117 != v115);
   }
 
-  v180 = v122;
-  v195 = 0;
-  v129 = [(CPCharSequence *)self->charactersOnPage length];
-  if (v129)
+  v173 = v115;
+  v188 = 0;
+  v122 = [(CPCharSequence *)self->charactersOnPage length];
+  if (v122)
   {
-    v130 = v129;
-    v131 = 0;
-    v132 = 0;
-    v175 = v129;
+    v123 = v122;
+    v124 = 0;
+    v125 = 0;
+    v168 = v122;
     do
     {
       while (1)
       {
-        v133 = [(CPCharSequence *)self->charactersOnPage charAtIndex:v131];
-        findZone(&v133->var0.var0.origin.x, v123, &v195);
-        parent = v195;
-        if (v195)
+        v126 = [(CPCharSequence *)self->charactersOnPage charAtIndex:v124];
+        findZone(&v126->var0.var0.origin.x, v116, &v188);
+        parent = v188;
+        if (v188)
         {
           break;
         }
 
 LABEL_154:
-        v195 = 0;
-        if (!v132)
+        v188 = 0;
+        if (!v125)
         {
-          v132 = objc_alloc_init(CPZone);
-          [(CPObject *)v132 setPage:inCopy];
-          [(CPZone *)v132 setIsStraddleZone:1];
-          [(CPChunk *)v132 setShrinksWithChildren:0];
+          v125 = objc_alloc_init(CPZone);
+          [(CPObject *)v125 setPage:inCopy];
+          [(CPZone *)v125 setIsStraddleZone:1];
+          [(CPChunk *)v125 setShrinksWithChildren:0];
         }
 
-        [(CPZone *)v132 addPDFChar:v133];
-        v131 = (v131 + 1);
-        if (v131 >= v130)
+        [(CPZone *)v125 addPDFChar:v126];
+        v124 = (v124 + 1);
+        if (v124 >= v123)
         {
           goto LABEL_167;
         }
@@ -1298,177 +1298,177 @@ LABEL_154:
         }
       }
 
-      v182 = v132;
+      v175 = v125;
       info = parent;
-      v194 = v131;
-      v135 = [(CPCharSequence *)self->charactersOnPage mapWithIndex:continueZone from:(v131 + 1) length:v130 - v131 - 1 passing:&info];
-      v136 = v135;
-      if (v135)
+      v187 = v124;
+      v128 = [(CPCharSequence *)self->charactersOnPage mapWithIndex:continueZone from:(v124 + 1) length:v123 - v124 - 1 passing:&info];
+      v129 = v128;
+      if (v128)
       {
-        v137 = v130 - v131;
+        v130 = v123 - v124;
       }
 
       else
       {
-        v137 = (v194 - v131);
+        v130 = (v187 - v124);
       }
 
       charactersInZone = [parent charactersInZone];
       if (charactersInZone)
       {
-        v139 = charactersInZone;
-        v178 = [charactersInZone length];
-        [(CPCharSequence *)self->charactersOnPage copyToSubsequence:v139 from:v131 length:v137];
-        [parent updatedCharSequenceFrom:v178 length:v137];
+        v132 = charactersInZone;
+        v171 = [charactersInZone length];
+        [(CPCharSequence *)self->charactersOnPage copyToSubsequence:v132 from:v124 length:v130];
+        [parent updatedCharSequenceFrom:v171 length:v130];
       }
 
       else
       {
-        v140 = [(CPCharSequence *)self->charactersOnPage newSubsequenceFrom:v131 length:v137];
-        [parent setCharactersInZone:v140];
+        v133 = [(CPCharSequence *)self->charactersOnPage newSubsequenceFrom:v124 length:v130];
+        [parent setCharactersInZone:v133];
       }
 
-      v195 = info;
-      v131 = v194;
-      v132 = v182;
-      v130 = v175;
+      v188 = info;
+      v124 = v187;
+      v125 = v175;
+      v123 = v168;
     }
 
-    while (!v136);
+    while (!v129);
   }
 
   else
   {
-    v132 = 0;
+    v125 = 0;
   }
 
 LABEL_167:
-  v183 = v132;
-  v141 = [v185 count];
-  if (v141 >= 1)
+  v176 = v125;
+  v134 = [v178 count];
+  if (v134 >= 1)
   {
-    v142 = v141 & 0x7FFFFFFF;
+    v135 = v134 & 0x7FFFFFFF;
     do
     {
-      v143 = [v185 objectAtIndex:v142 - 1];
-      if ([v113 count])
+      v136 = [v178 objectAtIndex:v135 - 1];
+      if ([v106 count])
       {
-        v144 = 0;
+        v137 = 0;
         do
         {
-          v145 = [v113 objectAtIndex:v144];
+          v138 = [v106 objectAtIndex:v137];
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
-            if ([v145 hasNeighborShape:v143])
+            if ([v138 hasNeighborShape:v136])
             {
-              [v145 swollenZoneBounds];
-              v147 = v146;
-              v149 = v148;
+              [v138 swollenZoneBounds];
+              v140 = v139;
+              v142 = v141;
+              v144 = v143;
+              v146 = v145;
+              [v136 bounds];
               v151 = v150;
-              v153 = v152;
-              [v143 bounds];
-              v158 = v157;
-              if (v157 != INFINITY)
+              if (v150 != INFINITY)
               {
-                v159 = v154;
-                if (v154 != INFINITY)
+                v152 = v147;
+                if (v147 != INFINITY)
                 {
-                  v160 = v155;
-                  v161 = v156;
-                  v207.origin.x = v147;
-                  v207.origin.y = v149;
-                  v207.size.width = v151;
-                  v207.size.height = v153;
-                  if (CGRectContainsRect(v207, *&v158))
+                  v153 = v148;
+                  v154 = v149;
+                  v200.origin.x = v140;
+                  v200.origin.y = v142;
+                  v200.size.width = v144;
+                  v200.size.height = v146;
+                  if (CGRectContainsRect(v200, *&v151))
                   {
-                    [v145 add:v143];
+                    [v138 add:v136];
                   }
                 }
               }
             }
           }
 
-          ++v144;
+          ++v137;
         }
 
-        while ([v113 count] > v144);
+        while ([v106 count] > v137);
       }
     }
 
-    while (v142-- >= 2);
+    while (v135-- >= 2);
   }
 
   newTakeChildren = [inCopy newTakeChildren];
-  v164 = v183;
-  if (v188)
+  v157 = v176;
+  if (v181)
   {
-    v165 = 0;
+    v158 = 0;
     do
     {
-      v166 = [v113 objectAtIndex:v165];
+      v159 = [v106 objectAtIndex:v158];
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        [v166 addContentFrom:newTakeChildren];
+        [v159 addContentFrom:newTakeChildren];
       }
 
-      ++v165;
+      ++v158;
     }
 
-    while (v180 != v165);
+    while (v173 != v158);
   }
 
-  if (v183)
+  if (v176)
   {
-    [(CPZoneMaker *)self addObjectsToStraddler:v183 from:newTakeChildren];
-    v167 = v184;
-    v168 = inCopy;
+    [(CPZoneMaker *)self addObjectsToStraddler:v176 from:newTakeChildren];
+    v160 = v177;
+    v161 = inCopy;
   }
 
   else
   {
-    v164 = [(CPZoneMaker *)self newZoneForStraddlersFrom:newTakeChildren];
-    v167 = v184;
-    v168 = inCopy;
-    if (!v164)
+    v157 = [(CPZoneMaker *)self newZoneForStraddlersFrom:newTakeChildren];
+    v160 = v177;
+    v161 = inCopy;
+    if (!v157)
     {
       goto LABEL_189;
     }
   }
 
-  [v123 addObject:v164];
+  [v116 addObject:v157];
 
 LABEL_189:
-  v191 = 0u;
-  v192 = 0u;
-  v189 = 0u;
-  v190 = 0u;
-  v169 = [v123 countByEnumeratingWithState:&v189 objects:v196 count:16];
-  if (v169)
+  v184 = 0u;
+  v185 = 0u;
+  v182 = 0u;
+  v183 = 0u;
+  v162 = [v116 countByEnumeratingWithState:&v182 objects:v189 count:16];
+  if (v162)
   {
-    v170 = v169;
-    v171 = *v190;
+    v163 = v162;
+    v164 = *v183;
     do
     {
-      for (k = 0; k != v170; ++k)
+      for (k = 0; k != v163; ++k)
       {
-        if (*v190 != v171)
+        if (*v183 != v164)
         {
-          objc_enumerationMutation(v123);
+          objc_enumerationMutation(v116);
         }
 
-        [(CPZoneMaker *)self splitByRotatation:*(*(&v189 + 1) + 8 * k) inPage:v168];
+        [(CPZoneMaker *)self splitByRotatation:*(*(&v182 + 1) + 8 * k) inPage:v161];
       }
 
-      v170 = [v123 countByEnumeratingWithState:&v189 objects:v196 count:16];
+      v163 = [v116 countByEnumeratingWithState:&v182 objects:v189 count:16];
     }
 
-    while (v170);
+    while (v163);
   }
 
-  [v168 addChildren:newTakeChildren];
-  [v168 addChildren:v123];
+  [v161 addChildren:newTakeChildren];
+  [v161 addChildren:v116];
 }
 
 - (void)addZonesWithBoundaryIn:(id)in withBorder:(id)border
@@ -1494,80 +1494,80 @@ LABEL_189:
     do
     {
       v7 = [in childAtIndex:v6];
-      if (canBeMerged(v7))
+      if (canBeMerged(v7, v8))
       {
         fillColor = [v7 fillColor];
         if (fillColor)
         {
-          v9 = fillColor;
+          v10 = fillColor;
           [v7 bounds];
-          v14 = (v6 + 1);
-          if (v14 < v5)
+          v15 = (v6 + 1);
+          if (v15 < v5)
           {
-            v15 = v10;
             v16 = v11;
-            v17 = fmax(v12, v13);
-            v18 = v17 * 0.00000011920929 + 1.17549435e-38 + v17 * 0.00000011920929 + 1.17549435e-38;
-            v55 = v11 + v13 + v18;
-            v56 = v13;
-            v57 = v12;
-            v54 = v15 + v12 + v18;
+            v17 = v12;
+            v18 = fmax(v13, v14);
+            v19 = v18 * 0.00000011920929 + 1.17549435e-38 + v18 * 0.00000011920929 + 1.17549435e-38;
+            v57 = v12 + v14 + v19;
+            v58 = v14;
+            v59 = v13;
+            v56 = v16 + v13 + v19;
             while (1)
             {
-              v19 = [in childAtIndex:{v14, *&v54}];
-              if (canBeMerged(v19))
+              v20 = [in childAtIndex:{v15, *&v56}];
+              if (canBeMerged(v20, v21))
               {
-                fillColor2 = [v19 fillColor];
+                fillColor2 = [v20 fillColor];
                 if (fillColor2)
                 {
-                  if (CGColorEqualToColor(v9, fillColor2))
+                  if (CGColorEqualToColor(v10, fillColor2))
                   {
-                    [v19 bounds];
-                    v25 = v24;
-                    v27 = vabdd_f64(v15, v24) < v18;
-                    v26 = vabdd_f64(v57, v22);
-                    v27 = v27 && v26 < v18;
-                    v28 = !v27 || v16 > v18 + v21 + v23;
-                    if (!v28 && v21 <= v55)
+                    [v20 bounds];
+                    v27 = v26;
+                    v29 = vabdd_f64(v16, v26) < v19;
+                    v28 = vabdd_f64(v59, v24);
+                    v29 = v29 && v28 < v19;
+                    v30 = !v29 || v17 > v19 + v23 + v25;
+                    if (!v30 && v23 <= v57)
                     {
                       break;
                     }
 
-                    v30 = v21;
-                    v31 = v22;
                     v32 = v23;
-                    v33 = vabdd_f64(v56, v23);
-                    v34 = vabdd_f64(v16, v21) < v18 && v33 < v18;
-                    v35 = !v34 || v15 > v18 + v25 + v22;
-                    if (!v35 && v25 <= v54)
+                    v33 = v24;
+                    v34 = v25;
+                    v35 = vabdd_f64(v58, v25);
+                    v36 = vabdd_f64(v17, v23) < v19 && v35 < v19;
+                    v37 = !v36 || v16 > v19 + v27 + v24;
+                    if (!v37 && v27 <= v56)
                     {
                       break;
                     }
 
-                    v58.origin.x = v15;
-                    v58.origin.y = v16;
-                    v58.size.height = v56;
-                    v58.size.width = v57;
-                    v59 = CGRectInset(v58, -v18, -v18);
-                    v65.origin.x = v25;
-                    v65.origin.y = v30;
-                    v65.size.width = v31;
-                    v65.size.height = v32;
-                    if (CGRectContainsRect(v59, v65))
+                    v60.origin.x = v16;
+                    v60.origin.y = v17;
+                    v60.size.height = v58;
+                    v60.size.width = v59;
+                    v61 = CGRectInset(v60, -v19, -v19);
+                    v67.origin.x = v27;
+                    v67.origin.y = v32;
+                    v67.size.width = v33;
+                    v67.size.height = v34;
+                    if (CGRectContainsRect(v61, v67))
                     {
                       break;
                     }
 
-                    v60.origin.x = v25;
-                    v60.origin.y = v30;
-                    v60.size.width = v31;
-                    v60.size.height = v32;
-                    v61 = CGRectInset(v60, -v18, -v18);
-                    v66.origin.x = v15;
-                    v66.origin.y = v16;
-                    v66.size.height = v56;
-                    v66.size.width = v57;
-                    if (CGRectContainsRect(v61, v66))
+                    v62.origin.x = v27;
+                    v62.origin.y = v32;
+                    v62.size.width = v33;
+                    v62.size.height = v34;
+                    v63 = CGRectInset(v62, -v19, -v19);
+                    v68.origin.x = v16;
+                    v68.origin.y = v17;
+                    v68.size.height = v58;
+                    v68.size.width = v59;
+                    if (CGRectContainsRect(v63, v68))
                     {
                       break;
                     }
@@ -1575,45 +1575,45 @@ LABEL_189:
                 }
               }
 
-              v14 = (v14 + 1);
-              if (v5 == v14)
+              v15 = (v15 + 1);
+              if (v5 == v15)
               {
                 goto LABEL_39;
               }
             }
 
             [v7 bounds];
-            v38 = v37;
             v40 = v39;
             v42 = v41;
             v44 = v43;
-            [v19 bounds];
-            v67.origin.x = v45;
-            v67.origin.y = v46;
-            v67.size.width = v47;
-            v67.size.height = v48;
-            v62.origin.x = v38;
-            v62.origin.y = v40;
-            v62.size.width = v42;
-            v62.size.height = v44;
-            v63 = CGRectUnion(v62, v67);
-            x = v63.origin.x;
-            y = v63.origin.y;
-            width = v63.size.width;
-            height = v63.size.height;
+            v46 = v45;
+            [v20 bounds];
+            v69.origin.x = v47;
+            v69.origin.y = v48;
+            v69.size.width = v49;
+            v69.size.height = v50;
+            v64.origin.x = v40;
+            v64.origin.y = v42;
+            v64.size.width = v44;
+            v64.size.height = v46;
+            v65 = CGRectUnion(v64, v69);
+            x = v65.origin.x;
+            y = v65.origin.y;
+            width = v65.size.width;
+            height = v65.size.height;
             Mutable = CGPathCreateMutable();
-            v64.origin.x = x;
-            v64.origin.y = y;
-            v64.size.width = width;
-            v64.size.height = height;
-            CGPathAddRect(Mutable, 0, v64);
+            v66.origin.x = x;
+            v66.origin.y = y;
+            v66.size.width = width;
+            v66.size.height = height;
+            CGPathAddRect(Mutable, 0, v66);
             [v7 setPath:Mutable];
             if (Mutable)
             {
               CFRelease(Mutable);
             }
 
-            [v19 remove];
+            [v20 remove];
             --v5;
             LODWORD(v6) = v6 - 1;
           }

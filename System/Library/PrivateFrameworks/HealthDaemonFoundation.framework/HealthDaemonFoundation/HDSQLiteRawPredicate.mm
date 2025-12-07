@@ -38,70 +38,68 @@
 
 - (void)bindToStatement:(sqlite3_stmt *)statement bindingIndex:(int *)index
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v6 = self->_values;
-  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        _BindValueToStatement(*(*(&v12 + 1) + 8 * v10++), statement, index);
+        _BindValueToStatement(*(*(&v11 + 1) + 8 * v10++), statement, index);
       }
 
       while (v8 != v10);
-      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)SQLJoinClausesForEntityClass:(Class)class
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if ([(NSArray *)self->_properties count])
   {
     v5 = objc_opt_new();
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     v6 = self->_properties;
-    v7 = [(NSArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = [(NSArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v14;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = [(objc_class *)class joinClausesForProperty:*(*(&v14 + 1) + 8 * i), v14];
+          v11 = [(objc_class *)class joinClausesForProperty:*(*(&v13 + 1) + 8 * i), v13];
           [v5 unionSet:v11];
         }
 
-        v8 = [(NSArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [(NSArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v8);
@@ -112,8 +110,6 @@
   {
     v5 = [MEMORY[0x277CBEB98] set];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -160,28 +156,28 @@ LABEL_8:
 
 - (id)description
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = self->_sql;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v4 = self->_values;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v22;
+    v7 = *v21;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v22 != v7)
+        if (*v21 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v21 + 1) + 8 * i);
+        v9 = *(*(&v20 + 1) + 8 * i);
         v10 = [(NSString *)v3 rangeOfString:@"?"];
         if (v11)
         {
@@ -194,7 +190,7 @@ LABEL_8:
         }
       }
 
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v6);
@@ -202,9 +198,7 @@ LABEL_8:
 
   v16 = MEMORY[0x277CCACA8];
   v17 = [(NSArray *)self->_properties componentsJoinedByString:@", "];
-  v18 = [v16 stringWithFormat:@"<SQL: '%@>' joining over (%@)", v3, v17, v21];
-
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = [v16 stringWithFormat:@"<SQL: '%@>' joining over (%@)", v3, v17, v20];
 
   return v18;
 }

@@ -22,13 +22,13 @@
 
   os_unfair_lock_lock(&self->_lock_currentStepIndex);
   currentStepIndex = self->_currentStepIndex;
-  if (currentStepIndex >= [(NSArray *)self->_steps count])
+  if (currentStepIndex >= objc_msgSend_count(self->_steps))
   {
     v6 = PLAnalysisCoordinatorGetLog();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = self->_taskID;
-      v8 = [(NSArray *)self->_steps count];
+      v8 = objc_msgSend_count(self->_steps);
       v9 = self->_currentStepIndex;
       v10 = 138543874;
       v11 = v7;
@@ -73,7 +73,7 @@
   v11 = v10;
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
   {
-    v12 = [(NSArray *)self->_assets count];
+    v12 = objc_msgSend_count(self->_assets);
     v13 = self->_taskID;
     *buf = 134218242;
     v25 = v12;
@@ -148,7 +148,7 @@ void __58__PLAnalysisCoordinatorTask_executeWithCompletionHandler___block_invoke
   os_unfair_lock_lock(&self->_lock_currentStepIndex);
   self->_currentStepIndex = index;
   os_unfair_lock_unlock(&self->_lock_currentStepIndex);
-  if ([(NSArray *)self->_steps count]<= index)
+  if (objc_msgSend_count(self->_steps) <= index)
   {
     v14 = MEMORY[0x1E69BF2D0];
     null = [MEMORY[0x1E695DFB0] null];
@@ -240,9 +240,9 @@ void __80__PLAnalysisCoordinatorTask__executeStepsStartingAtIndex_withCompletion
 {
   assetsCopy = assets;
   lsmCopy = lsm;
-  v26.receiver = self;
-  v26.super_class = PLAnalysisCoordinatorTask;
-  v12 = [(PLAnalysisCoordinatorTask *)&v26 init];
+  v25.receiver = self;
+  v25.super_class = PLAnalysisCoordinatorTask;
+  v12 = [(PLAnalysisCoordinatorTask *)&v25 init];
   if (v12)
   {
     uUID = [MEMORY[0x1E696AFB0] UUID];
@@ -256,27 +256,26 @@ void __80__PLAnalysisCoordinatorTask__executeStepsStartingAtIndex_withCompletion
     steps = v12->_steps;
     v12->_steps = v16;
 
-    if (feature == 7 && [(NSArray *)v12->_assets count]>= 2)
+    if (feature == 7 && objc_msgSend_count(v12->_assets) >= 2)
     {
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
       [currentHandler handleFailureInMethod:a2 object:v12 file:@"PLAnalysisCoordinatorTask.m" lineNumber:48 description:@"Video sensitivity analysis task may only be analyzed with one asset"];
     }
 
-    if (![(NSArray *)v12->_steps count])
+    if (!objc_msgSend_count(v12->_steps))
     {
       currentHandler2 = [MEMORY[0x1E696AAA8] currentHandler];
       [currentHandler2 handleFailureInMethod:a2 object:v12 file:@"PLAnalysisCoordinatorTask.m" lineNumber:49 description:@"Task must have at least one step"];
     }
 
-    v18 = [(NSArray *)v12->_steps count];
-    v19 = [assetsCopy count];
-    v20 = [MEMORY[0x1E696AE38] progressWithTotalUnitCount:v19 * v18];
+    v18 = objc_msgSend_count(v12->_steps);
+    v19 = [MEMORY[0x1E696AE38] progressWithTotalUnitCount:objc_msgSend_count(assetsCopy) * v18];
     progress = v12->_progress;
-    v12->_progress = v20;
+    v12->_progress = v19;
 
     v12->_currentStepIndex = 0;
     v12->_lock_currentStepIndex._os_unfair_lock_opaque = 0;
-    v22 = v12;
+    v21 = v12;
   }
 
   return v12;

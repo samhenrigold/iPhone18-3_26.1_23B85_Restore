@@ -26,12 +26,12 @@
   }
 
   memset(&v32, 0, sizeof(v32));
-  [(PVEffect *)self effectRange:time->var0];
+  objc_msgSend_effectRange(self, time->var0, *&time->var1, time->var3);
   rhs = time;
   CMTimeSubtract(&v32, v28, &rhs);
   time = v32;
   Seconds = CMTimeGetSeconds(&time);
-  [(PVEffect *)self effectRange];
+  objc_msgSend_effectRange(self);
   v28[0] = v30;
   v14 = CMTimeGetSeconds(v28);
   HGTransform::HGTransform(&time);

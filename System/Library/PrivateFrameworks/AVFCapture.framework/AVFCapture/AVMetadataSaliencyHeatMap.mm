@@ -33,7 +33,7 @@
   y = v11[1];
   width = v11[2];
   height = v11[3];
-  v17 = [dictionary objectForKeyedSubscript:{*MEMORY[0x1E69910D8], v20}];
+  v17 = objc_msgSend_objectForKeyedSubscript_(dictionary, a2, *MEMORY[0x1E69910D8], v20);
   if (v17)
   {
     memset(&rect, 0, sizeof(rect));
@@ -55,10 +55,10 @@
   height = [(AVMetadataObject *)&v24 initWithType:type time:&rect duration:&v22 bounds:0 optionalInfoDict:0 originalMetadataObject:input sourceCaptureInput:x, y, width, height];
   if (height)
   {
-    height->_bytesPerRow = [objc_msgSend(dictionary objectForKeyedSubscript:{*MEMORY[0x1E69911B8]), "integerValue"}];
-    height->_width = [objc_msgSend(dictionary objectForKeyedSubscript:{*MEMORY[0x1E69911D0]), "integerValue"}];
-    height->_height = [objc_msgSend(dictionary objectForKeyedSubscript:{*MEMORY[0x1E69911C0]), "integerValue"}];
-    height->_heatMap = [dictionary objectForKeyedSubscript:*MEMORY[0x1E69911C8]];
+    height->_bytesPerRow = [objc_msgSend_objectForKeyedSubscript_(dictionary) integerValue];
+    height->_width = [objc_msgSend_objectForKeyedSubscript_(dictionary) integerValue];
+    height->_height = [objc_msgSend_objectForKeyedSubscript_(dictionary) integerValue];
+    height->_heatMap = objc_msgSend_objectForKeyedSubscript_(dictionary);
   }
 
   return height;
@@ -100,8 +100,8 @@
     bytesPerRow = [object bytesPerRow];
     if (object)
     {
-      [object time];
-      [object duration];
+      objc_msgSend_time(object);
+      objc_msgSend_duration(object);
     }
 
     else

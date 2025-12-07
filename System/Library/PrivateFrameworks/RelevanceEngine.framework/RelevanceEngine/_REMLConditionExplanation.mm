@@ -15,53 +15,48 @@
 - (_REMLConditionExplanation)initWithCondition:(id)condition
 {
   conditionCopy = condition;
-  v15.receiver = self;
-  v15.super_class = _REMLConditionExplanation;
-  v6 = [(_REMLConditionExplanation *)&v15 init];
+  v10.receiver = self;
+  v10.super_class = _REMLConditionExplanation;
+  v6 = [(_REMLConditionExplanation *)&v10 init];
   v7 = v6;
   if (v6)
   {
     objc_storeStrong(&v6->_condition, condition);
     v7->_type = 6;
-    condition = v7->_condition;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v9 = 1;
+      v8 = 1;
 LABEL_12:
-      v7->_type = v9;
+      v7->_type = v8;
       goto LABEL_13;
     }
 
-    v10 = v7->_condition;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v9 = 3;
+      v8 = 3;
       goto LABEL_12;
     }
 
-    v11 = v7->_condition;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v9 = 2;
+      v8 = 2;
       goto LABEL_12;
     }
 
-    v12 = v7->_condition;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v9 = 4;
+      v8 = 4;
       goto LABEL_12;
     }
 
-    v13 = v7->_condition;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v9 = 5;
+      v8 = 5;
       goto LABEL_12;
     }
   }

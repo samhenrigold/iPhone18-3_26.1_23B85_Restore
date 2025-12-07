@@ -1,6 +1,7 @@
 @interface BuddyExpressSetupFeatureCardPrimaryCellAccessibility
 + (void)_accessibilityPerformValidations:(id)validations;
 - (int64_t)_accessibilityExpandedStatus;
+- (void)setExpanded:(BOOL)expanded;
 @end
 
 @implementation BuddyExpressSetupFeatureCardPrimaryCellAccessibility
@@ -25,6 +26,14 @@
   {
     return 2;
   }
+}
+
+- (void)setExpanded:(BOOL)expanded
+{
+  v3.receiver = self;
+  v3.super_class = BuddyExpressSetupFeatureCardPrimaryCellAccessibility;
+  [(BuddyExpressSetupFeatureCardPrimaryCellAccessibility *)&v3 setExpanded:expanded];
+  UIAccessibilityPostNotification(*MEMORY[0x29EDC7ED8], 0);
 }
 
 @end

@@ -21,88 +21,96 @@
 
 - (void)layoutSubviews
 {
-  v35.receiver = self;
-  v35.super_class = CompassBackgroundView;
-  [(CompassBackgroundView *)&v35 layoutSubviews];
+  v124.receiver = self;
+  v124.super_class = CompassBackgroundView;
+  [(CompassBackgroundView *)&v124 layoutSubviews];
   p_compassCenter = &self->_compassCenter;
-  [(CompassBackgroundView *)self bounds];
-  v5 = v4 * 0.5;
-  [(CompassBackgroundView *)self bounds];
-  self->_compassCenter.x = v5;
-  self->_compassCenter.y = v6 * 0.5;
-  [(CompassBackgroundView *)self bounds];
-  self->_ticLength = compassTicLength(v7);
-  [(CompassBackgroundView *)self bounds];
-  self->_bearingLength = bearingLength(v8);
-  [(CompassBackgroundView *)self bounds];
-  self->_currentHeadingLength = currentHeadingLength(v9);
-  [MEMORY[0x277CD9FF0] begin];
-  [MEMORY[0x277CD9FF0] setDisableActions:1];
-  prototypeSmallTicLayer = [(CompassBackgroundView *)self prototypeSmallTicLayer];
-  whiteColor = [MEMORY[0x277D75348] whiteColor];
-  [prototypeSmallTicLayer setBackgroundColor:{objc_msgSend(whiteColor, "CGColor")}];
+  objc_msgSend_bounds(self, v4, v5);
+  v7 = v6 * 0.5;
+  objc_msgSend_bounds(self, v8, v9);
+  self->_compassCenter.x = v7;
+  self->_compassCenter.y = v10 * 0.5;
+  objc_msgSend_bounds(self, v11, v12);
+  self->_ticLength = compassTicLength(v13);
+  objc_msgSend_bounds(self, v14, v15);
+  self->_bearingLength = bearingLength(v16);
+  objc_msgSend_bounds(self, v17, v18);
+  self->_currentHeadingLength = currentHeadingLength(v19);
+  objc_msgSend_begin(MEMORY[0x277CD9FF0], v20, v21);
+  objc_msgSend_setDisableActions_(MEMORY[0x277CD9FF0], v22, 1);
+  v25 = objc_msgSend_prototypeSmallTicLayer(self, v23, v24);
+  v28 = objc_msgSend_whiteColor(MEMORY[0x277D75348], v26, v27);
+  v29 = v28;
+  v32 = objc_msgSend_CGColor(v29, v30, v31);
+  objc_msgSend_setBackgroundColor_(v25, v33, v32);
 
-  prototypeLargeTicLayer = [(CompassBackgroundView *)self prototypeLargeTicLayer];
-  whiteColor2 = [MEMORY[0x277D75348] whiteColor];
-  [prototypeLargeTicLayer setBackgroundColor:{objc_msgSend(whiteColor2, "CGColor")}];
+  v36 = objc_msgSend_prototypeLargeTicLayer(self, v34, v35);
+  v39 = objc_msgSend_whiteColor(MEMORY[0x277D75348], v37, v38);
+  v40 = v39;
+  v43 = objc_msgSend_CGColor(v40, v41, v42);
+  objc_msgSend_setBackgroundColor_(v36, v44, v43);
 
-  currentHeadingLayer = [(CompassBackgroundView *)self currentHeadingLayer];
-  whiteColor3 = [MEMORY[0x277D75348] whiteColor];
-  [currentHeadingLayer setBackgroundColor:{objc_msgSend(whiteColor3, "CGColor")}];
+  v47 = objc_msgSend_currentHeadingLayer(self, v45, v46);
+  v50 = objc_msgSend_whiteColor(MEMORY[0x277D75348], v48, v49);
+  v51 = v50;
+  v54 = objc_msgSend_CGColor(v51, v52, v53);
+  objc_msgSend_setBackgroundColor_(v47, v55, v54);
 
-  bearingLayer = [(CompassBackgroundView *)self bearingLayer];
-  whiteColor4 = [MEMORY[0x277D75348] whiteColor];
-  [bearingLayer setBackgroundColor:{objc_msgSend(whiteColor4, "CGColor")}];
+  v58 = objc_msgSend_bearingLayer(self, v56, v57);
+  v61 = objc_msgSend_whiteColor(MEMORY[0x277D75348], v59, v60);
+  v62 = v61;
+  v65 = objc_msgSend_CGColor(v62, v63, v64);
+  objc_msgSend_setBackgroundColor_(v58, v66, v65);
 
-  smallCompassTicLayers = [(CompassBackgroundView *)self smallCompassTicLayers];
-  [(CompassBackgroundView *)self bounds];
-  [smallCompassTicLayers setFrame:?];
+  v69 = objc_msgSend_smallCompassTicLayers(self, v67, v68);
+  objc_msgSend_bounds(self, v70, v71);
+  objc_msgSend_setFrame_(v69, v72, v73);
 
-  prototypeSmallTicLayer2 = [(CompassBackgroundView *)self prototypeSmallTicLayer];
-  [prototypeSmallTicLayer2 setPosition:{self->_compassCenter.x, self->_compassCenter.y + self->_ticRadius}];
+  v76 = objc_msgSend_prototypeSmallTicLayer(self, v74, v75);
+  objc_msgSend_setPosition_(v76, v77, v78, self->_compassCenter.x, self->_compassCenter.y + self->_ticRadius);
 
   if (self->_shownInCompass)
   {
-    largeCompassTicLayers = [(CompassBackgroundView *)self largeCompassTicLayers];
-    [(CompassBackgroundView *)self bounds];
-    [largeCompassTicLayers setFrame:?];
+    v81 = objc_msgSend_largeCompassTicLayers(self, v79, v80);
+    objc_msgSend_bounds(self, v82, v83);
+    objc_msgSend_setFrame_(v81, v84, v85);
 
-    prototypeLargeTicLayer2 = [(CompassBackgroundView *)self prototypeLargeTicLayer];
-    [prototypeLargeTicLayer2 setPosition:{p_compassCenter->x, self->_compassCenter.y + self->_ticRadius}];
+    v88 = objc_msgSend_prototypeLargeTicLayer(self, v86, v87);
+    objc_msgSend_setPosition_(v88, v89, v90, p_compassCenter->x, self->_compassCenter.y + self->_ticRadius);
 
-    v22 = self->_ticRadius + (self->_currentHeadingLength - self->_ticLength) * 0.5;
-    currentHeadingLayer2 = [(CompassBackgroundView *)self currentHeadingLayer];
-    [currentHeadingLayer2 setPosition:{p_compassCenter->x, self->_compassCenter.y - v22}];
+    v91 = self->_ticRadius + (self->_currentHeadingLength - self->_ticLength) * 0.5;
+    v94 = objc_msgSend_currentHeadingLayer(self, v92, v93);
+    objc_msgSend_setPosition_(v94, v95, v96, p_compassCenter->x, self->_compassCenter.y - v91);
 
-    bubbleLayer = [(CompassBackgroundView *)self bubbleLayer];
-    [bubbleLayer setPosition:{vsubq_f64(*p_compassCenter, self->_currentOffset)}];
+    v99 = objc_msgSend_bubbleLayer(self, v97, v98);
+    objc_msgSend_setPosition_(v99, v100, v101, vsubq_f64(*p_compassCenter, self->_currentOffset));
 
-    crosshairLayer = [(CompassBackgroundView *)self crosshairLayer];
-    [crosshairLayer setPosition:{p_compassCenter->x, self->_compassCenter.y}];
+    v104 = objc_msgSend_crosshairLayer(self, v102, v103);
+    objc_msgSend_setPosition_(v104, v105, v106, p_compassCenter->x, self->_compassCenter.y);
   }
 
   bearing = self->_bearing;
   if (bearing == 1.79769313e308)
   {
-    [(CALayer *)self->_bearingLayer setHidden:1];
+    objc_msgSend_setHidden_(self->_bearingLayer, v79, 1);
   }
 
   else
   {
-    v27 = (bearing + 270.0) * 3.14159265 / 180.0;
-    v28 = self->_ticRadius + (self->_bearingLength - self->_ticLength) * 0.5;
+    v108 = (bearing + 270.0) * 3.14159265 / 180.0;
+    v109 = self->_ticRadius + (self->_bearingLength - self->_ticLength) * 0.5;
     x = p_compassCenter->x;
-    v30 = __sincos_stret(v27);
-    v31 = x + v28 * v30.__cosval;
-    v32 = self->_compassCenter.y + v28 * v30.__sinval;
-    bearingLayer2 = [(CompassBackgroundView *)self bearingLayer];
-    [bearingLayer2 setPosition:{v31, v32}];
-    CATransform3DMakeRotation(&v34, v27 + 1.57079633, 0.0, 0.0, 1.0);
-    [bearingLayer2 setTransform:&v34];
-    [bearingLayer2 setHidden:0];
+    v111 = __sincos_stret(v108);
+    v112 = x + v109 * v111.__cosval;
+    v113 = self->_compassCenter.y + v109 * v111.__sinval;
+    v116 = objc_msgSend_bearingLayer(self, v114, v115);
+    objc_msgSend_setPosition_(v116, v117, v118, v112, v113);
+    CATransform3DMakeRotation(&v123, v108 + 1.57079633, 0.0, 0.0, 1.0);
+    objc_msgSend_setTransform_(v116, v119, &v123);
+    objc_msgSend_setHidden_(v116, v120, 0);
   }
 
-  [MEMORY[0x277CD9FF0] commit];
+  objc_msgSend_commit(MEMORY[0x277CD9FF0], v121, v122);
 }
 
 - (id)prototypeSmallTicLayer
@@ -110,14 +118,14 @@
   prototypeSmallTicLayer = self->_prototypeSmallTicLayer;
   if (!prototypeSmallTicLayer)
   {
-    layer = [MEMORY[0x277CD9ED0] layer];
-    v5 = self->_prototypeSmallTicLayer;
-    self->_prototypeSmallTicLayer = layer;
+    v5 = objc_msgSend_layer(MEMORY[0x277CD9ED0], a2, v2);
+    v6 = self->_prototypeSmallTicLayer;
+    self->_prototypeSmallTicLayer = v5;
 
-    [(CALayer *)self->_prototypeSmallTicLayer setAllowsEdgeAntialiasing:1];
-    [(CALayer *)self->_prototypeSmallTicLayer setFrame:0.0, 0.0, 0.75, self->_ticLength];
-    smallCompassTicLayers = [(CompassBackgroundView *)self smallCompassTicLayers];
-    [smallCompassTicLayers addSublayer:self->_prototypeSmallTicLayer];
+    objc_msgSend_setAllowsEdgeAntialiasing_(self->_prototypeSmallTicLayer, v7, 1);
+    objc_msgSend_setFrame_(self->_prototypeSmallTicLayer, v8, v9, 0.0, 0.0, 0.75, self->_ticLength);
+    v12 = objc_msgSend_smallCompassTicLayers(self, v10, v11);
+    objc_msgSend_addSublayer_(v12, v13, self->_prototypeSmallTicLayer);
 
     prototypeSmallTicLayer = self->_prototypeSmallTicLayer;
   }
@@ -130,16 +138,16 @@
   smallCompassTicLayers = self->_smallCompassTicLayers;
   if (!smallCompassTicLayers)
   {
-    layer = [MEMORY[0x277CD9F48] layer];
-    v5 = self->_smallCompassTicLayers;
-    self->_smallCompassTicLayers = layer;
-
+    v5 = objc_msgSend_layer(MEMORY[0x277CD9F48], a2, v2);
     v6 = self->_smallCompassTicLayers;
-    CATransform3DMakeRotation(&v9, 0.034906585, 0.0, 0.0, 1.0);
-    [(CAReplicatorLayer *)v6 setInstanceTransform:&v9];
-    [(CAReplicatorLayer *)self->_smallCompassTicLayers setInstanceCount:180];
-    rotatingLayer = [(CompassBackgroundView *)self rotatingLayer];
-    [rotatingLayer addSublayer:self->_smallCompassTicLayers];
+    self->_smallCompassTicLayers = v5;
+
+    v7 = self->_smallCompassTicLayers;
+    CATransform3DMakeRotation(&v15, 0.034906585, 0.0, 0.0, 1.0);
+    objc_msgSend_setInstanceTransform_(v7, v8, &v15);
+    objc_msgSend_setInstanceCount_(self->_smallCompassTicLayers, v9, 180);
+    v12 = objc_msgSend_rotatingLayer(self, v10, v11);
+    objc_msgSend_addSublayer_(v12, v13, self->_smallCompassTicLayers);
 
     smallCompassTicLayers = self->_smallCompassTicLayers;
   }
@@ -152,14 +160,14 @@
   prototypeLargeTicLayer = self->_prototypeLargeTicLayer;
   if (!prototypeLargeTicLayer)
   {
-    layer = [MEMORY[0x277CD9ED0] layer];
-    v5 = self->_prototypeLargeTicLayer;
-    self->_prototypeLargeTicLayer = layer;
+    v5 = objc_msgSend_layer(MEMORY[0x277CD9ED0], a2, v2);
+    v6 = self->_prototypeLargeTicLayer;
+    self->_prototypeLargeTicLayer = v5;
 
-    [(CALayer *)self->_prototypeLargeTicLayer setAllowsEdgeAntialiasing:1];
-    [(CALayer *)self->_prototypeLargeTicLayer setFrame:0.0, 0.0, 2.5, self->_ticLength];
-    largeCompassTicLayers = [(CompassBackgroundView *)self largeCompassTicLayers];
-    [largeCompassTicLayers addSublayer:self->_prototypeLargeTicLayer];
+    objc_msgSend_setAllowsEdgeAntialiasing_(self->_prototypeLargeTicLayer, v7, 1);
+    objc_msgSend_setFrame_(self->_prototypeLargeTicLayer, v8, v9, 0.0, 0.0, 2.5, self->_ticLength);
+    v12 = objc_msgSend_largeCompassTicLayers(self, v10, v11);
+    objc_msgSend_addSublayer_(v12, v13, self->_prototypeLargeTicLayer);
 
     prototypeLargeTicLayer = self->_prototypeLargeTicLayer;
   }
@@ -172,21 +180,21 @@
   rotatingLayer = self->_rotatingLayer;
   if (!rotatingLayer)
   {
-    layer = [MEMORY[0x277CD9ED0] layer];
-    v5 = self->_rotatingLayer;
-    self->_rotatingLayer = layer;
-
+    v5 = objc_msgSend_layer(MEMORY[0x277CD9ED0], a2, v2);
     v6 = self->_rotatingLayer;
-    layer2 = [(CompassBackgroundView *)self layer];
-    [layer2 frame];
-    [(CALayer *)v6 setFrame:?];
+    self->_rotatingLayer = v5;
 
-    v8 = self->_rotatingLayer;
-    v9 = [MEMORY[0x277CD9EA0] filterWithType:*MEMORY[0x277CDA658]];
-    [(CALayer *)v8 setCompositingFilter:v9];
+    v7 = self->_rotatingLayer;
+    v10 = objc_msgSend_layer(self, v8, v9);
+    objc_msgSend_frame(v10, v11, v12);
+    objc_msgSend_setFrame_(v7, v13, v14);
 
-    layer3 = [(CompassBackgroundView *)self layer];
-    [layer3 addSublayer:self->_rotatingLayer];
+    v15 = self->_rotatingLayer;
+    v17 = objc_msgSend_filterWithType_(MEMORY[0x277CD9EA0], v16, *MEMORY[0x277CDA658]);
+    objc_msgSend_setCompositingFilter_(v15, v18, v17);
+
+    v21 = objc_msgSend_layer(self, v19, v20);
+    objc_msgSend_addSublayer_(v21, v22, self->_rotatingLayer);
 
     rotatingLayer = self->_rotatingLayer;
   }
@@ -199,16 +207,16 @@
   largeCompassTicLayers = self->_largeCompassTicLayers;
   if (!largeCompassTicLayers)
   {
-    layer = [MEMORY[0x277CD9F48] layer];
-    v5 = self->_largeCompassTicLayers;
-    self->_largeCompassTicLayers = layer;
-
+    v5 = objc_msgSend_layer(MEMORY[0x277CD9F48], a2, v2);
     v6 = self->_largeCompassTicLayers;
-    CATransform3DMakeRotation(&v9, 0.523598776, 0.0, 0.0, 1.0);
-    [(CAReplicatorLayer *)v6 setInstanceTransform:&v9];
-    [(CAReplicatorLayer *)self->_largeCompassTicLayers setInstanceCount:12];
-    rotatingLayer = [(CompassBackgroundView *)self rotatingLayer];
-    [rotatingLayer addSublayer:self->_largeCompassTicLayers];
+    self->_largeCompassTicLayers = v5;
+
+    v7 = self->_largeCompassTicLayers;
+    CATransform3DMakeRotation(&v15, 0.523598776, 0.0, 0.0, 1.0);
+    objc_msgSend_setInstanceTransform_(v7, v8, &v15);
+    objc_msgSend_setInstanceCount_(self->_largeCompassTicLayers, v9, 12);
+    v12 = objc_msgSend_rotatingLayer(self, v10, v11);
+    objc_msgSend_addSublayer_(v12, v13, self->_largeCompassTicLayers);
 
     largeCompassTicLayers = self->_largeCompassTicLayers;
   }
@@ -221,14 +229,14 @@
   currentHeadingLayer = self->_currentHeadingLayer;
   if (!currentHeadingLayer)
   {
-    layer = [MEMORY[0x277CD9ED0] layer];
-    v5 = self->_currentHeadingLayer;
-    self->_currentHeadingLayer = layer;
+    v5 = objc_msgSend_layer(MEMORY[0x277CD9ED0], a2, v2);
+    v6 = self->_currentHeadingLayer;
+    self->_currentHeadingLayer = v5;
 
-    [(CALayer *)self->_currentHeadingLayer setAllowsEdgeAntialiasing:1];
-    [(CALayer *)self->_currentHeadingLayer setFrame:0.0, 0.0, 4.0, self->_currentHeadingLength];
-    staticLayer = [(CompassBackgroundView *)self staticLayer];
-    [staticLayer addSublayer:self->_currentHeadingLayer];
+    objc_msgSend_setAllowsEdgeAntialiasing_(self->_currentHeadingLayer, v7, 1);
+    objc_msgSend_setFrame_(self->_currentHeadingLayer, v8, v9, 0.0, 0.0, 4.0, self->_currentHeadingLength);
+    v12 = objc_msgSend_staticLayer(self, v10, v11);
+    objc_msgSend_addSublayer_(v12, v13, self->_currentHeadingLayer);
 
     currentHeadingLayer = self->_currentHeadingLayer;
   }
@@ -241,21 +249,21 @@
   staticLayer = self->_staticLayer;
   if (!staticLayer)
   {
-    layer = [MEMORY[0x277CD9ED0] layer];
-    v5 = self->_staticLayer;
-    self->_staticLayer = layer;
-
+    v5 = objc_msgSend_layer(MEMORY[0x277CD9ED0], a2, v2);
     v6 = self->_staticLayer;
-    layer2 = [(CompassBackgroundView *)self layer];
-    [layer2 frame];
-    [(CALayer *)v6 setFrame:?];
+    self->_staticLayer = v5;
 
-    v8 = self->_staticLayer;
-    v9 = [MEMORY[0x277CD9EA0] filterWithType:*MEMORY[0x277CDA658]];
-    [(CALayer *)v8 setCompositingFilter:v9];
+    v7 = self->_staticLayer;
+    v10 = objc_msgSend_layer(self, v8, v9);
+    objc_msgSend_frame(v10, v11, v12);
+    objc_msgSend_setFrame_(v7, v13, v14);
 
-    layer3 = [(CompassBackgroundView *)self layer];
-    [layer3 addSublayer:self->_staticLayer];
+    v15 = self->_staticLayer;
+    v17 = objc_msgSend_filterWithType_(MEMORY[0x277CD9EA0], v16, *MEMORY[0x277CDA658]);
+    objc_msgSend_setCompositingFilter_(v15, v18, v17);
+
+    v21 = objc_msgSend_layer(self, v19, v20);
+    objc_msgSend_addSublayer_(v21, v22, self->_staticLayer);
 
     staticLayer = self->_staticLayer;
   }
@@ -268,14 +276,14 @@
   bearingLayer = self->_bearingLayer;
   if (!bearingLayer)
   {
-    layer = [MEMORY[0x277CD9ED0] layer];
-    v5 = self->_bearingLayer;
-    self->_bearingLayer = layer;
+    v5 = objc_msgSend_layer(MEMORY[0x277CD9ED0], a2, v2);
+    v6 = self->_bearingLayer;
+    self->_bearingLayer = v5;
 
-    [(CALayer *)self->_bearingLayer setAllowsEdgeAntialiasing:1];
-    [(CALayer *)self->_bearingLayer setFrame:0.0, 0.0, 2.5, self->_bearingLength];
-    rotatingLayer = [(CompassBackgroundView *)self rotatingLayer];
-    [rotatingLayer addSublayer:self->_bearingLayer];
+    objc_msgSend_setAllowsEdgeAntialiasing_(self->_bearingLayer, v7, 1);
+    objc_msgSend_setFrame_(self->_bearingLayer, v8, v9, 0.0, 0.0, 2.5, self->_bearingLength);
+    v12 = objc_msgSend_rotatingLayer(self, v10, v11);
+    objc_msgSend_addSublayer_(v12, v13, self->_bearingLayer);
 
     bearingLayer = self->_bearingLayer;
   }
@@ -288,35 +296,40 @@
   bubbleLayer = self->_bubbleLayer;
   if (!bubbleLayer)
   {
-    [(CompassBackgroundView *)self bounds];
-    v5 = bubbleDiameter(v4);
-    [(CompassBackgroundView *)self bounds];
-    v7 = bubbleDiameter(v6);
-    layer = [MEMORY[0x277CD9ED0] layer];
-    v9 = self->_bubbleLayer;
-    self->_bubbleLayer = layer;
+    objc_msgSend_bounds(self, a2, v2);
+    v6 = bubbleDiameter(v5);
+    objc_msgSend_bounds(self, v7, v8);
+    v10 = bubbleDiameter(v9);
+    v13 = objc_msgSend_layer(MEMORY[0x277CD9ED0], v11, v12);
+    v14 = self->_bubbleLayer;
+    self->_bubbleLayer = v13;
 
-    [(CALayer *)self->_bubbleLayer setFrame:0.0, 0.0, v5, v7];
-    layer2 = [MEMORY[0x277CD9F90] layer];
-    [layer2 setAllowsEdgeAntialiasing:1];
-    [layer2 setFrame:{0.0, 0.0, v5, v7}];
-    v11 = [MEMORY[0x277D75348] colorWithWhite:1.0 alpha:0.119999997];
-    [layer2 setFillColor:{objc_msgSend(v11, "CGColor")}];
+    objc_msgSend_setFrame_(self->_bubbleLayer, v15, v16, 0.0, 0.0, v6, v10);
+    v19 = objc_msgSend_layer(MEMORY[0x277CD9F90], v17, v18);
+    objc_msgSend_setAllowsEdgeAntialiasing_(v19, v20, 1);
+    objc_msgSend_setFrame_(v19, v21, v22, 0.0, 0.0, v6, v10);
+    v25 = objc_msgSend_colorWithWhite_alpha_(MEMORY[0x277D75348], v23, v24, 1.0, 0.119999997);
+    v26 = v25;
+    v29 = objc_msgSend_CGColor(v26, v27, v28);
+    objc_msgSend_setFillColor_(v19, v30, v29);
 
-    v12 = [MEMORY[0x277D75208] bezierPathWithOvalInRect:{0.0, 0.0, v5, v7}];
-    [layer2 setPath:{objc_msgSend(v12, "CGPath")}];
+    v33 = objc_msgSend_bezierPathWithOvalInRect_(MEMORY[0x277D75208], v31, v32, 0.0, 0.0, v6, v10);
+    v34 = v33;
+    v37 = objc_msgSend_CGPath(v34, v35, v36);
+    objc_msgSend_setPath_(v19, v38, v37);
 
-    [(CALayer *)self->_bubbleLayer addSublayer:layer2];
-    [(CompassBackgroundView *)self bounds];
-    v14 = bubbleDiameter(v13) * 0.5;
-    [(CompassBackgroundView *)self bounds];
-    v16 = smallCrosshairWidth(v15);
-    [(CompassBackgroundView *)self bounds];
-    v18 = [(CompassBackgroundView *)self _crosshairLayerWithBounds:0.0, 0.0, v16, smallCrosshairWidth(v17)];
-    [v18 setPosition:{v14, v14}];
-    [(CALayer *)self->_bubbleLayer addSublayer:v18];
-    staticLayer = [(CompassBackgroundView *)self staticLayer];
-    [staticLayer addSublayer:self->_bubbleLayer];
+    objc_msgSend_addSublayer_(self->_bubbleLayer, v39, v19);
+    objc_msgSend_bounds(self, v40, v41);
+    v43 = bubbleDiameter(v42) * 0.5;
+    objc_msgSend_bounds(self, v44, v45);
+    v47 = smallCrosshairWidth(v46);
+    objc_msgSend_bounds(self, v48, v49);
+    v51 = smallCrosshairWidth(v50);
+    v54 = objc_msgSend__crosshairLayerWithBounds_(self, v52, v53, 0.0, 0.0, v47, v51);
+    objc_msgSend_setPosition_(v54, v55, v56, v43, v43);
+    objc_msgSend_addSublayer_(self->_bubbleLayer, v57, v54);
+    v60 = objc_msgSend_staticLayer(self, v58, v59);
+    objc_msgSend_addSublayer_(v60, v61, self->_bubbleLayer);
 
     bubbleLayer = self->_bubbleLayer;
   }
@@ -329,15 +342,16 @@
   crosshairLayer = self->_crosshairLayer;
   if (!crosshairLayer)
   {
-    [(CompassBackgroundView *)self bounds];
-    v5 = crosshairWidth(v4);
-    [(CompassBackgroundView *)self bounds];
-    v7 = [(CompassBackgroundView *)self _crosshairLayerWithBounds:0.0, 0.0, v5, crosshairWidth(v6)];
-    v8 = self->_crosshairLayer;
-    self->_crosshairLayer = v7;
+    objc_msgSend_bounds(self, a2, v2);
+    v6 = crosshairWidth(v5);
+    objc_msgSend_bounds(self, v7, v8);
+    v10 = crosshairWidth(v9);
+    v13 = objc_msgSend__crosshairLayerWithBounds_(self, v11, v12, 0.0, 0.0, v6, v10);
+    v14 = self->_crosshairLayer;
+    self->_crosshairLayer = v13;
 
-    staticLayer = [(CompassBackgroundView *)self staticLayer];
-    [staticLayer addSublayer:self->_crosshairLayer];
+    v17 = objc_msgSend_staticLayer(self, v15, v16);
+    objc_msgSend_addSublayer_(v17, v18, self->_crosshairLayer);
 
     crosshairLayer = self->_crosshairLayer;
   }
@@ -365,20 +379,24 @@
   width = bounds.size.width;
   y = bounds.origin.y;
   x = bounds.origin.x;
-  layer = [MEMORY[0x277CD9F90] layer];
-  [layer setAllowsEdgeAntialiasing:1];
-  [layer setBounds:{x, y, width, height}];
-  whiteColor = [MEMORY[0x277D75348] whiteColor];
-  [layer setStrokeColor:{objc_msgSend(whiteColor, "CGColor")}];
+  v9 = objc_msgSend_layer(MEMORY[0x277CD9F90], a2, v3);
+  objc_msgSend_setAllowsEdgeAntialiasing_(v9, v10, 1);
+  objc_msgSend_setBounds_(v9, v11, v12, x, y, width, height);
+  v15 = objc_msgSend_whiteColor(MEMORY[0x277D75348], v13, v14);
+  v16 = v15;
+  v19 = objc_msgSend_CGColor(v16, v17, v18);
+  objc_msgSend_setStrokeColor_(v9, v20, v19);
 
-  mainScreen = [MEMORY[0x277D759A0] mainScreen];
-  [mainScreen scale];
-  [layer setLineWidth:1.0 / v11];
+  v23 = objc_msgSend_mainScreen(MEMORY[0x277D759A0], v21, v22);
+  objc_msgSend_scale(v23, v24, v25);
+  objc_msgSend_setLineWidth_(v9, v27, v28, 1.0 / v26);
 
-  height = [(CompassBackgroundView *)self _crosshairPathInRect:x, y, width, height];
-  [layer setPath:{objc_msgSend(height, "CGPath")}];
+  v31 = objc_msgSend__crosshairPathInRect_(self, v29, v30, x, y, width, height);
+  v32 = v31;
+  v35 = objc_msgSend_CGPath(v32, v33, v34);
+  objc_msgSend_setPath_(v9, v36, v35);
 
-  return layer;
+  return v9;
 }
 
 - (id)_crosshairPathInRect:(CGRect)rect
@@ -388,46 +406,50 @@
   y = rect.origin.y;
   x = rect.origin.x;
   v7 = objc_alloc_init(MEMORY[0x277D75208]);
-  v14.origin.x = x;
-  v14.origin.y = y;
-  v14.size.width = width;
-  v14.size.height = height;
-  MidX = CGRectGetMidX(v14);
-  v15.origin.x = x;
-  v15.origin.y = y;
-  v15.size.width = width;
-  v15.size.height = height;
-  [v7 moveToPoint:{MidX, CGRectGetMinY(v15)}];
-  v16.origin.x = x;
-  v16.origin.y = y;
-  v16.size.width = width;
-  v16.size.height = height;
-  v9 = CGRectGetMidX(v16);
-  v17.origin.x = x;
-  v17.origin.y = y;
-  v17.size.width = width;
-  v17.size.height = height;
-  [v7 addLineToPoint:{v9, CGRectGetMaxY(v17)}];
-  v18.origin.x = x;
-  v18.origin.y = y;
-  v18.size.width = width;
-  v18.size.height = height;
-  MinX = CGRectGetMinX(v18);
-  v19.origin.x = x;
-  v19.origin.y = y;
-  v19.size.width = width;
-  v19.size.height = height;
-  [v7 moveToPoint:{MinX, CGRectGetMidY(v19)}];
-  v20.origin.x = x;
-  v20.origin.y = y;
-  v20.size.width = width;
-  v20.size.height = height;
-  MaxX = CGRectGetMaxX(v20);
-  v21.origin.x = x;
-  v21.origin.y = y;
-  v21.size.width = width;
-  v21.size.height = height;
-  [v7 addLineToPoint:{MaxX, CGRectGetMidY(v21)}];
+  v26.origin.x = x;
+  v26.origin.y = y;
+  v26.size.width = width;
+  v26.size.height = height;
+  MidX = CGRectGetMidX(v26);
+  v27.origin.x = x;
+  v27.origin.y = y;
+  v27.size.width = width;
+  v27.size.height = height;
+  MinY = CGRectGetMinY(v27);
+  objc_msgSend_moveToPoint_(v7, v10, v11, MidX, MinY);
+  v28.origin.x = x;
+  v28.origin.y = y;
+  v28.size.width = width;
+  v28.size.height = height;
+  v12 = CGRectGetMidX(v28);
+  v29.origin.x = x;
+  v29.origin.y = y;
+  v29.size.width = width;
+  v29.size.height = height;
+  MaxY = CGRectGetMaxY(v29);
+  objc_msgSend_addLineToPoint_(v7, v14, v15, v12, MaxY);
+  v30.origin.x = x;
+  v30.origin.y = y;
+  v30.size.width = width;
+  v30.size.height = height;
+  MinX = CGRectGetMinX(v30);
+  v31.origin.x = x;
+  v31.origin.y = y;
+  v31.size.width = width;
+  v31.size.height = height;
+  MidY = CGRectGetMidY(v31);
+  objc_msgSend_moveToPoint_(v7, v18, v19, MinX, MidY);
+  v32.origin.x = x;
+  v32.origin.y = y;
+  v32.size.width = width;
+  v32.size.height = height;
+  MaxX = CGRectGetMaxX(v32);
+  v33.origin.x = x;
+  v33.origin.y = y;
+  v33.size.width = width;
+  v33.size.height = height;
+  v21 = CGRectGetMidY(v33);
+  objc_msgSend_addLineToPoint_(v7, v22, v23, MaxX, v21);
 
   return v7;
 }
@@ -436,30 +458,30 @@
 {
   height = offset.height;
   width = offset.width;
-  [(CompassBackgroundView *)self bounds];
-  v7 = bubbleDiameter(v6);
+  objc_msgSend_bounds(self, a2, v3);
+  v8 = bubbleDiameter(v7);
   p_currentOffset = &self->_currentOffset;
-  if (vabdd_f64(p_currentOffset->x, width * v7 / 5.0) < 0.5 && vabdd_f64(p_currentOffset->y, height * v7 / 5.0) < 0.5)
+  if (vabdd_f64(p_currentOffset->x, width * v8 / 5.0) < 0.5 && vabdd_f64(p_currentOffset->y, height * v8 / 5.0) < 0.5)
   {
     return 0;
   }
 
   CGPointRoundToPixel();
-  p_currentOffset->x = v10;
-  p_currentOffset->y = v11;
+  p_currentOffset->x = v11;
+  p_currentOffset->y = v12;
   return 1;
 }
 
 - (void)setCompassHeading:(double)heading
 {
-  v7.receiver = self;
-  v7.super_class = CompassBackgroundView;
-  [(CompassRotatingView *)&v7 setCompassHeading:heading];
-  rotatingLayer = [(CompassBackgroundView *)self rotatingLayer];
-  v5 = MEMORY[0x277CCABB0];
-  [(CompassRotatingView *)self angle];
-  v6 = [v5 numberWithDouble:?];
-  [rotatingLayer setValue:v6 forKeyPath:@"transform.rotation.z"];
+  v14.receiver = self;
+  v14.super_class = CompassBackgroundView;
+  [(CompassRotatingView *)&v14 setCompassHeading:heading];
+  v6 = objc_msgSend_rotatingLayer(self, v4, v5);
+  v7 = MEMORY[0x277CCABB0];
+  objc_msgSend_angle(self, v8, v9);
+  v12 = objc_msgSend_numberWithDouble_(v7, v10, v11);
+  objc_msgSend_setValue_forKeyPath_(v6, v13, v12, @"transform.rotation.z");
 }
 
 @end

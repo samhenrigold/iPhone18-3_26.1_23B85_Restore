@@ -35,33 +35,33 @@
 {
   if (((*(range + 4) - *(range + 3)) >> 4) * ((*(range + 1) - *range) >> 4))
   {
-    v8 = objc_alloc_init(objc_opt_class());
-    v9 = *(range + 3);
-    v10 = *(range + 4);
-    while (v9 != v10)
+    v7 = objc_alloc_init(objc_opt_class());
+    v8 = *(range + 3);
+    v9 = *(range + 4);
+    while (v8 != v9)
     {
-      v11 = *range;
-      v12 = *(range + 1);
-      while (v11 != v12)
+      v10 = *range;
+      v11 = *(range + 1);
+      while (v10 != v11)
       {
-        v13 = v8[13];
-        TSTMakeCellUID(v18);
-        objc_msgSend_addCellUID_(v13, v14, v18, v15, v16);
-        v11 += 16;
+        v12 = v7[13];
+        TSTMakeCellUID(v16);
+        objc_msgSend_addCellUID_(v12, v13, v16, v14);
+        v10 += 16;
       }
 
-      v9 += 16;
+      v8 += 16;
     }
 
-    objc_msgSend_compress(v8, v4, v5, v6, v7);
+    objc_msgSend_compress(v7, v4, v5, v6);
   }
 
   else
   {
-    v8 = 0;
+    v7 = 0;
   }
 
-  return v8;
+  return v7;
 }
 
 - (TSTCellUIDList)init
@@ -86,16 +86,16 @@
 - (id)initFromMessage:(const void *)message unarchiver:(id)unarchiver
 {
   unarchiverCopy = unarchiver;
-  v29.receiver = self;
-  v29.super_class = TSTCellUIDList;
-  v7 = [(TSTCellUIDList *)&v29 init];
+  v28.receiver = self;
+  v28.super_class = TSTCellUIDList;
+  v7 = [(TSTCellUIDList *)&v28 init];
   if (v7)
   {
     v8 = objc_opt_new();
     uncompressedCellUIDs = v7->_uncompressedCellUIDs;
     v7->_uncompressedCellUIDs = v8;
 
-    sub_22123EA84(&v27, message + 48);
+    sub_22123EA84(&v26, message + 48);
     begin = v7->_columnIdList.__begin_;
     if (begin)
     {
@@ -106,9 +106,9 @@
       v7->_columnIdList.__cap_ = 0;
     }
 
-    *&v7->_columnIdList.__begin_ = v27;
-    v7->_columnIdList.__cap_ = v28;
-    sub_22123EA84(&v27, message + 24);
+    *&v7->_columnIdList.__begin_ = v26;
+    v7->_columnIdList.__cap_ = v27;
+    sub_22123EA84(&v26, message + 24);
     v11 = v7->_rowIdList.__begin_;
     if (v11)
     {
@@ -119,52 +119,52 @@
       v7->_rowIdList.__cap_ = 0;
     }
 
-    *&v7->_rowIdList.__begin_ = v27;
-    v7->_rowIdList.__cap_ = v28;
+    *&v7->_rowIdList.__begin_ = v26;
+    v7->_rowIdList.__cap_ = v27;
     sub_221287820(&v7->_columnUIDIndexList.__begin_, *(message + 12), (*(message + 12) + 4 * *(message + 22)), *(message + 22));
     sub_221287820(&v7->_rowUIDIndexList.__begin_, *(message + 10), (*(message + 10) + 4 * *(message + 18)), *(message + 18));
-    v17 = v7->_rowIdList.__begin_;
+    v16 = v7->_rowIdList.__begin_;
     end = v7->_rowIdList.__end_;
-    v19 = v7->_rowUIDIndexList.__begin_;
-    v18 = v7->_rowUIDIndexList.__end_;
-    v20 = v18 - v19;
-    v7->_compressedSize = v20;
-    if (v18 != v19)
+    v18 = v7->_rowUIDIndexList.__begin_;
+    v17 = v7->_rowUIDIndexList.__end_;
+    v19 = v17 - v18;
+    v7->_compressedSize = v19;
+    if (v17 != v18)
     {
-      v21 = -((end - v17) >> 4);
+      v20 = -((end - v16) >> 4);
       do
       {
-        if (v21 >= *v19)
+        if (v20 >= *v18)
         {
-          v20 += v21 - *v19;
-          v7->_compressedSize = v20;
+          v19 += v20 - *v18;
+          v7->_compressedSize = v19;
         }
 
-        ++v19;
+        ++v18;
       }
 
-      while (v19 != v18);
+      while (v18 != v17);
     }
 
     if (*(message + 16))
     {
-      v22 = objc_msgSend_UIDLookupList(v7->_uncompressedCellUIDs, v12, v13, v14, v15);
+      v21 = objc_msgSend_UIDLookupList(v7->_uncompressedCellUIDs, v12, v13, v14);
       if (*(message + 13))
       {
-        v23 = *(message + 13);
+        v22 = *(message + 13);
       }
 
       else
       {
-        v23 = &TST::_CellUIDLookupListArchive_default_instance_;
+        v22 = &TST::_CellUIDLookupListArchive_default_instance_;
       }
 
-      sub_22137B4D0(v22, v23);
+      sub_22137B4D0(v21, v22);
     }
 
-    v24 = dispatch_queue_create(0, MEMORY[0x277D85CD8]);
+    v23 = dispatch_queue_create(0, MEMORY[0x277D85CD8]);
     queue = v7->_queue;
-    v7->_queue = v24;
+    v7->_queue = v23;
   }
 
   return v7;
@@ -172,15 +172,15 @@
 
 - (void)saveToMessage:(void *)message archiver:(id)archiver
 {
-  objc_msgSend_compress(self, a2, message, archiver, v4);
+  objc_msgSend_compress(self, a2, message, archiver);
   queue = self->_queue;
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = sub_2213C4808;
-  v8[3] = &unk_278461DA8;
-  v8[4] = self;
-  v8[5] = message;
-  dispatch_sync(queue, v8);
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = sub_2213C4808;
+  v7[3] = &unk_278461DA8;
+  v7[4] = self;
+  v7[5] = message;
+  dispatch_sync(queue, v7);
 }
 
 - (void)setCompressedColumnIndexes:(const void *)indexes
@@ -194,29 +194,29 @@
 
 - (unint64_t)computeValidCount
 {
-  v6 = objc_msgSend_count(self->_uncompressedCellUIDs, a2, v2, v3, v4);
-  v11 = v6;
+  v5 = objc_msgSend_count(self->_uncompressedCellUIDs, a2, v2, v3);
+  v9 = v5;
   for (i = self->_rowIdList.__begin_; i != self->_rowIdList.__end_; ++i)
   {
     if (*i == 0)
     {
 LABEL_9:
-      v18 = objc_msgSend_iterator(self, v7, v8, v9, v10);
-      if (v18)
+      v15 = objc_msgSend_iterator(self, v6, v7, v8);
+      if (v15)
       {
         while (1)
         {
-          objc_msgSend_nextCellUID(v18, v14, v15, v16, v17);
-          if (v20 == 0 || !v21 && !v22)
+          objc_msgSend_nextCellUID(v15, v12, v13, v14);
+          if (v17 == 0 || !v18 && !v19)
           {
             break;
           }
 
-          ++v11;
+          ++v9;
         }
       }
 
-      return v11;
+      return v9;
     }
   }
 
@@ -228,15 +228,15 @@ LABEL_9:
     }
   }
 
-  return self->_compressedSize + v6;
+  return self->_compressedSize + v5;
 }
 
 - (id)iterator
 {
   v3 = [TSTCellUIDIterator alloc];
-  v7 = objc_msgSend_initWithCellUIDList_(v3, v4, self, v5, v6);
+  v6 = objc_msgSend_initWithCellUIDList_(v3, v4, self, v5);
 
-  return v7;
+  return v6;
 }
 
 - (void)addCellUID:(const TSKUIDStructCoord *)d
@@ -290,81 +290,81 @@ LABEL_9:
 - (void)addCellRegion:(id)region withColumnUIDs:(const void *)ds rowUIDs:(const void *)iDs
 {
   regionCopy = region;
-  v11 = objc_msgSend_regionByIntersectingRange_(regionCopy, v9, 0, ((*(iDs + 1) - *iDs) << 28) & 0xFFFFFFFF00000000 | ((*(ds + 1) - *ds) >> 4), v10);
+  v10 = objc_msgSend_regionByIntersectingRange_(regionCopy, v9, 0, ((*(iDs + 1) - *iDs) << 28) & 0xFFFFFFFF00000000 | ((*(ds + 1) - *ds) >> 4));
 
-  v16 = objc_msgSend_cellCount(v11, v12, v13, v14, v15);
+  v14 = objc_msgSend_cellCount(v10, v11, v12, v13);
   queue = self->_queue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = sub_2213C4F24;
   block[3] = &unk_278464340;
   block[4] = self;
-  v20 = v11;
-  v21 = v16;
+  v18 = v10;
+  v19 = v14;
   dsCopy = ds;
   iDsCopy = iDs;
-  v18 = v11;
+  v16 = v10;
   dispatch_barrier_sync(queue, block);
 }
 
 - (void)compress
 {
-  v69 = 0;
-  v70 = &v69;
-  v71 = 0x2020000000;
-  v72 = 1;
-  v65 = 0;
-  v66 = &v65;
-  v67 = 0x2020000000;
-  v68 = 0;
+  v67 = 0;
+  v68 = &v67;
+  v69 = 0x2020000000;
+  v70 = 1;
+  v63 = 0;
+  v64 = &v63;
+  v65 = 0x2020000000;
+  v66 = 0;
   queue = self->_queue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = sub_2213C5560;
   block[3] = &unk_278464368;
   block[4] = self;
-  block[5] = &v65;
-  block[6] = &v69;
+  block[5] = &v63;
+  block[6] = &v67;
   dispatch_sync(queue, block);
-  if ((v70[3] & 1) == 0)
+  if ((v68[3] & 1) == 0)
   {
-    v63[0] = 0;
-    v63[1] = 0;
-    v61[1] = 0;
-    v62 = v63;
-    v60 = v61;
     v61[0] = 0;
-    v51 = 0;
-    v52 = &v51;
-    v53 = 0x4812000000;
-    v54 = sub_2213C55B4;
-    v55 = sub_2213C55D8;
-    v56 = &unk_22188E88F;
-    v58 = 0;
-    v59 = 0;
-    v57 = 0;
-    v42 = 0;
-    v43 = &v42;
-    v44 = 0x4812000000;
-    v45 = sub_2213C55B4;
-    v46 = sub_2213C55D8;
-    v47 = &unk_22188E88F;
+    v61[1] = 0;
+    v59[1] = 0;
+    v60 = v61;
+    v58 = v59;
+    v59[0] = 0;
     v49 = 0;
-    v50 = 0;
-    v48 = 0;
-    v39 = 0;
+    v50 = &v49;
+    v51 = 0x4812000000;
+    v52 = sub_2213C55B4;
+    v53 = sub_2213C55D8;
+    v54 = &unk_22188E88F;
+    v56 = 0;
+    v57 = 0;
+    v55 = 0;
     v40 = 0;
-    v41 = 0;
-    v36 = 0;
+    v41 = &v40;
+    v42 = 0x4812000000;
+    v43 = sub_2213C55B4;
+    v44 = sub_2213C55D8;
+    v45 = &unk_22188E88F;
+    v47 = 0;
+    v48 = 0;
+    v46 = 0;
     v37 = 0;
     v38 = 0;
-    v33 = 0;
+    v39 = 0;
     v34 = 0;
     v35 = 0;
-    v30 = 0;
+    v36 = 0;
     v31 = 0;
     v32 = 0;
-    v4 = v66[3];
+    v33 = 0;
+    v28 = 0;
+    v29 = 0;
+    v30 = 0;
+    v4 = v64[3];
     if (v4 / 0x64 >= 0x30D40)
     {
       v5 = 200000;
@@ -382,113 +382,113 @@ LABEL_9:
 
     else
     {
-      v6 = v66[3];
+      v6 = v64[3];
     }
 
-    sub_221083368(&v57, v5);
-    sub_2211663C4(&v39, v5);
-    sub_2211687C4(&v33, v5);
-    sub_221083368(v43 + 6, v6);
-    sub_2211663C4(&v36, v6);
-    sub_2211687C4(&v30, v6);
-    v11 = objc_msgSend_iterator(self, v7, v8, v9, v10);
+    sub_221083368(&v55, v5);
+    sub_2211663C4(&v37, v5);
+    sub_2211687C4(&v31, v5);
+    sub_221083368(v41 + 6, v6);
+    sub_2211663C4(&v34, v6);
+    sub_2211687C4(&v28, v6);
+    v10 = objc_msgSend_iterator(self, v7, v8, v9);
+    v25 = 0;
+    v26 = 0;
     v27 = 0;
-    v28 = 0;
-    v29 = 0;
-    sub_22127D034(&v27, 0x3E8uLL);
-    v14 = 0;
-    while (objc_msgSend_nextCellUIDsBatch_batchSize_(v11, v12, &v27, 1000, v13))
+    sub_22127D034(&v25, 0x3E8uLL);
+    v12 = 0;
+    while (objc_msgSend_nextCellUIDsBatch_batchSize_(v10, v11, &v25, 1000))
     {
-      v15 = v27;
-      v16 = v28;
-      while (v15 != v16)
+      v13 = v25;
+      v14 = v26;
+      while (v13 != v14)
       {
-        objc_msgSend_p_compressUID_index_UIDtoIndexMap_UIDs_compressedIndexes_lastSameUIDIndex_(self, v12, (v15 + 16), v14, &v62, v52 + 6, &v39, &v33);
-        objc_msgSend_p_compressUID_index_UIDtoIndexMap_UIDs_compressedIndexes_lastSameUIDIndex_(self, v17, v15, v14++, &v60, v43 + 6, &v36, &v30);
-        v15 += 32;
+        objc_msgSend_p_compressUID_index_UIDtoIndexMap_UIDs_compressedIndexes_lastSameUIDIndex_(self, v11, (v13 + 16), v12, &v60, v50 + 6, &v37, &v31);
+        objc_msgSend_p_compressUID_index_UIDtoIndexMap_UIDs_compressedIndexes_lastSameUIDIndex_(self, v15, v13, v12++, &v58, v41 + 6, &v34, &v28);
+        v13 += 32;
       }
     }
 
-    v18 = self->_queue;
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3321888768;
-    v19[2] = sub_2213C55F0;
-    v19[3] = &unk_2834A7170;
-    v19[4] = self;
-    v19[5] = &v51;
-    v19[6] = &v42;
+    v16 = self->_queue;
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3321888768;
+    v17[2] = sub_2213C55F0;
+    v17[3] = &unk_2834A7170;
+    v17[4] = self;
+    v17[5] = &v49;
+    v17[6] = &v40;
+    v18 = 0;
+    v19 = 0;
     v20 = 0;
-    v21 = 0;
-    v22 = 0;
-    sub_2212A44A0(&v20, v39, v40, (v40 - v39) >> 2);
+    sub_2212A44A0(&v18, v37, v38, (v38 - v37) >> 2);
     __p = 0;
-    v24 = 0;
-    v25 = 0;
-    sub_2212A44A0(&__p, v36, v37, (v37 - v36) >> 2);
-    v26 = v14;
-    dispatch_barrier_sync(v18, v19);
+    v22 = 0;
+    v23 = 0;
+    sub_2212A44A0(&__p, v34, v35, (v35 - v34) >> 2);
+    v24 = v12;
+    dispatch_barrier_sync(v16, v17);
     if (__p)
     {
-      v24 = __p;
+      v22 = __p;
       operator delete(__p);
     }
 
-    if (v20)
+    if (v18)
     {
-      v21 = v20;
-      operator delete(v20);
+      v19 = v18;
+      operator delete(v18);
     }
 
-    if (v27)
+    if (v25)
     {
-      v28 = v27;
-      operator delete(v27);
+      v26 = v25;
+      operator delete(v25);
     }
 
-    if (v30)
+    if (v28)
     {
-      v31 = v30;
-      operator delete(v30);
+      v29 = v28;
+      operator delete(v28);
     }
 
-    if (v33)
+    if (v31)
     {
-      v34 = v33;
-      operator delete(v33);
+      v32 = v31;
+      operator delete(v31);
     }
 
-    if (v36)
+    if (v34)
     {
-      v37 = v36;
-      operator delete(v36);
+      v35 = v34;
+      operator delete(v34);
     }
 
-    if (v39)
+    if (v37)
     {
-      v40 = v39;
-      operator delete(v39);
+      v38 = v37;
+      operator delete(v37);
     }
 
-    _Block_object_dispose(&v42, 8);
-    if (v48)
+    _Block_object_dispose(&v40, 8);
+    if (v46)
     {
-      v49 = v48;
-      operator delete(v48);
+      v47 = v46;
+      operator delete(v46);
     }
 
-    _Block_object_dispose(&v51, 8);
-    if (v57)
+    _Block_object_dispose(&v49, 8);
+    if (v55)
     {
-      v58 = v57;
-      operator delete(v57);
+      v56 = v55;
+      operator delete(v55);
     }
 
+    sub_2210BC9F8(&v58, v59[0]);
     sub_2210BC9F8(&v60, v61[0]);
-    sub_2210BC9F8(&v62, v63[0]);
   }
 
-  _Block_object_dispose(&v65, 8);
-  _Block_object_dispose(&v69, 8);
+  _Block_object_dispose(&v63, 8);
+  _Block_object_dispose(&v67, 8);
 }
 
 - (void)p_compressUID:(const TSKUIDStruct *)d index:(unint64_t)index UIDtoIndexMap:(void *)map UIDs:(void *)ds compressedIndexes:(void *)indexes lastSameUIDIndex:(void *)dIndex
@@ -498,7 +498,7 @@ LABEL_9:
   {
     v16 = *(ds + 1) - *ds;
     dCopy = d;
-    *(sub_221335730(map, &d->_lower) + 48) = v16 >> 4;
+    *(sub_221335730(map, &d->_lower, &unk_2217E1940, &dCopy) + 48) = v16 >> 4;
     v18 = *(ds + 1);
     v17 = *(ds + 2);
     if (v18 >= v17)
@@ -677,70 +677,70 @@ LABEL_9:
 {
   tableCopy = table;
   blockCopy = block;
-  v14 = objc_msgSend_cellUIDList(TSTCellUIDList, v10, v11, v12, v13);
-  if ((objc_msgSend_isEmptyPivot(tableCopy, v15, v16, v17, v18) & 1) == 0)
+  v13 = objc_msgSend_cellUIDList(TSTCellUIDList, v10, v11, v12);
+  if ((objc_msgSend_isEmptyPivot(tableCopy, v14, v15, v16) & 1) == 0)
   {
-    if (objc_msgSend_compressedSize(self, v19, v20, v21, v22))
+    if (objc_msgSend_compressedSize(self, v17, v18, v19))
     {
-      v24 = objc_opt_new();
-      v35[0] = MEMORY[0x277D85DD0];
-      v35[1] = 3221225472;
-      v35[2] = sub_2213C5C8C;
-      v35[3] = &unk_278464390;
-      v25 = v24;
-      v36 = v25;
-      objc_msgSend_enumerateCellUIDsUsingBlock_(self, v26, v35, v27, v28);
-      v30 = objc_msgSend_copyByPruningAgainstTable_behavior_usingBlock_(v25, v29, tableCopy, behavior, blockCopy);
-      v31 = v14[13];
-      v14[13] = v30;
+      v21 = objc_opt_new();
+      v31[0] = MEMORY[0x277D85DD0];
+      v31[1] = 3221225472;
+      v31[2] = sub_2213C5C8C;
+      v31[3] = &unk_278464390;
+      v22 = v21;
+      v32 = v22;
+      objc_msgSend_enumerateCellUIDsUsingBlock_(self, v23, v31, v24);
+      v26 = objc_msgSend_copyByPruningAgainstTable_behavior_usingBlock_(v22, v25, tableCopy, behavior, blockCopy);
+      v27 = v13[13];
+      v13[13] = v26;
     }
 
     else
     {
-      v32 = objc_msgSend_copyByPruningAgainstTable_behavior_usingBlock_(self->_uncompressedCellUIDs, v23, tableCopy, behavior, blockCopy);
-      v33 = v14[13];
-      v14[13] = v32;
+      v28 = objc_msgSend_copyByPruningAgainstTable_behavior_usingBlock_(self->_uncompressedCellUIDs, v20, tableCopy, behavior, blockCopy);
+      v29 = v13[13];
+      v13[13] = v28;
     }
   }
 
-  return v14;
+  return v13;
 }
 
 - (void)enumerateCellUIDsUsingBlock:(id)block
 {
   blockCopy = block;
-  v9 = objc_msgSend_iterator(self, v5, v6, v7, v8);
+  v8 = objc_msgSend_iterator(self, v5, v6, v7);
   __p = 0;
-  v17 = 0;
-  v18 = 0;
-  sub_22127D034(&__p, 0x3E8uLL);
-  v12 = 0;
   v15 = 0;
+  v16 = 0;
+  sub_22127D034(&__p, 0x3E8uLL);
+  v10 = 0;
+  v13 = 0;
 LABEL_2:
-  while (objc_msgSend_nextCellUIDsBatch_batchSize_(v9, v10, &__p, 1000, v11))
+  while (objc_msgSend_nextCellUIDsBatch_batchSize_(v8, v9, &__p, 1000))
   {
-    v13 = __p;
-    v14 = v17;
-    if (__p != v17)
+    v11 = __p;
+    v12 = v15;
+    if (__p != v15)
     {
       while (1)
       {
-        blockCopy[2](blockCopy, v13, v12, &v15);
-        if (v15)
+        blockCopy[2](blockCopy, v11, v10, &v13);
+        if (v13)
         {
           goto LABEL_9;
         }
 
-        ++v12;
-        v13 += 32;
-        if (v13 == v14)
+        ++v10;
+        v11 += 32;
+        if (v11 == v12)
         {
           goto LABEL_2;
         }
       }
     }
 
-    if (v15)
+    if (v13)
     {
       break;
     }
@@ -749,7 +749,7 @@ LABEL_2:
 LABEL_9:
   if (__p)
   {
-    v17 = __p;
+    v15 = __p;
     operator delete(__p);
   }
 }

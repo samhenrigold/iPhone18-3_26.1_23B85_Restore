@@ -10,7 +10,7 @@
   selfCopy = self;
   DOCDocumentManager.DocumentCreationSession.endDisablingScreenUpdates()();
   v3.receiver = selfCopy;
-  v3.super_class = type metadata accessor for DOCDocumentManager.DocumentCreationSession();
+  v3.super_class = type metadata accessor for DOCDocumentManager.DocumentCreationSession(0);
   [(DOCDocumentManager.DocumentCreationSession *)&v3 dealloc];
 }
 

@@ -34,7 +34,7 @@
   _Block_copy(v8);
   configurationCopy = configuration;
   selfCopy = self;
-  sub_10075FFA0(configurationCopy, v9, context, selfCopy, v8);
+  sub_10075FFA0(configurationCopy, v9, context, selfCopy, v8, v13);
   _Block_release(v8);
   _Block_release(v8);
 }

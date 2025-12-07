@@ -1,5 +1,5 @@
 @interface NSString(NNMKAdditions)
-+ (uint64_t)isString:()NNMKAdditions equalToNullableString:;
++ (unint64_t)isString:()NNMKAdditions equalToNullableString:;
 - (id)nnmk_base64String;
 - (id)nnmk_sanitizedFileNameString;
 @end
@@ -23,7 +23,7 @@
   return v4;
 }
 
-+ (uint64_t)isString:()NNMKAdditions equalToNullableString:
++ (unint64_t)isString:()NNMKAdditions equalToNullableString:
 {
   if (a3)
   {

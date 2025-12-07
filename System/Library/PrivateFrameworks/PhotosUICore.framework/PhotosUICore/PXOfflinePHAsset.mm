@@ -85,7 +85,7 @@
   if (asset)
   {
     v6 = asset;
-    [asset px_storyResourceFetchBestPlaybackRange];
+    objc_msgSend_px_storyResourceFetchBestPlaybackRange(asset);
     asset = v6;
   }
 

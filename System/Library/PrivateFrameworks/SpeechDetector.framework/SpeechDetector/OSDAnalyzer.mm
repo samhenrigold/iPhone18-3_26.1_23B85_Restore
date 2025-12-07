@@ -136,16 +136,16 @@
 
 - (void)setupLipMovementVADWithModelPath:(id)path
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   v5 = SDLogContextFacilityLocalSRBridge;
   if (os_log_type_enabled(SDLogContextFacilityLocalSRBridge, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136315394;
-    v10 = "[OSDAnalyzer setupLipMovementVADWithModelPath:]";
-    v11 = 2114;
-    v12 = pathCopy;
-    _os_log_impl(&dword_26B2CF000, v5, OS_LOG_TYPE_DEFAULT, "%s Creating lipmovementvad with model path of: %{public}@", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = "[OSDAnalyzer setupLipMovementVADWithModelPath:]";
+    v10 = 2114;
+    v11 = pathCopy;
+    _os_log_impl(&dword_26B2CF000, v5, OS_LOG_TYPE_DEFAULT, "%s Creating lipmovementvad with model path of: %{public}@", &v8, 0x16u);
   }
 
   v6 = [[SDLipMovementVAD alloc] initWithModelFile:pathCopy];
@@ -153,7 +153,6 @@
   self->_lipMovementVAD = v6;
 
   [(SDLipMovementVAD *)self->_lipMovementVAD setDelegate:self];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (OSDAnalyzer)initWithConfigFile:(id)file sampleRate:(unint64_t)rate context:(id)context queue:(id)queue delegate:(id)delegate

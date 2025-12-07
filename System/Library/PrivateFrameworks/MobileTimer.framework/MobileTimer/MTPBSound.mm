@@ -76,8 +76,6 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  soundType = self->_soundType;
-  v9 = toCopy;
   PBDataWriterWriteUint32Field();
   if (self->_toneID)
   {
@@ -86,22 +84,20 @@
 
   if (*&self->_has)
   {
-    mediaID = self->_mediaID;
     PBDataWriterWriteDoubleField();
   }
 
-  v7 = v9;
+  v4 = toCopy;
   if (self->_vibeID)
   {
     PBDataWriterWriteStringField();
-    v7 = v9;
+    v4 = toCopy;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    soundVolume = self->_soundVolume;
     PBDataWriterWriteFloatField();
-    v7 = v9;
+    v4 = toCopy;
   }
 }
 
@@ -185,7 +181,6 @@
   }
 
   has = self->_has;
-  v7 = *(equalCopy + 40);
   if (has)
   {
     if ((*(equalCopy + 40) & 1) == 0 || self->_mediaID != *(equalCopy + 1))
@@ -205,14 +200,14 @@
     if (![(NSString *)vibeID isEqual:?])
     {
 LABEL_17:
-      v9 = 0;
+      v8 = 0;
       goto LABEL_18;
     }
 
     has = self->_has;
   }
 
-  v9 = (*(equalCopy + 40) & 2) == 0;
+  v8 = (*(equalCopy + 40) & 2) == 0;
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 40) & 2) == 0 || self->_soundVolume != *(equalCopy + 5))
@@ -220,12 +215,12 @@ LABEL_17:
       goto LABEL_17;
     }
 
-    v9 = 1;
+    v8 = 1;
   }
 
 LABEL_18:
 
-  return v9;
+  return v8;
 }
 
 - (unint64_t)hash

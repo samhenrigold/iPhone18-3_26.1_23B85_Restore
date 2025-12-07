@@ -458,7 +458,7 @@ LABEL_7:
 
 void __39__OAXColor_Private__presetColorEnumMap__block_invoke()
 {
-  if ((atomic_load_explicit(&_ZGVZZ39__OAXColor_Private__presetColorEnumMap_EUb_E22presetColorEnumStructs, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_ZGVZZ39__OAXColor_Private__presetColorEnumMap_EUb_E22presetColorEnumStructs, memory_order_acquire) & 1) == 0)
   {
     __39__OAXColor_Private__presetColorEnumMap__block_invoke_cold_1();
   }
@@ -470,7 +470,7 @@ void __39__OAXColor_Private__presetColorEnumMap__block_invoke()
 
 void __39__OAXColor_Private__systemColorEnumMap__block_invoke()
 {
-  if ((atomic_load_explicit(&_ZGVZZ39__OAXColor_Private__systemColorEnumMap_EUb0_E22systemColorEnumStructs, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_ZGVZZ39__OAXColor_Private__systemColorEnumMap_EUb0_E22systemColorEnumStructs, memory_order_acquire) & 1) == 0)
   {
     __39__OAXColor_Private__systemColorEnumMap__block_invoke_cold_1();
   }
@@ -482,7 +482,7 @@ void __39__OAXColor_Private__systemColorEnumMap__block_invoke()
 
 void __39__OAXColor_Private__schemeColorEnumMap__block_invoke()
 {
-  if ((atomic_load_explicit(&_ZGVZZ39__OAXColor_Private__schemeColorEnumMap_EUb1_E22schemeColorEnumStructs, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_ZGVZZ39__OAXColor_Private__schemeColorEnumMap_EUb1_E22schemeColorEnumStructs, memory_order_acquire) & 1) == 0)
   {
     __39__OAXColor_Private__schemeColorEnumMap__block_invoke_cold_1();
   }
@@ -506,7 +506,7 @@ void __39__OAXColor_Private__schemeColorEnumMap__block_invoke()
 
 void __42__OAXColor_Private__presetColorRGBEnumMap__block_invoke()
 {
-  if ((atomic_load_explicit(&_ZGVZZ42__OAXColor_Private__presetColorRGBEnumMap_EUb2_E25presetColorRGBEnumStructs, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_ZGVZZ42__OAXColor_Private__presetColorRGBEnumMap_EUb2_E25presetColorRGBEnumStructs, memory_order_acquire) & 1) == 0)
   {
     __42__OAXColor_Private__presetColorRGBEnumMap__block_invoke_cold_1();
   }
@@ -542,45 +542,45 @@ void __42__OAXColor_Private__presetColorRGBEnumMap__block_invoke()
 
 void __39__OAXColor_Private__presetColorEnumMap__block_invoke_cold_1()
 {
-  v0 = __cxa_guard_acquire(&_ZGVZZ39__OAXColor_Private__presetColorEnumMap_EUb_E22presetColorEnumStructs);
+  v0 = __cxa_guard_acquire(_ZGVZZ39__OAXColor_Private__presetColorEnumMap_EUb_E22presetColorEnumStructs);
   if (v0)
   {
     OUTLINED_FUNCTION_0(v0, v1, &dword_25D297000);
 
-    __cxa_guard_release(&_ZGVZZ39__OAXColor_Private__presetColorEnumMap_EUb_E22presetColorEnumStructs);
+    __cxa_guard_release(_ZGVZZ39__OAXColor_Private__presetColorEnumMap_EUb_E22presetColorEnumStructs);
   }
 }
 
 void __39__OAXColor_Private__systemColorEnumMap__block_invoke_cold_1()
 {
-  v0 = __cxa_guard_acquire(&_ZGVZZ39__OAXColor_Private__systemColorEnumMap_EUb0_E22systemColorEnumStructs);
+  v0 = __cxa_guard_acquire(_ZGVZZ39__OAXColor_Private__systemColorEnumMap_EUb0_E22systemColorEnumStructs);
   if (v0)
   {
     OUTLINED_FUNCTION_0(v0, v1, &dword_25D297000);
 
-    __cxa_guard_release(&_ZGVZZ39__OAXColor_Private__systemColorEnumMap_EUb0_E22systemColorEnumStructs);
+    __cxa_guard_release(_ZGVZZ39__OAXColor_Private__systemColorEnumMap_EUb0_E22systemColorEnumStructs);
   }
 }
 
 void __39__OAXColor_Private__schemeColorEnumMap__block_invoke_cold_1()
 {
-  v0 = __cxa_guard_acquire(&_ZGVZZ39__OAXColor_Private__schemeColorEnumMap_EUb1_E22schemeColorEnumStructs);
+  v0 = __cxa_guard_acquire(_ZGVZZ39__OAXColor_Private__schemeColorEnumMap_EUb1_E22schemeColorEnumStructs);
   if (v0)
   {
     OUTLINED_FUNCTION_0(v0, v1, &dword_25D297000);
 
-    __cxa_guard_release(&_ZGVZZ39__OAXColor_Private__schemeColorEnumMap_EUb1_E22schemeColorEnumStructs);
+    __cxa_guard_release(_ZGVZZ39__OAXColor_Private__schemeColorEnumMap_EUb1_E22schemeColorEnumStructs);
   }
 }
 
 void __42__OAXColor_Private__presetColorRGBEnumMap__block_invoke_cold_1()
 {
-  v0 = __cxa_guard_acquire(&_ZGVZZ42__OAXColor_Private__presetColorRGBEnumMap_EUb2_E25presetColorRGBEnumStructs);
+  v0 = __cxa_guard_acquire(_ZGVZZ42__OAXColor_Private__presetColorRGBEnumMap_EUb2_E25presetColorRGBEnumStructs);
   if (v0)
   {
     OUTLINED_FUNCTION_0(v0, v1, &dword_25D297000);
 
-    __cxa_guard_release(&_ZGVZZ42__OAXColor_Private__presetColorRGBEnumMap_EUb2_E25presetColorRGBEnumStructs);
+    __cxa_guard_release(_ZGVZZ42__OAXColor_Private__presetColorRGBEnumMap_EUb2_E25presetColorRGBEnumStructs);
   }
 }
 

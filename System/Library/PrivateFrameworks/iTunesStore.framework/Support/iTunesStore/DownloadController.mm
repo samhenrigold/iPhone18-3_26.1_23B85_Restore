@@ -709,7 +709,7 @@
       [(DownloadController *)self _handleMessage:v24 connection:connectionCopy usingBlock:v20];
 
       v11 = v21;
-      goto LABEL_15;
+      goto LABEL_16;
     }
 
     v11 = +[SSLogConfig sharedDaemonConfig];
@@ -721,29 +721,34 @@
     shouldLog = [v11 shouldLog];
     if ([v11 shouldLogToDisk])
     {
-      v18 = shouldLog | 2;
+      LODWORD(v19) = shouldLog | 2;
     }
 
     else
     {
-      v18 = shouldLog;
+      LODWORD(v19) = shouldLog;
     }
 
     oSLogObject = [v11 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
     {
-      v18 &= 2u;
+      v19 = v19;
     }
 
-    if (!v18)
+    else
     {
-      goto LABEL_14;
+      v19 &= 2u;
+    }
+
+    if (!v19)
+    {
+      goto LABEL_15;
     }
 
     v25 = 138412290;
     v26 = objc_opt_class();
     v15 = v26;
-    LODWORD(v19) = 12;
+    v16 = _os_log_send_and_compose_impl(v19, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: No client identifier for client manager", &v25, 12);
   }
 
   else
@@ -757,23 +762,28 @@
     shouldLog2 = [v11 shouldLog];
     if ([v11 shouldLogToDisk])
     {
-      v13 = shouldLog2 | 2;
+      LODWORD(v13) = shouldLog2 | 2;
     }
 
     else
     {
-      v13 = shouldLog2;
+      LODWORD(v13) = shouldLog2;
     }
 
     oSLogObject = [v11 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v13 = v13;
+    }
+
+    else
     {
       v13 &= 2u;
     }
 
     if (!v13)
     {
-      goto LABEL_14;
+      goto LABEL_15;
     }
 
     v25 = 138412546;
@@ -781,20 +791,20 @@
     v27 = 2112;
     v28 = v8;
     v15 = v26;
-    LODWORD(v19) = 22;
+    v16 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: No endpoint for client manager: %@", &v25, 22);
   }
 
-  v16 = _os_log_send_and_compose_impl();
+  v17 = v16;
 
-  if (v16)
+  if (v17)
   {
-    oSLogObject = [NSString stringWithCString:v16 encoding:4, &v25, v19];
-    free(v16);
+    oSLogObject = [NSString stringWithCString:v17 encoding:4];
+    free(v17);
     SSFileLog();
-LABEL_14:
+LABEL_15:
   }
 
-LABEL_15:
+LABEL_16:
 }
 
 - (void)removePersistenceIDWithMessage:(id)message connection:(id)connection
@@ -1263,10 +1273,10 @@ LABEL_13:
   forcedCopy = forced;
   downloadsCopy = downloads;
   clientCopy = client;
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x2020000000;
-  v36 = 1;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x2020000000;
+  v35 = 1;
   v10 = [downloadsCopy count];
   if (forcedCopy)
   {
@@ -1279,63 +1289,67 @@ LABEL_13:
     v11 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog = [v11 shouldLog];
+  LODWORD(v12) = [v11 shouldLog];
   shouldLogToDisk = [v11 shouldLogToDisk];
   oSLogObject = [v11 OSLogObject];
   v15 = oSLogObject;
   if (shouldLogToDisk)
   {
-    shouldLog |= 2u;
+    LODWORD(v12) = v12 | 2;
   }
 
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
   {
-    shouldLog &= 2u;
+    v12 = v12;
   }
 
-  if (!shouldLog)
+  else
   {
-    goto LABEL_12;
+    v12 &= 2u;
+  }
+
+  if (!v12)
+  {
+    goto LABEL_13;
   }
 
   v16 = objc_opt_class();
-  v37 = 138413058;
-  v38 = v16;
-  v39 = 2048;
-  v40 = v10;
-  v41 = 2112;
-  v42 = clientCopy;
-  v43 = 1024;
-  v44 = forcedCopy;
+  v36 = 138413058;
+  v37 = v16;
+  v38 = 2048;
+  v39 = v10;
+  v40 = 2112;
+  v41 = clientCopy;
+  v42 = 1024;
+  v43 = forcedCopy;
   v17 = v16;
-  LODWORD(v25) = 38;
-  v18 = _os_log_send_and_compose_impl();
+  v18 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &_mh_execute_header, v15, 1, "%@: Pausing %ld downloads for %@, forced: %d", &v36, 38);
 
   if (v18)
   {
-    v15 = [NSString stringWithCString:v18 encoding:4, &v37, v25];
+    v15 = [NSString stringWithCString:v18 encoding:4];
     free(v18);
     SSFileLog();
-LABEL_12:
+LABEL_13:
   }
 
   v19 = +[DownloadsDatabase downloadsDatabase];
-  v26[0] = _NSConcreteStackBlock;
-  v26[1] = 3221225472;
-  v26[2] = sub_1001CB3F0;
-  v26[3] = &unk_10032B980;
+  v25[0] = _NSConcreteStackBlock;
+  v25[1] = 3221225472;
+  v25[2] = sub_1001CB3F0;
+  v25[3] = &unk_10032B980;
   v20 = downloadsCopy;
-  v27 = v20;
+  v26 = v20;
   v21 = clientCopy;
-  v28 = v21;
+  v27 = v21;
   selfCopy = self;
-  v30 = &v33;
-  v31 = v10;
-  v32 = forcedCopy;
-  v22 = [v19 modifyUsingTransactionBlock:v26];
+  v29 = &v32;
+  v30 = v10;
+  v31 = forcedCopy;
+  v22 = [v19 modifyUsingTransactionBlock:v25];
 
-  v23 = *(v34 + 24);
-  _Block_object_dispose(&v33, 8);
+  v23 = *(v33 + 24);
+  _Block_object_dispose(&v32, 8);
 
   return v23 & 1;
 }
@@ -1407,43 +1421,47 @@ LABEL_12:
       shouldLog = [(RescueAbandonedPlaceholderOperation *)v7 shouldLog];
       if ([(RescueAbandonedPlaceholderOperation *)v7 shouldLogToDisk])
       {
-        v9 = shouldLog | 2;
+        LODWORD(v9) = shouldLog | 2;
       }
 
       else
       {
-        v9 = shouldLog;
+        LODWORD(v9) = shouldLog;
       }
 
       oSLogObject = [(RescueAbandonedPlaceholderOperation *)v7 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+      {
+        v9 = v9;
+      }
+
+      else
       {
         v9 &= 2u;
       }
 
       if (v9)
       {
-        v29 = 138412546;
-        v30 = objc_opt_class();
-        v31 = 2112;
-        v32 = dCopy;
-        v11 = v30;
-        LODWORD(v24) = 22;
-        v12 = _os_log_send_and_compose_impl();
+        v28 = 138412546;
+        v29 = objc_opt_class();
+        v30 = 2112;
+        v31 = dCopy;
+        v11 = v29;
+        v12 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Ignoring rescue for %@, operation already queued.", &v28, 22);
 
         if (!v12)
         {
-LABEL_30:
+LABEL_31:
 
-          goto LABEL_31;
+          goto LABEL_32;
         }
 
-        oSLogObject = [NSString stringWithCString:v12 encoding:4, &v29, v24];
+        oSLogObject = [NSString stringWithCString:v12 encoding:4];
         free(v12);
         SSFileLog();
       }
 
-      goto LABEL_30;
+      goto LABEL_31;
     }
 
     if (!v6)
@@ -1475,15 +1493,13 @@ LABEL_30:
 
     if (v16)
     {
-      v29 = 138412290;
-      v30 = dCopy;
-      LODWORD(v24) = 12;
-      v23 = &v29;
-      v17 = _os_log_send_and_compose_impl();
+      v28 = 138412290;
+      v29 = dCopy;
+      v17 = _os_log_send_and_compose_impl(v16, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "[Download]: Attempting rescue restore for bundle ID: %@", &v28, 12);
 
       if (!v17)
       {
-LABEL_27:
+LABEL_28:
 
         rescuingBundleIdentifiers = self->_rescuingBundleIdentifiers;
         if (!rescuingBundleIdentifiers)
@@ -1498,30 +1514,30 @@ LABEL_27:
         [(NSMutableSet *)rescuingBundleIdentifiers addObject:dCopy, v23];
         v7 = [[RescueAbandonedPlaceholderOperation alloc] initWithBundleIdentifier:dCopy];
         [SSWeakReference weakReferenceWithObject:self];
-        v25[0] = _NSConcreteStackBlock;
-        v25[1] = 3221225472;
-        v25[2] = sub_1001CC274;
-        v26 = v25[3] = &unk_10032B9F8;
-        v27 = dCopy;
+        v24[0] = _NSConcreteStackBlock;
+        v24[1] = 3221225472;
+        v24[2] = sub_1001CC274;
+        v25 = v24[3] = &unk_10032B9F8;
+        v26 = dCopy;
         selfCopy = self;
-        v21 = v26;
-        [(RescueAbandonedPlaceholderOperation *)v7 setOutputBlock:v25];
+        v21 = v25;
+        [(RescueAbandonedPlaceholderOperation *)v7 setOutputBlock:v24];
         v22 = +[ISOperationQueue mainQueue];
         [v22 addOperation:v7];
 
-        goto LABEL_30;
+        goto LABEL_31;
       }
 
-      oSLogObject2 = [NSString stringWithCString:v17 encoding:4, &v29, v24];
+      oSLogObject2 = [NSString stringWithCString:v17 encoding:4];
       free(v17);
       v23 = oSLogObject2;
       SSFileLog();
     }
 
-    goto LABEL_27;
+    goto LABEL_28;
   }
 
-LABEL_31:
+LABEL_32:
 }
 
 - (BOOL)_resumeDownloads:(id)downloads client:(id)client
@@ -1541,58 +1557,62 @@ LABEL_31:
     shouldLog = [v10 shouldLog];
     if ([v10 shouldLogToDisk])
     {
-      v12 = shouldLog | 2;
+      LODWORD(v12) = shouldLog | 2;
     }
 
     else
     {
-      v12 = shouldLog;
+      LODWORD(v12) = shouldLog;
     }
 
     oSLogObject = [v10 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    {
+      v12 = v12;
+    }
+
+    else
     {
       v12 &= 2u;
     }
 
     if (v12)
     {
-      v24 = 138412802;
-      v25 = objc_opt_class();
-      v26 = 2048;
-      v27 = v9;
-      v28 = 2112;
-      v29 = clientCopy;
-      v14 = v25;
-      LODWORD(v19) = 32;
-      v15 = _os_log_send_and_compose_impl();
+      v23 = 138412802;
+      v24 = objc_opt_class();
+      v25 = 2048;
+      v26 = v9;
+      v27 = 2112;
+      v28 = clientCopy;
+      v14 = v24;
+      v15 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Resuming %lld downloads for %@", &v23, 32);
 
       if (!v15)
       {
-LABEL_13:
+LABEL_14:
 
         v16 = +[DownloadsDatabase downloadsDatabase];
-        v20[0] = _NSConcreteStackBlock;
-        v20[1] = 3221225472;
-        v20[2] = sub_1001CC774;
-        v20[3] = &unk_100328C60;
-        v21 = downloadsCopy;
-        v22 = clientCopy;
+        v19[0] = _NSConcreteStackBlock;
+        v19[1] = 3221225472;
+        v19[2] = sub_1001CC774;
+        v19[3] = &unk_100328C60;
+        v20 = downloadsCopy;
+        v21 = clientCopy;
         selfCopy = self;
-        v17 = [v16 modifyUsingTransactionBlock:v20];
+        v17 = [v16 modifyUsingTransactionBlock:v19];
 
-        goto LABEL_14;
+        goto LABEL_15;
       }
 
-      oSLogObject = [NSString stringWithCString:v15 encoding:4, &v24, v19];
+      oSLogObject = [NSString stringWithCString:v15 encoding:4];
       free(v15);
       SSFileLog();
     }
 
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
-LABEL_14:
+LABEL_15:
 
   return 1;
 }
@@ -1614,58 +1634,62 @@ LABEL_14:
     shouldLog = [v10 shouldLog];
     if ([v10 shouldLogToDisk])
     {
-      v12 = shouldLog | 2;
+      LODWORD(v12) = shouldLog | 2;
     }
 
     else
     {
-      v12 = shouldLog;
+      LODWORD(v12) = shouldLog;
     }
 
     oSLogObject = [v10 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    {
+      v12 = v12;
+    }
+
+    else
     {
       v12 &= 2u;
     }
 
     if (v12)
     {
-      v24 = 138412802;
-      v25 = objc_opt_class();
-      v26 = 2048;
-      v27 = v9;
-      v28 = 2112;
-      v29 = clientCopy;
-      v14 = v25;
-      LODWORD(v19) = 32;
-      v15 = _os_log_send_and_compose_impl();
+      v23 = 138412802;
+      v24 = objc_opt_class();
+      v25 = 2048;
+      v26 = v9;
+      v27 = 2112;
+      v28 = clientCopy;
+      v14 = v24;
+      v15 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Restarting %lld downloads for %@", &v23, 32);
 
       if (!v15)
       {
-LABEL_13:
+LABEL_14:
 
         v16 = +[DownloadsDatabase downloadsDatabase];
-        v20[0] = _NSConcreteStackBlock;
-        v20[1] = 3221225472;
-        v20[2] = sub_1001CCCF8;
-        v20[3] = &unk_100328C60;
-        v21 = downloadsCopy;
-        v22 = clientCopy;
+        v19[0] = _NSConcreteStackBlock;
+        v19[1] = 3221225472;
+        v19[2] = sub_1001CCCF8;
+        v19[3] = &unk_100328C60;
+        v20 = downloadsCopy;
+        v21 = clientCopy;
         selfCopy = self;
-        v17 = [v16 modifyUsingTransactionBlock:v20];
+        v17 = [v16 modifyUsingTransactionBlock:v19];
 
-        goto LABEL_14;
+        goto LABEL_15;
       }
 
-      oSLogObject = [NSString stringWithCString:v15 encoding:4, &v24, v19];
+      oSLogObject = [NSString stringWithCString:v15 encoding:4];
       free(v15);
       SSFileLog();
     }
 
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
-LABEL_14:
+LABEL_15:
 
   return 1;
 }
@@ -1687,31 +1711,35 @@ LABEL_14:
     shouldLog = [v6 shouldLog];
     if ([v6 shouldLogToDisk])
     {
-      v8 = shouldLog | 2;
+      LODWORD(v8) = shouldLog | 2;
     }
 
     else
     {
-      v8 = shouldLog;
+      LODWORD(v8) = shouldLog;
     }
 
     oSLogObject = [v6 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    {
+      v8 = v8;
+    }
+
+    else
     {
       v8 &= 2u;
     }
 
     if (v8)
     {
-      LODWORD(v15) = 138412290;
-      *(&v15 + 4) = objc_opt_class();
-      v10 = *(&v15 + 4);
-      LODWORD(v14) = 12;
-      v11 = _os_log_send_and_compose_impl();
+      v14 = 138412290;
+      v15 = objc_opt_class();
+      v10 = v15;
+      v11 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Retrying all failed restore downloads", &v14, 12);
 
       if (!v11)
       {
-LABEL_13:
+LABEL_14:
 
         +[RestoreDownloadsOperation resetShouldSuppressTermsAndConditionsDialogs];
         v12 = [NSNumber numberWithInteger:0];
@@ -1720,18 +1748,18 @@ LABEL_13:
         [transactionCopy resetDownloadsMatchingPredicate:v13];
         [transactionCopy addDownloadChangeTypes:128];
 
-        goto LABEL_14;
+        goto LABEL_15;
       }
 
-      oSLogObject = [NSString stringWithCString:v11 encoding:4, &v15, v14, v15];
+      oSLogObject = [NSString stringWithCString:v11 encoding:4];
       free(v11);
       SSFileLog();
     }
 
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
-LABEL_14:
+LABEL_15:
 }
 
 - (void)_sendDownloadKindsUsingNetwork:(id)network

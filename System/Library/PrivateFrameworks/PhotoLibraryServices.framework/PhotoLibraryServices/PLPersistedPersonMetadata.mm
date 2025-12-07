@@ -127,12 +127,12 @@
   v32[11] = @"detectedFacesCount";
   v18 = MEMORY[0x1E696AD98];
   detectedFaces = [(PLPersistedPersonMetadata *)self detectedFaces];
-  v20 = [v18 numberWithUnsignedInteger:{objc_msgSend(detectedFaces, "count")}];
+  v20 = [v18 numberWithUnsignedInteger:objc_msgSend_count(detectedFaces)];
   v33[11] = v20;
   v32[12] = @"rejectedFacesCount";
   v21 = MEMORY[0x1E696AD98];
   rejectedFaces = [(PLPersistedPersonMetadata *)self rejectedFaces];
-  v23 = [v21 numberWithUnsignedInteger:{objc_msgSend(rejectedFaces, "count")}];
+  v23 = [v21 numberWithUnsignedInteger:objc_msgSend_count(rejectedFaces)];
   v33[12] = v23;
   v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:v32 count:13];
 
@@ -281,14 +281,14 @@ LABEL_26:
       *diff = [MEMORY[0x1E695DF20] dictionaryWithObjects:v54 forKeys:v53 count:2];
     }
 
-    if ([dictionary count])
+    if (objc_msgSend_count(dictionary))
     {
       v50 = 0;
     }
 
     else
     {
-      v50 = [dictionary2 count] == 0;
+      v50 = objc_msgSend_count(dictionary2) == 0;
     }
 
     goto LABEL_33;
@@ -526,7 +526,7 @@ LABEL_8:
   }
 
   userFeedbacks = [selfCopy10 userFeedbacks];
-  v33 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(userFeedbacks, "count")}];
+  v33 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:objc_msgSend_count(userFeedbacks)];
   v69 = 0u;
   v70 = 0u;
   v71 = 0u;
@@ -556,7 +556,7 @@ LABEL_8:
     while (v36);
   }
 
-  if ([v33 count])
+  if (objc_msgSend_count(v33))
   {
     [v3 encodeObject:v33 forKey:@"userFeedbacks"];
   }
@@ -580,19 +580,19 @@ LABEL_8:
   if (self->_person)
   {
     detectedFaces = [objc_opt_class() _detectedFacesToArchiveWithPerson:self->_person];
-    if ([detectedFaces count])
+    if (objc_msgSend_count(detectedFaces))
     {
       keyFace = [(PLPerson *)self->_person keyFace];
       v44 = [objc_opt_class() _persistedFaceMetadataWithFaces:detectedFaces keyFace:keyFace clusterRejectedFaceIDs:0];
-      v45 = [detectedFaces count];
-      if (v45 != [v44 count])
+      v45 = objc_msgSend_count(detectedFaces);
+      if (v45 != objc_msgSend_count(v44))
       {
         v46 = personUUID;
         v47 = PLMigrationGetLog();
         if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
         {
-          v48 = [detectedFaces count];
-          v49 = [v44 count];
+          v48 = objc_msgSend_count(detectedFaces);
+          v49 = objc_msgSend_count(v44);
           *buf = 138412546;
           v74 = v46;
           v75 = 1024;
@@ -609,20 +609,20 @@ LABEL_8:
     v50 = personUUID;
     rejectedFaces = [objc_opt_class() _rejectedFacesToArchiveWithPerson:self->_person];
     v52 = [objc_opt_class() _clusterRejectedFaceIDsWithPerson:self->_person];
-    if ([rejectedFaces count])
+    if (objc_msgSend_count(rejectedFaces))
     {
       v53 = objc_opt_class();
       v54 = [MEMORY[0x1E695DFD8] setWithArray:v52];
       v55 = [v53 _persistedFaceMetadataWithFaces:rejectedFaces keyFace:0 clusterRejectedFaceIDs:v54];
 
-      v56 = [rejectedFaces count];
-      if (v56 != [v55 count])
+      v56 = objc_msgSend_count(rejectedFaces);
+      if (v56 != objc_msgSend_count(v55))
       {
         v57 = PLMigrationGetLog();
         if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
         {
-          v66 = [rejectedFaces count];
-          v58 = [v55 count];
+          v66 = objc_msgSend_count(rejectedFaces);
+          v58 = objc_msgSend_count(v55);
           *buf = 138412546;
           v74 = v50;
           v75 = 1024;
@@ -649,13 +649,13 @@ LABEL_8:
   else
   {
     detectedFaces = [(PLPersistedPersonMetadata *)self detectedFaces];
-    if ([detectedFaces count])
+    if (objc_msgSend_count(detectedFaces))
     {
       [v3 encodeObject:detectedFaces forKey:@"detectedFaces"];
     }
 
     rejectedFaces = [(PLPersistedPersonMetadata *)self rejectedFaces];
-    if ([rejectedFaces count])
+    if (objc_msgSend_count(rejectedFaces))
     {
       [v3 encodeObject:rejectedFaces forKey:@"rejectedFaces"];
     }
@@ -802,7 +802,7 @@ LABEL_57:
     {
       [(PLPersistedPersonMetadata *)self readDetectedFacesFromKeyedUnarchiver:v7];
       detectedFaces = [(PLPersistedPersonMetadata *)self detectedFaces];
-      v38 = [detectedFaces count] != 0;
+      v38 = objc_msgSend_count(detectedFaces) != 0;
 
       if (v9 < 5)
       {
@@ -822,7 +822,7 @@ LABEL_57:
         v41 = PLMigrationGetLog();
         if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
         {
-          v42 = [v40 count];
+          v42 = objc_msgSend_count(v40);
           personUUID3 = [(PLPersistedPersonMetadata *)self personUUID];
           *buf = 134218242;
           v65 = v42;
@@ -945,7 +945,7 @@ LABEL_58:
       v9 = PLMigrationGetLog();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = [v8 count];
+        v10 = objc_msgSend_count(v8);
         personUUID = [(PLPersistedPersonMetadata *)self personUUID];
         v14 = 134218242;
         v15 = v10;
@@ -1056,7 +1056,7 @@ LABEL_58:
   }
 
   detectedFaces = [selfCopy detectedFaces];
-  v10 = [detectedFaces count];
+  v10 = objc_msgSend_count(detectedFaces);
 
   if (self->_person)
   {
@@ -1069,7 +1069,7 @@ LABEL_58:
   }
 
   rejectedFaces = [selfCopy2 rejectedFaces];
-  v13 = [rejectedFaces count];
+  v13 = objc_msgSend_count(rejectedFaces);
 
   [v4 appendName:@"faces" integerValue:v10];
   [v4 appendName:@"rejected" integerValue:v13];
@@ -1328,7 +1328,7 @@ LABEL_14:
     }
   }
 
-  v15 = v12 == [v8 count];
+  v15 = v12 == objc_msgSend_count(v8);
 
   return v15;
 }
@@ -1465,7 +1465,7 @@ LABEL_14:
   v18 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E695DFA8];
   detectedFaces = [(PLPersistedPersonMetadata *)self detectedFaces];
-  v5 = [v3 setWithCapacity:{objc_msgSend(detectedFaces, "count")}];
+  v5 = [v3 setWithCapacity:objc_msgSend_count(detectedFaces)];
 
   v15 = 0u;
   v16 = 0u;
@@ -1696,8 +1696,8 @@ LABEL_7:
     _os_log_impl(&dword_19BF1F000, v6, OS_LOG_TYPE_DEFAULT, "Deduping person metadata archives based on their sets of faces", buf, 2u);
   }
 
-  v31 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(lsCopy, "count")}];
-  v32 = [objc_alloc(MEMORY[0x1E695DFA0]) initWithCapacity:{objc_msgSend(lsCopy, "count")}];
+  v31 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:objc_msgSend_count(lsCopy)];
+  v32 = [objc_alloc(MEMORY[0x1E695DFA0]) initWithCapacity:objc_msgSend_count(lsCopy)];
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
@@ -1728,7 +1728,7 @@ LABEL_7:
           if (readDetectedFaces)
           {
             detectedFaceIdentifiers = [(PLPersistedPersonMetadata *)context detectedFaceIdentifiers];
-            v18 = [detectedFaceIdentifiers count];
+            v18 = objc_msgSend_count(detectedFaceIdentifiers);
 
             if (!v18)
             {
@@ -1785,7 +1785,7 @@ LABEL_16:
   v26 = PLMigrationGetLog();
   if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
   {
-    v27 = [v23 count];
+    v27 = objc_msgSend_count(v23);
     *buf = 134217984;
     v44 = v27;
     _os_log_impl(&dword_19BF1F000, v26, OS_LOG_TYPE_DEFAULT, "Found %ld person duplicates, these will be skipped while rebuilding persons", buf, 0xCu);
@@ -1801,11 +1801,11 @@ uint64_t __76__PLPersistedPersonMetadata_personUUIDsToDedupeWithMetadataURLs_cpl
   v5 = *(a1 + 32);
   v6 = a3;
   v7 = [v5 objectForKey:a2];
-  v8 = [v7 count];
+  v8 = objc_msgSend_count(v7);
 
   v9 = [*(a1 + 32) objectForKey:v6];
 
-  v10 = [v9 count];
+  v10 = objc_msgSend_count(v9);
   if (v8 < v10)
   {
     return -1;
@@ -1821,7 +1821,7 @@ void __76__PLPersistedPersonMetadata_personUUIDsToDedupeWithMetadataURLs_cplEnab
 {
   v8 = a2;
   v5 = [a1[4] objectForKey:?];
-  while (++a3 < [a1[5] count])
+  while (++a3 < objc_msgSend_count(a1[5]))
   {
     v6 = [a1[5] objectAtIndex:a3];
     v7 = [a1[4] objectForKey:v6];
@@ -1840,7 +1840,7 @@ void __76__PLPersistedPersonMetadata_personUUIDsToDedupeWithMetadataURLs_cplEnab
   facesCopy = faces;
   faceCopy = face;
   dsCopy = ds;
-  v24 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(facesCopy, "count")}];
+  v24 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(facesCopy)];
   v22 = faceCopy;
   objectID = [faceCopy objectID];
   v25 = 0u;
@@ -2128,9 +2128,9 @@ uint64_t __87__PLPersistedPersonMetadata_urlsForPersistedPersonsInMetadataDirect
 {
   pathCopy = path;
   pathExtension = [pathCopy pathExtension];
-  v7 = [pathExtension isEqualToString:PLFaceMetadataExtension];
-  v8 = v7;
-  if (d && v7)
+  isEqualToString = objc_msgSend_isEqualToString_(pathExtension);
+  v8 = isEqualToString;
+  if (d && isEqualToString)
   {
     pathComponents = [pathCopy pathComponents];
     lastObject = [pathComponents lastObject];

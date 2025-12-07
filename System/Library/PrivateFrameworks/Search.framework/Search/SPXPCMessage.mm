@@ -31,7 +31,7 @@
 
 - (id)_createXPCMessage
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = xpc_string_create([(NSString *)self->_name UTF8String]);
   info = self->_info;
   if (info)
@@ -56,8 +56,8 @@
   }
 
   *keys = xmmword_1E82F9668;
-  v16 = *off_1E82F9678;
-  v17 = "kDKMessageFeedbackDataKey";
+  v15 = *off_1E82F9678;
+  v16 = "kDKMessageFeedbackDataKey";
   v8 = v3;
   values[0] = v8;
   v9 = v7;
@@ -70,7 +70,6 @@
   {
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -110,7 +109,7 @@
 
 - (SPXPCMessage)initWithName:(id)name connection:(id)connection
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   connection = [(SPXPCMessage *)self initWithName:name, connection];
   v5 = connection;
   if (connection)
@@ -118,8 +117,8 @@
     name = connection->_name;
     if (name)
     {
-      v12[0] = connection->_name;
-      v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+      v11[0] = connection->_name;
+      v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
     }
 
     else
@@ -136,13 +135,12 @@
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (id)_initWithXPCMessage:(id)message onConnection:(id)connection
 {
-  v35[1] = *MEMORY[0x1E69E9840];
+  v34[1] = *MEMORY[0x1E69E9840];
   messageCopy = message;
   connectionCopy = connection;
   v9 = [(SPXPCMessage *)self init];
@@ -159,17 +157,17 @@
     name = v10->_name;
     v10->_name = string;
 
-    v33 = 0;
-    data = xpc_dictionary_get_data(messageCopy, "kDKMessageInfoKey", &v33);
+    v32 = 0;
+    data = xpc_dictionary_get_data(messageCopy, "kDKMessageInfoKey", &v32);
     v14 = 0;
-    if (data && v33)
+    if (data && v32)
     {
-      v15 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytesNoCopy:data length:v33 freeWhenDone:0];
+      v15 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytesNoCopy:data length:v32 freeWhenDone:0];
       if (v15)
       {
-        v34 = 0;
-        v14 = [MEMORY[0x1E696AE40] propertyListWithData:v15 options:0 format:0 error:&v34];
-        v16 = v34;
+        v33 = 0;
+        v14 = [MEMORY[0x1E696AE40] propertyListWithData:v15 options:0 format:0 error:&v33];
+        v16 = v33;
         if (v16 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
           [SPXPCMessage _initWithXPCMessage:onConnection:];
@@ -215,8 +213,8 @@
       v27 = v10->_name;
       if (v27)
       {
-        v35[0] = v10->_name;
-        v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:1];
+        v34[0] = v10->_name;
+        v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:1];
       }
 
       else
@@ -234,7 +232,6 @@
     }
   }
 
-  v31 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -420,11 +417,9 @@ LABEL_6:
 
 - (void)_initWithXPCMessage:onConnection:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_4_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

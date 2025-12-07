@@ -1,9 +1,7 @@
 @interface AVRoutingSessionDestination
 - (AVRoutingSessionDestination)initWithFigRoutingSessionDestination:(__CFDictionary *)destination;
 - (BOOL)_canQueryOutputDeviceDescriptionsAndReturnCurrentValue:(id *)value;
-- (BOOL)providesExternalVideoPlayback;
 - (NSArray)outputDeviceDescriptions;
-- (float)probability;
 - (id)description;
 - (void)dealloc;
 @end
@@ -59,22 +57,6 @@
   }
 
   return v12;
-}
-
-- (float)probability
-{
-  figDestination = self->_ivars->figDestination;
-  v3 = *MEMORY[0x1E69AF550];
-  FigCFDictionaryGetFloatIfPresent();
-  return 0.0;
-}
-
-- (BOOL)providesExternalVideoPlayback
-{
-  figDestination = self->_ivars->figDestination;
-  v3 = *MEMORY[0x1E69AF558];
-  FigCFDictionaryGetBooleanIfPresent();
-  return 0;
 }
 
 - (AVRoutingSessionDestination)initWithFigRoutingSessionDestination:(__CFDictionary *)destination

@@ -17,43 +17,42 @@
 
 - (id)_subclass_updateWithOptions:(id)options
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   v5 = *MEMORY[0x277CD0ED8];
   v6 = [objc_opt_class() characteristicTypesForServiceType:v5 includingAssociatedTypes:1];
-  v18[0] = v5;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+  v17[0] = v5;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
   allObjects = [v6 allObjects];
   v9 = [(HFStatusItem *)self filteredServicesOfTypes:v7 containingCharacteristicTypes:allObjects];
 
   objc_initWeak(&location, self);
   valueSource = [(HFStatusItem *)self valueSource];
   v11 = [valueSource readValuesForCharacteristicTypes:v6 inServices:v9];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __52__HFSecurityStatusItem__subclass_updateWithOptions___block_invoke;
-  v15[3] = &unk_277DF78B0;
-  objc_copyWeak(&v16, &location);
-  v12 = [v11 flatMap:v15];
-  objc_destroyWeak(&v16);
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __52__HFSecurityStatusItem__subclass_updateWithOptions___block_invoke;
+  v14[3] = &unk_277DF78B0;
+  objc_copyWeak(&v15, &location);
+  v12 = [v11 flatMap:v14];
+  objc_destroyWeak(&v15);
 
   objc_destroyWeak(&location);
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 id __52__HFSecurityStatusItem__subclass_updateWithOptions___block_invoke(uint64_t a1, void *a2)
 {
-  v60[1] = *MEMORY[0x277D85DE8];
+  v59[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (!WeakRetained)
   {
     v9 = MEMORY[0x277D2C900];
-    v59 = @"hidden";
-    v60[0] = MEMORY[0x277CBEC38];
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v60 forKeys:&v59 count:1];
+    v58 = @"hidden";
+    v59[0] = MEMORY[0x277CBEC38];
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v59 forKeys:&v58 count:1];
     goto LABEL_5;
   }
 
@@ -81,29 +80,29 @@ LABEL_5:
   v16 = [MEMORY[0x277CBEB58] set];
   v17 = [MEMORY[0x277CBEB58] set];
   v18 = [v7 objectForKeyedSubscript:?];
-  v50[0] = MEMORY[0x277D85DD0];
-  v50[1] = 3221225472;
-  v50[2] = __52__HFSecurityStatusItem__subclass_updateWithOptions___block_invoke_2;
-  v50[3] = &unk_277DF9208;
-  v46 = v3;
+  v49[0] = MEMORY[0x277D85DD0];
+  v49[1] = 3221225472;
+  v49[2] = __52__HFSecurityStatusItem__subclass_updateWithOptions___block_invoke_2;
+  v49[3] = &unk_277DF9208;
+  v45 = v3;
   v19 = v3;
-  v51 = v19;
-  v52 = WeakRetained;
+  v50 = v19;
+  v51 = WeakRetained;
   v20 = v13;
-  v53 = v20;
+  v52 = v20;
   v21 = v15;
-  v54 = v21;
-  v49 = v17;
-  v55 = v49;
+  v53 = v21;
+  v48 = v17;
+  v54 = v48;
   v22 = v16;
-  v56 = v22;
-  v48 = v14;
-  v57 = v48;
+  v55 = v22;
+  v47 = v14;
+  v56 = v47;
   v23 = v12;
-  v58 = v23;
-  [v18 na_each:v50];
+  v57 = v23;
+  [v18 na_each:v49];
 
-  v47 = v22;
+  v46 = v22;
   if ([v20 count])
   {
     v24 = v21;
@@ -160,14 +159,14 @@ LABEL_5:
       if (![v22 count])
       {
         v36 = 0;
-        v3 = v46;
+        v3 = v45;
         goto LABEL_21;
       }
 
       v34 = @"HFStatusTitleSecuritySystem_Disarming";
     }
 
-    v3 = v46;
+    v3 = v45;
     v36 = _HFLocalizedStringWithDefaultValue(v34, v34, 1);
 LABEL_21:
     v24 = v21;
@@ -206,7 +205,7 @@ LABEL_21:
   v24 = v21;
   [v7 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"hidden"];
 LABEL_13:
-  v3 = v46;
+  v3 = v45;
 LABEL_29:
   [v7 setObject:v23 forKeyedSubscript:@"representedHomeKitObjects"];
   v42 = MEMORY[0x277D2C900];
@@ -214,14 +213,13 @@ LABEL_29:
   v11 = [v42 futureWithResult:v43];
 
 LABEL_30:
-  v44 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 void __52__HFSecurityStatusItem__subclass_updateWithOptions___block_invoke_2(id *a1, void *a2)
 {
-  v16 = a2;
+  v15 = a2;
   v3 = [a1[4] batchResponseForService:?];
   v4 = [v3 responseForCharacteristicType:*MEMORY[0x277CCF858]];
   v5 = [v4 valueWithExpectedClass:objc_opt_class()];
@@ -243,40 +241,39 @@ void __52__HFSecurityStatusItem__subclass_updateWithOptions___block_invoke_2(id 
   {
     v9 = [v5 integerValue];
     v10 = [v7 integerValue];
-    v11 = a1[5];
-    v12 = [objc_opt_class() _currentState:v9 matchesTargetState:v10];
+    v11 = [objc_opt_class() _currentState:v9 matchesTargetState:v10];
     if (v9 == 4)
     {
-      v13 = 6;
+      v12 = 6;
 LABEL_18:
-      [a1[v13] addObject:v16];
-      [a1[11] addObject:v16];
+      [a1[v12] addObject:v15];
+      [a1[11] addObject:v15];
       goto LABEL_19;
     }
 
-    v14 = v12;
-    if (![v16 hf_hasSetVisibleInHomeStatus] || (objc_msgSend(v16, "hf_isVisibleInHomeStatus") & 1) != 0 || (objc_msgSend(a1[5], "room"), v15 = objc_claimAutoreleasedReturnValue(), v15, v15))
+    v13 = v11;
+    if (![v15 hf_hasSetVisibleInHomeStatus] || (objc_msgSend(v15, "hf_isVisibleInHomeStatus") & 1) != 0 || (objc_msgSend(a1[5], "room"), v14 = objc_claimAutoreleasedReturnValue(), v14, v14))
     {
       if (v9 == 3)
       {
-        v13 = 7;
-        if (v14)
+        v12 = 7;
+        if (v13)
         {
-          v13 = 8;
+          v12 = 8;
         }
       }
 
       else
       {
-        v13 = 7;
-        if (v14)
+        v12 = 7;
+        if (v13)
         {
-          v13 = 10;
+          v12 = 10;
         }
 
         if (v10 == 3)
         {
-          v13 = 9;
+          v12 = 9;
         }
       }
 

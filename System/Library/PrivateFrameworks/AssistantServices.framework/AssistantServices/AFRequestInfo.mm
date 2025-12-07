@@ -204,7 +204,7 @@ LABEL_7:
   userInfo = [content userInfo];
 
   v8 = off_10058E8C8();
-  v9 = [userInfo objectForKey:v8];
+  v9 = objc_msgSend_objectForKey_(userInfo);
 
   v10 = +[NSNull null];
 
@@ -224,7 +224,7 @@ LABEL_7:
   }
 
   v12 = off_10058E8D0();
-  v13 = [userInfo objectForKey:v12];
+  v13 = objc_msgSend_objectForKey_(userInfo);
 
   appBundleId = [payloadCopy appBundleId];
   synchronousBurstIndex = [payloadCopy synchronousBurstIndex];

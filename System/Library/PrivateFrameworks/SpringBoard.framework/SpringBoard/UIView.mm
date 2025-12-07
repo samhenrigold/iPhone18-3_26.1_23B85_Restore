@@ -197,12 +197,12 @@ void __78__UIView_SBSystemApertureIDCornerCurve__sb_cornerCurveFloatAnimatablePr
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = objc_loadWeakRetained((a1 + 40));
   v3 = [v2 layer];
-  [WeakRetained value];
-  v5 = v4;
-  v6 = SBCALayerCornerCurveForRadius(v4);
-  [v3 setCornerCurve:v6];
+  v4 = [WeakRetained value];
+  v6 = v5;
+  v8 = SBCALayerCornerCurveForRadius(v4, v7, v5);
+  [v3 setCornerCurve:v8];
 
-  [v3 setCornerRadius:v5];
+  [v3 setCornerRadius:v6];
 }
 
 void __78__UIView_SBSystemApertureIDCornerCurve__sb_cornerCurveFloatAnimatableProperty__block_invoke_2(uint64_t a1)

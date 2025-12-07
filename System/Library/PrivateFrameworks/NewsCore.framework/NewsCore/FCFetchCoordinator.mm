@@ -84,7 +84,7 @@ uint64_t __50__FCFetchCoordinator_beginFetchesIfNeededWithLock__block_invoke(uin
 
 - (id)fetchKey:(id)key qualityOfService:(int64_t)service completionQueue:(id)queue completion:(id)completion
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   v10 = MEMORY[0x1E695DEC8];
   completionCopy = completion;
@@ -92,9 +92,7 @@ uint64_t __50__FCFetchCoordinator_beginFetchesIfNeededWithLock__block_invoke(uin
   keyCopy2 = key;
   v14 = [v10 arrayWithObjects:&keyCopy count:1];
 
-  v15 = [(FCFetchCoordinator *)self fetchKeys:v14 context:0 qualityOfService:service relativePriority:0 completionQueue:queueCopy completion:completionCopy, keyCopy, v19];
-
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = [(FCFetchCoordinator *)self fetchKeys:v14 context:0 qualityOfService:service relativePriority:0 completionQueue:queueCopy completion:completionCopy, keyCopy, v18];
 
   return v15;
 }
@@ -201,34 +199,34 @@ uint64_t __50__FCFetchCoordinator_beginFetchesIfNeededWithLock__block_invoke(uin
 
 void __57__FCFetchCoordinator_operationThrottlerPerformOperation___block_invoke(uint64_t a1)
 {
-  v77 = *MEMORY[0x1E69E9840];
+  v76 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   if (v1)
   {
     v2 = a1;
-    v74 = 0u;
-    v75 = 0u;
-    v72 = 0u;
     v73 = 0u;
+    v74 = 0u;
+    v71 = 0u;
+    v72 = 0u;
     v3 = [v1[5] copy];
-    v4 = [v3 countByEnumeratingWithState:&v72 objects:v76 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v71 objects:v75 count:16];
     if (v4)
     {
       v5 = v4;
-      v58 = v2;
+      v57 = v2;
       v6 = 0;
-      v7 = *v73;
+      v7 = *v72;
       do
       {
         v8 = 0;
         do
         {
-          if (*v73 != v7)
+          if (*v72 != v7)
           {
             objc_enumerationMutation(v3);
           }
 
-          v9 = *(*(&v72 + 1) + 8 * v8);
+          v9 = *(*(&v71 + 1) + 8 * v8);
           if (v9)
           {
             v10 = *(v9 + 16);
@@ -255,13 +253,13 @@ void __57__FCFetchCoordinator_operationThrottlerPerformOperation___block_invoke(
         }
 
         while (v5 != v8);
-        v14 = [v3 countByEnumeratingWithState:&v72 objects:v76 count:16];
+        v14 = [v3 countByEnumeratingWithState:&v71 objects:v75 count:16];
         v5 = v14;
       }
 
       while (v14);
 
-      v2 = v58;
+      v2 = v57;
       if (v6)
       {
         [v1[7] tickle];
@@ -276,13 +274,13 @@ void __57__FCFetchCoordinator_operationThrottlerPerformOperation___block_invoke(
     if (v15)
     {
       v16 = [MEMORY[0x1E695DFA8] set];
-      v57 = [MEMORY[0x1E695DFA8] set];
-      v70 = 0u;
-      v71 = 0u;
-      v68 = 0u;
+      v56 = [MEMORY[0x1E695DFA8] set];
       v69 = 0u;
+      v70 = 0u;
+      v67 = 0u;
+      v68 = 0u;
       v17 = v15[5];
-      v18 = [v17 countByEnumeratingWithState:&v68 objects:v76 count:16];
+      v18 = [v17 countByEnumeratingWithState:&v67 objects:v75 count:16];
       if (!v18)
       {
         v20 = 0;
@@ -291,17 +289,17 @@ void __57__FCFetchCoordinator_operationThrottlerPerformOperation___block_invoke(
 
       v19 = v18;
       v20 = 0;
-      v21 = *v69;
+      v21 = *v68;
       while (1)
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v69 != v21)
+          if (*v68 != v21)
           {
             objc_enumerationMutation(v17);
           }
 
-          v23 = *(*(&v68 + 1) + 8 * i);
+          v23 = *(*(&v67 + 1) + 8 * i);
           if (v23)
           {
             v24 = *(v23 + 16);
@@ -318,10 +316,10 @@ void __57__FCFetchCoordinator_operationThrottlerPerformOperation___block_invoke(
             v24 = 0;
           }
 
-          [v57 unionSet:v24];
+          [v56 unionSet:v24];
         }
 
-        v19 = [v17 countByEnumeratingWithState:&v68 objects:v76 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v67 objects:v75 count:16];
         if (!v19)
         {
 LABEL_33:
@@ -330,38 +328,38 @@ LABEL_33:
           v26 = [v25 allObjects];
           v27 = [v26 sortedArrayUsingSelector:sel_comparePriority_];
 
-          v66[0] = MEMORY[0x1E69E9820];
-          v66[1] = 3221225472;
-          v66[2] = __50__FCFetchCoordinator_beginFetchesIfNeededWithLock__block_invoke;
-          v66[3] = &unk_1E7C3F938;
-          v66[4] = v15;
-          v67 = v20 & 1;
-          v55 = v27;
-          [v27 fc_arrayOfObjectsPassingTest:v66];
+          v65[0] = MEMORY[0x1E69E9820];
+          v65[1] = 3221225472;
+          v65[2] = __50__FCFetchCoordinator_beginFetchesIfNeededWithLock__block_invoke;
+          v65[3] = &unk_1E7C3F938;
+          v65[4] = v15;
+          v66 = v20 & 1;
+          v54 = v27;
+          [v27 fc_arrayOfObjectsPassingTest:v65];
+          v61 = 0u;
           v62 = 0u;
           v63 = 0u;
-          v64 = 0u;
-          obj = v65 = 0u;
-          v28 = [obj countByEnumeratingWithState:&v62 objects:&v72 count:16];
-          v29 = v57;
+          obj = v64 = 0u;
+          v28 = [obj countByEnumeratingWithState:&v61 objects:&v71 count:16];
+          v29 = v56;
           if (!v28)
           {
             goto LABEL_75;
           }
 
           v30 = v28;
-          v59 = *v63;
+          v58 = *v62;
           while (1)
           {
             v31 = 0;
             do
             {
-              if (*v63 != v59)
+              if (*v62 != v58)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v32 = *(*(&v62 + 1) + 8 * v31);
+              v32 = *(*(&v61 + 1) + 8 * v31);
               if (!v32)
               {
                 v33 = [0 mutableCopy];
@@ -460,17 +458,17 @@ LABEL_49:
 
                 v16 = v38;
                 [v46 setQualityOfService:v47];
-                v60[0] = MEMORY[0x1E69E9820];
-                v60[1] = 3221225472;
-                v60[2] = __50__FCFetchCoordinator_beginFetchesIfNeededWithLock__block_invoke_2;
-                v60[3] = &unk_1E7C37678;
-                v60[4] = v15;
-                v60[5] = v32;
-                v61 = v37;
-                [v46 setCompletionBlock:v60];
+                v59[0] = MEMORY[0x1E69E9820];
+                v59[1] = 3221225472;
+                v59[2] = __50__FCFetchCoordinator_beginFetchesIfNeededWithLock__block_invoke_2;
+                v59[3] = &unk_1E7C37678;
+                v59[4] = v15;
+                v59[5] = v32;
+                v60 = v37;
+                [v46 setCompletionBlock:v59];
                 [v15[5] setObject:v46 forKey:v32];
-                v29 = v57;
-                v48 = v57;
+                v29 = v56;
+                v48 = v56;
                 if (v32)
                 {
                   if (*(v32 + 9))
@@ -480,7 +478,7 @@ LABEL_49:
 
                   else
                   {
-                    v48 = v57;
+                    v48 = v56;
                   }
                 }
 
@@ -503,29 +501,26 @@ LABEL_49:
               }
 
               v16 = v38;
-              v29 = v57;
+              v29 = v56;
 LABEL_67:
 
               ++v31;
             }
 
             while (v30 != v31);
-            v53 = [obj countByEnumeratingWithState:&v62 objects:&v72 count:16];
+            v53 = [obj countByEnumeratingWithState:&v61 objects:&v71 count:16];
             v30 = v53;
             if (!v53)
             {
 LABEL_75:
 
-              goto LABEL_76;
+              return;
             }
           }
         }
       }
     }
   }
-
-LABEL_76:
-  v54 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __36__FCFetchCoordinator_addFetchGroup___block_invoke(uint64_t a1)
@@ -587,7 +582,7 @@ uint64_t __36__FCFetchCoordinator_addFetchGroup___block_invoke(uint64_t a1)
   return [v9 tickleWithQualityOfService:v11];
 }
 
-uint64_t __39__FCFetchCoordinator_removeFetchGroup___block_invoke(uint64_t a1)
+void *__39__FCFetchCoordinator_removeFetchGroup___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   if (v2)

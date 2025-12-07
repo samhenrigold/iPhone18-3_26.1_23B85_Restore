@@ -138,12 +138,12 @@ LABEL_26:
         {
           crlaxParentRepForKnob = [(CRLCanvasKnobAccessibility *)self crlaxParentRepForKnob];
           crlaxKnobLabel = [crlaxParentRepForKnob crlaxKnobLabel];
-          if (CRLAccessibilityShouldPerformValidationChecks())
+          if (CRLAccessibilityShouldPerformValidationChecks(crlaxKnobLabel, v34))
           {
             if (![(__CFString *)crlaxKnobLabel length])
             {
-              ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch();
-              if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"No handle label for: %@", v35, v36, v37, v38, v39, crlaxParentRepForKnob))
+              ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch(0);
+              if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"No handle label for: %@", v36, v37, v38, v39, v40, crlaxParentRepForKnob))
               {
 LABEL_37:
                 abort();
@@ -162,7 +162,8 @@ LABEL_37:
           v9 = &stru_1018BCA28;
         }
 
-        if (!CRLAccessibilityShouldPerformValidationChecks() || v3)
+        ShouldPerformValidationChecks = CRLAccessibilityShouldPerformValidationChecks(v41, v42);
+        if (!ShouldPerformValidationChecks || v3)
         {
           if (v3)
           {
@@ -175,8 +176,8 @@ LABEL_40:
 
         else
         {
-          v40 = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch();
-          if (__CRLAccessibilityHandleValidationErrorWithDescription(v40, 0, @"No label format string for: %@", v41, v42, v43, v44, v45, self))
+          v44 = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch(ShouldPerformValidationChecks);
+          if (__CRLAccessibilityHandleValidationErrorWithDescription(v44, 0, @"No label format string for: %@", v45, v46, v47, v48, v49, self))
           {
             goto LABEL_37;
           }
@@ -243,13 +244,13 @@ LABEL_15:
         goto LABEL_43;
       }
 
-      v49 = 0;
+      v53 = 0;
       crlaxParentRepForKnob2 = [(CRLCanvasKnobAccessibility *)self crlaxParentRepForKnob];
       crlaxInfo = [crlaxParentRepForKnob2 crlaxInfo];
 
       v7 = objc_opt_class();
-      v8 = __CRLAccessibilityCastAsSafeCategory(v7, crlaxInfo, 1, &v49);
-      if (v49 == 1)
+      v8 = __CRLAccessibilityCastAsSafeCategory(v7, crlaxInfo, 1, &v53);
+      if (v53 == 1)
       {
         goto LABEL_37;
       }
@@ -771,24 +772,27 @@ LABEL_36:
   y = space.y;
   x = space.x;
   crlaxParentRepForKnob = [(CRLCanvasKnobAccessibility *)self crlaxParentRepForKnob];
-  if (CRLAccessibilityShouldPerformValidationChecks())
+  ShouldPerformValidationChecks = CRLAccessibilityShouldPerformValidationChecks(crlaxParentRepForKnob, v9);
+  if (ShouldPerformValidationChecks)
   {
     if (!crlaxParentRepForKnob)
     {
-      ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch();
-      if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Couldn't find parent rep for knob: %@", v10, v11, v12, v13, v14, self))
+      ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch(ShouldPerformValidationChecks);
+      ShouldPerformValidationChecks = __CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Couldn't find parent rep for knob: %@", v13, v14, v15, v16, v17, self);
+      if (ShouldPerformValidationChecks)
       {
         goto LABEL_20;
       }
     }
   }
 
-  if (CRLAccessibilityShouldPerformValidationChecks())
+  if (CRLAccessibilityShouldPerformValidationChecks(ShouldPerformValidationChecks, v11))
   {
-    if ([crlaxParentRepForKnob crlaxInReadOnlyMode])
+    crlaxInReadOnlyMode = [crlaxParentRepForKnob crlaxInReadOnlyMode];
+    if (crlaxInReadOnlyMode)
     {
-      v15 = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch();
-      if (__CRLAccessibilityHandleValidationErrorWithDescription(v15, 0, @"Should not attempt to move a knob in read-only mode.", v16, v17, v18, v19, v20, v37))
+      v19 = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch(crlaxInReadOnlyMode);
+      if (__CRLAccessibilityHandleValidationErrorWithDescription(v19, 0, @"Should not attempt to move a knob in read-only mode.", v20, v21, v22, v23, v24, v41))
       {
         goto LABEL_20;
       }
@@ -801,65 +805,65 @@ LABEL_36:
   }
 
   [(CRLCanvasKnobAccessibility *)self crlaxCreateKnobTracker];
-  v21 = v46 = 0;
-  v22 = objc_opt_class();
-  v23 = __CRLAccessibilityCastAsClass(v22, v21, 1, &v46);
-  if (v46 == 1)
+  v25 = v50 = 0;
+  v26 = objc_opt_class();
+  v27 = __CRLAccessibilityCastAsClass(v26, v25, 1, &v50);
+  if (v50 == 1)
   {
     goto LABEL_20;
   }
 
-  v24 = v23;
+  v28 = v27;
 
-  if (v24)
+  if (v28)
   {
-    [v24 setSnapEnabled:{objc_msgSend(v24, "isEnqueueingCommandsInRealTime") ^ 1}];
+    [v28 setSnapEnabled:{objc_msgSend(v28, "isEnqueueingCommandsInRealTime") ^ 1}];
     goto LABEL_14;
   }
 
-  v46 = 0;
-  v25 = v21;
-  v26 = objc_opt_class();
-  v27 = __CRLAccessibilityCastAsClass(v26, v25, 1, &v46);
-  if (v46 == 1)
+  v50 = 0;
+  v29 = v25;
+  v30 = objc_opt_class();
+  v31 = __CRLAccessibilityCastAsClass(v30, v29, 1, &v50);
+  if (v50 == 1)
   {
 LABEL_20:
     abort();
   }
 
-  v28 = v27;
+  v32 = v31;
 
-  [v28 setSnapEnabled:0];
-  [v28 setShouldSnapToMagnets:magnetsCopy];
+  [v32 setSnapEnabled:0];
+  [v32 setShouldSnapToMagnets:magnetsCopy];
 
 LABEL_14:
   [crlaxParentRepForKnob crlaxConvertNaturalPointToUnscaledCanvas:{x, y}];
   [(CRLCanvasKnobAccessibility *)self _crlaxSnappedValueIfApplicableFromUnscaledCanvasPosition:?];
-  v30 = v29;
-  v32 = v31;
-  v33 = objc_alloc_init(CRLAccessibilityKnobManipulator);
-  v38[0] = _NSConcreteStackBlock;
-  v38[1] = 3221225472;
-  v38[2] = sub_100157E54;
-  v38[3] = &unk_1018406A8;
-  v39 = crlaxParentRepForKnob;
-  v45 = v24 != 0;
   v34 = v33;
-  v40 = v34;
+  v36 = v35;
+  v37 = objc_alloc_init(CRLAccessibilityKnobManipulator);
+  v42[0] = _NSConcreteStackBlock;
+  v42[1] = 3221225472;
+  v42[2] = sub_100157E54;
+  v42[3] = &unk_1018406A8;
+  v43 = crlaxParentRepForKnob;
+  v49 = v28 != 0;
+  v38 = v37;
+  v44 = v38;
   selfCopy = self;
-  v43 = v30;
-  v44 = v32;
-  v35 = v21;
-  v42 = v35;
-  v36 = objc_retainBlock(v38);
+  v47 = v34;
+  v48 = v36;
+  v39 = v25;
+  v46 = v39;
+  v40 = objc_retainBlock(v42);
   if ([(CRLCanvasKnobAccessibility *)self crlaxRespondsToSelector:"crlaxAllowsHUDWhileResizing" fromExtrasProtocol:&OBJC_PROTOCOL___CRLCanvasKnobAccessibilityExtras]&& [(CRLCanvasKnobAccessibility *)self crlaxAllowsHUDWhileResizing])
   {
-    (v36[2])(v36);
+    (v40[2])(v40);
   }
 
   else
   {
-    [v35 crlaxPerformBlockWhilePreventingDisplayOfCurrentValueHUD:v36];
+    [v39 crlaxPerformBlockWhilePreventingDisplayOfCurrentValueHUD:v40];
   }
 
 LABEL_19:

@@ -134,15 +134,17 @@
 
 - (void)_sendHistoricalMeanSeaLevelPressureWithKSEstimatesBuffer:(id)buffer andCompletionBlock:(id)block
 {
-  v92 = objc_alloc_init(NSMutableArray);
+  v132 = objc_alloc_init(NSMutableArray);
   if ([buffer count])
   {
     v7 = [buffer count];
     v8 = v7 - 1;
     if ((v7 - 1) >= 0)
     {
+      blockCopy = block;
       v9 = 0;
       v10 = 0.0;
+      v127 = 134218752;
       v11 = 0.0;
       v12 = 0.0;
       v13 = 0.0;
@@ -161,10 +163,10 @@
           if (os_log_type_enabled(qword_1025D4418, OS_LOG_TYPE_DEBUG))
           {
             [v15 timestamp];
-            v90 = v17;
+            v129 = v17;
             [v15 fState];
-            v91 = v13;
-            v89 = v18;
+            v130 = v13;
+            v128 = v18;
             [v15 fState];
             v19 = v14;
             v21 = v20;
@@ -179,48 +181,78 @@
             v30 = v29;
             [v15 fCovariance];
             *buf = 134219520;
-            v94 = v90;
-            v95 = 2048;
-            v96 = v89;
-            v97 = 2048;
-            v98 = v21;
+            v148 = v129;
+            v149 = 2048;
+            v150 = v128;
+            v151 = 2048;
+            v152 = v21;
             v14 = v19;
-            v13 = v91;
-            v99 = 2048;
-            v100 = v23;
-            v101 = 2048;
-            v102 = v28;
+            v13 = v130;
+            v153 = 2048;
+            v154 = v23;
+            v155 = 2048;
+            v156 = v28;
             v11 = v26;
             v10 = v25;
             v12 = v24;
-            v103 = 2048;
-            v104 = v30;
-            v105 = 2048;
-            v106 = v31;
+            v157 = 2048;
+            v158 = v30;
+            v159 = 2048;
+            v160 = v31;
             _os_log_impl(dword_100000000, v16, OS_LOG_TYPE_DEBUG, "historical mslp estimation,timestamp,%f,elevation,%f,mslp,%f,P00,%f,P01,%f,P10,%f,P11,%f", buf, 0x48u);
           }
 
           if (sub_10000A100(121, 2))
           {
             bzero(buf, 0x65CuLL);
+            v123 = v14;
+            v124 = v11;
+            v131 = v13;
             if (qword_1025D4410 != -1)
             {
               sub_101916CCC();
             }
 
+            v75 = qword_1025D4418;
             [v15 timestamp];
+            v77 = v76;
             [v15 fState];
+            v79 = v78;
             [v15 fState];
+            v81 = v80;
             [v15 fCovariance];
+            v83 = v82;
             [v15 fCovariance];
+            v85 = v84;
             [v15 fCovariance];
+            v87 = v86;
             [v15 fCovariance];
-            v68 = _os_log_send_and_compose_impl();
-            sub_100152C7C("Generic", 1, 0, 2, "[CLElevationProfileEstimator _sendHistoricalMeanSeaLevelPressureWithKSEstimatesBuffer:andCompletionBlock:]", "%s\n", v68);
-            if (v68 != buf)
+            v133 = 134219520;
+            v134 = v77;
+            v135 = 2048;
+            v136 = v79;
+            v137 = 2048;
+            v138 = v81;
+            v139 = 2048;
+            v140 = v83;
+            v141 = 2048;
+            v142 = v85;
+            v143 = 2048;
+            v144 = v87;
+            v145 = 2048;
+            v146 = v88;
+            LODWORD(v120) = 72;
+            _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, v75, 2, "historical mslp estimation,timestamp,%f,elevation,%f,mslp,%f,P00,%f,P01,%f,P10,%f,P11,%f", COERCE_DOUBLE(&v133), v120, v121, v123, v124, *&blockCopy, *&v127);
+            v90 = v89;
+            sub_100152C7C("Generic", 1, 0, 2, "[CLElevationProfileEstimator _sendHistoricalMeanSeaLevelPressureWithKSEstimatesBuffer:andCompletionBlock:]", "%s\n", v89);
+            if (v90 != buf)
             {
-              free(v68);
+              free(v90);
             }
+
+            v14 = v122;
+            v11 = v125;
+            v13 = v131;
           }
         }
 
@@ -228,44 +260,44 @@
         if (v32 >= 0.0)
         {
           [v15 timestamp];
-          v41 = v40;
+          v48 = v47;
           if (v9)
           {
-            v42 = v10 - v40;
-            if (v10 - v41 >= self->_meanSeaLevelPressureSamplingPeriod)
+            v49 = v10 - v47;
+            if (v10 - v48 >= self->_meanSeaLevelPressureSamplingPeriod)
             {
-              v47 = objc_alloc_init(CLMeanSeaLevelPressureData);
-              [(CLMeanSeaLevelPressureData *)v47 setTimestamp:v11 / v9];
-              [(CLMeanSeaLevelPressureData *)v47 setMeanSeaLevelPressure:v12 / v9];
-              [(CLMeanSeaLevelPressureData *)v47 setUncertainty:v13 / v9];
-              v48 = v14 / v9;
-              v49 = v12 / v9;
-              [(CLMeanSeaLevelPressureData *)v47 setPressureMeasurement:sub_1012C27C8(v48, v49)];
-              [v92 addObject:v47];
+              v54 = objc_alloc_init(CLMeanSeaLevelPressureData);
+              [(CLMeanSeaLevelPressureData *)v54 setTimestamp:v11 / v9];
+              [(CLMeanSeaLevelPressureData *)v54 setMeanSeaLevelPressure:v12 / v9];
+              [(CLMeanSeaLevelPressureData *)v54 setUncertainty:v13 / v9];
+              v55 = v14 / v9;
+              v56 = v12 / v9;
+              [(CLMeanSeaLevelPressureData *)v54 setPressureMeasurement:sub_1012C27C8(v55, v56)];
+              [v132 addObject:v54];
               if (qword_1025D4410 != -1)
               {
                 sub_101916CCC();
               }
 
-              v50 = qword_1025D4418;
+              v57 = qword_1025D4418;
               if (os_log_type_enabled(qword_1025D4418, OS_LOG_TYPE_DEBUG))
               {
-                [(CLMeanSeaLevelPressureData *)v47 timestamp];
-                v52 = v51;
-                [(CLMeanSeaLevelPressureData *)v47 meanSeaLevelPressure];
-                v54 = v53;
-                [(CLMeanSeaLevelPressureData *)v47 uncertainty];
-                v56 = v55;
-                [(CLMeanSeaLevelPressureData *)v47 pressureMeasurement];
-                *buf = 134218752;
-                v94 = v52;
-                v95 = 2048;
-                v96 = v54;
-                v97 = 2048;
-                v98 = v56;
-                v99 = 2048;
-                v100 = v57;
-                _os_log_impl(dword_100000000, v50, OS_LOG_TYPE_DEBUG, "historical mslp array element,timestamp,%f,meanSeaLevelPressure,%f,uncertainty,%f,pressureMeasurement,%f", buf, 0x2Au);
+                [(CLMeanSeaLevelPressureData *)v54 timestamp];
+                v59 = v58;
+                [(CLMeanSeaLevelPressureData *)v54 meanSeaLevelPressure];
+                v61 = v60;
+                [(CLMeanSeaLevelPressureData *)v54 uncertainty];
+                v63 = v62;
+                [(CLMeanSeaLevelPressureData *)v54 pressureMeasurement];
+                *buf = v127;
+                v148 = v59;
+                v149 = 2048;
+                v150 = v61;
+                v151 = 2048;
+                v152 = v63;
+                v153 = 2048;
+                v154 = v64;
+                _os_log_impl(dword_100000000, v57, OS_LOG_TYPE_DEBUG, "historical mslp array element,timestamp,%f,meanSeaLevelPressure,%f,uncertainty,%f,pressureMeasurement,%f", buf, 0x2Au);
               }
 
               if (sub_10000A100(121, 2))
@@ -276,41 +308,55 @@
                   sub_101916CCC();
                 }
 
-                [(CLMeanSeaLevelPressureData *)v47 timestamp];
-                [(CLMeanSeaLevelPressureData *)v47 meanSeaLevelPressure];
-                [(CLMeanSeaLevelPressureData *)v47 uncertainty];
-                [(CLMeanSeaLevelPressureData *)v47 pressureMeasurement];
-                v69 = _os_log_send_and_compose_impl();
-                sub_100152C7C("Generic", 1, 0, 2, "[CLElevationProfileEstimator _sendHistoricalMeanSeaLevelPressureWithKSEstimatesBuffer:andCompletionBlock:]", "%s\n", v69);
-                if (v69 != buf)
+                v91 = qword_1025D4418;
+                [(CLMeanSeaLevelPressureData *)v54 timestamp];
+                v93 = v92;
+                [(CLMeanSeaLevelPressureData *)v54 meanSeaLevelPressure];
+                v95 = v94;
+                [(CLMeanSeaLevelPressureData *)v54 uncertainty];
+                v97 = v96;
+                [(CLMeanSeaLevelPressureData *)v54 pressureMeasurement];
+                v133 = v127;
+                v134 = v93;
+                v135 = 2048;
+                v136 = v95;
+                v137 = 2048;
+                v138 = v97;
+                v139 = 2048;
+                v140 = v98;
+                LODWORD(v120) = 42;
+                _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, v91, 2, "historical mslp array element,timestamp,%f,meanSeaLevelPressure,%f,uncertainty,%f,pressureMeasurement,%f", COERCE_DOUBLE(&v133), v120, v121, v122);
+                v100 = v99;
+                sub_100152C7C("Generic", 1, 0, 2, "[CLElevationProfileEstimator _sendHistoricalMeanSeaLevelPressureWithKSEstimatesBuffer:andCompletionBlock:]", "%s\n", v99);
+                if (v100 != buf)
                 {
-                  free(v69);
+                  free(v100);
                 }
               }
 
               [v15 timestamp];
-              v10 = v58;
+              v10 = v65;
               [v15 timestamp];
-              v11 = v59;
+              v11 = v66;
               [v15 fState];
-              v12 = v60;
+              v12 = v67;
               [v15 fCovariance];
-              v13 = sqrtf(v61);
+              v13 = sqrtf(v68);
               [v15 fState];
-              v14 = v62;
+              v14 = v69;
               v9 = 1;
             }
 
             else
             {
               [v15 timestamp];
-              v11 = v11 + v43;
+              v11 = v11 + v50;
               [v15 fState];
-              v12 = v12 + v44;
+              v12 = v12 + v51;
               [v15 fCovariance];
-              v13 = v13 + sqrtf(v45);
+              v13 = v13 + sqrtf(v52);
               [v15 fState];
-              v14 = v14 + v46;
+              v14 = v14 + v53;
               ++v9;
             }
           }
@@ -318,15 +364,15 @@
           else
           {
             [v15 timestamp];
-            v11 = v63;
+            v11 = v70;
             [v15 fState];
-            v12 = v64;
+            v12 = v71;
             [v15 fCovariance];
-            v13 = sqrtf(v65);
+            v13 = sqrtf(v72);
             [v15 fState];
-            v14 = v66;
+            v14 = v73;
             v9 = 1;
-            v10 = v41;
+            v10 = v48;
           }
         }
 
@@ -346,11 +392,11 @@
             v37 = v36;
             [v15 fCovariance];
             *buf = 134218496;
-            v94 = v35;
-            v95 = 2048;
-            v96 = v37;
-            v97 = 2048;
-            v98 = v38;
+            v148 = v35;
+            v149 = 2048;
+            v150 = v37;
+            v151 = 2048;
+            v152 = v38;
             _os_log_impl(dword_100000000, v33, OS_LOG_TYPE_DEFAULT, "warning: negative mslp variance,timestamp,%f,mslp,%f,var,%f", buf, 0x20u);
           }
 
@@ -362,72 +408,84 @@
               sub_101916CCC();
             }
 
+            v39 = qword_1025D4418;
             [v15 timestamp];
+            v41 = v40;
             [v15 fState];
+            v43 = v42;
             [v15 fCovariance];
-            v39 = _os_log_send_and_compose_impl();
-            sub_100152C7C("Generic", 1, 0, 2, "[CLElevationProfileEstimator _sendHistoricalMeanSeaLevelPressureWithKSEstimatesBuffer:andCompletionBlock:]", "%s\n", v39);
-            if (v39 != buf)
+            v133 = 134218496;
+            v134 = v41;
+            v135 = 2048;
+            v136 = v43;
+            v137 = 2048;
+            v138 = v44;
+            LODWORD(v120) = 32;
+            _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, v39, 0, "warning: negative mslp variance,timestamp,%f,mslp,%f,var,%f", COERCE_DOUBLE(&v133), v120, v121);
+            v46 = v45;
+            sub_100152C7C("Generic", 1, 0, 2, "[CLElevationProfileEstimator _sendHistoricalMeanSeaLevelPressureWithKSEstimatesBuffer:andCompletionBlock:]", "%s\n", v45);
+            if (v46 != buf)
             {
-              free(v39);
+              free(v46);
             }
           }
         }
       }
 
       while (v8-- > 0);
+      block = blockCopy;
       if (v9)
       {
-        v70 = objc_alloc_init(CLMeanSeaLevelPressureData);
-        [(CLMeanSeaLevelPressureData *)v70 setTimestamp:v11 / v9];
-        [(CLMeanSeaLevelPressureData *)v70 setMeanSeaLevelPressure:v12 / v9];
-        [(CLMeanSeaLevelPressureData *)v70 setUncertainty:v13 / v9];
-        v71 = v14 / v9;
-        v72 = v12 / v9;
-        [(CLMeanSeaLevelPressureData *)v70 setPressureMeasurement:sub_1012C27C8(v71, v72)];
-        [v92 addObject:v70];
+        v101 = objc_alloc_init(CLMeanSeaLevelPressureData);
+        [(CLMeanSeaLevelPressureData *)v101 setTimestamp:v11 / v9];
+        [(CLMeanSeaLevelPressureData *)v101 setMeanSeaLevelPressure:v12 / v9];
+        [(CLMeanSeaLevelPressureData *)v101 setUncertainty:v13 / v9];
+        v102 = v14 / v9;
+        v103 = v12 / v9;
+        [(CLMeanSeaLevelPressureData *)v101 setPressureMeasurement:sub_1012C27C8(v102, v103)];
+        [v132 addObject:v101];
         if (qword_1025D4410 != -1)
         {
           sub_101916CCC();
         }
 
-        v73 = qword_1025D4418;
+        v104 = qword_1025D4418;
         if (os_log_type_enabled(qword_1025D4418, OS_LOG_TYPE_DEBUG))
         {
-          [(CLMeanSeaLevelPressureData *)v70 timestamp];
-          v75 = v74;
-          [(CLMeanSeaLevelPressureData *)v70 meanSeaLevelPressure];
-          v77 = v76;
-          [(CLMeanSeaLevelPressureData *)v70 uncertainty];
-          v79 = v78;
-          [(CLMeanSeaLevelPressureData *)v70 pressureMeasurement];
-          *buf = 134218752;
-          v94 = v75;
-          v95 = 2048;
-          v96 = v77;
-          v97 = 2048;
-          v98 = v79;
-          v99 = 2048;
-          v100 = v80;
-          _os_log_impl(dword_100000000, v73, OS_LOG_TYPE_DEBUG, "historical mslp array element,timestamp,%f,meanSeaLevelPressure,%f,uncertainty,%f,pressureMeasurement,%f", buf, 0x2Au);
+          [(CLMeanSeaLevelPressureData *)v101 timestamp];
+          v106 = v105;
+          [(CLMeanSeaLevelPressureData *)v101 meanSeaLevelPressure];
+          v108 = v107;
+          [(CLMeanSeaLevelPressureData *)v101 uncertainty];
+          v110 = v109;
+          [(CLMeanSeaLevelPressureData *)v101 pressureMeasurement];
+          *buf = v127;
+          v148 = v106;
+          v149 = 2048;
+          v150 = v108;
+          v151 = 2048;
+          v152 = v110;
+          v153 = 2048;
+          v154 = v111;
+          _os_log_impl(dword_100000000, v104, OS_LOG_TYPE_DEBUG, "historical mslp array element,timestamp,%f,meanSeaLevelPressure,%f,uncertainty,%f,pressureMeasurement,%f", buf, 0x2Au);
         }
 
         if (sub_10000A100(121, 2))
         {
-          sub_101916DE0(v70, v81, v82, v83, v84, v85, v86, v87);
+          sub_101916DE0(v101, v112, v113, v114, v115, v116, v117, v118);
         }
       }
     }
 
-    v88 = [objc_msgSend(objc_msgSend(v92 "reverseObjectEnumerator")];
-    [v92 removeAllObjects];
-    [v92 addObjectsFromArray:v88];
-    (*(block + 2))(block, v92);
+    v119 = [objc_msgSend(objc_msgSend(v132 "reverseObjectEnumerator")];
+    [v132 removeAllObjects];
+    [v132 addObjectsFromArray:v119];
+    (*(block + 2))(block, v132);
   }
 
   else
   {
-    (*(block + 2))(block, v92);
+    (*(block + 2))(block, v132);
   }
 }
 
@@ -603,25 +661,21 @@
   v20 = objc_alloc_init(NSMutableArray);
   v21 = objc_alloc_init(NSMutableArray);
   v22 = [[CLElevationLocationFilter alloc] initWithWindowSize:self->_windowSize];
-  v36 = 0u;
-  v37 = 0u;
-  v38 = 0u;
-  v39 = 0u;
-  v23 = [locationArray countByEnumeratingWithState:&v36 objects:v40 count:16];
+  v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(locationArray);
   if (v23)
   {
     v24 = v23;
-    v25 = *v37;
+    v25 = MEMORY[0];
     do
     {
       for (i = 0; i != v24; i = i + 1)
       {
-        if (*v37 != v25)
+        if (MEMORY[0] != v25)
         {
           objc_enumerationMutation(locationArray);
         }
 
-        v27 = *(*(&v36 + 1) + 8 * i);
+        v27 = *(8 * i);
         [objc_msgSend(v27 "altitudeData")];
         if (v28 >= v17)
         {
@@ -649,7 +703,7 @@
         }
       }
 
-      v24 = [locationArray countByEnumeratingWithState:&v36 objects:v40 count:16];
+      v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(locationArray);
     }
 
     while (v24);
@@ -676,26 +730,22 @@
     v14 = 1.79769313e308;
   }
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
-  v35 = 0u;
-  v15 = [rawElevationArray countByEnumeratingWithState:&v34 objects:v38 count:16];
+  v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(rawElevationArray);
   if (v15)
   {
     v16 = v15;
     v17 = 0;
-    v18 = *v35;
+    v18 = MEMORY[0];
     do
     {
       for (i = 0; i != v16; i = i + 1)
       {
-        if (*v35 != v18)
+        if (MEMORY[0] != v18)
         {
           objc_enumerationMutation(rawElevationArray);
         }
 
-        v20 = *(*(&v34 + 1) + 8 * i);
+        v20 = *(8 * i);
         [v20 timestamp];
         if (v21 >= time)
         {
@@ -750,7 +800,7 @@
         }
       }
 
-      v16 = [rawElevationArray countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(rawElevationArray);
     }
 
     while (v16);
@@ -769,25 +819,21 @@
     if (v7 >= v10 || ([objc_msgSend(objc_msgSend(locationArray "lastObject")], v11 >= v9))
     {
       v12 = objc_alloc_init(NSMutableArray);
-      v21 = 0u;
-      v22 = 0u;
-      v23 = 0u;
-      v24 = 0u;
-      v13 = [locationArray countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(locationArray, 0);
       if (v13)
       {
         v14 = v13;
-        v15 = *v22;
+        v15 = MEMORY[0];
         do
         {
           for (i = 0; i != v14; i = i + 1)
           {
-            if (*v22 != v15)
+            if (MEMORY[0] != v15)
             {
               objc_enumerationMutation(locationArray);
             }
 
-            v17 = *(*(&v21 + 1) + 8 * i);
+            v17 = *(8 * i);
             [objc_msgSend(v17 "altitudeData")];
             if (v18 > v7)
             {
@@ -799,7 +845,7 @@
             }
           }
 
-          v14 = [locationArray countByEnumeratingWithState:&v21 objects:v25 count:16];
+          v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(locationArray);
         }
 
         while (v14);
@@ -821,9 +867,9 @@
     if (os_log_type_enabled(qword_1025D4418, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109376;
-      v27 = [array count];
-      v28 = 1024;
-      v29 = [locationArray count];
+      v22 = [array count];
+      v23 = 1024;
+      v24 = [locationArray count];
       _os_log_impl(dword_100000000, v20, OS_LOG_TYPE_DEFAULT, "zero elevation or location for kalman smoother,elevationCount,%d,locationCount,%d", buf, 0xEu);
     }
 
@@ -836,15 +882,15 @@
 
 - (void)_initKalmanFilter:(id)filter withFirstLocation:(id)location andElevationArray:(id)array andTaskType:(unint64_t)type
 {
-  v41 = 0u;
-  v42 = 0u;
-  v43 = 0u;
   v44 = 0u;
-  v11 = [array countByEnumeratingWithState:&v41 objects:v60 count:16];
+  v45 = 0u;
+  v46 = 0u;
+  v47 = 0u;
+  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(array, a2, &v44, v63, 16);
   if (v11)
   {
     v12 = v11;
-    v13 = *v42;
+    v13 = *v45;
     v14 = 0.0;
     v15 = 1.79769313e308;
 LABEL_3:
@@ -852,12 +898,12 @@ LABEL_3:
     v17 = v15;
     while (1)
     {
-      if (*v42 != v13)
+      if (*v45 != v13)
       {
         objc_enumerationMutation(array);
       }
 
-      v18 = *(*(&v41 + 1) + 8 * v16);
+      v18 = *(*(&v44 + 1) + 8 * v16);
       [v18 timestamp];
       v20 = v19;
       [location timestamp];
@@ -873,7 +919,7 @@ LABEL_3:
       v17 = v15;
       if (v12 == v16)
       {
-        v12 = [array countByEnumeratingWithState:&v41 objects:v60 count:16];
+        v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(array);
         if (v12)
         {
           goto LABEL_3;
@@ -895,16 +941,16 @@ LABEL_3:
   [objc_msgSend(array "firstObject")];
   *&v25 = v25;
   v26 = sub_1000A6C00(*&v25, v24);
-  v39 = 0;
+  v42 = 0;
   meanSeaLevelPressureInitialVar = self->_meanSeaLevelPressureInitialVar;
   elevationInitialVar = self->_elevationInitialVar;
-  v40 = meanSeaLevelPressureInitialVar;
-  sub_100707AFC(&v36, &elevationInitialVar);
+  v43 = meanSeaLevelPressureInitialVar;
+  sub_100707AFC(&v39, &elevationInitialVar);
   *&v28 = v26;
   *&v29 = v24;
   [filter setFState:{v28, v29}];
-  *buf = v36;
-  *&buf[8] = v37;
+  *buf = v39;
+  *&buf[8] = v40;
   [filter setFP:buf];
   *&v30 = self->_elevationProcessNoiseFromPressureSensorVar;
   [filter setFQ:{v30, 0.0}];
@@ -921,12 +967,12 @@ LABEL_3:
     workoutSmootherRunsCount = [(CLContextManagerElevationProfileBase *)self->_elevationProfileContextManager workoutSmootherRunsCount];
     *buf = 134218752;
     *&buf[4] = type;
-    v54 = 2048;
-    v55 = v26;
-    v56 = 2048;
-    v57 = v24;
-    v58 = 1024;
-    v59 = workoutSmootherRunsCount;
+    v57 = 2048;
+    v58 = v26;
+    v59 = 2048;
+    v60 = v24;
+    v61 = 1024;
+    v62 = workoutSmootherRunsCount;
     _os_log_impl(dword_100000000, v32, OS_LOG_TYPE_DEFAULT, "#altimeter,initialize Kalman filter,taskType,%lu,elevation,%.3f,mslp,%.3f,workoutSmootherRunsCount,%d", buf, 0x26u);
   }
 
@@ -938,20 +984,23 @@ LABEL_3:
       sub_101916CCC();
     }
 
+    v34 = qword_1025D4418;
     workoutSmootherRunsCount2 = [(CLContextManagerElevationProfileBase *)self->_elevationProfileContextManager workoutSmootherRunsCount];
-    v45 = 134218752;
+    v48 = 134218752;
     typeCopy = type;
-    v47 = 2048;
-    v48 = v26;
-    v49 = 2048;
-    v50 = v24;
-    v51 = 1024;
-    v52 = workoutSmootherRunsCount2;
-    v35 = _os_log_send_and_compose_impl();
-    sub_100152C7C("Generic", 1, 0, 2, "[CLElevationProfileEstimator _initKalmanFilter:withFirstLocation:andElevationArray:andTaskType:]", "%s\n", v35);
-    if (v35 != buf)
+    v50 = 2048;
+    v51 = v26;
+    v52 = 2048;
+    v53 = v24;
+    v54 = 1024;
+    v55 = workoutSmootherRunsCount2;
+    LODWORD(v38) = 38;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, v34, 0, "#altimeter,initialize Kalman filter,taskType,%lu,elevation,%.3f,mslp,%.3f,workoutSmootherRunsCount,%d", &v48, v38, v39, v40);
+    v37 = v36;
+    sub_100152C7C("Generic", 1, 0, 2, "[CLElevationProfileEstimator _initKalmanFilter:withFirstLocation:andElevationArray:andTaskType:]", "%s\n", v36);
+    if (v37 != buf)
     {
-      free(v35);
+      free(v37);
     }
   }
 }
@@ -967,13 +1016,13 @@ LABEL_3:
   v17 = v16;
   [location verticalAccuracy];
   elevationInitialVar = v17 * v18;
-  v31 = 0;
+  v34 = 0;
   if (self->_elevationInitialVar > elevationInitialVar)
   {
     elevationInitialVar = self->_elevationInitialVar;
   }
 
-  v30 = elevationInitialVar;
+  v33 = elevationInitialVar;
   v21 = 562500.0;
   v20 = unc * unc;
   if (v20 <= 562500.0)
@@ -981,10 +1030,10 @@ LABEL_3:
     v21 = unc * unc;
   }
 
-  v32 = v21;
-  sub_100707AFC(&v28, &v30);
-  *buf = v28;
-  *&buf[8] = v29;
+  v35 = v21;
+  sub_100707AFC(&v31, &v33);
+  *buf = v31;
+  *&buf[8] = v32;
   [filter setFP:buf];
   LODWORD(v22) = 1.0;
   [filter setFH:{v22, 0.0}];
@@ -1001,12 +1050,12 @@ LABEL_3:
     workoutSmootherRunsCount = [(CLContextManagerElevationProfileBase *)self->_elevationProfileContextManager workoutSmootherRunsCount];
     *buf = 134218752;
     *&buf[4] = type;
-    v42 = 2048;
-    v43 = v14;
-    v44 = 2048;
+    v45 = 2048;
+    v46 = v14;
+    v47 = 2048;
     pressureCopy = pressure;
-    v46 = 1024;
-    v47 = workoutSmootherRunsCount;
+    v49 = 1024;
+    v50 = workoutSmootherRunsCount;
     _os_log_impl(dword_100000000, v24, OS_LOG_TYPE_DEFAULT, "#altimeter,initialize workout Kalman filter,taskType,%lu,elevation,%.3f,mslp,%.3f,workoutSmootherRunsCount,%d", buf, 0x26u);
   }
 
@@ -1018,20 +1067,23 @@ LABEL_3:
       sub_101916CCC();
     }
 
+    v26 = qword_1025D4418;
     workoutSmootherRunsCount2 = [(CLContextManagerElevationProfileBase *)self->_elevationProfileContextManager workoutSmootherRunsCount];
-    v33 = 134218752;
+    v36 = 134218752;
     typeCopy = type;
-    v35 = 2048;
-    v36 = v14;
-    v37 = 2048;
+    v38 = 2048;
+    v39 = v14;
+    v40 = 2048;
     pressureCopy2 = pressure;
-    v39 = 1024;
-    v40 = workoutSmootherRunsCount2;
-    v27 = _os_log_send_and_compose_impl();
-    sub_100152C7C("Generic", 1, 0, 2, "[CLElevationProfileEstimator _initKalmanFilter:withFirstLocation:andMeanSeaLevelPressure:andMeanSeaLevelPressureUnc:andTaskType:]", "%s\n", v27);
-    if (v27 != buf)
+    v42 = 1024;
+    v43 = workoutSmootherRunsCount2;
+    LODWORD(v30) = 38;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, v26, 0, "#altimeter,initialize workout Kalman filter,taskType,%lu,elevation,%.3f,mslp,%.3f,workoutSmootherRunsCount,%d", &v36, v30, v31, v32);
+    v29 = v28;
+    sub_100152C7C("Generic", 1, 0, 2, "[CLElevationProfileEstimator _initKalmanFilter:withFirstLocation:andMeanSeaLevelPressure:andMeanSeaLevelPressureUnc:andTaskType:]", "%s\n", v28);
+    if (v29 != buf)
     {
-      free(v27);
+      free(v29);
     }
   }
 }
@@ -1085,17 +1137,17 @@ LABEL_3:
   v18 = v17;
   if (update)
   {
-    [update fP];
+    objc_msgSend_fP(update);
   }
 
   else
   {
-    v49 = 0;
-    v48 = 0;
+    v57 = 0;
+    v56 = 0;
   }
 
   [update fQ];
-  v47[0] = v19;
+  v55[0] = v19;
   [nextElevation timestamp];
   v21 = v20;
   [elevation timestamp];
@@ -1111,7 +1163,7 @@ LABEL_3:
   }
 
   v25 = v23 * 0.00200000009 * velocity + self->_meanSeaLevelPressureDriftRateInPaPerSec * v23;
-  v46 = v24 * v25;
+  v54 = v24 * v25;
   v26 = vabds_f32(v16, v14);
   v27 = v26 * sub_1000A6C9C(v14);
   sub_1012C2850(v14, v18);
@@ -1126,24 +1178,27 @@ LABEL_3:
     v30 = qword_1025D4418;
     if (os_log_type_enabled(qword_1025D4418, OS_LOG_TYPE_DEBUG))
     {
-      v44 = sub_1000A6C9C(v14);
+      v48 = v24;
+      v49 = v29;
+      v51 = v26;
+      v50 = sub_1000A6C9C(v14);
       sub_1012C2850(v14, v18);
       *buf = 134219776;
       *&buf[4] = v25;
-      *v66 = 2048;
-      *&v66[2] = v24;
-      v67 = 2048;
-      v68 = v29;
-      v69 = 2048;
-      v70 = v26;
-      v71 = 2048;
-      velocityCopy = velocity;
-      v73 = 2048;
-      v74 = v23;
+      *v74 = 2048;
+      *&v74[2] = v24;
       v75 = 2048;
-      v76 = v44;
+      v76 = v29;
       v77 = 2048;
-      v78 = v31;
+      v78 = v26;
+      v79 = 2048;
+      velocityCopy = velocity;
+      v81 = 2048;
+      v82 = v23;
+      v83 = 2048;
+      v84 = v50;
+      v85 = 2048;
+      v86 = v31;
       _os_log_impl(dword_100000000, v30, OS_LOG_TYPE_DEBUG, "mslp uncertainty model,deltaMslpDue2TimeAndDistance,%f,pressure2MslpFactor,%f,estBaroModelUncReflectedInMslp,%f,deltaPressure,%f,travelVelocity,%f,timeDiff,%f,slopeDiffDElevationDPressure,%f,dHdMslp,%f", buf, 0x52u);
     }
 
@@ -1156,43 +1211,49 @@ LABEL_3:
         sub_101916CCC();
       }
 
-      v38 = v25;
-      v39 = v24;
-      v40 = v26;
-      v41 = sub_1000A6C9C(v14);
+      v38 = qword_1025D4418;
+      v39 = v25;
+      v40 = v24;
+      *&v51 = v29;
+      v41 = v26;
+      v42 = sub_1000A6C9C(v14);
       sub_1012C2850(v14, v18);
-      *v50 = 134219776;
-      *&v50[4] = v38;
-      v51 = 2048;
-      v52 = v39;
-      v53 = 2048;
-      v54 = v29;
-      v55 = 2048;
-      v56 = v40;
-      v57 = 2048;
-      v58 = velocityCopy2;
+      *v58 = 134219776;
+      *&v58[4] = v39;
       v59 = 2048;
-      v60 = v23;
+      v60 = v40;
       v61 = 2048;
-      v62 = v41;
+      v62 = v29;
       v63 = 2048;
-      v64 = v42;
-      v43 = _os_log_send_and_compose_impl();
-      sub_100152C7C("Generic", 1, 0, 2, "[CLElevationProfileEstimator _predictionUpdate:withElevation:withNextElevation:withCurrentHmmState:withTravelVelocity:]", "%s\n", v43);
-      if (v43 != buf)
+      v64 = v41;
+      v65 = 2048;
+      v66 = velocityCopy2;
+      v67 = 2048;
+      v68 = v23;
+      v69 = 2048;
+      v70 = v42;
+      v71 = 2048;
+      v72 = v43;
+      LODWORD(v46) = 82;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, v38, 2, "mslp uncertainty model,deltaMslpDue2TimeAndDistance,%f,pressure2MslpFactor,%f,estBaroModelUncReflectedInMslp,%f,deltaPressure,%f,travelVelocity,%f,timeDiff,%f,slopeDiffDElevationDPressure,%f,dHdMslp,%f", COERCE_DOUBLE(v58), v46, v47, v48, v49, v50, v51, velocityCopy2);
+      v45 = v44;
+      sub_100152C7C("Generic", 1, 0, 2, "[CLElevationProfileEstimator _predictionUpdate:withElevation:withNextElevation:withCurrentHmmState:withTravelVelocity:]", "%s\n", v44);
+      if (v45 != buf)
       {
-        free(v43);
+        free(v45);
       }
+
+      v29 = v52;
     }
   }
 
-  *&v47[1] = (v29 + v46) * (v29 + v46);
+  *&v55[1] = (v29 + v54) * (v29 + v54);
   sub_1012C2850(v14, v18);
   if (state)
   {
     *&buf[4] = 0;
     *buf = 1065353216;
-    *v66 = 1065353216;
+    *v74 = 1065353216;
     LODWORD(v32) = -1.0;
     [update setF01:v32];
     elevationProcessNoiseFromPressureSensorVar = v23 * self->_elevationProcessNoiseFromHumanMotion * (v23 * self->_elevationProcessNoiseFromHumanMotion);
@@ -1207,24 +1268,24 @@ LABEL_3:
     [update setFState:v36];
     *buf = 0;
     *&buf[8] = v34;
-    *v66 = 1065353216;
+    *v74 = 1065353216;
     LODWORD(v37) = v34;
     [update setF01:v37];
     elevationProcessNoiseFromPressureSensorVar = self->_elevationProcessNoiseFromPressureSensorVar;
   }
 
-  *v47 = elevationProcessNoiseFromPressureSensorVar;
-  sub_100708530(&v48, buf, v47);
-  *v50 = v48;
-  *&v50[8] = v49;
-  [update setFP:v50];
+  *v55 = elevationProcessNoiseFromPressureSensorVar;
+  sub_100708530(&v56, buf, v55);
+  *v58 = v56;
+  *&v58[8] = v57;
+  [update setFP:v58];
 }
 
 - (void)_measurementUpdate:(id)update withLocation:(id)location
 {
   if (update)
   {
-    [update fP];
+    objc_msgSend_fP(update, a2);
   }
 
   else
@@ -1319,7 +1380,7 @@ LABEL_3:
   [estimate setFState:?];
   if (estimate)
   {
-    [estimate fP];
+    objc_msgSend_fP(estimate);
   }
 
   else
@@ -1358,84 +1419,84 @@ LABEL_3:
     nextKfInitEstimate = self->_nextKfInitEstimate;
     if (nextKfInitEstimate)
     {
-      [(CLKFRunningEstimates *)nextKfInitEstimate fP];
+      objc_msgSend_fP(nextKfInitEstimate);
     }
 
     else
     {
-      memset(v70, 0, sizeof(v70));
+      memset(v73, 0, sizeof(v73));
     }
 
-    v17 = sub_10070F05C(v70, 0, 0);
+    v17 = sub_10070F05C(v73, 0, 0);
     v18 = self->_nextKfInitEstimate;
     if (v18)
     {
-      [(CLKFRunningEstimates *)v18 fP];
+      objc_msgSend_fP(v18);
     }
 
     else
     {
-      v69 = 0;
-      v68 = 0;
+      v72 = 0;
+      v71 = 0.0;
     }
 
-    *&v19 = sub_10070F05C(&v68, 0, 0);
+    *&v19 = sub_10070F05C(&v71, 0, 0);
     v21 = v20;
     v22 = self->_nextKfInitEstimate;
     if (v22)
     {
-      [(CLKFRunningEstimates *)v22 fP];
+      objc_msgSend_fP(v22, v19);
     }
 
     else
     {
-      v67 = 0;
-      v66 = 0;
+      LODWORD(v70) = 0;
+      v69 = 0.0;
     }
 
     v23 = v13;
     v24 = v15;
     v25 = v17;
     v26 = v21;
-    *&v27 = sub_10070F05C(&v66, 0, 0);
+    *&v27 = sub_10070F05C(&v69, 0, 0);
     v29 = v28;
     v30 = self->_nextKfInitEstimate;
     if (v30)
     {
-      [(CLKFRunningEstimates *)v30 fP];
+      objc_msgSend_fP(v30, v27);
     }
 
     else
     {
-      v65 = 0;
-      v64 = 0;
+      LODWORD(v68) = 0;
+      v67 = 0.0;
     }
 
-    sub_10070F05C(&v64, 0, 0);
+    sub_10070F05C(&v67, 0, 0);
     v32 = v31;
     nextInitBadStateDetectedTimestamp = self->_nextInitBadStateDetectedTimestamp;
     nextHmmGoodStateInitProbability = self->_nextHmmGoodStateInitProbability;
     workoutSmootherRunsCount = [(CLContextManagerElevationProfileBase *)self->_elevationProfileContextManager workoutSmootherRunsCount];
     *buf = 134220288;
-    v90 = nextWorkoutProfileStartTime;
-    v91 = 2048;
-    v92 = v23;
-    v93 = 2048;
-    v94 = v24;
-    v95 = 2048;
-    v96 = v25;
-    v97 = 2048;
-    v98 = v26;
-    v99 = 2048;
-    v100 = v29;
-    v101 = 2048;
-    v102 = v32;
-    v103 = 2048;
-    v104 = nextInitBadStateDetectedTimestamp;
-    v105 = 2048;
-    v106 = nextHmmGoodStateInitProbability;
-    v107 = 1024;
-    v108 = workoutSmootherRunsCount;
+    v93 = nextWorkoutProfileStartTime;
+    v94 = 2048;
+    v95 = v23;
+    v96 = 2048;
+    v97 = v24;
+    v98 = 2048;
+    v99 = v25;
+    v100 = 2048;
+    v101 = v26;
+    v102 = 2048;
+    v103 = v29;
+    v104 = 2048;
+    v105 = v32;
+    v106 = 2048;
+    v107 = nextInitBadStateDetectedTimestamp;
+    v108 = 2048;
+    v109 = nextHmmGoodStateInitProbability;
+    v110 = 1024;
+    v111 = workoutSmootherRunsCount;
     _os_log_impl(dword_100000000, v10, OS_LOG_TYPE_DEFAULT, "set next KF and HMM initial state,nextWorkoutProfileStartTime,%f,nextInitElevation,%f,nexInitMslp,%f,fP00,%f,fP01,%f,fP10,%f,fP11,%f,nextInitBadStateDetectedTimestamp,%f,nextHmmGoodStateProb,%f,rounds,%d", buf, 0x62u);
   }
 
@@ -1447,105 +1508,108 @@ LABEL_3:
       sub_101916CCC();
     }
 
-    v36 = self->_nextWorkoutProfileStartTime;
+    v36 = qword_1025D4418;
+    v37 = self->_nextWorkoutProfileStartTime;
     [(CLKFRunningEstimates *)self->_nextKfInitEstimate fState];
-    v38 = v37;
+    v39 = v38;
     [(CLKFRunningEstimates *)self->_nextKfInitEstimate fState];
-    v40 = v39;
-    v41 = self->_nextKfInitEstimate;
-    if (v41)
+    v41 = v40;
+    v42 = self->_nextKfInitEstimate;
+    if (v42)
     {
-      [(CLKFRunningEstimates *)v41 fP];
+      objc_msgSend_fP(v42);
     }
 
     else
     {
-      v69 = 0;
-      v68 = 0;
+      v72 = 0;
+      v71 = 0.0;
     }
 
-    v42 = sub_10070F05C(&v68, 0, 0);
-    v43 = self->_nextKfInitEstimate;
-    if (v43)
+    v43 = sub_10070F05C(&v71, 0, 0);
+    v44 = self->_nextKfInitEstimate;
+    if (v44)
     {
-      [(CLKFRunningEstimates *)v43 fP];
+      objc_msgSend_fP(v44);
     }
 
     else
     {
-      v67 = 0;
-      v66 = 0;
+      LODWORD(v70) = 0;
+      v69 = 0.0;
     }
 
-    *&v44 = sub_10070F05C(&v66, 0, 0);
-    v46 = v45;
-    v47 = self->_nextKfInitEstimate;
-    if (v47)
+    *&v45 = sub_10070F05C(&v69, 0, 0);
+    v47 = v46;
+    v48 = self->_nextKfInitEstimate;
+    if (v48)
     {
-      [(CLKFRunningEstimates *)v47 fP];
+      objc_msgSend_fP(v48, v45);
     }
 
     else
     {
-      v65 = 0;
-      v64 = 0;
+      LODWORD(v68) = 0;
+      v67 = 0.0;
     }
 
-    v48 = v38;
-    v49 = v40;
-    v50 = v42;
-    v51 = v46;
-    *&v52 = sub_10070F05C(&v64, 0, 0);
-    v54 = v53;
-    v55 = self->_nextKfInitEstimate;
-    if (v55)
+    v49 = v39;
+    v50 = v41;
+    v51 = v43;
+    v52 = v47;
+    *&v53 = sub_10070F05C(&v67, 0, 0);
+    v55 = v54;
+    v56 = self->_nextKfInitEstimate;
+    if (v56)
     {
-      [(CLKFRunningEstimates *)v55 fP];
+      objc_msgSend_fP(v56, v53);
     }
 
     else
     {
-      v63 = 0;
-      v62 = 0;
+      LODWORD(v66) = 0;
+      v65 = 0.0;
     }
 
-    sub_10070F05C(&v62, 0, 0);
-    v57 = v56;
-    v58 = self->_nextInitBadStateDetectedTimestamp;
-    v59 = self->_nextHmmGoodStateInitProbability;
+    sub_10070F05C(&v65, 0, 0);
+    v58 = v57;
+    v59 = self->_nextInitBadStateDetectedTimestamp;
+    v60 = self->_nextHmmGoodStateInitProbability;
     workoutSmootherRunsCount2 = [(CLContextManagerElevationProfileBase *)self->_elevationProfileContextManager workoutSmootherRunsCount];
-    *v70 = 134220288;
-    *&v70[4] = v36;
-    v71 = 2048;
-    v72 = v48;
-    v73 = 2048;
-    v74 = v49;
-    v75 = 2048;
-    v76 = v50;
-    v77 = 2048;
-    v78 = v51;
-    v79 = 2048;
-    v80 = v54;
-    v81 = 2048;
-    v82 = v57;
-    v83 = 2048;
-    v84 = v58;
-    v85 = 2048;
-    v86 = v59;
-    v87 = 1024;
-    v88 = workoutSmootherRunsCount2;
-    v61 = _os_log_send_and_compose_impl();
-    sub_100152C7C("Generic", 1, 0, 2, "[CLElevationProfileEstimator recordNextBatchProcessInitStateWithCurrKFEstimate:currKfTimestamp:currHmmGoodModeProbability:andCurrBadStateDetectedTimestamp:]", "%s\n", v61);
-    if (v61 != buf)
+    *v73 = 134220288;
+    *&v73[4] = v37;
+    v74 = 2048;
+    v75 = v49;
+    v76 = 2048;
+    v77 = v50;
+    v78 = 2048;
+    v79 = v51;
+    v80 = 2048;
+    v81 = v52;
+    v82 = 2048;
+    v83 = v55;
+    v84 = 2048;
+    v85 = v58;
+    v86 = 2048;
+    v87 = v59;
+    v88 = 2048;
+    v89 = v60;
+    v90 = 1024;
+    v91 = workoutSmootherRunsCount2;
+    LODWORD(v64) = 98;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, v36, 0, "set next KF and HMM initial state,nextWorkoutProfileStartTime,%f,nextInitElevation,%f,nexInitMslp,%f,fP00,%f,fP01,%f,fP10,%f,fP11,%f,nextInitBadStateDetectedTimestamp,%f,nextHmmGoodStateProb,%f,rounds,%d", COERCE_DOUBLE(v73), v64, v65, v66, v67, v68, v69, v70, v71, v72);
+    v63 = v62;
+    sub_100152C7C("Generic", 1, 0, 2, "[CLElevationProfileEstimator recordNextBatchProcessInitStateWithCurrKFEstimate:currKfTimestamp:currHmmGoodModeProbability:andCurrBadStateDetectedTimestamp:]", "%s\n", v62);
+    if (v63 != buf)
     {
-      free(v61);
+      free(v63);
     }
   }
 }
 
 - (void)_forwardProcessingWithGpsAltitudeArray:(id)array andElevationArray:(id)elevationArray andKFEstimatesBuffer:(id)buffer
 {
-  v97 = 0;
+  v114 = 0;
   [(CLElevationProfileEstimator *)self _getTimestampWithElevationArray:elevationArray atIndex:0];
   v10 = v9;
   [(CLElevationProfileEstimator *)self _getTimestampWithElevationArray:elevationArray atIndex:0];
@@ -1571,9 +1635,9 @@ LABEL_3:
         Current = CFAbsoluteTimeGetCurrent();
         workoutSmootherRunsCount = [(CLContextManagerElevationProfileBase *)*p_elevationProfileContextManager workoutSmootherRunsCount];
         *buf = 134218240;
-        *v105 = Current;
-        *&v105[8] = 1024;
-        *&v105[10] = workoutSmootherRunsCount;
+        *v122 = Current;
+        *&v122[8] = 1024;
+        *&v122[10] = workoutSmootherRunsCount;
         _os_log_impl(dword_100000000, v18, OS_LOG_TYPE_DEFAULT, "#altimeter,initialize workout HMM at start of workout in bad state,now,%.3f,workoutSmootherRunsCount,%d", buf, 0x12u);
       }
 
@@ -1615,15 +1679,15 @@ LABEL_3:
     v27 = v26;
     workoutSmootherRunsCount2 = [(CLContextManagerElevationProfileBase *)*p_elevationProfileContextManager workoutSmootherRunsCount];
     *buf = 134219008;
-    *v105 = v25;
-    *&v105[8] = 2048;
-    *&v105[10] = v27;
-    *&v105[18] = 2048;
-    v106 = nextInitBadStateDetectedTimestamp;
-    *v107 = 2048;
-    *&v107[2] = v10;
-    v108 = 1024;
-    v109 = workoutSmootherRunsCount2;
+    *v122 = v25;
+    *&v122[8] = 2048;
+    *&v122[10] = v27;
+    *&v122[18] = 2048;
+    v123 = nextInitBadStateDetectedTimestamp;
+    *v124 = 2048;
+    *&v124[2] = v10;
+    v125 = 1024;
+    v126 = workoutSmootherRunsCount2;
     _os_log_impl(dword_100000000, v23, OS_LOG_TYPE_DEFAULT, "initialize workout Kalman filter,elevation,%f,mslp,%f,badStateDetectedTimestamp,%f,firstPressureTimestamp,%f,workoutSmootherRunsCount,%d", buf, 0x30u);
   }
 
@@ -1635,26 +1699,29 @@ LABEL_3:
       sub_101916CCC();
     }
 
+    v99 = qword_1025D4418;
     [(CLKFRunningEstimates *)v13 fState];
-    v90 = v89;
+    v101 = v100;
     [(CLKFRunningEstimates *)v13 fState];
-    v92 = v91;
+    v103 = v102;
     workoutSmootherRunsCount3 = [(CLContextManagerElevationProfileBase *)*p_elevationProfileContextManager workoutSmootherRunsCount];
-    v98 = 134219008;
-    *v99 = v90;
-    *&v99[8] = 2048;
-    *&v99[10] = v92;
-    *&v99[18] = 2048;
-    v100 = nextInitBadStateDetectedTimestamp;
-    *v101 = 2048;
-    *&v101[2] = v10;
-    v102 = 1024;
-    v103 = workoutSmootherRunsCount3;
-    v94 = _os_log_send_and_compose_impl();
-    sub_100152C7C("Generic", 1, 0, 2, "[CLElevationProfileEstimator _forwardProcessingWithGpsAltitudeArray:andElevationArray:andKFEstimatesBuffer:]", "%s\n", v94);
-    if (v94 != buf)
+    v115 = 134219008;
+    *v116 = v101;
+    *&v116[8] = 2048;
+    *&v116[10] = v103;
+    *&v116[18] = 2048;
+    v117 = nextInitBadStateDetectedTimestamp;
+    *v118 = 2048;
+    *&v118[2] = v10;
+    v119 = 1024;
+    v120 = workoutSmootherRunsCount3;
+    LODWORD(v107) = 48;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, v99, 0, "initialize workout Kalman filter,elevation,%f,mslp,%f,badStateDetectedTimestamp,%f,firstPressureTimestamp,%f,workoutSmootherRunsCount,%d", COERCE_DOUBLE(&v115), v107, v108, v109, v111);
+    v106 = v105;
+    sub_100152C7C("Generic", 1, 0, 2, "[CLElevationProfileEstimator _forwardProcessingWithGpsAltitudeArray:andElevationArray:andKFEstimatesBuffer:]", "%s\n", v105);
+    if (v106 != buf)
     {
-      free(v94);
+      free(v106);
     }
   }
 
@@ -1670,9 +1737,9 @@ LABEL_3:
     v31 = v30;
     workoutSmootherRunsCount4 = [(CLContextManagerElevationProfileBase *)*p_elevationProfileContextManager workoutSmootherRunsCount];
     *buf = 134218240;
-    *v105 = v31;
-    *&v105[8] = 1024;
-    *&v105[10] = workoutSmootherRunsCount4;
+    *v122 = v31;
+    *&v122[8] = 1024;
+    *&v122[10] = workoutSmootherRunsCount4;
     _os_log_impl(dword_100000000, v29, OS_LOG_TYPE_DEFAULT, "initialize workout HMM,GoodStateProbability,%f,workoutSmootherRunsCount,%d", buf, 0x12u);
   }
 
@@ -1682,37 +1749,39 @@ LABEL_3:
   }
 
   [(CLElevationProfileEstimator *)self _updateKFEstimatesBuffer:buffer withCurrEstimate:v13 measurementState:1 andCurrTimestamp:v10];
+  *&v39 = 134218240;
+  v112 = v39;
   while (1)
   {
-    v39 = SHIDWORD(v97);
-    if ([array count] <= v39)
+    v40 = SHIDWORD(v114);
+    if ([array count] <= v40)
     {
-      v40 = v97;
-      if ([elevationArray count] <= v40)
+      v41 = v114;
+      if ([elevationArray count] <= v41)
       {
         break;
       }
     }
 
-    [(CLElevationProfileEstimator *)self _getTimestampWithAltitudeArray:array atIndex:HIDWORD(v97)];
-    v42 = v41;
-    [(CLElevationProfileEstimator *)self _getTimestampWithElevationArray:elevationArray atIndex:v97];
-    v44 = v43;
-    if (v42 >= v43)
+    [(CLElevationProfileEstimator *)self _getTimestampWithAltitudeArray:array atIndex:HIDWORD(v114)];
+    v43 = v42;
+    [(CLElevationProfileEstimator *)self _getTimestampWithElevationArray:elevationArray atIndex:v114];
+    v45 = v44;
+    if (v43 >= v44)
     {
-      v45 = v43;
+      v46 = v44;
     }
 
     else
     {
-      v45 = v42;
+      v46 = v43;
     }
 
-    if (v42 < v43)
+    if (v43 < v44)
     {
-      v46 = v42;
-      v47 = [array objectAtIndex:SHIDWORD(v97)];
-      if (![(CLPressureQualityHiddenMarkovModel *)v14 forwardPropagateHmmWithCurrentAltitude:v47])
+      v47 = v43;
+      v48 = [array objectAtIndex:SHIDWORD(v114)];
+      if (![(CLPressureQualityHiddenMarkovModel *)v14 forwardPropagateHmmWithCurrentAltitude:v48])
       {
         goto LABEL_46;
       }
@@ -1722,18 +1791,18 @@ LABEL_3:
         sub_101916CCC();
       }
 
-      v48 = qword_1025D4418;
+      v49 = qword_1025D4418;
       if (os_log_type_enabled(qword_1025D4418, OS_LOG_TYPE_DEFAULT))
       {
         currentHmmState = [(CLPressureQualityHiddenMarkovModel *)v14 currentHmmState];
         workoutSmootherRunsCount5 = [(CLContextManagerElevationProfileBase *)*p_elevationProfileContextManager workoutSmootherRunsCount];
         *buf = 67109632;
-        *v105 = currentHmmState;
-        *&v105[4] = 2048;
-        *&v105[6] = v42;
-        *&v105[14] = 1024;
-        *&v105[16] = workoutSmootherRunsCount5;
-        _os_log_impl(dword_100000000, v48, OS_LOG_TYPE_DEFAULT, "HMM state transits into,currState,%d,kfTimestamp,%f,rounds,%d", buf, 0x18u);
+        *v122 = currentHmmState;
+        *&v122[4] = 2048;
+        *&v122[6] = v43;
+        *&v122[14] = 1024;
+        *&v122[16] = workoutSmootherRunsCount5;
+        _os_log_impl(dword_100000000, v49, OS_LOG_TYPE_DEFAULT, "HMM state transits into,currState,%d,kfTimestamp,%f,rounds,%d", buf, 0x18u);
       }
 
       if (sub_10000A100(121, 2))
@@ -1744,112 +1813,63 @@ LABEL_3:
           sub_101916CCC();
         }
 
+        v84 = qword_1025D4418;
         currentHmmState2 = [(CLPressureQualityHiddenMarkovModel *)v14 currentHmmState];
         workoutSmootherRunsCount6 = [(CLContextManagerElevationProfileBase *)*p_elevationProfileContextManager workoutSmootherRunsCount];
-        v98 = 67109632;
-        *v99 = currentHmmState2;
-        *&v99[4] = 2048;
-        *&v99[6] = v42;
-        *&v99[14] = 1024;
-        *&v99[16] = workoutSmootherRunsCount6;
-        v81 = _os_log_send_and_compose_impl();
-        sub_100152C7C("Generic", 1, 0, 2, "[CLElevationProfileEstimator _forwardProcessingWithGpsAltitudeArray:andElevationArray:andKFEstimatesBuffer:]", "%s\n", v81);
-        if (v81 != buf)
-        {
-          free(v81);
-        }
-      }
-
-      if ([(CLPressureQualityHiddenMarkovModel *)v14 currentHmmState]!= 1 || v42 <= nextInitBadStateDetectedTimestamp || !self->_backwardPropagationEnabled || (v51 = [(CLPressureQualityHiddenMarkovModel *)v14 backwardPropagateBadState], v51 < 1))
-      {
-LABEL_46:
-        [(CLElevationProfileEstimator *)self _measurementUpdate:v13 withLocation:v47];
-        ++HIDWORD(v97);
-        v52 = v97;
-        workoutKsPeriodInStepCountCadence = self->_workoutKsPeriodInStepCountCadence;
-        goto LABEL_73;
-      }
-
-      v66 = v51;
-      if (qword_1025D4410 != -1)
-      {
-        sub_101916CCC();
-      }
-
-      v67 = qword_1025D4418;
-      if (os_log_type_enabled(qword_1025D4418, OS_LOG_TYPE_DEFAULT))
-      {
-        v68 = HIDWORD(v97);
-        v95 = v97;
-        v69 = [buffer count];
-        workoutSmootherRunsCount7 = [(CLContextManagerElevationProfileBase *)*p_elevationProfileContextManager workoutSmootherRunsCount];
-        *buf = 134219264;
-        *v105 = v42;
-        *&v105[8] = 1024;
-        *&v105[10] = v68;
-        *&v105[14] = 1024;
-        *&v105[16] = v95;
-        LOWORD(v106) = 1024;
-        *(&v106 + 2) = v66;
-        HIWORD(v106) = 1024;
-        *v107 = v69;
-        *&v107[4] = 1024;
-        *&v107[6] = workoutSmootherRunsCount7;
-        _os_log_impl(dword_100000000, v67, OS_LOG_TYPE_DEFAULT, "HMM state transits into bad state and the backward propagation is triggered at,kfTimestamp,%f,altitudeIndex,%d,pressureIndex,%d,numberOfPredictionRemove,%d,KFbufferSize,%d,rounds,%d", buf, 0x2Au);
-      }
-
-      if (sub_10000A100(121, 2))
-      {
-        bzero(buf, 0x65CuLL);
-        if (qword_1025D4410 != -1)
-        {
-          sub_101916CCC();
-        }
-
-        v85 = v97;
-        v84 = HIDWORD(v97);
-        v86 = [buffer count];
-        workoutSmootherRunsCount8 = [(CLContextManagerElevationProfileBase *)*p_elevationProfileContextManager workoutSmootherRunsCount];
-        v98 = 134219264;
-        *v99 = v42;
-        *&v99[8] = 1024;
-        *&v99[10] = v84;
-        *&v99[14] = 1024;
-        *&v99[16] = v85;
-        LOWORD(v100) = 1024;
-        *(&v100 + 2) = v66;
-        HIWORD(v100) = 1024;
-        *v101 = v86;
-        *&v101[4] = 1024;
-        *&v101[6] = workoutSmootherRunsCount8;
-        v88 = _os_log_send_and_compose_impl();
-        sub_100152C7C("Generic", 1, 0, 2, "[CLElevationProfileEstimator _forwardProcessingWithGpsAltitudeArray:andElevationArray:andKFEstimatesBuffer:]", "%s\n", v88);
+        v115 = 67109632;
+        *v116 = currentHmmState2;
+        *&v116[4] = 2048;
+        *&v116[6] = v43;
+        *&v116[14] = 1024;
+        *&v116[16] = workoutSmootherRunsCount6;
+        LODWORD(v107) = 24;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, v84, 0, "HMM state transits into,currState,%d,kfTimestamp,%f,rounds,%d", &v115, v107, LODWORD(v108));
+        v88 = v87;
+        sub_100152C7C("Generic", 1, 0, 2, "[CLElevationProfileEstimator _forwardProcessingWithGpsAltitudeArray:andElevationArray:andKFEstimatesBuffer:]", "%s\n", v87);
         if (v88 != buf)
         {
           free(v88);
         }
       }
 
-      [(CLElevationProfileEstimator *)self _resetKFEstimatesBuffer:buffer andCurrKFEstimate:v13 andAltitudeIndex:&v97 + 4 andPressureIndex:&v97 withNumOfKfPredictionStepReset:v66];
+      if ([(CLPressureQualityHiddenMarkovModel *)v14 currentHmmState]!= 1 || v43 <= nextInitBadStateDetectedTimestamp || !self->_backwardPropagationEnabled || (v52 = [(CLPressureQualityHiddenMarkovModel *)v14 backwardPropagateBadState], v52 < 1))
+      {
+LABEL_46:
+        [(CLElevationProfileEstimator *)self _measurementUpdate:v13 withLocation:v48];
+        ++HIDWORD(v114);
+        v53 = v114;
+        workoutKsPeriodInStepCountCadence = self->_workoutKsPeriodInStepCountCadence;
+        goto LABEL_73;
+      }
+
+      v69 = v52;
       if (qword_1025D4410 != -1)
       {
         sub_101916CCC();
       }
 
-      v71 = qword_1025D4418;
+      v70 = qword_1025D4418;
       if (os_log_type_enabled(qword_1025D4418, OS_LOG_TYPE_DEFAULT))
       {
-        [(CLElevationProfileEstimator *)self _getTimestampWithElevationArray:elevationArray atIndex:v97];
-        v73 = v72;
-        workoutSmootherRunsCount9 = [(CLContextManagerElevationProfileBase *)self->_elevationProfileContextManager workoutSmootherRunsCount];
-        *buf = 134218240;
-        *v105 = v73;
-        *&v105[8] = 1024;
-        *&v105[10] = workoutSmootherRunsCount9;
-        _os_log_impl(dword_100000000, v71, OS_LOG_TYPE_DEFAULT, "HMM and Kalman filter are reset to,restartTimestamp,%f,rounds,%d", buf, 0x12u);
+        v71 = HIDWORD(v114);
+        LODWORD(v109) = v114;
+        v72 = [buffer count];
+        workoutSmootherRunsCount7 = [(CLContextManagerElevationProfileBase *)*p_elevationProfileContextManager workoutSmootherRunsCount];
+        *buf = 134219264;
+        *v122 = v43;
+        *&v122[8] = 1024;
+        *&v122[10] = v71;
+        *&v122[14] = 1024;
+        *&v122[16] = LODWORD(v109);
+        LOWORD(v123) = 1024;
+        *(&v123 + 2) = v69;
+        HIWORD(v123) = 1024;
+        *v124 = v72;
+        *&v124[4] = 1024;
+        *&v124[6] = workoutSmootherRunsCount7;
+        _os_log_impl(dword_100000000, v70, OS_LOG_TYPE_DEFAULT, "HMM state transits into bad state and the backward propagation is triggered at,kfTimestamp,%f,altitudeIndex,%d,pressureIndex,%d,numberOfPredictionRemove,%d,KFbufferSize,%d,rounds,%d", buf, 0x2Au);
       }
 
-      nextInitBadStateDetectedTimestamp = v42 + 0.000001;
       if (sub_10000A100(121, 2))
       {
         bzero(buf, 0x65CuLL);
@@ -1858,49 +1878,105 @@ LABEL_46:
           sub_101916CCC();
         }
 
-        [(CLElevationProfileEstimator *)self _getTimestampWithElevationArray:elevationArray atIndex:v97];
-        v76 = v75;
-        workoutSmootherRunsCount10 = [(CLContextManagerElevationProfileBase *)self->_elevationProfileContextManager workoutSmootherRunsCount];
-        v98 = 134218240;
-        *v99 = v76;
-        *&v99[8] = 1024;
-        *&v99[10] = workoutSmootherRunsCount10;
-        v78 = _os_log_send_and_compose_impl();
-        sub_100152C7C("Generic", 1, 0, 2, "[CLElevationProfileEstimator _forwardProcessingWithGpsAltitudeArray:andElevationArray:andKFEstimatesBuffer:]", "%s\n", v78);
-        if (v78 != buf)
+        v110 = qword_1025D4418;
+        v94 = v114;
+        v93 = HIDWORD(v114);
+        v95 = [buffer count];
+        workoutSmootherRunsCount8 = [(CLContextManagerElevationProfileBase *)*p_elevationProfileContextManager workoutSmootherRunsCount];
+        v115 = 134219264;
+        *v116 = v43;
+        *&v116[8] = 1024;
+        *&v116[10] = v93;
+        *&v116[14] = 1024;
+        *&v116[16] = v94;
+        LOWORD(v117) = 1024;
+        *(&v117 + 2) = v69;
+        HIWORD(v117) = 1024;
+        *v118 = v95;
+        *&v118[4] = 1024;
+        *&v118[6] = workoutSmootherRunsCount8;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, v110, 0, "HMM state transits into bad state and the backward propagation is triggered at,kfTimestamp,%f,altitudeIndex,%d,pressureIndex,%d,numberOfPredictionRemove,%d,KFbufferSize,%d,rounds,%d", COERCE_DOUBLE(&v115), 42, LODWORD(v108), v110, v112, DWORD2(v112));
+        v98 = v97;
+        sub_100152C7C("Generic", 1, 0, 2, "[CLElevationProfileEstimator _forwardProcessingWithGpsAltitudeArray:andElevationArray:andKFEstimatesBuffer:]", "%s\n", v97);
+        if (v98 != buf)
         {
-          free(v78);
+          free(v98);
+        }
+      }
+
+      [(CLElevationProfileEstimator *)self _resetKFEstimatesBuffer:buffer andCurrKFEstimate:v13 andAltitudeIndex:&v114 + 4 andPressureIndex:&v114 withNumOfKfPredictionStepReset:v69];
+      if (qword_1025D4410 != -1)
+      {
+        sub_101916CCC();
+      }
+
+      v74 = qword_1025D4418;
+      if (os_log_type_enabled(qword_1025D4418, OS_LOG_TYPE_DEFAULT))
+      {
+        [(CLElevationProfileEstimator *)self _getTimestampWithElevationArray:elevationArray atIndex:v114];
+        v76 = v75;
+        workoutSmootherRunsCount9 = [(CLContextManagerElevationProfileBase *)self->_elevationProfileContextManager workoutSmootherRunsCount];
+        *buf = v112;
+        *v122 = v76;
+        *&v122[8] = 1024;
+        *&v122[10] = workoutSmootherRunsCount9;
+        _os_log_impl(dword_100000000, v74, OS_LOG_TYPE_DEFAULT, "HMM and Kalman filter are reset to,restartTimestamp,%f,rounds,%d", buf, 0x12u);
+      }
+
+      nextInitBadStateDetectedTimestamp = v43 + 0.000001;
+      if (sub_10000A100(121, 2))
+      {
+        bzero(buf, 0x65CuLL);
+        if (qword_1025D4410 != -1)
+        {
+          sub_101916CCC();
+        }
+
+        v78 = qword_1025D4418;
+        [(CLElevationProfileEstimator *)self _getTimestampWithElevationArray:elevationArray atIndex:v114];
+        v80 = v79;
+        workoutSmootherRunsCount10 = [(CLContextManagerElevationProfileBase *)self->_elevationProfileContextManager workoutSmootherRunsCount];
+        v115 = v112;
+        *v116 = v80;
+        *&v116[8] = 1024;
+        *&v116[10] = workoutSmootherRunsCount10;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, v78, 0, "HMM and Kalman filter are reset to,restartTimestamp,%f,rounds,%d", COERCE_DOUBLE(&v115), 18);
+        v83 = v82;
+        sub_100152C7C("Generic", 1, 0, 2, "[CLElevationProfileEstimator _forwardProcessingWithGpsAltitudeArray:andElevationArray:andKFEstimatesBuffer:]", "%s\n", v82);
+        if (v83 != buf)
+        {
+          free(v83);
         }
       }
     }
 
     else
     {
-      v54 = v42 + -0.000001;
-      v55 = [elevationArray count] - 1;
-      if (v97 + 1 < v55)
+      v55 = v43 + -0.000001;
+      v56 = [elevationArray count] - 1;
+      if (v114 + 1 < v56)
       {
-        v56 = v97 + 1;
+        v57 = v114 + 1;
       }
 
       else
       {
-        v56 = v55;
+        v57 = v56;
       }
 
-      if (v54 >= v44)
+      if (v55 >= v45)
       {
-        [(CLPressureQualityHiddenMarkovModel *)v14 updatePressureGpsAlignmentBufferWithData:0.0 andTimestamp:v44];
-        [(CLPressureQualityHiddenMarkovModel *)v14 updateGoodModeProbabilityBufferWithTimestamp:v44];
+        [(CLPressureQualityHiddenMarkovModel *)v14 updatePressureGpsAlignmentBufferWithData:0.0 andTimestamp:v45];
+        [(CLPressureQualityHiddenMarkovModel *)v14 updateGoodModeProbabilityBufferWithTimestamp:v45];
       }
 
       else
       {
-        -[CLPressureQualityHiddenMarkovModel predictCovarianceWithCurrentState:withElevation:withNextElevation:](v14, "predictCovarianceWithCurrentState:withElevation:withNextElevation:", v13, [elevationArray objectAtIndex:?], objc_msgSend(elevationArray, "objectAtIndex:", v56));
+        -[CLPressureQualityHiddenMarkovModel predictCovarianceWithCurrentState:withElevation:withNextElevation:](v14, "predictCovarianceWithCurrentState:withElevation:withNextElevation:", v13, [elevationArray objectAtIndex:?], objc_msgSend(elevationArray, "objectAtIndex:", v57));
       }
 
       currentHmmState3 = [(CLPressureQualityHiddenMarkovModel *)v14 currentHmmState];
-      if (v44 <= nextInitBadStateDetectedTimestamp)
+      if (v45 <= nextInitBadStateDetectedTimestamp)
       {
         if (self->_workoutElevationVerboseLogging)
         {
@@ -1909,19 +1985,19 @@ LABEL_46:
             sub_101916CCC();
           }
 
-          v62 = qword_1025D4418;
+          v65 = qword_1025D4418;
           if (os_log_type_enabled(qword_1025D4418, OS_LOG_TYPE_DEFAULT))
           {
             workoutSmootherRunsCount11 = [(CLContextManagerElevationProfileBase *)*p_elevationProfileContextManager workoutSmootherRunsCount];
             *buf = 67109888;
-            *v105 = currentHmmState3;
-            *&v105[4] = 1024;
-            *&v105[6] = 1;
-            *&v105[10] = 2048;
-            *&v105[12] = v44;
-            LOWORD(v106) = 1024;
-            *(&v106 + 2) = workoutSmootherRunsCount11;
-            _os_log_impl(dword_100000000, v62, OS_LOG_TYPE_DEFAULT, "Kalman filter mode,currHmmState,%d,overWrittenByBadState,%d,kfTimestamp,%f,rounds,%d", buf, 0x1Eu);
+            *v122 = currentHmmState3;
+            *&v122[4] = 1024;
+            *&v122[6] = 1;
+            *&v122[10] = 2048;
+            *&v122[12] = v45;
+            LOWORD(v123) = 1024;
+            *(&v123 + 2) = workoutSmootherRunsCount11;
+            _os_log_impl(dword_100000000, v65, OS_LOG_TYPE_DEFAULT, "Kalman filter mode,currHmmState,%d,overWrittenByBadState,%d,kfTimestamp,%f,rounds,%d", buf, 0x1Eu);
           }
 
           if (sub_10000A100(121, 2))
@@ -1932,20 +2008,22 @@ LABEL_46:
               sub_101916CCC();
             }
 
+            v89 = qword_1025D4418;
             workoutSmootherRunsCount12 = [(CLContextManagerElevationProfileBase *)*p_elevationProfileContextManager workoutSmootherRunsCount];
-            v98 = 67109888;
-            *v99 = currentHmmState3;
-            *&v99[4] = 1024;
-            *&v99[6] = 1;
-            *&v99[10] = 2048;
-            *&v99[12] = v44;
-            LOWORD(v100) = 1024;
-            *(&v100 + 2) = workoutSmootherRunsCount12;
-            v83 = _os_log_send_and_compose_impl();
-            sub_100152C7C("Generic", 1, 0, 2, "[CLElevationProfileEstimator _forwardProcessingWithGpsAltitudeArray:andElevationArray:andKFEstimatesBuffer:]", "%s\n", v83);
-            if (v83 != buf)
+            v115 = 67109888;
+            *v116 = currentHmmState3;
+            *&v116[4] = 1024;
+            *&v116[6] = 1;
+            *&v116[10] = 2048;
+            *&v116[12] = v45;
+            LOWORD(v117) = 1024;
+            *(&v117 + 2) = workoutSmootherRunsCount12;
+            _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, v89, 0, "Kalman filter mode,currHmmState,%d,overWrittenByBadState,%d,kfTimestamp,%f,rounds,%d", &v115, 30, v108, LODWORD(v109));
+            v92 = v91;
+            sub_100152C7C("Generic", 1, 0, 2, "[CLElevationProfileEstimator _forwardProcessingWithGpsAltitudeArray:andElevationArray:andKFEstimatesBuffer:]", "%s\n", v91);
+            if (v92 != buf)
             {
-              free(v83);
+              free(v92);
             }
           }
         }
@@ -1960,19 +2038,19 @@ LABEL_46:
           sub_101916CCC();
         }
 
-        v58 = qword_1025D4418;
+        v59 = qword_1025D4418;
         if (os_log_type_enabled(qword_1025D4418, OS_LOG_TYPE_DEFAULT))
         {
           workoutSmootherRunsCount13 = [(CLContextManagerElevationProfileBase *)*p_elevationProfileContextManager workoutSmootherRunsCount];
           *buf = 67109888;
-          *v105 = currentHmmState3;
-          *&v105[4] = 1024;
-          *&v105[6] = 0;
-          *&v105[10] = 2048;
-          *&v105[12] = v44;
-          LOWORD(v106) = 1024;
-          *(&v106 + 2) = workoutSmootherRunsCount13;
-          _os_log_impl(dword_100000000, v58, OS_LOG_TYPE_DEFAULT, "Kalman filter mode,currHmmState,%d,overWrittenByBadState,%d,kfTimestamp,%f,rounds,%d", buf, 0x1Eu);
+          *v122 = currentHmmState3;
+          *&v122[4] = 1024;
+          *&v122[6] = 0;
+          *&v122[10] = 2048;
+          *&v122[12] = v45;
+          LOWORD(v123) = 1024;
+          *(&v123 + 2) = workoutSmootherRunsCount13;
+          _os_log_impl(dword_100000000, v59, OS_LOG_TYPE_DEFAULT, "Kalman filter mode,currHmmState,%d,overWrittenByBadState,%d,kfTimestamp,%f,rounds,%d", buf, 0x1Eu);
         }
 
         if (sub_10000A100(121, 2))
@@ -1983,91 +2061,95 @@ LABEL_46:
             sub_101916CCC();
           }
 
+          v61 = qword_1025D4418;
           workoutSmootherRunsCount14 = [(CLContextManagerElevationProfileBase *)*p_elevationProfileContextManager workoutSmootherRunsCount];
-          v98 = 67109888;
-          *v99 = currentHmmState3;
-          *&v99[4] = 1024;
-          *&v99[6] = 0;
-          *&v99[10] = 2048;
-          *&v99[12] = v44;
-          LOWORD(v100) = 1024;
-          *(&v100 + 2) = workoutSmootherRunsCount14;
-          v61 = _os_log_send_and_compose_impl();
-          sub_100152C7C("Generic", 1, 0, 2, "[CLElevationProfileEstimator _forwardProcessingWithGpsAltitudeArray:andElevationArray:andKFEstimatesBuffer:]", "%s\n", v61);
-          if (v61 != buf)
+          v115 = 67109888;
+          *v116 = currentHmmState3;
+          *&v116[4] = 1024;
+          *&v116[6] = 0;
+          *&v116[10] = 2048;
+          *&v116[12] = v45;
+          LOWORD(v117) = 1024;
+          *(&v117 + 2) = workoutSmootherRunsCount14;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, v61, 0, "Kalman filter mode,currHmmState,%d,overWrittenByBadState,%d,kfTimestamp,%f,rounds,%d", &v115, 30, v108, LODWORD(v109));
+          v64 = v63;
+          sub_100152C7C("Generic", 1, 0, 2, "[CLElevationProfileEstimator _forwardProcessingWithGpsAltitudeArray:andElevationArray:andKFEstimatesBuffer:]", "%s\n", v63);
+          if (v64 != buf)
           {
-            free(v61);
+            free(v64);
           }
         }
       }
 
-      -[CLElevationProfileEstimator _predictionUpdate:withElevation:withNextElevation:withCurrentHmmState:withTravelVelocity:](self, "_predictionUpdate:withElevation:withNextElevation:withCurrentHmmState:withTravelVelocity:", v13, [elevationArray objectAtIndex:v97], objc_msgSend(elevationArray, "objectAtIndex:", v56), currentHmmState3, 0.0);
-      v52 = v97 + 1;
-      LODWORD(v97) = v97 + 1;
-      if (v54 >= v44)
+      -[CLElevationProfileEstimator _predictionUpdate:withElevation:withNextElevation:withCurrentHmmState:withTravelVelocity:](self, "_predictionUpdate:withElevation:withNextElevation:withCurrentHmmState:withTravelVelocity:", v13, [elevationArray objectAtIndex:v114], objc_msgSend(elevationArray, "objectAtIndex:", v57), currentHmmState3, 0.0);
+      v53 = v114 + 1;
+      LODWORD(v114) = v114 + 1;
+      if (v55 >= v45)
       {
         workoutKsPeriodInStepCountCadence = self->_workoutKsPeriodInStepCountCadence;
-        v46 = v44;
+        v47 = v45;
 LABEL_73:
-        if (v52 == workoutKsPeriodInStepCountCadence)
+        if (v53 == workoutKsPeriodInStepCountCadence)
         {
           [(CLPressureQualityHiddenMarkovModel *)v14 getCurrGoodModeProbability];
-          LODWORD(v65) = v64;
-          [(CLElevationProfileEstimator *)self recordNextBatchProcessInitStateWithCurrKFEstimate:v13 currKfTimestamp:v46 currHmmGoodModeProbability:v65 andCurrBadStateDetectedTimestamp:nextInitBadStateDetectedTimestamp];
+          LODWORD(v68) = v67;
+          [(CLElevationProfileEstimator *)self recordNextBatchProcessInitStateWithCurrKFEstimate:v13 currKfTimestamp:v47 currHmmGoodModeProbability:v68 andCurrBadStateDetectedTimestamp:nextInitBadStateDetectedTimestamp];
         }
       }
 
-      [(CLElevationProfileEstimator *)self _updateKFEstimatesBuffer:buffer withCurrEstimate:v13 measurementState:v42 < v44 andCurrTimestamp:v45];
+      [(CLElevationProfileEstimator *)self _updateKFEstimatesBuffer:buffer withCurrEstimate:v13 measurementState:v43 < v45 andCurrTimestamp:v46];
     }
   }
 }
 
 - (BOOL)_forwardProcessingWithLocationArray:(id)array andElevationArray:(id)elevationArray andKFEstimatesBuffer:(id)buffer andKeepAllLocations:(BOOL)locations andTaskType:(unint64_t)type
 {
-  v50 = 0.0;
+  v58 = 0.0;
   v12 = objc_alloc_init(CLKFRunningEstimates);
   typeCopy = type;
   -[CLElevationProfileEstimator _initKalmanFilter:withFirstLocation:andElevationArray:andTaskType:](self, "_initKalmanFilter:withFirstLocation:andElevationArray:andTaskType:", v12, [objc_msgSend(array "firstObject")], elevationArray, type);
-  v48 = 0;
+  v56 = 0;
   v13 = 0;
   v14 = 0;
+  *&v15 = 134218752;
+  v53 = v15;
   while (1)
   {
-    v15 = v14;
+    v16 = v14;
     if ([array count] <= v14 && objc_msgSend(elevationArray, "count") <= v13)
     {
       break;
     }
 
     [(CLElevationProfileEstimator *)self _getTimestampWithLocationArray:array atIndex:v14];
-    v17 = v16;
+    v18 = v17;
     [(CLElevationProfileEstimator *)self _getTimestampWithElevationArray:elevationArray atIndex:v13];
-    v19 = v18;
-    if (v17 >= v18)
+    v20 = v19;
+    if (v18 >= v19)
     {
-      v20 = v18;
+      v21 = v19;
     }
 
     else
     {
-      v20 = v17;
+      v21 = v18;
     }
 
-    if (v17 < v18)
+    if (v18 < v19)
     {
-      v21 = [array objectAtIndex:v14];
-      v22 = [array count] - 1;
+      v22 = [array objectAtIndex:v14];
+      v23 = [array count] - 1;
       v14 = (v14 + 1);
-      if (v14 < v22)
+      if (v14 < v23)
       {
-        v22 = v15 + 1;
+        v23 = v16 + 1;
       }
 
-      v23 = [array objectAtIndex:v22];
-      if (locations || !-[CLElevationProfileEstimator _rejectOutlyingLocation:withKFEstimates:](self, "_rejectOutlyingLocation:withKFEstimates:", [v21 altitudeData], v12))
+      v24 = [array objectAtIndex:v23];
+      if (locations || !-[CLElevationProfileEstimator _rejectOutlyingLocation:withKFEstimates:](self, "_rejectOutlyingLocation:withKFEstimates:", [v22 altitudeData], v12))
       {
-        [(CLElevationProfileEstimator *)self updateTravelVelocity:&v50 withCurrLocation:v21 andNextLocation:v23];
-        -[CLElevationProfileEstimator _measurementUpdate:withLocation:](self, "_measurementUpdate:withLocation:", v12, [v21 altitudeData]);
+        [(CLElevationProfileEstimator *)self updateTravelVelocity:&v58 withCurrLocation:v22 andNextLocation:v24];
+        -[CLElevationProfileEstimator _measurementUpdate:withLocation:](self, "_measurementUpdate:withLocation:", v12, [v22 altitudeData]);
         goto LABEL_18;
       }
 
@@ -2078,23 +2160,23 @@ LABEL_73:
           sub_101916CCC();
         }
 
-        v28 = qword_1025D4418;
+        v29 = qword_1025D4418;
         if (os_log_type_enabled(qword_1025D4418, OS_LOG_TYPE_DEBUG))
         {
-          [objc_msgSend(v21 "altitudeData")];
-          v30 = v29;
-          [objc_msgSend(v21 "altitudeData")];
-          v32 = v31;
-          [objc_msgSend(v21 "altitudeData")];
-          *buf = 134218752;
-          v62 = typeCopy;
-          v63 = 2048;
-          v64 = v30;
-          v65 = 2048;
-          v66 = v32;
-          v67 = 2048;
-          v68 = v33;
-          _os_log_impl(dword_100000000, v28, OS_LOG_TYPE_DEBUG, "reject location outlier,taskType,%lu,timestamp,%f,elevation,%f,verticalAccuracy,%f", buf, 0x2Au);
+          [objc_msgSend(v22 "altitudeData")];
+          v31 = v30;
+          [objc_msgSend(v22 "altitudeData")];
+          v33 = v32;
+          [objc_msgSend(v22 "altitudeData")];
+          *buf = v53;
+          v70 = typeCopy;
+          v71 = 2048;
+          v72 = v31;
+          v73 = 2048;
+          v74 = v33;
+          v75 = 2048;
+          v76 = v34;
+          _os_log_impl(dword_100000000, v29, OS_LOG_TYPE_DEBUG, "reject location outlier,taskType,%lu,timestamp,%f,elevation,%f,verticalAccuracy,%f", buf, 0x2Au);
         }
 
         if (sub_10000A100(121, 2))
@@ -2105,54 +2187,57 @@ LABEL_73:
             sub_101916CCC();
           }
 
-          [objc_msgSend(v21 "altitudeData")];
-          v35 = v34;
-          [objc_msgSend(v21 "altitudeData")];
+          v35 = qword_1025D4418;
+          [objc_msgSend(v22 "altitudeData")];
           v37 = v36;
-          [objc_msgSend(v21 "altitudeData")];
-          v51 = 134218752;
-          v52 = typeCopy;
-          v53 = 2048;
-          v54 = v35;
-          v55 = 2048;
-          v56 = v37;
-          v57 = 2048;
-          v58 = v38;
-          v39 = _os_log_send_and_compose_impl();
-          sub_100152C7C("Generic", 1, 0, 2, "[CLElevationProfileEstimator _forwardProcessingWithLocationArray:andElevationArray:andKFEstimatesBuffer:andKeepAllLocations:andTaskType:]", "%s\n", v39);
-          if (v39 != buf)
+          [objc_msgSend(v22 "altitudeData")];
+          v39 = v38;
+          [objc_msgSend(v22 "altitudeData")];
+          v59 = v53;
+          v60 = typeCopy;
+          v61 = 2048;
+          v62 = v37;
+          v63 = 2048;
+          v64 = v39;
+          v65 = 2048;
+          v66 = v40;
+          LODWORD(v52) = 42;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, v35, 2, "reject location outlier,taskType,%lu,timestamp,%f,elevation,%f,verticalAccuracy,%f", &v59, v52, *&v53, *(&v53 + 1));
+          v42 = v41;
+          sub_100152C7C("Generic", 1, 0, 2, "[CLElevationProfileEstimator _forwardProcessingWithLocationArray:andElevationArray:andKFEstimatesBuffer:andKeepAllLocations:andTaskType:]", "%s\n", v41);
+          if (v42 != buf)
           {
-            free(v39);
+            free(v42);
           }
         }
       }
 
-      ++v48;
+      ++v56;
     }
 
     else
     {
-      v24 = [elevationArray count];
-      if (v13 + 1 < (v24 - 1))
+      v25 = [elevationArray count];
+      if (v13 + 1 < (v25 - 1))
       {
-        v25 = v13 + 1;
+        v26 = v13 + 1;
       }
 
       else
       {
-        v25 = v24 - 1;
+        v26 = v25 - 1;
       }
 
-      v26 = [elevationArray objectAtIndex:v13];
-      v27 = [elevationArray objectAtIndex:v25];
-      [(CLElevationProfileEstimator *)self _predictionUpdate:v12 withElevation:v26 withNextElevation:v27 withCurrentHmmState:0 withTravelVelocity:v50];
+      v27 = [elevationArray objectAtIndex:v13];
+      v28 = [elevationArray objectAtIndex:v26];
+      [(CLElevationProfileEstimator *)self _predictionUpdate:v12 withElevation:v27 withNextElevation:v28 withCurrentHmmState:0 withTravelVelocity:v58];
       v13 = (v13 + 1);
 LABEL_18:
-      [(CLElevationProfileEstimator *)self _updateKFEstimatesBuffer:buffer withCurrEstimate:v12 measurementState:v17 < v19 andCurrTimestamp:v20];
+      [(CLElevationProfileEstimator *)self _updateKFEstimatesBuffer:buffer withCurrEstimate:v12 measurementState:v18 < v20 andCurrTimestamp:v21];
     }
   }
 
-  v40 = v48 / [array count];
+  v43 = v56 / [array count];
   maxOutlierRatio = self->_maxOutlierRatio;
   if (!locations)
   {
@@ -2161,21 +2246,21 @@ LABEL_18:
       sub_101918168();
     }
 
-    v42 = qword_1025D4318;
+    v45 = qword_1025D4318;
     if (os_log_type_enabled(qword_1025D4318, OS_LOG_TYPE_DEBUG))
     {
-      v43 = [array count];
+      v46 = [array count];
       *buf = 134219008;
-      v62 = typeCopy;
-      v63 = 2048;
-      v64 = v48;
-      v65 = 2048;
-      v66 = v43;
-      v67 = 2048;
-      v68 = v40;
-      v69 = 1024;
-      v70 = v40 > maxOutlierRatio;
-      _os_log_impl(dword_100000000, v42, OS_LOG_TYPE_DEBUG, "outlier rejection summary,taskType,%lu,outlierCount,%lu,totalCount,%lu,outlierRatio,%f,isRepeatKF,%d", buf, 0x30u);
+      v70 = typeCopy;
+      v71 = 2048;
+      v72 = v56;
+      v73 = 2048;
+      v74 = v46;
+      v75 = 2048;
+      v76 = v43;
+      v77 = 1024;
+      v78 = v43 > maxOutlierRatio;
+      _os_log_impl(dword_100000000, v45, OS_LOG_TYPE_DEBUG, "outlier rejection summary,taskType,%lu,outlierCount,%lu,totalCount,%lu,outlierRatio,%f,isRepeatKF,%d", buf, 0x30u);
     }
 
     if (sub_10000A100(121, 2))
@@ -2186,27 +2271,30 @@ LABEL_18:
         sub_101918168();
       }
 
-      v45 = [array count];
-      v51 = 134219008;
-      v52 = typeCopy;
-      v53 = 2048;
-      v54 = v48;
-      v55 = 2048;
-      v56 = v45;
-      v57 = 2048;
-      v58 = v40;
-      v59 = 1024;
-      v60 = v40 > maxOutlierRatio;
-      v46 = _os_log_send_and_compose_impl();
-      sub_100152C7C("Generic", 1, 0, 2, "[CLElevationProfileEstimator _forwardProcessingWithLocationArray:andElevationArray:andKFEstimatesBuffer:andKeepAllLocations:andTaskType:]", "%s\n", v46);
-      if (v46 != buf)
+      v48 = qword_1025D4318;
+      v49 = [array count];
+      v59 = 134219008;
+      v60 = typeCopy;
+      v61 = 2048;
+      v62 = v56;
+      v63 = 2048;
+      v64 = v49;
+      v65 = 2048;
+      v66 = v43;
+      v67 = 1024;
+      v68 = v43 > maxOutlierRatio;
+      LODWORD(v52) = 48;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, v48, 2, "outlier rejection summary,taskType,%lu,outlierCount,%lu,totalCount,%lu,outlierRatio,%f,isRepeatKF,%d", &v59, *&v52, v53, *(&v53 + 1), v54);
+      v51 = v50;
+      sub_100152C7C("Generic", 1, 0, 2, "[CLElevationProfileEstimator _forwardProcessingWithLocationArray:andElevationArray:andKFEstimatesBuffer:andKeepAllLocations:andTaskType:]", "%s\n", v50);
+      if (v51 != buf)
       {
-        free(v46);
+        free(v51);
       }
     }
   }
 
-  return v40 > maxOutlierRatio;
+  return v43 > maxOutlierRatio;
 }
 
 - (void)_updateKFEstimatesBuffer:(id)buffer withCurrEstimate:(id)estimate measurementState:(BOOL)state andCurrTimestamp:(double)timestamp
@@ -2217,7 +2305,7 @@ LABEL_18:
   [(CLKalmanFilterEstimates *)v11 setFState:?];
   if (estimate)
   {
-    [estimate fP];
+    objc_msgSend_fP(estimate);
   }
 
   else
@@ -2282,7 +2370,7 @@ LABEL_18:
 
     if (sub_10000A100(121, 2))
     {
-      sub_101918190(v11, self, v30, v31, v32, v33, v34, v35);
+      sub_101918190(v11, &self->super.isa, v30, v31, v32, v33, v34, v35);
     }
   }
 }
@@ -2504,9 +2592,9 @@ LABEL_18:
   {
     *buf = 134218496;
     typeCopy = type;
-    v16 = 2048;
+    v25 = 2048;
     timeCopy = time;
-    v18 = 2048;
+    v27 = 2048;
     endTimeCopy = endTime;
     _os_log_impl(dword_100000000, v12, OS_LOG_TYPE_DEBUG, "start elevation batch processing,taskType,%lu,startTime,%f,endTime,%f", buf, 0x20u);
   }
@@ -2519,11 +2607,19 @@ LABEL_18:
       sub_101916CCC();
     }
 
-    v13 = _os_log_send_and_compose_impl();
+    v17 = 134218496;
+    typeCopy2 = type;
+    v19 = 2048;
+    timeCopy2 = time;
+    v21 = 2048;
+    endTimeCopy2 = endTime;
+    LODWORD(v15) = 32;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4418, 2, "start elevation batch processing,taskType,%lu,startTime,%f,endTime,%f", &v17, v15, v16);
+    v14 = v13;
     sub_100152C7C("Generic", 1, 0, 2, "[CLElevationProfileEstimator _elevationBatchProcessingWithStartTime:andEndTime:andLocationBuffer:andKSEstimatesBuffer:andTaskType:andCompletionBlock:]", "%s\n", v13);
-    if (v13 != buf)
+    if (v14 != buf)
     {
-      free(v13);
+      free(v14);
     }
   }
 
@@ -2549,48 +2645,46 @@ LABEL_18:
   {
     if ([array count])
     {
-      v46 = 0u;
-      v47 = 0u;
-      v44 = 0u;
-      v45 = 0u;
-      v6 = [array countByEnumeratingWithState:&v44 objects:v65 count:16];
+      v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(array);
       if (v6)
       {
-        v7 = v6;
-        v8 = *v45;
+        v8 = v6;
+        v9 = MEMORY[0];
+        *&v7 = 134218752;
+        v44 = v7;
         do
         {
-          v9 = 0;
+          v10 = 0;
           do
           {
-            if (*v45 != v8)
+            if (MEMORY[0] != v9)
             {
               objc_enumerationMutation(array);
             }
 
-            v10 = *(*(&v44 + 1) + 8 * v9);
+            v11 = *(8 * v10);
             if (qword_1025D4410 != -1)
             {
               sub_101916CCC();
             }
 
-            v11 = qword_1025D4418;
+            v12 = qword_1025D4418;
             if (os_log_type_enabled(qword_1025D4418, OS_LOG_TYPE_DEBUG))
             {
-              [objc_msgSend(v10 "altitudeData")];
-              v13 = v12;
-              [objc_msgSend(v10 "altitudeData")];
-              v15 = v14;
-              [objc_msgSend(v10 "altitudeData")];
-              *buf = 134218752;
+              [objc_msgSend(v11 "altitudeData")];
+              v14 = v13;
+              [objc_msgSend(v11 "altitudeData")];
+              v16 = v15;
+              [objc_msgSend(v11 "altitudeData")];
+              *buf = v44;
               typeCopy3 = type;
-              v59 = 2048;
-              v60 = v13;
-              v61 = 2048;
-              v62 = v15;
-              v63 = 2048;
-              v64 = v16;
-              _os_log_impl(dword_100000000, v11, OS_LOG_TYPE_DEBUG, "enumerate locations,taskType,%lu,timestamp,%f,elevation,%f,verticalAccuracy,%f", buf, 0x2Au);
+              v58 = 2048;
+              v59 = v14;
+              v60 = 2048;
+              v61 = v16;
+              v62 = 2048;
+              v63 = v17;
+              _os_log_impl(dword_100000000, v12, OS_LOG_TYPE_DEBUG, "enumerate locations,taskType,%lu,timestamp,%f,elevation,%f,verticalAccuracy,%f", buf, 0x2Au);
             }
 
             if (sub_10000A100(121, 2))
@@ -2601,79 +2695,79 @@ LABEL_18:
                 sub_101916CCC();
               }
 
-              [objc_msgSend(v10 "altitudeData")];
-              v18 = v17;
-              [objc_msgSend(v10 "altitudeData")];
+              v18 = qword_1025D4418;
+              [objc_msgSend(v11 "altitudeData")];
               v20 = v19;
-              [objc_msgSend(v10 "altitudeData")];
-              v49 = 134218752;
+              [objc_msgSend(v11 "altitudeData")];
+              v22 = v21;
+              [objc_msgSend(v11 "altitudeData")];
+              v48 = v44;
               typeCopy4 = type;
-              v51 = 2048;
-              v52 = v18;
-              v53 = 2048;
-              v54 = v20;
-              v55 = 2048;
-              v56 = v21;
-              v22 = _os_log_send_and_compose_impl();
-              sub_100152C7C("Generic", 1, 0, 2, "[CLElevationProfileEstimator _logValuesOfLocationArray:andElevationArray:andTaskType:]", "%s\n", v22);
-              if (v22 != buf)
+              v50 = 2048;
+              v51 = v20;
+              v52 = 2048;
+              v53 = v22;
+              v54 = 2048;
+              v55 = v23;
+              LODWORD(v43) = 42;
+              _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, v18, 2, "enumerate locations,taskType,%lu,timestamp,%f,elevation,%f,verticalAccuracy,%f", &v48, v43, *&v44, *(&v44 + 1));
+              v25 = v24;
+              sub_100152C7C("Generic", 1, 0, 2, "[CLElevationProfileEstimator _logValuesOfLocationArray:andElevationArray:andTaskType:]", "%s\n", v24);
+              if (v25 != buf)
               {
-                free(v22);
+                free(v25);
               }
             }
 
-            v9 = v9 + 1;
+            v10 = v10 + 1;
           }
 
-          while (v7 != v9);
-          v23 = [array countByEnumeratingWithState:&v44 objects:v65 count:16];
-          v7 = v23;
+          while (v8 != v10);
+          v26 = objc_msgSend_countByEnumeratingWithState_objects_count_(array);
+          v8 = v26;
         }
 
-        while (v23);
+        while (v26);
       }
     }
 
     if ([elevationArray count])
     {
-      v42 = 0u;
-      v43 = 0u;
-      v40 = 0u;
-      v41 = 0u;
-      v24 = [elevationArray countByEnumeratingWithState:&v40 objects:v48 count:16];
-      if (v24)
+      v27 = objc_msgSend_countByEnumeratingWithState_objects_count_(elevationArray);
+      if (v27)
       {
-        v25 = v24;
-        v26 = *v41;
+        v28 = v27;
+        v29 = MEMORY[0];
+        v45 = 134218496;
         do
         {
-          v27 = 0;
+          v30 = 0;
           do
           {
-            if (*v41 != v26)
+            if (MEMORY[0] != v29)
             {
               objc_enumerationMutation(elevationArray);
             }
 
-            v28 = *(*(&v40 + 1) + 8 * v27);
+            v31 = *(8 * v30);
             if (qword_1025D4410 != -1)
             {
               sub_101916CCC();
             }
 
-            v29 = qword_1025D4418;
+            v32 = qword_1025D4418;
             if (os_log_type_enabled(qword_1025D4418, OS_LOG_TYPE_DEBUG))
             {
-              [v28 timestamp];
-              v31 = v30;
-              [v28 pressure];
-              *buf = 134218496;
+              [v31 timestamp];
+              v34 = v33;
+              [v31 pressure];
+              *buf = v45;
               typeCopy3 = type;
-              v59 = 2048;
-              v60 = v31;
-              v61 = 2048;
-              v62 = v32;
-              _os_log_impl(dword_100000000, v29, OS_LOG_TYPE_DEBUG, "enumerate elevations,taskType,%lu,timestamp,%f,pressure,%f", buf, 0x20u);
+              v58 = 2048;
+              v59 = v34;
+              v60 = 2048;
+              v61 = v35;
+              _os_log_impl(dword_100000000, v32, OS_LOG_TYPE_DEBUG, "enumerate elevations,taskType,%lu,timestamp,%f,pressure,%f", buf, 0x20u);
             }
 
             if (sub_10000A100(121, 2))
@@ -2684,32 +2778,35 @@ LABEL_18:
                 sub_101916CCC();
               }
 
-              [v28 timestamp];
-              v34 = v33;
-              [v28 pressure];
-              v49 = 134218496;
+              v36 = qword_1025D4418;
+              [v31 timestamp];
+              v38 = v37;
+              [v31 pressure];
+              v48 = v45;
               typeCopy4 = type;
-              v51 = 2048;
-              v52 = v34;
-              v53 = 2048;
-              v54 = v35;
-              v36 = _os_log_send_and_compose_impl();
-              sub_100152C7C("Generic", 1, 0, 2, "[CLElevationProfileEstimator _logValuesOfLocationArray:andElevationArray:andTaskType:]", "%s\n", v36);
-              if (v36 != buf)
+              v50 = 2048;
+              v51 = v38;
+              v52 = 2048;
+              v53 = v39;
+              LODWORD(v43) = 32;
+              _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, v36, 2, "enumerate elevations,taskType,%lu,timestamp,%f,pressure,%f", &v48, v43, *&v45);
+              v41 = v40;
+              sub_100152C7C("Generic", 1, 0, 2, "[CLElevationProfileEstimator _logValuesOfLocationArray:andElevationArray:andTaskType:]", "%s\n", v40);
+              if (v41 != buf)
               {
-                free(v36);
+                free(v41);
               }
             }
 
-            v27 = v27 + 1;
+            v30 = v30 + 1;
           }
 
-          while (v25 != v27);
-          v37 = [elevationArray countByEnumeratingWithState:&v40 objects:v48 count:16];
-          v25 = v37;
+          while (v28 != v30);
+          v42 = objc_msgSend_countByEnumeratingWithState_objects_count_(elevationArray);
+          v28 = v42;
         }
 
-        while (v37);
+        while (v42);
       }
     }
   }
@@ -2719,52 +2816,54 @@ LABEL_18:
 {
   if (self->_isVerboseLogging)
   {
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
-    v29 = 0u;
-    v5 = [locations countByEnumeratingWithState:&v28 objects:v52 count:16];
+    v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
+    v5 = objc_msgSend_countByEnumeratingWithState_objects_count_(locations, a2, &v34, v58, 16);
     if (v5)
     {
-      v6 = v5;
-      v7 = *v29;
+      v7 = v5;
+      v8 = *v35;
+      *&v6 = 134219008;
+      v31 = v6;
       do
       {
-        v8 = 0;
+        v9 = 0;
         do
         {
-          if (*v29 != v7)
+          if (*v35 != v8)
           {
             objc_enumerationMutation(locations);
           }
 
-          v9 = *(*(&v28 + 1) + 8 * v8);
+          v10 = *(*(&v34 + 1) + 8 * v9);
           if (qword_1025D4410 != -1)
           {
             sub_101916CCC();
           }
 
-          v10 = qword_1025D4418;
+          v11 = qword_1025D4418;
           if (os_log_type_enabled(qword_1025D4418, OS_LOG_TYPE_DEBUG))
           {
-            [objc_msgSend(v9 "altitudeData")];
-            v12 = v11;
-            [objc_msgSend(v9 "altitudeData")];
-            v14 = v13;
-            [objc_msgSend(v9 "altitudeData")];
-            v16 = v15;
-            [v9 interpPressure];
-            *buf = 134219008;
+            [objc_msgSend(v10 "altitudeData")];
+            v13 = v12;
+            [objc_msgSend(v10 "altitudeData")];
+            v15 = v14;
+            [objc_msgSend(v10 "altitudeData")];
+            v17 = v16;
+            [v10 interpPressure];
+            *buf = v31;
             typeCopy = type;
-            v44 = 2048;
-            v45 = v12;
-            v46 = 2048;
-            v47 = v14;
-            v48 = 2048;
-            v49 = v16;
             v50 = 2048;
-            v51 = v17;
-            _os_log_impl(dword_100000000, v10, OS_LOG_TYPE_DEBUG, "enumerate filtered locations,taskType,%lu,timestamp,%f,elevation,%f,verticalAccuracy,%f,interpPressure,%f", buf, 0x34u);
+            v51 = v13;
+            v52 = 2048;
+            v53 = v15;
+            v54 = 2048;
+            v55 = v17;
+            v56 = 2048;
+            v57 = v18;
+            _os_log_impl(dword_100000000, v11, OS_LOG_TYPE_DEBUG, "enumerate filtered locations,taskType,%lu,timestamp,%f,elevation,%f,verticalAccuracy,%f,interpPressure,%f", buf, 0x34u);
           }
 
           if (sub_10000A100(121, 2))
@@ -2775,47 +2874,50 @@ LABEL_18:
               sub_101916CCC();
             }
 
-            [objc_msgSend(v9 "altitudeData")];
-            v19 = v18;
-            [objc_msgSend(v9 "altitudeData")];
+            v19 = qword_1025D4418;
+            [objc_msgSend(v10 "altitudeData")];
             v21 = v20;
-            [objc_msgSend(v9 "altitudeData")];
+            [objc_msgSend(v10 "altitudeData")];
             v23 = v22;
-            [v9 interpPressure];
-            v32 = 134219008;
+            [objc_msgSend(v10 "altitudeData")];
+            v25 = v24;
+            [v10 interpPressure];
+            v38 = v31;
             typeCopy2 = type;
-            v34 = 2048;
-            v35 = v19;
-            v36 = 2048;
-            v37 = v21;
-            v38 = 2048;
-            v39 = v23;
             v40 = 2048;
-            v41 = v24;
-            v25 = _os_log_send_and_compose_impl();
-            sub_100152C7C("Generic", 1, 0, 2, "[CLElevationProfileEstimator _logValuesOfFilteredLocations:andTaskType:]", "%s\n", v25);
-            if (v25 != buf)
+            v41 = v21;
+            v42 = 2048;
+            v43 = v23;
+            v44 = 2048;
+            v45 = v25;
+            v46 = 2048;
+            v47 = v26;
+            LODWORD(v30) = 52;
+            _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, v19, 2, "enumerate filtered locations,taskType,%lu,timestamp,%f,elevation,%f,verticalAccuracy,%f,interpPressure,%f", &v38, v30, *&v31, *(&v31 + 1), v32);
+            v28 = v27;
+            sub_100152C7C("Generic", 1, 0, 2, "[CLElevationProfileEstimator _logValuesOfFilteredLocations:andTaskType:]", "%s\n", v27);
+            if (v28 != buf)
             {
-              free(v25);
+              free(v28);
             }
           }
 
-          v8 = v8 + 1;
+          v9 = v9 + 1;
         }
 
-        while (v6 != v8);
-        v26 = [locations countByEnumeratingWithState:&v28 objects:v52 count:16];
-        v6 = v26;
+        while (v7 != v9);
+        v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(locations);
+        v7 = v29;
       }
 
-      while (v26);
+      while (v29);
     }
   }
 }
 
 - (void)computeWorkoutElevationProfile
 {
-  v78 = [[CLOSTransaction alloc] initWithDescription:"CLElevationProfileEstimator.computeWorkoutElevationProfile"];
+  v87 = [[CLOSTransaction alloc] initWithDescription:"CLElevationProfileEstimator.computeWorkoutElevationProfile"];
   Current = CFAbsoluteTimeGetCurrent();
   selfCopy = self;
   if (qword_1025D4410 != -1)
@@ -2829,17 +2931,17 @@ LABEL_18:
     workoutStartTime = self->_workoutStartTime;
     workoutSmootherRunsCount = [(CLContextManagerElevationProfileBase *)self->_elevationProfileContextManager workoutSmootherRunsCount];
     *buf = 134218496;
-    v101 = workoutStartTime;
-    v102 = 2048;
-    v103 = Current;
-    v104 = 1024;
-    LODWORD(v105) = workoutSmootherRunsCount;
+    v109 = workoutStartTime;
+    v110 = 2048;
+    v111 = Current;
+    v112 = 1024;
+    LODWORD(v113) = workoutSmootherRunsCount;
     _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_DEFAULT, "workout Kalman smoother got triggered,startTime,%f,endTime,%f,rounds,%d", buf, 0x1Cu);
   }
 
   if (sub_10000A100(121, 2))
   {
-    sub_1019187CC(&self->super.isa);
+    sub_1019187CC(self, Current);
   }
 
   selfCopy2 = self;
@@ -2852,7 +2954,7 @@ LABEL_18:
     v12 = *(v10 + ((v11 >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v11;
     v14 = *v12;
     v13 = *(v12 + 8);
-    v74 = v13;
+    v83 = v13;
     if (v13)
     {
       atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -2869,11 +2971,11 @@ LABEL_18:
       atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v75 = dataBuffers;
-    v73 = v16;
-    v76 = objc_alloc_init(NSMutableArray);
+    v84 = dataBuffers;
+    v82 = v16;
+    v85 = objc_alloc_init(NSMutableArray);
     v18 = objc_alloc_init(NSMutableArray);
-    v77 = objc_alloc_init(NSMutableArray);
+    v86 = objc_alloc_init(NSMutableArray);
     nextWorkoutProfileStartTime = selfCopy->_workoutStartTime;
     if (Current - nextWorkoutProfileStartTime > selfCopy->_workoutProfileLookbackInSec)
     {
@@ -2894,22 +2996,22 @@ LABEL_18:
         v21 = [v18 count];
         v22 = *v14;
         v23 = *v17;
-        v24 = v75[77];
+        v24 = v84[77];
         workoutSmootherRunsCount2 = [(CLContextManagerElevationProfileBase *)selfCopy->_elevationProfileContextManager workoutSmootherRunsCount];
         *buf = 134219520;
-        v101 = nextWorkoutProfileStartTime;
-        v102 = 2048;
-        v103 = Current;
-        v104 = 2048;
-        v105 = v21;
-        v106 = 2048;
-        v107 = v22;
-        v108 = 2048;
-        v109 = v23;
+        v109 = nextWorkoutProfileStartTime;
         v110 = 2048;
-        v111 = v24;
-        v112 = 1024;
-        v113 = workoutSmootherRunsCount2;
+        v111 = Current;
+        v112 = 2048;
+        v113 = v21;
+        v114 = 2048;
+        v115 = v22;
+        v116 = 2048;
+        v117 = v23;
+        v118 = 2048;
+        v119 = v24;
+        v120 = 1024;
+        v121 = workoutSmootherRunsCount2;
         _os_log_impl(dword_100000000, v20, OS_LOG_TYPE_DEFAULT, "fetch workout pressure and Gps,pressureStartTime,%f,pressureEndTime,%f,pressureArraySize,%lu,firstGpsTimestamp,%f,lastGpsTimestamp,%f,gpsArraySize,%lu,rounds,%d", buf, 0x44u);
         selfCopy2 = selfCopy;
       }
@@ -2917,55 +3019,58 @@ LABEL_18:
       if (sub_10000A100(121, 2))
       {
         sub_10191890C(buf);
-        v67 = [v18 count];
-        v68 = *v14;
-        v69 = *v17;
-        v70 = v75[77];
+        v73 = qword_1025D4418;
+        v74 = [v18 count];
+        v75 = *v14;
+        v76 = *v17;
+        v77 = v84[77];
         workoutSmootherRunsCount3 = [(CLContextManagerElevationProfileBase *)selfCopy->_elevationProfileContextManager workoutSmootherRunsCount];
-        v86 = 134219520;
-        v87 = nextWorkoutProfileStartTime;
-        v88 = 2048;
-        v89 = Current;
-        v90 = 2048;
-        v91 = v67;
-        v92 = 2048;
-        v93 = v68;
-        v94 = 2048;
-        v95 = v69;
+        v94 = 134219520;
+        v95 = nextWorkoutProfileStartTime;
         v96 = 2048;
-        v97 = v70;
-        v98 = 1024;
-        v99 = workoutSmootherRunsCount3;
-        v72 = _os_log_send_and_compose_impl();
-        sub_100152C7C("Generic", 1, 0, 2, "[CLElevationProfileEstimator computeWorkoutElevationProfile]", "%s\n", v72);
+        v97 = Current;
+        v98 = 2048;
+        v99 = v74;
+        v100 = 2048;
+        v101 = v75;
+        v102 = 2048;
+        v103 = v76;
+        v104 = 2048;
+        v105 = v77;
+        v106 = 1024;
+        v107 = workoutSmootherRunsCount3;
+        LODWORD(v81) = 68;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, v73, 0, "fetch workout pressure and Gps,pressureStartTime,%f,pressureEndTime,%f,pressureArraySize,%lu,firstGpsTimestamp,%f,lastGpsTimestamp,%f,gpsArraySize,%lu,rounds,%d", COERCE_DOUBLE(&v94), v81, v82, *&v83, *&v84, v85, v86);
+        v80 = v79;
+        sub_100152C7C("Generic", 1, 0, 2, "[CLElevationProfileEstimator computeWorkoutElevationProfile]", "%s\n", v79);
         selfCopy2 = selfCopy;
-        if (v72 != buf)
+        if (v80 != buf)
         {
-          free(v72);
+          free(v80);
         }
       }
 
       if (selfCopy2->_workoutElevationVerboseLogging)
       {
-        v83 = 0u;
-        v84 = 0u;
-        v81 = 0u;
-        v82 = 0u;
-        v26 = [v18 countByEnumeratingWithState:&v81 objects:v85 count:16];
+        v92 = 0u;
+        v93 = 0u;
+        v90 = 0u;
+        v91 = 0u;
+        v26 = objc_msgSend_countByEnumeratingWithState_objects_count_(v18);
         if (v26)
         {
-          v27 = *v82;
+          v27 = *v91;
           do
           {
             v28 = 0;
             do
             {
-              if (*v82 != v27)
+              if (*v91 != v27)
               {
                 objc_enumerationMutation(v18);
               }
 
-              v29 = *(*(&v81 + 1) + 8 * v28);
+              v29 = *(*(&v90 + 1) + 8 * v28);
               if (qword_1025D4410 != -1)
               {
                 sub_101916CCC();
@@ -2980,33 +3085,36 @@ LABEL_18:
                 v34 = v33;
                 workoutSmootherRunsCount4 = [(CLContextManagerElevationProfileBase *)selfCopy->_elevationProfileContextManager workoutSmootherRunsCount];
                 *buf = 134218496;
-                v101 = v32;
-                v102 = 2048;
-                v103 = v34;
-                v104 = 1024;
-                LODWORD(v105) = workoutSmootherRunsCount4;
+                v109 = v32;
+                v110 = 2048;
+                v111 = v34;
+                v112 = 1024;
+                LODWORD(v113) = workoutSmootherRunsCount4;
                 _os_log_impl(dword_100000000, v30, OS_LOG_TYPE_DEBUG, "enumerate workout elevations fetched from DB,sampleTimestamp,%f,pressure,%f,rounds,%d", buf, 0x1Cu);
               }
 
               if (sub_10000A100(121, 2))
               {
                 sub_10191890C(buf);
+                v36 = qword_1025D4418;
                 [v29 timestamp];
-                v37 = v36;
+                v38 = v37;
                 [v29 pressure];
-                v39 = v38;
+                v40 = v39;
                 workoutSmootherRunsCount5 = [(CLContextManagerElevationProfileBase *)selfCopy->_elevationProfileContextManager workoutSmootherRunsCount];
-                v86 = 134218496;
-                v87 = v37;
-                v88 = 2048;
-                v89 = v39;
-                v90 = 1024;
-                LODWORD(v91) = workoutSmootherRunsCount5;
-                v41 = _os_log_send_and_compose_impl();
-                sub_100152C7C("Generic", 1, 0, 2, "[CLElevationProfileEstimator computeWorkoutElevationProfile]", "%s\n", v41);
-                if (v41 != buf)
+                v94 = 134218496;
+                v95 = v38;
+                v96 = 2048;
+                v97 = v40;
+                v98 = 1024;
+                LODWORD(v99) = workoutSmootherRunsCount5;
+                LODWORD(v81) = 28;
+                _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, v36, 2, "enumerate workout elevations fetched from DB,sampleTimestamp,%f,pressure,%f,rounds,%d", COERCE_DOUBLE(&v94), v81, v82);
+                v43 = v42;
+                sub_100152C7C("Generic", 1, 0, 2, "[CLElevationProfileEstimator computeWorkoutElevationProfile]", "%s\n", v42);
+                if (v43 != buf)
                 {
-                  free(v41);
+                  free(v43);
                 }
               }
 
@@ -3014,27 +3122,27 @@ LABEL_18:
             }
 
             while (v26 != v28);
-            v42 = [v18 countByEnumeratingWithState:&v81 objects:v85 count:16];
-            v26 = v42;
+            v44 = objc_msgSend_countByEnumeratingWithState_objects_count_(v18);
+            v26 = v44;
           }
 
-          while (v42);
+          while (v44);
         }
 
-        v43 = v75[73];
-        if (v75[74] != v43)
+        v45 = v84[73];
+        if (v84[74] != v45)
         {
-          v44 = v75[76];
-          v45 = (v43 + 8 * (v44 >> 8));
-          v46 = *v45 + 16 * v44;
-          v47 = *(v43 + (((v75[77] + v44) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v75 + 616) + v44);
-          while (v46 != v47)
+          v46 = v84[76];
+          v47 = (v45 + 8 * (v46 >> 8));
+          v48 = *v47 + 16 * v46;
+          v49 = *(v45 + (((v84[77] + v46) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v84 + 616) + v46);
+          while (v48 != v49)
           {
-            v48 = *v46;
-            v49 = *(v46 + 8);
-            if (v49)
+            v50 = *v48;
+            v51 = *(v48 + 8);
+            if (v51)
             {
-              atomic_fetch_add_explicit(&v49->__shared_owners_, 1uLL, memory_order_relaxed);
+              atomic_fetch_add_explicit(&v51->__shared_owners_, 1uLL, memory_order_relaxed);
             }
 
             if (qword_1025D4410 != -1)
@@ -3042,72 +3150,75 @@ LABEL_18:
               sub_101916CCC();
             }
 
-            v50 = qword_1025D4418;
+            v52 = qword_1025D4418;
             if (os_log_type_enabled(qword_1025D4418, OS_LOG_TYPE_DEBUG))
             {
-              v52 = *v48;
-              v51 = v48[1];
-              v53 = *(v48 + 2);
+              v54 = *v50;
+              v53 = v50[1];
+              v55 = *(v50 + 2);
               workoutSmootherRunsCount6 = [(CLContextManagerElevationProfileBase *)selfCopy->_elevationProfileContextManager workoutSmootherRunsCount];
               *buf = 134218752;
-              v101 = v52;
-              v102 = 2048;
-              v103 = v51;
-              v104 = 2048;
-              v105 = v53;
-              v106 = 1024;
-              LODWORD(v107) = workoutSmootherRunsCount6;
-              _os_log_impl(dword_100000000, v50, OS_LOG_TYPE_DEBUG, "enumerate workout gps in the buffer queue,sampleTimestamp,%f,altitude,%f,uncertainty,%f,rounds,%d", buf, 0x26u);
+              v109 = v54;
+              v110 = 2048;
+              v111 = v53;
+              v112 = 2048;
+              v113 = v55;
+              v114 = 1024;
+              LODWORD(v115) = workoutSmootherRunsCount6;
+              _os_log_impl(dword_100000000, v52, OS_LOG_TYPE_DEBUG, "enumerate workout gps in the buffer queue,sampleTimestamp,%f,altitude,%f,uncertainty,%f,rounds,%d", buf, 0x26u);
             }
 
             if (sub_10000A100(121, 2))
             {
               sub_10191890C(buf);
-              v57 = *v48;
-              v56 = v48[1];
-              v58 = *(v48 + 2);
+              v58 = qword_1025D4418;
+              v60 = *v50;
+              v59 = v50[1];
+              v61 = *(v50 + 2);
               workoutSmootherRunsCount7 = [(CLContextManagerElevationProfileBase *)selfCopy->_elevationProfileContextManager workoutSmootherRunsCount];
-              v86 = 134218752;
-              v87 = v57;
-              v88 = 2048;
-              v89 = v56;
-              v90 = 2048;
-              v91 = v58;
-              v92 = 1024;
-              LODWORD(v93) = workoutSmootherRunsCount7;
-              v60 = _os_log_send_and_compose_impl();
-              sub_100152C7C("Generic", 1, 0, 2, "[CLElevationProfileEstimator computeWorkoutElevationProfile]", "%s\n", v60);
-              if (v60 != buf)
+              v94 = 134218752;
+              v95 = v60;
+              v96 = 2048;
+              v97 = v59;
+              v98 = 2048;
+              v99 = v61;
+              v100 = 1024;
+              LODWORD(v101) = workoutSmootherRunsCount7;
+              LODWORD(v81) = 38;
+              _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, v58, 2, "enumerate workout gps in the buffer queue,sampleTimestamp,%f,altitude,%f,uncertainty,%f,rounds,%d", COERCE_DOUBLE(&v94), v81, *&v82, v83);
+              v64 = v63;
+              sub_100152C7C("Generic", 1, 0, 2, "[CLElevationProfileEstimator computeWorkoutElevationProfile]", "%s\n", v63);
+              if (v64 != buf)
               {
-                free(v60);
+                free(v64);
               }
             }
 
-            if (v49)
+            if (v51)
             {
-              sub_100008080(v49);
+              sub_100008080(v51);
             }
 
-            v46 += 16;
-            if (v46 - *v45 == 4096)
+            v48 += 16;
+            if (v48 - *v47 == 4096)
             {
-              v55 = v45[1];
-              ++v45;
-              v46 = v55;
+              v57 = v47[1];
+              ++v47;
+              v48 = v57;
             }
           }
         }
       }
 
-      sub_100014198(v80, v75 + 72);
-      [(CLElevationProfileEstimator *)selfCopy _interpolateWorkoutGpsAltitude:v76 toPressureArray:v18 andBufferGpsSamplesQueue:v80];
-      sub_10001423C(v80);
-      [(CLElevationProfileEstimator *)selfCopy _computeWorkoutElevationProfile:v77 withGpsAltitude:v76 andPressureArray:v18];
-      [(CLElevationProfileEstimator *)selfCopy _pushWorkoutElevationProfile:v77];
+      sub_100014198(v89, v84 + 72);
+      [(CLElevationProfileEstimator *)selfCopy _interpolateWorkoutGpsAltitude:v85 toPressureArray:v18 andBufferGpsSamplesQueue:v89];
+      sub_10001423C(v89);
+      [(CLElevationProfileEstimator *)selfCopy _computeWorkoutElevationProfile:v86 withGpsAltitude:v85 andPressureArray:v18];
+      [(CLElevationProfileEstimator *)selfCopy _pushWorkoutElevationProfile:v86];
       [v18 removeAllObjects];
 
-      [v76 removeAllObjects];
-      [v77 removeAllObjects];
+      [v85 removeAllObjects];
+      [v86 removeAllObjects];
     }
 
     else
@@ -3118,38 +3229,40 @@ LABEL_18:
         selfCopy2 = selfCopy;
       }
 
-      v63 = qword_1025D4418;
+      v67 = qword_1025D4418;
       if (os_log_type_enabled(qword_1025D4418, OS_LOG_TYPE_DEFAULT))
       {
         workoutSmootherRunsCount8 = [(CLContextManagerElevationProfileBase *)selfCopy2->_elevationProfileContextManager workoutSmootherRunsCount];
         *buf = 67109120;
-        LODWORD(v101) = workoutSmootherRunsCount8;
-        _os_log_impl(dword_100000000, v63, OS_LOG_TYPE_DEFAULT, "no workout pressure data to calculate elevation profile,rounds,%d", buf, 8u);
+        LODWORD(v109) = workoutSmootherRunsCount8;
+        _os_log_impl(dword_100000000, v67, OS_LOG_TYPE_DEFAULT, "no workout pressure data to calculate elevation profile,rounds,%d", buf, 8u);
       }
 
       if (sub_10000A100(121, 2))
       {
         sub_10191890C(buf);
+        v69 = qword_1025D4418;
         workoutSmootherRunsCount9 = [(CLContextManagerElevationProfileBase *)selfCopy->_elevationProfileContextManager workoutSmootherRunsCount];
-        v86 = 67109120;
-        LODWORD(v87) = workoutSmootherRunsCount9;
-        v66 = _os_log_send_and_compose_impl();
-        sub_100152C7C("Generic", 1, 0, 2, "[CLElevationProfileEstimator computeWorkoutElevationProfile]", "%s\n", v66);
-        if (v66 != buf)
+        v94 = 67109120;
+        LODWORD(v95) = workoutSmootherRunsCount9;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, v69, 0, "no workout pressure data to calculate elevation profile,rounds,%d", &v94);
+        v72 = v71;
+        sub_100152C7C("Generic", 1, 0, 2, "[CLElevationProfileEstimator computeWorkoutElevationProfile]", "%s\n", v71);
+        if (v72 != buf)
         {
-          free(v66);
+          free(v72);
         }
       }
     }
 
-    if (v73)
+    if (v82)
     {
-      sub_100008080(v73);
+      sub_100008080(v82);
     }
 
-    if (v74)
+    if (v83)
     {
-      sub_100008080(v74);
+      sub_100008080(v83);
     }
   }
 
@@ -3160,13 +3273,13 @@ LABEL_18:
       sub_101916CCC();
     }
 
-    v61 = qword_1025D4418;
+    v65 = qword_1025D4418;
     if (os_log_type_enabled(qword_1025D4418, OS_LOG_TYPE_DEFAULT))
     {
       workoutSmootherRunsCount10 = [(CLContextManagerElevationProfileBase *)self->_elevationProfileContextManager workoutSmootherRunsCount];
       *buf = 67109120;
-      LODWORD(v101) = workoutSmootherRunsCount10;
-      _os_log_impl(dword_100000000, v61, OS_LOG_TYPE_DEFAULT, "no workout gps data to calculate elevation profile,rounds,%d", buf, 8u);
+      LODWORD(v109) = workoutSmootherRunsCount10;
+      _os_log_impl(dword_100000000, v65, OS_LOG_TYPE_DEFAULT, "no workout gps data to calculate elevation profile,rounds,%d", buf, 8u);
     }
 
     if (sub_10000A100(121, 2))
@@ -3218,10 +3331,9 @@ LABEL_18:
 {
   if ([profile count])
   {
-    sub_100014198(v6, self->_dataBuffers + 78);
+    sub_100014198(v5, self->_dataBuffers + 78);
     [(CLBarometerCalibrationSourceAggregator *)self->_sourceAggregator clearBufferForSource:13];
-    memset(v5, 0, sizeof(v5));
-    if ([profile countByEnumeratingWithState:v5 objects:v7 count:16])
+    if (objc_msgSend_countByEnumeratingWithState_objects_count_(profile))
     {
       operator new();
     }
@@ -3247,16 +3359,16 @@ LABEL_18:
     atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v83 = v7;
+  v126 = v7;
   [objc_msgSend(array objectAtIndex:{0), "timestamp"}];
-  v84 = 0;
-  v91 = 0;
+  HIDWORD(v127) = 0;
+  v134 = 0;
   v8 = 0;
-  v87 = 0x7FFFFFFF;
-  v88 = 0x7FFFFFFFLL;
-  v85 = 0x7FFFFFFF;
-  v86 = 0x7FFFFFFF;
-  while ([array count] > v91 && std->__size_ - 1 > v8)
+  v130 = 0x7FFFFFFF;
+  v131 = 0x7FFFFFFFLL;
+  v128 = 0x7FFFFFFFLL;
+  v129 = 0x7FFFFFFFLL;
+  while ([array count] > v134 && std->__size_ - 1 > v8)
   {
     start = std->__start_;
     begin = std->__map_.__begin_;
@@ -3280,36 +3392,36 @@ LABEL_18:
       atomic_fetch_add_explicit(&v18->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    [objc_msgSend(array objectAtIndex:{v91), "timestamp"}];
+    [objc_msgSend(array objectAtIndex:{v134), "timestamp"}];
     v20 = v19;
     v21 = *v12;
     v22 = *v17;
     if (v19 > self->_lastWorkoutProfileEndTime)
     {
-      v23 = v91;
-      if (v88 != 0x7FFFFFFF)
+      v23 = v134;
+      if (v131 != 0x7FFFFFFF)
       {
-        [objc_msgSend(array objectAtIndexedSubscript:{v91), "pressure"}];
+        [objc_msgSend(array objectAtIndexedSubscript:{v134), "pressure"}];
         v25 = v24;
-        [objc_msgSend(array objectAtIndexedSubscript:{v88), "pressure"}];
-        v23 = v88;
+        [objc_msgSend(array objectAtIndexedSubscript:{v131), "pressure"}];
+        v23 = v131;
         if (v25 < v26)
         {
-          v23 = v91;
+          v23 = v134;
         }
       }
 
-      if (v87 == 0x7FFFFFFF || ([objc_msgSend(array objectAtIndexedSubscript:{v91), "pressure"}], v28 = v27, objc_msgSend(objc_msgSend(array, "objectAtIndexedSubscript:", v87), "pressure"), v28 > v29))
+      if (v130 == 0x7FFFFFFF || ([objc_msgSend(array objectAtIndexedSubscript:{v134), "pressure"}], v28 = v27, objc_msgSend(objc_msgSend(array, "objectAtIndexedSubscript:", v130), "pressure"), v28 > v29))
       {
-        v87 = v91;
+        v130 = v134;
       }
 
-      v88 = v23;
+      v131 = v23;
     }
 
     if (v20 < v21)
     {
-      v91 = (v91 + 1);
+      v134 = (v134 + 1);
       v8 = v14;
       if (!v18)
       {
@@ -3347,19 +3459,19 @@ LABEL_35:
       [altitude addObject:v30];
       if (v20 > self->_lastWorkoutProfileEndTime)
       {
-        if (v86 == 0x7FFFFFFF || (-[CLAltitudeData elevation](v30, "elevation"), v33 = v32, [objc_msgSend(altitude objectAtIndexedSubscript:{v86), "elevation"}], v33 <= v34))
+        if (v129 == 0x7FFFFFFF || (-[CLAltitudeData elevation](v30, "elevation"), v33 = v32, [objc_msgSend(altitude objectAtIndexedSubscript:{v129), "elevation"}], v33 <= v34))
         {
-          v86 = [altitude count] - 1;
+          v129 = [altitude count] - 1;
         }
 
-        ++v84;
-        if (v85 == 0x7FFFFFFF || (-[CLAltitudeData elevation](v30, "elevation"), v36 = v35, [objc_msgSend(altitude objectAtIndexedSubscript:{v85), "elevation"}], v36 >= v37))
+        ++HIDWORD(v127);
+        if (v128 == 0x7FFFFFFF || (-[CLAltitudeData elevation](v30, "elevation"), v36 = v35, [objc_msgSend(altitude objectAtIndexedSubscript:{v128), "elevation"}], v36 >= v37))
         {
-          v85 = [altitude count] - 1;
+          v128 = [altitude count] - 1;
         }
       }
 
-      v91 = (v91 + 1);
+      v134 = (v134 + 1);
       if (v18)
       {
         goto LABEL_35;
@@ -3375,7 +3487,7 @@ LABEL_36:
 
   [objc_msgSend(array "lastObject")];
   self->_lastWorkoutProfileEndTime = v38;
-  if (v88 != 0x7FFFFFFF && v87 != 0x7FFFFFFF)
+  if (v131 != 0x7FFFFFFF && v130 != 0x7FFFFFFF)
   {
     if (qword_1025D4410 != -1)
     {
@@ -3385,46 +3497,63 @@ LABEL_36:
     v39 = qword_1025D4418;
     if (os_log_type_enabled(qword_1025D4418, OS_LOG_TYPE_DEFAULT))
     {
-      [objc_msgSend(array objectAtIndexedSubscript:{v88), "timestamp"}];
+      [objc_msgSend(array objectAtIndexedSubscript:{v131), "timestamp"}];
       v41 = v40;
-      [objc_msgSend(array objectAtIndexedSubscript:{v88), "pressure"}];
+      [objc_msgSend(array objectAtIndexedSubscript:{v131), "pressure"}];
       v43 = v42;
-      [objc_msgSend(array objectAtIndexedSubscript:{v87), "timestamp"}];
+      [objc_msgSend(array objectAtIndexedSubscript:{v130), "timestamp"}];
       v45 = v44;
-      [objc_msgSend(array objectAtIndexedSubscript:{v87), "pressure"}];
+      [objc_msgSend(array objectAtIndexedSubscript:{v130), "pressure"}];
       v47 = v46;
       workoutSmootherRunsCount = [(CLContextManagerElevationProfileBase *)self->_elevationProfileContextManager workoutSmootherRunsCount];
       *buf = 134219008;
-      v93 = v41;
-      v94 = 2048;
-      v95 = v43;
-      v96 = 2048;
-      v97 = v45;
-      v98 = 2048;
-      v99 = v47;
-      v100 = 1024;
-      LODWORD(v101) = workoutSmootherRunsCount;
+      v152 = v41;
+      v153 = 2048;
+      v154 = v43;
+      v155 = 2048;
+      v156 = v45;
+      v157 = 2048;
+      v158 = v47;
+      v159 = 1024;
+      LODWORD(v160) = workoutSmootherRunsCount;
       _os_log_impl(dword_100000000, v39, OS_LOG_TYPE_DEFAULT, "final pressure for workout Kalman smoother in the last cadence,minTimestamp,%f,minPressure,%f,maxTimestamp,%f,maxPressure,%f,rounds,%d", buf, 0x30u);
     }
 
     if (sub_10000A100(121, 2))
     {
       sub_10191890C(buf);
-      [objc_msgSend(array objectAtIndexedSubscript:{v88), "timestamp"}];
-      [objc_msgSend(array objectAtIndexedSubscript:{v88), "pressure"}];
-      [objc_msgSend(array objectAtIndexedSubscript:{v87), "timestamp"}];
-      [objc_msgSend(array objectAtIndexedSubscript:{v87), "pressure"}];
-      [(CLContextManagerElevationProfileBase *)self->_elevationProfileContextManager workoutSmootherRunsCount];
-      v81 = _os_log_send_and_compose_impl();
-      sub_100152C7C("Generic", 1, 0, 2, "[CLElevationProfileEstimator _interpolateWorkoutGpsAltitude:toPressureArray:andBufferGpsSamplesQueue:]", "%s\n", v81);
-      if (v81 != buf)
+      v97 = qword_1025D4418;
+      [objc_msgSend(array objectAtIndexedSubscript:{v131), "timestamp"}];
+      v99 = v98;
+      [objc_msgSend(array objectAtIndexedSubscript:{v131), "pressure"}];
+      v101 = v100;
+      [objc_msgSend(array objectAtIndexedSubscript:{v130), "timestamp"}];
+      v103 = v102;
+      [objc_msgSend(array objectAtIndexedSubscript:{v130), "pressure"}];
+      v105 = v104;
+      workoutSmootherRunsCount2 = [(CLContextManagerElevationProfileBase *)self->_elevationProfileContextManager workoutSmootherRunsCount];
+      v135 = 134219008;
+      v136 = v99;
+      v137 = 2048;
+      v138 = v101;
+      v139 = 2048;
+      v140 = v103;
+      v141 = 2048;
+      v142 = v105;
+      v143 = 1024;
+      LODWORD(v144) = workoutSmootherRunsCount2;
+      LODWORD(v125) = 48;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, v97, 0, "final pressure for workout Kalman smoother in the last cadence,minTimestamp,%f,minPressure,%f,maxTimestamp,%f,maxPressure,%f,rounds,%d", COERCE_DOUBLE(&v135), v125, *&v126, v127, v128);
+      v108 = v107;
+      sub_100152C7C("Generic", 1, 0, 2, "[CLElevationProfileEstimator _interpolateWorkoutGpsAltitude:toPressureArray:andBufferGpsSamplesQueue:]", "%s\n", v107);
+      if (v108 != buf)
       {
-        free(v81);
+        free(v108);
       }
     }
   }
 
-  if (v86 != 0x7FFFFFFF && v85 != 0x7FFFFFFF)
+  if (v129 != 0x7FFFFFFF && v128 != 0x7FFFFFFF)
   {
     if (qword_1025D4410 != -1)
     {
@@ -3434,53 +3563,78 @@ LABEL_36:
     v49 = qword_1025D4418;
     if (os_log_type_enabled(qword_1025D4418, OS_LOG_TYPE_DEFAULT))
     {
-      [objc_msgSend(altitude objectAtIndexedSubscript:{v86), "timestamp"}];
+      [objc_msgSend(altitude objectAtIndexedSubscript:{v129), "timestamp"}];
       v51 = v50;
-      [objc_msgSend(altitude objectAtIndexedSubscript:{v86), "elevation"}];
+      [objc_msgSend(altitude objectAtIndexedSubscript:{v129), "elevation"}];
       v53 = v52;
-      [objc_msgSend(altitude objectAtIndexedSubscript:{v86), "verticalAccuracy"}];
+      [objc_msgSend(altitude objectAtIndexedSubscript:{v129), "verticalAccuracy"}];
       v55 = v54;
-      [objc_msgSend(altitude objectAtIndexedSubscript:{v85), "timestamp"}];
+      [objc_msgSend(altitude objectAtIndexedSubscript:{v128), "timestamp"}];
       v57 = v56;
-      [objc_msgSend(altitude objectAtIndexedSubscript:{v85), "elevation"}];
+      [objc_msgSend(altitude objectAtIndexedSubscript:{v128), "elevation"}];
       v59 = v58;
-      [objc_msgSend(altitude objectAtIndexedSubscript:{v85), "verticalAccuracy"}];
+      [objc_msgSend(altitude objectAtIndexedSubscript:{v128), "verticalAccuracy"}];
       v61 = v60;
-      workoutSmootherRunsCount2 = [(CLContextManagerElevationProfileBase *)self->_elevationProfileContextManager workoutSmootherRunsCount];
+      workoutSmootherRunsCount3 = [(CLContextManagerElevationProfileBase *)self->_elevationProfileContextManager workoutSmootherRunsCount];
       *buf = 134219776;
-      v93 = v51;
-      v94 = 2048;
-      v95 = v53;
-      v96 = 2048;
-      v97 = v55;
-      v98 = 2048;
-      v99 = v57;
-      v100 = 2048;
-      v101 = v59;
-      v102 = 2048;
-      v103 = v61;
-      v104 = 1024;
-      v105 = v84;
-      v106 = 1024;
-      v107 = workoutSmootherRunsCount2;
+      v152 = v51;
+      v153 = 2048;
+      v154 = v53;
+      v155 = 2048;
+      v156 = v55;
+      v157 = 2048;
+      v158 = v57;
+      v159 = 2048;
+      v160 = v59;
+      v161 = 2048;
+      v162 = v61;
+      v163 = 1024;
+      v164 = HIDWORD(v127);
+      v165 = 1024;
+      v166 = workoutSmootherRunsCount3;
       _os_log_impl(dword_100000000, v49, OS_LOG_TYPE_DEFAULT, "final interpolated Gps for workout Kalman smoother in the last cadence,minTimestamp,%f,minGpsElevation,%f,minGpsUnceretainty,%f,maxTimestamp,%f,maxGpsElevation,%f,maxGpsUnceretainty,%f,totalGpsCount,%d,rounds,%d", buf, 0x4Au);
     }
 
     if (sub_10000A100(121, 2))
     {
       sub_10191890C(buf);
-      [objc_msgSend(altitude objectAtIndexedSubscript:{v86), "timestamp"}];
-      [objc_msgSend(altitude objectAtIndexedSubscript:{v86), "elevation"}];
-      [objc_msgSend(altitude objectAtIndexedSubscript:{v86), "verticalAccuracy"}];
-      [objc_msgSend(altitude objectAtIndexedSubscript:{v85), "timestamp"}];
-      [objc_msgSend(altitude objectAtIndexedSubscript:{v85), "elevation"}];
-      [objc_msgSend(altitude objectAtIndexedSubscript:{v85), "verticalAccuracy"}];
-      [(CLContextManagerElevationProfileBase *)self->_elevationProfileContextManager workoutSmootherRunsCount];
-      v82 = _os_log_send_and_compose_impl();
-      sub_100152C7C("Generic", 1, 0, 2, "[CLElevationProfileEstimator _interpolateWorkoutGpsAltitude:toPressureArray:andBufferGpsSamplesQueue:]", "%s\n", v82);
-      if (v82 != buf)
+      v109 = qword_1025D4418;
+      [objc_msgSend(altitude objectAtIndexedSubscript:{v129), "timestamp"}];
+      v111 = v110;
+      [objc_msgSend(altitude objectAtIndexedSubscript:{v129), "elevation"}];
+      v113 = v112;
+      [objc_msgSend(altitude objectAtIndexedSubscript:{v129), "verticalAccuracy"}];
+      v115 = v114;
+      [objc_msgSend(altitude objectAtIndexedSubscript:{v128), "timestamp"}];
+      v117 = v116;
+      [objc_msgSend(altitude objectAtIndexedSubscript:{v128), "elevation"}];
+      v119 = v118;
+      [objc_msgSend(altitude objectAtIndexedSubscript:{v128), "verticalAccuracy"}];
+      v121 = v120;
+      workoutSmootherRunsCount4 = [(CLContextManagerElevationProfileBase *)self->_elevationProfileContextManager workoutSmootherRunsCount];
+      v135 = 134219776;
+      v136 = v111;
+      v137 = 2048;
+      v138 = v113;
+      v139 = 2048;
+      v140 = v115;
+      v141 = 2048;
+      v142 = v117;
+      v143 = 2048;
+      v144 = v119;
+      v145 = 2048;
+      v146 = v121;
+      v147 = 1024;
+      v148 = HIDWORD(v127);
+      v149 = 1024;
+      v150 = workoutSmootherRunsCount4;
+      LODWORD(v125) = 74;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, v109, 0, "final interpolated Gps for workout Kalman smoother in the last cadence,minTimestamp,%f,minGpsElevation,%f,minGpsUnceretainty,%f,maxTimestamp,%f,maxGpsElevation,%f,maxGpsUnceretainty,%f,totalGpsCount,%d,rounds,%d", COERCE_DOUBLE(&v135), v125, *&v126, v127, *&v128, *&v129, v130, v131);
+      v124 = v123;
+      sub_100152C7C("Generic", 1, 0, 2, "[CLElevationProfileEstimator _interpolateWorkoutGpsAltitude:toPressureArray:andBufferGpsSamplesQueue:]", "%s\n", v123);
+      if (v124 != buf)
       {
-        free(v82);
+        free(v124);
       }
     }
   }
@@ -3503,30 +3657,44 @@ LABEL_36:
         v68 = v67;
         [objc_msgSend(altitude objectAtIndexedSubscript:{i), "verticalAccuracy"}];
         v70 = v69;
-        workoutSmootherRunsCount3 = [(CLContextManagerElevationProfileBase *)self->_elevationProfileContextManager workoutSmootherRunsCount];
+        workoutSmootherRunsCount5 = [(CLContextManagerElevationProfileBase *)self->_elevationProfileContextManager workoutSmootherRunsCount];
         *buf = 134218752;
-        v93 = v66;
-        v94 = 2048;
-        v95 = v68;
-        v96 = 2048;
-        v97 = v70;
-        v98 = 1024;
-        LODWORD(v99) = workoutSmootherRunsCount3;
+        v152 = v66;
+        v153 = 2048;
+        v154 = v68;
+        v155 = 2048;
+        v156 = v70;
+        v157 = 1024;
+        LODWORD(v158) = workoutSmootherRunsCount5;
         _os_log_impl(dword_100000000, v64, OS_LOG_TYPE_DEFAULT, "enumerate final interpolated Gps used in workout Kalman smoother,sampleTimestamp,%f,altitude,%f,uncertainty,%f,rounds,%d", buf, 0x26u);
       }
 
       if (sub_10000A100(121, 2))
       {
         sub_10191890C(buf);
+        v72 = qword_1025D4418;
         [objc_msgSend(altitude objectAtIndexedSubscript:{i), "timestamp"}];
+        v74 = v73;
         [objc_msgSend(altitude objectAtIndexedSubscript:{i), "elevation"}];
+        v76 = v75;
         [objc_msgSend(altitude objectAtIndexedSubscript:{i), "verticalAccuracy"}];
-        [(CLContextManagerElevationProfileBase *)self->_elevationProfileContextManager workoutSmootherRunsCount];
-        v72 = _os_log_send_and_compose_impl();
-        sub_100152C7C("Generic", 1, 0, 2, "[CLElevationProfileEstimator _interpolateWorkoutGpsAltitude:toPressureArray:andBufferGpsSamplesQueue:]", "%s\n", v72);
-        if (v72 != buf)
+        v78 = v77;
+        workoutSmootherRunsCount6 = [(CLContextManagerElevationProfileBase *)self->_elevationProfileContextManager workoutSmootherRunsCount];
+        v135 = 134218752;
+        v136 = v74;
+        v137 = 2048;
+        v138 = v76;
+        v139 = 2048;
+        v140 = v78;
+        v141 = 1024;
+        LODWORD(v142) = workoutSmootherRunsCount6;
+        LODWORD(v125) = 38;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, v72, 0, "enumerate final interpolated Gps used in workout Kalman smoother,sampleTimestamp,%f,altitude,%f,uncertainty,%f,rounds,%d", COERCE_DOUBLE(&v135), v125, *&v126, LODWORD(v127));
+        v81 = v80;
+        sub_100152C7C("Generic", 1, 0, 2, "[CLElevationProfileEstimator _interpolateWorkoutGpsAltitude:toPressureArray:andBufferGpsSamplesQueue:]", "%s\n", v80);
+        if (v81 != buf)
         {
-          free(v72);
+          free(v81);
         }
       }
     }
@@ -3538,42 +3706,53 @@ LABEL_36:
         sub_101916CCC();
       }
 
-      v74 = qword_1025D4418;
+      v83 = qword_1025D4418;
       if (os_log_type_enabled(qword_1025D4418, OS_LOG_TYPE_DEFAULT))
       {
         [objc_msgSend(array objectAtIndexedSubscript:{j), "timestamp"}];
-        v76 = v75;
+        v85 = v84;
         [objc_msgSend(array objectAtIndexedSubscript:{j), "pressure"}];
-        v78 = v77;
-        workoutSmootherRunsCount4 = [(CLContextManagerElevationProfileBase *)self->_elevationProfileContextManager workoutSmootherRunsCount];
+        v87 = v86;
+        workoutSmootherRunsCount7 = [(CLContextManagerElevationProfileBase *)self->_elevationProfileContextManager workoutSmootherRunsCount];
         *buf = 134218496;
-        v93 = v76;
-        v94 = 2048;
-        v95 = v78;
-        v96 = 1024;
-        LODWORD(v97) = workoutSmootherRunsCount4;
-        _os_log_impl(dword_100000000, v74, OS_LOG_TYPE_DEFAULT, "enumerate final pressure used in workout Kalman smoother,sampleTimestamp,%f,pressure,%f,rounds,%d", buf, 0x1Cu);
+        v152 = v85;
+        v153 = 2048;
+        v154 = v87;
+        v155 = 1024;
+        LODWORD(v156) = workoutSmootherRunsCount7;
+        _os_log_impl(dword_100000000, v83, OS_LOG_TYPE_DEFAULT, "enumerate final pressure used in workout Kalman smoother,sampleTimestamp,%f,pressure,%f,rounds,%d", buf, 0x1Cu);
       }
 
       if (sub_10000A100(121, 2))
       {
         sub_10191890C(buf);
+        v89 = qword_1025D4418;
         [objc_msgSend(array objectAtIndexedSubscript:{j), "timestamp"}];
+        v91 = v90;
         [objc_msgSend(array objectAtIndexedSubscript:{j), "pressure"}];
-        [(CLContextManagerElevationProfileBase *)self->_elevationProfileContextManager workoutSmootherRunsCount];
-        v80 = _os_log_send_and_compose_impl();
-        sub_100152C7C("Generic", 1, 0, 2, "[CLElevationProfileEstimator _interpolateWorkoutGpsAltitude:toPressureArray:andBufferGpsSamplesQueue:]", "%s\n", v80);
-        if (v80 != buf)
+        v93 = v92;
+        workoutSmootherRunsCount8 = [(CLContextManagerElevationProfileBase *)self->_elevationProfileContextManager workoutSmootherRunsCount];
+        v135 = 134218496;
+        v136 = v91;
+        v137 = 2048;
+        v138 = v93;
+        v139 = 1024;
+        LODWORD(v140) = workoutSmootherRunsCount8;
+        LODWORD(v125) = 28;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, v89, 0, "enumerate final pressure used in workout Kalman smoother,sampleTimestamp,%f,pressure,%f,rounds,%d", COERCE_DOUBLE(&v135), v125, v126);
+        v96 = v95;
+        sub_100152C7C("Generic", 1, 0, 2, "[CLElevationProfileEstimator _interpolateWorkoutGpsAltitude:toPressureArray:andBufferGpsSamplesQueue:]", "%s\n", v95);
+        if (v96 != buf)
         {
-          free(v80);
+          free(v96);
         }
       }
     }
   }
 
-  if (v83)
+  if (v126)
   {
-    sub_100008080(v83);
+    sub_100008080(v126);
   }
 }
 
@@ -3587,7 +3766,7 @@ LABEL_36:
   nextKfInitEstimate = self->_nextKfInitEstimate;
   if (nextKfInitEstimate)
   {
-    [(CLKFRunningEstimates *)nextKfInitEstimate fP];
+    objc_msgSend_fP(nextKfInitEstimate);
   }
 
   self->_mslpAtStartOfWorkout = 0.0;
@@ -3626,13 +3805,13 @@ LABEL_36:
     }
 
     *buf = 134218752;
-    v14 = workoutStartTime;
-    v15 = 2048;
-    v16 = mslpAtStartOfWorkout;
-    v17 = 2048;
-    v18 = mslpUncAtStartOfWorkout;
-    v19 = 2048;
-    v20 = val;
+    v28 = workoutStartTime;
+    v29 = 2048;
+    v30 = mslpAtStartOfWorkout;
+    v31 = 2048;
+    v32 = mslpUncAtStartOfWorkout;
+    v33 = 2048;
+    v34 = val;
     _os_log_impl(dword_100000000, v7, OS_LOG_TYPE_DEFAULT, "#altimeter,workout start,timestamp,%.3f,mslp,%.2f,mslpUnc,%.2f,startTimeOfWetState,%.3f", buf, 0x2Au);
   }
 
@@ -3644,11 +3823,34 @@ LABEL_36:
       sub_101916CCC();
     }
 
-    v12 = _os_log_send_and_compose_impl();
-    sub_100152C7C("Generic", 1, 0, 2, "[CLElevationProfileEstimator startWorkoutAtTime:andMeanSeaLevelPressure:andMeanSeaLevelPressureUncertainty:andTimeOfExternalWetState:]", "%s\n", v12);
-    if (v12 != buf)
+    v12 = self->_workoutStartTime;
+    v14 = self->_mslpAtStartOfWorkout;
+    v13 = self->_mslpUncAtStartOfWorkout;
+    if (self->_firstTimeOfExternalWetStateInWorkout.__engaged_)
     {
-      free(v12);
+      v15 = self->_firstTimeOfExternalWetStateInWorkout.var0.__val_;
+    }
+
+    else
+    {
+      v15 = -1.0;
+    }
+
+    v19 = 134218752;
+    v20 = v12;
+    v21 = 2048;
+    v22 = v14;
+    v23 = 2048;
+    v24 = v13;
+    v25 = 2048;
+    v26 = v15;
+    LODWORD(v18) = 42;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4418, 0, "#altimeter,workout start,timestamp,%.3f,mslp,%.2f,mslpUnc,%.2f,startTimeOfWetState,%.3f", COERCE_DOUBLE(&v19), v18);
+    v17 = v16;
+    sub_100152C7C("Generic", 1, 0, 2, "[CLElevationProfileEstimator startWorkoutAtTime:andMeanSeaLevelPressure:andMeanSeaLevelPressureUncertainty:andTimeOfExternalWetState:]", "%s\n", v16);
+    if (v17 != buf)
+    {
+      free(v17);
     }
   }
 }

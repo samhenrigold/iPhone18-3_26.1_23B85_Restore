@@ -264,40 +264,40 @@ double sub_3EE0(uint64_t a1, uint64_t a2)
   return 2.5;
 }
 
-id _ringColor()
+id _ringColor(uint64_t a1)
 {
   if (qword_16228 != -1)
   {
     sub_8304();
   }
 
-  v1 = qword_16220;
+  v2 = qword_16220;
 
-  return v1;
+  return v2;
 }
 
-id _minuteTickColor()
+id _minuteTickColor(uint64_t a1)
 {
   if (qword_16268 != -1)
   {
     sub_8318();
   }
 
-  v1 = qword_16260;
+  v2 = qword_16260;
 
-  return v1;
+  return v2;
 }
 
-id _numeralsGreyColor()
+id _numeralsGreyColor(uint64_t a1)
 {
   if (qword_16288 != -1)
   {
     sub_832C();
   }
 
-  v1 = qword_16280;
+  v2 = qword_16280;
 
-  return v1;
+  return v2;
 }
 
 double _hourNumeralOpacity(uint64_t a1)
@@ -327,8 +327,7 @@ void sub_57D0(uint64_t a1, void *a2)
   v7 = *&CATransform3DIdentity.m23;
   v10[2] = *&CATransform3DIdentity.m21;
   v10[3] = v7;
-  [v3 setTransform:v10];
-  v8 = _numeralsGreyColor();
+  v8 = _numeralsGreyColor([v3 setTransform:v10]);
   [v3 setForegroundColor:{objc_msgSend(v8, "CGColor")}];
 
   v9 = *(a1 + 32);
@@ -363,8 +362,7 @@ void sub_588C(uint64_t a1, void *a2)
   v7 = *&CATransform3DIdentity.m23;
   v10[2] = *&CATransform3DIdentity.m21;
   v10[3] = v7;
-  [v3 setTransform:v10];
-  v8 = _numeralsGreyColor();
+  v8 = _numeralsGreyColor([v3 setTransform:v10]);
   [v3 setForegroundColor:{objc_msgSend(v8, "CGColor")}];
 
   v9 = *(a1 + 32);
@@ -417,30 +415,30 @@ __n128 _minuteClusterTransform@<Q0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 
   if (a1 == 3)
   {
-    v4 = &xmmword_16310;
+    v4 = byte_16310;
   }
 
   else if (a1)
   {
-    v4 = &xmmword_16290;
+    v4 = byte_16290;
   }
 
   else
   {
-    v4 = &xmmword_16390;
+    v4 = byte_16390;
   }
 
-  v5 = v4[5];
-  *(a2 + 64) = v4[4];
+  v5 = *(v4 + 5);
+  *(a2 + 64) = *(v4 + 4);
   *(a2 + 80) = v5;
-  v6 = v4[7];
-  *(a2 + 96) = v4[6];
+  v6 = *(v4 + 7);
+  *(a2 + 96) = *(v4 + 6);
   *(a2 + 112) = v6;
-  v7 = v4[1];
+  v7 = *(v4 + 1);
   *a2 = *v4;
   *(a2 + 16) = v7;
-  result = v4[2];
-  v9 = v4[3];
+  result = *(v4 + 2);
+  v9 = *(v4 + 3);
   *(a2 + 32) = result;
   *(a2 + 48) = v9;
   return result;
@@ -455,7 +453,7 @@ __n128 _minuteInstanceTransform@<Q0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 
   if (a1 == 3)
   {
-    v4 = &xmmword_16498;
+    v4 = byte_16498;
   }
 
   else if (a1)
@@ -465,20 +463,20 @@ __n128 _minuteInstanceTransform@<Q0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 
   else
   {
-    v4 = &xmmword_16518;
+    v4 = byte_16518;
   }
 
-  v5 = v4[5];
-  *(a2 + 64) = v4[4];
+  v5 = *(v4 + 5);
+  *(a2 + 64) = *(v4 + 4);
   *(a2 + 80) = v5;
-  v6 = v4[7];
-  *(a2 + 96) = v4[6];
+  v6 = *(v4 + 7);
+  *(a2 + 96) = *(v4 + 6);
   *(a2 + 112) = v6;
-  v7 = v4[1];
+  v7 = *(v4 + 1);
   *a2 = *v4;
   *(a2 + 16) = v7;
-  result = v4[2];
-  v9 = v4[3];
+  result = *(v4 + 2);
+  v9 = *(v4 + 3);
   *(a2 + 32) = result;
   *(a2 + 48) = v9;
   return result;
@@ -644,16 +642,16 @@ void sub_748C(id a1)
   _objc_release_x1(v1, v2);
 }
 
-id _numeralsRedColor()
+id _numeralsRedColor(uint64_t a1)
 {
   if (qword_16278 != -1)
   {
     sub_83E0();
   }
 
-  v1 = qword_16270;
+  v2 = qword_16270;
 
-  return v1;
+  return v2;
 }
 
 void sub_752C(id a1)

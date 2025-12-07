@@ -76,11 +76,11 @@
   return v14;
 }
 
-id __94__ATXShadowMetricsComputer_computeResultAsTrendPlotFromStartDate_toEndDate_resultGranularity___block_invoke()
+id __94__ATXShadowMetricsComputer_computeResultAsTrendPlotFromStartDate_toEndDate_resultGranularity___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_new();
+  v2 = objc_opt_new();
 
-  return v0;
+  return v2;
 }
 
 void __94__ATXShadowMetricsComputer_computeResultAsTrendPlotFromStartDate_toEndDate_resultGranularity___block_invoke_13(void *a1, void *a2)
@@ -192,7 +192,7 @@ LABEL_23:
                 v44 = [*(*(a1[7] + 8) + 40) identifierForPredictionAtIndex:v28];
                 if (!v44)
                 {
-                  v47 = __atxlog_handle_metrics();
+                  v47 = __atxlog_handle_metrics(0);
                   if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
                   {
                     __94__ATXShadowMetricsComputer_computeResultAsTrendPlotFromStartDate_toEndDate_resultGranularity___block_invoke_13_cold_1(v47);
@@ -328,7 +328,7 @@ LABEL_36:
 
 void __94__ATXShadowMetricsComputer_computeResultAsTrendPlotFromStartDate_toEndDate_resultGranularity___block_invoke_15(void *a1, void *a2)
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(*(a1[5] + 8) + 40) data];
   [v4 setNumberOfPredictionCacheRefreshes:{objc_msgSend(v4, "numberOfPredictionCacheRefreshes") + 1}];
@@ -386,87 +386,87 @@ void __94__ATXShadowMetricsComputer_computeResultAsTrendPlotFromStartDate_toEndD
   if (v27)
   {
     v28 = *(a1[4] + 8);
-    v65[0] = MEMORY[0x1E69E9820];
-    v65[1] = 3221225472;
-    v65[2] = __94__ATXShadowMetricsComputer_computeResultAsTrendPlotFromStartDate_toEndDate_resultGranularity___block_invoke_2;
-    v65[3] = &unk_1E86A4DC8;
-    v67 = v26;
-    v66 = v24;
-    [v28 enumeratePredictionsInCache:v27 usingBlock:v65];
+    v64[0] = MEMORY[0x1E69E9820];
+    v64[1] = 3221225472;
+    v64[2] = __94__ATXShadowMetricsComputer_computeResultAsTrendPlotFromStartDate_toEndDate_resultGranularity___block_invoke_2;
+    v64[3] = &unk_1E86A4DC8;
+    v66 = v26;
+    v65 = v24;
+    [v28 enumeratePredictionsInCache:v27 usingBlock:v64];
   }
 
   v29 = objc_opt_new();
   v30 = *(a1[4] + 8);
-  v59[0] = MEMORY[0x1E69E9820];
-  v59[1] = 3221225472;
-  v59[2] = __94__ATXShadowMetricsComputer_computeResultAsTrendPlotFromStartDate_toEndDate_resultGranularity___block_invoke_3;
-  v59[3] = &unk_1E86A4DF0;
+  v58[0] = MEMORY[0x1E69E9820];
+  v58[1] = 3221225472;
+  v58[2] = __94__ATXShadowMetricsComputer_computeResultAsTrendPlotFromStartDate_toEndDate_resultGranularity___block_invoke_3;
+  v58[3] = &unk_1E86A4DF0;
   v31 = v3;
-  v60 = v31;
+  v59 = v31;
   v32 = v29;
-  v61 = v32;
+  v60 = v32;
   v33 = v25;
-  v62 = v33;
+  v61 = v33;
   v34 = *(a1 + 3);
-  v63 = *(a1 + 2);
-  v64 = v34;
-  [v30 enumeratePredictionsInCache:v31 usingBlock:v59];
+  v62 = *(a1 + 2);
+  v63 = v34;
+  [v30 enumeratePredictionsInCache:v31 usingBlock:v58];
   v35 = objc_opt_new();
+  v54 = 0u;
   v55 = 0u;
   v56 = 0u;
   v57 = 0u;
-  v58 = 0u;
   v36 = *(*(a1[7] + 8) + 40);
-  v37 = [v36 countByEnumeratingWithState:&v55 objects:v69 count:16];
+  v37 = [v36 countByEnumeratingWithState:&v54 objects:v68 count:16];
   if (v37)
   {
     v38 = v37;
-    v39 = *v56;
+    v39 = *v55;
     do
     {
       for (i = 0; i != v38; ++i)
       {
-        if (*v56 != v39)
+        if (*v55 != v39)
         {
           objc_enumerationMutation(v36);
         }
 
-        v41 = *(*(&v55 + 1) + 8 * i);
+        v41 = *(*(&v54 + 1) + 8 * i);
         if (([v32 containsObject:v41] & 1) == 0)
         {
           [v35 addObject:v41];
         }
       }
 
-      v38 = [v36 countByEnumeratingWithState:&v55 objects:v69 count:16];
+      v38 = [v36 countByEnumeratingWithState:&v54 objects:v68 count:16];
     }
 
     while (v38);
   }
 
-  v53 = 0u;
-  v54 = 0u;
-  v51 = 0u;
   v52 = 0u;
+  v53 = 0u;
+  v50 = 0u;
+  v51 = 0u;
   v42 = v35;
-  v43 = [v42 countByEnumeratingWithState:&v51 objects:v68 count:16];
+  v43 = [v42 countByEnumeratingWithState:&v50 objects:v67 count:16];
   if (v43)
   {
     v44 = v43;
-    v45 = *v52;
+    v45 = *v51;
     do
     {
       for (j = 0; j != v44; ++j)
       {
-        if (*v52 != v45)
+        if (*v51 != v45)
         {
           objc_enumerationMutation(v42);
         }
 
-        [*(*(a1[7] + 8) + 40) removeObject:{*(*(&v51 + 1) + 8 * j), v51}];
+        [*(*(a1[7] + 8) + 40) removeObject:{*(*(&v50 + 1) + 8 * j), v50}];
       }
 
-      v44 = [v42 countByEnumeratingWithState:&v51 objects:v68 count:16];
+      v44 = [v42 countByEnumeratingWithState:&v50 objects:v67 count:16];
     }
 
     while (v44);
@@ -476,8 +476,6 @@ void __94__ATXShadowMetricsComputer_computeResultAsTrendPlotFromStartDate_toEndD
   v48 = *(v47 + 40);
   *(v47 + 40) = v31;
   v49 = v31;
-
-  v50 = *MEMORY[0x1E69E9840];
 }
 
 void __94__ATXShadowMetricsComputer_computeResultAsTrendPlotFromStartDate_toEndDate_resultGranularity___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)

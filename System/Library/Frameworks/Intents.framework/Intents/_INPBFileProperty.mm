@@ -3,6 +3,8 @@
 - (_INPBFileProperty)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)nameAsString:(int)string;
+- (id)qualifierAsString:(int)string;
 - (int)StringAsName:(id)name;
 - (int)StringAsQualifier:(id)qualifier;
 - (unint64_t)hash;
@@ -185,25 +187,23 @@ LABEL_16:
   toCopy = to;
   if ([(_INPBFileProperty *)self hasName])
   {
-    name = self->_name;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBFileProperty *)self hasQualifier])
   {
-    qualifier = self->_qualifier;
     PBDataWriterWriteInt32Field();
   }
 
   value = [(_INPBFileProperty *)self value];
 
-  v7 = toCopy;
+  v5 = toCopy;
   if (value)
   {
     value2 = [(_INPBFileProperty *)self value];
     PBDataWriterWriteSubmessage();
 
-    v7 = toCopy;
+    v5 = toCopy;
   }
 }
 
@@ -238,6 +238,21 @@ LABEL_16:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)qualifierAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E727FF18[string];
   }
 
   return v4;
@@ -339,6 +354,21 @@ LABEL_16:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)nameAsString:(int)string
+{
+  if (string >= 0xC)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E727FEB8[string];
   }
 
   return v4;

@@ -7,12 +7,12 @@
 
 + (id)createWith:(id)with width:(double)width height:(double)height
 {
-  type metadata accessor for HUIEQChartModel();
-  sub_2521A49D4(&qword_27F4D4390, type metadata accessor for HUIEQChartModel);
+  type metadata accessor for HUIEQChartModel(0);
+  sub_2521A49D4(&qword_27F4D4390, type metadata accessor for HUIEQChartModel, &protocol conformance descriptor for HUIEQChartModel);
   withCopy = with;
   sub_2521A512C();
   v8 = v7;
-  objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F4D4398));
+  objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F4D4398, &qword_2521AA6C0));
   v9 = v8;
   v10 = sub_2521A535C();
 

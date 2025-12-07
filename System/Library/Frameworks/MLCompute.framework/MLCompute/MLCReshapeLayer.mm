@@ -85,7 +85,7 @@ LABEL_16:
 
 - (BOOL)compileForDevice:(id)device sourceTensors:(id)tensors resultTensor:(id)tensor
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   tensorsCopy = tensors;
   tensorCopy = tensor;
@@ -117,10 +117,10 @@ LABEL_16:
       tensorAllocationSizeInBytes3 = [descriptor3 tensorAllocationSizeInBytes];
       descriptor4 = [tensorCopy descriptor];
       *buf = 138412802;
-      v32 = v22;
-      v33 = 2048;
-      v34 = tensorAllocationSizeInBytes3;
-      v35 = 2048;
+      v31 = v22;
+      v32 = 2048;
+      v33 = tensorAllocationSizeInBytes3;
+      v34 = 2048;
       tensorAllocationSizeInBytes4 = [descriptor4 tensorAllocationSizeInBytes];
       _os_log_error_impl(&dword_238C1D000, v19, OS_LOG_TYPE_ERROR, "%@: invalid result tensor size. sourceSize=%lu : resultSize=%lu", buf, 0x20u);
     }
@@ -148,12 +148,11 @@ LABEL_13:
   computeEngine2 = [deviceCopy computeEngine];
   v21 = [computeEngine2 compileLayerDeviceOps:v19 sourceTensors:tensorsCopy resultTensor:tensorCopy];
 
-  v30.receiver = self;
-  v30.super_class = MLCReshapeLayer;
-  [(MLCLayer *)&v30 bindDevice:deviceCopy deviceOps:v19];
+  v29.receiver = self;
+  v29.super_class = MLCReshapeLayer;
+  [(MLCLayer *)&v29 bindDevice:deviceCopy deviceOps:v19];
 LABEL_14:
 
-  v28 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -324,35 +323,26 @@ LABEL_14:
 
 - (void)initWithShape:(const char *)a1 .cold.1(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithShape:(const char *)a1 .cold.2(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)compileForDevice:(const char *)a1 sourceTensors:resultTensor:.cold.1(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -17,7 +17,7 @@
 
 - (void)temperatureService:(id)service didUpdateTargetTemperature:(id)temperature
 {
-  v6 = sub_1000040E8(&unk_100114790);
+  v6 = sub_1000040E8(&unk_100114790, &qword_1000D6820);
   v7 = *(v6 - 8);
   __chkstk_darwin(v6);
   v9 = &v12 - v8;
@@ -32,20 +32,20 @@
 
 - (void)temperatureService:(id)service didUpdateCurrentTemperature:(id)temperature
 {
-  v5 = sub_1000040E8(&unk_1001153F0);
+  v5 = sub_1000040E8(&unk_1001153F0, qword_1000D5C40);
   __chkstk_darwin(v5 - 8);
   v7 = &v10 - v6;
   if (temperature)
   {
     sub_10007F6E4();
     static Measurement._unconditionallyBridgeFromObjectiveC(_:)();
-    v8 = sub_1000040E8(&unk_100114790);
+    v8 = sub_1000040E8(&unk_100114790, &qword_1000D6820);
     (*(*(v8 - 8) + 56))(v7, 0, 1, v8);
   }
 
   else
   {
-    v9 = sub_1000040E8(&unk_100114790);
+    v9 = sub_1000040E8(&unk_100114790, &qword_1000D6820);
     (*(*(v9 - 8) + 56))(v7, 1, 1, v9);
   }
 

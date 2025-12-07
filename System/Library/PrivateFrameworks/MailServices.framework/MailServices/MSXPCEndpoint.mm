@@ -22,23 +22,21 @@
 
 - (void)connectionForProtocol:(id)protocol completionHandler:(id)handler
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   protocolCopy = protocol;
   handlerCopy = handler;
-  v14 = @"protocol";
+  v13 = @"protocol";
   v8 = NSStringFromProtocol(protocolCopy);
-  v15[0] = v8;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+  v14[0] = v8;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
 
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __57__MSXPCEndpoint_connectionForProtocol_completionHandler___block_invoke;
-  v12[3] = &unk_1E855F090;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __57__MSXPCEndpoint_connectionForProtocol_completionHandler___block_invoke;
+  v11[3] = &unk_1E855F090;
   v10 = handlerCopy;
-  v13 = v10;
-  [(MSService *)self _callServicesMethod:@"xpc-endpoint" arguments:v9 replyHandler:v12];
-
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = v10;
+  [(MSService *)self _callServicesMethod:@"xpc-endpoint" arguments:v9 replyHandler:v11];
 }
 
 void __57__MSXPCEndpoint_connectionForProtocol_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)

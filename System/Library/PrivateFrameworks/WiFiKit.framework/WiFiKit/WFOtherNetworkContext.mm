@@ -16,7 +16,7 @@
 
 - (void)finishWithError:(id)error forNetwork:(id)network profile:(id)profile
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   networkCopy = network;
   profileCopy = profile;
@@ -24,16 +24,17 @@
   [(WFOtherNetworkContext *)self setProfile:profileCopy];
   v11 = WFLogForCategory(0);
   v12 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v11 && os_log_type_enabled(v11, v12))
+  v13 = v12;
+  if (WFCurrentLogLevel(v12, v14) >= 3 && v11 && os_log_type_enabled(v11, v13))
   {
     network = self->_network;
     *buf = 136315650;
-    v39 = "[WFOtherNetworkContext finishWithError:forNetwork:profile:]";
-    v40 = 2112;
+    v52 = "[WFOtherNetworkContext finishWithError:forNetwork:profile:]";
+    v53 = 2112;
     networkCopy2 = network;
-    v42 = 2112;
-    v43 = profileCopy;
-    _os_log_impl(&dword_273ECD000, v11, v12, "%s: network %@ profile %@", buf, 0x20u);
+    v55 = 2112;
+    v56 = profileCopy;
+    _os_log_impl(&dword_273ECD000, v11, v13, "%s: network %@ profile %@", buf, 0x20u);
   }
 
   if (errorCopy)
@@ -54,33 +55,35 @@
 
         if (isEnterprise)
         {
-          v17 = WFLogForCategory(0);
-          v18 = OSLogForWFLogLevel(3uLL);
-          if (WFCurrentLogLevel() >= 3 && v17)
+          v19 = WFLogForCategory(0);
+          v20 = OSLogForWFLogLevel(3uLL);
+          v21 = v20;
+          if (WFCurrentLogLevel(v20, v22) >= 3 && v19)
           {
-            v19 = v17;
-            if (os_log_type_enabled(v19, v18))
+            v23 = v19;
+            if (os_log_type_enabled(v23, v21))
             {
               network2 = [(WFOtherNetworkContext *)self network];
               *buf = 136315394;
-              v39 = "[WFOtherNetworkContext finishWithError:forNetwork:profile:]";
-              v40 = 2112;
+              v52 = "[WFOtherNetworkContext finishWithError:forNetwork:profile:]";
+              v53 = 2112;
               networkCopy2 = network2;
-              _os_log_impl(&dword_273ECD000, v19, v18, "%s: network %@ is enterprise", buf, 0x16u);
+              _os_log_impl(&dword_273ECD000, v23, v21, "%s: network %@ is enterprise", buf, 0x16u);
             }
           }
 
           if (self->_availableTLSIdentities)
           {
-            v21 = WFLogForCategory(0);
-            v22 = OSLogForWFLogLevel(4uLL);
-            if (WFCurrentLogLevel() < 4 || !v21)
+            v25 = WFLogForCategory(0);
+            v26 = OSLogForWFLogLevel(4uLL);
+            v27 = v26;
+            if (WFCurrentLogLevel(v26, v28) < 4 || !v25)
             {
               goto LABEL_21;
             }
 
-            v23 = v21;
-            if (!os_log_type_enabled(v23, v22))
+            v29 = v25;
+            if (!os_log_type_enabled(v29, v27))
             {
 LABEL_20:
 
@@ -90,29 +93,30 @@ LABEL_21:
             }
 
 LABEL_19:
-            v24 = [(NSArray *)self->_availableTLSIdentities count];
+            v30 = [(NSArray *)self->_availableTLSIdentities count];
             *buf = 136315394;
-            v39 = "[WFOtherNetworkContext finishWithError:forNetwork:profile:]";
-            v40 = 2048;
-            networkCopy2 = v24;
-            _os_log_impl(&dword_273ECD000, v23, v22, "%s: available TLS identities %lu", buf, 0x16u);
+            v52 = "[WFOtherNetworkContext finishWithError:forNetwork:profile:]";
+            v53 = 2048;
+            networkCopy2 = v30;
+            _os_log_impl(&dword_273ECD000, v29, v27, "%s: available TLS identities %lu", buf, 0x16u);
             goto LABEL_20;
           }
 
 LABEL_43:
           requestedFields = 3;
 LABEL_44:
-          v34 = WFLogForCategory(0);
-          v35 = OSLogForWFLogLevel(3uLL);
-          if (WFCurrentLogLevel() >= 3 && v34 && os_log_type_enabled(v34, v35))
+          v46 = WFLogForCategory(0);
+          v47 = OSLogForWFLogLevel(3uLL);
+          v48 = v47;
+          if (WFCurrentLogLevel(v47, v49) >= 3 && v46 && os_log_type_enabled(v46, v48))
           {
             *buf = 136315650;
-            v39 = "[WFOtherNetworkContext finishWithError:forNetwork:profile:]";
-            v40 = 2112;
+            v52 = "[WFOtherNetworkContext finishWithError:forNetwork:profile:]";
+            v53 = 2112;
             networkCopy2 = errorCopy;
-            v42 = 2048;
-            v43 = requestedFields;
-            _os_log_impl(&dword_273ECD000, v34, v35, "%s: error %@ newRequested fields %ld", buf, 0x20u);
+            v55 = 2048;
+            v56 = requestedFields;
+            _os_log_impl(&dword_273ECD000, v46, v48, "%s: error %@ newRequested fields %ld", buf, 0x20u);
           }
 
           self->_requestedFields = requestedFields;
@@ -135,33 +139,35 @@ LABEL_44:
 
         if (isEnterprise2)
         {
-          v28 = WFLogForCategory(0);
-          v29 = OSLogForWFLogLevel(3uLL);
-          if (WFCurrentLogLevel() >= 3 && v28)
+          v34 = WFLogForCategory(0);
+          v35 = OSLogForWFLogLevel(3uLL);
+          v36 = v35;
+          if (WFCurrentLogLevel(v35, v37) >= 3 && v34)
           {
-            v30 = v28;
-            if (os_log_type_enabled(v30, v29))
+            v38 = v34;
+            if (os_log_type_enabled(v38, v36))
             {
               network4 = [(WFOtherNetworkContext *)self network];
               *buf = 136315394;
-              v39 = "[WFOtherNetworkContext finishWithError:forNetwork:profile:]";
-              v40 = 2112;
+              v52 = "[WFOtherNetworkContext finishWithError:forNetwork:profile:]";
+              v53 = 2112;
               networkCopy2 = network4;
-              _os_log_impl(&dword_273ECD000, v30, v29, "%s: network %@ is enterprise", buf, 0x16u);
+              _os_log_impl(&dword_273ECD000, v38, v36, "%s: network %@ is enterprise", buf, 0x16u);
             }
           }
 
           if (self->_availableTLSIdentities)
           {
-            v21 = WFLogForCategory(0);
-            v22 = OSLogForWFLogLevel(4uLL);
-            if (WFCurrentLogLevel() < 4 || !v21)
+            v25 = WFLogForCategory(0);
+            v40 = OSLogForWFLogLevel(4uLL);
+            v27 = v40;
+            if (WFCurrentLogLevel(v40, v41) < 4 || !v25)
             {
               goto LABEL_21;
             }
 
-            v23 = v21;
-            if (!os_log_type_enabled(v23, v22))
+            v29 = v25;
+            if (!os_log_type_enabled(v29, v27))
             {
               goto LABEL_20;
             }
@@ -178,15 +184,16 @@ LABEL_36:
       }
     }
 
-    v32 = WFLogForCategory(0);
-    v33 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v32 && os_log_type_enabled(v32, v33))
+    v42 = WFLogForCategory(0);
+    v43 = OSLogForWFLogLevel(3uLL);
+    v44 = v43;
+    if (WFCurrentLogLevel(v43, v45) >= 3 && v42 && os_log_type_enabled(v42, v44))
     {
       *buf = 136315394;
-      v39 = "[WFOtherNetworkContext finishWithError:forNetwork:profile:]";
-      v40 = 2112;
+      v52 = "[WFOtherNetworkContext finishWithError:forNetwork:profile:]";
+      v53 = 2112;
       networkCopy2 = errorCopy;
-      _os_log_impl(&dword_273ECD000, v32, v33, "%s: unhandled error %@", buf, 0x16u);
+      _os_log_impl(&dword_273ECD000, v42, v44, "%s: unhandled error %@", buf, 0x16u);
     }
 
     requestedFields = self->_requestedFields;
@@ -194,11 +201,9 @@ LABEL_36:
   }
 
 LABEL_49:
-  v37.receiver = self;
-  v37.super_class = WFOtherNetworkContext;
-  [(WFCredentialsContext *)&v37 finishWithError:errorCopy forNetwork:networkCopy profile:profileCopy];
-
-  v36 = *MEMORY[0x277D85DE8];
+  v50.receiver = self;
+  v50.super_class = WFOtherNetworkContext;
+  [(WFCredentialsContext *)&v50 finishWithError:errorCopy forNetwork:networkCopy profile:profileCopy];
 }
 
 - (BOOL)validateCredentials
@@ -329,7 +334,7 @@ LABEL_15:
 
 - (void)_updateActivityStringForError:(id)error networkName:(id)name
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   nameCopy = name;
   provider = [(WFCredentialsContext *)self provider];
@@ -345,15 +350,16 @@ LABEL_15:
       nameCopy = [MEMORY[0x277CCACA8] stringWithFormat:v11, nameCopy];
       v13 = WFLogForCategory(0);
       v14 = OSLogForWFLogLevel(3uLL);
-      if (WFCurrentLogLevel() >= 3 && v13 && os_log_type_enabled(v13, v14))
+      v15 = v14;
+      if (WFCurrentLogLevel(v14, v16) >= 3 && v13 && os_log_type_enabled(v13, v15))
       {
         *buf = 136315650;
-        v18 = "[WFOtherNetworkContext _updateActivityStringForError:networkName:]";
-        v19 = 2112;
-        v20 = errorCopy;
-        v21 = 2112;
-        v22 = nameCopy;
-        _os_log_impl(&dword_273ECD000, v13, v14, "%s: error %@ activityString %@", buf, 0x20u);
+        v19 = "[WFOtherNetworkContext _updateActivityStringForError:networkName:]";
+        v20 = 2112;
+        v21 = errorCopy;
+        v22 = 2112;
+        v23 = nameCopy;
+        _os_log_impl(&dword_273ECD000, v13, v15, "%s: error %@ activityString %@", buf, 0x20u);
       }
     }
 
@@ -365,13 +371,11 @@ LABEL_15:
     provider2 = [(WFCredentialsContext *)self provider];
     [provider2 setActivityString:nameCopy];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)gatherCredentials:(id)credentials
 {
-  v93 = *MEMORY[0x277D85DE8];
+  v102 = *MEMORY[0x277D85DE8];
   credentialsCopy = credentials;
   provider = [(WFCredentialsContext *)self provider];
   sSID = [provider SSID];
@@ -392,25 +396,26 @@ LABEL_15:
   {
     v10 = WFLogForCategory(0);
     v11 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v10 && os_log_type_enabled(v10, v11))
+    v12 = v11;
+    if (WFCurrentLogLevel(v11, v13) >= 3 && v10 && os_log_type_enabled(v10, v12))
     {
       *buf = 136315650;
       *&buf[4] = "[WFOtherNetworkContext gatherCredentials:]";
-      v87 = 2112;
-      v88 = ssid;
-      v89 = 2112;
-      v90 = sSID;
-      _os_log_impl(&dword_273ECD000, v10, v11, "%s: network name changed from %@ -> %@", buf, 0x20u);
+      v96 = 2112;
+      v97 = ssid;
+      v98 = 2112;
+      v99 = sSID;
+      _os_log_impl(&dword_273ECD000, v10, v12, "%s: network name changed from %@ -> %@", buf, 0x20u);
     }
 
-    v12 = sSID;
-    ssid = v12;
+    v14 = sSID;
+    ssid = v14;
   }
 
   provider2 = [(WFCredentialsContext *)self provider];
-  v14 = objc_opt_respondsToSelector();
+  v16 = objc_opt_respondsToSelector();
 
-  if (v14)
+  if (v16)
   {
     provider3 = [(WFCredentialsContext *)self provider];
     [provider3 setJoining:1];
@@ -419,197 +424,200 @@ LABEL_15:
   if ((_os_feature_enabled_impl() & 1) == 0)
   {
     provider4 = [(WFCredentialsContext *)self provider];
-    v17 = objc_opt_respondsToSelector();
+    v19 = objc_opt_respondsToSelector();
 
-    if (v17)
+    if (v19)
     {
-      v18 = MEMORY[0x277CCACA8];
-      v19 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v20 = [v19 localizedStringForKey:@"kWFLocOtherNetworkJoiningPromptFormat" value:&stru_2882E4AD8 table:@"WiFiKitLocalizableStrings"];
-      v21 = [v18 stringWithFormat:v20, ssid];
+      v20 = MEMORY[0x277CCACA8];
+      v21 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v22 = [v21 localizedStringForKey:@"kWFLocOtherNetworkJoiningPromptFormat" value:&stru_2882E4AD8 table:@"WiFiKitLocalizableStrings"];
+      v23 = [v20 stringWithFormat:v22, ssid];
       provider5 = [(WFCredentialsContext *)self provider];
-      [provider5 setActivityString:v21];
+      [provider5 setActivityString:v23];
     }
   }
 
-  v23 = objc_alloc_init(WFUserSuppliedNetwork);
-  v77 = ssid;
-  [(WFUserSuppliedNetwork *)v23 setSsid:ssid];
+  v25 = objc_alloc_init(WFUserSuppliedNetwork);
+  v86 = ssid;
+  [(WFUserSuppliedNetwork *)v25 setSsid:ssid];
   network3 = [(WFOtherNetworkContext *)self network];
 
   if (network3)
   {
-    v25 = WFLogForCategory(0);
-    v26 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v25)
+    v27 = WFLogForCategory(0);
+    v28 = OSLogForWFLogLevel(3uLL);
+    v29 = v28;
+    if (WFCurrentLogLevel(v28, v30) >= 3 && v27)
     {
-      v27 = v25;
-      if (os_log_type_enabled(v27, v26))
+      v31 = v27;
+      if (os_log_type_enabled(v31, v29))
       {
         network4 = [(WFOtherNetworkContext *)self network];
         *buf = 136315394;
         *&buf[4] = "[WFOtherNetworkContext gatherCredentials:]";
-        v87 = 2112;
-        v88 = network4;
-        _os_log_impl(&dword_273ECD000, v27, v26, "%s: using security mode from network: %@", buf, 0x16u);
+        v96 = 2112;
+        v97 = network4;
+        _os_log_impl(&dword_273ECD000, v31, v29, "%s: using security mode from network: %@", buf, 0x16u);
       }
     }
 
     network5 = [(WFOtherNetworkContext *)self network];
-    -[WFUserSuppliedNetwork setSecurity:](v23, "setSecurity:", [network5 securityMode]);
+    -[WFUserSuppliedNetwork setSecurity:](v25, "setSecurity:", [network5 securityMode]);
   }
 
   provider6 = [(WFCredentialsContext *)self provider];
-  v31 = objc_opt_respondsToSelector();
+  v35 = objc_opt_respondsToSelector();
 
-  if (v31)
+  if (v35)
   {
     provider7 = [(WFCredentialsContext *)self provider];
     securityMode = [provider7 securityMode];
 
-    v34 = WFLogForCategory(0);
-    v35 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v34)
+    v38 = WFLogForCategory(0);
+    v39 = OSLogForWFLogLevel(3uLL);
+    v40 = v39;
+    if (WFCurrentLogLevel(v39, v41) >= 3 && v38)
     {
-      v36 = v23;
+      v42 = v25;
       selfCopy = self;
-      v38 = v34;
-      if (os_log_type_enabled(v38, v35))
+      v44 = v38;
+      if (os_log_type_enabled(v44, v40))
       {
         provider8 = [(WFCredentialsContext *)selfCopy provider];
-        v40 = WFWiFiSecurityModeFromOtherSecurityMode(securityMode);
-        v41 = WFStringFromWFSecurityMode(v40);
+        v46 = WFWiFiSecurityModeFromOtherSecurityMode(securityMode);
+        v47 = WFStringFromWFSecurityMode(v46);
         *buf = 136315906;
         *&buf[4] = "[WFOtherNetworkContext gatherCredentials:]";
-        v87 = 2112;
-        v88 = provider8;
-        v89 = 2112;
-        v90 = v41;
-        v91 = 2048;
-        v92 = securityMode;
-        _os_log_impl(&dword_273ECD000, v38, v35, "%s: using security mode from provider: %@ - %@ (%ld)", buf, 0x2Au);
+        v96 = 2112;
+        v97 = provider8;
+        v98 = 2112;
+        v99 = v47;
+        v100 = 2048;
+        v101 = securityMode;
+        _os_log_impl(&dword_273ECD000, v44, v40, "%s: using security mode from provider: %@ - %@ (%ld)", buf, 0x2Au);
       }
 
       self = selfCopy;
-      v23 = v36;
+      v25 = v42;
     }
 
-    [(WFUserSuppliedNetwork *)v23 setSecurity:WFWiFiSecurityModeFromOtherSecurityMode(securityMode)];
+    [(WFUserSuppliedNetwork *)v25 setSecurity:WFWiFiSecurityModeFromOtherSecurityMode(securityMode)];
   }
 
   provider9 = [(WFCredentialsContext *)self provider];
   username = [provider9 username];
-  [(WFUserSuppliedNetwork *)v23 setUsername:username];
+  [(WFUserSuppliedNetwork *)v25 setUsername:username];
 
   provider10 = [(WFCredentialsContext *)self provider];
   password = [provider10 password];
-  [(WFUserSuppliedNetwork *)v23 setPassword:password];
+  [(WFUserSuppliedNetwork *)v25 setPassword:password];
 
   provider11 = [(WFCredentialsContext *)self provider];
-  -[WFUserSuppliedNetwork setTLSIdentity:](v23, "setTLSIdentity:", [provider11 TLSIdentity]);
+  -[WFUserSuppliedNetwork setTLSIdentity:](v25, "setTLSIdentity:", [provider11 TLSIdentity]);
 
-  v47 = WFLogForCategory(0);
-  v48 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v47)
+  v53 = WFLogForCategory(0);
+  v54 = OSLogForWFLogLevel(3uLL);
+  v55 = v54;
+  if (WFCurrentLogLevel(v54, v56) >= 3 && v53)
   {
-    v49 = v47;
-    if (os_log_type_enabled(v49, v48))
+    v57 = v53;
+    if (os_log_type_enabled(v57, v55))
     {
-      security = [(WFUserSuppliedNetwork *)v23 security];
+      security = [(WFUserSuppliedNetwork *)v25 security];
       *buf = 136315394;
       *&buf[4] = "[WFOtherNetworkContext gatherCredentials:]";
-      v87 = 2048;
-      v88 = security;
-      _os_log_impl(&dword_273ECD000, v49, v48, "%s: otherNetworkRecord.security: %ld", buf, 0x16u);
+      v96 = 2048;
+      v97 = security;
+      _os_log_impl(&dword_273ECD000, v57, v55, "%s: otherNetworkRecord.security: %ld", buf, 0x16u);
     }
   }
 
-  v76 = v23;
-  if ([(WFUserSuppliedNetwork *)v23 security]== 128)
+  v85 = v25;
+  if ([(WFUserSuppliedNetwork *)v25 security]== 128)
   {
     provider12 = [(WFCredentialsContext *)self provider];
     if (objc_opt_respondsToSelector())
     {
       provider13 = [(WFCredentialsContext *)self provider];
-      v53 = objc_opt_respondsToSelector();
+      v61 = objc_opt_respondsToSelector();
 
-      if (v53)
+      if (v61)
       {
         *buf = 0;
-        v84 = 0;
-        if (WFWAPIIdentityListCreate(buf, &v84) || !CFArrayGetCount(*buf))
+        v93 = 0;
+        if (WFWAPIIdentityListCreate(buf, &v93) || !CFArrayGetCount(*buf))
         {
-          v54 = 0;
+          v62 = 0;
         }
 
         else
         {
           selfCopy2 = self;
-          v74 = sSID;
-          v75 = credentialsCopy;
-          v82 = 0u;
-          v83 = 0u;
-          v80 = 0u;
-          v81 = 0u;
-          obj = v84;
-          v56 = [(__CFArray *)obj countByEnumeratingWithState:&v80 objects:v85 count:16];
-          if (v56)
+          v83 = sSID;
+          v84 = credentialsCopy;
+          v91 = 0u;
+          v92 = 0u;
+          v89 = 0u;
+          v90 = 0u;
+          obj = v93;
+          v64 = [(__CFArray *)obj countByEnumeratingWithState:&v89 objects:v94 count:16];
+          if (v64)
           {
-            v57 = v56;
-            v54 = 0;
-            v58 = *v81;
+            v65 = v64;
+            v62 = 0;
+            v66 = *v90;
             do
             {
-              for (i = 0; i != v57; ++i)
+              for (i = 0; i != v65; ++i)
               {
-                if (*v81 != v58)
+                if (*v90 != v66)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v60 = *(*(&v80 + 1) + 8 * i);
-                v61 = [v60 valueForKey:@"certRef"];
+                v68 = *(*(&v89 + 1) + 8 * i);
+                v69 = [v68 valueForKey:@"certRef"];
                 provider14 = [(WFCredentialsContext *)selfCopy2 provider];
                 wAPIIdentity = [provider14 WAPIIdentity];
 
-                if (v61)
+                if (v69)
                 {
-                  v64 = wAPIIdentity == 0;
+                  v72 = wAPIIdentity == 0;
                 }
 
                 else
                 {
-                  v64 = 1;
+                  v72 = 1;
                 }
 
-                if (!v64 && CFEqual(v61, wAPIIdentity))
+                if (!v72 && CFEqual(v69, wAPIIdentity))
                 {
-                  v65 = [v60 valueForKey:@"pemData"];
+                  v73 = [v68 valueForKey:@"pemData"];
 
-                  v54 = v65;
+                  v62 = v73;
                 }
               }
 
-              v57 = [(__CFArray *)obj countByEnumeratingWithState:&v80 objects:v85 count:16];
+              v65 = [(__CFArray *)obj countByEnumeratingWithState:&v89 objects:v94 count:16];
             }
 
-            while (v57);
+            while (v65);
           }
 
           else
           {
-            v54 = 0;
+            v62 = 0;
           }
 
-          sSID = v74;
-          credentialsCopy = v75;
+          sSID = v83;
+          credentialsCopy = v84;
           self = selfCopy2;
         }
 
         provider15 = [(WFCredentialsContext *)self provider];
         wAPIRootCertificate = [provider15 WAPIRootCertificate];
-        v68 = WFWAPICertificateBlobString(wAPIRootCertificate, v54);
-        [(WFUserSuppliedNetwork *)v76 setPassword:v68];
+        v76 = WFWAPICertificateBlobString(wAPIRootCertificate, v62);
+        [(WFUserSuppliedNetwork *)v85 setPassword:v76];
       }
     }
 
@@ -618,35 +626,34 @@ LABEL_15:
     }
   }
 
-  v69 = WFLogForCategory(0);
-  v70 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v69)
+  v77 = WFLogForCategory(0);
+  v78 = OSLogForWFLogLevel(3uLL);
+  v79 = v78;
+  if (WFCurrentLogLevel(v78, v80) >= 3 && v77)
   {
-    v71 = v69;
-    if (os_log_type_enabled(v71, v70))
+    v81 = v77;
+    if (os_log_type_enabled(v81, v79))
     {
-      v72 = WFStringFromWFSecurityMode([(WFUserSuppliedNetwork *)v76 security]);
+      v82 = WFStringFromWFSecurityMode([(WFUserSuppliedNetwork *)v85 security]);
       *buf = 136315650;
       *&buf[4] = "[WFOtherNetworkContext gatherCredentials:]";
-      v87 = 2112;
-      v88 = v77;
-      v89 = 2112;
-      v90 = v72;
-      _os_log_impl(&dword_273ECD000, v71, v70, "%s: user joining other network %@ (security %@)", buf, 0x20u);
+      v96 = 2112;
+      v97 = v86;
+      v98 = 2112;
+      v99 = v82;
+      _os_log_impl(&dword_273ECD000, v81, v79, "%s: user joining other network %@ (security %@)", buf, 0x20u);
     }
   }
 
-  [(WFOtherNetworkContext *)self setUserSuppliedNetwork:v76];
-  v79.receiver = self;
-  v79.super_class = WFOtherNetworkContext;
-  [(WFCredentialsContext *)&v79 gatherCredentials:credentialsCopy];
-
-  v73 = *MEMORY[0x277D85DE8];
+  [(WFOtherNetworkContext *)self setUserSuppliedNetwork:v85];
+  v88.receiver = self;
+  v88.super_class = WFOtherNetworkContext;
+  [(WFCredentialsContext *)&v88 gatherCredentials:credentialsCopy];
 }
 
 - (int64_t)securityMode
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   network = [(WFOtherNetworkContext *)self network];
   securityMode = [network securityMode];
 
@@ -657,7 +664,7 @@ LABEL_15:
     {
 LABEL_9:
 
-      goto LABEL_10;
+      return securityMode;
     }
 
     provider2 = [(WFCredentialsContext *)self provider];
@@ -670,19 +677,20 @@ LABEL_9:
 
       provider = WFLogForCategory(0);
       v9 = OSLogForWFLogLevel(4uLL);
-      if (WFCurrentLogLevel() >= 4 && provider)
+      v10 = v9;
+      if (WFCurrentLogLevel(v9, v11) >= 4 && provider)
       {
-        v10 = provider;
-        if (os_log_type_enabled(v10, v9))
+        v12 = provider;
+        if (os_log_type_enabled(v12, v10))
         {
           provider4 = [(WFCredentialsContext *)self provider];
-          v14 = 136315650;
-          v15 = "[WFOtherNetworkContext securityMode]";
-          v16 = 2112;
-          v17 = provider4;
-          v18 = 2048;
-          v19 = securityMode;
-          _os_log_impl(&dword_273ECD000, v10, v9, "%s: using provider (%@) securityMode %ld", &v14, 0x20u);
+          v15 = 136315650;
+          v16 = "[WFOtherNetworkContext securityMode]";
+          v17 = 2112;
+          v18 = provider4;
+          v19 = 2048;
+          v20 = securityMode;
+          _os_log_impl(&dword_273ECD000, v12, v10, "%s: using provider (%@) securityMode %ld", &v15, 0x20u);
         }
       }
 
@@ -690,8 +698,6 @@ LABEL_9:
     }
   }
 
-LABEL_10:
-  v12 = *MEMORY[0x277D85DE8];
   return securityMode;
 }
 
@@ -752,14 +758,15 @@ void __66__WFOtherNetworkContext_otherNetworkViewControllerUserDidTapJoin___bloc
 
 - (void)savePrivateAddressMode:(unint64_t)mode
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = WFLogForCategory(0);
   v6 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v5 && os_log_type_enabled(v5, v6))
+  v7 = v6;
+  if (WFCurrentLogLevel(v6, v8) >= 3 && v5 && os_log_type_enabled(v5, v7))
   {
-    v10 = 134217984;
+    v11 = 134217984;
     modeCopy = mode;
-    _os_log_impl(&dword_273ECD000, v5, v6, "User joining other network using private address mode: %ld", &v10, 0xCu);
+    _os_log_impl(&dword_273ECD000, v5, v7, "User joining other network using private address mode: %ld", &v11, 0xCu);
   }
 
   privateAddressModeChangeHandler = [(WFOtherNetworkContext *)self privateAddressModeChangeHandler];
@@ -769,20 +776,18 @@ void __66__WFOtherNetworkContext_otherNetworkViewControllerUserDidTapJoin___bloc
     privateAddressModeChangeHandler2 = [(WFOtherNetworkContext *)self privateAddressModeChangeHandler];
     privateAddressModeChangeHandler2[2](privateAddressModeChangeHandler2, mode);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (WFOtherNetworkContext)initWithType:(unint64_t)type authTraits:(int64_t)traits supportRandomAddress:(BOOL)address useRandomAddress:(BOOL)randomAddress randomMACAddress:(id)cAddress hardwareMACAddress:(id)aCAddress
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   cAddressCopy = cAddress;
   aCAddressCopy = aCAddress;
-  v35 = 0;
+  v36 = 0;
   theArray = 0;
-  v34.receiver = self;
-  v34.super_class = WFOtherNetworkContext;
-  v16 = [(WFOtherNetworkContext *)&v34 init];
+  v35.receiver = self;
+  v35.super_class = WFOtherNetworkContext;
+  v16 = [(WFOtherNetworkContext *)&v35 init];
   v17 = v16;
   if (!v16)
   {
@@ -798,16 +803,16 @@ void __66__WFOtherNetworkContext_otherNetworkViewControllerUserDidTapJoin___bloc
       objc_storeStrong(&v17->_WAPIRootCertificates, theArray);
     }
 
-    if (!WFWAPIIdentityListCreate(&v35, 0) && CFArrayGetCount(v35))
+    if (!WFWAPIIdentityListCreate(&v36, 0) && CFArrayGetCount(v36))
     {
-      objc_storeStrong(&v17->_WAPIIdentities, v35);
+      objc_storeStrong(&v17->_WAPIIdentities, v36);
     }
   }
 
-  v33 = 0;
-  v18 = WFAllIdentities(&v33);
+  v34 = 0;
+  v18 = WFAllIdentities(&v34);
   v19 = v18;
-  if (!v33 && [v18 count])
+  if (!v34 && [v18 count])
   {
     objc_storeStrong(&v17->_availableTLSIdentities, v19);
   }
@@ -842,12 +847,13 @@ LABEL_17:
 
   v26 = WFLogForCategory(0);
   v27 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v26)
+  v28 = v27;
+  if (WFCurrentLogLevel(v27, v29) >= 3 && v26)
   {
-    v28 = v26;
-    if (os_log_type_enabled(v28, v27))
+    v30 = v26;
+    if (os_log_type_enabled(v30, v28))
     {
-      v29 = traits & 1;
+      v31 = traits & 1;
       availableTLSIdentities = v17->_availableTLSIdentities;
       if (availableTLSIdentities)
       {
@@ -855,17 +861,16 @@ LABEL_17:
       }
 
       *buf = 136315650;
-      v38 = "[WFOtherNetworkContext initWithType:authTraits:supportRandomAddress:useRandomAddress:randomMACAddress:hardwareMACAddress:]";
-      v39 = 1024;
-      v40 = v29;
-      v41 = 1024;
-      v42 = availableTLSIdentities;
-      _os_log_impl(&dword_273ECD000, v28, v27, "%s: WAPIEnabled: %d tlsIdentities %d", buf, 0x18u);
+      v39 = "[WFOtherNetworkContext initWithType:authTraits:supportRandomAddress:useRandomAddress:randomMACAddress:hardwareMACAddress:]";
+      v40 = 1024;
+      v41 = v31;
+      v42 = 1024;
+      v43 = availableTLSIdentities;
+      _os_log_impl(&dword_273ECD000, v30, v28, "%s: WAPIEnabled: %d tlsIdentities %d", buf, 0x18u);
     }
   }
 
 LABEL_25:
-  v31 = *MEMORY[0x277D85DE8];
   return v17;
 }
 

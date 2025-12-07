@@ -1069,18 +1069,7 @@ LABEL_7:
     goto LABEL_15;
   }
 
-  if (([v7 BOOLValue] & 1) == 0)
-  {
-    goto LABEL_15;
-  }
-
-  v9 = +[_CDContextQueries keyPathForNowPlayingDataDictionary];
-  v10 = +[_CDContextQueries nowPlayingStatusKey];
-  v11 = +[_CDContextQueries nowPlayingMediaTypeKey];
-  v12 = +[_CDContextQueries nowPlayingBundleIdKey];
-  uSBundleIdentifierQuickLookUIServiceEmbedded = [_CDContextualPredicate predicateForKeyPath:v9 withFormat:@"(SELF.%@.value.%K == %u) && (SELF.%@.value.%K == %@) && ((SELF.%@.value.%K == %@) || (SELF.%@.value.%K == %@))", v9, v10, 1, v9, v11, kMRMediaRemoteNowPlayingInfoTypeVideo, v9, v12, USBundleIdentifierQuickLookUIServiceMacOS, v9, v12, USBundleIdentifierQuickLookUIServiceEmbedded];
-
-  if (!uSBundleIdentifierQuickLookUIServiceEmbedded)
+  if (([v7 BOOLValue] & 1) == 0 || (+[_CDContextQueries keyPathForNowPlayingDataDictionary](_CDContextQueries, "keyPathForNowPlayingDataDictionary"), v9 = objc_claimAutoreleasedReturnValue(), +[_CDContextQueries nowPlayingStatusKey](_CDContextQueries, "nowPlayingStatusKey"), v10 = objc_claimAutoreleasedReturnValue(), +[_CDContextQueries nowPlayingMediaTypeKey](_CDContextQueries, "nowPlayingMediaTypeKey"), v11 = objc_claimAutoreleasedReturnValue(), +[_CDContextQueries nowPlayingBundleIdKey](_CDContextQueries, "nowPlayingBundleIdKey"), v12 = objc_claimAutoreleasedReturnValue(), +[_CDContextualPredicate predicateForKeyPath:withFormat:](_CDContextualPredicate, "predicateForKeyPath:withFormat:", v9, @"(SELF.%@.value.%K == %u) && (SELF.%@.value.%K == %@) && ((SELF.%@.value.%K == %@) || (SELF.%@.value.%K == %@))", v9, v10, 1, v9, v11, kMRMediaRemoteNowPlayingInfoTypeVideo, v9, v12, USBundleIdentifierQuickLookUIServiceMacOS, v9, v12, USBundleIdentifierQuickLookUIServiceEmbedded), v13 = objc_claimAutoreleasedReturnValue(), v12, v11, v10, v9, !v13))
   {
 LABEL_15:
     [(USBudgetTracker *)self setNowPlayingRegistration:0];
@@ -1093,7 +1082,7 @@ LABEL_15:
   v16[3] = &unk_1000863A0;
   v16[4] = self;
   v16[5] = a2;
-  v14 = [_CDContextualChangeRegistration localWakingRegistrationWithIdentifier:@"com.apple.UsageTrackingAgent.registration.now-playing" contextualPredicate:uSBundleIdentifierQuickLookUIServiceEmbedded clientIdentifier:@"com.apple.UsageTrackingAgent" callback:v16];
+  v14 = [_CDContextualChangeRegistration localWakingRegistrationWithIdentifier:@"com.apple.UsageTrackingAgent.registration.now-playing" contextualPredicate:v13 clientIdentifier:@"com.apple.UsageTrackingAgent" callback:v16];
   [(USBudgetTracker *)self setNowPlayingRegistration:v14];
   v15 = +[_CDClientContext userContext];
   [v15 registerCallback:v14];
@@ -1103,7 +1092,7 @@ LABEL_15:
     _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Registered for CoreDuet user context Now Playing usage status changes", buf, 2u);
   }
 
-  if (([uSBundleIdentifierQuickLookUIServiceEmbedded firesOnAnyChange] & 1) != 0 || objc_msgSend(v15, "evaluatePredicate:", uSBundleIdentifierQuickLookUIServiceEmbedded))
+  if (([v13 firesOnAnyChange] & 1) != 0 || objc_msgSend(v15, "evaluatePredicate:", v13))
   {
     [(USBudgetTracker *)self _nowPlayingRegistrationDidFire];
   }
@@ -4589,7 +4578,7 @@ LABEL_60:
     v29 = 0u;
     v30 = 0u;
     events = [budgetCopy events];
-    v9 = [events countByEnumeratingWithState:&v27 objects:v37 count:16];
+    v9 = [events countByEnumeratingWithState:&v27 objects:v36 count:16];
     if (v9)
     {
       v11 = v9;
@@ -4641,7 +4630,7 @@ LABEL_60:
 
             else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
             {
-              sub_1000657BC(v35, v13, &v36);
+              sub_1000657BC(v35, v13, &v35[4]);
             }
 
             v16 = v13;
@@ -4651,7 +4640,7 @@ LABEL_60:
         }
 
         while (v11 != v15);
-        v11 = [events countByEnumeratingWithState:&v27 objects:v37 count:16];
+        v11 = [events countByEnumeratingWithState:&v27 objects:v36 count:16];
       }
 
       while (v11);

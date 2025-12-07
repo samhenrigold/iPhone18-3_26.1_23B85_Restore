@@ -25,19 +25,17 @@
 
 - (id)attributeDescriptions
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   v4 = [MEMORY[0x277CCABB0] numberWithInt:{-[MTSXPCConnection processIdentifier](self, "processIdentifier")}];
   v5 = [v3 initWithName:@"Process ID" value:v4];
-  v13[0] = v5;
+  v12[0] = v5;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   processInfo = [(MTSXPCConnection *)self processInfo];
   name = [processInfo name];
   v9 = [v6 initWithName:@"Process Name" value:name];
-  v13[1] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v12[1] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
 
   return v10;
 }

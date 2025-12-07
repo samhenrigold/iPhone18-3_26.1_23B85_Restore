@@ -14,6 +14,7 @@
 - (void)dealloc;
 - (void)prepareAudioStreamWithRequest:(id)request completion:(id)completion;
 - (void)setName:(id)name;
+- (void)setScheduledFutureSample:(BOOL)sample;
 - (void)setStartStreamOption:(id)option;
 - (void)startAudioStreamWithOption:(id)option completion:(id)completion;
 - (void)stopAudioStreamWithOption:(id)option completion:(id)completion;
@@ -31,45 +32,42 @@
 
 - (BOOL)isStreaming
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = CSLogCategoryAudio;
   if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_DEFAULT))
   {
     v4 = v3;
     name = [(CSAudioStream *)self name];
-    v8 = 136315650;
-    v9 = "[CSAudioStream isStreaming]";
-    v10 = 2114;
-    v11 = name;
-    v12 = 1026;
+    v7 = 136315650;
+    v8 = "[CSAudioStream isStreaming]";
+    v9 = 2114;
+    v10 = name;
+    v11 = 1026;
     streaming = [(CSAudioStream *)self streaming];
-    _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s AudioStream<%{public}@> is streaming : %{public}d", &v8, 0x1Cu);
+    _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s AudioStream<%{public}@> is streaming : %{public}d", &v7, 0x1Cu);
   }
 
-  result = [(CSAudioStream *)self streaming];
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return [(CSAudioStream *)self streaming];
 }
 
 - (void)dealloc
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = CSLogCategoryAudio;
   if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_DEFAULT))
   {
     v4 = v3;
     name = [(CSAudioStream *)self name];
     *buf = 136315394;
-    v9 = "[CSAudioStream dealloc]";
-    v10 = 2114;
-    v11 = name;
+    v8 = "[CSAudioStream dealloc]";
+    v9 = 2114;
+    v10 = name;
     _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s stream %{public}@ is deallocated", buf, 0x16u);
   }
 
-  v7.receiver = self;
-  v7.super_class = CSAudioStream;
-  [(CSAudioStream *)&v7 dealloc];
-  v6 = *MEMORY[0x1E69E9840];
+  v6.receiver = self;
+  v6.super_class = CSAudioStream;
+  [(CSAudioStream *)&v6 dealloc];
 }
 
 - (CSAudioStreamProvidingDelegate)delegate
@@ -81,18 +79,18 @@
 
 - (void)audioStreamProvider:(id)provider didHardwareConfigurationChange:(int64_t)change
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   providerCopy = provider;
   v7 = CSLogCategoryAudio;
   if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_DEFAULT))
   {
     v8 = v7;
     name = [(CSAudioStream *)self name];
-    v14 = 136315394;
-    v15 = "[CSAudioStream audioStreamProvider:didHardwareConfigurationChange:]";
-    v16 = 2114;
-    v17 = name;
-    _os_log_impl(&dword_1DDA4B000, v8, OS_LOG_TYPE_DEFAULT, "%s AudioStream<%{public}@> has received didHardwareConfigurationChange", &v14, 0x16u);
+    v13 = 136315394;
+    v14 = "[CSAudioStream audioStreamProvider:didHardwareConfigurationChange:]";
+    v15 = 2114;
+    v16 = name;
+    _os_log_impl(&dword_1DDA4B000, v8, OS_LOG_TYPE_DEFAULT, "%s AudioStream<%{public}@> has received didHardwareConfigurationChange", &v13, 0x16u);
   }
 
   delegate = [(CSAudioStream *)self delegate];
@@ -103,8 +101,6 @@
     delegate2 = [(CSAudioStream *)self delegate];
     [delegate2 audioStreamProvider:providerCopy didHardwareConfigurationChange:change];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)audioStreamProvider:(id)provider numSamplesAvailableInExclave:(unint64_t)exclave hostTime:(unint64_t)time arrivalHostTimeToAudioRecorder:(unint64_t)recorder exclaveSampleCount:(unint64_t)count
@@ -150,7 +146,7 @@
 
 - (void)audioStreamProvider:(id)provider didStopStreamUnexpectedly:(int64_t)unexpectedly
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   providerCopy = provider;
   [(CSAudioStream *)self setStreamingUUID:0];
   [(CSAudioStream *)self setStreaming:0];
@@ -160,9 +156,9 @@
     v8 = v7;
     name = [(CSAudioStream *)self name];
     *buf = 136315394;
-    v26 = "[CSAudioStream audioStreamProvider:didStopStreamUnexpectedly:]";
-    v27 = 2114;
-    v28 = name;
+    v25 = "[CSAudioStream audioStreamProvider:didStopStreamUnexpectedly:]";
+    v26 = 2114;
+    v27 = name;
     _os_log_impl(&dword_1DDA4B000, v8, OS_LOG_TYPE_DEFAULT, "%s AudioStream<%{public}@> has received didStopStreamUnexpectedly", buf, 0x16u);
   }
 
@@ -175,31 +171,31 @@
     [delegate2 audioStreamProvider:providerCopy didStopStreamUnexpectedly:unexpectedly];
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   tandemStreams = [(CSAudioStream *)self tandemStreams];
-  v14 = [tandemStreams countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v14 = [tandemStreams countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v21;
+    v16 = *v20;
     do
     {
       v17 = 0;
       do
       {
-        if (*v21 != v16)
+        if (*v20 != v16)
         {
           objc_enumerationMutation(tandemStreams);
         }
 
-        [*(*(&v20 + 1) + 8 * v17++) audioStreamProvider:providerCopy didStopStreamUnexpectedly:unexpectedly];
+        [*(*(&v19 + 1) + 8 * v17++) audioStreamProvider:providerCopy didStopStreamUnexpectedly:unexpectedly];
       }
 
       while (v15 != v17);
-      v15 = [tandemStreams countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v15 = [tandemStreams countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v15);
@@ -207,99 +203,129 @@
 
   tandemStreams2 = [(CSAudioStream *)self tandemStreams];
   [tandemStreams2 removeAllObjects];
+}
 
-  v19 = *MEMORY[0x1E69E9840];
+- (void)setScheduledFutureSample:(BOOL)sample
+{
+  sampleCopy = sample;
+  v14 = *MEMORY[0x1E69E9840];
+  self->_scheduledFutureSample = sample;
+  v9 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  tandemStreams = [(CSAudioStream *)self tandemStreams];
+  v5 = [tandemStreams countByEnumeratingWithState:&v9 objects:v13 count:16];
+  if (v5)
+  {
+    v6 = v5;
+    v7 = *v10;
+    do
+    {
+      v8 = 0;
+      do
+      {
+        if (*v10 != v7)
+        {
+          objc_enumerationMutation(tandemStreams);
+        }
+
+        [*(*(&v9 + 1) + 8 * v8++) setScheduledFutureSample:sampleCopy];
+      }
+
+      while (v6 != v8);
+      v6 = [tandemStreams countByEnumeratingWithState:&v9 objects:v13 count:16];
+    }
+
+    while (v6);
+  }
 }
 
 - (void)setStartStreamOption:(id)option
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   optionCopy = option;
   objc_storeStrong(&self->_startStreamOption, option);
   v6 = [[CSAudioStartStreamOption alloc] initTandemWithOption:optionCopy];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   tandemStreams = [(CSAudioStream *)self tandemStreams];
-  v8 = [tandemStreams countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [tandemStreams countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       v11 = 0;
       do
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(tandemStreams);
         }
 
-        [*(*(&v13 + 1) + 8 * v11++) setStartStreamOption:v6];
+        [*(*(&v12 + 1) + 8 * v11++) setStartStreamOption:v6];
       }
 
       while (v9 != v11);
-      v9 = [tandemStreams countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v9 = [tandemStreams countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v9);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateAudioStreamStartTimeInSampleCount:(unint64_t)count
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v5 = CSLogCategoryAudio;
   if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_DEFAULT))
   {
     v6 = v5;
     name = [(CSAudioStream *)self name];
     *buf = 136315650;
-    v20 = "[CSAudioStream updateAudioStreamStartTimeInSampleCount:]";
-    v21 = 2114;
-    v22 = name;
-    v23 = 2050;
+    v19 = "[CSAudioStream updateAudioStreamStartTimeInSampleCount:]";
+    v20 = 2114;
+    v21 = name;
+    v22 = 2050;
     countCopy = count;
     _os_log_impl(&dword_1DDA4B000, v6, OS_LOG_TYPE_DEFAULT, "%s Stream %{public}@ set startTimeInSampleCount : %{public}llu", buf, 0x20u);
   }
 
   self->_startSampleCount = count;
   self->_lastForwardedSampleCount = count;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   tandemStreams = [(CSAudioStream *)self tandemStreams];
-  v9 = [tandemStreams countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v9 = [tandemStreams countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v15;
+    v11 = *v14;
     do
     {
       v12 = 0;
       do
       {
-        if (*v15 != v11)
+        if (*v14 != v11)
         {
           objc_enumerationMutation(tandemStreams);
         }
 
-        [*(*(&v14 + 1) + 8 * v12++) updateAudioStreamStartTimeInSampleCount:count];
+        [*(*(&v13 + 1) + 8 * v12++) updateAudioStreamStartTimeInSampleCount:count];
       }
 
       while (v10 != v12);
-      v10 = [tandemStreams countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v10 = [tandemStreams countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v10);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isNarrowBand
@@ -346,7 +372,7 @@
 
 void __54__CSAudioStream_stopAudioStreamWithOption_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (a2)
   {
@@ -376,34 +402,34 @@ void __54__CSAudioStream_stopAudioStreamWithOption_completion___block_invoke(uin
       v12 = v10;
       v13 = [v11 tandemStreams];
       *buf = 136315394;
-      v29 = "[CSAudioStream stopAudioStreamWithOption:completion:]_block_invoke";
-      v30 = 2050;
-      v31 = [v13 count];
+      v28 = "[CSAudioStream stopAudioStreamWithOption:completion:]_block_invoke";
+      v29 = 2050;
+      v30 = [v13 count];
       _os_log_impl(&dword_1DDA4B000, v12, OS_LOG_TYPE_DEFAULT, "%s Delivering didStop to %{public}lu tandem stream(s)", buf, 0x16u);
     }
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v14 = [*(a1 + 32) tandemStreams];
-  v15 = [v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v24;
+    v17 = *v23;
     do
     {
       v18 = 0;
       do
       {
-        if (*v24 != v17)
+        if (*v23 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v23 + 1) + 8 * v18);
+        v19 = *(*(&v22 + 1) + 8 * v18);
         v20 = [*(a1 + 32) streamProvider];
         [v19 audioStreamProvider:v20 didStopStreamUnexpectedly:7];
 
@@ -411,7 +437,7 @@ void __54__CSAudioStream_stopAudioStreamWithOption_completion___block_invoke(uin
       }
 
       while (v16 != v18);
-      v16 = [v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v16);
@@ -419,13 +445,11 @@ void __54__CSAudioStream_stopAudioStreamWithOption_completion___block_invoke(uin
 
   v21 = [*(a1 + 32) tandemStreams];
   [v21 removeAllObjects];
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startAudioStreamWithOption:(id)option completion:(id)completion
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   optionCopy = option;
   completionCopy = completion;
   streamProvider = [(CSAudioStream *)self streamProvider];
@@ -438,22 +462,22 @@ void __54__CSAudioStream_stopAudioStreamWithOption_completion___block_invoke(uin
     if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v20 = "[CSAudioStream startAudioStreamWithOption:completion:]";
-      v21 = 2114;
-      v22 = uUID;
+      v19 = "[CSAudioStream startAudioStreamWithOption:completion:]";
+      v20 = 2114;
+      v21 = uUID;
       _os_log_impl(&dword_1DDA4B000, v10, OS_LOG_TYPE_DEFAULT, "%s Creating UUID for start audio stream request : %{public}@", buf, 0x16u);
     }
 
     streamProvider2 = [(CSAudioStream *)self streamProvider];
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __55__CSAudioStream_startAudioStreamWithOption_completion___block_invoke;
-    v15[3] = &unk_1E865B128;
-    v16 = uUID;
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __55__CSAudioStream_startAudioStreamWithOption_completion___block_invoke;
+    v14[3] = &unk_1E865B128;
+    v15 = uUID;
     selfCopy = self;
-    v18 = completionCopy;
+    v17 = completionCopy;
     v12 = uUID;
-    [streamProvider2 startAudioStream:self option:optionCopy completion:v15];
+    [streamProvider2 startAudioStream:self option:optionCopy completion:v14];
   }
 
   else if (completionCopy)
@@ -461,8 +485,6 @@ void __54__CSAudioStream_stopAudioStreamWithOption_completion___block_invoke(uin
     v13 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.corespeech" code:958 userInfo:0];
     (*(completionCopy + 2))(completionCopy, 0, v13);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __55__CSAudioStream_startAudioStreamWithOption_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -517,13 +539,13 @@ uint64_t __55__CSAudioStream_startAudioStreamWithOption_completion___block_invok
 
 - (CSAudioStream)initWithAudioStreamProvider:(id)provider streamName:(id)name streamRequest:(id)request
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   providerCopy = provider;
   nameCopy = name;
   requestCopy = request;
-  v23.receiver = self;
-  v23.super_class = CSAudioStream;
-  v11 = [(CSAudioStream *)&v23 init];
+  v22.receiver = self;
+  v22.super_class = CSAudioStream;
+  v11 = [(CSAudioStream *)&v22 init];
   v12 = v11;
   if (v11)
   {
@@ -547,14 +569,13 @@ uint64_t __55__CSAudioStream_startAudioStreamWithOption_completion___block_invok
       v19 = v18;
       name = [(CSAudioStream *)v12 name];
       *buf = 136315394;
-      v25 = "[CSAudioStream initWithAudioStreamProvider:streamName:streamRequest:]";
-      v26 = 2114;
-      v27 = name;
+      v24 = "[CSAudioStream initWithAudioStreamProvider:streamName:streamRequest:]";
+      v25 = 2114;
+      v26 = name;
       _os_log_impl(&dword_1DDA4B000, v19, OS_LOG_TYPE_DEFAULT, "%s stream %{public}@ initialized", buf, 0x16u);
     }
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v12;
 }
 

@@ -85,7 +85,7 @@
 - (void)awakeFromNib
 {
   selfCopy = self;
-  sub_10008A5CC();
+  sub_10008A5CC(selfCopy, v2);
 }
 
 - (void)configureForContentItem:(id)item
@@ -118,27 +118,27 @@
 
 - (void)prepareForReuse
 {
-  v4.receiver = self;
-  v4.super_class = type metadata accessor for FBAResponseHeaderCell();
-  v2 = v4.receiver;
-  [(FBAResponseHeaderCell *)&v4 prepareForReuse];
-  [v2 setSelectionStyle:{0, v4.receiver, v4.super_class}];
-  v3 = [v2 setAccessoryType:0];
+  v3.receiver = self;
+  v3.super_class = type metadata accessor for FBAResponseHeaderCell(self, a2);
+  v2 = v3.receiver;
+  [(FBAResponseHeaderCell *)&v3 prepareForReuse];
+  [v2 setSelectionStyle:{0, v3.receiver, v3.super_class}];
+  [v2 setAccessoryType:0];
   *(v2 + OBJC_IVAR____TtC18Feedback_Assistant21FBAResponseHeaderCell_roleState) = 0;
-  sub_100089B78(v3);
+  sub_100089B78();
 }
 
 - (int64_t)selectionStyle
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for FBAResponseHeaderCell();
+  v3.super_class = type metadata accessor for FBAResponseHeaderCell(self, a2);
   return [(FBAResponseHeaderCell *)&v3 selectionStyle];
 }
 
 - (void)setSelectionStyle:(int64_t)style
 {
   v6.receiver = self;
-  v6.super_class = type metadata accessor for FBAResponseHeaderCell();
+  v6.super_class = type metadata accessor for FBAResponseHeaderCell(self, a2);
   v4 = v6.receiver;
   [(FBAResponseHeaderCell *)&v6 setSelectionStyle:style];
   if ([v4 selectionStyle])

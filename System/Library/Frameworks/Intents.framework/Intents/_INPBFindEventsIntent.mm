@@ -3,6 +3,7 @@
 - (_INPBFindEventsIntent)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)requestedEventAttributeAsString:(int)string;
 - (int)StringAsRequestedEventAttribute:(id)attribute;
 - (unint64_t)hash;
 - (void)addParticipants:(id)participants;
@@ -17,7 +18,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   dateTimeRange = [(_INPBFindEventsIntent *)self dateTimeRange];
   dictionaryRepresentation = [dateTimeRange dictionaryRepresentation];
@@ -34,30 +35,30 @@
   if ([(NSArray *)self->_participants count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
     v11 = self->_participants;
-    v12 = [(NSArray *)v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v12 = [(NSArray *)v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v24;
+      v14 = *v23;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v24 != v14)
+          if (*v23 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          dictionaryRepresentation4 = [*(*(&v23 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation4 = [*(*(&v22 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation4];
         }
 
-        v13 = [(NSArray *)v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v13 = [(NSArray *)v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v13);
@@ -88,8 +89,6 @@
     v20 = [searchQuery copy];
     [dictionary setObject:v20 forKeyedSubscript:@"searchQuery"];
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -327,7 +326,7 @@ LABEL_32:
 
 - (void)writeTo:(id)to
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   toCopy = to;
   dateTimeRange = [(_INPBFindEventsIntent *)self dateTimeRange];
 
@@ -353,33 +352,32 @@ LABEL_32:
     PBDataWriterWriteSubmessage();
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
-  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v11 = self->_participants;
-  v12 = [(NSArray *)v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v12 = [(NSArray *)v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v22;
+    v14 = *v18;
     do
     {
       v15 = 0;
       do
       {
-        if (*v22 != v14)
+        if (*v18 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v21 + 1) + 8 * v15);
         PBDataWriterWriteSubmessage();
         ++v15;
       }
 
       while (v13 != v15);
-      v13 = [(NSArray *)v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v13 = [(NSArray *)v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v13);
@@ -387,7 +385,6 @@ LABEL_32:
 
   if ([(_INPBFindEventsIntent *)self hasRequestedEventAttribute])
   {
-    requestedEventAttribute = self->_requestedEventAttribute;
     PBDataWriterWriteInt32Field();
   }
 
@@ -395,11 +392,8 @@ LABEL_32:
 
   if (searchQuery)
   {
-    searchQuery = self->_searchQuery;
     PBDataWriterWriteStringField();
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setSearchQuery:(id)query
@@ -432,6 +426,21 @@ LABEL_32:
   else
   {
     v4 = 1;
+  }
+
+  return v4;
+}
+
+- (id)requestedEventAttributeAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E727F610[string - 1];
   }
 
   return v4;

@@ -124,7 +124,7 @@
   [v3 setObject:v15 forKeyedSubscript:@"errorCount"];
 
   [v3 setObject:&unk_283E753F8 forKeyedSubscript:@"isHH2EnabledCount"];
-  v16 = [v3 copy];
+  v16 = objc_msgSend_copy(v3);
 
   return v16;
 }

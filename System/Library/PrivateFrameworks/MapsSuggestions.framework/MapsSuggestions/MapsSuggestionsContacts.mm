@@ -775,7 +775,7 @@ void __52__MapsSuggestionsContacts_unregisterMeCardObserver___block_invoke(uint6
 
 void __48__MapsSuggestionsContacts__q_reloadWithHandler___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -786,11 +786,11 @@ void __48__MapsSuggestionsContacts__q_reloadWithHandler___block_invoke(uint64_t 
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
-      v26 = "MapsSuggestionsContacts.mm";
-      v27 = 1026;
-      v28 = 355;
-      v29 = 2082;
-      v30 = "[MapsSuggestionsContacts _q_reloadWithHandler:]_block_invoke";
+      v28 = "MapsSuggestionsContacts.mm";
+      v29 = 1026;
+      v30 = 355;
+      v31 = 2082;
+      v32 = "[MapsSuggestionsContacts _q_reloadWithHandler:]_block_invoke";
       _os_log_impl(&dword_1C5126000, v19, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: strongSelf went away in %{public}s", buf, 0x1Cu);
     }
 
@@ -804,7 +804,7 @@ void __48__MapsSuggestionsContacts__q_reloadWithHandler___block_invoke(uint64_t 
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v26 = v9;
+      v28 = v9;
       _os_log_impl(&dword_1C5126000, v11, OS_LOG_TYPE_ERROR, "Error loading Shortcuts from MeCard: %@", buf, 0xCu);
     }
 
@@ -839,32 +839,33 @@ LABEL_11:
 
   v19 = [WeakRetained[7] copy];
   (*(*(a1 + 32) + 16))();
-  if ([v19 hasHomeOrWorkOrSchool])
+  v20 = [v19 hasHomeOrWorkOrSchool];
+  if (v20)
   {
-    MapsSuggestionsSawHomeOrWorkOnThisDevice();
+    MapsSuggestionsSawHomeOrWorkOnThisDevice(v20, v21);
   }
 
   if (([v19 isEqualToMeCard:v16]& 1) == 0)
   {
-    v20 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+    v22 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v26 = v19;
-      _os_log_impl(&dword_1C5126000, v20, OS_LOG_TYPE_DEBUG, "New MeCard detected: %@", buf, 0xCu);
+      v28 = v19;
+      _os_log_impl(&dword_1C5126000, v22, OS_LOG_TYPE_DEBUG, "New MeCard detected: %@", buf, 0xCu);
     }
 
-    v21 = WeakRetained[6];
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __48__MapsSuggestionsContacts__q_reloadWithHandler___block_invoke_48;
-    v23[3] = &unk_1E81F5640;
-    v23[4] = WeakRetained;
-    v22 = v19;
-    v24 = v22;
-    [v21 callBlock:v23];
+    v23 = WeakRetained[6];
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __48__MapsSuggestionsContacts__q_reloadWithHandler___block_invoke_48;
+    v25[3] = &unk_1E81F5640;
+    v25[4] = WeakRetained;
+    v24 = v19;
+    v26 = v24;
+    [v23 callBlock:v25];
 
-    v19 = v22;
+    v19 = v24;
   }
 
 LABEL_20:

@@ -22,7 +22,7 @@
 - (void)updateConstraints
 {
   selfCopy = self;
-  sub_1004B7384();
+  sub_1004B7384(selfCopy);
 }
 
 - (NSString)accessibilityValue

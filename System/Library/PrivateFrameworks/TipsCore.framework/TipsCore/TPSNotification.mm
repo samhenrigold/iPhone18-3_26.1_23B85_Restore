@@ -16,22 +16,8 @@
   v12.receiver = self;
   v12.super_class = TPSNotification;
   v5 = [(TPSSerializableObject *)&v12 initWithDictionary:dictionaryCopy];
-  if (!v5)
+  if (!v5 || ([dictionaryCopy TPSSafeStringForKey:@"title"], v6 = objc_claimAutoreleasedReturnValue(), title = v5->_title, v5->_title = v6, title, objc_msgSend(dictionaryCopy, "TPSSafeStringForKey:", @"text"), v8 = objc_claimAutoreleasedReturnValue(), text = v5->_text, v5->_text = v8, text, -[NSString length](v5->_title, "length")) || -[NSString length](v5->_text, "length"))
   {
-    goto LABEL_4;
-  }
-
-  v6 = [dictionaryCopy TPSSafeStringForKey:@"title"];
-  title = v5->_title;
-  v5->_title = v6;
-
-  v8 = [dictionaryCopy TPSSafeStringForKey:@"text"];
-  text = v5->_text;
-  v5->_text = v8;
-
-  if ([(NSString *)v5->_title length]|| [(NSString *)v5->_text length])
-  {
-LABEL_4:
     v10 = v5;
   }
 
@@ -136,16 +122,16 @@ LABEL_4:
   return v5;
 }
 
-id __30__TPSNotification_na_identity__block_invoke()
+id __30__TPSNotification_na_identity__block_invoke(uint64_t a1)
 {
   if (TPSNotificationAssetsKey_block_invoke_na_once_token_0 != -1)
   {
     __30__TPSNotification_na_identity__block_invoke_cold_1();
   }
 
-  v1 = TPSNotificationAssetsKey_block_invoke_na_once_object_0;
+  v2 = TPSNotificationAssetsKey_block_invoke_na_once_object_0;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __30__TPSNotification_na_identity__block_invoke_2()

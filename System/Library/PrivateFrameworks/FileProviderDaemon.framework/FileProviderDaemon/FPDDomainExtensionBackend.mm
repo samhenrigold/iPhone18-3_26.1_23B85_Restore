@@ -2,6 +2,7 @@
 - (BOOL)isProviderForRealPathURL:(id)l;
 - (FPDDomainExtensionBackend)initWithDomain:(id)domain;
 - (NSArray)rootURLs;
+- (id)createIndexerWithExtension:(id)extension enabled:(BOOL)enabled error:(id *)error;
 - (id)createRootByImportingURL:(id)l knownFolders:(id)folders error:(id *)error;
 - (id)evictItemAtURL:(id)l evictionReason:(unsigned int)reason request:(id)request completionHandler:(id)handler;
 - (id)newFileProviderProxyWithTimeoutValue:(double)value request:(id)request;
@@ -95,7 +96,7 @@
 
 - (void)invalidate
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (!self->_invalidated)
   {
     WeakRetained = objc_loadWeakRetained(&self->_domain);
@@ -121,9 +122,9 @@
       v9 = objc_loadWeakRetained(&self->_domain);
       providerDomainID = [v9 providerDomainID];
       fp_obfuscatedProviderDomainID = [providerDomainID fp_obfuscatedProviderDomainID];
-      v13 = 138412290;
-      v14 = fp_obfuscatedProviderDomainID;
-      _os_log_impl(&dword_1CEFC7000, v8, OS_LOG_TYPE_INFO, "[INFO] ♻️  invalidating extension backend for %@", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = fp_obfuscatedProviderDomainID;
+      _os_log_impl(&dword_1CEFC7000, v8, OS_LOG_TYPE_INFO, "[INFO] ♻️  invalidating extension backend for %@", &v12, 0xCu);
     }
 
     [(NSMutableDictionary *)self->_provideFileCompletionsByURL enumerateKeysAndObjectsUsingBlock:&__block_literal_global_97];
@@ -131,13 +132,11 @@
     objc_storeWeak(&self->_domain, 0);
     self->_invalidated = 1;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __39__FPDDomainExtensionBackend_invalidate__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v4 = a2;
   v5 = a3;
   v6 = fp_current_or_default_log();
@@ -145,47 +144,45 @@ void __39__FPDDomainExtensionBackend_invalidate__block_invoke(uint64_t a1, void 
   {
     v7 = [v4 fp_shortDescription];
     *buf = 138412290;
-    v21 = v7;
+    v20 = v7;
     _os_log_impl(&dword_1CEFC7000, v6, OS_LOG_TYPE_INFO, "[INFO] ❌  Cancelling request for %@ due to invalidation", buf, 0xCu);
   }
 
   v8 = FPUserCancelledError();
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v9 = [v5 objectEnumerator];
-  v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v16;
+    v12 = *v15;
     do
     {
       v13 = 0;
       do
       {
-        if (*v16 != v12)
+        if (*v15 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        (*(*(*(&v15 + 1) + 8 * v13++) + 16))();
+        (*(*(*(&v14 + 1) + 8 * v13++) + 16))();
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v11);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isProviderForRealPathURL:(id)l
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   lCopy = l;
   WeakRetained = objc_loadWeakRetained(&self->_domain);
   provider = [WeakRetained provider];
@@ -202,32 +199,32 @@ void __39__FPDDomainExtensionBackend_invalidate__block_invoke(uint64_t a1, void 
     coordinationRootURLs = [(FPDDomainExtensionBackend *)self coordinationRootURLs];
     v13 = [coordinationRootURLs mutableCopy];
 
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v14 = v13;
-    v11 = [v14 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v11 = [v14 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v11)
     {
-      v15 = *v20;
+      v15 = *v19;
       while (2)
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v20 != v15)
+          if (*v19 != v15)
           {
             objc_enumerationMutation(v14);
           }
 
-          if ([*(*(&v19 + 1) + 8 * i) fp_realPathRelationshipToItemAtRealPathURL:{lCopy, v19}] < 2)
+          if ([*(*(&v18 + 1) + 8 * i) fp_realPathRelationshipToItemAtRealPathURL:{lCopy, v18}] < 2)
           {
             LOBYTE(v11) = 1;
             goto LABEL_14;
           }
         }
 
-        v11 = [v14 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v11 = [v14 countByEnumeratingWithState:&v18 objects:v22 count:16];
         if (v11)
         {
           continue;
@@ -240,7 +237,6 @@ void __39__FPDDomainExtensionBackend_invalidate__block_invoke(uint64_t a1, void 
 LABEL_14:
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -299,119 +295,68 @@ LABEL_14:
 {
   lCopy = l;
   requestCopy = request;
+  v13 = lCopy;
   handlerCopy = handler;
-  queue = self->_queue;
-  v16 = requestCopy;
-  v17 = lCopy;
-  v18 = handlerCopy;
-  v13 = handlerCopy;
-  v14 = lCopy;
-  v15 = requestCopy;
+  v9 = handlerCopy;
+  v10 = lCopy;
+  v11 = requestCopy;
   fp_dispatch_async_with_logs();
 }
 
-void __74__FPDDomainExtensionBackend_itemForURL_options_request_completionHandler___block_invoke(uint64_t a1)
+void __74__FPDDomainExtensionBackend_itemForURL_options_request_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = fp_current_or_default_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = fp_current_or_default_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __74__FPDDomainExtensionBackend_itemForURL_options_request_completionHandler___block_invoke_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+    __74__FPDDomainExtensionBackend_itemForURL_options_request_completionHandler___block_invoke_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
   }
 
-  v10 = [*(a1 + 32) newFileProviderProxyWithRequest:*(a1 + 40)];
-  v11 = *(a1 + 48);
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __74__FPDDomainExtensionBackend_itemForURL_options_request_completionHandler___block_invoke_248;
-  v14[3] = &unk_1E83BE530;
-  v12 = v11;
-  v13 = *(a1 + 32);
-  v15 = v12;
+  v11 = [*(a1 + 32) newFileProviderProxyWithRequest:*(a1 + 40)];
+  v12 = *(a1 + 48);
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __74__FPDDomainExtensionBackend_itemForURL_options_request_completionHandler___block_invoke_248;
+  v15[3] = &unk_1E83BE530;
+  v13 = v12;
+  v14 = *(a1 + 32);
   v16 = v13;
-  v17 = *(a1 + 56);
-  [v10 itemForURL:v12 completionHandler:v14];
-}
-
-void __74__FPDDomainExtensionBackend_itemForURL_options_request_completionHandler___block_invoke_248(uint64_t a1, void *a2, void *a3)
-{
-  v5 = a2;
-  v6 = a3;
-  if (v6)
-  {
-    v7 = fp_current_or_default_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
-    {
-      __74__FPDDomainExtensionBackend_itemForURL_options_request_completionHandler___block_invoke_248_cold_1(a1, v6, v7);
-    }
-  }
-
-  (*(*(a1 + 48) + 16))();
+  v17 = v14;
+  v18 = *(a1 + 56);
+  [v11 itemForURL:v13 completionHandler:v15];
 }
 
 - (void)itemIDForURL:(id)l requireProviderItemID:(BOOL)d request:(id)request completionHandler:(id)handler
 {
   lCopy = l;
   requestCopy = request;
+  v13 = lCopy;
   handlerCopy = handler;
-  queue = self->_queue;
-  v16 = requestCopy;
-  v17 = lCopy;
-  v18 = handlerCopy;
-  v13 = handlerCopy;
-  v14 = lCopy;
-  v15 = requestCopy;
+  v9 = handlerCopy;
+  v10 = lCopy;
+  v11 = requestCopy;
   fp_dispatch_async_with_logs();
 }
 
-void __90__FPDDomainExtensionBackend_itemIDForURL_requireProviderItemID_request_completionHandler___block_invoke(uint64_t a1)
+void __90__FPDDomainExtensionBackend_itemIDForURL_requireProviderItemID_request_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = fp_current_or_default_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = fp_current_or_default_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __90__FPDDomainExtensionBackend_itemIDForURL_requireProviderItemID_request_completionHandler___block_invoke_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+    __90__FPDDomainExtensionBackend_itemIDForURL_requireProviderItemID_request_completionHandler___block_invoke_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
   }
 
-  v10 = [*(a1 + 32) newFileProviderProxyWithRequest:*(a1 + 40)];
-  v11 = *(a1 + 48);
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __90__FPDDomainExtensionBackend_itemIDForURL_requireProviderItemID_request_completionHandler___block_invoke_251;
-  v14[3] = &unk_1E83BE558;
-  v12 = v11;
-  v13 = *(a1 + 32);
-  v15 = v12;
+  v11 = [*(a1 + 32) newFileProviderProxyWithRequest:*(a1 + 40)];
+  v12 = *(a1 + 48);
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __90__FPDDomainExtensionBackend_itemIDForURL_requireProviderItemID_request_completionHandler___block_invoke_251;
+  v15[3] = &unk_1E83BE558;
+  v13 = v12;
+  v14 = *(a1 + 32);
   v16 = v13;
-  v17 = *(a1 + 56);
-  [v10 identifierForItemAtURL:v12 completionHandler:v14];
-}
-
-void __90__FPDDomainExtensionBackend_itemIDForURL_requireProviderItemID_request_completionHandler___block_invoke_251(uint64_t a1, void *a2, void *a3)
-{
-  v5 = a2;
-  v6 = a3;
-  v7 = fp_current_or_default_log();
-  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
-  if (v6)
-  {
-    if (v8)
-    {
-      __90__FPDDomainExtensionBackend_itemIDForURL_requireProviderItemID_request_completionHandler___block_invoke_251_cold_1(a1, v6, v7);
-    }
-
-    v9 = *(a1 + 48);
-    v10 = FPPluginOperationFailedError();
-    (*(v9 + 16))(v9, 0, v10);
-  }
-
-  else
-  {
-    if (v8)
-    {
-      __90__FPDDomainExtensionBackend_itemIDForURL_requireProviderItemID_request_completionHandler___block_invoke_251_cold_2(v5, a1, v7);
-    }
-
-    (*(*(a1 + 48) + 16))();
-  }
+  v17 = v14;
+  v18 = *(a1 + 56);
+  [v11 identifierForItemAtURL:v13 completionHandler:v15];
 }
 
 - (void)putBackURLForTrashedItemAtURL:(id)l request:(id)request completionHandler:(id)handler
@@ -501,7 +446,7 @@ void __71__FPDDomainExtensionBackend__cancelProvidingItemAtURL_withKey_request__
 
 - (id)startProvidingItemAtURL:(id)l readerID:(id)d readingOptions:(unint64_t)options request:(id)request completionHandler:(id)handler
 {
-  v85 = *MEMORY[0x1E69E9840];
+  v83 = *MEMORY[0x1E69E9840];
   lCopy = l;
   dCopy = d;
   requestCopy = request;
@@ -524,12 +469,12 @@ void __71__FPDDomainExtensionBackend__cancelProvidingItemAtURL_withKey_request__
   serialQueue = [WeakRetained serialQueue];
 
   v23 = objc_loadWeakRetained(&self->_domain);
-  v61 = [v23 log];
+  v59 = [v23 log];
 
   mEMORY[0x1E69DF068] = [MEMORY[0x1E69DF068] sharedManager];
   currentPersona = [mEMORY[0x1E69DF068] currentPersona];
 
-  v80 = 0;
+  v78 = 0;
   userPersonaUniqueString = [currentPersona userPersonaUniqueString];
   v25 = objc_loadWeakRetained(&self->_domain);
   nsDomain = [v25 nsDomain];
@@ -551,11 +496,11 @@ LABEL_17:
 
   if ((v32 & 1) == 0 && voucher_process_can_use_arbitrary_personas())
   {
-    v79 = 0;
-    v33 = [currentPersona copyCurrentPersonaContextWithError:&v79];
-    v34 = v79;
-    v35 = v80;
-    v80 = v33;
+    v77 = 0;
+    v33 = [currentPersona copyCurrentPersonaContextWithError:&v77];
+    v34 = v77;
+    v35 = v78;
+    v78 = v33;
 
     if (v34)
     {
@@ -583,9 +528,9 @@ LABEL_17:
       nsDomain4 = [v41 nsDomain];
       personaIdentifier4 = [nsDomain4 personaIdentifier];
       *buf = 138412546;
-      v82 = personaIdentifier4;
-      v83 = 2112;
-      v84 = v40;
+      v80 = personaIdentifier4;
+      v81 = 2112;
+      v82 = v40;
       _os_log_error_impl(&dword_1CEFC7000, v25, OS_LOG_TYPE_ERROR, "[ERROR] Can't adopt persona %@: %@", buf, 0x16u);
     }
 
@@ -618,29 +563,29 @@ LABEL_18:
 
     [v21 setCancellable:1];
     objc_initWeak(buf, self);
-    v72[0] = MEMORY[0x1E69E9820];
-    v72[1] = 3221225472;
-    v72[2] = __103__FPDDomainExtensionBackend_startProvidingItemAtURL_readerID_readingOptions_request_completionHandler___block_invoke;
-    v72[3] = &unk_1E83BE5D0;
-    objc_copyWeak(&v78, buf);
-    v60 = handlerCopy;
+    v70[0] = MEMORY[0x1E69E9820];
+    v70[1] = 3221225472;
+    v70[2] = __103__FPDDomainExtensionBackend_startProvidingItemAtURL_readerID_readingOptions_request_completionHandler___block_invoke;
+    v70[3] = &unk_1E83BE5D0;
+    objc_copyWeak(&v76, buf);
+    v58 = handlerCopy;
     v48 = serialQueue;
     v49 = serialQueue;
-    v73 = v49;
-    v50 = v61;
-    v74 = v50;
+    v71 = v49;
+    v50 = v59;
+    v72 = v50;
     v51 = lCopy;
-    v75 = v51;
-    v59 = v44;
-    v76 = v59;
+    v73 = v51;
+    v57 = v44;
+    v74 = v57;
     v52 = requestCopy;
-    v77 = v52;
-    [v21 setCancellationHandler:v72];
+    v75 = v52;
+    [v21 setCancellationHandler:v70];
     if (v46)
     {
       v53 = fp_current_or_default_log();
       serialQueue = v48;
-      handlerCopy = v60;
+      handlerCopy = v58;
       if (os_log_type_enabled(v53, OS_LOG_TYPE_DEBUG))
       {
         [FPDDomainExtensionBackend startProvidingItemAtURL:readerID:readingOptions:request:completionHandler:];
@@ -651,26 +596,23 @@ LABEL_18:
 
     else
     {
-      queue = self->_queue;
-      v68 = v52;
-      v69 = v51;
-      v70 = v49;
-      v71 = v50;
+      v66 = v52;
+      v67 = v51;
+      v68 = v49;
+      v69 = v50;
       fp_dispatch_async_with_logs();
-      v56 = v21;
+      v55 = v21;
 
       serialQueue = v48;
-      handlerCopy = v60;
+      handlerCopy = v58;
     }
 
-    objc_destroyWeak(&v78);
+    objc_destroyWeak(&v76);
     objc_destroyWeak(buf);
   }
 
   _FPRestorePersona();
 LABEL_29:
-
-  v57 = *MEMORY[0x1E69E9840];
 
   return v21;
 }
@@ -694,35 +636,34 @@ void __103__FPDDomainExtensionBackend_startProvidingItemAtURL_readerID_readingOp
 
 void __103__FPDDomainExtensionBackend_startProvidingItemAtURL_readerID_readingOptions_request_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = fpfs_adopt_log();
+  v2 = fpfs_adopt_log();
   [*(a1 + 40) _cancelProvidingItemAtURL:*(a1 + 48) withKey:*(a1 + 56) request:*(a1 + 64)];
   __fp_pop_log();
 }
 
-void __103__FPDDomainExtensionBackend_startProvidingItemAtURL_readerID_readingOptions_request_completionHandler___block_invoke_257(uint64_t a1)
+void __103__FPDDomainExtensionBackend_startProvidingItemAtURL_readerID_readingOptions_request_completionHandler___block_invoke_257(uint64_t a1, uint64_t a2)
 {
-  v2 = fp_current_or_default_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = fp_current_or_default_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __103__FPDDomainExtensionBackend_startProvidingItemAtURL_readerID_readingOptions_request_completionHandler___block_invoke_257_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+    __103__FPDDomainExtensionBackend_startProvidingItemAtURL_readerID_readingOptions_request_completionHandler___block_invoke_257_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
   }
 
-  v10 = [*(a1 + 32) newFileProviderProxyWithTimeoutValue:*(a1 + 40) request:-1.0];
-  v11 = *(a1 + 72);
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __103__FPDDomainExtensionBackend_startProvidingItemAtURL_readerID_readingOptions_request_completionHandler___block_invoke_258;
-  v15[3] = &unk_1E83BE620;
-  v12 = *(a1 + 48);
-  v16 = *(a1 + 56);
-  v17 = *(a1 + 64);
+  v11 = [*(a1 + 32) newFileProviderProxyWithTimeoutValue:*(a1 + 40) request:-1.0];
+  v12 = *(a1 + 72);
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __103__FPDDomainExtensionBackend_startProvidingItemAtURL_readerID_readingOptions_request_completionHandler___block_invoke_258;
+  v16[3] = &unk_1E83BE620;
   v13 = *(a1 + 48);
-  v14 = *(a1 + 32);
-  v18 = v13;
+  v17 = *(a1 + 56);
+  v18 = *(a1 + 64);
+  v14 = *(a1 + 48);
+  v15 = *(a1 + 32);
   v19 = v14;
-  v20 = *(a1 + 80);
-  [v10 startProvidingItemAtURL:v12 readingOptions:v11 completionHandler:v15];
+  v20 = v15;
+  v21 = *(a1 + 80);
+  [v11 startProvidingItemAtURL:v13 readingOptions:v12 completionHandler:v16];
 }
 
 void __103__FPDDomainExtensionBackend_startProvidingItemAtURL_readerID_readingOptions_request_completionHandler___block_invoke_258(uint64_t a1, void *a2)
@@ -747,104 +688,102 @@ void __103__FPDDomainExtensionBackend_startProvidingItemAtURL_readerID_readingOp
 
 void __103__FPDDomainExtensionBackend_startProvidingItemAtURL_readerID_readingOptions_request_completionHandler___block_invoke_2_259(uint64_t a1)
 {
-  v32 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
-  v27 = fpfs_adopt_log();
+  v29 = *MEMORY[0x1E69E9840];
+  v24 = fpfs_adopt_log();
   section = __fp_create_section();
-  v3 = fp_current_or_default_log();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  v2 = fp_current_or_default_log();
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v4 = [*(a1 + 40) fp_shortDescription];
-    __103__FPDDomainExtensionBackend_startProvidingItemAtURL_readerID_readingOptions_request_completionHandler___block_invoke_2_259_cold_1(v4, v31, section, v3);
+    v3 = [*(a1 + 40) fp_shortDescription];
+    __103__FPDDomainExtensionBackend_startProvidingItemAtURL_readerID_readingOptions_request_completionHandler___block_invoke_2_259_cold_1(v3, v28, section, v2);
   }
 
   WeakRetained = objc_loadWeakRetained((*(a1 + 48) + 8));
-  v6 = WeakRetained == 0;
+  v5 = WeakRetained == 0;
 
-  if (v6)
+  if (v5)
   {
-    v11 = fp_current_or_default_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v10 = fp_current_or_default_log();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       __103__FPDDomainExtensionBackend_startProvidingItemAtURL_readerID_readingOptions_request_completionHandler___block_invoke_2_259_cold_4();
     }
 
     if ([*(*(a1 + 48) + 32) count])
     {
-      v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[ASSERT] ‼️ Should not have any open requests"];
-      v13 = fp_current_or_default_log();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+      v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[ASSERT] ‼️ Should not have any open requests"];
+      v12 = fp_current_or_default_log();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
       {
         __103__FPDDomainExtensionBackend_startProvidingItemAtURL_readerID_readingOptions_request_completionHandler___block_invoke_2_259_cold_5();
       }
 
-      v14 = v12;
-      __assert_rtn("-[FPDDomainExtensionBackend startProvidingItemAtURL:readerID:readingOptions:request:completionHandler:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/FileProviderTools/fileproviderd/FPDDomainExtensionBackend.m", 433, [v12 UTF8String]);
+      v13 = v11;
+      __assert_rtn("-[FPDDomainExtensionBackend startProvidingItemAtURL:readerID:readingOptions:request:completionHandler:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/FileProviderTools/fileproviderd/FPDDomainExtensionBackend.m", 433, [v11 UTF8String]);
     }
   }
 
   else
   {
-    v7 = [*(*(a1 + 48) + 32) objectForKeyedSubscript:*(a1 + 40)];
-    if (v7)
+    v6 = [*(*(a1 + 48) + 32) objectForKeyedSubscript:*(a1 + 40)];
+    if (v6)
     {
       [*(*(a1 + 48) + 32) setObject:0 forKeyedSubscript:*(a1 + 40)];
       if (*(a1 + 56))
       {
-        v8 = fp_current_or_default_log();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        v7 = fp_current_or_default_log();
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
         {
-          v9 = [*(a1 + 40) fp_shortDescription];
-          v10 = [*(a1 + 56) fp_prettyDescription];
-          __103__FPDDomainExtensionBackend_startProvidingItemAtURL_readerID_readingOptions_request_completionHandler___block_invoke_2_259_cold_2(v9, v10, buf, v8);
+          v8 = [*(a1 + 40) fp_shortDescription];
+          v9 = [*(a1 + 56) fp_prettyDescription];
+          __103__FPDDomainExtensionBackend_startProvidingItemAtURL_readerID_readingOptions_request_completionHandler___block_invoke_2_259_cold_2(v8, v9, buf, v7);
         }
       }
 
       else
       {
-        v8 = fp_current_or_default_log();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+        v7 = fp_current_or_default_log();
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
         {
-          v16 = [*(a1 + 40) fp_shortDescription];
+          v15 = [*(a1 + 40) fp_shortDescription];
           *buf = 138412290;
-          v30 = v16;
-          _os_log_impl(&dword_1CEFC7000, v8, OS_LOG_TYPE_INFO, "[INFO] ✅ item %@ provided", buf, 0xCu);
+          v27 = v15;
+          _os_log_impl(&dword_1CEFC7000, v7, OS_LOG_TYPE_INFO, "[INFO] ✅ item %@ provided", buf, 0xCu);
         }
       }
 
-      v24 = 0u;
-      v25 = 0u;
+      v21 = 0u;
       v22 = 0u;
-      v23 = 0u;
-      v15 = [v7 objectEnumerator];
-      v17 = [v15 countByEnumeratingWithState:&v22 objects:v28 count:16];
-      if (v17)
+      v19 = 0u;
+      v20 = 0u;
+      v14 = [v6 objectEnumerator];
+      v16 = [v14 countByEnumeratingWithState:&v19 objects:v25 count:16];
+      if (v16)
       {
-        v18 = *v23;
+        v17 = *v20;
         do
         {
-          for (i = 0; i != v17; ++i)
+          for (i = 0; i != v16; ++i)
           {
-            if (*v23 != v18)
+            if (*v20 != v17)
             {
-              objc_enumerationMutation(v15);
+              objc_enumerationMutation(v14);
             }
 
-            v20 = *(a1 + 56);
-            (*(*(*(&v22 + 1) + 8 * i) + 16))();
+            (*(*(*(&v19 + 1) + 8 * i) + 16))();
           }
 
-          v17 = [v15 countByEnumeratingWithState:&v22 objects:v28 count:16];
+          v16 = [v14 countByEnumeratingWithState:&v19 objects:v25 count:16];
         }
 
-        while (v17);
+        while (v16);
       }
     }
 
     else
     {
-      v15 = fp_current_or_default_log();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      v14 = fp_current_or_default_log();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
         __103__FPDDomainExtensionBackend_startProvidingItemAtURL_readerID_readingOptions_request_completionHandler___block_invoke_2_259_cold_3();
       }
@@ -853,8 +792,6 @@ void __103__FPDDomainExtensionBackend_startProvidingItemAtURL_readerID_readingOp
 
   __fp_leave_section_Debug();
   __fp_pop_log();
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)createItemBasedOnTemplate:(id)template fields:(unint64_t)fields urlWrapper:(id)wrapper options:(unint64_t)options bounceOnCollision:(BOOL)collision request:(id)request completionHandler:(id)handler
@@ -862,40 +799,37 @@ void __103__FPDDomainExtensionBackend_startProvidingItemAtURL_readerID_readingOp
   templateCopy = template;
   wrapperCopy = wrapper;
   requestCopy = request;
+  v18 = templateCopy;
   handlerCopy = handler;
-  queue = self->_queue;
-  v21 = requestCopy;
-  v22 = templateCopy;
-  v23 = handlerCopy;
-  v17 = handlerCopy;
-  v18 = wrapperCopy;
-  v19 = templateCopy;
-  v20 = requestCopy;
+  v13 = handlerCopy;
+  v14 = wrapperCopy;
+  v15 = templateCopy;
+  v16 = requestCopy;
   fp_dispatch_async_with_logs();
 }
 
-void __125__FPDDomainExtensionBackend_createItemBasedOnTemplate_fields_urlWrapper_options_bounceOnCollision_request_completionHandler___block_invoke(uint64_t a1)
+void __125__FPDDomainExtensionBackend_createItemBasedOnTemplate_fields_urlWrapper_options_bounceOnCollision_request_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = fp_current_or_default_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = fp_current_or_default_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __125__FPDDomainExtensionBackend_createItemBasedOnTemplate_fields_urlWrapper_options_bounceOnCollision_request_completionHandler___block_invoke_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+    __125__FPDDomainExtensionBackend_createItemBasedOnTemplate_fields_urlWrapper_options_bounceOnCollision_request_completionHandler___block_invoke_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
   }
 
-  v10 = [*(a1 + 32) newFileProviderProxyWithTimeoutValue:*(a1 + 40) request:-1.0];
-  v11 = *(a1 + 48);
-  v12 = *(a1 + 56);
-  v13 = *(a1 + 72);
-  v14 = *(a1 + 80);
-  v15 = [*(a1 + 32) nsfpRequest:*(a1 + 40)];
-  v16 = *(a1 + 88);
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __125__FPDDomainExtensionBackend_createItemBasedOnTemplate_fields_urlWrapper_options_bounceOnCollision_request_completionHandler___block_invoke_264;
-  v18[3] = &unk_1E83BE670;
-  v19 = *(a1 + 48);
-  v20 = *(a1 + 64);
-  v17 = [v10 createItemBasedOnTemplate:v11 fields:v13 contents:v12 options:v14 request:v15 bounce:v16 completionHandler:v18];
+  v11 = [*(a1 + 32) newFileProviderProxyWithTimeoutValue:*(a1 + 40) request:-1.0];
+  v12 = *(a1 + 48);
+  v13 = *(a1 + 56);
+  v14 = *(a1 + 72);
+  v15 = *(a1 + 80);
+  v16 = [*(a1 + 32) nsfpRequest:*(a1 + 40)];
+  v17 = *(a1 + 88);
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __125__FPDDomainExtensionBackend_createItemBasedOnTemplate_fields_urlWrapper_options_bounceOnCollision_request_completionHandler___block_invoke_264;
+  v19[3] = &unk_1E83BE670;
+  v20 = *(a1 + 48);
+  v21 = *(a1 + 64);
+  v18 = [v11 createItemBasedOnTemplate:v12 fields:v14 contents:v13 options:v15 request:v16 bounce:v17 completionHandler:v19];
 }
 
 void __125__FPDDomainExtensionBackend_createItemBasedOnTemplate_fields_urlWrapper_options_bounceOnCollision_request_completionHandler___block_invoke_264(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6)
@@ -931,36 +865,33 @@ void __125__FPDDomainExtensionBackend_createItemBasedOnTemplate_fields_urlWrappe
 {
   lCopy = l;
   requestCopy = request;
-  handlerCopy = handler;
-  queue = self->_queue;
-  v17 = requestCopy;
-  v18 = lCopy;
-  v19 = handlerCopy;
-  v13 = handlerCopy;
   v14 = lCopy;
-  v15 = requestCopy;
+  handlerCopy = handler;
+  v9 = handlerCopy;
+  v10 = lCopy;
+  v11 = requestCopy;
   fp_dispatch_async_with_logs();
 
   return 0;
 }
 
-void __85__FPDDomainExtensionBackend_evictItemAtURL_evictionReason_request_completionHandler___block_invoke(uint64_t a1)
+void __85__FPDDomainExtensionBackend_evictItemAtURL_evictionReason_request_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = fp_current_or_default_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = fp_current_or_default_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __85__FPDDomainExtensionBackend_evictItemAtURL_evictionReason_request_completionHandler___block_invoke_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+    __85__FPDDomainExtensionBackend_evictItemAtURL_evictionReason_request_completionHandler___block_invoke_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
   }
 
-  v10 = [*(a1 + 32) newFileProviderProxyWithTimeoutValue:*(a1 + 40) request:-1.0];
-  v11 = *(a1 + 48);
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __85__FPDDomainExtensionBackend_evictItemAtURL_evictionReason_request_completionHandler___block_invoke_266;
-  v12[3] = &unk_1E83BE6C0;
-  v13 = v11;
-  v14 = *(a1 + 56);
-  [v10 evictItemAtURL:v13 completionHandler:v12];
+  v11 = [*(a1 + 32) newFileProviderProxyWithTimeoutValue:*(a1 + 40) request:-1.0];
+  v12 = *(a1 + 48);
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __85__FPDDomainExtensionBackend_evictItemAtURL_evictionReason_request_completionHandler___block_invoke_266;
+  v13[3] = &unk_1E83BE6C0;
+  v14 = v12;
+  v15 = *(a1 + 56);
+  [v11 evictItemAtURL:v14 completionHandler:v13];
 }
 
 void __85__FPDDomainExtensionBackend_evictItemAtURL_evictionReason_request_completionHandler___block_invoke_266(uint64_t a1, void *a2, void *a3)
@@ -997,47 +928,43 @@ void __85__FPDDomainExtensionBackend_evictItemAtURL_evictionReason_request_compl
   dCopy = d;
   requestCopy = request;
   handlerCopy = handler;
-  queue = self->_queue;
-  v16 = requestCopy;
-  v17 = handlerCopy;
-  v13 = handlerCopy;
-  v14 = requestCopy;
-  v15 = dCopy;
+  v9 = handlerCopy;
+  v10 = requestCopy;
+  v11 = dCopy;
   fp_dispatch_async_with_logs();
 }
 
-void __86__FPDDomainExtensionBackend_evictItemWithID_evictionReason_request_completionHandler___block_invoke(uint64_t a1)
+void __86__FPDDomainExtensionBackend_evictItemWithID_evictionReason_request_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = fp_current_or_default_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = fp_current_or_default_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __86__FPDDomainExtensionBackend_evictItemWithID_evictionReason_request_completionHandler___block_invoke_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+    __86__FPDDomainExtensionBackend_evictItemWithID_evictionReason_request_completionHandler___block_invoke_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
   }
 
-  v10 = *(a1 + 32);
-  v11 = *(a1 + 40);
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __86__FPDDomainExtensionBackend_evictItemWithID_evictionReason_request_completionHandler___block_invoke_267;
-  v15[3] = &unk_1E83BE710;
-  v12 = *(a1 + 48);
-  v13 = *(a1 + 56);
-  v14 = *(a1 + 32);
-  v17 = v13;
-  v15[4] = v14;
-  v18 = *(a1 + 64);
-  v16 = *(a1 + 48);
-  [v10 URLForItemID:v11 creatingPlaceholderIfMissing:0 ignoreAlternateContentsURL:1 forBookmarkResolution:0 request:v12 completionHandler:v15];
+  v11 = *(a1 + 32);
+  v12 = *(a1 + 40);
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __86__FPDDomainExtensionBackend_evictItemWithID_evictionReason_request_completionHandler___block_invoke_267;
+  v16[3] = &unk_1E83BE710;
+  v13 = *(a1 + 48);
+  v14 = *(a1 + 56);
+  v15 = *(a1 + 32);
+  v18 = v14;
+  v16[4] = v15;
+  v19 = *(a1 + 64);
+  v17 = *(a1 + 48);
+  [v11 URLForItemID:v12 creatingPlaceholderIfMissing:0 ignoreAlternateContentsURL:1 forBookmarkResolution:0 request:v13 completionHandler:v16];
 }
 
 void __86__FPDDomainExtensionBackend_evictItemWithID_evictionReason_request_completionHandler___block_invoke_267(uint64_t a1, uint64_t a2, void *a3)
 {
   if (a2 || !a3)
   {
-    v9 = *(a1 + 48);
-    v10 = *(*(a1 + 48) + 16);
+    v9 = *(*(a1 + 48) + 16);
 
-    v10();
+    v9();
   }
 
   else
@@ -1045,13 +972,13 @@ void __86__FPDDomainExtensionBackend_evictItemWithID_evictionReason_request_comp
     v4 = *(a1 + 32);
     v5 = [a3 url];
     v6 = *(a1 + 56);
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __86__FPDDomainExtensionBackend_evictItemWithID_evictionReason_request_completionHandler___block_invoke_2;
-    v11[3] = &unk_1E83BE6E8;
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __86__FPDDomainExtensionBackend_evictItemWithID_evictionReason_request_completionHandler___block_invoke_2;
+    v10[3] = &unk_1E83BE6E8;
     v7 = *(a1 + 40);
-    v12 = *(a1 + 48);
-    v8 = [v4 evictItemAtURL:v5 evictionReason:v6 request:v7 completionHandler:v11];
+    v11 = *(a1 + 48);
+    v8 = [v4 evictItemAtURL:v5 evictionReason:v6 request:v7 completionHandler:v10];
   }
 }
 
@@ -1066,41 +993,39 @@ void __86__FPDDomainExtensionBackend_evictItemWithID_evictionReason_request_comp
 {
   lCopy = l;
   requestCopy = request;
-  queue = self->_queue;
-  v11 = requestCopy;
-  v9 = lCopy;
-  v10 = requestCopy;
+  v6 = lCopy;
+  v7 = requestCopy;
   fp_dispatch_async_with_logs();
 }
 
-void __54__FPDDomainExtensionBackend_itemChangedAtURL_request___block_invoke(uint64_t a1)
+void __54__FPDDomainExtensionBackend_itemChangedAtURL_request___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = fp_current_or_default_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = fp_current_or_default_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __54__FPDDomainExtensionBackend_itemChangedAtURL_request___block_invoke_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+    __54__FPDDomainExtensionBackend_itemChangedAtURL_request___block_invoke_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
   }
 
-  v10 = [*(a1 + 32) newFileProviderProxyWithRequest:*(a1 + 40)];
-  v11 = *(a1 + 48);
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __54__FPDDomainExtensionBackend_itemChangedAtURL_request___block_invoke_269;
-  v12[3] = &unk_1E83BE760;
-  v12[4] = *(a1 + 32);
-  v13 = v11;
-  [v10 itemChangedAtURL:v13 completionHandler:v12];
+  v11 = [*(a1 + 32) newFileProviderProxyWithRequest:*(a1 + 40)];
+  v12 = *(a1 + 48);
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __54__FPDDomainExtensionBackend_itemChangedAtURL_request___block_invoke_269;
+  v13[3] = &unk_1E83BE760;
+  v13[4] = *(a1 + 32);
+  v14 = v12;
+  [v11 itemChangedAtURL:v14 completionHandler:v13];
 }
 
 void __54__FPDDomainExtensionBackend_itemChangedAtURL_request___block_invoke_269(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  if (v3)
+  v2 = a2;
+  if (v2)
   {
-    v4 = fp_current_or_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v3 = fp_current_or_default_log();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      __54__FPDDomainExtensionBackend_itemChangedAtURL_request___block_invoke_269_cold_1(a1, v3, v4);
+      __54__FPDDomainExtensionBackend_itemChangedAtURL_request___block_invoke_269_cold_1();
     }
   }
 }
@@ -1110,37 +1035,34 @@ void __54__FPDDomainExtensionBackend_itemChangedAtURL_request___block_invoke_269
   dCopy = d;
   requestCopy = request;
   handlerCopy = handler;
-  queue = self->_queue;
-  v18 = requestCopy;
-  v19 = handlerCopy;
-  v15 = handlerCopy;
-  v16 = dCopy;
-  v17 = requestCopy;
+  v11 = handlerCopy;
+  v12 = dCopy;
+  v13 = requestCopy;
   fp_dispatch_async_with_logs();
 }
 
-void __146__FPDDomainExtensionBackend_URLForItemID_creatingPlaceholderIfMissing_ignoreAlternateContentsURL_forBookmarkResolution_request_completionHandler___block_invoke(uint64_t a1)
+void __146__FPDDomainExtensionBackend_URLForItemID_creatingPlaceholderIfMissing_ignoreAlternateContentsURL_forBookmarkResolution_request_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = fp_current_or_default_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = fp_current_or_default_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __146__FPDDomainExtensionBackend_URLForItemID_creatingPlaceholderIfMissing_ignoreAlternateContentsURL_forBookmarkResolution_request_completionHandler___block_invoke_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+    __146__FPDDomainExtensionBackend_URLForItemID_creatingPlaceholderIfMissing_ignoreAlternateContentsURL_forBookmarkResolution_request_completionHandler___block_invoke_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
   }
 
-  v10 = [*(a1 + 32) newFileProviderProxyWithRequest:*(a1 + 40)];
-  v11 = *(a1 + 48);
-  v12 = *(a1 + 64);
-  v13 = *(a1 + 65);
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __146__FPDDomainExtensionBackend_URLForItemID_creatingPlaceholderIfMissing_ignoreAlternateContentsURL_forBookmarkResolution_request_completionHandler___block_invoke_270;
-  v16[3] = &unk_1E83BE788;
-  v14 = v11;
-  v15 = *(a1 + 32);
-  v17 = v14;
+  v11 = [*(a1 + 32) newFileProviderProxyWithRequest:*(a1 + 40)];
+  v12 = *(a1 + 48);
+  v13 = *(a1 + 64);
+  v14 = *(a1 + 65);
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __146__FPDDomainExtensionBackend_URLForItemID_creatingPlaceholderIfMissing_ignoreAlternateContentsURL_forBookmarkResolution_request_completionHandler___block_invoke_270;
+  v17[3] = &unk_1E83BE788;
+  v15 = v12;
+  v16 = *(a1 + 32);
   v18 = v15;
-  v19 = *(a1 + 56);
-  [v10 URLForItemID:v14 creatingPlaceholderIfMissing:v12 ignoreAlternateContentsURL:v13 completionHandler:v16];
+  v19 = v16;
+  v20 = *(a1 + 56);
+  [v11 URLForItemID:v15 creatingPlaceholderIfMissing:v13 ignoreAlternateContentsURL:v14 completionHandler:v17];
 }
 
 void __146__FPDDomainExtensionBackend_URLForItemID_creatingPlaceholderIfMissing_ignoreAlternateContentsURL_forBookmarkResolution_request_completionHandler___block_invoke_270(uint64_t a1, void *a2, void *a3, void *a4)
@@ -1154,7 +1076,7 @@ void __146__FPDDomainExtensionBackend_URLForItemID_creatingPlaceholderIfMissing_
   {
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      __146__FPDDomainExtensionBackend_URLForItemID_creatingPlaceholderIfMissing_ignoreAlternateContentsURL_forBookmarkResolution_request_completionHandler___block_invoke_270_cold_1(a1, v9, v11);
+      __146__FPDDomainExtensionBackend_URLForItemID_creatingPlaceholderIfMissing_ignoreAlternateContentsURL_forBookmarkResolution_request_completionHandler___block_invoke_270_cold_1();
     }
 
     v12 = *(a1 + 48);
@@ -1177,38 +1099,35 @@ void __146__FPDDomainExtensionBackend_URLForItemID_creatingPlaceholderIfMissing_
 {
   dCopy = d;
   requestCopy = request;
+  v14 = dCopy;
   handlerCopy = handler;
-  queue = self->_queue;
-  v17 = requestCopy;
-  v18 = dCopy;
-  v19 = handlerCopy;
-  v14 = handlerCopy;
-  v15 = dCopy;
-  v16 = requestCopy;
+  v10 = handlerCopy;
+  v11 = dCopy;
+  v12 = requestCopy;
   fp_dispatch_async_with_logs();
 }
 
-void __125__FPDDomainExtensionBackend_itemForItemID_creatingPlaceholderIfMissing_ignoreAlternateContentsURL_request_completionHandler___block_invoke(uint64_t a1)
+void __125__FPDDomainExtensionBackend_itemForItemID_creatingPlaceholderIfMissing_ignoreAlternateContentsURL_request_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = fp_current_or_default_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = fp_current_or_default_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __125__FPDDomainExtensionBackend_itemForItemID_creatingPlaceholderIfMissing_ignoreAlternateContentsURL_request_completionHandler___block_invoke_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+    __125__FPDDomainExtensionBackend_itemForItemID_creatingPlaceholderIfMissing_ignoreAlternateContentsURL_request_completionHandler___block_invoke_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
   }
 
-  v10 = [*(a1 + 32) newFileProviderProxyWithRequest:*(a1 + 40)];
-  v11 = *(a1 + 48);
-  v12 = [*(a1 + 32) nsfpRequest:*(a1 + 40)];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __125__FPDDomainExtensionBackend_itemForItemID_creatingPlaceholderIfMissing_ignoreAlternateContentsURL_request_completionHandler___block_invoke_272;
-  v15[3] = &unk_1E83BE7D8;
-  v13 = *(a1 + 48);
-  v14 = *(a1 + 32);
-  v16 = v13;
+  v11 = [*(a1 + 32) newFileProviderProxyWithRequest:*(a1 + 40)];
+  v12 = *(a1 + 48);
+  v13 = [*(a1 + 32) nsfpRequest:*(a1 + 40)];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __125__FPDDomainExtensionBackend_itemForItemID_creatingPlaceholderIfMissing_ignoreAlternateContentsURL_request_completionHandler___block_invoke_272;
+  v16[3] = &unk_1E83BE7D8;
+  v14 = *(a1 + 48);
+  v15 = *(a1 + 32);
   v17 = v14;
-  v18 = *(a1 + 56);
-  [v10 itemForItemID:v11 request:v12 completionHandler:v15];
+  v18 = v15;
+  v19 = *(a1 + 56);
+  [v11 itemForItemID:v12 request:v13 completionHandler:v16];
 }
 
 void __125__FPDDomainExtensionBackend_itemForItemID_creatingPlaceholderIfMissing_ignoreAlternateContentsURL_request_completionHandler___block_invoke_272(uint64_t a1, void *a2, uint64_t a3, void *a4)
@@ -1221,7 +1140,7 @@ void __125__FPDDomainExtensionBackend_itemForItemID_creatingPlaceholderIfMissing
   {
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __125__FPDDomainExtensionBackend_itemForItemID_creatingPlaceholderIfMissing_ignoreAlternateContentsURL_request_completionHandler___block_invoke_272_cold_1(a1, v6, v9);
+      __125__FPDDomainExtensionBackend_itemForItemID_creatingPlaceholderIfMissing_ignoreAlternateContentsURL_request_completionHandler___block_invoke_272_cold_1();
     }
 
     v10 = *(a1 + 48);
@@ -1248,33 +1167,21 @@ void __125__FPDDomainExtensionBackend_itemForItemID_creatingPlaceholderIfMissing
   toCopy = to;
   requestCopy = request;
   handlerCopy = handler;
-  if (optionsCopy)
+  if ((optionsCopy & 1) != 0 || (v13 = objc_loadWeakRetained(&self->_domain), [v13 provider], v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v14, "identifier"), v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v15, "hasPrefix:", @"com.apple."), v15, v14, v13, (v16 & 1) == 0))
   {
-    goto LABEL_4;
-  }
-
-  WeakRetained = objc_loadWeakRetained(&self->_domain);
-  provider = [WeakRetained provider];
-  identifier = [provider identifier];
-  v16 = [identifier hasPrefix:@"com.apple."];
-
-  if ((v16 & 1) == 0)
-  {
-LABEL_4:
     handlerCopy[2](handlerCopy, 0);
   }
 
   else
   {
-    v17 = objc_loadWeakRetained(&self->_domain);
-    provider2 = [v17 provider];
-    identifier2 = [provider2 identifier];
-    [identifier2 isEqualToString:@"com.apple.FileProvider.LocalStorage"];
+    WeakRetained = objc_loadWeakRetained(&self->_domain);
+    provider = [WeakRetained provider];
+    identifier = [provider identifier];
+    [identifier isEqualToString:@"com.apple.FileProvider.LocalStorage"];
 
-    queue = self->_queue;
-    v21 = requestCopy;
-    v22 = toCopy;
-    v23 = handlerCopy;
+    v20 = requestCopy;
+    v21 = toCopy;
+    v22 = handlerCopy;
     fp_dispatch_async_with_logs();
   }
 }
@@ -1374,11 +1281,8 @@ void __75__FPDDomainExtensionBackend_dumpStateTo_options_request_completionHandl
 {
   requestCopy = request;
   handlerCopy = handler;
-  queue = self->_queue;
-  v12 = requestCopy;
-  v13 = handlerCopy;
-  v10 = handlerCopy;
-  v11 = requestCopy;
+  v6 = handlerCopy;
+  v7 = requestCopy;
   fp_dispatch_async_with_logs();
 }
 
@@ -1393,67 +1297,65 @@ void __83__FPDDomainExtensionBackend_waitForStabilizationForRequest_mode_complet
   settingsCopy = settings;
   extenderCopy = extender;
   observerCopy = observer;
+  v16 = settingsCopy;
   handlerCopy = handler;
-  queue = self->_queue;
-  v19 = settingsCopy;
-  v22 = handlerCopy;
-  v20 = extenderCopy;
-  v21 = observerCopy;
-  v15 = observerCopy;
-  v16 = extenderCopy;
-  v17 = handlerCopy;
-  v18 = settingsCopy;
+  v17 = extenderCopy;
+  v18 = observerCopy;
+  v12 = observerCopy;
+  v13 = extenderCopy;
+  v14 = handlerCopy;
+  v15 = settingsCopy;
   fp_dispatch_async_with_logs();
 }
 
-void __95__FPDDomainExtensionBackend_enumerateWithSettings_lifetimeExtender_observer_completionHandler___block_invoke(uint64_t a1)
+void __95__FPDDomainExtensionBackend_enumerateWithSettings_lifetimeExtender_observer_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = fp_current_or_default_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = fp_current_or_default_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __95__FPDDomainExtensionBackend_enumerateWithSettings_lifetimeExtender_observer_completionHandler___block_invoke_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+    __95__FPDDomainExtensionBackend_enumerateWithSettings_lifetimeExtender_observer_completionHandler___block_invoke_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
   }
 
-  v10 = [*(a1 + 32) enumeratedItemID];
+  v11 = [*(a1 + 32) enumeratedItemID];
 
-  if (!v10)
+  if (!v11)
   {
-    v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[ASSERT] ‼️ only enumerating items is supported"];
-    v20 = fp_current_or_default_log();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+    v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[ASSERT] ‼️ only enumerating items is supported"];
+    v21 = fp_current_or_default_log();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
     {
       __103__FPDDomainExtensionBackend_startProvidingItemAtURL_readerID_readingOptions_request_completionHandler___block_invoke_2_259_cold_5();
     }
 
-    __assert_rtn("-[FPDDomainExtensionBackend enumerateWithSettings:lifetimeExtender:observer:completionHandler:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/FileProviderTools/fileproviderd/FPDDomainExtensionBackend.m", 681, [v19 UTF8String]);
+    __assert_rtn("-[FPDDomainExtensionBackend enumerateWithSettings:lifetimeExtender:observer:completionHandler:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/FileProviderTools/fileproviderd/FPDDomainExtensionBackend.m", 681, [v20 UTF8String]);
   }
 
   WeakRetained = objc_loadWeakRetained((*(a1 + 40) + 8));
-  v12 = [WeakRetained session];
+  v13 = [WeakRetained session];
 
-  if (v12)
+  if (v13)
   {
-    v13 = +[FPDRequest requestForPID:](FPDRequest, "requestForPID:", [*(a1 + 48) requestEffectivePID]);
-    v14 = [*(a1 + 40) newFileProviderProxyWithRequest:v13];
-    v15 = *(a1 + 56);
-    v16 = *(a1 + 32);
-    v17 = [*(a1 + 40) nsfpRequest:v13];
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __95__FPDDomainExtensionBackend_enumerateWithSettings_lifetimeExtender_observer_completionHandler___block_invoke_2;
-    v21[3] = &unk_1E83BE850;
-    v22 = *(a1 + 32);
-    v25 = *(a1 + 64);
-    v23 = *(a1 + 48);
-    v24 = v12;
-    [v14 fetchAndStartEnumeratingWithSettings:v16 observer:v15 request:v17 completionHandler:v21];
+    v14 = +[FPDRequest requestForPID:](FPDRequest, "requestForPID:", [*(a1 + 48) requestEffectivePID]);
+    v15 = [*(a1 + 40) newFileProviderProxyWithRequest:v14];
+    v16 = *(a1 + 56);
+    v17 = *(a1 + 32);
+    v18 = [*(a1 + 40) nsfpRequest:v14];
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __95__FPDDomainExtensionBackend_enumerateWithSettings_lifetimeExtender_observer_completionHandler___block_invoke_2;
+    v22[3] = &unk_1E83BE850;
+    v23 = *(a1 + 32);
+    v26 = *(a1 + 64);
+    v24 = *(a1 + 48);
+    v25 = v13;
+    [v15 fetchAndStartEnumeratingWithSettings:v17 observer:v16 request:v18 completionHandler:v22];
   }
 
   else
   {
-    v18 = *(a1 + 64);
-    v13 = FPDomainUnavailableError();
-    (*(v18 + 16))(v18, 0, v13);
+    v19 = *(a1 + 64);
+    v14 = FPDomainUnavailableError();
+    (*(v19 + 16))(v19, 0, v14);
   }
 }
 
@@ -1518,29 +1420,28 @@ void __95__FPDDomainExtensionBackend_enumerateWithSettings_lifetimeExtender_obse
   [(FPDDomainExtensionBackend *)self itemIDForURL:v17 requireProviderItemID:0 request:v15 completionHandler:v18];
 }
 
-void __82__FPDDomainExtensionBackend_valuesForAttributes_forURL_request_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
+void __82__FPDDomainExtensionBackend_valuesForAttributes_forURL_request_completionHandler___block_invoke(id *a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
   if (v5)
   {
-    v7 = *(*(a1 + 40) + 16);
-    v9 = *(a1 + 48);
-    v10 = *(a1 + 56);
-    v11 = v5;
-    v12 = *(a1 + 64);
+    v8 = a1[6];
+    v9 = a1[7];
+    v10 = v5;
+    v11 = a1[8];
     fp_dispatch_async_with_logs();
   }
 
   else
   {
-    v8 = fp_current_or_default_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v7 = fp_current_or_default_log();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       __82__FPDDomainExtensionBackend_valuesForAttributes_forURL_request_completionHandler___block_invoke_cold_1();
     }
 
-    (*(*(a1 + 64) + 16))();
+    (*(a1[8] + 2))();
   }
 }
 
@@ -1593,9 +1494,7 @@ void __82__FPDDomainExtensionBackend_valuesForAttributes_forURL_request_completi
 - (void)wakeForPushWithCompletionHandler:(id)handler
 {
   handlerCopy = handler;
-  queue = self->_queue;
-  v7 = handlerCopy;
-  v6 = handlerCopy;
+  v3 = handlerCopy;
   fp_dispatch_async_with_logs();
 }
 
@@ -1611,11 +1510,8 @@ void __62__FPDDomainExtensionBackend_wakeForPushWithCompletionHandler___block_in
 {
   requestCopy = request;
   handlerCopy = handler;
-  queue = self->_queue;
-  v11 = requestCopy;
-  v12 = handlerCopy;
-  v9 = handlerCopy;
-  v10 = requestCopy;
+  v5 = handlerCopy;
+  v6 = requestCopy;
   fp_dispatch_async_with_logs();
 }
 
@@ -1642,12 +1538,9 @@ void __90__FPDDomainExtensionBackend_fetchOperationServiceOrEndpointWithRequest_
   dCopy = d;
   requestCopy = request;
   handlerCopy = handler;
-  queue = self->_queue;
-  v16 = requestCopy;
-  v17 = handlerCopy;
-  v13 = handlerCopy;
-  v14 = dCopy;
-  v15 = requestCopy;
+  v9 = handlerCopy;
+  v10 = dCopy;
+  v11 = requestCopy;
   fp_dispatch_async_with_logs();
 }
 
@@ -1661,11 +1554,8 @@ void __101__FPDDomainExtensionBackend_fetchServicesForItemID_allowRestrictedSour
 {
   requestCopy = request;
   handlerCopy = handler;
-  queue = self->_queue;
-  v11 = requestCopy;
-  v12 = handlerCopy;
-  v9 = handlerCopy;
-  v10 = requestCopy;
+  v5 = handlerCopy;
+  v6 = requestCopy;
   fp_dispatch_async_with_logs();
 }
 
@@ -1682,17 +1572,25 @@ void __78__FPDDomainExtensionBackend_fetchVendorEndpointWithRequest_completionHa
   (*(handler + 2))(handlerCopy, v7);
 }
 
+- (id)createIndexerWithExtension:(id)extension enabled:(BOOL)enabled error:(id *)error
+{
+  enabledCopy = enabled;
+  extensionCopy = extension;
+  v8 = [FPDExtensionIndexer alloc];
+  WeakRetained = objc_loadWeakRetained(&self->_domain);
+  v10 = [(FPDDomainIndexer *)v8 initWithExtension:extensionCopy domain:WeakRetained enabled:enabledCopy supportingIndexAll:0];
+
+  return v10;
+}
+
 - (void)bulkItemChanges:(id)changes changedFields:(unint64_t)fields request:(id)request completionHandler:(id)handler
 {
   changesCopy = changes;
   requestCopy = request;
   handlerCopy = handler;
-  queue = self->_queue;
-  v16 = requestCopy;
-  v17 = handlerCopy;
-  v13 = handlerCopy;
-  v14 = changesCopy;
-  v15 = requestCopy;
+  v9 = handlerCopy;
+  v10 = changesCopy;
+  v11 = requestCopy;
   fp_dispatch_async_with_logs();
 }
 
@@ -1745,14 +1643,11 @@ LABEL_7:
 {
   lCopy = l;
   requestCopy = request;
+  v12 = lCopy;
   handlerCopy = handler;
-  queue = self->_queue;
-  v15 = requestCopy;
-  v16 = lCopy;
-  v17 = handlerCopy;
-  v12 = handlerCopy;
-  v13 = lCopy;
-  v14 = requestCopy;
+  v8 = handlerCopy;
+  v9 = lCopy;
+  v10 = requestCopy;
   fp_dispatch_async_with_logs();
 }
 
@@ -1767,13 +1662,9 @@ void __70__FPDDomainExtensionBackend_trashItemAtURL_request_completionHandler___
   lCopy = l;
   infoCopy = info;
   handlerCopy = handler;
-  queue = self->_queue;
-  v15 = lCopy;
-  v16 = infoCopy;
-  v17 = handlerCopy;
-  v12 = handlerCopy;
-  v13 = infoCopy;
-  v14 = lCopy;
+  v7 = handlerCopy;
+  v8 = infoCopy;
+  v9 = lCopy;
   fp_dispatch_async_with_logs();
 }
 
@@ -1843,10 +1734,8 @@ LABEL_7:
 {
   requestCopy = request;
   handlerCopy = handler;
-  queue = self->_queue;
-  v12 = handlerCopy;
-  v10 = handlerCopy;
-  v11 = requestCopy;
+  v7 = handlerCopy;
+  v8 = requestCopy;
   fp_dispatch_async_with_logs();
 }
 
@@ -1896,16 +1785,13 @@ void __79__FPDDomainExtensionBackend_getKnownFolderLocations_request_completionH
   wrapperCopy = wrapper;
   lCopy = l;
   requestCopy = request;
+  v16 = wrapperCopy;
+  v17 = lCopy;
   handlerCopy = handler;
-  queue = self->_queue;
-  v19 = requestCopy;
-  v20 = wrapperCopy;
-  v21 = lCopy;
-  v22 = handlerCopy;
-  v15 = handlerCopy;
-  v16 = lCopy;
-  v17 = wrapperCopy;
-  v18 = requestCopy;
+  v11 = handlerCopy;
+  v12 = lCopy;
+  v13 = wrapperCopy;
+  v14 = requestCopy;
   fp_dispatch_async_with_logs();
 }
 
@@ -1926,14 +1812,11 @@ void __105__FPDDomainExtensionBackend_setAlternateContentsURLWrapper_forDocument
 {
   lCopy = l;
   requestCopy = request;
+  v12 = lCopy;
   handlerCopy = handler;
-  queue = self->_queue;
-  v15 = requestCopy;
-  v16 = lCopy;
-  v17 = handlerCopy;
-  v12 = handlerCopy;
-  v13 = lCopy;
-  v14 = requestCopy;
+  v8 = handlerCopy;
+  v9 = lCopy;
+  v10 = requestCopy;
   fp_dispatch_async_with_logs();
 }
 
@@ -1953,14 +1836,11 @@ void __106__FPDDomainExtensionBackend_fetchAlternateContentsURLWrapperForDocumen
 {
   lCopy = l;
   requestCopy = request;
+  v12 = lCopy;
   handlerCopy = handler;
-  queue = self->_queue;
-  v15 = requestCopy;
-  v16 = lCopy;
-  v17 = handlerCopy;
-  v12 = handlerCopy;
-  v13 = lCopy;
-  v14 = requestCopy;
+  v8 = handlerCopy;
+  v9 = lCopy;
+  v10 = requestCopy;
   fp_dispatch_async_with_logs();
 }
 
@@ -1979,9 +1859,7 @@ void __108__FPDDomainExtensionBackend_didUpdateAlternateContentsDocumentForDocum
 - (void)reindexAllItemsWithDropReason:(unint64_t)reason completionHandler:(id)handler
 {
   handlerCopy = handler;
-  queue = self->_queue;
-  v8 = handlerCopy;
-  v7 = handlerCopy;
+  v4 = handlerCopy;
   fp_dispatch_async_with_logs();
 }
 
@@ -2009,10 +1887,8 @@ void __77__FPDDomainExtensionBackend_reindexAllItemsWithDropReason_completionHan
 {
   identifiersCopy = identifiers;
   handlerCopy = handler;
-  queue = self->_queue;
-  v12 = handlerCopy;
-  v10 = identifiersCopy;
-  v11 = handlerCopy;
+  v7 = identifiersCopy;
+  v8 = handlerCopy;
   fp_dispatch_async_with_logs();
 }
 
@@ -2105,12 +1981,9 @@ void __87__FPDDomainExtensionBackend_reindexItemsWithIndexReason_identifiers_com
   requestCopy = request;
   extenderCopy = extender;
   handlerCopy = handler;
-  queue = self->_queue;
-  v15 = extenderCopy;
-  v16 = handlerCopy;
-  v12 = requestCopy;
-  v13 = extenderCopy;
-  v14 = handlerCopy;
+  v8 = requestCopy;
+  v9 = extenderCopy;
+  v10 = handlerCopy;
   fp_dispatch_async_with_logs();
 }
 
@@ -2181,23 +2054,86 @@ void __96__FPDDomainExtensionBackend_enumerateSearchResultForRequest_lifetimeExt
 
 void __74__FPDDomainExtensionBackend_itemForURL_options_request_completionHandler___block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, a1, a3, "[DEBUG] %s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[FPDDomainExtensionBackend itemForURL:options:request:completionHandler:]_block_invoke";
+  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, a1, a3, "[DEBUG] %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __74__FPDDomainExtensionBackend_itemForURL_options_request_completionHandler___block_invoke_248_cold_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __int128 a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21)
+{
+  OUTLINED_FUNCTION_18();
+  a20 = v21;
+  a21 = v22;
+  v24 = v23;
+  v26 = v25;
+  v28 = v27;
+  a13 = *MEMORY[0x1E69E9840];
+  v29 = [*(v27 + 32) fp_shortDescription];
+  WeakRetained = objc_loadWeakRetained((*(v28 + 40) + 8));
+  v31 = [WeakRetained provider];
+  v32 = [v31 identifier];
+  v33 = [v26 fp_prettyDescription];
+  LODWORD(a9) = 138412802;
+  *(&a9 + 4) = v29;
+  OUTLINED_FUNCTION_3_1();
+  *(&a9 + 14) = v32;
+  OUTLINED_FUNCTION_9();
+  _os_log_error_impl(&dword_1CEFC7000, v24, OS_LOG_TYPE_ERROR, "[ERROR] can't get item for URL %@ for extension %@; %@", &a9, 0x20u);
+
+  OUTLINED_FUNCTION_17();
 }
 
 void __90__FPDDomainExtensionBackend_itemIDForURL_requireProviderItemID_request_completionHandler___block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, a1, a3, "[DEBUG] %s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[FPDDomainExtensionBackend itemIDForURL:requireProviderItemID:request:completionHandler:]_block_invoke";
+  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, a1, a3, "[DEBUG] %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __90__FPDDomainExtensionBackend_itemIDForURL_requireProviderItemID_request_completionHandler___block_invoke_251_cold_1()
+{
+  OUTLINED_FUNCTION_18();
+  v1 = v0;
+  v3 = v2;
+  v4 = [*(v2 + 32) fp_shortDescription];
+  WeakRetained = objc_loadWeakRetained((*(v3 + 40) + 8));
+  v6 = [WeakRetained provider];
+  v7 = [v6 identifier];
+  v8 = [v1 fp_prettyDescription];
+  OUTLINED_FUNCTION_3_1();
+  OUTLINED_FUNCTION_9();
+  OUTLINED_FUNCTION_16(&dword_1CEFC7000, v9, v10, "[DEBUG] Cannot get item ID for %@ for extension %@. Error: %@", v11, v12, v13, v14);
+
+  OUTLINED_FUNCTION_17();
+}
+
+void __90__FPDDomainExtensionBackend_itemIDForURL_requireProviderItemID_request_completionHandler___block_invoke_251_cold_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __int128 a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21)
+{
+  OUTLINED_FUNCTION_18();
+  a20 = v23;
+  a21 = v24;
+  OUTLINED_FUNCTION_13();
+  v26 = v25;
+  a13 = *MEMORY[0x1E69E9840];
+  v28 = [*(v27 + 32) fp_shortDescription];
+  WeakRetained = objc_loadWeakRetained((*(v22 + 40) + 8));
+  v30 = [WeakRetained provider];
+  v31 = [v30 identifier];
+  LODWORD(a9) = 138412802;
+  *(&a9 + 4) = v26;
+  OUTLINED_FUNCTION_3_1();
+  *(&a9 + 14) = v28;
+  OUTLINED_FUNCTION_9();
+  _os_log_debug_impl(&dword_1CEFC7000, v21, OS_LOG_TYPE_DEBUG, "[DEBUG] Successfully got item ID “%@” for %@ from extension %@", &a9, 0x20u);
+
+  OUTLINED_FUNCTION_17();
 }
 
 - (void)_cancelProvidingItemAtURL:(uint64_t)a3 withKey:(uint64_t)a4 request:(uint64_t)a5 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, a1, a3, "[DEBUG] %s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[FPDDomainExtensionBackend _cancelProvidingItemAtURL:withKey:request:]";
+  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, a1, a3, "[DEBUG] %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_cancelProvidingItemAtURL:withKey:request:.cold.2()
@@ -2209,52 +2145,42 @@ void __90__FPDDomainExtensionBackend_itemIDForURL_requireProviderItemID_request_
 
 - (void)_cancelProvidingItemAtURL:(void *)a1 withKey:request:.cold.3(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 fp_shortDescription];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __71__FPDDomainExtensionBackend__cancelProvidingItemAtURL_withKey_request___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_11();
-  v0 = *MEMORY[0x1E69E9840];
-  v2 = [OUTLINED_FUNCTION_8(v1) fp_shortDescription];
+  v1 = [OUTLINED_FUNCTION_8(v0) fp_shortDescription];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 void __71__FPDDomainExtensionBackend__cancelProvidingItemAtURL_withKey_request___block_invoke_cold_2(uint64_t a1)
 {
-  v1 = *MEMORY[0x1E69E9840];
-  v2 = [OUTLINED_FUNCTION_8(a1) fp_shortDescription];
+  v1 = [OUTLINED_FUNCTION_8(a1) fp_shortDescription];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_4_1();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 - (void)startProvidingItemAtURL:(uint64_t)a3 readerID:(uint64_t)a4 readingOptions:(uint64_t)a5 request:(uint64_t)a6 completionHandler:(uint64_t)a7 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, a1, a3, "[DEBUG] %s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[FPDDomainExtensionBackend startProvidingItemAtURL:readerID:readingOptions:request:completionHandler:]";
+  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, a1, a3, "[DEBUG] %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)startProvidingItemAtURL:readerID:readingOptions:request:completionHandler:.cold.2()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(&dword_1CEFC7000, v0, OS_LOG_TYPE_ERROR, "[ERROR] won't restore persona: %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1CEFC7000, v0, OS_LOG_TYPE_ERROR, "[ERROR] won't restore persona: %@", v1, 0xCu);
 }
 
 - (void)startProvidingItemAtURL:readerID:readingOptions:request:completionHandler:.cold.3()
@@ -2266,9 +2192,9 @@ void __71__FPDDomainExtensionBackend__cancelProvidingItemAtURL_withKey_request__
 
 void __103__FPDDomainExtensionBackend_startProvidingItemAtURL_readerID_readingOptions_request_completionHandler___block_invoke_257_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, a1, a3, "[DEBUG] %s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[FPDDomainExtensionBackend startProvidingItemAtURL:readerID:readingOptions:request:completionHandler:]_block_invoke";
+  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, a1, a3, "[DEBUG] %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __103__FPDDomainExtensionBackend_startProvidingItemAtURL_readerID_readingOptions_request_completionHandler___block_invoke_2_259_cold_1(void *a1, uint8_t *buf, uint64_t a3, os_log_t log)
@@ -2305,214 +2231,226 @@ void __103__FPDDomainExtensionBackend_startProvidingItemAtURL_readerID_readingOp
 
 void __103__FPDDomainExtensionBackend_startProvidingItemAtURL_readerID_readingOptions_request_completionHandler___block_invoke_2_259_cold_5()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_0();
-  _os_log_fault_impl(&dword_1CEFC7000, v0, OS_LOG_TYPE_FAULT, "[CRIT] %{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1CEFC7000, v0, OS_LOG_TYPE_FAULT, "[CRIT] %{public}@", v1, 0xCu);
 }
 
 void __125__FPDDomainExtensionBackend_createItemBasedOnTemplate_fields_urlWrapper_options_bounceOnCollision_request_completionHandler___block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, a1, a3, "[DEBUG] %s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[FPDDomainExtensionBackend createItemBasedOnTemplate:fields:urlWrapper:options:bounceOnCollision:request:completionHandler:]_block_invoke";
+  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, a1, a3, "[DEBUG] %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __125__FPDDomainExtensionBackend_createItemBasedOnTemplate_fields_urlWrapper_options_bounceOnCollision_request_completionHandler___block_invoke_264_cold_1()
 {
   OUTLINED_FUNCTION_11();
-  v1 = *MEMORY[0x1E69E9840];
-  v3 = [OUTLINED_FUNCTION_8(v2) itemID];
-  v4 = [v3 identifier];
-  v5 = [v0 fp_prettyDescription];
+  v2 = [OUTLINED_FUNCTION_8(v1) itemID];
+  v3 = [v2 identifier];
+  v4 = [v0 fp_prettyDescription];
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0x16u);
-
-  v11 = *MEMORY[0x1E69E9840];
-}
-
-void __125__FPDDomainExtensionBackend_createItemBasedOnTemplate_fields_urlWrapper_options_bounceOnCollision_request_completionHandler___block_invoke_264_cold_2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, v0, v1, "[DEBUG] 🆕✅ Extension successfully created item %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
 }
 
 void __85__FPDDomainExtensionBackend_evictItemAtURL_evictionReason_request_completionHandler___block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, a1, a3, "[DEBUG] %s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[FPDDomainExtensionBackend evictItemAtURL:evictionReason:request:completionHandler:]_block_invoke";
+  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, a1, a3, "[DEBUG] %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __85__FPDDomainExtensionBackend_evictItemAtURL_evictionReason_request_completionHandler___block_invoke_266_cold_1()
 {
   OUTLINED_FUNCTION_11();
-  v1 = *MEMORY[0x1E69E9840];
-  v3 = [OUTLINED_FUNCTION_8(v2) fp_shortDescription];
-  v4 = [v0 fp_prettyDescription];
+  v2 = [OUTLINED_FUNCTION_8(v1) fp_shortDescription];
+  v3 = [v0 fp_prettyDescription];
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
 }
 
 void __85__FPDDomainExtensionBackend_evictItemAtURL_evictionReason_request_completionHandler___block_invoke_266_cold_2(uint64_t a1)
 {
-  v1 = *MEMORY[0x1E69E9840];
-  v2 = [OUTLINED_FUNCTION_8(a1) fp_shortDescription];
+  v1 = [OUTLINED_FUNCTION_8(a1) fp_shortDescription];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_4_1();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 void __86__FPDDomainExtensionBackend_evictItemWithID_evictionReason_request_completionHandler___block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, a1, a3, "[DEBUG] %s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[FPDDomainExtensionBackend evictItemWithID:evictionReason:request:completionHandler:]_block_invoke";
+  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, a1, a3, "[DEBUG] %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __54__FPDDomainExtensionBackend_itemChangedAtURL_request___block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, a1, a3, "[DEBUG] %s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[FPDDomainExtensionBackend itemChangedAtURL:request:]_block_invoke";
+  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, a1, a3, "[DEBUG] %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __54__FPDDomainExtensionBackend_itemChangedAtURL_request___block_invoke_269_cold_1()
+{
+  OUTLINED_FUNCTION_18();
+  OUTLINED_FUNCTION_13();
+  v1 = v0;
+  WeakRetained = objc_loadWeakRetained((*(v0 + 32) + 8));
+  v3 = [WeakRetained provider];
+  v4 = [v3 identifier];
+  v5 = [*(v1 + 40) fp_shortDescription];
+  OUTLINED_FUNCTION_14_0();
+  OUTLINED_FUNCTION_3_1();
+  OUTLINED_FUNCTION_10(&dword_1CEFC7000, v6, v7, "[ERROR] Could not tell extension %@ that item at %@ has changed. Error: %@", v8, v9, v10, v11);
+
+  OUTLINED_FUNCTION_17();
 }
 
 void __146__FPDDomainExtensionBackend_URLForItemID_creatingPlaceholderIfMissing_ignoreAlternateContentsURL_forBookmarkResolution_request_completionHandler___block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, a1, a3, "[DEBUG] %s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[FPDDomainExtensionBackend URLForItemID:creatingPlaceholderIfMissing:ignoreAlternateContentsURL:forBookmarkResolution:request:completionHandler:]_block_invoke";
+  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, a1, a3, "[DEBUG] %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __146__FPDDomainExtensionBackend_URLForItemID_creatingPlaceholderIfMissing_ignoreAlternateContentsURL_forBookmarkResolution_request_completionHandler___block_invoke_270_cold_1()
+{
+  OUTLINED_FUNCTION_18();
+  OUTLINED_FUNCTION_13();
+  v2 = OUTLINED_FUNCTION_12(v1);
+  v3 = [v2 provider];
+  v4 = [v3 identifier];
+  v5 = [v0 fp_prettyDescription];
+  OUTLINED_FUNCTION_14_0();
+  OUTLINED_FUNCTION_9();
+  OUTLINED_FUNCTION_10(&dword_1CEFC7000, v6, v7, "[ERROR] Cannot get URL for item ID “%{public}@” for extension %{public}@. Error: %@", v8, v9, v10, v11);
+
+  OUTLINED_FUNCTION_17();
 }
 
 void __146__FPDDomainExtensionBackend_URLForItemID_creatingPlaceholderIfMissing_ignoreAlternateContentsURL_forBookmarkResolution_request_completionHandler___block_invoke_270_cold_2(void *a1, uint64_t a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
   v3 = [a1 url];
   v4 = [v3 fp_shortDescription];
   v5 = *(a2 + 32);
   WeakRetained = objc_loadWeakRetained((*(a2 + 40) + 8));
   v7 = [WeakRetained provider];
   v8 = [v7 identifier];
+  LODWORD(v15) = 138412802;
+  *(&v15 + 4) = v4;
   OUTLINED_FUNCTION_3_1();
+  *v16 = v5;
   OUTLINED_FUNCTION_9();
-  OUTLINED_FUNCTION_16(&dword_1CEFC7000, v9, v10, "[DEBUG] Successfully retrieved URL %@ for item ID “%@” from extension %@", v11, v12, v13, v14, 2u);
-
-  v15 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_16(&dword_1CEFC7000, v9, v10, "[DEBUG] Successfully retrieved URL %@ for item ID “%@” from extension %@", v11, v12, v13, v14, v15, DWORD2(v15), *&v16[2]);
 }
 
 void __125__FPDDomainExtensionBackend_itemForItemID_creatingPlaceholderIfMissing_ignoreAlternateContentsURL_request_completionHandler___block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, a1, a3, "[DEBUG] %s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[FPDDomainExtensionBackend itemForItemID:creatingPlaceholderIfMissing:ignoreAlternateContentsURL:request:completionHandler:]_block_invoke";
+  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, a1, a3, "[DEBUG] %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __125__FPDDomainExtensionBackend_itemForItemID_creatingPlaceholderIfMissing_ignoreAlternateContentsURL_request_completionHandler___block_invoke_272_cold_1()
+{
+  OUTLINED_FUNCTION_18();
+  OUTLINED_FUNCTION_13();
+  v2 = OUTLINED_FUNCTION_12(v1);
+  v3 = [v2 provider];
+  v4 = [v3 identifier];
+  v5 = [v0 fp_prettyDescription];
+  OUTLINED_FUNCTION_14_0();
+  OUTLINED_FUNCTION_3_1();
+  OUTLINED_FUNCTION_9();
+  OUTLINED_FUNCTION_10(&dword_1CEFC7000, v6, v7, "[ERROR] Cannot get item for item ID “%@” for extension %@. Error: %@", v8, v9, v10, v11);
+
+  OUTLINED_FUNCTION_17();
 }
 
 void __125__FPDDomainExtensionBackend_itemForItemID_creatingPlaceholderIfMissing_ignoreAlternateContentsURL_request_completionHandler___block_invoke_272_cold_2()
 {
   OUTLINED_FUNCTION_18();
-  v11 = *MEMORY[0x1E69E9840];
-  v1 = *(v0 + 32);
   WeakRetained = objc_loadWeakRetained((*(v0 + 40) + 8));
-  v3 = [WeakRetained provider];
-  v4 = [v3 identifier];
+  v2 = [WeakRetained provider];
+  v3 = [v2 identifier];
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_4_1();
-  _os_log_debug_impl(v5, v6, v7, v8, v9, 0x20u);
+  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x20u);
 
-  v10 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_17();
 }
 
 void __95__FPDDomainExtensionBackend_enumerateWithSettings_lifetimeExtender_observer_completionHandler___block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, a1, a3, "[DEBUG] %s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[FPDDomainExtensionBackend enumerateWithSettings:lifetimeExtender:observer:completionHandler:]_block_invoke";
+  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, a1, a3, "[DEBUG] %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __95__FPDDomainExtensionBackend_enumerateWithSettings_lifetimeExtender_observer_completionHandler___block_invoke_2_cold_1(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
-  v3 = [a2 fp_prettyDescription];
+  v2 = [a2 fp_prettyDescription];
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __82__FPDDomainExtensionBackend_valuesForAttributes_forURL_request_completionHandler___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_11();
-  v0 = *MEMORY[0x1E69E9840];
-  v2 = [OUTLINED_FUNCTION_8(v1) fp_shortDescription];
+  v1 = [OUTLINED_FUNCTION_8(v0) fp_shortDescription];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_4_1();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 void __82__FPDDomainExtensionBackend_valuesForAttributes_forURL_request_completionHandler___block_invoke_2_cold_1()
 {
   OUTLINED_FUNCTION_18();
   OUTLINED_FUNCTION_11();
-  v0 = *MEMORY[0x1E69E9840];
-  v2 = OUTLINED_FUNCTION_12(v1);
-  v3 = [v2 provider];
-  v4 = [v3 identifier];
+  v1 = OUTLINED_FUNCTION_12(v0);
+  v2 = [v1 provider];
+  v3 = [v2 identifier];
   OUTLINED_FUNCTION_14_0();
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_4_1();
-  _os_log_debug_impl(v5, v6, v7, v8, v9, 0x20u);
+  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x20u);
 
-  v10 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_17();
 }
 
 void __82__FPDDomainExtensionBackend_valuesForAttributes_forURL_request_completionHandler___block_invoke_2_cold_2(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
-  v5 = 138412546;
-  v6 = v1;
+  v4 = 138412546;
+  v5 = v1;
   OUTLINED_FUNCTION_3_1();
-  v7 = v2;
-  _os_log_debug_impl(&dword_1CEFC7000, v3, OS_LOG_TYPE_DEBUG, "[DEBUG] values for %@: %@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v6 = v2;
+  _os_log_debug_impl(&dword_1CEFC7000, v3, OS_LOG_TYPE_DEBUG, "[DEBUG] values for %@: %@", &v4, 0x16u);
 }
 
 void __85__FPDDomainExtensionBackend_bulkItemChanges_changedFields_request_completionHandler___block_invoke_2_cold_1(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  LODWORD(v4) = 134218242;
-  *(&v4 + 4) = *(a1 + 40);
+  v5 = *MEMORY[0x1E69E9840];
+  LODWORD(v3) = 134218242;
+  *(&v3 + 4) = *(a1 + 40);
   OUTLINED_FUNCTION_3_1();
-  *v5 = v1;
-  OUTLINED_FUNCTION_15(&dword_1CEFC7000, v1, v2, "[ERROR] can't notify extension of item change %lu for items; %@", v4, DWORD2(v4), *&v5[2], v6);
-  v3 = *MEMORY[0x1E69E9840];
+  *v4 = v1;
+  OUTLINED_FUNCTION_15(&dword_1CEFC7000, v1, v2, "[ERROR] can't notify extension of item change %lu for items; %@", v3, DWORD2(v3), *&v4[2], v5);
 }
 
 void __96__FPDDomainExtensionBackend_enumerateSearchResultForRequest_lifetimeExtender_completionHandler___block_invoke_2_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 fp_prettyDescription];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

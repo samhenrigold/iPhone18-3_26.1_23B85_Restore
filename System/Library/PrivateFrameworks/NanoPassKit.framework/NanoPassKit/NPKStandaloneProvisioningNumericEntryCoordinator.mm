@@ -40,18 +40,19 @@
 - (void)_showCurrentPasscodePromptOrComplete
 {
   currentIndex = self->_currentIndex;
-  if (currentIndex >= [(NSArray *)self->_providedFields count])
+  v4 = [(NSArray *)self->_providedFields count];
+  if (currentIndex >= v4)
   {
-    v4 = pk_Payment_log();
-    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+    v5 = pk_Payment_log(v4);
+    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
-    if (v5)
+    if (v6)
     {
-      v6 = pk_Payment_log();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v8 = pk_Payment_log(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        *v7 = 0;
-        _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: Numeric entry complete; invoking completion handler", v7, 2u);
+        *v9 = 0;
+        _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: Numeric entry complete; invoking completion handler", v9, 2u);
       }
     }
 

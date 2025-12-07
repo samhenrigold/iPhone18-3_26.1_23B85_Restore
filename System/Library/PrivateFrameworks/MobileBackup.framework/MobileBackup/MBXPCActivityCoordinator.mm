@@ -1,8 +1,11 @@
 @interface MBXPCActivityCoordinator
 - (MBXPCActivityCoordinator)initWithDelegate:(id)delegate;
 - (MBXPCActivityCoordinatorDelegate)delegate;
+- (id)_activityForActivityType:(int)type;
 - (id)checkInBackupActivity:(int)activity;
 - (id)xpcActivityForBackupActivity:(int)activity;
+- (void)_cancelDeferralTimerForActivity:(int)activity;
+- (void)_finishXPCActivityForBackupActivity:(int)activity;
 - (void)_handleXPCActivity:(id)activity type:(int)type;
 - (void)finishBackupActivity:(int)activity;
 - (void)pollForBackupActivityDeferrals:(int)deferrals block:(id)block;
@@ -83,7 +86,7 @@
     LODWORD(buf) = 136446210;
     *(&buf + 4) = v5;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "=XPCActivity= Checking in XPC activity %{public}s (initial)", &buf, 0xCu);
-    _MBLog();
+    _MBLog(@"I ", "=XPCActivity= Checking in XPC activity %{public}s (initial)", v5);
   }
 
   *&buf = 0;
@@ -113,6 +116,25 @@
   _Block_object_dispose(&buf, 8);
 
   return v9;
+}
+
+- (id)_activityForActivityType:(int)type
+{
+  v3 = *&type;
+  dispatch_assert_queue_V2(self->_stateQueue);
+  backupActivities = self->_backupActivities;
+  v6 = [NSNumber numberWithInt:v3];
+  v7 = [(NSMutableDictionary *)backupActivities objectForKeyedSubscript:v6];
+
+  if (!v7)
+  {
+    v7 = objc_opt_new();
+    v8 = self->_backupActivities;
+    v9 = [NSNumber numberWithInt:v3];
+    [(NSMutableDictionary *)v8 setObject:v7 forKeyedSubscript:v9];
+  }
+
+  return v7;
 }
 
 - (id)xpcActivityForBackupActivity:(int)activity
@@ -184,17 +206,19 @@
   v9 = MBGetDefaultLog();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
+    v10 = MBBackupXPCActivityNameWithType(type);
+    v11 = sub_1002065FC(state);
     *buf = 136446978;
-    v16 = MBBackupXPCActivityNameWithType(type);
-    v17 = 2080;
-    v18 = sub_1002065FC(state);
-    v19 = 2048;
-    v20 = state;
-    v21 = 2114;
-    v22 = v8;
+    v19 = v10;
+    v20 = 2080;
+    v21 = v11;
+    v22 = 2048;
+    v23 = state;
+    v24 = 2114;
+    v25 = v8;
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "=XPCActivity= Handling %{public}s, state:%s(%ld), criteria:%{public}@", buf, 0x2Au);
-    MBBackupXPCActivityNameWithType(type);
-    _MBLog();
+    v12 = MBBackupXPCActivityNameWithType(type);
+    _MBLog(@"Df", "=XPCActivity= Handling %{public}s, state:%s(%ld), criteria:%{public}@", v12, v11, state, v8);
   }
 
   if (state)
@@ -209,8 +233,8 @@
       block[3] = &unk_1003C1B38;
       typeCopy = type;
       block[4] = self;
-      v13 = 2;
-      v12 = activityCopy;
+      v16 = 2;
+      v15 = activityCopy;
       dispatch_async(stateQueue, block);
     }
 
@@ -218,6 +242,62 @@
     {
       xpc_activity_set_state(activityCopy, 5);
     }
+  }
+}
+
+- (void)_finishXPCActivityForBackupActivity:(int)activity
+{
+  v3 = *&activity;
+  dispatch_assert_queue_V2(self->_stateQueue);
+  v5 = [(MBXPCActivityCoordinator *)self _activityForActivityType:v3];
+  runnableXPCActivity = [v5 runnableXPCActivity];
+
+  if (runnableXPCActivity)
+  {
+    v7 = MBBackupXPCActivityNameWithType(v3);
+    state = xpc_activity_get_state(runnableXPCActivity);
+    v9 = MBGetDefaultLog();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      v10 = sub_1002065FC(state);
+      *buf = 136446722;
+      v13 = v7;
+      v14 = 2080;
+      v15 = v10;
+      v16 = 2048;
+      v17 = state;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "=XPCActivity= Finishing XPC activity %{public}s, state:%s(%ld)", buf, 0x20u);
+      _MBLog(@"Df", "=XPCActivity= Finishing XPC activity %{public}s, state:%s(%ld)", v7, v10, state);
+    }
+
+    xpc_activity_set_state(runnableXPCActivity, 5);
+    v11 = [(MBXPCActivityCoordinator *)self _activityForActivityType:v3];
+    [v11 setRunnableXPCActivity:0];
+  }
+}
+
+- (void)_cancelDeferralTimerForActivity:(int)activity
+{
+  v3 = *&activity;
+  dispatch_assert_queue_V2(self->_stateQueue);
+  v5 = [(MBXPCActivityCoordinator *)self _activityForActivityType:v3];
+  deferralTimer = [v5 deferralTimer];
+
+  if (deferralTimer)
+  {
+    v7 = MBBackupXPCActivityNameWithType(v3);
+    v8 = MBGetDefaultLog();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    {
+      *buf = 136446210;
+      v11 = v7;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "=XPCActivity= Cancelling XPC activity timer for %{public}s", buf, 0xCu);
+      _MBLog(@"I ", "=XPCActivity= Cancelling XPC activity timer for %{public}s", v7);
+    }
+
+    dispatch_source_cancel(deferralTimer);
+    v9 = [(MBXPCActivityCoordinator *)self _activityForActivityType:v3];
+    [v9 setDeferralTimer:0];
   }
 }
 

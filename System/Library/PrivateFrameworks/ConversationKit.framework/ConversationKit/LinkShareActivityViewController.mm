@@ -10,7 +10,7 @@
   v5 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   if (activities)
   {
-    type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UIActivity);
+    type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UIActivity, 0x1E69CD9E8);
     v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   }
 

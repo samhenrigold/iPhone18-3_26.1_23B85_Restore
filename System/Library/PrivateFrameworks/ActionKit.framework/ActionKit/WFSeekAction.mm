@@ -6,7 +6,7 @@
 
 - (void)runAsynchronouslyWithInput:(id)input
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   v4 = [(WFSeekAction *)self parameterValueForKey:@"WFMediaRoute" ofClass:objc_opt_class()];
   if (v4)
   {
@@ -39,8 +39,8 @@ LABEL_12:
       }
 
       routeUID2 = [v4 routeUID];
-      v23[0] = routeUID2;
-      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
+      v22[0] = routeUID2;
+      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
     }
 
     aBlock[0] = MEMORY[0x277D85DD0];
@@ -69,8 +69,6 @@ LABEL_12:
 
   [(WFSeekAction *)self finishRunningWithError:0];
 LABEL_13:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __43__WFSeekAction_runAsynchronouslyWithInput___block_invoke(uint64_t a1, void *a2)

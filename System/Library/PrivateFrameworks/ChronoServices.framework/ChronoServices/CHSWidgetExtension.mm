@@ -52,11 +52,11 @@
 - (id)initFromExtension:(id)extension includeIntents:(BOOL)intents
 {
   intentsCopy = intents;
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   extensionCopy = extension;
-  v46.receiver = self;
-  v46.super_class = CHSWidgetExtension;
-  v7 = [(CHSWidgetExtension *)&v46 init];
+  v45.receiver = self;
+  v45.super_class = CHSWidgetExtension;
+  v7 = [(CHSWidgetExtension *)&v45 init];
   if (v7)
   {
     v8 = [*(extensionCopy + 1) copy];
@@ -95,33 +95,33 @@
     else
     {
       orderedControlDescriptors = objc_alloc_init(MEMORY[0x1E695DF70]);
-      v44 = 0u;
-      v45 = 0u;
-      v42 = 0u;
       v43 = 0u;
+      v44 = 0u;
+      v41 = 0u;
+      v42 = 0u;
       orderedWidgetDescriptors2 = [extensionCopy orderedWidgetDescriptors];
-      v23 = [orderedWidgetDescriptors2 countByEnumeratingWithState:&v42 objects:v48 count:16];
+      v23 = [orderedWidgetDescriptors2 countByEnumeratingWithState:&v41 objects:v47 count:16];
       if (v23)
       {
-        v24 = *v43;
+        v24 = *v42;
         do
         {
           v25 = 0;
           do
           {
-            if (*v43 != v24)
+            if (*v42 != v24)
             {
               objc_enumerationMutation(orderedWidgetDescriptors2);
             }
 
-            v26 = [[CHSWidgetDescriptor alloc] initFromDescriptor:*(*(&v42 + 1) + 8 * v25) includeIntents:0];
+            v26 = [[CHSWidgetDescriptor alloc] initFromDescriptor:*(*(&v41 + 1) + 8 * v25) includeIntents:0];
             [orderedControlDescriptors addObject:v26];
 
             ++v25;
           }
 
           while (v23 != v25);
-          v23 = [orderedWidgetDescriptors2 countByEnumeratingWithState:&v42 objects:v48 count:16];
+          v23 = [orderedWidgetDescriptors2 countByEnumeratingWithState:&v41 objects:v47 count:16];
         }
 
         while (v23);
@@ -132,33 +132,33 @@
       v7->_orderedWidgetDescriptors = v27;
 
       orderedControlDescriptors = objc_alloc_init(MEMORY[0x1E695DF70]);
-      v40 = 0u;
-      v41 = 0u;
-      v38 = 0u;
       v39 = 0u;
+      v40 = 0u;
+      v37 = 0u;
+      v38 = 0u;
       orderedControlDescriptors2 = [extensionCopy orderedControlDescriptors];
-      v30 = [orderedControlDescriptors2 countByEnumeratingWithState:&v38 objects:v47 count:16];
+      v30 = [orderedControlDescriptors2 countByEnumeratingWithState:&v37 objects:v46 count:16];
       if (v30)
       {
-        v31 = *v39;
+        v31 = *v38;
         do
         {
           v32 = 0;
           do
           {
-            if (*v39 != v31)
+            if (*v38 != v31)
             {
               objc_enumerationMutation(orderedControlDescriptors2);
             }
 
-            v33 = [[CHSControlDescriptor alloc] initFromDescriptor:*(*(&v38 + 1) + 8 * v32) includeIntents:0];
+            v33 = [[CHSControlDescriptor alloc] initFromDescriptor:*(*(&v37 + 1) + 8 * v32) includeIntents:0];
             [(NSArray *)orderedControlDescriptors addObject:v33];
 
             ++v32;
           }
 
           while (v30 != v32);
-          v30 = [orderedControlDescriptors2 countByEnumeratingWithState:&v38 objects:v47 count:16];
+          v30 = [orderedControlDescriptors2 countByEnumeratingWithState:&v37 objects:v46 count:16];
         }
 
         while (v30);
@@ -170,7 +170,6 @@
     }
   }
 
-  v36 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -219,8 +218,8 @@
       while (v9);
     }
 
-    v15 = CHSLogChronoServices();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = CHSLogChronoServices(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       succinctDescription = [(CHSWidgetExtension *)self succinctDescription];
       *buf = 138543874;
@@ -229,11 +228,9 @@
       v29 = v19;
       v30 = 2114;
       v31 = v7;
-      _os_log_error_impl(&dword_195EB2000, v15, OS_LOG_TYPE_ERROR, "[%{public}@] Unable to find control descriptor of kind: %{public}@.  Available kinds: [%{public}@]", buf, 0x20u);
+      _os_log_error_impl(&dword_195EB2000, v16, OS_LOG_TYPE_ERROR, "[%{public}@] Unable to find control descriptor of kind: %{public}@.  Available kinds: [%{public}@]", buf, 0x20u);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -291,8 +288,8 @@ uint64_t __47__CHSWidgetExtension_controlDescriptorForKind___block_invoke(uint64
       while (v9);
     }
 
-    v15 = CHSLogChronoServices();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = CHSLogChronoServices(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       succinctDescription = [(CHSWidgetExtension *)self succinctDescription];
       *buf = 138543874;
@@ -301,11 +298,9 @@ uint64_t __47__CHSWidgetExtension_controlDescriptorForKind___block_invoke(uint64
       v29 = v19;
       v30 = 2114;
       v31 = v7;
-      _os_log_error_impl(&dword_195EB2000, v15, OS_LOG_TYPE_ERROR, "[%{public}@] Unable to find widget descriptor of kind: %{public}@.  Available kinds: [%{public}@]", buf, 0x20u);
+      _os_log_error_impl(&dword_195EB2000, v16, OS_LOG_TYPE_ERROR, "[%{public}@] Unable to find widget descriptor of kind: %{public}@.  Available kinds: [%{public}@]", buf, 0x20u);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -323,7 +318,7 @@ uint64_t __46__CHSWidgetExtension_widgetDescriptorForKind___block_invoke(uint64_
   equalCopy = equal;
   if (self == equalCopy)
   {
-    v20 = 1;
+    v6 = 1;
   }
 
   else
@@ -332,55 +327,24 @@ uint64_t __46__CHSWidgetExtension_widgetDescriptorForKind___block_invoke(uint64_
     if (objc_opt_isKindOfClass())
     {
       v5 = equalCopy;
-      if (self->_dataProtectionLevel != v5->_dataProtectionLevel)
+      if (self->_dataProtectionLevel == v5->_dataProtectionLevel && BSEqualObjects() && BSEqualObjects() && BSEqualObjects() && BSEqualObjects() && BSEqualArrays() && BSEqualArrays())
       {
-        goto LABEL_13;
-      }
-
-      identity = self->_identity;
-      v7 = v5->_identity;
-      if (!BSEqualObjects())
-      {
-        goto LABEL_13;
-      }
-
-      entitlements = self->_entitlements;
-      v9 = v5->_entitlements;
-      if (!BSEqualObjects())
-      {
-        goto LABEL_13;
-      }
-
-      localizedDisplayName = self->_localizedDisplayName;
-      v11 = v5->_localizedDisplayName;
-      if (!BSEqualObjects())
-      {
-        goto LABEL_13;
-      }
-
-      containerBundleLocalizedDisplayName = self->_containerBundleLocalizedDisplayName;
-      v13 = v5->_containerBundleLocalizedDisplayName;
-      if (BSEqualObjects() && (orderedWidgetDescriptors = self->_orderedWidgetDescriptors, v15 = v5->_orderedWidgetDescriptors, BSEqualArrays()) && (orderedControlDescriptors = self->_orderedControlDescriptors, v17 = v5->_orderedControlDescriptors, BSEqualArrays()))
-      {
-        liveActivityDescriptors = self->_liveActivityDescriptors;
-        v19 = v5->_liveActivityDescriptors;
-        v20 = BSEqualSets();
+        v6 = BSEqualSets();
       }
 
       else
       {
-LABEL_13:
-        v20 = 0;
+        v6 = 0;
       }
     }
 
     else
     {
-      v20 = 0;
+      v6 = 0;
     }
   }
 
-  return v20;
+  return v6;
 }
 
 - (id)mutableCopyWithZone:(_NSZone *)zone
@@ -411,11 +375,11 @@ LABEL_13:
 
 - (CHSWidgetExtension)initWithCoder:(id)coder
 {
-  v35[2] = *MEMORY[0x1E69E9840];
+  v34[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v32.receiver = self;
-  v32.super_class = CHSWidgetExtension;
-  v5 = [(CHSWidgetExtension *)&v32 init];
+  v31.receiver = self;
+  v31.super_class = CHSWidgetExtension;
+  v5 = [(CHSWidgetExtension *)&v31 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"identity"];
@@ -440,9 +404,9 @@ LABEL_13:
     if ([coderCopy containsValueForKey:@"controls"])
     {
       v14 = MEMORY[0x1E695DFD8];
-      v35[0] = objc_opt_class();
-      v35[1] = objc_opt_class();
-      v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:2];
+      v34[0] = objc_opt_class();
+      v34[1] = objc_opt_class();
+      v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:2];
       v16 = [v14 setWithArray:v15];
       v17 = [coderCopy decodeObjectOfClasses:v16 forKey:@"controls"];
       orderedControlDescriptors = v5->_orderedControlDescriptors;
@@ -458,9 +422,9 @@ LABEL_13:
     if ([coderCopy containsValueForKey:@"activityDescriptors"])
     {
       v19 = MEMORY[0x1E695DFD8];
-      v34[0] = objc_opt_class();
-      v34[1] = objc_opt_class();
-      v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:2];
+      v33[0] = objc_opt_class();
+      v33[1] = objc_opt_class();
+      v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:2];
       v21 = [v19 setWithArray:v20];
       v22 = [coderCopy decodeObjectOfClasses:v21 forKey:@"activityDescriptors"];
 
@@ -481,9 +445,9 @@ LABEL_13:
     }
 
     v25 = MEMORY[0x1E695DFD8];
-    v33[0] = objc_opt_class();
-    v33[1] = objc_opt_class();
-    v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:2];
+    v32[0] = objc_opt_class();
+    v32[1] = objc_opt_class();
+    v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:2];
     v27 = [v25 setWithArray:v26];
     v28 = [coderCopy decodeObjectOfClasses:v27 forKey:@"desc"];
     orderedWidgetDescriptors = v5->_orderedWidgetDescriptors;
@@ -494,39 +458,38 @@ LABEL_13:
     v5->_hasValidHash = 0;
   }
 
-  v30 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (BOOL)isLinkedOnOrAfter:(unint64_t)after
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   v5 = self->_orderedWidgetDescriptors;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v26 objects:v32 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v25 objects:v31 count:16];
   if (v6)
   {
-    v7 = *v27;
+    v7 = *v26;
 LABEL_3:
     v8 = 0;
     while (1)
     {
-      if (*v27 != v7)
+      if (*v26 != v7)
       {
         objc_enumerationMutation(v5);
       }
 
-      if ([*(*(&v26 + 1) + 8 * v8) isLinkedOnOrAfter:after])
+      if ([*(*(&v25 + 1) + 8 * v8) isLinkedOnOrAfter:after])
       {
         goto LABEL_26;
       }
 
       if (v6 == ++v8)
       {
-        v6 = [(NSArray *)v5 countByEnumeratingWithState:&v26 objects:v32 count:16];
+        v6 = [(NSArray *)v5 countByEnumeratingWithState:&v25 objects:v31 count:16];
         if (v6)
         {
           goto LABEL_3;
@@ -537,32 +500,32 @@ LABEL_3:
     }
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v5 = self->_orderedControlDescriptors;
-  v9 = [(NSArray *)v5 countByEnumeratingWithState:&v22 objects:v31 count:16];
+  v9 = [(NSArray *)v5 countByEnumeratingWithState:&v21 objects:v30 count:16];
   if (v9)
   {
-    v10 = *v23;
+    v10 = *v22;
 LABEL_11:
     v11 = 0;
     while (1)
     {
-      if (*v23 != v10)
+      if (*v22 != v10)
       {
         objc_enumerationMutation(v5);
       }
 
-      if ([*(*(&v22 + 1) + 8 * v11) isLinkedOnOrAfter:after])
+      if ([*(*(&v21 + 1) + 8 * v11) isLinkedOnOrAfter:after])
       {
         goto LABEL_26;
       }
 
       if (v9 == ++v11)
       {
-        v9 = [(NSArray *)v5 countByEnumeratingWithState:&v22 objects:v31 count:16];
+        v9 = [(NSArray *)v5 countByEnumeratingWithState:&v21 objects:v30 count:16];
         if (v9)
         {
           goto LABEL_11;
@@ -573,32 +536,32 @@ LABEL_11:
     }
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v5 = self->_liveActivityDescriptors;
-  v12 = [(NSArray *)v5 countByEnumeratingWithState:&v18 objects:v30 count:16];
+  v12 = [(NSArray *)v5 countByEnumeratingWithState:&v17 objects:v29 count:16];
   if (v12)
   {
-    v13 = *v19;
+    v13 = *v18;
 LABEL_19:
     v14 = 0;
     while (1)
     {
-      if (*v19 != v13)
+      if (*v18 != v13)
       {
         objc_enumerationMutation(v5);
       }
 
-      if ([*(*(&v18 + 1) + 8 * v14) isLinkedOnOrAfter:{after, v18}])
+      if ([*(*(&v17 + 1) + 8 * v14) isLinkedOnOrAfter:{after, v17}])
       {
         break;
       }
 
       if (v12 == ++v14)
       {
-        v12 = [(NSArray *)v5 countByEnumeratingWithState:&v18 objects:v30 count:16];
+        v12 = [(NSArray *)v5 countByEnumeratingWithState:&v17 objects:v29 count:16];
         if (v12)
         {
           goto LABEL_19;
@@ -617,35 +580,34 @@ LABEL_25:
   v15 = 0;
 LABEL_27:
 
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 - (id)copyFilteredToOptions:(id)options
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   v5 = objc_autoreleasePoolPush();
   array = [MEMORY[0x1E695DF70] array];
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v7 = self->_orderedWidgetDescriptors;
-  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v30 objects:v35 count:16];
+  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v29 objects:v34 count:16];
   if (v8)
   {
-    v9 = *v31;
+    v9 = *v30;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v31 != v9)
+        if (*v30 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v30 + 1) + 8 * i);
+        v11 = *(*(&v29 + 1) + 8 * i);
         if ([optionsCopy matchesWidgetDescriptor:v11])
         {
           if (([optionsCopy includeIntents] & 1) != 0 || !objc_msgSend(v11, "hasIntents"))
@@ -661,33 +623,33 @@ LABEL_27:
         }
       }
 
-      v8 = [(NSArray *)v7 countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v8 = [(NSArray *)v7 countByEnumeratingWithState:&v29 objects:v34 count:16];
     }
 
     while (v8);
   }
 
   array2 = [MEMORY[0x1E695DF70] array];
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v14 = self->_orderedControlDescriptors;
-  v15 = [(NSArray *)v14 countByEnumeratingWithState:&v26 objects:v34 count:16];
+  v15 = [(NSArray *)v14 countByEnumeratingWithState:&v25 objects:v33 count:16];
   if (v15)
   {
-    v16 = *v27;
+    v16 = *v26;
     do
     {
       for (j = 0; j != v15; ++j)
       {
-        if (*v27 != v16)
+        if (*v26 != v16)
         {
           objc_enumerationMutation(v14);
         }
 
-        v18 = *(*(&v26 + 1) + 8 * j);
-        if ([optionsCopy matchesControlDescriptor:{v18, v26}])
+        v18 = *(*(&v25 + 1) + 8 * j);
+        if ([optionsCopy matchesControlDescriptor:{v18, v25}])
         {
           if (([optionsCopy includeIntents] & 1) != 0 || !objc_msgSend(v18, "hasIntents"))
           {
@@ -702,7 +664,7 @@ LABEL_27:
         }
       }
 
-      v15 = [(NSArray *)v14 countByEnumeratingWithState:&v26 objects:v34 count:16];
+      v15 = [(NSArray *)v14 countByEnumeratingWithState:&v25 objects:v33 count:16];
     }
 
     while (v15);
@@ -719,7 +681,6 @@ LABEL_27:
   v23 = [v20 copy];
   objc_autoreleasePoolPop(v5);
 
-  v24 = *MEMORY[0x1E69E9840];
   return v23;
 }
 

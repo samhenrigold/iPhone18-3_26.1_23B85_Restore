@@ -48,7 +48,7 @@
   if (exception)
   {
     v7 = *MEMORY[0x277D85DF8];
-    [(DYJSScriptingContext *)self _jsValueToString:?];
+    objc_msgSend__jsValueToString_(self);
     uTF8String = [(NSString *)self->_filename UTF8String];
     if (v19 >= 0)
     {
@@ -149,7 +149,7 @@
   if (exception)
   {
     v16 = *MEMORY[0x277D85DF8];
-    [(DYJSScriptingContext *)self _jsValueToString:?];
+    objc_msgSend__jsValueToString_(self);
     uTF8String2 = [(NSString *)self->_filename UTF8String];
     v18 = v21 >= 0 ? &__p : __p;
     fprintf(v16, "[DYJSScripting] %s when setting %s (%s)", v18, object, uTF8String2);
@@ -177,7 +177,7 @@
   if (exception)
   {
     v8 = *MEMORY[0x277D85DF8];
-    [(DYJSScriptingContext *)self _jsValueToString:?];
+    objc_msgSend__jsValueToString_(self);
     uTF8String = [(NSString *)self->_filename UTF8String];
     if (v13 >= 0)
     {
@@ -210,7 +210,7 @@
     if (exception)
     {
       v9 = *MEMORY[0x277D85DF8];
-      [(DYJSScriptingContext *)self _jsValueToString:?];
+      objc_msgSend__jsValueToString_(self);
       uTF8String = [(NSString *)self->_filename UTF8String];
       if (v13 >= 0)
       {
@@ -306,7 +306,7 @@
   if (exception)
   {
     v16 = *MEMORY[0x277D85DF8];
-    [(DYJSScriptingContext *)self _jsValueToString:?];
+    objc_msgSend__jsValueToString_(self);
     uTF8String = [(NSString *)self->_filename UTF8String];
     if (v32 >= 0)
     {
@@ -402,7 +402,7 @@ LABEL_42:
   if (exception)
   {
     v27 = *MEMORY[0x277D85DF8];
-    [(DYJSScriptingContext *)self _jsValueToString:?];
+    objc_msgSend__jsValueToString_(self);
     uTF8String2 = [(NSString *)self->_filename UTF8String];
     if (v32 >= 0)
     {

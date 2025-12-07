@@ -1593,9 +1593,9 @@ LABEL_89:
             stagedPriorToAvailable = [descriptorCopy2 stagedPriorToAvailable];
             stagedFromOSVersion = [descriptorCopy2 stagedFromOSVersion];
             stagedFromBuildVersion = [descriptorCopy2 stagedFromBuildVersion];
-            patchingAttemptError = [descriptorCopy2 patchingAttemptError];
+            v149 = objc_msgSend_patchingAttemptError(descriptorCopy2);
             v143 = v144;
-            patchingAttemptError2 = patchingAttemptError;
+            v150 = v149;
           }
 
           else
@@ -1604,13 +1604,13 @@ LABEL_89:
             stagedPriorToAvailable = 0;
             patchingAttempted = 0;
             stagedFromOSVersion = 0;
-            patchingAttemptError2 = 0;
+            v150 = 0;
           }
 
           BYTE1(v211) = stagedPriorToAvailable;
           LOBYTE(v211) = patchingAttempted;
           LOBYTE(v209) = 0;
-          v156 = [v140 initWithAssetSelector:v241 withNotifications:v141 withAvailableForUseAttributes:metadata withNewerVersionAttributes:0 withNeverBeenLocked:1 withDownloadUserInitiated:v143 withDownloadProgress:0 withDownloadedNetworkBytes:-1 withDownloadedFilesystemBytes:-1 withDownloadedAsPatch:v209 withPatchedFromBaseSelector:0 withPatchedFromBaseFilesystemBytes:-1 withPatchingAttempted:v211 withStagedPriorToAvailable:stagedFromOSVersion withStagedFromOSVersion:stagedFromBuildVersion withStagedFromBuildVersion:0 withCurrentLockUsage:0 withAvailableForUseError:patchingAttemptError2 withPatchingAttemptError:0 withNewerVersionError:?];
+          v156 = [v140 initWithAssetSelector:v241 withNotifications:v141 withAvailableForUseAttributes:metadata withNewerVersionAttributes:0 withNeverBeenLocked:1 withDownloadUserInitiated:v143 withDownloadProgress:0 withDownloadedNetworkBytes:-1 withDownloadedFilesystemBytes:-1 withDownloadedAsPatch:v209 withPatchedFromBaseSelector:0 withPatchedFromBaseFilesystemBytes:-1 withPatchingAttempted:v211 withStagedPriorToAvailable:stagedFromOSVersion withStagedFromOSVersion:stagedFromBuildVersion withStagedFromBuildVersion:0 withCurrentLockUsage:0 withAvailableForUseError:v150 withPatchingAttemptError:0 withNewerVersionError:?];
           v157 = v24->_currentStatus;
           v24->_currentStatus = v156;
 
@@ -1649,7 +1649,7 @@ LABEL_89:
             stagedPriorToAvailable2 = [descriptorCopy2 stagedPriorToAvailable];
             stagedFromOSVersion = [descriptorCopy2 stagedFromOSVersion];
             stagedFromBuildVersion = [descriptorCopy2 stagedFromBuildVersion];
-            patchingAttemptError2 = [descriptorCopy2 patchingAttemptError];
+            v150 = objc_msgSend_patchingAttemptError(descriptorCopy2);
           }
 
           else
@@ -1658,13 +1658,13 @@ LABEL_89:
             stagedPriorToAvailable2 = 0;
             patchingAttempted2 = 0;
             stagedFromOSVersion = 0;
-            patchingAttemptError2 = 0;
+            v150 = 0;
           }
 
           BYTE1(v210) = stagedPriorToAvailable2;
           LOBYTE(v210) = patchingAttempted2;
           LOBYTE(v208) = 0;
-          v206 = [v242 initWithAssetSelector:v230 withNotifications:v141 withAvailableForUseAttributes:metadata withNewerVersionAttributes:0 withDownloadUserInitiated:v152 withDownloadProgress:0 withDownloadedNetworkBytes:-1 withDownloadedFilesystemBytes:-1 withDownloadedAsPatch:v208 withPatchedFromBaseSelector:0 withPatchedFromBaseFilesystemBytes:-1 withPatchingAttempted:v210 withStagedPriorToAvailable:stagedFromOSVersion withStagedFromOSVersion:stagedFromBuildVersion withStagedFromBuildVersion:0 withCurrentLockUsage:0 withAvailableForUseError:patchingAttemptError2 withPatchingAttemptError:0 withNewerVersionError:?];
+          v206 = [v242 initWithAssetSelector:v230 withNotifications:v141 withAvailableForUseAttributes:metadata withNewerVersionAttributes:0 withDownloadUserInitiated:v152 withDownloadProgress:0 withDownloadedNetworkBytes:-1 withDownloadedFilesystemBytes:-1 withDownloadedAsPatch:v208 withPatchedFromBaseSelector:0 withPatchedFromBaseFilesystemBytes:-1 withPatchingAttempted:v210 withStagedPriorToAvailable:stagedFromOSVersion withStagedFromOSVersion:stagedFromBuildVersion withStagedFromBuildVersion:0 withCurrentLockUsage:0 withAvailableForUseError:v150 withPatchingAttemptError:0 withNewerVersionError:?];
           v207 = v24->_currentStatus;
           v24->_currentStatus = v206;
 
@@ -3248,11 +3248,11 @@ LABEL_31:
       stagedPriorToAvailable = [autoAssetDescriptor stagedPriorToAvailable];
       stagedFromOSVersion = [autoAssetDescriptor stagedFromOSVersion];
       stagedFromBuildVersion = [autoAssetDescriptor stagedFromBuildVersion];
-      patchingAttemptError = [autoAssetDescriptor patchingAttemptError];
+      v37 = objc_msgSend_patchingAttemptError(autoAssetDescriptor);
       BYTE1(v67) = stagedPriorToAvailable;
       LOBYTE(v67) = patchingAttempted;
       LOBYTE(v65) = 0;
-      v38 = [v68 initWithAssetSelector:v73 withNotifications:v72 withAvailableForUseAttributes:metadata withNewerVersionAttributes:metadata2 withNeverBeenLocked:1 withDownloadUserInitiated:downloadingUserInitiated withDownloadProgress:0 withDownloadedNetworkBytes:-1 withDownloadedFilesystemBytes:-1 withDownloadedAsPatch:v65 withPatchedFromBaseSelector:0 withPatchedFromBaseFilesystemBytes:-1 withPatchingAttempted:v67 withStagedPriorToAvailable:stagedFromOSVersion withStagedFromOSVersion:stagedFromBuildVersion withStagedFromBuildVersion:0 withCurrentLockUsage:0 withAvailableForUseError:patchingAttemptError withPatchingAttemptError:0 withNewerVersionError:?];
+      v38 = [v68 initWithAssetSelector:v73 withNotifications:v72 withAvailableForUseAttributes:metadata withNewerVersionAttributes:metadata2 withNeverBeenLocked:1 withDownloadUserInitiated:downloadingUserInitiated withDownloadProgress:0 withDownloadedNetworkBytes:-1 withDownloadedFilesystemBytes:-1 withDownloadedAsPatch:v65 withPatchedFromBaseSelector:0 withPatchedFromBaseFilesystemBytes:-1 withPatchingAttempted:v67 withStagedPriorToAvailable:stagedFromOSVersion withStagedFromOSVersion:stagedFromBuildVersion withStagedFromBuildVersion:0 withCurrentLockUsage:0 withAvailableForUseError:v37 withPatchingAttemptError:0 withNewerVersionError:?];
 
       v39 = metadata;
     }
@@ -3272,11 +3272,11 @@ LABEL_31:
         stagedPriorToAvailable2 = [autoAssetDescriptor stagedPriorToAvailable];
         stagedFromOSVersion2 = [autoAssetDescriptor stagedFromOSVersion];
         stagedFromBuildVersion2 = [autoAssetDescriptor stagedFromBuildVersion];
-        patchingAttemptError2 = [autoAssetDescriptor patchingAttemptError];
+        v49 = objc_msgSend_patchingAttemptError(autoAssetDescriptor);
         BYTE1(v66) = stagedPriorToAvailable2;
         LOBYTE(v66) = patchingAttempted2;
         LOBYTE(v64) = 0;
-        v38 = [v69 initWithAssetSelector:v73 withNotifications:v72 withAvailableForUseAttributes:metadata3 withNewerVersionAttributes:metadata4 withDownloadUserInitiated:downloadingUserInitiated2 withDownloadProgress:0 withDownloadedNetworkBytes:-1 withDownloadedFilesystemBytes:-1 withDownloadedAsPatch:v64 withPatchedFromBaseSelector:0 withPatchedFromBaseFilesystemBytes:-1 withPatchingAttempted:v66 withStagedPriorToAvailable:stagedFromOSVersion2 withStagedFromOSVersion:stagedFromBuildVersion2 withStagedFromBuildVersion:0 withCurrentLockUsage:0 withAvailableForUseError:patchingAttemptError2 withPatchingAttemptError:0 withNewerVersionError:?];
+        v38 = [v69 initWithAssetSelector:v73 withNotifications:v72 withAvailableForUseAttributes:metadata3 withNewerVersionAttributes:metadata4 withDownloadUserInitiated:downloadingUserInitiated2 withDownloadProgress:0 withDownloadedNetworkBytes:-1 withDownloadedFilesystemBytes:-1 withDownloadedAsPatch:v64 withPatchedFromBaseSelector:0 withPatchedFromBaseFilesystemBytes:-1 withPatchingAttempted:v66 withStagedPriorToAvailable:stagedFromOSVersion2 withStagedFromOSVersion:stagedFromBuildVersion2 withStagedFromBuildVersion:0 withCurrentLockUsage:0 withAvailableForUseError:v49 withPatchingAttemptError:0 withNewerVersionError:?];
 
         v39 = metadata3;
       }
@@ -3669,10 +3669,10 @@ LABEL_32:
 
     if (v11)
     {
-      v81 = [NSString alloc];
+      v82 = [NSString alloc];
       autoJobName = [(MADAutoAssetJob *)selfCopy autoJobName];
-      v83 = [v81 initWithFormat:@"%@ | {ReportCatalogDecideFound} expecting catalog provided by auto-asset-stager yet no catalog provided", autoJobName];
-      [(MADAutoAssetJob *)selfCopy statusChange:@"ReportCatalogDecideFound" catalogAnomaly:6102 forReason:v83];
+      v84 = [v82 initWithFormat:@"%@ | {ReportCatalogDecideFound} expecting catalog provided by auto-asset-stager yet no catalog provided", autoJobName];
+      [(MADAutoAssetJob *)selfCopy statusChange:@"ReportCatalogDecideFound" catalogAnomaly:6102 forReason:v84];
 
       goto LABEL_75;
     }
@@ -3688,10 +3688,10 @@ LABEL_32:
   if (!autoAssetCatalog)
   {
 LABEL_75:
-    v84 = [NSString alloc];
+    v85 = [NSString alloc];
     autoAssetCatalog = [(MADAutoAssetJob *)selfCopy autoJobName];
-    v184 = [v84 initWithFormat:@"%@ | {ReportCatalogDecideFound} successful catalog download yet no catalog provided", autoAssetCatalog];
-    [(MADAutoAssetJob *)selfCopy statusChange:@"ReportCatalogDecideFound" catalogAnomaly:6102 forReason:v184];
+    v185 = [v85 initWithFormat:@"%@ | {ReportCatalogDecideFound} successful catalog download yet no catalog provided", autoAssetCatalog];
+    [(MADAutoAssetJob *)selfCopy statusChange:@"ReportCatalogDecideFound" catalogAnomaly:6102 forReason:v185];
     v12 = @"CatalogFoundNoNewer";
     goto LABEL_91;
   }
@@ -3713,13 +3713,13 @@ LABEL_75:
       }
 
       setConfiguration2 = [(MADAutoAssetJob *)selfCopy setConfiguration];
-      v88 = setConfiguration2 == 0;
+      v89 = setConfiguration2 == 0;
 
-      if (v88)
+      if (v89)
       {
-        v99 = [NSString alloc];
+        v100 = [NSString alloc];
         autoJobName2 = [(MADAutoAssetJob *)selfCopy autoJobName];
-        assignedSetDescriptor = [v99 initWithFormat:@"%@ | {ReportCatalogDecideFound} set-job without set-configuration", autoJobName2];
+        assignedSetDescriptor = [v100 initWithFormat:@"%@ | {ReportCatalogDecideFound} set-job without set-configuration", autoJobName2];
         [(MADAutoAssetJob *)selfCopy statusChange:@"ReportCatalogDecideFound" catalogAnomaly:6102 forReason:assignedSetDescriptor];
       }
 
@@ -3743,132 +3743,133 @@ LABEL_75:
     [MADAutoAssetLookupCache recordLookupResult:autoAssetCatalog forSelector:autoAssetSelector forStaging:0];
   }
 
-  v180 = [autoAssetCatalog safeStringForKey:@"AssetType"];
-  v179 = [autoAssetCatalog safeObjectForKey:@"Assets" ofClass:objc_opt_class()];
-  if (!v180 || !v179)
+  v181 = [autoAssetCatalog safeStringForKey:@"AssetType"];
+  v180 = [autoAssetCatalog safeObjectForKey:@"Assets" ofClass:objc_opt_class()];
+  if (!v181 || !v180)
   {
-    v91 = [NSString alloc];
-    *(&v181 + 1) = [(MADAutoAssetJob *)selfCopy autoJobName];
-    v92 = @"MISSING";
-    v93 = v180;
-    if (!v180)
+    v92 = [NSString alloc];
+    *(&v182 + 1) = [(MADAutoAssetJob *)selfCopy autoJobName];
+    v93 = @"MISSING";
+    v94 = v181;
+    if (!v181)
     {
-      v93 = @"MISSING";
+      v94 = @"MISSING";
     }
 
-    if (v179)
+    if (v180)
     {
-      v92 = @"present";
+      v93 = @"present";
     }
 
-    v94 = [v91 initWithFormat:@"%@ | auto-asset catalog without required fields | catalogAssetType:%@, catalogAssets:%@", *(&v181 + 1), v93, v92];
-    [(MADAutoAssetJob *)selfCopy statusChange:@"ReportCatalogDecideFound" catalogAnomaly:6102 forReason:v94];
+    v95 = [v92 initWithFormat:@"%@ | auto-asset catalog without required fields | catalogAssetType:%@, catalogAssets:%@", *(&v182 + 1), v94, v93];
+    [(MADAutoAssetJob *)selfCopy statusChange:@"ReportCatalogDecideFound" catalogAnomaly:6102 forReason:v95];
 
     goto LABEL_86;
   }
 
   autoAssetSelector2 = [(MADAutoAssetJob *)selfCopy autoAssetSelector];
   assetType = [autoAssetSelector2 assetType];
-  v16 = [SUCore stringIsEqual:v180 to:assetType];
+  v16 = [SUCore stringIsEqual:v181 to:assetType];
 
   if ((v16 & 1) == 0)
   {
-    v95 = [NSString alloc];
-    *(&v181 + 1) = [(MADAutoAssetJob *)selfCopy autoJobName];
+    v96 = [NSString alloc];
+    *(&v182 + 1) = [(MADAutoAssetJob *)selfCopy autoJobName];
     autoAssetSelector3 = [(MADAutoAssetJob *)selfCopy autoAssetSelector];
     assetType2 = [autoAssetSelector3 assetType];
-    v98 = [v95 initWithFormat:@"%@ | auto-asset catalog for wrong assetType | catalog:%@, expecting:%@", *(&v181 + 1), v180, assetType2];
-    [(MADAutoAssetJob *)selfCopy statusChange:@"ReportCatalogDecideFound" catalogAnomaly:6108 forReason:v98];
+    v99 = [v96 initWithFormat:@"%@ | auto-asset catalog for wrong assetType | catalog:%@, expecting:%@", *(&v182 + 1), v181, assetType2];
+    [(MADAutoAssetJob *)selfCopy statusChange:@"ReportCatalogDecideFound" catalogAnomaly:6108 forReason:v99];
 
 LABEL_86:
     v12 = @"CatalogFoundNoNewer";
     goto LABEL_87;
   }
 
-  if (![v179 count])
+  v17 = [v180 count];
+  if (!v17)
   {
     latestInstalledAssetVersion = [(MADAutoAssetJob *)selfCopy latestInstalledAssetVersion];
-    v105 = latestInstalledAssetVersion == 0;
+    v106 = latestInstalledAssetVersion == 0;
 
-    if (v105)
+    if (v106)
     {
-      *(&v181 + 1) = _MADLog(@"AutoJob");
-      if (os_log_type_enabled(*(&v181 + 1), OS_LOG_TYPE_DEFAULT))
+      *(&v182 + 1) = _MADLog(@"AutoJob");
+      if (os_log_type_enabled(*(&v182 + 1), OS_LOG_TYPE_DEFAULT))
       {
         autoJobName3 = [(MADAutoAssetJob *)selfCopy autoJobName];
         *buf = 138543362;
-        v199 = autoJobName3;
-        _os_log_impl(&dword_0, *(&v181 + 1), OS_LOG_TYPE_DEFAULT, "%{public}@ | {ReportCatalogDecideFound} no assets provided (and no latest-installed asset-version)", buf, 0xCu);
+        v200 = autoJobName3;
+        _os_log_impl(&dword_0, *(&v182 + 1), OS_LOG_TYPE_DEFAULT, "%{public}@ | {ReportCatalogDecideFound} no assets provided (and no latest-installed asset-version)", buf, 0xCu);
       }
     }
 
     else
     {
-      *(&v181 + 1) = [(MADAutoAssetJob *)selfCopy autoAssetSelector];
-      assetVersion = [*(&v181 + 1) assetVersion];
+      *(&v182 + 1) = [(MADAutoAssetJob *)selfCopy autoAssetSelector];
+      assetVersion = [*(&v182 + 1) assetVersion];
       if (assetVersion)
       {
-        v107 = 6110;
+        v108 = 6110;
       }
 
       else
       {
-        v107 = 6205;
+        v108 = 6205;
       }
 
-      v108 = [NSString alloc];
+      v109 = [NSString alloc];
       autoJobName4 = [(MADAutoAssetJob *)selfCopy autoJobName];
       latestInstalledAssetVersion2 = [(MADAutoAssetJob *)selfCopy latestInstalledAssetVersion];
-      v110 = [v108 initWithFormat:@"%@ | successful catalog download yet no assets in catalog | have installed asset-version:%@ | REVOKED", autoJobName4, latestInstalledAssetVersion2];
-      [(MADAutoAssetJob *)selfCopy statusChange:@"ReportCatalogDecideFound" catalogFailure:v107 forReason:v110];
+      v111 = [v109 initWithFormat:@"%@ | successful catalog download yet no assets in catalog | have installed asset-version:%@ | REVOKED", autoJobName4, latestInstalledAssetVersion2];
+      [(MADAutoAssetJob *)selfCopy statusChange:@"ReportCatalogDecideFound" catalogFailure:v108 forReason:v111];
     }
 
     goto LABEL_86;
   }
 
-  v182 = supportedAssetFormatsArray();
-  v195 = 0u;
+  v183 = supportedAssetFormatsArray(v17);
   v196 = 0u;
-  v193 = 0u;
+  v197 = 0u;
   v194 = 0u;
-  obj = v179;
-  v17 = [obj countByEnumeratingWithState:&v193 objects:v206 count:16];
-  if (!v17)
+  v195 = 0u;
+  obj = v180;
+  v18 = [obj countByEnumeratingWithState:&v194 objects:v207 count:16];
+  if (!v18)
   {
-    v178 = 0;
-    v181 = 0uLL;
+    v179 = 0;
+    v182 = 0uLL;
     goto LABEL_98;
   }
 
-  v178 = 0;
-  v181 = 0uLL;
-  v186 = *v194;
+  v179 = 0;
+  v182 = 0uLL;
+  v187 = *v195;
   do
   {
-    v18 = 0;
-    v188 = v17;
+    v19 = 0;
+    v189 = v18;
     do
     {
-      if (*v194 != v186)
+      if (*v195 != v187)
       {
         objc_enumerationMutation(obj);
       }
 
-      v19 = *(*(&v193 + 1) + 8 * v18);
-      v20 = objc_autoreleasePoolPush();
-      if (![MADAutoAssetDescriptor doesMetatadaIndicateEmptyEntry:v19])
+      v20 = *(*(&v194 + 1) + 8 * v19);
+      v21 = objc_autoreleasePoolPush();
+      if (![MADAutoAssetDescriptor doesMetatadaIndicateEmptyEntry:v20])
       {
-        v24 = [MADAutoAssetDescriptor alloc];
+        v25 = [MADAutoAssetDescriptor alloc];
         autoAssetSelector4 = [(MADAutoAssetJob *)selfCopy autoAssetSelector];
         assetType3 = [autoAssetSelector4 assetType];
-        v192 = 0;
-        v27 = [(MADAutoAssetDescriptor *)v24 initForAssetType:assetType3 fromMetadata:v19 invalidReasons:&v192];
-        v21 = v192;
+        v193 = 0;
+        v28 = [(MADAutoAssetDescriptor *)v25 initForAssetType:assetType3 fromMetadata:v20 invalidReasons:&v193];
+        v22 = v193;
 
-        if (!v27)
+        if (!v28)
         {
-          v34 = [[NSString alloc] initWithFormat:@"%@ | {ReportCatalogDecideFound} auto-asset metadata considered invalid | %@", @"ReportCatalogDecideFound", v21];
-          [(MADAutoAssetJob *)selfCopy trackAnomaly:6108 forReason:v34];
+          v35 = [[NSString alloc] initWithFormat:@"%@ | {ReportCatalogDecideFound} auto-asset metadata considered invalid | %@", @"ReportCatalogDecideFound", v22];
+          [(MADAutoAssetJob *)selfCopy trackAnomaly:6108 forReason:v35];
           goto LABEL_69;
         }
 
@@ -3878,28 +3879,28 @@ LABEL_86:
         {
           autoAssetSelector6 = [(MADAutoAssetJob *)selfCopy autoAssetSelector];
           assetVersion3 = [autoAssetSelector6 assetVersion];
-          assetVersion4 = [v27 assetVersion];
-          v33 = [SUCore stringIsEqual:assetVersion3 to:assetVersion4];
+          assetVersion4 = [v28 assetVersion];
+          v34 = [SUCore stringIsEqual:assetVersion3 to:assetVersion4];
 
-          if ((v33 & 1) == 0)
+          if ((v34 & 1) == 0)
           {
-            v34 = _MADLog(@"AutoJob");
-            if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+            v35 = _MADLog(@"AutoJob");
+            if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
             {
               autoJobName5 = [(MADAutoAssetJob *)selfCopy autoJobName];
               autoAssetSelector7 = [(MADAutoAssetJob *)selfCopy autoAssetSelector];
               assetVersion5 = [autoAssetSelector7 assetVersion];
-              assetVersion6 = [v27 assetVersion];
-              selectorName = [v27 selectorName];
+              assetVersion6 = [v28 assetVersion];
+              selectorName = [v28 selectorName];
               *buf = 138544130;
-              v199 = autoJobName5;
-              v200 = 2114;
-              v201 = assetVersion5;
-              v202 = 2114;
-              v203 = assetVersion6;
-              v204 = 2114;
-              v205 = selectorName;
-              _os_log_impl(&dword_0, v34, OS_LOG_TYPE_DEFAULT, "%{public}@ | {ReportCatalogDecideFound} filtering out asset (version mismatch) | [version]required:%{public}@ != metadata:%{public}@ | filtered:%{public}@", buf, 0x2Au);
+              v200 = autoJobName5;
+              v201 = 2114;
+              v202 = assetVersion5;
+              v203 = 2114;
+              v204 = assetVersion6;
+              v205 = 2114;
+              v206 = selectorName;
+              _os_log_impl(&dword_0, v35, OS_LOG_TYPE_DEFAULT, "%{public}@ | {ReportCatalogDecideFound} filtering out asset (version mismatch) | [version]required:%{public}@ != metadata:%{public}@ | filtered:%{public}@", buf, 0x2Au);
             }
 
             goto LABEL_69;
@@ -3912,83 +3913,83 @@ LABEL_86:
 
         autoAssetSelector8 = [(MADAutoAssetJob *)selfCopy autoAssetSelector];
         assetSpecifier = [autoAssetSelector8 assetSpecifier];
-        assetSpecifier2 = [v27 assetSpecifier];
-        v43 = [SUCore stringIsEqual:assetSpecifier to:assetSpecifier2];
+        assetSpecifier2 = [v28 assetSpecifier];
+        v44 = [SUCore stringIsEqual:assetSpecifier to:assetSpecifier2];
 
-        if (v43)
+        if (v44)
         {
-          if ([v27 isPatch])
+          if ([v28 isPatch])
           {
             baseForPatch = [(MADAutoAssetJob *)selfCopy baseForPatch];
-            v45 = baseForPatch == 0;
+            v46 = baseForPatch == 0;
 
-            if (v45)
+            if (v46)
             {
-              v34 = _MADLog(@"AutoJob");
-              if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+              v35 = _MADLog(@"AutoJob");
+              if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
               {
                 autoJobName6 = [(MADAutoAssetJob *)selfCopy autoJobName];
-                selectorName2 = [v27 selectorName];
+                selectorName2 = [v28 selectorName];
                 *buf = 138543618;
-                v199 = autoJobName6;
-                v200 = 2114;
-                v201 = selectorName2;
-                _os_log_impl(&dword_0, v34, OS_LOG_TYPE_DEFAULT, "%{public}@ | {ReportCatalogDecideFound} filtering out asset (patch when no base for patch) | filtered:%{public}@", buf, 0x16u);
+                v200 = autoJobName6;
+                v201 = 2114;
+                v202 = selectorName2;
+                _os_log_impl(&dword_0, v35, OS_LOG_TYPE_DEFAULT, "%{public}@ | {ReportCatalogDecideFound} filtering out asset (patch when no base for patch) | filtered:%{public}@", buf, 0x16u);
               }
 
               goto LABEL_69;
             }
 
-            assetFormat = [v27 assetFormat];
-            v47 = [v182 containsObject:assetFormat];
+            assetFormat = [v28 assetFormat];
+            v48 = [v183 containsObject:assetFormat];
 
-            if (!v47)
+            if (!v48)
             {
-              v34 = _MADLog(@"AutoJob");
-              if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+              v35 = _MADLog(@"AutoJob");
+              if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
               {
                 autoJobName7 = [(MADAutoAssetJob *)selfCopy autoJobName];
-                selectorName3 = [v27 selectorName];
+                selectorName3 = [v28 selectorName];
                 *buf = 138543618;
-                v199 = autoJobName7;
-                v200 = 2114;
-                v201 = selectorName3;
-                _os_log_impl(&dword_0, v34, OS_LOG_TYPE_DEFAULT, "%{public}@ | {ReportCatalogDecideFound} filtering out asset (patch of unsupported format) | filtered:%{public}@", buf, 0x16u);
+                v200 = autoJobName7;
+                v201 = 2114;
+                v202 = selectorName3;
+                _os_log_impl(&dword_0, v35, OS_LOG_TYPE_DEFAULT, "%{public}@ | {ReportCatalogDecideFound} filtering out asset (patch of unsupported format) | filtered:%{public}@", buf, 0x16u);
               }
 
               goto LABEL_69;
             }
 
-            if (*(&v181 + 1))
+            if (*(&v182 + 1))
             {
-              if ([(MADAutoAssetJob *)selfCopy isMorePreferredFormat:v27 comparedTo:?])
+              if ([(MADAutoAssetJob *)selfCopy isMorePreferredFormat:v28 comparedTo:?])
               {
-                v48 = _MADLog(@"AutoJob");
-                if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+                v49 = _MADLog(@"AutoJob");
+                if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
                 {
                   autoJobName8 = [(MADAutoAssetJob *)selfCopy autoJobName];
-                  selectorName4 = [v27 selectorName];
+                  selectorName4 = [v28 selectorName];
                   *buf = 138543618;
-                  v199 = autoJobName8;
-                  v200 = 2114;
-                  v201 = selectorName4;
-                  _os_log_impl(&dword_0, v48, OS_LOG_TYPE_DEFAULT, "%{public}@ | {ReportCatalogDecideFound} more preferred patch provided | now considering:%{public}@", buf, 0x16u);
+                  v200 = autoJobName8;
+                  v201 = 2114;
+                  v202 = selectorName4;
+                  _os_log_impl(&dword_0, v49, OS_LOG_TYPE_DEFAULT, "%{public}@ | {ReportCatalogDecideFound} more preferred patch provided | now considering:%{public}@", buf, 0x16u);
                 }
 
-                v51 = v27;
+                v52 = v28;
                 goto LABEL_66;
               }
 
-              v34 = _MADLog(@"AutoJob");
-              if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+              v35 = _MADLog(@"AutoJob");
+              if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
               {
                 autoJobName9 = [(MADAutoAssetJob *)selfCopy autoJobName];
-                selectorName5 = [v27 selectorName];
+                selectorName5 = [v28 selectorName];
                 *buf = 138543618;
-                v199 = autoJobName9;
-                v200 = 2114;
-                v201 = selectorName5;
-                _os_log_impl(&dword_0, v34, OS_LOG_TYPE_DEFAULT, "%{public}@ | {ReportCatalogDecideFound} filtering out asset (additional patch of less-preferred format) | filtered:%{public}@", buf, 0x16u);
+                v200 = autoJobName9;
+                v201 = 2114;
+                v202 = selectorName5;
+                _os_log_impl(&dword_0, v35, OS_LOG_TYPE_DEFAULT, "%{public}@ | {ReportCatalogDecideFound} filtering out asset (additional patch of less-preferred format) | filtered:%{public}@", buf, 0x16u);
               }
 
 LABEL_69:
@@ -3996,185 +3997,185 @@ LABEL_69:
 
             else
             {
-              v75 = _MADLog(@"AutoJob");
-              if (os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
+              v76 = _MADLog(@"AutoJob");
+              if (os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
               {
                 autoJobName10 = [(MADAutoAssetJob *)selfCopy autoJobName];
-                selectorName6 = [v27 selectorName];
+                selectorName6 = [v28 selectorName];
                 *buf = 138543618;
-                v199 = autoJobName10;
-                v200 = 2114;
-                v201 = selectorName6;
-                _os_log_impl(&dword_0, v75, OS_LOG_TYPE_DEFAULT, "%{public}@ | {ReportCatalogDecideFound} patch provided | considering:%{public}@", buf, 0x16u);
+                v200 = autoJobName10;
+                v201 = 2114;
+                v202 = selectorName6;
+                _os_log_impl(&dword_0, v76, OS_LOG_TYPE_DEFAULT, "%{public}@ | {ReportCatalogDecideFound} patch provided | considering:%{public}@", buf, 0x16u);
               }
 
-              v78 = v27;
+              v79 = v28;
 LABEL_66:
-              v178 = -[MADAutoAssetJob preferenceAsIfRampOrUse:](selfCopy, "preferenceAsIfRampOrUse:", [v27 isRamped]);
-              *(&v181 + 1) = v27;
+              v179 = -[MADAutoAssetJob preferenceAsIfRampOrUse:](selfCopy, "preferenceAsIfRampOrUse:", [v28 isRamped]);
+              *(&v182 + 1) = v28;
             }
           }
 
           else
           {
-            assetFormat2 = [v27 assetFormat];
-            v58 = [v182 containsObject:assetFormat2];
+            assetFormat2 = [v28 assetFormat];
+            v59 = [v183 containsObject:assetFormat2];
 
-            if (!v58)
+            if (!v59)
             {
-              v34 = _MADLog(@"AutoJob");
-              if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+              v35 = _MADLog(@"AutoJob");
+              if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
               {
                 autoJobName11 = [(MADAutoAssetJob *)selfCopy autoJobName];
-                selectorName7 = [v27 selectorName];
+                selectorName7 = [v28 selectorName];
                 *buf = 138543618;
-                v199 = autoJobName11;
-                v200 = 2114;
-                v201 = selectorName7;
-                _os_log_impl(&dword_0, v34, OS_LOG_TYPE_DEFAULT, "%{public}@ | {ReportCatalogDecideFound} filtering out asset (full of unsupported format) | filtered:%{public}@", buf, 0x16u);
+                v200 = autoJobName11;
+                v201 = 2114;
+                v202 = selectorName7;
+                _os_log_impl(&dword_0, v35, OS_LOG_TYPE_DEFAULT, "%{public}@ | {ReportCatalogDecideFound} filtering out asset (full of unsupported format) | filtered:%{public}@", buf, 0x16u);
               }
 
               goto LABEL_69;
             }
 
-            if (v181)
+            if (v182)
             {
-              if (![(MADAutoAssetJob *)selfCopy isMorePreferredFormat:v27 comparedTo:?])
+              if (![(MADAutoAssetJob *)selfCopy isMorePreferredFormat:v28 comparedTo:?])
               {
-                v34 = _MADLog(@"AutoJob");
-                if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+                v35 = _MADLog(@"AutoJob");
+                if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
                 {
                   autoJobName12 = [(MADAutoAssetJob *)selfCopy autoJobName];
-                  selectorName8 = [v27 selectorName];
+                  selectorName8 = [v28 selectorName];
                   *buf = 138543618;
-                  v199 = autoJobName12;
-                  v200 = 2114;
-                  v201 = selectorName8;
-                  _os_log_impl(&dword_0, v34, OS_LOG_TYPE_DEFAULT, "%{public}@ | {ReportCatalogDecideFound} filtering out asset (additional full of less-preferred format) | filtered:%{public}@", buf, 0x16u);
+                  v200 = autoJobName12;
+                  v201 = 2114;
+                  v202 = selectorName8;
+                  _os_log_impl(&dword_0, v35, OS_LOG_TYPE_DEFAULT, "%{public}@ | {ReportCatalogDecideFound} filtering out asset (additional full of less-preferred format) | filtered:%{public}@", buf, 0x16u);
                 }
 
                 goto LABEL_69;
               }
 
-              v59 = _MADLog(@"AutoJob");
-              if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
+              v60 = _MADLog(@"AutoJob");
+              if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
               {
                 autoJobName13 = [(MADAutoAssetJob *)selfCopy autoJobName];
-                selectorName9 = [v27 selectorName];
+                selectorName9 = [v28 selectorName];
                 *buf = 138543618;
-                v199 = autoJobName13;
-                v200 = 2114;
-                v201 = selectorName9;
-                _os_log_impl(&dword_0, v59, OS_LOG_TYPE_DEFAULT, "%{public}@ | {ReportCatalogDecideFound} more preferred full provided | now considering:%{public}@", buf, 0x16u);
+                v200 = autoJobName13;
+                v201 = 2114;
+                v202 = selectorName9;
+                _os_log_impl(&dword_0, v60, OS_LOG_TYPE_DEFAULT, "%{public}@ | {ReportCatalogDecideFound} more preferred full provided | now considering:%{public}@", buf, 0x16u);
               }
 
-              v62 = v27;
+              v63 = v28;
             }
 
             else
             {
-              v69 = _MADLog(@"AutoJob");
-              if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
+              v70 = _MADLog(@"AutoJob");
+              if (os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
               {
                 autoJobName14 = [(MADAutoAssetJob *)selfCopy autoJobName];
-                selectorName10 = [v27 selectorName];
+                selectorName10 = [v28 selectorName];
                 *buf = 138543618;
-                v199 = autoJobName14;
-                v200 = 2114;
-                v201 = selectorName10;
-                _os_log_impl(&dword_0, v69, OS_LOG_TYPE_DEFAULT, "%{public}@ | {ReportCatalogDecideFound} full provided | considering:%{public}@", buf, 0x16u);
+                v200 = autoJobName14;
+                v201 = 2114;
+                v202 = selectorName10;
+                _os_log_impl(&dword_0, v70, OS_LOG_TYPE_DEFAULT, "%{public}@ | {ReportCatalogDecideFound} full provided | considering:%{public}@", buf, 0x16u);
               }
 
-              v72 = v27;
+              v73 = v28;
             }
 
-            v178 = -[MADAutoAssetJob preferenceAsIfRampOrUse:](selfCopy, "preferenceAsIfRampOrUse:", [v27 isRamped]);
-            *&v181 = v27;
+            v179 = -[MADAutoAssetJob preferenceAsIfRampOrUse:](selfCopy, "preferenceAsIfRampOrUse:", [v28 isRamped]);
+            *&v182 = v28;
           }
 
           goto LABEL_71;
         }
 
-        v34 = _MADLog(@"AutoJob");
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+        v35 = _MADLog(@"AutoJob");
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
         {
           autoJobName15 = [(MADAutoAssetJob *)selfCopy autoJobName];
           autoAssetSelector9 = [(MADAutoAssetJob *)selfCopy autoAssetSelector];
           assetSpecifier3 = [autoAssetSelector9 assetSpecifier];
-          assetSpecifier4 = [v27 assetSpecifier];
-          selectorName11 = [v27 selectorName];
+          assetSpecifier4 = [v28 assetSpecifier];
+          selectorName11 = [v28 selectorName];
           *buf = 138544130;
-          v199 = autoJobName15;
-          v200 = 2114;
-          v201 = assetSpecifier3;
-          v202 = 2114;
-          v203 = assetSpecifier4;
-          v204 = 2114;
-          v205 = selectorName11;
-          _os_log_impl(&dword_0, v34, OS_LOG_TYPE_DEFAULT, "%{public}@ | {ReportCatalogDecideFound} filtering out asset (specifier mismatch) | [specifier]required:%{public}@ != metadata:%{public}@ | filtered:%{public}@", buf, 0x2Au);
+          v200 = autoJobName15;
+          v201 = 2114;
+          v202 = assetSpecifier3;
+          v203 = 2114;
+          v204 = assetSpecifier4;
+          v205 = 2114;
+          v206 = selectorName11;
+          _os_log_impl(&dword_0, v35, OS_LOG_TYPE_DEFAULT, "%{public}@ | {ReportCatalogDecideFound} filtering out asset (specifier mismatch) | [specifier]required:%{public}@ != metadata:%{public}@ | filtered:%{public}@", buf, 0x2Au);
         }
 
         goto LABEL_69;
       }
 
-      v21 = _MADLog(@"AutoJob");
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v22 = _MADLog(@"AutoJob");
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         autoJobName16 = [(MADAutoAssetJob *)selfCopy autoJobName];
-        safeSummary = [v19 safeSummary];
+        safeSummary = [v20 safeSummary];
         *buf = 138543618;
-        v199 = autoJobName16;
-        v200 = 2114;
-        v201 = safeSummary;
-        _os_log_impl(&dword_0, v21, OS_LOG_TYPE_DEFAULT, "%{public}@ | {ReportCatalogDecideFound} filtering out asset (empty entry) | metadata:%{public}@", buf, 0x16u);
+        v200 = autoJobName16;
+        v201 = 2114;
+        v202 = safeSummary;
+        _os_log_impl(&dword_0, v22, OS_LOG_TYPE_DEFAULT, "%{public}@ | {ReportCatalogDecideFound} filtering out asset (empty entry) | metadata:%{public}@", buf, 0x16u);
       }
 
 LABEL_71:
 
-      objc_autoreleasePoolPop(v20);
-      v18 = v18 + 1;
+      objc_autoreleasePoolPop(v21);
+      v19 = v19 + 1;
     }
 
-    while (v188 != v18);
-    v17 = [obj countByEnumeratingWithState:&v193 objects:v206 count:16];
+    while (v189 != v19);
+    v18 = [obj countByEnumeratingWithState:&v194 objects:v207 count:16];
   }
 
-  while (v17);
+  while (v18);
 LABEL_98:
 
-  if (v181 == 0)
+  if (v182 == 0)
   {
-    v112 = [NSString alloc];
+    v113 = [NSString alloc];
     autoJobName17 = [(MADAutoAssetJob *)selfCopy autoJobName];
-    v113 = [v112 initWithFormat:@"%@ | {ReportCatalogDecideFound} successful catalog download yet no available patch or full asset found", autoJobName17];
-    [(MADAutoAssetJob *)selfCopy statusChange:@"ReportCatalogDecideFound" catalogFailure:6110 forReason:v113];
+    v114 = [v113 initWithFormat:@"%@ | {ReportCatalogDecideFound} successful catalog download yet no available patch or full asset found", autoJobName17];
+    [(MADAutoAssetJob *)selfCopy statusChange:@"ReportCatalogDecideFound" catalogFailure:6110 forReason:v114];
 
     goto LABEL_100;
   }
 
-  if (*(&v181 + 1))
+  if (*(&v182 + 1))
   {
-    if (v181)
+    if (v182)
     {
-      assetVersion7 = [*(&v181 + 1) assetVersion];
-      assetVersion8 = [v181 assetVersion];
-      v118 = [SUCore stringIsEqual:assetVersion7 to:assetVersion8];
+      assetVersion7 = [*(&v182 + 1) assetVersion];
+      assetVersion8 = [v182 assetVersion];
+      v119 = [SUCore stringIsEqual:assetVersion7 to:assetVersion8];
 
-      if ((v118 & 1) == 0)
+      if ((v119 & 1) == 0)
       {
-        v123 = [NSString alloc];
+        v124 = [NSString alloc];
         autoJobName17 = [(MADAutoAssetJob *)selfCopy autoJobName];
-        assetVersion9 = [*(&v181 + 1) assetVersion];
-        assetVersion10 = [v181 assetVersion];
-        v125 = [v123 initWithFormat:@"%@ | {ReportCatalogDecideFound} auto-asset patch and full entries for different versions | patch:%@, full:%@", autoJobName17, assetVersion9, assetVersion10];
-        [(MADAutoAssetJob *)selfCopy statusChange:@"ReportCatalogDecideFound" catalogAnomaly:6109 forReason:v125];
+        assetVersion9 = [*(&v182 + 1) assetVersion];
+        assetVersion10 = [v182 assetVersion];
+        v126 = [v124 initWithFormat:@"%@ | {ReportCatalogDecideFound} auto-asset patch and full entries for different versions | patch:%@, full:%@", autoJobName17, assetVersion9, assetVersion10];
+        [(MADAutoAssetJob *)selfCopy statusChange:@"ReportCatalogDecideFound" catalogAnomaly:6109 forReason:v126];
 
         goto LABEL_100;
       }
     }
   }
 
-  if ((v178 & 1) == 0)
+  if ((v179 & 1) == 0)
   {
     goto LABEL_119;
   }
@@ -4201,65 +4202,65 @@ LABEL_98:
   }
 
   onFilesystemByVersion = [(MADAutoAssetJob *)selfCopy onFilesystemByVersion];
-  v177 = [onFilesystemByVersion count] == 0;
+  v178 = [onFilesystemByVersion count] == 0;
 
-  if (!v177)
+  if (!v178)
   {
 LABEL_110:
-    v115 = _MADLog(@"AutoJob");
-    if (!os_log_type_enabled(v115, OS_LOG_TYPE_DEFAULT))
+    v116 = _MADLog(@"AutoJob");
+    if (!os_log_type_enabled(v116, OS_LOG_TYPE_DEFAULT))
     {
       v12 = @"CatalogFoundNoNewer";
       goto LABEL_146;
     }
 
     autoJobName18 = [(MADAutoAssetJob *)selfCopy autoJobName];
-    if (v181)
+    if (v182)
     {
-      [v181 selectorName];
+      [v182 selectorName];
     }
 
     else
     {
-      [*(&v181 + 1) selectorName];
+      [*(&v182 + 1) selectorName];
     }
-    v175 = ;
+    v176 = ;
     *buf = 138543618;
-    v199 = autoJobName18;
-    v200 = 2114;
-    v201 = v175;
-    autoJobName17 = v115;
-    _os_log_impl(&dword_0, v115, OS_LOG_TYPE_DEFAULT, "%{public}@ | {ReportCatalogDecideFound} postponing[RAMPED] | selector:%{public}@", buf, 0x16u);
+    v200 = autoJobName18;
+    v201 = 2114;
+    v202 = v176;
+    autoJobName17 = v116;
+    _os_log_impl(&dword_0, v116, OS_LOG_TYPE_DEFAULT, "%{public}@ | {ReportCatalogDecideFound} postponing[RAMPED] | selector:%{public}@", buf, 0x16u);
 
 LABEL_100:
     v12 = @"CatalogFoundNoNewer";
-    v115 = autoJobName17;
+    v116 = autoJobName17;
     goto LABEL_146;
   }
 
 LABEL_119:
-  if (v181)
+  if (v182)
   {
-    [v181 assetVersion];
+    [v182 assetVersion];
   }
 
   else
   {
-    [*(&v181 + 1) assetVersion];
+    [*(&v182 + 1) assetVersion];
   }
-  v187 = ;
-  v191 = 0;
-  v129 = [MAAutoAssetSelector alloc];
+  v188 = ;
+  v192 = 0;
+  v130 = [MAAutoAssetSelector alloc];
   autoAssetSelector12 = [(MADAutoAssetJob *)selfCopy autoAssetSelector];
   assetType4 = [autoAssetSelector12 assetType];
   autoAssetSelector13 = [(MADAutoAssetJob *)selfCopy autoAssetSelector];
   assetSpecifier5 = [autoAssetSelector13 assetSpecifier];
   autoAssetSelector14 = [(MADAutoAssetJob *)selfCopy autoAssetSelector];
   downloadDecryptionKey = [autoAssetSelector14 downloadDecryptionKey];
-  v136 = [v129 initForAssetType:assetType4 withAssetSpecifier:assetSpecifier5 matchingAssetVersion:v187 usingDecryptionKey:downloadDecryptionKey];
-  [(MADAutoAssetJob *)selfCopy setResultSelector:v136];
+  v137 = [v130 initForAssetType:assetType4 withAssetSpecifier:assetSpecifier5 matchingAssetVersion:v188 usingDecryptionKey:downloadDecryptionKey];
+  [(MADAutoAssetJob *)selfCopy setResultSelector:v137];
 
-  v137 = [MAAutoAssetInfoInstance alloc];
+  v138 = [MAAutoAssetInfoInstance alloc];
   activeInstance = [(MADAutoAssetJob *)selfCopy activeInstance];
   autoAssetClientName = [activeInstance autoAssetClientName];
   activeInstance2 = [(MADAutoAssetJob *)selfCopy activeInstance];
@@ -4269,10 +4270,10 @@ LABEL_119:
   resultSelector = [(MADAutoAssetJob *)selfCopy resultSelector];
   activeInstance4 = [(MADAutoAssetJob *)selfCopy activeInstance];
   frameworkInstanceUUID = [activeInstance4 frameworkInstanceUUID];
-  v146 = [v137 initForClientName:autoAssetClientName withProcessName:clientProcessName withProcessID:clientProcessID usingAssetSelector:resultSelector associatingFrameworkUUID:frameworkInstanceUUID];
-  [(MADAutoAssetJob *)selfCopy setResultInstance:v146];
+  v147 = [v138 initForClientName:autoAssetClientName withProcessName:clientProcessName withProcessID:clientProcessID usingAssetSelector:resultSelector associatingFrameworkUUID:frameworkInstanceUUID];
+  [(MADAutoAssetJob *)selfCopy setResultInstance:v147];
 
-  [(MADAutoAssetJob *)selfCopy setFoundNewerPatch:*(&v181 + 1)];
+  [(MADAutoAssetJob *)selfCopy setFoundNewerPatch:*(&v182 + 1)];
   foundNewerPatch = [(MADAutoAssetJob *)selfCopy foundNewerPatch];
   LOBYTE(frameworkInstanceUUID) = foundNewerPatch == 0;
 
@@ -4280,9 +4281,9 @@ LABEL_119:
   {
     autoAssetSelector15 = [(MADAutoAssetJob *)selfCopy autoAssetSelector];
     assetVersion13 = [autoAssetSelector15 assetVersion];
-    v150 = assetVersion13 == 0;
+    v151 = assetVersion13 == 0;
 
-    if (v150)
+    if (v151)
     {
       foundNewerPatch2 = [(MADAutoAssetJob *)selfCopy foundNewerPatch];
       [foundNewerPatch2 setFoundByLookupWithoutAssetVersion:1];
@@ -4291,30 +4292,30 @@ LABEL_119:
     foundNewerPatch3 = [(MADAutoAssetJob *)selfCopy foundNewerPatch];
     [foundNewerPatch3 setIsPatch:1];
 
-    v153 = _MADLog(@"AutoJob");
-    if (os_log_type_enabled(v153, OS_LOG_TYPE_DEFAULT))
+    v154 = _MADLog(@"AutoJob");
+    if (os_log_type_enabled(v154, OS_LOG_TYPE_DEFAULT))
     {
       autoJobName19 = [(MADAutoAssetJob *)selfCopy autoJobName];
-      selectorName12 = [*(&v181 + 1) selectorName];
+      selectorName12 = [*(&v182 + 1) selectorName];
       *buf = 138543618;
-      v199 = autoJobName19;
-      v200 = 2114;
-      v201 = selectorName12;
-      _os_log_impl(&dword_0, v153, OS_LOG_TYPE_DEFAULT, "%{public}@ | {ReportCatalogDecideFound} found newer patch | selector:%{public}@", buf, 0x16u);
+      v200 = autoJobName19;
+      v201 = 2114;
+      v202 = selectorName12;
+      _os_log_impl(&dword_0, v154, OS_LOG_TYPE_DEFAULT, "%{public}@ | {ReportCatalogDecideFound} found newer patch | selector:%{public}@", buf, 0x16u);
     }
   }
 
-  [(MADAutoAssetJob *)selfCopy setFoundNewerFull:v181];
+  [(MADAutoAssetJob *)selfCopy setFoundNewerFull:v182];
   foundNewerFull = [(MADAutoAssetJob *)selfCopy foundNewerFull];
-  v157 = foundNewerFull == 0;
+  v158 = foundNewerFull == 0;
 
-  if (!v157)
+  if (!v158)
   {
     autoAssetSelector16 = [(MADAutoAssetJob *)selfCopy autoAssetSelector];
     assetVersion14 = [autoAssetSelector16 assetVersion];
-    v160 = assetVersion14 == 0;
+    v161 = assetVersion14 == 0;
 
-    if (v160)
+    if (v161)
     {
       foundNewerFull2 = [(MADAutoAssetJob *)selfCopy foundNewerFull];
       [foundNewerFull2 setFoundByLookupWithoutAssetVersion:1];
@@ -4323,27 +4324,27 @@ LABEL_119:
     foundNewerFull3 = [(MADAutoAssetJob *)selfCopy foundNewerFull];
     [foundNewerFull3 setIsPatch:0];
 
-    v163 = _MADLog(@"AutoJob");
-    if (os_log_type_enabled(v163, OS_LOG_TYPE_DEFAULT))
+    v164 = _MADLog(@"AutoJob");
+    if (os_log_type_enabled(v164, OS_LOG_TYPE_DEFAULT))
     {
       autoJobName20 = [(MADAutoAssetJob *)selfCopy autoJobName];
-      selectorName13 = [v181 selectorName];
+      selectorName13 = [v182 selectorName];
       *buf = 138543618;
-      v199 = autoJobName20;
-      v200 = 2114;
-      v201 = selectorName13;
-      _os_log_impl(&dword_0, v163, OS_LOG_TYPE_DEFAULT, "%{public}@ | {ReportCatalogDecideFound} found newer full | selector:%{public}@", buf, 0x16u);
+      v200 = autoJobName20;
+      v201 = 2114;
+      v202 = selectorName13;
+      _os_log_impl(&dword_0, v164, OS_LOG_TYPE_DEFAULT, "%{public}@ | {ReportCatalogDecideFound} found newer full | selector:%{public}@", buf, 0x16u);
     }
   }
 
   [(MADAutoAssetJob *)selfCopy latchWhetherDownloadingUserInitiated];
   [(MADAutoAssetJob *)selfCopy refreshFoundToManager];
-  if ([(MADAutoAssetJob *)selfCopy isFoundAlreadyOnFilesystem:&v191])
+  if ([(MADAutoAssetJob *)selfCopy isFoundAlreadyOnFilesystem:&v192])
   {
-    if (v191 == 1)
+    if (v192 == 1)
     {
       [(MADAutoAssetJob *)selfCopy statusChangeCatalogFoundNewer:@"ReportCatalogDecideFound"];
-      if (-[MADAutoAssetJob stagerJob](selfCopy, "stagerJob") || (-[MADAutoAssetJob tryPersonalizeDescriptors](selfCopy, "tryPersonalizeDescriptors"), v166 = objc_claimAutoreleasedReturnValue(), v167 = [v166 count] == 0, v166, v167))
+      if (-[MADAutoAssetJob stagerJob](selfCopy, "stagerJob") || (-[MADAutoAssetJob tryPersonalizeDescriptors](selfCopy, "tryPersonalizeDescriptors"), v167 = objc_claimAutoreleasedReturnValue(), v168 = [v167 count] == 0, v167, v168))
       {
         v12 = @"CatalogFoundPromoted";
       }
@@ -4368,8 +4369,8 @@ LABEL_119:
     if (![(MADAutoAssetJob *)selfCopy stagerJob])
     {
       resultSelector2 = [(MADAutoAssetJob *)selfCopy resultSelector];
-      v169 = [MADAutoAssetControlManager autoAssetJob:selfCopy bondWithStagerDownloading:resultSelector2];
-      [(MADAutoAssetJob *)selfCopy setBondedWithJob:v169];
+      v170 = [MADAutoAssetControlManager autoAssetJob:selfCopy bondWithStagerDownloading:resultSelector2];
+      [(MADAutoAssetJob *)selfCopy setBondedWithJob:v170];
 
       bondedWithJob = [(MADAutoAssetJob *)selfCopy bondedWithJob];
       LODWORD(resultSelector2) = bondedWithJob == 0;
@@ -4387,16 +4388,16 @@ LABEL_119:
     }
   }
 
-  v115 = v187;
+  v116 = v188;
 LABEL_146:
 
 LABEL_87:
 LABEL_90:
-  v184 = [(MADAutoAssetJob *)selfCopy autoJobFSM];
-  v100 = [MADAutoAssetJobParam alloc];
+  v185 = [(MADAutoAssetJob *)selfCopy autoJobFSM];
+  v101 = [MADAutoAssetJobParam alloc];
   _updateLatestSummary = [(MADAutoAssetJob *)selfCopy _updateLatestSummary];
-  v102 = [(MADAutoAssetJobParam *)v100 initWithSafeSummary:_updateLatestSummary];
-  [v184 followupEvent:v12 withInfo:v102];
+  v103 = [(MADAutoAssetJobParam *)v101 initWithSafeSummary:_updateLatestSummary];
+  [v185 followupEvent:v12 withInfo:v103];
 
 LABEL_91:
   os_activity_scope_leave(&state);
@@ -4759,9 +4760,9 @@ LABEL_24:
       [foundNewerFull3 setPatchingAttempted:1];
 
       downloadingAssetDescriptor3 = [(MADAutoAssetJob *)self downloadingAssetDescriptor];
-      patchingAttemptError = [downloadingAssetDescriptor3 patchingAttemptError];
+      v25 = objc_msgSend_patchingAttemptError(downloadingAssetDescriptor3);
       foundNewerFull4 = [(MADAutoAssetJob *)self foundNewerFull];
-      [foundNewerFull4 setPatchingAttemptError:patchingAttemptError];
+      [foundNewerFull4 setPatchingAttemptError:v25];
     }
 
     else
@@ -4770,14 +4771,14 @@ LABEL_24:
     }
 
     foundNewerFull5 = [(MADAutoAssetJob *)self foundNewerFull];
-    patchingAttemptError2 = [foundNewerFull5 patchingAttemptError];
+    v29 = objc_msgSend_patchingAttemptError(foundNewerFull5);
 
-    if (!patchingAttemptError2)
+    if (!v29)
     {
       currentStatus2 = [(MADAutoAssetJob *)self currentStatus];
-      patchingAttemptError3 = [currentStatus2 patchingAttemptError];
+      v31 = objc_msgSend_patchingAttemptError(currentStatus2);
       foundNewerFull6 = [(MADAutoAssetJob *)self foundNewerFull];
-      [foundNewerFull6 setPatchingAttemptError:patchingAttemptError3];
+      [foundNewerFull6 setPatchingAttemptError:v31];
     }
 
     v27 = @"DownloadFailureTryFull";
@@ -7361,7 +7362,7 @@ LABEL_6:
   os_activity_scope_enter(v8, &state);
 
   autoAssetUUID = [(MADAutoAssetJob *)self autoAssetUUID];
-  v9 = getControlManager();
+  v9 = getControlManager(autoAssetUUID);
   analytics = [v9 analytics];
 
   v56 = 0;
@@ -10046,8 +10047,8 @@ LABEL_13:
     [v13 setStagedFromBuildVersion:stagedFromBuildVersion];
 
     currentStatus4 = [(MADAutoAssetJob *)self currentStatus];
-    patchingAttemptError = [currentStatus4 patchingAttemptError];
-    [v13 setPatchingAttemptError:patchingAttemptError];
+    v43 = objc_msgSend_patchingAttemptError(currentStatus4);
+    [v13 setPatchingAttemptError:v43];
 
     [v13 setFoundByLookupWithoutAssetVersion:1];
     v44 = [MAAutoAssetSelector alloc];
@@ -10398,13 +10399,15 @@ LABEL_6:
   extendedStateQueue = [autoJobFSM extendedStateQueue];
   dispatch_assert_queue_V2(extendedStateQueue);
 
-  if (![(MADAutoAssetJob *)self autoAssetSetJob])
+  autoAssetSetJob = [(MADAutoAssetJob *)self autoAssetSetJob];
+  if (!autoAssetSetJob)
   {
     goto LABEL_8;
   }
 
-  latestToVendCachedAssetSetID = [(MADAutoAssetJob *)self latestToVendCachedAssetSetID];
-  if (!latestToVendCachedAssetSetID)
+  autoAssetSetJob = [(MADAutoAssetJob *)self latestToVendCachedAssetSetID];
+  v6 = autoAssetSetJob;
+  if (!autoAssetSetJob)
   {
     goto LABEL_16;
   }
@@ -10414,32 +10417,32 @@ LABEL_6:
   if (!mostRecentlyReceivedCachedAssetSetID)
   {
 LABEL_8:
-    latestToVendCachedAssetSetID = 0;
+    v6 = 0;
     goto LABEL_16;
   }
 
-  latestToVendCachedAssetSetID = xpc_dictionary_create(0, 0, 0);
-  v20 = 0;
+  v6 = xpc_dictionary_create(0, 0, 0);
   v21 = 0;
-  [MADAutoAssetControlManager autoJobAssetSetIDsForJob:self mostRecentlyReceived:&v21 latestToVend:&v20];
-  v7 = v21;
-  v8 = v20;
+  v22 = 0;
+  [MADAutoAssetControlManager autoJobAssetSetIDsForJob:self mostRecentlyReceived:&v22 latestToVend:&v21];
+  v8 = v22;
+  v9 = v21;
   autoAssetSetDescriptor = [(MADAutoAssetJob *)self autoAssetSetDescriptor];
   if (autoAssetSetDescriptor)
   {
-    v10 = autoAssetSetDescriptor;
+    v11 = autoAssetSetDescriptor;
     autoAssetSetDescriptor2 = [(MADAutoAssetJob *)self autoAssetSetDescriptor];
     catalogLastTimeChecked = [autoAssetSetDescriptor2 catalogLastTimeChecked];
 
     if (catalogLastTimeChecked)
     {
-      v13 = objc_alloc_init(NSDateFormatter);
-      [v13 setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+      v14 = objc_alloc_init(NSDateFormatter);
+      [v14 setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
       autoAssetSetDescriptor3 = [(MADAutoAssetJob *)self autoAssetSetDescriptor];
       catalogLastTimeChecked2 = [autoAssetSetDescriptor3 catalogLastTimeChecked];
-      v16 = [v13 stringFromDate:catalogLastTimeChecked2];
+      v17 = [v14 stringFromDate:catalogLastTimeChecked2];
 
-      if (!v8)
+      if (!v9)
       {
         goto LABEL_11;
       }
@@ -10448,29 +10451,29 @@ LABEL_8:
     }
   }
 
-  v16 = &stru_4BD3F0;
-  if (v8)
+  v17 = &stru_4BD3F0;
+  if (v9)
   {
 LABEL_10:
-    xpc_dictionary_set_string(latestToVendCachedAssetSetID, [@"Vend" UTF8String], objc_msgSend(v8, "UTF8String"));
+    xpc_dictionary_set_string(v6, [@"Vend" UTF8String], objc_msgSend(v9, "UTF8String"));
   }
 
 LABEL_11:
-  if (v7)
+  if (v8)
   {
-    xpc_dictionary_set_string(latestToVendCachedAssetSetID, [@"Discovered" UTF8String], objc_msgSend(v7, "UTF8String"));
+    xpc_dictionary_set_string(v6, [@"Discovered" UTF8String], objc_msgSend(v8, "UTF8String"));
   }
 
-  if (v16)
+  if (v17)
   {
-    xpc_dictionary_set_string(latestToVendCachedAssetSetID, [@"Checked" UTF8String], -[__CFString UTF8String](v16, "UTF8String"));
+    xpc_dictionary_set_string(v6, [@"Checked" UTF8String], -[__CFString UTF8String](v17, "UTF8String"));
   }
 
 LABEL_16:
-  v17 = getDownloadManager();
+  v18 = getDownloadManager(autoAssetSetJob);
   autoAssetUUID = [(MADAutoAssetJob *)self autoAssetUUID];
   firstLookupError = [(MADAutoAssetJob *)self firstLookupError];
-  [v17 completeNWActivity:autoAssetUUID withParams:latestToVendCachedAssetSetID andError:firstLookupError];
+  [v18 completeNWActivity:autoAssetUUID withParams:v6 andError:firstLookupError];
 }
 
 - (void)_autoAssetJobFinished:(id)finished forJobFinishedReason:(id)reason failingWithError:(id)error
@@ -13857,7 +13860,7 @@ LABEL_16:
   v16 = [(MADAutoAssetJobParam *)v14 initWithSafeSummary:_updateLatestSummary2];
 
 LABEL_17:
-  latestInstalledOnFilesystem = [(MADAutoAssetJob *)self autoJobFSM];
+  latestInstalledOnFilesystem = [(MADAutoAssetJob *)self autoJobFSM:*v47];
   [latestInstalledOnFilesystem followupEvent:v9 withInfo:v16];
 LABEL_48:
 }
@@ -15108,8 +15111,8 @@ LABEL_22:
     [v23 setStagedFromBuildVersion:stagedFromBuildVersion];
 
     currentStatus6 = [(MADAutoAssetJob *)self currentStatus];
-    patchingAttemptError = [currentStatus6 patchingAttemptError];
-    [v23 setPatchingAttemptError:patchingAttemptError];
+    v52 = objc_msgSend_patchingAttemptError(currentStatus6);
+    [v23 setPatchingAttemptError:v52];
 
     v53 = objc_opt_self();
     v69 = v33;
@@ -15633,7 +15636,7 @@ LABEL_9:
   }
 
   additionalServerParams17 = [v5 additionalServerParams];
-  v68 = supportedAssetFormatsArray();
+  v68 = supportedAssetFormatsArray(additionalServerParams17);
   [additionalServerParams17 setSafeObject:v68 forKey:@"SupportedAssetFormats"];
 
   return v5;
@@ -16004,8 +16007,8 @@ LABEL_8:
   selfCopy = self;
   if ([(MADAutoAssetJob *)self simulateOperation]!= &dword_0 + 1)
   {
-    v95 = lookupCopy;
-    v97 = lookupCopy;
+    v96 = lookupCopy;
+    v98 = lookupCopy;
     [(MADAutoAssetJob *)self _extendCatalogDownloadOptionsWithAnalyticsData:lookupCopy];
     catalogDownloadOptions = [(MADAutoAssetJob *)self catalogDownloadOptions];
     v15 = [NSString alloc];
@@ -16019,7 +16022,7 @@ LABEL_8:
       v16 = @"N";
     }
 
-    v105 = v16;
+    v106 = v16;
     if ([catalogDownloadOptions discretionary])
     {
       v17 = @"Y";
@@ -16030,8 +16033,8 @@ LABEL_8:
       v17 = @"N";
     }
 
-    v103 = v17;
-    v107 = [MADAutoAssetControlManager allocIntervalString:[catalogDownloadOptions timeoutIntervalForResource]];
+    v104 = v17;
+    v108 = [MADAutoAssetControlManager allocIntervalString:[catalogDownloadOptions timeoutIntervalForResource]];
     if ([catalogDownloadOptions allowSameVersion])
     {
       v18 = @"Y";
@@ -16043,7 +16046,7 @@ LABEL_8:
     }
 
     obj = v18;
-    v96 = catalogDownloadOptions;
+    v97 = catalogDownloadOptions;
     if ([catalogDownloadOptions canUseLocalCacheServer])
     {
       v19 = @"Y";
@@ -16084,16 +16087,16 @@ LABEL_8:
       [catalogDownloadOptions3 analyticsData];
       v28 = v27 = v15;
       safeSummary = [v28 safeSummary];
-      v92 = v19;
-      v30 = v107;
-      v31 = [v27 initWithFormat:@"rampForeground:%@, discretionary:%@, timeout:%@, allowSame:%@, allowContentCaching:%@ | [installed] build:%@, version:%@ | analyticsData:%@", v105, v103, v107, obj, v92, latestInstalledAssetBuild2, latestInstalledAssetVersion2, safeSummary];
+      v93 = v19;
+      v30 = v108;
+      v31 = [v27 initWithFormat:@"rampForeground:%@, discretionary:%@, timeout:%@, allowSame:%@, allowContentCaching:%@ | [installed] build:%@, version:%@ | analyticsData:%@", v106, v104, v108, obj, v93, latestInstalledAssetBuild2, latestInstalledAssetVersion2, safeSummary];
     }
 
     else
     {
-      v93 = v19;
-      v30 = v107;
-      v31 = [v15 initWithFormat:@"rampForeground:%@, discretionary:%@, timeout:%@, allowSame:%@, allowContentCaching:%@ | [installed] build:%@, version:%@ | analyticsData:%@", v105, v103, v107, obj, v93, latestInstalledAssetBuild2, latestInstalledAssetVersion2, @"N"];
+      v94 = v19;
+      v30 = v108;
+      v31 = [v15 initWithFormat:@"rampForeground:%@, discretionary:%@, timeout:%@, allowSame:%@, allowContentCaching:%@ | [installed] build:%@, version:%@ | analyticsData:%@", v106, v104, v108, obj, v94, latestInstalledAssetBuild2, latestInstalledAssetVersion2, @"N"];
     }
 
     if (latestInstalledAssetVersion)
@@ -16109,183 +16112,184 @@ LABEL_8:
     {
       autoJobName = [(MADAutoAssetJob *)selfCopy autoJobName];
       *buf = 138543874;
-      v122 = autoJobName;
-      v123 = 2114;
-      v124 = v97;
-      v125 = 2114;
+      v123 = autoJobName;
+      v124 = 2114;
+      v125 = v98;
+      v126 = 2114;
       simulateOperation = v31;
       _os_log_impl(&dword_0, v32, OS_LOG_TYPE_DEFAULT, "%{public}@ | {%{public}@} DM:registerCatalogDownloadJob | options:%{public}@", buf, 0x20u);
     }
 
-    v94 = v31;
-    if ([(MADAutoAssetJob *)selfCopy autoAssetSetJob])
+    autoAssetSetJob = [(MADAutoAssetJob *)selfCopy autoAssetSetJob];
+    v95 = v31;
+    if (autoAssetSetJob)
     {
-      v34 = objc_alloc_init(NSMutableArray);
+      v35 = objc_alloc_init(NSMutableArray);
       p_weak_ivar_lyt = &MAAIRBMobileAssetOperationMetadata__metaData.weak_ivar_lyt;
-      v36 = objc_alloc_init(NSMutableDictionary);
-      [(MADAutoAssetJob *)selfCopy setLatestAssetDescriptorOnFilesystemBySpecifier:v36];
+      v37 = objc_alloc_init(NSMutableDictionary);
+      [(MADAutoAssetJob *)selfCopy setLatestAssetDescriptorOnFilesystemBySpecifier:v37];
 
-      v37 = _MADLog(@"AutoJob");
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+      v38 = _MADLog(@"AutoJob");
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
       {
         autoJobName2 = [(MADAutoAssetJob *)selfCopy autoJobName];
         *buf = 138543618;
-        v122 = autoJobName2;
-        v123 = 2114;
-        v124 = v97;
-        _os_log_impl(&dword_0, v37, OS_LOG_TYPE_DEFAULT, "%{public}@ {%{public}@}\n[BUILD-DESCRIPTORS] cleared latestAssetDescriptorOnFilesystemBySpecifier", buf, 0x16u);
+        v123 = autoJobName2;
+        v124 = 2114;
+        v125 = v98;
+        _os_log_impl(&dword_0, v38, OS_LOG_TYPE_DEFAULT, "%{public}@ {%{public}@}\n[BUILD-DESCRIPTORS] cleared latestAssetDescriptorOnFilesystemBySpecifier", buf, 0x16u);
       }
 
-      v117 = 0u;
       v118 = 0u;
-      v115 = 0u;
+      v119 = 0u;
       v116 = 0u;
+      v117 = 0u;
       setConfiguration = [(MADAutoAssetJob *)selfCopy setConfiguration];
       autoAssetEntries = [setConfiguration autoAssetEntries];
 
       obja = autoAssetEntries;
-      v104 = [autoAssetEntries countByEnumeratingWithState:&v115 objects:v120 count:16];
-      if (v104)
+      v105 = [autoAssetEntries countByEnumeratingWithState:&v116 objects:v121 count:16];
+      if (v105)
       {
-        v41 = *v116;
-        v99 = *v116;
-        v100 = v34;
+        v42 = *v117;
+        v100 = *v117;
+        v101 = v35;
         do
         {
-          for (i = 0; i != v104; i = i + 1)
+          for (i = 0; i != v105; i = i + 1)
           {
-            if (*v116 != v41)
+            if (*v117 != v42)
             {
               objc_enumerationMutation(obja);
             }
 
-            v43 = *(*(&v115 + 1) + 8 * i);
-            assetSelector = [v43 assetSelector];
-            v45 = [MADAutoAssetControlManager loadDescriptorsForJobSelector:assetSelector promotingIfCurrentlyStaged:0 immediatelyPromotedDescriptor:0];
+            v44 = *(*(&v116 + 1) + 8 * i);
+            assetSelector = [v44 assetSelector];
+            v46 = [MADAutoAssetControlManager loadDescriptorsForJobSelector:assetSelector promotingIfCurrentlyStaged:0 immediatelyPromotedDescriptor:0];
 
-            v46 = objc_alloc_init(p_weak_ivar_lyt[229]);
-            assetSelector2 = [v43 assetSelector];
+            v47 = objc_alloc_init(p_weak_ivar_lyt[229]);
+            assetSelector2 = [v44 assetSelector];
             assetSpecifier = [assetSelector2 assetSpecifier];
-            [v46 setSafeObject:assetSpecifier forKey:@"AssetSpecifier"];
+            [v47 setSafeObject:assetSpecifier forKey:@"AssetSpecifier"];
 
-            if (![v45 count])
+            if (![v46 count])
             {
               goto LABEL_67;
             }
 
-            v108 = i;
-            v110 = v46;
-            v113 = 0u;
+            v109 = i;
+            v111 = v47;
             v114 = 0u;
-            v111 = 0u;
+            v115 = 0u;
             v112 = 0u;
-            v106 = v45;
-            v49 = v45;
-            v50 = [v49 countByEnumeratingWithState:&v111 objects:v119 count:16];
-            if (!v50)
+            v113 = 0u;
+            v107 = v46;
+            v50 = v46;
+            v51 = [v50 countByEnumeratingWithState:&v112 objects:v120 count:16];
+            if (!v51)
             {
+              v54 = 0;
               v53 = 0;
-              v52 = 0;
               goto LABEL_65;
             }
 
-            v51 = v50;
-            v52 = 0;
+            v52 = v51;
             v53 = 0;
-            v54 = *v112;
+            v54 = 0;
+            v55 = *v113;
             do
             {
-              for (j = 0; j != v51; j = j + 1)
+              for (j = 0; j != v52; j = j + 1)
               {
-                if (*v112 != v54)
+                if (*v113 != v55)
                 {
-                  objc_enumerationMutation(v49);
+                  objc_enumerationMutation(v50);
                 }
 
-                v56 = *(*(&v111 + 1) + 8 * j);
-                v57 = objc_autoreleasePoolPush();
-                v58 = [v49 safeObjectForKey:v56 ofClass:objc_opt_class()];
-                v59 = v58;
-                if (!v53)
+                v57 = *(*(&v112 + 1) + 8 * j);
+                v58 = objc_autoreleasePoolPush();
+                v59 = [v50 safeObjectForKey:v57 ofClass:objc_opt_class()];
+                v60 = v59;
+                if (!v54)
                 {
-                  v65 = v58;
-                  v66 = [SUCoreRestoreVersion alloc];
-                  assetVersion = [v65 assetVersion];
-                  v64 = [v66 initWithRestoreVersion:assetVersion];
+                  v66 = v59;
+                  v67 = [SUCoreRestoreVersion alloc];
+                  assetVersion = [v66 assetVersion];
+                  v65 = [v67 initWithRestoreVersion:assetVersion];
                   goto LABEL_53;
                 }
 
-                v60 = [SUCoreRestoreVersion alloc];
-                assetVersion2 = [v59 assetVersion];
-                assetVersion = [v60 initWithRestoreVersion:assetVersion2];
+                v61 = [SUCoreRestoreVersion alloc];
+                assetVersion2 = [v60 assetVersion];
+                assetVersion = [v61 initWithRestoreVersion:assetVersion2];
 
-                if ([assetVersion isComparable:v52] && objc_msgSend(assetVersion, "compare:", v52) == &dword_0 + 1)
+                if ([assetVersion isComparable:v53] && objc_msgSend(assetVersion, "compare:", v53) == &dword_0 + 1)
                 {
-                  v63 = v59;
+                  v64 = v60;
 
-                  v64 = assetVersion;
-                  assetVersion = v64;
+                  v65 = assetVersion;
+                  assetVersion = v65;
 LABEL_53:
-                  v67 = v64;
+                  v68 = v65;
 
-                  v52 = v67;
-                  v53 = v59;
+                  v53 = v68;
+                  v54 = v60;
                 }
 
-                objc_autoreleasePoolPop(v57);
+                objc_autoreleasePoolPop(v58);
               }
 
-              v51 = [v49 countByEnumeratingWithState:&v111 objects:v119 count:16];
+              v52 = [v50 countByEnumeratingWithState:&v112 objects:v120 count:16];
             }
 
-            while (v51);
+            while (v52);
 
-            if (v53)
+            if (v54)
             {
-              v41 = v99;
-              v34 = v100;
+              v42 = v100;
+              v35 = v101;
               p_weak_ivar_lyt = (&MAAIRBMobileAssetOperationMetadata__metaData + 56);
-              if ([MADAutoAssetControlManager jobDescriptorOnFilesystemConfirmed:v53])
+              if ([MADAutoAssetControlManager jobDescriptorOnFilesystemConfirmed:v54])
               {
-                assetVersion3 = [v53 assetVersion];
-                [v110 setSafeObject:assetVersion3 forKey:@"InstalledAssetVersion"];
+                assetVersion3 = [v54 assetVersion];
+                [v111 setSafeObject:assetVersion3 forKey:@"InstalledAssetVersion"];
 
-                build = [v53 build];
-                [v110 setSafeObject:build forKey:@"InstalledAssetBuild"];
+                build = [v54 build];
+                [v111 setSafeObject:build forKey:@"InstalledAssetBuild"];
 
                 latestAssetDescriptorOnFilesystemBySpecifier = [(MADAutoAssetJob *)selfCopy latestAssetDescriptorOnFilesystemBySpecifier];
-                assetSpecifier2 = [v53 assetSpecifier];
-                [latestAssetDescriptorOnFilesystemBySpecifier setSafeObject:v53 forKey:assetSpecifier2];
+                assetSpecifier2 = [v54 assetSpecifier];
+                [latestAssetDescriptorOnFilesystemBySpecifier setSafeObject:v54 forKey:assetSpecifier2];
 
-                v49 = _MADLog(@"AutoJob");
-                if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+                v50 = _MADLog(@"AutoJob");
+                if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
                 {
                   autoJobName3 = [(MADAutoAssetJob *)selfCopy autoJobName];
-                  selectorName = [v53 selectorName];
+                  selectorName = [v54 selectorName];
                   *buf = 138543874;
-                  v122 = autoJobName3;
-                  v123 = 2114;
-                  v124 = v97;
-                  v125 = 2114;
+                  v123 = autoJobName3;
+                  v124 = 2114;
+                  v125 = v98;
+                  v126 = 2114;
                   simulateOperation = selectorName;
-                  _os_log_impl(&dword_0, v49, OS_LOG_TYPE_DEFAULT, "%{public}@ {%{public}@}\n[BUILD-DESCRIPTORS] latest version on filesystem | selector:%{public}@", buf, 0x20u);
+                  _os_log_impl(&dword_0, v50, OS_LOG_TYPE_DEFAULT, "%{public}@ {%{public}@}\n[BUILD-DESCRIPTORS] latest version on filesystem | selector:%{public}@", buf, 0x20u);
                 }
               }
 
               else
               {
-                v49 = _MADLog(@"AutoJob");
-                if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+                v50 = _MADLog(@"AutoJob");
+                if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
                 {
                   autoJobName4 = [(MADAutoAssetJob *)selfCopy autoJobName];
-                  selectorName2 = [v53 selectorName];
+                  selectorName2 = [v54 selectorName];
                   *buf = 138543874;
-                  v122 = autoJobName4;
-                  v123 = 2114;
-                  v124 = v97;
-                  v125 = 2114;
+                  v123 = autoJobName4;
+                  v124 = 2114;
+                  v125 = v98;
+                  v126 = 2114;
                   simulateOperation = selectorName2;
-                  _os_log_impl(&dword_0, v49, OS_LOG_TYPE_DEFAULT, "%{public}@ {%{public}@}\n[BUILD-DESCRIPTORS] downloaded descriptor is not really on the filesystem - not adding to latestAssetDescriptorOnFilesystemBySpecifier list | selector:%{public}@", buf, 0x20u);
+                  _os_log_impl(&dword_0, v50, OS_LOG_TYPE_DEFAULT, "%{public}@ {%{public}@}\n[BUILD-DESCRIPTORS] downloaded descriptor is not really on the filesystem - not adding to latestAssetDescriptorOnFilesystemBySpecifier list | selector:%{public}@", buf, 0x20u);
                 }
               }
 
@@ -16294,75 +16298,75 @@ LABEL_65:
 
             else
             {
-              v41 = v99;
-              v34 = v100;
+              v42 = v100;
+              v35 = v101;
               p_weak_ivar_lyt = (&MAAIRBMobileAssetOperationMetadata__metaData + 56);
             }
 
-            v45 = v106;
-            i = v108;
-            v46 = v110;
+            v46 = v107;
+            i = v109;
+            v47 = v111;
 LABEL_67:
-            [v34 addObject:v46];
+            [v35 addObject:v47];
           }
 
-          v104 = [obja countByEnumeratingWithState:&v115 objects:v120 count:16];
+          v105 = [obja countByEnumeratingWithState:&v116 objects:v121 count:16];
         }
 
-        while (v104);
+        while (v105);
       }
 
-      additionalServerParams = [v96 additionalServerParams];
-      [additionalServerParams setSafeObject:v34 forKey:@"SetElements"];
+      additionalServerParams = [v97 additionalServerParams];
+      [additionalServerParams setSafeObject:v35 forKey:@"SetElements"];
 
-      additionalServerParams2 = [v96 additionalServerParams];
+      additionalServerParams2 = [v97 additionalServerParams];
       setConfiguration2 = [(MADAutoAssetJob *)selfCopy setConfiguration];
       assetSetIdentifier = [setConfiguration2 assetSetIdentifier];
-      v80 = simplifySetIdentifier(assetSetIdentifier);
-      [additionalServerParams2 setSafeObject:v80 forKey:@"SetID"];
+      v81 = simplifySetIdentifier(assetSetIdentifier);
+      [additionalServerParams2 setSafeObject:v81 forKey:@"SetID"];
 
       autoAssetUUID2 = [(MADAutoAssetJob *)selfCopy verifyDownloadNotBlockedBySetPolicy:0];
       if (autoAssetUUID2)
       {
-        v82 = [MADAutoAssetJobParam alloc];
+        v83 = [MADAutoAssetJobParam alloc];
         autoAssetUUID = [(MADAutoAssetJob *)selfCopy autoAssetUUID];
-        autoAssetSelector = [(MADAutoAssetJobParam *)v82 initForFinishedJobID:autoAssetUUID withError:autoAssetUUID2];
+        autoAssetSelector = [(MADAutoAssetJobParam *)v83 initForFinishedJobID:autoAssetUUID withError:autoAssetUUID2];
 
         autoJobFSM2 = [(MADAutoAssetJob *)selfCopy autoJobFSM];
         [autoJobFSM2 postEvent:@"PolicyBlockCatalogDownload" withInfo:autoAssetSelector];
 LABEL_74:
 
-        lookupCopy = v95;
-        v10 = v96;
-        v8 = v97;
+        lookupCopy = v96;
+        v10 = v97;
+        v8 = v98;
         goto LABEL_75;
       }
 
-      autoAssetSelector = getDownloadManager();
+      autoAssetSelector = getDownloadManager(0);
       autoJobFSM2 = [(MADAutoAssetJob *)selfCopy autoAssetUUID];
       autoAssetSetAssetType = [(MADAutoAssetJob *)selfCopy autoAssetSetAssetType];
       autoAssetSetIdentifier = [(MADAutoAssetJob *)selfCopy autoAssetSetIdentifier];
-      v88 = autoAssetSelector;
-      v89 = autoJobFSM2;
-      v90 = autoAssetSetAssetType;
-      v91 = v96;
+      v89 = autoAssetSelector;
+      v90 = autoJobFSM2;
+      v91 = autoAssetSetAssetType;
+      v92 = v97;
     }
 
     else
     {
-      v34 = getDownloadManager();
+      v35 = getDownloadManager(autoAssetSetJob);
       autoAssetUUID2 = [(MADAutoAssetJob *)selfCopy autoAssetUUID];
       autoAssetSelector = [(MADAutoAssetJob *)selfCopy autoAssetSelector];
       autoJobFSM2 = [autoAssetSelector assetType];
       autoAssetSetAssetType = [(MADAutoAssetJob *)selfCopy autoAssetSelector];
       autoAssetSetIdentifier = [autoAssetSetAssetType summary];
-      v88 = v34;
-      v89 = autoAssetUUID2;
-      v90 = autoJobFSM2;
-      v91 = v96;
+      v89 = v35;
+      v90 = autoAssetUUID2;
+      v91 = autoJobFSM2;
+      v92 = v97;
     }
 
-    [v88 registerCatalogDownloadJob:v89 forAssetType:v90 withPurpose:@"auto" usingDownloadOptions:v91 forAutoAssetName:autoAssetSetIdentifier];
+    [v89 registerCatalogDownloadJob:v90 forAssetType:v91 withPurpose:@"auto" usingDownloadOptions:v92 forAutoAssetName:autoAssetSetIdentifier];
 
     goto LABEL_74;
   }
@@ -16379,10 +16383,10 @@ LABEL_74:
       autoJobName5 = [(MADAutoAssetJob *)self autoJobName];
       v13 = [MANAutoAssetInfoControl nameOfSimulateOperation:[(MADAutoAssetJob *)self simulateOperation]];
       *buf = 138543874;
-      v122 = autoJobName5;
-      v123 = 2114;
-      v124 = v8;
-      v125 = 2114;
+      v123 = autoJobName5;
+      v124 = 2114;
+      v125 = v8;
+      v126 = 2114;
       simulateOperation = v13;
       _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ {%{public}@} | SIMULATE_OPERATION(%{public}@) | call to registerCatalogDownloadJob postponed", buf, 0x20u);
     }
@@ -16392,10 +16396,10 @@ LABEL_74:
   {
     autoJobName6 = [(MADAutoAssetJob *)self autoJobName];
     *buf = 138543874;
-    v122 = autoJobName6;
-    v123 = 2114;
-    v124 = lookupCopy;
-    v125 = 2048;
+    v123 = autoJobName6;
+    v124 = 2114;
+    v125 = lookupCopy;
+    v126 = 2048;
     simulateOperation = [(MADAutoAssetJob *)self simulateOperation];
     _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ {%{public}@} | SIMULATE_OPERATION(%lld) | call to registerCatalogDownloadJob postponed", buf, 0x20u);
   }
@@ -16505,10 +16509,10 @@ LABEL_14:
           autoJobName = [(MADAutoAssetJob *)self autoJobName];
           v24 = [MANAutoAssetInfoControl nameOfSimulateOperation:[(MADAutoAssetJob *)self simulateOperation]];
           *buf = 138543874;
-          v79 = autoJobName;
-          v80 = 2114;
-          v81 = downloadCopy;
-          v82 = 2114;
+          v80 = autoJobName;
+          v81 = 2114;
+          v82 = downloadCopy;
+          v83 = 2114;
           simulateOperation3 = v24;
           v25 = "%{public}@ {%{public}@:requestDownloadManagerAssetDownload} | SIMULATE_OPERATION(%{public}@) | not starting patch download - immediate simulateEnd";
 LABEL_14:
@@ -16527,10 +16531,10 @@ LABEL_14:
 
       autoJobName2 = [(MADAutoAssetJob *)self autoJobName];
       *buf = 138543874;
-      v79 = autoJobName2;
-      v80 = 2114;
-      v81 = downloadCopy;
-      v82 = 2048;
+      v80 = autoJobName2;
+      v81 = 2114;
+      v82 = downloadCopy;
+      v83 = 2048;
       simulateOperation3 = [(MADAutoAssetJob *)self simulateOperation];
       v36 = "%{public}@ {%{public}@:requestDownloadManagerAssetDownload} | SIMULATE_OPERATION(%lld) | not starting patch download - immediate simulateEnd";
       goto LABEL_30;
@@ -16548,10 +16552,10 @@ LABEL_14:
           autoJobName = [(MADAutoAssetJob *)self autoJobName];
           v24 = [MANAutoAssetInfoControl nameOfSimulateOperation:[(MADAutoAssetJob *)self simulateOperation]];
           *buf = 138543874;
-          v79 = autoJobName;
-          v80 = 2114;
-          v81 = downloadCopy;
-          v82 = 2114;
+          v80 = autoJobName;
+          v81 = 2114;
+          v82 = downloadCopy;
+          v83 = 2114;
           simulateOperation3 = v24;
           v25 = "%{public}@ {%{public}@:requestDownloadManagerAssetDownload} | SIMULATE_OPERATION(%{public}@) | not starting asset download - immediate simulateEnd";
           goto LABEL_14;
@@ -16571,10 +16575,10 @@ LABEL_31:
 
       autoJobName2 = [(MADAutoAssetJob *)self autoJobName];
       *buf = 138543874;
-      v79 = autoJobName2;
-      v80 = 2114;
-      v81 = downloadCopy;
-      v82 = 2048;
+      v80 = autoJobName2;
+      v81 = 2114;
+      v82 = downloadCopy;
+      v83 = 2048;
       simulateOperation3 = [(MADAutoAssetJob *)self simulateOperation];
       v36 = "%{public}@ {%{public}@:requestDownloadManagerAssetDownload} | SIMULATE_OPERATION(%lld) | not starting asset download - immediate simulateEnd";
 LABEL_30:
@@ -16597,8 +16601,8 @@ LABEL_30:
       v31 = @"N";
     }
 
-    v71 = v31;
-    v76 = +[MADAutoAssetControlManager allocIntervalString:](MADAutoAssetControlManager, "allocIntervalString:", [assetDownloadOptions timeoutIntervalForResource]);
+    v72 = v31;
+    v77 = +[MADAutoAssetControlManager allocIntervalString:](MADAutoAssetControlManager, "allocIntervalString:", [assetDownloadOptions timeoutIntervalForResource]);
     assetId = [descriptorCopy assetId];
     decryptionKey = [assetDownloadOptions decryptionKey];
     if (decryptionKey)
@@ -16611,9 +16615,9 @@ LABEL_30:
       v33 = @"N";
     }
 
-    v68 = v33;
+    v69 = v33;
     sourceDirectory = [assetDownloadOptions sourceDirectory];
-    v74 = assetDownloadOptions;
+    v75 = assetDownloadOptions;
     if (sourceDirectory)
     {
       sourceDirectory2 = [assetDownloadOptions sourceDirectory];
@@ -16624,8 +16628,8 @@ LABEL_30:
       sourceDirectory2 = @"N";
     }
 
-    v69 = patchCopy;
-    v70 = descriptorCopy;
+    v70 = patchCopy;
+    v71 = descriptorCopy;
     assetDownloadOptions2 = [(MADAutoAssetJob *)self assetDownloadOptions];
     analyticsData = [assetDownloadOptions2 analyticsData];
     if (analyticsData)
@@ -16636,7 +16640,7 @@ LABEL_30:
       [v41 safeSummary];
       v42 = decryptionKey;
       v44 = v43 = downloadCopy;
-      v72 = [v40 initWithFormat:@"discretionary:%@, timeout:%@ | assetId:%@ | decrypt:%@, source:%@ | analyticsData:%@", v71, v76, assetId, v68, sourceDirectory2, v44];
+      v73 = [v40 initWithFormat:@"discretionary:%@, timeout:%@ | assetId:%@ | decrypt:%@, source:%@ | analyticsData:%@", v72, v77, assetId, v69, sourceDirectory2, v44];
 
       downloadCopy = v43;
       decryptionKey = v42;
@@ -16644,7 +16648,7 @@ LABEL_30:
 
     else
     {
-      v72 = [v30 initWithFormat:@"discretionary:%@, timeout:%@ | assetId:%@ | decrypt:%@, source:%@ | analyticsData:%@", v71, v76, assetId, v68, sourceDirectory2, @"N"];
+      v73 = [v30 initWithFormat:@"discretionary:%@, timeout:%@ | assetId:%@ | decrypt:%@, source:%@ | analyticsData:%@", v72, v77, assetId, v69, sourceDirectory2, @"N"];
     }
 
     if (sourceDirectory)
@@ -16652,17 +16656,17 @@ LABEL_30:
     }
 
     v45 = _MADLog(@"AutoJob");
-    patchCopy = v69;
-    descriptorCopy = v70;
+    patchCopy = v70;
+    descriptorCopy = v71;
     if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
     {
       autoJobName3 = [(MADAutoAssetJob *)self autoJobName];
       *buf = 138543874;
-      v79 = autoJobName3;
-      v80 = 2114;
-      v81 = downloadCopy;
-      v82 = 2114;
-      simulateOperation3 = v72;
+      v80 = autoJobName3;
+      v81 = 2114;
+      v82 = downloadCopy;
+      v83 = 2114;
+      simulateOperation3 = v73;
       _os_log_impl(&dword_0, v45, OS_LOG_TYPE_DEFAULT, "%{public}@ | {%{public}@} DM:registerAssetDownloadJob | options:%{public}@", buf, 0x20u);
     }
 
@@ -16682,47 +16686,47 @@ LABEL_30:
         goto LABEL_48;
       }
 
-      v77 = downloadCopy;
+      v78 = downloadCopy;
       autoAssetSetAssetType = [(MADAutoAssetJob *)self autoAssetSetAssetType];
-      [(MADAutoAssetJob *)self setNextSetSpecifierToDownload:[(MADAutoAssetJob *)self nextSetSpecifierToDownload]+ 1];
+      v55 = [(MADAutoAssetJob *)self setNextSetSpecifierToDownload:[(MADAutoAssetJob *)self nextSetSpecifierToDownload]+ 1];
     }
 
     else
     {
-      v77 = downloadCopy;
+      v78 = downloadCopy;
       autoAssetSelector = [(MADAutoAssetJob *)self autoAssetSelector];
       autoAssetSetAssetType = [autoAssetSelector assetType];
     }
 
-    v55 = getDownloadManager();
+    v56 = getDownloadManager(v55);
     autoAssetUUID2 = [(MADAutoAssetJob *)self autoAssetUUID];
     clientName = [(MADAutoAssetJob *)self clientName];
-    assetId2 = [v70 assetId];
-    metadata = [v70 metadata];
+    assetId2 = [v71 assetId];
+    metadata = [v71 metadata];
     setSpaceCheckedUUID = [(MADAutoAssetJob *)self setSpaceCheckedUUID];
-    [v55 registerAssetDownloadJob:autoAssetUUID2 forAssetType:autoAssetSetAssetType withPurpose:@"auto" clientName:clientName usingDownloadOptions:v74 forAssetId:assetId2 withCatalogMetadata:metadata withSpaceCheckedUUID:setSpaceCheckedUUID];
+    [v56 registerAssetDownloadJob:autoAssetUUID2 forAssetType:autoAssetSetAssetType withPurpose:@"auto" clientName:clientName usingDownloadOptions:v75 forAssetId:assetId2 withCatalogMetadata:metadata withSpaceCheckedUUID:setSpaceCheckedUUID];
 
     if (![(MADAutoAssetJob *)self autoAssetSetJob]|| !+[MAAIRBEventReporter isAvailable])
     {
-      downloadCopy = v77;
+      downloadCopy = v78;
       goto LABEL_50;
     }
 
-    v61 = [MAAIRBMobileAssetOperationMetadata alloc];
-    v62 = [MADAutoAssetHistoryTracker operationName:1700];
-    v48 = [(MAAIRBMobileAssetOperationMetadata *)v61 initWithCode:1700 name:v62];
+    v62 = [MAAIRBMobileAssetOperationMetadata alloc];
+    v63 = [MADAutoAssetHistoryTracker operationName:1700];
+    v48 = [(MAAIRBMobileAssetOperationMetadata *)v62 initWithCode:1700 name:v63];
 
-    v63 = [MAAIRBMobileAssetAssetSelector alloc];
-    assetType = [v70 assetType];
-    assetSpecifier = [v70 assetSpecifier];
-    assetVersion = [v70 assetVersion];
-    v51 = [(MAAIRBMobileAssetAssetSelector *)v63 initWithAssetType:assetType assetSpecifier:assetSpecifier assetVersion:assetVersion];
+    v64 = [MAAIRBMobileAssetAssetSelector alloc];
+    assetType = [v71 assetType];
+    assetSpecifier = [v71 assetSpecifier];
+    assetVersion = [v71 assetVersion];
+    v51 = [(MAAIRBMobileAssetAssetSelector *)v64 initWithAssetType:assetType assetSpecifier:assetSpecifier assetVersion:assetVersion];
 
     autoJobFSM2 = [MAAIRBAppleIntelligenceAssetDeliveryEventType typeAssetJob:v48 assetSelector:v51 downloadResult:0];
-    v67 = [[MAAIRBAppleIntelligenceAssetDeliveryEvent alloc] initWithErrors:&__NSArray0__struct type:autoJobFSM2];
-    [MAAIRBEventReporter emitAppleIntelligenceStartEvent:v67];
+    v68 = [[MAAIRBAppleIntelligenceAssetDeliveryEvent alloc] initWithErrors:&__NSArray0__struct type:autoJobFSM2];
+    [MAAIRBEventReporter emitAppleIntelligenceStartEvent:v68];
 
-    downloadCopy = v77;
+    downloadCopy = v78;
 LABEL_48:
 
 LABEL_50:
@@ -16742,10 +16746,10 @@ LABEL_50:
       autoJobName4 = [(MADAutoAssetJob *)self autoJobName];
       v19 = [MANAutoAssetInfoControl nameOfSimulateOperation:[(MADAutoAssetJob *)self simulateOperation]];
       *buf = 138543874;
-      v79 = autoJobName4;
-      v80 = 2114;
-      v81 = downloadCopy;
-      v82 = 2114;
+      v80 = autoJobName4;
+      v81 = 2114;
+      v82 = downloadCopy;
+      v83 = 2114;
       simulateOperation3 = v19;
       _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "%{public}@ {%{public}@:requestDownloadManagerAssetDownload} | SIMULATE_OPERATION(%{public}@) | call to registerAssetDownloadJob postponed", buf, 0x20u);
     }
@@ -16755,10 +16759,10 @@ LABEL_50:
   {
     autoJobName5 = [(MADAutoAssetJob *)self autoJobName];
     *buf = 138543874;
-    v79 = autoJobName5;
-    v80 = 2114;
-    v81 = downloadCopy;
-    v82 = 2048;
+    v80 = autoJobName5;
+    v81 = 2114;
+    v82 = downloadCopy;
+    v83 = 2048;
     simulateOperation3 = [(MADAutoAssetJob *)self simulateOperation];
     _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "%{public}@ {%{public}@:requestDownloadManagerAssetDownload} | SIMULATE_OPERATION(%lld) | call to registerAssetDownloadJob postponed", buf, 0x20u);
   }
@@ -16788,10 +16792,10 @@ LABEL_51:
         autoJobName = [(MADAutoAssetJob *)self autoJobName];
         v14 = [MANAutoAssetInfoControl nameOfSimulateOperation:[(MADAutoAssetJob *)self simulateOperation]];
         *buf = 138543874;
-        v41 = autoJobName;
-        v42 = 2114;
-        v43 = downloadCopy;
-        v44 = 2114;
+        v42 = autoJobName;
+        v43 = 2114;
+        v44 = downloadCopy;
+        v45 = 2114;
         simulateOperation = v14;
         _os_log_impl(&dword_0, assetDownloadOptions, OS_LOG_TYPE_DEFAULT, "%{public}@ {%{public}@:requestDownloadManagerConfigDownload} | SIMULATE_OPERATION(%{public}@) | call to configAssetDownloadJob postponed", buf, 0x20u);
       }
@@ -16801,10 +16805,10 @@ LABEL_51:
     {
       autoJobName2 = [(MADAutoAssetJob *)self autoJobName];
       *buf = 138543874;
-      v41 = autoJobName2;
-      v42 = 2114;
-      v43 = downloadCopy;
-      v44 = 2048;
+      v42 = autoJobName2;
+      v43 = 2114;
+      v44 = downloadCopy;
+      v45 = 2048;
       simulateOperation = [(MADAutoAssetJob *)self simulateOperation];
       _os_log_impl(&dword_0, assetDownloadOptions, OS_LOG_TYPE_DEFAULT, "%{public}@ {%{public}@:requestDownloadManagerConfigDownload} | SIMULATE_OPERATION(%lld) | call to configAssetDownloadJob postponed", buf, 0x20u);
     }
@@ -16830,7 +16834,7 @@ LABEL_51:
 
     if (__isPlatformVersionAtLeast(2, 18, 3, 0))
     {
-      v39 = @"N";
+      v40 = @"N";
       if (objc_opt_respondsToSelector())
       {
         allowsConstrainedAccess = [assetDownloadOptions allowsConstrainedAccess];
@@ -16840,16 +16844,16 @@ LABEL_51:
           v16 = @"Y";
         }
 
-        v39 = v16;
+        v40 = v16;
       }
     }
 
     else
     {
-      v39 = @"N";
+      v40 = @"N";
     }
 
-    v36 = [NSString alloc];
+    v37 = [NSString alloc];
     if ([assetDownloadOptions discretionary])
     {
       v18 = @"Y";
@@ -16860,9 +16864,9 @@ LABEL_51:
       v18 = @"N";
     }
 
-    v35 = v18;
-    v37 = [MADAutoAssetControlManager allocIntervalString:[assetDownloadOptions timeoutIntervalForResource]];
-    v38 = descriptorCopy;
+    v36 = v18;
+    v38 = [MADAutoAssetControlManager allocIntervalString:[assetDownloadOptions timeoutIntervalForResource]];
+    v39 = descriptorCopy;
     assetId = [descriptorCopy assetId];
     decryptionKey = [assetDownloadOptions decryptionKey];
     if (decryptionKey)
@@ -16906,32 +16910,32 @@ LABEL_51:
       v25 = @"N";
     }
 
-    v26 = [v36 initWithFormat:@"discretionary:%@, timeout:%@ | assetId:%@ | decrypt:%@ | source:%@ | cellular:%@ | expensive:%@ | constrained:%@", v35, v37, assetId, v21, sourceDirectory2, v24, v25, v39];
+    v26 = [v37 initWithFormat:@"discretionary:%@, timeout:%@ | assetId:%@ | decrypt:%@ | source:%@ | cellular:%@ | expensive:%@ | constrained:%@", v36, v38, assetId, v21, sourceDirectory2, v24, v25, v40];
     if (sourceDirectory)
     {
     }
 
     v27 = _MADLog(@"AutoJob");
-    descriptorCopy = v38;
+    descriptorCopy = v39;
     if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
       autoJobName3 = [(MADAutoAssetJob *)self autoJobName];
       *buf = 138543874;
-      v41 = autoJobName3;
-      v42 = 2114;
-      v43 = downloadCopy;
-      v44 = 2114;
+      v42 = autoJobName3;
+      v43 = 2114;
+      v44 = downloadCopy;
+      v45 = 2114;
       simulateOperation = v26;
       _os_log_impl(&dword_0, v27, OS_LOG_TYPE_DEFAULT, "%{public}@ | {%{public}@} DM:configAssetDownloadJob | downloadOptions:%{public}@", buf, 0x20u);
     }
 
-    v29 = getDownloadManager();
+    v30 = getDownloadManager(v29);
     autoAssetUUID = [(MADAutoAssetJob *)self autoAssetUUID];
     autoAssetSelector = [(MADAutoAssetJob *)self autoAssetSelector];
     assetType = [autoAssetSelector assetType];
-    assetId2 = [v38 assetId];
+    assetId2 = [v39 assetId];
     clientName = [(MADAutoAssetJob *)self clientName];
-    [v29 configAssetDownloadJob:autoAssetUUID forAssetType:assetType withPurpose:@"auto" matchingAssetId:assetId2 usingDownloadOptions:assetDownloadOptions forAutoAssetName:clientName];
+    [v30 configAssetDownloadJob:autoAssetUUID forAssetType:assetType withPurpose:@"auto" matchingAssetId:assetId2 usingDownloadOptions:assetDownloadOptions forAutoAssetName:clientName];
   }
 }
 
@@ -16961,26 +16965,26 @@ LABEL_51:
       {
         autoJobName = [(MADAutoAssetJob *)self autoJobName];
         v14 = [MANAutoAssetInfoControl nameOfSimulateOperation:[(MADAutoAssetJob *)self simulateOperation]];
-        v24 = 138543874;
-        v25 = autoJobName;
-        v26 = 2114;
-        v27 = downloadCopy;
-        v28 = 2114;
+        v25 = 138543874;
+        v26 = autoJobName;
+        v27 = 2114;
+        v28 = downloadCopy;
+        v29 = 2114;
         simulateOperation = v14;
-        _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ {%{public}@:requestDownloadManagerCancelDownload} | SIMULATE_OPERATION(%{public}@) | call to cancelAssetDownloadJob postponed", &v24, 0x20u);
+        _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ {%{public}@:requestDownloadManagerCancelDownload} | SIMULATE_OPERATION(%{public}@) | call to cancelAssetDownloadJob postponed", &v25, 0x20u);
       }
     }
 
     else if (v12)
     {
       autoJobName2 = [(MADAutoAssetJob *)self autoJobName];
-      v24 = 138543874;
-      v25 = autoJobName2;
-      v26 = 2114;
-      v27 = downloadCopy;
-      v28 = 2048;
+      v25 = 138543874;
+      v26 = autoJobName2;
+      v27 = 2114;
+      v28 = downloadCopy;
+      v29 = 2048;
       simulateOperation = [(MADAutoAssetJob *)self simulateOperation];
-      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ {%{public}@:requestDownloadManagerCancelDownload} | SIMULATE_OPERATION(%lld) | call to cancelAssetDownloadJob postponed", &v24, 0x20u);
+      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ {%{public}@:requestDownloadManagerCancelDownload} | SIMULATE_OPERATION(%lld) | call to cancelAssetDownloadJob postponed", &v25, 0x20u);
     }
   }
 
@@ -16990,20 +16994,20 @@ LABEL_51:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       autoJobName3 = [(MADAutoAssetJob *)self autoJobName];
-      v24 = 138543618;
-      v25 = autoJobName3;
-      v26 = 2114;
-      v27 = downloadCopy;
-      _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "%{public}@ | {%{public}@} DM:cancelAssetDownloadJob", &v24, 0x16u);
+      v25 = 138543618;
+      v26 = autoJobName3;
+      v27 = 2114;
+      v28 = downloadCopy;
+      _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "%{public}@ | {%{public}@} DM:cancelAssetDownloadJob", &v25, 0x16u);
     }
 
-    v17 = getDownloadManager();
+    v18 = getDownloadManager(v17);
     autoAssetUUID = [(MADAutoAssetJob *)self autoAssetUUID];
     autoAssetSelector = [(MADAutoAssetJob *)self autoAssetSelector];
     assetType = [autoAssetSelector assetType];
     assetId = [descriptorCopy assetId];
     clientName = [(MADAutoAssetJob *)self clientName];
-    [v17 cancelAssetDownloadJob:autoAssetUUID forAssetType:assetType withPurpose:@"auto" matchingAssetId:assetId forAutoAssetName:clientName];
+    [v18 cancelAssetDownloadJob:autoAssetUUID forAssetType:assetType withPurpose:@"auto" matchingAssetId:assetId forAutoAssetName:clientName];
 
     [(MADAutoAssetJob *)self _releaseReservedSpace];
   }
@@ -17115,36 +17119,36 @@ LABEL_12:
     goto LABEL_43;
   }
 
-  v78 = 0u;
   v79 = 0u;
-  v76 = 0u;
+  v80 = 0u;
   v77 = 0u;
+  v78 = 0u;
   setConfiguration = [(MADAutoAssetJob *)self setConfiguration];
   autoAssetEntries = [setConfiguration autoAssetEntries];
 
   obj = autoAssetEntries;
-  v9 = [autoAssetEntries countByEnumeratingWithState:&v76 objects:v94 count:16];
+  v9 = [autoAssetEntries countByEnumeratingWithState:&v77 objects:v95 count:16];
   if (v9)
   {
     v11 = v9;
-    v66 = 0;
-    v65 = -1;
-    v70 = *v77;
+    v67 = 0;
+    v66 = -1;
+    v71 = *v78;
     *&v10 = 138544898;
-    v62 = v10;
+    v63 = v10;
     selfCopy = self;
     do
     {
       v12 = 0;
-      v67 = v11;
+      v68 = v11;
       do
       {
-        if (*v77 != v70)
+        if (*v78 != v71)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v76 + 1) + 8 * v12);
+        v13 = *(*(&v77 + 1) + 8 * v12);
         latestAssetDescriptorOnFilesystemBySpecifier = [(MADAutoAssetJob *)self latestAssetDescriptorOnFilesystemBySpecifier];
         assetSelector = [v13 assetSelector];
         assetSpecifier = [assetSelector assetSpecifier];
@@ -17158,11 +17162,11 @@ LABEL_12:
             autoJobName = [(MADAutoAssetJob *)self autoJobName];
             selectorName = [v17 selectorName];
             *buf = 138543874;
-            v81 = autoJobName;
-            v82 = 2114;
-            v83 = spaceCopy;
-            v84 = 2114;
-            v85 = selectorName;
+            v82 = autoJobName;
+            v83 = 2114;
+            v84 = spaceCopy;
+            v85 = 2114;
+            v86 = selectorName;
             _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "%{public}@ {%{public}@}\n[CALCULATE_DOWNLOAD_SPACE] asset-descriptor already on filesystem - no need to download again | selectorOnFS:%{public}@", buf, 0x20u);
           }
         }
@@ -17184,7 +17188,7 @@ LABEL_12:
             if (v27)
             {
               metadata = [v27 metadata];
-              v68 = [metadata safeIntegerForKey:@"_UnarchivedSize"];
+              v69 = [metadata safeIntegerForKey:@"_UnarchivedSize"];
 
               metadata2 = [v27 metadata];
               v33 = @"Y";
@@ -17193,18 +17197,18 @@ LABEL_12:
             else
             {
               metadata3 = [v18 metadata];
-              v68 = [metadata3 safeIntegerForKey:@"_UnarchivedSize"];
+              v69 = [metadata3 safeIntegerForKey:@"_UnarchivedSize"];
 
               metadata2 = [v18 metadata];
               v33 = @"N";
             }
 
-            v64 = v33;
+            v65 = v33;
             v35 = cacheDeleteLevelForPolicyValue([metadata2 safeIntegerForKey:@"_DownloadPolicy"]);
 
-            if (v35 >= v65)
+            if (v35 >= v66)
             {
-              v36 = v65;
+              v36 = v66;
             }
 
             else
@@ -17212,34 +17216,34 @@ LABEL_12:
               v36 = v35;
             }
 
-            if (v65 == -1)
+            if (v66 == -1)
             {
               v36 = v35;
             }
 
-            v65 = v36;
-            v37 = v68 + v66;
+            v66 = v36;
+            v37 = v69 + v67;
             v28 = _MADLog(@"AutoJob");
-            v66 += v68;
+            v67 += v69;
             if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
             {
               [(MADAutoAssetJob *)self autoJobName];
               v39 = v38 = spaceCopy;
               summary = [v13 summary];
-              *buf = v62;
-              v81 = v39;
-              v82 = 2114;
-              v83 = v38;
-              v84 = 2114;
-              v85 = summary;
-              v86 = 2114;
-              v87 = v64;
-              v88 = 2048;
-              v89 = v68;
-              v90 = 1024;
-              v91 = v35;
-              v92 = 2048;
-              v93 = v37;
+              *buf = v63;
+              v82 = v39;
+              v83 = 2114;
+              v84 = v38;
+              v85 = 2114;
+              v86 = summary;
+              v87 = 2114;
+              v88 = v65;
+              v89 = 2048;
+              v90 = v69;
+              v91 = 1024;
+              v92 = v35;
+              v93 = 2048;
+              v94 = v37;
               _os_log_impl(&dword_0, v28, OS_LOG_TYPE_DEFAULT, "%{public}@ {%{public}@}\n[CALCULATE_DOWNLOAD_SPACE] calculating download space | nextEntryToDownload:%{public}@ | willDownloadPatch:%{public}@ | requiredSpace:%lld bytes | downloadPolicy:%d | totalRequiredSpace:%lld bytes", buf, 0x44u);
 
               spaceCopy = v38;
@@ -17255,23 +17259,23 @@ LABEL_12:
               autoJobName2 = [(MADAutoAssetJob *)self autoJobName];
               summary2 = [v13 summary];
               *buf = 138543874;
-              v81 = autoJobName2;
-              v82 = 2114;
-              v83 = spaceCopy;
-              v84 = 2114;
-              v85 = summary2;
+              v82 = autoJobName2;
+              v83 = 2114;
+              v84 = spaceCopy;
+              v85 = 2114;
+              v86 = summary2;
               _os_log_impl(&dword_0, v28, OS_LOG_TYPE_DEFAULT, "%{public}@ {%{public}@}\n[CALCULATE_DOWNLOAD_SPACE] no descriptor found - no auto-asset will be downloaded | nextEntryToDownload:%{public}@", buf, 0x20u);
             }
           }
 
-          v11 = v67;
+          v11 = v68;
         }
 
         v12 = v12 + 1;
       }
 
       while (v11 != v12);
-      v11 = [obj countByEnumeratingWithState:&v76 objects:v94 count:16];
+      v11 = [obj countByEnumeratingWithState:&v77 objects:v95 count:16];
     }
 
     while (v11);
@@ -17279,8 +17283,8 @@ LABEL_12:
 
   else
   {
-    v66 = 0;
-    v65 = -1;
+    v67 = 0;
+    v66 = -1;
   }
 
   v41 = _MADLog(@"AutoJob");
@@ -17288,52 +17292,52 @@ LABEL_12:
   {
     autoJobName3 = [(MADAutoAssetJob *)self autoJobName];
     *buf = 138544130;
-    v81 = autoJobName3;
-    v82 = 2114;
-    v83 = spaceCopy;
-    v84 = 2048;
-    v85 = v66;
-    v86 = 1024;
-    LODWORD(v87) = v65;
+    v82 = autoJobName3;
+    v83 = 2114;
+    v84 = spaceCopy;
+    v85 = 2048;
+    v86 = v67;
+    v87 = 1024;
+    LODWORD(v88) = v66;
     _os_log_impl(&dword_0, v41, OS_LOG_TYPE_DEFAULT, "%{public}@ {%{public}@}\n[CALCULATE_DOWNLOAD_SPACE] total required space for downloading set | totalRequiredSpace:%lld bytes | finalDownloadPolicy:%d", buf, 0x26u);
   }
 
-  if (v66 < 1 || v65 != 4)
+  if (v67 < 1 || v66 != 4)
   {
-    v54 = _MADLog(@"AutoJob");
-    v55 = os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT);
-    if (v66)
+    v55 = _MADLog(@"AutoJob");
+    v56 = os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT);
+    if (v67)
     {
-      if (v55)
+      if (v56)
       {
         autoJobName4 = [(MADAutoAssetJob *)self autoJobName];
         *buf = 138543618;
-        v81 = autoJobName4;
-        v82 = 2114;
-        v83 = spaceCopy;
-        v57 = "%{public}@ {%{public}@}\n[CALCULATE_DOWNLOAD_SPACE] final-download-policy is not system/critical, space check will not be performed";
+        v82 = autoJobName4;
+        v83 = 2114;
+        v84 = spaceCopy;
+        v58 = "%{public}@ {%{public}@}\n[CALCULATE_DOWNLOAD_SPACE] final-download-policy is not system/critical, space check will not be performed";
 LABEL_41:
-        _os_log_impl(&dword_0, v54, OS_LOG_TYPE_DEFAULT, v57, buf, 0x16u);
+        _os_log_impl(&dword_0, v55, OS_LOG_TYPE_DEFAULT, v58, buf, 0x16u);
       }
     }
 
-    else if (v55)
+    else if (v56)
     {
       autoJobName4 = [(MADAutoAssetJob *)self autoJobName];
       *buf = 138543618;
-      v81 = autoJobName4;
-      v82 = 2114;
-      v83 = spaceCopy;
-      v57 = "%{public}@ {%{public}@}\n[CALCULATE_DOWNLOAD_SPACE] total-required-free-space is zero (nothing will be downloaded), space check will not be performed";
+      v82 = autoJobName4;
+      v83 = 2114;
+      v84 = spaceCopy;
+      v58 = "%{public}@ {%{public}@}\n[CALCULATE_DOWNLOAD_SPACE] total-required-free-space is zero (nothing will be downloaded), space check will not be performed";
       goto LABEL_41;
     }
 
 LABEL_43:
     autoJobFSM2 = [(MADAutoAssetJob *)self autoJobFSM];
-    v59 = [MADAutoAssetJobParam alloc];
+    v60 = [MADAutoAssetJobParam alloc];
     _updateLatestSummary = [(MADAutoAssetJob *)self _updateLatestSummary];
-    v61 = [(MADAutoAssetJobParam *)v59 initWithSafeSummary:_updateLatestSummary];
-    [autoJobFSM2 postEvent:@"SetEnoughSpaceForDownload" withInfo:v61];
+    v62 = [(MADAutoAssetJobParam *)v60 initWithSafeSummary:_updateLatestSummary];
+    [autoJobFSM2 postEvent:@"SetEnoughSpaceForDownload" withInfo:v62];
 
     goto LABEL_44;
   }
@@ -17349,24 +17353,24 @@ LABEL_43:
   {
     v49 = mach_continuous_time();
     *buf = 134349056;
-    v81 = v49;
+    v82 = v49;
     _os_signpost_emit_with_name_impl(&dword_0, v48, OS_SIGNPOST_INTERVAL_BEGIN, v46, "GarbageCollection", "%{public, signpost.description:begin_time}llu  enableTelemetry=YES ", buf, 0xCu);
   }
 
-  v50 = getControlManager();
-  cacheDeleteManager = [v50 cacheDeleteManager];
+  v51 = getControlManager(v50);
+  cacheDeleteManager = [v51 cacheDeleteManager];
   autoJobFSM3 = [(MADAutoAssetJob *)selfCopy2 autoJobFSM];
   extendedStateQueue2 = [autoJobFSM3 extendedStateQueue];
-  v71[0] = _NSConcreteStackBlock;
-  v71[1] = 3221225472;
-  v71[2] = __46__MADAutoAssetJob__setCalculateDownloadSpace___block_invoke;
-  v71[3] = &unk_4B4D38;
-  v71[4] = selfCopy2;
-  v75 = 4;
-  v72 = v44;
-  v73 = v66;
-  v74 = v46;
-  [cacheDeleteManager checkAvailableSpace:v66 allowPurgeWithUrgency:4 withCompletionQueue:extendedStateQueue2 completion:v71];
+  v72[0] = _NSConcreteStackBlock;
+  v72[1] = 3221225472;
+  v72[2] = __46__MADAutoAssetJob__setCalculateDownloadSpace___block_invoke;
+  v72[3] = &unk_4B4D38;
+  v72[4] = selfCopy2;
+  v76 = 4;
+  v73 = v44;
+  v74 = v67;
+  v75 = v46;
+  [cacheDeleteManager checkAvailableSpace:v67 allowPurgeWithUrgency:4 withCompletionQueue:extendedStateQueue2 completion:v72];
 
   spaceCopy = v44;
 LABEL_44:
@@ -17387,16 +17391,16 @@ void __46__MADAutoAssetJob__setCalculateDownloadSpace___block_invoke(uint64_t a1
         v13 = [*(a1 + 32) autoJobName];
         v14 = *(a1 + 40);
         *buf = 138543618;
-        v86 = v13;
-        v87 = 2114;
-        v88 = v14;
+        v88 = v13;
+        v89 = 2114;
+        v90 = v14;
         _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "%{public}@ {%{public}@}\n[CALCULATE_DOWNLOAD_SPACE] MobileAsset does not support cache delete - starting set download without regardless of space needed", buf, 0x16u);
       }
 
       goto LABEL_8;
     }
 
-    v83 = a2;
+    v85 = a2;
     v19 = [MAAutoAssetError buildError:6107 fromOperation:*(a1 + 40) underlyingError:v11 withDescription:@"error while verifying there is enough space for download"];
     v20 = _MADLog(@"AutoJob");
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
@@ -17405,24 +17409,24 @@ void __46__MADAutoAssetJob__setCalculateDownloadSpace___block_invoke(uint64_t a1
       v22 = *(a1 + 40);
       v23 = [v11 checkedDescription];
       *buf = 138543874;
-      v86 = v21;
-      v87 = 2114;
-      v88 = v22;
+      v88 = v21;
       v89 = 2114;
-      v90 = v23;
+      v90 = v22;
+      v91 = 2114;
+      v92 = v23;
       _os_log_impl(&dword_0, v20, OS_LOG_TYPE_ERROR, "%{public}@ {%{public}@}\n[CALCULATE_DOWNLOAD_SPACE] error occurred when checking space availability CacheDeleteMgrError:%{public}@", buf, 0x20u);
     }
 
-    v99[0] = @"CacheDeleteLevel";
+    v101[0] = @"CacheDeleteLevel";
     v24 = [NSNumber numberWithInt:*(a1 + 64)];
-    v100[0] = v24;
-    v99[1] = @"AvailableFreeSpace";
+    v102[0] = v24;
+    v101[1] = @"AvailableFreeSpace";
     v25 = [NSNumber numberWithUnsignedLongLong:a3 >> 20];
-    v100[1] = v25;
-    v99[2] = @"TotalRequiredSpace";
+    v102[1] = v25;
+    v101[2] = @"TotalRequiredSpace";
     v26 = [NSNumber numberWithUnsignedLongLong:*(a1 + 48) >> 20];
-    v100[2] = v26;
-    v99[3] = @"StillNeededSpace";
+    v102[2] = v26;
+    v101[3] = @"StillNeededSpace";
     v27 = *(a1 + 48);
     v28 = v27 >= a3;
     v29 = (v27 - a3) >> 20;
@@ -17437,21 +17441,21 @@ void __46__MADAutoAssetJob__setCalculateDownloadSpace___block_invoke(uint64_t a1
     }
 
     v31 = [NSNumber numberWithUnsignedLongLong:v30];
-    v99[4] = @"IsMAAutoAsset";
-    v100[3] = v31;
-    v100[4] = @"YES";
-    v32 = [NSDictionary dictionaryWithObjects:v100 forKeys:v99 count:5];
+    v101[4] = @"IsMAAutoAsset";
+    v102[3] = v31;
+    v102[4] = @"YES";
+    v32 = [NSDictionary dictionaryWithObjects:v102 forKeys:v101 count:5];
 
-    v33 = getDownloadManager();
-    v34 = [*(a1 + 32) setConfiguration];
-    v35 = [v34 firstEntryAssetType];
-    v36 = [*(a1 + 32) firstClientName];
-    v37 = [*(a1 + 32) autoAssetUUID];
-    [v33 trackDownloadCannotStartResult:37 assetType:v35 connection:0 requestMessage:0 clientName:v36 autoAssetJobID:v37 ofJobType:@"asset_job" underlyingError:v11 additionalData:v32];
+    v34 = getDownloadManager(v33);
+    v35 = [*(a1 + 32) setConfiguration];
+    v36 = [v35 firstEntryAssetType];
+    v37 = [*(a1 + 32) firstClientName];
+    v38 = [*(a1 + 32) autoAssetUUID];
+    [v34 trackDownloadCannotStartResult:37 assetType:v36 connection:0 requestMessage:0 clientName:v37 autoAssetJobID:v38 ofJobType:@"asset_job" underlyingError:v11 additionalData:v32];
 
-    v38 = [MADAutoAssetJobParam alloc];
-    v39 = [*(a1 + 32) autoAssetUUID];
-    v17 = [(MADAutoAssetJobParam *)v38 initForFinishedJobID:v39 withError:v19];
+    v39 = [MADAutoAssetJobParam alloc];
+    v40 = [*(a1 + 32) autoAssetUUID];
+    v17 = [(MADAutoAssetJobParam *)v39 initForFinishedJobID:v40 withError:v19];
 
     v18 = @"SetCheckSpaceFailure";
   }
@@ -17470,147 +17474,147 @@ LABEL_8:
       goto LABEL_19;
     }
 
-    v83 = a2;
-    v81 = v9;
-    v97[0] = @"TotalRequiredSpaceForSetDownload";
-    v40 = [NSNumber numberWithLongLong:*(a1 + 48)];
-    v98[0] = v40;
-    v97[1] = @"StillNeededSpaceForSetDownload";
-    v41 = [NSNumber numberWithUnsignedLongLong:*(a1 + 48) - a3];
-    v98[1] = v41;
-    v42 = [NSDictionary dictionaryWithObjects:v98 forKeys:v97 count:2];
+    v85 = a2;
+    v83 = v9;
+    v99[0] = @"TotalRequiredSpaceForSetDownload";
+    v41 = [NSNumber numberWithLongLong:*(a1 + 48)];
+    v100[0] = v41;
+    v99[1] = @"StillNeededSpaceForSetDownload";
+    v42 = [NSNumber numberWithUnsignedLongLong:*(a1 + 48) - a3];
+    v100[1] = v42;
+    v43 = [NSDictionary dictionaryWithObjects:v100 forKeys:v99 count:2];
 
-    v43 = [NSString stringWithFormat:@"action_SetCalculateDownloadSpace:NotEnoughSpaceForSetDownload(%lld)", 6209];
-    v44 = [NSString alloc];
-    v45 = [v42 objectForKeyedSubscript:@"StillNeededSpaceForSetDownload"];
-    v77 = v43;
-    v46 = [v44 initWithFormat:@"[%@] Not enough space to download the auto asset set.  Space still needed: %@", v43, v45];
+    v44 = [NSString stringWithFormat:@"action_SetCalculateDownloadSpace:NotEnoughSpaceForSetDownload(%lld)", 6209];
+    v45 = [NSString alloc];
+    v46 = [v43 objectForKeyedSubscript:@"StillNeededSpaceForSetDownload"];
+    v79 = v44;
+    v47 = [v45 initWithFormat:@"[%@] Not enough space to download the auto asset set.  Space still needed: %@", v44, v46];
 
-    v47 = objc_opt_new();
-    v76 = v46;
-    [v47 setSafeObject:v46 forKey:NSLocalizedDescriptionKey];
-    v79 = v42;
-    [v47 setSafeObject:v42 forKey:@"DownloadSpaceDetails"];
-    v48 = [NSError errorWithDomain:@"com.apple.MobileAssetError.AutoAsset" code:6209 userInfo:v47];
-    v49 = _MADLog(@"AutoJob");
-    if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+    v48 = objc_opt_new();
+    v78 = v47;
+    [v48 setSafeObject:v47 forKey:NSLocalizedDescriptionKey];
+    v81 = v43;
+    [v48 setSafeObject:v43 forKey:@"DownloadSpaceDetails"];
+    v49 = [NSError errorWithDomain:@"com.apple.MobileAssetError.AutoAsset" code:6209 userInfo:v48];
+    v50 = _MADLog(@"AutoJob");
+    if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
     {
-      v50 = *(a1 + 48);
-      v51 = *(a1 + 64);
+      v51 = *(a1 + 48);
+      v52 = *(a1 + 64);
       *buf = 134349568;
-      v86 = v50;
-      v87 = 2050;
-      v88 = a3;
-      v89 = 1026;
-      LODWORD(v90) = v51;
-      _os_log_impl(&dword_0, v49, OS_LOG_TYPE_DEFAULT, "Not enough space to download the asset.  Required space: %{public}llu.  Available Space: %{public}llu.  CacheDelete level: %{public}d", buf, 0x1Cu);
+      v88 = v51;
+      v89 = 2050;
+      v90 = a3;
+      v91 = 1026;
+      LODWORD(v92) = v52;
+      _os_log_impl(&dword_0, v50, OS_LOG_TYPE_DEFAULT, "Not enough space to download the asset.  Required space: %{public}llu.  Available Space: %{public}llu.  CacheDelete level: %{public}d", buf, 0x1Cu);
     }
 
-    v95[0] = @"CacheDeleteLevel";
-    v52 = [NSNumber numberWithInt:*(a1 + 64)];
-    v96[0] = v52;
-    v95[1] = @"AvailableFreeSpace";
-    v53 = [NSNumber numberWithUnsignedLongLong:a3 >> 20];
-    v96[1] = v53;
-    v95[2] = @"TotalRequiredSpace";
-    v54 = [NSNumber numberWithUnsignedLongLong:*(a1 + 48) >> 20];
-    v96[2] = v54;
-    v95[3] = @"StillNeededSpace";
-    v55 = [NSNumber numberWithUnsignedLongLong:(*(a1 + 48) - a3) >> 20];
-    v95[4] = @"IsMAAutoAsset";
-    v96[3] = v55;
-    v96[4] = @"YES";
-    v56 = [NSDictionary dictionaryWithObjects:v96 forKeys:v95 count:5];
+    v97[0] = @"CacheDeleteLevel";
+    v53 = [NSNumber numberWithInt:*(a1 + 64)];
+    v98[0] = v53;
+    v97[1] = @"AvailableFreeSpace";
+    v54 = [NSNumber numberWithUnsignedLongLong:a3 >> 20];
+    v98[1] = v54;
+    v97[2] = @"TotalRequiredSpace";
+    v55 = [NSNumber numberWithUnsignedLongLong:*(a1 + 48) >> 20];
+    v98[2] = v55;
+    v97[3] = @"StillNeededSpace";
+    v56 = [NSNumber numberWithUnsignedLongLong:(*(a1 + 48) - a3) >> 20];
+    v97[4] = @"IsMAAutoAsset";
+    v98[3] = v56;
+    v98[4] = @"YES";
+    v57 = [NSDictionary dictionaryWithObjects:v98 forKeys:v97 count:5];
 
-    v57 = getDownloadManager();
-    v58 = [*(a1 + 32) setConfiguration];
-    v59 = [v58 firstEntryAssetType];
-    v60 = [*(a1 + 32) firstClientName];
-    v61 = [*(a1 + 32) autoAssetUUID];
-    [v57 trackDownloadCannotStartResult:37 assetType:v59 connection:0 requestMessage:0 clientName:v60 autoAssetJobID:v61 ofJobType:@"asset_job" underlyingError:v48 additionalData:v56];
-
-    v62 = [MADAutoAssetJobParam alloc];
+    v59 = getDownloadManager(v58);
+    v60 = [*(a1 + 32) setConfiguration];
+    v61 = [v60 firstEntryAssetType];
+    v62 = [*(a1 + 32) firstClientName];
     v63 = [*(a1 + 32) autoAssetUUID];
-    v17 = [(MADAutoAssetJobParam *)v62 initForFinishedJobID:v63 withError:v48];
+    [v59 trackDownloadCannotStartResult:37 assetType:v61 connection:0 requestMessage:0 clientName:v62 autoAssetJobID:v63 ofJobType:@"asset_job" underlyingError:v49 additionalData:v57];
+
+    v64 = [MADAutoAssetJobParam alloc];
+    v65 = [*(a1 + 32) autoAssetUUID];
+    v17 = [(MADAutoAssetJobParam *)v64 initForFinishedJobID:v65 withError:v49];
 
     v18 = @"SetNotEnoughSpaceForDownload";
-    v9 = v81;
+    v9 = v83;
   }
 
-  a2 = v83;
+  a2 = v85;
 LABEL_19:
-  v64 = [*(a1 + 32) autoAssetSelector];
+  v66 = [*(a1 + 32) autoAssetSelector];
 
-  v65 = _MADLog(@"V2Control");
-  v66 = v65;
-  v67 = *(a1 + 56);
-  if (v64)
+  v67 = _MADLog(@"V2Control");
+  v68 = v67;
+  v69 = *(a1 + 56);
+  if (v66)
   {
-    if (v67 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v65))
+    if (v69 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v67))
     {
-      v82 = v9;
-      v84 = a2;
-      v78 = mach_continuous_time();
-      v80 = *(a1 + 64);
-      v68 = [*(a1 + 32) autoAssetSelector];
-      v69 = [v68 summary];
-      v70 = [v69 UTF8String];
+      v84 = v9;
+      v86 = a2;
+      v80 = mach_continuous_time();
+      v82 = *(a1 + 64);
+      v70 = [*(a1 + 32) autoAssetSelector];
+      v71 = [v70 summary];
+      v72 = [v71 UTF8String];
       if (v11)
       {
         v9 = [v11 checkedDescription];
-        v71 = [v9 UTF8String];
+        v73 = [v9 UTF8String];
       }
 
       else
       {
-        v71 = "";
+        v73 = "";
       }
 
       *buf = 134350082;
-      v86 = v78;
-      v87 = 2050;
-      v88 = v84;
+      v88 = v80;
       v89 = 2050;
-      v90 = v80;
-      v91 = 2082;
-      v92 = v70;
+      v90 = v86;
+      v91 = 2050;
+      v92 = v82;
       v93 = 2082;
-      v94 = v71;
-      _os_signpost_emit_with_name_impl(&dword_0, v66, OS_SIGNPOST_INTERVAL_END, v67, "GarbageCollection", "%{public, signpost.description:end_time}llu EnoughSpace=%{public, signpost.telemetry:number1,name=EnoughSpace}lld Urgency=%{public, signpost.telemetry:number2,name=Urgency}lldAssetType=%{public, signpost.telemetry:string1,name=AssetType}sError=%{public, signpost.telemetry:string2,name=Error}s enableTelemetry=YES ", buf, 0x34u);
+      v94 = v72;
+      v95 = 2082;
+      v96 = v73;
+      _os_signpost_emit_with_name_impl(&dword_0, v68, OS_SIGNPOST_INTERVAL_END, v69, "GarbageCollection", "%{public, signpost.description:end_time}llu EnoughSpace=%{public, signpost.telemetry:number1,name=EnoughSpace}lld Urgency=%{public, signpost.telemetry:number2,name=Urgency}lldAssetType=%{public, signpost.telemetry:string1,name=AssetType}sError=%{public, signpost.telemetry:string2,name=Error}s enableTelemetry=YES ", buf, 0x34u);
       if (v11)
       {
       }
 
 LABEL_35:
-      v9 = v82;
+      v9 = v84;
     }
   }
 
-  else if (v67 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v65))
+  else if (v69 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v67))
   {
-    v82 = v9;
-    v72 = mach_continuous_time();
-    v73 = *(a1 + 64);
+    v84 = v9;
+    v74 = mach_continuous_time();
+    v75 = *(a1 + 64);
     if (v11)
     {
-      v64 = [v11 checkedDescription];
-      v74 = [v64 UTF8String];
+      v66 = [v11 checkedDescription];
+      v76 = [v66 UTF8String];
     }
 
     else
     {
-      v74 = "";
+      v76 = "";
     }
 
     *buf = 134349826;
-    v86 = v72;
-    v87 = 2050;
-    v88 = a2;
+    v88 = v74;
     v89 = 2050;
-    v90 = v73;
-    v91 = 2082;
-    v92 = v74;
-    _os_signpost_emit_with_name_impl(&dword_0, v66, OS_SIGNPOST_INTERVAL_END, v67, "GarbageCollection", "%{public, signpost.description:end_time}llu EnoughSpace=%{public, signpost.telemetry:number1,name=EnoughSpace}lld Urgency=%{public, signpost.telemetry:number2,name=Urgency}lldError=%{public, signpost.telemetry:string1,name=Error}s enableTelemetry=YES ", buf, 0x2Au);
+    v90 = a2;
+    v91 = 2050;
+    v92 = v75;
+    v93 = 2082;
+    v94 = v76;
+    _os_signpost_emit_with_name_impl(&dword_0, v68, OS_SIGNPOST_INTERVAL_END, v69, "GarbageCollection", "%{public, signpost.description:end_time}llu EnoughSpace=%{public, signpost.telemetry:number1,name=EnoughSpace}lld Urgency=%{public, signpost.telemetry:number2,name=Urgency}lldError=%{public, signpost.telemetry:string1,name=Error}s enableTelemetry=YES ", buf, 0x2Au);
     if (v11)
     {
     }
@@ -17618,8 +17622,8 @@ LABEL_35:
     goto LABEL_35;
   }
 
-  v75 = [*(a1 + 32) autoJobFSM];
-  [v75 postEvent:v18 withInfo:v17];
+  v77 = [*(a1 + 32) autoJobFSM];
+  [v77 postEvent:v18 withInfo:v17];
 }
 
 - (void)_extendCatalogDownloadOptionsWithAnalyticsData:(id)data
@@ -17727,9 +17731,9 @@ LABEL_35:
     [v13 setSafeObject:assetVersion2 forKey:@"BaseAssetVersion"];
 
     [v13 setSafeObject:@"YES" forKey:@"WasAssetPatchingAttempted"];
-    patchingAttemptError = [descriptorCopy patchingAttemptError];
+    v36 = objc_msgSend_patchingAttemptError(descriptorCopy);
 
-    if (patchingAttemptError)
+    if (v36)
     {
       v37 = @"FULL_REPLACEMENT_NO_POSSIBLE_PATCH_FROM_BASE";
     }
@@ -17751,16 +17755,16 @@ LABEL_19:
     goto LABEL_20;
   }
 
-  patchingAttemptError2 = [descriptorCopy patchingAttemptError];
+  v38 = objc_msgSend_patchingAttemptError(descriptorCopy);
 
-  if (patchingAttemptError2)
+  if (v38)
   {
-    patchingAttemptError3 = [descriptorCopy patchingAttemptError];
-    checkedSummary = [patchingAttemptError3 checkedSummary];
+    v39 = objc_msgSend_patchingAttemptError(descriptorCopy);
+    checkedSummary = [v39 checkedSummary];
     [v13 setSafeObject:checkedSummary forKey:@"AssetPatchingFailureReason"];
 
-    patchingAttemptError4 = [descriptorCopy patchingAttemptError];
-    checkedDescription = [patchingAttemptError4 checkedDescription];
+    v41 = objc_msgSend_patchingAttemptError(descriptorCopy);
+    checkedDescription = [v41 checkedDescription];
     [v13 setSafeObject:checkedDescription forKey:@"AssetPatchingFailureError"];
 
     [v13 setSafeObject:@"FULL_REPLACEMENT_PATCH_ATTEMPT_FAILED" forKey:@"AssetPatchingPallasResult"];
@@ -17935,11 +17939,11 @@ LABEL_12:
     stagedPriorToAvailable = [descriptorCopy stagedPriorToAvailable];
     stagedFromOSVersion = [descriptorCopy stagedFromOSVersion];
     stagedFromBuildVersion = [descriptorCopy stagedFromBuildVersion];
-    patchingAttemptError = [descriptorCopy patchingAttemptError];
+    v15 = objc_msgSend_patchingAttemptError(descriptorCopy);
     BYTE1(v33) = stagedPriorToAvailable;
     LOBYTE(v33) = patchingAttempted;
     LOBYTE(v31) = 0;
-    v16 = [v7 initWithAssetSelector:autoAssetSelector withNotifications:v8 withAvailableForUseAttributes:0 withNewerVersionAttributes:metadata withNeverBeenLocked:1 withDownloadUserInitiated:downloadingUserInitiated withDownloadProgress:0 withDownloadedNetworkBytes:-1 withDownloadedFilesystemBytes:-1 withDownloadedAsPatch:v31 withPatchedFromBaseSelector:0 withPatchedFromBaseFilesystemBytes:-1 withPatchingAttempted:v33 withStagedPriorToAvailable:stagedFromOSVersion withStagedFromOSVersion:stagedFromBuildVersion withStagedFromBuildVersion:0 withCurrentLockUsage:0 withAvailableForUseError:patchingAttemptError withPatchingAttemptError:0 withNewerVersionError:?];
+    v16 = [v7 initWithAssetSelector:autoAssetSelector withNotifications:v8 withAvailableForUseAttributes:0 withNewerVersionAttributes:metadata withNeverBeenLocked:1 withDownloadUserInitiated:downloadingUserInitiated withDownloadProgress:0 withDownloadedNetworkBytes:-1 withDownloadedFilesystemBytes:-1 withDownloadedAsPatch:v31 withPatchedFromBaseSelector:0 withPatchedFromBaseFilesystemBytes:-1 withPatchingAttempted:v33 withStagedPriorToAvailable:stagedFromOSVersion withStagedFromOSVersion:stagedFromBuildVersion withStagedFromBuildVersion:0 withCurrentLockUsage:0 withAvailableForUseError:v15 withPatchingAttemptError:0 withNewerVersionError:?];
   }
 
   else
@@ -17957,11 +17961,11 @@ LABEL_12:
       stagedPriorToAvailable2 = [descriptorCopy stagedPriorToAvailable];
       stagedFromOSVersion2 = [descriptorCopy stagedFromOSVersion];
       stagedFromBuildVersion2 = [descriptorCopy stagedFromBuildVersion];
-      patchingAttemptError2 = [descriptorCopy patchingAttemptError];
+      v26 = objc_msgSend_patchingAttemptError(descriptorCopy);
       BYTE1(v32) = stagedPriorToAvailable2;
       LOBYTE(v32) = patchingAttempted2;
       LOBYTE(v30) = 0;
-      v16 = [v35 initWithAssetSelector:autoAssetSelector2 withNotifications:v19 withAvailableForUseAttributes:0 withNewerVersionAttributes:metadata2 withDownloadUserInitiated:downloadingUserInitiated2 withDownloadProgress:0 withDownloadedNetworkBytes:-1 withDownloadedFilesystemBytes:-1 withDownloadedAsPatch:v30 withPatchedFromBaseSelector:0 withPatchedFromBaseFilesystemBytes:-1 withPatchingAttempted:v32 withStagedPriorToAvailable:stagedFromOSVersion2 withStagedFromOSVersion:stagedFromBuildVersion2 withStagedFromBuildVersion:0 withCurrentLockUsage:0 withAvailableForUseError:patchingAttemptError2 withPatchingAttemptError:0 withNewerVersionError:?];
+      v16 = [v35 initWithAssetSelector:autoAssetSelector2 withNotifications:v19 withAvailableForUseAttributes:0 withNewerVersionAttributes:metadata2 withDownloadUserInitiated:downloadingUserInitiated2 withDownloadProgress:0 withDownloadedNetworkBytes:-1 withDownloadedFilesystemBytes:-1 withDownloadedAsPatch:v30 withPatchedFromBaseSelector:0 withPatchedFromBaseFilesystemBytes:-1 withPatchingAttempted:v32 withStagedPriorToAvailable:stagedFromOSVersion2 withStagedFromOSVersion:stagedFromBuildVersion2 withStagedFromBuildVersion:0 withCurrentLockUsage:0 withAvailableForUseError:v26 withPatchingAttemptError:0 withNewerVersionError:?];
     }
 
     else
@@ -18998,7 +19002,7 @@ LABEL_82:
           }
 
 LABEL_83:
-          [(MADAutoAssetJob *)self setSimulateEnd:0, *v40, *&v40[16], v41];
+          [(MADAutoAssetJob *)self setSimulateEnd:0, *v40, *&v40[8], v41];
           [(MADAutoAssetJob *)self setSimulateTriggered:0];
           [(MADAutoAssetJob *)self setSimulateDescriptor:0];
           [(MADAutoAssetJob *)self setSimulateBaseForPatch:0];

@@ -63,7 +63,7 @@
 - (void)setVisualStyle:(id)style
 {
   styleCopy = style;
-  if (([styleCopy isEqual:self->_visualStyle] & 1) == 0)
+  if ((objc_msgSend_isEqual_(styleCopy) & 1) == 0)
   {
     objc_storeStrong(&self->_visualStyle, style);
     [(_UIInterfaceActionRepresentationsSequenceView *)self reloadDisplayedContentVisualStyle];
@@ -103,7 +103,7 @@
 - (void)setArrangedActionRepresentationViews:(id)views
 {
   viewsCopy = views;
-  if (([(NSArray *)self->_arrangedActionRepresentationViews isEqual:?]& 1) == 0)
+  if ((objc_msgSend_isEqual_(self->_arrangedActionRepresentationViews) & 1) == 0)
   {
     objc_storeStrong(&self->_arrangedActionRepresentationViews, views);
     [(_UIInterfaceActionSeparatableSequenceView *)self->_separatedContentSequenceView setArrangedContentViews:self->_arrangedActionRepresentationViews];

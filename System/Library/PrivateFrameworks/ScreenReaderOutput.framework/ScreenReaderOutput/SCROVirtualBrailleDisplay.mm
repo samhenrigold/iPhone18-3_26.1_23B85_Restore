@@ -2,6 +2,7 @@
 + (id)systemDisplay;
 - (SCROVirtualBrailleDisplay)initWithMainSize:(int64_t)size;
 - (id)_initWithMainSize:(int64_t)size ioElement:(id)element;
+- (void)_simulateKeypressWithMask:(unsigned int)mask;
 - (void)pressKeyChord:(unint64_t)chord;
 - (void)pressPanLeft;
 - (void)pressPanRight;
@@ -46,16 +47,17 @@ void __42__SCROVirtualBrailleDisplay_systemDisplay__block_invoke(uint64_t a1)
 
 - (id)_initWithMainSize:(int64_t)size ioElement:(id)element
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   elementCopy = element;
+  v7 = elementCopy;
   if (size <= 0)
   {
-    v7 = _SCROD_LOG();
-    if (os_log_type_enabled(&v7->super, OS_LOG_TYPE_DEFAULT))
+    v8 = _SCROD_LOG(elementCopy);
+    if (os_log_type_enabled(&v8->super, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
       sizeCopy3 = size;
-      _os_log_impl(&dword_26490B000, &v7->super, OS_LOG_TYPE_DEFAULT, "Failed to create a virtual display: mainSize is nonpositive (%ld).", buf, 0xCu);
+      _os_log_impl(&dword_26490B000, &v8->super, OS_LOG_TYPE_DEFAULT, "Failed to create a virtual display: mainSize is nonpositive (%ld).", buf, 0xCu);
     }
 
     selfCopy = 0;
@@ -63,44 +65,43 @@ void __42__SCROVirtualBrailleDisplay_systemDisplay__block_invoke(uint64_t a1)
 
   else
   {
-    v7 = [[SCROVirtualBrailleDriver alloc] initWithMainSize:size delegate:self];
-    v8 = +[SCROBrailleDisplayManager sharedManager];
-    v18.receiver = self;
-    v18.super_class = SCROVirtualBrailleDisplay;
-    v9 = [(SCROBrailleDisplay *)&v18 _initWithDriver:v7 driverIdentifier:@"com.apple.scrod.braille.driver.generic.hid" ioElement:elementCopy delegate:v8];
+    v8 = [[SCROVirtualBrailleDriver alloc] initWithMainSize:size delegate:self];
+    v9 = +[SCROBrailleDisplayManager sharedManager];
+    v19.receiver = self;
+    v19.super_class = SCROVirtualBrailleDisplay;
+    v10 = [(SCROBrailleDisplay *)&v19 _initWithDriver:v8 driverIdentifier:@"com.apple.scrod.braille.driver.generic.hid" ioElement:v7 delegate:v9];
 
-    if (v9)
+    if (v10)
     {
-      v10 = objc_opt_new();
+      v11 = objc_opt_new();
       sizeCopy2 = size;
       do
       {
-        [v10 appendString:@"⠀"];
+        [v11 appendString:@"⠀"];
         --sizeCopy2;
       }
 
       while (sizeCopy2);
-      v12 = *(v9 + 36);
-      *(v9 + 36) = v10;
-      v13 = v10;
+      v13 = *(v10 + 36);
+      *(v10 + 36) = v11;
+      v14 = v11;
 
-      *(v9 + 35) = size;
-      objc_storeStrong(v9 + 37, v7);
+      *(v10 + 35) = size;
+      objc_storeStrong(v10 + 37, v8);
 
-      v14 = _SCROD_LOG();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v16 = _SCROD_LOG(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
         sizeCopy3 = size;
-        _os_log_impl(&dword_26490B000, v14, OS_LOG_TYPE_DEFAULT, "Created a virtual display with main size: %ld", buf, 0xCu);
+        _os_log_impl(&dword_26490B000, v16, OS_LOG_TYPE_DEFAULT, "Created a virtual display with main size: %ld", buf, 0xCu);
       }
     }
 
-    self = v9;
+    self = v10;
     selfCopy = self;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -360,42 +361,48 @@ LABEL_40:
 
 - (void)pressRouterWithIndex:(unint64_t)index withSpace:(BOOL)space
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (self->_mainSize <= index)
   {
-    v9 = _SCROD_LOG();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v8 = _SCROD_LOG(self);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       mainSize = self->_mainSize;
-      v12 = 134218240;
+      v10 = 134218240;
       indexCopy = index;
-      v14 = 2048;
-      v15 = mainSize;
-      _os_log_impl(&dword_26490B000, v9, OS_LOG_TYPE_DEFAULT, "Virtual display: router index (%ld) out of bound (%ld)", &v12, 0x16u);
+      v12 = 2048;
+      v13 = mainSize;
+      _os_log_impl(&dword_26490B000, v8, OS_LOG_TYPE_DEFAULT, "Virtual display: router index (%ld) out of bound (%ld)", &v10, 0x16u);
+    }
+  }
+
+  else
+  {
+    spaceCopy = space;
+    if (space)
+    {
+      [(SCROVirtualBrailleDriver *)self->_virtualDriver enqueueSpaceWithDown:1];
     }
 
-    goto LABEL_11;
+    [(SCROVirtualBrailleDriver *)self->_virtualDriver enqueueRouter:index down:1];
+    [(SCROVirtualBrailleDriver *)self->_virtualDriver enqueueRouter:index down:0];
+    if (spaceCopy)
+    {
+      virtualDriver = self->_virtualDriver;
+
+      [(SCROVirtualBrailleDriver *)virtualDriver enqueueSpaceWithDown:0];
+    }
   }
+}
 
-  spaceCopy = space;
-  if (space)
-  {
-    [(SCROVirtualBrailleDriver *)self->_virtualDriver enqueueSpaceWithDown:1];
-  }
-
-  [(SCROVirtualBrailleDriver *)self->_virtualDriver enqueueRouter:index down:1];
-  [(SCROVirtualBrailleDriver *)self->_virtualDriver enqueueRouter:index down:0];
-  if (!spaceCopy)
-  {
-LABEL_11:
-    v11 = *MEMORY[0x277D85DE8];
-    return;
-  }
-
-  virtualDriver = self->_virtualDriver;
-  v8 = *MEMORY[0x277D85DE8];
-
-  [(SCROVirtualBrailleDriver *)virtualDriver enqueueSpaceWithDown:0];
+- (void)_simulateKeypressWithMask:(unsigned int)mask
+{
+  v3 = *&mask;
+  v5 = objc_opt_new();
+  [v5 setDisplayToken:{-[SCROVirtualBrailleDisplay token](self, "token")}];
+  [v5 setDisplayMode:0];
+  [v5 addKeyMask:v3];
+  [(SCROBrailleDisplay *)self simulateKeypress:v5];
 }
 
 @end

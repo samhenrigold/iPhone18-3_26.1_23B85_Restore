@@ -2603,13 +2603,13 @@ void __56__PUCleanupToolController__updateMaskViewForDefaultMode__block_invoke(u
         buffer = [*(*(&v40 + 1) + 8 * v16) buffer];
         v20 = [v18 imageWithCVPixelBuffer:{objc_msgSend(buffer, "CVPixelBuffer")}];
 
-        [v17 extent];
+        objc_msgSend_extent(v17);
         v22 = v21;
-        [v20 extent];
+        objc_msgSend_extent(v20);
         v24 = v22 / v23;
-        [v17 extent];
+        objc_msgSend_extent(v17);
         v26 = v25;
-        [v20 extent];
+        objc_msgSend_extent(v20);
         CGAffineTransformMakeScale(&v39, v24, v26 / v27);
         v28 = [v20 imageByApplyingTransform:&v39];
 
@@ -2798,13 +2798,13 @@ void __42__PUCleanupToolController__newOverlayMask__block_invoke(uint64_t a1, vo
       v11 = [v8 buffer];
       v12 = [v10 imageWithCVPixelBuffer:{objc_msgSend(v11, "CVPixelBuffer")}];
 
-      [*(*(*(a1 + 40) + 8) + 40) extent];
+      objc_msgSend_extent(*(*(*(a1 + 40) + 8) + 40));
       v14 = v13;
-      [v12 extent];
+      objc_msgSend_extent(v12);
       v16 = v14 / v15;
-      [*(*(*(a1 + 40) + 8) + 40) extent];
+      objc_msgSend_extent(*(*(*(a1 + 40) + 8) + 40));
       v18 = v17;
-      [v12 extent];
+      objc_msgSend_extent(v12);
       CGAffineTransformMakeScale(&v28, v16, v18 / v19);
       v20 = [v12 imageByApplyingTransform:&v28];
 
@@ -3219,7 +3219,7 @@ LABEL_13:
           v58 = 0u;
           if (v47)
           {
-            [v47 extent];
+            objc_msgSend_extent(v47);
           }
 
           else
@@ -3473,7 +3473,7 @@ void __72__PUCleanupToolController_addObjectRemovalAtImageSpacePoint_completion_
       [v22 modifyInpaintAdjustmentWithBlock:v26 actionStringKey:@"PHOTOEDIT_CLEANUP_CLEAN_UP_ACTION_TITLE" completion:v24];
       *buf = 0u;
       v30 = 0u;
-      [v23 extent];
+      objc_msgSend_extent(v23);
       [v23 scale];
       NUPixelRectScaleRational();
       [*(a1 + 32) _setLastInteractionPixelCount:*(&v30 + 1) * v30];
@@ -3746,7 +3746,7 @@ void __176__PUCleanupToolController__addImageSpaceInpaintingStroke_closeAndFillS
   v28 = *(a1 + 40);
   if (v28)
   {
-    [v28 extent];
+    objc_msgSend_extent(v28);
   }
 
   [*(a1 + 32) _setLastInteractionPixelCount:0];
@@ -5132,7 +5132,7 @@ uint64_t __78__PUCleanupToolController_viewWillTransitionToSize_withTransitionCo
   return [MEMORY[0x1E69DD250] animateWithDuration:0 delay:v4 options:v3 animations:0.1 completion:0.5];
 }
 
-uint64_t __78__PUCleanupToolController_viewWillTransitionToSize_withTransitionCoordinator___block_invoke_8(uint64_t a1)
+void *__78__PUCleanupToolController_viewWillTransitionToSize_withTransitionCoordinator___block_invoke_8(uint64_t a1)
 {
   result = (*(*(a1 + 40) + 16))();
   v3 = *(a1 + 32);

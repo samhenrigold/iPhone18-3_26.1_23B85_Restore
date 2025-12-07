@@ -21,11 +21,11 @@
 
 - (HKSPPersistentSyncAnchorContainer)initWithIdentifier:(id)identifier defaults:(id)defaults
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   defaultsCopy = defaults;
-  v14.receiver = self;
-  v14.super_class = HKSPPersistentSyncAnchorContainer;
-  v8 = [(HKSPSyncAnchorContainer *)&v14 initWithIdentifier:identifier];
+  v13.receiver = self;
+  v13.super_class = HKSPPersistentSyncAnchorContainer;
+  v8 = [(HKSPSyncAnchorContainer *)&v13 initWithIdentifier:identifier];
   v9 = v8;
   if (v8)
   {
@@ -34,26 +34,25 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v16 = v9;
+      v15 = v9;
       _os_log_impl(&dword_269A84000, v10, OS_LOG_TYPE_DEFAULT, "Initialized %{public}@", buf, 0xCu);
     }
 
     v11 = v9;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (id)lock_getSyncAnchorForKey:(id)key
 {
   v3 = [(HKSPUserDefaults *)self->_defaults hksp_objectForKey:key];
-  HKSPSyncAnchorClass();
+  HKSPSyncAnchorClass(v3, v4);
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v4 = HKSPSyncAnchorDefaultValue();
+    v5 = HKSPSyncAnchorDefaultValue();
 
-    v3 = v4;
+    v3 = v5;
   }
 
   return v3;

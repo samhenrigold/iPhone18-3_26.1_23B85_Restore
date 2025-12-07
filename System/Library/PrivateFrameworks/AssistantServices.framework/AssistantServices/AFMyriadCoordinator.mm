@@ -20,6 +20,7 @@
 - (id)emergencyRecord;
 - (id)emptyRecord;
 - (id)lateSuppressionRecord;
+- (id)responseObject:(unsigned __int16)object;
 - (id)slowdownRecord:(unsigned __int16)record;
 - (id)voiceTriggerRecord;
 - (int)_myriadStateForSelf:(unint64_t)self;
@@ -104,6 +105,7 @@
 - (void)heySiriStoppedAdvertising:(id)advertising;
 - (void)heySiriStoppedScanning:(id)scanning;
 - (void)injectAdvertisementForTesting:(id)testing forDevice:(id)device;
+- (void)instrumentationUpdateBoost:(unsigned __int8)boost value:(unsigned int)value;
 - (void)myriadSession:(id)session;
 - (void)notifyCurrentDecisionResult;
 - (void)notifyObserver:(id)observer didReceiveNotificationWithToken:(int)token;
@@ -197,7 +199,7 @@ uint64_t __46__AFMyriadCoordinator_resetMyriadCoordinator___block_invoke(uint64_
 
 - (void)injectAdvertisementForTesting:(id)testing forDevice:(id)device
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   testingCopy = testing;
   deviceCopy = device;
   v8 = deviceCopy;
@@ -207,32 +209,30 @@ uint64_t __46__AFMyriadCoordinator_resetMyriadCoordinator___block_invoke(uint64_
     v10 = v9;
     if (v9)
     {
-      v13 = v9;
-      v14[0] = testingCopy;
-      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+      v12 = v9;
+      v13[0] = testingCopy;
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
       [(AFMyriadCoordinator *)self heySiri:self->_heySiriBTLE foundDevice:v8 withInfo:v11];
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyObserver:(id)observer didReceiveNotificationWithToken:(int)token
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   observerCopy = observer;
   v7 = AFSiriLogContextMyriad;
   if (os_log_type_enabled(AFSiriLogContextMyriad, OS_LOG_TYPE_DEFAULT))
   {
     v8 = v7;
     name = [(AFNotifyObserver *)observerCopy name];
-    v11 = 136315650;
-    v12 = "[AFMyriadCoordinator notifyObserver:didReceiveNotificationWithToken:]";
-    v13 = 2112;
-    v14 = name;
-    v15 = 1024;
+    v10 = 136315650;
+    v11 = "[AFMyriadCoordinator notifyObserver:didReceiveNotificationWithToken:]";
+    v12 = 2112;
+    v13 = name;
+    v14 = 1024;
     tokenCopy = token;
-    _os_log_impl(&dword_1912FE000, v8, OS_LOG_TYPE_DEFAULT, "%s Notification received: %@ (%d)", &v11, 0x1Cu);
+    _os_log_impl(&dword_1912FE000, v8, OS_LOG_TYPE_DEFAULT, "%s Notification received: %@ (%d)", &v10, 0x1Cu);
   }
 
   if (self->_preferencesChangedNotification == observerCopy)
@@ -252,19 +252,17 @@ uint64_t __46__AFMyriadCoordinator_resetMyriadCoordinator___block_invoke(uint64_
       [(AFMyriadCoordinator *)self _enterState:0];
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_signalEmergencyCallHandled
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
-    v8 = 136315138;
-    v9 = "[AFMyriadCoordinator _signalEmergencyCallHandled]";
-    _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s ", &v8, 0xCu);
+    v7 = 136315138;
+    v8 = "[AFMyriadCoordinator _signalEmergencyCallHandled]";
+    _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s ", &v7, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -275,40 +273,36 @@ uint64_t __46__AFMyriadCoordinator_resetMyriadCoordinator___block_invoke(uint64_
     v6 = objc_loadWeakRetained(&self->_delegate);
     [v6 myriadCoordinatorDidHandleEmergency:self];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)heySiri:(id)siri failedToStartScanningWithError:(id)error
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   kdebug_trace();
   v6 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
-    v8 = 136315394;
-    v9 = "[AFMyriadCoordinator heySiri:failedToStartScanningWithError:]";
-    v10 = 2112;
-    v11 = errorCopy;
-    _os_log_impl(&dword_1912FE000, v6, OS_LOG_TYPE_INFO, "%s BTLE daemon failed to start scanning with error %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[AFMyriadCoordinator heySiri:failedToStartScanningWithError:]";
+    v9 = 2112;
+    v10 = errorCopy;
+    _os_log_impl(&dword_1912FE000, v6, OS_LOG_TYPE_INFO, "%s BTLE daemon failed to start scanning with error %@", &v7, 0x16u);
   }
 
   [(AFMyriadCoordinator *)self _leaveBLEDiagnosticMode];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)heySiriStoppedScanning:(id)scanning
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   scanningCopy = scanning;
   v5 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
-    v10 = 136315138;
-    v11 = "[AFMyriadCoordinator heySiriStoppedScanning:]";
-    _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s BTLE daemon scanning ends", &v10, 0xCu);
+    v9 = 136315138;
+    v10 = "[AFMyriadCoordinator heySiriStoppedScanning:]";
+    _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s BTLE daemon scanning ends", &v9, 0xCu);
   }
 
   [(AFMyriadCoordinator *)self _leaveBLEDiagnosticMode];
@@ -320,20 +314,18 @@ uint64_t __46__AFMyriadCoordinator_resetMyriadCoordinator___block_invoke(uint64_
     v8 = objc_loadWeakRetained(&self->_delegate);
     [v8 myriadCoordinatorBTLEDidEndScanning:self];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)heySiriStartedScanning:(id)scanning
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   scanningCopy = scanning;
   v5 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
-    v10 = 136315138;
-    v11 = "[AFMyriadCoordinator heySiriStartedScanning:]";
-    _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s BTLE daemon scanning begins", &v10, 0xCu);
+    v9 = 136315138;
+    v10 = "[AFMyriadCoordinator heySiriStartedScanning:]";
+    _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s BTLE daemon scanning begins", &v9, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -344,40 +336,36 @@ uint64_t __46__AFMyriadCoordinator_resetMyriadCoordinator___block_invoke(uint64_
     v8 = objc_loadWeakRetained(&self->_delegate);
     [v8 myriadCoordinatorBTLEDidStartScanning:self];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)heySiri:(id)siri failedToStartAdvertisingWithError:(id)error
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   v5 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
-    v7 = 136315394;
-    v8 = "[AFMyriadCoordinator heySiri:failedToStartAdvertisingWithError:]";
-    v9 = 2112;
-    v10 = errorCopy;
-    _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s BTLE daemon failed to start advertising with error %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[AFMyriadCoordinator heySiri:failedToStartAdvertisingWithError:]";
+    v8 = 2112;
+    v9 = errorCopy;
+    _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s BTLE daemon failed to start advertising with error %@", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)heySiriStoppedAdvertising:(id)advertising
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   kdebug_trace();
   if (self->_myriadState != 5)
   {
     if (!+[AFFeatureFlags isMyriadSelfMetricsEnabled])
     {
       v4 = +[AFAnalytics sharedAnalytics];
-      v21 = @"state";
+      v20 = @"state";
       v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%lu", self->_myriadState];
-      v22[0] = v5;
-      v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+      v21[0] = v5;
+      v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
       [v4 logEventWithType:2005 context:v6];
     }
 
@@ -396,8 +384,8 @@ uint64_t __46__AFMyriadCoordinator_resetMyriadCoordinator___block_invoke(uint64_
     v11 = v10;
     v12 = mach_absolute_time();
     *buf = 136315394;
-    v18 = "[AFMyriadCoordinator heySiriStoppedAdvertising:]";
-    v19 = 2048;
+    v17 = "[AFMyriadCoordinator heySiriStoppedAdvertising:]";
+    v18 = 2048;
     Milliseconds = AFMachAbsoluteTimeGetMilliseconds(v12);
     _os_log_impl(&dword_1912FE000, v11, OS_LOG_TYPE_INFO, "%s BTLE daemon advertising ends at: %lld", buf, 0x16u);
   }
@@ -410,27 +398,23 @@ uint64_t __46__AFMyriadCoordinator_resetMyriadCoordinator___block_invoke(uint64_
     v15 = objc_loadWeakRetained(&self->_delegate);
     [v15 myriadCoordinatorBTLEDidEndAdvertising:self];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)heySiriAdvertisingPending:(id)pending
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
-    v5 = 136315138;
-    v6 = "[AFMyriadCoordinator heySiriAdvertisingPending:]";
-    _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s BTLE daemon advertising overridden and now pending", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[AFMyriadCoordinator heySiriAdvertisingPending:]";
+    _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s BTLE daemon advertising overridden and now pending", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_trackHeySiriStartedAdvertisingAt:(unint64_t)at
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   kdebug_trace();
   if (self->_myriadState != 5)
   {
@@ -438,8 +422,8 @@ uint64_t __46__AFMyriadCoordinator_resetMyriadCoordinator___block_invoke(uint64_
     {
       v5 = +[AFAnalytics sharedAnalytics];
       v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%lu", self->_myriadState, @"state"];
-      v16[0] = v6;
-      v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+      v15[0] = v6;
+      v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
       [v5 logEventWithType:2003 context:v7];
     }
 
@@ -460,13 +444,11 @@ uint64_t __46__AFMyriadCoordinator_resetMyriadCoordinator___block_invoke(uint64_
     v13 = objc_loadWeakRetained(&self->_delegate);
     [v13 myriadCoordinatorBTLEDidStartAdvertising:self];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)heySiriStartedAdvertising:(id)advertising
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (AFIsHorseman_onceToken != -1)
   {
     dispatch_once(&AFIsHorseman_onceToken, &__block_literal_global_226);
@@ -477,9 +459,9 @@ uint64_t __46__AFMyriadCoordinator_resetMyriadCoordinator___block_invoke(uint64_
     v4 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
-      v9 = 136315138;
-      v10 = "[AFMyriadCoordinator heySiriStartedAdvertising:]";
-      _os_log_impl(&dword_1912FE000, v4, OS_LOG_TYPE_INFO, "%s No longer used by this device.", &v9, 0xCu);
+      v8 = 136315138;
+      v9 = "[AFMyriadCoordinator heySiriStartedAdvertising:]";
+      _os_log_impl(&dword_1912FE000, v4, OS_LOG_TYPE_INFO, "%s No longer used by this device.", &v8, 0xCu);
     }
   }
 
@@ -490,22 +472,20 @@ uint64_t __46__AFMyriadCoordinator_resetMyriadCoordinator___block_invoke(uint64_
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
       v7 = v6;
-      v9 = 136315394;
-      v10 = "[AFMyriadCoordinator heySiriStartedAdvertising:]";
-      v11 = 2048;
+      v8 = 136315394;
+      v9 = "[AFMyriadCoordinator heySiriStartedAdvertising:]";
+      v10 = 2048;
       Milliseconds = AFMachAbsoluteTimeGetMilliseconds(v5);
-      _os_log_impl(&dword_1912FE000, v7, OS_LOG_TYPE_INFO, "%s BTLE daemon advertising begins at: %lld", &v9, 0x16u);
+      _os_log_impl(&dword_1912FE000, v7, OS_LOG_TYPE_INFO, "%s BTLE daemon advertising begins at: %lld", &v8, 0x16u);
     }
 
     [(AFMyriadCoordinator *)self _trackHeySiriStartedAdvertisingAt:v5];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)heySiriStartedAdvertisingAt:(id)at timeStamp:(unint64_t)stamp
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (AFIsHorseman_onceToken != -1)
   {
     dispatch_once(&AFIsHorseman_onceToken, &__block_literal_global_226);
@@ -519,11 +499,11 @@ uint64_t __46__AFMyriadCoordinator_resetMyriadCoordinator___block_invoke(uint64_
     if (v8)
     {
       v9 = v7;
-      v11 = 136315394;
-      v12 = "[AFMyriadCoordinator heySiriStartedAdvertisingAt:timeStamp:]";
-      v13 = 2048;
+      v10 = 136315394;
+      v11 = "[AFMyriadCoordinator heySiriStartedAdvertisingAt:timeStamp:]";
+      v12 = 2048;
       Milliseconds = AFMachAbsoluteTimeGetMilliseconds(stamp);
-      _os_log_impl(&dword_1912FE000, v9, OS_LOG_TYPE_INFO, "%s BTLE daemon advertising begins at: %lld", &v11, 0x16u);
+      _os_log_impl(&dword_1912FE000, v9, OS_LOG_TYPE_INFO, "%s BTLE daemon advertising begins at: %lld", &v10, 0x16u);
     }
 
     [(AFMyriadCoordinator *)self _trackHeySiriStartedAdvertisingAt:stamp];
@@ -531,17 +511,15 @@ uint64_t __46__AFMyriadCoordinator_resetMyriadCoordinator___block_invoke(uint64_
 
   else if (v8)
   {
-    v11 = 136315138;
-    v12 = "[AFMyriadCoordinator heySiriStartedAdvertisingAt:timeStamp:]";
-    _os_log_impl(&dword_1912FE000, v7, OS_LOG_TYPE_INFO, "%s Not yet supported on this device.", &v11, 0xCu);
+    v10 = 136315138;
+    v11 = "[AFMyriadCoordinator heySiriStartedAdvertisingAt:timeStamp:]";
+    _os_log_impl(&dword_1912FE000, v7, OS_LOG_TYPE_INFO, "%s Not yet supported on this device.", &v10, 0xCu);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)heySiri:(id)siri foundDevice:(id)device withInfo:(id)info
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   deviceCopy = device;
   infoCopy = info;
   v9 = getWPHeySiriKeyManufacturerData();
@@ -575,11 +553,11 @@ uint64_t __46__AFMyriadCoordinator_resetMyriadCoordinator___block_invoke(uint64_
     block[1] = 3221225472;
     block[2] = __52__AFMyriadCoordinator_heySiri_foundDevice_withInfo___block_invoke;
     block[3] = &unk_1E7346F10;
-    v22 = v11;
+    v21 = v11;
     selfCopy = self;
-    v24 = deviceCopy;
-    v25 = v10;
-    v26 = uUIDString;
+    v23 = deviceCopy;
+    v24 = v10;
+    v25 = uUIDString;
     v18 = uUIDString;
     dispatch_async(myriadWorkQueue, block);
 
@@ -592,25 +570,23 @@ LABEL_10:
   {
     v18 = v19;
     *buf = 136315906;
-    v28 = "[AFMyriadCoordinator heySiri:foundDevice:withInfo:]";
-    v29 = 1024;
+    v27 = "[AFMyriadCoordinator heySiri:foundDevice:withInfo:]";
+    v28 = 1024;
     deviceGroup = [(AFMyriadRecord *)v11 deviceGroup];
-    v31 = 2112;
-    v32 = deviceCopy;
-    v33 = 2112;
-    v34 = v10;
+    v30 = 2112;
+    v31 = deviceCopy;
+    v32 = 2112;
+    v33 = v10;
     _os_log_impl(&dword_1912FE000, v18, OS_LOG_TYPE_INFO, "%s BTLE ignoring advert from other deviceGroup %d: %@ data= %@", buf, 0x26u);
     goto LABEL_10;
   }
 
 LABEL_11:
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __52__AFMyriadCoordinator_heySiri_foundDevice_withInfo___block_invoke(uint64_t a1)
 {
-  v74 = *MEMORY[0x1E69E9840];
+  v73 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) pHash];
   v3 = *(a1 + 40);
   v4 = *(v3 + 40);
@@ -642,13 +618,13 @@ void __52__AFMyriadCoordinator_heySiri_foundDevice_withInfo___block_invoke(uint6
     v12 = *(*(a1 + 40) + 8);
     v13 = *(a1 + 56);
     *buf = 136315906;
-    v67 = "[AFMyriadCoordinator heySiri:foundDevice:withInfo:]_block_invoke";
-    v68 = 2048;
-    v69 = v12;
-    v70 = 2112;
-    v71 = v11;
-    v72 = 2112;
-    v73 = v13;
+    v66 = "[AFMyriadCoordinator heySiri:foundDevice:withInfo:]_block_invoke";
+    v67 = 2048;
+    v68 = v12;
+    v69 = 2112;
+    v70 = v11;
+    v71 = 2112;
+    v72 = v13;
     _os_log_impl(&dword_1912FE000, v10, OS_LOG_TYPE_INFO, "%s BTLE processing advert in state: %lu from: %@ data= %@", buf, 0x2Au);
   }
 
@@ -671,23 +647,23 @@ void __52__AFMyriadCoordinator_heySiri_foundDevice_withInfo___block_invoke(uint6
         v18 = *(a1 + 48);
         v19 = *(a1 + 56);
         *buf = 136315906;
-        v67 = "[AFMyriadCoordinator heySiri:foundDevice:withInfo:]_block_invoke";
-        v68 = 2112;
-        v69 = v17;
-        v70 = 2112;
-        v71 = v18;
-        v72 = 2112;
-        v73 = v19;
+        v66 = "[AFMyriadCoordinator heySiri:foundDevice:withInfo:]_block_invoke";
+        v67 = 2112;
+        v68 = v17;
+        v69 = 2112;
+        v70 = v18;
+        v71 = 2112;
+        v72 = v19;
         _os_log_impl(&dword_1912FE000, v16, OS_LOG_TYPE_INFO, "%s BTLE ignoring advert while in state %@: %@ data= %@", buf, 0x2Au);
       }
 
-      goto LABEL_55;
+      return;
     case 1:
     case 0xELL:
     case 0xFLL:
       if (![*(a1 + 40) _testAndUpdateWedgeFilter:*(a1 + 32)])
       {
-        goto LABEL_55;
+        return;
       }
 
       v20 = [*(*(a1 + 40) + 40) objectForKey:*(a1 + 64)];
@@ -709,11 +685,11 @@ void __52__AFMyriadCoordinator_heySiri_foundDevice_withInfo___block_invoke(uint6
           v43 = *(a1 + 48);
           v44 = *(a1 + 56);
           *buf = 136315650;
-          v67 = "[AFMyriadCoordinator heySiri:foundDevice:withInfo:]_block_invoke";
-          v68 = 2112;
-          v69 = v43;
-          v70 = 2112;
-          v71 = v44;
+          v66 = "[AFMyriadCoordinator heySiri:foundDevice:withInfo:]_block_invoke";
+          v67 = 2112;
+          v68 = v43;
+          v69 = 2112;
+          v70 = v44;
           _os_log_impl(&dword_1912FE000, v42, OS_LOG_TYPE_INFO, "%s BTLE heard advert from: %@ data= %@", buf, 0x20u);
         }
 
@@ -750,13 +726,13 @@ LABEL_43:
           v53 = v49;
           v54 = [v52 slowdownDelay];
           *buf = 136315906;
-          v67 = "[AFMyriadCoordinator heySiri:foundDevice:withInfo:]_block_invoke";
-          v68 = 2112;
-          v69 = v51;
-          v70 = 2112;
-          v71 = v50;
-          v72 = 1024;
-          LODWORD(v73) = v54;
+          v66 = "[AFMyriadCoordinator heySiri:foundDevice:withInfo:]_block_invoke";
+          v67 = 2112;
+          v68 = v51;
+          v69 = 2112;
+          v70 = v50;
+          v71 = 1024;
+          LODWORD(v72) = v54;
           _os_log_impl(&dword_1912FE000, v53, OS_LOG_TYPE_INFO, "%s BTLE heard slowdown advert from: %@ data= %@, max delay is now %d msecs", buf, 0x26u);
         }
 
@@ -764,13 +740,13 @@ LABEL_43:
         if (!+[AFFeatureFlags isMyriadSelfMetricsEnabled])
         {
           v55 = +[AFAnalytics sharedAnalytics];
-          v64[0] = @"delay";
+          v63[0] = @"delay";
           v56 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%lu", objc_msgSend(*(a1 + 32), "slowdownDelay")];
-          v64[1] = @"max";
-          v65[0] = v56;
+          v63[1] = @"max";
+          v64[0] = v56;
           v57 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%lu", objc_msgSend(*(*(a1 + 40) + 304), "slowdownDelay")];
-          v65[1] = v57;
-          v58 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v65 forKeys:v64 count:2];
+          v64[1] = v57;
+          v58 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v64 forKeys:v63 count:2];
           [v55 logEventWithType:2008 context:v58];
         }
       }
@@ -786,14 +762,12 @@ LABEL_47:
       if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v67 = "[AFMyriadCoordinator heySiri:foundDevice:withInfo:]_block_invoke";
-        v68 = 1024;
-        LODWORD(v69) = v8;
+        v66 = "[AFMyriadCoordinator heySiri:foundDevice:withInfo:]_block_invoke";
+        v67 = 1024;
+        LODWORD(v68) = v8;
         _os_log_impl(&dword_1912FE000, v59, OS_LOG_TYPE_INFO, "%s BTLE editDist: %d > allowed, ignoring this advert ", buf, 0x12u);
       }
 
-LABEL_55:
-      v63 = *MEMORY[0x1E69E9840];
       return;
     case 2:
       v32 = AFSiriLogContextConnection;
@@ -802,11 +776,11 @@ LABEL_55:
         v33 = *(a1 + 48);
         v34 = *(a1 + 56);
         *buf = 136315650;
-        v67 = "[AFMyriadCoordinator heySiri:foundDevice:withInfo:]_block_invoke";
-        v68 = 2112;
-        v69 = v33;
-        v70 = 2112;
-        v71 = v34;
+        v66 = "[AFMyriadCoordinator heySiri:foundDevice:withInfo:]_block_invoke";
+        v67 = 2112;
+        v68 = v33;
+        v69 = 2112;
+        v70 = v34;
         _os_log_impl(&dword_1912FE000, v32, OS_LOG_TYPE_INFO, "%s BTLE suppressing straggler response to: %@ data= %@", buf, 0x20u);
         v14 = *(a1 + 40);
       }
@@ -827,11 +801,11 @@ LABEL_55:
             v37 = *(a1 + 48);
             v38 = *(a1 + 56);
             *buf = 136315650;
-            v67 = "[AFMyriadCoordinator heySiri:foundDevice:withInfo:]_block_invoke";
-            v68 = 2112;
-            v69 = v37;
-            v70 = 2112;
-            v71 = v38;
+            v66 = "[AFMyriadCoordinator heySiri:foundDevice:withInfo:]_block_invoke";
+            v67 = 2112;
+            v68 = v37;
+            v69 = 2112;
+            v70 = v38;
             _os_log_impl(&dword_1912FE000, v36, OS_LOG_TYPE_INFO, "%s BTLE heard another device sending continuation: %@ data= %@", buf, 0x20u);
           }
         }
@@ -839,14 +813,14 @@ LABEL_55:
         [*(*(a1 + 40) + 80) setObject:*(a1 + 32) forKey:*(a1 + 64)];
       }
 
-      goto LABEL_55;
+      return;
     case 7:
       if ([*(a1 + 32) isAnEmergency])
       {
         goto LABEL_28;
       }
 
-      goto LABEL_55;
+      return;
     case 8:
     case 0xCLL:
       v25 = AFSiriLogContextConnection;
@@ -854,15 +828,15 @@ LABEL_55:
       {
         v26 = *(a1 + 32);
         *buf = 136315394;
-        v67 = "[AFMyriadCoordinator heySiri:foundDevice:withInfo:]_block_invoke";
-        v68 = 2112;
-        v69 = v26;
+        v66 = "[AFMyriadCoordinator heySiri:foundDevice:withInfo:]_block_invoke";
+        v67 = 2112;
+        v68 = v26;
         _os_log_impl(&dword_1912FE000, v25, OS_LOG_TYPE_INFO, "%s BTLE heard a record waiting for a emergency handled notice: %@ ", buf, 0x16u);
       }
 
       if (![*(a1 + 32) isAnEmergencyHandled])
       {
-        goto LABEL_55;
+        return;
       }
 
       v27 = AFSiriLogContextConnection;
@@ -871,11 +845,11 @@ LABEL_55:
         v28 = *(a1 + 48);
         v29 = *(a1 + 56);
         *buf = 136315650;
-        v67 = "[AFMyriadCoordinator heySiri:foundDevice:withInfo:]_block_invoke";
-        v68 = 2112;
-        v69 = v28;
-        v70 = 2112;
-        v71 = v29;
+        v66 = "[AFMyriadCoordinator heySiri:foundDevice:withInfo:]_block_invoke";
+        v67 = 2112;
+        v68 = v28;
+        v69 = 2112;
+        v70 = v29;
         _os_log_impl(&dword_1912FE000, v27, OS_LOG_TYPE_INFO, "%s BTLE heard an emergency declaration was handled: %@ data= %@", buf, 0x20u);
       }
 
@@ -892,11 +866,11 @@ LABEL_55:
           v40 = *(a1 + 48);
           v41 = *(a1 + 56);
           *buf = 136315650;
-          v67 = "[AFMyriadCoordinator heySiri:foundDevice:withInfo:]_block_invoke";
-          v68 = 2112;
-          v69 = v40;
-          v70 = 2112;
-          v71 = v41;
+          v66 = "[AFMyriadCoordinator heySiri:foundDevice:withInfo:]_block_invoke";
+          v67 = 2112;
+          v68 = v40;
+          v69 = 2112;
+          v70 = v41;
           _os_log_impl(&dword_1912FE000, v39, OS_LOG_TYPE_INFO, "%s BTLE heard a continuation: %@ data= %@", buf, 0x20u);
         }
 
@@ -912,11 +886,11 @@ LABEL_55:
           v61 = *(a1 + 48);
           v62 = *(a1 + 56);
           *buf = 136315650;
-          v67 = "[AFMyriadCoordinator heySiri:foundDevice:withInfo:]_block_invoke";
-          v68 = 2112;
-          v69 = v61;
-          v70 = 2112;
-          v71 = v62;
+          v66 = "[AFMyriadCoordinator heySiri:foundDevice:withInfo:]_block_invoke";
+          v67 = 2112;
+          v68 = v61;
+          v69 = 2112;
+          v70 = v62;
           _os_log_impl(&dword_1912FE000, v60, OS_LOG_TYPE_INFO, "%s BTLE heard an emergency declaration: %@ data= %@", buf, 0x20u);
         }
 
@@ -936,46 +910,44 @@ LABEL_54:
         [*(a1 + 40) _updateRepliesWith:*(a1 + 32) id:*(a1 + 64) data:*(a1 + 56)];
       }
 
-      goto LABEL_55;
+      return;
     case 0x11:
       [*(a1 + 40) _testAndUpdateWedgeFilter:*(a1 + 32)];
-      goto LABEL_55;
+      return;
     default:
-      goto LABEL_55;
+      return;
   }
 }
 
 - (void)heySiriDidUpdateState:(id)state
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   v5 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     v6 = v5;
     *buf = 136315394;
-    v13 = "[AFMyriadCoordinator heySiriDidUpdateState:]";
-    v14 = 2048;
+    v12 = "[AFMyriadCoordinator heySiriDidUpdateState:]";
+    v13 = 2048;
     state = [stateCopy state];
     _os_log_impl(&dword_1912FE000, v6, OS_LOG_TYPE_INFO, "%s BTLE daemon state changed to: %ld", buf, 0x16u);
   }
 
   myriadWorkQueue = self->_myriadWorkQueue;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __45__AFMyriadCoordinator_heySiriDidUpdateState___block_invoke;
-  v10[3] = &unk_1E7349860;
-  v10[4] = self;
-  v11 = stateCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __45__AFMyriadCoordinator_heySiriDidUpdateState___block_invoke;
+  v9[3] = &unk_1E7349860;
+  v9[4] = self;
+  v10 = stateCopy;
   v8 = stateCopy;
-  dispatch_async(myriadWorkQueue, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  dispatch_async(myriadWorkQueue, v9);
 }
 
 void __45__AFMyriadCoordinator_heySiriDidUpdateState___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   *(*(a1 + 32) + 312) = [*(a1 + 40) state] == 3;
   v2 = *(a1 + 32);
   if (*(v2 + 312) == 1)
@@ -983,9 +955,9 @@ void __45__AFMyriadCoordinator_heySiriDidUpdateState___block_invoke(uint64_t a1)
     v3 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
-      v9 = 136315138;
-      v10 = "[AFMyriadCoordinator heySiriDidUpdateState:]_block_invoke";
-      _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s BTLE daemon wiprox state signalling", &v9, 0xCu);
+      v8 = 136315138;
+      v9 = "[AFMyriadCoordinator heySiriDidUpdateState:]_block_invoke";
+      _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s BTLE daemon wiprox state signalling", &v8, 0xCu);
       v2 = *(a1 + 32);
     }
 
@@ -1009,8 +981,6 @@ void __45__AFMyriadCoordinator_heySiriDidUpdateState___block_invoke(uint64_t a1)
       }
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_triggerABCForType:(id)type context:(id)context
@@ -1024,7 +994,7 @@ void __45__AFMyriadCoordinator_heySiriDidUpdateState___block_invoke(uint64_t a1)
 
 - (void)_leaveBLEDiagnosticMode
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (!self->_myriadWorkQueue)
   {
     __assert_rtn("[AFMyriadCoordinator _leaveBLEDiagnosticMode]", "AFMyriadCoordinator.m", 3943, "_myriadWorkQueue");
@@ -1042,9 +1012,9 @@ void __45__AFMyriadCoordinator_heySiriDidUpdateState___block_invoke(uint64_t a1)
       v3 = AFSiriLogContextConnection;
       if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
       {
-        v9 = 136315138;
-        v10 = "[AFMyriadCoordinator _leaveBLEDiagnosticMode]";
-        _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s BTLE leaving diagnostic mode", &v9, 0xCu);
+        v8 = 136315138;
+        v9 = "[AFMyriadCoordinator _leaveBLEDiagnosticMode]";
+        _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s BTLE leaving diagnostic mode", &v8, 0xCu);
       }
 
       [(SFDiagnostics *)self->_sfdiagnostics invalidate];
@@ -1055,13 +1025,13 @@ void __45__AFMyriadCoordinator_heySiriDidUpdateState___block_invoke(uint64_t a1)
       if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
       {
         sfDiagnosticsTimer = self->_sfDiagnosticsTimer;
-        v9 = 136315650;
-        v10 = "[AFMyriadCoordinator _leaveBLEDiagnosticMode]";
-        v11 = 2048;
-        v12 = 0x3FF7333340000000;
-        v13 = 2112;
-        v14 = sfDiagnosticsTimer;
-        _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s BTLE cancelling diagnostic mode timer for %f seconds %@", &v9, 0x20u);
+        v8 = 136315650;
+        v9 = "[AFMyriadCoordinator _leaveBLEDiagnosticMode]";
+        v10 = 2048;
+        v11 = 0x3FF7333340000000;
+        v12 = 2112;
+        v13 = sfDiagnosticsTimer;
+        _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s BTLE cancelling diagnostic mode timer for %f seconds %@", &v8, 0x20u);
       }
 
       [(AFWatchdogTimer *)self->_sfDiagnosticsTimer cancel];
@@ -1069,13 +1039,11 @@ void __45__AFMyriadCoordinator_heySiriDidUpdateState___block_invoke(uint64_t a1)
       self->_sfDiagnosticsTimer = 0;
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_enterBLEDiagnosticMode
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (!self->_myriadWorkQueue)
   {
     __assert_rtn("[AFMyriadCoordinator _enterBLEDiagnosticMode]", "AFMyriadCoordinator.m", 3913, "_myriadWorkQueue");
@@ -1093,7 +1061,7 @@ void __45__AFMyriadCoordinator_heySiriDidUpdateState___block_invoke(uint64_t a1)
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v16 = "[AFMyriadCoordinator _enterBLEDiagnosticMode]";
+      v15 = "[AFMyriadCoordinator _enterBLEDiagnosticMode]";
       _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s BTLE entering diagnostic mode", buf, 0xCu);
     }
 
@@ -1103,18 +1071,18 @@ void __45__AFMyriadCoordinator_heySiriDidUpdateState___block_invoke(uint64_t a1)
 
     [(SFDiagnostics *)self->_sfdiagnostics setDispatchQueue:self->_myriadWorkQueue];
     v6 = self->_sfdiagnostics;
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __46__AFMyriadCoordinator__enterBLEDiagnosticMode__block_invoke;
-    v14[3] = &unk_1E73493C0;
-    v14[4] = self;
-    [(SFDiagnostics *)v6 diagnosticBLEModeWithCompletion:v14];
     v13[0] = MEMORY[0x1E69E9820];
     v13[1] = 3221225472;
-    v13[2] = __46__AFMyriadCoordinator__enterBLEDiagnosticMode__block_invoke_556;
-    v13[3] = &unk_1E73497C8;
+    v13[2] = __46__AFMyriadCoordinator__enterBLEDiagnosticMode__block_invoke;
+    v13[3] = &unk_1E73493C0;
     v13[4] = self;
-    v7 = MEMORY[0x193AFB7B0](v13);
+    [(SFDiagnostics *)v6 diagnosticBLEModeWithCompletion:v13];
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __46__AFMyriadCoordinator__enterBLEDiagnosticMode__block_invoke_556;
+    v12[3] = &unk_1E73497C8;
+    v12[4] = self;
+    v7 = MEMORY[0x193AFB7B0](v12);
     v8 = [[AFWatchdogTimer alloc] initWithTimeoutInterval:self->_myriadWorkQueue onQueue:v7 timeoutHandler:1.45000005];
     sfDiagnosticsTimer = self->_sfDiagnosticsTimer;
     self->_sfDiagnosticsTimer = v8;
@@ -1125,54 +1093,48 @@ void __45__AFMyriadCoordinator_heySiriDidUpdateState___block_invoke(uint64_t a1)
     {
       v11 = self->_sfDiagnosticsTimer;
       *buf = 136315650;
-      v16 = "[AFMyriadCoordinator _enterBLEDiagnosticMode]";
-      v17 = 2048;
-      v18 = 0x3FF7333340000000;
-      v19 = 2112;
-      v20 = v11;
+      v15 = "[AFMyriadCoordinator _enterBLEDiagnosticMode]";
+      v16 = 2048;
+      v17 = 0x3FF7333340000000;
+      v18 = 2112;
+      v19 = v11;
       _os_log_impl(&dword_1912FE000, v10, OS_LOG_TYPE_INFO, "%s BTLE added diagnostic mode timer for %f seconds %@", buf, 0x20u);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __46__AFMyriadCoordinator__enterBLEDiagnosticMode__block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
-      v6 = 136315394;
-      v7 = "[AFMyriadCoordinator _enterBLEDiagnosticMode]_block_invoke";
-      v8 = 2112;
-      v9 = v3;
-      _os_log_impl(&dword_1912FE000, v4, OS_LOG_TYPE_INFO, "%s BTLE failed to enter diagnostic mode %@", &v6, 0x16u);
+      v5 = 136315394;
+      v6 = "[AFMyriadCoordinator _enterBLEDiagnosticMode]_block_invoke";
+      v7 = 2112;
+      v8 = v3;
+      _os_log_impl(&dword_1912FE000, v4, OS_LOG_TYPE_INFO, "%s BTLE failed to enter diagnostic mode %@", &v5, 0x16u);
     }
 
     [*(a1 + 32) _leaveBLEDiagnosticMode];
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __46__AFMyriadCoordinator__enterBLEDiagnosticMode__block_invoke_556(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
-    v5 = 136315138;
-    v6 = "[AFMyriadCoordinator _enterBLEDiagnosticMode]_block_invoke";
-    _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s BTLE diagnostic mode timer fired", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[AFMyriadCoordinator _enterBLEDiagnosticMode]_block_invoke";
+    _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s BTLE diagnostic mode timer fired", &v4, 0xCu);
   }
 
-  result = [*(a1 + 32) _leaveBLEDiagnosticMode];
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) _leaveBLEDiagnosticMode];
 }
 
 - (void)waitWiProx:(int64_t)prox andExecute:(id)execute
@@ -1192,17 +1154,17 @@ uint64_t __46__AFMyriadCoordinator__enterBLEDiagnosticMode__block_invoke_556(uin
 
 - (void)_waitWiProx:(int64_t)prox andExecute:(id)execute
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   executeCopy = execute;
   BTLEReady = self->_BTLEReady;
-  v14 = MEMORY[0x1E69E9820];
-  v15 = 3221225472;
-  v16 = __46__AFMyriadCoordinator__waitWiProx_andExecute___block_invoke;
-  v17 = &unk_1E7349838;
+  v13 = MEMORY[0x1E69E9820];
+  v14 = 3221225472;
+  v15 = __46__AFMyriadCoordinator__waitWiProx_andExecute___block_invoke;
+  v16 = &unk_1E7349838;
   selfCopy = self;
   v8 = executeCopy;
-  v19 = v8;
-  v9 = MEMORY[0x193AFB7B0](&v14);
+  v18 = v8;
+  v9 = MEMORY[0x193AFB7B0](&v13);
   v10 = v9;
   if (BTLEReady || !self->_BLEActivityEnabled)
   {
@@ -1211,28 +1173,26 @@ uint64_t __46__AFMyriadCoordinator__enterBLEDiagnosticMode__block_invoke_556(uin
 
   else
   {
-    v11 = [(WPHeySiri *)self->_heySiriBTLE state:v14];
+    v11 = [(WPHeySiri *)self->_heySiriBTLE state:v13];
     v12 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
       *buf = 136315650;
-      v21 = "[AFMyriadCoordinator _waitWiProx:andExecute:]";
-      v22 = 2048;
+      v20 = "[AFMyriadCoordinator _waitWiProx:andExecute:]";
+      v21 = 2048;
       proxCopy = prox;
-      v24 = 2048;
-      v25 = v11;
+      v23 = 2048;
+      v24 = v11;
       _os_log_impl(&dword_1912FE000, v12, OS_LOG_TYPE_INFO, "%s #myriad BTLE not ready, waiting to execute for up to %ld msecs (current HeySiri WPState %ld)", buf, 0x20u);
     }
 
     [(AFMyriadCoordinator *)self _createWaitWiProxTimer:prox waitBlock:v10];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __46__AFMyriadCoordinator__waitWiProx_andExecute___block_invoke(uint64_t a1)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = *(v2 + 440);
   v4 = *(v2 + 441);
@@ -1240,31 +1200,42 @@ void __46__AFMyriadCoordinator__waitWiProx_andExecute___block_invoke(uint64_t a1
   v6 = label;
   if (label && !strcmp(label, myriad_work_queue_label))
   {
-    v11 = *(a1 + 40);
-    if (v11)
+    v10 = *(a1 + 40);
+    if (v10)
     {
-      (*(v11 + 16))();
+      (*(v10 + 16))();
     }
 
-    v12 = AFSiriLogContextConnection;
+    v11 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
-      v13 = "NO";
+      v12 = "NO";
       if (v4)
       {
-        v14 = "YES";
+        v13 = "YES";
       }
 
       else
       {
-        v14 = "NO";
+        v13 = "NO";
       }
 
-      v15 = *(a1 + 32);
-      v25 = "[AFMyriadCoordinator _waitWiProx:andExecute:]_block_invoke";
-      v16 = *(v15 + 441);
-      v17 = *(v15 + 440);
-      if (v16)
+      v14 = *(a1 + 32);
+      v24 = "[AFMyriadCoordinator _waitWiProx:andExecute:]_block_invoke";
+      v15 = *(v14 + 441);
+      v16 = *(v14 + 440);
+      if (v15)
+      {
+        v17 = "YES";
+      }
+
+      else
+      {
+        v17 = "NO";
+      }
+
+      *buf = 136316162;
+      if (v3)
       {
         v18 = "YES";
       }
@@ -1274,31 +1245,20 @@ void __46__AFMyriadCoordinator__waitWiProx_andExecute___block_invoke(uint64_t a1
         v18 = "NO";
       }
 
-      *buf = 136316162;
-      if (v3)
+      v25 = 2080;
+      v26 = v13;
+      if (v16)
       {
-        v19 = "YES";
+        v12 = "YES";
       }
 
-      else
-      {
-        v19 = "NO";
-      }
-
-      v26 = 2080;
-      v27 = v14;
-      if (v17)
-      {
-        v13 = "YES";
-      }
-
-      v28 = 2080;
-      v29 = v18;
-      v30 = 2080;
-      v31 = v19;
-      v32 = 2080;
-      v33 = v13;
-      _os_log_impl(&dword_1912FE000, v12, OS_LOG_TYPE_INFO, "%s #myriad didRequestForBTLEAdvertisement: %s -> %s, didRequestForBTLEScan: %s -> %s", buf, 0x34u);
+      v27 = 2080;
+      v28 = v17;
+      v29 = 2080;
+      v30 = v18;
+      v31 = 2080;
+      v32 = v12;
+      _os_log_impl(&dword_1912FE000, v11, OS_LOG_TYPE_INFO, "%s #myriad didRequestForBTLEAdvertisement: %s -> %s, didRequestForBTLEScan: %s -> %s", buf, 0x34u);
     }
   }
 
@@ -1308,11 +1268,11 @@ void __46__AFMyriadCoordinator__waitWiProx_andExecute___block_invoke(uint64_t a1
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315651;
-      v25 = "[AFMyriadCoordinator _waitWiProx:andExecute:]_block_invoke";
-      v26 = 2081;
-      v27 = v6;
-      v28 = 2081;
-      v29 = myriad_work_queue_label;
+      v24 = "[AFMyriadCoordinator _waitWiProx:andExecute:]_block_invoke";
+      v25 = 2081;
+      v26 = v6;
+      v27 = 2081;
+      v28 = myriad_work_queue_label;
       _os_log_error_impl(&dword_1912FE000, v7, OS_LOG_TYPE_ERROR, "%s #myriad Method called on unexpected thread (curr:%{private}s expected:%{private}s)", buf, 0x20u);
       v2 = *(a1 + 32);
     }
@@ -1323,19 +1283,17 @@ void __46__AFMyriadCoordinator__waitWiProx_andExecute___block_invoke(uint64_t a1
     block[2] = __46__AFMyriadCoordinator__waitWiProx_andExecute___block_invoke_550;
     block[3] = &unk_1E7346EE8;
     v9 = *(a1 + 40);
-    v22 = v4;
+    v21 = v4;
     block[4] = *(a1 + 32);
-    v21 = v9;
-    v23 = v3;
+    v20 = v9;
+    v22 = v3;
     dispatch_async(v8, block);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __46__AFMyriadCoordinator__waitWiProx_andExecute___block_invoke_550(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 40);
   if (v2)
   {
@@ -1382,20 +1340,18 @@ void __46__AFMyriadCoordinator__waitWiProx_andExecute___block_invoke_550(uint64_
       v4 = "YES";
     }
 
-    v10 = 136316162;
-    v11 = "[AFMyriadCoordinator _waitWiProx:andExecute:]_block_invoke";
-    v12 = 2080;
-    v13 = v5;
-    v14 = 2080;
-    v15 = v7;
-    v16 = 2080;
-    v17 = v8;
-    v18 = 2080;
-    v19 = v4;
-    _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s #myriad didRequestForBTLEAdvertisement: %s -> %s, didRequestForBTLEScan: %s -> %s", &v10, 0x34u);
+    v9 = 136316162;
+    v10 = "[AFMyriadCoordinator _waitWiProx:andExecute:]_block_invoke";
+    v11 = 2080;
+    v12 = v5;
+    v13 = 2080;
+    v14 = v7;
+    v15 = 2080;
+    v16 = v8;
+    v17 = 2080;
+    v18 = v4;
+    _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s #myriad didRequestForBTLEAdvertisement: %s -> %s, didRequestForBTLEScan: %s -> %s", &v9, 0x34u);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_createWaitWiProxTimer:(int64_t)timer waitBlock:(id)block
@@ -1427,90 +1383,83 @@ void __46__AFMyriadCoordinator__waitWiProx_andExecute___block_invoke_550(uint64_
 
 uint64_t __56__AFMyriadCoordinator__createWaitWiProxTimer_waitBlock___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315138;
-    v6 = "[AFMyriadCoordinator _createWaitWiProxTimer:waitBlock:]_block_invoke";
-    _os_log_error_impl(&dword_1912FE000, v2, OS_LOG_TYPE_ERROR, "%s #myriad BTLE WiProx readiness timer timed out, WiProx not called", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[AFMyriadCoordinator _createWaitWiProxTimer:waitBlock:]_block_invoke";
+    _os_log_error_impl(&dword_1912FE000, v2, OS_LOG_TYPE_ERROR, "%s #myriad BTLE WiProx readiness timer timed out, WiProx not called", &v4, 0xCu);
   }
 
-  result = [*(a1 + 32) _clearWiProxReadinessTimer];
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) _clearWiProxReadinessTimer];
 }
 
 uint64_t __56__AFMyriadCoordinator__createWaitWiProxTimer_waitBlock___block_invoke_549(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
-    v5 = 136315138;
-    v6 = "[AFMyriadCoordinator _createWaitWiProxTimer:waitBlock:]_block_invoke";
-    _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s #myriad BTLE done waiting on WiProx to execute", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[AFMyriadCoordinator _createWaitWiProxTimer:waitBlock:]_block_invoke";
+    _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s #myriad BTLE done waiting on WiProx to execute", &v4, 0xCu);
   }
 
   result = *(a1 + 32);
   if (result)
   {
-    result = (*(result + 16))();
+    return (*(result + 16))();
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)_clearWiProxReadinessTimer
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (self->_wiproxReadinessTimer.waitTimer)
   {
     v3 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
-      v6 = 136315138;
-      v7 = "[AFMyriadCoordinator _clearWiProxReadinessTimer]";
-      _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s #myriad WiProx readiness timer wait block cleared", &v6, 0xCu);
+      v5 = 136315138;
+      v6 = "[AFMyriadCoordinator _clearWiProxReadinessTimer]";
+      _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s #myriad WiProx readiness timer wait block cleared", &v5, 0xCu);
     }
 
     waitBlock = self->_wiproxReadinessTimer.waitBlock;
     self->_wiproxReadinessTimer.waitBlock = 0;
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_suspendWiProxReadinessTimer
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (!self->_wiproxReadinessTimer.isWaitTimerSuspended)
   {
     v3 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
-      v5 = 136315138;
-      v6 = "[AFMyriadCoordinator _suspendWiProxReadinessTimer]";
-      _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s #myriad WiProx readiness timer suspended", &v5, 0xCu);
+      v4 = 136315138;
+      v5 = "[AFMyriadCoordinator _suspendWiProxReadinessTimer]";
+      _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s #myriad WiProx readiness timer suspended", &v4, 0xCu);
     }
 
     self->_wiproxReadinessTimer.isWaitTimerSuspended = 1;
     dispatch_suspend(self->_wiproxReadinessTimer.waitTimer);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_initializeWiProxReadinessTimer
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
-    v7 = 136315138;
-    v8 = "[AFMyriadCoordinator _initializeWiProxReadinessTimer]";
-    _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s #myriad WiProx readiness timer initialized", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[AFMyriadCoordinator _initializeWiProxReadinessTimer]";
+    _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s #myriad WiProx readiness timer initialized", &v6, 0xCu);
   }
 
   v4 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, self->_myriadWorkQueue);
@@ -1519,7 +1468,6 @@ uint64_t __56__AFMyriadCoordinator__createWaitWiProxTimer_waitBlock___block_invo
 
   dispatch_source_set_event_handler(self->_wiproxReadinessTimer.waitTimer, &__block_literal_global_548);
   [(AFMyriadCoordinator *)self _resumeWiProxReadinessTimer];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_ageWedgeFilter
@@ -1558,7 +1506,7 @@ void __38__AFMyriadCoordinator__ageWedgeFilter__block_invoke(uint64_t a1, void *
 
 - (BOOL)_testAndUpdateWedgeFilter:(id)filter
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   filterCopy = filter;
   v5 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(filterCopy, "userConfidence") | (objc_msgSend(filterCopy, "tieBreaker") << 8)}];
   if ([filterCopy isATrump])
@@ -1578,13 +1526,13 @@ void __38__AFMyriadCoordinator__ageWedgeFilter__block_invoke(uint64_t a1, void *
       v9 = AFSiriLogContextConnection;
       if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
       {
-        v17 = 136315394;
-        v18 = "[AFMyriadCoordinator _testAndUpdateWedgeFilter:]";
-        v19 = 2112;
-        v20 = filterCopy;
+        v16 = 136315394;
+        v17 = "[AFMyriadCoordinator _testAndUpdateWedgeFilter:]";
+        v18 = 2112;
+        v19 = filterCopy;
         v10 = "%s BTLE ignoring incoming event bad device class for Horseman %@";
 LABEL_11:
-        _os_log_impl(&dword_1912FE000, v9, OS_LOG_TYPE_INFO, v10, &v17, 0x16u);
+        _os_log_impl(&dword_1912FE000, v9, OS_LOG_TYPE_INFO, v10, &v16, 0x16u);
         goto LABEL_12;
       }
 
@@ -1598,10 +1546,10 @@ LABEL_11:
       v9 = AFSiriLogContextConnection;
       if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
       {
-        v17 = 136315394;
-        v18 = "[AFMyriadCoordinator _testAndUpdateWedgeFilter:]";
-        v19 = 2112;
-        v20 = filterCopy;
+        v16 = 136315394;
+        v17 = "[AFMyriadCoordinator _testAndUpdateWedgeFilter:]";
+        v18 = 2112;
+        v19 = filterCopy;
         v10 = "%s BTLE ignoring as wedged suppress %@";
         goto LABEL_11;
       }
@@ -1616,19 +1564,18 @@ LABEL_12:
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     v14 = v13;
-    v17 = 136315650;
-    v18 = "[AFMyriadCoordinator _testAndUpdateWedgeFilter:]";
-    v19 = 2112;
-    v20 = filterCopy;
-    v21 = 1024;
+    v16 = 136315650;
+    v17 = "[AFMyriadCoordinator _testAndUpdateWedgeFilter:]";
+    v18 = 2112;
+    v19 = filterCopy;
+    v20 = 1024;
     isSane = [filterCopy isSane];
-    _os_log_impl(&dword_1912FE000, v14, OS_LOG_TYPE_INFO, "%s BTLE record %@  isSane: %d", &v17, 0x1Cu);
+    _os_log_impl(&dword_1912FE000, v14, OS_LOG_TYPE_INFO, "%s BTLE record %@  isSane: %d", &v16, 0x1Cu);
   }
 
   isSane2 = [filterCopy isSane];
 LABEL_16:
 
-  v15 = *MEMORY[0x1E69E9840];
   return isSane2;
 }
 
@@ -1675,7 +1622,7 @@ LABEL_16:
 
 void __50__AFMyriadCoordinator_notifyCurrentDecisionResult__block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   v2 = *(v1 + 8);
   if (v2 == 14 || v2 == 1)
@@ -1685,11 +1632,11 @@ void __50__AFMyriadCoordinator_notifyCurrentDecisionResult__block_invoke(uint64_
     {
       v5 = v4;
       v6 = [v1 _stateAsString:v2];
-      v12 = 136315394;
-      v13 = "[AFMyriadCoordinator notifyCurrentDecisionResult]_block_invoke";
-      v14 = 2112;
-      v15 = v6;
-      _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s BTLE ignoring decision result callback (state = %@)", &v12, 0x16u);
+      v11 = 136315394;
+      v12 = "[AFMyriadCoordinator notifyCurrentDecisionResult]_block_invoke";
+      v13 = 2112;
+      v14 = v6;
+      _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s BTLE ignoring decision result callback (state = %@)", &v11, 0x16u);
     }
   }
 
@@ -1700,24 +1647,22 @@ void __50__AFMyriadCoordinator_notifyCurrentDecisionResult__block_invoke(uint64_
     {
       v9 = v8;
       v10 = [v1 _stateAsString:v2];
-      v12 = 136315394;
-      v13 = "[AFMyriadCoordinator notifyCurrentDecisionResult]_block_invoke";
-      v14 = 2112;
-      v15 = v10;
-      _os_log_impl(&dword_1912FE000, v9, OS_LOG_TYPE_INFO, "%s BTLE reposting result win (state = %@)", &v12, 0x16u);
+      v11 = 136315394;
+      v12 = "[AFMyriadCoordinator notifyCurrentDecisionResult]_block_invoke";
+      v13 = 2112;
+      v14 = v10;
+      _os_log_impl(&dword_1912FE000, v9, OS_LOG_TYPE_INFO, "%s BTLE reposting result win (state = %@)", &v11, 0x16u);
 
       v1 = *(a1 + 32);
     }
 
     [*(v1 + 544) publishState:{objc_msgSend(v1, "_nextElectionPublisherState")}];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateRepliesWith:(id)with id:(id)id data:(id)data
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   withCopy = with;
   idCopy = id;
   dataCopy = data;
@@ -1740,17 +1685,17 @@ void __50__AFMyriadCoordinator_notifyCurrentDecisionResult__block_invoke(uint64_
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
 LABEL_12:
-      *v19 = 136315650;
-      *&v19[4] = "[AFMyriadCoordinator _updateRepliesWith:id:data:]";
-      *&v19[12] = 2112;
-      *&v19[14] = dataCopy;
-      *&v19[22] = 2112;
-      *v20 = idCopy;
-      _os_log_impl(&dword_1912FE000, v17, OS_LOG_TYPE_INFO, "%s BTLE Updating record table, data= %@, for %@", v19, 0x20u);
+      *v18 = 136315650;
+      *&v18[4] = "[AFMyriadCoordinator _updateRepliesWith:id:data:]";
+      *&v18[12] = 2112;
+      *&v18[14] = dataCopy;
+      *&v18[22] = 2112;
+      *v19 = idCopy;
+      _os_log_impl(&dword_1912FE000, v17, OS_LOG_TYPE_INFO, "%s BTLE Updating record table, data= %@, for %@", v18, 0x20u);
     }
 
 LABEL_13:
-    [(NSMutableDictionary *)self->_replies setObject:withCopy forKey:idCopy, *v19, *&v19[16], *v20];
+    [(NSMutableDictionary *)self->_replies setObject:withCopy forKey:idCopy, *v18, *&v18[8], *v19];
     goto LABEL_14;
   }
 
@@ -1762,17 +1707,17 @@ LABEL_13:
     if (v15)
     {
       v16 = v14;
-      *v19 = 136316162;
-      *&v19[4] = "[AFMyriadCoordinator _updateRepliesWith:id:data:]";
-      *&v19[12] = 1024;
-      *&v19[14] = [v12 goodness];
-      *&v19[18] = 1024;
-      *&v19[20] = [withCopy goodness];
-      *v20 = 2112;
-      *&v20[2] = dataCopy;
-      v21 = 2112;
-      v22 = idCopy;
-      _os_log_impl(&dword_1912FE000, v16, OS_LOG_TYPE_INFO, "%s BTLE Updating record table with a late supression(%hhu -> %hhu), data= %@, for %@", v19, 0x2Cu);
+      *v18 = 136316162;
+      *&v18[4] = "[AFMyriadCoordinator _updateRepliesWith:id:data:]";
+      *&v18[12] = 1024;
+      *&v18[14] = [v12 goodness];
+      *&v18[18] = 1024;
+      *&v18[20] = [withCopy goodness];
+      *v19 = 2112;
+      *&v19[2] = dataCopy;
+      v20 = 2112;
+      v21 = idCopy;
+      _os_log_impl(&dword_1912FE000, v16, OS_LOG_TYPE_INFO, "%s BTLE Updating record table with a late supression(%hhu -> %hhu), data= %@, for %@", v18, 0x2Cu);
     }
 
     goto LABEL_13;
@@ -1780,34 +1725,32 @@ LABEL_13:
 
   if (v15)
   {
-    *v19 = 136315650;
-    *&v19[4] = "[AFMyriadCoordinator _updateRepliesWith:id:data:]";
-    *&v19[12] = 2112;
-    *&v19[14] = dataCopy;
-    *&v19[22] = 2112;
-    *v20 = idCopy;
-    _os_log_impl(&dword_1912FE000, v14, OS_LOG_TYPE_INFO, "%s BTLE ignoring this advert because one already exists, data= %@, for %@", v19, 0x20u);
+    *v18 = 136315650;
+    *&v18[4] = "[AFMyriadCoordinator _updateRepliesWith:id:data:]";
+    *&v18[12] = 2112;
+    *&v18[14] = dataCopy;
+    *&v18[22] = 2112;
+    *v19 = idCopy;
+    _os_log_impl(&dword_1912FE000, v14, OS_LOG_TYPE_INFO, "%s BTLE ignoring this advert because one already exists, data= %@, for %@", v18, 0x20u);
   }
 
 LABEL_14:
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_inTaskTriggerWasTooSoon
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   if (self->_ignoreInTaskTimer && AFCDAFaceDetection())
   {
     v3 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
-      v28 = 136315138;
-      v29 = "[AFMyriadCoordinator _inTaskTriggerWasTooSoon]";
-      _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s #myriad got attention, ignoring too-soon time limit.", &v28, 0xCu);
+      v27 = 136315138;
+      v28 = "[AFMyriadCoordinator _inTaskTriggerWasTooSoon]";
+      _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s #myriad got attention, ignoring too-soon time limit.", &v27, 0xCu);
     }
 
-    goto LABEL_13;
+    return 0;
   }
 
   if (self->_triggerTime)
@@ -1865,25 +1808,25 @@ LABEL_14:
       [(NSDate *)self->_triggerTime timeIntervalSinceReferenceDate];
       v22 = v21;
       [(NSDate *)v8 timeIntervalSinceReferenceDate];
-      v28 = 136317186;
-      v29 = "[AFMyriadCoordinator _inTaskTriggerWasTooSoon]";
-      v30 = 2048;
-      v31 = v20;
-      v32 = 2048;
-      v33 = v22;
-      v34 = 2048;
-      v35 = v23;
-      v36 = 2048;
-      v37 = v6;
-      v38 = 2048;
-      v39 = v10;
-      v40 = 1024;
-      v41 = v6 < 0.5;
-      v42 = 1024;
-      v43 = v12;
-      v44 = 1024;
-      v45 = v16;
-      _os_log_impl(&dword_1912FE000, v18, OS_LOG_TYPE_INFO, "%s #myriad CurrentTime: %f TrigerTime: %f, ElectionAdvertisementTime: %f, triggerDelta: %f, electionAdvertisementRemainingTime: %f [isIntaskTooSoonForVoiceTriggerActivation = %d, isIntaskTooSoonForDirectActivation = %d, currentElectionAdvertisementIsSane = %d]", &v28, 0x50u);
+      v27 = 136317186;
+      v28 = "[AFMyriadCoordinator _inTaskTriggerWasTooSoon]";
+      v29 = 2048;
+      v30 = v20;
+      v31 = 2048;
+      v32 = v22;
+      v33 = 2048;
+      v34 = v23;
+      v35 = 2048;
+      v36 = v6;
+      v37 = 2048;
+      v38 = v10;
+      v39 = 1024;
+      v40 = v6 < 0.5;
+      v41 = 1024;
+      v42 = v12;
+      v43 = 1024;
+      v44 = v16;
+      _os_log_impl(&dword_1912FE000, v18, OS_LOG_TYPE_INFO, "%s #myriad CurrentTime: %f TrigerTime: %f, ElectionAdvertisementTime: %f, triggerDelta: %f, electionAdvertisementRemainingTime: %f [isIntaskTooSoonForVoiceTriggerActivation = %d, isIntaskTooSoonForDirectActivation = %d, currentElectionAdvertisementIsSane = %d]", &v27, 0x50u);
 
       v17 = AFSiriLogContextConnection;
     }
@@ -1894,30 +1837,26 @@ LABEL_14:
     {
       if (v24)
       {
-        v28 = 136315138;
-        v29 = "[AFMyriadCoordinator _inTaskTriggerWasTooSoon]";
+        v27 = 136315138;
+        v28 = "[AFMyriadCoordinator _inTaskTriggerWasTooSoon]";
         v25 = "%s #myriad BTLE in-task continuous voice trigger heard too soon. Ignoring.";
 LABEL_33:
-        _os_log_impl(&dword_1912FE000, v17, OS_LOG_TYPE_INFO, v25, &v28, 0xCu);
+        _os_log_impl(&dword_1912FE000, v17, OS_LOG_TYPE_INFO, v25, &v27, 0xCu);
       }
     }
 
     else if (v24)
     {
-      v28 = 136315138;
-      v29 = "[AFMyriadCoordinator _inTaskTriggerWasTooSoon]";
+      v27 = 136315138;
+      v28 = "[AFMyriadCoordinator _inTaskTriggerWasTooSoon]";
       v25 = "%s #myriad BTLE in-task continious voice trigger heard. NOT ignoring.";
       goto LABEL_33;
     }
 
-    goto LABEL_35;
+    return v13;
   }
 
-LABEL_13:
-  v13 = 0;
-LABEL_35:
-  v26 = *MEMORY[0x1E69E9840];
-  return v13;
+  return 0;
 }
 
 - (id)_sortedReplies:(id)replies
@@ -2042,40 +1981,40 @@ LABEL_22:
 
 - (BOOL)_shouldHandleEmergency
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v3 = [(AFMyriadCoordinator *)self _sortedReplies:self->_repliesBeforeDecision];
   v4 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     replies = self->_replies;
     *buf = 136315394;
-    v25 = "[AFMyriadCoordinator _shouldHandleEmergency]";
-    v26 = 2112;
-    v27 = replies;
+    v24 = "[AFMyriadCoordinator _shouldHandleEmergency]";
+    v25 = 2112;
+    v26 = replies;
     _os_log_impl(&dword_1912FE000, v4, OS_LOG_TYPE_INFO, "%s BTLE emergencyCallSummary: %@", buf, 0x16u);
   }
 
   [v3 enumerateObjectsUsingBlock:&__block_literal_global_541];
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v6 = v3;
-  v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v20;
+    v9 = *v19;
 LABEL_5:
     v10 = 0;
     while (1)
     {
-      if (*v20 != v9)
+      if (*v19 != v9)
       {
         objc_enumerationMutation(v6);
       }
 
-      v11 = *(*(&v19 + 1) + 8 * v10);
+      v11 = *(*(&v18 + 1) + 8 * v10);
       if (-[AFMyriadCoordinator _isAPhone:](self, "_isAPhone:", [v11 deviceClass]))
       {
         break;
@@ -2083,7 +2022,7 @@ LABEL_5:
 
       if (v8 == ++v10)
       {
-        v8 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
         if (v8)
         {
           goto LABEL_5;
@@ -2101,7 +2040,7 @@ LABEL_5:
       if (v15)
       {
         *buf = 136315138;
-        v25 = "[AFMyriadCoordinator _shouldHandleEmergency]";
+        v24 = "[AFMyriadCoordinator _shouldHandleEmergency]";
         v16 = "%s BTLE Emergency call: this device should handle";
 LABEL_19:
         _os_log_impl(&dword_1912FE000, v14, OS_LOG_TYPE_INFO, v16, buf, 0xCu);
@@ -2111,7 +2050,7 @@ LABEL_19:
     else if (v15)
     {
       *buf = 136315138;
-      v25 = "[AFMyriadCoordinator _shouldHandleEmergency]";
+      v24 = "[AFMyriadCoordinator _shouldHandleEmergency]";
       v16 = "%s BTLE Emergency call: This device should NOT handle, another is better";
       goto LABEL_19;
     }
@@ -2125,39 +2064,36 @@ LABEL_11:
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v25 = "[AFMyriadCoordinator _shouldHandleEmergency]";
+    v24 = "[AFMyriadCoordinator _shouldHandleEmergency]";
     _os_log_impl(&dword_1912FE000, v12, OS_LOG_TYPE_INFO, "%s BTLE Emergency Call: No device available to handle this call", buf, 0xCu);
   }
 
   LOBYTE(isMe) = 0;
 LABEL_21:
 
-  v17 = *MEMORY[0x1E69E9840];
   return isMe;
 }
 
 void __45__AFMyriadCoordinator__shouldHandleEmergency__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v4 = a2;
   v5 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
-    v7 = 136315650;
-    v8 = "[AFMyriadCoordinator _shouldHandleEmergency]_block_invoke";
-    v9 = 2048;
-    v10 = a3;
-    v11 = 2112;
-    v12 = v4;
-    _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s BTLE EmergencyCallSummary %lu: %@", &v7, 0x20u);
+    v6 = 136315650;
+    v7 = "[AFMyriadCoordinator _shouldHandleEmergency]_block_invoke";
+    v8 = 2048;
+    v9 = a3;
+    v10 = 2112;
+    v11 = v4;
+    _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s BTLE EmergencyCallSummary %lu: %@", &v6, 0x20u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_shouldContinueFor:(id)for
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   forCopy = for;
   _sortedReplies = [(AFMyriadCoordinator *)self _sortedReplies];
   v6 = AFSiriLogContextConnection;
@@ -2165,9 +2101,9 @@ void __45__AFMyriadCoordinator__shouldHandleEmergency__block_invoke(uint64_t a1,
   {
     replies = self->_replies;
     *buf = 136315394;
-    v37 = "[AFMyriadCoordinator _shouldContinueFor:]";
-    v38 = 2112;
-    v39 = replies;
+    v36 = "[AFMyriadCoordinator _shouldContinueFor:]";
+    v37 = 2112;
+    v38 = replies;
     _os_log_impl(&dword_1912FE000, v6, OS_LOG_TYPE_INFO, "%s BTLE end advertising summary: %@", buf, 0x16u);
   }
 
@@ -2175,30 +2111,30 @@ void __45__AFMyriadCoordinator__shouldHandleEmergency__block_invoke(uint64_t a1,
   lastWonBySmallAmountDate = self->_lastWonBySmallAmountDate;
   self->_lastWonBySmallAmountDate = 0;
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v9 = _sortedReplies;
-  v10 = [v9 countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v30 objects:v34 count:16];
   if (v10)
   {
     v11 = v10;
     v12 = 0;
-    v13 = *v32;
+    v13 = *v31;
 LABEL_5:
     v14 = 0;
-    v30 = v12 + v11;
+    v29 = v12 + v11;
     while (1)
     {
-      if (*v32 != v13)
+      if (*v31 != v13)
       {
         objc_enumerationMutation(v9);
       }
 
       if (forCopy)
       {
-        v15 = *(*(&v31 + 1) + 8 * v14);
+        v15 = *(*(&v30 + 1) + 8 * v14);
         v16 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:{objc_msgSend(v15, "deviceClass")}];
         v17 = [forCopy containsObject:v16];
 
@@ -2211,8 +2147,8 @@ LABEL_5:
       ++v12;
       if (v11 == ++v14)
       {
-        v11 = [v9 countByEnumeratingWithState:&v31 objects:v35 count:16];
-        v12 = v30;
+        v11 = [v9 countByEnumeratingWithState:&v30 objects:v34 count:16];
+        v12 = v29;
         if (v11)
         {
           goto LABEL_5;
@@ -2243,13 +2179,13 @@ LABEL_5:
           if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
           {
             *buf = 136315138;
-            v37 = "[AFMyriadCoordinator _shouldContinueFor:]";
+            v36 = "[AFMyriadCoordinator _shouldContinueFor:]";
             _os_log_impl(&dword_1912FE000, v24, OS_LOG_TYPE_INFO, "%s #myriad Won by a small margin, storing state to mitigate recency boost", buf, 0xCu);
           }
 
           date = [MEMORY[0x1E695DF00] date];
-          v26 = *(v29 + 624);
-          *(v29 + 624) = date;
+          v26 = *(v28 + 624);
+          *(v28 + 624) = date;
         }
       }
 
@@ -2282,27 +2218,24 @@ LABEL_12:
 
 LABEL_29:
 
-  v27 = *MEMORY[0x1E69E9840];
   return isMe2;
 }
 
 void __42__AFMyriadCoordinator__shouldContinueFor___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v4 = a2;
   v5 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
-    v7 = 136315650;
-    v8 = "[AFMyriadCoordinator _shouldContinueFor:]_block_invoke";
-    v9 = 2048;
-    v10 = a3;
-    v11 = 2112;
-    v12 = v4;
-    _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s BTLE summary %lu: %@", &v7, 0x20u);
+    v6 = 136315650;
+    v7 = "[AFMyriadCoordinator _shouldContinueFor:]_block_invoke";
+    v8 = 2048;
+    v9 = a3;
+    v10 = 2112;
+    v11 = v4;
+    _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s BTLE summary %lu: %@", &v6, 0x20u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (id)emptyRecord
@@ -2322,7 +2255,7 @@ void __42__AFMyriadCoordinator__shouldContinueFor___block_invoke(uint64_t a1, vo
 
 - (id)slowdownRecord:(unsigned __int16)record
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if ((record >> 3) >= 0xFF)
   {
     v4 = 255;
@@ -2346,14 +2279,28 @@ void __42__AFMyriadCoordinator__shouldContinueFor___block_invoke(uint64_t a1, vo
   v6 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
-    v9 = 136315394;
-    v10 = "[AFMyriadCoordinator slowdownRecord:]";
-    v11 = 2112;
-    v12 = v5;
-    _os_log_impl(&dword_1912FE000, v6, OS_LOG_TYPE_INFO, "%s BTLE created slowdown record %@", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = "[AFMyriadCoordinator slowdownRecord:]";
+    v10 = 2112;
+    v11 = v5;
+    _os_log_impl(&dword_1912FE000, v6, OS_LOG_TYPE_INFO, "%s BTLE created slowdown record %@", &v8, 0x16u);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
+  return v5;
+}
+
+- (id)responseObject:(unsigned __int16)object
+{
+  objectCopy = object;
+  v5 = objc_alloc_init(AFMyriadRecord);
+  [(AFMyriadRecord *)v5 setPHash:objectCopy];
+  [(AFMyriadRecord *)v5 setIsMe:1];
+  [(AFMyriadRecord *)v5 generateTiebreaker];
+  [(AFMyriadRecord *)v5 setRawAudioGoodnessScore:0 withBump:255];
+  [(AFMyriadRecord *)v5 setDeviceID:self->_designatedSelfID];
+  [(AFMyriadRecord *)v5 setDeviceGroup:self->_deviceGroup];
+  [(AFMyriadRecord *)v5 setDeviceClass:self->_deviceClass];
+  [(AFMyriadRecord *)v5 setProductType:self->_productType];
 
   return v5;
 }
@@ -2510,34 +2457,34 @@ LABEL_7:
 
 - (void)_advertiseWith:(id)with afterDelay:(float)delay maxInterval:(float)interval thenExecute:(id)execute
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   withCopy = with;
   executeCopy = execute;
-  v35[0] = MEMORY[0x1E69E9820];
-  v35[1] = 3221225472;
-  v35[2] = __73__AFMyriadCoordinator__advertiseWith_afterDelay_maxInterval_thenExecute___block_invoke;
-  v35[3] = &unk_1E7346E30;
-  v35[4] = self;
+  v34[0] = MEMORY[0x1E69E9820];
+  v34[1] = 3221225472;
+  v34[2] = __73__AFMyriadCoordinator__advertiseWith_afterDelay_maxInterval_thenExecute___block_invoke;
+  v34[3] = &unk_1E7346E30;
+  v34[4] = self;
   v12 = withCopy;
-  v36 = v12;
+  v35 = v12;
   intervalCopy = interval;
   delayCopy = delay;
-  v13 = MEMORY[0x193AFB7B0](v35);
+  v13 = MEMORY[0x193AFB7B0](v34);
   previousAdvertisedData = self->_previousAdvertisedData;
   if (previousAdvertisedData && [(NSData *)previousAdvertisedData isEqualToData:v12])
   {
     v15 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
     {
-      v26 = self->_previousAdvertisedData;
-      v27 = v15;
-      [(NSData *)v26 description];
-      v28 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+      v25 = self->_previousAdvertisedData;
+      v26 = v15;
+      [(NSData *)v25 description];
+      v27 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
       *buf = 136315394;
-      v40 = "[AFMyriadCoordinator _advertiseWith:afterDelay:maxInterval:thenExecute:]";
-      v41 = 2112;
-      delayCopy2 = v28;
-      _os_log_error_impl(&dword_1912FE000, v27, OS_LOG_TYPE_ERROR, "%s BTLE error: attempting to readvertise %@", buf, 0x16u);
+      v39 = "[AFMyriadCoordinator _advertiseWith:afterDelay:maxInterval:thenExecute:]";
+      v40 = 2112;
+      delayCopy2 = v27;
+      _os_log_error_impl(&dword_1912FE000, v26, OS_LOG_TYPE_ERROR, "%s BTLE error: attempting to readvertise %@", buf, 0x16u);
     }
 
     self->_stateMachineEncounteredError = 1;
@@ -2566,8 +2513,8 @@ LABEL_7:
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v40 = "[AFMyriadCoordinator _advertiseWith:afterDelay:maxInterval:thenExecute:]";
-      v41 = 2048;
+      v39 = "[AFMyriadCoordinator _advertiseWith:afterDelay:maxInterval:thenExecute:]";
+      v40 = 2048;
       delayCopy2 = delay;
       _os_log_impl(&dword_1912FE000, v23, OS_LOG_TYPE_INFO, "%s BTLE starting advert delay timer for %f secs", buf, 0x16u);
     }
@@ -2579,27 +2526,25 @@ LABEL_7:
 
     else
     {
-      v29[0] = MEMORY[0x1E69E9820];
-      v29[1] = 3221225472;
-      v29[2] = __73__AFMyriadCoordinator__advertiseWith_afterDelay_maxInterval_thenExecute___block_invoke_536;
-      v29[3] = &unk_1E7346E58;
-      v29[4] = self;
+      v28[0] = MEMORY[0x1E69E9820];
+      v28[1] = 3221225472;
+      v28[2] = __73__AFMyriadCoordinator__advertiseWith_afterDelay_maxInterval_thenExecute___block_invoke_536;
+      v28[3] = &unk_1E7346E58;
+      v28[4] = self;
       delayCopy3 = delay;
       intervalCopy2 = interval;
-      v31 = v13;
-      v30 = v12;
-      v32 = executeCopy;
+      v30 = v13;
+      v29 = v12;
+      v31 = executeCopy;
       *&v24 = delay;
-      [(AFMyriadCoordinator *)self _startTimer:@"advert delay" for:v29 thenExecute:v24];
+      [(AFMyriadCoordinator *)self _startTimer:@"advert delay" for:v28 thenExecute:v24];
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 void __73__AFMyriadCoordinator__advertiseWith_afterDelay_maxInterval_thenExecute___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   *(*(a1 + 32) + 323) = 0;
@@ -2608,9 +2553,9 @@ void __73__AFMyriadCoordinator__advertiseWith_afterDelay_maxInterval_thenExecute
   {
     v8 = *(a1 + 40);
     *buf = 136315394;
-    v51 = "[AFMyriadCoordinator _advertiseWith:afterDelay:maxInterval:thenExecute:]_block_invoke";
-    v52 = 2112;
-    v53 = v8;
+    v50 = "[AFMyriadCoordinator _advertiseWith:afterDelay:maxInterval:thenExecute:]_block_invoke";
+    v51 = 2112;
+    v52 = v8;
     _os_log_impl(&dword_1912FE000, v7, OS_LOG_TYPE_INFO, "%s BTLE delay finished, advertising: %@", buf, 0x16u);
   }
 
@@ -2630,31 +2575,31 @@ void __73__AFMyriadCoordinator__advertiseWith_afterDelay_maxInterval_thenExecute
 
   v12 = *(a1 + 32);
   v13 = *(a1 + 48);
-  v46[0] = MEMORY[0x1E69E9820];
-  v46[1] = 3221225472;
-  v46[2] = __73__AFMyriadCoordinator__advertiseWith_afterDelay_maxInterval_thenExecute___block_invoke_518;
-  v46[3] = &unk_1E7349838;
-  v46[4] = v12;
+  v45[0] = MEMORY[0x1E69E9820];
+  v45[1] = 3221225472;
+  v45[2] = __73__AFMyriadCoordinator__advertiseWith_afterDelay_maxInterval_thenExecute___block_invoke_518;
+  v45[3] = &unk_1E7349838;
+  v45[4] = v12;
   v14 = v6;
-  v47 = v14;
+  v46 = v14;
   LODWORD(v15) = v13;
-  [v12 _startTimer:@"advertise" for:v46 thenExecute:v15];
+  [v12 _startTimer:@"advertise" for:v45 thenExecute:v15];
   kdebug_trace();
   v16 = *(*(a1 + 32) + 8);
   if (v16 != 5)
   {
-    v48[0] = @"state";
+    v47[0] = @"state";
     v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%lu", v16];
-    v49[0] = v17;
-    v48[1] = @"adv-delay";
+    v48[0] = v17;
+    v47[1] = @"adv-delay";
     LODWORD(v18) = *(a1 + 52);
     v19 = [MEMORY[0x1E696AD98] numberWithFloat:v18];
-    v49[1] = v19;
-    v48[2] = @"adv-interval";
+    v48[1] = v19;
+    v47[2] = @"adv-interval";
     LODWORD(v20) = *(a1 + 48);
     v21 = [MEMORY[0x1E696AD98] numberWithFloat:v20];
-    v49[2] = v21;
-    v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v49 forKeys:v48 count:3];
+    v48[2] = v21;
+    v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v48 forKeys:v47 count:3];
 
     if (!+[AFFeatureFlags isMyriadSelfMetricsEnabled])
     {
@@ -2687,14 +2632,14 @@ void __73__AFMyriadCoordinator__advertiseWith_afterDelay_maxInterval_thenExecute
 
   [*(a1 + 32) _enterBLEDiagnosticMode];
   v36 = *(a1 + 32);
-  v44[0] = MEMORY[0x1E69E9820];
-  v44[1] = 3221225472;
-  v44[2] = __73__AFMyriadCoordinator__advertiseWith_afterDelay_maxInterval_thenExecute___block_invoke_2;
-  v44[3] = &unk_1E7349860;
-  v44[4] = v36;
+  v43[0] = MEMORY[0x1E69E9820];
+  v43[1] = 3221225472;
+  v43[2] = __73__AFMyriadCoordinator__advertiseWith_afterDelay_maxInterval_thenExecute___block_invoke_2;
+  v43[3] = &unk_1E7349860;
+  v43[4] = v36;
   v37 = v35;
-  v45 = v37;
-  [v36 _waitWiProxAndExecute:v44];
+  v44 = v37;
+  [v36 _waitWiProxAndExecute:v43];
   v38 = objc_loadWeakRetained((*(a1 + 32) + 88));
   if (v38)
   {
@@ -2710,8 +2655,6 @@ void __73__AFMyriadCoordinator__advertiseWith_afterDelay_maxInterval_thenExecute
   }
 
   objc_storeStrong((*(a1 + 32) + 32), *(a1 + 40));
-
-  v43 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __73__AFMyriadCoordinator__advertiseWith_afterDelay_maxInterval_thenExecute___block_invoke_536(uint64_t a1)
@@ -2742,28 +2685,26 @@ uint64_t __73__AFMyriadCoordinator__advertiseWith_afterDelay_maxInterval_thenExe
     *(v10 + 480) = v9;
   }
 
-  v12 = *(a1 + 40);
-  v13 = *(a1 + 56);
-  v14 = *(*(a1 + 48) + 16);
+  v12 = *(*(a1 + 48) + 16);
 
-  return v14();
+  return v12();
 }
 
 uint64_t __73__AFMyriadCoordinator__advertiseWith_afterDelay_maxInterval_thenExecute___block_invoke_518(uint64_t a1)
 {
-  v15[2] = *MEMORY[0x1E69E9840];
+  v14[2] = *MEMORY[0x1E69E9840];
   if (!+[AFFeatureFlags isMyriadSelfMetricsEnabled])
   {
     v2 = +[AFAnalytics sharedAnalytics];
     v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%lu", *(*(a1 + 32) + 8), @"state"];
-    v14[1] = @"unixTime";
-    v15[0] = v3;
+    v13[1] = @"unixTime";
+    v14[0] = v3;
     v4 = MEMORY[0x1E696AD98];
     v5 = [MEMORY[0x1E695DF00] date];
     [v5 timeIntervalSince1970];
     v6 = [v4 numberWithDouble:?];
-    v15[1] = v6;
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:2];
+    v14[1] = v6;
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:2];
     [v2 logEventWithType:2010 context:v7];
   }
 
@@ -2782,18 +2723,17 @@ uint64_t __73__AFMyriadCoordinator__advertiseWith_afterDelay_maxInterval_thenExe
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))();
+    return (*(result + 16))();
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-uint64_t __73__AFMyriadCoordinator__advertiseWith_afterDelay_maxInterval_thenExecute___block_invoke_2(uint64_t result)
+void *__73__AFMyriadCoordinator__advertiseWith_afterDelay_maxInterval_thenExecute___block_invoke_2(void *result)
 {
   v1 = result;
-  v11 = *MEMORY[0x1E69E9840];
-  v2 = *(result + 32);
+  v10 = *MEMORY[0x1E69E9840];
+  v2 = result[4];
   if ((*(v2 + 319) & 1) != 0 || *(v2 + 314) == 1)
   {
     v3 = AFSiriLogContextConnection;
@@ -2801,21 +2741,20 @@ uint64_t __73__AFMyriadCoordinator__advertiseWith_afterDelay_maxInterval_thenExe
     {
       v4 = v3;
       v5 = mach_absolute_time();
-      v7 = 136315394;
-      v8 = "[AFMyriadCoordinator _advertiseWith:afterDelay:maxInterval:thenExecute:]_block_invoke_2";
-      v9 = 2048;
+      v6 = 136315394;
+      v7 = "[AFMyriadCoordinator _advertiseWith:afterDelay:maxInterval:thenExecute:]_block_invoke_2";
+      v8 = 2048;
       Milliseconds = AFMachAbsoluteTimeGetMilliseconds(v5);
-      _os_log_impl(&dword_1912FE000, v4, OS_LOG_TYPE_INFO, "%s BTLE daemon asked to start advertise at: %lld", &v7, 0x16u);
+      _os_log_impl(&dword_1912FE000, v4, OS_LOG_TYPE_INFO, "%s BTLE daemon asked to start advertise at: %lld", &v6, 0x16u);
 
-      v2 = *(v1 + 32);
+      v2 = v1[4];
     }
 
-    result = [*(v2 + 352) startScanningAndAdvertisingWithData:*(v1 + 40)];
-    *(*(v1 + 32) + 440) = 1;
-    *(*(v1 + 32) + 441) = 1;
+    result = [*(v2 + 352) startScanningAndAdvertisingWithData:v1[5]];
+    *(v1[4] + 440) = 1;
+    *(v1[4] + 441) = 1;
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -2930,7 +2869,7 @@ uint64_t __63__AFMyriadCoordinator_startAdvertising_afterDelay_maxInterval___blo
 
 void __44__AFMyriadCoordinator__advertiseIndefinite___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = getWPHeySiriAdvertisingData();
   v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
   if (v2)
@@ -2948,11 +2887,11 @@ void __44__AFMyriadCoordinator__advertiseIndefinite___block_invoke(uint64_t a1)
     {
       v7 = v6;
       v8 = mach_absolute_time();
-      v10 = 136315394;
-      v11 = "[AFMyriadCoordinator _advertiseIndefinite:]_block_invoke";
-      v12 = 2048;
+      v9 = 136315394;
+      v10 = "[AFMyriadCoordinator _advertiseIndefinite:]_block_invoke";
+      v11 = 2048;
       Milliseconds = AFMachAbsoluteTimeGetMilliseconds(v8);
-      _os_log_impl(&dword_1912FE000, v7, OS_LOG_TYPE_INFO, "%s BTLE daemon asked to start advertise at: %lld", &v10, 0x16u);
+      _os_log_impl(&dword_1912FE000, v7, OS_LOG_TYPE_INFO, "%s BTLE daemon asked to start advertise at: %lld", &v9, 0x16u);
 
       v5 = *(a1 + 40);
     }
@@ -2961,8 +2900,6 @@ void __44__AFMyriadCoordinator__advertiseIndefinite___block_invoke(uint64_t a1)
     *(*(a1 + 40) + 440) = 1;
     *(*(a1 + 40) + 441) = 1;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_advertise:(id)_advertise afterDelay:(float)delay maxInterval:(float)interval andMoveTo:(unint64_t)to
@@ -2980,7 +2917,7 @@ void __44__AFMyriadCoordinator__advertiseIndefinite___block_invoke(uint64_t a1)
 
 - (void)_advertiseSuppressTriggerInOutput
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v3 = mach_absolute_time();
   if (_AFMachAbsoluteTimeRate_onceToken != -1)
   {
@@ -2992,56 +2929,54 @@ void __44__AFMyriadCoordinator__advertiseIndefinite___block_invoke(uint64_t a1)
   v6 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
   {
-    v11 = v4 * v3 / 1000000000.0 - *&_AFMachAbsoluteTimeRate_rate * voiceTriggerTime / 1000000000.0;
+    v10 = v4 * v3 / 1000000000.0 - *&_AFMachAbsoluteTimeRate_rate * voiceTriggerTime / 1000000000.0;
     previousState = self->_previousState;
-    v13 = v6;
-    v14 = [(AFMyriadCoordinator *)self _stateAsString:previousState];
-    v15 = [(AFMyriadCoordinator *)self _stateAsString:self->_myriadState];
+    v12 = v6;
+    v13 = [(AFMyriadCoordinator *)self _stateAsString:previousState];
+    v14 = [(AFMyriadCoordinator *)self _stateAsString:self->_myriadState];
     clientIsDeciding = self->_clientIsDeciding;
-    v17 = self->_voiceTriggerTime;
+    v16 = self->_voiceTriggerTime;
     *buf = 136316418;
-    v21 = "[AFMyriadCoordinator _advertiseSuppressTriggerInOutput]";
-    v22 = 2112;
-    v23 = v14;
-    v24 = 2112;
-    v25 = v15;
-    v26 = 1024;
-    v27 = clientIsDeciding;
-    v28 = 2048;
-    v29 = v17;
-    v30 = 2048;
-    v31 = v11;
-    _os_log_debug_impl(&dword_1912FE000, v13, OS_LOG_TYPE_DEBUG, "%s fromState: %@, myriadState: %@, is _clientIsDeciding: %d, _voiceTriggerTime: %llu, secondsSinceVoiceTrigger: %f", buf, 0x3Au);
+    v20 = "[AFMyriadCoordinator _advertiseSuppressTriggerInOutput]";
+    v21 = 2112;
+    v22 = v13;
+    v23 = 2112;
+    v24 = v14;
+    v25 = 1024;
+    v26 = clientIsDeciding;
+    v27 = 2048;
+    v28 = v16;
+    v29 = 2048;
+    v30 = v10;
+    _os_log_debug_impl(&dword_1912FE000, v12, OS_LOG_TYPE_DEBUG, "%s fromState: %@, myriadState: %@, is _clientIsDeciding: %d, _voiceTriggerTime: %llu, secondsSinceVoiceTrigger: %f", buf, 0x3Au);
   }
 
   if ([(AFMyriadCoordinator *)self _okayToSuppressOnOutput])
   {
-    v19 = 1056964608;
+    v18 = 1056964608;
     *buf = 0;
     if (self->_voiceTriggerTime)
     {
-      [(AFMyriadCoordinator *)self setupAdvIntervalsInDelay:buf interval:&v19 withSlowdown:0];
+      [(AFMyriadCoordinator *)self setupAdvIntervalsInDelay:buf interval:&v18 withSlowdown:0];
     }
 
     asAdvertisementData = [(AFMyriadRecord *)self->_triggerRecord asAdvertisementData];
     [(AFMyriadCoordinator *)self _createMyriadSessionIfRequired];
     [(AFMyriadCoordinator *)self _addElectionAdvertisementDataToMyriadSession:asAdvertisementData];
-    LODWORD(v9) = v19;
+    LODWORD(v9) = v18;
     LODWORD(v8) = *buf;
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __56__AFMyriadCoordinator__advertiseSuppressTriggerInOutput__block_invoke;
-    v18[3] = &unk_1E73497C8;
-    v18[4] = self;
-    [(AFMyriadCoordinator *)self _advertiseWith:asAdvertisementData afterDelay:v18 maxInterval:v8 thenExecute:v9];
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __56__AFMyriadCoordinator__advertiseSuppressTriggerInOutput__block_invoke;
+    v17[3] = &unk_1E73497C8;
+    v17[4] = self;
+    [(AFMyriadCoordinator *)self _advertiseWith:asAdvertisementData afterDelay:v17 maxInterval:v8 thenExecute:v9];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __56__AFMyriadCoordinator__advertiseSuppressTriggerInOutput__block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) _endAdvertising:0];
   [*(a1 + 32) _resetAudioData];
   v2 = 0;
@@ -3053,21 +2988,21 @@ uint64_t __56__AFMyriadCoordinator__advertiseSuppressTriggerInOutput__block_invo
     {
       [*(a1 + 32) _winElection];
       v2 = 4;
-      goto LABEL_19;
+      return [*(a1 + 32) enterState:v2];
     }
 
     if (!v4)
     {
 LABEL_17:
       v2 = 2;
-      goto LABEL_19;
+      return [*(a1 + 32) enterState:v2];
     }
 
     if (v4 != 1)
     {
       if (v4 != 2)
       {
-        goto LABEL_19;
+        return [*(a1 + 32) enterState:v2];
       }
 
       goto LABEL_4;
@@ -3077,19 +3012,19 @@ LABEL_13:
     v5 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
     {
-      v8 = v5;
-      v9 = [v3 _stateAsString:v4];
-      v10 = [*(a1 + 32) _stateAsString:*(*(a1 + 32) + 8)];
-      v11 = *(*(a1 + 32) + 330);
-      v12 = 136315906;
-      v13 = "[AFMyriadCoordinator _advertiseSuppressTriggerInOutput]_block_invoke";
-      v14 = 2112;
-      v15 = v9;
-      v16 = 2112;
-      v17 = v10;
-      v18 = 1024;
-      v19 = v11;
-      _os_log_debug_impl(&dword_1912FE000, v8, OS_LOG_TYPE_DEBUG, "%s fromState: %@, myriadState: %@, is _clientIsDeciding: %d", &v12, 0x26u);
+      v7 = v5;
+      v8 = [v3 _stateAsString:v4];
+      v9 = [*(a1 + 32) _stateAsString:*(*(a1 + 32) + 8)];
+      v10 = *(*(a1 + 32) + 330);
+      v11 = 136315906;
+      v12 = "[AFMyriadCoordinator _advertiseSuppressTriggerInOutput]_block_invoke";
+      v13 = 2112;
+      v14 = v8;
+      v15 = 2112;
+      v16 = v9;
+      v17 = 1024;
+      v18 = v10;
+      _os_log_debug_impl(&dword_1912FE000, v7, OS_LOG_TYPE_DEBUG, "%s fromState: %@, myriadState: %@, is _clientIsDeciding: %d", &v11, 0x26u);
 
       v3 = *(a1 + 32);
     }
@@ -3108,13 +3043,13 @@ LABEL_13:
     {
 LABEL_4:
       v2 = *(v3 + 24);
-      goto LABEL_19;
+      return [*(a1 + 32) enterState:v2];
     }
 
     if (v4 == 7)
     {
       v2 = 10;
-      goto LABEL_19;
+      return [*(a1 + 32) enterState:v2];
     }
 
     if (v4 == 14)
@@ -3123,35 +3058,32 @@ LABEL_4:
     }
   }
 
-LABEL_19:
-  result = [*(a1 + 32) enterState:v2];
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) enterState:v2];
 }
 
 - (void)_advertiseSlowdown
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   *&self->_delayTarget = 0x3F8000003EE66668;
   v3 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v17 = "[AFMyriadCoordinator _advertiseSlowdown]";
-    v18 = 2048;
-    v19 = 0x3FDCCCCD00000000;
-    v20 = 2048;
-    v21 = 0x3FF0000000000000;
+    v16 = "[AFMyriadCoordinator _advertiseSlowdown]";
+    v17 = 2048;
+    v18 = 0x3FDCCCCD00000000;
+    v19 = 2048;
+    v20 = 0x3FF0000000000000;
     _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s BTLE slowdown advertising delay: %f finished, interval: %f", buf, 0x20u);
   }
 
   if (!+[AFFeatureFlags isMyriadSelfMetricsEnabled])
   {
     v4 = +[AFAnalytics sharedAnalytics];
-    v14 = @"delay";
+    v13 = @"delay";
     v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%lu", self->_slowdownMsecs];
-    v15 = v5;
-    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+    v14 = v5;
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
     [v4 logEventWithType:2007 context:v6];
   }
 
@@ -3164,25 +3096,23 @@ LABEL_19:
   asAdvertisementData = [v8 asAdvertisementData];
   *&v10 = self->_delayTarget;
   *&v11 = self->_advertInterval;
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __41__AFMyriadCoordinator__advertiseSlowdown__block_invoke;
-  v13[3] = &unk_1E73497C8;
-  v13[4] = self;
-  [(AFMyriadCoordinator *)self _advertiseWith:asAdvertisementData afterDelay:v13 maxInterval:v10 thenExecute:v11];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __41__AFMyriadCoordinator__advertiseSlowdown__block_invoke;
+  v12[3] = &unk_1E73497C8;
+  v12[4] = self;
+  [(AFMyriadCoordinator *)self _advertiseWith:asAdvertisementData afterDelay:v12 maxInterval:v10 thenExecute:v11];
 }
 
 uint64_t __41__AFMyriadCoordinator__advertiseSlowdown__block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
-    v7 = 136315138;
-    v8 = "[AFMyriadCoordinator _advertiseSlowdown]_block_invoke";
-    _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s BTLE ending slowdown advertising, 2nd pass not seen", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[AFMyriadCoordinator _advertiseSlowdown]_block_invoke";
+    _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s BTLE ending slowdown advertising, 2nd pass not seen", &v6, 0xCu);
   }
 
   [*(a1 + 32) _endAdvertising:0];
@@ -3192,16 +3122,14 @@ uint64_t __41__AFMyriadCoordinator__advertiseSlowdown__block_invoke(uint64_t a1)
   v4 = *(v3 + 304);
   *(v3 + 304) = 0;
 
-  result = [*(a1 + 32) enterState:0];
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) enterState:0];
 }
 
 - (void)_advertiseTrigger
 {
-  v48[2] = *MEMORY[0x1E69E9840];
-  v42 = 0.5;
-  v43 = 0.0;
+  v47[2] = *MEMORY[0x1E69E9840];
+  v41 = 0.5;
+  v42 = 0.0;
   if (self->_clientIsWatchTrumpPromote)
   {
     goto LABEL_32;
@@ -3210,7 +3138,7 @@ uint64_t __41__AFMyriadCoordinator__advertiseSlowdown__block_invoke(uint64_t a1)
   if (self->_clientIsDirectActivating)
   {
     deviceTrumpDelay = self->_deviceTrumpDelay;
-    v43 = deviceTrumpDelay;
+    v42 = deviceTrumpDelay;
     goto LABEL_9;
   }
 
@@ -3218,8 +3146,8 @@ uint64_t __41__AFMyriadCoordinator__advertiseSlowdown__block_invoke(uint64_t a1)
   {
     deviceInEarDelay = self->_deviceInEarDelay;
     deviceInEarInterval = self->_deviceInEarInterval;
-    v42 = deviceInEarInterval;
-    v43 = deviceInEarDelay;
+    v41 = deviceInEarInterval;
+    v42 = deviceInEarDelay;
   }
 
   else
@@ -3227,7 +3155,7 @@ uint64_t __41__AFMyriadCoordinator__advertiseSlowdown__block_invoke(uint64_t a1)
 LABEL_32:
     if (self->_voiceTriggerTime)
     {
-      [(AFMyriadCoordinator *)self setupAdvIntervalsInDelay:&v43 interval:&v42 withSlowdown:0];
+      [(AFMyriadCoordinator *)self setupAdvIntervalsInDelay:&v42 interval:&v41 withSlowdown:0];
     }
   }
 
@@ -3245,13 +3173,13 @@ LABEL_9:
     v9 = v6;
     _stateAsString = [(AFMyriadCoordinator *)self _stateAsString];
     *buf = 136315906;
-    v45 = "[AFMyriadCoordinator _advertiseTrigger]";
-    v46 = 1024;
-    *v47 = testInducedSlowdownMsecs;
-    *&v47[4] = 1024;
-    *&v47[6] = slowdownMsecs;
-    LOWORD(v48[0]) = 2112;
-    *(v48 + 2) = _stateAsString;
+    v44 = "[AFMyriadCoordinator _advertiseTrigger]";
+    v45 = 1024;
+    *v46 = testInducedSlowdownMsecs;
+    *&v46[4] = 1024;
+    *&v46[6] = slowdownMsecs;
+    LOWORD(v47[0]) = 2112;
+    *(v47 + 2) = _stateAsString;
     _os_log_impl(&dword_1912FE000, v9, OS_LOG_TYPE_INFO, "%s BTLE checking if slowdown needed testmsecs=%d msecs=%d state=%@", buf, 0x22u);
   }
 
@@ -3272,14 +3200,14 @@ LABEL_9:
         if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
         {
           *buf = 136315138;
-          v45 = "[AFMyriadCoordinator _advertiseTrigger]";
+          v44 = "[AFMyriadCoordinator _advertiseTrigger]";
           _os_log_impl(&dword_1912FE000, v13, OS_LOG_TYPE_INFO, "%s BTLE advertising slowdown delay, 2nd pass seen", buf, 0xCu);
           v12 = self->_slowdownMsecs;
         }
 
         *buf = 0;
-        v38 = 1056964608;
-        [(AFMyriadCoordinator *)self setupAdvIntervalsInDelay:buf interval:&v38 withSlowdown:v12];
+        v37 = 1056964608;
+        [(AFMyriadCoordinator *)self setupAdvIntervalsInDelay:buf interval:&v37 withSlowdown:v12];
         [(AFMyriadCoordinator *)self _adjustActionWindowsFromSlowdown:self->_slowdownMsecs];
         WeakRetained = objc_loadWeakRetained(&self->_delegate);
         v15 = objc_opt_respondsToSelector();
@@ -3299,13 +3227,13 @@ LABEL_9:
         [(AFMyriadRecord *)self->_triggerRecord generateTiebreaker];
         asAdvertisementData = [(AFMyriadRecord *)self->_triggerRecord asAdvertisementData];
         LODWORD(v20) = *buf;
-        LODWORD(v21) = v38;
-        v33 = MEMORY[0x1E69E9820];
-        v34 = 3221225472;
-        v35 = __40__AFMyriadCoordinator__advertiseTrigger__block_invoke_508;
-        v36 = &unk_1E73497C8;
+        LODWORD(v21) = v37;
+        v32 = MEMORY[0x1E69E9820];
+        v33 = 3221225472;
+        v34 = __40__AFMyriadCoordinator__advertiseTrigger__block_invoke_508;
+        v35 = &unk_1E73497C8;
         selfCopy = self;
-        v22 = &v33;
+        v22 = &v32;
         goto LABEL_29;
       }
     }
@@ -3313,23 +3241,23 @@ LABEL_9:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       *buf = 136315650;
-      v45 = "[AFMyriadCoordinator _advertiseTrigger]";
-      v46 = 2048;
-      *v47 = v43;
-      *&v47[8] = 2048;
-      v48[0] = v42;
+      v44 = "[AFMyriadCoordinator _advertiseTrigger]";
+      v45 = 2048;
+      *v46 = v42;
+      *&v46[8] = 2048;
+      v47[0] = v41;
       _os_log_impl(&dword_1912FE000, v13, OS_LOG_TYPE_INFO, "%s BTLE computed advertising delay: %f finished, interval: %f", buf, 0x20u);
     }
 
     asAdvertisementData = [(AFMyriadRecord *)self->_triggerRecord asAdvertisementData];
-    *&v21 = v42;
-    *&v20 = v43;
-    v28 = MEMORY[0x1E69E9820];
-    v29 = 3221225472;
-    v30 = __40__AFMyriadCoordinator__advertiseTrigger__block_invoke_509;
-    v31 = &unk_1E73497C8;
+    *&v21 = v41;
+    *&v20 = v42;
+    v27 = MEMORY[0x1E69E9820];
+    v28 = 3221225472;
+    v29 = __40__AFMyriadCoordinator__advertiseTrigger__block_invoke_509;
+    v30 = &unk_1E73497C8;
     selfCopy2 = self;
-    v22 = &v28;
+    v22 = &v27;
   }
 
   else
@@ -3338,13 +3266,13 @@ LABEL_9:
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v45 = "[AFMyriadCoordinator _advertiseTrigger]";
+      v44 = "[AFMyriadCoordinator _advertiseTrigger]";
       _os_log_impl(&dword_1912FE000, v23, OS_LOG_TYPE_INFO, "%s BTLE advertising TEST INDUCED slowdown delay, 2nd pass seen", buf, 0xCu);
       v11 = self->_testInducedSlowdownMsecs;
     }
 
-    v24 = v42;
-    self->_delayTarget = v43;
+    v24 = v41;
+    self->_delayTarget = v42;
     self->_advertInterval = v24;
     v25 = [(AFMyriadCoordinator *)self slowdownRecord:v11];
     asAdvertisementData = [v25 asAdvertisementData];
@@ -3356,51 +3284,47 @@ LABEL_9:
 
     *&v20 = self->_delayTarget;
     *&v21 = self->_advertInterval;
-    v39[0] = MEMORY[0x1E69E9820];
-    v39[1] = 3221225472;
-    v39[2] = __40__AFMyriadCoordinator__advertiseTrigger__block_invoke;
-    v39[3] = &unk_1E7348498;
-    v40 = v43;
-    v41 = v42;
-    v39[4] = self;
-    v22 = v39;
+    v38[0] = MEMORY[0x1E69E9820];
+    v38[1] = 3221225472;
+    v38[2] = __40__AFMyriadCoordinator__advertiseTrigger__block_invoke;
+    v38[3] = &unk_1E7348498;
+    v39 = v42;
+    v40 = v41;
+    v38[4] = self;
+    v22 = v38;
   }
 
 LABEL_29:
-  [(AFMyriadCoordinator *)self _advertiseWith:asAdvertisementData afterDelay:v22 maxInterval:v20 thenExecute:v21, v28, v29, v30, v31, selfCopy2, v33, v34, v35, v36, selfCopy];
-
-  v27 = *MEMORY[0x1E69E9840];
+  [(AFMyriadCoordinator *)self _advertiseWith:asAdvertisementData afterDelay:v22 maxInterval:v20 thenExecute:v21, v27, v28, v29, v30, selfCopy2, v32, v33, v34, v35, selfCopy];
 }
 
 void __40__AFMyriadCoordinator__advertiseTrigger__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 40);
-  v10 = *(a1 + 44);
-  v11 = v2;
-  [*(a1 + 32) setupAdvIntervalsInDelay:&v11 interval:&v10 withSlowdown:*(*(a1 + 32) + 300)];
+  v9 = *(a1 + 44);
+  v10 = v2;
+  [*(a1 + 32) setupAdvIntervalsInDelay:&v10 interval:&v9 withSlowdown:*(*(a1 + 32) + 300)];
   [*(a1 + 32) _adjustActionWindowsFromSlowdown:*(*(a1 + 32) + 300)];
   [*(*(a1 + 32) + 240) generateTiebreaker];
   v3 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v13 = "[AFMyriadCoordinator _advertiseTrigger]_block_invoke";
+    v12 = "[AFMyriadCoordinator _advertiseTrigger]_block_invoke";
     _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s BTLE advertising slowdown finished, advertising delayed trigger", buf, 0xCu);
   }
 
   v4 = *(a1 + 32);
   v5 = [v4[30] asAdvertisementData];
-  LODWORD(v7) = v10;
-  LODWORD(v6) = v11;
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __40__AFMyriadCoordinator__advertiseTrigger__block_invoke_504;
-  v9[3] = &unk_1E73497C8;
-  v9[4] = *(a1 + 32);
-  [v4 _advertiseWith:v5 afterDelay:v9 maxInterval:v6 thenExecute:v7];
-
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v7) = v9;
+  LODWORD(v6) = v10;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __40__AFMyriadCoordinator__advertiseTrigger__block_invoke_504;
+  v8[3] = &unk_1E73497C8;
+  v8[4] = *(a1 + 32);
+  [v4 _advertiseWith:v5 afterDelay:v8 maxInterval:v6 thenExecute:v7];
 }
 
 void __40__AFMyriadCoordinator__advertiseTrigger__block_invoke_508(uint64_t a1)
@@ -3435,7 +3359,7 @@ void __40__AFMyriadCoordinator__advertiseTrigger__block_invoke_504(uint64_t a1)
 
 - (void)setupAdvIntervalsInDelay:(float *)delay interval:(float *)interval withSlowdown:(int)slowdown
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v9 = slowdown / 1000.0;
   voiceTriggerTime = self->_voiceTriggerTime;
   if (_AFMachAbsoluteTimeRate_onceToken != -1)
@@ -3455,17 +3379,17 @@ void __40__AFMyriadCoordinator__advertiseTrigger__block_invoke_504(uint64_t a1)
   v15 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
-    v22 = 136316162;
-    v23 = "[AFMyriadCoordinator setupAdvIntervalsInDelay:interval:withSlowdown:]";
-    v24 = 2048;
-    v25 = v11;
-    v26 = 2048;
-    v27 = v11 + 1.45000005 + v12;
-    v28 = 2048;
-    v29 = v14;
-    v30 = 1024;
+    v21 = 136316162;
+    v22 = "[AFMyriadCoordinator setupAdvIntervalsInDelay:interval:withSlowdown:]";
+    v23 = 2048;
+    v24 = v11;
+    v25 = 2048;
+    v26 = v11 + 1.45000005 + v12;
+    v27 = 2048;
+    v28 = v14;
+    v29 = 1024;
     slowdownCopy = slowdown;
-    _os_log_impl(&dword_1912FE000, v15, OS_LOG_TYPE_INFO, "%s endTime: %f targetTime: %f, advInterval: %f, slowDown: %d (ms)", &v22, 0x30u);
+    _os_log_impl(&dword_1912FE000, v15, OS_LOG_TYPE_INFO, "%s endTime: %f targetTime: %f, advInterval: %f, slowDown: %d (ms)", &v21, 0x30u);
   }
 
   v16 = 1.0;
@@ -3505,17 +3429,17 @@ void __40__AFMyriadCoordinator__advertiseTrigger__block_invoke_504(uint64_t a1)
     v19 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
-      v22 = 136315906;
-      v23 = "[AFMyriadCoordinator setupAdvIntervalsInDelay:interval:withSlowdown:]";
-      v24 = 2048;
-      v25 = v16;
-      v26 = 2048;
-      v27 = v17;
-      v28 = 2048;
-      v29 = v12;
+      v21 = 136315906;
+      v22 = "[AFMyriadCoordinator setupAdvIntervalsInDelay:interval:withSlowdown:]";
+      v23 = 2048;
+      v24 = v16;
+      v25 = 2048;
+      v26 = v17;
+      v27 = 2048;
+      v28 = v12;
       v20 = "%s adjusted advInterval: %f (secs) device delay: %f (secs), slowDown: %f (secs)";
 LABEL_22:
-      _os_log_impl(&dword_1912FE000, v19, OS_LOG_TYPE_INFO, v20, &v22, 0x2Au);
+      _os_log_impl(&dword_1912FE000, v19, OS_LOG_TYPE_INFO, v20, &v21, 0x2Au);
     }
   }
 
@@ -3524,14 +3448,14 @@ LABEL_22:
     v19 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
-      v22 = 136315906;
-      v23 = "[AFMyriadCoordinator setupAdvIntervalsInDelay:interval:withSlowdown:]";
-      v24 = 2048;
-      v25 = v16;
-      v26 = 2048;
-      v27 = v17;
-      v28 = 2048;
-      v29 = v12;
+      v21 = 136315906;
+      v22 = "[AFMyriadCoordinator setupAdvIntervalsInDelay:interval:withSlowdown:]";
+      v23 = 2048;
+      v24 = v16;
+      v25 = 2048;
+      v26 = v17;
+      v27 = 2048;
+      v28 = v12;
       v20 = "%s adjusted advInterval: %f (secs) adjusted delay: %f (secs), slowDown: %f (secs)";
       goto LABEL_22;
     }
@@ -3539,7 +3463,6 @@ LABEL_22:
 
   *delay = v17;
   *interval = v16;
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_duringNextWindowEnterState:(unint64_t)state
@@ -3564,7 +3487,7 @@ void __51__AFMyriadCoordinator__duringNextWindowEnterState___block_invoke(uint64
 
 - (void)_duringNextWindowExecute:(id)execute
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   executeCopy = execute;
   if (self->_triggerTime)
   {
@@ -3593,11 +3516,11 @@ void __51__AFMyriadCoordinator__duringNextWindowEnterState___block_invoke(uint64
     v10 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
-      v13 = 136315394;
-      v14 = "[AFMyriadCoordinator _duringNextWindowExecute:]";
-      v15 = 2112;
-      v16 = v9;
-      _os_log_impl(&dword_1912FE000, v10, OS_LOG_TYPE_INFO, "%s BTLE next action window: %@", &v13, 0x16u);
+      v12 = 136315394;
+      v13 = "[AFMyriadCoordinator _duringNextWindowExecute:]";
+      v14 = 2112;
+      v15 = v9;
+      _os_log_impl(&dword_1912FE000, v10, OS_LOG_TYPE_INFO, "%s BTLE next action window: %@", &v12, 0x16u);
     }
 
     [(AFMyriadCoordinator *)self _createDispatchTimerForEvent:v7 toExecute:executeCopy];
@@ -3608,18 +3531,16 @@ void __51__AFMyriadCoordinator__duringNextWindowEnterState___block_invoke(uint64
     v11 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
     {
-      v13 = 136315138;
-      v14 = "[AFMyriadCoordinator _duringNextWindowExecute:]";
-      _os_log_error_impl(&dword_1912FE000, v11, OS_LOG_TYPE_ERROR, "%s BTLE Attempt to execute time windowed action when trigger time not initialized", &v13, 0xCu);
+      v12 = 136315138;
+      v13 = "[AFMyriadCoordinator _duringNextWindowExecute:]";
+      _os_log_error_impl(&dword_1912FE000, v11, OS_LOG_TYPE_ERROR, "%s BTLE Attempt to execute time windowed action when trigger time not initialized", &v12, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_adjustActionWindowsFromSlowdown:(int)slowdown
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (slowdown)
   {
     v5 = [(NSDate *)self->_triggerTime dateByAddingTimeInterval:slowdown / 1000.0];
@@ -3630,20 +3551,18 @@ void __51__AFMyriadCoordinator__duringNextWindowEnterState___block_invoke(uint64
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
     {
       dateFormat = self->_dateFormat;
-      v10 = self->_triggerTime;
-      v11 = v7;
-      v12 = [(NSDateFormatter *)dateFormat stringFromDate:v10];
-      v13 = 136315650;
-      v14 = "[AFMyriadCoordinator _adjustActionWindowsFromSlowdown:]";
-      v15 = 1024;
+      v9 = self->_triggerTime;
+      v10 = v7;
+      v11 = [(NSDateFormatter *)dateFormat stringFromDate:v9];
+      v12 = 136315650;
+      v13 = "[AFMyriadCoordinator _adjustActionWindowsFromSlowdown:]";
+      v14 = 1024;
       slowdownCopy = slowdown;
-      v17 = 2112;
-      v18 = v12;
-      _os_log_debug_impl(&dword_1912FE000, v11, OS_LOG_TYPE_DEBUG, "%s BTLE action window adjusted by slowdown signal %d msecs new time: %@", &v13, 0x1Cu);
+      v16 = 2112;
+      v17 = v11;
+      _os_log_debug_impl(&dword_1912FE000, v10, OS_LOG_TYPE_DEBUG, "%s BTLE action window adjusted by slowdown signal %d msecs new time: %@", &v12, 0x1Cu);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_resetActionWindows
@@ -3656,7 +3575,7 @@ void __51__AFMyriadCoordinator__duringNextWindowEnterState___block_invoke(uint64
 
 - (void)_setupActionWindows
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   date = [MEMORY[0x1E695DF00] date];
   triggerTime = self->_triggerTime;
   self->_triggerTime = date;
@@ -3666,22 +3585,20 @@ void __51__AFMyriadCoordinator__duringNextWindowEnterState___block_invoke(uint64
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
   {
     dateFormat = self->_dateFormat;
-    v8 = self->_triggerTime;
-    v9 = v5;
-    v10 = [(NSDateFormatter *)dateFormat stringFromDate:v8];
-    v11 = 136315394;
-    v12 = "[AFMyriadCoordinator _setupActionWindows]";
-    v13 = 2112;
-    v14 = v10;
-    _os_log_debug_impl(&dword_1912FE000, v9, OS_LOG_TYPE_DEBUG, "%s BTLE action window trigger time: %@", &v11, 0x16u);
+    v7 = self->_triggerTime;
+    v8 = v5;
+    v9 = [(NSDateFormatter *)dateFormat stringFromDate:v7];
+    v10 = 136315394;
+    v11 = "[AFMyriadCoordinator _setupActionWindows]";
+    v12 = 2112;
+    v13 = v9;
+    _os_log_debug_impl(&dword_1912FE000, v8, OS_LOG_TYPE_DEBUG, "%s BTLE action window trigger time: %@", &v10, 0x16u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_triggerTypeForArbitrationParticipationFrom:(int64_t)from
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v4 = self->_recordType - 1;
   if (v4 > 9)
   {
@@ -3696,25 +3613,24 @@ void __51__AFMyriadCoordinator__duringNextWindowEnterState___block_invoke(uint64
   v6 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
   {
-    v9 = MEMORY[0x1E696AD98];
-    v10 = v6;
-    v11 = [v9 numberWithInteger:from];
-    v12 = 136315650;
-    v13 = "[AFMyriadCoordinator _triggerTypeForArbitrationParticipationFrom:]";
-    v14 = 2112;
-    v15 = v11;
-    v16 = 2112;
-    v17 = v5;
-    _os_log_debug_impl(&dword_1912FE000, v10, OS_LOG_TYPE_DEBUG, "%s #myriad #feedback recordType: %@, type: %@", &v12, 0x20u);
+    v8 = MEMORY[0x1E696AD98];
+    v9 = v6;
+    v10 = [v8 numberWithInteger:from];
+    v11 = 136315650;
+    v12 = "[AFMyriadCoordinator _triggerTypeForArbitrationParticipationFrom:]";
+    v13 = 2112;
+    v14 = v10;
+    v15 = 2112;
+    v16 = v5;
+    _os_log_debug_impl(&dword_1912FE000, v9, OS_LOG_TYPE_DEBUG, "%s #myriad #feedback recordType: %@, type: %@", &v11, 0x20u);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (void)_updateArbitrationParticipationContextWithCompletion:(id)completion
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   if (+[AFFeatureFlags isCrossDeviceArbitrationFeedbackEnabled])
   {
@@ -3722,7 +3638,7 @@ void __51__AFMyriadCoordinator__duringNextWindowEnterState___block_invoke(uint64
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v24 = "[AFMyriadCoordinator _updateArbitrationParticipationContextWithCompletion:]";
+      v23 = "[AFMyriadCoordinator _updateArbitrationParticipationContextWithCompletion:]";
       _os_log_debug_impl(&dword_1912FE000, v5, OS_LOG_TYPE_DEBUG, "%s #myriad #feedback", buf, 0xCu);
     }
 
@@ -3770,16 +3686,16 @@ void __51__AFMyriadCoordinator__duringNextWindowEnterState___block_invoke(uint64
     {
       v13 = [(AFMyriadSession *)myriadSession copy];
       myriadInstrumentation = self->_myriadInstrumentation;
-      v18[0] = MEMORY[0x1E69E9820];
-      v18[1] = 3221225472;
-      v18[2] = __76__AFMyriadCoordinator__updateArbitrationParticipationContextWithCompletion___block_invoke;
-      v18[3] = &unk_1E7346E08;
-      v19 = v6;
+      v17[0] = MEMORY[0x1E69E9820];
+      v17[1] = 3221225472;
+      v17[2] = __76__AFMyriadCoordinator__updateArbitrationParticipationContextWithCompletion___block_invoke;
+      v17[3] = &unk_1E7346E08;
+      v18 = v6;
       selfCopy = self;
-      v21 = v13;
-      v22 = completionCopy;
+      v20 = v13;
+      v21 = completionCopy;
       v15 = v13;
-      [(AFMyriadInstrumentation *)myriadInstrumentation getPreviousBoostsWithCompletion:v18];
+      [(AFMyriadInstrumentation *)myriadInstrumentation getPreviousBoostsWithCompletion:v17];
     }
 
     else
@@ -3788,26 +3704,24 @@ void __51__AFMyriadCoordinator__duringNextWindowEnterState___block_invoke(uint64
       if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v24 = "[AFMyriadCoordinator _updateArbitrationParticipationContextWithCompletion:]";
+        v23 = "[AFMyriadCoordinator _updateArbitrationParticipationContextWithCompletion:]";
         _os_log_error_impl(&dword_1912FE000, v16, OS_LOG_TYPE_ERROR, "%s #myriad #feedback session is nil.", buf, 0xCu);
       }
 
       completionCopy[2](completionCopy);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __76__AFMyriadCoordinator__updateArbitrationParticipationContextWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v17 = "[AFMyriadCoordinator _updateArbitrationParticipationContextWithCompletion:]_block_invoke";
+    v16 = "[AFMyriadCoordinator _updateArbitrationParticipationContextWithCompletion:]_block_invoke";
     _os_log_debug_impl(&dword_1912FE000, v4, OS_LOG_TYPE_DEBUG, "%s #myriad #feedback getPreviousBoostsWithCompletion", buf, 0xCu);
   }
 
@@ -3821,13 +3735,13 @@ void __76__AFMyriadCoordinator__updateArbitrationParticipationContextWithComplet
   {
     v9 = *(a1 + 32);
     v10 = *(*(a1 + 40) + 632);
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __76__AFMyriadCoordinator__updateArbitrationParticipationContextWithCompletion___block_invoke_490;
-    v14[3] = &unk_1E73494D8;
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __76__AFMyriadCoordinator__updateArbitrationParticipationContextWithCompletion___block_invoke_490;
+    v13[3] = &unk_1E73494D8;
     v11 = *(a1 + 48);
-    v15 = *(a1 + 56);
-    [v10 arbitrationDidUpdateWithContext:v9 session:v11 completion:v14];
+    v14 = *(a1 + 56);
+    [v10 arbitrationDidUpdateWithContext:v9 session:v11 completion:v13];
   }
 
   else
@@ -3836,19 +3750,17 @@ void __76__AFMyriadCoordinator__updateArbitrationParticipationContextWithComplet
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v17 = "[AFMyriadCoordinator _updateArbitrationParticipationContextWithCompletion:]_block_invoke_2";
+      v16 = "[AFMyriadCoordinator _updateArbitrationParticipationContextWithCompletion:]_block_invoke_2";
       _os_log_error_impl(&dword_1912FE000, v12, OS_LOG_TYPE_ERROR, "%s #myriad #feedback arbitration event delgate failed.", buf, 0xCu);
     }
 
     (*(*(a1 + 56) + 16))();
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_pushMyriadAdvertisementContextToContextCollectorWithAdvertisementInterval:(double)interval advertisementDelay:(double)delay
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   clientIsDirectActivating = self->_clientIsDirectActivating;
   if (clientIsDirectActivating || self->_clientIsInEarActivation)
   {
@@ -3856,11 +3768,11 @@ void __76__AFMyriadCoordinator__updateArbitrationParticipationContextWithComplet
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
       *buf = 136315650;
-      v42 = "[AFMyriadCoordinator _pushMyriadAdvertisementContextToContextCollectorWithAdvertisementInterval:advertisementDelay:]";
-      v43 = 1024;
-      *v44 = 1;
-      *&v44[4] = 1024;
-      *&v44[6] = clientIsDirectActivating;
+      v41 = "[AFMyriadCoordinator _pushMyriadAdvertisementContextToContextCollectorWithAdvertisementInterval:advertisementDelay:]";
+      v42 = 1024;
+      *v43 = 1;
+      *&v43[4] = 1024;
+      *&v43[6] = clientIsDirectActivating;
       _os_log_impl(&dword_1912FE000, v6, OS_LOG_TYPE_INFO, "%s #myriad Not pushing myriad advertisement context - HAL context donation enabled: %d, direct activation: %d", buf, 0x18u);
     }
   }
@@ -3886,19 +3798,19 @@ void __76__AFMyriadCoordinator__updateArbitrationParticipationContextWithComplet
       {
         voiceTriggerTime = self->_voiceTriggerTime;
         *buf = 136316674;
-        v42 = "[AFMyriadCoordinator _pushMyriadAdvertisementContextToContextCollectorWithAdvertisementInterval:advertisementDelay:]";
-        v43 = 2048;
-        *v44 = v13;
-        *&v44[8] = 2048;
-        *&v44[10] = v14;
-        *&v44[18] = 2048;
-        *&v44[20] = v10;
-        v45 = 2048;
-        v46 = voiceTriggerTime;
-        v47 = 2048;
-        v48 = v9;
-        v49 = 2112;
-        v50 = currentElectionAdvertisementData;
+        v41 = "[AFMyriadCoordinator _pushMyriadAdvertisementContextToContextCollectorWithAdvertisementInterval:advertisementDelay:]";
+        v42 = 2048;
+        *v43 = v13;
+        *&v43[8] = 2048;
+        *&v43[10] = v14;
+        *&v43[18] = 2048;
+        *&v43[20] = v10;
+        v44 = 2048;
+        v45 = voiceTriggerTime;
+        v46 = 2048;
+        v47 = v9;
+        v48 = 2112;
+        v49 = currentElectionAdvertisementData;
         _os_log_impl(&dword_1912FE000, v16, OS_LOG_TYPE_INFO, "%s #myriad adv dispatch time: %f, voice trigger end time: %f, time since voice trigger: %f (curr time: %llu, time since device boot: %llu), advertisement: %@", buf, 0x48u);
       }
 
@@ -3929,32 +3841,32 @@ void __76__AFMyriadCoordinator__updateArbitrationParticipationContextWithComplet
         if (!+[AFFeatureFlags isMyriadSelfMetricsEnabled])
         {
           v25 = +[AFAnalytics sharedAnalytics];
-          v36[0] = MEMORY[0x1E69E9820];
-          v36[1] = 3221225472;
-          v36[2] = __117__AFMyriadCoordinator__pushMyriadAdvertisementContextToContextCollectorWithAdvertisementInterval_advertisementDelay___block_invoke;
-          v36[3] = &unk_1E7346D90;
-          v39 = v14;
-          v40 = v13;
-          v37 = currentElectionAdvertisementId;
-          v38 = v21;
-          [v25 logEventWithType:2013 contextProvider:v36];
+          v35[0] = MEMORY[0x1E69E9820];
+          v35[1] = 3221225472;
+          v35[2] = __117__AFMyriadCoordinator__pushMyriadAdvertisementContextToContextCollectorWithAdvertisementInterval_advertisementDelay___block_invoke;
+          v35[3] = &unk_1E7346D90;
+          v38 = v14;
+          v39 = v13;
+          v36 = currentElectionAdvertisementId;
+          v37 = v21;
+          [v25 logEventWithType:2013 contextProvider:v35];
         }
 
         v26 = [AFMyriadAdvertisementContext alloc];
         [(AFMyriadCoordinator *)self _contextFetchDelayForAdvertimentInterval:interval advertisementDelay:delay];
         v27 = [(AFMyriadAdvertisementContext *)v26 initWithGeneration:0 contextData:myriadAdvertisementContextAsData contextFetchDelay:?];
         advContextManager = self->_advContextManager;
-        v31[0] = MEMORY[0x1E69E9820];
-        v31[1] = 3221225472;
-        v31[2] = __117__AFMyriadCoordinator__pushMyriadAdvertisementContextToContextCollectorWithAdvertisementInterval_advertisementDelay___block_invoke_2;
-        v31[3] = &unk_1E7346DE0;
-        v31[4] = self;
-        v32 = currentElectionAdvertisementId;
-        v34 = v14;
-        v35 = v13;
-        v33 = currentElectionAdvertisementData;
+        v30[0] = MEMORY[0x1E69E9820];
+        v30[1] = 3221225472;
+        v30[2] = __117__AFMyriadCoordinator__pushMyriadAdvertisementContextToContextCollectorWithAdvertisementInterval_advertisementDelay___block_invoke_2;
+        v30[3] = &unk_1E7346DE0;
+        v30[4] = self;
+        v31 = currentElectionAdvertisementId;
+        v33 = v14;
+        v34 = v13;
+        v32 = currentElectionAdvertisementData;
         v29 = currentElectionAdvertisementId;
-        [(AFMyriadAdvertisementContextManager *)advContextManager pushMyriadAdvertisementContext:v27 completionHandler:v31];
+        [(AFMyriadAdvertisementContextManager *)advContextManager pushMyriadAdvertisementContext:v27 completionHandler:v30];
       }
 
       else
@@ -3964,20 +3876,18 @@ void __76__AFMyriadCoordinator__updateArbitrationParticipationContextWithComplet
         {
           v23 = self->_voiceTriggerTime;
           *buf = 136315906;
-          v42 = "[AFMyriadCoordinator _pushMyriadAdvertisementContextToContextCollectorWithAdvertisementInterval:advertisementDelay:]";
-          v43 = 1024;
-          *v44 = 1;
-          *&v44[4] = 2048;
-          *&v44[6] = v23;
-          *&v44[14] = 2048;
-          *&v44[16] = v9;
+          v41 = "[AFMyriadCoordinator _pushMyriadAdvertisementContextToContextCollectorWithAdvertisementInterval:advertisementDelay:]";
+          v42 = 1024;
+          *v43 = 1;
+          *&v43[4] = 2048;
+          *&v43[6] = v23;
+          *&v43[14] = 2048;
+          *&v43[16] = v9;
           _os_log_impl(&dword_1912FE000, v22, OS_LOG_TYPE_INFO, "%s #myriad Not pushing myriad advertisement context - Valid voicetrigger endtime: %d (curr time: %llu, time since device boot: %llu)", buf, 0x26u);
         }
       }
     }
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 id __117__AFMyriadCoordinator__pushMyriadAdvertisementContextToContextCollectorWithAdvertisementInterval_advertisementDelay___block_invoke(uint64_t a1)
@@ -4031,12 +3941,12 @@ void __117__AFMyriadCoordinator__pushMyriadAdvertisementContextToContextCollecto
 
 void __117__AFMyriadCoordinator__pushMyriadAdvertisementContextToContextCollectorWithAdvertisementInterval_advertisementDelay___block_invoke_3(uint64_t a1)
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v38 = "[AFMyriadCoordinator _pushMyriadAdvertisementContextToContextCollectorWithAdvertisementInterval:advertisementDelay:]_block_invoke_3";
+    v37 = "[AFMyriadCoordinator _pushMyriadAdvertisementContextToContextCollectorWithAdvertisementInterval:advertisementDelay:]_block_invoke_3";
     _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s #myriad Pushing Myriad advertisement context is complete", buf, 0xCu);
   }
 
@@ -4052,38 +3962,38 @@ void __117__AFMyriadCoordinator__pushMyriadAdvertisementContextToContextCollecto
       {
         if ([*(a1 + 40) _shouldUseContextCollector])
         {
-          v27 = v5;
+          v26 = v5;
           v8 = [*(a1 + 56) count];
           if (!+[AFFeatureFlags isMyriadSelfMetricsEnabled])
           {
             v9 = +[AFAnalytics sharedAnalytics];
-            v33 = @"count";
+            v32 = @"count";
             v10 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v8];
-            v34 = v10;
-            v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
+            v33 = v10;
+            v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
             [v9 logEventWithType:2015 context:v11];
           }
 
           v12 = [*(a1 + 40) _testAndFilterAdvertisementsFromContextCollector:*(a1 + 56) voiceTriggerEndTime:*(a1 + 64) advertisementDispatchTime:*(a1 + 72) advertisement:*(a1 + 80)];
+          v27 = 0u;
           v28 = 0u;
           v29 = 0u;
           v30 = 0u;
-          v31 = 0u;
-          v13 = [v12 countByEnumeratingWithState:&v28 objects:v32 count:16];
+          v13 = [v12 countByEnumeratingWithState:&v27 objects:v31 count:16];
           if (v13)
           {
             v14 = v13;
-            v15 = *v29;
+            v15 = *v28;
             do
             {
               for (i = 0; i != v14; ++i)
               {
-                if (*v29 != v15)
+                if (*v28 != v15)
                 {
                   objc_enumerationMutation(v12);
                 }
 
-                v17 = *(*(&v28 + 1) + 8 * i);
+                v17 = *(*(&v27 + 1) + 8 * i);
                 if ([*(a1 + 40) _testAndUpdateWedgeFilter:v17])
                 {
                   v18 = *(a1 + 40);
@@ -4094,14 +4004,14 @@ void __117__AFMyriadCoordinator__pushMyriadAdvertisementContextToContextCollecto
                 }
               }
 
-              v14 = [v12 countByEnumeratingWithState:&v28 objects:v32 count:16];
+              v14 = [v12 countByEnumeratingWithState:&v27 objects:v31 count:16];
             }
 
             while (v14);
           }
 
           [*(a1 + 40) _suppressDeviceIfNeededWithVoiceTriggerEndTime:*(a1 + 72) adverisementDispatchTime:*(a1 + 80)];
-          v5 = v27;
+          v5 = v26;
         }
 
         else
@@ -4125,16 +4035,16 @@ void __117__AFMyriadCoordinator__pushMyriadAdvertisementContextToContextCollecto
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
       *buf = 136315650;
-      v38 = "[AFMyriadCoordinator _pushMyriadAdvertisementContextToContextCollectorWithAdvertisementInterval:advertisementDelay:]_block_invoke";
-      v39 = 2112;
-      v40 = v7;
-      v41 = 2112;
-      v42 = v5;
+      v37 = "[AFMyriadCoordinator _pushMyriadAdvertisementContextToContextCollectorWithAdvertisementInterval:advertisementDelay:]_block_invoke";
+      v38 = 2112;
+      v39 = v7;
+      v40 = 2112;
+      v41 = v5;
       _os_log_impl(&dword_1912FE000, v22, OS_LOG_TYPE_INFO, "%s #myriad current advId: %@ is different from the advId for which the myriad context was dispatched: %@", buf, 0x20u);
       v7 = *(a1 + 48);
     }
 
-    v35[0] = @"contextAdvertisementId";
+    v34[0] = @"contextAdvertisementId";
     if (v7)
     {
       v23 = [v7 UUIDString];
@@ -4145,8 +4055,8 @@ void __117__AFMyriadCoordinator__pushMyriadAdvertisementContextToContextCollecto
       v23 = &stru_1F0512680;
     }
 
-    v35[1] = @"currentAdvertisementId";
-    v36[0] = v23;
+    v34[1] = @"currentAdvertisementId";
+    v35[0] = v23;
     if (v5)
     {
       v24 = [v5 UUIDString];
@@ -4157,8 +4067,8 @@ void __117__AFMyriadCoordinator__pushMyriadAdvertisementContextToContextCollecto
       v24 = &stru_1F0512680;
     }
 
-    v36[1] = v24;
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:v35 count:2];
+    v35[1] = v24;
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:v34 count:2];
     if (v5)
     {
     }
@@ -4182,9 +4092,9 @@ LABEL_39:
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v38 = "[AFMyriadCoordinator _pushMyriadAdvertisementContextToContextCollectorWithAdvertisementInterval:advertisementDelay:]_block_invoke";
-    v39 = 2112;
-    v40 = v3;
+    v37 = "[AFMyriadCoordinator _pushMyriadAdvertisementContextToContextCollectorWithAdvertisementInterval:advertisementDelay:]_block_invoke";
+    v38 = 2112;
+    v39 = v3;
     _os_log_error_impl(&dword_1912FE000, v4, OS_LOG_TYPE_ERROR, "%s #myriad Error: %@", buf, 0x16u);
   }
 
@@ -4194,13 +4104,11 @@ LABEL_39:
     [v5 logEventWithType:2014 context:0];
 LABEL_40:
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_suppressDeviceIfNeededWithVoiceTriggerEndTime:(double)time adverisementDispatchTime:(double)dispatchTime
 {
-  v26[3] = *MEMORY[0x1E69E9840];
+  v25[3] = *MEMORY[0x1E69E9840];
   v7 = dispatchTime - time;
   if (v7 >= 0.0)
   {
@@ -4217,30 +4125,30 @@ LABEL_40:
   if (v8 > 1.45000005 && v9 != 0)
   {
     replies = self->_replies;
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __95__AFMyriadCoordinator__suppressDeviceIfNeededWithVoiceTriggerEndTime_adverisementDispatchTime___block_invoke;
-    v24[3] = &unk_1E7346D68;
-    *&v24[5] = time;
-    *&v24[6] = dispatchTime;
-    *&v24[7] = v8;
-    v24[8] = v10;
-    v24[4] = self;
-    [(NSMutableDictionary *)replies enumerateKeysAndObjectsUsingBlock:v24];
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __95__AFMyriadCoordinator__suppressDeviceIfNeededWithVoiceTriggerEndTime_adverisementDispatchTime___block_invoke;
+    v23[3] = &unk_1E7346D68;
+    *&v23[5] = time;
+    *&v23[6] = dispatchTime;
+    *&v23[7] = v8;
+    v23[8] = v10;
+    v23[4] = self;
+    [(NSMutableDictionary *)replies enumerateKeysAndObjectsUsingBlock:v23];
   }
 
   if (self->_suppressLateTrigger)
   {
-    v25[0] = @"voiceTriggerEndTime";
+    v24[0] = @"voiceTriggerEndTime";
     v13 = [MEMORY[0x1E696AD98] numberWithDouble:time];
-    v26[0] = v13;
-    v25[1] = @"advertisementDispatchTime";
+    v25[0] = v13;
+    v24[1] = @"advertisementDispatchTime";
     v14 = [MEMORY[0x1E696AD98] numberWithDouble:dispatchTime];
-    v26[1] = v14;
-    v25[2] = @"count";
+    v25[1] = v14;
+    v24[2] = @"count";
     v15 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v10];
-    v26[2] = v15;
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:3];
+    v25[2] = v15;
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:3];
 
     if (!+[AFFeatureFlags isMyriadSelfMetricsEnabled])
     {
@@ -4258,13 +4166,11 @@ LABEL_40:
       [(AFMyriadInstrumentation *)myriadInstrumentation logCDAElectionAdvertisingStarting:v19 withDelay:sessionId withInterval:v21 withCdaId:0.0 withTimestamp:v22];
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __95__AFMyriadCoordinator__suppressDeviceIfNeededWithVoiceTriggerEndTime_adverisementDispatchTime___block_invoke(void *a1, uint64_t a2, void *a3, _BYTE *a4)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (([a3 isMe] & 1) == 0)
   {
     v6 = AFSiriLogContextConnection;
@@ -4274,60 +4180,58 @@ void __95__AFMyriadCoordinator__suppressDeviceIfNeededWithVoiceTriggerEndTime_ad
       v8 = a1[6];
       v9 = a1[7];
       v10 = a1[8];
-      v12 = 136316162;
-      v13 = "[AFMyriadCoordinator _suppressDeviceIfNeededWithVoiceTriggerEndTime:adverisementDispatchTime:]_block_invoke";
-      v14 = 2048;
-      v15 = v7;
-      v16 = 2048;
-      v17 = v8;
-      v18 = 2048;
-      v19 = v9;
-      v20 = 2048;
-      v21 = v10;
-      _os_log_impl(&dword_1912FE000, v6, OS_LOG_TYPE_INFO, "%s #myriad Suppressing the current device due to late trigger (voicetrigger endtime: %f, advertisement dispatch time: %f, advertisement delay: %f, myriad record count: %ld)", &v12, 0x34u);
+      v11 = 136316162;
+      v12 = "[AFMyriadCoordinator _suppressDeviceIfNeededWithVoiceTriggerEndTime:adverisementDispatchTime:]_block_invoke";
+      v13 = 2048;
+      v14 = v7;
+      v15 = 2048;
+      v16 = v8;
+      v17 = 2048;
+      v18 = v9;
+      v19 = 2048;
+      v20 = v10;
+      _os_log_impl(&dword_1912FE000, v6, OS_LOG_TYPE_INFO, "%s #myriad Suppressing the current device due to late trigger (voicetrigger endtime: %f, advertisement dispatch time: %f, advertisement delay: %f, myriad record count: %ld)", &v11, 0x34u);
     }
 
     *(a1[4] + 417) = 1;
     *a4 = 1;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_testAndFilterAdvertisementsFromContextCollector:(id)collector voiceTriggerEndTime:(double)time advertisementDispatchTime:(double)dispatchTime advertisement:(id)advertisement
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   collectorCopy = collector;
   advertisementCopy = advertisement;
   if (collectorCopy && [collectorCopy count])
   {
     v11 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v30[0] = MEMORY[0x1E69E9820];
-    v30[1] = 3221225472;
-    v30[2] = __132__AFMyriadCoordinator__testAndFilterAdvertisementsFromContextCollector_voiceTriggerEndTime_advertisementDispatchTime_advertisement___block_invoke;
-    v30[3] = &unk_1E7346D40;
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = __132__AFMyriadCoordinator__testAndFilterAdvertisementsFromContextCollector_voiceTriggerEndTime_advertisementDispatchTime_advertisement___block_invoke;
+    v29[3] = &unk_1E7346D40;
     timeCopy = time;
-    v30[4] = self;
-    v31 = advertisementCopy;
+    v29[4] = self;
+    v30 = advertisementCopy;
     v12 = v11;
-    v32 = v12;
-    v25 = collectorCopy;
-    [collectorCopy enumerateKeysAndObjectsUsingBlock:v30];
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
+    v31 = v12;
+    v24 = collectorCopy;
+    [collectorCopy enumerateKeysAndObjectsUsingBlock:v29];
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     v13 = v12;
-    v14 = [v13 countByEnumeratingWithState:&v26 objects:v38 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v25 objects:v37 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v27;
+      v16 = *v26;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v27 != v16)
+          if (*v26 != v16)
           {
             objc_enumerationMutation(v13);
           }
@@ -4335,25 +4239,25 @@ void __95__AFMyriadCoordinator__suppressDeviceIfNeededWithVoiceTriggerEndTime_ad
           v18 = AFSiriLogContextConnection;
           if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
           {
-            v19 = *(*(&v26 + 1) + 8 * i);
+            v19 = *(*(&v25 + 1) + 8 * i);
             *buf = 136315394;
-            v35 = "[AFMyriadCoordinator _testAndFilterAdvertisementsFromContextCollector:voiceTriggerEndTime:advertisementDispatchTime:advertisement:]";
-            v36 = 2112;
-            v37 = v19;
+            v34 = "[AFMyriadCoordinator _testAndFilterAdvertisementsFromContextCollector:voiceTriggerEndTime:advertisementDispatchTime:advertisement:]";
+            v35 = 2112;
+            v36 = v19;
             _os_log_impl(&dword_1912FE000, v18, OS_LOG_TYPE_INFO, "%s #myriad %@", buf, 0x16u);
           }
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v26 objects:v38 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v25 objects:v37 count:16];
       }
 
       while (v15);
     }
 
-    v20 = v32;
+    v20 = v31;
     v21 = v13;
 
-    collectorCopy = v25;
+    collectorCopy = v24;
   }
 
   else
@@ -4362,21 +4266,19 @@ void __95__AFMyriadCoordinator__suppressDeviceIfNeededWithVoiceTriggerEndTime_ad
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v35 = "[AFMyriadCoordinator _testAndFilterAdvertisementsFromContextCollector:voiceTriggerEndTime:advertisementDispatchTime:advertisement:]";
+      v34 = "[AFMyriadCoordinator _testAndFilterAdvertisementsFromContextCollector:voiceTriggerEndTime:advertisementDispatchTime:advertisement:]";
       _os_log_impl(&dword_1912FE000, v22, OS_LOG_TYPE_INFO, "%s #myriad Context collector returned 0 AFMyriadAdvertisementContextRecords instances", buf, 0xCu);
     }
 
     v21 = 0;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
-
   return v21;
 }
 
 void __132__AFMyriadCoordinator__testAndFilterAdvertisementsFromContextCollector_voiceTriggerEndTime_advertisementDispatchTime_advertisement___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if ([v6 isSaneForVoiceTriggerEndTime:*(a1 + 56) endtimeDistanceThreshold:*(*(a1 + 32) + 144)])
@@ -4412,34 +4314,32 @@ void __132__AFMyriadCoordinator__testAndFilterAdvertisementsFromContextCollector
           v12 = [v8 deviceGroup];
           v13 = [v8 deviceID];
           v14 = [v6 advertisementPayload];
-          v17 = 136315906;
-          v18 = "[AFMyriadCoordinator _testAndFilterAdvertisementsFromContextCollector:voiceTriggerEndTime:advertisementDispatchTime:advertisement:]_block_invoke";
-          v19 = 1024;
-          v20 = v12;
-          v21 = 2112;
-          v22 = v13;
-          v23 = 2112;
-          v24 = v14;
-          _os_log_impl(&dword_1912FE000, v11, OS_LOG_TYPE_INFO, "%s #myriad ignoring advert from other deviceGroup %d: %@ data=%@", &v17, 0x26u);
+          v16 = 136315906;
+          v17 = "[AFMyriadCoordinator _testAndFilterAdvertisementsFromContextCollector:voiceTriggerEndTime:advertisementDispatchTime:advertisement:]_block_invoke";
+          v18 = 1024;
+          v19 = v12;
+          v20 = 2112;
+          v21 = v13;
+          v22 = 2112;
+          v23 = v14;
+          _os_log_impl(&dword_1912FE000, v11, OS_LOG_TYPE_INFO, "%s #myriad ignoring advert from other deviceGroup %d: %@ data=%@", &v16, 0x26u);
         }
       }
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleStateMachineErrorIfNeeded
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (self->_stateMachineEncounteredError)
   {
     v3 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
-      v11 = 136315138;
-      v12 = "[AFMyriadCoordinator _handleStateMachineErrorIfNeeded]";
-      _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s BTLE notify Myriad win due to state machine error", &v11, 0xCu);
+      v10 = 136315138;
+      v11 = "[AFMyriadCoordinator _handleStateMachineErrorIfNeeded]";
+      _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s BTLE notify Myriad win due to state machine error", &v10, 0xCu);
     }
 
     v4 = mach_absolute_time();
@@ -4478,8 +4378,6 @@ void __132__AFMyriadCoordinator__testAndFilterAdvertisementsFromContextCollector
     [(AFNotifyStatePublisher *)self->_electionWinPublisher publishState:[(AFMyriadCoordinator *)self _nextElectionPublisherState]];
     self->_stateMachineEncounteredError = 0;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_unduck
@@ -4541,13 +4439,13 @@ void __132__AFMyriadCoordinator__testAndFilterAdvertisementsFromContextCollector
 
 void __51__AFMyriadCoordinator__stopAdvertisingAndListening__block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
-    v5 = 136315138;
-    v6 = "[AFMyriadCoordinator _stopAdvertisingAndListening]_block_invoke";
-    _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s BTLE stopping advertising and scanning of HeySiri advertisements", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[AFMyriadCoordinator _stopAdvertisingAndListening]_block_invoke";
+    _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s BTLE stopping advertising and scanning of HeySiri advertisements", &v4, 0xCu);
   }
 
   v3 = *(a1 + 32);
@@ -4557,8 +4455,6 @@ void __51__AFMyriadCoordinator__stopAdvertisingAndListening__block_invoke(uint64
     *(*(a1 + 32) + 440) = 0;
     *(*(a1 + 32) + 441) = 0;
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopListening:(id)listening
@@ -4588,24 +4484,24 @@ void __51__AFMyriadCoordinator__stopAdvertisingAndListening__block_invoke(uint64
 
 - (void)_stopListening:(id)listening
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   listeningCopy = listening;
   v5 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v20 = "[AFMyriadCoordinator _stopListening:]";
+    v19 = "[AFMyriadCoordinator _stopListening:]";
     _os_log_debug_impl(&dword_1912FE000, v5, OS_LOG_TYPE_DEBUG, "%s ", buf, 0xCu);
   }
 
-  v13 = MEMORY[0x1E69E9820];
-  v14 = 3221225472;
-  v15 = __38__AFMyriadCoordinator__stopListening___block_invoke;
-  v16 = &unk_1E7349838;
+  v12 = MEMORY[0x1E69E9820];
+  v13 = 3221225472;
+  v14 = __38__AFMyriadCoordinator__stopListening___block_invoke;
+  v15 = &unk_1E7349838;
   selfCopy = self;
   v6 = listeningCopy;
-  v18 = v6;
-  [(AFMyriadCoordinator *)self _waitWiProxAndExecute:&v13];
+  v17 = v6;
+  [(AFMyriadCoordinator *)self _waitWiProxAndExecute:&v12];
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   if (WeakRetained)
   {
@@ -4616,22 +4512,20 @@ void __51__AFMyriadCoordinator__stopAdvertisingAndListening__block_invoke(uint64
     if (v10)
     {
       v11 = objc_loadWeakRetained(&self->_delegate);
-      [v11 listeningDidEnd:{self, v13, v14, v15, v16, selfCopy}];
+      [v11 listeningDidEnd:{self, v12, v13, v14, v15, selfCopy}];
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __38__AFMyriadCoordinator__stopListening___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
-    v6 = 136315138;
-    v7 = "[AFMyriadCoordinator _stopListening:]_block_invoke";
-    _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s BTLE stopping to scan HeySiri advertisements", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[AFMyriadCoordinator _stopListening:]_block_invoke";
+    _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s BTLE stopping to scan HeySiri advertisements", &v5, 0xCu);
   }
 
   v3 = *(a1 + 32);
@@ -4644,33 +4538,32 @@ uint64_t __38__AFMyriadCoordinator__stopListening___block_invoke(uint64_t a1)
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))();
+    return (*(result + 16))();
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)_stopAdvertising:(id)advertising
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   advertisingCopy = advertising;
   v5 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v20 = "[AFMyriadCoordinator _stopAdvertising:]";
+    v19 = "[AFMyriadCoordinator _stopAdvertising:]";
     _os_log_debug_impl(&dword_1912FE000, v5, OS_LOG_TYPE_DEBUG, "%s ", buf, 0xCu);
   }
 
-  v13 = MEMORY[0x1E69E9820];
-  v14 = 3221225472;
-  v15 = __40__AFMyriadCoordinator__stopAdvertising___block_invoke;
-  v16 = &unk_1E7349838;
+  v12 = MEMORY[0x1E69E9820];
+  v13 = 3221225472;
+  v14 = __40__AFMyriadCoordinator__stopAdvertising___block_invoke;
+  v15 = &unk_1E7349838;
   selfCopy = self;
   v6 = advertisingCopy;
-  v18 = v6;
-  [(AFMyriadCoordinator *)self _waitWiProxAndExecute:&v13];
+  v17 = v6;
+  [(AFMyriadCoordinator *)self _waitWiProxAndExecute:&v12];
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   if (WeakRetained)
   {
@@ -4681,22 +4574,20 @@ uint64_t __38__AFMyriadCoordinator__stopListening___block_invoke(uint64_t a1)
     if (v10)
     {
       v11 = objc_loadWeakRetained(&self->_delegate);
-      [v11 advertisingDidEnd:{self, v13, v14, v15, v16, selfCopy}];
+      [v11 advertisingDidEnd:{self, v12, v13, v14, v15, selfCopy}];
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __40__AFMyriadCoordinator__stopAdvertising___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
-    v6 = 136315138;
-    v7 = "[AFMyriadCoordinator _stopAdvertising:]_block_invoke";
-    _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s BTLE stopping advertising HeySiri advertisements", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[AFMyriadCoordinator _stopAdvertising:]_block_invoke";
+    _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s BTLE stopping advertising HeySiri advertisements", &v5, 0xCu);
   }
 
   v3 = *(a1 + 32);
@@ -4709,10 +4600,9 @@ uint64_t __40__AFMyriadCoordinator__stopAdvertising___block_invoke(uint64_t a1)
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))();
+    return (*(result + 16))();
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -4744,7 +4634,7 @@ uint64_t __40__AFMyriadCoordinator__stopAdvertising___block_invoke(uint64_t a1)
 - (void)_startListeningAfterWiProxIsReady:(BOOL)ready inState:(unint64_t)state completion:(id)completion
 {
   readyCopy = ready;
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   if (readyCopy && !self->_BTLEReady)
   {
@@ -4752,25 +4642,25 @@ uint64_t __40__AFMyriadCoordinator__stopAdvertising___block_invoke(uint64_t a1)
     if (os_log_type_enabled(AFSiriLogContextMyriad, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v17 = "[AFMyriadCoordinator _startListeningAfterWiProxIsReady:inState:completion:]";
-      v18 = 2048;
+      v16 = "[AFMyriadCoordinator _startListeningAfterWiProxIsReady:inState:completion:]";
+      v17 = 2048;
       stateCopy = state;
       _os_log_impl(&dword_1912FE000, v9, OS_LOG_TYPE_INFO, "%s Waiting for wiprox to be ready in state: %lu", buf, 0x16u);
     }
 
     objc_initWeak(buf, self);
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __76__AFMyriadCoordinator__startListeningAfterWiProxIsReady_inState_completion___block_invoke;
-    v13[3] = &unk_1E7346D18;
-    objc_copyWeak(v15, buf);
-    v15[1] = state;
-    v14 = completionCopy;
-    v10 = MEMORY[0x193AFB7B0](v13);
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __76__AFMyriadCoordinator__startListeningAfterWiProxIsReady_inState_completion___block_invoke;
+    v12[3] = &unk_1E7346D18;
+    objc_copyWeak(v14, buf);
+    v14[1] = state;
+    v13 = completionCopy;
+    v10 = MEMORY[0x193AFB7B0](v12);
     waitForWiproxReadinessToScan = self->_waitForWiproxReadinessToScan;
     self->_waitForWiproxReadinessToScan = v10;
 
-    objc_destroyWeak(v15);
+    objc_destroyWeak(v14);
     objc_destroyWeak(buf);
   }
 
@@ -4778,13 +4668,11 @@ uint64_t __40__AFMyriadCoordinator__stopAdvertising___block_invoke(uint64_t a1)
   {
     [(AFMyriadCoordinator *)self _startListening:completionCopy];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __76__AFMyriadCoordinator__startListeningAfterWiProxIsReady_inState_completion___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -4795,41 +4683,39 @@ void __76__AFMyriadCoordinator__startListeningAfterWiProxIsReady_inState_complet
       v5 = AFSiriLogContextMyriad;
       if (os_log_type_enabled(AFSiriLogContextMyriad, OS_LOG_TYPE_INFO))
       {
-        v7 = 136315394;
-        v8 = "[AFMyriadCoordinator _startListeningAfterWiProxIsReady:inState:completion:]_block_invoke";
-        v9 = 2048;
-        v10 = v4;
-        _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s starting to scan in state: %lu", &v7, 0x16u);
+        v6 = 136315394;
+        v7 = "[AFMyriadCoordinator _startListeningAfterWiProxIsReady:inState:completion:]_block_invoke";
+        v8 = 2048;
+        v9 = v4;
+        _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s starting to scan in state: %lu", &v6, 0x16u);
       }
 
       [v3 _startListening:*(a1 + 32)];
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_startListening:(id)listening
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   listeningCopy = listening;
   v5 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v20 = "[AFMyriadCoordinator _startListening:]";
+    v19 = "[AFMyriadCoordinator _startListening:]";
     _os_log_debug_impl(&dword_1912FE000, v5, OS_LOG_TYPE_DEBUG, "%s ", buf, 0xCu);
   }
 
   [(AFMyriadCoordinator *)self _enterBLEDiagnosticMode];
-  v13 = MEMORY[0x1E69E9820];
-  v14 = 3221225472;
-  v15 = __39__AFMyriadCoordinator__startListening___block_invoke;
-  v16 = &unk_1E7349838;
+  v12 = MEMORY[0x1E69E9820];
+  v13 = 3221225472;
+  v14 = __39__AFMyriadCoordinator__startListening___block_invoke;
+  v15 = &unk_1E7349838;
   selfCopy = self;
   v6 = listeningCopy;
-  v18 = v6;
-  [(AFMyriadCoordinator *)self _waitWiProxAndExecute:&v13];
+  v17 = v6;
+  [(AFMyriadCoordinator *)self _waitWiProxAndExecute:&v12];
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   if (WeakRetained)
   {
@@ -4840,11 +4726,9 @@ void __76__AFMyriadCoordinator__startListeningAfterWiProxIsReady_inState_complet
     if (v10)
     {
       v11 = objc_loadWeakRetained(&self->_delegate);
-      [v11 listeningDidBegin:{self, v13, v14, v15, v16, selfCopy}];
+      [v11 listeningDidBegin:{self, v12, v13, v14, v15, selfCopy}];
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __39__AFMyriadCoordinator__startListening___block_invoke(uint64_t a1)
@@ -4915,7 +4799,7 @@ uint64_t __39__AFMyriadCoordinator__startListening___block_invoke(uint64_t a1)
 
 - (void)_enterState:(unint64_t)state
 {
-  v91[1] = *MEMORY[0x1E69E9840];
+  v90[1] = *MEMORY[0x1E69E9840];
   v5 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
@@ -4923,11 +4807,11 @@ uint64_t __39__AFMyriadCoordinator__startListening___block_invoke(uint64_t a1)
     _stateAsString = [(AFMyriadCoordinator *)self _stateAsString];
     v8 = [(AFMyriadCoordinator *)self _stateAsString:state];
     *buf = 136315650;
-    v78 = "[AFMyriadCoordinator _enterState:]";
-    v79 = 2112;
-    *v80 = _stateAsString;
-    *&v80[8] = 2112;
-    v81 = *&v8;
+    v77 = "[AFMyriadCoordinator _enterState:]";
+    v78 = 2112;
+    *v79 = _stateAsString;
+    *&v79[8] = 2112;
+    v80 = *&v8;
     _os_log_impl(&dword_1912FE000, v6, OS_LOG_TYPE_INFO, "%s BTLE Coordinator altered state: %@ -> %@", buf, 0x20u);
   }
 
@@ -4968,10 +4852,10 @@ uint64_t __39__AFMyriadCoordinator__startListening___block_invoke(uint64_t a1)
         if (!+[AFFeatureFlags isMyriadSelfMetricsEnabled])
         {
           v14 = +[AFAnalytics sharedAnalytics];
-          v90 = @"count";
+          v89 = @"count";
           v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%lu", -[NSMutableDictionary count](self->_multipleContinuations, "count")];
-          v91[0] = v15;
-          v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v91 forKeys:&v90 count:1];
+          v90[0] = v15;
+          v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v90 forKeys:&v89 count:1];
           [v14 logEventWithType:2009 context:v16];
         }
 
@@ -5013,17 +4897,17 @@ uint64_t __39__AFMyriadCoordinator__startListening___block_invoke(uint64_t a1)
       if (!+[AFFeatureFlags isMyriadSelfMetricsEnabled])
       {
         v26 = +[AFAnalytics sharedAnalytics];
-        v88 = @"state";
+        v87 = @"state";
         v27 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%lu", self->_myriadState];
-        v89 = v27;
-        v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v89 forKeys:&v88 count:1];
+        v88 = v27;
+        v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v88 forKeys:&v87 count:1];
         [v26 logEventWithType:2012 context:v28];
       }
 
       waitForWiproxReadinessToScan = self->_waitForWiproxReadinessToScan;
       self->_waitForWiproxReadinessToScan = 0;
 
-      break;
+      return;
     case 1uLL:
       v50 = AFSiriLogContextConnection;
       if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
@@ -5031,11 +4915,11 @@ uint64_t __39__AFMyriadCoordinator__startListening___block_invoke(uint64_t a1)
         coordinationEnabled = self->_coordinationEnabled;
         BLEActivityEnabled = self->_BLEActivityEnabled;
         *buf = 136315650;
-        v78 = "[AFMyriadCoordinator _enterState:]";
-        v79 = 1024;
-        *v80 = coordinationEnabled;
-        *&v80[4] = 1024;
-        *&v80[6] = BLEActivityEnabled;
+        v77 = "[AFMyriadCoordinator _enterState:]";
+        v78 = 1024;
+        *v79 = coordinationEnabled;
+        *&v79[4] = 1024;
+        *&v79[6] = BLEActivityEnabled;
         _os_log_impl(&dword_1912FE000, v50, OS_LOG_TYPE_INFO, "%s #myriad coordinationEnabled=%d, BLEActivityEnabled=%d ", buf, 0x18u);
       }
 
@@ -5045,7 +4929,7 @@ uint64_t __39__AFMyriadCoordinator__startListening___block_invoke(uint64_t a1)
         if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
         {
           *buf = 136315138;
-          v78 = "[AFMyriadCoordinator _enterState:]";
+          v77 = "[AFMyriadCoordinator _enterState:]";
           _os_log_impl(&dword_1912FE000, v53, OS_LOG_TYPE_INFO, "%s #myriad Force stopping BTLE scan", buf, 0xCu);
         }
 
@@ -5067,17 +4951,17 @@ uint64_t __39__AFMyriadCoordinator__startListening___block_invoke(uint64_t a1)
         v59 = v56;
         activationExpirationTime = [(AFMyriadContext *)v58 activationExpirationTime];
         *buf = 136316418;
-        v78 = "[AFMyriadCoordinator _enterState:]";
-        v79 = 2048;
-        *v80 = 13;
-        *&v80[8] = 2048;
-        v81 = TimeInterval;
-        v82 = 2048;
-        v83 = latestRecordReceivedTime;
-        v84 = 2048;
-        v85 = v54;
-        v86 = 2048;
-        v87 = activationExpirationTime;
+        v77 = "[AFMyriadCoordinator _enterState:]";
+        v78 = 2048;
+        *v79 = 13;
+        *&v79[8] = 2048;
+        v80 = TimeInterval;
+        v81 = 2048;
+        v82 = latestRecordReceivedTime;
+        v83 = 2048;
+        v84 = v54;
+        v85 = 2048;
+        v86 = activationExpirationTime;
         _os_log_impl(&dword_1912FE000, v59, OS_LOG_TYPE_INFO, "%s Activation source: %ld, Time since activation: %f, last election record received time: %llu, current time: %llu, activation expiration time: %llu", buf, 0x3Eu);
       }
 
@@ -5114,7 +4998,7 @@ LABEL_60:
         [(AFMyriadCoordinator *)self _advertiseTrigger];
       }
 
-      break;
+      return;
     case 2uLL:
       self->_slowdownMsecs = 0;
       v40 = @"listen late";
@@ -5166,16 +5050,16 @@ LABEL_34:
         [(AFMyriadCoordinator *)self _enterState:0];
       }
 
-      break;
+      return;
     case 5uLL:
       v66 = AFSiriLogContextConnection;
       if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
       {
         v67 = self->_nTimesContinued;
         *buf = 136315394;
-        v78 = "[AFMyriadCoordinator _enterState:]";
-        v79 = 1024;
-        *v80 = v67;
+        v77 = "[AFMyriadCoordinator _enterState:]";
+        v78 = 1024;
+        *v79 = v67;
         _os_log_impl(&dword_1912FE000, v66, OS_LOG_TYPE_INFO, "%s BTLE task continuation: %d", buf, 0x12u);
       }
 
@@ -5207,7 +5091,7 @@ LABEL_71:
       if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v78 = "[AFMyriadCoordinator _enterState:]";
+        v77 = "[AFMyriadCoordinator _enterState:]";
         _os_log_impl(&dword_1912FE000, v49, OS_LOG_TYPE_INFO, "%s BTLE task MYR_WAIT_EMERGENCY_OR_TASK only stopping advertising, not listening", buf, 0xCu);
       }
 
@@ -5230,7 +5114,7 @@ LABEL_71:
 
       if ((v73 & 1) == 0)
       {
-        break;
+        return;
       }
 
       directTriggerRecord = objc_loadWeakRetained(&self->_delegate);
@@ -5241,7 +5125,7 @@ LABEL_71:
       if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v78 = "[AFMyriadCoordinator _enterState:]";
+        v77 = "[AFMyriadCoordinator _enterState:]";
         _os_log_impl(&dword_1912FE000, v43, OS_LOG_TYPE_INFO, "%s BTLE emergency is being handled", buf, 0xCu);
       }
 
@@ -5255,7 +5139,7 @@ LABEL_71:
 
       if ((v46 & 1) == 0)
       {
-        break;
+        return;
       }
 
       directTriggerRecord = objc_loadWeakRetained(&self->_delegate);
@@ -5278,7 +5162,7 @@ LABEL_71:
       if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v78 = "[AFMyriadCoordinator _enterState:]";
+        v77 = "[AFMyriadCoordinator _enterState:]";
         _os_log_impl(&dword_1912FE000, v34, OS_LOG_TYPE_INFO, "%s BTLE task MYR_WAIT_EMERGENCY_HANDLED only stopping advertising, not listening", buf, 0xCu);
       }
 
@@ -5321,11 +5205,11 @@ LABEL_75:
         v31 = self->_coordinationEnabled;
         v32 = self->_BLEActivityEnabled;
         *buf = 136315650;
-        v78 = "[AFMyriadCoordinator _enterState:]";
-        v79 = 1024;
-        *v80 = v31;
-        *&v80[4] = 1024;
-        *&v80[6] = v32;
+        v77 = "[AFMyriadCoordinator _enterState:]";
+        v78 = 1024;
+        *v79 = v31;
+        *&v79[4] = 1024;
+        *&v79[6] = v32;
         _os_log_impl(&dword_1912FE000, v30, OS_LOG_TYPE_INFO, "%s #myriad coordinationEnabled=%d, BLEActivityEnabled=%d ", buf, 0x18u);
       }
 
@@ -5333,7 +5217,7 @@ LABEL_75:
       CFNotificationCenterPostNotification(DarwinNotifyCenter, @"com.apple.siri.myriad.decision.won", 0, 0, 1u);
       [(AFMyriadCoordinator *)self _cancelOverallTimeout];
       [(AFMyriadCoordinator *)self _advertiseSuppressTriggerInOutput];
-      break;
+      return;
     case 0xFuLL:
       [(AFMyriadCoordinator *)self resetReplies];
       [(AFMyriadCoordinator *)self _createMyriadSessionIfRequired];
@@ -5344,7 +5228,7 @@ LABEL_75:
     case 0x10uLL:
       self->_recordType = 8;
       [(AFMyriadCoordinator *)self _advertiseSlowdown];
-      break;
+      return;
     case 0x11uLL:
       [(AFMyriadCoordinator *)self _createMyriadSessionIfRequired];
       [(AFMyriadCoordinator *)self _startListening:0];
@@ -5355,10 +5239,8 @@ LABEL_74:
       v42 = 0;
       goto LABEL_75;
     default:
-      break;
+      return;
   }
-
-  v74 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __35__AFMyriadCoordinator__enterState___block_invoke(uint64_t a1)
@@ -5371,16 +5253,16 @@ uint64_t __35__AFMyriadCoordinator__enterState___block_invoke(uint64_t a1)
 
 - (void)_cancelOverallTimeout
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   overallTimeout = self->_overallTimeout;
   if (overallTimeout)
   {
     v4 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
-      v10 = 136315138;
-      v11 = "[AFMyriadCoordinator _cancelOverallTimeout]";
-      _os_log_impl(&dword_1912FE000, v4, OS_LOG_TYPE_INFO, "%s BTLE Coordinator cancelling overall timeout", &v10, 0xCu);
+      v9 = 136315138;
+      v10 = "[AFMyriadCoordinator _cancelOverallTimeout]";
+      _os_log_impl(&dword_1912FE000, v4, OS_LOG_TYPE_INFO, "%s BTLE Coordinator cancelling overall timeout", &v9, 0xCu);
       overallTimeout = self->_overallTimeout;
     }
 
@@ -5397,13 +5279,11 @@ uint64_t __35__AFMyriadCoordinator__enterState___block_invoke(uint64_t a1)
       [v8 myriadCoordinatorOverallTimerCancelled:self];
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setOverallTimeout
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (self->_overallTimeout)
   {
     [(AFMyriadCoordinator *)self _cancelOverallTimeout];
@@ -5413,33 +5293,31 @@ uint64_t __35__AFMyriadCoordinator__enterState___block_invoke(uint64_t a1)
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v11 = "[AFMyriadCoordinator _setOverallTimeout]";
+    v10 = "[AFMyriadCoordinator _setOverallTimeout]";
     _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s BTLE Coordinator setting overall timeout", buf, 0xCu);
   }
 
   v4 = [AFWatchdogTimer alloc];
   myriadWorkQueue = self->_myriadWorkQueue;
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __41__AFMyriadCoordinator__setOverallTimeout__block_invoke;
-  v9[3] = &unk_1E73497C8;
-  v9[4] = self;
-  v6 = [(AFWatchdogTimer *)v4 initWithTimeoutInterval:myriadWorkQueue onQueue:v9 timeoutHandler:31.0];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __41__AFMyriadCoordinator__setOverallTimeout__block_invoke;
+  v8[3] = &unk_1E73497C8;
+  v8[4] = self;
+  v6 = [(AFWatchdogTimer *)v4 initWithTimeoutInterval:myriadWorkQueue onQueue:v8 timeoutHandler:31.0];
   overallTimeout = self->_overallTimeout;
   self->_overallTimeout = v6;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __41__AFMyriadCoordinator__setOverallTimeout__block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
-    v6 = 136315138;
-    v7 = "[AFMyriadCoordinator _setOverallTimeout]_block_invoke";
-    _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s BTLE Coordinator hitting overall timeout, resetting to NoActivity and declaring loss", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[AFMyriadCoordinator _setOverallTimeout]_block_invoke";
+    _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s BTLE Coordinator hitting overall timeout, resetting to NoActivity and declaring loss", &v5, 0xCu);
   }
 
   v3 = *(a1 + 32);
@@ -5449,39 +5327,32 @@ uint64_t __41__AFMyriadCoordinator__setOverallTimeout__block_invoke(uint64_t a1)
     v3 = *(a1 + 32);
   }
 
-  result = [v3 _enterState:0];
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return [v3 _enterState:0];
 }
 
 - (void)_cancelTimer
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   timer = self->_timer;
-  if (timer)
+  if (timer && !dispatch_source_testcancel(self->_timer))
   {
-    if (!dispatch_source_testcancel(self->_timer))
+    dispatch_source_cancel(timer);
+    v4 = AFSiriLogContextConnection;
+    if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
-      dispatch_source_cancel(timer);
-      v4 = AFSiriLogContextConnection;
-      if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
-      {
-        timerLabel = self->_timerLabel;
-        myriadState = self->_myriadState;
-        v7 = v4;
-        v8 = [(AFMyriadCoordinator *)self _stateAsString:myriadState];
-        v10 = 136315650;
-        v11 = "[AFMyriadCoordinator _cancelTimer]";
-        v12 = 2112;
-        v13 = timerLabel;
-        v14 = 2112;
-        v15 = v8;
-        _os_log_impl(&dword_1912FE000, v7, OS_LOG_TYPE_INFO, "%s BTLE timer %@ cancelled (%@)", &v10, 0x20u);
-      }
+      timerLabel = self->_timerLabel;
+      myriadState = self->_myriadState;
+      v7 = v4;
+      v8 = [(AFMyriadCoordinator *)self _stateAsString:myriadState];
+      v9 = 136315650;
+      v10 = "[AFMyriadCoordinator _cancelTimer]";
+      v11 = 2112;
+      v12 = timerLabel;
+      v13 = 2112;
+      v14 = v8;
+      _os_log_impl(&dword_1912FE000, v7, OS_LOG_TYPE_INFO, "%s BTLE timer %@ cancelled (%@)", &v9, 0x20u);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_startTimer:(id)timer for:(float)for thenEnterState:(unint64_t)state
@@ -5508,7 +5379,7 @@ void __54__AFMyriadCoordinator__startTimer_for_thenEnterState___block_invoke(uin
 
 - (void)_startTimer:(id)timer for:(float)for thenExecute:(id)execute
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   timerCopy = timer;
   executeCopy = execute;
   v10 = AFSiriLogContextConnection;
@@ -5516,11 +5387,11 @@ void __54__AFMyriadCoordinator__startTimer_for_thenEnterState___block_invoke(uin
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v19 = "[AFMyriadCoordinator _startTimer:for:thenExecute:]";
-    v20 = 2112;
-    v21 = timerCopy;
-    v22 = 2048;
-    v23 = forCopy;
+    v18 = "[AFMyriadCoordinator _startTimer:for:thenExecute:]";
+    v19 = 2112;
+    v20 = timerCopy;
+    v21 = 2048;
+    v22 = forCopy;
     _os_log_impl(&dword_1912FE000, v10, OS_LOG_TYPE_INFO, "%s BTLE starting %@ timer for %f secs", buf, 0x20u);
   }
 
@@ -5528,39 +5399,36 @@ void __54__AFMyriadCoordinator__startTimer_for_thenEnterState___block_invoke(uin
   self->_timerLabel = timerCopy;
   v13 = timerCopy;
 
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __51__AFMyriadCoordinator__startTimer_for_thenExecute___block_invoke;
-  v16[3] = &unk_1E7349838;
-  v16[4] = self;
-  v17 = executeCopy;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __51__AFMyriadCoordinator__startTimer_for_thenExecute___block_invoke;
+  v15[3] = &unk_1E7349838;
+  v15[4] = self;
+  v16 = executeCopy;
   v14 = executeCopy;
-  [(AFMyriadCoordinator *)self _createDispatchTimerFor:v16 toExecute:forCopy];
-
-  v15 = *MEMORY[0x1E69E9840];
+  [(AFMyriadCoordinator *)self _createDispatchTimerFor:v15 toExecute:forCopy];
 }
 
 uint64_t __51__AFMyriadCoordinator__startTimer_for_thenExecute___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     v3 = *(*(a1 + 32) + 192);
-    v6 = 136315394;
-    v7 = "[AFMyriadCoordinator _startTimer:for:thenExecute:]_block_invoke";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s BTLE %@ timer fires", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[AFMyriadCoordinator _startTimer:for:thenExecute:]_block_invoke";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s BTLE %@ timer fires", &v5, 0x16u);
   }
 
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))();
+    return (*(result + 16))();
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -5603,45 +5471,40 @@ uint64_t __51__AFMyriadCoordinator__startTimer_for_thenExecute___block_invoke(ui
 
 void __62__AFMyriadCoordinator__createDispatchTimerWithTime_toExecute___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
     v4 = *(*(a1 + 40) + 208);
-    v7 = 136315650;
-    v8 = "[AFMyriadCoordinator _createDispatchTimerWithTime:toExecute:]_block_invoke";
-    v9 = 2112;
-    v10 = v3;
-    v11 = 2112;
-    v12 = v4;
-    _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s #myriad Event token: %@, current event token: %@", &v7, 0x20u);
+    v6 = 136315650;
+    v7 = "[AFMyriadCoordinator _createDispatchTimerWithTime:toExecute:]_block_invoke";
+    v8 = 2112;
+    v9 = v3;
+    v10 = 2112;
+    v11 = v4;
+    _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s #myriad Event token: %@, current event token: %@", &v6, 0x20u);
   }
 
-  if (*(*(a1 + 40) + 208))
+  if (*(*(a1 + 40) + 208) && [*(a1 + 32) isEqual:?])
   {
-    if ([*(a1 + 32) isEqual:?])
+    v5 = *(a1 + 48);
+    if (v5)
     {
-      v5 = *(a1 + 48);
-      if (v5)
-      {
-        (*(v5 + 16))();
-      }
+      (*(v5 + 16))();
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_initializeTimer
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
-    v9 = 136315138;
-    v10 = "[AFMyriadCoordinator _initializeTimer]";
-    _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s ", &v9, 0xCu);
+    v8 = 136315138;
+    v9 = "[AFMyriadCoordinator _initializeTimer]";
+    _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s ", &v8, 0xCu);
   }
 
   timer = self->_timer;
@@ -5658,13 +5521,11 @@ void __62__AFMyriadCoordinator__createDispatchTimerWithTime_toExecute___block_in
   dispatch_resume(self->_timer);
   eventToken = self->_eventToken;
   self->_eventToken = 0;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_clearMyriadSession
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (self->_myriadSession)
   {
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -5682,11 +5543,11 @@ void __62__AFMyriadCoordinator__createDispatchTimerWithTime_toExecute___block_in
       myriadSession = self->_myriadSession;
       v8 = v6;
       sessionId = [(AFMyriadSession *)myriadSession sessionId];
-      v13 = 136315394;
-      v14 = "[AFMyriadCoordinator _clearMyriadSession]";
-      v15 = 2112;
-      v16 = sessionId;
-      _os_log_impl(&dword_1912FE000, v8, OS_LOG_TYPE_INFO, "%s #myriad Clearing myriad session %@", &v13, 0x16u);
+      v12 = 136315394;
+      v13 = "[AFMyriadCoordinator _clearMyriadSession]";
+      v14 = 2112;
+      v15 = sessionId;
+      _os_log_impl(&dword_1912FE000, v8, OS_LOG_TYPE_INFO, "%s #myriad Clearing myriad session %@", &v12, 0x16u);
     }
 
     electionAdvertisementDataByIds = [(AFMyriadSession *)self->_myriadSession electionAdvertisementDataByIds];
@@ -5695,33 +5556,29 @@ void __62__AFMyriadCoordinator__createDispatchTimerWithTime_toExecute___block_in
     v11 = self->_myriadSession;
     self->_myriadSession = 0;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __42__AFMyriadCoordinator__clearMyriadSession__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v4 = a2;
   v5 = a3;
   v6 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
-    v8 = 136315650;
-    v9 = "[AFMyriadCoordinator _clearMyriadSession]_block_invoke";
-    v10 = 2112;
-    v11 = v4;
-    v12 = 2112;
-    v13 = v5;
-    _os_log_impl(&dword_1912FE000, v6, OS_LOG_TYPE_INFO, "%s #myriad Election advertisement %@ -> %@", &v8, 0x20u);
+    v7 = 136315650;
+    v8 = "[AFMyriadCoordinator _clearMyriadSession]_block_invoke";
+    v9 = 2112;
+    v10 = v4;
+    v11 = 2112;
+    v12 = v5;
+    _os_log_impl(&dword_1912FE000, v6, OS_LOG_TYPE_INFO, "%s #myriad Election advertisement %@ -> %@", &v7, 0x20u);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_createMyriadSessionIfRequired
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   if (self->_myriadSession || ((v7 = self->_myriadState, v8 = v7 > 0x11, v9 = (1 << v7) & 0x2C003, !v8) ? (v10 = v9 == 0) : (v10 = 1), v10))
   {
     v3 = AFSiriLogContextConnection;
@@ -5730,11 +5587,11 @@ void __42__AFMyriadCoordinator__clearMyriadSession__block_invoke(uint64_t a1, vo
       myriadState = self->_myriadState;
       v5 = v3;
       v6 = [(AFMyriadCoordinator *)self _stateAsString:myriadState];
-      v22 = 136315394;
-      v23 = "[AFMyriadCoordinator _createMyriadSessionIfRequired]";
-      v24 = 2112;
-      v25 = v6;
-      _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s #myriad not initializing myriad session, myriad is in state %@", &v22, 0x16u);
+      v21 = 136315394;
+      v22 = "[AFMyriadCoordinator _createMyriadSessionIfRequired]";
+      v23 = 2112;
+      v24 = v6;
+      _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s #myriad not initializing myriad session, myriad is in state %@", &v21, 0x16u);
     }
   }
 
@@ -5751,13 +5608,13 @@ void __42__AFMyriadCoordinator__clearMyriadSession__block_invoke(uint64_t a1, vo
       v15 = v13;
       sessionId = [(AFMyriadSession *)v14 sessionId];
       v17 = [(AFMyriadCoordinator *)self _stateAsString:self->_myriadState];
-      v22 = 136315650;
-      v23 = "[AFMyriadCoordinator _createMyriadSessionIfRequired]";
-      v24 = 2112;
-      v25 = sessionId;
-      v26 = 2112;
-      v27 = v17;
-      _os_log_impl(&dword_1912FE000, v15, OS_LOG_TYPE_INFO, "%s #myriad Initialized myriad session %@ when myriad is in state %@", &v22, 0x20u);
+      v21 = 136315650;
+      v22 = "[AFMyriadCoordinator _createMyriadSessionIfRequired]";
+      v23 = 2112;
+      v24 = sessionId;
+      v25 = 2112;
+      v26 = v17;
+      _os_log_impl(&dword_1912FE000, v15, OS_LOG_TYPE_INFO, "%s #myriad Initialized myriad session %@ when myriad is in state %@", &v21, 0x20u);
     }
 
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -5774,8 +5631,6 @@ void __42__AFMyriadCoordinator__clearMyriadSession__block_invoke(uint64_t a1, vo
       [(AFArbitrationEventUpdatesDelegate *)self->_arbitrationEventsDelegate arbitrationSessionWillStart:self->_myriadSession];
     }
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __53__AFMyriadCoordinator__createMyriadSessionIfRequired__block_invoke(uint64_t a1, void *a2)
@@ -5788,22 +5643,22 @@ void __53__AFMyriadCoordinator__createMyriadSessionIfRequired__block_invoke(uint
 
 - (void)_addElectionAdvertisementDataToMyriadSession:(id)session
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   if (sessionCopy)
   {
     uUID = [MEMORY[0x1E696AFB0] UUID];
     _myriadSession = [(AFMyriadCoordinator *)self _myriadSession];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __68__AFMyriadCoordinator__addElectionAdvertisementDataToMyriadSession___block_invoke;
-    v19[3] = &unk_1E7346C88;
-    v19[4] = self;
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __68__AFMyriadCoordinator__addElectionAdvertisementDataToMyriadSession___block_invoke;
+    v18[3] = &unk_1E7346C88;
+    v18[4] = self;
     v7 = sessionCopy;
-    v20 = v7;
+    v19 = v7;
     v8 = uUID;
-    v21 = v8;
-    v9 = [_myriadSession mutatedCopyWithMutator:v19];
+    v20 = v8;
+    v9 = [_myriadSession mutatedCopyWithMutator:v18];
 
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
     v11 = objc_opt_respondsToSelector();
@@ -5823,16 +5678,14 @@ void __53__AFMyriadCoordinator__createMyriadSessionIfRequired__block_invoke(uint
       v16 = v14;
       sessionId = [(AFMyriadSession *)v15 sessionId];
       *buf = 136315650;
-      v23 = "[AFMyriadCoordinator _addElectionAdvertisementDataToMyriadSession:]";
-      v24 = 2112;
-      v25 = v7;
-      v26 = 2112;
-      v27 = sessionId;
+      v22 = "[AFMyriadCoordinator _addElectionAdvertisementDataToMyriadSession:]";
+      v23 = 2112;
+      v24 = v7;
+      v25 = 2112;
+      v26 = sessionId;
       _os_log_impl(&dword_1912FE000, v16, OS_LOG_TYPE_INFO, "%s #myriad Election advertisement %@ added to myriad session %@", buf, 0x20u);
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __68__AFMyriadCoordinator__addElectionAdvertisementDataToMyriadSession___block_invoke(void *a1, void *a2)
@@ -5851,13 +5704,13 @@ void __68__AFMyriadCoordinator__addElectionAdvertisementDataToMyriadSession___bl
 
 - (void)_loseElection
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
-    v16 = 136315138;
-    v17 = "[AFMyriadCoordinator _loseElection]";
-    _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s BTLE notify myriad loss", &v16, 0xCu);
+    v15 = 136315138;
+    v16 = "[AFMyriadCoordinator _loseElection]";
+    _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s BTLE notify myriad loss", &v15, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -5891,11 +5744,11 @@ void __68__AFMyriadCoordinator__addElectionAdvertisementDataToMyriadSession___bl
     {
       v10 = v9;
       v11 = objc_loadWeakRetained(&self->_delegate);
-      v16 = 136315394;
-      v17 = "[AFMyriadCoordinator _loseElection]";
-      v18 = 2112;
-      v19 = v11;
-      _os_log_impl(&dword_1912FE000, v10, OS_LOG_TYPE_INFO, "%s BTLE unable to cancel against: %@", &v16, 0x16u);
+      v15 = 136315394;
+      v16 = "[AFMyriadCoordinator _loseElection]";
+      v17 = 2112;
+      v18 = v11;
+      _os_log_impl(&dword_1912FE000, v10, OS_LOG_TYPE_INFO, "%s BTLE unable to cancel against: %@", &v15, 0x16u);
     }
   }
 
@@ -5910,18 +5763,17 @@ void __68__AFMyriadCoordinator__addElectionAdvertisementDataToMyriadSession___bl
   self->_lastDecision = 0;
   self->_inTask = 0;
   self->_ignoreInTaskTimer = 0;
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_winElection
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
-    v16 = 136315138;
-    v17 = "[AFMyriadCoordinator _winElection]";
-    _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s BTLE notify myriad won", &v16, 0xCu);
+    v15 = 136315138;
+    v16 = "[AFMyriadCoordinator _winElection]";
+    _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s BTLE notify myriad won", &v15, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -5961,19 +5813,18 @@ void __68__AFMyriadCoordinator__addElectionAdvertisementDataToMyriadSession___bl
 
   [(AFMyriadGoodnessScoreEvaluator *)self->_goodnessScoreEvaluator setLastActivationTime:v14];
   self->_lastDecision = 1;
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_deviceShouldContinue:(id)continue
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   continueCopy = continue;
   v5 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
-    v19 = 136315138;
-    v20 = "[AFMyriadCoordinator _deviceShouldContinue:]";
-    _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s ", &v19, 0xCu);
+    v18 = 136315138;
+    v19 = "[AFMyriadCoordinator _deviceShouldContinue:]";
+    _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s ", &v18, 0xCu);
   }
 
   if (self->_coordinationEnabled)
@@ -5996,18 +5847,18 @@ void __68__AFMyriadCoordinator__addElectionAdvertisementDataToMyriadSession___bl
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
       clientIsInEarActivation = self->_clientIsInEarActivation;
-      v19 = 136316418;
-      v20 = "[AFMyriadCoordinator _deviceShouldContinue:]";
-      v21 = 2048;
-      v22 = v8 & 1;
-      v23 = 2048;
-      v24 = 0;
-      v25 = 2048;
-      v26 = clientIsDirectActivating;
-      v27 = 2048;
-      v28 = clientIsInEarActivation;
-      v29 = 2048;
-      v30 = suppressLateTrigger;
+      v18 = 136316418;
+      v19 = "[AFMyriadCoordinator _deviceShouldContinue:]";
+      v20 = 2048;
+      v21 = v8 & 1;
+      v22 = 2048;
+      v23 = 0;
+      v24 = 2048;
+      v25 = clientIsDirectActivating;
+      v26 = 2048;
+      v27 = clientIsInEarActivation;
+      v28 = 2048;
+      v29 = suppressLateTrigger;
       v9 = "%s BTLE deviceShouldContinue:%ld (coordinationDisabled:%ld, isDirectlyActivating:%ld, isInEarTrigger:%ld, suppressLateTrigger:%ld.";
       v10 = v15;
       v11 = 62;
@@ -6021,18 +5872,17 @@ void __68__AFMyriadCoordinator__addElectionAdvertisementDataToMyriadSession___bl
     v8 = 1;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
-      v19 = 136315138;
-      v20 = "[AFMyriadCoordinator _deviceShouldContinue:]";
+      v18 = 136315138;
+      v19 = "[AFMyriadCoordinator _deviceShouldContinue:]";
       v9 = "%s Coordination disabled, continuing with the request)";
       v8 = 1;
       v10 = v7;
       v11 = 12;
 LABEL_12:
-      _os_log_impl(&dword_1912FE000, v10, OS_LOG_TYPE_INFO, v9, &v19, v11);
+      _os_log_impl(&dword_1912FE000, v10, OS_LOG_TYPE_INFO, v9, &v18, v11);
     }
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v8 & 1;
 }
 
@@ -6052,19 +5902,19 @@ LABEL_12:
 
 uint64_t __41__AFMyriadCoordinator__forceLocalWinner___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
     v4 = *(*(a1 + 40) + 240);
-    v16 = 136315650;
-    v17 = "[AFMyriadCoordinator _forceLocalWinner:]_block_invoke";
-    v18 = 2112;
-    v19 = v3;
-    v20 = 2112;
-    v21 = v4;
-    _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s #myriad force win on this device with context: %@, triggerRecord: %@", &v16, 0x20u);
+    v15 = 136315650;
+    v16 = "[AFMyriadCoordinator _forceLocalWinner:]_block_invoke";
+    v17 = 2112;
+    v18 = v3;
+    v19 = 2112;
+    v20 = v4;
+    _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s #myriad force win on this device with context: %@, triggerRecord: %@", &v15, 0x20u);
   }
 
   [*(a1 + 40) _winElection];
@@ -6098,9 +5948,7 @@ uint64_t __41__AFMyriadCoordinator__forceLocalWinner___block_invoke(uint64_t a1)
 
   *(*(a1 + 40) + 320) = 0;
   *(*(a1 + 40) + 248) = 3;
-  result = [*(a1 + 40) _enterState:14];
-  v15 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 40) _enterState:14];
 }
 
 - (void)faceDetectedBoostWithMyriadContext:(id)context
@@ -6119,39 +5967,37 @@ uint64_t __41__AFMyriadCoordinator__forceLocalWinner___block_invoke(uint64_t a1)
 
 uint64_t __58__AFMyriadCoordinator_faceDetectedBoostWithMyriadContext___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   *(*(a1 + 32) + 418) = 1;
   [*(*(a1 + 32) + 240) setRawAudioGoodnessScore:objc_msgSend(*(*(a1 + 32) + 240) withBump:{"rawAudioGoodnessScore"), 255}];
   [*(*(a1 + 32) + 240) generateTiebreaker];
   v2 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
   {
-    v5 = *(*(a1 + 32) + 240);
-    v6 = v2;
-    LODWORD(v5) = [v5 rawAudioGoodnessScore];
-    v7 = [*(*(a1 + 32) + 240) goodness];
-    v8 = [*(*(a1 + 32) + 240) bump];
-    v9 = [*(*(a1 + 32) + 240) tieBreaker];
-    v10 = [*(a1 + 32) _stateAsString:*(*(a1 + 32) + 8)];
-    v11 = 136316418;
-    v12 = "[AFMyriadCoordinator faceDetectedBoostWithMyriadContext:]_block_invoke";
-    v13 = 1024;
-    v14 = v5;
-    v15 = 1024;
-    v16 = v7;
-    v17 = 1024;
-    v18 = v8;
-    v19 = 1024;
-    v20 = v9;
-    v21 = 2112;
-    v22 = v10;
-    _os_log_debug_impl(&dword_1912FE000, v6, OS_LOG_TYPE_DEBUG, "%s #myriad attention is boosting goodness score, rawAudioGoodnessScore %u, goodness:%u bump: %u, tieBreaker:%u, _myriadState: %@", &v11, 0x2Eu);
+    v4 = *(*(a1 + 32) + 240);
+    v5 = v2;
+    LODWORD(v4) = [v4 rawAudioGoodnessScore];
+    v6 = [*(*(a1 + 32) + 240) goodness];
+    v7 = [*(*(a1 + 32) + 240) bump];
+    v8 = [*(*(a1 + 32) + 240) tieBreaker];
+    v9 = [*(a1 + 32) _stateAsString:*(*(a1 + 32) + 8)];
+    v10 = 136316418;
+    v11 = "[AFMyriadCoordinator faceDetectedBoostWithMyriadContext:]_block_invoke";
+    v12 = 1024;
+    v13 = v4;
+    v14 = 1024;
+    v15 = v6;
+    v16 = 1024;
+    v17 = v7;
+    v18 = 1024;
+    v19 = v8;
+    v20 = 2112;
+    v21 = v9;
+    _os_log_debug_impl(&dword_1912FE000, v5, OS_LOG_TYPE_DEBUG, "%s #myriad attention is boosting goodness score, rawAudioGoodnessScore %u, goodness:%u bump: %u, tieBreaker:%u, _myriadState: %@", &v10, 0x2Eu);
   }
 
   [*(a1 + 32) _forceLocalWinner:*(a1 + 40)];
-  result = [*(*(a1 + 32) + 608) updateIsTrump:1 withReason:8];
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(*(a1 + 32) + 608) updateIsTrump:1 withReason:8];
 }
 
 - (void)setCurrentRequestId:(id)id
@@ -6168,28 +6014,43 @@ uint64_t __58__AFMyriadCoordinator_faceDetectedBoostWithMyriadContext___block_in
   dispatch_async(myriadWorkQueue, v7);
 }
 
+- (void)instrumentationUpdateBoost:(unsigned __int8)boost value:(unsigned int)value
+{
+  v4 = *&value;
+  boostCopy = boost;
+  myriadInstrumentation = self->_myriadInstrumentation;
+  if (!myriadInstrumentation)
+  {
+    v8 = objc_alloc_init(AFMyriadInstrumentation);
+    v9 = self->_myriadInstrumentation;
+    self->_myriadInstrumentation = v8;
+
+    myriadInstrumentation = self->_myriadInstrumentation;
+  }
+
+  [(AFMyriadInstrumentation *)myriadInstrumentation updateBoost:boostCopy value:v4];
+}
+
 - (void)requestWillPresentUsefulUserResult
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (+[AFFeatureFlags isCrossDeviceArbitrationFeedbackEnabled])
   {
     v3 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v7 = "[AFMyriadCoordinator requestWillPresentUsefulUserResult]";
+      v6 = "[AFMyriadCoordinator requestWillPresentUsefulUserResult]";
       _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
     }
 
-    v5[0] = MEMORY[0x1E69E9820];
-    v5[1] = 3221225472;
-    v5[2] = __57__AFMyriadCoordinator_requestWillPresentUsefulUserResult__block_invoke;
-    v5[3] = &unk_1E73497C8;
-    v5[4] = self;
-    [(AFMyriadCoordinator *)self _updateArbitrationParticipationContextWithCompletion:v5];
+    v4[0] = MEMORY[0x1E69E9820];
+    v4[1] = 3221225472;
+    v4[2] = __57__AFMyriadCoordinator_requestWillPresentUsefulUserResult__block_invoke;
+    v4[3] = &unk_1E73497C8;
+    v4[4] = self;
+    [(AFMyriadCoordinator *)self _updateArbitrationParticipationContextWithCompletion:v4];
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setupEnabled:(BOOL)enabled
@@ -6206,7 +6067,7 @@ uint64_t __58__AFMyriadCoordinator_faceDetectedBoostWithMyriadContext___block_in
 
 void __36__AFMyriadCoordinator_setupEnabled___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
@@ -6214,13 +6075,13 @@ void __36__AFMyriadCoordinator_setupEnabled___block_invoke(uint64_t a1)
     v4 = *(a1 + 32);
     v5 = v2;
     v6 = [v4 _stateAsString];
-    v9 = 136315650;
-    v10 = "[AFMyriadCoordinator setupEnabled:]_block_invoke";
-    v11 = 1024;
-    v12 = v3;
-    v13 = 2112;
-    v14 = v6;
-    _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s #myriad setupEnabled: %d, current state: %@", &v9, 0x1Cu);
+    v8 = 136315650;
+    v9 = "[AFMyriadCoordinator setupEnabled:]_block_invoke";
+    v10 = 1024;
+    v11 = v3;
+    v12 = 2112;
+    v13 = v6;
+    _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s #myriad setupEnabled: %d, current state: %@", &v8, 0x1Cu);
   }
 
   v7 = *(a1 + 32);
@@ -6236,8 +6097,6 @@ void __36__AFMyriadCoordinator_setupEnabled___block_invoke(uint64_t a1)
     *(*(a1 + 32) + 314) = 0;
     [*(a1 + 32) _enterState:0];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setInTask:(BOOL)task
@@ -6254,20 +6113,19 @@ void __36__AFMyriadCoordinator_setupEnabled___block_invoke(uint64_t a1)
 
 void __33__AFMyriadCoordinator_setInTask___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 40);
-    v5 = 136315394;
-    v6 = "[AFMyriadCoordinator setInTask:]_block_invoke";
-    v7 = 1024;
-    v8 = v3;
-    _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s inTask=%d", &v5, 0x12u);
+    v4 = 136315394;
+    v5 = "[AFMyriadCoordinator setInTask:]_block_invoke";
+    v6 = 1024;
+    v7 = v3;
+    _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s inTask=%d", &v4, 0x12u);
   }
 
   *(*(a1 + 32) + 313) = *(a1 + 40);
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)inTask
@@ -6302,12 +6160,12 @@ void __33__AFMyriadCoordinator_setInTask___block_invoke(uint64_t a1)
 
 uint64_t __30__AFMyriadCoordinator_endTask__block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v8 = "[AFMyriadCoordinator endTask]_block_invoke";
+    v7 = "[AFMyriadCoordinator endTask]_block_invoke";
     _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
   }
 
@@ -6318,15 +6176,14 @@ uint64_t __30__AFMyriadCoordinator_endTask__block_invoke(uint64_t a1)
   if (result)
   {
     v4 = *(a1 + 32);
-    v6[0] = MEMORY[0x1E69E9820];
-    v6[1] = 3221225472;
-    v6[2] = __30__AFMyriadCoordinator_endTask__block_invoke_345;
-    v6[3] = &unk_1E73497C8;
-    v6[4] = v4;
-    result = [v4 _updateArbitrationParticipationContextWithCompletion:v6];
+    v5[0] = MEMORY[0x1E69E9820];
+    v5[1] = 3221225472;
+    v5[2] = __30__AFMyriadCoordinator_endTask__block_invoke_345;
+    v5[3] = &unk_1E73497C8;
+    v5[4] = v4;
+    return [v4 _updateArbitrationParticipationContextWithCompletion:v5];
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -6346,7 +6203,7 @@ uint64_t __30__AFMyriadCoordinator_endTask__block_invoke(uint64_t a1)
 
 - (void)_endAdvertisingWithDeviceProhibitions:(id)prohibitions
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   prohibitionsCopy = prohibitions;
   if (!self->_coordinationEnabled)
   {
@@ -6354,7 +6211,7 @@ uint64_t __30__AFMyriadCoordinator_endTask__block_invoke(uint64_t a1)
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v17 = "[AFMyriadCoordinator _endAdvertisingWithDeviceProhibitions:]";
+      v16 = "[AFMyriadCoordinator _endAdvertisingWithDeviceProhibitions:]";
       _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s BTLE advertising is being ignored", buf, 0xCu);
     }
   }
@@ -6363,14 +6220,14 @@ uint64_t __30__AFMyriadCoordinator_endTask__block_invoke(uint64_t a1)
   if (maxSlowdownRecord && (v7 = [(AFMyriadRecord *)maxSlowdownRecord slowdownDelay]) != 0 && self->_clientIsRespondingToSlowdown && !self->_clientDoneRespondingToSlowdown)
   {
     self->_slowdownMsecs = v7;
-    v14 = AFSiriLogContextConnection;
+    v13 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v17 = "[AFMyriadCoordinator _endAdvertisingWithDeviceProhibitions:]";
-      v18 = 1024;
-      v19 = v7;
-      _os_log_impl(&dword_1912FE000, v14, OS_LOG_TYPE_INFO, "%s BTLE detected a slowdown signal for %d msecs, resetting election for later time", buf, 0x12u);
+      v16 = "[AFMyriadCoordinator _endAdvertisingWithDeviceProhibitions:]";
+      v17 = 1024;
+      v18 = v7;
+      _os_log_impl(&dword_1912FE000, v13, OS_LOG_TYPE_INFO, "%s BTLE detected a slowdown signal for %d msecs, resetting election for later time", buf, 0x12u);
     }
 
     [(AFMyriadCoordinator *)self _advertiseTrigger];
@@ -6411,13 +6268,13 @@ uint64_t __30__AFMyriadCoordinator_endTask__block_invoke(uint64_t a1)
     self->_clientDoneRespondingToSlowdown = 0;
     [(AFMyriadCoordinator *)self _cancelOverallTimeout];
     [(AFMyriadCoordinator *)self _endAdvertising:0];
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __61__AFMyriadCoordinator__endAdvertisingWithDeviceProhibitions___block_invoke;
-    v15[3] = &unk_1E7348498;
-    v15[4] = self;
-    v15[5] = v10;
-    [(AFMyriadCoordinator *)self _startTimer:v8 for:v15 thenExecute:COERCE_DOUBLE(LODWORD(v9))];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __61__AFMyriadCoordinator__endAdvertisingWithDeviceProhibitions___block_invoke;
+    v14[3] = &unk_1E7348498;
+    v14[4] = self;
+    v14[5] = v10;
+    [(AFMyriadCoordinator *)self _startTimer:v8 for:v14 thenExecute:COERCE_DOUBLE(LODWORD(v9))];
     [(AFMyriadCoordinator *)self _ageWedgeFilter];
     [(AFMyriadCoordinator *)self resetReplies];
     [(AFMyriadCoordinator *)self _resetAudioData];
@@ -6433,8 +6290,6 @@ uint64_t __30__AFMyriadCoordinator_endTask__block_invoke(uint64_t a1)
       [(AFArbitrationEventUpdatesDelegate *)self->_arbitrationEventsDelegate arbitrationEndedAdvertising:self->_myriadSession];
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __61__AFMyriadCoordinator__endAdvertisingWithDeviceProhibitions___block_invoke(uint64_t a1)
@@ -6447,18 +6302,18 @@ uint64_t __61__AFMyriadCoordinator__endAdvertisingWithDeviceProhibitions___block
 - (id)_endAdvertisingAnalyticsContext:(BOOL)context
 {
   contextCopy = context;
-  v86[2] = *MEMORY[0x1E69E9840];
+  v85[2] = *MEMORY[0x1E69E9840];
   _sortedReplies = [(AFMyriadCoordinator *)self _sortedReplies];
-  v59 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(_sortedReplies, "count")}];
+  v58 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(_sortedReplies, "count")}];
   if (_sortedReplies && [_sortedReplies count])
   {
     firstObject = [_sortedReplies firstObject];
-    v78[0] = MEMORY[0x1E69E9820];
-    v78[1] = 3221225472;
-    v78[2] = __55__AFMyriadCoordinator__endAdvertisingAnalyticsContext___block_invoke;
-    v78[3] = &unk_1E7346C10;
-    v79 = v59;
-    [_sortedReplies enumerateObjectsUsingBlock:v78];
+    v77[0] = MEMORY[0x1E69E9820];
+    v77[1] = 3221225472;
+    v77[2] = __55__AFMyriadCoordinator__endAdvertisingAnalyticsContext___block_invoke;
+    v77[3] = &unk_1E7346C10;
+    v78 = v58;
+    [_sortedReplies enumerateObjectsUsingBlock:v77];
   }
 
   else
@@ -6485,15 +6340,15 @@ uint64_t __61__AFMyriadCoordinator__endAdvertisingWithDeviceProhibitions___block
     v5 = @"NO";
   }
 
-  v85[1] = @"previous_decision_time";
-  v86[0] = v5;
-  v85[0] = @"previous_decision";
+  v84[1] = @"previous_decision_time";
+  v85[0] = v5;
+  v84[0] = @"previous_decision";
   v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%llu", self->_lastDecisionTime];
-  v86[1] = v6;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v86 forKeys:v85 count:2];
-  v63 = [v4 initWithDictionary:v7];
+  v85[1] = v6;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v85 forKeys:v84 count:2];
+  v62 = [v4 initWithDictionary:v7];
 
-  [v63 setObject:v59 forKey:@"goodness_scores"];
+  [v62 setObject:v58 forKey:@"goodness_scores"];
   if (contextCopy)
   {
     v8 = @"YES";
@@ -6504,30 +6359,30 @@ uint64_t __61__AFMyriadCoordinator__endAdvertisingWithDeviceProhibitions___block
     v8 = @"NO";
   }
 
-  [v63 setObject:v8 forKey:@"decision"];
+  [v62 setObject:v8 forKey:@"decision"];
   v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%lu", objc_msgSend(_sortedReplies, "count")];
-  [v63 setObject:v9 forKey:@"device_count"];
+  [v62 setObject:v9 forKey:@"device_count"];
 
   v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%hhu", objc_msgSend(firstObject, "goodness")];
-  [v63 setObject:v10 forKey:@"winner_goodness"];
+  [v62 setObject:v10 forKey:@"winner_goodness"];
 
   maxSlowdownRecord = self->_maxSlowdownRecord;
   if (maxSlowdownRecord && self->_clientIsRespondingToSlowdown && !self->_clientDoneRespondingToSlowdown)
   {
     v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%lu", -[AFMyriadRecord slowdownDelay](maxSlowdownRecord, "slowdownDelay")];
-    [v63 setObject:v12 forKey:@"max_slowdown"];
+    [v62 setObject:v12 forKey:@"max_slowdown"];
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v83 = 0x2020000000;
-  v84 = 0;
-  v77[0] = MEMORY[0x1E69E9820];
-  v77[1] = 3221225472;
-  v77[2] = __55__AFMyriadCoordinator__endAdvertisingAnalyticsContext___block_invoke_307;
-  v77[3] = &unk_1E7346C38;
-  v77[4] = &buf;
-  [_sortedReplies enumerateObjectsUsingBlock:v77];
+  v82 = 0x2020000000;
+  v83 = 0;
+  v76[0] = MEMORY[0x1E69E9820];
+  v76[1] = 3221225472;
+  v76[2] = __55__AFMyriadCoordinator__endAdvertisingAnalyticsContext___block_invoke_307;
+  v76[3] = &unk_1E7346C38;
+  v76[4] = &buf;
+  [_sortedReplies enumerateObjectsUsingBlock:v76];
   if (*(*(&buf + 1) + 24))
   {
     v13 = @"YES";
@@ -6538,12 +6393,12 @@ uint64_t __61__AFMyriadCoordinator__endAdvertisingWithDeviceProhibitions___block
     v13 = @"NO";
   }
 
-  [v63 setObject:v13 forKey:@"homepod_involved"];
+  [v62 setObject:v13 forKey:@"homepod_involved"];
   v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%d", objc_msgSend(firstObject, "deviceClass")];
-  [v63 setObject:v14 forKey:@"winner_device_class"];
+  [v62 setObject:v14 forKey:@"winner_device_class"];
 
   v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%d", objc_msgSend(firstObject, "productType")];
-  [v63 setObject:v15 forKey:@"winner_product_type"];
+  [v62 setObject:v15 forKey:@"winner_product_type"];
 
   if (!contextCopy)
   {
@@ -6557,7 +6412,7 @@ uint64_t __61__AFMyriadCoordinator__endAdvertisingWithDeviceProhibitions___block
       v16 = @"NO";
     }
 
-    [v63 setObject:v16 forKey:@"winner_sent_suppresssion"];
+    [v62 setObject:v16 forKey:@"winner_sent_suppresssion"];
   }
 
   if (AFIsInternalInstall_onceToken != -1)
@@ -6577,56 +6432,56 @@ uint64_t __61__AFMyriadCoordinator__endAdvertisingWithDeviceProhibitions___block
       v19 = @"NO";
     }
 
-    [v63 setObject:v19 forKey:@"coordination_allowed"];
+    [v62 setObject:v19 forKey:@"coordination_allowed"];
     v20 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:self->_deviceGroup];
-    [v63 setObject:v20 forKey:@"device-group"];
+    [v62 setObject:v20 forKey:@"device-group"];
 
     v21 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:10];
-    v75[0] = MEMORY[0x1E69E9820];
-    v75[1] = 3221225472;
-    v75[2] = __55__AFMyriadCoordinator__endAdvertisingAnalyticsContext___block_invoke_2;
-    v75[3] = &unk_1E7346C60;
+    v74[0] = MEMORY[0x1E69E9820];
+    v74[1] = 3221225472;
+    v74[2] = __55__AFMyriadCoordinator__endAdvertisingAnalyticsContext___block_invoke_2;
+    v74[3] = &unk_1E7346C60;
     v22 = v21;
-    v76 = v22;
-    [_sortedReplies enumerateObjectsUsingBlock:v75];
-    [v63 setObject:v22 forKey:@"election"];
-    v57 = v22;
+    v75 = v22;
+    [_sortedReplies enumerateObjectsUsingBlock:v74];
+    [v62 setObject:v22 forKey:@"election"];
+    v56 = v22;
     v23 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    v73 = 0u;
-    v74 = 0u;
-    v71 = 0u;
     v72 = 0u;
+    v73 = 0u;
+    v70 = 0u;
+    v71 = 0u;
     obj = self->_replyCounts;
-    v24 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v71 objects:v81 count:16];
+    v24 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v70 objects:v80 count:16];
     if (v24)
     {
-      v25 = *v72;
+      v25 = *v71;
       do
       {
         for (i = 0; i != v24; ++i)
         {
-          if (*v72 != v25)
+          if (*v71 != v25)
           {
             objc_enumerationMutation(obj);
           }
 
-          v27 = *(*(&v71 + 1) + 8 * i);
+          v27 = *(*(&v70 + 1) + 8 * i);
           v28 = [(NSMutableDictionary *)self->_replyCounts objectForKeyedSubscript:v27];
-          v80[0] = v28;
+          v79[0] = v28;
           v29 = [(NSMutableDictionary *)self->_replies objectForKeyedSubscript:v27];
           v30 = [v29 description];
-          v80[1] = v30;
-          v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:v80 count:2];
+          v79[1] = v30;
+          v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:v79 count:2];
           [v23 setObject:v31 forKey:v27];
         }
 
-        v24 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v71 objects:v81 count:16];
+        v24 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v70 objects:v80 count:16];
       }
 
       while (v24);
     }
 
-    [v63 setObject:v23 forKey:@"counts"];
+    [v62 setObject:v23 forKey:@"counts"];
   }
 
   if (+[AFFeatureFlags isMyriadSelfMetricsEnabled])
@@ -6654,13 +6509,13 @@ uint64_t __61__AFMyriadCoordinator__endAdvertisingWithDeviceProhibitions___block
     }
 
     v37 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:10];
-    v69[0] = MEMORY[0x1E69E9820];
-    v69[1] = 3221225472;
-    v69[2] = __55__AFMyriadCoordinator__endAdvertisingAnalyticsContext___block_invoke_3;
-    v69[3] = &unk_1E7346C10;
-    v58 = v37;
-    v70 = v58;
-    [_sortedReplies enumerateObjectsUsingBlock:v69];
+    v68[0] = MEMORY[0x1E69E9820];
+    v68[1] = 3221225472;
+    v68[2] = __55__AFMyriadCoordinator__endAdvertisingAnalyticsContext___block_invoke_3;
+    v68[3] = &unk_1E7346C10;
+    v57 = v37;
+    v69 = v57;
+    [_sortedReplies enumerateObjectsUsingBlock:v68];
     v38 = mach_absolute_time();
     if (_AFMachAbsoluteTimeRate_onceToken != -1)
     {
@@ -6693,8 +6548,8 @@ uint64_t __61__AFMyriadCoordinator__endAdvertisingWithDeviceProhibitions___block
     }
 
     sessionId = [(AFMyriadSession *)self->_myriadSession sessionId];
-    LODWORD(v56) = rawAudioGoodnessScore;
-    [(AFMyriadInstrumentation *)myriadInstrumentation logCDAElectionDecisionMade:v42 withDecision:v43 withPreviousDecision:v44 timeSincePreviousDecision:((v39 * v38) - lastDecisionTime) / 0xF4240 withWinningDevice:v32 withThisDevice:v34 withParticipants:v58 withRawScore:v56 withBoost:0 withCdaId:sessionId currentRequestId:obja withTimestamp:mach_absolute_time()];
+    LODWORD(v55) = rawAudioGoodnessScore;
+    [(AFMyriadInstrumentation *)myriadInstrumentation logCDAElectionDecisionMade:v42 withDecision:v43 withPreviousDecision:v44 timeSincePreviousDecision:((v39 * v38) - lastDecisionTime) / 0xF4240 withWinningDevice:v32 withThisDevice:v34 withParticipants:v57 withRawScore:v55 withBoost:0 withCdaId:sessionId currentRequestId:obja withTimestamp:mach_absolute_time()];
 
     currentRequestId = self->_currentRequestId;
     self->_currentRequestId = 0;
@@ -6707,13 +6562,13 @@ uint64_t __61__AFMyriadCoordinator__endAdvertisingWithDeviceProhibitions___block
     if (AFIsInternalInstall_isInternal == 1)
     {
       v47 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:10];
-      v67[0] = MEMORY[0x1E69E9820];
-      v67[1] = 3221225472;
-      v67[2] = __55__AFMyriadCoordinator__endAdvertisingAnalyticsContext___block_invoke_4;
-      v67[3] = &unk_1E7346C10;
+      v66[0] = MEMORY[0x1E69E9820];
+      v66[1] = 3221225472;
+      v66[2] = __55__AFMyriadCoordinator__endAdvertisingAnalyticsContext___block_invoke_4;
+      v66[3] = &unk_1E7346C10;
       v48 = v47;
-      v68 = v48;
-      [_sortedReplies enumerateObjectsUsingBlock:v67];
+      v67 = v48;
+      [_sortedReplies enumerateObjectsUsingBlock:v66];
       v49 = self->_myriadInstrumentation;
       v50 = [(AFMyriadCoordinator *)self _myriadStateForSelf:self->_myriadState];
       coordinationEnabled = self->_coordinationEnabled;
@@ -6725,37 +6580,34 @@ uint64_t __61__AFMyriadCoordinator__endAdvertisingWithDeviceProhibitions___block
 
   _Block_object_dispose(&buf, 8);
 
-  v54 = *MEMORY[0x1E69E9840];
-
-  return v63;
+  return v62;
 }
 
 void __55__AFMyriadCoordinator__endAdvertisingAnalyticsContext___block_invoke(uint64_t a1, void *a2)
 {
-  v15[3] = *MEMORY[0x1E69E9840];
+  v14[3] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E695DF90];
   v4 = a2;
   v5 = [v3 alloc];
-  v14[0] = @"dc";
+  v13[0] = @"dc";
   v6 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v4, "deviceClass")}];
-  v15[0] = v6;
-  v14[1] = @"pt";
+  v14[0] = v6;
+  v13[1] = @"pt";
   v7 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v4, "productType")}];
-  v15[1] = v7;
-  v14[2] = @"goodness";
+  v14[1] = v7;
+  v13[2] = @"goodness";
   v8 = MEMORY[0x1E696AD98];
   v9 = [v4 goodness];
 
   v10 = [v8 numberWithInteger:v9];
-  v15[2] = v10;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:3];
+  v14[2] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:3];
   v12 = [v5 initWithDictionary:v11];
 
   [*(a1 + 32) addObject:v12];
-  v13 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __55__AFMyriadCoordinator__endAdvertisingAnalyticsContext___block_invoke_307(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__55__AFMyriadCoordinator__endAdvertisingAnalyticsContext___block_invoke_307(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 deviceClass];
   if (result == 7)
@@ -6830,13 +6682,13 @@ void __55__AFMyriadCoordinator__endAdvertisingAnalyticsContext___block_invoke_4(
 
 - (void)_endAdvertising:(id)advertising
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   advertisingCopy = advertising;
   v5 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v18 = "[AFMyriadCoordinator _endAdvertising:]";
+    v17 = "[AFMyriadCoordinator _endAdvertising:]";
     _os_log_debug_impl(&dword_1912FE000, v5, OS_LOG_TYPE_DEBUG, "%s ", buf, 0xCu);
   }
 
@@ -6846,10 +6698,10 @@ void __55__AFMyriadCoordinator__endAdvertisingAnalyticsContext___block_invoke_4(
     if (!+[AFFeatureFlags isMyriadSelfMetricsEnabled])
     {
       v6 = +[AFAnalytics sharedAnalytics];
-      v21 = @"state";
+      v20 = @"state";
       v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%lu", self->_myriadState];
-      v22[0] = v7;
-      v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+      v21[0] = v7;
+      v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
       [v6 logEventWithType:2004 context:v8];
     }
 
@@ -6874,14 +6726,12 @@ void __55__AFMyriadCoordinator__endAdvertisingAnalyticsContext___block_invoke_4(
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v18 = "[AFMyriadCoordinator _endAdvertising:]";
-      v19 = 2048;
-      v20 = v14;
+      v17 = "[AFMyriadCoordinator _endAdvertising:]";
+      v18 = 2048;
+      v19 = v14;
       _os_log_impl(&dword_1912FE000, v15, OS_LOG_TYPE_INFO, "%s BTLE activation time %f", buf, 0x16u);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)endAdvertisingAfterDelay:(float)delay
@@ -6911,21 +6761,19 @@ uint64_t __48__AFMyriadCoordinator_endAdvertisingAfterDelay___block_invoke(uint6
 
 uint64_t __48__AFMyriadCoordinator_endAdvertisingAfterDelay___block_invoke_2(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 40);
-    v6 = 136315394;
-    v7 = "[AFMyriadCoordinator endAdvertisingAfterDelay:]_block_invoke_2";
-    v8 = 2048;
-    v9 = v3;
-    _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s BTLE ending advertising after %f secs delay", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[AFMyriadCoordinator endAdvertisingAfterDelay:]_block_invoke_2";
+    v7 = 2048;
+    v8 = v3;
+    _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s BTLE ending advertising after %f secs delay", &v5, 0x16u);
   }
 
-  result = [*(a1 + 32) enterState:0];
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) enterState:0];
 }
 
 - (void)startAdvertisingSlowdown:(unsigned __int16)slowdown
@@ -6942,24 +6790,22 @@ uint64_t __48__AFMyriadCoordinator_endAdvertisingAfterDelay___block_invoke_2(uin
 
 uint64_t __48__AFMyriadCoordinator_startAdvertisingSlowdown___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 40);
-    v6 = 136315394;
-    v7 = "[AFMyriadCoordinator startAdvertisingSlowdown:]_block_invoke";
-    v8 = 1024;
-    v9 = v3;
-    _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s BTLE advertising slowdown: %d msecs", &v6, 0x12u);
+    v5 = 136315394;
+    v6 = "[AFMyriadCoordinator startAdvertisingSlowdown:]_block_invoke";
+    v7 = 1024;
+    v8 = v3;
+    _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s BTLE advertising slowdown: %d msecs", &v5, 0x12u);
   }
 
   [*(a1 + 32) _initializeTimer];
   *(*(a1 + 32) + 296) = *(a1 + 40);
   *(*(a1 + 32) + 327) = 1;
-  result = [*(a1 + 32) _enterState:16];
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) _enterState:16];
 }
 
 - (void)startResponseAdvertising:(unsigned __int16)advertising
@@ -6976,13 +6822,13 @@ uint64_t __48__AFMyriadCoordinator_startAdvertisingSlowdown___block_invoke(uint6
 
 void __48__AFMyriadCoordinator_startResponseAdvertising___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
-    v6 = 136315138;
-    v7 = "[AFMyriadCoordinator startResponseAdvertising:]_block_invoke";
-    _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s BTLE suppressing stragglers", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[AFMyriadCoordinator startResponseAdvertising:]_block_invoke";
+    _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s BTLE suppressing stragglers", &v5, 0xCu);
   }
 
   [*(a1 + 32) _initializeTimer];
@@ -6990,8 +6836,6 @@ void __48__AFMyriadCoordinator_startResponseAdvertising___block_invoke(uint64_t 
   *(*(a1 + 32) + 324) = 0;
   LODWORD(v4) = 1.0;
   [*(a1 + 32) _startAdvertising:v3 afterDelay:0.0 maxInterval:v4];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startAdvertisingFromAlertFiringVoiceTriggerWithContext:(id)context
@@ -7010,12 +6854,12 @@ void __48__AFMyriadCoordinator_startResponseAdvertising___block_invoke(uint64_t 
 
 uint64_t __78__AFMyriadCoordinator_startAdvertisingFromAlertFiringVoiceTriggerWithContext___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v18 = "[AFMyriadCoordinator startAdvertisingFromAlertFiringVoiceTriggerWithContext:]_block_invoke";
+    v17 = "[AFMyriadCoordinator startAdvertisingFromAlertFiringVoiceTriggerWithContext:]_block_invoke";
     _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s BTLE voice trigger during alert heard", buf, 0xCu);
   }
 
@@ -7023,12 +6867,12 @@ uint64_t __78__AFMyriadCoordinator_startAdvertisingFromAlertFiringVoiceTriggerWi
   if (!+[AFFeatureFlags isMyriadSelfMetricsEnabled])
   {
     v3 = +[AFAnalytics sharedAnalytics];
-    v15[0] = @"state";
+    v14[0] = @"state";
     v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%lu", *(*(a1 + 32) + 8)];
-    v15[1] = @"trigger";
-    v16[0] = v4;
-    v16[1] = @"AlertFiringVoiceTrigger";
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:2];
+    v14[1] = @"trigger";
+    v15[0] = v4;
+    v15[1] = @"AlertFiringVoiceTrigger";
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:2];
     [v3 logEventWithType:2011 context:v5];
   }
 
@@ -7052,14 +6896,12 @@ uint64_t __78__AFMyriadCoordinator_startAdvertisingFromAlertFiringVoiceTriggerWi
 
   *(*(a1 + 32) + 320) = 0;
   *(*(a1 + 32) + 248) = 3;
-  result = [*(a1 + 32) _enterState:1];
-  v14 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) _enterState:1];
 }
 
 - (void)startAdvertisingFromInTaskVoiceTriggerWithContext:(id)context
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   v5 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
@@ -7067,23 +6909,21 @@ uint64_t __78__AFMyriadCoordinator_startAdvertisingFromAlertFiringVoiceTriggerWi
     v6 = v5;
     v7 = [contextCopy debugDescription];
     *buf = 136315394;
-    v14 = "[AFMyriadCoordinator startAdvertisingFromInTaskVoiceTriggerWithContext:]";
-    v15 = 2112;
-    v16 = v7;
+    v13 = "[AFMyriadCoordinator startAdvertisingFromInTaskVoiceTriggerWithContext:]";
+    v14 = 2112;
+    v15 = v7;
     _os_log_impl(&dword_1912FE000, v6, OS_LOG_TYPE_INFO, "%s BTLE voice trigger while inTask with context: %@", buf, 0x16u);
   }
 
   myriadWorkQueue = self->_myriadWorkQueue;
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __73__AFMyriadCoordinator_startAdvertisingFromInTaskVoiceTriggerWithContext___block_invoke;
-  v11[3] = &unk_1E7349860;
-  v11[4] = self;
-  v12 = contextCopy;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __73__AFMyriadCoordinator_startAdvertisingFromInTaskVoiceTriggerWithContext___block_invoke;
+  v10[3] = &unk_1E7349860;
+  v10[4] = self;
+  v11 = contextCopy;
   v9 = contextCopy;
-  dispatch_async(myriadWorkQueue, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  dispatch_async(myriadWorkQueue, v10);
 }
 
 uint64_t __73__AFMyriadCoordinator_startAdvertisingFromInTaskVoiceTriggerWithContext___block_invoke(uint64_t a1)
@@ -7097,24 +6937,24 @@ uint64_t __73__AFMyriadCoordinator_startAdvertisingFromInTaskVoiceTriggerWithCon
 
 - (void)_startAdvertisingFromInTaskVoiceTrigger
 {
-  v24[2] = *MEMORY[0x1E69E9840];
+  v23[2] = *MEMORY[0x1E69E9840];
   v3 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v20 = "[AFMyriadCoordinator _startAdvertisingFromInTaskVoiceTrigger]";
+    v19 = "[AFMyriadCoordinator _startAdvertisingFromInTaskVoiceTrigger]";
     _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s BTLE in-task voice trigger heard", buf, 0xCu);
   }
 
   if (!+[AFFeatureFlags isMyriadSelfMetricsEnabled])
   {
     v4 = +[AFAnalytics sharedAnalytics];
-    v23[0] = @"state";
+    v22[0] = @"state";
     v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%lu", self->_myriadState];
-    v23[1] = @"trigger";
-    v24[0] = v5;
-    v24[1] = @"InTaskVoiceTrigger";
-    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:2];
+    v22[1] = @"trigger";
+    v23[0] = v5;
+    v23[1] = @"InTaskVoiceTrigger";
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:2];
     [v4 logEventWithType:2011 context:v6];
   }
 
@@ -7130,7 +6970,7 @@ uint64_t __73__AFMyriadCoordinator_startAdvertisingFromInTaskVoiceTriggerWithCon
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v20 = "[AFMyriadCoordinator _startAdvertisingFromInTaskVoiceTrigger]";
+      v19 = "[AFMyriadCoordinator _startAdvertisingFromInTaskVoiceTrigger]";
       _os_log_impl(&dword_1912FE000, v8, OS_LOG_TYPE_INFO, "%s BTLE ignoring in-task voice trigger and continuing with ongoing advertisement.", buf, 0xCu);
     }
   }
@@ -7169,9 +7009,9 @@ uint64_t __73__AFMyriadCoordinator_startAdvertisingFromInTaskVoiceTriggerWithCon
       {
         voiceTriggerTime = self->_voiceTriggerTime;
         *buf = 136315394;
-        v20 = "[AFMyriadCoordinator _startAdvertisingFromInTaskVoiceTrigger]";
-        v21 = 2048;
-        v22 = voiceTriggerTime;
+        v19 = "[AFMyriadCoordinator _startAdvertisingFromInTaskVoiceTrigger]";
+        v20 = 2048;
+        v21 = voiceTriggerTime;
         _os_log_debug_impl(&dword_1912FE000, v14, OS_LOG_TYPE_DEBUG, "%s #myriad _voiceTriggerTime: %llu", buf, 0x16u);
       }
 
@@ -7181,8 +7021,6 @@ uint64_t __73__AFMyriadCoordinator_startAdvertisingFromInTaskVoiceTriggerWithCon
 
     [(AFMyriadCoordinator *)selfCopy2 _enterState:v16];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startAdvertisingEmergency
@@ -7198,24 +7036,24 @@ uint64_t __73__AFMyriadCoordinator_startAdvertisingFromInTaskVoiceTriggerWithCon
 
 uint64_t __48__AFMyriadCoordinator_startAdvertisingEmergency__block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v17 = "[AFMyriadCoordinator startAdvertisingEmergency]_block_invoke";
+    v16 = "[AFMyriadCoordinator startAdvertisingEmergency]_block_invoke";
     _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s BTLE sending emergency beacon", buf, 0xCu);
   }
 
   if (!+[AFFeatureFlags isMyriadSelfMetricsEnabled])
   {
     v3 = +[AFAnalytics sharedAnalytics];
-    v14[0] = @"state";
+    v13[0] = @"state";
     v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%lu", *(*(a1 + 32) + 8)];
-    v14[1] = @"trigger";
-    v15[0] = v4;
-    v15[1] = @"Emergency";
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:2];
+    v13[1] = @"trigger";
+    v14[0] = v4;
+    v14[1] = @"Emergency";
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:2];
     [v3 logEventWithType:2011 context:v5];
   }
 
@@ -7237,9 +7075,7 @@ uint64_t __48__AFMyriadCoordinator_startAdvertisingEmergency__block_invoke(uint6
   [v10 systemUptime];
   *(*(a1 + 32) + 408) = v11;
 
-  result = [*(a1 + 32) _duringNextWindowEnterState:8];
-  v13 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) _duringNextWindowEnterState:8];
 }
 
 - (void)startAdvertisingEmergencyHandled
@@ -7255,21 +7091,19 @@ uint64_t __48__AFMyriadCoordinator_startAdvertisingEmergency__block_invoke(uint6
 
 uint64_t __55__AFMyriadCoordinator_startAdvertisingEmergencyHandled__block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
-    v5 = 136315138;
-    v6 = "[AFMyriadCoordinator startAdvertisingEmergencyHandled]_block_invoke";
-    _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s BTLE handling emergency beacon", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[AFMyriadCoordinator startAdvertisingEmergencyHandled]_block_invoke";
+    _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s BTLE handling emergency beacon", &v4, 0xCu);
   }
 
   [*(a1 + 32) _initializeTimer];
   *(*(a1 + 32) + 320) = 0;
   *(*(a1 + 32) + 313) = 1;
-  result = [*(a1 + 32) _enterState:9];
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) _enterState:9];
 }
 
 - (void)startAdvertisingFromCarPlayTrigger
@@ -7285,24 +7119,24 @@ uint64_t __55__AFMyriadCoordinator_startAdvertisingEmergencyHandled__block_invok
 
 uint64_t __57__AFMyriadCoordinator_startAdvertisingFromCarPlayTrigger__block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v19 = "[AFMyriadCoordinator startAdvertisingFromCarPlayTrigger]_block_invoke";
+    v18 = "[AFMyriadCoordinator startAdvertisingFromCarPlayTrigger]_block_invoke";
     _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s BTLE trumping from in CarPlay trigger", buf, 0xCu);
   }
 
   if (!+[AFFeatureFlags isMyriadSelfMetricsEnabled])
   {
     v3 = +[AFAnalytics sharedAnalytics];
-    v16[0] = @"state";
+    v15[0] = @"state";
     v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%lu", *(*(a1 + 32) + 8)];
-    v16[1] = @"trigger";
-    v17[0] = v4;
-    v17[1] = @"CarPlayTrigger";
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:2];
+    v15[1] = @"trigger";
+    v16[0] = v4;
+    v16[1] = @"CarPlayTrigger";
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:2];
     [v3 logEventWithType:2011 context:v5];
   }
 
@@ -7330,13 +7164,11 @@ uint64_t __57__AFMyriadCoordinator_startAdvertisingFromCarPlayTrigger__block_inv
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v19 = "[AFMyriadCoordinator startAdvertisingFromCarPlayTrigger]_block_invoke";
+    v18 = "[AFMyriadCoordinator startAdvertisingFromCarPlayTrigger]_block_invoke";
     _os_log_impl(&dword_1912FE000, v13, OS_LOG_TYPE_INFO, "%s #myriad CarPlay override", buf, 0xCu);
   }
 
-  result = [*(a1 + 32) _forceLocalWinner:0];
-  v15 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) _forceLocalWinner:0];
 }
 
 - (void)startAdvertisingFromInEarTrigger
@@ -7352,24 +7184,24 @@ uint64_t __57__AFMyriadCoordinator_startAdvertisingFromCarPlayTrigger__block_inv
 
 uint64_t __55__AFMyriadCoordinator_startAdvertisingFromInEarTrigger__block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v19 = "[AFMyriadCoordinator startAdvertisingFromInEarTrigger]_block_invoke";
+    v18 = "[AFMyriadCoordinator startAdvertisingFromInEarTrigger]_block_invoke";
     _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s BTLE trumping from in ear voice trigger", buf, 0xCu);
   }
 
   if (!+[AFFeatureFlags isMyriadSelfMetricsEnabled])
   {
     v3 = +[AFAnalytics sharedAnalytics];
-    v16[0] = @"state";
+    v15[0] = @"state";
     v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%lu", *(*(a1 + 32) + 8)];
-    v16[1] = @"trigger";
-    v17[0] = v4;
-    v17[1] = @"InEarTrigger";
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:2];
+    v15[1] = @"trigger";
+    v16[0] = v4;
+    v16[1] = @"InEarTrigger";
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:2];
     [v3 logEventWithType:2011 context:v5];
   }
 
@@ -7399,9 +7231,7 @@ uint64_t __55__AFMyriadCoordinator_startAdvertisingFromInEarTrigger__block_invok
   *(v13 + 320) = 0;
   *(*(a1 + 32) + 321) = 1;
   *(*(a1 + 32) + 248) = 6;
-  result = [*(a1 + 32) _enterState:1];
-  v15 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) _enterState:1];
 }
 
 - (void)startAdvertisingFromOutgoingTriggerWithContext:(id)context
@@ -7420,12 +7250,12 @@ uint64_t __55__AFMyriadCoordinator_startAdvertisingFromInEarTrigger__block_invok
 
 uint64_t __70__AFMyriadCoordinator_startAdvertisingFromOutgoingTriggerWithContext___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v18 = "[AFMyriadCoordinator startAdvertisingFromOutgoingTriggerWithContext:]_block_invoke";
+    v17 = "[AFMyriadCoordinator startAdvertisingFromOutgoingTriggerWithContext:]_block_invoke";
     _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s BTLE suppressing trigger in audio output", buf, 0xCu);
   }
 
@@ -7433,12 +7263,12 @@ uint64_t __70__AFMyriadCoordinator_startAdvertisingFromOutgoingTriggerWithContex
   if (!+[AFFeatureFlags isMyriadSelfMetricsEnabled])
   {
     v3 = +[AFAnalytics sharedAnalytics];
-    v15[0] = @"state";
+    v14[0] = @"state";
     v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%lu", *(*(a1 + 32) + 8)];
-    v15[1] = @"trigger";
-    v16[0] = v4;
-    v16[1] = @"OutgoingTrigger";
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:2];
+    v14[1] = @"trigger";
+    v15[0] = v4;
+    v15[1] = @"OutgoingTrigger";
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:2];
     [v3 logEventWithType:2011 context:v5];
   }
 
@@ -7462,9 +7292,7 @@ uint64_t __70__AFMyriadCoordinator_startAdvertisingFromOutgoingTriggerWithContex
 
   *(*(a1 + 32) + 320) = 0;
   *(*(a1 + 32) + 248) = 3;
-  result = [*(a1 + 32) _enterState:14];
-  v14 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) _enterState:14];
 }
 
 - (void)startAdvertisingFromDirectTriggerWithContext:(id)context
@@ -7483,12 +7311,12 @@ uint64_t __70__AFMyriadCoordinator_startAdvertisingFromOutgoingTriggerWithContex
 
 uint64_t __68__AFMyriadCoordinator_startAdvertisingFromDirectTriggerWithContext___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v18 = "[AFMyriadCoordinator startAdvertisingFromDirectTriggerWithContext:]_block_invoke";
+    v17 = "[AFMyriadCoordinator startAdvertisingFromDirectTriggerWithContext:]_block_invoke";
     _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s BTLE trumping", buf, 0xCu);
   }
 
@@ -7496,12 +7324,12 @@ uint64_t __68__AFMyriadCoordinator_startAdvertisingFromDirectTriggerWithContext_
   if (!+[AFFeatureFlags isMyriadSelfMetricsEnabled])
   {
     v3 = +[AFAnalytics sharedAnalytics];
-    v15[0] = @"state";
+    v14[0] = @"state";
     v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%lu", *(*(a1 + 32) + 8)];
-    v15[1] = @"trigger";
-    v16[0] = v4;
-    v16[1] = @"DirectTrigger";
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:2];
+    v14[1] = @"trigger";
+    v15[0] = v4;
+    v15[1] = @"DirectTrigger";
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:2];
     [v3 logEventWithType:2011 context:v5];
   }
 
@@ -7525,9 +7353,7 @@ uint64_t __68__AFMyriadCoordinator_startAdvertisingFromDirectTriggerWithContext_
 
   *(*(a1 + 32) + 320) = 1;
   *(*(a1 + 32) + 248) = 3;
-  result = [*(a1 + 32) _enterState:1];
-  v14 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) _enterState:1];
 }
 
 - (void)startWatchAdvertisingFromDirectTriggerWithContext:(id)context
@@ -7546,12 +7372,12 @@ uint64_t __68__AFMyriadCoordinator_startAdvertisingFromDirectTriggerWithContext_
 
 uint64_t __73__AFMyriadCoordinator_startWatchAdvertisingFromDirectTriggerWithContext___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v18 = "[AFMyriadCoordinator startWatchAdvertisingFromDirectTriggerWithContext:]_block_invoke";
+    v17 = "[AFMyriadCoordinator startWatchAdvertisingFromDirectTriggerWithContext:]_block_invoke";
     _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s BTLE trumping", buf, 0xCu);
   }
 
@@ -7559,12 +7385,12 @@ uint64_t __73__AFMyriadCoordinator_startWatchAdvertisingFromDirectTriggerWithCon
   if (!+[AFFeatureFlags isMyriadSelfMetricsEnabled])
   {
     v3 = +[AFAnalytics sharedAnalytics];
-    v15[0] = @"state";
+    v14[0] = @"state";
     v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%lu", *(*(a1 + 32) + 8)];
-    v15[1] = @"trigger";
-    v16[0] = v4;
-    v16[1] = @"DirectTrigger";
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:2];
+    v14[1] = @"trigger";
+    v15[0] = v4;
+    v15[1] = @"DirectTrigger";
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:2];
     [v3 logEventWithType:2011 context:v5];
   }
 
@@ -7589,9 +7415,7 @@ uint64_t __73__AFMyriadCoordinator_startWatchAdvertisingFromDirectTriggerWithCon
   *(*(a1 + 32) + 320) = 1;
   *(*(a1 + 32) + 325) = 1;
   *(*(a1 + 32) + 248) = 3;
-  result = [*(a1 + 32) _enterState:1];
-  v14 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) _enterState:1];
 }
 
 - (void)startWatchAdvertisingFromVoiceTriggerWithContext:(id)context
@@ -7610,12 +7434,12 @@ uint64_t __73__AFMyriadCoordinator_startWatchAdvertisingFromDirectTriggerWithCon
 
 void __72__AFMyriadCoordinator_startWatchAdvertisingFromVoiceTriggerWithContext___block_invoke(uint64_t a1)
 {
-  v37[2] = *MEMORY[0x1E69E9840];
+  v36[2] = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v31 = "[AFMyriadCoordinator startWatchAdvertisingFromVoiceTriggerWithContext:]_block_invoke";
+    v30 = "[AFMyriadCoordinator startWatchAdvertisingFromVoiceTriggerWithContext:]_block_invoke";
     _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
   }
 
@@ -7626,11 +7450,11 @@ void __72__AFMyriadCoordinator_startWatchAdvertisingFromVoiceTriggerWithContext_
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v31 = "[AFMyriadCoordinator startWatchAdvertisingFromVoiceTriggerWithContext:]_block_invoke";
+      v30 = "[AFMyriadCoordinator startWatchAdvertisingFromVoiceTriggerWithContext:]_block_invoke";
       _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s BTLE ignoring watch voice trigger and continuing with ongoing advertisement.", buf, 0xCu);
     }
 
-    goto LABEL_27;
+    return;
   }
 
   v4 = *(a1 + 32);
@@ -7639,12 +7463,12 @@ void __72__AFMyriadCoordinator_startWatchAdvertisingFromVoiceTriggerWithContext_
     if (!+[AFFeatureFlags isMyriadSelfMetricsEnabled])
     {
       v9 = +[AFAnalytics sharedAnalytics];
-      v36[0] = @"state";
+      v35[0] = @"state";
       v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%lu", *(*(a1 + 32) + 8)];
-      v36[1] = @"trigger";
-      v37[0] = v10;
-      v37[1] = @"VoiceTrigger";
-      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:v36 count:2];
+      v35[1] = @"trigger";
+      v36[0] = v10;
+      v36[1] = @"VoiceTrigger";
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:v35 count:2];
       [v9 logEventWithType:2011 context:v11];
     }
 
@@ -7691,11 +7515,11 @@ void __72__AFMyriadCoordinator_startWatchAdvertisingFromVoiceTriggerWithContext_
       if (v25)
       {
         *buf = 136315650;
-        v31 = "[AFMyriadCoordinator startWatchAdvertisingFromVoiceTriggerWithContext:]_block_invoke";
-        v32 = 1024;
-        v33 = v23;
-        v34 = 1024;
-        v35 = 25;
+        v30 = "[AFMyriadCoordinator startWatchAdvertisingFromVoiceTriggerWithContext:]_block_invoke";
+        v31 = 1024;
+        v32 = v23;
+        v33 = 1024;
+        v34 = 25;
         v26 = "%s #myriad watch trumping due to threshold for rawAudioGoodnessScore: %u >= %u";
         v27 = v24;
         v28 = 24;
@@ -7707,7 +7531,7 @@ LABEL_22:
     else if (v25)
     {
       *buf = 136315138;
-      v31 = "[AFMyriadCoordinator startWatchAdvertisingFromVoiceTriggerWithContext:]_block_invoke";
+      v30 = "[AFMyriadCoordinator startWatchAdvertisingFromVoiceTriggerWithContext:]_block_invoke";
       v26 = "%s #myriad watch trumping due to score being 0";
       v27 = v24;
       v28 = 12;
@@ -7727,7 +7551,7 @@ LABEL_26:
     *(*(a1 + 32) + 248) = 10;
     [*(a1 + 32) _enterState:1];
 
-    goto LABEL_27;
+    return;
   }
 
   [v4 _startAdvertisingFromInTaskVoiceTrigger];
@@ -7740,9 +7564,6 @@ LABEL_26:
     v8 = [*(*(a1 + 32) + 512) sessionId];
     [v6 logCDADeviceStateActivityStartedOrChanged:v7 withTrigger:6 withCdaId:v8 withTimestamp:mach_absolute_time()];
   }
-
-LABEL_27:
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startAdvertisingFromVoiceTriggerWithGoodnessScoreContext:(id)context withContext:(id)withContext
@@ -7764,7 +7585,7 @@ LABEL_27:
 
 void __92__AFMyriadCoordinator_startAdvertisingFromVoiceTriggerWithGoodnessScoreContext_withContext___block_invoke(id *a1)
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   [a1[4] _setMyriadContext:a1[5]];
   v2 = [a1[6] getOverridingContext];
   v3 = v2;
@@ -7794,11 +7615,11 @@ void __92__AFMyriadCoordinator_startAdvertisingFromVoiceTriggerWithGoodnessScore
   {
     v8 = *(a1[4] + 280);
     *buf = 136315650;
-    v42 = "[AFMyriadCoordinator startAdvertisingFromVoiceTriggerWithGoodnessScoreContext:withContext:]_block_invoke";
-    v43 = 2112;
-    *v44 = v3;
-    *&v44[8] = 1024;
-    *v45 = v8;
+    v41 = "[AFMyriadCoordinator startAdvertisingFromVoiceTriggerWithGoodnessScoreContext:withContext:]_block_invoke";
+    v42 = 2112;
+    *v43 = v3;
+    *&v43[8] = 1024;
+    *v44 = v8;
     _os_log_impl(&dword_1912FE000, v7, OS_LOG_TYPE_INFO, "%s #myriad overrideContext: %@, _incomingAdjustment %d", buf, 0x1Cu);
   }
 
@@ -7813,9 +7634,9 @@ void __92__AFMyriadCoordinator_startAdvertisingFromVoiceTriggerWithGoodnessScore
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v42 = "[AFMyriadCoordinator startAdvertisingFromVoiceTriggerWithGoodnessScoreContext:withContext:]_block_invoke";
-      v43 = 2112;
-      *v44 = v11;
+      v41 = "[AFMyriadCoordinator startAdvertisingFromVoiceTriggerWithGoodnessScoreContext:withContext:]_block_invoke";
+      v42 = 2112;
+      *v43 = v11;
       _os_log_impl(&dword_1912FE000, v12, OS_LOG_TYPE_INFO, "%s #myriad Goodness score override state %@", buf, 0x16u);
     }
 
@@ -7849,29 +7670,29 @@ void __92__AFMyriadCoordinator_startAdvertisingFromVoiceTriggerWithGoodnessScore
     LODWORD(v18) = v18[280];
     v22 = a1[6];
     *buf = 136316418;
-    v42 = "[AFMyriadCoordinator startAdvertisingFromVoiceTriggerWithGoodnessScoreContext:withContext:]_block_invoke";
-    v43 = 1024;
-    *v44 = v20;
-    *&v44[4] = 1024;
-    *&v44[6] = v21;
-    *v45 = 1024;
-    *&v45[2] = v18;
-    v46 = 2112;
-    v47 = v19;
-    v48 = 2112;
-    v49 = v22;
+    v41 = "[AFMyriadCoordinator startAdvertisingFromVoiceTriggerWithGoodnessScoreContext:withContext:]_block_invoke";
+    v42 = 1024;
+    *v43 = v20;
+    *&v43[4] = 1024;
+    *&v43[6] = v21;
+    *v44 = 1024;
+    *&v44[2] = v18;
+    v45 = 2112;
+    v46 = v19;
+    v47 = 2112;
+    v48 = v22;
     _os_log_impl(&dword_1912FE000, v17, OS_LOG_TYPE_INFO, "%s BTLE startFromVoiceTrigger inTask=%d, inSetupMode=%d, incomingAdjustment=%d,  context=%@, goodnessScoreContext=%@", buf, 0x32u);
   }
 
   if (!+[AFFeatureFlags isMyriadSelfMetricsEnabled])
   {
     v23 = +[AFAnalytics sharedAnalytics];
-    v39[0] = @"state";
+    v38[0] = @"state";
     v24 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%lu", *(a1[4] + 1)];
-    v39[1] = @"trigger";
-    v40[0] = v24;
-    v40[1] = @"VoiceTrigger";
-    v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:v39 count:2];
+    v38[1] = @"trigger";
+    v39[0] = v24;
+    v39[1] = @"VoiceTrigger";
+    v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v39 forKeys:v38 count:2];
     [v23 logEventWithType:2011 context:v25];
   }
 
@@ -7887,10 +7708,10 @@ void __92__AFMyriadCoordinator_startAdvertisingFromVoiceTriggerWithGoodnessScore
     goto LABEL_40;
   }
 
-  v33 = [v11 reason];
-  v34 = [v33 isEqualToString:@"CarPlay request"];
+  v32 = [v11 reason];
+  isEqualToString = objc_msgSend_isEqualToString_(v32);
 
-  if ((v34 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     v26 = a1[4];
 LABEL_40:
@@ -7898,21 +7719,21 @@ LABEL_40:
     goto LABEL_24;
   }
 
-  v35 = AFSiriLogContextConnection;
+  v34 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v42 = "[AFMyriadCoordinator startAdvertisingFromVoiceTriggerWithGoodnessScoreContext:withContext:]_block_invoke";
-    v43 = 2112;
-    *v44 = v11;
-    _os_log_impl(&dword_1912FE000, v35, OS_LOG_TYPE_INFO, "%s #myriad CarPlay override %@", buf, 0x16u);
+    v41 = "[AFMyriadCoordinator startAdvertisingFromVoiceTriggerWithGoodnessScoreContext:withContext:]_block_invoke";
+    v42 = 2112;
+    *v43 = v11;
+    _os_log_impl(&dword_1912FE000, v34, OS_LOG_TYPE_INFO, "%s #myriad CarPlay override %@", buf, 0x16u);
   }
 
   [a1[4] _initializeTimer];
-  v36 = [a1[4] voiceTriggerRecord];
-  v37 = a1[4];
-  v38 = v37[30];
-  v37[30] = v36;
+  v35 = [a1[4] voiceTriggerRecord];
+  v36 = a1[4];
+  v37 = v36[30];
+  v36[30] = v35;
 
   if (![*(a1[4] + 30) pHash])
   {
@@ -7944,14 +7765,12 @@ LABEL_24:
     v31 = [*(a1[4] + 64) sessionId];
     [v29 logCDADeviceStateActivityStartedOrChanged:v30 withTrigger:v28 withCdaId:v31 withTimestamp:mach_absolute_time()];
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startAdvertisingFromVoiceTriggerAdjusted:(char)adjusted withContext:(id)context
 {
   adjustedCopy = adjusted;
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   v7 = objc_alloc_init(AFMyriadGoodnessScoreOverrideContext);
   [(AFMyriadGoodnessScoreOverrideContext *)v7 setOverrideContext:1];
@@ -7959,13 +7778,13 @@ LABEL_24:
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
   {
     deviceAdjust = self->_deviceAdjust;
-    v14 = 136315650;
-    v15 = "[AFMyriadCoordinator startAdvertisingFromVoiceTriggerAdjusted:withContext:]";
-    v16 = 1024;
-    v17 = deviceAdjust;
-    v18 = 1024;
-    v19 = adjustedCopy;
-    _os_log_debug_impl(&dword_1912FE000, v8, OS_LOG_TYPE_DEBUG, "%s #myriad _deviceAdjust=%d, adjustment= %d", &v14, 0x18u);
+    v13 = 136315650;
+    v14 = "[AFMyriadCoordinator startAdvertisingFromVoiceTriggerAdjusted:withContext:]";
+    v15 = 1024;
+    v16 = deviceAdjust;
+    v17 = 1024;
+    v18 = adjustedCopy;
+    _os_log_debug_impl(&dword_1912FE000, v8, OS_LOG_TYPE_DEBUG, "%s #myriad _deviceAdjust=%d, adjustment= %d", &v13, 0x18u);
   }
 
   if ([contextCopy activationSource] == 13 && self->_deviceClass == 3)
@@ -7973,12 +7792,12 @@ LABEL_24:
     v9 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
     {
-      v13 = self->_deviceAdjust;
-      v14 = 136315394;
-      v15 = "[AFMyriadCoordinator startAdvertisingFromVoiceTriggerAdjusted:withContext:]";
-      v16 = 1024;
-      v17 = v13;
-      _os_log_debug_impl(&dword_1912FE000, v9, OS_LOG_TYPE_DEBUG, "%s #myriad removing negative iPad device boost (adding %d back) due to activationSource", &v14, 0x12u);
+      v12 = self->_deviceAdjust;
+      v13 = 136315394;
+      v14 = "[AFMyriadCoordinator startAdvertisingFromVoiceTriggerAdjusted:withContext:]";
+      v15 = 1024;
+      v16 = v12;
+      _os_log_debug_impl(&dword_1912FE000, v9, OS_LOG_TYPE_DEBUG, "%s #myriad removing negative iPad device boost (adding %d back) due to activationSource", &v13, 0x12u);
     }
 
     LOBYTE(adjustedCopy) = adjustedCopy - LOBYTE(self->_deviceAdjust);
@@ -7988,16 +7807,13 @@ LABEL_24:
   v10 = objc_alloc_init(AFMyriadGoodnessScoreContext);
   [(AFMyriadGoodnessScoreContext *)v10 setOverridingContext:v7];
   [(AFMyriadCoordinator *)self startAdvertisingFromVoiceTriggerWithGoodnessScoreContext:v10 withContext:contextCopy];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_startAdvertisingFromVoiceTrigger
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   if (self->_inTask || self->_inSetupMode)
   {
-    v3 = *MEMORY[0x1E69E9840];
 
     [(AFMyriadCoordinator *)self _startAdvertisingFromInTaskVoiceTrigger];
   }
@@ -8009,43 +7825,43 @@ LABEL_24:
     triggerRecord = self->_triggerRecord;
     self->_triggerRecord = voiceTriggerRecord;
 
-    v6 = AFSiriLogContextConnection;
+    v5 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
       deviceClassName = self->_deviceClassName;
       productTypeName = self->_productTypeName;
       deviceAdjust = self->_deviceAdjust;
       incomingAdjustment = self->_incomingAdjustment;
-      v12 = self->_triggerRecord;
-      v13 = v6;
-      v31 = 136316418;
-      v32 = "[AFMyriadCoordinator _startAdvertisingFromVoiceTrigger]";
+      v11 = self->_triggerRecord;
+      v12 = v5;
+      v29 = 136316418;
+      v30 = "[AFMyriadCoordinator _startAdvertisingFromVoiceTrigger]";
+      v31 = 2112;
+      v32 = *&deviceClassName;
       v33 = 2112;
-      v34 = *&deviceClassName;
-      v35 = 2112;
-      v36 = productTypeName;
+      v34 = productTypeName;
+      v35 = 1024;
+      v36 = deviceAdjust;
       v37 = 1024;
-      v38 = deviceAdjust;
+      v38 = incomingAdjustment;
       v39 = 1024;
-      v40 = incomingAdjustment;
-      v41 = 1024;
-      rawAudioGoodnessScore = [(AFMyriadRecord *)v12 rawAudioGoodnessScore];
-      _os_log_impl(&dword_1912FE000, v13, OS_LOG_TYPE_INFO, "%s #myriad BTLE device class: %@ (%@) detected, adjusting goodness by %d incomingAdjustment %d, rawAudioGoodnessScore: %d", &v31, 0x32u);
+      rawAudioGoodnessScore = [(AFMyriadRecord *)v11 rawAudioGoodnessScore];
+      _os_log_impl(&dword_1912FE000, v12, OS_LOG_TYPE_INFO, "%s #myriad BTLE device class: %@ (%@) detected, adjusting goodness by %d incomingAdjustment %d, rawAudioGoodnessScore: %d", &v29, 0x32u);
     }
 
-    LODWORD(v7) = 1.0;
-    [(AFMyriadRecord *)self->_triggerRecord adjustByMultiplier:self->_deviceAdjust + self->_incomingAdjustment adding:v7];
+    LODWORD(v6) = 1.0;
+    [(AFMyriadRecord *)self->_triggerRecord adjustByMultiplier:self->_deviceAdjust + self->_incomingAdjustment adding:v6];
     constantGoodness = self->_constantGoodness;
     if ((constantGoodness & 0x80000000) == 0)
     {
-      v15 = AFSiriLogContextConnection;
+      v14 = AFSiriLogContextConnection;
       if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
       {
-        v31 = 136315394;
-        v32 = "[AFMyriadCoordinator _startAdvertisingFromVoiceTrigger]";
-        v33 = 1024;
-        LODWORD(v34) = constantGoodness;
-        _os_log_impl(&dword_1912FE000, v15, OS_LOG_TYPE_INFO, "%s #myriad BTLE overriding to constant goodness %d", &v31, 0x12u);
+        v29 = 136315394;
+        v30 = "[AFMyriadCoordinator _startAdvertisingFromVoiceTrigger]";
+        v31 = 1024;
+        LODWORD(v32) = constantGoodness;
+        _os_log_impl(&dword_1912FE000, v14, OS_LOG_TYPE_INFO, "%s #myriad BTLE overriding to constant goodness %d", &v29, 0x12u);
         constantGoodness = self->_constantGoodness;
       }
 
@@ -8056,26 +7872,26 @@ LABEL_24:
     {
       processInfo = [MEMORY[0x1E696AE30] processInfo];
       [processInfo systemUptime];
-      v18 = v17 - self->_lastEmergencyAttempt;
+      v17 = v16 - self->_lastEmergencyAttempt;
 
-      if (v18 < 70.0)
+      if (v17 < 70.0)
       {
         goodness = [(AFMyriadRecord *)self->_triggerRecord goodness];
-        v20 = goodness >= 0xC ? 12 : goodness;
-        [(AFMyriadRecord *)self->_triggerRecord setRawAudioGoodnessScore:0 withBump:v20];
-        v21 = AFSiriLogContextConnection;
+        v19 = goodness >= 0xC ? 12 : goodness;
+        [(AFMyriadRecord *)self->_triggerRecord setRawAudioGoodnessScore:0 withBump:v19];
+        v20 = AFSiriLogContextConnection;
         if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
         {
-          v22 = self->_triggerRecord;
-          v23 = v21;
-          goodness2 = [(AFMyriadRecord *)v22 goodness];
-          v31 = 136315650;
-          v32 = "[AFMyriadCoordinator _startAdvertisingFromVoiceTrigger]";
-          v33 = 2048;
-          v34 = v18;
-          v35 = 1024;
-          LODWORD(v36) = goodness2;
-          _os_log_impl(&dword_1912FE000, v23, OS_LOG_TYPE_INFO, "%s #myriad Downgrading goodness as HS invocation too soon %f for score %d", &v31, 0x1Cu);
+          v21 = self->_triggerRecord;
+          v22 = v20;
+          goodness2 = [(AFMyriadRecord *)v21 goodness];
+          v29 = 136315650;
+          v30 = "[AFMyriadCoordinator _startAdvertisingFromVoiceTrigger]";
+          v31 = 2048;
+          v32 = v17;
+          v33 = 1024;
+          LODWORD(v34) = goodness2;
+          _os_log_impl(&dword_1912FE000, v22, OS_LOG_TYPE_INFO, "%s #myriad Downgrading goodness as HS invocation too soon %f for score %d", &v29, 0x1Cu);
         }
       }
 
@@ -8086,29 +7902,28 @@ LABEL_24:
     overrideMyriadRecord = self->_overrideMyriadRecord;
     if (overrideMyriadRecord)
     {
-      v26 = AFSiriLogContextConnection;
+      v25 = AFSiriLogContextConnection;
       if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
       {
-        v31 = 136315394;
-        v32 = "[AFMyriadCoordinator _startAdvertisingFromVoiceTrigger]";
-        v33 = 2112;
-        v34 = *&overrideMyriadRecord;
-        _os_log_impl(&dword_1912FE000, v26, OS_LOG_TYPE_INFO, "%s #myriad BTLE overriding to goodness %@", &v31, 0x16u);
+        v29 = 136315394;
+        v30 = "[AFMyriadCoordinator _startAdvertisingFromVoiceTrigger]";
+        v31 = 2112;
+        v32 = *&overrideMyriadRecord;
+        _os_log_impl(&dword_1912FE000, v25, OS_LOG_TYPE_INFO, "%s #myriad BTLE overriding to goodness %@", &v29, 0x16u);
         overrideMyriadRecord = self->_overrideMyriadRecord;
       }
 
-      v27 = overrideMyriadRecord;
-      v28 = self->_overrideMyriadRecord;
+      v26 = overrideMyriadRecord;
+      v27 = self->_overrideMyriadRecord;
       self->_overrideMyriadRecord = 0;
 
-      v29 = self->_triggerRecord;
-      self->_triggerRecord = v27;
+      v28 = self->_triggerRecord;
+      self->_triggerRecord = v26;
     }
 
     self->_clientIsDirectActivating = 0;
     self->_recordType = 10;
     [(AFMyriadCoordinator *)self _enterState:1];
-    v30 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -8128,7 +7943,7 @@ LABEL_24:
 
 void __67__AFMyriadCoordinator_startAdvertisingFromVoiceTriggerWithContext___block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) _setMyriadContext:*(a1 + 40)];
   [*(a1 + 32) _updateVoiceTriggerTimeFromFile];
   v2 = *(a1 + 32);
@@ -8146,25 +7961,25 @@ void __67__AFMyriadCoordinator_startAdvertisingFromVoiceTriggerWithContext___blo
       v5 = v2[314];
       v6 = *(a1 + 40);
       *buf = 136315906;
-      v25 = "[AFMyriadCoordinator startAdvertisingFromVoiceTriggerWithContext:]_block_invoke";
-      v26 = 1024;
-      v27 = v4;
-      v28 = 1024;
-      v29 = v5;
-      v30 = 2112;
-      v31 = v6;
+      v24 = "[AFMyriadCoordinator startAdvertisingFromVoiceTriggerWithContext:]_block_invoke";
+      v25 = 1024;
+      v26 = v4;
+      v27 = 1024;
+      v28 = v5;
+      v29 = 2112;
+      v30 = v6;
       _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s BTLE startFromVoiceTrigger inTask=%d, inSetupMode=%d, context=%@", buf, 0x22u);
     }
 
     if (!+[AFFeatureFlags isMyriadSelfMetricsEnabled])
     {
       v7 = +[AFAnalytics sharedAnalytics];
-      v22[0] = @"state";
+      v21[0] = @"state";
       v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%lu", *(*(a1 + 32) + 8)];
-      v22[1] = @"trigger";
-      v23[0] = v8;
-      v23[1] = @"VoiceTrigger";
-      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:2];
+      v21[1] = @"trigger";
+      v22[0] = v8;
+      v22[1] = @"VoiceTrigger";
+      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:2];
       [v7 logEventWithType:2011 context:v9];
     }
 
@@ -8208,19 +8023,17 @@ void __67__AFMyriadCoordinator_startAdvertisingFromVoiceTriggerWithContext___blo
       [v16 logCDADeviceStateActivityStartedOrChanged:v17 withTrigger:v18 withCdaId:v14 withTimestamp:v15];
     }
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startAdvertisingForPHSSetupAfterDelay:(float)delay maxInterval:(float)interval
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v7 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
-    v13 = 136315138;
-    v14 = "[AFMyriadCoordinator startAdvertisingForPHSSetupAfterDelay:maxInterval:]";
-    _os_log_impl(&dword_1912FE000, v7, OS_LOG_TYPE_INFO, "%s ", &v13, 0xCu);
+    v12 = 136315138;
+    v13 = "[AFMyriadCoordinator startAdvertisingForPHSSetupAfterDelay:maxInterval:]";
+    _os_log_impl(&dword_1912FE000, v7, OS_LOG_TYPE_INFO, "%s ", &v12, 0xCu);
   }
 
   _phsSetupRecord = [(AFMyriadCoordinator *)self _phsSetupRecord];
@@ -8228,8 +8041,6 @@ void __67__AFMyriadCoordinator_startAdvertisingFromVoiceTriggerWithContext___blo
   *&v10 = delay;
   *&v11 = interval;
   [(AFMyriadCoordinator *)self advertiseWith:asAdvertisementData afterDelay:v10 maxInterval:v11];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)preheatWiProx
@@ -8243,10 +8054,10 @@ void __67__AFMyriadCoordinator_startAdvertisingFromVoiceTriggerWithContext___blo
   dispatch_async(myriadWorkQueue, block);
 }
 
-uint64_t __36__AFMyriadCoordinator_preheatWiProx__block_invoke(uint64_t result)
+void *__36__AFMyriadCoordinator_preheatWiProx__block_invoke(void *result)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = *(result + 32);
+  v9 = *MEMORY[0x1E69E9840];
+  v1 = result[4];
   if (!*(v1 + 8))
   {
     v2 = result;
@@ -8254,38 +8065,37 @@ uint64_t __36__AFMyriadCoordinator_preheatWiProx__block_invoke(uint64_t result)
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
       v4 = *(v1 + 300);
-      v6 = 136315394;
-      v7 = "[AFMyriadCoordinator preheatWiProx]_block_invoke";
-      v8 = 1024;
-      v9 = v4;
-      _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s Preheat shows slowdown for this device as %d msecs", &v6, 0x12u);
-      v1 = *(v2 + 32);
+      v5 = 136315394;
+      v6 = "[AFMyriadCoordinator preheatWiProx]_block_invoke";
+      v7 = 1024;
+      v8 = v4;
+      _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s Preheat shows slowdown for this device as %d msecs", &v5, 0x12u);
+      v1 = v2[4];
     }
 
     if (*(v1 + 300))
     {
-      result = [v1 startAdvertisingSlowdown:*(v1 + 300)];
+      return [v1 startAdvertisingSlowdown:*(v1 + 300)];
     }
 
     else
     {
       [v1 _initializeTimer];
-      result = [*(v2 + 32) enterState:15];
+      return [v2[4] enterState:15];
     }
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)_updateVoiceTriggerTimeFromFile
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = safelyGetAudioData();
-  v12 = 0;
+  v11 = 0;
   if ([v3 length] >= 0xC)
   {
-    [v3 getBytes:&v12 range:{4, 8}];
+    [v3 getBytes:&v11 range:{4, 8}];
   }
 
   v4 = mach_absolute_time();
@@ -8296,20 +8106,20 @@ uint64_t __36__AFMyriadCoordinator_preheatWiProx__block_invoke(uint64_t result)
 
   v5 = *&_AFMachAbsoluteTimeRate_rate * v4 / 1000000000.0;
   v6 = AFSiriLogContextConnection;
-  v7 = v5 - *&_AFMachAbsoluteTimeRate_rate * v12 / 1000000000.0;
+  v7 = v5 - *&_AFMachAbsoluteTimeRate_rate * v11 / 1000000000.0;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
   {
-    v10 = v6;
-    v11 = [v3 debugDescription];
+    v9 = v6;
+    v10 = [v3 debugDescription];
     *buf = 136315906;
-    v14 = "[AFMyriadCoordinator _updateVoiceTriggerTimeFromFile]";
-    v15 = 2112;
-    v16 = *&v11;
-    v17 = 2048;
-    v18 = v12;
-    v19 = 2048;
-    v20 = v7;
-    _os_log_debug_impl(&dword_1912FE000, v10, OS_LOG_TYPE_DEBUG, "%s data=%@, voiceTriggerTimeRaw=%llu, secondsSinceTrigger=%f", buf, 0x2Au);
+    v13 = "[AFMyriadCoordinator _updateVoiceTriggerTimeFromFile]";
+    v14 = 2112;
+    v15 = *&v10;
+    v16 = 2048;
+    v17 = v11;
+    v18 = 2048;
+    v19 = v7;
+    _os_log_debug_impl(&dword_1912FE000, v9, OS_LOG_TYPE_DEBUG, "%s data=%@, voiceTriggerTimeRaw=%llu, secondsSinceTrigger=%f", buf, 0x2Au);
 
     v6 = AFSiriLogContextConnection;
   }
@@ -8320,25 +8130,23 @@ uint64_t __36__AFMyriadCoordinator_preheatWiProx__block_invoke(uint64_t result)
     if (v8)
     {
       *buf = 136315394;
-      v14 = "[AFMyriadCoordinator _updateVoiceTriggerTimeFromFile]";
-      v15 = 2048;
-      v16 = v7;
+      v13 = "[AFMyriadCoordinator _updateVoiceTriggerTimeFromFile]";
+      v14 = 2048;
+      v15 = v7;
       _os_log_debug_impl(&dword_1912FE000, v6, OS_LOG_TYPE_DEBUG, "%s #myriad endTime from a file is good, secondsSinceTrigger=%f", buf, 0x16u);
     }
 
-    self->_voiceTriggerTime = v12;
+    self->_voiceTriggerTime = v11;
   }
 
   else if (v8)
   {
     *buf = 136315394;
-    v14 = "[AFMyriadCoordinator _updateVoiceTriggerTimeFromFile]";
-    v15 = 2048;
-    v16 = v7;
+    v13 = "[AFMyriadCoordinator _updateVoiceTriggerTimeFromFile]";
+    v14 = 2048;
+    v15 = v7;
     _os_log_debug_impl(&dword_1912FE000, v6, OS_LOG_TYPE_DEBUG, "%s #myriad endTime from a file is too old, secondsSinceTrigger=%f", buf, 0x16u);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setMyriadContext:(id)context
@@ -8350,7 +8158,7 @@ uint64_t __36__AFMyriadCoordinator_preheatWiProx__block_invoke(uint64_t result)
 
 - (void)_initDeviceClassAndAdjustments
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   self->_productType = 0;
   v3 = MGCopyAnswer();
   productTypeName = self->_productTypeName;
@@ -8362,7 +8170,7 @@ uint64_t __36__AFMyriadCoordinator_preheatWiProx__block_invoke(uint64_t result)
 
   *&self->_deviceDelay = xmmword_1914CFD00;
   *&self->_deviceInEarDelay = xmmword_1914CFD10;
-  if ([(NSString *)self->_deviceClassName isEqualToString:@"iPhone"])
+  if (objc_msgSend_isEqualToString_(self->_deviceClassName))
   {
     self->_deviceAdjust = 0;
     v7 = 2;
@@ -8371,7 +8179,7 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  if ([(NSString *)self->_deviceClassName isEqualToString:@"iPod"])
+  if (objc_msgSend_isEqualToString_(self->_deviceClassName))
   {
     self->_deviceAdjust = 0;
 LABEL_7:
@@ -8379,48 +8187,48 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  if ([(NSString *)self->_deviceClassName isEqualToString:@"iPad"])
+  if (objc_msgSend_isEqualToString_(self->_deviceClassName))
   {
     self->_deviceAdjust = -4;
     goto LABEL_7;
   }
 
-  if ([(NSString *)self->_deviceClassName isEqualToString:@"AppleTV"])
+  if (objc_msgSend_isEqualToString_(self->_deviceClassName))
   {
     self->_deviceAdjust = 0;
-    v19 = 4;
+    v18 = 4;
 LABEL_18:
-    self->_deviceClass = v19;
+    self->_deviceClass = v18;
     self->_deviceTrumpDelay = 0.75;
     goto LABEL_9;
   }
 
-  if ([(NSString *)self->_deviceClassName isEqualToString:@"Watch"])
+  if (objc_msgSend_isEqualToString_(self->_deviceClassName))
   {
     self->_deviceAdjust = 10;
-    v20 = MGCopyAnswer();
-    if (([v20 isEqualToString:{@"watch1, 1"}] & 1) == 0)
+    v19 = MGCopyAnswer();
+    if ((objc_msgSend_isEqualToString_(v19) & 1) == 0)
     {
-      v21 = AFProductType();
-      [v21 isEqualToString:{@"watch1, 2"}];
+      v20 = AFProductType();
+      objc_msgSend_isEqualToString_(v20);
     }
 
-    v19 = 6;
+    v18 = 6;
     goto LABEL_18;
   }
 
-  if ([(NSString *)self->_deviceClassName isEqualToString:@"AudioAccessory"])
+  if (objc_msgSend_isEqualToString_(self->_deviceClassName))
   {
     self->_deviceAdjust = 0;
     self->_deviceClass = 7;
-    v22 = MGGetProductType();
-    if (v22 > 3348380075)
+    v21 = MGGetProductType();
+    if (v21 > 3348380075)
     {
-      if (v22 != 3348380076)
+      if (v21 != 3348380076)
       {
-        if (v22 == 4240173202)
+        if (v21 == 4240173202)
         {
-          v23 = 1;
+          v22 = 1;
           goto LABEL_29;
         }
 
@@ -8429,18 +8237,18 @@ LABEL_31:
         goto LABEL_32;
       }
 
-      v25 = 3;
+      v24 = 3;
     }
 
     else
     {
-      if (v22 != 1540760353)
+      if (v21 != 1540760353)
       {
-        if (v22 == 2702125347)
+        if (v21 == 2702125347)
         {
-          v23 = 2;
+          v22 = 2;
 LABEL_29:
-          self->_productType = v23;
+          self->_productType = v22;
 LABEL_32:
           self->_deviceAdjust = 0;
           goto LABEL_9;
@@ -8449,18 +8257,18 @@ LABEL_32:
         goto LABEL_31;
       }
 
-      v25 = 5;
+      v24 = 5;
     }
 
-    self->_productType = v25;
+    self->_productType = v24;
     self->_deviceAdjust = -2;
   }
 
   else
   {
-    v24 = [(NSString *)self->_deviceClassName isEqualToString:@"Bridge"];
+    isEqualToString = objc_msgSend_isEqualToString_(self->_deviceClassName);
     self->_deviceAdjust = 0;
-    if (v24)
+    if (isEqualToString)
     {
       v7 = 8;
       goto LABEL_8;
@@ -8484,41 +8292,39 @@ LABEL_9:
     deviceInEarDelay = self->_deviceInEarDelay;
     deviceInEarInterval = self->_deviceInEarInterval;
     deviceVTEndtimeDistanceThreshold = self->_deviceVTEndtimeDistanceThreshold;
-    v26 = 136317442;
-    v27 = "[AFMyriadCoordinator _initDeviceClassAndAdjustments]";
-    v28 = 2112;
-    v29 = v9;
-    v30 = 2112;
-    v31 = v10;
-    v32 = 2048;
-    v33 = deviceClass;
-    v34 = 2048;
-    v35 = deviceAdjust;
-    v36 = 2048;
-    v37 = deviceDelay;
-    v38 = 2048;
-    v39 = deviceTrumpDelay;
-    v40 = 2048;
-    v41 = deviceInEarDelay;
-    v42 = 2048;
-    v43 = deviceInEarInterval;
-    v44 = 2048;
-    v45 = deviceVTEndtimeDistanceThreshold;
-    _os_log_impl(&dword_1912FE000, v8, OS_LOG_TYPE_INFO, "%s BTLE device class: %@ (%@) detected, category %ld, adjusting goodness by %ld, std delay %f, trump delay %f, in_ear delay %f interval %f vt_endtime threshold %f", &v26, 0x66u);
+    v25 = 136317442;
+    v26 = "[AFMyriadCoordinator _initDeviceClassAndAdjustments]";
+    v27 = 2112;
+    v28 = v9;
+    v29 = 2112;
+    v30 = v10;
+    v31 = 2048;
+    v32 = deviceClass;
+    v33 = 2048;
+    v34 = deviceAdjust;
+    v35 = 2048;
+    v36 = deviceDelay;
+    v37 = 2048;
+    v38 = deviceTrumpDelay;
+    v39 = 2048;
+    v40 = deviceInEarDelay;
+    v41 = 2048;
+    v42 = deviceInEarInterval;
+    v43 = 2048;
+    v44 = deviceVTEndtimeDistanceThreshold;
+    _os_log_impl(&dword_1912FE000, v8, OS_LOG_TYPE_INFO, "%s BTLE device class: %@ (%@) detected, category %ld, adjusting goodness by %ld, std delay %f, trump delay %f, in_ear delay %f interval %f vt_endtime threshold %f", &v25, 0x66u);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_readDefaults
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v3 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
-    v19 = 136315138;
-    v20 = "[AFMyriadCoordinator _readDefaults]";
-    _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s #myriad reading defaults", &v19, 0xCu);
+    v18 = 136315138;
+    v19 = "[AFMyriadCoordinator _readDefaults]";
+    _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s #myriad reading defaults", &v18, 0xCu);
   }
 
   self->_coordinationEnabled = [(AFMyriadPreferences *)self->_preferences coordinationEnabled];
@@ -8532,9 +8338,9 @@ LABEL_9:
     v5 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
-      v19 = 136315138;
-      v20 = "[AFMyriadCoordinator _readDefaults]";
-      _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s #myriad reading server provisioned defaults", &v19, 0xCu);
+      v18 = 136315138;
+      v19 = "[AFMyriadCoordinator _readDefaults]";
+      _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s #myriad reading server provisioned defaults", &v18, 0xCu);
     }
 
     if ([(AFMyriadPreferences *)self->_preferences deviceClass])
@@ -8562,26 +8368,24 @@ LABEL_9:
     deviceDelay = self->_deviceDelay;
     deviceTrumpDelay = self->_deviceTrumpDelay;
     deviceVTEndtimeDistanceThreshold = self->_deviceVTEndtimeDistanceThreshold;
-    v19 = 136316930;
-    v20 = "[AFMyriadCoordinator _readDefaults]";
-    v21 = 2112;
-    v22 = deviceClassName;
-    v23 = 2112;
-    v24 = productTypeName;
-    v25 = 2048;
-    v26 = deviceClass;
-    v27 = 2048;
-    v28 = deviceAdjust;
-    v29 = 2048;
-    v30 = deviceDelay;
-    v31 = 2048;
-    v32 = deviceTrumpDelay;
-    v33 = 2048;
-    v34 = deviceVTEndtimeDistanceThreshold;
-    _os_log_impl(&dword_1912FE000, v10, OS_LOG_TYPE_INFO, "%s #myriad reading defaults: BTLE device class: %@ (%@) detected, category %ld, adjusting goodness by %ld, std delay %f, trump delay %f, vt_endtime threshold %f", &v19, 0x52u);
+    v18 = 136316930;
+    v19 = "[AFMyriadCoordinator _readDefaults]";
+    v20 = 2112;
+    v21 = deviceClassName;
+    v22 = 2112;
+    v23 = productTypeName;
+    v24 = 2048;
+    v25 = deviceClass;
+    v26 = 2048;
+    v27 = deviceAdjust;
+    v28 = 2048;
+    v29 = deviceDelay;
+    v30 = 2048;
+    v31 = deviceTrumpDelay;
+    v32 = 2048;
+    v33 = deviceVTEndtimeDistanceThreshold;
+    _os_log_impl(&dword_1912FE000, v10, OS_LOG_TYPE_INFO, "%s #myriad reading defaults: BTLE device class: %@ (%@) detected, category %ld, adjusting goodness by %ld, std delay %f, trump delay %f, vt_endtime threshold %f", &v18, 0x52u);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)readDefaults
@@ -8611,16 +8415,16 @@ LABEL_9:
 
 void __39__AFMyriadCoordinator_updateRequestId___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
-    v10 = 136315394;
-    v11 = "[AFMyriadCoordinator updateRequestId:]_block_invoke";
-    v12 = 2112;
-    v13 = v3;
-    _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s #myriad requestIdNotification: %@", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = "[AFMyriadCoordinator updateRequestId:]_block_invoke";
+    v11 = 2112;
+    v12 = v3;
+    _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s #myriad requestIdNotification: %@", &v9, 0x16u);
   }
 
   v4 = *(a1 + 40);
@@ -8629,8 +8433,6 @@ void __39__AFMyriadCoordinator_updateRequestId___block_invoke(uint64_t a1)
   v7 = [v6 objectForKeyedSubscript:@"requestId"];
   v8 = [v5 initWithUUIDString:v7];
   [v4 setCurrentRequestId:v8];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -8657,11 +8459,11 @@ void __39__AFMyriadCoordinator_updateRequestId___block_invoke(uint64_t a1)
 
 - (AFMyriadCoordinator)initWithDelegate:(id)delegate
 {
-  v99 = *MEMORY[0x1E69E9840];
+  v98 = *MEMORY[0x1E69E9840];
   delegateCopy = delegate;
-  v92.receiver = self;
-  v92.super_class = AFMyriadCoordinator;
-  v5 = [(AFMyriadCoordinator *)&v92 init];
+  v91.receiver = self;
+  v91.super_class = AFMyriadCoordinator;
+  v5 = [(AFMyriadCoordinator *)&v91 init];
   if (!v5)
   {
 LABEL_5:
@@ -8675,7 +8477,7 @@ LABEL_5:
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v94 = "[AFMyriadCoordinator initWithDelegate:]";
+      v93 = "[AFMyriadCoordinator initWithDelegate:]";
       _os_log_error_impl(&dword_1912FE000, v6, OS_LOG_TYPE_ERROR, "%s Attempt to initialize MyriadCoordinator when one already exists.", buf, 0xCu);
     }
 
@@ -8777,11 +8579,11 @@ LABEL_5:
     v45 = v5[318];
     v46 = v5[319];
     *buf = 136315650;
-    v94 = "[AFMyriadCoordinator initWithDelegate:]";
-    v95 = 1024;
-    v96 = v45;
-    v97 = 1024;
-    v98 = v46;
+    v93 = "[AFMyriadCoordinator initWithDelegate:]";
+    v94 = 1024;
+    v95 = v45;
+    v96 = 1024;
+    v97 = v46;
     _os_log_impl(&dword_1912FE000, v44, OS_LOG_TYPE_INFO, "%s #myriad coordinationEnabled=%d, BLEActivityEnabled=%d ", buf, 0x18u);
   }
 
@@ -8844,24 +8646,24 @@ LABEL_5:
   v60 = 0;
   if (v5[319] == 1)
   {
-    v60 = [objc_alloc(getWPHeySiriClass()) initWithDelegate:v5 queue:*(v5 + 22)];
+    v60 = [objc_alloc(getWPHeySiriClass(0)) initWithDelegate:v5 queue:*(v5 + 22)];
   }
 
   v61 = *(v5 + 44);
   *(v5 + 44) = v60;
 
-  v90[0] = MEMORY[0x1E69E9820];
-  v90[1] = 3221225472;
-  v90[2] = __40__AFMyriadCoordinator_initWithDelegate___block_invoke;
-  v90[3] = &unk_1E73497C8;
+  v89[0] = MEMORY[0x1E69E9820];
+  v89[1] = 3221225472;
+  v89[2] = __40__AFMyriadCoordinator_initWithDelegate___block_invoke;
+  v89[3] = &unk_1E73497C8;
   v62 = v5;
-  v91 = v62;
-  [v62 waitWiProx:2000 andExecute:v90];
+  v90 = v62;
+  [v62 waitWiProx:2000 andExecute:v89];
   v63 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v94 = "[AFMyriadCoordinator initWithDelegate:]";
+    v93 = "[AFMyriadCoordinator initWithDelegate:]";
     _os_log_impl(&dword_1912FE000, v63, OS_LOG_TYPE_INFO, "%s Initialized MyriadCoordinator", buf, 0xCu);
   }
 
@@ -8925,7 +8727,6 @@ LABEL_5:
   v7 = v62;
 
 LABEL_21:
-  v88 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

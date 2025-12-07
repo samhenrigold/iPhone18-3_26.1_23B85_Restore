@@ -53,7 +53,7 @@
 
 - (void)_updateState
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   result = [(CORoleDefaultsMonitor *)self result];
   _getCurrentResult = [(CORoleDefaultsMonitor *)self _getCurrentResult];
   if (_getCurrentResult != result)
@@ -62,18 +62,16 @@
     v6 = COCoreLogForCategory(4);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 134218240;
-      v9 = result;
-      v10 = 2048;
-      v11 = v5;
-      _os_log_impl(&dword_244378000, v6, OS_LOG_TYPE_DEFAULT, "Monitored result changed from %lu to %lu", &v8, 0x16u);
+      v7 = 134218240;
+      v8 = result;
+      v9 = 2048;
+      v10 = v5;
+      _os_log_impl(&dword_244378000, v6, OS_LOG_TYPE_DEFAULT, "Monitored result changed from %lu to %lu", &v7, 0x16u);
     }
 
     [(CORoleDefaultsMonitor *)self setResult:v5];
     [(CORoleDefaultsMonitor *)self _notifyDelegate:v5];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)_getCurrentResult

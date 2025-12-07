@@ -96,7 +96,7 @@
   v15[0] = v8;
   v14[1] = @"Transform";
   v9 = MEMORY[0x1E696B098];
-  [(UIInputViewSetPlacementInvisible *)self transform];
+  objc_msgSend_transform(self);
   v10 = [v9 valueWithCGAffineTransform:v13];
   v15[1] = v10;
   v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:2];

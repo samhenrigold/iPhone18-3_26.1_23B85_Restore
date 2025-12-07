@@ -22,7 +22,7 @@
 
 - (void)startTask:(id)task
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   objc_initWeak(&location, self);
   WeakRetained = objc_loadWeakRetained(&self->_ttsEngine);
@@ -30,37 +30,35 @@
   text = [request text];
   request2 = [(SFSpeechSynthesisTask *)self request];
   isPrivate = [request2 isPrivate];
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __31__SFSSDeviceTTSTask_startTask___block_invoke;
-  v20[3] = &unk_279C4C378;
-  objc_copyWeak(&v21, &location);
-  v20[4] = self;
-  v15 = MEMORY[0x277D85DD0];
-  v16 = 3221225472;
-  v17 = __31__SFSSDeviceTTSTask_startTask___block_invoke_17;
-  v18 = &unk_279C4C3A0;
-  objc_copyWeak(&v19, &location);
-  v10 = [WeakRetained synthesizeText:text loggable:isPrivate synthesisBegin:v20 synthesisChunk:&v15 synthesisEnd:&__block_literal_global_1529];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __31__SFSSDeviceTTSTask_startTask___block_invoke;
+  v19[3] = &unk_279C4C378;
+  objc_copyWeak(&v20, &location);
+  v19[4] = self;
+  v14 = MEMORY[0x277D85DD0];
+  v15 = 3221225472;
+  v16 = __31__SFSSDeviceTTSTask_startTask___block_invoke_17;
+  v17 = &unk_279C4C3A0;
+  objc_copyWeak(&v18, &location);
+  v10 = [WeakRetained synthesizeText:text loggable:isPrivate synthesisBegin:v19 synthesisChunk:&v14 synthesisEnd:&__block_literal_global_1529];
 
-  [(SFSpeechSynthesisTask *)self handleSynthesisEnd:v10, v15, v16, v17, v18];
+  [(SFSpeechSynthesisTask *)self handleSynthesisEnd:v10, v14, v15, v16, v17];
   v11 = SFSSGetLogObject();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     error = [(SFSpeechSynthesisTask *)self error];
     *buf = 138412290;
-    v24 = error;
+    v23 = error;
     _os_log_impl(&dword_269079000, v11, OS_LOG_TYPE_INFO, "Device tts complete. error=%@", buf, 0xCu);
   }
 
   error2 = [(SFSpeechSynthesisTask *)self error];
   taskCopy[2](taskCopy, error2);
 
-  objc_destroyWeak(&v19);
-  objc_destroyWeak(&v21);
+  objc_destroyWeak(&v18);
+  objc_destroyWeak(&v20);
   objc_destroyWeak(&location);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __31__SFSSDeviceTTSTask_startTask___block_invoke(uint64_t a1)
@@ -77,7 +75,7 @@ uint64_t __31__SFSSDeviceTTSTask_startTask___block_invoke(uint64_t a1)
   v5 = v4;
   if (v4)
   {
-    [v4 asbd];
+    objc_msgSend_asbd(v4);
   }
 
   else
@@ -115,13 +113,13 @@ uint64_t __31__SFSSDeviceTTSTask_startTask___block_invoke_17(uint64_t a1, void *
   return 0;
 }
 
-uint64_t __31__SFSSDeviceTTSTask_startTask___block_invoke_18()
+uint64_t __31__SFSSDeviceTTSTask_startTask___block_invoke_18(uint64_t a1)
 {
-  v0 = SFSSGetLogObject();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v1 = SFSSGetLogObject();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
-    *v2 = 0;
-    _os_log_impl(&dword_269079000, v0, OS_LOG_TYPE_INFO, "Received device tts end.", v2, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_269079000, v1, OS_LOG_TYPE_INFO, "Received device tts end.", v3, 2u);
   }
 
   return 0;

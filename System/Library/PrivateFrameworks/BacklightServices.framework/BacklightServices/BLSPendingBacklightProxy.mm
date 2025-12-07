@@ -200,8 +200,8 @@
   self->_requests = 0;
 
   os_unfair_lock_unlock(&self->_lock);
-  v10 = bls_assertions_log();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v11 = bls_assertions_log(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218496;
     selfCopy = self;
@@ -209,70 +209,68 @@
     v36 = [allObjects count];
     v37 = 1024;
     v38 = [(NSMutableArray *)v8 count];
-    _os_log_debug_impl(&dword_21FE25000, v10, OS_LOG_TYPE_DEBUG, "%p backlight proxy setup, will set %u observers, perform %u requests", buf, 0x18u);
+    _os_log_debug_impl(&dword_21FE25000, v11, OS_LOG_TYPE_DEBUG, "%p backlight proxy setup, will set %u observers, perform %u requests", buf, 0x18u);
   }
 
   v29 = 0u;
   v30 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v11 = allObjects;
-  v12 = [v11 countByEnumeratingWithState:&v27 objects:v32 count:16];
-  if (v12)
+  v12 = allObjects;
+  v13 = [v12 countByEnumeratingWithState:&v27 objects:v32 count:16];
+  if (v13)
   {
-    v13 = v12;
-    v14 = *v28;
+    v14 = v13;
+    v15 = *v28;
     do
     {
-      v15 = 0;
+      v16 = 0;
       do
       {
-        if (*v28 != v14)
+        if (*v28 != v15)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v12);
         }
 
-        [proxyCopy addObserver:*(*(&v27 + 1) + 8 * v15++)];
+        [proxyCopy addObserver:*(*(&v27 + 1) + 8 * v16++)];
       }
 
-      while (v13 != v15);
-      v13 = [v11 countByEnumeratingWithState:&v27 objects:v32 count:16];
+      while (v14 != v16);
+      v14 = [v12 countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
-    while (v13);
+    while (v14);
   }
 
   v25 = 0u;
   v26 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v16 = v8;
-  v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v23 objects:v31 count:16];
-  if (v17)
+  v17 = v8;
+  v18 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v23 objects:v31 count:16];
+  if (v18)
   {
-    v18 = v17;
-    v19 = *v24;
+    v19 = v18;
+    v20 = *v24;
     do
     {
-      v20 = 0;
+      v21 = 0;
       do
       {
-        if (*v24 != v19)
+        if (*v24 != v20)
         {
-          objc_enumerationMutation(v16);
+          objc_enumerationMutation(v17);
         }
 
-        v21 = [proxyCopy performChangeRequest:{*(*(&v23 + 1) + 8 * v20++), v23}];
+        v22 = [proxyCopy performChangeRequest:{*(*(&v23 + 1) + 8 * v21++), v23}];
       }
 
-      while (v18 != v20);
-      v18 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v23 objects:v31 count:16];
+      while (v19 != v21);
+      v19 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v23 objects:v31 count:16];
     }
 
-    while (v18);
+    while (v19);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 @end

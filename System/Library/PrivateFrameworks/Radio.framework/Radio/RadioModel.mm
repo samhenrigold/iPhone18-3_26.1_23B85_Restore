@@ -80,7 +80,7 @@
 
 void __47__RadioModel__setDatabasePropertyValue_forKey___block_invoke(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = [*(a1[4] + 48) executeFetchRequest:a1[5] error:0];
   v3 = [v2 lastObject];
 
@@ -103,46 +103,44 @@ void __47__RadioModel__setDatabasePropertyValue_forKey___block_invoke(void *a1)
     v7 = os_log_create("com.apple.amp.radio", "Model");
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v9 = 138412290;
-      v10 = v3;
-      _os_log_impl(&dword_261792000, v7, OS_LOG_TYPE_INFO, "[RadioModel] Setting database property: %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v3;
+      _os_log_impl(&dword_261792000, v7, OS_LOG_TYPE_INFO, "[RadioModel] Setting database property: %@", &v8, 0xCu);
     }
 
     [v3 willChangeValueForKey:@"value"];
     [v3 setValue:a1[7] forKey:@"value"];
     [v3 didChangeValueForKey:@"value"];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_setByReplacingManagedObjectsInSet:(id)set
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   setCopy = set;
   if ([setCopy count])
   {
     v5 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:{objc_msgSend(setCopy, "count")}];
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     v6 = setCopy;
-    v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v16;
+      v9 = *v15;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v16 != v9)
+          if (*v15 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v15 + 1) + 8 * i);
+          v11 = *(*(&v14 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -152,11 +150,11 @@ void __47__RadioModel__setDatabasePropertyValue_forKey___block_invoke(void *a1)
 
           else
           {
-            [v5 addObject:{v11, v15}];
+            [v5 addObject:{v11, v14}];
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v8);
@@ -168,14 +166,12 @@ void __47__RadioModel__setDatabasePropertyValue_forKey___block_invoke(void *a1)
     v5 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 - (void)_resetModel
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   [(NSFetchedResultsController *)self->_stationFetchedResultsController setDelegate:0];
   stationFetchedResultsController = self->_stationFetchedResultsController;
   self->_stationFetchedResultsController = 0;
@@ -186,37 +182,35 @@ void __47__RadioModel__setDatabasePropertyValue_forKey___block_invoke(void *a1)
   persistentStores = [(NSPersistentStoreCoordinator *)self->_storeCoordinator persistentStores];
   v6 = [persistentStores copy];
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       v11 = 0;
       do
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [(NSPersistentStoreCoordinator *)self->_storeCoordinator removePersistentStore:*(*(&v13 + 1) + 8 * v11++) error:0, v13];
+        [(NSPersistentStoreCoordinator *)self->_storeCoordinator removePersistentStore:*(*(&v12 + 1) + 8 * v11++) error:0, v12];
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v9);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_prepareModel
@@ -282,13 +276,13 @@ uint64_t __27__RadioModel__prepareModel__block_invoke(uint64_t a1)
 
 - (void)_postContextDidChangeNotification:(id)notification
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   v5 = os_log_create("com.apple.amp.radio", "Model");
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v44 = @"RadioModelDidChangeNotification";
+    v41 = @"RadioModelDidChangeNotification";
     _os_log_impl(&dword_261792000, v5, OS_LOG_TYPE_INFO, "[RadioModel] Posting '%@'", buf, 0xCu);
   }
 
@@ -327,27 +321,26 @@ uint64_t __27__RadioModel__prepareModel__block_invoke(uint64_t a1)
 
   if (self->_modelChangedTokenIsValid)
   {
-    v32 = v12;
-    v39 = 0u;
-    v40 = 0u;
+    v29 = v12;
+    v36 = 0u;
     v37 = 0u;
-    v38 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     v18 = v9;
-    v19 = [v18 countByEnumeratingWithState:&v37 objects:v42 count:16];
+    v19 = [v18 countByEnumeratingWithState:&v34 objects:v39 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v38;
+      v21 = *v35;
 LABEL_12:
       v22 = 0;
       while (1)
       {
-        if (*v38 != v21)
+        if (*v35 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        v23 = *(*(&v37 + 1) + 8 * v22);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -356,7 +349,7 @@ LABEL_12:
 
         if (v20 == ++v22)
         {
-          v20 = [v18 countByEnumeratingWithState:&v37 objects:v42 count:16];
+          v20 = [v18 countByEnumeratingWithState:&v34 objects:v39 count:16];
           if (v20)
           {
             goto LABEL_12;
@@ -371,43 +364,42 @@ LABEL_12:
     {
 LABEL_18:
 
-      v35 = 0u;
-      v36 = 0u;
+      v32 = 0u;
       v33 = 0u;
-      v34 = 0u;
+      v30 = 0u;
+      v31 = 0u;
       v18 = v15;
-      v24 = [v18 countByEnumeratingWithState:&v33 objects:v41 count:16];
-      if (!v24)
+      v23 = [v18 countByEnumeratingWithState:&v30 objects:v38 count:16];
+      if (!v23)
       {
 LABEL_26:
 
 LABEL_28:
-        v12 = v32;
+        v12 = v29;
         goto LABEL_29;
       }
 
-      v25 = v24;
-      v26 = *v34;
+      v24 = v23;
+      v25 = *v31;
 LABEL_20:
-      v27 = 0;
+      v26 = 0;
       while (1)
       {
-        if (*v34 != v26)
+        if (*v31 != v25)
         {
           objc_enumerationMutation(v18);
         }
 
-        v28 = *(*(&v33 + 1) + 8 * v27);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
           break;
         }
 
-        if (v25 == ++v27)
+        if (v24 == ++v26)
         {
-          v25 = [v18 countByEnumeratingWithState:&v33 objects:v41 count:16];
-          if (v25)
+          v24 = [v18 countByEnumeratingWithState:&v30 objects:v38 count:16];
+          if (v24)
           {
             goto LABEL_20;
           }
@@ -418,15 +410,13 @@ LABEL_20:
     }
 
     modelChangedToken = self->_modelChangedToken;
-    v30 = getpid();
-    notify_set_state(modelChangedToken, v30);
+    v28 = getpid();
+    notify_set_state(modelChangedToken, v28);
     notify_post("com.apple.Radio.model-changed");
     goto LABEL_28;
   }
 
 LABEL_29:
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performTransactionAndSave:(BOOL)save withBlock:(id)block
@@ -446,7 +436,7 @@ LABEL_29:
 
 uint64_t __51__RadioModel__performTransactionAndSave_withBlock___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   ++*(*(a1 + 32) + 120);
   v2 = *(a1 + 40);
   if (v2)
@@ -469,16 +459,16 @@ uint64_t __51__RadioModel__performTransactionAndSave_withBlock___block_invoke(ui
 
       [*(result + 48) processPendingChanges];
       v5 = *(*(a1 + 32) + 48);
-      v11 = 0;
-      v6 = [v5 save:&v11];
-      v7 = v11;
+      v10 = 0;
+      v6 = [v5 save:&v10];
+      v7 = v10;
       if ((v6 & 1) == 0)
       {
         v8 = os_log_create("com.apple.amp.radio", "Model");
         if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v13 = v7;
+          v12 = v7;
           _os_log_impl(&dword_261792000, v8, OS_LOG_TYPE_ERROR, "[RadioModel] Error: Unable to save (%@)", buf, 0xCu);
         }
       }
@@ -494,7 +484,6 @@ uint64_t __51__RadioModel__performTransactionAndSave_withBlock___block_invoke(ui
   }
 
   --*(result + 120);
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -557,7 +546,7 @@ void __41__RadioModel__endBackgroundTaskAssertion__block_invoke(uint64_t a1)
 
 void __41__RadioModel__endBackgroundTaskAssertion__block_invoke_2(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = WeakRetained;
   if (WeakRetained)
@@ -567,9 +556,9 @@ void __41__RadioModel__endBackgroundTaskAssertion__block_invoke_2(uint64_t a1)
       v3 = os_log_create("com.apple.amp.radio", "Model");
       if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
       {
-        v8 = 138412290;
-        v9 = v2;
-        _os_log_impl(&dword_261792000, v3, OS_LOG_TYPE_INFO, "[RadioModel] Invalidating process assertion for model: %@", &v8, 0xCu);
+        v7 = 138412290;
+        v8 = v2;
+        _os_log_impl(&dword_261792000, v3, OS_LOG_TYPE_INFO, "[RadioModel] Invalidating process assertion for model: %@", &v7, 0xCu);
       }
 
       [*(v2 + 3) invalidate];
@@ -585,8 +574,6 @@ void __41__RadioModel__endBackgroundTaskAssertion__block_invoke_2(uint64_t a1)
       *(v2 + 5) = 0;
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_databasePropertyValueForKey:(id)key
@@ -643,7 +630,7 @@ void __43__RadioModel__databasePropertyValueForKey___block_invoke(void *a1)
 
 - (void)_createRadioDirectoryAndDatabaseIfNecessary
 {
-  v73 = *MEMORY[0x277D85DE8];
+  v72 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&__databaseLock);
   if (!self->_storeCoordinator)
   {
@@ -658,8 +645,8 @@ void __43__RadioModel__databasePropertyValueForKey___block_invoke(void *a1)
         [currentHandler handleFailureInMethod:a2 object:self file:@"RadioModel.m" lineNumber:1092 description:@"unable to find model"];
       }
 
-      v65 = [MEMORY[0x277CBEBC0] fileURLWithPath:v5 isDirectory:0];
-      v6 = [objc_alloc(MEMORY[0x277CBE450]) initWithContentsOfURL:v65];
+      v64 = [MEMORY[0x277CBEBC0] fileURLWithPath:v5 isDirectory:0];
+      v6 = [objc_alloc(MEMORY[0x277CBE450]) initWithContentsOfURL:v64];
       model = self->_model;
       self->_model = v6;
 
@@ -671,13 +658,13 @@ void __43__RadioModel__databasePropertyValueForKey___block_invoke(void *a1)
       v11 = [MEMORY[0x277CCAC30] predicateWithFormat:@"station_id == $stationID"];
       [v10 setPredicate:v11];
 
-      v64 = v5;
+      v63 = v5;
       v12 = +[RadioManagedStation defaultPropertiesToFetch];
       [v10 setPropertiesToFetch:v12];
 
       [(NSManagedObjectModel *)self->_model setFetchRequestTemplate:v10 forName:@"StationIDToStation"];
       v13 = objc_alloc_init(MEMORY[0x277CBE428]);
-      v63 = v9;
+      v62 = v9;
       [v13 setEntity:v9];
       v14 = [MEMORY[0x277CCAC30] predicateWithFormat:@"station_hash == $stationHash"];
       [v13 setPredicate:v14];
@@ -747,10 +734,10 @@ void __43__RadioModel__databasePropertyValueForKey___block_invoke(void *a1)
   bundleIdentifier = [mainBundle bundleIdentifier];
   v41 = [&unk_287405638 containsObject:bundleIdentifier];
 
-  v68 = 0;
-  if ([v38 fileExistsAtPath:_radioDirectoryPath isDirectory:&v68])
+  v67 = 0;
+  if ([v38 fileExistsAtPath:_radioDirectoryPath isDirectory:&v67])
   {
-    if (v68)
+    if (v67)
     {
       goto LABEL_16;
     }
@@ -770,7 +757,7 @@ void __43__RadioModel__databasePropertyValueForKey___block_invoke(void *a1)
     {
       stringByDeletingLastPathComponent = [_radioDirectoryPath stringByDeletingLastPathComponent];
       *buf = 138412290;
-      v70 = stringByDeletingLastPathComponent;
+      v69 = stringByDeletingLastPathComponent;
       _os_log_impl(&dword_261792000, v44, OS_LOG_TYPE_ERROR, "[RadioModel] Error: Unable to write to '%@' to create database", buf, 0xCu);
     }
   }
@@ -798,9 +785,9 @@ LABEL_16:
 
         v53 = self->_storeCoordinator;
         _persistentStoreConfigurationOptions2 = [objc_opt_class() _persistentStoreConfigurationOptions];
-        v67 = 0;
-        v55 = [(NSPersistentStoreCoordinator *)v53 _destroyPersistentStoreAtURL:v47 withType:v50 options:_persistentStoreConfigurationOptions2 error:&v67];
-        v56 = v67;
+        v66 = 0;
+        v55 = [(NSPersistentStoreCoordinator *)v53 _destroyPersistentStoreAtURL:v47 withType:v50 options:_persistentStoreConfigurationOptions2 error:&v66];
+        v56 = v66;
 
         v57 = os_log_create("com.apple.amp.radio", "Model");
         if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
@@ -812,16 +799,16 @@ LABEL_16:
           }
 
           *buf = 138412546;
-          v70 = v58;
-          v71 = 2112;
-          v72 = v56;
+          v69 = v58;
+          v70 = 2112;
+          v71 = v56;
           _os_log_impl(&dword_261792000, v57, OS_LOG_TYPE_ERROR, "[RadioModel] Attempted database reset with success: %@ (%@)", buf, 0x16u);
         }
 
         v59 = self->_storeCoordinator;
-        v66 = 0;
-        v51 = [(NSPersistentStoreCoordinator *)v59 addPersistentStoreWithType:v50 configuration:0 URL:v47 options:_persistentStoreConfigurationOptions error:&v66];
-        v60 = v66;
+        v65 = 0;
+        v51 = [(NSPersistentStoreCoordinator *)v59 addPersistentStoreWithType:v50 configuration:0 URL:v47 options:_persistentStoreConfigurationOptions error:&v65];
+        v60 = v65;
         if (!v51)
         {
           [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE658] format:{@"Radio: Unable to create database (%@)", v60}];
@@ -843,19 +830,17 @@ LABEL_16:
   }
 
   os_unfair_lock_unlock(&__databaseLock);
-
-  v61 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)_numberOfSkipsUsedWithSkipTimestamps:(id)timestamps currentTimestamp:(double)timestamp skipInterval:(double)interval returningEarliestSkipTimestamp:(double *)skipTimestamp
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   timestampsCopy = timestamps;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  v10 = [timestampsCopy countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v10 = [timestampsCopy countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (!v10)
   {
     v12 = 0;
@@ -870,18 +855,18 @@ LABEL_16:
 
   v11 = v10;
   v12 = 0;
-  v13 = *v22;
+  v13 = *v21;
   v14 = 1.79769313e308;
   do
   {
     for (i = 0; i != v11; ++i)
     {
-      if (*v22 != v13)
+      if (*v21 != v13)
       {
         objc_enumerationMutation(timestampsCopy);
       }
 
-      [*(*(&v21 + 1) + 8 * i) doubleValue];
+      [*(*(&v20 + 1) + 8 * i) doubleValue];
       if (v16 < v14)
       {
         v14 = v16;
@@ -893,7 +878,7 @@ LABEL_16:
       }
     }
 
-    v11 = [timestampsCopy countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v11 = [timestampsCopy countByEnumeratingWithState:&v20 objects:v24 count:16];
   }
 
   while (v11);
@@ -912,7 +897,6 @@ LABEL_13:
 
 LABEL_16:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -943,14 +927,14 @@ LABEL_16:
 
 void __46__RadioModel__defaultRadioModelInitialization__block_invoke(uint64_t a1, int token)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   state64 = 0;
   notify_get_state(token, &state64);
   v3 = os_log_create("com.apple.amp.radio", "Model");
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 67109120;
-    LODWORD(v17) = state64;
+    LODWORD(v16) = state64;
     _os_log_impl(&dword_261792000, v3, OS_LOG_TYPE_INFO, "[RadioModel] Model changed with pid: %i", buf, 8u);
   }
 
@@ -980,12 +964,12 @@ void __46__RadioModel__defaultRadioModelInitialization__block_invoke(uint64_t a1
     v10 = v9[6];
     if (v10 && v4 != v6)
     {
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __46__RadioModel__defaultRadioModelInitialization__block_invoke_295;
-      v14[3] = &unk_279AEAE60;
-      v14[4] = v9;
-      [v10 performBlockAndWait:v14];
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = __46__RadioModel__defaultRadioModelInitialization__block_invoke_295;
+      v13[3] = &unk_279AEAE60;
+      v13[4] = v9;
+      [v10 performBlockAndWait:v13];
       v9 = *(a1 + 32);
     }
 
@@ -994,27 +978,25 @@ void __46__RadioModel__defaultRadioModelInitialization__block_invoke(uint64_t a1
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v17 = @"RadioModelDidChangeNotification";
+      v16 = @"RadioModelDidChangeNotification";
       _os_log_impl(&dword_261792000, v11, OS_LOG_TYPE_INFO, "[RadioModel] Posting '%@' due to an external change", buf, 0xCu);
     }
 
     v12 = [MEMORY[0x277CCAB98] defaultCenter];
     [v12 postNotificationName:@"RadioModelDidChangeNotification" object:*(a1 + 32)];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __46__RadioModel__defaultRadioModelInitialization__block_invoke_300(uint64_t a1, int token)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   state64 = 0;
   notify_get_state(token, &state64);
   v3 = os_log_create("com.apple.amp.radio", "Model");
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 67109120;
-    LODWORD(v17) = state64;
+    LODWORD(v16) = state64;
     _os_log_impl(&dword_261792000, v3, OS_LOG_TYPE_INFO, "[RadioModel] Model deleted with pid: %i", buf, 8u);
   }
 
@@ -1041,12 +1023,12 @@ void __46__RadioModel__defaultRadioModelInitialization__block_invoke_300(uint64_
 
   if (!v9)
   {
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __46__RadioModel__defaultRadioModelInitialization__block_invoke_301;
-    v14[3] = &unk_279AEAE60;
-    v14[4] = v7;
-    [v8 performBlockAndWait:v14];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __46__RadioModel__defaultRadioModelInitialization__block_invoke_301;
+    v13[3] = &unk_279AEAE60;
+    v13[4] = v7;
+    [v8 performBlockAndWait:v13];
     v7 = *(a1 + 32);
   }
 
@@ -1055,9 +1037,9 @@ void __46__RadioModel__defaultRadioModelInitialization__block_invoke_300(uint64_
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
-    v17 = @"RadioModelWasDeletedNotification";
-    v18 = 2112;
-    v19 = @"RadioModelDidChangeNotification";
+    v16 = @"RadioModelWasDeletedNotification";
+    v17 = 2112;
+    v18 = @"RadioModelDidChangeNotification";
     _os_log_impl(&dword_261792000, v10, OS_LOG_TYPE_INFO, "[RadioModel] Posting '%@', '%@' due to an external deletion", buf, 0x16u);
   }
 
@@ -1066,8 +1048,6 @@ void __46__RadioModel__defaultRadioModelInitialization__block_invoke_300(uint64_
 
   v12 = [MEMORY[0x277CCAB98] defaultCenter];
   [v12 postNotificationName:@"RadioModelDidChangeNotification" object:*(a1 + 32)];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __46__RadioModel__defaultRadioModelInitialization__block_invoke_301(uint64_t a1)
@@ -1099,7 +1079,7 @@ void __46__RadioModel__defaultRadioModelInitialization__block_invoke_295(uint64_
 
 void __43__RadioModel__beginBackgroundTaskAssertion__block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   ++*(*(a1 + 32) + 32);
   v2 = *(a1 + 32);
   v3 = v2[5];
@@ -1116,20 +1096,20 @@ void __43__RadioModel__beginBackgroundTaskAssertion__block_invoke(uint64_t a1)
   if (v2[4] >= 1 && !v2[3])
   {
     v6 = dispatch_semaphore_create(0);
-    v26 = 0;
-    v27 = &v26;
-    v28 = 0x2020000000;
-    v29 = 0;
+    v25 = 0;
+    v26 = &v25;
+    v27 = 0x2020000000;
+    v28 = 0;
     v7 = objc_alloc(MEMORY[0x277CEEEA8]);
     v8 = getpid();
-    v20 = MEMORY[0x277D85DD0];
-    v21 = 3221225472;
-    v22 = __43__RadioModel__beginBackgroundTaskAssertion__block_invoke_2;
-    v23 = &unk_279AEA8A8;
-    v25 = &v26;
+    v19 = MEMORY[0x277D85DD0];
+    v20 = 3221225472;
+    v21 = __43__RadioModel__beginBackgroundTaskAssertion__block_invoke_2;
+    v22 = &unk_279AEA8A8;
+    v24 = &v25;
     v9 = v6;
-    v24 = v9;
-    v10 = [v7 initWithPID:v8 flags:21 reason:4 name:@"RadioModelSaveAssertion" withHandler:&v20];
+    v23 = v9;
+    v10 = [v7 initWithPID:v8 flags:21 reason:4 name:@"RadioModelSaveAssertion" withHandler:&v19];
     v11 = *(a1 + 32);
     v12 = *(v11 + 24);
     *(v11 + 24) = v10;
@@ -1140,18 +1120,18 @@ void __43__RadioModel__beginBackgroundTaskAssertion__block_invoke(uint64_t a1)
     {
       v14 = *(a1 + 32);
       *buf = 138412290;
-      v31 = v14;
+      v30 = v14;
       _os_log_impl(&dword_261792000, v13, OS_LOG_TYPE_INFO, "[RadioModel] Obtained process assertion for model %@", buf, 0xCu);
     }
 
-    if ((v27[3] & 1) == 0)
+    if ((v26[3] & 1) == 0)
     {
       v15 = os_log_create("com.apple.amp.radio", "Model");
       if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
         v16 = *(a1 + 32);
         *buf = 138412290;
-        v31 = v16;
+        v30 = v16;
         _os_log_impl(&dword_261792000, v15, OS_LOG_TYPE_INFO, "[RadioModel] Failed to acquire process assertion for model %@", buf, 0xCu);
       }
 
@@ -1161,39 +1141,37 @@ void __43__RadioModel__beginBackgroundTaskAssertion__block_invoke(uint64_t a1)
       *(v17 + 24) = 0;
     }
 
-    _Block_object_dispose(&v26, 8);
+    _Block_object_dispose(&v25, 8);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_arrayByReplacingManagedObjectsInArray:(id)array
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   if ([arrayCopy count])
   {
     v5 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(arrayCopy, "count")}];
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     v6 = arrayCopy;
-    v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v16;
+      v9 = *v15;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v16 != v9)
+          if (*v15 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v15 + 1) + 8 * i);
+          v11 = *(*(&v14 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -1203,11 +1181,11 @@ void __43__RadioModel__beginBackgroundTaskAssertion__block_invoke(uint64_t a1)
 
           else
           {
-            [v5 addObject:{v11, v15}];
+            [v5 addObject:{v11, v14}];
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v8);
@@ -1218,8 +1196,6 @@ void __43__RadioModel__beginBackgroundTaskAssertion__block_invoke(uint64_t a1)
   {
     v5 = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -1262,21 +1238,21 @@ void __43__RadioModel__beginBackgroundTaskAssertion__block_invoke(uint64_t a1)
 
 void __26__RadioModel_userStations__block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 88) fetchedObjects];
   if (!v2)
   {
     v3 = *(*(a1 + 32) + 88);
-    v22 = 0;
-    v4 = [v3 performFetch:&v22];
-    v5 = v22;
+    v21 = 0;
+    v4 = [v3 performFetch:&v21];
+    v5 = v21;
     if ((v4 & 1) == 0)
     {
       v6 = os_log_create("com.apple.amp.radio", "Model");
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v25 = v5;
+        v24 = v5;
         _os_log_impl(&dword_261792000, v6, OS_LOG_TYPE_ERROR, "[RadioModel] Error: Unable to fetch stations (%@.)", buf, 0xCu);
       }
     }
@@ -1287,33 +1263,33 @@ void __26__RadioModel_userStations__block_invoke(uint64_t a1)
   if ([v2 count])
   {
     v7 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v2, "count")}];
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     v8 = v2;
-    v9 = [v8 countByEnumeratingWithState:&v18 objects:v23 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v17 objects:v22 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v19;
+      v11 = *v18;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v19 != v11)
+          if (*v18 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v18 + 1) + 8 * i);
+          v13 = *(*(&v17 + 1) + 8 * i);
           if ([v13 stationID])
           {
             [v7 addObject:v13];
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v18 objects:v23 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v17 objects:v22 count:16];
       }
 
       while (v10);
@@ -1324,8 +1300,6 @@ void __26__RadioModel_userStations__block_invoke(uint64_t a1)
     v16 = *(v15 + 40);
     *(v15 + 40) = v14;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)stationWithStationStringID:(id)d
@@ -1538,41 +1512,39 @@ void __30__RadioModel_stationWithHash___block_invoke(void *a1)
 
 - (NSArray)stationSortOrdering
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEB18];
   userStations = [(RadioModel *)self userStations];
   v5 = [v3 arrayWithCapacity:{objc_msgSend(userStations, "count")}];
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   userStations2 = [(RadioModel *)self userStations];
-  v7 = [userStations2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [userStations2 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(userStations2);
         }
 
-        v11 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(*(*(&v14 + 1) + 8 * i), "stationID")}];
+        v11 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(*(*(&v13 + 1) + 8 * i), "stationID")}];
         [v5 addObject:v11];
       }
 
-      v8 = [userStations2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [userStations2 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -1614,30 +1586,30 @@ void __30__RadioModel_stationWithHash___block_invoke(void *a1)
 
 void __37__RadioModel_setStationSortOrdering___block_invoke_2(uint64_t a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) userStations];
   v3 = [objc_alloc(MEMORY[0x277CBEB58]) initWithArray:v2];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v4 = *(a1 + 40);
-  v5 = [v4 countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v24 objects:v29 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v26;
+    v8 = *v25;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v26 != v8)
+        if (*v25 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = [*(a1 + 32) stationWithID:{objc_msgSend(*(*(&v25 + 1) + 8 * i), "longLongValue")}];
+        v10 = [*(a1 + 32) stationWithID:{objc_msgSend(*(*(&v24 + 1) + 8 * i), "longLongValue")}];
         v11 = v10;
         if (v10)
         {
@@ -1647,7 +1619,7 @@ void __37__RadioModel_setStationSortOrdering___block_invoke_2(uint64_t a1)
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v24 objects:v29 count:16];
     }
 
     while (v6);
@@ -1661,40 +1633,38 @@ void __37__RadioModel_setStationSortOrdering___block_invoke_2(uint64_t a1)
   v12 = [v3 allObjects];
   v13 = [v12 sortedArrayUsingComparator:&__block_literal_global_236];
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v14 = v13;
-  v15 = [v14 countByEnumeratingWithState:&v21 objects:v29 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v20 objects:v28 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v22;
+    v17 = *v21;
     do
     {
       v18 = 0;
       v19 = v7;
       do
       {
-        if (*v22 != v17)
+        if (*v21 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
         v7 = (v19 + 1);
-        [*(*(&v21 + 1) + 8 * v18++) setSortOrder:{v19, v21}];
+        [*(*(&v20 + 1) + 8 * v18++) setSortOrder:{v19, v20}];
         v19 = v7;
       }
 
       while (v16 != v18);
-      v16 = [v14 countByEnumeratingWithState:&v21 objects:v29 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v20 objects:v28 count:16];
     }
 
     while (v16);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __37__RadioModel_setStationSortOrdering___block_invoke_3(uint64_t a1, void *a2, void *a3)
@@ -1744,7 +1714,7 @@ uint64_t __37__RadioModel_setStationSortOrdering___block_invoke_3(uint64_t a1, v
 
 - (NSArray)reportProblemIssueTypes
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = [(RadioModel *)self _databasePropertyValueForKey:@"reportProblemIssueTypes"];
   v3 = v2;
   if (v2)
@@ -1757,26 +1727,25 @@ uint64_t __37__RadioModel_setStationSortOrdering___block_invoke_3(uint64_t a1, v
     v7 = 0;
     if (objc_opt_isKindOfClass())
     {
-      v17 = 0u;
-      v18 = 0u;
       v15 = 0u;
       v16 = 0u;
+      v13 = 0u;
+      v14 = 0u;
       v7 = v6;
-      v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v16;
+        v10 = *v14;
         while (2)
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v16 != v10)
+            if (*v14 != v10)
             {
               objc_enumerationMutation(v7);
             }
 
-            v12 = *(*(&v15 + 1) + 8 * i);
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
@@ -1786,7 +1755,7 @@ uint64_t __37__RadioModel_setStationSortOrdering___block_invoke_3(uint64_t a1, v
             }
           }
 
-          v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
           if (v9)
           {
             continue;
@@ -1804,8 +1773,6 @@ LABEL_14:
   {
     v7 = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -1834,21 +1801,21 @@ LABEL_14:
 
 void __29__RadioModel_previewStations__block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 88) fetchedObjects];
   if (!v2)
   {
     v3 = *(*(a1 + 32) + 88);
-    v22 = 0;
-    v4 = [v3 performFetch:&v22];
-    v5 = v22;
+    v21 = 0;
+    v4 = [v3 performFetch:&v21];
+    v5 = v21;
     if ((v4 & 1) == 0)
     {
       v6 = os_log_create("com.apple.amp.radio", "Model");
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v25 = v5;
+        v24 = v5;
         _os_log_impl(&dword_261792000, v6, OS_LOG_TYPE_ERROR, "[RadioModel] Error: Unable to fetch stations (%@.)", buf, 0xCu);
       }
     }
@@ -1859,33 +1826,33 @@ void __29__RadioModel_previewStations__block_invoke(uint64_t a1)
   if ([v2 count])
   {
     v7 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v2, "count")}];
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     v8 = v2;
-    v9 = [v8 countByEnumeratingWithState:&v18 objects:v23 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v17 objects:v22 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v19;
+      v11 = *v18;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v19 != v11)
+          if (*v18 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v18 + 1) + 8 * i);
+          v13 = *(*(&v17 + 1) + 8 * i);
           if ([v13 isPreview])
           {
             [v7 addObject:v13];
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v18 objects:v23 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v17 objects:v22 count:16];
       }
 
       while (v10);
@@ -1896,13 +1863,11 @@ void __29__RadioModel_previewStations__block_invoke(uint64_t a1)
     v16 = *(v15 + 40);
     *(v15 + 40) = v14;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)newStationWithDictionary:(id)dictionary
 {
-  v165 = *MEMORY[0x277D85DE8];
+  v163 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v4 = os_log_create("com.apple.amp.radio", "Model");
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
@@ -1912,11 +1877,11 @@ void __29__RadioModel_previewStations__block_invoke(uint64_t a1)
     _os_log_impl(&dword_261792000, v4, OS_LOG_TYPE_INFO, "[RadioModel] Adding/updating station with dictionary: %@", &buf, 0xCu);
   }
 
-  v109 = [dictionaryCopy objectForKey:@"station-id"];
+  v107 = [dictionaryCopy objectForKey:@"station-id"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    longLongValue = [v109 longLongValue];
+    longLongValue = [v107 longLongValue];
   }
 
   else
@@ -1924,23 +1889,23 @@ void __29__RadioModel_previewStations__block_invoke(uint64_t a1)
     longLongValue = 0;
   }
 
-  v110 = [dictionaryCopy objectForKey:@"station-hash"];
+  v108 = [dictionaryCopy objectForKey:@"station-hash"];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v110 = 0;
+    v108 = 0;
   }
 
-  v111 = [dictionaryCopy objectForKey:@"radio-station-id"];
+  v109 = [dictionaryCopy objectForKey:@"radio-station-id"];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v111 = 0;
+    v109 = 0;
   }
 
-  if (!longLongValue && !v110 && !v111)
+  if (!longLongValue && !v108 && !v109)
   {
     v5 = os_log_create("com.apple.amp.radio", "Model");
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
@@ -1954,20 +1919,20 @@ void __29__RadioModel_previewStations__block_invoke(uint64_t a1)
     goto LABEL_145;
   }
 
-  v158 = 0;
-  v100 = [dictionaryCopy objectForKey:@"persistent-id"];
+  v156 = 0;
+  v98 = [dictionaryCopy objectForKey:@"persistent-id"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v7 = v100;
-    sscanf([v100 UTF8String], "%llx", &v158);
+    v7 = v98;
+    sscanf([v98 UTF8String], "%llx", &v156);
   }
 
-  v93 = [dictionaryCopy objectForKey:@"adam-id"];
+  v91 = [dictionaryCopy objectForKey:@"adam-id"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    longLongValue2 = [v93 longLongValue];
+    longLongValue2 = [v91 longLongValue];
   }
 
   else
@@ -1976,17 +1941,7 @@ void __29__RadioModel_previewStations__block_invoke(uint64_t a1)
   }
 
   v8 = [dictionaryCopy objectForKey:@"name"];
-  v103 = [v8 copy];
-
-  objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
-  {
-
-    v103 = 0;
-  }
-
-  v9 = [dictionaryCopy objectForKey:@"description"];
-  v101 = [v9 copy];
+  v101 = [v8 copy];
 
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -1995,17 +1950,19 @@ void __29__RadioModel_previewStations__block_invoke(uint64_t a1)
     v101 = 0;
   }
 
-  v10 = [dictionaryCopy objectForKey:@"core-seed-name"];
-  v98 = [v10 copy];
+  v9 = [dictionaryCopy objectForKey:@"description"];
+  v99 = [v9 copy];
 
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v98 = 0;
+    v99 = 0;
   }
 
-  v96 = [dictionaryCopy objectForKey:@"seeds"];
+  v10 = [dictionaryCopy objectForKey:@"core-seed-name"];
+  v96 = [v10 copy];
+
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
@@ -2013,11 +1970,19 @@ void __29__RadioModel_previewStations__block_invoke(uint64_t a1)
     v96 = 0;
   }
 
-  v92 = [dictionaryCopy objectForKey:@"mix-type"];
+  v94 = [dictionaryCopy objectForKey:@"seeds"];
+  objc_opt_class();
+  if ((objc_opt_isKindOfClass() & 1) == 0)
+  {
+
+    v94 = 0;
+  }
+
+  v90 = [dictionaryCopy objectForKey:@"mix-type"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    intValue = [v92 intValue];
+    intValue = [v90 intValue];
   }
 
   else
@@ -2025,22 +1990,22 @@ void __29__RadioModel_previewStations__block_invoke(uint64_t a1)
     intValue = 1;
   }
 
-  v70 = intValue;
+  v68 = intValue;
   v12 = [dictionaryCopy objectForKey:@"skip-identifier"];
-  v95 = [v12 copy];
+  v93 = [v12 copy];
 
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v95 = 0;
+    v93 = 0;
   }
 
-  v106 = [dictionaryCopy objectForKey:@"rules"];
+  v104 = [dictionaryCopy objectForKey:@"rules"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v13 = [v106 objectForKey:@"edit-enabled"];
+    v13 = [v104 objectForKey:@"edit-enabled"];
     if (objc_opt_respondsToSelector())
     {
       bOOLValue = [v13 BOOLValue];
@@ -2051,29 +2016,28 @@ void __29__RadioModel_previewStations__block_invoke(uint64_t a1)
       bOOLValue = 1;
     }
 
-    v94 = [v106 objectForKey:@"edit-fields"];
+    v92 = [v104 objectForKey:@"edit-fields"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v156 = 0u;
-      v157 = 0u;
       v154 = 0u;
       v155 = 0u;
-      v16 = [v94 copy];
-      v17 = [v16 countByEnumeratingWithState:&v154 objects:v164 count:16];
+      v152 = 0u;
+      v153 = 0u;
+      v16 = [v92 copy];
+      v17 = [v16 countByEnumeratingWithState:&v152 objects:v162 count:16];
       if (v17)
       {
-        v18 = *v155;
+        v18 = *v153;
         while (2)
         {
           for (i = 0; i != v17; ++i)
           {
-            if (*v155 != v18)
+            if (*v153 != v18)
             {
               objc_enumerationMutation(v16);
             }
 
-            v20 = *(*(&v154 + 1) + 8 * i);
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
@@ -2082,7 +2046,7 @@ void __29__RadioModel_previewStations__block_invoke(uint64_t a1)
             }
           }
 
-          v17 = [v16 countByEnumeratingWithState:&v154 objects:v164 count:16];
+          v17 = [v16 countByEnumeratingWithState:&v152 objects:v162 count:16];
           if (v17)
           {
             continue;
@@ -2095,15 +2059,15 @@ void __29__RadioModel_previewStations__block_invoke(uint64_t a1)
 
     else
     {
-      v16 = v94;
+      v16 = v92;
 LABEL_51:
-      v94 = 0;
+      v92 = 0;
     }
 
-    v21 = [v106 objectForKey:@"like-enabled"];
+    v20 = [v104 objectForKey:@"like-enabled"];
     if (objc_opt_respondsToSelector())
     {
-      bOOLValue2 = [v21 BOOLValue];
+      bOOLValue2 = [v20 BOOLValue];
     }
 
     else
@@ -2111,10 +2075,10 @@ LABEL_51:
       bOOLValue2 = 0;
     }
 
-    v22 = [v106 objectForKey:@"skip-enabled"];
+    v21 = [v104 objectForKey:@"skip-enabled"];
     if (objc_opt_respondsToSelector())
     {
-      bOOLValue3 = [v22 BOOLValue];
+      bOOLValue3 = [v21 BOOLValue];
     }
 
     else
@@ -2122,22 +2086,22 @@ LABEL_51:
       bOOLValue3 = 1;
     }
 
-    v23 = [v106 objectForKey:@"skip-rules"];
+    v22 = [v104 objectForKey:@"skip-rules"];
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
     if (isKindOfClass)
     {
-      v24 = [v23 objectForKey:@"interval-in-seconds"];
+      v23 = [v22 objectForKey:@"interval-in-seconds"];
       intValue2 = 0.0;
       if (objc_opt_respondsToSelector())
       {
-        intValue2 = [v24 intValue];
+        intValue2 = [v23 intValue];
       }
 
-      v25 = [v23 objectForKey:@"frequency"];
+      v24 = [v22 objectForKey:@"frequency"];
       if (objc_opt_respondsToSelector())
       {
-        intValue3 = [v25 intValue];
+        intValue3 = [v24 intValue];
       }
 
       else
@@ -2152,10 +2116,10 @@ LABEL_51:
       intValue2 = 0.0;
     }
 
-    v26 = [v106 objectForKey:@"sharing-enabled"];
+    v25 = [v104 objectForKey:@"sharing-enabled"];
     if (objc_opt_respondsToSelector())
     {
-      bOOLValue4 = [v26 BOOLValue];
+      bOOLValue4 = [v25 BOOLValue];
     }
 
     else
@@ -2168,7 +2132,7 @@ LABEL_51:
   {
     isKindOfClass = 0;
     bOOLValue4 = 0;
-    v94 = 0;
+    v92 = 0;
     intValue3 = 0;
     bOOLValue3 = 1;
     intValue2 = 0.0;
@@ -2176,44 +2140,44 @@ LABEL_51:
     bOOLValue = 1;
   }
 
-  v27 = [dictionaryCopy objectForKey:@"artwork"];
+  v26 = [dictionaryCopy objectForKey:@"artwork"];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v29 = 0;
-    v28 = v27;
-    v27 = 0;
+    v28 = 0;
+    v27 = v26;
+    v26 = 0;
     goto LABEL_74;
   }
 
-  if (v27)
+  if (v26)
   {
-    v28 = [MEMORY[0x277CCAC58] dataWithPropertyList:v27 format:200 options:0 error:0];
-    v29 = v28;
+    v27 = [MEMORY[0x277CCAC58] dataWithPropertyList:v26 format:200 options:0 error:0];
+    v28 = v27;
 LABEL_74:
 
     goto LABEL_75;
   }
 
-  v29 = 0;
+  v28 = 0;
 LABEL_75:
-  v91 = [dictionaryCopy objectForKey:@"artwork-url"];
+  v89 = [dictionaryCopy objectForKey:@"artwork-url"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v30 = [MEMORY[0x277CBEBC0] URLWithString:v91];
+    v29 = [MEMORY[0x277CBEBC0] URLWithString:v89];
   }
 
   else
   {
-    v30 = 0;
+    v29 = 0;
   }
 
-  v90 = [dictionaryCopy objectForKey:@"virtual-play"];
+  v88 = [dictionaryCopy objectForKey:@"virtual-play"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    bOOLValue5 = [v90 BOOLValue];
+    bOOLValue5 = [v88 BOOLValue];
   }
 
   else
@@ -2221,40 +2185,40 @@ LABEL_75:
     bOOLValue5 = 1;
   }
 
-  v89 = [dictionaryCopy objectForKey:@"ad-data"];
+  v87 = [dictionaryCopy objectForKey:@"ad-data"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v31 = [MEMORY[0x277CCAC58] dataWithPropertyList:v89 format:200 options:0 error:0];
+    v30 = [MEMORY[0x277CCAC58] dataWithPropertyList:v87 format:200 options:0 error:0];
   }
 
   else
   {
-    v31 = 0;
+    v30 = 0;
   }
 
-  v74 = v31;
-  if (![v31 length])
+  v72 = v30;
+  if (![v30 length])
   {
-    v32 = [dictionaryCopy objectForKey:@"iAd-data"];
+    v31 = [dictionaryCopy objectForKey:@"iAd-data"];
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v74 = v32;
+      v72 = v31;
     }
 
     else
     {
 
-      v74 = 0;
+      v72 = 0;
     }
   }
 
-  v88 = [dictionaryCopy objectForKey:@"is-explicit"];
+  v86 = [dictionaryCopy objectForKey:@"is-explicit"];
   if (objc_opt_respondsToSelector())
   {
-    bOOLValue6 = [v88 BOOLValue];
+    bOOLValue6 = [v86 BOOLValue];
   }
 
   else
@@ -2262,12 +2226,12 @@ LABEL_75:
     bOOLValue6 = 0;
   }
 
-  v87 = [dictionaryCopy objectForKey:@"is-featured"];
+  v85 = [dictionaryCopy objectForKey:@"is-featured"];
   objc_opt_class();
-  v75 = objc_opt_isKindOfClass();
-  if (v75)
+  v73 = objc_opt_isKindOfClass();
+  if (v73)
   {
-    bOOLValue7 = [v87 BOOLValue];
+    bOOLValue7 = [v85 BOOLValue];
   }
 
   else
@@ -2275,10 +2239,10 @@ LABEL_75:
     bOOLValue7 = 0;
   }
 
-  v86 = [dictionaryCopy objectForKey:@"is-iad-gateway-video-enabled"];
+  v84 = [dictionaryCopy objectForKey:@"is-iad-gateway-video-enabled"];
   if (objc_opt_respondsToSelector())
   {
-    bOOLValue8 = [v86 BOOLValue];
+    bOOLValue8 = [v84 BOOLValue];
   }
 
   else
@@ -2286,11 +2250,11 @@ LABEL_75:
     bOOLValue8 = 0;
   }
 
-  v85 = [dictionaryCopy objectForKey:@"is-sponsored"];
+  v83 = [dictionaryCopy objectForKey:@"is-sponsored"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    bOOLValue9 = [v85 BOOLValue];
+    bOOLValue9 = [v83 BOOLValue];
   }
 
   else
@@ -2298,11 +2262,11 @@ LABEL_75:
     bOOLValue9 = 0;
   }
 
-  v84 = [dictionaryCopy objectForKey:@"impression-threshold"];
+  v82 = [dictionaryCopy objectForKey:@"impression-threshold"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    unsignedIntegerValue = [v84 unsignedIntegerValue];
+    unsignedIntegerValue = [v82 unsignedIntegerValue];
   }
 
   else
@@ -2310,10 +2274,10 @@ LABEL_75:
     unsignedIntegerValue = 0;
   }
 
-  v83 = [dictionaryCopy objectForKey:@"is-premium-placement"];
+  v81 = [dictionaryCopy objectForKey:@"is-premium-placement"];
   if (objc_opt_respondsToSelector())
   {
-    bOOLValue10 = [v83 BOOLValue];
+    bOOLValue10 = [v81 BOOLValue];
   }
 
   else
@@ -2321,10 +2285,10 @@ LABEL_75:
     bOOLValue10 = 0;
   }
 
-  v82 = [dictionaryCopy objectForKey:@"preview-only"];
+  v80 = [dictionaryCopy objectForKey:@"preview-only"];
   if (objc_opt_respondsToSelector())
   {
-    bOOLValue11 = [v82 BOOLValue];
+    bOOLValue11 = [v80 BOOLValue];
   }
 
   else
@@ -2332,10 +2296,10 @@ LABEL_75:
     bOOLValue11 = 0;
   }
 
-  v81 = [dictionaryCopy objectForKey:@"requires-subscription"];
+  v79 = [dictionaryCopy objectForKey:@"requires-subscription"];
   if (objc_opt_respondsToSelector())
   {
-    bOOLValue12 = [v81 BOOLValue];
+    bOOLValue12 = [v79 BOOLValue];
   }
 
   else
@@ -2343,35 +2307,11 @@ LABEL_75:
     bOOLValue12 = 0;
   }
 
-  v33 = [dictionaryCopy objectForKey:@"stream-url"];
+  v32 = [dictionaryCopy objectForKey:@"stream-url"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v56 = [MEMORY[0x277CBEBC0] URLWithString:v33];
-  }
-
-  else
-  {
-    v56 = 0;
-  }
-
-  v80 = [dictionaryCopy objectForKey:@"stream-key-cert-url"];
-  objc_opt_class();
-  if (objc_opt_isKindOfClass())
-  {
-    v55 = [MEMORY[0x277CBEBC0] URLWithString:v80];
-  }
-
-  else
-  {
-    v55 = 0;
-  }
-
-  v79 = [dictionaryCopy objectForKey:@"stream-key-server-url"];
-  objc_opt_class();
-  if (objc_opt_isKindOfClass())
-  {
-    v54 = [MEMORY[0x277CBEBC0] URLWithString:v79];
+    v54 = [MEMORY[0x277CBEBC0] URLWithString:v32];
   }
 
   else
@@ -2379,11 +2319,35 @@ LABEL_75:
     v54 = 0;
   }
 
-  v78 = [dictionaryCopy objectForKey:@"is-shared"];
+  v78 = [dictionaryCopy objectForKey:@"stream-key-cert-url"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    bOOLValue13 = [v78 BOOLValue];
+    v53 = [MEMORY[0x277CBEBC0] URLWithString:v78];
+  }
+
+  else
+  {
+    v53 = 0;
+  }
+
+  v77 = [dictionaryCopy objectForKey:@"stream-key-server-url"];
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v52 = [MEMORY[0x277CBEBC0] URLWithString:v77];
+  }
+
+  else
+  {
+    v52 = 0;
+  }
+
+  v76 = [dictionaryCopy objectForKey:@"is-shared"];
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    bOOLValue13 = [v76 BOOLValue];
   }
 
   else
@@ -2391,11 +2355,11 @@ LABEL_75:
     bOOLValue13 = 0;
   }
 
-  v77 = [dictionaryCopy objectForKey:@"is-subscribed"];
+  v75 = [dictionaryCopy objectForKey:@"is-subscribed"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    bOOLValue14 = [v77 BOOLValue];
+    bOOLValue14 = [v75 BOOLValue];
   }
 
   else
@@ -2403,11 +2367,11 @@ LABEL_75:
     bOOLValue14 = 0;
   }
 
-  v76 = [dictionaryCopy objectForKey:@"subscriber-count"];
+  v74 = [dictionaryCopy objectForKey:@"subscriber-count"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    intValue4 = [v76 intValue];
+    intValue4 = [v74 intValue];
   }
 
   else
@@ -2415,7 +2379,15 @@ LABEL_75:
     intValue4 = 0;
   }
 
-  v35 = [dictionaryCopy objectForKey:@"share-token"];
+  v34 = [dictionaryCopy objectForKey:@"share-token"];
+  objc_opt_class();
+  if ((objc_opt_isKindOfClass() & 1) == 0)
+  {
+
+    v34 = 0;
+  }
+
+  v35 = [dictionaryCopy objectForKey:@"debug-dict"];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
@@ -2423,123 +2395,114 @@ LABEL_75:
     v35 = 0;
   }
 
-  v36 = [dictionaryCopy objectForKey:@"debug-dict"];
-  objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
-  {
-
-    v36 = 0;
-  }
-
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v160 = 0x3032000000;
-  v161 = __Block_byref_object_copy__124;
-  v162 = __Block_byref_object_dispose__125;
+  v158 = 0x3032000000;
+  v159 = __Block_byref_object_copy__124;
+  v160 = __Block_byref_object_dispose__125;
   if (!longLongValue)
   {
-    v37 = 0;
-    v163 = 0;
+    v36 = 0;
+    v161 = 0;
 LABEL_139:
-    if (v158)
+    if (v156)
     {
-      v38 = [(RadioModel *)self stationWithPersistentID:?];
-      v39 = *(*(&buf + 1) + 40);
-      *(*(&buf + 1) + 40) = v38;
+      v37 = [(RadioModel *)self stationWithPersistentID:?];
+      v38 = *(*(&buf + 1) + 40);
+      *(*(&buf + 1) + 40) = v37;
 
-      v37 = *(*(&buf + 1) + 40);
+      v36 = *(*(&buf + 1) + 40);
     }
 
     goto LABEL_141;
   }
 
-  v163 = [(RadioModel *)self stationWithID:?];
+  v161 = [(RadioModel *)self stationWithID:?];
 
-  v37 = *(*(&buf + 1) + 40);
-  if (!v37)
+  v36 = *(*(&buf + 1) + 40);
+  if (!v36)
   {
     goto LABEL_139;
   }
 
 LABEL_141:
-  if (!v37 && v111)
+  if (!v36 && v109)
   {
-    v40 = [(RadioModel *)self stationWithStationStringID:v111];
-    v41 = *(*(&buf + 1) + 40);
-    *(*(&buf + 1) + 40) = v40;
+    v39 = [(RadioModel *)self stationWithStationStringID:v109];
+    v40 = *(*(&buf + 1) + 40);
+    *(*(&buf + 1) + 40) = v39;
   }
 
-  v112[0] = MEMORY[0x277D85DD0];
-  v112[1] = 3221225472;
-  v112[2] = __39__RadioModel_newStationWithDictionary___block_invoke;
-  v112[3] = &unk_279AEA838;
+  v110[0] = MEMORY[0x277D85DD0];
+  v110[1] = 3221225472;
+  v110[2] = __39__RadioModel_newStationWithDictionary___block_invoke;
+  v110[3] = &unk_279AEA838;
   p_buf = &buf;
-  v112[4] = self;
-  v130 = longLongValue;
-  v113 = v110;
-  v131 = longLongValue2;
-  v72 = v30;
-  v114 = v72;
-  v51 = v29;
-  v115 = v51;
-  v48 = v103;
+  v110[4] = self;
+  v128 = longLongValue;
+  v111 = v108;
+  v129 = longLongValue2;
+  v70 = v29;
+  v112 = v70;
+  v49 = v28;
+  v113 = v49;
+  v46 = v101;
+  v114 = v46;
+  v47 = v99;
+  v115 = v47;
+  v48 = v96;
   v116 = v48;
-  v49 = v101;
-  v117 = v49;
-  v50 = v98;
-  v118 = v50;
-  v97 = v96;
+  v95 = v94;
+  v117 = v95;
+  v136 = bOOLValue;
+  v100 = v92;
+  v118 = v100;
+  v137 = isKindOfClass & 1;
+  v138 = bOOLValue2;
+  v139 = bOOLValue12;
+  v140 = bOOLValue3;
+  v134 = intValue3;
+  v97 = v93;
   v119 = v97;
-  v138 = bOOLValue;
-  v102 = v94;
+  v130 = intValue2;
+  v141 = bOOLValue5;
+  v131 = v68;
+  v142 = v73 & 1;
+  v143 = bOOLValue7;
+  v144 = bOOLValue6;
+  v145 = bOOLValue8;
+  v146 = bOOLValue9;
+  v102 = v72;
   v120 = v102;
-  v139 = isKindOfClass & 1;
-  v140 = bOOLValue2;
-  v141 = bOOLValue12;
-  v142 = bOOLValue3;
-  v136 = intValue3;
-  v99 = v95;
-  v121 = v99;
-  v132 = intValue2;
-  v143 = bOOLValue5;
-  v133 = v70;
-  v144 = v75 & 1;
-  v145 = bOOLValue7;
-  v146 = bOOLValue6;
-  v147 = bOOLValue8;
-  v148 = bOOLValue9;
-  v104 = v74;
-  v122 = v104;
-  v134 = unsignedIntegerValue;
-  v149 = bOOLValue10;
-  v150 = bOOLValue11;
-  v123 = v111;
-  v108 = v56;
-  v124 = v108;
-  v42 = v55;
-  v125 = v42;
-  v43 = v54;
-  v126 = v43;
-  v151 = bOOLValue13;
-  v152 = bOOLValue14;
-  v137 = intValue4;
+  v132 = unsignedIntegerValue;
+  v147 = bOOLValue10;
+  v148 = bOOLValue11;
+  v121 = v109;
+  v106 = v54;
+  v122 = v106;
+  v41 = v53;
+  v123 = v41;
+  v42 = v52;
+  v124 = v42;
+  v149 = bOOLValue13;
+  v150 = bOOLValue14;
+  v135 = intValue4;
+  v43 = v34;
+  v125 = v43;
+  v151 = bOOLValue4;
   v44 = v35;
-  v127 = v44;
-  v153 = bOOLValue4;
-  v45 = v36;
-  v128 = v45;
-  v135 = v158;
-  [(RadioModel *)self performWriteTransactionWithBlock:v112];
+  v126 = v44;
+  v133 = v156;
+  [(RadioModel *)self performWriteTransactionWithBlock:v110];
   v6 = *(*(&buf + 1) + 40);
 
   _Block_object_dispose(&buf, 8);
 LABEL_145:
 
-  v46 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
-uint64_t __39__RadioModel_newStationWithDictionary___block_invoke(uint64_t a1)
+void *__39__RadioModel_newStationWithDictionary___block_invoke(uint64_t a1)
 {
   v2 = *(*(*(a1 + 168) + 8) + 40);
   if (!v2)
@@ -2673,7 +2636,7 @@ uint64_t __46__RadioModel_newPreviewStationWithDictionary___block_invoke(uint64_
   return v6;
 }
 
-uint64_t __47__RadioModel_newFeaturedStationWithDictionary___block_invoke(uint64_t a1)
+void *__47__RadioModel_newFeaturedStationWithDictionary___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) newStationWithDictionary:*(a1 + 40)];
   v3 = *(*(a1 + 48) + 8);
@@ -2731,21 +2694,21 @@ uint64_t __47__RadioModel_newFeaturedStationWithDictionary___block_invoke(uint64
 
 void __30__RadioModel_featuredStations__block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 88) fetchedObjects];
   if (!v2)
   {
     v3 = *(*(a1 + 32) + 88);
-    v22 = 0;
-    v4 = [v3 performFetch:&v22];
-    v5 = v22;
+    v21 = 0;
+    v4 = [v3 performFetch:&v21];
+    v5 = v21;
     if ((v4 & 1) == 0)
     {
       v6 = os_log_create("com.apple.amp.radio", "Model");
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v25 = v5;
+        v24 = v5;
         _os_log_impl(&dword_261792000, v6, OS_LOG_TYPE_ERROR, "[RadioModel] Error: Unable to fetch stations (%@.)", buf, 0xCu);
       }
     }
@@ -2756,33 +2719,33 @@ void __30__RadioModel_featuredStations__block_invoke(uint64_t a1)
   if ([v2 count])
   {
     v7 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v2, "count")}];
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     v8 = v2;
-    v9 = [v8 countByEnumeratingWithState:&v18 objects:v23 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v17 objects:v22 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v19;
+      v11 = *v18;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v19 != v11)
+          if (*v18 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v18 + 1) + 8 * i);
+          v13 = *(*(&v17 + 1) + 8 * i);
           if (![v13 stationID] && ((objc_msgSend(v13, "isFeatured") & 1) != 0 || objc_msgSend(v13, "isSponsored")))
           {
             [v7 addObject:v13];
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v18 objects:v23 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v17 objects:v22 count:16];
       }
 
       while (v10);
@@ -2793,13 +2756,11 @@ void __30__RadioModel_featuredStations__block_invoke(uint64_t a1)
     v16 = *(v15 + 40);
     *(v15 + 40) = v14;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteStation:(id)station
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   stationCopy = station;
   if (stationCopy)
   {
@@ -2807,21 +2768,19 @@ void __30__RadioModel_featuredStations__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v11 = stationCopy;
+      v10 = stationCopy;
       _os_log_impl(&dword_261792000, v5, OS_LOG_TYPE_INFO, "[RadioModel] Deleting station: %@", buf, 0xCu);
     }
 
     model = [stationCopy model];
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __28__RadioModel_deleteStation___block_invoke;
-    v8[3] = &unk_279AEACA0;
-    v8[4] = self;
-    v9 = stationCopy;
-    [model performWriteTransactionWithBlock:v8];
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __28__RadioModel_deleteStation___block_invoke;
+    v7[3] = &unk_279AEACA0;
+    v7[4] = self;
+    v8 = stationCopy;
+    [model performWriteTransactionWithBlock:v7];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __28__RadioModel_deleteStation___block_invoke(uint64_t a1)
@@ -2858,28 +2817,28 @@ void __34__RadioModel_deleteStationWithID___block_invoke(uint64_t a1)
 
 - (id)convertObjectsInSet:(id)set
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   setCopy = set;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v5 = [setCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [setCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(setCopy);
         }
 
-        v10 = [(RadioModel *)self convertObject:*(*(&v13 + 1) + 8 * i)];
+        v10 = [(RadioModel *)self convertObject:*(*(&v12 + 1) + 8 * i)];
         if (v10)
         {
           if (!v7)
@@ -2891,7 +2850,7 @@ void __34__RadioModel_deleteStationWithID___block_invoke(uint64_t a1)
         }
       }
 
-      v6 = [setCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [setCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
@@ -2902,35 +2861,33 @@ void __34__RadioModel_deleteStationWithID___block_invoke(uint64_t a1)
     v7 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (id)convertObjects:(id)objects
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   objectsCopy = objects;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v5 = [objectsCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [objectsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(objectsCopy);
         }
 
-        v10 = [(RadioModel *)self convertObject:*(*(&v13 + 1) + 8 * i)];
+        v10 = [(RadioModel *)self convertObject:*(*(&v12 + 1) + 8 * i)];
         if (v10)
         {
           if (!v7)
@@ -2942,7 +2899,7 @@ void __34__RadioModel_deleteStationWithID___block_invoke(uint64_t a1)
         }
       }
 
-      v6 = [objectsCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [objectsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
@@ -2952,8 +2909,6 @@ void __34__RadioModel_deleteStationWithID___block_invoke(uint64_t a1)
   {
     v7 = 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -3102,21 +3057,21 @@ void __28__RadioModel_convertObject___block_invoke_2(uint64_t a1)
 
 void __25__RadioModel_allStations__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 88) fetchedObjects];
   if (!v2)
   {
     v3 = *(*(a1 + 32) + 88);
-    v11 = 0;
-    v4 = [v3 performFetch:&v11];
-    v5 = v11;
+    v10 = 0;
+    v4 = [v3 performFetch:&v10];
+    v5 = v10;
     if ((v4 & 1) == 0)
     {
       v6 = os_log_create("com.apple.amp.radio", "Model");
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v13 = v5;
+        v12 = v5;
         _os_log_impl(&dword_261792000, v6, OS_LOG_TYPE_ERROR, "[RadioModel] Error: Unable to fetch stations (%@.)", buf, 0xCu);
       }
     }
@@ -3131,8 +3086,6 @@ void __25__RadioModel_allStations__block_invoke(uint64_t a1)
     v9 = *(v8 + 40);
     *(v8 + 40) = v7;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_contextDidSaveNotification:(id)notification
@@ -3293,24 +3246,23 @@ uint64_t __33__RadioModel__radioDirectoryPath__block_invoke()
 
 + (id)_persistentStoreConfigurationOptions
 {
-  v9[6] = *MEMORY[0x277D85DE8];
+  v8[6] = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CBE2D8];
-  v8[0] = *MEMORY[0x277CBE2E0];
-  v8[1] = v2;
-  v9[0] = &unk_2874055A0;
-  v9[1] = MEMORY[0x277CBEC38];
+  v7[0] = *MEMORY[0x277CBE2E0];
+  v7[1] = v2;
+  v8[0] = &unk_2874055A0;
+  v8[1] = MEMORY[0x277CBEC38];
   v3 = *MEMORY[0x277CBE178];
-  v8[2] = *MEMORY[0x277CBE1D8];
-  v8[3] = v3;
+  v7[2] = *MEMORY[0x277CBE1D8];
+  v7[3] = v3;
   v4 = *MEMORY[0x277CBE248];
-  v8[4] = *MEMORY[0x277CBE240];
-  v8[5] = v4;
-  v9[2] = MEMORY[0x277CBEC38];
-  v9[3] = MEMORY[0x277CBEC38];
-  v9[4] = *MEMORY[0x277CCA1B8];
-  v9[5] = MEMORY[0x277CBEC38];
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:6];
-  v6 = *MEMORY[0x277D85DE8];
+  v7[4] = *MEMORY[0x277CBE240];
+  v7[5] = v4;
+  v8[2] = MEMORY[0x277CBEC38];
+  v8[3] = MEMORY[0x277CBEC38];
+  v8[4] = *MEMORY[0x277CCA1B8];
+  v8[5] = MEMORY[0x277CBEC38];
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:6];
 
   return v5;
 }
@@ -3355,7 +3307,7 @@ void __27__RadioModel_deleteAllData__block_invoke(uint64_t a1)
 
 void __27__RadioModel_deleteAllData__block_invoke_2(id *a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   [a1[4] _resetModel];
   [a1[5] _resetModel];
   v2 = os_log_create("com.apple.amp.radio", "Model");
@@ -3373,9 +3325,9 @@ void __27__RadioModel_deleteAllData__block_invoke_2(id *a1)
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v23 = v4;
-      v24 = 2112;
-      v25 = v3;
+      v22 = v4;
+      v23 = 2112;
+      v24 = v3;
       _os_log_impl(&dword_261792000, v5, OS_LOG_TYPE_INFO, "[RadioModel] Destroying database at URL: %@ (path: %@)", buf, 0x16u);
     }
 
@@ -3386,9 +3338,9 @@ void __27__RadioModel_deleteAllData__block_invoke_2(id *a1)
       v7 = *(a1[4] + 14);
       v8 = *MEMORY[0x277CBE2E8];
       v9 = [a1[6] _persistentStoreConfigurationOptions];
-      v21 = 0;
-      LODWORD(v8) = [v7 _destroyPersistentStoreAtURL:v4 withType:v8 options:v9 error:&v21];
-      v10 = v21;
+      v20 = 0;
+      LODWORD(v8) = [v7 _destroyPersistentStoreAtURL:v4 withType:v8 options:v9 error:&v20];
+      v10 = v20;
 
       os_unfair_lock_unlock(&__databaseLock);
       if (v8)
@@ -3413,9 +3365,9 @@ void __27__RadioModel_deleteAllData__block_invoke_2(id *a1)
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
-    v23 = v6;
-    v24 = 2112;
-    v25 = v10;
+    v22 = v6;
+    v23 = 2112;
+    v24 = v10;
     _os_log_impl(&dword_261792000, v11, OS_LOG_TYPE_INFO, "[RadioModel] Destroy results: success: %@, error: %@", buf, 0x16u);
   }
 
@@ -3423,7 +3375,7 @@ void __27__RadioModel_deleteAllData__block_invoke_2(id *a1)
   if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v23 = @"RadioModelWasDeletedNotification";
+    v22 = @"RadioModelWasDeletedNotification";
     _os_log_impl(&dword_261792000, v12, OS_LOG_TYPE_INFO, "[RadioModel] Posting '%@'", buf, 0xCu);
   }
 
@@ -3447,8 +3399,6 @@ void __27__RadioModel_deleteAllData__block_invoke_2(id *a1)
   [a1[4] _postContextDidChangeNotification:0];
   [a1[5] _postContextDidChangeNotification:0];
   [a1[6] _postAccountDidDeauthenticateNotification];
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 + (id)sharedModel

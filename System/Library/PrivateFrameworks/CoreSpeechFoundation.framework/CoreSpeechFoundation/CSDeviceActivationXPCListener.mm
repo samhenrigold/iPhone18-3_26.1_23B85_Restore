@@ -11,12 +11,12 @@
 
 - (void)listen
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v9 = "[CSDeviceActivationXPCListener listen]";
+    v8 = "[CSDeviceActivationXPCListener listen]";
     _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s CSActivationXPCListener start listening", buf, 0xCu);
   }
 
@@ -26,12 +26,11 @@
   handler[1] = 3221225472;
   handler[2] = __39__CSDeviceActivationXPCListener_listen__block_invoke;
   handler[3] = &unk_1E865CA90;
-  objc_copyWeak(&v7, buf);
+  objc_copyWeak(&v6, buf);
   xpc_connection_set_event_handler(listener, handler);
   xpc_connection_activate(self->_listener);
-  objc_destroyWeak(&v7);
+  objc_destroyWeak(&v6);
   objc_destroyWeak(buf);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)CSActivationXPCConnectionReceivedClientError:(id)error clientError:(id)clientError client:(id)client
@@ -53,40 +52,38 @@
 
 void __97__CSDeviceActivationXPCListener_CSActivationXPCConnectionReceivedClientError_clientError_client___block_invoke(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     v3 = a1[4];
-    v5 = 136315394;
-    v6 = "[CSDeviceActivationXPCListener CSActivationXPCConnectionReceivedClientError:clientError:client:]_block_invoke";
-    v7 = 2050;
-    v8 = v3;
-    _os_log_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_DEFAULT, "%s Client connection disconnected, removing %{public}p from client connection pool", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[CSDeviceActivationXPCListener CSActivationXPCConnectionReceivedClientError:clientError:client:]_block_invoke";
+    v6 = 2050;
+    v7 = v3;
+    _os_log_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_DEFAULT, "%s Client connection disconnected, removing %{public}p from client connection pool", &v4, 0x16u);
   }
 
   if (a1[5])
   {
     [*(a1[6] + 24) removeObject:?];
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleNewRemoteConnection:(id)connection
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   v5 = CSLogContextFacilityCoreSpeech;
   if (connectionCopy)
   {
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CSDeviceActivationXPCListener _handleNewRemoteConnection:]";
-      v10 = 2050;
-      v11 = connectionCopy;
-      _os_log_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_DEFAULT, "%s Getting new client connection : %{public}p", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CSDeviceActivationXPCListener _handleNewRemoteConnection:]";
+      v9 = 2050;
+      v10 = connectionCopy;
+      _os_log_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_DEFAULT, "%s Getting new client connection : %{public}p", &v7, 0x16u);
     }
 
     if ([CSUtils machXPCConnection:connectionCopy hasEntitlement:@"corespeechd.activation"])
@@ -103,43 +100,39 @@ void __97__CSDeviceActivationXPCListener_CSActivationXPCConnectionReceivedClient
 
   else if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
   {
-    v8 = 136315138;
-    v9 = "[CSDeviceActivationXPCListener _handleNewRemoteConnection:]";
-    _os_log_error_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_ERROR, "%s Connection request is nil", &v8, 0xCu);
+    v7 = 136315138;
+    v8 = "[CSDeviceActivationXPCListener _handleNewRemoteConnection:]";
+    _os_log_error_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_ERROR, "%s Connection request is nil", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleListenerError:(id)error
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
   {
-    v6 = *MEMORY[0x1E69E9E28];
-    v7 = v4;
-    v8 = 136315394;
-    v9 = "[CSDeviceActivationXPCListener _handleListenerError:]";
-    v10 = 2082;
-    string = xpc_dictionary_get_string(error, v6);
-    _os_log_error_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_ERROR, "%s Error = %{public}s", &v8, 0x16u);
+    v5 = *MEMORY[0x1E69E9E28];
+    v6 = v4;
+    v7 = 136315394;
+    v8 = "[CSDeviceActivationXPCListener _handleListenerError:]";
+    v9 = 2082;
+    string = xpc_dictionary_get_string(error, v5);
+    _os_log_error_impl(&dword_1DDA4B000, v6, OS_LOG_TYPE_ERROR, "%s Error = %{public}s", &v7, 0x16u);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleListenerEvent:(id)event
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   dispatch_assert_queue_V2(self->_queue);
   v5 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315138;
-    v9 = "[CSDeviceActivationXPCListener _handleListenerEvent:]";
-    _os_log_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_DEFAULT, "%s Received new remote control connection request", &v8, 0xCu);
+    v7 = 136315138;
+    v8 = "[CSDeviceActivationXPCListener _handleListenerEvent:]";
+    _os_log_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_DEFAULT, "%s Received new remote control connection request", &v7, 0xCu);
   }
 
   if (eventCopy)
@@ -160,13 +153,11 @@ void __97__CSDeviceActivationXPCListener_CSActivationXPCConnectionReceivedClient
     v6 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
-      v8 = 136315138;
-      v9 = "[CSDeviceActivationXPCListener _handleListenerEvent:]";
-      _os_log_error_impl(&dword_1DDA4B000, v6, OS_LOG_TYPE_ERROR, "%s Connection request is nil", &v8, 0xCu);
+      v7 = 136315138;
+      v8 = "[CSDeviceActivationXPCListener _handleListenerEvent:]";
+      _os_log_error_impl(&dword_1DDA4B000, v6, OS_LOG_TYPE_ERROR, "%s Connection request is nil", &v7, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __39__CSDeviceActivationXPCListener_listen__block_invoke(uint64_t a1, void *a2)
@@ -178,10 +169,10 @@ void __39__CSDeviceActivationXPCListener_listen__block_invoke(uint64_t a1, void 
 
 - (CSDeviceActivationXPCListener)initWithMachServiceName:(const char *)name
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v14.receiver = self;
-  v14.super_class = CSDeviceActivationXPCListener;
-  v4 = [(CSDeviceActivationXPCListener *)&v14 init];
+  v18 = *MEMORY[0x1E69E9840];
+  v13.receiver = self;
+  v13.super_class = CSDeviceActivationXPCListener;
+  v4 = [(CSDeviceActivationXPCListener *)&v13 init];
   if (v4)
   {
     v5 = [CSUtils getSerialQueue:@"CSActivationXPCListener" qualityOfService:33];
@@ -202,13 +193,12 @@ void __39__CSDeviceActivationXPCListener_listen__block_invoke(uint64_t a1, void 
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v16 = "[CSDeviceActivationXPCListener initWithMachServiceName:]";
-    v17 = 2080;
+    v15 = "[CSDeviceActivationXPCListener initWithMachServiceName:]";
+    v16 = 2080;
     nameCopy = name;
     _os_log_impl(&dword_1DDA4B000, v11, OS_LOG_TYPE_DEFAULT, "%s machServiceName: %s", buf, 0x16u);
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v4;
 }
 

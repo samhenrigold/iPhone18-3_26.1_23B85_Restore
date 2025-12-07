@@ -183,7 +183,7 @@
   engineContext = self->_engineContext;
   if (engineContext)
   {
-    RenderCallbacks = C3DEngineContextGetRenderCallbacks(engineContext);
+    RenderCallbacks = C3DEngineContextGetRenderCallbacks(engineContext, a2);
     delegationConformance = self->_delegationConformance;
     if ((delegationConformance & 0x10) != 0 || (*&self->_selfDelegationConformance & 0x10) != 0 || (*&self->_privateRendererOwnerDelegationConformance & 0x10) != 0)
     {
@@ -259,88 +259,89 @@
 
 - (id)_initWithOptions:(id)options isPrivateRenderer:(BOOL)renderer privateRendererOwner:(id)owner clearsOnDraw:(BOOL)draw context:(void *)context renderingAPI:(unint64_t)i
 {
+  drawCopy = draw;
   rendererCopy = renderer;
-  v47.receiver = self;
-  v47.super_class = SCNRenderer;
-  v13 = [(SCNRenderer *)&v47 init];
-  v14 = v13;
-  if (v13)
+  v55.receiver = self;
+  v55.super_class = SCNRenderer;
+  v14 = [(SCNRenderer *)&v55 init];
+  v15 = v14;
+  if (v14)
   {
-    v13->_scene = 0;
-    v13->_viewpoints = 0;
-    v13->_contentScaleFactor = 1.0;
-    v13->_engineContext = C3DEngineContextCreateWithOptions();
-    *(v14 + 216) = i;
-    *(v14 + 121) |= 0x40u;
+    v14->_scene = 0;
+    v14->_viewpoints = 0;
+    v14->_contentScaleFactor = 1.0;
+    v14->_engineContext = C3DEngineContextCreateWithOptions(options, context);
+    *(v15 + 216) = i;
+    *(v15 + 121) |= 0x40u;
     if (!i)
     {
       C3DNotifyMetalIsUsed();
     }
 
-    *(v14 + 32) = objc_alloc_init(SCNRecursiveLock);
-    [v14 _updateEngineCallbacks];
-    C3DEngineContextSetRenderingOptionForKey(*(v14 + 208), @"frustumCulling", *MEMORY[0x277CBED28]);
-    C3DEngineContextSetClearsOnDraw(*(v14 + 208), draw);
-    v15 = *(v14 + 208);
-    if (v15)
+    *(v15 + 32) = objc_alloc_init(SCNRecursiveLock);
+    [v15 _updateEngineCallbacks];
+    C3DEngineContextSetRenderingOptionForKey(*(v15 + 208), @"frustumCulling", *MEMORY[0x277CBED28]);
+    C3DEngineContextSetClearsOnDraw(*(v15 + 208), drawCopy);
+    v17 = *(v15 + 208);
+    if (v17)
     {
-      C3DEngineContextSetUserInfo(v15, v14);
+      C3DEngineContextSetUserInfo(v17, v15);
     }
 
     else
     {
-      v16 = scn_default_log();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v18 = scn_default_log(0, v16);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         [SCNRenderer _initWithOptions:isPrivateRenderer:privateRendererOwner:clearsOnDraw:context:renderingAPI:];
       }
     }
 
-    *(v14 + 185) = 1;
+    *(v15 + 185) = 1;
     if (rendererCopy)
     {
-      v17 = 4;
+      v19 = 4;
     }
 
     else
     {
-      v17 = 0;
+      v19 = 0;
     }
 
-    *(v14 + 121) = *(v14 + 121) & 0xFB | v17;
-    *(v14 + 344) = owner;
+    *(v15 + 121) = *(v15 + 121) & 0xFB | v19;
+    *(v15 + 344) = owner;
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
-    v19 = *(v14 + 121);
+    v21 = *(v15 + 121);
     if (isKindOfClass)
     {
-      v20 = 8;
+      v22 = 8;
     }
 
     else
     {
-      v20 = 0;
+      v22 = 0;
     }
 
-    *(v14 + 121) = v19 & 0xF7 | v20;
-    if ((v19 & 4) != 0)
+    *(v15 + 121) = v21 & 0xF7 | v22;
+    if ((v21 & 4) != 0)
     {
       defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-      [defaultCenter addObserver:v14 selector:sel__UIOrientationDidChangeNotification_ name:*MEMORY[0x277D76658] object:0];
-      if ((*(v14 + 121) & 8) != 0)
+      [defaultCenter addObserver:v15 selector:sel__UIOrientationDidChangeNotification_ name:*MEMORY[0x277D76658] object:0];
+      if ((*(v15 + 121) & 8) != 0)
       {
-        v22 = [objc_msgSend(objc_msgSend(*(v14 + 344) "window")];
+        v24 = [objc_msgSend(objc_msgSend(*(v15 + 344) "window")];
       }
 
       else
       {
-        v22 = [objc_msgSend(MEMORY[0x277D75128] "sharedApplication")];
+        v24 = [objc_msgSend(MEMORY[0x277D75128] "sharedApplication")];
       }
 
-      C3DEngineContextSetInterfaceOrientation(*(v14 + 208), v22);
+      C3DEngineContextSetInterfaceOrientation(*(v15 + 208), v24);
     }
 
-    *(v14 + 56) = 0;
+    *(v15 + 56) = 0;
     if (rendererCopy)
     {
       if ((_initWithOptions_isPrivateRenderer_privateRendererOwner_clearsOnDraw_context_renderingAPI__first & 1) == 0)
@@ -351,61 +352,64 @@
       }
 
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) == 0)
+      v25 = objc_opt_isKindOfClass();
+      if ((v25 & 1) == 0)
       {
-        v23 = scn_default_log();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
+        v27 = scn_default_log(v25, v26);
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
         {
-          [(SCNRenderer *)v23 _initWithOptions:v24 isPrivateRenderer:v25 privateRendererOwner:v26 clearsOnDraw:v27 context:v28 renderingAPI:v29, v30];
+          [(SCNRenderer *)v27 _initWithOptions:v28 isPrivateRenderer:v29 privateRendererOwner:v30 clearsOnDraw:v31 context:v32 renderingAPI:v33, v34];
         }
       }
 
-      v31 = MEMORY[0x277CCACA8];
-      v32 = objc_opt_class();
-      v33 = [objc_msgSend(v31 stringWithFormat:@"com.apple.scenekit.renderingQueue.%@%p", NSStringFromClass(v32), *(v14 + 344)), "cStringUsingEncoding:", 1];
-      v34 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_USER_INTERACTIVE, 0);
-      *(v14 + 40) = dispatch_queue_create(v33, v34);
+      v35 = MEMORY[0x277CCACA8];
+      v36 = objc_opt_class();
+      v37 = [objc_msgSend(v35 stringWithFormat:@"com.apple.scenekit.renderingQueue.%@%p", NSStringFromClass(v36), *(v15 + 344)), "cStringUsingEncoding:", 1];
+      v38 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_USER_INTERACTIVE, 0);
+      *(v15 + 40) = dispatch_queue_create(v37, v38);
     }
 
-    if (*(v14 + 216))
+    if (*(v15 + 216))
     {
       if (context)
       {
-        [v14 setContext:context];
-        v35 = NSClassFromString(&cfstr_Skglobalshared.isa);
+        [v15 setContext:context];
+        v39 = NSClassFromString(&cfstr_Skglobalshared.isa);
         [NSClassFromString(&cfstr_Skscnrenderer.isa) setPrefersOpenGL:1];
-        if (![(objc_class *)v35 globalGLSharedContext])
+        if (![(objc_class *)v39 globalGLSharedContext])
         {
-          [(objc_class *)v35 setGlobalGLSharedContext:context];
+          [(objc_class *)v39 setGlobalGLSharedContext:context];
         }
       }
     }
 
     else
     {
-      if (([context conformsToProtocol:&unk_282E57D28] & 1) == 0)
+      v40 = [context conformsToProtocol:&unk_282E57D28];
+      if ((v40 & 1) == 0)
       {
-        v36 = scn_default_log();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_FAULT))
+        v42 = scn_default_log(v40, v41);
+        if (os_log_type_enabled(v42, OS_LOG_TYPE_FAULT))
         {
-          [(SCNRenderer *)v36 _initWithOptions:v37 isPrivateRenderer:v38 privateRendererOwner:v39 clearsOnDraw:v40 context:v41 renderingAPI:v42, v43];
+          [(SCNRenderer *)v42 _initWithOptions:v43 isPrivateRenderer:v44 privateRendererOwner:v45 clearsOnDraw:v46 context:v47 renderingAPI:v48, v49];
         }
       }
 
-      *(v14 + 280) = [[SCNMTLRenderContext alloc] initWithDevice:context engineContext:*(v14 + 208)];
-      v44 = SCNSampleCountForAntialiasingMode([v14 _antialiasingMode]);
-      [(SCNMTLRenderContext *)*(v14 + 280) setSampleCount:v44];
-      C3DEngineContextSetRenderContext(*(v14 + 208), *(v14 + 280));
+      *(v15 + 280) = [[SCNMTLRenderContext alloc] initWithDevice:context engineContext:*(v15 + 208)];
+      _antialiasingMode = [v15 _antialiasingMode];
+      v52 = SCNSampleCountForAntialiasingMode(_antialiasingMode, v51);
+      [(SCNMTLRenderContext *)*(v15 + 280) setSampleCount:v52];
+      C3DEngineContextSetRenderContext(*(v15 + 208), *(v15 + 280));
 
-      v45 = NSClassFromString(&cfstr_Skglobalshared.isa);
+      v53 = NSClassFromString(&cfstr_Skglobalshared.isa);
       if (objc_opt_respondsToSelector())
       {
-        [(objc_class *)v45 setGlobalMetalDevice:context];
+        [(objc_class *)v53 setGlobalMetalDevice:context];
       }
     }
   }
 
-  return v14;
+  return v15;
 }
 
 + (SCNRenderer)rendererWithDevice:(id)device options:(NSDictionary *)options
@@ -458,7 +462,7 @@
   if (self->_glContext)
   {
     currentContext = [MEMORY[0x277CD9388] currentContext];
-    v4 = currentContext;
+    v5 = currentContext;
     glContext = self->_glContext;
     if (glContext && currentContext != glContext)
     {
@@ -468,37 +472,37 @@
 
   else
   {
-    v4 = 0;
+    v5 = 0;
   }
 
   if (self->_framebufferInfo.frameBuffer)
   {
-    RendererContextGL = C3DEngineContextGetRendererContextGL(self->_engineContext);
+    RendererContextGL = C3DEngineContextGetRendererContextGL(self->_engineContext, v3);
     deleteGLFramebufferInfo(&self->_framebufferInfo, RendererContextGL);
   }
 
   if (self->_engineContext)
   {
     [+[SCNSourceRendererRegistry sharedRegistry](SCNSourceRendererRegistry "sharedRegistry")];
-    C3DEngineContextCleanup(self->_engineContext);
+    C3DEngineContextCleanup(self->_engineContext, v8);
     CFRelease(self->_engineContext);
   }
 
-  v7 = self->_glContext;
-  if (v7)
+  v9 = self->_glContext;
+  if (v9)
   {
-    v8 = v4;
-    if (v4 == v7)
+    v10 = v5;
+    if (v5 == v9)
     {
-      if ([(EAGLContext *)v7 retainCount]!= 2)
+      if ([(EAGLContext *)v9 retainCount]!= 2)
       {
         goto LABEL_15;
       }
 
-      v8 = 0;
+      v10 = 0;
     }
 
-    [MEMORY[0x277CD9388] setCurrentContext:v8];
+    [MEMORY[0x277CD9388] setCurrentContext:v10];
   }
 
 LABEL_15:
@@ -515,9 +519,9 @@ LABEL_15:
   }
 
   self->_glContext = 0;
-  v11.receiver = self;
-  v11.super_class = SCNRenderer;
-  [(SCNRenderer *)&v11 dealloc];
+  v13.receiver = self;
+  v13.super_class = SCNRenderer;
+  [(SCNRenderer *)&v13 dealloc];
 }
 
 - (id)currentCommandBuffer
@@ -640,19 +644,9 @@ LABEL_15:
 
 - (void)_installViewport
 {
-  v3 = *self->_anon_58;
-  if ((*(self + 121) & 4) == 0)
-  {
-    v4 = scn_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
-    {
-      [(SCNRenderer *)v4 _installViewport:v5];
-    }
-  }
-
-  C3DEngineContextSetDrawableSize(self->_engineContext, COERCE_DOUBLE(vcvt_f32_u32(v3)));
-  [(SCNRenderer *)self adjustViewportForRendering:0.0];
-  C3DEngineContextSetViewport(v12, self->_engineContext);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_isPrivateRenderer";
+  OUTLINED_FUNCTION_0(&dword_21BEF7000, self, a3, "Assertion '%s' failed. invalid renderer", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_clearBackBuffer
@@ -668,7 +662,7 @@ LABEL_15:
 
   else
   {
-    RendererContextGL = C3DEngineContextGetRendererContextGL(engineContext);
+    RendererContextGL = C3DEngineContextGetRendererContextGL(engineContext, a2);
     if (self->_backgroundColor)
     {
       p_c3dBackgroundColor = &self->_c3dBackgroundColor;
@@ -698,7 +692,7 @@ LABEL_15:
 
   else
   {
-    RendererContextGL = C3DEngineContextGetRendererContextGL(self->_engineContext);
+    RendererContextGL = C3DEngineContextGetRendererContextGL(self->_engineContext, a2);
     if (RendererContextGL)
     {
 
@@ -730,83 +724,16 @@ LABEL_15:
 
 - (void)_deleteGLFramebuffer
 {
-  if (self->_renderingAPI)
-  {
-    if ([MEMORY[0x277CD9388] currentContext] != self->_glContext)
-    {
-      v3 = scn_default_log();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
-      {
-        [(SCNRenderer *)v3 _deleteGLFramebuffer:v4];
-      }
-    }
-  }
-
-  if (self->_glContext)
-  {
-    glPushGroupMarkerEXT(0, "SceneKit - Delete Framebuffer");
-    RendererContextGL = C3DEngineContextGetRendererContextGL(self->_engineContext);
-    deleteGLFramebufferInfo(&self->_framebufferInfo, RendererContextGL);
-    glPopGroupMarkerEXT();
-  }
-
-  else
-  {
-    v12 = scn_default_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
-    {
-      *v13 = 0;
-      _os_log_impl(&dword_21BEF7000, v12, OS_LOG_TYPE_DEFAULT, "Warning: _deleteGLFramebuffer - No context!", v13, 2u);
-    }
-  }
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_renderingAPI == SCNRenderingAPIMetal || [EAGLContext currentContext] == _glContext";
+  OUTLINED_FUNCTION_0(&dword_21BEF7000, self, a3, "Assertion '%s' failed. invalid context", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_beginFrame
 {
-  [(SCNRenderer *)self _prepareRenderTarget];
-  if (self->_renderContext)
-  {
-    if (self->_renderingAPI)
-    {
-      v3 = scn_default_log();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
-      {
-        [(SCNRenderer *)v3 _beginFrame:v4];
-      }
-    }
-
-    renderContext = self->_renderContext;
-    if ((*(self + 121) & 0x30) != 0)
-    {
-      mtlTexture = self->_mtlTexture;
-    }
-
-    else
-    {
-      mtlTexture = [(SCNRenderer *)self metalLayer];
-    }
-
-    [(SCNMTLRenderContext *)renderContext beginFrame:?];
-  }
-
-  else
-  {
-    RendererContextGL = C3DEngineContextGetRendererContextGL(self->_engineContext);
-    if (self->_framebufferInfo.frameBuffer)
-    {
-      if (self->_framebufferInfo.multisamplingFrameBuffer)
-      {
-        multisamplingFrameBuffer = self->_framebufferInfo.multisamplingFrameBuffer;
-      }
-
-      else
-      {
-        multisamplingFrameBuffer = self->_framebufferInfo.frameBuffer;
-      }
-
-      C3DRendererContextBindFramebuffer(RendererContextGL, multisamplingFrameBuffer);
-    }
-  }
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_renderingAPI == SCNRenderingAPIMetal";
+  OUTLINED_FUNCTION_0(&dword_21BEF7000, self, a3, "Assertion '%s' failed. _beginFrame - unexpected rendering API", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_endFrame
@@ -834,9 +761,9 @@ LABEL_15:
       {
 LABEL_15:
         renderContext = self->_renderContext;
-        v12 = (*(self + 121) >> 4) & 1;
+        v13 = (*(self + 121) >> 4) & 1;
 
-        [(SCNMTLRenderContext *)renderContext endFrameWaitingUntilCompleted:v12 status:0 error:0];
+        [(SCNMTLRenderContext *)renderContext endFrameWaitingUntilCompleted:v13 status:0 error:0];
         return;
       }
 
@@ -857,25 +784,25 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  RendererContextGL = C3DEngineContextGetRendererContextGL(self->_engineContext);
+  RendererContextGL = C3DEngineContextGetRendererContextGL(self->_engineContext, a2);
   if (self->_framebufferInfo.frameBuffer)
   {
 
-    C3DRendererContextUnbindFramebuffer(RendererContextGL);
+    C3DRendererContextUnbindFramebuffer(RendererContextGL, v9);
   }
 }
 
 - (void)_resolveAndDiscardGL
 {
-  RendererContextGL = C3DEngineContextGetRendererContextGL(self->_engineContext);
+  RendererContextGL = C3DEngineContextGetRendererContextGL(self->_engineContext, a2);
   if (self->_framebufferInfo.multisamplingFrameBuffer)
   {
-    v4 = RendererContextGL;
-    Size = C3DFramebufferGetSize(self->_framebufferInfo.frameBuffer);
-    *&v6 = 0;
-    *(&v6 + 1) = Size;
-    v7 = v6;
-    C3DRendererContextResolveFramebuffer(v4, self->_framebufferInfo.frameBuffer, self->_framebufferInfo.multisamplingFrameBuffer, 1, 1, &v7);
+    v5 = RendererContextGL;
+    Size = C3DFramebufferGetSize(self->_framebufferInfo.frameBuffer, v4);
+    *&v7 = 0;
+    *(&v7 + 1) = Size;
+    v8 = v7;
+    C3DRendererContextResolveFramebuffer(v5, self->_framebufferInfo.frameBuffer, self->_framebufferInfo.multisamplingFrameBuffer, 1, 1, &v8);
   }
 }
 
@@ -927,10 +854,11 @@ LABEL_15:
 
 void __37__SCNRenderer__prepareGLRenderTarget__block_invoke(uint64_t a1)
 {
-  if (([*(*(a1 + 32) + 272) renderbufferStorage:36161 fromDrawable:{objc_msgSend(*(*(a1 + 32) + 344), "scn_backingLayer")}] & 1) == 0)
+  v1 = [*(*(a1 + 32) + 272) renderbufferStorage:36161 fromDrawable:{objc_msgSend(*(*(a1 + 32) + 344), "scn_backingLayer")}];
+  if ((v1 & 1) == 0)
   {
-    v1 = scn_default_log();
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+    v3 = scn_default_log(v1, v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __37__SCNRenderer__prepareGLRenderTarget__block_invoke_cold_1();
     }
@@ -998,12 +926,14 @@ void __37__SCNRenderer__prepareGLRenderTarget__block_invoke(uint64_t a1)
   {
     self->__antialiasingMode = mode;
     [(SCNRenderer *)self _invalidateFramebuffer];
-    v4 = SCNSampleCountForAntialiasingMode([(SCNRenderer *)self _antialiasingMode]);
-    RendererContextGL = C3DEngineContextGetRendererContextGL([(SCNRenderer *)self _engineContext]);
+    _antialiasingMode = [(SCNRenderer *)self _antialiasingMode];
+    v6 = SCNSampleCountForAntialiasingMode(_antialiasingMode, v5);
+    _engineContext = [(SCNRenderer *)self _engineContext];
+    RendererContextGL = C3DEngineContextGetRendererContextGL(_engineContext, v8);
     if (RendererContextGL)
     {
 
-      C3DRendererContextSetSampleCount(RendererContextGL, v4);
+      C3DRendererContextSetSampleCount(RendererContextGL, v6);
     }
 
     else
@@ -1012,7 +942,7 @@ void __37__SCNRenderer__prepareGLRenderTarget__block_invoke(uint64_t a1)
       if (renderContext)
       {
 
-        [(SCNMTLRenderContext *)renderContext setSampleCount:v4];
+        [(SCNMTLRenderContext *)renderContext setSampleCount:v6];
       }
     }
   }
@@ -1034,7 +964,7 @@ void __37__SCNRenderer__prepareGLRenderTarget__block_invoke(uint64_t a1)
   result = self->_engineContext;
   if (result)
   {
-    return C3DEngineContextGetRendererContextGL(result);
+    return C3DEngineContextGetRendererContextGL(result, a2);
   }
 
   return result;
@@ -1046,22 +976,22 @@ void __37__SCNRenderer__prepareGLRenderTarget__block_invoke(uint64_t a1)
   _engineContext = [(SCNRenderer *)self _engineContext];
   if (_engineContext)
   {
-    v4 = C3DEngineContextGetRenderingOptionForKey(_engineContext, @"defaultLight") == *MEMORY[0x277CBED28];
+    v5 = C3DEngineContextGetRenderingOptionForKey(_engineContext, @"defaultLight") == *MEMORY[0x277CBED28];
   }
 
   else
   {
-    v5 = scn_default_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = scn_default_log(0, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNRenderer autoenablesDefaultLighting];
     }
 
-    v4 = 0;
+    v5 = 0;
   }
 
   [(SCNRenderer *)self unlock];
-  return v4;
+  return v5;
 }
 
 - (void)setAutoenablesDefaultLighting:(BOOL)lighting
@@ -1071,38 +1001,38 @@ void __37__SCNRenderer__prepareGLRenderTarget__block_invoke(uint64_t a1)
   _engineContext = [(SCNRenderer *)self _engineContext];
   if (_engineContext)
   {
-    v6 = _engineContext;
-    Scene = C3DEngineContextGetScene(_engineContext);
+    v7 = _engineContext;
+    Scene = C3DEngineContextGetScene(_engineContext, v6);
     if (Scene)
     {
-      v8 = Scene;
-      C3DSceneLock(Scene);
-      v9 = MEMORY[0x277CBED10];
-      if (lightingCopy)
-      {
-        v9 = MEMORY[0x277CBED28];
-      }
-
-      C3DEngineContextSetRenderingOptionForKey(v6, @"defaultLight", *v9);
-      C3DSceneUnlock(v8);
-    }
-
-    else
-    {
+      v10 = Scene;
+      C3DSceneLock(Scene, v9);
       v11 = MEMORY[0x277CBED10];
       if (lightingCopy)
       {
         v11 = MEMORY[0x277CBED28];
       }
 
-      C3DEngineContextSetRenderingOptionForKey(v6, @"defaultLight", *v11);
+      C3DEngineContextSetRenderingOptionForKey(v7, @"defaultLight", *v11);
+      C3DSceneUnlock(v10, v12);
+    }
+
+    else
+    {
+      v14 = MEMORY[0x277CBED10];
+      if (lightingCopy)
+      {
+        v14 = MEMORY[0x277CBED28];
+      }
+
+      C3DEngineContextSetRenderingOptionForKey(v7, @"defaultLight", *v14);
     }
   }
 
   else
   {
-    v10 = scn_default_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v13 = scn_default_log(0, v6);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [SCNRenderer setAutoenablesDefaultLighting:];
     }
@@ -1113,56 +1043,57 @@ void __37__SCNRenderer__prepareGLRenderTarget__block_invoke(uint64_t a1)
 
 - (void)setPointOfView:(id)view
 {
-  v135 = *MEMORY[0x277D85DE8];
+  v139 = *MEMORY[0x277D85DE8];
   if (self->_pointOfView != view)
   {
     viewCopy = view;
     self->_pointOfViewWasSet = 1;
-    if ([view isPresentationInstance])
+    isPresentationInstance = [view isPresentationInstance];
+    if (isPresentationInstance)
     {
-      v5 = scn_default_log();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+      v7 = scn_default_log(isPresentationInstance, v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
       {
-        [(SCNRenderer *)v5 setPointOfView:v6, v7, v8, v9, v10, v11, v12];
+        [(SCNRenderer *)v7 setPointOfView:v8, v9, v10, v11, v12, v13, v14];
       }
     }
 
     presentationNode = [(SCNNode *)[(SCNRenderer *)self pointOfView] presentationNode];
-    v14 = self->_pointOfView;
+    v16 = self->_pointOfView;
     self->_pointOfView = viewCopy;
     +[SCNTransaction animationDuration];
-    v16 = v15;
-    v17 = (v15 > 0.0) & ~+[SCNTransaction disableActions];
-    Scene = C3DEngineContextGetScene(self->_engineContext);
-    v19 = Scene;
-    if (v17 == 1 && Scene != 0)
+    v18 = v17;
+    v19 = (v17 > 0.0) & ~+[SCNTransaction disableActions];
+    Scene = C3DEngineContextGetScene(self->_engineContext, v20);
+    v23 = Scene;
+    if (v19 == 1 && Scene != 0)
     {
-      v17 = C3DSceneIsPausedForEditing(Scene) ^ 1;
+      v19 = C3DSceneIsPausedForEditing(Scene, v22) ^ 1;
     }
 
     if (+[SCNTransaction immediateMode])
     {
-      v17 = 0;
+      v19 = 0;
     }
 
     else
     {
       if (!presentationNode)
       {
-        v17 = 0;
+        v19 = 0;
       }
 
       +[SCNTransaction begin];
     }
 
-    v133[0] = MEMORY[0x277D85DD0];
-    v133[1] = 3221225472;
-    v133[2] = __30__SCNRenderer_setPointOfView___block_invoke;
-    v133[3] = &unk_2782FC950;
-    v133[4] = viewCopy;
-    v133[5] = self;
-    [SCNTransaction postCommandWithContext:v19 object:self applyBlock:v133];
-    if (!v17)
+    v137[0] = MEMORY[0x277D85DD0];
+    v137[1] = 3221225472;
+    v137[2] = __30__SCNRenderer_setPointOfView___block_invoke;
+    v137[3] = &unk_2782FC950;
+    v137[4] = viewCopy;
+    v137[5] = self;
+    [SCNTransaction postCommandWithContext:v23 object:self applyBlock:v137];
+    if (!v19)
     {
       goto LABEL_139;
     }
@@ -1173,108 +1104,108 @@ void __37__SCNRenderer__prepareGLRenderTarget__block_invoke(uint64_t a1)
       ImplicitAnimationTimingFunction = SCNKitGetImplicitAnimationTimingFunction();
     }
 
-    memset(&v132, 0, sizeof(v132));
-    memset(&v131, 0, sizeof(v131));
+    memset(&v136, 0, sizeof(v136));
+    memset(&v135, 0, sizeof(v135));
     if ([viewCopy parentNode])
     {
-      v22 = [objc_msgSend(viewCopy "parentNode")];
-      if (v22)
+      v26 = [objc_msgSend(viewCopy "parentNode")];
+      if (v26)
       {
-        v130 = SCNMatrix4Identity;
-        [v22 convertTransform:&v130 fromNode:presentationNode];
+        v134 = SCNMatrix4Identity;
+        objc_msgSend_convertTransform_fromNode_(v26);
         goto LABEL_24;
       }
     }
 
     else if (presentationNode)
     {
-      [(SCNNode *)presentationNode worldTransform];
+      objc_msgSend_worldTransform(presentationNode);
       goto LABEL_24;
     }
 
-    memset(&v131, 0, sizeof(v131));
+    memset(&v135, 0, sizeof(v135));
 LABEL_24:
-    memset(&v130, 0, sizeof(v130));
+    memset(&v134, 0, sizeof(v134));
     presentationNode2 = [viewCopy presentationNode];
     if (presentationNode2)
     {
-      [presentationNode2 transform];
+      objc_msgSend_transform(presentationNode2);
     }
 
     else
     {
-      memset(&v130, 0, sizeof(v130));
+      memset(&v134, 0, sizeof(v134));
     }
 
-    m = v130;
+    m = v134;
     SCNMatrix4Invert(&a, &m);
-    v130 = a;
-    a = v131;
-    m = v130;
-    SCNMatrix4Mult(&v132, &a, &m);
-    v24 = [MEMORY[0x277CD9E10] animationWithKeyPath:@"transform"];
-    [v24 setDuration:v16];
-    [v24 setTimingFunction:ImplicitAnimationTimingFunction];
-    [v24 setAdditive:1];
-    a = v132;
-    [v24 setFromValue:{objc_msgSend(MEMORY[0x277CCAE60], "valueWithSCNMatrix4:", &a)}];
+    v134 = a;
+    a = v135;
+    m = v134;
+    SCNMatrix4Mult(&v136, &a, &m);
+    v28 = [MEMORY[0x277CD9E10] animationWithKeyPath:@"transform"];
+    [v28 setDuration:v18];
+    [v28 setTimingFunction:ImplicitAnimationTimingFunction];
+    [v28 setAdditive:1];
+    a = v136;
+    [v28 setFromValue:{objc_msgSend(MEMORY[0x277CCAE60], "valueWithSCNMatrix4:", &a)}];
     a = SCNMatrix4Identity;
-    [v24 setToValue:{objc_msgSend(MEMORY[0x277CCAE60], "valueWithSCNMatrix4:", &a)}];
-    [viewCopy addAnimation:v24 forKey:0];
+    [v28 setToValue:{objc_msgSend(MEMORY[0x277CCAE60], "valueWithSCNMatrix4:", &a)}];
+    [viewCopy addAnimation:v28 forKey:0];
     camera = [(SCNNode *)presentationNode camera];
-    v26 = [objc_msgSend(viewCopy "presentationNode")];
-    v121 = v26;
-    if (-[SCNCamera hasCustomProjectionTransform](camera, "hasCustomProjectionTransform") || ([v26 hasCustomProjectionTransform] & 1) != 0)
+    v30 = [objc_msgSend(viewCopy "presentationNode")];
+    v125 = v30;
+    if (-[SCNCamera hasCustomProjectionTransform](camera, "hasCustomProjectionTransform") || ([v30 hasCustomProjectionTransform] & 1) != 0)
     {
 LABEL_130:
-      v104 = ImplicitAnimationTimingFunction;
-      v124 = 0u;
-      v125 = 0u;
-      v122 = 0u;
-      v123 = 0u;
-      v105 = [&unk_282E0FBD0 countByEnumeratingWithState:&v122 objects:v134 count:16];
-      if (v105)
+      v108 = ImplicitAnimationTimingFunction;
+      v128 = 0u;
+      v129 = 0u;
+      v126 = 0u;
+      v127 = 0u;
+      v109 = [&unk_282E0FBD0 countByEnumeratingWithState:&v126 objects:v138 count:16];
+      if (v109)
       {
-        v106 = v105;
-        v107 = *v123;
+        v110 = v109;
+        v111 = *v127;
         do
         {
-          for (i = 0; i != v106; ++i)
+          for (i = 0; i != v110; ++i)
           {
-            if (*v123 != v107)
+            if (*v127 != v111)
             {
               objc_enumerationMutation(&unk_282E0FBD0);
             }
 
-            v109 = *(*(&v122 + 1) + 8 * i);
-            [objc_msgSend(v26 valueForKey:{v109), "doubleValue"}];
-            v111 = v110;
-            [-[SCNCamera valueForKey:](camera valueForKey:{v109), "doubleValue"}];
-            if (v111 != v112)
+            v113 = *(*(&v126 + 1) + 8 * i);
+            [objc_msgSend(v30 valueForKey:{v113), "doubleValue"}];
+            v115 = v114;
+            [-[SCNCamera valueForKey:](camera valueForKey:{v113), "doubleValue"}];
+            if (v115 != v116)
             {
-              v113 = v112;
-              v114 = camera;
-              v115 = viewCopy;
-              v116 = MEMORY[0x277CD9E10];
-              v117 = [@"camera." stringByAppendingString:v109];
-              v118 = v116;
-              viewCopy = v115;
-              camera = v114;
-              v26 = v121;
-              v119 = [v118 animationWithKeyPath:v117];
-              [v119 setDuration:v16];
-              [v119 setTimingFunction:v104];
-              [v119 setFromValue:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithDouble:", v113 - v111)}];
-              [v119 setToValue:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithDouble:", 0.0)}];
-              [v119 setAdditive:1];
-              [viewCopy addAnimation:v119 forKey:0];
+              v117 = v116;
+              v118 = camera;
+              v119 = viewCopy;
+              v120 = MEMORY[0x277CD9E10];
+              v121 = [@"camera." stringByAppendingString:v113];
+              v122 = v120;
+              viewCopy = v119;
+              camera = v118;
+              v30 = v125;
+              v123 = [v122 animationWithKeyPath:v121];
+              [v123 setDuration:v18];
+              [v123 setTimingFunction:v108];
+              [v123 setFromValue:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithDouble:", v117 - v115)}];
+              [v123 setToValue:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithDouble:", 0.0)}];
+              [v123 setAdditive:1];
+              [viewCopy addAnimation:v123 forKey:0];
             }
           }
 
-          v106 = [&unk_282E0FBD0 countByEnumeratingWithState:&v122 objects:v134 count:16];
+          v110 = [&unk_282E0FBD0 countByEnumeratingWithState:&v126 objects:v138 count:16];
         }
 
-        while (v106);
+        while (v110);
       }
 
 LABEL_139:
@@ -1286,256 +1217,256 @@ LABEL_139:
       return;
     }
 
-    v27 = *self->_anon_58;
-    if (HIDWORD(v27))
+    v31 = *self->_anon_58;
+    if (HIDWORD(v31))
     {
-      v28 = v27 / HIDWORD(v27);
+      v32 = v31 / HIDWORD(v31);
     }
 
     else
     {
-      v28 = 1.0;
+      v32 = 1.0;
     }
 
-    if ([v26 useLegacyFov])
+    if ([v30 useLegacyFov])
     {
-      [v26 xFov];
-      v30 = v29;
-      [v26 yFov];
-      if (v31 == 0.0 && v30 == 0.0)
+      [v30 xFov];
+      v34 = v33;
+      [v30 yFov];
+      if (v35 == 0.0 && v34 == 0.0)
       {
-        v33 = 60.0;
+        v37 = 60.0;
       }
 
       else
       {
-        v33 = v31;
+        v37 = v35;
       }
 
-      if (v30 != 0.0 && v33 != 0.0)
+      if (v34 != 0.0 && v37 != 0.0)
       {
-        v34 = tan(v30 / 180.0 * 3.14159265);
-        if (v34 / tan(v33 / 180.0 * 3.14159265) <= v28)
+        v38 = tan(v34 / 180.0 * 3.14159265);
+        if (v38 / tan(v37 / 180.0 * 3.14159265) <= v32)
         {
-          v30 = 0.0;
+          v34 = 0.0;
         }
 
         else
         {
-          v33 = 0.0;
+          v37 = 0.0;
         }
       }
 
       if ([(SCNCamera *)camera useLegacyFov])
       {
         [(SCNCamera *)camera xFov];
-        v36 = v35;
+        v40 = v39;
         [(SCNCamera *)camera yFov];
-        if (v37 == 0.0 && v36 == 0.0)
+        if (v41 == 0.0 && v40 == 0.0)
         {
-          v39 = 60.0;
+          v43 = 60.0;
         }
 
         else
         {
-          v39 = v37;
+          v43 = v41;
         }
 
-        if (v36 != 0.0 && v39 != 0.0)
+        if (v40 != 0.0 && v43 != 0.0)
         {
-          v120 = v28;
-          v40 = tan(v36 / 180.0 * 3.14159265);
-          if (v40 / tan(v39 / 180.0 * 3.14159265) <= v28)
+          v124 = v32;
+          v44 = tan(v40 / 180.0 * 3.14159265);
+          if (v44 / tan(v43 / 180.0 * 3.14159265) <= v32)
           {
-            v36 = 0.0;
+            v40 = 0.0;
           }
 
           else
           {
-            v39 = 0.0;
+            v43 = 0.0;
           }
         }
 
-        if (v30 != 0.0)
+        if (v34 != 0.0)
         {
-          if (v36 == 0.0)
+          if (v40 == 0.0)
           {
-            v41 = __tanpi(v39 / 360.0);
-            v42 = atan(v28 * v41);
-            if (v42 < 0.0)
+            v45 = __tanpi(v43 / 360.0);
+            v46 = atan(v32 * v45);
+            if (v46 < 0.0)
             {
-              v42 = 3.14159265 - v42;
+              v46 = 3.14159265 - v46;
             }
 
-            v36 = v42 * 114.591559;
+            v40 = v46 * 114.591559;
           }
 
-          v39 = 0.0;
+          v43 = 0.0;
           goto LABEL_105;
         }
 
-        v36 = 0.0;
-        if (v39 == 0.0)
+        v40 = 0.0;
+        if (v43 == 0.0)
         {
-          v63 = 0.0;
+          v67 = 0.0;
 LABEL_92:
-          v64 = __tanpi(v63);
-          v65 = atan(v64 / v28);
-          if (v65 < 0.0)
+          v68 = __tanpi(v67);
+          v69 = atan(v68 / v32);
+          if (v69 < 0.0)
           {
-            v65 = 3.14159265 - v65;
+            v69 = 3.14159265 - v69;
           }
 
-          v39 = v65 * 114.591559;
+          v43 = v69 * 114.591559;
         }
       }
 
       else
       {
         [(SCNCamera *)camera fieldOfView];
-        v54 = v53;
+        v58 = v57;
         projectionDirection = [(SCNCamera *)camera projectionDirection];
-        v56 = v54;
-        if (v30 != 0.0)
+        v60 = v58;
+        if (v34 != 0.0)
         {
-          v39 = 0.0;
+          v43 = 0.0;
           if (projectionDirection == 1)
           {
-            v36 = v54;
+            v40 = v58;
           }
 
           else
           {
-            v66 = __tanpi(v56 / 360.0);
-            v67 = atan(v28 * v66);
-            if (v67 < 0.0)
+            v70 = __tanpi(v60 / 360.0);
+            v71 = atan(v32 * v70);
+            if (v71 < 0.0)
             {
-              v67 = 3.14159265 - v67;
+              v71 = 3.14159265 - v71;
             }
 
-            v36 = v67 * 114.591559;
+            v40 = v71 * 114.591559;
           }
 
           goto LABEL_105;
         }
 
-        v36 = 0.0;
+        v40 = 0.0;
         if (projectionDirection)
         {
-          v63 = v56 / 360.0;
+          v67 = v60 / 360.0;
           goto LABEL_92;
         }
 
-        v39 = v56;
+        v43 = v60;
       }
 
 LABEL_105:
-      if (v30 == 0.0)
+      if (v34 == 0.0)
       {
-        if (v33 == 0.0)
+        if (v37 == 0.0)
         {
           goto LABEL_115;
         }
 
-        if (v39 != v33)
+        if (v43 != v37)
         {
-          v72 = [MEMORY[0x277CD9E10] animationWithKeyPath:@"camera.yFov"];
-          [v72 setDuration:v16];
-          [v72 setTimingFunction:ImplicitAnimationTimingFunction];
-          [v72 setFromValue:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithDouble:", v39 - v33)}];
-          [v72 setToValue:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithDouble:", 0.0)}];
-          [v72 setAdditive:1];
-          [viewCopy addAnimation:v72 forKey:0];
+          v76 = [MEMORY[0x277CD9E10] animationWithKeyPath:@"camera.yFov"];
+          [v76 setDuration:v18];
+          [v76 setTimingFunction:ImplicitAnimationTimingFunction];
+          [v76 setFromValue:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithDouble:", v43 - v37)}];
+          [v76 setToValue:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithDouble:", 0.0)}];
+          [v76 setAdditive:1];
+          [viewCopy addAnimation:v76 forKey:0];
         }
 
-        v70 = MEMORY[0x277CD9E10];
-        v71 = @"camera.xFov";
+        v74 = MEMORY[0x277CD9E10];
+        v75 = @"camera.xFov";
       }
 
       else
       {
-        if (v36 != v30)
+        if (v40 != v34)
         {
-          v69 = [MEMORY[0x277CD9E10] animationWithKeyPath:@"camera.xFov"];
-          [v69 setDuration:v16];
-          [v69 setTimingFunction:ImplicitAnimationTimingFunction];
-          [v69 setFromValue:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithDouble:", v36 - v30)}];
-          [v69 setToValue:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithDouble:", 0.0)}];
-          [v69 setAdditive:1];
-          [viewCopy addAnimation:v69 forKey:0];
+          v73 = [MEMORY[0x277CD9E10] animationWithKeyPath:@"camera.xFov"];
+          [v73 setDuration:v18];
+          [v73 setTimingFunction:ImplicitAnimationTimingFunction];
+          [v73 setFromValue:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithDouble:", v40 - v34)}];
+          [v73 setToValue:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithDouble:", 0.0)}];
+          [v73 setAdditive:1];
+          [viewCopy addAnimation:v73 forKey:0];
         }
 
-        v70 = MEMORY[0x277CD9E10];
-        v71 = @"camera.yFov";
+        v74 = MEMORY[0x277CD9E10];
+        v75 = @"camera.yFov";
       }
 
-      v68 = [v70 animationWithKeyPath:{v71, *&v120}];
-      [v68 setDuration:v16];
-      [v68 setTimingFunction:ImplicitAnimationTimingFunction];
-      [v68 setFromValue:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithDouble:", 0.0)}];
-      [v68 setToValue:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithDouble:", 0.0)}];
+      v72 = [v74 animationWithKeyPath:{v75, *&v124}];
+      [v72 setDuration:v18];
+      [v72 setTimingFunction:ImplicitAnimationTimingFunction];
+      [v72 setFromValue:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithDouble:", 0.0)}];
+      [v72 setToValue:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithDouble:", 0.0)}];
 LABEL_114:
-      [viewCopy addAnimation:v68 forKey:0];
+      [viewCopy addAnimation:v72 forKey:0];
 LABEL_115:
       if ([(SCNCamera *)camera usesOrthographicProjection])
       {
-        if ([v26 usesOrthographicProjection])
+        if ([v30 usesOrthographicProjection])
         {
           [(SCNCamera *)camera orthographicScale];
-          v74 = v73;
-          [v26 orthographicScale];
-          if (v74 != v75)
+          v78 = v77;
+          [v30 orthographicScale];
+          if (v78 != v79)
           {
-            v76 = [MEMORY[0x277CD9E10] animationWithKeyPath:@"camera.orthographicScale"];
-            [v76 setDuration:v16];
-            [v76 setTimingFunction:ImplicitAnimationTimingFunction];
-            v77 = MEMORY[0x277CCABB0];
+            v80 = [MEMORY[0x277CD9E10] animationWithKeyPath:@"camera.orthographicScale"];
+            [v80 setDuration:v18];
+            [v80 setTimingFunction:ImplicitAnimationTimingFunction];
+            v81 = MEMORY[0x277CCABB0];
             [(SCNCamera *)camera orthographicScale];
-            v79 = v78;
-            [v121 orthographicScale];
-            v81 = v77;
-            v26 = v121;
-            [v76 setFromValue:{objc_msgSend(v81, "numberWithDouble:", v79 - v80)}];
-            [v76 setToValue:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithDouble:", 0.0)}];
-            [v76 setAdditive:1];
-            [viewCopy addAnimation:v76 forKey:0];
+            v83 = v82;
+            [v125 orthographicScale];
+            v85 = v81;
+            v30 = v125;
+            [v80 setFromValue:{objc_msgSend(v85, "numberWithDouble:", v83 - v84)}];
+            [v80 setToValue:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithDouble:", 0.0)}];
+            [v80 setAdditive:1];
+            [viewCopy addAnimation:v80 forKey:0];
           }
         }
       }
 
       [(SCNCamera *)camera lensShift];
-      v83 = v82;
-      [v26 lensShift];
-      v85 = vmvn_s8(vceq_f32(v83, v84));
-      if ((vpmax_u32(v85, v85).u32[0] & 0x80000000) != 0)
+      v87 = v86;
+      [v30 lensShift];
+      v89 = vmvn_s8(vceq_f32(v87, v88));
+      if ((vpmax_u32(v89, v89).u32[0] & 0x80000000) != 0)
       {
         [(SCNCamera *)camera lensShift];
-        v87 = v86;
-        [v26 lensShift];
-        v89 = vsub_f32(v87, v88);
-        v90 = [MEMORY[0x277CD9E10] animationWithKeyPath:@"camera.lensShift"];
-        [v90 setDuration:v16];
-        [v90 setTimingFunction:ImplicitAnimationTimingFunction];
-        [v90 setFromValue:{objc_msgSend(MEMORY[0x277CCAE60], "SCN_valueWithCGPoint:", vcvtq_f64_f32(v89))}];
-        [v90 setToValue:{objc_msgSend(MEMORY[0x277CCABB0], "SCN_valueWithCGPoint:", *MEMORY[0x277CBF348], *(MEMORY[0x277CBF348] + 8))}];
-        [v90 setAdditive:1];
-        [viewCopy addAnimation:v90 forKey:0];
+        v91 = v90;
+        [v30 lensShift];
+        v93 = vsub_f32(v91, v92);
+        v94 = [MEMORY[0x277CD9E10] animationWithKeyPath:@"camera.lensShift"];
+        [v94 setDuration:v18];
+        [v94 setTimingFunction:ImplicitAnimationTimingFunction];
+        [v94 setFromValue:{objc_msgSend(MEMORY[0x277CCAE60], "SCN_valueWithCGPoint:", vcvtq_f64_f32(v93))}];
+        [v94 setToValue:{objc_msgSend(MEMORY[0x277CCABB0], "SCN_valueWithCGPoint:", *MEMORY[0x277CBF348], *(MEMORY[0x277CBF348] + 8))}];
+        [v94 setAdditive:1];
+        [viewCopy addAnimation:v94 forKey:0];
       }
 
-      v91 = 0uLL;
+      v95 = 0uLL;
       memset(&a, 0, 48);
       if (camera)
       {
-        [(SCNCamera *)camera postProjectionTransform];
-        v91 = 0uLL;
+        objc_msgSend_postProjectionTransform(camera);
+        v95 = 0uLL;
       }
 
-      *&m.m21 = v91;
-      *&m.m31 = v91;
-      *&m.m11 = v91;
-      if (v26)
+      *&m.m21 = v95;
+      *&m.m31 = v95;
+      *&m.m11 = v95;
+      if (v30)
       {
-        [v26 postProjectionTransform];
+        objc_msgSend_postProjectionTransform(v30);
       }
 
       *&t1.a = *&a.m11;
@@ -1546,100 +1477,100 @@ LABEL_115:
       *&t2.tx = *&m.m31;
       if (!CGAffineTransformEqualToTransform(&t1, &t2))
       {
-        v92 = vcvt_f32_f64(*&a.m31);
-        v93 = vcvt_f32_f64(*&m.m31);
-        v94 = vmvn_s8(vceq_f32(v92, v93));
-        if ((vpmax_u32(v94, v94).u32[0] & 0x80000000) != 0)
+        v96 = vcvt_f32_f64(*&a.m31);
+        v97 = vcvt_f32_f64(*&m.m31);
+        v98 = vmvn_s8(vceq_f32(v96, v97));
+        if ((vpmax_u32(v98, v98).u32[0] & 0x80000000) != 0)
         {
-          v95 = vsub_f32(v92, v93);
-          v96 = [MEMORY[0x277CD9E10] animationWithKeyPath:@"camera.postProjectionTransformTranslation"];
-          [v96 setDuration:v16];
-          [v96 setTimingFunction:ImplicitAnimationTimingFunction];
-          [v96 setFromValue:{objc_msgSend(MEMORY[0x277CCAE60], "SCN_valueWithCGPoint:", vcvtq_f64_f32(v95))}];
-          [v96 setToValue:{objc_msgSend(MEMORY[0x277CCABB0], "SCN_valueWithCGPoint:", *MEMORY[0x277CBF348], *(MEMORY[0x277CBF348] + 8))}];
-          [v96 setAdditive:1];
-          [viewCopy addAnimation:v96 forKey:0];
+          v99 = vsub_f32(v96, v97);
+          v100 = [MEMORY[0x277CD9E10] animationWithKeyPath:@"camera.postProjectionTransformTranslation"];
+          [v100 setDuration:v18];
+          [v100 setTimingFunction:ImplicitAnimationTimingFunction];
+          [v100 setFromValue:{objc_msgSend(MEMORY[0x277CCAE60], "SCN_valueWithCGPoint:", vcvtq_f64_f32(v99))}];
+          [v100 setToValue:{objc_msgSend(MEMORY[0x277CCABB0], "SCN_valueWithCGPoint:", *MEMORY[0x277CBF348], *(MEMORY[0x277CBF348] + 8))}];
+          [v100 setAdditive:1];
+          [viewCopy addAnimation:v100 forKey:0];
         }
 
-        v97.f64[0] = *&a.m11;
-        v97.f64[1] = *&a.m23;
-        v98.f64[0] = *&m.m11;
-        v98.f64[1] = *&m.m23;
-        v99 = vcvt_f32_f64(v97);
-        v100 = vcvt_f32_f64(v98);
-        v101 = vmvn_s8(vceq_f32(v99, v100));
-        if ((vpmax_u32(v101, v101).u32[0] & 0x80000000) != 0)
+        v101.f64[0] = *&a.m11;
+        v101.f64[1] = *&a.m23;
+        v102.f64[0] = *&m.m11;
+        v102.f64[1] = *&m.m23;
+        v103 = vcvt_f32_f64(v101);
+        v104 = vcvt_f32_f64(v102);
+        v105 = vmvn_s8(vceq_f32(v103, v104));
+        if ((vpmax_u32(v105, v105).u32[0] & 0x80000000) != 0)
         {
-          v102 = vsub_f32(v99, v100);
-          v103 = [MEMORY[0x277CD9E10] animationWithKeyPath:@"camera.postProjectionTransformScale"];
-          [v103 setDuration:v16];
-          [v103 setTimingFunction:ImplicitAnimationTimingFunction];
-          [v103 setFromValue:{objc_msgSend(MEMORY[0x277CCAE60], "SCN_valueWithCGPoint:", vcvtq_f64_f32(v102))}];
-          [v103 setToValue:{objc_msgSend(MEMORY[0x277CCABB0], "SCN_valueWithCGPoint:", *MEMORY[0x277CBF348], *(MEMORY[0x277CBF348] + 8))}];
-          [v103 setAdditive:1];
-          [viewCopy addAnimation:v103 forKey:0];
+          v106 = vsub_f32(v103, v104);
+          v107 = [MEMORY[0x277CD9E10] animationWithKeyPath:@"camera.postProjectionTransformScale"];
+          [v107 setDuration:v18];
+          [v107 setTimingFunction:ImplicitAnimationTimingFunction];
+          [v107 setFromValue:{objc_msgSend(MEMORY[0x277CCAE60], "SCN_valueWithCGPoint:", vcvtq_f64_f32(v106))}];
+          [v107 setToValue:{objc_msgSend(MEMORY[0x277CCABB0], "SCN_valueWithCGPoint:", *MEMORY[0x277CBF348], *(MEMORY[0x277CBF348] + 8))}];
+          [v107 setAdditive:1];
+          [viewCopy addAnimation:v107 forKey:0];
         }
       }
 
       goto LABEL_130;
     }
 
-    [v26 fieldOfView];
-    v44 = v43;
+    [v30 fieldOfView];
+    v48 = v47;
     if ([(SCNCamera *)camera useLegacyFov])
     {
       [(SCNCamera *)camera xFov];
-      v46 = v45;
+      v50 = v49;
       [(SCNCamera *)camera yFov];
-      if (v47 == 0.0 && v46 == 0.0)
+      if (v51 == 0.0 && v50 == 0.0)
       {
-        v49 = 60.0;
+        v53 = 60.0;
       }
 
       else
       {
-        v49 = v47;
+        v53 = v51;
       }
 
-      if (v46 != 0.0 && v49 != 0.0)
+      if (v50 != 0.0 && v53 != 0.0)
       {
-        v50 = tan(v46 / 180.0 * 3.14159265);
-        if (v50 / tan(v49 / 180.0 * 3.14159265) <= v28)
+        v54 = tan(v50 / 180.0 * 3.14159265);
+        if (v54 / tan(v53 / 180.0 * 3.14159265) <= v32)
         {
-          v46 = 0.0;
+          v50 = 0.0;
         }
 
         else
         {
-          v49 = 0.0;
+          v53 = 0.0;
         }
       }
 
-      if ([v26 projectionDirection] == 1)
+      if ([v30 projectionDirection] == 1)
       {
-        v51 = v46;
-        if (v46 == 0.0)
+        v55 = v50;
+        if (v50 == 0.0)
         {
-          v52 = v28 * __tanpi(v49 / 360.0);
+          v56 = v32 * __tanpi(v53 / 360.0);
           goto LABEL_85;
         }
       }
 
       else
       {
-        v51 = v49;
-        if (v49 == 0.0)
+        v55 = v53;
+        if (v53 == 0.0)
         {
-          v52 = __tanpi(v46 / 360.0) / v28;
+          v56 = __tanpi(v50 / 360.0) / v32;
 LABEL_85:
-          v62 = atan(v52);
-          if (v62 < 0.0)
+          v66 = atan(v56);
+          if (v66 < 0.0)
           {
-            v62 = 3.14159265 - v62;
+            v66 = 3.14159265 - v66;
           }
 
 LABEL_101:
-          v51 = v62 * 114.591559;
+          v55 = v66 * 114.591559;
         }
       }
     }
@@ -1647,43 +1578,43 @@ LABEL_101:
     else
     {
       [(SCNCamera *)camera fieldOfView];
-      v51 = v57;
-      projectionDirection2 = [v26 projectionDirection];
+      v55 = v61;
+      projectionDirection2 = [v30 projectionDirection];
       if (projectionDirection2 != [(SCNCamera *)camera projectionDirection])
       {
-        projectionDirection3 = [v26 projectionDirection];
-        v60 = __tanpi(v51 / 360.0);
+        projectionDirection3 = [v30 projectionDirection];
+        v64 = __tanpi(v55 / 360.0);
         if (projectionDirection3 == 1)
         {
-          v61 = v28 * v60;
+          v65 = v32 * v64;
         }
 
         else
         {
-          v61 = v60 / v28;
+          v65 = v64 / v32;
         }
 
-        v62 = atan(v61);
-        if (v62 < 0.0)
+        v66 = atan(v65);
+        if (v66 < 0.0)
         {
-          v62 = 3.14159265 - v62;
+          v66 = 3.14159265 - v66;
         }
 
         goto LABEL_101;
       }
     }
 
-    if (v51 == v44)
+    if (v55 == v48)
     {
       goto LABEL_115;
     }
 
-    v68 = [MEMORY[0x277CD9E10] animationWithKeyPath:@"camera.fieldOfView"];
-    [v68 setDuration:v16];
-    [v68 setTimingFunction:ImplicitAnimationTimingFunction];
-    [v68 setFromValue:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithDouble:", v51 - v44)}];
-    [v68 setToValue:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithDouble:", 0.0)}];
-    [v68 setAdditive:1];
+    v72 = [MEMORY[0x277CD9E10] animationWithKeyPath:@"camera.fieldOfView"];
+    [v72 setDuration:v18];
+    [v72 setTimingFunction:ImplicitAnimationTimingFunction];
+    [v72 setFromValue:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithDouble:", v55 - v48)}];
+    [v72 setToValue:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithDouble:", 0.0)}];
+    [v72 setAdditive:1];
     goto LABEL_114;
   }
 }
@@ -1691,44 +1622,45 @@ LABEL_101:
 void __30__SCNRenderer_setPointOfView___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) nodeRef];
-  PointOfViewIfAny = C3DEngineContextGetPointOfViewIfAny(*(*(a1 + 40) + 208));
-  if (PointOfViewIfAny && (Camera = C3DNodeGetCamera(PointOfViewIfAny)) != 0)
+  PointOfViewIfAny = C3DEngineContextGetPointOfViewIfAny(*(*(a1 + 40) + 208), v3);
+  if (PointOfViewIfAny && (Camera = C3DNodeGetCamera(PointOfViewIfAny, v5)) != 0)
   {
-    v5 = Camera;
-    HasDepthOfField = C3DCameraHasDepthOfField(Camera);
-    v7 = C3DCameraGetTechnique(v5) != 0;
+    v8 = Camera;
+    HasDepthOfField = C3DCameraHasDepthOfField(Camera, v7);
+    v11 = C3DCameraGetTechnique(v8, v10) != 0;
   }
 
   else
   {
-    v7 = 0;
+    v11 = 0;
     HasDepthOfField = 0;
   }
 
   C3DEngineContextSetPointOfView(*(*(a1 + 40) + 208), v2);
   if (v2)
   {
-    v8 = C3DNodeGetCamera(v2);
-    if (v8)
+    v13 = C3DNodeGetCamera(v2, v12);
+    if (v13)
     {
-      v9 = v8;
-      v10 = C3DCameraHasDepthOfField(v8);
-      v11 = C3DCameraGetTechnique(v9) != 0;
+      v15 = v13;
+      v16 = C3DCameraHasDepthOfField(v13, v14);
+      v18 = C3DCameraGetTechnique(v15, v17) != 0;
     }
 
     else
     {
-      v10 = 0;
-      v11 = 0;
+      v16 = 0;
+      v18 = 0;
     }
 
-    [objc_msgSend(MEMORY[0x277CCAB98] "defaultCenter")];
-    if (v10 != HasDepthOfField || v11 || v7)
+    v19 = [MEMORY[0x277CCAB98] defaultCenter];
+    v21 = [v19 postNotificationName:@"kC3DSceneDidUpdateNotification" object:{C3DGetScene(v2, v20)}];
+    if (v16 != HasDepthOfField || v18 || v11)
     {
-      SharedInstance = C3DNotificationCenterGetSharedInstance();
-      v13 = C3DGetScene(v2);
+      SharedInstance = C3DNotificationCenterGetSharedInstance(v21, v22);
+      v25 = C3DGetScene(v2, v24);
 
-      C3DNotificationCenterPostNotification(SharedInstance, @"kC3DNotificationEngineContextInvalidatePasses", v13, 0, 1u);
+      C3DNotificationCenterPostNotification(SharedInstance, @"kC3DNotificationEngineContextInvalidatePasses", v25, 0, 1u);
     }
   }
 }
@@ -1740,14 +1672,14 @@ void __30__SCNRenderer_setPointOfView___block_invoke(uint64_t a1)
   {
     v6 = pointOfCulling;
     self->_pointOfCulling = culling;
-    Scene = C3DEngineContextGetScene(self->_engineContext);
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __33__SCNRenderer_setPointOfCulling___block_invoke;
-    v8[3] = &unk_2782FC950;
-    v8[4] = culling;
-    v8[5] = self;
-    [SCNTransaction postCommandWithContext:Scene object:self applyBlock:v8];
+    Scene = C3DEngineContextGetScene(self->_engineContext, v7);
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __33__SCNRenderer_setPointOfCulling___block_invoke;
+    v9[3] = &unk_2782FC950;
+    v9[4] = culling;
+    v9[5] = self;
+    [SCNTransaction postCommandWithContext:Scene object:self applyBlock:v9];
   }
 }
 
@@ -1766,14 +1698,14 @@ CFTypeRef __33__SCNRenderer_setPointOfCulling___block_invoke(uint64_t a1)
   _engineContext = [(SCNRenderer *)self _engineContext];
   if (_engineContext)
   {
-    v9 = _engineContext;
-    PointOfView = C3DEngineContextGetPointOfView(_engineContext);
+    v10 = _engineContext;
+    PointOfView = C3DEngineContextGetPointOfView(_engineContext, v9);
     if (PointOfView)
     {
-      v11 = PointOfView;
-      [(SCNRenderer *)self adjustViewportForRendering:COERCE_DOUBLE(__PAIR64__(LODWORD(y), LODWORD(x)))];
-      v18 = v12;
-      if (C3DWasLinkedBeforeMajorOSYear2020())
+      v12 = PointOfView;
+      v13 = [(SCNRenderer *)self adjustViewportForRendering:COERCE_DOUBLE(__PAIR64__(LODWORD(y), LODWORD(x)))];
+      v22 = v14;
+      if (C3DWasLinkedBeforeMajorOSYear2020(v13, v15))
       {
         CoordinatesSystemOptions = 0;
         if (!count)
@@ -1784,7 +1716,7 @@ CFTypeRef __33__SCNRenderer_setPointOfCulling___block_invoke(uint64_t a1)
 
       else
       {
-        CoordinatesSystemOptions = C3DEngineContextGetCoordinatesSystemOptions(v9);
+        CoordinatesSystemOptions = C3DEngineContextGetCoordinatesSystemOptions(v10, v16);
         if (!count)
         {
           return;
@@ -1794,14 +1726,14 @@ CFTypeRef __33__SCNRenderer_setPointOfCulling___block_invoke(uint64_t a1)
       p_z = &points->z;
       do
       {
-        v13.i64[0] = *(p_z - 1);
-        v13.f32[2] = *p_z;
-        v19 = v13;
-        if (_C3DProjectPoints(&v19, 1, v11, [(SCNScene *)[(SCNRenderer *)self scene] sceneRef], CoordinatesSystemOptions, &v19, v18))
+        v17.n128_u64[0] = *(p_z - 1);
+        v17.n128_f32[2] = *p_z;
+        v23 = v17;
+        if (_C3DProjectPoints(&v23, 1, v12, [(SCNScene *)[(SCNRenderer *)self scene] sceneRef], CoordinatesSystemOptions, &v23, v22))
         {
-          v13.i64[1] = v19.i64[1];
-          *(p_z - 1) = v19.i64[0];
-          *p_z = v13.f32[2];
+          v17.n128_u64[1] = v23.n128_u64[1];
+          *(p_z - 1) = v23.n128_u64[0];
+          *p_z = v17.n128_f32[2];
         }
 
         p_z += 3;
@@ -1818,51 +1750,51 @@ CFTypeRef __33__SCNRenderer_setPointOfCulling___block_invoke(uint64_t a1)
   y = viewport.y;
   x = viewport.x;
   z = point.z;
-  v20 = *&point.x;
-  v21 = point.y;
+  v26 = *&point.x;
+  v27 = point.y;
   _engineContext = [(SCNRenderer *)self _engineContext];
   if (_engineContext)
   {
-    v6 = _engineContext;
-    PointOfView = C3DEngineContextGetPointOfView(_engineContext);
+    v7 = _engineContext;
+    PointOfView = C3DEngineContextGetPointOfView(_engineContext, v6);
     if (PointOfView)
     {
-      v8 = PointOfView;
-      [(SCNRenderer *)self adjustViewportForRendering:COERCE_DOUBLE(__PAIR64__(LODWORD(y), LODWORD(x)))];
-      v19 = v9;
-      v10 = v20;
-      v10.f32[1] = v21;
-      v10.f32[2] = z;
-      v23 = v10;
-      if (C3DWasLinkedBeforeMajorOSYear2020())
+      v9 = PointOfView;
+      v10 = [(SCNRenderer *)self adjustViewportForRendering:COERCE_DOUBLE(__PAIR64__(LODWORD(y), LODWORD(x)))];
+      v25 = v11;
+      v12 = v26;
+      v12.n128_f32[1] = v27;
+      v12.n128_f32[2] = z;
+      v29 = v12;
+      if (C3DWasLinkedBeforeMajorOSYear2020(v10, v13))
       {
         CoordinatesSystemOptions = 0;
       }
 
       else
       {
-        CoordinatesSystemOptions = C3DEngineContextGetCoordinatesSystemOptions(v6);
+        CoordinatesSystemOptions = C3DEngineContextGetCoordinatesSystemOptions(v7, v14);
       }
 
       sceneRef = [(SCNScene *)[(SCNRenderer *)self scene] sceneRef];
-      C3DSceneLock(sceneRef);
-      v13 = _C3DProjectPoints(&v23, 1, v8, sceneRef, CoordinatesSystemOptions, &v23, v19);
-      C3DSceneUnlock(sceneRef);
-      if (v13)
+      C3DSceneLock(sceneRef, v17);
+      v18 = _C3DProjectPoints(&v29, 1, v9, sceneRef, CoordinatesSystemOptions, &v29, v25);
+      C3DSceneUnlock(sceneRef, v19);
+      if (v18)
       {
-        v21 = v23.f32[1];
-        v20.i32[0] = v23.i32[0];
-        z = v23.f32[2];
+        v27 = v29.n128_f32[1];
+        v26.n128_u32[0] = v29.n128_u32[0];
+        z = v29.n128_f32[2];
       }
     }
   }
 
-  v14 = v20.f32[0];
-  v15 = v21;
-  v16 = z;
-  result.z = v16;
-  result.y = v15;
-  result.x = v14;
+  v20 = v26.n128_f32[0];
+  v21 = v27;
+  v22 = z;
+  result.z = v22;
+  result.y = v21;
+  result.x = v20;
   return result;
 }
 
@@ -1871,51 +1803,51 @@ CFTypeRef __33__SCNRenderer_setPointOfCulling___block_invoke(uint64_t a1)
   y = viewport.y;
   x = viewport.x;
   z = point.z;
-  v20 = *&point.x;
-  v21 = point.y;
+  v26 = *&point.x;
+  v27 = point.y;
   _engineContext = [(SCNRenderer *)self _engineContext];
   if (_engineContext)
   {
-    v6 = _engineContext;
-    PointOfView = C3DEngineContextGetPointOfView(_engineContext);
+    v7 = _engineContext;
+    PointOfView = C3DEngineContextGetPointOfView(_engineContext, v6);
     if (PointOfView)
     {
-      v8 = PointOfView;
-      [(SCNRenderer *)self adjustViewportForRendering:COERCE_DOUBLE(__PAIR64__(LODWORD(y), LODWORD(x)))];
-      v19 = v9;
-      v10 = v20;
-      v10.f32[1] = v21;
-      v10.f32[2] = z;
-      v23 = v10;
-      if (C3DWasLinkedBeforeMajorOSYear2020())
+      v9 = PointOfView;
+      v10 = [(SCNRenderer *)self adjustViewportForRendering:COERCE_DOUBLE(__PAIR64__(LODWORD(y), LODWORD(x)))];
+      v25 = v11;
+      v12 = v26;
+      v12.f32[1] = v27;
+      v12.f32[2] = z;
+      v29 = v12;
+      if (C3DWasLinkedBeforeMajorOSYear2020(v10, v13))
       {
         CoordinatesSystemOptions = 0;
       }
 
       else
       {
-        CoordinatesSystemOptions = C3DEngineContextGetCoordinatesSystemOptions(v6);
+        CoordinatesSystemOptions = C3DEngineContextGetCoordinatesSystemOptions(v7, v14);
       }
 
       sceneRef = [(SCNScene *)[(SCNRenderer *)self scene] sceneRef];
-      C3DSceneLock(sceneRef);
-      v13 = _C3DUnProjectPoints(&v23, 1, v8, sceneRef, CoordinatesSystemOptions, &v23, v19);
-      C3DSceneUnlock(sceneRef);
-      if (v13)
+      C3DSceneLock(sceneRef, v17);
+      v18 = _C3DUnProjectPoints(&v29, 1, v9, sceneRef, CoordinatesSystemOptions, &v29, v25);
+      C3DSceneUnlock(sceneRef, v19);
+      if (v18)
       {
-        v21 = v23.f32[1];
-        v20.i32[0] = v23.i32[0];
-        z = v23.f32[2];
+        v27 = v29.f32[1];
+        v26.i32[0] = v29.i32[0];
+        z = v29.f32[2];
       }
     }
   }
 
-  v14 = v20.f32[0];
-  v15 = v21;
-  v16 = z;
-  result.z = v16;
-  result.y = v15;
-  result.x = v14;
+  v20 = v26.f32[0];
+  v21 = v27;
+  v22 = z;
+  result.z = v22;
+  result.y = v21;
+  result.x = v20;
   return result;
 }
 
@@ -1951,8 +1883,8 @@ CFTypeRef __33__SCNRenderer_setPointOfCulling___block_invoke(uint64_t a1)
   {
     [SCNTransaction setImmediateMode:1];
     +[SCNTransaction setImmediateModeRestrictedContext:](SCNTransaction, "setImmediateModeRestrictedContext:", [scene sceneRef]);
-    Stats = C3DEngineContextGetStats(self->_engineContext);
-    v6 = CACurrentMediaTime();
+    Stats = C3DEngineContextGetStats(self->_engineContext, v5);
+    v7 = CACurrentMediaTime();
     [(SCNRenderer *)self _getFrameIndex];
     kdebug_trace();
     if (!self->_renderingAPI && ![(SCNMTLRenderContext *)self->_renderContext clientCommandBuffer])
@@ -1990,7 +1922,7 @@ CFTypeRef __33__SCNRenderer_setPointOfCulling___block_invoke(uint64_t a1)
     }
 
     kdebug_trace();
-    *(Stats + 168) = *(Stats + 168) + CACurrentMediaTime() - v6;
+    *(Stats + 168) = *(Stats + 168) + CACurrentMediaTime() - v7;
     [SCNTransaction setImmediateModeRestrictedContext:0];
 
     [SCNTransaction setImmediateMode:0];
@@ -2004,8 +1936,8 @@ CFTypeRef __33__SCNRenderer_setPointOfCulling___block_invoke(uint64_t a1)
   {
     [SCNTransaction setImmediateMode:1];
     +[SCNTransaction setImmediateModeRestrictedContext:](SCNTransaction, "setImmediateModeRestrictedContext:", [scene sceneRef]);
-    Stats = C3DEngineContextGetStats(selfCopy->_engineContext);
-    v6 = CACurrentMediaTime();
+    Stats = C3DEngineContextGetStats(selfCopy->_engineContext, v5);
+    v7 = CACurrentMediaTime();
     [(SCNRenderer *)selfCopy _getFrameIndex];
     kdebug_trace();
     forceSystemTime = selfCopy->_forceSystemTime;
@@ -2036,7 +1968,7 @@ CFTypeRef __33__SCNRenderer_setPointOfCulling___block_invoke(uint64_t a1)
     }
 
     kdebug_trace();
-    *(Stats + 168) = *(Stats + 168) + CACurrentMediaTime() - v6;
+    *(Stats + 168) = *(Stats + 168) + CACurrentMediaTime() - v7;
     [SCNTransaction setImmediateModeRestrictedContext:0];
 
     [SCNTransaction setImmediateMode:0];
@@ -2110,7 +2042,7 @@ CFTypeRef __33__SCNRenderer_setPointOfCulling___block_invoke(uint64_t a1)
   _engineContext = [(SCNRenderer *)self _engineContext];
   if (_engineContext)
   {
-    LOBYTE(_engineContext) = C3DEngineContextGetAutoAdjustZRange(_engineContext) != 0;
+    LOBYTE(_engineContext) = C3DEngineContextGetAutoAdjustZRange(_engineContext, v3) != 0;
   }
 
   return _engineContext;
@@ -2168,7 +2100,7 @@ BOOL __35__SCNRenderer__defaultPOVForScene___block_invoke(uint64_t a1, void *a2,
   engineContext = self->_engineContext;
   if (engineContext)
   {
-    PointOfView = C3DEngineContextGetPointOfView(engineContext);
+    PointOfView = C3DEngineContextGetPointOfView(engineContext, a2);
     if (self->_pointOfView)
     {
       v5 = 1;
@@ -2293,9 +2225,9 @@ BOOL __35__SCNRenderer__defaultPOVForScene___block_invoke(uint64_t a1, void *a2,
   }
 }
 
-void __42__SCNRenderer_setScene_completionHandler___block_invoke(uint64_t a1)
+void __42__SCNRenderer_setScene_completionHandler___block_invoke(uint64_t result)
 {
-  v1 = *(a1 + 32);
+  v1 = *(result + 32);
   v2 = *(v1 + 208);
   if (v2)
   {
@@ -2353,10 +2285,10 @@ void __42__SCNRenderer_setScene_completionHandler___block_invoke(uint64_t a1)
   _engineContext = [(SCNRenderer *)self _engineContext];
   if (!_engineContext)
   {
-    v4 = scn_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = scn_default_log(0, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      C3DEngineContextGetStats_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
+      C3DEngineContextGetStats_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
     }
   }
 
@@ -2525,25 +2457,26 @@ void __28__SCNRenderer_setTechnique___block_invoke(uint64_t a1)
   v2 = [*(a1 + 32) _engineContext];
   if (v2)
   {
-    v3 = v2;
-    v4 = [*(*(a1 + 32) + 352) techniqueRef];
-    FXContext = C3DEngineContextGetFXContext(v3);
+    v4 = v2;
+    v5 = [*(*(a1 + 32) + 352) techniqueRef];
+    FXContext = C3DEngineContextGetFXContext(v4, v6);
     if (FXContext)
     {
-      C3DFXContextSetPostProcessTechnique(FXContext, v4, v3);
+      C3DFXContextSetPostProcessTechnique(FXContext, v5, v4);
     }
 
-    if (C3DEngineContextGetRenderGraph(v3))
+    RenderGraph = C3DEngineContextGetRenderGraph(v4);
+    if (RenderGraph)
     {
 
-      C3DRenderGraphSetCustomTechnique();
+      C3DRenderGraphSetCustomTechnique(RenderGraph, v5);
     }
   }
 
   else
   {
-    v6 = scn_default_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v9 = scn_default_log(0, v3);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __28__SCNRenderer_setTechnique___block_invoke_cold_1();
     }
@@ -2553,10 +2486,10 @@ void __28__SCNRenderer_setTechnique___block_invoke(uint64_t a1)
 - (id)_copyPassDescription
 {
   [(SCNRenderer *)self lock];
-  FXContext = C3DEngineContextGetFXContext(self->_engineContext);
-  v4 = C3DFXContextCopyPassDescription(FXContext, self->_engineContext);
+  FXContext = C3DEngineContextGetFXContext(self->_engineContext, v3);
+  v5 = C3DFXContextCopyPassDescription(FXContext, self->_engineContext);
   [(SCNRenderer *)self unlock];
-  return v4;
+  return v5;
 }
 
 - (id)_copyRenderGraphDescription
@@ -2599,14 +2532,14 @@ void __28__SCNRenderer_setTechnique___block_invoke(uint64_t a1)
 
 - (id)_computedLightingEnvironmentMapsPath
 {
-  RenderContext = C3DEngineContextGetRenderContext(self->_engineContext);
+  RenderContext = C3DEngineContextGetRenderContext(self->_engineContext, a2);
 
   return [(SCNMTLRenderContext *)RenderContext generatedTexturePath];
 }
 
 - (void)set_computedLightingEnvironmentMapsPath:(id)path
 {
-  RenderContext = C3DEngineContextGetRenderContext(self->_engineContext);
+  RenderContext = C3DEngineContextGetRenderContext(self->_engineContext, a2);
 
   [(SCNMTLRenderContext *)RenderContext setGeneratedTexturePath:path];
 }
@@ -2625,28 +2558,28 @@ void __28__SCNRenderer_setTechnique___block_invoke(uint64_t a1)
   }
 
   sceneRef = [resource sceneRef];
-  v9 = sceneRef;
+  v10 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v9);
   }
 
   [(SCNRenderer *)self lock];
   *(self + 121) |= 0x20u;
   if (!self->_renderingAPI)
   {
-    *&v10 = 0;
-    *(&v10 + 1) = vcvt_f32_u32(*self->_anon_58);
-    v16 = v10;
-    C3DEngineContextSetDrawableSize(self->_engineContext, *(&v10 + 1));
-    [(SCNRenderer *)self adjustViewportForRendering:*&v16];
-    C3DEngineContextSetViewport(v11, self->_engineContext);
+    *&v13 = 0;
+    *(&v13 + 1) = vcvt_f32_u32(*self->_anon_58);
+    v23 = v13;
+    C3DEngineContextSetDrawableSize(self->_engineContext, *(&v13 + 1));
+    [(SCNRenderer *)self adjustViewportForRendering:*&v23];
+    v12 = C3DEngineContextSetViewport(self->_engineContext, v14, v15);
 LABEL_10:
-    [(SCNRenderer *)self _beginFrame];
+    [(SCNRenderer *)self _beginFrame:v12];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v12 = C3DWarmupSceneVRAMResourcesForEngineContext([resource sceneRef], self->_engineContext, handler);
+      v16 = C3DWarmupSceneVRAMResourcesForEngineContext([resource sceneRef], self->_engineContext, handler);
     }
 
     else
@@ -2654,7 +2587,7 @@ LABEL_10:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v12 = C3DWarmupNodeTreeVRAMResourcesForEngineContext([resource nodeRef], self->_engineContext, handler);
+        v16 = C3DWarmupNodeTreeVRAMResourcesForEngineContext([resource nodeRef], self->_engineContext, handler);
       }
 
       else
@@ -2662,7 +2595,7 @@ LABEL_10:
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v12 = C3DWarmupGeometryVRAMResourcesForEngineContext([resource geometryRef], self->_engineContext, handler);
+          v16 = C3DWarmupGeometryVRAMResourcesForEngineContext([resource geometryRef], self->_engineContext, handler);
         }
 
         else
@@ -2670,21 +2603,21 @@ LABEL_10:
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
-            v13 = 0;
+            v18 = 0;
             goto LABEL_22;
           }
 
-          v12 = C3DWarmupMaterialVRAMResourcesForEngineContext([resource materialRef], self->_engineContext, handler);
+          v16 = C3DWarmupMaterialVRAMResourcesForEngineContext([resource materialRef], self->_engineContext, handler);
         }
       }
     }
 
-    v13 = v12;
+    v18 = v16;
 LABEL_22:
     if (self->_renderingAPI)
     {
-      RendererContextGL = C3DEngineContextGetRendererContextGL(self->_engineContext);
-      C3DRendererContextUnbindFramebuffer(RendererContextGL);
+      RendererContextGL = C3DEngineContextGetRendererContextGL(self->_engineContext, v17);
+      C3DRendererContextUnbindFramebuffer(RendererContextGL, v20);
       glFlush();
     }
 
@@ -2695,9 +2628,9 @@ LABEL_22:
 
     *(self + 121) &= ~0x20u;
     [(SCNRenderer *)self unlock];
-    if (v9)
+    if (v10)
     {
-      C3DSceneUnlock(v9);
+      C3DSceneUnlock(v10, v21);
     }
 
     if (self->_renderingAPI)
@@ -2705,7 +2638,7 @@ LABEL_22:
       [MEMORY[0x277CD9388] setCurrentContext:currentContext];
     }
 
-    return v13;
+    return v18;
   }
 
   if ([(SCNRenderer *)self _installContext])
@@ -2714,9 +2647,9 @@ LABEL_22:
     goto LABEL_10;
   }
 
-  if (v9)
+  if (v10)
   {
-    C3DSceneUnlock(v9);
+    C3DSceneUnlock(v10, v11);
   }
 
   [(SCNRenderer *)self unlock];
@@ -2725,19 +2658,19 @@ LABEL_22:
 
 - (BOOL)_preparePreloadRenderer:(id)renderer
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   if (self->_preloadRenderer)
   {
 LABEL_15:
-    LOBYTE(v14) = 1;
-    return v14;
+    LOBYTE(v16) = 1;
+    return v16;
   }
 
   if (!self->_renderingAPI)
   {
-    v7 = [SCNOffscreenRenderer offscreenRendererWithDevice:[(SCNRenderer *)self metalDevice] sceneRendererDelegate:self size:32.0, 32.0];
-    self->_preloadRenderer = &v7->super;
-    [(SCNRenderer *)v7 set_antialiasingMode:self->__antialiasingMode];
+    v8 = [SCNOffscreenRenderer offscreenRendererWithDevice:[(SCNRenderer *)self metalDevice] sceneRendererDelegate:self size:32.0, 32.0];
+    self->_preloadRenderer = &v8->super;
+    [(SCNRenderer *)v8 set_antialiasingMode:self->__antialiasingMode];
     [(SCNRenderer *)self->_preloadRenderer set_resourceManagerMonitor:objc_loadWeak(&self->_resourceManagerMonitor)];
     if ((*(self + 121) & 8) != 0)
     {
@@ -2748,29 +2681,29 @@ LABEL_15:
     colorPixelFormat = [(SCNRenderer *)self colorPixelFormat];
     if (colorPixelFormat)
     {
-      v10 = colorPixelFormat;
+      v11 = colorPixelFormat;
     }
 
     else
     {
-      v10 = 80;
+      v11 = 80;
     }
 
-    C3DRenderGraphSetWarmupPixelFormat(RenderGraph, v10);
+    C3DRenderGraphSetWarmupPixelFormat(RenderGraph, v11);
     goto LABEL_11;
   }
 
   if ([(SCNRenderer *)self context])
   {
     context = [(SCNRenderer *)self context];
-    v17 = *MEMORY[0x277CD93A8];
-    v18[0] = [context sharegroup];
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
-    self->_preloadRenderer = +[SCNOffscreenRenderer offscreenRendererWithContext:size:](SCNOffscreenRenderer, "offscreenRendererWithContext:size:", [objc_alloc(MEMORY[0x277CD9388]) initWithAPI:2 properties:v5], 32.0, 32.0);
+    v19 = *MEMORY[0x277CD93A8];
+    v20[0] = [context sharegroup];
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+    self->_preloadRenderer = +[SCNOffscreenRenderer offscreenRendererWithContext:size:](SCNOffscreenRenderer, "offscreenRendererWithContext:size:", [objc_alloc(MEMORY[0x277CD9388]) initWithAPI:2 properties:v6], 32.0, 32.0);
 LABEL_11:
     if ([(SCNRenderer *)self _collectCompilationErrors])
     {
-      C3DEngineContextGetRendererContextGL(self->_engineContext);
+      C3DEngineContextGetRendererContextGL(self->_engineContext, v12);
       _renderContextMetal = [(SCNRenderer *)self->_preloadRenderer _renderContextMetal];
       if (_renderContextMetal)
       {
@@ -2784,28 +2717,28 @@ LABEL_11:
     goto LABEL_15;
   }
 
-  v15 = scn_default_log();
-  v14 = os_log_type_enabled(v15, OS_LOG_TYPE_ERROR);
-  if (v14)
+  v17 = scn_default_log(0, v4);
+  v16 = os_log_type_enabled(v17, OS_LOG_TYPE_ERROR);
+  if (v16)
   {
     [SCNRenderer _preparePreloadRenderer:];
-    LOBYTE(v14) = 0;
+    LOBYTE(v16) = 0;
   }
 
-  return v14;
+  return v16;
 }
 
 - (void)_releasePreloadRenderer
 {
   _engineContext = [(SCNRenderer *)self->_preloadRenderer _engineContext];
-  if (_engineContext && (RendererContextGL = C3DEngineContextGetRendererContextGL(_engineContext)) != 0)
+  if (_engineContext && (RendererContextGL = C3DEngineContextGetRendererContextGL(_engineContext, v4)) != 0)
   {
-    v5[0] = MEMORY[0x277D85DD0];
-    v5[1] = 3221225472;
-    v5[2] = __38__SCNRenderer__releasePreloadRenderer__block_invoke;
-    v5[3] = &__block_descriptor_40_e5_v8__0l;
-    v5[4] = RendererContextGL;
-    C3DRendererContextExecuteOnContext(RendererContextGL, v5);
+    v6[0] = MEMORY[0x277D85DD0];
+    v6[1] = 3221225472;
+    v6[2] = __38__SCNRenderer__releasePreloadRenderer__block_invoke;
+    v6[3] = &__block_descriptor_40_e5_v8__0l;
+    v6[4] = RendererContextGL;
+    C3DRendererContextExecuteOnContext(RendererContextGL, v6);
   }
 
   else
@@ -2845,45 +2778,46 @@ LABEL_11:
   [(SCNRenderer *)self _getFrameIndex];
   kdebug_trace();
   _engineContext = [(SCNRenderer *)self->_preloadRenderer _engineContext];
-  RendererContextGL = C3DEngineContextGetRendererContextGL(_engineContext);
+  RendererContextGL = C3DEngineContextGetRendererContextGL(_engineContext, v8);
   if (RendererContextGL)
   {
-    Stats = C3DEngineContextGetStats(_engineContext);
-    v9 = C3DEngineStatsResetResourceStats(Stats);
+    Stats = C3DEngineContextGetStats(_engineContext, v9);
+    v11 = C3DEngineStatsResetResourceStats(Stats, v13);
   }
 
   if ([MEMORY[0x277CCAC48] currentProgress])
   {
-    v11 = objc_autoreleasePoolPush();
-    v12 = [(SCNRenderer *)self->_preloadRenderer _preloadResource:object abortHandler:?];
-    objc_autoreleasePoolPop(v11);
+    v14 = objc_autoreleasePoolPush();
+    v15 = [(SCNRenderer *)self->_preloadRenderer _preloadResource:object abortHandler:?];
+    objc_autoreleasePoolPop(v14);
   }
 
   else
   {
-    v12 = [(SCNRenderer *)self->_preloadRenderer _preloadResource:object abortHandler:block];
+    v15 = [(SCNRenderer *)self->_preloadRenderer _preloadResource:object abortHandler:block];
   }
 
   if (RendererContextGL)
   {
-    v13 = C3DEngineContextGetStats(_engineContext);
-    v14 = C3DEngineContextGetStats([(SCNRenderer *)self _engineContext]);
-    C3DEngineStatsMergeResourceStats(v13, v14);
+    v17 = C3DEngineContextGetStats(_engineContext, v16);
+    _engineContext2 = [(SCNRenderer *)self _engineContext];
+    v20 = C3DEngineContextGetStats(_engineContext2, v19);
+    C3DEngineStatsMergeResourceStats(v17, v20);
   }
 
   else
   {
-    RenderContext = C3DEngineContextGetRenderContext(_engineContext);
-    v16 = C3DEngineContextGetRenderContext(self->_engineContext);
-    if (RenderContext && v16)
+    RenderContext = C3DEngineContextGetRenderContext(_engineContext, v16);
+    v23 = C3DEngineContextGetRenderContext(self->_engineContext, v22);
+    if (RenderContext && v23)
     {
-      compilationErrors = [(SCNMTLRenderContext *)v16 compilationErrors];
+      compilationErrors = [(SCNMTLRenderContext *)v23 compilationErrors];
       [compilationErrors addEntriesFromDictionary:-[SCNMTLRenderContext compilationErrors](RenderContext)];
     }
   }
 
   kdebug_trace();
-  return v12;
+  return v15;
 }
 
 uint64_t __47__SCNRenderer__prepareObject_shouldAbortBlock___block_invoke(uint64_t a1)
@@ -3040,8 +2974,8 @@ LABEL_7:
 - (id)programWithNode:(id)node withMaterial:(id)material
 {
   _engineContext = [(SCNRenderer *)self _engineContext];
-  RendererContextGL = C3DEngineContextGetRendererContextGL(_engineContext);
-  if (!RendererContextGL || !C3DRendererContextGetGLContext(RendererContextGL))
+  RendererContextGL = C3DEngineContextGetRendererContextGL(_engineContext, v9);
+  if (!RendererContextGL || !C3DRendererContextGetGLContext(RendererContextGL, v11))
   {
     return 0;
   }
@@ -3057,42 +2991,42 @@ LABEL_7:
     return 0;
   }
 
-  v11 = nodeRef;
-  v12 = [objc_msgSend(node "geometry")];
-  if (!v12)
+  v13 = nodeRef;
+  v14 = [objc_msgSend(node "geometry")];
+  if (!v14)
   {
     return 0;
   }
 
-  v13 = v12;
-  Mesh = C3DGeometryGetMesh(v12);
+  v16 = v14;
+  Mesh = C3DGeometryGetMesh(v14, v15);
   if (!Mesh)
   {
     return 0;
   }
 
-  v15 = Mesh;
+  v18 = Mesh;
   materialRef = [material materialRef];
   if (![(SCNScene *)[(SCNRenderer *)self scene] sceneRef])
   {
     [SCNRenderer programWithNode:a2 withMaterial:?];
   }
 
-  v17 = C3DEngineContextEvaluateProgram(_engineContext, v11, v13, v15, materialRef);
-  if (!v17)
+  v20 = C3DEngineContextEvaluateProgram(_engineContext, v13, v16, v18, materialRef);
+  if (!v20)
   {
     return 0;
   }
 
-  v18 = v17;
-  v19 = +[SCNProgram program];
-  v20 = CFGetTypeID(v18);
-  if (v20 == C3DFXGLSLProgramGetTypeID())
+  v21 = v20;
+  v22 = +[SCNProgram program];
+  v23 = CFGetTypeID(v21);
+  if (v23 == C3DFXGLSLProgramGetTypeID(v23, v24))
   {
-    ShaderSources = C3DFXGLSLProgramGetShaderSources(v18);
-    v23 = v22;
-    [(SCNProgram *)v19 setVertexShader:ShaderSources];
-    [(SCNProgram *)v19 setFragmentShader:v23];
+    ShaderSources = C3DFXGLSLProgramGetShaderSources(v21);
+    v27 = v26;
+    [(SCNProgram *)v22 setVertexShader:ShaderSources];
+    [(SCNProgram *)v22 setFragmentShader:v27];
   }
 
   else
@@ -3100,7 +3034,7 @@ LABEL_7:
     [objc_msgSend(MEMORY[0x277CCA890] "currentHandler")];
   }
 
-  return v19;
+  return v22;
 }
 
 - (void)setDelegate:(id)delegate
@@ -3548,7 +3482,7 @@ LABEL_7:
 - (void)updateCurrentTimeIfPlayingWithSystemTime:(double)time
 {
   sceneRef = [(SCNScene *)self->_scene sceneRef];
-  v6 = sceneRef;
+  v7 = sceneRef;
   currentSceneTime = self->_currentSceneTime;
   playing = self->_playing;
   if (!playing || sceneRef == 0)
@@ -3556,16 +3490,16 @@ LABEL_7:
     self->_lastSystemTime = time;
     if (sceneRef)
     {
-      v10 = !playing;
+      v11 = !playing;
     }
 
     else
     {
-      v10 = 1;
+      v11 = 1;
     }
 
-    v11 = currentSceneTime;
-    if (v10)
+    v12 = currentSceneTime;
+    if (v11)
     {
       goto LABEL_25;
     }
@@ -3573,8 +3507,8 @@ LABEL_7:
     goto LABEL_19;
   }
 
-  PlaybackSpeed = C3DSceneGetPlaybackSpeed(sceneRef);
-  StartTime = C3DSceneGetStartTime(v6);
+  PlaybackSpeed = C3DSceneGetPlaybackSpeed(sceneRef, v6);
+  StartTime = C3DSceneGetStartTime(v7, v14);
   if (currentSceneTime < StartTime)
   {
     currentSceneTime = StartTime;
@@ -3583,50 +3517,50 @@ LABEL_7:
   lastSystemTime = self->_lastSystemTime;
   if (lastSystemTime != 0.0)
   {
-    v15 = time - lastSystemTime;
-    if (v15 > 1.0)
+    v17 = time - lastSystemTime;
+    if (v17 > 1.0)
     {
-      v15 = 0.0166666667;
+      v17 = 0.0166666667;
     }
 
-    currentSceneTime = currentSceneTime + v15 * PlaybackSpeed;
+    currentSceneTime = currentSceneTime + v17 * PlaybackSpeed;
   }
 
   self->_lastSystemTime = time;
-  v11 = currentSceneTime;
+  v12 = currentSceneTime;
   if (self->_playing)
   {
 LABEL_19:
-    EndTime = C3DSceneGetEndTime(v6);
+    EndTime = C3DSceneGetEndTime(v7, v6);
     if (currentSceneTime <= EndTime)
     {
-      v11 = currentSceneTime;
+      v12 = currentSceneTime;
     }
 
     else
     {
-      v17 = EndTime;
+      v20 = EndTime;
       if (self->_loops)
       {
-        v11 = 0.0;
-        if (v17 != 0.0)
+        v12 = 0.0;
+        if (v20 != 0.0)
         {
-          v18 = C3DSceneGetStartTime(v6);
-          v11 = fmod(currentSceneTime - v17, v17) + v18;
+          v21 = C3DSceneGetStartTime(v7, v18);
+          v12 = fmod(currentSceneTime - v20, v20) + v21;
         }
       }
 
       else
       {
         [(SCNRenderer *)self setPlaying:0];
-        v11 = v17;
+        v12 = v20;
       }
     }
   }
 
 LABEL_25:
 
-  [(SCNRenderer *)self _setSceneTime:v11];
+  [(SCNRenderer *)self _setSceneTime:v12];
 }
 
 - (BOOL)_needsRepetitiveRedraw
@@ -3737,19 +3671,20 @@ LABEL_25:
           privateRendererOwner = self;
         }
 
-        v7 = [SCNAuthoringEnvironment authoringEnvironmentForSceneRenderer:privateRendererOwner createIfNeeded:1];
+        v8 = [SCNAuthoringEnvironment authoringEnvironmentForSceneRenderer:privateRendererOwner createIfNeeded:1];
 
-        self->_authoringEnvironment = v7;
+        self->_authoringEnvironment = v8;
       }
 
-      C3DFXInvalidatePasses(self->_engineContext);
-      RendererContextGL = C3DEngineContextGetRendererContextGL(self->_engineContext);
+      C3DFXInvalidatePasses(self->_engineContext, v6);
+      RendererContextGL = C3DEngineContextGetRendererContextGL(self->_engineContext, v9);
       if (RendererContextGL)
       {
-        v9 = RendererContextGL;
-        v10 = SCNSampleCountForAntialiasingMode([(SCNRenderer *)self _antialiasingMode]);
+        v11 = RendererContextGL;
+        _antialiasingMode = [(SCNRenderer *)self _antialiasingMode];
+        v14 = SCNSampleCountForAntialiasingMode(_antialiasingMode, v13);
 
-        C3DRendererContextSetSampleCount(v9, v10);
+        C3DRendererContextSetSampleCount(v11, v14);
       }
     }
   }
@@ -3801,42 +3736,42 @@ LABEL_6:
   C3DEngineContextSetDeltaTime(self->_engineContext, self->_deltaTime);
   deltaTime = self->_deltaTime;
   IsPaused = C3DSceneIsPaused(_update);
-  IsPausedForEditing = C3DSceneIsPausedForEditing(_update);
-  v10 = 0.0;
+  IsPausedForEditing = C3DSceneIsPausedForEditing(_update, v9);
+  v11 = 0.0;
   if (IsPaused)
   {
-    v11 = 0.0;
+    v12 = 0.0;
   }
 
   else
   {
-    v11 = deltaTime;
+    v12 = deltaTime;
   }
 
-  if (v11 >= 0.0)
+  if (v12 >= 0.0)
   {
-    v10 = v11;
+    v11 = v12;
   }
 
-  if (v10 <= 1.0)
+  if (v11 <= 1.0)
   {
-    v12 = v10;
+    v13 = v11;
   }
 
   else
   {
-    v12 = 0.0166666667;
+    v13 = 0.0166666667;
   }
 
   self->_isAnimating = 0;
   [SCNTransaction setImmediateMode:1];
   [SCNTransaction setImmediateModeRestrictedContext:_update];
   context = objc_autoreleasePoolPush();
-  Stats = C3DEngineContextGetStats(self->_engineContext);
+  Stats = C3DEngineContextGetStats(self->_engineContext, v14);
   Weak = objc_loadWeak(&self->_delegate);
   if (*&self->_delegationConformance & 1) != 0 || (*&self->_selfDelegationConformance & 1) != 0 || (*&self->_privateRendererOwnerDelegationConformance)
   {
-    v15 = CACurrentMediaTime();
+    v18 = CACurrentMediaTime();
     kdebug_trace();
     if (*&self->_privateRendererOwnerDelegationConformance)
     {
@@ -3860,19 +3795,19 @@ LABEL_6:
     }
 
     kdebug_trace();
-    Stats[21] = Stats[21] + CACurrentMediaTime() - v15;
+    Stats[21] = Stats[21] + CACurrentMediaTime() - v18;
   }
 
-  ModelValueStorage = C3DSceneGetModelValueStorage(_update);
-  C3DModelValueStoragePrepareNextFrame(ModelValueStorage);
-  v18 = CACurrentMediaTime();
-  AnimationManager = C3DSceneGetAnimationManager(_update);
+  ModelValueStorage = C3DSceneGetModelValueStorage(_update, v16);
+  C3DModelValueStoragePrepareNextFrame(ModelValueStorage, v21);
+  v22 = CACurrentMediaTime();
+  AnimationManager = C3DSceneGetAnimationManager(_update, v23);
   if (AnimationManager)
   {
-    v20 = AnimationManager;
+    v25 = AnimationManager;
     C3DAnimationManagerSetPausedForEditing(AnimationManager, IsPausedForEditing);
     kdebug_trace();
-    C3DAnimationManagerApplyAnimations(v20, v6, self->_currentSceneTime);
+    C3DAnimationManagerApplyAnimations(v25, v26, v6, self->_currentSceneTime);
     kdebug_trace();
     kdebug_trace();
     currentSceneTime = v6;
@@ -3881,19 +3816,19 @@ LABEL_6:
       currentSceneTime = self->_currentSceneTime;
     }
 
-    C3DAnimationManagerApplyActions(v20, currentSceneTime);
+    C3DAnimationManagerApplyActions(v25, currentSceneTime);
     kdebug_trace();
-    C3DAnimationManagerApplyBindings(v20);
+    C3DAnimationManagerApplyBindings(v25);
     if (IsPausedForEditing & 1 | ((IsPaused & 1) == 0))
     {
-      self->_isAnimating = C3DAnimationManagerNeedsRedraw(v20, IsPausedForEditing);
+      self->_isAnimating = C3DAnimationManagerNeedsRedraw(v25, IsPausedForEditing);
     }
   }
 
-  Stats[16] = Stats[16] + CACurrentMediaTime() - v18;
+  Stats[16] = Stats[16] + CACurrentMediaTime() - v22;
   if ((*&self->_delegationConformance & 2) != 0 || (*&self->_selfDelegationConformance & 2) != 0 || (*&self->_privateRendererOwnerDelegationConformance & 2) != 0)
   {
-    v22 = CACurrentMediaTime();
+    v28 = CACurrentMediaTime();
     kdebug_trace();
     if ((*&self->_privateRendererOwnerDelegationConformance & 2) != 0)
     {
@@ -3917,16 +3852,16 @@ LABEL_6:
     }
 
     kdebug_trace();
-    Stats[21] = Stats[21] + CACurrentMediaTime() - v22;
+    Stats[21] = Stats[21] + CACurrentMediaTime() - v28;
   }
 
-  v24 = CACurrentMediaTime();
-  v25 = [C3DEntityGetObjCWrapper(_update) _physicsWorldCreateIfNeeded:0];
-  if (v25)
+  v30 = CACurrentMediaTime();
+  v31 = [C3DEntityGetObjCWrapper(_update) _physicsWorldCreateIfNeeded:0];
+  if (v31)
   {
-    v26 = v25;
+    v32 = v31;
     kdebug_trace();
-    [v26 _updatePhysicsFieldsTransforms];
+    [v32 _updatePhysicsFieldsTransforms];
     if (IsPausedForEditing)
     {
       kdebug_trace();
@@ -3934,19 +3869,19 @@ LABEL_6:
 
     else
     {
-      [v26 _step:v12];
+      [v32 _step:v13];
       kdebug_trace();
       if ((IsPaused & 1) == 0 && !self->_isAnimating)
       {
-        self->_isAnimating = [v26 _needsRedraw];
+        self->_isAnimating = [v32 _needsRedraw];
       }
     }
   }
 
-  Stats[14] = Stats[14] + CACurrentMediaTime() - v24;
+  Stats[14] = Stats[14] + CACurrentMediaTime() - v30;
   if ((*&self->_delegationConformance & 4) != 0 || (*&self->_selfDelegationConformance & 4) != 0 || (*&self->_privateRendererOwnerDelegationConformance & 4) != 0)
   {
-    v27 = CACurrentMediaTime();
+    v33 = CACurrentMediaTime();
     kdebug_trace();
     if ((*&self->_privateRendererOwnerDelegationConformance & 4) != 0)
     {
@@ -3970,24 +3905,24 @@ LABEL_6:
     }
 
     kdebug_trace();
-    Stats[21] = Stats[21] + CACurrentMediaTime() - v27;
+    Stats[21] = Stats[21] + CACurrentMediaTime() - v33;
   }
 
-  v29 = CACurrentMediaTime();
-  ControllerManager = C3DSceneGetControllerManager(_update);
+  v35 = CACurrentMediaTime();
+  ControllerManager = C3DSceneGetControllerManager(_update, v36);
   if (ControllerManager)
   {
-    v31 = ControllerManager;
+    v38 = ControllerManager;
     *(ControllerManager + 32) = [(SCNRenderer *)self _engineContext];
     kdebug_trace();
-    C3DConstraintManagerApply(v31);
+    C3DConstraintManagerApply(v38, v39);
     kdebug_trace();
   }
 
-  Stats[13] = Stats[13] + CACurrentMediaTime() - v29;
+  Stats[13] = Stats[13] + CACurrentMediaTime() - v35;
   if ((*&self->_delegationConformance & 8) != 0 || (*&self->_selfDelegationConformance & 8) != 0 || (*&self->_privateRendererOwnerDelegationConformance & 8) != 0)
   {
-    v32 = CACurrentMediaTime();
+    v40 = CACurrentMediaTime();
     kdebug_trace();
     if ((*&self->_privateRendererOwnerDelegationConformance & 8) != 0)
     {
@@ -4011,15 +3946,15 @@ LABEL_6:
     }
 
     kdebug_trace();
-    Stats[21] = Stats[21] + CACurrentMediaTime() - v32;
+    Stats[21] = Stats[21] + CACurrentMediaTime() - v40;
   }
 
-  v34 = CACurrentMediaTime();
+  v42 = CACurrentMediaTime();
   ParticleManager = C3DSceneGetParticleManager(_update, 0);
-  v36 = ParticleManager;
+  v44 = ParticleManager;
   if (!IsPausedForEditing)
   {
-    v39 = 1;
+    v47 = 1;
     if (!ParticleManager)
     {
       goto LABEL_82;
@@ -4028,45 +3963,45 @@ LABEL_6:
     goto LABEL_76;
   }
 
-  v44 = 0;
-  v45 = &v44;
-  v46 = 0x2020000000;
-  v47 = 0;
+  v53 = 0;
+  v54 = &v53;
+  v55 = 0x2020000000;
+  v56 = 0;
   _authoringEnvironment = [(SCNRenderer *)self _authoringEnvironment];
   if (_authoringEnvironment)
   {
     SelectedNodes = C3DAuthoringEnvironmentGetSelectedNodes(_authoringEnvironment);
-    v43[0] = MEMORY[0x277D85DD0];
-    v43[1] = 3221225472;
-    v43[2] = __23__SCNRenderer__update___block_invoke;
-    v43[3] = &unk_2782FF208;
-    v43[4] = &v44;
-    [SelectedNodes enumerateObjectsUsingBlock:v43];
+    v52[0] = MEMORY[0x277D85DD0];
+    v52[1] = 3221225472;
+    v52[2] = __23__SCNRenderer__update___block_invoke;
+    v52[3] = &unk_2782FF208;
+    v52[4] = &v53;
+    [SelectedNodes enumerateObjectsUsingBlock:v52];
   }
 
-  v39 = *(v45 + 24);
-  _Block_object_dispose(&v44, 8);
-  if (v36)
+  v47 = *(v54 + 24);
+  _Block_object_dispose(&v53, 8);
+  if (v44)
   {
 LABEL_76:
     kdebug_trace();
-    if ((v39 & 1) == 0)
+    if ((v47 & 1) == 0)
     {
-      v12 = 0.0;
+      v13 = 0.0;
     }
 
-    EnginePipeline = C3DSceneGetEnginePipeline(_update);
-    C3DParticleManagerUpdate(v36, EnginePipeline, v12);
-    if (!self->_isAnimating && ((v39 ^ 1) & 1) == 0)
+    EnginePipeline = C3DSceneGetEnginePipeline(_update, v48);
+    C3DParticleManagerUpdate(v44, EnginePipeline, v13);
+    if (!self->_isAnimating && ((v47 ^ 1) & 1) == 0)
     {
-      self->_isAnimating = C3DParticleManagerNeedRedraw(v36);
+      self->_isAnimating = C3DParticleManagerNeedRedraw(v44);
     }
 
     kdebug_trace();
   }
 
 LABEL_82:
-  Stats[15] = Stats[15] + CACurrentMediaTime() - v34;
+  Stats[15] = Stats[15] + CACurrentMediaTime() - v42;
   kdebug_trace();
   C3DAudioManagerUpdateNodes(self->_engineContext);
   kdebug_trace();
@@ -4083,7 +4018,7 @@ LABEL_82:
 
 const __CFDictionary *__23__SCNRenderer__update___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
-  result = C3DNodeGetParticleSystems(a2);
+  result = C3DNodeGetParticleSystems(a2, a2);
   if (result)
   {
     *(*(*(a1 + 32) + 8) + 24) = 1;
@@ -4101,13 +4036,13 @@ const __CFDictionary *__23__SCNRenderer__update___block_invoke(uint64_t a1, uint
   engineContext = self->_engineContext;
   if (engineContext)
   {
-    Scene = C3DEngineContextGetScene(engineContext);
+    Scene = C3DEngineContextGetScene(engineContext, v5);
     if (Scene)
     {
-      v7 = Scene;
-      C3DSceneLock(Scene);
-      [(SCNRenderer *)self _update:v7];
-      C3DSceneUnlock(v7);
+      v9 = Scene;
+      C3DSceneLock(Scene, v8);
+      [(SCNRenderer *)self _update:v9];
+      C3DSceneUnlock(v9, v10);
     }
   }
 
@@ -4118,14 +4053,14 @@ const __CFDictionary *__23__SCNRenderer__update___block_invoke(uint64_t a1, uint
 
 - (void)updateAndDrawStatisticsIfNeeded
 {
-  v3 = SCNGetPerformanceStatisticsEnabled();
-  v4 = v3;
+  v3 = SCNGetPerformanceStatisticsEnabled(self, a2);
+  v5 = v3;
   if (self->_showStatistics || v3)
   {
     if (self->_renderingAPI)
     {
-      RendererContextGL = C3DEngineContextGetRendererContextGL(self->_engineContext);
-      Stats = C3DRendererContextGetStats(RendererContextGL);
+      RendererContextGL = C3DEngineContextGetRendererContextGL(self->_engineContext, v4);
+      Stats = C3DRendererContextGetStats(RendererContextGL, v7);
       stats = 0;
     }
 
@@ -4136,24 +4071,24 @@ const __CFDictionary *__23__SCNRenderer__update___block_invoke(uint64_t a1, uint
       stats = [(SCNMTLResourceManager *)resourceManager stats];
     }
 
-    C3DEngineStatsFinish(Stats);
+    C3DEngineStatsFinish(Stats, v8);
     Current = CFAbsoluteTimeGetCurrent();
     statisticsTimeStamp = self->_statisticsTimeStamp;
     _authoringEnvironment = [(SCNRenderer *)self _authoringEnvironment];
     if (statisticsTimeStamp <= Current)
     {
-      v12 = _authoringEnvironment;
-      memset(v13, 0, 512);
-      C3DEngineStatsEndFrameAndCopy(Stats, stats, v13);
-      C3DEngineStatsReset(Stats);
+      v15 = _authoringEnvironment;
+      memset(v17, 0, 512);
+      C3DEngineStatsEndFrameAndCopy(Stats, stats, v17);
+      C3DEngineStatsReset(Stats, v16);
       if (self->_showStatistics)
       {
-        C3DAuthoringEnvironmentUpdateStats(v12, v13, stats);
+        C3DAuthoringEnvironmentUpdateStats(v15, v17, stats);
       }
 
-      if (v4)
+      if (v5)
       {
-        SCNPushPerformanceStatistics(v13);
+        SCNPushPerformanceStatistics(v17);
       }
 
       self->_statisticsTimeStamp = Current + 1.0;
@@ -4165,7 +4100,7 @@ const __CFDictionary *__23__SCNRenderer__update___block_invoke(uint64_t a1, uint
 {
   if (self->_overlayScene && !self->_disableOverlays)
   {
-    Stats = C3DEngineContextGetStats(self->_engineContext);
+    Stats = C3DEngineContextGetStats(self->_engineContext, a2);
     v6 = CACurrentMediaTime();
     _prepareSKRenderer = [(SCNRenderer *)self _prepareSKRenderer];
     if ((objc_opt_respondsToSelector() & 1) != 0 && ([self->_overlayScene _isDirty] & 1) == 0)
@@ -4178,13 +4113,13 @@ const __CFDictionary *__23__SCNRenderer__update___block_invoke(uint64_t a1, uint
 
     else
     {
-      C3DEngineContextSetNextFrameTimeToAsap(self->_engineContext);
+      C3DEngineContextSetNextFrameTimeToAsap(self->_engineContext, v8);
     }
 
     if (self->_renderingAPI)
     {
       [_prepareSKRenderer updateAtTime:time];
-      RendererContextGL = C3DEngineContextGetRendererContextGL(self->_engineContext);
+      RendererContextGL = C3DEngineContextGetRendererContextGL(self->_engineContext, v9);
       C3DRendererContextPushGroupMarker(RendererContextGL, "SpriteKit - Draw Overlay");
       [_prepareSKRenderer render:0];
       C3DRendererContextPopGroupMarker();
@@ -4243,68 +4178,68 @@ const __CFDictionary *__23__SCNRenderer__update___block_invoke(uint64_t a1, uint
   sceneRef = [(SCNScene *)scene sceneRef];
   if (sceneRef && (v9 = CFRetain(sceneRef)) != 0)
   {
-    v10 = v9;
-    C3DSceneLock(v9);
+    v11 = v9;
+    C3DSceneLock(v9, v10);
     _engineContext = [(SCNRenderer *)self _engineContext];
     if (!_engineContext)
     {
       goto LABEL_13;
     }
 
-    v12 = _engineContext;
-    PointOfView = C3DEngineContextGetPointOfView(_engineContext);
+    v14 = _engineContext;
+    PointOfView = C3DEngineContextGetPointOfView(_engineContext, v13);
     if (!PointOfView)
     {
       goto LABEL_13;
     }
 
-    v14 = PointOfView;
+    v16 = PointOfView;
     if (options)
     {
-      if (![options objectForKey:@"kHitTestRootNode"] || (v15 = objc_msgSend(objc_msgSend(options, "objectForKey:", @"kHitTestRootNode"), "nodeRef"), options = objc_msgSend(options, "mutableCopy"), objc_msgSend(options, "setObject:forKey:", v15, @"kHitTestRootNode"), options))
+      if (![options objectForKey:@"kHitTestRootNode"] || (v17 = objc_msgSend(objc_msgSend(options, "objectForKey:", @"kHitTestRootNode"), "nodeRef"), options = objc_msgSend(options, "mutableCopy"), objc_msgSend(options, "setObject:forKey:", v17, @"kHitTestRootNode"), options))
       {
         if ([options objectForKey:@"kHitTestShowDebugInfo"])
         {
           options = [options mutableCopy];
-          [options setObject:C3DEngineContextGetAuthoringEnvironment(v12 forKey:{0), @"auth"}];
+          [options setObject:C3DEngineContextGetAuthoringEnvironment(v14 forKey:{0), @"auth"}];
         }
       }
     }
 
-    v16.f64[0] = x;
-    v16.f64[1] = y;
-    v17 = COERCE_DOUBLE(vcvt_f32_f64(v16));
-    v16.f64[0] = width;
-    v16.f64[1] = height;
-    [(SCNRenderer *)self adjustViewportForRendering:*vcvt_hight_f32_f64(0, v16).i64];
-    HitTestResultsAtPoint = C3DSceneCreateHitTestResultsAtPoint(v10, v14, options, v17, v18, v19);
+    v18.f64[0] = x;
+    v18.f64[1] = y;
+    v19 = COERCE_DOUBLE(vcvt_f32_f64(v18));
+    v18.f64[0] = width;
+    v18.f64[1] = height;
+    [(SCNRenderer *)self adjustViewportForRendering:*vcvt_hight_f32_f64(0, v18).i64];
+    HitTestResultsAtPoint = C3DSceneCreateHitTestResultsAtPoint(v11, v16, options, v19, v20, v21);
     if (HitTestResultsAtPoint)
     {
-      v21 = HitTestResultsAtPoint;
-      v22 = [SCNHitTestResult hitTestResultsFromHitTestResultRef:HitTestResultsAtPoint];
-      CFRelease(v21);
+      v23 = HitTestResultsAtPoint;
+      v24 = [SCNHitTestResult hitTestResultsFromHitTestResultRef:HitTestResultsAtPoint];
+      CFRelease(v23);
     }
 
     else
     {
 LABEL_13:
-      v22 = 0;
+      v24 = 0;
     }
 
-    C3DSceneUnlock(v10);
+    C3DSceneUnlock(v11, v13);
     +[SCNTransaction unlock];
-    CFRelease(v10);
+    CFRelease(v11);
   }
 
   else
   {
     +[SCNTransaction unlock];
-    v22 = 0;
+    v24 = 0;
   }
 
-  if (v22)
+  if (v24)
   {
-    return v22;
+    return v24;
   }
 
   else
@@ -4315,82 +4250,83 @@ LABEL_13:
 
 - (BOOL)_isNodeInsideFrustum:(id)frustum withPointOfView:(id)view viewport:(SCNVector4)viewport
 {
-  if ((view || (x = viewport.x, y = viewport.y, v6 = -[SCNRenderer pointOfView](self, "pointOfView"), viewport.y = y, viewport.x = x, (view = v6) != 0)) && (v7 = viewport.y, v42 = 0u, v43 = 0u, v40 = 0u, v41 = 0u, v38 = 0u, v39 = 0u, [view getFrustum:&v38 withViewport:*&viewport.x]))
+  if ((view || (x = viewport.x, y = viewport.y, v6 = -[SCNRenderer pointOfView](self, "pointOfView"), viewport.y = y, viewport.x = x, (view = v6) != 0)) && (v7 = viewport.y, v44 = 0u, v45 = 0u, v42 = 0u, v43 = 0u, v40 = 0u, v41 = 0u, [view getFrustum:&v40 withViewport:*&viewport.x]))
   {
-    memset(v37, 0, sizeof(v37));
-    v35 = 0u;
-    v36 = 0u;
+    memset(v39, 0, sizeof(v39));
+    v37 = 0u;
+    v38 = 0u;
     if ([frustum isPresentationInstance])
     {
-      WorldMatrix = C3DNodeGetWorldMatrix([frustum nodeRef]);
-      C3DNodeComputeHierarchicalBoundingBox([frustum nodeRef], 1, &v35);
+      nodeRef = [frustum nodeRef];
+      WorldMatrix = C3DNodeGetWorldMatrix(nodeRef, v9);
+      C3DNodeComputeHierarchicalBoundingBox([frustum nodeRef], 1, &v37);
     }
 
     else
     {
+      v31 = 0u;
+      v32 = 0u;
       v29 = 0u;
       v30 = 0u;
-      v27 = 0u;
-      v28 = 0u;
       if (frustum)
       {
-        [frustum worldTransform];
+        objc_msgSend_worldTransform(frustum);
       }
 
-      WorldMatrix = v37;
-      *&v10 = C3DMatrix4x4FromSCNMatrix4(v37, &v27).n128_u64[0];
-      v34.i32[2] = 0;
-      v34.i64[0] = 0;
-      v33.i32[2] = 0;
-      v33.i64[0] = 0;
-      [frustum getBoundingBoxMin:&v34 max:{&v33, v10}];
-      v11.i64[0] = 0x3F0000003F000000;
-      v11.i64[1] = 0x3F0000003F000000;
-      v12 = vmulq_f32(vaddq_f32(v34, v33), v11);
-      v13 = vmulq_f32(vsubq_f32(v33, v34), v11);
-      v12.i32[3] = 1.0;
-      v13.i32[3] = 0;
-      v35 = v12;
-      v36 = v13;
+      WorldMatrix = v39;
+      *&v12 = C3DMatrix4x4FromSCNMatrix4(v39, &v29).n128_u64[0];
+      v36.i32[2] = 0;
+      v36.i64[0] = 0;
+      v35.i32[2] = 0;
+      v35.i64[0] = 0;
+      [frustum getBoundingBoxMin:&v36 max:{&v35, v12}];
+      v13.i64[0] = 0x3F0000003F000000;
+      v13.i64[1] = 0x3F0000003F000000;
+      v14 = vmulq_f32(vaddq_f32(v36, v35), v13);
+      v15 = vmulq_f32(vsubq_f32(v35, v36), v13);
+      v14.i32[3] = 1.0;
+      v15.i32[3] = 0;
+      v37 = v14;
+      v38 = v15;
     }
 
     for (i = 0; i != 96; i += 16)
     {
-      *(&v38 + i) = vnegq_f32(*(&v38 + i));
+      *(&v40 + i) = vnegq_f32(*(&v40 + i));
     }
 
-    v15 = 0;
-    v9 = 0;
-    v16 = WorldMatrix[1];
-    v17 = WorldMatrix[2];
-    v18 = vaddq_f32(WorldMatrix[3], vmlaq_laneq_f32(vmlaq_n_f32(vmulq_lane_f32(v16, *v35.f32, 1), *WorldMatrix, v35.f32[0]), v17, v35, 2));
-    v18.i32[3] = 1.0;
-    v19 = v36;
-    v19.i32[1] = v36.i32[0];
-    v19.i32[2] = v36.i32[0];
-    v20 = vaddq_f32(vaddq_f32(vabsq_f32(vmulq_f32(*WorldMatrix, v19)), vabsq_f32(vmulq_f32(vuzp2q_s32(vdupq_lane_s32(*v36.i8, 1), v36), v16))), vabsq_f32(vmulq_f32(vzip2q_s32(vtrn1q_s32(v36, v36), v36), v17)));
-    v29 = v40;
-    v30 = v41;
+    v17 = 0;
+    v11 = 0;
+    v18 = WorldMatrix[1];
+    v19 = WorldMatrix[2];
+    v20 = vaddq_f32(WorldMatrix[3], vmlaq_laneq_f32(vmlaq_n_f32(vmulq_lane_f32(v18, *v37.f32, 1), *WorldMatrix, v37.f32[0]), v19, v37, 2));
+    v20.i32[3] = 1.0;
+    v21 = v38;
+    v21.i32[1] = v38.i32[0];
+    v21.i32[2] = v38.i32[0];
+    v22 = vaddq_f32(vaddq_f32(vabsq_f32(vmulq_f32(*WorldMatrix, v21)), vabsq_f32(vmulq_f32(vuzp2q_s32(vdupq_lane_s32(*v38.i8, 1), v38), v18))), vabsq_f32(vmulq_f32(vzip2q_s32(vtrn1q_s32(v38, v38), v38), v19)));
     v31 = v42;
     v32 = v43;
-    v27 = v38;
-    v28 = v39;
+    v33 = v44;
+    v34 = v45;
+    v29 = v40;
+    v30 = v41;
     do
     {
-      v21 = *(&v27 + v15);
-      v22 = vmulq_f32(v18, v21);
-      *v22.i8 = vadd_f32(*v22.i8, *&vextq_s8(v22, v22, 8uLL));
-      v23 = vmulq_f32(v20, vabsq_f32(v21));
-      *v22.i8 = vadd_f32(vzip1_s32(*v22.i8, *v23.f32), vzip2_s32(*v22.i8, *v23.f32));
-      if (*v22.i32 > (v23.f32[2] + *&v22.i32[1]))
+      v23 = *(&v29 + v17);
+      v24 = vmulq_f32(v20, v23);
+      *v24.i8 = vadd_f32(*v24.i8, *&vextq_s8(v24, v24, 8uLL));
+      v25 = vmulq_f32(v22, vabsq_f32(v23));
+      *v24.i8 = vadd_f32(vzip1_s32(*v24.i8, *v25.f32), vzip2_s32(*v24.i8, *v25.f32));
+      if (*v24.i32 > (v25.f32[2] + *&v24.i32[1]))
       {
         break;
       }
 
-      v9 = v15++ > 4;
+      v11 = v17++ > 4;
     }
 
-    while (v15 != 6);
+    while (v17 != 6);
   }
 
   else
@@ -4398,7 +4334,7 @@ LABEL_13:
     return 0;
   }
 
-  return v9;
+  return v11;
 }
 
 - (BOOL)isNodeInsideFrustum:(id)frustum withPointOfView:(id)view
@@ -4421,24 +4357,24 @@ LABEL_13:
   {
     if ([(SCNRenderer *)self scene])
     {
-      memset(v14, 0, sizeof(v14));
-      if ([view getFrustum:v14 withViewport:0.0])
+      memset(v17, 0, sizeof(v17));
+      if ([view getFrustum:v17 withViewport:0.0])
       {
         sceneRef = [(SCNScene *)self->_scene sceneRef];
-        C3DSceneLock(sceneRef);
-        CullingSystem = C3DSceneGetCullingSystem(sceneRef);
-        v13 = 0;
+        C3DSceneLock(sceneRef, v8);
+        CullingSystem = C3DSceneGetCullingSystem(sceneRef, v9);
+        v16 = 0;
         camera = 0u;
-        v12 = 0u;
-        v10[0] = MEMORY[0x277D85DD0];
-        v10[1] = 3221225472;
-        v10[2] = __59__SCNRenderer__nodesInsideFrustumWithPointOfView_viewport___block_invoke;
-        v10[3] = &unk_2782FF230;
-        v10[4] = array;
+        v15 = 0u;
+        v13[0] = MEMORY[0x277D85DD0];
+        v13[1] = 3221225472;
+        v13[2] = __59__SCNRenderer__nodesInsideFrustumWithPointOfView_viewport___block_invoke;
+        v13[3] = &unk_2782FF230;
+        v13[4] = array;
         camera = [objc_msgSend(view camera];
-        DWORD1(v12) = 1;
+        DWORD1(v15) = 1;
         C3DCullingSystemCull(CullingSystem);
-        C3DSceneUnlock(sceneRef);
+        C3DSceneUnlock(sceneRef, v11);
       }
     }
   }
@@ -4446,7 +4382,7 @@ LABEL_13:
   return array;
 }
 
-uint64_t __59__SCNRenderer__nodesInsideFrustumWithPointOfView_viewport___block_invoke(uint64_t result, uint64_t *a2, uint64_t a3)
+id *__59__SCNRenderer__nodesInsideFrustumWithPointOfView_viewport___block_invoke(id *result, uint64_t *a2, uint64_t a3)
 {
   if (a3 >= 1)
   {
@@ -4463,7 +4399,7 @@ uint64_t __59__SCNRenderer__nodesInsideFrustumWithPointOfView_viewport___block_i
     do
     {
       v14 = *a2++;
-      result = [*(v13 + 32) addObject:{+[SCNNode nodeWithNodeRef:](SCNNode, "nodeWithNodeRef:", v14, v15, v16, v17, v18, v19, v20, v21, v22)}];
+      result = [v13[4] addObject:{+[SCNNode nodeWithNodeRef:](SCNNode, "nodeWithNodeRef:", v14, v15, v16, v17, v18, v19, v20, v21, v22)}];
       --v11;
     }
 
@@ -4501,7 +4437,8 @@ uint64_t __59__SCNRenderer__nodesInsideFrustumWithPointOfView_viewport___block_i
   scene = self->_scene;
   if (scene)
   {
-    StartTime = C3DSceneGetStartTime([(SCNScene *)scene sceneRef]);
+    sceneRef = [(SCNScene *)scene sceneRef];
+    StartTime = C3DSceneGetStartTime(sceneRef, v5);
   }
 
   else
@@ -4576,22 +4513,22 @@ uint64_t __59__SCNRenderer__nodesInsideFrustumWithPointOfView_viewport___block_i
 
 - (id)_copyPerformanceStatistics
 {
-  *v8 = 0u;
+  *v9 = 0u;
   [(SCNRenderer *)self lock:0];
   _engineContext = [(SCNRenderer *)self _engineContext];
-  if (_engineContext && (Stats = C3DEngineContextGetStats(_engineContext)) != 0)
+  if (_engineContext && (Stats = C3DEngineContextGetStats(_engineContext, v4)) != 0)
   {
-    SCNConvertEngineStatsToPerformanceData(Stats, &v7, 0);
-    v5 = _SCNGetPerformanceStatisticsFromPerformanceData(&v7, 0);
+    SCNConvertEngineStatsToPerformanceData(Stats, &v8, 0);
+    v6 = _SCNGetPerformanceStatisticsFromPerformanceData(&v8, 0);
   }
 
   else
   {
-    v5 = 0;
+    v6 = 0;
   }
 
   [(SCNRenderer *)self unlock];
-  return v5;
+  return v6;
 }
 
 - (void)_displayLinkStatsTick
@@ -4599,7 +4536,7 @@ uint64_t __59__SCNRenderer__nodesInsideFrustumWithPointOfView_viewport___block_i
   _engineContext = [(SCNRenderer *)self _engineContext];
   if (_engineContext)
   {
-    Stats = C3DEngineContextGetStats(_engineContext);
+    Stats = C3DEngineContextGetStats(_engineContext, v3);
     if (Stats)
     {
       *(Stats + 184) = *(Stats + 184) + CACurrentMediaTime() - *(Stats + 208);
@@ -4612,7 +4549,7 @@ uint64_t __59__SCNRenderer__nodesInsideFrustumWithPointOfView_viewport___block_i
   _engineContext = [(SCNRenderer *)self _engineContext];
   if (_engineContext)
   {
-    Stats = C3DEngineContextGetStats(_engineContext);
+    Stats = C3DEngineContextGetStats(_engineContext, v3);
     if (Stats)
     {
       *(Stats + 208) = CACurrentMediaTime();
@@ -4642,22 +4579,23 @@ uint64_t __59__SCNRenderer__nodesInsideFrustumWithPointOfView_viewport___block_i
   {
     if (self->_renderingAPI)
     {
-      if ([MEMORY[0x277CD9388] currentContext] != self->_glContext)
+      currentContext = [MEMORY[0x277CD9388] currentContext];
+      if (currentContext != self->_glContext)
       {
-        v3 = scn_default_log();
-        if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+        v4 = scn_default_log(currentContext, a2);
+        if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
         {
-          [(SCNRenderer *)v3 _deleteGLFramebuffer:v4];
+          [(SCNRenderer *)v4 _deleteGLFramebuffer:a2];
         }
       }
     }
 
-    Stats = C3DEngineContextGetStats(self->_engineContext);
+    Stats = C3DEngineContextGetStats(self->_engineContext, a2);
     v12 = CACurrentMediaTime();
     glPushGroupMarkerEXT(0, "SceneKit - Flush");
     [(SCNRenderer *)self _resolveAndDiscardGL];
     RenderTarget = C3DFramebufferGetRenderTarget(self->_framebufferInfo.frameBuffer, 0);
-    RenderBuffer = C3DRenderTargetGetRenderBuffer(RenderTarget);
+    RenderBuffer = C3DRenderTargetGetRenderBuffer(RenderTarget, v14);
     glBindRenderbuffer(0x8D41u, RenderBuffer);
     [(EAGLContext *)self->_glContext presentRenderbuffer:36161];
     glPopGroupMarkerEXT();
@@ -4673,52 +4611,54 @@ uint64_t __59__SCNRenderer__nodesInsideFrustumWithPointOfView_viewport___block_i
     self->_debugOptions = options;
     [(SCNRenderer *)self lock];
     renderingAPI = self->_renderingAPI;
-    if ([(SCNRenderer *)self _showsAuthoringEnvironment])
+    _showsAuthoringEnvironment = [(SCNRenderer *)self _showsAuthoringEnvironment];
+    if (_showsAuthoringEnvironment)
     {
-      v7 = [-[SCNRenderer _authoringEnvironment](self "_authoringEnvironment")] & 0xFFFFFFFFFFFFFF82;
+      _showsAuthoringEnvironment = [-[SCNRenderer _authoringEnvironment](self "_authoringEnvironment")];
+      v9 = _showsAuthoringEnvironment & 0xFFFFFFFFFFFFFF82;
     }
 
     else
     {
-      v7 = 0;
+      v9 = 0;
     }
 
-    v8 = (options << 6) & 0x40 | (options >> 1) & 1 | ((options << 60) >> 63) & 0x28 | ((options << 53) >> 63) & 0x14 | v7;
+    v10 = (options << 6) & 0x40 | (options >> 1) & 1 | ((options << 60) >> 63) & 0x28 | ((options << 53) >> 63) & 0x14 | v9;
     if ((options & 4) != 0)
     {
-      v10 = C3DIsRunningInXcode();
-      v11 = v8 | 0x1000;
-      if (v10)
+      v12 = C3DIsRunningInXcode(_showsAuthoringEnvironment, v8);
+      v13 = v10 | 0x1000;
+      if (v12)
       {
-        v11 = v8;
+        v13 = v10;
       }
 
-      v9 = v11 | 0x200;
+      v11 = v13 | 0x200;
     }
 
     else
     {
-      v9 = (options << 6) & 0x40 | (options >> 1) & 1 | ((options << 60) >> 63) & 0x28 | ((options << 53) >> 63) & 0x14 | v7 & 0xFFFFFFFFFFFFEDFFLL;
+      v11 = (options << 6) & 0x40 | (options >> 1) & 1 | ((options << 60) >> 63) & 0x28 | ((options << 53) >> 63) & 0x14 | v9 & 0xFFFFFFFFFFFFEDFFLL;
     }
 
-    v12 = v9 & 0xFFFFFFFFFFFFFF7FLL | (((options >> 4) & 1) << 7);
-    v13 = v12 & 0xFFFFFFFFFFFFFBFFLL;
+    v14 = v11 & 0xFFFFFFFFFFFFFF7FLL | (((options >> 4) & 1) << 7);
+    v15 = v14 & 0xFFFFFFFFFFFFFBFFLL;
     if ((options & 0x20) != 0)
     {
-      v13 = v12 | 0x400;
+      v15 = v14 | 0x400;
     }
 
     if (renderingAPI)
     {
-      v12 = v13;
+      v14 = v15;
     }
 
-    v14 = (options << 6) & 0x4000 | (16 * options) & 0xA800 | (((options >> 12) & 1) << 17) | v12 & 0xFFFFFFFFFFFD17FFLL;
-    [(SCNRenderer *)self set_showsAuthoringEnvironment:v14 != 0];
+    v16 = (options << 6) & 0x4000 | (16 * options) & 0xA800 | (((options >> 12) & 1) << 17) | v14 & 0xFFFFFFFFFFFD17FFLL;
+    [(SCNRenderer *)self set_showsAuthoringEnvironment:v16 != 0];
     [-[SCNRenderer _authoringEnvironment](self "_authoringEnvironment")];
     if (!renderingAPI)
     {
-      RenderContext = C3DEngineContextGetRenderContext(self->_engineContext);
+      RenderContext = C3DEngineContextGetRenderContext(self->_engineContext, v17);
       [(SCNMTLRenderContext *)RenderContext setDebugOptions:?];
     }
 
@@ -4821,7 +4761,7 @@ uint64_t __59__SCNRenderer__nodesInsideFrustumWithPointOfView_viewport___block_i
 
 - (BOOL)_collectCompilationErrors
 {
-  RendererContextGL = C3DEngineContextGetRendererContextGL(self->_engineContext);
+  RendererContextGL = C3DEngineContextGetRendererContextGL(self->_engineContext, a2);
   if (RendererContextGL)
   {
 
@@ -4830,7 +4770,7 @@ uint64_t __59__SCNRenderer__nodesInsideFrustumWithPointOfView_viewport___block_i
 
   else
   {
-    RenderContext = C3DEngineContextGetRenderContext(self->_engineContext);
+    RenderContext = C3DEngineContextGetRenderContext(self->_engineContext, v4);
     if (self->_renderContext)
     {
 
@@ -4847,13 +4787,13 @@ uint64_t __59__SCNRenderer__nodesInsideFrustumWithPointOfView_viewport___block_i
 - (void)set_collectCompilationErrors:(BOOL)errors
 {
   errorsCopy = errors;
-  RendererContextGL = C3DEngineContextGetRendererContextGL(self->_engineContext);
+  RendererContextGL = C3DEngineContextGetRendererContextGL(self->_engineContext, a2);
   if (RendererContextGL)
   {
     C3DRendererContextSetCompilationErrorsCollection(RendererContextGL, errorsCopy);
   }
 
-  RenderContext = C3DEngineContextGetRenderContext(self->_engineContext);
+  RenderContext = C3DEngineContextGetRenderContext(self->_engineContext, v6);
   if (self->_renderContext)
   {
 
@@ -4872,7 +4812,7 @@ uint64_t __59__SCNRenderer__nodesInsideFrustumWithPointOfView_viewport___block_i
 
   else
   {
-    RendererContextGL = C3DEngineContextGetRendererContextGL(self->_engineContext);
+    RendererContextGL = C3DEngineContextGetRendererContextGL(self->_engineContext, a2);
     if (RendererContextGL)
     {
 
@@ -4881,7 +4821,7 @@ uint64_t __59__SCNRenderer__nodesInsideFrustumWithPointOfView_viewport___block_i
 
     else
     {
-      RenderContext = C3DEngineContextGetRenderContext(self->_engineContext);
+      RenderContext = C3DEngineContextGetRenderContext(self->_engineContext, v6);
       if (self->_renderContext)
       {
 
@@ -4906,13 +4846,13 @@ uint64_t __59__SCNRenderer__nodesInsideFrustumWithPointOfView_viewport___block_i
       [(SCNRenderer *)self setupAuthoringEnvironment];
     }
 
-    RendererContextGL = C3DEngineContextGetRendererContextGL(self->_engineContext);
+    RendererContextGL = C3DEngineContextGetRendererContextGL(self->_engineContext, a2);
     if (RendererContextGL)
     {
       C3DAnimationManagerSetPausedForEditing(RendererContextGL, environment);
     }
 
-    RenderContext = C3DEngineContextGetRenderContext(self->_engineContext);
+    RenderContext = C3DEngineContextGetRenderContext(self->_engineContext, v7);
     if (self->_renderContext)
     {
       [(SCNMTLRenderContext *)RenderContext setShowsAuthoringEnvironment:environment];
@@ -4996,7 +4936,7 @@ uint64_t __59__SCNRenderer__nodesInsideFrustumWithPointOfView_viewport___block_i
     C3DEngineContextSetDrawableSize(_engineContext, COERCE_DOUBLE(__PAIR64__(LODWORD(w), LODWORD(z))));
     [(SCNRenderer *)self adjustViewportForRendering:COERCE_DOUBLE(__PAIR64__(LODWORD(y), LODWORD(x)))];
 
-    C3DEngineContextSetViewport(v6, v5);
+    C3DEngineContextSetViewport(v5, v6, v7);
   }
 }
 
@@ -5014,28 +4954,28 @@ uint64_t __59__SCNRenderer__nodesInsideFrustumWithPointOfView_viewport___block_i
 
 - (SCNNode)audioListener
 {
-  Scene = C3DEngineContextGetScene(self->_engineContext);
+  Scene = C3DEngineContextGetScene(self->_engineContext, a2);
   if (Scene)
   {
-    v4 = Scene;
-    C3DSceneLock(Scene);
+    v5 = Scene;
+    C3DSceneLock(Scene, v4);
     Listener = C3DAudioManagerGetListener(self->_engineContext);
     ObjCWrapper = C3DEntityGetObjCWrapper(Listener);
-    C3DSceneUnlock(v4);
+    C3DSceneUnlock(v5, v8);
     return ObjCWrapper;
   }
 
   else
   {
-    v8 = C3DAudioManagerGetListener(self->_engineContext);
+    v10 = C3DAudioManagerGetListener(self->_engineContext);
 
-    return C3DEntityGetObjCWrapper(v8);
+    return C3DEntityGetObjCWrapper(v10);
   }
 }
 
 - (void)setAudioListener:(id)listener
 {
-  Scene = C3DEngineContextGetScene(self->_engineContext);
+  Scene = C3DEngineContextGetScene(self->_engineContext, a2);
   v6[0] = MEMORY[0x277D85DD0];
   v6[1] = 3221225472;
   v6[2] = __32__SCNRenderer_setAudioListener___block_invoke;
@@ -5045,7 +4985,7 @@ uint64_t __59__SCNRenderer__nodesInsideFrustumWithPointOfView_viewport___block_i
   [SCNTransaction postCommandWithContext:Scene object:self applyBlock:v6];
 }
 
-unint64_t __32__SCNRenderer_setAudioListener___block_invoke(uint64_t a1)
+void *__32__SCNRenderer_setAudioListener___block_invoke(uint64_t a1)
 {
   v1 = *(*(a1 + 32) + 208);
   v2 = [*(a1 + 40) nodeRef];
@@ -5064,33 +5004,34 @@ unint64_t __32__SCNRenderer_setAudioListener___block_invoke(uint64_t a1)
 {
   if (!context)
   {
-    v7 = scn_default_log();
+    v7 = scn_default_log(self, a2);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      C3DEngineContextGetStats_cold_1(v7, v8, v9, v10, v11, v12, v13, v14);
+      C3DEngineContextGetStats_cold_1(v7, a2, v8, v9, v10, v11, v12, v13);
     }
   }
 
-  C3DEngineContextResetNextFrameTime(context);
+  C3DEngineContextResetNextFrameTime(context, a2);
   C3DEngineContextSetSceneTime(context, time);
-  Scene = C3DEngineContextGetScene(context);
+  Scene = C3DEngineContextGetScene(context, v14);
   if (Scene)
   {
-    v16 = Scene;
-    RendererContextGL = C3DEngineContextGetRendererContextGL(context);
-    ResourceManager = C3DEngineContextGetResourceManager(context);
+    v17 = Scene;
+    RendererContextGL = C3DEngineContextGetRendererContextGL(context, v16);
+    ResourceManager = C3DEngineContextGetResourceManager(context, v19);
+    v22 = ResourceManager;
     if (!self->_renderContext)
     {
       if (!RendererContextGL)
       {
-        v19 = scn_default_log();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
+        v23 = scn_default_log(ResourceManager, v21);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
         {
-          C3DEngineContextRenderScene_cold_2(v19, v20, v21, v22, v23, v24, v25, v26);
+          C3DEngineContextRenderScene_cold_2(v23, v24, v25, v26, v27, v28, v29, v30);
         }
       }
 
-      C3DResourceManagerLockVRAMResourceAccess(ResourceManager);
+      C3DResourceManagerLockVRAMResourceAccess(v22);
       C3DRendererContextInvalidateCache(RendererContextGL);
     }
 
@@ -5100,36 +5041,36 @@ unint64_t __32__SCNRenderer_setAudioListener___block_invoke(uint64_t a1)
       C3DAuthoringEnvironmentBeginFrame(AuthoringEnvironment);
     }
 
-    Stats = C3DEngineContextGetStats(context);
-    v29 = CACurrentMediaTime();
-    EnginePipeline = C3DSceneGetEnginePipeline(v16);
+    Stats = C3DEngineContextGetStats(context, v32);
+    v34 = CACurrentMediaTime();
+    EnginePipeline = C3DSceneGetEnginePipeline(v17, v35);
     if (!EnginePipeline)
     {
-      v31 = scn_default_log();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_FAULT))
+      v38 = scn_default_log(0, v36);
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_FAULT))
       {
-        C3DEngineContextRenderScene_cold_3(v31, v32, v33, v34, v35, v36, v37, v38);
+        C3DEngineContextRenderScene_cold_3(v38, v36, v39, v40, v41, v42, v43, v44);
       }
     }
 
-    v92[0] = EnginePipeline;
-    v92[1] = context;
-    v93 = 0u;
-    v94 = 0u;
-    C3DEnginePipelineApplyNotificationQueue(v92);
-    *(Stats + 152) = *(Stats + 152) + CACurrentMediaTime() - v29;
-    C3DEngineContextReloadShadersIfNeeded(context);
+    v101[0] = EnginePipeline;
+    v101[1] = context;
+    v102 = 0u;
+    v103 = 0u;
+    C3DEnginePipelineApplyNotificationQueue(v101, v36);
+    *(Stats + 152) = *(Stats + 152) + CACurrentMediaTime() - v34;
+    C3DEngineContextReloadShadersIfNeeded(context, v45);
     renderContext = self->_renderContext;
     if (renderContext)
     {
-      resourceManager = [(SCNMTLRenderContext *)renderContext resourceManager];
-      C3DSceneSourcePerformConsistencyCheck(resourceManager);
+      [(SCNMTLRenderContext *)renderContext resourceManager];
+      C3DSceneSourcePerformConsistencyCheck();
     }
 
     else
     {
       C3DRendererContextPushGroupMarker(RendererContextGL, "Resource Manager Flush");
-      C3DResourceManagerFlush(ResourceManager);
+      C3DResourceManagerFlush(v22);
       C3DRendererContextPopGroupMarker();
     }
 
@@ -5148,129 +5089,135 @@ unint64_t __32__SCNRenderer_setAudioListener___block_invoke(uint64_t a1)
     viewpoints = self->_viewpoints;
     if (viewpoints)
     {
-      v43 = [(NSArray *)viewpoints objectAtIndexedSubscript:0];
-      v44 = v43;
-      v90 = 0u;
-      v91 = 0u;
-      v89 = 0u;
-      if (v43)
+      v49 = [(NSArray *)viewpoints objectAtIndexedSubscript:0];
+      v50 = v49;
+      v99 = 0u;
+      v100 = 0u;
+      v98 = 0u;
+      if (v49)
       {
-        [v43 viewport];
-        if (*(&v91 + 1) != *&v91)
+        objc_msgSend_viewport(v49);
+        if (*(&v100 + 1) != *&v100)
         {
-          [(SCNRenderer *)self setUsesReverseZ:*(&v91 + 1) < *&v91, *(&v91 + 1)];
+          [(SCNRenderer *)self setUsesReverseZ:*(&v100 + 1) < *&v100, *(&v100 + 1)];
         }
       }
 
-      v100 = __invert_f4(*_PromotedConst);
-      v83 = v100.columns[1];
-      v84 = v100.columns[0];
-      v81 = v100.columns[3];
-      v82 = v100.columns[2];
-      v45 = [objc_msgSend(objc_msgSend(objc_msgSend(v44 "passDescriptor")];
-      textureType = [v45 textureType];
-      v47 = textureType;
-      v50 = textureType == 5 || textureType == 3 || textureType == 8;
+      v109 = __invert_f4(*_PromotedConst);
+      v92 = v109.columns[1];
+      v93 = v109.columns[0];
+      v90 = v109.columns[3];
+      v91 = v109.columns[2];
+      v51 = [objc_msgSend(objc_msgSend(objc_msgSend(v50 "passDescriptor")];
+      textureType = [v51 textureType];
+      v53 = textureType;
+      v56 = textureType == 5 || textureType == 3 || textureType == 8;
       features = [(SCNMTLRenderContext *)self->_renderContext features];
       features2 = [(SCNMTLRenderContext *)self->_renderContext features];
-      v53 = v47 == 2;
-      v54 = [(NSArray *)self->_viewpoints count];
-      if (v54)
+      v59 = v53 == 2;
+      v60 = [(NSArray *)self->_viewpoints count];
+      if (v60)
       {
-        v55 = v54;
-        v79 = ResourceManager;
-        v80 = RendererContextGL;
-        v56 = v50;
-        v57 = 0;
-        v58 = 0;
-        v59 = 1;
-        v60 = v56 & (features >> 5);
-        v61 = v53 & (features2 >> 7);
+        v61 = v60;
+        v88 = v22;
+        v89 = RendererContextGL;
+        v62 = v56;
+        v63 = 0;
+        v64 = 0;
+        v65 = 1;
+        v66 = v62 & (features >> 5);
+        v67 = v59 & (features2 >> 7);
         do
         {
-          C3DEngineContextSetRenderPassDescriptorForEye(context, [-[NSArray objectAtIndexedSubscript:](self->_viewpoints objectAtIndexedSubscript:{v57, v79, v80), "passDescriptor"}], v58);
-          v59 = v59 && v45 == [objc_msgSend(objc_msgSend(objc_msgSend(-[NSArray objectAtIndexedSubscript:](self->_viewpoints objectAtIndexedSubscript:{v57), "passDescriptor"), "colorAttachments"), "objectAtIndexedSubscript:", 0), "texture"}];
-          v57 = ++v58;
+          C3DEngineContextSetRenderPassDescriptorForEye(context, [-[NSArray objectAtIndexedSubscript:](self->_viewpoints objectAtIndexedSubscript:{v63, v88, v89), "passDescriptor"}], v64);
+          v65 = v65 && v51 == [objc_msgSend(objc_msgSend(objc_msgSend(-[NSArray objectAtIndexedSubscript:](self->_viewpoints objectAtIndexedSubscript:{v63), "passDescriptor"), "colorAttachments"), "objectAtIndexedSubscript:", 0), "texture"}];
+          v63 = ++v64;
         }
 
-        while (v55 > v58);
-        if (v61)
+        while (v61 > v64);
+        if (v67)
         {
-          v62 = 2;
-        }
-
-        else
-        {
-          v62 = v60;
-        }
-
-        if (((v55 != 1 && v59) & (v61 | v60)) != 0)
-        {
-          v63 = v62;
+          v68 = 2;
         }
 
         else
         {
-          v63 = 0;
+          v68 = v66;
         }
 
-        C3DEngineContextSetPreferredRenderMode(context, v63);
-        C3DEngineContextSetEyeCount(context, v55);
-        ResourceManager = v79;
-        RendererContextGL = v80;
-        v64 = 0;
-        for (i = 0; i < v55; v64 = i)
+        if (((v61 != 1 && v65) & (v67 | v66)) != 0)
         {
-          v66 = [(NSArray *)self->_viewpoints objectAtIndexedSubscript:v64];
-          v67 = v66;
-          v68 = 0uLL;
-          if (v66)
+          v69 = v68;
+        }
+
+        else
+        {
+          v69 = 0;
+        }
+
+        C3DEngineContextSetPreferredRenderMode(context, v69);
+        C3DEngineContextSetEyeCount(context, v61);
+        v22 = v88;
+        RendererContextGL = v89;
+        v70 = 0;
+        v71 = 0;
+        do
+        {
+          v72 = [(NSArray *)self->_viewpoints objectAtIndexedSubscript:v70];
+          v74 = v72;
+          v75 = 0uLL;
+          if (v72)
           {
-            [v66 viewport];
-            v68 = vcvt_hight_f32_f64(vcvt_f32_f64(v96), v97);
+            objc_msgSend_viewport(v72, 0.0);
+            v73 = *v106.f64;
+            v75 = vcvt_hight_f32_f64(vcvt_f32_f64(v105), v106);
           }
 
-          C3DEngineContextSetViewportAtIndex(context, i, v68);
-          v87 = 0u;
-          v88 = 0u;
-          v85 = 0u;
-          v86 = 0u;
-          [v67 simdViewMatrix];
-          v85 = v69;
-          v86 = v70;
-          v87 = v71;
-          v88 = v72;
-          [v67 simdProjectionMatrix];
-          v85 = v73;
-          v86 = v74;
-          v87 = v75;
-          v88 = v76;
-          if (*(&v75 + 2) > 0.0)
+          C3DEngineContextSetViewportAtIndex(context, v71, v75, v73);
+          v96 = 0u;
+          v97 = 0u;
+          v94 = 0u;
+          v95 = 0u;
+          [v74 simdViewMatrix];
+          v94 = v76;
+          v95 = v77;
+          v96 = v78;
+          v97 = v79;
+          [v74 simdProjectionMatrix];
+          v94 = v80;
+          v95 = v81;
+          v96 = v82;
+          v97 = v83;
+          if (*(&v82 + 2) > 0.0)
           {
-            v77 = 0;
-            v95[0] = v73;
-            v95[1] = v74;
-            v95[2] = v75;
-            v95[3] = v76;
-            v96 = 0u;
-            v97 = 0u;
-            v98 = 0u;
-            v99 = 0u;
+            v84 = 0;
+            v104[0] = v80;
+            v104[1] = v81;
+            v104[2] = v82;
+            v104[3] = v83;
+            v105 = 0u;
+            v106 = 0u;
+            v107 = 0u;
+            v108 = 0u;
             do
             {
-              *(&v96 + v77 * 16) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v84, COERCE_FLOAT(v95[v77])), v83, *&v95[v77], 1), v82, v95[v77], 2), v81, v95[v77], 3);
-              ++v77;
+              *(&v105 + v84 * 16) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v93, COERCE_FLOAT(v104[v84])), v92, *&v104[v84], 1), v91, v104[v84], 2), v90, v104[v84], 3);
+              ++v84;
             }
 
-            while (v77 != 4);
-            v85 = v96;
-            v86 = v97;
-            v87 = v98;
-            v88 = v99;
+            while (v84 != 4);
+            v94 = v105;
+            v95 = v106;
+            v96 = v107;
+            v97 = v108;
           }
 
-          C3DEngineContextSetEyeMatrix4x4(context, 0, &v85, i++);
+          C3DEngineContextSetEyeMatrix4x4(context, 0, &v94, v71);
+          v70 = (v71 + 1);
+          v71 = v70;
         }
+
+        while (v61 > v70);
       }
 
       else
@@ -5283,7 +5230,7 @@ unint64_t __32__SCNRenderer_setAudioListener___block_invoke(uint64_t a1)
     else
     {
       [(SCNRenderer *)self adjustViewportForRendering:*&self->__viewport.x];
-      C3DEngineContextSetViewport(v78, context);
+      C3DEngineContextSetViewport(context, v86, v87);
     }
 
     if (self->_renderContext)
@@ -5293,7 +5240,7 @@ unint64_t __32__SCNRenderer_setAudioListener___block_invoke(uint64_t a1)
 
     else
     {
-      C3DEngineContextRenderMainTechnique(context);
+      C3DEngineContextRenderMainTechnique(context, v85);
     }
 
     if (!self->_renderContext)
@@ -5301,7 +5248,7 @@ unint64_t __32__SCNRenderer_setAudioListener___block_invoke(uint64_t a1)
       C3DRendererContextUnbindTextureUnits(RendererContextGL);
       C3DRendererContextResetToDefaultStates(RendererContextGL);
       C3DRendererContextResetVolatileObjects(RendererContextGL);
-      C3DResourceManagerUnlockVRAMResourceAccess(ResourceManager);
+      C3DResourceManagerUnlockVRAMResourceAccess(v22);
     }
   }
 }
@@ -5327,11 +5274,11 @@ unint64_t __32__SCNRenderer_setAudioListener___block_invoke(uint64_t a1)
       +[SCNTransaction lock];
     }
 
-    C3DSceneLock(renderer);
+    C3DSceneLock(renderer, a2);
     commandQueue = [(SCNMTLResourceManager *)self->_renderContext commandQueue];
     if ((*(self + 288) & 4) != 0)
     {
-      C3DEngineStatsReset(commandQueue);
+      C3DEngineStatsReset(commandQueue, v8);
     }
 
     else
@@ -5339,7 +5286,7 @@ unint64_t __32__SCNRenderer_setAudioListener___block_invoke(uint64_t a1)
       *(commandQueue + 12) = 0;
     }
 
-    C3DSceneBumpFrameStamp(renderer);
+    C3DSceneBumpFrameStamp(renderer, v8);
     if ((*(self + 121) & 0x40) != 0)
     {
       [(SCNRenderer *)self _update:renderer];
@@ -5376,7 +5323,7 @@ unint64_t __32__SCNRenderer_setAudioListener___block_invoke(uint64_t a1)
     [(SCNRenderer *)self _computeNextFrameTime];
     [(SCNRenderer *)self set_nextFrameTime:?];
     [(SCNMTLRenderContext *)self->_renderContext endFrameSceneSpecifics];
-    C3DSceneUnlock(renderer);
+    C3DSceneUnlock(renderer, v10);
     if ((*(self + 121) & 4) == 0)
     {
       +[SCNTransaction unlock];
@@ -5393,17 +5340,17 @@ unint64_t __32__SCNRenderer_setAudioListener___block_invoke(uint64_t a1)
   if (renderer)
   {
     v5 = (*(self + 121) & 0x18) != 8 && [(SCNRenderer *)self isJitteringEnabled];
-    RendererContextGL = C3DEngineContextGetRendererContextGL(self->_engineContext);
+    RendererContextGL = C3DEngineContextGetRendererContextGL(self->_engineContext, a2);
     if ((*(self + 121) & 4) == 0)
     {
       Viewport = C3DEngineContextGetViewport(self->_engineContext);
       *self->_anon_58 = vcvt_u32_f32(vrndp_f32(*&vextq_s8(Viewport, Viewport, 8uLL)));
     }
 
-    Stats = C3DRendererContextGetStats(RendererContextGL);
+    Stats = C3DRendererContextGetStats(RendererContextGL, v6);
     if ((*(self + 288) & 4) != 0)
     {
-      C3DEngineStatsReset(Stats);
+      C3DEngineStatsReset(Stats, v10);
     }
 
     else
@@ -5416,10 +5363,10 @@ unint64_t __32__SCNRenderer_setAudioListener___block_invoke(uint64_t a1)
       +[SCNTransaction lock];
     }
 
-    C3DSceneLock(renderer);
+    C3DSceneLock(renderer, v10);
     currentContext = [MEMORY[0x277CD9388] currentContext];
     [MEMORY[0x277CD9388] setCurrentContext:self->_glContext];
-    C3DSceneBumpFrameStamp(renderer);
+    C3DSceneBumpFrameStamp(renderer, v12);
     [(SCNRenderer *)self _update:renderer];
     if (v5)
     {
@@ -5428,12 +5375,12 @@ unint64_t __32__SCNRenderer_setAudioListener___block_invoke(uint64_t a1)
 
     engineContext = self->_engineContext;
     currentSceneTime = self->_currentSceneTime;
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __44__SCNRenderer__drawSceneWithLegacyRenderer___block_invoke;
-    v14[3] = &unk_2782FB608;
-    v14[4] = self;
-    C3DEngineContextRenderScene(engineContext, currentSceneTime, 0, v14);
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __44__SCNRenderer__drawSceneWithLegacyRenderer___block_invoke;
+    v18[3] = &unk_2782FB608;
+    v18[4] = self;
+    C3DEngineContextRenderScene(engineContext, 0, v18, currentSceneTime);
     if (v5)
     {
       C3DEngineContextSetJitteringEnabled(self->_engineContext, 1);
@@ -5442,7 +5389,7 @@ unint64_t __32__SCNRenderer_setAudioListener___block_invoke(uint64_t a1)
       {
         C3DEngineContextSetUpdateMainFramebuffer(self->_engineContext, i == 80);
         C3DEngineContextSetJitteringStep(self->_engineContext, i);
-        C3DEngineContextRenderScene(self->_engineContext, self->_currentSceneTime, 0, 0);
+        C3DEngineContextRenderScene(self->_engineContext, 0, 0, self->_currentSceneTime);
       }
 
       C3DEngineContextSetJitteringEnabled(self->_engineContext, 0);
@@ -5451,7 +5398,7 @@ unint64_t __32__SCNRenderer_setAudioListener___block_invoke(uint64_t a1)
     [MEMORY[0x277CD9388] setCurrentContext:currentContext];
     [(SCNRenderer *)self _computeNextFrameTime];
     [(SCNRenderer *)self set_nextFrameTime:?];
-    C3DSceneUnlock(renderer);
+    C3DSceneUnlock(renderer, v16);
     if ((*(self + 121) & 4) == 0)
     {
       +[SCNTransaction unlock];
@@ -5467,40 +5414,40 @@ unint64_t __32__SCNRenderer_setAudioListener___block_invoke(uint64_t a1)
 {
   if (![(SCNRenderer *)self _needsRepetitiveRedraw])
   {
-    if (C3DEngineContextGetNextFrameTime(self->_engineContext) == INFINITY)
+    if (C3DEngineContextGetNextFrameTime(self->_engineContext, v3) == INFINITY)
     {
-      Scene = C3DEngineContextGetScene(self->_engineContext);
+      Scene = C3DEngineContextGetScene(self->_engineContext, v5);
       if (!Scene)
       {
         return Scene;
       }
 
-      v4 = Scene;
-      PointOfView = C3DEngineContextGetPointOfView(self->_engineContext);
+      v7 = Scene;
+      PointOfView = C3DEngineContextGetPointOfView(self->_engineContext, v6);
       if (PointOfView)
       {
-        Camera = C3DNodeGetCamera(PointOfView);
+        Camera = C3DNodeGetCamera(PointOfView, v9);
         if (Camera)
         {
-          v7 = Camera;
-          if (C3DCameraGetWantsHDR(Camera) && (C3DCameraGetWantsExposureAdaptation(v7) & 1) != 0)
+          v12 = Camera;
+          if (C3DCameraGetWantsHDR(Camera, v11) && (C3DCameraGetWantsExposureAdaptation(v12, v13) & 1) != 0)
           {
-            ExposureAdaptationDarkeningSpeedFactor = C3DCameraGetExposureAdaptationDarkeningSpeedFactor(v7);
-            ExposureAdaptationBrighteningSpeedFactor = C3DCameraGetExposureAdaptationBrighteningSpeedFactor(v7);
+            ExposureAdaptationDarkeningSpeedFactor = C3DCameraGetExposureAdaptationDarkeningSpeedFactor(v12, v13);
+            ExposureAdaptationBrighteningSpeedFactor = C3DCameraGetExposureAdaptationBrighteningSpeedFactor(v12, v15);
             if (ExposureAdaptationDarkeningSpeedFactor < ExposureAdaptationBrighteningSpeedFactor)
             {
               ExposureAdaptationBrighteningSpeedFactor = ExposureAdaptationDarkeningSpeedFactor;
             }
 
-            v10 = ExposureAdaptationBrighteningSpeedFactor;
-            v11 = ExposureAdaptationBrighteningSpeedFactor + 1.0;
-            if (v10 <= 0.01)
+            v17 = ExposureAdaptationBrighteningSpeedFactor;
+            v18 = ExposureAdaptationBrighteningSpeedFactor + 1.0;
+            if (v17 <= 0.01)
             {
-              v11 = 1.01;
+              v18 = 1.01;
             }
 
-            v12 = (5.0 / logf(v11) * 60.0);
-            if (!v12)
+            v20 = (5.0 / logf(v18) * 60.0);
+            if (!v20)
             {
               goto LABEL_24;
             }
@@ -5508,33 +5455,33 @@ unint64_t __32__SCNRenderer_setAudioListener___block_invoke(uint64_t a1)
 
           else
           {
-            if (C3DCameraGetMotionBlurIntensity(v7) == 0.0)
+            if (C3DCameraGetMotionBlurIntensity(v12, v13) == 0.0)
             {
               goto LABEL_24;
             }
 
-            v12 = 2;
+            v20 = 2;
           }
 
-          FXContext = C3DEngineContextGetFXContext(self->_engineContext);
+          FXContext = C3DEngineContextGetFXContext(self->_engineContext, v19);
           if (FXContext)
           {
-            v14 = *(FXContext + 116);
+            v23 = *(FXContext + 116);
           }
 
           else
           {
-            v14 = 0;
+            v23 = 0;
           }
 
-          if (self->_adaptativeTechniqueTimeStamp != v14 || (adaptativeState0 = self->_adaptativeState0, adaptativeState0 != C3DSceneGetStateStamp(v4)))
+          if (self->_adaptativeTechniqueTimeStamp != v23 || (adaptativeState0 = self->_adaptativeState0, adaptativeState0 != C3DSceneGetStateStamp(v7, v22)))
           {
-            self->_adaptativeState0 = C3DSceneGetStateStamp(v4);
-            self->_adaptativeEndFrame = C3DSceneGetFrameStamp(v4) + v12;
-            self->_adaptativeTechniqueTimeStamp = v14;
+            self->_adaptativeState0 = C3DSceneGetStateStamp(v7, v22);
+            self->_adaptativeEndFrame = C3DSceneGetFrameStamp(v7, v25) + v20;
+            self->_adaptativeTechniqueTimeStamp = v23;
           }
 
-          if (C3DSceneGetFrameStamp(v4) < self->_adaptativeEndFrame)
+          if (C3DSceneGetFrameStamp(v7, v22) < self->_adaptativeEndFrame)
           {
             goto LABEL_2;
           }
@@ -5554,7 +5501,7 @@ LABEL_2:
 
 - (double)_computeNextFrameTime
 {
-  NextFrameTime = C3DEngineContextGetNextFrameTime(self->_engineContext);
+  NextFrameTime = C3DEngineContextGetNextFrameTime(self->_engineContext, a2);
   if ([(SCNRenderer *)self _needsRedrawAsap])
   {
     v4 = CACurrentMediaTime();
@@ -5653,37 +5600,39 @@ LABEL_8:
 
   else if (self->_renderingAPI)
   {
-    if ([MEMORY[0x277CD9388] currentContext] != self->_glContext)
+    currentContext = [MEMORY[0x277CD9388] currentContext];
+    if (currentContext != self->_glContext)
     {
-      v5 = scn_default_log();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+      v7 = scn_default_log(currentContext, v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
       {
-        [(SCNRenderer *)v5 _deleteGLFramebuffer:v6];
+        [(SCNRenderer *)v7 _deleteGLFramebuffer:v8];
       }
     }
 
-    if (glGetError())
+    Error = glGetError();
+    if (Error)
     {
-      v13 = scn_default_log();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v17 = scn_default_log(Error, v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         [SCNRenderer _drawAtTime:];
       }
     }
 
-    C3DEngineContextGetRendererContextGL(self->_engineContext);
-    *v14.i64 = C3DRendererContextGetViewport();
-    v50 = v14;
-    C3DEngineContextSetDrawableSize(self->_engineContext, *vextq_s8(v14, v14, 8uLL).i64);
-    [(SCNRenderer *)self adjustViewportForRendering:*v50.i64];
-    C3DEngineContextSetViewport(v15, self->_engineContext);
+    C3DEngineContextGetRendererContextGL(self->_engineContext, v16);
+    *v18.i64 = C3DRendererContextGetViewport();
+    v56 = v18;
+    C3DEngineContextSetDrawableSize(self->_engineContext, *vextq_s8(v18, v18, 8uLL).i64);
+    [(SCNRenderer *)self adjustViewportForRendering:*v56.i64];
+    time = C3DEngineContextSetViewport(self->_engineContext, v19, v20);
   }
 
   [(SCNRenderer *)self lock:time];
   engineContext = self->_engineContext;
   if (engineContext)
   {
-    Scene = C3DEngineContextGetScene(engineContext);
+    Scene = C3DEngineContextGetScene(engineContext, v21);
   }
 
   else
@@ -5694,128 +5643,128 @@ LABEL_8:
   transitionContext = self->_transitionContext;
   if (transitionContext)
   {
-    v19 = transitionContext->_renderers[0];
+    v25 = transitionContext->_renderers[0];
     [(SCNRenderer *)self _systemTime];
-    v21 = v20;
+    v27 = v26;
     _prepareSKRenderer = [(SCNRenderer *)self _prepareSKRenderer];
     [(SKTransition *)[(SCNRendererTransitionContext *)self->_transitionContext transition] _duration];
-    v24 = 1.0;
-    if (v23 == 0.0)
+    v30 = 1.0;
+    if (v29 == 0.0)
     {
-      v25 = 1.0;
+      v31 = 1.0;
     }
 
     else
     {
-      v25 = v23;
+      v31 = v29;
     }
 
     [(SCNRendererTransitionContext *)self->_transitionContext transitionStartTime];
-    v27 = (v21 - v26) / v25;
-    if (v27 <= 1.0)
+    v33 = (v27 - v32) / v31;
+    if (v33 <= 1.0)
     {
-      v24 = v27;
+      v30 = v33;
     }
 
-    v52 = 0;
-    v51 = 0;
-    [_prepareSKRenderer settingsForTransition:-[SCNRendererTransitionContext transition](self->_transitionContext atTime:"transition") renderIncomingToTexture:&v52 + 1 renderOutgoingToTexture:&v52 renderIncomingToScreen:&v51 + 1 renderOutgoingToScreen:{&v51, v24}];
-    v28 = *self->_anon_58;
-    v29 = HIDWORD(*self->_anon_58);
-    if (v52 == 1)
+    v58 = 0;
+    v57 = 0;
+    [_prepareSKRenderer settingsForTransition:-[SCNRendererTransitionContext transition](self->_transitionContext atTime:"transition") renderIncomingToTexture:&v58 + 1 renderOutgoingToTexture:&v58 renderIncomingToScreen:&v57 + 1 renderOutgoingToScreen:{&v57, v30}];
+    v34 = *self->_anon_58;
+    v35 = HIDWORD(*self->_anon_58);
+    if (v58 == 1)
     {
-      v30 = [(SCNRendererTransitionContext *)self->_transitionContext prepareRendererAtIndex:0 withScene:[(SCNRendererTransitionContext *)self->_transitionContext outgoingScene] renderSize:[(SCNRendererTransitionContext *)self->_transitionContext outgoingPointOfView] pointOfView:self parentRenderer:v28, v29];
+      v36 = [(SCNRendererTransitionContext *)self->_transitionContext prepareRendererAtIndex:0 withScene:[(SCNRendererTransitionContext *)self->_transitionContext outgoingScene] renderSize:[(SCNRendererTransitionContext *)self->_transitionContext outgoingPointOfView] pointOfView:self parentRenderer:v34, v35];
       [(SCNRenderer *)self _viewport];
-      [v30 set_viewport:?];
-      if (!v19 || ([objc_msgSend(v30 "scene")] & 1) == 0)
+      [v36 set_viewport:?];
+      if (!v25 || ([objc_msgSend(v36 "scene")] & 1) == 0)
       {
-        [v30 renderAtTime:v21];
+        [v36 renderAtTime:v27];
       }
     }
 
     else
     {
-      v30 = 0;
+      v36 = 0;
     }
 
-    if (HIBYTE(v52) == 1)
+    if (HIBYTE(v58) == 1)
     {
-      if (v52)
+      if (v58)
       {
-        v31 = v30;
+        v37 = v36;
       }
 
       else
       {
-        v31 = 0;
+        v37 = 0;
       }
 
-      v30 = [(SCNRendererTransitionContext *)self->_transitionContext prepareRendererAtIndex:1 withScene:self->_scene renderSize:self->_pointOfView pointOfView:self parentRenderer:v28, v29];
+      v36 = [(SCNRendererTransitionContext *)self->_transitionContext prepareRendererAtIndex:1 withScene:self->_scene renderSize:self->_pointOfView pointOfView:self parentRenderer:v34, v35];
       [(SCNRenderer *)self _viewport];
-      [v30 set_viewport:?];
-      if (!v19 || ([objc_msgSend(v30 "scene")] & 1) == 0)
+      [v36 set_viewport:?];
+      if (!v25 || ([objc_msgSend(v36 "scene")] & 1) == 0)
       {
-        [v30 renderAtTime:v21];
+        [v36 renderAtTime:v27];
       }
     }
 
     else
     {
-      v31 = 0;
+      v37 = 0;
     }
 
-    if (HIBYTE(v51) == 1)
+    if (HIBYTE(v57) == 1)
     {
       [(SCNRenderer *)self _drawScene:Scene];
     }
 
-    if (v51 == 1)
+    if (v57 == 1)
     {
-      [-[SCNRendererTransitionContext prepareRendererAtIndex:withScene:renderSize:pointOfView:parentRenderer:](self->_transitionContext prepareRendererAtIndex:0 withScene:-[SCNRendererTransitionContext outgoingScene](self->_transitionContext renderSize:"outgoingScene") pointOfView:-[SCNRendererTransitionContext outgoingPointOfView](self->_transitionContext parentRenderer:{"outgoingPointOfView"), self, v28, v29), "_drawAtTime:", v21}];
+      [-[SCNRendererTransitionContext prepareRendererAtIndex:withScene:renderSize:pointOfView:parentRenderer:](self->_transitionContext prepareRendererAtIndex:0 withScene:-[SCNRendererTransitionContext outgoingScene](self->_transitionContext renderSize:"outgoingScene") pointOfView:-[SCNRendererTransitionContext outgoingPointOfView](self->_transitionContext parentRenderer:{"outgoingPointOfView"), self, v34, v35), "_drawAtTime:", v27}];
     }
 
     if (self->_renderingAPI)
     {
       transition = [(SCNRendererTransitionContext *)self->_transitionContext transition];
-      textureID = [v30 textureID];
-      textureID2 = [v31 textureID];
-      *&v35 = v24;
-      [_prepareSKRenderer renderTransition:transition withInputTexture:textureID outputTexture:textureID2 inputTextureSize:v28 outputTextureSize:v29 time:{v28, v29, v35}];
+      textureID = [v36 textureID];
+      textureID2 = [v37 textureID];
+      *&v41 = v30;
+      [_prepareSKRenderer renderTransition:transition withInputTexture:textureID outputTexture:textureID2 inputTextureSize:v34 outputTextureSize:v35 time:{v34, v35, v41}];
     }
 
     else
     {
-      mTLTexture = [v30 MTLTexture];
-      mTLTexture2 = [v31 MTLTexture];
+      mTLTexture = [v36 MTLTexture];
+      mTLTexture2 = [v37 MTLTexture];
       renderContext = self->_renderContext;
-      v39 = HIBYTE(v51) | v51;
+      v45 = HIBYTE(v57) | v57;
       RenderGraph = C3DEngineContextGetRenderGraph(self->_engineContext);
-      C3DRenderGraphSpriteKitTransitionBegin(RenderGraph, (v39 & 1) == 0);
+      C3DRenderGraphSpriteKitTransitionBegin(RenderGraph, ((v45 & 1) == 0));
       transition2 = [(SCNRendererTransitionContext *)self->_transitionContext transition];
       currentRenderCommandEncoder = [(SCNMTLRenderContext *)renderContext currentRenderCommandEncoder];
       currentRenderPassDescriptor = [(SCNMTLRenderContext *)renderContext currentRenderPassDescriptor];
       commandQueue = [(SCNMTLRenderContext *)renderContext commandQueue];
-      v42 = v24;
-      *&v46 = v42;
-      [_prepareSKRenderer renderTransition:transition2 withInputTexture:mTLTexture outputTexture:mTLTexture2 time:currentRenderCommandEncoder encoder:currentRenderPassDescriptor pass:commandQueue commandQueue:v46];
-      v47 = C3DEngineContextGetRenderGraph(self->_engineContext);
-      C3DRenderGraphSpriteKitTransitionEnd(v47);
+      v48 = v30;
+      *&v52 = v48;
+      [_prepareSKRenderer renderTransition:transition2 withInputTexture:mTLTexture outputTexture:mTLTexture2 time:currentRenderCommandEncoder encoder:currentRenderPassDescriptor pass:commandQueue commandQueue:v52];
+      v53 = C3DEngineContextGetRenderGraph(self->_engineContext);
+      C3DRenderGraphSpriteKitTransitionEnd(v53);
     }
 
     [(SCNRenderer *)self set_nextFrameTime:CACurrentMediaTime()];
-    if (v24 == 1.0)
+    if (v30 == 1.0)
     {
       if ([(SKTransition *)[(SCNRendererTransitionContext *)self->_transitionContext transition] pausesIncomingScene])
       {
         [(SCNScene *)self->_scene setPaused:0];
       }
 
-      v48 = self->_transitionContext;
-      completionHandler = v48->completionHandler;
+      v54 = self->_transitionContext;
+      completionHandler = v54->completionHandler;
       if (completionHandler)
       {
         completionHandler[2]();
-        v48 = self->_transitionContext;
+        v54 = self->_transitionContext;
       }
 
       self->_transitionContext = 0;
@@ -5880,44 +5829,45 @@ LABEL_8:
 {
   y = viewport.origin.y;
   width = viewport.size.width;
-  v36 = *&viewport.size.height;
+  v43 = *&viewport.size.height;
   x = viewport.origin.x;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v14 = scn_default_log();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+    v16 = scn_default_log(isKindOfClass, v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
     {
-      [(SCNRenderer *)v14 _renderAtTime:v15 viewport:v16 encoder:v17 passDescriptor:v18 commandQueue:v19 commandBuffer:v20, v21];
+      [(SCNRenderer *)v16 _renderAtTime:v17 viewport:v18 encoder:v19 passDescriptor:v20 commandQueue:v21 commandBuffer:v22, v23];
     }
   }
 
   colorAttachments = [objc_msgSend(objc_msgSend(objc_msgSend(descriptor colorAttachments];
   if (colorAttachments == 2)
   {
-    v23 = 1;
+    v25 = 1;
   }
 
   else
   {
-    v23 = 2 * (colorAttachments == 4);
+    v25 = 2 * (colorAttachments == 4);
   }
 
-  [(SCNRenderer *)self set_antialiasingMode:v23];
+  [(SCNRenderer *)self set_antialiasingMode:v25];
   [(SCNMTLRenderContext *)self->_renderContext setClientRenderPassDescriptor:descriptor];
-  v24 = [objc_msgSend(descriptor "depthAttachment")];
+  v26 = [objc_msgSend(descriptor "depthAttachment")];
   if (encoder)
   {
-    if (v24)
+    if (v26)
     {
       if ([(SCNMTLRenderContext *)self->_renderContext reverseZ])
       {
-        [objc_msgSend(descriptor "depthAttachment")];
-        if (v25 == 1.0 && (_renderAtTime_viewport_encoder_passDescriptor_commandQueue_commandBuffer__done & 1) == 0)
+        v27 = [objc_msgSend(descriptor "depthAttachment")];
+        if (v29 == 1.0 && (_renderAtTime_viewport_encoder_passDescriptor_commandQueue_commandBuffer__done & 1) == 0)
         {
           _renderAtTime_viewport_encoder_passDescriptor_commandQueue_commandBuffer__done = 1;
-          v26 = scn_default_log();
-          if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+          v30 = scn_default_log(v27, v28);
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
           {
             [SCNRenderer _renderAtTime:viewport:encoder:passDescriptor:commandQueue:commandBuffer:];
           }
@@ -5929,48 +5879,47 @@ LABEL_8:
   [(SCNMTLRenderContext *)self->_renderContext setClientCommandQueue:queue];
   [(SCNMTLRenderContext *)self->_renderContext setClientRenderCommandEncoder:encoder];
   [(SCNMTLRenderContext *)self->_renderContext setClientCommandBuffer:buffer];
-  v27.f64[0] = width;
-  v28.f64[0] = x;
-  v27.f64[1] = v37;
-  *self->_anon_58 = vmovn_s64(vcvtq_u64_f64(vrndpq_f64(v27)));
-  v28.f64[1] = y;
-  self->__viewport = vcvt_hight_f32_f64(vcvt_f32_f64(v28), v27);
+  v31.f64[0] = width;
+  v32.f64[0] = x;
+  v31.f64[1] = v44;
+  *self->_anon_58 = vmovn_s64(vcvtq_u64_f64(vrndpq_f64(v31)));
+  v32.f64[1] = y;
+  self->__viewport = vcvt_hight_f32_f64(vcvt_f32_f64(v32), v31);
   [(SCNRenderer *)self adjustViewportForRendering:?];
-  v41 = v29;
-  C3DEngineContextSetViewport(v29, self->_engineContext);
-  v30 = [objc_msgSend(objc_msgSend(descriptor "colorAttachments")];
-  if (!v30)
+  v48 = v33;
+  colorAttachments2 = [objc_msgSend(objc_msgSend(descriptor colorAttachments];
+  if (!colorAttachments2)
   {
-    v30 = [objc_msgSend(objc_msgSend(descriptor "colorAttachments")];
+    colorAttachments2 = [objc_msgSend(objc_msgSend(descriptor "colorAttachments")];
   }
 
   engineContext = self->_engineContext;
   if (descriptor)
   {
-    width = [v30 width];
-    height = [v30 height];
-    *&v33 = width;
-    *(&v33 + 1) = height;
-    v34 = v33;
+    width = [colorAttachments2 width];
+    height = [colorAttachments2 height];
+    *&v38 = width;
+    *(&v38 + 1) = height;
+    v39 = v38;
   }
 
   else
   {
-    *&v34 = vextq_s8(v41, v41, 8uLL).u64[0];
+    *&v39 = vextq_s8(v48, v48, 8uLL).u64[0];
   }
 
-  C3DEngineContextSetDrawableSize(engineContext, v34);
-  if (v30)
+  v40 = C3DEngineContextSetDrawableSize(engineContext, v39);
+  if (colorAttachments2)
   {
-    [(SCNMTLRenderContext *)self->_renderContext beginFrame:v30];
+    [(SCNMTLRenderContext *)self->_renderContext beginFrame:colorAttachments2];
     [(SCNRenderer *)self _renderAtTime:time];
     [(SCNMTLRenderContext *)self->_renderContext endFrameWaitingUntilCompleted:0 status:0 error:?];
   }
 
   else
   {
-    v35 = scn_default_log();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+    v42 = scn_default_log(v40, v41);
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
     {
       [SCNRenderer _renderAtTime:viewport:encoder:passDescriptor:commandQueue:commandBuffer:];
     }
@@ -5989,7 +5938,7 @@ LABEL_8:
     v6 = [points objectAtIndexedSubscript:0];
     if (v6)
     {
-      [v6 viewport];
+      objc_msgSend_viewport(v6);
     }
 
     else
@@ -6016,7 +5965,7 @@ LABEL_8:
     v7 = [viewpoints objectAtIndexedSubscript:0];
     if (v7)
     {
-      [v7 viewport];
+      objc_msgSend_viewport(v7);
     }
 
     else
@@ -6043,7 +5992,7 @@ LABEL_8:
     v12 = [points objectAtIndexedSubscript:0];
     if (v12)
     {
-      [v12 viewport];
+      objc_msgSend_viewport(v12);
     }
 
     else
@@ -6070,7 +6019,7 @@ LABEL_8:
     v13 = [points objectAtIndexedSubscript:0];
     if (v13)
     {
-      [v13 viewport];
+      objc_msgSend_viewport(v13);
     }
 
     else
@@ -6099,12 +6048,16 @@ LABEL_8:
     [(SCNRenderer *)self _installContext];
     if (self->_glContext)
     {
-      if (self->_renderingAPI && [MEMORY[0x277CD9388] currentContext] != self->_glContext)
+      if (self->_renderingAPI)
       {
-        v3 = scn_default_log();
-        if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+        currentContext = [MEMORY[0x277CD9388] currentContext];
+        if (currentContext != self->_glContext)
         {
-          [(SCNRenderer *)v3 _deleteGLFramebuffer:v4];
+          v5 = scn_default_log(currentContext, v4);
+          if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+          {
+            [(SCNRenderer *)v5 _deleteGLFramebuffer:v6];
+          }
         }
       }
 
@@ -6122,55 +6075,56 @@ LABEL_8:
   {
     [(SCNRenderer *)self _resolveAndDiscardGL];
     [(SCNRenderer *)self _endFrame];
-    RendererContextGL = C3DEngineContextGetRendererContextGL(self->_engineContext);
+    RendererContextGL = C3DEngineContextGetRendererContextGL(self->_engineContext, v7);
     if (RendererContextGL)
     {
-      v8 = RendererContextGL;
-      v9 = *self->_anon_58;
-      v10 = v9;
-      v11 = HIDWORD(v9);
-      v12 = malloc_type_malloc((4 * HIDWORD(v9) * v9), 0x100004077774924uLL);
+      v10 = RendererContextGL;
+      v11 = *self->_anon_58;
+      v12 = v11;
+      v13 = HIDWORD(v11);
+      v14 = malloc_type_malloc((4 * HIDWORD(v11) * v11), 0x100004077774924uLL);
       DeviceRGB = CGColorSpaceCreateDeviceRGB();
-      v14 = CGBitmapContextCreate(v12, v10, v11, 8uLL, (4 * v10), DeviceRGB, 0x4001u);
+      v16 = CGBitmapContextCreate(v14, v12, v13, 8uLL, (4 * v12), DeviceRGB, 0x4001u);
       CGColorSpaceRelease(DeviceRGB);
       if (self->_renderingAPI)
       {
-        if ([MEMORY[0x277CD9388] currentContext] != self->_glContext)
+        currentContext = [MEMORY[0x277CD9388] currentContext];
+        if (currentContext != self->_glContext)
         {
-          v15 = scn_default_log();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+          v19 = scn_default_log(currentContext, v18);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
           {
-            [(SCNRenderer *)v15 _deleteGLFramebuffer:v16];
+            [(SCNRenderer *)v19 _deleteGLFramebuffer:v20];
           }
         }
       }
 
-      C3DRendererContextBindFramebuffer(v8, self->_framebufferInfo.frameBuffer);
-      glReadPixels(0, 0, v10, v11, 0x1908u, 0x1401u, v12);
-      C3DRendererContextUnbindFramebuffer(v8);
-      Image = CGBitmapContextCreateImage(v14);
-      CGContextRelease(v14);
-      free(v12);
-      v24 = CGBitmapContextCreate(0, v10, v11, 8uLL, (4 * v10), DeviceRGB, 0x4001u);
-      CGContextScaleCTM(v24, 1.0, -1.0);
-      CGContextTranslateCTM(v24, 0.0, -v11);
-      v31.size.width = v10;
-      v31.size.height = v11;
-      v31.origin.x = 0.0;
-      v31.origin.y = 0.0;
-      CGContextDrawImage(v24, v31, Image);
+      C3DRendererContextBindFramebuffer(v10, self->_framebufferInfo.frameBuffer);
+      glReadPixels(0, 0, v12, v13, 0x1908u, 0x1401u, v14);
+      C3DRendererContextUnbindFramebuffer(v10, v27);
+      Image = CGBitmapContextCreateImage(v16);
+      CGContextRelease(v16);
+      free(v14);
+      v29 = CGBitmapContextCreate(0, v12, v13, 8uLL, (4 * v12), DeviceRGB, 0x4001u);
+      CGContextScaleCTM(v29, 1.0, -1.0);
+      CGContextTranslateCTM(v29, 0.0, -v13);
+      v38.size.width = v12;
+      v38.size.height = v13;
+      v38.origin.x = 0.0;
+      v38.origin.y = 0.0;
+      CGContextDrawImage(v29, v38, Image);
       CGImageRelease(Image);
-      v25 = CGBitmapContextCreateImage(v24);
-      CGContextRelease(v24);
+      v30 = CGBitmapContextCreateImage(v29);
+      CGContextRelease(v29);
     }
 
     else
     {
-      v26 = scn_default_log();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      v33 = scn_default_log(0, v9);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_21BEF7000, v26, OS_LOG_TYPE_DEFAULT, "Warning: createSnapshot: no GL context", buf, 2u);
+        _os_log_impl(&dword_21BEF7000, v33, OS_LOG_TYPE_DEFAULT, "Warning: createSnapshot: no GL context", buf, 2u);
       }
 
       return 0;
@@ -6179,23 +6133,23 @@ LABEL_8:
 
   else
   {
-    v29 = 0;
+    v36 = 0;
     *buf = 0;
-    [(SCNMTLRenderContext *)self->_renderContext endFrameWaitingUntilCompleted:&v29 status:buf error:?];
-    if (v29 == 4)
+    v31 = [(SCNMTLRenderContext *)self->_renderContext endFrameWaitingUntilCompleted:&v36 status:buf error:?];
+    if (v36 == 4)
     {
       return C3DCreateImageWithTexture([(SCNRenderer *)self MTLTexture]);
     }
 
     else
     {
-      v27 = scn_default_log();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+      v34 = scn_default_log(v31, v32);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
-        [SCNRenderer createSnapshot:buf error:v27];
+        [SCNRenderer createSnapshot:buf error:v34];
       }
 
-      v25 = 0;
+      v30 = 0;
       if (error)
       {
         *error = *buf;
@@ -6203,7 +6157,7 @@ LABEL_8:
     }
   }
 
-  return v25;
+  return v30;
 }
 
 - (id)snapshotAtTime:(double)time
@@ -6222,16 +6176,16 @@ LABEL_8:
   v7 = size.height;
   v8 = 4 * (size.width & 0x3FFFFFFF);
   v9 = malloc_type_malloc(v8 * size.height, 0x100004077774924uLL);
-  v10 = C3DColorSpaceSRGB();
-  v11 = CGBitmapContextCreate(v9, v6, v7, 8uLL, v8, v10, 0x4001u);
-  CGContextSetFillColorWithColor(v11, [-[SCNRenderer backgroundColor](self "backgroundColor")]);
-  v14.size.width = width;
-  v14.size.height = height;
-  v14.origin.x = 0.0;
-  v14.origin.y = 0.0;
-  CGContextFillRect(v11, v14);
-  Image = CGBitmapContextCreateImage(v11);
-  CGContextRelease(v11);
+  v11 = C3DColorSpaceSRGB(v9, v10);
+  v12 = CGBitmapContextCreate(v9, v6, v7, 8uLL, v8, v11, 0x4001u);
+  CGContextSetFillColorWithColor(v12, [-[SCNRenderer backgroundColor](self "backgroundColor")]);
+  v15.size.width = width;
+  v15.size.height = height;
+  v15.origin.x = 0.0;
+  v15.origin.y = 0.0;
+  CGContextFillRect(v12, v15);
+  Image = CGBitmapContextCreateImage(v12);
+  CGContextRelease(v12);
   free(v9);
   return Image;
 }
@@ -6365,7 +6319,7 @@ LABEL_8:
   [(SCNRenderer *)self->_snapshotRenderer setDebugOptions:[(SCNRenderer *)self debugOptions]];
   [(SCNRenderer *)self _superSamplingFactor];
   [(SCNRenderer *)self->_snapshotRenderer set_superSamplingFactor:?];
-  [(SCNRenderer *)self _screenTransform];
+  objc_msgSend__screenTransform(self);
   v11 = self->_snapshotRenderer;
   v17[0] = v17[4];
   v17[1] = v17[5];
@@ -6396,281 +6350,283 @@ LABEL_8:
 
 - (void)updateProbes:(NSArray *)lightProbes atTime:(CFTimeInterval)time
 {
-  v117 = *MEMORY[0x277D85DE8];
+  v127 = *MEMORY[0x277D85DE8];
   if (![(SCNRenderer *)self scene])
   {
-    v7 = scn_default_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v8 = scn_default_log(0, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
-      [(SCNRenderer *)v7 updateProbes:v8 atTime:v9, v10, v11, v12, v13, v14];
+      [(SCNRenderer *)v8 updateProbes:v9 atTime:v10, v11, v12, v13, v14, v15];
     }
   }
 
   device = [(SCNRenderer *)self device];
   commandQueue = [(SCNRenderer *)self commandQueue];
-  v16 = [MEMORY[0x277CD7058] textureCubeDescriptorWithPixelFormat:115 size:1024 mipmapped:0];
-  [v16 setResourceOptions:32];
-  [v16 setUsage:5];
-  v92 = [(MTLDevice *)device newTextureWithDescriptor:v16];
-  v93 = [SCNRenderer rendererWithDevice:device options:0];
-  [(SCNRenderer *)v93 setScene:[(SCNRenderer *)self scene]];
-  v19 = [-[SCNRenderer backgroundColor](self "backgroundColor")];
-  v18 = *(&v19 + 1);
-  v17 = *&v19;
-  v21 = v20;
-  v23 = v22;
+  v17 = [MEMORY[0x277CD7058] textureCubeDescriptorWithPixelFormat:115 size:1024 mipmapped:0];
+  [v17 setResourceOptions:32];
+  [v17 setUsage:5];
+  v102 = [(MTLDevice *)device newTextureWithDescriptor:v17];
+  v103 = [SCNRenderer rendererWithDevice:device options:0];
+  [(SCNRenderer *)v103 setScene:[(SCNRenderer *)self scene]];
+  v20 = [-[SCNRenderer backgroundColor](self "backgroundColor")];
+  v19 = *(&v20 + 1);
+  v18 = *&v20;
+  v22 = v21;
+  v24 = v23;
   sceneRef = [(SCNScene *)[(SCNRenderer *)self scene] sceneRef];
   BackgroundEffectSlot = C3DSceneGetBackgroundEffectSlot(sceneRef, 0);
   if (BackgroundEffectSlot)
   {
-    ColorIfApplicable = C3DEffectSlotGetColorIfApplicable(BackgroundEffectSlot);
+    ColorIfApplicable = C3DEffectSlotGetColorIfApplicable(BackgroundEffectSlot, v26);
     if (ColorIfApplicable)
     {
-      v17 = *ColorIfApplicable;
-      v18 = ColorIfApplicable[1];
-      v21 = ColorIfApplicable[2];
-      v23 = ColorIfApplicable[3];
+      v18 = *ColorIfApplicable;
+      v19 = ColorIfApplicable[1];
+      v22 = ColorIfApplicable[2];
+      v24 = ColorIfApplicable[3];
     }
   }
 
   obj = [(SCNNode *)[(SCNScene *)[(SCNRenderer *)self scene] rootNode] childNodesPassingTest:&__block_literal_global_671];
   if ([MEMORY[0x277CCAC48] currentProgress])
   {
-    v26 = [MEMORY[0x277CCAC48] progressWithTotalUnitCount:{-[NSArray count](lightProbes, "count")}];
+    v28 = [MEMORY[0x277CCAC48] progressWithTotalUnitCount:{-[NSArray count](lightProbes, "count")}];
   }
 
   else
   {
-    v26 = 0;
+    v28 = 0;
   }
 
-  v105 = 0u;
-  v106 = 0u;
-  v103 = 0u;
-  v104 = 0u;
-  v27 = [(NSArray *)lightProbes countByEnumeratingWithState:&v103 objects:v116 count:16];
-  if (v27)
+  v115 = 0u;
+  v116 = 0u;
+  v113 = 0u;
+  v114 = 0u;
+  v29 = [(NSArray *)lightProbes countByEnumeratingWithState:&v113 objects:v126 count:16];
+  if (v29)
   {
-    v28 = v27;
-    v29 = *v104;
-    v30 = v17;
-    v31 = v18;
-    v32 = v21;
-    v33 = v23;
-    v76 = *(MEMORY[0x277D860B8] + 16);
-    v77 = *MEMORY[0x277D860B8];
-    v73 = vnegq_f32(*MEMORY[0x277D860B8]);
-    v74 = *(MEMORY[0x277D860B8] + 48);
-    v75 = *(MEMORY[0x277D860B8] + 32);
-    v71 = vnegq_f32(v76);
-    v72 = vnegq_f32(v75);
+    v30 = v29;
+    v31 = *v114;
+    v32 = v18;
+    v33 = v19;
+    v34 = v22;
+    v35 = v24;
+    v86 = *(MEMORY[0x277D860B8] + 16);
+    v87 = *MEMORY[0x277D860B8];
+    v83 = vnegq_f32(*MEMORY[0x277D860B8]);
+    v84 = *(MEMORY[0x277D860B8] + 48);
+    v85 = *(MEMORY[0x277D860B8] + 32);
+    v81 = vnegq_f32(v86);
+    v82 = vnegq_f32(v85);
     selfCopy = self;
-    v70 = lightProbes;
-    v78 = *v104;
-    v79 = v26;
+    v80 = lightProbes;
+    v88 = *v114;
+    v89 = v28;
     do
     {
-      v34 = 0;
-      v81 = v28;
+      v36 = 0;
+      v91 = v30;
       do
       {
-        if (*v104 != v29)
+        if (*v114 != v31)
         {
           objc_enumerationMutation(lightProbes);
         }
 
-        v35 = *(*(&v103 + 1) + 8 * v34);
-        if ([v35 light] && SCNLightTypeToC3DLightType(objc_msgSend(objc_msgSend(v35, "light"), "type")) == 4)
+        v37 = *(*(&v113 + 1) + 8 * v36);
+        light = [v37 light];
+        if (light && (v40 = [objc_msgSend(v37 "light")], light = SCNLightTypeToC3DLightType(v40, v41), light == 4))
         {
-          v36 = [objc_msgSend(v35 "light")];
-          if (v36 < 2)
+          v42 = [objc_msgSend(v37 "light")];
+          if (v42 < 2)
           {
-            v39 = v36;
-            if ([v26 isCancelled])
+            v46 = v42;
+            if ([v28 isCancelled])
             {
               goto LABEL_44;
             }
 
-            v84 = v34;
+            v94 = v36;
             commandBuffer = [(MTLCommandQueue *)commandQueue commandBuffer];
-            [v26 becomeCurrentWithPendingUnitCount:1];
+            [v28 becomeCurrentWithPendingUnitCount:1];
             renderPassDescriptor = [MEMORY[0x277CD6F50] renderPassDescriptor];
             [objc_msgSend(objc_msgSend(renderPassDescriptor "colorAttachments")];
             [objc_msgSend(objc_msgSend(renderPassDescriptor "colorAttachments")];
-            v41 = v35;
-            v42 = +[SCNNode node];
-            [(SCNNode *)v42 setCamera:+[SCNCamera camera]];
-            [(SCNCamera *)[(SCNNode *)v42 camera] setFieldOfView:90.0];
-            [objc_msgSend(v41 "light")];
-            [(SCNCamera *)[(SCNNode *)v42 camera] setZNear:v43];
-            [objc_msgSend(v41 "light")];
-            [(SCNCamera *)[(SCNNode *)v42 camera] setZFar:v44];
-            [(SCNNode *)v42 setLight:+[SCNLight light]];
-            [(SCNLight *)[(SCNNode *)v42 light] setType:@"probe"];
-            [(SCNRenderer *)v93 setPointOfView:v42];
-            [v41 simdWorldTransform];
-            v89 = v46;
-            v90 = v45;
-            v87 = v48;
-            v88 = v47;
-            isHidden = [v41 isHidden];
-            v86 = v41;
-            [v41 setHidden:1];
-            v115[0] = v75;
-            v115[1] = v76;
-            v115[2] = v73;
-            v115[3] = v74;
-            v115[4] = v72;
-            v115[5] = v76;
-            v115[6] = v77;
-            v115[7] = v74;
-            v115[8] = v77;
-            v115[9] = v75;
-            v115[10] = v71;
-            v115[11] = v74;
-            v115[12] = v77;
-            v115[13] = v72;
-            v115[14] = v76;
-            v115[15] = v74;
-            v115[16] = v77;
-            v115[17] = v76;
-            v115[18] = v75;
-            v115[19] = v74;
-            v115[20] = v73;
-            v115[21] = v76;
-            v115[22] = v72;
-            v115[23] = v74;
-            WantsSSR = C3DSceneGetWantsSSR(sceneRef);
+            v48 = v37;
+            v49 = +[SCNNode node];
+            [(SCNNode *)v49 setCamera:+[SCNCamera camera]];
+            [(SCNCamera *)[(SCNNode *)v49 camera] setFieldOfView:90.0];
+            [objc_msgSend(v48 "light")];
+            [(SCNCamera *)[(SCNNode *)v49 camera] setZNear:v50];
+            [objc_msgSend(v48 "light")];
+            [(SCNCamera *)[(SCNNode *)v49 camera] setZFar:v51];
+            [(SCNNode *)v49 setLight:+[SCNLight light]];
+            [(SCNLight *)[(SCNNode *)v49 light] setType:@"probe"];
+            [(SCNRenderer *)v103 setPointOfView:v49];
+            [v48 simdWorldTransform];
+            v99 = v53;
+            v100 = v52;
+            v97 = v55;
+            v98 = v54;
+            isHidden = [v48 isHidden];
+            v96 = v48;
+            [v48 setHidden:1];
+            v125[0] = v85;
+            v125[1] = v86;
+            v125[2] = v83;
+            v125[3] = v84;
+            v125[4] = v82;
+            v125[5] = v86;
+            v125[6] = v87;
+            v125[7] = v84;
+            v125[8] = v87;
+            v125[9] = v85;
+            v125[10] = v81;
+            v125[11] = v84;
+            v125[12] = v87;
+            v125[13] = v82;
+            v125[14] = v86;
+            v125[15] = v84;
+            v125[16] = v87;
+            v125[17] = v86;
+            v125[18] = v85;
+            v125[19] = v84;
+            v125[20] = v83;
+            v125[21] = v86;
+            v125[22] = v82;
+            v125[23] = v84;
+            WantsSSR = C3DSceneGetWantsSSR(sceneRef, v56);
             C3DSceneSetWantsSSR(sceneRef, 0);
             for (i = 0; i != 6; ++i)
             {
-              v51 = [v92 newTextureViewWithPixelFormat:objc_msgSend(v92 textureType:"pixelFormat") levels:2 slices:0, objc_msgSend(v92, "mipmapLevelCount"), i, 1];
+              v59 = [v102 newTextureViewWithPixelFormat:objc_msgSend(v102 textureType:"pixelFormat") levels:2 slices:0, objc_msgSend(v102, "mipmapLevelCount"), i, 1];
               [objc_msgSend(objc_msgSend(renderPassDescriptor "colorAttachments")];
-              v52 = 0;
-              v53 = &v115[4 * i];
-              v54 = v53[1];
-              v55 = v53[2];
-              v56 = v53[3];
-              v107[0] = *v53;
-              v107[1] = v54;
-              v107[2] = v55;
-              v107[3] = v56;
-              v108 = 0u;
-              v109 = 0u;
-              v110 = 0u;
-              v111 = 0u;
+              v60 = 0;
+              v61 = &v125[4 * i];
+              v62 = v61[1];
+              v63 = v61[2];
+              v64 = v61[3];
+              v117[0] = *v61;
+              v117[1] = v62;
+              v117[2] = v63;
+              v117[3] = v64;
+              v118 = 0u;
+              v119 = 0u;
+              v120 = 0u;
+              v121 = 0u;
               do
               {
-                *(&v108 + v52 * 16) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v90, COERCE_FLOAT(v107[v52])), v89, *&v107[v52], 1), v88, v107[v52], 2), v87, v107[v52], 3);
-                ++v52;
+                *(&v118 + v60 * 16) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v100, COERCE_FLOAT(v117[v60])), v99, *&v117[v60], 1), v98, v117[v60], 2), v97, v117[v60], 3);
+                ++v60;
               }
 
-              while (v52 != 4);
-              [(SCNNode *)v42 setSimdTransform:*&v108, *&v109, *&v110, *&v111];
+              while (v60 != 4);
+              [(SCNNode *)v49 setSimdTransform:*&v118, *&v119, *&v120, *&v121];
               +[SCNTransaction flush];
-              -[SCNRenderer renderAtTime:viewport:commandBuffer:passDescriptor:](v93, "renderAtTime:viewport:commandBuffer:passDescriptor:", 0, renderPassDescriptor, time, 0.0, 0.0, [v51 width], objc_msgSend(v51, "height"));
+              -[SCNRenderer renderAtTime:viewport:commandBuffer:passDescriptor:](v103, "renderAtTime:viewport:commandBuffer:passDescriptor:", 0, renderPassDescriptor, time, 0.0, 0.0, [v59 width], objc_msgSend(v59, "height"));
             }
 
-            [v86 setHidden:isHidden];
+            [v96 setHidden:isHidden];
             C3DSceneSetWantsSSR(sceneRef, WantsSSR);
-            resourceManager = [(SCNMTLRenderContext *)[(SCNRenderer *)v93 _renderContextMetal] resourceManager];
-            if (v39)
+            resourceManager = [(SCNMTLRenderContext *)[(SCNRenderer *)v103 _renderContextMetal] resourceManager];
+            if (v46)
             {
-              v58 = [resourceManager newRadianceTextureForEnvironmentTexture:v92 engineContext:selfCopy->_engineContext cpuAccessible:1 commandBuffer:commandBuffer];
+              v66 = [resourceManager newRadianceTextureForEnvironmentTexture:v102 engineContext:selfCopy->_engineContext cpuAccessible:1 commandBuffer:commandBuffer];
               [commandBuffer commit];
               [commandBuffer waitUntilCompleted];
-              [objc_msgSend(objc_msgSend(v86 "light")];
+              [objc_msgSend(objc_msgSend(v96 "light")];
 
-              v29 = v78;
-              v26 = v79;
-              v28 = v81;
-              v34 = v84;
+              v31 = v88;
+              v28 = v89;
+              v30 = v91;
+              v36 = v94;
             }
 
             else
             {
-              v59 = [resourceManager sphericalHarmonicsForEnvironmentTexture:v92 order:3 commandBuffer:commandBuffer];
+              v67 = [resourceManager sphericalHarmonicsForEnvironmentTexture:v102 order:3 commandBuffer:commandBuffer];
               [commandBuffer commit];
               [commandBuffer waitUntilCompleted];
-              nodeRef = [v86 nodeRef];
-              v61 = [objc_msgSend(v86 "light")];
-              v91 = v59;
-              contents = [v59 contents];
-              v95 = 0u;
-              v96 = 0u;
-              v97 = 0u;
-              v98 = 0u;
-              v63 = [(NSArray *)obj countByEnumeratingWithState:&v95 objects:v114 count:16];
-              if (v63)
+              nodeRef = [v96 nodeRef];
+              v69 = [objc_msgSend(v96 "light")];
+              v101 = v67;
+              contents = [v67 contents];
+              v105 = 0u;
+              v106 = 0u;
+              v107 = 0u;
+              v108 = 0u;
+              v71 = [(NSArray *)obj countByEnumeratingWithState:&v105 objects:v124 count:16];
+              if (v71)
               {
-                v64 = v63;
-                v65 = *v96;
+                v72 = v71;
+                v73 = *v106;
                 do
                 {
-                  for (j = 0; j != v64; ++j)
+                  for (j = 0; j != v72; ++j)
                   {
-                    if (*v96 != v65)
+                    if (*v106 != v73)
                     {
                       objc_enumerationMutation(obj);
                     }
 
-                    C3DLightAddLightSHContribution(v61, nodeRef, [objc_msgSend(*(*(&v95 + 1) + 8 * j) "light")], objc_msgSend(*(*(&v95 + 1) + 8 * j), "nodeRef"), 3u, contents);
+                    C3DLightAddLightSHContribution(v69, nodeRef, [objc_msgSend(*(*(&v105 + 1) + 8 * j) "light")], objc_msgSend(*(*(&v105 + 1) + 8 * j), "nodeRef"), 3u, contents);
                   }
 
-                  v64 = [(NSArray *)obj countByEnumeratingWithState:&v95 objects:v114 count:16];
+                  v72 = [(NSArray *)obj countByEnumeratingWithState:&v105 objects:v124 count:16];
                 }
 
-                while (v64);
+                while (v72);
               }
 
-              v26 = v79;
-              v28 = v81;
-              v34 = v84;
-              if ([v91 length] != 108)
+              v75 = [v101 length];
+              v28 = v89;
+              v30 = v91;
+              v36 = v94;
+              if (v75 != 108)
               {
-                v67 = scn_default_log();
-                if (os_log_type_enabled(v67, OS_LOG_TYPE_FAULT))
+                v77 = scn_default_log(v75, v76);
+                if (os_log_type_enabled(v77, OS_LOG_TYPE_FAULT))
                 {
-                  [(SCNRenderer *)buf updateProbes:v67 atTime:?];
+                  [(SCNRenderer *)buf updateProbes:v77 atTime:?];
                 }
               }
 
-              [objc_msgSend(v86 "light")];
-              lightProbes = v70;
-              v29 = v78;
+              [objc_msgSend(v96 "light")];
+              lightProbes = v80;
+              v31 = v88;
             }
 
-            [v26 resignCurrent];
+            [v28 resignCurrent];
           }
 
           else
           {
-            v37 = scn_default_log();
-            if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+            v44 = scn_default_log(v42, v43);
+            if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
             {
-              [SCNRenderer updateProbes:v100 atTime:?];
+              [SCNRenderer updateProbes:v110 atTime:?];
             }
           }
         }
 
         else
         {
-          v38 = scn_default_log();
-          if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+          v45 = scn_default_log(light, v39);
+          if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
           {
-            [SCNRenderer updateProbes:v102 atTime:?];
+            [SCNRenderer updateProbes:v112 atTime:?];
           }
         }
 
-        ++v34;
+        ++v36;
       }
 
-      while (v34 != v28);
-      v68 = [(NSArray *)lightProbes countByEnumeratingWithState:&v103 objects:v116 count:16];
-      v28 = v68;
+      while (v36 != v30);
+      v78 = [(NSArray *)lightProbes countByEnumeratingWithState:&v113 objects:v126 count:16];
+      v30 = v78;
     }
 
-    while (v68);
+    while (v78);
   }
 
 LABEL_44:
@@ -6681,7 +6637,8 @@ uint64_t __35__SCNRenderer_updateProbes_atTime___block_invoke(uint64_t a1, void 
   result = [a2 light];
   if (result)
   {
-    if (C3DNodeIsHiddenOrIsHiddenByAncestor([a2 nodeRef]))
+    v4 = [a2 nodeRef];
+    if (C3DNodeIsHiddenOrIsHiddenByAncestor(v4, v5))
     {
       return 0;
     }
@@ -6691,16 +6648,16 @@ uint64_t __35__SCNRenderer_updateProbes_atTime___block_invoke(uint64_t a1, void 
       result = [objc_msgSend(a2 "light")];
       if (result)
       {
-        if ([objc_msgSend(objc_msgSend(a2 "light")] & 1) != 0 || (objc_msgSend(objc_msgSend(objc_msgSend(a2, "light"), "type"), "isEqualToString:", @"omni"))
+        if (objc_msgSend_isEqualToString_([objc_msgSend(a2 "light")]) & 1) != 0 || (objc_msgSend_isEqualToString_(objc_msgSend(objc_msgSend(a2, "light"), "type")))
         {
           return 1;
         }
 
         else
         {
-          v4 = [objc_msgSend(a2 "light")];
+          v6 = [objc_msgSend(a2 "light")];
 
-          return [v4 isEqualToString:@"spot"];
+          return objc_msgSend_isEqualToString_(v6);
         }
       }
     }
@@ -6726,7 +6683,7 @@ uint64_t __35__SCNRenderer_updateProbes_atTime___block_invoke(uint64_t a1, void 
   dispatch_sync(renderingQueue, v13);
 }
 
-uint64_t __70__SCNRenderer__jitterAtStep_updateMainFramebuffer_redisplay_jitterer___block_invoke(uint64_t a1)
+void *__70__SCNRenderer__jitterAtStep_updateMainFramebuffer_redisplay_jitterer___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) _engineContext];
   result = [*(a1 + 40) isAborting];
@@ -6776,7 +6733,7 @@ uint64_t __70__SCNRenderer__jitterAtStep_updateMainFramebuffer_redisplay_jittere
 {
   if (self->_renderingAPI)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       [SCNRenderer _addGPUFrameScheduledHandler:];
@@ -6795,7 +6752,7 @@ uint64_t __70__SCNRenderer__jitterAtStep_updateMainFramebuffer_redisplay_jittere
 {
   if (self->_renderingAPI)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       [SCNRenderer _addGPUFrameCompletedHandler:];
@@ -6814,7 +6771,7 @@ uint64_t __70__SCNRenderer__jitterAtStep_updateMainFramebuffer_redisplay_jittere
 {
   if (self->_renderingAPI)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       [SCNRenderer _addGPUFramePresentedHandler:];
@@ -6836,7 +6793,7 @@ uint64_t __70__SCNRenderer__jitterAtStep_updateMainFramebuffer_redisplay_jittere
 
   else
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNRenderer _addGPUFramePresentedHandler:];
@@ -6850,7 +6807,7 @@ uint64_t __70__SCNRenderer__jitterAtStep_updateMainFramebuffer_redisplay_jittere
 {
   if (self->_renderingAPI)
   {
-    v2 = scn_default_log();
+    v2 = scn_default_log(self, a2);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       [SCNRenderer _discardPendingGPUFrameScheduledHandlers];
@@ -6867,7 +6824,7 @@ uint64_t __70__SCNRenderer__jitterAtStep_updateMainFramebuffer_redisplay_jittere
 {
   if (self->_renderingAPI)
   {
-    v2 = scn_default_log();
+    v2 = scn_default_log(self, a2);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       [SCNRenderer _discardPendingGPUFrameCompletedHandlers];
@@ -6884,7 +6841,7 @@ uint64_t __70__SCNRenderer__jitterAtStep_updateMainFramebuffer_redisplay_jittere
 {
   if (self->_renderingAPI)
   {
-    v2 = scn_default_log();
+    v2 = scn_default_log(self, a2);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       [SCNRenderer _discardPendingGPUFramePresentedHandlers];
@@ -6903,7 +6860,7 @@ uint64_t __70__SCNRenderer__jitterAtStep_updateMainFramebuffer_redisplay_jittere
 
   else
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       [SCNRenderer _discardPendingGPUFramePresentedHandlers];
@@ -6917,7 +6874,7 @@ uint64_t __70__SCNRenderer__jitterAtStep_updateMainFramebuffer_redisplay_jittere
 {
   if (self->_renderingAPI)
   {
-    v2 = scn_default_log();
+    v2 = scn_default_log(self, a2);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       [SCNRenderer _allowGPUBackgroundExecution];
@@ -6976,6 +6933,20 @@ uint64_t __70__SCNRenderer__jitterAtStep_updateMainFramebuffer_redisplay_jittere
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
+- (void)_initWithOptions:(uint64_t)a3 isPrivateRenderer:(uint64_t)a4 privateRendererOwner:(uint64_t)a5 clearsOnDraw:(uint64_t)a6 context:(uint64_t)a7 renderingAPI:(uint64_t)a8 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[privateRendererOwner isKindOfClass:[SCNView class]]";
+  OUTLINED_FUNCTION_0(&dword_21BEF7000, a1, a3, "Assertion '%s' failed. Private renderer only supports SCNView", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)_initWithOptions:(uint64_t)a3 isPrivateRenderer:(uint64_t)a4 privateRendererOwner:(uint64_t)a5 clearsOnDraw:(uint64_t)a6 context:(uint64_t)a7 renderingAPI:(uint64_t)a8 .cold.3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[(id)context conformsToProtocol:@protocol(MTLDevice)]";
+  OUTLINED_FUNCTION_0(&dword_21BEF7000, a1, a3, "Assertion '%s' failed. device context doesn't conform to MTLDevice protocol", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 - (void)autoenablesDefaultLighting
 {
   OUTLINED_FUNCTION_2_0();
@@ -6988,6 +6959,13 @@ uint64_t __70__SCNRenderer__jitterAtStep_updateMainFramebuffer_redisplay_jittere
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
+}
+
+- (void)setPointOfView:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[pov isPresentationInstance] == 0";
+  OUTLINED_FUNCTION_0(&dword_21BEF7000, a1, a3, "Assertion '%s' failed. can't set a presentation instance as a point of view", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __28__SCNRenderer_setTechnique___block_invoke_cold_1()
@@ -7011,6 +6989,13 @@ void __28__SCNRenderer_setTechnique___block_invoke_cold_1()
   return [v4 handleFailureInMethod:a1 object:a2 file:@"SCNRenderer.m" lineNumber:3347 description:@"We should have an engine context at this stage"];
 }
 
+- (void)_renderAtTime:(uint64_t)a3 viewport:(uint64_t)a4 encoder:(uint64_t)a5 passDescriptor:(uint64_t)a6 commandQueue:(uint64_t)a7 commandBuffer:(uint64_t)a8 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[_renderContext isKindOfClass:[SCNMTLRenderContext class]]";
+  OUTLINED_FUNCTION_0(&dword_21BEF7000, a1, a3, "Assertion '%s' failed. can't call renderAtTime:withEncoder:pass:commandQueue: with a GL context", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 - (void)_renderAtTime:viewport:encoder:passDescriptor:commandQueue:commandBuffer:.cold.2()
 {
   OUTLINED_FUNCTION_2_0();
@@ -7032,6 +7017,13 @@ void __28__SCNRenderer_setTechnique___block_invoke_cold_1()
   v4 = 138412290;
   v5 = v3;
   _os_log_error_impl(&dword_21BEF7000, a2, OS_LOG_TYPE_ERROR, "Error: Failed to create snapshot with error %@", &v4, 0xCu);
+}
+
+- (void)updateProbes:(uint64_t)a3 atTime:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "self.scene";
+  OUTLINED_FUNCTION_0(&dword_21BEF7000, a1, a3, "Assertion '%s' failed. Null argument", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)updateProbes:(os_log_t)log atTime:.cold.2(uint8_t *buf, void *a2, os_log_t log)

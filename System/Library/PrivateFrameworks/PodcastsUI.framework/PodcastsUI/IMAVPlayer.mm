@@ -637,7 +637,7 @@ void __29__IMAVPlayer_setCurrentItem___block_invoke(uint64_t a1)
     [v4 setObject:v8 forKey:@"IMAVPlayerNotificationKey_DidSleepAtAssetEnd"];
 
     v9 = MEMORY[0x277CCABB0];
-    [*(a1 + 32) currentTime];
+    objc_msgSend_currentTime(*(a1 + 32));
     *&v10 = v10;
     v11 = [v9 numberWithFloat:v10];
     [v4 setObject:v11 forKey:@"IMAVPlayerNotificationKey_CurrentPlayheadTime"];
@@ -1168,14 +1168,14 @@ LABEL_15:
   }
 
   memset(&buf, 0, sizeof(buf));
-  [(IMAVPlayer *)self _skipToPreviousThreshold];
+  objc_msgSend__skipToPreviousThreshold(self);
   range = buf;
   CMTimeRangeGetEnd(&time, &range);
   Seconds = CMTimeGetSeconds(&time);
   player2 = [MEMORY[0x277D3DA88] player];
   if (os_log_type_enabled(player2, OS_LOG_TYPE_DEFAULT))
   {
-    [(IMAVPlayer *)self currentTime];
+    objc_msgSend_currentTime(self);
     v11 = v10;
     *&range.start.value = *&buf.start.value;
     range.start.epoch = buf.start.epoch;
@@ -1191,7 +1191,7 @@ LABEL_15:
 
   if (!remote)
   {
-    [(IMAVPlayer *)self currentTime];
+    objc_msgSend_currentTime(self);
     if (v13 > Seconds)
     {
       *&range.start.value = *&buf.start.value;
@@ -1236,7 +1236,7 @@ LABEL_15:
     v6 = currentChapter;
     if (currentChapter)
     {
-      [currentChapter mediaTimeRange];
+      objc_msgSend_mediaTimeRange(currentChapter);
     }
 
     else
@@ -1277,7 +1277,7 @@ LABEL_15:
   [v4 performOnMainQueue:v5];
 }
 
-uint64_t __24__IMAVPlayer_hdcpTimer___block_invoke(uint64_t a1)
+void *__24__IMAVPlayer_hdcpTimer___block_invoke(uint64_t a1)
 {
   if ([*(a1 + 32) isPlaybackRequested])
   {
@@ -2159,9 +2159,9 @@ void __45__IMAVPlayer_fadeOutWithDuration_completion___block_invoke_2(uint64_t a
 
 - (BOOL)isAtEnd
 {
-  [(IMAVPlayer *)self duration];
+  objc_msgSend_duration(self, a2);
   v4 = v3;
-  [(IMAVPlayer *)self currentTime];
+  objc_msgSend_currentTime(self);
   return v4 - v5 < 0.5;
 }
 
@@ -2267,7 +2267,7 @@ void __33__IMAVPlayer_beginBackgroundTask__block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __31__IMAVPlayer_endBackgroundTask__block_invoke(uint64_t a1)
+void *__31__IMAVPlayer_endBackgroundTask__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) backgroundTask];
   if (result)
@@ -2405,7 +2405,7 @@ uint64_t __31__IMAVPlayer_endBackgroundTask__block_invoke(uint64_t a1)
       [(IMAVPlayer *)self _pause];
       v14 = isPlaybackRequested || [(IMAVPlayer *)self wasInterruptedEarly];
       [(IMAVPlayer *)self setWasInterrupted:v14];
-      [(IMAVPlayer *)self currentTime];
+      objc_msgSend_currentTime(self);
       [(IMAVPlayer *)self setCurrentInterruptionTime:?];
       [(IMAVPlayer *)self setWasInterruptedEarly:0];
     }
@@ -2427,22 +2427,22 @@ uint64_t __31__IMAVPlayer_endBackgroundTask__block_invoke(uint64_t a1)
 
     if ((unsignedIntegerValue2 & 1) != 0 && [(IMAVPlayer *)self wasInterrupted])
     {
-      [(IMAVPlayer *)self currentTime];
+      objc_msgSend_currentTime(self);
       v17 = v16;
       [(IMAVPlayer *)self currentInterruptionTime];
       if (v17 == v18)
       {
-        [(IMAVPlayer *)self currentTime];
+        objc_msgSend_currentTime(self);
         if (v19 >= 3.0)
         {
-          [(IMAVPlayer *)self currentTime];
+          objc_msgSend_currentTime(self);
           v21 = v20;
           [(IMAVPlayer *)self previousInterruptionTime];
-          if (v21 < v22 + -3.0 || ([(IMAVPlayer *)self currentTime], v24 = v23, [(IMAVPlayer *)self previousInterruptionTime], v24 > v25 + 3.0))
+          if (v21 < v22 + -3.0 || (objc_msgSend_currentTime(self), v24 = v23, [(IMAVPlayer *)self previousInterruptionTime], v24 > v25 + 3.0))
           {
-            [(IMAVPlayer *)self currentTime];
+            objc_msgSend_currentTime(self);
             [(IMAVPlayer *)self setPreviousInterruptionTime:?];
-            [(IMAVPlayer *)self currentTime];
+            objc_msgSend_currentTime(self);
             [(IMAVPlayer *)self setCurrentTime:v26 + -3.0];
           }
         }
@@ -2607,7 +2607,7 @@ uint64_t __26__IMAVPlayer_resetPlayer___block_invoke(uint64_t a1)
   [*(a1 + 32) _pause];
   [*(a1 + 32) _createPlayer];
   [*(a1 + 32) _updatePlayerForCurrentItem];
-  [*(a1 + 32) currentTime];
+  objc_msgSend_currentTime(*(a1 + 32));
   [*(a1 + 32) setCurrentTime:v3 + -1.0];
   v4 = *(a1 + 32);
 
@@ -2707,7 +2707,7 @@ uint64_t __26__IMAVPlayer_resetPlayer___block_invoke(uint64_t a1)
       currentItem18 = [(AVPlayer *)self->_player currentItem];
       [currentItem18 didChangeValueForKey:@"presentationSize"];
 
-      [(IMPlayerItem *)self->_currentItem duration];
+      objc_msgSend_duration(self->_currentItem);
       [(IMAVPlayer *)self setDurationBeforeItemLoaded:?];
       currentItem19 = [(AVPlayer *)self->_player currentItem];
       asset = [currentItem19 asset];
@@ -3032,7 +3032,7 @@ uint64_t __61__IMAVPlayer_observeValueForKeyPath_ofObject_change_context___block
   memset(v16, 0, 24);
   if (v3)
   {
-    [v3 CMTimeRangeValue];
+    objc_msgSend_CMTimeRangeValue(v3);
   }
 
   *&time.value = 0u;
@@ -3128,7 +3128,7 @@ LABEL_10:
     currentItem2 = [(IMAVPlayer *)self currentItem];
     episodeStoreId = [currentItem2 episodeStoreId];
     currentItem3 = [(IMAVPlayer *)self currentItem];
-    [currentItem3 duration];
+    objc_msgSend_duration(currentItem3);
     v9 = [v5 episodeDurationComparisonWithEpisodeAdamId:episodeStoreId duration:?];
     [v19 sendEvent:v9];
   }
@@ -3149,7 +3149,7 @@ LABEL_10:
     [(IMAVPlayer *)self durationBeforeItemLoaded];
     v16 = v15;
     currentItem4 = [(IMAVPlayer *)self currentItem];
-    [currentItem4 duration];
+    objc_msgSend_duration(currentItem4);
     v18 = [v14 episodeDurationComparisonWithMapiProvidedDuration:v16 playerItemDuration:v17];
     [v19 sendEvent:v18];
   }
@@ -3195,9 +3195,9 @@ LABEL_7:
     _os_log_impl(&dword_21B365000, player, OS_LOG_TYPE_DEFAULT, "sendItemEndedNotification", v14, 2u);
   }
 
-  [(IMAVPlayer *)self duration];
+  objc_msgSend_duration(self);
   v5 = v4;
-  [(IMAVPlayer *)self duration];
+  objc_msgSend_duration(self);
   [(IMAVPlayer *)self sendPeriodicTimeEvent:1 duration:v5 finished:v6];
   if ((*&self->_delegateFlags & 0x100) != 0)
   {
@@ -3302,11 +3302,11 @@ void __45__IMAVPlayer__postNotificationName_userInfo___block_invoke(void *a1)
   {
     if ([(IMAVPlayer *)self isDurationReady])
     {
-      [(IMAVPlayer *)self duration];
+      objc_msgSend_duration(self);
       timeCopy3 = time;
       if (v9 < time)
       {
-        [(IMAVPlayer *)self duration];
+        objc_msgSend_duration(self);
         timeCopy3 = v10;
       }
     }
@@ -3364,7 +3364,7 @@ void __45__IMAVPlayer__postNotificationName_userInfo___block_invoke(void *a1)
     v8 = playerItem2;
     if (playerItem2)
     {
-      [playerItem2 currentTime];
+      objc_msgSend_currentTime(playerItem2);
     }
 
     else
@@ -3448,7 +3448,7 @@ void __41__IMAVPlayer__updatePlayerToCurrentTime___block_invoke(uint64_t a1, int
     v10 = playerItem;
     if (playerItem)
     {
-      [playerItem currentTime];
+      objc_msgSend_currentTime(playerItem);
     }
 
     else
@@ -3484,7 +3484,7 @@ void __41__IMAVPlayer__updatePlayerToCurrentTime___block_invoke(uint64_t a1, int
     [(IMAVPlayer *)self forceTriggerTimeObserverAt:completed];
     if (![(IMAVPlayer *)self isPlaybackActive])
     {
-      [(IMAVPlayer *)self duration];
+      objc_msgSend_duration(self);
       [(IMAVPlayer *)self sendPeriodicTimeEvent:0 duration:completed finished:v12];
     }
 
@@ -3541,7 +3541,7 @@ void __41__IMAVPlayer__updatePlayerToCurrentTime___block_invoke(uint64_t a1, int
 - (void)onSeekTimer:(id)timer
 {
   seekForward = self->_seekForward;
-  [(IMAVPlayer *)self currentTime];
+  objc_msgSend_currentTime(self, a2, timer);
   if (seekForward)
   {
     v6 = v5 + 10.0;
@@ -3553,7 +3553,7 @@ void __41__IMAVPlayer__updatePlayerToCurrentTime___block_invoke(uint64_t a1, int
     v6 = 0.0;
     if (v7 >= 0.0)
     {
-      [(IMAVPlayer *)self currentTime];
+      objc_msgSend_currentTime(self, 0.0);
       v6 = v8 + -10.0;
     }
   }
@@ -3590,7 +3590,7 @@ void __41__IMAVPlayer__updatePlayerToCurrentTime___block_invoke(uint64_t a1, int
 - (double)duration
 {
   currentItem = [(IMAVPlayer *)self currentItem];
-  [currentItem duration];
+  objc_msgSend_duration(currentItem);
   v4 = v3;
 
   return v4;
@@ -3631,7 +3631,7 @@ void __41__IMAVPlayer__updatePlayerToCurrentTime___block_invoke(uint64_t a1, int
         v11 = *(*(&v16 + 1) + 8 * i);
         if (v11)
         {
-          [v11 CMTimeRangeValue];
+          objc_msgSend_CMTimeRangeValue(v11);
         }
 
         else
@@ -3820,7 +3820,7 @@ void __41__IMAVPlayer__updatePlayerToCurrentTime___block_invoke(uint64_t a1, int
 void __38__IMAVPlayer_addPeriodicTimeObservers__block_invoke(uint64_t a1, CMTime *a2)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  [WeakRetained duration];
+  objc_msgSend_duration(WeakRetained);
   v5 = v4;
   v7 = *a2;
   Seconds = CMTimeGetSeconds(&v7);
@@ -3896,7 +3896,7 @@ void __38__IMAVPlayer_addPeriodicTimeObservers__block_invoke_2(uint64_t a1, CMTi
       v13 = player2;
       if (player2)
       {
-        [player2 currentTime];
+        objc_msgSend_currentTime(player2);
       }
 
       else
@@ -3983,7 +3983,7 @@ void __38__IMAVPlayer_addPeriodicTimeObservers__block_invoke_2(uint64_t a1, CMTi
     }
 
     self->_timeObserverNeedsUpdate = 0;
-    [(IMAVPlayer *)self currentTime];
+    objc_msgSend_currentTime(self);
     [(IMAVPlayer *)self forceTriggerTimeObserverAt:?];
   }
 }
@@ -4042,7 +4042,7 @@ void __38__IMAVPlayer_addPeriodicTimeObservers__block_invoke_2(uint64_t a1, CMTi
   v5 = atCopy;
   if (atCopy)
   {
-    [atCopy CMTimeValue];
+    objc_msgSend_CMTimeValue(atCopy);
   }
 
   else
@@ -4097,7 +4097,7 @@ void __38__IMAVPlayer_addPeriodicTimeObservers__block_invoke_2(uint64_t a1, CMTi
         v12 = *(*(&v15 + 1) + 8 * v10);
         if (v12)
         {
-          [*(*(&v15 + 1) + 8 * v10) CMTimeValue];
+          objc_msgSend_CMTimeValue(*(*(&v15 + 1) + 8 * v10));
         }
 
         else
@@ -4428,7 +4428,7 @@ LABEL_16:
     v9 = playerItem2;
     if (playerItem2)
     {
-      [playerItem2 currentTime];
+      objc_msgSend_currentTime(playerItem2);
     }
 
     else
@@ -4441,7 +4441,7 @@ LABEL_16:
 
   else
   {
-    [(IMAVPlayer *)self currentTime];
+    objc_msgSend_currentTime(self);
     Seconds = v10;
   }
 
@@ -4455,7 +4455,7 @@ LABEL_16:
 
   LODWORD(v14) = v4;
   [contentItem setDefaultPlaybackRate:v14];
-  [(IMAVPlayer *)self duration];
+  objc_msgSend_duration(self);
   [contentItem setDuration:?];
   [contentItem playbackRate];
   v16 = vabds_f32(v15, v5);
@@ -4468,7 +4468,7 @@ LABEL_16:
     player = [MEMORY[0x277D3DA88] player];
     if (os_log_type_enabled(player, OS_LOG_TYPE_INFO))
     {
-      [(IMAVPlayer *)self duration];
+      objc_msgSend_duration(self);
       LODWORD(time.value) = 134218496;
       *(&time.value + 4) = Seconds;
       LOWORD(time.flags) = 2048;
@@ -4607,7 +4607,7 @@ LABEL_16:
 
       if (v9)
       {
-        [v9 assetTimeRange];
+        objc_msgSend_assetTimeRange(v9);
       }
 
       else
@@ -4644,7 +4644,7 @@ LABEL_16:
 
     if (v7)
     {
-      [v7 assetTimeRange];
+      objc_msgSend_assetTimeRange(v7);
     }
 
     else
@@ -4706,11 +4706,11 @@ LABEL_6:
 
         if (v11)
         {
-          [v11 assetTimeRange];
+          objc_msgSend_assetTimeRange(v11);
           *&time.value = v28;
           time.epoch = v29;
           Seconds = CMTimeGetSeconds(&time);
-          [v11 assetTimeRange];
+          objc_msgSend_assetTimeRange(v11);
         }
 
         else
@@ -4820,7 +4820,7 @@ void __31__IMAVPlayer_onChaptersLoaded___block_invoke(uint64_t a1)
   {
     [*(a1 + 32) setupChapterTimeObservers];
     v3 = *(a1 + 32);
-    [v3 currentTime];
+    objc_msgSend_currentTime(v3);
 
     [v3 setupChapterAtTime:?];
   }
@@ -4880,7 +4880,7 @@ void __31__IMAVPlayer_onChaptersLoaded___block_invoke(uint64_t a1)
   {
     if (autoStop == 3)
     {
-      [(IMAVPlayer *)self duration];
+      objc_msgSend_duration(self);
     }
 
     else
@@ -4894,7 +4894,7 @@ void __31__IMAVPlayer_onChaptersLoaded___block_invoke(uint64_t a1)
     }
 
     v16 = v12;
-    [(IMAVPlayer *)self currentTime];
+    objc_msgSend_currentTime(self);
     return v16 - v17;
   }
 
@@ -4906,9 +4906,9 @@ void __31__IMAVPlayer_onChaptersLoaded___block_invoke(uint64_t a1)
       [currentChapter time];
       v7 = v6;
       currentChapter2 = [(IMAVPlayer *)self currentChapter];
-      [currentChapter2 duration];
+      objc_msgSend_duration(currentChapter2);
       v10 = v7 + v9;
-      [(IMAVPlayer *)self currentTime];
+      objc_msgSend_currentTime(self);
       v4 = v10 - v11;
     }
 

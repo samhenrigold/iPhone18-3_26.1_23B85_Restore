@@ -270,19 +270,19 @@ LABEL_17:
 
 + (CGRect)integralFillRenderingRectFromElementRect:(CGRect)rect
 {
-  v11 = CGRectIntegral(rect);
-  v12 = CGRectInset(v11, -2.0, -2.0);
-  x = v12.origin.x;
-  y = v12.origin.y;
-  sub_27628CEF8();
-  v6 = v5;
-  v8 = v7;
-  v9 = x;
-  v10 = y;
-  result.size.height = v8;
-  result.size.width = v6;
-  result.origin.y = v10;
-  result.origin.x = v9;
+  v12 = CGRectIntegral(rect);
+  v13 = CGRectInset(v12, -2.0, -2.0);
+  x = v13.origin.x;
+  y = v13.origin.y;
+  sub_27628CEF8(v5, v13.size.width, v13.size.height);
+  v7 = v6;
+  v9 = v8;
+  v10 = x;
+  v11 = y;
+  result.size.height = v9;
+  result.size.width = v7;
+  result.origin.y = v11;
+  result.origin.x = v10;
   return result;
 }
 
@@ -395,7 +395,7 @@ LABEL_17:
       goto LABEL_12;
     }
 
-    v34 = objc_msgSend_colorWithHue_saturation_brightness_alpha_(MEMORY[0x277D81180], v33, 0.0, 0.0, 0.0, v77 + (1.0 - v77) * (1.0 - percent));
+    v34 = objc_msgSend_colorWithHue_saturation_brightness_alpha_(MEMORY[0x277D81180], v33, 0.0, 0.0, 0.0, v76 + (1.0 - v76) * (1.0 - percent));
     strokeCopy = objc_msgSend_mutableCopy(v23, v35, v36, v37, v38);
 
     objc_msgSend_setTintColor_(strokeCopy, v39, v40, v41, v42, v34);
@@ -411,31 +411,31 @@ LABEL_13:
   if (objc_opt_isKindOfClass())
   {
     v29 = strokeCopy;
-    v48 = objc_msgSend_color(v29, v44, v45, v46, v47);
+    v47 = objc_msgSend_color(v29, v44, v45, v46);
     strokeCopy = v29;
-    if (!v48)
+    if (!v47)
     {
       goto LABEL_13;
     }
 
-    v53 = v48;
-    v54 = objc_msgSend_CGColor(v48, v49, v50, v51, v52);
-    v58 = objc_msgSend_newLightenedColor_byPercent_(self, v55, percent, v56, v57, v54);
-    v23 = objc_msgSend_colorWithCGColor_(MEMORY[0x277D81180], v59, v60, v61, v62, v58);
+    v52 = v47;
+    v53 = objc_msgSend_CGColor(v47, v48, v49, v50, v51);
+    v57 = objc_msgSend_newLightenedColor_byPercent_(self, v54, percent, v55, v56, v53);
+    v23 = objc_msgSend_colorWithCGColor_(MEMORY[0x277D81180], v58, v59, v60, v61, v57);
 
-    CGColorRelease(v58);
+    CGColorRelease(v57);
     strokeCopy = v29;
     if (!v23)
     {
       goto LABEL_13;
     }
 
-    v67 = objc_msgSend_mutableCopy(v29, v63, v64, v65, v66);
-    v34 = v67;
+    v66 = objc_msgSend_mutableCopy(v29, v62, v63, v64, v65);
+    v34 = v66;
     strokeCopy = v29;
-    if (v67)
+    if (v66)
     {
-      objc_msgSend_setColor_(v67, v68, v69, v70, v71, v23);
+      objc_msgSend_setColor_(v66, v67, v68, v69, v70, v23);
       strokeCopy = v34;
     }
 
@@ -445,10 +445,10 @@ LABEL_13:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    *&v73 = percent;
-    v76 = objc_msgSend_lightenByPercent_(strokeCopy, v72, v73, v74, v75);
+    *&v72 = percent;
+    v75 = objc_msgSend_lightenByPercent_(strokeCopy, v71, v72, v73, v74);
 
-    strokeCopy = v76;
+    strokeCopy = v75;
   }
 
 LABEL_14:
@@ -1331,47 +1331,47 @@ LABEL_9:
   v14 = MEMORY[0x277CCABB0];
   cacheCopy = cache;
   v20 = objc_msgSend_numberWithUnsignedInteger_(v14, v16, v17, v18, v19, index);
-  objc_msgSend_barElementsRendererValueRangeForModelCache_groupIndex_(self, v21, v22, v23, v24, cacheCopy, index);
+  objc_msgSend_barElementsRendererValueRangeForModelCache_groupIndex_(self, v21, v22, v23);
 
-  if (v47)
+  if (v46)
   {
-    v29 = 1;
+    v28 = 1;
   }
 
   else
   {
-    v29 = 2;
+    v28 = 2;
   }
 
-  v30 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v25, v26, v27, v28, v20);
-  v35 = v30;
-  if (v30)
+  v29 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v24, v25, v26, v27, v20);
+  v34 = v29;
+  if (v29)
   {
-    v46 = 0;
-    memset(&v45, 0, sizeof(v45));
-    objc_msgSend_getValue_(v30, v31, 0.0, v33, v34, &v45);
-    v36 = v46;
-    v49.origin.x = x;
-    v49.origin.y = y;
-    v49.size.width = width;
-    v49.size.height = height;
-    v48 = CGRectUnion(v45, v49);
-    v43 = v48;
-    v44 = v36 | v29;
-    objc_msgSend_value_withObjCType_(MEMORY[0x277CCAE60], v37, v48.origin.x, v48.origin.y, v48.size.width, &v43, "{?={CGRect={CGPoint=dd}{CGSize=dd}}Q}");
+    v45 = 0;
+    memset(&v44, 0, sizeof(v44));
+    objc_msgSend_getValue_(v29, v30, 0.0, v32, v33, &v44);
+    v35 = v45;
+    v48.origin.x = x;
+    v48.origin.y = y;
+    v48.size.width = width;
+    v48.size.height = height;
+    v47 = CGRectUnion(v44, v48);
+    v42 = v47;
+    v43 = v35 | v28;
+    objc_msgSend_value_withObjCType_(MEMORY[0x277CCAE60], v36, v47.origin.x, v47.origin.y, v47.size.width, &v42, "{?={CGRect={CGPoint=dd}{CGSize=dd}}Q}");
   }
 
   else
   {
-    v45.origin.x = x;
-    v45.origin.y = y;
-    v45.size.width = width;
-    v45.size.height = height;
-    v46 = v29;
-    objc_msgSend_value_withObjCType_(MEMORY[0x277CCAE60], v31, v32, v33, v34, &v45, "{?={CGRect={CGPoint=dd}{CGSize=dd}}Q}");
+    v44.origin.x = x;
+    v44.origin.y = y;
+    v44.size.width = width;
+    v44.size.height = height;
+    v45 = v28;
+    objc_msgSend_value_withObjCType_(MEMORY[0x277CCAE60], v30, v31, v32, v33, &v44, "{?={CGRect={CGPoint=dd}{CGSize=dd}}Q}");
   }
-  v38 = ;
-  objc_msgSend_setObject_forKeyedSubscript_(dictionaryCopy, v39, v40, v41, v42, v38, v20);
+  v37 = ;
+  objc_msgSend_setObject_forKeyedSubscript_(dictionaryCopy, v38, v39, v40, v41, v37, v20);
 }
 
 + (CGColor)subSelectionKnobFillColor
@@ -1602,7 +1602,7 @@ LABEL_5:
 
 + (CGPoint)outerEndOfSpokeWithUnitCircleOffsetAngleInDegrees:(double)degrees chartBodySize:(CGSize)size chartInfo:(id)info
 {
-  objc_msgSend_spokeTransformWithUnitCircleOffsetAngleInDegrees_chartBodySize_chartInfo_(self, a2, degrees, size.width, size.height, info);
+  objc_msgSend_spokeTransformWithUnitCircleOffsetAngleInDegrees_chartBodySize_chartInfo_(self, degrees, size.width, size.height, a2, info);
   v5 = vaddq_f64(0, vaddq_f64(0, vmulq_f64(0, 0)));
   v6 = v5.f64[1];
   result.x = v5.f64[0];

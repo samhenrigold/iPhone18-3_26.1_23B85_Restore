@@ -828,7 +828,7 @@
   objc_storeStrong(v10, 0);
 }
 
-unint64_t __58__CPSMapTemplateViewController__updateMapButtonVisibility__block_invoke(uint64_t a1)
+char *__58__CPSMapTemplateViewController__updateMapButtonVisibility__block_invoke(uint64_t a1)
 {
   v12 = [*(a1 + 32) mapButtons];
   v13 = [v12 count] - *(a1 + 40);
@@ -3190,7 +3190,7 @@ void __63__CPSMapTemplateViewController_setHostGuidanceBackgroundColor___block_i
   objc_storeStrong(&v12, 0);
 }
 
-uint64_t __62__CPSMapTemplateViewController_setHostAutoHidesNavigationBar___block_invoke(uint64_t a1)
+void *__62__CPSMapTemplateViewController_setHostAutoHidesNavigationBar___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) autoHidesNavigationBar];
   if (result != (*(a1 + 40) & 1))
@@ -3234,7 +3234,7 @@ uint64_t __62__CPSMapTemplateViewController_setHostAutoHidesNavigationBar___bloc
   objc_storeStrong(&v12, 0);
 }
 
-uint64_t __69__CPSMapTemplateViewController_setHostHidesButtonsWithNavigationBar___block_invoke(uint64_t a1)
+void *__69__CPSMapTemplateViewController_setHostHidesButtonsWithNavigationBar___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) hidesButtonsWithNavigationBar];
   if (result != (*(a1 + 40) & 1))
@@ -5785,7 +5785,7 @@ void __49__CPSMapTemplateViewController__linearFocusItems__block_invoke(id *a1, 
   objc_storeStrong(location, 0);
 }
 
-uint64_t __72__CPSMapTemplateViewController_applicationStateMonitor_didBecomeActive___block_invoke(uint64_t a1)
+void *__72__CPSMapTemplateViewController_applicationStateMonitor_didBecomeActive___block_invoke(uint64_t a1)
 {
   location[2] = a1;
   location[1] = a1;
@@ -5856,7 +5856,7 @@ uint64_t __72__CPSMapTemplateViewController_applicationStateMonitor_didBecomeAct
   MEMORY[0x277D82BD8](layoutHelperView);
   MEMORY[0x277D82BD8](navigationCardViewController);
   MEMORY[0x277D82BD8](view);
-  *&v58 = UIRectGetMaxY_0(v63, v64, v65, v66);
+  MaxY_0 = UIRectGetMaxY_0(v63, v64, v65, v66);
   view2 = [(CPSMapTemplateViewController *)selfCopy view];
   safeAreaLayoutGuide = [view2 safeAreaLayoutGuide];
   [safeAreaLayoutGuide layoutFrame];
@@ -5864,14 +5864,14 @@ uint64_t __72__CPSMapTemplateViewController_applicationStateMonitor_didBecomeAct
   v56[6] = v11;
   v56[7] = v12;
   v56[8] = v13;
-  MaxY_0 = UIRectGetMaxY_0(*&v10, *&v11, *&v12, *&v13);
+  v35 = UIRectGetMaxY_0(*&v10, *&v11, *&v12, *&v13);
   navigationETAView = [(CPSMapTemplateViewController *)selfCopy navigationETAView];
   [(CPSNavigationETAView *)navigationETAView frame];
   v56[1] = v14;
   v56[2] = v15;
   v56[3] = v16;
   v56[4] = v17;
-  v36 = MaxY_0 - *&v17;
+  v36 = v35 - *&v17;
   v18 = _UISolariumEnabled();
   v19 = 4.0;
   if ((v18 & 1) == 0)
@@ -5895,7 +5895,7 @@ uint64_t __72__CPSMapTemplateViewController_applicationStateMonitor_didBecomeAct
     rect = v71;
     v28 = NSStringFromCGRect(v71);
     v53 = MEMORY[0x277D82BE0](v28);
-    __os_log_helper_16_2_3_8_0_8_0_8_64(v69, v58, *&v57, v53);
+    __os_log_helper_16_2_3_8_0_8_0_8_64(v69, *&MaxY_0, *&v57, v53);
     _os_log_impl(&dword_242FE8000, log, type, "Navigation card max Y: %f, eta min Y: %f, view size: %@", v69, 0x20u);
     MEMORY[0x277D82BD8](v28);
     MEMORY[0x277D82BD8](view3);
@@ -5903,7 +5903,7 @@ uint64_t __72__CPSMapTemplateViewController_applicationStateMonitor_didBecomeAct
   }
 
   objc_storeStrong(v56, 0);
-  if (*&v58 >= v57)
+  if (MaxY_0 >= v57)
   {
     v49 = CarPlaySupportGeneralLogging();
     v48 = OS_LOG_TYPE_INFO;

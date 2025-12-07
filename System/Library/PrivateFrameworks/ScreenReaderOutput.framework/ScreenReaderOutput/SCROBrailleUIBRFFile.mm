@@ -1,4 +1,5 @@
 @interface SCROBrailleUIBRFFile
+- (BOOL)_characterIsWhitespaceOrNewLine:(unsigned __int16)line;
 - (SCROBrailleUIBRFFile)initWithBRF:(id)f rawInitialLocation:(int64_t)location rawBookmarks:(id)bookmarks reflowSize:(int64_t)size shouldWordWrap:(BOOL)wrap shouldStripPageIndicators:(BOOL)indicators;
 @end
 
@@ -431,16 +432,15 @@ void *__120__SCROBrailleUIBRFFile_initWithBRF_rawInitialLocation_rawBookmarks_re
   return result;
 }
 
-uint64_t __120__SCROBrailleUIBRFFile_initWithBRF_rawInitialLocation_rawBookmarks_reflowSize_shouldWordWrap_shouldStripPageIndicators___block_invoke_4(uint64_t result)
+void *__120__SCROBrailleUIBRFFile_initWithBRF_rawInitialLocation_rawBookmarks_reflowSize_shouldWordWrap_shouldStripPageIndicators___block_invoke_4(void *result)
 {
-  v1 = *(*(result + 48) + 8);
+  v1 = *(result[6] + 8);
   if (*(v1 + 24) >= 1)
   {
     v2 = result;
     v3 = 0;
     do
     {
-      v4 = *(*(*(v2[7] + 8) + 24) + 2 * v3);
       (*(v2[4] + 16))();
       result = (*(v2[5] + 16))();
       ++v3;
@@ -458,16 +458,15 @@ uint64_t __120__SCROBrailleUIBRFFile_initWithBRF_rawInitialLocation_rawBookmarks
 {
   if (*(*(a1[7] + 8) + 24) + *(*(a1[6] + 8) + 24) > a1[8])
   {
-    v2 = a1[4];
     (*(a1[4] + 16))();
   }
 
-  v3 = *(a1[5] + 16);
+  v2 = *(a1[5] + 16);
 
-  return v3();
+  return v2();
 }
 
-uint64_t __120__SCROBrailleUIBRFFile_initWithBRF_rawInitialLocation_rawBookmarks_reflowSize_shouldWordWrap_shouldStripPageIndicators___block_invoke_6(uint64_t a1, uint64_t a2)
+BOOL __120__SCROBrailleUIBRFFile_initWithBRF_rawInitialLocation_rawBookmarks_reflowSize_shouldWordWrap_shouldStripPageIndicators___block_invoke_6(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 40) != 1)
   {
@@ -485,6 +484,15 @@ uint64_t __120__SCROBrailleUIBRFFile_initWithBRF_rawInitialLocation_rawBookmarks
   v7 = [*(a1 + 32) characterAtIndex:v4];
   v10 = v5 == 34 && v6 == 51 && v7 == 35;
   return v5 == 45 && v6 == 45 && v7 == 45 || v10;
+}
+
+- (BOOL)_characterIsWhitespaceOrNewLine:(unsigned __int16)line
+{
+  lineCopy = line;
+  whitespaceAndNewlineCharacterSet = [MEMORY[0x277CCA900] whitespaceAndNewlineCharacterSet];
+  LOBYTE(lineCopy) = [whitespaceAndNewlineCharacterSet characterIsMember:lineCopy];
+
+  return lineCopy;
 }
 
 @end

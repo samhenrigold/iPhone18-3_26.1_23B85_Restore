@@ -40,7 +40,7 @@
 
     *(v7 + 9) = 0;
     v10 = +[HMIPreference sharedInstance];
-    v11 = [v10 numberPreferenceForKey:@"videoFrameTrackerMaxCandidates" defaultValue:&unk_284075318];
+    v11 = [v10 numberPreferenceForKey:? defaultValue:?];
     *(v7 + 8) = [v11 unsignedIntegerValue];
 
     v12 = objc_alloc_init(HMIMotionDetector);
@@ -63,17 +63,17 @@
     if ([configurationCopy saveAnalyzerResultsToDisk])
     {
       v17 = objc_alloc_init(MEMORY[0x277CCA968]);
-      [v17 setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
+      [v17 setDateFormat:?];
       v18 = [MEMORY[0x277CBEAA8] now];
-      v19 = [v17 stringFromDate:v18];
+      v19 = [v17 stringFromDate:?];
 
       v20 = MEMORY[0x277CCACA8];
       uUID = [MEMORY[0x277CCAD78] UUID];
       uUIDString = [uUID UUIDString];
-      v23 = [uUIDString substringToIndex:4];
-      v24 = [v20 stringWithFormat:@"/tmp/TrackerReport-%@-%@.html", v19, v23];
+      v23 = [uUIDString substringToIndex:?];
+      v24 = [v20 stringWithFormat:v19, v23];
 
-      v25 = [[HMIHTMLReport alloc] initWithTitle:@"Tracker" outputPath:v24];
+      v25 = [HMIHTMLReport initWithTitle:"initWithTitle:outputPath:" outputPath:?];
       v26 = *(v7 + 14);
       *(v7 + 14) = v25;
 
@@ -104,8 +104,7 @@ void __29__HMIVideoFrameTracker_flush__block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = *MEMORY[0x277CC08B0];
-  v4 = *(MEMORY[0x277CC08B0] + 16);
-  [v2 _drainCandidateThatExpiredBefore:&v3];
+  [v2 _drainCandidateThatExpiredBefore:{v3, *(MEMORY[0x277CC08B0] + 16)}];
   CFArrayRemoveAllValues(*(*(a1 + 32) + 104));
 }
 
@@ -122,14 +121,14 @@ void __29__HMIVideoFrameTracker_flush__block_invoke(uint64_t a1)
 
   if (report)
   {
-    v6 = *MEMORY[0x277CC08B0];
-    v7 = *(MEMORY[0x277CC08B0] + 16);
-    [(HMIVideoFrameTracker *)self _visualizeTargetsThatExpiredBefore:&v6];
+    v5[1] = *MEMORY[0x277CC08B0];
+    v6 = *(MEMORY[0x277CC08B0] + 16);
+    [(HMIVideoFrameTracker *)self _visualizeTargetsThatExpiredBefore:?];
   }
 
-  v5.receiver = self;
-  v5.super_class = HMIVideoFrameTracker;
-  [(HMIVideoFrameTracker *)&v5 dealloc];
+  v5[0].receiver = self;
+  v5[0].super_class = HMIVideoFrameTracker;
+  [(objc_super *)v5 dealloc];
 }
 
 - (void)handleSampleBuffer:(opaqueCMSampleBuffer *)buffer reference:(opaqueCMSampleBuffer *)reference
@@ -142,52 +141,51 @@ void __29__HMIVideoFrameTracker_flush__block_invoke(uint64_t a1)
   if (dynamicConfiguration)
   {
     v9 = +[HMIPreference sharedInstance];
-    v10 = [v9 hasPreferenceForKey:@"syntheticEvents"];
+    v10 = [v9 hasPreferenceForKey:?];
 
     if (v10)
     {
 
-      [(HMIVideoFrameTracker *)self _synthesizeMotionDetectionWithTarget:buffer];
+      [(HMIVideoFrameTracker *)self _synthesizeMotionDetectionWithTarget:?];
     }
 
     else
     {
-      memset(&v26, 0, sizeof(v26));
-      CMSampleBufferGetPresentationTimeStamp(&v26, buffer);
       memset(&v25, 0, sizeof(v25));
-      CMSampleBufferGetPresentationTimeStamp(&v25, reference);
-      v11 = [(HMIVideoFrameTracker *)self prepareSampleBuffer:buffer];
-      v24 = 0;
+      CMSampleBufferGetPresentationTimeStamp(&v25, buffer);
+      memset(&v24, 0, sizeof(v24));
+      CMSampleBufferGetPresentationTimeStamp(&v24, reference);
+      v11 = [(HMIVideoFrameTracker *)self prepareSampleBuffer:?];
+      v23 = 0;
       dynamicConfiguration2 = [(HMIVideoAnalyzerProcessingNode *)self dynamicConfiguration];
-      v13 = [(HMIVideoFrameTracker *)self _motionDetectionsFromTarget:v11 reference:reference dynamicConfiguration:dynamicConfiguration2 motionScore:&v24];
+      v13 = [HMIVideoFrameTracker _motionDetectionsFromTarget:"_motionDetectionsFromTarget:reference:dynamicConfiguration:motionScore:" reference:? dynamicConfiguration:? motionScore:?];
 
       dynamicConfiguration3 = [(HMIVideoAnalyzerProcessingNode *)self dynamicConfiguration];
-      v15 = [(HMIVideoFrameTracker *)self _tracksFromTarget:v11 reference:reference background:buffer dynamicConfiguration:dynamicConfiguration3 motionDetections:v13];
+      v15 = [HMIVideoFrameTracker _tracksFromTarget:"_tracksFromTarget:reference:background:dynamicConfiguration:motionDetections:" reference:? background:? dynamicConfiguration:? motionDetections:?];
 
-      LODWORD(v16) = v24;
-      [(HMIVideoFrameTracker *)self _addCandidateForTarget:buffer motionScore:v13 motionDetections:v15 tracks:v16];
+      [HMIVideoFrameTracker _addCandidateForTarget:"_addCandidateForTarget:motionScore:motionDetections:tracks:" motionScore:? motionDetections:? tracks:?];
       report = [(HMIVideoFrameTracker *)self report];
 
       if (report)
       {
-        v23 = v26;
-        [(HMIVideoFrameTracker *)self _appendTarget:v11 timeStamp:&v23 motionDetections:v13];
+        v22 = v25;
+        [HMIVideoFrameTracker _appendTarget:"_appendTarget:timeStamp:motionDetections:" timeStamp:? motionDetections:?];
       }
 
-      lhs = v26;
+      lhs = v25;
       expirationInterval = self->_expirationInterval;
-      CMTimeSubtract(&v23, &lhs, &expirationInterval);
-      [(HMIVideoFrameTracker *)self _drainCandidateThatExpiredBefore:&v23];
-      v23 = v25;
-      [(HMIVideoFrameTracker *)self _drainResizedBuffersThatExpiredBefore:&v23];
+      CMTimeSubtract(&v22, &lhs, &expirationInterval);
+      [(HMIVideoFrameTracker *)self _drainCandidateThatExpiredBefore:?];
+      v22 = v24;
+      [(HMIVideoFrameTracker *)self _drainResizedBuffersThatExpiredBefore:?];
       CFRelease(v11);
     }
   }
 
   else
   {
-    v18 = [HMIVideoFrameAnalyzer handleSampleBuffer:background:motionDetections:tracks:];
-    [(HMIVideoFrameTracker *)v18 handleSampleBuffer:v19, v20];
+    v17 = [HMIVideoFrameAnalyzer handleSampleBuffer:background:motionDetections:tracks:];
+    [(HMIVideoFrameTracker *)v17 handleSampleBuffer:v18, v19];
   }
 }
 
@@ -201,7 +199,7 @@ void __29__HMIVideoFrameTracker_flush__block_invoke(uint64_t a1)
   lhs = v9;
   expirationInterval = self->_expirationInterval;
   CMTimeSubtract(&v8, &lhs, &expirationInterval);
-  [(HMIVideoFrameTracker *)self _drainCandidateThatExpiredBefore:&v8];
+  [(HMIVideoFrameTracker *)self _drainCandidateThatExpiredBefore:?];
 }
 
 - (void)handleFrameAnalyzerResult:(id)result
@@ -217,36 +215,35 @@ void __29__HMIVideoFrameTracker_flush__block_invoke(uint64_t a1)
     backgroundEstimator2 = [(HMIVideoFrameTracker *)self backgroundEstimator];
     events = [resultCopy events];
     frame = [resultCopy frame];
-    v10 = frame;
     if (frame)
     {
-      [frame presentationTimeStamp];
+      [&v16 presentationTimeStamp];
     }
 
     else
     {
-      v26 = 0;
-      v27 = 0;
-      v28 = 0;
+      v16 = 0;
+      v17 = 0;
+      v18 = 0;
     }
 
-    [backgroundEstimator2 assignForegroundEvents:events timeStamp:&v26];
+    [backgroundEstimator2 assignForegroundEvents:? timeStamp:?];
 
     backgroundEstimator3 = [(HMIVideoFrameTracker *)self backgroundEstimator];
     backgroundEvents = [resultCopy backgroundEvents];
     if (resultCopy)
     {
-      [resultCopy backgroundTimeStamp];
+      [&v16 backgroundTimeStamp];
     }
 
     else
     {
-      v26 = 0;
-      v27 = 0;
-      v28 = 0;
+      v16 = 0;
+      v17 = 0;
+      v18 = 0;
     }
 
-    [backgroundEstimator3 assignBackgroundEvents:backgroundEvents timeStamp:&v26];
+    [backgroundEstimator3 assignBackgroundEvents:? timeStamp:?];
   }
 
   report = [(HMIVideoFrameTracker *)self report];
@@ -256,25 +253,20 @@ void __29__HMIVideoFrameTracker_flush__block_invoke(uint64_t a1)
     events2 = [resultCopy events];
     backgroundEvents2 = [resultCopy backgroundEvents];
     [resultCopy regionOfInterest];
-    v17 = v16;
-    v19 = v18;
-    v21 = v20;
-    v23 = v22;
     frame2 = [resultCopy frame];
-    v25 = frame2;
     if (frame2)
     {
-      [frame2 presentationTimeStamp];
+      [&v16 presentationTimeStamp];
     }
 
     else
     {
-      v26 = 0;
-      v27 = 0;
-      v28 = 0;
+      v16 = 0;
+      v17 = 0;
+      v18 = 0;
     }
 
-    [(HMIVideoFrameTracker *)self _visualizeTargetEvents:events2 backgroundEvents:backgroundEvents2 regionOfInterest:&v26 targetTimeStamp:v17, v19, v21, v23];
+    [HMIVideoFrameTracker _visualizeTargetEvents:"_visualizeTargetEvents:backgroundEvents:regionOfInterest:targetTimeStamp:" backgroundEvents:? regionOfInterest:? targetTimeStamp:?];
   }
 }
 
@@ -320,7 +312,8 @@ void __29__HMIVideoFrameTracker_flush__block_invoke(uint64_t a1)
   if (!CopyWithPixelBuffer)
   {
 LABEL_6:
-    v8 = [HMIVideoFrameTracker resizePixelBuffer:CMSampleBufferGetImageBuffer(buffer)];
+    CMSampleBufferGetImageBuffer(buffer);
+    v8 = [HMIVideoFrameTracker resizePixelBuffer:?];
     if (v8)
     {
       v9 = v8;
@@ -344,7 +337,7 @@ LABEL_6:
 
 + (__CVBuffer)resizePixelBuffer:(__CVBuffer *)buffer
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   Size = HMICVPixelBufferGetSize(buffer);
   v6 = v5;
   v7 = HMIAspectRatioMake(Size, v5);
@@ -379,7 +372,7 @@ LABEL_4:
       goto LABEL_4;
     }
 
-    if ((HMIAspectRatioEqualToAspectRatio(v7, 0x100000001) & 1) == 0)
+    if (!HMIAspectRatioEqualToAspectRatio(v7, 0x100000001))
     {
       v13 = objc_autoreleasePoolPush();
       v14 = HMFGetOSLogHandle();
@@ -387,11 +380,11 @@ LABEL_4:
       {
         v15 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v18 = v15;
-        v19 = 1024;
-        v20 = v7;
-        v21 = 1024;
-        v22 = HIDWORD(v7);
+        v17 = v15;
+        v18 = 1024;
+        v19 = v7;
+        v20 = 1024;
+        v21 = HIDWORD(v7);
         _os_log_impl(&dword_22D12F000, v14, OS_LOG_TYPE_ERROR, "%{public}@Unsupported aspect ratio: (%d, %d)", buf, 0x18u);
       }
 
@@ -411,51 +404,51 @@ LABEL_7:
     return CVPixelBufferRetain(buffer);
   }
 
-  v16 = 0;
-  return [HMIVisionUtilities resizePixelBuffer:buffer size:875704438 pixelFormat:8 options:&v16 error:v10, v8];
+  else
+  {
+    return [HMIVisionUtilities resizePixelBuffer:"resizePixelBuffer:size:pixelFormat:options:error:" size:? pixelFormat:? options:? error:?];
+  }
 }
 
 - (void)_addCandidateForTarget:(opaqueCMSampleBuffer *)target motionScore:(float)score motionDetections:(id)detections tracks:(id)tracks
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   detectionsCopy = detections;
   tracksCopy = tracks;
-  v12 = [HMIVideoFrameTrackerFrameCandidate alloc];
-  *&v13 = score;
-  v14 = [(HMIVideoFrameTrackerFrameCandidate *)v12 initWithSampleBuffer:target score:detectionsCopy motionDetections:tracksCopy tracks:v13];
-  v15 = objc_autoreleasePoolPush();
+  v10 = [HMIVideoFrameTrackerFrameCandidate initWithSampleBuffer:"initWithSampleBuffer:score:motionDetections:tracks:" score:? motionDetections:? tracks:?];
+  v11 = objc_autoreleasePoolPush();
   selfCopy = self;
-  v17 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+  v13 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
-    v18 = HMFGetLogIdentifier();
-    v26 = 138543618;
-    v27 = v18;
-    v28 = 2112;
-    v29 = v14;
-    _os_log_impl(&dword_22D12F000, v17, OS_LOG_TYPE_DEBUG, "%{public}@Adding Candidate: %@", &v26, 0x16u);
+    v14 = HMFGetLogIdentifier();
+    v22 = 138543618;
+    v23 = v14;
+    v24 = 2112;
+    v25 = v10;
+    _os_log_impl(&dword_22D12F000, v13, OS_LOG_TYPE_DEBUG, "%{public}@Adding Candidate: %@", &v22, 0x16u);
   }
 
-  objc_autoreleasePoolPop(v15);
+  objc_autoreleasePoolPop(v11);
   ++selfCopy->_numCandidates;
   candidate = [(HMIVideoFrameTracker *)selfCopy candidate];
-  if (!candidate || (v20 = candidate, -[HMIVideoFrameTracker candidate](selfCopy, "candidate"), v21 = objc_claimAutoreleasedReturnValue(), [v21 score], v23 = v22, -[HMIVideoFrameTrackerFrameCandidate score](v14, "score"), v25 = v24, v21, v20, v23 < v25))
+  if (!candidate || (v16 = candidate, -[HMIVideoFrameTracker candidate](selfCopy, "candidate"), v17 = objc_claimAutoreleasedReturnValue(), [v17 score], v19 = v18, -[HMIVideoFrameTrackerFrameCandidate score](v10, "score"), v21 = v20, v17, v16, v19 < v21))
   {
-    objc_storeStrong(&selfCopy->_candidate, v14);
+    objc_storeStrong(&selfCopy->_candidate, v10);
   }
 }
 
 - (void)_drainCandidateThatExpiredBefore:(id *)before
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   candidate = [(HMIVideoFrameTracker *)self candidate];
   v6 = candidate;
   if (candidate)
   {
-    memset(&v26, 0, sizeof(v26));
-    CMSampleBufferGetPresentationTimeStamp(&v26, [candidate sbuf]);
+    memset(&v24, 0, sizeof(v24));
+    CMSampleBufferGetPresentationTimeStamp(&v24, [candidate sbuf]);
     numCandidates = [(HMIVideoFrameTracker *)self numCandidates];
-    if (numCandidates >= [(HMIVideoFrameTracker *)self maxCandidates]|| (time1 = v26, time2 = *before, CMTimeCompare(&time1, &time2) < 0))
+    if (numCandidates >= [(HMIVideoFrameTracker *)self maxCandidates]|| (time1 = v24, time2 = *before, CMTimeCompare(&time1, &time2) < 0))
     {
       [v6 score];
       v9 = v8;
@@ -464,7 +457,7 @@ LABEL_7:
         tracks = [v6 tracks];
         if ([tracks count])
         {
-          time1 = v26;
+          time1 = v24;
           time2 = self->_trackAnalysisPTS;
           v11 = CMTimeCompare(&time1, &time2);
 
@@ -502,23 +495,23 @@ LABEL_7:
 
       objc_autoreleasePoolPop(v12);
       delegate = [(HMIVideoFrameTracker *)selfCopy delegate];
-      sbuf = [v6 sbuf];
-      time1 = v26;
-      v18 = [(HMIVideoFrameTracker *)selfCopy _backgroundAtTimeStamp:&time1];
+      [v6 sbuf];
+      time1 = v24;
+      [(HMIVideoFrameTracker *)selfCopy _backgroundAtTimeStamp:?];
       motionDetections = [v6 motionDetections];
       tracks2 = [v6 tracks];
-      [delegate frameTracker:selfCopy didTrackFrame:sbuf background:v18 motionDetections:motionDetections tracks:tracks2];
+      [delegate frameTracker:? didTrackFrame:? background:? motionDetections:? tracks:?];
 
       if (v9 <= 0.0)
       {
-        time2 = v26;
-        v21 = *&selfCopy->_trackInterval.value;
-        v24.epoch = selfCopy->_trackInterval.epoch;
-        *&v24.value = v21;
-        CMTimeAdd(&time1, &time2, &v24);
-        v22 = *&time1.value;
+        time2 = v24;
+        v19 = *&selfCopy->_trackInterval.value;
+        v22.epoch = selfCopy->_trackInterval.epoch;
+        *&v22.value = v19;
+        CMTimeAdd(&time1, &time2, &v22);
+        v20 = *&time1.value;
         selfCopy->_trackAnalysisPTS.epoch = time1.epoch;
-        *&selfCopy->_trackAnalysisPTS.value = v22;
+        *&selfCopy->_trackAnalysisPTS.value = v20;
       }
 
       goto LABEL_12;
@@ -553,7 +546,7 @@ LABEL_13:
 
 - (void)_synthesizeMotionDetectionWithTarget:(opaqueCMSampleBuffer *)target
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
   v7 = HMFGetOSLogHandle();
@@ -562,34 +555,26 @@ LABEL_13:
     v8 = HMFGetLogIdentifier();
     v9 = HMICMSampleBufferTinyDescription(target);
     *buf = 138543618;
-    v24 = v8;
-    v25 = 2112;
-    v26 = v9;
+    v16 = v8;
+    v17 = 2112;
+    v18 = v9;
     _os_log_impl(&dword_22D12F000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Synthesizing Motion Detections, Target: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
-  v10 = *MEMORY[0x277CBF3A8];
-  v11 = *(MEMORY[0x277CBF3A8] + 8);
-  v12 = [HMIMotionDetection alloc];
-  v13 = MEMORY[0x277CBEBF8];
-  LODWORD(v14) = 1148846080;
-  v15 = [(HMIMotionDetection *)v12 initWithBoundingBox:MEMORY[0x277CBEBF8] size:2 motionVectors:0.1 motionScore:0.1 motionMode:0.8, 0.8, v10, v11, v14];
-  v16 = [HMIMotionDetection alloc];
-  LODWORD(v17) = 1148846080;
-  v18 = [(HMIMotionDetection *)v16 initWithBoundingBox:v13 size:1 motionVectors:0.1 motionScore:0.1 motionMode:0.8, 0.8, v10, v11, v17, v15];
-  v22[1] = v18;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
+  v10 = [HMIMotionDetection initWithBoundingBox:"initWithBoundingBox:size:motionVectors:motionScore:motionMode:" size:? motionVectors:? motionScore:? motionMode:?];
+  v14 = [HMIMotionDetection initWithBoundingBox:"initWithBoundingBox:size:motionVectors:motionScore:motionMode:" size:v10 motionVectors:? motionScore:? motionMode:?];
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
 
   delegate = [(HMIVideoFrameTracker *)selfCopy delegate];
-  v21 = [MEMORY[0x277CBEB98] set];
-  [delegate frameTracker:selfCopy didTrackFrame:target background:0 motionDetections:v19 tracks:v21];
+  v13 = [MEMORY[0x277CBEB98] set];
+  [delegate frameTracker:? didTrackFrame:? background:? motionDetections:? tracks:?];
 }
 
 - (id)_motionDetectionsFromTarget:(opaqueCMSampleBuffer *)target reference:(opaqueCMSampleBuffer *)reference dynamicConfiguration:(id)configuration motionScore:(float *)score
 {
   configurationCopy = configuration;
-  eventTriggers = [configurationCopy eventTriggers];
+  [configurationCopy eventTriggers];
   if ([configurationCopy eventTriggers])
   {
     activityZones = [configurationCopy activityZones];
@@ -600,16 +585,16 @@ LABEL_13:
     activityZones = MEMORY[0x277CBEBF8];
   }
 
-  v19 = 0;
   motionDetector = [(HMIVideoFrameTracker *)self motionDetector];
-  ImageBuffer = CMSampleBufferGetImageBuffer(reference);
-  v15 = [motionDetector detectWithGlobalMotionScore:&v19 referencePixelBuffer:ImageBuffer targetPixelBuffer:CMSampleBufferGetImageBuffer(target) activityZones:activityZones detectorMode:eventTriggers & 1 | 2];
+  CMSampleBufferGetImageBuffer(reference);
+  CMSampleBufferGetImageBuffer(target);
+  v13 = [motionDetector detectWithGlobalMotionScore:? referencePixelBuffer:? targetPixelBuffer:? activityZones:? detectorMode:?];
 
-  v16 = [HMIMotionDetection firstMotionDetectionInArray:v15 withMode:2];
-  [v16 motionScore];
-  *score = v17;
+  v14 = [HMIMotionDetection firstMotionDetectionInArray:"firstMotionDetectionInArray:withMode:" withMode:?];
+  [v14 motionScore];
+  *score = v15;
 
-  return v15;
+  return v13;
 }
 
 - (id)_tracksFromTarget:(opaqueCMSampleBuffer *)target reference:(opaqueCMSampleBuffer *)reference background:(opaqueCMSampleBuffer *)background dynamicConfiguration:(id)configuration motionDetections:(id)detections
@@ -623,24 +608,23 @@ LABEL_13:
     {
       v16 = [HMIBackgroundEstimator alloc];
       configuration = [(HMIVideoAnalyzerProcessingNode *)self configuration];
-      v18 = [(HMIBackgroundEstimator *)v16 initWithConfiguration:configuration];
-      [(HMIVideoFrameTracker *)self setBackgroundEstimator:v18];
+      v18 = [(HMIBackgroundEstimator *)v16 initWithConfiguration:?];
+      [(HMIVideoFrameTracker *)self setBackgroundEstimator:?];
 
       backgroundEstimator2 = [(HMIVideoFrameTracker *)self backgroundEstimator];
-      ImageBuffer = CMSampleBufferGetImageBuffer(reference);
-      CMSampleBufferGetPresentationTimeStamp(&v30, reference);
-      v21 = [backgroundEstimator2 analyzePixelBuffer:ImageBuffer timeStamp:&v30];
+      CMSampleBufferGetImageBuffer(reference);
+      CMSampleBufferGetPresentationTimeStamp(&v27, reference);
+      v20 = [backgroundEstimator2 analyzePixelBuffer:? timeStamp:?];
     }
 
-    memset(&v30, 0, sizeof(v30));
-    CMSampleBufferGetPresentationTimeStamp(&v30, target);
+    memset(&v27, 0, sizeof(v27));
+    CMSampleBufferGetPresentationTimeStamp(&v27, target);
     backgroundEstimator3 = [(HMIVideoFrameTracker *)self backgroundEstimator];
-    [backgroundEstimator3 handleMotionDetection:detectionsCopy inFrame:target];
+    [backgroundEstimator3 handleMotionDetection:? inFrame:?];
 
     backgroundEstimator4 = [(HMIVideoFrameTracker *)self backgroundEstimator];
-    v24 = CMSampleBufferGetImageBuffer(target);
-    v29 = v30;
-    v14 = [backgroundEstimator4 analyzePixelBuffer:v24 timeStamp:&v29];
+    CMSampleBufferGetImageBuffer(target);
+    v14 = [backgroundEstimator4 analyzePixelBuffer:v27.value timeStamp:{*&v27.timescale, v27.epoch}];
 
     backgroundEstimator5 = [(HMIVideoFrameTracker *)self backgroundEstimator];
     hasNewBackground = [backgroundEstimator5 hasNewBackground];
@@ -669,7 +653,7 @@ LABEL_13:
 
     if (backgroundEstimator6)
     {
-      [(HMIVideoFrameTracker *)self setBackgroundEstimator:0];
+      [(HMIVideoFrameTracker *)self setBackgroundEstimator:?];
     }
 
     v14 = [MEMORY[0x277CBEB98] set];
@@ -704,26 +688,24 @@ LABEL_13:
   detectionsCopy = detections;
   array = [MEMORY[0x277CBEB18] array];
   v10 = [HMIVideoFrame alloc];
-  ImageBuffer = CMSampleBufferGetImageBuffer(target);
-  v28 = *stamp;
-  v12 = [(HMIVideoFrame *)v10 initWithPixelBuffer:ImageBuffer presentationTimeStamp:&v28];
-  [array addObject:v12];
+  CMSampleBufferGetImageBuffer(target);
+  v11 = [(HMIVideoFrame *)v10 initWithPixelBuffer:*&stamp->var0 presentationTimeStamp:stamp->var3];
+  [array addObject:?];
   motionDetector = [(HMIVideoFrameTracker *)self motionDetector];
-  [(HMIVideoFrame *)v12 size];
-  v15 = v14;
-  v17 = v16;
-  if (v12)
+  [(HMIVideoFrame *)v11 size];
+  if (v11)
   {
-    [(HMIVideoFrame *)v12 presentationTimeStamp];
+    [&v23 presentationTimeStamp];
   }
 
   else
   {
-    memset(&v28, 0, sizeof(v28));
+    v23 = 0uLL;
+    v24 = 0;
   }
 
-  v18 = [motionDetector visualizeMotionDetections:detectionsCopy frameSize:&v28 timeStamp:{v15, v17}];
-  [array addObject:v18];
+  v13 = [motionDetector visualizeMotionDetections:v23 frameSize:v24 timeStamp:?];
+  [array addObject:?];
 
   backgroundEstimator = [(HMIVideoFrameTracker *)self backgroundEstimator];
 
@@ -731,61 +713,48 @@ LABEL_13:
   {
     backgroundEstimator2 = [(HMIVideoFrameTracker *)self backgroundEstimator];
     visualizeBackgroundMean = [backgroundEstimator2 visualizeBackgroundMean];
-    [array addObject:visualizeBackgroundMean];
+    [array addObject:?];
 
     backgroundEstimator3 = [(HMIVideoFrameTracker *)self backgroundEstimator];
     visualizeBackgroundStd = [backgroundEstimator3 visualizeBackgroundStd];
-    [array addObject:visualizeBackgroundStd];
+    [array addObject:?];
 
     backgroundEstimator4 = [(HMIVideoFrameTracker *)self backgroundEstimator];
     visualizeForegroundAssignment = [backgroundEstimator4 visualizeForegroundAssignment];
-    [array addObject:visualizeForegroundAssignment];
+    [array addObject:?];
   }
 
-  v26 = [(HMIVideoFrameTracker *)self reportBuffer:*&v28.var0];
-  v27 = [array copy];
-  [v26 addObject:v27];
+  reportBuffer = [(HMIVideoFrameTracker *)self reportBuffer];
+  v22 = [array copy];
+  [reportBuffer addObject:?];
 }
 
 - (void)_visualizeTargetsThatExpiredBefore:(id *)before
 {
   v5 = [MEMORY[0x277CBEB98] set];
   v6 = [MEMORY[0x277CBEB98] set];
-  v7 = *MEMORY[0x277CBF398];
-  v8 = *(MEMORY[0x277CBF398] + 8);
-  v9 = *(MEMORY[0x277CBF398] + 16);
-  v10 = *(MEMORY[0x277CBF398] + 24);
-  v11 = *before;
-  [(HMIVideoFrameTracker *)self _visualizeTargetEvents:v5 backgroundEvents:v6 regionOfInterest:&v11 targetTimeStamp:v7, v8, v9, v10];
+  v7 = *&before->var0;
+  [HMIVideoFrameTracker _visualizeTargetEvents:"_visualizeTargetEvents:backgroundEvents:regionOfInterest:targetTimeStamp:" backgroundEvents:v7 regionOfInterest:before->var3 targetTimeStamp:?];
 }
 
 - (void)_visualizeTargetEvents:(id)events backgroundEvents:(id)backgroundEvents regionOfInterest:(CGRect)interest targetTimeStamp:(id *)stamp
 {
-  height = interest.size.height;
-  width = interest.size.width;
-  y = interest.origin.y;
-  x = interest.origin.x;
   eventsCopy = events;
   backgroundEventsCopy = backgroundEvents;
   reportBuffer = [(HMIVideoFrameTracker *)self reportBuffer];
-  v16 = [reportBuffer count];
+  v12 = [reportBuffer count];
 
-  if (v16)
+  if (v12)
   {
-    v17 = *MEMORY[0x277CBF398];
-    v18 = *(MEMORY[0x277CBF398] + 8);
-    v19 = *(MEMORY[0x277CBF398] + 16);
-    v20 = *(MEMORY[0x277CBF398] + 24);
     while (1)
     {
       reportBuffer2 = [(HMIVideoFrameTracker *)self reportBuffer];
       firstObject = [reportBuffer2 firstObject];
 
-      v22FirstObject = [firstObject firstObject];
-      v24 = v22FirstObject;
-      if (v22FirstObject)
+      v14FirstObject = [firstObject firstObject];
+      if (v14FirstObject)
       {
-        [v22FirstObject presentationTimeStamp];
+        [&time1 presentationTimeStamp];
       }
 
       else
@@ -793,40 +762,40 @@ LABEL_13:
         memset(&time1, 0, sizeof(time1));
       }
 
-      v31 = *stamp;
-      v25 = CMTimeCompare(&time1, &v31);
+      v22 = *stamp;
+      v16 = CMTimeCompare(&time1, &v22);
 
-      if (v25 >= 1)
+      if (v16 >= 1)
       {
         break;
       }
 
-      if (v25)
+      if (v16)
       {
-        v26 = [MEMORY[0x277CBEB98] set];
-        v27 = [MEMORY[0x277CBEB98] set];
-        [(HMIVideoFrameTracker *)self _visualizeFrames:firstObject targetEvents:v26 backgroundEvents:v27 regionOfInterest:v17, v18, v19, v20];
+        v17 = [MEMORY[0x277CBEB98] set];
+        v18 = [MEMORY[0x277CBEB98] set];
+        [HMIVideoFrameTracker _visualizeFrames:"_visualizeFrames:targetEvents:backgroundEvents:regionOfInterest:" targetEvents:? backgroundEvents:? regionOfInterest:?];
       }
 
       else
       {
-        [(HMIVideoFrameTracker *)self _visualizeFrames:firstObject targetEvents:eventsCopy backgroundEvents:backgroundEventsCopy regionOfInterest:x, y, width, height];
+        [HMIVideoFrameTracker _visualizeFrames:"_visualizeFrames:targetEvents:backgroundEvents:regionOfInterest:" targetEvents:? backgroundEvents:? regionOfInterest:?];
       }
 
       reportBuffer3 = [(HMIVideoFrameTracker *)self reportBuffer];
       [reportBuffer3 hmf_removeFirstObject];
 
       reportBuffer4 = [(HMIVideoFrameTracker *)self reportBuffer];
-      v30 = [reportBuffer4 count];
+      v21 = [reportBuffer4 count];
 
-      if (!v30)
+      if (!v21)
       {
-        goto LABEL_13;
+        goto LABEL_12;
       }
     }
   }
 
-LABEL_13:
+LABEL_12:
 }
 
 - (void)_visualizeFrames:(id)frames targetEvents:(id)events backgroundEvents:(id)backgroundEvents regionOfInterest:(CGRect)interest
@@ -863,20 +832,19 @@ LABEL_13:
   (v17)[2](v17, 4, v24, @"Assign", v19, v20, v21, v22);
 
   report = [(HMIVideoFrameTracker *)self report];
-  [report appendText:&stru_284057FB8];
+  [report appendText:?];
 }
 
 void __88__HMIVideoFrameTracker__visualizeFrames_targetEvents_backgroundEvents_regionOfInterest___block_invoke(uint64_t a1, unint64_t a2, void *a3, void *a4, double a5, double a6, double a7, double a8)
 {
-  v15 = a3;
-  v16 = a4;
+  v11 = a3;
+  v12 = a4;
   if ([*(a1 + 32) count] > a2)
   {
-    v17 = [*(a1 + 32) objectAtIndexedSubscript:a2];
-    v18 = v17;
-    if (v17)
+    v13 = [*(a1 + 32) objectAtIndexedSubscript:?];
+    if (v13)
     {
-      [v17 presentationTimeStamp];
+      [&time presentationTimeStamp];
     }
 
     else
@@ -886,12 +854,12 @@ void __88__HMIVideoFrameTracker__visualizeFrames_targetEvents_backgroundEvents_r
 
     Seconds = CMTimeGetSeconds(&time);
 
-    v20 = [*(a1 + 40) report];
-    v21 = [HMIVideoAnalyzerFrameResult alloc];
-    v22 = [*(a1 + 32) objectAtIndexedSubscript:a2];
-    v23 = [(HMIVideoAnalyzerFrameResult *)v21 initWithFrame:v22 events:v15 regionOfInterest:a5, a6, a7, a8];
-    v24 = [MEMORY[0x277CCACA8] stringWithFormat:@"%.2f %@", *&Seconds, v16];
-    [v20 appendFrameResult:v23 frameTruth:0 description:v24];
+    v15 = [*(a1 + 40) report];
+    v16 = [HMIVideoAnalyzerFrameResult alloc];
+    v17 = [*(a1 + 32) objectAtIndexedSubscript:?];
+    v18 = [HMIVideoAnalyzerFrameResult initWithFrame:v16 events:"initWithFrame:events:regionOfInterest:" regionOfInterest:?];
+    v19 = [MEMORY[0x277CCACA8] stringWithFormat:*&Seconds, v12];
+    [v15 appendFrameResult:? frameTruth:? description:?];
   }
 }
 

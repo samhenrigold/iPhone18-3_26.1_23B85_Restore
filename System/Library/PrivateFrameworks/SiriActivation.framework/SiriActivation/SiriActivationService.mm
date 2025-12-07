@@ -42,6 +42,7 @@
 - (void)_preheatPresentation;
 - (void)_recordTimeIfNeededForButtonIdentifier:(int64_t)identifier buttonDownTimestamp:(double)timestamp;
 - (void)_unregisterForVoiceTrigger;
+- (void)_updateButtonSourceActiveOverride:(int64_t)override activeOverride:(BOOL)activeOverride;
 - (void)_updateCanActivateFromDirectActionSource;
 - (void)activationRequestFromBluetoothKeyboardActivation:(int64_t)activation;
 - (void)activationRequestFromBreadcrumb;
@@ -60,10 +61,12 @@
 - (void)activationRequestFromVocalShortcutWithContext:(id)context;
 - (void)activationRequestFromVoiceTrigger;
 - (void)activationRequestFromVoiceTriggerWithContext:(id)context;
+- (void)assessmentModeChangedToIsActive:(BOOL)active completion:(id)completion;
 - (void)buttonDownFromButtonIdentifier:(int64_t)identifier timestamp:(double)timestamp context:(id)context;
 - (void)buttonLongPressFromButtonIdentifier:(int64_t)identifier deviceIdentifier:(id)deviceIdentifier context:(id)context;
 - (void)buttonTapFromButtonIdentifier:(int64_t)identifier timestamp:(double)timestamp context:(id)context;
 - (void)buttonUpFromButtonIdentifier:(int64_t)identifier deviceIdentifier:(id)deviceIdentifier timestamp:(double)timestamp context:(id)context;
+- (void)callStateChangedToIsActive:(BOOL)active isOutgoing:(BOOL)outgoing;
 - (void)cancelPrewarmForFirstTapOfQuickTypeToSiriGesture;
 - (void)cancelPrewarmFromButtonIdentifier:(int64_t)identifier;
 - (void)deactivationRequestFromButtonIdentifier:(int64_t)identifier context:(id)context options:(id)options;
@@ -80,6 +83,7 @@
 - (void)registerButtonEventListenerServer:(id)server identifier:(id)identifier;
 - (void)scdaShouldAbort:(id)abort;
 - (void)scdaShouldContinue:(id)continue;
+- (void)setCanActivateFromDirectActionSource:(BOOL)source;
 - (void)setHintGlowAssertionFromButtonIdentifier:(int64_t)identifier context:(id)context;
 - (void)siriPresentationDismissedWithIdentifier:(int64_t)identifier;
 - (void)speechRequestStateDidChange:(int64_t)change;
@@ -104,13 +108,13 @@
 
 - (void)_updateCanActivateFromDirectActionSource
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 136315138;
-    v15 = "[SiriActivationService _updateCanActivateFromDirectActionSource]";
-    _os_log_impl(&dword_1C8137000, v3, OS_LOG_TYPE_DEFAULT, "%s #activation _updateCanActivateFromDirectActionSource", &v14, 0xCu);
+    v13 = 136315138;
+    v14 = "[SiriActivationService _updateCanActivateFromDirectActionSource]";
+    _os_log_impl(&dword_1C8137000, v3, OS_LOG_TYPE_DEFAULT, "%s #activation _updateCanActivateFromDirectActionSource", &v13, 0xCu);
   }
 
   v4 = objc_opt_new();
@@ -136,8 +140,6 @@
 
   [v4 setPresentationIdentifier:{-[SASPresentationManager nextPresentationToActivate](self->_presentationManager, "nextPresentationToActivate")}];
   [(SiriActivationService *)self setCanActivateFromDirectActionSource:[SASActivationDecision canActivateForCondition:v4]];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (AFPreferences)afPreferences
@@ -307,7 +309,7 @@ void __30__SiriActivationService__init__block_invoke_2(uint64_t a1)
 
 - (void)_notifySourcesOfPresentationStateChange:(id)change
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   changeCopy = change;
   -[SASActivePresentationInstrumentationSender aggregatePresentationRequestStateDidChange:](self->_activationEventInstrumentationSender, "aggregatePresentationRequestStateDidChange:", [changeCopy requestState]);
   if ([changeCopy didNewActivationAcceptanceChange])
@@ -320,8 +322,8 @@ void __30__SiriActivationService__init__block_invoke_2(uint64_t a1)
       v8 = v6;
       currentThread = [v7 currentThread];
       *buf = 136315394;
-      v30 = "[SiriActivationService _notifySourcesOfPresentationStateChange:]";
-      v31 = 2048;
+      v29 = "[SiriActivationService _notifySourcesOfPresentationStateChange:]";
+      v30 = 2048;
       qualityOfService = [currentThread qualityOfService];
       _os_log_impl(&dword_1C8137000, v8, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy sourcesLock about to lock with qos: %zd", buf, 0x16u);
     }
@@ -331,33 +333,33 @@ void __30__SiriActivationService__init__block_invoke_2(uint64_t a1)
     if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v30 = "[SiriActivationService _notifySourcesOfPresentationStateChange:]";
+      v29 = "[SiriActivationService _notifySourcesOfPresentationStateChange:]";
       _os_log_impl(&dword_1C8137000, v10, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy sourcesLock successfully locked", buf, 0xCu);
     }
 
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     sources = [(SiriActivationService *)self sources];
     allValues = [sources allValues];
 
-    v13 = [allValues countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v13 = [allValues countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v25;
+      v15 = *v24;
       do
       {
         v16 = 0;
         do
         {
-          if (*v25 != v15)
+          if (*v24 != v15)
           {
             objc_enumerationMutation(allValues);
           }
 
-          v17 = *(*(&v24 + 1) + 8 * v16);
+          v17 = *(*(&v23 + 1) + 8 * v16);
           canAcceptNewActivations = [changeCopy canAcceptNewActivations];
           connection = [v17 connection];
           remoteTarget = [connection remoteTarget];
@@ -368,7 +370,7 @@ void __30__SiriActivationService__init__block_invoke_2(uint64_t a1)
         }
 
         while (v14 != v16);
-        v14 = [allValues countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v14 = [allValues countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v14);
@@ -379,17 +381,15 @@ void __30__SiriActivationService__init__block_invoke_2(uint64_t a1)
     if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v30 = "[SiriActivationService _notifySourcesOfPresentationStateChange:]";
+      v29 = "[SiriActivationService _notifySourcesOfPresentationStateChange:]";
       _os_log_impl(&dword_1C8137000, v22, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy sourcesLock unlocked", buf, 0xCu);
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_notifyListenersOfButtonDownWithButtonIdentifier:(int64_t)identifier atTimestamp:(double)timestamp
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v7 = MEMORY[0x1E698D0A0];
   v8 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
@@ -398,8 +398,8 @@ void __30__SiriActivationService__init__block_invoke_2(uint64_t a1)
     v10 = v8;
     currentThread = [v9 currentThread];
     *buf = 136315394;
-    v18 = "[SiriActivationService _notifyListenersOfButtonDownWithButtonIdentifier:atTimestamp:]";
-    v19 = 2048;
+    v17 = "[SiriActivationService _notifyListenersOfButtonDownWithButtonIdentifier:atTimestamp:]";
+    v18 = 2048;
     qualityOfService = [currentThread qualityOfService];
     _os_log_impl(&dword_1C8137000, v10, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy buttonEventListenerLock about to lock with qos: %zd", buf, 0x16u);
   }
@@ -409,29 +409,27 @@ void __30__SiriActivationService__init__block_invoke_2(uint64_t a1)
   if (os_log_type_enabled(*v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v18 = "[SiriActivationService _notifyListenersOfButtonDownWithButtonIdentifier:atTimestamp:]";
+    v17 = "[SiriActivationService _notifyListenersOfButtonDownWithButtonIdentifier:atTimestamp:]";
     _os_log_impl(&dword_1C8137000, v12, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy buttonEventListenerLock successfully locked", buf, 0xCu);
   }
 
   buttonEventListeners = [(SiriActivationService *)self buttonEventListeners];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __86__SiriActivationService__notifyListenersOfButtonDownWithButtonIdentifier_atTimestamp___block_invoke;
-  v16[3] = &__block_descriptor_48_e42_v32__0__NSString_8__SASSignalServer_16_B24l;
-  *&v16[4] = timestamp;
-  v16[5] = identifier;
-  [buttonEventListeners enumerateKeysAndObjectsUsingBlock:v16];
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __86__SiriActivationService__notifyListenersOfButtonDownWithButtonIdentifier_atTimestamp___block_invoke;
+  v15[3] = &__block_descriptor_48_e42_v32__0__NSString_8__SASSignalServer_16_B24l;
+  *&v15[4] = timestamp;
+  v15[5] = identifier;
+  [buttonEventListeners enumerateKeysAndObjectsUsingBlock:v15];
 
   os_unfair_lock_unlock(&buttonEventListenerLock);
   v14 = *v7;
   if (os_log_type_enabled(*v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v18 = "[SiriActivationService _notifyListenersOfButtonDownWithButtonIdentifier:atTimestamp:]";
+    v17 = "[SiriActivationService _notifyListenersOfButtonDownWithButtonIdentifier:atTimestamp:]";
     _os_log_impl(&dword_1C8137000, v14, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy buttonEventListenerLock unlocked", buf, 0xCu);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __86__SiriActivationService__notifyListenersOfButtonDownWithButtonIdentifier_atTimestamp___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -454,7 +452,7 @@ void __86__SiriActivationService__notifyListenersOfButtonDownWithButtonIdentifie
 
 - (void)_notifyListenersOfButtonUpWithButtonIdentifier:(int64_t)identifier atTimestamp:(double)timestamp
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v7 = MEMORY[0x1E698D0A0];
   v8 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
@@ -463,8 +461,8 @@ void __86__SiriActivationService__notifyListenersOfButtonDownWithButtonIdentifie
     v10 = v8;
     currentThread = [v9 currentThread];
     *buf = 136315394;
-    v18 = "[SiriActivationService _notifyListenersOfButtonUpWithButtonIdentifier:atTimestamp:]";
-    v19 = 2048;
+    v17 = "[SiriActivationService _notifyListenersOfButtonUpWithButtonIdentifier:atTimestamp:]";
+    v18 = 2048;
     qualityOfService = [currentThread qualityOfService];
     _os_log_impl(&dword_1C8137000, v10, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy buttonEventListenerLock about to lock with qos: %zd", buf, 0x16u);
   }
@@ -474,29 +472,27 @@ void __86__SiriActivationService__notifyListenersOfButtonDownWithButtonIdentifie
   if (os_log_type_enabled(*v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v18 = "[SiriActivationService _notifyListenersOfButtonUpWithButtonIdentifier:atTimestamp:]";
+    v17 = "[SiriActivationService _notifyListenersOfButtonUpWithButtonIdentifier:atTimestamp:]";
     _os_log_impl(&dword_1C8137000, v12, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy buttonEventListenerLock successfully locked", buf, 0xCu);
   }
 
   buttonEventListeners = [(SiriActivationService *)self buttonEventListeners];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __84__SiriActivationService__notifyListenersOfButtonUpWithButtonIdentifier_atTimestamp___block_invoke;
-  v16[3] = &__block_descriptor_48_e42_v32__0__NSString_8__SASSignalServer_16_B24l;
-  *&v16[4] = timestamp;
-  v16[5] = identifier;
-  [buttonEventListeners enumerateKeysAndObjectsUsingBlock:v16];
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __84__SiriActivationService__notifyListenersOfButtonUpWithButtonIdentifier_atTimestamp___block_invoke;
+  v15[3] = &__block_descriptor_48_e42_v32__0__NSString_8__SASSignalServer_16_B24l;
+  *&v15[4] = timestamp;
+  v15[5] = identifier;
+  [buttonEventListeners enumerateKeysAndObjectsUsingBlock:v15];
 
   os_unfair_lock_unlock(&buttonEventListenerLock);
   v14 = *v7;
   if (os_log_type_enabled(*v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v18 = "[SiriActivationService _notifyListenersOfButtonUpWithButtonIdentifier:atTimestamp:]";
+    v17 = "[SiriActivationService _notifyListenersOfButtonUpWithButtonIdentifier:atTimestamp:]";
     _os_log_impl(&dword_1C8137000, v14, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy buttonEventListenerLock unlocked", buf, 0xCu);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __84__SiriActivationService__notifyListenersOfButtonUpWithButtonIdentifier_atTimestamp___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -519,7 +515,7 @@ void __84__SiriActivationService__notifyListenersOfButtonUpWithButtonIdentifier_
 
 - (void)_notifyListenersOfButtonLongPressWithButtonIdentifier:(int64_t)identifier atTimestamp:(double)timestamp
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v7 = MEMORY[0x1E698D0A0];
   v8 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
@@ -528,8 +524,8 @@ void __84__SiriActivationService__notifyListenersOfButtonUpWithButtonIdentifier_
     v10 = v8;
     currentThread = [v9 currentThread];
     *buf = 136315394;
-    v18 = "[SiriActivationService _notifyListenersOfButtonLongPressWithButtonIdentifier:atTimestamp:]";
-    v19 = 2048;
+    v17 = "[SiriActivationService _notifyListenersOfButtonLongPressWithButtonIdentifier:atTimestamp:]";
+    v18 = 2048;
     qualityOfService = [currentThread qualityOfService];
     _os_log_impl(&dword_1C8137000, v10, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy buttonEventListenerLock about to lock with qos: %zd", buf, 0x16u);
   }
@@ -539,29 +535,27 @@ void __84__SiriActivationService__notifyListenersOfButtonUpWithButtonIdentifier_
   if (os_log_type_enabled(*v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v18 = "[SiriActivationService _notifyListenersOfButtonLongPressWithButtonIdentifier:atTimestamp:]";
+    v17 = "[SiriActivationService _notifyListenersOfButtonLongPressWithButtonIdentifier:atTimestamp:]";
     _os_log_impl(&dword_1C8137000, v12, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy buttonEventListenerLock successfully locked", buf, 0xCu);
   }
 
   buttonEventListeners = [(SiriActivationService *)self buttonEventListeners];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __91__SiriActivationService__notifyListenersOfButtonLongPressWithButtonIdentifier_atTimestamp___block_invoke;
-  v16[3] = &__block_descriptor_48_e42_v32__0__NSString_8__SASSignalServer_16_B24l;
-  *&v16[4] = timestamp;
-  v16[5] = identifier;
-  [buttonEventListeners enumerateKeysAndObjectsUsingBlock:v16];
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __91__SiriActivationService__notifyListenersOfButtonLongPressWithButtonIdentifier_atTimestamp___block_invoke;
+  v15[3] = &__block_descriptor_48_e42_v32__0__NSString_8__SASSignalServer_16_B24l;
+  *&v15[4] = timestamp;
+  v15[5] = identifier;
+  [buttonEventListeners enumerateKeysAndObjectsUsingBlock:v15];
 
   os_unfair_lock_unlock(&buttonEventListenerLock);
   v14 = *v7;
   if (os_log_type_enabled(*v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v18 = "[SiriActivationService _notifyListenersOfButtonLongPressWithButtonIdentifier:atTimestamp:]";
+    v17 = "[SiriActivationService _notifyListenersOfButtonLongPressWithButtonIdentifier:atTimestamp:]";
     _os_log_impl(&dword_1C8137000, v14, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy buttonEventListenerLock unlocked", buf, 0xCu);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __91__SiriActivationService__notifyListenersOfButtonLongPressWithButtonIdentifier_atTimestamp___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -582,10 +576,34 @@ void __91__SiriActivationService__notifyListenersOfButtonLongPressWithButtonIden
   }
 }
 
+- (void)setCanActivateFromDirectActionSource:(BOOL)source
+{
+  sourceCopy = source;
+  v13 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E698D0A0];
+  if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = MEMORY[0x1E696AD98];
+    v7 = v5;
+    v8 = [v6 numberWithBool:sourceCopy];
+    v9 = 136315394;
+    v10 = "[SiriActivationService setCanActivateFromDirectActionSource:]";
+    v11 = 2112;
+    v12 = v8;
+    _os_log_impl(&dword_1C8137000, v7, OS_LOG_TYPE_DEFAULT, "%s #activation setCanActivateFromDirectActionSource: %@", &v9, 0x16u);
+  }
+
+  if (self->_canActivateFromDirectActionSource != sourceCopy)
+  {
+    self->_canActivateFromDirectActionSource = sourceCopy;
+    [(SiriActivationService *)self _notifySourcesOfCanActivateFromDirectActionSourceChange:sourceCopy];
+  }
+}
+
 - (void)_notifySourcesOfCanActivateFromDirectActionSourceChange:(BOOL)change
 {
   changeCopy = change;
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E698D0A0];
   v5 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
@@ -594,8 +612,8 @@ void __91__SiriActivationService__notifyListenersOfButtonLongPressWithButtonIden
     v7 = v5;
     currentThread = [v6 currentThread];
     *buf = 136315394;
-    v32 = "[SiriActivationService _notifySourcesOfCanActivateFromDirectActionSourceChange:]";
-    v33 = 2048;
+    v31 = "[SiriActivationService _notifySourcesOfCanActivateFromDirectActionSourceChange:]";
+    v32 = 2048;
     qualityOfService = [currentThread qualityOfService];
     _os_log_impl(&dword_1C8137000, v7, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy sourcesLock about to lock with qos: %zd", buf, 0x16u);
   }
@@ -605,32 +623,32 @@ void __91__SiriActivationService__notifyListenersOfButtonLongPressWithButtonIden
   if (os_log_type_enabled(*v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v32 = "[SiriActivationService _notifySourcesOfCanActivateFromDirectActionSourceChange:]";
+    v31 = "[SiriActivationService _notifySourcesOfCanActivateFromDirectActionSourceChange:]";
     _os_log_impl(&dword_1C8137000, v9, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy sourcesLock successfully locked", buf, 0xCu);
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   sources = [(SiriActivationService *)self sources];
   allValues = [sources allValues];
 
-  v12 = [allValues countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v12 = [allValues countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v27;
+    v14 = *v26;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v27 != v14)
+        if (*v26 != v14)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v16 = *(*(&v26 + 1) + 8 * i);
+        v16 = *(*(&v25 + 1) + 8 * i);
         connection = [v16 connection];
         remoteTarget = [connection remoteTarget];
         v19 = objc_opt_respondsToSelector();
@@ -644,7 +662,7 @@ void __91__SiriActivationService__notifyListenersOfButtonLongPressWithButtonIden
         }
       }
 
-      v13 = [allValues countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v13 = [allValues countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v13);
@@ -655,11 +673,9 @@ void __91__SiriActivationService__notifyListenersOfButtonLongPressWithButtonIden
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v32 = "[SiriActivationService _notifySourcesOfCanActivateFromDirectActionSourceChange:]";
+    v31 = "[SiriActivationService _notifySourcesOfCanActivateFromDirectActionSourceChange:]";
     _os_log_impl(&dword_1C8137000, v23, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy sourcesLock unlocked", buf, 0xCu);
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)siriPresentationDismissedWithIdentifier:(int64_t)identifier
@@ -679,7 +695,7 @@ void __91__SiriActivationService__notifyListenersOfButtonLongPressWithButtonIden
 
 - (void)registerActivationSource:(id)source withIdentifier:(id)identifier
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   sourceCopy = source;
   identifierCopy = identifier;
   v8 = MEMORY[0x1E698D0A0];
@@ -689,20 +705,20 @@ void __91__SiriActivationService__notifyListenersOfButtonLongPressWithButtonIden
     v10 = MEMORY[0x1E696AF00];
     v11 = v9;
     currentThread = [v10 currentThread];
-    v25 = 136315394;
-    v26 = "[SiriActivationService registerActivationSource:withIdentifier:]";
-    v27 = 2048;
+    v24 = 136315394;
+    v25 = "[SiriActivationService registerActivationSource:withIdentifier:]";
+    v26 = 2048;
     qualityOfService = [currentThread qualityOfService];
-    _os_log_impl(&dword_1C8137000, v11, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy sourcesLock about to lock with qos: %zd", &v25, 0x16u);
+    _os_log_impl(&dword_1C8137000, v11, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy sourcesLock about to lock with qos: %zd", &v24, 0x16u);
   }
 
   os_unfair_lock_lock(&sourcesLock);
   v13 = *v8;
   if (os_log_type_enabled(*v8, OS_LOG_TYPE_DEFAULT))
   {
-    v25 = 136315138;
-    v26 = "[SiriActivationService registerActivationSource:withIdentifier:]";
-    _os_log_impl(&dword_1C8137000, v13, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy sourcesLock successfully locked", &v25, 0xCu);
+    v24 = 136315138;
+    v25 = "[SiriActivationService registerActivationSource:withIdentifier:]";
+    _os_log_impl(&dword_1C8137000, v13, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy sourcesLock successfully locked", &v24, 0xCu);
   }
 
   sources = [(SiriActivationService *)self sources];
@@ -723,11 +739,11 @@ void __91__SiriActivationService__notifyListenersOfButtonLongPressWithButtonIden
   v18 = *v8;
   if (os_log_type_enabled(*v8, OS_LOG_TYPE_DEFAULT))
   {
-    v25 = 136315394;
-    v26 = "[SiriActivationService registerActivationSource:withIdentifier:]";
-    v27 = 2112;
+    v24 = 136315394;
+    v25 = "[SiriActivationService registerActivationSource:withIdentifier:]";
+    v26 = 2112;
     qualityOfService = identifierCopy;
-    _os_log_impl(&dword_1C8137000, v18, OS_LOG_TYPE_DEFAULT, "%s #activation Registering '%@'", &v25, 0x16u);
+    _os_log_impl(&dword_1C8137000, v18, OS_LOG_TYPE_DEFAULT, "%s #activation Registering '%@'", &v24, 0x16u);
   }
 
   sources3 = [(SiriActivationService *)self sources];
@@ -743,19 +759,17 @@ void __91__SiriActivationService__notifyListenersOfButtonLongPressWithButtonIden
   v23 = *v8;
   if (os_log_type_enabled(*v8, OS_LOG_TYPE_DEFAULT))
   {
-    v25 = 136315138;
-    v26 = "[SiriActivationService registerActivationSource:withIdentifier:]";
-    _os_log_impl(&dword_1C8137000, v23, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy sourcesLock unlocked", &v25, 0xCu);
+    v24 = 136315138;
+    v25 = "[SiriActivationService registerActivationSource:withIdentifier:]";
+    _os_log_impl(&dword_1C8137000, v23, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy sourcesLock unlocked", &v24, 0xCu);
   }
 
   [(SiriActivationService *)self _updateCanActivateFromDirectActionSource];
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unregisterActivationSourceIdentifier:(id)identifier
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v5 = MEMORY[0x1E698D0A0];
   v6 = *MEMORY[0x1E698D0A0];
@@ -764,20 +778,20 @@ void __91__SiriActivationService__notifyListenersOfButtonLongPressWithButtonIden
     v7 = MEMORY[0x1E696AF00];
     v8 = v6;
     currentThread = [v7 currentThread];
-    v19 = 136315394;
-    v20 = "[SiriActivationService unregisterActivationSourceIdentifier:]";
-    v21 = 2048;
+    v18 = 136315394;
+    v19 = "[SiriActivationService unregisterActivationSourceIdentifier:]";
+    v20 = 2048;
     qualityOfService = [currentThread qualityOfService];
-    _os_log_impl(&dword_1C8137000, v8, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy sourcesLock about to lock with qos: %zd", &v19, 0x16u);
+    _os_log_impl(&dword_1C8137000, v8, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy sourcesLock about to lock with qos: %zd", &v18, 0x16u);
   }
 
   os_unfair_lock_lock(&sourcesLock);
   v10 = *v5;
   if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 136315138;
-    v20 = "[SiriActivationService unregisterActivationSourceIdentifier:]";
-    _os_log_impl(&dword_1C8137000, v10, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy sourcesLock successfully locked", &v19, 0xCu);
+    v18 = 136315138;
+    v19 = "[SiriActivationService unregisterActivationSourceIdentifier:]";
+    _os_log_impl(&dword_1C8137000, v10, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy sourcesLock successfully locked", &v18, 0xCu);
   }
 
   sources = [(SiriActivationService *)self sources];
@@ -790,11 +804,11 @@ void __91__SiriActivationService__notifyListenersOfButtonLongPressWithButtonIden
   {
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 136315394;
-      v20 = "[SiriActivationService unregisterActivationSourceIdentifier:]";
-      v21 = 2112;
+      v18 = 136315394;
+      v19 = "[SiriActivationService unregisterActivationSourceIdentifier:]";
+      v20 = 2112;
       qualityOfService = identifierCopy;
-      _os_log_impl(&dword_1C8137000, v14, OS_LOG_TYPE_DEFAULT, "%s #activation Unregistering '%@'", &v19, 0x16u);
+      _os_log_impl(&dword_1C8137000, v14, OS_LOG_TYPE_DEFAULT, "%s #activation Unregistering '%@'", &v18, 0x16u);
     }
 
     sources2 = [(SiriActivationService *)self sources];
@@ -810,17 +824,15 @@ void __91__SiriActivationService__notifyListenersOfButtonLongPressWithButtonIden
   v17 = *v5;
   if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 136315138;
-    v20 = "[SiriActivationService unregisterActivationSourceIdentifier:]";
-    _os_log_impl(&dword_1C8137000, v17, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy sourcesLock unlocked", &v19, 0xCu);
+    v18 = 136315138;
+    v19 = "[SiriActivationService unregisterActivationSourceIdentifier:]";
+    _os_log_impl(&dword_1C8137000, v17, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy sourcesLock unlocked", &v18, 0xCu);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)registerActivationAssertion:(id)assertion withIdentifier:(id)identifier
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   assertionCopy = assertion;
   identifierCopy = identifier;
   v8 = MEMORY[0x1E698D0A0];
@@ -830,20 +842,20 @@ void __91__SiriActivationService__notifyListenersOfButtonLongPressWithButtonIden
     v10 = MEMORY[0x1E696AF00];
     v11 = v9;
     currentThread = [v10 currentThread];
-    v22 = 136315394;
-    v23 = "[SiriActivationService registerActivationAssertion:withIdentifier:]";
-    v24 = 2048;
+    v21 = 136315394;
+    v22 = "[SiriActivationService registerActivationAssertion:withIdentifier:]";
+    v23 = 2048;
     qualityOfService = [currentThread qualityOfService];
-    _os_log_impl(&dword_1C8137000, v11, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy assertionLock about to lock with qos: %zd", &v22, 0x16u);
+    _os_log_impl(&dword_1C8137000, v11, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy assertionLock about to lock with qos: %zd", &v21, 0x16u);
   }
 
   os_unfair_lock_lock(&assertionLock);
   v13 = *v8;
   if (os_log_type_enabled(*v8, OS_LOG_TYPE_DEFAULT))
   {
-    v22 = 136315138;
-    v23 = "[SiriActivationService registerActivationAssertion:withIdentifier:]";
-    _os_log_impl(&dword_1C8137000, v13, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy assertionLock successfully locked", &v22, 0xCu);
+    v21 = 136315138;
+    v22 = "[SiriActivationService registerActivationAssertion:withIdentifier:]";
+    _os_log_impl(&dword_1C8137000, v13, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy assertionLock successfully locked", &v21, 0xCu);
   }
 
   activationAssertions = [(SiriActivationService *)self activationAssertions];
@@ -864,11 +876,11 @@ void __91__SiriActivationService__notifyListenersOfButtonLongPressWithButtonIden
   v18 = *v8;
   if (os_log_type_enabled(*v8, OS_LOG_TYPE_DEFAULT))
   {
-    v22 = 136315394;
-    v23 = "[SiriActivationService registerActivationAssertion:withIdentifier:]";
-    v24 = 2112;
+    v21 = 136315394;
+    v22 = "[SiriActivationService registerActivationAssertion:withIdentifier:]";
+    v23 = 2112;
     qualityOfService = identifierCopy;
-    _os_log_impl(&dword_1C8137000, v18, OS_LOG_TYPE_DEFAULT, "%s #activation Registering assertion with Id -  '%@'", &v22, 0x16u);
+    _os_log_impl(&dword_1C8137000, v18, OS_LOG_TYPE_DEFAULT, "%s #activation Registering assertion with Id -  '%@'", &v21, 0x16u);
   }
 
   activationAssertions3 = [(SiriActivationService *)self activationAssertions];
@@ -878,17 +890,15 @@ void __91__SiriActivationService__notifyListenersOfButtonLongPressWithButtonIden
   v20 = *v8;
   if (os_log_type_enabled(*v8, OS_LOG_TYPE_DEFAULT))
   {
-    v22 = 136315138;
-    v23 = "[SiriActivationService registerActivationAssertion:withIdentifier:]";
-    _os_log_impl(&dword_1C8137000, v20, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy assertionLock unlocked", &v22, 0xCu);
+    v21 = 136315138;
+    v22 = "[SiriActivationService registerActivationAssertion:withIdentifier:]";
+    _os_log_impl(&dword_1C8137000, v20, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy assertionLock unlocked", &v21, 0xCu);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unregisterActivationAssertionWithIdentifier:(id)identifier
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v5 = MEMORY[0x1E698D0A0];
   v6 = *MEMORY[0x1E698D0A0];
@@ -897,20 +907,20 @@ void __91__SiriActivationService__notifyListenersOfButtonLongPressWithButtonIden
     v7 = MEMORY[0x1E696AF00];
     v8 = v6;
     currentThread = [v7 currentThread];
-    v19 = 136315394;
-    v20 = "[SiriActivationService unregisterActivationAssertionWithIdentifier:]";
-    v21 = 2048;
+    v18 = 136315394;
+    v19 = "[SiriActivationService unregisterActivationAssertionWithIdentifier:]";
+    v20 = 2048;
     qualityOfService = [currentThread qualityOfService];
-    _os_log_impl(&dword_1C8137000, v8, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy assertionLock about to lock with qos: %zd", &v19, 0x16u);
+    _os_log_impl(&dword_1C8137000, v8, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy assertionLock about to lock with qos: %zd", &v18, 0x16u);
   }
 
   os_unfair_lock_lock(&assertionLock);
   v10 = *v5;
   if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 136315138;
-    v20 = "[SiriActivationService unregisterActivationAssertionWithIdentifier:]";
-    _os_log_impl(&dword_1C8137000, v10, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy assertionLock successfully locked", &v19, 0xCu);
+    v18 = 136315138;
+    v19 = "[SiriActivationService unregisterActivationAssertionWithIdentifier:]";
+    _os_log_impl(&dword_1C8137000, v10, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy assertionLock successfully locked", &v18, 0xCu);
   }
 
   activationAssertions = [(SiriActivationService *)self activationAssertions];
@@ -923,11 +933,11 @@ void __91__SiriActivationService__notifyListenersOfButtonLongPressWithButtonIden
   {
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 136315394;
-      v20 = "[SiriActivationService unregisterActivationAssertionWithIdentifier:]";
-      v21 = 2112;
+      v18 = 136315394;
+      v19 = "[SiriActivationService unregisterActivationAssertionWithIdentifier:]";
+      v20 = 2112;
       qualityOfService = identifierCopy;
-      _os_log_impl(&dword_1C8137000, v14, OS_LOG_TYPE_DEFAULT, "%s #activation Unregistering assertion %@'", &v19, 0x16u);
+      _os_log_impl(&dword_1C8137000, v14, OS_LOG_TYPE_DEFAULT, "%s #activation Unregistering assertion %@'", &v18, 0x16u);
     }
 
     activationAssertions2 = [(SiriActivationService *)self activationAssertions];
@@ -943,17 +953,15 @@ void __91__SiriActivationService__notifyListenersOfButtonLongPressWithButtonIden
   v17 = *v5;
   if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 136315138;
-    v20 = "[SiriActivationService unregisterActivationAssertionWithIdentifier:]";
-    _os_log_impl(&dword_1C8137000, v17, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy assertionLock unlocked", &v19, 0xCu);
+    v18 = 136315138;
+    v19 = "[SiriActivationService unregisterActivationAssertionWithIdentifier:]";
+    _os_log_impl(&dword_1C8137000, v17, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy assertionLock unlocked", &v18, 0xCu);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)registerButtonEventListenerServer:(id)server identifier:(id)identifier
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   serverCopy = server;
   identifierCopy = identifier;
   v8 = MEMORY[0x1E698D0A0];
@@ -963,20 +971,20 @@ void __91__SiriActivationService__notifyListenersOfButtonLongPressWithButtonIden
     v10 = MEMORY[0x1E696AF00];
     v11 = v9;
     currentThread = [v10 currentThread];
-    v22 = 136315394;
-    v23 = "[SiriActivationService registerButtonEventListenerServer:identifier:]";
-    v24 = 2048;
+    v21 = 136315394;
+    v22 = "[SiriActivationService registerButtonEventListenerServer:identifier:]";
+    v23 = 2048;
     qualityOfService = [currentThread qualityOfService];
-    _os_log_impl(&dword_1C8137000, v11, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy buttonEventListenerLock about to lock with qos: %zd", &v22, 0x16u);
+    _os_log_impl(&dword_1C8137000, v11, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy buttonEventListenerLock about to lock with qos: %zd", &v21, 0x16u);
   }
 
   os_unfair_lock_lock(&buttonEventListenerLock);
   v13 = *v8;
   if (os_log_type_enabled(*v8, OS_LOG_TYPE_DEFAULT))
   {
-    v22 = 136315138;
-    v23 = "[SiriActivationService registerButtonEventListenerServer:identifier:]";
-    _os_log_impl(&dword_1C8137000, v13, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy buttonEventListenerLock successfully locked", &v22, 0xCu);
+    v21 = 136315138;
+    v22 = "[SiriActivationService registerButtonEventListenerServer:identifier:]";
+    _os_log_impl(&dword_1C8137000, v13, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy buttonEventListenerLock successfully locked", &v21, 0xCu);
   }
 
   buttonEventListeners = [(SiriActivationService *)self buttonEventListeners];
@@ -997,11 +1005,11 @@ void __91__SiriActivationService__notifyListenersOfButtonLongPressWithButtonIden
   v18 = *v8;
   if (os_log_type_enabled(*v8, OS_LOG_TYPE_DEFAULT))
   {
-    v22 = 136315394;
-    v23 = "[SiriActivationService registerButtonEventListenerServer:identifier:]";
-    v24 = 2112;
+    v21 = 136315394;
+    v22 = "[SiriActivationService registerButtonEventListenerServer:identifier:]";
+    v23 = 2112;
     qualityOfService = identifierCopy;
-    _os_log_impl(&dword_1C8137000, v18, OS_LOG_TYPE_DEFAULT, "%s #activation Registering listener with Id -  '%@'", &v22, 0x16u);
+    _os_log_impl(&dword_1C8137000, v18, OS_LOG_TYPE_DEFAULT, "%s #activation Registering listener with Id -  '%@'", &v21, 0x16u);
   }
 
   buttonEventListeners3 = [(SiriActivationService *)self buttonEventListeners];
@@ -1011,17 +1019,15 @@ void __91__SiriActivationService__notifyListenersOfButtonLongPressWithButtonIden
   v20 = *v8;
   if (os_log_type_enabled(*v8, OS_LOG_TYPE_DEFAULT))
   {
-    v22 = 136315138;
-    v23 = "[SiriActivationService registerButtonEventListenerServer:identifier:]";
-    _os_log_impl(&dword_1C8137000, v20, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy buttonEventListenerLock unlocked", &v22, 0xCu);
+    v21 = 136315138;
+    v22 = "[SiriActivationService registerButtonEventListenerServer:identifier:]";
+    _os_log_impl(&dword_1C8137000, v20, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy buttonEventListenerLock unlocked", &v21, 0xCu);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unregisterButtonEventListenerWithIdentifier:(id)identifier
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v5 = MEMORY[0x1E698D0A0];
   v6 = *MEMORY[0x1E698D0A0];
@@ -1030,20 +1036,20 @@ void __91__SiriActivationService__notifyListenersOfButtonLongPressWithButtonIden
     v7 = MEMORY[0x1E696AF00];
     v8 = v6;
     currentThread = [v7 currentThread];
-    v19 = 136315394;
-    v20 = "[SiriActivationService unregisterButtonEventListenerWithIdentifier:]";
-    v21 = 2048;
+    v18 = 136315394;
+    v19 = "[SiriActivationService unregisterButtonEventListenerWithIdentifier:]";
+    v20 = 2048;
     qualityOfService = [currentThread qualityOfService];
-    _os_log_impl(&dword_1C8137000, v8, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy buttonEventListenerLock about to lock with qos: %zd", &v19, 0x16u);
+    _os_log_impl(&dword_1C8137000, v8, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy buttonEventListenerLock about to lock with qos: %zd", &v18, 0x16u);
   }
 
   os_unfair_lock_lock(&buttonEventListenerLock);
   v10 = *v5;
   if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 136315138;
-    v20 = "[SiriActivationService unregisterButtonEventListenerWithIdentifier:]";
-    _os_log_impl(&dword_1C8137000, v10, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy buttonEventListenerLock successfully locked", &v19, 0xCu);
+    v18 = 136315138;
+    v19 = "[SiriActivationService unregisterButtonEventListenerWithIdentifier:]";
+    _os_log_impl(&dword_1C8137000, v10, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy buttonEventListenerLock successfully locked", &v18, 0xCu);
   }
 
   buttonEventListeners = [(SiriActivationService *)self buttonEventListeners];
@@ -1056,11 +1062,11 @@ void __91__SiriActivationService__notifyListenersOfButtonLongPressWithButtonIden
   {
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 136315394;
-      v20 = "[SiriActivationService unregisterButtonEventListenerWithIdentifier:]";
-      v21 = 2112;
+      v18 = 136315394;
+      v19 = "[SiriActivationService unregisterButtonEventListenerWithIdentifier:]";
+      v20 = 2112;
       qualityOfService = identifierCopy;
-      _os_log_impl(&dword_1C8137000, v14, OS_LOG_TYPE_DEFAULT, "%s #activation Unregistering listener %@'", &v19, 0x16u);
+      _os_log_impl(&dword_1C8137000, v14, OS_LOG_TYPE_DEFAULT, "%s #activation Unregistering listener %@'", &v18, 0x16u);
     }
 
     buttonEventListeners2 = [(SiriActivationService *)self buttonEventListeners];
@@ -1076,38 +1082,36 @@ void __91__SiriActivationService__notifyListenersOfButtonLongPressWithButtonIden
   v17 = *v5;
   if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 136315138;
-    v20 = "[SiriActivationService unregisterButtonEventListenerWithIdentifier:]";
-    _os_log_impl(&dword_1C8137000, v17, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy buttonEventListenerLock unlocked", &v19, 0xCu);
+    v18 = 136315138;
+    v19 = "[SiriActivationService unregisterButtonEventListenerWithIdentifier:]";
+    _os_log_impl(&dword_1C8137000, v17, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy buttonEventListenerLock unlocked", &v18, 0xCu);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isConnectedTo188
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   mEMORY[0x1E698F468] = [MEMORY[0x1E698F468] sharedInstance];
   connectedDevices = [mEMORY[0x1E698F468] connectedDevices];
 
-  v4 = [connectedDevices countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [connectedDevices countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
-    v5 = *v11;
+    v5 = *v10;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(connectedDevices);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * i);
+        v7 = *(*(&v9 + 1) + 8 * i);
         if ([v7 productId] == 8194 && objc_msgSend(v7, "vendorId") == 76)
         {
           LOBYTE(v4) = 1;
@@ -1115,7 +1119,7 @@ void __91__SiriActivationService__notifyListenersOfButtonLongPressWithButtonIden
         }
       }
 
-      v4 = [connectedDevices countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [connectedDevices countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v4)
       {
         continue;
@@ -1127,7 +1131,6 @@ void __91__SiriActivationService__notifyListenersOfButtonLongPressWithButtonIden
 
 LABEL_12:
 
-  v8 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -1189,7 +1192,7 @@ void __62__SiriActivationService__B188ActivationEvent_context_options___block_in
 
 void __62__SiriActivationService__B188ActivationEvent_context_options___block_invoke_2(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v3 = [WeakRetained presentationsAreIdleAndQuiet];
 
@@ -1202,11 +1205,11 @@ void __62__SiriActivationService__B188ActivationEvent_context_options___block_in
       v6 = v4;
       v7 = objc_loadWeakRetained((a1 + 48));
       v8 = SASRequestStateGetName([v7 _requestState]);
-      v16 = 136315394;
-      v17 = "[SiriActivationService _B188ActivationEvent:context:options:]_block_invoke_2";
-      v18 = 2112;
-      v19 = v8;
-      _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_DEFAULT, "%s #activation B188ActivationEvent with Siri state %@. Activating.", &v16, 0x16u);
+      v15 = 136315394;
+      v16 = "[SiriActivationService _B188ActivationEvent:context:options:]_block_invoke_2";
+      v17 = 2112;
+      v18 = v8;
+      _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_DEFAULT, "%s #activation B188ActivationEvent with Siri state %@. Activating.", &v15, 0x16u);
     }
 
     v9 = [[SASActivationRequest alloc] initWithButtonIdentifier:*(a1 + 56) context:*(a1 + 32)];
@@ -1220,11 +1223,11 @@ void __62__SiriActivationService__B188ActivationEvent_context_options___block_in
     v11 = v4;
     v12 = objc_loadWeakRetained((a1 + 48));
     v13 = SASRequestStateGetName([v12 _requestState]);
-    v16 = 136315394;
-    v17 = "[SiriActivationService _B188ActivationEvent:context:options:]_block_invoke";
-    v18 = 2112;
-    v19 = v13;
-    _os_log_impl(&dword_1C8137000, v11, OS_LOG_TYPE_DEFAULT, "%s #activation B188ActivationEvent with Siri state %@. Deactivating.", &v16, 0x16u);
+    v15 = 136315394;
+    v16 = "[SiriActivationService _B188ActivationEvent:context:options:]_block_invoke";
+    v17 = 2112;
+    v18 = v13;
+    _os_log_impl(&dword_1C8137000, v11, OS_LOG_TYPE_DEFAULT, "%s #activation B188ActivationEvent with Siri state %@. Deactivating.", &v15, 0x16u);
   }
 
   v14 = objc_loadWeakRetained((a1 + 48));
@@ -1240,13 +1243,11 @@ LABEL_10:
 
   [(SASActivationRequest *)v14 dismissSiriWithOptions:?];
 LABEL_11:
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)activationRequestFromButtonIdentifier:(int64_t)identifier context:(id)context
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   if (identifier == 3)
   {
@@ -1263,13 +1264,13 @@ LABEL_11:
       {
         v8 = v7;
         v9 = SASRequestStateGetName([(SiriActivationService *)self _requestState]);
-        v22 = 136315650;
-        v23 = "[SiriActivationService activationRequestFromButtonIdentifier:context:]";
-        v24 = 2112;
-        v25 = contextCopy;
-        v26 = 2112;
-        v27 = v9;
-        _os_log_impl(&dword_1C8137000, v8, OS_LOG_TYPE_DEFAULT, "%s #activation SiriButtonIdentifierLongPressBTHeadset, context %@, but Siri state is %@. Treating as button long press.", &v22, 0x20u);
+        v21 = 136315650;
+        v22 = "[SiriActivationService activationRequestFromButtonIdentifier:context:]";
+        v23 = 2112;
+        v24 = contextCopy;
+        v25 = 2112;
+        v26 = v9;
+        _os_log_impl(&dword_1C8137000, v8, OS_LOG_TYPE_DEFAULT, "%s #activation SiriButtonIdentifierLongPressBTHeadset, context %@, but Siri state is %@. Treating as button long press.", &v21, 0x20u);
       }
 
       objc_opt_class();
@@ -1308,13 +1309,13 @@ LABEL_17:
       v14 = v12;
       v15 = [v13 stringWithSiriButtonIdentifier:identifier];
       v16 = SASRequestStateGetName([(SiriActivationService *)self _requestState]);
-      v22 = 136315650;
-      v23 = "[SiriActivationService activationRequestFromButtonIdentifier:context:]";
-      v24 = 2112;
-      v25 = v15;
-      v26 = 2112;
-      v27 = v16;
-      _os_log_impl(&dword_1C8137000, v14, OS_LOG_TYPE_DEFAULT, "%s activationRequestFromButtonIdentifier:%@, with Siri state %@. Activating.", &v22, 0x20u);
+      v21 = 136315650;
+      v22 = "[SiriActivationService activationRequestFromButtonIdentifier:context:]";
+      v23 = 2112;
+      v24 = v15;
+      v25 = 2112;
+      v26 = v16;
+      _os_log_impl(&dword_1C8137000, v14, OS_LOG_TYPE_DEFAULT, "%s activationRequestFromButtonIdentifier:%@, with Siri state %@. Activating.", &v21, 0x20u);
     }
 
     [(SiriActivationService *)self setButtonDownHasOccurredSinceActivation:0];
@@ -1329,13 +1330,11 @@ LABEL_17:
   }
 
 LABEL_18:
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deactivationRequestFromButtonIdentifier:(int64_t)identifier context:(id)context options:(id)options
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   optionsCopy = options;
   if (identifier == 3 && [(SiriActivationService *)self isConnectedTo188])
@@ -1352,24 +1351,22 @@ LABEL_18:
       v12 = v10;
       v13 = [v11 stringWithSiriButtonIdentifier:identifier];
       v14 = SASRequestStateGetName([(SiriActivationService *)self _requestState]);
-      v16 = 136315650;
-      v17 = "[SiriActivationService deactivationRequestFromButtonIdentifier:context:options:]";
-      v18 = 2112;
-      v19 = v13;
-      v20 = 2112;
-      v21 = v14;
-      _os_log_impl(&dword_1C8137000, v12, OS_LOG_TYPE_DEFAULT, "%s deactivationRequestFromButtonIdentifier:%@, with Siri state %@. Deactivating.", &v16, 0x20u);
+      v15 = 136315650;
+      v16 = "[SiriActivationService deactivationRequestFromButtonIdentifier:context:options:]";
+      v17 = 2112;
+      v18 = v13;
+      v19 = 2112;
+      v20 = v14;
+      _os_log_impl(&dword_1C8137000, v12, OS_LOG_TYPE_DEFAULT, "%s deactivationRequestFromButtonIdentifier:%@, with Siri state %@. Deactivating.", &v15, 0x20u);
     }
 
     [(SiriActivationService *)self dismissSiriWithOptions:optionsCopy];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_shouldRejectActivationWithButtonIdentifier:(int64_t)identifier activationAssertions:(id)assertions
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   assertionsCopy = assertions;
   v6 = +[SASSystemState sharedSystemState];
   isInActiveCall = [v6 isInActiveCall];
@@ -1386,25 +1383,24 @@ LABEL_18:
     v11 = *MEMORY[0x1E698D0A0];
     if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 136315650;
-      v16 = "[SiriActivationService _shouldRejectActivationWithButtonIdentifier:activationAssertions:]";
-      v17 = 1024;
-      v18 = v9 < 2;
-      v19 = 1024;
-      v20 = v10 != 0;
-      _os_log_impl(&dword_1C8137000, v11, OS_LOG_TYPE_DEFAULT, "%s  #activation _shouldRejectActivationWithButtonIdentifier - isBlockableButton:%d assertionsAvailable :%d", &v15, 0x18u);
+      v14 = 136315650;
+      v15 = "[SiriActivationService _shouldRejectActivationWithButtonIdentifier:activationAssertions:]";
+      v16 = 1024;
+      v17 = v9 < 2;
+      v18 = 1024;
+      v19 = v10 != 0;
+      _os_log_impl(&dword_1C8137000, v11, OS_LOG_TYPE_DEFAULT, "%s  #activation _shouldRejectActivationWithButtonIdentifier - isBlockableButton:%d assertionsAvailable :%d", &v14, 0x18u);
     }
 
     v8 = v9 < 2 && v10 != 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 - (void)prewarmFromButtonIdentifier:(int64_t)identifier longPressInterval:(double)interval
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v7 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
   {
@@ -1413,12 +1409,12 @@ LABEL_18:
     v10 = [v8 stringWithSiriButtonIdentifier:identifier];
     v11 = SASRequestStateGetName([(SiriActivationService *)self _requestState]);
     *buf = 136315906;
-    v24 = "[SiriActivationService prewarmFromButtonIdentifier:longPressInterval:]";
-    v25 = 2112;
-    v26 = v10;
-    v27 = 2112;
-    v28 = v11;
-    v29 = 2048;
+    v23 = "[SiriActivationService prewarmFromButtonIdentifier:longPressInterval:]";
+    v24 = 2112;
+    v25 = v10;
+    v26 = 2112;
+    v27 = v11;
+    v28 = 2048;
     intervalCopy = interval;
     _os_log_impl(&dword_1C8137000, v9, OS_LOG_TYPE_DEFAULT, "%s #activation %@ button prewarm request, current request state: %@, longPressInterval: %f", buf, 0x2Au);
   }
@@ -1429,14 +1425,14 @@ LABEL_18:
   if (assistantIsEnabled)
   {
     v14 = [MEMORY[0x1E696AEC0] stringWithSiriActivationEventType:{0, @"activationEvent"}];
-    v22[0] = v14;
-    v21[1] = @"eventSource";
+    v21[0] = v14;
+    v20[1] = @"eventSource";
     v15 = [MEMORY[0x1E696AEC0] stringWithSiriButtonIdentifier:identifier];
-    v22[1] = v15;
-    v21[2] = @"interval";
+    v21[1] = v15;
+    v20[2] = @"interval";
     v16 = [MEMORY[0x1E696AD98] numberWithDouble:interval];
-    v22[2] = v16;
-    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:3];
+    v21[2] = v16;
+    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:3];
 
     v18 = +[SASAnalytics analytics];
     [v18 enqueueCurrentAnalyticsEventWithType:1402 context:v17];
@@ -1445,8 +1441,6 @@ LABEL_18:
     heater = [(SiriActivationService *)self heater];
     [heater prepareForUseAfterTimeInterval:interval];
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setHintGlowAssertionFromButtonIdentifier:(int64_t)identifier context:(id)context
@@ -1473,7 +1467,7 @@ LABEL_18:
 
 void __74__SiriActivationService_setHintGlowAssertionFromButtonIdentifier_context___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -1481,17 +1475,15 @@ void __74__SiriActivationService_setHintGlowAssertionFromButtonIdentifier_contex
     if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
     {
       v3 = WeakRetained[24];
-      v5 = 136315394;
-      v6 = "[SiriActivationService setHintGlowAssertionFromButtonIdentifier:context:]_block_invoke";
-      v7 = 2112;
-      v8 = v3;
-      _os_log_impl(&dword_1C8137000, v2, OS_LOG_TYPE_DEFAULT, "%s SiriActivationService request hint glow for next presentation, presentationManager: %@", &v5, 0x16u);
+      v4 = 136315394;
+      v5 = "[SiriActivationService setHintGlowAssertionFromButtonIdentifier:context:]_block_invoke";
+      v6 = 2112;
+      v7 = v3;
+      _os_log_impl(&dword_1C8137000, v2, OS_LOG_TYPE_DEFAULT, "%s SiriActivationService request hint glow for next presentation, presentationManager: %@", &v4, 0x16u);
     }
 
     [WeakRetained[24] requestHintGlowForNextPresentation];
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_shouldShowHintGlowWithRequest:(id)request
@@ -1553,7 +1545,7 @@ void __74__SiriActivationService_setHintGlowAssertionFromButtonIdentifier_contex
 
 - (void)buttonDownFromButtonIdentifier:(int64_t)identifier timestamp:(double)timestamp context:(id)context
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   v9 = MEMORY[0x1E698D0A0];
   v10 = *MEMORY[0x1E698D0A0];
@@ -1563,9 +1555,9 @@ void __74__SiriActivationService_setHintGlowAssertionFromButtonIdentifier_contex
     v12 = v10;
     v13 = [v11 stringWithSiriButtonIdentifier:identifier];
     *buf = 136315394;
-    v35 = "[SiriActivationService buttonDownFromButtonIdentifier:timestamp:context:]";
-    v36 = 2112;
-    v37 = v13;
+    v34 = "[SiriActivationService buttonDownFromButtonIdentifier:timestamp:context:]";
+    v35 = 2112;
+    v36 = v13;
     _os_log_impl(&dword_1C8137000, v12, OS_LOG_TYPE_DEFAULT, "%s #activation buttonDownFromButtonIdentifier:%@", buf, 0x16u);
   }
 
@@ -1575,7 +1567,7 @@ void __74__SiriActivationService_setHintGlowAssertionFromButtonIdentifier_contex
     if (os_log_type_enabled(*v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v35 = "[SiriActivationService buttonDownFromButtonIdentifier:timestamp:context:]";
+      v34 = "[SiriActivationService buttonDownFromButtonIdentifier:timestamp:context:]";
       _os_log_impl(&dword_1C8137000, v14, OS_LOG_TYPE_DEFAULT, "%s #activation button down used while stopping. Ignoring.", buf, 0xCu);
     }
   }
@@ -1591,9 +1583,9 @@ void __74__SiriActivationService_setHintGlowAssertionFromButtonIdentifier_contex
       currentThread = [v16 currentThread];
       qualityOfService = [currentThread qualityOfService];
       *buf = 136315394;
-      v35 = "[SiriActivationService buttonDownFromButtonIdentifier:timestamp:context:]";
-      v36 = 2048;
-      v37 = qualityOfService;
+      v34 = "[SiriActivationService buttonDownFromButtonIdentifier:timestamp:context:]";
+      v35 = 2048;
+      v36 = qualityOfService;
       _os_log_impl(&dword_1C8137000, v17, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy assertionLock about to lock with qos: %zd", buf, 0x16u);
     }
 
@@ -1602,7 +1594,7 @@ void __74__SiriActivationService_setHintGlowAssertionFromButtonIdentifier_contex
     if (os_log_type_enabled(*v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v35 = "[SiriActivationService buttonDownFromButtonIdentifier:timestamp:context:]";
+      v34 = "[SiriActivationService buttonDownFromButtonIdentifier:timestamp:context:]";
       _os_log_impl(&dword_1C8137000, v20, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy assertionLock successfully locked", buf, 0xCu);
     }
 
@@ -1612,7 +1604,7 @@ void __74__SiriActivationService_setHintGlowAssertionFromButtonIdentifier_contex
     if (os_log_type_enabled(*v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v35 = "[SiriActivationService buttonDownFromButtonIdentifier:timestamp:context:]";
+      v34 = "[SiriActivationService buttonDownFromButtonIdentifier:timestamp:context:]";
       _os_log_impl(&dword_1C8137000, v22, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy assertionLock unlocked", buf, 0xCu);
     }
 
@@ -1626,11 +1618,11 @@ void __74__SiriActivationService_setHintGlowAssertionFromButtonIdentifier_contex
         v26 = [v24 stringWithSiriButtonIdentifier:identifier];
         activationAssertions = self->_activationAssertions;
         *buf = 136315650;
-        v35 = "[SiriActivationService buttonDownFromButtonIdentifier:timestamp:context:]";
-        v36 = 2112;
-        v37 = v26;
-        v38 = 2112;
-        v39 = activationAssertions;
+        v34 = "[SiriActivationService buttonDownFromButtonIdentifier:timestamp:context:]";
+        v35 = 2112;
+        v36 = v26;
+        v37 = 2112;
+        v38 = activationAssertions;
         _os_log_impl(&dword_1C8137000, v25, OS_LOG_TYPE_DEFAULT, "%s #activation Rejecting Button Down as we have valid activation assertions. ButtonIdentifier - %@ Activation assertions - %@", buf, 0x20u);
       }
     }
@@ -1644,14 +1636,12 @@ void __74__SiriActivationService_setHintGlowAssertionFromButtonIdentifier_contex
       aBlock[3] = &unk_1E82F3B18;
       identifierCopy = identifier;
       timestampCopy = timestamp;
-      v31 = contextCopy;
+      v30 = contextCopy;
       v28 = _Block_copy(aBlock);
       [(SASPresentationManager *)self->_presentationManager sendButtonEventCompletionToPresentations:v28 forButtonEventType:1];
       [(SiriActivationService *)self _recordTimeIfNeededForButtonIdentifier:identifier buttonDownTimestamp:timestamp];
     }
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 void __74__SiriActivationService_buttonDownFromButtonIdentifier_timestamp_context___block_invoke(uint64_t a1, void *a2)
@@ -1665,7 +1655,7 @@ void __74__SiriActivationService_buttonDownFromButtonIdentifier_timestamp_contex
 
 - (void)buttonUpFromButtonIdentifier:(int64_t)identifier deviceIdentifier:(id)deviceIdentifier timestamp:(double)timestamp context:(id)context
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   deviceIdentifierCopy = deviceIdentifier;
   contextCopy = context;
   v12 = MEMORY[0x1E698D0A0];
@@ -1676,9 +1666,9 @@ void __74__SiriActivationService_buttonDownFromButtonIdentifier_timestamp_contex
     v15 = v13;
     v16 = [v14 stringWithSiriButtonIdentifier:identifier];
     *buf = 136315394;
-    v41 = "[SiriActivationService buttonUpFromButtonIdentifier:deviceIdentifier:timestamp:context:]";
-    v42 = 2112;
-    v43 = v16;
+    v40 = "[SiriActivationService buttonUpFromButtonIdentifier:deviceIdentifier:timestamp:context:]";
+    v41 = 2112;
+    v42 = v16;
     _os_log_impl(&dword_1C8137000, v15, OS_LOG_TYPE_DEFAULT, "%s #activation buttonUpFromButtonIdentifier:%@", buf, 0x16u);
   }
 
@@ -1691,9 +1681,9 @@ void __74__SiriActivationService_buttonDownFromButtonIdentifier_timestamp_contex
     currentThread = [v18 currentThread];
     qualityOfService = [currentThread qualityOfService];
     *buf = 136315394;
-    v41 = "[SiriActivationService buttonUpFromButtonIdentifier:deviceIdentifier:timestamp:context:]";
-    v42 = 2048;
-    v43 = qualityOfService;
+    v40 = "[SiriActivationService buttonUpFromButtonIdentifier:deviceIdentifier:timestamp:context:]";
+    v41 = 2048;
+    v42 = qualityOfService;
     _os_log_impl(&dword_1C8137000, v19, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy assertionLock about to lock with qos: %zd", buf, 0x16u);
   }
 
@@ -1702,7 +1692,7 @@ void __74__SiriActivationService_buttonDownFromButtonIdentifier_timestamp_contex
   if (os_log_type_enabled(*v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v41 = "[SiriActivationService buttonUpFromButtonIdentifier:deviceIdentifier:timestamp:context:]";
+    v40 = "[SiriActivationService buttonUpFromButtonIdentifier:deviceIdentifier:timestamp:context:]";
     _os_log_impl(&dword_1C8137000, v22, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy assertionLock successfully locked", buf, 0xCu);
   }
 
@@ -1712,7 +1702,7 @@ void __74__SiriActivationService_buttonDownFromButtonIdentifier_timestamp_contex
   if (os_log_type_enabled(*v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v41 = "[SiriActivationService buttonUpFromButtonIdentifier:deviceIdentifier:timestamp:context:]";
+    v40 = "[SiriActivationService buttonUpFromButtonIdentifier:deviceIdentifier:timestamp:context:]";
     _os_log_impl(&dword_1C8137000, v24, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy assertionLock unlocked", buf, 0xCu);
   }
 
@@ -1726,31 +1716,29 @@ void __74__SiriActivationService_buttonDownFromButtonIdentifier_timestamp_contex
       v28 = [v26 stringWithSiriButtonIdentifier:identifier];
       activationAssertions = self->_activationAssertions;
       *buf = 136315650;
-      v41 = "[SiriActivationService buttonUpFromButtonIdentifier:deviceIdentifier:timestamp:context:]";
-      v42 = 2112;
-      v43 = v28;
-      v44 = 2112;
-      v45 = activationAssertions;
+      v40 = "[SiriActivationService buttonUpFromButtonIdentifier:deviceIdentifier:timestamp:context:]";
+      v41 = 2112;
+      v42 = v28;
+      v43 = 2112;
+      v44 = activationAssertions;
       _os_log_impl(&dword_1C8137000, v27, OS_LOG_TYPE_DEFAULT, "%s #activation Rejecting Button Up as we have valid activation assertions. ButtonIdentifier - %@ Activation assertions - %@", buf, 0x20u);
     }
   }
 
   else
   {
-    v32 = MEMORY[0x1E69E9820];
-    v33 = 3221225472;
-    v34 = __89__SiriActivationService_buttonUpFromButtonIdentifier_deviceIdentifier_timestamp_context___block_invoke;
-    v35 = &unk_1E82F3B40;
+    v31 = MEMORY[0x1E69E9820];
+    v32 = 3221225472;
+    v33 = __89__SiriActivationService_buttonUpFromButtonIdentifier_deviceIdentifier_timestamp_context___block_invoke;
+    v34 = &unk_1E82F3B40;
     identifierCopy = identifier;
-    v36 = deviceIdentifierCopy;
+    v35 = deviceIdentifierCopy;
     timestampCopy = timestamp;
-    v37 = contextCopy;
-    v30 = _Block_copy(&v32);
-    [(SASPresentationManager *)self->_presentationManager sendButtonEventCompletionToPresentations:v30 forButtonEventType:2, v32, v33, v34, v35];
+    v36 = contextCopy;
+    v30 = _Block_copy(&v31);
+    [(SASPresentationManager *)self->_presentationManager sendButtonEventCompletionToPresentations:v30 forButtonEventType:2, v31, v32, v33, v34];
     [(SiriActivationService *)self _handleTapSynthesisIfNeededForButtonIdentifier:identifier buttonUpTimestamp:timestamp];
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 void __89__SiriActivationService_buttonUpFromButtonIdentifier_deviceIdentifier_timestamp_context___block_invoke(uint64_t a1, void *a2)
@@ -1765,7 +1753,7 @@ void __89__SiriActivationService_buttonUpFromButtonIdentifier_deviceIdentifier_t
 
 - (void)buttonTapFromButtonIdentifier:(int64_t)identifier timestamp:(double)timestamp context:(id)context
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   v9 = MEMORY[0x1E698D0A0];
   v10 = *MEMORY[0x1E698D0A0];
@@ -1775,9 +1763,9 @@ void __89__SiriActivationService_buttonUpFromButtonIdentifier_deviceIdentifier_t
     v12 = v10;
     v13 = [v11 stringWithSiriButtonIdentifier:identifier];
     *buf = 136315394;
-    v55 = "[SiriActivationService buttonTapFromButtonIdentifier:timestamp:context:]";
-    v56 = 2112;
-    v57 = v13;
+    v54 = "[SiriActivationService buttonTapFromButtonIdentifier:timestamp:context:]";
+    v55 = 2112;
+    v56 = v13;
     _os_log_impl(&dword_1C8137000, v12, OS_LOG_TYPE_DEFAULT, "%s #activation buttonTapFromButtonIdentifier:%@", buf, 0x16u);
   }
 
@@ -1789,9 +1777,9 @@ void __89__SiriActivationService_buttonUpFromButtonIdentifier_deviceIdentifier_t
     currentThread = [v15 currentThread];
     qualityOfService = [currentThread qualityOfService];
     *buf = 136315394;
-    v55 = "[SiriActivationService buttonTapFromButtonIdentifier:timestamp:context:]";
-    v56 = 2048;
-    v57 = qualityOfService;
+    v54 = "[SiriActivationService buttonTapFromButtonIdentifier:timestamp:context:]";
+    v55 = 2048;
+    v56 = qualityOfService;
     _os_log_impl(&dword_1C8137000, v16, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy assertionLock about to lock with qos: %zd", buf, 0x16u);
   }
 
@@ -1800,7 +1788,7 @@ void __89__SiriActivationService_buttonUpFromButtonIdentifier_deviceIdentifier_t
   if (os_log_type_enabled(*v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v55 = "[SiriActivationService buttonTapFromButtonIdentifier:timestamp:context:]";
+    v54 = "[SiriActivationService buttonTapFromButtonIdentifier:timestamp:context:]";
     _os_log_impl(&dword_1C8137000, v19, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy assertionLock successfully locked", buf, 0xCu);
   }
 
@@ -1810,7 +1798,7 @@ void __89__SiriActivationService_buttonUpFromButtonIdentifier_deviceIdentifier_t
   if (os_log_type_enabled(*v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v55 = "[SiriActivationService buttonTapFromButtonIdentifier:timestamp:context:]";
+    v54 = "[SiriActivationService buttonTapFromButtonIdentifier:timestamp:context:]";
     _os_log_impl(&dword_1C8137000, v21, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy assertionLock unlocked", buf, 0xCu);
   }
 
@@ -1824,11 +1812,11 @@ void __89__SiriActivationService_buttonUpFromButtonIdentifier_deviceIdentifier_t
       v25 = [v23 stringWithSiriButtonIdentifier:identifier];
       activationAssertions = self->_activationAssertions;
       *buf = 136315650;
-      v55 = "[SiriActivationService buttonTapFromButtonIdentifier:timestamp:context:]";
-      v56 = 2112;
-      v57 = v25;
-      v58 = 2112;
-      v59 = activationAssertions;
+      v54 = "[SiriActivationService buttonTapFromButtonIdentifier:timestamp:context:]";
+      v55 = 2112;
+      v56 = v25;
+      v57 = 2112;
+      v58 = activationAssertions;
       _os_log_impl(&dword_1C8137000, v24, OS_LOG_TYPE_DEFAULT, "%s #activation Rejecting Button Tap as we have valid activation assertions. ButtonIdentifier - %@ Activation assertions - %@", buf, 0x20u);
     }
   }
@@ -1843,11 +1831,11 @@ void __89__SiriActivationService_buttonUpFromButtonIdentifier_deviceIdentifier_t
       aBlock[3] = &unk_1E82F3B18;
       identifierCopy = identifier;
       timestampCopy = timestamp;
-      v51 = contextCopy;
+      v50 = contextCopy;
       v27 = _Block_copy(aBlock);
       [(SASPresentationManager *)self->_presentationManager sendButtonEventCompletionToPresentations:v27 forButtonEventType:3];
 
-      v28 = v51;
+      v28 = v50;
     }
 
     else if ([(SiriActivationService *)self _buttonIsTVMicrophoneButton:identifier])
@@ -1858,9 +1846,9 @@ void __89__SiriActivationService_buttonUpFromButtonIdentifier_deviceIdentifier_t
         v30 = v29;
         v31 = SASRequestStateGetName([(SiriActivationService *)self _requestState]);
         *buf = 136315394;
-        v55 = "[SiriActivationService buttonTapFromButtonIdentifier:timestamp:context:]";
-        v56 = 2112;
-        v57 = v31;
+        v54 = "[SiriActivationService buttonTapFromButtonIdentifier:timestamp:context:]";
+        v55 = 2112;
+        v56 = v31;
         _os_log_impl(&dword_1C8137000, v30, OS_LOG_TYPE_DEFAULT, "%s #activation activating due to TV remote microphone button short tap with Siri state %@", buf, 0x16u);
       }
 
@@ -1891,32 +1879,32 @@ void __89__SiriActivationService_buttonUpFromButtonIdentifier_deviceIdentifier_t
         if (os_log_type_enabled(*v9, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315138;
-          v55 = "[SiriActivationService buttonTapFromButtonIdentifier:timestamp:context:]";
+          v54 = "[SiriActivationService buttonTapFromButtonIdentifier:timestamp:context:]";
           _os_log_impl(&dword_1C8137000, v39, OS_LOG_TYPE_DEFAULT, "%s #activation PTT Eligible Remote, Sending handleButtonTap", buf, 0xCu);
         }
 
-        v46[0] = MEMORY[0x1E69E9820];
-        v46[1] = 3221225472;
-        v46[2] = __73__SiriActivationService_buttonTapFromButtonIdentifier_timestamp_context___block_invoke_138;
-        v46[3] = &unk_1E82F3B18;
+        v45[0] = MEMORY[0x1E69E9820];
+        v45[1] = 3221225472;
+        v45[2] = __73__SiriActivationService_buttonTapFromButtonIdentifier_timestamp_context___block_invoke_138;
+        v45[3] = &unk_1E82F3B18;
         identifierCopy2 = identifier;
         timestampCopy2 = timestamp;
-        v47 = contextCopy;
-        v40 = _Block_copy(v46);
+        v46 = contextCopy;
+        v40 = _Block_copy(v45);
         [(SASPresentationManager *)self->_presentationManager sendButtonEventCompletionToPresentations:v40 forButtonEventType:3];
       }
     }
 
     else
     {
-      v42[0] = MEMORY[0x1E69E9820];
-      v42[1] = 3221225472;
-      v42[2] = __73__SiriActivationService_buttonTapFromButtonIdentifier_timestamp_context___block_invoke_2;
-      v42[3] = &unk_1E82F3B18;
+      v41[0] = MEMORY[0x1E69E9820];
+      v41[1] = 3221225472;
+      v41[2] = __73__SiriActivationService_buttonTapFromButtonIdentifier_timestamp_context___block_invoke_2;
+      v41[3] = &unk_1E82F3B18;
       identifierCopy3 = identifier;
       timestampCopy3 = timestamp;
-      v43 = contextCopy;
-      v32 = _Block_copy(v42);
+      v42 = contextCopy;
+      v32 = _Block_copy(v41);
       if (![(SASPresentationManager *)self->_presentationManager sendButtonEventCompletionToApplicableOffPresentations:v32 forButtonEventType:3])
       {
         v33 = *v9;
@@ -1927,22 +1915,20 @@ void __89__SiriActivationService_buttonUpFromButtonIdentifier_deviceIdentifier_t
           v36 = [v34 stringWithSiriButtonIdentifier:identifier];
           v37 = SASRequestStateGetName([(SiriActivationService *)self _requestState]);
           *buf = 136315650;
-          v55 = "[SiriActivationService buttonTapFromButtonIdentifier:timestamp:context:]";
-          v56 = 2112;
-          v57 = v36;
-          v58 = 2112;
-          v59 = v37;
+          v54 = "[SiriActivationService buttonTapFromButtonIdentifier:timestamp:context:]";
+          v55 = 2112;
+          v56 = v36;
+          v57 = 2112;
+          v58 = v37;
           _os_log_impl(&dword_1C8137000, v35, OS_LOG_TYPE_DEFAULT, "%s buttonTapFromButtonIdentifier:%@, with Siri state %@. Ignoring.", buf, 0x20u);
         }
       }
 
-      v28 = v43;
+      v28 = v42;
     }
 
     [(SiriActivationService *)self _cancelPendingActivationEventWithReason:3];
   }
-
-  v41 = *MEMORY[0x1E69E9840];
 }
 
 void __73__SiriActivationService_buttonTapFromButtonIdentifier_timestamp_context___block_invoke(uint64_t a1, void *a2)
@@ -1974,7 +1960,7 @@ void __73__SiriActivationService_buttonTapFromButtonIdentifier_timestamp_context
 
 - (void)buttonLongPressFromButtonIdentifier:(int64_t)identifier deviceIdentifier:(id)deviceIdentifier context:(id)context
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   deviceIdentifierCopy = deviceIdentifier;
   contextCopy = context;
   v10 = MEMORY[0x1E698D0A0];
@@ -1985,9 +1971,9 @@ void __73__SiriActivationService_buttonTapFromButtonIdentifier_timestamp_context
     v13 = v11;
     v14 = [v12 stringWithSiriButtonIdentifier:identifier];
     *buf = 136315394;
-    v58 = "[SiriActivationService buttonLongPressFromButtonIdentifier:deviceIdentifier:context:]";
-    v59 = 2112;
-    v60 = v14;
+    v57 = "[SiriActivationService buttonLongPressFromButtonIdentifier:deviceIdentifier:context:]";
+    v58 = 2112;
+    v59 = v14;
     _os_log_impl(&dword_1C8137000, v13, OS_LOG_TYPE_DEFAULT, "%s #activation buttonLongPressFromButtonIdentifier:%@", buf, 0x16u);
   }
 
@@ -2001,9 +1987,9 @@ void __73__SiriActivationService_buttonTapFromButtonIdentifier_timestamp_context
     currentThread = [v16 currentThread];
     qualityOfService = [currentThread qualityOfService];
     *buf = 136315394;
-    v58 = "[SiriActivationService buttonLongPressFromButtonIdentifier:deviceIdentifier:context:]";
-    v59 = 2048;
-    v60 = qualityOfService;
+    v57 = "[SiriActivationService buttonLongPressFromButtonIdentifier:deviceIdentifier:context:]";
+    v58 = 2048;
+    v59 = qualityOfService;
     _os_log_impl(&dword_1C8137000, v17, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy assertionLock about to lock with qos: %zd", buf, 0x16u);
   }
 
@@ -2012,7 +1998,7 @@ void __73__SiriActivationService_buttonTapFromButtonIdentifier_timestamp_context
   if (os_log_type_enabled(*v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v58 = "[SiriActivationService buttonLongPressFromButtonIdentifier:deviceIdentifier:context:]";
+    v57 = "[SiriActivationService buttonLongPressFromButtonIdentifier:deviceIdentifier:context:]";
     _os_log_impl(&dword_1C8137000, v20, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy assertionLock successfully locked", buf, 0xCu);
   }
 
@@ -2022,7 +2008,7 @@ void __73__SiriActivationService_buttonTapFromButtonIdentifier_timestamp_context
   if (os_log_type_enabled(*v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v58 = "[SiriActivationService buttonLongPressFromButtonIdentifier:deviceIdentifier:context:]";
+    v57 = "[SiriActivationService buttonLongPressFromButtonIdentifier:deviceIdentifier:context:]";
     _os_log_impl(&dword_1C8137000, v22, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy assertionLock unlocked", buf, 0xCu);
   }
 
@@ -2036,11 +2022,11 @@ void __73__SiriActivationService_buttonTapFromButtonIdentifier_timestamp_context
       v26 = [v24 stringWithSiriButtonIdentifier:identifier];
       activationAssertions = self->_activationAssertions;
       *buf = 136315650;
-      v58 = "[SiriActivationService buttonLongPressFromButtonIdentifier:deviceIdentifier:context:]";
-      v59 = 2112;
-      v60 = v26;
-      v61 = 2112;
-      v62 = activationAssertions;
+      v57 = "[SiriActivationService buttonLongPressFromButtonIdentifier:deviceIdentifier:context:]";
+      v58 = 2112;
+      v59 = v26;
+      v60 = 2112;
+      v61 = activationAssertions;
       _os_log_impl(&dword_1C8137000, v25, OS_LOG_TYPE_DEFAULT, "%s #activation Rejecting Button Long Press as we have valid activation assertions. ButtonIdentifier - %@ Activation assertions - %@", buf, 0x20u);
 LABEL_12:
     }
@@ -2063,13 +2049,13 @@ LABEL_12:
         v26 = [v29 stringWithSiriButtonIdentifier:identifier];
         v30 = SASRequestStateGetName([(SiriActivationService *)self _requestState]);
         *buf = 136315906;
-        v58 = "[SiriActivationService buttonLongPressFromButtonIdentifier:deviceIdentifier:context:]";
-        v59 = 2112;
-        v60 = v26;
-        v61 = 2112;
-        v62 = contextCopy;
-        v63 = 2112;
-        v64 = v30;
+        v57 = "[SiriActivationService buttonLongPressFromButtonIdentifier:deviceIdentifier:context:]";
+        v58 = 2112;
+        v59 = v26;
+        v60 = 2112;
+        v61 = contextCopy;
+        v62 = 2112;
+        v63 = v30;
         _os_log_error_impl(&dword_1C8137000, v25, OS_LOG_TYPE_ERROR, "%s #activation buttonLongPressFromButtonIdentifier:%@, context %@, but Siri state is %@. Ignoring.", buf, 0x2Au);
       }
 
@@ -2077,95 +2063,95 @@ LABEL_12:
       {
         if ([(SiriActivationService *)self _requestState]== 3)
         {
-          v37 = [(SiriActivationService *)self _buttonIsAVExternalButton:identifier];
-          v38 = *v10;
-          v39 = os_log_type_enabled(*v10, OS_LOG_TYPE_DEFAULT);
-          if (!v37)
+          v36 = [(SiriActivationService *)self _buttonIsAVExternalButton:identifier];
+          v37 = *v10;
+          v38 = os_log_type_enabled(*v10, OS_LOG_TYPE_DEFAULT);
+          if (!v36)
           {
-            if (v39)
+            if (v38)
             {
-              v44 = MEMORY[0x1E696AEC0];
-              v45 = v38;
-              v46 = [v44 stringWithSiriButtonIdentifier:identifier];
-              v47 = SASRequestStateGetName([(SiriActivationService *)self _requestState]);
+              v43 = MEMORY[0x1E696AEC0];
+              v44 = v37;
+              v45 = [v43 stringWithSiriButtonIdentifier:identifier];
+              v46 = SASRequestStateGetName([(SiriActivationService *)self _requestState]);
               *buf = 136315906;
-              v58 = "[SiriActivationService buttonLongPressFromButtonIdentifier:deviceIdentifier:context:]";
-              v59 = 2112;
-              v60 = v46;
-              v61 = 2112;
-              v62 = contextCopy;
-              v63 = 2112;
-              v64 = v47;
-              _os_log_impl(&dword_1C8137000, v45, OS_LOG_TYPE_DEFAULT, "%s #activation buttonLongPressFromButtonIdentifier:%@, context %@, but Siri state is %@. Passing to the Presentation Shell.", buf, 0x2Au);
+              v57 = "[SiriActivationService buttonLongPressFromButtonIdentifier:deviceIdentifier:context:]";
+              v58 = 2112;
+              v59 = v45;
+              v60 = 2112;
+              v61 = contextCopy;
+              v62 = 2112;
+              v63 = v46;
+              _os_log_impl(&dword_1C8137000, v44, OS_LOG_TYPE_DEFAULT, "%s #activation buttonLongPressFromButtonIdentifier:%@, context %@, but Siri state is %@. Passing to the Presentation Shell.", buf, 0x2Au);
             }
 
             aBlock[0] = MEMORY[0x1E69E9820];
             aBlock[1] = 3221225472;
             aBlock[2] = __86__SiriActivationService_buttonLongPressFromButtonIdentifier_deviceIdentifier_context___block_invoke;
             aBlock[3] = &unk_1E82F3B68;
-            v48 = contextCopy;
-            v54 = v48;
-            v55 = deviceIdentifierCopy;
+            v47 = contextCopy;
+            v53 = v47;
+            v54 = deviceIdentifierCopy;
             identifierCopy = identifier;
-            v49 = _Block_copy(aBlock);
-            v50 = +[SASSystemState sharedSystemState];
-            isATV = [v50 isATV];
+            v48 = _Block_copy(aBlock);
+            v49 = +[SASSystemState sharedSystemState];
+            isATV = [v49 isATV];
 
             if (isATV)
             {
-              v52 = [[SASActivationRequest alloc] initWithButtonIdentifier:identifier context:v48];
-              [(SASMyriadController *)self->_myriadController activateForRequest:v52 visible:[(SiriActivationService *)self _requestState]== 3];
+              v51 = [[SASActivationRequest alloc] initWithButtonIdentifier:identifier context:v47];
+              [(SASMyriadController *)self->_myriadController activateForRequest:v51 visible:[(SiriActivationService *)self _requestState]== 3];
             }
 
-            [(SASPresentationManager *)self->_presentationManager sendButtonEventCompletionToPresentations:v49 forButtonEventType:4];
+            [(SASPresentationManager *)self->_presentationManager sendButtonEventCompletionToPresentations:v48 forButtonEventType:4];
 
             goto LABEL_21;
           }
 
-          if (!v39)
+          if (!v38)
           {
             goto LABEL_21;
           }
 
-          v40 = MEMORY[0x1E696AEC0];
-          v25 = v38;
-          v26 = [v40 stringWithSiriButtonIdentifier:identifier];
+          v39 = MEMORY[0x1E696AEC0];
+          v25 = v37;
+          v26 = [v39 stringWithSiriButtonIdentifier:identifier];
           v30 = SASRequestStateGetName([(SiriActivationService *)self _requestState]);
           *buf = 136315906;
-          v58 = "[SiriActivationService buttonLongPressFromButtonIdentifier:deviceIdentifier:context:]";
-          v59 = 2112;
-          v60 = v26;
-          v61 = 2112;
-          v62 = contextCopy;
-          v63 = 2112;
-          v64 = v30;
-          v41 = "%s #activation buttonLongPressFromButtonIdentifier:%@, context %@, but Siri state is %@ and we are in CarPlay. Ignoring because we should also be getting a button down/up.";
+          v57 = "[SiriActivationService buttonLongPressFromButtonIdentifier:deviceIdentifier:context:]";
+          v58 = 2112;
+          v59 = v26;
+          v60 = 2112;
+          v61 = contextCopy;
+          v62 = 2112;
+          v63 = v30;
+          v40 = "%s #activation buttonLongPressFromButtonIdentifier:%@, context %@, but Siri state is %@ and we are in CarPlay. Ignoring because we should also be getting a button down/up.";
         }
 
         else
         {
-          v42 = *v10;
+          v41 = *v10;
           if (!os_log_type_enabled(*v10, OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_21;
           }
 
-          v43 = MEMORY[0x1E696AEC0];
-          v25 = v42;
-          v26 = [v43 stringWithSiriButtonIdentifier:identifier];
+          v42 = MEMORY[0x1E696AEC0];
+          v25 = v41;
+          v26 = [v42 stringWithSiriButtonIdentifier:identifier];
           v30 = SASRequestStateGetName([(SiriActivationService *)self _requestState]);
           *buf = 136315906;
-          v58 = "[SiriActivationService buttonLongPressFromButtonIdentifier:deviceIdentifier:context:]";
-          v59 = 2112;
-          v60 = v26;
-          v61 = 2112;
-          v62 = v30;
-          v63 = 2112;
-          v64 = contextCopy;
-          v41 = "%s #activation buttonLongPressFromButtonIdentifier:%@, with Siri state %@, context: %@. Ignoring";
+          v57 = "[SiriActivationService buttonLongPressFromButtonIdentifier:deviceIdentifier:context:]";
+          v58 = 2112;
+          v59 = v26;
+          v60 = 2112;
+          v61 = v30;
+          v62 = 2112;
+          v63 = contextCopy;
+          v40 = "%s #activation buttonLongPressFromButtonIdentifier:%@, with Siri state %@, context: %@. Ignoring";
         }
 
-        _os_log_impl(&dword_1C8137000, v25, OS_LOG_TYPE_DEFAULT, v41, buf, 0x2Au);
+        _os_log_impl(&dword_1C8137000, v25, OS_LOG_TYPE_DEFAULT, v40, buf, 0x2Au);
       }
 
       goto LABEL_12;
@@ -2179,13 +2165,13 @@ LABEL_12:
       v34 = [v32 stringWithSiriButtonIdentifier:identifier];
       v35 = SASRequestStateGetName([(SiriActivationService *)self _requestState]);
       *buf = 136315906;
-      v58 = "[SiriActivationService buttonLongPressFromButtonIdentifier:deviceIdentifier:context:]";
-      v59 = 2112;
-      v60 = v34;
-      v61 = 2112;
-      v62 = v35;
-      v63 = 2112;
-      v64 = contextCopy;
+      v57 = "[SiriActivationService buttonLongPressFromButtonIdentifier:deviceIdentifier:context:]";
+      v58 = 2112;
+      v59 = v34;
+      v60 = 2112;
+      v61 = v35;
+      v62 = 2112;
+      v63 = contextCopy;
       _os_log_impl(&dword_1C8137000, v33, OS_LOG_TYPE_DEFAULT, "%s #activation buttonLongPressFromButtonIdentifier:%@, with Siri state %@, context %@. Activating.", buf, 0x2Au);
     }
 
@@ -2193,35 +2179,32 @@ LABEL_12:
   }
 
 LABEL_21:
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 void __86__SiriActivationService_buttonLongPressFromButtonIdentifier_deviceIdentifier_context___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = a2;
+  v10 = a2;
   v3 = [SASTimeIntervalTransport alloc];
   [*(a1 + 32) buttonDownTimestamp];
   v4 = [(SASTimeIntervalTransport *)v3 initWithTimeInterval:?];
   v5 = *(a1 + 40);
-  v6 = *(a1 + 32);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v7 = [*(a1 + 32) activeDeviceBluetoothIdentifier];
+    v6 = [*(a1 + 32) activeDeviceBluetoothIdentifier];
 
-    v5 = v7;
+    v5 = v6;
   }
 
-  v8 = [v11 connection];
-  v9 = [v8 remoteTarget];
-  v10 = [[SASButtonIdentifierTransport alloc] initWithSiriButtonIdentifier:*(a1 + 48)];
-  [v9 handleButtonLongPressFromButtonIdentifier:v10 deviceIdentifier:v5 timestamp:v4 context:*(a1 + 32)];
+  v7 = [v10 connection];
+  v8 = [v7 remoteTarget];
+  v9 = [[SASButtonIdentifierTransport alloc] initWithSiriButtonIdentifier:*(a1 + 48)];
+  [v8 handleButtonLongPressFromButtonIdentifier:v9 deviceIdentifier:v5 timestamp:v4 context:*(a1 + 32)];
 }
 
 - (void)_handleTapSynthesisIfNeededForButtonIdentifier:(int64_t)identifier buttonUpTimestamp:(double)timestamp
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   if ([(SiriActivationService *)self _buttonIsAVExternalButton:?]&& [(SiriActivationService *)self buttonDownHasOccurredSinceActivation])
   {
     avExternalButtonEvents = [(SiriActivationService *)self avExternalButtonEvents];
@@ -2240,13 +2223,13 @@ void __86__SiriActivationService_buttonLongPressFromButtonIdentifier_deviceIdent
       v15 = *MEMORY[0x1E698D0A0];
       if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
       {
-        v22 = 136315650;
-        v23 = "[SiriActivationService _handleTapSynthesisIfNeededForButtonIdentifier:buttonUpTimestamp:]";
-        v24 = 2048;
+        v21 = 136315650;
+        v22 = "[SiriActivationService _handleTapSynthesisIfNeededForButtonIdentifier:buttonUpTimestamp:]";
+        v23 = 2048;
         timestampCopy = timestamp;
-        v26 = 2048;
-        v27 = v13;
-        _os_log_impl(&dword_1C8137000, v15, OS_LOG_TYPE_DEFAULT, "%s buttonUpTimestamp: %f, buttonDownTimestamp: %f", &v22, 0x20u);
+        v25 = 2048;
+        v26 = v13;
+        _os_log_impl(&dword_1C8137000, v15, OS_LOG_TYPE_DEFAULT, "%s buttonUpTimestamp: %f, buttonDownTimestamp: %f", &v21, 0x20u);
       }
 
       [(SiriActivationService *)self activationTimestamp];
@@ -2259,9 +2242,9 @@ void __86__SiriActivationService_buttonLongPressFromButtonIdentifier_deviceIdent
         {
           if (v20)
           {
-            v22 = 136315138;
-            v23 = "[SiriActivationService _handleTapSynthesisIfNeededForButtonIdentifier:buttonUpTimestamp:]";
-            _os_log_impl(&dword_1C8137000, v19, OS_LOG_TYPE_DEFAULT, "%s #activation synthesizing button tap", &v22, 0xCu);
+            v21 = 136315138;
+            v22 = "[SiriActivationService _handleTapSynthesisIfNeededForButtonIdentifier:buttonUpTimestamp:]";
+            _os_log_impl(&dword_1C8137000, v19, OS_LOG_TYPE_DEFAULT, "%s #activation synthesizing button tap", &v21, 0xCu);
           }
 
           [(SiriActivationService *)self buttonTapFromButtonIdentifier:identifier timestamp:0 context:timestamp];
@@ -2269,15 +2252,13 @@ void __86__SiriActivationService_buttonLongPressFromButtonIdentifier_deviceIdent
 
         else if (v20)
         {
-          v22 = 136315138;
-          v23 = "[SiriActivationService _handleTapSynthesisIfNeededForButtonIdentifier:buttonUpTimestamp:]";
-          _os_log_impl(&dword_1C8137000, v19, OS_LOG_TYPE_DEFAULT, "%s #activation button tap occurred, but Siri is not yet up. Not synthesizing tap event.", &v22, 0xCu);
+          v21 = 136315138;
+          v22 = "[SiriActivationService _handleTapSynthesisIfNeededForButtonIdentifier:buttonUpTimestamp:]";
+          _os_log_impl(&dword_1C8137000, v19, OS_LOG_TYPE_DEFAULT, "%s #activation button tap occurred, but Siri is not yet up. Not synthesizing tap event.", &v21, 0xCu);
         }
       }
     }
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_recordTimeIfNeededForButtonIdentifier:(int64_t)identifier buttonDownTimestamp:(double)timestamp
@@ -2293,16 +2274,16 @@ void __86__SiriActivationService_buttonLongPressFromButtonIdentifier_deviceIdent
 
 - (void)prewarmForFirstTapOfQuickTypeToSiriGesture
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
   {
     v4 = v3;
     v5 = SASRequestStateGetName([(SiriActivationService *)self _requestState]);
     *buf = 136315394;
-    v19 = "[SiriActivationService prewarmForFirstTapOfQuickTypeToSiriGesture]";
-    v20 = 2112;
-    v21 = v5;
+    v18 = "[SiriActivationService prewarmForFirstTapOfQuickTypeToSiriGesture]";
+    v19 = 2112;
+    v20 = v5;
     _os_log_impl(&dword_1C8137000, v4, OS_LOG_TYPE_DEFAULT, "%s #activation #quickTypeGate Quick Type-to-Siri prewarm request, current request state: %@", buf, 0x16u);
   }
 
@@ -2312,18 +2293,16 @@ void __86__SiriActivationService_buttonLongPressFromButtonIdentifier_deviceIdent
   if (assistantIsEnabled)
   {
     v8 = [SASPreheatRequest newWithBuilder:&__block_literal_global_142];
-    v12 = MEMORY[0x1E69E9820];
-    v13 = 3221225472;
-    v14 = __67__SiriActivationService_prewarmForFirstTapOfQuickTypeToSiriGesture__block_invoke_2;
-    v15 = &unk_1E82F3BB0;
+    v11 = MEMORY[0x1E69E9820];
+    v12 = 3221225472;
+    v13 = __67__SiriActivationService_prewarmForFirstTapOfQuickTypeToSiriGesture__block_invoke_2;
+    v14 = &unk_1E82F3BB0;
     selfCopy = self;
-    v17 = v8;
+    v16 = v8;
     v9 = v8;
-    v10 = [SASPreheatOptions newWithBuilder:&v12];
-    [(SASPresentationManager *)self->_presentationManager preheatNextPresentationToActivateWithOptions:v10, v12, v13, v14, v15, selfCopy];
+    v10 = [SASPreheatOptions newWithBuilder:&v11];
+    [(SASPresentationManager *)self->_presentationManager preheatNextPresentationToActivateWithOptions:v10, v11, v12, v13, v14, selfCopy];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __67__SiriActivationService_prewarmForFirstTapOfQuickTypeToSiriGesture__block_invoke(uint64_t a1, void *a2)
@@ -2371,26 +2350,25 @@ void __44__SiriActivationService_prewarmWithRequest___block_invoke(uint64_t a1, 
 
 - (void)cancelPrewarmForFirstTapOfQuickTypeToSiriGesture
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
   {
     v4 = v3;
     v5 = SASRequestStateGetName([(SiriActivationService *)self _requestState]);
-    v7 = 136315394;
-    v8 = "[SiriActivationService cancelPrewarmForFirstTapOfQuickTypeToSiriGesture]";
-    v9 = 2112;
-    v10 = v5;
-    _os_log_impl(&dword_1C8137000, v4, OS_LOG_TYPE_DEFAULT, "%s #activation #quickTypeGate Cancel Quick Type-to-Siri prewarm request, current request state: %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[SiriActivationService cancelPrewarmForFirstTapOfQuickTypeToSiriGesture]";
+    v8 = 2112;
+    v9 = v5;
+    _os_log_impl(&dword_1C8137000, v4, OS_LOG_TYPE_DEFAULT, "%s #activation #quickTypeGate Cancel Quick Type-to-Siri prewarm request, current request state: %@", &v6, 0x16u);
   }
 
   [(SASPresentationManager *)self->_presentationManager cancelAllPreheatedPresentations];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)activationRequestFromDirectActionEventWithContext:(id)context completion:(id)completion
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   completionCopy = completion;
   v8 = *MEMORY[0x1E698D0A0];
@@ -2399,11 +2377,11 @@ void __44__SiriActivationService_prewarmWithRequest___block_invoke(uint64_t a1, 
     v9 = v8;
     [contextCopy directActionEvent];
     v10 = AFDirectActionEventGetName();
-    v15 = 136315394;
-    v16 = "[SiriActivationService activationRequestFromDirectActionEventWithContext:completion:]";
-    v17 = 2112;
-    v18 = v10;
-    _os_log_impl(&dword_1C8137000, v9, OS_LOG_TYPE_DEFAULT, "%s #activation activationRequestFromDirectActionEventWithContext:%@", &v15, 0x16u);
+    v14 = 136315394;
+    v15 = "[SiriActivationService activationRequestFromDirectActionEventWithContext:completion:]";
+    v16 = 2112;
+    v17 = v10;
+    _os_log_impl(&dword_1C8137000, v9, OS_LOG_TYPE_DEFAULT, "%s #activation activationRequestFromDirectActionEventWithContext:%@", &v14, 0x16u);
   }
 
   v11 = [[SASActivationRequest alloc] initWithDirectActionContext:contextCopy];
@@ -2413,62 +2391,42 @@ void __44__SiriActivationService_prewarmWithRequest___block_invoke(uint64_t a1, 
     v13 = [MEMORY[0x1E696AD98] numberWithBool:v12];
     completionCopy[2](completionCopy, v13, 0);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)activationRequestFromContinuityWithContext:(id)context
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   v5 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 136315138;
-    v13 = "[SiriActivationService activationRequestFromContinuityWithContext:]";
-    _os_log_impl(&dword_1C8137000, v5, OS_LOG_TYPE_DEFAULT, "%s #activation activationRequestFromContinuityWithContext", &v12, 0xCu);
+    v11 = 136315138;
+    v12 = "[SiriActivationService activationRequestFromContinuityWithContext:]";
+    _os_log_impl(&dword_1C8137000, v5, OS_LOG_TYPE_DEFAULT, "%s #activation activationRequestFromContinuityWithContext", &v11, 0xCu);
   }
 
-  if (!AFIsInternalInstall())
-  {
-    goto LABEL_7;
-  }
-
-  speechRequestOptions = [contextCopy speechRequestOptions];
-  if (!speechRequestOptions)
-  {
-    goto LABEL_7;
-  }
-
-  v7 = speechRequestOptions;
-  mEMORY[0x1E698D1C0] = [MEMORY[0x1E698D1C0] sharedPreferences];
-  designModeIsEnabled = [mEMORY[0x1E698D1C0] designModeIsEnabled];
-
-  if (designModeIsEnabled)
+  if (AFIsInternalInstall() && ([contextCopy speechRequestOptions], (v6 = objc_claimAutoreleasedReturnValue()) != 0) && (v7 = v6, objc_msgSend(MEMORY[0x1E698D1C0], "sharedPreferences"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "designModeIsEnabled"), v8, v7, v9))
   {
     [(SiriActivationService *)self _handleDesignModeRequest];
   }
 
   else
   {
-LABEL_7:
     v10 = [[SASActivationRequest alloc] initWithContinuityContext:contextCopy];
     [(SiriActivationService *)self handleActivationRequest:v10];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)activationRequestFromVoiceTriggerWithContext:(id)context
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   v5 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 136315138;
-    v11 = "[SiriActivationService activationRequestFromVoiceTriggerWithContext:]";
-    _os_log_impl(&dword_1C8137000, v5, OS_LOG_TYPE_DEFAULT, "%s #activation activationRequestFromVoiceTriggerWithContext", &v10, 0xCu);
+    v9 = 136315138;
+    v10 = "[SiriActivationService activationRequestFromVoiceTriggerWithContext:]";
+    _os_log_impl(&dword_1C8137000, v5, OS_LOG_TYPE_DEFAULT, "%s #activation activationRequestFromVoiceTriggerWithContext", &v9, 0xCu);
   }
 
   if (AFIsInternalInstall() && ([MEMORY[0x1E698D1C0] sharedPreferences], v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "designModeIsEnabled"), v6, v7))
@@ -2481,257 +2439,229 @@ LABEL_7:
     v8 = [[SASActivationRequest alloc] initWithVoiceTriggerContext:contextCopy];
     [(SiriActivationService *)self handleActivationRequest:v8];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)activationRequestFromContinuousConversationWithContext:(id)context
 {
-  v12 = *MEMORY[0x1E69E9840];
-  contextCopy = context;
-  v5 = *MEMORY[0x1E698D0A0];
-  if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
-  {
-    v8 = 136315394;
-    v9 = "[SiriActivationService activationRequestFromContinuousConversationWithContext:]";
-    v10 = 2112;
-    v11 = contextCopy;
-    _os_log_impl(&dword_1C8137000, v5, OS_LOG_TYPE_DEFAULT, "%s #activation activationRequestFromContinuousConversationWithContext with context: %@", &v8, 0x16u);
-  }
-
-  v6 = [[SASActivationRequest alloc] initWithContinuousConversationContext:contextCopy];
-  [(SiriActivationService *)self handleActivationRequest:v6];
-
-  v7 = *MEMORY[0x1E69E9840];
-}
-
-- (void)activationRequestFromContinuousConversationHearstWithContext:(id)context
-{
-  v12 = *MEMORY[0x1E69E9840];
-  contextCopy = context;
-  v5 = *MEMORY[0x1E698D0A0];
-  if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
-  {
-    v8 = 136315394;
-    v9 = "[SiriActivationService activationRequestFromContinuousConversationHearstWithContext:]";
-    v10 = 2112;
-    v11 = contextCopy;
-    _os_log_impl(&dword_1C8137000, v5, OS_LOG_TYPE_DEFAULT, "%s #activation activationRequestFromContinuousConversationHearstWithContext with context: %@", &v8, 0x16u);
-  }
-
-  v6 = [[SASActivationRequest alloc] initWithContinuousConversationHearstContext:contextCopy];
-  [(SiriActivationService *)self handleActivationRequest:v6];
-
-  v7 = *MEMORY[0x1E69E9840];
-}
-
-- (void)activationRequestFromContinuousConversationJarvisWithContext:(id)context
-{
-  v12 = *MEMORY[0x1E69E9840];
-  contextCopy = context;
-  v5 = *MEMORY[0x1E698D0A0];
-  if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
-  {
-    v8 = 136315394;
-    v9 = "[SiriActivationService activationRequestFromContinuousConversationJarvisWithContext:]";
-    v10 = 2112;
-    v11 = contextCopy;
-    _os_log_impl(&dword_1C8137000, v5, OS_LOG_TYPE_DEFAULT, "%s #activation activationRequestFromContinuousConversationJarvisWithContext with context: %@", &v8, 0x16u);
-  }
-
-  v6 = [[SASActivationRequest alloc] initWithContinuousConversationJarvisContext:contextCopy];
-  [(SiriActivationService *)self handleActivationRequest:v6];
-
-  v7 = *MEMORY[0x1E69E9840];
-}
-
-- (void)activationRequestFromBreadcrumb
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v3 = *MEMORY[0x1E698D0A0];
-  if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
-  {
-    v6 = 136315138;
-    v7 = "[SiriActivationService activationRequestFromBreadcrumb]";
-    _os_log_impl(&dword_1C8137000, v3, OS_LOG_TYPE_DEFAULT, "%s #activation activationRequestFromBreadcrumb", &v6, 0xCu);
-  }
-
-  initWithBreadcrumbRequest = [[SASActivationRequest alloc] initWithBreadcrumbRequest];
-  [(SiriActivationService *)self handleActivationRequest:initWithBreadcrumbRequest];
-
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)activationRequestFromBluetoothKeyboardActivation:(int64_t)activation
-{
-  v14 = *MEMORY[0x1E69E9840];
-  v5 = *MEMORY[0x1E698D0A0];
-  if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
-  {
-    v6 = v5;
-    v7 = SASRequestSourceGetName(activation);
-    v10 = 136315394;
-    v11 = "[SiriActivationService activationRequestFromBluetoothKeyboardActivation:]";
-    v12 = 2112;
-    v13 = v7;
-    _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_DEFAULT, "%s #activation activationRequestFromSimpleActivation:%@", &v10, 0x16u);
-  }
-
-  v8 = [[SASActivationRequest alloc] initWithBluetoothKeyboardShortcutActivation:activation];
-  [(SiriActivationService *)self handleActivationRequest:v8];
-
-  v9 = *MEMORY[0x1E69E9840];
-}
-
-- (void)activationRequestFromRemotePresentationBringUpWithContext:(id)context
-{
-  v12 = *MEMORY[0x1E69E9840];
-  contextCopy = context;
-  v5 = *MEMORY[0x1E698D0A0];
-  if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
-  {
-    v8 = 136315394;
-    v9 = "[SiriActivationService activationRequestFromRemotePresentationBringUpWithContext:]";
-    v10 = 2112;
-    v11 = contextCopy;
-    _os_log_impl(&dword_1C8137000, v5, OS_LOG_TYPE_DEFAULT, "%s #activation activationRequestFromRemotePresentationBringUpWithContext:%@", &v8, 0x16u);
-  }
-
-  v6 = [[SASActivationRequest alloc] initWithRemotePresentationBringUpContext:contextCopy];
-  [(SiriActivationService *)self handleActivationRequest:v6];
-
-  v7 = *MEMORY[0x1E69E9840];
-}
-
-- (void)activationRequestFromSimpleActivation:(int64_t)activation
-{
-  v14 = *MEMORY[0x1E69E9840];
-  v5 = *MEMORY[0x1E698D0A0];
-  if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
-  {
-    v6 = v5;
-    v7 = SASRequestSourceGetName(activation);
-    v10 = 136315394;
-    v11 = "[SiriActivationService activationRequestFromSimpleActivation:]";
-    v12 = 2112;
-    v13 = v7;
-    _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_DEFAULT, "%s #activation activationRequestFromSimpleActivation:%@", &v10, 0x16u);
-  }
-
-  v8 = [[SASActivationRequest alloc] initWithSimpleActivation:activation];
-  [(SiriActivationService *)self handleActivationRequest:v8];
-
-  v9 = *MEMORY[0x1E69E9840];
-}
-
-- (void)activationRequestFromSpotlightWithContext:(id)context
-{
-  v10 = *MEMORY[0x1E69E9840];
-  contextCopy = context;
-  v5 = *MEMORY[0x1E698D0A0];
-  if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
-  {
-    v8 = 136315138;
-    v9 = "[SiriActivationService activationRequestFromSpotlightWithContext:]";
-    _os_log_impl(&dword_1C8137000, v5, OS_LOG_TYPE_DEFAULT, "%s #activation activationRequestFromSpotlightWithContext", &v8, 0xCu);
-  }
-
-  v6 = [[SASActivationRequest alloc] initWithSpotlightContext:contextCopy];
-  [(SiriActivationService *)self handleActivationRequest:v6];
-
-  v7 = *MEMORY[0x1E69E9840];
-}
-
-- (void)activationRequestFromVoiceTrigger
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v3 = *MEMORY[0x1E698D0A0];
-  if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
-  {
-    v6 = 136315138;
-    v7 = "[SiriActivationService activationRequestFromVoiceTrigger]";
-    _os_log_impl(&dword_1C8137000, v3, OS_LOG_TYPE_DEFAULT, "%s #activation activationRequestFromVoiceTrigger", &v6, 0xCu);
-  }
-
-  initWithVoiceTriggerRequest = [[SASActivationRequest alloc] initWithVoiceTriggerRequest];
-  [(SiriActivationService *)self handleActivationRequest:initWithVoiceTriggerRequest];
-
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)activationRequestFromTestingWithContext:(id)context
-{
-  v10 = *MEMORY[0x1E69E9840];
-  contextCopy = context;
-  v5 = *MEMORY[0x1E698D0A0];
-  if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
-  {
-    v8 = 136315138;
-    v9 = "[SiriActivationService activationRequestFromTestingWithContext:]";
-    _os_log_impl(&dword_1C8137000, v5, OS_LOG_TYPE_DEFAULT, "%s #activation activationRequestFromTestingWithContext", &v8, 0xCu);
-  }
-
-  v6 = [[SASActivationRequest alloc] initWithTestingContext:contextCopy];
-  [(SiriActivationService *)self handleActivationRequest:v6];
-
-  v7 = *MEMORY[0x1E69E9840];
-}
-
-- (void)activationRequestFromVocalShortcutWithContext:(id)context
-{
-  v10 = *MEMORY[0x1E69E9840];
-  contextCopy = context;
-  v5 = *MEMORY[0x1E698D0A0];
-  if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
-  {
-    v8 = 136315138;
-    v9 = "[SiriActivationService activationRequestFromVocalShortcutWithContext:]";
-    _os_log_impl(&dword_1C8137000, v5, OS_LOG_TYPE_DEFAULT, "%s #activation activationRequestFromVocalShortcutWithContext", &v8, 0xCu);
-  }
-
-  v6 = [[SASActivationRequest alloc] initWithVocalShortcutContext:contextCopy];
-  [(SiriActivationService *)self handleActivationRequest:v6];
-
-  v7 = *MEMORY[0x1E69E9840];
-}
-
-- (void)activationRequestFromTostadaWithContext:(id)context
-{
-  v10 = *MEMORY[0x1E69E9840];
-  contextCopy = context;
-  v5 = *MEMORY[0x1E698D0A0];
-  if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
-  {
-    v8 = 136315138;
-    v9 = "[SiriActivationService activationRequestFromTostadaWithContext:]";
-    _os_log_impl(&dword_1C8137000, v5, OS_LOG_TYPE_DEFAULT, "%s #activation activationRequestFromTostadaWithContext", &v8, 0xCu);
-  }
-
-  v6 = [[SASActivationRequest alloc] initWithTostadaContext:contextCopy];
-  [(SiriActivationService *)self handleActivationRequest:v6];
-
-  v7 = *MEMORY[0x1E69E9840];
-}
-
-- (void)speechRequestStateDidChange:(int64_t)change
-{
   v11 = *MEMORY[0x1E69E9840];
+  contextCopy = context;
   v5 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
   {
     v7 = 136315394;
-    v8 = "[SiriActivationService speechRequestStateDidChange:]";
-    v9 = 2048;
+    v8 = "[SiriActivationService activationRequestFromContinuousConversationWithContext:]";
+    v9 = 2112;
+    v10 = contextCopy;
+    _os_log_impl(&dword_1C8137000, v5, OS_LOG_TYPE_DEFAULT, "%s #activation activationRequestFromContinuousConversationWithContext with context: %@", &v7, 0x16u);
+  }
+
+  v6 = [[SASActivationRequest alloc] initWithContinuousConversationContext:contextCopy];
+  [(SiriActivationService *)self handleActivationRequest:v6];
+}
+
+- (void)activationRequestFromContinuousConversationHearstWithContext:(id)context
+{
+  v11 = *MEMORY[0x1E69E9840];
+  contextCopy = context;
+  v5 = *MEMORY[0x1E698D0A0];
+  if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = 136315394;
+    v8 = "[SiriActivationService activationRequestFromContinuousConversationHearstWithContext:]";
+    v9 = 2112;
+    v10 = contextCopy;
+    _os_log_impl(&dword_1C8137000, v5, OS_LOG_TYPE_DEFAULT, "%s #activation activationRequestFromContinuousConversationHearstWithContext with context: %@", &v7, 0x16u);
+  }
+
+  v6 = [[SASActivationRequest alloc] initWithContinuousConversationHearstContext:contextCopy];
+  [(SiriActivationService *)self handleActivationRequest:v6];
+}
+
+- (void)activationRequestFromContinuousConversationJarvisWithContext:(id)context
+{
+  v11 = *MEMORY[0x1E69E9840];
+  contextCopy = context;
+  v5 = *MEMORY[0x1E698D0A0];
+  if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = 136315394;
+    v8 = "[SiriActivationService activationRequestFromContinuousConversationJarvisWithContext:]";
+    v9 = 2112;
+    v10 = contextCopy;
+    _os_log_impl(&dword_1C8137000, v5, OS_LOG_TYPE_DEFAULT, "%s #activation activationRequestFromContinuousConversationJarvisWithContext with context: %@", &v7, 0x16u);
+  }
+
+  v6 = [[SASActivationRequest alloc] initWithContinuousConversationJarvisContext:contextCopy];
+  [(SiriActivationService *)self handleActivationRequest:v6];
+}
+
+- (void)activationRequestFromBreadcrumb
+{
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E698D0A0];
+  if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = 136315138;
+    v6 = "[SiriActivationService activationRequestFromBreadcrumb]";
+    _os_log_impl(&dword_1C8137000, v3, OS_LOG_TYPE_DEFAULT, "%s #activation activationRequestFromBreadcrumb", &v5, 0xCu);
+  }
+
+  initWithBreadcrumbRequest = [[SASActivationRequest alloc] initWithBreadcrumbRequest];
+  [(SiriActivationService *)self handleActivationRequest:initWithBreadcrumbRequest];
+}
+
+- (void)activationRequestFromBluetoothKeyboardActivation:(int64_t)activation
+{
+  v13 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E698D0A0];
+  if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = v5;
+    v7 = SASRequestSourceGetName(activation);
+    v9 = 136315394;
+    v10 = "[SiriActivationService activationRequestFromBluetoothKeyboardActivation:]";
+    v11 = 2112;
+    v12 = v7;
+    _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_DEFAULT, "%s #activation activationRequestFromSimpleActivation:%@", &v9, 0x16u);
+  }
+
+  v8 = [[SASActivationRequest alloc] initWithBluetoothKeyboardShortcutActivation:activation];
+  [(SiriActivationService *)self handleActivationRequest:v8];
+}
+
+- (void)activationRequestFromRemotePresentationBringUpWithContext:(id)context
+{
+  v11 = *MEMORY[0x1E69E9840];
+  contextCopy = context;
+  v5 = *MEMORY[0x1E698D0A0];
+  if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = 136315394;
+    v8 = "[SiriActivationService activationRequestFromRemotePresentationBringUpWithContext:]";
+    v9 = 2112;
+    v10 = contextCopy;
+    _os_log_impl(&dword_1C8137000, v5, OS_LOG_TYPE_DEFAULT, "%s #activation activationRequestFromRemotePresentationBringUpWithContext:%@", &v7, 0x16u);
+  }
+
+  v6 = [[SASActivationRequest alloc] initWithRemotePresentationBringUpContext:contextCopy];
+  [(SiriActivationService *)self handleActivationRequest:v6];
+}
+
+- (void)activationRequestFromSimpleActivation:(int64_t)activation
+{
+  v13 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E698D0A0];
+  if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = v5;
+    v7 = SASRequestSourceGetName(activation);
+    v9 = 136315394;
+    v10 = "[SiriActivationService activationRequestFromSimpleActivation:]";
+    v11 = 2112;
+    v12 = v7;
+    _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_DEFAULT, "%s #activation activationRequestFromSimpleActivation:%@", &v9, 0x16u);
+  }
+
+  v8 = [[SASActivationRequest alloc] initWithSimpleActivation:activation];
+  [(SiriActivationService *)self handleActivationRequest:v8];
+}
+
+- (void)activationRequestFromSpotlightWithContext:(id)context
+{
+  v9 = *MEMORY[0x1E69E9840];
+  contextCopy = context;
+  v5 = *MEMORY[0x1E698D0A0];
+  if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = 136315138;
+    v8 = "[SiriActivationService activationRequestFromSpotlightWithContext:]";
+    _os_log_impl(&dword_1C8137000, v5, OS_LOG_TYPE_DEFAULT, "%s #activation activationRequestFromSpotlightWithContext", &v7, 0xCu);
+  }
+
+  v6 = [[SASActivationRequest alloc] initWithSpotlightContext:contextCopy];
+  [(SiriActivationService *)self handleActivationRequest:v6];
+}
+
+- (void)activationRequestFromVoiceTrigger
+{
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E698D0A0];
+  if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = 136315138;
+    v6 = "[SiriActivationService activationRequestFromVoiceTrigger]";
+    _os_log_impl(&dword_1C8137000, v3, OS_LOG_TYPE_DEFAULT, "%s #activation activationRequestFromVoiceTrigger", &v5, 0xCu);
+  }
+
+  initWithVoiceTriggerRequest = [[SASActivationRequest alloc] initWithVoiceTriggerRequest];
+  [(SiriActivationService *)self handleActivationRequest:initWithVoiceTriggerRequest];
+}
+
+- (void)activationRequestFromTestingWithContext:(id)context
+{
+  v9 = *MEMORY[0x1E69E9840];
+  contextCopy = context;
+  v5 = *MEMORY[0x1E698D0A0];
+  if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = 136315138;
+    v8 = "[SiriActivationService activationRequestFromTestingWithContext:]";
+    _os_log_impl(&dword_1C8137000, v5, OS_LOG_TYPE_DEFAULT, "%s #activation activationRequestFromTestingWithContext", &v7, 0xCu);
+  }
+
+  v6 = [[SASActivationRequest alloc] initWithTestingContext:contextCopy];
+  [(SiriActivationService *)self handleActivationRequest:v6];
+}
+
+- (void)activationRequestFromVocalShortcutWithContext:(id)context
+{
+  v9 = *MEMORY[0x1E69E9840];
+  contextCopy = context;
+  v5 = *MEMORY[0x1E698D0A0];
+  if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = 136315138;
+    v8 = "[SiriActivationService activationRequestFromVocalShortcutWithContext:]";
+    _os_log_impl(&dword_1C8137000, v5, OS_LOG_TYPE_DEFAULT, "%s #activation activationRequestFromVocalShortcutWithContext", &v7, 0xCu);
+  }
+
+  v6 = [[SASActivationRequest alloc] initWithVocalShortcutContext:contextCopy];
+  [(SiriActivationService *)self handleActivationRequest:v6];
+}
+
+- (void)activationRequestFromTostadaWithContext:(id)context
+{
+  v9 = *MEMORY[0x1E69E9840];
+  contextCopy = context;
+  v5 = *MEMORY[0x1E698D0A0];
+  if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = 136315138;
+    v8 = "[SiriActivationService activationRequestFromTostadaWithContext:]";
+    _os_log_impl(&dword_1C8137000, v5, OS_LOG_TYPE_DEFAULT, "%s #activation activationRequestFromTostadaWithContext", &v7, 0xCu);
+  }
+
+  v6 = [[SASActivationRequest alloc] initWithTostadaContext:contextCopy];
+  [(SiriActivationService *)self handleActivationRequest:v6];
+}
+
+- (void)speechRequestStateDidChange:(int64_t)change
+{
+  v10 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E698D0A0];
+  if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = 136315394;
+    v7 = "[SiriActivationService speechRequestStateDidChange:]";
+    v8 = 2048;
     changeCopy = change;
-    _os_log_impl(&dword_1C8137000, v5, OS_LOG_TYPE_DEFAULT, "%s #activation speech request state did change (state = %ld)", &v7, 0x16u);
+    _os_log_impl(&dword_1C8137000, v5, OS_LOG_TYPE_DEFAULT, "%s #activation speech request state did change (state = %ld)", &v6, 0x16u);
   }
 
   if (change == 1)
   {
     [(SASMyriadController *)self->_myriadController activateForInTaskRequest:0 isVisible:[(SiriActivationService *)self _requestState]== 3];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)handleActivationRequest:(id)request
@@ -2745,7 +2675,7 @@ LABEL_7:
 
 - (BOOL)handleActivationRequest:(id)request systemState:(id)state
 {
-  v75 = *MEMORY[0x1E69E9840];
+  v74 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   stateCopy = state;
   v8 = MEMORY[0x1E698D0A0];
@@ -2756,9 +2686,9 @@ LABEL_7:
     v11 = v9;
     currentThread = [v10 currentThread];
     *buf = 136315394;
-    v72 = "[SiriActivationService handleActivationRequest:systemState:]";
-    v73 = 2048;
-    v74 = COERCE_DOUBLE([currentThread qualityOfService]);
+    v71 = "[SiriActivationService handleActivationRequest:systemState:]";
+    v72 = 2048;
+    v73 = COERCE_DOUBLE([currentThread qualityOfService]);
     _os_log_impl(&dword_1C8137000, v11, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy handleActivationLock about to lock with qos: %zd", buf, 0x16u);
   }
 
@@ -2767,7 +2697,7 @@ LABEL_7:
   if (os_log_type_enabled(*v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v72 = "[SiriActivationService handleActivationRequest:systemState:]";
+    v71 = "[SiriActivationService handleActivationRequest:systemState:]";
     _os_log_impl(&dword_1C8137000, v13, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy handleActivationLock successfully locked", buf, 0xCu);
   }
 
@@ -2787,8 +2717,8 @@ LABEL_7:
   systemState = [(SiriActivationService *)self systemState];
   lockStateMonitor = [systemState lockStateMonitor];
 
-  v67 = lockStateMonitor;
-  v68 = v14;
+  v66 = lockStateMonitor;
+  v67 = v14;
   if (lockStateMonitor)
   {
     v22 = [lockStateMonitor lockState] == 0;
@@ -2799,22 +2729,22 @@ LABEL_7:
     v22 = 1;
   }
 
-  v69[0] = @"activationEvent";
+  v68[0] = @"activationEvent";
   v23 = [MEMORY[0x1E696AEC0] stringWithSiriActivationEventType:{objc_msgSend(requestCopy, "activationType")}];
-  v70[0] = v23;
-  v69[1] = @"eventSource";
+  v69[0] = v23;
+  v68[1] = @"eventSource";
   eventSource = [requestCopy eventSource];
-  v70[1] = eventSource;
-  v69[2] = @"isDeviceUnlocked";
+  v69[1] = eventSource;
+  v68[2] = @"isDeviceUnlocked";
   v25 = [MEMORY[0x1E696AD98] numberWithBool:v22];
-  v70[2] = v25;
-  v69[3] = @"clockTime";
+  v69[2] = v25;
+  v68[3] = @"clockTime";
   v26 = MEMORY[0x1E696AD98];
   date = [MEMORY[0x1E695DF00] date];
   [date timeIntervalSince1970];
   v28 = [v26 numberWithDouble:?];
-  v70[3] = v28;
-  v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v70 forKeys:v69 count:4];
+  v69[3] = v28;
+  v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v69 forKeys:v68 count:4];
   v30 = [v29 mutableCopy];
 
   v31 = [MEMORY[0x1E696AD98] numberWithBool:{-[SASOverriddenSystemState carDNDActive](v17, "carDNDActive")}];
@@ -2838,9 +2768,9 @@ LABEL_7:
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v72 = "[SiriActivationService handleActivationRequest:systemState:]";
-    v73 = 2112;
-    v74 = *&requestCopy;
+    v71 = "[SiriActivationService handleActivationRequest:systemState:]";
+    v72 = 2112;
+    v73 = *&requestCopy;
     _os_log_impl(&dword_1C8137000, v37, OS_LOG_TYPE_DEFAULT, "%s #activation activationRequest = %@", buf, 0x16u);
   }
 
@@ -2871,13 +2801,13 @@ LABEL_7:
     if (os_log_type_enabled(*v36, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v72 = "[SiriActivationService handleActivationRequest:systemState:]";
+      v71 = "[SiriActivationService handleActivationRequest:systemState:]";
       goto LABEL_28;
     }
 
 LABEL_29:
     v50 = 0;
-    v51 = v68;
+    v51 = v67;
     goto LABEL_43;
   }
 
@@ -2897,9 +2827,9 @@ LABEL_29:
         v46 = v45;
         [v44 floatValue];
         *buf = 136315394;
-        v72 = "[SiriActivationService handleActivationRequest:systemState:]";
-        v73 = 2048;
-        v74 = v47;
+        v71 = "[SiriActivationService handleActivationRequest:systemState:]";
+        v72 = 2048;
+        v73 = v47;
         _os_log_impl(&dword_1C8137000, v46, OS_LOG_TYPE_DEFAULT, "%s #activation Voice request on CarPlay, delaying Myriad decision by %f ms", buf, 0x16u);
       }
 
@@ -2915,7 +2845,7 @@ LABEL_24:
         if (os_log_type_enabled(*v36, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315138;
-          v72 = "[SiriActivationService handleActivationRequest:systemState:]";
+          v71 = "[SiriActivationService handleActivationRequest:systemState:]";
 LABEL_28:
           _os_log_impl(&dword_1C8137000, v49, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy handleActivationLock unlocked", buf, 0xCu);
           goto LABEL_29;
@@ -2965,7 +2895,7 @@ LABEL_28:
     v54 = testingContext = v54;
   }
 
-  v51 = v68;
+  v51 = v67;
   if ([(SiriActivationService *)self _requestState]== 3)
   {
     [(SASPresentationManager *)self->_presentationManager activePresentations_handleRequestWithOptions:v54];
@@ -2983,32 +2913,30 @@ LABEL_28:
   if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v72 = "[SiriActivationService handleActivationRequest:systemState:]";
+    v71 = "[SiriActivationService handleActivationRequest:systemState:]";
     _os_log_impl(&dword_1C8137000, v64, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy handleActivationLock unlocked", buf, 0xCu);
   }
 
   v50 = 1;
 LABEL_43:
 
-  v65 = *MEMORY[0x1E69E9840];
   return v50;
 }
 
 - (void)_logActivationToPowerLogWithReason:(int64_t)reason
 {
-  v7[1] = *MEMORY[0x1E69E9840];
-  v6 = @"ReasonStart";
+  v6[1] = *MEMORY[0x1E69E9840];
+  v5 = @"ReasonStart";
   v3 = [MEMORY[0x1E696AD98] numberWithInteger:reason];
-  v7[0] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v6[0] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   PLLogRegisteredEvent();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_activatePresentationWithIdentifier:(int64_t)identifier requestOptions:(id)options analyticsContext:(id)context
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   contextCopy = context;
   v10 = *MEMORY[0x1E698D0A0];
@@ -3018,33 +2946,31 @@ LABEL_43:
     v12 = v10;
     v13 = [v11 stringWithSiriPresentationIdentifier:identifier];
     *buf = 136315394;
-    v21 = "[SiriActivationService _activatePresentationWithIdentifier:requestOptions:analyticsContext:]";
-    v22 = 2112;
-    v23 = v13;
+    v20 = "[SiriActivationService _activatePresentationWithIdentifier:requestOptions:analyticsContext:]";
+    v21 = 2112;
+    v22 = v13;
     _os_log_impl(&dword_1C8137000, v12, OS_LOG_TYPE_DEFAULT, "%s #activation _activatePresentation %@", buf, 0x16u);
   }
 
   objc_initWeak(buf, self);
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __93__SiriActivationService__activatePresentationWithIdentifier_requestOptions_analyticsContext___block_invoke;
-  v16[3] = &unk_1E82F3C00;
-  objc_copyWeak(v19, buf);
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __93__SiriActivationService__activatePresentationWithIdentifier_requestOptions_analyticsContext___block_invoke;
+  v15[3] = &unk_1E82F3C00;
+  objc_copyWeak(v18, buf);
   v14 = optionsCopy;
-  v19[1] = identifier;
-  v17 = v14;
+  v18[1] = identifier;
+  v16 = v14;
   selfCopy = self;
-  SiriInvokeOnMainQueue(v16);
+  SiriInvokeOnMainQueue(v15);
 
-  objc_destroyWeak(v19);
+  objc_destroyWeak(v18);
   objc_destroyWeak(buf);
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __93__SiriActivationService__activatePresentationWithIdentifier_requestOptions_analyticsContext___block_invoke(uint64_t a1)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
   {
@@ -3055,9 +2981,9 @@ void __93__SiriActivationService__activatePresentationWithIdentifier_requestOpti
     if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v28 = "[SiriActivationService _activatePresentationWithIdentifier:requestOptions:analyticsContext:]_block_invoke";
-      v29 = 1024;
-      v30 = v4;
+      v27 = "[SiriActivationService _activatePresentationWithIdentifier:requestOptions:analyticsContext:]_block_invoke";
+      v28 = 1024;
+      v29 = v4;
       _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_DEFAULT, "%s #activation Deferring wake, shouldHandlePocketStateFetch: (%{BOOL}d)", buf, 0x12u);
     }
 
@@ -3115,22 +3041,20 @@ void __93__SiriActivationService__activatePresentationWithIdentifier_requestOpti
 
     v17 = _SiriActivationDeviceSupportsPearlID_deviceSupportsPearlID;
     v18 = [MEMORY[0x1E698D258] saeAvailable];
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __93__SiriActivationService__activatePresentationWithIdentifier_requestOptions_analyticsContext___block_invoke_174;
-    v21[3] = &unk_1E82F3BD8;
-    v24 = v17;
-    v25 = v14 & 1 | ((v18 & 1) == 0);
-    v26 = v16 & 1;
-    v23 = v10;
-    v22 = *(a1 + 32);
-    v19 = [(SiriPresentationOptions *)v3 mutatedCopyWithMutator:v21];
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __93__SiriActivationService__activatePresentationWithIdentifier_requestOptions_analyticsContext___block_invoke_174;
+    v20[3] = &unk_1E82F3BD8;
+    v23 = v17;
+    v24 = v14 & 1 | ((v18 & 1) == 0);
+    v25 = v16 & 1;
+    v22 = v10;
+    v21 = *(a1 + 32);
+    v19 = [(SiriPresentationOptions *)v3 mutatedCopyWithMutator:v20];
 
     [WeakRetained[24] presentationRequestedWithPresentationIdentifier:*(a1 + 56) presentationOptions:v19 requestOptions:*(a1 + 32)];
     [*(a1 + 40) _overrideLockButtonStateIfNeededForRequestOptions:*(a1 + 32)];
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __93__SiriActivationService__activatePresentationWithIdentifier_requestOptions_analyticsContext___block_invoke_174(uint64_t a1, void *a2)
@@ -3149,7 +3073,7 @@ void __93__SiriActivationService__activatePresentationWithIdentifier_requestOpti
 
 - (void)_overrideLockButtonStateIfNeededForRequestOptions:(id)options
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   if ([optionsCopy requestSource] == 41)
   {
@@ -3163,22 +3087,20 @@ void __93__SiriActivationService__activatePresentationWithIdentifier_requestOpti
         v8 = *MEMORY[0x1E698D0A0];
         if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
         {
-          v10 = 136315138;
-          v11 = "[SiriActivationService _overrideLockButtonStateIfNeededForRequestOptions:]";
-          _os_log_impl(&dword_1C8137000, v8, OS_LOG_TYPE_DEFAULT, "%s #activation Overriding lock button active override for Workout Buddy / Workout Voice Feedback", &v10, 0xCu);
+          v9 = 136315138;
+          v10 = "[SiriActivationService _overrideLockButtonStateIfNeededForRequestOptions:]";
+          _os_log_impl(&dword_1C8137000, v8, OS_LOG_TYPE_DEFAULT, "%s #activation Overriding lock button active override for Workout Buddy / Workout Voice Feedback", &v9, 0xCu);
         }
 
         [(SiriActivationService *)self _updateButtonSourceActiveOverride:2 activeOverride:0];
       }
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_shouldHandlePocketStateFetchForRequestOptions:(id)options
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   if (![optionsCopy isWiredMicOrBTHeadsetOrWx])
   {
@@ -3203,17 +3125,17 @@ void __93__SiriActivationService__activatePresentationWithIdentifier_requestOpti
   v12 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 136316162;
-    v17 = "[SiriActivationService _shouldHandlePocketStateFetchForRequestOptions:]";
-    v18 = 1024;
-    v19 = isScreenOn ^ 1;
-    v20 = 1024;
-    v21 = v7;
-    v22 = 1024;
-    v23 = v9;
-    v24 = 1024;
-    v25 = v11;
-    _os_log_impl(&dword_1C8137000, v12, OS_LOG_TYPE_DEFAULT, "%s #activation should handle pocket state fetch via isScreenOff (%{BOOL}d) && siriActivationDeviceSupportsProxSensor (%{BOOL}d) && !(requestIsEyesFree (%{BOOL}d) || requestIsBluetoothCar (%{BOOL}d))", &v16, 0x24u);
+    v15 = 136316162;
+    v16 = "[SiriActivationService _shouldHandlePocketStateFetchForRequestOptions:]";
+    v17 = 1024;
+    v18 = isScreenOn ^ 1;
+    v19 = 1024;
+    v20 = v7;
+    v21 = 1024;
+    v22 = v9;
+    v23 = 1024;
+    v24 = v11;
+    _os_log_impl(&dword_1C8137000, v12, OS_LOG_TYPE_DEFAULT, "%s #activation should handle pocket state fetch via isScreenOff (%{BOOL}d) && siriActivationDeviceSupportsProxSensor (%{BOOL}d) && !(requestIsEyesFree (%{BOOL}d) || requestIsBluetoothCar (%{BOOL}d))", &v15, 0x24u);
   }
 
   if (!(isScreenOn & 1 | ((v7 & 1) == 0) | (v9 | v11) & 1))
@@ -3227,7 +3149,6 @@ LABEL_7:
     LOBYTE(v13) = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -3250,7 +3171,7 @@ LABEL_7:
 
 void __87__SiriActivationService__handlePocketStateFetchForScreenWakeForPresentationIdentifier___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v7 = WeakRetained;
@@ -3270,27 +3191,27 @@ void __87__SiriActivationService__handlePocketStateFetchForScreenWakeForPresenta
 
   else
   {
-    v11 = a2 & 0xFFFFFFFFFFFFFFFDLL;
-    v12 = *MEMORY[0x1E698D0A0];
-    v13 = os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT);
-    if (v11 == 1)
+    v10 = a2 & 0xFFFFFFFFFFFFFFFDLL;
+    v11 = *MEMORY[0x1E698D0A0];
+    v12 = os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT);
+    if (v10 == 1)
     {
-      if (v13)
+      if (v12)
       {
-        v14 = 136315138;
-        v15 = "[SiriActivationService _handlePocketStateFetchForScreenWakeForPresentationIdentifier:]_block_invoke";
-        _os_log_impl(&dword_1C8137000, v12, OS_LOG_TYPE_DEFAULT, "%s #activation #SiriPocketStateManager: Device is face down on table or in pocket. Leaving screen off.", &v14, 0xCu);
+        v13 = 136315138;
+        v14 = "[SiriActivationService _handlePocketStateFetchForScreenWakeForPresentationIdentifier:]_block_invoke";
+        _os_log_impl(&dword_1C8137000, v11, OS_LOG_TYPE_DEFAULT, "%s #activation #SiriPocketStateManager: Device is face down on table or in pocket. Leaving screen off.", &v13, 0xCu);
       }
 
       v8 = 0;
       goto LABEL_6;
     }
 
-    if (v13)
+    if (v12)
     {
-      v14 = 136315138;
-      v15 = "[SiriActivationService _handlePocketStateFetchForScreenWakeForPresentationIdentifier:]_block_invoke";
-      _os_log_impl(&dword_1C8137000, v12, OS_LOG_TYPE_DEFAULT, "%s #activation #SiriPocketStateManager: Turning on the screen...", &v14, 0xCu);
+      v13 = 136315138;
+      v14 = "[SiriActivationService _handlePocketStateFetchForScreenWakeForPresentationIdentifier:]_block_invoke";
+      _os_log_impl(&dword_1C8137000, v11, OS_LOG_TYPE_DEFAULT, "%s #activation #SiriPocketStateManager: Turning on the screen...", &v13, 0xCu);
     }
   }
 
@@ -3304,50 +3225,44 @@ LABEL_6:
   }
 
 LABEL_8:
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_dismissSiri:(id)siri
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   siriCopy = siri;
   v5 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315138;
-    v8 = "[SiriActivationService _dismissSiri:]";
-    _os_log_impl(&dword_1C8137000, v5, OS_LOG_TYPE_DEFAULT, "%s #activation", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[SiriActivationService _dismissSiri:]";
+    _os_log_impl(&dword_1C8137000, v5, OS_LOG_TYPE_DEFAULT, "%s #activation", &v6, 0xCu);
   }
 
   [(SASPresentationManager *)self->_presentationManager startingAndActiveAndStoppingPresentations_presentationDismissalRequestedWithOptions:siriCopy];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_preheatPresentation
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v15 = "[SiriActivationService _preheatPresentation]";
+    v14 = "[SiriActivationService _preheatPresentation]";
     _os_log_impl(&dword_1C8137000, v3, OS_LOG_TYPE_DEFAULT, "%s #activation", buf, 0xCu);
   }
 
   v4 = [SASPreheatRequest newWithBuilder:&__block_literal_global_181];
-  v8 = MEMORY[0x1E69E9820];
-  v9 = 3221225472;
-  v10 = __45__SiriActivationService__preheatPresentation__block_invoke_2;
-  v11 = &unk_1E82F3BB0;
+  v7 = MEMORY[0x1E69E9820];
+  v8 = 3221225472;
+  v9 = __45__SiriActivationService__preheatPresentation__block_invoke_2;
+  v10 = &unk_1E82F3BB0;
   selfCopy = self;
-  v13 = v4;
+  v12 = v4;
   v5 = v4;
-  v6 = [SASPreheatOptions newWithBuilder:&v8];
-  [(SASPresentationManager *)self->_presentationManager preheatNextPresentationToActivateWithOptions:v6, v8, v9, v10, v11, selfCopy];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = [SASPreheatOptions newWithBuilder:&v7];
+  [(SASPresentationManager *)self->_presentationManager preheatNextPresentationToActivateWithOptions:v6, v7, v8, v9, v10, selfCopy];
 }
 
 void __45__SiriActivationService__preheatPresentation__block_invoke_2(uint64_t a1, void *a2)
@@ -3363,70 +3278,65 @@ void __45__SiriActivationService__preheatPresentation__block_invoke_2(uint64_t a
 
 - (void)_attachToTether
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v3 = *MEMORY[0x1E698D0A0];
-  if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
-  {
-    v6 = 136315138;
-    v7 = "[SiriActivationService _attachToTether]";
-    _os_log_impl(&dword_1C8137000, v3, OS_LOG_TYPE_DEFAULT, "%s #activation _attachToTether", &v6, 0xCu);
-  }
-
-  siriTether = [(SiriActivationService *)self siriTether];
-  [siriTether attach:0];
-
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_cancelActivationPreparationForSetup
-{
   v7 = *MEMORY[0x1E69E9840];
   v3 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
   {
     v5 = 136315138;
-    v6 = "[SiriActivationService _cancelActivationPreparationForSetup]";
-    _os_log_impl(&dword_1C8137000, v3, OS_LOG_TYPE_DEFAULT, "%s #activation _cancelActivationPreparationForSetup", &v5, 0xCu);
+    v6 = "[SiriActivationService _attachToTether]";
+    _os_log_impl(&dword_1C8137000, v3, OS_LOG_TYPE_DEFAULT, "%s #activation _attachToTether", &v5, 0xCu);
+  }
+
+  siriTether = [(SiriActivationService *)self siriTether];
+  [siriTether attach:0];
+}
+
+- (void)_cancelActivationPreparationForSetup
+{
+  v6 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E698D0A0];
+  if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
+  {
+    v4 = 136315138;
+    v5 = "[SiriActivationService _cancelActivationPreparationForSetup]";
+    _os_log_impl(&dword_1C8137000, v3, OS_LOG_TYPE_DEFAULT, "%s #activation _cancelActivationPreparationForSetup", &v4, 0xCu);
   }
 
   [(SiriActivationService *)self _cancelPendingActivationEventWithReason:1];
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_cancelPendingActivationEventWithReason:(unint64_t)reason
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
   {
     v6 = MEMORY[0x1E696AEC0];
     v7 = v5;
     v8 = [v6 stringWithSiriPresentationActivationCancelReason:reason];
-    v10 = 136315394;
-    v11 = "[SiriActivationService _cancelPendingActivationEventWithReason:]";
-    v12 = 2112;
-    v13 = v8;
-    _os_log_impl(&dword_1C8137000, v7, OS_LOG_TYPE_DEFAULT, "%s #activation _cancelPendingActivationEventWithReason:%@", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = "[SiriActivationService _cancelPendingActivationEventWithReason:]";
+    v11 = 2112;
+    v12 = v8;
+    _os_log_impl(&dword_1C8137000, v7, OS_LOG_TYPE_DEFAULT, "%s #activation _cancelPendingActivationEventWithReason:%@", &v9, 0x16u);
   }
 
   [(SASPresentationManager *)self->_presentationManager startingPresentations_cancelPendingActivationWithReason:reason];
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleDesignModeRequest
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[SiriActivationService _handleDesignModeRequest]";
-    _os_log_impl(&dword_1C8137000, v2, OS_LOG_TYPE_DEFAULT, "%s #activation activating in design mode", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[SiriActivationService _handleDesignModeRequest]";
+    _os_log_impl(&dword_1C8137000, v2, OS_LOG_TYPE_DEFAULT, "%s #activation activating in design mode", &v4, 0xCu);
   }
 
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
   CFNotificationCenterPostNotification(DarwinNotifyCenter, @"com.apple.siri.internal.activation", 0, 0, 1u);
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_isVoiceActivationMaskNecessaryWithRequestOptions:(id)options
@@ -3548,7 +3458,7 @@ void __45__SiriActivationService__preheatPresentation__block_invoke_2(uint64_t a
 
 - (BOOL)_isEyesFreeEligibleWithRequest:(id)request
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   systemState = [(SiriActivationService *)self systemState];
   isConnectedToEyesFreeDevice = [systemState isConnectedToEyesFreeDevice];
@@ -3573,19 +3483,19 @@ void __45__SiriActivationService__preheatPresentation__block_invoke_2(uint64_t a
   v14 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 136316418;
-    v20 = "[SiriActivationService _isEyesFreeEligibleWithRequest:]";
-    v21 = 1024;
-    v22 = isVisualIntelligenceRequest;
-    v23 = 1024;
-    v24 = carDNDActive;
-    v25 = 1024;
-    v26 = v9;
-    v27 = 1024;
-    v28 = isConnectedToEyesFreeDevice;
-    v29 = 1024;
-    v30 = v10;
-    _os_log_impl(&dword_1C8137000, v14, OS_LOG_TYPE_DEFAULT, "%s #activation checking if EyesFree is eligible: isVisualIntelligenceRequest = %d, isCarDND = %d, isDebugSettingOn = %d, isEyesFreeDevice = %d, isRequestSourceEyesFreeEligible = %d", &v19, 0x2Au);
+    v18 = 136316418;
+    v19 = "[SiriActivationService _isEyesFreeEligibleWithRequest:]";
+    v20 = 1024;
+    v21 = isVisualIntelligenceRequest;
+    v22 = 1024;
+    v23 = carDNDActive;
+    v24 = 1024;
+    v25 = v9;
+    v26 = 1024;
+    v27 = isConnectedToEyesFreeDevice;
+    v28 = 1024;
+    v29 = v10;
+    _os_log_impl(&dword_1C8137000, v14, OS_LOG_TYPE_DEFAULT, "%s #activation checking if EyesFree is eligible: isVisualIntelligenceRequest = %d, isCarDND = %d, isDebugSettingOn = %d, isEyesFreeDevice = %d, isRequestSourceEyesFreeEligible = %d", &v18, 0x2Au);
   }
 
   v15 = isVisualIntelligenceRequest | v9 | carDNDActive;
@@ -3595,7 +3505,6 @@ void __45__SiriActivationService__preheatPresentation__block_invoke_2(uint64_t a
     v16 = (v12 ^ 1 | v10) & (v13 ^ 1);
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v16 & 1;
 }
 
@@ -3624,38 +3533,37 @@ void __45__SiriActivationService__preheatPresentation__block_invoke_2(uint64_t a
 
 - (void)heaterSuggestsPreheating:(id)preheating
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   _requestState = [(SiriActivationService *)self _requestState];
   v5 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
   {
     v6 = v5;
     v7 = SASRequestStateGetName(_requestState);
-    v9 = 136315394;
-    v10 = "[SiriActivationService heaterSuggestsPreheating:]";
-    v11 = 2112;
-    v12 = v7;
-    _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_DEFAULT, "%s #activation preheat; request state = %@", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = "[SiriActivationService heaterSuggestsPreheating:]";
+    v10 = 2112;
+    v11 = v7;
+    _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_DEFAULT, "%s #activation preheat; request state = %@", &v8, 0x16u);
   }
 
   kdebug_trace();
   [(SiriActivationService *)self _preheatPresentation];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_logCancelledActivationWithButtonIdentifier:(int64_t)identifier duration:(double)duration targetDuration:(double)targetDuration
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (fabs(targetDuration + -0.4) < 2.22044605e-16 || fabs(targetDuration + -0.65) >= 2.22044605e-16 || _AXSHomeButtonAssistant())
   {
-    goto LABEL_12;
+    return 0;
   }
 
   v8 = +[SASSystemState sharedSystemState];
   if (([v8 siriIsSupported] & 1) == 0)
   {
 
-    goto LABEL_12;
+    return 0;
   }
 
   v9 = +[SASSystemState sharedSystemState];
@@ -3663,9 +3571,7 @@ void __45__SiriActivationService__preheatPresentation__block_invoke_2(uint64_t a
 
   if (!siriIsEnabled)
   {
-LABEL_12:
-    v12 = 0;
-    goto LABEL_13;
+    return 0;
   }
 
   v11 = [MEMORY[0x1E696AEC0] stringWithSiriButtonIdentifier:identifier];
@@ -3674,47 +3580,43 @@ LABEL_12:
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136316162;
-    v18 = "[SiriActivationService _logCancelledActivationWithButtonIdentifier:duration:targetDuration:]";
-    v19 = 2112;
-    v20 = v11;
-    v21 = 2048;
+    v17 = "[SiriActivationService _logCancelledActivationWithButtonIdentifier:duration:targetDuration:]";
+    v18 = 2112;
+    v19 = v11;
+    v20 = 2048;
     durationCopy = duration;
-    v23 = 1024;
-    v24 = duration > 0.2;
-    v25 = 2048;
+    v22 = 1024;
+    v23 = duration > 0.2;
+    v24 = 2048;
     targetDurationCopy = targetDuration;
     _os_log_impl(&dword_1C8137000, v13, OS_LOG_TYPE_DEFAULT, "%s #activation cancelledPreparationWithButtonIdentifier: %@ duration: %f, willSendEvent: %d, targetDuration: %f, ", buf, 0x30u);
   }
 
   if (duration > 0.2)
   {
-    v16 = v11;
+    v15 = v11;
     AnalyticsSendEventLazy();
   }
 
-LABEL_13:
-  v14 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 id __93__SiriActivationService__logCancelledActivationWithButtonIdentifier_duration_targetDuration___block_invoke(uint64_t a1)
 {
-  v10[4] = *MEMORY[0x1E69E9840];
-  v9[0] = @"duration";
+  v9[4] = *MEMORY[0x1E69E9840];
+  v8[0] = @"duration";
   v2 = [MEMORY[0x1E696AD98] numberWithDouble:*(a1 + 40)];
   v3 = *(a1 + 32);
-  v10[0] = v2;
-  v10[1] = v3;
-  v9[1] = @"buttonIdentifier";
-  v9[2] = @"targetDuration";
+  v9[0] = v2;
+  v9[1] = v3;
+  v8[1] = @"buttonIdentifier";
+  v8[2] = @"targetDuration";
   v4 = [MEMORY[0x1E696AD98] numberWithDouble:*(a1 + 48)];
-  v10[2] = v4;
-  v9[3] = @"targetDurationEnum";
+  v9[2] = v4;
+  v8[3] = @"targetDurationEnum";
   v5 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 56)];
-  v10[3] = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:4];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v9[3] = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:4];
 
   return v6;
 }
@@ -3739,54 +3641,50 @@ id __93__SiriActivationService__logCancelledActivationWithButtonIdentifier_durat
 
 - (void)scdaShouldAbort:(id)abort
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v4 = *MEMORY[0x1E698D0A0];
-  if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
-  {
-    v7 = 136315138;
-    v8 = "[SiriActivationService scdaShouldAbort:]";
-    _os_log_impl(&dword_1C8137000, v4, OS_LOG_TYPE_DEFAULT, "%s #myriad SCDA should abort session", &v7, 0xCu);
-  }
-
-  v5 = [[SiriDismissalOptions alloc] initWithDeactivationOptions:0 animated:1 requestCancellationReason:1 dismissalReason:8 shouldTurnScreenOff:0];
-  [(SiriActivationService *)self dismissSiriWithOptions:v5];
-
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)scdaShouldContinue:(id)continue
-{
   v8 = *MEMORY[0x1E69E9840];
   v4 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
   {
     v6 = 136315138;
-    v7 = "[SiriActivationService scdaShouldContinue:]";
-    _os_log_impl(&dword_1C8137000, v4, OS_LOG_TYPE_DEFAULT, "%s #myriad SCDA continues to interact, device won election", &v6, 0xCu);
+    v7 = "[SiriActivationService scdaShouldAbort:]";
+    _os_log_impl(&dword_1C8137000, v4, OS_LOG_TYPE_DEFAULT, "%s #myriad SCDA should abort session", &v6, 0xCu);
+  }
+
+  v5 = [[SiriDismissalOptions alloc] initWithDeactivationOptions:0 animated:1 requestCancellationReason:1 dismissalReason:8 shouldTurnScreenOff:0];
+  [(SiriActivationService *)self dismissSiriWithOptions:v5];
+}
+
+- (void)scdaShouldContinue:(id)continue
+{
+  v7 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E698D0A0];
+  if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = 136315138;
+    v6 = "[SiriActivationService scdaShouldContinue:]";
+    _os_log_impl(&dword_1C8137000, v4, OS_LOG_TYPE_DEFAULT, "%s #myriad SCDA continues to interact, device won election", &v5, 0xCu);
   }
 
   [(SASPresentationManager *)self->_presentationManager activePresentations_deviceWonMyriadElection];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)didChangeLockState:(unint64_t)state
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
   {
     v6 = MEMORY[0x1E696AD98];
     v7 = v5;
     v8 = [v6 numberWithUnsignedInteger:state];
-    v10 = 136315394;
-    v11 = "[SiriActivationService didChangeLockState:]";
-    v12 = 2112;
-    v13 = v8;
-    _os_log_impl(&dword_1C8137000, v7, OS_LOG_TYPE_DEFAULT, "%s #activation lockState: %@", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = "[SiriActivationService didChangeLockState:]";
+    v11 = 2112;
+    v12 = v8;
+    _os_log_impl(&dword_1C8137000, v7, OS_LOG_TYPE_DEFAULT, "%s #activation lockState: %@", &v9, 0x16u);
   }
 
   [(SASPresentationManager *)self->_presentationManager activeAndStartingPresentations_updateCurrentLockState:state];
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (id)allBulletins
@@ -3814,6 +3712,66 @@ id __93__SiriActivationService__logCancelledActivationWithButtonIdentifier_durat
   return v6;
 }
 
+- (void)callStateChangedToIsActive:(BOOL)active isOutgoing:(BOOL)outgoing
+{
+  outgoingCopy = outgoing;
+  activeCopy = active;
+  v18 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E698D0A0];
+  if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = MEMORY[0x1E696AD98];
+    v9 = v7;
+    v10 = [v8 numberWithBool:activeCopy];
+    v11 = [MEMORY[0x1E696AD98] numberWithBool:outgoingCopy];
+    v12 = 136315650;
+    v13 = "[SiriActivationService callStateChangedToIsActive:isOutgoing:]";
+    v14 = 2112;
+    v15 = v10;
+    v16 = 2112;
+    v17 = v11;
+    _os_log_impl(&dword_1C8137000, v9, OS_LOG_TYPE_DEFAULT, "%s #activation callStateChangedToIsActive: %@ isOutgoing: %@", &v12, 0x20u);
+  }
+
+  [(SiriActivationService *)self _updateCanActivateFromDirectActionSource];
+}
+
+- (void)assessmentModeChangedToIsActive:(BOOL)active completion:(id)completion
+{
+  activeCopy = active;
+  v19 = *MEMORY[0x1E69E9840];
+  completionCopy = completion;
+  v7 = *MEMORY[0x1E698D0A0];
+  if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = MEMORY[0x1E696AD98];
+    v9 = v7;
+    v10 = [v8 numberWithBool:activeCopy];
+    v15 = 136315394;
+    v16 = "[SiriActivationService assessmentModeChangedToIsActive:completion:]";
+    v17 = 2112;
+    v18 = v10;
+    _os_log_impl(&dword_1C8137000, v9, OS_LOG_TYPE_DEFAULT, "%s #activation assessmentModeChangedToIsActive: %@", &v15, 0x16u);
+  }
+
+  [(SiriActivationService *)self _updateCanActivateFromDirectActionSource];
+  _requestState = [(SiriActivationService *)self _requestState];
+  if (activeCopy && _requestState == 3)
+  {
+    v12 = _Block_copy(completionCopy);
+    didDismissForAssesmentModeStartedCompeltion = self->_didDismissForAssesmentModeStartedCompeltion;
+    self->_didDismissForAssesmentModeStartedCompeltion = v12;
+
+    v14 = [[SiriDismissalOptions alloc] initWithDeactivationOptions:0 animated:0 dismissalReason:60];
+    [(SiriActivationService *)self _dismissSiri:v14];
+  }
+
+  else if (completionCopy)
+  {
+    (*(completionCopy + 2))(completionCopy, 1);
+  }
+}
+
 - (void)presentationManager:(id)manager didChangeAggregateState:(id)state
 {
   [(SiriActivationService *)self _notifySourcesOfPresentationStateChange:state];
@@ -3833,9 +3791,83 @@ id __93__SiriActivationService__logCancelledActivationWithButtonIdentifier_durat
   [(SiriActivationService *)self _dismissSiri:v7];
 }
 
+- (void)_updateButtonSourceActiveOverride:(int64_t)override activeOverride:(BOOL)activeOverride
+{
+  activeOverrideCopy = activeOverride;
+  v33 = *MEMORY[0x1E69E9840];
+  v7 = MEMORY[0x1E698D0A0];
+  v8 = *MEMORY[0x1E698D0A0];
+  if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
+  {
+    v9 = MEMORY[0x1E696AF00];
+    v10 = v8;
+    currentThread = [v9 currentThread];
+    *buf = 136315394;
+    v30 = "[SiriActivationService _updateButtonSourceActiveOverride:activeOverride:]";
+    v31 = 2048;
+    qualityOfService = [currentThread qualityOfService];
+    _os_log_impl(&dword_1C8137000, v10, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy sourcesLock about to lock with qos: %zd", buf, 0x16u);
+  }
+
+  os_unfair_lock_lock(&sourcesLock);
+  v12 = *v7;
+  if (os_log_type_enabled(*v7, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315138;
+    v30 = "[SiriActivationService _updateButtonSourceActiveOverride:activeOverride:]";
+    _os_log_impl(&dword_1C8137000, v12, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy sourcesLock successfully locked", buf, 0xCu);
+  }
+
+  v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  sources = [(SiriActivationService *)self sources];
+  allValues = [sources allValues];
+
+  v15 = [allValues countByEnumeratingWithState:&v24 objects:v28 count:16];
+  if (v15)
+  {
+    v16 = v15;
+    v17 = *v25;
+    do
+    {
+      for (i = 0; i != v16; ++i)
+      {
+        if (*v25 != v17)
+        {
+          objc_enumerationMutation(allValues);
+        }
+
+        v19 = *(*(&v24 + 1) + 8 * i);
+        if ([v19 registeredButtonIdentifier] == override)
+        {
+          connection = [v19 connection];
+          remoteTarget = [connection remoteTarget];
+          v22 = [MEMORY[0x1E696AD98] numberWithBool:activeOverrideCopy];
+          [remoteTarget activeOverrideDidChange:v22];
+        }
+      }
+
+      v16 = [allValues countByEnumeratingWithState:&v24 objects:v28 count:16];
+    }
+
+    while (v16);
+  }
+
+  os_unfair_lock_unlock(&sourcesLock);
+  v23 = *MEMORY[0x1E698D0A0];
+  if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315138;
+    v30 = "[SiriActivationService _updateButtonSourceActiveOverride:activeOverride:]";
+    _os_log_impl(&dword_1C8137000, v23, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy sourcesLock unlocked", buf, 0xCu);
+  }
+}
+
 - (id)_updateRequestOptionsWithTestingContextFromActivationRequest:(id)request requestOptions:(id)options
 {
-  v34[2] = *MEMORY[0x1E69E9840];
+  v33[2] = *MEMORY[0x1E69E9840];
   requestCopy = request;
   optionsCopy = options;
   if ([requestCopy activationType] == 7)
@@ -3911,7 +3943,7 @@ id __93__SiriActivationService__logCancelledActivationWithButtonIdentifier_durat
 
           else
           {
-            v32 = testingContext;
+            v31 = testingContext;
             v20 = [v17 objectForKey:@"testName"];
             v21 = v20;
             v22 = &stru_1F47C3998;
@@ -3920,7 +3952,7 @@ id __93__SiriActivationService__logCancelledActivationWithButtonIdentifier_durat
               v22 = v20;
             }
 
-            v31 = v22;
+            v30 = v22;
 
             testingContext3 = [optionsCopy testingContext];
 
@@ -3936,16 +3968,16 @@ id __93__SiriActivationService__logCancelledActivationWithButtonIdentifier_durat
               dictionary = [MEMORY[0x1E695DF90] dictionary];
             }
 
-            v33[0] = @"SiriTestingContextFailedTestNameKey";
-            v33[1] = @"SiriTestingContextFailedTestMessageKey";
-            v34[0] = v31;
-            v34[1] = @"Speech file not found";
-            v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:v33 count:{2, v19}];
+            v32[0] = @"SiriTestingContextFailedTestNameKey";
+            v32[1] = @"SiriTestingContextFailedTestMessageKey";
+            v33[0] = v30;
+            v33[1] = @"Speech file not found";
+            v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:v32 count:{2, v19}];
             [dictionary setObject:v27 forKeyedSubscript:@"SiriTestingContextFailedTestIdentifierKey"];
 
             [optionsCopy setTestingContext:dictionary];
-            testingContext = v32;
-            v19 = v30;
+            testingContext = v31;
+            v19 = v29;
           }
         }
       }
@@ -3957,120 +3989,104 @@ id __93__SiriActivationService__logCancelledActivationWithButtonIdentifier_durat
     }
   }
 
-  v28 = *MEMORY[0x1E69E9840];
-
   return optionsCopy;
 }
 
 - (void)registerActivationSource:withIdentifier:.cold.1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_0(&dword_1C8137000, v0, v1, "%s #activation Registration of '%@' when it is already registered. Removing", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1C8137000, v0, v1, "%s #activation Registration of '%@' when it is already registered. Removing", v2, v3, v4, v5, v6);
 }
 
 - (void)unregisterActivationSourceIdentifier:.cold.1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_0(&dword_1C8137000, v0, v1, "%s #activation Unregister request of '%@' when it is not registered.", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1C8137000, v0, v1, "%s #activation Unregister request of '%@' when it is not registered.", v2, v3, v4, v5, v6);
 }
 
 - (void)registerActivationAssertion:withIdentifier:.cold.1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_0(&dword_1C8137000, v0, v1, "%s #activation Registration of '%@' assertion when it is already present. Removing", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1C8137000, v0, v1, "%s #activation Registration of '%@' assertion when it is already present. Removing", v2, v3, v4, v5, v6);
 }
 
 - (void)unregisterActivationAssertionWithIdentifier:.cold.1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_0(&dword_1C8137000, v0, v1, "%s #activation Unregister assertion for '%@' when it is not registered.", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1C8137000, v0, v1, "%s #activation Unregister assertion for '%@' when it is not registered.", v2, v3, v4, v5, v6);
 }
 
 - (void)registerButtonEventListenerServer:identifier:.cold.1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_0(&dword_1C8137000, v0, v1, "%s #activation Registration of '%@' listener when it is already present. Removing", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1C8137000, v0, v1, "%s #activation Registration of '%@' listener when it is already present. Removing", v2, v3, v4, v5, v6);
 }
 
 - (void)unregisterButtonEventListenerWithIdentifier:.cold.1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_0(&dword_1C8137000, v0, v1, "%s #activation Unregister listener for '%@' when it is not registered.", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1C8137000, v0, v1, "%s #activation Unregister listener for '%@' when it is not registered.", v2, v3, v4, v5, v6);
 }
 
 - (void)activationRequestFromButtonIdentifier:(void *)a3 context:.cold.1(void *a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E696AEC0];
   v6 = a1;
   v7 = [v5 stringWithSiriButtonIdentifier:a2];
   v8 = SASRequestStateGetName([a3 _requestState]);
-  v10 = 136315650;
-  v11 = "[SiriActivationService activationRequestFromButtonIdentifier:context:]";
-  v12 = 2112;
-  v13 = v7;
-  v14 = 2112;
-  v15 = v8;
-  _os_log_error_impl(&dword_1C8137000, v6, OS_LOG_TYPE_ERROR, "%s activationRequestFromButtonIdentifier:%@, with Siri state %@. Ignoring.", &v10, 0x20u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  v9 = 136315650;
+  v10 = "[SiriActivationService activationRequestFromButtonIdentifier:context:]";
+  v11 = 2112;
+  v12 = v7;
+  v13 = 2112;
+  v14 = v8;
+  _os_log_error_impl(&dword_1C8137000, v6, OS_LOG_TYPE_ERROR, "%s activationRequestFromButtonIdentifier:%@, with Siri state %@. Ignoring.", &v9, 0x20u);
 }
 
 void __93__SiriActivationService__activatePresentationWithIdentifier_requestOptions_analyticsContext___block_invoke_cold_1(void *a1, unint64_t a2, uint64_t a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = a1;
   v6 = SiriPresentationRotationStyleGetName(a2);
-  v9[0] = 136315650;
+  v8[0] = 136315650;
   OUTLINED_FUNCTION_0_1();
-  v10 = v7;
-  v11 = a3;
-  _os_log_debug_impl(&dword_1C8137000, v5, OS_LOG_TYPE_DEBUG, "%s #activation Setting rotation style for presentation { rotationStyle: %@, presentation: %@ }", v9, 0x20u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9 = v7;
+  v10 = a3;
+  _os_log_debug_impl(&dword_1C8137000, v5, OS_LOG_TYPE_DEBUG, "%s #activation Setting rotation style for presentation { rotationStyle: %@, presentation: %@ }", v8, 0x20u);
 }
 
 void __93__SiriActivationService__activatePresentationWithIdentifier_requestOptions_analyticsContext___block_invoke_cold_2(char a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v3 = 136315394;
-  v4 = "[SiriActivationService _activatePresentationWithIdentifier:requestOptions:analyticsContext:]_block_invoke";
-  v5 = 1024;
-  v6 = a1 & 1;
-  _os_log_debug_impl(&dword_1C8137000, a2, OS_LOG_TYPE_DEBUG, "%s #activation is Visual Intelligence Launch: %d", &v3, 0x12u);
-  v2 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = 136315394;
+  v3 = "[SiriActivationService _activatePresentationWithIdentifier:requestOptions:analyticsContext:]_block_invoke";
+  v4 = 1024;
+  v5 = a1 & 1;
+  _os_log_debug_impl(&dword_1C8137000, a2, OS_LOG_TYPE_DEBUG, "%s #activation is Visual Intelligence Launch: %d", &v2, 0x12u);
 }
 
 void __87__SiriActivationService__handlePocketStateFetchForScreenWakeForPresentationIdentifier___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_0(&dword_1C8137000, v0, v1, "%s #activation #SiriPocketStateManager: error querying the pocket state for screen wake: %@ Turning on the screen...", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1C8137000, v0, v1, "%s #activation #SiriPocketStateManager: error querying the pocket state for screen wake: %@ Turning on the screen...", v2, v3, v4, v5, v6);
 }
 
 - (void)presentationManager:(void *)a1 didEncounterError:(uint64_t)a2 .cold.1(void *a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = SASPresentationManagerErrorGetName(a2);
-  v6[0] = 136315394;
+  v5[0] = 136315394;
   OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(&dword_1C8137000, v3, OS_LOG_TYPE_ERROR, "%s #activation error: %@", v6, 0x16u);
-
-  v5 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1C8137000, v3, OS_LOG_TYPE_ERROR, "%s #activation error: %@", v5, 0x16u);
 }
 
 @end

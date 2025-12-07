@@ -20,36 +20,34 @@
 {
   v4 = sub_22A4DB7DC();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_22A4DB79C();
-  v9 = sub_22A4DB77C();
-  v10 = type metadata accessor for CleanEnergyAutomationReducedEnergyLogEvent();
-  v13.receiver = self;
-  v13.super_class = v10;
-  v11 = [(HMMHomeLogEvent *)&v13 initWithHomeUUID:v9];
+  v8 = sub_22A4DB77C();
+  v9 = type metadata accessor for CleanEnergyAutomationReducedEnergyLogEvent();
+  v12.receiver = self;
+  v12.super_class = v9;
+  v10 = [(HMMHomeLogEvent *)&v12 initWithHomeUUID:v8];
 
-  (*(v5 + 8))(v8, v4);
-  return v11;
+  (*(v5 + 8))(v7, v4);
+  return v10;
 }
 
 - (_TtC13HomeKitDaemon42CleanEnergyAutomationReducedEnergyLogEvent)initWithStartTime:(double)time homeUUID:(id)d
 {
   v6 = sub_22A4DB7DC();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x28223BE20](v6);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_22A4DB79C();
-  v11 = sub_22A4DB77C();
-  v12 = type metadata accessor for CleanEnergyAutomationReducedEnergyLogEvent();
-  v15.receiver = self;
-  v15.super_class = v12;
-  v13 = [(HMMHomeLogEvent *)&v15 initWithStartTime:v11 homeUUID:time];
+  v10 = sub_22A4DB77C();
+  v11 = type metadata accessor for CleanEnergyAutomationReducedEnergyLogEvent();
+  v14.receiver = self;
+  v14.super_class = v11;
+  v12 = [(HMMHomeLogEvent *)&v14 initWithStartTime:v10 homeUUID:time];
 
-  (*(v7 + 8))(v10, v6);
-  return v13;
+  (*(v7 + 8))(v9, v6);
+  return v12;
 }
 
 @end

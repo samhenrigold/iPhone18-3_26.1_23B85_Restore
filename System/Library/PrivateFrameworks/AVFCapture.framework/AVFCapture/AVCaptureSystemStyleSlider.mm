@@ -139,7 +139,7 @@ LABEL_8:
   os_unfair_lock_unlock(&self->_actionLock);
   if ([path isEqualToString:@"smartStyle"] && -[AVWeakReference referencedObject](self->_sessionReference, "referencedObject") == object)
   {
-    v11 = [change objectForKeyedSubscript:*MEMORY[0x1E696A4F0]];
+    v11 = objc_msgSend_objectForKeyedSubscript_(change);
     if (observing && v11 != 0)
     {
       v13 = v11;

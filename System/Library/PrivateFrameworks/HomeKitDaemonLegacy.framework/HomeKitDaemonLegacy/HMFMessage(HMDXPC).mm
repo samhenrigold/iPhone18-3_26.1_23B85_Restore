@@ -555,18 +555,16 @@
 
 + (id)nonSPIEntitledMessageWithName:()HMDXPC messagePayload:
 {
-  v16[1] = *MEMORY[0x277D85DE8];
-  v15 = @"requiresNoSPIEntitlement";
-  v16[0] = MEMORY[0x277CBEC38];
+  v15[1] = *MEMORY[0x277D85DE8];
+  v14 = @"requiresNoSPIEntitlement";
+  v15[0] = MEMORY[0x277CBEC38];
   v6 = MEMORY[0x277CBEAC0];
   v7 = a4;
   v8 = a3;
-  v9 = [v6 dictionaryWithObjects:v16 forKeys:&v15 count:1];
+  v9 = [v6 dictionaryWithObjects:v15 forKeys:&v14 count:1];
   v10 = [self alloc];
   allMessageDestinations = [MEMORY[0x277D0F820] allMessageDestinations];
   v12 = [v10 initWithName:v8 qualityOfService:-1 destination:allMessageDestinations userInfo:v9 headers:0 payload:v7];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -582,18 +580,16 @@
 
 + (id)entitledMessageWithName:()HMDXPC messagePayload:
 {
-  v16[1] = *MEMORY[0x277D85DE8];
-  v15 = @"requiresSPIEntitlement";
-  v16[0] = MEMORY[0x277CBEC38];
+  v15[1] = *MEMORY[0x277D85DE8];
+  v14 = @"requiresSPIEntitlement";
+  v15[0] = MEMORY[0x277CBEC38];
   v6 = MEMORY[0x277CBEAC0];
   v7 = a4;
   v8 = a3;
-  v9 = [v6 dictionaryWithObjects:v16 forKeys:&v15 count:1];
+  v9 = [v6 dictionaryWithObjects:v15 forKeys:&v14 count:1];
   v10 = [self alloc];
   allMessageDestinations = [MEMORY[0x277D0F820] allMessageDestinations];
   v12 = [v10 initWithName:v8 qualityOfService:-1 destination:allMessageDestinations userInfo:v9 headers:0 payload:v7];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

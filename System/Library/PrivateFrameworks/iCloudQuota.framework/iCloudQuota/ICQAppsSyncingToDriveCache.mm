@@ -59,7 +59,7 @@ uint64_t __44__ICQAppsSyncingToDriveCache_sharedInstance__block_invoke()
 {
   dCopy = d;
   os_unfair_lock_lock(&self->_cacheLock);
-  v5 = [(NSMutableDictionary *)self->_hashMap objectForKeyedSubscript:dCopy];
+  v5 = objc_msgSend_objectForKeyedSubscript_(self->_hashMap);
 
   os_unfair_lock_unlock(&self->_cacheLock);
 

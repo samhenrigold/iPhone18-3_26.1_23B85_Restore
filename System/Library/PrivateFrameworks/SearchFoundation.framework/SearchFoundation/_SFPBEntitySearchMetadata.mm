@@ -330,36 +330,28 @@ LABEL_23:
 
 - (void)setViewConfigName:(id)name
 {
-  v4 = [name copy];
-  viewConfigName = self->_viewConfigName;
-  self->_viewConfigName = v4;
+  self->_viewConfigName = [name copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setEntityIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  entityIdentifier = self->_entityIdentifier;
-  self->_entityIdentifier = v4;
+  self->_entityIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setTokenQuery:(id)query
 {
-  v4 = [query copy];
-  tokenQuery = self->_tokenQuery;
-  self->_tokenQuery = v4;
+  self->_tokenQuery = [query copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setEntitySearchQuery:(id)query
 {
-  v4 = [query copy];
-  entitySearchQuery = self->_entitySearchQuery;
-  self->_entitySearchQuery = v4;
+  self->_entitySearchQuery = [query copy];
 
   MEMORY[0x1EEE66BB8]();
 }

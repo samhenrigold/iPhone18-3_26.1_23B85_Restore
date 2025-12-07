@@ -11,6 +11,7 @@
 - (id)_initByAdoptingConnection:(id)connection useNegotiatedConnection:(BOOL)negotiatedConnection configureBlockedSenderManager:(BOOL)manager;
 - (id)connectionForProtocol:(id)protocol;
 - (id)generateProxyForProtocol:(id)protocol error:(id *)error;
+- (id)initAndConfigureBlockedSenderManager:(BOOL)manager;
 - (id)initForTesting;
 - (void)_invalidate;
 - (void)dealloc;
@@ -18,6 +19,7 @@
 - (void)launchDaemon;
 - (void)repopulateBusinessesTables;
 - (void)resetProtocolConnections;
+- (void)setAllowsBackgroundResume:(BOOL)resume;
 - (void)test_tearDown;
 @end
 
@@ -118,7 +120,7 @@ void __24__EMDaemonInterface_log__block_invoke(uint64_t a1)
 
 void __45__EMDaemonInterface_handleDaemonAvailability__block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v2 = *(*(a1 + 32) + 32) == 1;
   v3 = +[EMDaemonInterface log];
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
@@ -128,7 +130,7 @@ void __45__EMDaemonInterface_handleDaemonAvailability__block_invoke(uint64_t a1)
     {
       v5 = *(a1 + 32);
       *buf = 138543362;
-      v24 = v5;
+      v23 = v5;
       _os_log_impl(&dword_1C6655000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Daemon re-launched, recovering remote connections", buf, 0xCu);
     }
 
@@ -136,30 +138,30 @@ void __45__EMDaemonInterface_handleDaemonAvailability__block_invoke(uint64_t a1)
     os_unfair_lock_lock(v6 + 13);
     v7 = [*(*(a1 + 32) + 24) allObjects];
     os_unfair_lock_unlock(v6 + 13);
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v3 = v7;
-    v8 = [v3 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v8 = [v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v8)
     {
-      v9 = *v19;
+      v9 = *v18;
       do
       {
         v10 = 0;
         do
         {
-          if (*v19 != v9)
+          if (*v18 != v9)
           {
             objc_enumerationMutation(v3);
           }
 
-          [*(*(&v18 + 1) + 8 * v10++) recover];
+          [*(*(&v17 + 1) + 8 * v10++) recover];
         }
 
         while (v8 != v10);
-        v8 = [v3 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v8 = [v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v8);
@@ -178,7 +180,7 @@ void __45__EMDaemonInterface_handleDaemonAvailability__block_invoke(uint64_t a1)
     {
       v15 = *(a1 + 32);
       *buf = 138543362;
-      v24 = v15;
+      v23 = v15;
       _os_log_impl(&dword_1C6655000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@: Finished recovery", buf, 0xCu);
     }
 
@@ -189,11 +191,18 @@ void __45__EMDaemonInterface_handleDaemonAvailability__block_invoke(uint64_t a1)
   {
     v16 = *(a1 + 32);
     *buf = 138543362;
-    v24 = v16;
+    v23 = v16;
     _os_log_impl(&dword_1C6655000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Skipping recovery", buf, 0xCu);
   }
+}
 
-  v17 = *MEMORY[0x1E69E9840];
+- (id)initAndConfigureBlockedSenderManager:(BOOL)manager
+{
+  managerCopy = manager;
+  v5 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithMachServiceName:@"com.apple.email.maild" options:4096];
+  v6 = [(EMDaemonInterface *)self _initByAdoptingConnection:v5 useNegotiatedConnection:0 configureBlockedSenderManager:managerCopy];
+
+  return v6;
 }
 
 - (EMDaemonInterface)initWithListenerEndpoint:(id)endpoint
@@ -626,7 +635,7 @@ void __50__EMDaemonInterface__connectionForProtocol_error___block_invoke_2(uint6
 
 void __45__EMDaemonInterface_resetProtocolConnections__block_invoke(uint64_t a1)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v1 = *(*(a1 + 32) + 32) == 0;
   v2 = +[EMDaemonInterface log];
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
@@ -636,7 +645,7 @@ void __45__EMDaemonInterface_resetProtocolConnections__block_invoke(uint64_t a1)
     {
       v5 = *(a1 + 32);
       *buf = 138543362;
-      v31 = v5;
+      v30 = v5;
       _os_log_impl(&dword_1C6655000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@: Resetting remote connections", buf, 0xCu);
     }
 
@@ -644,28 +653,28 @@ void __45__EMDaemonInterface_resetProtocolConnections__block_invoke(uint64_t a1)
     os_unfair_lock_lock(v6 + 13);
     v7 = [*(*(a1 + 32) + 24) allObjects];
     os_unfair_lock_unlock(v6 + 13);
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     v2 = v7;
     v8 = 0;
-    v9 = [v2 countByEnumeratingWithState:&v26 objects:v34 count:16];
+    v9 = [v2 countByEnumeratingWithState:&v25 objects:v33 count:16];
     if (v9)
     {
-      v11 = *v27;
+      v11 = *v26;
       *&v10 = 138543618;
-      v23 = v10;
+      v22 = v10;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v27 != v11)
+          if (*v26 != v11)
           {
             objc_enumerationMutation(v2);
           }
 
-          v13 = *(*(&v26 + 1) + 8 * i);
+          v13 = *(*(&v25 + 1) + 8 * i);
           [v13 reset];
           if ([v13 prefersImmediateActivity])
           {
@@ -673,10 +682,10 @@ void __45__EMDaemonInterface_resetProtocolConnections__block_invoke(uint64_t a1)
             if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
             {
               v15 = *(a1 + 32);
-              *buf = v23;
-              v31 = v15;
-              v32 = 2114;
-              v33 = v13;
+              *buf = v22;
+              v30 = v15;
+              v31 = 2114;
+              v32 = v13;
               _os_log_impl(&dword_1C6655000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@ prefers immediate recovery, will force daemon relaunch", buf, 0x16u);
             }
 
@@ -684,7 +693,7 @@ void __45__EMDaemonInterface_resetProtocolConnections__block_invoke(uint64_t a1)
           }
         }
 
-        v9 = [v2 countByEnumeratingWithState:&v26 objects:v34 count:16];
+        v9 = [v2 countByEnumeratingWithState:&v25 objects:v33 count:16];
       }
 
       while (v9);
@@ -695,7 +704,7 @@ void __45__EMDaemonInterface_resetProtocolConnections__block_invoke(uint64_t a1)
     {
       v17 = *(a1 + 32);
       *buf = 138543362;
-      v31 = v17;
+      v30 = v17;
       _os_log_impl(&dword_1C6655000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@: Waiting for daemon re-launch", buf, 0xCu);
     }
 
@@ -707,18 +716,18 @@ void __45__EMDaemonInterface_resetProtocolConnections__block_invoke(uint64_t a1)
       {
         v19 = *(a1 + 32);
         *buf = 138543362;
-        v31 = v19;
+        v30 = v19;
         _os_log_impl(&dword_1C6655000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@: Sending early launch recovery message", buf, 0xCu);
       }
 
       v20 = [*(a1 + 32) proxyCreator];
       v21 = [v20 remoteObjectProxy];
-      v25[0] = MEMORY[0x1E69E9820];
-      v25[1] = 3221225472;
-      v25[2] = __45__EMDaemonInterface_resetProtocolConnections__block_invoke_327;
-      v25[3] = &unk_1E826C098;
-      v25[4] = *(a1 + 32);
-      [v21 launchForEarlyRecovery:v25];
+      v24[0] = MEMORY[0x1E69E9820];
+      v24[1] = 3221225472;
+      v24[2] = __45__EMDaemonInterface_resetProtocolConnections__block_invoke_327;
+      v24[3] = &unk_1E826C098;
+      v24[4] = *(a1 + 32);
+      [v21 launchForEarlyRecovery:v24];
     }
   }
 
@@ -726,11 +735,21 @@ void __45__EMDaemonInterface_resetProtocolConnections__block_invoke(uint64_t a1)
   {
     v4 = *(a1 + 32);
     *buf = 138543362;
-    v31 = v4;
+    v30 = v4;
     _os_log_impl(&dword_1C6655000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@: Already waiting for daemon re-launch", buf, 0xCu);
   }
+}
 
-  v22 = *MEMORY[0x1E69E9840];
+- (void)setAllowsBackgroundResume:(BOOL)resume
+{
+  if (self->_allowsBackgroundResume != resume)
+  {
+    resumeCopy = resume;
+    self->_allowsBackgroundResume = resume;
+    proxyCreator = [(EMDaemonInterface *)self proxyCreator];
+    remoteObjectProxy = [proxyCreator remoteObjectProxy];
+    [remoteObjectProxy setAllowsBackgroundResume:resumeCopy];
+  }
 }
 
 + (BOOL)cachedMailAppIsInstalled
@@ -786,22 +805,20 @@ void __45__EMDaemonInterface_resetProtocolConnections__block_invoke(uint64_t a1)
 
 void __101__EMDaemonInterface__initByAdoptingConnection_useNegotiatedConnection_configureBlockedSenderManager___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 16);
-  v4 = 138543362;
-  v5 = v2;
-  _os_log_error_impl(&dword_1C6655000, a2, OS_LOG_TYPE_ERROR, "%{public}@: Connection Interrupted (recoverable)", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138543362;
+  v4 = v2;
+  _os_log_error_impl(&dword_1C6655000, a2, OS_LOG_TYPE_ERROR, "%{public}@: Connection Interrupted (recoverable)", &v3, 0xCu);
 }
 
 void __101__EMDaemonInterface__initByAdoptingConnection_useNegotiatedConnection_configureBlockedSenderManager___block_invoke_7_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 16);
-  v4 = 138543362;
-  v5 = v2;
-  _os_log_fault_impl(&dword_1C6655000, a2, OS_LOG_TYPE_FAULT, "%{public}@: Connection Invalidated", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138543362;
+  v4 = v2;
+  _os_log_fault_impl(&dword_1C6655000, a2, OS_LOG_TYPE_FAULT, "%{public}@: Connection Invalidated", &v3, 0xCu);
 }
 
 @end

@@ -12,25 +12,25 @@
   sectionIndex = [(_TVStackRow *)self sectionIndex];
   v4 = sectionIndex ^ [(_TVStackRow *)self isHosted];
   v5 = v4 ^ [(_TVStackRow *)self isBounded];
-  [(_TVStackRow *)self rowMetrics];
-  v6 = v5 ^ v25;
-  [(_TVStackRow *)self rowMetrics];
+  objc_msgSend_rowMetrics(self);
+  v6 = v5 ^ v25[0];
+  objc_msgSend_rowMetrics(self);
   v7 = v6 ^ v24;
-  [(_TVStackRow *)self rowMetrics];
+  objc_msgSend_rowMetrics(self);
   v8 = v23;
-  [(_TVStackRow *)self rowMetrics];
+  objc_msgSend_rowMetrics(self);
   v9 = v7 ^ v8 ^ v22;
-  [(_TVStackRow *)self rowMetrics];
+  objc_msgSend_rowMetrics(self);
   v10 = v21;
-  [(_TVStackRow *)self rowMetrics];
+  objc_msgSend_rowMetrics(self);
   v11 = v10 ^ v20;
-  [(_TVStackRow *)self rowMetrics];
+  objc_msgSend_rowMetrics(self);
   v12 = v9 ^ v11 ^ v19;
-  [(_TVStackRow *)self rowMetrics];
+  objc_msgSend_rowMetrics(self);
   v13 = v18;
-  [(_TVStackRow *)self rowMetrics];
+  objc_msgSend_rowMetrics(self);
   v14 = v13 ^ v17;
-  [(_TVStackRow *)self rowMetrics];
+  objc_msgSend_rowMetrics(self);
   return v12 ^ v14 ^ v16;
 }
 
@@ -56,10 +56,10 @@
     goto LABEL_11;
   }
 
-  [(_TVStackRow *)self rowMetrics];
+  objc_msgSend_rowMetrics(self);
   if (v6)
   {
-    [v6 rowMetrics];
+    objc_msgSend_rowMetrics(v6);
   }
 
   else

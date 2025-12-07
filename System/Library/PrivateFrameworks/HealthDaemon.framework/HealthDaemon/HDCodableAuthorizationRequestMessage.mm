@@ -34,14 +34,14 @@
     }
   }
 
-  v7 = [v4 copy];
+  v7 = objc_msgSend_copy(v4);
 
   return v7;
 }
 
 - (id)_objectTypeForCode:(void *)code
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (code)
   {
     if (_HKValidDataTypeCode())
@@ -55,16 +55,14 @@
       v3 = *MEMORY[0x277CCC328];
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
       {
-        v6 = 134217984;
-        v7 = a2;
-        _os_log_error_impl(&dword_228986000, v3, OS_LOG_TYPE_ERROR, "Codable authorization request contains an invalid object type code (%ld) which will be ignored.", &v6, 0xCu);
+        v5 = 134217984;
+        v6 = a2;
+        _os_log_error_impl(&dword_228986000, v3, OS_LOG_TYPE_ERROR, "Codable authorization request contains an invalid object type code (%ld) which will be ignored.", &v5, 0xCu);
       }
 
       code = 0;
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return code;
 }
@@ -94,7 +92,7 @@
 
 + (id)codableAuthorizationRequestWithRecord:(id)record
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   v4 = objc_alloc_init(HDCodableAuthorizationRequestMessage);
   source = [recordCopy source];
@@ -116,63 +114,61 @@
     [(HDCodableAuthorizationRequestMessage *)v4 setRequestIdentifier:hk_dataForUUIDBytes];
   }
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   typesRequiringReadAuthorization = [recordCopy typesRequiringReadAuthorization];
-  v13 = [typesRequiringReadAuthorization countByEnumeratingWithState:&v28 objects:v33 count:16];
+  v13 = [typesRequiringReadAuthorization countByEnumeratingWithState:&v27 objects:v32 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v29;
+    v15 = *v28;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v29 != v15)
+        if (*v28 != v15)
         {
           objc_enumerationMutation(typesRequiringReadAuthorization);
         }
 
-        -[HDCodableAuthorizationRequestMessage addTypesToRead:](v4, "addTypesToRead:", [*(*(&v28 + 1) + 8 * i) code]);
+        -[HDCodableAuthorizationRequestMessage addTypesToRead:](v4, "addTypesToRead:", [*(*(&v27 + 1) + 8 * i) code]);
       }
 
-      v14 = [typesRequiringReadAuthorization countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v14 = [typesRequiringReadAuthorization countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
     while (v14);
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   typesRequiringShareAuthorization = [recordCopy typesRequiringShareAuthorization];
-  v18 = [typesRequiringShareAuthorization countByEnumeratingWithState:&v24 objects:v32 count:16];
+  v18 = [typesRequiringShareAuthorization countByEnumeratingWithState:&v23 objects:v31 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v25;
+    v20 = *v24;
     do
     {
       for (j = 0; j != v19; ++j)
       {
-        if (*v25 != v20)
+        if (*v24 != v20)
         {
           objc_enumerationMutation(typesRequiringShareAuthorization);
         }
 
-        -[HDCodableAuthorizationRequestMessage addTypesToWrite:](v4, "addTypesToWrite:", [*(*(&v24 + 1) + 8 * j) code]);
+        -[HDCodableAuthorizationRequestMessage addTypesToWrite:](v4, "addTypesToWrite:", [*(*(&v23 + 1) + 8 * j) code]);
       }
 
-      v19 = [typesRequiringShareAuthorization countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v19 = [typesRequiringShareAuthorization countByEnumeratingWithState:&v23 objects:v31 count:16];
     }
 
     while (v19);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -258,17 +254,17 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v10 = toCopy;
+  v8 = toCopy;
   if (self->_appBundleIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v8;
   }
 
   if (self->_requestIdentifier)
   {
     PBDataWriterWriteDataField();
-    toCopy = v10;
+    toCopy = v8;
   }
 
   if (self->_typesToReads.count)
@@ -276,9 +272,8 @@
     v5 = 0;
     do
     {
-      v6 = self->_typesToReads.list[v5];
       PBDataWriterWriteInt64Field();
-      toCopy = v10;
+      toCopy = v8;
       ++v5;
     }
 
@@ -288,16 +283,15 @@
   p_typesToWrites = &self->_typesToWrites;
   if (p_typesToWrites->count)
   {
-    v8 = 0;
+    v7 = 0;
     do
     {
-      v9 = p_typesToWrites->list[v8];
       PBDataWriterWriteInt64Field();
-      toCopy = v10;
-      ++v8;
+      toCopy = v8;
+      ++v7;
     }
 
-    while (v8 < p_typesToWrites->count);
+    while (v7 < p_typesToWrites->count);
   }
 }
 

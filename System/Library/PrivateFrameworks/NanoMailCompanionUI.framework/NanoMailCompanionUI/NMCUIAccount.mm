@@ -210,7 +210,7 @@
 
 - (BOOL)_isIcloud
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   accountTypeIdentifier = [(NMCUIAccount *)self accountTypeIdentifier];
   v4 = [accountTypeIdentifier isEqualToString:*MEMORY[0x277CB8C68]];
 
@@ -222,23 +222,23 @@
   acAccount = self->_acAccount;
   if (acAccount)
   {
-    v30 = 0;
-    v31 = &v30;
-    v32 = 0x2020000000;
+    v29 = 0;
+    v30 = &v29;
+    v31 = 0x2020000000;
     v6 = getMailAccountEmailAddressesSymbolLoc_ptr;
-    v33 = getMailAccountEmailAddressesSymbolLoc_ptr;
+    v32 = getMailAccountEmailAddressesSymbolLoc_ptr;
     if (!getMailAccountEmailAddressesSymbolLoc_ptr)
     {
-      v25 = MEMORY[0x277D85DD0];
-      v26 = 3221225472;
-      v27 = __getMailAccountEmailAddressesSymbolLoc_block_invoke;
-      v28 = &unk_279934660;
-      v29 = &v30;
-      __getMailAccountEmailAddressesSymbolLoc_block_invoke(&v25);
-      v6 = v31[3];
+      v24 = MEMORY[0x277D85DD0];
+      v25 = 3221225472;
+      v26 = __getMailAccountEmailAddressesSymbolLoc_block_invoke;
+      v27 = &unk_279934660;
+      v28 = &v29;
+      __getMailAccountEmailAddressesSymbolLoc_block_invoke(&v24);
+      v6 = v30[3];
     }
 
-    _Block_object_dispose(&v30, 8);
+    _Block_object_dispose(&v29, 8);
     if (!v6)
     {
       soft_BPSCellHightlightColor_cold_1();
@@ -263,56 +263,56 @@
   {
 LABEL_22:
     LOBYTE(v13) = 0;
-    goto LABEL_25;
+    return v13;
   }
 
   emailAddresses = [(NNMKAccount *)nnmkAccount emailAddresses];
 LABEL_11:
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v12 = emailAddresses;
-  v13 = [v12 countByEnumeratingWithState:&v21 objects:v34 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v20 objects:v33 count:16];
   if (v13)
   {
-    v14 = *v22;
+    v14 = *v21;
     while (2)
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v22 != v14)
+        if (*v21 != v14)
         {
           objc_enumerationMutation(v12);
         }
 
-        v16 = *(*(&v21 + 1) + 8 * i);
-        v30 = 0;
-        v31 = &v30;
-        v32 = 0x2050000000;
+        v16 = *(*(&v20 + 1) + 8 * i);
+        v29 = 0;
+        v30 = &v29;
+        v31 = 0x2050000000;
         v17 = getNNMKAccountClass_softClass;
-        v33 = getNNMKAccountClass_softClass;
+        v32 = getNNMKAccountClass_softClass;
         if (!getNNMKAccountClass_softClass)
         {
-          v25 = MEMORY[0x277D85DD0];
-          v26 = 3221225472;
-          v27 = __getNNMKAccountClass_block_invoke;
-          v28 = &unk_279934660;
-          v29 = &v30;
-          __getNNMKAccountClass_block_invoke(&v25);
-          v17 = v31[3];
+          v24 = MEMORY[0x277D85DD0];
+          v25 = 3221225472;
+          v26 = __getNNMKAccountClass_block_invoke;
+          v27 = &unk_279934660;
+          v28 = &v29;
+          __getNNMKAccountClass_block_invoke(&v24);
+          v17 = v30[3];
         }
 
         v18 = v17;
-        _Block_object_dispose(&v30, 8);
-        if ([v17 isiCloudEmailAddress:{v16, v21}])
+        _Block_object_dispose(&v29, 8);
+        if ([v17 isiCloudEmailAddress:{v16, v20}])
         {
           LOBYTE(v13) = 1;
           goto LABEL_24;
         }
       }
 
-      v13 = [v12 countByEnumeratingWithState:&v21 objects:v34 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v20 objects:v33 count:16];
       if (v13)
       {
         continue;
@@ -324,8 +324,6 @@ LABEL_11:
 
 LABEL_24:
 
-LABEL_25:
-  v19 = *MEMORY[0x277D85DE8];
   return v13;
 }
 

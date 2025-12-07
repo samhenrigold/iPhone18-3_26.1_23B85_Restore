@@ -300,7 +300,6 @@ void __120__AKAccountRecoveryStepiCloudSecurityCode_cdpContext_promptForRemoteSe
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)cdpRecoveryFlowContext:(id)context promptForRemoteSecretWithDevices:(id)devices validator:(id)validator
@@ -381,7 +380,6 @@ void __109__AKAccountRecoveryStepiCloudSecurityCode_cdpRecoveryFlowContext_promp
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)cdpContext:(id)context presentRecoveryKeyWithValidator:(id)validator completion:(id)completion
@@ -432,7 +430,6 @@ void __97__AKAccountRecoveryStepiCloudSecurityCode_cdpContext_presentRecoveryKey
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)cdpContext:(id)context promptForRecoveryKeyWithValidator:(id)validator completion:(id)completion
@@ -483,7 +480,6 @@ void __99__AKAccountRecoveryStepiCloudSecurityCode_cdpContext_promptForRecoveryK
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)cdpContext:(id)context promptForRecoveryKeyWithSecretValidator:(id)validator completion:(id)completion
@@ -553,7 +549,6 @@ void __105__AKAccountRecoveryStepiCloudSecurityCode_cdpContext_promptForRecovery
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)_beginICloudSecurityCodeWithResponse:(id)response model:(id)model completion:(id)completion
@@ -912,7 +907,6 @@ void __94__AKAccountRecoveryStepiCloudSecurityCode__verifyRemoteSecretWithServer
 
   objc_storeStrong(&v6, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)_verifyRemoteSecretWithRecoveryContext:(id)context recoveredInfo:(id)info recoveryError:(id)error model:(id)model completion:(id)completion
@@ -1001,7 +995,6 @@ void __94__AKAccountRecoveryStepiCloudSecurityCode__verifyRemoteSecretWithServer
   objc_storeStrong(&v39, 0);
   objc_storeStrong(&v40, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __127__AKAccountRecoveryStepiCloudSecurityCode__verifyRemoteSecretWithRecoveryContext_recoveredInfo_recoveryError_model_completion___block_invoke(void *a1, void *a2, void *a3, void *a4)

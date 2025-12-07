@@ -6,6 +6,7 @@
 - (void)openAppToLanguages:(id)languages;
 - (void)setAppGroupUserDefaultsEnabled:(id)enabled specifier:(id)specifier;
 - (void)showTranslatePrivacy;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -20,16 +21,40 @@
   [(LTUITranslateSettingsController *)self setTitle:v3];
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v17[1] = *MEMORY[0x277D85DE8];
+  v16.receiver = self;
+  v16.super_class = LTUITranslateSettingsController;
+  [(LTUITranslateSettingsController *)&v16 viewDidAppear:appear];
+  v4 = [MEMORY[0x277CBEBC0] URLWithString:@"settings-navigation://com.apple.Settings.Apps/com.apple.Translate"];
+  v5 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
+  v7 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  bundleURL = [v7 bundleURL];
+  v9 = [v5 initWithKey:@"TRANSLATE" table:@"Localizable" locale:currentLocale bundleURL:bundleURL];
+
+  v10 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale2 = [MEMORY[0x277CBEAF8] currentLocale];
+  v12 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  bundleURL2 = [v12 bundleURL];
+  v14 = [v10 initWithKey:@"APPS" table:@"Localizable" locale:currentLocale2 bundleURL:bundleURL2];
+
+  v17[0] = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+  [(LTUITranslateSettingsController *)self pe_emitNavigationEventForApplicationSettingsWithApplicationBundleIdentifier:@"com.apple.Translate" title:v9 localizedNavigationComponents:v15 deepLink:v4];
+}
+
 - (id)specifiers
 {
-  v51[5] = *MEMORY[0x277D85DE8];
+  v50[5] = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D3FC48];
   v4 = *(&self->super.super.super.super.super.isa + v3);
   if (!v4)
   {
     v5 = [objc_alloc(MEMORY[0x277CEC670]) initWithApplicationBundleIdentifier:@"com.apple.Translate"];
     array = [MEMORY[0x277CBEB18] array];
-    v50 = v5;
+    v49 = v5;
     specifiers = [v5 specifiers];
     [array addObjectsFromArray:?];
     v7 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"Languages"];
@@ -37,7 +62,7 @@
     v9 = *MEMORY[0x277D3FF88];
     [v7 setObject:v8 forKeyedSubscript:*MEMORY[0x277D3FF88]];
 
-    v48 = v7;
+    v47 = v7;
     [array addObject:v7];
     v10 = MEMORY[0x277D3FAD8];
     v11 = _LTSettingsLocalizedString(@"LANGUAGES");
@@ -49,7 +74,7 @@
     v14 = *MEMORY[0x277D3FF38];
     v15 = MEMORY[0x277CBEC38];
     [v12 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:*MEMORY[0x277D3FF38]];
-    v47 = v12;
+    v46 = v12;
     [array addObject:v12];
     v16 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"OnDeviceOnlyGroup"];
     onDeviceOnlyGroup = self->onDeviceOnlyGroup;
@@ -99,9 +124,9 @@
     [v28 setProperty:v32 forKey:*MEMORY[0x277D3FF48]];
 
     [v28 setProperty:v30 forKey:*MEMORY[0x277D3FF70]];
-    v53.length = [v30 length];
-    v53.location = 0;
-    v33 = NSStringFromRange(v53);
+    v52.length = [v30 length];
+    v52.location = 0;
+    v33 = NSStringFromRange(v52);
     [v28 setProperty:v33 forKey:*MEMORY[0x277D3FF58]];
 
     v34 = [MEMORY[0x277CCAE60] valueWithNonretainedObject:self];
@@ -117,12 +142,12 @@
       if (v36)
       {
         v37 = MEMORY[0x274391570]();
-        v51[0] = v37;
-        v51[1] = @"AppleInternal";
-        v51[2] = @"Library";
-        v51[3] = @"PreferenceBundles";
-        v51[4] = @"TranslationSettings.bundle";
-        v38 = [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:5];
+        v50[0] = v37;
+        v50[1] = @"AppleInternal";
+        v50[2] = @"Library";
+        v50[3] = @"PreferenceBundles";
+        v50[4] = @"TranslationSettings.bundle";
+        v38 = [MEMORY[0x277CBEA60] arrayWithObjects:v50 count:5];
 
         v39 = MEMORY[0x277CCA8D8];
         v40 = [MEMORY[0x277CBEBC0] fileURLWithPathComponents:v38];
@@ -144,8 +169,6 @@
 
     v4 = *(&self->super.super.super.super.super.isa + v3);
   }
-
-  v45 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

@@ -82,17 +82,17 @@
 
 void __39__SystemListener_initWithForceLoading___block_invoke(uint64_t a1)
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) count])
   {
     v2 = [MEMORY[0x1E69D3E28] sharedResourcesManager];
     v3 = *(a1 + 32);
-    v10[1] = @"forceLoad";
-    v11[0] = @"QueryParser";
-    v10[0] = @"SRResourcesOwner";
+    v9[1] = @"forceLoad";
+    v10[0] = @"QueryParser";
+    v9[0] = @"SRResourcesOwner";
     v4 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 40)];
-    v11[1] = v4;
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
+    v10[1] = v4;
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
     [v2 loadAllParametersForClient:@"Parser" locales:v3 options:v5];
   }
 
@@ -100,16 +100,14 @@ void __39__SystemListener_initWithForceLoading___block_invoke(uint64_t a1)
   {
     v2 = [MEMORY[0x1E695DF58] localeWithLocaleIdentifier:@"root"];
     v4 = [MEMORY[0x1E69D3E28] sharedResourcesManager];
-    v8[1] = @"forceLoad";
-    v9[0] = @"QueryParser";
-    v8[0] = @"SRResourcesOwner";
+    v7[1] = @"forceLoad";
+    v8[0] = @"QueryParser";
+    v7[0] = @"SRResourcesOwner";
     v5 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 40)];
-    v9[1] = v5;
-    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:2];
+    v8[1] = v5;
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:2];
     [v4 loadAllParametersForClient:@"Parser" locale:v2 options:v6];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setAutoUpdatingLocale:(BOOL)locale
@@ -590,7 +588,7 @@ void __45__SystemListener_pathsForContentType_locale___block_invoke(uint64_t a1)
 
 void __66__SystemListener_updateLocaleWithLocale_preferredLanguages_force___block_invoke(id *a1)
 {
-  v80 = *MEMORY[0x1E69E9840];
+  v79 = *MEMORY[0x1E69E9840];
   if (listenerLogger(void)::token != -1)
   {
     __66__SystemListener_updateLocaleWithLocale_preferredLanguages_force___block_invoke_cold_1();
@@ -603,9 +601,9 @@ void __66__SystemListener_updateLocaleWithLocale_preferredLanguages_force___bloc
     v3 = [v2 UTF8String];
     v4 = a1[5];
     *buf = 136315394;
-    v77 = v3;
-    v78 = 2112;
-    v79 = v4;
+    v76 = v3;
+    v77 = 2112;
+    v78 = v4;
     _os_log_impl(&dword_1C6584000, v1, OS_LOG_TYPE_INFO, "QueryParserListener: updating locale %s preferred languages %@", buf, 0x16u);
   }
 
@@ -624,10 +622,10 @@ void __66__SystemListener_updateLocaleWithLocale_preferredLanguages_force___bloc
   v12 = *(a1[6] + 5);
   *(a1[6] + 5) = v11;
 
-  v53 = localeKeyForLocale(a1[4]);
-  if (!v53 || ([*(a1[6] + 8) objectForKeyedSubscript:?], (v54 = objc_claimAutoreleasedReturnValue()) == 0))
+  v52 = localeKeyForLocale(a1[4]);
+  if (!v52 || ([*(a1[6] + 8) objectForKeyedSubscript:?], (v53 = objc_claimAutoreleasedReturnValue()) == 0))
   {
-    v54 = 0;
+    v53 = 0;
     goto LABEL_10;
   }
 
@@ -640,38 +638,38 @@ LABEL_10:
     v14 = [MEMORY[0x1E69D3E28] sharedResourcesManager];
     v15 = a1[6];
     v16 = v15[2];
-    v75[0] = @"QueryParser";
-    v74[0] = @"SRResourcesOwner";
-    v74[1] = @"forceLoad";
+    v74[0] = @"QueryParser";
+    v73[0] = @"SRResourcesOwner";
+    v73[1] = @"forceLoad";
     v17 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v15, "force")}];
-    v75[1] = v17;
-    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v75 forKeys:v74 count:2];
+    v74[1] = v17;
+    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v74 forKeys:v73 count:2];
     v19 = [v14 resourcesForClient:@"Parser" locale:v16 options:v18];
 
-    v54 = v19;
-    [*(a1[6] + 8) setObject:v19 forKey:v53];
+    v53 = v19;
+    [*(a1[6] + 8) setObject:v19 forKey:v52];
   }
 
-  v66 = 0u;
-  v67 = 0u;
-  v64 = 0u;
   v65 = 0u;
+  v66 = 0u;
+  v63 = 0u;
+  v64 = 0u;
   obj = a1[5];
-  v20 = [obj countByEnumeratingWithState:&v64 objects:v73 count:16];
+  v20 = [obj countByEnumeratingWithState:&v63 objects:v72 count:16];
   if (v20)
   {
-    v57 = *v65;
+    v56 = *v64;
     do
     {
-      v58 = v20;
-      for (i = 0; i != v58; ++i)
+      v57 = v20;
+      for (i = 0; i != v57; ++i)
       {
-        if (*v65 != v57)
+        if (*v64 != v56)
         {
           objc_enumerationMutation(obj);
         }
 
-        v22 = [objc_alloc(MEMORY[0x1E695DF58]) initWithLocaleIdentifier:*(*(&v64 + 1) + 8 * i)];
+        v22 = [objc_alloc(MEMORY[0x1E695DF58]) initWithLocaleIdentifier:*(*(&v63 + 1) + 8 * i)];
         v23 = localeKeyForLocale(v22);
         v24 = localeKeyForLocale(a1[4]);
         v25 = [v23 isEqualToString:v24];
@@ -680,38 +678,38 @@ LABEL_10:
         {
           if (!v23 || ([*(a1[6] + 8) objectForKeyedSubscript:v23], (v26 = objc_claimAutoreleasedReturnValue()) == 0))
           {
-            v56 = [MEMORY[0x1E69D3E28] sharedResourcesManager];
+            v55 = [MEMORY[0x1E69D3E28] sharedResourcesManager];
             v27 = a1[5];
             v28 = [MEMORY[0x1E695DF70] array];
-            v70 = 0u;
-            v71 = 0u;
-            v68 = 0u;
             v69 = 0u;
+            v70 = 0u;
+            v67 = 0u;
+            v68 = 0u;
             v29 = v27;
-            v30 = [v29 countByEnumeratingWithState:&v68 objects:buf count:16];
+            v30 = [v29 countByEnumeratingWithState:&v67 objects:buf count:16];
             if (v30)
             {
-              v31 = *v69;
+              v31 = *v68;
               do
               {
                 for (j = 0; j != v30; ++j)
                 {
-                  if (*v69 != v31)
+                  if (*v68 != v31)
                   {
                     objc_enumerationMutation(v29);
                   }
 
-                  v33 = [MEMORY[0x1E695DF58] localeWithLocaleIdentifier:*(*(&v68 + 1) + 8 * j)];
+                  v33 = [MEMORY[0x1E695DF58] localeWithLocaleIdentifier:*(*(&v67 + 1) + 8 * j)];
                   [v28 addObject:v33];
                 }
 
-                v30 = [v29 countByEnumeratingWithState:&v68 objects:buf count:16];
+                v30 = [v29 countByEnumeratingWithState:&v67 objects:buf count:16];
               }
 
               while (v30);
             }
 
-            [v56 loadAllParametersForClient:@"Parser" locales:v28 options:&unk_1F45FA4F0];
+            [v55 loadAllParametersForClient:@"Parser" locales:v28 options:&unk_1F45FA4F0];
             v34 = [MEMORY[0x1E69D3E28] sharedResourcesManager];
             v26 = [v34 resourcesForClient:@"Parser" locale:v22 options:&unk_1F45FA518];
 
@@ -720,35 +718,35 @@ LABEL_10:
         }
       }
 
-      v20 = [obj countByEnumeratingWithState:&v64 objects:v73 count:16];
+      v20 = [obj countByEnumeratingWithState:&v63 objects:v72 count:16];
     }
 
     while (v20);
   }
 
-  v35 = v54;
-  if (v54)
+  v35 = v53;
+  if (v53)
   {
-    [v54 filePathArrayForKey:@"Embedding"];
+    [v53 filePathArrayForKey:@"Embedding"];
+    v61 = 0u;
     v62 = 0u;
-    v63 = 0u;
-    v60 = 0u;
-    v36 = v61 = 0u;
-    v37 = [v36 countByEnumeratingWithState:&v60 objects:v72 count:16];
+    v59 = 0u;
+    v36 = v60 = 0u;
+    v37 = [v36 countByEnumeratingWithState:&v59 objects:v71 count:16];
     if (v37)
     {
-      v38 = *v61;
+      v38 = *v60;
       v39 = @"defaults.plist";
       while (2)
       {
         for (k = 0; k != v37; ++k)
         {
-          if (*v61 != v38)
+          if (*v60 != v38)
           {
             objc_enumerationMutation(v36);
           }
 
-          v41 = [MEMORY[0x1E695DFF8] fileURLWithPath:*(*(&v60 + 1) + 8 * k)];
+          v41 = [MEMORY[0x1E695DFF8] fileURLWithPath:*(*(&v59 + 1) + 8 * k)];
           v42 = [v41 lastPathComponent];
           v43 = [v42 isEqualToString:@"defaults.plist"];
 
@@ -799,7 +797,7 @@ LABEL_10:
           }
         }
 
-        v37 = [v36 countByEnumeratingWithState:&v60 objects:v72 count:16];
+        v37 = [v36 countByEnumeratingWithState:&v59 objects:v71 count:16];
         if (v37)
         {
           continue;
@@ -811,15 +809,13 @@ LABEL_10:
 
 LABEL_52:
 
-    v35 = v54;
+    v35 = v53;
   }
-
-  v52 = *MEMORY[0x1E69E9840];
 }
 
 void __66__SystemListener_updateLocaleWithLocale_preferredLanguages_force___block_invoke_44(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E695DEE8] autoupdatingCurrentCalendar];
   if (listenerLogger(void)::token != -1)
   {
@@ -829,15 +825,13 @@ void __66__SystemListener_updateLocaleWithLocale_preferredLanguages_force___bloc
   v3 = listenerLogger(void)::log;
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v5 = 134217984;
-    v6 = [v2 firstWeekday];
-    _os_log_impl(&dword_1C6584000, v3, OS_LOG_TYPE_INFO, "QueryParserListener: updating first week day %lu", &v5, 0xCu);
+    v4 = 134217984;
+    v5 = [v2 firstWeekday];
+    _os_log_impl(&dword_1C6584000, v3, OS_LOG_TYPE_INFO, "QueryParserListener: updating first week day %lu", &v4, 0xCu);
   }
 
   *(*(a1 + 32) + 9) = 1;
   *(*(a1 + 32) + 32) = [v2 firstWeekday];
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateResources
@@ -853,7 +847,7 @@ void __66__SystemListener_updateLocaleWithLocale_preferredLanguages_force___bloc
 
 void __33__SystemListener_updateResources__block_invoke(uint64_t a1)
 {
-  v36[2] = *MEMORY[0x1E69E9840];
+  v35[2] = *MEMORY[0x1E69E9840];
   if (listenerLogger(void)::token != -1)
   {
     __66__SystemListener_updateLocaleWithLocale_preferredLanguages_force___block_invoke_cold_1();
@@ -866,26 +860,26 @@ void __33__SystemListener_updateResources__block_invoke(uint64_t a1)
     _os_log_impl(&dword_1C6584000, v2, OS_LOG_TYPE_INFO, "QueryParserListener: updating resources", buf, 2u);
   }
 
-  v26 = *(*(a1 + 32) + 16);
-  v3 = localeKeyForLocale(v26);
-  v27 = v3;
-  if (!v3 || ([*(*(a1 + 32) + 64) objectForKeyedSubscript:v3], (v28 = objc_claimAutoreleasedReturnValue()) == 0))
+  v25 = *(*(a1 + 32) + 16);
+  v3 = localeKeyForLocale(v25);
+  v26 = v3;
+  if (!v3 || ([*(*(a1 + 32) + 64) objectForKeyedSubscript:v3], (v27 = objc_claimAutoreleasedReturnValue()) == 0))
   {
-    v28 = 0;
+    v27 = 0;
 LABEL_10:
     v4 = [MEMORY[0x1E69D3E28] sharedResourcesManager];
     v5 = *(a1 + 32);
     v6 = v5[2];
-    v35[0] = @"SRResourcesOwner";
-    v35[1] = @"forceLoad";
-    v36[0] = @"QueryParser";
+    v34[0] = @"SRResourcesOwner";
+    v34[1] = @"forceLoad";
+    v35[0] = @"QueryParser";
     v7 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v5, "force")}];
-    v36[1] = v7;
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:v35 count:2];
+    v35[1] = v7;
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:v34 count:2];
     v9 = [v4 resourcesForClient:@"Parser" locale:v6 options:v8];
 
     [*(*(a1 + 32) + 64) setObject:v9 forKey:v3];
-    v28 = v9;
+    v27 = v9;
     if (!v9)
     {
       goto LABEL_33;
@@ -900,25 +894,25 @@ LABEL_10:
   }
 
 LABEL_11:
-  [v28 filePathArrayForKey:@"Embedding"];
+  [v27 filePathArrayForKey:@"Embedding"];
+  v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
-  v10 = v30 = 0u;
-  v11 = [v10 countByEnumeratingWithState:&v29 objects:v34 count:16];
+  v28 = 0u;
+  v10 = v29 = 0u;
+  v11 = [v10 countByEnumeratingWithState:&v28 objects:v33 count:16];
   if (v11)
   {
-    v12 = *v30;
+    v12 = *v29;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v30 != v12)
+        if (*v29 != v12)
         {
           objc_enumerationMutation(v10);
         }
 
-        v14 = [MEMORY[0x1E695DFF8] fileURLWithPath:*(*(&v29 + 1) + 8 * i)];
+        v14 = [MEMORY[0x1E695DFF8] fileURLWithPath:*(*(&v28 + 1) + 8 * i)];
         v15 = [v14 lastPathComponent];
         v16 = [v15 isEqualToString:@"defaults.plist"];
 
@@ -969,7 +963,7 @@ LABEL_11:
         }
       }
 
-      v11 = [v10 countByEnumeratingWithState:&v29 objects:v34 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v28 objects:v33 count:16];
       if (v11)
       {
         continue;
@@ -982,7 +976,6 @@ LABEL_11:
 LABEL_32:
 
 LABEL_33:
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateLocale

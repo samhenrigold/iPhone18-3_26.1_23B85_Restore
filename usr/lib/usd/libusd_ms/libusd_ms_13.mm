@@ -1,4 +1,4 @@
-void sub_29A095E3C(uint64_t a1, std::string *__str, __int128 *a3, unint64_t a4)
+void sub_29A095E3C(uint64_t a1, std::string *__str, std::string *a3, unint64_t a4)
 {
   v6 = __str;
   v8 = *a1;
@@ -239,7 +239,7 @@ void sub_29A0962BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_29A0962F0(void *a1, uint64_t a2)
+void sub_29A0962F0(unint64_t *a1, uint64_t a2)
 {
   if (a1[1] < a1[2])
   {
@@ -260,20 +260,11 @@ void sub_29A09647C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void Alembic::AbcMaterial::v12::MaterialFlatten::append(void *a1, uint64_t a2)
+void sub_29A0966B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  sub_29A0962F0(a1, a2 + 96);
-}
-
-{
-  sub_29A0962F0(a1, a2);
-}
-
-void sub_29A0966B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
-{
-  va_start(va, a5);
+  va_start(va, a9);
   sub_29A0966EC(va);
-  Alembic::Abc::v12::IObject::~IObject((v5 - 168));
+  Alembic::Abc::v12::IObject::~IObject((v9 - 168));
   _Unwind_Resume(a1);
 }
 
@@ -614,17 +605,17 @@ LABEL_63:
 
 void sub_29A096EA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, void *a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  Alembic::Abc::v12::IObject::~IObject(&a72);
+  Alembic::Abc::v12::IObject::~IObject(&a65);
   if (SLOBYTE(STACK[0x2CF]) < 0)
   {
     operator delete(STACK[0x2B8]);
   }
 
   sub_29A09703C(&STACK[0x428]);
-  sub_29A09932C(a9, *(v72 + 64));
+  sub_29A09932C(a9, *(v65 + 64));
   STACK[0x428] = a10;
   sub_29A012C90(&STACK[0x428]);
-  STACK[0x428] = v72;
+  STACK[0x428] = v65;
   sub_29A09926C(&STACK[0x428]);
   _Unwind_Resume(a1);
 }
@@ -724,15 +715,15 @@ uint64_t Alembic::AbcMaterial::v12::MaterialFlatten::getShader(uint64_t *a1, uin
   return result;
 }
 
-void Alembic::AbcMaterial::v12::MaterialFlatten::getShaderParameters(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void Alembic::AbcMaterial::v12::MaterialFlatten::getShaderParameters(uint64_t *a1, uint64_t a2, uint64_t a3, void **a4)
 {
   v7 = *a4;
-  for (i = *(a4 + 8); i != v7; sub_29A09AE58(a4, i))
+  for (i = a4[1]; i != v7; sub_29A09AE58(a4, i))
   {
     i -= 80;
   }
 
-  *(a4 + 8) = v7;
+  a4[1] = v7;
   v29[0] = 0;
   v29[1] = 0;
   v28 = v29;
@@ -812,10 +803,11 @@ LABEL_25:
   sub_29A019EE8(&v28, v13);
 }
 
-void sub_29A09759C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_29A09759C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  Alembic::Abc::v12::ICompoundProperty::~ICompoundProperty(&a27);
-  sub_29A019EE8(v27 - 112, *(v27 - 104));
+  va_start(va, a26);
+  Alembic::Abc::v12::ICompoundProperty::~ICompoundProperty(va);
+  sub_29A019EE8(v26 - 112, *(v26 - 104));
   _Unwind_Resume(a1);
 }
 
@@ -838,14 +830,14 @@ void **sub_29A0975F4(void **result, unint64_t a2)
     v7 = &v4[5 * v6];
     v14 = (v4 + v3);
     v15 = v7;
-    v8 = *(v2 + 8);
+    v8 = v2[1];
     v9 = v4 + v3 + *v2 - v8;
     sub_29A09AEF0(v2, *v2, v8, v9);
     v10 = *v2;
     *v2 = v9;
-    *(v2 + 8) = v5;
-    v11 = *(v2 + 16);
-    *(v2 + 16) = v7;
+    v2[1] = v5;
+    v11 = v2[2];
+    v2[2] = v7;
     v14 = v10;
     v15 = v11;
     v12 = v10;
@@ -856,9 +848,9 @@ void **sub_29A0975F4(void **result, unint64_t a2)
   return result;
 }
 
-void sub_29A0976BC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A0976BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A09B100(va);
   _Unwind_Resume(a1);
 }
@@ -1028,7 +1020,7 @@ void Alembic::AbcMaterial::v12::MaterialFlatten::flattenNetwork(Alembic::AbcMate
                 v8 = v13[0];
                 v7 = v13[1];
                 v13[0] = &v16;
-                v10 = sub_29A09B4F4(this + 7, &v16.__r_.__value_.__l.__data_, &unk_29B432FE8, v13);
+                v10 = sub_29A09B4F4(this + 7, &v16.__r_.__value_.__l.__data_, &unk_29B432FE8, v13, &v23);
                 if (v7)
                 {
                   atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -1056,7 +1048,7 @@ void Alembic::AbcMaterial::v12::MaterialFlatten::flattenNetwork(Alembic::AbcMate
               if (v8 + 1 == sub_29A01BCCC(v8, __p))
               {
                 v13[0] = __p;
-                v12 = sub_29A00B038(v8, __p, &unk_29B432FE8, v13);
+                v12 = sub_29A00B038(v8, __p, &unk_29B432FE8, v13, &v23);
                 std::string::operator=((v12 + 7), &__str);
               }
 
@@ -1094,7 +1086,7 @@ void Alembic::AbcMaterial::v12::MaterialFlatten::flattenNetwork(Alembic::AbcMate
   }
 }
 
-void sub_29A097CD4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, char *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, char a29, uint64_t a30, uint64_t a31, char a32, char *a33)
+void sub_29A097CD4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, char *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, char *a33)
 {
   if (a16 < 0)
   {
@@ -1175,8 +1167,8 @@ void Alembic::AbcMaterial::v12::MaterialFlatten::getNetworkNode(Alembic::AbcMate
 
   else
   {
-    v7 = *(v6 + 56);
-    v8 = *(v6 + 64);
+    v7 = v6[7];
+    v8 = v6[8];
     if (v8)
     {
       v9 = 0;
@@ -1217,17 +1209,17 @@ void sub_29A097F20(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-char *Alembic::AbcMaterial::v12::MaterialFlatten::NetworkNode::NetworkNode(char *__dst, uint64_t a2, Alembic::AbcMaterial::v12::IMaterialSchema **a3, void *a4)
+char *Alembic::AbcMaterial::v12::MaterialFlatten::NetworkNode::NetworkNode(char *__dst, __int128 *a2, Alembic::AbcMaterial::v12::IMaterialSchema **a3, void *a4)
 {
   if (*(a2 + 23) < 0)
   {
-    sub_29A008D14(__dst, *a2, *(a2 + 8));
+    sub_29A008D14(__dst, *a2, *(a2 + 1));
   }
 
   else
   {
     v8 = *a2;
-    *(__dst + 2) = *(a2 + 16);
+    *(__dst + 2) = *(a2 + 2);
     *__dst = v8;
   }
 
@@ -1280,20 +1272,20 @@ LABEL_13:
   return __dst;
 }
 
-void sub_29A0980F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_29A0980F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
-  v10 = *(v8 + 80);
-  if (v10)
+  va_start(va, a15);
+  v17 = *(v15 + 80);
+  if (v17)
   {
-    sub_29A014BEC(v10);
+    sub_29A014BEC(v17);
   }
 
   sub_29A09B750(va);
   sub_29A09B67C(va);
-  if (*(v8 + 23) < 0)
+  if (*(v15 + 23) < 0)
   {
-    operator delete(*v8);
+    operator delete(*v15);
   }
 
   _Unwind_Resume(a1);
@@ -1336,14 +1328,14 @@ void **sub_29A098160(void **result, unint64_t a2)
   return result;
 }
 
-void sub_29A098234(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A098234(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A09BA5C(va);
   _Unwind_Resume(a1);
 }
 
-void *sub_29A098248(void *result, unint64_t a2)
+char **sub_29A098248(char **result, unint64_t a2)
 {
   if (0xAAAAAAAAAAAAAAABLL * ((result[2] - *result) >> 4) < a2)
   {
@@ -1362,14 +1354,14 @@ void *sub_29A098248(void *result, unint64_t a2)
     v7 = v4 + 48 * v6;
     v14 = (v4 + v3);
     v15 = v7;
-    v8 = *(v2 + 8);
+    v8 = v2[1];
     v9 = v4 + v3 + *v2 - v8;
     sub_29A09BAD8(v2, *v2, v8, v9);
     v10 = *v2;
     *v2 = v9;
-    *(v2 + 8) = v5;
-    v11 = *(v2 + 16);
-    *(v2 + 16) = v7;
+    v2[1] = v5;
+    v11 = v2[2];
+    v2[2] = v7;
     v14 = v10;
     v15 = v11;
     v12 = v10;
@@ -1380,14 +1372,14 @@ void *sub_29A098248(void *result, unint64_t a2)
   return result;
 }
 
-void sub_29A098310(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A098310(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A09BB84(va);
   _Unwind_Resume(a1);
 }
 
-void sub_29A098324(void *a1, uint64_t a2)
+void sub_29A098324(uint64_t *a1, uint64_t a2)
 {
   if (a1[1] < a1[2])
   {
@@ -1659,7 +1651,7 @@ LABEL_31:
   sub_29A019EE8(&v36, v37[0]);
 }
 
-void Alembic::AbcMaterial::v12::MaterialFlatten::NetworkNode::getConnections(uint64_t a1, uint64_t *a2)
+void Alembic::AbcMaterial::v12::MaterialFlatten::NetworkNode::getConnections(uint64_t a1, unint64_t *a2)
 {
   v5 = *a2;
   for (i = a2[1]; i != v5; sub_29A09BE54(a2, i))
@@ -1752,7 +1744,7 @@ void sub_29A098A68(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_29A098ACC(uint64_t *a1, uint64_t a2)
+uint64_t sub_29A098ACC(unint64_t *a1, __int128 *a2)
 {
   v3 = a1[1];
   if (v3 >= a1[2])
@@ -1763,23 +1755,20 @@ uint64_t sub_29A098ACC(uint64_t *a1, uint64_t a2)
   else
   {
     v4 = *a2;
-    *(v3 + 16) = *(a2 + 16);
+    *(v3 + 16) = *(a2 + 2);
     *v3 = v4;
-    *(a2 + 8) = 0;
-    *(a2 + 16) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v5 = *(a2 + 24);
-    *(v3 + 40) = *(a2 + 40);
+    *(v3 + 40) = *(a2 + 5);
     *(v3 + 24) = v5;
-    *(a2 + 32) = 0;
-    *(a2 + 40) = 0;
-    *(a2 + 24) = 0;
-    v6 = *(a2 + 48);
-    *(v3 + 64) = *(a2 + 64);
+    a2[2] = 0uLL;
+    *(a2 + 3) = 0;
+    v6 = a2[3];
+    *(v3 + 64) = *(a2 + 8);
     *(v3 + 48) = v6;
-    *(a2 + 56) = 0;
-    *(a2 + 64) = 0;
-    *(a2 + 48) = 0;
+    *(a2 + 56) = 0uLL;
+    *(a2 + 6) = 0;
     result = v3 + 72;
   }
 
@@ -2044,15 +2033,15 @@ void sub_29A09926C(void ***a1)
     v5 = **a1;
     if (v4 != v2)
     {
-      v6 = v4 - 248;
-      v7 = v4 - 248;
-      v8 = v4 - 248;
+      v6 = v4 - 31;
+      v7 = v4 - 31;
+      v8 = v4 - 31;
       do
       {
         v9 = *v8;
-        v8 -= 248;
+        v8 -= 31;
         (*v9)(v7);
-        v6 -= 248;
+        v6 -= 31;
         v10 = v7 == v2;
         v7 = v8;
       }
@@ -2095,7 +2084,7 @@ void sub_29A099388(uint64_t a1)
   }
 }
 
-void sub_29A0993DC(void *a1, uint64_t a2)
+void sub_29A0993DC(unint64_t *a1, uint64_t a2)
 {
   v2 = 0xEF7BDEF7BDEF7BDFLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
@@ -2137,9 +2126,9 @@ void sub_29A0993DC(void *a1, uint64_t a2)
   sub_29A00C9A4();
 }
 
-void sub_29A099510(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_29A099510(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_29A099638(va);
   _Unwind_Resume(a1);
 }
@@ -2154,7 +2143,7 @@ void *sub_29A099524(uint64_t a1, unint64_t a2)
   return operator new(248 * a2);
 }
 
-void sub_29A099570(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void sub_29A099570(uint64_t a1, uint64_t (***a2)(void), uint64_t (***a3)(void), uint64_t a4)
 {
   if (a2 != a3)
   {
@@ -2190,7 +2179,7 @@ uint64_t sub_29A099638(uint64_t a1)
   return a1;
 }
 
-uint64_t sub_29A0996A4(uint64_t a1, int a2)
+BOOL sub_29A0996A4(uint64_t a1, int a2)
 {
   if (a2 == 2)
   {
@@ -2441,7 +2430,7 @@ Alembic::Abc::v12::IObject *sub_29A099A64(Alembic::Abc::v12::IObject *a1, uint64
   LODWORD(v28) = 0;
   LODWORD(v29) = 0;
   v12 = sub_29A08E8B4(a3, a4, &v34, &v28);
-  if ((sub_29A0996A4(Header + 48, v12) & 1) == 0)
+  if (!sub_29A0996A4(Header + 48, v12))
   {
     sub_29A008864(&v34);
     v16 = sub_29A00911C(v36, "Incorrect match of schema: ", 27);
@@ -2518,7 +2507,7 @@ Alembic::Abc::v12::IObject *sub_29A099A64(Alembic::Abc::v12::IObject *a1, uint64
     __cxa_throw(v24, &unk_2A203B108, sub_29A008B08);
   }
 
-  Alembic::Abc::v12::IObject::getProperties(a1, &v28);
+  Alembic::Abc::v12::IObject::getProperties(&v28, a1);
   sub_29A008E78(__p, ".material");
   v13 = *(a1 + 2);
   LODWORD(v31.__r_.__value_.__l.__data_) = 1;
@@ -2593,9 +2582,9 @@ uint64_t sub_29A099F38(uint64_t a1, uint64_t a2)
     sub_29A014BEC(v6);
   }
 
-  sub_29A09A894(a1 + 56, (a2 + 56));
-  sub_29A09A894(a1 + 80, (a2 + 80));
-  sub_29A09A894(a1 + 104, (a2 + 104));
+  sub_29A09A894((a1 + 56), (a2 + 56));
+  sub_29A09A894((a1 + 80), (a2 + 80));
+  sub_29A09A894((a1 + 104), (a2 + 104));
   sub_29A095FDC(a1 + 128);
   *(a1 + 128) = *(a2 + 128);
   *(a1 + 144) = *(a2 + 144);
@@ -2639,7 +2628,7 @@ uint64_t sub_29A099F38(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-uint64_t sub_29A09A04C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t sub_29A09A04C(uint64_t a1, uint64_t a2, uint64_t **a3, uint64_t a4, uint64_t a5)
 {
   v6 = sub_29A09A1A4(a1, a2, a3, a4, a5);
   *v6 = &unk_2A203E4B0;
@@ -2680,7 +2669,7 @@ void sub_29A09A13C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_29A09A1A4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t sub_29A09A1A4(uint64_t a1, uint64_t a2, uint64_t **a3, uint64_t a4, uint64_t a5)
 {
   *(a1 + 8) = 2;
   sub_29A008E78((a1 + 16), "");
@@ -2691,7 +2680,7 @@ uint64_t sub_29A09A1A4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   return a1;
 }
 
-void sub_29A09A250(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void sub_29A09A250(uint64_t a1, uint64_t a2, uint64_t **a3, uint64_t a4, uint64_t a5)
 {
   *(&v35 + 1) = 0;
   v36[0] = 0;
@@ -2768,7 +2757,7 @@ LABEL_18:
 
     else
     {
-      v21 = *(a3 + 8);
+      v21 = a3[1];
     }
 
     sub_29A00911C(v18, v20, v21);
@@ -2784,7 +2773,7 @@ LABEL_18:
     __cxa_throw(v23, &unk_2A203B108, sub_29A008B08);
   }
 
-  if ((sub_29A09A78C(v12 + 32, v41) & 1) == 0)
+  if (!sub_29A09A78C(v12 + 32, v41))
   {
     sub_29A008864(&v35);
     v24 = sub_29A00911C(v36, "Incorrect match of schema: ", 27);
@@ -2862,7 +2851,7 @@ LABEL_18:
   sub_29A01752C(v38, v38[1]);
 }
 
-void sub_29A09A628(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, char a23, uint64_t a24)
+void sub_29A09A628(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24)
 {
   sub_29A008F20(&__p);
   sub_29A008B0C(&a23);
@@ -2889,7 +2878,7 @@ void sub_29A09A628(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   JUMPOUT(0x29A09A3DCLL);
 }
 
-uint64_t sub_29A09A78C(uint64_t a1, int a2)
+BOOL sub_29A09A78C(uint64_t a1, int a2)
 {
   if (a2 == 1)
   {
@@ -2932,16 +2921,16 @@ void sub_29A09A878(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_29A09A894(uint64_t a1, void *a2)
+void sub_29A09A894(void *a1, void *a2)
 {
-  v4 = (a1 + 8);
-  sub_29A01752C(a1, *(a1 + 8));
+  v4 = a1 + 1;
+  sub_29A01752C(a1, a1[1]);
   *a1 = *a2;
   v5 = a2 + 1;
   v6 = a2[1];
   *v4 = v6;
   v7 = a2[2];
-  *(a1 + 16) = v7;
+  a1[2] = v7;
   if (v7)
   {
     *(v6 + 16) = v4;
@@ -2977,7 +2966,7 @@ Alembic::Abc::v12::IObject *sub_29A09A900(Alembic::Abc::v12::IObject *a1, uint64
   LODWORD(v29) = 0;
   LODWORD(v30) = 0;
   v13 = sub_29A08E8B4(a4, a5, &v35, &v29);
-  if ((sub_29A0996A4(Header + 48, v13) & 1) == 0)
+  if (!sub_29A0996A4(Header + 48, v13))
   {
     sub_29A008864(&v35);
     v17 = sub_29A00911C(v37, "Incorrect match of schema: ", 27);
@@ -3054,7 +3043,7 @@ Alembic::Abc::v12::IObject *sub_29A09A900(Alembic::Abc::v12::IObject *a1, uint64
     __cxa_throw(v25, &unk_2A203B108, sub_29A008B08);
   }
 
-  Alembic::Abc::v12::IObject::getProperties(a1, &v29);
+  Alembic::Abc::v12::IObject::getProperties(&v29, a1);
   sub_29A008E78(__p, ".material");
   v14 = *(a1 + 2);
   LODWORD(v32.__r_.__value_.__l.__data_) = 1;
@@ -3110,7 +3099,7 @@ void sub_29A09AC40(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   JUMPOUT(0x29A09AAECLL);
 }
 
-uint64_t *sub_29A09ADD4(uint64_t **a1, uint64_t a2, const void **a3, uint64_t a4)
+uint64_t *sub_29A09ADD4(uint64_t ***a1, uint64_t a2, const void **a3, uint64_t a4)
 {
   v6 = sub_29A0194B4(a1, a2, &v10, &v9, a3);
   result = *v6;
@@ -3145,7 +3134,7 @@ void *sub_29A09AEA8(uint64_t a1, unint64_t a2)
   return operator new(80 * a2);
 }
 
-uint64_t sub_29A09AEF0(uint64_t a1, __int128 *a2, __int128 *a3, void *__dst)
+uint64_t sub_29A09AEF0(uint64_t a1, __int128 *a2, __int128 *a3, char *__dst)
 {
   v11 = __dst;
   v12 = __dst;
@@ -3282,21 +3271,21 @@ void sub_29A09B134(void *a1)
   }
 }
 
-uint64_t sub_29A09B17C(uint64_t a1, __int128 *a2)
+uint64_t sub_29A09B17C(char **a1, __int128 *a2)
 {
-  v2 = 0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 8) - *a1) >> 4);
+  v2 = 0xCCCCCCCCCCCCCCCDLL * ((a1[1] - *a1) >> 4);
   v3 = v2 + 1;
   if (v2 + 1 > 0x333333333333333)
   {
     sub_29A00C9A4();
   }
 
-  if (0x999999999999999ALL * ((*(a1 + 16) - *a1) >> 4) > v3)
+  if (0x999999999999999ALL * ((a1[2] - *a1) >> 4) > v3)
   {
-    v3 = 0x999999999999999ALL * ((*(a1 + 16) - *a1) >> 4);
+    v3 = 0x999999999999999ALL * ((a1[2] - *a1) >> 4);
   }
 
-  if (0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 16) - *a1) >> 4) >= 0x199999999999999)
+  if (0xCCCCCCCCCCCCCCCDLL * ((a1[2] - *a1) >> 4) >= 0x199999999999999)
   {
     v6 = 0x333333333333333;
   }
@@ -3322,14 +3311,14 @@ uint64_t sub_29A09B17C(uint64_t a1, __int128 *a2)
   *(&v16 + 1) = &v7[5 * v6];
   sub_29A09B2B0(a1, v15, a2);
   *&v16 = v15 + 5;
-  v8 = *(a1 + 8);
-  v9 = (v15 + *a1 - v8);
+  v8 = a1[1];
+  v9 = v15 + *a1 - v8;
   sub_29A09AEF0(a1, *a1, v8, v9);
   v10 = *a1;
   *a1 = v9;
-  v11 = *(a1 + 16);
+  v11 = a1[2];
   v13 = v16;
-  *(a1 + 8) = v16;
+  *(a1 + 1) = v16;
   *&v16 = v10;
   *(&v16 + 1) = v11;
   v14 = v10;
@@ -3338,9 +3327,9 @@ uint64_t sub_29A09B17C(uint64_t a1, __int128 *a2)
   return v13;
 }
 
-void sub_29A09B29C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_29A09B29C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_29A09B100(va);
   _Unwind_Resume(a1);
 }
@@ -3350,8 +3339,7 @@ void *sub_29A09B2B0(uint64_t a1, uint64_t a2, __int128 *a3)
   v5 = *a3;
   *(a2 + 16) = *(a3 + 2);
   *a2 = v5;
-  *(a3 + 1) = 0;
-  *(a3 + 2) = 0;
+  *(a3 + 8) = 0uLL;
   *a3 = 0;
   *(a2 + 24) = *(a3 + 6);
   if (*(a3 + 55) < 0)
@@ -3402,9 +3390,9 @@ void *sub_29A09B358(void *a1, uint64_t a2)
   return a1;
 }
 
-void sub_29A09B3CC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A09B3CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A09B4A0(va, 0);
   _Unwind_Resume(a1);
 }
@@ -3451,15 +3439,15 @@ void sub_29A09B4A0(void ***a1, void **a2)
   }
 }
 
-uint64_t *sub_29A09B4F4(uint64_t **a1, const void **a2, uint64_t a3, __int128 **a4)
+uint64_t *sub_29A09B4F4(uint64_t ***a1, const void **a2, uint64_t a3, __int128 **a4, uint64_t a5)
 {
-  v6 = sub_29A00B0D0(a1, &v9, a2);
-  result = *v6;
-  if (!*v6)
+  v7 = sub_29A00B0D0(a1, &v10, a2);
+  result = *v7;
+  if (!*v7)
   {
-    sub_29A09B58C(a1, a4, &v8);
-    sub_29A00B204(a1, v9, v6, v8);
-    return v8;
+    sub_29A09B58C(a1, a4, &v9);
+    sub_29A00B204(a1, v10, v7, v9);
+    return v9;
   }
 
   return result;
@@ -3624,11 +3612,11 @@ void sub_29A09B8EC(uint64_t a1, uint64_t a2, uint64_t a3)
   std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>();
 }
 
-void sub_29A09B9A8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A09B9A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A012C90(va);
-  Alembic::Abc::v12::ICompoundProperty::~ICompoundProperty(v2);
+  Alembic::Abc::v12::ICompoundProperty::~ICompoundProperty(v3);
   _Unwind_Resume(a1);
 }
 
@@ -3693,7 +3681,7 @@ void sub_29A09BAD8(uint64_t a1, Alembic::Abc::v12::ICompoundProperty *a2, Alembi
     do
     {
       sub_29A08DFEC(a1, a4, v9);
-      v9 += 48;
+      v9 = (v9 + 48);
       a4 += 48;
       v8 -= 48;
     }
@@ -3742,7 +3730,7 @@ uint64_t sub_29A09BB84(uint64_t a1)
   return a1;
 }
 
-void sub_29A09BBD4(void *a1, uint64_t a2)
+void sub_29A09BBD4(uint64_t *a1, uint64_t a2)
 {
   v2 = 0x4EC4EC4EC4EC4EC5 * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
@@ -3783,9 +3771,9 @@ void sub_29A09BBD4(void *a1, uint64_t a2)
   sub_29A00C9A4();
 }
 
-void sub_29A09BD0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_29A09BD0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_29A09BA5C(va);
   _Unwind_Resume(a1);
 }
@@ -3846,9 +3834,9 @@ uint64_t sub_29A09BD20(uint64_t a1, uint64_t a2)
   return v13;
 }
 
-void sub_29A09BE40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_29A09BE40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_29A09BB84(va);
   _Unwind_Resume(a1);
 }
@@ -3873,7 +3861,7 @@ void sub_29A09BE54(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t sub_29A09BEBC(uint64_t *a1, __int128 *a2)
+uint64_t sub_29A09BEBC(unint64_t *a1, __int128 *a2)
 {
   v2 = 0x8E38E38E38E38E39 * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
@@ -3947,9 +3935,9 @@ uint64_t sub_29A09BEBC(uint64_t *a1, __int128 *a2)
   return v17;
 }
 
-void sub_29A09C028(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_29A09C028(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_29A09C1FC(va);
   _Unwind_Resume(a1);
 }
@@ -4068,7 +4056,7 @@ void sub_29A09C230(void *a1)
   }
 }
 
-uint64_t Alembic::AbcMaterial::v12::getMaterialAssignmentPath(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t Alembic::AbcMaterial::v12::getMaterialAssignmentPath(uint64_t a1, uint64_t a2, uint64_t **a3)
 {
   if (*(a1 + 39) < 0)
   {
@@ -4091,7 +4079,7 @@ LABEL_5:
     return 0;
   }
 
-  Alembic::Abc::v12::IObject::getProperties(a1, v7);
+  Alembic::Abc::v12::IObject::getProperties(v7, a1);
   MaterialAssignmentPath = Alembic::AbcMaterial::v12::getMaterialAssignmentPath(v7, a2, a3);
   Alembic::Abc::v12::ICompoundProperty::~ICompoundProperty(v7);
   return MaterialAssignmentPath;
@@ -4161,14 +4149,14 @@ LABEL_5:
   return result;
 }
 
-void sub_29A09C424(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_29A09C424(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   Alembic::Abc::v12::IScalarProperty::~IScalarProperty(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t Alembic::AbcMaterial::v12::hasMaterial(Alembic::Abc::v12::IObject *this, uint64_t a2, uint64_t a3)
+uint64_t Alembic::AbcMaterial::v12::hasMaterial(Alembic::Abc::v12::IObject *this, uint64_t a2, uint64_t **a3)
 {
   if (*(this + 39) < 0)
   {
@@ -4191,14 +4179,14 @@ uint64_t Alembic::AbcMaterial::v12::hasMaterial(Alembic::Abc::v12::IObject *this
   v6 = *(a3 + 23);
   if (v6 < 0)
   {
-    if (*(a3 + 8) == 9)
+    if (a3[1] == 9)
     {
       v7 = *a3;
       goto LABEL_11;
     }
 
 LABEL_17:
-    Alembic::Abc::v12::IObject::getProperties(this, v14);
+    Alembic::Abc::v12::IObject::getProperties(v14, this);
     hasMaterial = Alembic::AbcMaterial::v12::hasMaterial(v14, a2, a3);
     Alembic::Abc::v12::ICompoundProperty::~ICompoundProperty(v14);
     return hasMaterial;
@@ -4220,7 +4208,7 @@ LABEL_11:
 
   Header = Alembic::Abc::v12::IObject::getHeader(this);
   hasMaterial = 0;
-  if ((sub_29A0996A4(Header + 48, 0) & 1) == 0)
+  if (!sub_29A0996A4(Header + 48, 0))
   {
     goto LABEL_17;
   }
@@ -4228,7 +4216,7 @@ LABEL_11:
   return hasMaterial;
 }
 
-uint64_t Alembic::AbcMaterial::v12::hasMaterial(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t Alembic::AbcMaterial::v12::hasMaterial(uint64_t a1, uint64_t a2, uint64_t **a3)
 {
   if (*(a1 + 31) < 0)
   {
@@ -4279,16 +4267,16 @@ LABEL_5:
   return result;
 }
 
-void sub_29A09C668(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_29A09C668(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   sub_29A09703C(va);
   _Unwind_Resume(a1);
 }
 
 void Alembic::AbcMaterial::v12::addMaterialAssignment(Alembic::Abc::v12::OObject *a1, const void *a2, uint64_t a3)
 {
-  Alembic::Abc::v12::OObject::getProperties(a1, v5);
+  Alembic::Abc::v12::OObject::getProperties(v5, a1);
   Alembic::AbcMaterial::v12::addMaterialAssignment(v5, a2, a3);
   Alembic::Abc::v12::OCompoundProperty::~OCompoundProperty(v5);
 }
@@ -4327,35 +4315,27 @@ void Alembic::AbcMaterial::v12::addMaterialAssignment(uint64_t a1, const void *a
   Alembic::Abc::v12::OScalarProperty::~OScalarProperty(v15);
 }
 
-void Alembic::AbcMaterial::v12::addMaterial(Alembic::Abc::v12::OObject *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+void Alembic::AbcMaterial::v12::addMaterial(Alembic::Abc::v12::OObject *a1@<X0>, uint64_t x8_0@<X8>)
 {
-  Alembic::Abc::v12::OObject::getProperties(a1, v5);
-  Alembic::AbcMaterial::v12::addMaterial(v5, a2, a3);
-  Alembic::Abc::v12::OCompoundProperty::~OCompoundProperty(v5);
+  Alembic::Abc::v12::OObject::getProperties(v4, a1);
+  Alembic::AbcMaterial::v12::addMaterial(v4, x8_0);
+  Alembic::Abc::v12::OCompoundProperty::~OCompoundProperty(v4);
 }
 
-void Alembic::AbcMaterial::v12::addMaterial(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+void Alembic::AbcMaterial::v12::addMaterial(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v5 = *(a1 + 40);
-  v10 = *(a1 + 32);
-  v11 = v5;
-  if (v5)
+  v4 = *(a1 + 40);
+  v5 = *(a1 + 32);
+  v6 = v4;
+  if (v4)
   {
-    atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v9[0] = 0;
-  v9[2] = 0;
-  v8[0] = 0;
-  v8[2] = 0;
-  v7[0] = 0;
-  v7[2] = 0;
-  v6[0] = 0;
-  v6[2] = 0;
-  Alembic::AbcMaterial::v12::OMaterialSchema::OMaterialSchema(a3, &v10, a2, v9, v8, v7, v6);
-  if (v11)
+  Alembic::AbcMaterial::v12::OMaterialSchema::OMaterialSchema(a2, &v5);
+  if (v6)
   {
-    sub_29A014BEC(v11);
+    sub_29A014BEC(v6);
   }
 }
 
@@ -4379,8 +4359,7 @@ void sub_29A09C8D8(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, std::st
 
   else
   {
-    *&a4->__r_.__value_.__l.__data_ = *a1;
-    a4->__r_.__value_.__r.__words[2] = *(a1 + 16);
+    *a4 = *a1;
   }
 
   std::string::append(a4, ".");
@@ -4458,7 +4437,7 @@ void sub_29A09C9C8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-std::string::size_type sub_29A09CA00(uint64_t a1, uint64_t a2)
+std::string::size_type sub_29A09CA00(const std::string *a1, uint64_t **a2)
 {
   if (std::string::find(a1, 46, 0) != -1 || (result = std::string::find(a1, 47, 0), result != -1))
   {
@@ -4482,12 +4461,12 @@ std::string::size_type sub_29A09CA00(uint64_t a1, uint64_t a2)
 
     else
     {
-      v8 = *(a2 + 8);
+      v8 = a2[1];
     }
 
     v9 = sub_29A00911C(v5, v7, v8);
     v10 = sub_29A00911C(v9, ":", 1);
-    v11 = *(a1 + 23);
+    v11 = SHIBYTE(a1->__r_.__value_.__r.__words[2]);
     if (v11 >= 0)
     {
       v12 = a1;
@@ -4495,20 +4474,20 @@ std::string::size_type sub_29A09CA00(uint64_t a1, uint64_t a2)
 
     else
     {
-      v12 = *a1;
+      v12 = a1->__r_.__value_.__r.__words[0];
     }
 
     if (v11 >= 0)
     {
-      v13 = *(a1 + 23);
+      size = HIBYTE(a1->__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      v13 = *(a1 + 8);
+      size = a1->__r_.__value_.__l.__size_;
     }
 
-    sub_29A00911C(v10, v12, v13);
+    sub_29A00911C(v10, v12, size);
     std::stringbuf::str();
     sub_29A008C60(v18, &__p);
     if (v17 < 0)
@@ -4524,14 +4503,14 @@ std::string::size_type sub_29A09CA00(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void sub_29A09CB24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_29A09CB24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v5.__vftable = va_arg(va1, std::exception_vtbl *);
-  v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
+  va_start(va1, a7);
+  va_start(va, a7);
+  v8.__vftable = va_arg(va1, std::exception_vtbl *);
+  v10 = va_arg(va1, void);
+  v11 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
   sub_29A008F20(va);
   sub_29A008B0C(va1);
   _Unwind_Resume(a1);
@@ -4633,10 +4612,11 @@ void sub_29A09CCFC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *Alembic::Ogawa::v12::IArchive::IArchive(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void *Alembic::Ogawa::v12::IArchive::IArchive(void *a1, char *a2, uint64_t a3, uint64_t a4)
 {
+  v4 = a4;
   v8 = operator new(8uLL);
-  Alembic::Ogawa::v12::IStreams::IStreams(v8, a2, a3, a4);
+  Alembic::Ogawa::v12::IStreams::IStreams(v8, a2, a3, v4);
   v9 = sub_29A09CFF8(a1, v8);
   a1[2] = 0;
   a1[3] = 0;
@@ -4661,7 +4641,7 @@ void sub_29A09CD94(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void Alembic::Ogawa::v12::IArchive::init(Alembic::Ogawa::v12::IArchive *this)
+void Alembic::Ogawa::v12::IArchive::init(Alembic::Ogawa::v12::IStreams **this)
 {
   if (Alembic::Ogawa::v12::IStreams::isValid(*this))
   {
@@ -4669,7 +4649,7 @@ void Alembic::Ogawa::v12::IArchive::init(Alembic::Ogawa::v12::IArchive *this)
     Alembic::Ogawa::v12::IStreams::read(*this, 0, 8, 8, &v7);
     v2 = operator new(8uLL);
     v3 = v2;
-    v4 = *(this + 1);
+    v4 = this[1];
     v5 = *this;
     v6 = v4;
     if (v4)
@@ -4758,11 +4738,11 @@ void Alembic::Ogawa::v12::IArchive::~IArchive(Alembic::Ogawa::v12::IArchive *thi
   }
 }
 
-uint64_t Alembic::Ogawa::v12::IArchive::getGroup@<X0>(uint64_t this@<X0>, void *a2@<X8>)
+uint64_t *Alembic::Ogawa::v12::IArchive::getGroup@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>)
 {
-  v2 = *(this + 24);
-  *a2 = *(this + 16);
-  a2[1] = v2;
+  v2 = this[3];
+  *a1 = this[2];
+  a1[1] = v2;
   if (v2)
   {
     atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
@@ -4908,7 +4888,7 @@ Alembic::Ogawa::v12::IStreams ***Alembic::Ogawa::v12::IData::IData(Alembic::Ogaw
   }
 
   v13 = 0;
-  v10[2] = a3 & 0x7FFFFFFFFFFFFFFFLL;
+  v10[2] = (a3 & 0x7FFFFFFFFFFFFFFFLL);
   v10[3] = 0;
   if ((a3 & 0x7FFFFFFFFFFFFFFFLL) != 0)
   {
@@ -4923,7 +4903,7 @@ Alembic::Ogawa::v12::IStreams ***Alembic::Ogawa::v12::IData::IData(Alembic::Ogaw
   return a1;
 }
 
-unint64_t **Alembic::Ogawa::v12::IData::read(unint64_t **this, uint64_t a2, void *a3, uint64_t a4, unint64_t a5)
+Alembic::Ogawa::v12::IStreams ***Alembic::Ogawa::v12::IData::read(Alembic::Ogawa::v12::IStreams ***this, uint64_t a2, void *a3, uint64_t a4, unint64_t a5)
 {
   if (a2)
   {
@@ -4940,7 +4920,7 @@ unint64_t **Alembic::Ogawa::v12::IData::read(unint64_t **this, uint64_t a2, void
 
     if (!v6)
     {
-      return Alembic::Ogawa::v12::IStreams::read(**this, a5, a4 + (*this)[2] + 8, a2, a3);
+      return Alembic::Ogawa::v12::IStreams::read(**this, a5, (*this)[2] + a4 + 8, a2, a3);
     }
   }
 
@@ -5049,10 +5029,10 @@ void Alembic::Ogawa::v12::IGroup::~IGroup(Alembic::Ogawa::v12::IGroup *this)
   sub_29A09DAAC(this, 0);
 }
 
-void Alembic::Ogawa::v12::IGroup::getGroup(unint64_t **this@<X0>, unint64_t a2@<X1>, char a3@<W2>, unint64_t a4@<X3>, void *a5@<X8>)
+void Alembic::Ogawa::v12::IGroup::getGroup(uint64_t *__return_ptr a1@<X8>, unint64_t **this@<X0>, unint64_t a3@<X1>, char a4@<W2>, unint64_t a5@<X3>)
 {
-  *a5 = 0;
-  a5[1] = 0;
+  *a1 = 0;
+  a1[1] = 0;
   v19 = 0x8000000000000000;
   v9 = *this;
   v10 = (*this)[5];
@@ -5062,12 +5042,12 @@ void Alembic::Ogawa::v12::IGroup::getGroup(unint64_t **this@<X0>, unint64_t a2@<
     v12 = v9[3];
     if (v11 == v12)
     {
-      if (v10 <= a2)
+      if (v10 <= a3)
       {
         return;
       }
 
-      Alembic::Ogawa::v12::IStreams::read(*v9, a4, v9[6] + 8 * a2 + 8, 8, &v19);
+      Alembic::Ogawa::v12::IStreams::read(*v9, a5, v9[6] + 8 * a3 + 8, 8, &v19);
       v13 = v19;
       if (!v19)
       {
@@ -5090,18 +5070,18 @@ LABEL_10:
     v12 = v9[3];
   }
 
-  if (a2 >= (v12 - v11) >> 3)
+  if (a3 >= (v12 - v11) >> 3)
   {
     return;
   }
 
-  v13 = *(v11 + 8 * a2);
+  v13 = *(v11 + 8 * a3);
   if (v13 < 0)
   {
     return;
   }
 
-  v19 = *(v11 + 8 * a2);
+  v19 = *(v11 + 8 * a3);
   if (v13)
   {
     goto LABEL_10;
@@ -5119,8 +5099,8 @@ LABEL_12:
     atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  Alembic::Ogawa::v12::IGroup::IGroup(v14, v18, v13, a3, a4);
-  sub_29A09CF3C(a5, v15);
+  Alembic::Ogawa::v12::IGroup::IGroup(v14, v18, v13, a4, a5);
+  sub_29A09CF3C(a1, v15);
   if (v17)
   {
     sub_29A014BEC(v17);
@@ -5138,10 +5118,10 @@ void sub_29A09D72C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void Alembic::Ogawa::v12::IGroup::getData(unint64_t **this@<X0>, unint64_t a2@<X1>, unint64_t a3@<X2>, void *a4@<X8>)
+void Alembic::Ogawa::v12::IGroup::getData(uint64_t *__return_ptr a1@<X8>, unint64_t **this@<X0>, unint64_t a3@<X1>, unint64_t a4@<X2>)
 {
-  *a4 = 0;
-  a4[1] = 0;
+  *a1 = 0;
+  a1[1] = 0;
   v8 = *this;
   v9 = (*this)[5];
   if (v9)
@@ -5150,13 +5130,13 @@ void Alembic::Ogawa::v12::IGroup::getData(unint64_t **this@<X0>, unint64_t a2@<X
     v11 = v8[3];
     if (v10 == v11)
     {
-      if (v9 <= a2)
+      if (v9 <= a3)
       {
         return;
       }
 
       v24 = 0;
-      Alembic::Ogawa::v12::IStreams::read(*v8, a3, v8[6] + 8 * a2 + 8, 8, &v24);
+      Alembic::Ogawa::v12::IStreams::read(*v8, a4, v8[6] + 8 * a3 + 8, 8, &v24);
       v12 = v24;
       if ((v24 & 0x8000000000000000) == 0)
       {
@@ -5170,11 +5150,11 @@ void Alembic::Ogawa::v12::IGroup::getData(unint64_t **this@<X0>, unint64_t a2@<X
       v23 = v15;
       if (v15)
       {
-        atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit((v15 + 8), 1uLL, memory_order_relaxed);
       }
 
-      Alembic::Ogawa::v12::IData::IData(v13, &v22, v12, a3);
-      sub_29A09D974(a4, v14);
+      Alembic::Ogawa::v12::IData::IData(v13, &v22, v12, a4);
+      sub_29A09D974(a1, v14);
       v16 = v23;
       if (!v23)
       {
@@ -5193,7 +5173,7 @@ LABEL_15:
     v11 = v8[3];
   }
 
-  if (a2 < (v11 - v10) >> 3 && (*(v10 + 8 * a2) & 0x8000000000000000) != 0)
+  if (a3 < (v11 - v10) >> 3 && (*(v10 + 8 * a3) & 0x8000000000000000) != 0)
   {
     v17 = operator new(8uLL);
     v18 = v17;
@@ -5206,8 +5186,8 @@ LABEL_15:
       v8 = *this;
     }
 
-    Alembic::Ogawa::v12::IData::IData(v17, &v20, *(v8[2] + 8 * a2), a3);
-    sub_29A09D974(a4, v18);
+    Alembic::Ogawa::v12::IData::IData(v17, &v20, *(v8[2] + 8 * a3), a4);
+    sub_29A09D974(a1, v18);
     v16 = v21;
     if (v21)
     {
@@ -5294,7 +5274,7 @@ uint64_t sub_29A09DA4C(uint64_t a1, uint64_t *a2)
   return a1;
 }
 
-void sub_29A09DAAC(void **a1, void *a2)
+void sub_29A09DAAC(uint64_t *a1, uint64_t a2)
 {
   v3 = *a1;
   *a1 = a2;
@@ -5582,17 +5562,17 @@ uint64_t *Alembic::Ogawa::v12::IStreams::IStreams(uint64_t *a1, uint64_t a2)
   v4[1] = 0;
   *a1 = v4;
   v5 = operator new(0x40uLL);
-  v5->~__shared_weak_count = &unk_2A203E8C0;
-  v5->~__shared_weak_count_0 = 0;
-  v5->__on_zero_shared = 0;
-  v5->__get_deleter = 0;
-  sub_29A0292DC(&v5->~__shared_weak_count_0, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 3);
-  v5->__on_zero_shared_weak = 0;
-  v5[1].~__shared_weak_count = 0;
-  v5[1].~__shared_weak_count_0 = 0;
-  v7 = v5->~__shared_weak_count_0;
-  on_zero_shared = v5->__on_zero_shared;
-  v8 = (on_zero_shared - v7) >> 3;
+  *v5 = &unk_2A203E8C0;
+  *(v5 + 1) = 0;
+  *(v5 + 2) = 0;
+  *(v5 + 3) = 0;
+  sub_29A0292DC(v5 + 1, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 3);
+  *(v5 + 4) = 0;
+  *(v5 + 5) = 0;
+  *(v5 + 6) = 0;
+  v7 = *(v5 + 1);
+  v6 = *(v5 + 2);
+  v8 = (v6 - v7) >> 3;
   if (v8 >> 58)
   {
     v9 = -1;
@@ -5600,15 +5580,15 @@ uint64_t *Alembic::Ogawa::v12::IStreams::IStreams(uint64_t *a1, uint64_t a2)
 
   else
   {
-    v9 = 8 * (on_zero_shared - v7) + 16;
+    v9 = 8 * (v6 - v7) + 16;
   }
 
   v10 = operator new[](v9);
   *v10 = 64;
   v10[1] = v8;
-  if (on_zero_shared == v7)
+  if (v6 == v7)
   {
-    v12 = on_zero_shared;
+    v12 = v6;
   }
 
   else
@@ -5621,24 +5601,24 @@ uint64_t *Alembic::Ogawa::v12::IStreams::IStreams(uint64_t *a1, uint64_t a2)
     }
 
     while (v8 << 6 != v11);
-    on_zero_shared = v5->~__shared_weak_count_0;
-    v12 = v5->__on_zero_shared;
+    v6 = *(v5 + 1);
+    v12 = *(v5 + 2);
   }
 
-  v5[1].__on_zero_shared = (v10 + 2);
-  sub_29A08AF9C(&v5->__on_zero_shared_weak, (v12 - on_zero_shared) >> 3);
-  if (v5->__on_zero_shared != v5->~__shared_weak_count_0)
+  *(v5 + 7) = v10 + 2;
+  sub_29A08AF9C(v5 + 32, (v12 - v6) >> 3);
+  if (*(v5 + 2) != *(v5 + 1))
   {
     v13 = 0;
     do
     {
       std::istream::tellg();
       v19[0] = v19[17];
-      sub_29A018094(&v5->__on_zero_shared_weak, v19);
+      sub_29A018094(v5 + 4, v19);
       ++v13;
     }
 
-    while (v13 < (v5->__on_zero_shared - v5->~__shared_weak_count_0) >> 3);
+    while (v13 < (*(v5 + 2) - *(v5 + 1)) >> 3);
   }
 
   v14 = operator new(0x20uLL);
@@ -5650,7 +5630,7 @@ uint64_t *Alembic::Ogawa::v12::IStreams::IStreams(uint64_t *a1, uint64_t a2)
   v18[0] = v5;
   v18[1] = v14;
   atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
-  v16 = (*(v5->~__shared_weak_count + 2))(v5);
+  v16 = (*(*v5 + 16))(v5);
   sub_29A09DF38(v15, v18, v16);
   sub_29A014BEC(v14);
   sub_29A014BEC(v14);
@@ -5806,7 +5786,7 @@ void sub_29A09E890(uint64_t a1)
 
 uint64_t sub_29A09E8D0(uint64_t a1, uint64_t a2, off_t a3, unint64_t a4, char *a5)
 {
-  result = (*(*a1 + 24))(a1);
+  result = (*(*a1 + 24))(a1, a2);
   if (result)
   {
     v10 = *(a1 + 24);
@@ -5934,35 +5914,35 @@ void sub_29A09EB00(void *a1)
   operator delete(v1);
 }
 
-BOOL sub_29A09EB48(void *a1, unint64_t a2)
+BOOL sub_29A09EB48(void *a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (a2 >= (a1[2] - a1[1]) >> 3)
-  {
-    v3 = 0;
-  }
-
-  else
-  {
-    v3 = a2;
-  }
-
-  v4 = (a1[7] + (v3 << 6));
-  pthread_mutex_lock(v4);
-  v5 = *(a1[1] + 8 * v3);
-  std::istream::seekg();
-  if (*(v5 + *(*v5 - 24) + 32))
   {
     v6 = 0;
   }
 
   else
   {
-    std::istream::read();
-    v6 = *(v5 + *(*v5 - 24) + 32) == 0;
+    v6 = a2;
   }
 
-  pthread_mutex_unlock(v4);
-  return v6;
+  v7 = (a1[7] + (v6 << 6));
+  pthread_mutex_lock(v7);
+  v8 = *(a1[1] + 8 * v6);
+  std::istream::seekg();
+  if (*(v8 + *(*v8 - 24) + 32))
+  {
+    v9 = 0;
+  }
+
+  else
+  {
+    std::istream::read();
+    v9 = *(v8 + *(*v8 - 24) + 32) == 0;
+  }
+
+  pthread_mutex_unlock(v7);
+  return v9;
 }
 
 void sub_29A09EC80(_Unwind_Exception *exception_object, int a2)
@@ -6130,11 +6110,11 @@ void Alembic::Ogawa::v12::OArchive::~OArchive(Alembic::Ogawa::v12::OArchive *thi
   }
 }
 
-uint64_t Alembic::Ogawa::v12::OArchive::getGroup@<X0>(uint64_t this@<X0>, void *a2@<X8>)
+uint64_t *Alembic::Ogawa::v12::OArchive::getGroup@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>)
 {
-  v2 = *(this + 24);
-  *a2 = *(this + 16);
-  a2[1] = v2;
+  v2 = this[3];
+  *a1 = this[2];
+  a1[1] = v2;
   if (v2)
   {
     atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
@@ -6307,7 +6287,7 @@ void Alembic::Ogawa::v12::OData::~OData(Alembic::Ogawa::v12::OData *this)
   sub_29A09D40C(this, 0);
 }
 
-uint64_t **Alembic::Ogawa::v12::OData::rewrite(uint64_t **this, uint64_t a2, void *a3, uint64_t a4)
+uint64_t ****Alembic::Ogawa::v12::OData::rewrite(uint64_t ****this, uint64_t a2, void *a3, uint64_t a4)
 {
   if (a2)
   {
@@ -6579,11 +6559,11 @@ void sub_29A09F7D4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void Alembic::Ogawa::v12::OGroup::~OGroup(Alembic::Ogawa::v12::OGroup *this)
+void Alembic::Ogawa::v12::OGroup::~OGroup(std::__shared_weak_count **this)
 {
   Alembic::Ogawa::v12::OGroup::freeze(this);
   sub_29A0A02D4(this + 2, 0);
-  v2 = *(this + 1);
+  v2 = this[1];
   if (v2)
   {
     std::__shared_weak_count::__release_weak(v2);
@@ -6642,10 +6622,10 @@ void Alembic::Ogawa::v12::OGroup::freeze(Alembic::Ogawa::v12::OGroup *this)
   }
 }
 
-void Alembic::Ogawa::v12::OGroup::addGroup(Alembic::Ogawa::v12::OGroup *this@<X0>, void *a2@<X8>)
+void Alembic::Ogawa::v12::OGroup::addGroup(uint64_t *__return_ptr a1@<X8>, Alembic::Ogawa::v12::OGroup *this@<X0>)
 {
-  *a2 = 0;
-  a2[1] = 0;
+  *a1 = 0;
+  a1[1] = 0;
   v3 = *(this + 2);
   if (*(v3 + 64) == 0x7FFFFFFFFFFFFFFFLL)
   {
@@ -6654,7 +6634,7 @@ void Alembic::Ogawa::v12::OGroup::addGroup(Alembic::Ogawa::v12::OGroup *this@<X0
     v5 = operator new(0x18uLL);
     sub_29A014C58(&v6, this);
     Alembic::Ogawa::v12::OGroup::OGroup(v5, &v6, ((*(*(this + 2) + 48) - *(*(this + 2) + 40)) >> 3) - 1);
-    sub_29A09EEA0(a2, v5);
+    sub_29A09EEA0(a1, v5);
     if (v7)
     {
       sub_29A014BEC(v7);
@@ -6743,13 +6723,13 @@ void sub_29A09FC24(void *a1, uint64_t a2)
   }
 }
 
-void Alembic::Ogawa::v12::OGroup::addData(Alembic::Ogawa::v12::OGroup *this@<X0>, const void *a2@<X2>, uint64_t a3@<X1>, Alembic::Ogawa::v12::OData **a4@<X8>)
+void Alembic::Ogawa::v12::OGroup::addData(Alembic::Ogawa::v12::OData **__return_ptr a1@<X8>, Alembic::Ogawa::v12::OGroup *this@<X0>, const void *a3@<X2>, uint64_t a4@<X1>)
 {
-  Alembic::Ogawa::v12::OGroup::createData(this, a2, a3, a4);
-  if (*a4)
+  Alembic::Ogawa::v12::OGroup::createData(this, a3, a4, a1);
+  if (*a1)
   {
     v6 = *(this + 2);
-    v7 = Alembic::Ogawa::v12::OData::getPos(*a4) | 0x8000000000000000;
+    v7 = Alembic::Ogawa::v12::OData::getPos(*a1) | 0x8000000000000000;
     sub_29A018094((v6 + 40), &v7);
   }
 }
@@ -6852,13 +6832,13 @@ void sub_29A09FE30(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void Alembic::Ogawa::v12::OGroup::addData(Alembic::Ogawa::v12::OGroup *this@<X0>, const unint64_t *a2@<X2>, const void **a3@<X3>, uint64_t a4@<X1>, Alembic::Ogawa::v12::OData **a5@<X8>)
+void Alembic::Ogawa::v12::OGroup::addData(Alembic::Ogawa::v12::OData **__return_ptr a1@<X8>, Alembic::Ogawa::v12::OGroup *this@<X0>, const unint64_t *a3@<X2>, const void **a4@<X3>, uint64_t a5@<X1>)
 {
-  Alembic::Ogawa::v12::OGroup::createData(this, a2, a3, a4, a5);
-  if (*a5)
+  Alembic::Ogawa::v12::OGroup::createData(this, a3, a4, a5, a1);
+  if (*a1)
   {
     v7 = *(this + 2);
-    v8 = Alembic::Ogawa::v12::OData::getPos(*a5) | 0x8000000000000000;
+    v8 = Alembic::Ogawa::v12::OData::getPos(*a1) | 0x8000000000000000;
     sub_29A018094((v7 + 40), &v8);
   }
 }
@@ -7162,11 +7142,12 @@ void Alembic::Ogawa::v12::OStream::~OStream(Alembic::Ogawa::v12::OStream *this)
   sub_29A0A0F84(this, 0);
 }
 
-void sub_29A0A0678(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10)
+void sub_29A0A0678(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
+  va_start(va, a9);
   if (a2)
   {
-    MEMORY[0x29C2C1E60](&a10);
+    MEMORY[0x29C2C1E60](va, a2, a3, a4, a5, a6, a7, a8);
     sub_299FEDEEC(exception_object);
   }
 
@@ -7215,11 +7196,11 @@ uint64_t Alembic::Ogawa::v12::OStream::getAndSeekEndPos(Alembic::Ogawa::v12::OSt
   return v9;
 }
 
-void sub_29A0A0828(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A0A0828(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  MEMORY[0x29C2C1E60](va);
-  pthread_mutex_unlock((v2 + 56));
+  va_start(va, a3);
+  MEMORY[0x29C2C1E60](va, a2);
+  pthread_mutex_unlock((v3 + 56));
   _Unwind_Resume(a1);
 }
 
@@ -7262,11 +7243,11 @@ void *Alembic::Ogawa::v12::OStream::seek(void *this, uint64_t a2)
   return this;
 }
 
-void sub_29A0A09C0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A0A09C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  MEMORY[0x29C2C1E60](va);
-  pthread_mutex_unlock((v2 + 56));
+  va_start(va, a3);
+  MEMORY[0x29C2C1E60](va, a2);
+  pthread_mutex_unlock((v3 + 56));
   _Unwind_Resume(a1);
 }
 
@@ -7297,6 +7278,7 @@ void *Alembic::Ogawa::v12::OStream::write(void *this, const void *a2, uint64_t a
 uint64_t sub_29A0A0A9C(uint64_t a1, __int128 *a2)
 {
   *a1 = 0;
+  v3 = (a1 + 8);
   if (*(a2 + 23) < 0)
   {
     sub_29A008D14((a1 + 8), *a2, *(a2 + 1));
@@ -7304,33 +7286,40 @@ uint64_t sub_29A0A0A9C(uint64_t a1, __int128 *a2)
 
   else
   {
-    v3 = *a2;
+    v4 = *a2;
     *(a1 + 24) = *(a2 + 2);
-    *(a1 + 8) = v3;
+    *v3 = v4;
   }
 
   *(a1 + 32) = 0;
   *(a1 + 40) = 0;
   *(a1 + 48) = 0;
   pthread_mutex_init((a1 + 56), 0);
-  v4 = operator new(0x238uLL);
-  sub_29A0A0C08(v4);
-  if (v4[16])
+  v5 = operator new(0x238uLL);
+  v6 = v5;
+  v7 = v3;
+  if (*(a1 + 31) < 0)
   {
-    *a1 = v4;
-    v5 = (v4 + *(*v4 - 24));
-    v5->__exceptions_ = 5;
-    std::ios_base::clear(v5, v5->__rdstate_);
+    v7 = *v3;
+  }
+
+  sub_29A0A0C08(v5, v7, 36);
+  if (v6[16])
+  {
+    *a1 = v6;
+    v8 = (v6 + *(*v6 - 24));
+    v8->__exceptions_ = 5;
+    std::ios_base::clear(v8, v8->__rdstate_);
   }
 
   else
   {
     if (!std::filebuf::close())
     {
-      std::ios_base::clear((v4 + *(*v4 - 24)), *(v4 + *(*v4 - 24) + 32) | 4);
+      std::ios_base::clear((v6 + *(*v6 - 24)), *(v6 + *(*v6 - 24) + 32) | 4);
     }
 
-    (*(*v4 + 8))(v4);
+    (*(*v6 + 8))(v6);
   }
 
   return a1;
@@ -7348,22 +7337,22 @@ void sub_29A0A0BC8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t *sub_29A0A0C08(uint64_t *a1)
+uint64_t *sub_29A0A0C08(uint64_t *a1, uint64_t a2, int a3)
 {
   a1[58] = 0;
-  v2 = MEMORY[0x29EDC9560] + 64;
+  v4 = MEMORY[0x29EDC9560] + 64;
   a1[52] = MEMORY[0x29EDC9560] + 64;
-  v3 = *(MEMORY[0x29EDC9520] + 16);
-  v4 = *(MEMORY[0x29EDC9520] + 8);
-  *a1 = v4;
-  *(a1 + *(v4 - 24)) = v3;
-  v5 = (a1 + *(*a1 - 24));
-  std::ios_base::init(v5, a1 + 1);
-  v6 = MEMORY[0x29EDC9560] + 24;
-  v5[1].__vftable = 0;
-  v5[1].__fmtflags_ = -1;
+  v5 = *(MEMORY[0x29EDC9520] + 16);
+  v6 = *(MEMORY[0x29EDC9520] + 8);
   *a1 = v6;
-  a1[52] = v2;
+  *(a1 + *(v6 - 24)) = v5;
+  v7 = (a1 + *(*a1 - 24));
+  std::ios_base::init(v7, a1 + 1);
+  v8 = MEMORY[0x29EDC9560] + 24;
+  v7[1].__vftable = 0;
+  v7[1].__fmtflags_ = -1;
+  *a1 = v8;
+  a1[52] = v4;
   MEMORY[0x29C2C1D10](a1 + 1);
   if (!std::filebuf::open())
   {
@@ -7496,7 +7485,7 @@ uint64_t sub_29A0A10C4(float a1, uint64_t a2, int a3)
   }
 }
 
-uint64_t OpenSubdiv::__aapl__::Sdc::Crease::DetermineVertexVertexRule(OpenSubdiv::__aapl__::Sdc::Crease *this, float a2, int a3, float *a4)
+uint64_t OpenSubdiv::__aapl__::Sdc::Crease::DetermineVertexVertexRule(OpenSubdiv::__aapl__::Sdc::Crease *this, float a2, unsigned int a3, float *a4)
 {
   if (a2 > 0.0)
   {
@@ -7533,7 +7522,7 @@ uint64_t OpenSubdiv::__aapl__::Sdc::Crease::DetermineVertexVertexRule(OpenSubdiv
   }
 }
 
-double OpenSubdiv::__aapl__::Sdc::Crease::ComputeFractionalWeightAtVertex(OpenSubdiv::__aapl__::Sdc::Crease *this, float a2, float a3, int a4, float *a5, const float *a6)
+double OpenSubdiv::__aapl__::Sdc::Crease::ComputeFractionalWeightAtVertex(OpenSubdiv::__aapl__::Sdc::Crease *this, float a2, float a3, unsigned int a4, float *a5, const float *a6)
 {
   v6 = a2 > 0.0 && a3 <= 0.0;
   if (a2 <= 0.0 || a3 > 0.0)
@@ -7596,7 +7585,7 @@ double OpenSubdiv::__aapl__::Sdc::Crease::ComputeFractionalWeightAtVertex(OpenSu
   return result;
 }
 
-float sub_29A0A1200(uint64_t a1, int a2, float *a3, float a4)
+float sub_29A0A1200(uint64_t a1, unsigned int a2, float *a3, float a4)
 {
   if (a2 >= 2 && *(a1 + 2))
   {
@@ -7656,7 +7645,7 @@ float sub_29A0A1200(uint64_t a1, int a2, float *a3, float a4)
   return v4;
 }
 
-uint64_t OpenSubdiv::__aapl__::Sdc::Crease::SubdivideEdgeSharpnessesAroundVertex(uint64_t this, int a2, float *a3, float *a4)
+uint64_t OpenSubdiv::__aapl__::Sdc::Crease::SubdivideEdgeSharpnessesAroundVertex(uint64_t this, unsigned int a2, float *a3, float *a4)
 {
   if (a2 > 1 && *(this + 2))
   {
@@ -7903,54 +7892,54 @@ void sub_29A0A1664(void *a1)
   sub_29A0A177C(a1 + 15, v6, &v7);
 }
 
-void sub_29A0A171C(void *a1, unint64_t a2)
+void sub_29A0A171C(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 2;
+  v2 = (result[1] - *result) >> 2;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 4 * a2;
+      result[1] = *result + 4 * a2;
     }
   }
 
   else
   {
-    sub_29A0A2C1C(a1, a2 - v2);
+    sub_29A0A2C1C(result, a2 - v2);
   }
 }
 
-void sub_29A0A174C(void *a1, unint64_t a2)
+void sub_29A0A174C(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 1;
+  v2 = (result[1] - *result) >> 1;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 2 * a2;
+      result[1] = *result + 2 * a2;
     }
   }
 
   else
   {
-    sub_29A0A2D4C(a1, a2 - v2);
+    sub_29A0A2D4C(result, a2 - v2);
   }
 }
 
-void sub_29A0A177C(void *a1, unint64_t a2, __int16 *a3)
+void sub_29A0A177C(void *result, unint64_t a2, __int16 *a3)
 {
-  v3 = (a1[1] - *a1) >> 1;
+  v3 = (result[1] - *result) >> 1;
   if (a2 <= v3)
   {
     if (a2 < v3)
     {
-      a1[1] = *a1 + 2 * a2;
+      result[1] = *result + 2 * a2;
     }
   }
 
   else
   {
-    sub_29A0A2F94(a1, a2 - v3, a3);
+    sub_29A0A2F94(result, a2 - v3, a3);
   }
 }
 
@@ -7980,24 +7969,24 @@ void sub_29A0A17AC(uint64_t a1, int a2)
   }
 }
 
-void sub_29A0A1828(void *a1, unint64_t a2)
+void sub_29A0A1828(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 2;
+  v2 = (result[1] - *result) >> 2;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 4 * a2;
+      result[1] = *result + 4 * a2;
     }
   }
 
   else
   {
-    sub_29A0A32E4(a1, a2 - v2);
+    sub_29A0A32E4(result, a2 - v2);
   }
 }
 
-void sub_29A0A1860(uint64_t a1, int a2)
+void sub_29A0A1860(uint64_t *a1, int a2)
 {
   v145 = *MEMORY[0x29EDCA608];
   v3 = *(a1 + 8);
@@ -8016,8 +8005,8 @@ void sub_29A0A1860(uint64_t a1, int a2)
   sub_29A0A33F8(v124, v7, &v125);
   v8 = ((*(*a1 + 296) - *(*a1 + 288)) >> 2);
   LOWORD(v125) = 0;
-  v120 = (a1 + 120);
-  sub_29A0A177C((a1 + 120), v8, &v125);
+  v120 = a1 + 15;
+  sub_29A0A177C(a1 + 15, v8, &v125);
   v9 = *a1;
   v10 = *(*a1 + 20);
   v140 = &v143;
@@ -8093,7 +8082,7 @@ void sub_29A0A1860(uint64_t a1, int a2)
       v20 = (*(v9 + 288) + 4 * v19);
       v21 = (*(v9 + 312) + 2 * v19);
       v22 = *(v9 + 24);
-      v23 = *(a1 + 24);
+      v23 = a1[3];
       v24 = v17;
       v25 = v140;
       do
@@ -8143,7 +8132,7 @@ void sub_29A0A1860(uint64_t a1, int a2)
               v56 = v43[6] + 4 * v55;
               v57 = *(v54 + 4 * v53);
               v58 = *(v50 + 2 * v46);
-              v59 = *(a1 + 24) + 4 * v55;
+              v59 = a1[3] + 4 * v55;
               v60 = *v51;
               if (*(v41 + 2 * v40) != (v60 != *(v56 + 4 * v58)))
               {
@@ -8164,7 +8153,7 @@ void sub_29A0A1860(uint64_t a1, int a2)
                   v62 = v124[0];
                   *(v124[0] + v60) = 1;
                   v62[v51[1]] = 1;
-                  v63 = *(a1 + 48);
+                  v63 = a1[6];
                   v64 = *(v63 + v42) & 0xFD | (2 * (v13 == v60));
                   *(v63 + v42) = v64;
                   v65 = v64 & 0xFB | (4 * (v13 == v51[1])) | 1;
@@ -8212,7 +8201,7 @@ void sub_29A0A1860(uint64_t a1, int a2)
           v38 = v124[0];
           *(v124[0] + v37) = 1;
           v38[*(v36 + 4)] = 1;
-          v39 = *(a1 + 48);
+          v39 = a1[6];
           LOBYTE(v37) = *(v39 + v35) & 0xFD | (2 * (v13 == v37));
           *(v39 + v35) = v37;
           LOBYTE(v36) = v37 & 0xFB | (4 * (v13 == *(v36 + 4))) | 1;
@@ -8246,7 +8235,7 @@ void sub_29A0A1860(uint64_t a1, int a2)
               v75 = v76;
               if ((*(*(*a1 + 240) + v76) & 2) != 0)
               {
-                *(*(a1 + 48) + v75) |= 8u;
+                *(a1[6] + v75) |= 8u;
               }
 
               --v30;
@@ -8258,9 +8247,9 @@ void sub_29A0A1860(uint64_t a1, int a2)
 
         else
         {
-          *(*(a1 + 48) + *v31) |= 8u;
+          *(a1[6] + *v31) |= 8u;
           v71 = v31[v30 - 1];
-          *(*(a1 + 48) + v71) |= 8u;
+          *(a1[6] + v71) |= 8u;
         }
       }
 
@@ -8368,8 +8357,8 @@ LABEL_71:
     }
 
 LABEL_73:
-    *(*(a1 + 72) + 2 * v13) = v67;
-    *(*(a1 + 96) + 4 * v13) = v14;
+    *(a1[9] + 2 * v13) = v67;
+    *(a1[12] + 4 * v13) = v14;
     v9 = *a1;
     if (v67 >= 2 && v17 >= 1)
     {
@@ -8411,12 +8400,12 @@ LABEL_85:
 
       else
       {
-        v85 = *(*(a1 + 24) + 4 * (*(v77[3] + 8 * *(v82 + 4 * v81) + 4) + *(v84 + 2 * v81)));
+        v85 = *(a1[3] + 4 * (*(v77[3] + 8 * *(v82 + 4 * v81) + 4) + *(v84 + 2 * v81)));
       }
 
-      v86 = *(*(a1 + 72) + 2 * v78);
-      v87 = *(a1 + 96);
-      v88 = (*(a1 + 144) + 4 * *(v87 + 4 * v78));
+      v86 = *(a1[9] + 2 * v78);
+      v87 = a1[12];
+      v88 = (a1[18] + 4 * *(v87 + 4 * v78));
       *v88 = v85;
       if (!*(v124[0] + v78))
       {
@@ -8436,7 +8425,7 @@ LABEL_85:
           v95 = *v92++;
           if (v94 == v95)
           {
-            v88[v94++] = *(*(a1 + 24) + 4 * (*(v77[3] + 8 * *v91 + 4) + *v90));
+            v88[v94++] = *(a1[3] + 4 * (*(v77[3] + 8 * *v91 + 4) + *v90));
           }
 
           ++v90;
@@ -8448,7 +8437,7 @@ LABEL_85:
       }
 
       v122 = *(v87 + 4 * v78);
-      v96 = *(a1 + 168);
+      v96 = a1[21];
       v97 = *(v77[54] + 2 * v78);
       v98 = 1;
       if ((*(a1 + 13) & 1) == 0 && (v97 & 0x11) == 0)
@@ -8603,7 +8592,7 @@ LABEL_149:
             *v102 = v109 | v111;
             if ((*(a1 + 13) & 1) == 0)
             {
-              v112 = *(a1 + 192) + 4 * *(*(a1 + 96) + 4 * v78);
+              v112 = a1[24] + 4 * *(a1[12] + 4 * v78);
               v113 = v99[1];
               *(v112 + v103 - 2) = v113;
               v114 = *v99;
@@ -9663,7 +9652,7 @@ void sub_29A0A32E4(uint64_t a1, unint64_t a2)
   }
 }
 
-void *sub_29A0A33F8(void *a1, uint64_t a2, __int16 *a3)
+uint64_t *sub_29A0A33F8(uint64_t *a1, uint64_t a2, __int16 *a3)
 {
   *a1 = 0;
   a1[1] = 0;

@@ -119,9 +119,9 @@
 
 - (void)layoutSubviews
 {
-  v37.receiver = self;
-  v37.super_class = SKUITableViewCell;
-  [(SKUITableViewCell *)&v37 layoutSubviews];
+  v38.receiver = self;
+  v38.super_class = SKUITableViewCell;
+  [(SKUITableViewCell *)&v38 layoutSubviews];
   [(SKUITableViewCell *)self bounds];
   v4 = v3;
   v6 = v5;
@@ -158,17 +158,17 @@
   [textLabel2 setFrame:{v30, v31, v32, v33}];
 
   textLabel3 = [(SKUITableViewCell *)self textLabel];
-  if (storeShouldReverseLayoutDirection())
+  if (storeShouldReverseLayoutDirection(textLabel3, v36))
   {
-    v36 = 2;
+    v37 = 2;
   }
 
   else
   {
-    v36 = 0;
+    v37 = 0;
   }
 
-  [textLabel3 setTextAlignment:v36];
+  [textLabel3 setTextAlignment:v37];
 }
 
 - (void)_reloadBorderVisibility

@@ -104,7 +104,7 @@
   podcastCopy = podcast;
   episodeCopy = episode;
   selfCopy = self;
-  sub_10030D9F8(podcastCopy, episode, playbackCopy);
+  sub_10030D9F8(podcastCopy, episode, playbackCopy, v12);
 }
 
 - (void)presentPodcast:(id)podcast episodeUuid:(id)uuid episodeNotAvailable:(BOOL)available podcastTab:(unint64_t)tab startPlayback:(BOOL)playback animated:(BOOL)animated
@@ -144,13 +144,19 @@
   v7 = _Block_copy(completion);
   if (v7)
   {
-    *(swift_allocObject() + 16) = v7;
+    v8 = swift_allocObject();
+    *(v8 + 16) = v7;
     v7 = sub_10030F41C;
   }
 
+  else
+  {
+    v8 = 0;
+  }
+
   selfCopy = self;
-  sub_10030EC70(rootCopy, v7);
-  sub_1000112B4(v7);
+  sub_10030EC70(rootCopy, v7, v8, 8);
+  sub_1000112B4(v7, v8);
 }
 
 - (BOOL)isMyPodcastsTabSelected
@@ -177,13 +183,19 @@
   v7 = _Block_copy(completion);
   if (v7)
   {
-    *(swift_allocObject() + 16) = v7;
+    v8 = swift_allocObject();
+    *(v8 + 16) = v7;
     v7 = sub_10030F41C;
+  }
+
+  else
+  {
+    v8 = 0;
   }
 
   selfCopy = self;
   sub_10030EAA0(rootCopy, v7);
-  sub_1000112B4(v7);
+  sub_1000112B4(v7, v8);
 }
 
 - (void)selectFeaturedTabAndPopToRoot:(BOOL)root animated:(BOOL)animated completion:(id)completion
@@ -192,18 +204,24 @@
   v7 = _Block_copy(completion);
   if (v7)
   {
-    *(swift_allocObject() + 16) = v7;
+    v8 = swift_allocObject();
+    *(v8 + 16) = v7;
     v7 = sub_10030F41C;
   }
 
+  else
+  {
+    v8 = 0;
+  }
+
   selfCopy = self;
-  sub_10030EC70(rootCopy, v7);
-  sub_1000112B4(v7);
+  sub_10030EC70(rootCopy, v7, v8, 9);
+  sub_1000112B4(v7, v8);
 }
 
 - (void)presentNowPlayingAnimated:(BOOL)animated
 {
-  sub_100168088(&unk_10057AB00);
+  sub_100168088(&unk_10057AB00, &qword_100406C50);
   selfCopy = self;
 
   BaseObjectGraph.inject<A>(_:)();
@@ -215,7 +233,7 @@
 
 - (void)dismissNowPlayingAnimated:(BOOL)animated
 {
-  sub_100168088(&unk_10057AB00);
+  sub_100168088(&unk_10057AB00, &qword_100406C50);
   selfCopy = self;
 
   BaseObjectGraph.inject<A>(_:)();
@@ -230,19 +248,25 @@
   v5 = _Block_copy(completion);
   if (v5)
   {
-    *(swift_allocObject() + 16) = v5;
+    v6 = swift_allocObject();
+    *(v6 + 16) = v5;
     v5 = sub_10019C604;
   }
 
-  sub_100168088(&unk_10057AB00);
+  else
+  {
+    v6 = 0;
+  }
+
+  sub_100168088(&unk_10057AB00, &qword_100406C50);
   selfCopy = self;
 
   BaseObjectGraph.inject<A>(_:)();
 
-  sub_1000044A0(v7, v7[3]);
+  sub_1000044A0(v8, v8[3]);
   dispatch thunk of EpisodeControllerProtocol.dismissNowPlaying(animated:completion:)();
-  sub_1000112B4(v5);
-  sub_100004590(v7);
+  sub_1000112B4(v5, v6);
+  sub_100004590(v8);
 }
 
 - (void)presentMigration
@@ -309,7 +333,7 @@
     v11 = v10;
     sub_10016A31C(_swiftEmptyArrayStorage);
     type metadata accessor for OpenExternalURLOptionsKey(0);
-    sub_10000E584(&qword_100573120, type metadata accessor for OpenExternalURLOptionsKey);
+    sub_10000E584(&qword_100573120, type metadata accessor for OpenExternalURLOptionsKey, &unk_100400148);
     isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
     [sharedApplication openURL:v11 options:isa completionHandler:0];

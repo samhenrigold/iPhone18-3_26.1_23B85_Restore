@@ -3,16 +3,28 @@
 - (BOOL)isConnected;
 - (SUBMessageEndpoint)init;
 - (id)SUBDefaultPairedDevice;
+- (id)_sendCloudMessage:(id)message replyingTo:(id)to expectingResponse:(BOOL)response useTimeout:(id)timeout isCritical:(BOOL)critical error:(id *)error destinations:(id)destinations;
+- (id)_sendMessage:(id)message replyingTo:(id)to expectingResponse:(BOOL)response useTimeout:(id)timeout isCritical:(BOOL)critical error:(id *)error;
 - (id)dataCompress:(id)compress shouldCompress:(BOOL)shouldCompress;
 - (id)getMessageTimeout:(BOOL)timeout useTimeout:(id)useTimeout;
 - (void)_checkConnectivityForQueuedDisconnectedBlocks;
+- (void)_sendCloudMessage:(id)message isCritical:(BOOL)critical useTimeout:(id)timeout destinations:(id)destinations completion:(id)completion;
+- (void)_sendCloudMessage:(id)message isCritical:(BOOL)critical useTimeout:(id)timeout withReply:(id)reply destinations:(id)destinations;
+- (void)_sendErrorReply:(id)reply toMessage:(id)message isCritical:(BOOL)critical;
+- (void)_sendMessage:(id)message isCritical:(BOOL)critical useTimeout:(id)timeout completion:(id)completion;
+- (void)_sendMessage:(id)message isCritical:(BOOL)critical useTimeout:(id)timeout withReply:(id)reply;
+- (void)_sendReply:(id)reply toMessage:(id)message isCritical:(BOOL)critical;
 - (void)executeBlockWhenDisconnected:(id)disconnected;
 - (void)handleMessage:(id)message withContext:(id)context;
 - (void)resume;
 - (void)sendCloudMessage:(id)message isCritical:(BOOL)critical useTimeout:(id)timeout destinations:(id)destinations completion:(id)completion;
 - (void)sendCloudMessage:(id)message isCritical:(BOOL)critical useTimeout:(id)timeout withReply:(id)reply destinations:(id)destinations;
+- (void)sendCloudMessage:(id)message toBTID:(id)d isCritical:(BOOL)critical usetimeout:(id)usetimeout completion:(id)completion;
+- (void)sendCloudMessageToCompanion:(id)companion isCritical:(BOOL)critical usetimeout:(id)usetimeout completion:(id)completion;
 - (void)sendErrorReply:(id)reply toMessage:(id)message isCritical:(BOOL)critical;
+- (void)sendMessage:(id)message isCritical:(BOOL)critical useTimeout:(id)timeout completion:(id)completion;
 - (void)sendMessage:(id)message isCritical:(BOOL)critical useTimeout:(id)timeout withReply:(id)reply;
+- (void)sendReply:(id)reply toMessage:(id)message isCritical:(BOOL)critical;
 - (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error;
 - (void)service:(id)service account:(id)account incomingData:(id)data fromID:(id)d context:(id)context;
 - (void)service:(id)service account:(id)account incomingResourceAtURL:(id)l fromID:(id)d context:(id)context;
@@ -239,6 +251,45 @@ LABEL_11:
   _Block_object_dispose(v8, 8);
 }
 
+- (void)sendMessage:(id)message isCritical:(BOOL)critical useTimeout:(id)timeout completion:(id)completion
+{
+  criticalCopy = critical;
+  messageCopy = message;
+  timeoutCopy = timeout;
+  completionCopy = completion;
+  dispatch_assert_queue_not_V2(self->_queue);
+  v13 = [(SUBMessageEndpoint *)self getMessageTimeout:criticalCopy useTimeout:timeoutCopy];
+  v14 = [v13 unsignedLongLongValue] + 60;
+  v29[0] = 0;
+  v29[1] = v29;
+  v29[2] = 0x3032000000;
+  v29[3] = sub_1000140DC;
+  v29[4] = sub_1000140EC;
+  v15 = [SUBTransaction alloc];
+  v16 = [NSString stringWithFormat:@"%s", "com.apple.SoftwareUpdateBridge.sendMessage.1.1"];
+  v17 = [(SUBTransaction *)v15 initWithNameAndTimeout:v16 timeOut:v14];
+
+  v30 = v17;
+  queue = self->_queue;
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_10001496C;
+  block[3] = &unk_10002D6C8;
+  block[4] = self;
+  v23 = messageCopy;
+  v28 = criticalCopy;
+  v24 = timeoutCopy;
+  v25 = completionCopy;
+  v26 = v29;
+  v27 = v14;
+  v19 = timeoutCopy;
+  v20 = messageCopy;
+  v21 = completionCopy;
+  dispatch_async(queue, block);
+
+  _Block_object_dispose(v29, 8);
+}
+
 - (id)getMessageTimeout:(BOOL)timeout useTimeout:(id)useTimeout
 {
   timeoutCopy = timeout;
@@ -260,6 +311,69 @@ LABEL_11:
   }
 
   return v7;
+}
+
+- (void)_sendMessage:(id)message isCritical:(BOOL)critical useTimeout:(id)timeout completion:(id)completion
+{
+  criticalCopy = critical;
+  messageCopy = message;
+  timeoutCopy = timeout;
+  completionCopy = completion;
+  dispatch_assert_queue_V2(self->_queue);
+  v27[0] = 0;
+  v27[1] = v27;
+  v27[2] = 0x3032000000;
+  v27[3] = sub_1000140DC;
+  v27[4] = sub_1000140EC;
+  v28 = 0;
+  obj = 0;
+  v13 = [(SUBMessageEndpoint *)self _sendMessage:messageCopy replyingTo:0 expectingResponse:0 useTimeout:timeoutCopy isCritical:criticalCopy error:&obj];
+  objc_storeStrong(&v28, obj);
+  if (completionCopy)
+  {
+    if (v13)
+    {
+      v14 = [completionCopy copy];
+      [(NSMutableDictionary *)self->_pendingMessageCompletions setObject:v14 forKeyedSubscript:v13];
+    }
+
+    else
+    {
+      v24[0] = 0;
+      v24[1] = v24;
+      v24[2] = 0x3032000000;
+      v24[3] = sub_1000140DC;
+      v24[4] = sub_1000140EC;
+      if (timeoutCopy)
+      {
+        unsignedLongLongValue = [timeoutCopy unsignedLongLongValue];
+      }
+
+      else
+      {
+        unsignedLongLongValue = 0;
+      }
+
+      v16 = [SUBTransaction alloc];
+      v17 = [NSString stringWithFormat:@"%s", "com.apple.SoftwareUpdateBridge._sendMessage.1"];
+      v18 = [(SUBTransaction *)v16 initWithNameAndTimeout:v17 timeOut:unsignedLongLongValue];
+
+      v25 = v18;
+      callbackQueue = self->_callbackQueue;
+      block[0] = _NSConcreteStackBlock;
+      block[1] = 3221225472;
+      block[2] = sub_100014E68;
+      block[3] = &unk_10002D6F0;
+      v21 = completionCopy;
+      v22 = v27;
+      v23 = v24;
+      dispatch_async(callbackQueue, block);
+
+      _Block_object_dispose(v24, 8);
+    }
+  }
+
+  _Block_object_dispose(v27, 8);
 }
 
 - (void)sendMessage:(id)message isCritical:(BOOL)critical useTimeout:(id)timeout withReply:(id)reply
@@ -295,6 +409,77 @@ LABEL_11:
   dispatch_async(queue, block);
 
   _Block_object_dispose(v26, 8);
+}
+
+- (void)_sendMessage:(id)message isCritical:(BOOL)critical useTimeout:(id)timeout withReply:(id)reply
+{
+  criticalCopy = critical;
+  replyCopy = reply;
+  queue = self->_queue;
+  timeoutCopy = timeout;
+  messageCopy = message;
+  dispatch_assert_queue_V2(queue);
+  v27 = 0;
+  v14 = [(SUBMessageEndpoint *)self _sendMessage:messageCopy replyingTo:0 expectingResponse:replyCopy != 0 useTimeout:timeoutCopy isCritical:criticalCopy error:&v27];
+
+  v15 = v27;
+  if (replyCopy)
+  {
+    if (v14)
+    {
+      v16 = [replyCopy copy];
+      [(NSMutableDictionary *)self->_pendingMessageReplies setObject:v16 forKeyedSubscript:v14];
+    }
+
+    else
+    {
+      v25[0] = 0;
+      v25[1] = v25;
+      v25[2] = 0x3032000000;
+      v25[3] = sub_1000140DC;
+      v25[4] = sub_1000140EC;
+      v17 = [SUBTransaction alloc];
+      v18 = [NSString stringWithFormat:@"%s", "com.apple.SoftwareUpdateBridge._sendMessage.2"];
+      v19 = [(SUBTransaction *)v17 initWithNameAndTimeout:v18 timeOut:0];
+
+      v26 = v19;
+      callbackQueue = self->_callbackQueue;
+      block[0] = _NSConcreteStackBlock;
+      block[1] = 3221225472;
+      block[2] = sub_1000154C0;
+      block[3] = &unk_10002D768;
+      v23 = replyCopy;
+      v22 = v15;
+      v24 = v25;
+      dispatch_async(callbackQueue, block);
+
+      _Block_object_dispose(v25, 8);
+    }
+  }
+}
+
+- (void)sendCloudMessage:(id)message toBTID:(id)d isCritical:(BOOL)critical usetimeout:(id)usetimeout completion:(id)completion
+{
+  criticalCopy = critical;
+  cloudService = self->_cloudService;
+  completionCopy = completion;
+  usetimeoutCopy = usetimeout;
+  messageCopy = message;
+  v16 = [(IDSService *)cloudService devicesForBTUUID:d];
+  anyObject = [v16 anyObject];
+
+  v18 = IDSCopyIDForDevice();
+  v19 = [NSSet setWithObject:v18];
+
+  v20 = softwareupdatebridge_log;
+  if (os_log_type_enabled(softwareupdatebridge_log, OS_LOG_TYPE_DEFAULT))
+  {
+    v21 = 138412290;
+    v22 = v19;
+    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Sending to ids device: %@", &v21, 0xCu);
+  }
+
+  [(SUBMessageEndpoint *)self sendCloudMessage:messageCopy isCritical:criticalCopy useTimeout:usetimeoutCopy destinations:v19 completion:completionCopy];
 }
 
 - (void)sendCloudMessage:(id)message isCritical:(BOOL)critical useTimeout:(id)timeout destinations:(id)destinations completion:(id)completion
@@ -346,6 +531,64 @@ LABEL_11:
   _Block_object_dispose(v33, 8);
 }
 
+- (void)_sendCloudMessage:(id)message isCritical:(BOOL)critical useTimeout:(id)timeout destinations:(id)destinations completion:(id)completion
+{
+  criticalCopy = critical;
+  timeoutCopy = timeout;
+  completionCopy = completion;
+  queue = self->_queue;
+  destinationsCopy = destinations;
+  messageCopy = message;
+  dispatch_assert_queue_V2(queue);
+  v31 = 0;
+  v17 = [(SUBMessageEndpoint *)self _sendCloudMessage:messageCopy replyingTo:0 expectingResponse:0 useTimeout:timeoutCopy isCritical:criticalCopy error:&v31 destinations:destinationsCopy];
+
+  v18 = v31;
+  if (completionCopy)
+  {
+    if (v17)
+    {
+      v19 = [completionCopy copy];
+      [(NSMutableDictionary *)self->_pendingMessageCompletions setObject:v19 forKeyedSubscript:v17];
+    }
+
+    else
+    {
+      if (timeoutCopy)
+      {
+        unsignedLongLongValue = [timeoutCopy unsignedLongLongValue];
+      }
+
+      else
+      {
+        unsignedLongLongValue = 0;
+      }
+
+      v29[0] = 0;
+      v29[1] = v29;
+      v29[2] = 0x3032000000;
+      v29[3] = sub_1000140DC;
+      v29[4] = sub_1000140EC;
+      v21 = [SUBTransaction alloc];
+      v22 = [NSString stringWithFormat:@"%s", "com.apple.SoftwareUpdateBridge._sendCloudMessage1"];
+      v23 = [(SUBTransaction *)v21 initWithNameAndTimeout:v22 timeOut:unsignedLongLongValue];
+
+      v30 = v23;
+      callbackQueue = self->_callbackQueue;
+      block[0] = _NSConcreteStackBlock;
+      block[1] = 3221225472;
+      block[2] = sub_100015CF0;
+      block[3] = &unk_10002D768;
+      v27 = completionCopy;
+      v26 = v18;
+      v28 = v29;
+      dispatch_async(callbackQueue, block);
+
+      _Block_object_dispose(v29, 8);
+    }
+  }
+}
+
 - (void)sendCloudMessage:(id)message isCritical:(BOOL)critical useTimeout:(id)timeout withReply:(id)reply destinations:(id)destinations
 {
   messageCopy = message;
@@ -395,6 +638,124 @@ LABEL_11:
   _Block_object_dispose(v33, 8);
 }
 
+- (void)_sendCloudMessage:(id)message isCritical:(BOOL)critical useTimeout:(id)timeout withReply:(id)reply destinations:(id)destinations
+{
+  criticalCopy = critical;
+  timeoutCopy = timeout;
+  replyCopy = reply;
+  queue = self->_queue;
+  destinationsCopy = destinations;
+  messageCopy = message;
+  dispatch_assert_queue_V2(queue);
+  v31 = 0;
+  v17 = [(SUBMessageEndpoint *)self _sendCloudMessage:messageCopy replyingTo:0 expectingResponse:replyCopy != 0 useTimeout:timeoutCopy isCritical:criticalCopy error:&v31 destinations:destinationsCopy];
+
+  v18 = v31;
+  if (replyCopy)
+  {
+    if (v17)
+    {
+      v19 = [replyCopy copy];
+      [(NSMutableDictionary *)self->_pendingMessageReplies setObject:v19 forKeyedSubscript:v17];
+    }
+
+    else
+    {
+      if (timeoutCopy)
+      {
+        unsignedLongLongValue = [timeoutCopy unsignedLongLongValue];
+      }
+
+      else
+      {
+        unsignedLongLongValue = 0;
+      }
+
+      v29[0] = 0;
+      v29[1] = v29;
+      v29[2] = 0x3032000000;
+      v29[3] = sub_1000140DC;
+      v29[4] = sub_1000140EC;
+      v21 = [SUBTransaction alloc];
+      v22 = [NSString stringWithFormat:@"%s", "com.apple.SoftwareUpdateBridge._sendCloudMessage2"];
+      v23 = [(SUBTransaction *)v21 initWithNameAndTimeout:v22 timeOut:unsignedLongLongValue];
+
+      v30 = v23;
+      callbackQueue = self->_callbackQueue;
+      block[0] = _NSConcreteStackBlock;
+      block[1] = 3221225472;
+      block[2] = sub_1000163C8;
+      block[3] = &unk_10002D768;
+      v27 = replyCopy;
+      v26 = v18;
+      v28 = v29;
+      dispatch_async(callbackQueue, block);
+
+      _Block_object_dispose(v29, 8);
+    }
+  }
+}
+
+- (void)sendReply:(id)reply toMessage:(id)message isCritical:(BOOL)critical
+{
+  criticalCopy = critical;
+  replyCopy = reply;
+  messageCopy = message;
+  dispatch_assert_queue_not_V2(self->_queue);
+  v10 = [(SUBMessageEndpoint *)self getMessageTimeout:criticalCopy useTimeout:0];
+  v23[0] = 0;
+  v23[1] = v23;
+  v23[2] = 0x3032000000;
+  v23[3] = sub_1000140DC;
+  v23[4] = sub_1000140EC;
+  unsignedLongLongValue = [v10 unsignedLongLongValue];
+  v12 = [SUBTransaction alloc];
+  v13 = [NSString stringWithFormat:@"%s", "com.apple.SoftwareUpdateBridge.sendReply"];
+  v14 = [(SUBTransaction *)v12 initWithNameAndTimeout:v13 timeOut:unsignedLongLongValue + 60];
+
+  v24 = v14;
+  queue = self->_queue;
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_1000165E8;
+  block[3] = &unk_10002D7B8;
+  block[4] = self;
+  v19 = replyCopy;
+  v22 = criticalCopy;
+  v20 = messageCopy;
+  v21 = v23;
+  v16 = messageCopy;
+  v17 = replyCopy;
+  dispatch_async(queue, block);
+
+  _Block_object_dispose(v23, 8);
+}
+
+- (void)_sendReply:(id)reply toMessage:(id)message isCritical:(BOOL)critical
+{
+  criticalCopy = critical;
+  messageCopy = message;
+  queue = self->_queue;
+  replyCopy = reply;
+  dispatch_assert_queue_V2(queue);
+  v14 = 0;
+  v11 = [(SUBMessageEndpoint *)self _sendMessage:replyCopy replyingTo:messageCopy expectingResponse:0 useTimeout:0 isCritical:criticalCopy error:&v14];
+
+  v12 = v14;
+  if (!v11)
+  {
+    v13 = softwareupdatebridge_log;
+    if (os_log_type_enabled(softwareupdatebridge_log, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138543618;
+      v16 = messageCopy;
+      v17 = 2114;
+      v18 = v12;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Failed to send reply to message identifier '%{public}@': %{public}@", buf, 0x16u);
+    }
+  }
+}
+
 - (void)setHandler:(id)handler forMessagesOfType:(id)type
 {
   handlerCopy = handler;
@@ -429,6 +790,184 @@ LABEL_11:
   v9 = typesCopy;
   v10 = handlerCopy;
   dispatch_sync(queue, block);
+}
+
+- (id)_sendCloudMessage:(id)message replyingTo:(id)to expectingResponse:(BOOL)response useTimeout:(id)timeout isCritical:(BOOL)critical error:(id *)error destinations:(id)destinations
+{
+  criticalCopy = critical;
+  responseCopy = response;
+  messageCopy = message;
+  toCopy = to;
+  timeoutCopy = timeout;
+  destinationsCopy = destinations;
+  dispatch_assert_queue_V2(self->_queue);
+  if (messageCopy)
+  {
+    v58 = destinationsCopy;
+    +[NSMutableDictionary dictionary];
+    v62[0] = _NSConcreteStackBlock;
+    v62[1] = 3221225472;
+    v62[2] = sub_10001703C;
+    v23 = v62[3] = &unk_10002D288;
+    v63 = v23;
+    [messageCopy enumerateKeysAndObjectsUsingBlock:v62];
+    v61 = 0;
+    v24 = [NSPropertyListSerialization dataWithPropertyList:v23 format:200 options:0 error:&v61];
+    v29 = v61;
+    if (v24)
+    {
+      v56 = timeoutCopy;
+      v68 = IDSSendMessageOptionExpectsPeerResponseKey;
+      v30 = [NSNumber numberWithBool:responseCopy];
+      v69 = v30;
+      [NSDictionary dictionaryWithObjects:&v69 forKeys:&v68 count:1];
+      v31 = v57 = toCopy;
+      v32 = [v31 mutableCopy];
+
+      if (v57)
+      {
+        [v32 setObject:v57 forKeyedSubscript:IDSSendMessageOptionPeerResponseIdentifierKey];
+      }
+
+      v33 = &off_10002F580;
+      if (criticalCopy)
+      {
+        v33 = &off_10002F568;
+        v34 = 300;
+      }
+
+      else
+      {
+        v34 = 200;
+      }
+
+      if (v56)
+      {
+        v35 = v56;
+      }
+
+      else
+      {
+        v35 = v33;
+      }
+
+      [v32 setObject:v35 forKeyedSubscript:IDSSendMessageOptionTimeoutKey];
+      cloudService = self->_cloudService;
+      v59 = v29;
+      v60 = 0;
+      v37 = [(IDSService *)cloudService sendData:v24 toDestinations:v58 priority:v34 options:v32 identifier:&v60 error:&v59];
+      v38 = v60;
+      v39 = v59;
+
+      v40 = softwareupdatebridge_log;
+      v41 = os_log_type_enabled(softwareupdatebridge_log, OS_LOG_TYPE_DEFAULT);
+      if (v37)
+      {
+        toCopy = v57;
+        if (v57)
+        {
+          timeoutCopy = v56;
+          if (v41)
+          {
+            *buf = 138412546;
+            v65 = v57;
+            v66 = 2112;
+            v67 = v38;
+            _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "Sent message reply to: %@ with identifier: %@", buf, 0x16u);
+          }
+        }
+
+        else
+        {
+          timeoutCopy = v56;
+          if (v41)
+          {
+            v50 = SUBMessageTypeKey[0];
+            v51 = v40;
+            v52 = [NSString stringWithUTF8String:v50];
+            v53 = [messageCopy objectForKeyedSubscript:v52];
+            *buf = 138412546;
+            v65 = v53;
+            v66 = 2112;
+            v67 = v38;
+            _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_DEFAULT, "Sent message: %@ with identifier: %@", buf, 0x16u);
+
+            timeoutCopy = v56;
+            toCopy = 0;
+          }
+        }
+
+        v47 = v38;
+      }
+
+      else
+      {
+        if (v41)
+        {
+          *buf = 138412290;
+          v65 = v39;
+          _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "Failed to send message: %@", buf, 0xCu);
+        }
+
+        if (error)
+        {
+          *error = SUBError(@"SUBError", 2, v39, @"Failed to send message: %@", v42, v43, v44, v45, v39);
+        }
+
+        v49 = softwareupdatebridge_log;
+        if (os_log_type_enabled(softwareupdatebridge_log, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 138412290;
+          v65 = v39;
+          _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEFAULT, "Failed to send message: %@", buf, 0xCu);
+        }
+
+        v47 = 0;
+        timeoutCopy = v56;
+        toCopy = v57;
+      }
+    }
+
+    else
+    {
+      if (error)
+      {
+        *error = SUBError(@"SUBError", 1, v29, @"Failed to serialize message '%@'", v25, v26, v27, v28, messageCopy);
+      }
+
+      v48 = softwareupdatebridge_log;
+      if (os_log_type_enabled(softwareupdatebridge_log, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138412290;
+        v65 = messageCopy;
+        _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEFAULT, "Failed to serialize message '%@'", buf, 0xCu);
+      }
+
+      v47 = 0;
+      v39 = v29;
+    }
+
+    destinationsCopy = v58;
+  }
+
+  else
+  {
+    if (error)
+    {
+      *error = SUBError(@"SUBError", 1, 0, @"Cannot send nil message", v19, v20, v21, v22, v55);
+    }
+
+    v46 = softwareupdatebridge_log;
+    if (os_log_type_enabled(softwareupdatebridge_log, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEFAULT, "Cannot send nil message", buf, 2u);
+    }
+
+    v47 = 0;
+  }
+
+  return v47;
 }
 
 - (id)dataCompress:(id)compress shouldCompress:(BOOL)shouldCompress
@@ -504,6 +1043,241 @@ LABEL_19:
   }
 
   return v7;
+}
+
+- (id)_sendMessage:(id)message replyingTo:(id)to expectingResponse:(BOOL)response useTimeout:(id)timeout isCritical:(BOOL)critical error:(id *)error
+{
+  criticalCopy = critical;
+  responseCopy = response;
+  messageCopy = message;
+  toCopy = to;
+  timeoutCopy = timeout;
+  dispatch_assert_queue_V2(self->_queue);
+  if (messageCopy)
+  {
+    v66 = timeoutCopy;
+    v67 = [(SUBMessageEndpoint *)self getMessageTimeout:criticalCopy useTimeout:timeoutCopy];
+    +[NSMutableDictionary dictionary];
+    v90[0] = _NSConcreteStackBlock;
+    v90[1] = 3221225472;
+    v90[2] = sub_100017C04;
+    v68 = v90[3] = &unk_10002D288;
+    v91 = v68;
+    [messageCopy enumerateKeysAndObjectsUsingBlock:v90];
+    *v84 = 0;
+    v85 = v84;
+    v86 = 0x3032000000;
+    v87 = sub_1000140DC;
+    v88 = sub_1000140EC;
+    v89 = 0;
+    obj = 0;
+    v69 = [NSPropertyListSerialization dataWithPropertyList:v68 format:200 options:0 error:&obj];
+    objc_storeStrong(&v89, obj);
+    if (!v69)
+    {
+      if (error)
+      {
+        *error = SUBError(@"SUBError", 1, *(v85 + 5), @"Failed to serialize message '%@'", v20, v21, v22, v23, messageCopy);
+      }
+
+      v49 = softwareupdatebridge_log;
+      if (os_log_type_enabled(softwareupdatebridge_log, OS_LOG_TYPE_DEFAULT))
+      {
+        LODWORD(v99) = 138412290;
+        *(&v99 + 4) = messageCopy;
+        _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEFAULT, "Failed to serialize message '%@'", &v99, 0xCu);
+      }
+
+      v48 = 0;
+      goto LABEL_50;
+    }
+
+    *&v99 = 0;
+    *(&v99 + 1) = &v99;
+    v100 = 0x3032000000;
+    v101 = sub_1000140DC;
+    v102 = sub_1000140EC;
+    v103 = 0;
+    sUBDefaultPairedDevice = [(SUBMessageEndpoint *)self SUBDefaultPairedDevice];
+    if (!sUBDefaultPairedDevice)
+    {
+      if (error)
+      {
+        *error = SUBError(@"SUBError", 1, *(v85 + 5), @"Can not send message without default paired device '%@'", v24, v25, v26, v27, messageCopy);
+      }
+
+      v50 = softwareupdatebridge_log;
+      if (os_log_type_enabled(softwareupdatebridge_log, OS_LOG_TYPE_DEFAULT))
+      {
+        LODWORD(v94) = 138412290;
+        *(&v94 + 4) = messageCopy;
+        _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEFAULT, "Can not send message without default paired device '%@'", &v94, 0xCu);
+      }
+
+      v48 = 0;
+      goto LABEL_49;
+    }
+
+    v65 = sUBDefaultPairedDevice;
+    v29 = [NSSet setWithObject:sUBDefaultPairedDevice];
+    v97 = IDSSendMessageOptionExpectsPeerResponseKey;
+    v30 = [NSNumber numberWithBool:responseCopy];
+    v98 = v30;
+    v31 = [NSDictionary dictionaryWithObjects:&v98 forKeys:&v97 count:1];
+    v32 = [v31 mutableCopy];
+
+    if (toCopy)
+    {
+      [v32 setObject:toCopy forKeyedSubscript:IDSSendMessageOptionPeerResponseIdentifierKey];
+    }
+
+    [v32 setObject:v67 forKeyedSubscript:IDSSendMessageOptionTimeoutKey];
+    [v32 setObject:&__kCFBooleanFalse forKeyedSubscript:IDSSendMessageOptionEnforceRemoteTimeoutsKey];
+    v33 = dispatch_semaphore_create(0);
+    *&v94 = 0;
+    *(&v94 + 1) = &v94;
+    v95 = 0x2020000000;
+    v96 = 0;
+    longLongValue = [v67 longLongValue];
+    sendMessageQueue = self->_sendMessageQueue;
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_100017CAC;
+    block[3] = &unk_10002D808;
+    if (criticalCopy)
+    {
+      v36 = 300;
+    }
+
+    else
+    {
+      v36 = 200;
+    }
+
+    v78 = &v94;
+    block[4] = self;
+    v72 = v69;
+    v63 = v29;
+    v73 = v63;
+    v81 = v36;
+    v64 = v32;
+    v74 = v64;
+    v79 = &v99;
+    v80 = v84;
+    errorCopy = error;
+    v37 = toCopy;
+    v75 = v37;
+    v38 = messageCopy;
+    v76 = v38;
+    v39 = v33;
+    v77 = v39;
+    dispatch_async(sendMessageQueue, block);
+    v40 = dispatch_time(0, 1000000000 * longLongValue + 10000000000);
+    if (dispatch_semaphore_wait(v39, v40))
+    {
+      if (toCopy)
+      {
+        if (error)
+        {
+          *error = SUBError(@"SUBError", 48, 0, @"IDS timed out on sending message reply to: %@", v41, v42, v43, v44, v37);
+        }
+
+        v45 = softwareupdatebridge_log;
+        if (os_log_type_enabled(softwareupdatebridge_log, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 138412290;
+          v93 = v37;
+          _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "IDS timed out on sending message reply to: %@", buf, 0xCu);
+        }
+      }
+
+      else
+      {
+        if (error)
+        {
+          v51 = [NSString stringWithUTF8String:SUBMessageTypeKey[0]];
+          v56 = [v38 objectForKeyedSubscript:v51];
+          if (v56)
+          {
+            longLongValue = [NSString stringWithUTF8String:SUBMessageTypeKey[0]];
+            sendMessageQueue = [v38 objectForKeyedSubscript:longLongValue];
+          }
+
+          else
+          {
+            sendMessageQueue = @"Unknown";
+          }
+
+          *error = SUBError(@"SUBError", 48, 0, @"IDS timed out sending message: %@", v52, v53, v54, v55, sendMessageQueue);
+          if (v56)
+          {
+          }
+        }
+
+        v57 = softwareupdatebridge_log;
+        if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
+        {
+          v58 = [NSString stringWithUTF8String:SUBMessageTypeKey[0]];
+          v59 = [v38 objectForKeyedSubscript:v58];
+          if (v59)
+          {
+            sendMessageQueue = [NSString stringWithUTF8String:SUBMessageTypeKey[0]];
+            v60 = [v38 objectForKeyedSubscript:sendMessageQueue];
+          }
+
+          else
+          {
+            v60 = @"Unknown";
+          }
+
+          *buf = 138412290;
+          v93 = v60;
+          _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEFAULT, "IDS timed out sending message: %@", buf, 0xCu);
+          if (v59)
+          {
+          }
+        }
+      }
+    }
+
+    else if (*(*(&v94 + 1) + 24) == 1)
+    {
+      v48 = *(*(&v99 + 1) + 40);
+LABEL_48:
+
+      _Block_object_dispose(&v94, 8);
+      sUBDefaultPairedDevice = v65;
+LABEL_49:
+
+      _Block_object_dispose(&v99, 8);
+LABEL_50:
+
+      _Block_object_dispose(v84, 8);
+      v46 = v66;
+      goto LABEL_51;
+    }
+
+    v48 = 0;
+    goto LABEL_48;
+  }
+
+  v46 = timeoutCopy;
+  if (error)
+  {
+    *error = SUBError(@"SUBError", 1, 0, @"Cannot send nil message", v16, v17, v18, v19, v62);
+  }
+
+  v47 = softwareupdatebridge_log;
+  if (os_log_type_enabled(softwareupdatebridge_log, OS_LOG_TYPE_DEFAULT))
+  {
+    *v84 = 0;
+    _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "Cannot send nil message", v84, 2u);
+  }
+
+  v48 = 0;
+LABEL_51:
+
+  return v48;
 }
 
 - (id)SUBDefaultPairedDevice
@@ -600,6 +1374,141 @@ LABEL_17:
   dispatch_async(queue, block);
 
   _Block_object_dispose(v21, 8);
+}
+
+- (void)sendCloudMessageToCompanion:(id)companion isCritical:(BOOL)critical usetimeout:(id)usetimeout completion:(id)completion
+{
+  criticalCopy = critical;
+  companionCopy = companion;
+  usetimeoutCopy = usetimeout;
+  completionCopy = completion;
+  if (companionCopy)
+  {
+    v11 = [NSString stringWithUTF8String:SUBMessageTypeKey[0]];
+    v12 = [(__CFString *)companionCopy objectForKeyedSubscript:v11];
+    if (v12)
+    {
+      v13 = [NSString stringWithUTF8String:SUBMessageTypeKey[0]];
+      v14 = [(__CFString *)companionCopy objectForKeyedSubscript:v13];
+    }
+
+    else
+    {
+      v14 = @"Unknown";
+    }
+  }
+
+  else
+  {
+    v14 = @"Unknown";
+  }
+
+  v15 = +[NRPairedDeviceRegistry sharedInstance];
+  getPairedDevices = [v15 getPairedDevices];
+  firstObject = [getPairedDevices firstObject];
+
+  v18 = [firstObject objectForKeyedSubscript:_NRDevicePropertyBluetoothIdentifier];
+  v19 = [(IDSService *)self->_cloudService devicesForBTUUID:v18];
+  anyObject = [v19 anyObject];
+
+  if (anyObject)
+  {
+    v31 = v14;
+    v21 = criticalCopy;
+    v22 = IDSCopyIDForDevice();
+    if (v22)
+    {
+      v23 = IDSCopyIDForDevice();
+      v24 = [NSSet setWithObject:v23];
+
+      v25 = softwareupdatebridge_log;
+      if (os_log_type_enabled(softwareupdatebridge_log, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138412546;
+        v35 = v31;
+        v36 = 2112;
+        v37 = v24;
+        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "[SendClouldMessageToCompanion]: Sending message %@ to ids device: %@", buf, 0x16u);
+      }
+
+      selfCopy = self;
+      v28 = completionCopy;
+      v27 = usetimeoutCopy;
+      [(SUBMessageEndpoint *)selfCopy sendCloudMessage:companionCopy isCritical:v21 useTimeout:usetimeoutCopy destinations:v24 completion:completionCopy];
+    }
+
+    else
+    {
+      v30 = softwareupdatebridge_log;
+      v28 = completionCopy;
+      v27 = usetimeoutCopy;
+      if (os_log_type_enabled(softwareupdatebridge_log, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138412290;
+        v35 = companionCopy;
+        _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "[SendClouldMessageToCompanion]: Failed to determine IDS identifier for cloudService device. Not forwarding message of type %@", buf, 0xCu);
+      }
+    }
+
+    v14 = v31;
+  }
+
+  else
+  {
+    v29 = softwareupdatebridge_log;
+    v28 = completionCopy;
+    v27 = usetimeoutCopy;
+    if (os_log_type_enabled(softwareupdatebridge_log, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412290;
+      v35 = v14;
+      _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "[SendClouldMessageToCompanion]: No IDS device was found via cloudService. Not forwarding message of type %@", buf, 0xCu);
+    }
+  }
+}
+
+- (void)_sendErrorReply:(id)reply toMessage:(id)message isCritical:(BOOL)critical
+{
+  criticalCopy = critical;
+  replyCopy = reply;
+  messageCopy = message;
+  dispatch_assert_queue_V2(self->_queue);
+  if (messageCopy)
+  {
+    v10 = [NSKeyedArchiver archivedDataWithRootObject:replyCopy requiringSecureCoding:1 error:0];
+    if (v10)
+    {
+      v11 = [NSString stringWithUTF8String:SUBMessageErrorKey[0]];
+      v18 = v11;
+      v19 = v10;
+      v12 = [NSDictionary dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+      v17 = 0;
+      v13 = [(SUBMessageEndpoint *)self _sendMessage:v12 replyingTo:messageCopy expectingResponse:0 useTimeout:0 isCritical:criticalCopy error:&v17];
+      v14 = v17;
+
+      if (!v13)
+      {
+        v15 = softwareupdatebridge_log;
+        if (os_log_type_enabled(softwareupdatebridge_log, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 138543362;
+          v21 = v14;
+          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Failed to send error reply: %{public}@", buf, 0xCu);
+        }
+      }
+    }
+
+    else
+    {
+      v16 = softwareupdatebridge_log;
+      if (os_log_type_enabled(softwareupdatebridge_log, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138543362;
+        v21 = replyCopy;
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Failed to archive error '%{public}@'", buf, 0xCu);
+      }
+    }
+  }
 }
 
 - (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error

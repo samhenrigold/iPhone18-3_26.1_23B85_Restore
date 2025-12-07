@@ -1,14 +1,14 @@
 @interface NSCompoundPredicate(ABPredicateQueryCreation)
-- (uint64_t)ab_addCallbackContextToArray:()ABPredicateQueryCreation;
-- (uint64_t)ab_bindJoinClauseComponentOfStatement:()ABPredicateQueryCreation withBindingOffset:predicateIdentifier:;
-- (uint64_t)ab_bindSelectClauseComponentOfStatement:()ABPredicateQueryCreation withBindingOffset:predicateIdentifier:;
-- (uint64_t)ab_bindWhereClauseComponentOfStatement:()ABPredicateQueryCreation withBindingOffset:predicateIdentifier:;
-- (uint64_t)ab_hasCallback;
+- (void)ab_addCallbackContextToArray:()ABPredicateQueryCreation;
+- (void)ab_bindJoinClauseComponentOfStatement:()ABPredicateQueryCreation withBindingOffset:predicateIdentifier:;
+- (void)ab_bindSelectClauseComponentOfStatement:()ABPredicateQueryCreation withBindingOffset:predicateIdentifier:;
+- (void)ab_bindWhereClauseComponentOfStatement:()ABPredicateQueryCreation withBindingOffset:predicateIdentifier:;
+- (void)ab_hasCallback;
 @end
 
 @implementation NSCompoundPredicate(ABPredicateQueryCreation)
 
-- (uint64_t)ab_hasCallback
+- (void)ab_hasCallback
 {
   subpredicates = [self subpredicates];
   v2 = [subpredicates count];
@@ -34,7 +34,7 @@
   return result;
 }
 
-- (uint64_t)ab_addCallbackContextToArray:()ABPredicateQueryCreation
+- (void)ab_addCallbackContextToArray:()ABPredicateQueryCreation
 {
   v14 = *MEMORY[0x1E69E9840];
   subpredicates = [self subpredicates];
@@ -57,7 +57,8 @@
           objc_enumerationMutation(subpredicates);
         }
 
-        [*(*(&v9 + 1) + 8 * v8++) ab_addCallbackContextToArray:a3];
+        [*(*(&v9 + 1) + 8 * v8) ab_addCallbackContextToArray:a3];
+        v8 = v8 + 1;
       }
 
       while (v6 != v8);
@@ -71,7 +72,7 @@
   return result;
 }
 
-- (uint64_t)ab_bindSelectClauseComponentOfStatement:()ABPredicateQueryCreation withBindingOffset:predicateIdentifier:
+- (void)ab_bindSelectClauseComponentOfStatement:()ABPredicateQueryCreation withBindingOffset:predicateIdentifier:
 {
   v18 = *MEMORY[0x1E69E9840];
   subpredicates = [self subpredicates];
@@ -96,7 +97,7 @@
 
         [*(*(&v13 + 1) + 8 * v12) ab_bindSelectClauseComponentOfStatement:a3 withBindingOffset:a4 predicateIdentifier:a5];
         a5 = (a5 + 1);
-        ++v12;
+        v12 = v12 + 1;
       }
 
       while (v10 != v12);
@@ -110,7 +111,7 @@
   return result;
 }
 
-- (uint64_t)ab_bindJoinClauseComponentOfStatement:()ABPredicateQueryCreation withBindingOffset:predicateIdentifier:
+- (void)ab_bindJoinClauseComponentOfStatement:()ABPredicateQueryCreation withBindingOffset:predicateIdentifier:
 {
   v18 = *MEMORY[0x1E69E9840];
   subpredicates = [self subpredicates];
@@ -135,7 +136,7 @@
 
         [*(*(&v13 + 1) + 8 * v12) ab_bindJoinClauseComponentOfStatement:a3 withBindingOffset:a4 predicateIdentifier:a5];
         a5 = (a5 + 1);
-        ++v12;
+        v12 = v12 + 1;
       }
 
       while (v10 != v12);
@@ -149,7 +150,7 @@
   return result;
 }
 
-- (uint64_t)ab_bindWhereClauseComponentOfStatement:()ABPredicateQueryCreation withBindingOffset:predicateIdentifier:
+- (void)ab_bindWhereClauseComponentOfStatement:()ABPredicateQueryCreation withBindingOffset:predicateIdentifier:
 {
   v18 = *MEMORY[0x1E69E9840];
   subpredicates = [self subpredicates];
@@ -174,7 +175,7 @@
 
         [*(*(&v13 + 1) + 8 * v12) ab_bindWhereClauseComponentOfStatement:a3 withBindingOffset:a4 predicateIdentifier:a5];
         a5 = (a5 + 1);
-        ++v12;
+        v12 = v12 + 1;
       }
 
       while (v10 != v12);

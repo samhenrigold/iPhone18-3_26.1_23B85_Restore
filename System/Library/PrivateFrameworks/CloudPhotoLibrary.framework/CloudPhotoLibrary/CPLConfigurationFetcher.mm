@@ -36,46 +36,44 @@
 
 uint64_t __37__CPLConfigurationFetcher_invalidate__block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   [*(*(a1 + 32) + 8) invalidateAndCancel];
   v2 = *(a1 + 32);
   v3 = *(v2 + 8);
   *(v2 + 8) = 0;
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v4 = *(*(a1 + 32) + 16);
-  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        (*(*(*(&v11 + 1) + 8 * v8) + 16))(*(*(&v11 + 1) + 8 * v8));
+        (*(*(*(&v10 + 1) + 8 * v8) + 16))(*(*(&v10 + 1) + 8 * v8));
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
 
-  result = [*(*(a1 + 32) + 16) removeAllObjects];
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(*(a1 + 32) + 16) removeAllObjects];
 }
 
 - (void)fetchConfigurationDictionary:(id)dictionary completionHandler:(id)handler
@@ -106,7 +104,7 @@ uint64_t __37__CPLConfigurationFetcher_invalidate__block_invoke(uint64_t a1)
 void __74__CPLConfigurationFetcher_fetchConfigurationDictionary_completionHandler___block_invoke(uint64_t a1)
 {
   v1 = a1;
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   if (*(a1 + 48))
   {
     v2 = *(*(a1 + 32) + 16);
@@ -129,13 +127,13 @@ void __74__CPLConfigurationFetcher_fetchConfigurationDictionary_completionHandle
 
         v9 = [objc_alloc(MEMORY[0x1E695DFF8]) initFileURLWithPath:@"/AppleInternal/Library/Photos/Backend/CPL/LocalConfigurations" isDirectory:1];
         v10 = [v9 URLByAppendingPathComponent:v8 isDirectory:0];
-        v25 = 0;
-        v11 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithContentsOfURL:v10 options:1 error:&v25];
-        v12 = v25;
+        v24 = 0;
+        v11 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithContentsOfURL:v10 options:1 error:&v24];
+        v12 = v24;
         [v1[4] _updateConfigurationWithFetchData:v11 fetchError:v12 fetchURL:v10 fromConfigurationDictionary:v1[5]];
 
 LABEL_20:
-        goto LABEL_21;
+        return;
       }
     }
 
@@ -145,15 +143,15 @@ LABEL_20:
     objc_storeStrong(v1[4] + 1, v13);
     v14 = v1[4];
     v15 = v14[1];
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __74__CPLConfigurationFetcher_fetchConfigurationDictionary_completionHandler___block_invoke_2;
-    v22[3] = &unk_1E861F5A8;
-    v22[4] = v14;
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __74__CPLConfigurationFetcher_fetchConfigurationDictionary_completionHandler___block_invoke_2;
+    v21[3] = &unk_1E861F5A8;
+    v21[4] = v14;
     v9 = v13;
-    v23 = v9;
-    v24 = v1[5];
-    v16 = [v15 dataTaskWithRequest:v5 completionHandler:v22];
+    v22 = v9;
+    v23 = v1[5];
+    v16 = [v15 dataTaskWithRequest:v5 completionHandler:v21];
     [v16 resume];
     if ((_CPLSilentLogging & 1) == 0)
     {
@@ -174,9 +172,9 @@ LABEL_20:
         }
 
         *buf = 138543618;
-        v27 = v18;
-        v28 = 2112;
-        v29 = v20;
+        v26 = v18;
+        v27 = 2112;
+        v28 = v20;
         _os_log_impl(&dword_1DC05A000, v17, OS_LOG_TYPE_DEFAULT, "Updating configuration from %{public}@ - last update: %@", buf, 0x16u);
         if (v19)
         {
@@ -186,9 +184,6 @@ LABEL_20:
 
     goto LABEL_20;
   }
-
-LABEL_21:
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __74__CPLConfigurationFetcher_fetchConfigurationDictionary_completionHandler___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, void *a4)
@@ -220,11 +215,11 @@ void __74__CPLConfigurationFetcher_fetchConfigurationDictionary_completionHandle
   dispatch_async(v12, v15);
 }
 
-uint64_t __74__CPLConfigurationFetcher_fetchConfigurationDictionary_completionHandler___block_invoke_3(uint64_t result)
+void *__74__CPLConfigurationFetcher_fetchConfigurationDictionary_completionHandler___block_invoke_3(void *result)
 {
-  v2 = *(result + 40);
+  v2 = result[5];
   v3 = *(v2 + 8);
-  if (*(result + 32) == v3)
+  if (result[4] == v3)
   {
     v4 = result;
     *(v2 + 8) = 0;
@@ -243,7 +238,7 @@ uint64_t __74__CPLConfigurationFetcher_fetchConfigurationDictionary_completionHa
 
 - (void)_updateConfigurationWithFetchData:(id)data fetchError:(id)error fetchURL:(id)l fromConfigurationDictionary:(id)dictionary
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   errorCopy = error;
   lCopy = l;
@@ -263,9 +258,9 @@ uint64_t __74__CPLConfigurationFetcher_fetchConfigurationDictionary_completionHa
     }
 
     *buf = 138543618;
-    v39 = lCopy;
-    v40 = 2112;
-    v41 = errorCopy;
+    v38 = lCopy;
+    v39 = 2112;
+    v40 = errorCopy;
     v15 = "Could not fetch configuration from %{public}@. Will retry later: %@";
     v16 = v14;
     v17 = OS_LOG_TYPE_DEFAULT;
@@ -277,9 +272,9 @@ uint64_t __74__CPLConfigurationFetcher_fetchConfigurationDictionary_completionHa
     v18 = [CPLConfigurationDictionary alloc];
     refreshIntervalKey = [dictionaryCopy refreshIntervalKey];
     [dictionaryCopy minRefreshInterval];
-    v36 = 0;
-    v20 = [(CPLConfigurationDictionary *)v18 initWithData:dataCopy refreshIntervalKey:refreshIntervalKey minRefreshInterval:&v36 error:?];
-    v14 = v36;
+    v35 = 0;
+    v20 = [(CPLConfigurationDictionary *)v18 initWithData:dataCopy refreshIntervalKey:refreshIntervalKey minRefreshInterval:&v35 error:?];
+    v14 = v35;
 
     if (v20)
     {
@@ -303,9 +298,9 @@ uint64_t __74__CPLConfigurationFetcher_fetchConfigurationDictionary_completionHa
           }
 
           *buf = 138543618;
-          v39 = lCopy;
-          v40 = 2112;
-          v41 = v24;
+          v38 = lCopy;
+          v39 = 2112;
+          v40 = v24;
           _os_log_impl(&dword_1DC05A000, v23, OS_LOG_TYPE_DEFAULT, "Fetched configuration from %{public}@ successfully - %@", buf, 0x16u);
         }
       }
@@ -325,9 +320,9 @@ uint64_t __74__CPLConfigurationFetcher_fetchConfigurationDictionary_completionHa
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543618;
-        v39 = lCopy;
-        v40 = 2112;
-        v41 = v14;
+        v38 = lCopy;
+        v39 = 2112;
+        v40 = v14;
         _os_log_impl(&dword_1DC05A000, v20, OS_LOG_TYPE_ERROR, "Fetched configuration from %{public}@ is invalid. Will retry later: %@", buf, 0x16u);
       }
     }
@@ -344,9 +339,9 @@ uint64_t __74__CPLConfigurationFetcher_fetchConfigurationDictionary_completionHa
   if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
     *buf = 138543618;
-    v39 = lCopy;
-    v40 = 2112;
-    v41 = 0;
+    v38 = lCopy;
+    v39 = 2112;
+    v40 = 0;
     v15 = "Fetched configuration from %{public}@ is empty. Will retry later: %@";
     v16 = v14;
     v17 = OS_LOG_TYPE_ERROR;
@@ -357,36 +352,35 @@ LABEL_5:
 LABEL_24:
 
 LABEL_25:
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   v26 = self->_completionHandlers;
-  v27 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v32 objects:v37 count:16];
+  v27 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v31 objects:v36 count:16];
   if (v27)
   {
     v28 = v27;
-    v29 = *v33;
+    v29 = *v32;
     do
     {
       for (i = 0; i != v28; ++i)
       {
-        if (*v33 != v29)
+        if (*v32 != v29)
         {
           objc_enumerationMutation(v26);
         }
 
-        (*(*(*(&v32 + 1) + 8 * i) + 16))(*(*(&v32 + 1) + 8 * i));
+        (*(*(*(&v31 + 1) + 8 * i) + 16))(*(*(&v31 + 1) + 8 * i));
       }
 
-      v28 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v32 objects:v37 count:16];
+      v28 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v31 objects:v36 count:16];
     }
 
     while (v28);
   }
 
   [(NSMutableArray *)self->_completionHandlers removeAllObjects];
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 - (CPLConfigurationFetcher)initWithConfigurationURL:(id)l delegate:(id)delegate queue:(id)queue

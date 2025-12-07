@@ -52,7 +52,7 @@
   equalCopy = equal;
   if (equalCopy == self)
   {
-    v9 = 1;
+    isEqual = 1;
   }
 
   else
@@ -66,7 +66,7 @@
       v8 = v7;
       if (((*&v7->_flags ^ *&self->_flags) & 3) != 0)
       {
-        v9 = 0;
+        isEqual = 0;
       }
 
       else
@@ -78,15 +78,15 @@
         v14 = v13;
         if (v12 == v13)
         {
-          v9 = 1;
+          isEqual = 1;
         }
 
         else
         {
-          v9 = 0;
+          isEqual = 0;
           if (v12 && v13)
           {
-            v9 = [v12 isEqual:v13];
+            isEqual = objc_msgSend_isEqual_(v12);
           }
         }
       }
@@ -94,11 +94,11 @@
 
     else
     {
-      v9 = 0;
+      isEqual = 0;
     }
   }
 
-  return v9;
+  return isEqual;
 }
 
 - (id)description

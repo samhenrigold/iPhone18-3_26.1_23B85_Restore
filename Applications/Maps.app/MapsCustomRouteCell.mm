@@ -27,7 +27,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1001EF110();
+  sub_1001EF110(delegate);
 
   swift_unknownObjectRelease();
 }

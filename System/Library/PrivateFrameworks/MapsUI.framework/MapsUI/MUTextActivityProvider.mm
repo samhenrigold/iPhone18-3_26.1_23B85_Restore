@@ -85,15 +85,14 @@ void __59__MUTextActivityProvider__fetchMailTemplateWithCompletion___block_invok
 {
   if (a3)
   {
-    v4 = *(a1 + 32);
-    v5 = *(*(a1 + 32) + 16);
+    v4 = *(*(a1 + 32) + 16);
 
-    v5();
+    v4();
   }
 
   else
   {
-    v6 = [a2 dataUsingEncoding:4];
+    v5 = [a2 dataUsingEncoding:4];
     (*(*(a1 + 32) + 16))();
   }
 }
@@ -164,25 +163,24 @@ void __69__MUTextActivityProvider_activityViewController_itemForActivityType___b
 {
   if (a2)
   {
-    v3 = *(a1 + 48);
-    v4 = *(*(a1 + 48) + 16);
+    v3 = *(*(a1 + 48) + 16);
 
-    v4();
+    v3();
   }
 
   else
   {
     if ([*(a1 + 32) isEqual:*MEMORY[0x1E69CDAB0]])
     {
-      v5 = *(a1 + 48);
-      v6 = _MUCreateNoResultsActivityProviderError();
-      (*(v5 + 16))(v5, 0, v6);
+      v4 = *(a1 + 48);
+      v5 = _MUCreateNoResultsActivityProviderError();
+      (*(v4 + 16))(v4, 0, v5);
     }
 
     else
     {
-      v6 = [*(*(a1 + 40) + 8) dataUsingEncoding:4];
-      (*(*(a1 + 48) + 16))(*(a1 + 48), v6, 0);
+      v5 = [*(*(a1 + 40) + 8) dataUsingEncoding:4];
+      (*(*(a1 + 48) + 16))(*(a1 + 48), v5, 0);
     }
   }
 }

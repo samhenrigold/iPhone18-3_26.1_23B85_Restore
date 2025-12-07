@@ -1650,9 +1650,9 @@ uint64_t __58__UITrackingElementWindowController_hostViewWillDisappear__block_in
   }
 }
 
-uint64_t __69__UITrackingElementWindowController_performWithSafeTransitionFrames___block_invoke(uint64_t result)
+int *__69__UITrackingElementWindowController_performWithSafeTransitionFrames___block_invoke(int *result)
 {
-  if (*(result + 40) >= 1)
+  if (result[10] >= 1)
   {
     v7 = v2;
     v8 = v1;
@@ -1662,19 +1662,19 @@ uint64_t __69__UITrackingElementWindowController_performWithSafeTransitionFrames
     v6 = 0;
     do
     {
-      result = [*(v5 + 32) setInputViewsHidden:{0, v7, v8, v9, v10}];
+      result = [*(v5 + 4) setInputViewsHidden:{0, v7, v8, v9, v10}];
       ++v6;
     }
 
-    while (v6 < *(v5 + 40));
+    while (v6 < v5[10]);
   }
 
   return result;
 }
 
-uint64_t __69__UITrackingElementWindowController_performWithSafeTransitionFrames___block_invoke_2(uint64_t result)
+int *__69__UITrackingElementWindowController_performWithSafeTransitionFrames___block_invoke_2(int *result)
 {
-  if (*(result + 40) >= 1)
+  if (result[10] >= 1)
   {
     v7 = v2;
     v8 = v1;
@@ -1684,11 +1684,11 @@ uint64_t __69__UITrackingElementWindowController_performWithSafeTransitionFrames
     v6 = 0;
     do
     {
-      result = [*(v5 + 32) setInputViewsHidden:{1, v7, v8, v9, v10}];
+      result = [*(v5 + 4) setInputViewsHidden:{1, v7, v8, v9, v10}];
       ++v6;
     }
 
-    while (v6 < *(v5 + 40));
+    while (v6 < v5[10]);
   }
 
   return result;
@@ -4584,7 +4584,7 @@ void __58__UITrackingElementWindowController_viewDidLayoutSubviews__block_invoke
             v17 = [UIPeripheralHost endPlacementForInputViewSet:inputViewSet2 windowScene:windowScene];
 
             placement2 = [(UITrackingElementWindowController *)self placement];
-            LOBYTE(_window) = [placement2 isEqual:v17];
+            LOBYTE(_window) = objc_msgSend_isEqual_(placement2);
 
             if ((_window & 1) == 0)
             {
@@ -4751,7 +4751,7 @@ LABEL_9:
 
   toPlacement = [v6 toPlacement];
   toPlacement2 = [transitionCopy toPlacement];
-  if (([toPlacement isEqual:toPlacement2] & 1) == 0)
+  if ((objc_msgSend_isEqual_(toPlacement) & 1) == 0)
   {
 
 LABEL_7:
@@ -4821,9 +4821,9 @@ LABEL_15:
 
   animationStyle4 = [v6 animationStyle];
   animationStyle5 = [transitionCopy animationStyle];
-  v11 = [animationStyle4 isEqual:animationStyle5];
+  isEqual = objc_msgSend_isEqual_(animationStyle4);
 
-  if ((v11 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     goto LABEL_7;
   }
@@ -5703,11 +5703,11 @@ void __65__UITrackingElementWindowController_updateSizingFromRemoteChange__block
 LABEL_30:
   fromPlacement2 = [v119 fromPlacement];
 
-  v31 = [fromPlacement2 isEqual:v118];
+  isEqual = objc_msgSend_isEqual_(fromPlacement2);
   animationStyle = [v119 animationStyle];
   v33 = [animationStyle extraOptions] & 0xFFFFFFFFFFFFFFFDLL;
   v34 = 2;
-  if (!v31)
+  if (!isEqual)
   {
     v34 = 0;
   }
@@ -5739,7 +5739,7 @@ LABEL_30:
     startingCopy[2]();
   }
 
-  if ([fromPlacement2 isEqual:v118])
+  if (objc_msgSend_isEqual_(fromPlacement2))
   {
     v45 = +[UIInputViewAnimationStyle animationStyleImmediate];
     [v119 setAnimationStyle:v45];
@@ -5747,7 +5747,7 @@ LABEL_30:
 
   if ([v118 accessoryViewWillAppear] && (objc_msgSend(v118, "inputViewWillAppear") & 1) == 0)
   {
-    v46 = [fromPlacement2 isEqual:v118] ^ 1;
+    v46 = objc_msgSend_isEqual_(fromPlacement2) ^ 1;
   }
 
   else
@@ -5783,7 +5783,7 @@ LABEL_30:
 
   else
   {
-    v113 = [fromPlacement2 isEqual:v118] ^ 1;
+    v113 = objc_msgSend_isEqual_(fromPlacement2) ^ 1;
   }
 
   initialNotificationInfo = [(UITrackingElementWindowController *)self initialNotificationInfo];
@@ -5867,7 +5867,7 @@ LABEL_68:
   [(UITrackingElementWindowController *)self performWithSafeTransitionFrames:v156];
   [v58 didAdvanceAnimationToState:1];
   [(UITrackingElementWindowController *)self updateAppearStatesForPlacement:v118 start:1 animated:1];
-  if (([fromPlacement2 isEqual:self->_placement] & 1) == 0)
+  if ((objc_msgSend_isEqual_(fromPlacement2) & 1) == 0)
   {
     view = [(UIViewController *)self view];
     [view frame];
@@ -5989,7 +5989,7 @@ LABEL_80:
   {
   }
 
-  if ((([v79 isFloatingAssistantView] & 1) != 0 || objc_msgSend(v79, "isCompactAssistantView")) && (objc_msgSend(v78, "isEqual:", v79) & 1) == 0)
+  if ((([v79 isFloatingAssistantView] & 1) != 0 || objc_msgSend(v79, "isCompactAssistantView")) && (objc_msgSend_isEqual_(v78) & 1) == 0)
   {
     v86 = +[UIKeyboardSceneDelegate activeKeyboardSceneDelegate];
     visualModeManager = [v86 visualModeManager];
@@ -6091,7 +6091,7 @@ LABEL_80:
 LABEL_100:
 }
 
-uint64_t __87__UITrackingElementWindowController_moveFromPlacement_toPlacement_starting_completion___block_invoke(uint64_t a1)
+void *__87__UITrackingElementWindowController_moveFromPlacement_toPlacement_starting_completion___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) animationStyle];
   if ([v2 animated])
@@ -7588,7 +7588,7 @@ void __85__UITrackingElementWindowController_updateKeyboardLayoutGuideForRotatio
       v60 = _inputViewPlaceholder2;
       if (_inputViewPlaceholder2)
       {
-        [_inputViewPlaceholder2 transform];
+        objc_msgSend_transform(_inputViewPlaceholder2);
       }
 
       else
@@ -7610,7 +7610,7 @@ void __85__UITrackingElementWindowController_updateKeyboardLayoutGuideForRotatio
         v64 = _inputAssistantView4;
         if (_inputAssistantView4)
         {
-          [_inputAssistantView4 transform];
+          objc_msgSend_transform(_inputAssistantView4);
         }
 
         else
@@ -7640,7 +7640,7 @@ void __85__UITrackingElementWindowController_updateKeyboardLayoutGuideForRotatio
         v68 = _inputAccessoryView4;
         if (_inputAccessoryView4)
         {
-          [_inputAccessoryView4 transform];
+          objc_msgSend_transform(_inputAccessoryView4);
         }
 
         else
@@ -7890,7 +7890,7 @@ uint64_t __88__UITrackingElementWindowController_willAnimateRotationToInterfaceO
       v11 = *(a1 + 32);
       if (v11)
       {
-        [v11 transform];
+        objc_msgSend_transform(v11, *MEMORY[0x1E695F060], v8);
         v9 = *(*(a1 + 56) + 1680);
         v11 = *(a1 + 32);
       }
@@ -7922,7 +7922,7 @@ uint64_t __88__UITrackingElementWindowController_willAnimateRotationToInterfaceO
       v21 = *(a1 + 40);
       if (v21)
       {
-        [v21 transform];
+        objc_msgSend_transform(v21, *v6, v18);
         v19 = *(*(a1 + 56) + 1696);
         v21 = *(a1 + 40);
       }
@@ -7955,7 +7955,7 @@ uint64_t __88__UITrackingElementWindowController_willAnimateRotationToInterfaceO
       v32 = *(a1 + 48);
       if (v32)
       {
-        [v32 transform];
+        objc_msgSend_transform(v32, *v6, v29);
         v32 = *(a1 + 48);
         v30 = *(*(a1 + 56) + 1712);
       }
@@ -8359,9 +8359,9 @@ uint64_t __71__UITrackingElementWindowController_didRotateFromInterfaceOrientati
         }
 
         hostView = [*(*(&v12 + 1) + 8 * i) hostView];
-        v10 = [viewCopy isEqual:hostView];
+        isEqual = objc_msgSend_isEqual_(viewCopy);
 
-        if (v10)
+        if (isEqual)
         {
           LOBYTE(v6) = 1;
           goto LABEL_11;
@@ -9201,10 +9201,9 @@ uint64_t __58__UITrackingElementWindowController_changeToInputViewSet___block_in
     }
   }
 
-  v6 = *(a1 + 40);
-  v7 = *(*(a1 + 32) + 2048);
+  v6 = *(*(a1 + 32) + 2048);
 
-  return [v7 isEqual:v6];
+  return objc_msgSend_isEqual_(v6);
 }
 
 void __58__UITrackingElementWindowController_changeToInputViewSet___block_invoke_2(uint64_t a1)
@@ -9273,8 +9272,8 @@ void __58__UITrackingElementWindowController_changeToInputViewSet___block_invoke
     }
 
     [(UIInputWindowController *)self updateInputAssistantViewForInputViewSet:setCopy];
-    v13 = [(UIInputViewSet *)self->_inputViewSet isEqual:setCopy];
-    if (v13)
+    isEqual = objc_msgSend_isEqual_(self->_inputViewSet);
+    if (isEqual)
     {
       v47 = 0;
     }
@@ -9301,7 +9300,7 @@ void __58__UITrackingElementWindowController_changeToInputViewSet___block_invoke
 
     v46 = 0;
 LABEL_22:
-    v14 = !v13;
+    v14 = isEqual ^ 1;
     if ([(UIInputViewSet *)self->_inputViewSet isInputViewPlaceholder])
     {
       inputView = [(UIInputViewSet *)self->_inputViewSet inputView];
@@ -9342,14 +9341,14 @@ LABEL_22:
     [v24 setOtherPlacement:v23];
     currentTransition2 = [(UITrackingElementWindowController *)self currentTransition];
     toPlacement = [currentTransition2 toPlacement];
-    v27 = [v24 isEqual:toPlacement];
+    v27 = objc_msgSend_isEqual_(v24);
 
     v28 = v14 | v27 ^ 1;
     if ((v28 & 1) == 0)
     {
       currentTransition3 = [(UITrackingElementWindowController *)self currentTransition];
       animationStyle = [currentTransition3 animationStyle];
-      v31 = [nextAnimationStyle isEqual:animationStyle];
+      v31 = objc_msgSend_isEqual_(nextAnimationStyle);
 
       if (v31)
       {
@@ -9374,7 +9373,7 @@ LABEL_22:
       v33 = 0;
     }
 
-    if (!-[UIInputViewSet isEqual:](self->_inputViewSet, "isEqual:", setCopy) && ([*(*&buf[8] + 40) isEqual:v23] & 1) == 0)
+    if ((objc_msgSend_isEqual_(self->_inputViewSet) & 1) == 0 && (objc_msgSend_isEqual_(*(*&buf[8] + 40)) & 1) == 0)
     {
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -9446,7 +9445,7 @@ LABEL_22:
         {
           currentTransition4 = [(UITrackingElementWindowController *)self currentTransition];
           toPlacement2 = [currentTransition4 toPlacement];
-          v44 = [toPlacement2 isEqual:v24];
+          v44 = objc_msgSend_isEqual_(toPlacement2);
 
           v39 = (v44 | v46) & 1;
         }
@@ -9526,7 +9525,7 @@ void __53__UITrackingElementWindowController_setInputViewSet___block_invoke(uint
   v5 = *(v4 + 40);
   *(v4 + 40) = v3;
 
-  if (([*(*(*(a1 + 56) + 8) + 40) isEqual:*(a1 + 48)] & 1) == 0)
+  if ((objc_msgSend_isEqual_(*(*(*(a1 + 56) + 8) + 40)) & 1) == 0)
   {
     [*(a1 + 32) _updatePlacementWithPlacement:*(a1 + 48)];
   }
@@ -9631,7 +9630,7 @@ uint64_t __53__UITrackingElementWindowController_setInputViewSet___block_invoke_
   return [v2 _updateBackdropViews];
 }
 
-uint64_t __53__UITrackingElementWindowController_setInputViewSet___block_invoke_10(uint64_t a1)
+void *__53__UITrackingElementWindowController_setInputViewSet___block_invoke_10(uint64_t a1)
 {
   result = [*(a1 + 32) isFloating];
   if ((result & 1) == 0)

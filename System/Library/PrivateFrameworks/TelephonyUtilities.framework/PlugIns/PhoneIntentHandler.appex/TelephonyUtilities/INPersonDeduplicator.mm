@@ -10,103 +10,103 @@
   if ([personsCopy count] > 1)
   {
     v5 = objc_alloc_init(NSMutableOrderedSet);
-    v42 = 0u;
-    v43 = 0u;
     v44 = 0u;
     v45 = 0u;
+    v46 = 0u;
+    v47 = 0u;
     v6 = personsCopy;
-    v7 = [v6 countByEnumeratingWithState:&v42 objects:v53 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v44 objects:v55 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v43;
+      v9 = *v45;
       do
       {
         for (i = 0; i != v8; i = i + 1)
         {
-          if (*v43 != v9)
+          if (*v45 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = [[INPersonWrapper alloc] initWithINPerson:*(*(&v42 + 1) + 8 * i)];
+          v11 = [[INPersonWrapper alloc] initWithINPerson:*(*(&v44 + 1) + 8 * i)];
           [v5 addObject:v11];
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v42 objects:v53 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v44 objects:v55 count:16];
       }
 
       while (v8);
     }
 
-    v12 = IntentHandlerDefaultLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = IntentHandlerDefaultLog(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = [v6 count];
-      v14 = [v5 count];
+      v14 = [v6 count];
+      v15 = [v5 count];
       *buf = 134218240;
-      v50 = v13;
-      v51 = 2048;
       v52 = v14;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Before deduping: %ld, After deduping: %ld", buf, 0x16u);
+      v53 = 2048;
+      v54 = v15;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Before deduping: %ld, After deduping: %ld", buf, 0x16u);
     }
 
     firstObject = [v5 firstObject];
     tuHandle = [firstObject tuHandle];
 
+    v42 = 0u;
+    v43 = 0u;
     v40 = 0u;
     v41 = 0u;
-    v38 = 0u;
-    v39 = 0u;
-    v17 = v5;
-    v18 = [v17 countByEnumeratingWithState:&v38 objects:v48 count:16];
-    if (v18)
+    v18 = v5;
+    v19 = [v18 countByEnumeratingWithState:&v40 objects:v50 count:16];
+    if (v19)
     {
-      v19 = v18;
-      v20 = *v39;
+      v20 = v19;
+      v21 = *v41;
       while (2)
       {
-        for (j = 0; j != v19; j = j + 1)
+        for (j = 0; j != v20; j = j + 1)
         {
-          if (*v39 != v20)
+          if (*v41 != v21)
           {
-            objc_enumerationMutation(v17);
+            objc_enumerationMutation(v18);
           }
 
-          tuHandle2 = [*(*(&v38 + 1) + 8 * j) tuHandle];
-          v23 = TUHandlesAreCanonicallyEqual();
+          tuHandle2 = [*(*(&v40 + 1) + 8 * j) tuHandle];
+          v24 = TUHandlesAreCanonicallyEqual();
 
-          if (!v23)
+          if (!v24)
           {
 
             firstObject2 = objc_alloc_init(NSMutableArray);
-            v34 = 0u;
-            v35 = 0u;
             v36 = 0u;
             v37 = 0u;
-            v27 = v17;
-            v28 = [v27 countByEnumeratingWithState:&v34 objects:v46 count:16];
-            if (v28)
+            v38 = 0u;
+            v39 = 0u;
+            v29 = v18;
+            v30 = [v29 countByEnumeratingWithState:&v36 objects:v48 count:16];
+            if (v30)
             {
-              v29 = v28;
-              v30 = *v35;
+              v31 = v30;
+              v32 = *v37;
               do
               {
-                for (k = 0; k != v29; k = k + 1)
+                for (k = 0; k != v31; k = k + 1)
                 {
-                  if (*v35 != v30)
+                  if (*v37 != v32)
                   {
-                    objc_enumerationMutation(v27);
+                    objc_enumerationMutation(v29);
                   }
 
-                  inPerson = [*(*(&v34 + 1) + 8 * k) inPerson];
+                  inPerson = [*(*(&v36 + 1) + 8 * k) inPerson];
                   [firstObject2 addObject:inPerson];
                 }
 
-                v29 = [v27 countByEnumeratingWithState:&v34 objects:v46 count:16];
+                v31 = [v29 countByEnumeratingWithState:&v36 objects:v48 count:16];
               }
 
-              while (v29);
+              while (v31);
             }
 
             v4 = [firstObject2 copy];
@@ -114,8 +114,8 @@
           }
         }
 
-        v19 = [v17 countByEnumeratingWithState:&v38 objects:v48 count:16];
-        if (v19)
+        v20 = [v18 countByEnumeratingWithState:&v40 objects:v50 count:16];
+        if (v20)
         {
           continue;
         }
@@ -124,17 +124,17 @@
       }
     }
 
-    v24 = IntentHandlerDefaultLog();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    v26 = IntentHandlerDefaultLog(v25);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "All persons have equivalent handle values", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "All persons have equivalent handle values", buf, 2u);
     }
 
-    firstObject2 = [v17 firstObject];
+    firstObject2 = [v18 firstObject];
     inPerson2 = [firstObject2 inPerson];
-    v47 = inPerson2;
-    v4 = [NSArray arrayWithObjects:&v47 count:1];
+    v49 = inPerson2;
+    v4 = [NSArray arrayWithObjects:&v49 count:1];
 
 LABEL_31:
   }

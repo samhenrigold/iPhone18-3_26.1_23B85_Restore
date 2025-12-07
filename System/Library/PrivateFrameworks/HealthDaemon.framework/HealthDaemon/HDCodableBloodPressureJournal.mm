@@ -3,6 +3,9 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)journalStateAsString:(int)string;
+- (id)journalTypeAsString:(int)string;
+- (id)scheduleTypeAsString:(int)string;
 - (int)StringAsJournalState:(id)state;
 - (int)StringAsJournalType:(id)type;
 - (int)StringAsScheduleType:(id)type;
@@ -66,6 +69,29 @@
   *&self->_has = *&self->_has & 0xEF | v3;
 }
 
+- (id)journalTypeAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"MonitorHypertension";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"LearnHypertensionRisk";
+  }
+
+  return v4;
+}
+
 - (int)StringAsJournalType:(id)type
 {
   typeCopy = type;
@@ -110,6 +136,29 @@
   *&self->_has = *&self->_has & 0xDF | v3;
 }
 
+- (id)scheduleTypeAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"TypicalDay";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"UserDefined";
+  }
+
+  return v4;
+}
+
 - (int)StringAsScheduleType:(id)type
 {
   typeCopy = type;
@@ -152,6 +201,29 @@
   }
 
   *&self->_has = *&self->_has & 0xF7 | v3;
+}
+
+- (id)journalStateAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"Closed";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"Active";
+  }
+
+  return v4;
 }
 
 - (int)StringAsJournalState:(id)state
@@ -217,7 +289,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v4 = dictionary;
   uuid = self->_uuid;
@@ -350,30 +422,30 @@ LABEL_29:
   if ([(NSMutableArray *)self->_timeIntervals count])
   {
     v15 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_timeIntervals, "count")}];
+    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
     v16 = self->_timeIntervals;
-    v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v26;
+      v19 = *v25;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v26 != v19)
+          if (*v25 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          dictionaryRepresentation = [*(*(&v25 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v24 + 1) + 8 * i) dictionaryRepresentation];
           [v15 addObject:dictionaryRepresentation];
         }
 
-        v18 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v18 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v18);
@@ -388,14 +460,12 @@ LABEL_29:
     [v4 setObject:v22 forKey:@"timestamp"];
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 - (void)writeTo:(id)to
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (self->_uuid)
   {
@@ -405,7 +475,6 @@ LABEL_29:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    startDate = self->_startDate;
     PBDataWriterWriteDoubleField();
     has = self->_has;
     if ((has & 1) == 0)
@@ -425,7 +494,6 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  endDate = self->_endDate;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -440,7 +508,6 @@ LABEL_6:
   }
 
 LABEL_21:
-  journalType = self->_journalType;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -455,52 +522,46 @@ LABEL_7:
   }
 
 LABEL_22:
-  scheduleType = self->_scheduleType;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 8) != 0)
   {
 LABEL_8:
-    journalState = self->_journalState;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_9:
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
-  v20 = 0u;
-  v7 = self->_timeIntervals;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
-  if (v8)
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v6 = self->_timeIntervals;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
   {
-    v9 = v8;
-    v10 = *v20;
+    v8 = v7;
+    v9 = *v12;
     do
     {
-      for (i = 0; i != v9; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v20 != v10)
+        if (*v12 != v9)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v19 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v9);
+    while (v8);
   }
 
   if ((*&self->_has & 4) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteDoubleField();
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -600,7 +661,7 @@ LABEL_9:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(NSData *)self->_uuid copyWithZone:zone];
   v7 = *(v5 + 56);
@@ -669,30 +730,30 @@ LABEL_6:
   }
 
 LABEL_7:
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v9 = self->_timeIntervals;
-  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v18;
+    v12 = *v17;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v18 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = [*(*(&v17 + 1) + 8 * i) copyWithZone:{zone, v17}];
+        v14 = [*(*(&v16 + 1) + 8 * i) copyWithZone:{zone, v16}];
         [v5 addTimeInterval:v14];
       }
 
-      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v11);
@@ -704,7 +765,6 @@ LABEL_7:
     *(v5 + 64) |= 4u;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -967,7 +1027,7 @@ LABEL_24:
 
 - (void)mergeFrom:(id)from
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   if (*(fromCopy + 7))
   {
@@ -1037,29 +1097,29 @@ LABEL_8:
   }
 
 LABEL_9:
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v6 = *(fromCopy + 6);
-  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [(HDCodableBloodPressureJournal *)self addTimeInterval:*(*(&v12 + 1) + 8 * i), v12];
+        [(HDCodableBloodPressureJournal *)self addTimeInterval:*(*(&v11 + 1) + 8 * i), v11];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
@@ -1070,8 +1130,6 @@ LABEL_9:
     self->_timestamp = *(fromCopy + 3);
     *&self->_has |= 4u;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

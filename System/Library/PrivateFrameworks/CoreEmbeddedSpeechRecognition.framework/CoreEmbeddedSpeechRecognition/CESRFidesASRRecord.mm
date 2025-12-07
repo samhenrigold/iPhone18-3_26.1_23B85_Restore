@@ -1,5 +1,7 @@
 @interface CESRFidesASRRecord
 + (id)recordFromData:(id)data;
++ (id)recordWithLanguage:(id)language task:(id)task context:(id)context narrowband:(BOOL)narrowband farField:(BOOL)field interactionIdentifier:(id)identifier asrSelfComponentIdentifier:(id)componentIdentifier pluginId:(id)self0;
++ (id)recordWithLanguage:(id)language task:(id)task context:(id)context narrowband:(BOOL)narrowband farField:(BOOL)field interactionIdentifier:(id)identifier asrSelfComponentIdentifier:(id)componentIdentifier pluginId:(id)self0 frequency:(unint64_t)self1;
 + (void)deleteAllRecordsForPlugin:(id)plugin completion:(id)completion;
 - (BOOL)hasData;
 - (CESRFidesASRRecord)initWithCoder:(id)coder;
@@ -35,7 +37,7 @@
 
 void __41__CESRFidesASRRecord_saveOneRecordPerDay__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -44,55 +46,55 @@ void __41__CESRFidesASRRecord_saveOneRecordPerDay__block_invoke(uint64_t a1, voi
     if (os_log_type_enabled(*MEMORY[0x277CEF0B8], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v27 = "[CESRFidesASRRecord saveOneRecordPerDay]_block_invoke";
+      v26 = "[CESRFidesASRRecord saveOneRecordPerDay]_block_invoke";
       _os_log_error_impl(&dword_225EEB000, v7, OS_LOG_TYPE_ERROR, "%s Failed to fetch records.", buf, 0xCu);
     }
   }
 
   else
   {
-    v20 = a1;
+    v19 = a1;
     v8 = [*(a1 + 32) todaysDate];
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
     v9 = [v5 allKeys];
-    v10 = [v9 countByEnumeratingWithState:&v22 objects:v28 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v21 objects:v27 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v23;
+      v12 = *v22;
       while (2)
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v23 != v12)
+          if (*v22 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v22 + 1) + 8 * i);
+          v14 = *(*(&v21 + 1) + 8 * i);
           v15 = [v5 objectForKeyedSubscript:v14];
           v16 = [v15 objectForKeyedSubscript:@"date"];
 
           if ([v16 isEqualToString:v8])
           {
-            v21[0] = MEMORY[0x277D85DD0];
-            v21[1] = 3221225472;
-            v21[2] = __41__CESRFidesASRRecord_saveOneRecordPerDay__block_invoke_2;
-            v21[3] = &unk_27857F6A8;
-            v18 = *(v20 + 32);
-            v17 = *(v20 + 40);
-            v21[4] = v14;
-            v21[5] = v18;
-            [v17 deleteSavedRecordWithIdentfier:v14 completion:v21];
+            v20[0] = MEMORY[0x277D85DD0];
+            v20[1] = 3221225472;
+            v20[2] = __41__CESRFidesASRRecord_saveOneRecordPerDay__block_invoke_2;
+            v20[3] = &unk_27857F6A8;
+            v18 = *(v19 + 32);
+            v17 = *(v19 + 40);
+            v20[4] = v14;
+            v20[5] = v18;
+            [v17 deleteSavedRecordWithIdentfier:v14 completion:v20];
 
             goto LABEL_14;
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v22 objects:v28 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v21 objects:v27 count:16];
         if (v11)
         {
           continue;
@@ -102,18 +104,16 @@ void __41__CESRFidesASRRecord_saveOneRecordPerDay__block_invoke(uint64_t a1, voi
       }
     }
 
-    [*(v20 + 32) save];
+    [*(v19 + 32) save];
 LABEL_14:
 
     v6 = 0;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __41__CESRFidesASRRecord_saveOneRecordPerDay__block_invoke_2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277CEF0B8];
   if (v3)
@@ -121,11 +121,11 @@ void __41__CESRFidesASRRecord_saveOneRecordPerDay__block_invoke_2(uint64_t a1, v
     if (os_log_type_enabled(*MEMORY[0x277CEF0B8], OS_LOG_TYPE_ERROR))
     {
       v5 = *(a1 + 32);
-      v8 = 136315394;
-      v9 = "[CESRFidesASRRecord saveOneRecordPerDay]_block_invoke_2";
-      v10 = 2112;
-      v11 = v5;
-      _os_log_error_impl(&dword_225EEB000, v4, OS_LOG_TYPE_ERROR, "%s Failed to delete record: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CESRFidesASRRecord saveOneRecordPerDay]_block_invoke_2";
+      v9 = 2112;
+      v10 = v5;
+      _os_log_error_impl(&dword_225EEB000, v4, OS_LOG_TYPE_ERROR, "%s Failed to delete record: %@", &v7, 0x16u);
     }
   }
 
@@ -133,18 +133,16 @@ void __41__CESRFidesASRRecord_saveOneRecordPerDay__block_invoke_2(uint64_t a1, v
   {
     if (os_log_type_enabled(*MEMORY[0x277CEF0B8], OS_LOG_TYPE_DEBUG))
     {
-      v7 = *(a1 + 32);
-      v8 = 136315394;
-      v9 = "[CESRFidesASRRecord saveOneRecordPerDay]_block_invoke";
-      v10 = 2112;
-      v11 = v7;
-      _os_log_debug_impl(&dword_225EEB000, v4, OS_LOG_TYPE_DEBUG, "%s Deleted record(%@)", &v8, 0x16u);
+      v6 = *(a1 + 32);
+      v7 = 136315394;
+      v8 = "[CESRFidesASRRecord saveOneRecordPerDay]_block_invoke";
+      v9 = 2112;
+      v10 = v6;
+      _os_log_debug_impl(&dword_225EEB000, v4, OS_LOG_TYPE_DEBUG, "%s Deleted record(%@)", &v7, 0x16u);
     }
 
     [*(a1 + 40) save];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)todaysDate
@@ -162,7 +160,7 @@ void __41__CESRFidesASRRecord_saveOneRecordPerDay__block_invoke_2(uint64_t a1, v
 
 - (void)save
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (self->_hasRecognizedAnything)
   {
     v3 = [objc_alloc(MEMORY[0x277D05630]) initWithBundleIdentifier:self->_pluginId];
@@ -175,22 +173,22 @@ void __41__CESRFidesASRRecord_saveOneRecordPerDay__block_invoke_2(uint64_t a1, v
     v8 = *MEMORY[0x277CEF0B8];
     if (os_log_type_enabled(*MEMORY[0x277CEF0B8], OS_LOG_TYPE_DEBUG))
     {
-      v11 = v8;
+      v10 = v8;
       *buf = 136315650;
-      v14 = "[CESRFidesASRRecord save]";
-      v15 = 2114;
-      v16 = _recordInfo;
-      v17 = 2050;
-      v18 = [_recordData length];
-      _os_log_debug_impl(&dword_225EEB000, v11, OS_LOG_TYPE_DEBUG, "%s Creating DES record (SPI v2): %{public}@, %{public}zu bytes", buf, 0x20u);
+      v13 = "[CESRFidesASRRecord save]";
+      v14 = 2114;
+      v15 = _recordInfo;
+      v16 = 2050;
+      v17 = [_recordData length];
+      _os_log_debug_impl(&dword_225EEB000, v10, OS_LOG_TYPE_DEBUG, "%s Creating DES record (SPI v2): %{public}@, %{public}zu bytes", buf, 0x20u);
     }
 
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __26__CESRFidesASRRecord_save__block_invoke;
-    v12[3] = &unk_27857F680;
-    v12[4] = self;
-    [v3 saveRecordWithData:_recordData recordInfo:_recordInfo completion:v12];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __26__CESRFidesASRRecord_save__block_invoke;
+    v11[3] = &unk_27857F680;
+    v11[4] = self;
+    [v3 saveRecordWithData:_recordData recordInfo:_recordInfo completion:v11];
   }
 
   else
@@ -199,17 +197,15 @@ void __41__CESRFidesASRRecord_saveOneRecordPerDay__block_invoke_2(uint64_t a1, v
     if (os_log_type_enabled(*MEMORY[0x277CEF0B8], OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v14 = "[CESRFidesASRRecord save]";
+      v13 = "[CESRFidesASRRecord save]";
       _os_log_impl(&dword_225EEB000, v9, OS_LOG_TYPE_INFO, "%s Skip DES record creation because of no recognition", buf, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __26__CESRFidesASRRecord_save__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = *MEMORY[0x277CEF0B8];
@@ -218,53 +214,49 @@ void __26__CESRFidesASRRecord_save__block_invoke(uint64_t a1, void *a2, void *a3
     if (os_log_type_enabled(*MEMORY[0x277CEF0B8], OS_LOG_TYPE_ERROR))
     {
       v8 = *(*(a1 + 32) + 32);
-      v11 = 136315650;
-      v12 = "[CESRFidesASRRecord save]_block_invoke";
-      v13 = 2114;
-      v14 = v8;
-      v15 = 2114;
-      v16 = v6;
-      _os_log_error_impl(&dword_225EEB000, v7, OS_LOG_TYPE_ERROR, "%s Could not write DES record for SPI v2 %{public}@: %{public}@", &v11, 0x20u);
+      v10 = 136315650;
+      v11 = "[CESRFidesASRRecord save]_block_invoke";
+      v12 = 2114;
+      v13 = v8;
+      v14 = 2114;
+      v15 = v6;
+      _os_log_error_impl(&dword_225EEB000, v7, OS_LOG_TYPE_ERROR, "%s Could not write DES record for SPI v2 %{public}@: %{public}@", &v10, 0x20u);
     }
   }
 
   else if (os_log_type_enabled(*MEMORY[0x277CEF0B8], OS_LOG_TYPE_INFO))
   {
     v9 = *(*(a1 + 32) + 32);
-    v11 = 136315650;
-    v12 = "[CESRFidesASRRecord save]_block_invoke";
-    v13 = 2112;
-    v14 = v9;
-    v15 = 2112;
-    v16 = v5;
-    _os_log_impl(&dword_225EEB000, v7, OS_LOG_TYPE_INFO, "%s DES Record created for SPI v2 %@: %@", &v11, 0x20u);
+    v10 = 136315650;
+    v11 = "[CESRFidesASRRecord save]_block_invoke";
+    v12 = 2112;
+    v13 = v9;
+    v14 = 2112;
+    v15 = v5;
+    _os_log_impl(&dword_225EEB000, v7, OS_LOG_TYPE_INFO, "%s DES Record created for SPI v2 %@: %@", &v10, 0x20u);
   }
 
   [MEMORY[0x277CEF148] logDESRecordingForLanguage:*(*(a1 + 32) + 32) error:v6];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_recordData
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v7 = 0;
-  v2 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v7];
-  v3 = v7;
+  v11 = *MEMORY[0x277D85DE8];
+  v6 = 0;
+  v2 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v6];
+  v3 = v6;
   if (!v2)
   {
     v4 = *MEMORY[0x277CEF0B8];
     if (os_log_type_enabled(*MEMORY[0x277CEF0B8], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v9 = "[CESRFidesASRRecord _recordData]";
-      v10 = 2112;
-      v11 = v3;
+      v8 = "[CESRFidesASRRecord _recordData]";
+      v9 = 2112;
+      v10 = v3;
       _os_log_error_impl(&dword_225EEB000, v4, OS_LOG_TYPE_ERROR, "%s Unable to serialize DES record: %@", buf, 0x16u);
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -299,7 +291,7 @@ void __26__CESRFidesASRRecord_save__block_invoke(uint64_t a1, void *a2, void *a3
 
 - (void)encodeWithCoder:(id)coder
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   [coderCopy encodeObject:self->_pluginId forKey:@"_pluginId"];
   [coderCopy encodeObject:self->_language forKey:@"_language"];
@@ -314,9 +306,9 @@ void __26__CESRFidesASRRecord_save__block_invoke(uint64_t a1, void *a2, void *a3
     v6 = *MEMORY[0x277CEF0B8];
     if (os_log_type_enabled(*MEMORY[0x277CEF0B8], OS_LOG_TYPE_INFO))
     {
-      v11 = 136315138;
-      v12 = "[CESRFidesASRRecord encodeWithCoder:]";
-      _os_log_impl(&dword_225EEB000, v6, OS_LOG_TYPE_INFO, "%s Skipping audio bytes and save originalAudioFileURL instead", &v11, 0xCu);
+      v10 = 136315138;
+      v11 = "[CESRFidesASRRecord encodeWithCoder:]";
+      _os_log_impl(&dword_225EEB000, v6, OS_LOG_TYPE_INFO, "%s Skipping audio bytes and save originalAudioFileURL instead", &v10, 0xCu);
       originalAudioFileURL = self->_originalAudioFileURL;
     }
 
@@ -347,8 +339,6 @@ void __26__CESRFidesASRRecord_save__block_invoke(uint64_t a1, void *a2, void *a3
   [coderCopy encodeDouble:@"_timestamp" forKey:self->_timestamp];
   [coderCopy encodeObject:self->_alternatives forKey:@"_alternatives"];
   [coderCopy encodeObject:self->_profile forKey:@"_profile"];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (CESRFidesASRRecord)initWithCoder:(id)coder
@@ -512,96 +502,88 @@ void __26__CESRFidesASRRecord_save__block_invoke(uint64_t a1, void *a2, void *a3
 
 - (id)concatenatedAudioPackets
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB28]);
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v4 = self->_audioPackets;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [v3 appendData:{*(*(&v11 + 1) + 8 * i), v11}];
+        [v3 appendData:{*(*(&v10 + 1) + 8 * i), v10}];
       }
 
-      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (double)_audioPacketsDuration
 {
-  v17 = *MEMORY[0x277D85DE8];
-  if (self->_samplingRate)
+  v16 = *MEMORY[0x277D85DE8];
+  if (!self->_samplingRate)
   {
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
-    v13 = 0u;
-    v3 = self->_audioPackets;
-    v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
-    if (v4)
-    {
-      v5 = v4;
-      v6 = 0;
-      v7 = *v13;
-      do
-      {
-        for (i = 0; i != v5; ++i)
-        {
-          if (*v13 != v7)
-          {
-            objc_enumerationMutation(v3);
-          }
+    return 0.0;
+  }
 
-          v6 += [*(*(&v12 + 1) + 8 * i) length];
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v3 = self->_audioPackets;
+  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v4)
+  {
+    v5 = v4;
+    v6 = 0;
+    v7 = *v12;
+    do
+    {
+      for (i = 0; i != v5; ++i)
+      {
+        if (*v12 != v7)
+        {
+          objc_enumerationMutation(v3);
         }
 
-        v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v6 += [*(*(&v11 + 1) + 8 * i) length];
       }
 
-      while (v5);
-      v9 = (v6 >> 1);
+      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    else
-    {
-      v9 = 0.0;
-    }
-
-    result = v9 / self->_samplingRate;
+    while (v5);
+    v9 = (v6 >> 1);
   }
 
   else
   {
-    result = 0.0;
+    v9 = 0.0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return v9 / self->_samplingRate;
 }
 
 - (BOOL)hasData
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (self->_originalAudioFileURL)
   {
     LOBYTE(v2) = 1;
@@ -609,32 +591,32 @@ void __26__CESRFidesASRRecord_save__block_invoke(uint64_t a1, void *a2, void *a3
 
   else
   {
-    v10 = 0u;
-    v11 = 0u;
-    v8 = 0u;
     v9 = 0u;
+    v10 = 0u;
+    v7 = 0u;
+    v8 = 0u;
     v3 = self->_audioPackets;
-    v2 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
+    v2 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v7 objects:v11 count:16];
     if (v2)
     {
-      v4 = *v9;
+      v4 = *v8;
       while (2)
       {
         for (i = 0; i != v2; ++i)
         {
-          if (*v9 != v4)
+          if (*v8 != v4)
           {
             objc_enumerationMutation(v3);
           }
 
-          if ([*(*(&v8 + 1) + 8 * i) length])
+          if ([*(*(&v7 + 1) + 8 * i) length])
           {
             LOBYTE(v2) = 1;
             goto LABEL_13;
           }
         }
 
-        v2 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
+        v2 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v7 objects:v11 count:16];
         if (v2)
         {
           continue;
@@ -647,7 +629,6 @@ void __26__CESRFidesASRRecord_save__block_invoke(uint64_t a1, void *a2, void *a3
 LABEL_13:
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -757,7 +738,7 @@ LABEL_13:
 
 void __59__CESRFidesASRRecord_deleteAllRecordsForPlugin_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277CEF0B8];
   if (v3)
@@ -765,24 +746,24 @@ void __59__CESRFidesASRRecord_deleteAllRecordsForPlugin_completion___block_invok
     if (os_log_type_enabled(*MEMORY[0x277CEF0B8], OS_LOG_TYPE_ERROR))
     {
       v5 = *(a1 + 32);
-      v9 = 136315650;
-      v10 = "+[CESRFidesASRRecord deleteAllRecordsForPlugin:completion:]_block_invoke";
-      v11 = 2112;
-      v12 = v5;
-      v13 = 2112;
-      v14 = v3;
-      _os_log_error_impl(&dword_225EEB000, v4, OS_LOG_TYPE_ERROR, "%s Failed to delete all records for plugin=%@ with error=%@", &v9, 0x20u);
+      v8 = 136315650;
+      v9 = "+[CESRFidesASRRecord deleteAllRecordsForPlugin:completion:]_block_invoke";
+      v10 = 2112;
+      v11 = v5;
+      v12 = 2112;
+      v13 = v3;
+      _os_log_error_impl(&dword_225EEB000, v4, OS_LOG_TYPE_ERROR, "%s Failed to delete all records for plugin=%@ with error=%@", &v8, 0x20u);
     }
   }
 
   else if (os_log_type_enabled(*MEMORY[0x277CEF0B8], OS_LOG_TYPE_INFO))
   {
     v6 = *(a1 + 32);
-    v9 = 136315394;
-    v10 = "+[CESRFidesASRRecord deleteAllRecordsForPlugin:completion:]_block_invoke";
-    v11 = 2112;
-    v12 = v6;
-    _os_log_impl(&dword_225EEB000, v4, OS_LOG_TYPE_INFO, "%s Successfully deleted all records for plugin=%@", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = "+[CESRFidesASRRecord deleteAllRecordsForPlugin:completion:]_block_invoke";
+    v10 = 2112;
+    v11 = v6;
+    _os_log_impl(&dword_225EEB000, v4, OS_LOG_TYPE_INFO, "%s Successfully deleted all records for plugin=%@", &v8, 0x16u);
   }
 
   v7 = *(a1 + 40);
@@ -790,19 +771,17 @@ void __59__CESRFidesASRRecord_deleteAllRecordsForPlugin_completion___block_invok
   {
     (*(v7 + 16))(v7, v3);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (id)recordFromData:(id)data
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCAAC8];
   dataCopy = data;
-  v11 = 0;
-  v5 = [[v3 alloc] initForReadingFromData:dataCopy error:&v11];
+  v10 = 0;
+  v5 = [[v3 alloc] initForReadingFromData:dataCopy error:&v10];
 
-  v6 = v11;
+  v6 = v10;
   v7 = [v5 decodeObjectOfClass:objc_opt_class() forKey:*MEMORY[0x277CCA308]];
   [v5 finishDecoding];
   if (!v7)
@@ -811,16 +790,80 @@ void __59__CESRFidesASRRecord_deleteAllRecordsForPlugin_completion___block_invok
     if (os_log_type_enabled(*MEMORY[0x277CEF0B8], OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v13 = "+[CESRFidesASRRecord recordFromData:]";
-      v14 = 2112;
-      v15 = v6;
+      v12 = "+[CESRFidesASRRecord recordFromData:]";
+      v13 = 2112;
+      v14 = v6;
       _os_log_impl(&dword_225EEB000, v8, OS_LOG_TYPE_INFO, "%s DES record unarchive error: %@", buf, 0x16u);
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-
   return v7;
+}
+
++ (id)recordWithLanguage:(id)language task:(id)task context:(id)context narrowband:(BOOL)narrowband farField:(BOOL)field interactionIdentifier:(id)identifier asrSelfComponentIdentifier:(id)componentIdentifier pluginId:(id)self0 frequency:(unint64_t)self1
+{
+  fieldCopy = field;
+  narrowbandCopy = narrowband;
+  v29 = *MEMORY[0x277D85DE8];
+  languageCopy = language;
+  taskCopy = task;
+  contextCopy = context;
+  identifierCopy = identifier;
+  componentIdentifierCopy = componentIdentifier;
+  idCopy = id;
+  v22 = [objc_alloc(MEMORY[0x277D05630]) initWithBundleIdentifier:idCopy];
+  if ([v22 shouldMakeRecordWithFrequency:frequency])
+  {
+    v23 = [[self alloc] initWithLanguage:languageCopy task:taskCopy context:contextCopy narrowband:narrowbandCopy farField:fieldCopy interactionIdentifier:identifierCopy asrSelfComponentIdentifier:componentIdentifierCopy pluginId:idCopy];
+  }
+
+  else
+  {
+    v24 = *MEMORY[0x277CEF0B8];
+    if (os_log_type_enabled(*MEMORY[0x277CEF0B8], OS_LOG_TYPE_INFO))
+    {
+      *buf = 136315138;
+      v28 = "+[CESRFidesASRRecord recordWithLanguage:task:context:narrowband:farField:interactionIdentifier:asrSelfComponentIdentifier:pluginId:frequency:]";
+      _os_log_impl(&dword_225EEB000, v24, OS_LOG_TYPE_INFO, "%s Lost the lottery: not creating DES record this time", buf, 0xCu);
+    }
+
+    v23 = 0;
+  }
+
+  return v23;
+}
+
++ (id)recordWithLanguage:(id)language task:(id)task context:(id)context narrowband:(BOOL)narrowband farField:(BOOL)field interactionIdentifier:(id)identifier asrSelfComponentIdentifier:(id)componentIdentifier pluginId:(id)self0
+{
+  fieldCopy = field;
+  narrowbandCopy = narrowband;
+  v28 = *MEMORY[0x277D85DE8];
+  languageCopy = language;
+  taskCopy = task;
+  contextCopy = context;
+  identifierCopy = identifier;
+  componentIdentifierCopy = componentIdentifier;
+  idCopy = id;
+  v22 = [objc_alloc(MEMORY[0x277D05630]) initWithBundleIdentifier:idCopy];
+  if ([v22 shouldMakeRecord])
+  {
+    v23 = [[self alloc] initWithLanguage:languageCopy task:taskCopy context:contextCopy narrowband:narrowbandCopy farField:fieldCopy interactionIdentifier:identifierCopy asrSelfComponentIdentifier:componentIdentifierCopy pluginId:idCopy];
+  }
+
+  else
+  {
+    v24 = *MEMORY[0x277CEF0B8];
+    if (os_log_type_enabled(*MEMORY[0x277CEF0B8], OS_LOG_TYPE_INFO))
+    {
+      *buf = 136315138;
+      v27 = "+[CESRFidesASRRecord recordWithLanguage:task:context:narrowband:farField:interactionIdentifier:asrSelfComponentIdentifier:pluginId:]";
+      _os_log_impl(&dword_225EEB000, v24, OS_LOG_TYPE_INFO, "%s Lost the lottery: not creating DES record this time", buf, 0xCu);
+    }
+
+    v23 = 0;
+  }
+
+  return v23;
 }
 
 @end

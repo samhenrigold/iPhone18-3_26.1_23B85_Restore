@@ -35,7 +35,7 @@
 
 - (BOOL)compileForDevice:(id)device sourceTensors:(id)tensors resultTensor:(id)tensor
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   tensorsCopy = tensors;
   tensorCopy = tensor;
@@ -50,11 +50,11 @@
     {
       v23 = NSStringFromSelector(a2);
       *buf = 138412802;
-      v29 = v23;
-      v30 = 1024;
-      v31 = dataType;
-      v32 = 2112;
-      v33 = deviceCopy;
+      v28 = v23;
+      v29 = 1024;
+      v30 = dataType;
+      v31 = 2112;
+      v32 = deviceCopy;
       _os_log_error_impl(&dword_238C1D000, v20, OS_LOG_TYPE_ERROR, "%@: dropout layer with data type = %d is not supported on a device = %@", buf, 0x1Cu);
     }
 
@@ -84,12 +84,11 @@ LABEL_10:
   computeEngine2 = [deviceCopy computeEngine];
   v22 = [computeEngine2 compileLayerDeviceOps:v20 sourceTensors:tensorsCopy resultTensor:tensorCopy];
 
-  v27.receiver = self;
-  v27.super_class = MLCDropoutLayer;
-  [(MLCLayer *)&v27 bindDevice:deviceCopy deviceOps:v20];
+  v26.receiver = self;
+  v26.super_class = MLCDropoutLayer;
+  [(MLCLayer *)&v26 bindDevice:deviceCopy deviceOps:v20];
 LABEL_11:
 
-  v25 = *MEMORY[0x277D85DE8];
   return v22;
 }
 

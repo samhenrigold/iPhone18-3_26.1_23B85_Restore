@@ -10,30 +10,30 @@
 
 + (id)_locateWithExtensionID:(id)d
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dCopy = d;
   if (dCopy)
   {
     v4 = [MEMORY[0x277CC5DF8] extensionPointIdentifierQuery:@"com.apple.mlruntime.extension-point-ondemand"];
     [MEMORY[0x277CC5E00] executeQuery:v4];
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
-    v5 = v17 = 0u;
-    v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v5 = v16 = 0u;
+    v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v6)
     {
-      v7 = *v15;
+      v7 = *v14;
       while (2)
       {
         for (i = 0; i != v6; i = i + 1)
         {
-          if (*v15 != v7)
+          if (*v14 != v7)
           {
             objc_enumerationMutation(v5);
           }
 
-          v9 = *(*(&v14 + 1) + 8 * i);
+          v9 = *(*(&v13 + 1) + 8 * i);
           bundleIdentifier = [v9 bundleIdentifier];
           v11 = [bundleIdentifier isEqualToString:dCopy];
 
@@ -44,7 +44,7 @@
           }
         }
 
-        v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v6)
         {
           continue;
@@ -62,14 +62,12 @@ LABEL_12:
     v6 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 + (id)_createXPCConnection:(id)connection error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = [self _locateWithExtensionID:connection];
   v6 = v5;
   if (v5)
@@ -88,15 +86,13 @@ LABEL_12:
   {
     v8 = MEMORY[0x277CCA9B8];
     v9 = *MEMORY[0x277D05640];
-    v13 = *MEMORY[0x277CCA450];
-    v14[0] = @"Fail to find matched plugin.";
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v12 = *MEMORY[0x277CCA450];
+    v13[0] = @"Fail to find matched plugin.";
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
     *error = [v8 errorWithDomain:v9 code:8013 userInfo:v10];
 
     error = 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return error;
 }
@@ -173,21 +169,21 @@ LABEL_12:
 
 void __78__MLROnDemandPlugin__performTask_forPluginID_isSynchronous_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = [MEMORY[0x277D05600] coreChannel];
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v2 = a2;
+  v3 = [MEMORY[0x277D05600] coreChannel];
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __78__MLROnDemandPlugin__performTask_forPluginID_isSynchronous_completionHandler___block_invoke_cold_1(a1);
+    __78__MLROnDemandPlugin__performTask_forPluginID_isSynchronous_completionHandler___block_invoke_cold_1();
   }
 }
 
 void __78__MLROnDemandPlugin__performTask_forPluginID_isSynchronous_completionHandler___block_invoke_57(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = [MEMORY[0x277D05600] coreChannel];
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v2 = a2;
+  v3 = [MEMORY[0x277D05600] coreChannel];
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __78__MLROnDemandPlugin__performTask_forPluginID_isSynchronous_completionHandler___block_invoke_57_cold_1(a1);
+    __78__MLROnDemandPlugin__performTask_forPluginID_isSynchronous_completionHandler___block_invoke_57_cold_1();
   }
 }
 
@@ -209,7 +205,7 @@ void __78__MLROnDemandPlugin__performTask_forPluginID_isSynchronous_completionHa
     v12 = [MEMORY[0x277D05600] coreChannel];
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      __78__MLROnDemandPlugin__performTask_forPluginID_isSynchronous_completionHandler___block_invoke_59_cold_1((a1 + 32));
+      __78__MLROnDemandPlugin__performTask_forPluginID_isSynchronous_completionHandler___block_invoke_59_cold_1();
     }
   }
 
@@ -218,7 +214,7 @@ void __78__MLROnDemandPlugin__performTask_forPluginID_isSynchronous_completionHa
     v12 = [MEMORY[0x277D05600] coreChannel];
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      __78__MLROnDemandPlugin__performTask_forPluginID_isSynchronous_completionHandler___block_invoke_59_cold_2((a1 + 32));
+      __78__MLROnDemandPlugin__performTask_forPluginID_isSynchronous_completionHandler___block_invoke_59_cold_2();
     }
   }
 
@@ -281,91 +277,68 @@ void __64__MLROnDemandPlugin_synchronouslyPerformTask_forPluginID_error___block_
 
 + (id)onDemandPluginIDs
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CC5DF8] extensionPointIdentifierQuery:@"com.apple.mlruntime.extension-point-ondemand"];
   v3 = [MEMORY[0x277CC5E00] executeQuery:v2];
   array = [MEMORY[0x277CBEB18] array];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        bundleIdentifier = [*(*(&v13 + 1) + 8 * i) bundleIdentifier];
+        bundleIdentifier = [*(*(&v12 + 1) + 8 * i) bundleIdentifier];
         [array addObject:bundleIdentifier];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return array;
 }
 
-+ (void)_performTask:forPluginID:isSynchronous:completionHandler:.cold.1()
+void __78__MLROnDemandPlugin__performTask_forPluginID_isSynchronous_completionHandler___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_2();
+  OUTLINED_FUNCTION_1_0();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
+}
+
+void __78__MLROnDemandPlugin__performTask_forPluginID_isSynchronous_completionHandler___block_invoke_57_cold_1()
+{
+  OUTLINED_FUNCTION_0_2();
+  OUTLINED_FUNCTION_1_0();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
+}
+
+void __78__MLROnDemandPlugin__performTask_forPluginID_isSynchronous_completionHandler___block_invoke_59_cold_1()
+{
+  OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void __78__MLROnDemandPlugin__performTask_forPluginID_isSynchronous_completionHandler___block_invoke_cold_1(uint64_t a1)
+void __78__MLROnDemandPlugin__performTask_forPluginID_isSynchronous_completionHandler___block_invoke_59_cold_2()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x1Cu);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-void __78__MLROnDemandPlugin__performTask_forPluginID_isSynchronous_completionHandler___block_invoke_57_cold_1(uint64_t a1)
-{
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x1Cu);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-void __78__MLROnDemandPlugin__performTask_forPluginID_isSynchronous_completionHandler___block_invoke_59_cold_1(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void __78__MLROnDemandPlugin__performTask_forPluginID_isSynchronous_completionHandler___block_invoke_59_cold_2(uint64_t *a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
-  OUTLINED_FUNCTION_0_2();
-  _os_log_debug_impl(&dword_2577CB000, v2, OS_LOG_TYPE_DEBUG, "plugin=(%@) return result=%@", v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_2577CB000, v0, OS_LOG_TYPE_DEBUG, "plugin=(%@) return result=%@", v1, 0x16u);
 }
 
 @end

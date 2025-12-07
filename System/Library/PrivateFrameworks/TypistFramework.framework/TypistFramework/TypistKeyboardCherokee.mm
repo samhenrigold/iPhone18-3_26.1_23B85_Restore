@@ -36,43 +36,41 @@
 
 - (id)generateKeyplaneSwitchTable:(id)table
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v16.receiver = self;
-  v16.super_class = TypistKeyboardCherokee;
-  v3 = [(TypistKeyboard *)&v16 generateKeyplaneSwitchTable:table];
+  v17 = *MEMORY[0x277D85DE8];
+  v15.receiver = self;
+  v15.super_class = TypistKeyboardCherokee;
+  v3 = [(TypistKeyboard *)&v15 generateKeyplaneSwitchTable:table];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   allKeys = [v3 allKeys];
-  v5 = [allKeys countByEnumeratingWithState:&v12 objects:v17 count:16];
+  v5 = [allKeys countByEnumeratingWithState:&v11 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
+        v9 = *(*(&v11 + 1) + 8 * i);
         if ([v9 containsString:@"shift"])
         {
           [v3 removeObjectForKey:v9];
         }
       }
 
-      v6 = [allKeys countByEnumeratingWithState:&v12 objects:v17 count:16];
+      v6 = [allKeys countByEnumeratingWithState:&v11 objects:v16 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -99,102 +97,97 @@
 
 - (id)generateBaseKeyMap:(id)map
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   mapCopy = map;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v30 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
-  v35 = 0u;
-  v36 = 0u;
   v5 = mapCopy;
-  v6 = [v5 countByEnumeratingWithState:&v33 objects:v38 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v30 objects:v35 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v34;
-    v9 = 0x277CBE000uLL;
-    v25 = *v34;
-    v26 = v5;
+    v8 = *v31;
+    v22 = *v31;
+    v23 = v5;
     do
     {
-      v10 = 0;
-      v27 = v7;
+      v9 = 0;
+      v24 = v7;
       do
       {
-        if (*v34 != v8)
+        if (*v31 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = [v5 objectForKeyedSubscript:{*(*(&v33 + 1) + 8 * v10), v25, v26}];
-        v12 = *(v9 + 2752);
+        v10 = [v5 objectForKeyedSubscript:{*(*(&v30 + 1) + 8 * v9), v22, v23}];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v28 = v11;
-          v13 = v11;
+          v25 = v10;
+          v11 = v10;
+          v26 = 0u;
+          v27 = 0u;
+          v28 = 0u;
           v29 = 0u;
-          v30 = 0u;
-          v31 = 0u;
-          v32 = 0u;
-          v14 = [v13 countByEnumeratingWithState:&v29 objects:v37 count:16];
-          if (v14)
+          v12 = [v11 countByEnumeratingWithState:&v26 objects:v34 count:16];
+          if (v12)
           {
-            v15 = v14;
-            v16 = *v30;
+            v13 = v12;
+            v14 = *v27;
             do
             {
-              for (i = 0; i != v15; ++i)
+              for (i = 0; i != v13; ++i)
               {
-                if (*v30 != v16)
+                if (*v27 != v14)
                 {
-                  objc_enumerationMutation(v13);
+                  objc_enumerationMutation(v11);
                 }
 
-                v18 = *(*(&v29 + 1) + 8 * i);
-                v19 = [v13 objectForKeyedSubscript:v18];
-                v20 = [v19 objectForKeyedSubscript:@"basekey"];
+                v16 = *(*(&v26 + 1) + 8 * i);
+                v17 = [v11 objectForKeyedSubscript:v16];
+                v18 = [v17 objectForKeyedSubscript:@"basekey"];
 
-                if (v20)
+                if (v18)
                 {
-                  v21 = [v13 objectForKeyedSubscript:v18];
-                  v22 = [v21 objectForKeyedSubscript:@"basekey"];
+                  v19 = [v11 objectForKeyedSubscript:v16];
+                  v20 = [v19 objectForKeyedSubscript:@"basekey"];
 
-                  [dictionary setObject:v22 forKeyedSubscript:v18];
+                  [dictionary setObject:v20 forKeyedSubscript:v16];
                 }
               }
 
-              v15 = [v13 countByEnumeratingWithState:&v29 objects:v37 count:16];
+              v13 = [v11 countByEnumeratingWithState:&v26 objects:v34 count:16];
             }
 
-            while (v15);
+            while (v13);
           }
 
-          v8 = v25;
-          v5 = v26;
-          v9 = 0x277CBE000;
-          v7 = v27;
-          v11 = v28;
+          v8 = v22;
+          v5 = v23;
+          v7 = v24;
+          v10 = v25;
         }
 
-        ++v10;
+        ++v9;
       }
 
-      while (v10 != v7);
-      v7 = [v5 countByEnumeratingWithState:&v33 objects:v38 count:16];
+      while (v9 != v7);
+      v7 = [v5 countByEnumeratingWithState:&v30 objects:v35 count:16];
     }
 
     while (v7);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
 
 - (id)addAccentKeyAction:(id)action
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   actionCopy = action;
   vowelKeyMap = [(TypistKeyboardCherokee *)self vowelKeyMap];
   v6 = [vowelKeyMap objectForKeyedSubscript:actionCopy];
@@ -207,16 +200,14 @@
     vowelKeyMap2 = [(TypistKeyboardCherokee *)self vowelKeyMap];
     v11 = [vowelKeyMap2 objectForKeyedSubscript:actionCopy];
     v12 = [v9 objectForKeyedSubscript:v11];
-    v16[0] = v12;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+    v15[0] = v12;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
   }
 
   else
   {
     v13 = 0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

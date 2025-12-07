@@ -164,14 +164,14 @@ void ReportFlowPresenter.presentBlockUnknownAlert(for:)(void *a1)
 
   v11 = *(v2 + OBJC_IVAR___MPReportFlowPresenter_contactsService);
   v12 = *&v11[OBJC_IVAR___MPContactsService_dataProvider];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo15CNKeyDescriptor_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo15CNKeyDescriptor_pMd, &_sSo15CNKeyDescriptor_pMR);
   isa = Array._bridgeToObjectiveC()().super.isa;
   v14 = [v12 contactByHandleForRecentCall:a1 keyDescriptors:isa];
 
   if (v14)
   {
-    type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CHHandle);
-    type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CNContact);
+    type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CHHandle, CHHandle_ptr);
+    type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CNContact, CNContact_ptr);
     lazy protocol witness table accessor for type CHHandle and conformance NSObject();
     v15 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   }
@@ -185,7 +185,7 @@ void ReportFlowPresenter.presentBlockUnknownAlert(for:)(void *a1)
   if (v16)
   {
     v17 = v16;
-    type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CHHandle);
+    type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CHHandle, CHHandle_ptr);
     lazy protocol witness table accessor for type CHHandle and conformance NSObject();
     v18 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
 
@@ -200,7 +200,7 @@ void ReportFlowPresenter.presentBlockUnknownAlert(for:)(void *a1)
   else
   {
 
-    v22 = &_swiftEmptyArrayStorage;
+    v22 = _swiftEmptyArrayStorage;
   }
 
   v23 = swift_allocObject();
@@ -358,38 +358,38 @@ void ReportFlowPresenter.presentFaceTimeSpamReportAlert(for:)(void *a1)
   }
 }
 
-void closure #1 in ReportFlowPresenter.presentFaceTimeSpamReportAlert(for:)()
+void closure #1 in ReportFlowPresenter.presentFaceTimeSpamReportAlert(for:)(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
+    v3 = Strong;
     if (one-time initialization token for spamReport != -1)
     {
       swift_once();
     }
 
-    v2 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v2, static Logger.spamReport);
-    v3 = Logger.logObject.getter();
-    v4 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v3, v4))
+    v4 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v4, static Logger.spamReport);
+    v5 = Logger.logObject.getter();
+    v6 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v5, v6))
     {
-      v5 = swift_slowAlloc();
-      v6 = swift_slowAlloc();
-      v9 = v6;
-      *v5 = 136315138;
-      *(v5 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000024, 0x8000000100245040, &v9);
-      _os_log_impl(&_mh_execute_header, v3, v4, "ReportFlowPresenter: in %s, user did tap on cancel", v5, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0(v6);
+      v7 = swift_slowAlloc();
+      v8 = swift_slowAlloc();
+      v11 = v8;
+      *v7 = 136315138;
+      *(v7 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000024, 0x8000000100245040, &v11);
+      _os_log_impl(&_mh_execute_header, v5, v6, "ReportFlowPresenter: in %s, user did tap on cancel", v7, 0xCu);
+      __swift_destroy_boxed_opaque_existential_0(v8);
     }
 
-    v7 = swift_unknownObjectWeakLoadStrong();
-    if (v7)
+    v9 = swift_unknownObjectWeakLoadStrong();
+    if (v9)
     {
-      v8 = v7;
-      [v7 dismissViewControllerAnimated:1 completion:0];
+      v10 = v9;
+      [v9 dismissViewControllerAnimated:1 completion:0];
     }
   }
 }
@@ -437,38 +437,38 @@ void closure #2 in ReportFlowPresenter.presentFaceTimeSpamReportAlert(for:)(uint
   }
 }
 
-void closure #1 in ReportFlowPresenter.presentBlockAllAlert(for:)()
+void closure #1 in ReportFlowPresenter.presentBlockAllAlert(for:)(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
+    v3 = Strong;
     if (one-time initialization token for spamReport != -1)
     {
       swift_once();
     }
 
-    v2 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v2, static Logger.spamReport);
-    v3 = Logger.logObject.getter();
-    v4 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v3, v4))
+    v4 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v4, static Logger.spamReport);
+    v5 = Logger.logObject.getter();
+    v6 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v5, v6))
     {
-      v5 = swift_slowAlloc();
-      v6 = swift_slowAlloc();
-      v9 = v6;
-      *v5 = 136315138;
-      *(v5 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD00000000000001ALL, 0x8000000100244FC0, &v9);
-      _os_log_impl(&_mh_execute_header, v3, v4, "ReportFlowPresenter: in %s, user did tap on cancel", v5, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0(v6);
+      v7 = swift_slowAlloc();
+      v8 = swift_slowAlloc();
+      v11 = v8;
+      *v7 = 136315138;
+      *(v7 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD00000000000001ALL, 0x8000000100244FC0, &v11);
+      _os_log_impl(&_mh_execute_header, v5, v6, "ReportFlowPresenter: in %s, user did tap on cancel", v7, 0xCu);
+      __swift_destroy_boxed_opaque_existential_0(v8);
     }
 
-    v7 = swift_unknownObjectWeakLoadStrong();
-    if (v7)
+    v9 = swift_unknownObjectWeakLoadStrong();
+    if (v9)
     {
-      v8 = v7;
-      [v7 dismissViewControllerAnimated:1 completion:0];
+      v10 = v9;
+      [v9 dismissViewControllerAnimated:1 completion:0];
     }
   }
 }
@@ -507,45 +507,45 @@ void closure #2 in ReportFlowPresenter.presentBlockAllAlert(for:)(uint64_t a1, u
     if (v12)
     {
       v13 = v12;
-      type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CNContact);
+      type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CNContact, CNContact_ptr);
       isa = Array._bridgeToObjectiveC()().super.isa;
       [v13 presentSafetyCheckFor:isa];
     }
   }
 }
 
-void closure #1 in ReportFlowPresenter.presentBlockUnknownAlert(for:)()
+void closure #1 in ReportFlowPresenter.presentBlockUnknownAlert(for:)(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
+    v3 = Strong;
     if (one-time initialization token for spamReport != -1)
     {
       swift_once();
     }
 
-    v2 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v2, static Logger.spamReport);
-    v3 = Logger.logObject.getter();
-    v4 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v3, v4))
+    v4 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v4, static Logger.spamReport);
+    v5 = Logger.logObject.getter();
+    v6 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v5, v6))
     {
-      v5 = swift_slowAlloc();
-      v6 = swift_slowAlloc();
-      v9 = v6;
-      *v5 = 136315138;
-      *(v5 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD00000000000001ELL, 0x8000000100245020, &v9);
-      _os_log_impl(&_mh_execute_header, v3, v4, "ReportFlowPresenter: in %s, user did tap on cancel", v5, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0(v6);
+      v7 = swift_slowAlloc();
+      v8 = swift_slowAlloc();
+      v11 = v8;
+      *v7 = 136315138;
+      *(v7 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD00000000000001ELL, 0x8000000100245020, &v11);
+      _os_log_impl(&_mh_execute_header, v5, v6, "ReportFlowPresenter: in %s, user did tap on cancel", v7, 0xCu);
+      __swift_destroy_boxed_opaque_existential_0(v8);
     }
 
-    v7 = swift_unknownObjectWeakLoadStrong();
-    if (v7)
+    v9 = swift_unknownObjectWeakLoadStrong();
+    if (v9)
     {
-      v8 = v7;
-      [v7 dismissViewControllerAnimated:1 completion:0];
+      v10 = v9;
+      [v9 dismissViewControllerAnimated:1 completion:0];
     }
   }
 }
@@ -584,45 +584,45 @@ void closure #2 in ReportFlowPresenter.presentBlockUnknownAlert(for:)(uint64_t a
     if (v12)
     {
       v13 = v12;
-      type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CNContact);
+      type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CNContact, CNContact_ptr);
       isa = Array._bridgeToObjectiveC()().super.isa;
       [v13 presentSafetyCheckFor:isa];
     }
   }
 }
 
-void closure #1 in ReportFlowPresenter.presentFaceTimeSpamReportAndBlockAlert(for:)()
+void closure #1 in ReportFlowPresenter.presentFaceTimeSpamReportAndBlockAlert(for:)(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
+    v3 = Strong;
     if (one-time initialization token for spamReport != -1)
     {
       swift_once();
     }
 
-    v2 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v2, static Logger.spamReport);
-    v3 = Logger.logObject.getter();
-    v4 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v3, v4))
+    v4 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v4, static Logger.spamReport);
+    v5 = Logger.logObject.getter();
+    v6 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v5, v6))
     {
-      v5 = swift_slowAlloc();
-      v6 = swift_slowAlloc();
-      v9 = v6;
-      *v5 = 136315138;
-      *(v5 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD00000000000002CLL, 0x8000000100244F20, &v9);
-      _os_log_impl(&_mh_execute_header, v3, v4, "ReportFlowPresenter: in %s, user did tap on cancel", v5, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0(v6);
+      v7 = swift_slowAlloc();
+      v8 = swift_slowAlloc();
+      v11 = v8;
+      *v7 = 136315138;
+      *(v7 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD00000000000002CLL, 0x8000000100244F20, &v11);
+      _os_log_impl(&_mh_execute_header, v5, v6, "ReportFlowPresenter: in %s, user did tap on cancel", v7, 0xCu);
+      __swift_destroy_boxed_opaque_existential_0(v8);
     }
 
-    v7 = swift_unknownObjectWeakLoadStrong();
-    if (v7)
+    v9 = swift_unknownObjectWeakLoadStrong();
+    if (v9)
     {
-      v8 = v7;
-      [v7 dismissViewControllerAnimated:1 completion:0];
+      v10 = v9;
+      [v9 dismissViewControllerAnimated:1 completion:0];
     }
   }
 }
@@ -668,7 +668,7 @@ void closure #2 in ReportFlowPresenter.presentFaceTimeSpamReportAndBlockAlert(fo
     if (v12)
     {
       v13 = v12;
-      type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CNContact);
+      type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CNContact, CNContact_ptr);
       isa = Array._bridgeToObjectiveC()().super.isa;
       [v13 presentSafetyCheckFor:isa];
     }
@@ -716,7 +716,7 @@ void closure #3 in ReportFlowPresenter.presentFaceTimeSpamReportAndBlockAlert(fo
     if (v19)
     {
       v20 = v19;
-      type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CNContact);
+      type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CNContact, CNContact_ptr);
       isa = Array._bridgeToObjectiveC()().super.isa;
       [v20 presentSafetyCheckFor:isa];
     }
@@ -729,38 +729,38 @@ uint64_t sub_100143850()
   return _swift_deallocObject(v0, 40, 7);
 }
 
-void closure #1 in ReportFlowPresenter.presentGroupFaceTimeSpamReportAndBlockAlert(for:)()
+void closure #1 in ReportFlowPresenter.presentGroupFaceTimeSpamReportAndBlockAlert(for:)(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
+    v3 = Strong;
     if (one-time initialization token for spamReport != -1)
     {
       swift_once();
     }
 
-    v2 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v2, static Logger.spamReport);
-    v3 = Logger.logObject.getter();
-    v4 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v3, v4))
+    v4 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v4, static Logger.spamReport);
+    v5 = Logger.logObject.getter();
+    v6 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v5, v6))
     {
-      v5 = swift_slowAlloc();
-      v6 = swift_slowAlloc();
-      v9 = v6;
-      *v5 = 136315138;
-      *(v5 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000031, 0x8000000100244FE0, &v9);
-      _os_log_impl(&_mh_execute_header, v3, v4, "MPRecentsTableViewController: in %s, user did tap on cancel", v5, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0(v6);
+      v7 = swift_slowAlloc();
+      v8 = swift_slowAlloc();
+      v11 = v8;
+      *v7 = 136315138;
+      *(v7 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000031, 0x8000000100244FE0, &v11);
+      _os_log_impl(&_mh_execute_header, v5, v6, "MPRecentsTableViewController: in %s, user did tap on cancel", v7, 0xCu);
+      __swift_destroy_boxed_opaque_existential_0(v8);
     }
 
-    v7 = swift_unknownObjectWeakLoadStrong();
-    if (v7)
+    v9 = swift_unknownObjectWeakLoadStrong();
+    if (v9)
     {
-      v8 = v7;
-      [v7 dismissViewControllerAnimated:1 completion:0];
+      v10 = v9;
+      [v9 dismissViewControllerAnimated:1 completion:0];
     }
   }
 }
@@ -799,7 +799,7 @@ void closure #2 in ReportFlowPresenter.presentGroupFaceTimeSpamReportAndBlockAle
     if (v12)
     {
       v13 = v12;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo8CHHandleCSgGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo8CHHandleCSgGMd, &_ss23_ContiguousArrayStorageCySo8CHHandleCSgGMR);
       v14 = swift_allocObject();
       *(v14 + 16) = xmmword_100209AA0;
       *(v14 + 32) = [a3 initiator];
@@ -849,7 +849,7 @@ void closure #3 in ReportFlowPresenter.presentGroupFaceTimeSpamReportAndBlockAle
     if (v17)
     {
       v18 = v17;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo8CHHandleCSgGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo8CHHandleCSgGMd, &_ss23_ContiguousArrayStorageCySo8CHHandleCSgGMR);
       v19 = swift_allocObject();
       *(v19 + 16) = xmmword_100209AA0;
       *(v19 + 32) = [a3 initiator];
@@ -882,7 +882,7 @@ void closure #1 in ReportFlowPresenter.showReportingExtension(for:)(uint64_t a1,
     v15 = v8;
     v16 = v9;
     _os_log_impl(&_mh_execute_header, v10, v11, "ReportFlowPresenter: in %s, Presenting ClassificationViewController with communication: %@ for call: %@", v12, 0x20u);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, _sSo8NSObjectCSgMR);
     swift_arrayDestroy();
 
     __swift_destroy_boxed_opaque_existential_0(v14);
@@ -920,46 +920,46 @@ void thunk for @escaping @callee_guaranteed (@guaranteed Error?) -> ()(uint64_t 
   v3(a2);
 }
 
-void closure #1 in ReportFlowPresenter.showCarrierVoiceCallReportAlert(for:)(uint64_t a1, uint64_t a2, char *a3, void *a4, uint64_t a5, void *a6)
+void closure #1 in ReportFlowPresenter.showCarrierVoiceCallReportAlert(for:)(__n128 a1, uint64_t a2, uint64_t a3, char *a4, void *a5, uint64_t a6, void *a7)
 {
-  v9 = Logger.logObject.getter();
-  v10 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v9, v10))
+  v10 = Logger.logObject.getter();
+  v11 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v10, v11))
   {
-    v11 = swift_slowAlloc();
-    *v11 = 0;
-    _os_log_impl(&_mh_execute_header, v9, v10, "Spamreporting: carrier reporting, user did tap block", v11, 2u);
+    v12 = swift_slowAlloc();
+    *v12 = 0;
+    _os_log_impl(&_mh_execute_header, v10, v11, "Spamreporting: carrier reporting, user did tap block", v12, 2u);
   }
 
-  v12 = *&a3[OBJC_IVAR___MPContactsService_dataProvider];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo15CNKeyDescriptor_pMd);
+  v13 = *&a4[OBJC_IVAR___MPContactsService_dataProvider];
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo15CNKeyDescriptor_pMd, &_sSo15CNKeyDescriptor_pMR);
   isa = Array._bridgeToObjectiveC()().super.isa;
-  v14 = [v12 contactByHandleForRecentCall:a4 keyDescriptors:isa];
+  v15 = [v13 contactByHandleForRecentCall:a5 keyDescriptors:isa];
 
-  if (v14)
+  if (v15)
   {
-    type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CHHandle);
-    type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CNContact);
+    type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CHHandle, CHHandle_ptr);
+    type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CNContact, CNContact_ptr);
     lazy protocol witness table accessor for type CHHandle and conformance NSObject();
-    v15 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
+    v16 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
   else
   {
-    v15 = 0;
+    v16 = 0;
   }
 
-  v16 = [a4 validRemoteParticipantHandles];
-  if (v16)
+  v17 = [a5 validRemoteParticipantHandles];
+  if (v17)
   {
-    v17 = v16;
-    type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CHHandle);
+    v18 = v17;
+    type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CHHandle, CHHandle_ptr);
     lazy protocol witness table accessor for type CHHandle and conformance NSObject();
-    v18 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
+    v19 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
 
-    v19 = a4;
-    v20 = a3;
-    v21 = specialized Sequence.compactMap<A>(_:)(v18, v15, v19, v20);
+    v20 = a5;
+    v21 = a4;
+    v22 = specialized Sequence.compactMap<A>(_:)(v19, v16, v20, v21);
 
     swift_bridgeObjectRelease_n();
   }
@@ -967,56 +967,56 @@ void closure #1 in ReportFlowPresenter.showCarrierVoiceCallReportAlert(for:)(uin
   else
   {
 
-    v21 = &_swiftEmptyArrayStorage;
+    v22 = _swiftEmptyArrayStorage;
   }
 
-  specialized CallReportingViewModel.block(contacts:)(v21);
-  type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CNContact);
-  v22 = Array._bridgeToObjectiveC()().super.isa;
+  specialized CallReportingViewModel.block(contacts:)(v22);
+  type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CNContact, CNContact_ptr);
+  v23 = Array._bridgeToObjectiveC()().super.isa;
 
-  [a6 presentSafetyCheckFor:v22];
+  [a7 presentSafetyCheckFor:v23];
 }
 
-void closure #2 in ReportFlowPresenter.showCarrierVoiceCallReportAlert(for:)(uint64_t a1, uint64_t a2, char *a3, void *a4, uint64_t a5, void *a6)
+void closure #2 in ReportFlowPresenter.showCarrierVoiceCallReportAlert(for:)(__n128 a1, uint64_t a2, uint64_t a3, char *a4, void *a5, uint64_t a6, void *a7)
 {
-  v9 = Logger.logObject.getter();
-  v10 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v9, v10))
+  v10 = Logger.logObject.getter();
+  v11 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v10, v11))
   {
-    v11 = swift_slowAlloc();
-    *v11 = 0;
-    _os_log_impl(&_mh_execute_header, v9, v10, "Spamreporting: carrier reporting, user did tap block and report", v11, 2u);
+    v12 = swift_slowAlloc();
+    *v12 = 0;
+    _os_log_impl(&_mh_execute_header, v10, v11, "Spamreporting: carrier reporting, user did tap block and report", v12, 2u);
   }
 
-  v12 = *&a3[OBJC_IVAR___MPContactsService_dataProvider];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo15CNKeyDescriptor_pMd);
+  v13 = *&a4[OBJC_IVAR___MPContactsService_dataProvider];
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo15CNKeyDescriptor_pMd, &_sSo15CNKeyDescriptor_pMR);
   isa = Array._bridgeToObjectiveC()().super.isa;
-  v14 = [v12 contactByHandleForRecentCall:a4 keyDescriptors:isa];
+  v15 = [v13 contactByHandleForRecentCall:a5 keyDescriptors:isa];
 
-  if (v14)
+  if (v15)
   {
-    type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CHHandle);
-    type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CNContact);
+    type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CHHandle, CHHandle_ptr);
+    type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CNContact, CNContact_ptr);
     lazy protocol witness table accessor for type CHHandle and conformance NSObject();
-    v15 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
+    v16 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
   else
   {
-    v15 = 0;
+    v16 = 0;
   }
 
-  v16 = [a4 validRemoteParticipantHandles];
-  if (v16)
+  v17 = [a5 validRemoteParticipantHandles];
+  if (v17)
   {
-    v17 = v16;
-    type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CHHandle);
+    v18 = v17;
+    type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CHHandle, CHHandle_ptr);
     lazy protocol witness table accessor for type CHHandle and conformance NSObject();
-    v18 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
+    v19 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
 
-    v19 = a4;
-    v20 = a3;
-    v21 = specialized Sequence.compactMap<A>(_:)(v18, v15, v19, v20);
+    v20 = a5;
+    v21 = a4;
+    v22 = specialized Sequence.compactMap<A>(_:)(v19, v16, v20, v21);
 
     swift_bridgeObjectRelease_n();
   }
@@ -1024,27 +1024,27 @@ void closure #2 in ReportFlowPresenter.showCarrierVoiceCallReportAlert(for:)(uin
   else
   {
 
-    v21 = &_swiftEmptyArrayStorage;
+    v22 = _swiftEmptyArrayStorage;
   }
 
-  specialized CallReportingViewModel.block(contacts:)(v21);
-  v24[3] = type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CHRecentCall);
-  v24[4] = &protocol witness table for CHRecentCall;
-  v24[0] = a4;
-  v22 = a4;
+  specialized CallReportingViewModel.block(contacts:)(v22);
+  v25[3] = type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CHRecentCall, CHRecentCall_ptr);
+  v25[4] = &protocol witness table for CHRecentCall;
+  v25[0] = a5;
+  v23 = a5;
 
   dispatch thunk of CarrierVoiceSpamReportHelper.reportSpam(voiceCall:)();
 
-  __swift_destroy_boxed_opaque_existential_0(v24);
-  type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CNContact);
-  v23 = Array._bridgeToObjectiveC()().super.isa;
+  __swift_destroy_boxed_opaque_existential_0(v25);
+  type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CNContact, CNContact_ptr);
+  v24 = Array._bridgeToObjectiveC()().super.isa;
 
-  [a6 presentSafetyCheckFor:v23];
+  [a7 presentSafetyCheckFor:v24];
 }
 
 uint64_t closure #3 in ReportFlowPresenter.showCarrierVoiceCallReportAlert(for:)(uint64_t a1, uint64_t a2, void *a3)
 {
-  v6[3] = type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CHRecentCall);
+  v6[3] = type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CHRecentCall, CHRecentCall_ptr);
   v6[4] = &protocol witness table for CHRecentCall;
   v6[0] = a3;
 
@@ -1054,7 +1054,7 @@ uint64_t closure #3 in ReportFlowPresenter.showCarrierVoiceCallReportAlert(for:)
   return __swift_destroy_boxed_opaque_existential_0(v6);
 }
 
-uint64_t ReportFlowPresenter.controller(_:didComplete:with:)(uint64_t a1, void *a2, void *a3)
+double ReportFlowPresenter.controller(_:didComplete:with:)(uint64_t a1, void *a2, void *a3)
 {
   v22 = a3;
   v6 = type metadata accessor for Logger();
@@ -1063,7 +1063,7 @@ uint64_t ReportFlowPresenter.controller(_:didComplete:with:)(uint64_t a1, void *
   v8 = *(v7 + 64);
   __chkstk_darwin(v6);
   v9 = &v22 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   __chkstk_darwin(v10 - 8);
   v12 = &v22 - v11;
   v13 = type metadata accessor for TaskPriority();
@@ -1084,6 +1084,8 @@ uint64_t ReportFlowPresenter.controller(_:didComplete:with:)(uint64_t a1, void *
   *&v20[v19] = v16;
   *&v20[(v19 + 15) & 0xFFFFFFFFFFFFFFF8] = v22;
   _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCytSg_Tt2g5(0, 0, v12, &async function pointer to partial apply for closure #1 in ReportFlowPresenter.controller(_:didComplete:with:), v20);
+
+  return result;
 }
 
 uint64_t closure #1 in ReportFlowPresenter.controller(_:didComplete:with:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
@@ -1166,7 +1168,7 @@ void closure #1 in closure #1 in ReportFlowPresenter.controller(_:didComplete:wi
     v10 = v6;
     v11 = v5;
     _os_log_impl(&_mh_execute_header, oslog, v7, "Completed classification request: %@ with response: %@", v8, 0x16u);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, _sSo8NSObjectCSgMR);
     swift_arrayDestroy();
   }
 }
@@ -1234,7 +1236,7 @@ void specialized Sequence.compactMap<A>(_:)(uint64_t a1, uint64_t a2, void *a3, 
   {
     swift_unknownObjectRetain();
     __CocoaSet.makeIterator()();
-    type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CHHandle);
+    type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CHHandle, CHHandle_ptr);
     lazy protocol witness table accessor for type CHHandle and conformance NSObject();
     Set.Iterator.init(_cocoa:)();
     v5 = v39;
@@ -1271,10 +1273,10 @@ void specialized Sequence.compactMap<A>(_:)(uint64_t a1, uint64_t a2, void *a3, 
   {
     if (v5 < 0)
     {
-      if (!__CocoaSet.Iterator.next()() || (type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CHHandle), swift_dynamicCast(), (v15 = v38) == 0))
+      if (!__CocoaSet.Iterator.next()() || (type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CHHandle, CHHandle_ptr), swift_dynamicCast(), (v15 = v38) == 0))
       {
 LABEL_40:
-        outlined consume of Set<CHHandle>.Iterator._Variant();
+        outlined consume of Set<CHHandle>.Iterator._Variant(v5);
         return;
       }
 
@@ -1309,7 +1311,7 @@ LABEL_18:
           goto LABEL_26;
         }
 
-        type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CNContact);
+        type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CNContact, CNContact_ptr);
         swift_dynamicCast();
         v18 = v38;
         if (!v38)
@@ -1391,7 +1393,7 @@ LABEL_26:
       v31 = [objc_opt_self() contactForHandle:v35 isoCountryCode:v30 metadataCache:v29];
 
       specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
-      if (*((&_swiftEmptyArrayStorage & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((&_swiftEmptyArrayStorage & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+      if (*((_swiftEmptyArrayStorage & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((_swiftEmptyArrayStorage & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
       {
         specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
       }
@@ -1472,7 +1474,7 @@ uint64_t partial apply for closure #1 in ReportFlowPresenter.controller(_:didCom
   return closure #1 in ReportFlowPresenter.controller(_:didComplete:with:)(a1, v8, v9, v10, v1 + v6, v11, v12);
 }
 
-uint64_t type metadata accessor for ReportFlowPresenter()
+uint64_t type metadata accessor for ReportFlowPresenter(uint64_t a1)
 {
   result = type metadata singleton initialization cache for ReportFlowPresenter;
   if (!type metadata singleton initialization cache for ReportFlowPresenter)
@@ -1483,10 +1485,10 @@ uint64_t type metadata accessor for ReportFlowPresenter()
   return result;
 }
 
-uint64_t type metadata completion function for ReportFlowPresenter()
+uint64_t type metadata completion function for ReportFlowPresenter(uint64_t a1)
 {
   result = type metadata accessor for Logger();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = swift_updateClassMetadata2();
     if (!result)
@@ -1566,7 +1568,7 @@ MobilePhone::PersonalNicknameMenuViewDisplayContext_optional __swiftcall Persona
   return rawValue;
 }
 
-uint64_t *protocol witness for RawRepresentable.init(rawValue:) in conformance PersonalNicknameMenuViewDisplayContext@<X0>(uint64_t *result@<X0>, _BYTE *a2@<X8>)
+unint64_t *protocol witness for RawRepresentable.init(rawValue:) in conformance PersonalNicknameMenuViewDisplayContext@<X0>(unint64_t *result@<X0>, _BYTE *a2@<X8>)
 {
   v2 = *result;
   if (*result >= 3)
@@ -1597,7 +1599,7 @@ Class static PersonalNicknameMenuView.meCardSharingEnabled.getter()
 
 void PersonalNicknameMenuView.personalNickname.didset()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation20PersonNameComponentsVSgMd);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation20PersonNameComponentsVSgMd, &_s10Foundation20PersonNameComponentsVSgMR);
   __chkstk_darwin(v1 - 8);
   v3 = &v44 - v2;
   v4 = type metadata accessor for PersonNameComponents();
@@ -1675,7 +1677,7 @@ void PersonalNicknameMenuView.personalNickname.didset()
         [v34 setTranslatesAutoresizingMaskIntoConstraints:0];
         [*(v47 + OBJC_IVAR____TtC11MobilePhone24PersonalNicknameMenuView____lazy_storage___containerStackView) insertArrangedSubview:*(v47 + v31) atIndex:0];
         v46 = objc_opt_self();
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
         v35 = v9;
         v36 = swift_allocObject();
         *(v36 + 16) = xmmword_100209A90;
@@ -1688,7 +1690,7 @@ void PersonalNicknameMenuView.personalNickname.didset()
         v40 = [v39 constraintEqualToConstant:50.0];
 
         *(v36 + 40) = v40;
-        type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for NSLayoutConstraint);
+        type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for NSLayoutConstraint, NSLayoutConstraint_ptr);
         v28 = Array._bridgeToObjectiveC()().super.isa;
         v9 = v35;
 
@@ -1779,7 +1781,7 @@ id closure #1 in PersonalNicknameMenuView.meContact.getter()
   isa = [objc_opt_self() keysForNicknameHandling];
   if (!isa)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo15CNKeyDescriptor_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo15CNKeyDescriptor_pMd, &_sSo15CNKeyDescriptor_pMR);
     static Array._unconditionallyBridgeFromObjectiveC(_:)();
     isa = Array._bridgeToObjectiveC()().super.isa;
   }
@@ -1815,7 +1817,7 @@ id closure #1 in PersonalNicknameMenuView.meContact.getter()
       *(v8 + 4) = v10;
       *v9 = v10;
       _os_log_impl(&_mh_execute_header, v6, v7, "Could not fetch me card %@", v8, 0xCu);
-      outlined destroy of (NSAttributedStringKey, Any)(v9, &_sSo8NSObjectCSgMd);
+      outlined destroy of (NSAttributedStringKey, Any)(v9, &_sSo8NSObjectCSgMd, _sSo8NSObjectCSgMR);
     }
 
     else
@@ -1935,7 +1937,7 @@ id PersonalNicknameMenuView.leadingAvatarView.getter(uint64_t *a1, uint64_t (*a2
 
 id closure #1 in PersonalNicknameMenuView.nameLabel.getter(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation20PersonNameComponentsVSgMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation20PersonNameComponentsVSgMd, &_s10Foundation20PersonNameComponentsVSgMR);
   __chkstk_darwin(v2 - 8);
   v4 = &v23 - v3;
   v5 = type metadata accessor for PersonNameComponents();
@@ -2032,13 +2034,13 @@ id closure #1 in PersonalNicknameMenuView.subtitleLabel.getter(uint64_t a1)
 
 id closure #1 in PersonalNicknameMenuView.labelStackView.getter()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
   v0 = swift_allocObject();
   *(v0 + 16) = xmmword_100209A90;
   *(v0 + 32) = PersonalNicknameMenuView.nameLabel.getter();
   *(v0 + 40) = PersonalNicknameMenuView.subtitleLabel.getter();
   v1 = objc_allocWithZone(UIStackView);
-  type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for UIView);
+  type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for UIView, UIView_ptr);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
   v3 = [v1 initWithArrangedSubviews:isa];
@@ -2051,13 +2053,13 @@ id closure #1 in PersonalNicknameMenuView.labelStackView.getter()
 
 id closure #1 in PersonalNicknameMenuView.containerStackView.getter()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
   v0 = swift_allocObject();
   *(v0 + 16) = xmmword_100209A90;
   *(v0 + 32) = PersonalNicknameMenuView.leadingAvatarView.getter();
   *(v0 + 40) = PersonalNicknameMenuView.labelStackView.getter();
   v1 = objc_allocWithZone(UIStackView);
-  type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for UIView);
+  type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for UIView, UIView_ptr);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
   v3 = [v1 initWithArrangedSubviews:isa];
@@ -2091,6 +2093,13 @@ id PersonalNicknameMenuView.tapRecognizer.getter()
   return v3;
 }
 
+id PersonalNicknameMenuView.__allocating_init(displayContext:personalNicknameMenuViewDelegate:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v6 = a1;
+  v7 = objc_allocWithZone(v3);
+  return PersonalNicknameMenuView.init(displayContext:personalNicknameMenuViewDelegate:)(v6, a2, a3);
+}
+
 id PersonalNicknameMenuView.init(displayContext:personalNicknameMenuViewDelegate:)(char a1, uint64_t a2, uint64_t a3)
 {
   *&v3[nicknamesDefaults.value._kvo_] = 0;
@@ -2121,7 +2130,7 @@ id PersonalNicknameMenuView.init(displayContext:personalNicknameMenuViewDelegate
 
 void PersonalNicknameMenuView.setupConstraints()()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_10020D1F0;
   *(inited + 32) = PersonalNicknameMenuView.leadingAvatarView.getter();
@@ -2248,7 +2257,7 @@ LABEL_20:
     *(v27 + 40) = v32;
     specialized Array.append<A>(contentsOf:)(v27);
     v33 = objc_opt_self();
-    type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for NSLayoutConstraint);
+    type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for NSLayoutConstraint, NSLayoutConstraint_ptr);
     isa = Array._bridgeToObjectiveC()().super.isa;
 
     [v33 activateConstraints:isa];
@@ -2297,7 +2306,7 @@ uint64_t closure #1 in PersonalNicknameMenuView.getPersonalNickname(completion:)
     *v9 = a1;
     v10 = v5;
     _os_log_impl(&_mh_execute_header, v6, v7, "Fetching the personal nick name: %@", v8, 0xCu);
-    outlined destroy of (NSAttributedStringKey, Any)(v9, &_sSo8NSObjectCSgMd);
+    outlined destroy of (NSAttributedStringKey, Any)(v9, &_sSo8NSObjectCSgMd, _sSo8NSObjectCSgMR);
   }
 
   return a2(a1);
@@ -2509,14 +2518,14 @@ void PersonalNicknameAvatarProvider.generateAvatarImage(of:imageHandler:)(void (
   a1();
 }
 
-uint64_t PersonalNicknameAvatarProvider.generatePosterImage(handler:)(void (*a1)(void, void **), uint64_t a2)
+uint64_t PersonalNicknameAvatarProvider.generatePosterImage(handler:)(void (*a1)(void, void **, double), uint64_t a2)
 {
   v67 = a1;
   v4 = type metadata accessor for URL.DirectoryHint();
   v5 = *(v4 - 8);
   __chkstk_darwin(v4);
   v7 = v60 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   v9 = __chkstk_darwin(v8 - 8);
   v62 = v60 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   v11 = __chkstk_darwin(v9);
@@ -2624,7 +2633,7 @@ uint64_t PersonalNicknameAvatarProvider.generatePosterImage(handler:)(void (*a1)
         *(v48 + 12) = 2080;
         aBlock = v43;
         swift_errorRetain();
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
         v52 = String.init<A>(reflecting:)();
         v54 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v52, v53, &v74);
 
@@ -2634,7 +2643,7 @@ uint64_t PersonalNicknameAvatarProvider.generatePosterImage(handler:)(void (*a1)
       }
 
       swift_errorRetain();
-      v67(0, v43);
+      (v67)(0, v43);
 
       outlined consume of Data._Representation(v31, v33);
       return (*(v65 + 8))(v61, v44);
@@ -2687,7 +2696,7 @@ uint64_t closure #1 in PersonalNicknameAvatarProvider.generatePosterImage(handle
       v15 = v10;
       *v9 = 136315138;
       swift_errorRetain();
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
       v11 = String.init<A>(reflecting:)();
       v13 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v11, v12, &v15);
 
@@ -2758,7 +2767,7 @@ void specialized PersonalNicknameMenuView.getPersonalNickname(completion:)(void 
       *v18 = v12;
       v19 = v14;
       _os_log_impl(&_mh_execute_header, v15, v16, "Reading the personal nick name from cache %@", v17, 0xCu);
-      outlined destroy of (NSAttributedStringKey, Any)(v18, &_sSo8NSObjectCSgMd);
+      outlined destroy of (NSAttributedStringKey, Any)(v18, &_sSo8NSObjectCSgMd, _sSo8NSObjectCSgMR);
     }
 
     v20 = *&v4[nicknamesDefaults.value._kvo_];
@@ -2837,40 +2846,40 @@ uint64_t specialized PersonalNicknameMenuView.didTap(sender:)()
   return result;
 }
 
-uint64_t outlined copy of Data?(uint64_t a1, unint64_t a2)
+uint64_t outlined copy of Data?(uint64_t result, unint64_t a2)
 {
   if (a2 >> 60 != 15)
   {
-    return outlined copy of Data._Representation(a1, a2);
+    return outlined copy of Data._Representation(result, a2);
   }
 
-  return a1;
+  return result;
 }
 
-uint64_t outlined copy of Data._Representation(uint64_t a1, unint64_t a2)
+uint64_t outlined copy of Data._Representation(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
 
-uint64_t outlined consume of Data?(uint64_t a1, unint64_t a2)
+uint64_t outlined consume of Data?(uint64_t result, unint64_t a2)
 {
   if (a2 >> 60 != 15)
   {
-    return outlined consume of Data._Representation(a1, a2);
+    return outlined consume of Data._Representation(result, a2);
   }
 
-  return a1;
+  return result;
 }
 
 uint64_t outlined init with copy of URL?(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
@@ -2960,10 +2969,10 @@ uint64_t sub_10014A4F4()
   return _swift_deallocObject(v0, 24, 7);
 }
 
-uint64_t type metadata completion function for UnsafeTransfer()
+uint64_t type metadata completion function for UnsafeTransfer(uint64_t a1)
 {
   result = swift_checkMetadataState();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -3523,21 +3532,21 @@ uint64_t specialized closure #1 in MPRecentsTableViewController.observeTip<A>(_:
   v6[47] = *(v7 - 8);
   v6[48] = swift_task_alloc();
   v6[49] = swift_task_alloc();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s6TipKit4TipsO6StatusOSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s6TipKit4TipsO6StatusOSgMd, &_s6TipKit4TipsO6StatusOSgMR);
   v6[50] = swift_task_alloc();
   v8 = type metadata accessor for Tips.Status();
   v6[51] = v8;
   v6[52] = *(v8 - 8);
   v6[53] = swift_task_alloc();
-  v6[54] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScSy6TipKit4TipsO6StatusOGMd);
+  v6[54] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScSy6TipKit4TipsO6StatusOGMd, &_sScSy6TipKit4TipsO6StatusOGMR);
   v6[55] = swift_task_alloc();
-  v6[56] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVy6TipKit4TipsO6StatusO_GMd);
+  v6[56] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVy6TipKit4TipsO6StatusO_GMd, &_sScS8IteratorVy6TipKit4TipsO6StatusO_GMR);
   v6[57] = swift_task_alloc();
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16AsyncMapSequenceVyScSy6TipKit4TipsO6StatusOGSbGMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16AsyncMapSequenceVyScSy6TipKit4TipsO6StatusOGSbGMd, &_ss16AsyncMapSequenceVyScSy6TipKit4TipsO6StatusOGSbGMR);
   v6[58] = v9;
   v6[59] = *(v9 - 8);
   v6[60] = swift_task_alloc();
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16AsyncMapSequenceV8IteratorVyScSy6TipKit4TipsO6StatusOGSb_GMd);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16AsyncMapSequenceV8IteratorVyScSy6TipKit4TipsO6StatusOGSb_GMd, &_ss16AsyncMapSequenceV8IteratorVyScSy6TipKit4TipsO6StatusOGSb_GMR);
   v6[61] = v10;
   v6[62] = *(v10 - 8);
   v6[63] = swift_task_alloc();
@@ -3559,21 +3568,21 @@ uint64_t specialized closure #1 in MPRecentsTableViewController.observeTip<A>(_:
   v6[47] = *(v7 - 8);
   v6[48] = swift_task_alloc();
   v6[49] = swift_task_alloc();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s6TipKit4TipsO6StatusOSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s6TipKit4TipsO6StatusOSgMd, &_s6TipKit4TipsO6StatusOSgMR);
   v6[50] = swift_task_alloc();
   v8 = type metadata accessor for Tips.Status();
   v6[51] = v8;
   v6[52] = *(v8 - 8);
   v6[53] = swift_task_alloc();
-  v6[54] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScSy6TipKit4TipsO6StatusOGMd);
+  v6[54] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScSy6TipKit4TipsO6StatusOGMd, &_sScSy6TipKit4TipsO6StatusOGMR);
   v6[55] = swift_task_alloc();
-  v6[56] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVy6TipKit4TipsO6StatusO_GMd);
+  v6[56] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVy6TipKit4TipsO6StatusO_GMd, &_sScS8IteratorVy6TipKit4TipsO6StatusO_GMR);
   v6[57] = swift_task_alloc();
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16AsyncMapSequenceVyScSy6TipKit4TipsO6StatusOGSbGMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16AsyncMapSequenceVyScSy6TipKit4TipsO6StatusOGSbGMd, &_ss16AsyncMapSequenceVyScSy6TipKit4TipsO6StatusOGSbGMR);
   v6[58] = v9;
   v6[59] = *(v9 - 8);
   v6[60] = swift_task_alloc();
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16AsyncMapSequenceV8IteratorVyScSy6TipKit4TipsO6StatusOGSb_GMd);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16AsyncMapSequenceV8IteratorVyScSy6TipKit4TipsO6StatusOGSb_GMd, &_ss16AsyncMapSequenceV8IteratorVyScSy6TipKit4TipsO6StatusOGSb_GMR);
   v6[61] = v10;
   v6[62] = *(v10 - 8);
   v6[63] = swift_task_alloc();
@@ -3595,21 +3604,21 @@ uint64_t specialized closure #1 in MPRecentsTableViewController.observeTip<A>(_:
   v6[47] = *(v7 - 8);
   v6[48] = swift_task_alloc();
   v6[49] = swift_task_alloc();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s6TipKit4TipsO6StatusOSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s6TipKit4TipsO6StatusOSgMd, &_s6TipKit4TipsO6StatusOSgMR);
   v6[50] = swift_task_alloc();
   v8 = type metadata accessor for Tips.Status();
   v6[51] = v8;
   v6[52] = *(v8 - 8);
   v6[53] = swift_task_alloc();
-  v6[54] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScSy6TipKit4TipsO6StatusOGMd);
+  v6[54] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScSy6TipKit4TipsO6StatusOGMd, &_sScSy6TipKit4TipsO6StatusOGMR);
   v6[55] = swift_task_alloc();
-  v6[56] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVy6TipKit4TipsO6StatusO_GMd);
+  v6[56] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVy6TipKit4TipsO6StatusO_GMd, &_sScS8IteratorVy6TipKit4TipsO6StatusO_GMR);
   v6[57] = swift_task_alloc();
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16AsyncMapSequenceVyScSy6TipKit4TipsO6StatusOGSbGMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16AsyncMapSequenceVyScSy6TipKit4TipsO6StatusOGSbGMd, &_ss16AsyncMapSequenceVyScSy6TipKit4TipsO6StatusOGSbGMR);
   v6[58] = v9;
   v6[59] = *(v9 - 8);
   v6[60] = swift_task_alloc();
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16AsyncMapSequenceV8IteratorVyScSy6TipKit4TipsO6StatusOGSb_GMd);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16AsyncMapSequenceV8IteratorVyScSy6TipKit4TipsO6StatusOGSb_GMd, &_ss16AsyncMapSequenceV8IteratorVyScSy6TipKit4TipsO6StatusOGSb_GMR);
   v6[61] = v10;
   v6[62] = *(v10 - 8);
   v6[63] = swift_task_alloc();
@@ -3631,21 +3640,21 @@ uint64_t specialized closure #1 in MPRecentsTableViewController.observeTip<A>(_:
   v6[47] = *(v7 - 8);
   v6[48] = swift_task_alloc();
   v6[49] = swift_task_alloc();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s6TipKit4TipsO6StatusOSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s6TipKit4TipsO6StatusOSgMd, &_s6TipKit4TipsO6StatusOSgMR);
   v6[50] = swift_task_alloc();
   v8 = type metadata accessor for Tips.Status();
   v6[51] = v8;
   v6[52] = *(v8 - 8);
   v6[53] = swift_task_alloc();
-  v6[54] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScSy6TipKit4TipsO6StatusOGMd);
+  v6[54] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScSy6TipKit4TipsO6StatusOGMd, &_sScSy6TipKit4TipsO6StatusOGMR);
   v6[55] = swift_task_alloc();
-  v6[56] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVy6TipKit4TipsO6StatusO_GMd);
+  v6[56] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVy6TipKit4TipsO6StatusO_GMd, &_sScS8IteratorVy6TipKit4TipsO6StatusO_GMR);
   v6[57] = swift_task_alloc();
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16AsyncMapSequenceVyScSy6TipKit4TipsO6StatusOGSbGMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16AsyncMapSequenceVyScSy6TipKit4TipsO6StatusOGSbGMd, &_ss16AsyncMapSequenceVyScSy6TipKit4TipsO6StatusOGSbGMR);
   v6[58] = v9;
   v6[59] = *(v9 - 8);
   v6[60] = swift_task_alloc();
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16AsyncMapSequenceV8IteratorVyScSy6TipKit4TipsO6StatusOGSb_GMd);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16AsyncMapSequenceV8IteratorVyScSy6TipKit4TipsO6StatusOGSb_GMd, &_ss16AsyncMapSequenceV8IteratorVyScSy6TipKit4TipsO6StatusOGSb_GMR);
   v6[61] = v10;
   v6[62] = *(v10 - 8);
   v6[63] = swift_task_alloc();
@@ -3667,21 +3676,21 @@ uint64_t specialized closure #1 in MPRecentsTableViewController.observeTip<A>(_:
   v6[47] = *(v7 - 8);
   v6[48] = swift_task_alloc();
   v6[49] = swift_task_alloc();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s6TipKit4TipsO6StatusOSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s6TipKit4TipsO6StatusOSgMd, &_s6TipKit4TipsO6StatusOSgMR);
   v6[50] = swift_task_alloc();
   v8 = type metadata accessor for Tips.Status();
   v6[51] = v8;
   v6[52] = *(v8 - 8);
   v6[53] = swift_task_alloc();
-  v6[54] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScSy6TipKit4TipsO6StatusOGMd);
+  v6[54] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScSy6TipKit4TipsO6StatusOGMd, &_sScSy6TipKit4TipsO6StatusOGMR);
   v6[55] = swift_task_alloc();
-  v6[56] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVy6TipKit4TipsO6StatusO_GMd);
+  v6[56] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVy6TipKit4TipsO6StatusO_GMd, &_sScS8IteratorVy6TipKit4TipsO6StatusO_GMR);
   v6[57] = swift_task_alloc();
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16AsyncMapSequenceVyScSy6TipKit4TipsO6StatusOGSbGMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16AsyncMapSequenceVyScSy6TipKit4TipsO6StatusOGSbGMd, &_ss16AsyncMapSequenceVyScSy6TipKit4TipsO6StatusOGSbGMR);
   v6[58] = v9;
   v6[59] = *(v9 - 8);
   v6[60] = swift_task_alloc();
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16AsyncMapSequenceV8IteratorVyScSy6TipKit4TipsO6StatusOGSb_GMd);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16AsyncMapSequenceV8IteratorVyScSy6TipKit4TipsO6StatusOGSb_GMd, &_ss16AsyncMapSequenceV8IteratorVyScSy6TipKit4TipsO6StatusOGSb_GMR);
   v6[61] = v10;
   v6[62] = *(v10 - 8);
   v6[63] = swift_task_alloc();
@@ -3700,10 +3709,10 @@ uint64_t specialized closure #1 in MPRecentsTableViewController.observeTip<A>(_:
   v1 = *(v0 + 480);
   v3 = *(v0 + 464);
   *(v0 + 544) = type metadata accessor for RecentsUnknownCallersTip();
-  *(v0 + 552) = lazy protocol witness table accessor for type RecentsBrandedCallingTip and conformance RecentsBrandedCallingTip(&lazy protocol witness table cache variable for type RecentsUnknownCallersTip and conformance RecentsUnknownCallersTip, &type metadata accessor for RecentsUnknownCallersTip);
+  *(v0 + 552) = lazy protocol witness table accessor for type RecentsBrandedCallingTip and conformance RecentsBrandedCallingTip(&lazy protocol witness table cache variable for type RecentsUnknownCallersTip and conformance RecentsUnknownCallersTip, &type metadata accessor for RecentsUnknownCallersTip, &protocol conformance descriptor for RecentsUnknownCallersTip);
   Tip.shouldDisplayUpdates.getter();
   AsyncMapSequence.base.getter();
-  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](&lazy protocol witness table cache variable for type AsyncStream<Tips.Status> and conformance AsyncStream<A>, &_sScSy6TipKit4TipsO6StatusOGMd);
+  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](&lazy protocol witness table cache variable for type AsyncStream<Tips.Status> and conformance AsyncStream<A>, &_sScSy6TipKit4TipsO6StatusOGMd, &_sScSy6TipKit4TipsO6StatusOGMR, &protocol conformance descriptor for AsyncStream<A>);
   dispatch thunk of AsyncSequence.makeAsyncIterator()();
   AsyncMapSequence.transform.getter();
   (*(v2 + 8))(v1, v3);
@@ -3734,7 +3743,7 @@ uint64_t specialized closure #1 in MPRecentsTableViewController.observeTip<A>(_:
 {
   v1 = v0[70];
   v0[73] = AsyncMapSequence.Iterator.baseIterator.modify();
-  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](&lazy protocol witness table cache variable for type AsyncStream<Tips.Status>.Iterator and conformance AsyncStream<A>.Iterator, &_sScS8IteratorVy6TipKit4TipsO6StatusO_GMd);
+  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](&lazy protocol witness table cache variable for type AsyncStream<Tips.Status>.Iterator and conformance AsyncStream<A>.Iterator, &_sScS8IteratorVy6TipKit4TipsO6StatusO_GMd, &_sScS8IteratorVy6TipKit4TipsO6StatusO_GMR, &protocol conformance descriptor for AsyncStream<A>.Iterator);
   v2 = swift_task_alloc();
   v0[74] = v2;
   *v2 = v0;
@@ -3783,7 +3792,7 @@ uint64_t specialized closure #1 in MPRecentsTableViewController.observeTip<A>(_:
     __asm { BRAA            X2, X16 }
   }
 
-  outlined destroy of (NSAttributedStringKey, Any)(v3, &_s6TipKit4TipsO6StatusOSgMd);
+  outlined destroy of (NSAttributedStringKey, Any)(v3, &_s6TipKit4TipsO6StatusOSgMd, &_s6TipKit4TipsO6StatusOSgMR);
   v4 = v0[67];
   v5 = v0[66];
 
@@ -3939,16 +3948,16 @@ LABEL_14:
     v4 = v12;
     specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v14, v7, isUniquelyReferenced_nonNull_native, &v27);
     (*v9)(v7, v24);
-    __swift_destroy_boxed_opaque_existential_0(v0 + 216);
+    __swift_destroy_boxed_opaque_existential_0((v0 + 216));
 
     *v6 = v27;
   }
 
   else
   {
-    outlined destroy of (NSAttributedStringKey, Any)(v0 + 136, &_s6TipKit0A0_pSgMd);
+    outlined destroy of (NSAttributedStringKey, Any)(v0 + 136, &_s6TipKit0A0_pSgMd, &_s6TipKit0A0_pSgMR);
     specialized Dictionary._Variant.removeValue(forKey:)(v7, v0 + 176);
-    outlined destroy of (NSAttributedStringKey, Any)(v0 + 176, &_s6TipKit0A0_pSgMd);
+    outlined destroy of (NSAttributedStringKey, Any)(v0 + 176, &_s6TipKit0A0_pSgMd, &_s6TipKit0A0_pSgMR);
     (*v9)(v7, v8);
   }
 
@@ -3986,10 +3995,10 @@ LABEL_14:
   v1 = *(v0 + 480);
   v3 = *(v0 + 464);
   *(v0 + 544) = type metadata accessor for RecentsBrandedCallingTip();
-  *(v0 + 552) = lazy protocol witness table accessor for type RecentsBrandedCallingTip and conformance RecentsBrandedCallingTip(&lazy protocol witness table cache variable for type RecentsBrandedCallingTip and conformance RecentsBrandedCallingTip, &type metadata accessor for RecentsBrandedCallingTip);
+  *(v0 + 552) = lazy protocol witness table accessor for type RecentsBrandedCallingTip and conformance RecentsBrandedCallingTip(&lazy protocol witness table cache variable for type RecentsBrandedCallingTip and conformance RecentsBrandedCallingTip, &type metadata accessor for RecentsBrandedCallingTip, &protocol conformance descriptor for RecentsBrandedCallingTip);
   Tip.shouldDisplayUpdates.getter();
   AsyncMapSequence.base.getter();
-  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](&lazy protocol witness table cache variable for type AsyncStream<Tips.Status> and conformance AsyncStream<A>, &_sScSy6TipKit4TipsO6StatusOGMd);
+  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](&lazy protocol witness table cache variable for type AsyncStream<Tips.Status> and conformance AsyncStream<A>, &_sScSy6TipKit4TipsO6StatusOGMd, &_sScSy6TipKit4TipsO6StatusOGMR, &protocol conformance descriptor for AsyncStream<A>);
   dispatch thunk of AsyncSequence.makeAsyncIterator()();
   AsyncMapSequence.transform.getter();
   (*(v2 + 8))(v1, v3);
@@ -4020,7 +4029,7 @@ LABEL_14:
 {
   v1 = v0[70];
   v0[73] = AsyncMapSequence.Iterator.baseIterator.modify();
-  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](&lazy protocol witness table cache variable for type AsyncStream<Tips.Status>.Iterator and conformance AsyncStream<A>.Iterator, &_sScS8IteratorVy6TipKit4TipsO6StatusO_GMd);
+  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](&lazy protocol witness table cache variable for type AsyncStream<Tips.Status>.Iterator and conformance AsyncStream<A>.Iterator, &_sScS8IteratorVy6TipKit4TipsO6StatusO_GMd, &_sScS8IteratorVy6TipKit4TipsO6StatusO_GMR, &protocol conformance descriptor for AsyncStream<A>.Iterator);
   v2 = swift_task_alloc();
   v0[74] = v2;
   *v2 = v0;
@@ -4069,7 +4078,7 @@ LABEL_14:
     __asm { BRAA            X2, X16 }
   }
 
-  outlined destroy of (NSAttributedStringKey, Any)(v3, &_s6TipKit4TipsO6StatusOSgMd);
+  outlined destroy of (NSAttributedStringKey, Any)(v3, &_s6TipKit4TipsO6StatusOSgMd, &_s6TipKit4TipsO6StatusOSgMR);
   v4 = v0[67];
   v5 = v0[66];
 
@@ -4225,16 +4234,16 @@ LABEL_14:
     v4 = v12;
     specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v14, v7, isUniquelyReferenced_nonNull_native, &v27);
     (*v9)(v7, v24);
-    __swift_destroy_boxed_opaque_existential_0(v0 + 216);
+    __swift_destroy_boxed_opaque_existential_0((v0 + 216));
 
     *v6 = v27;
   }
 
   else
   {
-    outlined destroy of (NSAttributedStringKey, Any)(v0 + 136, &_s6TipKit0A0_pSgMd);
+    outlined destroy of (NSAttributedStringKey, Any)(v0 + 136, &_s6TipKit0A0_pSgMd, &_s6TipKit0A0_pSgMR);
     specialized Dictionary._Variant.removeValue(forKey:)(v7, v0 + 176);
-    outlined destroy of (NSAttributedStringKey, Any)(v0 + 176, &_s6TipKit0A0_pSgMd);
+    outlined destroy of (NSAttributedStringKey, Any)(v0 + 176, &_s6TipKit0A0_pSgMd, &_s6TipKit0A0_pSgMR);
     (*v9)(v7, v8);
   }
 
@@ -4272,10 +4281,10 @@ LABEL_14:
   v1 = *(v0 + 480);
   v3 = *(v0 + 464);
   *(v0 + 544) = type metadata accessor for RecentsSaveAsFavoritesTip();
-  *(v0 + 552) = lazy protocol witness table accessor for type RecentsBrandedCallingTip and conformance RecentsBrandedCallingTip(&lazy protocol witness table cache variable for type RecentsSaveAsFavoritesTip and conformance RecentsSaveAsFavoritesTip, &type metadata accessor for RecentsSaveAsFavoritesTip);
+  *(v0 + 552) = lazy protocol witness table accessor for type RecentsBrandedCallingTip and conformance RecentsBrandedCallingTip(&lazy protocol witness table cache variable for type RecentsSaveAsFavoritesTip and conformance RecentsSaveAsFavoritesTip, &type metadata accessor for RecentsSaveAsFavoritesTip, &protocol conformance descriptor for RecentsSaveAsFavoritesTip);
   Tip.shouldDisplayUpdates.getter();
   AsyncMapSequence.base.getter();
-  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](&lazy protocol witness table cache variable for type AsyncStream<Tips.Status> and conformance AsyncStream<A>, &_sScSy6TipKit4TipsO6StatusOGMd);
+  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](&lazy protocol witness table cache variable for type AsyncStream<Tips.Status> and conformance AsyncStream<A>, &_sScSy6TipKit4TipsO6StatusOGMd, &_sScSy6TipKit4TipsO6StatusOGMR, &protocol conformance descriptor for AsyncStream<A>);
   dispatch thunk of AsyncSequence.makeAsyncIterator()();
   AsyncMapSequence.transform.getter();
   (*(v2 + 8))(v1, v3);
@@ -4306,7 +4315,7 @@ LABEL_14:
 {
   v1 = v0[70];
   v0[73] = AsyncMapSequence.Iterator.baseIterator.modify();
-  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](&lazy protocol witness table cache variable for type AsyncStream<Tips.Status>.Iterator and conformance AsyncStream<A>.Iterator, &_sScS8IteratorVy6TipKit4TipsO6StatusO_GMd);
+  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](&lazy protocol witness table cache variable for type AsyncStream<Tips.Status>.Iterator and conformance AsyncStream<A>.Iterator, &_sScS8IteratorVy6TipKit4TipsO6StatusO_GMd, &_sScS8IteratorVy6TipKit4TipsO6StatusO_GMR, &protocol conformance descriptor for AsyncStream<A>.Iterator);
   v2 = swift_task_alloc();
   v0[74] = v2;
   *v2 = v0;
@@ -4355,7 +4364,7 @@ LABEL_14:
     __asm { BRAA            X2, X16 }
   }
 
-  outlined destroy of (NSAttributedStringKey, Any)(v3, &_s6TipKit4TipsO6StatusOSgMd);
+  outlined destroy of (NSAttributedStringKey, Any)(v3, &_s6TipKit4TipsO6StatusOSgMd, &_s6TipKit4TipsO6StatusOSgMR);
   v4 = v0[67];
   v5 = v0[66];
 
@@ -4511,16 +4520,16 @@ LABEL_14:
     v4 = v12;
     specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v14, v7, isUniquelyReferenced_nonNull_native, &v27);
     (*v9)(v7, v24);
-    __swift_destroy_boxed_opaque_existential_0(v0 + 216);
+    __swift_destroy_boxed_opaque_existential_0((v0 + 216));
 
     *v6 = v27;
   }
 
   else
   {
-    outlined destroy of (NSAttributedStringKey, Any)(v0 + 136, &_s6TipKit0A0_pSgMd);
+    outlined destroy of (NSAttributedStringKey, Any)(v0 + 136, &_s6TipKit0A0_pSgMd, &_s6TipKit0A0_pSgMR);
     specialized Dictionary._Variant.removeValue(forKey:)(v7, v0 + 176);
-    outlined destroy of (NSAttributedStringKey, Any)(v0 + 176, &_s6TipKit0A0_pSgMd);
+    outlined destroy of (NSAttributedStringKey, Any)(v0 + 176, &_s6TipKit0A0_pSgMd, &_s6TipKit0A0_pSgMR);
     (*v9)(v7, v8);
   }
 
@@ -4558,10 +4567,10 @@ LABEL_14:
   v1 = *(v0 + 480);
   v3 = *(v0 + 464);
   *(v0 + 544) = type metadata accessor for RecentsSaveAsContactTip();
-  *(v0 + 552) = lazy protocol witness table accessor for type RecentsBrandedCallingTip and conformance RecentsBrandedCallingTip(&lazy protocol witness table cache variable for type RecentsSaveAsContactTip and conformance RecentsSaveAsContactTip, &type metadata accessor for RecentsSaveAsContactTip);
+  *(v0 + 552) = lazy protocol witness table accessor for type RecentsBrandedCallingTip and conformance RecentsBrandedCallingTip(&lazy protocol witness table cache variable for type RecentsSaveAsContactTip and conformance RecentsSaveAsContactTip, &type metadata accessor for RecentsSaveAsContactTip, &protocol conformance descriptor for RecentsSaveAsContactTip);
   Tip.shouldDisplayUpdates.getter();
   AsyncMapSequence.base.getter();
-  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](&lazy protocol witness table cache variable for type AsyncStream<Tips.Status> and conformance AsyncStream<A>, &_sScSy6TipKit4TipsO6StatusOGMd);
+  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](&lazy protocol witness table cache variable for type AsyncStream<Tips.Status> and conformance AsyncStream<A>, &_sScSy6TipKit4TipsO6StatusOGMd, &_sScSy6TipKit4TipsO6StatusOGMR, &protocol conformance descriptor for AsyncStream<A>);
   dispatch thunk of AsyncSequence.makeAsyncIterator()();
   AsyncMapSequence.transform.getter();
   (*(v2 + 8))(v1, v3);
@@ -4592,7 +4601,7 @@ LABEL_14:
 {
   v1 = v0[70];
   v0[73] = AsyncMapSequence.Iterator.baseIterator.modify();
-  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](&lazy protocol witness table cache variable for type AsyncStream<Tips.Status>.Iterator and conformance AsyncStream<A>.Iterator, &_sScS8IteratorVy6TipKit4TipsO6StatusO_GMd);
+  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](&lazy protocol witness table cache variable for type AsyncStream<Tips.Status>.Iterator and conformance AsyncStream<A>.Iterator, &_sScS8IteratorVy6TipKit4TipsO6StatusO_GMd, &_sScS8IteratorVy6TipKit4TipsO6StatusO_GMR, &protocol conformance descriptor for AsyncStream<A>.Iterator);
   v2 = swift_task_alloc();
   v0[74] = v2;
   *v2 = v0;
@@ -4641,7 +4650,7 @@ LABEL_14:
     __asm { BRAA            X2, X16 }
   }
 
-  outlined destroy of (NSAttributedStringKey, Any)(v3, &_s6TipKit4TipsO6StatusOSgMd);
+  outlined destroy of (NSAttributedStringKey, Any)(v3, &_s6TipKit4TipsO6StatusOSgMd, &_s6TipKit4TipsO6StatusOSgMR);
   v4 = v0[67];
   v5 = v0[66];
 
@@ -4797,16 +4806,16 @@ LABEL_14:
     v4 = v12;
     specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v14, v7, isUniquelyReferenced_nonNull_native, &v27);
     (*v9)(v7, v24);
-    __swift_destroy_boxed_opaque_existential_0(v0 + 216);
+    __swift_destroy_boxed_opaque_existential_0((v0 + 216));
 
     *v6 = v27;
   }
 
   else
   {
-    outlined destroy of (NSAttributedStringKey, Any)(v0 + 136, &_s6TipKit0A0_pSgMd);
+    outlined destroy of (NSAttributedStringKey, Any)(v0 + 136, &_s6TipKit0A0_pSgMd, &_s6TipKit0A0_pSgMR);
     specialized Dictionary._Variant.removeValue(forKey:)(v7, v0 + 176);
-    outlined destroy of (NSAttributedStringKey, Any)(v0 + 176, &_s6TipKit0A0_pSgMd);
+    outlined destroy of (NSAttributedStringKey, Any)(v0 + 176, &_s6TipKit0A0_pSgMd, &_s6TipKit0A0_pSgMR);
     (*v9)(v7, v8);
   }
 
@@ -4844,10 +4853,10 @@ LABEL_14:
   v1 = *(v0 + 480);
   v3 = *(v0 + 464);
   *(v0 + 544) = type metadata accessor for LiveVoicemailTip();
-  *(v0 + 552) = lazy protocol witness table accessor for type RecentsBrandedCallingTip and conformance RecentsBrandedCallingTip(&lazy protocol witness table cache variable for type LiveVoicemailTip and conformance LiveVoicemailTip, &type metadata accessor for LiveVoicemailTip);
+  *(v0 + 552) = lazy protocol witness table accessor for type RecentsBrandedCallingTip and conformance RecentsBrandedCallingTip(&lazy protocol witness table cache variable for type LiveVoicemailTip and conformance LiveVoicemailTip, &type metadata accessor for LiveVoicemailTip, &protocol conformance descriptor for LiveVoicemailTip);
   Tip.shouldDisplayUpdates.getter();
   AsyncMapSequence.base.getter();
-  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](&lazy protocol witness table cache variable for type AsyncStream<Tips.Status> and conformance AsyncStream<A>, &_sScSy6TipKit4TipsO6StatusOGMd);
+  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](&lazy protocol witness table cache variable for type AsyncStream<Tips.Status> and conformance AsyncStream<A>, &_sScSy6TipKit4TipsO6StatusOGMd, &_sScSy6TipKit4TipsO6StatusOGMR, &protocol conformance descriptor for AsyncStream<A>);
   dispatch thunk of AsyncSequence.makeAsyncIterator()();
   AsyncMapSequence.transform.getter();
   (*(v2 + 8))(v1, v3);
@@ -4878,7 +4887,7 @@ LABEL_14:
 {
   v1 = v0[70];
   v0[73] = AsyncMapSequence.Iterator.baseIterator.modify();
-  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](&lazy protocol witness table cache variable for type AsyncStream<Tips.Status>.Iterator and conformance AsyncStream<A>.Iterator, &_sScS8IteratorVy6TipKit4TipsO6StatusO_GMd);
+  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](&lazy protocol witness table cache variable for type AsyncStream<Tips.Status>.Iterator and conformance AsyncStream<A>.Iterator, &_sScS8IteratorVy6TipKit4TipsO6StatusO_GMd, &_sScS8IteratorVy6TipKit4TipsO6StatusO_GMR, &protocol conformance descriptor for AsyncStream<A>.Iterator);
   v2 = swift_task_alloc();
   v0[74] = v2;
   *v2 = v0;
@@ -4927,7 +4936,7 @@ LABEL_14:
     __asm { BRAA            X2, X16 }
   }
 
-  outlined destroy of (NSAttributedStringKey, Any)(v3, &_s6TipKit4TipsO6StatusOSgMd);
+  outlined destroy of (NSAttributedStringKey, Any)(v3, &_s6TipKit4TipsO6StatusOSgMd, &_s6TipKit4TipsO6StatusOSgMR);
   v4 = v0[67];
   v5 = v0[66];
 
@@ -5129,7 +5138,7 @@ LABEL_14:
 
   (*(v26 + 8))(v25, v27);
 LABEL_10:
-  __swift_destroy_boxed_opaque_existential_0(v0 + 16);
+  __swift_destroy_boxed_opaque_existential_0((v0 + 16));
 LABEL_11:
 
   v29 = *(v0 + 8);
@@ -5167,16 +5176,16 @@ LABEL_11:
     v4 = v12;
     specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v14, v7, isUniquelyReferenced_nonNull_native, &v27);
     (*v9)(v7, v24);
-    __swift_destroy_boxed_opaque_existential_0(v0 + 216);
+    __swift_destroy_boxed_opaque_existential_0((v0 + 216));
 
     *v6 = v27;
   }
 
   else
   {
-    outlined destroy of (NSAttributedStringKey, Any)(v0 + 136, &_s6TipKit0A0_pSgMd);
+    outlined destroy of (NSAttributedStringKey, Any)(v0 + 136, &_s6TipKit0A0_pSgMd, &_s6TipKit0A0_pSgMR);
     specialized Dictionary._Variant.removeValue(forKey:)(v7, v0 + 176);
-    outlined destroy of (NSAttributedStringKey, Any)(v0 + 176, &_s6TipKit0A0_pSgMd);
+    outlined destroy of (NSAttributedStringKey, Any)(v0 + 176, &_s6TipKit0A0_pSgMd, &_s6TipKit0A0_pSgMR);
     (*v9)(v7, v8);
   }
 
@@ -5523,40 +5532,40 @@ LABEL_30:
 LABEL_40:
 }
 
-void closure #1 in closure #1 in MPRecentsTableViewController.observeTip<A>(_:action:)()
+void closure #1 in closure #1 in MPRecentsTableViewController.observeTip<A>(_:action:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
+    v4 = Strong;
     if (one-time initialization token for mobilePhoneTips != -1)
     {
       swift_once();
     }
 
-    v2 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v2, static Logger.mobilePhoneTips);
-    v3 = Logger.logObject.getter();
-    v4 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v3, v4))
+    v5 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v5, static Logger.mobilePhoneTips);
+    v6 = Logger.logObject.getter();
+    v7 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v6, v7))
     {
-      v5 = swift_slowAlloc();
-      v6 = swift_slowAlloc();
-      v13 = v6;
-      *v5 = 136315138;
-      v7 = _typeName(_:qualified:)();
-      v9 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v7, v8, &v13);
+      v8 = swift_slowAlloc();
+      v9 = swift_slowAlloc();
+      v16 = v9;
+      *v8 = 136315138;
+      v10 = _typeName(_:qualified:)();
+      v12 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v10, v11, &v16);
 
-      *(v5 + 4) = v9;
-      _os_log_impl(&_mh_execute_header, v3, v4, "%s: Presenting LiveVoicemailWelcomeViewController", v5, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0(v6);
+      *(v8 + 4) = v12;
+      _os_log_impl(&_mh_execute_header, v6, v7, "%s: Presenting LiveVoicemailWelcomeViewController", v8, 0xCu);
+      __swift_destroy_boxed_opaque_existential_0(v9);
     }
 
-    v10 = objc_allocWithZone(type metadata accessor for LiveVoicemailWelcomeViewController());
-    v11 = v1;
-    v12 = specialized LiveVoicemailWelcomeViewController.init(delegate:)(v11, v10);
-    [v11 presentViewController:v12 animated:1 completion:0];
+    v13 = objc_allocWithZone(type metadata accessor for LiveVoicemailWelcomeViewController());
+    v14 = v4;
+    v15 = specialized LiveVoicemailWelcomeViewController.init(delegate:)(v14, v13);
+    [v14 presentViewController:v15 animated:1 completion:0];
   }
 }
 
@@ -5579,7 +5588,7 @@ uint64_t specialized MPRecentsTableViewController.observePopoverTip<A>(_:)(uint6
   v2[22] = v6;
   v2[23] = *(v6 + 64);
   v2[24] = swift_task_alloc();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   v2[25] = swift_task_alloc();
   v2[26] = type metadata accessor for MainActor();
   v2[27] = static MainActor.shared.getter();
@@ -5650,7 +5659,7 @@ uint64_t specialized MPRecentsTableViewController.observePopoverTip<A>(_:)()
 
   (*(v6 + 104))(v5, enum case for TPTipsHelper.Entry.Kind.recents(_:), v7);
   v0[5] = v2;
-  v0[6] = lazy protocol witness table accessor for type RecentsBrandedCallingTip and conformance RecentsBrandedCallingTip(&lazy protocol witness table cache variable for type CallHistorySearchTip and conformance CallHistorySearchTip, &type metadata accessor for CallHistorySearchTip);
+  v0[6] = lazy protocol witness table accessor for type RecentsBrandedCallingTip and conformance RecentsBrandedCallingTip(&lazy protocol witness table cache variable for type CallHistorySearchTip and conformance CallHistorySearchTip, &type metadata accessor for CallHistorySearchTip, &protocol conformance descriptor for CallHistorySearchTip);
   boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v0 + 2);
   v12(boxed_opaque_existential_1, v8, v2);
   (*(v6 + 16))(v4, v5, v7);
@@ -5658,7 +5667,7 @@ uint64_t specialized MPRecentsTableViewController.observePopoverTip<A>(_:)()
 
   TPTipsHelper.Entry.init(_:tip:observationTask:)();
   (*(v6 + 8))(v5, v7);
-  __swift_destroy_boxed_opaque_existential_0((v0 + 2));
+  __swift_destroy_boxed_opaque_existential_0(v0 + 2);
   dispatch thunk of TPTipsHelper.addEntry(_:)();
 
   (*(v3 + 8))(v1, v14);
@@ -5678,21 +5687,21 @@ uint64_t specialized closure #1 in MPRecentsTableViewController.observePopoverTi
   v5[82] = swift_task_alloc();
   v5[83] = swift_task_alloc();
   v5[84] = swift_task_alloc();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s6TipKit4TipsO6StatusOSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s6TipKit4TipsO6StatusOSgMd, &_s6TipKit4TipsO6StatusOSgMR);
   v5[85] = swift_task_alloc();
   v7 = type metadata accessor for Tips.Status();
   v5[86] = v7;
   v5[87] = *(v7 - 8);
   v5[88] = swift_task_alloc();
-  v5[89] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScSy6TipKit4TipsO6StatusOGMd);
+  v5[89] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScSy6TipKit4TipsO6StatusOGMd, &_sScSy6TipKit4TipsO6StatusOGMR);
   v5[90] = swift_task_alloc();
-  v5[91] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVy6TipKit4TipsO6StatusO_GMd);
+  v5[91] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVy6TipKit4TipsO6StatusO_GMd, &_sScS8IteratorVy6TipKit4TipsO6StatusO_GMR);
   v5[92] = swift_task_alloc();
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16AsyncMapSequenceVyScSy6TipKit4TipsO6StatusOGSbGMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16AsyncMapSequenceVyScSy6TipKit4TipsO6StatusOGSbGMd, &_ss16AsyncMapSequenceVyScSy6TipKit4TipsO6StatusOGSbGMR);
   v5[93] = v8;
   v5[94] = *(v8 - 8);
   v5[95] = swift_task_alloc();
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16AsyncMapSequenceV8IteratorVyScSy6TipKit4TipsO6StatusOGSb_GMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16AsyncMapSequenceV8IteratorVyScSy6TipKit4TipsO6StatusOGSb_GMd, &_ss16AsyncMapSequenceV8IteratorVyScSy6TipKit4TipsO6StatusOGSb_GMR);
   v5[96] = v9;
   v5[97] = *(v9 - 8);
   v5[98] = swift_task_alloc();
@@ -5711,10 +5720,10 @@ uint64_t specialized closure #1 in MPRecentsTableViewController.observePopoverTi
   v2 = *(v0 + 752);
   v3 = *(v0 + 744);
   *(v0 + 824) = type metadata accessor for CallHistorySearchTip();
-  *(v0 + 832) = lazy protocol witness table accessor for type RecentsBrandedCallingTip and conformance RecentsBrandedCallingTip(&lazy protocol witness table cache variable for type CallHistorySearchTip and conformance CallHistorySearchTip, &type metadata accessor for CallHistorySearchTip);
+  *(v0 + 832) = lazy protocol witness table accessor for type RecentsBrandedCallingTip and conformance RecentsBrandedCallingTip(&lazy protocol witness table cache variable for type CallHistorySearchTip and conformance CallHistorySearchTip, &type metadata accessor for CallHistorySearchTip, &protocol conformance descriptor for CallHistorySearchTip);
   Tip.shouldDisplayUpdates.getter();
   AsyncMapSequence.base.getter();
-  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](&lazy protocol witness table cache variable for type AsyncStream<Tips.Status> and conformance AsyncStream<A>, &_sScSy6TipKit4TipsO6StatusOGMd);
+  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](&lazy protocol witness table cache variable for type AsyncStream<Tips.Status> and conformance AsyncStream<A>, &_sScSy6TipKit4TipsO6StatusOGMd, &_sScSy6TipKit4TipsO6StatusOGMR, &protocol conformance descriptor for AsyncStream<A>);
   dispatch thunk of AsyncSequence.makeAsyncIterator()();
   AsyncMapSequence.transform.getter();
   (*(v2 + 8))(v1, v3);
@@ -5745,7 +5754,7 @@ uint64_t specialized closure #1 in MPRecentsTableViewController.observePopoverTi
 {
   v1 = v0[105];
   v0[108] = AsyncMapSequence.Iterator.baseIterator.modify();
-  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](&lazy protocol witness table cache variable for type AsyncStream<Tips.Status>.Iterator and conformance AsyncStream<A>.Iterator, &_sScS8IteratorVy6TipKit4TipsO6StatusO_GMd);
+  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](&lazy protocol witness table cache variable for type AsyncStream<Tips.Status>.Iterator and conformance AsyncStream<A>.Iterator, &_sScS8IteratorVy6TipKit4TipsO6StatusO_GMd, &_sScS8IteratorVy6TipKit4TipsO6StatusO_GMR, &protocol conformance descriptor for AsyncStream<A>.Iterator);
   v2 = swift_task_alloc();
   v0[109] = v2;
   *v2 = v0;
@@ -5794,7 +5803,7 @@ uint64_t specialized closure #1 in MPRecentsTableViewController.observePopoverTi
     __asm { BRAA            X2, X16 }
   }
 
-  outlined destroy of (NSAttributedStringKey, Any)(v3, &_s6TipKit4TipsO6StatusOSgMd);
+  outlined destroy of (NSAttributedStringKey, Any)(v3, &_s6TipKit4TipsO6StatusOSgMd, &_s6TipKit4TipsO6StatusOSgMR);
   v4 = v0[102];
   v5 = v0[101];
 
@@ -5919,14 +5928,14 @@ LABEL_25:
     if (v19)
     {
       v20 = v19;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
       v21 = swift_allocObject();
       *(v21 + 16) = xmmword_100209A80;
       v22 = [v6 searchController];
       v23 = [v22 searchBar];
 
       *(v21 + 32) = v23;
-      type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for UIView);
+      type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for UIView, UIView_ptr);
       isa = Array._bridgeToObjectiveC()().super.isa;
 
       [v20 setPassthroughViews:isa];
@@ -5941,7 +5950,7 @@ LABEL_25:
     *(v0 + 16) = v0;
     *(v0 + 24) = specialized closure #1 in MPRecentsTableViewController.observePopoverTip<A>(_:);
     v25 = swift_continuation_init();
-    *(v0 + 136) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccyyts5NeverOGMd);
+    *(v0 + 136) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccyyts5NeverOGMd, &_sSccyyts5NeverOGMR);
     *(v0 + 80) = _NSConcreteStackBlock;
     *(v0 + 88) = 1107296256;
     *(v0 + 96) = @objc completion handler block implementation for <A>@escaping @callee_unowned @convention(block) () -> () with result type ();
@@ -6023,7 +6032,7 @@ LABEL_14:
       goto LABEL_14;
     }
 
-    __swift_destroy_boxed_opaque_existential_0(v0 + 144);
+    __swift_destroy_boxed_opaque_existential_0((v0 + 144));
   }
 
   else
@@ -6110,16 +6119,16 @@ LABEL_14:
     v6 = v14;
     specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v16, v9, isUniquelyReferenced_nonNull_native, &v27);
     (*(v10 + 8))(v9, v25);
-    __swift_destroy_boxed_opaque_existential_0(v0 + 464);
+    __swift_destroy_boxed_opaque_existential_0((v0 + 464));
 
     *v8 = v27;
   }
 
   else
   {
-    outlined destroy of (NSAttributedStringKey, Any)(v0 + 384, &_s6TipKit0A0_pSgMd);
+    outlined destroy of (NSAttributedStringKey, Any)(v0 + 384, &_s6TipKit0A0_pSgMd, &_s6TipKit0A0_pSgMR);
     specialized Dictionary._Variant.removeValue(forKey:)(v9, v0 + 424);
-    outlined destroy of (NSAttributedStringKey, Any)(v0 + 424, &_s6TipKit0A0_pSgMd);
+    outlined destroy of (NSAttributedStringKey, Any)(v0 + 424, &_s6TipKit0A0_pSgMd, &_s6TipKit0A0_pSgMR);
     (*(v10 + 8))(v9, v11);
   }
 
@@ -6153,7 +6162,7 @@ LABEL_14:
   v24 = v0;
   (*(v0 + 928))(*(v0 + 656), *(v0 + 1016), *(v0 + 640));
   *(v0 + 224) = 0u;
-  v1 = v0 + 144;
+  v1 = (v0 + 144);
   *(v0 + 256) = 0;
   *(v0 + 240) = 0u;
   v2 = dispatch thunk of TPTipsHelper.currentTip.modify();
@@ -6174,21 +6183,21 @@ LABEL_14:
     v9 = *(v6 - 8);
     v10 = swift_task_alloc();
     (*(v9 + 16))(v10, v8, v6);
-    v1 = v0 + 144;
+    v1 = (v0 + 144);
     v11 = v6;
     v2 = v20;
     specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v10, v5, isUniquelyReferenced_nonNull_native, &v23, v11, v7);
     v22(v5, v21);
-    __swift_destroy_boxed_opaque_existential_0(v0 + 304);
+    __swift_destroy_boxed_opaque_existential_0((v0 + 304));
 
     *v4 = v23;
   }
 
   else
   {
-    outlined destroy of (NSAttributedStringKey, Any)(v0 + 224, &_s6TipKit0A0_pSgMd);
+    outlined destroy of (NSAttributedStringKey, Any)(v0 + 224, &_s6TipKit0A0_pSgMd, &_s6TipKit0A0_pSgMR);
     specialized Dictionary._Variant.removeValue(forKey:)(v5, v0 + 264);
-    outlined destroy of (NSAttributedStringKey, Any)(v0 + 264, &_s6TipKit0A0_pSgMd);
+    outlined destroy of (NSAttributedStringKey, Any)(v0 + 264, &_s6TipKit0A0_pSgMd, &_s6TipKit0A0_pSgMR);
     v22(v5, v21);
   }
 
@@ -6347,18 +6356,6 @@ uint64_t closure #1 in MPRecentsTableViewController.tipKitStartObservation()()
 }
 
 {
-  LiveVoicemailTip.init()();
-  v0[36] = static MainActor.shared.getter();
-  v1 = swift_task_alloc();
-  v0[37] = v1;
-  *v1 = v0;
-  v1[1] = closure #1 in MPRecentsTableViewController.tipKitStartObservation();
-  v2 = v0[30];
-
-  return specialized MPRecentsTableViewController.observeTip<A>(_:action:)(v2);
-}
-
-{
 
   v1 = dispatch thunk of Actor.unownedExecutor.getter();
 
@@ -6434,13 +6431,6 @@ uint64_t closure #1 in MPRecentsTableViewController.tipKitStartObservation()()
 }
 
 {
-  *(v0 + 336) = static MainActor.shared.getter();
-  v2 = dispatch thunk of Actor.unownedExecutor.getter();
-
-  return (_swift_task_switch)(closure #1 in MPRecentsTableViewController.tipKitStartObservation(), v2, v1);
-}
-
-{
   v1 = *(v0 + 248);
 
   *(v0 + 344) = [v1 personalizedCarrierString];
@@ -6455,7 +6445,7 @@ uint64_t closure #1 in MPRecentsTableViewController.tipKitStartObservation()()
     v2 = static String._unconditionallyBridgeFromObjectiveC(_:)();
     v4 = v3;
 
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySi_SStGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySi_SStGMd, &_ss23_ContiguousArrayStorageCySi_SStGMR);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_100209AA0;
     *(inited + 32) = 1;
@@ -6464,7 +6454,7 @@ uint64_t closure #1 in MPRecentsTableViewController.tipKitStartObservation()()
     *(inited + 48) = v4;
     _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSi_SSTt0g5Tf4g_n(inited);
     swift_setDeallocating();
-    outlined destroy of (NSAttributedStringKey, Any)(v6, &_sSi_SStMd);
+    outlined destroy of (NSAttributedStringKey, Any)(v6, &_sSi_SStMd, &_sSi_SStMR);
     RecentsBrandedCallingTip.init(_:)();
     v0[44] = static MainActor.shared.getter();
     v7 = swift_task_alloc();
@@ -6573,6 +6563,25 @@ uint64_t closure #1 in MPRecentsTableViewController.tipKitStartObservation()(uin
   return (_swift_task_switch)(closure #1 in MPRecentsTableViewController.tipKitStartObservation(), 0, 0);
 }
 
+{
+  LiveVoicemailTip.init()();
+  v1[36] = static MainActor.shared.getter();
+  v2 = swift_task_alloc();
+  v1[37] = v2;
+  *v2 = v1;
+  v2[1] = closure #1 in MPRecentsTableViewController.tipKitStartObservation();
+  v3 = v1[30];
+
+  return specialized MPRecentsTableViewController.observeTip<A>(_:action:)(v3);
+}
+
+{
+  *(v1 + 336) = static MainActor.shared.getter();
+  v3 = dispatch thunk of Actor.unownedExecutor.getter();
+
+  return (_swift_task_switch)(closure #1 in MPRecentsTableViewController.tipKitStartObservation(), v3, v2);
+}
+
 uint64_t sub_100156B44()
 {
 
@@ -6630,7 +6639,7 @@ uint64_t closure #1 in MPRecentsTableViewController.tipKitStopObservation()()
 
 {
 
-  specialized closure #1 in closure #1 in MPRecentsTableViewController.tipKitStopObservation()();
+  specialized closure #1 in closure #1 in MPRecentsTableViewController.tipKitStopObservation()(v0 + 16);
   swift_unknownObjectWeakDestroy();
 
   return (_swift_task_switch)(closure #1 in MPRecentsTableViewController.tipKitStopObservation(), 0, 0);
@@ -6680,15 +6689,15 @@ uint64_t partial apply for closure #1 in MPRecentsTableViewController.tipKitStop
   return closure #1 in MPRecentsTableViewController.tipKitStopObservation()(v2);
 }
 
-void specialized closure #1 in closure #1 in MPRecentsTableViewController.tipKitStopObservation()()
+void specialized closure #1 in closure #1 in MPRecentsTableViewController.tipKitStopObservation()(uint64_t a1)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
-    v2 = [Strong tableView];
-    [v2 setTableHeaderView:0];
+    v2 = Strong;
+    v3 = [Strong tableView];
+    [v3 setTableHeaderView:0];
   }
 
   if (one-time initialization token for tipUserInfo != -1)
@@ -6696,7 +6705,7 @@ void specialized closure #1 in closure #1 in MPRecentsTableViewController.tipKit
     swift_once();
   }
 
-  v3 = *(static MPRecentsTableViewController.tipUserInfo + 2);
+  v4 = *(static MPRecentsTableViewController.tipUserInfo + 2);
   *(static MPRecentsTableViewController.tipUserInfo + 2) = 0;
 }
 
@@ -6725,7 +6734,7 @@ Swift::Bool __swiftcall MPRecentsTableViewController.canDisplaySearchBarPopover(
     goto LABEL_11;
   }
 
-  type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for UIViewController);
+  type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for UIViewController, UIViewController_ptr);
   v6 = static NSObject.== infix(_:_:)();
 
   if (v6)
@@ -6739,7 +6748,7 @@ LABEL_7:
       goto LABEL_12;
     }
 
-    type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for UIViewController);
+    type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for UIViewController, UIViewController_ptr);
     v9 = v1;
     v10 = static NSObject.== infix(_:_:)();
 
@@ -6773,7 +6782,7 @@ LABEL_12:
   }
 }
 
-uint64_t specialized _NativeDictionary.setValue(_:forKey:isUnique:)(uint64_t a1, uint64_t a2, char a3, void *a4)
+uint64_t specialized _NativeDictionary.setValue(_:forKey:isUnique:)(uint64_t a1, uint64_t a2, char a3, uint64_t *a4)
 {
   v8 = type metadata accessor for TPTipsHelper.Entry.Kind();
   v9 = *(v8 - 8);
@@ -6781,7 +6790,7 @@ uint64_t specialized _NativeDictionary.setValue(_:forKey:isUnique:)(uint64_t a1,
   v11 = &v31 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   v12 = type metadata accessor for LiveVoicemailTip();
   v33 = v12;
-  v34 = lazy protocol witness table accessor for type RecentsBrandedCallingTip and conformance RecentsBrandedCallingTip(&lazy protocol witness table cache variable for type LiveVoicemailTip and conformance LiveVoicemailTip, &type metadata accessor for LiveVoicemailTip);
+  v34 = lazy protocol witness table accessor for type RecentsBrandedCallingTip and conformance RecentsBrandedCallingTip(&lazy protocol witness table cache variable for type LiveVoicemailTip and conformance LiveVoicemailTip, &type metadata accessor for LiveVoicemailTip, &protocol conformance descriptor for LiveVoicemailTip);
   boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(&v32);
   (*(*(v12 - 8) + 32))(boxed_opaque_existential_1, a1, v12);
   v14 = *a4;
@@ -6804,7 +6813,7 @@ LABEL_7:
     if (v20)
     {
 LABEL_8:
-      v23 = v22[7] + 40 * v16;
+      v23 = (v22[7] + 40 * v16);
       __swift_destroy_boxed_opaque_existential_0(v23);
       return outlined init with take of Tip(&v32, v23);
     }
@@ -6841,7 +6850,7 @@ LABEL_11:
   __chkstk_darwin(v27);
   v29 = &v31 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
   (*(v30 + 16))(v29);
-  specialized _NativeDictionary._insert(at:key:value:)(v16, v11, v29, v22, &type metadata accessor for LiveVoicemailTip, &lazy protocol witness table cache variable for type LiveVoicemailTip and conformance LiveVoicemailTip, &type metadata accessor for LiveVoicemailTip);
+  specialized _NativeDictionary._insert(at:key:value:)(v16, v11, v29, v22, &type metadata accessor for LiveVoicemailTip, &lazy protocol witness table cache variable for type LiveVoicemailTip and conformance LiveVoicemailTip, &type metadata accessor for LiveVoicemailTip, &protocol conformance descriptor for LiveVoicemailTip);
   return __swift_destroy_boxed_opaque_existential_0(&v32);
 }
 
@@ -6852,7 +6861,7 @@ LABEL_11:
   v11 = &v31 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   v12 = type metadata accessor for CallHistorySearchTip();
   v33 = v12;
-  v34 = lazy protocol witness table accessor for type RecentsBrandedCallingTip and conformance RecentsBrandedCallingTip(&lazy protocol witness table cache variable for type CallHistorySearchTip and conformance CallHistorySearchTip, &type metadata accessor for CallHistorySearchTip);
+  v34 = lazy protocol witness table accessor for type RecentsBrandedCallingTip and conformance RecentsBrandedCallingTip(&lazy protocol witness table cache variable for type CallHistorySearchTip and conformance CallHistorySearchTip, &type metadata accessor for CallHistorySearchTip, &protocol conformance descriptor for CallHistorySearchTip);
   boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(&v32);
   (*(*(v12 - 8) + 32))(boxed_opaque_existential_1, a1, v12);
   v14 = *a4;
@@ -6875,7 +6884,7 @@ LABEL_7:
     if (v20)
     {
 LABEL_8:
-      v23 = v22[7] + 40 * v16;
+      v23 = (v22[7] + 40 * v16);
       __swift_destroy_boxed_opaque_existential_0(v23);
       return outlined init with take of Tip(&v32, v23);
     }
@@ -6912,7 +6921,7 @@ LABEL_11:
   __chkstk_darwin(v27);
   v29 = &v31 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
   (*(v30 + 16))(v29);
-  specialized _NativeDictionary._insert(at:key:value:)(v16, v11, v29, v22, &type metadata accessor for CallHistorySearchTip, &lazy protocol witness table cache variable for type CallHistorySearchTip and conformance CallHistorySearchTip, &type metadata accessor for CallHistorySearchTip);
+  specialized _NativeDictionary._insert(at:key:value:)(v16, v11, v29, v22, &type metadata accessor for CallHistorySearchTip, &lazy protocol witness table cache variable for type CallHistorySearchTip and conformance CallHistorySearchTip, &type metadata accessor for CallHistorySearchTip, &protocol conformance descriptor for CallHistorySearchTip);
   return __swift_destroy_boxed_opaque_existential_0(&v32);
 }
 
@@ -6923,7 +6932,7 @@ LABEL_11:
   v11 = &v31 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   v12 = type metadata accessor for RecentsUnknownCallersTip();
   v33 = v12;
-  v34 = lazy protocol witness table accessor for type RecentsBrandedCallingTip and conformance RecentsBrandedCallingTip(&lazy protocol witness table cache variable for type RecentsUnknownCallersTip and conformance RecentsUnknownCallersTip, &type metadata accessor for RecentsUnknownCallersTip);
+  v34 = lazy protocol witness table accessor for type RecentsBrandedCallingTip and conformance RecentsBrandedCallingTip(&lazy protocol witness table cache variable for type RecentsUnknownCallersTip and conformance RecentsUnknownCallersTip, &type metadata accessor for RecentsUnknownCallersTip, &protocol conformance descriptor for RecentsUnknownCallersTip);
   boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(&v32);
   (*(*(v12 - 8) + 32))(boxed_opaque_existential_1, a1, v12);
   v14 = *a4;
@@ -6946,7 +6955,7 @@ LABEL_7:
     if (v20)
     {
 LABEL_8:
-      v23 = v22[7] + 40 * v16;
+      v23 = (v22[7] + 40 * v16);
       __swift_destroy_boxed_opaque_existential_0(v23);
       return outlined init with take of Tip(&v32, v23);
     }
@@ -6983,7 +6992,7 @@ LABEL_11:
   __chkstk_darwin(v27);
   v29 = &v31 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
   (*(v30 + 16))(v29);
-  specialized _NativeDictionary._insert(at:key:value:)(v16, v11, v29, v22, &type metadata accessor for RecentsUnknownCallersTip, &lazy protocol witness table cache variable for type RecentsUnknownCallersTip and conformance RecentsUnknownCallersTip, &type metadata accessor for RecentsUnknownCallersTip);
+  specialized _NativeDictionary._insert(at:key:value:)(v16, v11, v29, v22, &type metadata accessor for RecentsUnknownCallersTip, &lazy protocol witness table cache variable for type RecentsUnknownCallersTip and conformance RecentsUnknownCallersTip, &type metadata accessor for RecentsUnknownCallersTip, &protocol conformance descriptor for RecentsUnknownCallersTip);
   return __swift_destroy_boxed_opaque_existential_0(&v32);
 }
 
@@ -6994,7 +7003,7 @@ LABEL_11:
   v11 = &v31 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   v12 = type metadata accessor for RecentsBrandedCallingTip();
   v33 = v12;
-  v34 = lazy protocol witness table accessor for type RecentsBrandedCallingTip and conformance RecentsBrandedCallingTip(&lazy protocol witness table cache variable for type RecentsBrandedCallingTip and conformance RecentsBrandedCallingTip, &type metadata accessor for RecentsBrandedCallingTip);
+  v34 = lazy protocol witness table accessor for type RecentsBrandedCallingTip and conformance RecentsBrandedCallingTip(&lazy protocol witness table cache variable for type RecentsBrandedCallingTip and conformance RecentsBrandedCallingTip, &type metadata accessor for RecentsBrandedCallingTip, &protocol conformance descriptor for RecentsBrandedCallingTip);
   boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(&v32);
   (*(*(v12 - 8) + 32))(boxed_opaque_existential_1, a1, v12);
   v14 = *a4;
@@ -7017,7 +7026,7 @@ LABEL_7:
     if (v20)
     {
 LABEL_8:
-      v23 = v22[7] + 40 * v16;
+      v23 = (v22[7] + 40 * v16);
       __swift_destroy_boxed_opaque_existential_0(v23);
       return outlined init with take of Tip(&v32, v23);
     }
@@ -7054,7 +7063,7 @@ LABEL_11:
   __chkstk_darwin(v27);
   v29 = &v31 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
   (*(v30 + 16))(v29);
-  specialized _NativeDictionary._insert(at:key:value:)(v16, v11, v29, v22, &type metadata accessor for RecentsBrandedCallingTip, &lazy protocol witness table cache variable for type RecentsBrandedCallingTip and conformance RecentsBrandedCallingTip, &type metadata accessor for RecentsBrandedCallingTip);
+  specialized _NativeDictionary._insert(at:key:value:)(v16, v11, v29, v22, &type metadata accessor for RecentsBrandedCallingTip, &lazy protocol witness table cache variable for type RecentsBrandedCallingTip and conformance RecentsBrandedCallingTip, &type metadata accessor for RecentsBrandedCallingTip, &protocol conformance descriptor for RecentsBrandedCallingTip);
   return __swift_destroy_boxed_opaque_existential_0(&v32);
 }
 
@@ -7065,7 +7074,7 @@ LABEL_11:
   v11 = &v31 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   v12 = type metadata accessor for RecentsSaveAsFavoritesTip();
   v33 = v12;
-  v34 = lazy protocol witness table accessor for type RecentsBrandedCallingTip and conformance RecentsBrandedCallingTip(&lazy protocol witness table cache variable for type RecentsSaveAsFavoritesTip and conformance RecentsSaveAsFavoritesTip, &type metadata accessor for RecentsSaveAsFavoritesTip);
+  v34 = lazy protocol witness table accessor for type RecentsBrandedCallingTip and conformance RecentsBrandedCallingTip(&lazy protocol witness table cache variable for type RecentsSaveAsFavoritesTip and conformance RecentsSaveAsFavoritesTip, &type metadata accessor for RecentsSaveAsFavoritesTip, &protocol conformance descriptor for RecentsSaveAsFavoritesTip);
   boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(&v32);
   (*(*(v12 - 8) + 32))(boxed_opaque_existential_1, a1, v12);
   v14 = *a4;
@@ -7088,7 +7097,7 @@ LABEL_7:
     if (v20)
     {
 LABEL_8:
-      v23 = v22[7] + 40 * v16;
+      v23 = (v22[7] + 40 * v16);
       __swift_destroy_boxed_opaque_existential_0(v23);
       return outlined init with take of Tip(&v32, v23);
     }
@@ -7125,7 +7134,7 @@ LABEL_11:
   __chkstk_darwin(v27);
   v29 = &v31 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
   (*(v30 + 16))(v29);
-  specialized _NativeDictionary._insert(at:key:value:)(v16, v11, v29, v22, &type metadata accessor for RecentsSaveAsFavoritesTip, &lazy protocol witness table cache variable for type RecentsSaveAsFavoritesTip and conformance RecentsSaveAsFavoritesTip, &type metadata accessor for RecentsSaveAsFavoritesTip);
+  specialized _NativeDictionary._insert(at:key:value:)(v16, v11, v29, v22, &type metadata accessor for RecentsSaveAsFavoritesTip, &lazy protocol witness table cache variable for type RecentsSaveAsFavoritesTip and conformance RecentsSaveAsFavoritesTip, &type metadata accessor for RecentsSaveAsFavoritesTip, &protocol conformance descriptor for RecentsSaveAsFavoritesTip);
   return __swift_destroy_boxed_opaque_existential_0(&v32);
 }
 
@@ -7136,7 +7145,7 @@ LABEL_11:
   v11 = &v31 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   v12 = type metadata accessor for RecentsSaveAsContactTip();
   v33 = v12;
-  v34 = lazy protocol witness table accessor for type RecentsBrandedCallingTip and conformance RecentsBrandedCallingTip(&lazy protocol witness table cache variable for type RecentsSaveAsContactTip and conformance RecentsSaveAsContactTip, &type metadata accessor for RecentsSaveAsContactTip);
+  v34 = lazy protocol witness table accessor for type RecentsBrandedCallingTip and conformance RecentsBrandedCallingTip(&lazy protocol witness table cache variable for type RecentsSaveAsContactTip and conformance RecentsSaveAsContactTip, &type metadata accessor for RecentsSaveAsContactTip, &protocol conformance descriptor for RecentsSaveAsContactTip);
   boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(&v32);
   (*(*(v12 - 8) + 32))(boxed_opaque_existential_1, a1, v12);
   v14 = *a4;
@@ -7159,7 +7168,7 @@ LABEL_7:
     if (v20)
     {
 LABEL_8:
-      v23 = v22[7] + 40 * v16;
+      v23 = (v22[7] + 40 * v16);
       __swift_destroy_boxed_opaque_existential_0(v23);
       return outlined init with take of Tip(&v32, v23);
     }
@@ -7196,11 +7205,11 @@ LABEL_11:
   __chkstk_darwin(v27);
   v29 = &v31 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
   (*(v30 + 16))(v29);
-  specialized _NativeDictionary._insert(at:key:value:)(v16, v11, v29, v22, &type metadata accessor for RecentsSaveAsContactTip, &lazy protocol witness table cache variable for type RecentsSaveAsContactTip and conformance RecentsSaveAsContactTip, &type metadata accessor for RecentsSaveAsContactTip);
+  specialized _NativeDictionary._insert(at:key:value:)(v16, v11, v29, v22, &type metadata accessor for RecentsSaveAsContactTip, &lazy protocol witness table cache variable for type RecentsSaveAsContactTip and conformance RecentsSaveAsContactTip, &type metadata accessor for RecentsSaveAsContactTip, &protocol conformance descriptor for RecentsSaveAsContactTip);
   return __swift_destroy_boxed_opaque_existential_0(&v32);
 }
 
-uint64_t specialized _NativeDictionary.setValue(_:forKey:isUnique:)(uint64_t a1, uint64_t a2, char a3, void *a4, uint64_t a5, uint64_t a6)
+uint64_t specialized _NativeDictionary.setValue(_:forKey:isUnique:)(uint64_t a1, uint64_t a2, char a3, uint64_t *a4, uint64_t a5, uint64_t a6)
 {
   v12 = type metadata accessor for TPTipsHelper.Entry.Kind();
   v13 = *(v12 - 8);
@@ -7231,7 +7240,7 @@ LABEL_7:
     if (v23)
     {
 LABEL_8:
-      v26 = v25[7] + 40 * v19;
+      v26 = (v25[7] + 40 * v19);
       __swift_destroy_boxed_opaque_existential_0(v26);
       return outlined init with take of Tip(&v35, v26);
     }
@@ -7272,29 +7281,29 @@ LABEL_11:
   return __swift_destroy_boxed_opaque_existential_0(&v35);
 }
 
-uint64_t specialized _NativeDictionary._insert(at:key:value:)(unint64_t a1, uint64_t a2, uint64_t a3, void *a4, uint64_t (*a5)(void), unint64_t *a6, void (*a7)(uint64_t))
+uint64_t specialized _NativeDictionary._insert(at:key:value:)(unint64_t a1, uint64_t a2, uint64_t a3, void *a4, uint64_t (*a5)(void), unint64_t *a6, uint64_t (*a7)(uint64_t), uint64_t a8)
 {
-  v13 = a5(0);
-  v22 = v13;
-  v23 = lazy protocol witness table accessor for type RecentsBrandedCallingTip and conformance RecentsBrandedCallingTip(a6, a7);
-  boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(&v21);
-  (*(*(v13 - 8) + 32))(boxed_opaque_existential_1, a3, v13);
+  v15 = a5(0);
+  v24 = v15;
+  v25 = lazy protocol witness table accessor for type RecentsBrandedCallingTip and conformance RecentsBrandedCallingTip(a6, a7, a8);
+  boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(&v23);
+  (*(*(v15 - 8) + 32))(boxed_opaque_existential_1, a3, v15);
   a4[(a1 >> 6) + 8] |= 1 << a1;
-  v15 = a4[6];
-  v16 = type metadata accessor for TPTipsHelper.Entry.Kind();
-  (*(*(v16 - 8) + 32))(v15 + *(*(v16 - 8) + 72) * a1, a2, v16);
-  result = outlined init with take of Tip(&v21, a4[7] + 40 * a1);
-  v18 = a4[2];
-  v19 = __OFADD__(v18, 1);
-  v20 = v18 + 1;
-  if (v19)
+  v17 = a4[6];
+  v18 = type metadata accessor for TPTipsHelper.Entry.Kind();
+  (*(*(v18 - 8) + 32))(v17 + *(*(v18 - 8) + 72) * a1, a2, v18);
+  result = outlined init with take of Tip(&v23, a4[7] + 40 * a1);
+  v20 = a4[2];
+  v21 = __OFADD__(v20, 1);
+  v22 = v20 + 1;
+  if (v21)
   {
     __break(1u);
   }
 
   else
   {
-    a4[2] = v20;
+    a4[2] = v22;
   }
 
   return result;
@@ -7347,7 +7356,7 @@ uint64_t specialized MPRecentsTableViewController.observeTip<A>(_:action:)(uint6
   v2[23] = v6;
   v2[24] = *(v6 + 64);
   v2[25] = swift_task_alloc();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   v2[26] = swift_task_alloc();
   v2[27] = type metadata accessor for MainActor();
   v2[28] = static MainActor.shared.getter();
@@ -7387,7 +7396,7 @@ uint64_t specialized MPRecentsTableViewController.observeTip<A>(_:action:)(uint6
   v2[23] = v6;
   v2[24] = *(v6 + 64);
   v2[25] = swift_task_alloc();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   v2[26] = swift_task_alloc();
   v2[27] = type metadata accessor for MainActor();
   v2[28] = static MainActor.shared.getter();
@@ -7427,7 +7436,7 @@ uint64_t specialized MPRecentsTableViewController.observeTip<A>(_:action:)(uint6
   v2[23] = v6;
   v2[24] = *(v6 + 64);
   v2[25] = swift_task_alloc();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   v2[26] = swift_task_alloc();
   v2[27] = type metadata accessor for MainActor();
   v2[28] = static MainActor.shared.getter();
@@ -7467,7 +7476,7 @@ uint64_t specialized MPRecentsTableViewController.observeTip<A>(_:action:)(uint6
   v2[23] = v6;
   v2[24] = *(v6 + 64);
   v2[25] = swift_task_alloc();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   v2[26] = swift_task_alloc();
   v2[27] = type metadata accessor for MainActor();
   v2[28] = static MainActor.shared.getter();
@@ -7507,7 +7516,7 @@ uint64_t specialized MPRecentsTableViewController.observeTip<A>(_:action:)(uint6
   v2[23] = v6;
   v2[24] = *(v6 + 64);
   v2[25] = swift_task_alloc();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   v2[26] = swift_task_alloc();
   v2[27] = type metadata accessor for MainActor();
   v2[28] = static MainActor.shared.getter();
@@ -7581,7 +7590,7 @@ uint64_t specialized MPRecentsTableViewController.observeTip<A>(_:action:)()
 
   (*(v6 + 104))(v5, enum case for TPTipsHelper.Entry.Kind.recents(_:), v7);
   v0[5] = v2;
-  v0[6] = lazy protocol witness table accessor for type RecentsBrandedCallingTip and conformance RecentsBrandedCallingTip(&lazy protocol witness table cache variable for type RecentsUnknownCallersTip and conformance RecentsUnknownCallersTip, &type metadata accessor for RecentsUnknownCallersTip);
+  v0[6] = lazy protocol witness table accessor for type RecentsBrandedCallingTip and conformance RecentsBrandedCallingTip(&lazy protocol witness table cache variable for type RecentsUnknownCallersTip and conformance RecentsUnknownCallersTip, &type metadata accessor for RecentsUnknownCallersTip, &protocol conformance descriptor for RecentsUnknownCallersTip);
   boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v0 + 2);
   v12(boxed_opaque_existential_1, v8, v2);
   (*(v6 + 16))(v4, v5, v7);
@@ -7589,7 +7598,7 @@ uint64_t specialized MPRecentsTableViewController.observeTip<A>(_:action:)()
 
   TPTipsHelper.Entry.init(_:tip:observationTask:)();
   (*(v6 + 8))(v5, v7);
-  __swift_destroy_boxed_opaque_existential_0((v0 + 2));
+  __swift_destroy_boxed_opaque_existential_0(v0 + 2);
   dispatch thunk of TPTipsHelper.addEntry(_:)();
 
   (*(v3 + 8))(v1, v14);
@@ -7651,7 +7660,7 @@ uint64_t specialized MPRecentsTableViewController.observeTip<A>(_:action:)()
 
   (*(v6 + 104))(v5, enum case for TPTipsHelper.Entry.Kind.recents(_:), v7);
   v0[5] = v2;
-  v0[6] = lazy protocol witness table accessor for type RecentsBrandedCallingTip and conformance RecentsBrandedCallingTip(&lazy protocol witness table cache variable for type RecentsBrandedCallingTip and conformance RecentsBrandedCallingTip, &type metadata accessor for RecentsBrandedCallingTip);
+  v0[6] = lazy protocol witness table accessor for type RecentsBrandedCallingTip and conformance RecentsBrandedCallingTip(&lazy protocol witness table cache variable for type RecentsBrandedCallingTip and conformance RecentsBrandedCallingTip, &type metadata accessor for RecentsBrandedCallingTip, &protocol conformance descriptor for RecentsBrandedCallingTip);
   boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v0 + 2);
   v12(boxed_opaque_existential_1, v8, v2);
   (*(v6 + 16))(v4, v5, v7);
@@ -7659,7 +7668,7 @@ uint64_t specialized MPRecentsTableViewController.observeTip<A>(_:action:)()
 
   TPTipsHelper.Entry.init(_:tip:observationTask:)();
   (*(v6 + 8))(v5, v7);
-  __swift_destroy_boxed_opaque_existential_0((v0 + 2));
+  __swift_destroy_boxed_opaque_existential_0(v0 + 2);
   dispatch thunk of TPTipsHelper.addEntry(_:)();
 
   (*(v3 + 8))(v1, v14);
@@ -7721,7 +7730,7 @@ uint64_t specialized MPRecentsTableViewController.observeTip<A>(_:action:)()
 
   (*(v6 + 104))(v5, enum case for TPTipsHelper.Entry.Kind.recents(_:), v7);
   v0[5] = v2;
-  v0[6] = lazy protocol witness table accessor for type RecentsBrandedCallingTip and conformance RecentsBrandedCallingTip(&lazy protocol witness table cache variable for type RecentsSaveAsFavoritesTip and conformance RecentsSaveAsFavoritesTip, &type metadata accessor for RecentsSaveAsFavoritesTip);
+  v0[6] = lazy protocol witness table accessor for type RecentsBrandedCallingTip and conformance RecentsBrandedCallingTip(&lazy protocol witness table cache variable for type RecentsSaveAsFavoritesTip and conformance RecentsSaveAsFavoritesTip, &type metadata accessor for RecentsSaveAsFavoritesTip, &protocol conformance descriptor for RecentsSaveAsFavoritesTip);
   boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v0 + 2);
   v12(boxed_opaque_existential_1, v8, v2);
   (*(v6 + 16))(v4, v5, v7);
@@ -7729,7 +7738,7 @@ uint64_t specialized MPRecentsTableViewController.observeTip<A>(_:action:)()
 
   TPTipsHelper.Entry.init(_:tip:observationTask:)();
   (*(v6 + 8))(v5, v7);
-  __swift_destroy_boxed_opaque_existential_0((v0 + 2));
+  __swift_destroy_boxed_opaque_existential_0(v0 + 2);
   dispatch thunk of TPTipsHelper.addEntry(_:)();
 
   (*(v3 + 8))(v1, v14);
@@ -7791,7 +7800,7 @@ uint64_t specialized MPRecentsTableViewController.observeTip<A>(_:action:)()
 
   (*(v6 + 104))(v5, enum case for TPTipsHelper.Entry.Kind.recents(_:), v7);
   v0[5] = v2;
-  v0[6] = lazy protocol witness table accessor for type RecentsBrandedCallingTip and conformance RecentsBrandedCallingTip(&lazy protocol witness table cache variable for type RecentsSaveAsContactTip and conformance RecentsSaveAsContactTip, &type metadata accessor for RecentsSaveAsContactTip);
+  v0[6] = lazy protocol witness table accessor for type RecentsBrandedCallingTip and conformance RecentsBrandedCallingTip(&lazy protocol witness table cache variable for type RecentsSaveAsContactTip and conformance RecentsSaveAsContactTip, &type metadata accessor for RecentsSaveAsContactTip, &protocol conformance descriptor for RecentsSaveAsContactTip);
   boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v0 + 2);
   v12(boxed_opaque_existential_1, v8, v2);
   (*(v6 + 16))(v4, v5, v7);
@@ -7799,7 +7808,7 @@ uint64_t specialized MPRecentsTableViewController.observeTip<A>(_:action:)()
 
   TPTipsHelper.Entry.init(_:tip:observationTask:)();
   (*(v6 + 8))(v5, v7);
-  __swift_destroy_boxed_opaque_existential_0((v0 + 2));
+  __swift_destroy_boxed_opaque_existential_0(v0 + 2);
   dispatch thunk of TPTipsHelper.addEntry(_:)();
 
   (*(v3 + 8))(v1, v14);
@@ -7861,7 +7870,7 @@ uint64_t specialized MPRecentsTableViewController.observeTip<A>(_:action:)()
 
   (*(v6 + 104))(v5, enum case for TPTipsHelper.Entry.Kind.recents(_:), v7);
   v0[5] = v2;
-  v0[6] = lazy protocol witness table accessor for type RecentsBrandedCallingTip and conformance RecentsBrandedCallingTip(&lazy protocol witness table cache variable for type LiveVoicemailTip and conformance LiveVoicemailTip, &type metadata accessor for LiveVoicemailTip);
+  v0[6] = lazy protocol witness table accessor for type RecentsBrandedCallingTip and conformance RecentsBrandedCallingTip(&lazy protocol witness table cache variable for type LiveVoicemailTip and conformance LiveVoicemailTip, &type metadata accessor for LiveVoicemailTip, &protocol conformance descriptor for LiveVoicemailTip);
   boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v0 + 2);
   v12(boxed_opaque_existential_1, v8, v2);
   (*(v6 + 16))(v4, v5, v7);
@@ -7869,7 +7878,7 @@ uint64_t specialized MPRecentsTableViewController.observeTip<A>(_:action:)()
 
   TPTipsHelper.Entry.init(_:tip:observationTask:)();
   (*(v6 + 8))(v5, v7);
-  __swift_destroy_boxed_opaque_existential_0((v0 + 2));
+  __swift_destroy_boxed_opaque_existential_0(v0 + 2);
   dispatch thunk of TPTipsHelper.addEntry(_:)();
 
   (*(v3 + 8))(v1, v14);
@@ -8087,7 +8096,7 @@ uint64_t objectdestroy_28Tm(uint64_t (*a1)(void))
   return _swift_deallocObject(v1, ((v6 + 15) & 0xFFFFFFFFFFFFFFF8) + 8, v4 | 7);
 }
 
-uint64_t lazy protocol witness table accessor for type RecentsBrandedCallingTip and conformance RecentsBrandedCallingTip(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type RecentsBrandedCallingTip and conformance RecentsBrandedCallingTip(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -8105,7 +8114,7 @@ uint64_t _ss16AsyncMapSequenceV8IteratorV4next9isolationq_SgScA_pSgYi_tYa7Failur
   v3[7] = a2;
   v3[8] = v2;
   v3[6] = a1;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s6TipKit4TipsO6StatusOSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s6TipKit4TipsO6StatusOSgMd, &_s6TipKit4TipsO6StatusOSgMR);
   v3[9] = swift_task_alloc();
   v5 = type metadata accessor for Tips.Status();
   v3[10] = v5;
@@ -8132,10 +8141,10 @@ uint64_t _ss16AsyncMapSequenceV8IteratorV4next9isolationq_SgScA_pSgYi_tYa7Failur
 
 uint64_t _ss16AsyncMapSequenceV8IteratorV4next9isolationq_SgScA_pSgYi_tYa7FailureQzYKFScSy6TipKit4TipsO6StatusOG_SbTg5TY0_()
 {
-  v0[15] = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16AsyncMapSequenceV8IteratorVyScSy6TipKit4TipsO6StatusOGSb_GMd);
+  v0[15] = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16AsyncMapSequenceV8IteratorVyScSy6TipKit4TipsO6StatusOGSb_GMd, &_ss16AsyncMapSequenceV8IteratorVyScSy6TipKit4TipsO6StatusOGSb_GMR);
   v0[16] = AsyncMapSequence.Iterator.baseIterator.modify();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVy6TipKit4TipsO6StatusO_GMd);
-  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](&lazy protocol witness table cache variable for type AsyncStream<Tips.Status>.Iterator and conformance AsyncStream<A>.Iterator, &_sScS8IteratorVy6TipKit4TipsO6StatusO_GMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVy6TipKit4TipsO6StatusO_GMd, &_sScS8IteratorVy6TipKit4TipsO6StatusO_GMR);
+  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](&lazy protocol witness table cache variable for type AsyncStream<Tips.Status>.Iterator and conformance AsyncStream<A>.Iterator, &_sScS8IteratorVy6TipKit4TipsO6StatusO_GMd, &_sScS8IteratorVy6TipKit4TipsO6StatusO_GMR, &protocol conformance descriptor for AsyncStream<A>.Iterator);
   v1 = swift_task_alloc();
   v0[17] = v1;
   *v1 = v0;
@@ -8251,7 +8260,7 @@ uint64_t specialized MPFavoritesTableViewController.observeTip<A>(_:)(uint64_t a
   v2[22] = v6;
   v2[23] = *(v6 + 64);
   v2[24] = swift_task_alloc();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   v2[25] = swift_task_alloc();
   v2[26] = type metadata accessor for MainActor();
   v2[27] = static MainActor.shared.getter();
@@ -8330,7 +8339,7 @@ uint64_t specialized MPFavoritesTableViewController.observeTip<A>(_:)()
 
   TPTipsHelper.Entry.init(_:tip:observationTask:)();
   (*(v6 + 8))(v5, v7);
-  __swift_destroy_boxed_opaque_existential_0((v0 + 2));
+  __swift_destroy_boxed_opaque_existential_0(v0 + 2);
   dispatch thunk of TPTipsHelper.addEntry(_:)();
 
   (*(v3 + 8))(v1, v14);
@@ -8344,15 +8353,15 @@ uint64_t specialized closure #1 in MPFavoritesTableViewController.observeTip<A>(
 {
   v5[32] = a4;
   v5[33] = a5;
-  v5[34] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScSy6TipKit4TipsO6StatusOGMd);
+  v5[34] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScSy6TipKit4TipsO6StatusOGMd, &_sScSy6TipKit4TipsO6StatusOGMR);
   v5[35] = swift_task_alloc();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVy6TipKit4TipsO6StatusO_GMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVy6TipKit4TipsO6StatusO_GMd, &_sScS8IteratorVy6TipKit4TipsO6StatusO_GMR);
   v5[36] = swift_task_alloc();
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16AsyncMapSequenceVyScSy6TipKit4TipsO6StatusOGSbGMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16AsyncMapSequenceVyScSy6TipKit4TipsO6StatusOGSbGMd, &_ss16AsyncMapSequenceVyScSy6TipKit4TipsO6StatusOGSbGMR);
   v5[37] = v6;
   v5[38] = *(v6 - 8);
   v5[39] = swift_task_alloc();
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16AsyncMapSequenceV8IteratorVyScSy6TipKit4TipsO6StatusOGSb_GMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16AsyncMapSequenceV8IteratorVyScSy6TipKit4TipsO6StatusOGSb_GMd, &_ss16AsyncMapSequenceV8IteratorVyScSy6TipKit4TipsO6StatusOGSb_GMR);
   v5[40] = v7;
   v5[41] = *(v7 - 8);
   v5[42] = swift_task_alloc();
@@ -8374,7 +8383,7 @@ uint64_t specialized closure #1 in MPFavoritesTableViewController.observeTip<A>(
   v0[48] = lazy protocol witness table accessor for type FavoritesTip and conformance FavoritesTip();
   Tip.shouldDisplayUpdates.getter();
   AsyncMapSequence.base.getter();
-  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](&lazy protocol witness table cache variable for type AsyncStream<Tips.Status> and conformance AsyncStream<A>, &_sScSy6TipKit4TipsO6StatusOGMd);
+  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](&lazy protocol witness table cache variable for type AsyncStream<Tips.Status> and conformance AsyncStream<A>, &_sScSy6TipKit4TipsO6StatusOGMd, &_sScSy6TipKit4TipsO6StatusOGMR, &protocol conformance descriptor for AsyncStream<A>);
   dispatch thunk of AsyncSequence.makeAsyncIterator()();
   AsyncMapSequence.transform.getter();
   (*(v2 + 8))(v1, v3);
@@ -8454,7 +8463,7 @@ LABEL_11:
 
   v15 = v14;
   [v14 setBarButtonItem:v12];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo6UIViewCSgGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo6UIViewCSgGMd, &_ss23_ContiguousArrayStorageCySo6UIViewCSgGMR);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_100209F70;
   v17 = v2;
@@ -8486,7 +8495,7 @@ LABEL_11:
   *(inited + 40) = v23;
   v24 = specialized _arrayConditionalCast<A, B>(_:)(inited);
   swift_setDeallocating();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo6UIViewCSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo6UIViewCSgMd, &_sSo6UIViewCSgMR);
   swift_arrayDestroy();
   if (v24)
   {
@@ -8517,7 +8526,7 @@ LABEL_11:
     *(v0 + 16) = v0;
     *(v0 + 24) = specialized closure #1 in MPFavoritesTableViewController.observeTip<A>(_:);
     v34 = swift_continuation_init();
-    *(v0 + 136) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccyyts5NeverOGMd);
+    *(v0 + 136) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccyyts5NeverOGMd, &_sSccyyts5NeverOGMR);
     *(v0 + 80) = _NSConcreteStackBlock;
     *(v0 + 88) = 1107296256;
     *(v0 + 96) = @objc completion handler block implementation for <A>@escaping @callee_unowned @convention(block) () -> () with result type ();
@@ -8725,13 +8734,6 @@ uint64_t closure #1 in MPFavoritesTableViewController.tipKitStopObservation()()
 }
 
 {
-  *(v0 + 72) = static MainActor.shared.getter();
-  v2 = dispatch thunk of Actor.unownedExecutor.getter();
-
-  return (_swift_task_switch)(closure #1 in MPFavoritesTableViewController.tipKitStopObservation(), v2, v1);
-}
-
-{
 
   if (one-time initialization token for tipUserInfo != -1)
   {
@@ -8755,9 +8757,16 @@ uint64_t closure #1 in MPFavoritesTableViewController.tipKitStopObservation()(ui
   return (_swift_task_switch)(closure #1 in MPFavoritesTableViewController.tipKitStopObservation(), 0, 0);
 }
 
+{
+  *(v1 + 72) = static MainActor.shared.getter();
+  v3 = dispatch thunk of Actor.unownedExecutor.getter();
+
+  return (_swift_task_switch)(closure #1 in MPFavoritesTableViewController.tipKitStopObservation(), v3, v2);
+}
+
 Swift::Void __swiftcall MPFavoritesTableViewController.tipKitLogAnalyticsAddFavoritesEvent()()
 {
-  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   __chkstk_darwin(v0 - 8);
   v2 = &v6 - v1;
   v3 = type metadata accessor for TaskPriority();
@@ -8789,7 +8798,7 @@ uint64_t closure #1 in MPFavoritesTableViewController.tipKitLogAnalyticsAddFavor
 
 Swift::Void __swiftcall MPFavoritesTableViewController.tipKitActionFavoriteAdded()()
 {
-  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s6TipKit4TipsO5EventVy_AC13EmptyDonationVGMd);
+  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s6TipKit4TipsO5EventVy_AC13EmptyDonationVGMd, &_s6TipKit4TipsO5EventVy_AC13EmptyDonationVGMR);
   v1 = *(v0 - 8);
   __chkstk_darwin(v0);
   v3 = &v12 - v2;
@@ -8891,7 +8900,7 @@ uint64_t partial apply for specialized closure #1 in MPFavoritesTableViewControl
 
 uint64_t outlined destroy of Tips.Status?(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s6TipKit4TipsO6StatusOSgMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s6TipKit4TipsO6StatusOSgMd, &_s6TipKit4TipsO6StatusOSgMR);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -8910,12 +8919,11 @@ uint64_t VoicemailsSearchController.sectionIndex.getter()
   return *(v0 + v1);
 }
 
-uint64_t VoicemailsSearchController.sectionIndex.setter(uint64_t a1)
+void VoicemailsSearchController.sectionIndex.setter(uint64_t a1)
 {
   v3 = OBJC_IVAR___MPVoicemailsSearchController_sectionIndex;
-  result = swift_beginAccess();
+  swift_beginAccess();
   *(v1 + v3) = a1;
-  return result;
 }
 
 uint64_t VoicemailsSearchController.sectionType.getter()
@@ -8925,32 +8933,33 @@ uint64_t VoicemailsSearchController.sectionType.getter()
   return *(v0 + v1);
 }
 
-uint64_t VoicemailsSearchController.sectionType.setter(int a1)
+void VoicemailsSearchController.sectionType.setter(int a1)
 {
   v3 = OBJC_IVAR___MPVoicemailsSearchController_sectionType;
-  result = swift_beginAccess();
+  swift_beginAccess();
   *(v1 + v3) = a1;
-  return result;
 }
 
-Class @objc VoicemailsSearchController.results.getter()
+Class @objc VoicemailsSearchController.results.getter(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
   swift_beginAccess();
 
-  v0.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
-  return v0.super.isa;
+  return v3.super.isa;
 }
 
-uint64_t @objc VoicemailsSearchController.results.setter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5)
+double @objc VoicemailsSearchController.results.setter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5)
 {
   v7 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   v8 = *a5;
   swift_beginAccess();
   *(a1 + v8) = v7;
+
+  return result;
 }
 
-uint64_t VoicemailsSearchController.delegate.setter()
+uint64_t VoicemailsSearchController.delegate.setter(uint64_t a1)
 {
   swift_beginAccess();
   swift_unknownObjectWeakAssign();
@@ -9014,16 +9023,18 @@ uint64_t VoicemailsSearchController.delegate.getter(uint64_t *a1, uint64_t (*a2)
   return a2(v2 + v4);
 }
 
-uint64_t key path setter for VoicemailsSearchController.detailsPresenter : VoicemailsSearchController()
+double key path setter for VoicemailsSearchController.detailsPresenter : VoicemailsSearchController(uint64_t *a1, uint64_t *a2)
 {
   swift_beginAccess();
   swift_weakAssign();
   swift_weakLoadStrong();
   swift_beginAccess();
   swift_weakAssign();
+
+  return result;
 }
 
-uint64_t VoicemailsSearchController.detailsPresenter.setter()
+double VoicemailsSearchController.detailsPresenter.setter(uint64_t a1)
 {
   swift_beginAccess();
   swift_weakAssign();
@@ -9031,9 +9042,11 @@ uint64_t VoicemailsSearchController.detailsPresenter.setter()
 
   swift_beginAccess();
   swift_weakAssign();
+
+  return result;
 }
 
-void (*VoicemailsSearchController.detailsPresenter.modify(uint64_t *a1))(void **a1, char a2)
+void (*VoicemailsSearchController.detailsPresenter.modify(uint64_t *a1))(void **a1, char a2, __n128 a3)
 {
   if (&_swift_coroFrameAlloc)
   {
@@ -9055,9 +9068,9 @@ void (*VoicemailsSearchController.detailsPresenter.modify(uint64_t *a1))(void **
   return VoicemailsSearchController.detailsPresenter.modify;
 }
 
-void VoicemailsSearchController.detailsPresenter.modify(void **a1, char a2)
+void VoicemailsSearchController.detailsPresenter.modify(void **a1, char a2, __n128 a3)
 {
-  v3 = *a1;
+  v4 = *a1;
   swift_weakAssign();
   if (a2)
   {
@@ -9074,7 +9087,7 @@ void VoicemailsSearchController.detailsPresenter.modify(void **a1, char a2)
     swift_weakAssign();
   }
 
-  free(v3);
+  free(v4);
 }
 
 id VoicemailsSearchController.searchManager.getter()
@@ -9139,7 +9152,7 @@ char *VoicemailsSearchController.init(navigationController:voicemailController:)
   v15[1] = 0;
   *&v3[OBJC_IVAR___MPVoicemailsSearchController_searchTokens] = _swiftEmptyArrayStorage;
   *&v3[OBJC_IVAR___MPVoicemailsSearchController____lazy_storage___searchManager] = 0;
-  *&v3[OBJC_IVAR___MPVoicemailsSearchController_voicemailsTableViewController] = [objc_allocWithZone(type metadata accessor for VoicemailSearchTableViewController()) initWithNavigationController:a1 voicemailController:a2];
+  *&v3[OBJC_IVAR___MPVoicemailsSearchController_voicemailsTableViewController] = [objc_allocWithZone(type metadata accessor for VoicemailSearchTableViewController(0)) initWithNavigationController:a1 voicemailController:a2];
   v21.receiver = v3;
   v21.super_class = ObjectType;
   v16 = objc_msgSendSuper2(&v21, "init");
@@ -9272,7 +9285,7 @@ LABEL_19:
       v0[7] = v0 + 21;
       v0[3] = VoicemailsSearchController.search(with:searchTokens:);
       v22 = swift_continuation_init();
-      v0[17] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccySaySSGs5Error_pGMd);
+      v0[17] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccySaySSGs5Error_pGMd, &_sSccySaySSGs5Error_pGMR);
       v0[10] = _NSConcreteStackBlock;
       v0[11] = 1107296256;
       v0[12] = @objc completion handler block implementation for @escaping @callee_unowned @convention(block) (@unowned NSArray?, @unowned NSError?) -> () with result type [String];
@@ -9544,7 +9557,7 @@ BOOL specialized closure #3 in VoicemailsSearchController.search(with:searchToke
   v4 = type metadata accessor for MessageID.Value(0);
   __chkstk_darwin(v4);
   v6 = &v20[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   __chkstk_darwin(v7 - 8);
   v9 = &v20[-v8];
   v10 = [a1 identifier];
@@ -9675,7 +9688,7 @@ Swift::Int __swiftcall VoicemailsSearchController.numberOfRowsInConsolidatedView
 
 Swift::Void __swiftcall VoicemailsSearchController.registerCell(with:)(UITableView with)
 {
-  type metadata accessor for VoicemailSearchViewCell();
+  type metadata accessor for VoicemailSearchViewCell(0);
   ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
   v3 = String._bridgeToObjectiveC()();
   [(objc_class *)with.super.super.super.super.isa registerClass:ObjCClassFromMetadata forCellReuseIdentifier:v3];
@@ -9756,7 +9769,7 @@ Swift::Void __swiftcall VoicemailsSearchController.highlightMatchedText(in:)(UIT
 
     if (String.count.getter() >= 1)
     {
-      type metadata accessor for VoicemailSearchViewCell();
+      type metadata accessor for VoicemailSearchViewCell(0);
       if (swift_dynamicCastClass())
       {
         v6 = in.super.super.super.isa;

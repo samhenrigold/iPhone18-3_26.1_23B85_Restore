@@ -38,7 +38,7 @@
     v2 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytesNoCopy:self->_buf length:self->_bufLen freeWhenDone:0];
     v3 = [[PBDataReader alloc] initWithData:v2];
     dictionary = [MEMORY[0x1E695DF90] dictionary];
-    _dictionaryRepresentation(v3, 0, 6, dictionary);
+    _dictionaryRepresentation(v3, 0, 6u, dictionary);
   }
 
   else

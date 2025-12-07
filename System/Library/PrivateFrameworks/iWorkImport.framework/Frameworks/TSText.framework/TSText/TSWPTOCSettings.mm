@@ -729,15 +729,15 @@ LABEL_3:
   if (v22 != v25)
   {
     v30 = objc_msgSend_allKeys(self->_map, v26, v27);
-    v45 = objc_msgSend_allKeys(v18, v31, v32);
-    TSUSetCrashReporterInfo();
+    v33 = objc_msgSend_allKeys(v18, v31, v32);
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d -replaceReferencedStylesUsingBlock: resulted in fewer entries than original. Perhaps two indexed styles turned into the same style.\nOriginal indexed styles: %@\nNew indexed styles:%@", "[TSWPTOCSettings replaceReferencedStylesUsingBlock:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPTOCSettings.mm", 372, v30, v33);
 
-    v33 = MEMORY[0x277D81150];
-    v35 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v34, "[TSWPTOCSettings replaceReferencedStylesUsingBlock:]", "[TSWPTOCSettings replaceReferencedStylesUsingBlock:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPTOCSettings.mm", 372, v30, v45);
-    v37 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v36, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPTOCSettings.mm");
-    v40 = objc_msgSend_allKeys(self->_map, v38, v39);
-    v43 = objc_msgSend_allKeys(v18, v41, v42);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v33, v44, v35, v37, 372, 1, "-replaceReferencedStylesUsingBlock: resulted in fewer entries than original. Perhaps two indexed styles turned into the same style.\nOriginal indexed styles: %@\nNew indexed styles:%@", v40, v43);
+    v34 = MEMORY[0x277D81150];
+    v36 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v35, "[TSWPTOCSettings replaceReferencedStylesUsingBlock:]");
+    v38 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v37, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPTOCSettings.mm");
+    v41 = objc_msgSend_allKeys(self->_map, v39, v40);
+    v44 = objc_msgSend_allKeys(v18, v42, v43);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v34, v45, v36, v38, 372, 1, "-replaceReferencedStylesUsingBlock: resulted in fewer entries than original. Perhaps two indexed styles turned into the same style.\nOriginal indexed styles: %@\nNew indexed styles:%@", v41, v44);
 
     TSUCrashBreakpoint();
     abort();

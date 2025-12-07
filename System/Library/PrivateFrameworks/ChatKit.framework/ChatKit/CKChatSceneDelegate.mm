@@ -656,7 +656,7 @@ void __43__CKChatSceneDelegate__chatItemsDidChange___block_invoke(uint64_t a1, u
 
 - (void)_handleRegistryWillUnregisterChatNotification:(id)notification
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   object = [notificationCopy object];
   objc_opt_class();
@@ -677,58 +677,55 @@ void __43__CKChatSceneDelegate__chatItemsDidChange___block_invoke(uint64_t a1, u
 
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
     {
-      _CKLog();
+      _CKLog(0x2Bu, @"++++ ChatKit Internal Consistency Error ++++", v8, v9, v10, v11, v12, v13, v34);
     }
 
     if (IMOSLoggingEnabled())
     {
       CKLogCStringForType(43);
-      v8 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+      v14 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
-        v9 = objc_opt_class();
+        v15 = objc_opt_class();
         object2 = [notificationCopy object];
-        v11 = objc_opt_class();
+        v17 = objc_opt_class();
         *buf = 136315650;
-        v27 = "[CKChatSceneDelegate _handleRegistryWillUnregisterChatNotification:]";
-        v28 = 2112;
-        v29 = v9;
-        v30 = 2112;
-        v31 = v11;
-        v12 = v11;
+        v36 = "[CKChatSceneDelegate _handleRegistryWillUnregisterChatNotification:]";
+        v37 = 2112;
+        v38 = v15;
+        v39 = 2112;
+        v40 = v17;
+        v18 = v17;
       }
     }
 
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
     {
-      v13 = objc_opt_class();
+      objc_opt_class();
       object3 = [notificationCopy object];
-      v24 = v13;
-      v25 = objc_opt_class();
-      v23 = "[CKChatSceneDelegate _handleRegistryWillUnregisterChatNotification:]";
-      _CKLog();
+      objc_opt_class();
     }
 
     if (_CKShouldLog())
     {
-      _CKLogBacktrace();
+      _CKLogBacktrace(0x2Bu);
     }
   }
 
   object4 = [notificationCopy object];
   conversation = [(CKChatSceneDelegate *)self conversation];
   chat = [conversation chat];
-  v18 = object4 == chat;
+  v29 = object4 == chat;
 
-  if (v18)
+  if (v29)
   {
     if (IMOSLoggingEnabled())
     {
-      v19 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+      v30 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_19020E000, v19, OS_LOG_TYPE_INFO, "The chat for this scene has been unregistered. Requesting scene destruction.", buf, 2u);
+        _os_log_impl(&dword_19020E000, v30, OS_LOG_TYPE_INFO, "The chat for this scene has been unregistered. Requesting scene destruction.", buf, 2u);
       }
     }
 
@@ -758,7 +755,7 @@ void __69__CKChatSceneDelegate__handleRegistryWillUnregisterChatNotification___b
 
 - (void)_handleChatDisplayNameChangedNotification:(id)notification
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   object = [notificationCopy object];
   objc_opt_class();
@@ -779,58 +776,55 @@ void __69__CKChatSceneDelegate__handleRegistryWillUnregisterChatNotification___b
 
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
     {
-      _CKLog();
+      _CKLog(0x2Bu, @"++++ ChatKit Internal Consistency Error ++++", v8, v9, v10, v11, v12, v13, v32);
     }
 
     if (IMOSLoggingEnabled())
     {
       CKLogCStringForType(43);
-      v8 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+      v14 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
-        v9 = objc_opt_class();
+        v15 = objc_opt_class();
         object2 = [notificationCopy object];
-        v11 = objc_opt_class();
+        v17 = objc_opt_class();
         *buf = 136315650;
-        v25 = "[CKChatSceneDelegate _handleChatDisplayNameChangedNotification:]";
-        v26 = 2112;
-        v27 = v9;
-        v28 = 2112;
-        v29 = v11;
-        v12 = v11;
+        v34 = "[CKChatSceneDelegate _handleChatDisplayNameChangedNotification:]";
+        v35 = 2112;
+        v36 = v15;
+        v37 = 2112;
+        v38 = v17;
+        v18 = v17;
       }
     }
 
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
     {
-      v13 = objc_opt_class();
+      objc_opt_class();
       object3 = [notificationCopy object];
-      v22 = v13;
-      v23 = objc_opt_class();
-      v21 = "[CKChatSceneDelegate _handleChatDisplayNameChangedNotification:]";
-      _CKLog();
+      objc_opt_class();
     }
 
     if (_CKShouldLog())
     {
-      _CKLogBacktrace();
+      _CKLogBacktrace(0x2Bu);
     }
   }
 
   object4 = [notificationCopy object];
   conversation = [(CKChatSceneDelegate *)self conversation];
   chat = [conversation chat];
-  v18 = object4 == chat;
+  v29 = object4 == chat;
 
-  if (v18)
+  if (v29)
   {
     if (IMOSLoggingEnabled())
     {
-      v19 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+      v30 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_19020E000, v19, OS_LOG_TYPE_INFO, "The display name for the chat has been changed. Updating scene title", buf, 2u);
+        _os_log_impl(&dword_19020E000, v30, OS_LOG_TYPE_INFO, "The display name for the chat has been changed. Updating scene title", buf, 2u);
       }
     }
 
@@ -841,7 +835,7 @@ void __69__CKChatSceneDelegate__handleRegistryWillUnregisterChatNotification___b
 
 - (void)_handleMovedMessagesInChatsWithGUIDsToRecentlyDeletedNotification:(id)notification
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   if (IMOSLoggingEnabled())
   {
@@ -849,7 +843,7 @@ void __69__CKChatSceneDelegate__handleRegistryWillUnregisterChatNotification___b
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v29 = notificationCopy;
+      v38 = notificationCopy;
       _os_log_impl(&dword_19020E000, v5, OS_LOG_TYPE_INFO, "_handleMovedMessagesInChatsWithGUIDsToRecentlyDeletedNotification with notification: %@", buf, 0xCu);
     }
   }
@@ -875,46 +869,43 @@ void __69__CKChatSceneDelegate__handleRegistryWillUnregisterChatNotification___b
 
       if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
       {
-        _CKLog();
+        _CKLog(0x2Bu, @"++++ ChatKit Internal Consistency Error ++++", v9, v10, v11, v12, v13, v14, v36);
       }
 
       if (IMOSLoggingEnabled())
       {
         CKLogCStringForType(43);
-        v9 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+        v15 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
         {
-          v10 = objc_opt_class();
+          v16 = objc_opt_class();
           object2 = [notificationCopy object];
-          v12 = objc_opt_class();
+          v18 = objc_opt_class();
           *buf = 136315650;
-          v29 = "[CKChatSceneDelegate _handleMovedMessagesInChatsWithGUIDsToRecentlyDeletedNotification:]";
-          v30 = 2112;
-          v31 = v10;
-          v32 = 2112;
-          v33 = v12;
-          v13 = v12;
+          v38 = "[CKChatSceneDelegate _handleMovedMessagesInChatsWithGUIDsToRecentlyDeletedNotification:]";
+          v39 = 2112;
+          v40 = v16;
+          v41 = 2112;
+          v42 = v18;
+          v19 = v18;
         }
       }
 
       if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
       {
-        v14 = objc_opt_class();
+        objc_opt_class();
         object3 = [notificationCopy object];
-        v26 = v14;
-        v27 = objc_opt_class();
-        v25 = "[CKChatSceneDelegate _handleMovedMessagesInChatsWithGUIDsToRecentlyDeletedNotification:]";
-        _CKLog();
+        objc_opt_class();
       }
 
       if (_CKShouldLog())
       {
-        _CKLogBacktrace();
+        _CKLogBacktrace(0x2Bu);
       }
     }
 
-    v16 = [(CKChatSceneDelegate *)self conversation:v25];
-    chat = [v16 chat];
+    conversation = [(CKChatSceneDelegate *)self conversation];
+    chat = [conversation chat];
     guid = [chat guid];
 
     object4 = [notificationCopy object];
@@ -929,23 +920,23 @@ void __69__CKChatSceneDelegate__handleRegistryWillUnregisterChatNotification___b
 
     else if (IMOSLoggingEnabled())
     {
-      v23 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+      v34 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v29 = notificationCopy;
-        _os_log_impl(&dword_19020E000, v23, OS_LOG_TYPE_INFO, "Currently shown conversation is not deleted as apart of notification: %@", buf, 0xCu);
+        v38 = notificationCopy;
+        _os_log_impl(&dword_19020E000, v34, OS_LOG_TYPE_INFO, "Currently shown conversation is not deleted as apart of notification: %@", buf, 0xCu);
       }
     }
   }
 
   else if (IMOSLoggingEnabled())
   {
-    v24 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+    v35 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_19020E000, v24, OS_LOG_TYPE_INFO, "CKChatSceneDelegate: Warning - nil notification for _handleMovedMessagesInChatsWithGUIDsToRecentlyDeletedNotification", buf, 2u);
+      _os_log_impl(&dword_19020E000, v35, OS_LOG_TYPE_INFO, "CKChatSceneDelegate: Warning - nil notification for _handleMovedMessagesInChatsWithGUIDsToRecentlyDeletedNotification", buf, 2u);
     }
   }
 }
@@ -1046,22 +1037,22 @@ void __89__CKChatSceneDelegate__handleMovedMessagesInChatsWithGUIDsToRecentlyDel
   }
 }
 
-void __42__CKChatSceneDelegate___updateAppSnapshot__block_invoke(uint64_t a1)
+void __42__CKChatSceneDelegate___updateAppSnapshot__block_invoke(uint64_t a1, uint64_t a2)
 {
   if (IMOSLoggingEnabled())
   {
-    v2 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_19020E000, v2, OS_LOG_TYPE_INFO, "Telling UIKit to update our scene snapshot", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_19020E000, v3, OS_LOG_TYPE_INFO, "Telling UIKit to update our scene snapshot", v7, 2u);
     }
   }
 
-  v3 = [MEMORY[0x1E69DC668] sharedApplication];
-  v4 = [*(a1 + 32) scene];
-  v5 = [v4 session];
-  [v3 requestSceneSessionRefresh:v5];
+  v4 = [MEMORY[0x1E69DC668] sharedApplication];
+  v5 = [*(a1 + 32) scene];
+  v6 = [v5 session];
+  [v4 requestSceneSessionRefresh:v6];
 }
 
 - (NSSet)alertSuppressionContexts

@@ -4,9 +4,11 @@
 - (void)_updateUndoRedoButtons;
 - (void)cancelContentEditing;
 - (void)finishContentEditingWithCompletionHandler:(id)handler;
+- (void)markupViewController:(id)controller didChangeShowingSignaturesUI:(BOOL)i;
 - (void)startContentEditingWithInput:(id)input placeholderImage:(id)image;
 - (void)traitCollectionDidChange:(id)change;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation PPKPhotoEditingViewController
@@ -64,6 +66,14 @@
   [NSLayoutConstraint activateConstraints:v13];
 
   [v4 didMoveToParentViewController:self];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = PPKPhotoEditingViewController;
+  [(PPKPhotoEditingViewController *)&v4 viewWillAppear:appear];
+  [(PPKPhotoEditingViewController *)self _updateUndoRedoButtons];
 }
 
 - (void)traitCollectionDidChange:(id)change
@@ -140,6 +150,16 @@
   {
     markupVC2 = [(PPKPhotoEditingViewController *)self markupVC];
     [markupVC2 documentDidCloseTeardown];
+  }
+}
+
+- (void)markupViewController:(id)controller didChangeShowingSignaturesUI:(BOOL)i
+{
+  iCopy = i;
+  extensionContext = [(PPKPhotoEditingViewController *)self extensionContext];
+  if (objc_opt_respondsToSelector())
+  {
+    [extensionContext setHideNavigationController:iCopy];
   }
 }
 

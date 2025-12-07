@@ -1,21 +1,3 @@
-void sub_1000374A0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint8_t *a5)
-{
-
-  _os_log_impl(a1, a2, OS_LOG_TYPE_DEFAULT, a4, a5, 0xCu);
-}
-
-BOOL sub_1000374B8(NSObject *a1)
-{
-
-  return os_log_type_enabled(a1, OS_LOG_TYPE_DEFAULT);
-}
-
-id sub_1000374F4(uint64_t a1)
-{
-
-  return [v1 initWithScopeIdentifier:v2 identifier:a1];
-}
-
 void sub_100037514(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint8_t *a5)
 {
 
@@ -516,10 +498,11 @@ void sub_10003AB38(id a1)
   qword_1002C5068 = v2;
 }
 
-void sub_10003ABB8(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10003ABB8(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 uint64_t CPLCKFeatureAvailabilityResponseReadFrom(void *a1, void *a2)
@@ -604,17 +587,17 @@ LABEL_15:
   return [a2 hasError] ^ 1;
 }
 
-void sub_10003D098(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_10003D098(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va1, a13);
-  va_start(va, a13);
-  v15 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
-  v19 = va_arg(va1, void);
+  va_start(va1, a20);
+  va_start(va, a20);
+  v22 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
+  v26 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v13 - 96), 8);
+  _Block_object_dispose((v20 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1036,13 +1019,13 @@ void sub_10003E6BC(uint64_t a1)
 
     if ([*(a1 + 32) _isCapabilityCheckIgnorableError:v5])
     {
-      sub_1001987B8(_CPLSilentLogging, a1);
+      sub_1001987B8(_CPLSilentLogging);
       v4 = [CPLErrors cplErrorWithCode:1002 underlyingError:v5 description:@"Failed to check capability"];
     }
 
     else
     {
-      sub_10019870C(_CPLSilentLogging, a1);
+      sub_10019870C(_CPLSilentLogging);
       v9 = *(a1 + 40);
       v10 = [*(a1 + 32) lastOperationRequestUUIDs];
       v4 = [CPLCloudKitErrors CPLErrorForCloudKitError:v9 withRequestUUIDs:v10 description:@"Failed to check account capability"];
@@ -1072,9 +1055,9 @@ LABEL_10:
   _Block_object_dispose(&v15, 8);
 }
 
-void sub_10003E8CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10003E8CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1271,16 +1254,16 @@ LABEL_6:
 LABEL_23:
 }
 
-id sub_10003FC10()
+id sub_10003FC10(uint64_t a1)
 {
   if (qword_1002C50A0 != -1)
   {
     sub_100199044();
   }
 
-  v1 = qword_1002C50A8;
+  v2 = qword_1002C50A8;
 
-  return v1;
+  return v2;
 }
 
 void sub_10003FD90(void *a1)
@@ -1290,9 +1273,9 @@ void sub_10003FD90(void *a1)
   objc_exception_rethrow();
 }
 
-void sub_10003FDA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10003FDA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   objc_end_catch();
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -1305,9 +1288,9 @@ void sub_10003FEE8(void *a1)
   objc_exception_rethrow();
 }
 
-void sub_10003FEFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10003FEFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   objc_end_catch();
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -1338,12 +1321,12 @@ void sub_1000402D4(void *a1)
   objc_exception_rethrow();
 }
 
-void sub_1000402E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1000402E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   objc_end_catch();
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 96), 8);
+  _Block_object_dispose((v18 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1385,9 +1368,9 @@ void sub_100040754(void *a1)
   objc_exception_rethrow();
 }
 
-void sub_100040768(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100040768(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   objc_end_catch();
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -1524,22 +1507,18 @@ void sub_1000416AC(uint64_t a1, void *a2, void *a3)
 
 void sub_100041774(uint64_t a1)
 {
-  v8 = [*(a1 + 32) operationDidFinishWithError:*(a1 + 40)];
-  if (v8)
+  v4 = [*(a1 + 32) operationDidFinishWithError:*(a1 + 40)];
+  if (v4)
   {
     v2 = [*(a1 + 32) lastOperationRequestUUIDs];
-    v3 = [CPLCloudKitErrors CPLErrorForCloudKitError:v8 withRequestUUIDs:v2 description:@"Failed to get list of disabled features"];
+    v3 = [CPLCloudKitErrors CPLErrorForCloudKitError:v4 withRequestUUIDs:v2 description:@"Failed to get list of disabled features"];
 
     (*(*(*(a1 + 32) + 272) + 16))();
   }
 
   else
   {
-    v4 = *(a1 + 32);
-    v5 = v4[36];
-    v6 = *(a1 + 48);
-    v7 = v4[35];
-    (*(v4[34] + 16))();
+    (*(*(*(a1 + 32) + 272) + 16))();
   }
 }
 
@@ -1604,9 +1583,9 @@ void sub_100041BE0(uint64_t a1, void *a2)
   }
 }
 
-void sub_100041F30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_100041F30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1806,44 +1785,46 @@ void sub_1000432E4(uint64_t a1, void *a2, void *a3, void *a4)
       v10 = objc_autoreleasePoolPush();
       ++*(*(*(a1 + 72) + 8) + 24);
       v11 = *(a1 + 32);
-      v21[0] = _NSConcreteStackBlock;
-      v21[1] = 3221225472;
-      v21[2] = sub_100043694;
-      v21[3] = &unk_1002740F8;
+      v24[0] = _NSConcreteStackBlock;
+      v24[1] = 3221225472;
+      v24[2] = sub_100043694;
+      v24[3] = &unk_1002740F8;
       v12 = *(a1 + 72);
-      v21[4] = v11;
-      v21[5] = v12;
-      v21[6] = *(a1 + 88);
-      [v11 dispatchAsync:v21];
+      v24[4] = v11;
+      v24[5] = v12;
+      v24[6] = *(a1 + 88);
+      v13 = [v11 dispatchAsync:v24];
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v13 = sub_1000036BC();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+        v14 = sub_1000036BC(v13);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v23 = v8;
-          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEBUG, "Pulled change (query) %@", buf, 0xCu);
+          v26 = v8;
+          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEBUG, "Pulled change (query) %@", buf, 0xCu);
         }
       }
 
-      v20 = 0;
-      v14 = [v8 cpl_recordChangeMissingResourceProperties:&v20 scopeIdentifier:*(a1 + 40) scopeProvider:*(a1 + 32) currentUserRecordID:*(a1 + 48)];
-      v15 = v20;
-      if (v14)
+      v23 = 0;
+      v15 = [v8 cpl_recordChangeMissingResourceProperties:&v23 scopeIdentifier:*(a1 + 40) scopeProvider:*(a1 + 32) currentUserRecordID:*(a1 + 48)];
+      v16 = v23;
+      v17 = v16;
+      if (v15)
       {
-        if ([*(a1 + 56) supportsDownloadOfChange:v14 scopeProvider:*(a1 + 32)])
+        v18 = [*(a1 + 56) supportsDownloadOfChange:v15 scopeProvider:*(a1 + 32)];
+        if (v18)
         {
-          [*(a1 + 56) finalizeRecord:v14 fromCKRecord:v8 currentUserID:*(a1 + 48)];
-          if ([v14 inExpunged])
+          [*(a1 + 56) finalizeRecord:v15 fromCKRecord:v8 currentUserID:*(a1 + 48)];
+          if ([v15 inExpunged])
           {
-            v16 = objc_opt_class();
-            v17 = [v14 scopedIdentifier];
-            v18 = [v16 newDeleteChangeWithScopedIdentifier:v17];
+            v19 = objc_opt_class();
+            v20 = [v15 scopedIdentifier];
+            v21 = [v19 newDeleteChangeWithScopedIdentifier:v20];
 
-            v14 = v18;
+            v15 = v21;
           }
 
-          [*(*(*(a1 + 80) + 8) + 40) addRecord:v14];
+          [*(*(*(a1 + 80) + 8) + 40) addRecord:v15];
           goto LABEL_22;
         }
 
@@ -1855,12 +1836,12 @@ LABEL_22:
           goto LABEL_23;
         }
 
-        v19 = sub_1000036BC();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+        v22 = sub_1000036BC(v18);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v23 = v14;
-          _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Ignoring unsupported %@", buf, 0xCu);
+          v26 = v15;
+          _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Ignoring unsupported %@", buf, 0xCu);
         }
       }
 
@@ -1868,19 +1849,19 @@ LABEL_22:
       {
         if (_CPLSilentLogging)
         {
-          v14 = 0;
+          v15 = 0;
           goto LABEL_22;
         }
 
-        v19 = sub_1000036BC();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        v22 = sub_1000036BC(v16);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v23 = v8;
-          _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Failed to translate CKRecord to CPLRecord: %@", buf, 0xCu);
+          v26 = v8;
+          _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "Failed to translate CKRecord to CPLRecord: %@", buf, 0xCu);
         }
 
-        v14 = 0;
+        v15 = 0;
       }
 
       goto LABEL_22;
@@ -1928,20 +1909,21 @@ void sub_1000437E0(uint64_t a1)
   v3 = [*(a1 + 32) operationDidFinishWithError:*(a1 + 40)];
   if (v3)
   {
-    if (+[CPLCloudKitErrors isCloudKitOperationCancelledError:](CPLCloudKitErrors, "isCloudKitOperationCancelledError:", v3) || ([v3 isCPLOperationCancelledError] & 1) != 0)
+    v4 = [CPLCloudKitErrors isCloudKitOperationCancelledError:v3];
+    if (v4 & 1) != 0 || (v4 = [v3 isCPLOperationCancelledError], (v4))
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v11 = sub_1000036BC();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+        v12 = sub_1000036BC(v4);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
         {
           *buf = 0;
-          v12 = "Query was cancelled";
-          v13 = v11;
-          v14 = OS_LOG_TYPE_DEBUG;
-          v15 = 2;
+          v13 = "Query was cancelled";
+          v14 = v12;
+          v15 = OS_LOG_TYPE_DEBUG;
+          v16 = 2;
 LABEL_27:
-          _os_log_impl(&_mh_execute_header, v13, v14, v12, buf, v15);
+          _os_log_impl(&_mh_execute_header, v14, v15, v13, buf, v16);
         }
 
 LABEL_28:
@@ -1950,8 +1932,8 @@ LABEL_28:
 
     else
     {
-      v4 = [v3 domain];
-      if ([v4 isEqual:CKErrorDomain])
+      v5 = [v3 domain];
+      if ([v5 isEqual:CKErrorDomain])
       {
         if ([v3 code] == 11 || objc_msgSend(v3, "code") == 12)
         {
@@ -1959,31 +1941,31 @@ LABEL_28:
 LABEL_12:
           if ((_CPLSilentLogging & 1) == 0)
           {
-            v8 = sub_1000036BC();
-            if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+            v9 = sub_1000036BC(v6);
+            if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
             {
-              v9 = *(*v2 + 37);
+              v10 = *(*v2 + 37);
               *buf = 138412546;
-              *&buf[4] = v9;
-              v18 = 2048;
-              v19 = [v3 code];
-              _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Query for %@ failed because it is not supported (CloudKit error: %ld)", buf, 0x16u);
+              *&buf[4] = v10;
+              v19 = 2048;
+              v20 = [v3 code];
+              _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Query for %@ failed because it is not supported (CloudKit error: %ld)", buf, 0x16u);
             }
           }
 
-          v10 = *(a1 + 56);
-          if (!v10)
+          v11 = *(a1 + 56);
+          if (!v11)
           {
-            v10 = @"Regular";
+            v11 = @"Regular";
           }
 
-          v6 = [CPLErrors cplErrorWithCode:255 description:@"Query for %@ - %@ is not supported for this user", *(*(a1 + 32) + 296), v10];
+          v7 = [CPLErrors cplErrorWithCode:255 description:@"Query for %@ - %@ is not supported for this user", *(*(a1 + 32) + 296), v11];
           goto LABEL_19;
         }
 
-        v7 = [v3 code];
+        v8 = [v3 code];
 
-        if (v7 == 1)
+        if (v8 == 1)
         {
           goto LABEL_12;
         }
@@ -1995,18 +1977,18 @@ LABEL_12:
 
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v11 = sub_1000036BC();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        v12 = sub_1000036BC(v6);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
-          v16 = *(*v2 + 37);
+          v17 = *(*v2 + 37);
           *buf = 138412546;
-          *&buf[4] = v16;
-          v18 = 2112;
-          v19 = v3;
-          v12 = "Query for %@ failed with error: %@";
-          v13 = v11;
-          v14 = OS_LOG_TYPE_ERROR;
-          v15 = 22;
+          *&buf[4] = v17;
+          v19 = 2112;
+          v20 = v3;
+          v13 = "Query for %@ failed with error: %@";
+          v14 = v12;
+          v15 = OS_LOG_TYPE_ERROR;
+          v16 = 22;
           goto LABEL_27;
         }
 
@@ -2015,17 +1997,16 @@ LABEL_12:
     }
 
     sub_100199A2C(v3, v2, buf);
-    v6 = *buf;
+    v7 = *buf;
     goto LABEL_19;
   }
 
   if ([*(*(*(a1 + 80) + 8) + 40) count])
   {
-    v5 = *(a1 + 48);
     (*(*(a1 + 64) + 16))();
   }
 
-  v6 = 0;
+  v7 = 0;
 LABEL_19:
   (*(*(a1 + 72) + 16))();
 }
@@ -2164,7 +2145,7 @@ LABEL_16:
 
     if ((v13 >> 3) == 1)
     {
-      if ((sub_100199C78(a1, &v15, a2, &v16) & 1) == 0)
+      if ((sub_100199C78(a1, v15, a2, &v16) & 1) == 0)
       {
         return v16;
       }
@@ -2187,105 +2168,104 @@ void sub_100044B04(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
   if (!a4)
   {
-    v7 = [a2 objectForKeyedSubscript:*(a1 + 32)];
-    if (!v7)
+    v6 = [a2 objectForKeyedSubscript:*(a1 + 32)];
+    if (!v6)
     {
-      v18 = *(a1 + 64);
-      v19 = *(a1 + 72);
-      v20 = *(a1 + 40);
-      v21 = [*(a1 + 32) zoneID];
-      v22 = [v21 cpl_zoneName];
-      v23 = [CPLErrors cplErrorWithCode:25 description:@"%@ %@ not found in %@", v19, v20, v22];
-      (*(v18 + 16))(v18, 0, v23);
+      v17 = *(a1 + 64);
+      v18 = *(a1 + 72);
+      v19 = *(a1 + 40);
+      v20 = [*(a1 + 32) zoneID];
+      v21 = [v20 cpl_zoneName];
+      v22 = [CPLErrors cplErrorWithCode:25 description:@"%@ %@ not found in %@", v18, v19, v21];
+      (*(v17 + 16))(v17, 0, v22);
 
 LABEL_19:
       return;
     }
 
-    v64 = 0;
-    v8 = [*(a1 + 48) scopedIdentifier];
-    v9 = [v8 scopeIdentifier];
-    v10 = [v7 cpl_recordChangeMissingResourceProperties:&v64 scopeIdentifier:v9 scopeProvider:*(a1 + 48) currentUserRecordID:*(a1 + 56)];
-    v11 = v64;
+    v62 = 0;
+    v7 = [*(a1 + 48) scopedIdentifier];
+    v8 = [v7 scopeIdentifier];
+    v9 = [v6 cpl_recordChangeMissingResourceProperties:&v62 scopeIdentifier:v8 scopeProvider:*(a1 + 48) currentUserRecordID:*(a1 + 56)];
+    v10 = v62;
 
-    if (v10)
+    if (v9)
     {
-      if (([v10 inExpunged] & 1) != 0 || objc_msgSend(v10, "isDelete"))
+      if (([v9 inExpunged] & 1) != 0 || objc_msgSend(v9, "isDelete"))
       {
-        v13 = *(a1 + 64);
-        v12 = *(a1 + 72);
-        v14 = *(a1 + 40);
-        v15 = [*(a1 + 32) zoneID];
-        v16 = [v15 cpl_zoneName];
-        v17 = [CPLErrors cplErrorWithCode:25 description:@"%@ %@ is deleted or sparse in %@", v12, v14, v16];
-        (*(v13 + 16))(v13, 0, v17);
+        v12 = *(a1 + 64);
+        v11 = *(a1 + 72);
+        v13 = *(a1 + 40);
+        v14 = [*(a1 + 32) zoneID];
+        v15 = [v14 cpl_zoneName];
+        v16 = [CPLErrors cplErrorWithCode:25 description:@"%@ %@ is deleted or sparse in %@", v11, v13, v15];
+        (*(v12 + 16))(v12, 0, v16);
       }
 
       else
       {
-        v30 = *(a1 + 72);
         if (objc_opt_isKindOfClass())
         {
-          if ([v10 supportsResources] && *(*(a1 + 48) + 288))
+          if ([v9 supportsResources] && *(*(a1 + 48) + 288))
           {
-            v56 = +[NSFileManager defaultManager];
+            v54 = +[NSFileManager defaultManager];
+            v58 = 0u;
+            v59 = 0u;
             v60 = 0u;
             v61 = 0u;
-            v62 = 0u;
-            v63 = 0u;
-            obj = [v10 resources];
-            v58 = [obj countByEnumeratingWithState:&v60 objects:v67 count:16];
-            if (v58)
+            obj = [v9 resources];
+            v56 = [obj countByEnumeratingWithState:&v58 objects:v65 count:16];
+            if (v56)
             {
-              v57 = *v61;
-              v55 = v7;
+              v55 = *v59;
+              v53 = v6;
               while (2)
               {
-                for (i = 0; i != v58; i = i + 1)
+                for (i = 0; i != v56; i = i + 1)
                 {
-                  if (*v61 != v57)
+                  if (*v59 != v55)
                   {
                     objc_enumerationMutation(obj);
                   }
 
-                  v32 = *(*(&v60 + 1) + 8 * i);
-                  v33 = [v32 identity];
-                  v34 = [v33 fileURL];
+                  v30 = *(*(&v58 + 1) + 8 * i);
+                  v31 = [v30 identity];
+                  v32 = [v31 fileURL];
 
-                  if (v34)
+                  if (v32)
                   {
-                    v35 = v11;
-                    v36 = [NSString alloc];
-                    v37 = *(a1 + 72);
-                    v38 = +[CPLResource shortDescriptionForResourceType:](CPLResource, "shortDescriptionForResourceType:", [v32 resourceType]);
-                    v39 = [v36 initWithFormat:@"resource-%@-%@", v37, v38];
+                    v33 = v10;
+                    v34 = [NSString alloc];
+                    v35 = *(a1 + 72);
+                    v36 = +[CPLResource shortDescriptionForResourceType:](CPLResource, "shortDescriptionForResourceType:", [v30 resourceType]);
+                    v37 = [v34 initWithFormat:@"resource-%@-%@", v35, v36];
 
-                    v40 = [*(*(a1 + 48) + 288) URLByAppendingPathComponent:v39 isDirectory:0];
-                    v59 = 0;
-                    LODWORD(v37) = [v56 moveItemAtURL:v34 toURL:v40 error:&v59];
-                    v41 = v59;
-                    if (!v37)
+                    v38 = [*(*(a1 + 48) + 288) URLByAppendingPathComponent:v37 isDirectory:0];
+                    v57 = 0;
+                    LODWORD(v35) = [v54 moveItemAtURL:v32 toURL:v38 error:&v57];
+                    v39 = v57;
+                    if (!v35)
                     {
-                      v49 = *(a1 + 64);
-                      v50 = +[CPLResource shortDescriptionForResourceType:](CPLResource, "shortDescriptionForResourceType:", [v32 resourceType]);
-                      v51 = objc_opt_class();
-                      v52 = [v10 scopedIdentifier];
-                      v53 = [CPLErrors cplErrorWithCode:150 underlyingError:v41 description:@"Failed to move %@ of %@ %@ to its destination", v50, v51, v52];
-                      (*(v49 + 16))(v49, 0, v53);
+                      v47 = *(a1 + 64);
+                      v48 = +[CPLResource shortDescriptionForResourceType:](CPLResource, "shortDescriptionForResourceType:", [v30 resourceType]);
+                      v49 = objc_opt_class();
+                      v50 = [v9 scopedIdentifier];
+                      v51 = [CPLErrors cplErrorWithCode:150 underlyingError:v39 description:@"Failed to move %@ of %@ %@ to its destination", v48, v49, v50];
+                      (*(v47 + 16))(v47, 0, v51);
 
                       return;
                     }
 
-                    v42 = [v32 identity];
-                    [v42 setFileURL:v40];
+                    v40 = [v30 identity];
+                    [v40 setFileURL:v38];
 
-                    v11 = v35;
-                    v7 = v55;
+                    v10 = v33;
+                    v6 = v53;
                   }
                 }
 
-                v58 = [obj countByEnumeratingWithState:&v60 objects:v67 count:16];
-                if (v58)
+                v56 = [obj countByEnumeratingWithState:&v58 objects:v65 count:16];
+                if (v56)
                 {
                   continue;
                 }
@@ -2299,14 +2279,14 @@ LABEL_19:
           goto LABEL_18;
         }
 
-        v43 = *(a1 + 64);
-        v44 = objc_opt_class();
-        v45 = *(a1 + 72);
-        v46 = *(a1 + 40);
-        v15 = [*(a1 + 32) zoneID];
-        v47 = [v15 cpl_zoneName];
-        v48 = [CPLErrors cplErrorWithCode:25 description:@"%@ %@ is not the expected %@ in %@", v44, v46, v45, v47];
-        (*(v43 + 16))(v43, 0, v48);
+        v41 = *(a1 + 64);
+        v42 = objc_opt_class();
+        v43 = *(a1 + 72);
+        v44 = *(a1 + 40);
+        v14 = [*(a1 + 32) zoneID];
+        v45 = [v14 cpl_zoneName];
+        v46 = [CPLErrors cplErrorWithCode:25 description:@"%@ %@ is not the expected %@ in %@", v42, v44, v43, v45];
+        (*(v41 + 16))(v41, 0, v46);
       }
     }
 
@@ -2319,21 +2299,21 @@ LABEL_19:
           sub_100199D18();
         }
 
-        v24 = qword_1002C5118;
+        v23 = qword_1002C5118;
         if (os_log_type_enabled(qword_1002C5118, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v66 = v7;
-          _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "Failed to translate CKRecord to CPLRecord: %@", buf, 0xCu);
+          v64 = v6;
+          _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "Failed to translate CKRecord to CPLRecord: %@", buf, 0xCu);
         }
       }
 
-      v25 = *(a1 + 64);
-      v26 = *(a1 + 40);
-      v27 = [*(a1 + 32) zoneID];
-      v28 = [v27 cpl_zoneName];
-      v29 = [CPLErrors cplErrorWithCode:150 description:@"Failed to translate record %@ in %@ to %@", v26, v28, *(a1 + 72)];
-      (*(v25 + 16))(v25, 0, v29);
+      v24 = *(a1 + 64);
+      v25 = *(a1 + 40);
+      v26 = [*(a1 + 32) zoneID];
+      v27 = [v26 cpl_zoneName];
+      v28 = [CPLErrors cplErrorWithCode:150 description:@"Failed to translate record %@ in %@ to %@", v25, v27, *(a1 + 72)];
+      (*(v24 + 16))(v24, 0, v28);
     }
 
 LABEL_18:
@@ -2341,10 +2321,9 @@ LABEL_18:
     goto LABEL_19;
   }
 
-  v5 = *(a1 + 64);
-  v6 = *(*(a1 + 64) + 16);
+  v5 = *(*(a1 + 64) + 16);
 
-  v6();
+  v5();
 }
 
 void sub_1000451FC(uint64_t a1, void *a2)
@@ -2550,7 +2529,7 @@ void sub_100048140(uint64_t a1, void *a2, uint64_t a3, void *a4)
     if (!*(a1 + 32))
     {
       sub_10019A038(a1);
-      goto LABEL_13;
+      goto LABEL_12;
     }
 
     v9 = *(*(a1 + 40) + 272);
@@ -2566,20 +2545,16 @@ void sub_100048140(uint64_t a1, void *a2, uint64_t a3, void *a4)
       }
 
       v10 = *(*(*(a1 + 40) + 272) + 16);
-      goto LABEL_12;
+      goto LABEL_11;
     }
 
     v9 = *(*(a1 + 40) + 272);
-    if (*(a1 + 32))
-    {
-      v11 = *(a1 + 32);
-    }
   }
 
   v10 = *(v9 + 16);
-LABEL_12:
+LABEL_11:
   v10();
-LABEL_13:
+LABEL_12:
 }
 
 id sub_100048290(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -2670,6 +2645,13 @@ void sub_100048C48(id a1)
   v2 = os_log_create(v1, "engine.transport.cloudkit.deletezone");
   v3 = qword_1002C5168;
   qword_1002C5168 = v2;
+}
+
+void sub_100049770(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, ...)
+{
+  va_start(va, a46);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 id sub_100049790(uint64_t a1, void *a2)
@@ -2932,36 +2914,37 @@ void sub_10004A878(uint64_t a1, void *a2, uint64_t a3, void *a4)
 void sub_10004A9C4(uint64_t a1)
 {
   v2 = [*(a1 + 32) operationDidFinishWithError:*(a1 + 40)];
+  v3 = v2;
   if (v2)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v3 = sub_100003744();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+      v4 = sub_100003744(v2);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
-        v4 = *(a1 + 48);
+        v5 = *(a1 + 48);
         *buf = 138412546;
-        v20 = v4;
-        v21 = 2112;
-        v22 = v2;
-        _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "Failed to save records %@: %@", buf, 0x16u);
+        v22 = v5;
+        v23 = 2112;
+        v24 = v3;
+        _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "Failed to save records %@: %@", buf, 0x16u);
       }
     }
 
-    v5 = [v2 domain];
-    if ([v5 isEqualToString:CKUnderlyingErrorDomain])
+    v6 = [v3 domain];
+    if ([v6 isEqualToString:CKUnderlyingErrorDomain])
     {
-      if ([v2 code] == 7)
+      if ([v3 code] == 7)
       {
 
 LABEL_23:
-        v8 = [CPLErrors cplErrorWithCode:35 underlyingError:v2 description:@"Rate limited or throttled: %@", v2];
+        v10 = [CPLErrors cplErrorWithCode:35 underlyingError:v3 description:@"Rate limited or throttled: %@", v3];
         goto LABEL_24;
       }
 
-      v18 = [v2 code];
+      v20 = [v3 code];
 
-      if (v18 == 2008)
+      if (v20 == 2008)
       {
         goto LABEL_23;
       }
@@ -2971,8 +2954,8 @@ LABEL_23:
     {
     }
 
-    v17 = [*(a1 + 32) lastOperationRequestUUIDs];
-    v8 = [CPLCloudKitErrors CPLErrorForCloudKitError:v2 withRequestUUIDs:v17 description:@"Failed to save records %@: %@", *(a1 + 48), v2];
+    v19 = [*(a1 + 32) lastOperationRequestUUIDs];
+    v10 = [CPLCloudKitErrors CPLErrorForCloudKitError:v3 withRequestUUIDs:v19 description:@"Failed to save records %@: %@", *(a1 + 48), v3];
 
 LABEL_24:
     (*(*(a1 + 88) + 16))();
@@ -2981,45 +2964,46 @@ LABEL_24:
 
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = sub_100003744();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100003744(0);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 56);
+      v8 = *(a1 + 56);
       *buf = 138412290;
-      v20 = v7;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Saved records %@", buf, 0xCu);
+      v22 = v8;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Saved records %@", buf, 0xCu);
     }
   }
 
-  v8 = [*(a1 + 64) URL];
+  v9 = [*(a1 + 64) URL];
+  v10 = v9;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v9 = sub_100003744();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = sub_100003744(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = [*(a1 + 32) scope];
-      v11 = [v8 cpl_redactedShareURL];
+      v12 = [*(a1 + 32) scope];
+      v13 = [v10 cpl_redactedShareURL];
       *buf = 138412546;
-      v20 = v10;
-      v21 = 2114;
-      v22 = v11;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Share URL for %@ after publishing: %{public}@", buf, 0x16u);
+      v22 = v12;
+      v23 = 2114;
+      v24 = v13;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Share URL for %@ after publishing: %{public}@", buf, 0x16u);
     }
   }
 
-  v12 = [*(a1 + 32) scope];
-  v13 = [v12 copy];
+  v14 = [*(a1 + 32) scope];
+  v15 = [v14 copy];
 
-  [v13 updateWithCKShare:*(a1 + 64) currentUserID:*(a1 + 72)];
+  [v15 updateWithCKShare:*(a1 + 64) currentUserID:*(a1 + 72)];
   if (*(a1 + 80))
   {
-    [v13 updateWithRootCKRecord:?];
+    [v15 updateWithRootCKRecord:?];
   }
 
-  v14 = *(a1 + 32);
-  v15 = *(v14 + 288);
-  *(v14 + 288) = v13;
-  v16 = v13;
+  v16 = *(a1 + 32);
+  v17 = *(v16 + 288);
+  *(v16 + 288) = v15;
+  v18 = v15;
 
   (*(*(a1 + 88) + 16))();
 LABEL_25:
@@ -3212,36 +3196,36 @@ void sub_10004B5E0(uint64_t a1)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v6 = sub_100003744();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = sub_100003744(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        v7 = [*v2 cloudKitScope];
-        v8 = [v7 zoneID];
-        v9 = [*v2 scope];
+        v8 = [*v2 cloudKitScope];
+        v9 = [v8 zoneID];
+        v10 = [*v2 scope];
         *buf = 138412802;
-        *&buf[4] = v8;
-        v38 = 2112;
-        v39 = v9;
+        *&buf[4] = v9;
         v40 = 2112;
-        v41 = v3;
-        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "Failed to create zone %@ for %@: %@", buf, 0x20u);
+        v41 = v10;
+        v42 = 2112;
+        v43 = v3;
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "Failed to create zone %@ for %@: %@", buf, 0x20u);
       }
     }
 
-    v10 = [v3 domain];
-    if ([v10 isEqualToString:CKUnderlyingErrorDomain])
+    v11 = [v3 domain];
+    if ([v11 isEqualToString:CKUnderlyingErrorDomain])
     {
       if ([v3 code] == 7)
       {
 
 LABEL_20:
-        v12 = [CPLErrors cplErrorWithCode:35 underlyingError:v3 description:@"Rate limited or throttled: %@", v3];
+        v13 = [CPLErrors cplErrorWithCode:35 underlyingError:v3 description:@"Rate limited or throttled: %@", v3];
         goto LABEL_21;
       }
 
-      v30 = [v3 code];
+      v32 = [v3 code];
 
-      if (v30 == 2008)
+      if (v32 == 2008)
       {
         goto LABEL_20;
       }
@@ -3251,93 +3235,93 @@ LABEL_20:
     {
     }
 
-    v26 = [CPLCloudKitErrors realErrorForError:v3];
-    v27 = [*v2 lastOperationRequestUUIDs];
-    v28 = [*v2 cloudKitScope];
-    v29 = [v28 zoneID];
-    v12 = [CPLCloudKitErrors CPLErrorForCloudKitError:v26 withRequestUUIDs:v27 description:@"Failed to create zone %@: %@", v29, v3];
+    v28 = [CPLCloudKitErrors realErrorForError:v3];
+    v29 = [*v2 lastOperationRequestUUIDs];
+    v30 = [*v2 cloudKitScope];
+    v31 = [v30 zoneID];
+    v13 = [CPLCloudKitErrors CPLErrorForCloudKitError:v28 withRequestUUIDs:v29 description:@"Failed to create zone %@: %@", v31, v3];
 
 LABEL_21:
     (*(*(a1 + 64) + 16))();
     goto LABEL_29;
   }
 
-  v11 = [*(a1 + 48) firstObject];
-  v12 = v11;
-  if (v11)
+  v12 = [*(a1 + 48) firstObject];
+  v13 = v12;
+  if (v12)
   {
-    v13 = [v11 zoneID];
-    v14 = [v13 databaseScope];
+    v14 = [v12 zoneID];
+    v15 = [v14 databaseScope];
 
-    if (v14 && v14 != *(a1 + 72))
+    if (v15 && v15 != *(a1 + 72))
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v31 = sub_100003744();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+        v33 = sub_100003744(v16);
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
         {
-          v32 = [*(a1 + 32) scope];
-          v33 = *(a1 + 72);
+          v34 = [*(a1 + 32) scope];
+          v35 = *(a1 + 72);
           *buf = 138412802;
-          *&buf[4] = v32;
-          v38 = 2048;
-          v39 = v33;
+          *&buf[4] = v34;
           v40 = 2048;
-          v41 = v14;
-          _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_ERROR, "While trying to create zone for %@, expected database scope was %ld and CloudKit returned %ld", buf, 0x20u);
+          v41 = v35;
+          v42 = 2048;
+          v43 = v15;
+          _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_ERROR, "While trying to create zone for %@, expected database scope was %ld and CloudKit returned %ld", buf, 0x20u);
         }
       }
 
-      v34 = *(a1 + 64);
-      v21 = [CPLErrors cplErrorWithCode:150 description:@"CloudKit returned a wrong database scope"];
-      v25 = *(v34 + 16);
+      v36 = *(a1 + 64);
+      v23 = [CPLErrors cplErrorWithCode:150 description:@"CloudKit returned a wrong database scope"];
+      v27 = *(v36 + 16);
     }
 
     else
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v15 = sub_100003744();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        v17 = sub_100003744(v16);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
-          v16 = [*(a1 + 56) zone];
-          v36 = [*(a1 + 56) zone];
-          v35 = [v36 zoneID];
-          v17 = [v35 databaseScope];
-          v18 = [v12 zoneID];
-          v19 = [v18 databaseScope];
-          v20 = [*(a1 + 32) scope];
+          v18 = [*(a1 + 56) zone];
+          v38 = [*(a1 + 56) zone];
+          v37 = [v38 zoneID];
+          v19 = [v37 databaseScope];
+          v20 = [v13 zoneID];
+          v21 = [v20 databaseScope];
+          v22 = [*(a1 + 32) scope];
           *buf = 138413314;
-          *&buf[4] = v16;
-          v38 = 2048;
-          v39 = v17;
-          v40 = 2112;
-          v41 = v12;
-          v42 = 2048;
-          v43 = v19;
-          v44 = 2112;
-          v45 = v20;
-          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Created from %@ (%ld) to new zone %@ (%ld) for %@", buf, 0x34u);
+          *&buf[4] = v18;
+          v40 = 2048;
+          v41 = v19;
+          v42 = 2112;
+          v43 = v13;
+          v44 = 2048;
+          v45 = v21;
+          v46 = 2112;
+          v47 = v22;
+          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Created from %@ (%ld) to new zone %@ (%ld) for %@", buf, 0x34u);
         }
       }
 
-      v21 = -[CPLCloudKitScope initWithZone:options:]([CPLCloudKitScope alloc], "initWithZone:options:", v12, [*(a1 + 56) options]);
-      [*(a1 + 32) resetCloudKitScope:v21];
-      v22 = [*(a1 + 32) identification];
-      v23 = *(a1 + 32);
-      v24 = *(v23 + 296);
-      *(v23 + 296) = v22;
+      v23 = -[CPLCloudKitScope initWithZone:options:]([CPLCloudKitScope alloc], "initWithZone:options:", v13, [*(a1 + 56) options]);
+      [*(a1 + 32) resetCloudKitScope:v23];
+      v24 = [*(a1 + 32) identification];
+      v25 = *(a1 + 32);
+      v26 = *(v25 + 296);
+      *(v25 + 296) = v24;
 
-      v25 = *(*(a1 + 64) + 16);
+      v27 = *(*(a1 + 64) + 16);
     }
 
-    v25();
+    v27();
   }
 
   else
   {
     sub_10019ADE4(v2, a1, buf);
-    v21 = *buf;
+    v23 = *buf;
   }
 
 LABEL_29:
@@ -3360,17 +3344,15 @@ void sub_10004BC60(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
-    v3 = *(a1 + 40);
-    v4 = *(*(a1 + 40) + 16);
+    v3 = *(*(a1 + 40) + 16);
 
-    v4();
+    v3();
   }
 
   else
   {
-    v6 = [*(a1 + 32) copy];
-    [v6 setShare:0];
-    v5 = *(a1 + 32);
+    v4 = [*(a1 + 32) copy];
+    [v4 setShare:0];
     (*(*(a1 + 40) + 16))();
   }
 }
@@ -3509,36 +3491,37 @@ void sub_10004C704(uint64_t a1, void *a2, uint64_t a3, void *a4)
 void sub_10004C808(uint64_t a1)
 {
   v2 = [*(a1 + 32) operationDidFinishWithError:*(a1 + 40)];
+  v3 = v2;
   if (v2)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v3 = sub_100003744();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+      v4 = sub_100003744(v2);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
-        v4 = *(a1 + 48);
+        v5 = *(a1 + 48);
         *buf = 138412546;
-        v17 = v4;
-        v18 = 2112;
-        v19 = v2;
-        _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "Failed to save record %@: %@", buf, 0x16u);
+        v19 = v5;
+        v20 = 2112;
+        v21 = v3;
+        _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "Failed to save record %@: %@", buf, 0x16u);
       }
     }
 
-    v5 = [v2 domain];
-    if ([v5 isEqualToString:CKUnderlyingErrorDomain])
+    v6 = [v3 domain];
+    if ([v6 isEqualToString:CKUnderlyingErrorDomain])
     {
-      if ([v2 code] == 7)
+      if ([v3 code] == 7)
       {
 
 LABEL_21:
-        v8 = [CPLErrors cplErrorWithCode:35 underlyingError:v2 description:@"Rate limited or throttled: %@", v2];
+        v10 = [CPLErrors cplErrorWithCode:35 underlyingError:v3 description:@"Rate limited or throttled: %@", v3];
         goto LABEL_22;
       }
 
-      v15 = [v2 code];
+      v17 = [v3 code];
 
-      if (v15 == 2008)
+      if (v17 == 2008)
       {
         goto LABEL_21;
       }
@@ -3548,8 +3531,8 @@ LABEL_21:
     {
     }
 
-    v14 = [*(a1 + 32) lastOperationRequestUUIDs];
-    v8 = [CPLCloudKitErrors CPLErrorForCloudKitError:v2 withRequestUUIDs:v14 description:@"Failed to save recor %@: %@", *(a1 + 48), v2];
+    v16 = [*(a1 + 32) lastOperationRequestUUIDs];
+    v10 = [CPLCloudKitErrors CPLErrorForCloudKitError:v3 withRequestUUIDs:v16 description:@"Failed to save recor %@: %@", *(a1 + 48), v3];
 
 LABEL_22:
     (*(*(a1 + 72) + 16))();
@@ -3558,36 +3541,37 @@ LABEL_22:
 
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = sub_100003744();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100003744(0);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 56);
+      v8 = *(a1 + 56);
       *buf = 138412290;
-      v17 = v7;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Saved records %@", buf, 0xCu);
+      v19 = v8;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Saved records %@", buf, 0xCu);
     }
   }
 
-  v8 = [*(a1 + 48) URL];
+  v9 = [*(a1 + 48) URL];
+  v10 = v9;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v9 = sub_100003744();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = sub_100003744(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = [*(a1 + 32) scope];
-      v11 = [v8 cpl_redactedShareURL];
+      v12 = [*(a1 + 32) scope];
+      v13 = [v10 cpl_redactedShareURL];
       *buf = 138412546;
-      v17 = v10;
-      v18 = 2114;
-      v19 = v11;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Share URL for %@ after publishing: %{public}@", buf, 0x16u);
+      v19 = v12;
+      v20 = 2114;
+      v21 = v13;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Share URL for %@ after publishing: %{public}@", buf, 0x16u);
     }
   }
 
-  v12 = [*(a1 + 32) scope];
-  v13 = [v12 copy];
+  v14 = [*(a1 + 32) scope];
+  v15 = [v14 copy];
 
-  [v13 updateWithCKShare:*(a1 + 48) currentUserID:*(a1 + 64)];
+  [v15 updateWithCKShare:*(a1 + 48) currentUserID:*(a1 + 64)];
   (*(*(a1 + 72) + 16))();
 
 LABEL_23:
@@ -3597,20 +3581,19 @@ id sub_10004D7C4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
-    v5 = *(a1 + 48);
-    v6 = *(*(a1 + 48) + 16);
+    v5 = *(*(a1 + 48) + 16);
 
-    return v6();
+    return v5();
   }
 
   else
   {
     [*(a1 + 32) _modifyParticipantsOfCKShare:*(a1 + 40) newParticipants:a2];
-    v8 = *(a1 + 32);
-    v9 = *(a1 + 40);
-    v10 = *(a1 + 48);
+    v7 = *(a1 + 32);
+    v8 = *(a1 + 40);
+    v9 = *(a1 + 48);
 
-    return [v8 _uploadCKShare:v9 completionHandler:v10];
+    return [v7 _uploadCKShare:v8 completionHandler:v9];
   }
 }
 
@@ -3685,49 +3668,53 @@ void sub_10004DE04(uint64_t a1, void *a2)
   if (v3)
   {
     sub_10019B21C(a1, v3, buf);
-    v9 = *buf;
-  }
-
-  else if ([*(*(a1 + 40) + 280) isCoherent])
-  {
-    if ((_CPLSilentLogging & 1) == 0)
-    {
-      v4 = sub_100003788();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-      {
-        v5 = [*(a1 + 32) cpl_redactedShareURL];
-        *buf = 138543362;
-        *&buf[4] = v5;
-        _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Accepted share from shareURL %{public}@", buf, 0xCu);
-      }
-    }
-
-    v6 = *(a1 + 40);
-    v7 = *(v6 + 312);
-    v8 = *(v6 + 272);
-    v9 = [*(v6 + 280) transportScope];
-    (*(v7 + 16))(v7, v8, v9, *(*(a1 + 40) + 304), 0);
+    v10 = *buf;
   }
 
   else
   {
-    if ((_CPLSilentLogging & 1) == 0)
+    v4 = [*(*(a1 + 40) + 280) isCoherent];
+    if (v4)
     {
-      v10 = sub_100003788();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      if ((_CPLSilentLogging & 1) == 0)
       {
-        v11 = [*(a1 + 32) cpl_redactedShareURL];
-        *buf = 138543362;
-        *&buf[4] = v11;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Accepted share from shareURL %{public}@ is incoherent (CloudKit bug)", buf, 0xCu);
+        v5 = sub_100003788(v4);
+        if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+        {
+          v6 = [*(a1 + 32) cpl_redactedShareURL];
+          *buf = 138543362;
+          *&buf[4] = v6;
+          _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Accepted share from shareURL %{public}@", buf, 0xCu);
+        }
       }
+
+      v7 = *(a1 + 40);
+      v8 = *(v7 + 312);
+      v9 = *(v7 + 272);
+      v10 = [*(v7 + 280) transportScope];
+      (*(v8 + 16))(v8, v9, v10, *(*(a1 + 40) + 304), 0);
     }
 
-    v12 = *(a1 + 40);
-    v13 = *(v12 + 312);
-    v9 = [*(v12 + 272) scopeIdentifier];
-    v14 = [CPLErrors cplErrorWithCode:38 description:@"CloudKit scope for %@ is incoherent", v9];
-    (*(v13 + 16))(v13, 0, 0, 0, v14);
+    else
+    {
+      if ((_CPLSilentLogging & 1) == 0)
+      {
+        v11 = sub_100003788(v4);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        {
+          v12 = [*(a1 + 32) cpl_redactedShareURL];
+          *buf = 138543362;
+          *&buf[4] = v12;
+          _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Accepted share from shareURL %{public}@ is incoherent (CloudKit bug)", buf, 0xCu);
+        }
+      }
+
+      v13 = *(a1 + 40);
+      v14 = *(v13 + 312);
+      v10 = [*(v13 + 272) scopeIdentifier];
+      v15 = [CPLErrors cplErrorWithCode:38 description:@"CloudKit scope for %@ is incoherent", v10];
+      (*(v14 + 16))(v14, 0, 0, 0, v15);
+    }
   }
 }
 
@@ -3752,10 +3739,11 @@ LABEL_5:
 LABEL_6:
 }
 
-void sub_10004E668(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
+void sub_10004E668(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
-  _Block_object_dispose(&a26, 8);
-  _Block_object_dispose((v26 - 168), 8);
+  va_start(va, a25);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v25 - 168), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3825,106 +3813,108 @@ void sub_10004E81C(uint64_t a1)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v14 = sub_100003788();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v15 = sub_100003788(v12);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = [*(*(*(a1 + 80) + 8) + 40) rootRecord];
-        v16 = [*(a1 + 48) cpl_redactedShareURL];
+        v16 = [*(*(*(a1 + 80) + 8) + 40) rootRecord];
+        v17 = [*(a1 + 48) cpl_redactedShareURL];
         *buf = 138412546;
-        *&buf[4] = v15;
-        v65 = 2114;
-        v66 = v16;
-        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Fetched share metadata root record %@ for %{public}@", buf, 0x16u);
+        *&buf[4] = v16;
+        v67 = 2114;
+        v68 = v17;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Fetched share metadata root record %@ for %{public}@", buf, 0x16u);
       }
     }
 
-    v17 = [[CPLCloudKitScope alloc] initWithZoneID:v9 currentUserID:*(a1 + 56)];
-    v18 = *(a1 + 32);
-    v19 = *(v18 + 280);
-    *(v18 + 280) = v17;
+    v18 = [[CPLCloudKitScope alloc] initWithZoneID:v9 currentUserID:*(a1 + 56)];
+    v19 = *(a1 + 32);
+    v20 = *(v19 + 280);
+    *(v19 + 280) = v18;
 
-    if (([*(*(a1 + 32) + 280) isCoherent] & 1) == 0 && (_CPLSilentLogging & 1) == 0)
+    v21 = [*(*(a1 + 32) + 280) isCoherent];
+    if ((v21 & 1) == 0 && (_CPLSilentLogging & 1) == 0)
     {
-      v20 = sub_100003788();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v22 = sub_100003788(v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
-        v21 = *(*(*(a1 + 80) + 8) + 40);
-        v22 = [v9 databaseScope];
-        v23 = [*(*(a1 + 32) + 280) databaseScope];
+        v23 = *(*(*(a1 + 80) + 8) + 40);
+        v24 = [v9 databaseScope];
+        v25 = [*(*(a1 + 32) + 280) databaseScope];
         *buf = 138412802;
-        *&buf[4] = v21;
-        v65 = 2048;
-        v66 = v22;
+        *&buf[4] = v23;
         v67 = 2048;
-        v68 = v23;
-        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "%@ database scope is %ld but we expected %ld", buf, 0x20u);
+        v68 = v24;
+        v69 = 2048;
+        v70 = v25;
+        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "%@ database scope is %ld but we expected %ld", buf, 0x20u);
       }
     }
 
-    v24 = [*(*(*(a1 + 80) + 8) + 40) share];
-    if (v24)
+    v26 = [*(*(*(a1 + 80) + 8) + 40) share];
+    if (v26)
     {
-      v59 = v4;
-      v25 = [*(*(*(a1 + 80) + 8) + 40) rootRecord];
-      v26 = [v24 recordID];
-      v27 = v26;
-      if (v25)
+      v61 = v4;
+      v27 = [*(*(*(a1 + 80) + 8) + 40) rootRecord];
+      v28 = [v26 recordID];
+      v29 = v28;
+      if (v27)
       {
-        v62[0] = v26;
-        v63[0] = v24;
-        v28 = [v25 recordID];
-        v62[1] = v28;
-        v63[1] = v25;
-        v29 = [NSDictionary dictionaryWithObjects:v63 forKeys:v62 count:2];
+        v64[0] = v28;
+        v65[0] = v26;
+        v30 = [v27 recordID];
+        v64[1] = v30;
+        v65[1] = v27;
+        v31 = [NSDictionary dictionaryWithObjects:v65 forKeys:v64 count:2];
       }
 
       else
       {
-        v60 = v26;
-        v61 = v24;
-        v29 = [NSDictionary dictionaryWithObjects:&v61 forKeys:&v60 count:1];
+        v62 = v28;
+        v63 = v26;
+        v31 = [NSDictionary dictionaryWithObjects:&v63 forKeys:&v62 count:1];
       }
 
-      v48 = [*(a1 + 32) controller];
-      v49 = [v48 scopeTypeForCloudKitScope:*(*(a1 + 32) + 280) proposedScopeType:0 fetchedRecords:v29 currentUserID:*(a1 + 56)];
+      v49 = [*(a1 + 32) controller];
+      v50 = [v49 scopeTypeForCloudKitScope:*(*(a1 + 32) + 280) proposedScopeType:0 fetchedRecords:v31 currentUserID:*(a1 + 56)];
 
-      if (v49)
+      if (v50)
       {
+        v51 = [*(*v2 + 272) scopeType];
         v6 = 0;
-        if (v49 == [*(*v2 + 272) scopeType])
+        if (v50 == v51)
         {
-          v13 = 0;
+          v14 = 0;
         }
 
         else
         {
-          v50 = &CPLFeatureNameEPP_ptr;
+          v52 = &CPLFeatureNameEPP_ptr;
           if ((_CPLSilentLogging & 1) == 0)
           {
-            v51 = sub_100003788();
-            if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+            v53 = sub_100003788(v51);
+            if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
             {
-              v52 = *(*(a1 + 32) + 272);
-              v57 = [*(a1 + 48) cpl_redactedShareURL];
-              v58 = v24;
-              v53 = [CPLScopeChange descriptionForScopeType:v49];
+              v54 = *(*(a1 + 32) + 272);
+              v59 = [*(a1 + 48) cpl_redactedShareURL];
+              v60 = v26;
+              v55 = [CPLScopeChange descriptionForScopeType:v50];
               *buf = 138412802;
-              *&buf[4] = v52;
-              v50 = &CPLFeatureNameEPP_ptr;
-              v65 = 2112;
-              v66 = v57;
+              *&buf[4] = v54;
+              v52 = &CPLFeatureNameEPP_ptr;
               v67 = 2112;
-              v68 = v53;
-              v54 = v53;
-              _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_ERROR, "Trying to accept %@ but the metadata at %@ is for a scope with scope type %@", buf, 0x20u);
+              v68 = v59;
+              v69 = 2112;
+              v70 = v55;
+              v56 = v55;
+              _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_ERROR, "Trying to accept %@ but the metadata at %@ is for a scope with scope type %@", buf, 0x20u);
 
-              v24 = v58;
+              v26 = v60;
             }
           }
 
-          v55 = [v50[135] descriptionForScopeType:v49];
-          v56 = [v50[135] descriptionForScopeType:{objc_msgSend(*(*v2 + 272), "scopeType")}];
-          v13 = [CPLErrors cplErrorWithCode:50 description:@"Accepting a %@ share with a %@ scope", v55, v56];
+          v57 = [v52[135] descriptionForScopeType:v50];
+          v58 = [v52[135] descriptionForScopeType:{objc_msgSend(*(*v2 + 272), "scopeType")}];
+          v14 = [CPLErrors cplErrorWithCode:50 description:@"Accepting a %@ share with a %@ scope", v57, v58];
 
           v6 = 0;
         }
@@ -3933,12 +3923,12 @@ void sub_10004E81C(uint64_t a1)
       else
       {
         sub_10019B6B8(v2, a1, buf);
-        v13 = *buf;
+        v14 = *buf;
         v6 = 0;
       }
 
-      v4 = v59;
-      if (v13)
+      v4 = v61;
+      if (v14)
       {
         goto LABEL_30;
       }
@@ -3946,51 +3936,50 @@ void sub_10004E81C(uint64_t a1)
 
     else
     {
-      v13 = [CPLErrors cplErrorWithCode:150 description:@"Failed to get share from URL"];
-      if (v13)
+      v14 = [CPLErrors cplErrorWithCode:150 description:@"Failed to get share from URL"];
+      if (v14)
       {
 LABEL_30:
-        v47 = *(*(a1 + 64) + 16);
+        v48 = *(*(a1 + 64) + 16);
         goto LABEL_31;
       }
     }
 
-    v30 = [CPLEngineScope alloc];
-    v31 = [*(*(a1 + 32) + 272) scopeIdentifier];
-    v32 = [v30 initWithScopeIdentifier:v31 scopeType:{objc_msgSend(*(*(a1 + 32) + 272), "scopeType")}];
-    v33 = *(a1 + 32);
-    v34 = *(v33 + 288);
-    *(v33 + 288) = v32;
+    v32 = [CPLEngineScope alloc];
+    v33 = [*(*(a1 + 32) + 272) scopeIdentifier];
+    v34 = [v32 initWithScopeIdentifier:v33 scopeType:{objc_msgSend(*(*(a1 + 32) + 272), "scopeType")}];
+    v35 = *(a1 + 32);
+    v36 = *(v35 + 288);
+    *(v35 + 288) = v34;
 
-    v35 = [*(a1 + 32) controller];
-    v36 = [v35 zoneIdentificationForCloudKitScope:*(*(a1 + 32) + 280) engineScope:*(*(a1 + 32) + 288)];
-    v37 = *(a1 + 32);
-    v38 = *(v37 + 296);
-    *(v37 + 296) = v36;
+    v37 = [*(a1 + 32) controller];
+    v38 = [v37 zoneIdentificationForCloudKitScope:*(*(a1 + 32) + 280) engineScope:*(*(a1 + 32) + 288)];
+    v39 = *(a1 + 32);
+    v40 = *(v39 + 296);
+    *(v39 + 296) = v38;
 
-    v39 = [*(*(a1 + 32) + 296) cloudKitScope];
-    v40 = *(a1 + 32);
-    v41 = *(v40 + 280);
-    *(v40 + 280) = v39;
-
+    v41 = [*(*(a1 + 32) + 296) cloudKitScope];
     v42 = *(a1 + 32);
-    v43 = [*(*(*(a1 + 80) + 8) + 40) share];
-    [v42 _updateScopeAndFlagsWithCKRecord:v43 currentUserID:*(a1 + 56)];
+    v43 = *(v42 + 280);
+    *(v42 + 280) = v41;
 
     v44 = *(a1 + 32);
-    v45 = [*(*(*(a1 + 80) + 8) + 40) rootRecord];
+    v45 = [*(*(*(a1 + 80) + 8) + 40) share];
     [v44 _updateScopeAndFlagsWithCKRecord:v45 currentUserID:*(a1 + 56)];
 
-    v46 = *(*(*(a1 + 80) + 8) + 40);
-    v47 = *(*(a1 + 64) + 16);
+    v46 = *(a1 + 32);
+    v47 = [*(*(*(a1 + 80) + 8) + 40) rootRecord];
+    [v46 _updateScopeAndFlagsWithCKRecord:v47 currentUserID:*(a1 + 56)];
+
+    v48 = *(*(a1 + 64) + 16);
 LABEL_31:
-    v47();
+    v48();
 
     goto LABEL_32;
   }
 
-  v12 = [v9 cpl_zoneName];
-  v13 = [CPLErrors cplErrorWithCode:38 description:@"Zone %@ is not supported by this engine", v12];
+  v13 = [v9 cpl_zoneName];
+  v14 = [CPLErrors cplErrorWithCode:38 description:@"Zone %@ is not supported by this engine", v13];
 
   (*(*(a1 + 64) + 16))();
 LABEL_32:
@@ -4054,9 +4043,9 @@ void sub_10004F050(uint64_t a1, void *a2)
   }
 }
 
-void sub_10004F2AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_10004F2AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4167,42 +4156,43 @@ void sub_1000508F8(uint64_t a1, void *a2, void *a3, void *a4)
       v10 = objc_autoreleasePoolPush();
       v11 = ++*(*(*(a1 + 72) + 8) + 24);
       v12 = *(a1 + 32);
-      v24[0] = _NSConcreteStackBlock;
-      v24[1] = 3221225472;
-      v24[2] = sub_100050CC8;
-      v24[3] = &unk_100271F68;
-      v24[4] = v12;
-      v24[5] = v11;
-      [v12 dispatchAsync:v24];
+      v26[0] = _NSConcreteStackBlock;
+      v26[1] = 3221225472;
+      v26[2] = sub_100050CC8;
+      v26[3] = &unk_100271F68;
+      v26[4] = v12;
+      v26[5] = v11;
+      v13 = [v12 dispatchAsync:v26];
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v13 = sub_1000037CC();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+        v14 = sub_1000037CC(v13);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v26 = v8;
-          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEBUG, "Pulled change %@", buf, 0xCu);
+          v28 = v8;
+          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEBUG, "Pulled change %@", buf, 0xCu);
         }
       }
 
-      v23 = 0;
-      v14 = [v8 cpl_recordChangeMissingResourceProperties:&v23 scopeIdentifier:*(a1 + 40) scopeProvider:*(a1 + 32) currentUserRecordID:*(a1 + 48)];
-      v15 = v23;
-      if (v14)
+      v25 = 0;
+      v15 = [v8 cpl_recordChangeMissingResourceProperties:&v25 scopeIdentifier:*(a1 + 40) scopeProvider:*(a1 + 32) currentUserRecordID:*(a1 + 48)];
+      v16 = v25;
+      if (v15)
       {
-        if ([*(a1 + 56) supportsDownloadOfChange:v14 scopeProvider:*(a1 + 32)])
+        v17 = [*(a1 + 56) supportsDownloadOfChange:v15 scopeProvider:*(a1 + 32)];
+        if (v17)
         {
-          [*(a1 + 56) finalizeRecord:v14 fromCKRecord:v8 currentUserID:*(a1 + 48)];
-          if ([v14 inExpunged])
+          [*(a1 + 56) finalizeRecord:v15 fromCKRecord:v8 currentUserID:*(a1 + 48)];
+          if ([v15 inExpunged])
           {
-            v16 = objc_opt_class();
-            v17 = [v14 scopedIdentifier];
-            v18 = [v16 newDeleteChangeWithScopedIdentifier:v17];
+            v18 = objc_opt_class();
+            v19 = [v15 scopedIdentifier];
+            v20 = [v18 newDeleteChangeWithScopedIdentifier:v19];
 
-            v14 = v18;
+            v15 = v20;
           }
 
-          [*(*(*(a1 + 80) + 8) + 40) addRecord:v14];
+          [*(*(*(a1 + 80) + 8) + 40) addRecord:v15];
           goto LABEL_23;
         }
 
@@ -4214,33 +4204,33 @@ LABEL_23:
           goto LABEL_24;
         }
 
-        v20 = sub_1000037CC();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+        v22 = sub_1000037CC(v17);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v26 = v14;
-          _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Ignoring unsupported %@", buf, 0xCu);
+          v28 = v15;
+          _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Ignoring unsupported %@", buf, 0xCu);
         }
       }
 
       else
       {
-        v19 = *(*(*(a1 + 88) + 8) + 40);
-        if (!v19)
+        v21 = *(*(*(a1 + 88) + 8) + 40);
+        if (!v21)
         {
-          v19 = *(*(a1 + 32) + 320);
+          v21 = *(*(a1 + 32) + 320);
         }
 
-        v20 = v19;
-        v21 = [*(a1 + 56) updatedScopeChangeFromScopeChange:v20 currentUserID:*(a1 + 48) withCKRecord:v8];
-        if (v21)
+        v22 = v21;
+        v23 = [*(a1 + 56) updatedScopeChangeFromScopeChange:v22 currentUserID:*(a1 + 48) withCKRecord:v8];
+        if (v23)
         {
-          objc_storeStrong((*(*(a1 + 88) + 8) + 40), v21);
+          objc_storeStrong((*(*(a1 + 88) + 8) + 40), v23);
         }
 
-        v22 = [*(a1 + 56) updatedFlagsFromCKRecord:v8];
-        sub_10019BE24(v22, v21, a1);
-        v14 = 0;
+        v24 = [*(a1 + 56) updatedFlagsFromCKRecord:v8];
+        sub_10019BE24(v24, v23, a1);
+        v15 = 0;
       }
 
       goto LABEL_23;
@@ -4249,24 +4239,26 @@ LABEL_23:
 
   else if ((_CPLSilentLogging & 1) == 0)
   {
-    sub_10019BE68();
+    sub_10019BE68(v7);
   }
 
 LABEL_24:
 }
 
-void sub_100050C3C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint8_t buf)
+void sub_100050C3C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
+  va_start(va, a16);
   if (a2 == 1)
   {
-    v19 = objc_begin_catch(exception_object);
-    if ((*v18 & 1) == 0)
+    v18 = objc_begin_catch(exception_object);
+    v19 = v18;
+    if ((*v17 & 1) == 0)
     {
-      v20 = sub_1000037CC();
+      v20 = sub_1000037CC(v18);
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         v21 = [v19 reason];
-        sub_100199904(v21, v17, &buf, v20);
+        sub_100199904(v21, v16, va, v20);
       }
     }
 
@@ -4374,7 +4366,7 @@ void sub_100051000(uint64_t a1)
 {
   v2 = [*(a1 + 32) operationDidFinishWithError:*(a1 + 40)];
   v3 = *(*(*(a1 + 48) + 8) + 40);
-  v14 = v2;
+  v13 = v2;
   if (v3)
   {
     v4 = v3;
@@ -4414,16 +4406,15 @@ LABEL_7:
     }
   }
 
-  v10 = *(*(*(a1 + 64) + 8) + 24);
   if (![*(*(a1 + 32) + 296) count])
   {
     goto LABEL_7;
   }
 
-  v11 = *(a1 + 32);
-  v12 = [v11 currentFetchRecordZoneChangesOperation];
-  v13 = [v12 recordZoneIDsWithSyncObligations];
-  v9 = [v11 _processFinalSyncObligationsWithZoneIDs:v13];
+  v10 = *(a1 + 32);
+  v11 = [v10 currentFetchRecordZoneChangesOperation];
+  v12 = [v11 recordZoneIDsWithSyncObligations];
+  v9 = [v10 _processFinalSyncObligationsWithZoneIDs:v12];
 
 LABEL_11:
   (*(*(*(a1 + 32) + 272) + 16))();
@@ -4439,7 +4430,7 @@ void sub_1000511E0(uint64_t a1, void *a2)
   }
 }
 
-void sub_100051234(uint64_t *a1, void *a2, void *a3, void *a4, int a5, void *a6)
+void sub_100051234(void *a1, void *a2, void *a3, void *a4, int a5, void *a6)
 {
   v11 = a2;
   v12 = a3;
@@ -4461,7 +4452,7 @@ void sub_100051234(uint64_t *a1, void *a2, void *a3, void *a4, int a5, void *a6)
           sub_10019C13C(a1);
         }
 
-        sub_10019C2D4(a1, &v15);
+        sub_10019C2D4(a1, v15);
       }
 
       *(*(a1[9] + 8) + 24) = a5;
@@ -4495,16 +4486,16 @@ void sub_1000516FC(id a1)
   byte_1002C51B8 = [v1 BOOLForKey:@"CPLUsesSandboxEnvironment"];
 }
 
-id sub_10005189C()
+id sub_10005189C(uint64_t a1)
 {
   if (qword_1002C51D8 != -1)
   {
     sub_10019C79C();
   }
 
-  v1 = qword_1002C51E0;
+  v2 = qword_1002C51E0;
 
-  return v1;
+  return v2;
 }
 
 void sub_1000518E0(uint64_t a1)
@@ -4575,11 +4566,11 @@ void sub_100051D10(uint64_t a1, void *a2, uint64_t a3)
 LABEL_8:
 }
 
-char *sub_100051E84(char *result)
+void *sub_100051E84(void *result)
 {
-  v1 = *(result + 4);
-  v2 = (result + 32);
-  if (*(v1 + 16) == *(result + 5))
+  v1 = result[4];
+  v2 = (result + 4);
+  if (*(v1 + 16) == result[5])
   {
     result = [*(v1 + 24) count];
     if (!result)
@@ -4593,13 +4584,12 @@ char *sub_100051E84(char *result)
 
 id sub_100052038(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   result = [objc_opt_class() shouldRegisterClient];
   if (result)
   {
-    v4 = *(a1 + 32);
+    v3 = *(a1 + 32);
 
-    return [v4 _coordinatorWontBeUsed];
+    return [v3 _coordinatorWontBeUsed];
   }
 
   return result;
@@ -4626,14 +4616,13 @@ void sub_1000525F8(uint64_t a1, void *a2, void *a3)
 id sub_100052890(uint64_t a1)
 {
   [*(*(a1 + 32) + 24) addObject:*(a1 + 40)];
-  v2 = *(a1 + 32);
   result = [objc_opt_class() shouldRegisterClient];
   if (result)
   {
     [*(a1 + 32) _addClientToInterestingZones:*(a1 + 40)];
-    v4 = *(a1 + 32);
+    v3 = *(a1 + 32);
 
-    return [v4 _coordinatorWillBeUsed];
+    return [v3 _coordinatorWillBeUsed];
   }
 
   return result;
@@ -4856,20 +4845,21 @@ void sub_100054260(void *a1)
       v15 = v6;
       do
       {
-        for (i = 0; i != v7; i = i + 1)
+        v9 = 0;
+        do
         {
           if (*v17 != v8)
           {
             objc_enumerationMutation(v4);
           }
 
-          v10 = *(*(&v16 + 1) + 8 * i);
+          v10 = *(*(&v16 + 1) + 8 * v9);
           v11 = a1[5];
           if (v10 != *(v11 + 64))
           {
             if ((_CPLSilentLogging & 1) == 0)
             {
-              v12 = sub_10005189C();
+              v12 = sub_10005189C(v5);
               if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
               {
                 v13 = [v10 cloudKitClientIdentifier];
@@ -4884,14 +4874,18 @@ void sub_100054260(void *a1)
               v11 = a1[5];
             }
 
-            [v10 coordinatorDidReceiveAPushNotification:{v11, v15}];
+            v5 = [v10 coordinatorDidReceiveAPushNotification:{v11, v15}];
           }
+
+          v9 = v9 + 1;
         }
 
-        v7 = [v4 countByEnumeratingWithState:&v16 objects:v24 count:16];
+        while (v7 != v9);
+        v5 = [v4 countByEnumeratingWithState:&v16 objects:v24 count:16];
+        v7 = v5;
       }
 
-      while (v7);
+      while (v5);
     }
   }
 }
@@ -5471,27 +5465,27 @@ id sub_100057188(uint64_t a1)
   result = [*(*(a1 + 32) + 16) count];
   if (result)
   {
-    v14 = 0u;
     v15 = 0u;
-    v12 = 0u;
+    v16 = 0u;
     v13 = 0u;
+    v14 = 0u;
     v3 = *(*(a1 + 32) + 16);
-    v4 = [v3 countByEnumeratingWithState:&v12 objects:v18 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v13 objects:v19 count:16];
     if (v4)
     {
       v5 = v4;
       v6 = 0;
-      v7 = *v13;
+      v7 = *v14;
       do
       {
         for (i = 0; i != v5; i = i + 1)
         {
-          if (*v13 != v7)
+          if (*v14 != v7)
           {
             objc_enumerationMutation(v3);
           }
 
-          v9 = *(*(&v12 + 1) + 8 * i);
+          v9 = *(*(&v13 + 1) + 8 * i);
           if ([v9 isBoostable])
           {
             v10 = [v9 trackingContext];
@@ -5503,7 +5497,7 @@ id sub_100057188(uint64_t a1)
           }
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v12 objects:v18 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v13 objects:v19 count:16];
       }
 
       while (v5);
@@ -5516,12 +5510,12 @@ id sub_100057188(uint64_t a1)
 
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v11 = sub_100004B38();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = sub_100004B38(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v17 = v6;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Cancelling %lu blocked tasks", buf, 0xCu);
+        v18 = v6;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Cancelling %lu blocked tasks", buf, 0xCu);
       }
     }
 
@@ -5795,7 +5789,7 @@ uint64_t CPLCloudKitOperationTypeForScope(void *a1)
   return v4;
 }
 
-uint64_t CPLCKDatabaseScopeForCPLCloudKitOperationType(uint64_t a1)
+uint64_t CPLCKDatabaseScopeForCPLCloudKitOperationType(uint64_t a1, uint64_t a2)
 {
   if (a1 == 2 || a1 == 4)
   {
@@ -5854,16 +5848,16 @@ uint64_t CPLCloudKitGateKeeperDisabledByServer()
   return v0;
 }
 
-void CPLDisableCloudKitUseGateKeeper()
+void CPLDisableCloudKitUseGateKeeper(uint64_t a1)
 {
   if (qword_1002C5248 != -1)
   {
     sub_1001A04D4();
   }
 
-  v1 = qword_1002C5238;
+  v2 = qword_1002C5238;
 
-  dispatch_sync(v1, &stru_100274C20);
+  dispatch_sync(v2, &stru_100274C20);
 }
 
 void sub_10005B588(uint64_t a1, void *a2)
@@ -6221,11 +6215,11 @@ LABEL_6:
   _Block_object_dispose(&v20, 8);
 }
 
-void sub_10005CFAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_10005CFAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v17 - 80), 8);
+  _Block_object_dispose((v24 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -6246,85 +6240,82 @@ void sub_10005D040(uint64_t a1)
   (*(*(a1 + 48) + 16))();
 }
 
-void sub_10005D0C0(uint64_t a1)
+void sub_10005D0C0(id *a1)
 {
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x2020000000;
-  v23 = 0;
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x3032000000;
-  v17 = sub_100004440;
-  v18 = sub_100005304;
   v19 = 0;
-  if ([*(a1 + 32) isCancelled])
+  v20 = &v19;
+  v21 = 0x2020000000;
+  v22 = 0;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x3032000000;
+  v16 = sub_100004440;
+  v17 = sub_100005304;
+  v18 = 0;
+  if ([a1[4] isCancelled])
   {
-    *(v21 + 24) = 0;
+    *(v20 + 24) = 0;
     v2 = +[CPLErrors operationCancelledError];
-    v3 = v15[5];
-    v15[5] = v2;
+    v3 = v14[5];
+    v14[5] = v2;
   }
 
   else
   {
-    v4 = [*(a1 + 32) completedUnitCount];
-    v3 = [[NSString alloc] initWithFormat:@"%@ (%lu/%lu)", *(a1 + 40), v4, objc_msgSend(*(a1 + 32), "totalUnitCount")];
-    [*(a1 + 48) setIdleDescription:v3];
-    v5 = *(a1 + 32);
-    v9[0] = _NSConcreteStackBlock;
-    v9[1] = 3221225472;
-    v9[2] = sub_10005D31C;
-    v9[3] = &unk_100274D38;
-    v12 = &v20;
-    v11 = *(a1 + 72);
-    v10 = *(a1 + 56);
-    v13 = &v14;
-    [v5 performAsCurrentWithPendingUnitCount:1 usingBlock:v9];
-    [*(a1 + 32) setCompletedUnitCount:v4 + 1];
+    v4 = [a1[4] completedUnitCount];
+    v3 = [[NSString alloc] initWithFormat:@"%@ (%lu/%lu)", a1[5], v4, objc_msgSend(a1[4], "totalUnitCount")];
+    [a1[6] setIdleDescription:v3];
+    v5 = a1[4];
+    v8[0] = _NSConcreteStackBlock;
+    v8[1] = 3221225472;
+    v8[2] = sub_10005D31C;
+    v8[3] = &unk_100274D38;
+    v11 = &v19;
+    v10 = a1[9];
+    v9 = a1[7];
+    v12 = &v13;
+    [v5 performAsCurrentWithPendingUnitCount:1 usingBlock:v8];
+    [a1[4] setCompletedUnitCount:v4 + 1];
   }
 
-  if (*(v21 + 24) == 1)
+  if (*(v20 + 24) == 1)
   {
-    sub_10019FA98(*(a1 + 48), *(a1 + 72), *(a1 + 64), *(a1 + 40), *(a1 + 32), *(a1 + 80));
+    sub_10019FA98(a1[6], a1[9], a1[8], a1[5], a1[4], a1[10]);
   }
 
   else
   {
-    if (!v15[5])
+    if (!v14[5])
     {
       v6 = +[CPLErrors unknownError];
-      v7 = v15[5];
-      v15[5] = v6;
-
-      v8 = v15[5];
+      v7 = v14[5];
+      v14[5] = v6;
     }
 
-    (*(*(a1 + 80) + 16))();
+    (*(a1[10] + 2))();
   }
 
-  _Block_object_dispose(&v14, 8);
+  _Block_object_dispose(&v13, 8);
 
-  _Block_object_dispose(&v20, 8);
+  _Block_object_dispose(&v19, 8);
 }
 
-void sub_10005D2F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_10005D2F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 64), 8);
+  _Block_object_dispose((v20 - 64), 8);
   _Unwind_Resume(a1);
 }
 
 void sub_10005D31C(void *a1)
 {
   v2 = a1[5];
-  v3 = a1[4];
-  v4 = *(a1[7] + 8);
-  obj = *(v4 + 40);
-  v5 = (*(v2 + 16))();
-  objc_storeStrong((v4 + 40), obj);
-  *(*(a1[6] + 8) + 24) = v5;
+  v3 = *(a1[7] + 8);
+  obj = *(v3 + 40);
+  v4 = (*(v2 + 16))();
+  objc_storeStrong((v3 + 40), obj);
+  *(*(a1[6] + 8) + 24) = v4;
 }
 
 void sub_10005D390(uint64_t a1, void *a2)
@@ -6391,41 +6382,30 @@ void sub_10005D744(uint64_t a1, void *a2, void *a3)
 
 void sub_10005D830(uint64_t a1)
 {
-  v4 = [*(a1 + 32) callbackOperationDidFinishWithError:*(a1 + 40)];
+  v2 = [*(a1 + 32) callbackOperationDidFinishWithError:*(a1 + 40)];
   [*(a1 + 48) setCompletedUnitCount:{objc_msgSend(*(a1 + 48), "totalUnitCount")}];
-  if (v4)
-  {
-    v2 = *(a1 + 40);
-  }
-
-  else
-  {
-    v3 = *(a1 + 56);
-  }
-
   (*(*(a1 + 64) + 16))();
 }
 
 void sub_10005DA04(uint64_t a1)
 {
   v2 = [NSString alloc];
-  v3 = *(a1 + 32);
-  v4 = objc_opt_class();
-  v5 = CPLSimplifiedStringFromClass(v4);
-  v6 = +[NSUUID UUID];
-  v7 = [v2 initWithFormat:@"%@-%@", v5, v6];
+  v3 = objc_opt_class();
+  v4 = CPLSimplifiedStringFromClass(v3);
+  v5 = +[NSUUID UUID];
+  v6 = [v2 initWithFormat:@"%@-%@", v4, v5];
 
-  v9 = *(a1 + 32);
-  v8 = *(a1 + 40);
-  v10 = *(v9 + 200);
-  v11[0] = _NSConcreteStackBlock;
-  v11[1] = 3221225472;
-  v11[2] = sub_10005DB14;
-  v11[3] = &unk_100274E28;
-  v11[4] = v9;
-  v12 = v8;
-  v13 = *(a1 + 48);
-  [v10 getTemporaryFolderWithName:v7 completionHandler:v11];
+  v8 = *(a1 + 32);
+  v7 = *(a1 + 40);
+  v9 = *(v8 + 200);
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = sub_10005DB14;
+  v10[3] = &unk_100274E28;
+  v10[4] = v8;
+  v11 = v7;
+  v12 = *(a1 + 48);
+  [v9 getTemporaryFolderWithName:v6 completionHandler:v10];
 }
 
 void sub_10005DB14(uint64_t a1, void *a2, void *a3)
@@ -6450,17 +6430,11 @@ void sub_10005DB14(uint64_t a1, void *a2, void *a3)
 
 void sub_10005DC00(uint64_t a1)
 {
-  v4 = [*(a1 + 32) callbackOperationDidFinishWithError:*(a1 + 40)];
+  v2 = [*(a1 + 32) callbackOperationDidFinishWithError:*(a1 + 40)];
   [*(a1 + 48) setCompletedUnitCount:{objc_msgSend(*(a1 + 48), "totalUnitCount")}];
-  if (v4)
-  {
-    v2 = *(a1 + 40);
-  }
-
-  else
+  if (!v2)
   {
     objc_storeStrong((*(a1 + 32) + 136), *(a1 + 56));
-    v3 = *(*(a1 + 32) + 136);
   }
 
   (*(*(a1 + 64) + 16))();
@@ -6527,60 +6501,62 @@ void sub_10005EA98(uint64_t a1, void *a2, void *a3)
 void sub_10005EB70(uint64_t a1)
 {
   v2 = [*(a1 + 32) operationDidFinishWithError:*(a1 + 40)];
+  v3 = v2;
   if (v2)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v3 = sub_100003810();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+      v4 = sub_100003810(v2);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
-        *v9 = 138412290;
-        *&v9[4] = v2;
-        _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "failed to fetch user record: %@", v9, 0xCu);
+        *v10 = 138412290;
+        *&v10[4] = v3;
+        _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "failed to fetch user record: %@", v10, 0xCu);
       }
     }
 
-    v4 = [*(a1 + 32) lastOperationRequestUUIDs];
-    v5 = [CPLCloudKitErrors CPLErrorForCloudKitError:v2 withRequestUUIDs:v4 description:@"Failed to get user record"];
+    v5 = [*(a1 + 32) lastOperationRequestUUIDs];
+    v6 = [CPLCloudKitErrors CPLErrorForCloudKitError:v3 withRequestUUIDs:v5 description:@"Failed to get user record"];
 
     (*(*(a1 + 56) + 16))();
   }
 
   else
   {
-    v6 = [*(a1 + 48) allValues];
-    v5 = [v6 firstObject];
+    v7 = [*(a1 + 48) allValues];
+    v6 = [v7 firstObject];
 
-    if (v5)
+    if (v6)
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v7 = sub_100003810();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+        v8 = sub_100003810(_CPLSilentLogging);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
         {
-          *v9 = 138412290;
-          *&v9[4] = v5;
-          _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "Active Apple Account, userRecord: %@", v9, 0xCu);
+          *v10 = 138412290;
+          *&v10[4] = v6;
+          _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "Active Apple Account, userRecord: %@", v10, 0xCu);
         }
       }
 
-      v8 = [v5 recordID];
+      v9 = [v6 recordID];
       (*(*(a1 + 56) + 16))();
     }
 
     else
     {
-      sub_1001A19A0(_CPLSilentLogging, a1, v9);
-      v8 = *v9;
+      sub_1001A19A0(_CPLSilentLogging, a1, v10);
+      v9 = *v10;
     }
   }
 }
 
-void sub_10005EF68(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, id location, char a26)
+void sub_10005EF68(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, id location, ...)
 {
-  objc_destroyWeak((v26 + 48));
+  va_start(va, location);
+  objc_destroyWeak((v25 + 48));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a26, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -6609,10 +6585,9 @@ void sub_10005F0D8(uint64_t a1)
   {
 
 LABEL_12:
-    v7 = *(*(*(a1 + 56) + 8) + 24);
-    v8 = *(*(a1 + 48) + 16);
+    v7 = *(*(a1 + 48) + 16);
 
-    v8();
+    v7();
     return;
   }
 
@@ -6622,7 +6597,7 @@ LABEL_12:
   }
 
   v3 = *(a1 + 32);
-  v9 = v2;
+  v8 = v2;
   v4 = [v3 lastOperationRequestUUIDs];
   if (*(a1 + 64))
   {
@@ -6634,7 +6609,7 @@ LABEL_12:
     v5 = "private";
   }
 
-  v6 = [CPLCloudKitErrors CPLErrorForCloudKitError:v9 withRequestUUIDs:v4 description:@"failed to fetch %s database changes", v5];
+  v6 = [CPLCloudKitErrors CPLErrorForCloudKitError:v8 withRequestUUIDs:v4 description:@"failed to fetch %s database changes", v5];
 
   (*(*(a1 + 48) + 16))();
 }
@@ -6673,16 +6648,16 @@ void sub_10005F5C8(uint64_t a1, void *a2, void *a3)
   }
 }
 
-id sub_10005FD40()
+id sub_10005FD40(uint64_t a1)
 {
   if (qword_1002C5260 != -1)
   {
     sub_1001A1A4C();
   }
 
-  v1 = qword_1002C5268;
+  v2 = qword_1002C5268;
 
-  return v1;
+  return v2;
 }
 
 void sub_10005FD84(id a1)
@@ -6701,10 +6676,11 @@ void sub_10005FDC4(id a1)
   qword_1002C5268 = v2;
 }
 
-void sub_10005FE28(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint8_t buf)
+void sub_10005FE28(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
+  va_start(va, a12);
 
-  _os_log_impl(a1, v13, OS_LOG_TYPE_ERROR, a4, &buf, 0x20u);
+  _os_log_impl(a1, v12, OS_LOG_TYPE_ERROR, a4, va, 0x20u);
 }
 
 void sub_10005FE5C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint8_t *a5)
@@ -6774,29 +6750,30 @@ void sub_10006029C(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 void sub_100060354(uint64_t a1)
 {
   v2 = [*(a1 + 32) operationDidFinishWithError:*(a1 + 40)];
+  v3 = v2;
   if (v2)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v3 = sub_100003854();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+      v4 = sub_100003854(v2);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v11 = v2;
-        _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "Failed to delete source records: %@", buf, 0xCu);
+        v12 = v3;
+        _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "Failed to delete source records: %@", buf, 0xCu);
       }
     }
 
-    v4 = *(*(a1 + 32) + 344);
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_100060520;
-    v8[3] = &unk_100273B78;
-    v9 = *(a1 + 48);
-    v5 = *(a1 + 32);
-    v6 = [v5 lastOperationRequestUUIDs];
-    v7 = [CPLCloudKitErrors CPLErrorForCloudKitUploadError:v2 getDestinationRecordIDs:v8 scopeProvider:v5 withRequestUUIDs:v6 uploadAction:@"delete"];
-    (*(v4 + 16))(v4, v7);
+    v5 = *(*(a1 + 32) + 344);
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_100060520;
+    v9[3] = &unk_100273B78;
+    v10 = *(a1 + 48);
+    v6 = *(a1 + 32);
+    v7 = [v6 lastOperationRequestUUIDs];
+    v8 = [CPLCloudKitErrors CPLErrorForCloudKitUploadError:v3 getDestinationRecordIDs:v9 scopeProvider:v6 withRequestUUIDs:v7 uploadAction:@"delete"];
+    (*(v5 + 16))(v5, v8);
   }
 
   else
@@ -6895,28 +6872,28 @@ void sub_100061674(id a1)
   qword_1002C5280 = v1;
 }
 
-id sub_1000616B8()
+id sub_1000616B8(uint64_t a1)
 {
   if (qword_1002C52B8 != -1)
   {
     sub_1001A1D78();
   }
 
-  v1 = qword_1002C52B0;
+  v2 = qword_1002C52B0;
 
-  return v1;
+  return v2;
 }
 
-id sub_100061744()
+id sub_100061744(uint64_t a1)
 {
   if (qword_1002C52D8 != -1)
   {
     sub_1001A1DA0();
   }
 
-  v1 = qword_1002C52D0;
+  v2 = qword_1002C52D0;
 
-  return v1;
+  return v2;
 }
 
 void sub_1000617CC(id a1)
@@ -7102,8 +7079,9 @@ void sub_100064E68(uint64_t a1, void *a2)
   }
 }
 
-void sub_100064F58(void *a1, char a2)
+void sub_100064F58(void *a1, uint64_t a2)
 {
+  v2 = a2;
   v4 = *(*(a1[5] + 8) + 40);
   if (!v4)
   {
@@ -7115,12 +7093,12 @@ void sub_100064F58(void *a1, char a2)
   v6 = (v5 + 40);
   if (v7 == v4)
   {
-    sub_1001A1EF0(a1, a2);
+    sub_1001A1EF0(a1, v2);
   }
 
   objc_storeStrong(v6, v4);
   objc_storeStrong((*(a1[8] + 8) + 40), *(*(a1[9] + 8) + 40));
-  *(*(a1[10] + 8) + 24) = a2;
+  *(*(a1[10] + 8) + 24) = v2;
 }
 
 void sub_100064FDC(void *a1, int a2)
@@ -7202,7 +7180,7 @@ void sub_100065C70(id a1)
 
 void sub_100065EA4(id a1)
 {
-  v1 = sub_1000616B8();
+  v1 = sub_1000616B8(a1);
   v2 = [[NSMutableSet alloc] initWithCapacity:{objc_msgSend(v1, "count")}];
   v10 = 0u;
   v11 = 0u;
@@ -7243,7 +7221,7 @@ void sub_100065EA4(id a1)
 
 void sub_100065FF4(id a1)
 {
-  v1 = sub_1000616B8();
+  v1 = sub_1000616B8(a1);
   v2 = [[NSMutableSet alloc] initWithCapacity:{objc_msgSend(v1, "count")}];
   v10 = 0u;
   v11 = 0u;
@@ -7390,7 +7368,7 @@ void CPLCloudKitConfigurePhotosCapabilitiesOnContainerOptions(void *a1)
 id CPLCloudKitDescriptionForCapability(void *a1)
 {
   v1 = a1;
-  v2 = CPLCloudKitCapabilityLevelMapping();
+  v2 = CPLCloudKitCapabilityLevelMapping(v1);
   v3 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v1 level]);
   v4 = [v2 objectForKeyedSubscript:v3];
 
@@ -7407,16 +7385,16 @@ id CPLCloudKitDescriptionForCapability(void *a1)
   return v8;
 }
 
-id CPLCloudKitCapabilityLevelMapping()
+id CPLCloudKitCapabilityLevelMapping(uint64_t a1)
 {
   if (qword_1002C5300 != -1)
   {
     sub_1001A2370();
   }
 
-  v1 = qword_1002C5308;
+  v2 = qword_1002C5308;
 
-  return v1;
+  return v2;
 }
 
 void sub_100066FBC(id a1)
@@ -7699,28 +7677,59 @@ id CPLCKReferenceToUser(void *a1, void *a2)
   return v5;
 }
 
-id sub_100068094()
+id sub_100068094(uint64_t a1)
 {
   if (qword_1002C5338 != -1)
   {
     sub_1001A3080();
   }
 
-  v1 = qword_1002C5340;
+  v2 = qword_1002C5340;
 
-  return v1;
+  return v2;
 }
 
-id sub_100069014()
+void sub_100068F14(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, __int128 buf, int a12, __int16 a13, __int16 a14, void *a15)
+{
+  if (a2 == 1)
+  {
+    v16 = objc_begin_catch(a1);
+    v17 = v16;
+    if ((_CPLSilentLogging & 1) == 0)
+    {
+      v18 = sub_100069014(v16);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      {
+        v19 = [v15 recordType];
+        v20 = [v15 recordID];
+        v21 = [v20 recordName];
+        LODWORD(buf) = 138543874;
+        *(&buf + 4) = v19;
+        WORD6(buf) = 2114;
+        *(&buf + 14) = v21;
+        a14 = 2112;
+        a15 = v17;
+        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "Exception while converting to property list for %{public}@.%{public}@, ignoring: %@", &buf, 0x20u);
+      }
+    }
+
+    objc_end_catch();
+    JUMPOUT(0x100068D80);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+id sub_100069014(uint64_t a1)
 {
   if (qword_1002C5348 != -1)
   {
     sub_1001A3460();
   }
 
-  v1 = qword_1002C5350;
+  v2 = qword_1002C5350;
 
-  return v1;
+  return v2;
 }
 
 id CPLDynamicFingerPrintFromCloudKitFingerPrint(void *a1)
@@ -7734,9 +7743,9 @@ id CPLDynamicFingerPrintFromCloudKitFingerPrint(void *a1)
   return a1;
 }
 
-void sub_10006A364(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10006A364(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7919,37 +7928,36 @@ void sub_10006BB9C(uint64_t a1, uint64_t a2)
     v4 = sub_100084A0C(CPLCloudKitResourceKeys, a2);
     if (v4)
     {
-      v14 = 0u;
-      v15 = 0u;
-      v12 = 0u;
       v13 = 0u;
-      v5 = *(a1 + 32);
-      v6 = objc_opt_class();
-      v7 = sub_1001A8BFC(v4, v6);
-      v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
-      if (v8)
+      v14 = 0u;
+      v11 = 0u;
+      v12 = 0u;
+      v5 = objc_opt_class();
+      v6 = sub_1001A8BFC(v4, v5);
+      v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      if (v7)
       {
-        v9 = v8;
-        v10 = *v13;
+        v8 = v7;
+        v9 = *v12;
         do
         {
-          v11 = 0;
+          v10 = 0;
           do
           {
-            if (*v13 != v10)
+            if (*v12 != v9)
             {
-              objc_enumerationMutation(v7);
+              objc_enumerationMutation(v6);
             }
 
-            [*(a1 + 40) setObject:0 forKey:{*(*(&v12 + 1) + 8 * v11), v12}];
-            v11 = v11 + 1;
+            [*(a1 + 40) setObject:0 forKey:{*(*(&v11 + 1) + 8 * v10), v11}];
+            v10 = v10 + 1;
           }
 
-          while (v9 != v11);
-          v9 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
+          while (v8 != v10);
+          v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
         }
 
-        while (v9);
+        while (v8);
       }
     }
   }
@@ -8029,22 +8037,25 @@ void sub_10006CFB0(id a1)
   byte_1002C5360 = [v1 BOOLForKey:@"CPLDontAddBoundaryKeyToCKAssetReferences"] ^ 1;
 }
 
-void sub_10006D00C(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint8_t buf)
+void sub_10006D00C(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
 
-  _os_log_impl(a1, v11, OS_LOG_TYPE_ERROR, a4, &buf, 0xCu);
+  _os_log_impl(a1, v10, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void sub_10006D044(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10006D044(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_DEFAULT, a4, &a9, 0x16u);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_DEFAULT, a4, va, 0x16u);
 }
 
-void sub_10006D064(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint8_t buf)
+void sub_10006D064(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
 
-  _os_log_impl(a1, v11, OS_LOG_TYPE_ERROR, a4, &buf, 0x20u);
+  _os_log_impl(a1, v10, OS_LOG_TYPE_ERROR, a4, va, 0x20u);
 }
 
 id sub_10006D084(id a1)
@@ -8601,16 +8612,16 @@ LABEL_28:
   return v8;
 }
 
-id sub_10006E74C()
+id sub_10006E74C(uint64_t a1)
 {
   if (qword_1002C5378 != -1)
   {
     sub_1001A408C();
   }
 
-  v1 = qword_1002C5380;
+  v2 = qword_1002C5380;
 
-  return v1;
+  return v2;
 }
 
 void sub_10006E974(id a1)
@@ -8619,6 +8630,13 @@ void sub_10006E974(id a1)
   v2 = os_log_create(v1, "engine.transport.cloudkit.duet");
   v3 = qword_1002C5380;
   qword_1002C5380 = v2;
+}
+
+void sub_10006EF18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
+{
+  va_start(va, a36);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void sub_10006EF3C(uint64_t a1, void *a2, void *a3)
@@ -8679,24 +8697,25 @@ void sub_10006F1A4(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
   v7 = a2;
   v8 = a3;
-  if (![CPLCloudKitErrors isRecordNotFoundError:v8])
+  v9 = [CPLCloudKitErrors isRecordNotFoundError:v8];
+  if ((v9 & 1) == 0)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v9 = sub_100003898();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = sub_100003898(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v10 = [v7 recordName];
-        v11 = *(a1 + 32);
-        v12 = [v7 zoneID];
-        v13 = [v11 scopeIdentifierFromZoneID:v12];
-        v14 = 138412802;
-        v15 = v10;
-        v16 = 2112;
-        v17 = v13;
-        v18 = 2112;
-        v19 = v8;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Failed to fetch %@ in %@: %@", &v14, 0x20u);
+        v11 = [v7 recordName];
+        v12 = *(a1 + 32);
+        v13 = [v7 zoneID];
+        v14 = [v12 scopeIdentifierFromZoneID:v13];
+        v15 = 138412802;
+        v16 = v11;
+        v17 = 2112;
+        v18 = v14;
+        v19 = 2112;
+        v20 = v8;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Failed to fetch %@ in %@: %@", &v15, 0x20u);
       }
     }
 
@@ -9050,7 +9069,7 @@ void sub_100072984(uint64_t a1)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v8 = sub_100003898();
+      v8 = sub_100003898(0);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         v10 = *(a1 + 56);

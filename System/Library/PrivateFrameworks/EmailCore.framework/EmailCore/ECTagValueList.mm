@@ -58,38 +58,38 @@ uint64_t ___ef_log_ECTagValueList_block_invoke()
 
 + (id)tagValueListFromString:(id)string error:(id *)error
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   newlineCharacterSet = [MEMORY[0x277CCA900] newlineCharacterSet];
   v5 = [stringCopy ef_stringByTrimmingTrailingCharactersInSet:newlineCharacterSet];
 
-  v26 = v5;
-  v25 = [v5 componentsSeparatedByString:@""];;
+  v25 = v5;
+  v24 = [v5 componentsSeparatedByString:@""];;
   v6 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
-  v7 = v25;
-  v8 = [v7 countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v7 = v24;
+  v8 = [v7 countByEnumeratingWithState:&v30 objects:v34 count:16];
   if (!v8)
   {
-    v30 = 1;
+    v29 = 1;
     goto LABEL_18;
   }
 
-  v9 = *v32;
-  v30 = 1;
+  v9 = *v31;
+  v29 = 1;
   while (2)
   {
     for (i = 0; i != v8; i = i + 1)
     {
-      if (*v32 != v9)
+      if (*v31 != v9)
       {
         objc_enumerationMutation(v7);
       }
 
-      v11 = *(*(&v31 + 1) + 8 * i);
+      v11 = *(*(&v30 + 1) + 8 * i);
       if ([v11 length])
       {
         v12 = [v11 ef_componentsSeparatedByString:@"=" maxSeparations:1];
@@ -122,10 +122,10 @@ uint64_t ___ef_log_ECTagValueList_block_invoke()
         goto LABEL_18;
       }
 
-      v30 = 0;
+      v29 = 0;
     }
 
-    v8 = [v7 countByEnumeratingWithState:&v31 objects:v35 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v30 objects:v34 count:16];
     if (v8)
     {
       continue;
@@ -157,7 +157,7 @@ LABEL_18:
 
   else
   {
-    if (v30)
+    if (v29)
     {
       v22 = [[self alloc] _initWithDictionaryRepresentation:v6 stringRepresentation:stringCopy];
     }
@@ -170,21 +170,19 @@ LABEL_18:
     v21 = v22;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return v21;
 }
 
 + (id)_errorWithCode:(void *)code failureReason:
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   codeCopy = code;
   objc_opt_self();
   if (codeCopy)
   {
-    v9 = *MEMORY[0x277CCA470];
-    v10[0] = codeCopy;
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+    v8 = *MEMORY[0x277CCA470];
+    v9[0] = codeCopy;
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   }
 
   else
@@ -193,8 +191,6 @@ LABEL_18:
   }
 
   v6 = [MEMORY[0x277CCA9B8] errorWithDomain:@"ECTagValueListErrorDomain" code:a2 userInfo:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

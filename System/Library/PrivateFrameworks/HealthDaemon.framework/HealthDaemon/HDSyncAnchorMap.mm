@@ -21,29 +21,29 @@
 
 + (HDSyncAnchorMap)syncAnchorMapWithCodableSyncAnchorRangeMap:(id)map
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   mapCopy = map;
   v4 = objc_alloc_init(HDSyncAnchorMap);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   anchorRanges = [mapCopy anchorRanges];
-  v6 = [anchorRanges countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [anchorRanges countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(anchorRanges);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         v11 = [HDSyncEntityIdentifier alloc];
         entityIdentifier = [v10 entityIdentifier];
         v13 = [(HDSyncEntityIdentifier *)v11 initWithCodableEntityIdentifier:entityIdentifier];
@@ -51,13 +51,11 @@
         -[HDSyncAnchorMap setAnchor:forSyncEntityIdentifier:](v4, "setAnchor:forSyncEntityIdentifier:", [v10 endAnchor], v13);
       }
 
-      v7 = [anchorRanges countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [anchorRanges countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -219,7 +217,7 @@ void __65__HDSyncAnchorMap_enumerateAnchorsAndEntityIdentifiersWithBlock___block
   return v3 & 1;
 }
 
-uint64_t __28__HDSyncAnchorMap_isAllZero__block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
+void *__28__HDSyncAnchorMap_isAllZero__block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
   result = [a3 longLongValue];
   if (result)
@@ -233,28 +231,28 @@ uint64_t __28__HDSyncAnchorMap_isAllZero__block_invoke(uint64_t a1, uint64_t a2,
 
 - (NSString)description
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v4 = self->_anchorsByEntityIdentifier;
-  v5 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v5 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v20;
+    v7 = *v19;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v20 != v7)
+        if (*v19 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v19 + 1) + 8 * i);
+        v9 = *(*(&v18 + 1) + 8 * i);
         v10 = [(NSMutableDictionary *)self->_anchorsByEntityIdentifier objectForKeyedSubscript:v9];
         integerValue = [v10 integerValue];
 
@@ -262,19 +260,17 @@ uint64_t __28__HDSyncAnchorMap_isAllZero__block_invoke(uint64_t a1, uint64_t a2,
         [v3 addObject:v12];
       }
 
-      v6 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v6 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v6);
   }
 
   v13 = MEMORY[0x277CCACA8];
-  v18.receiver = self;
-  v18.super_class = HDSyncAnchorMap;
-  v14 = [(HDSyncAnchorMap *)&v18 description];
+  v17.receiver = self;
+  v17.super_class = HDSyncAnchorMap;
+  v14 = [(HDSyncAnchorMap *)&v17 description];
   v15 = [v13 stringWithFormat:@"<%@ %@>", v14, v3];
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -332,30 +328,30 @@ LABEL_9:
 
 - (void)encodeWithCoder:(id)coder
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   [coderCopy encodeObject:self->_anchorsByEntityIdentifier forKey:@"AnchorByEntityIdentifier"];
   v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v5 = self->_anchorsByEntityIdentifier;
-  v6 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         schemaIdentifier = [v10 schemaIdentifier];
 
         if (!schemaIdentifier)
@@ -366,30 +362,29 @@ LABEL_9:
         }
       }
 
-      v7 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
   }
 
   [coderCopy encodeObject:v4 forKey:@"AnchorByObjectType"];
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (HDSyncAnchorMap)initWithCoder:(id)coder
 {
-  v35[3] = *MEMORY[0x277D85DE8];
+  v34[3] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v32.receiver = self;
-  v32.super_class = HDSyncAnchorMap;
-  v5 = [(HDSyncAnchorMap *)&v32 init];
+  v31.receiver = self;
+  v31.super_class = HDSyncAnchorMap;
+  v5 = [(HDSyncAnchorMap *)&v31 init];
   if (v5)
   {
     v6 = MEMORY[0x277CBEB98];
-    v35[0] = objc_opt_class();
-    v35[1] = objc_opt_class();
-    v35[2] = objc_opt_class();
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:3];
+    v34[0] = objc_opt_class();
+    v34[1] = objc_opt_class();
+    v34[2] = objc_opt_class();
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:3];
     v8 = [v6 setWithArray:v7];
 
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"AnchorByEntityIdentifier"];
@@ -398,35 +393,35 @@ LABEL_9:
 
     if (!v5->_anchorsByEntityIdentifier)
     {
-      v27 = v8;
+      v26 = v8;
       v11 = MEMORY[0x277CBEB98];
-      v34[0] = objc_opt_class();
-      v34[1] = objc_opt_class();
-      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:2];
+      v33[0] = objc_opt_class();
+      v33[1] = objc_opt_class();
+      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:2];
       v13 = [v11 setWithArray:v12];
       v14 = [coderCopy decodeObjectOfClasses:v13 forKey:@"AnchorByObjectType"];
 
-      v30 = 0u;
-      v31 = 0u;
-      v28 = 0u;
       v29 = 0u;
+      v30 = 0u;
+      v27 = 0u;
+      v28 = 0u;
       v15 = v14;
-      v16 = [v15 countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v27 objects:v32 count:16];
       if (v16)
       {
         v17 = v16;
-        v18 = *v29;
+        v18 = *v28;
         do
         {
           v19 = 0;
           do
           {
-            if (*v29 != v18)
+            if (*v28 != v18)
             {
               objc_enumerationMutation(v15);
             }
 
-            v20 = *(*(&v28 + 1) + 8 * v19);
+            v20 = *(*(&v27 + 1) + 8 * v19);
             if (!v5->_anchorsByEntityIdentifier)
             {
               v21 = objc_alloc_init(MEMORY[0x277CBEB38]);
@@ -442,17 +437,16 @@ LABEL_9:
           }
 
           while (v17 != v19);
-          v17 = [v15 countByEnumeratingWithState:&v28 objects:v33 count:16];
+          v17 = [v15 countByEnumeratingWithState:&v27 objects:v32 count:16];
         }
 
         while (v17);
       }
 
-      v8 = v27;
+      v8 = v26;
     }
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

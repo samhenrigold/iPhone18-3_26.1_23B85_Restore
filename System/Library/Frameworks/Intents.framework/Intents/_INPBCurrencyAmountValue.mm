@@ -187,19 +187,18 @@ LABEL_18:
 
   if (currencyCode)
   {
-    currencyCode = self->_currencyCode;
     PBDataWriterWriteStringField();
   }
 
   valueMetadata = [(_INPBCurrencyAmountValue *)self valueMetadata];
 
-  v9 = toCopy;
+  v8 = toCopy;
   if (valueMetadata)
   {
     valueMetadata2 = [(_INPBCurrencyAmountValue *)self valueMetadata];
     PBDataWriterWriteSubmessage();
 
-    v9 = toCopy;
+    v8 = toCopy;
   }
 }
 

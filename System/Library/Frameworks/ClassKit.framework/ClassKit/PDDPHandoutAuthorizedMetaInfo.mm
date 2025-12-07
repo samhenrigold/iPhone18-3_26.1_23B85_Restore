@@ -1,5 +1,6 @@
 @interface PDDPHandoutAuthorizedMetaInfo
 - (BOOL)isEqual:(id)equal;
+- (id)attachmentTypeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -24,6 +25,21 @@
   {
     return 0;
   }
+}
+
+- (id)attachmentTypeAsString:(int)string
+{
+  if (string >= 8)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100206740 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsAttachmentType:(id)type
@@ -137,36 +153,35 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (*&self->_has)
   {
-    attachmentType = self->_attachmentType;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_attachmentId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_handoutAuthorizedObjectId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_classId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_handoutId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -242,7 +257,6 @@
     goto LABEL_15;
   }
 
-  v5 = *(equalCopy + 48);
   if (*&self->_has)
   {
     if ((*(equalCopy + 48) & 1) == 0 || self->_attachmentType != *(equalCopy + 4))
@@ -254,7 +268,7 @@
   else if (*(equalCopy + 48))
   {
 LABEL_15:
-    v10 = 0;
+    v9 = 0;
     goto LABEL_16;
   }
 
@@ -285,17 +299,17 @@ LABEL_15:
   handoutId = self->_handoutId;
   if (handoutId | *(equalCopy + 5))
   {
-    v10 = [(NSString *)handoutId isEqual:?];
+    v9 = [(NSString *)handoutId isEqual:?];
   }
 
   else
   {
-    v10 = 1;
+    v9 = 1;
   }
 
 LABEL_16:
 
-  return v10;
+  return v9;
 }
 
 - (unint64_t)hash

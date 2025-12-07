@@ -133,7 +133,7 @@ uint64_t __26__PILevelsFilter_P3Kernel__block_invoke()
     v11 = [v9 samplerWithImage:imageByUnpremultiplyingAlpha];
 
     definition = [v11 definition];
-    [definition extent];
+    objc_msgSend_extent(definition);
     v14 = v13;
     v16 = v15;
     v18 = v17;

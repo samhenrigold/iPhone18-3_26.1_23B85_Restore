@@ -39,7 +39,7 @@
 
 - (void)generateFakeLocalSignals:(id)signals
 {
-  v5 = sub_1001F1160(&qword_100AD67D0);
+  v5 = sub_1001F1160(&qword_100AD67D0, &qword_100814660);
   __chkstk_darwin(v5 - 8);
   v7 = v14 - v6;
   if (signals)
@@ -67,7 +67,7 @@
   v13[4] = selfCopy3;
   sub_1003457A0(0, 0, v7, &unk_10082EE88, v13);
 
-  sub_100007840(v14, &unk_100AD5B40);
+  sub_100007840(v14, &unk_100AD5B40, &unk_100811300);
 }
 
 - (void)fetchBookHistories:(id)histories
@@ -88,7 +88,7 @@
 
   sub_100532B28();
 
-  sub_100007840(v6, &unk_100AD5B40);
+  sub_100007840(v6, &unk_100AD5B40, &unk_100811300);
 }
 
 - (void)enableRandomAssetIDsCell:(id)cell
@@ -109,7 +109,7 @@
 
   sub_1005315C4();
 
-  sub_100007840(v6, &unk_100AD5B40);
+  sub_100007840(v6, &unk_100AD5B40, &unk_100811300);
 }
 
 - (id)tableView:(id)view titleForHeaderInSection:(int64_t)section
@@ -124,15 +124,15 @@
   v6 = sub_100796E74();
   v7 = *(v6 - 8);
   __chkstk_darwin(v6);
-  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_100796E14();
   viewCopy = view;
   selfCopy = self;
-  v12 = sub_1005318C8(viewCopy);
+  v13 = sub_1005318C8(viewCopy, v12);
 
   (*(v7 + 8))(v9, v6);
 
-  return v12;
+  return v13;
 }
 
 - (BKLocalSignalStressTestViewController)initWithStyle:(int64_t)style

@@ -70,12 +70,12 @@
 - (void)_restartUpdates
 {
   objc_msgSend_stop(self, a2, v2);
-  objc_msgSend_startUpdatingDelegate_(self->_compassWaypointManager, v4, v5, self);
-  objc_msgSend_startUpdatingDelegate_(self->_mapsSyncManager, v6, v7, self);
-  objc_msgSend_startUpdatingDelegate_(self->_coreRoutineManager, v8, v9, self);
+  objc_msgSend_startUpdatingDelegate_(self->_compassWaypointManager, v4, self);
+  objc_msgSend_startUpdatingDelegate_(self->_mapsSyncManager, v5, self);
+  objc_msgSend_startUpdatingDelegate_(self->_coreRoutineManager, v6, self);
   mapsSearchManager = self->_mapsSearchManager;
 
-  objc_msgSend_startUpdatingDelegate_(mapsSearchManager, v10, v11, self);
+  objc_msgSend_startUpdatingDelegate_(mapsSearchManager, v7, self);
 }
 
 - (void)stop
@@ -120,30 +120,30 @@
 
 - (void)storeDidChangeWithCategories:(unint64_t)categories
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (categories)
   {
-    v5 = NTKFoghornFaceBundleLogObject();
+    v5 = NTKFoghornFaceBundleLogObject(self, a2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v8 = NTKLeghornWaypointCategoryString(categories, v6, v7);
-      v11 = 136315394;
-      v12 = "[NTKLeghornWaypointDataSource storeDidChangeWithCategories:]";
-      v13 = 2112;
-      v14 = v8;
-      _os_log_impl(&dword_23BEB1000, v5, OS_LOG_TYPE_DEFAULT, "%s: updating categories = %@", &v11, 0x16u);
+      v10 = 136315394;
+      v11 = "[NTKLeghornWaypointDataSource storeDidChangeWithCategories:]";
+      v12 = 2112;
+      v13 = v8;
+      _os_log_impl(&dword_23BEB1000, v5, OS_LOG_TYPE_DEFAULT, "%s: updating categories = %@", &v10, 0x16u);
     }
 
-    objc_msgSend__setAllWaypoints_(self, v9, v10, 0);
+    objc_msgSend__setAllWaypoints_(self, v9, 0);
   }
 }
 
 - (NSArray)waypoints
 {
-  v5 = objc_msgSend__allWaypoints(self, a2, v2);
-  if (!v5)
+  v6 = objc_msgSend__allWaypoints(self, a2, v2);
+  if (!v6)
   {
-    v7 = objc_msgSend_waypoints(self->_compassWaypointManager, v4, v6);
+    v7 = objc_msgSend_waypoints(self->_compassWaypointManager, v4, v5);
     v10 = v7;
     if (v7)
     {
@@ -152,17 +152,17 @@
 
     v12 = objc_msgSend_waypoints(self->_coreRoutineManager, v8, v9);
     v15 = v12;
-    v5 = v10;
+    v6 = v10;
     if (v12)
     {
       if (v10)
       {
-        v5 = objc_msgSend_arrayByAddingObjectsFromArray_(v10, v13, v14, v12);
+        v6 = objc_msgSend_arrayByAddingObjectsFromArray_(v10, v13, v12);
       }
 
       else
       {
-        v5 = v12;
+        v6 = v12;
       }
     }
 
@@ -170,44 +170,44 @@
     v19 = v16;
     if (v16)
     {
-      if (v5)
+      if (v6)
       {
-        v20 = objc_msgSend_arrayByAddingObjectsFromArray_(v5, v17, v18, v16);
+        v20 = objc_msgSend_arrayByAddingObjectsFromArray_(v6, v17, v16);
 
-        v5 = v20;
+        v6 = v20;
       }
 
       else
       {
-        v5 = v16;
+        v6 = v16;
       }
     }
 
     v21 = objc_msgSend_waypoints(self->_mapsSearchManager, v17, v18);
-    v24 = v21;
+    v23 = v21;
     if (v21)
     {
-      if (v5)
+      if (v6)
       {
-        v25 = objc_msgSend_arrayByAddingObjectsFromArray_(v5, v22, v23, v21);
+        v24 = objc_msgSend_arrayByAddingObjectsFromArray_(v6, v22, v21);
 
-        v5 = v25;
-        objc_msgSend__setAllWaypoints_(self, v26, v27, v25);
+        v6 = v24;
+        objc_msgSend__setAllWaypoints_(self, v25, v24);
 LABEL_17:
 
         goto LABEL_18;
       }
 
-      v5 = v21;
+      v6 = v21;
     }
 
-    objc_msgSend__setAllWaypoints_(self, v22, v23, v5);
+    objc_msgSend__setAllWaypoints_(self, v22, v6);
     goto LABEL_17;
   }
 
 LABEL_18:
 
-  return v5;
+  return v6;
 }
 
 - (void)setQueryCenterLocation:(id)location radius:(double)radius poiFilter:(id)filter completion:(id)completion
@@ -218,8 +218,9 @@ LABEL_18:
   completionCopy = completion;
   v13 = self->_currentQuery;
   objc_msgSend_coordinate(locationCopy, v14, v15);
-  v18 = objc_msgSend_queryWithCenterCoordinate_radius_poiFilter_(NTKLeghornWaypointQuery, v16, v17, filterCopy);
-  if (objc_msgSend_matchesQuery_(v13, v19, v20, v18))
+  v17 = objc_msgSend_queryWithCenterCoordinate_radius_poiFilter_(NTKLeghornWaypointQuery, v16, filterCopy);
+  v19 = objc_msgSend_matchesQuery_(v13, v18, v17);
+  if (v19)
   {
     if (completionCopy)
     {
@@ -229,7 +230,7 @@ LABEL_18:
     goto LABEL_22;
   }
 
-  v21 = NTKFoghornFaceBundleLogObject();
+  v21 = NTKFoghornFaceBundleLogObject(v19, v20);
   if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
     v24 = objc_msgSend_includedCategories(filterCopy, v22, v23);
@@ -243,7 +244,7 @@ LABEL_18:
     _os_log_impl(&dword_23BEB1000, v21, OS_LOG_TYPE_DEFAULT, "%s: new query for radius = %fm, categories = %@", buf, 0x20u);
   }
 
-  objc_storeStrong(&self->_currentQuery, v18);
+  objc_storeStrong(&self->_currentQuery, v17);
   if (!completionCopy)
   {
     v29 = 0;
@@ -269,7 +270,7 @@ LABEL_11:
   v52[3] = &unk_278BA0F08;
   v32 = v29;
   v53 = v32;
-  objc_msgSend_setQueryCenterLocation_radius_poiFilter_completion_(compassWaypointManager, v33, radius, locationCopy, filterCopy, v52);
+  objc_msgSend_setQueryCenterLocation_radius_poiFilter_completion_(compassWaypointManager, v33, locationCopy, filterCopy, v52, radius);
   if ((v30 & 1) == 0)
   {
     dispatch_group_enter(v32);
@@ -282,7 +283,7 @@ LABEL_11:
   v50[3] = &unk_278BA0F08;
   v35 = v32;
   v51 = v35;
-  objc_msgSend_setQueryCenterLocation_radius_poiFilter_completion_(coreRoutineManager, v36, radius, locationCopy, filterCopy, v50);
+  objc_msgSend_setQueryCenterLocation_radius_poiFilter_completion_(coreRoutineManager, v36, locationCopy, filterCopy, v50, radius);
   if ((v30 & 1) == 0)
   {
     dispatch_group_enter(v35);
@@ -295,7 +296,7 @@ LABEL_11:
   v48[3] = &unk_278BA0F08;
   v38 = v35;
   v49 = v38;
-  objc_msgSend_setQueryCenterLocation_radius_poiFilter_completion_(mapsSyncManager, v39, radius, locationCopy, filterCopy, v48);
+  objc_msgSend_setQueryCenterLocation_radius_poiFilter_completion_(mapsSyncManager, v39, locationCopy, filterCopy, v48, radius);
   if ((v30 & 1) == 0)
   {
     dispatch_group_enter(v38);
@@ -308,7 +309,7 @@ LABEL_11:
   v46[3] = &unk_278BA0F08;
   v41 = v38;
   v47 = v41;
-  objc_msgSend_setQueryCenterLocation_radius_poiFilter_completion_(mapsSearchManager, v42, radius, locationCopy, filterCopy, v46);
+  objc_msgSend_setQueryCenterLocation_radius_poiFilter_completion_(mapsSearchManager, v42, locationCopy, filterCopy, v46, radius);
   if (v30)
   {
     if (completionCopy)

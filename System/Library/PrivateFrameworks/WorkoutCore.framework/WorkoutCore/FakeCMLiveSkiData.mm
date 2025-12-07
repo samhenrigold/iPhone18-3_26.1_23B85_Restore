@@ -11,8 +11,7 @@
 {
   v3 = type metadata accessor for Date();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](v3, v5);
   v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   v8 = OBJC_IVAR____TtC11WorkoutCore17FakeCMLiveSkiData__date;
   swift_beginAccess();
@@ -27,8 +26,7 @@
 {
   v4 = type metadata accessor for Date();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v4);
+  MEMORY[0x28223BE20](v4, v6);
   v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Date._unconditionallyBridgeFromObjectiveC(_:)();
   v9 = OBJC_IVAR____TtC11WorkoutCore17FakeCMLiveSkiData__date;
@@ -48,7 +46,7 @@
   *(&self->super.super.isa + OBJC_IVAR____TtC11WorkoutCore17FakeCMLiveSkiData__runCount) = 0;
   *(&self->super.super.isa + OBJC_IVAR____TtC11WorkoutCore17FakeCMLiveSkiData__verticalDescent) = 0;
   v4.receiver = self;
-  v4.super_class = type metadata accessor for FakeCMLiveSkiData();
+  v4.super_class = type metadata accessor for FakeCMLiveSkiData(0);
   return [(FakeCMLiveSkiData *)&v4 init];
 }
 
@@ -60,7 +58,7 @@
   *(&self->super.super.isa + OBJC_IVAR____TtC11WorkoutCore17FakeCMLiveSkiData__maximumSpeed) = 0;
   *(&self->super.super.isa + OBJC_IVAR____TtC11WorkoutCore17FakeCMLiveSkiData__runCount) = 0;
   *(&self->super.super.isa + OBJC_IVAR____TtC11WorkoutCore17FakeCMLiveSkiData__verticalDescent) = 0;
-  result = _assertionFailure(_:_:file:line:flags:)();
+  result = _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000025, 0x800000020B467840, "WorkoutCore/FakeCMLiveSkiData.swift", 35, 2, 51, 0);
   __break(1u);
   return result;
 }

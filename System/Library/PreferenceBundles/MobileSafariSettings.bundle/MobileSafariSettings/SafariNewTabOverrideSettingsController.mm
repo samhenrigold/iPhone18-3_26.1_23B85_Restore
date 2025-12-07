@@ -11,6 +11,8 @@
 - (void)tabGroupManager:(id)manager didUpdateProfileWithIdentifier:(id)identifier difference:(id)difference;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)tableView:(id)view willDisplayCell:(id)cell forRowAtIndexPath:(id)path;
+- (void)viewDidDisappear:(BOOL)disappear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation SafariNewTabOverrideSettingsController
@@ -109,21 +111,54 @@ LABEL_9:
 id __90__SafariNewTabOverrideSettingsController_topLevelDetailStringWithWebExtensionsController___block_invoke(uint64_t a1, uint64_t a2)
 {
   v3 = [*(a1 + 32) webExtensionForComposedIdentifier:a2];
-  if (v3 && (v4 = *(a1 + 40), ([objc_opt_class() canUseCurrentNewTabOverrideSelectionWithWebExtensionsController:*(a1 + 32)] & 1) != 0))
+  if (v3 && ([objc_opt_class() canUseCurrentNewTabOverrideSelectionWithWebExtensionsController:*(a1 + 32)] & 1) != 0)
   {
-    v5 = *(a1 + 40);
-    v6 = objc_opt_class();
-    v7 = [v3 displayName];
-    v8 = [v6 _specifierTitleForExtensionNamed:v7];
+    v4 = objc_opt_class();
+    v5 = [v3 displayName];
+    v6 = [v4 _specifierTitleForExtensionNamed:v5];
   }
 
   else
   {
-    v9 = *(a1 + 40);
-    v8 = [objc_opt_class() _defaultStartPageTitleTopLevel];
+    v6 = [objc_opt_class() _defaultStartPageTitleTopLevel];
   }
 
-  return v8;
+  return v6;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  _webExtensionsController = [(SafariNewTabOverrideSettingsController *)self _webExtensionsController];
+  [_webExtensionsController addObserver:self];
+
+  v6 = +[NSNotificationCenter defaultCenter];
+  [v6 addObserver:self selector:"_newTabPageDidChangeRemotely:" name:WBSCloudExtensionNewTabPageDidChangeChangeNotification object:0];
+
+  v7 = +[SafariSettingsController tabGroupManager];
+  [v7 addTabGroupObserver:self];
+
+  [(SafariNewTabOverrideSettingsController *)self _computeCurrentCheckmarkIndexPath];
+  v8.receiver = self;
+  v8.super_class = SafariNewTabOverrideSettingsController;
+  [(SafariNewTabOverrideSettingsController *)&v8 viewWillAppear:appearCopy];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  _webExtensionsController = [(SafariNewTabOverrideSettingsController *)self _webExtensionsController];
+  [_webExtensionsController removeObserver:self];
+
+  v6 = +[NSNotificationCenter defaultCenter];
+  [v6 removeObserver:self name:WBSCloudExtensionNewTabPageDidChangeChangeNotification object:0];
+
+  v7 = +[SafariSettingsController tabGroupManager];
+  [v7 removeTabGroupObserver:self];
+
+  v8.receiver = self;
+  v8.super_class = SafariNewTabOverrideSettingsController;
+  [(SafariNewTabOverrideSettingsController *)&v8 viewDidDisappear:disappearCopy];
 }
 
 - (id)_webExtensionsController

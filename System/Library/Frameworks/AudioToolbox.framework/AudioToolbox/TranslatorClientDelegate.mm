@@ -1,4 +1,5 @@
 @interface TranslatorClientDelegate
+- (TranslatorClientDelegate)initWithWeakImpl:(weak_ptr<AT:(int)impl :Translation::TranslatorClient>)a3 scope:;
 - (id).cxx_construct;
 - (void)client:(id)client didGenerateTranslatedAudio:(id)audio;
 - (void)client:(id)client didPauseTranslationWithReason:(id)reason;
@@ -19,7 +20,7 @@
 
 - (void)client:(id)client didGenerateTranslatedAudio:(id)audio
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   clientCopy = client;
   audioCopy = audio;
   v8 = AT::Translation::gTranslationLog;
@@ -44,10 +45,10 @@
       v11 = v10;
     }
 
-    v35 = 1024;
-    *v36 = 177;
-    *&v36[4] = 2080;
-    *&v36[6] = v11;
+    v34 = 1024;
+    *v35 = 177;
+    *&v35[4] = 2080;
+    *&v35[6] = v11;
     _os_log_impl(&dword_1B9A08000, v8, OS_LOG_TYPE_DEBUG, "%25s:%-5d TranslatorClientDelegate::didGenerateTranslatedAudio; scope: %s", buf, 0x1Cu);
   }
 
@@ -76,7 +77,7 @@
     goto LABEL_35;
   }
 
-  v32.__d_.__rep_ = std::chrono::steady_clock::now().__d_.__rep_;
+  v31.__d_.__rep_ = std::chrono::steady_clock::now().__d_.__rep_;
   audioBufferList = [v16 audioBufferList];
   v18 = AT::Translation::gTranslationLog;
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
@@ -85,19 +86,19 @@
     frameLength = [v16 frameLength];
     buf[0] = 136316162;
     *&buf[1] = "AudioStreamTranslator.mm";
-    v35 = 1024;
-    *v36 = 400;
-    *&v36[4] = 2048;
-    *&v36[6] = v19;
-    v37 = 1024;
-    v38 = frameLength;
-    v39 = 2048;
-    v40 = audioBufferList;
+    v34 = 1024;
+    *v35 = 400;
+    *&v35[4] = 2048;
+    *&v35[6] = v19;
+    v36 = 1024;
+    v37 = frameLength;
+    v38 = 2048;
+    v39 = audioBufferList;
     _os_log_impl(&dword_1B9A08000, v18, OS_LOG_TYPE_DEFAULT, "%25s:%-5d STSpeechTranslatorClient@%p: Received %d number of samples, abl %lu", buf, 0x2Cu);
   }
 
   os_unfair_lock_lock(ptr + 18);
-  v33 = v16;
+  v32 = v16;
   v21 = 0x9DDFEA08EB382D69 * ((8 * (audioBufferList & 0x1FFFFFFF) + 8) ^ HIDWORD(audioBufferList));
   v22 = 0x9DDFEA08EB382D69 * (HIDWORD(audioBufferList) ^ (v21 >> 47) ^ v21);
   v23 = 0x9DDFEA08EB382D69 * (v22 ^ (v22 >> 47));
@@ -170,11 +171,11 @@ LABEL_31:
   }
 
   os_unfair_lock_unlock(ptr + 18);
-  std::function<void ()(std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>,AudioBufferList const&,int)>::operator()(*(*ptr + 32), v32.__d_.__rep_, audioBufferList, [v33 frameLength]);
+  std::function<void ()(std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>,AudioBufferList const&,int)>::operator()(*(*ptr + 32), v31.__d_.__rep_, audioBufferList, [v32 frameLength]);
   v30 = *(ptr + 18);
   if (v30)
   {
-    (*(*v30 + 24))(v30, [v33 frameLength], audioBufferList, 0);
+    (*(*v30 + 24))(v30, [v32 frameLength], audioBufferList, 0);
   }
 
 LABEL_35:
@@ -182,8 +183,6 @@ LABEL_35:
 LABEL_36:
   std::__shared_weak_count::__release_shared[abi:ne200100](v14);
 LABEL_37:
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 - (void)translationDidResumeForClient:(id)client
@@ -258,7 +257,7 @@ LABEL_37:
 
 - (void)serverDidDisconnectForClient:(id)client
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   clientCopy = client;
   cntrl = self->mImpl.__cntrl_;
   if (cntrl)
@@ -274,11 +273,11 @@ LABEL_37:
         if (os_log_type_enabled(AT::Translation::gTranslationLog, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315650;
-          v13 = "AudioStreamTranslator.mm";
-          v14 = 1024;
-          v15 = 343;
-          v16 = 2048;
-          v17 = clientCopy;
+          v12 = "AudioStreamTranslator.mm";
+          v13 = 1024;
+          v14 = 343;
+          v15 = 2048;
+          v16 = clientCopy;
           _os_log_impl(&dword_1B9A08000, v8, OS_LOG_TYPE_DEFAULT, "%25s:%-5d STSpeechTranslatorClient@%p: server disconnected", buf, 0x1Cu);
         }
 
@@ -292,13 +291,11 @@ LABEL_37:
       std::__shared_weak_count::__release_shared[abi:ne200100](v6);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)client:(id)client didStopTranslationWithError:(id)error
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   clientCopy = client;
   errorCopy = error;
   cntrl = self->mImpl.__cntrl_;
@@ -319,12 +316,12 @@ LABEL_37:
           {
             v13 = *(ptr + 7);
             *buf = 136315906;
-            v18 = "AudioStreamTranslator.mm";
-            v19 = 1024;
-            v20 = 333;
-            v21 = 2048;
-            v22 = v13;
-            v23 = 1024;
+            v17 = "AudioStreamTranslator.mm";
+            v18 = 1024;
+            v19 = 333;
+            v20 = 2048;
+            v21 = v13;
+            v22 = 1024;
             code = [v11 code];
             _os_log_impl(&dword_1B9A08000, v12, OS_LOG_TYPE_ERROR, "%25s:%-5d STSpeechTranslatorClient@%p: translation did stop with error: %d", buf, 0x22u);
           }
@@ -341,8 +338,37 @@ LABEL_37:
       std::__shared_weak_count::__release_shared[abi:ne200100](v9);
     }
   }
+}
 
-  v15 = *MEMORY[0x1E69E9840];
+- (TranslatorClientDelegate)initWithWeakImpl:(weak_ptr<AT:(int)impl :Translation::TranslatorClient>)a3 scope:
+{
+  cntrl = a3.__cntrl_;
+  ptr = a3.__ptr_;
+  v12.receiver = self;
+  v12.super_class = TranslatorClientDelegate;
+  v6 = [(TranslatorClientDelegate *)&v12 init:a3.__ptr_];
+  v7 = v6;
+  if (v6)
+  {
+    v9 = *ptr;
+    v8 = *(ptr + 1);
+    if (v8)
+    {
+      atomic_fetch_add_explicit((v8 + 16), 1uLL, memory_order_relaxed);
+    }
+
+    v10 = v6->mImpl.__cntrl_;
+    v7->mImpl.__ptr_ = v9;
+    v7->mImpl.__cntrl_ = v8;
+    if (v10)
+    {
+      std::__shared_weak_count::__release_weak(v10);
+    }
+
+    v7->mScope = cntrl;
+  }
+
+  return v7;
 }
 
 @end

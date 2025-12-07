@@ -1,5 +1,6 @@
 @interface MFNanoServer
 - (MFNanoServer)init;
+- (id)_createContentLoaderForMessageId:(id)id highPriority:(BOOL)priority;
 - (id)_filteredMessagesArrayFromLibraryMessages:(id)messages syncedMailbox:(id)mailbox;
 - (id)_filteredMessagesArrayFromLibraryMessages:(id)messages syncedMailboxes:(id)mailboxes;
 - (id)_libraryMessagesReceivedBefore:(id)before count:(unint64_t)count inConversationWithId:(id)id protectedDataAvailable:(BOOL *)available limitDateReceived:(id)received syncedMailbox:(id)mailbox;
@@ -11,6 +12,7 @@
 - (void)_conversationFlagsChanged:(id)changed;
 - (void)_fetchForMailboxes:(id)mailboxes growFetchWindow:(BOOL)window;
 - (void)_handleSingleAutoFetchDone:(id)done;
+- (void)_loadContentForLibraryMessageId:(id)id highPriority:(BOOL)priority;
 - (void)_loadFullMesssagesForMessageIds:(id)ids messagesAlreadyLoadedByMessageId:(id)id libraryMessagesRetrievalBlock:(id)block callback:(id)callback;
 - (void)_messageFlagsChanged:(id)changed;
 - (void)_messagesAdded:(id)added;
@@ -432,49 +434,48 @@
 {
   listCopy = list;
   contextCopy = context;
-  syncProvider = self->_syncProvider;
   if (objc_opt_respondsToSelector())
   {
-    v8 = objc_alloc_init(NSMutableArray);
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
+    v7 = objc_alloc_init(NSMutableArray);
     v20 = 0u;
-    v9 = listCopy;
-    v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
-    if (v10)
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
+    v8 = listCopy;
+    v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    if (v9)
     {
-      v11 = *v20;
+      v10 = *v19;
       do
       {
-        for (i = 0; i != v10; i = i + 1)
+        for (i = 0; i != v9; i = i + 1)
         {
-          if (*v20 != v11)
+          if (*v19 != v10)
           {
-            objc_enumerationMutation(v9);
+            objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v19 + 1) + 8 * i);
-          v14 = objc_alloc_init(NNMKVIPSender);
-          name = [v13 name];
-          [v14 setName:name];
+          v12 = *(*(&v18 + 1) + 8 * i);
+          v13 = objc_alloc_init(NNMKVIPSender);
+          name = [v12 name];
+          [v13 setName:name];
 
-          displayName = [v13 displayName];
-          [v14 setDisplayName:displayName];
+          displayName = [v12 displayName];
+          [v13 setDisplayName:displayName];
 
-          emailAddresses = [v13 emailAddresses];
-          [v14 setEmailAddresses:emailAddresses];
+          emailAddresses = [v12 emailAddresses];
+          [v13 setEmailAddresses:emailAddresses];
 
-          [v8 addObject:v14];
+          [v7 addObject:v13];
         }
 
-        v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
-      while (v10);
+      while (v9);
     }
 
-    [(NNMKSyncProvider *)self->_syncProvider updateVIPSenderList:v8 requestContext:contextCopy];
+    [(NNMKSyncProvider *)self->_syncProvider updateVIPSenderList:v7 requestContext:contextCopy];
   }
 }
 
@@ -694,6 +695,63 @@
   v7 = contentCopy;
   v9 = v7;
   [(MFNanoServer *)self performBlock:v8];
+}
+
+- (void)_loadContentForLibraryMessageId:(id)id highPriority:(BOOL)priority
+{
+  priorityCopy = priority;
+  idCopy = id;
+  v6 = [(NSMutableDictionary *)self->_messageContentLoadersKeyedByMessageId objectForKeyedSubscript:?];
+  v7 = v6;
+  if (v6)
+  {
+    if (priorityCopy && ([v6 highPriority] & 1) == 0)
+    {
+      [v7 setHighPriority:1];
+    }
+  }
+
+  else
+  {
+    v7 = [(MFNanoServer *)self _createContentLoaderForMessageId:idCopy highPriority:priorityCopy];
+    [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+  }
+}
+
+- (id)_createContentLoaderForMessageId:(id)id highPriority:(BOOL)priority
+{
+  priorityCopy = priority;
+  idCopy = id;
+  pairedDeviceInfo = [(NNMKSyncProvider *)self->_syncProvider pairedDeviceInfo];
+  [pairedDeviceInfo screenWidth];
+  v9 = v8;
+  pairedDeviceInfo2 = [(NNMKSyncProvider *)self->_syncProvider pairedDeviceInfo];
+  [pairedDeviceInfo2 screenScale];
+  v12 = v11;
+
+  v13 = [MFNanoServerMessageContentLoader2 alloc];
+  v14 = +[MFMailMessageLibrary defaultInstance];
+  v15 = v9 * v12;
+  if (qword_100185A70 != -1)
+  {
+    sub_1000D4DC4();
+  }
+
+  v16 = [v13 initWithMessageId:idCopy highPriority:priorityCopy mailMessageLibrary:v14 maximumImageWidth:qword_100185A68 workQueue:self delegate:v15];
+
+  if (v16)
+  {
+    [(MFNanoServerMessageContentLoader *)v16 start];
+  }
+
+  else
+  {
+    v17 = [MFNanoServerMessageContentLoader alloc];
+    pairedDeviceInfo3 = [(NNMKSyncProvider *)self->_syncProvider pairedDeviceInfo];
+    v16 = [(MFNanoServerMessageContentLoader *)v17 initWithMessageId:idCopy highPriority:priorityCopy pairedDeviceInfo:pairedDeviceInfo3 delegate:self];
+  }
+
+  return v16;
 }
 
 - (void)_cancelLoadingContentForLibraryMessageId:(id)id

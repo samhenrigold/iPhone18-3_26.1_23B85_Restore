@@ -131,43 +131,42 @@ void __68__SUUIStarRatingQueue__setRating_forItemID_account_completionBlock___bl
 
 void __68__SUUIStarRatingQueue__setRating_forItemID_account_completionBlock___block_invoke_3(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) responseDictionary];
   v3 = 1;
   if (([*(a1 + 32) success] & 1) == 0 && v2)
   {
     v4 = [objc_alloc(MEMORY[0x277D69A88]) initWithResponseDictionary:v2];
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     v5 = [v4 actions];
-    v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v17;
-      v9 = *MEMORY[0x277D6A570];
+      v8 = *v16;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v17 != v8)
+          if (*v16 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v11 = [*(*(&v16 + 1) + 8 * i) actionType];
-          v12 = [v11 isEqualToString:v9];
+          v10 = [*(*(&v15 + 1) + 8 * i) actionType];
+          isEqualToString = objc_msgSend_isEqualToString_(v10);
 
-          if (v12)
+          if (isEqualToString)
           {
             v3 = 0;
             goto LABEL_13;
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (v7)
         {
           continue;
@@ -182,17 +181,17 @@ void __68__SUUIStarRatingQueue__setRating_forItemID_account_completionBlock___bl
 LABEL_13:
   }
 
-  v13 = *(a1 + 40);
-  if (v13)
+  v12 = *(a1 + 40);
+  if (v12)
   {
-    v14 = [*(a1 + 32) error];
-    (*(v13 + 16))(v13, v3, v14);
+    v13 = [*(a1 + 32) error];
+    (*(v12 + 16))(v12, v3, v13);
   }
 
   if (*(a1 + 48) != *MEMORY[0x277D767B0])
   {
-    v15 = [MEMORY[0x277D75128] sharedApplication];
-    [v15 endBackgroundTask:*(a1 + 48)];
+    v14 = [MEMORY[0x277D75128] sharedApplication];
+    [v14 endBackgroundTask:*(a1 + 48)];
   }
 }
 

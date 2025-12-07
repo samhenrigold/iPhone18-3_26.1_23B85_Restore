@@ -36,63 +36,63 @@
 
 - (void)logModeConfigurationChangesForModeUUID:(id)d modeConfigurationUI:(int)i modeConfigurationEntityType:(int)type modeConfigurationType:(int64_t)configurationType previousEntityIdentifiers:(id)identifiers suggestedEntityIdentifiers:(id)entityIdentifiers candidateEntityIdentifiers:(id)candidateEntityIdentifiers currentEntityIdentifiers:(id)self0
 {
-  v36 = *&i;
-  v37 = *&type;
-  v54 = *MEMORY[0x1E69E9840];
+  v37 = *&i;
+  v38 = *&type;
+  v55 = *MEMORY[0x1E69E9840];
   dCopy = d;
   identifiersCopy = identifiers;
   entityIdentifiersCopy = entityIdentifiers;
   candidateEntityIdentifiersCopy = candidateEntityIdentifiers;
   currentEntityIdentifiersCopy = currentEntityIdentifiers;
-  v19 = __atxlog_handle_notification_management();
+  v19 = __atxlog_handle_notification_management(currentEntityIdentifiersCopy);
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     selfCopy = self;
     uUIDString = [dCopy UUIDString];
-    if (v36 >= 4)
+    if (v37 >= 4)
     {
-      v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", v36];
+      v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", v37];
     }
 
     else
     {
-      v21 = off_1E80C0E30[v36];
+      v21 = off_1E80C0E30[v37];
     }
 
     v22 = v21;
-    v34 = dCopy;
-    if (v37 >= 3)
+    v35 = dCopy;
+    if (v38 >= 3)
     {
-      v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", v37];
+      v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", v38];
     }
 
     else
     {
-      v23 = off_1E80C0E50[v37];
+      v23 = off_1E80C0E50[v38];
     }
 
     NSStringForATXModeConfigurationType(configurationType);
     v25 = v24 = configurationType;
     *buf = 138414082;
-    v39 = uUIDString;
-    v40 = 2112;
-    v41 = v22;
-    v42 = 2112;
-    v43 = v23;
-    v44 = 2112;
-    v45 = identifiersCopy;
-    v46 = 2112;
-    v47 = entityIdentifiersCopy;
-    v48 = 2112;
-    v49 = candidateEntityIdentifiersCopy;
-    v50 = 2112;
-    v51 = currentEntityIdentifiersCopy;
-    v52 = 2112;
-    v53 = v25;
+    v40 = uUIDString;
+    v41 = 2112;
+    v42 = v22;
+    v43 = 2112;
+    v44 = v23;
+    v45 = 2112;
+    v46 = identifiersCopy;
+    v47 = 2112;
+    v48 = entityIdentifiersCopy;
+    v49 = 2112;
+    v50 = candidateEntityIdentifiersCopy;
+    v51 = 2112;
+    v52 = currentEntityIdentifiersCopy;
+    v53 = 2112;
+    v54 = v25;
     _os_log_impl(&dword_1BF549000, v19, OS_LOG_TYPE_DEFAULT, "ModeConfigurationUIFlow logging returned from preferences: dndModeUUID: %@ modeConfigurationUI: %@ modeConfigurationEntityType: %@ previousEntityIdentifiers: %@ suggestedEntityIdentifiers: %@ candidateEntityIdentifiers: %@ currentEntityIdentifiers: %@ modeConfigurationType: %@", buf, 0x52u);
 
     configurationType = v24;
-    dCopy = v34;
+    dCopy = v35;
     self = selfCopy;
   }
 
@@ -106,8 +106,8 @@
 
   else
   {
-    v26 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
+    v27 = __atxlog_handle_notification_management(v26);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
     {
       [ATXModeConfigurationUIFlowLogging logModeConfigurationChangesForModeUUID:modeConfigurationUI:modeConfigurationEntityType:modeConfigurationType:previousEntityIdentifiers:suggestedEntityIdentifiers:candidateEntityIdentifiers:currentEntityIdentifiers:];
     }
@@ -124,8 +124,8 @@ LABEL_11:
     }
   }
 
-  v27 = __atxlog_handle_notification_management();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
+  v28 = __atxlog_handle_notification_management(v26);
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
   {
     [ATXModeConfigurationUIFlowLogging logModeConfigurationChangesForModeUUID:modeConfigurationUI:modeConfigurationEntityType:modeConfigurationType:previousEntityIdentifiers:suggestedEntityIdentifiers:candidateEntityIdentifiers:currentEntityIdentifiers:];
   }
@@ -142,8 +142,8 @@ LABEL_12:
   }
 
 LABEL_20:
-  v28 = __atxlog_handle_notification_management();
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
+  v29 = __atxlog_handle_notification_management(v26);
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
   {
     [ATXModeConfigurationUIFlowLogging logModeConfigurationChangesForModeUUID:modeConfigurationUI:modeConfigurationEntityType:modeConfigurationType:previousEntityIdentifiers:suggestedEntityIdentifiers:candidateEntityIdentifiers:currentEntityIdentifiers:];
   }
@@ -151,20 +151,20 @@ LABEL_20:
   if (!currentEntityIdentifiersCopy)
   {
 LABEL_23:
-    v29 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
+    v30 = __atxlog_handle_notification_management(v26);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
     {
       [ATXModeConfigurationUIFlowLogging logModeConfigurationChangesForModeUUID:modeConfigurationUI:modeConfigurationEntityType:modeConfigurationType:previousEntityIdentifiers:suggestedEntityIdentifiers:candidateEntityIdentifiers:currentEntityIdentifiers:];
     }
   }
 
 LABEL_26:
-  v30 = [ATXModeConfigurationUIFlowLoggingEvent alloc];
-  v31 = [MEMORY[0x1E695DF00] now];
-  v32 = [(ATXModeConfigurationUIFlowLoggingEvent *)v30 initWithDndModeUUID:dCopy modeConfigurationUI:v36 modeConfigurationEntityType:v37 modeConfigurationType:configurationType suggestedEntityIdentifiers:entityIdentifiersCopy candidateEntityIdentifiers:candidateEntityIdentifiersCopy previousEntityIdentifiers:identifiersCopy currentEntityIdentifiers:currentEntityIdentifiersCopy eventDate:v31];
+  v31 = [ATXModeConfigurationUIFlowLoggingEvent alloc];
+  v32 = [MEMORY[0x1E695DF00] now];
+  v33 = [(ATXModeConfigurationUIFlowLoggingEvent *)v31 initWithDndModeUUID:dCopy modeConfigurationUI:v37 modeConfigurationEntityType:v38 modeConfigurationType:configurationType suggestedEntityIdentifiers:entityIdentifiersCopy candidateEntityIdentifiers:candidateEntityIdentifiersCopy previousEntityIdentifiers:identifiersCopy currentEntityIdentifiers:currentEntityIdentifiersCopy eventDate:v32];
 
   source = [(ATXModeConfigurationUIFlowLoggingBiomeStream *)self->_modeConfigurationUIFlowLoggingBiomeStream source];
-  [source sendEvent:v32];
+  [source sendEvent:v33];
 }
 
 - (void)logModeConfigurationChangesOnboardingDismissedForModeUUID:(id)d

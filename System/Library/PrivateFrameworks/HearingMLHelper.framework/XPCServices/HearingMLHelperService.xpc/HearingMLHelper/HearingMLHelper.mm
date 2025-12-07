@@ -1,16 +1,16 @@
-void sub_100001090(uint64_t a1)
+void sub_100001090(uint64_t a1, uint64_t a2)
 {
-  v2 = AXLogUltronKShot();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = AXLogUltronKShot();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v5 = 138412290;
-    v6 = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "XPC Server - forwarding training request to delegate for detector ID: %@", &v5, 0xCu);
+    v4 = *(a1 + 32);
+    v6 = 138412290;
+    v7 = v4;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "XPC Server - forwarding training request to delegate for detector ID: %@", &v6, 0xCu);
   }
 
-  v4 = [*(a1 + 40) delegate];
-  [v4 trainWithDetectorID:*(a1 + 32) hallucinatorPath:*(a1 + 48) pretrainedWeightsPath:*(a1 + 56) resultHandler:*(a1 + 64)];
+  v5 = [*(a1 + 40) delegate];
+  [v5 trainWithDetectorID:*(a1 + 32) hallucinatorPath:*(a1 + 48) pretrainedWeightsPath:*(a1 + 56) resultHandler:*(a1 + 64)];
 }
 
 void sub_1000013F8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)

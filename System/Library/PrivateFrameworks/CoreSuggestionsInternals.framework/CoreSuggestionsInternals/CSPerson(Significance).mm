@@ -7,7 +7,7 @@
 - (BOOL)sg_isSignificantWithStore:()Significance
 {
   v4 = a3;
-  if (v4 && ([self handles], v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v5, "count"), v5, v6))
+  if (v4 && ([self handles], v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend_count(v5), v5, v6))
   {
     handles = [self handles];
     if ([v4 anyHandleIsSignificant:handles])

@@ -93,7 +93,7 @@
 
 - (void)_checkRecordPCSForAllZones
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   if (*MEMORY[0x277CBC880] != -1)
   {
     dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
@@ -107,9 +107,9 @@
     v10 = objc_msgSend_count(v7, v8, v9);
     v13 = objc_msgSend_fetchedZones(self, v11, v12);
     *buf = 134218242;
-    v48 = v10;
-    v49 = 2112;
-    v50 = v13;
+    v47 = v10;
+    v48 = 2112;
+    v49 = v13;
     _os_log_impl(&dword_22506F000, v4, OS_LOG_TYPE_INFO, "Checking Record PCS for %ld zones: %@", buf, 0x16u);
   }
 
@@ -120,33 +120,33 @@
   v20 = objc_msgSend_valueForKeyPath_(v18, v19, @"zoneID");
 
   v21 = objc_opt_new();
+  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
   v22 = v20;
-  v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(v22, v23, &v42, v46, 16);
+  v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(v22, v23, &v41, v45, 16);
   if (v24)
   {
     v25 = v24;
-    v26 = *v43;
+    v26 = *v42;
     v27 = MEMORY[0x277CBEBF8];
     do
     {
       for (i = 0; i != v25; ++i)
       {
-        if (*v43 != v26)
+        if (*v42 != v26)
         {
           objc_enumerationMutation(v22);
         }
 
-        v29 = *(*(&v42 + 1) + 8 * i);
+        v29 = *(*(&v41 + 1) + 8 * i);
         v30 = objc_opt_new();
         objc_msgSend_setDesiredKeys_(v30, v31, v27);
         objc_msgSend_setObject_forKeyedSubscript_(v21, v32, v30, v29);
       }
 
-      v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v22, v33, &v42, v46, 16);
+      v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v22, v33, &v41, v45, 16);
     }
 
     while (v25);
@@ -156,14 +156,12 @@
   objc_msgSend_setConfigurationsByRecordZoneID_(v14, v35, v21);
   objc_msgSend_setForcePCSDecryptionAttempt_(v14, v36, 1);
   v37 = objc_opt_class();
-  v41[0] = MEMORY[0x277D85DD0];
-  v41[1] = 3221225472;
-  v41[2] = sub_225245FA4;
-  v41[3] = &unk_278548B60;
-  v41[4] = selfCopy;
-  objc_msgSend_spawnAndRunOperationOfClass_operationInfo_operationConfigurationBlock_(selfCopy, v38, v37, v14, v41);
-
-  v39 = *MEMORY[0x277D85DE8];
+  v40[0] = MEMORY[0x277D85DD0];
+  v40[1] = 3221225472;
+  v40[2] = sub_225245FA4;
+  v40[3] = &unk_278548B60;
+  v40[4] = selfCopy;
+  objc_msgSend_spawnAndRunOperationOfClass_operationInfo_operationConfigurationBlock_(selfCopy, v38, v37, v14, v40);
 }
 
 - (void)_fetchZones
@@ -196,7 +194,7 @@
 
 - (void)main
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if (*MEMORY[0x277CBC880] != -1)
   {
     dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
@@ -205,26 +203,25 @@
   v3 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
   {
-    v6 = v3;
-    v7 = objc_opt_class();
-    v8 = NSStringFromClass(v7);
-    v10 = objc_msgSend_CKDescriptionPropertiesWithPublic_private_shouldExpand_(self, v9, 1, 0, 0);
-    v13 = objc_msgSend_CKPropertiesStyleString(v10, v11, v12);
-    v15 = objc_msgSend_CKDescriptionPropertiesWithPublic_private_shouldExpand_(self, v14, 0, 1, 0);
-    v18 = objc_msgSend_CKPropertiesStyleString(v15, v16, v17);
-    v19 = 138544130;
-    v20 = v8;
-    v21 = 2048;
+    v5 = v3;
+    v6 = objc_opt_class();
+    v7 = NSStringFromClass(v6);
+    v9 = objc_msgSend_CKDescriptionPropertiesWithPublic_private_shouldExpand_(self, v8, 1, 0, 0);
+    v12 = objc_msgSend_CKPropertiesStyleString(v9, v10, v11);
+    v14 = objc_msgSend_CKDescriptionPropertiesWithPublic_private_shouldExpand_(self, v13, 0, 1, 0);
+    v17 = objc_msgSend_CKPropertiesStyleString(v14, v15, v16);
+    v18 = 138544130;
+    v19 = v7;
+    v20 = 2048;
     selfCopy = self;
-    v23 = 2114;
-    v24 = v13;
-    v25 = 2112;
-    v26 = v18;
-    _os_log_debug_impl(&dword_22506F000, v6, OS_LOG_TYPE_DEBUG, "Starting fetch record PCS diagnostics operation <%{public}@: %p; %{public}@, %@>", &v19, 0x2Au);
+    v22 = 2114;
+    v23 = v12;
+    v24 = 2112;
+    v25 = v17;
+    _os_log_debug_impl(&dword_22506F000, v5, OS_LOG_TYPE_DEBUG, "Starting fetch record PCS diagnostics operation <%{public}@: %p; %{public}@, %@>", &v18, 0x2Au);
   }
 
   objc_msgSend_makeStateTransition_(self, v4, 0);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_finishOnCallbackQueueWithError:(id)error

@@ -22,7 +22,7 @@
 
 - (id)runIndividuallyWithInput:(id)input
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   inputCopy = input;
   if (IMOSLoggingEnabled())
   {
@@ -31,7 +31,7 @@
     {
       messageItems = [inputCopy messageItems];
       *buf = 138412290;
-      v45 = messageItems;
+      v44 = messageItems;
       _os_log_impl(&dword_22B4CC000, v3, OS_LOG_TYPE_INFO, "<IMMessageMomentShareProcessingPipelineComponent> Started processing for Messages: %@", buf, 0xCu);
     }
   }
@@ -53,67 +53,67 @@
 
     v28 = objc_alloc(MEMORY[0x277CCA9B8]);
     v29 = [v28 initWithDomain:*MEMORY[0x277D18DF8] code:10 userInfo:0];
-    v33 = [objc_alloc(MEMORY[0x277D18E08]) initWithError:v29];
+    v32 = [objc_alloc(MEMORY[0x277D18E08]) initWithError:v29];
   }
 
   else
   {
-    v33 = objc_alloc_init(MEMORY[0x277D18E08]);
+    v32 = objc_alloc_init(MEMORY[0x277D18E08]);
     chat = [inputCopy chat];
     if (chat)
     {
-      v42 = 0u;
-      v43 = 0u;
-      v40 = 0u;
       v41 = 0u;
+      v42 = 0u;
+      v39 = 0u;
+      v40 = 0u;
       messageItems3 = [inputCopy messageItems];
-      v8 = [messageItems3 countByEnumeratingWithState:&v40 objects:v49 count:16];
+      v8 = [messageItems3 countByEnumeratingWithState:&v39 objects:v48 count:16];
       if (!v8)
       {
         goto LABEL_35;
       }
 
-      LOBYTE(v37) = 0;
+      LOBYTE(v36) = 0;
       v9 = 0;
-      v10 = *v41;
+      v10 = *v40;
       obj = messageItems3;
       while (1)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v41 != v10)
+          if (*v40 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = *(*(&v40 + 1) + 8 * i);
+          v12 = *(*(&v39 + 1) + 8 * i);
           if (([v12 isTypingMessage] & 1) == 0)
           {
-            v39 = 0;
+            v38 = 0;
             v13 = MEMORY[0x277D1AAB0];
             balloonBundleID = [v12 balloonBundleID];
             body = [v12 body];
             payloadData = [v12 payloadData];
-            v17 = [v13 photoShareURLFromPluginBundleID:balloonBundleID contentString:body payload:payloadData shouldAccept:&v39];
+            v17 = [v13 photoShareURLFromPluginBundleID:balloonBundleID contentString:body payload:payloadData shouldAccept:&v38];
 
             if (v17)
             {
               if (v9)
               {
-                if (v37)
+                if (v36)
                 {
                   goto LABEL_16;
                 }
 
 LABEL_19:
-                v37 = 0;
+                v36 = 0;
 LABEL_21:
                 if (IMOSLoggingEnabled())
                 {
                   v24 = OSLogHandleForIMEventCategory();
                   if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
                   {
-                    if (v37)
+                    if (v36)
                     {
                       v25 = @"YES";
                     }
@@ -124,7 +124,7 @@ LABEL_21:
                     }
 
                     *buf = 138412546;
-                    if (v39)
+                    if (v38)
                     {
                       v26 = @"YES";
                     }
@@ -134,9 +134,9 @@ LABEL_21:
                       v26 = @"NO";
                     }
 
-                    v45 = v25;
-                    v46 = 2112;
-                    v47 = v26;
+                    v44 = v25;
+                    v45 = 2112;
+                    v46 = v26;
                     _os_log_impl(&dword_22B4CC000, v24, OS_LOG_TYPE_INFO, "Not accepting moment share, both isFromKnownSender (%@) and shouldAccept (%@) must be true", buf, 0x16u);
                   }
                 }
@@ -147,8 +147,8 @@ LABEL_21:
                 trustedData = [(IMMessageMomentShareProcessingPipelineComponent *)self trustedData];
                 fromIdentifier = [trustedData fromIdentifier];
                 _stripFZIDPrefix = [fromIdentifier _stripFZIDPrefix];
-                v48 = _stripFZIDPrefix;
-                v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v48 count:1];
+                v47 = _stripFZIDPrefix;
+                v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v47 count:1];
                 v23 = IMDAreAllAliasesUnknown();
 
                 if (v23)
@@ -157,16 +157,16 @@ LABEL_21:
                 }
 
 LABEL_16:
-                if (v39 != 1)
+                if (v38 != 1)
                 {
-                  v37 = 1;
+                  v36 = 1;
                   goto LABEL_21;
                 }
 
                 v18 = +[IMDMomentShareManager sharedInstance];
                 [v18 registerAndAcceptMomentShareForMessage:v12 inChat:chat resetAssetTransfers:1];
 
-                LOBYTE(v37) = 1;
+                LOBYTE(v36) = 1;
               }
 
               v9 = 1;
@@ -177,7 +177,7 @@ LABEL_16:
         }
 
         messageItems3 = obj;
-        v8 = [obj countByEnumeratingWithState:&v40 objects:v49 count:16];
+        v8 = [obj countByEnumeratingWithState:&v39 objects:v48 count:16];
         if (!v8)
         {
 LABEL_35:
@@ -193,18 +193,16 @@ LABEL_35:
       if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v45 = @"NO";
+        v44 = @"NO";
         _os_log_impl(&dword_22B4CC000, v30, OS_LOG_TYPE_INFO, "Not accepting moment share hasChat: %@", buf, 0xCu);
       }
     }
 
 LABEL_45:
-    [v33 fullfillWithValue:inputCopy];
+    [v32 fullfillWithValue:inputCopy];
   }
 
-  v31 = *MEMORY[0x277D85DE8];
-
-  return v33;
+  return v32;
 }
 
 @end

@@ -168,7 +168,6 @@ LABEL_7:
   has = self->_has;
   if ((has & 8) != 0)
   {
-    int32Value = self->_int32Value;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -188,7 +187,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  floatValue = self->_floatValue;
   PBDataWriterWriteFloatField();
   has = self->_has;
   if ((has & 1) == 0)
@@ -203,7 +201,6 @@ LABEL_4:
   }
 
 LABEL_12:
-  doubleValue = self->_doubleValue;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -218,12 +215,10 @@ LABEL_5:
   }
 
 LABEL_13:
-  BOOLValue = self->_BOOLValue;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 2) != 0)
   {
 LABEL_6:
-    int64Value = self->_int64Value;
     PBDataWriterWriteInt64Field();
   }
 

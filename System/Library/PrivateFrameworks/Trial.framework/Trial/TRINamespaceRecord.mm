@@ -1,8 +1,10 @@
 @interface TRINamespaceRecord
++ (id)recordWithName:(id)name compatibilityVersion:(unsigned int)version treatmentURL:(id)l;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToRecord:(id)record;
 - (TRINamespaceRecord)initWithCoder:(id)coder;
 - (TRINamespaceRecord)initWithName:(id)name compatibilityVersion:(unsigned int)version treatmentURL:(id)l;
+- (id)copyWithReplacementCompatibilityVersion:(unsigned int)version;
 - (id)copyWithReplacementName:(id)name;
 - (id)copyWithReplacementTreatmentURL:(id)l;
 - (id)description;
@@ -36,12 +38,32 @@
   return v13;
 }
 
++ (id)recordWithName:(id)name compatibilityVersion:(unsigned int)version treatmentURL:(id)l
+{
+  v5 = *&version;
+  lCopy = l;
+  nameCopy = name;
+  v10 = [[self alloc] initWithName:nameCopy compatibilityVersion:v5 treatmentURL:lCopy];
+
+  return v10;
+}
+
 - (id)copyWithReplacementName:(id)name
 {
   nameCopy = name;
   v5 = [objc_alloc(objc_opt_class()) initWithName:nameCopy compatibilityVersion:self->_compatibilityVersion treatmentURL:self->_treatmentURL];
 
   return v5;
+}
+
+- (id)copyWithReplacementCompatibilityVersion:(unsigned int)version
+{
+  v3 = *&version;
+  v5 = objc_alloc(objc_opt_class());
+  name = self->_name;
+  treatmentURL = self->_treatmentURL;
+
+  return [v5 initWithName:name compatibilityVersion:v3 treatmentURL:treatmentURL];
 }
 
 - (id)copyWithReplacementTreatmentURL:(id)l
@@ -56,36 +78,8 @@
 {
   recordCopy = record;
   v5 = recordCopy;
-  if (!recordCopy)
+  if (!recordCopy || (v6 = self->_name == 0, [recordCopy name], v7 = objc_claimAutoreleasedReturnValue(), v8 = v7 != 0, v7, v6 == v8) || (name = self->_name) != 0 && (objc_msgSend(v5, "name"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[NSString isEqual:](name, "isEqual:", v10), v10, !v11) || (compatibilityVersion = self->_compatibilityVersion, compatibilityVersion != objc_msgSend(v5, "compatibilityVersion")) || (v13 = self->_treatmentURL == 0, objc_msgSend(v5, "treatmentURL"), v14 = objc_claimAutoreleasedReturnValue(), v15 = v14 != 0, v14, v13 == v15))
   {
-    goto LABEL_9;
-  }
-
-  v6 = self->_name == 0;
-  name = [recordCopy name];
-  v8 = name != 0;
-
-  if (v6 == v8)
-  {
-    goto LABEL_9;
-  }
-
-  name = self->_name;
-  if (name)
-  {
-    name2 = [v5 name];
-    v11 = [(NSString *)name isEqual:name2];
-
-    if (!v11)
-    {
-      goto LABEL_9;
-    }
-  }
-
-  compatibilityVersion = self->_compatibilityVersion;
-  if (compatibilityVersion != [v5 compatibilityVersion] || (v13 = self->_treatmentURL == 0, objc_msgSend(v5, "treatmentURL"), v14 = objc_claimAutoreleasedReturnValue(), v15 = v14 != 0, v14, v13 == v15))
-  {
-LABEL_9:
     v18 = 0;
   }
 
@@ -133,7 +127,7 @@ LABEL_9:
 
 - (TRINamespaceRecord)initWithCoder:(id)coder
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"name"];
   if (!v5)
@@ -142,9 +136,9 @@ LABEL_9:
 
     if (!error)
     {
-      v20 = *MEMORY[0x277CCA450];
-      v21[0] = @"Retrieved nil serialized value for nonnull TRINamespaceRecord.name";
-      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+      v19 = *MEMORY[0x277CCA450];
+      v20[0] = @"Retrieved nil serialized value for nonnull TRINamespaceRecord.name";
+      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
       v11 = objc_alloc(MEMORY[0x277CCA9B8]);
       v12 = 2;
 LABEL_10:
@@ -172,9 +166,9 @@ LABEL_11:
 
   if (([coderCopy containsValueForKey:@"compatibilityVersion"] & 1) == 0)
   {
-    v18 = *MEMORY[0x277CCA450];
-    v19 = @"Missing serialized value for TRINamespaceRecord.compatibilityVersion";
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+    v17 = *MEMORY[0x277CCA450];
+    v18 = @"Missing serialized value for TRINamespaceRecord.compatibilityVersion";
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
     v11 = objc_alloc(MEMORY[0x277CCA9B8]);
     v12 = 1;
     goto LABEL_10;
@@ -194,7 +188,6 @@ LABEL_3:
   }
 
 LABEL_15:
-  v16 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

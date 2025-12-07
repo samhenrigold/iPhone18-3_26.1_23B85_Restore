@@ -132,17 +132,7 @@
   v19 = v9;
   v10 = [users ams_anyWithTest:v18];
 
-  if (!v10)
-  {
-    goto LABEL_4;
-  }
-
-  currentUser = [homeCopy currentUser];
-  identifier = [currentUser identifier];
-  identifier2 = [v9 identifier];
-  v14 = [identifier isEqual:identifier2];
-
-  if (v14)
+  if (v10 && ([homeCopy currentUser], v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v11, "identifier"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "identifier"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v12, "isEqual:", v13), v13, v12, v11, v14))
   {
     cloudContainer = [(AMSDMultiUserController *)self cloudContainer];
     privateDatabase = [cloudContainer privateDatabase];
@@ -150,7 +140,6 @@
 
   else
   {
-LABEL_4:
     privateDatabase = 0;
   }
 

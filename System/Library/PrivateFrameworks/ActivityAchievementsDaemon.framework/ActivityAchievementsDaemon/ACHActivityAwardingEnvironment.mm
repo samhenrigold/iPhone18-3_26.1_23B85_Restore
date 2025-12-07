@@ -361,49 +361,46 @@
 
 - (id)valueForKey:(id)key
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   if ([(ACHActivityAwardingEnvironment *)self valueForKeyLoggingEnabled])
   {
-    v10.receiver = self;
-    v10.super_class = ACHActivityAwardingEnvironment;
-    v5 = [(ACHActivityAwardingEnvironment *)&v10 valueForKey:keyCopy];
+    v9.receiver = self;
+    v9.super_class = ACHActivityAwardingEnvironment;
+    v5 = [(ACHActivityAwardingEnvironment *)&v9 valueForKey:keyCopy];
     v6 = ACHLogAwardEngine();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v12 = keyCopy;
-      v13 = 2112;
-      v14 = v5;
+      v11 = keyCopy;
+      v12 = 2112;
+      v13 = v5;
       _os_log_impl(&dword_221DDC000, v6, OS_LOG_TYPE_DEFAULT, "%@:%@", buf, 0x16u);
     }
   }
 
   else
   {
-    v9.receiver = self;
-    v9.super_class = ACHActivityAwardingEnvironment;
-    v5 = [(ACHActivityAwardingEnvironment *)&v9 valueForKey:keyCopy];
+    v8.receiver = self;
+    v8.super_class = ACHActivityAwardingEnvironment;
+    v5 = [(ACHActivityAwardingEnvironment *)&v8 valueForKey:keyCopy];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (id)valueForUndefinedKey:(id)key
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   v4 = ACHLogAwardEngine();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
-    v8 = keyCopy;
-    _os_log_impl(&dword_221DDC000, v4, OS_LOG_TYPE_DEFAULT, "Activity Awarding environment asked for key it doesn't support: %{public}@", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = keyCopy;
+    _os_log_impl(&dword_221DDC000, v4, OS_LOG_TYPE_DEFAULT, "Activity Awarding environment asked for key it doesn't support: %{public}@", &v6, 0xCu);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return 0;
 }
 

@@ -90,7 +90,6 @@
   toCopy = to;
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -116,7 +115,6 @@
 
   if ((*&self->_has & 2) != 0)
   {
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
   }
 }
@@ -205,7 +203,6 @@
     goto LABEL_19;
   }
 
-  v5 = *(equalCopy + 56);
   if (*&self->_has)
   {
     if ((*(equalCopy + 56) & 1) == 0 || self->_timestamp != *(equalCopy + 1))
@@ -217,7 +214,7 @@
   else if (*(equalCopy + 56))
   {
 LABEL_19:
-    v10 = 0;
+    v9 = 0;
     goto LABEL_20;
   }
 
@@ -254,7 +251,7 @@ LABEL_19:
     }
   }
 
-  v10 = (*(equalCopy + 56) & 2) == 0;
+  v9 = (*(equalCopy + 56) & 2) == 0;
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 56) & 2) == 0 || self->_subsId != *(equalCopy + 8))
@@ -262,12 +259,12 @@ LABEL_19:
       goto LABEL_19;
     }
 
-    v10 = 1;
+    v9 = 1;
   }
 
 LABEL_20:
 
-  return v10;
+  return v9;
 }
 
 - (unint64_t)hash
@@ -391,7 +388,7 @@ LABEL_21:
       goto LABEL_27;
     }
 
-    [(EutraStats *)eutraStats mergeFrom:?];
+    eutraStats = [(EutraStats *)eutraStats mergeFrom:?];
   }
 
   else
@@ -401,7 +398,7 @@ LABEL_21:
       goto LABEL_27;
     }
 
-    [(KCellularFwCoreStats *)self setEutraStats:?];
+    eutraStats = [(KCellularFwCoreStats *)self setEutraStats:?];
   }
 
   v5 = v14;
@@ -412,7 +409,7 @@ LABEL_27:
     *&self->_has |= 2u;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](eutraStats);
 }
 
 @end

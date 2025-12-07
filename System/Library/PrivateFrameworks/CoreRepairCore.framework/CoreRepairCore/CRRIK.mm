@@ -192,7 +192,7 @@
     v4 = 4;
   }
 
-  v5 = aks_params_create(0);
+  v5 = aks_params_create(0, 0);
   v28 = v5;
   if (!v5)
   {

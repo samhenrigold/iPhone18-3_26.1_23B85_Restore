@@ -38,15 +38,17 @@
 
 uint64_t __54__BKSHIDEventDeferringSelectionPathIdentifier_primary__block_invoke()
 {
-  primary_primary = [[BKSHIDEventDeferringSelectionPathIdentifier alloc] initWithIdentifier:@"primary"];
+  v0 = [[BKSHIDEventDeferringSelectionPathIdentifier alloc] initWithIdentifier:?];
+  v1 = primary_primary;
+  primary_primary = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (id)didFinishProtobufDecodingWithError:(id *)error
 {
   selfCopy = self;
-  v4 = [(BKSHIDEventDeferringSelectionPathIdentifier *)self _substituteSingeltonForIdentifierString:self->_identifier];
+  v4 = [(BKSHIDEventDeferringSelectionPathIdentifier *)self _substituteSingeltonForIdentifierString:?];
   v5 = v4;
   if (v4)
   {
@@ -64,7 +66,7 @@ uint64_t __54__BKSHIDEventDeferringSelectionPathIdentifier_primary__block_invoke
   v9.receiver = self;
   v9.super_class = BKSHIDEventDeferringSelectionPathIdentifier;
   v5 = [(BKSHIDEventDeferringSelectionPathIdentifier *)&v9 init];
-  if (!v5 || ([coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"identifier"], v6 = objc_claimAutoreleasedReturnValue(), -[BKSHIDEventDeferringSelectionPathIdentifier _substituteSingeltonForIdentifierString:](v5, "_substituteSingeltonForIdentifierString:", v6), v7 = objc_claimAutoreleasedReturnValue(), v6, !v7))
+  if (!v5 || (objc_opt_class(), [coderCopy decodeObjectOfClass:? forKey:?], v6 = objc_claimAutoreleasedReturnValue(), -[BKSHIDEventDeferringSelectionPathIdentifier _substituteSingeltonForIdentifierString:](v5, "_substituteSingeltonForIdentifierString:"), v7 = objc_claimAutoreleasedReturnValue(), v6, !v7))
   {
     v7 = v5;
   }
@@ -75,7 +77,7 @@ uint64_t __54__BKSHIDEventDeferringSelectionPathIdentifier_primary__block_invoke
 - (id)_substituteSingeltonForIdentifierString:(id)string
 {
   stringCopy = string;
-  if ([stringCopy isEqual:@"primary"])
+  if ([stringCopy isEqual:?])
   {
     v4 = +[BKSHIDEventDeferringSelectionPathIdentifier primary];
 LABEL_5:
@@ -83,7 +85,7 @@ LABEL_5:
     goto LABEL_7;
   }
 
-  if ([stringCopy isEqual:@"genericGesture"])
+  if ([stringCopy isEqual:?])
   {
     v4 = +[BKSHIDEventDeferringSelectionPathIdentifier genericGesture];
     goto LABEL_5;
@@ -98,41 +100,39 @@ LABEL_7:
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
-  v5 = objc_opt_class();
-  v6 = equalCopy;
-  if (v5)
+  v4 = objc_opt_class();
+  v5 = equalCopy;
+  if (v4)
   {
     if (objc_opt_isKindOfClass())
     {
-      v7 = v6;
+      v6 = v5;
     }
 
     else
     {
-      v7 = 0;
+      v6 = 0;
     }
   }
 
   else
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  v8 = v7;
+  v7 = v6;
 
-  if (v8)
+  if (v7)
   {
-    identifier = self->_identifier;
-    v10 = v8[1];
-    v11 = BSEqualObjects();
+    v8 = BSEqualObjects();
   }
 
   else
   {
-    v11 = 0;
+    v8 = 0;
   }
 
-  return v11;
+  return v8;
 }
 
 - (BKSHIDEventDeferringSelectionPathIdentifier)initWithIdentifier:(id)identifier
@@ -170,10 +170,13 @@ LABEL_7:
 
 uint64_t __61__BKSHIDEventDeferringSelectionPathIdentifier_protobufSchema__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  protobufSchema_schema_90 = [MEMORY[0x1E698E750] buildSchemaForClass:objc_opt_class() builder:&__block_literal_global_93];
+  v1 = MEMORY[0x1E698E750];
+  objc_opt_class();
+  v2 = [v1 buildSchemaForClass:? builder:?];
+  v3 = protobufSchema_schema_90;
+  protobufSchema_schema_90 = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v3);
 }
 
 + (id)genericGesture
@@ -190,16 +193,20 @@ uint64_t __61__BKSHIDEventDeferringSelectionPathIdentifier_protobufSchema__block
 
 uint64_t __61__BKSHIDEventDeferringSelectionPathIdentifier_genericGesture__block_invoke()
 {
-  genericGesture_genericGesture = [[BKSHIDEventDeferringSelectionPathIdentifier alloc] initWithIdentifier:@"genericGesture"];
+  v0 = [[BKSHIDEventDeferringSelectionPathIdentifier alloc] initWithIdentifier:?];
+  v1 = genericGesture_genericGesture;
+  genericGesture_genericGesture = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 uint64_t __65__BKSHIDEventDeferringSelectionPathIdentifier_everySelectionPath__block_invoke()
 {
-  everySelectionPath_symbol = objc_alloc_init(BKSHIDEventDeferringSelectionPathSymbol);
+  v0 = objc_alloc_init(BKSHIDEventDeferringSelectionPathSymbol);
+  v1 = everySelectionPath_symbol;
+  everySelectionPath_symbol = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

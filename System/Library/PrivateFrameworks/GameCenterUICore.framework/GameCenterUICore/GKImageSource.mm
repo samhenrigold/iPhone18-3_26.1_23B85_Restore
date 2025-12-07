@@ -207,106 +207,106 @@ uint64_t __28__GKImageSource_sharedCache__block_invoke()
   }
 }
 
-void __40__GKImageSource_validateFileSystemCache__block_invoke()
+void __40__GKImageSource_validateFileSystemCache__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v33 = *MEMORY[0x277D85DE8];
-  v0 = GKImageCacheRoot();
-  v1 = [v0 stringByAppendingPathComponent:@"version.txt"];
-  v2 = [objc_alloc(MEMORY[0x277CCACA8]) initWithContentsOfFile:v1 encoding:4 error:0];
-  v3 = MEMORY[0x277D0C2A0];
-  v4 = *MEMORY[0x277D0C2A0];
+  v35 = *MEMORY[0x277D85DE8];
+  v2 = GKImageCacheRoot();
+  v3 = [v2 stringByAppendingPathComponent:@"version.txt"];
+  v4 = [objc_alloc(MEMORY[0x277CCACA8]) initWithContentsOfFile:v3 encoding:4 error:0];
+  v5 = MEMORY[0x277D0C2A0];
+  v6 = *MEMORY[0x277D0C2A0];
   if (!*MEMORY[0x277D0C2A0])
   {
-    v5 = GKOSLoggers();
-    v4 = *v3;
+    v7 = GKOSLoggers();
+    v6 = *v5;
   }
 
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v28 = v0;
-    _os_log_impl(&dword_24E4A8000, v4, OS_LOG_TYPE_INFO, "GKImageCacheRoot is: %@", buf, 0xCu);
+    v30 = v2;
+    _os_log_impl(&dword_24E4A8000, v6, OS_LOG_TYPE_INFO, "GKImageCacheRoot is: %@", buf, 0xCu);
   }
 
-  v6 = [MEMORY[0x277D0C018] currentDevice];
-  v7 = [v6 deviceType];
-  v8 = [@"Blacktail6" stringByAppendingFormat:@"-%@", v7];
+  v8 = [MEMORY[0x277D0C018] currentDevice];
+  v9 = [v8 deviceType];
+  v10 = [@"Blacktail6" stringByAppendingFormat:@"-%@", v9];
 
-  v9 = [MEMORY[0x277D75418] currentDevice];
-  v10 = [v8 stringByAppendingFormat:@"-%d", objc_msgSend(v9, "userInterfaceIdiom")];
+  v11 = [MEMORY[0x277D75418] currentDevice];
+  v12 = [v10 stringByAppendingFormat:@"-%d", objc_msgSend(v11, "userInterfaceIdiom")];
 
-  if (!v2 || ([v2 isEqualToString:v10] & 1) == 0)
+  if (!v4 || ([v4 isEqualToString:v12] & 1) == 0)
   {
-    v11 = *v3;
-    if (!*v3)
+    v13 = *v5;
+    if (!*v5)
     {
-      v12 = GKOSLoggers();
-      v11 = *v3;
+      v14 = GKOSLoggers();
+      v13 = *v5;
     }
 
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       *buf = 138412802;
-      v28 = v2;
-      v29 = 2112;
-      v30 = v10;
+      v30 = v4;
       v31 = 2112;
-      v32 = v0;
-      _os_log_impl(&dword_24E4A8000, v11, OS_LOG_TYPE_INFO, "Removing old image cache (old version '%@', now '%@'):%@", buf, 0x20u);
+      v32 = v12;
+      v33 = 2112;
+      v34 = v2;
+      _os_log_impl(&dword_24E4A8000, v13, OS_LOG_TYPE_INFO, "Removing old image cache (old version '%@', now '%@'):%@", buf, 0x20u);
     }
 
-    v13 = [MEMORY[0x277CCAA00] defaultManager];
-    v26 = 0;
-    v14 = [v13 removeItemAtPath:v0 error:&v26];
-    v15 = v26;
-    v16 = MEMORY[0x277D0C290];
-    if ((v14 & 1) == 0)
+    v15 = [MEMORY[0x277CCAA00] defaultManager];
+    v28 = 0;
+    v16 = [v15 removeItemAtPath:v2 error:&v28];
+    v17 = v28;
+    v18 = MEMORY[0x277D0C290];
+    if ((v16 & 1) == 0)
     {
-      if (!*v3)
+      if (!*v5)
       {
-        v17 = GKOSLoggers();
+        v19 = GKOSLoggers();
       }
 
-      if (os_log_type_enabled(*v16, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(*v18, OS_LOG_TYPE_ERROR))
       {
         __40__GKImageSource_validateFileSystemCache__block_invoke_cold_1();
       }
     }
 
-    v25 = v15;
-    v18 = [v13 createDirectoryAtPath:v0 withIntermediateDirectories:1 attributes:0 error:&v25];
-    v19 = v25;
+    v27 = v17;
+    v20 = [v15 createDirectoryAtPath:v2 withIntermediateDirectories:1 attributes:0 error:&v27];
+    v21 = v27;
 
-    if ((v18 & 1) == 0)
+    if ((v20 & 1) == 0)
     {
-      if (!*v3)
+      if (!*v5)
       {
-        v20 = GKOSLoggers();
+        v22 = GKOSLoggers();
       }
 
-      if (os_log_type_enabled(*v16, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(*v18, OS_LOG_TYPE_ERROR))
       {
         __40__GKImageSource_validateFileSystemCache__block_invoke_cold_2();
       }
     }
 
-    v24 = v19;
-    v21 = [v10 writeToFile:v1 atomically:1 encoding:4 error:&v24];
-    v22 = v24;
+    v26 = v21;
+    v23 = [v12 writeToFile:v3 atomically:1 encoding:4 error:&v26];
+    v24 = v26;
 
-    if (v21)
+    if (v23)
     {
       _gkMarkFileAsPurgeable();
     }
 
     else
     {
-      if (!*v3)
+      if (!*v5)
       {
-        v23 = GKOSLoggers();
+        v25 = GKOSLoggers();
       }
 
-      if (os_log_type_enabled(*v16, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(*v18, OS_LOG_TYPE_ERROR))
       {
         __40__GKImageSource_validateFileSystemCache__block_invoke_cold_3();
       }
@@ -685,7 +685,7 @@ LABEL_12:
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_5() imageBrush];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_24E4A8000, v4, v5, "processAndCacheImageDataInContext no context passed in rendering image with imageBrush %@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_2_0(&dword_24E4A8000, v4, v5, "processAndCacheImageDataInContext no context passed in rendering image with imageBrush %@", v6, v7, v8, v9);
 }
 
 @end

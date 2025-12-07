@@ -50,11 +50,10 @@
 
 - (void)applyToAssertionIntransientState:()RBProcessState attributePath:context:.cold.1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 assertion];
-  OUTLINED_FUNCTION_0(&dword_262485000, v2, v3, "Not applying RBSDefineRelativeStartTimeGrant as it is not permitted as the subattribute of a hereditary grant for assertion %{public}@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0(&dword_262485000, v2, v3, "Not applying RBSDefineRelativeStartTimeGrant as it is not permitted as the subattribute of a hereditary grant for assertion %{public}@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

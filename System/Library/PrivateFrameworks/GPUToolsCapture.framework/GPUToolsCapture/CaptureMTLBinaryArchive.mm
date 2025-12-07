@@ -109,30 +109,29 @@
 
 - (void)dealloc
 {
-  v15 = 0u;
-  v16 = 0u;
   v14 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v14);
-  v4 = v15;
-  *(v15 + 8) = -15685;
-  v5 = BYTE9(v16);
-  if (BYTE9(v16) > 0x38uLL)
+  v15 = 0u;
+  v13 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v13);
+  v3 = v14;
+  *(v14 + 8) = -15685;
+  v4 = BYTE9(v15);
+  if (BYTE9(v15) > 0x38uLL)
   {
-    v7 = *(*(&v14 + 1) + 24);
-    v8 = BYTE10(v16);
-    ++BYTE10(v16);
-    v6 = GTTraceMemPool_allocateBytes(v7, *(&v15 + 1), v8 | 0x800000000) + 16;
-    v5 = v8;
+    v6 = *(*(&v13 + 1) + 24);
+    v7 = BYTE10(v15);
+    ++BYTE10(v15);
+    v5 = GTTraceMemPool_allocateBytes(v6, *(&v14 + 1), v7 | 0x800000000) + 16;
+    v4 = v7;
   }
 
   else
   {
-    v6 = (v4 + BYTE9(v16));
-    BYTE9(v16) += 8;
+    v5 = (v3 + BYTE9(v15));
+    BYTE9(v15) += 8;
   }
 
-  *(v4 + 13) = v5;
+  *(v3 + 13) = v4;
   traceStream = [(CaptureMTLBinaryArchive *)self traceStream];
   if (traceStream)
   {
@@ -144,15 +143,15 @@
     var0 = 0;
   }
 
-  *v6 = var0;
+  *v5 = var0;
   s();
-  *v11 = v12;
-  *(v11 + 8) = BYTE8(v16);
-  *(v15 + 15) |= 8u;
+  *v10 = v11;
+  *(v10 + 8) = BYTE8(v15);
+  *(v14 + 15) |= 8u;
   GTTraceContext_closeStream(self->_traceContext, &self->_traceStream->var0);
-  v13.receiver = self;
-  v13.super_class = CaptureMTLBinaryArchive;
-  [(CaptureMTLBinaryArchive *)&v13 dealloc];
+  v12.receiver = self;
+  v12.super_class = CaptureMTLBinaryArchive;
+  [(CaptureMTLBinaryArchive *)&v12 dealloc];
 }
 
 - (BOOL)addTileRenderPipelineFunctionsWithDescriptor:(id)descriptor options:(unint64_t)options error:(id *)error
@@ -168,36 +167,35 @@
 
 - (BOOL)addTileRenderPipelineFunctionsWithDescriptor:(id)descriptor error:(id *)error
 {
-  v25 = 0u;
-  v26 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v23 = 0u;
   traceContext = self->_traceContext;
-  traceStream = self->_traceStream;
   descriptorCopy = descriptor;
-  GTTraceContext_pushEncoderWithStream(traceContext, &v24);
+  GTTraceContext_pushEncoderWithStream(traceContext, &v23);
   baseObject = self->_baseObject;
-  v10 = unwrapMTLTileRenderPipelineDescriptor(descriptorCopy);
-  v11 = [(MTLBinaryArchiveSPI *)baseObject addTileRenderPipelineFunctionsWithDescriptor:v10 error:error, v24];
+  v9 = unwrapMTLTileRenderPipelineDescriptor(descriptorCopy);
+  v10 = [(MTLBinaryArchiveSPI *)baseObject addTileRenderPipelineFunctionsWithDescriptor:v9 error:error, v23];
 
-  v12 = v25;
-  *(v25 + 8) = -15664;
-  v13 = BYTE9(v26);
-  if (BYTE9(v26) > 0x28uLL)
+  v11 = v24;
+  *(v24 + 8) = -15664;
+  v12 = BYTE9(v25);
+  if (BYTE9(v25) > 0x28uLL)
   {
-    v15 = *(*(&v24 + 1) + 24);
-    v16 = BYTE10(v26);
-    ++BYTE10(v26);
-    v14 = GTTraceMemPool_allocateBytes(v15, *(&v25 + 1), v16 | 0x1800000000) + 16;
-    v13 = v16;
+    v14 = *(*(&v23 + 1) + 24);
+    v15 = BYTE10(v25);
+    ++BYTE10(v25);
+    v13 = GTTraceMemPool_allocateBytes(v14, *(&v24 + 1), v15 | 0x1800000000) + 16;
+    v12 = v15;
   }
 
   else
   {
-    v14 = (v12 + BYTE9(v26));
-    BYTE9(v26) += 24;
+    v13 = (v11 + BYTE9(v25));
+    BYTE9(v25) += 24;
   }
 
-  *(v12 + 13) = v13;
+  *(v11 + 13) = v12;
   traceStream = [(CaptureMTLBinaryArchive *)self traceStream];
   if (!traceStream)
   {
@@ -208,7 +206,7 @@
     }
 
 LABEL_8:
-    v19 = 0;
+    v18 = 0;
     goto LABEL_9;
   }
 
@@ -219,21 +217,21 @@ LABEL_8:
   }
 
 LABEL_6:
-  v19 = *error;
+  v18 = *error;
 LABEL_9:
-  v20 = SaveMTLTileRenderPipelineDescriptor(&v24, descriptorCopy);
+  v19 = SaveMTLTileRenderPipelineDescriptor(&v23, descriptorCopy);
 
-  *v14 = var0;
-  *(v14 + 1) = v19;
-  *(v14 + 4) = v11;
-  v14[20] = v20;
-  *(v14 + 21) = 0;
-  v14[23] = 0;
+  *v13 = var0;
+  *(v13 + 1) = v18;
+  *(v13 + 4) = v10;
+  v13[20] = v19;
+  *(v13 + 21) = 0;
+  v13[23] = 0;
   s();
-  *v21 = v22;
-  *(v21 + 8) = BYTE8(v26);
-  *(v25 + 15) |= 8u;
-  return v11;
+  *v20 = v21;
+  *(v20 + 8) = BYTE8(v25);
+  *(v24 + 15) |= 8u;
+  return v10;
 }
 
 - (BOOL)addRenderPipelineFunctionsWithDescriptor:(id)descriptor options:(unint64_t)options error:(id *)error
@@ -249,36 +247,35 @@ LABEL_9:
 
 - (BOOL)addRenderPipelineFunctionsWithDescriptor:(id)descriptor error:(id *)error
 {
-  v25 = 0u;
-  v26 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v23 = 0u;
   traceContext = self->_traceContext;
-  traceStream = self->_traceStream;
   descriptorCopy = descriptor;
-  GTTraceContext_pushEncoderWithStream(traceContext, &v24);
+  GTTraceContext_pushEncoderWithStream(traceContext, &v23);
   baseObject = self->_baseObject;
-  v10 = unwrapMTLRenderPipelineDescriptor(descriptorCopy);
-  v11 = [(MTLBinaryArchiveSPI *)baseObject addRenderPipelineFunctionsWithDescriptor:v10 error:error, v24];
+  v9 = unwrapMTLRenderPipelineDescriptor(descriptorCopy);
+  v10 = [(MTLBinaryArchiveSPI *)baseObject addRenderPipelineFunctionsWithDescriptor:v9 error:error, v23];
 
-  v12 = v25;
-  *(v25 + 8) = -15665;
-  v13 = BYTE9(v26);
-  if (BYTE9(v26) > 0x28uLL)
+  v11 = v24;
+  *(v24 + 8) = -15665;
+  v12 = BYTE9(v25);
+  if (BYTE9(v25) > 0x28uLL)
   {
-    v15 = *(*(&v24 + 1) + 24);
-    v16 = BYTE10(v26);
-    ++BYTE10(v26);
-    v14 = GTTraceMemPool_allocateBytes(v15, *(&v25 + 1), v16 | 0x1800000000) + 16;
-    v13 = v16;
+    v14 = *(*(&v23 + 1) + 24);
+    v15 = BYTE10(v25);
+    ++BYTE10(v25);
+    v13 = GTTraceMemPool_allocateBytes(v14, *(&v24 + 1), v15 | 0x1800000000) + 16;
+    v12 = v15;
   }
 
   else
   {
-    v14 = (v12 + BYTE9(v26));
-    BYTE9(v26) += 24;
+    v13 = (v11 + BYTE9(v25));
+    BYTE9(v25) += 24;
   }
 
-  *(v12 + 13) = v13;
+  *(v11 + 13) = v12;
   traceStream = [(CaptureMTLBinaryArchive *)self traceStream];
   if (!traceStream)
   {
@@ -289,7 +286,7 @@ LABEL_9:
     }
 
 LABEL_8:
-    v19 = 0;
+    v18 = 0;
     goto LABEL_9;
   }
 
@@ -300,21 +297,21 @@ LABEL_8:
   }
 
 LABEL_6:
-  v19 = *error;
+  v18 = *error;
 LABEL_9:
-  v20 = SaveMTLRenderPipelineDescriptor(&v24, descriptorCopy);
+  v19 = SaveMTLRenderPipelineDescriptor(&v23, descriptorCopy);
 
-  *v14 = var0;
-  *(v14 + 1) = v19;
-  *(v14 + 4) = v11;
-  v14[20] = v20;
-  *(v14 + 21) = 0;
-  v14[23] = 0;
+  *v13 = var0;
+  *(v13 + 1) = v18;
+  *(v13 + 4) = v10;
+  v13[20] = v19;
+  *(v13 + 21) = 0;
+  v13[23] = 0;
   s();
-  *v21 = v22;
-  *(v21 + 8) = BYTE8(v26);
-  *(v25 + 15) |= 8u;
-  return v11;
+  *v20 = v21;
+  *(v20 + 8) = BYTE8(v25);
+  *(v24 + 15) |= 8u;
+  return v10;
 }
 
 - (BOOL)addMeshRenderPipelineFunctionsWithDescriptor:(id)descriptor options:(unint64_t)options error:(id *)error
@@ -341,36 +338,35 @@ LABEL_9:
 
 - (BOOL)addLibraryWithDescriptor:(id)descriptor error:(id *)error
 {
-  v25 = 0u;
-  v26 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v23 = 0u;
   traceContext = self->_traceContext;
-  traceStream = self->_traceStream;
   descriptorCopy = descriptor;
-  GTTraceContext_pushEncoderWithStream(traceContext, &v24);
+  GTTraceContext_pushEncoderWithStream(traceContext, &v23);
   baseObject = self->_baseObject;
-  v10 = unwrapMTLStitchedLibraryDescriptor(descriptorCopy);
-  v11 = [(MTLBinaryArchiveSPI *)baseObject addLibraryWithDescriptor:v10 error:error, v24];
+  v9 = unwrapMTLStitchedLibraryDescriptor(descriptorCopy);
+  v10 = [(MTLBinaryArchiveSPI *)baseObject addLibraryWithDescriptor:v9 error:error, v23];
 
-  v12 = v25;
-  *(v25 + 8) = -15426;
-  v13 = BYTE9(v26);
-  if (BYTE9(v26) > 0x28uLL)
+  v11 = v24;
+  *(v24 + 8) = -15426;
+  v12 = BYTE9(v25);
+  if (BYTE9(v25) > 0x28uLL)
   {
-    v15 = *(*(&v24 + 1) + 24);
-    v16 = BYTE10(v26);
-    ++BYTE10(v26);
-    v14 = GTTraceMemPool_allocateBytes(v15, *(&v25 + 1), v16 | 0x1800000000) + 16;
-    v13 = v16;
+    v14 = *(*(&v23 + 1) + 24);
+    v15 = BYTE10(v25);
+    ++BYTE10(v25);
+    v13 = GTTraceMemPool_allocateBytes(v14, *(&v24 + 1), v15 | 0x1800000000) + 16;
+    v12 = v15;
   }
 
   else
   {
-    v14 = (v12 + BYTE9(v26));
-    BYTE9(v26) += 24;
+    v13 = (v11 + BYTE9(v25));
+    BYTE9(v25) += 24;
   }
 
-  *(v12 + 13) = v13;
+  *(v11 + 13) = v12;
   traceStream = [(CaptureMTLBinaryArchive *)self traceStream];
   if (!traceStream)
   {
@@ -381,7 +377,7 @@ LABEL_9:
     }
 
 LABEL_8:
-    v19 = 0;
+    v18 = 0;
     goto LABEL_9;
   }
 
@@ -392,21 +388,21 @@ LABEL_8:
   }
 
 LABEL_6:
-  v19 = *error;
+  v18 = *error;
 LABEL_9:
-  v20 = SaveMTLStitchedLibraryDescriptor(&v24, descriptorCopy);
+  v19 = SaveMTLStitchedLibraryDescriptor(&v23, descriptorCopy);
 
-  *v14 = var0;
-  *(v14 + 1) = v19;
-  *(v14 + 4) = v11;
-  v14[20] = v20;
-  *(v14 + 21) = 0;
-  v14[23] = 0;
+  *v13 = var0;
+  *(v13 + 1) = v18;
+  *(v13 + 4) = v10;
+  v13[20] = v19;
+  *(v13 + 21) = 0;
+  v13[23] = 0;
   s();
-  *v21 = v22;
-  *(v21 + 8) = BYTE8(v26);
-  *(v25 + 15) |= 8u;
-  return v11;
+  *v20 = v21;
+  *(v20 + 8) = BYTE8(v25);
+  *(v24 + 15) |= 8u;
+  return v10;
 }
 
 - (BOOL)addFunctionWithDescriptor:(id)descriptor library:(id)library error:(id *)error
@@ -436,36 +432,35 @@ LABEL_9:
 
 - (BOOL)addComputePipelineFunctionsWithDescriptor:(id)descriptor error:(id *)error
 {
-  v25 = 0u;
-  v26 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v23 = 0u;
   traceContext = self->_traceContext;
-  traceStream = self->_traceStream;
   descriptorCopy = descriptor;
-  GTTraceContext_pushEncoderWithStream(traceContext, &v24);
+  GTTraceContext_pushEncoderWithStream(traceContext, &v23);
   baseObject = self->_baseObject;
-  v10 = unwrapMTLComputePipelineDescriptor(descriptorCopy);
-  v11 = [(MTLBinaryArchiveSPI *)baseObject addComputePipelineFunctionsWithDescriptor:v10 error:error, v24];
+  v9 = unwrapMTLComputePipelineDescriptor(descriptorCopy);
+  v10 = [(MTLBinaryArchiveSPI *)baseObject addComputePipelineFunctionsWithDescriptor:v9 error:error, v23];
 
-  v12 = v25;
-  *(v25 + 8) = -15666;
-  v13 = BYTE9(v26);
-  if (BYTE9(v26) > 0x28uLL)
+  v11 = v24;
+  *(v24 + 8) = -15666;
+  v12 = BYTE9(v25);
+  if (BYTE9(v25) > 0x28uLL)
   {
-    v15 = *(*(&v24 + 1) + 24);
-    v16 = BYTE10(v26);
-    ++BYTE10(v26);
-    v14 = GTTraceMemPool_allocateBytes(v15, *(&v25 + 1), v16 | 0x1800000000) + 16;
-    v13 = v16;
+    v14 = *(*(&v23 + 1) + 24);
+    v15 = BYTE10(v25);
+    ++BYTE10(v25);
+    v13 = GTTraceMemPool_allocateBytes(v14, *(&v24 + 1), v15 | 0x1800000000) + 16;
+    v12 = v15;
   }
 
   else
   {
-    v14 = (v12 + BYTE9(v26));
-    BYTE9(v26) += 24;
+    v13 = (v11 + BYTE9(v25));
+    BYTE9(v25) += 24;
   }
 
-  *(v12 + 13) = v13;
+  *(v11 + 13) = v12;
   traceStream = [(CaptureMTLBinaryArchive *)self traceStream];
   if (!traceStream)
   {
@@ -476,7 +471,7 @@ LABEL_9:
     }
 
 LABEL_8:
-    v19 = 0;
+    v18 = 0;
     goto LABEL_9;
   }
 
@@ -487,51 +482,50 @@ LABEL_8:
   }
 
 LABEL_6:
-  v19 = *error;
+  v18 = *error;
 LABEL_9:
-  v20 = SaveMTLComputePipelineDescriptor(&v24, descriptorCopy);
+  v19 = SaveMTLComputePipelineDescriptor(&v23, descriptorCopy);
 
-  *v14 = var0;
-  *(v14 + 1) = v19;
-  *(v14 + 4) = v11;
-  v14[20] = v20;
-  *(v14 + 21) = 0;
-  v14[23] = 0;
+  *v13 = var0;
+  *(v13 + 1) = v18;
+  *(v13 + 4) = v10;
+  v13[20] = v19;
+  *(v13 + 21) = 0;
+  v13[23] = 0;
   s();
-  *v21 = v22;
-  *(v21 + 8) = BYTE8(v26);
-  *(v25 + 15) |= 8u;
-  return v11;
+  *v20 = v21;
+  *(v20 + 8) = BYTE8(v25);
+  *(v24 + 15) |= 8u;
+  return v10;
 }
 
 - (void)setLabel:(id)label
 {
   labelCopy = label;
-  v19 = 0u;
-  v20 = 0u;
   v18 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v18);
+  v19 = 0u;
+  v17 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v17);
   [(MTLBinaryArchiveSPI *)self->_baseObject setLabel:labelCopy];
-  v6 = v19;
-  *(v19 + 8) = -15668;
-  v7 = BYTE9(v20);
-  if (BYTE9(v20) > 0x30uLL)
+  v5 = v18;
+  *(v18 + 8) = -15668;
+  v6 = BYTE9(v19);
+  if (BYTE9(v19) > 0x30uLL)
   {
-    v9 = *(*(&v18 + 1) + 24);
-    v10 = BYTE10(v20);
-    ++BYTE10(v20);
-    v8 = GTTraceMemPool_allocateBytes(v9, *(&v19 + 1), v10 | 0x1000000000) + 16;
-    v7 = v10;
+    v8 = *(*(&v17 + 1) + 24);
+    v9 = BYTE10(v19);
+    ++BYTE10(v19);
+    v7 = GTTraceMemPool_allocateBytes(v8, *(&v18 + 1), v9 | 0x1000000000) + 16;
+    v6 = v9;
   }
 
   else
   {
-    v8 = (v6 + BYTE9(v20));
-    BYTE9(v20) += 16;
+    v7 = (v5 + BYTE9(v19));
+    BYTE9(v19) += 16;
   }
 
-  *(v6 + 13) = v7;
+  *(v5 + 13) = v6;
   traceStream = [(CaptureMTLBinaryArchive *)self traceStream];
   if (traceStream)
   {
@@ -547,18 +541,18 @@ LABEL_9:
   if (uTF8String)
   {
     uTF8String2 = [labelCopy UTF8String];
-    v15 = strlen([labelCopy UTF8String]);
-    LOBYTE(uTF8String) = GTTraceEncoder_storeBytes(&v18, uTF8String2, v15 + 1);
+    v14 = strlen([labelCopy UTF8String]);
+    LOBYTE(uTF8String) = GTTraceEncoder_storeBytes(&v17, uTF8String2, v14 + 1);
   }
 
-  *v8 = var0;
-  v8[8] = uTF8String;
-  *(v8 + 9) = 0;
-  *(v8 + 3) = 0;
+  *v7 = var0;
+  v7[8] = uTF8String;
+  *(v7 + 9) = 0;
+  *(v7 + 3) = 0;
   s();
-  *v16 = v17;
-  *(v16 + 8) = BYTE8(v20);
-  *(v19 + 15) |= 8u;
+  *v15 = v16;
+  *(v15 + 8) = BYTE8(v19);
+  *(v18 + 15) |= 8u;
 }
 
 - (BOOL)conformsToProtocol:(id)protocol

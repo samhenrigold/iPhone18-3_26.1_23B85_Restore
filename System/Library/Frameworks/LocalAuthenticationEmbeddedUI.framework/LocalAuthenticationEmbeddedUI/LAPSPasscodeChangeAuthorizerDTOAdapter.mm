@@ -70,20 +70,20 @@ LABEL_13:
 
 - (void)_authorizePasscodeChangeWithCompletion:(id)completion
 {
-  v15[6] = *MEMORY[0x277D85DE8];
+  v14[6] = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   if (_os_feature_enabled_impl())
   {
-    v14[0] = &unk_284B875B8;
+    v13[0] = &unk_284B875B8;
     v5 = +[LALocalizedString passcodeChangeLocalizedReason];
-    v15[0] = v5;
-    v14[1] = &unk_284B875D0;
+    v14[0] = v5;
+    v13[1] = &unk_284B875D0;
     v6 = +[LALocalizedString passcodeChangeRatchetBeginTitle];
-    v15[1] = v6;
-    v14[2] = &unk_284B875E8;
+    v14[1] = v6;
+    v13[2] = &unk_284B875E8;
     v7 = +[LALocalizedString passcodeChangeRatchetCountdownText];
-    v15[2] = v7;
-    v14[3] = &unk_284B87600;
+    v14[2] = v7;
+    v13[3] = &unk_284B87600;
     calloutReason = [(LAPSPasscodeChangeAuthorizationOptions *)self->_options calloutReason];
     v9 = calloutReason;
     if (!calloutReason)
@@ -91,8 +91,8 @@ LABEL_13:
       v9 = +[LALocalizedString passcodeChangeRatchetCalloutReason];
     }
 
-    v15[3] = v9;
-    v14[4] = &unk_284B87618;
+    v14[3] = v9;
+    v13[4] = &unk_284B87618;
     calloutURL = [(LAPSPasscodeChangeAuthorizationOptions *)self->_options calloutURL];
     v11 = calloutURL;
     if (!calloutURL)
@@ -100,10 +100,10 @@ LABEL_13:
       v11 = [MEMORY[0x277CBEBC0] URLWithString:@"prefs:root=PASSCODE&path=12"];
     }
 
-    v14[5] = &unk_284B87630;
-    v15[4] = v11;
-    v15[5] = MEMORY[0x277CBEC38];
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:6];
+    v13[5] = &unk_284B87630;
+    v14[4] = v11;
+    v14[5] = MEMORY[0x277CBEC38];
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:6];
     [(LAPSPasscodeChangeAuthorizerDTOAdapter *)self _authorizeOperationWithIdentifier:@"com.apple.LocalAuthentication.passcode.change" options:v12 completion:completionCopy];
 
     if (!calloutURL)
@@ -119,24 +119,22 @@ LABEL_13:
   {
     completionCopy[2](completionCopy, 0);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_authorizePasscodeRemovalWithCompletion:(id)completion
 {
-  v15[6] = *MEMORY[0x277D85DE8];
-  v14[0] = &unk_284B875B8;
+  v14[6] = *MEMORY[0x277D85DE8];
+  v13[0] = &unk_284B875B8;
   completionCopy = completion;
   v5 = +[LALocalizedString passcodeRemovalLocalizedReason];
-  v15[0] = v5;
-  v14[1] = &unk_284B875D0;
+  v14[0] = v5;
+  v13[1] = &unk_284B875D0;
   v6 = +[LALocalizedString passcodeRemovalRatchetBeginTitle];
-  v15[1] = v6;
-  v14[2] = &unk_284B875E8;
+  v14[1] = v6;
+  v13[2] = &unk_284B875E8;
   v7 = +[LALocalizedString passcodeRemovalRatchetCountdownText];
-  v15[2] = v7;
-  v14[3] = &unk_284B87600;
+  v14[2] = v7;
+  v13[3] = &unk_284B87600;
   calloutReason = [(LAPSPasscodeChangeAuthorizationOptions *)self->_options calloutReason];
   v9 = calloutReason;
   if (!calloutReason)
@@ -144,8 +142,8 @@ LABEL_13:
     v9 = +[LALocalizedString passcodeRemovalRatchetCalloutReason];
   }
 
-  v15[3] = v9;
-  v14[4] = &unk_284B87618;
+  v14[3] = v9;
+  v13[4] = &unk_284B87618;
   calloutURL = [(LAPSPasscodeChangeAuthorizationOptions *)self->_options calloutURL];
   v11 = calloutURL;
   if (!calloutURL)
@@ -153,10 +151,10 @@ LABEL_13:
     v11 = [MEMORY[0x277CBEBC0] URLWithString:@"prefs:root=PASSCODE&path=8"];
   }
 
-  v14[5] = &unk_284B87630;
-  v15[4] = v11;
-  v15[5] = MEMORY[0x277CBEC38];
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:6];
+  v13[5] = &unk_284B87630;
+  v14[4] = v11;
+  v14[5] = MEMORY[0x277CBEC38];
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:6];
   [(LAPSPasscodeChangeAuthorizerDTOAdapter *)self _authorizeOperationWithIdentifier:@"com.apple.LocalAuthentication.passcode.removal" options:v12 completion:completionCopy];
 
   if (!calloutURL)
@@ -166,8 +164,6 @@ LABEL_13:
   if (!calloutReason)
   {
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_authorizeOperationWithIdentifier:(id)identifier options:(id)options completion:(id)completion

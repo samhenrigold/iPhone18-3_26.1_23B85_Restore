@@ -46,8 +46,8 @@
   {
     v3 = *&self->handler[OBJC_IVAR____TtC23ShelfKitCollectionViews14BlurIconButton_handler];
     selfCopy = self;
-    sub_9FF04(v2);
-    v2(selfCopy);
+    v5 = sub_9FF04(v2, v3);
+    v2(selfCopy, v5);
 
     sub_2B8D4(v2, v3);
   }

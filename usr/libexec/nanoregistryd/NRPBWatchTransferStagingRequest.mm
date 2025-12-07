@@ -83,11 +83,8 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  transferType = self->_transferType;
   PBDataWriterWriteUint32Field();
-  advertisedName = self->_advertisedName;
   PBDataWriterWriteStringField();
-  phoneSerialNumber = self->_phoneSerialNumber;
   PBDataWriterWriteStringField();
   if (self->_watchNetworkRelayIdentifierOnPhone)
   {
@@ -99,33 +96,31 @@
     PBDataWriterWriteStringField();
   }
 
-  v7 = toCopy;
+  v4 = toCopy;
   if (self->_altAccountIdentifier)
   {
     PBDataWriterWriteStringField();
-    v7 = toCopy;
+    v4 = toCopy;
   }
 
   has = self->_has;
   if (has)
   {
-    watchBuddyStage = self->_watchBuddyStage;
     PBDataWriterWriteUint32Field();
-    v7 = toCopy;
+    v4 = toCopy;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    isAltAccount = self->_isAltAccount;
     PBDataWriterWriteBOOLField();
-    v7 = toCopy;
+    v4 = toCopy;
   }
 
   if (self->_phoneName)
   {
     PBDataWriterWriteStringField();
-    v7 = toCopy;
+    v4 = toCopy;
   }
 }
 
@@ -232,7 +227,6 @@
     }
   }
 
-  v10 = *(equalCopy + 68);
   if (*&self->_has)
   {
     if ((*(equalCopy + 68) & 1) == 0 || self->_watchBuddyStage != *(equalCopy + 13))
@@ -254,7 +248,7 @@
     }
 
 LABEL_23:
-    v12 = 0;
+    v11 = 0;
     goto LABEL_24;
   }
 
@@ -263,7 +257,6 @@ LABEL_23:
     goto LABEL_23;
   }
 
-  v14 = *(equalCopy + 64);
   if (self->_isAltAccount)
   {
     if ((*(equalCopy + 64) & 1) == 0)
@@ -281,17 +274,17 @@ LABEL_20:
   phoneName = self->_phoneName;
   if (phoneName | *(equalCopy + 4))
   {
-    v12 = [(NSString *)phoneName isEqual:?];
+    v11 = [(NSString *)phoneName isEqual:?];
   }
 
   else
   {
-    v12 = 1;
+    v11 = 1;
   }
 
 LABEL_24:
 
-  return v12;
+  return v11;
 }
 
 - (unint64_t)hash

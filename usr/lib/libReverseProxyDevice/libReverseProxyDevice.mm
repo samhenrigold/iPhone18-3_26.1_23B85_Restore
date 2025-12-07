@@ -28,7 +28,6 @@ uint64_t RPSocket::set_client(uint64_t a1, uint64_t a2, const void *a3, uint64_t
 LABEL_5:
     if (*(v11 + 16) >= 5)
     {
-      v14 = *(a1 + 24);
       LogMsg(5u, v11, "RPSocket.cpp", 312, "set_client", 0, @"RPSocket %p: setting client. old: %p. new: %p", a8, a1);
     }
   }
@@ -391,7 +390,7 @@ void sub_2980BAA1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 uint64_t rps_sockaddr_to_string(uint64_t result, sockaddr *a2, const sockaddr *a3, const char *a4)
 {
   v5 = result;
-  v15 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
   sa_family = a2->sa_family;
   if (sa_family != 30 && sa_family != 1 && !a2->sa_family)
   {
@@ -399,66 +398,58 @@ uint64_t rps_sockaddr_to_string(uint64_t result, sockaddr *a2, const sockaddr *a
     v7 = *"<unknown>";
 LABEL_19:
     *v5 = v7;
-    goto LABEL_24;
+    return result;
   }
 
-  sa_len = a2->sa_len;
   if (sa_family == 30)
   {
-    v9 = 28;
+    v8 = 28;
   }
 
   else
   {
-    v9 = 0;
+    v8 = 0;
   }
 
   if (sa_family == 2)
   {
-    v10 = 16;
+    v9 = 16;
   }
 
   else
   {
-    v10 = v9;
+    v9 = v8;
   }
 
   if (a2->sa_len)
   {
-    v11 = a2->sa_len;
+    sa_len = a2->sa_len;
   }
 
   else
   {
-    v11 = v10;
+    sa_len = v9;
   }
 
-  result = getnameinfo(a2, v11, v14, 0x401u, v13, 0x20u, 10);
+  result = getnameinfo(a2, sa_len, v12, 0x401u, v11, 0x20u, 10);
   if (result)
   {
-    if (a2->sa_family != 1 || a2->sa_len == 2)
+    if (a2->sa_family == 1 && a2->sa_len != 2)
     {
-      *(v5 + 8) = 62;
-      v7 = *"<unknown>";
-      goto LABEL_19;
+      return snprintf(v5, 0x401uLL, "%s%.*s%s");
     }
 
-    result = snprintf(v5, 0x401uLL, "%s%.*s%s");
+    *(v5 + 8) = 62;
+    v7 = *"<unknown>";
+    goto LABEL_19;
   }
 
-  else
+  if (!v11[0] || *v11 == 48)
   {
-    if (!v13[0] || *v13 == 48)
-    {
-      v13[0] = 0;
-    }
-
-    result = snprintf(v5, 0x401uLL, "%s%s%s%s%s");
+    v11[0] = 0;
   }
 
-LABEL_24:
-  v12 = *MEMORY[0x29EDCA608];
-  return result;
+  return snprintf(v5, 0x401uLL, "%s%s%s%s%s");
 }
 
 void RPSocket::~RPSocket(RPSocket *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
@@ -481,7 +472,6 @@ void RPSocket::~RPSocket(RPSocket *this, uint64_t a2, uint64_t a3, uint64_t a4, 
 LABEL_5:
     if (*(v9 + 16) >= 5)
     {
-      v17 = *(this + 1);
       LogMsg(5u, v9, "RPSocket.cpp", 128, "~RPSocket", 0, @"Releasing RPSocket: %p (_sockRef: %p)", a8, this);
     }
   }
@@ -531,11 +521,11 @@ LABEL_5:
   }
 }
 
-void RPSocket::latch_target_queues(RPSocket *this)
+void RPSocket::latch_target_queues(dispatch_queue_s **this)
 {
-  add_synced_to_queue_hint(*(this + 6), *(this + 7));
-  v3 = *(this + 6);
-  v2 = *(this + 7);
+  add_synced_to_queue_hint(this[6], this[7]);
+  v3 = this[6];
+  v2 = this[7];
 
   dispatch_set_target_queue(v2, v3);
 }
@@ -609,8 +599,6 @@ void RPSocket::EventCallback::invoke(RPSocket::EventCallback *this, uint64_t a2,
 LABEL_5:
     if (*(v9 + 16) >= 5)
     {
-      v16 = *(this + 4);
-      v17 = *(this + 2);
       LogMsg(5u, v9, "RPSocket.cpp", 228, "invoke", 0, @"RPSocket %p (ref: %p): got signal with event %d and current _cb: %p", a8, *(*(this + 3) + 16));
     }
   }
@@ -644,7 +632,6 @@ LABEL_5:
 LABEL_15:
       if (*(v14 + 16) >= 3)
       {
-        v15 = *(*(this + 3) + 16);
         LogMsg(3u, v14, "RPSocket.cpp", 232, "invoke", 0, @"No client callback, missing event %d for socket %p", a8, *(this + 4));
       }
     }
@@ -924,14 +911,15 @@ uint64_t RPSocket_fd::accept(RPSocket_fd *this, unint64_t a2)
   if (!a2)
   {
 LABEL_5:
-    if (accept(*(this + 60), 0, 0) != -1)
+    v9 = accept(*(this + 60), 0, 0);
+    if (v9 != -1)
     {
 
-      RPCreateSocketForFD();
+      RPCreateSocketForFD(v9, 2);
     }
 
-    v19 = *(this + 5);
-    if (v19)
+    v20 = *(this + 5);
+    if (v20)
     {
       goto LABEL_18;
     }
@@ -941,21 +929,21 @@ LABEL_5:
       dispatch_once_f(&getDefaultLogCtx_once, &getDefaultLogCtx_ctx, InitLog);
     }
 
-    v19 = getDefaultLogCtx_ctx;
+    v20 = getDefaultLogCtx_ctx;
     if (getDefaultLogCtx_ctx)
     {
 LABEL_18:
-      if (*(v19 + 16) >= 3)
+      if (*(v20 + 16) >= 3)
       {
-        v20 = __error();
-        v21 = strerror(*v20);
-        v12 = CFStringCreateWithCString(0, v21, 0x8000100u);
-        v14 = "RPSocket.cpp";
-        v28 = *(this + 1);
-        v15 = "accept";
-        v16 = @"accept for %@";
-        v17 = v19;
-        v18 = 1152;
+        v21 = __error();
+        v22 = strerror(*v21);
+        v13 = CFStringCreateWithCString(0, v22, 0x8000100u);
+        v15 = "RPSocket.cpp";
+        v29 = *(this + 1);
+        v16 = "accept";
+        v17 = @"accept for %@";
+        v18 = v20;
+        v19 = 1152;
         goto LABEL_20;
       }
     }
@@ -981,13 +969,13 @@ LABEL_18:
         dispatch_once_f(&getDefaultLogCtx_once, &getDefaultLogCtx_ctx, InitLog);
       }
 
-      v22 = getDefaultLogCtx_ctx;
+      v23 = getDefaultLogCtx_ctx;
       if (getDefaultLogCtx_ctx && *(getDefaultLogCtx_ctx + 16) >= 3)
       {
-        v23 = __error();
-        v24 = strerror(*v23);
-        v25 = CFStringCreateWithCString(0, v24, 0x8000100u);
-        LogMsg(3u, v22, "Utilities.c", 210, "WaitSocket", v25, @"kevent", v26, v28);
+        v24 = __error();
+        v25 = strerror(*v24);
+        v26 = CFStringCreateWithCString(0, v25, 0x8000100u);
+        LogMsg(3u, v23, "Utilities.c", 210, "WaitSocket", v26, @"kevent", v27, v29);
       }
 
       close(v6);
@@ -1009,19 +997,19 @@ LABEL_18:
     dispatch_once_f(&getDefaultLogCtx_once, &getDefaultLogCtx_ctx, InitLog);
   }
 
-  v9 = getDefaultLogCtx_ctx;
+  v10 = getDefaultLogCtx_ctx;
   if (getDefaultLogCtx_ctx && *(getDefaultLogCtx_ctx + 16) >= 3)
   {
-    v10 = __error();
-    v11 = strerror(*v10);
-    v12 = CFStringCreateWithCString(0, v11, 0x8000100u);
-    v14 = "Utilities.c";
-    v15 = "WaitSocket";
-    v16 = @"kqueue";
-    v17 = v9;
-    v18 = 200;
+    v11 = __error();
+    v12 = strerror(*v11);
+    v13 = CFStringCreateWithCString(0, v12, 0x8000100u);
+    v15 = "Utilities.c";
+    v16 = "WaitSocket";
+    v17 = @"kqueue";
+    v18 = v10;
+    v19 = 200;
 LABEL_20:
-    LogMsg(3u, v17, v14, v18, v15, v12, v16, v13, v28);
+    LogMsg(3u, v18, v15, v19, v16, v13, v17, v14, v29);
   }
 
   return 0;
@@ -1092,17 +1080,14 @@ uint64_t FinalizeRPSocket(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, ui
 LABEL_5:
     if (*(v10 + 16) >= 5)
     {
-      v11 = *(v9 + 232);
-      v15 = *v11;
-      v16 = v11[1];
       LogMsg(5u, v10, "RPSocket.cpp", 455, "FinalizeRPSocket", 0, @"Closed %@ after reading %lld bytes and writing %lld bytes\n", a8, a1);
     }
   }
 
   if (*(v9 + 208))
   {
-    v12 = *(v9 + 40);
-    if (v12)
+    v11 = *(v9 + 40);
+    if (v11)
     {
       goto LABEL_12;
     }
@@ -1112,13 +1097,13 @@ LABEL_5:
       dispatch_once_f(&getDefaultLogCtx_once, &getDefaultLogCtx_ctx, InitLog);
     }
 
-    v12 = getDefaultLogCtx_ctx;
+    v11 = getDefaultLogCtx_ctx;
     if (getDefaultLogCtx_ctx)
     {
 LABEL_12:
-      if (*(v12 + 16) >= 5)
+      if (*(v11 + 16) >= 5)
       {
-        LogMsg(5u, v12, "RPSocket.cpp", 458, "FinalizeRPSocket", 0, @"Ending os transaction for %@\n", a8, a1);
+        LogMsg(5u, v11, "RPSocket.cpp", 458, "FinalizeRPSocket", 0, @"Ending os transaction for %@\n", a8, a1);
       }
     }
 
@@ -1129,9 +1114,9 @@ LABEL_12:
   result = *(a1 + 16);
   if (result)
   {
-    v14 = *(*result + 88);
+    v13 = *(*result + 88);
 
-    return v14();
+    return v13();
   }
 
   return result;
@@ -1139,8 +1124,8 @@ LABEL_12:
 
 uint64_t RPCreateSocketForHost(uint64_t a1)
 {
-  v17 = *MEMORY[0x29EDCA608];
-  *&v16.sa_data[6] = 0;
+  v16 = *MEMORY[0x29EDCA608];
+  *&v15.sa_data[6] = 0;
   v2 = socket(2, 1, 0);
   if (v2 == -1)
   {
@@ -1162,12 +1147,12 @@ uint64_t RPCreateSocketForHost(uint64_t a1)
   else
   {
     v3 = v2;
-    *&v16.sa_len = 528;
-    *v16.sa_data = __rev16(a1);
-    *&v16.sa_data[2] = 16777343;
-    if (!connect(v2, &v16, 0x10u))
+    *&v15.sa_len = 528;
+    *v15.sa_data = __rev16(a1);
+    *&v15.sa_data[2] = 16777343;
+    if (!connect(v2, &v15, 0x10u))
     {
-      RPCreateSocketForFD();
+      RPCreateSocketForFD(v3, 3);
     }
 
     if (getDefaultLogCtx_once != -1)
@@ -1187,9 +1172,7 @@ uint64_t RPCreateSocketForHost(uint64_t a1)
     close(v3);
   }
 
-  result = 0;
-  v15 = *MEMORY[0x29EDCA608];
-  return result;
+  return 0;
 }
 
 void FinalizeLogCtx(uint64_t a1)
@@ -1242,16 +1225,16 @@ uint64_t LogToFileHandle(int a1, int a2, char *a3)
 
 void LogMsg(unsigned int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, const void *a6, const __CFString *a7, uint64_t a8, uint64_t a9)
 {
-  v43 = *MEMORY[0x29EDCA608];
+  v42 = *MEMORY[0x29EDCA608];
   v16 = getprogname();
   Mutable = CFArrayCreateMutable(0, 0, MEMORY[0x29EDB9000]);
   arguments = &a9;
   if (*(a2 + 32))
   {
-    v40 = time(0);
-    memset(&v39, 0, sizeof(v39));
-    localtime_r(&v40, &v39);
-    if (strftime(cStr, 0x63uLL, "%b %d %H:%M:%S ", &v39) && (v18 = CFStringCreateWithCString(0, cStr, 0x8000100u)) != 0)
+    v39 = time(0);
+    memset(&v38, 0, sizeof(v38));
+    localtime_r(&v39, &v38);
+    if (strftime(cStr, 0x63uLL, "%b %d %H:%M:%S ", &v38) && (v18 = CFStringCreateWithCString(0, cStr, 0x8000100u)) != 0)
     {
       cf = v18;
       CFArrayAppendValue(Mutable, v18);
@@ -1304,8 +1287,8 @@ void LogMsg(unsigned int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5,
     CFArrayAppendValue(Mutable, a6);
   }
 
-  v36 = v21;
-  v38 = a6;
+  v35 = v21;
+  v37 = a6;
   v24 = CFStringCreateByCombiningStrings(0, Mutable, &stru_2A1E9F7D0);
   v25 = v24;
   v26 = "failed to convert string\n";
@@ -1374,9 +1357,9 @@ void LogMsg(unsigned int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5,
     CFRelease(cf);
   }
 
-  if (v36)
+  if (v35)
   {
-    CFRelease(v36);
+    CFRelease(v35);
   }
 
   if (v22)
@@ -1399,12 +1382,10 @@ void LogMsg(unsigned int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5,
     CFRelease(Mutable);
   }
 
-  if (v38)
+  if (v37)
   {
-    CFRelease(v38);
+    CFRelease(v37);
   }
-
-  v35 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t __CreateCFObject(dispatch_once_t *context, uint64_t a2)
@@ -1417,15 +1398,14 @@ uint64_t __CreateCFObject(dispatch_once_t *context, uint64_t a2)
   }
 
   v6 = a2 - 16;
-  v7 = context[3];
   Instance = _CFRuntimeCreateInstance();
-  v9 = Instance;
+  v8 = Instance;
   if (Instance)
   {
     bzero((Instance + 16), v6);
   }
 
-  return v9;
+  return v8;
 }
 
 uint64_t RegisterClass(void *a1)
@@ -1506,24 +1486,24 @@ void __copyEntitlementsForSocketPeer_block_invoke()
 
 BOOL isRestoreOS()
 {
-  v37 = *MEMORY[0x29EDCA608];
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
+  v36 = *MEMORY[0x29EDCA608];
   v34 = 0u;
-  v31 = 0u;
+  v35 = 0u;
   v32 = 0u;
-  v29 = 0u;
+  v33 = 0u;
   v30 = 0u;
-  v27 = 0u;
+  v31 = 0u;
   v28 = 0u;
-  v25 = 0u;
+  v29 = 0u;
   v26 = 0u;
-  v23 = 0u;
+  v27 = 0u;
   v24 = 0u;
-  *__s1 = 0u;
+  v25 = 0u;
   v22 = 0u;
-  v20 = 256;
+  v23 = 0u;
+  *__s1 = 0u;
+  v21 = 0u;
+  v19 = 256;
   v0 = MGCopyAnswerWithError();
   if (v0)
   {
@@ -1575,7 +1555,7 @@ BOOL isRestoreOS()
 
     if (getDefaultLogCtx_ctx && *(getDefaultLogCtx_ctx + 16) >= 3)
     {
-      LogMsg(3u, getDefaultLogCtx_ctx, "Utilities.c", 312, "isRestoreOSSystemVersion", 0, @"CFCopySystemVersionDictionary failed\n", v8, v18);
+      LogMsg(3u, getDefaultLogCtx_ctx, "Utilities.c", 312, "isRestoreOSSystemVersion", 0, @"CFCopySystemVersionDictionary failed\n", v8, v17);
     }
 
 LABEL_32:
@@ -1593,12 +1573,12 @@ LABEL_32:
     }
 
 LABEL_38:
-    v19 = sysctlbyname("kern.bootargs", __s1, &v20, 0, 0);
-    if (v19)
+    v18 = sysctlbyname("kern.bootargs", __s1, &v19, 0, 0);
+    if (v18)
     {
       if (loggerReady != 1)
       {
-        goto LABEL_54;
+        return 0;
       }
 
       if (getDefaultLogCtx_once != -1)
@@ -1606,29 +1586,28 @@ LABEL_38:
         dispatch_once_f(&getDefaultLogCtx_once, &getDefaultLogCtx_ctx, InitLog);
       }
 
-      v14 = getDefaultLogCtx_ctx;
+      v13 = getDefaultLogCtx_ctx;
       if (!getDefaultLogCtx_ctx || *(getDefaultLogCtx_ctx + 16) < 3)
       {
-        goto LABEL_54;
+        return 0;
       }
 
-      v18 = v19;
-      v15 = @"Calling sysctlbyname for kern.bootargs failed: %d\n";
-      v16 = 3;
-      v17 = 386;
+      v17 = v18;
+      v14 = @"Calling sysctlbyname for kern.bootargs failed: %d\n";
+      v15 = 3;
+      v16 = 386;
     }
 
     else
     {
       if (strstr(__s1, "rd=md0"))
       {
-        v5 = 1;
-        goto LABEL_18;
+        return 1;
       }
 
       if (loggerReady != 1)
       {
-        goto LABEL_54;
+        return 0;
       }
 
       if (getDefaultLogCtx_once != -1)
@@ -1636,21 +1615,19 @@ LABEL_38:
         dispatch_once_f(&getDefaultLogCtx_once, &getDefaultLogCtx_ctx, InitLog);
       }
 
-      v14 = getDefaultLogCtx_ctx;
+      v13 = getDefaultLogCtx_ctx;
       if (!getDefaultLogCtx_ctx || *(getDefaultLogCtx_ctx + 16) < 5)
       {
-LABEL_54:
-        v5 = 0;
-        goto LABEL_18;
+        return 0;
       }
 
-      v15 = @"Did not find rd=md0 in bootargs, assuming not RestoreOS\n";
-      v16 = 5;
-      v17 = 384;
+      v14 = @"Did not find rd=md0 in bootargs, assuming not RestoreOS\n";
+      v15 = 5;
+      v16 = 384;
     }
 
-    LogMsg(v16, v14, "Utilities.c", v17, "isRestoreOS", 0, v15, v13, v18);
-    goto LABEL_54;
+    LogMsg(v15, v13, "Utilities.c", v16, "isRestoreOS", 0, v14, v12, v17);
+    return 0;
   }
 
   v2 = v7;
@@ -1666,7 +1643,7 @@ LABEL_54:
 
       if (getDefaultLogCtx_ctx && *(getDefaultLogCtx_ctx + 16) >= 3)
       {
-        LogMsg(3u, getDefaultLogCtx_ctx, "Utilities.c", 319, "isRestoreOSSystemVersion", 0, @"CFDictionaryGetValue for ReleaseType failed\n", v10, v18);
+        LogMsg(3u, getDefaultLogCtx_ctx, "Utilities.c", 319, "isRestoreOSSystemVersion", 0, @"CFDictionaryGetValue for ReleaseType failed\n", v10, v17);
       }
     }
 
@@ -1677,8 +1654,6 @@ LABEL_54:
   v5 = CFEqual(Value, @"Restore") != 0;
 LABEL_17:
   CFRelease(v2);
-LABEL_18:
-  v11 = *MEMORY[0x29EDCA608];
   return v5;
 }
 
@@ -2214,15 +2189,16 @@ __CFDictionary *RPCopyProxyDictionaryWithOptions(const __CFURL *a1, const void *
   return _RPCopyProxyDictionaryWithOptions(a1, v4, a2, v5, v6, v7, v8, v9);
 }
 
-uint64_t _RPRegisterForAvailability(int a1, const void *a2, int a3, int a4, int a5, int a6, int a7, int a8)
+uint64_t _RPRegisterForAvailability(uint64_t a1, const void *a2, int a3, int a4, int a5, int a6, int a7, int a8)
 {
   if (!a2)
   {
     return 0;
   }
 
+  v9 = a1;
   CommandDictionaryWithArgs = createCommandDictionaryWithArgs(@"RegisterNotify", a2, a3, a4, a5, a6, a7, a8, 0, v19);
-  v11 = _RPRegistrationConnectAndSendMessage(a1, CommandDictionaryWithArgs);
+  v11 = _RPRegistrationConnectAndSendMessage(v9, CommandDictionaryWithArgs);
   if (v11)
   {
     v12 = _Block_copy(a2);
@@ -2331,7 +2307,7 @@ uint64_t RPRegistrationInvalidate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
   return v9();
 }
 
-void _RPSetLogLevel(int a1, int a2, int a3, int a4, int a5, int a6, int a7, uint64_t a8)
+void _RPSetLogLevel(int a1, unsigned int a2, int a3, int a4, int a5, int a6, int a7, uint64_t a8)
 {
   v24 = 0;
   v25 = &v24;
@@ -2353,7 +2329,7 @@ void _RPSetLogLevel(int a1, int a2, int a3, int a4, int a5, int a6, int a7, uint
     LODWORD(v11) = a2;
   }
 
-  if (a2 < 0)
+  if ((a2 & 0x80000000) != 0)
   {
     LODWORD(v11) = 0;
   }
@@ -2419,7 +2395,7 @@ LABEL_16:
   _Block_object_dispose(&v24, 8);
 }
 
-void RPSetLogLevel(int a1)
+void RPSetLogLevel(unsigned int a1)
 {
   v2 = isRestoreOS();
 

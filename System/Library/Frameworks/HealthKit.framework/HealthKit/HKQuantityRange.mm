@@ -474,20 +474,18 @@ LABEL_7:
 
 + (id)ATTDGlycemicRangesWithUnit:(id)unit
 {
-  v12[4] = *MEMORY[0x1E69E9840];
+  v11[4] = *MEMORY[0x1E69E9840];
   unitCopy = unit;
   v5 = [self ATTDLevel2HypoglycemicRangeWithUnit:unitCopy];
-  v12[0] = v5;
+  v11[0] = v5;
   v6 = [self ATTDLevel1HypoglycemicRangeWithUnit:unitCopy];
-  v12[1] = v6;
+  v11[1] = v6;
   v7 = [self ATTDEuglycemicRangeWithUnit:unitCopy];
-  v12[2] = v7;
+  v11[2] = v7;
   v8 = [self ATTDHyperglycemicRangeWithUnit:unitCopy];
 
-  v12[3] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:4];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v11[3] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:4];
 
   return v9;
 }

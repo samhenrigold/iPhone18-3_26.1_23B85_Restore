@@ -13,27 +13,27 @@
 
 - (EQKitMathMLMToken)initWithString:(id)string environment:(id)environment
 {
-  v12.receiver = self;
-  v12.super_class = EQKitMathMLMToken;
-  v8 = [(EQKitMathMLMToken *)&v12 init:string];
-  if (v8)
+  v9.receiver = self;
+  v9.super_class = EQKitMathMLMToken;
+  v5 = [(EQKitMathMLMToken *)&v9 init:string];
+  if (v5)
   {
-    v9 = sub_275C95134(string, v5, v6, v7);
-    v10 = *&v8->mFlags & 0xFC;
-    if (v9)
+    v6 = sub_275C95134(string);
+    v7 = *&v5->mFlags & 0xFC;
+    if (v6)
     {
-      *&v8->mFlags = v10;
-      v8->mContent.mChar = v9;
+      *&v5->mFlags = v7;
+      v5->mContent.mChar = v6;
     }
 
     else
     {
-      *&v8->mFlags = v10 | 1;
-      v8->mContent.mString = string;
+      *&v5->mFlags = v7 | 1;
+      v5->mContent.mString = string;
     }
   }
 
-  return v8;
+  return v5;
 }
 
 - (EQKitMathMLMToken)initWithContent:(id)content
@@ -65,34 +65,33 @@
   if (sub_275CB5A8C(node))
   {
     sub_275CB5B94(node, 1, &__p);
-    v9 = objc_alloc(MEMORY[0x277CCACA8]);
+    v7 = objc_alloc(MEMORY[0x277CCACA8]);
     if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v12 = objc_msgSend_initWithUTF8String_(v9, v10, &__p, v11);
+      p_p = &__p;
     }
 
     else
     {
-      v12 = objc_msgSend_initWithUTF8String_(v9, v10, __p.__r_.__value_.__l.__data_, v11);
+      p_p = __p.__r_.__value_.__r.__words[0];
     }
 
-    v16 = v12;
-    v17 = objc_msgSend_environment(parser, v13, v14, v15);
-    v19 = objc_msgSend_initWithString_environment_(self, v18, v16, v17);
+    v9 = [v7 initWithUTF8String:p_p];
+    v10 = -[EQKitMathMLMToken initWithString:environment:](self, "initWithString:environment:", v9, [parser environment]);
 
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    return v19;
+    return v10;
   }
 
   else
   {
-    v21 = objc_msgSend_parseChildrenAsTokenContentFromXMLNode_(parser, v7, node, v8);
+    [parser parseChildrenAsTokenContentFromXMLNode:node];
 
-    return MEMORY[0x2821F9670](self, sel_initWithContent_, v21, v22);
+    return MEMORY[0x2821F9670](self, sel_initWithContent_);
   }
 }
 
@@ -137,10 +136,9 @@
   {
     if ((*&self->mFlags & 3) == 2)
     {
-      v11 = MEMORY[0x277CCACA8];
-      v12 = objc_opt_class();
-      v13 = NSStringFromClass(v12);
-      return objc_msgSend_stringWithFormat_(v11, v14, @"<%@ %p content=%@>", v15, v13, self, self->mContent.mString);
+      v8 = MEMORY[0x277CCACA8];
+      v9 = objc_opt_class();
+      return [v8 stringWithFormat:@"<%@ %p content=%@>", NSStringFromClass(v9), self, self->mContent.mString];
     }
 
     else
@@ -151,10 +149,9 @@
 
   else if ((*&self->mFlags & 3) != 0)
   {
-    v16 = MEMORY[0x277CCACA8];
-    v17 = objc_opt_class();
-    v18 = NSStringFromClass(v17);
-    return objc_msgSend_stringWithFormat_(v16, v19, @"<%@ %p string=%@>", v20, v18, self, self->mContent.mString);
+    v10 = MEMORY[0x277CCACA8];
+    v11 = objc_opt_class();
+    return [v10 stringWithFormat:@"<%@ %p string=%@>", NSStringFromClass(v11), self, self->mContent.mString];
   }
 
   else
@@ -162,10 +159,9 @@
     v3 = sub_275C951CC(self->mContent.mChar);
     v4 = MEMORY[0x277CCACA8];
     v5 = objc_opt_class();
-    v6 = NSStringFromClass(v5);
-    v9 = objc_msgSend_stringWithFormat_(v4, v7, @"<%@ %p char='%@'>", v8, v6, self, v3);
+    v6 = [v4 stringWithFormat:@"<%@ %p char='%@'>", NSStringFromClass(v5), self, v3];
 
-    return v9;
+    return v6;
   }
 }
 

@@ -46,9 +46,7 @@
 {
   if (self->_items != items)
   {
-    v5 = [items mutableCopy];
-    items = self->_items;
-    self->_items = v5;
+    self->_items = [items mutableCopy];
 
     _objc_release_x1();
   }
@@ -58,9 +56,7 @@
 {
   if (self->_itemSizes != sizes)
   {
-    v5 = [sizes mutableCopy];
-    itemSizes = self->_itemSizes;
-    self->_itemSizes = v5;
+    self->_itemSizes = [sizes mutableCopy];
 
     _objc_release_x1();
   }

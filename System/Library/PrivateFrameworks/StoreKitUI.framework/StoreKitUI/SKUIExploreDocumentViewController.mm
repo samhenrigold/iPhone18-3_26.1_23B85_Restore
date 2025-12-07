@@ -447,7 +447,7 @@
 
 - (void)locationManager:(id)manager didChangeAuthorizationStatus:(int)status
 {
-  IsEnabledForAuthorizationStatus = SKUINearMeIsEnabledForAuthorizationStatus(status);
+  IsEnabledForAuthorizationStatus = SKUINearMeIsEnabledForAuthorizationStatus(status, a2);
   if (self->_nearMeEnabled != IsEnabledForAuthorizationStatus)
   {
     self->_nearMeEnabled = IsEnabledForAuthorizationStatus;
@@ -838,14 +838,15 @@ LABEL_14:
 
 void __60__SKUIExploreDocumentViewController__pageComponentsAtIndex___block_invoke(uint64_t a1, void *a2)
 {
-  v5 = a2;
-  v3 = SKUIPageComponentClassForComponentType([v5 pageComponentType]);
-  if (v3)
+  v7 = a2;
+  v3 = [v7 pageComponentType];
+  v5 = SKUIPageComponentClassForComponentType(v3, v4);
+  if (v5)
   {
-    v4 = [[v3 alloc] initWithViewElement:v5];
-    if (v4)
+    v6 = [[v5 alloc] initWithViewElement:v7];
+    if (v6)
     {
-      [*(a1 + 32) addObject:v4];
+      [*(a1 + 32) addObject:v6];
     }
   }
 }
@@ -854,76 +855,77 @@ void __60__SKUIExploreDocumentViewController__pageComponentsAtIndex___block_invo
 {
   if (!self->_locationManager)
   {
-    v3 = SKUICoreLocationFramework();
+    v3 = SKUICoreLocationFramework(self, a2);
     v4 = objc_alloc_init(SKUIWeakLinkedClassForString(&cfstr_Cllocationmana.isa, v3));
     locationManager = self->_locationManager;
     self->_locationManager = v4;
 
     [(CLLocationManager *)self->_locationManager setDelegate:self];
     v6 = objc_opt_class();
-    self->_nearMeEnabled = SKUINearMeIsEnabledForAuthorizationStatus([v6 authorizationStatus]);
+    authorizationStatus = [v6 authorizationStatus];
+    self->_nearMeEnabled = SKUINearMeIsEnabledForAuthorizationStatus(authorizationStatus, v8);
   }
 
   viewControllers = [(UINavigationController *)self->_navigationController viewControllers];
   array = [MEMORY[0x277CBEB18] array];
   childViewElements = [(SKUIExploreTemplateElement *)self->_exploreTemplate childViewElements];
-  v10 = [childViewElements count];
+  v12 = [childViewElements count];
 
-  if (v10)
+  if (v12)
   {
-    v11 = 0;
+    v13 = 0;
     do
     {
-      if ([viewControllers count] <= v11)
+      if ([viewControllers count] <= v13)
       {
-        v14 = [(SKUIExploreDocumentViewController *)self _newSectionsViewControllerAtIndex:v11];
+        v16 = [(SKUIExploreDocumentViewController *)self _newSectionsViewControllerAtIndex:v13];
       }
 
       else
       {
-        v23 = 0;
-        v24 = 0;
-        [(SKUIExploreDocumentViewController *)self _getPageComponents:&v24 title:&v23 forViewControllerAtIndex:v11];
-        v12 = v24;
-        v13 = v23;
-        v14 = [viewControllers objectAtIndex:v11];
-        [v14 setSectionsWithPageComponents:v12];
+        v25 = 0;
+        v26 = 0;
+        [(SKUIExploreDocumentViewController *)self _getPageComponents:&v26 title:&v25 forViewControllerAtIndex:v13];
+        v14 = v26;
+        v15 = v25;
+        v16 = [viewControllers objectAtIndex:v13];
+        [v16 setSectionsWithPageComponents:v14];
       }
 
       childViewElements2 = [(SKUIExploreTemplateElement *)self->_exploreTemplate childViewElements];
-      v16 = [childViewElements2 count];
+      v18 = [childViewElements2 count];
 
-      if (v16 == 1)
+      if (v18 == 1)
       {
         _rootNavigationTitle = [(SKUIExploreDocumentViewController *)self _rootNavigationTitle];
         if (_rootNavigationTitle)
         {
-          [v14 setTitle:_rootNavigationTitle];
+          [v16 setTitle:_rootNavigationTitle];
         }
       }
 
-      [array addObject:v14];
+      [array addObject:v16];
 
-      ++v11;
+      ++v13;
       childViewElements3 = [(SKUIExploreTemplateElement *)self->_exploreTemplate childViewElements];
-      v19 = [childViewElements3 count];
+      v21 = [childViewElements3 count];
     }
 
-    while (v11 < v19);
+    while (v13 < v21);
   }
 
   if ([viewControllers count])
   {
-    v20 = [viewControllers count];
-    if (v20 != [array count])
+    v22 = [viewControllers count];
+    if (v22 != [array count])
     {
-      v21[0] = MEMORY[0x277D85DD0];
-      v21[1] = 3221225472;
-      v21[2] = __48__SKUIExploreDocumentViewController__reloadData__block_invoke;
-      v21[3] = &unk_2781F80C8;
-      v21[4] = self;
-      v22 = array;
-      dispatch_async(MEMORY[0x277D85CD0], v21);
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __48__SKUIExploreDocumentViewController__reloadData__block_invoke;
+      v23[3] = &unk_2781F80C8;
+      v23[4] = self;
+      v24 = array;
+      dispatch_async(MEMORY[0x277D85CD0], v23);
     }
   }
 
@@ -1029,14 +1031,15 @@ void __60__SKUIExploreDocumentViewController__pageComponentsAtIndex___block_invo
 {
   if (!self->_locationManager)
   {
-    v3 = SKUICoreLocationFramework();
+    v3 = SKUICoreLocationFramework(self, a2);
     v4 = objc_alloc_init(SKUIWeakLinkedClassForString(&cfstr_Cllocationmana.isa, v3));
     locationManager = self->_locationManager;
     self->_locationManager = v4;
 
     [(CLLocationManager *)self->_locationManager setDelegate:self];
     v6 = objc_opt_class();
-    self->_nearMeEnabled = SKUINearMeIsEnabledForAuthorizationStatus([v6 authorizationStatus]);
+    authorizationStatus = [v6 authorizationStatus];
+    self->_nearMeEnabled = SKUINearMeIsEnabledForAuthorizationStatus(authorizationStatus, v8);
   }
 
   rightVC = self->_rightVC;
@@ -1073,49 +1076,50 @@ void __60__SKUIExploreDocumentViewController__pageComponentsAtIndex___block_invo
 
 - (id)_leftPageComponentsAtIndex:(int64_t)index
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
   childViewElements = [(SKUIExploreTemplateElement *)self->_exploreTemplate childViewElements];
   v7 = [childViewElements objectAtIndex:index];
 
   flattenedChildren = [v7 flattenedChildren];
-  v18 = 0u;
-  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v9 = [flattenedChildren countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v22 = 0u;
+  v23 = 0u;
+  v9 = [flattenedChildren countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v9)
   {
     v10 = v9;
     v11 = 0;
-    v12 = *v19;
+    v12 = *v21;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v19 != v12)
+        if (*v21 != v12)
         {
           objc_enumerationMutation(flattenedChildren);
         }
 
-        v14 = *(*(&v18 + 1) + 8 * i);
-        v15 = SKUIPageComponentClassForComponentType([v14 pageComponentType]);
-        if (v15)
+        v14 = *(*(&v20 + 1) + 8 * i);
+        pageComponentType = [v14 pageComponentType];
+        v17 = SKUIPageComponentClassForComponentType(pageComponentType, v16);
+        if (v17)
         {
-          v16 = [[v15 alloc] initWithViewElement:v14];
-          if (v16)
+          v18 = [[v17 alloc] initWithViewElement:v14];
+          if (v18)
           {
-            [v5 addObject:v16];
+            [v5 addObject:v18];
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              [v16 setIndex:v11++];
+              [v18 setIndex:v11++];
             }
           }
         }
       }
 
-      v10 = [flattenedChildren countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v10 = [flattenedChildren countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v10);
@@ -1141,14 +1145,15 @@ void __60__SKUIExploreDocumentViewController__pageComponentsAtIndex___block_invo
 
 void __57__SKUIExploreDocumentViewController__rightPageComponents__block_invoke(uint64_t a1, void *a2)
 {
-  v5 = a2;
-  v3 = SKUIPageComponentClassForComponentType([v5 pageComponentType]);
-  if (v3)
+  v7 = a2;
+  v3 = [v7 pageComponentType];
+  v5 = SKUIPageComponentClassForComponentType(v3, v4);
+  if (v5)
   {
-    v4 = [[v3 alloc] initWithViewElement:v5];
-    if (v4)
+    v6 = [[v5 alloc] initWithViewElement:v7];
+    if (v6)
     {
-      [*(a1 + 32) addObject:v4];
+      [*(a1 + 32) addObject:v6];
     }
   }
 }

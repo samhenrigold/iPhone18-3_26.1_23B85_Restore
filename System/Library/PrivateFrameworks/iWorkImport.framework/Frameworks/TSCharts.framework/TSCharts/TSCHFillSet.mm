@@ -125,19 +125,19 @@
   selfCopy = self;
   objc_sync_enter(selfCopy);
   swatchImage = selfCopy->_swatchImage;
-  if (swatchImage && (objc_msgSend_size(swatchImage, v5, v6, v7, v8), TSUMultiplySizeScalar(), TSUNearlyEqualSizes()))
+  if (swatchImage && (objc_msgSend_size(swatchImage, v5, v6, v7), TSUMultiplySizeScalar(), TSUNearlyEqualSizes()))
   {
-    v10 = selfCopy->_swatchImage;
+    v9 = selfCopy->_swatchImage;
   }
 
   else
   {
-    v10 = 0;
+    v9 = 0;
   }
 
   objc_sync_exit(selfCopy);
 
-  return v10;
+  return v9;
 }
 
 - (id)fillsForSeriesType:(id)type context:(id)context
@@ -221,26 +221,26 @@
   }
 
   v43 = objc_msgSend_plistProperties(self, v24, v25, v26, v27);
-  objc_opt_class();
-  v48 = objc_msgSend_objectForKey_(v43, v44, v45, v46, v47, @"fills");
-  v49 = sub_2761C47AC();
+  v44 = objc_opt_class();
+  v49 = objc_msgSend_objectForKey_(v43, v45, v46, v47, v48, @"fills");
+  v50 = sub_2761C47AC(v44, v49);
 
-  objc_opt_class();
-  v54 = objc_msgSend_objectForKey_(v49, v50, v51, v52, v53, v23);
-  v55 = sub_2761C47AC();
+  v51 = objc_opt_class();
+  v56 = objc_msgSend_objectForKey_(v50, v52, v53, v54, v55, v23);
+  v57 = sub_2761C47AC(v51, v56);
 
-  return v55;
+  return v57;
 }
 
 - (id)p_sagePropertiesForSeriesIndex:(unint64_t)index seriesType:(id)type
 {
   v8 = objc_msgSend_p_sagePropertiesForSeriesType_(self, a2, v4, v5, v6, type);
   v13 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v9, v10, v11, v12, @"Series_%ld", index);
-  objc_opt_class();
-  v18 = objc_msgSend_objectForKey_(v8, v14, v15, v16, v17, v13);
-  v19 = sub_2761C47AC();
+  v14 = objc_opt_class();
+  v19 = objc_msgSend_objectForKey_(v8, v15, v16, v17, v18, v13);
+  v20 = sub_2761C47AC(v14, v19);
 
-  return v19;
+  return v20;
 }
 
 - (id)fillForSeriesIndex:(unint64_t)index seriesType:(id)type context:(id)context
@@ -266,91 +266,91 @@
 {
   components[5] = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
-  objc_opt_class();
-  v8 = objc_msgSend_objectForKey_(propertiesCopy, v4, v5, v6, v7, @"color-type");
-  v9 = sub_2761C47AC();
+  v4 = objc_opt_class();
+  v9 = objc_msgSend_objectForKey_(propertiesCopy, v5, v6, v7, v8, @"color-type");
+  v10 = sub_2761C47AC(v4, v9);
 
-  if (objc_msgSend_isEqualToString_(v9, v10, v11, v12, v13, @"device-cmyk"))
+  if (objc_msgSend_isEqualToString_(v10, v11, v12, v13, v14, @"device-cmyk"))
   {
-    objc_opt_class();
-    v22 = objc_msgSend_objectForKey_(propertiesCopy, v18, v19, v20, v21, @"c");
-    v23 = sub_2761C47AC();
+    v19 = objc_opt_class();
+    v24 = objc_msgSend_objectForKey_(propertiesCopy, v20, v21, v22, v23, @"c");
+    v25 = sub_2761C47AC(v19, v24);
 
-    objc_opt_class();
-    v28 = objc_msgSend_objectForKey_(propertiesCopy, v24, v25, v26, v27, @"m");
-    v29 = sub_2761C47AC();
+    v26 = objc_opt_class();
+    v31 = objc_msgSend_objectForKey_(propertiesCopy, v27, v28, v29, v30, @"m");
+    v32 = sub_2761C47AC(v26, v31);
 
-    objc_opt_class();
-    v34 = objc_msgSend_objectForKey_(propertiesCopy, v30, v31, v32, v33, @"y");
-    v35 = sub_2761C47AC();
+    v33 = objc_opt_class();
+    v38 = objc_msgSend_objectForKey_(propertiesCopy, v34, v35, v36, v37, @"y");
+    v39 = sub_2761C47AC(v33, v38);
 
-    objc_opt_class();
-    v40 = objc_msgSend_objectForKey_(propertiesCopy, v36, v37, v38, v39, @"k");
-    v41 = sub_2761C47AC();
+    v40 = objc_opt_class();
+    v45 = objc_msgSend_objectForKey_(propertiesCopy, v41, v42, v43, v44, @"k");
+    v46 = sub_2761C47AC(v40, v45);
 
-    objc_opt_class();
-    v46 = objc_msgSend_objectForKey_(propertiesCopy, v42, v43, v44, v45, @"a");
-    v47 = sub_2761C47AC();
+    v47 = objc_opt_class();
+    v52 = objc_msgSend_objectForKey_(propertiesCopy, v48, v49, v50, v51, @"a");
+    v53 = sub_2761C47AC(v47, v52);
 
-    objc_msgSend_tsu_CGFloatValue(v23, v48, v49, v50, v51);
-    components[0] = v52;
-    objc_msgSend_tsu_CGFloatValue(v29, v53, v52, v54, v55);
-    components[1] = v56;
-    objc_msgSend_tsu_CGFloatValue(v35, v57, v56, v58, v59);
-    components[2] = v60;
-    objc_msgSend_tsu_CGFloatValue(v41, v61, v60, v62, v63);
-    components[3] = v64;
-    objc_msgSend_tsu_CGFloatValue(v47, v65, v64, v66, v67);
-    components[4] = v68;
-    v69 = TSUDeviceCMYKColorSpace();
-    v70 = CGColorCreate(v69, components);
-    v75 = objc_msgSend_colorWithCGColor_(MEMORY[0x277D81180], v71, v72, v73, v74, v70);
-    CGColorRelease(v70);
+    objc_msgSend_tsu_CGFloatValue(v25, v54, v55, v56, v57);
+    components[0] = v58;
+    objc_msgSend_tsu_CGFloatValue(v32, v59, v58, v60, v61);
+    components[1] = v62;
+    objc_msgSend_tsu_CGFloatValue(v39, v63, v62, v64, v65);
+    components[2] = v66;
+    objc_msgSend_tsu_CGFloatValue(v46, v67, v66, v68, v69);
+    components[3] = v70;
+    objc_msgSend_tsu_CGFloatValue(v53, v71, v70, v72, v73);
+    components[4] = v74;
+    v75 = TSUDeviceCMYKColorSpace();
+    v76 = CGColorCreate(v75, components);
+    v81 = objc_msgSend_colorWithCGColor_(MEMORY[0x277D81180], v77, v78, v79, v80, v76);
+    CGColorRelease(v76);
 
 LABEL_5:
     goto LABEL_7;
   }
 
-  if (objc_msgSend_isEqualToString_(v9, v14, v15, v16, v17, @"calibrated-rgb"))
+  if (objc_msgSend_isEqualToString_(v10, v15, v16, v17, v18, @"calibrated-rgb"))
   {
-    objc_opt_class();
-    v84 = objc_msgSend_objectForKey_(propertiesCopy, v80, v81, v82, v83, @"r");
-    v23 = sub_2761C47AC();
+    v86 = objc_opt_class();
+    v91 = objc_msgSend_objectForKey_(propertiesCopy, v87, v88, v89, v90, @"r");
+    v25 = sub_2761C47AC(v86, v91);
 
-    objc_opt_class();
-    v89 = objc_msgSend_objectForKey_(propertiesCopy, v85, v86, v87, v88, @"g");
-    v29 = sub_2761C47AC();
+    v92 = objc_opt_class();
+    v97 = objc_msgSend_objectForKey_(propertiesCopy, v93, v94, v95, v96, @"g");
+    v32 = sub_2761C47AC(v92, v97);
 
-    objc_opt_class();
-    v94 = objc_msgSend_objectForKey_(propertiesCopy, v90, v91, v92, v93, @"b");
-    v35 = sub_2761C47AC();
+    v98 = objc_opt_class();
+    v103 = objc_msgSend_objectForKey_(propertiesCopy, v99, v100, v101, v102, @"b");
+    v39 = sub_2761C47AC(v98, v103);
 
-    objc_opt_class();
-    v99 = objc_msgSend_objectForKey_(propertiesCopy, v95, v96, v97, v98, @"a");
-    v41 = sub_2761C47AC();
+    v104 = objc_opt_class();
+    v109 = objc_msgSend_objectForKey_(propertiesCopy, v105, v106, v107, v108, @"a");
+    v46 = sub_2761C47AC(v104, v109);
 
-    v100 = MEMORY[0x277D81180];
-    objc_msgSend_tsu_CGFloatValue(v23, v101, v102, v103, v104);
-    v106 = v105;
-    objc_msgSend_tsu_CGFloatValue(v29, v107, v105, v108, v109);
-    v111 = v110;
-    objc_msgSend_tsu_CGFloatValue(v35, v112, v110, v113, v114);
+    v110 = MEMORY[0x277D81180];
+    objc_msgSend_tsu_CGFloatValue(v25, v111, v112, v113, v114);
     v116 = v115;
-    objc_msgSend_tsu_CGFloatValue(v41, v117, v115, v118, v119);
-    v75 = objc_msgSend_colorWithRed_green_blue_alpha_(v100, v120, v106, v111, v116, v121);
+    objc_msgSend_tsu_CGFloatValue(v32, v117, v115, v118, v119);
+    v121 = v120;
+    objc_msgSend_tsu_CGFloatValue(v39, v122, v120, v123, v124);
+    v126 = v125;
+    objc_msgSend_tsu_CGFloatValue(v46, v127, v125, v128, v129);
+    v81 = objc_msgSend_colorWithRed_green_blue_alpha_(v110, v130, v116, v121, v126, v131);
     goto LABEL_5;
   }
 
-  v122 = MEMORY[0x277D81150];
-  v123 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v76, v77, v78, v79, "[TSCHFillSet colorFromProperties:]");
-  v128 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v124, v125, v126, v127, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHFillSet.m");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v122, v129, v130, v131, v132, v123, v128, 226, 0, "unsupported color type: %@", v9);
+  v132 = MEMORY[0x277D81150];
+  v133 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v82, v83, v84, v85, "[TSCHFillSet colorFromProperties:]");
+  v138 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v134, v135, v136, v137, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHFillSet.m");
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v132, v139, v140, v141, v142, v133, v138, 226, 0, "unsupported color type: %@", v10);
 
-  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v133, v134, v135, v136);
-  v75 = objc_msgSend_colorWithRed_green_blue_alpha_(MEMORY[0x277D81180], v137, 1.0, 1.0, 1.0, 1.0);
+  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v143, v144, v145, v146);
+  v81 = objc_msgSend_colorWithRed_green_blue_alpha_(MEMORY[0x277D81180], v147, 1.0, 1.0, 1.0, 1.0);
 LABEL_7:
 
-  return v75;
+  return v81;
 }
 
 - (BOOL)chartAlreadyMatches:(id)matches
@@ -571,7 +571,7 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  objc_msgSend_size(swatchImage, v8, v9, v10, v11);
+  objc_msgSend_size(swatchImage, v9, v10, v11);
   if (TSUNearlyEqualSizes())
   {
     goto LABEL_7;
@@ -624,32 +624,32 @@ LABEL_7:
   if (seriesSwatchImages)
   {
     v15 = objc_msgSend_objectAtIndexedSubscript_(seriesSwatchImages, v10, v11, v12, v13, index);
-    objc_msgSend_size(v15, v16, v17, v18, v19);
-    v20 = TSUNearlyEqualSizes();
+    objc_msgSend_size(v15, v16, v17, v18);
+    v19 = TSUNearlyEqualSizes();
 
-    if (v20)
+    if (v19)
     {
-      v25 = MEMORY[0x277D81150];
-      v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, v22, v23, v24, "[TSCHFillSet seriesSwatchImageWithSize:scaleFactor:seriesIndex:]");
-      v31 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v27, v28, v29, v30, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHFillSet.m");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v25, v32, v33, v34, v35, v26, v31, 333, 0, "Cached series swatch is not equal to requested swatch size");
+      v24 = MEMORY[0x277D81150];
+      v25 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v20, v21, v22, v23, "[TSCHFillSet seriesSwatchImageWithSize:scaleFactor:seriesIndex:]");
+      v30 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v26, v27, v28, v29, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHFillSet.m");
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v24, v31, v32, v33, v34, v25, v30, 333, 0, "Cached series swatch is not equal to requested swatch size");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v36, v37, v38, v39);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v35, v36, v37, v38);
     }
   }
 
   else
   {
-    v40 = objc_msgSend_columnSeries(TSCHChartSeriesType, v10, v11, v12, v13);
-    v45 = objc_msgSend_countOfDefinedSeriesForSeriesType_(selfCopy, v41, v42, v43, v44, v40);
-    objc_msgSend_p_createSeriesSwatchImagesWithSeriesCount_swatchSize_scaleFactor_(selfCopy, v46, width, height, factor, v45);
+    v39 = objc_msgSend_columnSeries(TSCHChartSeriesType, v10, v11, v12, v13);
+    v44 = objc_msgSend_countOfDefinedSeriesForSeriesType_(selfCopy, v40, v41, v42, v43, v39);
+    objc_msgSend_p_createSeriesSwatchImagesWithSeriesCount_swatchSize_scaleFactor_(selfCopy, v45, width, height, factor, v44);
   }
 
   objc_sync_exit(selfCopy);
 
-  v51 = selfCopy->_seriesSwatchImages;
+  v50 = selfCopy->_seriesSwatchImages;
 
-  return objc_msgSend_objectAtIndexedSubscript_(v51, v47, v48, v49, v50, index);
+  return objc_msgSend_objectAtIndexedSubscript_(v50, v46, v47, v48, v49, index);
 }
 
 - (void)p_createSeriesSwatchImagesWithSeriesCount:(unint64_t)count swatchSize:(CGSize)size scaleFactor:(double)factor

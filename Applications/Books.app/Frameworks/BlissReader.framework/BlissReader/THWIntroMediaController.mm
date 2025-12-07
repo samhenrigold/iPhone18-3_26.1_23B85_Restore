@@ -115,7 +115,7 @@ LABEL_13:
   {
     if (v4)
     {
-      [(AVAsset *)v4 duration];
+      objc_msgSend_duration(v4);
     }
 
     else

@@ -37,7 +37,7 @@
 
 + (id)currentApplicationIdentifier
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   processInfo = [MEMORY[0x1E696AE30] processInfo];
   processIdentifier = [processInfo processIdentifier];
 
@@ -57,8 +57,6 @@
   {
     v9 = 0;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

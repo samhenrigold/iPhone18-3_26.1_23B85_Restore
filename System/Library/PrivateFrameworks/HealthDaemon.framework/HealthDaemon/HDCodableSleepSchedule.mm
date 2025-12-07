@@ -26,10 +26,10 @@
 
 - (BOOL)applyToObject:(id)object
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v8 = 0;
-  v3 = [(HDCodableSleepSchedule *)self applyToObject:object error:&v8];
-  v4 = v8;
+  v10 = *MEMORY[0x277D85DE8];
+  v7 = 0;
+  v3 = [(HDCodableSleepSchedule *)self applyToObject:object error:&v7];
+  v4 = v7;
   if (!v3)
   {
     _HKInitializeLogging();
@@ -37,12 +37,11 @@
     if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v10 = v4;
+      v9 = v4;
       _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "Failed to decode object of type HKSleepSchedule with error %@", buf, 0xCu);
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -476,19 +475,18 @@ LABEL_16:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v18 = toCopy;
+  v6 = toCopy;
   if (self->_sample)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v18;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 0x40) != 0)
   {
-    monday = self->_monday;
     PBDataWriterWriteBOOLField();
-    toCopy = v18;
+    toCopy = v6;
     has = self->_has;
     if ((has & 0x400) == 0)
     {
@@ -507,9 +505,8 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  tuesday = self->_tuesday;
   PBDataWriterWriteBOOLField();
-  toCopy = v18;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x800) == 0)
   {
@@ -523,9 +520,8 @@ LABEL_6:
   }
 
 LABEL_21:
-  wednesday = self->_wednesday;
   PBDataWriterWriteBOOLField();
-  toCopy = v18;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x200) == 0)
   {
@@ -539,9 +535,8 @@ LABEL_7:
   }
 
 LABEL_22:
-  thursday = self->_thursday;
   PBDataWriterWriteBOOLField();
-  toCopy = v18;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x20) == 0)
   {
@@ -555,9 +550,8 @@ LABEL_8:
   }
 
 LABEL_23:
-  friday = self->_friday;
   PBDataWriterWriteBOOLField();
-  toCopy = v18;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x80) == 0)
   {
@@ -571,9 +565,8 @@ LABEL_9:
   }
 
 LABEL_24:
-  saturday = self->_saturday;
   PBDataWriterWriteBOOLField();
-  toCopy = v18;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x100) == 0)
   {
@@ -587,9 +580,8 @@ LABEL_10:
   }
 
 LABEL_25:
-  sunday = self->_sunday;
   PBDataWriterWriteBOOLField();
-  toCopy = v18;
+  toCopy = v6;
   has = self->_has;
   if ((has & 8) == 0)
   {
@@ -603,9 +595,8 @@ LABEL_11:
   }
 
 LABEL_26:
-  wakeHour = self->_wakeHour;
   PBDataWriterWriteInt64Field();
-  toCopy = v18;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x10) == 0)
   {
@@ -619,9 +610,8 @@ LABEL_12:
   }
 
 LABEL_27:
-  wakeMinute = self->_wakeMinute;
   PBDataWriterWriteInt64Field();
-  toCopy = v18;
+  toCopy = v6;
   has = self->_has;
   if ((has & 1) == 0)
   {
@@ -635,9 +625,8 @@ LABEL_13:
   }
 
 LABEL_28:
-  bedHour = self->_bedHour;
   PBDataWriterWriteInt64Field();
-  toCopy = v18;
+  toCopy = v6;
   has = self->_has;
   if ((has & 2) == 0)
   {
@@ -651,15 +640,13 @@ LABEL_14:
   }
 
 LABEL_29:
-  bedMinute = self->_bedMinute;
   PBDataWriterWriteInt64Field();
-  toCopy = v18;
+  toCopy = v6;
   if ((*&self->_has & 4) != 0)
   {
 LABEL_15:
-    overrideDayIndex = self->_overrideDayIndex;
     PBDataWriterWriteInt64Field();
-    toCopy = v18;
+    toCopy = v6;
   }
 
 LABEL_16:
@@ -1048,7 +1035,6 @@ LABEL_13:
       goto LABEL_85;
     }
 
-    v8 = *(equalCopy + 57);
     if (self->_monday)
     {
       if ((*(equalCopy + 57) & 1) == 0)
@@ -1075,7 +1061,6 @@ LABEL_13:
       goto LABEL_85;
     }
 
-    v9 = *(equalCopy + 61);
     if (self->_tuesday)
     {
       if ((*(equalCopy + 61) & 1) == 0)
@@ -1102,7 +1087,6 @@ LABEL_13:
       goto LABEL_85;
     }
 
-    v10 = *(equalCopy + 62);
     if (self->_wednesday)
     {
       if ((*(equalCopy + 62) & 1) == 0)
@@ -1129,7 +1113,6 @@ LABEL_13:
       goto LABEL_85;
     }
 
-    v11 = *(equalCopy + 60);
     if (self->_thursday)
     {
       if ((*(equalCopy + 60) & 1) == 0)
@@ -1156,7 +1139,6 @@ LABEL_13:
       goto LABEL_85;
     }
 
-    v12 = *(equalCopy + 56);
     if (self->_friday)
     {
       if ((*(equalCopy + 56) & 1) == 0)
@@ -1183,7 +1165,6 @@ LABEL_13:
       goto LABEL_85;
     }
 
-    v13 = *(equalCopy + 58);
     if (self->_saturday)
     {
       if ((*(equalCopy + 58) & 1) == 0)
@@ -1211,7 +1192,7 @@ LABEL_13:
     }
 
 LABEL_85:
-    v15 = 0;
+    v8 = 0;
     goto LABEL_86;
   }
 
@@ -1220,7 +1201,6 @@ LABEL_85:
     goto LABEL_85;
   }
 
-  v14 = *(equalCopy + 59);
   if (self->_sunday)
   {
     if ((*(equalCopy + 59) & 1) == 0)
@@ -1294,17 +1274,17 @@ LABEL_18:
       goto LABEL_85;
     }
 
-    v15 = 1;
+    v8 = 1;
   }
 
   else
   {
-    v15 = (v7 & 4) == 0;
+    v8 = (v7 & 4) == 0;
   }
 
 LABEL_86:
 
-  return v15;
+  return v8;
 }
 
 - (unint64_t)hash

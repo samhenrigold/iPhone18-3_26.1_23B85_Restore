@@ -372,13 +372,13 @@ LABEL_40:
 {
   endpointCopy = endpoint;
   handlerCopy = handler;
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = sub_10005D8C4;
-  v25 = sub_10005D8D4;
-  v26 = nw_resolver_create_with_endpoint();
-  if (v22[5])
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = sub_10005D8C4;
+  v24 = sub_10005D8D4;
+  v25 = nw_resolver_create_with_endpoint();
+  if (v21[5])
   {
     v9 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
     v10 = dispatch_queue_create("com.apple.printing.BrowseInfo", v9);
@@ -388,31 +388,30 @@ LABEL_40:
     block[1] = 3221225472;
     block[2] = sub_10005E08C;
     block[3] = &unk_1000A3EB8;
-    v20 = &v21;
+    v19 = &v20;
     v12 = handlerCopy;
-    v19 = v12;
+    v18 = v12;
     dispatch_after(v11, v10, block);
-    v13 = v22[5];
-    v16 = v10;
-    v17 = v12;
-    v14 = v10;
+    v15 = v10;
+    v16 = v12;
+    v13 = v10;
     nw_resolver_set_update_handler();
   }
 
   else
   {
-    v15 = _PKLogCategory(PKLogCategoryDiscovery[0]);
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v14 = _PKLogCategory(PKLogCategoryDiscovery[0]);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 138477827;
-      v28 = endpointCopy;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Couldn't create resolver for %{private}@", buf, 0xCu);
+      v27 = endpointCopy;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Couldn't create resolver for %{private}@", buf, 0xCu);
     }
 
     (*(handlerCopy + 2))(handlerCopy, 0, 0);
   }
 
-  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v20, 8);
 }
 
 + (void)resolveEndpoint:(id)endpoint timeout:(double)timeout completionHandler:(id)handler

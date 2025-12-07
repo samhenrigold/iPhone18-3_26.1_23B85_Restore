@@ -17,31 +17,34 @@
     [LTMExtractMetadataV2 init];
   }
 
-  v8.receiver = self;
-  v8.super_class = LTMExtractMetadataV2;
-  v3 = [(LTMExtractMetadataV2 *)&v8 init];
-  v4 = v3;
-  if (v3)
+  v16.receiver = self;
+  v16.super_class = LTMExtractMetadataV2;
+  v4 = [(LTMExtractMetadataV2 *)&v16 init];
+  v5 = v4;
+  if (v4)
   {
-    *&v3->_forceDisableLTMHazeCorrection = 0;
-    *&v3->_forceDisableLTMFaceBoost = 0;
-    *&v3->_faceBiasScaler = xmmword_1C9335BC0;
-    v5 = v3;
+    *&v4->_forceDisableLTMHazeCorrection = 0;
+    *&v4->_forceDisableLTMFaceBoost = 0;
+    *&v4->_faceBiasScaler = xmmword_1C9335BC0;
+    v6 = v4;
   }
 
   else
   {
-    FigDebugAssert3();
-    v7 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v2, v9[0], v9[1], v10, v11, v12, v13);
+    v15 = 0;
+    v14 = 0;
+    v8 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  return v4;
+  return v5;
 }
 
 - (BOOL)extractFrom:(id)from toDriverInput:(sRefDriverInputs_SOFTISP *)input ltmGeometry:(id)geometry
 {
+  selfCopy = self;
   fromCopy = from;
   geometryCopy = geometry;
   if ([LTMExtractMetadataV2 extractFrom:toDriverInput:ltmGeometry:]::onceToken != -1)
@@ -57,16 +60,16 @@
   rect.origin = *MEMORY[0x1E695F050];
   rect.size = v8;
   v9 = [inMetaData objectForKeyedSubscript:*MEMORY[0x1E6991108]];
-  intValue = [v9 intValue];
+  HIDWORD(v162) = [v9 intValue];
 
   v161 = [inMetaData objectForKeyedSubscript:*MEMORY[0x1E69910C8]];
   v10 = [inMetaData objectForKeyedSubscript:*MEMORY[0x1E69910C0]];
   v160 = v10;
   if (!v161 || !v10)
   {
-    FigDebugAssert3();
-    v150 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    os_log_type_enabled(v150, OS_LOG_TYPE_DEFAULT);
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v158, v158, inputBufferRect, v10, v161, v162, selfCopy);
+    v153 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(v153, OS_LOG_TYPE_DEFAULT);
     goto LABEL_141;
   }
 
@@ -101,9 +104,9 @@ LABEL_10:
   }
 
   v14 = [(__CFDictionary *)dict objectForKeyedSubscript:@"Height"];
-  intValue2 = [v14 intValue];
+  intValue = [v14 intValue];
 
-  if (!intValue2)
+  if (!intValue)
   {
     goto LABEL_10;
   }
@@ -112,9 +115,9 @@ LABEL_11:
   [geometryCopy inputTextureSize];
   if (v19 == 0.0 || ([geometryCopy inputTextureSize], v20 == 0.0))
   {
-    FigDebugAssert3();
-    v150 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    os_log_type_enabled(v150, OS_LOG_TYPE_DEFAULT);
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v158, v158, inputBufferRect, v160, v161, v162, selfCopy);
+    v153 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(v153, OS_LOG_TYPE_DEFAULT);
 LABEL_141:
     fig_log_call_emit_and_clean_up_after_send_and_compose();
 
@@ -134,8 +137,8 @@ LABEL_141:
 
   if (!CGRectMakeWithDictionaryRepresentation(dict, &rect))
   {
-    FigDebugAssert3();
-    v145 = 0;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v158, v158, inputBufferRect, v160, v161, v162, selfCopy);
+    v148 = 0;
     goto LABEL_123;
   }
 
@@ -201,12 +204,12 @@ LABEL_141:
 
           if (!v54)
           {
-            FigDebugAssert3();
-            v148 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-            os_log_type_enabled(v148, OS_LOG_TYPE_DEFAULT);
+            FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v158, v158, inputBufferRect, v160, v161, v162, selfCopy);
+            v151 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+            os_log_type_enabled(v151, OS_LOG_TYPE_DEFAULT);
             fig_log_call_emit_and_clean_up_after_send_and_compose();
 
-            v151 = v167;
+            v154 = v167;
             goto LABEL_131;
           }
 
@@ -224,7 +227,7 @@ LABEL_141:
           y = v170.origin.y;
           v60 = v170.size.width;
           v61 = v170.size.height;
-          if (intValue == 2324)
+          if (HIDWORD(v162) == 2324)
           {
             v62 = v50[1];
             *&v173.a = *v50;
@@ -234,7 +237,7 @@ LABEL_141:
 
           else if (geometryCopy)
           {
-            [geometryCopy sensorSpaceToValidBufferSpaceTransform];
+            objc_msgSend_sensorSpaceToValidBufferSpaceTransform(geometryCopy);
           }
 
           else
@@ -272,12 +275,12 @@ LABEL_141:
           }
         }
 
-        FigDebugAssert3();
-        v149 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        os_log_type_enabled(v149, OS_LOG_TYPE_DEFAULT);
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v158, v158, inputBufferRect, v160, v161, v162, selfCopy);
+        v152 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+        os_log_type_enabled(v152, OS_LOG_TYPE_DEFAULT);
         fig_log_call_emit_and_clean_up_after_send_and_compose();
 
-        v151 = v167;
+        v154 = v167;
 LABEL_131:
 
         goto LABEL_143;
@@ -301,7 +304,7 @@ LABEL_37:
     v168 = 0;
   }
 
-  input->forceDisableFaceBoost = self->_forceDisableLTMFaceBoost;
+  input->forceDisableFaceBoost = selfCopy->_forceDisableLTMFaceBoost;
   v72 = [inMetaData objectForKeyedSubscript:*MEMORY[0x1E6991158]];
   v73 = v72;
   if (!v72)
@@ -405,16 +408,16 @@ LABEL_57:
   v93 = [inMetaData objectForKeyedSubscript:*MEMORY[0x1E6991038]];
   input->HROn = [v93 BOOLValue];
 
-  if (input->HROn && !self->_forceDisableHR)
+  if (input->HROn && !selfCopy->_forceDisableHR)
   {
     v95 = [inMetaData objectForKeyedSubscript:*MEMORY[0x1E6991040]];
 
     if (!v95)
     {
 LABEL_142:
-      FigDebugAssert3();
-      v153 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      os_log_type_enabled(v153, OS_LOG_TYPE_DEFAULT);
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v158, v158, inputBufferRect, v160, v161, v162, selfCopy);
+      v156 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      os_log_type_enabled(v156, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
 
       goto LABEL_143;
@@ -515,41 +518,38 @@ LABEL_142:
     v90 = 1;
   }
 
-  if (self->_forceDisableLTMFaceExposureRatio)
+  if (selfCopy->_forceDisableLTMFaceExposureRatio)
   {
     input->faceExpRatioFiltered = 1.0;
   }
 
   if (v90 && ![LTMExtractMetadataV2 extractFromRawMetadata:inMetaData toDriverInput:input])
   {
-    FigDebugAssert3();
-    v152 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    os_log_type_enabled(v152, OS_LOG_TYPE_DEFAULT);
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v158, v158, inputBufferRect, v160, v161, v162, selfCopy);
+    v155 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(v155, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
 
 LABEL_143:
-    v145 = 0;
+    v148 = 0;
     goto LABEL_123;
   }
 
   if (![LTMExtractMetadataV2 extractCCMFromMetadata:inMetaData toDriverInput:input])
   {
-    v156 = v158;
-    LODWORD(v154) = 0;
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v158, v158, inputBufferRect, v160, v161, v162, selfCopy);
   }
 
-  v156 = [LTMExtractMetadataV2 isLocalCCMEnabled:input, v154, v156];
-  input->useSpatialCCM = v156;
-  if (v156)
+  v112 = [LTMExtractMetadataV2 isLocalCCMEnabled:input];
+  input->useSpatialCCM = v112;
+  if (v112)
   {
     v113 = [LTMExtractMetadataV2 extractAWBMetadataFromMetadata:inMetaData validBufferRect:dict ltmGeometryData:geometryCopy toDriverInput:input];
     if (v113)
     {
       input->useSpatialCCM = 0;
-      v157 = v158;
-      LODWORD(v155) = v113;
-      FigDebugAssert3();
+      LODWORD(v157) = v113;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v157, v158, v158, inputBufferRect, v160, v161, v162, selfCopy);
     }
   }
 
@@ -571,7 +571,7 @@ LABEL_143:
 
   if ([v164 isAdaptiveHighlightCompressionEnabled])
   {
-    v117 = v164;
+    v118 = v164;
     if (!input->HROn)
     {
       input->softIspDGain = input->gainDigi * 0.0039062;
@@ -582,7 +582,7 @@ LABEL_143:
       goto LABEL_108;
     }
 
-    LOBYTE(forceDisableHR) = self->_forceDisableHR;
+    LOBYTE(forceDisableHR) = selfCopy->_forceDisableHR;
     input->softIspDGain = input->gainDigi * 0.0039062;
     p_softIspDGain = &input->softIspDGain;
     input->useAdaptiveHighlightCompression = 1;
@@ -596,12 +596,12 @@ LABEL_143:
     input->hardIspDGain = 1.0;
     p_hardIspDGain = &input->hardIspDGain;
 LABEL_106:
-    v117 = v164;
+    v118 = v164;
     goto LABEL_108;
   }
 
-  v117 = v164;
-  forceDisableHR = self->_forceDisableHR;
+  v118 = v164;
+  forceDisableHR = selfCopy->_forceDisableHR;
   if (forceDisableHR || v114)
   {
     input->softIspDGain = input->gainDigi * 0.0039062;
@@ -617,7 +617,7 @@ LABEL_95:
     goto LABEL_96;
   }
 
-  forceHighlightCompressionForEveryFrame = self->_forceHighlightCompressionForEveryFrame;
+  forceHighlightCompressionForEveryFrame = selfCopy->_forceHighlightCompressionForEveryFrame;
   input->softIspDGain = input->gainDigi * 0.0039062;
   p_softIspDGain = &input->softIspDGain;
   input->hardIspDGain = 1.0;
@@ -628,7 +628,7 @@ LABEL_95:
   }
 
 LABEL_96:
-  AuxCompute_CalcExposureRatio(input);
+  AuxCompute_CalcExposureRatio(input, v117);
   if (!input->useAdaptiveHighlightCompression)
   {
     input->useHighlightCompression = 1;
@@ -636,79 +636,81 @@ LABEL_96:
     goto LABEL_106;
   }
 
-  v122 = v121;
+  v123 = v122;
   hardIspDGain = input->hardIspDGain;
-  v124 = 1.0;
-  v117 = v164;
+  v125 = 1.0;
+  v118 = v164;
   if (v114)
   {
     [v164 minimumAdaptiveHC_SIFR];
-    v124 = v125;
+    v125 = v126;
   }
 
   [v164 adaptiveHCSlope];
-  v127 = fmaxf(v124, fminf((v122 / hardIspDGain) / v126, 4.0));
-  if (v127 > 1.0)
+  v128 = fmaxf(v125, fminf((v123 / hardIspDGain) / v127, 4.0));
+  if (v128 > 1.0)
   {
     input->useHighlightCompression = 1;
-    input->highlightCompressionGain = v127;
+    input->highlightCompressionGain = v128;
   }
 
 LABEL_108:
-  v128 = *p_softIspDGain;
-  [v117 ispDGainThreshold];
-  if (v128 > v129)
+  v129 = *p_softIspDGain;
+  [v118 ispDGainThreshold];
+  if (v129 > v131)
   {
     [v164 ispDGainThreshold];
-    input->hardIspDGain = (input->gainDigi * 0.0039062) / v130;
-    input->softIspDGain = v130;
+    input->hardIspDGain = (input->gainDigi * 0.0039062) / v132;
+    input->softIspDGain = v132;
   }
 
-  AuxCompute_CalcExposureRatio(input);
-  v132 = v131 / *p_hardIspDGain;
-  if (v132 > 80.0)
+  AuxCompute_CalcExposureRatio(input, v130);
+  v135 = v134 / *p_hardIspDGain;
+  if (v135 > 80.0)
   {
-    v133 = *p_hardIspDGain * (v132 / 80.0);
-    v134 = (input->gainDigi * 0.0039062) / v133;
-    input->hardIspDGain = v133;
-    input->softIspDGain = v134;
+    v136 = *p_hardIspDGain * (v135 / 80.0);
+    v137 = (input->gainDigi * 0.0039062) / v136;
+    input->hardIspDGain = v136;
+    input->softIspDGain = v137;
   }
 
-  AuxCompute_CalcExposureRatio(input);
-  input->LTMHazeCorrectionOff = self->_forceDisableLTMHazeCorrection;
-  input->useBt709 = self->_forceUseBt709;
+  AuxCompute_CalcExposureRatio(input, v133);
+  input->LTMHazeCorrectionOff = selfCopy->_forceDisableLTMHazeCorrection;
+  input->useBt709 = selfCopy->_forceUseBt709;
   if ([v164 doAdaptiveFaceBiasScaler])
   {
-    v135 = input->gainAnal.v16;
-    v136 = input->gainDigiSensor.v16;
+    v138 = input->gainAnal.v16;
+    v139 = input->gainDigiSensor.v16;
     gainDigi = input->gainDigi;
-    faceBiasThreshold = self->_faceBiasThreshold;
-    faceBiasThresholdMin = self->_faceBiasThresholdMin;
-    faceBiasScaler = self->_faceBiasScaler;
-    faceBiasScalerMin = self->_faceBiasScalerMin;
+    faceBiasThreshold = selfCopy->_faceBiasThreshold;
+    faceBiasThresholdMin = selfCopy->_faceBiasThresholdMin;
+    faceBiasScaler = selfCopy->_faceBiasScaler;
+    faceBiasScalerMin = selfCopy->_faceBiasScalerMin;
     if (faceBiasThreshold <= faceBiasThresholdMin)
     {
-      FigDebugAssert3();
+      LODWORD(v157) = 0;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v157, v158, v158, inputBufferRect, v160, v161, v162, selfCopy);
     }
 
     if (faceBiasScaler <= faceBiasScalerMin)
     {
-      FigDebugAssert3();
+      LODWORD(v157) = 0;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v157, v158, v158, inputBufferRect, v160, v161, v162, selfCopy);
     }
 
-    v142 = (vcvts_n_f32_u32(v135, 8uLL) * vcvts_n_f32_u32(v136, 8uLL)) * (gainDigi * 0.0039062);
-    if (v142 < faceBiasThreshold)
+    v145 = (vcvts_n_f32_u32(v138, 8uLL) * vcvts_n_f32_u32(v139, 8uLL)) * (gainDigi * 0.0039062);
+    if (v145 < faceBiasThreshold)
     {
-      v144 = v167;
-      v143 = v168;
-      if (v142 <= faceBiasThresholdMin)
+      v147 = v167;
+      v146 = v168;
+      if (v145 <= faceBiasThresholdMin)
       {
         faceBiasScaler = faceBiasScalerMin;
       }
 
       else
       {
-        faceBiasScaler = faceBiasScalerMin + (((faceBiasScaler - faceBiasScalerMin) / (faceBiasThreshold - faceBiasThresholdMin)) * (v142 - faceBiasThresholdMin));
+        faceBiasScaler = faceBiasScalerMin + (((faceBiasScaler - faceBiasScalerMin) / (faceBiasThreshold - faceBiasThresholdMin)) * (v145 - faceBiasThresholdMin));
       }
 
       goto LABEL_122;
@@ -720,54 +722,54 @@ LABEL_108:
     faceBiasScaler = 0.08;
   }
 
-  v144 = v167;
-  v143 = v168;
+  v147 = v167;
+  v146 = v168;
 LABEL_122:
   *&input[1].flashMixPercentage[400] = faceBiasScaler;
   input->useHazeCorrection = 0;
   input[1].flashMixPercentage[402] = 0;
 
-  v145 = 1;
+  v148 = 1;
 LABEL_123:
 
-  return v145;
+  return v148;
 }
 
 uint64_t __62__LTMExtractMetadataV2_extractFrom_toDriverInput_ltmGeometry___block_invoke_30(uint64_t a1, void *a2, void *a3)
 {
-  v4 = a2;
-  v5 = a3;
-  v6 = [v4 valueForKey:@"Rect"];
-  if (!v6 || ([v5 valueForKey:@"Rect"], (v7 = objc_claimAutoreleasedReturnValue()) == 0))
+  v5 = a2;
+  v6 = a3;
+  v7 = [v5 valueForKey:@"Rect"];
+  if (!v7 || ([v6 valueForKey:@"Rect"], (v8 = objc_claimAutoreleasedReturnValue()) == 0))
   {
-    FigDebugAssert3();
-    v7 = 0;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v3, *&v13.origin.x, *&v13.origin.y, LODWORD(v13.size.width), *&v13.size.height, *&rect.origin.x, LODWORD(rect.origin.y));
+    v8 = 0;
 LABEL_11:
-    v10 = 0;
+    v11 = 0;
     goto LABEL_8;
   }
 
-  if (!CGRectMakeWithDictionaryRepresentation(v6, &rect) || !CGRectMakeWithDictionaryRepresentation(v7, &v12))
+  if (!CGRectMakeWithDictionaryRepresentation(v7, &rect) || !CGRectMakeWithDictionaryRepresentation(v8, &v13))
   {
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v3, *&v13.origin.x, *&v13.origin.y, LODWORD(v13.size.width), *&v13.size.height, *&rect.origin.x, LODWORD(rect.origin.y));
     goto LABEL_11;
   }
 
-  v8 = rect.size.width * rect.size.height;
-  v9 = v12.size.width * v12.size.height;
-  if (v8 <= v9)
+  v9 = rect.size.width * rect.size.height;
+  v10 = v13.size.width * v13.size.height;
+  if (v9 <= v10)
   {
-    v10 = 1;
+    v11 = 1;
   }
 
   else
   {
-    v10 = -1;
+    v11 = -1;
   }
 
 LABEL_8:
 
-  return v10;
+  return v11;
 }
 
 + (void)extractRectanglesFrom:(id)from inputBufferRect:(id)rect validBufferRect:(id)bufferRect ltmGeometry:(id)geometry
@@ -827,7 +829,7 @@ LABEL_8:
     [geometryCopy setDeepZoomRatio:v22];
   }
 
-  FinalCropRect = GeometryUtilitiesGetFinalCropRect();
+  FinalCropRect = GeometryUtilitiesGetFinalCropRect(fromCopy);
   v26 = v25;
   v28 = v27;
   v30 = v29;
@@ -899,72 +901,73 @@ LABEL_8:
   metadataCopy = metadata;
   rectCopy = rect;
   dataCopy = data;
-  v11 = [metadataCopy objectForKeyedSubscript:@"SpatialCCMOutputMetadata"];
+  v43 = rectCopy;
+  v12 = [metadataCopy objectForKeyedSubscript:@"SpatialCCMOutputMetadata"];
   if (![LTMExtractMetadataV2 getTileStatsRegion:metadataCopy validBufferRect:rectCopy ltmGeometryData:dataCopy toDriverInput:input])
   {
     goto LABEL_24;
   }
 
-  if (v11)
+  if (v12)
   {
-    v12 = [v11 objectForKeyedSubscript:@"FdAWBChistMixFactor"];
-    v13 = v12;
-    if (v12)
+    v13 = [v12 objectForKeyedSubscript:@"FdAWBChistMixFactor"];
+    v14 = v13;
+    if (v13)
     {
-      input->fdAWBChistMixFactor = [v12 intValue];
-      v14 = [v11 objectForKeyedSubscript:@"AwbColorspace"];
+      input->fdAWBChistMixFactor = [v13 intValue];
+      v15 = [v12 objectForKeyedSubscript:@"AwbColorspace"];
 
-      if (v14)
+      if (v15)
       {
-        input->awbColorspace = [v14 unsignedCharValue];
-        v15 = [v11 objectForKeyedSubscript:@"IsLEDMainFlashforAWB"];
+        input->awbColorspace = [v15 unsignedCharValue];
+        v16 = [v12 objectForKeyedSubscript:@"IsLEDMainFlashforAWB"];
 
-        if (v15)
+        if (v16)
         {
-          input->isLEDMainFlashforAWB = [v15 BOOLValue];
-          v16 = [v11 objectForKeyedSubscript:@"AwbGainsSkinOnly"];
-          v17 = v16;
-          if (v16)
+          input->isLEDMainFlashforAWB = [v16 BOOLValue];
+          v17 = [v12 objectForKeyedSubscript:@"AwbGainsSkinOnly"];
+          v18 = v17;
+          if (v17)
           {
-            v18 = [v16 objectAtIndexedSubscript:0];
-            *(&input->awbGains.b.v16 + 1) = [v18 intValue];
+            v19 = [v17 objectAtIndexedSubscript:0];
+            *(&input->awbGains.b.v16 + 1) = [v19 intValue];
 
-            v19 = [v17 objectAtIndexedSubscript:3];
-            *(&input->awbGainsSkinOnly.gb.v16 + 1) = [v19 intValue];
+            v20 = [v18 objectAtIndexedSubscript:3];
+            *(&input->awbGainsSkinOnly.gb.v16 + 1) = [v20 intValue];
 
-            v20 = [v11 objectForKeyedSubscript:@"AwbGainsFlashProj"];
+            v21 = [v12 objectForKeyedSubscript:@"AwbGainsFlashProj"];
 
-            if (v20)
+            if (v21)
             {
-              v21 = [v20 objectAtIndexedSubscript:0];
-              *(&input->awbGainsSkinOnly.b.v16 + 1) = [v21 intValue];
+              v22 = [v21 objectAtIndexedSubscript:0];
+              *(&input->awbGainsSkinOnly.b.v16 + 1) = [v22 intValue];
 
-              v22 = [v20 objectAtIndexedSubscript:3];
-              *(&input->awbGainsFlashProj.gb.v16 + 1) = [v22 intValue];
+              v23 = [v21 objectAtIndexedSubscript:3];
+              *(&input->awbGainsFlashProj.gb.v16 + 1) = [v23 intValue];
 
-              v23 = [v11 objectForKeyedSubscript:@"FlashProjMixWeighting"];
+              v24 = [v12 objectForKeyedSubscript:@"FlashProjMixWeighting"];
 
-              if (v23)
+              if (v24)
               {
-                [v23 floatValue];
-                input->flashProjMixWeighting = v24;
+                [v24 floatValue];
+                input->flashProjMixWeighting = v25;
                 goto LABEL_16;
               }
 
-              FigDebugAssert3();
-              v40 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-              os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT);
+              FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v6, dataCopy, rectCopy, v44, v45, v46, v47);
+              v41 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+              os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT);
               fig_log_call_emit_and_clean_up_after_send_and_compose();
 
 LABEL_30:
-              v37 = -1;
+              v38 = -1;
               goto LABEL_23;
             }
           }
 
-          FigDebugAssert3();
-          v39 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-          os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT);
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v6, dataCopy, rectCopy, v44, v45, v46, v47);
+          v40 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+          os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT);
           fig_log_call_emit_and_clean_up_after_send_and_compose();
 
 LABEL_29:
@@ -974,48 +977,48 @@ LABEL_29:
     }
 
 LABEL_24:
-    FigDebugAssert3();
-    v15 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v6, dataCopy, rectCopy, v44, v45, v46, v47);
+    v16 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
     goto LABEL_29;
   }
 
-  v20 = [metadataCopy objectForKeyedSubscript:*MEMORY[0x1E6990F40]];
-  v23 = [metadataCopy objectForKeyedSubscript:*MEMORY[0x1E6990F38]];
-  v25 = [metadataCopy objectForKeyedSubscript:*MEMORY[0x1E6990F28]];
-  v26 = v25;
-  if (v20 && v23 && v25)
+  v21 = [metadataCopy objectForKeyedSubscript:*MEMORY[0x1E6990F40]];
+  v24 = [metadataCopy objectForKeyedSubscript:*MEMORY[0x1E6990F38]];
+  v26 = [metadataCopy objectForKeyedSubscript:*MEMORY[0x1E6990F28]];
+  v27 = v26;
+  if (v21 && v24 && v26)
   {
-    input->fdAWBChistMixFactor = [v20 unsignedIntValue];
-    *(&input->awbGains.b.v16 + 1) = [v23 unsignedShortValue];
-    *(&input->awbGainsSkinOnly.gb.v16 + 1) = [v26 unsignedShortValue];
+    input->fdAWBChistMixFactor = [v21 unsignedIntValue];
+    *(&input->awbGains.b.v16 + 1) = [v24 unsignedShortValue];
+    *(&input->awbGainsSkinOnly.gb.v16 + 1) = [v27 unsignedShortValue];
   }
 
   else
   {
     input->fdAWBChistMixFactor = 0;
-    v27 = [metadataCopy objectForKeyedSubscript:*MEMORY[0x1E6990EF8]];
-    *(&input->awbGains.b.v16 + 1) = [v27 unsignedShortValue];
+    v28 = [metadataCopy objectForKeyedSubscript:*MEMORY[0x1E6990EF8]];
+    *(&input->awbGains.b.v16 + 1) = [v28 unsignedShortValue];
 
-    v28 = [metadataCopy objectForKeyedSubscript:*MEMORY[0x1E6990EE8]];
-    *(&input->awbGainsSkinOnly.gb.v16 + 1) = [v28 unsignedShortValue];
+    v29 = [metadataCopy objectForKeyedSubscript:*MEMORY[0x1E6990EE8]];
+    *(&input->awbGainsSkinOnly.gb.v16 + 1) = [v29 unsignedShortValue];
   }
 
 LABEL_16:
-  v29 = [metadataCopy objectForKeyedSubscript:*MEMORY[0x1E6990EF8]];
-  *(&input->isLEDMainFlashforAWB + 1) = [v29 unsignedShortValue];
+  v30 = [metadataCopy objectForKeyedSubscript:*MEMORY[0x1E6990EF8]];
+  *(&input->isLEDMainFlashforAWB + 1) = [v30 unsignedShortValue];
 
-  v30 = [metadataCopy objectForKeyedSubscript:*MEMORY[0x1E6990EE8]];
-  *(&input->awbGains.gb.v16 + 1) = [v30 unsignedShortValue];
+  v31 = [metadataCopy objectForKeyedSubscript:*MEMORY[0x1E6990EE8]];
+  *(&input->awbGains.gb.v16 + 1) = [v31 unsignedShortValue];
 
   flashMixPercentage = input->flashMixPercentage;
   bzero(flashMixPercentage, 0x400uLL);
-  v32 = [metadataCopy objectForKeyedSubscript:*MEMORY[0x1E6991010]];
-  v33 = v32;
-  if (v32)
+  v33 = [metadataCopy objectForKeyedSubscript:*MEMORY[0x1E6991010]];
+  v34 = v33;
+  if (v33)
   {
-    bytes = [v32 bytes];
+    bytes = [v33 bytes];
     for (i = 0; i != 16; ++i)
     {
       for (j = 0; j != 16; ++j)
@@ -1028,10 +1031,10 @@ LABEL_16:
     }
   }
 
-  v37 = 0;
+  v38 = 0;
 LABEL_23:
 
-  return v37;
+  return v38;
 }
 
 + (BOOL)getTileStatsRegion:(id)region validBufferRect:(id)rect ltmGeometryData:(id)data toDriverInput:(sRefDriverInputs_SOFTISP *)input
@@ -1039,115 +1042,123 @@ LABEL_23:
   regionCopy = region;
   rectCopy = rect;
   dataCopy = data;
-  v12 = dataCopy;
-  v13 = *(MEMORY[0x1E695F050] + 16);
+  v13 = dataCopy;
+  v14 = *(MEMORY[0x1E695F050] + 16);
   rect.origin = *MEMORY[0x1E695F050];
-  rect.size = v13;
+  rect.size = v14;
   if (!regionCopy)
   {
-    v26 = 0;
-    FigDebugAssert3();
-LABEL_8:
-    v28 = 0;
+    v27 = 0;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v6, v31, v32, LODWORD(rect.origin.x), *&rect.origin.y, *&rect.size.width, LODWORD(rect.size.height));
+LABEL_9:
+    v29 = 0;
     goto LABEL_5;
   }
 
   [dataCopy cropRect];
-  v15 = v14;
-  v17 = v16;
-  v19 = v18;
-  v21 = v20;
-  [v12 inputTextureDownsampleRatio];
-  LODWORD(v23) = v22;
-  v30 = 0;
-  v24 = [AWBProcessor getTileStatsRegionWithMetadata:regionCopy cropRectLTMInCoords:&v30 ltmInDownsamplingRatio:v15 tileStatsRegionLTMInCoordsDictOut:v17, v19, v21, v23];
-  v25 = v30;
-  v26 = v25;
-  if (v24 || !CGRectMakeWithDictionaryRepresentation(v25, &rect))
+  v16 = v15;
+  v18 = v17;
+  v20 = v19;
+  v22 = v21;
+  [v13 inputTextureDownsampleRatio];
+  LODWORD(v24) = v23;
+  v32 = 0;
+  v25 = [AWBProcessor getTileStatsRegionWithMetadata:regionCopy cropRectLTMInCoords:&v32 ltmInDownsamplingRatio:v16 tileStatsRegionLTMInCoordsDictOut:v18, v20, v22, v24];
+  v26 = v32;
+  v27 = v26;
+  if (v25)
   {
-    FigDebugAssert3();
-    goto LABEL_8;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v25, v6, v31, v32, LODWORD(rect.origin.x), *&rect.origin.y, *&rect.size.width, LODWORD(rect.size.height));
+    goto LABEL_9;
   }
 
-  v27 = vmovn_s64(vcvtq_u64_f64(rect.size));
+  if (!CGRectMakeWithDictionaryRepresentation(v26, &rect))
+  {
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v6, v31, v32, LODWORD(rect.origin.x), *&rect.origin.y, *&rect.size.width, LODWORD(rect.size.height));
+    goto LABEL_9;
+  }
+
+  v28 = vmovn_s64(vcvtq_u64_f64(rect.size));
   *&input->tileStatsRegion.x = vmovn_s64(vcvtq_s64_f64(rect.origin));
-  *&input->tileStatsRegion.width = v27;
-  v28 = 1;
+  *&input->tileStatsRegion.width = v28;
+  v29 = 1;
 LABEL_5:
 
-  return v28;
+  return v29;
 }
 
 - (float)extractHRGainDownRatioFrom:(id)from
 {
   fromCopy = from;
-  v4 = 1.0;
+  v5 = 1.0;
   if ([fromCopy cmi_BOOLValueForKey:*MEMORY[0x1E6991038] defaultValue:0 found:0])
   {
-    v5 = [fromCopy objectForKeyedSubscript:*MEMORY[0x1E6991040]];
-    v6 = v5;
-    if (v5)
+    v6 = [fromCopy objectForKeyedSubscript:*MEMORY[0x1E6991040]];
+    v7 = v6;
+    if (v6)
     {
-      v4 = vcvts_n_f32_u32([v5 unsignedShortValue], 0xCuLL);
+      v5 = vcvts_n_f32_u32([v6 unsignedShortValue], 0xCuLL);
     }
 
     else
     {
-      FigDebugAssert3();
-      v8 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v3, v10[0], v10[1], v11, v12, v13, v14);
+      v16 = 0;
+      v15 = 0;
+      v9 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
   }
 
-  return v4;
+  return v5;
 }
 
 + (BOOL)extractCCMFromMetadata:(id)metadata toDriverInput:(sRefDriverInputs_SOFTISP *)input
 {
   metadataCopy = metadata;
-  v6 = [metadataCopy objectForKeyedSubscript:*MEMORY[0x1E6990F98]];
-  v7 = v6;
-  if (v6 && (v8 = [v6 bytes], v9 = objc_msgSend(v7, "length"), v8) && v9 == 36)
+  v7 = [metadataCopy objectForKeyedSubscript:*MEMORY[0x1E6990F98]];
+  v8 = v7;
+  if (v7 && (v9 = [v7 bytes], v10 = objc_msgSend(v8, "length"), v9) && v10 == 36)
   {
     for (i = 0; i != 9; ++i)
     {
-      input->ccm.coeff[i].v16 = vcvts_n_s32_f32(*(v8 + 4 * i), 0xCuLL);
+      input->ccm.coeff[i].v16 = vcvts_n_s32_f32(*(v9 + 4 * i), 0xCuLL);
     }
 
-    v11 = 1;
+    v12 = 1;
   }
 
   else
   {
-    FigDebugAssert3();
-    v12 = 0;
-    v13 = xmmword_1C932FAF0;
-    v14 = &input->ccm.coeff[1];
-    v15 = vdupq_n_s64(9uLL);
-    v16 = vdupq_n_s64(2uLL);
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v4, v19, v20, v21, v22, v23, v24);
+    v13 = 0;
+    v14 = xmmword_1C932FAF0;
+    v15 = &input->ccm.coeff[1];
+    v16 = vdupq_n_s64(9uLL);
+    v17 = vdupq_n_s64(2uLL);
     do
     {
-      if (vmovn_s64(vcgtq_u64(v15, v13)).u8[0])
+      if (vmovn_s64(vcgtq_u64(v16, v14)).u8[0])
       {
-        v14[-1].v16 = (v12 / 3u == v12 % 3u) << 12;
+        v15[-1].v16 = (v13 / 3u == v13 % 3u) << 12;
       }
 
-      if (vmovn_s64(vcgtq_u64(vdupq_n_s64(9uLL), *&v13)).i32[1])
+      if (vmovn_s64(vcgtq_u64(vdupq_n_s64(9uLL), *&v14)).i32[1])
       {
-        v14->v16 = ((v12 | 1u) / 3 == (v12 | 1u) % 3) << 12;
+        v15->v16 = ((v13 | 1u) / 3 == (v13 | 1u) % 3) << 12;
       }
 
-      v12 += 2;
-      v13 = vaddq_s64(v13, v16);
-      v14 += 2;
+      v13 += 2;
+      v14 = vaddq_s64(v14, v17);
+      v15 += 2;
     }
 
-    while (v12 != 10);
-    v11 = 0;
+    while (v13 != 10);
+    v12 = 0;
   }
 
-  return v11;
+  return v12;
 }
 
 @end

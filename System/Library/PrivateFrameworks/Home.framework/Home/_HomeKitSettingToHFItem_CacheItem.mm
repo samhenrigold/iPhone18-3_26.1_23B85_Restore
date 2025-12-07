@@ -405,7 +405,7 @@ LABEL_35:
 
 + (BOOL)_checkSettingGroupForSettingsThatNeedToBeDisplayed:(id)displayed usageOptions:(id)options settingGroup:(id)group
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   displayedCopy = displayed;
   optionsCopy = options;
   groupCopy = group;
@@ -415,13 +415,13 @@ LABEL_35:
   keyPath = [groupCopy keyPath];
   v14 = [hf_codex hf_nodeWithKeyPath:keyPath];
 
-  v55 = displayedCopy;
+  v54 = displayedCopy;
   [HFAccessorySettingsItemProvider buildItemTuplesForHomeKitSettings:displayedCopy usageOptions:optionsCopy settingGroup:groupCopy underNode:v14 cache:0];
+  v56 = 0u;
   v57 = 0u;
   v58 = 0u;
-  v59 = 0u;
-  obj = v60 = 0u;
-  v15 = [obj countByEnumeratingWithState:&v57 objects:v65 count:16];
+  obj = v59 = 0u;
+  v15 = [obj countByEnumeratingWithState:&v56 objects:v64 count:16];
   if (!v15)
   {
     v43 = 0;
@@ -430,21 +430,21 @@ LABEL_35:
 
   v16 = v15;
   selfCopy = self;
-  v56 = *v58;
-  v53 = optionsCopy;
-  v51 = hf_codex;
-  v52 = groupCopy;
-  v50 = v14;
+  v55 = *v57;
+  v52 = optionsCopy;
+  v50 = hf_codex;
+  v51 = groupCopy;
+  v49 = v14;
   while (2)
   {
     for (i = 0; i != v16; ++i)
     {
-      if (*v58 != v56)
+      if (*v57 != v55)
       {
         objc_enumerationMutation(obj);
       }
 
-      v18 = *(*(&v57 + 1) + 8 * i);
+      v18 = *(*(&v56 + 1) + 8 * i);
       objc_opt_class();
       singleSetting = [v18 singleSetting];
       if (objc_opt_isKindOfClass())
@@ -462,11 +462,11 @@ LABEL_35:
       if (v21 && ![v21 isReflected])
       {
         v43 = 1;
-        groupCopy = v52;
-        optionsCopy = v53;
-        hf_codex = v51;
+        groupCopy = v51;
+        optionsCopy = v52;
+        hf_codex = v50;
 LABEL_45:
-        v14 = v50;
+        v14 = v49;
 
         goto LABEL_46;
       }
@@ -487,7 +487,7 @@ LABEL_45:
           if (v28)
           {
             v29 = &unk_282584A38;
-            hf_settingsAdapterManager = v55;
+            hf_settingsAdapterManager = v54;
             if ([hf_settingsAdapterManager conformsToProtocol:v29])
             {
               v31 = hf_settingsAdapterManager;
@@ -524,15 +524,15 @@ LABEL_19:
                   {
                     accessoryGroupEntity3 = [v18 accessoryGroupEntity];
                     *buf = 138412546;
-                    v62 = accessoryGroupEntity3;
-                    v63 = 2112;
-                    v64 = v32;
+                    v61 = accessoryGroupEntity3;
+                    v62 = 2112;
+                    v63 = v32;
                     _os_log_impl(&dword_20D9BF000, v44, OS_LOG_TYPE_DEFAULT, "Hiding language setting entity %@ for %@", buf, 0x16u);
                   }
 
                   v43 = 0;
 LABEL_43:
-                  optionsCopy = v53;
+                  optionsCopy = v52;
                   goto LABEL_44;
                 }
 
@@ -566,7 +566,7 @@ LABEL_29:
         {
         }
 
-        hf_settingsAdapterManager = [v55 hf_settingsAdapterManager];
+        hf_settingsAdapterManager = [v54 hf_settingsAdapterManager];
         accessoryGroupEntity5 = [v18 accessoryGroupEntity];
         adapterIdentifier3 = [accessoryGroupEntity5 adapterIdentifier];
         v37 = [hf_settingsAdapterManager adapterForIdentifier:adapterIdentifier3];
@@ -591,22 +591,22 @@ LABEL_32:
       if (settingGroup)
       {
         accessoryGroupEntity5 = [v18 settingGroup];
-        optionsCopy = v53;
-        v43 = [selfCopy _checkSettingGroupForSettingsThatNeedToBeDisplayed:v55 usageOptions:v53 settingGroup:accessoryGroupEntity5];
+        optionsCopy = v52;
+        v43 = [selfCopy _checkSettingGroupForSettingsThatNeedToBeDisplayed:v54 usageOptions:v52 settingGroup:accessoryGroupEntity5];
 LABEL_44:
-        hf_codex = v51;
-        groupCopy = v52;
+        hf_codex = v50;
+        groupCopy = v51;
 
         goto LABEL_45;
       }
     }
 
-    v16 = [obj countByEnumeratingWithState:&v57 objects:v65 count:16];
+    v16 = [obj countByEnumeratingWithState:&v56 objects:v64 count:16];
     v43 = 0;
-    groupCopy = v52;
-    optionsCopy = v53;
-    v14 = v50;
-    hf_codex = v51;
+    groupCopy = v51;
+    optionsCopy = v52;
+    v14 = v49;
+    hf_codex = v50;
     if (v16)
     {
       continue;
@@ -617,7 +617,6 @@ LABEL_44:
 
 LABEL_46:
 
-  v47 = *MEMORY[0x277D85DE8];
   return v43;
 }
 

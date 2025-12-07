@@ -21,7 +21,7 @@
 
 - (NSArray)attributeDescriptions
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E69A29C8]);
   bulletins = [(HMAudioAnalysisAggregateEventBulletin *)self bulletins];
   v5 = bulletins;
@@ -36,10 +36,8 @@
   }
 
   v7 = [v3 initWithName:@"Bulletins:" value:v6];
-  v11[0] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v10[0] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
 
   return v8;
 }
@@ -142,17 +140,16 @@ void __52__HMAudioAnalysisAggregateEventBulletin_encodedData__block_invoke(uint6
 
 uint64_t __52__HMAudioAnalysisAggregateEventBulletin_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x1E69A29A0];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v2_51718;
-  logCategory__hmf_once_v2_51718 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v2_51718;
+  logCategory__hmf_once_v2_51718 = v0;
 
-  return MEMORY[0x1EEE66BB8](v1, v2);
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)decodeBulletinsFromEvent:(id)event error:(id *)error
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   v6 = [HMAudioAnalysisEventBulletinEventProtoValueEvent alloc];
   encodedData = [eventCopy encodedData];
@@ -188,11 +185,11 @@ uint64_t __52__HMAudioAnalysisAggregateEventBulletin_logCategory__block_invoke()
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       v18 = HMFGetLogIdentifier();
-      v21 = 138543618;
-      v22 = v18;
-      v23 = 2112;
-      v24 = eventCopy;
-      _os_log_impl(&dword_19BB39000, v17, OS_LOG_TYPE_ERROR, "%{public}@Unable to decode proto audio analysis aggregate event from: %@", &v21, 0x16u);
+      v20 = 138543618;
+      v21 = v18;
+      v22 = 2112;
+      v23 = eventCopy;
+      _os_log_impl(&dword_19BB39000, v17, OS_LOG_TYPE_ERROR, "%{public}@Unable to decode proto audio analysis aggregate event from: %@", &v20, 0x16u);
     }
 
     objc_autoreleasePoolPop(v16);
@@ -207,8 +204,6 @@ uint64_t __52__HMAudioAnalysisAggregateEventBulletin_logCategory__block_invoke()
       v15 = 0;
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v15;
 }

@@ -25,7 +25,7 @@
 
 - (RTHint)initWithLocation:(id)location source:(int64_t)source date:(id)date
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   locationCopy = location;
   dateCopy = date;
   v11 = dateCopy;
@@ -66,16 +66,16 @@ LABEL_16:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v22 = "[RTHint initWithLocation:source:date:]";
-      v23 = 1024;
-      v24 = 93;
+      v21 = "[RTHint initWithLocation:source:date:]";
+      v22 = 1024;
+      v23 = 93;
       _os_log_error_impl(&dword_1BF1C4000, v12, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: source >= RTHintSourceFirst() && source <= RTHintSourceLast() (in %s:%d)", buf, 0x12u);
     }
   }
 
-  v20.receiver = self;
-  v20.super_class = RTHint;
-  v13 = [(RTHint *)&v20 init];
+  v19.receiver = self;
+  v19.super_class = RTHint;
+  v13 = [(RTHint *)&v19 init];
   v14 = v13;
   if (v13)
   {
@@ -88,7 +88,6 @@ LABEL_16:
   selfCopy = self;
 LABEL_14:
 
-  v18 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

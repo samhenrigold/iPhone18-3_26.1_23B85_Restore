@@ -1,5 +1,5 @@
 @interface MUICachingSVGConverter
-+ (id)_keyForData:(double)data size:(uint64_t)size scale:(void *)scale;
++ (id)_keyForData:(double)data size:(double)size scale:(double)scale;
 - (MUICachingSVGConverter)init;
 - (void)imageForSVGData:(id)data size:(CGSize)size scale:(double)scale completionHandler:(id)handler;
 @end
@@ -27,9 +27,9 @@
   width = size.width;
   dataCopy = data;
   handlerCopy = handler;
-  v13 = [(MUICachingSVGConverter *)width _keyForData:scale size:MUICachingSVGConverter scale:dataCopy];
+  scale = [MUICachingSVGConverter _keyForData:dataCopy size:width scale:height, scale];
   cache = [(MUICachingSVGConverter *)self cache];
-  v15 = [cache objectForKey:v13];
+  v15 = [cache objectForKey:scale];
 
   if (v15)
   {
@@ -66,7 +66,7 @@
     v30 = defaultManager;
     v31 = v24;
     selfCopy = self;
-    v33 = v13;
+    v33 = scale;
     v34 = handlerCopy;
     v27 = v24;
     v28 = defaultManager;
@@ -74,15 +74,15 @@
   }
 }
 
-+ (id)_keyForData:(double)data size:(uint64_t)size scale:(void *)scale
++ (id)_keyForData:(double)data size:(double)size scale:(double)scale
 {
-  scaleCopy = scale;
+  v8 = a2;
   objc_opt_self();
   v9 = objc_alloc(MEMORY[0x277CCACA8]);
-  ef_md5Digest = [scaleCopy ef_md5Digest];
+  ef_md5Digest = [v8 ef_md5Digest];
 
   ef_hexString = [ef_md5Digest ef_hexString];
-  v12 = [v9 initWithFormat:@"%@.%f.%f.%f", ef_hexString, *&a2, *&self, *&data];
+  v12 = [v9 initWithFormat:@"%@.%f.%f.%f", ef_hexString, *&size, *&data, *&scale];
 
   return v12;
 }

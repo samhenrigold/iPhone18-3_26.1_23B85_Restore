@@ -95,7 +95,7 @@
         [table2 deselectRowAtIndexPath:indexPathForSelectedRow2 animated:1];
       }
 
-      if (PSIsRunningInAssistant())
+      if (PSIsRunningInAssistant(v21, v22))
       {
         view = [navigationController view];
         [view layoutIfNeeded];

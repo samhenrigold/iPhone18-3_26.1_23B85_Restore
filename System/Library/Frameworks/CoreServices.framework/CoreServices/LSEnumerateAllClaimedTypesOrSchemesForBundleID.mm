@@ -3,41 +3,26 @@
 
 @implementation LSEnumerateAllClaimedTypesOrSchemesForBundleID
 
-void ___LSEnumerateAllClaimedTypesOrSchemesForBundleID_block_invoke(uint64_t a1)
+void ___LSEnumerateAllClaimedTypesOrSchemesForBundleID_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = _LSClaimGet(**(a1 + 40));
-  if (v2)
+  v4 = _LSClaimGet(**(a1 + 40), a3);
+  if (v4)
   {
-    v3 = v2;
-    if ((*(a1 + 48) & *(v2 + 14)) != 0)
+    v5 = v4;
+    if ((*(a1 + 48) & *(v4 + 14)) != 0)
     {
-      if (*(v2 + 68))
+      if (*(v4 + 68))
       {
-        if (*(a1 + 52) != 1)
+        if (*(a1 + 52) != 1 || (v11[0] = MEMORY[0x1E69E9820], v11[1] = 3221225472, v11[2] = ___LSEnumerateAllClaimedTypesOrSchemesForBundleID_block_invoke_2, v11[3] = &unk_1E6A1B1D8, v6 = *(a1 + 40), v12 = *(a1 + 32), v13 = v5, _LSEnumerateClaimedTypes(v6, v5, v11), v12, (*(a1 + 52) & 1) == 0))
         {
-          goto LABEL_6;
-        }
-
-        v9[0] = MEMORY[0x1E69E9820];
-        v9[1] = 3221225472;
-        v9[2] = ___LSEnumerateAllClaimedTypesOrSchemesForBundleID_block_invoke_2;
-        v9[3] = &unk_1E6A1B1D8;
-        v4 = *(a1 + 40);
-        v10 = *(a1 + 32);
-        v11 = v3;
-        _LSEnumerateClaimedTypes(v4, v3, v9);
-
-        if ((*(a1 + 52) & 1) == 0)
-        {
-LABEL_6:
-          v6[0] = MEMORY[0x1E69E9820];
-          v6[1] = 3221225472;
-          v6[2] = ___LSEnumerateAllClaimedTypesOrSchemesForBundleID_block_invoke_3;
-          v6[3] = &unk_1E6A1B1D8;
-          v5 = *(a1 + 40);
-          v7 = *(a1 + 32);
-          v8 = v3;
-          _LSEnumerateClaimedSchemes(v5, v3, v6);
+          v8[0] = MEMORY[0x1E69E9820];
+          v8[1] = 3221225472;
+          v8[2] = ___LSEnumerateAllClaimedTypesOrSchemesForBundleID_block_invoke_3;
+          v8[3] = &unk_1E6A1B1D8;
+          v7 = *(a1 + 40);
+          v9 = *(a1 + 32);
+          v10 = v5;
+          _LSEnumerateClaimedSchemes(v7, v5, v8);
         }
       }
     }

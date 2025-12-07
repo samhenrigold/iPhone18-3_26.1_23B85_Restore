@@ -1,11 +1,11 @@
 @interface NSMutableArray(TSUAdditions)
+- (char)tsu_trimObjectsFromIndex:()TSUAdditions;
 - (id)tsu_pop;
-- (uint64_t)tsu_addObjects:()TSUAdditions;
 - (uint64_t)tsu_insertObject:()TSUAdditions usingComparator:;
-- (uint64_t)tsu_removeObjectsIdenticalToObjectsInArray:()TSUAdditions;
-- (unint64_t)tsu_trimObjectsFromIndex:()TSUAdditions;
 - (void)tsu_addNonNilObject:()TSUAdditions;
+- (void)tsu_addObjects:()TSUAdditions;
 - (void)tsu_addObjectsFromNonNilArray:()TSUAdditions;
+- (void)tsu_removeObjectsIdenticalToObjectsInArray:()TSUAdditions;
 @end
 
 @implementation NSMutableArray(TSUAdditions)
@@ -21,7 +21,7 @@
   return lastObject;
 }
 
-- (uint64_t)tsu_addObjects:()TSUAdditions
+- (void)tsu_addObjects:()TSUAdditions
 {
   v11 = &a9;
   if (a3)
@@ -43,23 +43,23 @@
 {
   if (a3)
   {
-    return [self addObject:?];
+    return [result addObject:?];
   }
 
-  return self;
+  return result;
 }
 
 - (void)tsu_addObjectsFromNonNilArray:()TSUAdditions
 {
   if (a3)
   {
-    return [self addObjectsFromArray:?];
+    return [result addObjectsFromArray:?];
   }
 
-  return self;
+  return result;
 }
 
-- (uint64_t)tsu_removeObjectsIdenticalToObjectsInArray:()TSUAdditions
+- (void)tsu_removeObjectsIdenticalToObjectsInArray:()TSUAdditions
 {
   v17 = *MEMORY[0x277D85DE8];
   if (self == a3)
@@ -99,7 +99,7 @@
             }
           }
 
-          ++v8;
+          v8 = v8 + 1;
         }
 
         while (v8 != v6);
@@ -114,13 +114,13 @@
   return result;
 }
 
-- (unint64_t)tsu_trimObjectsFromIndex:()TSUAdditions
+- (char)tsu_trimObjectsFromIndex:()TSUAdditions
 {
   result = [self count];
   if (result > a3)
   {
 
-    return [self removeObjectsInRange:{a3, result - a3}];
+    return [self removeObjectsInRange:{a3, &result[-a3]}];
   }
 
   return result;

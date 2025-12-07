@@ -1,12 +1,45 @@
 @interface UNLocationNotificationTrigger
++ (UNLocationNotificationTrigger)triggerWithRegion:(CLRegion *)region repeats:(BOOL)repeats;
 - (BOOL)isEqual:(id)equal;
 - (UNLocationNotificationTrigger)initWithCoder:(id)coder;
+- (id)_initWithRegion:(id)region repeats:(BOOL)repeats;
 - (id)description;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation UNLocationNotificationTrigger
+
++ (UNLocationNotificationTrigger)triggerWithRegion:(CLRegion *)region repeats:(BOOL)repeats
+{
+  v4 = repeats;
+  v6 = region;
+  v7 = [[self alloc] _initWithRegion:v6 repeats:v4];
+
+  return v7;
+}
+
+- (id)_initWithRegion:(id)region repeats:(BOOL)repeats
+{
+  repeatsCopy = repeats;
+  regionCopy = region;
+  if (!regionCopy)
+  {
+    [UNLocationNotificationTrigger _initWithRegion:repeats:];
+  }
+
+  v11.receiver = self;
+  v11.super_class = UNLocationNotificationTrigger;
+  v7 = [(UNNotificationTrigger *)&v11 _initWithRepeats:repeatsCopy];
+  if (v7)
+  {
+    v8 = [regionCopy copy];
+    v9 = v7[2];
+    v7[2] = v8;
+  }
+
+  return v7;
+}
 
 - (unint64_t)hash
 {

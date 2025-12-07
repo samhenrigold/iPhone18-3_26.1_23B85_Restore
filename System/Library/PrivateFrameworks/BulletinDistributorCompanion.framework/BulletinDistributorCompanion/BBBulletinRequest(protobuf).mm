@@ -8,7 +8,7 @@
 
 + (void)bulletinRequestFromProtobuf:()protobuf
 {
-  v146 = *MEMORY[0x277D85DE8];
+  v150 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = objc_alloc_init(MEMORY[0x277CF3518]);
   sectionID = [v4 sectionID];
@@ -80,7 +80,7 @@
     [v5 setContextValue:sockPuppetAppBundleID forKey:@"BLTSockPuppetAppIdentifierKey"];
   }
 
-  v117 = sockPuppetAppBundleID;
+  v121 = sockPuppetAppBundleID;
   if ([v4 hasRequiredExpirationDate])
   {
     v25 = MEMORY[0x277CBEAA8];
@@ -113,28 +113,28 @@
     [v5 setPrimaryAttachment:v31];
   }
 
-  v119 = v5;
+  v123 = v5;
   array = [MEMORY[0x277CBEB18] array];
-  v132 = 0u;
-  v133 = 0u;
-  v134 = 0u;
-  v135 = 0u;
+  v136 = 0u;
+  v137 = 0u;
+  v138 = 0u;
+  v139 = 0u;
   additionalAttachments = [v4 additionalAttachments];
-  v35 = [additionalAttachments countByEnumeratingWithState:&v132 objects:v145 count:16];
+  v35 = [additionalAttachments countByEnumeratingWithState:&v136 objects:v149 count:16];
   if (v35)
   {
     v36 = v35;
-    v37 = *v133;
+    v37 = *v137;
     do
     {
       for (i = 0; i != v36; ++i)
       {
-        if (*v133 != v37)
+        if (*v137 != v37)
         {
           objc_enumerationMutation(additionalAttachments);
         }
 
-        v39 = *(*(&v132 + 1) + 8 * i);
+        v39 = *(*(&v136 + 1) + 8 * i);
         if ([v39 hasURL])
         {
           v40 = objc_alloc_init(MEMORY[0x277CF3540]);
@@ -146,16 +146,16 @@
         }
       }
 
-      v36 = [additionalAttachments countByEnumeratingWithState:&v132 objects:v145 count:16];
+      v36 = [additionalAttachments countByEnumeratingWithState:&v136 objects:v149 count:16];
     }
 
     while (v36);
   }
 
-  v42 = v119;
+  v42 = v123;
   if ([array count])
   {
-    [v119 setAdditionalAttachments:array];
+    [v123 setAdditionalAttachments:array];
   }
 
   context = [v4 context];
@@ -163,39 +163,40 @@
   {
     v43 = MEMORY[0x277CCAAC8];
     plistTypes = [self plistTypes];
-    v131 = 0;
-    v45 = [v43 unarchivedObjectOfClasses:plistTypes fromData:context error:&v131];
-    v46 = v131;
+    v135 = 0;
+    v45 = [v43 unarchivedObjectOfClasses:plistTypes fromData:context error:&v135];
+    v46 = v135;
 
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0 || v46)
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) == 0 || v46)
     {
-      v47 = blt_general_log();
-      if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+      v48 = blt_general_log(isKindOfClass);
+      if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
       {
-        v116 = objc_opt_class();
+        v120 = objc_opt_class();
         *buf = 138413058;
-        v138 = v4;
-        v139 = 2112;
-        v140 = v45;
-        v141 = 2112;
-        v142 = v116;
+        v142 = v4;
         v143 = 2112;
-        v144 = v46;
-        v42 = v119;
-        _os_log_error_impl(&dword_241FB3000, v47, OS_LOG_TYPE_ERROR, "Bulletin %@ failed to unarchive context dictionary, dict=%@ dictClass=%@ error=%@", buf, 0x2Au);
+        v144 = v45;
+        v145 = 2112;
+        v146 = v120;
+        v147 = 2112;
+        v148 = v46;
+        v42 = v123;
+        _os_log_error_impl(&dword_241FB3000, v48, OS_LOG_TYPE_ERROR, "Bulletin %@ failed to unarchive context dictionary, dict=%@ dictClass=%@ error=%@", buf, 0x2Au);
       }
     }
 
     else
     {
-      v129[0] = MEMORY[0x277D85DD0];
-      v129[1] = 3221225472;
-      v129[2] = __59__BBBulletinRequest_protobuf__bulletinRequestFromProtobuf___block_invoke;
-      v129[3] = &unk_278D31E60;
-      v130 = v119;
-      [v45 enumerateKeysAndObjectsUsingBlock:v129];
-      v47 = v130;
+      v133[0] = MEMORY[0x277D85DD0];
+      v133[1] = 3221225472;
+      v133[2] = __59__BBBulletinRequest_protobuf__bulletinRequestFromProtobuf___block_invoke;
+      v133[3] = &unk_278D31E60;
+      v134 = v123;
+      [v45 enumerateKeysAndObjectsUsingBlock:v133];
+      v48 = v134;
     }
   }
 
@@ -205,14 +206,14 @@
   {
     alertSuppressionContexts2 = [v4 alertSuppressionContexts];
     alertSuppressionContextsNulls = [v4 alertSuppressionContextsNulls];
-    v128 = 0;
-    v51 = [BLTObjectSerializer unserializeObject:alertSuppressionContexts2 nulls:alertSuppressionContextsNulls error:&v128];
-    v52 = v128;
+    v132 = 0;
+    v52 = [BLTObjectSerializer unserializeObject:alertSuppressionContexts2 nulls:alertSuppressionContextsNulls error:&v132];
+    v53 = v132;
 
-    if (!v52)
+    if (!v53)
     {
-      v53 = [MEMORY[0x277CBEB98] setWithArray:v51];
-      [v42 setAlertSuppressionContexts:v53];
+      v54 = [MEMORY[0x277CBEB98] setWithArray:v52];
+      [v42 setAlertSuppressionContexts:v54];
     }
   }
 
@@ -220,13 +221,13 @@
   {
     if ([v4 soundAlertType])
     {
-      v54 = [objc_alloc(MEMORY[0x277D71F58]) initWithType:{objc_msgSend(v4, "soundAlertType")}];
+      v55 = [objc_alloc(MEMORY[0x277D71F58]) initWithType:{objc_msgSend(v4, "soundAlertType")}];
       soundAccountIdentifier = [v4 soundAccountIdentifier];
 
       if (soundAccountIdentifier)
       {
         soundAccountIdentifier2 = [v4 soundAccountIdentifier];
-        [v54 setTopic:soundAccountIdentifier2];
+        [v55 setTopic:soundAccountIdentifier2];
       }
 
       soundToneIdentifier = [v4 soundToneIdentifier];
@@ -234,83 +235,83 @@
       if (soundToneIdentifier)
       {
         soundToneIdentifier2 = [v4 soundToneIdentifier];
-        [v54 setToneIdentifier:soundToneIdentifier2];
+        [v55 setToneIdentifier:soundToneIdentifier2];
       }
 
       if ([v4 hasSoundShouldRepeat])
       {
-        [v54 setShouldRepeat:{objc_msgSend(v4, "soundShouldRepeat")}];
+        [v55 setShouldRepeat:{objc_msgSend(v4, "soundShouldRepeat")}];
       }
 
       if ([v4 hasSoundShouldIgnoreRingerSwitch])
       {
-        [v54 setShouldIgnoreRingerSwitch:{objc_msgSend(v4, "soundShouldIgnoreRingerSwitch")}];
+        [v55 setShouldIgnoreRingerSwitch:{objc_msgSend(v4, "soundShouldIgnoreRingerSwitch")}];
       }
 
       if ([v4 hasSoundMaximumDuration])
       {
         [v4 soundMaximumDuration];
-        [v54 setMaximumDuration:?];
+        [v55 setMaximumDuration:?];
       }
 
       if ([v4 hasSoundAudioVolume])
       {
         [v4 soundAudioVolume];
-        *&v59 = v59;
-        [v54 setAudioVolume:v59];
+        *&v60 = v60;
+        [v55 setAudioVolume:v60];
       }
 
-      v60 = [objc_alloc(MEMORY[0x277CF3588]) initWithToneAlertConfiguration:v54];
+      v61 = [objc_alloc(MEMORY[0x277CF3588]) initWithToneAlertConfiguration:v55];
     }
 
     else
     {
-      v60 = [objc_alloc(MEMORY[0x277CF3588]) initWithToneAlert:17];
+      v61 = [objc_alloc(MEMORY[0x277CF3588]) initWithToneAlert:17];
     }
 
-    [v42 setSound:v60];
+    [v42 setSound:v61];
   }
 
-  v61 = MEMORY[0x277CBEB18];
+  v62 = MEMORY[0x277CBEB18];
   supplementaryActions = [v4 supplementaryActions];
-  v63 = [v61 arrayWithCapacity:{objc_msgSend(supplementaryActions, "count")}];
+  v64 = [v62 arrayWithCapacity:{objc_msgSend(supplementaryActions, "count")}];
 
-  v126 = 0u;
-  v127 = 0u;
-  v124 = 0u;
-  v125 = 0u;
+  v130 = 0u;
+  v131 = 0u;
+  v128 = 0u;
+  v129 = 0u;
   supplementaryActions2 = [v4 supplementaryActions];
-  v65 = [supplementaryActions2 countByEnumeratingWithState:&v124 objects:v136 count:16];
-  if (v65)
+  v66 = [supplementaryActions2 countByEnumeratingWithState:&v128 objects:v140 count:16];
+  if (v66)
   {
-    v66 = v65;
-    v67 = *v125;
+    v67 = v66;
+    v68 = *v129;
     do
     {
-      for (j = 0; j != v66; ++j)
+      for (j = 0; j != v67; ++j)
       {
-        if (*v125 != v67)
+        if (*v129 != v68)
         {
           objc_enumerationMutation(supplementaryActions2);
         }
 
-        v69 = [self _actionFromBLTPBAction:*(*(&v124 + 1) + 8 * j)];
-        [v63 addObject:v69];
+        v70 = [self _actionFromBLTPBAction:*(*(&v128 + 1) + 8 * j)];
+        [v64 addObject:v70];
       }
 
-      v66 = [supplementaryActions2 countByEnumeratingWithState:&v124 objects:v136 count:16];
+      v67 = [supplementaryActions2 countByEnumeratingWithState:&v128 objects:v140 count:16];
     }
 
-    while (v66);
+    while (v67);
   }
 
-  [v119 setSupplementaryActions:v63];
+  [v123 setSupplementaryActions:v64];
   categoryID2 = [v4 categoryID];
 
   if (categoryID2)
   {
     categoryID3 = [v4 categoryID];
-    [v119 setContextValue:categoryID3 forKey:@"category"];
+    [v123 setContextValue:categoryID3 forKey:@"category"];
   }
 
   teamID = [v4 teamID];
@@ -318,165 +319,164 @@
   if (teamID)
   {
     teamID2 = [v4 teamID];
-    [v119 setContextValue:teamID2 forKey:@"teamID"];
+    [v123 setContextValue:teamID2 forKey:@"teamID"];
   }
 
   if ([v4 hasHasCriticalIcon])
   {
-    [v119 setHasCriticalIcon:{objc_msgSend(v4, "hasCriticalIcon")}];
+    [v123 setHasCriticalIcon:{objc_msgSend(v4, "hasCriticalIcon")}];
   }
 
   if ([v4 hasHeader])
   {
     header = [v4 header];
-    [v119 setHeader:header];
+    [v123 setHeader:header];
   }
 
   if ([v4 hasContentType])
   {
     contentType = [v4 contentType];
-    [v119 setContentType:contentType];
+    [v123 setContentType:contentType];
   }
 
   if ([v4 hasInterruptionLevel])
   {
-    [v119 setInterruptionLevel:{objc_msgSend(v4, "interruptionLevel")}];
+    [v123 setInterruptionLevel:{objc_msgSend(v4, "interruptionLevel")}];
   }
 
   if ([v4 hasCommunicationContext])
   {
-    v76 = MEMORY[0x277CF3520];
+    v77 = MEMORY[0x277CF3520];
     communicationContext = [v4 communicationContext];
-    v78 = [v76 communicationContextFromProtobuf:communicationContext];
-    [v119 setCommunicationContext:v78];
+    v79 = [v77 communicationContextFromProtobuf:communicationContext];
+    [v123 setCommunicationContext:v79];
   }
 
   if ([v4 hasFilterCriteria])
   {
     filterCriteria = [v4 filterCriteria];
-    [v119 setFilterCriteria:filterCriteria];
+    [v123 setFilterCriteria:filterCriteria];
   }
 
   if ([v4 hasFollowActivityAction])
   {
-    v80 = MEMORY[0x277CF3500];
+    v81 = MEMORY[0x277CF3500];
     followActivityAction = [v4 followActivityAction];
     identifier = [followActivityAction identifier];
     followActivityAction2 = [v4 followActivityAction];
     appearance = [followActivityAction2 appearance];
     title2 = [appearance title];
-    v86 = [v80 actionWithIdentifier:identifier title:title2];
+    v87 = [v81 actionWithIdentifier:identifier title:title2];
 
     followActivityAction3 = [v4 followActivityAction];
-    [v86 setActivationMode:{objc_msgSend(followActivityAction3, "activationMode")}];
+    [v87 setActivationMode:{objc_msgSend(followActivityAction3, "activationMode")}];
 
-    [v119 setFollowActivityAction:v86];
+    [v123 setFollowActivityAction:v87];
   }
 
   if ([v4 hasSubordinateIcon])
   {
-    [v119 setHasSubordinateIcon:{objc_msgSend(v4, "hasSubordinateIcon")}];
+    [v123 setHasSubordinateIcon:{objc_msgSend(v4, "hasSubordinateIcon")}];
   }
 
   if ([v4 hasSummary])
   {
-    v88 = MEMORY[0x277CCAAC8];
-    v89 = objc_opt_class();
+    v89 = MEMORY[0x277CCAAC8];
+    v90 = objc_opt_class();
     summary = [v4 summary];
-    v123 = 0;
-    v91 = [v88 unarchivedObjectOfClass:v89 fromData:summary error:&v123];
-    v92 = v123;
+    v127 = 0;
+    v92 = [v89 unarchivedObjectOfClass:v90 fromData:summary error:&v127];
+    v93 = v127;
 
-    if (v92)
+    if (v93)
     {
-      v93 = blt_general_log();
-      if (os_log_type_enabled(v93, OS_LOG_TYPE_ERROR))
+      v95 = blt_general_log(v94);
+      if (os_log_type_enabled(v95, OS_LOG_TYPE_ERROR))
       {
         +[BBBulletinRequest(protobuf) bulletinRequestFromProtobuf:];
       }
     }
 
-    [v119 setSummary:v91];
+    [v123 setSummary:v92];
   }
 
   if ([v4 hasThreadSummary])
   {
-    v94 = MEMORY[0x277CCAAC8];
-    v95 = objc_opt_class();
+    v96 = MEMORY[0x277CCAAC8];
+    v97 = objc_opt_class();
     threadSummary = [v4 threadSummary];
-    v122 = 0;
-    v97 = [v94 unarchivedObjectOfClass:v95 fromData:threadSummary error:&v122];
-    v98 = v122;
+    v126 = 0;
+    v99 = [v96 unarchivedObjectOfClass:v97 fromData:threadSummary error:&v126];
+    v100 = v126;
 
-    if (v98)
+    if (v100)
     {
-      v99 = blt_general_log();
-      if (os_log_type_enabled(v99, OS_LOG_TYPE_ERROR))
+      v102 = blt_general_log(v101);
+      if (os_log_type_enabled(v102, OS_LOG_TYPE_ERROR))
       {
         +[BBBulletinRequest(protobuf) bulletinRequestFromProtobuf:];
       }
     }
 
-    [v119 setThreadSummary:v97];
+    [v123 setThreadSummary:v99];
   }
 
   if ([v4 hasAttributedMessage])
   {
-    v100 = MEMORY[0x277CCAAC8];
-    v101 = objc_opt_class();
+    v103 = MEMORY[0x277CCAAC8];
+    v104 = objc_opt_class();
     attributedMessage = [v4 attributedMessage];
-    v121 = 0;
-    v103 = [v100 unarchivedObjectOfClass:v101 fromData:attributedMessage error:&v121];
-    v104 = v121;
+    v125 = 0;
+    v106 = [v103 unarchivedObjectOfClass:v104 fromData:attributedMessage error:&v125];
+    v107 = v125;
 
-    if (v104)
+    if (v107)
     {
-      v105 = blt_general_log();
-      if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
+      v109 = blt_general_log(v108);
+      if (os_log_type_enabled(v109, OS_LOG_TYPE_ERROR))
       {
         +[BBBulletinRequest(protobuf) bulletinRequestFromProtobuf:];
       }
     }
 
-    [v119 setAttributedMessage:v103];
+    [v123 setAttributedMessage:v106];
   }
 
   if ([v4 hasEventBehavior])
   {
-    v106 = MEMORY[0x277CCAAC8];
-    v107 = objc_opt_class();
+    v110 = MEMORY[0x277CCAAC8];
+    v111 = objc_opt_class();
     eventBehavior = [v4 eventBehavior];
-    v120 = 0;
-    v109 = [v106 unarchivedObjectOfClass:v107 fromData:eventBehavior error:&v120];
-    v110 = v120;
+    v124 = 0;
+    v113 = [v110 unarchivedObjectOfClass:v111 fromData:eventBehavior error:&v124];
+    v114 = v124;
 
-    if (v110)
+    if (v114)
     {
-      v111 = blt_general_log();
-      if (os_log_type_enabled(v111, OS_LOG_TYPE_ERROR))
+      v116 = blt_general_log(v115);
+      if (os_log_type_enabled(v116, OS_LOG_TYPE_ERROR))
       {
         +[BBBulletinRequest(protobuf) bulletinRequestFromProtobuf:];
       }
     }
 
-    [v119 setEventBehavior:v109];
+    [v123 setEventBehavior:v113];
   }
 
   if ([v4 hasPriorityNotificationStatus])
   {
     [v4 priorityNotificationStatus];
-    [v119 setPriorityNotificationStatus:v112];
+    [v123 setPriorityNotificationStatus:v117];
   }
 
   if ([v4 hasIsHighlight])
   {
-    [v119 setIsHighlight:{objc_msgSend(v4, "isHighlight")}];
+    [v123 setIsHighlight:{objc_msgSend(v4, "isHighlight")}];
   }
 
-  v113 = v119;
+  v118 = v123;
 
-  v114 = *MEMORY[0x277D85DE8];
-  return v119;
+  return v123;
 }
 
 + (id)_actionFromBLTPBAction:()protobuf
@@ -532,45 +532,13 @@
 
 + (uint64_t)plistTypes
 {
-  v0 = MEMORY[0x277CBEB98];
-  v1 = objc_opt_class();
-  v2 = objc_opt_class();
+  v2 = MEMORY[0x277CBEB98];
   v3 = objc_opt_class();
   v4 = objc_opt_class();
   v5 = objc_opt_class();
-  return [v0 setWithObjects:{v1, v2, v3, v4, v5, objc_opt_class(), 0}];
-}
-
-+ (void)bulletinRequestFromProtobuf:()protobuf .cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_2(&dword_241FB3000, v0, v1, "Error decoding summary attributed string: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)bulletinRequestFromProtobuf:()protobuf .cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_2(&dword_241FB3000, v0, v1, "Error decoding threadSummary attributed string: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)bulletinRequestFromProtobuf:()protobuf .cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_2(&dword_241FB3000, v0, v1, "Error decoding attributedMessage: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)bulletinRequestFromProtobuf:()protobuf .cold.4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_2(&dword_241FB3000, v0, v1, "Error decoding eventBehavior: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = objc_opt_class();
+  v7 = objc_opt_class();
+  return [v2 setWithObjects:{v3, v4, v5, v6, v7, objc_opt_class(), 0}];
 }
 
 @end

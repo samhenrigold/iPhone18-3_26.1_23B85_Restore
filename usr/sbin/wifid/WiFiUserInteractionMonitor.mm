@@ -46,6 +46,7 @@
 - (void)resetOverrideStates;
 - (void)runPeriodicTasks;
 - (void)setApplicationRunningState:(BOOL)state foregroundState:(BOOL)foregroundState andNetworkingState:(BOOL)networkingState forBundleId:(id)id;
+- (void)setCurrentDisplayState:(BOOL)state andLockState:(BOOL)lockState;
 - (void)setOverrideApplicationState:(unint64_t)state;
 - (void)startMonitoringInterface:(id)interface;
 - (void)unregisterStateChangeCallback:(void *)callback;
@@ -384,36 +385,36 @@ LABEL_9:
       runningForegroundApps3 = [(WiFiUserInteractionMonitor *)self runningForegroundApps];
       allObjects = [runningForegroundApps3 allObjects];
 
-      v12 = sub_1000075E0(v10, v11);
-      if (v12)
+      v14 = sub_1000075E0(v10, v11, v12, v13);
+      if (v14)
       {
-        v13 = v12;
-        v14 = MEMORY[0];
+        v15 = v14;
+        v16 = MEMORY[0];
         while (2)
         {
-          for (i = 0; i != v13; i = i + 1)
+          for (i = 0; i != v15; i = i + 1)
           {
-            if (MEMORY[0] != v14)
+            if (MEMORY[0] != v16)
             {
               objc_enumerationMutation(allObjects);
             }
 
-            v16 = *(8 * i);
-            v17 = [WiFiUserInteractionMonitor checkIfMatchesNonNetworkingBundleIds:v16];
-            if ((v17 & 1) == 0)
+            v18 = *(8 * i);
+            v19 = [WiFiUserInteractionMonitor checkIfMatchesNonNetworkingBundleIds:v18];
+            if ((v19 & 1) == 0)
             {
-              v17 = [WiFiUserInteractionMonitor checkIfMatchesHomeBundleIds:v16];
-              if (!v17)
+              v19 = [WiFiUserInteractionMonitor checkIfMatchesHomeBundleIds:v18];
+              if (!v19)
               {
 
-                v20 = 0;
+                v24 = 0;
                 goto LABEL_18;
               }
             }
           }
 
-          v13 = sub_1000075E0(v17, v18);
-          if (v13)
+          v15 = sub_1000075E0(v19, v20, v21, v22);
+          if (v15)
           {
             continue;
           }
@@ -422,22 +423,22 @@ LABEL_9:
         }
       }
 
-      v19 = objc_autoreleasePoolPush();
+      v23 = objc_autoreleasePoolPush();
       if (off_100298C40)
       {
         [off_100298C40 WFLog:3 message:{"%s: currently no networking app is in the foreground", "-[WiFiUserInteractionMonitor isInNonNetworkingApp]"}];
       }
 
-      objc_autoreleasePoolPop(v19);
+      objc_autoreleasePoolPop(v23);
     }
   }
 
-  v20 = 1;
+  v24 = 1;
 LABEL_18:
   appTrackerLock2 = [(WiFiUserInteractionMonitor *)self appTrackerLock];
   [appTrackerLock2 unlock];
 
-  return v20;
+  return v24;
 }
 
 - (BOOL)isInHomeScreen
@@ -1367,6 +1368,19 @@ LABEL_16:
 LABEL_25:
 }
 
+- (void)setCurrentDisplayState:(BOOL)state andLockState:(BOOL)lockState
+{
+  lockStateCopy = lockState;
+  [(WiFiUserInteractionMonitor *)self setIsDisplayOn:state];
+  [(WiFiUserInteractionMonitor *)self setIsDeviceLocked:lockStateCopy];
+  if (![(WiFiUserInteractionMonitor *)self isDeviceLocked]&& [(WiFiUserInteractionMonitor *)self isDisplayOn])
+  {
+    [(WiFiUserInteractionMonitor *)self setIsFirstUserUnlocked:1];
+  }
+
+  [(WiFiUserInteractionMonitor *)self _notifyCaptiveWithApplicationState];
+}
+
 - (void)updateOverrideNetworkState:(id)state overrideValue:(unint64_t)value
 {
   stateCopy = state;
@@ -1443,19 +1457,10 @@ LABEL_6:
 {
   v5 = sub_10000A878(network);
   overrideNetworkState = [(WiFiUserInteractionMonitor *)self overrideNetworkState];
-  if (!overrideNetworkState)
+  if (overrideNetworkState && (v7 = overrideNetworkState, -[WiFiUserInteractionMonitor overrideNetworkState](self, "overrideNetworkState"), v8 = objc_claimAutoreleasedReturnValue(), [v8 objectForKey:v5], v9 = objc_claimAutoreleasedReturnValue(), v9, v8, v7, v9))
   {
-    goto LABEL_6;
-  }
-
-  v7 = overrideNetworkState;
-  overrideNetworkState2 = [(WiFiUserInteractionMonitor *)self overrideNetworkState];
-  v9 = [overrideNetworkState2 objectForKey:v5];
-
-  if (v9)
-  {
-    overrideNetworkState3 = [(WiFiUserInteractionMonitor *)self overrideNetworkState];
-    v11 = [overrideNetworkState3 objectForKey:v5];
+    overrideNetworkState2 = [(WiFiUserInteractionMonitor *)self overrideNetworkState];
+    v11 = [overrideNetworkState2 objectForKey:v5];
     unsignedLongLongValue = [v11 unsignedLongLongValue];
 
     v13 = objc_autoreleasePoolPush();
@@ -1470,7 +1475,6 @@ LABEL_6:
 
   else
   {
-LABEL_6:
     v15 = sub_10001B368(network);
     v16 = v15;
     v14 = v15 && ([v15 networkOfInterestHomeState] == 1 || objc_msgSend(v16, "networkOfInterestHomeState") == 3 || objc_msgSend(v16, "networkOfInterestWorkState") == 1) || sub_1000A365C(network);
@@ -1484,19 +1488,10 @@ LABEL_6:
   networkCopy = network;
   v5 = sub_10000A878(network);
   overrideNetworkState = [(WiFiUserInteractionMonitor *)self overrideNetworkState];
-  if (!overrideNetworkState)
+  if (overrideNetworkState && (v7 = overrideNetworkState, -[WiFiUserInteractionMonitor overrideNetworkState](self, "overrideNetworkState"), v8 = objc_claimAutoreleasedReturnValue(), [v8 objectForKey:v5], v9 = objc_claimAutoreleasedReturnValue(), v9, v8, v7, v9))
   {
-    goto LABEL_6;
-  }
-
-  v7 = overrideNetworkState;
-  overrideNetworkState2 = [(WiFiUserInteractionMonitor *)self overrideNetworkState];
-  v9 = [overrideNetworkState2 objectForKey:v5];
-
-  if (v9)
-  {
-    overrideNetworkState3 = [(WiFiUserInteractionMonitor *)self overrideNetworkState];
-    v11 = [overrideNetworkState3 objectForKey:v5];
+    overrideNetworkState2 = [(WiFiUserInteractionMonitor *)self overrideNetworkState];
+    v11 = [overrideNetworkState2 objectForKey:v5];
     unsignedLongLongValue = [v11 unsignedLongLongValue];
 
     v13 = objc_autoreleasePoolPush();
@@ -1511,7 +1506,6 @@ LABEL_6:
 
   else
   {
-LABEL_6:
     LOBYTE(networkCopy) = sub_1000A37CC(networkCopy) != 0;
   }
 
@@ -1523,19 +1517,10 @@ LABEL_6:
   networkCopy = network;
   v5 = sub_10000A878(network);
   overrideNetworkState = [(WiFiUserInteractionMonitor *)self overrideNetworkState];
-  if (!overrideNetworkState)
+  if (overrideNetworkState && (v7 = overrideNetworkState, -[WiFiUserInteractionMonitor overrideNetworkState](self, "overrideNetworkState"), v8 = objc_claimAutoreleasedReturnValue(), [v8 objectForKey:v5], v9 = objc_claimAutoreleasedReturnValue(), v9, v8, v7, v9))
   {
-    goto LABEL_6;
-  }
-
-  v7 = overrideNetworkState;
-  overrideNetworkState2 = [(WiFiUserInteractionMonitor *)self overrideNetworkState];
-  v9 = [overrideNetworkState2 objectForKey:v5];
-
-  if (v9)
-  {
-    overrideNetworkState3 = [(WiFiUserInteractionMonitor *)self overrideNetworkState];
-    v11 = [overrideNetworkState3 objectForKey:v5];
+    overrideNetworkState2 = [(WiFiUserInteractionMonitor *)self overrideNetworkState];
+    v11 = [overrideNetworkState2 objectForKey:v5];
     unsignedLongLongValue = [v11 unsignedLongLongValue];
 
     v13 = objc_autoreleasePoolPush();
@@ -1550,7 +1535,6 @@ LABEL_6:
 
   else
   {
-LABEL_6:
     LOBYTE(networkCopy) = sub_1000A3814(networkCopy);
   }
 

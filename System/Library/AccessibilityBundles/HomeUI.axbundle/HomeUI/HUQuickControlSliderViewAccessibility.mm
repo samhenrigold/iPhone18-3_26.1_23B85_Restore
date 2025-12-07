@@ -42,7 +42,7 @@
 
 - (id)accessibilityCustomActions
 {
-  v13[2] = *MEMORY[0x29EDCA608];
+  v12[2] = *MEMORY[0x29EDCA608];
   if ([(HUQuickControlSliderViewAccessibility *)self _axHasSecondarySlider])
   {
     v3 = objc_alloc(MEMORY[0x29EDC78E0]);
@@ -53,19 +53,17 @@
     v7 = accessibilityHomeUILocalizedString(@"controls.adjust.min");
     v8 = [v6 initWithName:v7 target:self selector:sel__axSetAdjustsMin];
 
-    v13[0] = v8;
-    v13[1] = v5;
-    accessibilityCustomActions = [MEMORY[0x29EDB8D80] arrayWithObjects:v13 count:2];
+    v12[0] = v8;
+    v12[1] = v5;
+    accessibilityCustomActions = [MEMORY[0x29EDB8D80] arrayWithObjects:v12 count:2];
   }
 
   else
   {
-    v12.receiver = self;
-    v12.super_class = HUQuickControlSliderViewAccessibility;
-    accessibilityCustomActions = [(HUQuickControlSliderViewAccessibility *)&v12 accessibilityCustomActions];
+    v11.receiver = self;
+    v11.super_class = HUQuickControlSliderViewAccessibility;
+    accessibilityCustomActions = [(HUQuickControlSliderViewAccessibility *)&v11 accessibilityCustomActions];
   }
-
-  v10 = *MEMORY[0x29EDCA608];
 
   return accessibilityCustomActions;
 }

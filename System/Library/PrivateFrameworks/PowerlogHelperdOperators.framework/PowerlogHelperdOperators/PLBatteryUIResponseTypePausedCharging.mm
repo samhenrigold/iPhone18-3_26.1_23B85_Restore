@@ -2,6 +2,7 @@
 - (_PLTimeIntervalRange)range;
 - (id)result;
 - (int)configureState:(id)state;
+- (int)getState:(signed __int16)state;
 - (void)configure:(id)configure;
 - (void)configureCameraStreaming;
 - (void)configureTLCWithCameraStreaming;
@@ -19,19 +20,89 @@
 
 - (void)getChargingData
 {
-  v6 = *MEMORY[0x277D85DE8];
   [self isCharging];
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_4_0();
   _os_log_error_impl(v1, v2, OS_LOG_TYPE_ERROR, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
+}
+
+- (int)getState:(signed __int16)state
+{
+  stateCopy = state;
+  v34 = *MEMORY[0x277D85DE8];
+  v5 = PLLogCommon(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 67109120;
+    v33 = stateCopy;
+    _os_log_debug_impl(&dword_25EE51000, v5, OS_LOG_TYPE_DEBUG, "Get state for type: %d", buf, 8u);
+  }
+
+  v6 = MEMORY[0x277CCACA8];
+  [(PLBatteryUIResponseTypePausedCharging *)self range];
+  v8 = v7;
+  [(PLBatteryUIResponseTypePausedCharging *)self range];
+  v11 = v9 + v10;
+  [(PLBatteryUIResponseTypePausedCharging *)self range];
+  v13 = v12;
+  [(PLBatteryUIResponseTypePausedCharging *)self range];
+  stateCopy = [v6 stringWithFormat:@"((timestamp BETWEEN %f AND %f) OR (%@ BETWEEN %f AND %f)) AND %@=%hd", v8, *&v11, @"timestampEnd", v13, v14 + v15, @"intervalType", stateCopy];
+  v17 = objc_msgSend_storage(self);
+  chargingStateIntervalsEntryKey = [(PLBatteryUIResponseTypePausedCharging *)self chargingStateIntervalsEntryKey];
+  v31 = stateCopy;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v31 count:1];
+  v20 = [v17 lastEntryForKey:chargingStateIntervalsEntryKey withFilters:v19];
+  [(PLBatteryUIResponseTypePausedCharging *)self setLastEntry:v20];
+
+  lastEntry = [(PLBatteryUIResponseTypePausedCharging *)self lastEntry];
+
+  lastEntry4 = PLLogCommon(v22);
+  v24 = os_log_type_enabled(lastEntry4, OS_LOG_TYPE_INFO);
+  if (lastEntry)
+  {
+    if (v24)
+    {
+      *buf = 0;
+      _os_log_impl(&dword_25EE51000, lastEntry4, OS_LOG_TYPE_INFO, "Entry exists in last 24hrs.", buf, 2u);
+    }
+
+    if (stateCopy == 8)
+    {
+      lastEntry2 = [(PLBatteryUIResponseTypePausedCharging *)self lastEntry];
+      v26 = [lastEntry2 objectForKeyedSubscript:@"chargeLimitTargetSoC"];
+
+      if (v26)
+      {
+        lastEntry3 = [(PLBatteryUIResponseTypePausedCharging *)self lastEntry];
+        v28 = [lastEntry3 objectForKeyedSubscript:@"chargeLimitTargetSoC"];
+        [(PLBatteryUIResponseTypePausedCharging *)self setFixedChargingLimit:v28];
+      }
+    }
+
+    lastEntry4 = [(PLBatteryUIResponseTypePausedCharging *)self lastEntry];
+    v29 = [(PLBatteryUIResponseTypePausedCharging *)self configureState:lastEntry4];
+  }
+
+  else if (v24)
+  {
+    *buf = 0;
+    v29 = 1;
+    _os_log_impl(&dword_25EE51000, lastEntry4, OS_LOG_TYPE_INFO, "No entries in 24hr time range", buf, 2u);
+  }
+
+  else
+  {
+    v29 = 1;
+  }
+
+  return v29;
 }
 
 - (int)configureState:(id)state
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v88 = *MEMORY[0x277D85DE8];
   stateCopy = state;
-  v5 = PLLogCommon();
+  v5 = PLLogCommon(stateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [PLBatteryUIResponseTypePausedCharging configureState:];
@@ -45,26 +116,26 @@
 
   if (!v9)
   {
-    v31 = [stateCopy objectForKeyedSubscript:@"intervalType"];
-    intValue = [v31 intValue];
+    v36 = [stateCopy objectForKeyedSubscript:@"intervalType"];
+    intValue = [v36 intValue];
 
-    v33 = PLLogCommon();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+    v39 = PLLogCommon(v38);
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
     {
       *buf = 67109120;
-      v74 = intValue;
-      _os_log_debug_impl(&dword_25EE51000, v33, OS_LOG_TYPE_DEBUG, "Entry is open: %d", buf, 8u);
+      v87 = intValue;
+      _os_log_debug_impl(&dword_25EE51000, v39, OS_LOG_TYPE_DEBUG, "Entry is open: %d", buf, 8u);
     }
 
-    v34 = 1;
+    v41 = 1;
     if (intValue <= 6)
     {
       if (intValue != 2)
       {
         if (intValue == 3)
         {
-          v47 = PLLogCommon();
-          if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
+          v55 = PLLogCommon(v40);
+          if (os_log_type_enabled(v55, OS_LOG_TYPE_DEBUG))
           {
             [PLBatteryUIResponseTypePausedCharging configureState:];
           }
@@ -72,58 +143,58 @@
           monotonicDate = [MEMORY[0x277CBEAA8] monotonicDate];
           entryDate = [stateCopy entryDate];
           [monotonicDate timeIntervalSinceDate:entryDate];
-          v51 = v50;
+          v59 = v58;
 
-          v52 = PLLogCommon();
-          if (os_log_type_enabled(v52, OS_LOG_TYPE_DEBUG))
+          v61 = PLLogCommon(v60);
+          if (os_log_type_enabled(v61, OS_LOG_TYPE_DEBUG))
           {
             [PLBatteryUIResponseTypePausedCharging configureState:];
           }
 
-          if (v51 >= 960.0 || v51 <= 0.0)
+          if (v59 >= 960.0 || v59 <= 0.0)
           {
-            v54 = 1;
+            v63 = 1;
           }
 
           else
           {
-            v54 = 2;
+            v63 = 2;
           }
 
-          if (v51 >= 960.0)
+          if (v59 >= 960.0)
           {
-            v34 = 3;
+            v41 = 3;
           }
 
           else
           {
-            v34 = v54;
+            v41 = v63;
           }
         }
 
         goto LABEL_81;
       }
 
-      v63 = PLLogCommon();
-      if (os_log_type_enabled(v63, OS_LOG_TYPE_DEBUG))
+      v75 = PLLogCommon(v40);
+      if (os_log_type_enabled(v75, OS_LOG_TYPE_DEBUG))
       {
         [PLBatteryUIResponseTypePausedCharging configureState:];
       }
 
       [(PLBatteryUIResponseTypePausedCharging *)self setSmartChargingDeadline:0];
-      v64 = objc_alloc(MEMORY[0x277D3F078]);
-      v65 = [v64 initWithClientName:*MEMORY[0x277D3F080]];
-      [(PLBatteryUIResponseTypePausedCharging *)self setSmartChargingClient:v65];
+      v76 = objc_alloc(MEMORY[0x277D3F078]);
+      v77 = [v76 initWithClientName:*MEMORY[0x277D3F080]];
+      [(PLBatteryUIResponseTypePausedCharging *)self setSmartChargingClient:v77];
 
       smartChargingClient = [(PLBatteryUIResponseTypePausedCharging *)self smartChargingClient];
-      v72 = 0;
-      v59 = [smartChargingClient fullChargeDeadline:&v72];
-      v60 = v72;
+      v85 = 0;
+      v68 = [smartChargingClient fullChargeDeadline:&v85];
+      v69 = v85;
 
-      if (v60)
+      if (v69)
       {
-        v67 = PLLogCommon();
-        if (os_log_type_enabled(v67, OS_LOG_TYPE_DEBUG))
+        v80 = PLLogCommon(v79);
+        if (os_log_type_enabled(v80, OS_LOG_TYPE_DEBUG))
         {
           [PLBatteryUIResponseTypePausedCharging configureState:];
         }
@@ -131,11 +202,11 @@
 
       else
       {
-        [(PLBatteryUIResponseTypePausedCharging *)self setSmartChargingDeadline:v59];
+        v81 = [(PLBatteryUIResponseTypePausedCharging *)self setSmartChargingDeadline:v68];
       }
 
-      v68 = PLLogCommon();
-      if (os_log_type_enabled(v68, OS_LOG_TYPE_DEBUG))
+      v82 = PLLogCommon(v81);
+      if (os_log_type_enabled(v82, OS_LOG_TYPE_DEBUG))
       {
         [PLBatteryUIResponseTypePausedCharging configureState:?];
       }
@@ -147,15 +218,16 @@
       {
         if (intValue == 9)
         {
-          if (![MEMORY[0x277D3F058] supportsSlowCharging])
+          supportsSlowCharging = [MEMORY[0x277D3F058] supportsSlowCharging];
+          if (!supportsSlowCharging)
           {
 LABEL_66:
-            v34 = 1;
+            v41 = 1;
             goto LABEL_81;
           }
 
-          v62 = PLLogCommon();
-          if (os_log_type_enabled(v62, OS_LOG_TYPE_DEBUG))
+          v74 = PLLogCommon(supportsSlowCharging);
+          if (os_log_type_enabled(v74, OS_LOG_TYPE_DEBUG))
           {
             [PLBatteryUIResponseTypePausedCharging configureState:];
           }
@@ -168,8 +240,8 @@ LABEL_66:
             goto LABEL_81;
           }
 
-          v35 = PLLogCommon();
-          if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+          v42 = PLLogCommon(v40);
+          if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
           {
             [PLBatteryUIResponseTypePausedCharging configureState:];
           }
@@ -177,27 +249,27 @@ LABEL_66:
           fixedChargingLimit = [(PLBatteryUIResponseTypePausedCharging *)self fixedChargingLimit];
           if (fixedChargingLimit)
           {
-            v37 = fixedChargingLimit;
+            v44 = fixedChargingLimit;
             currentChargeLevel = [(PLBatteryUIResponseTypePausedCharging *)self currentChargeLevel];
             if (currentChargeLevel)
             {
-              v39 = currentChargeLevel;
+              v46 = currentChargeLevel;
               fixedChargingLimit2 = [(PLBatteryUIResponseTypePausedCharging *)self fixedChargingLimit];
               [fixedChargingLimit2 doubleValue];
-              v42 = v41;
+              v49 = v48;
               currentChargeLevel2 = [(PLBatteryUIResponseTypePausedCharging *)self currentChargeLevel];
               [currentChargeLevel2 doubleValue];
-              v45 = v44;
+              v52 = v51;
 
-              if (v42 < v45)
+              if (v49 < v52)
               {
-                v46 = PLLogCommon();
-                if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
+                v54 = PLLogCommon(v53);
+                if (os_log_type_enabled(v54, OS_LOG_TYPE_DEBUG))
                 {
                   [PLBatteryUIResponseTypePausedCharging configureState:];
                 }
 
-                v34 = 5;
+                v41 = 5;
                 goto LABEL_81;
               }
             }
@@ -209,30 +281,30 @@ LABEL_66:
         }
 
 LABEL_80:
-        v34 = 3;
+        v41 = 3;
         goto LABEL_81;
       }
 
-      v55 = PLLogCommon();
-      if (os_log_type_enabled(v55, OS_LOG_TYPE_DEBUG))
+      v64 = PLLogCommon(v40);
+      if (os_log_type_enabled(v64, OS_LOG_TYPE_DEBUG))
       {
         [PLBatteryUIResponseTypePausedCharging configureState:];
       }
 
       [(PLBatteryUIResponseTypePausedCharging *)self setCleanEnergyChargingDeadline:0];
-      v56 = objc_alloc(MEMORY[0x277D3F078]);
-      v57 = [v56 initWithClientName:*MEMORY[0x277D3F080]];
-      [(PLBatteryUIResponseTypePausedCharging *)self setCleanEnergyChargingClient:v57];
+      v65 = objc_alloc(MEMORY[0x277D3F078]);
+      v66 = [v65 initWithClientName:*MEMORY[0x277D3F080]];
+      [(PLBatteryUIResponseTypePausedCharging *)self setCleanEnergyChargingClient:v66];
 
       cleanEnergyChargingClient = [(PLBatteryUIResponseTypePausedCharging *)self cleanEnergyChargingClient];
-      v71 = 0;
-      v59 = [cleanEnergyChargingClient cecFullChargeDeadline:&v71];
-      v60 = v71;
+      v84 = 0;
+      v68 = [cleanEnergyChargingClient cecFullChargeDeadline:&v84];
+      v69 = v84;
 
-      if (v60)
+      if (v69)
       {
-        v61 = PLLogCommon();
-        if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
+        v71 = PLLogCommon(v70);
+        if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
         {
           [PLBatteryUIResponseTypePausedCharging configureState:];
         }
@@ -240,11 +312,11 @@ LABEL_80:
 
       else
       {
-        [(PLBatteryUIResponseTypePausedCharging *)self setCleanEnergyChargingDeadline:v59];
+        v72 = [(PLBatteryUIResponseTypePausedCharging *)self setCleanEnergyChargingDeadline:v68];
       }
 
-      v68 = PLLogCommon();
-      if (os_log_type_enabled(v68, OS_LOG_TYPE_DEBUG))
+      v82 = PLLogCommon(v72);
+      if (os_log_type_enabled(v82, OS_LOG_TYPE_DEBUG))
       {
         [PLBatteryUIResponseTypePausedCharging configureState:?];
       }
@@ -253,62 +325,62 @@ LABEL_80:
     goto LABEL_80;
   }
 
-  v10 = PLLogCommon();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v11 = PLLogCommon(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     [PLBatteryUIResponseTypePausedCharging configureState:stateCopy];
   }
 
-  v11 = [stateCopy objectForKeyedSubscript:@"timestampEnd"];
-  [v11 timeIntervalSince1970];
-  v13 = v12;
+  v12 = [stateCopy objectForKeyedSubscript:@"timestampEnd"];
+  [v12 timeIntervalSince1970];
+  v14 = v13;
 
-  v14 = PLLogCommon();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  v16 = PLLogCommon(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
     [PLBatteryUIResponseTypePausedCharging configureState:];
   }
 
   lastConnectedEntry = [(PLBatteryUIResponseTypePausedCharging *)self lastConnectedEntry];
 
-  v16 = PLLogCommon();
-  v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG);
+  v19 = PLLogCommon(v18);
+  v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG);
   if (lastConnectedEntry)
   {
-    if (v17)
+    if (v20)
     {
       [PLBatteryUIResponseTypePausedCharging configureState:?];
     }
 
     lastConnectedEntry2 = [(PLBatteryUIResponseTypePausedCharging *)self lastConnectedEntry];
-    v19 = [lastConnectedEntry2 objectForKeyedSubscript:@"timestamp"];
-    [v19 doubleValue];
-    v21 = v20;
+    v22 = [lastConnectedEntry2 objectForKeyedSubscript:@"timestamp"];
+    [v22 doubleValue];
+    v24 = v23;
 
     lastConnectedEntry3 = [(PLBatteryUIResponseTypePausedCharging *)self lastConnectedEntry];
-    v23 = [lastConnectedEntry3 objectForKeyedSubscript:@"timestampEnd"];
+    v26 = [lastConnectedEntry3 objectForKeyedSubscript:@"timestampEnd"];
 
-    v24 = PLLogCommon();
-    v25 = os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG);
-    if (v23)
+    v28 = PLLogCommon(v27);
+    v29 = os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG);
+    if (v26)
     {
-      if (v25)
+      if (v29)
       {
         [PLBatteryUIResponseTypePausedCharging configureState:];
       }
 
       lastConnectedEntry4 = [(PLBatteryUIResponseTypePausedCharging *)self lastConnectedEntry];
-      v27 = [lastConnectedEntry4 objectForKeyedSubscript:@"timestampEnd"];
-      [v27 timeIntervalSince1970];
-      v29 = v28;
+      v31 = [lastConnectedEntry4 objectForKeyedSubscript:@"timestampEnd"];
+      [v31 timeIntervalSince1970];
+      v33 = v32;
 
-      v30 = PLLogCommon();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+      v35 = PLLogCommon(v34);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
       {
         [PLBatteryUIResponseTypePausedCharging configureState:];
       }
 
-      if (v21 > v13 || v29 < v8)
+      if (v24 > v14 || v33 < v8)
       {
         goto LABEL_66;
       }
@@ -316,12 +388,12 @@ LABEL_80:
 
     else
     {
-      if (v25)
+      if (v29)
       {
         [PLBatteryUIResponseTypePausedCharging configureState:];
       }
 
-      if (v21 > v13)
+      if (v24 > v14)
       {
         goto LABEL_66;
       }
@@ -330,17 +402,16 @@ LABEL_80:
 
   else
   {
-    if (v17)
+    if (v20)
     {
       [PLBatteryUIResponseTypePausedCharging configureState:];
     }
   }
 
-  v34 = 4;
+  v41 = 4;
 LABEL_81:
 
-  v69 = *MEMORY[0x277D85DE8];
-  return v34;
+  return v41;
 }
 
 - (void)getCameraStreamingState
@@ -355,23 +426,23 @@ LABEL_81:
   v10 = v9;
   [(PLBatteryUIResponseTypePausedCharging *)self range];
   v13 = [v3 stringWithFormat:@"((timestamp BETWEEN %f AND %f) AND (%@ BETWEEN %f AND %f)) AND %@=%hd", v5, *&v8, @"timestampEnd", v10, v11 + v12, @"intervalType", 4];
-  storage = [(PLBatteryUIResponseTypePausedCharging *)self storage];
+  v14 = objc_msgSend_storage(self);
   chargingStateIntervalsEntryKey = [(PLBatteryUIResponseTypePausedCharging *)self chargingStateIntervalsEntryKey];
   v23[0] = v13;
   v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
-  v17 = [storage lastEntryForKey:chargingStateIntervalsEntryKey withFilters:v16];
+  v17 = [v14 lastEntryForKey:chargingStateIntervalsEntryKey withFilters:v16];
   [(PLBatteryUIResponseTypePausedCharging *)self setLastCameraStreamingEntry:v17];
 
   lastCameraStreamingEntry = [(PLBatteryUIResponseTypePausedCharging *)self lastCameraStreamingEntry];
 
-  v19 = PLLogCommon();
-  v20 = os_log_type_enabled(v19, OS_LOG_TYPE_INFO);
+  v20 = PLLogCommon(v19);
+  v21 = os_log_type_enabled(v20, OS_LOG_TYPE_INFO);
   if (lastCameraStreamingEntry)
   {
-    if (v20)
+    if (v21)
     {
       *buf = 0;
-      _os_log_impl(&dword_25EE51000, v19, OS_LOG_TYPE_INFO, "Camera Streaming Entry exists in last 24hrs.", buf, 2u);
+      _os_log_impl(&dword_25EE51000, v20, OS_LOG_TYPE_INFO, "Camera Streaming Entry exists in last 24hrs.", buf, 2u);
     }
 
     [(PLBatteryUIResponseTypePausedCharging *)self configureCameraStreaming];
@@ -379,27 +450,24 @@ LABEL_81:
 
   else
   {
-    if (v20)
+    if (v21)
     {
       *buf = 0;
-      _os_log_impl(&dword_25EE51000, v19, OS_LOG_TYPE_INFO, "No Camera Streaming entries in 24hr time range", buf, 2u);
+      _os_log_impl(&dword_25EE51000, v20, OS_LOG_TYPE_INFO, "No Camera Streaming entries in 24hr time range", buf, 2u);
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureCameraStreaming
 {
-  v47 = *MEMORY[0x277D85DE8];
-  [(PLBatteryUIResponseTypePausedCharging *)self setWasCameraStreaming:0];
-  v3 = PLLogCommon();
+  v51 = *MEMORY[0x277D85DE8];
+  v3 = PLLogCommon([(PLBatteryUIResponseTypePausedCharging *)self setWasCameraStreaming:0]);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     lastCameraStreamingEntry = [(PLBatteryUIResponseTypePausedCharging *)self lastCameraStreamingEntry];
-    v43 = 138412290;
-    v44 = *&lastCameraStreamingEntry;
-    _os_log_impl(&dword_25EE51000, v3, OS_LOG_TYPE_INFO, "Camera Entry:%@", &v43, 0xCu);
+    v47 = 138412290;
+    v48 = *&lastCameraStreamingEntry;
+    _os_log_impl(&dword_25EE51000, v3, OS_LOG_TYPE_INFO, "Camera Entry:%@", &v47, 0xCu);
   }
 
   lastCameraStreamingEntry2 = [(PLBatteryUIResponseTypePausedCharging *)self lastCameraStreamingEntry];
@@ -410,138 +478,136 @@ LABEL_81:
     goto LABEL_19;
   }
 
-  v7 = PLLogCommon();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v8 = PLLogCommon(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     lastCameraStreamingEntry3 = [(PLBatteryUIResponseTypePausedCharging *)self lastCameraStreamingEntry];
-    v9 = [lastCameraStreamingEntry3 objectForKeyedSubscript:@"timestamp"];
+    v10 = [lastCameraStreamingEntry3 objectForKeyedSubscript:@"timestamp"];
     lastCameraStreamingEntry4 = [(PLBatteryUIResponseTypePausedCharging *)self lastCameraStreamingEntry];
-    v11 = [lastCameraStreamingEntry4 objectForKeyedSubscript:@"timestampEnd"];
-    v43 = 138412546;
-    v44 = *&v9;
-    v45 = 2112;
-    v46 = *&v11;
-    _os_log_impl(&dword_25EE51000, v7, OS_LOG_TYPE_INFO, "Last Camera Streaming Entry was opened at %@ and closed at %@", &v43, 0x16u);
+    v12 = [lastCameraStreamingEntry4 objectForKeyedSubscript:@"timestampEnd"];
+    v47 = 138412546;
+    v48 = *&v10;
+    v49 = 2112;
+    v50 = *&v12;
+    _os_log_impl(&dword_25EE51000, v8, OS_LOG_TYPE_INFO, "Last Camera Streaming Entry was opened at %@ and closed at %@", &v47, 0x16u);
   }
 
   lastCameraStreamingEntry5 = [(PLBatteryUIResponseTypePausedCharging *)self lastCameraStreamingEntry];
-  v13 = [lastCameraStreamingEntry5 objectForKeyedSubscript:@"timestamp"];
-  [v13 doubleValue];
-  v15 = v14;
+  v14 = [lastCameraStreamingEntry5 objectForKeyedSubscript:@"timestamp"];
+  [v14 doubleValue];
+  v16 = v15;
 
   lastCameraStreamingEntry6 = [(PLBatteryUIResponseTypePausedCharging *)self lastCameraStreamingEntry];
-  v17 = [lastCameraStreamingEntry6 objectForKeyedSubscript:@"timestampEnd"];
-  [v17 timeIntervalSince1970];
-  v19 = v18;
+  v18 = [lastCameraStreamingEntry6 objectForKeyedSubscript:@"timestampEnd"];
+  [v18 timeIntervalSince1970];
+  v20 = v19;
 
-  v20 = PLLogCommon();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+  v22 = PLLogCommon(v21);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
   {
-    v43 = 134218240;
-    v44 = v15;
-    v45 = 2048;
-    v46 = v19;
-    _os_log_impl(&dword_25EE51000, v20, OS_LOG_TYPE_INFO, "Converted values to doubles: start: %f and end: %f", &v43, 0x16u);
+    v47 = 134218240;
+    v48 = v16;
+    v49 = 2048;
+    v50 = v20;
+    _os_log_impl(&dword_25EE51000, v22, OS_LOG_TYPE_INFO, "Converted values to doubles: start: %f and end: %f", &v47, 0x16u);
   }
 
   lastConnectedEntry = [(PLBatteryUIResponseTypePausedCharging *)self lastConnectedEntry];
 
-  v22 = PLLogCommon();
-  v23 = os_log_type_enabled(v22, OS_LOG_TYPE_INFO);
+  v25 = PLLogCommon(v24);
+  v26 = os_log_type_enabled(v25, OS_LOG_TYPE_INFO);
   if (lastConnectedEntry)
   {
-    if (v23)
+    if (v26)
     {
       lastConnectedEntry2 = [(PLBatteryUIResponseTypePausedCharging *)self lastConnectedEntry];
-      v43 = 138412290;
-      v44 = *&lastConnectedEntry2;
-      _os_log_impl(&dword_25EE51000, v22, OS_LOG_TYPE_INFO, "Connected Entry:%@", &v43, 0xCu);
+      v47 = 138412290;
+      v48 = *&lastConnectedEntry2;
+      _os_log_impl(&dword_25EE51000, v25, OS_LOG_TYPE_INFO, "Connected Entry:%@", &v47, 0xCu);
     }
 
     lastConnectedEntry3 = [(PLBatteryUIResponseTypePausedCharging *)self lastConnectedEntry];
-    v26 = [lastConnectedEntry3 objectForKeyedSubscript:@"timestamp"];
-    [v26 doubleValue];
-    v28 = v27;
+    v29 = [lastConnectedEntry3 objectForKeyedSubscript:@"timestamp"];
+    [v29 doubleValue];
+    v31 = v30;
 
     lastConnectedEntry4 = [(PLBatteryUIResponseTypePausedCharging *)self lastConnectedEntry];
-    v30 = [lastConnectedEntry4 objectForKeyedSubscript:@"timestampEnd"];
+    v33 = [lastConnectedEntry4 objectForKeyedSubscript:@"timestampEnd"];
 
-    v31 = PLLogCommon();
-    v32 = os_log_type_enabled(v31, OS_LOG_TYPE_INFO);
-    if (v30)
+    v35 = PLLogCommon(v34);
+    v36 = os_log_type_enabled(v35, OS_LOG_TYPE_INFO);
+    if (v33)
     {
-      if (v32)
+      if (v36)
       {
-        LOWORD(v43) = 0;
-        _os_log_impl(&dword_25EE51000, v31, OS_LOG_TYPE_INFO, "Closed External Connected Entry", &v43, 2u);
+        LOWORD(v47) = 0;
+        _os_log_impl(&dword_25EE51000, v35, OS_LOG_TYPE_INFO, "Closed External Connected Entry", &v47, 2u);
       }
 
       lastConnectedEntry5 = [(PLBatteryUIResponseTypePausedCharging *)self lastConnectedEntry];
-      v34 = [lastConnectedEntry5 objectForKeyedSubscript:@"timestampEnd"];
-      [v34 timeIntervalSince1970];
-      v36 = v35;
+      v38 = [lastConnectedEntry5 objectForKeyedSubscript:@"timestampEnd"];
+      [v38 timeIntervalSince1970];
+      v40 = v39;
 
-      v37 = PLLogCommon();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+      v42 = PLLogCommon(v41);
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
       {
-        v43 = 134218240;
-        v44 = v28;
-        v45 = 2048;
-        v46 = v36;
-        _os_log_impl(&dword_25EE51000, v37, OS_LOG_TYPE_INFO, "start: %f, end: %f", &v43, 0x16u);
+        v47 = 134218240;
+        v48 = v31;
+        v49 = 2048;
+        v50 = v40;
+        _os_log_impl(&dword_25EE51000, v42, OS_LOG_TYPE_INFO, "start: %f, end: %f", &v47, 0x16u);
       }
 
-      if (v28 <= v19 && v36 >= v15)
+      if (v31 <= v20 && v40 >= v16)
       {
 LABEL_18:
-        [(PLBatteryUIResponseTypePausedCharging *)self setWasCameraStreaming:1];
+        v7 = [(PLBatteryUIResponseTypePausedCharging *)self setWasCameraStreaming:1];
       }
     }
 
     else
     {
-      if (v32)
+      if (v36)
       {
-        LOWORD(v43) = 0;
-        _os_log_impl(&dword_25EE51000, v31, OS_LOG_TYPE_INFO, "Open External Connected Entry", &v43, 2u);
+        LOWORD(v47) = 0;
+        _os_log_impl(&dword_25EE51000, v35, OS_LOG_TYPE_INFO, "Open External Connected Entry", &v47, 2u);
       }
 
-      if (v28 <= v19)
+      if (v31 <= v20)
       {
         goto LABEL_18;
       }
     }
 
 LABEL_19:
-    v22 = PLLogCommon();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+    v25 = PLLogCommon(v7);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
     {
       wasCameraStreaming = [(PLBatteryUIResponseTypePausedCharging *)self wasCameraStreaming];
-      v43 = 67109120;
-      LODWORD(v44) = wasCameraStreaming;
-      v39 = "Was Camera Streaming: %d";
-      v40 = v22;
-      v41 = 8;
+      v47 = 67109120;
+      LODWORD(v48) = wasCameraStreaming;
+      v44 = "Was Camera Streaming: %d";
+      v45 = v25;
+      v46 = 8;
 LABEL_23:
-      _os_log_impl(&dword_25EE51000, v40, OS_LOG_TYPE_INFO, v39, &v43, v41);
+      _os_log_impl(&dword_25EE51000, v45, OS_LOG_TYPE_INFO, v44, &v47, v46);
       goto LABEL_24;
     }
 
     goto LABEL_24;
   }
 
-  if (v23)
+  if (v26)
   {
-    LOWORD(v43) = 0;
-    v39 = "No External Connected Entry exists in last 24hrs";
-    v40 = v22;
-    v41 = 2;
+    LOWORD(v47) = 0;
+    v44 = "No External Connected Entry exists in last 24hrs";
+    v45 = v25;
+    v46 = 2;
     goto LABEL_23;
   }
 
 LABEL_24:
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getTLCWithCameraStreamingState
@@ -556,23 +622,23 @@ LABEL_24:
   v10 = v9;
   [(PLBatteryUIResponseTypePausedCharging *)self range];
   v13 = [v3 stringWithFormat:@"((timestamp BETWEEN %f AND %f) AND (%@ BETWEEN %f AND %f)) AND %@=%hd", v5, *&v8, @"timestampEnd", v10, v11 + v12, @"intervalType", 6];
-  storage = [(PLBatteryUIResponseTypePausedCharging *)self storage];
+  v14 = objc_msgSend_storage(self);
   chargingStateIntervalsEntryKey = [(PLBatteryUIResponseTypePausedCharging *)self chargingStateIntervalsEntryKey];
   v23[0] = v13;
   v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
-  v17 = [storage lastEntryForKey:chargingStateIntervalsEntryKey withFilters:v16];
+  v17 = [v14 lastEntryForKey:chargingStateIntervalsEntryKey withFilters:v16];
   [(PLBatteryUIResponseTypePausedCharging *)self setLastTLCWithCameraStreamingEntry:v17];
 
   lastTLCWithCameraStreamingEntry = [(PLBatteryUIResponseTypePausedCharging *)self lastTLCWithCameraStreamingEntry];
 
-  v19 = PLLogCommon();
-  v20 = os_log_type_enabled(v19, OS_LOG_TYPE_INFO);
+  v20 = PLLogCommon(v19);
+  v21 = os_log_type_enabled(v20, OS_LOG_TYPE_INFO);
   if (lastTLCWithCameraStreamingEntry)
   {
-    if (v20)
+    if (v21)
     {
       *buf = 0;
-      _os_log_impl(&dword_25EE51000, v19, OS_LOG_TYPE_INFO, "TLC with Camera Streaming Entry exists in last 24hrs.", buf, 2u);
+      _os_log_impl(&dword_25EE51000, v20, OS_LOG_TYPE_INFO, "TLC with Camera Streaming Entry exists in last 24hrs.", buf, 2u);
     }
 
     [(PLBatteryUIResponseTypePausedCharging *)self configureTLCWithCameraStreaming];
@@ -580,27 +646,24 @@ LABEL_24:
 
   else
   {
-    if (v20)
+    if (v21)
     {
       *buf = 0;
-      _os_log_impl(&dword_25EE51000, v19, OS_LOG_TYPE_INFO, "No TLC with Camera Streaming entries in 24hr time range", buf, 2u);
+      _os_log_impl(&dword_25EE51000, v20, OS_LOG_TYPE_INFO, "No TLC with Camera Streaming entries in 24hr time range", buf, 2u);
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureTLCWithCameraStreaming
 {
-  v47 = *MEMORY[0x277D85DE8];
-  [(PLBatteryUIResponseTypePausedCharging *)self setWasTLCWithCameraStreaming:0];
-  v3 = PLLogCommon();
+  v51 = *MEMORY[0x277D85DE8];
+  v3 = PLLogCommon([(PLBatteryUIResponseTypePausedCharging *)self setWasTLCWithCameraStreaming:0]);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     lastTLCWithCameraStreamingEntry = [(PLBatteryUIResponseTypePausedCharging *)self lastTLCWithCameraStreamingEntry];
-    v43 = 138412290;
-    v44 = *&lastTLCWithCameraStreamingEntry;
-    _os_log_impl(&dword_25EE51000, v3, OS_LOG_TYPE_INFO, "TLC with Camera Entry:%@", &v43, 0xCu);
+    v47 = 138412290;
+    v48 = *&lastTLCWithCameraStreamingEntry;
+    _os_log_impl(&dword_25EE51000, v3, OS_LOG_TYPE_INFO, "TLC with Camera Entry:%@", &v47, 0xCu);
   }
 
   lastTLCWithCameraStreamingEntry2 = [(PLBatteryUIResponseTypePausedCharging *)self lastTLCWithCameraStreamingEntry];
@@ -611,138 +674,136 @@ LABEL_24:
     goto LABEL_19;
   }
 
-  v7 = PLLogCommon();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v8 = PLLogCommon(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     lastTLCWithCameraStreamingEntry3 = [(PLBatteryUIResponseTypePausedCharging *)self lastTLCWithCameraStreamingEntry];
-    v9 = [lastTLCWithCameraStreamingEntry3 objectForKeyedSubscript:@"timestamp"];
+    v10 = [lastTLCWithCameraStreamingEntry3 objectForKeyedSubscript:@"timestamp"];
     lastTLCWithCameraStreamingEntry4 = [(PLBatteryUIResponseTypePausedCharging *)self lastTLCWithCameraStreamingEntry];
-    v11 = [lastTLCWithCameraStreamingEntry4 objectForKeyedSubscript:@"timestampEnd"];
-    v43 = 138412546;
-    v44 = *&v9;
-    v45 = 2112;
-    v46 = *&v11;
-    _os_log_impl(&dword_25EE51000, v7, OS_LOG_TYPE_INFO, "Last TLC with Camera Streaming Entry was opened at %@ and closed at %@", &v43, 0x16u);
+    v12 = [lastTLCWithCameraStreamingEntry4 objectForKeyedSubscript:@"timestampEnd"];
+    v47 = 138412546;
+    v48 = *&v10;
+    v49 = 2112;
+    v50 = *&v12;
+    _os_log_impl(&dword_25EE51000, v8, OS_LOG_TYPE_INFO, "Last TLC with Camera Streaming Entry was opened at %@ and closed at %@", &v47, 0x16u);
   }
 
   lastTLCWithCameraStreamingEntry5 = [(PLBatteryUIResponseTypePausedCharging *)self lastTLCWithCameraStreamingEntry];
-  v13 = [lastTLCWithCameraStreamingEntry5 objectForKeyedSubscript:@"timestamp"];
-  [v13 doubleValue];
-  v15 = v14;
+  v14 = [lastTLCWithCameraStreamingEntry5 objectForKeyedSubscript:@"timestamp"];
+  [v14 doubleValue];
+  v16 = v15;
 
   lastTLCWithCameraStreamingEntry6 = [(PLBatteryUIResponseTypePausedCharging *)self lastTLCWithCameraStreamingEntry];
-  v17 = [lastTLCWithCameraStreamingEntry6 objectForKeyedSubscript:@"timestampEnd"];
-  [v17 timeIntervalSince1970];
-  v19 = v18;
+  v18 = [lastTLCWithCameraStreamingEntry6 objectForKeyedSubscript:@"timestampEnd"];
+  [v18 timeIntervalSince1970];
+  v20 = v19;
 
-  v20 = PLLogCommon();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+  v22 = PLLogCommon(v21);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
   {
-    v43 = 134218240;
-    v44 = v15;
-    v45 = 2048;
-    v46 = v19;
-    _os_log_impl(&dword_25EE51000, v20, OS_LOG_TYPE_INFO, "Converted values to doubles: start: %f and end: %f", &v43, 0x16u);
+    v47 = 134218240;
+    v48 = v16;
+    v49 = 2048;
+    v50 = v20;
+    _os_log_impl(&dword_25EE51000, v22, OS_LOG_TYPE_INFO, "Converted values to doubles: start: %f and end: %f", &v47, 0x16u);
   }
 
   lastConnectedEntry = [(PLBatteryUIResponseTypePausedCharging *)self lastConnectedEntry];
 
-  v22 = PLLogCommon();
-  v23 = os_log_type_enabled(v22, OS_LOG_TYPE_INFO);
+  v25 = PLLogCommon(v24);
+  v26 = os_log_type_enabled(v25, OS_LOG_TYPE_INFO);
   if (lastConnectedEntry)
   {
-    if (v23)
+    if (v26)
     {
       lastConnectedEntry2 = [(PLBatteryUIResponseTypePausedCharging *)self lastConnectedEntry];
-      v43 = 138412290;
-      v44 = *&lastConnectedEntry2;
-      _os_log_impl(&dword_25EE51000, v22, OS_LOG_TYPE_INFO, "Connected Entry:%@", &v43, 0xCu);
+      v47 = 138412290;
+      v48 = *&lastConnectedEntry2;
+      _os_log_impl(&dword_25EE51000, v25, OS_LOG_TYPE_INFO, "Connected Entry:%@", &v47, 0xCu);
     }
 
     lastConnectedEntry3 = [(PLBatteryUIResponseTypePausedCharging *)self lastConnectedEntry];
-    v26 = [lastConnectedEntry3 objectForKeyedSubscript:@"timestamp"];
-    [v26 doubleValue];
-    v28 = v27;
+    v29 = [lastConnectedEntry3 objectForKeyedSubscript:@"timestamp"];
+    [v29 doubleValue];
+    v31 = v30;
 
     lastConnectedEntry4 = [(PLBatteryUIResponseTypePausedCharging *)self lastConnectedEntry];
-    v30 = [lastConnectedEntry4 objectForKeyedSubscript:@"timestampEnd"];
+    v33 = [lastConnectedEntry4 objectForKeyedSubscript:@"timestampEnd"];
 
-    v31 = PLLogCommon();
-    v32 = os_log_type_enabled(v31, OS_LOG_TYPE_INFO);
-    if (v30)
+    v35 = PLLogCommon(v34);
+    v36 = os_log_type_enabled(v35, OS_LOG_TYPE_INFO);
+    if (v33)
     {
-      if (v32)
+      if (v36)
       {
-        LOWORD(v43) = 0;
-        _os_log_impl(&dword_25EE51000, v31, OS_LOG_TYPE_INFO, "Closed External Connected Entry", &v43, 2u);
+        LOWORD(v47) = 0;
+        _os_log_impl(&dword_25EE51000, v35, OS_LOG_TYPE_INFO, "Closed External Connected Entry", &v47, 2u);
       }
 
       lastConnectedEntry5 = [(PLBatteryUIResponseTypePausedCharging *)self lastConnectedEntry];
-      v34 = [lastConnectedEntry5 objectForKeyedSubscript:@"timestampEnd"];
-      [v34 timeIntervalSince1970];
-      v36 = v35;
+      v38 = [lastConnectedEntry5 objectForKeyedSubscript:@"timestampEnd"];
+      [v38 timeIntervalSince1970];
+      v40 = v39;
 
-      v37 = PLLogCommon();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+      v42 = PLLogCommon(v41);
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
       {
-        v43 = 134218240;
-        v44 = v28;
-        v45 = 2048;
-        v46 = v36;
-        _os_log_impl(&dword_25EE51000, v37, OS_LOG_TYPE_INFO, "start: %f, end: %f", &v43, 0x16u);
+        v47 = 134218240;
+        v48 = v31;
+        v49 = 2048;
+        v50 = v40;
+        _os_log_impl(&dword_25EE51000, v42, OS_LOG_TYPE_INFO, "start: %f, end: %f", &v47, 0x16u);
       }
 
-      if (v28 <= v19 && v36 >= v15)
+      if (v31 <= v20 && v40 >= v16)
       {
 LABEL_18:
-        [(PLBatteryUIResponseTypePausedCharging *)self setWasTLCWithCameraStreaming:1];
+        v7 = [(PLBatteryUIResponseTypePausedCharging *)self setWasTLCWithCameraStreaming:1];
       }
     }
 
     else
     {
-      if (v32)
+      if (v36)
       {
-        LOWORD(v43) = 0;
-        _os_log_impl(&dword_25EE51000, v31, OS_LOG_TYPE_INFO, "Open External Connected Entry", &v43, 2u);
+        LOWORD(v47) = 0;
+        _os_log_impl(&dword_25EE51000, v35, OS_LOG_TYPE_INFO, "Open External Connected Entry", &v47, 2u);
       }
 
-      if (v28 <= v19)
+      if (v31 <= v20)
       {
         goto LABEL_18;
       }
     }
 
 LABEL_19:
-    v22 = PLLogCommon();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+    v25 = PLLogCommon(v7);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
     {
       wasTLCWithCameraStreaming = [(PLBatteryUIResponseTypePausedCharging *)self wasTLCWithCameraStreaming];
-      v43 = 67109120;
-      LODWORD(v44) = wasTLCWithCameraStreaming;
-      v39 = "Was TLC with Camera Streaming: %d";
-      v40 = v22;
-      v41 = 8;
+      v47 = 67109120;
+      LODWORD(v48) = wasTLCWithCameraStreaming;
+      v44 = "Was TLC with Camera Streaming: %d";
+      v45 = v25;
+      v46 = 8;
 LABEL_23:
-      _os_log_impl(&dword_25EE51000, v40, OS_LOG_TYPE_INFO, v39, &v43, v41);
+      _os_log_impl(&dword_25EE51000, v45, OS_LOG_TYPE_INFO, v44, &v47, v46);
       goto LABEL_24;
     }
 
     goto LABEL_24;
   }
 
-  if (v23)
+  if (v26)
   {
-    LOWORD(v43) = 0;
-    v39 = "No External Connected Entry exists in last 24hrs";
-    v40 = v22;
-    v41 = 2;
+    LOWORD(v47) = 0;
+    v44 = "No External Connected Entry exists in last 24hrs";
+    v45 = v25;
+    v46 = 2;
     goto LABEL_23;
   }
 
 LABEL_24:
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configure:(id)configure
@@ -753,8 +814,7 @@ LABEL_24:
   [(PLBatteryUIResponseTypePausedCharging *)self getChargingData];
   [(PLBatteryUIResponseTypePausedCharging *)self getCameraStreamingState];
   [(PLBatteryUIResponseTypePausedCharging *)self getTLCWithCameraStreamingState];
-  [(PLBatteryUIResponseTypePausedCharging *)self setIntervalStateFixedCharging:[(PLBatteryUIResponseTypePausedCharging *)self getState:8]];
-  v4 = PLLogCommon();
+  v4 = PLLogCommon([(PLBatteryUIResponseTypePausedCharging *)self setIntervalStateFixedCharging:[(PLBatteryUIResponseTypePausedCharging *)self getState:8]]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [PLBatteryUIResponseTypePausedCharging configure:?];
@@ -762,30 +822,26 @@ LABEL_24:
 
   if ([MEMORY[0x277D3F058] supportsSlowCharging])
   {
-    [(PLBatteryUIResponseTypePausedCharging *)self setIntervalStateChargingSpeed:[(PLBatteryUIResponseTypePausedCharging *)self getState:9]];
-    v5 = PLLogCommon();
+    v5 = PLLogCommon([(PLBatteryUIResponseTypePausedCharging *)self setIntervalStateChargingSpeed:[(PLBatteryUIResponseTypePausedCharging *)self getState:9]]);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       [PLBatteryUIResponseTypePausedCharging configure:?];
     }
   }
 
-  [(PLBatteryUIResponseTypePausedCharging *)self setIntervalStateSmartCharging:[(PLBatteryUIResponseTypePausedCharging *)self getState:2]];
-  v6 = PLLogCommon();
+  v6 = PLLogCommon([(PLBatteryUIResponseTypePausedCharging *)self setIntervalStateSmartCharging:[(PLBatteryUIResponseTypePausedCharging *)self getState:2]]);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [PLBatteryUIResponseTypePausedCharging configure:?];
   }
 
-  [(PLBatteryUIResponseTypePausedCharging *)self setIntervalStateCEC:[(PLBatteryUIResponseTypePausedCharging *)self getState:7]];
-  v7 = PLLogCommon();
+  v7 = PLLogCommon([(PLBatteryUIResponseTypePausedCharging *)self setIntervalStateCEC:[(PLBatteryUIResponseTypePausedCharging *)self getState:7]]);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [PLBatteryUIResponseTypePausedCharging configure:?];
   }
 
-  [(PLBatteryUIResponseTypePausedCharging *)self setIntervalStateTLC:[(PLBatteryUIResponseTypePausedCharging *)self getState:3]];
-  v8 = PLLogCommon();
+  v8 = PLLogCommon([(PLBatteryUIResponseTypePausedCharging *)self setIntervalStateTLC:[(PLBatteryUIResponseTypePausedCharging *)self getState:3]]);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [PLBatteryUIResponseTypePausedCharging configure:?];
@@ -794,66 +850,80 @@ LABEL_24:
 
 - (void)setCurrentlyChargingStates
 {
-  v3 = PLLogCommon();
+  v3 = PLLogCommon(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [PLBatteryUIResponseTypePausedCharging setCurrentlyChargingStates];
   }
 
-  if ([(PLBatteryUIResponseTypePausedCharging *)self intervalStateCEC]== 4)
+  intervalStateCEC = [(PLBatteryUIResponseTypePausedCharging *)self intervalStateCEC];
+  if (intervalStateCEC == 4)
   {
-    v4 = PLLogCommon();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v5 = PLLogCommon(intervalStateCEC);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       [PLBatteryUIResponseTypePausedCharging setCurrentlyChargingStates];
     }
 
-    v5 = 306;
+    v6 = 306;
     goto LABEL_33;
   }
 
-  if ([MEMORY[0x277D3F058] supportsSlowCharging] && -[PLBatteryUIResponseTypePausedCharging intervalStateChargingSpeed](self, "intervalStateChargingSpeed") == 3)
+  if ([MEMORY[0x277D3F058] supportsSlowCharging])
   {
-    v4 = PLLogCommon();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    intervalStateChargingSpeed = [(PLBatteryUIResponseTypePausedCharging *)self intervalStateChargingSpeed];
+    if (intervalStateChargingSpeed == 3)
     {
-      [PLBatteryUIResponseTypePausedCharging setCurrentlyChargingStates];
-    }
+      v5 = PLLogCommon(intervalStateChargingSpeed);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+      {
+        [PLBatteryUIResponseTypePausedCharging setCurrentlyChargingStates];
+      }
 
-    v5 = 601;
-    goto LABEL_33;
+      v6 = 601;
+      goto LABEL_33;
+    }
   }
 
-  if ([(PLBatteryUIResponseTypePausedCharging *)self intervalStateSmartCharging]== 1 && [(PLBatteryUIResponseTypePausedCharging *)self intervalStateTLC]== 1)
+  if ([(PLBatteryUIResponseTypePausedCharging *)self intervalStateSmartCharging]== 1)
   {
-    v4 = PLLogCommon();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    intervalStateTLC = [(PLBatteryUIResponseTypePausedCharging *)self intervalStateTLC];
+    if (intervalStateTLC == 1)
     {
-      [PLBatteryUIResponseTypePausedCharging setCurrentlyChargingStates];
-    }
+      v5 = PLLogCommon(intervalStateTLC);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+      {
+        [PLBatteryUIResponseTypePausedCharging setCurrentlyChargingStates];
+      }
 
 LABEL_32:
-    v5 = 200;
-    goto LABEL_33;
-  }
-
-  if ([(PLBatteryUIResponseTypePausedCharging *)self intervalStateSmartCharging]== 4 && [(PLBatteryUIResponseTypePausedCharging *)self intervalStateTLC]== 1)
-  {
-    v4 = PLLogCommon();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
-    {
-      [PLBatteryUIResponseTypePausedCharging setCurrentlyChargingStates];
+      v6 = 200;
+      goto LABEL_33;
     }
-
-    goto LABEL_29;
   }
 
-  if ([(PLBatteryUIResponseTypePausedCharging *)self intervalStateSmartCharging]!= 1 || [(PLBatteryUIResponseTypePausedCharging *)self intervalStateTLC]!= 4)
+  if ([(PLBatteryUIResponseTypePausedCharging *)self intervalStateSmartCharging]== 4)
   {
-    if ([(PLBatteryUIResponseTypePausedCharging *)self intervalStateSmartCharging]!= 4 || [(PLBatteryUIResponseTypePausedCharging *)self intervalStateTLC]!= 4)
+    intervalStateTLC2 = [(PLBatteryUIResponseTypePausedCharging *)self intervalStateTLC];
+    if (intervalStateTLC2 == 1)
     {
-      v4 = PLLogCommon();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+      v5 = PLLogCommon(intervalStateTLC2);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+      {
+        [PLBatteryUIResponseTypePausedCharging setCurrentlyChargingStates];
+      }
+
+      goto LABEL_29;
+    }
+  }
+
+  if ([(PLBatteryUIResponseTypePausedCharging *)self intervalStateSmartCharging]!= 1 || (v10 = [(PLBatteryUIResponseTypePausedCharging *)self intervalStateTLC], v10 != 4))
+  {
+    intervalStateSmartCharging = [(PLBatteryUIResponseTypePausedCharging *)self intervalStateSmartCharging];
+    if (intervalStateSmartCharging != 4 || (intervalStateSmartCharging = [(PLBatteryUIResponseTypePausedCharging *)self intervalStateTLC], intervalStateSmartCharging != 4))
+    {
+      v5 = PLLogCommon(intervalStateSmartCharging);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
       {
         [PLBatteryUIResponseTypePausedCharging setCurrentlyChargingStates];
       }
@@ -861,117 +931,127 @@ LABEL_32:
       goto LABEL_32;
     }
 
-    v4 = PLLogCommon();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v5 = PLLogCommon(intervalStateSmartCharging);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       [PLBatteryUIResponseTypePausedCharging setCurrentlyChargingStates];
     }
 
 LABEL_29:
-    v5 = 301;
+    v6 = 301;
     goto LABEL_33;
   }
 
-  v4 = PLLogCommon();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v5 = PLLogCommon(v10);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [PLBatteryUIResponseTypePausedCharging setCurrentlyChargingStates];
   }
 
-  v5 = 302;
+  v6 = 302;
 LABEL_33:
 
-  [(PLBatteryUIResponseTypePausedCharging *)self setPausedChargingState:v5];
+  [(PLBatteryUIResponseTypePausedCharging *)self setPausedChargingState:v6];
 }
 
 - (void)setChargingPausedStates
 {
-  v3 = PLLogCommon();
+  v3 = PLLogCommon(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    *v8 = 0;
-    _os_log_impl(&dword_25EE51000, v3, OS_LOG_TYPE_INFO, "Setting Charging Paused States", v8, 2u);
+    *v15 = 0;
+    _os_log_impl(&dword_25EE51000, v3, OS_LOG_TYPE_INFO, "Setting Charging Paused States", v15, 2u);
   }
 
-  if ([MEMORY[0x277D3F058] supportsSlowCharging] && -[PLBatteryUIResponseTypePausedCharging intervalStateChargingSpeed](self, "intervalStateChargingSpeed") == 3)
+  if ([MEMORY[0x277D3F058] supportsSlowCharging])
   {
-    v4 = PLLogCommon();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    intervalStateChargingSpeed = [(PLBatteryUIResponseTypePausedCharging *)self intervalStateChargingSpeed];
+    if (intervalStateChargingSpeed == 3)
+    {
+      v5 = PLLogCommon(intervalStateChargingSpeed);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+      {
+        [PLBatteryUIResponseTypePausedCharging setChargingPausedStates];
+      }
+
+      v6 = 601;
+      goto LABEL_34;
+    }
+  }
+
+  intervalStateFixedCharging = [(PLBatteryUIResponseTypePausedCharging *)self intervalStateFixedCharging];
+  if (intervalStateFixedCharging == 3)
+  {
+    v5 = PLLogCommon(intervalStateFixedCharging);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       [PLBatteryUIResponseTypePausedCharging setChargingPausedStates];
     }
 
-    v5 = 601;
+    v6 = 205;
     goto LABEL_34;
   }
 
-  if ([(PLBatteryUIResponseTypePausedCharging *)self intervalStateFixedCharging]== 3)
+  intervalStateFixedCharging2 = [(PLBatteryUIResponseTypePausedCharging *)self intervalStateFixedCharging];
+  if (intervalStateFixedCharging2 == 5)
   {
-    v4 = PLLogCommon();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v5 = PLLogCommon(intervalStateFixedCharging2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       [PLBatteryUIResponseTypePausedCharging setChargingPausedStates];
     }
 
-    v5 = 205;
+    v6 = 206;
     goto LABEL_34;
   }
 
-  if ([(PLBatteryUIResponseTypePausedCharging *)self intervalStateFixedCharging]== 5)
+  intervalStateSmartCharging = [(PLBatteryUIResponseTypePausedCharging *)self intervalStateSmartCharging];
+  if (intervalStateSmartCharging == 3)
   {
-    v4 = PLLogCommon();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v5 = PLLogCommon(intervalStateSmartCharging);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       [PLBatteryUIResponseTypePausedCharging setChargingPausedStates];
     }
 
-    v5 = 206;
+    v6 = 401;
     goto LABEL_34;
   }
 
-  if ([(PLBatteryUIResponseTypePausedCharging *)self intervalStateSmartCharging]== 3)
+  intervalStateCEC = [(PLBatteryUIResponseTypePausedCharging *)self intervalStateCEC];
+  if (intervalStateCEC == 3)
   {
-    v4 = PLLogCommon();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v5 = PLLogCommon(intervalStateCEC);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       [PLBatteryUIResponseTypePausedCharging setChargingPausedStates];
     }
 
-    v5 = 401;
+    v6 = 406;
     goto LABEL_34;
   }
 
-  if ([(PLBatteryUIResponseTypePausedCharging *)self intervalStateCEC]== 3)
+  intervalStateTLC = [(PLBatteryUIResponseTypePausedCharging *)self intervalStateTLC];
+  if (intervalStateTLC == 2)
   {
-    v4 = PLLogCommon();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
-    {
-      [PLBatteryUIResponseTypePausedCharging setChargingPausedStates];
-    }
-
-    v5 = 406;
-    goto LABEL_34;
-  }
-
-  if ([(PLBatteryUIResponseTypePausedCharging *)self intervalStateTLC]== 2)
-  {
-    v4 = PLLogCommon();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v5 = PLLogCommon(intervalStateTLC);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       [PLBatteryUIResponseTypePausedCharging setChargingPausedStates];
     }
 
 LABEL_33:
-    v5 = 200;
+    v6 = 200;
     goto LABEL_34;
   }
 
-  intervalStateTLC = [(PLBatteryUIResponseTypePausedCharging *)self intervalStateTLC];
-  v4 = PLLogCommon();
-  v7 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
-  if (intervalStateTLC != 3)
+  intervalStateTLC2 = [(PLBatteryUIResponseTypePausedCharging *)self intervalStateTLC];
+  v13 = intervalStateTLC2;
+  v5 = PLLogCommon(intervalStateTLC2);
+  v14 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
+  if (v13 != 3)
   {
-    if (v7)
+    if (v14)
     {
       [PLBatteryUIResponseTypePausedCharging setChargingPausedStates];
     }
@@ -979,34 +1059,33 @@ LABEL_33:
     goto LABEL_33;
   }
 
-  if (v7)
+  if (v14)
   {
     [PLBatteryUIResponseTypePausedCharging setChargingPausedStates];
   }
 
-  v5 = 402;
+  v6 = 402;
 LABEL_34:
 
-  [(PLBatteryUIResponseTypePausedCharging *)self setPausedChargingState:v5];
+  [(PLBatteryUIResponseTypePausedCharging *)self setPausedChargingState:v6];
 }
 
 - (void)setTerminatedChargingStates
 {
-  v3 = PLLogCommon();
+  v3 = PLLogCommon(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    *v23 = 0;
-    _os_log_impl(&dword_25EE51000, v3, OS_LOG_TYPE_INFO, "Setting Charging Terminated States", v23, 2u);
+    *v29 = 0;
+    _os_log_impl(&dword_25EE51000, v3, OS_LOG_TYPE_INFO, "Setting Charging Terminated States", v29, 2u);
   }
 
-  v4 = *MEMORY[0x277CBF040];
-  v5 = *MEMORY[0x277CBF030];
   +[PLUtilities containerPath];
-  v6 = _CFPreferencesCopyValueWithContainer();
-  if ([v6 intValue] == 100)
+  v4 = _CFPreferencesCopyValueWithContainer();
+  intValue = [v4 intValue];
+  if (intValue == 100)
   {
-    v7 = PLLogCommon();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v6 = PLLogCommon(intValue);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       [PLBatteryUIResponseTypePausedCharging setTerminatedChargingStates];
     }
@@ -1014,31 +1093,33 @@ LABEL_34:
 LABEL_6:
 
 LABEL_7:
-    v8 = 202;
+    v7 = 202;
     goto LABEL_43;
   }
 
-  if ([(PLBatteryUIResponseTypePausedCharging *)self wasTLCWithCameraStreaming])
+  wasTLCWithCameraStreaming = [(PLBatteryUIResponseTypePausedCharging *)self wasTLCWithCameraStreaming];
+  if (wasTLCWithCameraStreaming)
   {
-    v9 = PLLogCommon();
+    v9 = PLLogCommon(wasTLCWithCameraStreaming);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       [PLBatteryUIResponseTypePausedCharging setTerminatedChargingStates];
     }
 
-    v8 = 505;
+    v7 = 505;
     goto LABEL_43;
   }
 
-  if ([(PLBatteryUIResponseTypePausedCharging *)self wasCameraStreaming])
+  wasCameraStreaming = [(PLBatteryUIResponseTypePausedCharging *)self wasCameraStreaming];
+  if (wasCameraStreaming)
   {
-    v10 = PLLogCommon();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = PLLogCommon(wasCameraStreaming);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       [PLBatteryUIResponseTypePausedCharging setTerminatedChargingStates];
     }
 
-    v8 = 503;
+    v7 = 503;
     goto LABEL_43;
   }
 
@@ -1047,19 +1128,19 @@ LABEL_7:
     fixedChargingLimit = [(PLBatteryUIResponseTypePausedCharging *)self fixedChargingLimit];
     if (fixedChargingLimit)
     {
-      v12 = fixedChargingLimit;
+      v13 = fixedChargingLimit;
       currentChargeLevel = [(PLBatteryUIResponseTypePausedCharging *)self currentChargeLevel];
       if (currentChargeLevel)
       {
-        v14 = currentChargeLevel;
+        v15 = currentChargeLevel;
         fixedChargingLimit2 = [(PLBatteryUIResponseTypePausedCharging *)self fixedChargingLimit];
-        intValue = [fixedChargingLimit2 intValue];
+        intValue2 = [fixedChargingLimit2 intValue];
         currentChargeLevel2 = [(PLBatteryUIResponseTypePausedCharging *)self currentChargeLevel];
-        intValue2 = [currentChargeLevel2 intValue];
+        intValue3 = [currentChargeLevel2 intValue];
 
-        if (intValue < intValue2)
+        if (intValue2 < intValue3)
         {
-          v8 = 508;
+          v7 = 508;
           goto LABEL_43;
         }
       }
@@ -1069,19 +1150,20 @@ LABEL_7:
       }
     }
 
-    v8 = 507;
+    v7 = 507;
     goto LABEL_43;
   }
 
-  if ([(PLBatteryUIResponseTypePausedCharging *)self intervalStateCEC]== 4)
+  intervalStateCEC = [(PLBatteryUIResponseTypePausedCharging *)self intervalStateCEC];
+  if (intervalStateCEC == 4)
   {
-    v19 = PLLogCommon();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+    v21 = PLLogCommon(intervalStateCEC);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
     {
       [PLBatteryUIResponseTypePausedCharging setCurrentlyChargingStates];
     }
 
-    v8 = 506;
+    v7 = 506;
     goto LABEL_43;
   }
 
@@ -1090,136 +1172,153 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  if ([(PLBatteryUIResponseTypePausedCharging *)self intervalStateSmartCharging]== 1 && [(PLBatteryUIResponseTypePausedCharging *)self intervalStateTLC]== 1)
+  if ([(PLBatteryUIResponseTypePausedCharging *)self intervalStateSmartCharging]== 1)
   {
-    v7 = PLLogCommon();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    intervalStateTLC = [(PLBatteryUIResponseTypePausedCharging *)self intervalStateTLC];
+    if (intervalStateTLC == 1)
     {
-      [PLBatteryUIResponseTypePausedCharging setCurrentlyChargingStates];
-    }
-
-    goto LABEL_6;
-  }
-
-  if ([(PLBatteryUIResponseTypePausedCharging *)self intervalStateSmartCharging]== 4 && [(PLBatteryUIResponseTypePausedCharging *)self intervalStateTLC]== 1)
-  {
-    v20 = PLLogCommon();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
-    {
-      [PLBatteryUIResponseTypePausedCharging setCurrentlyChargingStates];
-    }
-
-LABEL_48:
-
-    v8 = 501;
-    goto LABEL_43;
-  }
-
-  if ([(PLBatteryUIResponseTypePausedCharging *)self intervalStateSmartCharging]== 1 && [(PLBatteryUIResponseTypePausedCharging *)self intervalStateTLC]== 4)
-  {
-    v21 = PLLogCommon();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
-    {
-      [PLBatteryUIResponseTypePausedCharging setCurrentlyChargingStates];
-    }
-
-    v8 = 502;
-  }
-
-  else
-  {
-    if ([(PLBatteryUIResponseTypePausedCharging *)self intervalStateSmartCharging]== 4 && [(PLBatteryUIResponseTypePausedCharging *)self intervalStateTLC]== 4)
-    {
-      v20 = PLLogCommon();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+      v6 = PLLogCommon(intervalStateTLC);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
         [PLBatteryUIResponseTypePausedCharging setCurrentlyChargingStates];
       }
 
-      goto LABEL_48;
+      goto LABEL_6;
+    }
+  }
+
+  if ([(PLBatteryUIResponseTypePausedCharging *)self intervalStateSmartCharging]== 4)
+  {
+    intervalStateTLC2 = [(PLBatteryUIResponseTypePausedCharging *)self intervalStateTLC];
+    if (intervalStateTLC2 == 1)
+    {
+      v24 = PLLogCommon(intervalStateTLC2);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+      {
+        [PLBatteryUIResponseTypePausedCharging setCurrentlyChargingStates];
+      }
+
+LABEL_48:
+
+      v7 = 501;
+      goto LABEL_43;
+    }
+  }
+
+  if ([(PLBatteryUIResponseTypePausedCharging *)self intervalStateSmartCharging]== 1 && (v25 = [(PLBatteryUIResponseTypePausedCharging *)self intervalStateTLC], v25 == 4))
+  {
+    v26 = PLLogCommon(v25);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+    {
+      [PLBatteryUIResponseTypePausedCharging setCurrentlyChargingStates];
     }
 
-    v22 = PLLogCommon();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+    v7 = 502;
+  }
+
+  else
+  {
+    intervalStateSmartCharging = [(PLBatteryUIResponseTypePausedCharging *)self intervalStateSmartCharging];
+    if (intervalStateSmartCharging == 4)
+    {
+      intervalStateSmartCharging = [(PLBatteryUIResponseTypePausedCharging *)self intervalStateTLC];
+      if (intervalStateSmartCharging == 4)
+      {
+        v24 = PLLogCommon(intervalStateSmartCharging);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+        {
+          [PLBatteryUIResponseTypePausedCharging setCurrentlyChargingStates];
+        }
+
+        goto LABEL_48;
+      }
+    }
+
+    v28 = PLLogCommon(intervalStateSmartCharging);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
     {
       [PLBatteryUIResponseTypePausedCharging setTerminatedChargingStates];
     }
 
-    v8 = 100;
+    v7 = 100;
   }
 
 LABEL_43:
-  [(PLBatteryUIResponseTypePausedCharging *)self setPausedChargingState:v8];
+  [(PLBatteryUIResponseTypePausedCharging *)self setPausedChargingState:v7];
 }
 
 - (void)run
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   currentChargeLevel = [(PLBatteryUIResponseTypePausedCharging *)self currentChargeLevel];
   [currentChargeLevel doubleValue];
   v5 = v4;
 
   if (v5 >= 100.0)
   {
-    v9 = PLLogCommon();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v13 = PLLogCommon(v6);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       [PLBatteryUIResponseTypePausedCharging run];
     }
 
     [(PLBatteryUIResponseTypePausedCharging *)self setPausedChargingState:201];
-    if ([(PLBatteryUIResponseTypePausedCharging *)self externalConnected])
+    externalConnected = [(PLBatteryUIResponseTypePausedCharging *)self externalConnected];
+    if (externalConnected)
     {
-      [(PLBatteryUIResponseTypePausedCharging *)self setPausedChargingState:203];
-    }
-  }
-
-  else if ([(PLBatteryUIResponseTypePausedCharging *)self externalConnected])
-  {
-    isCharging = [(PLBatteryUIResponseTypePausedCharging *)self isCharging];
-    v7 = PLLogCommon();
-    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
-    if (isCharging)
-    {
-      if (v8)
-      {
-        [PLBatteryUIResponseTypePausedCharging run];
-      }
-
-      [(PLBatteryUIResponseTypePausedCharging *)self setCurrentlyChargingStates];
-    }
-
-    else
-    {
-      if (v8)
-      {
-        [PLBatteryUIResponseTypePausedCharging run];
-      }
-
-      [(PLBatteryUIResponseTypePausedCharging *)self setChargingPausedStates];
+      externalConnected = [(PLBatteryUIResponseTypePausedCharging *)self setPausedChargingState:203];
     }
   }
 
   else
   {
-    v10 = PLLogCommon();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    externalConnected2 = [(PLBatteryUIResponseTypePausedCharging *)self externalConnected];
+    if (externalConnected2)
     {
-      [PLBatteryUIResponseTypePausedCharging run];
+      isCharging = [(PLBatteryUIResponseTypePausedCharging *)self isCharging];
+      v9 = isCharging;
+      v10 = PLLogCommon(isCharging);
+      v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG);
+      if (v9)
+      {
+        if (v11)
+        {
+          [PLBatteryUIResponseTypePausedCharging run];
+        }
+
+        externalConnected = [(PLBatteryUIResponseTypePausedCharging *)self setCurrentlyChargingStates];
+      }
+
+      else
+      {
+        if (v11)
+        {
+          [PLBatteryUIResponseTypePausedCharging run];
+        }
+
+        externalConnected = [(PLBatteryUIResponseTypePausedCharging *)self setChargingPausedStates];
+      }
     }
 
-    [(PLBatteryUIResponseTypePausedCharging *)self setTerminatedChargingStates];
+    else
+    {
+      v14 = PLLogCommon(externalConnected2);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+      {
+        [PLBatteryUIResponseTypePausedCharging run];
+      }
+
+      externalConnected = [(PLBatteryUIResponseTypePausedCharging *)self setTerminatedChargingStates];
+    }
   }
 
-  v11 = PLLogCommon();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v15 = PLLogCommon(externalConnected);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v13[0] = 67109120;
-    v13[1] = [(PLBatteryUIResponseTypePausedCharging *)self pausedChargingState];
-    _os_log_impl(&dword_25EE51000, v11, OS_LOG_TYPE_DEFAULT, "Paused Charging State set to: %d", v13, 8u);
+    v16[0] = 67109120;
+    v16[1] = [(PLBatteryUIResponseTypePausedCharging *)self pausedChargingState];
+    _os_log_impl(&dword_25EE51000, v15, OS_LOG_TYPE_DEFAULT, "Paused Charging State set to: %d", v16, 8u);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)result
@@ -1246,11 +1345,11 @@ LABEL_43:
 
   smartChargingDeadline = [(PLBatteryUIResponseTypePausedCharging *)self smartChargingDeadline];
 
-  smartChargingDeadline2 = PLLogCommon();
-  v13 = os_log_type_enabled(smartChargingDeadline2, OS_LOG_TYPE_ERROR);
+  smartChargingDeadline2 = PLLogCommon(v12);
+  v14 = os_log_type_enabled(smartChargingDeadline2, OS_LOG_TYPE_ERROR);
   if (smartChargingDeadline)
   {
-    if (v13)
+    if (v14)
     {
       [(PLBatteryUIResponseTypePausedCharging *)self result];
     }
@@ -1260,18 +1359,18 @@ LABEL_43:
     [resultDictionary4 setObject:smartChargingDeadline2 forKeyedSubscript:@"PLBatteryUIScheduleOBCKey"];
   }
 
-  else if (v13)
+  else if (v14)
   {
     [PLBatteryUIResponseTypePausedCharging result];
   }
 
   cleanEnergyChargingDeadline = [(PLBatteryUIResponseTypePausedCharging *)self cleanEnergyChargingDeadline];
 
-  cleanEnergyChargingDeadline2 = PLLogCommon();
-  v17 = os_log_type_enabled(cleanEnergyChargingDeadline2, OS_LOG_TYPE_ERROR);
+  cleanEnergyChargingDeadline2 = PLLogCommon(v17);
+  v19 = os_log_type_enabled(cleanEnergyChargingDeadline2, OS_LOG_TYPE_ERROR);
   if (cleanEnergyChargingDeadline)
   {
-    if (v17)
+    if (v19)
     {
       [(PLBatteryUIResponseTypePausedCharging *)self result];
     }
@@ -1281,7 +1380,7 @@ LABEL_43:
     [resultDictionary5 setObject:cleanEnergyChargingDeadline2 forKeyedSubscript:@"PLBatteryUIScheduleCECKey"];
   }
 
-  else if (v17)
+  else if (v19)
   {
     [PLBatteryUIResponseTypePausedCharging result];
   }
@@ -1303,160 +1402,118 @@ LABEL_43:
 
 - (void)configureState:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureState:(void *)a1 .cold.2(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v2 = [a1 objectForKeyedSubscript:@"timestamp"];
   v3 = [a1 objectForKeyedSubscript:@"timestampEnd"];
   OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_5();
   _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureState:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_9_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureState:(void *)a1 .cold.4(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 lastConnectedEntry];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_5();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureState:.cold.6()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_9_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)configureState:.cold.10()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureState:.cold.12()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_25EE51000, v0, OS_LOG_TYPE_ERROR, "Clean Energy Charge Deadline Error: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_25EE51000, v0, OS_LOG_TYPE_ERROR, "Clean Energy Charge Deadline Error: %@", v1, 0xCu);
 }
 
 - (void)configureState:(void *)a1 .cold.13(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 cleanEnergyChargingDeadline];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_5();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureState:.cold.15()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureState:(void *)a1 .cold.16(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 smartChargingDeadline];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_5();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configure:(void *)a1 .cold.1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 intervalStateFixedCharging];
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_5();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configure:(void *)a1 .cold.2(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 intervalStateChargingSpeed];
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_5();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configure:(void *)a1 .cold.3(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 intervalStateSmartCharging];
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_5();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configure:(void *)a1 .cold.4(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 intervalStateCEC];
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_5();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configure:(void *)a1 .cold.5(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 intervalStateTLC];
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_5();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)result
 {
-  v7 = *MEMORY[0x277D85DE8];
   cleanEnergyChargingDeadline = [self cleanEnergyChargingDeadline];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_4_0();
   _os_log_error_impl(v2, v3, OS_LOG_TYPE_ERROR, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

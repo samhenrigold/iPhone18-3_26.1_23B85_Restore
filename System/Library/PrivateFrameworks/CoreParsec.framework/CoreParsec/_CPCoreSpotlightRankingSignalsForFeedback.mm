@@ -65,79 +65,7 @@
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
-  if (![equalCopy isMemberOfClass:objc_opt_class()])
-  {
-    goto LABEL_18;
-  }
-
-  topicalityScore = self->_topicalityScore;
-  [equalCopy topicalityScore];
-  if (topicalityScore != v6)
-  {
-    goto LABEL_18;
-  }
-
-  freshness = self->_freshness;
-  [equalCopy freshness];
-  if (freshness != v8)
-  {
-    goto LABEL_18;
-  }
-
-  engagementScore = self->_engagementScore;
-  [equalCopy engagementScore];
-  if (engagementScore != v10)
-  {
-    goto LABEL_18;
-  }
-
-  predictedLikelihoodOfEngagement = self->_predictedLikelihoodOfEngagement;
-  [equalCopy predictedLikelihoodOfEngagement];
-  if (predictedLikelihoodOfEngagement != v12)
-  {
-    goto LABEL_18;
-  }
-
-  wasNominatedAsTopHit = self->_wasNominatedAsTopHit;
-  if (wasNominatedAsTopHit != [equalCopy wasNominatedAsTopHit])
-  {
-    goto LABEL_18;
-  }
-
-  sodiumL2Score = self->_sodiumL2Score;
-  [equalCopy sodiumL2Score];
-  if (sodiumL2Score != v15)
-  {
-    goto LABEL_18;
-  }
-
-  isExactMatchOfLaunchString = self->_isExactMatchOfLaunchString;
-  if (isExactMatchOfLaunchString != [equalCopy isExactMatchOfLaunchString])
-  {
-    goto LABEL_18;
-  }
-
-  wasEngagedInSpotlight = self->_wasEngagedInSpotlight;
-  if (wasEngagedInSpotlight != [equalCopy wasEngagedInSpotlight])
-  {
-    goto LABEL_18;
-  }
-
-  resultQueryRecency = self->_resultQueryRecency;
-  if (resultQueryRecency != [equalCopy resultQueryRecency])
-  {
-    goto LABEL_18;
-  }
-
-  pommesL2Score = self->_pommesL2Score;
-  [equalCopy pommesL2Score];
-  if (pommesL2Score != v20)
-  {
-    goto LABEL_18;
-  }
-
-  isSemanticMatch = self->_isSemanticMatch;
-  if (isSemanticMatch == [equalCopy isSemanticMatch] && (semanticScore = self->_semanticScore, objc_msgSend(equalCopy, "semanticScore"), semanticScore == v23) && (isSyntacticMatch = self->_isSyntacticMatch, isSyntacticMatch == objc_msgSend(equalCopy, "isSyntacticMatch")) && (syntacticScore = self->_syntacticScore, objc_msgSend(equalCopy, "syntacticScore"), syntacticScore == v26) && (embeddingStatus = self->_embeddingStatus, embeddingStatus == objc_msgSend(equalCopy, "embeddingStatus")))
+  if ([equalCopy isMemberOfClass:objc_opt_class()] && (topicalityScore = self->_topicalityScore, objc_msgSend(equalCopy, "topicalityScore"), topicalityScore == v6) && (freshness = self->_freshness, objc_msgSend(equalCopy, "freshness"), freshness == v8) && (engagementScore = self->_engagementScore, objc_msgSend(equalCopy, "engagementScore"), engagementScore == v10) && (predictedLikelihoodOfEngagement = self->_predictedLikelihoodOfEngagement, objc_msgSend(equalCopy, "predictedLikelihoodOfEngagement"), predictedLikelihoodOfEngagement == v12) && (wasNominatedAsTopHit = self->_wasNominatedAsTopHit, wasNominatedAsTopHit == objc_msgSend(equalCopy, "wasNominatedAsTopHit")) && (sodiumL2Score = self->_sodiumL2Score, objc_msgSend(equalCopy, "sodiumL2Score"), sodiumL2Score == v15) && (isExactMatchOfLaunchString = self->_isExactMatchOfLaunchString, isExactMatchOfLaunchString == objc_msgSend(equalCopy, "isExactMatchOfLaunchString")) && (wasEngagedInSpotlight = self->_wasEngagedInSpotlight, wasEngagedInSpotlight == objc_msgSend(equalCopy, "wasEngagedInSpotlight")) && (resultQueryRecency = self->_resultQueryRecency, resultQueryRecency == objc_msgSend(equalCopy, "resultQueryRecency")) && (pommesL2Score = self->_pommesL2Score, objc_msgSend(equalCopy, "pommesL2Score"), pommesL2Score == v20) && (isSemanticMatch = self->_isSemanticMatch, isSemanticMatch == objc_msgSend(equalCopy, "isSemanticMatch")) && (semanticScore = self->_semanticScore, objc_msgSend(equalCopy, "semanticScore"), semanticScore == v23) && (isSyntacticMatch = self->_isSyntacticMatch, isSyntacticMatch == objc_msgSend(equalCopy, "isSyntacticMatch")) && (syntacticScore = self->_syntacticScore, objc_msgSend(equalCopy, "syntacticScore"), syntacticScore == v26) && (embeddingStatus = self->_embeddingStatus, embeddingStatus == objc_msgSend(equalCopy, "embeddingStatus")))
   {
     itemAgeInDays = self->_itemAgeInDays;
     v29 = itemAgeInDays == [equalCopy itemAgeInDays];
@@ -145,7 +73,6 @@
 
   else
   {
-LABEL_18:
     v29 = 0;
   }
 
@@ -158,104 +85,88 @@ LABEL_18:
   [(_CPCoreSpotlightRankingSignalsForFeedback *)self topicalityScore];
   if (v4 != 0.0)
   {
-    topicalityScore = self->_topicalityScore;
     PBDataWriterWriteFloatField();
   }
 
   [(_CPCoreSpotlightRankingSignalsForFeedback *)self freshness];
-  if (v6 != 0.0)
+  if (v5 != 0.0)
   {
-    freshness = self->_freshness;
     PBDataWriterWriteFloatField();
   }
 
   [(_CPCoreSpotlightRankingSignalsForFeedback *)self engagementScore];
-  if (v8 != 0.0)
+  if (v6 != 0.0)
   {
-    engagementScore = self->_engagementScore;
     PBDataWriterWriteFloatField();
   }
 
   [(_CPCoreSpotlightRankingSignalsForFeedback *)self predictedLikelihoodOfEngagement];
-  if (v10 != 0.0)
+  if (v7 != 0.0)
   {
-    predictedLikelihoodOfEngagement = self->_predictedLikelihoodOfEngagement;
     PBDataWriterWriteFloatField();
   }
 
   if ([(_CPCoreSpotlightRankingSignalsForFeedback *)self wasNominatedAsTopHit])
   {
-    wasNominatedAsTopHit = self->_wasNominatedAsTopHit;
     PBDataWriterWriteBOOLField();
   }
 
   [(_CPCoreSpotlightRankingSignalsForFeedback *)self sodiumL2Score];
-  if (v13 != 0.0)
+  if (v8 != 0.0)
   {
-    sodiumL2Score = self->_sodiumL2Score;
     PBDataWriterWriteFloatField();
   }
 
   if ([(_CPCoreSpotlightRankingSignalsForFeedback *)self isExactMatchOfLaunchString])
   {
-    isExactMatchOfLaunchString = self->_isExactMatchOfLaunchString;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPCoreSpotlightRankingSignalsForFeedback *)self wasEngagedInSpotlight])
   {
-    wasEngagedInSpotlight = self->_wasEngagedInSpotlight;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPCoreSpotlightRankingSignalsForFeedback *)self resultQueryRecency])
   {
-    resultQueryRecency = self->_resultQueryRecency;
     PBDataWriterWriteInt32Field();
   }
 
   [(_CPCoreSpotlightRankingSignalsForFeedback *)self pommesL2Score];
-  if (v18 != 0.0)
+  if (v9 != 0.0)
   {
-    pommesL2Score = self->_pommesL2Score;
     PBDataWriterWriteFloatField();
   }
 
   if ([(_CPCoreSpotlightRankingSignalsForFeedback *)self isSemanticMatch])
   {
-    isSemanticMatch = self->_isSemanticMatch;
     PBDataWriterWriteBOOLField();
   }
 
   [(_CPCoreSpotlightRankingSignalsForFeedback *)self semanticScore];
-  if (v21 != 0.0)
+  if (v10 != 0.0)
   {
-    semanticScore = self->_semanticScore;
     PBDataWriterWriteFloatField();
   }
 
   if ([(_CPCoreSpotlightRankingSignalsForFeedback *)self isSyntacticMatch])
   {
-    isSyntacticMatch = self->_isSyntacticMatch;
     PBDataWriterWriteBOOLField();
   }
 
   [(_CPCoreSpotlightRankingSignalsForFeedback *)self syntacticScore];
-  if (v24 != 0.0)
+  if (v11 != 0.0)
   {
-    syntacticScore = self->_syntacticScore;
     PBDataWriterWriteFloatField();
   }
 
   if ([(_CPCoreSpotlightRankingSignalsForFeedback *)self embeddingStatus])
   {
-    embeddingStatus = self->_embeddingStatus;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_CPCoreSpotlightRankingSignalsForFeedback *)self itemAgeInDays])
   {
-    itemAgeInDays = self->_itemAgeInDays;
     PBDataWriterWriteUint32Field();
   }
 

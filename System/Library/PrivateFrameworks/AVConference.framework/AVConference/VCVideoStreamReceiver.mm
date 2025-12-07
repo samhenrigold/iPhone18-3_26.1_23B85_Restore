@@ -265,42 +265,42 @@ void __46__VCVideoStreamReceiver_startSynchronization___block_invoke(uint64_t a1
   return v3;
 }
 
-void __50__VCVideoStreamReceiver_startNetworkReceiveThread__block_invoke(uint64_t a1)
+void __50__VCVideoStreamReceiver_startNetworkReceiveThread__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   *(*(a1 + 32) + 194) = 0;
   *(*(a1 + 32) + 196) = 0;
   *(*(a1 + 32) + 200) = 0;
   *(*(a1 + 32) + 208) = 0;
-  v2 = micro();
-  *(*(a1 + 32) + 64) = v2;
-  *(*(a1 + 32) + 72) = v2;
+  v3 = micro(a1, a2);
+  *(*(a1 + 32) + 64) = v3;
+  *(*(a1 + 32) + 72) = v3;
   *(*(a1 + 32) + 192) = 0;
   *(*(a1 + 32) + 193) = 0;
-  v3 = *(a1 + 32);
-  if (!*(v3 + 424))
+  v4 = *(a1 + 32);
+  if (!*(v4 + 424))
   {
     *(*(a1 + 32) + 276) = VTP_Socket(2, 1, 6);
-    v3 = *(a1 + 32);
-    if (*(v3 + 276) == -1)
+    v4 = *(a1 + 32);
+    if (*(v4 + 276) == -1)
     {
       *(*(*(a1 + 40) + 8) + 24) = *__error() | 0xC01F0000;
-      v3 = *(a1 + 32);
+      v4 = *(a1 + 32);
     }
   }
 
-  if (!*(v3 + 264))
+  if (!*(v4 + 264))
   {
-    v6[0] = @"com.apple.AVConference.VCVideoReceiver.NetworkReceiveProc";
-    v4 = CFDictionaryCreate(*MEMORY[0x1E695E480], MEMORY[0x1E69631F0], v6, 1, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+    v7[0] = @"com.apple.AVConference.VCVideoReceiver.NetworkReceiveProc";
+    v5 = CFDictionaryCreate(*MEMORY[0x1E695E480], MEMORY[0x1E69631F0], v7, 1, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
     *(*(a1 + 32) + 272) = 1;
-    v5 = FigThreadCreate();
-    if (v4)
+    v6 = FigThreadCreate();
+    if (v5)
     {
-      CFRelease(v4);
+      CFRelease(v5);
     }
 
-    if (v5)
+    if (v6)
     {
       if (VRTraceGetErrorLogLevelForModule() >= 3)
       {
@@ -311,7 +311,7 @@ void __50__VCVideoStreamReceiver_startNetworkReceiveThread__block_invoke(uint64_
         }
       }
 
-      *(*(*(a1 + 40) + 8) + 24) = v5 | 0xA01F0000;
+      *(*(*(a1 + 40) + 8) + 24) = v6 | 0xA01F0000;
     }
   }
 }
@@ -385,7 +385,7 @@ void __49__VCVideoStreamReceiver_stopNetworkReceiveThread__block_invoke(uint64_t
       }
     }
 
-    else if ((RTPGetReceiveStatus(&hRTP, &v7, 1, self->_sRecvReset) & 0x80000000) == 0)
+    else if ((RTPGetReceiveStatus(&hRTP, &v7, 1u, self->_sRecvReset) & 0x80000000) == 0)
     {
 LABEL_4:
       v4 = v7;
@@ -455,6 +455,7 @@ LABEL_4:
 
 - (void)scheduleDecodeForTimestamp:(unsigned int)timestamp
 {
+  v3 = *&timestamp;
   v30 = *MEMORY[0x1E69E9840];
   v5 = &OBJC_IVAR___VCRateControlAlgorithmLayeredContinuousTier__bandwidthWall;
   v6 = &OBJC_IVAR___VCRateControlAlgorithmLayeredContinuousTier__bandwidthWall;
@@ -463,10 +464,10 @@ LABEL_4:
     v18 = -1;
     v19 = 0;
     v20 = -1431655936;
-    v7 = micro();
+    v7 = micro(self, a2);
     v17 = 0;
     v16 = 1;
-    NextFrame = VideoPacketBuffer_GetNextFrame(*(&self->super.super.isa + v5[751]), timestamp, &v18, &v16, &v19, 0, 0, &v20, &v17, 0);
+    NextFrame = VideoPacketBuffer_GetNextFrame(*(&self->super.super.isa + v5[751]), v3, &v18, &v16, &v19, 0, 0, &v20, &v17, 0);
     v9 = v20;
     if ((v20 & 0x80) != 0)
     {
@@ -488,7 +489,7 @@ LABEL_7:
     }
 
 LABEL_8:
-    if (v17[15])
+    if (*(v17 + 120))
     {
       [VCVideoStreamReceiver scheduleDecodeForFrameWithBuffer:"scheduleDecodeForFrameWithBuffer:timestamp:hostTime:showFrame:" timestamp:0.0 hostTime:? showFrame:?];
       if (v10 == -1)
@@ -502,7 +503,7 @@ LABEL_8:
 
   if (v18)
   {
-    RTCPSetSendPLI();
+    RTCPSetSendPLI(*(&self->super.super.isa + v6[738]));
     [(VCVideoStreamReceiver *)self updateVideoStallStatus:1];
     goto LABEL_7;
   }
@@ -618,26 +619,26 @@ LABEL_18:
 - (int)processVideoRTP
 {
   v2 = MEMORY[0x1EEE9AC00](self);
-  v42 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   memset(__b, 170, sizeof(__b));
-  v37 = 0;
-  v36 = 0;
+  v41 = 0;
   v40 = 0;
-  memset(v39, 0, sizeof(v39));
-  v35 = 0;
-  v3 = RTPRecvRTP(*(v2 + 112), &v35);
+  v44 = 0;
+  memset(v43, 0, sizeof(v43));
+  v39 = 0;
+  v3 = RTPRecvRTP(*(v2 + 112), &v39);
   if (v3 < 0)
   {
     [(VCVideoStreamReceiver *)v3 processVideoRTP];
 LABEL_39:
-    v24 = *buf;
+    v28 = *buf;
     goto LABEL_35;
   }
 
-  v4 = v35;
+  v4 = v39;
   if (*(v2 + 301) == 1)
   {
-    v5 = VCCVOExtensionUtils_CameraStatusBitsFromCVOExtension(*(v2 + 304), v35[18], *(v35 + 34), &v36);
+    v5 = VCCVOExtensionUtils_CameraStatusBitsFromCVOExtension(*(v2 + 304), *(v39 + 18), v39[34], &v40);
     ErrorLogLevelForModule = VRTraceGetErrorLogLevelForModule();
     if (v5)
     {
@@ -663,7 +664,7 @@ LABEL_39:
         *&buf[22] = 1024;
         *&buf[24] = 508;
         *&buf[28] = 1024;
-        *&buf[30] = v36;
+        *&buf[30] = v40;
         v10 = " [%s] %s:%d bCameraStatusBits = %x";
         v11 = v8;
         v12 = 34;
@@ -698,114 +699,120 @@ LABEL_11:
   }
 
 LABEL_14:
-  if (VRTraceGetErrorLogLevelForModule() > 7)
+  v15 = VRTraceGetErrorLogLevelForModule();
+  if (v15 > 7)
   {
-    v15 = VRTraceErrorLogLevelToCSTR();
-    v16 = *MEMORY[0x1E6986650];
-    v17 = *MEMORY[0x1E6986650];
+    v17 = VRTraceErrorLogLevelToCSTR();
+    v18 = *MEMORY[0x1E6986650];
+    v19 = *MEMORY[0x1E6986650];
     if (*MEMORY[0x1E6986640] == 1)
     {
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v15 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
+      if (v15)
       {
-        v18 = v4[20];
+        v20 = *(v4 + 20);
         *buf = 136315906;
-        *&buf[4] = v15;
+        *&buf[4] = v17;
         *&buf[12] = 2080;
         *&buf[14] = "[VCVideoStreamReceiver processVideoRTP]";
         *&buf[22] = 1024;
         *&buf[24] = 514;
         *&buf[28] = 1024;
-        *&buf[30] = v18;
-        _os_log_impl(&dword_1DB56E000, v16, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d processVideoRTP called RTPRecvRTP packet (%d bytes)", buf, 0x22u);
+        *&buf[30] = v20;
+        _os_log_impl(&dword_1DB56E000, v18, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d processVideoRTP called RTPRecvRTP packet (%d bytes)", buf, 0x22u);
       }
     }
 
-    else if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    else
     {
-      [VCVideoStreamReceiver processVideoRTP];
+      v15 = os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG);
+      if (v15)
+      {
+        [VCVideoStreamReceiver processVideoRTP];
+      }
     }
   }
 
-  if (*(v4 + 3) != 123)
+  if (v4[3] != 123)
   {
-    [(VCVideoStreamReceiver *)v4 + 12 processVideoRTP];
+    [(VCVideoStreamReceiver *)(v4 + 3) processVideoRTP];
     goto LABEL_39;
   }
 
-  if (!v4[20])
+  if (!*(v4 + 20))
   {
     [(VCVideoStreamReceiver *)v4 processVideoRTP];
     goto LABEL_39;
   }
 
-  atomic_fetch_add_explicit((v2 + 392), *(v4 + 30), memory_order_relaxed);
-  *(v2 + 64) = micro();
+  atomic_fetch_add_explicit((v2 + 392), v4[30], memory_order_relaxed);
+  *(v2 + 64) = micro(v15, v16);
   __memcpy_chk();
   if (*(v2 + 192) == 1)
   {
-    v19 = *(v2 + 280);
+    v21 = *(v2 + 280);
   }
 
   else
   {
     *(v2 + 192) = 1;
-    v19 = *(v2 + 280);
-    if (!v19)
+    v21 = *(v2 + 280);
+    if (!v21)
     {
       memcpy(buf, &unk_1DBD49020, sizeof(buf));
-      [v2 newVideoPacketBufferConfig:v4 + 1];
-      v19 = VideoPacketBuffer_Create(buf);
-      *(v2 + 280) = v19;
+      objc_msgSend_newVideoPacketBufferConfig_(v2);
+      v21 = VideoPacketBuffer_Create(buf);
+      *(v2 + 280) = v21;
     }
 
     *(v2 + 194) = *(v4 + 10) - 1;
     *(v2 + 196) = -1;
   }
 
-  *&v31[2] = 0xAAAAAAAAAAAAAAAALL;
-  v33 = v4 + 1;
-  v34 = 0xAAAAAAAAAAAAAA00;
-  v26 = xmmword_1DBD45AE0;
-  v27 = v4 + 19;
-  v28 = 0xAAAAAAAA00000000;
-  v29 = 0;
-  v30 = v36;
-  *v31 = 0;
-  v32 = v39;
-  VideoPacketBuffer_AddPacket(v19, &v26, 0, 0, 0);
-  if (VideoPacketBuffer_SchedulePastIncompleteFrame(*(v2 + 280), *(v4 + 6), &v37, 0, 0, 0))
+  *&v35[2] = 0xAAAAAAAAAAAAAAAALL;
+  v37 = v4 + 2;
+  v38 = 0xAAAAAAAAAAAAAA00;
+  v30 = xmmword_1DBD45AE0;
+  v31 = v4 + 38;
+  v32 = 0xAAAAAAAA00000000;
+  v33 = 0;
+  v34 = v40;
+  *v35 = 0;
+  v36 = v43;
+  VideoPacketBuffer_AddPacket(v21, &v30, 0, 0, 0);
+  if (VideoPacketBuffer_SchedulePastIncompleteFrame(*(v2 + 280), v4[6], &v41, 0, 0, 0))
   {
-    v20 = 0;
-    v21 = 0;
+    v22 = 0;
+    v23 = 0;
     do
     {
-      v22 = v37;
-      if ((v20 & 1) != 0 && v21 == v37)
+      v24 = v41;
+      if ((v22 & 1) != 0 && v23 == v41)
       {
         break;
       }
 
-      [v2 scheduleVideoDecode:v37];
-      v23 = VideoPacketBuffer_SchedulePastIncompleteFrame(*(v2 + 280), *(v4 + 6), &v37, 0, 0, 0);
-      v20 = 1;
-      v21 = v22;
+      [v2 scheduleVideoDecode:v41];
+      v25 = VideoPacketBuffer_SchedulePastIncompleteFrame(*(v2 + 280), v4[6], &v41, 0, 0, 0);
+      v22 = 1;
+      v23 = v24;
     }
 
-    while ((v23 & 1) != 0);
+    while ((v25 & 1) != 0);
   }
 
-  while (VideoPacketBuffer_ScheduleFutureFrame(*(v2 + 280), *(v4 + 7), *(v4 + 6), &v37, 0, 0, 0, *(v2 + 64)))
+  while (VideoPacketBuffer_ScheduleFutureFrame(*(v2 + 280), v4[7], v4[6], &v41, 0, 0, 0, *(v2 + 64)))
   {
-    [v2 scheduleVideoDecode:v37];
+    [v2 scheduleVideoDecode:v41];
   }
 
-  [v2 updateSequenceNumber:*(v4 + 10)];
-  [*(v2 + 216) updateRTPReceiveWithTimestamp:*(v4 + 6) sampleRate:90000 time:*(v4 + 40) size:*(v4 + 2) > 0 endOfFrame:micro()];
+  v26 = [v2 updateSequenceNumber:*(v4 + 10)];
+  [*(v2 + 216) updateRTPReceiveWithTimestamp:v4[6] sampleRate:90000 time:v4[40] size:v4[2] > 0 endOfFrame:{micro(v26, v27)}];
   kdebug_trace();
-  v24 = 0;
+  v28 = 0;
 LABEL_35:
-  RTPReleaseRTPPacket(*(v2 + 112), &v35);
-  return v24;
+  RTPReleaseRTPPacket(*(v2 + 112), &v39);
+  return v28;
 }
 
 - (void)rtcpSendIntervalElapsed
@@ -926,91 +933,92 @@ LABEL_35:
 
 - (int)processVideoRTCP
 {
-  v88 = *MEMORY[0x1E69E9840];
-  bzero(&v86, 0x668uLL);
-  v3 = RTPRecvRTCP(self->_hRTP, &v86);
+  v91 = *MEMORY[0x1E69E9840];
+  bzero(&v89, 0x668uLL);
+  v3 = RTPRecvRTCP(self->_hRTP, &v89);
+  v5 = v3;
   if ((v3 & 0x80000000) == 0)
   {
-    *&v4 = micro();
-    *&self->super._lastReceivedVideoRTCPPacketTime = v4;
-    if (!v87)
+    *&v6 = micro(v3, v4);
+    *&self->super._lastReceivedVideoRTCPPacketTime = v6;
+    if (!v90)
     {
       kdebug_trace();
       goto LABEL_84;
     }
 
-    v5 = *&v4;
-    v69 = v3;
-    v6 = 0;
-    v71 = 0;
-    v7 = 0;
-    v8 = 2;
-    *&v4 = 136316930;
-    v68 = v4;
+    v7 = *&v6;
+    v72 = v5;
+    v8 = 0;
+    v74 = 0;
+    v9 = 0;
+    v10 = 2;
+    *&v6 = 136316930;
+    v71 = v6;
     while (1)
     {
-      v9 = *(&v86 + v8);
-      v10 = *v9;
-      v11 = v10 >> 8;
-      if (v10 >> 8 <= 0xC9)
+      v11 = *(&v89 + v10);
+      v12 = *v11;
+      v13 = v12 >> 8;
+      if (v12 >> 8 <= 0xC9)
       {
         break;
       }
 
-      if (v10 >> 8 <= 0xCC)
+      if (v12 >> 8 <= 0xCC)
       {
-        if (v11 != 202)
+        if (v13 != 202)
         {
-          if (v11 == 204)
+          if (v13 == 204)
           {
             if (VRTraceGetErrorLogLevelForModule() >= 7)
             {
-              v16 = VRTraceErrorLogLevelToCSTR();
-              v17 = *MEMORY[0x1E6986650];
+              v18 = VRTraceErrorLogLevelToCSTR();
+              v19 = *MEMORY[0x1E6986650];
               if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 136315650;
-                *&buf[4] = v16;
+                *&buf[4] = v18;
                 *&buf[12] = 2080;
                 *&buf[14] = "[VCVideoStreamReceiver processVideoRTCP]";
                 *&buf[22] = 1024;
                 *&buf[24] = 728;
-                _os_log_impl(&dword_1DB56E000, v17, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Received RTCP APP", buf, 0x1Cu);
+                _os_log_impl(&dword_1DB56E000, v19, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Received RTCP APP", buf, 0x1Cu);
               }
             }
 
-            if (*(v9 + 2) == 1380144204)
+            if (*(v11 + 2) == 1380144204)
             {
-              v78 = -1431655766;
-              *&v77 = 0xAAAAAAAAAAAAAAAALL;
-              *(&v77 + 1) = 0xAAAAAAAAAAAAAAAALL;
-              v18 = *(v9 + 6);
-              v78 = *(v9 + 7);
-              v77 = v18;
-              memset(v79, 0, sizeof(v79));
-              v73 = 0;
-              v72 = 16843010;
-              VCMediaControlInfoUnserializeWithData(v79, &v77, 0x14uLL, &v72);
-              v19 = *&v79[24];
-              v20 = RTPUnpackDouble(*&v79[28]);
+              v81 = -1431655766;
+              *&v80 = 0xAAAAAAAAAAAAAAAALL;
+              *(&v80 + 1) = 0xAAAAAAAAAAAAAAAALL;
+              v20 = *(v11 + 6);
+              v81 = *(v11 + 7);
+              v80 = v20;
+              memset(v82, 0, sizeof(v82));
+              v76 = 0;
+              v75 = 16843010;
+              VCMediaControlInfoUnserializeWithData(v82, &v80, 0x14uLL, &v75);
+              v21 = *&v82[24];
+              v22 = RTPUnpackDouble(*&v82[28]);
               rateAdaptation = self->_rateAdaptation;
               *buf = 2;
-              *&buf[8] = v5;
+              *&buf[8] = v7;
               *&buf[16] = 0;
-              *&buf[24] = v19;
-              *&buf[28] = *&v79[20];
-              *&buf[32] = *&v79[2];
-              *&buf[40] = *&v79[4];
+              *&buf[24] = v21;
+              *&buf[28] = *&v82[20];
+              *&buf[32] = *&v82[2];
+              *&buf[40] = *&v82[4];
               *&buf[44] = 0;
               *&buf[60] = 0;
-              LODWORD(v75) = 0;
-              *&buf[52] = *&v79[10] + *&v79[6];
-              DWORD1(v75) = *v79;
-              *(&v75 + 1) = 0;
-              *v76 = v20;
-              memset(v76 + 8, 0, 80);
-              *(&v76[5] + 8) = 0u;
-              *(&v76[6] + 8) = 0u;
+              LODWORD(v78) = 0;
+              *&buf[52] = *&v82[10] + *&v82[6];
+              DWORD1(v78) = *v82;
+              *(&v78 + 1) = 0;
+              *v79 = v22;
+              memset(v79 + 8, 0, 80);
+              *(&v79[5] + 8) = 0u;
+              *(&v79[6] + 8) = 0u;
               [(VCVideoStreamRateAdaptation *)rateAdaptation updateRateControlInfoWithStatisticsMessage:buf];
             }
 
@@ -1025,195 +1033,195 @@ LABEL_35:
           goto LABEL_77;
         }
 
-        v35 = VRTraceErrorLogLevelToCSTR();
-        v36 = *MEMORY[0x1E6986650];
+        v37 = VRTraceErrorLogLevelToCSTR();
+        v38 = *MEMORY[0x1E6986650];
         if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_77;
         }
 
         *buf = 136315650;
-        *&buf[4] = v35;
+        *&buf[4] = v37;
         *&buf[12] = 2080;
         *&buf[14] = "[VCVideoStreamReceiver processVideoRTCP]";
         *&buf[22] = 1024;
         *&buf[24] = 665;
-        v14 = v36;
-        v15 = " [%s] %s:%d Received RTCP SDES";
+        v16 = v38;
+        v17 = " [%s] %s:%d Received RTCP SDES";
 LABEL_39:
-        v37 = 28;
+        v39 = 28;
         goto LABEL_68;
       }
 
-      if (v11 == 205)
+      if (v13 == 205)
       {
-        if ((v10 & 0x1F) == 4)
+        if ((v12 & 0x1F) == 4)
         {
-          v45 = v6;
-          v53 = *(v9 + 4);
-          v54 = (v53 >> 9) & 0x1FFFF;
-          v24 = (v54 << (v53 >> 26));
+          v48 = v8;
+          v56 = *(v11 + 4);
+          v57 = (v56 >> 9) & 0x1FFFF;
+          v26 = (v57 << (v56 >> 26));
           if (VRTraceGetErrorLogLevelForModule() >= 6)
           {
-            v55 = VRTraceErrorLogLevelToCSTR();
-            v56 = *MEMORY[0x1E6986650];
+            v58 = VRTraceErrorLogLevelToCSTR();
+            v59 = *MEMORY[0x1E6986650];
             if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136316674;
-              *&buf[4] = v55;
+              *&buf[4] = v58;
               *&buf[12] = 2080;
               *&buf[14] = "[VCVideoStreamReceiver processVideoRTCP]";
               *&buf[22] = 1024;
               *&buf[24] = 711;
               *&buf[28] = 1024;
-              *&buf[30] = v54 << (v53 >> 26);
+              *&buf[30] = v57 << (v56 >> 26);
               *&buf[34] = 1024;
-              *&buf[36] = (v53 >> 9) & 0x1FFFF;
+              *&buf[36] = (v56 >> 9) & 0x1FFFF;
               *&buf[40] = 1024;
-              *&buf[42] = v53 >> 26;
+              *&buf[42] = v56 >> 26;
               *&buf[46] = 1024;
-              *&buf[48] = v53 & 0x1FF;
-              _os_log_impl(&dword_1DB56E000, v56, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Received TMMBN:%d, mantissa:%d, exponent:%d, overhead:%d", buf, 0x34u);
+              *&buf[48] = v56 & 0x1FF;
+              _os_log_impl(&dword_1DB56E000, v59, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Received TMMBN:%d, mantissa:%d, exponent:%d, overhead:%d", buf, 0x34u);
             }
           }
 
-          [(VCVideoStreamRateAdaptation *)self->_rateAdaptation receivedTMMBN:(v54 << (v53 >> 26)), v68];
+          [(VCVideoStreamRateAdaptation *)self->_rateAdaptation receivedTMMBN:(v57 << (v56 >> 26)), v71];
         }
 
         else
         {
-          if ((v10 & 0x1F) != 3)
+          if ((v12 & 0x1F) != 3)
           {
             if (VRTraceGetErrorLogLevelForModule() < 7)
             {
               goto LABEL_77;
             }
 
-            v57 = VRTraceErrorLogLevelToCSTR();
-            v58 = *MEMORY[0x1E6986650];
+            v60 = VRTraceErrorLogLevelToCSTR();
+            v61 = *MEMORY[0x1E6986650];
             if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
             {
               goto LABEL_77;
             }
 
-            v59 = *v9 & 0x1F;
+            v62 = *v11 & 0x1F;
             *buf = 136315906;
-            *&buf[4] = v57;
+            *&buf[4] = v60;
             *&buf[12] = 2080;
             *&buf[14] = "[VCVideoStreamReceiver processVideoRTCP]";
             *&buf[22] = 1024;
             *&buf[24] = 715;
             *&buf[28] = 1024;
-            *&buf[30] = v59;
-            v14 = v58;
-            v15 = " [%s] %s:%d Received unknown RTCP RTPFB:%d";
+            *&buf[30] = v62;
+            v16 = v61;
+            v17 = " [%s] %s:%d Received unknown RTCP RTPFB:%d";
             goto LABEL_67;
           }
 
-          v24 = v7;
-          v45 = v6;
-          v75 = 0u;
-          memset(v76, 0, 88);
+          v26 = v9;
+          v48 = v8;
+          v78 = 0u;
+          memset(v79, 0, 88);
           memset(buf, 0, sizeof(buf));
-          v46 = *(v9 + 4);
-          v47 = (v46 >> 9) & 0x1FFFF;
+          v49 = *(v11 + 4);
+          v50 = (v49 >> 9) & 0x1FFFF;
           *buf = 16;
-          v70 = v47 << (v46 >> 26);
-          *&buf[48] = [(VCVideoReceiverDelegate *)[(VCVideoReceiverBase *)self delegate] vcVideoReceiver:self receivedTMMBR:v70];
+          v73 = v50 << (v49 >> 26);
+          *&buf[48] = [(VCVideoReceiverDelegate *)[(VCVideoReceiverBase *)self delegate] vcVideoReceiver:self receivedTMMBR:v73];
           if (VRTraceGetErrorLogLevelForModule() >= 6)
           {
-            v48 = VRTraceErrorLogLevelToCSTR();
-            v49 = *MEMORY[0x1E6986650];
+            v51 = VRTraceErrorLogLevelToCSTR();
+            v52 = *MEMORY[0x1E6986650];
             if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
             {
-              *v79 = v68;
-              *&v79[4] = v48;
-              *&v79[12] = 2080;
-              *&v79[14] = "[VCVideoStreamReceiver processVideoRTCP]";
-              *&v79[22] = 1024;
-              *&v79[24] = 700;
-              *&v79[28] = 1024;
-              *&v79[30] = v47 << (v46 >> 26);
-              *&v79[34] = 1024;
-              *&v79[36] = (v46 >> 9) & 0x1FFFF;
-              v80 = 1024;
-              v81 = v46 >> 26;
-              v82 = 1024;
-              v83 = v46 & 0x1FF;
-              v84 = 1024;
-              v85 = *&buf[48];
-              _os_log_impl(&dword_1DB56E000, v49, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Received TMMBR:%d, mantissa:%d, exponent:%d, overhead:%d adjusted TMMBN bitrate:%d", v79, 0x3Au);
+              *v82 = v71;
+              *&v82[4] = v51;
+              *&v82[12] = 2080;
+              *&v82[14] = "[VCVideoStreamReceiver processVideoRTCP]";
+              *&v82[22] = 1024;
+              *&v82[24] = 700;
+              *&v82[28] = 1024;
+              *&v82[30] = v50 << (v49 >> 26);
+              *&v82[34] = 1024;
+              *&v82[36] = (v49 >> 9) & 0x1FFFF;
+              v83 = 1024;
+              v84 = v49 >> 26;
+              v85 = 1024;
+              v86 = v49 & 0x1FF;
+              v87 = 1024;
+              v88 = *&buf[48];
+              _os_log_impl(&dword_1DB56E000, v52, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Received TMMBR:%d, mantissa:%d, exponent:%d, overhead:%d adjusted TMMBN bitrate:%d", v82, 0x3Au);
             }
           }
 
           RTPSendControlPacket(self->_hRTP, buf);
         }
 
-        v6 = v45;
+        v8 = v48;
       }
 
       else
       {
-        if (v11 != 206)
+        if (v13 != 206)
         {
           goto LABEL_54;
         }
 
-        v24 = v7;
+        v26 = v9;
         if (VRTraceGetErrorLogLevelForModule() >= 7)
         {
-          v25 = VRTraceErrorLogLevelToCSTR();
-          v26 = *MEMORY[0x1E6986650];
+          v27 = VRTraceErrorLogLevelToCSTR();
+          v28 = *MEMORY[0x1E6986650];
           if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
           {
-            v27 = *v9 & 0x1F;
+            v29 = *v11 & 0x1F;
             *buf = 136315906;
-            *&buf[4] = v25;
+            *&buf[4] = v27;
             *&buf[12] = 2080;
             *&buf[14] = "[VCVideoStreamReceiver processVideoRTCP]";
             *&buf[22] = 1024;
             *&buf[24] = 669;
             *&buf[28] = 1024;
-            *&buf[30] = v27;
-            _os_log_impl(&dword_1DB56E000, v26, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Received RTCP PSFB:%d", buf, 0x22u);
+            *&buf[30] = v29;
+            _os_log_impl(&dword_1DB56E000, v28, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Received RTCP PSFB:%d", buf, 0x22u);
           }
         }
 
-        v28 = *v9 & 0x1F;
-        if (v28 == 4)
+        v30 = *v11 & 0x1F;
+        if (v30 == 4)
         {
           if (VRTraceGetErrorLogLevelForModule() > 6)
           {
-            v29 = VRTraceErrorLogLevelToCSTR();
-            v30 = *MEMORY[0x1E6986650];
+            v31 = VRTraceErrorLogLevelToCSTR();
+            v32 = *MEMORY[0x1E6986650];
             if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
             {
               lastFIRArrivalTime = self->_lastFIRArrivalTime;
               [(VCVideoReceiverBase *)self roundTripTime];
               *buf = 136316418;
-              *&buf[4] = v29;
+              *&buf[4] = v31;
               *&buf[12] = 2080;
               *&buf[14] = "[VCVideoStreamReceiver processVideoRTCP]";
               *&buf[22] = 1024;
               *&buf[24] = 672;
               *&buf[28] = 2048;
-              *&buf[30] = v5;
+              *&buf[30] = v7;
               *&buf[38] = 2048;
               *&buf[40] = lastFIRArrivalTime;
               *&buf[48] = 2048;
-              *&buf[50] = v32;
-              _os_log_impl(&dword_1DB56E000, v30, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d currentTime=%.3f, lastFIRArrivalTime=%.3f, dRTT=%.3f", buf, 0x3Au);
+              *&buf[50] = v34;
+              _os_log_impl(&dword_1DB56E000, v32, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d currentTime=%.3f, lastFIRArrivalTime=%.3f, dRTT=%.3f", buf, 0x3Au);
             }
           }
 
-          v7 = v24;
-          v60 = self->_lastFIRArrivalTime;
-          if (v60 == 0.0 || (v61 = v5 - v60, [(VCVideoReceiverBase *)self roundTripTime], v61 >= v62 + v62))
+          v9 = v26;
+          v63 = self->_lastFIRArrivalTime;
+          if (v63 == 0.0 || (v64 = v7 - v63, [(VCVideoReceiverBase *)self roundTripTime], v64 >= v65 + v65))
           {
-            self->_lastFIRArrivalTime = v5;
-            v6 = 1;
+            self->_lastFIRArrivalTime = v7;
+            v8 = 1;
 LABEL_76:
-            v71 = 4;
+            v74 = 4;
             goto LABEL_77;
           }
 
@@ -1222,98 +1230,98 @@ LABEL_76:
             goto LABEL_76;
           }
 
-          v63 = VRTraceErrorLogLevelToCSTR();
-          v64 = *MEMORY[0x1E6986650];
+          v66 = VRTraceErrorLogLevelToCSTR();
+          v67 = *MEMORY[0x1E6986650];
           if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315650;
-            *&buf[4] = v63;
+            *&buf[4] = v66;
             *&buf[12] = 2080;
             *&buf[14] = "[VCVideoStreamReceiver processVideoRTCP]";
             *&buf[22] = 1024;
             *&buf[24] = 675;
-            _os_log_impl(&dword_1DB56E000, v64, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Ignoring too many FIR", buf, 0x1Cu);
+            _os_log_impl(&dword_1DB56E000, v67, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Ignoring too many FIR", buf, 0x1Cu);
           }
 
-          v71 = 4;
+          v74 = 4;
         }
 
         else
         {
-          v71 = *v9 & 0x1F;
-          v6 = ((v28 - 1) < 2) | v6;
+          v74 = *v11 & 0x1F;
+          v8 = ((v30 - 1) < 2) | v8;
         }
       }
 
-      v7 = v24;
+      v9 = v26;
 LABEL_77:
-      v65 = v8++ - 1;
-      if (v65 >= v87)
+      v68 = v10++ - 1;
+      if (v68 >= v90)
       {
-        if (v7)
+        if (v9)
         {
           kdebug_trace();
-          v3 = v69;
-          if ((v6 & 1) == 0)
+          v5 = v72;
+          if ((v8 & 1) == 0)
           {
 LABEL_84:
-            (self->_rtcpPacketsCallback)(self->_rtcpContext, &v86);
-            RTCPCleanupPacketList(&v86);
-            return v3;
+            (self->_rtcpPacketsCallback)(self->_rtcpContext, &v89);
+            RTCPCleanupPacketList(&v89);
+            return v5;
           }
         }
 
         else
         {
-          v3 = v69;
+          v5 = v72;
           kdebug_trace();
-          if ((v6 & 1) == 0)
+          if ((v8 & 1) == 0)
           {
             goto LABEL_84;
           }
         }
 
-        v66 = MEMORY[0x1E1289F20](&self->super._delegate);
-        [v66 vcVideoReceiverRequestKeyFrame:self rtcpPSFBType:v71];
+        v69 = MEMORY[0x1E1289F20](&self->super._delegate);
+        [v69 vcVideoReceiverRequestKeyFrame:self rtcpPSFBType:v74];
 
         goto LABEL_84;
       }
     }
 
-    if (v10 >> 8 > 0xC7)
+    if (v12 >> 8 > 0xC7)
     {
-      if (v11 == 200)
+      if (v13 == 200)
       {
         if (VRTraceGetErrorLogLevelForModule() >= 7)
         {
-          v38 = VRTraceErrorLogLevelToCSTR();
-          v39 = *MEMORY[0x1E6986650];
+          v41 = VRTraceErrorLogLevelToCSTR();
+          v42 = *MEMORY[0x1E6986650];
           if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315650;
-            *&buf[4] = v38;
+            *&buf[4] = v41;
             *&buf[12] = 2080;
             *&buf[14] = "[VCVideoStreamReceiver processVideoRTCP]";
             *&buf[22] = 1024;
             *&buf[24] = 643;
-            _os_log_impl(&dword_1DB56E000, v39, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Received RTCP SR", buf, 0x1Cu);
+            _os_log_impl(&dword_1DB56E000, v42, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Received RTCP SR", buf, 0x1Cu);
           }
         }
 
-        v40 = *(v9 + 4);
-        v41 = NTPToMicro(*(v9 + 3) | (*(v9 + 2) << 32));
-        [(VCVideoStreamReceiver *)self processReceptionReportBlock:v9 + 14 blockCount:*v9 & 0x1F arrivalNTPTime:v86];
+        v43 = *(v11 + 4);
+        v44 = NTPToMicro(*(v11 + 3) | (*(v11 + 2) << 32), v40);
+        [(VCVideoStreamReceiver *)self processReceptionReportBlock:v11 + 14 blockCount:*v11 & 0x1F arrivalNTPTime:v89];
         if (self->super._mediaStreamSynchronizer)
         {
           if (VRTraceGetErrorLogLevelForModule() >= 7)
           {
-            v42 = VRTraceErrorLogLevelToCSTR();
-            v43 = *MEMORY[0x1E6986650];
+            v45 = VRTraceErrorLogLevelToCSTR();
+            v46 = *MEMORY[0x1E6986650];
             if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
             {
               mediaStreamSynchronizer = self->super._mediaStreamSynchronizer;
               *buf = 136316674;
-              *&buf[4] = v42;
+              *&buf[4] = v45;
               *&buf[12] = 2080;
               *&buf[14] = "[VCVideoStreamReceiver processVideoRTCP]";
               *&buf[22] = 1024;
@@ -1323,95 +1331,95 @@ LABEL_84:
               *&buf[38] = 2048;
               *&buf[40] = mediaStreamSynchronizer;
               *&buf[48] = 2048;
-              *&buf[50] = v41;
+              *&buf[50] = v44;
               *&buf[58] = 1024;
-              *&buf[60] = v40;
-              _os_log_impl(&dword_1DB56E000, v43, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d VideoStreamReceiver (%p) updating MediaStreamSynchronizer (%p) with ntpTime=%.6f and rtpTimeStamp=%u", buf, 0x40u);
+              *&buf[60] = v43;
+              _os_log_impl(&dword_1DB56E000, v46, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d VideoStreamReceiver (%p) updating MediaStreamSynchronizer (%p) with ntpTime=%.6f and rtpTimeStamp=%u", buf, 0x40u);
             }
           }
 
-          VCMediaStreamSynchronizer_updateDestinationNTPTime(self->super._mediaStreamSynchronizer, v40, v41);
+          VCMediaStreamSynchronizer_updateDestinationNTPTime(self->super._mediaStreamSynchronizer, v43, v44);
         }
 
         goto LABEL_77;
       }
 
-      if (v11 != 201)
+      if (v13 != 201)
       {
         goto LABEL_54;
       }
 
-      [(VCVideoStreamReceiver *)self processReceptionReportBlock:v9 + 4 blockCount:v10 & 0x1F arrivalNTPTime:v86];
+      [(VCVideoStreamReceiver *)self processReceptionReportBlock:v11 + 4 blockCount:v12 & 0x1F arrivalNTPTime:v89];
       if (VRTraceGetErrorLogLevelForModule() < 7)
       {
         goto LABEL_77;
       }
 
-      v22 = VRTraceErrorLogLevelToCSTR();
-      v23 = *MEMORY[0x1E6986650];
+      v24 = VRTraceErrorLogLevelToCSTR();
+      v25 = *MEMORY[0x1E6986650];
       if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_77;
       }
 
       *buf = 136315650;
-      *&buf[4] = v22;
+      *&buf[4] = v24;
       *&buf[12] = 2080;
       *&buf[14] = "[VCVideoStreamReceiver processVideoRTCP]";
       *&buf[22] = 1024;
       *&buf[24] = 661;
-      v14 = v23;
-      v15 = " [%s] %s:%d Received RTCP RR";
+      v16 = v25;
+      v17 = " [%s] %s:%d Received RTCP RR";
       goto LABEL_39;
     }
 
-    if (v11 == 192)
+    if (v13 == 192)
     {
       if (VRTraceGetErrorLogLevelForModule() < 6)
       {
         goto LABEL_77;
       }
 
-      v33 = VRTraceErrorLogLevelToCSTR();
-      v34 = *MEMORY[0x1E6986650];
+      v35 = VRTraceErrorLogLevelToCSTR();
+      v36 = *MEMORY[0x1E6986650];
       if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_77;
       }
 
       *buf = 136315650;
-      *&buf[4] = v33;
+      *&buf[4] = v35;
       *&buf[12] = 2080;
       *&buf[14] = "[VCVideoStreamReceiver processVideoRTCP]";
       *&buf[22] = 1024;
       *&buf[24] = 720;
-      v14 = v34;
-      v15 = " [%s] %s:%d Received RTCP FIR RFC 2032";
+      v16 = v36;
+      v17 = " [%s] %s:%d Received RTCP FIR RFC 2032";
       goto LABEL_39;
     }
 
-    if (v11 == 193)
+    if (v13 == 193)
     {
       if (VRTraceGetErrorLogLevelForModule() < 7)
       {
         goto LABEL_77;
       }
 
-      v12 = VRTraceErrorLogLevelToCSTR();
-      v13 = *MEMORY[0x1E6986650];
+      v14 = VRTraceErrorLogLevelToCSTR();
+      v15 = *MEMORY[0x1E6986650];
       if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_77;
       }
 
       *buf = 136315650;
-      *&buf[4] = v12;
+      *&buf[4] = v14;
       *&buf[12] = 2080;
       *&buf[14] = "[VCVideoStreamReceiver processVideoRTCP]";
       *&buf[22] = 1024;
       *&buf[24] = 724;
-      v14 = v13;
-      v15 = " [%s] %s:%d Received RTCP NACK RFC 2032";
+      v16 = v15;
+      v17 = " [%s] %s:%d Received RTCP NACK RFC 2032";
       goto LABEL_39;
     }
 
@@ -1421,37 +1429,38 @@ LABEL_54:
       goto LABEL_77;
     }
 
-    v50 = VRTraceErrorLogLevelToCSTR();
-    v51 = *MEMORY[0x1E6986650];
+    v53 = VRTraceErrorLogLevelToCSTR();
+    v54 = *MEMORY[0x1E6986650];
     if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_77;
     }
 
-    v52 = *(v9 + 1);
+    v55 = *(v11 + 1);
     *buf = 136315906;
-    *&buf[4] = v50;
+    *&buf[4] = v53;
     *&buf[12] = 2080;
     *&buf[14] = "[VCVideoStreamReceiver processVideoRTCP]";
     *&buf[22] = 1024;
     *&buf[24] = 755;
     *&buf[28] = 1024;
-    *&buf[30] = v52;
-    v14 = v51;
-    v15 = " [%s] %s:%d Received unknown RTCP packet type:%d";
+    *&buf[30] = v55;
+    v16 = v54;
+    v17 = " [%s] %s:%d Received unknown RTCP packet type:%d";
 LABEL_67:
-    v37 = 34;
+    v39 = 34;
 LABEL_68:
-    _os_log_impl(&dword_1DB56E000, v14, OS_LOG_TYPE_DEFAULT, v15, buf, v37);
+    _os_log_impl(&dword_1DB56E000, v16, OS_LOG_TYPE_DEFAULT, v17, buf, v39);
     goto LABEL_77;
   }
 
-  return v3;
+  return v5;
 }
 
 - (int)scheduleDecodeForFrameWithBuffer:(VCVideoReceiverSampleBuffer_t *)buffer timestamp:(unsigned int)timestamp hostTime:(double)time showFrame:(BOOL)frame
 {
   frameCopy = frame;
+  v7 = *&timestamp;
   v33 = *MEMORY[0x1E69E9840];
   var0 = buffer->var6.var0;
   if (var0)
@@ -1499,13 +1508,13 @@ LABEL_68:
     v16 = *(MEMORY[0x1E6960CF0] + 24);
     v17 = *(MEMORY[0x1E6960CF0] + 32);
     epoch = *(MEMORY[0x1E6960CF0] + 40);
-    CMTimeMake(&v29, timestamp, 1);
+    CMTimeMake(&v29, v7, 1);
   }
 
   else
   {
     memset(&parameterSetPointers, 170, 24);
-    CMTimeMake(&parameterSetPointers.duration, timestamp, 90000);
+    CMTimeMake(&parameterSetPointers.duration, v7, 90000);
     p_lastFrameTime = &self->_lastFrameTime;
     if (self->_receivedFirstRemoteFrame)
     {
@@ -1578,7 +1587,7 @@ LABEL_68:
 
     else
     {
-      VCMediaStreamSynchronizer_scheduleDestinationPlaybackWithRTPTimestamp(self->super._mediaStreamSynchronizer, timestamp);
+      VCMediaStreamSynchronizer_scheduleDestinationPlaybackWithRTPTimestamp(self->super._mediaStreamSynchronizer, v7);
     }
   }
 
@@ -1617,7 +1626,7 @@ LABEL_68:
 - (void)updateVideoStallStatus:(BOOL)status
 {
   statusCopy = status;
-  v6 = micro();
+  v6 = micro(self, a2);
   videoStallStartTime = self->_videoStallStartTime;
   if (!statusCopy)
   {
@@ -2464,12 +2473,12 @@ LABEL_8:
 
 - (void)gatherRealtimeStats:(__CFDictionary *)stats
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   v4 = selectDestinationForRTMetrics();
-  v5 = micro();
+  v6 = micro(v4, v5);
   if (self->_reportingIntervalStartTime == 0.0)
   {
-    self->_reportingIntervalStartTime = v5;
+    self->_reportingIntervalStartTime = v6;
   }
 
   if (self->_reportingLastUpdateTime > 0.0)
@@ -2477,123 +2486,123 @@ LABEL_8:
     [(VCMediaStreamStats *)self->_stats updateMinMaxSinceTime:?];
     if (VRTraceGetErrorLogLevelForModule() >= 6)
     {
-      v6 = VRTraceErrorLogLevelToCSTR();
-      v7 = *MEMORY[0x1E6986650];
+      v7 = VRTraceErrorLogLevelToCSTR();
+      v8 = *MEMORY[0x1E6986650];
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
         [(VCMediaStreamStats *)self->_stats framerate];
-        v9 = v8;
+        v10 = v9;
         bitrateKbps = [(VCMediaStreamStats *)self->_stats bitrateKbps];
         *buf = 136316418;
-        v42 = v6;
-        v43 = 2080;
-        v44 = "[VCVideoStreamReceiver gatherRealtimeStats:]";
-        v45 = 1024;
-        v46 = 1149;
-        v47 = 2048;
+        v43 = v7;
+        v44 = 2080;
+        v45 = "[VCVideoStreamReceiver gatherRealtimeStats:]";
+        v46 = 1024;
+        v47 = 1149;
+        v48 = 2048;
         selfCopy = self;
-        v49 = 2048;
-        v50 = v9;
-        v51 = 1024;
-        v52 = bitrateKbps;
-        _os_log_impl(&dword_1DB56E000, v7, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d @=@ Health: VideoStreamReceiver [%p] videoRxFrameRate=%f, videoRxBitrate=%d kbps", buf, 0x36u);
+        v50 = 2048;
+        v51 = v10;
+        v52 = 1024;
+        v53 = bitrateKbps;
+        _os_log_impl(&dword_1DB56E000, v8, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d @=@ Health: VideoStreamReceiver [%p] videoRxFrameRate=%f, videoRxBitrate=%d kbps", buf, 0x36u);
       }
     }
   }
 
-  self->_reportingLastUpdateTime = v5;
+  self->_reportingLastUpdateTime = v6;
   if (v4)
   {
-    v11 = *MEMORY[0x1E695E480];
-    v12 = CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, @"%d", [(VCVideoStreamRateAdaptation *)self->_rateAdaptation sendTmmbrBitrate]);
-    CFDictionaryAddValue(v4, @"VCVSTMMB", v12);
-    CFRelease(v12);
-    v13 = CFStringCreateWithFormat(v11, 0, @"%d", [(VCVideoStreamRateAdaptation *)self->_rateAdaptation operatingBitrate]);
-    CFDictionaryAddValue(v4, @"VCVSRxOperatingBitrate", v13);
+    v12 = *MEMORY[0x1E695E480];
+    v13 = CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, @"%d", [(VCVideoStreamRateAdaptation *)self->_rateAdaptation sendTmmbrBitrate]);
+    CFDictionaryAddValue(v4, @"VCVSTMMB", v13);
     CFRelease(v13);
+    v14 = CFStringCreateWithFormat(v12, 0, @"%d", [(VCVideoStreamRateAdaptation *)self->_rateAdaptation operatingBitrate]);
+    CFDictionaryAddValue(v4, @"VCVSRxOperatingBitrate", v14);
+    CFRelease(v14);
     [(VCVideoStreamRateAdaptation *)self->_rateAdaptation packetLossPercentage];
-    v15 = CFStringCreateWithFormat(v11, 0, @"%.5f", v14);
-    CFDictionaryAddValue(v4, @"VCVSRxPacketLossPercentage", v15);
-    CFRelease(v15);
+    v16 = CFStringCreateWithFormat(v12, 0, @"%.5f", v15);
+    CFDictionaryAddValue(v4, @"VCVSRxPacketLossPercentage", v16);
+    CFRelease(v16);
     [(VCVideoStreamRateAdaptation *)self->_rateAdaptation roundTripTime];
-    v17 = CFStringCreateWithFormat(v11, 0, @"%.5f", v16);
-    CFDictionaryAddValue(v4, @"VCVSRxRoundTripTime", v17);
-    CFRelease(v17);
+    v18 = CFStringCreateWithFormat(v12, 0, @"%.5f", v17);
+    CFDictionaryAddValue(v4, @"VCVSRxRoundTripTime", v18);
+    CFRelease(v18);
     [(VCVideoStreamRateAdaptation *)self->_rateAdaptation maxOWRD];
-    v19 = CFStringCreateWithFormat(v11, 0, @"%.5f", v18);
-    CFDictionaryAddValue(v4, @"VCVSRxMaxOWRD", v19);
-    CFRelease(v19);
+    v20 = CFStringCreateWithFormat(v12, 0, @"%.5f", v19);
+    CFDictionaryAddValue(v4, @"VCVSRxMaxOWRD", v20);
+    CFRelease(v20);
     [(VCVideoStreamRateAdaptation *)self->_rateAdaptation setMaxOWRD:0.0];
     [(VCVideoStreamRateAdaptation *)self->_rateAdaptation nowrd];
-    v21 = CFStringCreateWithFormat(v11, 0, @"%.5f", v20);
-    CFDictionaryAddValue(v4, @"VCVSRxNOWRD", v21);
-    CFRelease(v21);
+    v22 = CFStringCreateWithFormat(v12, 0, @"%.5f", v21);
+    CFDictionaryAddValue(v4, @"VCVSRxNOWRD", v22);
+    CFRelease(v22);
     [(VCVideoStreamRateAdaptation *)self->_rateAdaptation nowrdShort];
-    v23 = CFStringCreateWithFormat(v11, 0, @"%.5f", v22);
-    CFDictionaryAddValue(v4, @"VCVSRxNOWRDSHORT", v23);
-    CFRelease(v23);
+    v24 = CFStringCreateWithFormat(v12, 0, @"%.5f", v23);
+    CFDictionaryAddValue(v4, @"VCVSRxNOWRDSHORT", v24);
+    CFRelease(v24);
     [(VCVideoStreamRateAdaptation *)self->_rateAdaptation nowrdAcc];
-    v25 = CFStringCreateWithFormat(v11, 0, @"%.5f", v24);
-    CFDictionaryAddValue(v4, @"VCVSRxNOWRDACC", v25);
-    CFRelease(v25);
-    v26 = CFStringCreateWithFormat(v11, 0, @"%u", atomic_fetch_and_explicit(&self->_videoStallDurationMillis, 0, memory_order_relaxed));
-    CFDictionaryAddValue(v4, @"VCVSRxVideoStallDuration", v26);
+    v26 = CFStringCreateWithFormat(v12, 0, @"%.5f", v25);
+    CFDictionaryAddValue(v4, @"VCVSRxNOWRDACC", v26);
     CFRelease(v26);
-    v27 = CFStringCreateWithFormat(v11, 0, @"%u", [(VCMediaStreamStats *)self->_stats maxFrameDurationMillis]);
-    CFDictionaryAddValue(v4, @"VCVSRxMaxFrameDuration", v27);
+    v27 = CFStringCreateWithFormat(v12, 0, @"%u", atomic_fetch_and_explicit(&self->_videoStallDurationMillis, 0, memory_order_relaxed));
+    CFDictionaryAddValue(v4, @"VCVSRxVideoStallDuration", v27);
     CFRelease(v27);
-    [(VCMediaStreamStats *)self->_stats setMaxFrameDurationMillis:0];
-    v28 = CFStringCreateWithFormat(v11, 0, @"%u", [(VCMediaStreamStats *)self->_stats getBitrateKbpsSinceTime:self->_reportingIntervalStartTime]);
-    CFDictionaryAddValue(v4, @"VCVSRxAvgBitrate", v28);
+    v28 = CFStringCreateWithFormat(v12, 0, @"%u", [(VCMediaStreamStats *)self->_stats maxFrameDurationMillis]);
+    CFDictionaryAddValue(v4, @"VCVSRxMaxFrameDuration", v28);
     CFRelease(v28);
-    v29 = CFStringCreateWithFormat(v11, 0, @"%u", [(VCMediaStreamStats *)self->_stats maxBitrateKbps]);
-    CFDictionaryAddValue(v4, @"VCVSRxMaxBitrate", v29);
+    [(VCMediaStreamStats *)self->_stats setMaxFrameDurationMillis:0];
+    v29 = CFStringCreateWithFormat(v12, 0, @"%u", [(VCMediaStreamStats *)self->_stats getBitrateKbpsSinceTime:self->_reportingIntervalStartTime]);
+    CFDictionaryAddValue(v4, @"VCVSRxAvgBitrate", v29);
     CFRelease(v29);
-    [(VCMediaStreamStats *)self->_stats setMaxBitrateKbps:0];
-    v30 = CFStringCreateWithFormat(v11, 0, @"%u", [(VCMediaStreamStats *)self->_stats minBitrateKbps]);
-    CFDictionaryAddValue(v4, @"VCVSRxMinBitrate", v30);
+    v30 = CFStringCreateWithFormat(v12, 0, @"%u", [(VCMediaStreamStats *)self->_stats maxBitrateKbps]);
+    CFDictionaryAddValue(v4, @"VCVSRxMaxBitrate", v30);
     CFRelease(v30);
+    [(VCMediaStreamStats *)self->_stats setMaxBitrateKbps:0];
+    v31 = CFStringCreateWithFormat(v12, 0, @"%u", [(VCMediaStreamStats *)self->_stats minBitrateKbps]);
+    CFDictionaryAddValue(v4, @"VCVSRxMinBitrate", v31);
+    CFRelease(v31);
     [(VCMediaStreamStats *)self->_stats setMinBitrateKbps:0xFFFFFFFFLL];
     [(VCMediaStreamStats *)self->_stats getFramerateSinceTime:self->_reportingIntervalStartTime];
-    v32 = CFStringCreateWithFormat(v11, 0, @"%5.2f", v31);
-    CFDictionaryAddValue(v4, @"VCVSRxAvgFramerate", v32);
-    CFRelease(v32);
+    v33 = CFStringCreateWithFormat(v12, 0, @"%5.2f", v32);
+    CFDictionaryAddValue(v4, @"VCVSRxAvgFramerate", v33);
+    CFRelease(v33);
     [(VCMediaStreamStats *)self->_stats maxFramerate];
-    v34 = CFStringCreateWithFormat(v11, 0, @"%5.2f", v33);
-    CFDictionaryAddValue(v4, @"VCVSRxMaxFramerate", v34);
-    CFRelease(v34);
+    v35 = CFStringCreateWithFormat(v12, 0, @"%5.2f", v34);
+    CFDictionaryAddValue(v4, @"VCVSRxMaxFramerate", v35);
+    CFRelease(v35);
     [(VCMediaStreamStats *)self->_stats setMaxFramerate:0.0];
     [(VCMediaStreamStats *)self->_stats minFramerate];
-    v36 = CFStringCreateWithFormat(v11, 0, @"%5.2f", v35);
-    CFDictionaryAddValue(v4, @"VCVSRxMinFramerate", v36);
-    CFRelease(v36);
+    v37 = CFStringCreateWithFormat(v12, 0, @"%5.2f", v36);
+    CFDictionaryAddValue(v4, @"VCVSRxMinFramerate", v37);
+    CFRelease(v37);
     [(VCMediaStreamStats *)self->_stats setMinFramerate:1.79769313e308];
-    self->_reportingIntervalStartTime = v5;
+    self->_reportingIntervalStartTime = v6;
     if (VRTraceGetErrorLogLevelForModule() >= 8)
     {
-      v37 = VRTraceErrorLogLevelToCSTR();
-      v38 = *MEMORY[0x1E6986650];
+      v38 = VRTraceErrorLogLevelToCSTR();
       v39 = *MEMORY[0x1E6986650];
+      v40 = *MEMORY[0x1E6986650];
       if (*MEMORY[0x1E6986640] == 1)
       {
-        if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
         {
-          v40 = [-[__CFDictionary description](v4 "description")];
+          v41 = [-[__CFDictionary description](v4 "description")];
           *buf = 136315906;
-          v42 = v37;
-          v43 = 2080;
-          v44 = "[VCVideoStreamReceiver gatherRealtimeStats:]";
-          v45 = 1024;
-          v46 = 1228;
-          v47 = 2080;
-          selfCopy = v40;
-          _os_log_impl(&dword_1DB56E000, v38, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Rx RTCReporting:%s", buf, 0x26u);
+          v43 = v38;
+          v44 = 2080;
+          v45 = "[VCVideoStreamReceiver gatherRealtimeStats:]";
+          v46 = 1024;
+          v47 = 1228;
+          v48 = 2080;
+          selfCopy = v41;
+          _os_log_impl(&dword_1DB56E000, v39, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Rx RTCReporting:%s", buf, 0x26u);
         }
       }
 
-      else if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
+      else if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
       {
-        [(VCVideoStreamReceiver *)v37 gatherRealtimeStats:v4, v38];
+        [(VCVideoStreamReceiver *)v38 gatherRealtimeStats:v4, v39];
       }
     }
   }
@@ -2740,14 +2749,14 @@ LABEL_8:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d no delegate specified!", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d no delegate specified!", v2, v3, v4, v5);
 }
 
 - (void)initWithConfig:.cold.3()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d no config specified!", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d no config specified!", v2, v3, v4, v5);
 }
 
 void __50__VCVideoStreamReceiver_startNetworkReceiveThread__block_invoke_cold_1()
@@ -2872,7 +2881,7 @@ void __50__VCVideoStreamReceiver_startNetworkReceiveThread__block_invoke_cold_1(
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to create decompressionSessionOptions", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to create decompressionSessionOptions", v2, v3, v4, v5);
 }
 
 - (void)createDecodeSession:(uint64_t)a3 .cold.3(void *a1, uint64_t a2, uint64_t a3)
@@ -3024,7 +3033,7 @@ void __50__VCVideoStreamReceiver_startNetworkReceiveThread__block_invoke_cold_1(
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d CMBufferQueueDequeueAndRetain returned null!", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d CMBufferQueueDequeueAndRetain returned null!", v2, v3, v4, v5);
 }
 
 - (void)gatherRealtimeStats:(NSObject *)a3 .cold.1(uint64_t a1, void *a2, NSObject *a3)

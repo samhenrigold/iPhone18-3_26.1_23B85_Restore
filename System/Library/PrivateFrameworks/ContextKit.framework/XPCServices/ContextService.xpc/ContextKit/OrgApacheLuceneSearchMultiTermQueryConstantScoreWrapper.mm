@@ -30,40 +30,37 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  v12.receiver = self;
-  v12.super_class = OrgApacheLuceneSearchMultiTermQueryConstantScoreWrapper;
-  v5 = [(OrgApacheLuceneSearchQuery *)&v12 isEqual:?];
-  if (!v5)
-  {
-    return v5;
-  }
-
-  objc_opt_class();
-  if (!equal)
-  {
-    v10 = *(&self->super.boost_ + 1);
-    goto LABEL_10;
-  }
-
-  if ((objc_opt_isKindOfClass() & 1) == 0)
-  {
-    JreThrowClassCastException();
-  }
-
-  v6 = *(&self->super.boost_ + 1);
-  if (!v6)
-  {
-LABEL_10:
-    JreThrowNullPointerException();
-  }
-
-  v5 = [v6 isEqual:*(equal + 12)];
+  v11.receiver = self;
+  v11.super_class = OrgApacheLuceneSearchMultiTermQueryConstantScoreWrapper;
+  v5 = [(OrgApacheLuceneSearchQuery *)&v11 isEqual:?];
   if (v5)
   {
-    [(OrgApacheLuceneSearchQuery *)self getBoost];
-    v8 = v7;
-    [equal getBoost];
-    LOBYTE(v5) = v8 == v9;
+    objc_opt_class();
+    if (!equal)
+    {
+      goto LABEL_9;
+    }
+
+    if ((objc_opt_isKindOfClass() & 1) == 0)
+    {
+      JreThrowClassCastException();
+    }
+
+    v6 = *(&self->super.boost_ + 1);
+    if (!v6)
+    {
+LABEL_9:
+      JreThrowNullPointerException();
+    }
+
+    v5 = [v6 isEqual:*(equal + 12)];
+    if (v5)
+    {
+      [(OrgApacheLuceneSearchQuery *)self getBoost];
+      v8 = v7;
+      [equal getBoost];
+      LOBYTE(v5) = v8 == v9;
+    }
   }
 
   return v5;

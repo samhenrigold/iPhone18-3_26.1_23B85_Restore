@@ -3,7 +3,9 @@
 - (FMOOSModel)initWithFMCoreData:(id)data locationController:(id)controller withQueueName:(const char *)name;
 - (id)getCoreTelephonyRATStringFromEnum:(int)enum;
 - (int)getOOSInsightRATFromString:(id)string;
+- (void)_handleAirplaneModeActiveChanged:(BOOL)changed;
 - (void)_handleCellMonitorUpdate:(id)update info:(id)info;
+- (void)_handleLocationAuthorizationUpdate:(BOOL)update;
 - (void)_handleLocationUpdate:(id)update;
 - (void)_handleRegistrationStatusChanged:(id)changed registrationStatus:(id)status;
 - (void)_handleRegulatoryDomainEstimateUpdate:(id)update;
@@ -11,6 +13,7 @@
 - (void)_handleVisitStarted:(id)started;
 - (void)_initializeStateForContext:(id)context atTime:(id)time;
 - (void)_updateStateForContext:(id)context atTime:(id)time withExistingState:(id)state;
+- (void)backInServiceWithSubscriptionID:(id)d isDataContext:(BOOL)context afterDuration:(double)duration fromEntry:(id)entry withNextCell:(id)cell withRegistrationState:(id)state previousCrowdsourcedPrediction:(id)prediction withPredictionSuppressionReason:(unsigned int)self0;
 - (void)dealloc;
 - (void)fetchAndSendCrowdsourcedOOSInsightsPerTileForState:(id)state atLocation:(id)location withReason:(id)reason;
 - (void)fetchAndSendOnDeviceLearningsForState:(id)state withContext:(id)context;
@@ -160,6 +163,19 @@
 LABEL_9:
   [(FMOOSModel *)self _initializeStateForContext:contextCopy atTime:timeCopy];
 LABEL_10:
+}
+
+- (void)_handleAirplaneModeActiveChanged:(BOOL)changed
+{
+  changedCopy = changed;
+  if (os_log_type_enabled(*(qword_1002DBE98 + 136), OS_LOG_TYPE_DEBUG))
+  {
+    sub_100202C60();
+  }
+
+  [(FMOOSModel *)self setIsAirplaneModeActive:changedCopy];
+  contextUUIDToStateMap = [(FMModel *)self contextUUIDToStateMap];
+  [contextUUIDToStateMap enumerateKeysAndObjectsUsingBlock:&stru_1002AE350];
 }
 
 - (void)fetchAndSendCrowdsourcedOOSInsightsPerTileForState:(id)state atLocation:(id)location withReason:(id)reason
@@ -1085,6 +1101,20 @@ LABEL_15:
   return v4;
 }
 
+- (void)_handleLocationAuthorizationUpdate:(BOOL)update
+{
+  updateCopy = update;
+  v5 = *(qword_1002DBE98 + 136);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  {
+    v6[0] = 67109120;
+    v6[1] = updateCopy;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "FederatedMobility[FMOOSModel]:#I _handleLocationAuthorizationUpdate isLocationAuthorized: %d", v6, 8u);
+  }
+
+  [(FMOOSModel *)self setIsLocationAuthorized:updateCopy];
+}
+
 - (void)_handleLocationUpdate:(id)update
 {
   updateCopy = update;
@@ -1183,6 +1213,567 @@ LABEL_15:
   }
 
   return self;
+}
+
+- (void)backInServiceWithSubscriptionID:(id)d isDataContext:(BOOL)context afterDuration:(double)duration fromEntry:(id)entry withNextCell:(id)cell withRegistrationState:(id)state previousCrowdsourcedPrediction:(id)prediction withPredictionSuppressionReason:(unsigned int)self0
+{
+  contextCopy = context;
+  dCopy = d;
+  entryCopy = entry;
+  cellCopy = cell;
+  stateCopy = state;
+  predictionCopy = prediction;
+  v17 = +[FMConfiguration sharedInstance];
+  oOSMinOOSAreaDurationSeconds = [v17 OOSMinOOSAreaDurationSeconds];
+
+  if (oOSMinOOSAreaDurationSeconds <= duration)
+  {
+    v19 = sub_1000CDAE0();
+    prevCells = [entryCopy prevCells];
+    lastObject = [prevCells lastObject];
+
+    v120 = lastObject;
+    if (!lastObject)
+    {
+      if (os_log_type_enabled(*(qword_1002DBE98 + 136), OS_LOG_TYPE_ERROR))
+      {
+        sub_1002033DC();
+      }
+
+      goto LABEL_127;
+    }
+
+    clientPrediction = [entryCopy clientPrediction];
+    v24 = (reason & 0xFFFB) == 0 && clientPrediction != 0;
+    v138 = v24;
+
+    v26 = (reason & 0xFFFD0000) == 0 && predictionCopy != 0;
+    v123 = v26;
+    clientPrediction2 = [entryCopy clientPrediction];
+    if (clientPrediction2)
+    {
+      clientPrediction3 = [entryCopy clientPrediction];
+      isSent = [clientPrediction3 isSent];
+    }
+
+    else
+    {
+      isSent = 0;
+    }
+
+    if (predictionCopy)
+    {
+      isSent2 = [predictionCopy isSent];
+    }
+
+    else
+    {
+      isSent2 = 0;
+    }
+
+    if (v138)
+    {
+      clientPrediction4 = [entryCopy clientPrediction];
+      predictedRecoveryCell = [clientPrediction4 predictedRecoveryCell];
+
+      clientPrediction5 = [entryCopy clientPrediction];
+      [clientPrediction5 predictedOOSDuration];
+      v34 = v33;
+
+      v35 = vabdd_f64(v34, duration) / ((v34 + duration) * 0.5) * 100.0;
+    }
+
+    else
+    {
+      predictedRecoveryCell = 0;
+      v35 = -1.0;
+      v34 = 0.0;
+    }
+
+    v36 = [cellCopy mcc];
+    v37 = [cellCopy mnc];
+    v117 = [WISTelephonyUtils getPLMNFromMCC:v36 AndMNC:v37];
+
+    radioAccessTechnology = [cellCopy radioAccessTechnology];
+    v116 = [WISTelephonyUtils getRATFromCellMonitorString:radioAccessTechnology];
+
+    arfcnOrUarfcn = [cellCopy arfcnOrUarfcn];
+    bandInfo = [cellCopy bandInfo];
+    if ((!v138 | isSent2))
+    {
+      if (!v123)
+      {
+        v136 = 0;
+        v133 = 0;
+        v134 = 0;
+        v114 = 0;
+        v115 = 0;
+        v124 = 0;
+        v126 = 0;
+        v130 = 0;
+        v131 = 0;
+        v128 = 0;
+        v51 = 0;
+        v109 = 0x100000001;
+        v112 = 1;
+        v110 = 1;
+        v113 = 1;
+        v111 = 1;
+LABEL_45:
+        if (predictedRecoveryCell)
+        {
+          v121 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [predictedRecoveryCell isEqual:v120]);
+        }
+
+        else
+        {
+          v121 = 0;
+        }
+
+        v173[0] = bandInfo;
+        v145[0] = @"bandAfter";
+        v145[1] = @"bandPredicted";
+        v52 = v126;
+        v122 = v51;
+        if (v113)
+        {
+          v52 = +[NSNull null];
+        }
+
+        v173[1] = v52;
+        v145[2] = @"bandMatched";
+        v53 = v133;
+        v87 = v52;
+        if (!v133)
+        {
+          v53 = +[NSNull null];
+        }
+
+        v84 = v53;
+        v173[2] = v53;
+        v145[3] = @"batteryCapacityChange";
+        [entryCopy batteryLevel];
+        v101 = [NSNumber numberWithLongLong:llround(v19 - v54)];
+        v173[3] = v101;
+        v145[4] = @"dataContext";
+        v100 = [NSNumber numberWithBool:contextCopy];
+        v173[4] = v100;
+        v145[5] = @"duration";
+        v99 = [NSNumber numberWithLongLong:llround(duration)];
+        v173[5] = v99;
+        v145[6] = @"durationPredicted";
+        if (v138)
+        {
+          v98 = [NSNumber numberWithLongLong:llround(v34)];
+          v174 = v98;
+          v146 = @"durationPredictionError";
+          v97 = [NSNumber numberWithLongLong:llround(v34 - duration)];
+          v175 = v97;
+          v147 = @"durationPredictionErrorPercent";
+          [NSNumber numberWithDouble:v35];
+        }
+
+        else
+        {
+          v98 = +[NSNull null];
+          v174 = v98;
+          v146 = @"durationPredictionError";
+          v97 = +[NSNull null];
+          v175 = v97;
+          v147 = @"durationPredictionErrorPercent";
+          +[NSNull null];
+        }
+        v108 = ;
+        v176 = v108;
+        v177 = arfcnOrUarfcn;
+        v148 = @"frequencyAfter";
+        v149 = @"frequencyPredicted";
+        v55 = v131;
+        if (v112)
+        {
+          v55 = +[NSNull null];
+        }
+
+        v86 = v55;
+        v178 = v55;
+        v150 = @"frequencyMatched";
+        v56 = v134;
+        if (!v134)
+        {
+          v56 = +[NSNull null];
+        }
+
+        v83 = v56;
+        v179 = v56;
+        v151 = @"geoInputAccuracyEnteringOOS";
+        entryLocation = [entryCopy entryLocation];
+        if (entryLocation)
+        {
+          entryLocation2 = [entryCopy entryLocation];
+          [entryLocation2 accuracy];
+          v57 = [NSNumber numberWithDouble:?];
+        }
+
+        else
+        {
+          v57 = +[NSNull null];
+          entryLocation2 = v57;
+        }
+
+        v89 = v57;
+        v180 = v57;
+        v152 = @"geoInputAgeEnteringOOS";
+        entryLocation3 = [entryCopy entryLocation];
+        if (entryLocation3)
+        {
+          timestamp = [entryCopy timestamp];
+          entryLocation4 = [entryCopy entryLocation];
+          timestamp2 = [entryLocation4 timestamp];
+          [timestamp timeIntervalSinceDate:?];
+          v58 = [NSNumber numberWithDouble:?];
+        }
+
+        else
+        {
+          v58 = +[NSNull null];
+          timestamp = v58;
+        }
+
+        v181 = v58;
+        v153 = @"insightAvailable";
+        v88 = v58;
+        v138 = [NSNumber numberWithBool:v123 | v138];
+        v182 = v138;
+        v154 = @"insightSent";
+        v95 = [NSNumber numberWithBool:(isSent | isSent2) & 1];
+        v183 = v95;
+        v155 = @"knownOOSArea";
+        clientPrediction6 = [entryCopy clientPrediction];
+        v93 = [NSNumber numberWithBool:clientPrediction6 != 0];
+        v184 = v93;
+        v156 = @"learningType";
+        if (HIDWORD(v109))
+        {
+          v115 = +[NSNull null];
+        }
+
+        v185 = v115;
+        v157 = @"learntOOSArea";
+        v92 = [NSNumber numberWithBool:v138];
+        v186 = v92;
+        v158 = @"outOfServiceRate";
+        if (v123)
+        {
+          lastOosRate = [predictionCopy lastOosRate];
+          v187 = lastOosRate;
+          v159 = @"minOutOfServiceRate";
+          minOosRate = [predictionCopy minOosRate];
+          v188 = minOosRate;
+          v160 = @"maxOutOfServiceRate";
+          [predictionCopy maxOosRate];
+        }
+
+        else
+        {
+          lastOosRate = +[NSNull null];
+          v187 = lastOosRate;
+          v159 = @"minOutOfServiceRate";
+          minOosRate = +[NSNull null];
+          v188 = minOosRate;
+          v160 = @"maxOutOfServiceRate";
+          +[NSNull null];
+        }
+        v107 = ;
+        v189 = v107;
+        v190 = v117;
+        v161 = @"plmnAfter";
+        v162 = @"plmnPredicted";
+        v59 = v124;
+        if (v111)
+        {
+          v59 = +[NSNull null];
+        }
+
+        v85 = v59;
+        v191 = v59;
+        v163 = @"plmnMatched";
+        v60 = v136;
+        if (!v136)
+        {
+          v60 = +[NSNull null];
+        }
+
+        v82 = v60;
+        v192 = v60;
+        v164 = @"plmnType";
+        if (v110)
+        {
+          v114 = +[NSNull null];
+        }
+
+        v193 = v114;
+        v165 = @"predictionSuppressionReason";
+        v61 = [NSNumber numberWithUnsignedInt:reason];
+        v194 = v61;
+        v195 = v116;
+        v166 = @"ratAfter";
+        v167 = @"ratAfterKnown";
+        v62 = v130;
+        if (!v130)
+        {
+          v62 = +[NSNull null];
+        }
+
+        v196 = v62;
+        v168 = @"ratPredicted";
+        v63 = v128;
+        if (v109)
+        {
+          v63 = +[NSNull null];
+        }
+
+        v197 = v63;
+        v169 = @"ratMatched";
+        v64 = v122;
+        if (!v122)
+        {
+          v64 = +[NSNull null];
+        }
+
+        v198 = v64;
+        v170 = @"validDuration";
+        if (v138)
+        {
+          clientPrediction7 = [entryCopy clientPrediction];
+          [clientPrediction7 validPredictionDuration];
+          v66 = [NSNumber numberWithDouble:?];
+        }
+
+        else
+        {
+          v66 = +[NSNull null];
+          clientPrediction7 = v66;
+        }
+
+        v199 = v66;
+        v171 = @"sameCellBeforeAndPredicted";
+        v67 = v121;
+        if (!v121)
+        {
+          v67 = +[NSNull null];
+        }
+
+        v200 = v67;
+        v172 = @"seenCount";
+        if (v138)
+        {
+          clientPrediction8 = [entryCopy clientPrediction];
+          v69 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [clientPrediction8 oosAreaSeenCount]);
+        }
+
+        else
+        {
+          v69 = +[NSNull null];
+          clientPrediction8 = v69;
+        }
+
+        v201 = v69;
+        v103 = [NSDictionary dictionaryWithObjects:v173 forKeys:v145 count:34];
+        if (v138)
+        {
+        }
+
+        if (!v121)
+        {
+        }
+
+        if (v138)
+        {
+        }
+
+        if (!v122)
+        {
+        }
+
+        if (v109)
+        {
+        }
+
+        if (!v130)
+        {
+        }
+
+        if (v110)
+        {
+        }
+
+        if (!v136)
+        {
+        }
+
+        if (v111)
+        {
+        }
+
+        if (HIDWORD(v109))
+        {
+        }
+
+        if (entryLocation3)
+        {
+        }
+
+        if (entryLocation)
+        {
+        }
+
+        if (!v134)
+        {
+        }
+
+        if (v112)
+        {
+        }
+
+        if (!v133)
+        {
+        }
+
+        if (v113)
+        {
+        }
+
+        v70 = *(qword_1002DBE98 + 136);
+        if (os_log_type_enabled(v70, OS_LOG_TYPE_INFO))
+        {
+          *buf = 138412290;
+          v144 = v103;
+          _os_log_impl(&_mh_execute_header, v70, OS_LOG_TYPE_INFO, "FederatedMobility[FMOOSModel]:#I Sending CA event with payload: %@", buf, 0xCu);
+        }
+
+        v71 = [NSString stringWithUTF8String:"com.apple.Telephony.fedMobilityOutOfServiceRecoveryPredictions"];
+        v139[0] = _NSConcreteStackBlock;
+        v139[1] = 3221225472;
+        v139[2] = sub_100091ED0;
+        v139[3] = &unk_1002AB460;
+        v72 = v103;
+        v140 = v72;
+        sub_1000158DC(v71, v139);
+
+        if ([(FMOOSModel *)self isLocationAuthorized])
+        {
+          fmCoreData = [(FMModel *)self fmCoreData];
+          timestamp3 = [entryCopy timestamp];
+          prevVisit = [entryCopy prevVisit];
+          curVisit = [entryCopy curVisit];
+          prevCells2 = [entryCopy prevCells];
+          entryLocation5 = [entryCopy entryLocation];
+          curLocation = [(FMOOSModel *)self curLocation];
+          [fmCoreData leftOutOfServiceArea:timestamp3 startTime:prevVisit prevVisit:curVisit curVisit:dCopy subscriptionID:prevCells2 prevCells:cellCopy nextCell:duration entryLocation:entryLocation5 exitLocation:curLocation];
+        }
+
+LABEL_127:
+        goto LABEL_128;
+      }
+
+      oosRecoveryParametersForPopularPLMN = [predictionCopy oosRecoveryParametersForPopularPLMN];
+      v40 = +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", [oosRecoveryParametersForPopularPLMN mcc]);
+      v41 = +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", [oosRecoveryParametersForPopularPLMN mnc]);
+      v124 = [WISTelephonyUtils getPLMNFromMCC:v40 AndMNC:v41];
+
+      v42 = +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", [oosRecoveryParametersForPopularPLMN band]);
+      v131 = +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", [oosRecoveryParametersForPopularPLMN arfcn]);
+      v43 = -[FMOOSModel getCoreTelephonyRATStringFromEnum:](self, "getCoreTelephonyRATStringFromEnum:", [oosRecoveryParametersForPopularPLMN rat]);
+      v128 = [WISTelephonyUtils getRATFromCellMonitorString:v43];
+
+      v130 = 0;
+      v114 = @"Popular";
+      v115 = @"crowdsourced";
+      bandInfo2 = v42;
+    }
+
+    else
+    {
+      v45 = [predictedRecoveryCell mcc];
+      v46 = [predictedRecoveryCell mnc];
+      v124 = [WISTelephonyUtils getPLMNFromMCC:v45 AndMNC:v46];
+
+      bandInfo2 = [predictedRecoveryCell bandInfo];
+      arfcnOrUarfcn2 = [predictedRecoveryCell arfcnOrUarfcn];
+      radioAccessTechnology2 = [predictedRecoveryCell radioAccessTechnology];
+      v128 = [WISTelephonyUtils getRATFromCellMonitorString:radioAccessTechnology2];
+
+      clientPrediction9 = [entryCopy clientPrediction];
+      nextCells = [clientPrediction9 nextCells];
+      v141[0] = _NSConcreteStackBlock;
+      v141[1] = 3221225472;
+      v141[2] = sub_100091E50;
+      v141[3] = &unk_1002AE3C8;
+      v142 = cellCopy;
+      v130 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [nextCells indexOfObjectPassingTest:v141] != 0x7FFFFFFFFFFFFFFFLL);
+
+      v131 = arfcnOrUarfcn2;
+      v114 = 0;
+      v115 = @"on-device";
+    }
+
+    v113 = bandInfo2 == 0;
+    v126 = bandInfo2;
+    if (bandInfo2)
+    {
+      v133 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [bandInfo isEqualToNumber:bandInfo2]);
+    }
+
+    else
+    {
+      v133 = 0;
+    }
+
+    v112 = v131 == 0;
+    if (v131)
+    {
+      v134 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [arfcnOrUarfcn isEqualToNumber:?]);
+    }
+
+    else
+    {
+      v134 = 0;
+    }
+
+    v111 = v124 == 0;
+    if (v124)
+    {
+      v136 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [v117 isEqualToString:?]);
+    }
+
+    else
+    {
+      v136 = 0;
+    }
+
+    v110 = (!v138 | isSent2) ^ 1;
+    if (v128)
+    {
+      +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [v116 isEqualToString:?]);
+      v51 = v109 = 0;
+    }
+
+    else
+    {
+      v128 = 0;
+      v51 = 0;
+      v109 = 1;
+    }
+
+    goto LABEL_45;
+  }
+
+  if (os_log_type_enabled(*(qword_1002DBE98 + 136), OS_LOG_TYPE_DEBUG))
+  {
+    sub_100203410();
+  }
+
+LABEL_128:
 }
 
 - (void)sendOutOfServicePredictionEventWithClientPrediction:(id)prediction withSuppressionReason:(unsigned int)reason didDeviceGoOutOfService:(BOOL)service

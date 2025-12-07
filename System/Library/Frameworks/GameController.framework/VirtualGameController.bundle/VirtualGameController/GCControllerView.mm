@@ -757,42 +757,41 @@ LABEL_7:
     v13 = vaddq_f64(*(self + 40), _Q0);
     *(self + 24) = v12;
     *(self + 40) = v13;
-    v31.origin.x = OUTLINED_FUNCTION_0();
-    MaxX = CGRectGetMaxX(v31);
-    v32.origin.x = OUTLINED_FUNCTION_0();
-    MaxY = CGRectGetMaxY(v32);
-    v33.origin.x = OUTLINED_FUNCTION_0();
-    Height = CGRectGetHeight(v33);
-    v34.origin.x = OUTLINED_FUNCTION_0();
-    Width = CGRectGetWidth(v34);
+    v26.origin.x = OUTLINED_FUNCTION_0();
+    MaxX = CGRectGetMaxX(v26);
+    v27.origin.x = OUTLINED_FUNCTION_0();
+    CGRectGetMaxY(v27);
+    v28.origin.x = OUTLINED_FUNCTION_0();
+    Height = CGRectGetHeight(v28);
+    v29.origin.x = OUTLINED_FUNCTION_0();
+    Width = CGRectGetWidth(v29);
     [*(self + 16) frame];
-    v19 = MaxX - v18 * 0.5 - *(self + 48);
-    v20 = MaxY;
+    v18 = MaxX - v17 * 0.5 - *(self + 48);
     [*(self + 16) frame];
-    OUTLINED_FUNCTION_2(MaxY - v21 * 0.5);
-    [*(self + 16) setCenter:v19];
-    v22 = OUTLINED_FUNCTION_1();
+    OUTLINED_FUNCTION_2();
+    [*(self + 16) setCenter:v18];
+    v19 = OUTLINED_FUNCTION_1();
     if (Height <= Width)
     {
-      [v22 setHidden:0];
+      [v19 setHidden:0];
       [OUTLINED_FUNCTION_1() frame];
-      v27 = *(self + 32) + v26 * 0.5 + 0.0;
+      v23 = *(self + 32) + v22 * 0.5 + 0.0;
       [OUTLINED_FUNCTION_1() frame];
-      OUTLINED_FUNCTION_2(v20 - v28 * 0.5);
-      v24 = OUTLINED_FUNCTION_1();
-      v25 = v27;
+      OUTLINED_FUNCTION_2();
+      v20 = OUTLINED_FUNCTION_1();
+      v21 = v23;
     }
 
     else
     {
-      [v22 setHidden:1];
+      [v19 setHidden:1];
       [OUTLINED_FUNCTION_1() frame];
-      OUTLINED_FUNCTION_2(v20 + v23 * -0.5);
-      v24 = OUTLINED_FUNCTION_1();
-      v25 = -100.0;
+      OUTLINED_FUNCTION_2();
+      v20 = OUTLINED_FUNCTION_1();
+      v21 = -100.0;
     }
 
-    [v24 setCenter:v25];
+    [v20 setCenter:v21];
   }
 }
 

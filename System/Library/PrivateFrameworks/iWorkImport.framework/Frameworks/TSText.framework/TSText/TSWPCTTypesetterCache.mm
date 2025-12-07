@@ -63,12 +63,12 @@
 
 - (void)addTypesetterForParagraphIdentifier:(unint64_t)identifier typesetter:(shared_ptr<TSWPParagraphTypesetter>)typesetter
 {
-  v19[0] = identifier;
+  identifierCopy = identifier;
   if (*typesetter.var0)
   {
     var0 = typesetter.var0;
-    v19[2] = v19;
-    v6 = sub_276DE4DCC(&self->_typesetters, v19);
+    v20 = &identifierCopy;
+    v6 = sub_276DE4DCC(&self->_typesetters, &identifierCopy, &unk_276F99D74, &v20);
     v9 = *var0;
     v8 = *(var0 + 1);
     if (v8)
@@ -84,7 +84,7 @@
       sub_276D5EEA0(v10);
     }
 
-    objc_msgSend_p_limitCacheSize_(self, v7, v19[0]);
+    objc_msgSend_p_limitCacheSize_(self, v7, identifierCopy);
     if (self->_typesetters.__tree_.__size_ >= 0x41)
     {
       v12 = MEMORY[0x277D81150];

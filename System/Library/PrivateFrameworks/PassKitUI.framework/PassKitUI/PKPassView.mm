@@ -186,86 +186,96 @@ LABEL_16:
 
 - (void)layoutSubviews
 {
-  v58.receiver = self;
-  v58.super_class = PKPassView;
-  [(PKPassView *)&v58 layoutSubviews];
+  v69.receiver = self;
+  v69.super_class = PKPassView;
+  [(PKPassView *)&v69 layoutSubviews];
   [(PKPassView *)self bounds];
   v4 = v3;
   v6 = v5;
   [(PKPassFrontFaceView *)self->_frontFace contentSize];
-  [(PKPassFrontFaceView *)self->_frontFace frameForAlignmentRect:v4, v6, v7, v8];
+  v8 = v7;
   v10 = v9;
+  [(PKPassFrontFaceView *)self->_frontFace frameForAlignmentRect:v4, v6, v7, v9];
   v12 = v11;
   v14 = v13;
   v16 = v15;
+  v18 = v17;
   [(PKPassFrontFaceView *)self->_frontFace frame];
-  y = v59.origin.y;
-  x = v59.origin.x;
-  height = v59.size.height;
-  width = v59.size.width;
-  v62.origin.x = v10;
-  v62.origin.y = v12;
-  v62.size.width = v14;
-  v62.size.height = v16;
-  if (!CGRectEqualToRect(v59, v62))
+  y = v70.origin.y;
+  x = v70.origin.x;
+  height = v70.size.height;
+  width = v70.size.width;
+  v73.origin.x = v12;
+  v73.origin.y = v14;
+  v73.size.width = v16;
+  v73.size.height = v18;
+  if (!CGRectEqualToRect(v70, v73))
   {
-    [(PKPassFrontFaceView *)self->_frontFace setFrame:v10, v12, v14, v16];
+    [(PKPassFrontFaceView *)self->_frontFace setFrame:v12, v14, v16, v18];
   }
 
   if (self->_portalLayerShadow)
   {
-    v52 = v12;
-    v53 = v10;
+    v61 = *&v6;
+    v62 = *&v4;
+    v63 = v14;
+    v64 = v12;
     [(PKPassFrontFaceView *)self->_frontFace bounds];
-    v18 = v17;
     v20 = v19;
     v22 = v21;
     v24 = v23;
+    v26 = v25;
     [(CAPortalLayer *)self->_portalLayerShadow bounds];
-    v63.origin.x = v18;
-    v63.origin.y = v20;
-    v63.size.width = v22;
-    v63.size.height = v24;
-    if (!CGRectEqualToRect(v60, v63))
+    v74.origin.x = v20;
+    v74.origin.y = v22;
+    v74.size.width = v24;
+    v74.size.height = v26;
+    if (!CGRectEqualToRect(v71, v74))
     {
-      [(CAPortalLayer *)self->_portalLayerShadow setBounds:v18, v20, v22, v24];
+      [(CAPortalLayer *)self->_portalLayerShadow setBounds:v20, v22, v24, v26];
     }
 
     [(PKPassFaceView *)self->_frontFace alignmentRectInsets];
-    v26 = v25;
     v28 = v27;
     v30 = v29;
     v32 = v31;
-    PKSizeAlignedInRect();
-    v33 = v26 * -0.94;
-    v34 = v28 * -0.94;
-    v35 = v30 * -0.94;
-    v37 = v28 * -0.94 + v36;
-    v39 = v33 + v38;
-    v41 = v40 - (v34 + v32 * -0.94);
-    v43 = v42 - (v33 + v35);
+    v34 = v33;
+    v35.n128_f64[0] = v8 * 0.94;
+    v36.n128_f64[0] = v10 * 0.94;
+    v38.n128_u64[0] = v61;
+    v37.n128_u64[0] = v62;
+    v39.n128_f64[0] = v8;
+    v40.n128_f64[0] = v10;
+    PKSizeAlignedInRect(0x200000001, v35, v36, v37, v38, v39, v40, v41);
+    v42 = v28 * -0.94;
+    v43 = v30 * -0.94;
+    v44 = v32 * -0.94;
+    v46 = v30 * -0.94 + v45;
+    v48 = v42 + v47;
+    v50 = v49 - (v43 + v34 * -0.94);
+    v52 = v51 - (v42 + v44);
     [(CAPortalLayer *)self->_portalLayerShadow anchorPoint];
-    v45 = v37 + v44 * v41;
-    v47 = v39 + v46 * v43;
+    v54 = v46 + v53 * v50;
+    v56 = v48 + v55 * v52;
     [(CAPortalLayer *)self->_portalLayerShadow position];
-    v50 = v49 == v45 && v48 == v47;
-    v12 = v52;
-    v10 = v53;
-    if (!v50)
+    v59 = v58 == v54 && v57 == v56;
+    v14 = v63;
+    v12 = v64;
+    if (!v59)
     {
-      [(CAPortalLayer *)self->_portalLayerShadow setPosition:v45, v47];
+      [(CAPortalLayer *)self->_portalLayerShadow setPosition:v54, v56];
     }
   }
 
-  v61.origin.y = y;
-  v61.origin.x = x;
-  v61.size.height = height;
-  v61.size.width = width;
-  v64.origin.x = v10;
-  v64.origin.y = v12;
-  v64.size.width = v14;
-  v64.size.height = v16;
-  if (!CGRectEqualToRect(v61, v64))
+  v72.origin.y = y;
+  v72.origin.x = x;
+  v72.size.height = height;
+  v72.size.width = width;
+  v75.origin.x = v12;
+  v75.origin.y = v14;
+  v75.size.width = v16;
+  v75.size.height = v18;
+  if (!CGRectEqualToRect(v72, v75))
   {
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
     if (objc_opt_respondsToSelector())
@@ -521,8 +531,8 @@ LABEL_16:
     aBlock[1] = 3221225472;
     aBlock[2] = __58__PKPassView_snapshotOfFrontFaceWithRequestedSize_format___block_invoke;
     aBlock[3] = &unk_1E8025858;
-    v44 = modallyPresented;
-    v45 = suppressedContent != (suppressedContent | 0x377);
+    v46 = modallyPresented;
+    v47 = suppressedContent != (suppressedContent | 0x377);
     aBlock[4] = self;
     aBlock[5] = suppressedContent;
     v14 = _Block_copy(aBlock);
@@ -552,52 +562,54 @@ LABEL_16:
         v18 = round(v18 * (v24 / v20));
         v19 = round(v19 * (v24 / v20));
         v22 = round(v20 * (v24 / v20));
-        v40 = round(v21 * (v24 / v20));
+        v42 = round(v21 * (v24 / v20));
       }
 
       else
       {
-        v40 = v21;
+        v42 = v21;
         v25 = 1.0;
       }
 
       v27 = [objc_alloc(MEMORY[0x1E69DCA78]) initWithSize:preferredFormat format:{v18, v19}];
-      v41[0] = MEMORY[0x1E69E9820];
-      v41[1] = 3221225472;
-      v41[2] = __58__PKPassView_snapshotOfFrontFaceWithRequestedSize_format___block_invoke_2;
-      v41[3] = &unk_1E8025880;
-      v42 = v23;
-      *&v41[5] = v25;
-      v41[4] = self;
-      v28 = [v27 imageWithActions:v41];
+      v43[0] = MEMORY[0x1E69E9820];
+      v43[1] = 3221225472;
+      v43[2] = __58__PKPassView_snapshotOfFrontFaceWithRequestedSize_format___block_invoke_2;
+      v43[3] = &unk_1E8025880;
+      v44 = v23;
+      *&v43[5] = v25;
+      v43[4] = self;
+      v28 = [v27 imageWithActions:v43];
       [(PKPassFaceView *)self->_frontFace alignmentRectInsets];
-      v32 = v31;
-      v34 = v33;
+      v33 = v29.n128_f64[0];
+      v34 = v30.n128_f64[0];
       if (v23)
       {
-        PKFloatRoundToPixel();
+        v29.n128_f64[0] = v25 * v30.n128_f64[0];
+        PKFloatRoundToPixel(v29, v30);
         v34 = v35;
-        PKFloatRoundToPixel();
-        v32 = v36;
-        v37 = v18 - v34 - v22;
-        v38 = v19 - v36 - v40;
+        v36.n128_f64[0] = v25 * v33;
+        PKFloatRoundToPixel(v36, v37);
+        v33 = v38;
+        v39 = v18 - v34 - v22;
+        v40 = v19 - v38 - v42;
       }
 
       else
       {
-        v38 = v29;
-        v37 = v30;
+        v40 = v31;
+        v39 = v32;
       }
 
       v14[2](v14);
-      v26 = [v28 imageWithAlignmentRectInsets:{v32, v34, v38, v37}];
+      v26 = [v28 imageWithAlignmentRectInsets:{v33, v34, v40, v39}];
     }
   }
 
   return v26;
 }
 
-uint64_t __58__PKPassView_snapshotOfFrontFaceWithRequestedSize_format___block_invoke(uint64_t a1)
+void *__58__PKPassView_snapshotOfFrontFaceWithRequestedSize_format___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) setModallyPresented:*(a1 + 48)];
   if (*(a1 + 49) == 1)
@@ -674,7 +686,7 @@ void __58__PKPassView_snapshotOfFrontFaceWithRequestedSize_format___block_invoke
   return v15;
 }
 
-uint64_t __32__PKPassView_snapshotOfPassView__block_invoke(uint64_t a1)
+void *__32__PKPassView_snapshotOfPassView__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) setModallyPresented:*(a1 + 48)];
   if (*(a1 + 49) == 1)
@@ -797,7 +809,7 @@ void __32__PKPassView_snapshotOfPassView__block_invoke_2(uint64_t a1, void *a2)
   v8[2](v8);
 }
 
-uint64_t __34__PKPassView_drawFrontFaceAtSize___block_invoke(uint64_t a1)
+void *__34__PKPassView_drawFrontFaceAtSize___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) setModallyPresented:*(a1 + 48)];
   if (*(a1 + 49) == 1)
@@ -1196,7 +1208,7 @@ uint64_t __44__PKPassView_setFrontFaceExpanded_animated___block_invoke(uint64_t 
   memset(v124, 0, sizeof(v124));
   if (v35)
   {
-    [v35 CAColorMatrixValue];
+    objc_msgSend_CAColorMatrixValue(v35);
   }
 
   else
@@ -1329,7 +1341,7 @@ uint64_t __44__PKPassView_setFrontFaceExpanded_animated___block_invoke(uint64_t 
       v74 = fromValue3;
       if (fromValue3)
       {
-        [fromValue3 CAColorMatrixValue];
+        objc_msgSend_CAColorMatrixValue(fromValue3);
       }
 
       else
@@ -1478,7 +1490,7 @@ void __58__PKPassView__updateHighEndLayerShadowAnimated_withDelay___block_invoke
     v31 = 0u;
     if (v10)
     {
-      [v10 CAColorMatrixValue];
+      objc_msgSend_CAColorMatrixValue(v10);
     }
 
     else

@@ -41,7 +41,7 @@
   [(CACSimpleContentViewManager *)self showViewControllerWithCreationHandler:v28 updateHandler:v20];
 }
 
-id __117__CACCorrectionPresentationManager__showCorrectionsForElement_fromString_withAlternatives_withEmojis_portraitUpRect___block_invoke(uint64_t a1)
+CACCorrectionsPresentationViewController *__117__CACCorrectionPresentationManager__showCorrectionsForElement_fromString_withAlternatives_withEmojis_portraitUpRect___block_invoke(uint64_t a1)
 {
   v2 = objc_opt_new();
   [v2 setDelegate:*(a1 + 32)];
@@ -505,19 +505,20 @@ uint64_t __75__CACCorrectionPresentationManager_showCorrectionsForElement_nBestS
 
 - (void)handleAXNotificationData:(void *)data
 {
-  dataCopy = data;
-  if (dataCopy && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  isKindOfClass = data;
+  v5 = isKindOfClass;
+  if (isKindOfClass && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) != 0))
   {
     element = [(CACCorrectionPresentationManager *)self element];
-    [element insertText:dataCopy asUndoableAction:1];
+    [element insertText:v5 asUndoableAction:1];
   }
 
   else
   {
-    element = CACLogAccessibility();
+    element = CACLogAccessibility(isKindOfClass);
     if (os_log_type_enabled(element, OS_LOG_TYPE_ERROR))
     {
-      [(CACCorrectionPresentationManager *)dataCopy handleAXNotificationData:element];
+      [(CACCorrectionPresentationManager *)v5 handleAXNotificationData:element];
     }
   }
 }

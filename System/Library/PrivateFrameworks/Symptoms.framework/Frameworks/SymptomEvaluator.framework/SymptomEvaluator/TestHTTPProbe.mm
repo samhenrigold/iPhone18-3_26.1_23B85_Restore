@@ -74,7 +74,7 @@
 
 void __63__TestHTTPProbe_testURL_timeout_interfaceName_userAgent_reply___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -83,9 +83,9 @@ void __63__TestHTTPProbe_testURL_timeout_interfaceName_userAgent_reply___block_i
     v10 = debuggabilityLogHandle;
     if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_DEBUG))
     {
-      v17 = 138412290;
-      v18 = v9;
-      _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEBUG, "TestHTTPProbe completion: error:%@", &v17, 0xCu);
+      v16 = 138412290;
+      v17 = v9;
+      _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEBUG, "TestHTTPProbe completion: error:%@", &v16, 0xCu);
     }
   }
 
@@ -104,7 +104,6 @@ void __63__TestHTTPProbe_testURL_timeout_interfaceName_userAgent_reply___block_i
   *(v14 + 64) = 0;
 
   [*(a1 + 32) setRunning:0];
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopTest
@@ -119,7 +118,7 @@ void __63__TestHTTPProbe_testURL_timeout_interfaceName_userAgent_reply___block_i
 
 - (void)URLSession:(id)session didBecomeInvalidWithError:(id)error
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   errorCopy = error;
   if (self->_urlSession == sessionCopy)
@@ -127,13 +126,11 @@ void __63__TestHTTPProbe_testURL_timeout_interfaceName_userAgent_reply___block_i
     v8 = debuggabilityLogHandle;
     if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v10 = 138412290;
-      v11 = errorCopy;
-      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_ERROR, "TestHTTPProbe: didBecomeInvalidWithError, %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = errorCopy;
+      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_ERROR, "TestHTTPProbe: didBecomeInvalidWithError, %@", &v9, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isEqual:(id)equal

@@ -30,7 +30,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1E4000EC8();
+  sub_1E4000EC8(selfCopy);
 }
 
 @end

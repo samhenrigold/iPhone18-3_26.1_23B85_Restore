@@ -523,27 +523,20 @@ LABEL_37:
   v4 = *ptr->var0;
   v5 = -v4;
   v6 = &ptr[-v4];
-  if (*v6->var0 >= 5u)
+  if (*v6->var0 >= 5u && *v6[4].var0)
   {
-    v7 = *v6[4].var0;
-    if (v7)
+    valid = AFBIsValidUTF8();
+    if (!valid)
     {
-      v8 = *ptr[v7].var0;
-      valid = AFBIsValidUTF8();
-      if (!valid)
-      {
-        return valid;
-      }
-
-      ptr = self->_ptr;
-      v5 = -*ptr->var0;
+      return valid;
     }
+
+    ptr = self->_ptr;
+    v5 = -*ptr->var0;
   }
 
   if (*ptr[v5].var0 >= 7u && *ptr[v5 + 6].var0)
   {
-    v10 = &ptr[*ptr[v5 + 6].var0];
-    v11 = &v10[*v10->var0];
     valid = AFBIsValidUTF8();
     if (!valid)
     {
@@ -556,8 +549,6 @@ LABEL_37:
 
   if (*ptr[v5].var0 >= 9u && *ptr[v5 + 8].var0)
   {
-    v12 = &ptr[*ptr[v5 + 8].var0];
-    v13 = &v12[*v12->var0];
     valid = AFBIsValidUTF8();
     if (!valid)
     {
@@ -568,10 +559,9 @@ LABEL_37:
     v5 = -*ptr->var0;
   }
 
-  v14 = &ptr[v5];
-  if (*v14->var0 >= 0xBu && (v15 = *v14[10].var0) != 0)
+  v8 = &ptr[v5];
+  if (*v8->var0 >= 0xBu && *v8[10].var0)
   {
-    v16 = &ptr[v15 + 4 + *ptr[v15].var0];
 
     LOBYTE(valid) = AFBIsValidUTF8();
   }
@@ -616,33 +606,8 @@ LABEL_37:
       v7 = objc_autoreleasePoolPush();
       tokenString = [(_CHSExtensionIdentityBuf *)self tokenString];
       tokenString2 = [v6 tokenString];
-      if (tokenString | tokenString2)
+      if (tokenString | tokenString2 && (v10 = [tokenString isEqual:tokenString2], tokenString2, tokenString, !v10) || (-[_CHSExtensionIdentityBuf extensionBundleIdentifier](self, "extensionBundleIdentifier"), v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "extensionBundleIdentifier"), v12 = objc_claimAutoreleasedReturnValue(), v11 | v12) && (v13 = objc_msgSend(v11, "isEqual:", v12), v12, v11, !v13) || (-[_CHSExtensionIdentityBuf containerBundleIdentifier](self, "containerBundleIdentifier"), v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "containerBundleIdentifier"), v15 = objc_claimAutoreleasedReturnValue(), v14 | v15) && (v16 = objc_msgSend(v14, "isEqual:", v15), v15, v14, !v16))
       {
-        v10 = [tokenString isEqual:tokenString2];
-
-        if (!v10)
-        {
-          goto LABEL_13;
-        }
-      }
-
-      extensionBundleIdentifier = [(_CHSExtensionIdentityBuf *)self extensionBundleIdentifier];
-      extensionBundleIdentifier2 = [v6 extensionBundleIdentifier];
-      if (extensionBundleIdentifier | extensionBundleIdentifier2)
-      {
-        v13 = [extensionBundleIdentifier isEqual:extensionBundleIdentifier2];
-
-        if (!v13)
-        {
-          goto LABEL_13;
-        }
-      }
-
-      containerBundleIdentifier = [(_CHSExtensionIdentityBuf *)self containerBundleIdentifier];
-      containerBundleIdentifier2 = [v6 containerBundleIdentifier];
-      if (containerBundleIdentifier | containerBundleIdentifier2 && (v16 = [containerBundleIdentifier isEqual:containerBundleIdentifier2], containerBundleIdentifier2, containerBundleIdentifier, !v16))
-      {
-LABEL_13:
         v19 = 0;
       }
 

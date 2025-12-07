@@ -36,11 +36,11 @@
 
 - (_SFSignedData)initWithCoder:(id)coder
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v22.receiver = self;
-  v22.super_class = _SFSignedData;
-  v5 = [(_SFSignedData *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = _SFSignedData;
+  v5 = [(_SFSignedData *)&v21 init];
   if (v5)
   {
     v6 = objc_alloc_init(SFSignedData_Ivars);
@@ -62,17 +62,16 @@
     {
       v15 = MEMORY[0x277CCA9B8];
       v16 = *MEMORY[0x277CCA050];
-      v23 = *MEMORY[0x277CCA450];
+      v22 = *MEMORY[0x277CCA450];
       v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to deserialize object of type %@", objc_opt_class()];
-      v24[0] = v17;
-      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+      v23[0] = v17;
+      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
       v19 = [v15 errorWithDomain:v16 code:4865 userInfo:v18];
 
       [coderCopy failWithError:v19];
     }
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

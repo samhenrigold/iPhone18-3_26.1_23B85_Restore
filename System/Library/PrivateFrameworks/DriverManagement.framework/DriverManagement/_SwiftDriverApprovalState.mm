@@ -11,43 +11,31 @@
 
 - (NSString)displayName
 {
-  v2 = (self + OBJC_IVAR____SwiftDriverApprovalState_driver);
-  v3 = (v2 + *(type metadata accessor for DriverKitDriver() + 24));
-  if (v3[1])
+  v2 = self + OBJC_IVAR____SwiftDriverApprovalState_driver;
+  if (!*&v2[*(type metadata accessor for DriverKitDriver(0) + 24) + 8])
   {
-    v4 = *v3;
-    v5 = v3[1];
   }
 
-  else
-  {
-    v6 = *v2;
-    v7 = v2[1];
-  }
+  v3 = sub_21C58205C();
 
-  v8 = sub_21C58205C();
-
-  return v8;
+  return v3;
 }
 
 - (NSString)usageText
 {
   v2 = self + OBJC_IVAR____SwiftDriverApprovalState_driver;
-  v3 = &v2[*(type metadata accessor for DriverKitDriver() + 28)];
-  if (*(v3 + 1))
+  if (*&v2[*(type metadata accessor for DriverKitDriver(0) + 28) + 8])
   {
-    v4 = *v3;
-    v5 = *(v3 + 1);
 
-    v6 = sub_21C58205C();
+    v3 = sub_21C58205C();
   }
 
   else
   {
-    v6 = 0;
+    v3 = 0;
   }
 
-  return v6;
+  return v3;
 }
 
 - (BOOL)updatePending
@@ -55,13 +43,14 @@
   swift_getKeyPath();
   swift_getKeyPath();
   selfCopy = self;
-  sub_21C581FBC();
+  sub_21C581FBC(&v6);
 
-  if (v5)
+  v4 = v6;
+  if (v6)
   {
   }
 
-  return v5 != 0;
+  return v4 != 0;
 }
 
 - (BOOL)driverIsApproved
@@ -74,12 +63,10 @@
 
 - (id)bundleIdentifier
 {
-  v2 = *(&self->super.isa + OBJC_IVAR____SwiftDriverApprovalState_driver);
-  v3 = *&self->_updateStatus[OBJC_IVAR____SwiftDriverApprovalState_driver];
 
-  v4 = sub_21C58205C();
+  v2 = sub_21C58205C();
 
-  return v4;
+  return v2;
 }
 
 - (_SwiftDriverApprovalState)init

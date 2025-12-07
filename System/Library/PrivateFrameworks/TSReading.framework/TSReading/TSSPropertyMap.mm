@@ -247,7 +247,7 @@ uint64_t __29__TSSPropertyMap_description__block_invoke(uint64_t a1, uint64_t a2
   v7 = MEMORY[0x277CCACA8];
   v8 = String(a2);
   v9 = p_summaryFromPropertyValue(0, a4);
-  v10 = [v7 stringWithFormat:@"%@|%@|%@", v8, v9, p_infoStringFromPropertyValue(a3)];
+  v10 = [v7 stringWithFormat:@"%@|%@|%@", v8, v9, p_infoStringFromPropertyValue(a3, a4)];
 
   return [v6 addObject:v10];
 }
@@ -286,7 +286,7 @@ uint64_t __29__TSSPropertyMap_description__block_invoke(uint64_t a1, uint64_t a2
   return v3;
 }
 
-BOOL __50__TSSPropertyMap_containsAnyPropertyInProperties___block_invoke(uint64_t a1, unsigned __int16 a2, _BYTE *a3)
+BOOL __50__TSSPropertyMap_containsAnyPropertyInProperties___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   result = String(*(*(a1 + 32) + 8), a2);
   *(*(*(a1 + 40) + 8) + 24) = result;

@@ -57,9 +57,8 @@
   v3 = [[NSMutableString alloc] initWithFormat:@"<%@:%p {\n", objc_opt_class(), self];
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  idsConnection = selfCopy->_idsConnection;
-  v6 = MRCreateIndentedDebugDescriptionFromObject();
-  [v3 appendFormat:@" connection = %@\n", v6];
+  v5 = MRCreateIndentedDebugDescriptionFromObject();
+  [v3 appendFormat:@" connection = %@\n", v5];
 
   [v3 appendFormat:@" outputDevice = %@\n", selfCopy->_outputDevice];
   [v3 appendFormat:@" session = %@\n", selfCopy->_sessionUID];

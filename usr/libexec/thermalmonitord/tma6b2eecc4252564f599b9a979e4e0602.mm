@@ -144,7 +144,7 @@
   v35 = [(CommonProduct *)self findComponent:22];
   *&v36 = v33;
   [v35 calculateControlEffort:v36];
-  v37 = SHIDWORD(qword_1000AB904);
+  v37 = xmmword_1000AB908;
   v38 = [(CommonProduct *)self findComponent:23];
   v39 = v37 / 100.0;
   *&v40 = v39;
@@ -152,7 +152,7 @@
   v41 = [(CommonProduct *)self findComponent:32];
   *&v42 = v39;
   [v41 calculateControlEffort:v42];
-  v43 = qword_1000AB904;
+  v43 = dword_1000AB904;
   v44 = [(CommonProduct *)self findComponent:27];
   v45 = v43 / 100.0;
   *&v46 = v45;
@@ -160,7 +160,7 @@
   v47 = [(CommonProduct *)self findComponent:33];
   *&v48 = v45;
   [v47 calculateControlEffort:v48];
-  v49 = qword_1000AB90C;
+  v49 = SDWORD1(xmmword_1000AB908);
   v50 = [(CommonProduct *)self findComponent:24];
   *&v51 = v49 / 100.0;
   [v50 calculateControlEffort:v51];
@@ -168,7 +168,7 @@
   v53 = [(CommonProduct *)self findComponent:25];
   *&v54 = v52 / 100.0;
   [v53 calculateControlEffort:v54];
-  v55 = SHIDWORD(qword_1000AB90C);
+  v55 = SDWORD2(xmmword_1000AB908);
   v56 = [(CommonProduct *)self findComponent:26];
   *&v57 = v55 / 100.0;
   [v56 calculateControlEffort:v57];
@@ -182,11 +182,11 @@
   {
     if (getChargerState == 10)
     {
-      v69 = SHIDWORD(qword_1000AB904);
+      v69 = xmmword_1000AB908;
       v70 = [(CommonProduct *)self findComponent:28];
       *&v71 = v69 / 100.0;
       [v70 calculateControlEffort:v71];
-      v72 = qword_1000AB904;
+      v72 = dword_1000AB904;
       v73 = [(CommonProduct *)self findComponent:29];
       *&v74 = v72 / 100.0;
 LABEL_28:
@@ -219,11 +219,11 @@ LABEL_26:
   v61 = [(CommonProduct *)self findComponent:29];
   LODWORD(v62) = 30.0;
   [v61 calculateControlEffort:v62];
-  v63 = SHIDWORD(qword_1000AB904);
+  v63 = xmmword_1000AB908;
   v64 = [(CommonProduct *)self findComponent:30];
   *&v65 = v63 / 100.0;
   [v64 calculateControlEffort:v65];
-  v66 = qword_1000AB904;
+  v66 = dword_1000AB904;
   v67 = [(CommonProduct *)self findComponent:31];
   *&v68 = v66 / 100.0;
 LABEL_29:

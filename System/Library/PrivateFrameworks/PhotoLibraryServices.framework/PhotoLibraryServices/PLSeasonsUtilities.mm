@@ -46,14 +46,14 @@
   return v2;
 }
 
-void __51__PLSeasonsUtilities__seasonCountryCodesDictionary__block_invoke()
+void __51__PLSeasonsUtilities__seasonCountryCodesDictionary__block_invoke(uint64_t a1)
 {
-  v0 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  v3 = [v0 URLForResource:@"seasonsCountryCodes" withExtension:@"plist"];
+  v1 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+  v4 = [v1 URLForResource:@"seasonsCountryCodes" withExtension:@"plist"];
 
-  v1 = [MEMORY[0x1E695DF20] dictionaryWithContentsOfURL:v3];
-  v2 = _seasonCountryCodesDictionary_seasonCountryCodesDictionary;
-  _seasonCountryCodesDictionary_seasonCountryCodesDictionary = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithContentsOfURL:v4];
+  v3 = _seasonCountryCodesDictionary_seasonCountryCodesDictionary;
+  _seasonCountryCodesDictionary_seasonCountryCodesDictionary = v2;
 }
 
 + (unint64_t)_southernMeteorologicalSeasonForMonthNumber:(unint64_t)number

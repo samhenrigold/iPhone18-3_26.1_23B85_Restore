@@ -347,9 +347,9 @@ LABEL_14:
   objc_destroyWeak(&location);
 }
 
-uint64_t __54__PKMerchantTokensViewController__setUpCollectionView__block_invoke_2(uint64_t result, void *a2)
+_BYTE *__54__PKMerchantTokensViewController__setUpCollectionView__block_invoke_2(_BYTE *result, void *a2)
 {
-  if ((*(result + 32) & 1) == 0)
+  if ((result[32] & 1) == 0)
   {
     return [a2 useSmallHeight];
   }
@@ -696,7 +696,7 @@ void __64__PKMerchantTokensViewController__fetchNextPageOfMerchantTokens__block_
   }
 }
 
-uint64_t __64__PKMerchantTokensViewController__deselectSelectedItemAnimated___block_invoke_2(uint64_t a1, void *a2)
+void *__64__PKMerchantTokensViewController__deselectSelectedItemAnimated___block_invoke_2(uint64_t a1, void *a2)
 {
   result = [a2 isCancelled];
   if (result)

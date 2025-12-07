@@ -30,7 +30,8 @@ void __47___GCNintendoJoyConDevice_setDriverConnection___block_invoke_2(uint64_t
 void __47___GCNintendoJoyConDevice_setDriverConnection___block_invoke_3(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
-  if (!a2 && gc_isInternalBuild())
+  v7 = v5;
+  if (!a2 && gc_isInternalBuild(v5, v6))
   {
     __47___GCNintendoJoyConDevice_setDriverConnection___block_invoke_3_cold_1(a1);
   }
@@ -58,17 +59,17 @@ void __47___GCNintendoJoyConDevice_setDriverConnection___block_invoke_2_106(uint
   v6 = a2;
   v7 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v9 = WeakRetained;
+  v10 = WeakRetained;
   if (WeakRetained)
   {
     if (v6)
     {
       objc_storeStrong(WeakRetained + 10, a2);
-      v10 = [v9 readBattery];
-      [v9 propagateBattery:v10];
+      v11 = [v10 readBattery];
+      [v10 propagateBattery:v11];
     }
 
-    else if (gc_isInternalBuild())
+    else if (gc_isInternalBuild(WeakRetained, v9))
     {
       __47___GCNintendoJoyConDevice_setDriverConnection___block_invoke_2_106_cold_1(a1);
     }
@@ -97,7 +98,7 @@ void __47___GCNintendoJoyConDevice_setDriverConnection___block_invoke_2_109(uint
   v6 = a2;
   v7 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v9 = WeakRetained;
+  v10 = WeakRetained;
   if (WeakRetained)
   {
     if (v6)
@@ -105,7 +106,7 @@ void __47___GCNintendoJoyConDevice_setDriverConnection___block_invoke_2_109(uint
       objc_storeStrong(WeakRetained + 9, a2);
     }
 
-    else if (gc_isInternalBuild())
+    else if (gc_isInternalBuild(WeakRetained, v9))
     {
       __47___GCNintendoJoyConDevice_setDriverConnection___block_invoke_2_109_cold_1(a1);
     }
@@ -139,10 +140,9 @@ void __56___GCNintendoJoyConDevice_Components__propagateBattery___block_invoke(u
   v2 = WeakRetained;
   if (WeakRetained)
   {
-    v4 = WeakRetained;
-    v3 = *(WeakRetained + 11);
+    v3 = WeakRetained;
     (*(*(WeakRetained + 8) + 16))();
-    v2 = v4;
+    v2 = v3;
   }
 }
 
@@ -154,50 +154,35 @@ void __62___GCNintendoJoyConDevice_Fusion__homeButtonLongPressGesture___block_in
 
 void __47___GCNintendoJoyConDevice_setDriverConnection___block_invoke_3_cold_1(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v3 = getGCLogger();
-  if (OUTLINED_FUNCTION_4_5(v3))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_4_5(v2))
   {
-    v4 = *(a1 + 32);
-    v5 = *(a1 + 40);
     OUTLINED_FUNCTION_0_16();
     OUTLINED_FUNCTION_10();
-    _os_log_impl(v6, v7, v8, v9, v10, 0x20u);
+    _os_log_impl(v3, v4, v5, v6, v7, 0x20u);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __47___GCNintendoJoyConDevice_setDriverConnection___block_invoke_2_106_cold_1(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v3 = getGCLogger();
-  if (OUTLINED_FUNCTION_4_5(v3))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_4_5(v2))
   {
-    v4 = *(a1 + 32);
-    v5 = *(a1 + 40);
     OUTLINED_FUNCTION_0_16();
     OUTLINED_FUNCTION_10();
-    _os_log_impl(v6, v7, v8, v9, v10, 0x20u);
+    _os_log_impl(v3, v4, v5, v6, v7, 0x20u);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __47___GCNintendoJoyConDevice_setDriverConnection___block_invoke_2_109_cold_1(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v3 = getGCLogger();
-  if (OUTLINED_FUNCTION_4_5(v3))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_4_5(v2))
   {
-    v4 = *(a1 + 32);
-    v5 = *(a1 + 40);
     OUTLINED_FUNCTION_0_16();
     OUTLINED_FUNCTION_10();
-    _os_log_impl(v6, v7, v8, v9, v10, 0x20u);
+    _os_log_impl(v3, v4, v5, v6, v7, 0x20u);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 @end

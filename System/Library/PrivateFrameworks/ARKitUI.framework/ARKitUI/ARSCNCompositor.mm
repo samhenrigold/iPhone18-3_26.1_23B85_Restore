@@ -4,7 +4,7 @@
 + (id)techniqueDictionaryWithName:(id)name;
 - (ARSCNCompositor)initWithView:(id)view mode:(int64_t)mode algorithm:(int64_t)algorithm;
 - (CGSize)currentSize;
-- (float32x2_t)orientedVerticesWithResolution:(double)resolution;
+- (float32x2_t)orientedVerticesWithResolution:(__n128)resolution;
 - (void)dealloc;
 - (void)encodeAlphaResampleToCommandBuffer:(id)buffer resolution:(CGSize)resolution input:(id)input output:(id)output;
 - (void)encodeDepthResampleToCommandBuffer:(id)buffer resolution:(CGSize)resolution input:(id)input output:(id)output;
@@ -97,7 +97,7 @@ LABEL_8:
 
   v10->_workingResolution = v31;
   [v11 currentViewport];
-  [(ARSCNCompositor *)v10 setCurrentSize:v32, v33];
+  v34 = [(ARSCNCompositor *)v10 setCurrentSize:v32, v33];
   workingScaleFactor = v10->_workingScaleFactor;
   if (workingScaleFactor == 0.0)
   {
@@ -106,40 +106,40 @@ LABEL_8:
       [ARSCNCompositor initWithView:mode:algorithm:];
     }
 
-    v56 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v57 = _ARLogGeneral();
-    v58 = v57;
-    if (v56 == 1)
+    v57 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v58 = _ARLogGeneral(v34);
+    v59 = v58;
+    if (v57 == 1)
     {
-      if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
       {
-        v59 = objc_opt_class();
-        v60 = NSStringFromClass(v59);
+        v60 = objc_opt_class();
+        v61 = NSStringFromClass(v60);
         *location = 138544130;
-        *&location[4] = v60;
+        *&location[4] = v61;
         v78 = 2048;
         v79 = v10;
         v80 = 2048;
         modeCopy2 = mode;
         v82 = 2048;
         algorithmCopy2 = algorithm;
-        _os_log_impl(&dword_23D3AE000, v58, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: ARSCNCompositor (%li, %li) initialization failed. Matting is not set up properly.", location, 0x2Au);
+        _os_log_impl(&dword_23D3AE000, v59, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: ARSCNCompositor (%li, %li) initialization failed. Matting is not set up properly.", location, 0x2Au);
       }
     }
 
-    else if (os_log_type_enabled(v57, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v58, OS_LOG_TYPE_INFO))
     {
-      v61 = objc_opt_class();
-      v62 = NSStringFromClass(v61);
+      v62 = objc_opt_class();
+      v63 = NSStringFromClass(v62);
       *location = 138544130;
-      *&location[4] = v62;
+      *&location[4] = v63;
       v78 = 2048;
       v79 = v10;
       v80 = 2048;
       modeCopy2 = mode;
       v82 = 2048;
       algorithmCopy2 = algorithm;
-      _os_log_impl(&dword_23D3AE000, v58, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: ARSCNCompositor (%li, %li) initialization failed. Matting is not set up properly.", location, 0x2Au);
+      _os_log_impl(&dword_23D3AE000, v59, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: ARSCNCompositor (%li, %li) initialization failed. Matting is not set up properly.", location, 0x2Au);
     }
   }
 
@@ -155,54 +155,54 @@ LABEL_8:
     [v66 setExecutionHandler:v71];
     if (!v10->_mode)
     {
-      v35 = [(SCNTechnique *)v10->_technique passForName:@"ComputeDepthStencilPass"];
+      v36 = [(SCNTechnique *)v10->_technique passForName:@"ComputeDepthStencilPass"];
       v69[0] = MEMORY[0x277D85DD0];
       v69[1] = 3221225472;
       v69[2] = __47__ARSCNCompositor_initWithView_mode_algorithm___block_invoke_2;
       v69[3] = &unk_278BCD480;
       objc_copyWeak(&v70, location);
-      [v35 setExecutionHandler:v69];
+      [v36 setExecutionHandler:v69];
       objc_destroyWeak(&v70);
     }
 
-    v36 = objc_storeWeak(&v10->_view, v11);
+    v37 = objc_storeWeak(&v10->_view, v11);
     device2 = [v11 device];
     device = v10->_device;
     v10->_device = device2;
 
-    v39 = ARKitUIBundle();
-    v40 = [v39 URLForResource:@"default" withExtension:@"metallib"];
+    v40 = ARKitUIBundle();
+    v41 = [v40 URLForResource:@"default" withExtension:@"metallib"];
 
-    v41 = [(MTLDevice *)v10->_device newLibraryWithURL:v40 error:0];
+    v42 = [(MTLDevice *)v10->_device newLibraryWithURL:v41 error:0];
     mattingLibrary = v10->_mattingLibrary;
-    v10->_mattingLibrary = v41;
+    v10->_mattingLibrary = v42;
 
     [(SCNTechnique *)v10->_technique setLibrary:v10->_mattingLibrary];
-    v43 = v10->_technique;
+    v44 = v10->_technique;
     WeakRetained = objc_loadWeakRetained(&v10->_view);
-    [WeakRetained setTechnique:v43];
+    [WeakRetained setTechnique:v44];
 
-    v45 = [(MTLLibrary *)v10->_mattingLibrary newFunctionWithName:@"resample_v"];
-    v46 = [(MTLLibrary *)v10->_mattingLibrary newFunctionWithName:@"resample_f"];
-    v47 = objc_alloc_init(MEMORY[0x277CD6F78]);
-    [v47 setVertexFunction:v45];
-    [v47 setFragmentFunction:v46];
-    colorAttachments = [v47 colorAttachments];
-    v49 = [colorAttachments objectAtIndexedSubscript:0];
-    [v49 setPixelFormat:10];
+    v46 = [(MTLLibrary *)v10->_mattingLibrary newFunctionWithName:@"resample_v"];
+    v47 = [(MTLLibrary *)v10->_mattingLibrary newFunctionWithName:@"resample_f"];
+    v48 = objc_alloc_init(MEMORY[0x277CD6F78]);
+    [v48 setVertexFunction:v46];
+    [v48 setFragmentFunction:v47];
+    colorAttachments = [v48 colorAttachments];
+    v50 = [colorAttachments objectAtIndexedSubscript:0];
+    [v50 setPixelFormat:10];
 
-    v50 = [(MTLDevice *)v10->_device newRenderPipelineStateWithDescriptor:v47 error:0];
+    v51 = [(MTLDevice *)v10->_device newRenderPipelineStateWithDescriptor:v48 error:0];
     resampleML = v10->_resampleML;
-    v10->_resampleML = v50;
+    v10->_resampleML = v51;
 
-    colorAttachments2 = [v47 colorAttachments];
-    v53 = [colorAttachments2 objectAtIndexedSubscript:0];
-    [v53 setPixelFormat:25];
+    colorAttachments2 = [v48 colorAttachments];
+    v54 = [colorAttachments2 objectAtIndexedSubscript:0];
+    [v54 setPixelFormat:25];
 
-    [v47 setFragmentFunction:v46];
-    v54 = [(MTLDevice *)v10->_device newRenderPipelineStateWithDescriptor:v47 error:0];
+    [v48 setFragmentFunction:v47];
+    v55 = [(MTLDevice *)v10->_device newRenderPipelineStateWithDescriptor:v48 error:0];
     resampleDepthML = v10->_resampleDepthML;
-    v10->_resampleDepthML = v54;
+    v10->_resampleDepthML = v55;
 
     objc_destroyWeak(&v72);
     objc_destroyWeak(location);
@@ -210,16 +210,15 @@ LABEL_8:
 
   if (workingScaleFactor == 0.0)
   {
-    v63 = 0;
+    v64 = 0;
     goto LABEL_27;
   }
 
 LABEL_25:
-  v63 = v9;
+  v64 = v9;
 LABEL_27:
 
-  v64 = *MEMORY[0x277D85DE8];
-  return v63;
+  return v64;
 }
 
 void __47__ARSCNCompositor_initWithView_mode_algorithm___block_invoke(uint64_t a1)
@@ -411,63 +410,62 @@ void __47__ARSCNCompositor_initWithView_mode_algorithm___block_invoke_2(uint64_t
   [v30 endEncoding];
 }
 
-- (float32x2_t)orientedVerticesWithResolution:(double)resolution
+- (float32x2_t)orientedVerticesWithResolution:(__n128)resolution
 {
-  v25[5] = *MEMORY[0x277D85DE8];
-  v3 = self[25];
-  v4 = self[26];
-  v5 = *(self + 18);
-  if (v5 == 3)
+  v26[5] = *MEMORY[0x277D85DE8];
+  v5 = *(self + 25);
+  v6 = *(self + 26);
+  v7 = self[18];
+  if (v7 == 3)
   {
-    v5 = 4;
+    v7 = 4;
   }
 
   else
   {
-    if (v5 != 4)
+    if (v7 != 4)
     {
-      v6 = v3;
-      v3 = v4;
+      v8 = v5;
+      v5 = v6;
       goto LABEL_7;
     }
 
-    v5 = 3;
+    v7 = 3;
   }
 
-  v6 = v4;
+  v8 = v6;
 LABEL_7:
-  memset(&v23, 0, sizeof(v23));
-  ARCameraImageToViewTransform(v5, 0, &v23, a2, resolution, v6, v3);
-  v7 = 0;
-  v24[0] = 0uLL;
-  v25[0] = 0;
-  v24[1] = 0x3FF0000000000000uLL;
+  memset(&v24, 0, sizeof(v24));
+  ARCameraImageToViewTransform(v7, 0, &v24, a2.n128_f64[0], resolution.n128_f64[0], v8, v5);
+  v9 = 0;
+  v25[0] = 0uLL;
+  v26[0] = 0;
+  v25[1] = 0x3FF0000000000000uLL;
   __asm { FMOV            V0.2D, #1.0 }
 
-  *&v25[1] = _Q0;
-  v25[3] = 0x3FF0000000000000;
-  v13 = *&v23.c;
-  v14 = vdupq_lane_s64(*&v23.a, 0);
-  v15 = vdupq_lane_s64(*&v23.tx, 0);
+  *&v26[1] = _Q0;
+  v26[3] = 0x3FF0000000000000;
+  v15 = *&v24.c;
+  v16 = vdupq_lane_s64(*&v24.a, 0);
+  v17 = vdupq_lane_s64(*&v24.tx, 0);
   __asm { FMOV            V4.2D, #2.0 }
 
-  v17 = vdupq_lane_s64(*&v23.b, 0);
+  v19 = vdupq_lane_s64(*&v24.b, 0);
   __asm { FMOV            V6.2D, #-1.0 }
 
-  v19 = vdupq_lane_s64(*&v23.ty, 0);
+  v21 = vdupq_lane_s64(*&v24.ty, 0);
   do
   {
-    v20 = &v24[v7];
-    v26 = vld2q_f64(v20->f64);
-    v27.val[0] = vmlaq_f64(_Q6, _Q4, vaddq_f64(v15, vmlaq_f64(vmulq_n_f64(v26.val[1], *&v13), v26.val[0], v14)));
-    v27.val[1] = vmlaq_f64(_Q6, _Q4, vaddq_f64(v19, vmlaq_f64(vmulq_n_f64(v26.val[1], *(&v13 + 1)), v26.val[0], v17)));
-    vst2q_f64(v20->f64, v27);
-    v7 += 2;
+    v22 = &v25[v9];
+    v27 = vld2q_f64(v22->f64);
+    v28.val[0] = vmlaq_f64(_Q6, _Q4, vaddq_f64(v17, vmlaq_f64(vmulq_n_f64(v27.val[1], *&v15), v27.val[0], v16)));
+    v28.val[1] = vmlaq_f64(_Q6, _Q4, vaddq_f64(v21, vmlaq_f64(vmulq_n_f64(v27.val[1], *(&v15 + 1)), v27.val[0], v19)));
+    vst2q_f64(v22->f64, v28);
+    v9 += 2;
   }
 
-  while (v7 != 4);
-  v21 = *MEMORY[0x277D85DE8];
-  return vcvt_f32_f64(v24[0]);
+  while (v9 != 4);
+  return vcvt_f32_f64(v25[0]);
 }
 
 - (void)executeOverlayMatteCallbackDual:(id)dual
@@ -501,7 +499,7 @@ LABEL_7:
   v12 = camera;
   if (camera)
   {
-    [camera projectionTransform];
+    objc_msgSend_projectionTransform(camera);
     v13 = v32;
     v14.i32[0] = v33.i32[0];
     v15 = v32.i32[3];

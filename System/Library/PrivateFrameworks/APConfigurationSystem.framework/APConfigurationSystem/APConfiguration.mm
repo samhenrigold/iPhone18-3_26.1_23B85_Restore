@@ -27,18 +27,17 @@
 
 + (NSString)path
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = APLogForCategory();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138477827;
-    v7 = objc_opt_class();
-    v3 = v7;
-    _os_log_impl(&dword_1CA1CE000, v2, OS_LOG_TYPE_ERROR, "[%{private}@] Error: Path needs to be implemented for each subclass.", &v6, 0xCu);
+    v5 = 138477827;
+    v6 = objc_opt_class();
+    v3 = v6;
+    _os_log_impl(&dword_1CA1CE000, v2, OS_LOG_TYPE_ERROR, "[%{private}@] Error: Path needs to be implemented for each subclass.", &v5, 0xCu);
   }
 
   APSimulateCrash();
-  v4 = *MEMORY[0x1E69E9840];
   return &stru_1F49DAC40;
 }
 
@@ -61,7 +60,7 @@
 
 - (void)forwardInvocation:(id)invocation
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   invocationCopy = invocation;
   v7 = objc_msgSend_selector(invocationCopy, v5, v6);
   v8 = NSStringFromSelector(v7);
@@ -71,17 +70,17 @@
     v14 = objc_msgSend_configDictionary(self, v11, v12);
     v16 = objc_msgSend_objectForKey_(v14, v15, @"properties");
 
-    v33 = objc_msgSend_valueForKey_(v16, v17, v8);
-    if (!v33)
+    v32 = objc_msgSend_valueForKey_(v16, v17, v8);
+    if (!v32)
     {
       v20 = APLogForCategory();
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         *buf = 138478083;
-        v35 = objc_opt_class();
-        v36 = 2113;
-        v37 = v13;
-        v21 = v35;
+        v34 = objc_opt_class();
+        v35 = 2113;
+        v36 = v13;
+        v21 = v34;
         _os_log_impl(&dword_1CA1CE000, v20, OS_LOG_TYPE_ERROR, "[%{private}@] Error: Forward invocation for %{private}@ value is nil.", buf, 0x16u);
       }
 
@@ -92,7 +91,7 @@
     }
 
     objc_msgSend_retainArguments(invocationCopy, v18, v19);
-    objc_msgSend_setReturnValue_(invocationCopy, v26, &v33);
+    objc_msgSend_setReturnValue_(invocationCopy, v26, &v32);
     v29 = objc_msgSend_notifier(self, v27, v28);
     objc_msgSend_recentlyAccessedObject_(v29, v30, self);
   }
@@ -103,13 +102,11 @@
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       *buf = 138477827;
-      v35 = objc_opt_class();
-      v31 = v35;
+      v34 = objc_opt_class();
+      v31 = v34;
       _os_log_impl(&dword_1CA1CE000, v16, OS_LOG_TYPE_ERROR, "[%{private}@] Error: Forward invocation couldn't find property name.", buf, 0xCu);
     }
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 - (id)methodSignatureForSelector:(SEL)selector

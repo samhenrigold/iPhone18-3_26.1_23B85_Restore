@@ -1,6 +1,7 @@
 @interface SFUFileInputStream
 - (BOOL)p_configureWithFileDescriptor:(int)descriptor offset:(int64_t)offset length:(int64_t)length;
 - (BOOL)p_configureWithPath:(id)path offset:(int64_t)offset length:(int64_t)length;
+- (SFUFileInputStream)initWithFileDescriptor:(int)descriptor offset:(int64_t)offset length:(int64_t)length;
 - (SFUFileInputStream)initWithPath:(id)path offset:(int64_t)offset;
 - (SFUFileInputStream)initWithPath:(id)path offset:(int64_t)offset length:(int64_t)length;
 - (id)p_init;
@@ -25,6 +26,20 @@
   }
 
   return result;
+}
+
+- (SFUFileInputStream)initWithFileDescriptor:(int)descriptor offset:(int64_t)offset length:(int64_t)length
+{
+  v7 = *&descriptor;
+  p_init = [(SFUFileInputStream *)self p_init];
+  v9 = p_init;
+  if (p_init && ![(SFUFileInputStream *)p_init p_configureWithFileDescriptor:v7 offset:offset length:length])
+  {
+
+    return 0;
+  }
+
+  return v9;
 }
 
 - (SFUFileInputStream)initWithPath:(id)path offset:(int64_t)offset length:(int64_t)length

@@ -1,6 +1,7 @@
 @interface CKWaiterWrapper
 - (CKWaiterWrapper)initWithWaiter:(id)waiter zoneIDs:(id)ds waitCompletedHandler:(id)handler activity:(id)activity;
 - (id)CKPropertiesDescription;
+- (void)invokeWaitCompletedHandler:(BOOL)handler;
 @end
 
 @implementation CKWaiterWrapper
@@ -30,6 +31,19 @@
   }
 
   return v16;
+}
+
+- (void)invokeWaitCompletedHandler:(BOOL)handler
+{
+  state.opaque[0] = 0;
+  state.opaque[1] = 0;
+  v4 = objc_msgSend_activity(self, a2, handler);
+  os_activity_scope_enter(v4, &state);
+
+  v7 = objc_msgSend_persona(self, v5, v6);
+  CKPersonaPerformBlock();
+
+  os_activity_scope_leave(&state);
 }
 
 - (id)CKPropertiesDescription

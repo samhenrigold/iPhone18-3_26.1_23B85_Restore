@@ -112,15 +112,15 @@ LABEL_16:
     v34 = contextCopy;
     pathComponents = [v21 pathComponents];
     pathComponents2 = [path pathComponents];
-    v25 = [pathComponents count];
-    v26 = v25 - [pathComponents2 count];
+    v25 = objc_msgSend_count(pathComponents);
+    v26 = v25 - objc_msgSend_count(pathComponents2);
     if (v26 <= 0)
     {
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
       [currentHandler handleFailureInMethod:a2 object:selfCopy file:@"PLFileSystemBookmark.m" lineNumber:117 description:@"URL must be relative to the volume"];
     }
 
-    v27 = [pathComponents subarrayWithRange:{objc_msgSend(pathComponents2, "count"), v26}];
+    v27 = [pathComponents subarrayWithRange:{objc_msgSend_count(pathComponents2), v26}];
     v16 = [v27 componentsJoinedByString:@"/"];
 
     v10 = v33;

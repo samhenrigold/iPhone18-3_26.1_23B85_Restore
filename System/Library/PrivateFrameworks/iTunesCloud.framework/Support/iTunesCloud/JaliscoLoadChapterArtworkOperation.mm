@@ -27,125 +27,124 @@
     {
       powerAssertionIdentifier = self->_powerAssertionIdentifier;
       *buf = 138543362;
-      v63 = powerAssertionIdentifier;
+      v61 = powerAssertionIdentifier;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Loading Chapter Artwork with power assertion: %{public}@", buf, 0xCu);
     }
 
-    v7 = self->_powerAssertionIdentifier;
     CPSetPowerAssertionWithIdentifier();
     musicLibrary = [(CloudLibraryOperation *)self musicLibrary];
     clientIdentity = [(CloudLibraryOperation *)self clientIdentity];
     [musicLibrary setClientIdentity:clientIdentity];
 
     group = dispatch_group_create();
+    v56 = 0u;
+    v57 = 0u;
     v58 = 0u;
     v59 = 0u;
-    v60 = 0u;
-    v61 = 0u;
     obj = [(NSDictionary *)self->_chapterArtworkToLoad allKeys];
-    v41 = [obj countByEnumeratingWithState:&v58 objects:v69 count:16];
-    if (v41)
+    v39 = [obj countByEnumeratingWithState:&v56 objects:v67 count:16];
+    if (v39)
     {
-      v40 = *v59;
-      v47 = ML3TrackPropertyPurchaseHistoryID;
-      v43 = ML3TrackPropertyMediaType;
+      v38 = *v57;
+      v45 = ML3TrackPropertyPurchaseHistoryID;
+      v41 = ML3TrackPropertyMediaType;
 LABEL_6:
-      v10 = 0;
+      v9 = 0;
       while (1)
       {
-        if (*v59 != v40)
+        if (*v57 != v38)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v58 + 1) + 8 * v10);
+        v10 = *(*(&v56 + 1) + 8 * v9);
         if (([(JaliscoLoadChapterArtworkOperation *)self isCancelled]& 1) != 0)
         {
           break;
         }
 
-        v42 = v10;
-        v12 = [(NSDictionary *)self->_chapterArtworkToLoad objectForKeyedSubscript:v11];
+        v40 = v9;
+        v11 = [(NSDictionary *)self->_chapterArtworkToLoad objectForKeyedSubscript:v10];
+        v52 = 0u;
+        v53 = 0u;
         v54 = 0u;
         v55 = 0u;
-        v56 = 0u;
-        v57 = 0u;
-        v46 = v12;
-        allKeys = [v12 allKeys];
-        v49 = [allKeys countByEnumeratingWithState:&v54 objects:v68 count:16];
-        if (v49)
+        v44 = v11;
+        allKeys = [v11 allKeys];
+        v47 = [allKeys countByEnumeratingWithState:&v52 objects:v66 count:16];
+        if (v47)
         {
-          v48 = *v55;
+          v46 = *v53;
 LABEL_12:
-          v13 = 0;
+          v12 = 0;
           while (1)
           {
-            if (*v55 != v48)
+            if (*v53 != v46)
             {
               objc_enumerationMutation(allKeys);
             }
 
-            v14 = *(*(&v54 + 1) + 8 * v13);
+            v13 = *(*(&v52 + 1) + 8 * v12);
             if (([(JaliscoLoadChapterArtworkOperation *)self isCancelled]& 1) != 0)
             {
               break;
             }
 
             musicLibrary2 = [(CloudLibraryOperation *)self musicLibrary];
-            v16 = +[ML3ComparisonPredicate predicateWithProperty:equalToInt64:](ML3ComparisonPredicate, "predicateWithProperty:equalToInt64:", v47, [v11 longLongValue]);
-            v17 = [ML3Track anyInLibrary:musicLibrary2 predicate:v16 options:3];
+            v15 = +[ML3ComparisonPredicate predicateWithProperty:equalToInt64:](ML3ComparisonPredicate, "predicateWithProperty:equalToInt64:", v45, [v10 longLongValue]);
+            v16 = [ML3Track anyInLibrary:musicLibrary2 predicate:v15 options:3];
 
-            if (v17)
+            if (v16)
             {
-              v18 = [v46 objectForKeyedSubscript:v14];
-              v19 = [v17 valueForProperty:v43];
-              unsignedIntValue = [v19 unsignedIntValue];
+              v17 = [v44 objectForKeyedSubscript:v13];
+              v18 = [v16 valueForProperty:v41];
+              unsignedIntValue = [v18 unsignedIntValue];
 
-              persistentID = [v17 persistentID];
-              [v14 doubleValue];
-              v51 = [ML3MusicLibrary artworkTokenForChapterWithItemPID:persistentID retrievalTime:v21 / 1000.0];
-              v22 = os_log_create("com.apple.amp.itunescloudd", "PurchaseSync");
-              if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+              persistentID = [v16 persistentID];
+              [v13 doubleValue];
+              v49 = [ML3MusicLibrary artworkTokenForChapterWithItemPID:persistentID retrievalTime:v20 / 1000.0];
+              v21 = os_log_create("com.apple.amp.itunescloudd", "PurchaseSync");
+              if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
               {
-                longLongValue = [v11 longLongValue];
-                longLongValue2 = [v14 longLongValue];
+                longLongValue = [v10 longLongValue];
+                longLongValue2 = [v13 longLongValue];
                 *buf = 134218498;
-                v63 = longLongValue;
-                v64 = 2048;
-                v65 = longLongValue2;
-                v66 = 2114;
-                v67 = v18;
-                _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Fetching chapter artwork (purchase history ID = %lld, chapter time = %lld): %{public}@", buf, 0x20u);
+                v61 = longLongValue;
+                v62 = 2048;
+                v63 = longLongValue2;
+                v64 = 2114;
+                v65 = v17;
+                _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Fetching chapter artwork (purchase history ID = %lld, chapter time = %lld): %{public}@", buf, 0x20u);
               }
 
-              v25 = [CloudArtworkImportOperation alloc];
+              v24 = [CloudArtworkImportOperation alloc];
               artworkDownloadSession = self->_artworkDownloadSession;
               [(CloudLibraryOperation *)self configuration];
-              v27 = v18;
-              v29 = v28 = self;
-              unsignedLongLongValue = [v11 unsignedLongLongValue];
-              clientIdentity2 = [(CloudLibraryOperation *)v28 clientIdentity];
-              v32 = [(CloudArtworkImportOperation *)v25 initWithURLSession:artworkDownloadSession configuration:v29 cloudID:unsignedLongLongValue artworkToken:v51 artworkType:3 sourceType:400 variantType:0 clientIdentity:clientIdentity2];
+              v26 = v17;
+              v28 = v27 = self;
+              unsignedLongLongValue = [v10 unsignedLongLongValue];
+              clientIdentity2 = [(CloudLibraryOperation *)v27 clientIdentity];
+              v31 = [(CloudArtworkImportOperation *)v24 initWithURLSession:artworkDownloadSession configuration:v28 cloudID:unsignedLongLongValue artworkToken:v49 artworkType:3 sourceType:400 variantType:0 clientIdentity:clientIdentity2];
 
-              self = v28;
-              [(CloudArtworkImportOperation *)v32 setMediaType:unsignedIntValue];
-              [(CloudArtworkImportOperation *)v32 setAssetURL:v27];
-              v52[0] = _NSConcreteStackBlock;
-              v52[1] = 3221225472;
-              v52[2] = sub_1000305C8;
-              v52[3] = &unk_1001DF578;
-              v33 = group;
-              v53 = v33;
-              [(CloudArtworkImportOperation *)v32 setCompletionBlock:v52];
-              [(CloudArtworkImportOperation *)v32 setQualityOfService:25];
-              dispatch_group_enter(v33);
-              [(NSOperationQueue *)v28->_artworkDownloadOperationQueue addOperation:v32];
+              self = v27;
+              [(CloudArtworkImportOperation *)v31 setMediaType:unsignedIntValue];
+              [(CloudArtworkImportOperation *)v31 setAssetURL:v26];
+              v50[0] = _NSConcreteStackBlock;
+              v50[1] = 3221225472;
+              v50[2] = sub_1000305C8;
+              v50[3] = &unk_1001DF578;
+              v32 = group;
+              v51 = v32;
+              [(CloudArtworkImportOperation *)v31 setCompletionBlock:v50];
+              [(CloudArtworkImportOperation *)v31 setQualityOfService:25];
+              dispatch_group_enter(v32);
+              [(NSOperationQueue *)v27->_artworkDownloadOperationQueue addOperation:v31];
             }
 
-            if (v49 == ++v13)
+            if (v47 == ++v12)
             {
-              v49 = [allKeys countByEnumeratingWithState:&v54 objects:v68 count:16];
-              if (v49)
+              v47 = [allKeys countByEnumeratingWithState:&v52 objects:v66 count:16];
+              if (v47)
               {
                 goto LABEL_12;
               }
@@ -155,11 +154,11 @@ LABEL_12:
           }
         }
 
-        v10 = v42 + 1;
-        if ((v42 + 1) == v41)
+        v9 = v40 + 1;
+        if ((v40 + 1) == v39)
         {
-          v41 = [obj countByEnumeratingWithState:&v58 objects:v69 count:16];
-          if (v41)
+          v39 = [obj countByEnumeratingWithState:&v56 objects:v67 count:16];
+          if (v39)
           {
             goto LABEL_6;
           }
@@ -171,19 +170,18 @@ LABEL_12:
 
     dispatch_group_wait(group, 0xFFFFFFFFFFFFFFFFLL);
     musicLibrary3 = [(CloudLibraryOperation *)self musicLibrary];
-    v35 = MSVTCCIdentityForCurrentProcess();
-    [musicLibrary3 setClientIdentity:v35];
+    v34 = MSVTCCIdentityForCurrentProcess();
+    [musicLibrary3 setClientIdentity:v34];
 
-    v36 = os_log_create("com.apple.amp.itunescloudd", "PurchaseSync");
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+    v35 = os_log_create("com.apple.amp.itunescloudd", "PurchaseSync");
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
     {
-      v37 = self->_powerAssertionIdentifier;
+      v36 = self->_powerAssertionIdentifier;
       *buf = 138543362;
-      v63 = v37;
-      _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "Loading Chapter Artwork Complete, releasing power assertion: %{public}@", buf, 0xCu);
+      v61 = v36;
+      _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "Loading Chapter Artwork Complete, releasing power assertion: %{public}@", buf, 0xCu);
     }
 
-    v38 = self->_powerAssertionIdentifier;
     CPSetPowerAssertionWithIdentifier();
     [(CloudLibraryOperation *)self setStatus:1];
   }

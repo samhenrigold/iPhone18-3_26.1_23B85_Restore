@@ -19,9 +19,11 @@
 {
   if (objc_opt_class() == self)
   {
-    ML3TrackForeignPropertyForML3CollectionProperties = [objc_alloc(MEMORY[0x277CBEAC0]) initWithObjectsAndKeys:{@"item_artist_pid", @"item_artist_pid", @"album_pid", @"album_pid", @"ROWID", @"item_pid", 0}];
+    v2 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithObjectsAndKeys:{@"item_artist_pid", @"item_artist_pid", @"album_pid", @"album_pid", @"ROWID", @"item_pid", 0}];
+    v3 = ML3TrackForeignPropertyForML3CollectionProperties;
+    ML3TrackForeignPropertyForML3CollectionProperties = v2;
 
-    MEMORY[0x2821F96F8]();
+    MEMORY[0x2821F96F8](v2, v3);
   }
 }
 
@@ -80,10 +82,10 @@
   _Block_object_dispose(&v17, 8);
 }
 
-uint64_t __34__ML3Collection_updateCloudStatus__block_invoke(uint64_t result, uint64_t a2, id *a3, uint64_t a4, _BYTE *a5)
+void *__34__ML3Collection_updateCloudStatus__block_invoke(void *result, uint64_t a2, id *a3, uint64_t a4, _BYTE *a5)
 {
   v5 = result;
-  if (*(*(*(result + 32) + 8) + 24) == 1 && *(*(*(result + 40) + 8) + 24) == 1)
+  if (*(*(result[4] + 8) + 24) == 1 && *(*(result[5] + 8) + 24) == 1)
   {
     *a5 = 1;
   }
@@ -93,12 +95,12 @@ uint64_t __34__ML3Collection_updateCloudStatus__block_invoke(uint64_t result, ui
     result = [*a3 BOOLValue];
     if (result)
     {
-      v6 = *(v5 + 32);
+      v6 = v5[4];
     }
 
     else
     {
-      v6 = *(v5 + 40);
+      v6 = v5[5];
     }
 
     *(*(v6 + 8) + 24) = 1;
@@ -591,34 +593,43 @@ LABEL_26:
 uint64_t __84__ML3Collection_canonicalizeCollectionRepresentativeItemsInLibrary_usingConnection___block_invoke(uint64_t a1, void *a2)
 {
   v3 = [a2 objectAtIndexedSubscript:0];
+  v4 = v3;
   if (v3)
   {
-    [*(a1 + 32) addObject:v3];
+    v6 = v3;
+    v3 = [*(a1 + 32) addObject:v3];
+    v4 = v6;
   }
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v3, v4);
 }
 
 uint64_t __84__ML3Collection_canonicalizeCollectionRepresentativeItemsInLibrary_usingConnection___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = [a2 objectAtIndexedSubscript:0];
+  v4 = v3;
   if (v3)
   {
-    [*(a1 + 32) addObject:v3];
+    v6 = v3;
+    v3 = [*(a1 + 32) addObject:v3];
+    v4 = v6;
   }
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v3, v4);
 }
 
 uint64_t __84__ML3Collection_canonicalizeCollectionRepresentativeItemsInLibrary_usingConnection___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = [a2 objectAtIndexedSubscript:0];
+  v4 = v3;
   if (v3)
   {
-    [*(a1 + 32) addObject:v3];
+    v6 = v3;
+    v3 = [*(a1 + 32) addObject:v3];
+    v4 = v6;
   }
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v3, v4);
 }
 
 + (BOOL)updateRepresentativeItemPersistentIDsInLibrary:(id)library persistentIDs:(id)ds usingConnection:(id)connection
@@ -694,12 +705,15 @@ uint64_t __84__ML3Collection_canonicalizeCollectionRepresentativeItemsInLibrary_
 uint64_t __94__ML3Collection_updateRepresentativeItemPersistentIDsInLibrary_persistentIDs_usingConnection___block_invoke(uint64_t a1, void *a2)
 {
   v3 = [a2 objectAtIndexedSubscript:0];
+  v4 = v3;
   if (v3)
   {
-    [*(a1 + 32) addObject:v3];
+    v6 = v3;
+    v3 = [*(a1 + 32) addObject:v3];
+    v4 = v6;
   }
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v3, v4);
 }
 
 + (BOOL)libraryContentsChangeForProperty:(id)property

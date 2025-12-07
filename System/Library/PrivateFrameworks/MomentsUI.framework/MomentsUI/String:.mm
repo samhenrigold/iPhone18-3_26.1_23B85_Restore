@@ -12,8 +12,8 @@
   result = lazy protocol witness table cache variable for type [String : UUID] and conformance <> [A : B];
   if (!lazy protocol witness table cache variable for type [String : UUID] and conformance <> [A : B])
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSDySS10Foundation4UUIDVGMd);
-    lazy protocol witness table accessor for type MapItem and conformance MapItem(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x277CC95F0]);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSDySS10Foundation4UUIDVGMd, &_sSDySS10Foundation4UUIDVGMR);
+    lazy protocol witness table accessor for type MapItem and conformance MapItem(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x277CC95F0], MEMORY[0x277CC9618]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type [String : UUID] and conformance <> [A : B]);
   }
@@ -46,8 +46,8 @@
   result = lazy protocol witness table cache variable for type [String : CloudDevice] and conformance <> [A : B];
   if (!lazy protocol witness table cache variable for type [String : CloudDevice] and conformance <> [A : B])
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSDySS9MomentsUI11CloudDeviceVGMd);
-    lazy protocol witness table accessor for type CloudDevice and conformance CloudDevice(&lazy protocol witness table cache variable for type CloudDevice and conformance CloudDevice, type metadata accessor for CloudDevice);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSDySS9MomentsUI11CloudDeviceVGMd, &_sSDySS9MomentsUI11CloudDeviceVGMR);
+    lazy protocol witness table accessor for type CloudDevice and conformance CloudDevice(&lazy protocol witness table cache variable for type CloudDevice and conformance CloudDevice, type metadata accessor for CloudDevice, &protocol conformance descriptor for CloudDevice);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type [String : CloudDevice] and conformance <> [A : B]);
   }
@@ -60,8 +60,8 @@
   result = lazy protocol witness table cache variable for type [String : CloudMetaDevice] and conformance <> [A : B];
   if (!lazy protocol witness table cache variable for type [String : CloudMetaDevice] and conformance <> [A : B])
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSDySS9MomentsUI15CloudMetaDeviceVGMd);
-    lazy protocol witness table accessor for type CloudDevice and conformance CloudDevice(&lazy protocol witness table cache variable for type CloudMetaDevice and conformance CloudMetaDevice, type metadata accessor for CloudMetaDevice);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSDySS9MomentsUI15CloudMetaDeviceVGMd, &_sSDySS9MomentsUI15CloudMetaDeviceVGMR);
+    lazy protocol witness table accessor for type CloudDevice and conformance CloudDevice(&lazy protocol witness table cache variable for type CloudMetaDevice and conformance CloudMetaDevice, type metadata accessor for CloudMetaDevice, &protocol conformance descriptor for CloudMetaDevice);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type [String : CloudMetaDevice] and conformance <> [A : B]);
   }

@@ -99,7 +99,7 @@
   memset(v13, 0, sizeof(v13));
   if (self)
   {
-    [(AVAssetTrackSegment *)self timeMapping];
+    objc_msgSend_timeMapping(self);
     v7 = 0uLL;
   }
 
@@ -111,7 +111,7 @@
   *&v11.start.epoch = v7;
   if (equal)
   {
-    [equal timeMapping];
+    objc_msgSend_timeMapping(equal);
   }
 
   range1 = v13[0];
@@ -140,7 +140,7 @@
   memset(v9, 0, sizeof(v9));
   if (self)
   {
-    [(AVAssetTrackSegment *)self timeMapping];
+    objc_msgSend_timeMapping(self);
   }
 
   *&v7.value = v8;
@@ -159,7 +159,7 @@
 {
   if (self)
   {
-    [(AVAssetTrackSegment *)self timeMapping];
+    objc_msgSend_timeMapping(self, a2);
   }
 
   else

@@ -6,6 +6,7 @@
 - (BOOL)canShowMarkupButton;
 - (BOOL)controller:(id)controller shouldOpenLinkAtURL:(id)l;
 - (BOOL)editorShouldAllowEditingContents:(id)contents;
+- (BOOL)saveChangesIfNeededNotifyHost:(BOOL)host forceNotifyHost:(BOOL)notifyHost saveHandler:(id)handler;
 - (BOOL)shouldAcceptTouch:(id)touch ofGestureRecognizer:(id)recognizer;
 - (BOOL)shouldAllowEditingContents;
 - (CGRect)markupContentFrame;
@@ -29,12 +30,18 @@
 - (void)_updatePencilSupportForPresentationModeIfNeeded:(unint64_t)needed;
 - (void)_updatePreferredContentSizeWithData:(id)data;
 - (void)_updatePreferredContentSizeWithURL:(id)l;
+- (void)_updateToolbarVisibilityAnimated:(BOOL)animated;
 - (void)actionSheetDidDismiss;
 - (void)buttonPressedWithIdentifier:(id)identifier completionHandler:(id)handler;
 - (void)controllerWantsToShowShareSheet:(id)sheet;
 - (void)editDetectedForMarkupViewController:(id)controller shouldEnableMarkup:(BOOL)markup;
 - (void)editor:(id)editor contentFrameDidChange:(CGRect)change;
+- (void)editor:(id)editor needsToUpdateChromeWithAnimation:(BOOL)animation;
+- (void)editorDidChangeContent:(id)content enablingFormFilling:(BOOL)filling;
+- (void)editorDidChangeContent:(id)content enablingMarkup:(BOOL)markup;
 - (void)editorDidUnlockDocument:(id)document;
+- (void)enableMarkupMode:(BOOL)mode;
+- (void)formDetectedInContent:(BOOL)content withAutofill:(BOOL)autofill;
 - (void)hostSceneWillDeactivate;
 - (void)hostViewControllerBackgroundColorChanged:(id)changed;
 - (void)loadEditorWithData:(id)data placeholderImage:(id)image completionHandler:(id)handler;
@@ -42,20 +49,30 @@
 - (void)loadPreviewControllerWithContents:(id)contents context:(id)context completionHandler:(id)handler;
 - (void)performFirstTimeAppearanceActions:(unint64_t)actions;
 - (void)prepareForActionSheetPresentation;
+- (void)previewBecameFullScreen:(BOOL)screen animated:(BOOL)animated;
+- (void)previewDidAppear:(BOOL)appear;
+- (void)previewDidDisappear:(BOOL)disappear;
+- (void)previewWillAppear:(BOOL)appear;
+- (void)previewWillDisappear:(BOOL)disappear;
 - (void)restoreFullscreenState;
 - (void)saveFullscreenStateAndHideChrome;
 - (void)savePreviewEditedCopyWithCompletionHandler:(id)handler;
+- (void)setAppearance:(id)appearance animated:(BOOL)animated;
 - (void)setHasChangesToRedo:(BOOL)redo;
+- (void)setHasChangesToUndo:(BOOL)undo;
 - (void)setMarkupContentFrame:(CGRect)frame;
 - (void)shouldLockPreviewForUnsavedEdits:(BOOL)edits;
 - (void)showingSignatureView:(BOOL)view;
+- (void)startFormFillingDidUseBanner:(BOOL)banner;
 - (void)togglePeriodicallySaveEdits:(BOOL)edits;
 - (void)updateBannerVisibility;
 - (void)updateContentFrame;
 - (void)updateContentsAllowEditingContent;
 - (void)updateInterfaceAfterSavingEdits;
 - (void)updateMarkupBackgroundColor;
+- (void)updateMarkupEdgeInsets:(BOOL)insets;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation QLMarkupItemViewController
@@ -64,17 +81,10 @@
 {
   contentsCopy = contents;
   handlerCopy = handler;
-  v9 = _os_feature_enabled_impl();
-  v10 = PPKQuickLookContentEditorViewController_ptr;
-  if (!v9)
-  {
-    v10 = MUQuickLookContentEditorViewController_ptr;
-  }
-
-  v11 = *v10;
-  v12 = objc_opt_new();
+  _os_feature_enabled_impl();
+  v9 = objc_opt_new();
   markupViewController = self->_markupViewController;
-  self->_markupViewController = v12;
+  self->_markupViewController = v9;
 
   view = [(QuickLookContentEditor *)self->_markupViewController view];
   [view setOpaque:0];
@@ -98,19 +108,19 @@
   [view2 addSubview:view3];
 
   [(QuickLookContentEditor *)self->_markupViewController didMoveToParentViewController:self];
-  v27 = _NSConcreteStackBlock;
-  v28 = 3221225472;
-  v29 = sub_10000B748;
-  v30 = &unk_100024C80;
+  v24 = _NSConcreteStackBlock;
+  v25 = 3221225472;
+  v26 = sub_10000B748;
+  v27 = &unk_100024C80;
   selfCopy = self;
-  v19 = handlerCopy;
-  v32 = v19;
-  v20 = objc_retainBlock(&v27);
+  v16 = handlerCopy;
+  v29 = v16;
+  v17 = objc_retainBlock(&v24);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    [(QLMarkupItemViewController *)self _updatePreferredContentSizeWithData:contentsCopy, v27, v28, v29, v30, selfCopy];
-    [(QLMarkupItemViewController *)self loadEditorWithData:contentsCopy placeholderImage:0 completionHandler:v20];
+    [(QLMarkupItemViewController *)self _updatePreferredContentSizeWithData:contentsCopy, v24, v25, v26, v27, selfCopy];
+    [(QLMarkupItemViewController *)self loadEditorWithData:contentsCopy placeholderImage:0 completionHandler:v17];
   }
 
   else
@@ -121,13 +131,13 @@
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v21 = contentsCopy;
-        imageURL = [v21 imageURL];
+        v18 = contentsCopy;
+        imageURL = [v18 imageURL];
         [(QLMarkupItemViewController *)self _updatePreferredContentSizeWithURL:imageURL];
 
-        imageURL2 = [v21 imageURL];
+        imageURL2 = [v18 imageURL];
 
-        [(QLMarkupItemViewController *)self loadEditorWithURL:imageURL2 placeholderImage:0 completionHandler:v20];
+        [(QLMarkupItemViewController *)self loadEditorWithURL:imageURL2 placeholderImage:0 completionHandler:v17];
       }
 
       else
@@ -135,28 +145,28 @@
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          goto LABEL_12;
+          goto LABEL_10;
         }
 
-        v24 = contentsCopy;
-        imageData = [v24 imageData];
+        v21 = contentsCopy;
+        imageData = [v21 imageData];
         [(QLMarkupItemViewController *)self _updatePreferredContentSizeWithData:imageData];
 
-        imageURL2 = [v24 imageData];
-        image = [v24 image];
+        imageURL2 = [v21 imageData];
+        image = [v21 image];
 
-        [(QLMarkupItemViewController *)self loadEditorWithData:imageURL2 placeholderImage:image completionHandler:v20];
+        [(QLMarkupItemViewController *)self loadEditorWithData:imageURL2 placeholderImage:image completionHandler:v17];
       }
 
-      goto LABEL_12;
+      goto LABEL_10;
     }
 
-    [(QLMarkupItemViewController *)self _updatePreferredContentSizeWithURL:contentsCopy, v27, v28, v29, v30, selfCopy];
-    [(QLMarkupItemViewController *)self loadEditorWithURL:contentsCopy placeholderImage:0 completionHandler:v20];
+    [(QLMarkupItemViewController *)self _updatePreferredContentSizeWithURL:contentsCopy, v24, v25, v26, v27, selfCopy];
+    [(QLMarkupItemViewController *)self loadEditorWithURL:contentsCopy placeholderImage:0 completionHandler:v17];
   }
 
-LABEL_12:
-  [(QLMarkupItemViewController *)self _fetchDocumentAttributes:v27];
+LABEL_10:
+  [(QLMarkupItemViewController *)self _fetchDocumentAttributes:v24];
 }
 
 - (void)viewDidLoad
@@ -186,9 +196,8 @@ LABEL_12:
     objc_opt_class();
     if (objc_opt_respondsToSelector())
     {
-      markupViewController = self->_markupViewController;
       [objc_opt_class() suggestedContentSizeForData:dataCopy];
-      if (v6 != CGSizeZero.width || v5 != CGSizeZero.height)
+      if (v5 != CGSizeZero.width || v4 != CGSizeZero.height)
       {
         [(QLMarkupItemViewController *)self setPreferredContentSize:?];
       }
@@ -204,9 +213,8 @@ LABEL_12:
     objc_opt_class();
     if (objc_opt_respondsToSelector())
     {
-      markupViewController = self->_markupViewController;
       [objc_opt_class() suggestedContentSizeForURL:lCopy];
-      if (v6 != CGSizeZero.width || v5 != CGSizeZero.height)
+      if (v5 != CGSizeZero.width || v4 != CGSizeZero.height)
       {
         [(QLMarkupItemViewController *)self setPreferredContentSize:?];
       }
@@ -281,6 +289,125 @@ LABEL_12:
   }
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = QLMarkupItemViewController;
+  [(QLMarkupItemViewController *)&v5 viewWillAppear:appear];
+  markupViewController = [(QLMarkupItemViewController *)self markupViewController];
+  [markupViewController becomeFirstResponder];
+}
+
+- (void)previewDidAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = QLMarkupItemViewController;
+  [(QLMarkupItemViewController *)&v7 previewDidAppear:appear];
+  markupViewController = [(QLMarkupItemViewController *)self markupViewController];
+  [markupViewController becomeFirstResponder];
+
+  v5 = _qlsLogHandle;
+  if (!_qlsLogHandle)
+  {
+    QLSInitLogging();
+    v5 = _qlsLogHandle;
+  }
+
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  {
+    markupViewController = self->_markupViewController;
+    *buf = 138412546;
+    selfCopy = self;
+    v10 = 2112;
+    v11 = markupViewController;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "%@ made markupViewController (%@) first responder. #Generic", buf, 0x16u);
+  }
+}
+
+- (void)previewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = QLMarkupItemViewController;
+  [(QLMarkupItemViewController *)&v5 previewWillAppear:appear];
+  view = [(QLMarkupItemViewController *)self view];
+  [view setClipsToBounds:0];
+}
+
+- (void)previewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  if ([(QLMarkupItemViewController *)self needsToSaveChanges])
+  {
+    [(QLMarkupItemViewController *)self _saveChangesNotifyingHost:1];
+  }
+
+  [(QLMarkupItemViewController *)self enableMarkupMode:0];
+  v5.receiver = self;
+  v5.super_class = QLMarkupItemViewController;
+  [(QLMarkupItemViewController *)&v5 previewWillDisappear:disappearCopy];
+}
+
+- (void)previewDidDisappear:(BOOL)disappear
+{
+  v8.receiver = self;
+  v8.super_class = QLMarkupItemViewController;
+  [(QLMarkupItemViewController *)&v8 previewDidDisappear:disappear];
+  markupViewController = [(QLMarkupItemViewController *)self markupViewController];
+  [markupViewController resignFirstResponder];
+
+  view = [(QLMarkupItemViewController *)self view];
+  [view setClipsToBounds:1];
+
+  v6 = _qlsLogHandle;
+  if (!_qlsLogHandle)
+  {
+    QLSInitLogging();
+    v6 = _qlsLogHandle;
+  }
+
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  {
+    markupViewController = self->_markupViewController;
+    *buf = 138412546;
+    selfCopy = self;
+    v11 = 2112;
+    v12 = markupViewController;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "%@ resigned markupViewController first responder (%@). #Generic", buf, 0x16u);
+  }
+}
+
+- (void)previewBecameFullScreen:(BOOL)screen animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  screenCopy = screen;
+  v8.receiver = self;
+  v8.super_class = QLMarkupItemViewController;
+  [QLMarkupItemViewController previewBecameFullScreen:"previewBecameFullScreen:animated:" animated:?];
+  self->_isFullScreen = screenCopy;
+  markupViewController = [(QLMarkupItemViewController *)self markupViewController];
+  [markupViewController updateForFullScreen:screenCopy animated:animatedCopy];
+}
+
+- (void)setAppearance:(id)appearance animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  appearanceCopy = appearance;
+  appearance = [(QLMarkupItemViewController *)self appearance];
+  presentationMode = [appearance presentationMode];
+
+  v9.receiver = self;
+  v9.super_class = QLMarkupItemViewController;
+  [(QLMarkupItemViewController *)&v9 setAppearance:appearanceCopy animated:animatedCopy];
+  if (presentationMode != [appearanceCopy presentationMode])
+  {
+    -[QLMarkupItemViewController _setupPresentationMode:](self, "_setupPresentationMode:", [appearanceCopy presentationMode]);
+  }
+
+  -[QLMarkupItemViewController _updatePencilSupportForPresentationModeIfNeeded:](self, "_updatePencilSupportForPresentationModeIfNeeded:", [appearanceCopy presentationMode]);
+  [(QLMarkupItemViewController *)self updateMarkupEdgeInsets:animatedCopy];
+  [(QLMarkupItemViewController *)self updateBannerVisibility];
+}
+
 - (void)_setupPresentationMode:(unint64_t)mode
 {
   v5 = _qlsLogHandle;
@@ -337,6 +464,19 @@ LABEL_10:
 
     goto LABEL_10;
   }
+}
+
+- (BOOL)saveChangesIfNeededNotifyHost:(BOOL)host forceNotifyHost:(BOOL)notifyHost saveHandler:(id)handler
+{
+  hostCopy = host;
+  handlerCopy = handler;
+  needsToSaveChanges = [(QLMarkupItemViewController *)self needsToSaveChanges];
+  if (needsToSaveChanges)
+  {
+    [(QLMarkupItemViewController *)self _saveChangesNotifyingHost:hostCopy forceNotifyHost:0 completionHandler:handlerCopy];
+  }
+
+  return needsToSaveChanges;
 }
 
 - (void)_saveChangesNotifyingHost:(BOOL)host forceNotifyHost:(BOOL)notifyHost completionHandler:(id)handler
@@ -600,9 +740,7 @@ LABEL_16:
     v9 = v9 & canHandleEditedCopy;
   }
 
-  v19 = [NSNumber numberWithBool:v9];
-  contentsAllowsEditingContents = self->_contentsAllowsEditingContents;
-  self->_contentsAllowsEditingContents = v19;
+  self->_contentsAllowsEditingContents = [NSNumber numberWithBool:v9];
 
   _objc_release_x1();
 }
@@ -640,6 +778,62 @@ LABEL_16:
   }
 }
 
+- (void)updateMarkupEdgeInsets:(BOOL)insets
+{
+  insetsCopy = insets;
+  scrollView = [(QLMarkupItemViewController *)self scrollView];
+  [scrollView minimumZoomScale];
+  v7 = v6;
+
+  scrollView2 = [(QLMarkupItemViewController *)self scrollView];
+  [scrollView2 zoomScale];
+  v10 = v9;
+  scrollView3 = [(QLMarkupItemViewController *)self scrollView];
+  [scrollView3 minimumZoomScale];
+  v13 = v12;
+
+  markupViewController = [(QLMarkupItemViewController *)self markupViewController];
+  [markupViewController adjustContentInsetsForBars];
+
+  scrollView4 = [(QLMarkupItemViewController *)self scrollView];
+  [scrollView4 zoomScale];
+  v17 = v16;
+
+  if (v17 < v7 || (-[QLMarkupItemViewController markupViewController](self, "markupViewController"), v18 = objc_claimAutoreleasedReturnValue(), v19 = [v18 annotationEditingEnabled], v18, (v19 & 1) == 0) && v10 == v13)
+  {
+    scrollView5 = [(QLMarkupItemViewController *)self scrollView];
+    scrollView6 = [(QLMarkupItemViewController *)self scrollView];
+    [scrollView6 minimumZoomScale];
+    [scrollView5 setZoomScale:insetsCopy animated:?];
+  }
+}
+
+- (void)enableMarkupMode:(BOOL)mode
+{
+  modeCopy = mode;
+  if (([(QLMarkupItemViewController *)self shouldAllowEditingContents]|| !modeCopy) && [(QuickLookContentEditor *)self->_markupViewController annotationEditingEnabled]!= modeCopy)
+  {
+    delegate = [(QLMarkupItemViewController *)self delegate];
+    [delegate previewItemViewController:self didEnableEditMode:modeCopy];
+
+    delegate2 = [(QLMarkupItemViewController *)self delegate];
+    [delegate2 previewItemViewController:self wantsFullScreen:0];
+
+    [(QuickLookContentEditor *)self->_markupViewController setAnnotationEditingEnabled:modeCopy];
+    [(QLMarkupItemViewController *)self _updateToolbarVisibilityAnimated:1];
+    delegate3 = [(QLMarkupItemViewController *)self delegate];
+    [delegate3 previewItemViewControllerWantsUpdateOverlay:self animated:0];
+
+    [(QLMarkupItemViewController *)self updateMarkupEdgeInsets:1];
+    delegate4 = [(QLMarkupItemViewController *)self delegate];
+    [delegate4 previewItemViewControllerWantsUpdateKeyCommands:self];
+
+    [(QLMarkupItemViewController *)self togglePeriodicallySaveEdits:modeCopy];
+
+    [(QLMarkupItemViewController *)self updateMarkupBackgroundColor];
+  }
+}
+
 - (void)updateMarkupBackgroundColor
 {
   if ([(QuickLookContentEditor *)self->_markupViewController annotationEditingEnabled])
@@ -663,17 +857,16 @@ LABEL_16:
 
   v5 = v4;
   traitCollection = [(QLMarkupItemViewController *)self traitCollection];
-  v8 = [(UIColor *)v5 resolvedColorWithTraitCollection:traitCollection];
+  v7 = [(UIColor *)v5 resolvedColorWithTraitCollection:traitCollection];
 
-  markupViewController = self->_markupViewController;
   if (objc_opt_respondsToSelector())
   {
-    [(QuickLookContentEditor *)self->_markupViewController setCanvaBackgroundColor:v8];
+    [(QuickLookContentEditor *)self->_markupViewController setCanvaBackgroundColor:v7];
   }
 
   else if (objc_opt_respondsToSelector())
   {
-    [(QuickLookContentEditor *)self->_markupViewController setBackgroundColor:v8];
+    [(QuickLookContentEditor *)self->_markupViewController setBackgroundColor:v7];
   }
 }
 
@@ -712,6 +905,15 @@ LABEL_16:
   shouldAllowEditingContents = [(QLMarkupItemViewController *)self shouldAllowEditingContents];
   markupViewController = [(QLMarkupItemViewController *)self markupViewController];
   [markupViewController setPencilAlwaysDraws:shouldAllowEditingContents];
+}
+
+- (void)_updateToolbarVisibilityAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  markupViewController = self->_markupViewController;
+  v5 = [(QuickLookContentEditor *)markupViewController annotationEditingEnabled]^ 1;
+
+  [(QuickLookContentEditor *)markupViewController setToolbarHidden:v5 animated:animatedCopy];
 }
 
 - (void)buttonPressedWithIdentifier:(id)identifier completionHandler:(id)handler
@@ -842,18 +1044,17 @@ LABEL_15:
 
 - (BOOL)canShowMarkupButton
 {
-  markupViewController = self->_markupViewController;
   if (objc_opt_respondsToSelector())
   {
-    v4 = [(QuickLookContentEditor *)self->_markupViewController documentIsLocked]^ 1;
+    v3 = [(QuickLookContentEditor *)self->_markupViewController documentIsLocked]^ 1;
   }
 
   else
   {
-    LOBYTE(v4) = 1;
+    LOBYTE(v3) = 1;
   }
 
-  return [(QLMarkupItemViewController *)self shouldAllowEditingContents]& v4;
+  return [(QLMarkupItemViewController *)self shouldAllowEditingContents]& v3;
 }
 
 - (id)toolbarButtonsForTraitCollection:(id)collection
@@ -993,6 +1194,40 @@ LABEL_15:
   return v5;
 }
 
+- (void)startFormFillingDidUseBanner:(BOOL)banner
+{
+  bannerCopy = banner;
+  delegate = [(QLMarkupItemViewController *)self delegate];
+  [delegate previewItemViewController:self wantsFullScreen:0];
+
+  markupViewController = [(QLMarkupItemViewController *)self markupViewController];
+  annotationEditingEnabled = [markupViewController annotationEditingEnabled];
+
+  if (annotationEditingEnabled)
+  {
+    [(QLMarkupItemViewController *)self enableMarkupMode:0];
+  }
+
+  v8 = objc_opt_respondsToSelector();
+  markupViewController = self->_markupViewController;
+  if (v8)
+  {
+    [(QuickLookContentEditor *)markupViewController setFormFillingEnabled:1 didUseBanner:bannerCopy];
+  }
+
+  else
+  {
+    [(QuickLookContentEditor *)markupViewController setFormFillingEnabled:1];
+  }
+
+  delegate2 = [(QLMarkupItemViewController *)self delegate];
+  [delegate2 previewItemViewControllerWantsUpdateOverlay:self animated:0];
+
+  [(QLMarkupItemViewController *)self setDidDismissFormFillingBanner:1];
+
+  [(QLMarkupItemViewController *)self updateBannerVisibility];
+}
+
 - (void)_stopFormFilling
 {
   markupViewController = [(QLMarkupItemViewController *)self markupViewController];
@@ -1047,7 +1282,6 @@ LABEL_15:
 
 - (BOOL)canEnterFullScreen
 {
-  markupViewController = self->_markupViewController;
   if (objc_opt_respondsToSelector())
   {
     documentIsLocked = [(QuickLookContentEditor *)self->_markupViewController documentIsLocked];
@@ -1059,6 +1293,20 @@ LABEL_15:
   }
 
   return ([(QuickLookContentEditor *)self->_markupViewController annotationEditingEnabled]& 1) == 0 && !documentIsLocked || self->_showingSignatureView;
+}
+
+- (void)setHasChangesToUndo:(BOOL)undo
+{
+  if (self->_hasChangesToUndo != undo)
+  {
+    undoCopy = undo;
+    self->_hasChangesToUndo = undo;
+    delegate = [(QLMarkupItemViewController *)self delegate];
+    [delegate previewItemViewController:self hasUnsavedEdits:undoCopy];
+
+    delegate2 = [(QLMarkupItemViewController *)self delegate];
+    [delegate2 previewItemViewControllerWantsUpdateOverlay:self animated:0];
+  }
 }
 
 - (void)setHasChangesToRedo:(BOOL)redo
@@ -1210,6 +1458,28 @@ LABEL_15:
   return 0;
 }
 
+- (void)editorDidChangeContent:(id)content enablingMarkup:(BOOL)markup
+{
+  markupCopy = markup;
+  contentCopy = content;
+  if ([(QLMarkupItemViewController *)self shouldAllowEditingContents])
+  {
+    -[QLMarkupItemViewController setHasChangesToUndo:](self, "setHasChangesToUndo:", [contentCopy validateUndo:0]);
+    -[QLMarkupItemViewController setHasChangesToRedo:](self, "setHasChangesToRedo:", [contentCopy validateRedo:0]);
+    [(QLMarkupItemViewController *)self setCurrentEditNumber:[(QLMarkupItemViewController *)self currentEditNumber]+ 1];
+    [(QLMarkupItemViewController *)self editDetectedForMarkupViewController:contentCopy shouldEnableMarkup:markupCopy];
+  }
+}
+
+- (void)editorDidChangeContent:(id)content enablingFormFilling:(BOOL)filling
+{
+  if ([(QLMarkupItemViewController *)self shouldAllowEditingContents:content])
+  {
+
+    [(QLMarkupItemViewController *)self startFormFilling];
+  }
+}
+
 - (void)editor:(id)editor contentFrameDidChange:(CGRect)change
 {
   height = change.size.height;
@@ -1331,6 +1601,48 @@ LABEL_8:
 {
   delegate = [(QLMarkupItemViewController *)self delegate];
   [delegate previewItemViewControllerWantsUpdateOverlay:self animated:1];
+}
+
+- (void)editor:(id)editor needsToUpdateChromeWithAnimation:(BOOL)animation
+{
+  animationCopy = animation;
+  delegate = [(QLMarkupItemViewController *)self delegate];
+  [delegate previewItemViewControllerWantsUpdateOverlay:self animated:animationCopy];
+}
+
+- (void)formDetectedInContent:(BOOL)content withAutofill:(BOOL)autofill
+{
+  autofillCopy = autofill;
+  contentCopy = content;
+  v7 = _qlsLogHandle;
+  if (!_qlsLogHandle)
+  {
+    QLSInitLogging();
+    v7 = _qlsLogHandle;
+  }
+
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v9[0] = 67109376;
+    v9[1] = contentCopy;
+    v10 = 1024;
+    v11 = autofillCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Previewed content allows form filling: %d. Autofill detected: %d. #AnyItemViewController", v9, 0xEu);
+  }
+
+  [(QLMarkupItemViewController *)self setDidReceiveFormFillingCallback:1];
+  if (contentCopy && ![(QLMarkupItemViewController *)self formDetectedInDocument])
+  {
+    if ([(QLMarkupItemViewController *)self canOfferFormFillingForOriginalDocument])
+    {
+      [(QLMarkupItemViewController *)self setFormDetectedInDocument:1];
+      [(QLMarkupItemViewController *)self setAutofillDetected:autofillCopy];
+      [(QLMarkupItemViewController *)self updateBannerVisibility];
+      [(QLMarkupItemViewController *)self updateContentsAllowEditingContent];
+      delegate = [(QLMarkupItemViewController *)self delegate];
+      [delegate previewItemViewControllerWantsUpdateOverlay:self animated:1];
+    }
+  }
 }
 
 - (SYDocumentWorkflowsClient)documentWorkflowsClient

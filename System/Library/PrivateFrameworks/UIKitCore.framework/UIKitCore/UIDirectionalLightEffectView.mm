@@ -32,21 +32,23 @@
 
 - (void)layoutSubviews
 {
-  v4.receiver = self;
-  v4.super_class = type metadata accessor for UIDirectionalLightEffectView();
-  v2 = v4.receiver;
-  [(UIView *)&v4 layoutSubviews];
-  v3 = *&v2[OBJC_IVAR____TtC5UIKit28UIDirectionalLightEffectView_fillView];
-  [v2 bounds];
-  [v3 setFrame_];
+  type metadata accessor for UIDirectionalLightEffectView();
+  v6.receiver = self;
+  v6.super_class = v3;
+  selfCopy = self;
+  [(UIView *)&v6 layoutSubviews];
+  v5 = *(&selfCopy->super.super.super.isa + OBJC_IVAR____TtC5UIKit28UIDirectionalLightEffectView_fillView);
+  [(UIView *)selfCopy bounds:v6.receiver];
+  [v5 setFrame_];
 }
 
 - (void)didMoveToSuperview
 {
-  v3.receiver = self;
-  v3.super_class = type metadata accessor for UIDirectionalLightEffectView();
-  v2 = v3.receiver;
-  [(UIView *)&v3 didMoveToSuperview];
+  type metadata accessor for UIDirectionalLightEffectView();
+  v5.receiver = self;
+  v5.super_class = v3;
+  selfCopy = self;
+  [(UIView *)&v5 didMoveToSuperview];
   sub_188E8691C();
 }
 

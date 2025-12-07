@@ -56,10 +56,10 @@
 - (const)mathMLAttributes
 {
   {
-    std::set<EQKitTypes::Attributes::Enum>::set[abi:nn200100]<EQKitTypes::Attributes::Enum const*>(-[EQKitMathMLMath mathMLAttributes]::sAttributesSet, &-[EQKitMathMLMath mathMLAttributes]::sAttributesData, -[EQKitMathMLMFenced mathMLAttributes]::sAttributesData);
+    std::set<EQKitTypes::Attributes::Enum>::set[abi:nn200100]<EQKitTypes::Attributes::Enum const*>(&-[EQKitMathMLMath mathMLAttributes]::sAttributesSet, &-[EQKitMathMLMath mathMLAttributes]::sAttributesData, -[EQKitMathMLMFenced mathMLAttributes]::sAttributesData);
   }
 
-  return [EQKitMathMLMath mathMLAttributes]::sAttributesSet;
+  return &[EQKitMathMLMath mathMLAttributes]::sAttributesSet;
 }
 
 - (void)dealloc
@@ -95,7 +95,7 @@
     array = [MEMORY[0x277CBEA60] array];
   }
 
-  return EQKit::Layout::Schemata::row(array, retstr);
+  return EQKit::Layout::Schemata::row(retstr, array);
 }
 
 - (NSString)description

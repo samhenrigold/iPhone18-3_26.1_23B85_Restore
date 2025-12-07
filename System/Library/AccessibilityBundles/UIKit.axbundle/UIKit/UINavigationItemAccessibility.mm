@@ -116,32 +116,30 @@
 - (void)_accessibilityLoadAccessibilityInformation
 {
   selfCopy = self;
-  v10 = a2;
-  v9.receiver = self;
-  v9.super_class = UINavigationItemAccessibility;
-  [(UINavigationItemAccessibility *)&v9 _accessibilityLoadAccessibilityInformation];
-  v7 = 0;
+  v9 = a2;
+  v8.receiver = self;
+  v8.super_class = UINavigationItemAccessibility;
+  [(UINavigationItemAccessibility *)&v8 _accessibilityLoadAccessibilityInformation];
+  v6 = 0;
   objc_opt_class();
-  v6 = __UIAccessibilityCastAsClass();
-  v5 = MEMORY[0x29EDC9748](v6);
-  objc_storeStrong(&v6, 0);
-  v8 = v5;
+  v5 = __UIAccessibilityCastAsClass();
+  v4 = MEMORY[0x29EDC9748](v5);
+  objc_storeStrong(&v5, 0);
+  v7 = v4;
   if (UIAccessibilityIsVoiceOverRunning() || UIAccessibilityIsSwitchControlRunning())
   {
     if (([(UINavigationItemAccessibility *)selfCopy _axDidOverrideHidesSearchBarWhenScrolling]& 1) == 0)
     {
-      [UINavigationItemAccessibility _axSetDidOverrideHidesSearchBarWhenScrolling:selfCopy];
-      v4 = selfCopy;
-      [v8 hidesSearchBarWhenScrolling];
-      [UINavigationItemAccessibility _axSetOriginalHidesSearchBarWhenScrolling:v4];
+      [(UINavigationItemAccessibility *)selfCopy _axSetDidOverrideHidesSearchBarWhenScrolling:?];
+      -[UINavigationItemAccessibility _axSetOriginalHidesSearchBarWhenScrolling:](selfCopy, [v7 hidesSearchBarWhenScrolling]);
     }
 
-    [v8 setHidesSearchBarWhenScrolling:0];
+    [v7 setHidesSearchBarWhenScrolling:0];
   }
 
   else if (([(UINavigationItemAccessibility *)selfCopy _axDidOverrideHidesSearchBarWhenScrolling]& 1) != 0)
   {
-    [UINavigationItemAccessibility _axSetDidOverrideHidesSearchBarWhenScrolling:selfCopy];
+    [(UINavigationItemAccessibility *)selfCopy _axSetDidOverrideHidesSearchBarWhenScrolling:?];
   }
 
   defaultCenter = [MEMORY[0x29EDBA068] defaultCenter];
@@ -149,7 +147,7 @@
   defaultCenter2 = [MEMORY[0x29EDBA068] defaultCenter];
   [defaultCenter2 addObserver:selfCopy selector:sel__switchControlStatusChanged name:*MEMORY[0x29EDC7F48] object:0];
   MEMORY[0x29EDC9740](defaultCenter2);
-  objc_storeStrong(&v8, 0);
+  objc_storeStrong(&v7, 0);
 }
 
 - (void)setHidesSearchBarWhenScrolling:(BOOL)scrolling
@@ -162,7 +160,7 @@
   [(UINavigationItemAccessibility *)&v3 setHidesSearchBarWhenScrolling:scrolling];
   if (scrollingCopy)
   {
-    [UINavigationItemAccessibility _axSetShouldHideSearchBarWhenScrolling:selfCopy];
+    [(UINavigationItemAccessibility *)selfCopy _axSetShouldHideSearchBarWhenScrolling:?];
   }
 }
 

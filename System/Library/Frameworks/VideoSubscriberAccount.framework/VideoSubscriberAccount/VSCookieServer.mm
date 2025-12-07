@@ -85,7 +85,7 @@
 
 - (void)webServerConnection:(id)connection didReceiveRequest:(id)request
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   v6 = objc_alloc_init(MEMORY[0x277CBEB38]);
   method = [requestCopy method];
@@ -97,39 +97,40 @@
     if ([cookieSetter length])
     {
       cookieGetter = [(VSCookieServer *)self cookieGetter];
-      if ([cookieSetter isEqual:cookieGetter])
+      v11 = [cookieSetter isEqual:cookieGetter];
+      if (v11)
       {
-        v11 = VSDefaultLogObject();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v12 = VSDefaultLogObject(v11);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v16) = 0;
-          _os_log_impl(&dword_23AB8E000, v11, OS_LOG_TYPE_DEFAULT, "Correct cookie supplied.", &v16, 2u);
+          LOWORD(v17) = 0;
+          _os_log_impl(&dword_23AB8E000, v12, OS_LOG_TYPE_DEFAULT, "Correct cookie supplied.", &v17, 2u);
         }
 
-        v12 = 204;
+        v13 = 204;
       }
 
       else
       {
-        v11 = VSErrorLogObject();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        v12 = VSErrorLogObject(v11);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
-          [(VSCookieServer *)cookieGetter webServerConnection:cookieSetter didReceiveRequest:v11];
+          [(VSCookieServer *)cookieGetter webServerConnection:cookieSetter didReceiveRequest:v12];
         }
 
-        v12 = 403;
+        v13 = 403;
       }
     }
 
     else
     {
-      cookieGetter = VSErrorLogObject();
+      cookieGetter = VSErrorLogObject(0);
       if (os_log_type_enabled(cookieGetter, OS_LOG_TYPE_ERROR))
       {
         [VSCookieServer webServerConnection:cookieGetter didReceiveRequest:?];
       }
 
-      v12 = 401;
+      v13 = 401;
     }
 
 LABEL_20:
@@ -139,25 +140,25 @@ LABEL_20:
   if ([method isEqual:@"POST"])
   {
     cookieSetter = [(VSCookieServer *)self cookieSetter];
-    v13 = VSDefaultLogObject();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = VSDefaultLogObject(cookieSetter);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138412290;
-      v17 = cookieSetter;
-      _os_log_impl(&dword_23AB8E000, v13, OS_LOG_TYPE_DEFAULT, "Setting cookie %@.", &v16, 0xCu);
+      v17 = 138412290;
+      v18 = cookieSetter;
+      _os_log_impl(&dword_23AB8E000, v14, OS_LOG_TYPE_DEFAULT, "Setting cookie %@.", &v17, 0xCu);
     }
 
     [v6 setObject:cookieSetter forKey:@"Set-Cookie"];
     [v6 setObject:@"*" forKey:@"Access-Control-Allow-Origin"];
-    v12 = 201;
+    v13 = 201;
     goto LABEL_20;
   }
 
-  v12 = 405;
+  v13 = 405;
 LABEL_21:
-  v14 = objc_alloc_init(MEMORY[0x277CBEA90]);
-  v15 = [VSWebServerResponse responseToRequest:requestCopy withCode:v12 headers:v6 bodyData:v14];
-  [v15 enqueue];
+  v15 = objc_alloc_init(MEMORY[0x277CBEA90]);
+  v16 = [VSWebServerResponse responseToRequest:requestCopy withCode:v13 headers:v6 bodyData:v15];
+  [v16 enqueue];
 }
 
 - (NSURL)URL

@@ -7,10 +7,10 @@
 
 - (WADeploymentAnalyzerDefaults)init
 {
-  v47 = *MEMORY[0x1E69E9840];
-  v36.receiver = self;
-  v36.super_class = WADeploymentAnalyzerDefaults;
-  v2 = [(WADeploymentAnalyzerDefaults *)&v36 init];
+  v46 = *MEMORY[0x1E69E9840];
+  v35.receiver = self;
+  v35.super_class = WADeploymentAnalyzerDefaults;
+  v2 = [(WADeploymentAnalyzerDefaults *)&v35 init];
   v3 = v2;
   if (v2)
   {
@@ -27,15 +27,15 @@
       {
         poorCoverageRSSI = v3->_poorCoverageRSSI;
         *buf = 136447234;
-        v38 = "[WADeploymentAnalyzerDefaults init]";
-        v39 = 1024;
-        v40 = 73;
-        v41 = 2080;
-        v42 = "[WADeploymentAnalyzerDefaults init]";
-        v43 = 2048;
-        v44 = *&poorCoverageRSSI;
-        v45 = 2112;
-        v46 = @"poor-coverage-rssi";
+        v37 = "[WADeploymentAnalyzerDefaults init]";
+        v38 = 1024;
+        v39 = 73;
+        v40 = 2080;
+        v41 = "[WADeploymentAnalyzerDefaults init]";
+        v42 = 2048;
+        v43 = *&poorCoverageRSSI;
+        v44 = 2112;
+        v45 = @"poor-coverage-rssi";
         _os_log_impl(&dword_1C8460000, v6, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:%s: using override value (%ld) for %@", buf, 0x30u);
       }
     }
@@ -54,15 +54,15 @@
       {
         poorCoverageThreshold = v3->_poorCoverageThreshold;
         *buf = 136447234;
-        v38 = "[WADeploymentAnalyzerDefaults init]";
-        v39 = 1024;
-        v40 = 74;
-        v41 = 2080;
-        v42 = "[WADeploymentAnalyzerDefaults init]";
-        v43 = 2048;
-        v44 = poorCoverageThreshold;
-        v45 = 2112;
-        v46 = @"poor-coverage-threshold";
+        v37 = "[WADeploymentAnalyzerDefaults init]";
+        v38 = 1024;
+        v39 = 74;
+        v40 = 2080;
+        v41 = "[WADeploymentAnalyzerDefaults init]";
+        v42 = 2048;
+        v43 = poorCoverageThreshold;
+        v44 = 2112;
+        v45 = @"poor-coverage-threshold";
         _os_log_impl(&dword_1C8460000, v11, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:%s: using override value (%f) for %@", buf, 0x30u);
       }
     }
@@ -80,15 +80,15 @@
       {
         poorCoverageMinimumStay = v3->_poorCoverageMinimumStay;
         *buf = 136447234;
-        v38 = "[WADeploymentAnalyzerDefaults init]";
-        v39 = 1024;
-        v40 = 75;
-        v41 = 2080;
-        v42 = "[WADeploymentAnalyzerDefaults init]";
-        v43 = 2048;
-        v44 = *&poorCoverageMinimumStay;
-        v45 = 2112;
-        v46 = @"poor-coverage-min-stay";
+        v37 = "[WADeploymentAnalyzerDefaults init]";
+        v38 = 1024;
+        v39 = 75;
+        v40 = 2080;
+        v41 = "[WADeploymentAnalyzerDefaults init]";
+        v42 = 2048;
+        v43 = *&poorCoverageMinimumStay;
+        v44 = 2112;
+        v45 = @"poor-coverage-min-stay";
         _os_log_impl(&dword_1C8460000, v15, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:%s: using override value (%lu) for %@", buf, 0x30u);
       }
     }
@@ -106,15 +106,15 @@
       {
         highCongestionRSSIThreshold = v3->_highCongestionRSSIThreshold;
         *buf = 136447234;
-        v38 = "[WADeploymentAnalyzerDefaults init]";
-        v39 = 1024;
-        v40 = 78;
-        v41 = 2080;
-        v42 = "[WADeploymentAnalyzerDefaults init]";
-        v43 = 2048;
-        v44 = *&highCongestionRSSIThreshold;
-        v45 = 2112;
-        v46 = @"high-congestion-rssi";
+        v37 = "[WADeploymentAnalyzerDefaults init]";
+        v38 = 1024;
+        v39 = 78;
+        v40 = 2080;
+        v41 = "[WADeploymentAnalyzerDefaults init]";
+        v42 = 2048;
+        v43 = *&highCongestionRSSIThreshold;
+        v44 = 2112;
+        v45 = @"high-congestion-rssi";
         _os_log_impl(&dword_1C8460000, v19, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:%s: using override value (%ld) for %@", buf, 0x30u);
       }
     }
@@ -132,15 +132,15 @@
       {
         highCongestionCCAThreshold = v3->_highCongestionCCAThreshold;
         *buf = 136447234;
-        v38 = "[WADeploymentAnalyzerDefaults init]";
-        v39 = 1024;
-        v40 = 79;
-        v41 = 2080;
-        v42 = "[WADeploymentAnalyzerDefaults init]";
-        v43 = 2048;
-        v44 = *&highCongestionCCAThreshold;
-        v45 = 2112;
-        v46 = @"high-congestion-cca";
+        v37 = "[WADeploymentAnalyzerDefaults init]";
+        v38 = 1024;
+        v39 = 79;
+        v40 = 2080;
+        v41 = "[WADeploymentAnalyzerDefaults init]";
+        v42 = 2048;
+        v43 = *&highCongestionCCAThreshold;
+        v44 = 2112;
+        v45 = @"high-congestion-cca";
         _os_log_impl(&dword_1C8460000, v23, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:%s: using override value (%lu) for %@", buf, 0x30u);
       }
     }
@@ -159,15 +159,15 @@
       {
         highCongestionThreshold = v3->_highCongestionThreshold;
         *buf = 136447234;
-        v38 = "[WADeploymentAnalyzerDefaults init]";
-        v39 = 1024;
-        v40 = 80;
-        v41 = 2080;
-        v42 = "[WADeploymentAnalyzerDefaults init]";
-        v43 = 2048;
-        v44 = highCongestionThreshold;
-        v45 = 2112;
-        v46 = @"high-congestion-threshold";
+        v37 = "[WADeploymentAnalyzerDefaults init]";
+        v38 = 1024;
+        v39 = 80;
+        v40 = 2080;
+        v41 = "[WADeploymentAnalyzerDefaults init]";
+        v42 = 2048;
+        v43 = highCongestionThreshold;
+        v44 = 2112;
+        v45 = @"high-congestion-threshold";
         _os_log_impl(&dword_1C8460000, v28, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:%s: using override value (%f) for %@", buf, 0x30u);
       }
     }
@@ -185,21 +185,20 @@
       {
         highCongestionMinimumStay = v3->_highCongestionMinimumStay;
         *buf = 136447234;
-        v38 = "[WADeploymentAnalyzerDefaults init]";
-        v39 = 1024;
-        v40 = 81;
-        v41 = 2080;
-        v42 = "[WADeploymentAnalyzerDefaults init]";
-        v43 = 2048;
-        v44 = *&highCongestionMinimumStay;
-        v45 = 2112;
-        v46 = @"high-congestion-min-stay";
+        v37 = "[WADeploymentAnalyzerDefaults init]";
+        v38 = 1024;
+        v39 = 81;
+        v40 = 2080;
+        v41 = "[WADeploymentAnalyzerDefaults init]";
+        v42 = 2048;
+        v43 = *&highCongestionMinimumStay;
+        v44 = 2112;
+        v45 = @"high-congestion-min-stay";
         _os_log_impl(&dword_1C8460000, v32, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:%s: using override value (%lu) for %@", buf, 0x30u);
       }
     }
   }
 
-  v34 = *MEMORY[0x1E69E9840];
   return v3;
 }
 

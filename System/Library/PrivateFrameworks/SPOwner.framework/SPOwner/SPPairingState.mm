@@ -1,11 +1,35 @@
 @interface SPPairingState
 - (SPPairingState)initWithCoder:(id)coder;
+- (SPPairingState)initWithStatus:(int64_t)status beaconIdentifier:(id)identifier macAddress:(id)address pairingEpoch:(id)epoch partId:(unsigned __int8)id pairingType:(int64_t)type;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation SPPairingState
+
+- (SPPairingState)initWithStatus:(int64_t)status beaconIdentifier:(id)identifier macAddress:(id)address pairingEpoch:(id)epoch partId:(unsigned __int8)id pairingType:(int64_t)type
+{
+  idCopy = id;
+  identifierCopy = identifier;
+  addressCopy = address;
+  epochCopy = epoch;
+  v20.receiver = self;
+  v20.super_class = SPPairingState;
+  v17 = [(SPPairingState *)&v20 init];
+  v18 = v17;
+  if (v17)
+  {
+    [(SPPairingState *)v17 setStatus:status];
+    [(SPPairingState *)v18 setBeaconIdentifier:identifierCopy];
+    [(SPPairingState *)v18 setMacAddress:addressCopy];
+    [(SPPairingState *)v18 setPairingEpoch:epochCopy];
+    [(SPPairingState *)v18 setPartId:idCopy];
+    [(SPPairingState *)v18 setPairingType:type];
+  }
+
+  return v18;
+}
 
 - (id)copyWithZone:(_NSZone *)zone
 {

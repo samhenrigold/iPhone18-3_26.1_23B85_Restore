@@ -13,14 +13,14 @@
 - (BOOL)isHidden
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for DigitalTimeView();
+  v3.super_class = type metadata accessor for DigitalTimeView(0);
   return [(DigitalTimeView *)&v3 isHidden];
 }
 
 - (void)setHidden:(BOOL)hidden
 {
   selfCopy = self;
-  sub_23BFA88F8(hidden);
+  sub_23BFA88F8(hidden, selfCopy);
 }
 
 - (_TtC30NTKParmesanFaceBundleCompanion15DigitalTimeView)initWithCoder:(id)coder
@@ -45,10 +45,10 @@
 
 - (void)setOverrideDate:(id)date duration:(double)duration
 {
-  v6 = sub_23BF4A264(&qword_27E1E0B80);
-  v7 = MEMORY[0x28223BE20](v6 - 8);
-  v9 = &v18 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v7);
+  v6 = sub_23BF4A264(&qword_27E1E0B80, &qword_23C002400);
+  MEMORY[0x28223BE20](v6 - 8);
+  v8 = &v18 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v9);
   v11 = &v18 - v10;
   if (date)
   {
@@ -64,16 +64,16 @@
   }
 
   v13 = *(&self->super.super.super.isa + OBJC_IVAR____TtC30NTKParmesanFaceBundleCompanion15DigitalTimeView_timeFormatter);
-  sub_23BF7D960(v11, v9);
+  sub_23BF7D960(v11, v8);
   sub_23BFF8D90();
   v14 = *(v12 - 8);
-  v15 = (*(v14 + 48))(v9, 1, v12);
+  v15 = (*(v14 + 48))(v8, 1, v12);
   selfCopy = self;
   v17 = 0;
   if (v15 != 1)
   {
     v17 = sub_23BFF8D60();
-    (*(v14 + 8))(v9, v12);
+    (*(v14 + 8))(v8, v12);
   }
 
   [v13 setOverrideDate_];
@@ -84,7 +84,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_23BFA9790();
+  sub_23BFA9790(selfCopy, v2);
 }
 
 - (_TtC30NTKParmesanFaceBundleCompanion15DigitalTimeView)initWithFrame:(CGRect)frame
@@ -98,7 +98,7 @@
 {
   selfCopy = self;
   sub_23BFA8DB4(v4);
-  sub_23BF4A264(&qword_27E1E1F50);
+  sub_23BF4A264(&qword_27E1E1F50, qword_23C006DA0);
   sub_23BFF9EE0();
   sub_23BF9C60C(v4);
   sub_23BFB43B4(*(&selfCopy->super.super.super.isa + OBJC_IVAR____TtC30NTKParmesanFaceBundleCompanion15DigitalTimeView_timeFormatter));

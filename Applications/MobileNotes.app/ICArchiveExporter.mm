@@ -27,7 +27,7 @@
   v8 = *(v7 - 8);
   __chkstk_darwin(v7);
   v10 = &v18 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1000054A4(0, &qword_1006C1B60);
+  sub_1000054A4(0, &qword_1006C1B60, ICCloudSyncingObject_ptr);
   v11 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   progressCopy = progress;
   selfCopy = self;

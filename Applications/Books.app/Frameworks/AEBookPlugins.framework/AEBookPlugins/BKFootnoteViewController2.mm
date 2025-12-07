@@ -98,9 +98,9 @@
 
 - (void)viewDidLoad
 {
-  v35.receiver = self;
-  v35.super_class = BKFootnoteViewController2;
-  [(BKFootnoteViewController2 *)&v35 viewDidLoad];
+  v36.receiver = self;
+  v36.super_class = BKFootnoteViewController2;
+  [(BKFootnoteViewController2 *)&v36 viewDidLoad];
   view = [(BKFootnoteViewController2 *)self view];
   [view setFrame:{0.0, 0.0, 375.0, 0.0}];
   [view bounds];
@@ -153,16 +153,16 @@
   LODWORD(v28) = 1148846080;
   [(UIButton *)self->_doneButton setContentCompressionResistancePriority:0 forAxis:v28];
   LODWORD(v29) = 1148846080;
-  [(UIButton *)self->_doneButton setContentCompressionResistancePriority:1 forAxis:v29];
-  v30 = self->_doneButton;
-  v31 = AEBundle();
-  v32 = [v31 localizedStringForKey:@"Done" value:&stru_1E7188 table:0];
-  [(UIButton *)v30 setTitle:v32 forState:0];
+  v30 = [(UIButton *)self->_doneButton setContentCompressionResistancePriority:1 forAxis:v29];
+  v31 = self->_doneButton;
+  v32 = AEBundle(v30);
+  v33 = [v32 localizedStringForKey:@"Done" value:&stru_1E7188 table:0];
+  [(UIButton *)v31 setTitle:v33 forState:0];
 
   [(UIButton *)self->_doneButton addTarget:self action:"_doneButtonTapped:" forControlEvents:64];
-  v33 = [UIFont systemFontOfSize:17.0];
+  v34 = [UIFont systemFontOfSize:17.0];
   titleLabel = [(UIButton *)self->_doneButton titleLabel];
-  [titleLabel setFont:v33];
+  [titleLabel setFont:v34];
 
   [view addSubview:self->_doneButton];
   [view addSubview:self->_webView];
@@ -578,7 +578,7 @@
 
 - (void)_generateAndLoadContent
 {
-  v3 = AEBundle();
+  v3 = AEBundle(self);
   v4 = [v3 pathForResource:@"footnote" ofType:@"xhtml"];
   v20 = 0;
   v5 = [NSString stringWithContentsOfFile:v4 encoding:4 error:&v20];

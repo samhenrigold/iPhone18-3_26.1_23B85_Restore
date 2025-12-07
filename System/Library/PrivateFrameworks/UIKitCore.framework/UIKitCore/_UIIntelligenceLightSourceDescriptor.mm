@@ -166,15 +166,15 @@
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v5 = [equalCopy[2] isEqualToString:self->_identifier];
+    isEqualToString = objc_msgSend_isEqualToString_(equalCopy[2]);
   }
 
   else
   {
-    v5 = 0;
+    isEqualToString = 0;
   }
 
-  return v5;
+  return isEqualToString;
 }
 
 @end

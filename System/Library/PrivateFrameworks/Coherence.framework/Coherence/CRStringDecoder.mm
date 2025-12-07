@@ -34,13 +34,13 @@
       v21 = v8;
       v22 = v9;
       v20 = v7;
-      v10 = self + OBJC_IVAR____TtC9Coherence15CRStringDecoder_subsequence;
-      v11 = *&self->encoded[OBJC_IVAR____TtC9Coherence15CRStringDecoder_subsequence + 40];
-      v24[2] = *&self->encoded[OBJC_IVAR____TtC9Coherence15CRStringDecoder_subsequence + 24];
+      v10 = self + OBJC_IVAR____TtC9Coherence15CRStringDecoder_subsequence[0];
+      v11 = *&self->encoded[OBJC_IVAR____TtC9Coherence15CRStringDecoder_subsequence[0] + 40];
+      v24[2] = *&self->encoded[OBJC_IVAR____TtC9Coherence15CRStringDecoder_subsequence[0] + 24];
       v24[3] = v11;
-      v25 = self->encoded[OBJC_IVAR____TtC9Coherence15CRStringDecoder_subsequence + 56];
-      v12 = *&self->encoded[OBJC_IVAR____TtC9Coherence15CRStringDecoder_subsequence + 8];
-      v24[0] = *(&self->super.isa + OBJC_IVAR____TtC9Coherence15CRStringDecoder_subsequence);
+      v25 = self->encoded[OBJC_IVAR____TtC9Coherence15CRStringDecoder_subsequence[0] + 56];
+      v12 = *&self->encoded[OBJC_IVAR____TtC9Coherence15CRStringDecoder_subsequence[0] + 8];
+      v24[0] = *(&self->super.isa + OBJC_IVAR____TtC9Coherence15CRStringDecoder_subsequence[0]);
       v24[1] = v12;
       v13 = v19;
       v14 = v20;
@@ -66,26 +66,25 @@
 {
   v3 = sub_1AE23BFEC();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1ADE09BE4(v7);
-  v8 = sub_1AE23BF7C();
-  (*(v4 + 8))(v7, v3);
+  v6 = &v12 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_1ADE09BE4(v7, v6, v8, v9);
+  v10 = sub_1AE23BF7C();
+  (*(v4 + 8))(v6, v3);
 
-  return v8;
+  return v10;
 }
 
 - (unsigned)substringCharClock
 {
-  if (self->encoded[OBJC_IVAR____TtC9Coherence15CRStringDecoder_subsequence + 56])
+  if (self->encoded[OBJC_IVAR____TtC9Coherence15CRStringDecoder_subsequence[0] + 56])
   {
     v2 = 0;
   }
 
   else
   {
-    v2 = *&self->encoded[OBJC_IVAR____TtC9Coherence15CRStringDecoder_subsequence + 48];
+    v2 = *&self->encoded[OBJC_IVAR____TtC9Coherence15CRStringDecoder_subsequence[0] + 48];
   }
 
   if ((v2 & 0x8000000000000000) != 0)
@@ -110,7 +109,7 @@
     goto LABEL_5;
   }
 
-  v3 = *&self->encoded[OBJC_IVAR____TtC9Coherence15CRStringDecoder_subsequence + 8];
+  v3 = *&self->encoded[OBJC_IVAR____TtC9Coherence15CRStringDecoder_subsequence[0] + 8];
   if (*(v3 + 16) <= child)
   {
 LABEL_5:
@@ -130,7 +129,7 @@ LABEL_5:
     goto LABEL_7;
   }
 
-  v3 = *&self->encoded[OBJC_IVAR____TtC9Coherence15CRStringDecoder_subsequence];
+  v3 = *&self->encoded[OBJC_IVAR____TtC9Coherence15CRStringDecoder_subsequence[0]];
   if (*(v3 + 16) <= counter)
   {
 LABEL_7:
@@ -158,14 +157,12 @@ LABEL_9:
 
 - (id)storageWithError:(id *)error
 {
-  v4 = *(&self->super.isa + OBJC_IVAR____TtC9Coherence15CRStringDecoder_encoded);
-  v5 = *&self->encoded[OBJC_IVAR____TtC9Coherence15CRStringDecoder_encoded];
-  v6 = objc_allocWithZone(MEMORY[0x1E696AD60]);
+  v4 = objc_allocWithZone(MEMORY[0x1E696AD60]);
   selfCopy = self;
 
-  v8 = sub_1AE23CCDC();
+  v6 = sub_1AE23CCDC();
 
-  initWithString_ = [v6 initWithString_];
+  initWithString_ = [v4 initWithString_];
 
   return initWithString_;
 }
@@ -178,7 +175,7 @@ LABEL_9:
     goto LABEL_7;
   }
 
-  v3 = *&self->encoded[OBJC_IVAR____TtC9Coherence15CRStringDecoder_subsequence + 16];
+  v3 = *&self->encoded[OBJC_IVAR____TtC9Coherence15CRStringDecoder_subsequence[0] + 16];
   if (*(v3 + 16) <= counter)
   {
 LABEL_7:

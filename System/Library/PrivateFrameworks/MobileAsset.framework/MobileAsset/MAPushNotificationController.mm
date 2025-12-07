@@ -21,16 +21,16 @@
 
 - (MAPushNotificationController)init
 {
-  v6.receiver = self;
-  v6.super_class = MAPushNotificationController;
-  v2 = [(MAPushNotificationController *)&v6 init];
+  v8.receiver = self;
+  v8.super_class = MAPushNotificationController;
+  v2 = [(MAPushNotificationController *)&v8 init];
   if (v2)
   {
     v3 = objc_alloc_init(MEMORY[0x1E696AD10]);
     serviceConnectionLock = v2->_serviceConnectionLock;
     v2->_serviceConnectionLock = v3;
 
-    v2->_verboseLogging = _MAPreferencesIsVerboseLoggingEnabled() != 0;
+    v2->_verboseLogging = _MAPreferencesIsVerboseLoggingEnabled(v5, v6) != 0;
   }
 
   return v2;
@@ -57,7 +57,7 @@ uint64_t __46__MAPushNotificationController_sharedInstance__block_invoke()
 
 - (id)_serviceConnection
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   serviceConnectionLock = [(MAPushNotificationController *)self serviceConnectionLock];
   [serviceConnectionLock lock];
 
@@ -76,7 +76,7 @@ uint64_t __46__MAPushNotificationController_sharedInstance__block_invoke()
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v24 = @"com.apple.mobileassetd.push-notifications";
+        v23 = @"com.apple.mobileassetd.push-notifications";
         _os_log_impl(&dword_197AD5000, v7, OS_LOG_TYPE_ERROR, "Could not connect to service %{public}@", buf, 0xCu);
       }
     }
@@ -97,18 +97,18 @@ uint64_t __46__MAPushNotificationController_sharedInstance__block_invoke()
     [serviceConnection6 setInterruptionHandler:&__block_literal_global_1115];
 
     serviceConnection7 = [(MAPushNotificationController *)self serviceConnection];
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __50__MAPushNotificationController__serviceConnection__block_invoke_1116;
-    v21[3] = &unk_1E74CB168;
-    objc_copyWeak(&v22, buf);
-    [serviceConnection7 setInvalidationHandler:v21];
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __50__MAPushNotificationController__serviceConnection__block_invoke_1116;
+    v20[3] = &unk_1E74CB168;
+    objc_copyWeak(&v21, buf);
+    [serviceConnection7 setInvalidationHandler:v20];
 
     WeakRetained = objc_loadWeakRetained(buf);
     serviceConnection8 = [WeakRetained serviceConnection];
     [serviceConnection8 resume];
 
-    objc_destroyWeak(&v22);
+    objc_destroyWeak(&v21);
     objc_destroyWeak(buf);
   }
 
@@ -116,7 +116,6 @@ uint64_t __46__MAPushNotificationController_sharedInstance__block_invoke()
   [serviceConnectionLock2 unlock];
 
   serviceConnection9 = [(MAPushNotificationController *)self serviceConnection];
-  v19 = *MEMORY[0x1E69E9840];
 
   return serviceConnection9;
 }
@@ -162,17 +161,15 @@ void __50__MAPushNotificationController__serviceConnection__block_invoke_1116(ui
 
 void __48__MAPushNotificationController_synchronousProxy__block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = _MAClientLog(@"PushNotification");
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138543362;
-    v6 = v2;
-    _os_log_impl(&dword_197AD5000, v3, OS_LOG_TYPE_ERROR, "Error making connection to mobileassetd: %{public}@", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v2;
+    _os_log_impl(&dword_197AD5000, v3, OS_LOG_TYPE_ERROR, "Error making connection to mobileassetd: %{public}@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (id)asyncProxy
@@ -185,17 +182,15 @@ void __48__MAPushNotificationController_synchronousProxy__block_invoke(uint64_t 
 
 void __42__MAPushNotificationController_asyncProxy__block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = _MAClientLog(@"PushNotification");
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138543362;
-    v6 = v2;
-    _os_log_impl(&dword_197AD5000, v3, OS_LOG_TYPE_ERROR, "Error making connection to mobileassetd: %{public}@", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v2;
+    _os_log_impl(&dword_197AD5000, v3, OS_LOG_TYPE_ERROR, "Error making connection to mobileassetd: %{public}@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)asyncSubscribeToChannelWithIdentifier:(id)identifier completion:(id)completion
@@ -220,20 +215,18 @@ void __42__MAPushNotificationController_asyncProxy__block_invoke(uint64_t a1, vo
 
 void __65__MAPushNotificationController_subscribeToChannelWithIdentifier___block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ([*(a1 + 32) verboseLogging])
   {
     v4 = _MAClientLog(@"PushNotification");
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 138543362;
-      v7 = v3;
-      _os_log_impl(&dword_197AD5000, v4, OS_LOG_TYPE_DEFAULT, "Subscribed to channel %{public}@", &v6, 0xCu);
+      v5 = 138543362;
+      v6 = v3;
+      _os_log_impl(&dword_197AD5000, v4, OS_LOG_TYPE_DEFAULT, "Subscribed to channel %{public}@", &v5, 0xCu);
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)asyncUnsubscribeToChannelWithIdentifier:(id)identifier completion:(id)completion
@@ -258,20 +251,18 @@ void __65__MAPushNotificationController_subscribeToChannelWithIdentifier___block
 
 void __67__MAPushNotificationController_unsubscribeToChannelWithIdentifier___block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ([*(a1 + 32) verboseLogging])
   {
     v4 = _MAClientLog(@"PushNotification");
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 138543362;
-      v7 = v3;
-      _os_log_impl(&dword_197AD5000, v4, OS_LOG_TYPE_DEFAULT, "Unsubscribed to channel %{public}@", &v6, 0xCu);
+      v5 = 138543362;
+      v6 = v3;
+      _os_log_impl(&dword_197AD5000, v4, OS_LOG_TYPE_DEFAULT, "Unsubscribed to channel %{public}@", &v5, 0xCu);
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)subscribedChannelIDsWithCompletion:(id)completion
@@ -356,17 +347,15 @@ void __67__MAPushNotificationController_unsubscribeToChannelWithIdentifier___blo
 
 - (void)didReceivePushNotificationWithInfo:(id)info
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   v4 = _MAClientLog(@"PushNotification");
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
-    v7 = infoCopy;
-    _os_log_impl(&dword_197AD5000, v4, OS_LOG_TYPE_DEFAULT, "Client received notification with info %{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = infoCopy;
+    _os_log_impl(&dword_197AD5000, v4, OS_LOG_TYPE_DEFAULT, "Client received notification with info %{public}@", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

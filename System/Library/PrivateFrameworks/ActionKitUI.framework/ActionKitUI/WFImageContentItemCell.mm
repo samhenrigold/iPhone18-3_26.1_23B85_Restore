@@ -109,7 +109,7 @@
 
 - (void)setItems:(id)items
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   v5 = [itemsCopy copy];
   items = self->_items;
@@ -168,27 +168,27 @@
   }
 
 LABEL_8:
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v15 = self->_selectedImageViews;
-  v16 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v16 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v31;
+    v18 = *v30;
     do
     {
       v19 = 0;
       do
       {
-        if (*v31 != v18)
+        if (*v30 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = *(*(&v30 + 1) + 8 * v19);
+        v20 = *(*(&v29 + 1) + 8 * v19);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -199,7 +199,7 @@ LABEL_8:
       }
 
       while (v17 != v19);
-      v17 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v17 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
     while (v17);
@@ -225,16 +225,14 @@ LABEL_8:
   [mainScreen scale];
   v27 = v26;
 
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __35__WFImageContentItemCell_setItems___block_invoke;
-  v29[3] = &unk_278C36E88;
-  v29[4] = self;
-  v29[5] = v27;
-  [itemsCopy enumerateObjectsUsingBlock:v29];
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __35__WFImageContentItemCell_setItems___block_invoke;
+  v28[3] = &unk_278C36E88;
+  v28[4] = self;
+  v28[5] = v27;
+  [itemsCopy enumerateObjectsUsingBlock:v28];
   [(WFImageContentItemCell *)self setNeedsLayout];
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __35__WFImageContentItemCell_setItems___block_invoke(uint64_t a1, void *a2, uint64_t a3)

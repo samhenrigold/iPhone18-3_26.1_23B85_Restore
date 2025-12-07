@@ -26,131 +26,65 @@
   v5 = +[SKGUserNode label];
   v6 = [labelCopy isEqual:v5];
 
-  if (v6)
+  if ((v6 & 1) == 0)
   {
-    v7 = off_27893BDF0;
-  }
+    v7 = +[SKGPersonNode label];
+    v8 = [labelCopy isEqual:v7];
 
-  else
-  {
-    v8 = +[SKGPersonNode label];
-    v9 = [labelCopy isEqual:v8];
-
-    if (v9)
+    if ((v8 & 1) == 0)
     {
-      v7 = off_27893BD08;
-    }
+      v9 = +[SKGContactNode label];
+      v10 = [labelCopy isEqual:v9];
 
-    else
-    {
-      v10 = +[SKGContactNode label];
-      v11 = [labelCopy isEqual:v10];
-
-      if (v11)
+      if ((v10 & 1) == 0)
       {
-        v7 = off_27893BB68;
-      }
+        v11 = +[SKGPhotoNode label];
+        v12 = [labelCopy isEqual:v11];
 
-      else
-      {
-        v12 = +[SKGPhotoNode label];
-        v13 = [labelCopy isEqual:v12];
-
-        if (v13)
+        if ((v12 & 1) == 0)
         {
-          v7 = off_27893BD60;
-        }
+          v13 = +[SKGEntityNode label];
+          v14 = [labelCopy isEqual:v13];
 
-        else
-        {
-          v14 = +[SKGEntityNode label];
-          v15 = [labelCopy isEqual:v14];
-
-          if (v15)
+          if ((v14 & 1) == 0)
           {
-            v7 = off_27893BC18;
-          }
+            v15 = +[SKGDisplayNameNode label];
+            v16 = [labelCopy isEqual:v15];
 
-          else
-          {
-            v16 = +[SKGDisplayNameNode label];
-            v17 = [labelCopy isEqual:v16];
-
-            if (v17)
+            if ((v16 & 1) == 0)
             {
-              v7 = off_27893BBA0;
-            }
+              v17 = +[SKGNameNode label];
+              v18 = [labelCopy isEqual:v17];
 
-            else
-            {
-              v18 = +[SKGNameNode label];
-              v19 = [labelCopy isEqual:v18];
-
-              if (v19)
+              if ((v18 & 1) == 0)
               {
-                v7 = off_27893BCD0;
-              }
+                v19 = +[SKGNameKeyNode label];
+                v20 = [labelCopy isEqual:v19];
 
-              else
-              {
-                v20 = +[SKGNameKeyNode label];
-                v21 = [labelCopy isEqual:v20];
-
-                if (v21)
+                if ((v20 & 1) == 0)
                 {
-                  v7 = off_27893BCC0;
-                }
+                  v21 = +[SKGEmailNode label];
+                  v22 = [labelCopy isEqual:v21];
 
-                else
-                {
-                  v22 = +[SKGEmailNode label];
-                  v23 = [labelCopy isEqual:v22];
-
-                  if (v23)
+                  if ((v22 & 1) == 0)
                   {
-                    v7 = off_27893BBE8;
-                  }
+                    v23 = +[SKGPhoneNode label];
+                    v24 = [labelCopy isEqual:v23];
 
-                  else
-                  {
-                    v24 = +[SKGPhoneNode label];
-                    v25 = [labelCopy isEqual:v24];
-
-                    if (v25)
+                    if ((v24 & 1) == 0)
                     {
-                      v7 = off_27893BD40;
-                    }
+                      v25 = +[SKGReferenceNode label];
+                      v26 = [labelCopy isEqual:v25];
 
-                    else
-                    {
-                      v26 = +[SKGReferenceNode label];
-                      v27 = [labelCopy isEqual:v26];
-
-                      if (v27)
+                      if ((v26 & 1) == 0)
                       {
-                        v7 = off_27893BDA0;
-                      }
+                        v27 = +[SKGPersonaNode label];
+                        v28 = [labelCopy isEqual:v27];
 
-                      else
-                      {
-                        v28 = +[SKGPersonaNode label];
-                        v29 = [labelCopy isEqual:v28];
-
-                        if (v29)
+                        if ((v28 & 1) == 0)
                         {
-                          v7 = off_27893BD20;
-                        }
-
-                        else
-                        {
-                          v30 = +[SKGDomainNode label];
-                          v31 = [labelCopy isEqual:v30];
-
-                          v7 = off_27893BCE8;
-                          if (v31)
-                          {
-                            v7 = off_27893BBB8;
-                          }
+                          v29 = +[SKGDomainNode label];
+                          [labelCopy isEqual:v29];
                         }
                       }
                     }
@@ -164,10 +98,9 @@
     }
   }
 
-  v32 = *v7;
-  v33 = objc_opt_class();
+  v30 = objc_opt_class();
 
-  return v33;
+  return v30;
 }
 
 - (Class)edgeClassWithLabel:(id)label domain:(unsigned __int16)domain
@@ -176,131 +109,65 @@
   v5 = +[SKGUserEdge name];
   v6 = [labelCopy isEqual:v5];
 
-  if (v6)
+  if ((v6 & 1) == 0)
   {
-    v7 = off_27893BDE8;
-  }
+    v7 = +[SKGPersonEdge name];
+    v8 = [labelCopy isEqual:v7];
 
-  else
-  {
-    v8 = +[SKGPersonEdge name];
-    v9 = [labelCopy isEqual:v8];
-
-    if (v9)
+    if ((v8 & 1) == 0)
     {
-      v7 = off_27893BD00;
-    }
+      v9 = +[SKGContactEdge name];
+      v10 = [labelCopy isEqual:v9];
 
-    else
-    {
-      v10 = +[SKGContactEdge name];
-      v11 = [labelCopy isEqual:v10];
-
-      if (v11)
+      if ((v10 & 1) == 0)
       {
-        v7 = off_27893BB60;
-      }
+        v11 = +[SKGPhotoEdge name];
+        v12 = [labelCopy isEqual:v11];
 
-      else
-      {
-        v12 = +[SKGPhotoEdge name];
-        v13 = [labelCopy isEqual:v12];
-
-        if (v13)
+        if ((v12 & 1) == 0)
         {
-          v7 = off_27893BD58;
-        }
+          v13 = +[SKGEntityEdge name];
+          v14 = [labelCopy isEqual:v13];
 
-        else
-        {
-          v14 = +[SKGEntityEdge name];
-          v15 = [labelCopy isEqual:v14];
-
-          if (v15)
+          if ((v14 & 1) == 0)
           {
-            v7 = off_27893BC10;
-          }
+            v15 = +[SKGDisplayNameEdge name];
+            v16 = [labelCopy isEqual:v15];
 
-          else
-          {
-            v16 = +[SKGDisplayNameEdge name];
-            v17 = [labelCopy isEqual:v16];
-
-            if (v17)
+            if ((v16 & 1) == 0)
             {
-              v7 = off_27893BB98;
-            }
+              v17 = +[SKGNameEdge name];
+              v18 = [labelCopy isEqual:v17];
 
-            else
-            {
-              v18 = +[SKGNameEdge name];
-              v19 = [labelCopy isEqual:v18];
-
-              if (v19)
+              if ((v18 & 1) == 0)
               {
-                v7 = off_27893BCB0;
-              }
+                v19 = +[SKGNameKeyEdge name];
+                v20 = [labelCopy isEqual:v19];
 
-              else
-              {
-                v20 = +[SKGNameKeyEdge name];
-                v21 = [labelCopy isEqual:v20];
-
-                if (v21)
+                if ((v20 & 1) == 0)
                 {
-                  v7 = off_27893BCB8;
-                }
+                  v21 = +[SKGEmailEdge name];
+                  v22 = [labelCopy isEqual:v21];
 
-                else
-                {
-                  v22 = +[SKGEmailEdge name];
-                  v23 = [labelCopy isEqual:v22];
-
-                  if (v23)
+                  if ((v22 & 1) == 0)
                   {
-                    v7 = off_27893BBE0;
-                  }
+                    v23 = +[SKGPhoneEdge name];
+                    v24 = [labelCopy isEqual:v23];
 
-                  else
-                  {
-                    v24 = +[SKGPhoneEdge name];
-                    v25 = [labelCopy isEqual:v24];
-
-                    if (v25)
+                    if ((v24 & 1) == 0)
                     {
-                      v7 = off_27893BD38;
-                    }
+                      v25 = +[SKGReferenceEdge name];
+                      v26 = [labelCopy isEqual:v25];
 
-                    else
-                    {
-                      v26 = +[SKGReferenceEdge name];
-                      v27 = [labelCopy isEqual:v26];
-
-                      if (v27)
+                      if ((v26 & 1) == 0)
                       {
-                        v7 = off_27893BD98;
-                      }
+                        v27 = +[SKGPersonaEdge name];
+                        v28 = [labelCopy isEqual:v27];
 
-                      else
-                      {
-                        v28 = +[SKGPersonaEdge name];
-                        v29 = [labelCopy isEqual:v28];
-
-                        if (v29)
+                        if ((v28 & 1) == 0)
                         {
-                          v7 = off_27893BD10;
-                        }
-
-                        else
-                        {
-                          v30 = +[SKGDomainEdge name];
-                          v31 = [labelCopy isEqual:v30];
-
-                          v7 = off_27893BC50;
-                          if (v31)
-                          {
-                            v7 = off_27893BBB0;
-                          }
+                          v29 = +[SKGDomainEdge name];
+                          [labelCopy isEqual:v29];
                         }
                       }
                     }
@@ -314,10 +181,9 @@
     }
   }
 
-  v32 = *v7;
-  v33 = objc_opt_class();
+  v30 = objc_opt_class();
 
-  return v33;
+  return v30;
 }
 
 @end

@@ -21,7 +21,10 @@
 - (void)requestDismissal;
 - (void)resetToInitialState;
 - (void)setExpandedView:(id)view;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)willTransitionToExpandedContentMode:(BOOL)mode;
 @end
 
 @implementation HUCCCompactModuleContentViewController
@@ -57,6 +60,32 @@
 
   MGGetFloat32Answer();
   [(HUCCCompactModuleContentViewController *)self setTransitionDeviceCornerRadius:v5];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  delegate = [(HUCCCompactModuleContentViewController *)self delegate];
+  [delegate moduleContentViewController:self viewWillAppear:appearCopy];
+
+  v7.receiver = self;
+  v7.super_class = HUCCCompactModuleContentViewController;
+  [(HUCCCompactModuleContentViewController *)&v7 viewWillAppear:appearCopy];
+  [(HUCCCompactModuleContentViewController *)self _setUpHomeControlService];
+  buttonView = [(CCUIButtonModuleViewController *)self buttonView];
+  [buttonView frame];
+  [(HUCCCompactModuleContentViewController *)self setTransitionCompressedAnimationStartFrame:?];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  [(HUCCCompactModuleContentViewController *)self _tearDownHomeControlService];
+  v6.receiver = self;
+  v6.super_class = HUCCCompactModuleContentViewController;
+  [(HUCCCompactModuleContentViewController *)&v6 viewDidDisappear:disappearCopy];
+  delegate = [(HUCCCompactModuleContentViewController *)self delegate];
+  [delegate moduleContentViewController:self viewDidDisappear:disappearCopy];
 }
 
 - (void)dealloc
@@ -268,6 +297,68 @@
   [(UIViewPropertyAnimator *)v3 addCompletion:v14];
 
   return v3;
+}
+
+- (void)willTransitionToExpandedContentMode:(BOOL)mode
+{
+  modeCopy = mode;
+  v25.receiver = self;
+  v25.super_class = HUCCCompactModuleContentViewController;
+  [(CCUIButtonModuleViewController *)&v25 willTransitionToExpandedContentMode:?];
+  delegate = [(HUCCCompactModuleContentViewController *)self delegate];
+  contentModuleContext = [delegate contentModuleContext];
+  [contentModuleContext setHomeGestureDismissalAllowed:modeCopy];
+
+  if (UIAccessibilityIsReduceMotionEnabled())
+  {
+    isExpanded = [(CCUIButtonModuleViewController *)self isExpanded];
+    buttonView = [(CCUIButtonModuleViewController *)self buttonView];
+    [buttonView setHidden:isExpanded];
+
+    if ([(CCUIButtonModuleViewController *)self isExpanded])
+    {
+      v9 = 0.0;
+    }
+
+    else
+    {
+      v9 = 1.0;
+    }
+
+    buttonView2 = [(CCUIButtonModuleViewController *)self buttonView];
+    [buttonView2 setAlpha:v9];
+
+    LODWORD(buttonView2) = [(CCUIButtonModuleViewController *)self isExpanded];
+    expandedView = [(HUCCCompactModuleContentViewController *)self expandedView];
+    [expandedView setHidden:buttonView2 ^ 1];
+
+    if ([(CCUIButtonModuleViewController *)self isExpanded])
+    {
+      v12 = 1.0;
+    }
+
+    else
+    {
+      v12 = 0.0;
+    }
+
+    expandedView2 = [(HUCCCompactModuleContentViewController *)self expandedView];
+    [expandedView2 setAlpha:v12];
+
+    [(HUCCCompactModuleContentViewController *)self _expandedContentFrame];
+    v15 = v14;
+    v17 = v16;
+    v19 = v18;
+    v21 = v20;
+    expandedView3 = [(HUCCCompactModuleContentViewController *)self expandedView];
+    [expandedView3 setFrame:{v15, v17, v19, v21}];
+
+    dashboardContainerViewController = [(HUCCCompactModuleContentViewController *)self dashboardContainerViewController];
+    [dashboardContainerViewController willBeginTransition:-[CCUIButtonModuleViewController isExpanded](self forCompactModule:{"isExpanded"), 1}];
+
+    dashboardContainerViewController2 = [(HUCCCompactModuleContentViewController *)self dashboardContainerViewController];
+    [dashboardContainerViewController2 willFinishTransition:-[CCUIButtonModuleViewController isExpanded](self forCompactModule:{"isExpanded"), 1}];
+  }
 }
 
 - (CGRect)_iconViewInHomeGridCellFrame

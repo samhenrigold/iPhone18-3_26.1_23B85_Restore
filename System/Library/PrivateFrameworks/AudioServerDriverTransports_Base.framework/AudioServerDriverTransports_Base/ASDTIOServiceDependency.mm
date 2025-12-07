@@ -89,7 +89,7 @@
 
 - (void)addManagerDelegate:(id)delegate
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
   ioServiceManager = [(ASDTIOServiceDependency *)self ioServiceManager];
 
@@ -105,14 +105,12 @@
   if (ioServiceID)
   {
     ioServiceID2 = [(ASDTIOServiceDependency *)self ioServiceID];
-    v12[0] = ioServiceID2;
-    ioServiceID = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+    v11[0] = ioServiceID2;
+    ioServiceID = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
   }
 
   ioServiceManager2 = [(ASDTIOServiceDependency *)self ioServiceManager];
   [ioServiceManager2 addDelegate:delegateCopy forIDValues:ioServiceID];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)ioServiceIdentifierMatches:(id)matches
@@ -141,21 +139,21 @@
 
   if (ioServiceManager == managerCopy && ([matchesCopy idValue], v9 = objc_claimAutoreleasedReturnValue(), v10 = -[ASDTIOServiceDependency ioServiceIdentifierMatches:](self, "ioServiceIdentifierMatches:", v9), v9, v10))
   {
-    v11 = ASDTBaseLogType();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v13 = ASDTBaseLogType(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      [ASDTIOServiceDependency ioServiceMatches:v11 withManager:?];
+      [ASDTIOServiceDependency ioServiceMatches:v13 withManager:?];
     }
 
-    v12 = 1;
+    v14 = 1;
   }
 
   else
   {
-    v12 = 0;
+    v14 = 0;
   }
 
-  return v12;
+  return v14;
 }
 
 - (BOOL)ioServiceAvailable:(id)available withManager:(id)manager
@@ -209,29 +207,29 @@ LABEL_5:
 
 + (BOOL)ioServiceMatched:(id)matched withClassName:(id)name andIdentifier:(id)identifier
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   matchedCopy = matched;
   nameCopy = name;
   identifierCopy = identifier;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v10 = matchedCopy;
-  v11 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v11)
   {
-    v12 = *v22;
+    v12 = *v21;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v22 != v12)
+        if (*v21 != v12)
         {
           objc_enumerationMutation(v10);
         }
 
-        v14 = *(*(&v21 + 1) + 8 * i);
+        v14 = *(*(&v20 + 1) + 8 * i);
         ioService = [v14 ioService];
         if (ioService)
         {
@@ -254,7 +252,7 @@ LABEL_5:
         }
       }
 
-      v11 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v11);
@@ -262,7 +260,6 @@ LABEL_5:
 
 LABEL_13:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -275,11 +272,10 @@ LABEL_13:
 
 - (void)ioServiceMatches:(uint64_t)a1 withManager:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_241659000, a2, OS_LOG_TYPE_DEBUG, "Matched: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_241659000, a2, OS_LOG_TYPE_DEBUG, "Matched: %@", &v2, 0xCu);
 }
 
 @end

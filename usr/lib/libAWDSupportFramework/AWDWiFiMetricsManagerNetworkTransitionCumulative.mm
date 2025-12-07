@@ -80,29 +80,26 @@
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    colocatedNetworksFoundCount = self->_colocatedNetworksFoundCount;
     PBDataWriterWriteUint32Field();
   }
 
   p_channelScanCounts = &self->_channelScanCounts;
   if (p_channelScanCounts->count)
   {
-    v8 = 0;
+    v6 = 0;
     do
     {
-      v9 = p_channelScanCounts->list[v8];
       PBDataWriterWriteUint32Field();
-      ++v8;
+      ++v6;
     }
 
-    while (v8 < p_channelScanCounts->count);
+    while (v6 < p_channelScanCounts->count);
   }
 }
 
@@ -166,7 +163,6 @@
     return 0;
   }
 
-  v5 = *(equal + 44);
   if (*&self->_has)
   {
     if ((*(equal + 44) & 1) == 0 || self->_timestamp != *(equal + 4))

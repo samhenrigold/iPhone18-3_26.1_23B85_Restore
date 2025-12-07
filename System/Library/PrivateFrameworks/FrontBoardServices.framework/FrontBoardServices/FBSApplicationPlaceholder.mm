@@ -276,7 +276,7 @@ void __37__FBSApplicationPlaceholder_progress__block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __41__FBSApplicationPlaceholder_addObserver___block_invoke(uint64_t a1)
+void *__41__FBSApplicationPlaceholder_addObserver___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 96) containsObject:*(a1 + 40)];
   if ((result & 1) == 0)
@@ -307,7 +307,7 @@ uint64_t __41__FBSApplicationPlaceholder_addObserver___block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __44__FBSApplicationPlaceholder_removeObserver___block_invoke(uint64_t a1)
+void *__44__FBSApplicationPlaceholder_removeObserver___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 96) containsObject:*(a1 + 40)];
   if (result)
@@ -462,7 +462,7 @@ void __78__FBSApplicationPlaceholder__sendToObserversPlaceholderDidChangeSignifi
   return v4;
 }
 
-uint64_t __47__FBSApplicationPlaceholder__canPerformAction___block_invoke(uint64_t a1)
+void *__47__FBSApplicationPlaceholder__canPerformAction___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _queue_canPerformAction:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -471,7 +471,7 @@ uint64_t __47__FBSApplicationPlaceholder__canPerformAction___block_invoke(uint64
 
 - (BOOL)_performAction:(unint64_t)action withResult:(id)result
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   if ((action ^ (action - 1)) <= action - 1)
   {
@@ -480,51 +480,52 @@ uint64_t __47__FBSApplicationPlaceholder__canPerformAction___block_invoke(uint64
 
   v8 = resultCopy;
   bundleIdentifier = [(FBSBundleInfo *)self bundleIdentifier];
+  v10 = bundleIdentifier;
   if (action > 8)
   {
-    v10 = @"(unknown)";
+    v11 = @"(unknown)";
   }
 
   else
   {
-    v10 = off_1E76BDBA0[action];
+    v11 = off_1E76BDBA0[action];
   }
 
-  v11 = FBSLogApplicationPlaceholder();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = FBSLogApplicationPlaceholder(bundleIdentifier);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v31 = v10;
-    v32 = 2114;
-    v33 = bundleIdentifier;
-    _os_log_impl(&dword_1A2DBB000, v11, OS_LOG_TYPE_DEFAULT, "Received request to perform action %{public}@ on %{public}@", buf, 0x16u);
+    v32 = v11;
+    v33 = 2114;
+    v34 = v10;
+    _os_log_impl(&dword_1A2DBB000, v12, OS_LOG_TYPE_DEFAULT, "Received request to perform action %{public}@ on %{public}@", buf, 0x16u);
   }
 
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __55__FBSApplicationPlaceholder__performAction_withResult___block_invoke;
-  v25[3] = &unk_1E76BDB30;
-  v26 = v10;
-  v12 = bundleIdentifier;
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __55__FBSApplicationPlaceholder__performAction_withResult___block_invoke;
+  v26[3] = &unk_1E76BDB30;
+  v27 = v11;
+  v13 = v10;
   selfCopy = self;
-  v29 = v8;
-  v27 = v12;
-  v13 = v8;
-  v14 = [off_1E76BC9A0 sentinelWithCompletion:v25];
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __55__FBSApplicationPlaceholder__performAction_withResult___block_invoke_2_70;
-  v23[3] = &unk_1E76BD428;
-  v15 = v14;
-  v24 = v15;
-  v16 = MEMORY[0x1A58E80F0](v23);
+  v30 = v8;
+  v28 = v13;
+  v14 = v8;
+  v15 = [off_1E76BC9A0 sentinelWithCompletion:v26];
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __55__FBSApplicationPlaceholder__performAction_withResult___block_invoke_2_70;
+  v24[3] = &unk_1E76BD428;
+  v16 = v15;
+  v25 = v16;
+  v17 = MEMORY[0x1A58E80F0](v24);
   if ([(FBSApplicationPlaceholder *)self _canPerformAction:action])
   {
     if (action > 3)
     {
       if (action == 4)
       {
-        [(FBSApplicationPlaceholder *)self _resumeWithResult:v16];
+        [(FBSApplicationPlaceholder *)self _resumeWithResult:v17];
         goto LABEL_25;
       }
 
@@ -534,21 +535,21 @@ uint64_t __47__FBSApplicationPlaceholder__canPerformAction___block_invoke(uint64
 
         if (progress)
         {
-          [(FBSApplicationPlaceholder *)self _cancelWithResult:v16];
+          [(FBSApplicationPlaceholder *)self _cancelWithResult:v17];
         }
 
         else
         {
           appLibrary = [(FBSApplicationPlaceholder *)self appLibrary];
-          v21 = appLibrary;
+          v22 = appLibrary;
           if (appLibrary)
           {
-            [appLibrary uninstallApplication:v12 withOptions:0 completion:v16];
+            [appLibrary uninstallApplication:v13 withOptions:0 completion:v17];
           }
 
           else
           {
-            [v15 signalWithContext:@"The placeholder's FBSApplicationLibrary has deallocated"];
+            [v16 signalWithContext:@"The placeholder's FBSApplicationLibrary has deallocated"];
           }
         }
 
@@ -560,96 +561,96 @@ uint64_t __47__FBSApplicationPlaceholder__canPerformAction___block_invoke(uint64
     {
       if (action == 1)
       {
-        [(FBSApplicationPlaceholder *)self _prioritizeWithResult:v16];
+        [(FBSApplicationPlaceholder *)self _prioritizeWithResult:v17];
         goto LABEL_25;
       }
 
       if (action == 2)
       {
-        [(FBSApplicationPlaceholder *)self _pauseWithResult:v16];
+        [(FBSApplicationPlaceholder *)self _pauseWithResult:v17];
 LABEL_25:
-        v18 = 1;
+        v19 = 1;
         goto LABEL_26;
       }
     }
 
-    v17 = @"This action is undefined";
+    v18 = @"This action is undefined";
   }
 
   else
   {
-    v17 = @"This action is not currently supported";
+    v18 = @"This action is not currently supported";
   }
 
-  [v15 signalWithContext:v17];
-  v18 = 0;
+  [v16 signalWithContext:v18];
+  v19 = 0;
 LABEL_26:
 
-  return v18;
+  return v19;
 }
 
 void __55__FBSApplicationPlaceholder__performAction_withResult___block_invoke(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 context];
-  if (v4 || [v3 isFailed])
+  if (v4 || (v5 = [v3 isFailed], v5))
   {
-    v5 = MEMORY[0x1E696ABC0];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __55__FBSApplicationPlaceholder__performAction_withResult___block_invoke_2;
-    v19[3] = &unk_1E76BDB08;
-    v20 = v3;
-    v21 = *(a1 + 32);
-    v22 = v4;
-    v6 = [v5 bs_errorWithDomain:@"FBSApplicationPlaceholder" code:1 configuration:v19];
-    v7 = FBSLogApplicationPlaceholder();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v6 = MEMORY[0x1E696ABC0];
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __55__FBSApplicationPlaceholder__performAction_withResult___block_invoke_2;
+    v20[3] = &unk_1E76BDB08;
+    v21 = v3;
+    v22 = *(a1 + 32);
+    v23 = v4;
+    v7 = [v6 bs_errorWithDomain:@"FBSApplicationPlaceholder" code:1 configuration:v20];
+    v8 = FBSLogApplicationPlaceholder(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v13 = *(a1 + 32);
-      v14 = *(a1 + 40);
-      v15 = [v6 descriptionWithMultilinePrefix:0];
+      v14 = *(a1 + 32);
+      v15 = *(a1 + 40);
+      v16 = [v7 descriptionWithMultilinePrefix:0];
       *buf = 138543874;
-      v24 = v13;
-      v25 = 2114;
-      v26 = v14;
-      v27 = 2114;
-      v28 = v15;
-      _os_log_error_impl(&dword_1A2DBB000, v7, OS_LOG_TYPE_ERROR, "%{public}@ on %{public}@ failed: %{public}@", buf, 0x20u);
+      v25 = v14;
+      v26 = 2114;
+      v27 = v15;
+      v28 = 2114;
+      v29 = v16;
+      _os_log_error_impl(&dword_1A2DBB000, v8, OS_LOG_TYPE_ERROR, "%{public}@ on %{public}@ failed: %{public}@", buf, 0x20u);
     }
 
-    v8 = v20;
+    v9 = v21;
   }
 
   else
   {
-    v8 = FBSLogApplicationPlaceholder();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = FBSLogApplicationPlaceholder(v5);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = *(a1 + 32);
-      v12 = *(a1 + 40);
+      v12 = *(a1 + 32);
+      v13 = *(a1 + 40);
       *buf = 138543618;
-      v24 = v11;
-      v25 = 2114;
-      v26 = v12;
-      _os_log_impl(&dword_1A2DBB000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ on %{public}@ succeeded!", buf, 0x16u);
+      v25 = v12;
+      v26 = 2114;
+      v27 = v13;
+      _os_log_impl(&dword_1A2DBB000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ on %{public}@ succeeded!", buf, 0x16u);
     }
 
-    v6 = 0;
+    v7 = 0;
   }
 
-  v9 = *(a1 + 56);
-  if (v9)
+  v10 = *(a1 + 56);
+  if (v10)
   {
-    v10 = *(*(a1 + 48) + 80);
+    v11 = *(*(a1 + 48) + 80);
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __55__FBSApplicationPlaceholder__performAction_withResult___block_invoke_68;
     block[3] = &unk_1E76BD750;
-    v18 = v9;
-    v17 = v6;
-    dispatch_async(v10, block);
+    v19 = v10;
+    v18 = v7;
+    dispatch_async(v11, block);
   }
 }
 
@@ -730,7 +731,7 @@ void __55__FBSApplicationPlaceholder__performAction_withResult___block_invoke_2(
   v14 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   bundleIdentifier = [(FBSBundleInfo *)self bundleIdentifier];
-  v6 = FBSLogApplicationPlaceholder();
+  v6 = FBSLogApplicationPlaceholder(bundleIdentifier);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -767,7 +768,7 @@ void __55__FBSApplicationPlaceholder__performAction_withResult___block_invoke_2(
   v23 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   bundleIdentifier = [(FBSBundleInfo *)self bundleIdentifier];
-  v6 = FBSLogApplicationPlaceholder();
+  v6 = FBSLogApplicationPlaceholder(bundleIdentifier);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -815,7 +816,7 @@ void __55__FBSApplicationPlaceholder__performAction_withResult___block_invoke_2(
   v14 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   bundleIdentifier = [(FBSBundleInfo *)self bundleIdentifier];
-  v6 = FBSLogApplicationPlaceholder();
+  v6 = FBSLogApplicationPlaceholder(bundleIdentifier);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -852,7 +853,7 @@ void __55__FBSApplicationPlaceholder__performAction_withResult___block_invoke_2(
   v14 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   bundleIdentifier = [(FBSBundleInfo *)self bundleIdentifier];
-  v6 = FBSLogApplicationPlaceholder();
+  v6 = FBSLogApplicationPlaceholder(bundleIdentifier);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -956,10 +957,10 @@ void __55__FBSApplicationPlaceholder__performAction_withResult___block_invoke_2(
     BSEqualBools();
   }
 
-  v9 = FBSLogApplicationPlaceholder();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v10 = FBSLogApplicationPlaceholder(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    [FBSApplicationPlaceholder _queue_setProxy:v9 force:?];
+    [FBSApplicationPlaceholder _queue_setProxy:v10 force:?];
   }
 
   if (force || self->_proxy != proxyCopy)
@@ -974,7 +975,8 @@ void __55__FBSApplicationPlaceholder__performAction_withResult___block_invoke_2(
     }
   }
 
-  if ([(FBSApplicationPlaceholder *)self _queue_isCloudDemoted])
+  _queue_isCloudDemoted = [(FBSApplicationPlaceholder *)self _queue_isCloudDemoted];
+  if (_queue_isCloudDemoted)
   {
     if (![(FBSApplicationPlaceholderProgress *)self->_queue_progress queue_updateProxy:0])
     {
@@ -986,10 +988,10 @@ void __55__FBSApplicationPlaceholder__performAction_withResult___block_invoke_2(
 
   if (!installProgress)
   {
-    v11 = FBSLogApplicationPlaceholder();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = FBSLogApplicationPlaceholder(_queue_isCloudDemoted);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [FBSApplicationPlaceholder _queue_setProxy:v11 force:?];
+      [FBSApplicationPlaceholder _queue_setProxy:v13 force:?];
     }
   }
 
@@ -1043,7 +1045,7 @@ LABEL_19:
   return v3;
 }
 
-uint64_t __40__FBSApplicationPlaceholder_installType__block_invoke(uint64_t a1)
+void *__40__FBSApplicationPlaceholder_installType__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 64) installType];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -1097,15 +1099,14 @@ uint64_t __40__FBSApplicationPlaceholder_installType__block_invoke(uint64_t a1)
 
 - (void)_initWithApplicationProxy:(char *)a1 identity:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"identity"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"identity", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -1114,15 +1115,14 @@ uint64_t __40__FBSApplicationPlaceholder_installType__block_invoke(uint64_t a1)
 
 - (void)_initWithApplicationProxy:(char *)a1 identity:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"proxy"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"proxy", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -1131,15 +1131,14 @@ uint64_t __40__FBSApplicationPlaceholder_installType__block_invoke(uint64_t a1)
 
 - (void)_queue_canPerformAction:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"BSBitmaskCount(action) == 1"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"BSBitmaskCount(action) == 1", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -1148,15 +1147,14 @@ uint64_t __40__FBSApplicationPlaceholder_installType__block_invoke(uint64_t a1)
 
 - (void)_performAction:(char *)a1 withResult:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"BSBitmaskCount(action) == 1"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"BSBitmaskCount(action) == 1", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];

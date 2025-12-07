@@ -119,7 +119,7 @@
   self->_numOfValidFrames += [segmentCopy numOfValidFrames];
   if (segmentCopy)
   {
-    [segmentCopy timeRange];
+    objc_msgSend_timeRange(segmentCopy);
   }
 
   else
@@ -147,7 +147,7 @@
   self->_numOfValidFrames = [fromCopy numOfValidFrames];
   if (fromCopy)
   {
-    [fromCopy timeRange];
+    objc_msgSend_timeRange(fromCopy);
   }
 
   else

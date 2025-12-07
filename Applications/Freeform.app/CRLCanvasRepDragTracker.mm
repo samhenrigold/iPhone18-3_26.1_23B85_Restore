@@ -944,29 +944,29 @@ LABEL_6:
   repsCopy = reps;
   if (self->mDidBeginDrag || (self->mUnscaledDragDelta.x == CGPointZero.x ? (v5 = self->mUnscaledDragDelta.y == CGPointZero.y) : (v5 = 0), !v5))
   {
-    v205 = repsCopy;
+    v206 = repsCopy;
     selfCopy = self;
     interactiveCanvasController = [(CRLCanvasRep *)self->mRep interactiveCanvasController];
     selfCopy2 = self;
     if (self->mRoundDragDelta)
     {
-      [interactiveCanvasController viewScale];
+      viewScale = [interactiveCanvasController viewScale];
       x = self->mUnscaledDragDelta.x;
       y = self->mUnscaledDragDelta.y;
-      v10 = sub_10012218C(x, y, v9);
-      v12 = v11;
+      v11 = sub_10012218C(viewScale, x, y, v10);
+      v13 = v12;
     }
 
     else
     {
-      v10 = self->mUnscaledDragDelta.x;
-      v12 = self->mUnscaledDragDelta.y;
-      x = v10;
-      y = v12;
+      v11 = self->mUnscaledDragDelta.x;
+      v13 = self->mUnscaledDragDelta.y;
+      x = v11;
+      y = v13;
     }
 
-    self->mUnscaledDragDelta.x = sub_10011F31C(x, y, v10);
-    self->mUnscaledDragDelta.y = v13;
+    self->mUnscaledDragDelta.x = sub_10011F31C(x, y, v11);
+    self->mUnscaledDragDelta.y = v14;
     [(CRLCanvasRepDragTracker *)self p_didBeginDrag];
     if ([(CRLCanvasRepDragTracker *)self p_delegateIsHandlingDrag])
     {
@@ -975,65 +975,65 @@ LABEL_214:
       selfCopy->mPreviousActualDragPoint = selfCopy->mActualDragPoint;
       selfCopy->mHaveSetPreviousActualDragPoint = 1;
 
-      repsCopy = v205;
+      repsCopy = v206;
       goto LABEL_215;
     }
 
     shouldSnapToGuides = [(CRLCanvasRepDragTracker *)self shouldSnapToGuides];
     if (shouldSnapToGuides)
     {
-      v15 = fabs(v12);
-      v16 = v205;
-      if (fabs(v10) >= 6.0)
+      v16 = fabs(v13);
+      v17 = v206;
+      if (fabs(v11) >= 6.0)
       {
         shouldShowGuides = [(CRLCanvasRepDragTracker *)selfCopy2 shouldShowGuides];
-        v18 = 0;
+        v19 = 0;
         shouldShowGuides2 = 1;
-        v17 = v15 < 6.0;
+        v18 = v16 < 6.0;
       }
 
       else
       {
         shouldShowGuides = 1;
-        v17 = v15 < 6.0;
-        v18 = 1;
+        v18 = v16 < 6.0;
+        v19 = 1;
         shouldShowGuides2 = 1;
       }
 
-      v19 = 1;
+      v20 = 1;
       shouldShowGuides3 = 1;
-      if (v17)
+      if (v18)
       {
 LABEL_17:
-        v213 = v19;
-        v263 = 0u;
+        v214 = v20;
         v264 = 0u;
-        v261 = 0u;
+        v265 = 0u;
         v262 = 0u;
-        v20 = v16;
-        v21 = [v20 countByEnumeratingWithState:&v261 objects:v285 count:16];
-        if (v21)
+        v263 = 0u;
+        v21 = v17;
+        v22 = [v21 countByEnumeratingWithState:&v262 objects:v286 count:16];
+        if (v22)
         {
-          v22 = *v262;
+          v23 = *v263;
           while (2)
           {
-            for (i = 0; i != v21; i = i + 1)
+            for (i = 0; i != v22; i = i + 1)
             {
-              if (*v262 != v22)
+              if (*v263 != v23)
               {
-                objc_enumerationMutation(v20);
+                objc_enumerationMutation(v21);
               }
 
-              v24 = [(NSMapTable *)selfCopy->mMapRepsToSnapOffsets objectForKey:*(*(&v261 + 1) + 8 * i)];
-              if (!v24)
+              v25 = [(NSMapTable *)selfCopy->mMapRepsToSnapOffsets objectForKey:*(*(&v262 + 1) + 8 * i)];
+              if (!v25)
               {
                 [(NSMapTable *)selfCopy->mMapRepsToSnapOffsets removeAllObjects];
                 goto LABEL_27;
               }
             }
 
-            v21 = [v20 countByEnumeratingWithState:&v261 objects:v285 count:16];
-            if (v21)
+            v22 = [v21 countByEnumeratingWithState:&v262 objects:v286 count:16];
+            if (v22)
             {
               continue;
             }
@@ -1044,280 +1044,268 @@ LABEL_17:
 
 LABEL_27:
 
-        v259 = 0u;
         v260 = 0u;
-        v257 = 0u;
+        v261 = 0u;
         v258 = 0u;
-        v25 = v20;
-        v26 = [v25 countByEnumeratingWithState:&v257 objects:v284 count:16];
-        if (v26)
+        v259 = 0u;
+        v26 = v21;
+        v27 = [v26 countByEnumeratingWithState:&v258 objects:v285 count:16];
+        if (v27)
         {
-          v27 = *v258;
+          v28 = *v259;
           do
           {
-            for (j = 0; j != v26; j = j + 1)
+            for (j = 0; j != v27; j = j + 1)
             {
-              if (*v258 != v27)
+              if (*v259 != v28)
               {
-                objc_enumerationMutation(v25);
+                objc_enumerationMutation(v26);
               }
 
-              v29 = *(*(&v257 + 1) + 8 * j);
-              if (([v29 isBeingDragged] & 1) == 0)
+              v30 = *(*(&v258 + 1) + 8 * j);
+              if (([v30 isBeingDragged] & 1) == 0)
               {
-                [v29 dynamicDragDidBegin];
+                [v30 dynamicDragDidBegin];
               }
             }
 
-            v26 = [v25 countByEnumeratingWithState:&v257 objects:v284 count:16];
+            v27 = [v26 countByEnumeratingWithState:&v258 objects:v285 count:16];
           }
 
-          while (v26);
+          while (v27);
         }
 
         commandController = [interactiveCanvasController commandController];
-        v30 = selfCopy;
+        v31 = selfCopy;
         if (selfCopy->mIsEnqueueingCommandsInRealTime)
         {
           [commandController openGroup];
-          v30 = selfCopy;
+          v31 = selfCopy;
         }
 
-        v216 = [(CRLCanvasRepDragTracker *)v30 repsForGuidesWhenManipulatingReps:v25];
-        v255 = 0u;
+        v217 = [(CRLCanvasRepDragTracker *)v31 repsForGuidesWhenManipulatingReps:v26];
         v256 = 0u;
-        v253 = 0u;
+        v257 = 0u;
         v254 = 0u;
-        v31 = v25;
-        v32 = [v31 countByEnumeratingWithState:&v253 objects:v283 count:16];
-        v34 = CGRectZero.origin.x;
-        v33 = CGRectZero.origin.y;
+        v255 = 0u;
+        v32 = v26;
+        v33 = [v32 countByEnumeratingWithState:&v254 objects:v284 count:16];
+        v35 = CGRectZero.origin.x;
+        v34 = CGRectZero.origin.y;
         width = CGRectZero.size.width;
         rect = CGRectZero.size.height;
-        if (v32)
+        if (v33)
         {
-          v35 = *v254;
+          v36 = *v255;
           do
           {
-            for (k = 0; k != v32; k = k + 1)
+            for (k = 0; k != v33; k = k + 1)
             {
-              if (*v254 != v35)
+              if (*v255 != v36)
               {
-                objc_enumerationMutation(v31);
+                objc_enumerationMutation(v32);
               }
 
-              v37 = *(*(&v253 + 1) + 8 * k);
-              layout = [v37 layout];
-              v39 = [(NSMapTable *)selfCopy->mMapRepsToSnapOffsets objectForKey:v37];
-              v40 = v39;
-              v41 = CGPointZero.x;
-              if (v39)
+              v38 = *(*(&v254 + 1) + 8 * k);
+              layout = [v38 layout];
+              v40 = [(NSMapTable *)selfCopy->mMapRepsToSnapOffsets objectForKey:v38];
+              v41 = v40;
+              v42 = CGPointZero.x;
+              if (v40)
               {
-                [v39 CGPointValue];
-                v41 = v42;
+                [v40 CGPointValue];
+                v42 = v43;
               }
 
-              v43 = sub_10011F31C(v10, v12, v41);
-              v45 = v44;
-              if ([v37 shouldShowSizesInRulers] && objc_msgSend(v216, "containsObject:", v37))
+              v44 = sub_10011F31C(v11, v13, v42);
+              v46 = v45;
+              if ([v38 shouldShowSizesInRulers] && objc_msgSend(v217, "containsObject:", v38))
               {
-                [v37 snapRectForDynamicDragWithOffset:{v43, v45}];
-                v34 = sub_10011FC04(v34, v33, width, rect, v46, v47, v48, v49);
-                v33 = v50;
-                width = v51;
-                rect = v52;
+                [v38 snapRectForDynamicDragWithOffset:{v44, v46}];
+                v35 = sub_10011FC04(v35, v34, width, rect, v47, v48, v49, v50);
+                v34 = v51;
+                width = v52;
+                rect = v53;
               }
 
-              [layout dragByUnscaled:{v43, v45}];
+              [layout dragByUnscaled:{v44, v46}];
             }
 
-            v32 = [v31 countByEnumeratingWithState:&v253 objects:v283 count:16];
+            v33 = [v32 countByEnumeratingWithState:&v254 objects:v284 count:16];
           }
 
-          while (v32);
+          while (v33);
         }
 
-        v53 = selfCopy;
+        v54 = selfCopy;
         if (selfCopy->mIsEnqueueingCommandsInRealTime)
         {
           [commandController closeGroup];
-          v53 = selfCopy;
+          v54 = selfCopy;
         }
 
-        v55 = CGPointZero.x;
-        v54 = CGPointZero.y;
-        v212 = v54;
-        if (v53->mShouldConstrain)
+        v56 = CGPointZero.x;
+        v55 = CGPointZero.y;
+        v213 = v55;
+        if (v54->mShouldConstrain)
         {
-          [(CRLCanvasRep *)v53->mRep i_dragOffset];
-          v57 = v56;
-          v59 = v58;
-          v60 = sub_100120074(v56, v58);
-          v61 = +[UIDevice crl_phoneUI];
+          [(CRLCanvasRep *)v54->mRep i_dragOffset];
+          v58 = v57;
+          v60 = v59;
+          v61 = sub_100120074(v57, v59);
+          v62 = +[UIDevice crl_phoneUI];
           [interactiveCanvasController viewScale];
-          if (v60 == 0.0)
+          if (v61 == 0.0)
           {
-            v63 = selfCopy;
+            v64 = selfCopy;
             selfCopy->mConstraintAngle = -1.0;
             mConstraintAngle = -1.0;
           }
 
           else
           {
-            v65 = 200.0;
-            if (v61)
+            v66 = 200.0;
+            if (v62)
             {
-              v65 = 50.0;
+              v66 = 50.0;
             }
 
-            v63 = selfCopy;
-            if (v60 > v65 / v62 || (mConstraintAngle = selfCopy->mConstraintAngle, mConstraintAngle < 0.0))
+            v64 = selfCopy;
+            if (v61 > v66 / v63 || (mConstraintAngle = selfCopy->mConstraintAngle, mConstraintAngle < 0.0))
             {
-              v66 = acos(v57 / v60);
-              if (v59 < 0.0)
+              v67 = acos(v58 / v61);
+              if (v60 < 0.0)
               {
-                v66 = 6.28318531 - v66;
+                v67 = 6.28318531 - v67;
               }
 
-              mConstraintAngle = round(v66 / 0.785398163) * 0.785398163;
+              mConstraintAngle = round(v67 / 0.785398163) * 0.785398163;
               selfCopy->mConstraintAngle = mConstraintAngle;
             }
           }
 
-          v67 = __sincos_stret(mConstraintAngle);
-          v68 = sub_10011F328(v67.__cosval, v67.__sinval, v57, v59);
-          v69 = sub_10011F340(v67.__cosval, v67.__sinval, v68);
-          mSnapLevel = v63->mSnapLevel;
+          v68 = __sincos_stret(mConstraintAngle);
+          v69 = sub_10011F328(v68.__cosval, v68.__sinval, v58, v60);
+          v70 = sub_10011F340(v68.__cosval, v68.__sinval, v69);
+          mSnapLevel = v64->mSnapLevel;
           if (mSnapLevel != 0.0)
           {
-            v69 = mSnapLevel * round(v69 / mSnapLevel);
             v70 = mSnapLevel * round(v70 / mSnapLevel);
+            v71 = mSnapLevel * round(v71 / mSnapLevel);
           }
 
-          v55 = sub_10011F31C(v69, v70, v57);
-          v54 = v72;
-          v34 = sub_10011F334(v34, v33, v55);
-          v33 = v73;
+          v56 = sub_10011F31C(v70, v71, v58);
+          v55 = v73;
+          v35 = sub_10011F334(v35, v34, v56);
+          v34 = v74;
         }
 
-        v249 = 0;
-        v250 = &v249;
-        v251 = 0x2020000000;
-        v252 = 0;
-        allObjects = [v31 allObjects];
-        v248[0] = _NSConcreteStackBlock;
-        v248[1] = 3221225472;
-        v248[2] = sub_1005920E0;
-        v248[3] = &unk_101870DC0;
-        v248[4] = &v249;
-        v75 = [allObjects crl_allObjectsPassTest:v248];
+        v250 = 0;
+        v251 = &v250;
+        v252 = 0x2020000000;
+        v253 = 0;
+        allObjects = [v32 allObjects];
+        v249[0] = _NSConcreteStackBlock;
+        v249[1] = 3221225472;
+        v249[2] = sub_1005920E0;
+        v249[3] = &unk_101870DC0;
+        v249[4] = &v250;
+        v76 = [allObjects crl_allObjectsPassTest:v249];
 
-        v77 = v212;
-        v76 = CGPointZero.x;
-        v78 = selfCopy;
-        if ((shouldSnapToGuides & v75) == 1)
+        v78 = v213;
+        v77 = CGPointZero.x;
+        v79 = selfCopy;
+        if ((shouldSnapToGuides & v76) == 1)
         {
-          if (!selfCopy->mShouldConstrain || selfCopy->mSnapLevel == 0.0 || (v77 = v212, v76 = CGPointZero.x, [interactiveCanvasController isCanvasBackgroundAlignmentSnappingEnabled]))
+          if (!selfCopy->mShouldConstrain || selfCopy->mSnapLevel == 0.0 || (v78 = v213, v77 = CGPointZero.x, [interactiveCanvasController isCanvasBackgroundAlignmentSnappingEnabled]))
           {
             guideController = [interactiveCanvasController guideController];
-            if ([interactiveCanvasController isCanvasBackgroundAlignmentSnappingEnabled] && objc_msgSend(v31, "count") == 1)
+            if ([interactiveCanvasController isCanvasBackgroundAlignmentSnappingEnabled] && objc_msgSend(v32, "count") == 1)
             {
-              anyObject = [v31 anyObject];
-              v81 = objc_opt_class();
+              anyObject = [v32 anyObject];
+              v82 = objc_opt_class();
               layout2 = [anyObject layout];
-              v83 = sub_100014370(v81, layout2);
+              v84 = sub_100014370(v82, layout2);
 
-              if (v83 && [v83 pathIsLineSegment])
+              if (v84 && [v84 pathIsLineSegment])
               {
-                v84 = objc_opt_class();
+                v85 = objc_opt_class();
                 layout3 = [anyObject layout];
-                v86 = sub_100014370(v84, layout3);
+                v87 = sub_100014370(v85, layout3);
 
-                if (v86 && ([v86 isStraightLine] & 1) == 0)
+                if (v87 && ([v87 isStraightLine] & 1) == 0)
                 {
-                  [guideController snapRectToGuides:0 forKnobTag:1 snapSize:1 snapWithBackgroundAlignmentProvider:0 isLine:v34 startPoint:v33 endPoint:{width, rect, CGPointZero.x, v212, CGPointZero.x, v212}];
+                  [guideController snapRectToGuides:0 forKnobTag:1 snapSize:1 snapWithBackgroundAlignmentProvider:0 isLine:v35 startPoint:v34 endPoint:{width, rect, CGPointZero.x, v213, CGPointZero.x, v213}];
                 }
 
                 else
                 {
-                  [v83 tailPoint];
-                  [v83 convertNaturalPointToUnscaledCanvas:?];
-                  v88 = v87;
-                  v90 = v89;
-                  [v83 headPoint];
-                  [v83 convertNaturalPointToUnscaledCanvas:?];
-                  [guideController snapRectToGuides:0 forKnobTag:1 snapSize:1 snapWithBackgroundAlignmentProvider:1 isLine:v34 startPoint:v33 endPoint:{width, rect, v88, v90, v91, v92}];
+                  [v84 tailPoint];
+                  [v84 convertNaturalPointToUnscaledCanvas:?];
+                  v89 = v88;
+                  v91 = v90;
+                  [v84 headPoint];
+                  [v84 convertNaturalPointToUnscaledCanvas:?];
+                  [guideController snapRectToGuides:0 forKnobTag:1 snapSize:1 snapWithBackgroundAlignmentProvider:1 isLine:v35 startPoint:v34 endPoint:{width, rect, v89, v91, v92, v93}];
                 }
 
-                v76 = v93;
                 v77 = v94;
+                v78 = v95;
               }
 
               else
               {
-                LOBYTE(v203) = *(v250 + 24) ^ 1;
-                [guideController snapRectToGuides:0 forKnobTag:1 snapSize:1 snapWithBackgroundAlignmentProvider:0 isLine:0 startPoint:0 endPoint:v34 hasHorizontalFlip:v33 hasVerticalFlip:width snapWithGuides:{rect, CGPointZero.x, v212, CGPointZero.x, v212, v203}];
-                v76 = v98;
+                LOBYTE(v204) = *(v251 + 24) ^ 1;
+                [guideController snapRectToGuides:0 forKnobTag:1 snapSize:1 snapWithBackgroundAlignmentProvider:0 isLine:0 startPoint:0 endPoint:v35 hasHorizontalFlip:v34 hasVerticalFlip:width snapWithGuides:{rect, CGPointZero.x, v213, CGPointZero.x, v213, v204}];
                 v77 = v99;
+                v78 = v100;
               }
             }
 
             else
             {
               isCanvasBackgroundAlignmentSnappingEnabled = [interactiveCanvasController isCanvasBackgroundAlignmentSnappingEnabled];
-              LOBYTE(v203) = *(v250 + 24) ^ 1;
-              [guideController snapRectToGuides:0 forKnobTag:1 snapSize:isCanvasBackgroundAlignmentSnappingEnabled snapWithBackgroundAlignmentProvider:0 isLine:0 startPoint:0 endPoint:v34 hasHorizontalFlip:v33 hasVerticalFlip:width snapWithGuides:{rect, CGPointZero.x, v212, CGPointZero.x, v212, v203}];
-              v76 = v96;
+              LOBYTE(v204) = *(v251 + 24) ^ 1;
+              [guideController snapRectToGuides:0 forKnobTag:1 snapSize:isCanvasBackgroundAlignmentSnappingEnabled snapWithBackgroundAlignmentProvider:0 isLine:0 startPoint:0 endPoint:v35 hasHorizontalFlip:v34 hasVerticalFlip:width snapWithGuides:{rect, CGPointZero.x, v213, CGPointZero.x, v213, v204}];
               v77 = v97;
+              v78 = v98;
             }
 
-            v100 = +[NSMutableArray array];
-            v246 = 0u;
+            v101 = +[NSMutableArray array];
             v247 = 0u;
-            v244 = 0u;
+            v248 = 0u;
             v245 = 0u;
-            v101 = v31;
-            v102 = [v101 countByEnumeratingWithState:&v244 objects:v282 count:16];
-            if (v102)
+            v246 = 0u;
+            v102 = v32;
+            v103 = [v102 countByEnumeratingWithState:&v245 objects:v283 count:16];
+            if (v103)
             {
-              v103 = *v245;
+              v104 = *v246;
               do
               {
-                for (m = 0; m != v102; m = m + 1)
+                for (m = 0; m != v103; m = m + 1)
                 {
-                  if (*v245 != v103)
+                  if (*v246 != v104)
                   {
-                    objc_enumerationMutation(v101);
+                    objc_enumerationMutation(v102);
                   }
 
-                  v105 = [*(*(&v244 + 1) + 8 * m) additionalRectsForSnappingWithOffset:{v55, v54}];
-                  [v100 addObjectsFromArray:v105];
+                  v106 = [*(*(&v245 + 1) + 8 * m) additionalRectsForSnappingWithOffset:{v56, v55}];
+                  [v101 addObjectsFromArray:v106];
                 }
 
-                v102 = [v101 countByEnumeratingWithState:&v244 objects:v282 count:16];
+                v103 = [v102 countByEnumeratingWithState:&v245 objects:v283 count:16];
               }
 
-              while (v102);
+              while (v103);
             }
 
-            if ([v100 count])
+            if ([v101 count])
             {
               didJustSnapInX = [guideController didJustSnapInX];
               didJustSnapInY = [guideController didJustSnapInY];
-              v108 = didJustSnapInY;
+              v109 = didJustSnapInY;
               if (didJustSnapInX)
-              {
-                v109 = v76;
-              }
-
-              else
-              {
-                v109 = 1.79769313e308;
-              }
-
-              v242 = 0u;
-              v243 = 0u;
-              if (didJustSnapInY)
               {
                 v110 = v77;
               }
@@ -1327,51 +1315,73 @@ LABEL_27:
                 v110 = 1.79769313e308;
               }
 
-              v240 = 0uLL;
-              v241 = 0uLL;
-              v111 = v100;
-              v112 = [v111 countByEnumeratingWithState:&v240 objects:v281 count:16];
-              v210 = v18;
-              if (v112)
+              v243 = 0u;
+              v244 = 0u;
+              if (didJustSnapInY)
               {
-                v113 = *v241;
+                v111 = v78;
+              }
+
+              else
+              {
+                v111 = 1.79769313e308;
+              }
+
+              v241 = 0uLL;
+              v242 = 0uLL;
+              v112 = v101;
+              v113 = [v112 countByEnumeratingWithState:&v241 objects:v282 count:16];
+              v211 = v19;
+              if (v113)
+              {
+                v114 = *v242;
                 do
                 {
-                  for (n = 0; n != v112; n = n + 1)
+                  for (n = 0; n != v113; n = n + 1)
                   {
-                    if (*v241 != v113)
+                    if (*v242 != v114)
                     {
-                      objc_enumerationMutation(v111);
+                      objc_enumerationMutation(v112);
                     }
 
-                    [*(*(&v240 + 1) + 8 * n) CGRectValue];
+                    [*(*(&v241 + 1) + 8 * n) CGRectValue];
                     [guideController snapRectToGuides:?];
-                    v116 = v115;
-                    v118 = v117;
+                    v117 = v116;
+                    v119 = v118;
                     didJustSnapInX2 = [guideController didJustSnapInX];
                     didJustSnapInY2 = [guideController didJustSnapInY];
-                    v121 = didJustSnapInX2 & (v116 < v109);
-                    if (v121)
+                    v122 = didJustSnapInX2 & (v117 < v110);
+                    if (v122)
                     {
-                      v109 = v116;
+                      v110 = v117;
                     }
 
-                    LOBYTE(didJustSnapInX) = v121 | didJustSnapInX;
-                    v108 |= didJustSnapInY2 & (v118 < v110);
-                    if ((didJustSnapInY2 & (v118 < v110)) != 0)
+                    LOBYTE(didJustSnapInX) = v122 | didJustSnapInX;
+                    v109 |= didJustSnapInY2 & (v119 < v111);
+                    if ((didJustSnapInY2 & (v119 < v111)) != 0)
                     {
-                      v110 = v118;
+                      v111 = v119;
                     }
                   }
 
-                  v112 = [v111 countByEnumeratingWithState:&v240 objects:v281 count:16];
+                  v113 = [v112 countByEnumeratingWithState:&v241 objects:v282 count:16];
                 }
 
-                while (v112);
+                while (v113);
               }
 
-              v18 = v210;
+              v19 = v211;
               [guideController setDidJustSnapInX:didJustSnapInX & 1];
+              if (v111 == 1.79769313e308)
+              {
+                v78 = 0.0;
+              }
+
+              else
+              {
+                v78 = v111;
+              }
+
               if (v110 == 1.79769313e308)
               {
                 v77 = 0.0;
@@ -1382,147 +1392,137 @@ LABEL_27:
                 v77 = v110;
               }
 
-              if (v109 == 1.79769313e308)
-              {
-                v76 = 0.0;
-              }
-
-              else
-              {
-                v76 = v109;
-              }
-
-              [guideController setDidJustSnapInY:v108 & 1];
+              [guideController setDidJustSnapInY:v109 & 1];
             }
 
             canvasBackground = [interactiveCanvasController canvasBackground];
             alignmentProvider = [canvasBackground alignmentProvider];
-            v124 = [interactiveCanvasController isCanvasBackgroundAlignmentSnappingEnabled] & (alignmentProvider != 0);
-            if (!(v18 | v124))
-            {
-              v76 = 0.0;
-            }
-
-            if (!(v213 | v124))
+            v125 = [interactiveCanvasController isCanvasBackgroundAlignmentSnappingEnabled] & (alignmentProvider != 0);
+            if (!(v19 | v125))
             {
               v77 = 0.0;
             }
 
-            v78 = selfCopy;
+            if (!(v214 | v125))
+            {
+              v78 = 0.0;
+            }
+
+            v79 = selfCopy;
           }
         }
 
-        if (!v78->mShouldConstrain)
+        if (!v79->mShouldConstrain)
         {
           goto LABEL_161;
         }
 
-        v125 = __sincos_stret(v78->mConstraintAngle);
-        sinval = v125.__sinval;
-        if (v125.__cosval == 0.0 || fabs(v125.__cosval) < 0.00999999978)
+        v126 = __sincos_stret(v79->mConstraintAngle);
+        sinval = v126.__sinval;
+        if (v126.__cosval == 0.0 || fabs(v126.__cosval) < 0.00999999978)
         {
-          v130 = 0;
-          v133 = 0;
-          v129 = v77 != 0.0;
-          v76 = 0.0;
+          v131 = 0;
+          v134 = 0;
+          v130 = v78 != 0.0;
+          v77 = 0.0;
         }
 
         else
         {
-          v127 = v125.__sinval == 0.0;
-          if (fabs(v125.__sinval) < 0.00999999978)
+          v128 = v126.__sinval == 0.0;
+          if (fabs(v126.__sinval) < 0.00999999978)
           {
-            v127 = 1;
+            v128 = 1;
           }
 
-          v128 = 0.0;
-          if (!v127)
+          v129 = 0.0;
+          if (!v128)
           {
-            v128 = v77;
+            v129 = v78;
           }
 
-          v129 = v128 != 0.0;
-          v130 = v76 != 0.0;
-          if (v76 == 0.0 || v128 == 0.0)
+          v130 = v129 != 0.0;
+          v131 = v77 != 0.0;
+          if (v77 == 0.0 || v129 == 0.0)
           {
-            v77 = v128;
-            v133 = v76 != 0.0;
+            v78 = v129;
+            v134 = v77 != 0.0;
           }
 
           else
           {
-            v131 = fabs(v76);
             v132 = fabs(v77);
-            if (v127)
+            v133 = fabs(v78);
+            if (v128)
             {
-              v132 = 0.0;
+              v133 = 0.0;
             }
 
-            v133 = v131 < v132;
-            v129 = 1;
+            v134 = v132 < v133;
             v130 = 1;
-            v77 = v128;
+            v131 = 1;
+            v78 = v129;
           }
         }
 
-        v76 = sub_10011F334(v76, v77, v55);
-        v77 = v134;
-        v34 = sub_10011F31C(v34, v33, v55);
-        v33 = v135;
-        [(CRLCanvasRep *)v78->mRep i_dragOffset];
-        v214 = v136;
-        v138 = sub_10011F334(v136, v137, v76);
-        v140 = v139;
-        v141 = sub_100120074(v138, v139);
-        v142 = v141;
-        if (!v130 && !v129)
+        v77 = sub_10011F334(v77, v78, v56);
+        v78 = v135;
+        v35 = sub_10011F31C(v35, v34, v56);
+        v34 = v136;
+        [(CRLCanvasRep *)v79->mRep i_dragOffset];
+        v215 = v137;
+        v139 = sub_10011F334(v137, v138, v77);
+        v141 = v140;
+        v142 = sub_100120074(v139, v140);
+        v143 = v142;
+        if (!v131 && !v130)
         {
 LABEL_159:
-          if (v142 > 0.0)
+          if (v143 > 0.0)
           {
-            v157 = sub_10011F328(v125.__cosval, sinval, v138, v140);
-            v158 = sub_10011F340(v125.__cosval, sinval, v157);
-            v76 = sub_10011F31C(v158, v159, v214);
-            v77 = v160;
+            v158 = sub_10011F328(v126.__cosval, sinval, v139, v141);
+            v159 = sub_10011F340(v126.__cosval, sinval, v158);
+            v77 = sub_10011F31C(v159, v160, v215);
+            v78 = v161;
           }
 
 LABEL_161:
-          [(NSMapTable *)v78->mMapRepsToSnapOffsets removeAllObjects];
-          if (v78->mIsEnqueueingCommandsInRealTime)
+          [(NSMapTable *)v79->mMapRepsToSnapOffsets removeAllObjects];
+          if (v79->mIsEnqueueingCommandsInRealTime)
           {
             [commandController openGroup];
           }
 
-          v238 = 0u;
           v239 = 0u;
-          v236 = 0u;
+          v240 = 0u;
           v237 = 0u;
-          v161 = v31;
-          v162 = [v161 countByEnumeratingWithState:&v236 objects:v280 count:16];
-          if (v162)
+          v238 = 0u;
+          v162 = v32;
+          v163 = [v162 countByEnumeratingWithState:&v237 objects:v281 count:16];
+          if (v163)
           {
-            v163 = *v237;
+            v164 = *v238;
             do
             {
-              for (ii = 0; ii != v162; ii = ii + 1)
+              for (ii = 0; ii != v163; ii = ii + 1)
               {
-                if (*v237 != v163)
+                if (*v238 != v164)
                 {
-                  objc_enumerationMutation(v161);
+                  objc_enumerationMutation(v162);
                 }
 
-                v165 = *(*(&v236 + 1) + 8 * ii);
-                layout4 = [v165 layout];
-                [layout4 dragByUnscaled:{v76, v77}];
+                v166 = *(*(&v237 + 1) + 8 * ii);
+                layout4 = [v166 layout];
+                [layout4 dragByUnscaled:{v77, v78}];
                 mMapRepsToSnapOffsets = selfCopy->mMapRepsToSnapOffsets;
-                v168 = [NSValue valueWithCGPoint:v76, v77];
-                [(NSMapTable *)mMapRepsToSnapOffsets setObject:v168 forKey:v165];
+                v169 = [NSValue valueWithCGPoint:v77, v78];
+                [(NSMapTable *)mMapRepsToSnapOffsets setObject:v169 forKey:v166];
               }
 
-              v162 = [v161 countByEnumeratingWithState:&v236 objects:v280 count:16];
+              v163 = [v162 countByEnumeratingWithState:&v237 objects:v281 count:16];
             }
 
-            while (v162);
+            while (v163);
           }
 
           if (selfCopy->mIsEnqueueingCommandsInRealTime)
@@ -1530,95 +1530,95 @@ LABEL_161:
             [commandController closeGroup];
           }
 
-          v286.origin.x = v34;
-          v286.origin.y = v33;
-          v286.size.width = width;
-          v286.size.height = rect;
-          v287 = CGRectOffset(v286, v76, v77);
-          v170 = v212;
-          v169 = CGPointZero.x;
+          v287.origin.x = v35;
+          v287.origin.y = v34;
+          v287.size.width = width;
+          v287.size.height = rect;
+          v288 = CGRectOffset(v287, v77, v78);
+          v171 = v213;
+          v170 = CGPointZero.x;
           if (shouldShowGuides2)
           {
-            v171 = v287.origin.x;
-            v172 = v287.origin.y;
-            v173 = v287.size.width;
-            height = v287.size.height;
+            v172 = v288.origin.x;
+            v173 = v288.origin.y;
+            v174 = v288.size.width;
+            height = v288.size.height;
             guideController2 = [interactiveCanvasController guideController];
-            [guideController2 showGuidesAlignedWithRect:shouldShowGuides shouldRenderX:shouldShowGuides3 shouldRenderY:{v171, v172, v173, height}];
+            [guideController2 showGuidesAlignedWithRect:shouldShowGuides shouldRenderX:shouldShowGuides3 shouldRenderY:{v172, v173, v174, height}];
             [guideController2 setDoNotRemoveExistingGuidesWhenDisplaying:1];
             recta = guideController2;
-            v234 = 0u;
             v235 = 0u;
-            v232 = 0u;
+            v236 = 0u;
             v233 = 0u;
-            obja = v161;
-            v211 = [obja countByEnumeratingWithState:&v232 objects:v279 count:16];
-            if (v211)
+            v234 = 0u;
+            obja = v162;
+            v212 = [obja countByEnumeratingWithState:&v233 objects:v280 count:16];
+            if (v212)
             {
-              v209 = *v233;
+              v210 = *v234;
               do
               {
-                for (jj = 0; jj != v211; jj = jj + 1)
+                for (jj = 0; jj != v212; jj = jj + 1)
                 {
-                  if (*v233 != v209)
+                  if (*v234 != v210)
                   {
                     objc_enumerationMutation(obja);
                   }
 
-                  v176 = *(*(&v232 + 1) + 8 * jj);
-                  v177 = [v176 additionalRectsForSnappingWithOffset:{v169, v170}];
-                  v230 = 0u;
+                  v177 = *(*(&v233 + 1) + 8 * jj);
+                  v178 = [v177 additionalRectsForSnappingWithOffset:{v170, v171}];
                   v231 = 0u;
-                  v228 = 0u;
+                  v232 = 0u;
                   v229 = 0u;
-                  v178 = v177;
-                  v179 = [v178 countByEnumeratingWithState:&v228 objects:v278 count:16];
-                  if (v179)
+                  v230 = 0u;
+                  v179 = v178;
+                  v180 = [v179 countByEnumeratingWithState:&v229 objects:v279 count:16];
+                  if (v180)
                   {
-                    v180 = *v229;
+                    v181 = *v230;
                     do
                     {
-                      for (kk = 0; kk != v179; kk = kk + 1)
+                      for (kk = 0; kk != v180; kk = kk + 1)
                       {
-                        if (*v229 != v180)
+                        if (*v230 != v181)
                         {
-                          objc_enumerationMutation(v178);
+                          objc_enumerationMutation(v179);
                         }
 
-                        [*(*(&v228 + 1) + 8 * kk) CGRectValue];
-                        v186 = v182;
+                        [*(*(&v229 + 1) + 8 * kk) CGRectValue];
                         v187 = v183;
                         v188 = v184;
                         v189 = v185;
-                        if (v184 <= 0.0 || v185 <= 0.0)
+                        v190 = v186;
+                        if (v185 <= 0.0 || v186 <= 0.0)
                         {
-                          v190 = +[CRLAssertionHandler _atomicIncrementAssertCount];
+                          v191 = +[CRLAssertionHandler _atomicIncrementAssertCount];
                           if (qword_101AD5A10 != -1)
                           {
                             sub_101398014();
                           }
 
-                          v191 = off_1019EDA68;
-                          if (os_log_type_enabled(v191, OS_LOG_TYPE_ERROR))
+                          v192 = off_1019EDA68;
+                          if (os_log_type_enabled(v192, OS_LOG_TYPE_ERROR))
                           {
-                            v289.origin.x = v186;
-                            v289.origin.y = v187;
-                            v289.size.width = v188;
-                            v289.size.height = v189;
-                            v196 = NSStringFromCGRect(v289);
+                            v290.origin.x = v187;
+                            v290.origin.y = v188;
+                            v290.size.width = v189;
+                            v290.size.height = v190;
+                            v197 = NSStringFromCGRect(v290);
                             *buf = 67110402;
-                            v267 = v190;
-                            v268 = 2082;
-                            v269 = "[CRLCanvasRepDragTracker changeDynamicLayoutsForReps:]";
-                            v270 = 2082;
-                            v271 = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLCanvasRepDragTracker.m";
-                            v272 = 1024;
-                            v273 = 995;
-                            v274 = 2112;
-                            v275 = v196;
-                            v276 = 2112;
-                            v277 = v176;
-                            _os_log_error_impl(&_mh_execute_header, v191, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Invalid additional snapping rect %@ from rep %@! Ignoring.", buf, 0x36u);
+                            v268 = v191;
+                            v269 = 2082;
+                            v270 = "[CRLCanvasRepDragTracker changeDynamicLayoutsForReps:]";
+                            v271 = 2082;
+                            v272 = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLCanvasRepDragTracker.m";
+                            v273 = 1024;
+                            v274 = 995;
+                            v275 = 2112;
+                            v276 = v197;
+                            v277 = 2112;
+                            v278 = v177;
+                            _os_log_error_impl(&_mh_execute_header, v192, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Invalid additional snapping rect %@ from rep %@! Ignoring.", buf, 0x36u);
                           }
 
                           if (qword_101AD5A10 != -1)
@@ -1626,47 +1626,47 @@ LABEL_161:
                             sub_10139803C();
                           }
 
-                          v192 = off_1019EDA68;
-                          if (os_log_type_enabled(v192, OS_LOG_TYPE_ERROR))
+                          v193 = off_1019EDA68;
+                          if (os_log_type_enabled(v193, OS_LOG_TYPE_ERROR))
                           {
-                            v197 = +[CRLAssertionHandler packedBacktraceString];
+                            v198 = +[CRLAssertionHandler packedBacktraceString];
                             *buf = 67109378;
-                            v267 = v190;
-                            v268 = 2114;
-                            v269 = v197;
-                            _os_log_error_impl(&_mh_execute_header, v192, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", buf, 0x12u);
+                            v268 = v191;
+                            v269 = 2114;
+                            v270 = v198;
+                            _os_log_error_impl(&_mh_execute_header, v193, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", buf, 0x12u);
                           }
 
-                          v193 = [NSString stringWithUTF8String:"[CRLCanvasRepDragTracker changeDynamicLayoutsForReps:]"];
-                          v194 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLCanvasRepDragTracker.m"];
-                          v288.origin.x = v186;
-                          v288.origin.y = v187;
-                          v288.size.width = v188;
-                          v288.size.height = v189;
-                          v195 = NSStringFromCGRect(v288);
-                          [CRLAssertionHandler handleFailureInFunction:v193 file:v194 lineNumber:995 isFatal:0 description:"Invalid additional snapping rect %@ from rep %@! Ignoring.", v195, v176];
+                          v194 = [NSString stringWithUTF8String:"[CRLCanvasRepDragTracker changeDynamicLayoutsForReps:]"];
+                          v195 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLCanvasRepDragTracker.m"];
+                          v289.origin.x = v187;
+                          v289.origin.y = v188;
+                          v289.size.width = v189;
+                          v289.size.height = v190;
+                          v196 = NSStringFromCGRect(v289);
+                          [CRLAssertionHandler handleFailureInFunction:v194 file:v195 lineNumber:995 isFatal:0 description:"Invalid additional snapping rect %@ from rep %@! Ignoring.", v196, v177];
                         }
 
                         else
                         {
-                          [recta showGuidesAlignedWithRect:shouldShowGuides shouldRenderX:shouldShowGuides3 shouldRenderY:{v182, v183, v184, v185}];
+                          [recta showGuidesAlignedWithRect:shouldShowGuides shouldRenderX:shouldShowGuides3 shouldRenderY:{v183, v184, v185, v186}];
                         }
                       }
 
-                      v179 = [v178 countByEnumeratingWithState:&v228 objects:v278 count:16];
+                      v180 = [v179 countByEnumeratingWithState:&v229 objects:v279 count:16];
                     }
 
-                    while (v179);
+                    while (v180);
                   }
 
-                  v170 = v212;
-                  v169 = CGPointZero.x;
+                  v171 = v213;
+                  v170 = CGPointZero.x;
                 }
 
-                v211 = [obja countByEnumeratingWithState:&v232 objects:v279 count:16];
+                v212 = [obja countByEnumeratingWithState:&v233 objects:v280 count:16];
               }
 
-              while (v211);
+              while (v212);
             }
 
             guideController3 = recta;
@@ -1692,65 +1692,65 @@ LABEL_161:
             [(CRLCanvasRepDragTracker *)selfCopy p_hideGuideRenderable];
           }
 
-          v226 = 0u;
           v227 = 0u;
-          v224 = 0u;
+          v228 = 0u;
           v225 = 0u;
-          v199 = selfCopy->mParentLayoutsForInvalidatingForAncestorCollabCursors;
-          v200 = [(NSMutableSet *)v199 countByEnumeratingWithState:&v224 objects:v265 count:16];
-          if (v200)
+          v226 = 0u;
+          v200 = selfCopy->mParentLayoutsForInvalidatingForAncestorCollabCursors;
+          v201 = [(NSMutableSet *)v200 countByEnumeratingWithState:&v225 objects:v266 count:16];
+          if (v201)
           {
-            v201 = *v225;
+            v202 = *v226;
             do
             {
-              for (mm = 0; mm != v200; mm = mm + 1)
+              for (mm = 0; mm != v201; mm = mm + 1)
               {
-                if (*v225 != v201)
+                if (*v226 != v202)
                 {
-                  objc_enumerationMutation(v199);
+                  objc_enumerationMutation(v200);
                 }
 
-                [*(*(&v224 + 1) + 8 * mm) invalidateFrame];
+                [*(*(&v225 + 1) + 8 * mm) invalidateFrame];
               }
 
-              v200 = [(NSMutableSet *)v199 countByEnumeratingWithState:&v224 objects:v265 count:16];
+              v201 = [(NSMutableSet *)v200 countByEnumeratingWithState:&v225 objects:v266 count:16];
             }
 
-            while (v200);
+            while (v201);
           }
 
           [(CRLCanvasRepDragTracker *)selfCopy p_updateHUDAtPoint:selfCopy->mLogicalDragPoint.x, selfCopy->mLogicalDragPoint.y];
-          _Block_object_dispose(&v249, 8);
+          _Block_object_dispose(&v250, 8);
 
           selfCopy2 = selfCopy;
           goto LABEL_214;
         }
 
-        if (v133)
+        if (v134)
         {
-          if (v125.__cosval != 0.0)
+          if (v126.__cosval != 0.0)
           {
-            v143 = v138 / v125.__cosval;
+            v144 = v139 / v126.__cosval;
 LABEL_138:
-            v144 = fabs(v143);
+            v145 = fabs(v144);
 LABEL_158:
-            v155 = v142;
-            v138 = sub_10011F340(v138, v140, v144 / v142);
-            v140 = v156;
-            v142 = v155;
-            sinval = v125.__sinval;
+            v156 = v143;
+            v139 = sub_10011F340(v139, v141, v145 / v143);
+            v141 = v157;
+            v143 = v156;
+            sinval = v126.__sinval;
             goto LABEL_159;
           }
 
-          obj = v141;
+          obj = v142;
           +[CRLAssertionHandler _atomicIncrementAssertCount];
           if (qword_101AD5A10 != -1)
           {
             sub_101397F3C();
           }
 
-          v145 = off_1019EDA68;
-          if (os_log_type_enabled(v145, OS_LOG_TYPE_ERROR))
+          v146 = off_1019EDA68;
+          if (os_log_type_enabled(v146, OS_LOG_TYPE_ERROR))
           {
             sub_101397F64();
           }
@@ -1760,35 +1760,35 @@ LABEL_158:
             sub_101397FEC();
           }
 
-          v146 = off_1019EDA68;
-          if (os_log_type_enabled(v146, OS_LOG_TYPE_ERROR))
+          v147 = off_1019EDA68;
+          if (os_log_type_enabled(v147, OS_LOG_TYPE_ERROR))
           {
-            v147 = +[CRLAssertionHandler packedBacktraceString];
-            sub_101397EDC(v147);
+            v148 = +[CRLAssertionHandler packedBacktraceString];
+            sub_101397EDC(v148);
           }
 
-          v148 = [NSString stringWithUTF8String:"[CRLCanvasRepDragTracker changeDynamicLayoutsForReps:]"];
-          v149 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLCanvasRepDragTracker.m"];
-          [CRLAssertionHandler handleFailureInFunction:v148 file:v149 lineNumber:842 isFatal:0 description:"prioritizing X offset with a unit direction that doesn't have an X value!"];
+          v149 = [NSString stringWithUTF8String:"[CRLCanvasRepDragTracker changeDynamicLayoutsForReps:]"];
+          v150 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLCanvasRepDragTracker.m"];
+          [CRLAssertionHandler handleFailureInFunction:v149 file:v150 lineNumber:842 isFatal:0 description:"prioritizing X offset with a unit direction that doesn't have an X value!"];
         }
 
         else
         {
-          if (v125.__sinval != 0.0)
+          if (v126.__sinval != 0.0)
           {
-            v143 = v140 / v125.__sinval;
+            v144 = v141 / v126.__sinval;
             goto LABEL_138;
           }
 
-          obj = v141;
+          obj = v142;
           +[CRLAssertionHandler _atomicIncrementAssertCount];
           if (qword_101AD5A10 != -1)
           {
             sub_101397E04();
           }
 
-          v150 = off_1019EDA68;
-          if (os_log_type_enabled(v150, OS_LOG_TYPE_ERROR))
+          v151 = off_1019EDA68;
+          if (os_log_type_enabled(v151, OS_LOG_TYPE_ERROR))
           {
             sub_101397E2C();
           }
@@ -1798,21 +1798,21 @@ LABEL_158:
             sub_101397EB4();
           }
 
-          v151 = off_1019EDA68;
-          if (os_log_type_enabled(v151, OS_LOG_TYPE_ERROR))
+          v152 = off_1019EDA68;
+          if (os_log_type_enabled(v152, OS_LOG_TYPE_ERROR))
           {
-            v152 = +[CRLAssertionHandler packedBacktraceString];
-            sub_101397EDC(v152);
+            v153 = +[CRLAssertionHandler packedBacktraceString];
+            sub_101397EDC(v153);
           }
 
-          v153 = [NSString stringWithUTF8String:"[CRLCanvasRepDragTracker changeDynamicLayoutsForReps:]"];
-          v154 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLCanvasRepDragTracker.m"];
-          [CRLAssertionHandler handleFailureInFunction:v153 file:v154 lineNumber:850 isFatal:0 description:"prioritizing Y offset with a unit direction that doesn't have an Y value!"];
+          v154 = [NSString stringWithUTF8String:"[CRLCanvasRepDragTracker changeDynamicLayoutsForReps:]"];
+          v155 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLCanvasRepDragTracker.m"];
+          [CRLAssertionHandler handleFailureInFunction:v154 file:v155 lineNumber:850 isFatal:0 description:"prioritizing Y offset with a unit direction that doesn't have an Y value!"];
         }
 
-        v142 = obj;
-        v144 = obj;
-        v78 = selfCopy;
+        v143 = obj;
+        v145 = obj;
+        v79 = selfCopy;
         goto LABEL_158;
       }
     }
@@ -1821,12 +1821,12 @@ LABEL_158:
     {
       shouldShowGuides2 = [(CRLCanvasRepDragTracker *)self shouldShowGuides];
       shouldShowGuides = [(CRLCanvasRepDragTracker *)self shouldShowGuides];
-      v18 = 0;
-      v16 = v205;
+      v19 = 0;
+      v17 = v206;
     }
 
     shouldShowGuides3 = [(CRLCanvasRepDragTracker *)selfCopy2 shouldShowGuides];
-    v19 = 0;
+    v20 = 0;
     goto LABEL_17;
   }
 

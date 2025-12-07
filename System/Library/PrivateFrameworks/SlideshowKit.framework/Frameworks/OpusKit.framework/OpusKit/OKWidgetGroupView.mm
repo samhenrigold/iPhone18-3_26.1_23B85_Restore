@@ -991,12 +991,12 @@ uint64_t __75__OKWidgetGroupView__jsTransitionToIndex_withTransition_completionH
   }
 }
 
-uint64_t __26__OKWidgetGroupView__play__block_invoke(uint64_t a1)
+void *__26__OKWidgetGroupView__play__block_invoke(uint64_t a1)
 {
   result = *(a1 + 32);
   if (*(result + 1538) == 1)
   {
-    return [result performSelector:sel__gotoNextIndex withObject:0 afterDelay:*(result + 1544)];
+    return [result performSelector:sel__gotoNextIndex withObject:0 afterDelay:*(result + 193)];
   }
 
   return result;
@@ -1031,12 +1031,12 @@ uint64_t __26__OKWidgetGroupView__play__block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __35__OKWidgetGroupView__gotoNextIndex__block_invoke(uint64_t a1)
+void *__35__OKWidgetGroupView__gotoNextIndex__block_invoke(uint64_t a1)
 {
   result = *(a1 + 32);
   if (*(result + 1538) == 1)
   {
-    return [result performSelector:sel__gotoNextIndex withObject:0 afterDelay:*(result + 1544)];
+    return [result performSelector:sel__gotoNextIndex withObject:0 afterDelay:*(result + 193)];
   }
 
   return result;

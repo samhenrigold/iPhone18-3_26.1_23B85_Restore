@@ -13,6 +13,7 @@
 - (NSArray)identifiers;
 - (unsigned)currentIndex;
 - (unsigned)defaultIndex;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
 - (void)unregisterObserver:(id)observer;
 @end
@@ -198,6 +199,77 @@
   v3 = defaultIndexCharacteristic != 0;
 
   return v3;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000030000037"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    identifiersCharacteristic = [(CAFModeItems *)self identifiersCharacteristic];
+    uniqueIdentifier2 = [identifiersCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      identifiers = [(CAFModeItems *)self identifiers];
+      [observers modeItemsService:self didUpdateIdentifiers:identifiers];
+
+LABEL_12:
+      goto LABEL_13;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType2 = [updateCopy characteristicType];
+  if ([characteristicType2 isEqual:@"0x0000000030000038"])
+  {
+    uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+    currentIndexCharacteristic = [(CAFModeItems *)self currentIndexCharacteristic];
+    uniqueIdentifier4 = [currentIndexCharacteristic uniqueIdentifier];
+    v18 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+    if (v18)
+    {
+      observers = [(CAFService *)self observers];
+      [observers modeItemsService:self didUpdateCurrentIndex:{-[CAFModeItems currentIndex](self, "currentIndex")}];
+      goto LABEL_12;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x0000000030000039"])
+  {
+    goto LABEL_12;
+  }
+
+  uniqueIdentifier5 = [updateCopy uniqueIdentifier];
+  defaultIndexCharacteristic = [(CAFModeItems *)self defaultIndexCharacteristic];
+  uniqueIdentifier6 = [defaultIndexCharacteristic uniqueIdentifier];
+  v22 = [uniqueIdentifier5 isEqual:uniqueIdentifier6];
+
+  if (v22)
+  {
+    observers = [(CAFService *)self observers];
+    [observers modeItemsService:self didUpdateDefaultIndex:{-[CAFModeItems defaultIndex](self, "defaultIndex")}];
+    goto LABEL_12;
+  }
+
+LABEL_13:
+  v23.receiver = self;
+  v23.super_class = CAFModeItems;
+  [(CAFService *)&v23 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForIdentifiers

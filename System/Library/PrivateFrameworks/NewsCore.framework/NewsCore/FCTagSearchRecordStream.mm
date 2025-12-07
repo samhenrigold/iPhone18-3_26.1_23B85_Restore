@@ -22,7 +22,7 @@
 
 - (id)fetchMoreResultsWithLimit:(unint64_t)limit qualityOfService:(int64_t)service callbackQueue:(id)queue completionHandler:(id)handler
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   queueCopy = queue;
   handlerCopy = handler;
   if ([(FCTagSearchRecordStream *)self isFinished])
@@ -34,7 +34,7 @@
       block[1] = 3221225472;
       block[2] = __102__FCTagSearchRecordStream_fetchMoreResultsWithLimit_qualityOfService_callbackQueue_completionHandler___block_invoke;
       block[3] = &unk_1E7C379C8;
-      v27 = handlerCopy;
+      v26 = handlerCopy;
       dispatch_async(queueCopy, block);
 
       v12 = 0;
@@ -45,15 +45,15 @@
   {
     if ([(FCTagSearchRecordStream *)self fetching]&& os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"shouldn't ask a stream for more results while it's fetching"];
+      v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"shouldn't ask a stream for more results while it's fetching"];
       *buf = 136315906;
-      v29 = "[FCTagSearchRecordStream fetchMoreResultsWithLimit:qualityOfService:callbackQueue:completionHandler:]";
-      v30 = 2080;
-      v31 = "FCTagSearchOperation.m";
-      v32 = 1024;
-      v33 = 249;
-      v34 = 2114;
-      v35 = v18;
+      v28 = "[FCTagSearchRecordStream fetchMoreResultsWithLimit:qualityOfService:callbackQueue:completionHandler:]";
+      v29 = 2080;
+      v30 = "FCTagSearchOperation.m";
+      v31 = 1024;
+      v32 = 249;
+      v33 = 2114;
+      v34 = v17;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
     }
 
@@ -69,22 +69,20 @@
 
     [v12 setRelativePriority:1];
     [v12 setQualityOfService:service];
-    v19 = MEMORY[0x1E69E9820];
-    v20 = 3221225472;
-    v21 = __102__FCTagSearchRecordStream_fetchMoreResultsWithLimit_qualityOfService_callbackQueue_completionHandler___block_invoke_119;
-    v22 = &unk_1E7C459A0;
+    v18 = MEMORY[0x1E69E9820];
+    v19 = 3221225472;
+    v20 = __102__FCTagSearchRecordStream_fetchMoreResultsWithLimit_qualityOfService_callbackQueue_completionHandler___block_invoke_119;
+    v21 = &unk_1E7C459A0;
     selfCopy = self;
-    v25 = handlerCopy;
-    v24 = queueCopy;
+    v24 = handlerCopy;
+    v23 = queueCopy;
     if (v12)
     {
-      objc_setProperty_nonatomic_copy(v12, v15, &v19, 424);
+      objc_setProperty_nonatomic_copy(v12, v15, &v18, 424);
     }
 
     [v12 start];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v12;
 }

@@ -43,17 +43,18 @@
 - (BOOL)copyAndPrepareLog
 {
   flushMicrostackshots = [(PLSubmissionFileMSS *)self flushMicrostackshots];
-  v4 = PLLogSubmission();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
-  if (flushMicrostackshots)
+  v4 = flushMicrostackshots;
+  v5 = PLLogSubmission(flushMicrostackshots);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
+  if (v4)
   {
-    if (v5)
+    if (v6)
     {
       [PLSubmissionFileMSS copyAndPrepareLog];
     }
   }
 
-  else if (v5)
+  else if (v6)
   {
     [PLSubmissionFileMSS copyAndPrepareLog];
   }
@@ -67,11 +68,11 @@
   }
 
   collectMSS = [(PLSubmissionFileMSS *)self collectMSS];
-  v9 = PLLogSubmission();
-  v10 = v9;
+  v10 = PLLogSubmission(collectMSS);
+  v11 = v10;
   if (!collectMSS)
   {
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [PLSubmissionFileMSS copyAndPrepareLog];
     }
@@ -79,10 +80,10 @@
     goto LABEL_18;
   }
 
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1D8611000, v10, OS_LOG_TYPE_DEFAULT, "Successfully collected binary MSS", buf, 2u);
+    _os_log_impl(&dword_1D8611000, v11, OS_LOG_TYPE_DEFAULT, "Successfully collected binary MSS", buf, 2u);
   }
 
   if (_os_feature_enabled_impl())
@@ -93,18 +94,19 @@
     if (submitReasonType != 2)
     {
       generateMSS = [(PLSubmissionFileMSS *)self generateMSS];
-      v14 = PLLogSubmission();
-      v10 = v14;
-      if (generateMSS)
+      v15 = generateMSS;
+      v16 = PLLogSubmission(generateMSS);
+      v11 = v16;
+      if (v15)
       {
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
-          *v16 = 0;
-          _os_log_impl(&dword_1D8611000, v10, OS_LOG_TYPE_DEFAULT, "Successfully generated text MSS", v16, 2u);
+          *v18 = 0;
+          _os_log_impl(&dword_1D8611000, v11, OS_LOG_TYPE_DEFAULT, "Successfully generated text MSS", v18, 2u);
         }
       }
 
-      else if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      else if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         [PLSubmissionFileMSS copyAndPrepareLog];
       }
@@ -127,150 +129,156 @@ LABEL_18:
   if (!v6)
   {
     defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
-    v40 = 0;
-    v10 = [defaultManager2 createDirectoryAtPath:v4 withIntermediateDirectories:1 attributes:0 error:&v40];
-    v7 = v40;
+    v46 = 0;
+    v11 = [defaultManager2 createDirectoryAtPath:v4 withIntermediateDirectories:1 attributes:0 error:&v46];
+    v8 = v46;
 
-    if (v10)
+    if (v11)
     {
       getFileList = [(PLSubmissionFileMSS *)self getFileList];
-      v12 = [getFileList mutableCopy];
+      v14 = [getFileList mutableCopy];
 
-      if (v12 && [v12 count])
+      if (v14)
       {
-        *v36 = 0;
-        v37 = v36;
-        v38 = 0x2020000000;
-        v39 = 0;
-        v33[0] = MEMORY[0x1E69E9820];
-        v33[1] = 3221225472;
-        v33[2] = __33__PLSubmissionFileMSS_collectMSS__block_invoke;
-        v33[3] = &unk_1E851B4C8;
-        v13 = v4;
-        v34 = v13;
-        v35 = v36;
-        [v12 enumerateObjectsUsingBlock:v33];
-        if (v37[24])
+        v15 = [v14 count];
+        if (v15)
         {
-          v14 = PLLogSubmission();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+          *v42 = 0;
+          v43 = v42;
+          v44 = 0x2020000000;
+          v45 = 0;
+          v39[0] = MEMORY[0x1E69E9820];
+          v39[1] = 3221225472;
+          v39[2] = __33__PLSubmissionFileMSS_collectMSS__block_invoke;
+          v39[3] = &unk_1E851B4C8;
+          v16 = v4;
+          v40 = v16;
+          v41 = v42;
+          v17 = [v14 enumerateObjectsUsingBlock:v39];
+          if (v43[24])
           {
-            [PLSubmissionFileMSS collectMSS];
-          }
-
-          v15 = objc_alloc(MEMORY[0x1E695DFF8]);
-          v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@/microstackshots", v13];
-          v17 = [v15 initFileURLWithPath:v16];
-
-          path = [v17 path];
-          v19 = open([path UTF8String], 3585, 432);
-
-          if (v19 != -1)
-          {
-            taskingConfig = [(PLSubmissionFile *)self taskingConfig];
-            startDate = [taskingConfig startDate];
-            convertFromMonotonicToSystem = [startDate convertFromMonotonicToSystem];
-
-            empty = xpc_dictionary_create_empty();
-            [convertFromMonotonicToSystem timeIntervalSince1970];
-            xpc_dictionary_set_uint64(empty, "time", v24);
-            if (!systemstats_copy_microstackshots_to_file())
+            v18 = PLLogSubmission(v17);
+            if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
             {
-              lastPathComponent = [v17 lastPathComponent];
-              [v12 addObject:lastPathComponent];
+              [PLSubmissionFileMSS collectMSS];
             }
 
-            close(v19);
-          }
+            v19 = objc_alloc(MEMORY[0x1E695DFF8]);
+            v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@/microstackshots", v16];
+            v21 = [v19 initFileURLWithPath:v20];
 
-          dictionary = [MEMORY[0x1E695DF90] dictionary];
-          [dictionary setObject:v12 forKeyedSubscript:@"LogFiles"];
-          [dictionary setObject:MEMORY[0x1E695E0F0] forKeyedSubscript:@"DscsymFiles"];
-          v27 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@/%@", v13, @"tag.json"];
-          if ([(PLSubmissionFile *)self createTagFileWithPath:v27 withInfo:dictionary])
-          {
-            filePath2 = [(PLSubmissionFile *)self filePath];
-            v8 = [(PLSubmissionFileMSS *)self packageDirectory:v13 to:filePath2];
-            if (v8)
+            path = [v21 path];
+            v23 = open([path UTF8String], 3585, 432);
+
+            if (v23 != -1)
             {
-              v29 = PLLogSubmission();
-              if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+              taskingConfig = [(PLSubmissionFile *)self taskingConfig];
+              startDate = [taskingConfig startDate];
+              convertFromMonotonicToSystem = [startDate convertFromMonotonicToSystem];
+
+              empty = xpc_dictionary_create_empty();
+              [convertFromMonotonicToSystem timeIntervalSince1970];
+              xpc_dictionary_set_uint64(empty, "time", v28);
+              if (!systemstats_copy_microstackshots_to_file())
               {
-                *buf = 0;
-                _os_log_impl(&dword_1D8611000, v29, OS_LOG_TYPE_DEFAULT, "Packaged binary MSS", buf, 2u);
+                lastPathComponent = [v21 lastPathComponent];
+                [v14 addObject:lastPathComponent];
+              }
+
+              close(v23);
+            }
+
+            dictionary = [MEMORY[0x1E695DF90] dictionary];
+            [dictionary setObject:v14 forKeyedSubscript:@"LogFiles"];
+            [dictionary setObject:MEMORY[0x1E695E0F0] forKeyedSubscript:@"DscsymFiles"];
+            v31 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@/%@", v16, @"tag.json"];
+            v32 = [(PLSubmissionFile *)self createTagFileWithPath:v31 withInfo:dictionary];
+            if (v32)
+            {
+              filePath2 = [(PLSubmissionFile *)self filePath];
+              v34 = [(PLSubmissionFileMSS *)self packageDirectory:v16 to:filePath2];
+              v9 = v34;
+              if (v34)
+              {
+                v35 = PLLogSubmission(v34);
+                if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+                {
+                  *buf = 0;
+                  _os_log_impl(&dword_1D8611000, v35, OS_LOG_TYPE_DEFAULT, "Packaged binary MSS", buf, 2u);
+                }
+              }
+
+              else
+              {
+                v35 = PLLogSubmission(v34);
+                if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+                {
+                  [PLSubmissionFileMSS collectMSS];
+                }
               }
             }
 
             else
             {
-              v29 = PLLogSubmission();
-              if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+              filePath2 = PLLogSubmission(v32);
+              if (os_log_type_enabled(filePath2, OS_LOG_TYPE_DEBUG))
               {
                 [PLSubmissionFileMSS collectMSS];
               }
+
+              v9 = 0;
             }
           }
 
           else
           {
-            filePath2 = PLLogSubmission();
-            if (os_log_type_enabled(filePath2, OS_LOG_TYPE_DEBUG))
+            v21 = PLLogSubmission(v17);
+            if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
             {
               [PLSubmissionFileMSS collectMSS];
             }
 
-            v8 = 0;
-          }
-        }
-
-        else
-        {
-          v17 = PLLogSubmission();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
-          {
-            [PLSubmissionFileMSS collectMSS];
+            v9 = 0;
           }
 
-          v8 = 0;
+          _Block_object_dispose(v42, 8);
+          goto LABEL_25;
         }
-
-        _Block_object_dispose(v36, 8);
-        goto LABEL_25;
       }
 
-      v30 = PLLogSubmission();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+      v36 = PLLogSubmission(v15);
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
       {
-        *v36 = 0;
-        _os_log_impl(&dword_1D8611000, v30, OS_LOG_TYPE_INFO, "No MSS files found", v36, 2u);
+        *v42 = 0;
+        _os_log_impl(&dword_1D8611000, v36, OS_LOG_TYPE_INFO, "No MSS files found", v42, 2u);
       }
     }
 
     else
     {
-      v12 = PLLogSubmission();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v14 = PLLogSubmission(v12);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         [PLSubmissionFileMSS collectMSS];
       }
     }
 
-    v8 = 0;
+    v9 = 0;
 LABEL_25:
 
     goto LABEL_26;
   }
 
-  v7 = PLLogSubmission();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = PLLogSubmission(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [PLSubmissionFileMSS collectMSS];
   }
 
-  v8 = 0;
+  v9 = 0;
 LABEL_26:
 
-  return v8;
+  return v9;
 }
 
 void __33__PLSubmissionFileMSS_collectMSS__block_invoke(uint64_t a1, void *a2)
@@ -299,25 +307,25 @@ void __33__PLSubmissionFileMSS_collectMSS__block_invoke(uint64_t a1, void *a2)
 
   if (v6)
   {
-    v7 = PLLogSubmission();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = PLLogSubmission(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       [PLSubmissionFileMSS collectMSS];
     }
 
-    v8 = 0;
+    LOBYTE(v9) = 0;
   }
 
   else
   {
     defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
-    v39 = 0;
-    v10 = [defaultManager2 createDirectoryAtPath:v4 withIntermediateDirectories:1 attributes:0 error:&v39];
-    v7 = v39;
+    v43 = 0;
+    v11 = [defaultManager2 createDirectoryAtPath:v4 withIntermediateDirectories:1 attributes:0 error:&v43];
+    v8 = v43;
 
-    if (v10)
+    if (v11)
     {
-      v11 = [v4 stringByAppendingPathComponent:@"text-microstackshots.txt"];
+      v13 = [v4 stringByAppendingPathComponent:@"text-microstackshots.txt"];
       taskingConfig = [(PLSubmissionFile *)self taskingConfig];
       startDate = [taskingConfig startDate];
       convertFromMonotonicToSystem = [startDate convertFromMonotonicToSystem];
@@ -326,48 +334,49 @@ void __33__PLSubmissionFileMSS_collectMSS__block_invoke(uint64_t a1, void *a2)
       endDate = [taskingConfig2 endDate];
       convertFromMonotonicToSystem2 = [endDate convertFromMonotonicToSystem];
 
-      v18 = PLLogSubmission();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+      v21 = PLLogSubmission(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
         [PLSubmissionFileMSS generateMSS];
       }
 
-      v19 = objc_alloc_init(SignpostReaderHelper);
-      v20 = [(SignpostReaderHelper *)v19 generateTaskingMSSWithStartDate:convertFromMonotonicToSystem endDate:convertFromMonotonicToSystem2 atPath:v11];
-      v21 = v20;
-      if (v20)
+      v22 = objc_alloc_init(SignpostReaderHelper);
+      v23 = [(SignpostReaderHelper *)v22 generateTaskingMSSWithStartDate:convertFromMonotonicToSystem endDate:convertFromMonotonicToSystem2 atPath:v13];
+      v24 = v23;
+      if (v23)
       {
-        v31 = convertFromMonotonicToSystem2;
-        v32 = convertFromMonotonicToSystem;
-        v34 = MEMORY[0x1E69E9820];
-        v35 = 3221225472;
-        v36 = __34__PLSubmissionFileMSS_generateMSS__block_invoke;
-        v37 = &unk_1E8519A88;
-        v38 = v20;
+        v35 = convertFromMonotonicToSystem2;
+        v36 = convertFromMonotonicToSystem;
+        v38 = MEMORY[0x1E69E9820];
+        v39 = 3221225472;
+        v40 = __34__PLSubmissionFileMSS_generateMSS__block_invoke;
+        v41 = &unk_1E8519A88;
+        v42 = v23;
         AnalyticsSendEventLazy();
         dictionary = [MEMORY[0x1E695DF90] dictionary];
-        v23 = MEMORY[0x1E696AD98];
+        v26 = MEMORY[0x1E696AD98];
         +[PLUtilities getLastSystemTimeOffset];
-        v24 = [v23 numberWithDouble:?];
-        [dictionary setObject:v24 forKeyedSubscript:@"LastSystemOffset"];
+        v27 = [v26 numberWithDouble:?];
+        [dictionary setObject:v27 forKeyedSubscript:@"LastSystemOffset"];
 
-        v25 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@/%@", v4, @"tag.json"];
-        if ([(PLSubmissionFile *)self createTagFileWithPath:v25 withInfo:dictionary])
+        v28 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@/%@", v4, @"tag.json"];
+        v29 = [(PLSubmissionFile *)self createTagFileWithPath:v28 withInfo:dictionary];
+        if (v29)
         {
           mssTextFilePath = [(PLSubmissionFileMSS *)self mssTextFilePath];
-          v8 = [(PLSubmissionFileMSS *)self packageDirectory:v4 to:mssTextFilePath];
-          v27 = PLLogSubmission();
-          v28 = v27;
-          if (v8)
+          v9 = [(PLSubmissionFileMSS *)self packageDirectory:v4 to:mssTextFilePath];
+          v31 = PLLogSubmission(v9);
+          v32 = v31;
+          if (v9)
           {
-            if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+            if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_1D8611000, v28, OS_LOG_TYPE_DEFAULT, "Packaged text MSS", buf, 2u);
+              _os_log_impl(&dword_1D8611000, v32, OS_LOG_TYPE_DEFAULT, "Packaged text MSS", buf, 2u);
             }
           }
 
-          else if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+          else if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
           {
             [PLSubmissionFileMSS generateMSS];
           }
@@ -375,50 +384,50 @@ void __33__PLSubmissionFileMSS_collectMSS__block_invoke(uint64_t a1, void *a2)
 
         else
         {
-          mssTextFilePath = PLLogSubmission();
+          mssTextFilePath = PLLogSubmission(v29);
           if (os_log_type_enabled(mssTextFilePath, OS_LOG_TYPE_DEBUG))
           {
             [PLSubmissionFileMSS collectMSS];
           }
 
-          v8 = 0;
+          LOBYTE(v9) = 0;
         }
 
-        v29 = v38;
-        convertFromMonotonicToSystem2 = v31;
-        convertFromMonotonicToSystem = v32;
+        v33 = v42;
+        convertFromMonotonicToSystem2 = v35;
+        convertFromMonotonicToSystem = v36;
       }
 
       else
       {
-        v29 = PLLogSubmission();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+        v33 = PLLogSubmission(0);
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
         {
           [PLSubmissionFileMSS generateMSS];
         }
 
-        v8 = 0;
+        LOBYTE(v9) = 0;
       }
     }
 
     else
     {
-      v11 = PLLogSubmission();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v13 = PLLogSubmission(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         [PLSubmissionFileMSS collectMSS];
       }
 
-      v8 = 0;
+      LOBYTE(v9) = 0;
     }
   }
 
-  return v8;
+  return v9;
 }
 
 id __34__PLSubmissionFileMSS_generateMSS__block_invoke(uint64_t a1)
 {
-  v15[4] = *MEMORY[0x1E69E9840];
+  v14[4] = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) objectForKeyedSubscript:@"sample_count"];
   v3 = [*(a1 + 32) objectForKeyedSubscript:@"time_printing"];
   v4 = [*(a1 + 32) objectForKeyedSubscript:@"time_processing"];
@@ -435,8 +444,8 @@ id __34__PLSubmissionFileMSS_generateMSS__block_invoke(uint64_t a1)
     v8 = &unk_1F540A308;
   }
 
-  v14[0] = @"ProcessingTime";
-  v14[1] = @"PrintingTime";
+  v13[0] = @"ProcessingTime";
+  v13[1] = @"PrintingTime";
   if (v3)
   {
     v9 = v3;
@@ -447,10 +456,10 @@ id __34__PLSubmissionFileMSS_generateMSS__block_invoke(uint64_t a1)
     v9 = &unk_1F540A308;
   }
 
-  v15[0] = v8;
-  v15[1] = v9;
-  v14[2] = @"ReadingTime";
-  v14[3] = @"SampleCount";
+  v14[0] = v8;
+  v14[1] = v9;
+  v13[2] = @"ReadingTime";
+  v13[3] = @"SampleCount";
   if (v5)
   {
     v10 = v5;
@@ -466,26 +475,24 @@ id __34__PLSubmissionFileMSS_generateMSS__block_invoke(uint64_t a1)
     v7 = v2;
   }
 
-  v15[2] = v10;
-  v15[3] = v7;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:4];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v14[2] = v10;
+  v14[3] = v7;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:4];
 
   return v11;
 }
 
 - (BOOL)packageDirectory:(id)directory to:(id)to
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   directoryCopy = directory;
   toCopy = to;
-  v8 = PLLogSubmission();
+  v8 = PLLogSubmission(toCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v20 = 138412290;
-    v21 = directoryCopy;
-    _os_log_impl(&dword_1D8611000, v8, OS_LOG_TYPE_INFO, "Packaging directory %@", &v20, 0xCu);
+    v19 = 138412290;
+    v20 = directoryCopy;
+    _os_log_impl(&dword_1D8611000, v8, OS_LOG_TYPE_INFO, "Packaging directory %@", &v19, 0xCu);
   }
 
   v9 = MEMORY[0x1E6999F68];
@@ -516,7 +523,6 @@ LABEL_7:
   v15 = 1;
 LABEL_8:
 
-  v18 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -551,7 +557,7 @@ LABEL_8:
 
   if (![v6 count])
   {
-    v27 = 0;
+    v28 = 0;
     goto LABEL_28;
   }
 
@@ -565,8 +571,8 @@ LABEL_8:
   if (!v8)
   {
 
+    v27 = 0;
     v26 = 0;
-    v25 = 0;
     goto LABEL_25;
   }
 
@@ -645,18 +651,18 @@ LABEL_16:
 
   while (v9);
 
-  v25 = v37;
+  v26 = v37;
   if ((v38 & (v37 != 0)) == 1)
   {
-    [v36 addObject:v37];
+    v25 = [v36 addObject:v37];
   }
 
   v6 = v34;
   taskingConfig = v35;
-  v26 = v39;
+  v27 = v39;
 LABEL_25:
-  v28 = PLLogSubmission();
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+  v29 = PLLogSubmission(v25);
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
   {
     startDate2 = [taskingConfig startDate];
     endDate2 = [taskingConfig endDate];
@@ -673,15 +679,13 @@ LABEL_25:
     v57 = v33;
     v58 = 2112;
     v59 = v36;
-    _os_log_debug_impl(&dword_1D8611000, v28, OS_LOG_TYPE_DEBUG, "Microstackshots files from %@(%@) to %@(%@): %d files found (%@)\n", buf, 0x3Au);
+    _os_log_debug_impl(&dword_1D8611000, v29, OS_LOG_TYPE_DEBUG, "Microstackshots files from %@(%@) to %@(%@): %d files found (%@)\n", buf, 0x3Au);
   }
 
-  v27 = v36;
+  v28 = v36;
 LABEL_28:
 
-  v29 = *MEMORY[0x1E69E9840];
-
-  return v27;
+  return v28;
 }
 
 - (void)submit
@@ -724,19 +728,16 @@ LABEL_28:
 
 - (void)collectMSS
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)generateMSS
 {
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

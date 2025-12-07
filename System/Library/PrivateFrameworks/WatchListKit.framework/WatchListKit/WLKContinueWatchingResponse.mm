@@ -14,22 +14,22 @@
 
 - (WLKContinueWatchingResponse)initWithDictionary:(id)dictionary
 {
-  v35[1] = *MEMORY[0x277D85DE8];
+  v34[1] = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v32.receiver = self;
-  v32.super_class = WLKContinueWatchingResponse;
-  v5 = [(WLKContinueWatchingResponse *)&v32 init];
+  v31.receiver = self;
+  v31.super_class = WLKContinueWatchingResponse;
+  v5 = [(WLKContinueWatchingResponse *)&v31 init];
   if (v5)
   {
     v6 = [dictionaryCopy wlk_dictionaryForKey:@"data"];
     v7 = [WLKChannelsResponse parseChannelsFromPayload:v6];
-    v27 = dictionaryCopy;
-    v25 = v7;
+    v26 = dictionaryCopy;
+    v24 = v7;
     if (v7)
     {
-      v34 = @"WLKModelContextKeyChannels";
-      v35[0] = v7;
-      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:&v34 count:1];
+      v33 = @"WLKModelContextKeyChannels";
+      v34[0] = v7;
+      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:&v33 count:1];
     }
 
     else
@@ -38,29 +38,29 @@
     }
 
     array = [MEMORY[0x277CBEB18] array];
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
-    v26 = v6;
+    v25 = v6;
     v10 = [v6 wlk_dictionaryForKey:@"shelf"];
     v11 = [v10 wlk_arrayForKey:@"items"];
 
-    v12 = [v11 countByEnumeratingWithState:&v28 objects:v33 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v27 objects:v32 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v29;
+      v14 = *v28;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v29 != v14)
+          if (*v28 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v28 + 1) + 8 * i);
+          v16 = *(*(&v27 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -72,7 +72,7 @@
           }
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v28 objects:v33 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v27 objects:v32 count:16];
       }
 
       while (v13);
@@ -82,7 +82,7 @@
     items = v5->_items;
     v5->_items = v18;
 
-    v20 = [v26 wlk_dictionaryForKey:@"featured"];
+    v20 = [v25 wlk_dictionaryForKey:@"featured"];
     if (v20)
     {
       v21 = [[WLKContinueWatchingCollection alloc] initWithDictionary:v20];
@@ -90,10 +90,9 @@
       v5->_featured = v21;
     }
 
-    dictionaryCopy = v27;
+    dictionaryCopy = v26;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

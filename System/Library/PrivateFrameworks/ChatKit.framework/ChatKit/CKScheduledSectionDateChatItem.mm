@@ -54,7 +54,7 @@
 
   [v9 removeObjectForKey:*MEMORY[0x1E69DB650]];
   v10 = objc_alloc(MEMORY[0x1E696AAB0]);
-  v11 = CKFrameworkBundle();
+  v11 = CKFrameworkBundle(v10);
   v12 = [v11 localizedStringForKey:@"EDIT" value:&stru_1F04268F8 table:@"ChatKit"];
   v13 = [v10 initWithString:v12 attributes:v9];
   [v6 setAttributedTitle:v13 forState:0];

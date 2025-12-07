@@ -9,7 +9,7 @@
 - (void)imagePickerController:(id)controller didFinishPickingMediaWithInfo:(id)info
 {
   type metadata accessor for InfoKey(0);
-  sub_258869CA0(&qword_27F95D660, type metadata accessor for InfoKey);
+  sub_258869CA0(&qword_27F95D660, type metadata accessor for InfoKey, &unk_2588BFC58);
   v6 = sub_2588BD768();
   controllerCopy = controller;
   selfCopy = self;
@@ -19,20 +19,18 @@
 - (void)imagePickerControllerDidCancel:(id)cancel
 {
   v4 = sub_2588BC298();
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
   sub_258804A60(0);
-  v7 = v6;
-  v8 = *(*(v6 - 8) + 64);
-  MEMORY[0x28223BE20](v6);
-  v10 = &v12 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = v5;
+  MEMORY[0x28223BE20](v5);
+  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
-  sub_25885299C(v10);
-  MEMORY[0x259C8C5A0](v7);
+  sub_25885299C(v8);
+  MEMORY[0x259C8C5A0](v6);
   sub_2588BC288();
   sub_2588BD438();
 
-  sub_258869DE0(v10, sub_258804A60);
+  sub_258869DE0(v8, sub_258804A60);
 }
 
 - (_TtCV11MedicalIDUI15ImagePickerView11Coordinator)init

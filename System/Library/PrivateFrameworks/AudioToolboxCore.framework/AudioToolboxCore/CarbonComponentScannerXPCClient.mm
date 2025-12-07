@@ -12,69 +12,68 @@
 
 - (void)closeService
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   [(CarbonComponentScannerXPCClient *)self xpcConnection];
-  v6[0] = &unk_1F033F978;
-  v6[1] = &__block_literal_global_15898;
-  v2 = v6[3] = v6;
-  v7 = v2;
-  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEEC2B8ne200100ERKS8_(v8, v6);
+  v5[0] = &unk_1F033F978;
+  v5[1] = &__block_literal_global_15898;
+  v2 = v5[3] = v5;
+  v6 = v2;
+  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEEC2B8ne200100ERKS8_(v7, v5);
 
-  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v6);
-  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEEC2B8ne200100ERKS8_(v11, v8);
-  v3 = v7;
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3321888768;
-  v9[2] = ___ZN5caulk3xpc7messageIU8__strongPU44objcproto33CarbonComponentScannerXPCProtocol11objc_objectJEE11async_proxyEv_block_invoke;
-  v9[3] = &__block_descriptor_64_ea8_32c50_ZTSNSt3__18functionIFvP7NSErrorONS_5tupleIJEEEEEE_e17_v16__0__NSError_8l;
-  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEEC2B8ne200100ERKS8_(v10, v11);
-  v4 = [v3 remoteObjectProxyWithErrorHandler:v9];
+  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v5);
+  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEEC2B8ne200100ERKS8_(v10, v7);
+  v3 = v6;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3321888768;
+  v8[2] = ___ZN5caulk3xpc7messageIU8__strongPU44objcproto33CarbonComponentScannerXPCProtocol11objc_objectJEE11async_proxyEv_block_invoke;
+  v8[3] = &__block_descriptor_64_ea8_32c50_ZTSNSt3__18functionIFvP7NSErrorONS_5tupleIJEEEEEE_e17_v16__0__NSError_8l;
+  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEEC2B8ne200100ERKS8_(v9, v10);
+  v4 = [v3 remoteObjectProxyWithErrorHandler:v8];
+  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v9);
   _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v10);
-  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v11);
   [v4 closeService];
 
-  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v8);
-  v5 = *MEMORY[0x1E69E9840];
+  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v7);
 }
 
 - (void)rescan:(id)rescan added:(void *)added removed:(void *)removed
 {
-  v27[4] = *MEMORY[0x1E69E9840];
+  v26[4] = *MEMORY[0x1E69E9840];
   rescanCopy = rescan;
   [(CarbonComponentScannerXPCClient *)self xpcConnection];
   aBlock.__begin_ = &unk_1F033F8D0;
-  aBlock.__end_ = &v20;
+  aBlock.__end_ = &v19;
   v9 = *&aBlock.mSorted = &aBlock;
-  v20 = v9;
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSData * {__strong},NSData * {__strong}> &&)>::__value_func[abi:ne200100](v21, &aBlock);
+  v19 = v9;
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSData * {__strong},NSData * {__strong}> &&)>::__value_func[abi:ne200100](v20, &aBlock);
 
   std::__function::__value_func<void ()(NSError *,std::tuple<NSData * {__strong},NSData * {__strong}> &&)>::~__value_func[abi:ne200100](&aBlock);
+  v21 = 0;
   v22 = 0;
-  v23 = 0;
   obj = 0;
 
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSData * {__strong},NSData * {__strong}> &&)>::__value_func[abi:ne200100](v27, v21);
-  v10 = v20;
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSData * {__strong},NSData * {__strong}> &&)>::__value_func[abi:ne200100](v26, v20);
+  v10 = v19;
   aBlock.__begin_ = MEMORY[0x1E69E9820];
   aBlock.__end_ = 3321888768;
   aBlock.__cap_ = ___ZN5caulk3xpc7messageIU8__strongPU44objcproto33CarbonComponentScannerXPCProtocol11objc_objectJU8__strongP6NSDataS7_EE10sync_proxyEv_block_invoke;
   *&aBlock.mSorted = &__block_descriptor_64_ea8_32c71_ZTSNSt3__18functionIFvP7NSErrorONS_5tupleIJU8__strongP6NSDataS6_EEEEEE_e17_v16__0__NSError_8l;
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSData * {__strong},NSData * {__strong}> &&)>::__value_func[abi:ne200100](v26, v27);
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSData * {__strong},NSData * {__strong}> &&)>::__value_func[abi:ne200100](v25, v26);
   v11 = [v10 synchronousRemoteObjectProxyWithErrorHandler:&aBlock];
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSData * {__strong},NSData * {__strong}> &&)>::~__value_func[abi:ne200100](v26);
-  v12 = std::__function::__value_func<void ()(NSError *,std::tuple<NSData * {__strong},NSData * {__strong}> &&)>::~__value_func[abi:ne200100](v27);
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSData * {__strong},NSData * {__strong}> &&)>::__value_func[abi:ne200100](v12, v21);
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSData * {__strong},NSData * {__strong}> &&)>::~__value_func[abi:ne200100](v25);
+  v12 = std::__function::__value_func<void ()(NSError *,std::tuple<NSData * {__strong},NSData * {__strong}> &&)>::~__value_func[abi:ne200100](v26);
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSData * {__strong},NSData * {__strong}> &&)>::__value_func[abi:ne200100](v12, v20);
   aBlock.__begin_ = MEMORY[0x1E69E9820];
   aBlock.__end_ = 3321888768;
   aBlock.__cap_ = ___ZN5caulk3xpc7messageIU8__strongPU44objcproto33CarbonComponentScannerXPCProtocol11objc_objectJU8__strongP6NSDataS7_EE5replyEv_block_invoke;
   *&aBlock.mSorted = &__block_descriptor_64_ea8_32c71_ZTSNSt3__18functionIFvP7NSErrorONS_5tupleIJU8__strongP6NSDataS6_EEEEEE_e39_v32__0__NSError_8__NSData_16__NSData_24l;
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSData * {__strong},NSData * {__strong}> &&)>::__value_func[abi:ne200100](v26, v27);
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSData * {__strong},NSData * {__strong}> &&)>::__value_func[abi:ne200100](v25, v26);
   v13 = _Block_copy(&aBlock);
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSData * {__strong},NSData * {__strong}> &&)>::~__value_func[abi:ne200100](v25);
   std::__function::__value_func<void ()(NSError *,std::tuple<NSData * {__strong},NSData * {__strong}> &&)>::~__value_func[abi:ne200100](v26);
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSData * {__strong},NSData * {__strong}> &&)>::~__value_func[abi:ne200100](v27);
   [v11 rescan:rescanCopy reply:v13];
 
-  v14 = v22;
+  v14 = v21;
   if (v14)
   {
     if (!gAudioComponentLogCategory)
@@ -97,68 +96,67 @@
 
   else
   {
-    v18 = 0;
-    v19 = v23;
-    objc_storeStrong(&v18, obj);
-    AudioComponentVector::createWithSerializedData(&aBlock, v19);
+    v17 = 0;
+    v18 = v22;
+    objc_storeStrong(&v17, obj);
+    AudioComponentVector::createWithSerializedData(&aBlock, v18);
     std::vector<std::shared_ptr<APComponent>>::__vdeallocate(added);
     *added = *&aBlock.__begin_;
     *(added + 2) = aBlock.__cap_;
     memset(&aBlock, 0, 24);
     *(added + 24) = aBlock.mSorted;
-    v27[0] = &aBlock;
-    std::vector<std::shared_ptr<CA::ADMPackFormat>>::__destroy_vector::operator()[abi:ne200100](v27);
-    AudioComponentVector::createWithSerializedData(&aBlock, v18);
+    v26[0] = &aBlock;
+    std::vector<std::shared_ptr<CA::ADMPackFormat>>::__destroy_vector::operator()[abi:ne200100](v26);
+    AudioComponentVector::createWithSerializedData(&aBlock, v17);
     std::vector<std::shared_ptr<APComponent>>::__vdeallocate(removed);
     *removed = *&aBlock.__begin_;
     *(removed + 2) = aBlock.__cap_;
     memset(&aBlock, 0, 24);
     *(removed + 24) = aBlock.mSorted;
-    v27[0] = &aBlock;
-    std::vector<std::shared_ptr<CA::ADMPackFormat>>::__destroy_vector::operator()[abi:ne200100](v27);
+    v26[0] = &aBlock;
+    std::vector<std::shared_ptr<CA::ADMPackFormat>>::__destroy_vector::operator()[abi:ne200100](v26);
   }
 
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSData * {__strong},NSData * {__strong}> &&)>::~__value_func[abi:ne200100](v21);
-  v17 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSData * {__strong},NSData * {__strong}> &&)>::~__value_func[abi:ne200100](v20);
 }
 
 - (AudioComponentVector)initialScan:(SEL)scan
 {
-  v24[4] = *MEMORY[0x1E69E9840];
+  v23[4] = *MEMORY[0x1E69E9840];
   v6 = a4;
   [(CarbonComponentScannerXPCClient *)self xpcConnection];
   aBlock.__begin_ = &unk_1F033F810;
-  aBlock.__end_ = &v18;
+  aBlock.__end_ = &v17;
   v7 = *&aBlock.mSorted = &aBlock;
-  v18 = v7;
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSData * {__strong}> &&)>::__value_func[abi:ne200100](v19, &aBlock);
+  v17 = v7;
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSData * {__strong}> &&)>::__value_func[abi:ne200100](v18, &aBlock);
 
   std::__function::__value_func<void ()(NSError *,std::tuple<NSData * {__strong}> &&)>::~__value_func[abi:ne200100](&aBlock);
+  v19 = 0;
   v20 = 0;
-  v21 = 0;
 
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSData * {__strong}> &&)>::__value_func[abi:ne200100](v24, v19);
-  v8 = v18;
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSData * {__strong}> &&)>::__value_func[abi:ne200100](v23, v18);
+  v8 = v17;
   aBlock.__begin_ = MEMORY[0x1E69E9820];
   aBlock.__end_ = 3321888768;
   aBlock.__cap_ = ___ZN5caulk3xpc7messageIU8__strongPU44objcproto33CarbonComponentScannerXPCProtocol11objc_objectJU8__strongP6NSDataEE10sync_proxyEv_block_invoke;
   *&aBlock.mSorted = &__block_descriptor_64_ea8_32c68_ZTSNSt3__18functionIFvP7NSErrorONS_5tupleIJU8__strongP6NSDataEEEEEE_e17_v16__0__NSError_8l;
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSData * {__strong}> &&)>::__value_func[abi:ne200100](v23, v24);
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSData * {__strong}> &&)>::__value_func[abi:ne200100](v22, v23);
   v9 = [v8 synchronousRemoteObjectProxyWithErrorHandler:&aBlock];
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSData * {__strong}> &&)>::~__value_func[abi:ne200100](v23);
-  v10 = std::__function::__value_func<void ()(NSError *,std::tuple<NSData * {__strong}> &&)>::~__value_func[abi:ne200100](v24);
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSData * {__strong}> &&)>::__value_func[abi:ne200100](v10, v19);
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSData * {__strong}> &&)>::~__value_func[abi:ne200100](v22);
+  v10 = std::__function::__value_func<void ()(NSError *,std::tuple<NSData * {__strong}> &&)>::~__value_func[abi:ne200100](v23);
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSData * {__strong}> &&)>::__value_func[abi:ne200100](v10, v18);
   aBlock.__begin_ = MEMORY[0x1E69E9820];
   aBlock.__end_ = 3321888768;
   aBlock.__cap_ = ___ZN5caulk3xpc7messageIU8__strongPU44objcproto33CarbonComponentScannerXPCProtocol11objc_objectJU8__strongP6NSDataEE5replyEv_block_invoke;
   *&aBlock.mSorted = &__block_descriptor_64_ea8_32c68_ZTSNSt3__18functionIFvP7NSErrorONS_5tupleIJU8__strongP6NSDataEEEEEE_e28_v24__0__NSError_8__NSData_16l;
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSData * {__strong}> &&)>::__value_func[abi:ne200100](v23, v24);
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSData * {__strong}> &&)>::__value_func[abi:ne200100](v22, v23);
   v11 = _Block_copy(&aBlock);
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSData * {__strong}> &&)>::~__value_func[abi:ne200100](v22);
   std::__function::__value_func<void ()(NSError *,std::tuple<NSData * {__strong}> &&)>::~__value_func[abi:ne200100](v23);
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSData * {__strong}> &&)>::~__value_func[abi:ne200100](v24);
   [v9 initialScan:v6 reply:v11];
 
-  v12 = v20;
+  v12 = v19;
   if (v12)
   {
     if (!gAudioComponentLogCategory)
@@ -185,26 +183,25 @@
 
   else
   {
-    v14 = v21;
+    v14 = v20;
     AudioComponentVector::createWithSerializedData(&aBlock, v14);
     retstr->__begin_ = 0;
     retstr->__end_ = 0;
     retstr->__cap_ = 0;
     std::vector<std::shared_ptr<APComponent>>::__init_with_size[abi:ne200100]<std::shared_ptr<APComponent>*,std::shared_ptr<APComponent>*>(retstr, aBlock.__begin_, aBlock.__end_, (aBlock.__end_ - aBlock.__begin_) >> 4);
     retstr->mSorted = aBlock.mSorted;
-    v24[0] = &aBlock;
-    std::vector<std::shared_ptr<CA::ADMPackFormat>>::__destroy_vector::operator()[abi:ne200100](v24);
+    v23[0] = &aBlock;
+    std::vector<std::shared_ptr<CA::ADMPackFormat>>::__destroy_vector::operator()[abi:ne200100](v23);
   }
 
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSData * {__strong}> &&)>::~__value_func[abi:ne200100](v19);
-  v17 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSData * {__strong}> &&)>::~__value_func[abi:ne200100](v18);
   return result;
 }
 
 - (void)handleConnectionError:(BOOL)error
 {
   errorCopy = error;
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (!gAudioComponentLogCategory)
   {
     operator new();
@@ -214,27 +211,25 @@
   if (os_log_type_enabled(*gAudioComponentLogCategory, OS_LOG_TYPE_ERROR))
   {
     v7 = "interrupted";
-    *&v12[4] = "CarbonComponentScannerXPCClient.mm";
-    *v12 = 136315650;
+    *&v11[4] = "CarbonComponentScannerXPCClient.mm";
+    *v11 = 136315650;
     if (errorCopy)
     {
       v7 = "invalidated";
     }
 
-    *&v12[12] = 1024;
-    *&v12[14] = 70;
-    v13 = 2080;
-    v14 = v7;
-    _os_log_impl(&dword_18F5DF000, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d CarbonComponentScannerXPCClient connection was %s!", v12, 0x1Cu);
+    *&v11[12] = 1024;
+    *&v11[14] = 70;
+    v12 = 2080;
+    v13 = v7;
+    _os_log_impl(&dword_18F5DF000, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d CarbonComponentScannerXPCClient connection was %s!", v11, 0x1Cu);
   }
 
   connection = self->_connection;
   p_connection = &self->_connection;
-  [(NSXPCConnection *)connection invalidate];
+  [(NSXPCConnection *)connection invalidate:*v11];
   v10 = *p_connection;
   *p_connection = 0;
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)xpcConnection

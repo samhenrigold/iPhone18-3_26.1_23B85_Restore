@@ -67,7 +67,7 @@
 
   v4 = ASTLogRuntimeManager();
   v5 = v4;
-  v44 = spid - 1;
+  v46 = spid - 1;
   if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
     *buf = 0;
@@ -77,12 +77,12 @@
   if (AXIsInternalInstall())
   {
     objc_initWeak(buf, self);
-    v48[0] = _NSConcreteStackBlock;
-    v48[1] = 3221225472;
-    v48[2] = sub_1000C6DEC;
-    v48[3] = &unk_1001D3460;
-    objc_copyWeak(&v49, buf);
-    v6 = objc_retainBlock(v48);
+    v50[0] = _NSConcreteStackBlock;
+    v50[1] = 3221225472;
+    v50[2] = sub_1000C6DEC;
+    v50[3] = &unk_1001D3460;
+    objc_copyWeak(&v51, buf);
+    v6 = objc_retainBlock(v50);
     v7 = +[AXSettings sharedInstance];
     appValidationTestingMode = [v7 appValidationTestingMode];
 
@@ -97,12 +97,12 @@
       [v9 registerUpdateBlock:v6 forRetrieveSelector:"appValidationTestingMode" withListener:self];
     }
 
-    objc_destroyWeak(&v49);
+    objc_destroyWeak(&v51);
     objc_destroyWeak(buf);
   }
 
-  v46 = +[NSProcessInfo processInfo];
-  environment = [v46 environment];
+  v48 = +[NSProcessInfo processInfo];
+  environment = [v48 environment];
   v11 = [environment objectForKey:@"AX_DEBUG_SCAT"];
 
   if (v11)
@@ -116,11 +116,11 @@
 
     _AXSAssistiveTouchScannerSetEnabled();
 LABEL_15:
-    v47[5] = _NSConcreteStackBlock;
-    v47[6] = 3221225472;
-    v47[7] = sub_1000C6E2C;
-    v47[8] = &unk_1001D3488;
-    v47[9] = self;
+    v49[5] = _NSConcreteStackBlock;
+    v49[6] = 3221225472;
+    v49[7] = sub_1000C6E2C;
+    v49[8] = &unk_1001D3488;
+    v49[9] = self;
     AXPerformBlockOnMainThreadAfterDelay();
     v13 = +[SCATScannerManager sharedManager];
     if (AXInPreboardScenario())
@@ -138,12 +138,12 @@ LABEL_15:
 
     else
     {
-      v47[0] = _NSConcreteStackBlock;
-      v47[1] = 3221225472;
-      v47[2] = sub_1000C6F18;
-      v47[3] = &unk_1001D6EF0;
-      v47[4] = spid;
-      v16 = objc_retainBlock(v47);
+      v49[0] = _NSConcreteStackBlock;
+      v49[1] = 3221225472;
+      v49[2] = sub_1000C6F18;
+      v49[3] = &unk_1001D6EF0;
+      v49[4] = spid;
+      v16 = objc_retainBlock(v49);
       v17 = ASTLogCommon();
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
@@ -230,19 +230,19 @@ LABEL_50:
 
       if (![(HNDRuntimeManager *)self systemAppReady])
       {
-        v40 = ASTLogCommon();
-        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+        v42 = ASTLogCommon();
+        if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "System app not running. Exiting.", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "System app not running. Exiting.", buf, 2u);
         }
 
-        v41 = ASTLogRuntimeManager();
-        v42 = v41;
-        if (v44 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v41))
+        v43 = ASTLogRuntimeManager();
+        v44 = v43;
+        if (v46 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v43))
         {
           *buf = 0;
-          _os_signpost_emit_with_name_impl(&_mh_execute_header, v42, OS_SIGNPOST_INTERVAL_END, spid, "Setup AST/SC runtime", "", buf, 2u);
+          _os_signpost_emit_with_name_impl(&_mh_execute_header, v44, OS_SIGNPOST_INTERVAL_END, spid, "Setup AST/SC runtime", "", buf, 2u);
         }
 
         v27 = 0;
@@ -253,10 +253,10 @@ LABEL_50:
     v38 = +[SCATScannerManager sharedManager];
     [v38 setDelegate:self];
 
-    [HNDHandManager screenFrame:]_0();
-    v39 = ASTLogRuntimeManager();
-    v16 = v39;
-    if (v44 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v39))
+    [HNDHandManager screenFrame:]_0(v39, v40);
+    v41 = ASTLogRuntimeManager();
+    v16 = v41;
+    if (v46 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v41))
     {
       *buf = 0;
       _os_signpost_emit_with_name_impl(&_mh_execute_header, v16, OS_SIGNPOST_INTERVAL_END, spid, "Setup AST/SC runtime", "", buf, 2u);
@@ -294,7 +294,7 @@ LABEL_63:
   _AXSAssistiveTouchScannerSetEnabled();
   v25 = ASTLogRuntimeManager();
   v26 = v25;
-  if (v44 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v25))
+  if (v46 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v25))
   {
     *buf = 0;
     _os_signpost_emit_with_name_impl(&_mh_execute_header, v26, OS_SIGNPOST_INTERVAL_END, spid, "Setup AST/SC runtime.", "", buf, 2u);

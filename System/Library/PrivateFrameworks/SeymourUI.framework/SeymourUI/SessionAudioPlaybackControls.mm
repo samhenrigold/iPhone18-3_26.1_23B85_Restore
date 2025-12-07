@@ -24,12 +24,13 @@
   v3 = *(&self->super.super.super.isa + OBJC_IVAR____TtC9SeymourUI28SessionAudioPlaybackControls_onPlaybackControlTapped);
   if (v3)
   {
+    v5 = *(&self->super.super._responderFlags + OBJC_IVAR____TtC9SeymourUI28SessionAudioPlaybackControls_onPlaybackControlTapped);
     tappedCopy = tapped;
     selfCopy = self;
-    sub_20B584050(v3);
+    sub_20B584050(v3, v5);
     v3(tappedCopy);
 
-    sub_20B5E0F50(v3);
+    sub_20B5E0F50(v3, v5);
   }
 }
 

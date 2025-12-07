@@ -96,7 +96,7 @@ void __75___CDInteractionRecorder_recordInteractions_synchronous_completionHandl
 
 void __75___CDInteractionRecorder_recordInteractions_synchronous_completionHandler___block_invoke_2_26(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (atomic_exchange(recordInteractions_synchronous_completionHandler__flag, 1u))
   {
     dispatch_group_enter(recordInteractions_synchronous_completionHandler__group);
@@ -105,16 +105,16 @@ void __75___CDInteractionRecorder_recordInteractions_synchronous_completionHandl
     {
       v3 = [*(a1 + 32) count];
       *buf = 134217984;
-      v11 = v3;
+      v10 = v3;
       _os_log_impl(&dword_191750000, v2, OS_LOG_TYPE_DEFAULT, "[async path] beginning recordInteractions (%tu interactions)", buf, 0xCu);
     }
 
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __75___CDInteractionRecorder_recordInteractions_synchronous_completionHandler___block_invoke_27;
-    v8[3] = &unk_1E7367508;
-    v9 = *(a1 + 48);
-    v4 = MEMORY[0x193B00C50](v8);
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __75___CDInteractionRecorder_recordInteractions_synchronous_completionHandler___block_invoke_27;
+    v7[3] = &unk_1E7367508;
+    v8 = *(a1 + 48);
+    v4 = MEMORY[0x193B00C50](v7);
     v5 = [*(*(a1 + 40) + 8) remoteObjectProxyWithErrorHandler:v4];
     recordInteractionsAsync(v5, *(a1 + 32), 0, [*(a1 + 40) enforceDataLimits], objc_msgSend(*(a1 + 40), "enforcePrivacy"), *(a1 + 48));
   }
@@ -130,8 +130,6 @@ void __75___CDInteractionRecorder_recordInteractions_synchronous_completionHandl
 
     dispatch_group_notify(recordInteractions_synchronous_completionHandler__group, recordInteractions_synchronous_completionHandler__queue, *(*(*(a1 + 56) + 8) + 24));
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __75___CDInteractionRecorder_recordInteractions_synchronous_completionHandler___block_invoke_27(uint64_t a1, void *a2)
@@ -316,14 +314,6 @@ void __105___CDInteractionRecorder_deleteInteractionsWithBundleId_synchronous_do
   {
     (*(v5 + 16))(v5, 0, v3);
   }
-}
-
-void __75___CDInteractionRecorder_recordInteractions_synchronous_completionHandler___block_invoke_27_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_2(&dword_191750000, v0, v1, "[async path] xpc error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

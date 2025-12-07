@@ -23,6 +23,8 @@
 - (void)setRenderPipelineState:(id)state;
 - (void)setScissorRect:(id *)rect;
 - (void)setScissorRects:(id *)rects count:(unint64_t)count;
+- (void)setStencilFrontReferenceValue:(unsigned int)value backReferenceValue:(unsigned int)referenceValue;
+- (void)setStencilReferenceValue:(unsigned int)value;
 - (void)setTriangleFillMode:(unint64_t)mode;
 - (void)setVertexBuffer:(id)buffer offset:(unint64_t)offset attributeStride:(unint64_t)stride atIndex:(unint64_t)index;
 - (void)setViewport:(id *)viewport;
@@ -101,6 +103,8 @@
 
 - (void)drawPrimitives:(unint64_t)primitives vertexStart:(unint64_t)start vertexCount:(unint64_t)count instanceCount:(unint64_t)instanceCount baseInstance:(unint64_t)instance
 {
+  v14 = 0;
+  memset(v13, 0, sizeof(v13));
   [(MTLToolsObject *)self device];
   _MTLMessageContextBegin_();
   if (([(MTLIndirectCommandBufferDescriptor *)self->_desc commandTypes]& 1) == 0)
@@ -108,7 +112,7 @@
     _MTLMessageContextPush_();
   }
 
-  _MTLDebugValidateMTLPrimitiveTypeWithContext(primitives, 0);
+  _MTLDebugValidateMTLPrimitiveTypeWithContext(primitives, 0, v13);
   if (!instanceCount)
   {
     _MTLMessageContextPush_();
@@ -130,7 +134,7 @@
   }
 
   _MTLDebugValidateIndexBufferWithContext(self->super.super._device, type, buffer, "indexBuffer", offset, 1, count, v17);
-  _MTLDebugValidateMTLPrimitiveTypeWithContext(primitives, 0);
+  _MTLDebugValidateMTLPrimitiveTypeWithContext(primitives, 0, v17);
   if (!instanceCount)
   {
     _MTLMessageContextPush_();
@@ -335,6 +339,35 @@
   *&v11 = scale;
   *&v12 = clamp;
   [baseObject setDepthBias:v10 slopeScale:v11 clamp:v12];
+}
+
+- (void)setStencilFrontReferenceValue:(unsigned int)value backReferenceValue:(unsigned int)referenceValue
+{
+  v4 = *&referenceValue;
+  v5 = *&value;
+  [(MTLToolsObject *)self device:0];
+  _MTLMessageContextBegin_();
+  if ([(MTLIndirectCommandBufferDescriptor *)self->_desc inheritStencilReferenceValues])
+  {
+    _MTLMessageContextPush_();
+  }
+
+  _MTLMessageContextEnd();
+  [-[MTLToolsObject baseObject](self "baseObject")];
+}
+
+- (void)setStencilReferenceValue:(unsigned int)value
+{
+  v3 = *&value;
+  [(MTLToolsObject *)self device:0];
+  _MTLMessageContextBegin_();
+  if ([(MTLIndirectCommandBufferDescriptor *)self->_desc inheritStencilReferenceValues])
+  {
+    _MTLMessageContextPush_();
+  }
+
+  _MTLMessageContextEnd();
+  [-[MTLToolsObject baseObject](self "baseObject")];
 }
 
 - (void)setDepthStencilState:(id)state

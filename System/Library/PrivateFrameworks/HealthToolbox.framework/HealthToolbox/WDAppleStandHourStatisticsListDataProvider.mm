@@ -103,13 +103,11 @@ uint64_t __64__WDAppleStandHourStatisticsListDataProvider__callUpdateHandler__bl
 
 - (id)sampleTypes
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   displayType = [(WDSampleListDataProvider *)self displayType];
   sampleType = [displayType sampleType];
-  v7[0] = sampleType;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v6[0] = sampleType;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
 
   return v4;
 }
@@ -161,35 +159,35 @@ uint64_t __64__WDAppleStandHourStatisticsListDataProvider__callUpdateHandler__bl
 
 - (void)_removeSamplesInDateRange:(id)range
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   rangeCopy = range;
   startDate = [rangeCopy startDate];
-  v23 = rangeCopy;
+  v22 = rangeCopy;
   endDate = [rangeCopy endDate];
-  v24 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v23 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   selfCopy = self;
   samples = [(WDSampleListDataProvider *)self samples];
   allSamples = [samples allSamples];
 
-  v9 = [allSamples countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v9 = [allSamples countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v26;
+    v11 = *v25;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v26 != v11)
+        if (*v25 != v11)
         {
           objc_enumerationMutation(allSamples);
         }
 
-        v13 = *(*(&v25 + 1) + 8 * i);
+        v13 = *(*(&v24 + 1) + 8 * i);
         startDate2 = [v13 startDate];
         IsLargerOrEqual = HKUIObjectIsLargerOrEqual();
 
@@ -209,20 +207,18 @@ uint64_t __64__WDAppleStandHourStatisticsListDataProvider__callUpdateHandler__bl
         if (!v18)
         {
           uUID = [v13 UUID];
-          [v24 addObject:uUID];
+          [v23 addObject:uUID];
         }
       }
 
-      v10 = [allSamples countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v10 = [allSamples countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v10);
   }
 
   samples2 = [(WDSampleListDataProvider *)selfCopy samples];
-  [samples2 removeSamplesWithUUIDs:v24];
-
-  v21 = *MEMORY[0x277D85DE8];
+  [samples2 removeSamplesWithUUIDs:v23];
 }
 
 - (void)deleteAllData

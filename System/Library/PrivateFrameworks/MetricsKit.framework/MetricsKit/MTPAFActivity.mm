@@ -15,13 +15,14 @@
   triggerTypeCopy = triggerType;
   reasonCopy = reason;
   dataCopy = data;
+  v17 = dataCopy;
   if (type == 1)
   {
-    v17 = MTMetricsKitOSLog();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    v18 = MTMetricsKitOSLog(dataCopy);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&dword_258F4B000, v17, OS_LOG_TYPE_DEBUG, "MetricsKit: MTPAFActivityTypeSeek is not supported yet", buf, 2u);
+      _os_log_impl(&dword_258F4B000, v18, OS_LOG_TYPE_DEBUG, "MetricsKit: MTPAFActivityTypeSeek is not supported yet", buf, 2u);
     }
 
     selfCopy = 0;
@@ -29,25 +30,25 @@
 
   else
   {
-    v25.receiver = self;
-    v25.super_class = MTPAFActivity;
-    v19 = [(MTPAFActivity *)&v25 init];
-    v20 = v19;
-    if (v19)
+    v26.receiver = self;
+    v26.super_class = MTPAFActivity;
+    v20 = [(MTPAFActivity *)&v26 init];
+    v21 = v20;
+    if (v20)
     {
-      [(MTPAFActivity *)v19 setActivityType:type];
-      [(MTPAFActivity *)v20 setStartPosition:milliseconds];
-      [(MTPAFActivity *)v20 setLastPosition:milliseconds];
-      [(MTPAFActivity *)v20 setStartTriggerType:triggerTypeCopy];
-      [(MTPAFActivity *)v20 setStartReason:reasonCopy];
-      [(MTPAFActivity *)v20 setStartEventData:dataCopy];
-      v21 = [MTMediaTimeTracker alloc];
-      *&v22 = rate;
-      v23 = [(MTMediaTimeTracker *)v21 initWithPosition:milliseconds playbackRate:v22];
-      [(MTPAFActivity *)v20 setTimeTracker:v23];
+      [(MTPAFActivity *)v20 setActivityType:type];
+      [(MTPAFActivity *)v21 setStartPosition:milliseconds];
+      [(MTPAFActivity *)v21 setLastPosition:milliseconds];
+      [(MTPAFActivity *)v21 setStartTriggerType:triggerTypeCopy];
+      [(MTPAFActivity *)v21 setStartReason:reasonCopy];
+      [(MTPAFActivity *)v21 setStartEventData:v17];
+      v22 = [MTMediaTimeTracker alloc];
+      *&v23 = rate;
+      v24 = [(MTMediaTimeTracker *)v22 initWithPosition:milliseconds playbackRate:v23];
+      [(MTPAFActivity *)v21 setTimeTracker:v24];
     }
 
-    self = v20;
+    self = v21;
     selfCopy = self;
   }
 
@@ -56,34 +57,34 @@
 
 - (void)addItemsFromPlaylist:(id)playlist pafKit:(id)kit
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   playlistCopy = playlist;
   kitCopy = kit;
   currentItems = [playlistCopy currentItems];
   v9 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(currentItems, "count")}];
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   obj = currentItems;
-  v10 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v10 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (!v10)
   {
     goto LABEL_13;
   }
 
-  v11 = *v30;
+  v11 = *v29;
   do
   {
     v12 = 0;
     do
     {
-      if (*v30 != v11)
+      if (*v29 != v11)
       {
         objc_enumerationMutation(obj);
       }
 
-      v13 = *(*(&v29 + 1) + 8 * v12);
+      v13 = *(*(&v28 + 1) + 8 * v12);
       v14 = objc_alloc_init(MTPAFItemActivity);
       [(MTPAFItemActivity *)v14 setItem:v13];
       [(MTPAFItemActivity *)v14 setPlaylist:playlistCopy];
@@ -123,7 +124,7 @@ LABEL_11:
     }
 
     while (v10 != v12);
-    v10 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v10 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
   }
 
   while (v10);
@@ -148,8 +149,6 @@ LABEL_13:
 
   [(MTPAFActivity *)selfCopy updateItemActivities:v9];
   objc_sync_exit(selfCopy);
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)synchronizeAtMilliseconds:(unint64_t)milliseconds
@@ -186,7 +185,7 @@ LABEL_13:
 
 - (void)startItemActivityIfPossible:(id)possible
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   possibleCopy = possible;
   startMetricsData = [possibleCopy startMetricsData];
   if (!startMetricsData)
@@ -224,10 +223,10 @@ LABEL_13:
         v17 = [timeTracker estimatedTimeAtPastPosition:{objc_msgSend(item4, "start")}];
 
         mt_millisecondsSince1970 = [v17 mt_millisecondsSince1970];
-        v23 = mt_millisecondsSince1970;
-        v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
-        v24[0] = v19;
-        startEventData = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
+        v22 = mt_millisecondsSince1970;
+        v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+        v23[0] = v19;
+        startEventData = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
       }
 
       [possibleCopy startAtOverallPosition:-[MTPAFActivity startPosition](self triggerType:"startPosition") reason:item eventData:{startReason, startEventData}];
@@ -237,12 +236,11 @@ LABEL_13:
   }
 
 LABEL_10:
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopItemActivityIfPossible:(id)possible
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   possibleCopy = possible;
   startMetricsData = [possibleCopy startMetricsData];
   if (startMetricsData)
@@ -282,10 +280,10 @@ LABEL_7:
         v17 = [timeTracker estimatedTimeAtPastPosition:{objc_msgSend(item3, "end")}];
 
         mt_millisecondsSince1970 = [v17 mt_millisecondsSince1970];
-        v23 = mt_millisecondsSince1970;
-        v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
-        v24[0] = v19;
-        stopEventData = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
+        v22 = mt_millisecondsSince1970;
+        v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+        v23[0] = v19;
+        stopEventData = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
       }
 
       [possibleCopy stopAtOverallPosition:-[MTPAFActivity lastPosition](self triggerType:"lastPosition") reason:stopTriggerType eventData:{stopReason, stopEventData}];
@@ -302,44 +300,40 @@ LABEL_7:
   }
 
 LABEL_12:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateItemActivities:(id)activities
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   activitiesCopy = activities;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v5 = [activitiesCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [activitiesCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(activitiesCopy);
         }
 
-        v9 = *(*(&v11 + 1) + 8 * i);
+        v9 = *(*(&v10 + 1) + 8 * i);
         [(MTPAFActivity *)self startItemActivityIfPossible:v9];
         [(MTPAFActivity *)self stopItemActivityIfPossible:v9];
       }
 
-      v6 = [activitiesCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [activitiesCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

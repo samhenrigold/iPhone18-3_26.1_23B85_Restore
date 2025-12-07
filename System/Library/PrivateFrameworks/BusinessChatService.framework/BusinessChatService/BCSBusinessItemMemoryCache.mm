@@ -15,7 +15,7 @@
 + (id)sharedCache
 {
   objc_opt_self();
-  v0 = _MergedGlobals_37;
+  v1 = _MergedGlobals_37;
   if (!_MergedGlobals_37)
   {
     if (qword_280BCF560 != -1)
@@ -23,17 +23,19 @@
       dispatch_once(&qword_280BCF560, &__block_literal_global_1);
     }
 
-    v0 = _MergedGlobals_37;
+    v1 = _MergedGlobals_37;
   }
 
-  return v0;
+  return v1;
 }
 
 uint64_t __41__BCSBusinessItemMemoryCache_sharedCache__block_invoke()
 {
-  _MergedGlobals_37 = objc_alloc_init(BCSBusinessItemMemoryCache);
+  v0 = objc_alloc_init(BCSBusinessItemMemoryCache);
+  v1 = _MergedGlobals_37;
+  _MergedGlobals_37 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (id)lastFetchedBusinessItemIconDataForBizItem:(id *)item

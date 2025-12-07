@@ -6,7 +6,7 @@
 void __182__UITableViewController_CKBlackHoleUtilities___confirmDeleteConversationFromView_alertTitle_forMultipleConversations_withReportSpamHander_withNotReportSpamHandler_withCancelHandler___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 72);
-  v3 = CKFrameworkBundle();
+  v3 = CKFrameworkBundle(a1);
   v4 = v3;
   if (v2)
   {
@@ -21,32 +21,32 @@ void __182__UITableViewController_CKBlackHoleUtilities___confirmDeleteConversati
   v6 = [v3 localizedStringForKey:v5 value:&stru_1F04268F8 table:@"ChatKit"];
   v7 = [CKAlertController alertControllerWithTitle:0 message:v6 preferredStyle:1];
 
-  v8 = CKFrameworkBundle();
-  v9 = [v8 localizedStringForKey:@"REPORT_SPAM_BUTTON_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __182__UITableViewController_CKBlackHoleUtilities___confirmDeleteConversationFromView_alertTitle_forMultipleConversations_withReportSpamHander_withNotReportSpamHandler_withCancelHandler___block_invoke_2;
-  v22[3] = &unk_1E72EC218;
-  v23 = *(a1 + 48);
-  v10 = [CKAlertAction actionWithTitle:v9 style:0 handler:v22];
-  [v7 addAction:v10];
+  v9 = CKFrameworkBundle(v8);
+  v10 = [v9 localizedStringForKey:@"REPORT_SPAM_BUTTON_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __182__UITableViewController_CKBlackHoleUtilities___confirmDeleteConversationFromView_alertTitle_forMultipleConversations_withReportSpamHander_withNotReportSpamHandler_withCancelHandler___block_invoke_2;
+  v24[3] = &unk_1E72EC218;
+  v25 = *(a1 + 48);
+  v11 = [CKAlertAction actionWithTitle:v10 style:0 handler:v24];
+  [v7 addAction:v11];
 
-  v11 = CKFrameworkBundle();
-  v12 = [v11 localizedStringForKey:@"DONT_REPORT_SPAM_BUTTON_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
-  v17 = MEMORY[0x1E69E9820];
-  v18 = 3221225472;
-  v19 = __182__UITableViewController_CKBlackHoleUtilities___confirmDeleteConversationFromView_alertTitle_forMultipleConversations_withReportSpamHander_withNotReportSpamHandler_withCancelHandler___block_invoke_3;
-  v20 = &unk_1E72EC218;
-  v21 = *(a1 + 56);
-  v13 = [CKAlertAction actionWithTitle:v12 style:1 handler:&v17];
-  [v7 addAction:{v13, v17, v18, v19, v20}];
+  v13 = CKFrameworkBundle(v12);
+  v14 = [v13 localizedStringForKey:@"DONT_REPORT_SPAM_BUTTON_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+  v19 = MEMORY[0x1E69E9820];
+  v20 = 3221225472;
+  v21 = __182__UITableViewController_CKBlackHoleUtilities___confirmDeleteConversationFromView_alertTitle_forMultipleConversations_withReportSpamHander_withNotReportSpamHandler_withCancelHandler___block_invoke_3;
+  v22 = &unk_1E72EC218;
+  v23 = *(a1 + 56);
+  v15 = [CKAlertAction actionWithTitle:v14 style:1 handler:&v19];
+  [v7 addAction:{v15, v19, v20, v21, v22}];
 
-  v14 = [*(a1 + 32) popoverPresentationController];
-  [v14 setSourceView:*(a1 + 40)];
+  v16 = [*(a1 + 32) popoverPresentationController];
+  [v16 setSourceView:*(a1 + 40)];
 
-  v15 = [*(a1 + 32) popoverPresentationController];
+  v17 = [*(a1 + 32) popoverPresentationController];
   [*(a1 + 40) frame];
-  [v15 setSourceRect:?];
+  [v17 setSourceRect:?];
 
   WeakRetained = objc_loadWeakRetained((a1 + 64));
   [v7 presentFromViewController:WeakRetained animated:1 completion:0];

@@ -46,12 +46,12 @@
 
 - (SPSecureLocationsSubscriptionResult)initWithCoder:(id)coder
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CBEB98];
   coderCopy = coder;
-  v14[0] = objc_opt_class();
-  v14[1] = objc_opt_class();
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+  v13[0] = objc_opt_class();
+  v13[1] = objc_opt_class();
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
   v7 = [v4 setWithArray:v6];
   v8 = [coderCopy decodeObjectOfClasses:v7 forKey:@"locations"];
   locations = self->_locations;
@@ -61,7 +61,6 @@
   v11 = v10;
 
   self->_expiresIn = v11;
-  v12 = *MEMORY[0x277D85DE8];
   return self;
 }
 

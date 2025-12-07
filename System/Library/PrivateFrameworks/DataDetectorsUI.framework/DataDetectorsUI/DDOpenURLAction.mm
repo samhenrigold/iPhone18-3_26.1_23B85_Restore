@@ -131,7 +131,7 @@ LABEL_6:
   return v7;
 }
 
-uint64_t __26__DDOpenURLAction_appLink__block_invoke()
+void *__26__DDOpenURLAction_appLink__block_invoke()
 {
   result = [MEMORY[0x277CC1E48] currentProcessHasReadAccess];
   _MergedGlobals_8 = result;

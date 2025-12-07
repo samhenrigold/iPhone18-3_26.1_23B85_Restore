@@ -1,9 +1,12 @@
 @interface RPReportingAgent
++ (void)sendReportEventWithType:(unsigned __int16)type dictionary:(id)dictionary withServiceName:(id)name clientBundleId:(id)id sessionID:(id)d;
++ (void)sendReportSessionEnded:(unsigned __int16)ended endReason:(id)reason withServiceName:(id)name clientBundleId:(id)id sessionID:(id)d payload:(id)payload;
 - (CGSize)videoCaptureSize;
 - (RPReportingAgent)initWithServiceName:(id)name;
 - (id)collectSummaryEventMetrics;
 - (id)thermalDescription;
 - (void)addToThermalResultsWithLevel:(int64_t)level;
+- (void)reportEventWithType:(unsigned __int16)type dictionary:(id)dictionary clientBundleId:(id)id;
 - (void)resetReportingMetrics;
 - (void)resetThermalResults;
 - (void)thermalPressureDidChangeWithLevel:(int64_t)level;
@@ -216,6 +219,113 @@
   [(RPThermalPressure *)thermalPressureMonitor startMonitoring];
 }
 
+- (void)reportEventWithType:(unsigned __int16)type dictionary:(id)dictionary clientBundleId:(id)id
+{
+  typeCopy = type;
+  idCopy = id;
+  dictionaryCopy = dictionary;
+  serviceName = [(RPReportingAgent *)self serviceName];
+  [RPReportingAgent sendReportEventWithType:typeCopy dictionary:dictionaryCopy withServiceName:serviceName clientBundleId:idCopy sessionID:&stru_1000A2FB8];
+}
+
++ (void)sendReportEventWithType:(unsigned __int16)type dictionary:(id)dictionary withServiceName:(id)name clientBundleId:(id)id sessionID:(id)d
+{
+  typeCopy = type;
+  dictionaryCopy = dictionary;
+  nameCopy = name;
+  idCopy = id;
+  dCopy = d;
+  v15 = dCopy;
+  if (dictionaryCopy)
+  {
+    if ([dCopy length])
+    {
+      v16 = [v15 hash];
+      v17 = v16 + (v16 / 0xFFFFFFFF);
+    }
+
+    else
+    {
+      v17 = 0;
+    }
+
+    v34[0] = kRTCReportingSessionInfoClientType;
+    v34[1] = kRTCReportingSessionInfoClientVersion;
+    v35[0] = &off_1000A6CF8;
+    v35[1] = &off_1000A6D10;
+    v34[2] = kRTCReportingSessionInfoSessionID;
+    v18 = [NSNumber numberWithUnsignedInt:v17];
+    v35[2] = v18;
+    v35[3] = &__kCFBooleanTrue;
+    v34[3] = kRTCReportingSessionInfoBatchEvent;
+    v34[4] = kRTCReportingSessionInfoRequireUserInfo;
+    v34[5] = kRTCReportingSessionInfoClientBundleID;
+    v35[4] = &__kCFBooleanTrue;
+    v35[5] = idCopy;
+    v19 = [NSDictionary dictionaryWithObjects:v35 forKeys:v34 count:6];
+
+    v32[0] = kRTCReportingUserInfoClientName;
+    v32[1] = kRTCReportingUserInfoServiceName;
+    v33[0] = @"ReplayKit";
+    v33[1] = nameCopy;
+    v20 = [NSDictionary dictionaryWithObjects:v33 forKeys:v32 count:2];
+    v23 = 0;
+    v21 = [RTCReporting sendOneMessageWithSessionInfo:v19 userInfo:v20 category:typeCopy type:0 payload:dictionaryCopy error:&v23];
+    v22 = v23;
+    if (v21)
+    {
+      if (!dword_1000B6840 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 136446978;
+        v25 = "+[RPReportingAgent sendReportEventWithType:dictionary:withServiceName:clientBundleId:sessionID:]";
+        v26 = 1024;
+        v27 = 163;
+        v28 = 1024;
+        v29 = typeCopy;
+        v30 = 2112;
+        v31 = dictionaryCopy;
+        _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [DEBUG] %{public}s:%d reported eventType:%d payloadDict=%@", buf, 0x22u);
+      }
+    }
+
+    else if (dword_1000B6840 <= 2 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_100061E84(typeCopy, v22);
+    }
+  }
+
+  else if (dword_1000B6840 <= 2 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    sub_100061F40();
+  }
+}
+
++ (void)sendReportSessionEnded:(unsigned __int16)ended endReason:(id)reason withServiceName:(id)name clientBundleId:(id)id sessionID:(id)d payload:(id)payload
+{
+  endedCopy = ended;
+  reasonCopy = reason;
+  nameCopy = name;
+  idCopy = id;
+  dCopy = d;
+  payloadCopy = payload;
+  if (dword_1000B6840 <= 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    v20 = 136446722;
+    v21 = "+[RPReportingAgent sendReportSessionEnded:endReason:withServiceName:clientBundleId:sessionID:payload:]";
+    v22 = 1024;
+    v23 = 168;
+    v24 = 2048;
+    code = [reasonCopy code];
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d reporting with endReason=%ld", &v20, 0x1Cu);
+  }
+
+  v18 = [[NSMutableDictionary alloc] initWithDictionary:payloadCopy];
+  v19 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [reasonCopy code]);
+  [v18 setObject:v19 forKeyedSubscript:@"EndReason"];
+
+  [RPReportingAgent sendReportEventWithType:endedCopy dictionary:v18 withServiceName:nameCopy clientBundleId:idCopy sessionID:dCopy];
+}
+
 - (void)thermalPressureDidChangeWithLevel:(int64_t)level
 {
   if (dword_1000B6840 <= 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
@@ -250,9 +360,7 @@
   v15 = [NSNumber numberWithInteger:level];
   [(NSMutableDictionary *)v14 setObject:v13 forKeyedSubscript:v15];
 
-  v16 = +[NSDate date];
-  thermalLevelIntervalStartTime = self->_thermalLevelIntervalStartTime;
-  self->_thermalLevelIntervalStartTime = v16;
+  self->_thermalLevelIntervalStartTime = +[NSDate date];
 
   _objc_release_x1();
 }

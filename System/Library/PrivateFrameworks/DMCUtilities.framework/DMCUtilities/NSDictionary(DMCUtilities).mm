@@ -15,12 +15,12 @@
 
 + (id)DMCDictionaryFromFile:()DMCUtilities
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = a3;
   v4 = [MEMORY[0x1E695DFF8] fileURLWithPath:v3];
-  v13 = 0;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithContentsOfURL:v4 error:&v13];
-  v6 = v13;
+  v14 = 0;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithContentsOfURL:v4 error:&v14];
+  v6 = v14;
   v7 = v6;
   if (!v5)
   {
@@ -39,20 +39,18 @@
     {
     }
 
-    v12 = *DMCLogObjects();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = *DMCLogObjects(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v15 = v3;
-      v16 = 2114;
-      v17 = v7;
-      _os_log_impl(&dword_1B1630000, v12, OS_LOG_TYPE_ERROR, "Failed to make dictionary from file at path: %{public}@ with error: %{public}@", buf, 0x16u);
+      v16 = v3;
+      v17 = 2114;
+      v18 = v7;
+      _os_log_impl(&dword_1B1630000, v13, OS_LOG_TYPE_ERROR, "Failed to make dictionary from file at path: %{public}@ with error: %{public}@", buf, 0x16u);
     }
   }
 
 LABEL_2:
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -90,51 +88,51 @@ LABEL_2:
 
 + (id)dmc_jsonDictionaryFromData:()DMCUtilities
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v13 = 0;
-  v3 = [MEMORY[0x1E696ACB0] JSONObjectWithData:a3 options:0 error:&v13];
-  v4 = v13;
+  v17 = *MEMORY[0x1E69E9840];
+  v14 = 0;
+  v3 = [MEMORY[0x1E696ACB0] JSONObjectWithData:a3 options:0 error:&v14];
+  isKindOfClass = v14;
+  v6 = isKindOfClass;
   if (v3)
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v5 = v3;
+      v7 = v3;
       goto LABEL_11;
     }
   }
 
-  v6 = *DMCLogObjects();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
-  if (v4)
+  v8 = *DMCLogObjects(isKindOfClass, v5);
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
+  if (v6)
   {
-    if (v7)
+    if (v9)
     {
       *buf = 138543362;
-      v15 = v4;
-      v8 = "Failed to serialize data with error: %{public}@";
-      v9 = v6;
-      v10 = 12;
+      v16 = v6;
+      v10 = "Failed to serialize data with error: %{public}@";
+      v11 = v8;
+      v12 = 12;
 LABEL_9:
-      _os_log_impl(&dword_1B1630000, v9, OS_LOG_TYPE_ERROR, v8, buf, v10);
+      _os_log_impl(&dword_1B1630000, v11, OS_LOG_TYPE_ERROR, v10, buf, v12);
     }
   }
 
-  else if (v7)
+  else if (v9)
   {
     *buf = 0;
-    v8 = "JSON Dict from response data is not valid.";
-    v9 = v6;
-    v10 = 2;
+    v10 = "JSON Dict from response data is not valid.";
+    v11 = v8;
+    v12 = 2;
     goto LABEL_9;
   }
 
-  v5 = 0;
+  v7 = 0;
 LABEL_11:
 
-  v11 = *MEMORY[0x1E69E9840];
-
-  return v5;
+  return v7;
 }
 
 - (uint64_t)_writingOptionsFromProtectionType:()DMCUtilities
@@ -246,39 +244,37 @@ LABEL_11:
 
 + (id)DMCShortenedArray:()DMCUtilities
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v4, "count")}];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = v4;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [self DMCShortenedObject:{*(*(&v14 + 1) + 8 * i), v14}];
+        v11 = [self DMCShortenedObject:{*(*(&v13 + 1) + 8 * i), v13}];
         [v5 addObject:v11];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

@@ -132,8 +132,7 @@ LABEL_63:
       v80 = 2112;
       v81 = originatingBundleId;
       v47 = v45;
-      LODWORD(v67) = 22;
-      v48 = _os_log_send_and_compose_impl();
+      v48 = _os_log_send_and_compose_impl(v44, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "[%{public}@]: Did not find Info.plist for app: %@", &v78, 22);
 
       if (!v48)
       {
@@ -146,7 +145,7 @@ LABEL_49:
         goto LABEL_70;
       }
 
-      oSLogObject = [NSString stringWithCString:v48 encoding:4, &v78, v67];
+      oSLogObject = [NSString stringWithCString:v48 encoding:4];
       free(v48);
       SSFileLog();
     }
@@ -196,8 +195,7 @@ LABEL_49:
       v80 = 2112;
       v81 = v56;
       v57 = v55;
-      LODWORD(v67) = 22;
-      v58 = _os_log_send_and_compose_impl();
+      v58 = _os_log_send_and_compose_impl(v54, 0, 0, 0, &_mh_execute_header, oSLogObject2, 16, "[%{public}@]: Did not find Info.plist for app: %@", &v78, 22);
 
       if (!v58)
       {
@@ -207,7 +205,7 @@ LABEL_62:
         goto LABEL_69;
       }
 
-      oSLogObject2 = [NSString stringWithCString:v58 encoding:4, &v78, v67];
+      oSLogObject2 = [NSString stringWithCString:v58 encoding:4];
       free(v58);
       SSFileLog();
     }
@@ -284,12 +282,11 @@ LABEL_62:
           v81 = v27;
           v28 = v26;
           LODWORD(v67) = 22;
-          v66 = &v78;
-          v29 = _os_log_send_and_compose_impl();
+          v29 = _os_log_send_and_compose_impl(v25, 0, 0, 0, &_mh_execute_header, oSLogObject3, 16, "[%{public}@]: Found non-dictionary SKAdNetworkItem in Info.plist for app: %@", &v78, v67);
 
           if (v29)
           {
-            oSLogObject3 = [NSString stringWithCString:v29 encoding:4, &v78, v67];
+            oSLogObject3 = [NSString stringWithCString:v29 encoding:4];
             free(v29);
             v66 = oSLogObject3;
             SSFileLog();
@@ -360,7 +357,7 @@ LABEL_27:
     v82 = 2112;
     v83 = adNetworkId2;
     LODWORD(v67) = 32;
-    v39 = _os_log_send_and_compose_impl();
+    v39 = _os_log_send_and_compose_impl(v33, 0, 0, 0, &_mh_execute_header, oSLogObject4, 16, "[%{public}@]: App: %@ did not have ad network: %@ in Info.plist", &v78, v67);
 
     v6 = v70;
     v3 = v71;
@@ -368,7 +365,7 @@ LABEL_27:
     v9 = v69;
     if (v39)
     {
-      oSLogObject4 = [NSString stringWithCString:v39 encoding:4, &v78, v67];
+      oSLogObject4 = [NSString stringWithCString:v39 encoding:4];
       free(v39);
       SSFileLog();
       goto LABEL_67;

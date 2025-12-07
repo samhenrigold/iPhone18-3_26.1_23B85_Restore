@@ -60,43 +60,42 @@
   sessionCopy = session;
   selfCopy = self;
   sub_100393850(sessionCopy, foreground, v8, v9);
-  sub_1001C7C2C(v8);
+  sub_1001C7C2C(v8, v9);
 }
 
 - (void)openMusicParticipantManagementWithCompletion:(id)completion
 {
   v5 = sub_1001BC5A8(&qword_100523B48, &unk_100451A30);
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5 - 8);
-  v8 = &v14 - v7;
-  v9 = _Block_copy(completion);
-  if (v9)
+  v7 = &v13 - v6;
+  v8 = _Block_copy(completion);
+  if (v8)
   {
-    v10 = swift_allocObject();
-    *(v10 + 16) = v9;
-    v9 = sub_100224B80;
+    v9 = swift_allocObject();
+    *(v9 + 16) = v8;
+    v8 = sub_100224B80;
   }
 
   else
   {
-    v10 = 0;
+    v9 = 0;
   }
 
   selfCopy = self;
   URL.init(string:)();
-  v12 = type metadata accessor for URL();
-  v13 = *(v12 - 8);
-  if ((*(v13 + 48))(v8, 1, v12) == 1)
+  v11 = type metadata accessor for URL();
+  v12 = *(v11 - 8);
+  if ((*(v12 + 48))(v7, 1, v11) == 1)
   {
     __break(1u);
   }
 
   else
   {
-    sub_100393CB8(v8, 1, v9, v10);
+    sub_100393CB8(v7, 1, v8, v9);
 
-    sub_1001C7C2C(v9);
-    (*(v13 + 8))(v8, v12);
+    sub_1001C7C2C(v8, v9);
+    (*(v12 + 8))(v7, v11);
   }
 }
 

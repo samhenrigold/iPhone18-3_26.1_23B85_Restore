@@ -85,41 +85,42 @@
   dCopy = d;
   if (numberCopy && [numberCopy length])
   {
-    v17 = 0;
-    v18 = &v17;
-    v19 = 0x3032000000;
-    v20 = sub_1000102E4;
-    v21 = sub_1000102F4;
-    v22 = objc_opt_new();
+    v18 = 0;
+    v19 = &v18;
+    v20 = 0x3032000000;
+    v21 = sub_1000102E4;
+    v22 = sub_1000102F4;
+    v23 = objc_opt_new();
     accessoryRawInfo = [(FMDCoreAccessoriesCache *)self accessoryRawInfo];
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3221225472;
-    v13[2] = sub_1000102FC;
-    v13[3] = &unk_100025798;
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_1000102FC;
+    v14[3] = &unk_100025798;
     v9 = numberCopy;
-    v14 = v9;
-    v15 = dCopy;
-    v16 = &v17;
-    [accessoryRawInfo enumerateKeysAndObjectsUsingBlock:v13];
+    v15 = v9;
+    v16 = dCopy;
+    v17 = &v18;
+    [accessoryRawInfo enumerateKeysAndObjectsUsingBlock:v14];
 
-    if ([v18[5] count])
+    v10 = [v19[5] count];
+    if (v10)
     {
-      v10 = sub_100004FC8();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = sub_100004FC8(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = [v18[5] count];
+        v12 = [v19[5] count];
         *buf = 134218242;
-        v24 = v11;
-        v25 = 2112;
-        v26 = v9;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "FMDCoreAccessoriesCache removing %lu duplications of accessory with %@ serial number", buf, 0x16u);
+        v25 = v12;
+        v26 = 2112;
+        v27 = v9;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "FMDCoreAccessoriesCache removing %lu duplications of accessory with %@ serial number", buf, 0x16u);
       }
     }
 
     accessoryRawInfo2 = [(FMDCoreAccessoriesCache *)self accessoryRawInfo];
-    [accessoryRawInfo2 removeObjectsForKeys:v18[5]];
+    [accessoryRawInfo2 removeObjectsForKeys:v19[5]];
 
-    _Block_object_dispose(&v17, 8);
+    _Block_object_dispose(&v18, 8);
   }
 }
 

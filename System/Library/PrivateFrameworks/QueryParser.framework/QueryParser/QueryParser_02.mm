@@ -10,12 +10,10 @@ void ___ZNK2QP16HolidayReference28updateDateValuesForLookupKeyEP14__CFDictionary
 {
   if (!strncmp(__s1, "Day", a3))
   {
-    v13 = *a4;
-    v15 = *(a4 + 2);
     valuePtr = _MDPlistNumberGetIntValue();
-    v10 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberIntType, &valuePtr);
-    CFDictionarySetValue(*(a1 + 32), @"Day", v10);
-    if (!v10)
+    v9 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberIntType, &valuePtr);
+    CFDictionarySetValue(*(a1 + 32), @"Day", v9);
+    if (!v9)
     {
       return;
     }
@@ -27,40 +25,38 @@ void ___ZNK2QP16HolidayReference28updateDateValuesForLookupKeyEP14__CFDictionary
   {
     if (!strncmp(__s1, "NoDefinition", a3))
     {
-      v8 = *(a1 + 32);
-      v9 = *MEMORY[0x1E695E4D0];
+      v7 = *(a1 + 32);
+      v8 = *MEMORY[0x1E695E4D0];
 
-      CFDictionarySetValue(v8, @"NoDefinition", v9);
+      CFDictionarySetValue(v7, @"NoDefinition", v8);
     }
 
     return;
   }
 
-  v14 = *a4;
-  v16 = *(a4 + 2);
   valuePtr = _MDPlistNumberGetIntValue();
-  v11 = *MEMORY[0x1E695E480];
-  v10 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberIntType, &valuePtr);
-  CFDictionarySetValue(*(a1 + 32), @"Month", v10);
-  v12 = CFNumberCreate(v11, kCFNumberIntType, (a1 + 40));
-  if (v12)
+  v10 = *MEMORY[0x1E695E480];
+  v9 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberIntType, &valuePtr);
+  CFDictionarySetValue(*(a1 + 32), @"Month", v9);
+  v11 = CFNumberCreate(v10, kCFNumberIntType, (a1 + 40));
+  if (v11)
   {
-    CFDictionarySetValue(*(a1 + 32), @"Year", v12);
-    CFRelease(v12);
+    CFDictionarySetValue(*(a1 + 32), @"Year", v11);
+    CFRelease(v11);
   }
 
-  if (v10)
+  if (v9)
   {
 LABEL_12:
-    CFRelease(v10);
+    CFRelease(v9);
   }
 }
 
-void sub_1C65AB01C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C65AB01C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, const void *);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, const void *);
   nlp::CFScopedPtr<__CFNumber const*>::reset(va, 0);
   nlp::CFScopedPtr<__CFNumber const*>::reset(va1, 0);
   _Unwind_Resume(a1);
@@ -149,9 +145,9 @@ BOOL QP::HolidayReference::containsHoliday(QP::HolidayReference *this, const __C
   return v2;
 }
 
-void sub_1C65AB3DC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C65AB3DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -159,31 +155,31 @@ void sub_1C65AB3DC(_Unwind_Exception *a1, uint64_t a2, ...)
 __CFDictionary *QP::HolidayReference::copyValuesForYear(QP::HolidayReference *this, const __CFString *a2, const __CFString *a3, const __CFString *a4, int a5)
 {
   Mutable = 0;
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   if (a5 < 2005 || !a4 || !a3 || !a2 || !*(this + 2))
   {
-    goto LABEL_68;
+    return Mutable;
   }
 
+  v37 = 0;
   v38 = 0;
-  v39 = 0;
   v11 = *MEMORY[0x1E695E480];
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
   if (CFStringsAreEqual(a3, @"generic") || CFStringsAreEqual(a3, @"general"))
   {
     v12 = CFStringCreateWithFormat(v11, 0, @"/%@/%@", a2, a4);
-    v39 = v12;
+    v38 = v12;
     if (QP::HolidayReference::containsLookupKey(this, v12))
     {
       v13 = QP::HolidayReference::copyStringForLookupKey(this, v12);
-      v38 = v13;
+      v37 = v13;
       v14 = CFStringCreateWithFormat(v11, 0, @"/%@/%@.%@", a2, a4, v13);
       if (v12)
       {
         CFRelease(v12);
       }
 
-      v39 = v14;
+      v38 = v14;
       if (QP::HolidayReference::containsLookupKey(this, v14))
       {
         QP::HolidayReference::updateDateValuesForLookupKey(this, Mutable, v14, a5);
@@ -199,10 +195,10 @@ __CFDictionary *QP::HolidayReference::copyValuesForYear(QP::HolidayReference *th
         CFRelease(v12);
       }
 
-      v39 = v15;
+      v38 = v15;
       v16 = QP::HolidayReference::copyStringForLookupKey(this, v15);
       v17 = v16;
-      v38 = v16;
+      v37 = v16;
       if (v16)
       {
         v14 = CFStringCreateWithFormat(v11, 0, @"/%@/%@.%@", a2, a4, v16);
@@ -211,7 +207,7 @@ __CFDictionary *QP::HolidayReference::copyValuesForYear(QP::HolidayReference *th
           CFRelease(v15);
         }
 
-        v39 = v14;
+        v38 = v14;
         if (QP::HolidayReference::containsLookupKey(this, v14))
         {
           QP::HolidayReference::updateDateValuesForLookupKey(this, Mutable, v14, a5);
@@ -229,10 +225,10 @@ __CFDictionary *QP::HolidayReference::copyValuesForYear(QP::HolidayReference *th
   }
 
   MutableCopy = CFStringCreateMutableCopy(v11, 0, a3);
-  v37 = MutableCopy;
+  v36 = MutableCopy;
   CFStringUppercase(MutableCopy, 0);
   v14 = CFStringCreateWithFormat(v11, 0, @"/%@/%@.%@", a2, a4, MutableCopy);
-  v39 = v14;
+  v38 = v14;
   if (QP::HolidayReference::containsLookupKey(this, v14))
   {
     QP::HolidayReference::updateDateValuesForLookupKey(this, Mutable, v14, a5);
@@ -246,7 +242,7 @@ __CFDictionary *QP::HolidayReference::copyValuesForYear(QP::HolidayReference *th
     CFRelease(v14);
   }
 
-  v39 = v19;
+  v38 = v19;
   if (QP::HolidayReference::containsLookupKey(this, v19))
   {
     QP::HolidayReference::updateDateValuesForLookupKey(this, Mutable, v19, a5);
@@ -277,23 +273,23 @@ LABEL_31:
       CFRelease(v14);
     }
 
-    v39 = v20;
+    v38 = v20;
     if (QP::HolidayReference::containsLookupKey(this, v20))
     {
       v21 = QP::HolidayReference::copyStringForLookupKey(this, v20);
-      if (v38)
+      if (v37)
       {
-        CFRelease(v38);
+        CFRelease(v37);
       }
 
-      v38 = v21;
+      v37 = v21;
       v14 = CFStringCreateWithFormat(v11, 0, @"/%@/default.%@", a2, v21);
       if (v20)
       {
         CFRelease(v20);
       }
 
-      v39 = v14;
+      v38 = v14;
       if (QP::HolidayReference::containsLookupKey(this, v14))
       {
         QP::HolidayReference::updateDateValuesForLookupKey(this, Mutable, v14, a5);
@@ -321,7 +317,7 @@ LABEL_31:
           CFRelease(v14);
         }
 
-        v39 = v24;
+        v38 = v24;
         if (QP::HolidayReference::containsLookupKey(this, v24))
         {
           CFDictionaryRemoveAllValues(Mutable);
@@ -331,14 +327,14 @@ LABEL_31:
         else if (QP::HolidayReference::containsLookupKey(this, @"default"))
         {
           v31 = QP::HolidayReference::copyStringForLookupKey(this, @"default");
-          v37 = v31;
+          v36 = v31;
           v32 = CFStringCreateWithFormat(v11, 0, @"/%@/default.%@", a2, v31);
           if (v24)
           {
             CFRelease(v24);
           }
 
-          v39 = v32;
+          v38 = v32;
           if (QP::HolidayReference::containsLookupKey(this, v32))
           {
             CFDictionaryRemoveAllValues(Mutable);
@@ -370,11 +366,11 @@ LABEL_31:
       v25 = CFDictionaryGetValue(Mutable, @"DayOffset");
       CFNumberGetValue(v25, kCFNumberIntType, &valuePtr);
       v26 = QP::HolidayReference::copyValuesForYear(this, Value, a3, a4, a5);
-      v37 = v26;
+      v36 = v26;
       CFDictionaryRemoveAllValues(Mutable);
       Count = CFDictionaryGetCount(v26);
       MEMORY[0x1EEE9AC00](Count);
-      v28 = (&v35 - ((8 * Count + 15) & 0xFFFFFFFFFFFFFFF0));
+      v28 = (&v34 - ((8 * Count + 15) & 0xFFFFFFFFFFFFFFF0));
       bzero(v28, 8 * Count);
       MEMORY[0x1EEE9AC00](v29);
       v30 = v28;
@@ -404,9 +400,9 @@ LABEL_31:
     QP::HolidayReference::normalizeDateValues(this, Mutable, a5, 0);
   }
 
-  if (v38)
+  if (v37)
   {
-    CFRelease(v38);
+    CFRelease(v37);
   }
 
   if (v14)
@@ -414,8 +410,6 @@ LABEL_31:
     CFRelease(v14);
   }
 
-LABEL_68:
-  v33 = *MEMORY[0x1E69E9840];
   return Mutable;
 }
 
@@ -429,27 +423,27 @@ void sub_1C65ABB14(_Unwind_Exception *exception_object, int a2)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t QP::LexemeConverter::LexemeConverter(uint64_t result, void *a2, void *a3)
+uint64_t QP::LexemeConverter::LexemeConverter(uint64_t a1, void *a2, void *a3)
 {
   v3 = a2[1];
-  *result = *a2;
-  *(result + 8) = v3;
+  *a1 = *a2;
+  *(a1 + 8) = v3;
   if (v3)
   {
     atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
   }
 
   v4 = a3[1];
-  *(result + 16) = *a3;
-  *(result + 24) = v4;
+  *(a1 + 16) = *a3;
+  *(a1 + 24) = v4;
   if (v4)
   {
     atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
   }
 
-  *(result + 32) = 0u;
-  *(result + 48) = 0u;
-  *(result + 64) = 0;
+  *(a1 + 32) = 0u;
+  *(a1 + 48) = 0u;
+  *(a1 + 64) = 0;
   if (*a2)
   {
     if (*a3)
@@ -458,7 +452,7 @@ uint64_t QP::LexemeConverter::LexemeConverter(uint64_t result, void *a2, void *a
     }
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1C65ABD44(_Unwind_Exception *a1)
@@ -522,7 +516,7 @@ QP::Transcriber *std::unique_ptr<QP::Transcriber>::reset[abi:ne200100](QP::Trans
   return result;
 }
 
-uint64_t QP::LexemeConverter::loadResourceURL(QP::DateConverter **this, CFURLRef url)
+uint64_t QP::LexemeConverter::loadResourceURL(QP::HolidayReference ***this, CFURLRef url)
 {
   if (!url)
   {
@@ -564,51 +558,51 @@ LABEL_9:
   return this & 1;
 }
 
-void sub_1C65ABF48(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C65ABF48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  MEMORY[0x1C695B850](v2, 0x60C4044C4A2DFLL);
+  va_start(va, a3);
+  MEMORY[0x1C695B850](v3, 0x60C4044C4A2DFLL);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
 
-void QP::LexemeConverter::enumerateEntitiesWithString(uint64_t a1, const __CFString *a2, const __CFString *a3, CFIndex a4, CFIndex a5, CFIndex a6, CFIndex a7)
+void QP::LexemeConverter::enumerateEntitiesWithString(uint64_t a1, const __CFString *a2, __CFString *a3, CFIndex a4, CFIndex a5, CFIndex a6, CFIndex a7, uint64_t a8)
 {
-  v16.location = a4;
-  v16.length = a5;
+  v17.location = a4;
+  v17.length = a5;
   if (a2 && a4 != -1)
   {
     result = xmmword_1C6631880;
     Predefined = CFCharacterSetGetPredefined(kCFCharacterSetPunctuation);
-    CFStringFindCharacterFromSet(a2, Predefined, v16, 0, &result);
+    CFStringFindCharacterFromSet(a2, Predefined, v17, 0, &result);
     if (a3)
     {
-      v12 = CFStringHasPrefix(a3, @"QuotedText") != 0;
+      v13 = CFStringHasPrefix(a3, @"QuotedText") != 0;
     }
 
     else
     {
-      v12 = 0;
+      v13 = 0;
     }
 
-    if (result.location != -1 && result.location == v16.location && result.length == v16.length)
+    if (result.location != -1 && result.location == v17.location && result.length == v17.length)
     {
       std::allocate_shared[abi:ne200100]<QP::Lexeme,std::allocator<QP::Lexeme>,char const(&)[6],CFRange &,0>();
     }
 
-    if (v12)
+    if (v13)
     {
-      v17.location = a6;
-      v17.length = a7;
-      v14 = CFStringCreateWithSubstring(*MEMORY[0x1E695E480], a2, v17);
-      QP::getUTF8StringFromCFString(v14, __p);
+      v18.location = a6;
+      v18.length = a7;
+      v15 = CFStringCreateWithSubstring(*MEMORY[0x1E695E480], a2, v18);
+      QP::getUTF8StringFromCFString(__p, v15);
       std::allocate_shared[abi:ne200100]<QP::LexemeQuotedText,std::allocator<QP::LexemeQuotedText>,CFRange &,std::string,0>();
     }
 
     if (a3)
     {
       memset(__p, 0, sizeof(__p));
-      QP::getUTF8StringFromCFString(a3, __p);
+      QP::getUTF8StringFromCFString(__p, a3);
       std::allocate_shared[abi:ne200100]<QP::Lexeme,std::allocator<QP::Lexeme>,std::string &,CFRange &,0>();
     }
 
@@ -631,14 +625,14 @@ void sub_1C65AC2A0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void QP::LexemeConverter::enumerateEntitiesWithTypeAndValues(uint64_t *a1, CFStringRef theString, uint64_t a3, std::string::size_type a4, const __CFString *a5, const __CFDictionary *a6)
+void QP::LexemeConverter::enumerateEntitiesWithTypeAndValues(void *a1, __CFString *theString, CFIndex a3, CFIndex a4, const __CFString *a5, const __CFDictionary *a6, uint64_t a7)
 {
-  v55 = *MEMORY[0x1E69E9840];
-  v53 = a3;
-  v54 = a4;
-  if (!theString || !a5 || (a3 + a4) > CFStringGetLength(theString))
+  v53 = *MEMORY[0x1E69E9840];
+  v51 = a3;
+  v52 = a4;
+  if (!theString || !a5 || a3 + a4 > CFStringGetLength(theString))
   {
-    goto LABEL_23;
+    return;
   }
 
   if (a6)
@@ -651,44 +645,44 @@ void QP::LexemeConverter::enumerateEntitiesWithTypeAndValues(uint64_t *a1, CFStr
     Count = 0;
   }
 
-  v11 = a1[2];
-  QP::getUTF8StringFromCFString(a5, &v50);
-  v12 = QP::ParserGrammar::symbolID(v11, &v50);
-  v13 = v12;
-  if (SBYTE7(v51) < 0)
+  v12 = a1[2];
+  QP::getUTF8StringFromCFString(&v48, a5);
+  v13 = QP::ParserGrammar::symbolID(v12, &v48);
+  v14 = v13;
+  if (SBYTE7(v49) < 0)
   {
-    operator delete(v50);
-    if (!v13)
+    operator delete(v48);
+    if (!v14)
     {
-      goto LABEL_23;
+      return;
     }
   }
 
-  else if (!v12)
+  else if (!v13)
   {
-    goto LABEL_23;
+    return;
   }
 
-  v14 = QP::ParserGrammar::symbolFlag(a1[2], v13);
+  v15 = QP::ParserGrammar::symbolFlag(a1[2], v14);
   if (Count)
   {
-    v39[0] = v39;
-    v15 = 8 * Count;
-    MEMORY[0x1EEE9AC00](v14);
-    v16 = v39 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-    bzero(v16, v15);
-    MEMORY[0x1EEE9AC00](v17);
-    bzero(v16, v15);
-    CFDictionaryGetKeysAndValues(a6, v16, v16);
+    v37 = &v37;
+    v16 = 8 * Count;
+    MEMORY[0x1EEE9AC00](v15);
+    v17 = &v37 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+    bzero(v17, v16);
+    MEMORY[0x1EEE9AC00](v18);
+    bzero(v17, v16);
+    CFDictionaryGetKeysAndValues(a6, v17, v17);
     if (CFStringsAreEqual(a5, @"Field"))
     {
       MutableCopy = CFStringCreateMutableCopy(*MEMORY[0x1E695E480], 0, theString);
-      v40[0] = &MutableCopy->isa;
+      p_isa = &MutableCopy->isa;
       CFStringLowercase(MutableCopy, *(*a1 + 112));
-      v19 = *(*a1 + 232);
-      if (v19 && CFDictionaryContainsKey(v19, MutableCopy))
+      v20 = *(*a1 + 232);
+      if (v20 && CFDictionaryContainsKey(v20, MutableCopy))
       {
-        QP::getUTF8StringFromCFString(a5, &v50);
+        QP::getUTF8StringFromCFString(&v48, a5);
         std::allocate_shared[abi:ne200100]<QP::Lexeme,std::allocator<QP::Lexeme>,std::string,CFRange &,0>();
       }
 
@@ -697,7 +691,7 @@ void QP::LexemeConverter::enumerateEntitiesWithTypeAndValues(uint64_t *a1, CFStr
         CFRelease(MutableCopy);
       }
 
-      goto LABEL_23;
+      return;
     }
 
     if (CFStringsAreEqual(a5, @"Person") || CFStringsAreEqual(a5, @"Contact"))
@@ -709,42 +703,42 @@ void QP::LexemeConverter::enumerateEntitiesWithTypeAndValues(uint64_t *a1, CFStr
     {
       if (a1[7] && *(*a1 + 76) == 1)
       {
-        *&v50 = 0;
-        *(&v50 + 1) = &v50;
-        *&v51 = 0x16002000000;
-        *(&v51 + 1) = __Block_byref_object_copy__6;
-        memset(&v52[8], 0, 312);
-        *v52 = __Block_byref_object_dispose__6;
-        QP::getUTF8StringFromCFString(a5, v48);
-        QP::getUTF8StringFromCFString(theString, &v46);
-        QP::LexemeLocationExtended::LexemeLocationExtended(&v52[8], v48, &v46, v53, v54);
-        if (v47 < 0)
+        *&v48 = 0;
+        *(&v48 + 1) = &v48;
+        *&v49 = 0x16002000000;
+        *(&v49 + 1) = __Block_byref_object_copy__6;
+        memset(&v50[8], 0, 312);
+        *v50 = __Block_byref_object_dispose__6;
+        QP::getUTF8StringFromCFString(v46, a5);
+        QP::getUTF8StringFromCFString(&v44, theString);
+        QP::LexemeLocationExtended::LexemeLocationExtended(&v50[8], v46, &v44, v51, v52);
+        if (v45 < 0)
         {
-          operator delete(v46);
+          operator delete(v44);
         }
 
-        if (v49 < 0)
+        if (v47 < 0)
         {
-          operator delete(v48[0]);
+          operator delete(v46[0]);
         }
 
         std::allocate_shared[abi:ne200100]<QP::LexemeLocationExtended,std::allocator<QP::LexemeLocationExtended>,QP::LexemeLocationExtended&,0>();
       }
 
-      v51 = 0u;
-      memset(v52, 0, 112);
-      v50 = 0u;
-      QP::getUTF8StringFromCFString(a5, v44);
-      QP::getUTF8StringFromCFString(theString, &v42);
-      QP::LexemeLocation::LexemeLocation(&v50, v44, &v42, v53, v54);
-      if (v43 < 0)
+      v49 = 0u;
+      memset(v50, 0, 112);
+      v48 = 0u;
+      QP::getUTF8StringFromCFString(v42, a5);
+      QP::getUTF8StringFromCFString(&v40, theString);
+      QP::LexemeLocation::LexemeLocation(&v48, v42, &v40, v51, v52);
+      if (v41 < 0)
       {
-        operator delete(v42);
+        operator delete(v40);
       }
 
-      if (v45 < 0)
+      if (v43 < 0)
       {
-        operator delete(v44[0]);
+        operator delete(v42[0]);
       }
 
       std::allocate_shared[abi:ne200100]<QP::LexemeLocation,std::allocator<QP::LexemeLocation>,QP::LexemeLocation&,0>();
@@ -759,13 +753,13 @@ void QP::LexemeConverter::enumerateEntitiesWithTypeAndValues(uint64_t *a1, CFStr
         v23 = v22;
         if (v22)
         {
-          QP::getUTF8StringFromCFString(Value, &v50);
-          QP::getUTF8StringFromCFString(v23, v41);
+          QP::getUTF8StringFromCFString(&v48, Value);
+          QP::getUTF8StringFromCFString(&v39, v23);
           std::allocate_shared[abi:ne200100]<QP::LexemeExtended,std::allocator<QP::LexemeExtended>,char const(&)[18],std::string,std::string,CFRange &,0>();
         }
       }
 
-      goto LABEL_23;
+      return;
     }
 
     if (CFStringFind(a5, @"TrackingNumber", 0).location != -1)
@@ -777,29 +771,29 @@ void QP::LexemeConverter::enumerateEntitiesWithTypeAndValues(uint64_t *a1, CFStr
         v26 = v25;
         if (v25)
         {
-          QP::getUTF8StringFromCFString(v24, &v50);
-          QP::getUTF8StringFromCFString(v26, v41);
+          QP::getUTF8StringFromCFString(&v48, v24);
+          QP::getUTF8StringFromCFString(&v39, v26);
           std::allocate_shared[abi:ne200100]<QP::LexemeExtended,std::allocator<QP::LexemeExtended>,char const(&)[15],std::string,std::string,CFRange &,0>();
         }
       }
 
-      goto LABEL_23;
+      return;
     }
 
     if (CFStringFind(a5, @"Money", 0).location != -1)
     {
       v27 = CFDictionaryGetValue(a6, @"CurrencyUnit");
-      v40[0] = 0;
-      QP::NumericConverter::numericValueForTypeWithValues(a1[5], a5, a6, v40);
-      if (v40[0] && v27)
+      p_isa = 0;
+      QP::NumericConverter::numericValueForTypeWithValues(&p_isa, a1[5], a5, a6);
+      if (p_isa && v27)
       {
-        QP::getUTF8StringFromCFString(v27, &v50);
+        QP::getUTF8StringFromCFString(&v48, v27);
         std::allocate_shared[abi:ne200100]<QP::LexemeExtendedNumber,std::allocator<QP::LexemeExtendedNumber>,char const(&)[6],std::unique_ptr<QP::NumericValue>,std::string,CFRange &,0>();
       }
 
-LABEL_49:
-      std::unique_ptr<QP::NumericValue>::~unique_ptr[abi:ne200100](v40);
-      goto LABEL_23;
+LABEL_50:
+      std::unique_ptr<QP::NumericValue>::~unique_ptr[abi:ne200100](&p_isa);
+      return;
     }
 
     if (CFStringFind(a5, @"URL", 0).location == -1)
@@ -810,15 +804,15 @@ LABEL_49:
         if (v31)
         {
           v32 = CFDictionaryGetValue(a6, @"PhoneNumber");
-          QP::getUTF8StringFromCFString(v31, &v50);
+          QP::getUTF8StringFromCFString(&v48, v31);
           if (v32)
           {
-            QP::getUTF8StringFromCFString(v32, v41);
+            QP::getUTF8StringFromCFString(&v39, v32);
           }
 
           else
           {
-            std::string::basic_string[abi:ne200100]<0>(v41, "");
+            std::string::basic_string[abi:ne200100]<0>(&v39, "");
           }
 
           std::allocate_shared[abi:ne200100]<QP::LexemeExtended,std::allocator<QP::LexemeExtended>,char const(&)[12],std::string,std::string,CFRange &,0>();
@@ -831,15 +825,15 @@ LABEL_49:
         if (v33)
         {
           v34 = CFDictionaryGetValue(a6, @"Zip");
-          QP::getUTF8StringFromCFString(v33, &v50);
+          QP::getUTF8StringFromCFString(&v48, v33);
           if (v34)
           {
-            QP::getUTF8StringFromCFString(v34, v41);
+            QP::getUTF8StringFromCFString(&v39, v34);
           }
 
           else
           {
-            std::string::basic_string[abi:ne200100]<0>(v41, "");
+            std::string::basic_string[abi:ne200100]<0>(&v39, "");
           }
 
           std::allocate_shared[abi:ne200100]<QP::LexemeExtended,std::allocator<QP::LexemeExtended>,char const(&)[12],std::string,std::string,CFRange &,0>();
@@ -858,8 +852,8 @@ LABEL_49:
           if (CFDictionaryContainsKey(a6, @"Value"))
           {
             v35 = CFDictionaryGetValue(a6, @"Value");
-            QP::getUTF8StringFromCFString(a5, &v50);
-            QP::getUTF8StringFromCFString(v35, v41);
+            QP::getUTF8StringFromCFString(&v48, a5);
+            QP::getUTF8StringFromCFString(&v39, v35);
             std::allocate_shared[abi:ne200100]<QP::LexemeStatus,std::allocator<QP::LexemeStatus>,std::string,std::string,CFRange &,0>();
           }
         }
@@ -869,8 +863,8 @@ LABEL_49:
           if (CFDictionaryContainsKey(a6, @"Value"))
           {
             v36 = CFDictionaryGetValue(a6, @"Value");
-            QP::getUTF8StringFromCFString(a5, &v50);
-            QP::getUTF8StringFromCFString(v36, v41);
+            QP::getUTF8StringFromCFString(&v48, a5);
+            QP::getUTF8StringFromCFString(&v39, v36);
             std::allocate_shared[abi:ne200100]<QP::LexemeValue,std::allocator<QP::LexemeValue>,std::string,std::string,CFRange &,0>();
           }
         }
@@ -879,49 +873,47 @@ LABEL_49:
         {
           if (CFStringHasSuffix(a5, @"Value") || CFStringHasSuffix(a5, @"Count"))
           {
-            v40[0] = 0;
-            QP::NumericConverter::numericValueForTypeWithValues(a1[5], a5, a6, v40);
-            if (v40[0])
+            p_isa = 0;
+            QP::NumericConverter::numericValueForTypeWithValues(&p_isa, a1[5], a5, a6);
+            if (p_isa)
             {
-              QP::getUTF8StringFromCFString(a5, &v50);
+              QP::getUTF8StringFromCFString(&v48, a5);
               std::allocate_shared[abi:ne200100]<QP::LexemeNumber,std::allocator<QP::LexemeNumber>,std::string,std::unique_ptr<QP::NumericValue>,CFRange &,0>();
             }
 
-            goto LABEL_49;
+            goto LABEL_50;
           }
 
           if (CFStringHasSuffix(a5, @"Date") || CFStringHasSuffix(a5, @"Time") || CFStringHasSuffix(a5, @"Period"))
           {
             if (CFDictionaryContainsKey(a6, @"Value"))
             {
-              v40[0] = 0;
-              v37 = a1[4];
-              QP::DateConverter::datePeriodForRelativeDate(a5, v40);
-              if (v40[0])
+              p_isa = 0;
+              QP::DateConverter::datePeriodForRelativeDate(a5, &p_isa);
+              if (p_isa)
               {
-                QP::getUTF8StringFromCFString(a5, &v50);
+                QP::getUTF8StringFromCFString(&v48, a5);
                 std::allocate_shared[abi:ne200100]<QP::LexemeDateTime,std::allocator<QP::LexemeDateTime>,std::string,std::unique_ptr<QP::DatePeriod>,CFRange &,0>();
               }
             }
 
             else
             {
-              v40[0] = 0;
-              v38 = a1[4];
-              QP::DateConverter::datePeriodForValues(a5, a6, v40);
-              if (v40[0])
+              p_isa = 0;
+              QP::DateConverter::datePeriodForValues(a5, a6, &p_isa);
+              if (p_isa)
               {
-                QP::getUTF8StringFromCFString(a5, &v50);
+                QP::getUTF8StringFromCFString(&v48, a5);
                 std::allocate_shared[abi:ne200100]<QP::LexemeDateTime,std::allocator<QP::LexemeDateTime>,std::string,std::unique_ptr<QP::DatePeriod>,CFRange &,0>();
               }
             }
 
-            std::unique_ptr<QP::DatePeriod>::~unique_ptr[abi:ne200100](v40);
+            std::unique_ptr<QP::DatePeriod>::~unique_ptr[abi:ne200100](&p_isa);
           }
 
           else if (QP::ParserGrammar::isValidType(a1[2], a5))
           {
-            QP::getUTF8StringFromCFString(a5, &v50);
+            QP::getUTF8StringFromCFString(&v48, a5);
             std::allocate_shared[abi:ne200100]<QP::Lexeme,std::allocator<QP::Lexeme>,std::string,CFRange &,0>();
           }
         }
@@ -937,9 +929,9 @@ LABEL_49:
         v30 = v29;
         if (v29)
         {
-          QP::getUTF8StringFromCFString(a5, &v50);
-          QP::getUTF8StringFromCFString(v28, v41);
-          QP::getUTF8StringFromCFString(v30, v40);
+          QP::getUTF8StringFromCFString(&v48, a5);
+          QP::getUTF8StringFromCFString(&v39, v28);
+          QP::getUTF8StringFromCFString(&p_isa, v30);
           std::allocate_shared[abi:ne200100]<QP::LexemeExtended,std::allocator<QP::LexemeExtended>,std::string,std::string,std::string,CFRange &,0>();
         }
       }
@@ -948,12 +940,9 @@ LABEL_49:
 
   else if (QP::ParserGrammar::isValidType(a1[2], a5))
   {
-    QP::getUTF8StringFromCFString(a5, &v50);
+    QP::getUTF8StringFromCFString(&v48, a5);
     std::allocate_shared[abi:ne200100]<QP::Lexeme,std::allocator<QP::Lexeme>,std::string,CFRange &,0>();
   }
-
-LABEL_23:
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1C65AD448(_Unwind_Exception *exception_object)
@@ -1107,87 +1096,87 @@ const void ***std::unique_ptr<QP::DatePeriod>::~unique_ptr[abi:ne200100](const v
   return a1;
 }
 
-void QP::LexemeConverter::merge(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X2>, void *a4@<X8>)
+void QP::LexemeConverter::merge(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X2>, void *a5@<X8>)
 {
-  v5 = *a2;
-  v6 = *a3;
+  v6 = *a2;
+  v7 = *a3;
   if (*a2)
   {
-    if (v6)
+    if (v7)
     {
-      if (*(v5 + 88) - 1 <= 3 && *(v6 + 88) - 1 <= 3)
+      if (*(v6 + 88) - 1 <= 3 && *(v7 + 88) - 1 <= 3)
       {
-        v7 = a2[1];
-        if (v7)
-        {
-          atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
-          v6 = *a3;
-        }
-
-        v8 = a3[1];
+        v8 = a2[1];
         if (v8)
         {
           atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
+          v7 = *a3;
         }
 
-        v9 = *(a1 + 32);
-        v10 = *(v5 + 128);
-        v17 = *(v5 + 120);
-        v18 = v10;
-        v19 = 0;
-        if (v10)
+        v9 = a3[1];
+        if (v9)
         {
-          atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        v12 = *(v6 + 120);
+        v10 = *(a1 + 32);
         v11 = *(v6 + 128);
-        v15 = v12;
-        v16 = v11;
+        v18 = *(v6 + 120);
+        v19 = v11;
+        v20 = 0;
         if (v11)
         {
           atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        QP::DateConverter::merge(v9, &v17, &v15, &v19);
-        if (v16)
+        v13 = *(v7 + 120);
+        v12 = *(v7 + 128);
+        v16 = v13;
+        v17 = v12;
+        if (v12)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v16);
+          atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        if (v18)
+        QP::DateConverter::merge(v10, &v18, &v16, &v20);
+        if (v17)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v18);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v17);
         }
 
         if (v19)
         {
-          *a4 = 0;
-          a4[1] = 0;
+          std::__shared_weak_count::__release_shared[abi:ne200100](v19);
+        }
+
+        if (v20)
+        {
+          *a5 = 0;
+          a5[1] = 0;
           std::allocate_shared[abi:ne200100]<QP::LexemeDateTime,std::allocator<QP::LexemeDateTime>,char const(&)[10],std::unique_ptr<QP::DatePeriod>,CFRange &,0>();
         }
 
-        std::unique_ptr<QP::DatePeriod>::~unique_ptr[abi:ne200100](&v19);
+        std::unique_ptr<QP::DatePeriod>::~unique_ptr[abi:ne200100](&v20);
+        if (v9)
+        {
+          std::__shared_weak_count::__release_shared[abi:ne200100](v9);
+        }
+
         if (v8)
         {
           std::__shared_weak_count::__release_shared[abi:ne200100](v8);
         }
-
-        if (v7)
-        {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v7);
-        }
       }
 
-      *a4 = 0;
-      a4[1] = 0;
+      *a5 = 0;
+      a5[1] = 0;
     }
 
     else
     {
-      v14 = a2[1];
-      *a4 = v5;
-      a4[1] = v14;
+      v15 = a2[1];
+      *a5 = v6;
+      a5[1] = v15;
       *a2 = 0;
       a2[1] = 0;
     }
@@ -1195,34 +1184,34 @@ void QP::LexemeConverter::merge(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t *a
 
   else
   {
-    v13 = a3[1];
-    *a4 = v6;
-    a4[1] = v13;
+    v14 = a3[1];
+    *a5 = v7;
+    a5[1] = v14;
     *a3 = 0;
     a3[1] = 0;
   }
 }
 
-void sub_1C65ADC00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C65ADC00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   std::unique_ptr<QP::DatePeriod>::~unique_ptr[abi:ne200100](va);
-  if (v8)
+  if (v14)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v8);
-    if (!v7)
+    std::__shared_weak_count::__release_shared[abi:ne200100](v14);
+    if (!v13)
     {
 LABEL_4:
       _Unwind_Resume(a1);
     }
   }
 
-  else if (!v7)
+  else if (!v13)
   {
     goto LABEL_4;
   }
 
-  std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v13);
   goto LABEL_4;
 }
 
@@ -1271,13 +1260,13 @@ void QP::LexemeConverter::resolve(uint64_t a1@<X0>, void *a2@<X1>, int a3@<W2>, 
   a5[1] = 0;
 }
 
-void sub_1C65ADD40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1C65ADD40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   std::unique_ptr<QP::DatePeriod>::~unique_ptr[abi:ne200100](va);
-  if (v5)
+  if (v9)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v9);
   }
 
   _Unwind_Resume(a1);
@@ -1441,7 +1430,7 @@ void QP::Lexeme::~Lexeme(void **this)
   }
 }
 
-std::string *QP::LexemeLocationExtended::LexemeLocationExtended(std::string *this, uint64_t a2, __int128 *a3, uint64_t a4, std::string::size_type a5)
+std::string *QP::LexemeLocationExtended::LexemeLocationExtended(std::string *this, uint64_t a2, __int128 *a3, uint64_t a4, uint64_t a5)
 {
   if (*(a2 + 23) < 0)
   {
@@ -1540,7 +1529,7 @@ void sub_1C65AE08C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-std::string *QP::Lexeme::Lexeme(std::string *this, __int128 *a2, uint64_t a3, std::string::size_type a4)
+std::string *QP::Lexeme::Lexeme(std::string *this, __int128 *a2, uint64_t a3, uint64_t a4)
 {
   if (*(a2 + 23) < 0)
   {
@@ -1554,7 +1543,7 @@ std::string *QP::Lexeme::Lexeme(std::string *this, __int128 *a2, uint64_t a3, st
     *&this->__r_.__value_.__l.__data_ = v8;
   }
 
-  std::string::basic_string[abi:ne200100]<0>(&this[1], "");
+  std::string::basic_string[abi:ne200100]<0>(this[1].__r_.__value_.__r.__words, "");
   std::to_string(&v20, a3);
   v9 = *(a2 + 23);
   if (v9 >= 0)
@@ -1630,7 +1619,7 @@ std::string *QP::Lexeme::Lexeme(std::string *this, __int128 *a2, uint64_t a3, st
   this[3].__r_.__value_.__r.__words[0] = a3;
   this[3].__r_.__value_.__l.__size_ = a4;
   LOWORD(this[3].__r_.__value_.__r.__words[2]) = 0;
-  std::string::basic_string[abi:ne200100]<0>(&this[4], "");
+  std::string::basic_string[abi:ne200100]<0>(this[4].__r_.__value_.__r.__words, "");
   return this;
 }
 
@@ -1654,7 +1643,7 @@ void sub_1C65AE278(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<unsigned int>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
+void std::vector<unsigned int>::push_back[abi:ne200100](const void **a1, int *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -1709,7 +1698,7 @@ void std::vector<unsigned int>::push_back[abi:ne200100](const void **a1, _DWORD 
   a1[1] = v6;
 }
 
-void std::vector<double>::push_back[abi:ne200100](const void **a1, void *a2)
+void std::vector<double>::push_back[abi:ne200100](const void **a1, uint64_t *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -1758,7 +1747,7 @@ void std::vector<double>::push_back[abi:ne200100](const void **a1, void *a2)
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 8;
   }
 
   a1[1] = v6;
@@ -1774,7 +1763,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned int>>(uint64
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-std::string *QP::LexemeLocation::LexemeLocation(std::string *this, uint64_t a2, __int128 *a3, uint64_t a4, std::string::size_type a5)
+std::string *QP::LexemeLocation::LexemeLocation(std::string *this, uint64_t a2, __int128 *a3, uint64_t a4, uint64_t a5)
 {
   if (*(a2 + 23) < 0)
   {
@@ -1829,9 +1818,9 @@ void std::shared_ptr<QP::GeoReference>::shared_ptr[abi:ne200100]<QP::GeoReferenc
   operator new();
 }
 
-void sub_1C65AE6B0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C65AE6B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<QP::GeoReference>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1881,7 +1870,7 @@ uint64_t std::__shared_ptr_pointer<QP::GeoReference *,std::shared_ptr<QP::GeoRef
   }
 }
 
-std::string *std::__shared_ptr_emplace<QP::Lexeme>::__shared_ptr_emplace[abi:ne200100]<char const(&)[6],CFRange &,std::allocator<QP::Lexeme>,0>(std::string *a1, char *a2, uint64_t a3)
+std::string *std::__shared_ptr_emplace<QP::Lexeme>::__shared_ptr_emplace[abi:ne200100]<char const(&)[6],CFRange &,std::allocator<QP::Lexeme>,0>(std::string *a1, char *a2, uint64_t *a3)
 {
   a1->__r_.__value_.__l.__size_ = 0;
   a1->__r_.__value_.__r.__words[2] = 0;
@@ -1898,10 +1887,10 @@ void std::__shared_ptr_emplace<QP::Lexeme>::~__shared_ptr_emplace(std::__shared_
   JUMPOUT(0x1C695B850);
 }
 
-std::string *std::construct_at[abi:ne200100]<QP::Lexeme,char const(&)[6],CFRange &,QP::Lexeme*>(std::string *a1, char *a2, uint64_t a3)
+std::string *std::construct_at[abi:ne200100]<QP::Lexeme,char const(&)[6],CFRange &,QP::Lexeme*>(std::string *a1, char *a2, uint64_t *a3)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, a2);
-  QP::Lexeme::Lexeme(a1, __p, *a3, *(a3 + 8));
+  QP::Lexeme::Lexeme(a1, __p, *a3, a3[1]);
   if (v7 < 0)
   {
     operator delete(__p[0]);
@@ -1965,7 +1954,7 @@ void sub_1C65AEB48(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-std::string *QP::LexemeQuotedText::LexemeQuotedText(std::string *a1, uint64_t a2, std::string::size_type a3, __int128 *a4)
+std::string *QP::LexemeQuotedText::LexemeQuotedText(std::string *a1, uint64_t a2, uint64_t a3, __int128 *a4)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, "QuotedText");
   QP::Lexeme::Lexeme(a1, __p, a2, a3);
@@ -1989,16 +1978,15 @@ std::string *QP::LexemeQuotedText::LexemeQuotedText(std::string *a1, uint64_t a2
   return a1;
 }
 
-std::string *std::__shared_ptr_emplace<QP::Lexeme>::__shared_ptr_emplace[abi:ne200100]<std::string &,CFRange &,std::allocator<QP::Lexeme>,0>(std::string *a1, uint64_t a2, uint64_t a3)
+std::string *std::__shared_ptr_emplace<QP::Lexeme>::__shared_ptr_emplace[abi:ne200100]<std::string &,CFRange &,std::allocator<QP::Lexeme>,0>(std::string *a1, uint64_t a2, uint64_t *a3)
 {
-  a1->__r_.__value_.__l.__size_ = 0;
-  a1->__r_.__value_.__r.__words[2] = 0;
+  *&a1->__r_.__value_.__r.__words[1] = 0uLL;
   a1->__r_.__value_.__r.__words[0] = &unk_1F45E8438;
   std::construct_at[abi:ne200100]<QP::Lexeme,std::string &,CFRange &,QP::Lexeme*>(a1 + 1, a2, a3);
   return a1;
 }
 
-std::string *std::construct_at[abi:ne200100]<QP::Lexeme,std::string &,CFRange &,QP::Lexeme*>(std::string *this, uint64_t a2, uint64_t a3)
+std::string *std::construct_at[abi:ne200100]<QP::Lexeme,std::string &,CFRange &,QP::Lexeme*>(std::string *this, uint64_t a2, uint64_t *a3)
 {
   if (*(a2 + 23) < 0)
   {
@@ -2010,7 +1998,7 @@ std::string *std::construct_at[abi:ne200100]<QP::Lexeme,std::string &,CFRange &,
     __p = *a2;
   }
 
-  QP::Lexeme::Lexeme(this, &__p, *a3, *(a3 + 8));
+  QP::Lexeme::Lexeme(this, &__p, *a3, a3[1]);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -2029,7 +2017,7 @@ void sub_1C65AED78(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-std::string *std::__shared_ptr_emplace<QP::Lexeme>::__shared_ptr_emplace[abi:ne200100]<char const(&)[5],CFRange &,std::allocator<QP::Lexeme>,0>(std::string *a1, char *a2, uint64_t a3)
+std::string *std::__shared_ptr_emplace<QP::Lexeme>::__shared_ptr_emplace[abi:ne200100]<char const(&)[5],CFRange &,std::allocator<QP::Lexeme>,0>(std::string *a1, char *a2, uint64_t *a3)
 {
   a1->__r_.__value_.__l.__size_ = 0;
   a1->__r_.__value_.__r.__words[2] = 0;
@@ -2038,10 +2026,10 @@ std::string *std::__shared_ptr_emplace<QP::Lexeme>::__shared_ptr_emplace[abi:ne2
   return a1;
 }
 
-std::string *std::construct_at[abi:ne200100]<QP::Lexeme,char const(&)[5],CFRange &,QP::Lexeme*>(std::string *a1, char *a2, uint64_t a3)
+std::string *std::construct_at[abi:ne200100]<QP::Lexeme,char const(&)[5],CFRange &,QP::Lexeme*>(std::string *a1, char *a2, uint64_t *a3)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, a2);
-  QP::Lexeme::Lexeme(a1, __p, *a3, *(a3 + 8));
+  QP::Lexeme::Lexeme(a1, __p, *a3, a3[1]);
   if (v7 < 0)
   {
     operator delete(__p[0]);
@@ -2060,7 +2048,7 @@ void sub_1C65AEEBC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-std::string *std::__shared_ptr_emplace<QP::Lexeme>::__shared_ptr_emplace[abi:ne200100]<std::string,CFRange &,std::allocator<QP::Lexeme>,0>(std::string *a1, uint64_t a2, uint64_t a3)
+std::string *std::__shared_ptr_emplace<QP::Lexeme>::__shared_ptr_emplace[abi:ne200100]<std::string,CFRange &,std::allocator<QP::Lexeme>,0>(std::string *a1, uint64_t a2, uint64_t *a3)
 {
   a1->__r_.__value_.__l.__size_ = 0;
   a1->__r_.__value_.__r.__words[2] = 0;
@@ -2069,14 +2057,14 @@ std::string *std::__shared_ptr_emplace<QP::Lexeme>::__shared_ptr_emplace[abi:ne2
   return a1;
 }
 
-std::string *std::construct_at[abi:ne200100]<QP::Lexeme,std::string,CFRange &,QP::Lexeme*>(std::string *a1, uint64_t a2, uint64_t a3)
+std::string *std::construct_at[abi:ne200100]<QP::Lexeme,std::string,CFRange &,QP::Lexeme*>(std::string *a1, uint64_t a2, uint64_t *a3)
 {
   *__p = *a2;
   v6 = *(a2 + 16);
   *(a2 + 8) = 0;
   *(a2 + 16) = 0;
   *a2 = 0;
-  QP::Lexeme::Lexeme(a1, __p, *a3, *(a3 + 8));
+  QP::Lexeme::Lexeme(a1, __p, *a3, a3[1]);
   if (SHIBYTE(v6) < 0)
   {
     operator delete(__p[0]);
@@ -2095,7 +2083,7 @@ void sub_1C65AF00C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-std::string *std::__shared_ptr_emplace<QP::Lexeme>::__shared_ptr_emplace[abi:ne200100]<char const(&)[7],CFRange &,std::allocator<QP::Lexeme>,0>(std::string *a1, char *a2, uint64_t a3)
+std::string *std::__shared_ptr_emplace<QP::Lexeme>::__shared_ptr_emplace[abi:ne200100]<char const(&)[7],CFRange &,std::allocator<QP::Lexeme>,0>(std::string *a1, char *a2, uint64_t *a3)
 {
   a1->__r_.__value_.__l.__size_ = 0;
   a1->__r_.__value_.__r.__words[2] = 0;
@@ -2104,10 +2092,10 @@ std::string *std::__shared_ptr_emplace<QP::Lexeme>::__shared_ptr_emplace[abi:ne2
   return a1;
 }
 
-std::string *std::construct_at[abi:ne200100]<QP::Lexeme,char const(&)[7],CFRange &,QP::Lexeme*>(std::string *a1, char *a2, uint64_t a3)
+std::string *std::construct_at[abi:ne200100]<QP::Lexeme,char const(&)[7],CFRange &,QP::Lexeme*>(std::string *a1, char *a2, uint64_t *a3)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, a2);
-  QP::Lexeme::Lexeme(a1, __p, *a3, *(a3 + 8));
+  QP::Lexeme::Lexeme(a1, __p, *a3, a3[1]);
   if (v7 < 0)
   {
     operator delete(__p[0]);
@@ -2244,7 +2232,7 @@ void sub_1C65AF3FC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2266,7 +2254,7 @@ void sub_1C65AF518(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<double>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<double>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -2276,7 +2264,7 @@ void std::vector<double>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
   std::vector<QP::GeoLocation>::__throw_length_error[abi:ne200100]();
 }
 
-uint64_t std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2298,7 +2286,7 @@ void sub_1C65AF5D0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<unsigned int>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<unsigned int>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -2310,8 +2298,7 @@ void std::vector<unsigned int>::__vallocate[abi:ne200100](uint64_t a1, unint64_t
 
 std::string *std::__shared_ptr_emplace<QP::LexemeLocation>::__shared_ptr_emplace[abi:ne200100]<QP::LexemeLocation&,std::allocator<QP::LexemeLocation>,0>(std::string *a1, uint64_t a2)
 {
-  a1->__r_.__value_.__l.__size_ = 0;
-  a1->__r_.__value_.__r.__words[2] = 0;
+  *&a1->__r_.__value_.__r.__words[1] = 0uLL;
   a1->__r_.__value_.__r.__words[0] = &unk_1F45E8528;
   QP::Lexeme::Lexeme(a1 + 1, a2);
   if (*(a2 + 143) < 0)
@@ -2344,7 +2331,7 @@ void std::__shared_ptr_emplace<QP::LexemeLocation>::~__shared_ptr_emplace(std::_
   JUMPOUT(0x1C695B850);
 }
 
-std::string *std::__shared_ptr_emplace<QP::LexemeExtended>::__shared_ptr_emplace[abi:ne200100]<char const(&)[18],std::string,std::string,CFRange &,std::allocator<QP::LexemeExtended>,0>(std::string *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+std::string *std::__shared_ptr_emplace<QP::LexemeExtended>::__shared_ptr_emplace[abi:ne200100]<char const(&)[18],std::string,std::string,CFRange &,std::allocator<QP::LexemeExtended>,0>(std::string *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t *a5)
 {
   a1->__r_.__value_.__l.__size_ = 0;
   a1->__r_.__value_.__r.__words[2] = 0;
@@ -2376,7 +2363,7 @@ void std::__shared_ptr_emplace<QP::LexemeExtended>::__on_zero_shared(uint64_t a1
   QP::Lexeme::~Lexeme((a1 + 24));
 }
 
-std::string *std::construct_at[abi:ne200100]<QP::LexemeExtended,char const(&)[18],std::string,std::string,CFRange &,QP::LexemeExtended*>(std::string *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+std::string *std::construct_at[abi:ne200100]<QP::LexemeExtended,char const(&)[18],std::string,std::string,CFRange &,QP::LexemeExtended*>(std::string *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t *a5)
 {
   std::string::basic_string[abi:ne200100]<0>(v14, a2);
   *v12 = *a3;
@@ -2389,7 +2376,7 @@ std::string *std::construct_at[abi:ne200100]<QP::LexemeExtended,char const(&)[18
   *a4 = 0;
   *(a4 + 8) = 0;
   *(a4 + 16) = 0;
-  QP::LexemeExtended::LexemeExtended(a1, v14, v12, __p, *a5, *(a5 + 8));
+  QP::LexemeExtended::LexemeExtended(a1, v14, v12, __p, *a5, a5[1]);
   if (SHIBYTE(v11) < 0)
   {
     operator delete(__p[0]);
@@ -2415,11 +2402,11 @@ void sub_1C65AFA20(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(__p);
   }
 
-  std::construct_at[abi:ne200100]<QP::LexemeExtended,char const(&)[18],std::string,std::string,CFRange &,QP::LexemeExtended*>(&a16);
+  std::construct_at[abi:ne200100]<QP::LexemeExtended,char const(&)[18],std::string,std::string,CFRange &,QP::LexemeExtended*>();
   _Unwind_Resume(a1);
 }
 
-std::string *QP::LexemeExtended::LexemeExtended(std::string *this, uint64_t a2, __int128 *a3, __int128 *a4, uint64_t a5, std::string::size_type a6)
+std::string *QP::LexemeExtended::LexemeExtended(std::string *this, uint64_t a2, __int128 *a3, __int128 *a4, uint64_t a5, uint64_t a6)
 {
   if (*(a2 + 23) < 0)
   {
@@ -2475,7 +2462,7 @@ void sub_1C65AFB34(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-std::string *std::__shared_ptr_emplace<QP::LexemeExtended>::__shared_ptr_emplace[abi:ne200100]<char const(&)[15],std::string,std::string,CFRange &,std::allocator<QP::LexemeExtended>,0>(std::string *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+std::string *std::__shared_ptr_emplace<QP::LexemeExtended>::__shared_ptr_emplace[abi:ne200100]<char const(&)[15],std::string,std::string,CFRange &,std::allocator<QP::LexemeExtended>,0>(std::string *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t *a5)
 {
   a1->__r_.__value_.__l.__size_ = 0;
   a1->__r_.__value_.__r.__words[2] = 0;
@@ -2484,7 +2471,7 @@ std::string *std::__shared_ptr_emplace<QP::LexemeExtended>::__shared_ptr_emplace
   return a1;
 }
 
-std::string *std::construct_at[abi:ne200100]<QP::LexemeExtended,char const(&)[15],std::string,std::string,CFRange &,QP::LexemeExtended*>(std::string *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+std::string *std::construct_at[abi:ne200100]<QP::LexemeExtended,char const(&)[15],std::string,std::string,CFRange &,QP::LexemeExtended*>(std::string *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t *a5)
 {
   std::string::basic_string[abi:ne200100]<0>(v14, a2);
   *v12 = *a3;
@@ -2497,7 +2484,7 @@ std::string *std::construct_at[abi:ne200100]<QP::LexemeExtended,char const(&)[15
   *a4 = 0;
   *(a4 + 8) = 0;
   *(a4 + 16) = 0;
-  QP::LexemeExtended::LexemeExtended(a1, v14, v12, __p, *a5, *(a5 + 8));
+  QP::LexemeExtended::LexemeExtended(a1, v14, v12, __p, *a5, a5[1]);
   if (SHIBYTE(v11) < 0)
   {
     operator delete(__p[0]);
@@ -2523,11 +2510,11 @@ void sub_1C65AFD20(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(__p);
   }
 
-  std::construct_at[abi:ne200100]<QP::LexemeExtended,char const(&)[18],std::string,std::string,CFRange &,QP::LexemeExtended*>(&a16);
+  std::construct_at[abi:ne200100]<QP::LexemeExtended,char const(&)[18],std::string,std::string,CFRange &,QP::LexemeExtended*>();
   _Unwind_Resume(a1);
 }
 
-std::string *std::__shared_ptr_emplace<QP::LexemeExtendedNumber>::__shared_ptr_emplace[abi:ne200100]<char const(&)[6],std::unique_ptr<QP::NumericValue>,std::string,CFRange &,std::allocator<QP::LexemeExtendedNumber>,0>(std::string *a1, char *a2, uint64_t *a3, uint64_t a4, uint64_t a5)
+std::string *std::__shared_ptr_emplace<QP::LexemeExtendedNumber>::__shared_ptr_emplace[abi:ne200100]<char const(&)[6],std::unique_ptr<QP::NumericValue>,std::string,CFRange &,std::allocator<QP::LexemeExtendedNumber>,0>(std::string *a1, char *a2, uint64_t *a3, uint64_t a4, uint64_t *a5)
 {
   a1->__r_.__value_.__l.__size_ = 0;
   a1->__r_.__value_.__r.__words[2] = 0;
@@ -2560,7 +2547,7 @@ void std::__shared_ptr_emplace<QP::LexemeExtendedNumber>::__on_zero_shared(uint6
   QP::Lexeme::~Lexeme((a1 + 24));
 }
 
-std::string *std::construct_at[abi:ne200100]<QP::LexemeExtendedNumber,char const(&)[6],std::unique_ptr<QP::NumericValue>,std::string,CFRange &,QP::LexemeExtendedNumber*>(std::string *a1, char *a2, uint64_t *a3, uint64_t a4, uint64_t a5)
+std::string *std::construct_at[abi:ne200100]<QP::LexemeExtendedNumber,char const(&)[6],std::unique_ptr<QP::NumericValue>,std::string,CFRange &,QP::LexemeExtendedNumber*>(std::string *a1, char *a2, uint64_t *a3, uint64_t a4, uint64_t *a5)
 {
   std::string::basic_string[abi:ne200100]<0>(v14, a2);
   std::shared_ptr<QP::NumericValue>::shared_ptr[abi:ne200100]<QP::NumericValue,std::default_delete<QP::NumericValue>,0>(&v12, a3);
@@ -2569,7 +2556,7 @@ std::string *std::construct_at[abi:ne200100]<QP::LexemeExtendedNumber,char const
   *(a4 + 8) = 0;
   *(a4 + 16) = 0;
   *a4 = 0;
-  QP::LexemeExtendedNumber::LexemeExtendedNumber(a1, v14, &v12, __p, *a5, *(a5 + 8));
+  QP::LexemeExtendedNumber::LexemeExtendedNumber(a1, v14, &v12, __p, *a5, a5[1]);
   if (SHIBYTE(v11) < 0)
   {
     operator delete(__p[0]);
@@ -2608,18 +2595,18 @@ void sub_1C65AFFA8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *std::shared_ptr<QP::NumericValue>::shared_ptr[abi:ne200100]<QP::NumericValue,std::default_delete<QP::NumericValue>,0>(uint64_t *result, uint64_t *a2)
+uint64_t *std::shared_ptr<QP::NumericValue>::shared_ptr[abi:ne200100]<QP::NumericValue,std::default_delete<QP::NumericValue>,0>(uint64_t *a1, uint64_t *a2)
 {
   v2 = *a2;
-  *result = *a2;
+  *a1 = *a2;
   if (v2)
   {
     operator new();
   }
 
-  result[1] = 0;
+  a1[1] = 0;
   *a2 = 0;
-  return result;
+  return a1;
 }
 
 void std::__shared_ptr_pointer<QP::NumericValue  *>::~__shared_ptr_pointer(std::__shared_weak_count *a1)
@@ -2654,7 +2641,7 @@ uint64_t std::__shared_ptr_pointer<QP::NumericValue  *>::__get_deleter(uint64_t 
   }
 }
 
-std::string *QP::LexemeExtendedNumber::LexemeExtendedNumber(std::string *this, uint64_t a2, std::string::size_type *a3, __int128 *a4, uint64_t a5, std::string::size_type a6)
+std::string *QP::LexemeExtendedNumber::LexemeExtendedNumber(std::string *this, uint64_t a2, std::string::size_type *a3, __int128 *a4, uint64_t a5, uint64_t a6)
 {
   if (*(a2 + 23) < 0)
   {
@@ -2707,7 +2694,7 @@ void sub_1C65B0204(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-std::string *std::__shared_ptr_emplace<QP::LexemeExtended>::__shared_ptr_emplace[abi:ne200100]<std::string,std::string,std::string,CFRange &,std::allocator<QP::LexemeExtended>,0>(std::string *a1, __int128 *a2, uint64_t a3, __int128 *a4, uint64_t a5)
+std::string *std::__shared_ptr_emplace<QP::LexemeExtended>::__shared_ptr_emplace[abi:ne200100]<std::string,std::string,std::string,CFRange &,std::allocator<QP::LexemeExtended>,0>(std::string *a1, __int128 *a2, uint64_t a3, __int128 *a4, uint64_t *a5)
 {
   a1->__r_.__value_.__l.__size_ = 0;
   a1->__r_.__value_.__r.__words[2] = 0;
@@ -2716,12 +2703,11 @@ std::string *std::__shared_ptr_emplace<QP::LexemeExtended>::__shared_ptr_emplace
   return a1;
 }
 
-std::string *std::construct_at[abi:ne200100]<QP::LexemeExtended,std::string,std::string,std::string,CFRange &,QP::LexemeExtended*>(std::string *a1, __int128 *a2, uint64_t a3, __int128 *a4, uint64_t a5)
+std::string *std::construct_at[abi:ne200100]<QP::LexemeExtended,std::string,std::string,std::string,CFRange &,QP::LexemeExtended*>(std::string *a1, __int128 *a2, uint64_t a3, __int128 *a4, uint64_t *a5)
 {
   v12 = *a2;
   v13 = *(a2 + 2);
-  *(a2 + 1) = 0;
-  *(a2 + 2) = 0;
+  *(a2 + 8) = 0uLL;
   *a2 = 0;
   *v10 = *a3;
   v11 = *(a3 + 16);
@@ -2731,10 +2717,9 @@ std::string *std::construct_at[abi:ne200100]<QP::LexemeExtended,std::string,std:
   v6 = *a4;
   v9 = *(a4 + 2);
   *__p = v6;
-  *(a4 + 1) = 0;
-  *(a4 + 2) = 0;
+  *(a4 + 8) = 0uLL;
   *a4 = 0;
-  QP::LexemeExtended::LexemeExtended(a1, &v12, v10, __p, *a5, *(a5 + 8));
+  QP::LexemeExtended::LexemeExtended(a1, &v12, v10, __p, *a5, a5[1]);
   if (SHIBYTE(v9) < 0)
   {
     operator delete(__p[0]);
@@ -2760,11 +2745,11 @@ void sub_1C65B03E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(__p);
   }
 
-  std::construct_at[abi:ne200100]<QP::LexemeExtended,char const(&)[18],std::string,std::string,CFRange &,QP::LexemeExtended*>(&a16);
+  std::construct_at[abi:ne200100]<QP::LexemeExtended,char const(&)[18],std::string,std::string,CFRange &,QP::LexemeExtended*>();
   _Unwind_Resume(a1);
 }
 
-std::string *std::__shared_ptr_emplace<QP::LexemeExtended>::__shared_ptr_emplace[abi:ne200100]<char const(&)[12],std::string,std::string,CFRange &,std::allocator<QP::LexemeExtended>,0>(std::string *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+std::string *std::__shared_ptr_emplace<QP::LexemeExtended>::__shared_ptr_emplace[abi:ne200100]<char const(&)[12],std::string,std::string,CFRange &,std::allocator<QP::LexemeExtended>,0>(std::string *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t *a5)
 {
   a1->__r_.__value_.__l.__size_ = 0;
   a1->__r_.__value_.__r.__words[2] = 0;
@@ -2773,7 +2758,7 @@ std::string *std::__shared_ptr_emplace<QP::LexemeExtended>::__shared_ptr_emplace
   return a1;
 }
 
-std::string *std::construct_at[abi:ne200100]<QP::LexemeExtended,char const(&)[12],std::string,std::string,CFRange &,QP::LexemeExtended*>(std::string *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+std::string *std::construct_at[abi:ne200100]<QP::LexemeExtended,char const(&)[12],std::string,std::string,CFRange &,QP::LexemeExtended*>(std::string *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t *a5)
 {
   std::string::basic_string[abi:ne200100]<0>(v14, a2);
   *v12 = *a3;
@@ -2786,7 +2771,7 @@ std::string *std::construct_at[abi:ne200100]<QP::LexemeExtended,char const(&)[12
   *a4 = 0;
   *(a4 + 8) = 0;
   *(a4 + 16) = 0;
-  QP::LexemeExtended::LexemeExtended(a1, v14, v12, __p, *a5, *(a5 + 8));
+  QP::LexemeExtended::LexemeExtended(a1, v14, v12, __p, *a5, a5[1]);
   if (SHIBYTE(v11) < 0)
   {
     operator delete(__p[0]);
@@ -2812,11 +2797,11 @@ void sub_1C65B05B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(__p);
   }
 
-  std::construct_at[abi:ne200100]<QP::LexemeExtended,char const(&)[18],std::string,std::string,CFRange &,QP::LexemeExtended*>(&a16);
+  std::construct_at[abi:ne200100]<QP::LexemeExtended,char const(&)[18],std::string,std::string,CFRange &,QP::LexemeExtended*>();
   _Unwind_Resume(a1);
 }
 
-std::string *std::__shared_ptr_emplace<QP::LexemeStatus>::__shared_ptr_emplace[abi:ne200100]<std::string,std::string,CFRange &,std::allocator<QP::LexemeStatus>,0>(std::string *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+std::string *std::__shared_ptr_emplace<QP::LexemeStatus>::__shared_ptr_emplace[abi:ne200100]<std::string,std::string,CFRange &,std::allocator<QP::LexemeStatus>,0>(std::string *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   a1->__r_.__value_.__l.__size_ = 0;
   a1->__r_.__value_.__r.__words[2] = 0;
@@ -2833,7 +2818,7 @@ void std::__shared_ptr_emplace<QP::LexemeStatus>::~__shared_ptr_emplace(std::__s
   JUMPOUT(0x1C695B850);
 }
 
-std::string *std::construct_at[abi:ne200100]<QP::LexemeStatus,std::string,std::string,CFRange &,QP::LexemeStatus*>(std::string *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+std::string *std::construct_at[abi:ne200100]<QP::LexemeStatus,std::string,std::string,CFRange &,QP::LexemeStatus*>(std::string *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   *v8 = *a2;
   v9 = *(a2 + 16);
@@ -2845,7 +2830,7 @@ std::string *std::construct_at[abi:ne200100]<QP::LexemeStatus,std::string,std::s
   *a3 = 0;
   *(a3 + 8) = 0;
   *(a3 + 16) = 0;
-  QP::LexemeStatus::LexemeStatus(a1, v8, __p, *a4, *(a4 + 8));
+  QP::LexemeStatus::LexemeStatus(a1, v8, __p, *a4, a4[1]);
   if (SHIBYTE(v7) < 0)
   {
     operator delete(__p[0]);
@@ -2870,7 +2855,7 @@ void sub_1C65B07C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-std::string *QP::LexemeStatus::LexemeStatus(std::string *this, uint64_t a2, __int128 *a3, uint64_t a4, std::string::size_type a5)
+std::string *QP::LexemeStatus::LexemeStatus(std::string *this, uint64_t a2, __int128 *a3, uint64_t a4, uint64_t a5)
 {
   if (*(a2 + 23) < 0)
   {
@@ -2903,7 +2888,7 @@ std::string *QP::LexemeStatus::LexemeStatus(std::string *this, uint64_t a2, __in
   return this;
 }
 
-std::string *std::__shared_ptr_emplace<QP::LexemeValue>::__shared_ptr_emplace[abi:ne200100]<std::string,std::string,CFRange &,std::allocator<QP::LexemeValue>,0>(std::string *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+std::string *std::__shared_ptr_emplace<QP::LexemeValue>::__shared_ptr_emplace[abi:ne200100]<std::string,std::string,CFRange &,std::allocator<QP::LexemeValue>,0>(std::string *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   a1->__r_.__value_.__l.__size_ = 0;
   a1->__r_.__value_.__r.__words[2] = 0;
@@ -2920,7 +2905,7 @@ void std::__shared_ptr_emplace<QP::LexemeValue>::~__shared_ptr_emplace(std::__sh
   JUMPOUT(0x1C695B850);
 }
 
-std::string *std::construct_at[abi:ne200100]<QP::LexemeValue,std::string,std::string,CFRange &,QP::LexemeValue*>(std::string *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+std::string *std::construct_at[abi:ne200100]<QP::LexemeValue,std::string,std::string,CFRange &,QP::LexemeValue*>(std::string *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   *v8 = *a2;
   v9 = *(a2 + 16);
@@ -2932,7 +2917,7 @@ std::string *std::construct_at[abi:ne200100]<QP::LexemeValue,std::string,std::st
   *a3 = 0;
   *(a3 + 8) = 0;
   *(a3 + 16) = 0;
-  QP::LexemeValue::LexemeValue(a1, v8, __p, *a4, *(a4 + 8));
+  QP::LexemeValue::LexemeValue(a1, v8, __p, *a4, a4[1]);
   if (SHIBYTE(v7) < 0)
   {
     operator delete(__p[0]);
@@ -2957,7 +2942,7 @@ void sub_1C65B0AC0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-std::string *QP::LexemeValue::LexemeValue(std::string *this, uint64_t a2, __int128 *a3, uint64_t a4, std::string::size_type a5)
+std::string *QP::LexemeValue::LexemeValue(std::string *this, uint64_t a2, __int128 *a3, uint64_t a4, uint64_t a5)
 {
   if (*(a2 + 23) < 0)
   {
@@ -2990,7 +2975,7 @@ std::string *QP::LexemeValue::LexemeValue(std::string *this, uint64_t a2, __int1
   return this;
 }
 
-std::string *std::__shared_ptr_emplace<QP::LexemeNumber>::__shared_ptr_emplace[abi:ne200100]<std::string,std::unique_ptr<QP::NumericValue>,CFRange &,std::allocator<QP::LexemeNumber>,0>(std::string *a1, uint64_t a2, uint64_t *a3, uint64_t a4)
+std::string *std::__shared_ptr_emplace<QP::LexemeNumber>::__shared_ptr_emplace[abi:ne200100]<std::string,std::unique_ptr<QP::NumericValue>,CFRange &,std::allocator<QP::LexemeNumber>,0>(std::string *a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
   a1->__r_.__value_.__l.__size_ = 0;
   a1->__r_.__value_.__r.__words[2] = 0;
@@ -3007,7 +2992,7 @@ void std::__shared_ptr_emplace<QP::LexemeNumber>::~__shared_ptr_emplace(std::__s
   JUMPOUT(0x1C695B850);
 }
 
-std::string *std::construct_at[abi:ne200100]<QP::LexemeNumber,std::string,std::unique_ptr<QP::NumericValue>,CFRange &,QP::LexemeNumber*>(std::string *a1, uint64_t a2, uint64_t *a3, uint64_t a4)
+std::string *std::construct_at[abi:ne200100]<QP::LexemeNumber,std::string,std::unique_ptr<QP::NumericValue>,CFRange &,QP::LexemeNumber*>(std::string *a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
   *__p = *a2;
   v10 = *(a2 + 16);
@@ -3015,7 +3000,7 @@ std::string *std::construct_at[abi:ne200100]<QP::LexemeNumber,std::string,std::u
   *(a2 + 16) = 0;
   *a2 = 0;
   std::shared_ptr<QP::NumericValue>::shared_ptr[abi:ne200100]<QP::NumericValue,std::default_delete<QP::NumericValue>,0>(&v7, a3);
-  QP::LexemeNumber::LexemeNumber(a1, __p, &v7, *a4, *(a4 + 8));
+  QP::LexemeNumber::LexemeNumber(a1, __p, &v7, *a4, a4[1]);
   if (v8)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v8);
@@ -3044,7 +3029,7 @@ void sub_1C65B0DAC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-std::string *QP::LexemeNumber::LexemeNumber(std::string *this, uint64_t a2, std::string::size_type *a3, uint64_t a4, std::string::size_type a5)
+std::string *QP::LexemeNumber::LexemeNumber(std::string *this, uint64_t a2, std::string::size_type *a3, uint64_t a4, uint64_t a5)
 {
   if (*(a2 + 23) < 0)
   {
@@ -3104,7 +3089,7 @@ void std::default_delete<QP::DatePeriod>::operator()[abi:ne200100](uint64_t a1, 
   }
 }
 
-std::string *std::__shared_ptr_emplace<QP::LexemeDateTime>::__shared_ptr_emplace[abi:ne200100]<std::string,std::unique_ptr<QP::DatePeriod>,CFRange &,std::allocator<QP::LexemeDateTime>,0>(std::string *a1, uint64_t a2, const void ***a3, uint64_t a4)
+std::string *std::__shared_ptr_emplace<QP::LexemeDateTime>::__shared_ptr_emplace[abi:ne200100]<std::string,std::unique_ptr<QP::DatePeriod>,CFRange &,std::allocator<QP::LexemeDateTime>,0>(std::string *a1, uint64_t a2, const void ***a3, uint64_t *a4)
 {
   a1->__r_.__value_.__l.__size_ = 0;
   a1->__r_.__value_.__r.__words[2] = 0;
@@ -3121,7 +3106,7 @@ void std::__shared_ptr_emplace<QP::LexemeDateTime>::~__shared_ptr_emplace(std::_
   JUMPOUT(0x1C695B850);
 }
 
-std::string *std::construct_at[abi:ne200100]<QP::LexemeDateTime,std::string,std::unique_ptr<QP::DatePeriod>,CFRange &,QP::LexemeDateTime*>(std::string *a1, uint64_t a2, const void ***a3, uint64_t a4)
+std::string *std::construct_at[abi:ne200100]<QP::LexemeDateTime,std::string,std::unique_ptr<QP::DatePeriod>,CFRange &,QP::LexemeDateTime*>(std::string *a1, uint64_t a2, const void ***a3, uint64_t *a4)
 {
   *__p = *a2;
   v9 = *(a2 + 16);
@@ -3131,7 +3116,7 @@ std::string *std::construct_at[abi:ne200100]<QP::LexemeDateTime,std::string,std:
   v5 = *a3;
   *a3 = 0;
   v7 = v5;
-  QP::LexemeDateTime::LexemeDateTime(a1, __p, &v7, *a4, *(a4 + 8));
+  QP::LexemeDateTime::LexemeDateTime(a1, __p, &v7, *a4, a4[1]);
   std::unique_ptr<QP::DatePeriod>::~unique_ptr[abi:ne200100](&v7);
   if (SHIBYTE(v9) < 0)
   {
@@ -3152,7 +3137,7 @@ void sub_1C65B1114(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-std::string *QP::LexemeDateTime::LexemeDateTime(std::string *this, uint64_t a2, uint64_t *a3, uint64_t a4, std::string::size_type a5)
+std::string *QP::LexemeDateTime::LexemeDateTime(std::string *this, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5)
 {
   if (*(a2 + 23) < 0)
   {
@@ -3205,7 +3190,7 @@ std::string *QP::LexemeDateTime::LexemeDateTime(std::string *this, uint64_t a2, 
   }
 
   *(&v10->__r_.__value_.__l.__data_ + size) = 58;
-  QP::DatePeriod::description(this[5].__r_.__value_.__l.__data_, &__p);
+  QP::DatePeriod::description(&__p, this[5].__r_.__value_.__l.__data_);
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     p_p = &__p;
@@ -3289,9 +3274,9 @@ void sub_1C65B1334()
   JUMPOUT(0x1C65B132CLL);
 }
 
-void QP::DatePeriod::description(QP::DatePeriod *this@<X0>, std::string *a2@<X8>)
+void QP::DatePeriod::description(std::string *__return_ptr a1@<X8>, QP::DatePeriod *this@<X0>)
 {
-  QP::DateComponents::description((this + 24), &v18);
+  QP::DateComponents::description(&v18, (this + 24));
   if ((v18.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     size = HIBYTE(v18.__r_.__value_.__r.__words[2]);
@@ -3326,7 +3311,7 @@ void QP::DatePeriod::description(QP::DatePeriod *this@<X0>, std::string *a2@<X8>
   }
 
   *(&v5->__r_.__value_.__l.__data_ + size) = 45;
-  QP::DateComponents::description((this + 80), &v17);
+  QP::DateComponents::description(&v17, (this + 80));
   if ((v17.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     v7 = &v17;
@@ -3361,7 +3346,7 @@ void QP::DatePeriod::description(QP::DatePeriod *this@<X0>, std::string *a2@<X8>
   v11->__r_.__value_.__l.__size_ = 0;
   v11->__r_.__value_.__r.__words[2] = 0;
   v11->__r_.__value_.__r.__words[0] = 0;
-  QP::DateComponents::description((this + 136), &__p);
+  QP::DateComponents::description(&__p, (this + 136));
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     p_p = &__p;
@@ -3383,7 +3368,7 @@ void QP::DatePeriod::description(QP::DatePeriod *this@<X0>, std::string *a2@<X8>
   }
 
   v15 = std::string::append(&v21, p_p, v14);
-  *a2 = *v15;
+  *a1 = *v15;
   v15->__r_.__value_.__l.__size_ = 0;
   v15->__r_.__value_.__r.__words[2] = 0;
   v15->__r_.__value_.__r.__words[0] = 0;
@@ -3453,18 +3438,18 @@ void sub_1C65B1514(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *std::shared_ptr<QP::DatePeriod>::shared_ptr[abi:ne200100]<QP::DatePeriod,std::default_delete<QP::DatePeriod>,0>(uint64_t *result, uint64_t *a2)
+uint64_t *std::shared_ptr<QP::DatePeriod>::shared_ptr[abi:ne200100]<QP::DatePeriod,std::default_delete<QP::DatePeriod>,0>(uint64_t *a1, uint64_t *a2)
 {
   v2 = *a2;
-  *result = *a2;
+  *a1 = *a2;
   if (v2)
   {
     operator new();
   }
 
-  result[1] = 0;
+  a1[1] = 0;
   *a2 = 0;
-  return result;
+  return a1;
 }
 
 void std::__shared_ptr_pointer<QP::DatePeriod  *>::~__shared_ptr_pointer(std::__shared_weak_count *a1)
@@ -3486,7 +3471,7 @@ uint64_t std::__shared_ptr_pointer<QP::DatePeriod  *>::__get_deleter(uint64_t a1
   }
 }
 
-uint64_t std::string::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
+uint64_t std::string::basic_string[abi:ne200100](uint64_t a1, unint64_t a2)
 {
   if (a2 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -3498,25 +3483,24 @@ uint64_t std::string::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
     operator new();
   }
 
-  *(result + 8) = 0;
-  *(result + 16) = 0;
-  *result = 0;
-  *(result + 23) = a2;
-  return result;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *a1 = 0;
+  *(a1 + 23) = a2;
+  return a1;
 }
 
-void QP::DateComponents::description(QP::DateComponents *this@<X0>, std::string *a2@<X8>)
+void QP::DateComponents::description(std::string *__return_ptr a1@<X8>, QP::DateComponents *this@<X0>)
 {
-  a2->__r_.__value_.__r.__words[0] = 0;
-  a2->__r_.__value_.__l.__size_ = 0;
-  a2->__r_.__value_.__r.__words[2] = 0;
+  *&a1->__r_.__value_.__l.__data_ = 0uLL;
+  a1->__r_.__value_.__r.__words[2] = 0;
   v4 = *(this + 2);
   if ((v4 & 0x80000000) == 0)
   {
     std::to_string(&v39, v4);
     v5 = (v39.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v39 : v39.__r_.__value_.__r.__words[0];
     v6 = (v39.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? HIBYTE(v39.__r_.__value_.__r.__words[2]) : v39.__r_.__value_.__l.__size_;
-    std::string::append(a2, v5, v6);
+    std::string::append(a1, v5, v6);
     if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v39.__r_.__value_.__l.__data_);
@@ -3529,7 +3513,7 @@ void QP::DateComponents::description(QP::DateComponents *this@<X0>, std::string 
     std::to_string(&v39, v7);
     v8 = (v39.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v39 : v39.__r_.__value_.__r.__words[0];
     v9 = (v39.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? HIBYTE(v39.__r_.__value_.__r.__words[2]) : v39.__r_.__value_.__l.__size_;
-    std::string::append(a2, v8, v9);
+    std::string::append(a1, v8, v9);
     if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v39.__r_.__value_.__l.__data_);
@@ -3541,7 +3525,7 @@ void QP::DateComponents::description(QP::DateComponents *this@<X0>, std::string 
     std::to_string(&v39, *this);
     v10 = (v39.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v39 : v39.__r_.__value_.__r.__words[0];
     v11 = (v39.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? HIBYTE(v39.__r_.__value_.__r.__words[2]) : v39.__r_.__value_.__l.__size_;
-    std::string::append(a2, v10, v11);
+    std::string::append(a1, v10, v11);
     if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v39.__r_.__value_.__l.__data_);
@@ -3554,7 +3538,7 @@ void QP::DateComponents::description(QP::DateComponents *this@<X0>, std::string 
     std::to_string(&v39, v12);
     v13 = (v39.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v39 : v39.__r_.__value_.__r.__words[0];
     v14 = (v39.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? HIBYTE(v39.__r_.__value_.__r.__words[2]) : v39.__r_.__value_.__l.__size_;
-    std::string::append(a2, v13, v14);
+    std::string::append(a1, v13, v14);
     if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v39.__r_.__value_.__l.__data_);
@@ -3567,7 +3551,7 @@ void QP::DateComponents::description(QP::DateComponents *this@<X0>, std::string 
     std::to_string(&v39, v15);
     v16 = (v39.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v39 : v39.__r_.__value_.__r.__words[0];
     v17 = (v39.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? HIBYTE(v39.__r_.__value_.__r.__words[2]) : v39.__r_.__value_.__l.__size_;
-    std::string::append(a2, v16, v17);
+    std::string::append(a1, v16, v17);
     if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v39.__r_.__value_.__l.__data_);
@@ -3580,7 +3564,7 @@ void QP::DateComponents::description(QP::DateComponents *this@<X0>, std::string 
     std::to_string(&v39, v18);
     v19 = (v39.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v39 : v39.__r_.__value_.__r.__words[0];
     v20 = (v39.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? HIBYTE(v39.__r_.__value_.__r.__words[2]) : v39.__r_.__value_.__l.__size_;
-    std::string::append(a2, v19, v20);
+    std::string::append(a1, v19, v20);
     if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v39.__r_.__value_.__l.__data_);
@@ -3593,7 +3577,7 @@ void QP::DateComponents::description(QP::DateComponents *this@<X0>, std::string 
     std::to_string(&v39, v21);
     v22 = (v39.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v39 : v39.__r_.__value_.__r.__words[0];
     v23 = (v39.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? HIBYTE(v39.__r_.__value_.__r.__words[2]) : v39.__r_.__value_.__l.__size_;
-    std::string::append(a2, v22, v23);
+    std::string::append(a1, v22, v23);
     if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v39.__r_.__value_.__l.__data_);
@@ -3606,7 +3590,7 @@ void QP::DateComponents::description(QP::DateComponents *this@<X0>, std::string 
     std::to_string(&v39, v24);
     v25 = (v39.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v39 : v39.__r_.__value_.__r.__words[0];
     v26 = (v39.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? HIBYTE(v39.__r_.__value_.__r.__words[2]) : v39.__r_.__value_.__l.__size_;
-    std::string::append(a2, v25, v26);
+    std::string::append(a1, v25, v26);
     if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v39.__r_.__value_.__l.__data_);
@@ -3619,7 +3603,7 @@ void QP::DateComponents::description(QP::DateComponents *this@<X0>, std::string 
     std::to_string(&v39, v27);
     v28 = (v39.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v39 : v39.__r_.__value_.__r.__words[0];
     v29 = (v39.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? HIBYTE(v39.__r_.__value_.__r.__words[2]) : v39.__r_.__value_.__l.__size_;
-    std::string::append(a2, v28, v29);
+    std::string::append(a1, v28, v29);
     if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v39.__r_.__value_.__l.__data_);
@@ -3632,7 +3616,7 @@ void QP::DateComponents::description(QP::DateComponents *this@<X0>, std::string 
     std::to_string(&v39, v30);
     v31 = (v39.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v39 : v39.__r_.__value_.__r.__words[0];
     v32 = (v39.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? HIBYTE(v39.__r_.__value_.__r.__words[2]) : v39.__r_.__value_.__l.__size_;
-    std::string::append(a2, v31, v32);
+    std::string::append(a1, v31, v32);
     if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v39.__r_.__value_.__l.__data_);
@@ -3645,7 +3629,7 @@ void QP::DateComponents::description(QP::DateComponents *this@<X0>, std::string 
     std::to_string(&v39, v33);
     v34 = (v39.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v39 : v39.__r_.__value_.__r.__words[0];
     v35 = (v39.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? HIBYTE(v39.__r_.__value_.__r.__words[2]) : v39.__r_.__value_.__l.__size_;
-    std::string::append(a2, v34, v35);
+    std::string::append(a1, v34, v35);
     if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v39.__r_.__value_.__l.__data_);
@@ -3676,7 +3660,7 @@ void QP::DateComponents::description(QP::DateComponents *this@<X0>, std::string 
       size = v39.__r_.__value_.__l.__size_;
     }
 
-    std::string::append(a2, v37, size);
+    std::string::append(a1, v37, size);
     if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v39.__r_.__value_.__l.__data_);
@@ -3699,7 +3683,7 @@ void sub_1C65B1AA4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-std::string *std::__shared_ptr_emplace<QP::LexemeDateTime>::__shared_ptr_emplace[abi:ne200100]<char const(&)[10],std::unique_ptr<QP::DatePeriod>,CFRange &,std::allocator<QP::LexemeDateTime>,0>(std::string *a1, char *a2, const void ***a3, uint64_t a4)
+std::string *std::__shared_ptr_emplace<QP::LexemeDateTime>::__shared_ptr_emplace[abi:ne200100]<char const(&)[10],std::unique_ptr<QP::DatePeriod>,CFRange &,std::allocator<QP::LexemeDateTime>,0>(std::string *a1, char *a2, const void ***a3, uint64_t *a4)
 {
   a1->__r_.__value_.__l.__size_ = 0;
   a1->__r_.__value_.__r.__words[2] = 0;
@@ -3708,13 +3692,13 @@ std::string *std::__shared_ptr_emplace<QP::LexemeDateTime>::__shared_ptr_emplace
   return a1;
 }
 
-std::string *std::construct_at[abi:ne200100]<QP::LexemeDateTime,char const(&)[10],std::unique_ptr<QP::DatePeriod>,CFRange &,QP::LexemeDateTime*>(std::string *a1, char *a2, const void ***a3, uint64_t a4)
+std::string *std::construct_at[abi:ne200100]<QP::LexemeDateTime,char const(&)[10],std::unique_ptr<QP::DatePeriod>,CFRange &,QP::LexemeDateTime*>(std::string *a1, char *a2, const void ***a3, uint64_t *a4)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, a2);
   v7 = *a3;
   *a3 = 0;
   v9 = v7;
-  QP::LexemeDateTime::LexemeDateTime(a1, __p, &v9, *a4, *(a4 + 8));
+  QP::LexemeDateTime::LexemeDateTime(a1, __p, &v9, *a4, a4[1]);
   std::unique_ptr<QP::DatePeriod>::~unique_ptr[abi:ne200100](&v9);
   if (v11 < 0)
   {
@@ -3735,16 +3719,15 @@ void sub_1C65B1C8C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-std::string *std::__shared_ptr_emplace<QP::LexemeDateTime>::__shared_ptr_emplace[abi:ne200100]<std::string &,std::unique_ptr<QP::DatePeriod>,CFRange &,std::allocator<QP::LexemeDateTime>,0>(std::string *a1, uint64_t a2, const void ***a3, uint64_t a4)
+std::string *std::__shared_ptr_emplace<QP::LexemeDateTime>::__shared_ptr_emplace[abi:ne200100]<std::string &,std::unique_ptr<QP::DatePeriod>,CFRange &,std::allocator<QP::LexemeDateTime>,0>(std::string *a1, uint64_t a2, const void ***a3, uint64_t *a4)
 {
-  a1->__r_.__value_.__l.__size_ = 0;
-  a1->__r_.__value_.__r.__words[2] = 0;
+  *&a1->__r_.__value_.__r.__words[1] = 0uLL;
   a1->__r_.__value_.__r.__words[0] = &unk_1F45E8768;
   std::construct_at[abi:ne200100]<QP::LexemeDateTime,std::string &,std::unique_ptr<QP::DatePeriod>,CFRange &,QP::LexemeDateTime*>(a1 + 1, a2, a3, a4);
   return a1;
 }
 
-std::string *std::construct_at[abi:ne200100]<QP::LexemeDateTime,std::string &,std::unique_ptr<QP::DatePeriod>,CFRange &,QP::LexemeDateTime*>(std::string *this, uint64_t a2, const void ***a3, uint64_t a4)
+std::string *std::construct_at[abi:ne200100]<QP::LexemeDateTime,std::string &,std::unique_ptr<QP::DatePeriod>,CFRange &,QP::LexemeDateTime*>(std::string *this, uint64_t a2, const void ***a3, uint64_t *a4)
 {
   if (*(a2 + 23) < 0)
   {
@@ -3759,7 +3742,7 @@ std::string *std::construct_at[abi:ne200100]<QP::LexemeDateTime,std::string &,st
   v7 = *a3;
   *a3 = 0;
   v9 = v7;
-  QP::LexemeDateTime::LexemeDateTime(this, &v10, &v9, *a4, *(a4 + 8));
+  QP::LexemeDateTime::LexemeDateTime(this, &v10, &v9, *a4, a4[1]);
   std::unique_ptr<QP::DatePeriod>::~unique_ptr[abi:ne200100](&v9);
   if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -4469,16 +4452,17 @@ void QP::Lexer::lockedDetectorUpdate(QP::Lexer *this, int a2)
   }
 }
 
-void sub_1C65B2FFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, char a53, uint64_t a54, uint64_t a55, uint64_t a56, char a57)
+void sub_1C65B2FFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, ...)
 {
+  va_start(va, a56);
   _Block_object_dispose(&a53, 8);
-  _Block_object_dispose(&a57, 8);
-  _Block_object_dispose((v57 - 256), 8);
-  _Block_object_dispose((v57 - 224), 8);
-  _Block_object_dispose((v57 - 192), 8);
-  _Block_object_dispose((v57 - 160), 8);
-  _Block_object_dispose((v57 - 128), 8);
-  _Block_object_dispose((v57 - 96), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v56 - 256), 8);
+  _Block_object_dispose((v56 - 224), 8);
+  _Block_object_dispose((v56 - 192), 8);
+  _Block_object_dispose((v56 - 160), 8);
+  _Block_object_dispose((v56 - 128), 8);
+  _Block_object_dispose((v56 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -4559,125 +4543,109 @@ void ___ZN2QP5Lexer20lockedDetectorUpdateEb_block_invoke_2(void *a1)
 {
   v2 = a1[12];
   *(v2 + 434) = 0;
-  v3 = *(*(a1[4] + 8) + 24);
-  v4 = *(*(a1[5] + 8) + 24);
-  v5 = *(*(a1[6] + 8) + 24);
-  v6 = *(*(a1[7] + 8) + 24);
-  v7 = *(*(a1[8] + 8) + 24);
-  v8 = *(*(a1[9] + 8) + 24);
-  v9 = *(*(a1[10] + 8) + 24);
-  v18 = *(*(a1[11] + 8) + 24);
   QPDataDetectorSetDynamicSources(*(v2 + 584));
   (*(*(v2 + 576) + 56))(**(v2 + 576));
   ++*(v2 + 436);
-  v10 = *(*(a1[4] + 8) + 24);
-  if (v10)
+  v3 = *(*(a1[4] + 8) + 24);
+  if (v3)
   {
-    CFRelease(v10);
+    CFRelease(v3);
   }
 
-  v11 = *(*(a1[5] + 8) + 24);
-  if (v11)
+  v4 = *(*(a1[5] + 8) + 24);
+  if (v4)
   {
-    CFRelease(v11);
+    CFRelease(v4);
   }
 
-  v12 = *(*(a1[6] + 8) + 24);
-  if (v12)
+  v5 = *(*(a1[6] + 8) + 24);
+  if (v5)
   {
-    CFRelease(v12);
+    CFRelease(v5);
   }
 
-  v13 = *(*(a1[7] + 8) + 24);
-  if (v13)
+  v6 = *(*(a1[7] + 8) + 24);
+  if (v6)
   {
-    CFRelease(v13);
+    CFRelease(v6);
   }
 
-  v14 = *(*(a1[8] + 8) + 24);
-  if (v14)
+  v7 = *(*(a1[8] + 8) + 24);
+  if (v7)
   {
-    CFRelease(v14);
+    CFRelease(v7);
   }
 
-  v15 = *(*(a1[9] + 8) + 24);
-  if (v15)
+  v8 = *(*(a1[9] + 8) + 24);
+  if (v8)
   {
-    CFRelease(v15);
+    CFRelease(v8);
   }
 
-  v16 = *(*(a1[10] + 8) + 24);
-  if (v16)
-  {
-    CFRelease(v16);
-  }
-
-  v17 = *(*(a1[11] + 8) + 24);
-  if (v17)
-  {
-
-    CFRelease(v17);
-  }
-}
-
-void ___ZN2QP5Lexer20lockedDetectorUpdateEb_block_invoke_3(void *a1)
-{
-  v2 = *(*(a1[4] + 8) + 24);
-  v3 = *(*(a1[5] + 8) + 24);
-  v4 = *(*(a1[6] + 8) + 24);
-  v5 = *(*(a1[7] + 8) + 24);
-  v6 = *(*(a1[8] + 8) + 24);
-  v7 = *(*(a1[9] + 8) + 24);
-  v8 = *(*(a1[10] + 8) + 24);
-  v17 = *(*(a1[11] + 8) + 24);
-  QPDataDetectorSetDynamicSources(*(a1[12] + 584));
-  v9 = *(*(a1[4] + 8) + 24);
+  v9 = *(*(a1[10] + 8) + 24);
   if (v9)
   {
     CFRelease(v9);
   }
 
-  v10 = *(*(a1[5] + 8) + 24);
+  v10 = *(*(a1[11] + 8) + 24);
   if (v10)
   {
+
     CFRelease(v10);
   }
+}
 
-  v11 = *(*(a1[6] + 8) + 24);
-  if (v11)
+void ___ZN2QP5Lexer20lockedDetectorUpdateEb_block_invoke_3(void *a1)
+{
+  QPDataDetectorSetDynamicSources(*(a1[12] + 584));
+  v2 = *(*(a1[4] + 8) + 24);
+  if (v2)
   {
-    CFRelease(v11);
+    CFRelease(v2);
   }
 
-  v12 = *(*(a1[7] + 8) + 24);
-  if (v12)
+  v3 = *(*(a1[5] + 8) + 24);
+  if (v3)
   {
-    CFRelease(v12);
+    CFRelease(v3);
   }
 
-  v13 = *(*(a1[8] + 8) + 24);
-  if (v13)
+  v4 = *(*(a1[6] + 8) + 24);
+  if (v4)
   {
-    CFRelease(v13);
+    CFRelease(v4);
   }
 
-  v14 = *(*(a1[9] + 8) + 24);
-  if (v14)
+  v5 = *(*(a1[7] + 8) + 24);
+  if (v5)
   {
-    CFRelease(v14);
+    CFRelease(v5);
   }
 
-  v15 = *(*(a1[10] + 8) + 24);
-  if (v15)
+  v6 = *(*(a1[8] + 8) + 24);
+  if (v6)
   {
-    CFRelease(v15);
+    CFRelease(v6);
   }
 
-  v16 = *(*(a1[11] + 8) + 24);
-  if (v16)
+  v7 = *(*(a1[9] + 8) + 24);
+  if (v7)
+  {
+    CFRelease(v7);
+  }
+
+  v8 = *(*(a1[10] + 8) + 24);
+  if (v8)
+  {
+    CFRelease(v8);
+  }
+
+  v9 = *(*(a1[11] + 8) + 24);
+  if (v9)
   {
 
-    CFRelease(v16);
+    CFRelease(v9);
   }
 }
 
@@ -4835,9 +4803,9 @@ void std::vector<std::vector<CFRange>>::clear[abi:ne200100](uint64_t *a1)
   a1[1] = v3;
 }
 
-void QP::Lexer::loadLexerResource(QP::Lexer *this, const __CFURL *a2)
+void QP::Lexer::loadLexerResource(QP::HolidayReference ****this, const __CFURL *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (lexerLogger(void)::token != -1)
   {
     ___ZN2QP5LexerC2ENSt3__110shared_ptrINS_19ParserConfigurationEEENS2_INS_13ParserGrammarEEE_block_invoke_cold_1();
@@ -4869,7 +4837,7 @@ void QP::Lexer::loadLexerResource(QP::Lexer *this, const __CFURL *a2)
     block[7] = v8;
     if (CFStringsAreEqual(v8, @"plist"))
     {
-      if (QP::LexemeConverter::loadResourceURL(*(this + 43), a2))
+      if (QP::LexemeConverter::loadResourceURL(this[43], a2))
       {
         *(this + 432) = 1;
       }
@@ -4877,16 +4845,16 @@ void QP::Lexer::loadLexerResource(QP::Lexer *this, const __CFURL *a2)
 
     else if (CFStringsAreEqual(PathComponent, @"geobase.map") || CFStringsAreEqual(PathComponent, @"reference.mdplist"))
     {
-      QP::LexemeConverter::loadResourceURL(*(this + 43), a2);
+      QP::LexemeConverter::loadResourceURL(this[43], a2);
     }
 
     else if (CFStringsAreEqual(v8, @"cache"))
     {
       *&buf = 0;
       *(&buf + 1) = &buf;
-      v16 = 0x2000000000;
-      v17 = 1;
-      v12 = *(this + 74);
+      v15 = 0x2000000000;
+      v16 = 1;
+      v11 = this[74];
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 0x40000000;
       block[2] = ___ZN2QP5Lexer17loadLexerResourceEPK7__CFURL_block_invoke;
@@ -4894,12 +4862,12 @@ void QP::Lexer::loadLexerResource(QP::Lexer *this, const __CFURL *a2)
       block[5] = this;
       block[6] = a2;
       block[4] = &buf;
-      dispatch_sync(v12, block);
-      v13 = *(*(&buf + 1) + 24);
-      *(this + 432) = v13;
-      if (v13 == 1 && CFStringHasSuffix(PathComponent, @"lexicon.cache"))
+      dispatch_sync(v11, block);
+      v12 = *(*(&buf + 1) + 24);
+      *(this + 432) = v12;
+      if (v12 == 1 && CFStringHasSuffix(PathComponent, @"lexicon.cache"))
       {
-        QP::Lexer::updateWithKnowledgeSource(this, 1, *(*(this + 39) + 35));
+        QP::Lexer::updateWithKnowledgeSource(this, 1, *(this[39] + 35));
       }
 
       _Block_object_dispose(&buf, 8);
@@ -4932,18 +4900,16 @@ void QP::Lexer::loadLexerResource(QP::Lexer *this, const __CFURL *a2)
       CFRelease(PathComponent);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
-void sub_1C65B3B78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1C65B3B78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va2, a9);
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, const void *);
+  va_start(va2, a16);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, const void *);
   va_copy(va2, va1);
-  v12 = va_arg(va2, const void *);
+  v19 = va_arg(va2, const void *);
   _Block_object_dispose(va2, 8);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   nlp::CFScopedPtr<__CFString const*>::reset(va1, 0);
@@ -5000,8 +4966,9 @@ uint64_t QP::Lexer::hasResources(QP::Lexer *this)
   return v1 & 1;
 }
 
-void QP::Lexer::setStringWithLexemes(uint64_t a1, const void *a2, int a3, uint64_t **a4)
+void QP::Lexer::setStringWithLexemes(uint64_t a1, const void *a2, uint64_t a3, uint64_t **a4)
 {
+  v5 = a3;
   QP::Lexer::clear(a1);
   if (a2)
   {
@@ -5013,7 +4980,7 @@ void QP::Lexer::setStringWithLexemes(uint64_t a1, const void *a2, int a3, uint64
     CFAttributedStringReplaceString(v9, v12, *(a1 + 440));
   }
 
-  QP::Lexer::parse(a1, a3, a4);
+  QP::Lexer::parse(a1, v5, a4);
   v10 = *(*(a1 + 312) + 35);
 
   QP::Lexer::updateWithKnowledgeSource(a1, 0, v10);
@@ -5021,15 +4988,15 @@ void QP::Lexer::setStringWithLexemes(uint64_t a1, const void *a2, int a3, uint64
 
 void QP::Lexer::parse(uint64_t a1, int a2, uint64_t **a3)
 {
-  v77 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   if ((QP::Lexer::shouldSkipParsing(a1) & 1) == 0)
   {
     QP::Lexer::resetParseVariables(a1);
-    v66 = 0;
-    v67 = &v66;
-    v68 = 0x2000000000;
+    v52 = 0;
+    v53 = &v52;
+    v54 = 0x2000000000;
     Mutable = CFStringCreateMutable(*MEMORY[0x1E695E480], 0);
-    if (v67[3])
+    if (v53[3])
     {
       if (((*(*(a1 + 312) + 8) - 10) & 0xFFFFFFFFFFFFFFFBLL) != 0)
       {
@@ -5041,214 +5008,203 @@ void QP::Lexer::parse(uint64_t a1, int a2, uint64_t **a3)
         v6 = 100;
       }
 
-      v59 = 0;
-      v60 = &v59;
-      v61 = 0x3802000000;
-      v62 = __Block_byref_object_copy__95;
-      v64 = 0;
-      v65 = 0;
-      v63 = __Block_byref_object_dispose__96;
+      v49[0] = 0;
+      v49[1] = v49;
+      v49[2] = 0x3802000000;
+      v49[3] = __Block_byref_object_copy__95;
+      v50 = 0;
+      v51 = 0;
+      v49[4] = __Block_byref_object_dispose__96;
       Length = CFStringGetLength(*(a1 + 440));
-      v41 = a2;
-      v64 = 0;
-      v65 = Length;
-      bzero(&v76, 0x640uLL);
-      v55 = 0;
-      v56 = &v55;
-      v57 = 0x2000000000;
-      v58 = 0;
-      v54[0] = 0;
-      v54[1] = v54;
-      v54[2] = 0x2000000000;
-      v54[3] = &v76;
-      v8 = *(a1 + 424);
-      v9 = *(a1 + 440);
+      v31 = a2;
+      v50 = 0;
+      v51 = Length;
+      bzero(&v62, 0x640uLL);
+      v45 = 0;
+      v46 = &v45;
+      v47 = 0x2000000000;
+      v48 = 0;
+      v44[0] = 0;
+      v44[1] = v44;
+      v44[2] = 0x2000000000;
+      v44[3] = &v62;
       NLTaggerSetString();
-      v10 = *(a1 + 424);
-      v11 = *(*(a1 + 312) + 112);
-      v12 = v60[5];
-      v13 = v60[6];
       NLTaggerSetLocaleForRange();
-      v14 = *(a1 + 424);
-      v15 = v60[5];
-      v16 = v60[6];
-      v44 = MEMORY[0x1E69E9820];
-      v45 = 0x40000000;
-      v46 = ___ZN2QP5Lexer5parseEbRNSt3__16vectorINS1_10shared_ptrINS_6LexemeEEENS1_9allocatorIS5_EEEE_block_invoke;
-      v47 = &unk_1E8266E20;
-      v48 = &v66;
-      v49 = v54;
-      v52 = a1;
-      v53 = v6;
-      v50 = &v55;
-      v51 = &v59;
+      v34 = MEMORY[0x1E69E9820];
+      v35 = 0x40000000;
+      v36 = ___ZN2QP5Lexer5parseEbRNSt3__16vectorINS1_10shared_ptrINS_6LexemeEEENS1_9allocatorIS5_EEEE_block_invoke;
+      v37 = &unk_1E8266E20;
+      v38 = &v52;
+      v39 = v44;
+      v42 = a1;
+      v43 = v6;
+      v40 = &v45;
+      v41 = v49;
       NLTaggerEnumerateTokens();
-      v42 = a3;
-      v17 = *(a1 + 160);
-      v18 = *(a1 + 168);
-      if (v17 != v18)
+      v32 = a3;
+      v8 = *(a1 + 160);
+      v9 = *(a1 + 168);
+      if (v8 != v9)
       {
-        v19 = (a1 + 136);
+        v10 = (a1 + 136);
         do
         {
-          memset(&v43, 0, sizeof(v43));
-          v20 = *v17;
-          if (SHIBYTE((*v17)[2].__r_.__value_.__r.__words[2]) < 0)
+          memset(&v33, 0, sizeof(v33));
+          v11 = *v8;
+          if (SHIBYTE((*v8)[2].__r_.__value_.__r.__words[2]) < 0)
           {
-            std::string::__init_copy_ctor_external(&v43, v20[2].__r_.__value_.__l.__data_, v20[2].__r_.__value_.__l.__size_);
+            std::string::__init_copy_ctor_external(&v33, v11[2].__r_.__value_.__l.__data_, v11[2].__r_.__value_.__l.__size_);
           }
 
           else
           {
-            v43 = v20[2];
+            v33 = v11[2];
           }
 
-          if (a1 + 192 == std::__tree<std::string>::find<std::string>(a1 + 184, &v43.__r_.__value_.__l.__data_))
+          if (a1 + 192 == std::__tree<std::string>::find<std::string>(a1 + 184, &v33))
           {
-            v21 = *(a1 + 144);
-            v22 = *(a1 + 152);
-            if (v21 >= v22)
+            v12 = *(a1 + 144);
+            v13 = *(a1 + 152);
+            if (v12 >= v13)
             {
-              v25 = (v21 - *v19) >> 4;
-              v26 = v25 + 1;
-              if ((v25 + 1) >> 60)
+              v16 = (v12 - *v10) >> 4;
+              v17 = v16 + 1;
+              if ((v16 + 1) >> 60)
               {
                 std::vector<QP::GeoLocation>::__throw_length_error[abi:ne200100]();
               }
 
-              v27 = v22 - *v19;
-              if (v27 >> 3 > v26)
+              v18 = v13 - *v10;
+              if (v18 >> 3 > v17)
               {
-                v26 = v27 >> 3;
+                v17 = v18 >> 3;
               }
 
-              if (v27 >= 0x7FFFFFFFFFFFFFF0)
+              if (v18 >= 0x7FFFFFFFFFFFFFF0)
               {
-                v28 = 0xFFFFFFFFFFFFFFFLL;
+                v19 = 0xFFFFFFFFFFFFFFFLL;
               }
 
               else
               {
-                v28 = v26;
+                v19 = v17;
               }
 
-              v74 = a1 + 136;
-              if (v28)
+              v60 = a1 + 136;
+              if (v19)
               {
-                std::__allocate_at_least[abi:ne200100]<std::allocator<std::shared_ptr<QP::GraphStructureStack::Node>>>(a1 + 136, v28);
+                std::__allocate_at_least[abi:ne200100]<std::allocator<std::shared_ptr<QP::GraphStructureStack::Node>>>(a1 + 136, v19);
               }
 
-              v29 = 16 * v25;
-              v30 = *v17;
-              *(16 * v25) = *v17;
-              if (*(&v30 + 1))
+              v20 = 16 * v16;
+              v21 = *v8;
+              *(16 * v16) = *v8;
+              if (*(&v21 + 1))
               {
-                atomic_fetch_add_explicit((*(&v30 + 1) + 8), 1uLL, memory_order_relaxed);
+                atomic_fetch_add_explicit((*(&v21 + 1) + 8), 1uLL, memory_order_relaxed);
               }
 
-              v24 = (v29 + 16);
-              v31 = *(a1 + 136);
-              v32 = *(a1 + 144) - v31;
-              v33 = v29 - v32;
-              memcpy((v29 - v32), v31, v32);
-              v34 = *(a1 + 136);
-              *(a1 + 136) = v33;
-              *(a1 + 144) = v24;
-              v35 = *(a1 + 152);
+              v15 = (v20 + 16);
+              v22 = *(a1 + 136);
+              v23 = *(a1 + 144) - v22;
+              v24 = v20 - v23;
+              memcpy((v20 - v23), v22, v23);
+              v25 = *(a1 + 136);
+              *(a1 + 136) = v24;
+              *(a1 + 144) = v15;
+              v26 = *(a1 + 152);
               *(a1 + 152) = 0;
-              v72 = v34;
-              v73 = v35;
-              block = v34;
-              v71 = v34;
+              v58 = v25;
+              v59 = v26;
+              block = v25;
+              v57 = v25;
               std::__split_buffer<std::shared_ptr<QP::GraphStructureStack::Node>>::~__split_buffer(&block);
             }
 
             else
             {
-              *v21 = *v17;
-              v23 = v17[1];
-              v21[1] = v23;
-              if (v23)
+              *v12 = *v8;
+              v14 = v8[1];
+              v12[1] = v14;
+              if (v14)
               {
-                atomic_fetch_add_explicit(&v23->__r_.__value_.__l.__size_, 1uLL, memory_order_relaxed);
+                atomic_fetch_add_explicit(&v14->__r_.__value_.__l.__size_, 1uLL, memory_order_relaxed);
               }
 
-              v24 = v21 + 2;
+              v15 = v12 + 2;
             }
 
-            *(a1 + 144) = v24;
-            std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a1 + 184, &v43.__r_.__value_.__l.__data_);
+            *(a1 + 144) = v15;
+            std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>((a1 + 184), &v33, &v33);
           }
 
-          if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v43.__r_.__value_.__l.__data_);
+            operator delete(v33.__r_.__value_.__l.__data_);
           }
 
-          v17 += 2;
+          v8 += 2;
         }
 
-        while (v17 != v18);
+        while (v8 != v9);
       }
 
       QP::Lexer::selectPersonLexemes(a1);
       QP::Lexer::selectLocationLexemes(a1);
-      v36 = v67[3];
+      v27 = v53[3];
       block = MEMORY[0x1E69E9820];
-      v71 = 0x40000000;
-      v72 = ___ZN2QP5Lexer19selectEntityLexemesEP10__CFString_block_invoke;
-      v73 = &__block_descriptor_tmp_119;
-      v74 = a1;
-      QPDataDetectorsEnumerateEntitiesInString(v36, 0, &block);
-      v37 = v67[3];
-      v38 = *(a1 + 592);
+      v57 = 0x40000000;
+      v58 = ___ZN2QP5Lexer19selectEntityLexemesEP10__CFString_block_invoke;
+      v59 = &__block_descriptor_tmp_119;
+      v60 = a1;
+      QPDataDetectorsEnumerateEntitiesInString(v27, 0, &block);
+      v28 = v53[3];
+      v29 = *(a1 + 592);
       block = MEMORY[0x1E69E9820];
-      v71 = 0x40000000;
-      v72 = ___ZN2QP5Lexer20selectDefaultLexemesEP10__CFString_block_invoke;
-      v73 = &__block_descriptor_tmp_127;
-      v74 = a1;
-      v75 = v37;
-      dispatch_sync(v38, &block);
-      QP::Lexer::selectKnowledgeSourceLexemes(a1, &v76, v56[3], v41);
-      QP::Lexer::sortLexemes(a1, v42);
-      QP::Lexer::addLexemes(a1, v42);
+      v57 = 0x40000000;
+      v58 = ___ZN2QP5Lexer20selectDefaultLexemesEP10__CFString_block_invoke;
+      v59 = &__block_descriptor_tmp_127;
+      v60 = a1;
+      v61 = v28;
+      dispatch_sync(v29, &block);
+      QP::Lexer::selectKnowledgeSourceLexemes(a1, &v62, v46[3], v31);
+      QP::Lexer::sortLexemes(a1, v32);
+      QP::Lexer::addLexemes(a1, v32);
       if (*(*(a1 + 312) + 70) == 1)
       {
         QP::Lexer::addEntityLexemes(a1);
       }
 
-      v39 = v67[3];
-      if (v39)
+      v30 = v53[3];
+      if (v30)
       {
-        CFRelease(v39);
+        CFRelease(v30);
       }
 
-      _Block_object_dispose(v54, 8);
-      _Block_object_dispose(&v55, 8);
-      _Block_object_dispose(&v59, 8);
+      _Block_object_dispose(v44, 8);
+      _Block_object_dispose(&v45, 8);
+      _Block_object_dispose(v49, 8);
     }
 
-    _Block_object_dispose(&v66, 8);
+    _Block_object_dispose(&v52, 8);
   }
-
-  v40 = *MEMORY[0x1E69E9840];
 }
 
-void QP::Lexer::setString(QP::Lexer *this, const __CFString *a2, int a3)
+void QP::Lexer::setString(const void **this, const __CFString *a2, int a3)
 {
   QP::Lexer::clear(this);
   if (a2)
   {
     v6 = CFRetain(a2);
     nlp::CFScopedPtr<__CFString const*>::reset(this + 55, v6);
-    v7 = *(this + 56);
+    v7 = this[56];
     v10.length = CFAttributedStringGetLength(v7);
     v10.location = 0;
-    CFAttributedStringReplaceString(v7, v10, *(this + 55));
+    CFAttributedStringReplaceString(v7, v10, this[55]);
   }
 
   QP::Lexer::parse(this, a3, this + 63);
-  v8 = *(*(this + 39) + 35);
+  v8 = *(this[39] + 35);
 
   QP::Lexer::updateWithKnowledgeSource(this, 0, v8);
 }
@@ -5271,38 +5227,30 @@ void QP::Lexer::lexemeFromLocationsAndLexemes(unint64_t **a1@<X1>, uint64_t *a2@
           break;
         }
 
-        v9 = *(*a2 + 16 * v8);
         if (v7 == -1)
         {
-          v7 = *(v9 + 72);
-        }
-
-        else
-        {
-          v10 = *(v9 + 80) + *(v9 + 72);
+          v7 = *(*(*a2 + 16 * v8) + 72);
         }
 
         if (++v4 == v5)
         {
           if (v7 != -1)
           {
-            v14 = 0;
-            v15 = 0;
             operator new();
           }
 
-          goto LABEL_17;
+          goto LABEL_16;
         }
       }
     }
 
-    goto LABEL_17;
+    goto LABEL_16;
   }
 
-  v11 = *v4;
-  if ((v11 & 0x8000000000000000) != 0 || (v12 = *a2, v11 >= (a2[1] - *a2) >> 4))
+  v9 = *v4;
+  if ((v9 & 0x8000000000000000) != 0 || (v10 = *a2, v9 >= (a2[1] - *a2) >> 4))
   {
-LABEL_17:
+LABEL_16:
     *a3 = 0;
     *(a3 + 8) = 0;
     *(a3 + 16) = 0;
@@ -5310,15 +5258,15 @@ LABEL_17:
   }
 
   *a3 = 0;
-  v13 = *(v12 + 16 * v11);
-  *(a3 + 8) = v13;
-  if (*(&v13 + 1))
+  v11 = *(v10 + 16 * v9);
+  *(a3 + 8) = v11;
+  if (*(&v11 + 1))
   {
-    atomic_fetch_add_explicit((*(&v13 + 1) + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((*(&v11 + 1) + 8), 1uLL, memory_order_relaxed);
   }
 }
 
-void QP::Lexer::lexemeFromLocations(uint64_t *a1@<X0>, unint64_t **a2@<X1>, void *a3@<X8>)
+void QP::Lexer::lexemeFromLocations(void *a1@<X0>, unint64_t **a2@<X1>, void *a3@<X8>)
 {
   v21 = 0;
   v22 = 0uLL;
@@ -5650,7 +5598,7 @@ void QP::Lexer::getExternalTypesForRange(uint64_t a1@<X0>, CFIndex a2@<X1>, CFIn
             __p[1] = 0;
             v69 = 0;
             ValueAtIndex = CFArrayGetValueAtIndex(v14, 0);
-            QP::getUTF8StringFromCFString(ValueAtIndex, __p);
+            QP::getUTF8StringFromCFString(__p, ValueAtIndex);
             std::allocate_shared[abi:ne200100]<QP::Lexeme,std::allocator<QP::Lexeme>,std::string &,CFRange &,0>();
           }
 
@@ -5848,7 +5796,7 @@ void QP::Lexer::getExternalTypesForRange(uint64_t a1@<X0>, CFIndex a2@<X1>, CFIn
                 __p[1] = 0;
                 v69 = 0;
                 v34 = CFArrayGetValueAtIndex(v32, 0);
-                QP::getUTF8StringFromCFString(v34, __p);
+                QP::getUTF8StringFromCFString(__p, v34);
                 std::allocate_shared[abi:ne200100]<QP::Lexeme,std::allocator<QP::Lexeme>,std::string &,CFRange &,0>();
               }
             }
@@ -6087,22 +6035,22 @@ LABEL_14:
   return v4 & 1;
 }
 
-void sub_1C65B57B4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C65B57B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
 
-void QP::Lexer::expand(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void QP::Lexer::expand(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t **a4)
 {
   Length = CFStringGetLength(*(a1 + 440));
   v7 = *a3;
   v8 = *(a3 + 8);
   v9 = 126 - 2 * __clz((v8 - *a3) >> 4);
-  v57 = v8 == *a3;
-  v82 = QP::lexeme_less_than_range;
-  if (v57)
+  v65 = v8 == *a3;
+  v106 = QP::lexeme_less_than_range;
+  if (v65)
   {
     v10 = 0;
   }
@@ -6112,27 +6060,35 @@ void QP::Lexer::expand(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
     v10 = v9;
   }
 
-  std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<QP::Lexeme> &,std::shared_ptr<QP::Lexeme> &),std::shared_ptr<QP::Lexeme>*,false>(v7, v8, &v82, v10, 1);
-  v82 = 0;
-  v83 = &v82;
-  v84 = 0x4002000000;
-  v85 = __Block_byref_object_copy__7;
-  v86 = __Block_byref_object_dispose__7;
-  memset(v87, 0, sizeof(v87));
-  v74 = 0;
-  v75 = &v74;
-  v76 = 0x4002000000;
-  v77 = __Block_byref_object_copy__81;
-  v78 = __Block_byref_object_dispose__82;
+  std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<QP::Lexeme> &,std::shared_ptr<QP::Lexeme> &),std::shared_ptr<QP::Lexeme>*,false>(v7, v8, &v106, v10, 1);
+  v106 = 0;
+  v107 = &v106;
+  v108 = 0x4002000000;
+  v109 = __Block_byref_object_copy__7;
+  v110 = __Block_byref_object_dispose__7;
+  memset(v111, 0, sizeof(v111));
+  v98 = 0;
+  v99 = &v98;
+  v100 = 0x4002000000;
+  v101 = __Block_byref_object_copy__81;
+  v102 = __Block_byref_object_dispose__82;
   __p = 0;
-  v80 = 0;
-  v81 = 0;
+  v104 = 0;
+  v105 = 0;
   v12 = *a3;
   v11 = *(a3 + 8);
-  v72 = Length;
+  v89 = Length;
   if (v11 == *a3)
   {
-    QP::LexemeConverter::enumerateEntitiesWithString(*(a1 + 344), *(a1 + 440), 0, 0, Length, 0, Length);
+    v44 = *(a1 + 344);
+    v45 = *(a1 + 440);
+    v97[0] = MEMORY[0x1E69E9820];
+    v97[1] = 0x40000000;
+    v97[2] = ___ZN2QP5Lexer6expandERNSt3__13setINS1_12basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEENS1_4lessIS8_EENS6_IS8_EEEERNS1_6vectorINS1_10shared_ptrINS_6LexemeEEENS6_ISH_EEEESK__block_invoke;
+    v97[3] = &unk_1E8266B90;
+    v97[4] = &v98;
+    v97[5] = &v106;
+    QP::LexemeConverter::enumerateEntitiesWithString(v44, v45, 0, 0, Length, 0, Length, v97);
     v13 = 0;
   }
 
@@ -6149,96 +6105,105 @@ void QP::Lexer::expand(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
         v21 = v16 - v13;
         if (v16 > v13)
         {
-          v89.location = v13;
-          v89.length = v16 - v13;
-          v23 = QP::Lexer::contentRangeFromRange(a1, v89);
+          v113.location = v13;
+          v113.length = v16 - v13;
+          v23 = QP::Lexer::contentRangeFromRange(a1, v113);
           if (v23 != -1)
           {
-            QP::LexemeConverter::enumerateEntitiesWithString(*(a1 + 344), *(a1 + 440), 0, v23, v22, v13, v21);
+            v24 = v22;
+            v25 = *(a1 + 344);
+            v26 = *(a1 + 440);
+            v96[0] = MEMORY[0x1E69E9820];
+            v96[1] = 0x40000000;
+            v96[2] = ___ZN2QP5Lexer6expandERNSt3__13setINS1_12basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEENS1_4lessIS8_EENS6_IS8_EEEERNS1_6vectorINS1_10shared_ptrINS_6LexemeEEENS6_ISH_EEEESK__block_invoke_2;
+            v96[3] = &unk_1E8266BB8;
+            v96[4] = &v98;
+            v96[5] = &v106;
+            QP::LexemeConverter::enumerateEntitiesWithString(v25, v26, 0, v23, v24, v13, v21, v96);
           }
         }
 
-        v24 = v83;
+        v27 = v107;
         if (*(*v12 + 88) == 15)
         {
-          v88[0] = ((v83[6] - v83[5]) >> 4);
-          std::vector<long>::push_back[abi:ne200100](v75 + 5, v88);
-          v24 = v83;
+          v112[0] = ((v107[6] - v107[5]) >> 4);
+          std::vector<long>::push_back[abi:ne200100](v99 + 5, v112);
+          v27 = v107;
         }
 
-        v25 = v24[6];
-        v26 = v24[7];
-        if (v25 >= v26)
+        v28 = v27[6];
+        v29 = v27[7];
+        if (v28 >= v29)
         {
-          v29 = v24[5];
-          v30 = (v25 - v29) >> 4;
-          v31 = v30 + 1;
-          if ((v30 + 1) >> 60)
+          v32 = v27[5];
+          v33 = (v28 - v32) >> 4;
+          v34 = v33 + 1;
+          if ((v33 + 1) >> 60)
           {
             std::vector<QP::GeoLocation>::__throw_length_error[abi:ne200100]();
           }
 
-          v32 = v26 - v29;
-          if (v32 >> 3 > v31)
+          v35 = v29 - v32;
+          if (v35 >> 3 > v34)
           {
-            v31 = v32 >> 3;
+            v34 = v35 >> 3;
           }
 
-          if (v32 >= 0x7FFFFFFFFFFFFFF0)
+          if (v35 >= 0x7FFFFFFFFFFFFFF0)
           {
-            v33 = 0xFFFFFFFFFFFFFFFLL;
+            v36 = 0xFFFFFFFFFFFFFFFLL;
           }
 
           else
           {
-            v33 = v31;
+            v36 = v34;
           }
 
-          v88[4] = v24 + 5;
-          if (v33)
+          v112[4] = v27 + 5;
+          if (v36)
           {
-            std::__allocate_at_least[abi:ne200100]<std::allocator<std::shared_ptr<QP::GraphStructureStack::Node>>>((v24 + 5), v33);
+            std::__allocate_at_least[abi:ne200100]<std::allocator<std::shared_ptr<QP::GraphStructureStack::Node>>>((v27 + 5), v36);
           }
 
-          v34 = 16 * v30;
-          v35 = *v12;
-          *(16 * v30) = *v12;
-          if (*(&v35 + 1))
+          v37 = 16 * v33;
+          v38 = *v12;
+          *(16 * v33) = *v12;
+          if (*(&v38 + 1))
           {
-            atomic_fetch_add_explicit((*(&v35 + 1) + 8), 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit((*(&v38 + 1) + 8), 1uLL, memory_order_relaxed);
           }
 
-          v28 = (v34 + 16);
-          v36 = v24[5];
-          v37 = v24[6] - v36;
-          v38 = v34 - v37;
-          memcpy((v34 - v37), v36, v37);
-          v39 = v24[5];
-          v24[5] = v38;
-          v24[6] = v28;
-          v40 = v24[7];
-          v24[7] = 0;
-          v88[2] = v39;
-          v88[3] = v40;
-          v88[0] = v39;
-          v88[1] = v39;
-          std::__split_buffer<std::shared_ptr<QP::GraphStructureStack::Node>>::~__split_buffer(v88);
+          v31 = (v37 + 16);
+          v39 = v27[5];
+          v40 = v27[6] - v39;
+          v41 = v37 - v40;
+          memcpy((v37 - v40), v39, v40);
+          v42 = v27[5];
+          v27[5] = v41;
+          v27[6] = v31;
+          v43 = v27[7];
+          v27[7] = 0;
+          v112[2] = v42;
+          v112[3] = v43;
+          v112[0] = v42;
+          v112[1] = v42;
+          std::__split_buffer<std::shared_ptr<QP::GraphStructureStack::Node>>::~__split_buffer(v112);
         }
 
         else
         {
-          *v25 = *v12;
-          v27 = v12[1];
-          v25[1] = v27;
-          if (v27)
+          *v28 = *v12;
+          v30 = v12[1];
+          v28[1] = v30;
+          if (v30)
           {
-            atomic_fetch_add_explicit((v27 + 8), 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit((v30 + 8), 1uLL, memory_order_relaxed);
           }
 
-          v28 = (v25 + 2);
+          v31 = (v28 + 2);
         }
 
-        v24[6] = v28;
+        v27[6] = v31;
         v15 = *(*v12 + 72);
         v14 = *(*v12 + 80);
         v13 = v14 + v15;
@@ -6250,150 +6215,186 @@ void QP::Lexer::expand(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
     while (v12 != v11);
   }
 
-  v41 = Length;
+  v46 = Length;
   if (Length > v13)
   {
-    v90.location = v13;
-    v90.length = Length - v13;
-    v43 = QP::Lexer::contentRangeFromRange(a1, v90);
-    if (v43 != -1)
+    v114.location = v13;
+    v114.length = Length - v13;
+    v48 = QP::Lexer::contentRangeFromRange(a1, v114);
+    if (v48 != -1)
     {
-      QP::LexemeConverter::enumerateEntitiesWithString(*(a1 + 344), *(a1 + 440), 0, v43, v42, v13, Length - v13);
+      v49 = v47;
+      v50 = *(a1 + 344);
+      v51 = *(a1 + 440);
+      v95[0] = MEMORY[0x1E69E9820];
+      v95[1] = 0x40000000;
+      v95[2] = ___ZN2QP5Lexer6expandERNSt3__13setINS1_12basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEENS1_4lessIS8_EENS6_IS8_EEEERNS1_6vectorINS1_10shared_ptrINS_6LexemeEEENS6_ISH_EEEESK__block_invoke_3;
+      v95[3] = &unk_1E8266BE0;
+      v95[4] = &v98;
+      v95[5] = &v106;
+      QP::LexemeConverter::enumerateEntitiesWithString(v50, v51, 0, v48, v49, v13, Length - v13, v95);
     }
   }
 
   if ((*(*(a1 + 312) + 31) & 1) == 0)
   {
-    v44 = v75[5];
-    v70 = v75[6];
-    if (v44 != v70)
+    v52 = v99[5];
+    v87 = v99[6];
+    if (v52 != v87)
     {
       do
       {
-        v71 = v44;
-        v45 = *v44;
-        v46 = *v44;
-        v73 = *v44;
+        v88 = v52;
+        v53 = *v52;
+        v54 = *v52;
+        v90 = *v52;
         do
         {
-          v47 = v46 + 1;
-          v48 = v83[5];
-          if (v46 + 1 >= (v83[6] - v48) >> 4)
+          v55 = v54 + 1;
+          v56 = v107[5];
+          if (v54 + 1 >= (v107[6] - v56) >> 4)
           {
             break;
           }
 
-          v49 = (v48 + 16 * v46);
-          v50 = *v49;
-          v51 = v49[1];
-          if (v51)
+          v57 = (v56 + 16 * v54);
+          v58 = *v57;
+          v59 = v57[1];
+          if (v59)
           {
-            atomic_fetch_add_explicit(&v51->__shared_owners_, 1uLL, memory_order_relaxed);
-            v48 = v83[5];
+            atomic_fetch_add_explicit(&v59->__shared_owners_, 1uLL, memory_order_relaxed);
+            v56 = v107[5];
           }
 
-          v52 = (v48 + 16 * v47);
-          v53 = *v52;
-          v54 = v52[1];
-          if (v54)
+          v60 = (v56 + 16 * v55);
+          v61 = *v60;
+          v62 = v60[1];
+          if (v62)
           {
-            atomic_fetch_add_explicit(&v54->__shared_owners_, 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit(&v62->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          if (!*(v53 + 88) && *(v50 + 88) && ((v56 = *(v53 + 80) + *(v53 + 72), v56 == v41) ? (v57 = v45 == 0) : (v57 = 1), v57))
+          if (!*(v61 + 88) && *(v58 + 88) && ((v64 = *(v61 + 80) + *(v61 + 72), v64 == v46) ? (v65 = v53 == 0) : (v65 = 1), v65))
           {
-            QP::LexemeConverter::enumerateEntitiesWithString(*(a1 + 344), *(a1 + 440), 0, *(v50 + 72), v56 - *(v50 + 72), *(v50 + 72), v56 - *(v50 + 72));
-            v58 = 16 * v46;
-            v59 = v46 + 1;
+            v66 = *(v58 + 72);
+            v67 = *(a1 + 344);
+            v68 = *(a1 + 440);
+            v94[0] = MEMORY[0x1E69E9820];
+            v94[1] = 0x40000000;
+            v94[2] = ___ZN2QP5Lexer6expandERNSt3__13setINS1_12basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEENS1_4lessIS8_EENS6_IS8_EEEERNS1_6vectorINS1_10shared_ptrINS_6LexemeEEENS6_ISH_EEEESK__block_invoke_4;
+            v94[3] = &unk_1E8266C08;
+            v94[4] = &v106;
+            v94[5] = a2;
+            QP::LexemeConverter::enumerateEntitiesWithString(v67, v68, 0, v66, v64 - v66, v66, v64 - v66, v94);
+            v69 = 16 * v54;
+            v70 = v54 + 1;
             while (1)
             {
-              v60 = v83[5];
-              if (++v59 >= ((v83[6] - v60) >> 4))
+              v71 = v107[5];
+              if (++v70 >= ((v107[6] - v71) >> 4))
               {
-                v55 = 1;
-                v46 = v47;
-                v41 = v72;
-                v45 = v73;
+                v63 = 1;
+                v54 = v55;
+                v46 = v89;
+                v53 = v90;
                 goto LABEL_54;
               }
 
-              v61 = v60 + v58;
-              v63 = *(v61 + 4);
-              v62 = *(v61 + 5);
+              v72 = v71 + v69;
+              v74 = *(v72 + 4);
+              v73 = *(v72 + 5);
+              if (v73)
+              {
+                atomic_fetch_add_explicit(&v73->__shared_owners_, 1uLL, memory_order_relaxed);
+              }
+
               if (v62)
               {
-                atomic_fetch_add_explicit(&v62->__shared_owners_, 1uLL, memory_order_relaxed);
+                std::__shared_weak_count::__release_shared[abi:ne200100](v62);
               }
 
-              if (v54)
-              {
-                std::__shared_weak_count::__release_shared[abi:ne200100](v54);
-              }
-
-              v64 = *(v50 + 72);
-              v65 = *(v63 + 72);
-              if (*(v63 + 88))
+              v75 = *(v58 + 72);
+              v76 = *(v74 + 72);
+              if (*(v74 + 88))
               {
                 break;
               }
 
-              v58 += 16;
-              QP::LexemeConverter::enumerateEntitiesWithString(*(a1 + 344), *(a1 + 440), 0, v64, v65 - v64 + *(v63 + 80), v64, v65 - v64 + *(v63 + 80));
-              v54 = v62;
+              v69 += 16;
+              v77 = *(v74 + 80);
+              v78 = *(a1 + 344);
+              v79 = *(a1 + 440);
+              v93[0] = MEMORY[0x1E69E9820];
+              v93[1] = 0x40000000;
+              v93[2] = ___ZN2QP5Lexer6expandERNSt3__13setINS1_12basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEENS1_4lessIS8_EENS6_IS8_EEEERNS1_6vectorINS1_10shared_ptrINS_6LexemeEEENS6_ISH_EEEESK__block_invoke_5;
+              v93[3] = &unk_1E8266C30;
+              v93[4] = &v106;
+              v93[5] = a2;
+              QP::LexemeConverter::enumerateEntitiesWithString(v78, v79, 0, v75, v76 - v75 + v77, v75, v76 - v75 + v77, v93);
+              v62 = v73;
             }
 
-            v91.length = v65 - v64;
-            v91.location = *(v50 + 72);
-            v67 = QP::Lexer::contentRangeFromRange(a1, v91);
-            v68 = *(v50 + 72) == v67 && *(v50 + 80) == v66;
-            v41 = v72;
-            v45 = v73;
-            if (!v68)
+            v115.length = v76 - v75;
+            v115.location = *(v58 + 72);
+            v81 = QP::Lexer::contentRangeFromRange(a1, v115);
+            v82 = v80;
+            v83 = *(v58 + 72) == v81 && *(v58 + 80) == v80;
+            v46 = v89;
+            v53 = v90;
+            if (!v83)
             {
-              QP::LexemeConverter::enumerateEntitiesWithString(*(a1 + 344), *(a1 + 440), 0, v67, v66, v67, v66);
+              v84 = *(a1 + 344);
+              v85 = *(a1 + 440);
+              v92[0] = MEMORY[0x1E69E9820];
+              v92[1] = 0x40000000;
+              v92[2] = ___ZN2QP5Lexer6expandERNSt3__13setINS1_12basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEENS1_4lessIS8_EENS6_IS8_EEEERNS1_6vectorINS1_10shared_ptrINS_6LexemeEEENS6_ISH_EEEESK__block_invoke_6;
+              v92[3] = &unk_1E8266C58;
+              v92[4] = &v106;
+              v92[5] = a2;
+              QP::LexemeConverter::enumerateEntitiesWithString(v84, v85, 0, v81, v82, v81, v82, v92);
             }
 
-            v55 = 1;
-            v54 = v62;
-            v46 = v47;
+            v63 = 1;
+            v62 = v73;
+            v54 = v55;
           }
 
           else
           {
-            v55 = 0;
+            v63 = 0;
           }
 
 LABEL_54:
-          if (v54)
+          if (v62)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v54);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v62);
           }
 
-          if (v51)
+          if (v59)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v51);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v59);
           }
         }
 
-        while ((v55 & 1) != 0);
-        v44 = v71 + 1;
+        while ((v63 & 1) != 0);
+        v52 = v88 + 1;
       }
 
-      while (v71 + 1 != v70);
+      while (v88 + 1 != v87);
     }
   }
 
-  std::vector<std::shared_ptr<QP::Lexeme>>::__insert_with_size[abi:ne200100]<std::__wrap_iter<std::shared_ptr<QP::Lexeme>*>,std::__wrap_iter<std::shared_ptr<QP::Lexeme>*>>(a4, *a4, v83[5], v83[6], (v83[6] - v83[5]) >> 4);
-  _Block_object_dispose(&v74, 8);
+  std::vector<std::shared_ptr<QP::Lexeme>>::__insert_with_size[abi:ne200100]<std::__wrap_iter<std::shared_ptr<QP::Lexeme>*>,std::__wrap_iter<std::shared_ptr<QP::Lexeme>*>>(a4, *a4, v107[5], v107[6], (v107[6] - v107[5]) >> 4);
+  _Block_object_dispose(&v98, 8);
   if (__p)
   {
-    v80 = __p;
+    v104 = __p;
     operator delete(__p);
   }
 
-  _Block_object_dispose(&v82, 8);
-  v74 = v87;
-  std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](&v74);
+  _Block_object_dispose(&v106, 8);
+  v98 = v111;
+  std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](&v98);
 }
 
 void sub_1C65B5FB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, void *__p, uint64_t a61)
@@ -6459,16 +6460,16 @@ void __Block_byref_object_dispose__82(uint64_t a1)
   }
 }
 
-void ___ZN2QP5Lexer6expandERNSt3__13setINS1_12basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEENS1_4lessIS8_EENS6_IS8_EEEERNS1_6vectorINS1_10shared_ptrINS_6LexemeEEENS6_ISH_EEEESK__block_invoke(uint64_t a1, void *a2)
+void ___ZN2QP5Lexer6expandERNSt3__13setINS1_12basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEENS1_4lessIS8_EENS6_IS8_EEEERNS1_6vectorINS1_10shared_ptrINS_6LexemeEEENS6_ISH_EEEESK__block_invoke(void **result, void *a2)
 {
   if (*(*a2 + 88) == 15)
   {
-    v4 = *(*(a1 + 32) + 8);
-    v22[0] = ((*(*(*(a1 + 40) + 8) + 48) - *(*(*(a1 + 40) + 8) + 40)) >> 4);
+    v4 = *(result[4] + 1);
+    v22[0] = ((*(*(result[5] + 1) + 48) - *(*(result[5] + 1) + 40)) >> 4);
     std::vector<long>::push_back[abi:ne200100]((v4 + 40), v22);
   }
 
-  v5 = *(*(a1 + 40) + 8);
+  v5 = *(result[5] + 1);
   v6 = v5[6];
   v7 = v5[7];
   if (v6 >= v7)
@@ -6544,7 +6545,7 @@ void ___ZN2QP5Lexer6expandERNSt3__13setINS1_12basic_stringIcNS1_11char_traitsIcE
   v5[6] = v9;
 }
 
-void std::vector<long>::push_back[abi:ne200100](const void **a1, void *a2)
+void std::vector<long>::push_back[abi:ne200100](const void **a1, uint64_t *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -6593,7 +6594,7 @@ void std::vector<long>::push_back[abi:ne200100](const void **a1, void *a2)
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 8;
   }
 
   a1[1] = v6;
@@ -6931,7 +6932,7 @@ void ___ZN2QP5Lexer6expandERNSt3__13setINS1_12basic_stringIcNS1_11char_traitsIcE
     __p = *(v4 + 48);
   }
 
-  if (*(a1 + 40) + 8 == std::__tree<std::string>::find<std::string>(*(a1 + 40), &__p.__r_.__value_.__l.__data_))
+  if (*(a1 + 40) + 8 == std::__tree<std::string>::find<std::string>(*(a1 + 40), &__p))
   {
     v5 = *(*(a1 + 32) + 8);
     v6 = v5[6];
@@ -7007,7 +7008,7 @@ void ___ZN2QP5Lexer6expandERNSt3__13setINS1_12basic_stringIcNS1_11char_traitsIcE
     }
 
     v5[6] = v9;
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(*(a1 + 40), &__p.__r_.__value_.__l.__data_);
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(*(a1 + 40), &__p, &__p);
   }
 
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -7040,7 +7041,7 @@ void ___ZN2QP5Lexer6expandERNSt3__13setINS1_12basic_stringIcNS1_11char_traitsIcE
     __p = *(v4 + 48);
   }
 
-  if (*(a1 + 40) + 8 == std::__tree<std::string>::find<std::string>(*(a1 + 40), &__p.__r_.__value_.__l.__data_))
+  if (*(a1 + 40) + 8 == std::__tree<std::string>::find<std::string>(*(a1 + 40), &__p))
   {
     v5 = *(*(a1 + 32) + 8);
     v6 = v5[6];
@@ -7116,7 +7117,7 @@ void ___ZN2QP5Lexer6expandERNSt3__13setINS1_12basic_stringIcNS1_11char_traitsIcE
     }
 
     v5[6] = v9;
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(*(a1 + 40), &__p.__r_.__value_.__l.__data_);
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(*(a1 + 40), &__p, &__p);
   }
 
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -7149,7 +7150,7 @@ void ___ZN2QP5Lexer6expandERNSt3__13setINS1_12basic_stringIcNS1_11char_traitsIcE
     __p = *(v4 + 48);
   }
 
-  if (*(a1 + 40) + 8 == std::__tree<std::string>::find<std::string>(*(a1 + 40), &__p.__r_.__value_.__l.__data_))
+  if (*(a1 + 40) + 8 == std::__tree<std::string>::find<std::string>(*(a1 + 40), &__p))
   {
     v5 = *(*(a1 + 32) + 8);
     v6 = v5[6];
@@ -7225,7 +7226,7 @@ void ___ZN2QP5Lexer6expandERNSt3__13setINS1_12basic_stringIcNS1_11char_traitsIcE
     }
 
     v5[6] = v9;
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(*(a1 + 40), &__p.__r_.__value_.__l.__data_);
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(*(a1 + 40), &__p, &__p);
   }
 
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -7290,96 +7291,87 @@ void QP::Lexer::resetParseVariables(QP::Lexer *this)
   nlp::CFScopedPtr<__CFDictionary *>::reset(v2 + 8, Mutable);
 }
 
-CFIndex QP::Lexer::tokenize(CFIndex result, CFStringRef theString)
+CFIndex QP::Lexer::tokenize(CFIndex result, CFStringRef theString, uint64_t a3)
 {
-  v2 = result;
   if (theString)
   {
-    result = CFStringGetLength(theString);
-    if (result)
+    Length = CFStringGetLength(theString);
+    if (Length)
     {
-      v3 = *(v2 + 424);
       NLTaggerSetString();
-      v4 = *(v2 + 424);
-      v5 = *(*(v2 + 312) + 112);
       NLTaggerSetLocaleForRange();
-      v6 = *(v2 + 424);
       return NLTaggerEnumerateTokens();
     }
   }
 
-  return result;
+  return Length;
 }
 
 void ___ZN2QP5Lexer8tokenizeEPK10__CFStringU13block_pointerFv7NLTokenS3_PbE_block_invoke(uint64_t a1, __int128 *a2, uint64_t a3)
 {
   if ((*(a2 + 17) & 0xC) == 0)
   {
-    v6 = *(*(a1 + 40) + 424);
-    v7 = *MEMORY[0x1E6998250];
-    v8 = NLTaggerCopyTagForCurrentToken();
-    v12 = v8;
-    v9 = *(a1 + 32);
-    v11 = *(a2 + 2);
-    v10 = *a2;
-    (*(v9 + 16))(v9, &v10, v8, a3);
-    if (v8)
+    v6 = NLTaggerCopyTagForCurrentToken();
+    v10 = v6;
+    v7 = *(a1 + 32);
+    v9 = *(a2 + 2);
+    v8 = *a2;
+    (*(v7 + 16))(v7, &v8, v6, a3);
+    if (v6)
     {
-      CFRelease(v8);
+      CFRelease(v6);
     }
   }
 }
 
-void sub_1C65B6FDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1C65B6FDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
 
-void QP::Lexer::tagTokenWhitespace(uint64_t a1, uint64_t *a2, CFMutableStringRef theString)
+void QP::Lexer::tagTokenWhitespace(uint64_t *a1, uint64_t *a2, CFMutableStringRef theString)
 {
   if (*(a1 + 433) != 1)
   {
     goto LABEL_24;
   }
 
-  v47 = 0;
-  v6 = *(a1 + 424);
+  v43 = 0;
   if ((*(a2 + 17) & 4) == 0)
   {
-    v7 = *MEMORY[0x1E6998258];
-    v8 = NLTaggerCopyTagForCurrentToken();
-    v9 = *MEMORY[0x1E69980A0];
-    v47 = v8;
-    v10 = *a1;
-    if (v8 == v9)
+    v6 = NLTaggerCopyTagForCurrentToken();
+    v7 = *MEMORY[0x1E69980A0];
+    v43 = v6;
+    v8 = *a1;
+    if (v6 == v7)
     {
-      if (v10 == -1)
+      if (v8 == -1)
       {
-        v11 = *a2;
+        v9 = *a2;
         goto LABEL_16;
       }
 
-      *(a1 + 8) = *a2 - v10 + a2[1];
+      a1[1] = *a2 - v8 + a2[1];
     }
 
-    else if (v10 != -1)
+    else if (v8 != -1)
     {
       QP::Lexer::selectPersonLexemes(a1);
-      v11 = xmmword_1C6631880;
+      v9 = xmmword_1C6631880;
 LABEL_16:
-      *a1 = v11;
+      *a1 = v9;
     }
 
-    v16 = (a1 + 16);
-    v19 = *(a1 + 16);
-    if (v8 == *MEMORY[0x1E69980A8])
+    v13 = a1 + 2;
+    v16 = a1[2];
+    if (v6 == *MEMORY[0x1E69980A8])
     {
-      if (v19 != -1)
+      if (v16 != -1)
       {
-        *(a1 + 24) = *a2 - v19 + a2[1];
-        if (!v8)
+        a1[3] = *a2 - v16 + a2[1];
+        if (!v6)
         {
           goto LABEL_24;
         }
@@ -7387,33 +7379,32 @@ LABEL_16:
         goto LABEL_23;
       }
 
-      v20 = *a2;
+      v17 = *a2;
       goto LABEL_21;
     }
 
-    if (v19 == -1)
+    if (v16 == -1)
     {
       goto LABEL_22;
     }
 
     QP::Lexer::selectLocationLexemes(a1);
 LABEL_20:
-    v20 = xmmword_1C6631880;
+    v17 = xmmword_1C6631880;
 LABEL_21:
-    *v16 = v20;
+    *v13 = v17;
     goto LABEL_22;
   }
 
-  v12 = *MEMORY[0x1E6998260];
-  v13 = NLTaggerCopyTagForCurrentToken();
-  v8 = v13;
-  v14 = *MEMORY[0x1E6998090];
-  v47 = v13;
-  if (v13 == v14)
+  v10 = NLTaggerCopyTagForCurrentToken();
+  v6 = v10;
+  v11 = *MEMORY[0x1E6998090];
+  v43 = v10;
+  if (v10 == v11)
   {
-    *(a1 + 32) = *a2;
-    *(a1 + 48) = a2[1] + *a2;
-    if (!v13)
+    *(a1 + 2) = *a2;
+    a1[6] = a2[1] + *a2;
+    if (!v10)
     {
       goto LABEL_24;
     }
@@ -7421,22 +7412,22 @@ LABEL_21:
     goto LABEL_23;
   }
 
-  if (v13 == *MEMORY[0x1E6998088])
+  if (v10 == *MEMORY[0x1E6998088])
   {
-    v16 = (a1 + 32);
-    v15 = *(a1 + 32);
-    if (v15 != -1)
+    v13 = a1 + 4;
+    v12 = a1[4];
+    if (v12 != -1)
     {
-      v17.location = *(a1 + 48);
-      if (v17.location != -1)
+      v14.location = a1[6];
+      if (v14.location != -1)
       {
-        v18 = *a2;
-        *(a1 + 40) = *a2 - v15 + a2[1];
-        v17.length = v18 - v17.location;
-        *(a1 + 56) = v18 - v17.location;
-        v46 = CFStringCreateWithSubstring(*MEMORY[0x1E695E480], *(a1 + 440), v17);
-        v45 = 0uLL;
-        QP::getUTF8StringFromCFString(v46, __p);
+        v15 = *a2;
+        a1[5] = *a2 - v12 + a2[1];
+        v14.length = v15 - v14.location;
+        a1[7] = v15 - v14.location;
+        v42 = CFStringCreateWithSubstring(*MEMORY[0x1E695E480], a1[55], v14);
+        v41 = 0uLL;
+        QP::getUTF8StringFromCFString(__p, v42);
         std::allocate_shared[abi:ne200100]<QP::LexemeQuotedText,std::allocator<QP::LexemeQuotedText>,CFRange &,std::string,0>();
       }
     }
@@ -7445,23 +7436,23 @@ LABEL_21:
   }
 
 LABEL_22:
-  if (v8)
+  if (v6)
   {
 LABEL_23:
-    CFRelease(v8);
+    CFRelease(v6);
   }
 
 LABEL_24:
-  v21 = *(*(a1 + 328) + 40);
-  if (v21)
+  v18 = *(a1[41] + 40);
+  if (v18)
   {
-    if ((*(v21 + 32) & 1) == 0)
+    if ((*(v18 + 32) & 1) == 0)
     {
-      v22 = *(a1 + 464);
-      if (v22 != *(a1 + 456))
+      v19 = a1[58];
+      if (v19 != a1[57])
       {
-        v23 = *(v22 - 8);
-        if ((v23 & 0x800) == 0 && ((*(a2 + 4) | v23) & 0x80) != 0)
+        v20 = *(v19 - 8);
+        if ((v20 & 0x800) == 0 && ((*(a2 + 4) | v20) & 0x80) != 0)
         {
           CFStringAppend(theString, @" ");
         }
@@ -7469,91 +7460,90 @@ LABEL_24:
     }
   }
 
-  v24 = *(a1 + 312);
-  if (v24[70] == 1 && (v24[71] & 1) != 0 || v24[64] == 1)
+  v21 = a1[39];
+  if (v21[70] == 1 && (v21[71] & 1) != 0 || v21[64] == 1)
   {
-    v25 = *(a1 + 424);
-    v26 = *MEMORY[0x1E6998250];
-    v27 = NLTaggerCopyTagForCurrentToken();
-    __p[0] = v27;
-    v28 = CFStringCreateWithSubstring(*MEMORY[0x1E695E480], *(a1 + 440), *a2);
-    if (v27 && CFStringCompare(v27, v28, 1uLL))
+    v22 = NLTaggerCopyTagForCurrentToken();
+    __p[0] = v22;
+    v23 = CFStringCreateWithSubstring(*MEMORY[0x1E695E480], a1[55], *a2);
+    v39[0] = v23;
+    if (v22 && CFStringCompare(v22, v23, 1uLL))
     {
-      CFDictionarySetValue(*(a1 + 304), v28, v27);
+      CFDictionarySetValue(a1[38], v23, v22);
     }
 
-    if (v28)
+    if (v23)
     {
-      CFRelease(v28);
+      CFRelease(v23);
     }
 
-    if (v27)
+    if (v22)
     {
-      CFRelease(v27);
+      CFRelease(v22);
     }
   }
 
-  v30 = *(a1 + 464);
-  v29 = *(a1 + 472);
-  if (v30 >= v29)
+  v25 = a1[58];
+  v24 = a1[59];
+  if (v25 >= v24)
   {
-    v33 = *(a1 + 456);
-    v34 = 0xAAAAAAAAAAAAAAABLL * ((v30 - v33) >> 3);
-    v35 = v34 + 1;
-    if (v34 + 1 > 0xAAAAAAAAAAAAAAALL)
+    v28 = a1[57];
+    v29 = 0xAAAAAAAAAAAAAAABLL * ((v25 - v28) >> 3);
+    v30 = v29 + 1;
+    if (v29 + 1 > 0xAAAAAAAAAAAAAAALL)
     {
       std::vector<QP::GeoLocation>::__throw_length_error[abi:ne200100]();
     }
 
-    v36 = 0xAAAAAAAAAAAAAAABLL * ((v29 - v33) >> 3);
-    if (2 * v36 > v35)
+    v31 = 0xAAAAAAAAAAAAAAABLL * ((v24 - v28) >> 3);
+    if (2 * v31 > v30)
     {
-      v35 = 2 * v36;
+      v30 = 2 * v31;
     }
 
-    if (v36 >= 0x555555555555555)
+    if (v31 >= 0x555555555555555)
     {
-      v37 = 0xAAAAAAAAAAAAAAALL;
+      v32 = 0xAAAAAAAAAAAAAAALL;
     }
 
     else
     {
-      v37 = v35;
+      v32 = v30;
     }
 
-    if (v37)
+    if (v32)
     {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<NLToken>>(a1 + 456, v37);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<NLToken>>((a1 + 57), v32);
     }
 
-    v38 = 24 * v34;
-    v39 = *a2;
-    *(v38 + 16) = a2[2];
-    *v38 = v39;
-    p_length = 24 * v34 + 24;
-    v40 = *(a1 + 456);
-    v41 = *(a1 + 464) - v40;
-    v42 = v38 - v41;
-    memcpy((v38 - v41), v40, v41);
-    v43 = *(a1 + 456);
-    *(a1 + 456) = v42;
-    *(a1 + 464) = p_length;
-    *(a1 + 472) = 0;
-    if (v43)
+    v33 = 24 * v29;
+    v34 = *a2;
+    *(v33 + 16) = a2[2];
+    *v33 = v34;
+    v27 = 24 * v29 + 24;
+    v35 = a1[57];
+    v36 = a1[58] - v35;
+    v37 = v33 - v36;
+    memcpy((v33 - v36), v35, v36);
+    v38 = a1[57];
+    a1[57] = v37;
+    a1[58] = v27;
+    a1[59] = 0;
+    if (v38)
     {
-      operator delete(v43);
+      operator delete(v38);
     }
   }
 
   else
   {
-    v31 = *a2;
-    v30[1].location = a2[2];
-    *v30 = v31;
-    p_length = &v30[1].length;
+    v26 = *a2;
+    *(v25 + 16) = a2[2];
+    *v25 = v26;
+    v27 = v25 + 24;
   }
 
-  *(a1 + 464) = p_length;
+  a1[58] = v27;
 }
 
 void sub_1C65B7508(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *__p, uint64_t a22, int a23, __int16 a24, char a25, char a26, uint64_t a27, void *a28, uint64_t a29, int a30, __int16 a31, char a32, char a33)
@@ -7589,15 +7579,13 @@ void sub_1C65B7508(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *QP::Lexer::selectPersonLexemes(void *this)
+void QP::Lexer::selectPersonLexemes(QP::Lexer *this)
 {
   if (*this != -1)
   {
     v1 = 0uLL;
     std::allocate_shared[abi:ne200100]<QP::Lexeme,std::allocator<QP::Lexeme>,char const(&)[7],CFRange &,0>();
   }
-
-  return this;
 }
 
 void sub_1C65B7850(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, uint64_t a27, uint64_t a28, std::__shared_weak_count *a29)
@@ -7630,15 +7618,13 @@ void sub_1C65B7850(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t QP::Lexer::selectLocationLexemes(uint64_t this)
+void QP::Lexer::selectLocationLexemes(QP::Lexer *this)
 {
-  if (*(this + 16) != -1)
+  if (*(this + 2) != -1)
   {
     v1 = 0uLL;
     std::allocate_shared[abi:ne200100]<QP::Lexeme,std::allocator<QP::Lexeme>,char const(&)[9],CFRange &,0>();
   }
-
-  return this;
 }
 
 void sub_1C65B7B20(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, uint64_t a27, uint64_t a28, std::__shared_weak_count *a29)
@@ -7791,14 +7777,15 @@ void QP::Lexer::tagTokenSingleQuote(uint64_t a1, CFIndex *a2, __CFString *a3)
   _Block_object_dispose(v38, 8);
 }
 
-void sub_1C65B7F14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, const void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_1C65B7F14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, const void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
+  va_start(va, a32);
   nlp::CFScopedPtr<__CFString const*>::reset(&a10, 0);
   _Block_object_dispose(&a26, 8);
-  _Block_object_dispose(&a33, 8);
-  _Block_object_dispose((v33 - 168), 8);
-  _Block_object_dispose((v33 - 112), 8);
-  _Block_object_dispose((v33 - 80), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v32 - 168), 8);
+  _Block_object_dispose((v32 - 112), 8);
+  _Block_object_dispose((v32 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -7888,9 +7875,9 @@ void ___ZN2QP5Lexer19tagTokenSingleQuoteE7NLTokenP10__CFString_block_invoke(uint
   ++*(*(*(a1 + 64) + 8) + 24);
 }
 
-void sub_1C65B81EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1C65B81EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -7997,7 +7984,7 @@ void QP::Lexer::tagTokenPunctuation(uint64_t a1, uint64_t a2, __CFString *theStr
       v47 = v15;
       QP::ParserGrammar::completions(v14, v13, v45);
       memset(&v50, 0, sizeof(v50));
-      QP::getUTF8StringFromCFString(v13, &v50);
+      QP::getUTF8StringFromCFString(&v50, v13);
       if ((v50.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
         v16 = &v50;
@@ -8118,7 +8105,7 @@ LABEL_35:
         __p = *(v24 + 48);
       }
 
-      if (a1 + 192 == std::__tree<std::string>::find<std::string>(a1 + 184, &__p.__r_.__value_.__l.__data_))
+      if (a1 + 192 == std::__tree<std::string>::find<std::string>(a1 + 184, &__p))
       {
         v25 = *(a1 + 144);
         v26 = *(a1 + 152);
@@ -8192,7 +8179,7 @@ LABEL_35:
         }
 
         *(a1 + 144) = v28;
-        std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a1 + 184, &__p.__r_.__value_.__l.__data_);
+        std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>((a1 + 184), &__p, &__p);
       }
 
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -8252,9 +8239,9 @@ void ___ZN2QP5Lexer19tagTokenPunctuationE7NLTokenP10__CFString7CFRange_block_inv
   }
 }
 
-void sub_1C65B88C0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C65B88C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -8387,7 +8374,7 @@ void sub_1C65B8B24(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void QP::Lexer::selectKnowledgeSourceLexemes(QP::Lexer *this, const CFRange *a2, uint64_t a3, int a4)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   if (a4)
   {
     if (*(*(this + 39) + 62) == 1)
@@ -8397,37 +8384,37 @@ void QP::Lexer::selectKnowledgeSourceLexemes(QP::Lexer *this, const CFRange *a2,
       {
         if (*(v5 + 24))
         {
-          v29[0] = 0;
-          v29[1] = v29;
-          v29[2] = 0x2000000000;
-          v29[3] = -1;
-          v25 = 0;
-          v26 = &v25;
-          v27 = 0x2000000000;
-          v28 = -1;
-          v19 = 0;
-          v20 = &v19;
-          v21 = 0x3802000000;
-          v22 = __Block_byref_object_copy__95;
-          v23 = __Block_byref_object_dispose__96;
-          v24 = xmmword_1C6631880;
+          v28[0] = 0;
+          v28[1] = v28;
+          v28[2] = 0x2000000000;
+          v28[3] = -1;
+          v24 = 0;
+          v25 = &v24;
+          v26 = 0x2000000000;
+          v27 = -1;
+          v18 = 0;
+          v19 = &v18;
+          v20 = 0x3802000000;
+          v21 = __Block_byref_object_copy__95;
+          v22 = __Block_byref_object_dispose__96;
+          v23 = xmmword_1C6631880;
           if (QP::Lexer::selectKnowledgeSourceLexemes(CFRange const*,long,BOOL)::onceIgnoreToken != -1)
           {
             QP::Lexer::selectKnowledgeSourceLexemes();
           }
 
-          v17[0] = MEMORY[0x1E69E9820];
-          v17[1] = 0x40000000;
-          v17[2] = ___ZN2QP5Lexer28selectKnowledgeSourceLexemesEPK7CFRangelb_block_invoke_3;
-          v17[3] = &unk_1E8266D20;
-          v17[4] = &v25;
-          v17[5] = &v19;
-          v17[6] = v29;
-          v17[7] = this;
-          v18 = v17;
+          v16[0] = MEMORY[0x1E69E9820];
+          v16[1] = 0x40000000;
+          v16[2] = ___ZN2QP5Lexer28selectKnowledgeSourceLexemesEPK7CFRangelb_block_invoke_3;
+          v16[3] = &unk_1E8266D20;
+          v16[4] = &v24;
+          v16[5] = &v18;
+          v16[6] = v28;
+          v16[7] = this;
+          v17 = v16;
           if (*(*(this + 39) + 62))
           {
-            v8 = &v18;
+            v8 = &v17;
           }
 
           else
@@ -8436,7 +8423,7 @@ void QP::Lexer::selectKnowledgeSourceLexemes(QP::Lexer *this, const CFRange *a2,
           }
 
           (*(*(this + 72) + 24))(**(this + 72), *(this + 55), a2, a3, 0, v8);
-          v9 = v26[3];
+          v9 = v25[3];
           if (v9 != -1)
           {
             Identifier = QPAnnotationsGetIdentifier(v9);
@@ -8450,18 +8437,18 @@ void QP::Lexer::selectKnowledgeSourceLexemes(QP::Lexer *this, const CFRange *a2,
               v11 = lexerLogger(void)::log;
               if (os_log_type_enabled(lexerLogger(void)::log, OS_LOG_TYPE_DEFAULT))
               {
-                v13 = v20[5];
-                v12 = v20[6];
+                v13 = v19[5];
+                v12 = v19[6];
                 *buf = 138412802;
-                v31 = Identifier;
-                v32 = 2048;
-                v33 = v13;
-                v34 = 2048;
-                v35 = v12;
+                v30 = Identifier;
+                v31 = 2048;
+                v32 = v13;
+                v33 = 2048;
+                v34 = v12;
                 _os_log_impl(&dword_1C6584000, v11, OS_LOG_TYPE_DEFAULT, "safety: found annotation type:%@ range:{%ld, %ld}", buf, 0x20u);
               }
 
-              CFAttributedStringSetAttribute(*(this + 56), *(v20 + 5), kQPInputAttributeAnnotationKey, Identifier);
+              CFAttributedStringSetAttribute(*(this + 56), *(v19 + 5), kQPInputAttributeAnnotationKey, Identifier);
             }
           }
 
@@ -8477,37 +8464,34 @@ void QP::Lexer::selectKnowledgeSourceLexemes(QP::Lexer *this, const CFRange *a2,
             {
               v15 = *(*(this + 39) + 48);
               *buf = 134217984;
-              v31 = v15;
+              v30 = v15;
               _os_log_impl(&dword_1C6584000, v14, OS_LOG_TYPE_DEFAULT, "[QPNLU][qid=%ld] disabled query embedding generation because annotations resources were not found", buf, 0xCu);
             }
 
             QP::ParserConfiguration::setIsMissingAnnotations(*(this + 39), *MEMORY[0x1E695E4D0]);
           }
 
-          _Block_object_dispose(&v19, 8);
-          _Block_object_dispose(&v25, 8);
-          _Block_object_dispose(v29, 8);
+          _Block_object_dispose(&v18, 8);
+          _Block_object_dispose(&v24, 8);
+          _Block_object_dispose(v28, 8);
         }
       }
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 CFSetRef ___ZN2QP5Lexer28selectKnowledgeSourceLexemesEPK7CFRangelb_block_invoke_2()
 {
-  v3 = *MEMORY[0x1E69E9840];
-  v2 = xmmword_1E8266D08;
-  result = CFSetCreate(*MEMORY[0x1E695E480], &v2, 2, MEMORY[0x1E695E9F8]);
+  v2 = *MEMORY[0x1E69E9840];
+  v1 = xmmword_1E8266D08;
+  result = CFSetCreate(*MEMORY[0x1E695E480], &v1, 2, MEMORY[0x1E695E9F8]);
   QP::Lexer::selectKnowledgeSourceLexemes(CFRange const*,long,BOOL)::sIgnoreAnnotations = result;
-  v1 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t ___ZN2QP5Lexer28selectKnowledgeSourceLexemesEPK7CFRangelb_block_invoke_3(void *a1, uint64_t a2, uint64_t a3, const __CFString *value)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v8 = a1[7];
   v9 = *(*(a1[4] + 8) + 24);
   if (v9 != -1)
@@ -8532,13 +8516,13 @@ uint64_t ___ZN2QP5Lexer28selectKnowledgeSourceLexemesEPK7CFRangelb_block_invoke_
           v17 = *(a1[5] + 8);
           v19 = *(v17 + 40);
           v18 = *(v17 + 48);
-          v30 = 138412802;
-          v31 = v15;
-          v32 = 2048;
-          v33 = v19;
-          v34 = 2048;
-          v35 = v18;
-          _os_log_impl(&dword_1C6584000, v16, OS_LOG_TYPE_DEFAULT, "safety: found annotation type:%@ range:{%ld, %ld}", &v30, 0x20u);
+          v29 = 138412802;
+          v30 = v15;
+          v31 = 2048;
+          v32 = v19;
+          v33 = 2048;
+          v34 = v18;
+          _os_log_impl(&dword_1C6584000, v16, OS_LOG_TYPE_DEFAULT, "safety: found annotation type:%@ range:{%ld, %ld}", &v29, 0x20u);
         }
 
         CFAttributedStringSetAttribute(*(v8 + 448), *(*(a1[5] + 8) + 40), kQPInputAttributeAnnotationKey, v15);
@@ -8583,72 +8567,81 @@ uint64_t ___ZN2QP5Lexer28selectKnowledgeSourceLexemesEPK7CFRangelb_block_invoke_
     }
   }
 
-  v29 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 void ___ZN2QP5Lexer19selectEntityLexemesEP10__CFString_block_invoke(uint64_t a1, const __CFString *a2, uint64_t a3, uint64_t a4, const __CFDictionary *a5)
 {
-  v5 = *(a1 + 32);
-  v6 = *(v5 + 64);
-  v7 = *(v5 + 72);
-  v8 = v6;
-  if (v6 != v7)
+  v7 = *(a1 + 32);
+  v8 = v7[8];
+  v9 = v7[9];
+  v10 = v8;
+  if (v8 != v9)
   {
-    while (*v8 != a3)
+    while (*v10 != a3)
     {
-      v8 += 8;
-      if (v8 == v7)
+      v10 += 8;
+      if (v10 == v9)
       {
-        v8 = *(v5 + 72);
+        v10 = v7[9];
         break;
       }
     }
   }
 
-  if (v7 != v8)
+  if (v9 != v10)
   {
-    v9 = v8 - v6;
-    v10 = (v8 - v6) >> 3;
-    v11 = *(v5 + 112);
-    if (*(v11 + 2 * v9 + 8) + *(v11 + 2 * v9) >= a3 + a4)
+    v11 = v10 - v8;
+    v12 = (v10 - v8) >> 3;
+    v13 = v7[14];
+    if (*(v13 + 2 * v11 + 8) + *(v13 + 2 * v11) >= a3 + a4)
     {
-      v15 = v10;
+      v17 = v12;
     }
 
     else
     {
-      v12 = *(v5 + 120) - v11;
-      if (v10 <= v12 >> 4)
+      v14 = v7[15] - v13;
+      if (v12 <= v14 >> 4)
       {
-        v13 = v12 >> 4;
+        v15 = v14 >> 4;
       }
 
       else
       {
-        v13 = v10;
+        v15 = v12;
       }
 
-      v14 = (v11 + 16 * v10 + 24);
-      v15 = v10;
-      while (v13 != v15)
+      v16 = (v13 + 16 * v12 + 24);
+      v17 = v12;
+      while (v15 != v17)
       {
-        ++v15;
-        v16 = *(v14 - 1) + *v14;
-        v14 += 2;
-        if (v16 >= a3 + a4)
+        ++v17;
+        v18 = *(v16 - 1) + *v16;
+        v16 += 2;
+        if (v18 >= a3 + a4)
         {
           goto LABEL_16;
         }
       }
 
-      v15 = v13;
+      v17 = v15;
     }
 
 LABEL_16:
-    v17 = *(v5 + 88);
-    v18 = *(v17 + 16 * v10);
-    QP::LexemeConverter::enumerateEntitiesWithTypeAndValues(*(v5 + 344), *(v5 + 440), v18, *(v17 + 16 * v15) - v18 + *(v17 + 16 * v15 + 8), a2, a5);
+    v19 = v7[11];
+    v20 = *(v19 + 16 * v12);
+    v21 = *(v19 + 16 * v17) - v20 + *(v19 + 16 * v17 + 8);
+    v22 = v7[43];
+    v23 = v7[55];
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 0x40000000;
+    v24[2] = ___ZN2QP5Lexer19selectEntityLexemesEP10__CFString_block_invoke_2;
+    v24[3] = &__block_descriptor_tmp_117;
+    v24[4] = v7;
+    v24[5] = v20;
+    v24[6] = v21;
+    QP::LexemeConverter::enumerateEntitiesWithTypeAndValues(v22, v23, v20, v21, a2, a5, v24);
   }
 }
 
@@ -8667,13 +8660,13 @@ void ___ZN2QP5Lexer19selectEntityLexemesEP10__CFString_block_invoke_2(void *a1, 
     v28 = v5[2];
   }
 
-  if (v4 + 24 == std::__tree<std::string>::find<std::string>((v4 + 23), &v28.__r_.__value_.__l.__data_))
+  if (v4 + 192 == std::__tree<std::string>::find<std::string>(v4 + 184, &v28))
   {
-    v6 = v4[18];
-    v7 = v4[19];
+    v6 = *(v4 + 144);
+    v7 = *(v4 + 152);
     if (v6 >= v7)
     {
-      v10 = v4[17];
+      v10 = *(v4 + 136);
       v11 = (v6 - v10) >> 4;
       v12 = v11 + 1;
       if ((v11 + 1) >> 60)
@@ -8697,10 +8690,10 @@ void ___ZN2QP5Lexer19selectEntityLexemesEP10__CFString_block_invoke_2(void *a1, 
         v14 = v12;
       }
 
-      v32 = v4 + 17;
+      v32 = v4 + 136;
       if (v14)
       {
-        std::__allocate_at_least[abi:ne200100]<std::allocator<std::shared_ptr<QP::GraphStructureStack::Node>>>((v4 + 17), v14);
+        std::__allocate_at_least[abi:ne200100]<std::allocator<std::shared_ptr<QP::GraphStructureStack::Node>>>(v4 + 136, v14);
       }
 
       v15 = 16 * v11;
@@ -8712,15 +8705,15 @@ void ___ZN2QP5Lexer19selectEntityLexemesEP10__CFString_block_invoke_2(void *a1, 
       }
 
       v9 = (v15 + 16);
-      v17 = v4[17];
-      v18 = v4[18] - v17;
+      v17 = *(v4 + 136);
+      v18 = *(v4 + 144) - v17;
       v19 = v15 - v18;
       memcpy((v15 - v18), v17, v18);
-      v20 = v4[17];
-      v4[17] = v19;
-      v4[18] = v9;
-      v21 = v4[19];
-      v4[19] = 0;
+      v20 = *(v4 + 136);
+      *(v4 + 136) = v19;
+      *(v4 + 144) = v9;
+      v21 = *(v4 + 152);
+      *(v4 + 152) = 0;
       v30 = v20;
       v31 = v21;
       __p[0] = v20;
@@ -8741,7 +8734,7 @@ void ___ZN2QP5Lexer19selectEntityLexemesEP10__CFString_block_invoke_2(void *a1, 
       v9 = v6 + 2;
     }
 
-    v4[18] = v9;
+    *(v4 + 144) = v9;
     std::to_string(&v27, a1[5]);
     std::to_string(&v26, a1[6]);
     if ((v26.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
@@ -8771,7 +8764,7 @@ void ___ZN2QP5Lexer19selectEntityLexemesEP10__CFString_block_invoke_2(void *a1, 
     v24->__r_.__value_.__l.__size_ = 0;
     v24->__r_.__value_.__r.__words[2] = 0;
     v24->__r_.__value_.__r.__words[0] = 0;
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string>((v4 + 29), __p);
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string>((v4 + 232), __p, __p);
     if (SHIBYTE(v30) < 0)
     {
       operator delete(__p[0]);
@@ -8787,7 +8780,7 @@ void ___ZN2QP5Lexer19selectEntityLexemesEP10__CFString_block_invoke_2(void *a1, 
       operator delete(v27.__r_.__value_.__l.__data_);
     }
 
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>((v4 + 23), &v28.__r_.__value_.__l.__data_);
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>((v4 + 184), &v28, &v28);
   }
 
   if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
@@ -8836,7 +8829,7 @@ void ___ZN2QP5Lexer20selectDefaultLexemesEP10__CFString_block_invoke(uint64_t a1
   memset(__p, 0, sizeof(__p));
   v3 = (v2[9] - v2[8]) >> 3;
   LOBYTE(v17) = 1;
-  std::vector<BOOL>::vector(__p, v3);
+  std::vector<BOOL>::vector(__p, v3, &v17);
   v17 = 0;
   v18 = &v17;
   v19 = 0x4002000000;
@@ -8944,7 +8937,7 @@ void ___ZN2QP5Lexer20selectDefaultLexemesEP10__CFString_block_invoke(uint64_t a1
   _Block_object_dispose(&v29, 8);
 }
 
-void sub_1C65B9BB4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, void *a26, uint64_t a27, int a28, __int16 a29, char a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, char a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, char a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, void *a55)
+void sub_1C65B9BB4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, void *a26, uint64_t a27, int a28, __int16 a29, char a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, void *a55)
 {
   if (*(v56 - 137) < 0)
   {
@@ -8989,8 +8982,7 @@ __n128 __Block_byref_object_copy__120(__n128 *a1, __n128 *a2)
   a1[2].n128_u64[1] = a2[2].n128_u64[1];
   result = a2[3];
   a1[3] = result;
-  a2[2].n128_u64[1] = 0;
-  a2[3].n128_u64[0] = 0;
+  *(&a2[2] + 8) = 0uLL;
   a2[3].n128_u64[1] = 0;
   return result;
 }
@@ -9006,70 +8998,80 @@ void __Block_byref_object_dispose__121(uint64_t a1)
 
 void ___ZN2QP5Lexer20selectDefaultLexemesEP10__CFString_block_invoke_122(uint64_t a1, const __CFString *a2, uint64_t a3, uint64_t a4, const __CFDictionary *a5)
 {
-  v6 = *(a1 + 56);
-  v7 = *(v6 + 64);
-  v8 = *(v6 + 72);
-  v9 = v7;
-  if (v7 != v8)
+  v8 = *(a1 + 56);
+  v9 = v8[8];
+  v10 = v8[9];
+  v11 = v9;
+  if (v9 != v10)
   {
-    while (*v9 != a3)
+    while (*v11 != a3)
     {
-      v9 += 8;
-      if (v9 == v8)
+      v11 += 8;
+      if (v11 == v10)
       {
-        v9 = *(v6 + 72);
+        v11 = v8[9];
         break;
       }
     }
   }
 
-  if (v8 != v9)
+  if (v10 != v11)
   {
-    v10 = v9 - v7;
-    v11 = v10 >> 3;
-    v12 = *(v6 + 112);
-    if (*(v12 + 2 * v10 + 8) + *(v12 + 2 * v10) >= a3 + a4)
+    v12 = v11 - v9;
+    v13 = v12 >> 3;
+    v14 = v8[14];
+    if (*(v14 + 2 * v12 + 8) + *(v14 + 2 * v12) >= a3 + a4)
     {
-      v16 = v10 >> 3;
+      v18 = v12 >> 3;
     }
 
     else
     {
-      v13 = *(v6 + 120) - v12;
-      if (v11 <= v13 >> 4)
+      v15 = v8[15] - v14;
+      if (v13 <= v15 >> 4)
       {
-        v14 = v13 >> 4;
+        v16 = v15 >> 4;
       }
 
       else
       {
-        v14 = v10 >> 3;
+        v16 = v12 >> 3;
       }
 
-      v15 = (v12 + 16 * v11 + 24);
-      v16 = v10 >> 3;
-      while (v14 != v16)
+      v17 = (v14 + 16 * v13 + 24);
+      v18 = v12 >> 3;
+      while (v16 != v18)
       {
-        ++v16;
-        v17 = *(v15 - 1) + *v15;
-        v15 += 2;
-        if (v17 >= a3 + a4)
+        ++v18;
+        v19 = *(v17 - 1) + *v17;
+        v17 += 2;
+        if (v19 >= a3 + a4)
         {
           goto LABEL_16;
         }
       }
 
-      v16 = v14;
+      v18 = v16;
     }
 
 LABEL_16:
-    v18 = v10 >> 3;
-    v19 = *(v6 + 88);
-    v21 = *(a1 + 32);
-    v22 = *(v19 + 16 * v11);
-    QP::LexemeConverter::enumerateEntitiesWithTypeAndValues(*(v6 + 344), *(v6 + 440), v22, *(v19 + 16 * v16) - v22 + *(v19 + 16 * v16 + 8), a2, a5);
-    v20 = *(*(*(a1 + 48) + 8) + 40);
-    *(v20 + ((v11 >> 3) & 0x1FFFFFFFFFFFFFF8)) &= ~(1 << v18);
+    v20 = v12 >> 3;
+    v21 = v8[11];
+    v22 = *(v21 + 16 * v13);
+    v23 = *(v21 + 16 * v18) - v22 + *(v21 + 16 * v18 + 8);
+    v24 = v8[43];
+    v25 = v8[55];
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 0x40000000;
+    v27[2] = ___ZN2QP5Lexer20selectDefaultLexemesEP10__CFString_block_invoke_2;
+    v27[3] = &unk_1E8266D88;
+    v28 = *(a1 + 32);
+    v29 = v8;
+    v30 = v22;
+    v31 = v23;
+    QP::LexemeConverter::enumerateEntitiesWithTypeAndValues(v24, v25, v22, v23, a2, a5, v27);
+    v26 = *(*(*(a1 + 48) + 8) + 40);
+    *(v26 + ((v13 >> 3) & 0x1FFFFFFFFFFFFFF8)) &= ~(1 << v20);
   }
 }
 
@@ -9273,22 +9275,22 @@ LABEL_91:
   }
 
 LABEL_45:
-  if (v4 + 24 != std::__tree<std::string>::find<std::string>((v4 + 23), &v59.__r_.__value_.__l.__data_))
+  if (v4 + 192 != std::__tree<std::string>::find<std::string>(v4 + 184, &v59))
   {
     goto LABEL_88;
   }
 
   v24 = *a2;
-  if (LOWORD((*a2)[3].__r_.__value_.__r.__words[2]) == 3 && *(v4[39] + 8) == 10)
+  if (LOWORD((*a2)[3].__r_.__value_.__r.__words[2]) == 3 && *(*(v4 + 312) + 8) == 10)
   {
     goto LABEL_88;
   }
 
-  v25 = v4[18];
-  v26 = v4[19];
+  v25 = *(v4 + 144);
+  v26 = *(v4 + 152);
   if (v25 >= v26)
   {
-    v29 = v4[17];
+    v29 = *(v4 + 136);
     v30 = (v25 - v29) >> 4;
     v31 = v30 + 1;
     if ((v30 + 1) >> 60)
@@ -9312,10 +9314,10 @@ LABEL_45:
       v33 = v31;
     }
 
-    v63 = v4 + 17;
+    v63 = (v4 + 136);
     if (v33)
     {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<std::shared_ptr<QP::GraphStructureStack::Node>>>((v4 + 17), v33);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<std::shared_ptr<QP::GraphStructureStack::Node>>>(v4 + 136, v33);
     }
 
     v34 = (16 * v30);
@@ -9328,15 +9330,15 @@ LABEL_45:
     }
 
     v28 = v34 + 2;
-    v36 = v4[17];
-    v37 = v4[18] - v36;
+    v36 = *(v4 + 136);
+    v37 = *(v4 + 144) - v36;
     v38 = v34 - v37;
     memcpy(v34 - v37, v36, v37);
-    v39 = v4[17];
-    v4[17] = v38;
-    v4[18] = v28;
-    v40 = v4[19];
-    v4[19] = 0;
+    v39 = *(v4 + 136);
+    *(v4 + 136) = v38;
+    *(v4 + 144) = v28;
+    v40 = *(v4 + 152);
+    *(v4 + 152) = 0;
     v61 = v39;
     v62 = v40;
     __p[0] = v39;
@@ -9357,7 +9359,7 @@ LABEL_45:
     v28 = v25 + 2;
   }
 
-  v4[18] = v28;
+  *(v4 + 144) = v28;
   std::to_string(&v58, a1[7]);
   std::to_string(&v57, a1[8]);
   if ((v57.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
@@ -9387,7 +9389,7 @@ LABEL_45:
   v43->__r_.__value_.__l.__size_ = 0;
   v43->__r_.__value_.__r.__words[2] = 0;
   v43->__r_.__value_.__r.__words[0] = 0;
-  std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string>((v4 + 29), __p);
+  std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string>((v4 + 232), __p, __p);
   if (SHIBYTE(v61) < 0)
   {
     operator delete(__p[0]);
@@ -9403,7 +9405,7 @@ LABEL_45:
     operator delete(v58.__r_.__value_.__l.__data_);
   }
 
-  std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>((v4 + 23), &v59.__r_.__value_.__l.__data_);
+  std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>((v4 + 184), &v59, &v59);
 LABEL_88:
   if (SHIBYTE(v59.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -9502,7 +9504,7 @@ void QP::Lexer::addLexemes(uint64_t a1, uint64_t *a2)
   QP::subtokenize(v3, 0, Length, v5, &v32, &v29, v28);
   v20 = v28;
   std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](&v20);
-  v6 = 126 - 2 * __clz(0xAAAAAAAAAAAAAAABLL * ((v30 - v29) >> 3));
+  v6 = 126 - 2 * __clz(0xAAAAAAAAAAAAAAABLL * (v30 - v29));
   v35[0] = QP::ranges_greater_than_range;
   if (v30 == v29)
   {
@@ -9516,7 +9518,7 @@ void QP::Lexer::addLexemes(uint64_t a1, uint64_t *a2)
 
   std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(std::vector<CFRange>,std::vector<CFRange>),std::vector<CFRange>*,false>(v29, v30, v35, v7, 1);
   v8 = v29;
-  for (i = v30; v8 != i; v8 = (v8 + 24))
+  for (i = v30; v8 != i; v8 += 3)
   {
     v20 = 0;
     v21 = &v20;
@@ -9526,9 +9528,9 @@ void QP::Lexer::addLexemes(uint64_t a1, uint64_t *a2)
     v26 = 0;
     v27 = 0;
     __p = 0;
-    v9 = v8->n128_u64[0];
-    v10 = v8->n128_u64[1];
-    if (v8->n128_u64[0] == v10)
+    v9 = *v8;
+    v10 = v8[1];
+    if (*v8 == v10)
     {
       v14 = &v20;
     }
@@ -9562,7 +9564,7 @@ void QP::Lexer::addLexemes(uint64_t a1, uint64_t *a2)
       v8 = v17;
     }
 
-    std::vector<std::vector<CFRange>>::push_back[abi:ne200100](a1 + 552, v14 + 5);
+    std::vector<std::vector<CFRange>>::push_back[abi:ne200100](a1 + 552, (v14 + 5));
     _Block_object_dispose(&v20, 8);
     if (__p)
     {
@@ -9595,7 +9597,7 @@ void sub_1C65BA738(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void QP::subtokenize(const __CFString *a1, CFIndex a2, uint64_t a3, const __CFCharacterSet *a4, uint64_t *a5, uint64_t a6, uint64_t *a7)
+void QP::subtokenize(const __CFString *a1, CFIndex a2, uint64_t a3, const __CFCharacterSet *a4, uint64_t a5, uint64_t a6, uint64_t *a7)
 {
   v7 = a3 - 1;
   if (a3 < 1)
@@ -9665,7 +9667,7 @@ void QP::subtokenize(const __CFString *a1, CFIndex a2, uint64_t a3, const __CFCh
     __p = 0;
     v23 = 0;
     v24 = 0;
-    std::vector<CFRange>::__init_with_size[abi:ne200100]<CFRange*,CFRange*>(&__p, *a5, a5[1], (a5[1] - *a5) >> 4);
+    std::vector<CFRange>::__init_with_size[abi:ne200100]<CFRange*,CFRange*>(&__p, *a5, *(a5 + 8), (*(a5 + 8) - *a5) >> 4);
     if ((v15 & 1) == 0)
     {
       std::vector<CFRange>::push_back[abi:ne200100](&__p, &v21);
@@ -9673,7 +9675,7 @@ void QP::subtokenize(const __CFString *a1, CFIndex a2, uint64_t a3, const __CFCh
 
     memset(v17, 0, sizeof(v17));
     std::vector<std::shared_ptr<QP::Lexeme>>::__init_with_size[abi:ne200100]<std::shared_ptr<QP::Lexeme>*,std::shared_ptr<QP::Lexeme>*>(v17, *a7, a7[1], (a7[1] - *a7) >> 4);
-    QP::subtokenize(a1, a2 + i, v7, a4, &__p, a6, v17);
+    QP::subtokenize(a1, a2 + i, v7, a4, &__p, a6);
     v29 = v17;
     std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](&v29);
     if (__p)
@@ -9745,7 +9747,7 @@ uint64_t *QP::enumerateIndexesOfRange(uint64_t *result, uint64_t a2, uint64_t a3
       do
       {
         v11 = v10 >> 1;
-        v12 = &v8[2 * (v10 >> 1)];
+        v12 = (v8 + 16 * (v10 >> 1));
         v14 = *v12;
         v13 = v12 + 2;
         v10 += ~(v10 >> 1);
@@ -9783,8 +9785,8 @@ uint64_t *QP::enumerateIndexesOfRange(uint64_t *result, uint64_t a2, uint64_t a3
             return result;
           }
 
-          v8 += 2;
-          v15 += 2;
+          v8 += 16;
+          v15 += 16;
         }
 
         while (v8 != v7);

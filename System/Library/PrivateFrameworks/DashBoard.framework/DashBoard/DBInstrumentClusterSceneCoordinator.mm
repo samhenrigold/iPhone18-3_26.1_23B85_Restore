@@ -49,10 +49,10 @@
 
 - (void)processMonitor:(id)monitor didHandleDeathOfBundleIdentifier:(id)identifier
 {
-  sub_248383960();
+  v6 = sub_248383960();
   monitorCopy = monitor;
   selfCopy = self;
-  sub_2482D41D8();
+  sub_2482D41D8(v6);
 }
 
 @end

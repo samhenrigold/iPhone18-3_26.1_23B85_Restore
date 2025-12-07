@@ -68,6 +68,22 @@ BOOL sub_10000242C(uint64_t a1)
   return !CGRectEqualToRect(*(*(a1 + 32) + 48), v24);
 }
 
+BOOL sub_100002598(uint64_t a1)
+{
+  v1 = *(a1 + 32);
+  v8 = *(v1 + 48);
+  *(v1 + 40) = 0;
+  v2 = *(a1 + 32) + 48;
+  size = CGRectNull.size;
+  *v2 = CGRectNull.origin;
+  *(v2 + 16) = size;
+  size.width = *(*(a1 + 32) + 48);
+  v4 = *(*(a1 + 32) + 56);
+  v5 = *(*(a1 + 32) + 64);
+  v6 = *(*(a1 + 32) + 72);
+  return !CGRectEqualToRect(*&size.width, v8);
+}
+
 Class sub_100002CE0(uint64_t a1)
 {
   v4[0] = 0;
@@ -92,7 +108,7 @@ Class sub_100002CE0(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -112,7 +128,6 @@ LABEL_4:
 
 uint64_t sub_100002E24(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100016DB8 = result;
   return result;
@@ -176,9 +191,7 @@ void sub_100003C70(uint64_t a1)
 void sub_10000470C(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v5 = *(a1 + 32);
-  v6 = v3;
-  v4 = v3;
+  v2 = v3;
   NPKGuaranteeMainThread();
 }
 
@@ -249,7 +262,7 @@ Class sub_100004DFC(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -269,7 +282,6 @@ LABEL_4:
 
 uint64_t sub_100004F40(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100016DD0 = result;
   return result;

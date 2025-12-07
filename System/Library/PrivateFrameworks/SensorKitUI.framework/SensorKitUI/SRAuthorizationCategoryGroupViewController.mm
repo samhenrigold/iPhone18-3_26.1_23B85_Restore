@@ -9,6 +9,8 @@
 - (int64_t)tableView:(id)view numberOfRowsInSection:(int64_t)section;
 - (int64_t)usageSectionStart;
 - (int64_t)writerAuthSectionStart;
+- (void)authorizationSwitchToggledWithValue:(BOOL)value indexPath:(id)path;
+- (void)confirmAuthChangeForService:(id)service value:(BOOL)value indexPath:(id)path setOverride:(BOOL)override;
 - (void)dealloc;
 - (void)openPrivacy;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
@@ -274,6 +276,43 @@ LABEL_6:
   return [(NSArray *)sortedReaderAuthorizationServices objectAtIndexedSubscript:v7];
 }
 
+- (void)authorizationSwitchToggledWithValue:(BOOL)value indexPath:(id)path
+{
+  valueCopy = value;
+  v7 = [(SRAuthorizationCategoryGroupViewController *)self serviceFromIndexPath:path];
+  v8 = [(SRAuthorizationCategoryGroupViewController *)self indexPathIsInWriterSection:path]^ 1;
+  if (!valueCopy)
+  {
+    objc_initWeak(&location, self);
+    v9 = [SRAuthorizationGroup authorizationGroupWithServiceName:v7];
+    v10 = MEMORY[0x277D75110];
+    appBundle = [(SRAuthorizationCategoryGroupViewController *)self appBundle];
+    tableView = [(SRAuthorizationCategoryGroupViewController *)self tableView];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __92__SRAuthorizationCategoryGroupViewController_authorizationSwitchToggledWithValue_indexPath___block_invoke;
+    v14[3] = &unk_279B98300;
+    objc_copyWeak(&v15, &location);
+    v16 = valueCopy;
+    v14[4] = v7;
+    v14[5] = path;
+    v17 = v8;
+    v13 = [v10 skui_alertControllerForRequiredAuthorizationIfNeccesaryForBundle:appBundle authGroup:v9 tableView:tableView indexPath:path destructiveHandler:v14];
+    if (v13)
+    {
+      [(SRAuthorizationCategoryGroupViewController *)self presentViewController:v13 animated:1 completion:0];
+      objc_destroyWeak(&v15);
+      objc_destroyWeak(&location);
+      return;
+    }
+
+    objc_destroyWeak(&v15);
+    objc_destroyWeak(&location);
+  }
+
+  [(SRAuthorizationCategoryGroupViewController *)self confirmAuthChangeForService:v7 value:valueCopy indexPath:path setOverride:v8];
+}
+
 uint64_t __92__SRAuthorizationCategoryGroupViewController_authorizationSwitchToggledWithValue_indexPath___block_invoke(uint64_t a1)
 {
   Weak = objc_loadWeak((a1 + 48));
@@ -283,6 +322,27 @@ uint64_t __92__SRAuthorizationCategoryGroupViewController_authorizationSwitchTog
   v6 = *(a1 + 57);
 
   return [Weak confirmAuthChangeForService:v4 value:v3 indexPath:v5 setOverride:v6];
+}
+
+- (void)confirmAuthChangeForService:(id)service value:(BOOL)value indexPath:(id)path setOverride:(BOOL)override
+{
+  valueCopy = value;
+  if ([(SRAuthorizationStore *)[(SRAuthorizationCategoryGroupViewController *)self authStore] setAuthorizationForBundleId:[(NSBundle *)[(SRAuthorizationCategoryGroupViewController *)self appBundle] bundleIdentifier] service:service value:value setOverride:override])
+  {
+    v10 = [(SRAuthorizationCategoryGroupViewController *)self indexPathIsInWriterSection:path];
+    v11 = [MEMORY[0x277CCABB0] numberWithBool:valueCopy];
+    if (v10)
+    {
+      writerAuthState = [(SRAuthorizationCategoryGroupViewController *)self writerAuthState];
+    }
+
+    else
+    {
+      writerAuthState = [(SRAuthorizationCategoryGroupViewController *)self readerAuthState];
+    }
+
+    [(NSMutableDictionary *)writerAuthState setObject:v11 forKeyedSubscript:service];
+  }
 }
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path

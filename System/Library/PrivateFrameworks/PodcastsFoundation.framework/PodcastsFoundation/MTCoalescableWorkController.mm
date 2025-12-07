@@ -13,7 +13,7 @@
 
 - (void)_onWorkQueuePerformActiveWorkBlock
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   activeWorkManifest = [(MTCoalescableWorkController *)selfCopy activeWorkManifest];
@@ -28,7 +28,7 @@
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v25 = selfCopy;
+        v24 = selfCopy;
         _os_log_impl(&dword_1D8CEC000, v5, OS_LOG_TYPE_DEFAULT, "[MTCoalescableWork] performing work. [ctl=%@]", buf, 0xCu);
       }
     }
@@ -42,35 +42,35 @@
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v25 = selfCopy;
+        v24 = selfCopy;
         _os_log_impl(&dword_1D8CEC000, v7, OS_LOG_TYPE_DEFAULT, "[MTCoalescableWork] firing completions. [ctl=%@]", buf, 0xCu);
       }
     }
 
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     completions = [activeWorkManifest completions];
-    v9 = [completions countByEnumeratingWithState:&v20 objects:v28 count:16];
+    v9 = [completions countByEnumeratingWithState:&v19 objects:v27 count:16];
     if (v9)
     {
-      v10 = *v21;
+      v10 = *v20;
       do
       {
         v11 = 0;
         do
         {
-          if (*v21 != v10)
+          if (*v20 != v10)
           {
             objc_enumerationMutation(completions);
           }
 
-          (*(*(*(&v20 + 1) + 8 * v11++) + 16))();
+          (*(*(*(&v19 + 1) + 8 * v11++) + 16))();
         }
 
         while (v9 != v11);
-        v9 = [completions countByEnumeratingWithState:&v20 objects:v28 count:16];
+        v9 = [completions countByEnumeratingWithState:&v19 objects:v27 count:16];
       }
 
       while (v9);
@@ -92,9 +92,9 @@
       {
         activeWorkManifest3 = [(MTCoalescableWorkController *)v12 activeWorkManifest];
         *buf = 138412546;
-        v25 = activeWorkManifest3;
-        v26 = 2112;
-        v27 = v12;
+        v24 = activeWorkManifest3;
+        v25 = 2112;
+        v26 = v12;
         _os_log_impl(&dword_1D8CEC000, v15, OS_LOG_TYPE_DEFAULT, "[MTCoalescableWork] clearing active manifest, newActive = %@. [ctl=%@]", buf, 0x16u);
       }
     }
@@ -112,8 +112,6 @@
       dispatch_async(workQueue, block);
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 + (id)controllerWithQosClass:(unsigned int)class identifier:(id)identifier
@@ -231,7 +229,7 @@ LABEL_3:
 
 - (void)_syncScheduleUpdatePendingWork:(id)work completion:(id)completion
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   workCopy = work;
   pendingWorkManifest = [(MTCoalescableWorkController *)self pendingWorkManifest];
@@ -243,9 +241,9 @@ LABEL_3:
       v10 = _MTLogCategoryDefault();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = 138412290;
+        v16 = 138412290;
         selfCopy2 = self;
-        _os_log_impl(&dword_1D8CEC000, v10, OS_LOG_TYPE_DEFAULT, "[MTCoalescableWork] schedule; replacing pending manifest. [ctl=%@]", &v17, 0xCu);
+        _os_log_impl(&dword_1D8CEC000, v10, OS_LOG_TYPE_DEFAULT, "[MTCoalescableWork] schedule; replacing pending manifest. [ctl=%@]", &v16, 0xCu);
       }
     }
 
@@ -253,9 +251,9 @@ LABEL_3:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       identifier = [(MTCoalescableWorkController *)self identifier];
-      v17 = 138412290;
+      v16 = 138412290;
       selfCopy2 = identifier;
-      _os_log_impl(&dword_1D8CEC000, v11, OS_LOG_TYPE_DEFAULT, "[MTCoalescableWorkController] %@ dropped and replaced work-block with newer item", &v17, 0xCu);
+      _os_log_impl(&dword_1D8CEC000, v11, OS_LOG_TYPE_DEFAULT, "[MTCoalescableWorkController] %@ dropped and replaced work-block with newer item", &v16, 0xCu);
     }
 
     v13 = [pendingWorkManifest manifestByReplacingWorkBlock:workCopy appendingCompletion:completionCopy];
@@ -268,9 +266,9 @@ LABEL_3:
       v14 = _MTLogCategoryDefault();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = 138412290;
+        v16 = 138412290;
         selfCopy2 = self;
-        _os_log_impl(&dword_1D8CEC000, v14, OS_LOG_TYPE_DEFAULT, "[MTCoalescableWork] schedule; creating pending manifest. [ctl=%@]", &v17, 0xCu);
+        _os_log_impl(&dword_1D8CEC000, v14, OS_LOG_TYPE_DEFAULT, "[MTCoalescableWork] schedule; creating pending manifest. [ctl=%@]", &v16, 0xCu);
       }
     }
 
@@ -280,12 +278,11 @@ LABEL_3:
   v15 = v13;
 
   [(MTCoalescableWorkController *)self setPendingWorkManifest:v15];
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_syncScheduleStartActiveWork:(id)work completion:(id)completion
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   workCopy = work;
   if ([(MTCoalescableWorkController *)self verboseDebugLoggingEnabled])
@@ -309,8 +306,6 @@ LABEL_3:
   block[3] = &unk_1E8568E28;
   block[4] = self;
   dispatch_async(workQueue, block);
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -47,14 +47,14 @@
 
 - (NSURL)URL
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   host = self->_host;
   if (host)
   {
     if (self->_path)
     {
-      v7[0] = self->_path;
-      v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
+      v6[0] = self->_path;
+      v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
       v4 = [host wlk_stringByAppendingPathComponents:v3];
 
       host = [MEMORY[0x277CBEBC0] URLWithString:v4];
@@ -65,8 +65,6 @@
       host = 0;
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return host;
 }

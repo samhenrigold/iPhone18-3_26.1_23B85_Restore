@@ -223,7 +223,7 @@ LABEL_19:
     p_iconGridSizeClassIconImageInfos = &self->_iconGridSizeClassIconImageInfos;
   }
 
-  [(SBHIconGridSizeClassIconImageInfoMap *)*p_iconGridSizeClassIconImageInfos iconImageInfoForGridSizeClass:orientationCopy];
+  objc_msgSend_iconImageInfoForGridSizeClass_(*p_iconGridSizeClassIconImageInfos);
 
   return result;
 }
@@ -582,7 +582,7 @@ LABEL_36:
   v13 = NSStringFromUIEdgeInsets(self->_landscapeAdditionalWidgetLayoutInsets);
   [succinctDescriptionBuilder appendString:v13 withName:@"landscapeAdditionalWidgetLayoutInsets"];
 
-  [(SBIconListGridLayoutConfiguration *)self iconImageInfo];
+  objc_msgSend_iconImageInfo(self);
   v15 = v14;
   v17 = v16;
   v19 = v18;

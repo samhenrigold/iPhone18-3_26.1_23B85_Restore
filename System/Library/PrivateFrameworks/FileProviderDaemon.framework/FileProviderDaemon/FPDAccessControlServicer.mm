@@ -96,20 +96,19 @@ void __78__FPDAccessControlServicer_revokeAccessToAllItemsForBundle_completionHa
 {
   if (a3)
   {
-    v4 = *(a1 + 40);
-    v5 = *(*(a1 + 40) + 16);
+    v4 = *(*(a1 + 40) + 16);
 
-    v5();
+    v4();
   }
 
   else
   {
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __78__FPDAccessControlServicer_revokeAccessToAllItemsForBundle_completionHandler___block_invoke_2;
-    v7[3] = &unk_1E83BF6C0;
-    v8 = *(a1 + 32);
-    [a2 performWithFlags:16 action:v7];
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = __78__FPDAccessControlServicer_revokeAccessToAllItemsForBundle_completionHandler___block_invoke_2;
+    v6[3] = &unk_1E83BF6C0;
+    v7 = *(a1 + 32);
+    [a2 performWithFlags:16 action:v6];
     (*(*(a1 + 40) + 16))();
   }
 }

@@ -3,7 +3,7 @@
 
 @implementation UINavigationController
 
-uint64_t __79__UINavigationController_PXImageModulationManager__px_imageModulationIntensity__block_invoke()
+void *__79__UINavigationController_PXImageModulationManager__px_imageModulationIntensity__block_invoke()
 {
   result = [MEMORY[0x1E69DCCD8] instancesRespondToSelector:sel_px_imageModulationIntensityWithProposedValue_];
   px_imageModulationIntensity_hookExists = result;

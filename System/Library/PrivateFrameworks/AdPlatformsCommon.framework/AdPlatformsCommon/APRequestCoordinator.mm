@@ -38,21 +38,21 @@
 
 - (APRequestCoordinator)init
 {
-  v14.receiver = self;
-  v14.super_class = APRequestCoordinator;
-  v6 = [(APXPCActionRequester *)&v14 init];
-  if (v6)
+  v10.receiver = self;
+  v10.super_class = APRequestCoordinator;
+  v4 = [(APXPCActionRequester *)&v10 init];
+  if (v4)
   {
-    v9 = objc_msgSend_dictionary(MEMORY[0x1E695DF90], v2, v3, v4, v5, v7, v8);
-    managerToRetryBoxMap = v6->_managerToRetryBoxMap;
-    v6->_managerToRetryBoxMap = v9;
+    v5 = objc_msgSend_dictionary(MEMORY[0x1E695DF90], v2, v3);
+    managerToRetryBoxMap = v4->_managerToRetryBoxMap;
+    v4->_managerToRetryBoxMap = v5;
 
-    v11 = objc_alloc_init(MEMORY[0x1E69861D8]);
-    lock = v6->_lock;
-    v6->_lock = v11;
+    v7 = objc_alloc_init(MEMORY[0x1E69861D8]);
+    lock = v4->_lock;
+    v4->_lock = v7;
   }
 
-  return v6;
+  return v4;
 }
 
 - (void)requestPromotedContentWithContents:(id)contents forRequester:(id)requester completionHandler:(id)handler
@@ -61,22 +61,22 @@
   requesterCopy = requester;
   contentsCopy = contents;
   v11 = [APCoordinatedAdRequestBox alloc];
-  v15 = objc_msgSend_initWithDelegate_contents_handler_(v11, v12, requesterCopy, contentsCopy, handlerCopy, v13, v14);
+  v13 = objc_msgSend_initWithDelegate_contents_handler_(v11, v12, requesterCopy, contentsCopy, handlerCopy);
 
-  objc_msgSend__addBox_(self, v16, v15, v17, v18, v19, v20);
-  v27 = objc_msgSend_clientInfo(contentsCopy, v21, v22, v23, v24, v25, v26);
+  objc_msgSend__addBox_(self, v14, v13);
+  v17 = objc_msgSend_clientInfo(contentsCopy, v15, v16);
 
-  if (!v27)
+  if (!v17)
   {
-    v33 = APLogForCategory();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+    v19 = APLogForCategory();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      *v34 = 0;
-      _os_log_impl(&dword_1BAFC4000, v33, OS_LOG_TYPE_DEFAULT, "No client info was available for an ad request.", v34, 2u);
+      *v20 = 0;
+      _os_log_impl(&dword_1BAFC4000, v19, OS_LOG_TYPE_DEFAULT, "No client info was available for an ad request.", v20, 2u);
     }
   }
 
-  objc_msgSend_requestPromotedContentWithBox_(self, v28, v15, v29, v30, v31, v32);
+  objc_msgSend_requestPromotedContentWithBox_(self, v18, v13);
 }
 
 - (void)sendAndRankContent:(id)content forRequester:(id)requester forContext:(id)context placement:(unint64_t)placement completionHandler:(id)handler
@@ -85,25 +85,25 @@
   requesterCopy = requester;
   contentCopy = content;
   v14 = [APCoordinatedRankRequestBox alloc];
-  v28 = objc_msgSend_initWithDelegate_contents_placement_handler_(v14, v15, requesterCopy, contentCopy, placement, v16, v17, handlerCopy);
+  v18 = objc_msgSend_initWithDelegate_contents_placement_handler_(v14, v15, requesterCopy, contentCopy, placement, handlerCopy);
 
-  objc_msgSend__addBox_(self, v18, v28, v19, v20, v21, v22);
-  objc_msgSend_requestRankingWithBox_(self, v23, v28, v24, v25, v26, v27);
+  objc_msgSend__addBox_(self, v16, v18);
+  objc_msgSend_requestRankingWithBox_(self, v17, v18);
 }
 
 - (void)beginSessionForID:(id)d
 {
   v4 = MEMORY[0x1E695DF70];
   dCopy = d;
-  v49 = objc_msgSend_array(v4, v6, v7, v8, v9, v10, v11);
-  v18 = objc_msgSend_lock(self, v12, v13, v14, v15, v16, v17);
-  objc_msgSend_lock(v18, v19, v20, v21, v22, v23, v24);
+  v22 = objc_msgSend_array(v4, v6, v7);
+  v10 = objc_msgSend_lock(self, v8, v9);
+  objc_msgSend_lock(v10, v11, v12);
 
-  v31 = objc_msgSend_managerToRetryBoxMap(self, v25, v26, v27, v28, v29, v30);
-  objc_msgSend_setObject_forKey_(v31, v32, v49, dCopy, v33, v34, v35);
+  v15 = objc_msgSend_managerToRetryBoxMap(self, v13, v14);
+  objc_msgSend_setObject_forKey_(v15, v16, v22, dCopy);
 
-  v42 = objc_msgSend_lock(self, v36, v37, v38, v39, v40, v41);
-  objc_msgSend_unlock(v42, v43, v44, v45, v46, v47, v48);
+  v19 = objc_msgSend_lock(self, v17, v18);
+  objc_msgSend_unlock(v19, v20, v21);
 }
 
 - (void)finishedWithRequestsForID:(id)d
@@ -115,25 +115,25 @@
   v8 = v7;
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
-    *v71 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1BAFC4000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v6, "xpcDelay", "", v71, 2u);
+    *v32 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1BAFC4000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v6, "xpcDelay", "", v32, 2u);
   }
 
-  v15 = objc_msgSend_remoteObjectProxy(self, v9, v10, v11, v12, v13, v14);
-  objc_msgSend_finishedWithRequestsForRequester_logID_(v15, v16, dCopy, v6, v17, v18, v19);
+  v11 = objc_msgSend_remoteObjectProxy(self, v9, v10);
+  objc_msgSend_finishedWithRequestsForRequester_logID_(v11, v12, dCopy, v6);
 
-  v26 = objc_msgSend_lock(self, v20, v21, v22, v23, v24, v25);
-  objc_msgSend_lock(v26, v27, v28, v29, v30, v31, v32);
-  v39 = objc_msgSend_managerToRetryBoxMap(self, v33, v34, v35, v36, v37, v38);
-  objc_msgSend_removeObjectForKey_(v39, v40, dCopy, v41, v42, v43, v44);
+  v15 = objc_msgSend_lock(self, v13, v14);
+  objc_msgSend_lock(v15, v16, v17);
+  v20 = objc_msgSend_managerToRetryBoxMap(self, v18, v19);
+  objc_msgSend_removeObjectForKey_(v20, v21, dCopy);
 
-  v51 = objc_msgSend_managerToRetryBoxMap(self, v45, v46, v47, v48, v49, v50);
-  v58 = objc_msgSend_count(v51, v52, v53, v54, v55, v56, v57);
+  v24 = objc_msgSend_managerToRetryBoxMap(self, v22, v23);
+  v27 = objc_msgSend_count(v24, v25, v26);
 
-  objc_msgSend_unlock(v26, v59, v60, v61, v62, v63, v64);
-  if (!v58)
+  objc_msgSend_unlock(v15, v28, v29);
+  if (!v27)
   {
-    objc_msgSend_finished(self, v65, v66, v67, v68, v69, v70);
+    objc_msgSend_finished(self, v30, v31);
   }
 }
 
@@ -141,38 +141,38 @@
 {
   requesterCopy = requester;
   v5 = [APCoordinatedRetryBox alloc];
-  v10 = objc_msgSend_initWithType_delegate_(v5, v6, -1, requesterCopy, v7, v8, v9);
-  objc_msgSend_setCanRetry_(v10, v11, 0, v12, v13, v14, v15);
-  objc_msgSend__addBox_(self, v16, v10, v17, v18, v19, v20);
-  v42 = 0;
-  v43 = &v42;
-  v44 = 0x3032000000;
-  v45 = sub_1BAFD4A1C;
-  v46 = sub_1BAFD4A2C;
-  v47 = 0;
-  v25 = objc_msgSend_synchronousRemoteObjectProxyWithErrorHandler_(self, v21, &unk_1F390A6F0, v22, v23, COERCE_DOUBLE(0x3032000000), v24);
-  v26 = APPerfLogForCategory();
-  v27 = os_signpost_id_generate(v26);
-  v28 = v26;
-  v29 = v28;
-  if (v27 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v28))
+  v7 = objc_msgSend_initWithType_delegate_(v5, v6, -1, requesterCopy);
+  objc_msgSend_setCanRetry_(v7, v8, 0);
+  objc_msgSend__addBox_(self, v9, v7);
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = sub_1BAFD4A1C;
+  v26 = sub_1BAFD4A2C;
+  v27 = 0;
+  v11 = objc_msgSend_synchronousRemoteObjectProxyWithErrorHandler_(self, v10, &unk_1F390A6F0);
+  v12 = APPerfLogForCategory();
+  v13 = os_signpost_id_generate(v12);
+  v14 = v12;
+  v15 = v14;
+  if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1BAFC4000, v29, OS_SIGNPOST_INTERVAL_BEGIN, v27, "xpcDelay", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1BAFC4000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v13, "xpcDelay", "", buf, 2u);
   }
 
-  v40[0] = MEMORY[0x1E69E9820];
-  v40[1] = 3221225472;
-  v40[2] = sub_1BAFD4A94;
-  v40[3] = &unk_1E7F20E40;
-  v40[4] = &v42;
-  objc_msgSend_proxyURLWithLogID_completionHandler_(v25, v30, v27, v40, v31, COERCE_DOUBLE(3221225472), v32);
-  objc_msgSend__removeBox_(self, v33, v10, v34, v35, v36, v37);
-  v38 = v43[5];
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = sub_1BAFD4A94;
+  v20[3] = &unk_1E7F20E40;
+  v20[4] = &v22;
+  objc_msgSend_proxyURLWithLogID_completionHandler_(v11, v16, v13, v20);
+  objc_msgSend__removeBox_(self, v17, v7);
+  v18 = v23[5];
 
-  _Block_object_dispose(&v42, 8);
+  _Block_object_dispose(&v22, 8);
 
-  return v38;
+  return v18;
 }
 
 - (void)proxyURLForRequester:(id)requester withCompletionHandler:(id)handler
@@ -180,10 +180,10 @@
   handlerCopy = handler;
   requesterCopy = requester;
   v8 = [APCoordinatedProxyUrlRequestBox alloc];
-  v23 = objc_msgSend_initWithDelegate_handler_(v8, v9, requesterCopy, handlerCopy, v10, v11, v12);
+  v12 = objc_msgSend_initWithDelegate_handler_(v8, v9, requesterCopy, handlerCopy);
 
-  objc_msgSend__addBox_(self, v13, v23, v14, v15, v16, v17);
-  objc_msgSend_requestProxyWithBox_(self, v18, v23, v19, v20, v21, v22);
+  objc_msgSend__addBox_(self, v10, v12);
+  objc_msgSend_requestProxyWithBox_(self, v11, v12);
 }
 
 - (void)preWarm:(id)warm forRequester:(id)requester completion:(id)completion
@@ -192,33 +192,33 @@
   requesterCopy = requester;
   warmCopy = warm;
   v11 = [APCoordinatedRetryBox alloc];
-  v16 = objc_msgSend_initWithType_delegate_(v11, v12, -1, requesterCopy, v13, v14, v15);
+  v13 = objc_msgSend_initWithType_delegate_(v11, v12, -1, requesterCopy);
 
-  objc_msgSend_setCanRetry_(v16, v17, 0, v18, v19, v20, v21);
-  objc_msgSend__addBox_(self, v22, v16, v23, v24, v25, v26);
-  v32 = objc_msgSend_synchronousRemoteObjectProxyWithErrorHandler_(self, v27, &unk_1F390A710, v28, v29, v30, v31);
-  v33 = APPerfLogForCategory();
-  v34 = os_signpost_id_generate(v33);
-  v35 = v33;
-  v36 = v35;
-  if (v34 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v35))
+  objc_msgSend_setCanRetry_(v13, v14, 0);
+  objc_msgSend__addBox_(self, v15, v13);
+  v17 = objc_msgSend_synchronousRemoteObjectProxyWithErrorHandler_(self, v16, &unk_1F390A710);
+  v18 = APPerfLogForCategory();
+  v19 = os_signpost_id_generate(v18);
+  v20 = v18;
+  v21 = v20;
+  if (v19 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
   {
-    *v45 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1BAFC4000, v36, OS_SIGNPOST_INTERVAL_BEGIN, v34, "xpcDelay", "", v45, 2u);
+    *v24 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1BAFC4000, v21, OS_SIGNPOST_INTERVAL_BEGIN, v19, "xpcDelay", "", v24, 2u);
   }
 
-  objc_msgSend_preWarm_logID_completion_(v32, v37, warmCopy, v34, completionCopy, v38, v39);
-  objc_msgSend__removeBox_(self, v40, v16, v41, v42, v43, v44);
+  objc_msgSend_preWarm_logID_completion_(v17, v22, warmCopy, v19, completionCopy);
+  objc_msgSend__removeBox_(self, v23, v13);
 }
 
 - (void)requestPromotedContentWithBox:(id)box
 {
   boxCopy = box;
   objc_initWeak(location, self);
-  v90[0] = 0;
-  v90[1] = v90;
-  v90[2] = 0x2020000000;
-  v90[3] = 0;
+  v48[0] = 0;
+  v48[1] = v48;
+  v48[2] = 0x2020000000;
+  v48[3] = 0;
   v5 = APPerfLogForCategory();
   v6 = os_signpost_id_generate(v5);
   v7 = v5;
@@ -229,31 +229,31 @@
     _os_signpost_emit_with_name_impl(&dword_1BAFC4000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v6, "xpcDelay", "", buf, 2u);
   }
 
-  v84 = v6;
-  v82 = v8;
+  v42 = v6;
+  v40 = v8;
 
-  v83 = objc_msgSend_remoteObjectProxy(self, v9, v10, v11, v12, v13, v14);
-  v21 = objc_msgSend_requestContents(boxCopy, v15, v16, v17, v18, v19, v20);
-  v81 = objc_msgSend_contentTypes(v21, v22, v23, v24, v25, v26, v27);
-  v80 = objc_msgSend_requesterID(boxCopy, v28, v29, v30, v31, v32, v33);
-  v40 = objc_msgSend_requestContents(boxCopy, v34, v35, v36, v37, v38, v39);
-  v47 = objc_msgSend_apContext(v40, v41, v42, v43, v44, v45, v46);
-  v54 = objc_msgSend_requestContents(boxCopy, v48, v49, v50, v51, v52, v53);
-  v61 = objc_msgSend_clientInfo(v54, v55, v56, v57, v58, v59, v60);
-  v68 = objc_msgSend_requestContents(boxCopy, v62, v63, v64, v65, v66, v67);
-  v75 = objc_msgSend_deliverEntireBatch(v68, v69, v70, v71, v72, v73, v74);
-  v85[0] = MEMORY[0x1E69E9820];
-  v85[1] = 3221225472;
-  v85[2] = sub_1BAFD4F8C;
-  v85[3] = &unk_1E7F20F30;
-  v87 = v90;
-  objc_copyWeak(&v88, location);
-  v76 = boxCopy;
-  v86 = v76;
-  objc_msgSend_requestPromotedContentOfTypes_forRequester_forContext_withClientInfo_deliverEntireBatch_logID_completionHandler_(v83, v77, v81, v80, v47, v78, v79, v61, v75, v84, v85);
+  v41 = objc_msgSend_remoteObjectProxy(self, v9, v10);
+  v13 = objc_msgSend_requestContents(boxCopy, v11, v12);
+  v39 = objc_msgSend_contentTypes(v13, v14, v15);
+  v38 = objc_msgSend_requesterID(boxCopy, v16, v17);
+  v20 = objc_msgSend_requestContents(boxCopy, v18, v19);
+  v23 = objc_msgSend_apContext(v20, v21, v22);
+  v26 = objc_msgSend_requestContents(boxCopy, v24, v25);
+  v29 = objc_msgSend_clientInfo(v26, v27, v28);
+  v32 = objc_msgSend_requestContents(boxCopy, v30, v31);
+  v35 = objc_msgSend_deliverEntireBatch(v32, v33, v34);
+  v43[0] = MEMORY[0x1E69E9820];
+  v43[1] = 3221225472;
+  v43[2] = sub_1BAFD4F8C;
+  v43[3] = &unk_1E7F20F30;
+  v45 = v48;
+  objc_copyWeak(&v46, location);
+  v36 = boxCopy;
+  v44 = v36;
+  objc_msgSend_requestPromotedContentOfTypes_forRequester_forContext_withClientInfo_deliverEntireBatch_logID_completionHandler_(v41, v37, v39, v38, v23, v29, v35, v42, v43);
 
-  objc_destroyWeak(&v88);
-  _Block_object_dispose(v90, 8);
+  objc_destroyWeak(&v46);
+  _Block_object_dispose(v48, 8);
   objc_destroyWeak(location);
 }
 
@@ -271,150 +271,148 @@
     _os_signpost_emit_with_name_impl(&dword_1BAFC4000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v6, "xpcDelay", "", buf, 2u);
   }
 
-  v15 = objc_msgSend_remoteObjectProxy(self, v9, v10, v11, v12, v13, v14);
-  v22 = objc_msgSend_contentDatas(boxCopy, v16, v17, v18, v19, v20, v21);
-  v29 = objc_msgSend_context(boxCopy, v23, v24, v25, v26, v27, v28);
-  v36 = objc_msgSend_placement(boxCopy, v30, v31, v32, v33, v34, v35);
-  v41[0] = MEMORY[0x1E69E9820];
-  v41[1] = 3221225472;
-  v41[2] = sub_1BAFD5228;
-  v41[3] = &unk_1E7F20F58;
-  objc_copyWeak(&v43, &location);
-  v37 = boxCopy;
-  v42 = v37;
-  objc_msgSend_sendAndRankContent_forContext_placement_logID_completionHandler_(v15, v38, v22, v29, v36, v39, v40, v6, v41);
+  v11 = objc_msgSend_remoteObjectProxy(self, v9, v10);
+  v14 = objc_msgSend_contentDatas(boxCopy, v12, v13);
+  v17 = objc_msgSend_context(boxCopy, v15, v16);
+  v20 = objc_msgSend_placement(boxCopy, v18, v19);
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = sub_1BAFD5228;
+  v23[3] = &unk_1E7F20F58;
+  objc_copyWeak(&v25, &location);
+  v21 = boxCopy;
+  v24 = v21;
+  objc_msgSend_sendAndRankContent_forContext_placement_logID_completionHandler_(v11, v22, v14, v17, v20, v6, v23);
 
-  objc_destroyWeak(&v43);
+  objc_destroyWeak(&v25);
   objc_destroyWeak(&location);
 }
 
 - (void)requestProxyWithBox:(id)box
 {
   boxCopy = box;
-  v11 = objc_msgSend_remoteObjectProxy(self, v5, v6, v7, v8, v9, v10);
+  v7 = objc_msgSend_remoteObjectProxy(self, v5, v6);
   objc_initWeak(&location, self);
-  v12 = APPerfLogForCategory();
-  v13 = os_signpost_id_generate(v12);
-  v14 = v12;
-  v15 = v14;
-  if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
+  v8 = APPerfLogForCategory();
+  v9 = os_signpost_id_generate(v8);
+  v10 = v8;
+  v11 = v10;
+  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1BAFC4000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v13, "xpcDelay", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1BAFC4000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v9, "xpcDelay", "", buf, 2u);
   }
 
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = sub_1BAFD5444;
-  v21[3] = &unk_1E7F20F80;
-  objc_copyWeak(&v23, &location);
-  v16 = boxCopy;
-  v22 = v16;
-  objc_msgSend_proxyURLWithLogID_completionHandler_(v11, v17, v13, v21, v18, v19, v20);
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = sub_1BAFD5444;
+  v14[3] = &unk_1E7F20F80;
+  objc_copyWeak(&v16, &location);
+  v12 = boxCopy;
+  v15 = v12;
+  objc_msgSend_proxyURLWithLogID_completionHandler_(v7, v13, v9, v14);
 
-  objc_destroyWeak(&v23);
+  objc_destroyWeak(&v16);
   objc_destroyWeak(&location);
 }
 
 - (void)contentResponses:(id)responses requester:(id)requester
 {
-  v67 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   responsesCopy = responses;
   requesterCopy = requester;
-  v14 = objc_msgSend_lock(self, v8, v9, v10, v11, v12, v13);
-  objc_msgSend_lock(v14, v15, v16, v17, v18, v19, v20);
-  v27 = objc_msgSend_managerToRetryBoxMap(self, v21, v22, v23, v24, v25, v26);
-  v33 = objc_msgSend_objectForKey_(v27, v28, requesterCopy, v29, v30, v31, v32);
+  v10 = objc_msgSend_lock(self, v8, v9);
+  objc_msgSend_lock(v10, v11, v12);
+  v15 = objc_msgSend_managerToRetryBoxMap(self, v13, v14);
+  v17 = objc_msgSend_objectForKey_(v15, v16, requesterCopy);
 
-  v40 = objc_msgSend_firstObject(v33, v34, v35, v36, v37, v38, v39);
-  v47 = objc_msgSend_requestDelegate(v40, v41, v42, v43, v44, v45, v46);
+  v20 = objc_msgSend_firstObject(v17, v18, v19);
+  v23 = objc_msgSend_requestDelegate(v20, v21, v22);
 
-  objc_msgSend_unlock(v14, v48, v49, v50, v51, v52, v53);
-  if (v47)
+  objc_msgSend_unlock(v10, v24, v25);
+  if (v23)
   {
-    objc_msgSend_contentResponses_(v47, v54, responsesCopy, v55, v56, v57, v58);
+    objc_msgSend_contentResponses_(v23, v26, responsesCopy);
   }
 
   else
   {
-    v59 = APLogForCategory();
-    if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
+    v27 = APLogForCategory();
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
-      v60 = objc_opt_class();
-      v61 = NSStringFromClass(v60);
-      v63 = 138478083;
-      v64 = v61;
-      v65 = 2114;
-      v66 = requesterCopy;
-      _os_log_impl(&dword_1BAFC4000, v59, OS_LOG_TYPE_DEFAULT, "[%{private}@] The requester for %{public}@ is no longer stored. Dropping response.", &v63, 0x16u);
+      v28 = objc_opt_class();
+      v29 = NSStringFromClass(v28);
+      v30 = 138478083;
+      v31 = v29;
+      v32 = 2114;
+      v33 = requesterCopy;
+      _os_log_impl(&dword_1BAFC4000, v27, OS_LOG_TYPE_DEFAULT, "[%{private}@] The requester for %{public}@ is no longer stored. Dropping response.", &v30, 0x16u);
     }
   }
-
-  v62 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_addBox:(id)box
 {
   boxCopy = box;
-  v10 = objc_msgSend_lock(self, v4, v5, v6, v7, v8, v9);
-  objc_msgSend_lock(v10, v11, v12, v13, v14, v15, v16);
+  v6 = objc_msgSend_lock(self, v4, v5);
+  objc_msgSend_lock(v6, v7, v8);
 
-  v23 = objc_msgSend_managerToRetryBoxMap(self, v17, v18, v19, v20, v21, v22);
-  v30 = objc_msgSend_requesterID(boxCopy, v24, v25, v26, v27, v28, v29);
-  v36 = objc_msgSend_objectForKey_(v23, v31, v30, v32, v33, v34, v35);
+  v11 = objc_msgSend_managerToRetryBoxMap(self, v9, v10);
+  v14 = objc_msgSend_requesterID(boxCopy, v12, v13);
+  v16 = objc_msgSend_objectForKey_(v11, v15, v14);
 
-  if (v36)
+  if (v16)
   {
-    if ((objc_msgSend_containsObject_(v36, v37, boxCopy, v38, v39, v40, v41) & 1) == 0)
+    if ((objc_msgSend_containsObject_(v16, v17, boxCopy) & 1) == 0)
     {
-      objc_msgSend_addObject_(v36, v42, boxCopy, v44, v45, v46, v47);
+      objc_msgSend_addObject_(v16, v18, boxCopy);
     }
   }
 
   else
   {
-    v36 = objc_msgSend_arrayWithObject_(MEMORY[0x1E695DF70], v37, boxCopy, v38, v39, v40, v41);
+    v16 = objc_msgSend_arrayWithObject_(MEMORY[0x1E695DF70], v17, boxCopy);
   }
 
-  v48 = objc_msgSend_managerToRetryBoxMap(self, v42, v43, v44, v45, v46, v47);
-  v55 = objc_msgSend_requesterID(boxCopy, v49, v50, v51, v52, v53, v54);
-  objc_msgSend_setObject_forKey_(v48, v56, v36, v55, v57, v58, v59);
+  v20 = objc_msgSend_managerToRetryBoxMap(self, v18, v19);
+  v23 = objc_msgSend_requesterID(boxCopy, v21, v22);
+  objc_msgSend_setObject_forKey_(v20, v24, v16, v23);
 
-  v66 = objc_msgSend_lock(self, v60, v61, v62, v63, v64, v65);
-  objc_msgSend_unlock(v66, v67, v68, v69, v70, v71, v72);
+  v27 = objc_msgSend_lock(self, v25, v26);
+  objc_msgSend_unlock(v27, v28, v29);
 }
 
 - (void)_removeBox:(id)box
 {
   boxCopy = box;
-  v10 = objc_msgSend_lock(self, v4, v5, v6, v7, v8, v9);
-  objc_msgSend_lock(v10, v11, v12, v13, v14, v15, v16);
+  v6 = objc_msgSend_lock(self, v4, v5);
+  objc_msgSend_lock(v6, v7, v8);
 
-  v23 = objc_msgSend_managerToRetryBoxMap(self, v17, v18, v19, v20, v21, v22);
-  v30 = objc_msgSend_requesterID(boxCopy, v24, v25, v26, v27, v28, v29);
-  v36 = objc_msgSend_objectForKey_(v23, v31, v30, v32, v33, v34, v35);
+  v11 = objc_msgSend_managerToRetryBoxMap(self, v9, v10);
+  v14 = objc_msgSend_requesterID(boxCopy, v12, v13);
+  v16 = objc_msgSend_objectForKey_(v11, v15, v14);
 
-  if (v36)
+  if (v16)
   {
-    objc_msgSend_removeObject_(v36, v37, boxCopy, v39, v40, v41, v42);
-    v49 = objc_msgSend_managerToRetryBoxMap(self, v43, v44, v45, v46, v47, v48);
-    v56 = objc_msgSend_requesterID(boxCopy, v50, v51, v52, v53, v54, v55);
-    objc_msgSend_setObject_forKey_(v49, v57, v36, v56, v58, v59, v60);
+    objc_msgSend_removeObject_(v16, v17, boxCopy);
+    v21 = objc_msgSend_managerToRetryBoxMap(self, v19, v20);
+    v24 = objc_msgSend_requesterID(boxCopy, v22, v23);
+    objc_msgSend_setObject_forKey_(v21, v25, v16, v24);
   }
 
   else
   {
-    v49 = objc_msgSend_diagnosticReportPayload(boxCopy, v37, v38, v39, v40, v41, v42);
+    v21 = objc_msgSend_diagnosticReportPayload(boxCopy, v17, v18);
     CreateDiagnosticReport();
   }
 
-  v67 = objc_msgSend_lock(self, v61, v62, v63, v64, v65, v66);
-  objc_msgSend_unlock(v67, v68, v69, v70, v71, v72, v73);
+  v28 = objc_msgSend_lock(self, v26, v27);
+  objc_msgSend_unlock(v28, v29, v30);
 }
 
 - (void)connectionInterrupted
 {
-  v155 = *MEMORY[0x1E69E9840];
+  v87 = *MEMORY[0x1E69E9840];
   v3 = APLogForCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
@@ -422,215 +420,210 @@
     _os_log_impl(&dword_1BAFC4000, v3, OS_LOG_TYPE_ERROR, "XPC Connection interrupted", buf, 2u);
   }
 
-  v10 = objc_msgSend_lock(self, v4, v5, v6, v7, v8, v9);
-  objc_msgSend_lock(v10, v11, v12, v13, v14, v15, v16);
-  v23 = objc_msgSend_managerToRetryBoxMap(self, v17, v18, v19, v20, v21, v22);
-  v30 = objc_msgSend_copy(v23, v24, v25, v26, v27, v28, v29);
+  v6 = objc_msgSend_lock(self, v4, v5);
+  objc_msgSend_lock(v6, v7, v8);
+  v11 = objc_msgSend_managerToRetryBoxMap(self, v9, v10);
+  v14 = objc_msgSend_copy(v11, v12, v13);
 
-  v37 = objc_msgSend_managerToRetryBoxMap(self, v31, v32, v33, v34, v35, v36);
-  objc_msgSend_removeAllObjects(v37, v38, v39, v40, v41, v42, v43);
+  v17 = objc_msgSend_managerToRetryBoxMap(self, v15, v16);
+  objc_msgSend_removeAllObjects(v17, v18, v19);
 
-  v131 = v10;
-  objc_msgSend_unlock(v10, v44, v45, v46, v47, v48, v49);
-  v143 = 0u;
-  v144 = 0u;
-  v141 = 0u;
-  v142 = 0u;
-  obj = v30;
-  v133 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v50, &v141, v154, 16, v51, v52);
-  if (v133)
+  v63 = v6;
+  objc_msgSend_unlock(v6, v20, v21);
+  v75 = 0u;
+  v76 = 0u;
+  v73 = 0u;
+  v74 = 0u;
+  obj = v14;
+  v65 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v22, &v73, v86, 16);
+  if (v65)
   {
-    v132 = *v142;
-    v57 = 138478595;
+    v64 = *v74;
     do
     {
-      v58 = 0;
+      v24 = 0;
       do
       {
-        if (*v142 != v132)
+        if (*v74 != v64)
         {
           objc_enumerationMutation(obj);
         }
 
-        v135 = v58;
-        v59 = objc_msgSend_objectForKey_(obj, v53, *(*(&v141 + 1) + 8 * v58), v54, v55, *&v57, v56);
-        v137 = 0u;
-        v138 = 0u;
-        v139 = 0u;
-        v140 = 0u;
-        v62 = objc_msgSend_countByEnumeratingWithState_objects_count_(v59, v60, &v137, v153, 16, 0.0, v61);
-        if (v62)
+        v67 = v24;
+        v25 = objc_msgSend_objectForKey_(obj, v23, *(*(&v73 + 1) + 8 * v24));
+        v69 = 0u;
+        v70 = 0u;
+        v71 = 0u;
+        v72 = 0u;
+        v27 = objc_msgSend_countByEnumeratingWithState_objects_count_(v25, v26, &v69, v85, 16);
+        if (v27)
         {
-          v69 = v62;
-          v70 = *v138;
+          v30 = v27;
+          v31 = *v70;
           do
           {
-            v71 = 0;
-            v136 = v69;
+            v32 = 0;
+            v68 = v30;
             do
             {
-              if (*v138 != v70)
+              if (*v70 != v31)
               {
-                objc_enumerationMutation(v59);
+                objc_enumerationMutation(v25);
               }
 
-              v72 = *(*(&v137 + 1) + 8 * v71);
-              if (objc_msgSend_requestType(v72, v63, v64, v65, v66, v67, v68) == -1)
+              v33 = *(*(&v69 + 1) + 8 * v32);
+              if (objc_msgSend_requestType(v33, v28, v29) == -1)
               {
                 goto LABEL_21;
               }
 
-              v78 = objc_msgSend_attemptRetryMessageForBox_(self, v73, v72, v74, v75, v76, v77);
-              v79 = APLogForCategory();
-              v80 = v79;
-              if (!v78)
+              v35 = objc_msgSend_attemptRetryMessageForBox_(self, v34, v33);
+              v36 = APLogForCategory();
+              v37 = v36;
+              if (!v35)
               {
-                if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
+                if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
                 {
-                  v104 = objc_opt_class();
-                  v105 = NSStringFromClass(v104);
-                  v112 = objc_msgSend_requestID(v72, v106, v107, v108, v109, v110, v111);
-                  v119 = objc_msgSend_requestType(v72, v113, v114, v115, v116, v117, v118);
-                  objc_msgSend_requesterID(v72, v120, v121, v122, v123, v124, v125);
-                  v126 = v70;
+                  v49 = objc_opt_class();
+                  v50 = NSStringFromClass(v49);
+                  v53 = objc_msgSend_requestID(v33, v51, v52);
+                  v56 = objc_msgSend_requestType(v33, v54, v55);
+                  objc_msgSend_requesterID(v33, v57, v58);
+                  v59 = v31;
                   selfCopy = self;
-                  v129 = v128 = v59;
+                  v62 = v61 = v25;
                   *buf = 138478595;
-                  v146 = v105;
-                  v147 = 2114;
-                  v148 = v112;
-                  v149 = 2050;
-                  v150 = v119;
-                  v151 = 2114;
-                  v152 = v129;
-                  _os_log_impl(&dword_1BAFC4000, v80, OS_LOG_TYPE_ERROR, "[%{private}@] Unable to retry request %{public}@ of type %{public}ld for requester %{public}@", buf, 0x2Au);
+                  v78 = v50;
+                  v79 = 2114;
+                  v80 = v53;
+                  v81 = 2050;
+                  v82 = v56;
+                  v83 = 2114;
+                  v84 = v62;
+                  _os_log_impl(&dword_1BAFC4000, v37, OS_LOG_TYPE_ERROR, "[%{private}@] Unable to retry request %{public}@ of type %{public}ld for requester %{public}@", buf, 0x2Au);
 
-                  v59 = v128;
+                  v25 = v61;
                   self = selfCopy;
-                  v70 = v126;
-                  v69 = v136;
+                  v31 = v59;
+                  v30 = v68;
                 }
 
 LABEL_21:
-                objc_msgSend_connectionSeveredForBox_(self, v73, v72, v74, v75, v76, v77);
+                objc_msgSend_connectionSeveredForBox_(self, v34, v33);
                 goto LABEL_22;
               }
 
-              if (os_log_type_enabled(v79, OS_LOG_TYPE_DEFAULT))
+              if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
               {
-                v81 = objc_opt_class();
-                v82 = NSStringFromClass(v81);
-                v89 = objc_msgSend_requestID(v72, v83, v84, v85, v86, v87, v88);
-                v96 = objc_msgSend_requestType(v72, v90, v91, v92, v93, v94, v95);
-                v103 = objc_msgSend_requesterID(v72, v97, v98, v99, v100, v101, v102);
+                v38 = objc_opt_class();
+                v39 = NSStringFromClass(v38);
+                v42 = objc_msgSend_requestID(v33, v40, v41);
+                v45 = objc_msgSend_requestType(v33, v43, v44);
+                v48 = objc_msgSend_requesterID(v33, v46, v47);
                 *buf = 138478595;
-                v146 = v82;
-                v147 = 2114;
-                v148 = v89;
-                v149 = 2050;
-                v150 = v96;
-                v151 = 2114;
-                v152 = v103;
-                _os_log_impl(&dword_1BAFC4000, v80, OS_LOG_TYPE_DEFAULT, "[%{private}@] Request %{public}@ of type %{public}ld is attempting to retry for requester %{public}@", buf, 0x2Au);
+                v78 = v39;
+                v79 = 2114;
+                v80 = v42;
+                v81 = 2050;
+                v82 = v45;
+                v83 = 2114;
+                v84 = v48;
+                _os_log_impl(&dword_1BAFC4000, v37, OS_LOG_TYPE_DEFAULT, "[%{private}@] Request %{public}@ of type %{public}ld is attempting to retry for requester %{public}@", buf, 0x2Au);
               }
 
 LABEL_22:
-              ++v71;
+              ++v32;
             }
 
-            while (v69 != v71);
-            v69 = objc_msgSend_countByEnumeratingWithState_objects_count_(v59, v63, &v137, v153, 16, v67, v68);
+            while (v30 != v32);
+            v30 = objc_msgSend_countByEnumeratingWithState_objects_count_(v25, v28, &v69, v85, 16);
           }
 
-          while (v69);
+          while (v30);
         }
 
-        v58 = v135 + 1;
+        v24 = v67 + 1;
       }
 
-      while (v135 + 1 != v133);
-      v133 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v53, &v141, v154, 16, *&v57, v56);
+      while (v67 + 1 != v65);
+      v65 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v23, &v73, v86, 16);
     }
 
-    while (v133);
+    while (v65);
   }
-
-  v130 = *MEMORY[0x1E69E9840];
 }
 
 - (void)connectionInvalidated
 {
-  v84 = *MEMORY[0x1E69E9840];
-  v8 = objc_msgSend_lock(self, a2, v2, v3, v4, v5, v6);
-  objc_msgSend_lock(v8, v9, v10, v11, v12, v13, v14);
-  v21 = objc_msgSend_managerToRetryBoxMap(self, v15, v16, v17, v18, v19, v20);
-  v28 = objc_msgSend_copy(v21, v22, v23, v24, v25, v26, v27);
+  v44 = *MEMORY[0x1E69E9840];
+  v4 = objc_msgSend_lock(self, a2, v2);
+  objc_msgSend_lock(v4, v5, v6);
+  v9 = objc_msgSend_managerToRetryBoxMap(self, v7, v8);
+  v12 = objc_msgSend_copy(v9, v10, v11);
 
-  v35 = objc_msgSend_managerToRetryBoxMap(self, v29, v30, v31, v32, v33, v34);
-  objc_msgSend_removeAllObjects(v35, v36, v37, v38, v39, v40, v41);
+  v15 = objc_msgSend_managerToRetryBoxMap(self, v13, v14);
+  objc_msgSend_removeAllObjects(v15, v16, v17);
 
-  objc_msgSend_unlock(v8, v42, v43, v44, v45, v46, v47);
-  v80 = 0u;
-  v81 = 0u;
-  v78 = 0u;
-  v79 = 0u;
-  v48 = v28;
-  v52 = objc_msgSend_countByEnumeratingWithState_objects_count_(v48, v49, &v78, v83, 16, v50, v51);
-  if (v52)
+  objc_msgSend_unlock(v4, v18, v19);
+  v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
+  v20 = v12;
+  v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v21, &v38, v43, 16);
+  if (v22)
   {
-    v58 = v52;
-    v59 = *v79;
+    v24 = v22;
+    v25 = *v39;
     do
     {
-      v60 = 0;
+      v26 = 0;
       do
       {
-        if (*v79 != v59)
+        if (*v39 != v25)
         {
-          objc_enumerationMutation(v48);
+          objc_enumerationMutation(v20);
         }
 
-        v61 = objc_msgSend_objectForKey_(v48, v53, *(*(&v78 + 1) + 8 * v60), v54, v55, v56, v57);
-        v74 = 0u;
-        v75 = 0u;
-        v76 = 0u;
-        v77 = 0u;
-        v64 = objc_msgSend_countByEnumeratingWithState_objects_count_(v61, v62, &v74, v82, 16, 0.0, v63);
-        if (v64)
+        v27 = objc_msgSend_objectForKey_(v20, v23, *(*(&v38 + 1) + 8 * v26));
+        v34 = 0u;
+        v35 = 0u;
+        v36 = 0u;
+        v37 = 0u;
+        v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(v27, v28, &v34, v42, 16);
+        if (v29)
         {
-          v70 = v64;
-          v71 = *v75;
+          v31 = v29;
+          v32 = *v35;
           do
           {
-            v72 = 0;
+            v33 = 0;
             do
             {
-              if (*v75 != v71)
+              if (*v35 != v32)
               {
-                objc_enumerationMutation(v61);
+                objc_enumerationMutation(v27);
               }
 
-              objc_msgSend_connectionSeveredForBox_(self, v65, *(*(&v74 + 1) + 8 * v72++), v66, v67, v68, v69);
+              objc_msgSend_connectionSeveredForBox_(self, v30, *(*(&v34 + 1) + 8 * v33++));
             }
 
-            while (v70 != v72);
-            v70 = objc_msgSend_countByEnumeratingWithState_objects_count_(v61, v65, &v74, v82, 16, v68, v69);
+            while (v31 != v33);
+            v31 = objc_msgSend_countByEnumeratingWithState_objects_count_(v27, v30, &v34, v42, 16);
           }
 
-          while (v70);
+          while (v31);
         }
 
-        ++v60;
+        ++v26;
       }
 
-      while (v60 != v58);
-      v58 = objc_msgSend_countByEnumeratingWithState_objects_count_(v48, v53, &v78, v83, 16, v56, v57);
+      while (v26 != v24);
+      v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v23, &v38, v43, 16);
     }
 
-    while (v58);
+    while (v24);
   }
-
-  v73 = *MEMORY[0x1E69E9840];
 }
 
 - (void)extendCollectionClassesForExportedInterface:(id)interface
@@ -639,8 +632,8 @@ LABEL_22:
   interfaceCopy = interface;
   v5 = objc_opt_class();
   v6 = objc_opt_class();
-  v15 = objc_msgSend_setWithObjects_(v3, v7, v5, v8, v9, v10, v11, v6, 0);
-  objc_msgSend_setClasses_forSelector_argumentIndex_ofReply_(interfaceCopy, v12, v15, sel_contentResponses_requester_, 0, v13, v14, 0);
+  v9 = objc_msgSend_setWithObjects_(v3, v7, v5, v6, 0);
+  objc_msgSend_setClasses_forSelector_argumentIndex_ofReply_(interfaceCopy, v8, v9, sel_contentResponses_requester_, 0, 0);
 }
 
 - (void)extendCollectionClassesForRemoteInterface:(id)interface
@@ -649,94 +642,92 @@ LABEL_22:
   interfaceCopy = interface;
   v5 = objc_opt_class();
   v6 = objc_opt_class();
-  v15 = objc_msgSend_setWithObjects_(v3, v7, v5, v8, v9, v10, v11, v6, 0);
-  objc_msgSend_setClasses_forSelector_argumentIndex_ofReply_(interfaceCopy, v12, v15, sel_sendAndRankContent_forContext_placement_logID_completionHandler_, 0, v13, v14, 1);
+  v9 = objc_msgSend_setWithObjects_(v3, v7, v5, v6, 0);
+  objc_msgSend_setClasses_forSelector_argumentIndex_ofReply_(interfaceCopy, v8, v9, sel_sendAndRankContent_forContext_placement_logID_completionHandler_, 0, 1);
 }
 
 - (BOOL)attemptRetryMessageForBox:(id)box
 {
   boxCopy = box;
-  if (objc_msgSend_canRetry(boxCopy, v5, v6, v7, v8, v9, v10))
+  if (objc_msgSend_canRetry(boxCopy, v5, v6))
   {
-    v17 = objc_msgSend_requestDelegate(boxCopy, v11, v12, v13, v14, v15, v16);
+    v9 = objc_msgSend_requestDelegate(boxCopy, v7, v8);
 
-    if (v17)
+    if (v9)
     {
-      objc_msgSend_setCanRetry_(boxCopy, v18, 0, v19, v20, v21, v22);
-      objc_msgSend__addBox_(self, v23, boxCopy, v24, v25, v26, v27);
-      v34 = objc_msgSend_requestType(boxCopy, v28, v29, v30, v31, v32, v33);
-      switch(v34)
+      objc_msgSend_setCanRetry_(boxCopy, v10, 0);
+      objc_msgSend__addBox_(self, v11, boxCopy);
+      v14 = objc_msgSend_requestType(boxCopy, v12, v13);
+      switch(v14)
       {
         case 2:
-          objc_msgSend_requestProxyWithBox_(self, v35, boxCopy, v36, v37, v38, v39);
+          objc_msgSend_requestProxyWithBox_(self, v15, boxCopy);
           goto LABEL_10;
         case 1:
-          objc_msgSend_requestRankingWithBox_(self, v35, boxCopy, v36, v37, v38, v39);
+          objc_msgSend_requestRankingWithBox_(self, v15, boxCopy);
           goto LABEL_10;
         case 0:
-          objc_msgSend_requestPromotedContentWithBox_(self, v35, boxCopy, v36, v37, v38, v39);
+          objc_msgSend_requestPromotedContentWithBox_(self, v15, boxCopy);
 LABEL_10:
-          v40 = 1;
+          v16 = 1;
           goto LABEL_11;
       }
     }
   }
 
-  v40 = 0;
+  v16 = 0;
 LABEL_11:
 
-  return v40;
+  return v16;
 }
 
 - (void)connectionSeveredForBox:(id)box
 {
-  v42[3] = *MEMORY[0x1E69E9840];
+  v21[3] = *MEMORY[0x1E69E9840];
   boxCopy = box;
   v4 = *MEMORY[0x1E696A588];
-  v41[0] = *MEMORY[0x1E696A578];
-  v41[1] = v4;
-  v42[0] = @"APRequestCoordinator was invalidated.";
-  v42[1] = @"The user asked to invalidate the requester, or connection was interrupted.";
-  v41[2] = *MEMORY[0x1E696A598];
-  v42[2] = @"Retry failed request again.";
-  v8 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v5, v42, v41, 3, v6, v7);
-  v12 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x1E696ABC0], v9, @"APPCControllerRequesterErrorDomain", 5003, v8, v10, v11);
-  v19 = objc_msgSend_requestDelegate(boxCopy, v13, v14, v15, v16, v17, v18);
+  v20[0] = *MEMORY[0x1E696A578];
+  v20[1] = v4;
+  v21[0] = @"APRequestCoordinator was invalidated.";
+  v21[1] = @"The user asked to invalidate the requester, or connection was interrupted.";
+  v20[2] = *MEMORY[0x1E696A598];
+  v21[2] = @"Retry failed request again.";
+  v6 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v5, v21, v20, 3);
+  v8 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x1E696ABC0], v7, @"APPCControllerRequesterErrorDomain", 5003, v6);
+  v11 = objc_msgSend_requestDelegate(boxCopy, v9, v10);
 
-  if (v19)
+  if (v11)
   {
-    v26 = objc_msgSend_requestDelegate(boxCopy, v20, v21, v22, v23, v24, v25);
-    objc_msgSend_connectionSeveredWithError_(v26, v27, v12, v28, v29, v30, v31);
+    v14 = objc_msgSend_requestDelegate(boxCopy, v12, v13);
+    objc_msgSend_connectionSeveredWithError_(v14, v15, v8);
   }
 
-  v32 = objc_msgSend_requestType(boxCopy, v20, v21, v22, v23, v24, v25);
-  if (v32 == 2)
+  v16 = objc_msgSend_requestType(boxCopy, v12, v13);
+  if (v16 == 2)
   {
     if (boxCopy)
     {
 LABEL_11:
-      v39 = objc_msgSend_completionHandler(boxCopy, v33, v34, v35, v36, v37, v38);
-      v39[2]();
+      v19 = objc_msgSend_completionHandler(boxCopy, v17, v18);
+      v19[2]();
       goto LABEL_12;
     }
   }
 
-  else if (v32 == 1)
+  else if (v16 == 1)
   {
     if (boxCopy)
     {
-      v39 = objc_msgSend_completionHandler(boxCopy, v33, v34, v35, v36, v37, v38);
-      (v39[2])(v39, 0, v12);
+      v19 = objc_msgSend_completionHandler(boxCopy, v17, v18);
+      (v19[2])(v19, 0, v8);
 LABEL_12:
     }
   }
 
-  else if (!v32 && boxCopy)
+  else if (!v16 && boxCopy)
   {
     goto LABEL_11;
   }
-
-  v40 = *MEMORY[0x1E69E9840];
 }
 
 @end

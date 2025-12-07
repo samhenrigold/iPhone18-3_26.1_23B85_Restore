@@ -114,7 +114,6 @@ void __52__SUUIMobileAnalyticsReporter_submitAnalyticsEvent___block_invoke(uint6
   }
 
   objc_storeStrong(v15, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (id)toSUAnalyticsEvent:(id)event
@@ -246,7 +245,6 @@ void __50__SUUIMobileAnalyticsReporter_toSUAnalyticsEvent___block_invoke(uint64_
   objc_storeStrong(&v9, 0);
   objc_storeStrong(&v10, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (id)interactionTypeToSUInteractionType:(int64_t)type

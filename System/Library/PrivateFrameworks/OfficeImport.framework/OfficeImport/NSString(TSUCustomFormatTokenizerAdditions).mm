@@ -9,9 +9,9 @@
 - (BOOL)tsu_customFormatIntegerTokenUsesSeparator;
 - (BOOL)tsu_isSpecialCustomNumberFormatTokenOfType:()TSUCustomFormatTokenizerAdditions;
 - (__CFString)tsu_digitPlaceholderStringInDigitToken;
+- (char)tsu_numberOfDigitsInCustomNumberFormatDecimalToken;
 - (id)tsu_currencyCodeFromCustomNumberFormatCurrencyToken;
 - (uint64_t)tsu_fractionAccuracyFromCustomNumberFormatFractionToken;
-- (uint64_t)tsu_numberOfDigitsInCustomNumberFormatDecimalToken;
 - (uint64_t)tsu_numberOfDigitsInCustomNumberFormatIntegerToken;
 - (void)tsu_stringByInsertingFormatGroupingSeparators:()TSUCustomFormatTokenizerAdditions;
 @end
@@ -194,7 +194,7 @@
   return i;
 }
 
-- (uint64_t)tsu_numberOfDigitsInCustomNumberFormatDecimalToken
+- (char)tsu_numberOfDigitsInCustomNumberFormatDecimalToken
 {
   if (([self tsu_isSpecialCustomNumberFormatTokenOfType:2] & 1) == 0)
   {
@@ -203,7 +203,7 @@
     +[OITSUAssertionHandler logBacktraceThrottled];
   }
 
-  return [self length] - 3;
+  return ([self length] - 3);
 }
 
 + (void)tsu_customNumberFormatDecimalTokenDisplayStringWithDigits:()TSUCustomFormatTokenizerAdditions digitString:

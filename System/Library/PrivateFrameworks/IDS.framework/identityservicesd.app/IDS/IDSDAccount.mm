@@ -1163,10 +1163,10 @@ LABEL_10:
   service = [(IDSDAccount *)self service];
   identifier = [service identifier];
 
-  v3 = [identifier isEqualToIgnoringCase:@"com.apple.madrid"];
-  v4 = [identifier isEqualToIgnoringCase:@"com.apple.ess"];
-  v5 = [identifier isEqualToIgnoringCase:@"com.apple.private.ac"];
-  v6 = [identifier isEqualToIgnoringCase:@"com.apple.private.alloy.facetime.multi"];
+  v3 = objc_msgSend_isEqualToIgnoringCase_(identifier);
+  v4 = objc_msgSend_isEqualToIgnoringCase_(identifier);
+  v5 = objc_msgSend_isEqualToIgnoringCase_(identifier);
+  v6 = objc_msgSend_isEqualToIgnoringCase_(identifier);
   v7 = +[IDSRegistrationController systemSupportsPhoneNumberRegistration];
   accountType = [(IDSDAccount *)self accountType];
   v9 = accountType == 1;
@@ -1939,7 +1939,7 @@ LABEL_34:
   if ([(IDSDAccount *)nameCopy length])
   {
     displayName = [(IDSDAccount *)self displayName];
-    v6 = [displayName isEqualToIgnoringCase:nameCopy];
+    v6 = objc_msgSend_isEqualToIgnoringCase_(displayName);
 
     if ((v6 & 1) == 0)
     {
@@ -2047,7 +2047,7 @@ LABEL_34:
   dCopy = d;
   v5 = kIDSServiceDefaultsLoginAsKey;
   v6 = [(NSMutableDictionary *)self->_accountInfo objectForKey:kIDSServiceDefaultsLoginAsKey];
-  if (([dCopy isEqualToIgnoringCase:v6] & 1) == 0)
+  if ((objc_msgSend_isEqualToIgnoringCase_(dCopy) & 1) == 0)
   {
     v7 = +[IMRGLog registration];
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -2355,7 +2355,7 @@ LABEL_17:
         if ([aliases count] == 1)
         {
           lastObject = [aliases lastObject];
-          v11 = [lastObject isEqualToIgnoringCase:kIDSServiceDefaultsSentinelAlias];
+          v11 = objc_msgSend_isEqualToIgnoringCase_(lastObject);
 
           v6 = v11 ^ 1;
         }
@@ -3343,7 +3343,7 @@ LABEL_21:
       v20 = *(*(&v165 + 1) + 8 * v19);
       v21 = [v20 objectForKey:{key, context}];
       primaryServiceName = [(IDSDAccount *)selfCopy primaryServiceName];
-      v23 = [primaryServiceName isEqualToIgnoringCase:v21];
+      v23 = objc_msgSend_isEqualToIgnoringCase_(primaryServiceName);
 
       if (v23)
       {
@@ -3396,7 +3396,7 @@ LABEL_67:
         objc_opt_class();
         if (objc_opt_isKindOfClass() & 1) != 0 && (objc_opt_class(), (objc_opt_isKindOfClass()))
         {
-          v34 = [v33 isEqualToIgnoringCase:pairedDeviceUniqueID];
+          v34 = objc_msgSend_isEqualToIgnoringCase_(v33);
         }
 
         else
@@ -3480,7 +3480,6 @@ LABEL_61:
           }
 
           currentDevice = currentDeviceCopy;
-          pairedDeviceUniqueID = v132;
           identifier = v138;
           goto LABEL_65;
         }
@@ -3731,12 +3730,12 @@ LABEL_73:
           {
             v104 = [v103 objectForKey:v98];
             v105 = [v104 objectForKey:keya];
-            [v105 doubleValue];
+            objc_msgSend_doubleValue(v105);
             v107 = v106;
 
             v108 = [v100 objectForKey:v98];
             v109 = [v108 objectForKey:keya];
-            [v109 doubleValue];
+            objc_msgSend_doubleValue(v109);
             v111 = v110;
 
             if (v107 >= v111)
@@ -3874,7 +3873,7 @@ LABEL_73:
           v14 = v16;
         }
 
-        if ([v14 isEqualToIgnoringCase:dCopy])
+        if (objc_msgSend_isEqualToIgnoringCase_(v14))
         {
           v17 = v13;
 
@@ -4753,7 +4752,7 @@ LABEL_41:
   {
     service = [(IDSDAccount *)self service];
     pushTopic = [service pushTopic];
-    if ([pushTopic isEqualToIgnoringCase:@"com.apple.private.alloy.bluetoothregistry"])
+    if (objc_msgSend_isEqualToIgnoringCase_(pushTopic))
     {
     }
 
@@ -4761,7 +4760,7 @@ LABEL_41:
     {
       service2 = [(IDSDAccount *)self service];
       pushTopic2 = [service2 pushTopic];
-      v10 = [pushTopic2 isEqualToIgnoringCase:@"com.apple.private.alloy.bluetoothregistryclassc"];
+      v10 = objc_msgSend_isEqualToIgnoringCase_(pushTopic2);
 
       if (!v10)
       {
@@ -4849,7 +4848,7 @@ LABEL_41:
 {
   userDefaults = [(IDSDAccount *)self userDefaults];
   v3 = [userDefaults appValueForKey:@"last24PeriodGDRPerformed"];
-  [v3 doubleValue];
+  objc_msgSend_doubleValue(v3);
   v5 = v4;
 
   v6 = [NSDate dateWithTimeIntervalSinceReferenceDate:v5];
@@ -5196,7 +5195,7 @@ LABEL_21:
           {
             loginID = [(IDSDAccount *)self loginID];
             email = [(IDSRegistration *)self->_registrationInfo email];
-            v14 = [loginID isEqualToIgnoringCase:email];
+            v14 = objc_msgSend_isEqualToIgnoringCase_(loginID);
 
             if ((v14 & 1) == 0)
             {
@@ -5820,7 +5819,7 @@ LABEL_95:
                   {
                     profileID7 = [v107 profileID];
                     profileID8 = [(IDSRegistration *)self->_registrationInfo profileID];
-                    v111 = [profileID7 isEqualToIgnoringCase:profileID8];
+                    v111 = objc_msgSend_isEqualToIgnoringCase_(profileID7);
 
                     if (v111)
                     {
@@ -6565,7 +6564,7 @@ LABEL_22:
                 if (v33 && v53 && v55 && [v23 count])
                 {
                   v34 = [IDSPseudonymProperties alloc];
-                  [v55 doubleValue];
+                  objc_msgSend_doubleValue(v55);
                   v36 = v35;
                   allObjects = [v23 allObjects];
                   v38 = [v34 initWithFeatureID:v53 scopeID:v52 expiryEpoch:allObjects allowedServices:v36];
@@ -7408,7 +7407,7 @@ LABEL_20:
       [(IDSRegistration *)self->_registrationInfo saveToKeychain];
       service = [(IDSDAccount *)self service];
       identifier = [service identifier];
-      v60 = [identifier isEqualToIgnoringCase:@"com.apple.private.alloy.icloudpairing"];
+      v60 = objc_msgSend_isEqualToIgnoringCase_(identifier);
 
       if (v60)
       {
@@ -7576,7 +7575,7 @@ LABEL_57:
 
     service = [(IDSDAccount *)self service];
     identifier = [service identifier];
-    v10 = [identifier isEqualToIgnoringCase:@"com.apple.private.alloy.icloudpairing"];
+    v10 = objc_msgSend_isEqualToIgnoringCase_(identifier);
 
     if (v10)
     {
@@ -10181,7 +10180,7 @@ LABEL_7:
   }
 
   profileID = [(IDSRegistration *)self->_registrationInfo profileID];
-  if ([profileCopy isEqualToIgnoringCase:profileID])
+  if (objc_msgSend_isEqualToIgnoringCase_(profileCopy))
   {
     v29 = [(IDSRegistration *)self->_registrationInfo registrationType]!= 2;
   }
@@ -10192,7 +10191,7 @@ LABEL_7:
   }
 
   userID = [(IDSRegistration *)self->_registrationInfo userID];
-  v33 = [profileCopy isEqualToIgnoringCase:userID];
+  v33 = objc_msgSend_isEqualToIgnoringCase_(profileCopy);
 
   if (!v29 && (v33 & 1) == 0)
   {
@@ -10407,11 +10406,11 @@ LABEL_23:
     {
       loginID = [(IDSDAccount *)self loginID];
       _stripFZIDPrefix = [updatedCopy _stripFZIDPrefix];
-      v29 = [loginID isEqualToIgnoringCase:_stripFZIDPrefix];
+      v29 = objc_msgSend_isEqualToIgnoringCase_(loginID);
     }
 
     profileID = [(IDSRegistration *)self->_registrationInfo profileID];
-    v31 = [updatedCopy isEqualToIgnoringCase:profileID];
+    v31 = objc_msgSend_isEqualToIgnoringCase_(updatedCopy);
 
     if ((v31 & 1) == 0 && (v29 & 1) == 0)
     {
@@ -11568,7 +11567,7 @@ LABEL_108:
       {
         contextInfo = [(IDSRegistration *)succeededCopy contextInfo];
         *buf = 138412290;
-        v102 = contextInfo;
+        v101 = contextInfo;
         _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Getting GameCenter Data from registration with contextInfo: %@", buf, 0xCu);
       }
 
@@ -11577,7 +11576,7 @@ LABEL_108:
 
       if (v21)
       {
-        [v21 doubleValue];
+        objc_msgSend_doubleValue(v21);
         v22 = [NSDate dateWithTimeIntervalSince1970:?];
       }
 
@@ -11602,7 +11601,7 @@ LABEL_108:
     if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v102 = succeededCopy;
+      v101 = succeededCopy;
       _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Saved: %@", buf, 0xCu);
     }
 
@@ -11610,7 +11609,7 @@ LABEL_108:
     if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v102 = vettedAliases;
+      v101 = vettedAliases;
       _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "vettedAliases: %@", buf, 0xCu);
     }
 
@@ -11619,34 +11618,34 @@ LABEL_108:
     if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v102 = succeededCopy;
+      v101 = succeededCopy;
       _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "Checking to see if I should confirm aliases for: %@", buf, 0xCu);
     }
 
-    v79 = succeededCopy;
-    v80 = controllerCopy;
+    v78 = succeededCopy;
+    v79 = controllerCopy;
 
-    v95 = 0u;
-    v96 = 0u;
-    v93 = 0u;
     v94 = 0u;
+    v95 = 0u;
+    v92 = 0u;
+    v93 = 0u;
     aliases = [(IDSDAccount *)self aliases];
-    v34 = [aliases countByEnumeratingWithState:&v93 objects:v100 count:16];
+    v34 = [aliases countByEnumeratingWithState:&v92 objects:v99 count:16];
     if (v34)
     {
       v35 = v34;
       v36 = 0;
-      v37 = *v94;
+      v37 = *v93;
       do
       {
         for (i = 0; i != v35; i = i + 1)
         {
-          if (*v94 != v37)
+          if (*v93 != v37)
           {
             objc_enumerationMutation(aliases);
           }
 
-          v39 = *(*(&v93 + 1) + 8 * i);
+          v39 = *(*(&v92 + 1) + 8 * i);
           if (([(IDSRegistration *)vettedAliases containsObject:v39]& 1) == 0 && [(IDSDAccount *)self validationStatusForAlias:v39]<= 1)
           {
             if (!v36)
@@ -11658,7 +11657,7 @@ LABEL_108:
           }
         }
 
-        v35 = [aliases countByEnumeratingWithState:&v93 objects:v100 count:16];
+        v35 = [aliases countByEnumeratingWithState:&v92 objects:v99 count:16];
       }
 
       while (v35);
@@ -11673,25 +11672,25 @@ LABEL_108:
     if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v102 = v36;
+      v101 = v36;
       _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "Aliases that are unvalidated: %@", buf, 0xCu);
     }
 
-    v91 = 0u;
-    v92 = 0u;
-    v89 = 0u;
     v90 = 0u;
+    v91 = 0u;
+    v88 = 0u;
+    v89 = 0u;
     v41 = v36;
-    v42 = [(IDSRegistration *)v41 countByEnumeratingWithState:&v89 objects:v99 count:16];
+    v42 = [(IDSRegistration *)v41 countByEnumeratingWithState:&v88 objects:v98 count:16];
     if (v42)
     {
       v43 = v42;
-      v44 = *v90;
+      v44 = *v89;
       do
       {
         for (j = 0; j != v43; ++j)
         {
-          if (*v90 != v44)
+          if (*v89 != v44)
           {
             objc_enumerationMutation(v41);
           }
@@ -11709,7 +11708,7 @@ LABEL_108:
           }
         }
 
-        v43 = [(IDSRegistration *)v41 countByEnumeratingWithState:&v89 objects:v99 count:16];
+        v43 = [(IDSRegistration *)v41 countByEnumeratingWithState:&v88 objects:v98 count:16];
       }
 
       while (v43);
@@ -11721,31 +11720,31 @@ LABEL_108:
       if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v102 = v41;
+        v101 = v41;
         _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEFAULT, "Aliases that are unvalidated: %@", buf, 0xCu);
       }
 
-      v87 = 0u;
-      v88 = 0u;
-      v85 = 0u;
       v86 = 0u;
+      v87 = 0u;
+      v84 = 0u;
+      v85 = 0u;
       uris = [(IDSRegistration *)self->_registrationInfo uris];
-      v50 = [uris countByEnumeratingWithState:&v85 objects:v98 count:16];
+      v50 = [uris countByEnumeratingWithState:&v84 objects:v97 count:16];
       if (v50)
       {
         v51 = v50;
         v52 = 0;
-        v53 = *v86;
+        v53 = *v85;
         do
         {
           for (k = 0; k != v51; k = k + 1)
           {
-            if (*v86 != v53)
+            if (*v85 != v53)
             {
               objc_enumerationMutation(uris);
             }
 
-            _stripFZIDPrefix = [*(*(&v85 + 1) + 8 * k) _stripFZIDPrefix];
+            _stripFZIDPrefix = [*(*(&v84 + 1) + 8 * k) _stripFZIDPrefix];
             if ([_stripFZIDPrefix length])
             {
               if (!v52)
@@ -11767,7 +11766,7 @@ LABEL_108:
             }
           }
 
-          v51 = [uris countByEnumeratingWithState:&v85 objects:v98 count:16];
+          v51 = [uris countByEnumeratingWithState:&v84 objects:v97 count:16];
         }
 
         while (v51);
@@ -11800,95 +11799,94 @@ LABEL_108:
       }
 
       [v61 minusSet:{v59, v59}];
-      v83 = 0u;
-      v84 = 0u;
-      v81 = 0u;
       v82 = 0u;
+      v83 = 0u;
+      v80 = 0u;
+      v81 = 0u;
       v62 = v61;
-      v63 = [v62 countByEnumeratingWithState:&v81 objects:v97 count:16];
+      v63 = [v62 countByEnumeratingWithState:&v80 objects:v96 count:16];
       if (v63)
       {
         v64 = v63;
-        v65 = *v82;
-        v66 = kIDSServiceDefaultsSentinelAlias;
+        v65 = *v81;
         do
         {
           for (m = 0; m != v64; m = m + 1)
           {
-            if (*v82 != v65)
+            if (*v81 != v65)
             {
               objc_enumerationMutation(v62);
             }
 
-            v68 = *(*(&v81 + 1) + 8 * m);
-            if ([v68 isEqualToIgnoringCase:v66])
+            v67 = *(*(&v80 + 1) + 8 * m);
+            if (objc_msgSend_isEqualToIgnoringCase_(v67))
             {
-              v69 = 3;
+              v68 = 3;
             }
 
             else
             {
-              if ([(IDSDAccount *)self _validationStatusForAlias:v68]== 2)
+              if ([(IDSDAccount *)self _validationStatusForAlias:v67]== 2)
               {
                 continue;
               }
 
-              v69 = 1;
+              v68 = 1;
             }
 
-            [(IDSDAccount *)self _setValidationStatus:v69 error:0xFFFFFFFFLL forAlias:v68 info:0 addToCurrentHandlesIfNeeded:1 forceAdd:1];
+            [(IDSDAccount *)self _setValidationStatus:v68 error:0xFFFFFFFFLL forAlias:v67 info:0 addToCurrentHandlesIfNeeded:1 forceAdd:1];
           }
 
-          v64 = [v62 countByEnumeratingWithState:&v81 objects:v97 count:16];
+          v64 = [v62 countByEnumeratingWithState:&v80 objects:v96 count:16];
         }
 
         while (v64);
       }
     }
 
-    succeededCopy = v79;
-    controllerCopy = v80;
+    succeededCopy = v78;
+    controllerCopy = v79;
     if ((*(self + 80) & 4) != 0)
     {
       *(self + 80) &= ~4u;
-      v70 = +[IMRGLog registration];
-      if (os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
+      v69 = +[IMRGLog registration];
+      if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v70, OS_LOG_TYPE_DEFAULT, "Forcing a handles query request post-register to pull the current state", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v69, OS_LOG_TYPE_DEFAULT, "Forcing a handles query request post-register to pull the current state", buf, 2u);
       }
 
       [(IDSDAccount *)self _updateHandles:1];
     }
 
     accountInfo = [(IDSDAccount *)self accountInfo];
-    v72 = kIDSServiceDefaultsAuthorizationIDKey;
+    v71 = kIDSServiceDefaultsAuthorizationIDKey;
     v8 = [accountInfo objectForKey:kIDSServiceDefaultsAuthorizationIDKey];
 
     profileID = [(IDSRegistration *)self->_registrationInfo profileID];
     if (![v8 length]&& [(IDSRegistration *)profileID length])
     {
-      v74 = +[IMRGLog registration];
-      if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
+      v73 = +[IMRGLog registration];
+      if (os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v102 = profileID;
-        _os_log_impl(&_mh_execute_header, v74, OS_LOG_TYPE_DEFAULT, "Finished registering without profileID, setting profileID %@ onto account", buf, 0xCu);
+        v101 = profileID;
+        _os_log_impl(&_mh_execute_header, v73, OS_LOG_TYPE_DEFAULT, "Finished registering without profileID, setting profileID %@ onto account", buf, 0xCu);
       }
 
-      v75 = objc_alloc_init(NSMutableDictionary);
-      v76 = v75;
+      v74 = objc_alloc_init(NSMutableDictionary);
+      v75 = v74;
       if (profileID)
       {
-        CFDictionarySetValue(v75, v72, profileID);
+        CFDictionarySetValue(v74, v71, profileID);
       }
 
-      [(IDSDAccount *)self writeAccountDefaults:v76];
+      [(IDSDAccount *)self writeAccountDefaults:v75];
     }
 
     [(IDSDAccount *)self _issueCriticalDependentCheck];
-    v77 = [NSDictionary dictionaryWithObject:&__kCFBooleanTrue forKey:kIDSServiceDefaultsHasEverRegistered];
-    [(IDSDAccount *)self writeAccountDefaults:v77];
+    v76 = [NSDictionary dictionaryWithObject:&__kCFBooleanTrue forKey:kIDSServiceDefaultsHasEverRegistered];
+    [(IDSDAccount *)self writeAccountDefaults:v76];
 
     goto LABEL_108;
   }
@@ -12827,7 +12825,7 @@ LABEL_9:
           v20 = 1;
         }
 
-        v21 = [NSNumber numberWithInt:v20, *v26];
+        v21 = [NSNumber numberWithInt:v20, *v26, *&v26[8]];
         if (v21)
         {
           CFDictionarySetValue(v16, kIDSServiceDefaultsProfileValdationStatusKey, v21);
@@ -12970,7 +12968,7 @@ LABEL_9:
   vettedAliases = [(IDSDAccount *)self vettedAliases];
   v6 = [vettedAliases containsObject:aliasCopy];
 
-  if (v6 & 1) != 0 || ([aliasCopy isEqualToIgnoringCase:kIDSServiceDefaultsSentinelAlias])
+  if (v6 & 1) != 0 || (objc_msgSend_isEqualToIgnoringCase_(aliasCopy))
   {
     intValue = 3;
   }
@@ -13040,7 +13038,7 @@ LABEL_16:
   if ([aliasCopy length])
   {
     v39 = infoCopy;
-    v17 = [aliasCopy isEqualToIgnoringCase:kIDSServiceDefaultsSentinelAlias];
+    v17 = objc_msgSend_isEqualToIgnoringCase_(aliasCopy);
     if (v17)
     {
       errorCopy = -1;
@@ -15253,7 +15251,7 @@ LABEL_16:
   service = [(IDSDAccount *)self service];
   shouldAutoRegisterAllHandles = [service shouldAutoRegisterAllHandles];
 
-  if (shouldAutoRegisterAllHandles & 1) != 0 || ([aliasCopy isEqualToIgnoringCase:kIDSServiceDefaultsSentinelAlias])
+  if (shouldAutoRegisterAllHandles & 1) != 0 || (objc_msgSend_isEqualToIgnoringCase_(aliasCopy))
   {
     goto LABEL_12;
   }
@@ -15382,112 +15380,111 @@ LABEL_12:
       v10 = objc_alloc_init(NSMutableDictionary);
       v11 = kIDSServiceDefaultsAliasIntentStateKey;
       v12 = &_dispatch_main_q_ptr;
-      v36 = v9;
+      v35 = v9;
       if (reasonCopy)
       {
-        v54[0] = kIDSServiceDefaultsAliasIntentStateKey;
-        v54[1] = kIDSServiceDefaultsAliasIntentInfoKey;
-        v55[0] = &off_100C3C8E0;
-        v55[1] = &off_100C3C8F8;
-        v13 = v55;
-        v14 = v54;
+        v53[0] = kIDSServiceDefaultsAliasIntentStateKey;
+        v53[1] = kIDSServiceDefaultsAliasIntentInfoKey;
+        v54[0] = &off_100C3C8E0;
+        v54[1] = &off_100C3C8F8;
+        v13 = v54;
+        v14 = v53;
         v15 = 2;
       }
 
       else
       {
-        v52 = kIDSServiceDefaultsAliasIntentStateKey;
-        v53 = &off_100C3C8E0;
-        v13 = &v53;
-        v14 = &v52;
+        v51 = kIDSServiceDefaultsAliasIntentStateKey;
+        v52 = &off_100C3C8E0;
+        v13 = &v52;
+        v14 = &v51;
         v15 = 1;
       }
 
       v16 = [NSDictionary dictionaryWithObjects:v13 forKeys:v14 count:v15];
-      v44 = 0u;
-      v45 = 0u;
-      v42 = 0u;
       v43 = 0u;
+      v44 = 0u;
+      v41 = 0u;
+      v42 = 0u;
       vettedAliases = [(IDSDAccount *)selfCopy vettedAliases];
-      v18 = [vettedAliases countByEnumeratingWithState:&v42 objects:v51 count:16];
+      v18 = [vettedAliases countByEnumeratingWithState:&v41 objects:v50 count:16];
       if (v18)
       {
         v19 = v18;
-        v20 = *v43;
+        v20 = *v42;
         do
         {
           for (i = 0; i != v19; i = i + 1)
           {
-            if (*v43 != v20)
+            if (*v42 != v20)
             {
               objc_enumerationMutation(vettedAliases);
             }
 
-            [v10 setObject:v16 forKey:*(*(&v42 + 1) + 8 * i)];
+            [v10 setObject:v16 forKey:*(*(&v41 + 1) + 8 * i)];
           }
 
-          v19 = [vettedAliases countByEnumeratingWithState:&v42 objects:v51 count:16];
+          v19 = [vettedAliases countByEnumeratingWithState:&v41 objects:v50 count:16];
         }
 
         while (v19);
       }
 
-      v35 = v16;
+      v34 = v16;
 
-      v40 = 0u;
-      v41 = 0u;
-      v38 = 0u;
       v39 = 0u;
-      v37 = selfCopy;
+      v40 = 0u;
+      v37 = 0u;
+      v38 = 0u;
+      v36 = selfCopy;
       _unprefixedURIStringsFromAccountInfo = [(IDSDAccount *)selfCopy _unprefixedURIStringsFromAccountInfo];
-      v23 = [_unprefixedURIStringsFromAccountInfo countByEnumeratingWithState:&v38 objects:v50 count:16];
+      v23 = [_unprefixedURIStringsFromAccountInfo countByEnumeratingWithState:&v37 objects:v49 count:16];
       if (v23)
       {
         v24 = v23;
-        v25 = *v39;
-        v26 = kIDSServiceDefaultsSentinelAlias;
+        v25 = *v38;
         do
         {
           for (j = 0; j != v24; j = j + 1)
           {
-            if (*v39 != v25)
+            if (*v38 != v25)
             {
               objc_enumerationMutation(_unprefixedURIStringsFromAccountInfo);
             }
 
-            v28 = *(*(&v38 + 1) + 8 * j);
-            if (([v28 isEqualToIgnoringCase:v26] & 1) == 0)
+            v27 = *(*(&v37 + 1) + 8 * j);
+            if ((objc_msgSend_isEqualToIgnoringCase_(v27) & 1) == 0)
             {
-              v48 = v11;
-              v49 = &off_100C3C910;
-              [(dispatch_queue_s *)v12[25] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
-              v29 = v11;
-              v31 = v30 = v12;
-              [v10 setObject:v31 forKey:v28];
+              v47 = v11;
+              v48 = &off_100C3C910;
+              [(dispatch_queue_s *)v12[25] dictionaryWithObjects:&v48 forKeys:&v47 count:1];
+              v28 = v11;
+              v30 = v29 = v12;
+              [v10 setObject:v30 forKey:v27];
 
-              v12 = v30;
-              v11 = v29;
+              v12 = v29;
+              v11 = v28;
             }
           }
 
-          v24 = [_unprefixedURIStringsFromAccountInfo countByEnumeratingWithState:&v38 objects:v50 count:16];
+          v24 = [_unprefixedURIStringsFromAccountInfo countByEnumeratingWithState:&v37 objects:v49 count:16];
         }
 
         while (v24);
       }
 
       v7 = [v10 copy];
-      v46 = v36;
-      v47 = v7;
-      v32 = [(dispatch_queue_s *)v12[25] dictionaryWithObjects:&v47 forKeys:&v46 count:1];
-      selfCopy = v37;
-      [(IDSDAccount *)v37 writeAccountDefaults:v32];
+      v45 = v35;
+      v46 = v7;
+      v31 = [(dispatch_queue_s *)v12[25] dictionaryWithObjects:&v46 forKeys:&v45 count:1];
+      selfCopy = v36;
+      [(IDSDAccount *)v36 writeAccountDefaults:v31];
     }
 
-    v33 = +[IMRGLog GDR];
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+    v32 = +[IMRGLog GDR];
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
     {
-      sub_100927C34(selfCopy, v33);
+      sub_100927C34(selfCopy, v32);
     }
   }
 
@@ -15505,7 +15502,7 @@ LABEL_12:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      [v3 doubleValue];
+      objc_msgSend_doubleValue(v3);
       v6 = v5;
       v7 = +[IMRGLog registration];
       v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
@@ -15990,7 +15987,7 @@ LABEL_12:
                 _IDSLogV();
               }
 
-              if (([_stripFZIDPrefix isEqualToIgnoringCase:{v28, v95}] & 1) == 0 && !objc_msgSend(_stripFZIDPrefix, "isEqualToIgnoringCase:", v30) || objc_msgSend(parametersCopy, "sessionForceInternetInvitation"))
+              if ((objc_msgSend_isEqualToIgnoringCase_(_stripFZIDPrefix, v95) & 1) == 0 && !objc_msgSend_isEqualToIgnoringCase_(_stripFZIDPrefix) || [parametersCopy sessionForceInternetInvitation])
               {
 
                 goto LABEL_48;
@@ -16073,7 +16070,7 @@ LABEL_50:
                     _IDSLogV();
                   }
 
-                  if (([v37 isEqualToIgnoringCase:{_stripFZIDPrefix, v96}] & 1) != 0 || objc_msgSend(v39, "isEqualToIgnoringCase:", _stripFZIDPrefix))
+                  if ((objc_msgSend_isEqualToIgnoringCase_(v37, v96) & 1) != 0 || objc_msgSend_isEqualToIgnoringCase_(v39))
                   {
                     break;
                   }
@@ -18502,7 +18499,7 @@ LABEL_65:
               _IDSLogV();
             }
 
-            if ((-[IDSDAccount isEqualToIgnoringCase:](_stripFZIDPrefix, "isEqualToIgnoringCase:", v29, v113) & 1) == 0 && !-[IDSDAccount isEqualToIgnoringCase:](_stripFZIDPrefix, "isEqualToIgnoringCase:", v13) || [parametersCopy sessionForceInternetInvitation])
+            if ((objc_msgSend_isEqualToIgnoringCase_(_stripFZIDPrefix, v113) & 1) == 0 && !objc_msgSend_isEqualToIgnoringCase_(_stripFZIDPrefix) || [parametersCopy sessionForceInternetInvitation])
             {
 
               goto LABEL_48;
@@ -18590,7 +18587,7 @@ LABEL_50:
                   _IDSLogV();
                 }
 
-                if (([(IDSDAccount *)v38 isEqualToIgnoringCase:_stripFZIDPrefix, v113]& 1) != 0 || [(IDSDAccount *)v40 isEqualToIgnoringCase:_stripFZIDPrefix])
+                if ((objc_msgSend_isEqualToIgnoringCase_(v38, v113) & 1) != 0 || objc_msgSend_isEqualToIgnoringCase_(v40))
                 {
                   break;
                 }
@@ -19420,17 +19417,17 @@ LABEL_50:
   completionBlockCopy = completionBlock;
   service = [(IDSDAccount *)self service];
   state.opaque[1] = 0xAAAAAAAAAAAAAAAALL;
-  v268 = _os_activity_create(&_mh_execute_header, "IDSAccount send remotely", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
+  v269 = _os_activity_create(&_mh_execute_header, "IDSAccount send remotely", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0xAAAAAAAAAAAAAAAALL;
-  os_activity_scope_enter(v268, &state);
+  os_activity_scope_enter(v269, &state);
   dataUsageBundleID = [service dataUsageBundleID];
   identifier = [service identifier];
-  v243 = [NSString stringWithFormat:@"service-disable-%@", identifier];
+  v244 = [NSString stringWithFormat:@"service-disable-%@", identifier];
 
-  if (v243)
+  if (v244)
   {
     v14 = [IDSServerBag sharedInstanceForBagType:1];
-    v15 = [v14 objectForKey:v243];
+    v15 = [v14 objectForKey:v244];
 
     v16 = v15;
   }
@@ -19440,7 +19437,7 @@ LABEL_50:
     v16 = 0;
   }
 
-  v236 = v16;
+  v237 = v16;
   if ([v16 intValue] < 1)
   {
     fromID = [parametersCopy fromID];
@@ -19456,9 +19453,9 @@ LABEL_50:
         destinations = [parametersCopy destinations];
         fromID2 = [parametersCopy fromID];
         *buf = 138412546;
-        *v270 = destinations;
-        *&v270[8] = 2112;
-        v271 = fromID2;
+        *v271 = destinations;
+        *&v271[8] = 2112;
+        v272 = fromID2;
         _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_ERROR, "Failing message to: %@   from: %@    invalid caller ID", buf, 0x16u);
       }
 
@@ -19497,9 +19494,9 @@ LABEL_245:
       v22 = JWUUIDPushObjectToString();
       identifier2 = [service identifier];
       *buf = 138412546;
-      *v270 = v22;
-      *&v270[8] = 2112;
-      v271 = identifier2;
+      *v271 = v22;
+      *&v271[8] = 2112;
+      v272 = identifier2;
       _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "OUTGOING-REMOTE_SEND:%@ SERVICE:%@", buf, 0x16u);
     }
 
@@ -19508,11 +19505,11 @@ LABEL_245:
       messageUUID2 = [parametersCopy messageUUID];
       v25 = JWUUIDPushObjectToString();
       [service identifier];
-      v182 = v176 = v25;
+      v183 = v177 = v25;
       _IDSLogV();
     }
 
-    if (!-[IDSDAccount accountType](self, "accountType", v176, v182) || (_IDSCopyMyPhoneNumbers(), v26 = objc_claimAutoreleasedReturnValue(), [parametersCopy fromID], v27 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v27, "_stripFZIDPrefix"), v28 = objc_claimAutoreleasedReturnValue(), v29 = objc_msgSend(v26, "containsObject:", v28), v28, v27, v26, v29))
+    if (!-[IDSDAccount accountType](self, "accountType", v177, v183) || (_IDSCopyMyPhoneNumbers(), v26 = objc_claimAutoreleasedReturnValue(), [parametersCopy fromID], v27 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v27, "_stripFZIDPrefix"), v28 = objc_claimAutoreleasedReturnValue(), v29 = objc_msgSend(v26, "containsObject:", v28), v28, v27, v26, v29))
     {
       ct_green_tea_logger_create_static();
       v30 = getCTGreenTeaOsLogHandle();
@@ -19784,15 +19781,15 @@ LABEL_78:
     if ([parametersCopy useDictAsTopLevel])
     {
       message = [parametersCopy message];
-      v265[0] = _NSConcreteStackBlock;
-      v265[1] = 3221225472;
-      v265[2] = sub_1005E9368;
-      v265[3] = &unk_100BD95F8;
-      v266 = theDict;
-      [message enumerateKeysAndObjectsUsingBlock:v265];
+      v266[0] = _NSConcreteStackBlock;
+      v266[1] = 3221225472;
+      v266[2] = sub_1005E9368;
+      v266[3] = &unk_100BD95F8;
+      v267 = theDict;
+      [message enumerateKeysAndObjectsUsingBlock:v266];
 
       _FTCopyOptionallyGzippedData = 0;
-      v78 = v266;
+      v78 = v267;
     }
 
     else
@@ -19831,15 +19828,15 @@ LABEL_78:
             if (os_log_type_enabled(v93, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 67109376;
-              *v270 = v91;
-              *&v270[4] = 1024;
-              *&v270[6] = v92;
+              *v271 = v91;
+              *&v271[4] = 1024;
+              *&v271[6] = v92;
               _os_log_impl(&_mh_execute_header, v93, OS_LOG_TYPE_DEFAULT, "Compressed IDS bulked payload data from:%u  to:%u", buf, 0xEu);
             }
 
             if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
             {
-              v177 = v91;
+              v178 = v91;
               uris2 = v92;
               _IDSLogV();
             }
@@ -19922,15 +19919,15 @@ LABEL_78:
               if (os_log_type_enabled(v101, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 67109376;
-                *v270 = v99;
-                *&v270[4] = 1024;
-                *&v270[6] = v100;
+                *v271 = v99;
+                *&v271[4] = 1024;
+                *&v271[6] = v100;
                 _os_log_impl(&_mh_execute_header, v101, OS_LOG_TYPE_DEFAULT, "Compressed protobuf serialized data from: %u  to: %u", buf, 0xEu);
               }
 
               if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
               {
-                v177 = v99;
+                v178 = v99;
                 uris2 = v100;
                 _IDSLogV();
               }
@@ -19997,13 +19994,13 @@ LABEL_78:
           {
             v106 = [v78 length];
             *buf = 67109120;
-            *v270 = v106;
+            *v271 = v106;
             _os_log_impl(&_mh_execute_header, v105, OS_LOG_TYPE_DEFAULT, "Setting IDS payload with size: %u", buf, 8u);
           }
 
           if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
           {
-            v177 = [v78 length];
+            v178 = [v78 length];
             _IDSLogV();
           }
 
@@ -20034,11 +20031,11 @@ LABEL_78:
       registrationInfo = self->_registrationInfo;
       uris = [(IDSRegistration *)registrationInfo uris];
       *buf = 138412802;
-      *v270 = registrationInfo;
-      *&v270[8] = 2112;
-      v271 = uris;
-      v272 = 2112;
-      v273 = _registrationCert;
+      *v271 = registrationInfo;
+      *&v271[8] = 2112;
+      v272 = uris;
+      v273 = 2112;
+      v274 = _registrationCert;
       _os_log_impl(&_mh_execute_header, v108, OS_LOG_TYPE_DEBUG, "Registration %@   URIs %@  callerCert %@", buf, 0x20u);
     }
 
@@ -20046,12 +20043,12 @@ LABEL_78:
     {
       v111 = self->_registrationInfo;
       uris2 = [(IDSRegistration *)v111 uris];
-      v190 = _registrationCert;
-      v178 = v111;
+      v191 = _registrationCert;
+      v179 = v111;
       _IDSLogV();
     }
 
-    v112 = [(IDSDAccount *)self service:v178];
+    v112 = [(IDSDAccount *)self service:v179];
     pushTopic = [v112 pushTopic];
 
     service2 = [(IDSDAccount *)self service];
@@ -20062,7 +20059,7 @@ LABEL_78:
     {
       command6 = [parametersCopy command];
       *buf = 138412290;
-      *v270 = command6;
+      *v271 = command6;
       _os_log_impl(&_mh_execute_header, v114, OS_LOG_TYPE_DEFAULT, "!setState command=%@", buf, 0xCu);
     }
 
@@ -20071,7 +20068,7 @@ LABEL_78:
     {
       destinations6 = [parametersCopy destinations];
       *buf = 138412290;
-      *v270 = destinations6;
+      *v271 = destinations6;
       _os_log_impl(&_mh_execute_header, v116, OS_LOG_TYPE_DEFAULT, "!setState destinations=%@", buf, 0xCu);
     }
 
@@ -20084,15 +20081,15 @@ LABEL_78:
       destinations7 = [parametersCopy destinations];
       destinations8 = [parametersCopy destinations];
       *buf = 138413314;
-      *v270 = command7;
-      *&v270[8] = 2112;
-      v271 = v121;
-      v272 = 2112;
-      v273 = destinations7;
-      v274 = 2112;
-      v275 = destinations8;
-      v276 = 2112;
-      v277 = pushTopic;
+      *v271 = command7;
+      *&v271[8] = 2112;
+      v272 = v121;
+      v273 = 2112;
+      v274 = destinations7;
+      v275 = 2112;
+      v276 = destinations8;
+      v277 = 2112;
+      v278 = pushTopic;
       _os_log_impl(&_mh_execute_header, v118, OS_LOG_TYPE_DEFAULT, "Sending message (c = %@) %@ to filteredDestinations %@ (originally %@) for topic %@", buf, 0x34u);
     }
 
@@ -20103,10 +20100,10 @@ LABEL_78:
       v126 = JWUUIDPushObjectToString();
       destinations9 = [parametersCopy destinations];
       destinations10 = [parametersCopy destinations];
-      v195 = pushTopic;
-      v187 = v126;
-      v191 = destinations9;
-      v179 = command8;
+      v196 = pushTopic;
+      v188 = v126;
+      v192 = destinations9;
+      v180 = command8;
       _IDSLogV();
     }
 
@@ -20118,11 +20115,11 @@ LABEL_78:
       finalDestinationURIs = [parametersCopy finalDestinationURIs];
       v132 = IMLoggingStringForArray();
       *buf = 138412802;
-      *v270 = v130;
-      *&v270[8] = 2112;
-      v271 = v132;
-      v272 = 2112;
-      v273 = pushTopic;
+      *v271 = v130;
+      *&v271[8] = 2112;
+      v272 = v132;
+      v273 = 2112;
+      v274 = pushTopic;
       _os_log_impl(&_mh_execute_header, v128, OS_LOG_TYPE_DEFAULT, "Sending message ID (%@) using push to %@ for topic %@", buf, 0x20u);
     }
 
@@ -20133,9 +20130,9 @@ LABEL_78:
         messageUUID7 = [parametersCopy messageUUID];
         v134 = JWUUIDPushObjectToString();
         finalDestinationURIs2 = [parametersCopy finalDestinationURIs];
-        v187 = IMLoggingStringForArray();
-        v191 = pushTopic;
-        v179 = v134;
+        v188 = IMLoggingStringForArray();
+        v192 = pushTopic;
+        v180 = v134;
         _IDSLogTransport();
 
         if (_IDSShouldLog())
@@ -20143,9 +20140,9 @@ LABEL_78:
           messageUUID8 = [parametersCopy messageUUID];
           v137 = JWUUIDPushObjectToString();
           finalDestinationURIs3 = [parametersCopy finalDestinationURIs];
-          v187 = IMLoggingStringForArray();
-          v191 = pushTopic;
-          v179 = v137;
+          v188 = IMLoggingStringForArray();
+          v192 = pushTopic;
+          v180 = v137;
           _IDSLogV();
         }
       }
@@ -20153,17 +20150,17 @@ LABEL_78:
 
     if (blockCopy)
     {
-      v263[0] = _NSConcreteStackBlock;
-      v263[1] = 3221225472;
-      v263[2] = sub_1005E9374;
-      v263[3] = &unk_100BD8D50;
-      v264 = blockCopy;
-      v229 = objc_retainBlock(v263);
+      v264[0] = _NSConcreteStackBlock;
+      v264[1] = 3221225472;
+      v264[2] = sub_1005E9374;
+      v264[3] = &unk_100BD8D50;
+      v265 = blockCopy;
+      v230 = objc_retainBlock(v264);
     }
 
     else
     {
-      v229 = 0;
+      v230 = 0;
     }
 
     interestingRegistrationProperties = [parametersCopy interestingRegistrationProperties];
@@ -20174,25 +20171,25 @@ LABEL_78:
     else
     {
       requireLackOfRegistrationProperties = [parametersCopy requireLackOfRegistrationProperties];
-      v175 = requireLackOfRegistrationProperties == 0;
+      v176 = requireLackOfRegistrationProperties == 0;
 
-      if (v175)
+      if (v176)
       {
-        v235 = 0;
+        v236 = 0;
 LABEL_224:
         if (completionBlockCopy)
         {
-          v261[0] = _NSConcreteStackBlock;
-          v261[1] = 3221225472;
-          v261[2] = sub_1005E9384;
-          v261[3] = &unk_100BE1968;
-          v262 = completionBlockCopy;
-          v228 = objc_retainBlock(v261);
+          v262[0] = _NSConcreteStackBlock;
+          v262[1] = 3221225472;
+          v262[2] = sub_1005E9384;
+          v262[3] = &unk_100BE1968;
+          v263 = completionBlockCopy;
+          v229 = objc_retainBlock(v262);
         }
 
         else
         {
-          v228 = 0;
+          v229 = 0;
         }
 
         resourcePath = [parametersCopy resourcePath];
@@ -20212,69 +20209,69 @@ LABEL_224:
           }
 
           CFDictionarySetValue(theDict, IDSCommandKey, &off_100C3CD48);
-          v151 = [IDSDaemon _IMTransferServiceController]_0();
+          v152 = [IDSDaemon _IMTransferServiceController]_0(v151);
           resourcePath2 = [parametersCopy resourcePath];
-          v153 = +[NSString stringGUID];
-          v249[0] = _NSConcreteStackBlock;
-          v249[1] = 3221225472;
-          v249[2] = sub_1005E94A0;
-          v249[3] = &unk_100BE1990;
-          v250 = parametersCopy;
-          v251 = theDict;
-          v252 = identifier3;
+          v154 = +[NSString stringGUID];
+          v250[0] = _NSConcreteStackBlock;
+          v250[1] = 3221225472;
+          v250[2] = sub_1005E94A0;
+          v250[3] = &unk_100BE1990;
+          v251 = parametersCopy;
+          v252 = theDict;
+          v253 = identifier3;
           selfCopy = self;
-          v254 = fromID6;
-          v255 = _registrationCert;
-          v256 = pushTopic;
-          v257 = v235;
-          v258 = v228;
+          v255 = fromID6;
+          v256 = _registrationCert;
+          v257 = pushTopic;
+          v258 = v236;
           v259 = v229;
-          v260 = completionBlockCopy;
-          [v151 sendFilePath:resourcePath2 topic:v252 userInfo:0 transferID:v153 sourceAppID:dataUsageBundleID encryptFile:1 progressBlock:0 completionBlock:v249];
+          v260 = v230;
+          v261 = completionBlockCopy;
+          [v152 sendFilePath:resourcePath2 topic:v253 userInfo:0 transferID:v154 sourceAppID:dataUsageBundleID encryptFile:1 progressBlock:0 completionBlock:v250];
 
-          v154 = v250;
+          v155 = v251;
         }
 
         else
         {
           if ([IDSRegistrationCacheStateTransportPolicy shouldQueryUpdateOfParams:parametersCopy])
           {
-            v155 = +[IDSDaemon sharedInstance];
-            queryUpdateNotifier = [v155 queryUpdateNotifier];
-            v157 = [[IDSURI alloc] initWithPrefixedURI:fromID6];
-            v158 = [queryUpdateNotifier devicesHashForURI:v157 andService:service];
+            v156 = +[IDSDaemon sharedInstance];
+            queryUpdateNotifier = [v156 queryUpdateNotifier];
+            v158 = [[IDSURI alloc] initWithPrefixedURI:fromID6];
+            v159 = [queryUpdateNotifier devicesHashForURI:v158 andService:service];
 
-            if (v158)
+            if (v159)
             {
-              v159 = v158;
-              CFDictionarySetValue(theDict, @"qH", v159);
+              v160 = v159;
+              CFDictionarySetValue(theDict, @"qH", v160);
 
-              v160 = OSLogHandleForIDSCategory();
-              if (os_log_type_enabled(v160, OS_LOG_TYPE_DEFAULT))
+              v161 = OSLogHandleForIDSCategory();
+              if (os_log_type_enabled(v161, OS_LOG_TYPE_DEFAULT))
               {
-                v161 = [v159 debugDescription];
+                v162 = [v160 debugDescription];
                 *buf = 138412802;
-                *v270 = v161;
-                *&v270[8] = 2112;
-                v271 = fromID6;
-                v272 = 2112;
-                v273 = service;
-                _os_log_impl(&_mh_execute_header, v160, OS_LOG_TYPE_DEFAULT, "Added query update hash {hash: %@, fromURI: %@, service: %@}", buf, 0x20u);
+                *v271 = v162;
+                *&v271[8] = 2112;
+                v272 = fromID6;
+                v273 = 2112;
+                v274 = service;
+                _os_log_impl(&_mh_execute_header, v161, OS_LOG_TYPE_DEFAULT, "Added query update hash {hash: %@, fromURI: %@, service: %@}", buf, 0x20u);
               }
 
               if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
               {
-                [v159 debugDescription];
-                v181 = HIDWORD(v189) = HIDWORD(fromID6);
+                [v160 debugDescription];
+                v182 = HIDWORD(v190) = HIDWORD(fromID6);
                 _IDSLogV();
               }
             }
           }
 
-          v213 = voucher_copy();
-          v223 = +[IDSDeliveryController sharedInstance];
+          v214 = voucher_copy();
+          v224 = +[IDSDeliveryController sharedInstance];
           messageUUID9 = [parametersCopy messageUUID];
-          v222 = JWUUIDPushObjectToString();
+          v223 = JWUUIDPushObjectToString();
           dataToEncrypt2 = [parametersCopy dataToEncrypt];
           encryptionAttributes = [parametersCopy encryptionAttributes];
           wantsResponse = [parametersCopy wantsResponse];
@@ -20307,30 +20304,30 @@ LABEL_224:
           keyTransparencyURIVerificationMap = [parametersCopy keyTransparencyURIVerificationMap];
           sendReasonContainer = [parametersCopy sendReasonContainer];
           sendMetric = [parametersCopy sendMetric];
-          v170 = pushPriority;
-          v171 = accessToken;
-          v172 = finalDestinationURIs4;
-          v173 = service5;
-          v245[0] = _NSConcreteStackBlock;
-          v245[1] = 3221225472;
-          v245[2] = sub_1005E9EF8;
-          v245[3] = &unk_100BDE220;
-          v246 = parametersCopy;
-          v154 = v213;
-          v247 = v154;
-          v248 = completionBlockCopy;
-          LOBYTE(v198) = wantsFirewallDonation;
-          BYTE1(v197) = disallowRefresh;
-          LOBYTE(v197) = ignoreMaxRetryCount;
-          BYTE2(v196) = alwaysIncludeSelf;
-          BYTE1(v196) = alwaysSkipSelf;
-          LOBYTE(v196) = fakeMessage;
-          LOBYTE(v194) = fireAndForget;
-          BYTE3(v189) = allowPartialSendsToSucceed;
-          BYTE2(v189) = sendOnePerToken;
-          BYTE1(v189) = canUseLargePayload;
-          LOBYTE(v189) = enforceRemoteTimeouts;
-          [v223 sendMessageDictionary:theDict messageID:v222 dataToEncrypt:dataToEncrypt2 withEncryptedAttributes:encryptionAttributes onService:identifier3 wantsResponse:wantsResponse expirationDate:expirationDate2 enforceRemoteTimeouts:v189 canUseLargePayload:priority sendOnePerToken:v194 allowPartialSendsToSucceed:fromID6 priority:fromShortHandle fireAndForget:_registrationCert fromID:v172 fromShortHandle:v171 fromIdentity:pushTopic toURIs:v235 accessToken:v196 topic:forceQuery registrationProperties:v170 fakeMessage:v197 alwaysSkipSelf:originalTimestamp3 alwaysIncludeSelf:prioritizedTokenList forceQuery:v198 pushPriority:destinations5 ignoreMaxRetryCount:deliveryMinimumTimeDelay disallowRefresh:deliveryMinimumTime originalTimestamp:sendMode prioritizedTokenList:keyTransparencyURIVerificationMap wantsFirewallDonation:sendReasonContainer destinationObject:sendMetric deliveryMinimumTimeDelay:v228 deliveryMinimumTime:v229 sendMode:v245 KTURIVerificationMap:? sendReasonContainer:? sendMetric:? ackBlock:? willSendBlock:? sendCompletionBlock:?];
+          v171 = pushPriority;
+          v172 = accessToken;
+          v173 = finalDestinationURIs4;
+          v174 = service5;
+          v246[0] = _NSConcreteStackBlock;
+          v246[1] = 3221225472;
+          v246[2] = sub_1005E9EF8;
+          v246[3] = &unk_100BDE220;
+          v247 = parametersCopy;
+          v155 = v214;
+          v248 = v155;
+          v249 = completionBlockCopy;
+          LOBYTE(v199) = wantsFirewallDonation;
+          BYTE1(v198) = disallowRefresh;
+          LOBYTE(v198) = ignoreMaxRetryCount;
+          BYTE2(v197) = alwaysIncludeSelf;
+          BYTE1(v197) = alwaysSkipSelf;
+          LOBYTE(v197) = fakeMessage;
+          LOBYTE(v195) = fireAndForget;
+          BYTE3(v190) = allowPartialSendsToSucceed;
+          BYTE2(v190) = sendOnePerToken;
+          BYTE1(v190) = canUseLargePayload;
+          LOBYTE(v190) = enforceRemoteTimeouts;
+          [v224 sendMessageDictionary:theDict messageID:v223 dataToEncrypt:dataToEncrypt2 withEncryptedAttributes:encryptionAttributes onService:identifier3 wantsResponse:wantsResponse expirationDate:expirationDate2 enforceRemoteTimeouts:v190 canUseLargePayload:priority sendOnePerToken:v195 allowPartialSendsToSucceed:fromID6 priority:fromShortHandle fireAndForget:_registrationCert fromID:v173 fromShortHandle:v172 fromIdentity:pushTopic toURIs:v236 accessToken:v197 topic:forceQuery registrationProperties:v171 fakeMessage:v198 alwaysSkipSelf:originalTimestamp3 alwaysIncludeSelf:prioritizedTokenList forceQuery:v199 pushPriority:destinations5 ignoreMaxRetryCount:deliveryMinimumTimeDelay disallowRefresh:deliveryMinimumTime originalTimestamp:sendMode prioritizedTokenList:keyTransparencyURIVerificationMap wantsFirewallDonation:sendReasonContainer destinationObject:sendMetric deliveryMinimumTimeDelay:v229 deliveryMinimumTime:v230 sendMode:v246 KTURIVerificationMap:? sendReasonContainer:? sendMetric:? ackBlock:? willSendBlock:? sendCompletionBlock:?];
         }
 
         v41 = theDict;
@@ -20338,41 +20335,41 @@ LABEL_224:
       }
     }
 
-    v235 = objc_alloc_init(IDSRegistrationProperties);
+    v236 = objc_alloc_init(IDSRegistrationProperties);
     requireAllRegistrationProperties = [parametersCopy requireAllRegistrationProperties];
-    [(IDSRegistrationProperties *)v235 setRequireAll:requireAllRegistrationProperties];
+    [(IDSRegistrationProperties *)v236 setRequireAll:requireAllRegistrationProperties];
 
     requireLackOfRegistrationProperties2 = [parametersCopy requireLackOfRegistrationProperties];
-    [(IDSRegistrationProperties *)v235 setLackAll:requireLackOfRegistrationProperties2];
+    [(IDSRegistrationProperties *)v236 setLackAll:requireLackOfRegistrationProperties2];
 
     if (blockCopy)
     {
       interestingRegistrationProperties2 = [parametersCopy interestingRegistrationProperties];
-      [(IDSRegistrationProperties *)v235 setInteresting:interestingRegistrationProperties2];
+      [(IDSRegistrationProperties *)v236 setInteresting:interestingRegistrationProperties2];
     }
 
     v143 = OSLogHandleForIDSCategory();
     if (os_log_type_enabled(v143, OS_LOG_TYPE_DEFAULT))
     {
-      requireAll = [(IDSRegistrationProperties *)v235 requireAll];
-      lackAll = [(IDSRegistrationProperties *)v235 lackAll];
-      interesting = [(IDSRegistrationProperties *)v235 interesting];
+      requireAll = [(IDSRegistrationProperties *)v236 requireAll];
+      lackAll = [(IDSRegistrationProperties *)v236 lackAll];
+      interesting = [(IDSRegistrationProperties *)v236 interesting];
       *buf = 138412802;
-      *v270 = requireAll;
-      *&v270[8] = 2112;
-      v271 = lackAll;
-      v272 = 2112;
-      v273 = interesting;
+      *v271 = requireAll;
+      *&v271[8] = 2112;
+      v272 = lackAll;
+      v273 = 2112;
+      v274 = interesting;
       _os_log_impl(&_mh_execute_header, v143, OS_LOG_TYPE_DEFAULT, "This send requires %@, a lack of %@, and is interested in %@ registration properties", buf, 0x20u);
     }
 
     if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
     {
-      requireAll2 = [(IDSRegistrationProperties *)v235 requireAll];
-      lackAll2 = [(IDSRegistrationProperties *)v235 lackAll];
-      [(IDSRegistrationProperties *)v235 interesting];
-      v192 = v188 = lackAll2;
-      v180 = requireAll2;
+      requireAll2 = [(IDSRegistrationProperties *)v236 requireAll];
+      lackAll2 = [(IDSRegistrationProperties *)v236 lackAll];
+      [(IDSRegistrationProperties *)v236 interesting];
+      v193 = v189 = lackAll2;
+      v181 = requireAll2;
       _IDSLogV();
     }
 
@@ -20383,7 +20380,7 @@ LABEL_224:
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    *v270 = service;
+    *v271 = service;
     _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Server has disabled service: %@, dropping this on the floor", buf, 0xCu);
   }
 

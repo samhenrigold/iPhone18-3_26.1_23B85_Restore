@@ -1,5 +1,6 @@
 @interface BLSXPCBacklightProxyObserverMask
 + (id)maskForObserver:(id)observer;
++ (id)maskForObservingDidCompleteUpdateToState:(BOOL)state observingEventsArray:(BOOL)array didChangeAlwaysOnEnabled:(BOOL)enabled activatingWithEvent:(BOOL)event deactivatingWithEvent:(BOOL)withEvent performingEvent:(BOOL)performingEvent;
 - (BLSXPCBacklightProxyObserverMask)initWithCoder:(id)coder;
 - (BLSXPCBacklightProxyObserverMask)initWithObserver:(id)observer;
 - (BLSXPCBacklightProxyObserverMask)initWithObservingDidCompleteUpdateToState:(BOOL)state observingEventsArray:(BOOL)array didChangeAlwaysOnEnabled:(BOOL)enabled activatingWithEvent:(BOOL)event deactivatingWithEvent:(BOOL)withEvent performingEvent:(BOOL)performingEvent;
@@ -19,6 +20,13 @@
   v5 = [[self alloc] initWithObserver:observerCopy];
 
   return v5;
+}
+
++ (id)maskForObservingDidCompleteUpdateToState:(BOOL)state observingEventsArray:(BOOL)array didChangeAlwaysOnEnabled:(BOOL)enabled activatingWithEvent:(BOOL)event deactivatingWithEvent:(BOOL)withEvent performingEvent:(BOOL)performingEvent
+{
+  v8 = [[self alloc] initWithObservingDidCompleteUpdateToState:state observingEventsArray:array didChangeAlwaysOnEnabled:enabled activatingWithEvent:event deactivatingWithEvent:withEvent performingEvent:performingEvent];
+
+  return v8;
 }
 
 - (BLSXPCBacklightProxyObserverMask)initWithObservingDidCompleteUpdateToState:(BOOL)state observingEventsArray:(BOOL)array didChangeAlwaysOnEnabled:(BOOL)enabled activatingWithEvent:(BOOL)event deactivatingWithEvent:(BOOL)withEvent performingEvent:(BOOL)performingEvent

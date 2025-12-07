@@ -32,7 +32,7 @@
     hidSystem = v2->_hidSystem;
     v2->_hidSystem = v5;
 
-    v7 = sub_1000597A4();
+    v7 = sub_1000597A4(BKTVOutController);
     tvOutController = v2->_tvOutController;
     v2->_tvOutController = v7;
   }

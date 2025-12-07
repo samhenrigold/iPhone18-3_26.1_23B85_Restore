@@ -137,7 +137,7 @@
 {
   window = [self window];
   superview = [self superview];
-  [self frame];
+  objc_msgSend_frame(self);
   [superview convertRect:window toView:?];
   v5 = v4;
   v7 = v6;
@@ -217,21 +217,25 @@
     v13 = *v18;
     do
     {
-      for (i = 0; i != v12; ++i)
+      v14 = 0;
+      do
       {
         if (*v18 != v13)
         {
           objc_enumerationMutation(animationKeys);
         }
 
-        v15 = *(*(&v17 + 1) + 8 * i);
-        if ([v6 containsObject:v15])
+        v15 = *(*(&v17 + 1) + 8 * v14);
+        if (objc_msgSend_containsObject_(v6))
         {
           [layer removeAnimationForKey:v15];
           [array addObject:v15];
         }
+
+        ++v14;
       }
 
+      while (v12 != v14);
       v12 = [animationKeys countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 

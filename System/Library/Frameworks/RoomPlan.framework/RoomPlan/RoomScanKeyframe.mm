@@ -1,6 +1,5 @@
 @interface RoomScanKeyframe
 - (_TtC8RoomPlan16RoomScanKeyframe)init;
-- (__n128)cameraPose;
 - (id)copyWithZone:(void *)zone;
 - (uint64_t)setCameraPose:(__n128)pose;
 @end
@@ -16,15 +15,6 @@
   v4 = sub_23AA0DBC4();
   __swift_destroy_boxed_opaque_existential_1(v6);
   return v4;
-}
-
-- (__n128)cameraPose
-{
-  result = *(self + OBJC_IVAR____TtC8RoomPlan16RoomScanKeyframe_cameraPose);
-  v2 = *(self + OBJC_IVAR____TtC8RoomPlan16RoomScanKeyframe_cameraPose + 16);
-  v3 = *(self + OBJC_IVAR____TtC8RoomPlan16RoomScanKeyframe_cameraPose + 32);
-  v4 = *(self + OBJC_IVAR____TtC8RoomPlan16RoomScanKeyframe_cameraPose + 48);
-  return result;
 }
 
 - (uint64_t)setCameraPose:(__n128)pose

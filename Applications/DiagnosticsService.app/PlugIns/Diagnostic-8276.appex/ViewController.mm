@@ -594,7 +594,7 @@
     do
     {
       __p[0] = &v9;
-      v6 = sub_10001B554(&self->_rgbjCalibrationResults, &v9);
+      v6 = sub_10001B554(&self->_rgbjCalibrationResults, &v9, &unk_100022437, __p);
       v6[6] = v6[5];
       ++v9;
     }
@@ -678,7 +678,7 @@
     operator delete(__p[0]);
   }
 
-  if (DeviceCMInterface::setRgbjConfiguration(self->_diagnosticCMInterface, 1u, 5u, 500))
+  if (DeviceCMInterface::setRgbjConfiguration(self->_diagnosticCMInterface, 1u, 5, 500))
   {
     v3 = @"setRgbjConfiguration failed";
   }
@@ -1356,7 +1356,7 @@
   ++self->_watchDogCounter;
   p_iterationNumber = &self->_iterationNumber;
   *__p = &self->_iterationNumber;
-  v8 = sub_10001B554(&self->_rgbjCalibrationResults, &self->_iterationNumber);
+  v8 = sub_10001B554(&self->_rgbjCalibrationResults, &self->_iterationNumber, &unk_100022437, __p);
   v9 = v8;
   v11 = v8[6];
   v10 = v8[7];
@@ -1420,7 +1420,7 @@
 
   v9[6] = v13;
   *__p = &self->_iterationNumber;
-  v25 = sub_10001B554(&self->_rgbjCalibrationResults, &self->_iterationNumber);
+  v25 = sub_10001B554(&self->_rgbjCalibrationResults, &self->_iterationNumber, &unk_100022437, __p);
   if (v25[6] - v25[5] == 24)
   {
     [(ViewController *)self hideInProgressView];
@@ -1772,9 +1772,9 @@
 
   [(ViewController *)self log:&v313];
   *__p = &self->_iterationNumber;
-  v70 = sub_10001B554(&self->_rgbjCalibrationResults, &self->_iterationNumber);
+  v70 = sub_10001B554(&self->_rgbjCalibrationResults, &self->_iterationNumber, &unk_100022437, __p);
   *__p = &self->_iterationNumber;
-  v71 = sub_10001B554(&self->_rgbjCalibrationResults, &self->_iterationNumber);
+  v71 = sub_10001B554(&self->_rgbjCalibrationResults, &self->_iterationNumber, &unk_100022437, __p);
   v73 = v71[5];
   v72 = v71[6];
   v74 = v70[5];
@@ -2424,7 +2424,7 @@ LABEL_195:
   if (![(ViewController *)self getCalibResults:&v293 focalPoint:&v291])
   {
     memset(&v312, 0, sizeof(v312));
-    sub_1000142DC("iteration ", &v312.__r_.__value_.__l.__data_, &v297.__r_.__value_.__l.__data_);
+    sub_1000142DC("iteration ", &v312.__r_.__value_.__l.__data_, &v297);
     std::to_string(&v296, *p_iterationNumber);
     if ((v296.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {

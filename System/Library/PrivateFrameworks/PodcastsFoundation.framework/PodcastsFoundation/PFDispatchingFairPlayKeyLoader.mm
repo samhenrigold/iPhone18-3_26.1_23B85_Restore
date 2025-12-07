@@ -44,7 +44,7 @@
   assetCopy = asset;
   selfCopy = self;
   DispatchingFairPlayKeyLoading.createSession(asset:completion:)(assetCopy, v6, v7);
-  sub_1D8D15664(v6);
+  sub_1D8D15664(v6, v7);
 }
 
 - (void)startKeyRequestWithSession:(id)session completion:(id)completion
@@ -65,7 +65,7 @@
   swift_unknownObjectRetain();
   selfCopy = self;
   DispatchingFairPlayKeyLoading.startKeyRequest(session:completion:)(session, v6, v7);
-  sub_1D8D15664(v6);
+  sub_1D8D15664(v6, v7);
   swift_unknownObjectRelease();
 }
 
@@ -87,7 +87,7 @@
   assetCopy = asset;
   selfCopy = self;
   DispatchingFairPlayKeyLoading.renewKeyRequest(asset:completion:)(assetCopy, v6, v7);
-  sub_1D8D15664(v6);
+  sub_1D8D15664(v6, v7);
 }
 
 - (void)renewKeyRequestsWithAssets:(id)assets completion:(id)completion
@@ -109,7 +109,7 @@
 
   selfCopy = self;
   DispatchingFairPlayKeyLoading.renewKeyRequests(assets:completion:)(v6, v5, v7);
-  sub_1D8D15664(v5);
+  sub_1D8D15664(v5, v7);
 }
 
 - (void)stopKeyRequestWithAsset:(id)asset completion:(id)completion
@@ -130,7 +130,7 @@
   assetCopy = asset;
   selfCopy = self;
   DispatchingFairPlayKeyLoading.stopKeyRequest(asset:completion:)(assetCopy, v6, v7);
-  sub_1D8D15664(v6);
+  sub_1D8D15664(v6, v7);
 }
 
 - (void)stopKeyRequestWithSession:(id)session completion:(id)completion
@@ -151,7 +151,7 @@
   swift_unknownObjectRetain();
   selfCopy = self;
   DispatchingFairPlayKeyLoading.stopKeyRequest(session:completion:)(session, v6, v7);
-  sub_1D8D15664(v6);
+  sub_1D8D15664(v6, v7);
   swift_unknownObjectRelease();
 }
 

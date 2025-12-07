@@ -9,52 +9,52 @@
 
 + (id)analyzePerformanceTestResult:(id)result type:(unint64_t)type count:(int64_t)count
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   v6 = objc_opt_new();
   v7 = objc_opt_new();
-  v56[0] = 0;
-  v56[1] = v56;
-  v56[2] = 0x3032000000;
-  v56[3] = __Block_byref_object_copy_;
-  v56[4] = __Block_byref_object_dispose_;
-  v57 = 0;
+  v55[0] = 0;
+  v55[1] = v55;
+  v55[2] = 0x3032000000;
+  v55[3] = __Block_byref_object_copy_;
+  v55[4] = __Block_byref_object_dispose_;
+  v56 = 0;
   v8 = objc_opt_new();
   [v8 setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSSSS"];
-  v51[0] = MEMORY[0x277D85DD0];
-  v51[1] = 3221225472;
-  v51[2] = __65__LPKPerfResultAnalyzer_analyzePerformanceTestResult_type_count___block_invoke;
-  v51[3] = &unk_279827A60;
-  v41 = v8;
-  v52 = v41;
+  v50[0] = MEMORY[0x277D85DD0];
+  v50[1] = 3221225472;
+  v50[2] = __65__LPKPerfResultAnalyzer_analyzePerformanceTestResult_type_count___block_invoke;
+  v50[3] = &unk_279827A60;
+  v40 = v8;
+  v51 = v40;
   v9 = v6;
-  v53 = v9;
-  v55 = v56;
+  v52 = v9;
+  v54 = v55;
   v10 = v7;
-  v54 = v10;
-  [resultCopy enumerateObjectsUsingBlock:v51];
-  v40 = resultCopy;
+  v53 = v10;
+  [resultCopy enumerateObjectsUsingBlock:v50];
+  v39 = resultCopy;
   v11 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v9, "count")}];
   v12 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v10, "count")}];
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
   v48 = 0u;
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
   v13 = v9;
-  v14 = [v13 countByEnumeratingWithState:&v47 objects:v59 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v46 objects:v58 count:16];
   if (v14)
   {
-    v15 = *v48;
+    v15 = *v47;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v48 != v15)
+        if (*v47 != v15)
         {
           objc_enumerationMutation(v13);
         }
 
-        v17 = *(*(&v47 + 1) + 8 * i);
+        v17 = *(*(&v46 + 1) + 8 * i);
         startDate = [v17 startDate];
         if (startDate)
         {
@@ -68,31 +68,31 @@
         }
       }
 
-      v14 = [v13 countByEnumeratingWithState:&v47 objects:v59 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v46 objects:v58 count:16];
     }
 
     while (v14);
   }
 
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
   v44 = 0u;
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
   v21 = v10;
-  v22 = [v21 countByEnumeratingWithState:&v43 objects:v58 count:16];
+  v22 = [v21 countByEnumeratingWithState:&v42 objects:v57 count:16];
   if (v22)
   {
-    v23 = *v44;
+    v23 = *v43;
     do
     {
       for (j = 0; j != v22; ++j)
       {
-        if (*v44 != v23)
+        if (*v43 != v23)
         {
           objc_enumerationMutation(v21);
         }
 
-        v25 = *(*(&v43 + 1) + 8 * j);
+        v25 = *(*(&v42 + 1) + 8 * j);
         startDate2 = [v25 startDate];
         if (startDate2)
         {
@@ -106,7 +106,7 @@
         }
       }
 
-      v22 = [v21 countByEnumeratingWithState:&v43 objects:v58 count:16];
+      v22 = [v21 countByEnumeratingWithState:&v42 objects:v57 count:16];
     }
 
     while (v22);
@@ -151,19 +151,18 @@ LABEL_30:
 LABEL_32:
   v35 = [LPKPerfResultAnalyzer _perfResultsFromUserSwitches:v34];
 
-  _Block_object_dispose(v56, 8);
-  v36 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v55, 8);
 
   return v35;
 }
 
 void __65__LPKPerfResultAnalyzer_analyzePerformanceTestResult_type_count___block_invoke(uint64_t a1, void *a2)
 {
-  v32 = a2;
-  v3 = [v32 objectForKeyedSubscript:@"eventname"];
+  v30 = a2;
+  v3 = [v30 objectForKeyedSubscript:@"eventname"];
   if ([v3 length] && objc_msgSend(v3, "containsString:", @"LGN"))
   {
-    v4 = [v32 objectForKeyedSubscript:@"walltime"];
+    v4 = [v30 objectForKeyedSubscript:@"walltime"];
     v5 = [v4 substringToIndex:{objc_msgSend(v4, "length") - 3}];
 
     v6 = [*(a1 + 32) dateFromString:v5];
@@ -174,45 +173,45 @@ void __65__LPKPerfResultAnalyzer_analyzePerformanceTestResult_type_count___block
 
     if (!v10)
     {
-      v15 = [v7 objectAtIndexedSubscript:1];
-      v16 = [v15 isEqualToString:@"E"];
+      v14 = [v7 objectAtIndexedSubscript:1];
+      v15 = [v14 isEqualToString:@"E"];
 
-      if (!v16)
+      if (!v15)
       {
 LABEL_18:
 
         goto LABEL_19;
       }
 
-      v17 = [*(*(*(a1 + 56) + 8) + 40) signposts];
-      v18 = [v17 objectForKeyedSubscript:v8];
+      v16 = [*(*(*(a1 + 56) + 8) + 40) signposts];
+      v17 = [v16 objectForKeyedSubscript:v8];
 
-      [v18 setEndDate:v6];
-      v19 = [v7 objectAtIndexedSubscript:2];
-      v20 = [v19 isEqualToString:@"Login"];
+      [v17 setEndDate:v6];
+      v18 = [v7 objectAtIndexedSubscript:2];
+      v19 = [v18 isEqualToString:@"Login"];
 
-      if (v20)
+      if (v19)
       {
-        v21 = 40;
+        v20 = 40;
       }
 
       else
       {
-        v30 = [v7 objectAtIndexedSubscript:2];
-        v31 = [v30 isEqualToString:@"Logout"];
+        v28 = [v7 objectAtIndexedSubscript:2];
+        v29 = [v28 isEqualToString:@"Logout"];
 
-        if (!v31)
+        if (!v29)
         {
 LABEL_17:
 
           goto LABEL_18;
         }
 
-        v21 = 48;
+        v20 = 48;
       }
 
-      v29 = [*(a1 + v21) lastObject];
-      [v29 setEndDate:v6];
+      v27 = [*(a1 + v20) lastObject];
+      [v27 setEndDate:v6];
 LABEL_16:
 
       goto LABEL_17;
@@ -223,40 +222,37 @@ LABEL_16:
 
     if (v12)
     {
-      v13 = off_279827928;
-      v14 = 40;
+      v13 = 40;
     }
 
     else
     {
-      v22 = [v7 objectAtIndexedSubscript:2];
-      v23 = [v22 isEqualToString:@"Logout"];
+      v21 = [v7 objectAtIndexedSubscript:2];
+      v22 = [v21 isEqualToString:@"Logout"];
 
-      if (!v23)
+      if (!v22)
       {
 LABEL_12:
-        v18 = objc_opt_new();
-        [v18 setStartDate:v6];
-        [v18 setName:v8];
-        v28 = [v32 objectForKeyedSubscript:@"execname"];
-        [v18 setProcessName:v28];
+        v17 = objc_opt_new();
+        [v17 setStartDate:v6];
+        [v17 setName:v8];
+        v26 = [v30 objectForKeyedSubscript:@"execname"];
+        [v17 setProcessName:v26];
 
-        v29 = [*(*(*(a1 + 56) + 8) + 40) signposts];
-        [v29 setObject:v18 forKeyedSubscript:v8];
+        v27 = [*(*(*(a1 + 56) + 8) + 40) signposts];
+        [v27 setObject:v17 forKeyedSubscript:v8];
         goto LABEL_16;
       }
 
-      v13 = off_279827930;
-      v14 = 48;
+      v13 = 48;
     }
 
-    v24 = *v13;
-    v25 = objc_opt_new();
-    [v25 setStartDate:v6];
-    [*(a1 + v14) addObject:v25];
-    v26 = *(*(a1 + 56) + 8);
-    v27 = *(v26 + 40);
-    *(v26 + 40) = v25;
+    v23 = objc_opt_new();
+    [v23 setStartDate:v6];
+    [*(a1 + v13) addObject:v23];
+    v24 = *(*(a1 + 56) + 8);
+    v25 = *(v24 + 40);
+    *(v24 + 40) = v23;
 
     goto LABEL_12;
   }

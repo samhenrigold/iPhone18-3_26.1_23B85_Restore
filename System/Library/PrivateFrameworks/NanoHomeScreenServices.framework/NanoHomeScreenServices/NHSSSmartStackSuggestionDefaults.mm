@@ -33,8 +33,12 @@
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
 - (void)removeHintObserver:(id)observer;
 - (void)removeObserver:(id)observer;
+- (void)setClearWidgetAlertAcknowledged:(BOOL)acknowledged;
 - (void)setHintUnmuteDate:(id)date forContainerBundleIdentifier:(id)identifier extensionBundleIdentifier:(id)bundleIdentifier kind:(id)kind;
 - (void)setNPSSyncedBoolEnabledValue:(BOOL)value forDomainObjectKey:(id)key withDictionaryKeyIfDomainIsDictionary:(id)dictionary preferenceDeletedIfValueEnabled:(BOOL)enabled;
+- (void)setPresentSmartStackFromHintAlertAcknowledged:(BOOL)acknowledged;
+- (void)setSoundDetectionButtonDismissedOnce:(BOOL)once;
+- (void)setWidgetSuggestionsEnabled:(BOOL)enabled forContainerBundleIdentifier:(id)identifier extensionBundleIdentifier:(id)bundleIdentifier kind:(id)kind;
 - (void)setWidgetSuggestionsUnmuteDate:(id)date forContainerBundleIdentifier:(id)identifier extensionBundleIdentifier:(id)bundleIdentifier kind:(id)kind;
 - (void)smartStackNPSSuggestionsDefaultsDidChange;
 @end
@@ -128,6 +132,14 @@ uint64_t __50__NHSSSmartStackSuggestionDefaults_sharedInstance__block_invoke()
   return bOOLValue;
 }
 
+- (void)setClearWidgetAlertAcknowledged:(BOOL)acknowledged
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:acknowledged];
+  os_unfair_lock_lock(&self->_lock);
+  [(NSUserDefaults *)self->_lock_userDefaults setObject:v4 forKey:@"clearWidgetAlertAcknowledged"];
+  os_unfair_lock_unlock(&self->_lock);
+}
+
 - (BOOL)presentSmartStackFromHintAlertAcknowledged
 {
   os_unfair_lock_lock(&self->_lock);
@@ -147,6 +159,14 @@ uint64_t __50__NHSSSmartStackSuggestionDefaults_sharedInstance__block_invoke()
   return bOOLValue;
 }
 
+- (void)setPresentSmartStackFromHintAlertAcknowledged:(BOOL)acknowledged
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:acknowledged];
+  os_unfair_lock_lock(&self->_lock);
+  [(NSUserDefaults *)self->_lock_userDefaults setObject:v4 forKey:@"presentSmartStackFromHintAlertAcknowledged"];
+  os_unfair_lock_unlock(&self->_lock);
+}
+
 - (BOOL)soundDetectionButtonDismissedOnce
 {
   os_unfair_lock_lock(&self->_lock);
@@ -164,6 +184,14 @@ uint64_t __50__NHSSSmartStackSuggestionDefaults_sharedInstance__block_invoke()
   bOOLValue = [v6 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setSoundDetectionButtonDismissedOnce:(BOOL)once
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:once];
+  os_unfair_lock_lock(&self->_lock);
+  [(NSUserDefaults *)self->_lock_userDefaults setObject:v4 forKey:@"soundDetectionButtonDismissedOnce"];
+  os_unfair_lock_unlock(&self->_lock);
 }
 
 - (double)defaultMuteForHourDuration
@@ -276,7 +304,7 @@ uint64_t __50__NHSSSmartStackSuggestionDefaults_sharedInstance__block_invoke()
   v2 = [objc_alloc(MEMORY[0x277D2BA58]) initWithDomain:@"com.apple.NanoHomeScreen.SmartStackSuggestions"];
   if (!v2)
   {
-    v3 = NHSSLogDefault();
+    v3 = NHSSLogDefault(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       [(NHSSSmartStackSuggestionDefaults *)v3 domainAccessorForReads:v4];
@@ -290,29 +318,30 @@ uint64_t __50__NHSSSmartStackSuggestionDefaults_sharedInstance__block_invoke()
 {
   keyCopy = key;
   dictionaryCopy = dictionary;
-  if (keyCopy && [keyCopy length])
+  v12 = dictionaryCopy;
+  if (keyCopy && (dictionaryCopy = [keyCopy length]) != 0)
   {
     queue = self->_queue;
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __154__NHSSSmartStackSuggestionDefaults_setNPSSyncedBoolEnabledValue_forDomainObjectKey_withDictionaryKeyIfDomainIsDictionary_preferenceDeletedIfValueEnabled___block_invoke;
-    v21[3] = &unk_279932EB8;
-    v22 = dictionaryCopy;
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __154__NHSSSmartStackSuggestionDefaults_setNPSSyncedBoolEnabledValue_forDomainObjectKey_withDictionaryKeyIfDomainIsDictionary_preferenceDeletedIfValueEnabled___block_invoke;
+    v22[3] = &unk_279932EB8;
+    v23 = v12;
     enabledCopy = enabled;
     valueCopy = value;
-    v23 = keyCopy;
+    v24 = keyCopy;
     selfCopy = self;
-    dispatch_async(queue, v21);
+    dispatch_async(queue, v22);
 
-    v13 = v22;
+    v14 = v23;
   }
 
   else
   {
-    v13 = NHSSLogDefault();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = NHSSLogDefault(dictionaryCopy);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      [(NHSSSmartStackSuggestionDefaults *)v13 setNPSSyncedBoolEnabledValue:v14 forDomainObjectKey:v15 withDictionaryKeyIfDomainIsDictionary:v16 preferenceDeletedIfValueEnabled:v17, v18, v19, v20];
+      [(NHSSSmartStackSuggestionDefaults *)v14 setNPSSyncedBoolEnabledValue:v15 forDomainObjectKey:v16 withDictionaryKeyIfDomainIsDictionary:v17 preferenceDeletedIfValueEnabled:v18, v19, v20, v21];
     }
   }
 }
@@ -383,7 +412,7 @@ LABEL_20:
     goto LABEL_19;
   }
 
-  v9 = NHSSLogDefault();
+  v9 = NHSSLogDefault(0);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     __154__NHSSSmartStackSuggestionDefaults_setNPSSyncedBoolEnabledValue_forDomainObjectKey_withDictionaryKeyIfDomainIsDictionary_preferenceDeletedIfValueEnabled___block_invoke_cold_1(v9, v10, v11, v12, v13, v14, v15, v16);
@@ -454,6 +483,13 @@ LABEL_21:
   LOBYTE(selfCopy) = [(NHSSSmartStackSuggestionDefaults *)selfCopy enabledDictionaryValueWithIdentifier:v6 onDomainObjectWithKey:@"widget"];
 
   return selfCopy;
+}
+
+- (void)setWidgetSuggestionsEnabled:(BOOL)enabled forContainerBundleIdentifier:(id)identifier extensionBundleIdentifier:(id)bundleIdentifier kind:(id)kind
+{
+  enabledCopy = enabled;
+  v8 = [(NHSSSmartStackSuggestionDefaults *)self _compositeKeyWithContainerBundleIdentifier:identifier extensionBundleIdentifier:bundleIdentifier kind:kind];
+  [(NHSSSmartStackSuggestionDefaults *)self setNPSSyncedBoolEnabledValue:enabledCopy forDomainObjectKey:@"widget" withDictionaryKeyIfDomainIsDictionary:v8 preferenceDeletedIfValueEnabled:1];
 }
 
 - (id)widgetSuggestionsUnmuteDateForContainerBundleIdentifier:(id)identifier extensionBundleIdentifier:(id)bundleIdentifier kind:(id)kind
@@ -584,7 +620,7 @@ LABEL_7:
 
 - (void)_cleanUpExpiredMutePreferences
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (self->_isClockFaceProcess)
   {
     v3 = [MEMORY[0x277CBEAA8] now];
@@ -599,26 +635,26 @@ LABEL_7:
     v6 = [v4 mutableCopy];
 
     allKeys = [v6 allKeys];
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
-    v8 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v8 = [allKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v8)
     {
       v9 = v8;
       v10 = 0;
-      v11 = *v17;
+      v11 = *v16;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v17 != v11)
+          if (*v16 != v11)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v13 = *(*(&v16 + 1) + 8 * i);
+          v13 = *(*(&v15 + 1) + 8 * i);
           v14 = [v6 objectForKey:v13];
           if ([v14 compare:v3] == -1)
           {
@@ -627,7 +663,7 @@ LABEL_7:
           }
         }
 
-        v9 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v9 = [allKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v9);
@@ -639,8 +675,6 @@ LABEL_7:
 
     os_unfair_lock_unlock(&self->_lock);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_requestUserDefaultsSyncForKey:(id)key
@@ -785,41 +819,39 @@ void __78__NHSSSmartStackSuggestionDefaults__scheduleTimerToUnmuteWidgetForKey_o
 
 - (void)_mainQueue_notifyObserversDefaultsDidChange
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   allObjects = [(NSHashTable *)self->_lock_observers allObjects];
   os_unfair_lock_unlock(&self->_lock);
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v4 = allObjects;
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [*(*(&v10 + 1) + 8 * v8++) smartStackSuggestionDefaultsDidChange];
+        [*(*(&v9 + 1) + 8 * v8++) smartStackSuggestionDefaultsDidChange];
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)hintUnmuteDateForContainerBundleIdentifier:(id)identifier extensionBundleIdentifier:(id)bundleIdentifier kind:(id)kind
@@ -877,7 +909,7 @@ void __78__NHSSSmartStackSuggestionDefaults__scheduleTimerToUnmuteWidgetForKey_o
 
 - (void)_cleanUpExpiredMuteHintPreferences
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (self->_isClockFaceProcess)
   {
     v3 = [MEMORY[0x277CBEAA8] now];
@@ -892,26 +924,26 @@ void __78__NHSSSmartStackSuggestionDefaults__scheduleTimerToUnmuteWidgetForKey_o
     v6 = [v4 mutableCopy];
 
     allKeys = [v6 allKeys];
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
-    v8 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v8 = [allKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v8)
     {
       v9 = v8;
       v10 = 0;
-      v11 = *v17;
+      v11 = *v16;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v17 != v11)
+          if (*v16 != v11)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v13 = *(*(&v16 + 1) + 8 * i);
+          v13 = *(*(&v15 + 1) + 8 * i);
           v14 = [v6 objectForKey:v13];
           if ([v14 compare:v3] == -1)
           {
@@ -920,7 +952,7 @@ void __78__NHSSSmartStackSuggestionDefaults__scheduleTimerToUnmuteWidgetForKey_o
           }
         }
 
-        v9 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v9 = [allKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v9);
@@ -932,8 +964,6 @@ void __78__NHSSSmartStackSuggestionDefaults__scheduleTimerToUnmuteWidgetForKey_o
 
     os_unfair_lock_unlock(&self->_lock);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_scheduleTimersToUnmuteHints
@@ -1030,41 +1060,39 @@ void __76__NHSSSmartStackSuggestionDefaults__scheduleTimerToUnmuteHintForKey_onD
 
 - (void)_mainQueue_notifyObserversDefaultsHintDidChange
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   allObjects = [(NSHashTable *)self->_lock_hintObservers allObjects];
   os_unfair_lock_unlock(&self->_lock);
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v4 = allObjects;
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [*(*(&v10 + 1) + 8 * v8++) smartStackSuggestionDefaultsHintDidChange];
+        [*(*(&v9 + 1) + 8 * v8++) smartStackSuggestionDefaultsHintDidChange];
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)diagnosticDictionaryRepresentation

@@ -284,18 +284,14 @@ LABEL_18:
 
 - (void)setMaps_encrypted_muid:(id)maps_encrypted_muid
 {
-  v4 = [maps_encrypted_muid copy];
-  maps_encrypted_muid = self->_maps_encrypted_muid;
-  self->_maps_encrypted_muid = v4;
+  self->_maps_encrypted_muid = [maps_encrypted_muid copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setName:(id)name
 {
-  v4 = [name copy];
-  name = self->_name;
-  self->_name = v4;
+  self->_name = [name copy];
 
   MEMORY[0x1EEE66BB8]();
 }

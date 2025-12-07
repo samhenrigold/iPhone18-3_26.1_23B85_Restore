@@ -53,52 +53,51 @@ void __58__PLBatteryUINotificationService_initOperatorDependancies__block_invoke
 id __58__PLBatteryUINotificationService_initOperatorDependancies__block_invoke_37(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
   v6 = a5;
-  v7 = PLLogPausedCharging();
+  v7 = PLLogPausedCharging(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     __58__PLBatteryUINotificationService_initOperatorDependancies__block_invoke_37_cold_1();
   }
 
   v8 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v9 = v8;
   if (v6)
   {
-    v9 = [v6 objectForKey:@"ShowTLCNotification"];
+    v10 = [v6 objectForKey:@"ShowTLCNotification"];
 
-    if (v9)
+    if (v10)
     {
-      v10 = [objc_alloc(MEMORY[0x277CE2028]) initWithBundleIdentifier:@"com.apple.powerlog.proactivenotifications"];
-      v12 = *(a1 + 32);
-      v11 = (a1 + 32);
-      [v10 setDelegate:v12];
-      [v10 setWantsNotificationResponsesDelivered];
-      [*v11 setUserNotificationCenter:v10];
-      v13 = PLLogPausedCharging();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      v11 = [objc_alloc(MEMORY[0x277CE2028]) initWithBundleIdentifier:@"com.apple.powerlog.proactivenotifications"];
+      v13 = *(a1 + 32);
+      v12 = (a1 + 32);
+      [v11 setDelegate:v13];
+      [v11 setWantsNotificationResponsesDelivered];
+      v14 = PLLogPausedCharging([*v12 setUserNotificationCenter:v11]);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
         __58__PLBatteryUINotificationService_initOperatorDependancies__block_invoke_37_cold_2();
       }
 
-      v14 = [v6 objectForKeyedSubscript:@"ShowTLCNotification"];
-      v15 = [v14 intValue];
+      v15 = [v6 objectForKeyedSubscript:@"ShowTLCNotification"];
+      v16 = [v15 intValue];
 
-      if (v15 == 1)
+      if (v16 == 1)
       {
         AnalyticsSendEventLazy();
-        v16 = MEMORY[0x277CCACA8];
-        v17 = [MEMORY[0x277CBEAA8] date];
-        v18 = [v16 stringWithFormat:@"%@-%@", @"TLC", v17];
-        [*v11 setTlcNotificationIdentifier:v18];
+        v17 = MEMORY[0x277CCACA8];
+        v18 = [MEMORY[0x277CBEAA8] date];
+        v19 = [v17 stringWithFormat:@"%@-%@", @"TLC", v18];
+        [*v12 setTlcNotificationIdentifier:v19];
 
-        v19 = PLLogPausedCharging();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+        v21 = PLLogPausedCharging(v20);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
         {
-          __58__PLBatteryUINotificationService_initOperatorDependancies__block_invoke_37_cold_6(v11);
+          __58__PLBatteryUINotificationService_initOperatorDependancies__block_invoke_37_cold_6(v12);
         }
 
-        [v8 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"TLCNotificationState"];
-        [*v11 surfaceNotification];
-        v20 = PLLogPausedCharging();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+        [v9 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"TLCNotificationState"];
+        v22 = PLLogPausedCharging([*v12 surfaceNotification]);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
           __58__PLBatteryUINotificationService_initOperatorDependancies__block_invoke_37_cold_7();
         }
@@ -106,13 +105,13 @@ id __58__PLBatteryUINotificationService_initOperatorDependancies__block_invoke_3
 
       else
       {
-        v21 = [v6 objectForKeyedSubscript:@"ShowTLCNotification"];
-        v22 = [v21 intValue];
+        v23 = [v6 objectForKeyedSubscript:@"ShowTLCNotification"];
+        v24 = [v23 intValue];
 
-        if (v22)
+        if (v24)
         {
-          v23 = PLLogPausedCharging();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+          v26 = PLLogPausedCharging(v25);
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
           {
             __58__PLBatteryUINotificationService_initOperatorDependancies__block_invoke_37_cold_3();
           }
@@ -120,24 +119,23 @@ id __58__PLBatteryUINotificationService_initOperatorDependancies__block_invoke_3
           goto LABEL_23;
         }
 
-        AnalyticsSendEventLazy();
-        v24 = PLLogPausedCharging();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+        v27 = AnalyticsSendEventLazy();
+        v28 = PLLogPausedCharging(v27);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
         {
           __58__PLBatteryUINotificationService_initOperatorDependancies__block_invoke_37_cold_4();
         }
 
-        [v8 setObject:MEMORY[0x277CBEC28] forKeyedSubscript:@"TLCNotificationState"];
-        [*v11 removeTLCNotification];
-        v20 = PLLogPausedCharging();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+        [v9 setObject:MEMORY[0x277CBEC28] forKeyedSubscript:@"TLCNotificationState"];
+        v22 = PLLogPausedCharging([*v12 removeTLCNotification]);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
           __58__PLBatteryUINotificationService_initOperatorDependancies__block_invoke_37_cold_5();
         }
       }
 
-      v23 = PLLogPausedCharging();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+      v26 = PLLogPausedCharging(v29);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
       {
         __58__PLBatteryUINotificationService_initOperatorDependancies__block_invoke_37_cold_8();
       }
@@ -148,15 +146,15 @@ LABEL_23:
     }
   }
 
-  v10 = PLLogPausedCharging();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  v11 = PLLogPausedCharging(v8);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
     __58__PLBatteryUINotificationService_initOperatorDependancies__block_invoke_37_cold_9();
   }
 
 LABEL_24:
 
-  return v8;
+  return v9;
 }
 
 - (void)surfaceNotification
@@ -169,12 +167,13 @@ LABEL_24:
 void __53__PLBatteryUINotificationService_surfaceNotification__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = PLLogPausedCharging();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = PLLogPausedCharging(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __53__PLBatteryUINotificationService_surfaceNotification__block_invoke_cold_1(v3, a1);
+      __53__PLBatteryUINotificationService_surfaceNotification__block_invoke_cold_1(v4, a1);
     }
   }
 
@@ -187,7 +186,7 @@ void __53__PLBatteryUINotificationService_surfaceNotification__block_invoke(uint
 - (id)thermallyLimitedChargingEngagedContent
 {
   v2 = CFPreferencesCopyValue(@"AppleLanguages", *MEMORY[0x277CBF008], @"mobile", *MEMORY[0x277CBF010]);
-  v3 = PLLogPausedCharging();
+  v3 = PLLogPausedCharging(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [PLBatteryUINotificationService thermallyLimitedChargingEngagedContent];
@@ -225,8 +224,7 @@ void __53__PLBatteryUINotificationService_surfaceNotification__block_invoke(uint
       v15 = [MEMORY[0x277CBEBC0] URLWithString:@"settings-navigation://com.apple.Settings.Battery"];
       [v5 setDefaultActionURL:v15];
 
-      [v5 setExpirationDate:v7];
-      v16 = PLLogPausedCharging();
+      v16 = PLLogPausedCharging([v5 setExpirationDate:v7]);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
         [PLBatteryUINotificationService thermallyLimitedChargingEngagedContent];
@@ -237,7 +235,7 @@ void __53__PLBatteryUINotificationService_surfaceNotification__block_invoke(uint
 
     else
     {
-      v10 = PLLogPausedCharging();
+      v10 = PLLogPausedCharging(0);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         [PLBatteryUINotificationService thermallyLimitedChargingEngagedContent];
@@ -249,7 +247,7 @@ void __53__PLBatteryUINotificationService_surfaceNotification__block_invoke(uint
 
   else
   {
-    v5 = PLLogPausedCharging();
+    v5 = PLLogPausedCharging(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [PLBatteryUINotificationService thermallyLimitedChargingEngagedContent];
@@ -270,8 +268,7 @@ void __53__PLBatteryUINotificationService_surfaceNotification__block_invoke(uint
     tlcNotificationIdentifier = [(PLBatteryUINotificationService *)self tlcNotificationIdentifier];
     v6 = [v4 requestWithIdentifier:tlcNotificationIdentifier content:thermallyLimitedChargingEngagedContent trigger:0];
 
-    [v6 setDestinations:2];
-    v7 = PLLogPausedCharging();
+    v7 = PLLogPausedCharging([v6 setDestinations:2]);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       [PLBatteryUINotificationService thermallyLimitedChargingEngagedRequest];
@@ -288,14 +285,11 @@ void __53__PLBatteryUINotificationService_surfaceNotification__block_invoke(uint
 
 - (void)removeTLCNotification
 {
-  v9 = *MEMORY[0x277D85DE8];
   userNotificationCenter = [self userNotificationCenter];
   deliveredNotifications = [userNotificationCenter deliveredNotifications];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_8_1();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initializeUrsaNotifications
@@ -326,7 +320,7 @@ void __53__PLBatteryUINotificationService_surfaceNotification__block_invoke(uint
 - (id)handleUrsaNotificationRequest:(id)request
 {
   requestCopy = request;
-  v5 = PLLogUrsaNotification();
+  v5 = PLLogUrsaNotification(requestCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [PLBatteryUINotificationService handleUrsaNotificationRequest:];
@@ -426,27 +420,25 @@ LABEL_19:
 
 void __64__PLBatteryUINotificationService_handleUrsaNotificationRequest___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = PLLogUrsaNotification();
+  v4 = PLLogUrsaNotification(v3);
   v5 = v4;
   if (v3)
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __64__PLBatteryUINotificationService_handleUrsaNotificationRequest___block_invoke_cold_1(v3, a1);
+      __64__PLBatteryUINotificationService_handleUrsaNotificationRequest___block_invoke_cold_1();
     }
   }
 
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(a1 + 32);
-    v8 = 138412290;
-    v9 = v6;
-    _os_log_impl(&dword_25EE51000, v5, OS_LOG_TYPE_DEFAULT, "posted notification %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v6;
+    _os_log_impl(&dword_25EE51000, v5, OS_LOG_TYPE_DEFAULT, "posted notification %@", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)ursaBaseContent
@@ -499,8 +491,8 @@ void __64__PLBatteryUINotificationService_handleUrsaNotificationRequest___block_
 
     if (!v12)
     {
-      v13 = PLLogUrsaNotification();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = PLLogUrsaNotification(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         [PLBatteryUINotificationService ursaTTRContent:];
       }
@@ -509,59 +501,59 @@ void __64__PLBatteryUINotificationService_handleUrsaNotificationRequest___block_
       goto LABEL_30;
     }
 
-    v13 = [v12 objectForKeyedSubscript:@"alert"];
-    v14 = [v12 objectForKeyedSubscript:@"radar"];
-    v15 = v14;
-    if (v13 && v14)
+    v14 = [v12 objectForKeyedSubscript:@"alert"];
+    v15 = [v12 objectForKeyedSubscript:@"radar"];
+    v16 = v15;
+    if (v14 && v15)
     {
-      if ([v14 count])
+      if ([v15 count])
       {
         dictionary = [MEMORY[0x277CBEB38] dictionary];
-        [dictionary addEntriesFromDictionary:v15];
-        v17 = +[PLUtilities buildVersion];
-        v18 = [PLUrsaUtilities createMetadataFile:v5 buildVersion:v17];
+        [dictionary addEntriesFromDictionary:v16];
+        v18 = +[PLUtilities buildVersion];
+        v19 = [PLUrsaUtilities createMetadataFile:v5 buildVersion:v18];
 
         date = [contentCopy objectForKeyedSubscript:@"timestamp"];
         if (!date)
         {
-          v20 = v18;
-          v21 = PLLogUrsaNotification();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+          v21 = v19;
+          v22 = PLLogUrsaNotification(0);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
           {
             [PLBatteryUINotificationService ursaTTRContent:];
           }
 
           date = [MEMORY[0x277CBEAA8] date];
-          v18 = v20;
+          v19 = v21;
         }
 
-        v29 = date;
-        v30 = v18;
-        v22 = [PLUrsaUtilities generateTTRURLWithRadarParams:dictionary procName:v5 violationTime:date metadataPath:v18];
+        v30 = date;
+        v31 = v19;
+        v23 = [PLUrsaUtilities generateTTRURLWithRadarParams:dictionary procName:v5 violationTime:date metadataPath:v19];
         ursaBaseContent = [(PLBatteryUINotificationService *)self ursaBaseContent];
-        v28 = v22;
-        [ursaBaseContent setDefaultActionURL:v22];
-        v23 = [v13 objectForKeyedSubscript:@"header"];
-        [ursaBaseContent setTitle:v23];
+        v29 = v23;
+        [ursaBaseContent setDefaultActionURL:v23];
+        v24 = [v14 objectForKeyedSubscript:@"header"];
+        [ursaBaseContent setTitle:v24];
 
         if (v6)
         {
-          v24 = [v13 objectForKeyedSubscript:@"messageWithDrain"];
-          v25 = [v24 stringByReplacingOccurrencesOfString:@"$percent" withString:v6];
+          v25 = [v14 objectForKeyedSubscript:@"messageWithDrain"];
+          v26 = [v25 stringByReplacingOccurrencesOfString:@"$percent" withString:v6];
         }
 
         else
         {
-          v25 = [v13 objectForKeyedSubscript:@"messageNoDrain"];
+          v26 = [v14 objectForKeyedSubscript:@"messageNoDrain"];
         }
 
-        v26 = [v25 stringByReplacingOccurrencesOfString:@"$proc" withString:v5];
-        [ursaBaseContent setBody:v26];
+        v27 = [v26 stringByReplacingOccurrencesOfString:@"$proc" withString:v5];
+        [ursaBaseContent setBody:v27];
 
         goto LABEL_29;
       }
 
-      dictionary = PLLogUrsaNotification();
+      dictionary = PLLogUrsaNotification(0);
       if (os_log_type_enabled(dictionary, OS_LOG_TYPE_ERROR))
       {
         [PLBatteryUINotificationService ursaTTRContent:];
@@ -570,7 +562,7 @@ void __64__PLBatteryUINotificationService_handleUrsaNotificationRequest___block_
 
     else
     {
-      dictionary = PLLogUrsaNotification();
+      dictionary = PLLogUrsaNotification(v15);
       if (os_log_type_enabled(dictionary, OS_LOG_TYPE_ERROR))
       {
         [PLBatteryUINotificationService ursaTTRContent:];
@@ -584,7 +576,7 @@ LABEL_30:
     goto LABEL_31;
   }
 
-  v6 = PLLogUrsaNotification();
+  v6 = PLLogUrsaNotification(0);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     [PLBatteryUINotificationService ursaTTRContent:];
@@ -600,7 +592,7 @@ LABEL_31:
 {
   v22 = *MEMORY[0x277D85DE8];
   contentCopy = content;
-  v5 = PLLogUrsaNotification();
+  v5 = PLLogUrsaNotification(contentCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
@@ -622,7 +614,7 @@ LABEL_31:
   v10 = v9;
   if (!v8 || !v9)
   {
-    ursaBaseContent = PLLogUrsaNotification();
+    ursaBaseContent = PLLogUrsaNotification(v9);
     if (os_log_type_enabled(ursaBaseContent, OS_LOG_TYPE_ERROR))
     {
       [PLBatteryUINotificationService ursaRadarContent:];
@@ -639,9 +631,10 @@ LABEL_31:
   v13 = v12;
   if (v12 && ![v12 isEqualToString:@"livability"])
   {
-    if (![v13 isEqualToString:@"softwareUpdate"])
+    v18 = [v13 isEqualToString:@"softwareUpdate"];
+    if (!v18)
     {
-      v19 = PLLogUrsaNotification();
+      v19 = PLLogUrsaNotification(v18);
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         [PLBatteryUINotificationService ursaRadarContent:];
@@ -668,14 +661,12 @@ LABEL_10:
 LABEL_15:
 LABEL_16:
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v16;
 }
 
 - (id)ursaBootargContent:(id)content
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v4 = [content objectForKeyedSubscript:@"bootarg"];
   if (v4)
   {
@@ -686,53 +677,53 @@ LABEL_16:
 
     if (v8)
     {
-      v9 = [v8 objectForKeyedSubscript:@"title"];
-      v10 = [v8 objectForKeyedSubscript:@"message"];
-      v11 = [v10 stringByReplacingOccurrencesOfString:@"\\r" withString:@"\r"];
+      v10 = [v8 objectForKeyedSubscript:@"title"];
+      v11 = [v8 objectForKeyedSubscript:@"message"];
+      v12 = [v11 stringByReplacingOccurrencesOfString:@"\\r" withString:@"\r"];
 
-      if (v9 && v11)
+      if (v10 && v12)
       {
-        v12 = [v8 objectForKeyedSubscript:@"associated"];
+        v14 = [v8 objectForKeyedSubscript:@"associated"];
         hpdConfig2 = [(PLBatteryUINotificationService *)self hpdConfig];
-        v14 = [hpdConfig2 objectForKeyedSubscript:@"ursa"];
-        v15 = [v14 objectForKeyedSubscript:@"bootargsURL"];
+        v16 = [hpdConfig2 objectForKeyedSubscript:@"ursa"];
+        v17 = [v16 objectForKeyedSubscript:@"bootargsURL"];
 
-        if (v15)
+        if (v17)
         {
           array = [MEMORY[0x277CBEB18] array];
           [array addObject:v4];
-          v27[0] = MEMORY[0x277D85DD0];
-          v27[1] = 3221225472;
-          v27[2] = __53__PLBatteryUINotificationService_ursaBootargContent___block_invoke;
-          v27[3] = &unk_279A5C3A8;
-          v17 = array;
-          v28 = v17;
-          [v12 enumerateObjectsUsingBlock:v27];
-          v18 = [v17 componentsJoinedByString:@"&"];
-          v19 = [v15 stringByAppendingString:v18];
+          v29[0] = MEMORY[0x277D85DD0];
+          v29[1] = 3221225472;
+          v29[2] = __53__PLBatteryUINotificationService_ursaBootargContent___block_invoke;
+          v29[3] = &unk_279A5C3A8;
+          v20 = array;
+          v30 = v20;
+          [v14 enumerateObjectsUsingBlock:v29];
+          v21 = [v20 componentsJoinedByString:@"&"];
+          v22 = [v17 stringByAppendingString:v21];
 
-          v26 = v19;
-          v20 = [MEMORY[0x277CBEBC0] URLWithString:v19];
-          v21 = PLLogUrsaNotification();
-          v22 = v21;
-          if (v20)
+          v28 = v22;
+          v23 = [MEMORY[0x277CBEBC0] URLWithString:v22];
+          v24 = PLLogUrsaNotification(v23);
+          v25 = v24;
+          if (v23)
           {
-            if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+            if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v30 = v20;
-              _os_log_impl(&dword_25EE51000, v22, OS_LOG_TYPE_DEFAULT, "url configured %@", buf, 0xCu);
+              v32 = v23;
+              _os_log_impl(&dword_25EE51000, v25, OS_LOG_TYPE_DEFAULT, "url configured %@", buf, 0xCu);
             }
 
             ursaBaseContent = [(PLBatteryUINotificationService *)self ursaBaseContent];
-            [ursaBaseContent setTitle:v9];
-            [ursaBaseContent setBody:v11];
-            [ursaBaseContent setDefaultActionURL:v20];
+            [ursaBaseContent setTitle:v10];
+            [ursaBaseContent setBody:v12];
+            [ursaBaseContent setDefaultActionURL:v23];
           }
 
           else
           {
-            if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
             {
               [PLBatteryUINotificationService ursaBootargContent:];
             }
@@ -743,8 +734,8 @@ LABEL_16:
 
         else
         {
-          v17 = PLLogUrsaNotification();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+          v20 = PLLogUrsaNotification(v18);
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
           {
             [PLBatteryUINotificationService ursaBootargContent:?];
           }
@@ -755,8 +746,8 @@ LABEL_16:
 
       else
       {
-        v12 = PLLogUrsaNotification();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        v14 = PLLogUrsaNotification(v13);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
           [PLBatteryUINotificationService ursaBootargContent:];
         }
@@ -767,8 +758,8 @@ LABEL_16:
 
     else
     {
-      v9 = PLLogUrsaNotification();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = PLLogUrsaNotification(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         [PLBatteryUINotificationService ursaBootargContent:];
       }
@@ -782,8 +773,6 @@ LABEL_16:
     ursaBaseContent = 0;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return ursaBaseContent;
 }
 
@@ -796,11 +785,9 @@ LABEL_16:
 
 void __58__PLBatteryUINotificationService_initOperatorDependancies__block_invoke_37_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __58__PLBatteryUINotificationService_initOperatorDependancies__block_invoke_37_cold_2()
@@ -812,11 +799,9 @@ void __58__PLBatteryUINotificationService_initOperatorDependancies__block_invoke
 
 void __58__PLBatteryUINotificationService_initOperatorDependancies__block_invoke_37_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __58__PLBatteryUINotificationService_initOperatorDependancies__block_invoke_37_cold_4()
@@ -835,12 +820,9 @@ void __58__PLBatteryUINotificationService_initOperatorDependancies__block_invoke
 
 void __58__PLBatteryUINotificationService_initOperatorDependancies__block_invoke_37_cold_6(id *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [*a1 tlcNotificationIdentifier];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_7_3(&dword_25EE51000, v2, v3, "TLC: Request sent to surface TLC notification: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7_3(&dword_25EE51000, v2, v3, "TLC: Request sent to surface TLC notification: %@", v4, v5, v6, v7);
 }
 
 void __58__PLBatteryUINotificationService_initOperatorDependancies__block_invoke_37_cold_7()
@@ -852,21 +834,16 @@ void __58__PLBatteryUINotificationService_initOperatorDependancies__block_invoke
 
 void __58__PLBatteryUINotificationService_initOperatorDependancies__block_invoke_37_cold_8()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __53__PLBatteryUINotificationService_surfaceNotification__block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v8 = [*(a2 + 32) identifier];
+  v7 = [*(a2 + 32) identifier];
   OUTLINED_FUNCTION_8_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)thermallyLimitedChargingEngagedContent
@@ -878,89 +855,46 @@ void __53__PLBatteryUINotificationService_surfaceNotification__block_invoke_cold
 
 - (void)thermallyLimitedChargingEngagedRequest
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleUrsaNotificationRequest:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __64__PLBatteryUINotificationService_handleUrsaNotificationRequest___block_invoke_cold_1(uint64_t a1, uint64_t a2)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *(a2 + 32);
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_4(&dword_25EE51000, v3, v4, "error %@ while posting %@");
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)ursaTTRContent:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_5_4(&dword_25EE51000, v0, v1, "invalid config %@ %@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)ursaRadarContent:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_25EE51000, v0, OS_LOG_TYPE_ERROR, "invalid action: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_25EE51000, v0, OS_LOG_TYPE_ERROR, "invalid action: %@", v1, 0xCu);
 }
 
 - (void)ursaRadarContent:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_25EE51000, v0, OS_LOG_TYPE_ERROR, "invalid payload %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
-}
-
-- (void)ursaBootargContent:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_5_4(&dword_25EE51000, v0, v1, "invalid url from %@ and %@");
   v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1();
+  _os_log_error_impl(&dword_25EE51000, v0, OS_LOG_TYPE_ERROR, "invalid payload %@", v1, 0xCu);
 }
 
 - (void)ursaBootargContent:(void *)a1 .cold.2(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 hpdConfig];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_8_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)ursaBootargContent:.cold.3()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_5_4(&dword_25EE51000, v0, v1, "invalid config for %@: %@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)ursaBootargContent:.cold.4()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_2();
-  v3 = 0;
-  _os_log_error_impl(&dword_25EE51000, v0, OS_LOG_TYPE_ERROR, "invalid config for %@: %@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = 0;
+  _os_log_error_impl(&dword_25EE51000, v0, OS_LOG_TYPE_ERROR, "invalid config for %@: %@", v1, 0x16u);
 }
 
 @end

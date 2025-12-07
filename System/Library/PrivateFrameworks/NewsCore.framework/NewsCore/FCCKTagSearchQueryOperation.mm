@@ -17,21 +17,21 @@
 - (BOOL)validateOperation
 {
   selfCopy = self;
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (!self || !self->_database)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"tag search query must have a database"];
-      v10 = 136315906;
-      v11 = "[FCCKTagSearchQueryOperation validateOperation]";
-      v12 = 2080;
-      v13 = "FCCKTagSearchQueryOperation.m";
-      v14 = 1024;
-      v15 = 45;
-      v16 = 2114;
-      v17 = v6;
-      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v10, 0x26u);
+      v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"tag search query must have a database"];
+      v9 = 136315906;
+      v10 = "[FCCKTagSearchQueryOperation validateOperation]";
+      v11 = 2080;
+      v12 = "FCCKTagSearchQueryOperation.m";
+      v13 = 1024;
+      v14 = 45;
+      v15 = 2114;
+      v16 = v5;
+      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v9, 0x26u);
 
       if (!selfCopy)
       {
@@ -53,16 +53,16 @@
 LABEL_6:
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"tag search query must have a non-nil search string"];
-    v10 = 136315906;
-    v11 = "[FCCKTagSearchQueryOperation validateOperation]";
-    v12 = 2080;
-    v13 = "FCCKTagSearchQueryOperation.m";
-    v14 = 1024;
-    v15 = 46;
-    v16 = 2114;
-    v17 = v7;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v10, 0x26u);
+    v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"tag search query must have a non-nil search string"];
+    v9 = 136315906;
+    v10 = "[FCCKTagSearchQueryOperation validateOperation]";
+    v11 = 2080;
+    v12 = "FCCKTagSearchQueryOperation.m";
+    v13 = 1024;
+    v14 = 46;
+    v15 = 2114;
+    v16 = v6;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v9, 0x26u);
 
     if (selfCopy)
     {
@@ -81,32 +81,32 @@ LABEL_8:
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"tag search query must have a known tag type"];
-    v10 = 136315906;
-    v11 = "[FCCKTagSearchQueryOperation validateOperation]";
-    v12 = 2080;
-    v13 = "FCCKTagSearchQueryOperation.m";
-    v14 = 1024;
-    v15 = 47;
-    v16 = 2114;
-    v17 = v8;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v10, 0x26u);
+    v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"tag search query must have a known tag type"];
+    v9 = 136315906;
+    v10 = "[FCCKTagSearchQueryOperation validateOperation]";
+    v11 = 2080;
+    v12 = "FCCKTagSearchQueryOperation.m";
+    v13 = 1024;
+    v14 = 47;
+    v15 = 2114;
+    v16 = v7;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v9, 0x26u);
 
     if (!selfCopy)
     {
 LABEL_12:
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"tag search query must have a non-zero results limit"];
-        v10 = 136315906;
-        v11 = "[FCCKTagSearchQueryOperation validateOperation]";
-        v12 = 2080;
-        v13 = "FCCKTagSearchQueryOperation.m";
-        v14 = 1024;
-        v15 = 48;
-        v16 = 2114;
-        v17 = v9;
-        _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v10, 0x26u);
+        v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"tag search query must have a non-zero results limit"];
+        v9 = 136315906;
+        v10 = "[FCCKTagSearchQueryOperation validateOperation]";
+        v11 = 2080;
+        v12 = "FCCKTagSearchQueryOperation.m";
+        v13 = 1024;
+        v14 = 48;
+        v15 = 2114;
+        v16 = v8;
+        _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v9, 0x26u);
 
         if (selfCopy)
         {
@@ -140,7 +140,6 @@ LABEL_14:
   LOBYTE(selfCopy) = v3 && selfCopy->_tagType && selfCopy->_resultsLimit != 0;
 LABEL_18:
 
-  v4 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -166,12 +165,12 @@ LABEL_7:
 
 - (void)performOperation
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v3 = FCOperationLog;
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     shortOperationDescription = [(FCOperation *)self shortOperationDescription];
-    v25 = shortOperationDescription;
+    v24 = shortOperationDescription;
     if (self)
     {
       searchString = self->_searchString;
@@ -268,7 +267,7 @@ LABEL_15:
         *&buf[12] = 2048;
         *&buf[14] = resultsLimit;
         *&buf[22] = 2112;
-        v35 = v20;
+        v34 = v20;
         _os_log_debug_impl(&dword_1B63EF000, v15, OS_LOG_TYPE_DEBUG, "%{public}@ issuing query with results limit %lu: %@", buf, 0x20u);
 
         goto LABEL_17;
@@ -291,21 +290,21 @@ LABEL_15:
   if (v16)
   {
     shortOperationDescription3 = [(FCOperation *)self shortOperationDescription];
-    v28 = shortOperationDescription3;
+    v27 = shortOperationDescription3;
     if (self)
     {
-      v29 = self->_resultsLimit;
+      v28 = self->_resultsLimit;
     }
 
     else
     {
-      v29 = 0;
+      v28 = 0;
     }
 
     *buf = 138543618;
     *&buf[4] = shortOperationDescription3;
     *&buf[12] = 2048;
-    *&buf[14] = v29;
+    *&buf[14] = v28;
     _os_log_debug_impl(&dword_1B63EF000, v15, OS_LOG_TYPE_DEBUG, "%{public}@ issuing query from cursor with results limit %lu", buf, 0x16u);
   }
 
@@ -314,8 +313,8 @@ LABEL_17:
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v35 = __Block_byref_object_copy__51;
-  v36 = __Block_byref_object_dispose__51;
+  v34 = __Block_byref_object_copy__51;
+  v35 = __Block_byref_object_dispose__51;
   array = [MEMORY[0x1E695DF70] array];
   newValue[0] = MEMORY[0x1E69E9820];
   newValue[1] = 3221225472;
@@ -328,48 +327,46 @@ LABEL_17:
   }
 
   objc_initWeak(&location, v5);
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = __47__FCCKTagSearchQueryOperation_performOperation__block_invoke_2;
-  v30[3] = &unk_1E7C42400;
-  v30[4] = self;
-  v30[5] = buf;
-  objc_copyWeak(&v31, &location);
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 3221225472;
+  v29[2] = __47__FCCKTagSearchQueryOperation_performOperation__block_invoke_2;
+  v29[3] = &unk_1E7C42400;
+  v29[4] = self;
+  v29[5] = buf;
+  objc_copyWeak(&v30, &location);
   if ((v10 & 1) == 0)
   {
-    objc_setProperty_nonatomic_copy(v5, v22, v30, 424);
+    objc_setProperty_nonatomic_copy(v5, v22, v29, 424);
   }
 
   [(FCOperation *)self associateChildOperation:v5];
   [v5 start];
-  objc_destroyWeak(&v31);
+  objc_destroyWeak(&v30);
   objc_destroyWeak(&location);
   _Block_object_dispose(buf, 8);
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_constructTagSearchQuery
 {
   selfCopy = self;
-  v24[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   if (self)
   {
     array = [MEMORY[0x1E695DF70] array];
     v3 = MEMORY[0x1E696AE18];
-    v24[0] = selfCopy[48];
+    v23[0] = selfCopy[48];
     v4 = MEMORY[0x1E695DEC8];
-    v5 = v24[0];
-    v6 = [v4 arrayWithObjects:v24 count:1];
+    v5 = v23[0];
+    v6 = [v4 arrayWithObjects:v23 count:1];
 
     v7 = [v3 predicateWithFormat:@"%@ CONTAINS %K", v6, @"query"];
 
     [array addObject:v7];
     v8 = MEMORY[0x1E696AE18];
-    v23 = selfCopy[54];
+    v22 = selfCopy[54];
     v9 = MEMORY[0x1E695DEC8];
-    v10 = v23;
-    v11 = [v9 arrayWithObjects:&v23 count:1];
+    v10 = v22;
+    v11 = [v9 arrayWithObjects:&v22 count:1];
 
     v12 = [v8 predicateWithFormat:@"%@ CONTAINS %K", v11, @"queryNames"];
 
@@ -378,12 +375,12 @@ LABEL_17:
     if (v13)
     {
       v14 = MEMORY[0x1E696AE18];
-      v22 = v13;
+      v21 = v13;
       v15 = MEMORY[0x1E695DEC8];
       v16 = v13;
-      v17 = [v15 arrayWithObjects:&v22 count:1];
+      v17 = [v15 arrayWithObjects:&v21 count:1];
 
-      v18 = [v14 predicateWithFormat:@"%@ CONTAINS %K", v17, @"locale", v22];
+      v18 = [v14 predicateWithFormat:@"%@ CONTAINS %K", v17, @"locale", v21];
 
       [array addObject:v18];
     }
@@ -392,14 +389,12 @@ LABEL_17:
     selfCopy = [objc_alloc(MEMORY[0x1E695BA30]) initWithRecordType:@"TagSearch" predicate:v19];
   }
 
-  v20 = *MEMORY[0x1E69E9840];
-
   return selfCopy;
 }
 
 void __47__FCCKTagSearchQueryOperation_performOperation__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = FCOperationLog;
@@ -410,13 +405,13 @@ void __47__FCCKTagSearchQueryOperation_performOperation__block_invoke_2(uint64_t
     v20 = [v18 shortOperationDescription];
     v21 = [*(*(*(a1 + 40) + 8) + 40) count];
     v22 = *(*(*(a1 + 40) + 8) + 40);
-    v28 = 138543874;
-    v29 = v20;
-    v30 = 2048;
-    v31 = v21;
-    v32 = 2112;
-    v33 = v22;
-    _os_log_debug_impl(&dword_1B63EF000, v19, OS_LOG_TYPE_DEBUG, "%{public}@ received response with %lu Tag records: %@", &v28, 0x20u);
+    v27 = 138543874;
+    v28 = v20;
+    v29 = 2048;
+    v30 = v21;
+    v31 = 2112;
+    v32 = v22;
+    _os_log_debug_impl(&dword_1B63EF000, v19, OS_LOG_TYPE_DEBUG, "%{public}@ received response with %lu Tag records: %@", &v27, 0x20u);
   }
 
   v8 = FCErrorForCKError(v6);
@@ -449,13 +444,13 @@ void __47__FCCKTagSearchQueryOperation_performOperation__block_invoke_2(uint64_t
 
       v16 = v15;
       v17 = [v16 firstObject];
-      v28 = 138543874;
-      v29 = v12;
-      v30 = 2114;
-      v31 = v6;
-      v32 = 2114;
-      v33 = v17;
-      _os_log_error_impl(&dword_1B63EF000, v11, OS_LOG_TYPE_ERROR, "%{public}@ query failed with error: %{public}@, request UUID: %{public}@", &v28, 0x20u);
+      v27 = 138543874;
+      v28 = v12;
+      v29 = 2114;
+      v30 = v6;
+      v31 = 2114;
+      v32 = v17;
+      _os_log_error_impl(&dword_1B63EF000, v11, OS_LOG_TYPE_ERROR, "%{public}@ query failed with error: %{public}@, request UUID: %{public}@", &v27, 0x20u);
       goto LABEL_14;
     }
   }
@@ -486,11 +481,11 @@ void __47__FCCKTagSearchQueryOperation_performOperation__block_invoke_2(uint64_t
 
   v16 = v24;
   v17 = [v16 firstObject];
-  v28 = 138543618;
-  v29 = v12;
-  v30 = 2112;
-  v31 = v17;
-  _os_log_impl(&dword_1B63EF000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ query succeeded with request UUID: %@", &v28, 0x16u);
+  v27 = 138543618;
+  v28 = v12;
+  v29 = 2112;
+  v30 = v17;
+  _os_log_impl(&dword_1B63EF000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ query succeeded with request UUID: %@", &v27, 0x16u);
 LABEL_14:
 
 LABEL_15:
@@ -508,8 +503,6 @@ LABEL_15:
   }
 
   [v25 finishedPerformingOperationWithError:v26];
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setResultError:(uint64_t)error

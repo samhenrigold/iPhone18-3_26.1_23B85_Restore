@@ -45,7 +45,7 @@
 {
   metadataCopy = metadata;
   completionCopy = completion;
-  v8 = sub_100030FE4();
+  v8 = sub_100030FE4(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315395;
@@ -95,65 +95,65 @@ LABEL_8:
   lCopy = l;
   tokenCopy = token;
   completionCopy = completion;
-  v11 = sub_100030FE4();
+  v11 = sub_100030FE4(completionCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315651;
-    v28 = "[CKContainer(MSDCloudDataContainer) fetchShareMetadataForShareURL:withShareToken:completion:]";
-    v29 = 2113;
-    v30 = lCopy;
-    v31 = 2113;
-    v32 = tokenCopy;
+    v29 = "[CKContainer(MSDCloudDataContainer) fetchShareMetadataForShareURL:withShareToken:completion:]";
+    v30 = 2113;
+    v31 = lCopy;
+    v32 = 2113;
+    v33 = tokenCopy;
     _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%s URL %{private}@ shareToken  %{private}@", buf, 0x20u);
   }
 
   if (lCopy)
   {
-    v12 = [CKFetchShareMetadataOperation alloc];
+    v13 = [CKFetchShareMetadataOperation alloc];
     if (tokenCopy)
     {
-      v24 = lCopy;
-      v13 = [NSArray arrayWithObjects:&v24 count:1];
-      v22 = lCopy;
-      v23 = tokenCopy;
-      v14 = [NSDictionary dictionaryWithObjects:&v23 forKeys:&v22 count:1];
-      v15 = [v12 initWithShareURLs:v13 invitationTokensByShareURL:v14];
+      v25 = lCopy;
+      v14 = [NSArray arrayWithObjects:&v25 count:1];
+      v23 = lCopy;
+      v24 = tokenCopy;
+      v15 = [NSDictionary dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+      v16 = [v13 initWithShareURLs:v14 invitationTokensByShareURL:v15];
     }
 
     else
     {
-      v21 = lCopy;
-      v13 = [NSArray arrayWithObjects:&v21 count:1];
-      v15 = [v12 initWithShareURLs:v13];
+      v22 = lCopy;
+      v14 = [NSArray arrayWithObjects:&v22 count:1];
+      v16 = [v13 initWithShareURLs:v14];
     }
 
-    v19[0] = _NSConcreteStackBlock;
-    v19[1] = 3221225472;
-    v19[2] = sub_1000242FC;
-    v19[3] = &unk_100051F30;
-    v20 = completionCopy;
-    [v15 setPerShareMetadataBlock:v19];
-    [v15 setFetchShareMetadataCompletionBlock:&stru_100051F50];
-    [v15 setQualityOfService:17];
-    [(CKContainer *)self addOperation:v15];
-    v18 = v20;
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = sub_1000242FC;
+    v20[3] = &unk_100051F30;
+    v21 = completionCopy;
+    [v16 setPerShareMetadataBlock:v20];
+    [v16 setFetchShareMetadataCompletionBlock:&stru_100051F50];
+    [v16 setQualityOfService:17];
+    [(CKContainer *)self addOperation:v16];
+    v19 = v21;
     goto LABEL_12;
   }
 
-  v16 = sub_100030FE4();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+  v17 = sub_100030FE4(v12);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
-    sub_1000244C8(v16);
+    sub_1000244C8(v17);
   }
 
   if (completionCopy)
   {
-    v17 = MSErrorDomain;
-    v25 = MSUserInfoErrorStringKey;
-    v26 = @"Failed to fetchShareMetadata for Nil Share URL";
-    v15 = [NSDictionary dictionaryWithObjects:&v26 forKeys:&v25 count:1];
-    v18 = [NSError errorWithDomain:v17 code:1 userInfo:v15];
-    (*(completionCopy + 2))(completionCopy, 0, v18);
+    v18 = MSErrorDomain;
+    v26 = MSUserInfoErrorStringKey;
+    v27 = @"Failed to fetchShareMetadata for Nil Share URL";
+    v16 = [NSDictionary dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+    v19 = [NSError errorWithDomain:v18 code:1 userInfo:v16];
+    (*(completionCopy + 2))(completionCopy, 0, v19);
 LABEL_12:
   }
 }

@@ -107,7 +107,7 @@
 
 - (void)attachmentItemMetadataForAttachmentID:(id)d attachmentPersistentID:(id)iD messagePersistentID:(id)persistentID name:(id)name mailboxID:(int64_t)mailboxID result:(id)result
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   dCopy = d;
   iDCopy = iD;
   persistentIDCopy = persistentID;
@@ -117,16 +117,16 @@
   {
     v17 = +[MFMailMessageLibrary defaultInstance];
     stringValue = [persistentIDCopy stringValue];
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __139__MFSearchableIndexPersistence_iOS_attachmentItemMetadataForAttachmentID_attachmentPersistentID_messagePersistentID_name_mailboxID_result___block_invoke;
-    v21[3] = &unk_1E7AA77E0;
-    v22 = dCopy;
-    v23 = iDCopy;
-    v24 = persistentIDCopy;
-    v25 = nameCopy;
-    v26 = resultCopy;
-    [v17 fileURLForAttachmentPersistentID:v23 messageID:stringValue result:v21];
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __139__MFSearchableIndexPersistence_iOS_attachmentItemMetadataForAttachmentID_attachmentPersistentID_messagePersistentID_name_mailboxID_result___block_invoke;
+    v20[3] = &unk_1E7AA77E0;
+    v21 = dCopy;
+    v22 = iDCopy;
+    v23 = persistentIDCopy;
+    v24 = nameCopy;
+    v25 = resultCopy;
+    [v17 fileURLForAttachmentPersistentID:v22 messageID:stringValue result:v20];
   }
 
   else
@@ -135,18 +135,16 @@
     if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
     {
       *buf = 138412802;
-      v28 = dCopy;
-      v29 = 2114;
-      v30 = iDCopy;
-      v31 = 2114;
-      v32 = persistentIDCopy;
+      v27 = dCopy;
+      v28 = 2114;
+      v29 = iDCopy;
+      v30 = 2114;
+      v31 = persistentIDCopy;
       _os_log_fault_impl(&dword_1B0389000, v19, OS_LOG_TYPE_FAULT, "Encountered an attachment without a name for attachmentID:%@ attachmentPersistentID:%{public}@ messagePersistentID:%{public}@", buf, 0x20u);
     }
 
     (*(resultCopy + 2))(resultCopy, 0, 1);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_verificationDataFromMessage:(id)message messageIDTransactionIDDictionary:(id)dictionary
@@ -181,56 +179,54 @@
 
 - (id)verificationDataSamplesFromMessageIDTransactionIDDictionary:(id)dictionary
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v5 = dictionaryCopy;
-  v20 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v19 = objc_alloc_init(MEMORY[0x1E695DF90]);
   allKeys = [dictionaryCopy allKeys];
-  v18 = [allKeys componentsJoinedByString:{@", "}];
-  v19 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"deleted = '0' AND messages.ROWID IN (%@)", v18];
+  v17 = [allKeys componentsJoinedByString:{@", "}];
+  v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"deleted = '0' AND messages.ROWID IN (%@)", v17];
   v6 = +[MFMailMessageLibrary defaultInstance];
-  v7 = [v6 indexableMessagesWhere:v19 sortedBy:0 limit:0 options:38917];
+  v7 = [v6 indexableMessagesWhere:v18 sortedBy:0 limit:0 options:38917];
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v8 = v7;
-  v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v9)
   {
-    v10 = *v22;
+    v10 = *v21;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v22 != v10)
+        if (*v21 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        v12 = *(*(&v21 + 1) + 8 * i);
+        v12 = *(*(&v20 + 1) + 8 * i);
         v13 = [(MFSearchableIndexPersistence_iOS *)self _verificationDataFromMessage:v12 messageIDTransactionIDDictionary:dictionaryCopy];
         v14 = [MEMORY[0x1E696AD98] numberWithLongLong:{objc_msgSend(v12, "libraryID")}];
-        [v20 setObject:v13 forKeyedSubscript:v14];
+        [v19 setObject:v13 forKeyedSubscript:v14];
 
         dictionaryCopy = v5;
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v9);
   }
 
-  v15 = *MEMORY[0x1E69E9840];
-
-  return v20;
+  return v19;
 }
 
 - (id)statistics
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v3 = +[MFSearchableIndexPersistence_iOS signpostLog];
   signpostID = [(MFSearchableIndexPersistence_iOS *)self signpostID];
   if (signpostID - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
@@ -240,27 +236,27 @@
   }
 
   *buf = 0;
-  v30 = buf;
-  v31 = 0x3032000000;
-  v32 = __Block_byref_object_copy__18;
-  v33 = __Block_byref_object_dispose__18;
-  v34 = objc_opt_new();
+  v29 = buf;
+  v30 = 0x3032000000;
+  v31 = __Block_byref_object_copy__18;
+  v32 = __Block_byref_object_dispose__18;
+  v33 = objc_opt_new();
   database = [(EDSearchableIndexPersistence *)self database];
   v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[MFSearchableIndexPersistence_iOS statistics]"];
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __46__MFSearchableIndexPersistence_iOS_statistics__block_invoke;
-  v28[3] = &unk_1E7AA3C48;
-  v28[4] = self;
-  v28[5] = buf;
-  [database __performReadWithCaller:v6 usingBlock:v28];
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __46__MFSearchableIndexPersistence_iOS_statistics__block_invoke;
+  v27[3] = &unk_1E7AA3C48;
+  v27[4] = self;
+  v27[5] = buf;
+  [database __performReadWithCaller:v6 usingBlock:v27];
 
   v7 = +[MFSearchableIndexPersistence_iOS signpostLog];
   signpostID2 = [(MFSearchableIndexPersistence_iOS *)self signpostID];
   if (signpostID2 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
-    *v35 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1B0389000, v7, OS_SIGNPOST_INTERVAL_END, signpostID2, "SEARCH INDEX STATISTICS", "Finished database queries for search index statistics", v35, 2u);
+    *v34 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1B0389000, v7, OS_SIGNPOST_INTERVAL_END, signpostID2, "SEARCH INDEX STATISTICS", "Finished database queries for search index statistics", v34, 2u);
   }
 
   v9 = +[MFMailMessageLibrary defaultInstance];
@@ -284,30 +280,28 @@
   }
 
   v19 = [v14 numberWithInt:v18];
-  [*(v30 + 5) setObject:v19 forKeyedSubscript:*MEMORY[0x1E699AA10]];
+  [*(v29 + 5) setObject:v19 forKeyedSubscript:*MEMORY[0x1E699AA10]];
 
   v20 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(scheduler, "isIndexingEnabledForActivityType:", *v17)}];
-  [*(v30 + 5) setObject:v20 forKeyedSubscript:*MEMORY[0x1E699AA38]];
+  [*(v29 + 5) setObject:v20 forKeyedSubscript:*MEMORY[0x1E699AA38]];
 
   v21 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(scheduler, "isIndexingEnabledForActivityType:", v15)}];
-  [*(v30 + 5) setObject:v21 forKeyedSubscript:*MEMORY[0x1E699AA48]];
+  [*(v29 + 5) setObject:v21 forKeyedSubscript:*MEMORY[0x1E699AA48]];
 
   v22 = [MEMORY[0x1E696AD98] numberWithBool:v13];
-  [*(v30 + 5) setObject:v22 forKeyedSubscript:*MEMORY[0x1E699AA40]];
+  [*(v29 + 5) setObject:v22 forKeyedSubscript:*MEMORY[0x1E699AA40]];
 
   v23 = +[MFSearchableIndexPersistence_iOS log];
   if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
-    v24 = *(v30 + 5);
-    *v35 = 138412290;
-    v36 = v24;
-    _os_log_impl(&dword_1B0389000, v23, OS_LOG_TYPE_DEFAULT, "Generated search indexing statistics: %@", v35, 0xCu);
+    v24 = *(v29 + 5);
+    *v34 = 138412290;
+    v35 = v24;
+    _os_log_impl(&dword_1B0389000, v23, OS_LOG_TYPE_DEFAULT, "Generated search indexing statistics: %@", v34, 0xCu);
   }
 
-  v25 = [*(v30 + 5) copy];
+  v25 = [*(v29 + 5) copy];
   _Block_object_dispose(buf, 8);
-
-  v26 = *MEMORY[0x1E69E9840];
 
   return v25;
 }

@@ -1,9 +1,47 @@
 @interface ATXAudioRouteStream
 + (int)atxAudioRouteTypeFromBMAudioRouteType:(int)type;
+- (id)_publisherWithStartDate:(id)date endDate:(id)endDate limit:(unint64_t)limit shouldReverse:(BOOL)reverse;
 - (void)_enumerateAudioOutputEventsConnected:(BOOL)connected startDate:(id)date endDate:(id)endDate filterBlock:(id)block limit:(unint64_t)limit ascending:(BOOL)ascending block:(id)a9;
 @end
 
 @implementation ATXAudioRouteStream
+
+- (id)_publisherWithStartDate:(id)date endDate:(id)endDate limit:(unint64_t)limit shouldReverse:(BOOL)reverse
+{
+  reverseCopy = reverse;
+  if (reverse)
+  {
+    dateCopy = endDate;
+  }
+
+  else
+  {
+    dateCopy = date;
+  }
+
+  if (reverse)
+  {
+    endDateCopy2 = date;
+  }
+
+  else
+  {
+    endDateCopy2 = endDate;
+  }
+
+  v12 = endDateCopy2;
+  v13 = dateCopy;
+  endDateCopy3 = endDate;
+  dateCopy3 = date;
+  v16 = BiomeLibrary();
+  audio = [v16 Audio];
+  route = [audio Route];
+  v19 = [objc_alloc(MEMORY[0x277CF1A50]) initWithStartDate:v13 endDate:v12 maxEvents:limit lastN:limit reversed:reverseCopy];
+
+  v20 = [route publisherWithUseCase:@"ProactiveAppPrediction" options:v19];
+
+  return v20;
+}
 
 + (int)atxAudioRouteTypeFromBMAudioRouteType:(int)type
 {
@@ -48,12 +86,13 @@
 void __112__ATXAudioRouteStream__enumerateAudioOutputEventsConnected_startDate_endDate_filterBlock_limit_ascending_block___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  if ([v2 state])
+  v3 = [v2 state];
+  if (v3)
   {
-    v3 = __atxlog_handle_default();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = __atxlog_handle_default(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __112__ATXAudioRouteStream__enumerateAudioOutputEventsConnected_startDate_endDate_filterBlock_limit_ascending_block___block_invoke_cold_1(v2, v3);
+      __112__ATXAudioRouteStream__enumerateAudioOutputEventsConnected_startDate_endDate_filterBlock_limit_ascending_block___block_invoke_cold_1(v2, v4);
     }
   }
 }
@@ -111,53 +150,52 @@ LABEL_10:
 
         if (v3 && v21)
         {
-          v22 = objc_alloc(MEMORY[0x277CBEAA8]);
+          v23 = objc_alloc(MEMORY[0x277CBEAA8]);
           v53 = v21;
           [v21 timestamp];
-          v23 = [v22 initWithTimeIntervalSinceReferenceDate:?];
-          v24 = objc_alloc(MEMORY[0x277CBEAA8]);
+          v24 = [v23 initWithTimeIntervalSinceReferenceDate:?];
+          v25 = objc_alloc(MEMORY[0x277CBEAA8]);
           [v3 timestamp];
-          v25 = [v24 initWithTimeIntervalSinceReferenceDate:?];
-          v26 = [ATXAudioRouteEvent alloc];
+          v26 = [v25 initWithTimeIntervalSinceReferenceDate:?];
+          v27 = [ATXAudioRouteEvent alloc];
           if (*(a1 + 64))
           {
-            v27 = v25;
+            v28 = v26;
           }
 
           else
           {
-            v27 = v23;
+            v28 = v24;
           }
 
-          v51 = v25;
-          v52 = v23;
+          v51 = v26;
+          v52 = v24;
           if (*(a1 + 64))
           {
-            v28 = v23;
+            v29 = v24;
           }
 
           else
           {
-            v28 = v25;
+            v29 = v26;
           }
 
-          v47 = v28;
-          v48 = v27;
+          v47 = v29;
+          v48 = v28;
           v46 = *(a1 + 65);
           v50 = [v3 eventBody];
           v45 = [v50 identifier];
           v49 = [v3 eventBody];
-          v29 = [v49 portType];
-          v30 = [v3 eventBody];
-          v31 = [v30 portName];
-          v32 = MEMORY[0x277CCABB0];
-          v33 = [v3 eventBody];
-          v34 = [v32 numberWithInt:{objc_msgSend(v33, "routeChangeReason")}];
-          v35 = *(a1 + 40);
+          v30 = [v49 portType];
+          v31 = [v3 eventBody];
+          v32 = [v31 portName];
+          v33 = MEMORY[0x277CCABB0];
+          v34 = [v3 eventBody];
+          v35 = [v33 numberWithInt:{objc_msgSend(v34, "routeChangeReason")}];
           v36 = objc_opt_class();
           v37 = [v3 eventBody];
           LODWORD(v44) = [v36 atxAudioRouteTypeFromBMAudioRouteType:{objc_msgSend(v37, "type")}];
-          v38 = [(ATXAudioRouteEvent *)v26 initWithStartTime:v48 endTime:v47 connected:v46 identifier:v45 portType:v29 portName:v31 routeChangeReason:v34 type:v44];
+          v38 = [(ATXAudioRouteEvent *)v27 initWithStartTime:v48 endTime:v47 connected:v46 identifier:v45 portType:v30 portName:v32 routeChangeReason:v35 type:v44];
 
           v39 = *(a1 + 32);
           v40 = [v3 eventBody];
@@ -175,7 +213,7 @@ LABEL_10:
 
         else
         {
-          v43 = __atxlog_handle_default();
+          v43 = __atxlog_handle_default(v22);
           if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
           {
             __112__ATXAudioRouteStream__enumerateAudioOutputEventsConnected_startDate_endDate_filterBlock_limit_ascending_block___block_invoke_2_cold_1(v21, v3, v43);
@@ -197,26 +235,23 @@ LABEL_11:
 
 void __112__ATXAudioRouteStream__enumerateAudioOutputEventsConnected_startDate_endDate_filterBlock_limit_ascending_block___block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = [a1 error];
-  v5 = 136315394;
-  v6 = "[ATXAudioRouteStream _enumerateAudioOutputEventsConnected:startDate:endDate:filterBlock:limit:ascending:block:]_block_invoke";
-  v7 = 2112;
-  v8 = v3;
-  _os_log_error_impl(&dword_226368000, a2, OS_LOG_TYPE_ERROR, "%s: error fetching latest Audio.Route event from biome %@", &v5, 0x16u);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 136315394;
+  v5 = "[ATXAudioRouteStream _enumerateAudioOutputEventsConnected:startDate:endDate:filterBlock:limit:ascending:block:]_block_invoke";
+  v6 = 2112;
+  v7 = v3;
+  _os_log_error_impl(&dword_226368000, a2, OS_LOG_TYPE_ERROR, "%s: error fetching latest Audio.Route event from biome %@", &v4, 0x16u);
 }
 
 void __112__ATXAudioRouteStream__enumerateAudioOutputEventsConnected_startDate_endDate_filterBlock_limit_ascending_block___block_invoke_2_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_226368000, log, OS_LOG_TYPE_ERROR, "Skipping event: %@ %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_226368000, log, OS_LOG_TYPE_ERROR, "Skipping event: %@ %@", &v3, 0x16u);
 }
 
 @end

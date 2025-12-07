@@ -113,16 +113,16 @@
 
   else
   {
-    v11 = SBLogButtonsCombo();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v12 = SBLogButtonsCombo(v8);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      [SBPressSequenceRecognizer _handlePressDownWithTimestamp:];
+      [SBPressSequenceRecognizer _handlePressDownWithTimestamp:?];
     }
 
-    v10 = 0.0;
+    v11 = 0.0;
   }
 
-  [(SBPressSequenceRecognizer *)self _resetAfterDelay:v10];
+  [(SBPressSequenceRecognizer *)self _resetAfterDelay:v11];
 }
 
 - (void)_handlePressUpWithTimestamp:(double)timestamp
@@ -178,14 +178,13 @@ uint64_t __57__SBPressSequenceRecognizer__handlePressUpWithTimestamp___block_inv
 
   if (v6)
   {
-    v7 = [[SBPressTuple alloc] initWithDurationDown:*(a1 + 40) durationUp:0.0];
-    v8 = *(a1 + 32);
-    v9 = *(v8 + 32);
-    *(v8 + 32) = v7;
+    v8 = [[SBPressTuple alloc] initWithDurationDown:*(a1 + 40) durationUp:0.0];
+    v9 = *(a1 + 32);
+    v10 = *(v9 + 32);
+    *(v9 + 32) = v8;
 
-    [*(*(a1 + 32) + 40) addObject:*(*(a1 + 32) + 32)];
-    v10 = SBLogButtonsCombo();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = SBLogButtonsCombo([*(*(a1 + 32) + 40) addObject:*(*(a1 + 32) + 32)]);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       __57__SBPressSequenceRecognizer__handlePressUpWithTimestamp___block_invoke_cold_2(v3);
     }
@@ -193,10 +192,10 @@ uint64_t __57__SBPressSequenceRecognizer__handlePressUpWithTimestamp___block_inv
 
   else
   {
-    v10 = SBLogButtonsCombo();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = SBLogButtonsCombo(v7);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      __57__SBPressSequenceRecognizer__handlePressUpWithTimestamp___block_invoke_cold_1();
+      __57__SBPressSequenceRecognizer__handlePressUpWithTimestamp___block_invoke_cold_1(v3);
     }
   }
 
@@ -213,10 +212,10 @@ uint64_t __57__SBPressSequenceRecognizer__handlePressUpWithTimestamp___block_inv
 
 - (void)_reset
 {
-  v0 = objc_opt_class();
-  v6 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v7 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_0_4();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 - (void)_resetAndNotify
@@ -288,23 +287,23 @@ void __46__SBPressSequenceRecognizer__resetAfterDelay___block_invoke(uint64_t a1
   [v4 handleFailureInMethod:a1 object:a2 file:@"SBPressSequenceRecognizer.m" lineNumber:40 description:@"SBPressSequenceRecognizer must be given non nil validator"];
 }
 
-- (void)_handlePressDownWithTimestamp:.cold.1()
+- (void)_handlePressDownWithTimestamp:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v6 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v7 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_0_4();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
-void __57__SBPressSequenceRecognizer__handlePressUpWithTimestamp___block_invoke_cold_1()
+void __57__SBPressSequenceRecognizer__handlePressUpWithTimestamp___block_invoke_cold_1(void *a1)
 {
-  v0 = objc_opt_class();
-  v6 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v7 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_0_4();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
-void __57__SBPressSequenceRecognizer__handlePressUpWithTimestamp___block_invoke_cold_2(uint64_t a1)
+void __57__SBPressSequenceRecognizer__handlePressUpWithTimestamp___block_invoke_cold_2(void *a1)
 {
   v2 = objc_opt_class();
   v8 = NSStringFromClass(v2);

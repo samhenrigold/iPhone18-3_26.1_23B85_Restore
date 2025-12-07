@@ -96,44 +96,8 @@
 
     else
     {
-      if (self[6])
+      if (self[6] && (OUTLINED_FUNCTION_0_3(), [v3 getRed:? green:? blue:? alpha:?], objc_msgSend(selfCopy[1], "output"), v23 == v4) && (objc_msgSend(selfCopy[2], "output"), v22 == v5) && (objc_msgSend(selfCopy[3], "output"), v21 == v6) && (objc_msgSend(selfCopy[4], "output"), v20 == v7) || (v8 = MEMORY[0x277D75348], objc_msgSend(selfCopy[1], "output"), v10 = v9, objc_msgSend(selfCopy[2], "output"), v12 = v11, objc_msgSend(selfCopy[3], "output"), v14 = v13, objc_msgSend(selfCopy[4], "output"), objc_msgSend(v8, "colorWithRed:green:blue:alpha:", v10, v12, v14, v15), v16 = objc_claimAutoreleasedReturnValue(), v17 = selfCopy[6], selfCopy[6] = v16, v17, (selfCopy[5] & 1) == 0))
       {
-        OUTLINED_FUNCTION_0_3();
-        [v3 getRed:? green:? blue:? alpha:?];
-        [selfCopy[1] output];
-        if (v23 == v4)
-        {
-          [selfCopy[2] output];
-          if (v22 == v5)
-          {
-            [selfCopy[3] output];
-            if (v21 == v6)
-            {
-              [selfCopy[4] output];
-              if (v20 == v7)
-              {
-                goto LABEL_11;
-              }
-            }
-          }
-        }
-      }
-
-      v8 = MEMORY[0x277D75348];
-      [selfCopy[1] output];
-      v10 = v9;
-      [selfCopy[2] output];
-      v12 = v11;
-      [selfCopy[3] output];
-      v14 = v13;
-      [selfCopy[4] output];
-      v16 = [v8 colorWithRed:v10 green:v12 blue:v14 alpha:v15];
-      v17 = selfCopy[6];
-      selfCopy[6] = v16;
-
-      if ((selfCopy[5] & 1) == 0)
-      {
-LABEL_11:
         v18 = selfCopy[6];
       }
 

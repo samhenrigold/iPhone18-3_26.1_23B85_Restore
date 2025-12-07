@@ -342,9 +342,9 @@
 
 - (BOOL)showRecordings
 {
-  v5 = &_s14descr2861AC041O5GamesON;
-  v6 = sub_24EDA569C();
-  v4[0] = 3;
+  v4[3] = &_s14descr2861AC041O5GamesON;
+  v4[4] = sub_24EDA569C();
+  LOBYTE(v4[0]) = 3;
   v2 = sub_24F91FE68();
   __swift_destroy_boxed_opaque_existential_1(v4);
   return v2 & 1;

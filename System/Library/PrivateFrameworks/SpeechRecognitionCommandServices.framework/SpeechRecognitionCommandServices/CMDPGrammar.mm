@@ -36,7 +36,7 @@
   {
     if (self->_labelFstPairVector.__begin_ != self->_labelFstPairVector.__end_)
     {
-      cmdp_fst_util::replace(self->_grammarFst.__ptr_, &self->_labelFstPairVector.__begin_);
+      cmdp_fst_util::replace(self->_grammarFst.__ptr_, &self->_labelFstPairVector);
     }
 
     self->_rebuildGrammar = 0;
@@ -321,7 +321,7 @@ LABEL_11:
           v18 = [[CMDPGrammarData alloc] initWithGrammarDataWord:v13 lmIdentifer:self->_currentBuiltInLMString commandIdentifier:self->_currentCommandIdentifier];
           [(NSMutableArray *)self->_grammarDataArray addObject:v18];
           CMDPFst::addArc(fst, nextFstState, v16, &v23, [(NSMutableArray *)self->_grammarDataArray count]- 1, 0.0);
-          std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(&self->_symbol_set, &v23.__r_.__value_.__l.__data_);
+          std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(&self->_symbol_set, &v23.__r_.__value_.__l.__data_, &v23);
 
           if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
           {

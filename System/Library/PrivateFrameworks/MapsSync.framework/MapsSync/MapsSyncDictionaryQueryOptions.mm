@@ -12,28 +12,26 @@
 
 - (NSArray)propertiesToFetch
 {
-  v2 = *(self + OBJC_IVAR____TtC8MapsSync30MapsSyncDictionaryQueryOptions_propertiesToFetch);
 
-  v3 = sub_1B63BEC94();
+  v2 = sub_1B63BEC94();
 
-  return v3;
+  return v2;
 }
 
 - (NSArray)propertiesToGroupBy
 {
   if (*(self + OBJC_IVAR____TtC8MapsSync30MapsSyncDictionaryQueryOptions_propertiesToGroupBy))
   {
-    v2 = *(self + OBJC_IVAR____TtC8MapsSync30MapsSyncDictionaryQueryOptions_propertiesToGroupBy);
 
-    v3 = sub_1B63BEC94();
+    v2 = sub_1B63BEC94();
   }
 
   else
   {
-    v3 = 0;
+    v2 = 0;
   }
 
-  return v3;
+  return v2;
 }
 
 - (void)setPropertiesToGroupBy:(id)by
@@ -48,7 +46,6 @@
     v4 = 0;
   }
 
-  v5 = *(self + OBJC_IVAR____TtC8MapsSync30MapsSyncDictionaryQueryOptions_propertiesToGroupBy);
   *(self + OBJC_IVAR____TtC8MapsSync30MapsSyncDictionaryQueryOptions_propertiesToGroupBy) = v4;
 }
 

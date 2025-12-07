@@ -3,7 +3,7 @@
 
 @implementation AXSWatchControlEnabled
 
-uint64_t ___AXSWatchControlEnabled_block_invoke()
+void *___AXSWatchControlEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

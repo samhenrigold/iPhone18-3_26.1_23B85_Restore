@@ -14,24 +14,24 @@
 
 - (BLM3U8Parser)initWithURL:(id)l
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v14 = 0;
-  v4 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:l options:8 error:&v14];
-  v5 = v14;
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0;
+  v4 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:l options:8 error:&v13];
+  v5 = v13;
   if (!v4)
   {
     v6 = BLDefaultLog();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v18 = v5;
+      v17 = v5;
       _os_log_impl(&dword_241D1F000, v6, OS_LOG_TYPE_ERROR, "Error reading playlist:  %@", buf, 0xCu);
     }
 
     v7 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v15 = *MEMORY[0x277CCA7E8];
-    v16 = v5;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+    v14 = *MEMORY[0x277CCA7E8];
+    v15 = v5;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
     v9 = [v7 initWithDomain:@"BLErrorDomain" code:26 userInfo:v8];
     error = self->_error;
     self->_error = v9;
@@ -39,7 +39,6 @@
 
   v11 = [(BLM3U8Parser *)self initWithData:v4];
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 

@@ -40,38 +40,39 @@
   if (v12)
   {
     v13 = [NSURL URLWithString:enumeratorCopy];
+    v14 = v13;
   }
 
   else
   {
     path2 = [v8 path];
-    v23[0] = path2;
-    v23[1] = enumeratorCopy;
-    v15 = [NSArray arrayWithObjects:v23 count:2];
-    v13 = [NSURL fileURLWithPathComponents:v15];
+    v24[0] = path2;
+    v24[1] = enumeratorCopy;
+    v16 = [NSArray arrayWithObjects:v24 count:2];
+    v14 = [NSURL fileURLWithPathComponents:v16];
   }
 
-  v16 = sub_100004398();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v17 = sub_100004398(v13);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
-    fileSystemRepresentation = [v13 fileSystemRepresentation];
-    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Creating an enumerator at %{public}s", buf, 0xCu);
+    fileSystemRepresentation = [v14 fileSystemRepresentation];
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Creating an enumerator at %{public}s", buf, 0xCu);
   }
 
-  if (v13)
+  if (v14)
   {
-    v17 = +[NSFileManager defaultManager];
-    v18 = [NSArray arrayWithObjects:NSURLIsDirectoryKey, NSURLNameKey, NSURLPathKey, NSURLCreationDateKey, 0];
-    v19 = [v17 enumeratorAtURL:v13 includingPropertiesForKeys:v18 options:flags errorHandler:&stru_10000C770];
+    v18 = +[NSFileManager defaultManager];
+    v19 = [NSArray arrayWithObjects:NSURLIsDirectoryKey, NSURLNameKey, NSURLPathKey, NSURLCreationDateKey, 0];
+    v20 = [v18 enumeratorAtURL:v14 includingPropertiesForKeys:v19 options:flags errorHandler:&stru_10000C770];
   }
 
   else
   {
-    v19 = 0;
+    v20 = 0;
   }
 
-  return v19;
+  return v20;
 }
 
 - (id)initCacheEnumeratorWithVolume:(id)volume WithFlags:(unint64_t)flags
@@ -122,7 +123,7 @@
 
           else
           {
-            v18 = sub_100004398();
+            v18 = sub_100004398(0);
             if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
             {
               uTF8String = [v16 UTF8String];

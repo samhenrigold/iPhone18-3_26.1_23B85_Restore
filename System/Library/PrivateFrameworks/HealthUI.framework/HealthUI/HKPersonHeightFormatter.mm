@@ -6,6 +6,7 @@
 - (id)formattedValueForFeet:(double)feet;
 - (id)formattedValueForInches:(double)inches;
 - (id)localizedStringFromHeightInCentimeters:(id)centimeters;
+- (void)_localeChanged:(id)changed;
 - (void)dealloc;
 - (void)getFeet:(int64_t *)feet inches:(int64_t *)inches fromCentimeters:(double)centimeters;
 @end
@@ -26,9 +27,11 @@
 
 uint64_t __42__HKPersonHeightFormatter_sharedFormatter__block_invoke()
 {
-  sharedFormatter___sharedFormatter = objc_alloc_init(HKPersonHeightFormatter);
+  v0 = objc_alloc_init(HKPersonHeightFormatter);
+  v1 = sharedFormatter___sharedFormatter;
+  sharedFormatter___sharedFormatter = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (HKPersonHeightFormatter)init
@@ -76,6 +79,13 @@ uint64_t __42__HKPersonHeightFormatter_sharedFormatter__block_invoke()
   v4.receiver = self;
   v4.super_class = HKPersonHeightFormatter;
   [(HKPersonHeightFormatter *)&v4 dealloc];
+}
+
+- (void)_localeChanged:(id)changed
+{
+  usesImperialUnits = self->_usesImperialUnits;
+  self->_usesImperialUnits = 0;
+  MEMORY[0x1EEE66BB8](self, usesImperialUnits);
 }
 
 - (BOOL)usesImperialUnits

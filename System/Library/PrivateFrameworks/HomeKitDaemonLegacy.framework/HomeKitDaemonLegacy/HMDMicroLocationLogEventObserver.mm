@@ -83,15 +83,16 @@
 
 uint64_t __47__HMDMicroLocationLogEventObserver_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  logCategory__hmf_once_v2_3370 = HMFCreateOSLogHandle();
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v2_3370;
+  logCategory__hmf_once_v2_3370 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (id)isEligibleForDonationWithHAPServiceType:(void *)type HAPCharacteristicType:
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   typeCopy = type;
   if (self)
@@ -132,9 +133,9 @@ uint64_t __47__HMDMicroLocationLogEventObserver_logCategory__block_invoke()
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         v15 = HMFGetLogIdentifier();
-        v18 = 138543362;
-        v19 = v15;
-        _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@Event ineligible for donation because data source is nil", &v18, 0xCu);
+        v17 = 138543362;
+        v18 = v15;
+        _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@Event ineligible for donation because data source is nil", &v17, 0xCu);
       }
 
       objc_autoreleasePoolPop(v12);
@@ -142,7 +143,6 @@ uint64_t __47__HMDMicroLocationLogEventObserver_logCategory__block_invoke()
     }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return self;
 }
 

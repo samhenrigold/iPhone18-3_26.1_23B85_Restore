@@ -59,7 +59,7 @@ void __61___UIOPrototypeMenuBarViewController__loadAndRenderBaseMenu___block_inv
 {
   v69[2] = *MEMORY[0x1E69E9840];
   v45 = a2;
-  v46 = [v45 menu];
+  v46 = objc_msgSend_menu(v45);
   v51 = [MEMORY[0x1E695DF70] array];
   v53 = [v46 children];
   if ([v53 count])
@@ -397,7 +397,7 @@ void __78___UIOPrototypeMenuBarViewController__dismissDueToUserDismissal_informi
   }
 }
 
-uint64_t __77___UIOPrototypeMenuBarViewController_serviceConnectionDidInvalidateMainMenu___block_invoke(uint64_t a1)
+void *__77___UIOPrototypeMenuBarViewController_serviceConnectionDidInvalidateMainMenu___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 1088) setUserInteractionEnabled:1];
   *(*(a1 + 32) + 994) = 0;

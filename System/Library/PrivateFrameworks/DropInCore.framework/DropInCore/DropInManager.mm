@@ -40,7 +40,7 @@
   homeCopy = home;
   accessoryCopy = accessory;
   selfCopy = self;
-  sub_249E1B1A0();
+  sub_249E1B1A0(homeCopy, accessoryCopy, "Did add accessory %@ to home %@", &unk_285D08868, &unk_249E7E108);
 }
 
 - (void)home:(id)home didRemoveAccessory:(id)accessory
@@ -48,21 +48,21 @@
   homeCopy = home;
   accessoryCopy = accessory;
   selfCopy = self;
-  sub_249E1B1A0();
+  sub_249E1B1A0(homeCopy, accessoryCopy, "Did remove accessory %@ from home %@", &unk_285D08840, &unk_249E7E0F8);
 }
 
 - (void)accessoryDidUpdateName:(id)name
 {
   nameCopy = name;
   selfCopy = self;
-  sub_249E1B758();
+  sub_249E1B758(nameCopy, "Did update accessory name %@ in home %s", &unk_285D08818, &unk_249E7E0E8);
 }
 
 - (void)accessoryDidUpdateSupportedCapabilities:(id)capabilities
 {
   capabilitiesCopy = capabilities;
   selfCopy = self;
-  sub_249E1B758();
+  sub_249E1B758(capabilitiesCopy, "Did update accessory capabilities %@ in home %s", &unk_285D087F0, &unk_249E7E0D0);
 }
 
 - (void)home:(id)home didAddUser:(id)user

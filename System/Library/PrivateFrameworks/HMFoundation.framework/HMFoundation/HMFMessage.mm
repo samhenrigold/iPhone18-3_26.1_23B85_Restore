@@ -69,26 +69,24 @@
 
 + (NSSet)allowedClassesForXPC
 {
-  v7[14] = *MEMORY[0x277D85DE8];
+  v6[14] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
-  v7[0] = objc_opt_class();
-  v7[1] = objc_opt_class();
-  v7[2] = objc_opt_class();
-  v7[3] = objc_opt_class();
-  v7[4] = objc_opt_class();
-  v7[5] = objc_opt_class();
-  v7[6] = objc_opt_class();
-  v7[7] = objc_opt_class();
-  v7[8] = objc_opt_class();
-  v7[9] = objc_opt_class();
-  v7[10] = objc_opt_class();
-  v7[11] = objc_opt_class();
-  v7[12] = objc_opt_class();
-  v7[13] = objc_opt_class();
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:14];
+  v6[0] = objc_opt_class();
+  v6[1] = objc_opt_class();
+  v6[2] = objc_opt_class();
+  v6[3] = objc_opt_class();
+  v6[4] = objc_opt_class();
+  v6[5] = objc_opt_class();
+  v6[6] = objc_opt_class();
+  v6[7] = objc_opt_class();
+  v6[8] = objc_opt_class();
+  v6[9] = objc_opt_class();
+  v6[10] = objc_opt_class();
+  v6[11] = objc_opt_class();
+  v6[12] = objc_opt_class();
+  v6[13] = objc_opt_class();
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:14];
   v4 = [v2 setWithArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -283,7 +281,7 @@
 
 - (HMFMessage)initWithName:(id)name qualityOfService:(int64_t)service destination:(id)destination userInfo:(id)info headers:(id)headers payload:(id)payload
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   destinationCopy = destination;
   infoCopy = info;
@@ -292,15 +290,15 @@
   if (!nameCopy)
   {
     v24 = objc_autoreleasePoolPush();
-    v25 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v26 = HMFGetOSLogHandle(0, v25);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
-      v26 = HMFGetLogIdentifier(0);
+      v27 = HMFGetLogIdentifier(0);
       *buf = 138543362;
-      v32 = v26;
-      v27 = "%{public}@Name is a required argument";
+      v33 = v27;
+      v28 = "%{public}@Name is a required argument";
 LABEL_10:
-      _os_log_impl(&dword_22ADEC000, v25, OS_LOG_TYPE_ERROR, v27, buf, 0xCu);
+      _os_log_impl(&dword_22ADEC000, v26, OS_LOG_TYPE_ERROR, v28, buf, 0xCu);
     }
 
 LABEL_11:
@@ -313,13 +311,13 @@ LABEL_11:
   if (!destinationCopy)
   {
     v24 = objc_autoreleasePoolPush();
-    v25 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v26 = HMFGetOSLogHandle(0, v29);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
-      v26 = HMFGetLogIdentifier(0);
+      v27 = HMFGetLogIdentifier(0);
       *buf = 138543362;
-      v32 = v26;
-      v27 = "%{public}@Destination is a required argument";
+      v33 = v27;
+      v28 = "%{public}@Destination is a required argument";
       goto LABEL_10;
     }
 
@@ -336,9 +334,9 @@ LABEL_11:
   [(HMFMessageInternal *)v19 setUserInfo:infoCopy];
   [(HMFMessageInternal *)v19 setHeaders:headersCopy];
   [(HMFMessageInternal *)v19 setMessagePayload:payloadCopy];
-  v30.receiver = self;
-  v30.super_class = HMFMessage;
-  v21 = [(HMFMessage *)&v30 init];
+  v31.receiver = self;
+  v31.super_class = HMFMessage;
+  v21 = [(HMFMessage *)&v31 init];
   v22 = v21;
   if (v21)
   {
@@ -350,7 +348,6 @@ LABEL_11:
   selfCopy = self;
 LABEL_12:
 
-  v28 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -763,24 +760,22 @@ LABEL_16:
   {
     v5 = +[HMFFlow internalOnlyInitializer];
     v6 = objc_autoreleasePoolPush();
-    v7 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = HMFGetOSLogHandle(0, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v8 = HMFGetLogIdentifier(0);
+      v9 = HMFGetLogIdentifier(0);
       uUID = [v5 UUID];
       v12 = 138543874;
-      v13 = v8;
+      v13 = v9;
       v14 = 2112;
       v15 = uUID;
       v16 = 2112;
       selfCopy = self;
-      _os_log_impl(&dword_22ADEC000, v7, OS_LOG_TYPE_INFO, "%{public}@[NewFlow: %@ {Feature:Error}] Incorrect Flow Usage: Expected, but did not find, flow for message: %@", &v12, 0x20u);
+      _os_log_impl(&dword_22ADEC000, v8, OS_LOG_TYPE_INFO, "%{public}@[NewFlow: %@ {Feature:Error}] Incorrect Flow Usage: Expected, but did not find, flow for message: %@", &v12, 0x20u);
     }
 
     objc_autoreleasePoolPop(v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -902,7 +897,7 @@ LABEL_16:
 
 - (id)errorForKey:(id)key
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   messagePayload = [(HMFMessage *)self messagePayload];
   v6 = [messagePayload hmf_errorForKey:keyCopy];
@@ -914,40 +909,36 @@ LABEL_16:
 
   else
   {
-    v11[0] = objc_opt_class();
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+    v10[0] = objc_opt_class();
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
     v7 = [(HMFMessage *)self unarchivedObjectForKey:keyCopy ofClasses:v8];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 - (id)calendarForKey:(id)key
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   keyCopy = key;
-  v9[0] = objc_opt_class();
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+  v8[0] = objc_opt_class();
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   v6 = [(HMFMessage *)self unarchivedObjectForKey:keyCopy ofClasses:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 - (id)predicateForKey:(id)key
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   v3 = [(HMFMessage *)self dataForKey:key];
   if (v3)
   {
     v4 = MEMORY[0x277CCAAC8];
     v5 = MEMORY[0x277CBEB98];
-    v12[0] = objc_opt_class();
-    v12[1] = objc_opt_class();
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
+    v11[0] = objc_opt_class();
+    v11[1] = objc_opt_class();
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
     v7 = [v5 setWithArray:v6];
     v8 = [v4 unarchivedObjectOfClasses:v7 fromData:v3 error:0];
 
@@ -967,22 +958,20 @@ LABEL_16:
     v9 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (id)arrayOfDateComponentsForKey:(id)key
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   v3 = [(HMFMessage *)self dataForKey:key];
   if (v3)
   {
     v4 = MEMORY[0x277CCAAC8];
     v5 = MEMORY[0x277CBEB98];
-    v12[0] = objc_opt_class();
-    v12[1] = objc_opt_class();
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
+    v11[0] = objc_opt_class();
+    v11[1] = objc_opt_class();
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
     v7 = [v5 setWithArray:v6];
     v8 = [v4 unarchivedObjectOfClasses:v7 fromData:v3 error:0];
 
@@ -1002,8 +991,6 @@ LABEL_16:
   {
     v9 = 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

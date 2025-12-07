@@ -4,20 +4,29 @@
 - (CGRect)_defaultInitialViewFrame;
 - (DRViewController)initWithDelegate:(id)delegate initialFrame:(CGRect)frame;
 - (DRViewControllerDelegate)delegate;
+- (id)newSessionControllerForSession:(unsigned int)session;
 - (id)sessionViewModelForAddingTouch:(id)touch;
 - (id)sessionViewModelForBeginningDragManipulationAtLocation:(CGPoint)location;
+- (id)viewModelForSessionID:(unsigned int)d;
+- (id)visibleDroppedItemsForSession:(unsigned int)session transform:(CATransform3D *)transform targetScreen:(id)screen;
 - (unsigned)sessionIDForViewModel:(id)model;
 - (void)addSession:(id)session withSourceClient:(id)client touchIDs:(id)ds itemCount:(unint64_t)count centroid:(CAPoint3D)centroid sourceContextID:(unsigned int)d initialCentroidInSourceContext:(CAPoint3D)context preferredPreviewIndexes:(id)self0;
+- (void)animateOutVisibleItemsForSession:(unsigned int)session withOperation:(unint64_t)operation;
 - (void)configurePortalViewForDragSessionOriginatingFromViewController:(id)controller;
+- (void)configureSetDownAnimationPortalForLayerContext:(id)context sessionIdentifier:(unsigned int)identifier;
 - (void)dealloc;
+- (void)fenceForSession:(unsigned int)session withHandle:(id)handle;
 - (void)loadView;
+- (void)moveSessionWithID:(unsigned int)d toLocation:(CAPoint3D)location;
 - (void)observeInterfaceOrientationUpdates;
 - (void)orientationObserver:(id)observer orientationDidChange:(id)change;
+- (void)removeSession:(unsigned int)session immediately:(BOOL)immediately;
 - (void)removeTouches:(id)touches;
 - (void)sessionController:(id)controller didUpdatePresentation:(id)presentation;
 - (void)sessionController:(id)controller requestImagesForClient:(id)client itemIndexes:(id)indexes;
 - (void)sessionController:(id)controller setTouchOffset:(CGPoint)offset;
 - (void)teardownPortalViewForDragSessionOriginatingFromViewController:(id)controller;
+- (void)teardownSetDownAnimationPortalForSessionIdentifier:(unsigned int)identifier;
 - (void)updateWithTouches:(id)touches;
 @end
 
@@ -284,6 +293,58 @@
   [v26 viewModelInvalidated:model22];
 }
 
+- (id)newSessionControllerForSession:(unsigned int)session
+{
+  v3 = *&session;
+  v5 = [DRSessionController alloc];
+
+  return [(DRSessionController *)v5 initWithSessionID:v3 delegate:self];
+}
+
+- (void)removeSession:(unsigned int)session immediately:(BOOL)immediately
+{
+  immediatelyCopy = immediately;
+  v5 = *&session;
+  controllers = [(DRViewController *)self controllers];
+  v8 = [NSNumber numberWithUnsignedInt:v5];
+  v9 = [controllers objectForKeyedSubscript:v8];
+
+  if (v9)
+  {
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = sub_1000065B0;
+    v15[3] = &unk_100054DA0;
+    v10 = v9;
+    v16 = v10;
+    selfCopy = self;
+    v18 = v5;
+    v11 = objc_retainBlock(v15);
+    if (immediatelyCopy && (-[DRViewController pendingRemovalControllers](self, "pendingRemovalControllers"), v12 = objc_claimAutoreleasedReturnValue(), v13 = [v12 containsObject:v10], v12, (v13 & 1) == 0))
+    {
+      (v11[2])(v11);
+    }
+
+    else
+    {
+      [v10 performAfterAnimationsComplete:v11];
+      pendingRemovalControllers = [(DRViewController *)self pendingRemovalControllers];
+      [pendingRemovalControllers addObject:v10];
+    }
+  }
+}
+
+- (id)viewModelForSessionID:(unsigned int)d
+{
+  v3 = *&d;
+  controllers = [(DRViewController *)self controllers];
+  v5 = [NSNumber numberWithUnsignedInt:v3];
+  v6 = [controllers objectForKeyedSubscript:v5];
+  model = [v6 model];
+
+  return model;
+}
+
 - (unsigned)sessionIDForViewModel:(id)model
 {
   modelCopy = model;
@@ -397,6 +458,20 @@ LABEL_11:
   }
 }
 
+- (void)moveSessionWithID:(unsigned int)d toLocation:(CAPoint3D)location
+{
+  z = location.z;
+  y = location.y;
+  x = location.x;
+  v7 = *&d;
+  controllers = [(DRViewController *)self controllers];
+  v9 = [NSNumber numberWithUnsignedInt:v7];
+  v11 = [controllers objectForKeyedSubscript:v9];
+
+  model = [v11 model];
+  [model updateLocationWithoutTouches:{x, y, z}];
+}
+
 - (id)sessionViewModelForAddingTouch:(id)touch
 {
   touchCopy = touch;
@@ -409,49 +484,50 @@ LABEL_11:
   {
     [touchCopy locationInView:0];
     v7 = v6;
+    v9 = v8;
     window = [touchCopy window];
     screen = [window screen];
     view = [(DRViewController *)self view];
     window2 = [view window];
     screen2 = [window2 screen];
-    v13 = sub_100002024(screen, screen2, v7);
-    v15 = v14;
+    v15 = sub_100002024(screen, screen2, v7, v9);
+    v17 = v16;
 
     window3 = [touchCopy window];
     windowScene = [window3 windowScene];
-    v18 = sub_100001F60(windowScene);
+    v20 = sub_100001F60(windowScene);
 
+    v44 = 0u;
+    v45 = 0u;
     v42 = 0u;
     v43 = 0u;
-    v40 = 0u;
-    v41 = 0u;
     controllers = [(DRViewController *)self controllers];
     objectEnumerator = [controllers objectEnumerator];
 
-    v21 = [objectEnumerator countByEnumeratingWithState:&v40 objects:v45 count:16];
-    if (v21)
+    v23 = [objectEnumerator countByEnumeratingWithState:&v42 objects:v47 count:16];
+    if (v23)
     {
-      v22 = v21;
-      v23 = *v41;
+      v24 = v23;
+      v25 = *v43;
 LABEL_5:
-      v24 = 0;
+      v26 = 0;
       while (1)
       {
-        if (*v41 != v23)
+        if (*v43 != v25)
         {
           objc_enumerationMutation(objectEnumerator);
         }
 
-        model = [*(*(&v40 + 1) + 8 * v24) model];
-        if ([model acceptsSynthesizedTouchAtLocation:v18 displayIdentifier:{v13, v15}])
+        model = [*(*(&v42 + 1) + 8 * v26) model];
+        if ([model acceptsSynthesizedTouchAtLocation:v20 displayIdentifier:{v15, v17}])
         {
           break;
         }
 
-        if (v22 == ++v24)
+        if (v24 == ++v26)
         {
-          v22 = [objectEnumerator countByEnumeratingWithState:&v40 objects:v45 count:16];
-          if (v22)
+          v24 = [objectEnumerator countByEnumeratingWithState:&v42 objects:v47 count:16];
+          if (v24)
           {
             goto LABEL_5;
           }
@@ -465,48 +541,48 @@ LABEL_5:
     {
 LABEL_11:
 
+      v40 = 0u;
+      v41 = 0u;
       v38 = 0u;
       v39 = 0u;
-      v36 = 0u;
-      v37 = 0u;
       controllers2 = [(DRViewController *)self controllers];
       objectEnumerator = [controllers2 objectEnumerator];
 
-      v26 = [objectEnumerator countByEnumeratingWithState:&v36 objects:v44 count:16];
-      if (v26)
+      v28 = [objectEnumerator countByEnumeratingWithState:&v38 objects:v46 count:16];
+      if (v28)
       {
-        v27 = v26;
-        v28 = *v37;
+        v29 = v28;
+        v30 = *v39;
         while (2)
         {
-          for (i = 0; i != v27; i = i + 1)
+          for (i = 0; i != v29; i = i + 1)
           {
-            if (*v37 != v28)
+            if (*v39 != v30)
             {
               objc_enumerationMutation(objectEnumerator);
             }
 
-            v30 = *(*(&v36 + 1) + 8 * i);
-            model = [v30 model];
-            view2 = [v30 view];
+            v32 = *(*(&v38 + 1) + 8 * i);
+            model = [v32 model];
+            view2 = [v32 view];
             _window = [view2 _window];
 
             if (_window)
             {
               [view2 setUserInteractionEnabled:1];
-              v33 = [view2 hitTest:0 withEvent:{v13, v15}];
+              v35 = [view2 hitTest:0 withEvent:{v15, v17}];
               [view2 setUserInteractionEnabled:0];
-              if (v33)
+              if (v35)
               {
-                v34 = v33 == view2;
+                v36 = v35 == view2;
               }
 
               else
               {
-                v34 = 1;
+                v36 = 1;
               }
 
-              if (!v34 && ([model canAddTouches] & 1) != 0)
+              if (!v36 && ([model canAddTouches] & 1) != 0)
               {
 
                 goto LABEL_27;
@@ -514,8 +590,8 @@ LABEL_11:
             }
           }
 
-          v27 = [objectEnumerator countByEnumeratingWithState:&v36 objects:v44 count:16];
-          if (v27)
+          v29 = [objectEnumerator countByEnumeratingWithState:&v38 objects:v46 count:16];
+          if (v29)
           {
             continue;
           }
@@ -682,18 +758,21 @@ LABEL_18:
     }
   }
 
-  memset(&v28, 0, sizeof(v28));
-  CGAffineTransformMakeRotation(&v28, v18 - v17);
-  v26 = v28;
-  CGAffineTransformInvert(&v27, &v26);
-  v26 = v27;
-  [v12 setTransform:&v26];
+  memset(&v34, 0, sizeof(v34));
+  CGAffineTransformMakeRotation(&v34, v18 - v17);
+  v32 = v34;
+  CGAffineTransformInvert(&v33, &v32);
+  v32 = v33;
+  [v12 setTransform:&v32];
   view2 = [controllerCopy view];
   [view2 bounds];
   v22 = v21;
+  v24 = v23;
+  v26 = v25;
+  v28 = v27;
   _screen = [controllerCopy _screen];
   _screen2 = [(DRViewController *)self _screen];
-  [v12 setFrame:{sub_100002334(_screen, _screen2, v22)}];
+  [v12 setFrame:{sub_100002334(_screen, _screen2, v22, v24, v26, v28)}];
 
   view3 = [(DRViewController *)self view];
   [view3 addSubview:v12];
@@ -785,6 +864,123 @@ LABEL_18:
     }
 
     while (v19);
+  }
+}
+
+- (void)fenceForSession:(unsigned int)session withHandle:(id)handle
+{
+  v4 = *&session;
+  handleCopy = handle;
+  controllers = [(DRViewController *)self controllers];
+  v7 = [NSNumber numberWithUnsignedInt:v4];
+  v8 = [controllers objectForKeyedSubscript:v7];
+
+  if (v8)
+  {
+    [UIScene _synchronizeDrawingWithFence:handleCopy];
+    view = [v8 view];
+    superview = [view superview];
+
+    if (!superview)
+    {
+      view2 = [(DRViewController *)self view];
+      [view2 bounds];
+      [view setFrame:?];
+
+      contentView = [(DRViewController *)self contentView];
+      [contentView addSubview:view];
+    }
+  }
+}
+
+- (id)visibleDroppedItemsForSession:(unsigned int)session transform:(CATransform3D *)transform targetScreen:(id)screen
+{
+  v6 = *&session;
+  screenCopy = screen;
+  controllers = [(DRViewController *)self controllers];
+  v10 = [NSNumber numberWithUnsignedInt:v6];
+  v11 = [controllers objectForKeyedSubscript:v10];
+
+  v12 = *&transform->m33;
+  v18[4] = *&transform->m31;
+  v18[5] = v12;
+  v13 = *&transform->m43;
+  v18[6] = *&transform->m41;
+  v18[7] = v13;
+  v14 = *&transform->m13;
+  v18[0] = *&transform->m11;
+  v18[1] = v14;
+  v15 = *&transform->m23;
+  v18[2] = *&transform->m21;
+  v18[3] = v15;
+  v16 = [v11 visibleDroppedItemsInTargetScreen:screenCopy transform:v18];
+
+  return v16;
+}
+
+- (void)animateOutVisibleItemsForSession:(unsigned int)session withOperation:(unint64_t)operation
+{
+  v5 = *&session;
+  controllers = [(DRViewController *)self controllers];
+  v7 = [NSNumber numberWithUnsignedInt:v5];
+  v8 = [controllers objectForKeyedSubscript:v7];
+
+  [v8 animateOutWithOperation:operation];
+}
+
+- (void)configureSetDownAnimationPortalForLayerContext:(id)context sessionIdentifier:(unsigned int)identifier
+{
+  v4 = *&identifier;
+  contextCopy = context;
+  if ([contextCopy setDownAnimationContextID])
+  {
+    v6 = objc_opt_new();
+    setDownAnimationContextID = [contextCopy setDownAnimationContextID];
+    portalLayer = [v6 portalLayer];
+    [portalLayer setSourceContextId:setDownAnimationContextID];
+
+    setDownAnimationRenderID = [contextCopy setDownAnimationRenderID];
+    portalLayer2 = [v6 portalLayer];
+    [portalLayer2 setSourceLayerRenderId:setDownAnimationRenderID];
+
+    [v6 setMatchesPosition:1];
+    [v6 setMatchesTransform:1];
+    [v6 setMatchesAlpha:1];
+    [v6 setAllowsHitTesting:1];
+    view = [(DRViewController *)self view];
+    [view addSubview:v6];
+
+    setDownAnimationPortalViewBySessionID = self->_setDownAnimationPortalViewBySessionID;
+    if (!setDownAnimationPortalViewBySessionID)
+    {
+      v13 = +[NSMutableDictionary dictionary];
+      v14 = self->_setDownAnimationPortalViewBySessionID;
+      self->_setDownAnimationPortalViewBySessionID = v13;
+
+      setDownAnimationPortalViewBySessionID = self->_setDownAnimationPortalViewBySessionID;
+    }
+
+    v15 = [NSNumber numberWithUnsignedInt:v4];
+    [(NSMutableDictionary *)setDownAnimationPortalViewBySessionID setObject:v6 forKey:v15];
+  }
+}
+
+- (void)teardownSetDownAnimationPortalForSessionIdentifier:(unsigned int)identifier
+{
+  v3 = *&identifier;
+  setDownAnimationPortalViewBySessionID = [(DRViewController *)self setDownAnimationPortalViewBySessionID];
+  v6 = [NSNumber numberWithUnsignedInt:v3];
+  v10 = [setDownAnimationPortalViewBySessionID objectForKey:v6];
+
+  v7 = v10;
+  if (v10)
+  {
+    [v10 removeFromSuperview];
+    setDownAnimationPortalViewBySessionID = self->_setDownAnimationPortalViewBySessionID;
+    v9 = [NSNumber numberWithUnsignedInt:v3];
+    [(NSMutableDictionary *)setDownAnimationPortalViewBySessionID removeObjectForKey:v9];
+
+    v7 = v10;
   }
 }
 

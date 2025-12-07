@@ -14,6 +14,8 @@
 - (void)setNotificationCustomScheduleDays:(id)days specifier:(id)specifier;
 - (void)setNotificationCustomTime:(id)time specifier:(id)specifier;
 - (void)setNotificationScheduleOptionsSetting:(id)setting specifier:(id)specifier;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation MONotificationsSettingsController
@@ -159,6 +161,28 @@ LABEL_27:
 LABEL_28:
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v9.receiver = self;
+  v9.super_class = MONotificationsSettingsController;
+  [(MONotificationsSettingsController *)&v9 viewWillAppear:appear];
+  objc_initWeak(&location, self);
+  queue = self->_queue;
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = __52__MONotificationsSettingsController_viewWillAppear___block_invoke;
+  block[3] = &unk_C520;
+  objc_copyWeak(&v7, &location);
+  block[4] = self;
+  dispatch_async(queue, block);
+  self->_savePhase = 0;
+  v5 = +[NSNotificationCenter defaultCenter];
+  [v5 addObserver:self selector:"saveDataIfNeeded" name:UIApplicationWillResignActiveNotification object:0];
+
+  objc_destroyWeak(&v7);
+  objc_destroyWeak(&location);
+}
+
 void __52__MONotificationsSettingsController_viewWillAppear___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -219,6 +243,16 @@ void __52__MONotificationsSettingsController_viewWillAppear___block_invoke_3(id 
   v7 = a1[4];
 
   [v7 reloadSpecifiers];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = MONotificationsSettingsController;
+  [(MONotificationsSettingsController *)&v5 viewWillDisappear:disappear];
+  [(MONotificationsSettingsController *)self saveDataIfNeeded];
+  v4 = +[NSNotificationCenter defaultCenter];
+  [v4 removeObserver:self name:UIApplicationWillResignActiveNotification object:0];
 }
 
 - (id)specifiers

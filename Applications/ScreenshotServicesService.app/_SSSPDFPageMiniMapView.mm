@@ -383,7 +383,7 @@
   [v5 bounds];
   if (v14)
   {
-    [v14 _transformToConvertToRect:v16 fromRect:{v18, v20, v22, v23, v24, v25, v26}];
+    objc_msgSend__transformToConvertToRect_fromRect_(v14, v16, v18, v20, v22, v23, v24, v25, v26);
   }
 
   else
@@ -456,41 +456,41 @@
 + (double)adjustedTranslationForProposedRect:(CGFloat)rect originalRect:(CGFloat)originalRect scaledContentViewBounds:(double)bounds
 {
   Width = CGRectGetWidth(*&self);
-  v30.origin.x = a9;
-  v30.origin.y = a10;
-  v30.size.width = a11;
-  v30.size.height = a12;
+  v25.origin.x = a9;
+  v25.origin.y = a10;
+  v25.size.width = a11;
+  v25.size.height = a12;
   boundsCopy = bounds;
-  if (Width < CGRectGetWidth(v30))
+  if (Width < CGRectGetWidth(v25))
   {
-    v31.origin.x = self;
-    v31.origin.y = a2;
-    v31.size.width = rect;
-    v31.size.height = originalRect;
-    MinX = CGRectGetMinX(v31);
-    v32.origin.x = a9;
-    v32.origin.y = a10;
-    v32.size.width = a11;
-    v32.size.height = a12;
-    v23 = CGRectGetMinX(v32);
-    if (MinX < v23)
+    v26.origin.x = self;
+    v26.origin.y = a2;
+    v26.size.width = rect;
+    v26.size.height = originalRect;
+    MinX = CGRectGetMinX(v26);
+    v27.origin.x = a9;
+    v27.origin.y = a10;
+    v27.size.width = a11;
+    v27.size.height = a12;
+    v18 = CGRectGetMinX(v27);
+    if (MinX < v18)
     {
-      MinX = v23;
+      MinX = v18;
     }
 
-    v33.origin.x = a9;
-    v33.origin.y = a10;
-    v33.size.width = a11;
-    v33.size.height = a12;
-    MaxX = CGRectGetMaxX(v33);
-    v34.origin.x = self;
-    v34.origin.y = a2;
-    v34.size.width = rect;
-    v34.size.height = originalRect;
-    v25 = MaxX - CGRectGetWidth(v34);
-    if (MinX >= v25)
+    v28.origin.x = a9;
+    v28.origin.y = a10;
+    v28.size.width = a11;
+    v28.size.height = a12;
+    MaxX = CGRectGetMaxX(v28);
+    v29.origin.x = self;
+    v29.origin.y = a2;
+    v29.size.width = rect;
+    v29.size.height = originalRect;
+    v20 = MaxX - CGRectGetWidth(v29);
+    if (MinX >= v20)
     {
-      boundsCopy = v25;
+      boundsCopy = v20;
     }
 
     else
@@ -499,37 +499,37 @@
     }
   }
 
-  v35.origin.x = self;
-  v35.origin.y = a2;
-  v35.size.width = rect;
-  v35.size.height = originalRect;
-  Height = CGRectGetHeight(v35);
-  v36.origin.x = a9;
-  v36.origin.y = a10;
-  v36.size.width = a11;
-  v36.size.height = a12;
-  if (Height < CGRectGetHeight(v36))
+  v30.origin.x = self;
+  v30.origin.y = a2;
+  v30.size.width = rect;
+  v30.size.height = originalRect;
+  Height = CGRectGetHeight(v30);
+  v31.origin.x = a9;
+  v31.origin.y = a10;
+  v31.size.width = a11;
+  v31.size.height = a12;
+  if (Height < CGRectGetHeight(v31))
   {
-    v37.origin.x = self;
-    v37.origin.y = a2;
-    v37.size.width = rect;
-    v37.size.height = originalRect;
-    CGRectGetMinY(v37);
-    v38.origin.x = a9;
-    v38.origin.y = a10;
-    v38.size.width = a11;
-    v38.size.height = a12;
-    CGRectGetMinY(v38);
-    v39.origin.x = a9;
-    v39.origin.y = a10;
-    v39.size.width = a11;
-    v39.size.height = a12;
-    CGRectGetMaxY(v39);
-    v40.origin.x = self;
-    v40.origin.y = a2;
-    v40.size.width = rect;
-    v40.size.height = originalRect;
-    CGRectGetHeight(v40);
+    v32.origin.x = self;
+    v32.origin.y = a2;
+    v32.size.width = rect;
+    v32.size.height = originalRect;
+    CGRectGetMinY(v32);
+    v33.origin.x = a9;
+    v33.origin.y = a10;
+    v33.size.width = a11;
+    v33.size.height = a12;
+    CGRectGetMinY(v33);
+    v34.origin.x = a9;
+    v34.origin.y = a10;
+    v34.size.width = a11;
+    v34.size.height = a12;
+    CGRectGetMaxY(v34);
+    v35.origin.x = self;
+    v35.origin.y = a2;
+    v35.size.width = rect;
+    v35.size.height = originalRect;
+    CGRectGetHeight(v35);
   }
 
   return boundsCopy - bounds;
@@ -661,7 +661,7 @@
     [pageView2 bounds];
     if (v11)
     {
-      [v11 _transformToConvertToRect:v13 fromRect:{v15, v17, v19, v21, v22, v23, v24}];
+      objc_msgSend__transformToConvertToRect_fromRect_(v11, v13, v15, v17, v19, v21, v22, v23, v24);
     }
 
     else
@@ -722,7 +722,7 @@
     [viewCopy bounds];
     if (v11)
     {
-      [v11 _transformToConvertToRect:v14 fromRect:{v16, v18, v20, v21, v22, v23, v24}];
+      objc_msgSend__transformToConvertToRect_fromRect_(v11, v14, v16, v18, v20, v21, v22, v23, v24);
     }
 
     else

@@ -1,114 +1,106 @@
 uint64_t PaymentsFlowDelegatePlugin.__allocating_init()()
 {
   v0 = type metadata accessor for Logger();
-  v1 = OUTLINED_FUNCTION_1(v0);
-  v3 = v2;
-  v5 = *(v4 + 64);
-  __chkstk_darwin(v1);
+  OUTLINED_FUNCTION_1();
+  v2 = v1;
+  __chkstk_darwin(v3);
   OUTLINED_FUNCTION_0();
-  v8 = v7 - v6;
-  v9 = Logger.payments.unsafeMutableAddressor();
-  (*(v3 + 16))(v8, v9, v0);
-  v10 = Logger.logObject.getter();
-  v11 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v10, v11))
+  v6 = v5 - v4;
+  v7 = Logger.payments.unsafeMutableAddressor();
+  (*(v2 + 16))(v6, v7, v0);
+  v8 = Logger.logObject.getter();
+  v9 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v8, v9))
   {
-    v12 = OUTLINED_FUNCTION_3();
-    *v12 = 0;
-    _os_log_impl(&dword_0, v10, v11, "PaymentsFlowDelegatePlugin is being initialized", v12, 2u);
+    v10 = OUTLINED_FUNCTION_3();
+    *v10 = 0;
+    _os_log_impl(&dword_0, v8, v9, "PaymentsFlowDelegatePlugin is being initialized", v10, 2u);
   }
 
-  (*(v3 + 8))(v8, v0);
+  (*(v2 + 8))(v6, v0);
   static Device.current.getter();
-  outlined init with copy of FlowProviding(v23, &v20);
-  v18 = type metadata accessor for SiriKitContactResolver();
-  v19 = &protocol witness table for SiriKitContactResolver;
-  __swift_allocate_boxed_opaque_existential_1(&v17);
+  outlined init with copy of FlowProviding(v21, &v18);
+  v16 = type metadata accessor for SiriKitContactResolver();
+  v17 = &protocol witness table for SiriKitContactResolver;
+  __swift_allocate_boxed_opaque_existential_1(&v15);
   SiriKitContactResolver.init()();
-  v13 = type metadata accessor for FlowFactory();
+  v11 = type metadata accessor for FlowFactory();
   swift_allocObject();
-  v14 = FlowFactory.init(deviceState:contactResolver:)();
+  v12 = FlowFactory.init(deviceState:contactResolver:)();
   SiriPaymentsFeatureManager.init()();
-  __swift_destroy_boxed_opaque_existential_1(v23);
-  v21 = v13;
-  v22 = &protocol witness table for FlowFactory;
-  *&v20 = v14;
-  v18 = &type metadata for SiriPaymentsFeatureManager;
-  v19 = &protocol witness table for SiriPaymentsFeatureManager;
+  __swift_destroy_boxed_opaque_existential_1(v21);
+  v19 = v11;
+  v20 = &protocol witness table for FlowFactory;
+  *&v18 = v12;
+  v16 = &type metadata for SiriPaymentsFeatureManager;
+  v17 = &protocol witness table for SiriPaymentsFeatureManager;
   type metadata accessor for PaymentsFlowDelegatePlugin();
-  v15 = swift_allocObject();
-  _s19SiriPaymentsIntents13FlowProviding_pWOb_0(&v20, v15 + 16);
-  _s19SiriPaymentsIntents13FlowProviding_pWOb_0(&v17, v15 + 56);
-  return v15;
+  v13 = swift_allocObject();
+  _s19SiriPaymentsIntents13FlowProviding_pWOb_0(&v18, v13 + 16);
+  _s19SiriPaymentsIntents13FlowProviding_pWOb_0(&v15, v13 + 56);
+  return v13;
 }
 
 uint64_t PaymentsFlowDelegatePlugin.findFlowForX(parse:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   v3 = v2;
-  v46[1] = a1;
-  v49 = a2;
+  v36[1] = a1;
+  v39 = a2;
   v4 = type metadata accessor for Logger();
-  v5 = OUTLINED_FUNCTION_1(v4);
-  v7 = v6;
-  v9 = *(v8 + 64);
-  v10 = __chkstk_darwin(v5);
-  v46[0] = v46 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = __chkstk_darwin(v10);
-  v47 = v46 - v13;
-  __chkstk_darwin(v12);
-  v15 = v46 - v14;
-  v16 = type metadata accessor for Signpost.OpenSignpost();
-  v17 = *(*(v16 - 8) + 64);
-  __chkstk_darwin(v16 - 8);
+  OUTLINED_FUNCTION_1();
+  v6 = v5;
+  v8 = __chkstk_darwin(v7);
+  v36[0] = v36 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = __chkstk_darwin(v8);
+  v37 = v36 - v11;
+  __chkstk_darwin(v10);
+  v13 = v36 - v12;
+  v14 = type metadata accessor for Signpost.OpenSignpost();
+  __chkstk_darwin(v14 - 8);
   OUTLINED_FUNCTION_0();
-  v20 = v19 - v18;
-  v21 = SignpostName.findFlowForX.unsafeMutableAddressor();
-  v23 = *v21;
-  v22 = *(v21 + 8);
-  v24 = *(v21 + 16);
-  v48 = v20;
+  v17 = v16 - v15;
+  SignpostName.findFlowForX.unsafeMutableAddressor();
+  v38 = v17;
   static Signpost.begin(_:)();
-  v25 = Logger.payments.unsafeMutableAddressor();
-  v26 = *(v7 + 16);
-  v26(v15, v25, v4);
-  v27 = Logger.logObject.getter();
-  v28 = static os_log_type_t.debug.getter();
-  if (os_log_type_enabled(v27, v28))
+  v18 = Logger.payments.unsafeMutableAddressor();
+  v19 = *(v6 + 16);
+  v19(v13, v18, v4);
+  v20 = Logger.logObject.getter();
+  v21 = static os_log_type_t.debug.getter();
+  if (os_log_type_enabled(v20, v21))
   {
-    v29 = OUTLINED_FUNCTION_3();
-    *v29 = 0;
-    _os_log_impl(&dword_0, v27, v28, "#PaymentsFlowDelegatePlugin.findFlowForX(): attempting to make flow", v29, 2u);
+    v22 = OUTLINED_FUNCTION_3();
+    *v22 = 0;
+    _os_log_impl(&dword_0, v20, v21, "#PaymentsFlowDelegatePlugin.findFlowForX(): attempting to make flow", v22, 2u);
     OUTLINED_FUNCTION_2();
   }
 
-  v30 = *(v7 + 8);
-  v30(v15, v4);
-  v31 = v3[10];
-  v32 = v3[11];
-  __swift_project_boxed_opaque_existential_1(v3 + 7, v31);
-  if ((*(v32 + 8))(v31, v32))
+  v23 = *(v6 + 8);
+  v23(v13, v4);
+  v24 = v3[10];
+  v25 = v3[11];
+  __swift_project_boxed_opaque_existential_1(v3 + 7, v24);
+  if ((*(v25 + 8))(v24, v25))
   {
-    v26(v47, v25, v4);
-    v33 = Logger.logObject.getter();
-    v34 = static os_log_type_t.debug.getter();
-    if (os_log_type_enabled(v33, v34))
+    v19(v37, v18, v4);
+    v26 = Logger.logObject.getter();
+    v27 = static os_log_type_t.debug.getter();
+    if (os_log_type_enabled(v26, v27))
     {
-      v35 = OUTLINED_FUNCTION_3();
-      *v35 = 0;
-      _os_log_impl(&dword_0, v33, v34, "#PaymentsFlowDelegatePlugin.findFlowForX(): SiriPayments/NLX=1, converting parse to build flow", v35, 2u);
+      v28 = OUTLINED_FUNCTION_3();
+      *v28 = 0;
+      _os_log_impl(&dword_0, v26, v27, "#PaymentsFlowDelegatePlugin.findFlowForX(): SiriPayments/NLX=1, converting parse to build flow", v28, 2u);
       OUTLINED_FUNCTION_2();
     }
 
-    v30(v47, v4);
+    v23(v37, v4);
     Party = Parse.isFirstPartyApp()();
     static PaymentsFlowDelegatePlugin.preWarmExtensionWithIntentSignal(isFirstParty:)(Party);
-    outlined init with copy of FlowProviding((v3 + 2), v50);
-    v37 = type metadata accessor for PaymentsFlow();
-    v38 = *(v37 + 48);
-    v39 = *(v37 + 52);
+    outlined init with copy of FlowProviding((v3 + 2), v40);
+    type metadata accessor for PaymentsFlow();
     swift_allocObject();
-    v50[0] = PaymentsFlow.init(flowFactory:)();
-    lazy protocol witness table accessor for type PaymentsFlowDelegatePlugin and conformance PaymentsFlowDelegatePlugin(&lazy protocol witness table cache variable for type PaymentsFlow and conformance PaymentsFlow, 255, &type metadata accessor for PaymentsFlow);
+    v40[0] = PaymentsFlow.init(flowFactory:)();
+    lazy protocol witness table accessor for type PaymentsFlowDelegatePlugin and conformance PaymentsFlowDelegatePlugin(&lazy protocol witness table cache variable for type PaymentsFlow and conformance PaymentsFlow, 255, &type metadata accessor for PaymentsFlow, &protocol conformance descriptor for PaymentsFlow);
     Flow.eraseToAnyFlow()();
 
     static FlowSearchResult.flow(_:)();
@@ -116,82 +108,77 @@ uint64_t PaymentsFlowDelegatePlugin.findFlowForX(parse:)@<X0>(uint64_t a1@<X0>, 
 
   else
   {
-    v40 = v46[0];
-    v26(v46[0], v25, v4);
-    v41 = Logger.logObject.getter();
-    v42 = static os_log_type_t.debug.getter();
-    if (os_log_type_enabled(v41, v42))
+    v30 = v36[0];
+    v19(v36[0], v18, v4);
+    v31 = Logger.logObject.getter();
+    v32 = static os_log_type_t.debug.getter();
+    if (os_log_type_enabled(v31, v32))
     {
-      v43 = OUTLINED_FUNCTION_3();
-      *v43 = 0;
-      _os_log_impl(&dword_0, v41, v42, "#PaymentsFlowDelegatePlugin.findFlowForX(): SiriPayments/NLX=0, returning noFlow", v43, 2u);
+      v33 = OUTLINED_FUNCTION_3();
+      *v33 = 0;
+      _os_log_impl(&dword_0, v31, v32, "#PaymentsFlowDelegatePlugin.findFlowForX(): SiriPayments/NLX=0, returning noFlow", v33, 2u);
     }
 
-    v30(v40, v4);
+    v23(v30, v4);
     static FlowSearchResult.noFlow.getter();
   }
 
-  v44 = v48;
+  v34 = v38;
   Signpost.OpenSignpost.end()();
-  return outlined destroy of Signpost.OpenSignpost(v44);
+  return outlined destroy of Signpost.OpenSignpost(v34);
 }
 
 uint64_t static PaymentsFlowDelegatePlugin.preWarmExtensionWithIntentSignal(isFirstParty:)(char a1)
 {
   v2 = type metadata accessor for Logger();
-  v3 = OUTLINED_FUNCTION_1(v2);
-  v5 = v4;
-  v7 = *(v6 + 64);
-  __chkstk_darwin(v3);
+  OUTLINED_FUNCTION_1();
+  v4 = v3;
+  __chkstk_darwin(v5);
   OUTLINED_FUNCTION_0();
-  v10 = v9 - v8;
-  v11 = type metadata accessor for Signpost.OpenSignpost();
-  v12 = *(*(v11 - 8) + 64);
-  __chkstk_darwin(v11 - 8);
+  v8 = v7 - v6;
+  v9 = type metadata accessor for Signpost.OpenSignpost();
+  __chkstk_darwin(v9 - 8);
   OUTLINED_FUNCTION_0();
-  v15 = v14 - v13;
-  v16 = SignpostName.emitIntentSignal.unsafeMutableAddressor();
-  v18 = *v16;
-  v17 = *(v16 + 8);
-  v19 = *(v16 + 16);
+  v12 = v11 - v10;
+  SignpostName.emitIntentSignal.unsafeMutableAddressor();
   static Signpost.begin(_:)();
   if (a1)
   {
-    v20 = Logger.payments.unsafeMutableAddressor();
-    (*(v5 + 16))(v10, v20, v2);
-    v21 = Logger.logObject.getter();
-    v22 = static os_log_type_t.debug.getter();
-    if (os_log_type_enabled(v21, v22))
+    v13 = Logger.payments.unsafeMutableAddressor();
+    (*(v4 + 16))(v8, v13, v2);
+    v14 = Logger.logObject.getter();
+    v15 = static os_log_type_t.debug.getter();
+    if (os_log_type_enabled(v14, v15))
     {
-      v23 = OUTLINED_FUNCTION_3();
-      *v23 = 0;
-      _os_log_impl(&dword_0, v21, v22, "#PaymentsFlowDelegatePlugin sending IntentSignal to pre-warm Wallet intent extension", v23, 2u);
+      v16 = OUTLINED_FUNCTION_3();
+      *v16 = 0;
+      _os_log_impl(&dword_0, v14, v15, "#PaymentsFlowDelegatePlugin sending IntentSignal to pre-warm Wallet intent extension", v16, 2u);
       OUTLINED_FUNCTION_2();
     }
 
-    (*(v5 + 8))(v10, v2);
-    v24 = [objc_allocWithZone(SAIntentGroupIntentSignal) init];
-    v25 = [objc_allocWithZone(INSendPaymentIntent) init];
-    v26 = static AppUtil.PASSBOOK_APP_BUNDLE_ID.getter();
-    outlined bridged method (mbnn) of @objc SAIntentGroupProtobufMessage.typeName.setter(v26, v27, v25, &selRef__setLaunchId_);
-    v28 = AppUtil.PASSBOOK_EXTENSION_BUNDLE_ID.unsafeMutableAddressor();
-    v29 = *v28;
-    v30 = v28[1];
+    (*(v4 + 8))(v8, v2);
+    v17 = [objc_allocWithZone(SAIntentGroupIntentSignal) init];
+    v18 = [objc_allocWithZone(INSendPaymentIntent) init];
+    v19 = static AppUtil.PASSBOOK_APP_BUNDLE_ID.getter();
+    outlined bridged method (mbnn) of @objc SAIntentGroupProtobufMessage.typeName.setter(v19, v20, v18, &selRef__setLaunchId_);
+    v21 = AppUtil.PASSBOOK_EXTENSION_BUNDLE_ID.unsafeMutableAddressor();
+    v22 = *v21;
+    v23 = v21[1];
 
-    outlined bridged method (mbnn) of @objc SAIntentGroupProtobufMessage.typeName.setter(v29, v30, v25, &selRef__setExtensionBundleId_);
+    outlined bridged method (mbnn) of @objc SAIntentGroupProtobufMessage.typeName.setter(v22, v23, v18, &selRef__setExtensionBundleId_);
     type metadata accessor for SAIntentGroupProtobufMessage();
-    v31 = SAIntentGroupProtobufMessage.init(intent:)(v25);
-    [v24 setIntent:v31];
+    v24 = SAIntentGroupProtobufMessage.init(intent:)(v18);
+    [v17 setIntent:v24];
 
     static AceService.currentAsync.getter();
-    __swift_project_boxed_opaque_existential_1(v33, v33[3]);
+    __swift_project_boxed_opaque_existential_1(v26, v26[3]);
     AceServiceInvokerAsync.submitAndForget(_:)();
 
-    __swift_destroy_boxed_opaque_existential_1(v33);
+    __swift_destroy_boxed_opaque_existential_1(v26);
   }
 
   Signpost.OpenSignpost.end()();
-  return outlined destroy of Signpost.OpenSignpost(v15);
+  return outlined destroy of Signpost.OpenSignpost(v12);
 }
 
 id SAIntentGroupProtobufMessage.init(intent:)(void *a1)
@@ -253,7 +240,7 @@ uint64_t outlined destroy of Signpost.OpenSignpost(uint64_t a1)
   return a1;
 }
 
-uint64_t lazy protocol witness table accessor for type PaymentsFlowDelegatePlugin and conformance PaymentsFlowDelegatePlugin(unint64_t *a1, uint64_t a2, void (*a3)(uint64_t))
+uint64_t lazy protocol witness table accessor for type PaymentsFlowDelegatePlugin and conformance PaymentsFlowDelegatePlugin(unint64_t *a1, uint64_t a2, uint64_t (*a3)(uint64_t), uint64_t a4)
 {
   result = *a1;
   if (!result)
@@ -300,15 +287,17 @@ unint64_t type metadata accessor for SAIntentGroupProtobufMessage()
   return result;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_1(uint64_t *a1)
+uint64_t __swift_destroy_boxed_opaque_existential_1(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 uint64_t outlined consume of Data?(uint64_t a1, unint64_t a2)
@@ -321,13 +310,13 @@ uint64_t outlined consume of Data?(uint64_t a1, unint64_t a2)
   return a1;
 }
 
-uint64_t outlined consume of Data._Representation(uint64_t a1, unint64_t a2)
+uint64_t outlined consume of Data._Representation(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v2;
     }
   }
 }

@@ -130,34 +130,7 @@
 {
   equalCopy = equal;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
-  {
-    goto LABEL_22;
-  }
-
-  v14.receiver = self;
-  v14.super_class = GCDevicePhysicalInputDirectionPadElementDescription;
-  if (![(GCDevicePhysicalInputElementDescription *)&v14 isEqual:equalCopy])
-  {
-    goto LABEL_22;
-  }
-
-  xySources = self->_xySources;
-  if (xySources != equalCopy[7] && ![(NSArray *)xySources isEqual:?])
-  {
-    goto LABEL_22;
-  }
-
-  if (((xSources = self->_xSources, xSources == equalCopy[8]) || [(NSArray *)xSources isEqual:?]) && ((ySources = self->_ySources, ySources == equalCopy[9]) || [(NSArray *)ySources isEqual:?]) && ((upSources = self->_upSources, upSources == equalCopy[10]) || [(NSArray *)upSources isEqual:?]) && ((leftSources = self->_leftSources, leftSources == equalCopy[11]) || [(NSArray *)leftSources isEqual:?]) && ((downSources = self->_downSources, downSources == equalCopy[12]) || [(NSArray *)downSources isEqual:?]) && ((rightSources = self->_rightSources, rightSources == equalCopy[13]) || [(NSArray *)rightSources isEqual:?]) && self->_analog == *(equalCopy + 48) && self->_eventUpValueField == equalCopy[14] && self->_eventDownValueField == equalCopy[15] && self->_eventLeftValueField == equalCopy[16])
-  {
-    v12 = self->_eventRightValueField == equalCopy[17];
-  }
-
-  else
-  {
-LABEL_22:
-    v12 = 0;
-  }
+  v12 = (objc_opt_isKindOfClass() & 1) != 0 && (v14.receiver = self, v14.super_class = GCDevicePhysicalInputDirectionPadElementDescription, [(GCDevicePhysicalInputElementDescription *)&v14 isEqual:equalCopy]) && ((xySources = self->_xySources, xySources == equalCopy[7]) || [(NSArray *)xySources isEqual:?]) && ((xSources = self->_xSources, xSources == equalCopy[8]) || [(NSArray *)xSources isEqual:?]) && ((ySources = self->_ySources, ySources == equalCopy[9]) || [(NSArray *)ySources isEqual:?]) && ((upSources = self->_upSources, upSources == equalCopy[10]) || [(NSArray *)upSources isEqual:?]) && ((leftSources = self->_leftSources, leftSources == equalCopy[11]) || [(NSArray *)leftSources isEqual:?]) && ((downSources = self->_downSources, downSources == equalCopy[12]) || [(NSArray *)downSources isEqual:?]) && ((rightSources = self->_rightSources, rightSources == equalCopy[13]) || [(NSArray *)rightSources isEqual:?]) && self->_analog == *(equalCopy + 48) && self->_eventUpValueField == equalCopy[14] && self->_eventDownValueField == equalCopy[15] && self->_eventLeftValueField == equalCopy[16] && self->_eventRightValueField == equalCopy[17];
 
   return v12;
 }
@@ -165,9 +138,9 @@ LABEL_22:
 - (id)description
 {
   v3 = MEMORY[0x1E696AEC0];
-  v10.receiver = self;
-  v10.super_class = GCDevicePhysicalInputDirectionPadElementDescription;
-  v4 = [(GCDevicePhysicalInputElementDescription *)&v10 description];
+  v9.receiver = self;
+  v9.super_class = GCDevicePhysicalInputDirectionPadElementDescription;
+  v4 = [(GCDevicePhysicalInputElementDescription *)&v9 description];
   v5 = v4;
   if (self->_analog)
   {
@@ -179,10 +152,9 @@ LABEL_22:
     v6 = @"digital";
   }
 
-  eventDownValueField = self->_eventDownValueField;
-  v8 = [v3 stringWithFormat:@"Direction Pad %@ %@ ⬆%#zx ➡%#zx ⬇%#zx ⬅%#zx", v4, v6, self->_eventUpValueField, self->_eventRightValueField, eventDownValueField, self->_eventLeftValueField];
+  v7 = [v3 stringWithFormat:@"Direction Pad %@ %@ ⬆%#zx ➡%#zx ⬇%#zx ⬅%#zx", v4, v6, self->_eventUpValueField, self->_eventRightValueField, self->_eventDownValueField, self->_eventLeftValueField];
 
-  return v8;
+  return v7;
 }
 
 @end

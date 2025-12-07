@@ -5,6 +5,7 @@
 - (double)bottomInsetForLastViewElement:(id)element width:(double)width;
 - (double)topInsetForViewElement:(id)element previousViewElement:(id)viewElement width:(double)width;
 - (int64_t)layoutStyle;
+- (void)layoutStyle;
 @end
 
 @implementation SKUICardLayout
@@ -48,9 +49,9 @@
   v29 = 0;
   style = [elementCopy style];
   cardType = [style cardType];
-  v17 = [cardType isEqualToString:@"programmed"];
+  isEqualToString = objc_msgSend_isEqualToString_(cardType);
 
-  if (v17)
+  if (isEqualToString)
   {
     v18 = objc_opt_class();
     v27[3] = v18;
@@ -98,7 +99,7 @@ LABEL_11:
   return v20;
 }
 
-uint64_t __52__SKUICardLayout_layoutWithCardViewElement_context___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__52__SKUICardLayout_layoutWithCardViewElement_context___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   result = [*(*(*(a1 + 32) + 8) + 24) allowsViewElement:a2];
   if ((result & 1) == 0)
@@ -278,6 +279,42 @@ LABEL_5:
 LABEL_13:
 
   return v17;
+}
+
++ (void)allowsViewElement:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUICardLayout allowsViewElement:]";
+}
+
++ (void)layoutWithCardViewElement:(uint64_t)a3 context:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUICardLayout layoutWithCardViewElement:context:]";
+}
+
+- (void)bottomInsetForLastViewElement:(uint64_t)a3 width:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUICardLayout bottomInsetForLastViewElement:width:]";
+}
+
+- (void)layoutStyle
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUICardLayout layoutStyle]";
+}
+
+- (void)sizeForViewElement:(uint64_t)a3 width:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUICardLayout sizeForViewElement:width:]";
+}
+
+- (void)topInsetForViewElement:(uint64_t)a3 previousViewElement:(uint64_t)a4 width:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUICardLayout topInsetForViewElement:previousViewElement:width:]";
 }
 
 @end

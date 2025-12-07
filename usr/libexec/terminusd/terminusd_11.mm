@@ -1,898 +1,9 @@
-void sub_100100060(uint64_t a1, void *a2)
-{
-  v28 = a2;
-  if (a1 && [*(a1 + 160) state] == 8)
-  {
-    v4 = sub_10002A50C([NRLinkDirectorMessage alloc], *(a1 + 96));
-    v5 = v4;
-    if (!v4)
-    {
-      v7 = *(a1 + 144);
-LABEL_59:
-
-      sub_10002C0E8(v5);
-      goto LABEL_60;
-    }
-
-    objc_storeStrong(v4 + 3, a2);
-    if ((*(a1 + 58) & 1) == 0)
-    {
-      *(v5 + 8) = 1;
-    }
-
-    v6 = *(a1 + 144);
-    v34 = 0u;
-    v35 = 0u;
-    v36 = 0u;
-    v37 = 0u;
-    v7 = v6;
-    v8 = [v7 countByEnumeratingWithState:&v34 objects:v39 count:16];
-    if (!v8)
-    {
-LABEL_32:
-
-      v27 = [v7 allObjects];
-      v17 = [v27 sortedArrayUsingComparator:&stru_1001FA760];
-      v29 = 0u;
-      v30 = 0u;
-      v31 = 0u;
-      v32 = 0u;
-      v18 = [v17 countByEnumeratingWithState:&v29 objects:v38 count:16];
-      if (v18)
-      {
-        v19 = v18;
-        v20 = *v30;
-        do
-        {
-          for (i = 0; i != v19; i = i + 1)
-          {
-            if (*v30 != v20)
-            {
-              objc_enumerationMutation(v17);
-            }
-
-            v24 = *(*(&v29 + 1) + 8 * i);
-            if ([v24 state] == 8 && (objc_msgSend(v24, "isPrimary") & 1) == 0)
-            {
-              v33 = 0;
-              v25 = [v24 type];
-              v26 = [v24 subtype];
-              if (v26 > 103)
-              {
-                switch(v26)
-                {
-                  case 'y':
-                    LOBYTE(v22) = 8;
-LABEL_37:
-                    v33 = v22;
-                    v23 = [[NSData alloc] initWithBytes:&v33 length:1];
-                    sub_10002AB38(v5, 6, v23);
-
-                    continue;
-                  case 'x':
-                    LOBYTE(v22) = 1;
-                    goto LABEL_37;
-                  case 'h':
-                    LOBYTE(v22) = 7;
-                    goto LABEL_37;
-                }
-              }
-
-              else
-              {
-                switch(v26)
-                {
-                  case 'e':
-                    LOBYTE(v22) = 2;
-                    goto LABEL_37;
-                  case 'f':
-                    LOBYTE(v22) = 5;
-                    goto LABEL_37;
-                  case 'g':
-                    LOBYTE(v22) = 6;
-                    goto LABEL_37;
-                }
-              }
-
-              v22 = 0x40300020100uLL >> (8 * (v25 & 0x1F));
-              if (v25 > 5)
-              {
-                LOBYTE(v22) = 0;
-              }
-
-              goto LABEL_37;
-            }
-          }
-
-          v19 = [v17 countByEnumeratingWithState:&v29 objects:v38 count:16];
-        }
-
-        while (v19);
-      }
-
-      goto LABEL_59;
-    }
-
-    v9 = v8;
-    v10 = *v35;
-LABEL_9:
-    v11 = 0;
-    while (1)
-    {
-      if (*v35 != v10)
-      {
-        objc_enumerationMutation(v7);
-      }
-
-      v12 = *(*(&v34 + 1) + 8 * v11);
-      if ([v12 state] != 255)
-      {
-        if ([v12 isPrimary])
-        {
-          break;
-        }
-      }
-
-      if (v9 == ++v11)
-      {
-        v9 = [v7 countByEnumeratingWithState:&v34 objects:v39 count:16];
-        if (!v9)
-        {
-          goto LABEL_32;
-        }
-
-        goto LABEL_9;
-      }
-    }
-
-    v13 = [v12 type];
-    v14 = [v12 subtype];
-    if (v14 > 103)
-    {
-      switch(v14)
-      {
-        case 'y':
-          LOBYTE(v15) = 8;
-          goto LABEL_31;
-        case 'x':
-          LOBYTE(v15) = 1;
-          goto LABEL_31;
-        case 'h':
-          LOBYTE(v15) = 7;
-          goto LABEL_31;
-      }
-    }
-
-    else
-    {
-      switch(v14)
-      {
-        case 'e':
-          LOBYTE(v15) = 2;
-          goto LABEL_31;
-        case 'f':
-          LOBYTE(v15) = 5;
-          goto LABEL_31;
-        case 'g':
-          LOBYTE(v15) = 6;
-LABEL_31:
-          v33 = v15;
-          v16 = [[NSData alloc] initWithBytes:&v33 length:1];
-          sub_10002AB38(v5, 6, v16);
-
-          goto LABEL_32;
-      }
-    }
-
-    if (v13 > 5)
-    {
-      LOBYTE(v15) = 0;
-    }
-
-    else
-    {
-      v15 = 0x40300020100uLL >> (8 * (v13 & 0x1F));
-    }
-
-    goto LABEL_31;
-  }
-
-LABEL_60:
-}
-
-void sub_10010047C(uint64_t a1)
-{
-  if (a1 && sub_1000ED8A4(a1))
-  {
-    if (qword_100229238 != -1)
-    {
-      dispatch_once(&qword_100229238, &stru_1001FC340);
-    }
-
-    if (byte_100229230 == 1)
-    {
-
-      sub_1000ECF74(a1, 5u, 0);
-    }
-
-    else
-    {
-      v2 = sub_100163A30(NRDLocalDevice, *(a1 + 96));
-      v3 = v2;
-      v23 = 0u;
-      v24 = 0u;
-      v25 = 0u;
-      v26 = 0u;
-      if (v2)
-      {
-        v4 = *(v2 + 144);
-      }
-
-      else
-      {
-        v4 = 0;
-      }
-
-      v5 = v4;
-      v6 = [v5 allowedLinkSubtypes];
-
-      v7 = [v6 countByEnumeratingWithState:&v23 objects:v28 count:16];
-      if (v7)
-      {
-        v8 = v7;
-        v9 = *v24;
-        do
-        {
-          for (i = 0; i != v8; i = i + 1)
-          {
-            if (*v24 != v9)
-            {
-              objc_enumerationMutation(v6);
-            }
-
-            sub_1000ECF74(a1, 0, [*(*(&v23 + 1) + 8 * i) unsignedShortValue]);
-          }
-
-          v8 = [v6 countByEnumeratingWithState:&v23 objects:v28 count:16];
-        }
-
-        while (v8);
-      }
-
-      v21 = 0u;
-      v22 = 0u;
-      v19 = 0u;
-      v20 = 0u;
-      if (v3)
-      {
-        v11 = v3[18];
-      }
-
-      else
-      {
-        v11 = 0;
-      }
-
-      v12 = v11;
-      v13 = [v12 allowedLinkTypes];
-
-      v14 = [v13 countByEnumeratingWithState:&v19 objects:v27 count:16];
-      if (v14)
-      {
-        v15 = v14;
-        v16 = *v20;
-        do
-        {
-          for (j = 0; j != v15; j = j + 1)
-          {
-            if (*v20 != v16)
-            {
-              objc_enumerationMutation(v13);
-            }
-
-            v18 = *(*(&v19 + 1) + 8 * j);
-            if ([v18 unsignedShortValue] != 2)
-            {
-              sub_1000ECF74(a1, [v18 unsignedShortValue], 0);
-            }
-          }
-
-          v15 = [v13 countByEnumeratingWithState:&v19 objects:v27 count:16];
-        }
-
-        while (v15);
-      }
-    }
-  }
-}
-
-void sub_10010073C(uint64_t a1, void *a2)
-{
-  v172 = a2;
-  dispatch_assert_queue_V2(*(a1 + 136));
-  v9 = (a1 + 160);
-  if (*(a1 + 160) != v172)
-  {
-    v152 = v172;
-    sub_1000EC910(a1, 1012, @"%@ -> (%@)", v4, v5, v6, v7, v8, *(a1 + 160));
-    v10 = *(a1 + 160);
-    *(a1 + 41) = [v10 type];
-    v11 = *(a1 + 96);
-    v12 = _NRCopyLogObjectForNRUUID();
-    IsLevelEnabled = _NRLogIsLevelEnabled();
-
-    if (IsLevelEnabled)
-    {
-      v14 = *(a1 + 96);
-      v15 = _NRCopyLogObjectForNRUUID();
-      v156 = v10;
-      v157 = v172;
-      v154 = 1726;
-      v150 = "";
-      v152 = "[NRDDeviceConductor setPrimaryLink:]";
-      _NRLogWithArgs();
-    }
-
-    objc_storeStrong((a1 + 160), a2);
-    sub_100101814(a1);
-    v16 = sub_100163A30(NRDLocalDevice, *(a1 + 96));
-    v17 = v16;
-    if (*(a1 + 49))
-    {
-      goto LABEL_44;
-    }
-
-    v18 = v16 ? *(v16 + 144) : 0;
-    v19 = v18;
-    v20 = [v19 hasPoliciesForProxyCriteria];
-
-    if (!v20)
-    {
-      goto LABEL_44;
-    }
-
-    v21 = v17 ? v17[18] : 0;
-    v22 = v21;
-    v23 = [v22 proxyCapability];
-
-    if (v23 != 2)
-    {
-      goto LABEL_44;
-    }
-
-    if (v17)
-    {
-      v24 = v17[18];
-    }
-
-    else
-    {
-      v24 = 0;
-    }
-
-    v25 = v24;
-    v26 = [v25 proxyProviderCriteria];
-    if ([v26 excludeLegacyClients])
-    {
-
-      goto LABEL_44;
-    }
-
-    v27 = v17 ? v17[18] : 0;
-    v28 = v27;
-    v29 = [v28 proxyProviderCriteria];
-    v30 = [v29 excludeNonMatchingLegacyClients];
-
-    if (v30)
-    {
-LABEL_44:
-
-      v100 = *(a1 + 408);
-      if (v100)
-      {
-        ++v100[6];
-      }
-
-      if (*v9)
-      {
-        if (*(a1 + 448))
-        {
-          if ([v10 state] != 255)
-          {
-            sub_10013CC88(*(a1 + 448));
-          }
-        }
-
-        else
-        {
-          sub_100101D0C(a1);
-        }
-      }
-
-      if (*(a1 + 46) == 1)
-      {
-        if (*v9)
-        {
-          if (*(a1 + 42) == 1 && sub_10013CA2C())
-          {
-            *(a1 + 42) = 0;
-            v101 = 1036;
-LABEL_58:
-            sub_1000059A8(*(a1 + 96), v101, 0, 0);
-          }
-        }
-
-        else
-        {
-          LODWORD(v180[0]) = 0x10000;
-          if ((sysctlbyname("net.link.generic.system.companion_sndbuf_limit", 0, 0, v180, 4uLL) & 0x80000000) == 0)
-          {
-            *(a1 + 42) = 1;
-            v101 = 1035;
-            goto LABEL_58;
-          }
-
-          v148 = __error();
-          v149 = *v148;
-          if (strerror_r(*v148, __strerrbuf, 0x80uLL))
-          {
-            __strerrbuf[0] = 0;
-          }
-
-          if (qword_1002292D8 != -1)
-          {
-            dispatch_once(&qword_1002292D8, &stru_1001FC510);
-          }
-
-          if (_NRLogIsLevelEnabled())
-          {
-            if (qword_1002292D8 != -1)
-            {
-              dispatch_once(&qword_1002292D8, &stru_1001FC510);
-            }
-
-            v157 = v149;
-            v158 = __strerrbuf;
-            v154 = 921;
-            v156 = LODWORD(v180[0]);
-            v150 = "";
-            v152 = "NRLimitCompanionLinkFlows";
-            _NRLogWithArgs();
-          }
-        }
-      }
-
-      if (v10)
-      {
-        [v10 setIsPrimary:0];
-      }
-
-      v102 = *v9;
-      if (*v9)
-      {
-        [v102 setIsPrimary:1];
-        sub_100100060(a1, *(a1 + 160));
-        [*(a1 + 160) virtualInterface];
-        v102 = NEVirtualInterfaceCopyName();
-      }
-
-      v103 = *(a1 + 448);
-      *(a1 + 448) = v102;
-
-      v104 = [v10 type];
-      if (v172 && v104 == 1)
-      {
-        v105 = *(a1 + 96);
-        v106 = _NRCopyLogObjectForNRUUID();
-        v107 = _NRLogIsLevelEnabled();
-
-        if (v107)
-        {
-          v108 = *(a1 + 96);
-          v109 = _NRCopyLogObjectForNRUUID();
-          v154 = 1776;
-          v150 = "";
-          v152 = "[NRDDeviceConductor setPrimaryLink:]";
-          _NRLogWithArgs();
-        }
-
-        [v10 suspend];
-      }
-
-      else if ([*v9 type] == 1 && objc_msgSend(*v9, "state") != 8)
-      {
-        v110 = *(a1 + 96);
-        v111 = _NRCopyLogObjectForNRUUID();
-        v112 = _NRLogIsLevelEnabled();
-
-        if (v112)
-        {
-          v113 = *(a1 + 96);
-          v114 = _NRCopyLogObjectForNRUUID();
-          v155 = 1779;
-          v151 = "";
-          v153 = "[NRDDeviceConductor setPrimaryLink:]";
-          _NRLogWithArgs();
-        }
-
-        [v10 resume];
-      }
-
-      if ([*v9 type] != 1)
-      {
-        sub_1000FA994(a1);
-      }
-
-      sub_1000FB114(a1, 0);
-      [*(a1 + 680) removeAllObjects];
-      sub_1000E8C70(a1, 1, 1);
-      if (*(a1 + 728))
-      {
-        if (!*(a1 + 744))
-        {
-LABEL_77:
-          v115 = [NSString alloc];
-          v116 = [*(a1 + 96) UUIDString];
-          v117 = [v115 initWithFormat:@"NRDDC-%@-%@", v116, @"Availability"];
-
-          v118 = *(a1 + 744);
-          *(a1 + 744) = v117;
-        }
-      }
-
-      else
-      {
-        v133 = sub_100163A30(NRDLocalDevice, *(a1 + 96));
-        if (sub_100169428(v133))
-        {
-          v134 = "CmpLnkAvailability";
-        }
-
-        else
-        {
-          if (v133)
-          {
-            v135 = v133[18];
-          }
-
-          else
-          {
-            v135 = 0;
-          }
-
-          v136 = v135;
-          v137 = [v136 activeOperationalScope];
-
-          if ((v137 & 1) == 0)
-          {
-
-LABEL_87:
-            goto LABEL_88;
-          }
-
-          if (v133)
-          {
-            v138 = v133[18];
-          }
-
-          else
-          {
-            v138 = 0;
-          }
-
-          v139 = v138;
-          v140 = [v139 allowedLinkSubtypes];
-          v141 = [v140 containsObject:&off_100209CC8];
-
-          if (v141)
-          {
-            v134 = "LowLatencyTetheringAvailability";
-          }
-
-          else
-          {
-            v134 = "TetheringAvailability";
-          }
-        }
-
-        v142 = *(a1 + 136);
-        v143 = nw_agent_create();
-        v144 = *(a1 + 728);
-        *(a1 + 728) = v143;
-
-        v145 = *(a1 + 728);
-        nw_agent_change_state();
-        v146 = [NSString stringWithUTF8String:v134];
-        v147 = *(a1 + 736);
-        *(a1 + 736) = v146;
-
-        if (!*(a1 + 744))
-        {
-          goto LABEL_77;
-        }
-      }
-
-      objc_opt_self();
-      if (qword_100229410 != -1)
-      {
-        dispatch_once(&qword_100229410, &stru_1001FCD98);
-      }
-
-      v119 = qword_100229408;
-      sub_10015A238(v119, *(a1 + 744));
-
-      if ([*(a1 + 160) state] == 8)
-      {
-        *__strerrbuf = 0;
-        v182 = 0;
-        v120 = *(a1 + 728);
-        nw_agent_get_uuid();
-        v121 = [[NSUUID alloc] initWithUUIDBytes:__strerrbuf];
-        v122 = objc_alloc_init(NSMutableArray);
-        v123 = +[NEPolicyCondition allInterfaces];
-        [v122 addObject:v123];
-
-        v124 = [NSString stringWithUTF8String:nrXPCEntitlementDeviceMonitor];
-        v125 = [NEPolicyCondition customEntitlement:v124];
-        [v122 addObject:v125];
-
-        v126 = [NEPolicyCondition requiredAgentDomain:@"com.apple.networkrelay" agentType:*(a1 + 736)];
-        [v122 addObject:v126];
-
-        v127 = [NEPolicy alloc];
-        v128 = [NEPolicyResult netAgentUUID:v121];
-        v129 = [v127 initWithOrder:10 result:v128 conditions:v122];
-
-        objc_opt_self();
-        if (qword_100229410 != -1)
-        {
-          dispatch_once(&qword_100229410, &stru_1001FCD98);
-        }
-
-        v130 = qword_100229408;
-        v131 = sub_100159E00(v130, *(a1 + 744), v129);
-      }
-
-      objc_opt_self();
-      if (qword_100229410 != -1)
-      {
-        dispatch_once(&qword_100229410, &stru_1001FCD98);
-      }
-
-      v132 = qword_100229408;
-      sub_10015A52C(v132);
-
-      goto LABEL_87;
-    }
-
-    objc_opt_self();
-    if (qword_100229410 != -1)
-    {
-      dispatch_once(&qword_100229410, &stru_1001FCD98);
-    }
-
-    v31 = qword_100229408;
-    sub_10015A238(v31, *(a1 + 328));
-
-    v32 = [*(a1 + 160) state];
-    if (v17)
-    {
-      v33 = v17[18];
-    }
-
-    else
-    {
-      v33 = 0;
-    }
-
-    v34 = v33;
-    v35 = [v34 hasCompanionDatapath];
-
-    v36 = *v9;
-    if (v35)
-    {
-      [v36 virtualInterface];
-      v37 = NEVirtualInterfaceCopyName();
-    }
-
-    else
-    {
-      v37 = [v36 localInterfaceName];
-    }
-
-    v38 = v37;
-    if (v32 != 8)
-    {
-LABEL_41:
-      objc_opt_self();
-      if (qword_100229410 != -1)
-      {
-        dispatch_once(&qword_100229410, &stru_1001FCD98);
-      }
-
-      v99 = qword_100229408;
-      sub_10015A52C(v99);
-
-      goto LABEL_44;
-    }
-
-    v170 = v37;
-    v39 = +[NEPolicyCondition allInterfaces];
-    v40 = +[NEPolicyCondition usesModernNetworkAPI];
-    v41 = +[NEPolicyCondition allowsUnsafeSocketAccess];
-    [v41 setNegative:1];
-    v42 = [NEPolicyResult skipWithOrder:620];
-    v43 = [NEPolicy alloc];
-    *__strerrbuf = v39;
-    v182 = v40;
-    v164 = v41;
-    v165 = v40;
-    v183 = v41;
-    v44 = [NSArray arrayWithObjects:__strerrbuf count:3];
-    v45 = [v43 initWithOrder:600 result:v42 conditions:v44];
-
-    v46 = sub_1001599CC();
-    v47 = sub_100159E00(v46, *(a1 + 328), v45);
-
-    v48 = [NEPolicyCondition effectivePID:getpid()];
-    v49 = [NEPolicy alloc];
-    v169 = v39;
-    v180[0] = v39;
-    v180[1] = v48;
-    v163 = v48;
-    v50 = [NSArray arrayWithObjects:v180 count:2];
-    v168 = v42;
-    v51 = [v49 initWithOrder:600 result:v42 conditions:v50];
-
-    v52 = sub_1001599CC();
-    v171 = v51;
-    v53 = sub_100159E00(v52, *(a1 + 328), v51);
-
-    if (v17)
-    {
-      v54 = v17[18];
-    }
-
-    else
-    {
-      v54 = 0;
-    }
-
-    v55 = v170;
-    v56 = v54;
-    v57 = [v56 usesTLS];
-
-    if (v57)
-    {
-      v58 = [*(a1 + 160) remoteOuterEndpoint];
-      v59 = [v58 addressFamily];
-
-      v60 = [*(a1 + 160) remoteOuterEndpoint];
-      v61 = [v60 hostname];
-      v62 = [NWAddressEndpoint endpointWithHostname:v61 port:@"0"];
-
-      if (v59 == 30)
-      {
-        v63 = 128;
-      }
-
-      else
-      {
-        v63 = 32;
-      }
-
-      v166 = v62;
-      v64 = [NEPolicyCondition flowRemoteAddress:v62 prefix:v63, v150, v152, v154, v156, v157];
-      v178 = v64;
-      v65 = +[NEPolicyCondition allInterfaces];
-      v179 = v65;
-      v66 = [NSArray arrayWithObjects:&v178 count:2];
-
-      v67 = [[NEPolicy alloc] initWithOrder:600 result:v168 conditions:v66];
-      v68 = sub_1001599CC();
-      v69 = sub_100159E00(v68, *(a1 + 328), v67);
-    }
-
-    else
-    {
-      v70 = sub_1001689F8(v17);
-      v166 = v70;
-      if (v70)
-      {
-        v71 = [NEPolicyCondition flowRemoteAddress:v70 prefix:128];
-        v178 = v71;
-        v72 = +[NEPolicyCondition allInterfaces];
-        v179 = v72;
-        v73 = [NSArray arrayWithObjects:&v178 count:2];
-
-        v74 = [[NEPolicy alloc] initWithOrder:600 result:v168 conditions:v73];
-        v75 = sub_1001599CC();
-        v76 = sub_100159E00(v75, *(a1 + 328), v74);
-
-        v55 = v170;
-        v171 = v74;
-      }
-
-      v64 = sub_100168A4C(v17);
-      if (!v64)
-      {
-        goto LABEL_38;
-      }
-
-      v66 = [NEPolicyCondition flowRemoteAddress:v64 prefix:128];
-      v177[0] = v66;
-      v77 = +[NEPolicyCondition allInterfaces];
-      v177[1] = v77;
-      v68 = [NSArray arrayWithObjects:v177 count:2];
-
-      v67 = [[NEPolicy alloc] initWithOrder:600 result:v168 conditions:v68];
-      v78 = sub_1001599CC();
-      v79 = sub_100159E00(v78, *(a1 + 328), v67);
-    }
-
-    v171 = v67;
-
-    v55 = v170;
-LABEL_38:
-
-    v167 = [NEPolicyRouteRule routeRuleWithAction:7 forInterfaceName:v55];
-    [v167 setControlUnit:0xFFFFFFFLL];
-    v80 = [NEPolicyCondition flowIPProtocol:17];
-    v160 = [NEPolicy alloc];
-    v176 = v167;
-    v81 = [NSArray arrayWithObjects:&v176 count:1];
-    v82 = [NEPolicyResult routeRules:v81];
-    v175[0] = v169;
-    v175[1] = v80;
-    v162 = v80;
-    v83 = [NSArray arrayWithObjects:v175 count:2];
-    v159 = [v160 initWithOrder:610 result:v82 conditions:v83];
-
-    v84 = sub_1001599CC();
-    v85 = sub_100159E00(v84, *(a1 + 328), v159);
-
-    v86 = [NEPolicyCondition flowIPProtocol:6];
-    v87 = [NEPolicy alloc];
-    v174 = v167;
-    v88 = [NSArray arrayWithObjects:&v174 count:1];
-    v89 = [NEPolicyResult routeRules:v88];
-    v173[0] = v169;
-    v173[1] = v86;
-    v161 = v86;
-    v90 = [NSArray arrayWithObjects:v173 count:2];
-    v91 = [v87 initWithOrder:610 result:v89 conditions:v90];
-
-    v92 = sub_1001599CC();
-    v93 = sub_100159E00(v92, *(a1 + 328), v91);
-
-    v94 = *(a1 + 96);
-    v95 = _NRCopyLogObjectForNRUUID();
-    v96 = _NRLogIsLevelEnabled();
-
-    if (v96)
-    {
-      v97 = *(a1 + 96);
-      v98 = _NRCopyLogObjectForNRUUID();
-      v154 = 5188;
-      v156 = a1;
-      v150 = "";
-      v152 = "[NRDDeviceConductor updateFlowDivertPoliciesIfNeeded]";
-      _NRLogWithArgs();
-    }
-
-    v38 = v170;
-    goto LABEL_41;
-  }
-
-LABEL_88:
-}
-
 void sub_100101814(uint64_t a1)
 {
   v2 = sub_100163A30(NRDLocalDevice, *(a1 + 96));
   if (!sub_100140C44(v2) || !*(a1 + 424))
   {
-    goto LABEL_39;
+    goto LABEL_40;
   }
 
   if (v2)
@@ -921,137 +32,147 @@ void sub_100101814(uint64_t a1)
   v7 = *(a1 + 160);
   if (!v7)
   {
-    goto LABEL_32;
+    goto LABEL_33;
   }
 
-  if ([v7 type] != 1)
+  if ([v7 type] == 1)
   {
-    v11 = *(a1 + 160);
-    if (v11)
+    v8 = _NRCopyLogObjectForNRUUID();
+    IsLevelEnabled = _NRLogIsLevelEnabled();
+
+    if ((IsLevelEnabled & 1) == 0)
     {
-      if ([v11 type] == 2)
-      {
-        v12 = *(a1 + 96);
-        v13 = _NRCopyLogObjectForNRUUID();
-        IsLevelEnabled = _NRLogIsLevelEnabled();
-
-        if ((IsLevelEnabled & 1) == 0)
-        {
-          goto LABEL_20;
-        }
-
-        goto LABEL_19;
-      }
-
-      v15 = *(a1 + 160);
-      if (v15)
-      {
-        if ([v15 type] == 5)
-        {
-          v16 = *(a1 + 96);
-          v17 = _NRCopyLogObjectForNRUUID();
-          v18 = _NRLogIsLevelEnabled();
-
-          if ((v18 & 1) == 0)
-          {
-            goto LABEL_20;
-          }
-
-          goto LABEL_19;
-        }
-
-        if (*(a1 + 160))
-        {
-LABEL_38:
-          objc_initWeak(location, a1);
-          v43 = *(a1 + 432);
-          v44 = dispatch_time(0x8000000000000000, 1000000000 * v6);
-          v45 = *(a1 + 136);
-          block[0] = _NSConcreteStackBlock;
-          block[1] = 3221225472;
-          block[2] = sub_100101DE4;
-          block[3] = &unk_1001FD0B0;
-          v46 = v45;
-          objc_copyWeak(v49, location);
-          v49[1] = v43;
-          dispatch_after(v44, v46, block);
-
-          objc_destroyWeak(v49);
-          objc_destroyWeak(location);
-          goto LABEL_39;
-        }
-      }
+      goto LABEL_21;
     }
 
-LABEL_32:
+    v10 = 1646;
+    goto LABEL_20;
+  }
+
+  v11 = *(a1 + 160);
+  if (!v11)
+  {
+    goto LABEL_33;
+  }
+
+  if ([v11 type] == 2)
+  {
+    v12 = _NRCopyLogObjectForNRUUID();
+    v13 = _NRLogIsLevelEnabled();
+
+    if ((v13 & 1) == 0)
+    {
+      goto LABEL_21;
+    }
+
+    v10 = 1652;
+    goto LABEL_20;
+  }
+
+  v14 = *(a1 + 160);
+  if (!v14)
+  {
+    goto LABEL_33;
+  }
+
+  if ([v14 type] != 5)
+  {
+    if (*(a1 + 160))
+    {
+LABEL_39:
+      objc_initWeak(location, a1);
+      v39 = *(a1 + 432);
+      v40 = dispatch_time(0x8000000000000000, 1000000000 * v6);
+      v41 = *(a1 + 136);
+      block[0] = _NSConcreteStackBlock;
+      block[1] = 3221225472;
+      block[2] = sub_100101DE4;
+      block[3] = &unk_1001FD0B0;
+      v42 = v41;
+      objc_copyWeak(v44, location);
+      v44[1] = v39;
+      dispatch_after(v40, v42, block);
+
+      objc_destroyWeak(v44);
+      objc_destroyWeak(location);
+      goto LABEL_40;
+    }
+
+LABEL_33:
     if ((*(a1 + 28) & 1) == 0)
     {
-      v37 = *(a1 + 41);
-      if (v37 == 5 || v37 == 2)
+      v35 = *(a1 + 41);
+      if (v35 == 5 || v35 == 2)
       {
-        v38 = *(a1 + 96);
-        v39 = _NRCopyLogObjectForNRUUID();
-        v40 = _NRLogIsLevelEnabled();
+        v36 = _NRCopyLogObjectForNRUUID();
+        v37 = _NRLogIsLevelEnabled();
 
-        if (v40)
+        if (v37)
         {
-          v41 = *(a1 + 96);
-          v42 = _NRCopyLogObjectForNRUUID();
-          _NRLogWithArgs();
+          v38 = _NRCopyLogObjectForNRUUID();
+          _NRLogWithArgs(v38, 0, "%s%.30s:%-4d Skipping companion Link viability hysteresis timer", "", "[NRDDeviceConductor updateCompanionLinkViability]", 1664);
         }
 
         v6 = 0;
       }
     }
 
-    goto LABEL_38;
+    goto LABEL_39;
   }
 
-  v8 = *(a1 + 96);
-  v9 = _NRCopyLogObjectForNRUUID();
-  v10 = _NRLogIsLevelEnabled();
+  v15 = _NRCopyLogObjectForNRUUID();
+  v16 = _NRLogIsLevelEnabled();
 
-  if ((v10 & 1) == 0)
+  if ((v16 & 1) == 0)
   {
-    goto LABEL_20;
+    goto LABEL_21;
   }
 
-LABEL_19:
-  v19 = *(a1 + 96);
-  v20 = _NRCopyLogObjectForNRUUID();
-  v47 = *(a1 + 160);
-  _NRLogWithArgs();
-
+  v10 = 1658;
 LABEL_20:
-  v21 = *(a1 + 424);
+  v17 = *(a1 + 96);
+  v18 = _NRCopyLogObjectForNRUUID();
+  _NRLogWithArgs(v18, 0, "%s%.30s:%-4d Companion Link viable due to primary link: %@", "", "[NRDDeviceConductor updateCompanionLinkViability]", v10, *(a1 + 160));
+
+LABEL_21:
+  v19 = *(a1 + 424);
   ++*(a1 + 432);
-  if (v21)
+  if (v19)
   {
-    dispatch_assert_queue_V2(*(v21 + 40));
-    if (([v21 isActive] & 1) == 0)
+    dispatch_assert_queue_V2(*(v19 + 40));
+    if (([v19 isActive] & 1) == 0)
     {
-      [v21 setActive:1];
-      [*(v21 + 48) updateNetworkAgent:v21];
-      v22 = *(v21 + 32);
-      v23 = *(v21 + 64);
-      v24 = v22;
-      v25 = [v21 agentUUID];
-      v26 = [v25 UUIDString];
-      sub_1000059A8(v24, 19005, v23, v26);
+      [v19 setActive:1];
+      [*(v19 + 48) updateNetworkAgent:v19];
+      v20 = *(v19 + 32);
+      v21 = *(v19 + 64);
+      v22 = v20;
+      v23 = [v19 agentUUID];
+      v24 = [v23 UUIDString];
+      sub_1000059A8(v22, 19005, v21, v24);
     }
   }
 
   if (*(a1 + 488) && (*(a1 + 46) & 1) == 0 && (*(a1 + 60) & 1) == 0)
   {
-    v27 = NEVirtualInterfaceCopyName();
-    v28 = [NEPolicy alloc];
-    v29 = [NEPolicyResult scopeSocketToInterfaceName:v27];
-    v30 = [NEPolicyCondition accountIdentifier:@"com.apple.networkrelay.cmpn-link-monitor"];
-    location[0] = v30;
-    v31 = +[NEPolicyCondition allInterfaces];
-    location[1] = v31;
-    v32 = [NSArray arrayWithObjects:location count:2];
-    v33 = [v28 initWithOrder:50 result:v29 conditions:v32];
+    v25 = NEVirtualInterfaceCopyName();
+    v26 = [NEPolicy alloc];
+    v27 = [NEPolicyResult scopeSocketToInterfaceName:v25];
+    v28 = [NEPolicyCondition accountIdentifier:@"com.apple.networkrelay.cmpn-link-monitor"];
+    location[0] = v28;
+    v29 = +[NEPolicyCondition allInterfaces];
+    location[1] = v29;
+    v30 = [NSArray arrayWithObjects:location count:2];
+    v31 = [v26 initWithOrder:50 result:v27 conditions:v30];
+
+    objc_opt_self();
+    if (qword_100229410 != -1)
+    {
+      dispatch_once(&qword_100229410, &stru_1001FCD98);
+    }
+
+    v32 = qword_100229408;
+    v33 = sub_100159E00(v32, *(a1 + 560), v31);
 
     objc_opt_self();
     if (qword_100229410 != -1)
@@ -1060,40 +181,29 @@ LABEL_20:
     }
 
     v34 = qword_100229408;
-    v35 = sub_100159E00(v34, *(a1 + 560), v33);
-
-    objc_opt_self();
-    if (qword_100229410 != -1)
-    {
-      dispatch_once(&qword_100229410, &stru_1001FCD98);
-    }
-
-    v36 = qword_100229408;
-    sub_10015A52C(v36);
+    sub_10015A52C(v34);
 
     *(a1 + 60) = 1;
   }
 
-LABEL_39:
+LABEL_40:
 }
 
 void sub_100101D0C(uint64_t a1)
 {
   if (a1 && *(a1 + 488))
   {
-    v7 = NEVirtualInterfaceCopyName();
-    v2 = *(a1 + 96);
-    v3 = _NRCopyLogObjectForNRUUID();
+    v4 = NEVirtualInterfaceCopyName();
+    v1 = _NRCopyLogObjectForNRUUID();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (IsLevelEnabled)
     {
-      v5 = *(a1 + 96);
-      v6 = _NRCopyLogObjectForNRUUID();
-      _NRLogWithArgs();
+      v3 = _NRCopyLogObjectForNRUUID();
+      _NRLogWithArgs(v3, 1, "%s%.30s:%-4d Setting interface availability for catch-all interface %@", "", "[NRDDeviceConductor setInterfaceAvailabilityForCatchAllInterface]", 8432, v4);
     }
 
-    sub_10013CC88(v7);
+    sub_10013CC88(v4);
   }
 }
 
@@ -1102,14 +212,14 @@ void sub_100101DE4(uint64_t a1)
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained && *(WeakRetained + 14) == 1)
   {
-    v16 = WeakRetained;
+    v12 = WeakRetained;
     if (*(a1 + 40) == WeakRetained[54])
     {
       if (*(WeakRetained + 57) == 1)
       {
         sub_1000FAA10(WeakRetained, 1);
-        sub_1000FAFFC(v16);
-        WeakRetained = v16;
+        sub_1000FAFFC(v12);
+        WeakRetained = v12;
       }
 
       v3 = WeakRetained[53];
@@ -1129,29 +239,25 @@ void sub_100101DE4(uint64_t a1)
         }
       }
 
-      sub_100101F8C(v16);
+      sub_100101F8C(v12);
     }
 
     else
     {
-      v9 = WeakRetained[12];
-      v10 = _NRCopyLogObjectForNRUUID();
+      v9 = _NRCopyLogObjectForNRUUID();
       IsLevelEnabled = _NRLogIsLevelEnabled();
 
-      WeakRetained = v16;
+      WeakRetained = v12;
       if (!IsLevelEnabled)
       {
         goto LABEL_13;
       }
 
-      v12 = v16[12];
-      v13 = _NRCopyLogObjectForNRUUID();
-      v14 = *(a1 + 40);
-      v15 = v16[54];
-      _NRLogWithArgs();
+      v11 = _NRCopyLogObjectForNRUUID();
+      _NRLogWithArgs(v11, 2, "%s%.30s:%-4d Skipping viability update (%llu != %llu)", "", "[NRDDeviceConductor updateCompanionLinkViability]_block_invoke", 1691, *(a1 + 40), v12[54]);
     }
 
-    WeakRetained = v16;
+    WeakRetained = v12;
   }
 
 LABEL_13:
@@ -1207,51 +313,56 @@ void sub_100103388(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1001033B0(uint64_t a1)
+void sub_1001033B0(void **a1)
 {
   if (a1)
   {
     v4 = a1;
     if (sub_10010E200(a1))
     {
-      v5 = sub_100163A30(NRDLocalDevice, *(v4 + 96));
-      if (v5)
+      v5 = sub_100163A30(NRDLocalDevice, v4[12]);
+      if (!v5)
       {
-        v3 = v5;
-        sub_10010E27C(v4);
-        v6 = *(v4 + 488);
-        v2 = NEVirtualInterfaceCopyAddresses();
-        v7 = *(v4 + 488);
-        v122 = NEVirtualInterfaceCopyName();
-        v8 = sub_100003490();
-        dispatch_assert_queue_V2(v8);
+        v77 = sub_1000E83DC();
+        IsLevelEnabled = _NRLogIsLevelEnabled();
 
-        v9 = sub_1001679E0(v3, @"0");
-        v10 = sub_100003490();
-        dispatch_assert_queue_V2(v10);
-
-        v1 = sub_1001672A0(v3, @"0");
-        sub_10010E5CC(v4, *(v4 + 96));
-        v11 = 0;
-        if ((*(v3 + 49) & 0x10) == 0 || !v1)
+        if (IsLevelEnabled)
         {
-LABEL_16:
-          if ((*(v3 + 49) & 0x20) == 0)
-          {
-            goto LABEL_29;
-          }
-
-          goto LABEL_17;
+          v79 = sub_1000E83DC();
+          _NRLogWithArgs(v79, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: localDevice", "", "[NRDDeviceConductor setupCatchAllInterfaceIfApplicable]", 8527);
         }
 
+        v7 = _os_log_pack_size();
+        v80 = &v103 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+        v81 = *__error();
+        v82 = _os_log_pack_fill(v80, v7, v81, &_mh_execute_header, "%{public}s Assertion Failed: localDevice");
+        goto LABEL_72;
+      }
+
+      v3 = v5;
+      sub_10010E27C(v4);
+      v2 = NEVirtualInterfaceCopyAddresses();
+      v108 = NEVirtualInterfaceCopyName();
+      v6 = sub_100003490();
+      dispatch_assert_queue_V2(v6);
+
+      v7 = sub_1001679E0(v3, @"0");
+      v8 = sub_100003490();
+      dispatch_assert_queue_V2(v8);
+
+      v1 = sub_1001672A0(v3, @"0");
+      sub_10010E5CC(v4, v4[12]);
+      v9 = 0;
+      if ((*(v3 + 49) & 0x10) != 0 && v1)
+      {
         if (v2)
         {
-          v12 = [v1 hostname];
-          v13 = [v2 containsObject:v12];
+          v10 = [v1 hostname];
+          v11 = [v2 containsObject:v10];
 
-          if (v13)
+          if (v11)
           {
-            v11 = 0;
+            v9 = 0;
             if ((*(v3 + 49) & 0x20) == 0)
             {
               goto LABEL_29;
@@ -1261,409 +372,402 @@ LABEL_16:
           }
         }
 
-        v14 = *(v4 + 488);
-        v15 = [v1 hostname];
+        v12 = [v1 hostname];
         NEVirtualInterfaceAddAddress();
 
-        v16 = *(v4 + 488);
         NEVirtualInterfaceAddAddress();
-        v17 = *(v3 + 144);
-        LODWORD(v15) = [v17 hasCompanionDatapath];
+        v13 = *(v3 + 144);
+        LODWORD(v12) = [v13 hasCompanionDatapath];
 
-        if (!v15)
+        if (!v12)
         {
-          v11 = 1;
+          v9 = 1;
           if ((*(v3 + 49) & 0x20) == 0)
           {
             goto LABEL_29;
           }
 
-LABEL_17:
-          if (!v9)
+          goto LABEL_17;
+        }
+
+        v105 = v1;
+        v106 = v2;
+        v107 = v4;
+        v14 = sub_100003490();
+        dispatch_assert_queue_V2(v14);
+
+        v2 = sub_1001677D0(v3, @"0");
+        v15 = [NEPolicyCondition remoteAddress:v2 prefix:128];
+
+        if (!v15)
+        {
+          v83 = sub_1000E83DC();
+          v84 = _NRLogIsLevelEnabled();
+
+          if (v84)
           {
-            goto LABEL_29;
+            v85 = sub_1000E83DC();
+            _NRLogWithArgs(v85, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: (conditionPrefix) != ((void*)0)", "", "[NRDDeviceConductor setupCatchAllInterfaceIfApplicable]", 8551);
           }
 
-          if (v2)
-          {
-            v25 = [v9 hostname];
-            v26 = [v2 containsObject:v25];
-
-            if (v26)
-            {
-              goto LABEL_29;
-            }
-          }
-
-          v27 = *(v4 + 488);
-          v28 = [v9 hostname];
-          NEVirtualInterfaceAddAddress();
-
-          v29 = *(v3 + 144);
-          LODWORD(v28) = [v29 hasCompanionDatapath];
-
-          if (!v28)
-          {
-            v11 = 1;
-            goto LABEL_29;
-          }
-
-          v112 = v1;
-          v116 = v2;
-          v1 = v4;
-          v4 = v9;
-          v30 = sub_100003490();
-          dispatch_assert_queue_V2(v30);
-
-          v31 = sub_100167B9C(v3, @"0");
-          v32 = [NEPolicyCondition remoteAddress:v31 prefix:128];
-
-          if (v32)
-          {
-            v33 = [NEPolicy alloc];
-            v34 = [NEPolicyResult tunnelIPToInterfaceName:v122 secondaryResultType:0];
-            v134[0] = v32;
-            v35 = +[NEPolicyCondition allInterfaces];
-            v134[1] = v35;
-            v36 = [NSArray arrayWithObjects:v134 count:2];
-            v2 = [v33 initWithOrder:4000 result:v34 conditions:v36];
-
-            if (v2)
-            {
-              objc_opt_self();
-              if (qword_100229410 != -1)
-              {
-                dispatch_once(&qword_100229410, &stru_1001FCD98);
-              }
-
-              v9 = v4;
-              v37 = qword_100229408;
-              v4 = v1;
-              v38 = sub_100159E00(v37, v1[38], v2);
-
-              v11 = 1;
-              v1 = v112;
-              v2 = v116;
-LABEL_29:
-              v39 = *(v3 + 144);
-              [v39 hasCompanionDatapath];
-
-              if (*(v3 + 16) >= 0xCu && (*(v4 + 59) & 1) == 0)
-              {
-                v40 = *(v4 + 488);
-                NEVirtualInterfaceSetMTU();
-                *(v4 + 59) = 1;
-                v41 = *(v4 + 96);
-                v42 = _NRCopyLogObjectForNRUUID();
-                IsLevelEnabled = _NRLogIsLevelEnabled();
-
-                if (IsLevelEnabled)
-                {
-                  v44 = *(v4 + 96);
-                  v45 = _NRCopyLogObjectForNRUUID();
-                  _NRLogWithArgs();
-                }
-              }
-
-              v46 = *(v3 + 144);
-              if ([v46 usesTLS])
-              {
-                v47 = v9;
-                v48 = *(v4 + 496);
-
-                if (!v48)
-                {
-                  v113 = v1;
-                  v117 = v2;
-                  v109 = v47;
-                  v54 = sub_100003490();
-                  dispatch_assert_queue_V2(v54);
-
-                  v110 = v3;
-                  v55 = sub_1001677D0(v3, @"0");
-                  v56 = sub_10010DC08(v4, v122, v55);
-                  v57 = *(v4 + 496);
-                  *(v4 + 496) = v56;
-
-                  v133[0] = 0;
-                  v133[1] = 0;
-                  v58 = *(v4 + 496);
-                  nw_agent_get_uuid();
-                  v129 = 0u;
-                  v130 = 0u;
-                  v127 = 0u;
-                  v128 = 0u;
-                  v59 = v4;
-                  v120 = sub_10010DCE4(v4, 0, 1);
-                  v60 = [v120 countByEnumeratingWithState:&v127 objects:v132 count:16];
-                  if (v60)
-                  {
-                    v61 = v60;
-                    v62 = *v128;
-                    do
-                    {
-                      for (i = 0; i != v61; i = i + 1)
-                      {
-                        if (*v128 != v62)
-                        {
-                          objc_enumerationMutation(v120);
-                        }
-
-                        v64 = *(*(&v127 + 1) + 8 * i);
-                        v65 = [[NSUUID alloc] initWithUUIDBytes:v133];
-                        v66 = [NEPolicy alloc];
-                        v67 = [NEPolicyResult netAgentUUID:v65];
-                        v68 = [v66 initWithOrder:3900 result:v67 conditions:v64];
-
-                        objc_opt_self();
-                        if (qword_100229410 != -1)
-                        {
-                          dispatch_once(&qword_100229410, &stru_1001FCD98);
-                        }
-
-                        v69 = qword_100229408;
-                        v70 = sub_100159E00(v69, *(v59 + 304), v68);
-                      }
-
-                      v61 = [v120 countByEnumeratingWithState:&v127 objects:v132 count:16];
-                    }
-
-                    while (v61);
-                  }
-
-                  v9 = v109;
-                  v3 = v110;
-                  v4 = v59;
-                  v1 = v113;
-                  v2 = v117;
-LABEL_51:
-                  v71 = *(v3 + 144);
-                  v72 = [v71 usesTLS];
-
-                  if (v72)
-                  {
-                    v114 = v1;
-                    v118 = v2;
-                    v125 = 0u;
-                    v126 = 0u;
-                    v123 = 0u;
-                    v124 = 0u;
-                    v73 = v4;
-                    v121 = sub_10010DFA8(v4, 0, 1);
-                    v74 = [v121 countByEnumeratingWithState:&v123 objects:v131 count:16];
-                    if (v74)
-                    {
-                      v75 = v74;
-                      v76 = *v124;
-                      do
-                      {
-                        for (j = 0; j != v75; j = j + 1)
-                        {
-                          if (*v124 != v76)
-                          {
-                            objc_enumerationMutation(v121);
-                          }
-
-                          v78 = *(*(&v123 + 1) + 8 * j);
-                          v79 = [NEPolicy alloc];
-                          v80 = [NEPolicyResult scopeSocketToInterfaceName:v122];
-                          v81 = [v79 initWithOrder:4000 result:v80 conditions:v78];
-
-                          objc_opt_self();
-                          if (qword_100229410 != -1)
-                          {
-                            dispatch_once(&qword_100229410, &stru_1001FCD98);
-                          }
-
-                          v82 = qword_100229408;
-                          v83 = sub_100159E00(v82, *(v73 + 304), v81);
-                        }
-
-                        v75 = [v121 countByEnumeratingWithState:&v123 objects:v131 count:16];
-                      }
-
-                      while (v75);
-                    }
-
-                    v1 = v114;
-                    v2 = v118;
-                    v4 = v73;
-                  }
-
-                  v84 = *(v4 + 488);
-                  NEVirtualInterfaceUpdateAdHocService();
-                  objc_opt_self();
-                  if (qword_100229410 == -1)
-                  {
-LABEL_64:
-                    v85 = qword_100229408;
-                    sub_10015A52C(v85);
-
-                    v86 = *(v4 + 96);
-                    v87 = _NRCopyLogObjectForNRUUID();
-                    v88 = _NRLogIsLevelEnabled();
-
-                    if (v88)
-                    {
-                      v89 = *(v4 + 96);
-                      v53 = _NRCopyLogObjectForNRUUID();
-                      goto LABEL_66;
-                    }
-
-                    goto LABEL_67;
-                  }
-
-LABEL_73:
-                  dispatch_once(&qword_100229410, &stru_1001FCD98);
-                  goto LABEL_64;
-                }
-
-                v9 = v47;
-                if (v11)
-                {
-                  goto LABEL_51;
-                }
-              }
-
-              else
-              {
-
-                if (v11)
-                {
-                  goto LABEL_51;
-                }
-              }
-
-              v49 = *(v4 + 96);
-              v50 = _NRCopyLogObjectForNRUUID();
-              v51 = _NRLogIsLevelEnabled();
-
-              if (v51)
-              {
-                v52 = *(v4 + 96);
-                v53 = _NRCopyLogObjectForNRUUID();
-LABEL_66:
-                _NRLogWithArgs();
-              }
-
-LABEL_67:
-
-              return;
-            }
-
-            v105 = sub_1000E83DC();
-            v106 = _NRLogIsLevelEnabled();
-
-            if (v106)
-            {
-              v107 = sub_1000E83DC();
-              _NRLogWithArgs();
-            }
-
-            v9 = _os_log_pack_size();
-            __chkstk_darwin();
-            v108 = *__error();
-LABEL_72:
-            v94 = _os_log_pack_fill();
-            *v94 = 136446210;
-            *(v94 + 4) = "[NRDDeviceConductor setupCatchAllInterfaceIfApplicable]";
-            sub_1000E83DC();
-            _NRLogAbortWithPack();
-            goto LABEL_73;
-          }
-
-          v98 = sub_1000E83DC();
-          v99 = _NRLogIsLevelEnabled();
-
-          if (v99)
-          {
-            v100 = sub_1000E83DC();
-            _NRLogWithArgs();
-          }
-
-LABEL_79:
-          v9 = _os_log_pack_size();
-          __chkstk_darwin();
-          v101 = *__error();
+          v7 = _os_log_pack_size();
+          v86 = &v103 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+          v87 = *__error();
+          v82 = _os_log_pack_fill(v86, v7, v87, &_mh_execute_header, "%{public}s Assertion Failed: (conditionPrefix) != ((void*)0)");
           goto LABEL_72;
         }
 
-        v111 = v1;
-        v115 = v2;
-        v119 = v4;
-        v4 = v9;
-        v18 = sub_100003490();
-        dispatch_assert_queue_V2(v18);
+        v16 = [NEPolicy alloc];
+        v1 = [NEPolicyResult tunnelIPToInterfaceName:v108 secondaryResultType:0];
+        v121[0] = v15;
+        v17 = +[NEPolicyCondition allInterfaces];
+        v121[1] = v17;
+        v18 = [NSArray arrayWithObjects:v121 count:2];
+        v2 = [v16 initWithOrder:4000 result:v1 conditions:v18];
 
-        v2 = sub_1001677D0(v3, @"0");
-        v19 = [NEPolicyCondition remoteAddress:v2 prefix:128];
-
-        if (v19)
+        if (!v2)
         {
-          v20 = [NEPolicy alloc];
-          v1 = [NEPolicyResult tunnelIPToInterfaceName:v122 secondaryResultType:0];
-          v135[0] = v19;
-          v21 = +[NEPolicyCondition allInterfaces];
-          v135[1] = v21;
-          v22 = [NSArray arrayWithObjects:v135 count:2];
-          v2 = [v20 initWithOrder:4000 result:v1 conditions:v22];
+          v93 = sub_1000E83DC();
+          v94 = _NRLogIsLevelEnabled();
 
-          if (!v2)
+          if (v94)
           {
-            v102 = sub_1000E83DC();
-            v103 = _NRLogIsLevelEnabled();
-
-            if (v103)
-            {
-              v104 = sub_1000E83DC();
-              _NRLogWithArgs();
-            }
-
-            goto LABEL_79;
+            v95 = sub_1000E83DC();
+            _NRLogWithArgs(v95, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: (policyPrefix) != ((void*)0)", "", "[NRDDeviceConductor setupCatchAllInterfaceIfApplicable]", 8556);
           }
 
+          v7 = _os_log_pack_size();
+          v96 = &v103 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+          v97 = *__error();
+          v82 = _os_log_pack_fill(v96, v7, v97, &_mh_execute_header, "%{public}s Assertion Failed: (policyPrefix) != ((void*)0)");
+          goto LABEL_72;
+        }
+
+        objc_opt_self();
+        if (qword_100229410 != -1)
+        {
+          dispatch_once(&qword_100229410, &stru_1001FCD98);
+        }
+
+        v4 = v107;
+        v1 = v105;
+        v19 = qword_100229408;
+        v20 = sub_100159E00(v19, v107[38], v2);
+
+        v9 = 1;
+        v2 = v106;
+      }
+
+      if ((*(v3 + 49) & 0x20) == 0)
+      {
+        goto LABEL_29;
+      }
+
+LABEL_17:
+      if (!v7)
+      {
+        goto LABEL_29;
+      }
+
+      if (v2)
+      {
+        v21 = [v7 hostname];
+        v22 = [v2 containsObject:v21];
+
+        if (v22)
+        {
+          goto LABEL_29;
+        }
+      }
+
+      v23 = [v7 hostname];
+      NEVirtualInterfaceAddAddress();
+
+      v24 = *(v3 + 144);
+      LODWORD(v23) = [v24 hasCompanionDatapath];
+
+      if (!v23)
+      {
+        v9 = 1;
+        goto LABEL_29;
+      }
+
+      v105 = v1;
+      v106 = v2;
+      v1 = v4;
+      v25 = v7;
+      v26 = sub_100003490();
+      dispatch_assert_queue_V2(v26);
+
+      v27 = sub_100167B9C(v3, @"0");
+      v28 = [NEPolicyCondition remoteAddress:v27 prefix:128];
+
+      if (v28)
+      {
+        v29 = [NEPolicy alloc];
+        v30 = [NEPolicyResult tunnelIPToInterfaceName:v108 secondaryResultType:0];
+        v120[0] = v28;
+        v31 = +[NEPolicyCondition allInterfaces];
+        v120[1] = v31;
+        v32 = [NSArray arrayWithObjects:v120 count:2];
+        v2 = [v29 initWithOrder:4000 result:v30 conditions:v32];
+
+        if (v2)
+        {
           objc_opt_self();
           if (qword_100229410 != -1)
           {
             dispatch_once(&qword_100229410, &stru_1001FCD98);
           }
 
-          v4 = v119;
-          v1 = v111;
-          v23 = qword_100229408;
-          v24 = sub_100159E00(v23, *(v119 + 304), v2);
+          v7 = v25;
+          v33 = qword_100229408;
+          v4 = v1;
+          v34 = sub_100159E00(v33, v1[38], v2);
 
-          v11 = 1;
-          v2 = v115;
-          goto LABEL_16;
+          v9 = 1;
+          v1 = v105;
+          v2 = v106;
+LABEL_29:
+          v35 = *(v3 + 144);
+          [v35 hasCompanionDatapath];
+
+          if (*(v3 + 16) >= 0xCu && (*(v4 + 59) & 1) == 0)
+          {
+            NEVirtualInterfaceSetMTU();
+            *(v4 + 59) = 1;
+            v36 = _NRCopyLogObjectForNRUUID();
+            v37 = _NRLogIsLevelEnabled();
+
+            if (v37)
+            {
+              v38 = _NRCopyLogObjectForNRUUID();
+              _NRLogWithArgs(v38, 0, "%s%.30s:%-4d Updated interface mtu for catch-all interface (%@)", "", "[NRDDeviceConductor setupCatchAllInterfaceIfApplicable]", 8591, v108);
+            }
+          }
+
+          v39 = *(v3 + 144);
+          if ([v39 usesTLS])
+          {
+            v40 = v7;
+            v41 = v4[62];
+
+            if (!v41)
+            {
+              v105 = v1;
+              v106 = v2;
+              v103 = v40;
+              v45 = sub_100003490();
+              dispatch_assert_queue_V2(v45);
+
+              v104 = v3;
+              v46 = sub_1001677D0(v3, @"0");
+              v47 = sub_10010DC08(v4, v108, v46);
+              v48 = v4[62];
+              v4[62] = v47;
+
+              v119[0] = 0;
+              v119[1] = 0;
+              nw_agent_get_uuid();
+              v115 = 0u;
+              v116 = 0u;
+              v113 = 0u;
+              v114 = 0u;
+              v49 = v4;
+              v107 = sub_10010DCE4(v4, 0, 1);
+              v50 = [v107 countByEnumeratingWithState:&v113 objects:v118 count:16];
+              if (v50)
+              {
+                v51 = v50;
+                v52 = *v114;
+                do
+                {
+                  for (i = 0; i != v51; i = i + 1)
+                  {
+                    if (*v114 != v52)
+                    {
+                      objc_enumerationMutation(v107);
+                    }
+
+                    v54 = *(*(&v113 + 1) + 8 * i);
+                    v55 = [[NSUUID alloc] initWithUUIDBytes:v119];
+                    v56 = [NEPolicy alloc];
+                    v57 = [NEPolicyResult netAgentUUID:v55];
+                    v58 = [v56 initWithOrder:3900 result:v57 conditions:v54];
+
+                    objc_opt_self();
+                    if (qword_100229410 != -1)
+                    {
+                      dispatch_once(&qword_100229410, &stru_1001FCD98);
+                    }
+
+                    v59 = qword_100229408;
+                    v60 = sub_100159E00(v59, v49[38], v58);
+                  }
+
+                  v51 = [v107 countByEnumeratingWithState:&v113 objects:v118 count:16];
+                }
+
+                while (v51);
+              }
+
+              v7 = v103;
+              v3 = v104;
+              v4 = v49;
+              v1 = v105;
+              v2 = v106;
+LABEL_51:
+              v61 = *(v3 + 144);
+              v62 = [v61 usesTLS];
+
+              if (v62)
+              {
+                v105 = v1;
+                v106 = v2;
+                v103 = v7;
+                v104 = v3;
+                v111 = 0u;
+                v112 = 0u;
+                v109 = 0u;
+                v110 = 0u;
+                v63 = v4;
+                v107 = sub_10010DFA8(v4, 0, 1);
+                v64 = [v107 countByEnumeratingWithState:&v109 objects:v117 count:16];
+                if (v64)
+                {
+                  v65 = v64;
+                  v66 = *v110;
+                  do
+                  {
+                    for (j = 0; j != v65; j = j + 1)
+                    {
+                      if (*v110 != v66)
+                      {
+                        objc_enumerationMutation(v107);
+                      }
+
+                      v68 = *(*(&v109 + 1) + 8 * j);
+                      v69 = [NEPolicy alloc];
+                      v70 = [NEPolicyResult scopeSocketToInterfaceName:v108];
+                      v71 = [v69 initWithOrder:4000 result:v70 conditions:v68];
+
+                      objc_opt_self();
+                      if (qword_100229410 != -1)
+                      {
+                        dispatch_once(&qword_100229410, &stru_1001FCD98);
+                      }
+
+                      v72 = qword_100229408;
+                      v73 = sub_100159E00(v72, v63[38], v71);
+                    }
+
+                    v65 = [v107 countByEnumeratingWithState:&v109 objects:v117 count:16];
+                  }
+
+                  while (v65);
+                }
+
+                v7 = v103;
+                v3 = v104;
+                v1 = v105;
+                v2 = v106;
+              }
+
+              NEVirtualInterfaceUpdateAdHocService();
+              objc_opt_self();
+              if (qword_100229410 == -1)
+              {
+LABEL_64:
+                v74 = qword_100229408;
+                sub_10015A52C(v74);
+
+                v75 = _NRCopyLogObjectForNRUUID();
+                v76 = _NRLogIsLevelEnabled();
+
+                if (v76)
+                {
+                  v44 = _NRCopyLogObjectForNRUUID();
+                  _NRLogWithArgs(v44, 0, "%s%.30s:%-4d Successfully created a catch-all interface (%@) and installed policies", "", "[NRDDeviceConductor setupCatchAllInterfaceIfApplicable]", 8629, v108);
+                  goto LABEL_66;
+                }
+
+                goto LABEL_67;
+              }
+
+LABEL_73:
+              dispatch_once(&qword_100229410, &stru_1001FCD98);
+              goto LABEL_64;
+            }
+
+            v7 = v40;
+            if (v9)
+            {
+              goto LABEL_51;
+            }
+          }
+
+          else
+          {
+
+            if (v9)
+            {
+              goto LABEL_51;
+            }
+          }
+
+          v42 = _NRCopyLogObjectForNRUUID();
+          v43 = _NRLogIsLevelEnabled();
+
+          if (v43)
+          {
+            v44 = _NRCopyLogObjectForNRUUID();
+            _NRLogWithArgs(v44, 0, "%s%.30s:%-4d Not updating catch-all interface as there are no new addresses");
+LABEL_66:
+          }
+
+LABEL_67:
+
+          return;
         }
 
-        v95 = sub_1000E83DC();
-        v96 = _NRLogIsLevelEnabled();
+        v98 = sub_1000E83DC();
+        v99 = _NRLogIsLevelEnabled();
 
-        if (v96)
+        if (v99)
         {
-          v97 = sub_1000E83DC();
-          _NRLogWithArgs();
+          v100 = sub_1000E83DC();
+          _NRLogWithArgs(v100, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: (policyPrefix) != ((void*)0)", "", "[NRDDeviceConductor setupCatchAllInterfaceIfApplicable]", 8576);
         }
+
+        v7 = _os_log_pack_size();
+        v101 = &v103 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+        v102 = *__error();
+        v82 = _os_log_pack_fill(v101, v7, v102, &_mh_execute_header, "%{public}s Assertion Failed: (policyPrefix) != ((void*)0)");
       }
 
       else
       {
-        v90 = sub_1000E83DC();
-        v91 = _NRLogIsLevelEnabled();
+        v88 = sub_1000E83DC();
+        v89 = _NRLogIsLevelEnabled();
 
-        if (v91)
+        if (v89)
         {
-          v92 = sub_1000E83DC();
-          _NRLogWithArgs();
+          v90 = sub_1000E83DC();
+          _NRLogWithArgs(v90, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: (conditionPrefix) != ((void*)0)", "", "[NRDDeviceConductor setupCatchAllInterfaceIfApplicable]", 8571);
         }
+
+        v7 = _os_log_pack_size();
+        v91 = &v103 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+        v92 = *__error();
+        v82 = _os_log_pack_fill(v91, v7, v92, &_mh_execute_header, "%{public}s Assertion Failed: (conditionPrefix) != ((void*)0)");
       }
 
-      v9 = _os_log_pack_size();
-      __chkstk_darwin();
-      v93 = *__error();
-      goto LABEL_72;
+LABEL_72:
+      *v82 = 136446210;
+      *(v82 + 4) = "[NRDDeviceConductor setupCatchAllInterfaceIfApplicable]";
+      sub_1000E83DC();
+      _NRLogAbortWithPack();
+      goto LABEL_73;
     }
   }
 }
@@ -1678,72 +782,71 @@ void sub_100104190(uint64_t a1)
   v2 = sub_100163A30(NRDLocalDevice, *(a1 + 96));
   if (v2)
   {
+    v3 = v2[18];
     v25 = v2;
-    v3 = *(v2 + 144);
-    if (v3 && (*(v25 + 49) & 0x10) != 0 && *(a1 + 46) == 1)
+    v4 = v3;
+    if (v4 && (*(v25 + 49) & 0x10) != 0 && *(a1 + 46) == 1)
     {
-      v4 = *(a1 + 480);
+      v5 = *(a1 + 480);
 
-      if (v4)
+      if (v5)
       {
 LABEL_14:
 
         return;
       }
 
-      v5 = nw_parameters_create();
-      v6 = *(v25 + 144);
-      v7 = [v6 proxyProviderRequiresWiFi];
+      v6 = nw_parameters_create();
+      v7 = v25[18];
+      v8 = [v7 proxyProviderRequiresWiFi];
 
-      if (v7)
+      if (v8)
       {
-        nw_parameters_set_required_interface_type(v5, nw_interface_type_wifi);
+        nw_parameters_set_required_interface_type(v6, nw_interface_type_wifi);
       }
 
       nw_parameters_set_account_id();
-      v8 = [NRCompanionProxyConfigAgent alloc];
-      v9 = *(a1 + 136);
-      v10 = *(a1 + 96);
-      v11 = v9;
-      v12 = sub_100071B84(&v8->super.isa, v11, v5, v10);
-      v13 = *(a1 + 480);
-      *(a1 + 480) = v12;
+      v9 = [NRCompanionProxyConfigAgent alloc];
+      v10 = *(a1 + 136);
+      v11 = *(a1 + 96);
+      v12 = v10;
+      v13 = sub_100071B84(&v9->super.isa, v12, v6, v11);
+      v14 = *(a1 + 480);
+      *(a1 + 480) = v13;
 
       if ((sub_100071E20(*(a1 + 480)) & 1) == 0)
       {
-        v14 = *(a1 + 480);
+        v15 = *(a1 + 480);
         *(a1 + 480) = 0;
 
-        v15 = *(a1 + 96);
         v16 = _NRCopyLogObjectForNRUUID();
         IsLevelEnabled = _NRLogIsLevelEnabled();
 
         if (IsLevelEnabled)
         {
-          v18 = *(a1 + 96);
-          v19 = _NRCopyLogObjectForNRUUID();
-          _NRLogWithArgs();
+          v18 = _NRCopyLogObjectForNRUUID();
+          _NRLogWithArgs(v18, 17, "failed to register companion proxy config agent");
         }
       }
 
-      v3 = v5;
+      v4 = v6;
     }
 
     goto LABEL_14;
   }
 
-  v20 = sub_1000E83DC();
-  v21 = _NRLogIsLevelEnabled();
+  v19 = sub_1000E83DC();
+  v20 = _NRLogIsLevelEnabled();
 
-  if (v21)
+  if (v20)
   {
-    v22 = sub_1000E83DC();
-    _NRLogWithArgs();
+    v21 = sub_1000E83DC();
+    _NRLogWithArgs(v21, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: (localDevice) != ((void*)0)", "", "[NRDDeviceConductor setupCompanionProxyConfigAgentIfApplicable]", 554);
   }
 
-  _os_log_pack_size();
-  v23 = *__error();
-  v24 = _os_log_pack_fill();
+  v22 = _os_log_pack_size();
+  v23 = __error();
+  v24 = _os_log_pack_fill(&v25 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0), v22, *v23, &_mh_execute_header, "%{public}s Assertion Failed: (localDevice) != ((void*)0)");
   *v24 = 136446210;
   *(v24 + 4) = "[NRDDeviceConductor setupCompanionProxyConfigAgentIfApplicable]";
   sub_1000E83DC();
@@ -1757,8 +860,8 @@ void sub_100104434(void **a1)
     return;
   }
 
-  v75 = sub_100163A30(NRDLocalDevice, a1[12]);
-  if (sub_100140C44(v75))
+  v73 = sub_100163A30(NRDLocalDevice, a1[12]);
+  if (sub_100140C44(v73))
   {
     v2 = a1[53];
     if (!v2)
@@ -1774,26 +877,28 @@ void sub_100104434(void **a1)
       if (!v5)
       {
 LABEL_8:
-        v7 = v75;
-        if (!v75)
+        v7 = v73;
+        if (!v73)
         {
-          goto LABEL_49;
+          v8 = 0;
+          v10 = 0;
+          goto LABEL_50;
         }
 
-        if (*(v75 + 12))
+        if (*(v73 + 12))
         {
           v8 = 0;
         }
 
         else
         {
-          v76 = 0uLL;
-          sub_100167D5C(v75, &v76);
+          v74 = 0uLL;
+          sub_100167D5C(v73, &v74);
           objc_opt_self();
-          v7 = v75;
-          if (WORD6(v76))
+          v7 = v73;
+          if (WORD6(v74))
           {
-            v9 = WORD5(v76) == 0;
+            v9 = WORD5(v74) == 0;
           }
 
           else
@@ -1802,14 +907,14 @@ LABEL_8:
           }
 
           v8 = !v9;
-          if ((*(v75 + 12) & 1) == 0)
+          if ((*(v73 + 12) & 1) == 0)
           {
-            v76 = 0uLL;
-            sub_1001727AC(v75, &v76);
+            v74 = 0uLL;
+            sub_1001727AC(v73, &v74);
             objc_opt_self();
-            if (WORD6(v76))
+            if (WORD6(v74))
             {
-              v12 = WORD5(v76) == 0;
+              v12 = WORD5(v74) == 0;
             }
 
             else
@@ -1818,27 +923,33 @@ LABEL_8:
             }
 
             v10 = !v12;
-            v11 = v75[6];
+            v11 = v73[6];
             if ((v11 & 1) == 0)
             {
-LABEL_49:
-              v65 = a1[12];
-              v66 = _NRCopyLogObjectForNRUUID();
+LABEL_50:
+              v63 = _NRCopyLogObjectForNRUUID();
               IsLevelEnabled = _NRLogIsLevelEnabled();
 
               if (IsLevelEnabled)
               {
-                v68 = a1[12];
-                v69 = _NRCopyLogObjectForNRUUID();
-                if (v75)
+                v65 = _NRCopyLogObjectForNRUUID();
+                if (v73)
                 {
-                  v70 = *(v75 + 12);
+                  v66 = *(v73 + 12);
+                  v67 = v66 & 1;
+                  v68 = (v66 >> 1) & 1;
                 }
 
-                _NRLogWithArgs();
+                else
+                {
+                  v67 = 0;
+                  v68 = 0;
+                }
+
+                _NRLogWithArgs(v65, 0, "%s%.30s:%-4d %@ Deferring the registration of viability agent (registered=%d, enabled=%d, hasClassDAddr=%d, hasClassCAddr=%d)", "", "[NRDDeviceConductor createCmpLnkViabilityAgentIfApplicable]", 2083, v73, v67, v68, v8, v10);
               }
 
-              goto LABEL_53;
+              goto LABEL_54;
             }
 
 LABEL_27:
@@ -1878,12 +989,12 @@ LABEL_27:
                       v29 = [NEPolicyCondition flowRemoteAddress:v28 prefix:128];
 
                       v30 = [NEPolicy alloc];
-                      v73 = v27;
-                      v79[0] = v27;
+                      v71 = v27;
+                      v77[0] = v27;
                       v31 = +[NEPolicyCondition allInterfaces];
-                      v79[1] = v31;
-                      v32 = [NSArray arrayWithObjects:v79 count:2];
-                      v74 = v24;
+                      v77[1] = v31;
+                      v32 = [NSArray arrayWithObjects:v77 count:2];
+                      v72 = v24;
                       v33 = [v30 initWithOrder:10 result:v24 conditions:v32];
 
                       objc_opt_self();
@@ -1893,15 +1004,15 @@ LABEL_27:
                       }
 
                       v34 = qword_100229408;
-                      v72 = v33;
+                      v70 = v33;
                       v35 = sub_100159E00(v34, *(v19 + 7), v33);
 
                       v36 = [NEPolicy alloc];
-                      v78[0] = v29;
+                      v76[0] = v29;
                       v37 = +[NEPolicyCondition allInterfaces];
-                      v78[1] = v37;
-                      v38 = [NSArray arrayWithObjects:v78 count:2];
-                      v39 = [v36 initWithOrder:10 result:v74 conditions:v38];
+                      v76[1] = v37;
+                      v38 = [NSArray arrayWithObjects:v76 count:2];
+                      v39 = [v36 initWithOrder:10 result:v72 conditions:v38];
 
                       objc_opt_self();
                       if (qword_100229410 != -1)
@@ -1927,16 +1038,16 @@ LABEL_27:
 
                       if (v44)
                       {
-                        v71 = v29;
+                        v69 = v29;
                         v45 = [NEPolicy alloc];
                         v46 = [NEPolicyCondition flowIPProtocol:17];
-                        *&v76 = v46;
+                        *&v74 = v46;
                         v47 = +[NEPolicyCondition isSystemProxyConnection];
-                        *(&v76 + 1) = v47;
+                        *(&v74 + 1) = v47;
                         v48 = +[NEPolicyCondition allInterfaces];
-                        v77 = v48;
-                        v49 = [NSArray arrayWithObjects:&v76 count:3];
-                        v50 = [v45 initWithOrder:10 result:v74 conditions:v49];
+                        v75 = v48;
+                        v49 = [NSArray arrayWithObjects:&v74 count:3];
+                        v50 = [v45 initWithOrder:10 result:v72 conditions:v49];
 
                         objc_opt_self();
                         if (qword_100229410 != -1)
@@ -1947,7 +1058,7 @@ LABEL_27:
                         v51 = qword_100229408;
                         v52 = sub_100159E00(v51, *(v19 + 7), v50);
 
-                        v29 = v71;
+                        v29 = v69;
                       }
 
                       objc_opt_self();
@@ -1971,15 +1082,13 @@ LABEL_27:
 
                     else
                     {
-                      v60 = *(v19 + 4);
-                      v61 = _NRCopyLogObjectForNRUUID();
-                      v62 = _NRLogIsLevelEnabled();
+                      v60 = _NRCopyLogObjectForNRUUID();
+                      v61 = _NRLogIsLevelEnabled();
 
-                      if (v62)
+                      if (v61)
                       {
-                        v63 = *(v19 + 4);
-                        v64 = _NRCopyLogObjectForNRUUID();
-                        _NRLogWithArgs();
+                        v62 = _NRCopyLogObjectForNRUUID();
+                        _NRLogWithArgs(v62, 17, "Failed to register CompanionLinkViability agent");
                       }
                     }
                   }
@@ -1987,10 +1096,10 @@ LABEL_27:
               }
 
               sub_100101814(a1);
-              goto LABEL_53;
+              goto LABEL_54;
             }
 
-            goto LABEL_49;
+            goto LABEL_50;
           }
         }
 
@@ -1998,7 +1107,7 @@ LABEL_27:
         v11 = v7[6];
         if ((v11 & 1) == 0)
         {
-          goto LABEL_49;
+          goto LABEL_50;
         }
 
         goto LABEL_27;
@@ -2027,7 +1136,7 @@ LABEL_6:
     }
   }
 
-LABEL_53:
+LABEL_54:
 }
 
 void sub_100104BB4(uint64_t a1)
@@ -2041,7 +1150,7 @@ void sub_100104BB4(uint64_t a1)
       goto LABEL_17;
     }
 
-    v214 = v2;
+    v207 = v2;
     if (v2)
     {
       v3 = v2[18];
@@ -2062,7 +1171,7 @@ void sub_100104BB4(uint64_t a1)
     }
 
     v6 = [*(v1 + 160) state] == 8;
-    v2 = v214;
+    v2 = v207;
     if (!v6)
     {
       goto LABEL_17;
@@ -2078,7 +1187,7 @@ void sub_100104BB4(uint64_t a1)
       v11 = *(v1 + 336);
       *(v1 + 336) = v10;
 
-      v2 = v214;
+      v2 = v207;
     }
 
     if (v2)
@@ -2115,26 +1224,26 @@ void sub_100104BB4(uint64_t a1)
     *(v1 + 696) = v17;
 
 LABEL_21:
-    v18 = v214;
-    if (v214)
+    v18 = v207;
+    if (v207)
     {
-      v18 = v214[18];
+      v18 = v207[18];
     }
 
     v19 = v18;
     if ([v19 proxyCapability] == 1)
     {
-      v20 = v214;
-      if (v214)
+      v20 = v207;
+      if (v207)
       {
-        v20 = v214[18];
+        v20 = v207[18];
       }
 
       v21 = v20;
       v22 = [v21 proxyProviderCriteria];
       v23 = [v22 forwardNonMatchingTraffic];
 
-      v2 = v214;
+      v2 = v207;
       if (v23)
       {
         goto LABEL_17;
@@ -2144,7 +1253,7 @@ LABEL_21:
     else
     {
 
-      v2 = v214;
+      v2 = v207;
     }
 
     if (v2)
@@ -2160,31 +1269,31 @@ LABEL_21:
     v25 = v24;
     v26 = [v25 proxyCapability];
 
-    v2 = v214;
+    v2 = v207;
     if (v26 == 2)
     {
-      v213 = [*(v1 + 160) proxyAgentUUID];
-      if (!v213)
+      v206 = [*(v1 + 160) proxyAgentUUID];
+      if (!v206)
       {
         v32 = sub_1000E83DC();
         IsLevelEnabled = _NRLogIsLevelEnabled();
 
-        v2 = v214;
+        v2 = v207;
         if (!IsLevelEnabled)
         {
           goto LABEL_17;
         }
 
         v34 = sub_1000E83DC();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v34, 17, "invalid proxy agent uuid");
 
         goto LABEL_16;
       }
 
-      v27 = v214;
-      if (v214)
+      v27 = v207;
+      if (v207)
       {
-        v27 = v214[18];
+        v27 = v207[18];
       }
 
       v28 = v27;
@@ -2204,14 +1313,14 @@ LABEL_21:
 
       if (v31)
       {
-        v212 = v31;
-        v35 = sub_1001599CC();
+        v205 = v31;
+        v35 = sub_1001599CC(NRDPolicySessionManager);
         sub_10015A238(v35, *(v1 + 336));
 
-        v218 = [NEPolicyResult netAgentUUID:v213];
-        if (v214)
+        v211 = [NEPolicyResult netAgentUUID:v206];
+        if (v207)
         {
-          v36 = v214[18];
+          v36 = v207[18];
         }
 
         else
@@ -2223,9 +1332,9 @@ LABEL_21:
         v38 = [v37 proxyProviderCriteria];
         v39 = [v38 proxyUsageRules];
 
-        if (v214)
+        if (v207)
         {
-          v40 = v214[18];
+          v40 = v207[18];
         }
 
         else
@@ -2236,17 +1345,17 @@ LABEL_21:
         v41 = v40;
         v42 = [v41 proxyProviderCriteria];
         v43 = &dispatch_group_enter_ptr;
-        v240 = v1;
+        v233 = v1;
         if ([v42 excludeLegacyClients])
         {
         }
 
         else
         {
-          v47 = v214;
-          if (v214)
+          v47 = v207;
+          if (v207)
           {
-            v47 = v214[18];
+            v47 = v207[18];
           }
 
           v48 = v47;
@@ -2255,48 +1364,48 @@ LABEL_21:
 
           if (!v50)
           {
-            v228 = 301;
+            v221 = 301;
 LABEL_60:
             if (_NRIsAppleInternal())
             {
               v71 = sub_1000B7248(0, @"TetheringBundleIDs");
               objc_opt_class();
-              v224 = 0;
+              v217 = 0;
               if (objc_opt_isKindOfClass())
               {
-                v265 = 0u;
-                v266 = 0u;
-                v263 = 0u;
-                v264 = 0u;
+                v258 = 0u;
+                v259 = 0u;
+                v256 = 0u;
+                v257 = 0u;
                 v72 = v71;
-                v73 = [v72 countByEnumeratingWithState:&v263 objects:v282 count:16];
+                v73 = [v72 countByEnumeratingWithState:&v256 objects:v275 count:16];
                 if (v73)
                 {
                   v74 = v73;
-                  v224 = 0;
-                  v75 = *v264;
+                  v217 = 0;
+                  v75 = *v257;
                   do
                   {
                     for (i = 0; i != v74; i = i + 1)
                     {
-                      if (*v264 != v75)
+                      if (*v257 != v75)
                       {
                         objc_enumerationMutation(v72);
                       }
 
-                      v77 = sub_10013A6D4(*(*(&v263 + 1) + 8 * i));
-                      if (!v224)
+                      v77 = sub_10013A6D4(*(*(&v256 + 1) + 8 * i));
+                      if (!v217)
                       {
-                        v224 = objc_alloc_init(NSMutableArray);
+                        v217 = objc_alloc_init(NSMutableArray);
                       }
 
                       if ([v77 count])
                       {
-                        [v224 addObjectsFromArray:v77];
+                        [v217 addObjectsFromArray:v77];
                       }
                     }
 
-                    v74 = [v72 countByEnumeratingWithState:&v263 objects:v282 count:16];
+                    v74 = [v72 countByEnumeratingWithState:&v256 objects:v275 count:16];
                   }
 
                   while (v74);
@@ -2304,7 +1413,7 @@ LABEL_60:
 
                 else
                 {
-                  v224 = 0;
+                  v217 = 0;
                 }
 
                 v43 = &dispatch_group_enter_ptr;
@@ -2313,82 +1422,82 @@ LABEL_60:
 
             else
             {
-              v224 = 0;
+              v217 = 0;
             }
 
-            v215 = objc_alloc_init(NSMutableSet);
-            v259 = 0u;
-            v260 = 0u;
-            v261 = 0u;
-            v262 = 0u;
+            v208 = objc_alloc_init(NSMutableSet);
+            v252 = 0u;
+            v253 = 0u;
+            v254 = 0u;
+            v255 = 0u;
             obj = v39;
-            v220 = [obj countByEnumeratingWithState:&v259 objects:v281 count:16];
-            if (v220)
+            v213 = [obj countByEnumeratingWithState:&v252 objects:v274 count:16];
+            if (v213)
             {
-              v217 = 0;
-              v230 = 0;
-              v219 = *v260;
+              v210 = 0;
+              v223 = 0;
+              v212 = *v253;
               while (1)
               {
-                for (j = 0; j != v220; j = v79 + 1)
+                for (j = 0; j != v213; j = v79 + 1)
                 {
-                  if (*v260 != v219)
+                  if (*v253 != v212)
                   {
                     objc_enumerationMutation(obj);
                   }
 
-                  v81 = *(*(&v259 + 1) + 8 * j);
+                  v81 = *(*(&v252 + 1) + 8 * j);
                   v82 = 0;
-                  v225 = j;
-                  if (_NRIsAppleInternal() && v224)
+                  v218 = j;
+                  if (_NRIsAppleInternal() && v217)
                   {
                     v82 = objc_alloc_init(NSMutableArray);
-                    [v82 addObjectsFromArray:v224];
+                    [v82 addObjectsFromArray:v217];
                   }
 
                   v83 = [v81 entitlements];
                   v84 = [v83 count];
 
-                  v231 = v81;
+                  v224 = v81;
                   if (v84)
                   {
                     v85 = [v81 entitlements];
                     v86 = [LSApplicationRecord enumeratorWithOptions:0];
-                    v257[0] = _NSConcreteStackBlock;
-                    v257[1] = 3221225472;
-                    v257[2] = sub_1001071BC;
-                    v257[3] = &unk_1001FB9D8;
-                    v226 = v85;
-                    v258 = v226;
-                    [v86 setFilter:v257];
-                    v234 = v86;
-                    v237 = [v81 copyExcludedBundleIdentifiers];
+                    v250[0] = _NSConcreteStackBlock;
+                    v250[1] = 3221225472;
+                    v250[2] = sub_1001071BC;
+                    v250[3] = &unk_1001FB9D8;
+                    v219 = v85;
+                    v251 = v219;
+                    [v86 setFilter:v250];
+                    v227 = v86;
+                    v230 = [v81 copyExcludedBundleIdentifiers];
                     v87 = [v86 nextObject];
                     if (v87)
                     {
                       v88 = v87;
                       do
                       {
-                        v255 = 0u;
-                        v256 = 0u;
-                        v253 = 0u;
-                        v254 = 0u;
+                        v248 = 0u;
+                        v249 = 0u;
+                        v246 = 0u;
+                        v247 = 0u;
                         v90 = [v88 machOUUIDs];
-                        v91 = [v90 countByEnumeratingWithState:&v253 objects:v280 count:16];
+                        v91 = [v90 countByEnumeratingWithState:&v246 objects:v273 count:16];
                         if (v91)
                         {
                           v92 = v91;
-                          v93 = *v254;
+                          v93 = *v247;
 LABEL_95:
                           v94 = 0;
                           while (1)
                           {
-                            if (*v254 != v93)
+                            if (*v247 != v93)
                             {
                               objc_enumerationMutation(v90);
                             }
 
-                            v95 = *(*(&v253 + 1) + 8 * v94);
+                            v95 = *(*(&v246 + 1) + 8 * v94);
                             if (!v82)
                             {
                               v82 = objc_alloc_init(NSMutableArray);
@@ -2399,7 +1508,7 @@ LABEL_95:
                             {
                               v97 = v96;
                               v98 = [v88 bundleIdentifier];
-                              v99 = [v237 containsObject:v98];
+                              v99 = [v230 containsObject:v98];
 
                               if (v99)
                               {
@@ -2410,8 +1519,8 @@ LABEL_95:
                             [v82 addObject:v95];
                             if (v92 == ++v94)
                             {
-                              v92 = [v90 countByEnumeratingWithState:&v253 objects:v280 count:16];
-                              v1 = v240;
+                              v92 = [v90 countByEnumeratingWithState:&v246 objects:v273 count:16];
+                              v1 = v233;
                               if (!v92)
                               {
                                 goto LABEL_91;
@@ -2421,26 +1530,21 @@ LABEL_95:
                             }
                           }
 
-                          v1 = v240;
-                          v100 = *(v240 + 96);
-                          v101 = _NRCopyLogObjectForNRUUID();
-                          v102 = _NRLogIsLevelEnabled();
+                          v1 = v233;
+                          v100 = _NRCopyLogObjectForNRUUID();
+                          v101 = _NRLogIsLevelEnabled();
 
-                          if (v102)
+                          if (v101)
                           {
-                            v103 = *(v240 + 96);
-                            v104 = _NRCopyLogObjectForNRUUID();
-                            [v88 bundleIdentifier];
-                            v211 = v210 = 4843;
-                            v207 = "";
-                            v209 = "[NRDDeviceConductor updateProxyCriteriaPoliciesIfNeeded]";
-                            _NRLogWithArgs();
+                            v102 = _NRCopyLogObjectForNRUUID();
+                            v103 = [v88 bundleIdentifier];
+                            _NRLogWithArgs(v102, 0, "%s%.30s:%-4d found exclude bundle identifier %@. Skipping rule", "", "[NRDDeviceConductor updateProxyCriteriaPoliciesIfNeeded]", 4843, v103, v205);
                           }
                         }
 
 LABEL_91:
 
-                        v89 = [v234 nextObject];
+                        v89 = [v227 nextObject];
 
                         v88 = v89;
                       }
@@ -2448,97 +1552,92 @@ LABEL_91:
                       while (v89);
                     }
 
-                    v105 = [v82 count];
-                    if (v105)
+                    v104 = [v82 count];
+                    if (v104)
                     {
-                      v106 = v82;
-                      [v215 addObjectsFromArray:v82];
+                      v105 = v82;
+                      [v208 addObjectsFromArray:v82];
                       v43 = &dispatch_group_enter_ptr;
-                      v81 = v231;
-                      v107 = v226;
+                      v81 = v224;
+                      v106 = v219;
                     }
 
                     else
                     {
-                      v106 = v82;
-                      v108 = *(v1 + 96);
-                      v109 = _NRCopyLogObjectForNRUUID();
-                      v110 = _NRLogIsLevelEnabled();
+                      v105 = v82;
+                      v107 = _NRCopyLogObjectForNRUUID();
+                      v108 = _NRLogIsLevelEnabled();
 
                       v43 = &dispatch_group_enter_ptr;
-                      v81 = v231;
-                      v107 = v226;
-                      if (v110)
+                      v81 = v224;
+                      v106 = v219;
+                      if (v108)
                       {
-                        v111 = *(v1 + 96);
-                        v112 = _NRCopyLogObjectForNRUUID();
-                        v210 = 4852;
-                        v211 = v226;
-                        v207 = "";
-                        v209 = "[NRDDeviceConductor updateProxyCriteriaPoliciesIfNeeded]";
-                        _NRLogWithArgs();
+                        v109 = *(v1 + 96);
+                        v110 = _NRCopyLogObjectForNRUUID();
+                        _NRLogWithArgs(v110, 0, "%s%.30s:%-4d no app has entitlements %@. Skipping rule", "", "[NRDDeviceConductor updateProxyCriteriaPoliciesIfNeeded]", 4852, v219);
                       }
                     }
 
-                    v217 = 1;
-                    if (!v105)
+                    v210 = 1;
+                    if (!v104)
                     {
-                      v79 = v225;
-                      v80 = v106;
+                      v79 = v218;
+                      v80 = v105;
                       goto LABEL_82;
                     }
                   }
 
                   else
                   {
-                    v106 = v82;
+                    v105 = v82;
                   }
 
-                  v113 = objc_alloc_init(NSMutableArray);
-                  v114 = [v43[327] trafficClassStart:objc_msgSend(v81 end:{"trafficClass"), objc_msgSend(v81, "trafficClass")}];
-                  [v113 addObject:v114];
+                  v111 = objc_alloc_init(NSMutableArray);
+                  v112 = [v43[327] trafficClassStart:objc_msgSend(v81 end:{"trafficClass"), objc_msgSend(v81, "trafficClass")}];
+                  [v111 addObject:v112];
 
                   if ([v81 transportProtocol])
                   {
-                    v115 = [v43[327] flowIPProtocol:{objc_msgSend(v81, "transportProtocol")}];
-                    [v113 addObject:v115];
+                    v113 = [v43[327] flowIPProtocol:{objc_msgSend(v81, "transportProtocol")}];
+                    [v111 addObject:v113];
                   }
 
-                  v116 = [v81 domain];
+                  v114 = [v81 domain];
 
-                  if (v116)
+                  if (v114)
                   {
-                    v117 = v43[327];
-                    v118 = [v81 domain];
-                    v119 = [v117 domain:v118];
+                    v115 = v43[327];
+                    v116 = [v81 domain];
+                    v117 = [v115 domain:v116];
 
-                    [v113 addObject:v119];
+                    [v111 addObject:v117];
                   }
 
-                  v120 = (v228 + 3);
-                  v238 = v228 + 5;
-                  v227 = v228 + 7;
-                  if ([v113 count])
+                  v118 = (v221 + 3);
+                  v231 = v221 + 5;
+                  v220 = v221 + 7;
+                  if ([v111 count])
                   {
-                    v121 = [v43[327] allInterfaces];
-                    [v113 addObject:v121];
+                    v119 = [v43[327] allInterfaces];
+                    [v111 addObject:v119];
 
-                    v122 = [v231 entitlements];
-                    v123 = [v122 count];
+                    v120 = [v224 entitlements];
+                    v121 = [v120 count];
 
-                    if (v123)
+                    if (v121)
                     {
-                      v124 = v120;
+                      v122 = v118;
                     }
 
                     else
                     {
-                      v124 = v238;
+                      v122 = v231;
                     }
 
-                    v125 = [NEPolicy alloc];
-                    v126 = [NEPolicyResult skipWithOrder:v124];
-                    v127 = [v125 initWithOrder:(v228 + 1) result:v126 conditions:v113];
+                    v123 = [NEPolicy alloc];
+                    v124 = [NEPolicyResult skipWithOrder:v122];
+                    v125 = [v123 initWithOrder:(v221 + 1) result:v124 conditions:v111];
 
                     objc_opt_self();
                     if (qword_100229410 != -1)
@@ -2546,15 +1645,15 @@ LABEL_91:
                       dispatch_once(&qword_100229410, &stru_1001FCD98);
                     }
 
-                    v128 = qword_100229408;
-                    v129 = sub_100159E00(v128, *(v1 + 336), v127);
+                    v126 = qword_100229408;
+                    v127 = sub_100159E00(v126, *(v1 + 336), v125);
 
-                    v130 = [NEPolicy alloc];
-                    v131 = [NEPolicyResult skipWithOrder:v227];
-                    v132 = [v43[327] allInterfaces];
-                    v279 = v132;
-                    v133 = [NSArray arrayWithObjects:&v279 count:1];
-                    v134 = [v130 initWithOrder:(v228 + 2) result:v131 conditions:v133];
+                    v128 = [NEPolicy alloc];
+                    v129 = [NEPolicyResult skipWithOrder:v220];
+                    v130 = [v43[327] allInterfaces];
+                    v272 = v130;
+                    v131 = [NSArray arrayWithObjects:&v272 count:1];
+                    v132 = [v128 initWithOrder:(v221 + 2) result:v129 conditions:v131];
 
                     objc_opt_self();
                     if (qword_100229410 != -1)
@@ -2562,39 +1661,39 @@ LABEL_91:
                       dispatch_once(&qword_100229410, &stru_1001FCD98);
                     }
 
-                    v135 = qword_100229408;
-                    v1 = v240;
-                    v136 = sub_100159E00(v135, *(v240 + 336), v134);
+                    v133 = qword_100229408;
+                    v1 = v233;
+                    v134 = sub_100159E00(v133, *(v233 + 336), v132);
                   }
 
-                  v223 = v113;
-                  v251 = 0u;
-                  v252 = 0u;
-                  v249 = 0u;
-                  v250 = 0u;
-                  v235 = v106;
-                  v137 = [v235 countByEnumeratingWithState:&v249 objects:v278 count:16];
-                  if (v137)
+                  v216 = v111;
+                  v244 = 0u;
+                  v245 = 0u;
+                  v242 = 0u;
+                  v243 = 0u;
+                  v228 = v105;
+                  v135 = [v228 countByEnumeratingWithState:&v242 objects:v271 count:16];
+                  if (v135)
                   {
-                    v138 = v137;
-                    v139 = *v250;
+                    v136 = v135;
+                    v137 = *v243;
                     do
                     {
-                      for (k = 0; k != v138; k = k + 1)
+                      for (k = 0; k != v136; k = k + 1)
                       {
-                        if (*v250 != v139)
+                        if (*v243 != v137)
                         {
-                          objc_enumerationMutation(v235);
+                          objc_enumerationMutation(v228);
                         }
 
-                        v141 = [NEPolicyCondition effectiveApplication:*(*(&v249 + 1) + 8 * k)];
-                        v142 = [NEPolicy alloc];
-                        v143 = [NEPolicyResult skipWithOrder:v238];
-                        v144 = +[NEPolicyCondition allInterfaces];
-                        v277[0] = v144;
-                        v277[1] = v141;
-                        v145 = [NSArray arrayWithObjects:v277 count:2];
-                        v146 = [v142 initWithOrder:v120 result:v143 conditions:v145];
+                        v139 = [NEPolicyCondition effectiveApplication:*(*(&v242 + 1) + 8 * k)];
+                        v140 = [NEPolicy alloc];
+                        v141 = [NEPolicyResult skipWithOrder:v231];
+                        v142 = +[NEPolicyCondition allInterfaces];
+                        v270[0] = v142;
+                        v270[1] = v139;
+                        v143 = [NSArray arrayWithObjects:v270 count:2];
+                        v144 = [v140 initWithOrder:v118 result:v141 conditions:v143];
 
                         objc_opt_self();
                         if (qword_100229410 != -1)
@@ -2602,23 +1701,23 @@ LABEL_91:
                           dispatch_once(&qword_100229410, &stru_1001FCD98);
                         }
 
-                        v1 = v240;
-                        v147 = qword_100229408;
-                        v148 = sub_100159E00(v147, *(v240 + 336), v146);
+                        v1 = v233;
+                        v145 = qword_100229408;
+                        v146 = sub_100159E00(v145, *(v233 + 336), v144);
                       }
 
-                      v138 = [v235 countByEnumeratingWithState:&v249 objects:v278 count:16];
+                      v136 = [v228 countByEnumeratingWithState:&v242 objects:v271 count:16];
                     }
 
-                    while (v138);
+                    while (v136);
                   }
 
-                  v149 = [NEPolicy alloc];
-                  v150 = [NEPolicyResult skipWithOrder:v227];
-                  v151 = +[NEPolicyCondition allInterfaces];
-                  v276 = v151;
-                  v152 = [NSArray arrayWithObjects:&v276 count:1];
-                  v153 = [v149 initWithOrder:(v228 + 4) result:v150 conditions:v152];
+                  v147 = [NEPolicy alloc];
+                  v148 = [NEPolicyResult skipWithOrder:v220];
+                  v149 = +[NEPolicyCondition allInterfaces];
+                  v269 = v149;
+                  v150 = [NSArray arrayWithObjects:&v269 count:1];
+                  v151 = [v147 initWithOrder:(v221 + 4) result:v148 conditions:v150];
 
                   objc_opt_self();
                   if (qword_100229410 != -1)
@@ -2626,69 +1725,69 @@ LABEL_91:
                     dispatch_once(&qword_100229410, &stru_1001FCD98);
                   }
 
-                  v154 = qword_100229408;
-                  v155 = sub_100159E00(v154, *(v1 + 336), v153);
+                  v152 = qword_100229408;
+                  v153 = sub_100159E00(v152, *(v1 + 336), v151);
 
-                  v156 = [NEPolicy alloc];
-                  v157 = +[NEPolicyCondition allInterfaces];
-                  v275 = v157;
-                  v158 = [NSArray arrayWithObjects:&v275 count:1];
-                  v159 = [v156 initWithOrder:v238 result:v218 conditions:v158];
+                  v154 = [NEPolicy alloc];
+                  v155 = +[NEPolicyCondition allInterfaces];
+                  v268 = v155;
+                  v156 = [NSArray arrayWithObjects:&v268 count:1];
+                  v157 = [v154 initWithOrder:v231 result:v211 conditions:v156];
 
                   objc_opt_self();
-                  v222 = v153;
+                  v215 = v151;
                   if (qword_100229410 != -1)
                   {
                     dispatch_once(&qword_100229410, &stru_1001FCD98);
                   }
 
-                  v160 = qword_100229408;
-                  v221 = v159;
-                  v161 = sub_100159E00(v160, *(v1 + 336), v159);
+                  v158 = qword_100229408;
+                  v214 = v157;
+                  v159 = sub_100159E00(v158, *(v1 + 336), v157);
 
-                  v162 = [v231 copyMatchTokens];
-                  v245 = 0u;
-                  v246 = 0u;
-                  v247 = 0u;
-                  v248 = 0u;
-                  v232 = v162;
-                  v163 = [v232 countByEnumeratingWithState:&v245 objects:v274 count:16];
-                  if (v163)
+                  v160 = [v224 copyMatchTokens];
+                  v238 = 0u;
+                  v239 = 0u;
+                  v240 = 0u;
+                  v241 = 0u;
+                  v225 = v160;
+                  v161 = [v225 countByEnumeratingWithState:&v238 objects:v267 count:16];
+                  if (v161)
                   {
-                    v164 = v163;
-                    v165 = *v246;
+                    v162 = v161;
+                    v163 = *v239;
                     do
                     {
-                      for (m = 0; m != v164; m = m + 1)
+                      for (m = 0; m != v162; m = m + 1)
                       {
-                        if (*v246 != v165)
+                        if (*v239 != v163)
                         {
-                          objc_enumerationMutation(v232);
+                          objc_enumerationMutation(v225);
                         }
 
-                        v167 = *(*(&v245 + 1) + 8 * m);
-                        v168 = [*(v1 + 696) objectForKeyedSubscript:v167];
-                        if (!v168)
+                        v165 = *(*(&v238 + 1) + 8 * m);
+                        v166 = [*(v1 + 696) objectForKeyedSubscript:v165];
+                        if (!v166)
                         {
-                          v168 = sub_100107380(v1, v167);
-                          v230 = 1;
-                          if (!v168)
+                          v166 = sub_100107380(v1, v165);
+                          v223 = 1;
+                          if (!v166)
                           {
                             continue;
                           }
                         }
 
-                        v169 = v168;
-                        v273[1] = 0;
-                        v273[0] = 0;
+                        v167 = v166;
+                        v266[1] = 0;
+                        v266[0] = 0;
                         nw_agent_get_uuid();
-                        v170 = [[NSUUID alloc] initWithUUIDBytes:v273];
-                        v171 = [NEPolicyResult netAgentUUID:v170];
-                        v172 = [NEPolicy alloc];
-                        v173 = +[NEPolicyCondition allInterfaces];
-                        v272 = v173;
-                        v174 = [NSArray arrayWithObjects:&v272 count:1];
-                        v175 = [v172 initWithOrder:v238 result:v171 conditions:v174];
+                        v168 = [[NSUUID alloc] initWithUUIDBytes:v266];
+                        v169 = [NEPolicyResult netAgentUUID:v168];
+                        v170 = [NEPolicy alloc];
+                        v171 = +[NEPolicyCondition allInterfaces];
+                        v265 = v171;
+                        v172 = [NSArray arrayWithObjects:&v265 count:1];
+                        v173 = [v170 initWithOrder:v231 result:v169 conditions:v172];
 
                         objc_opt_self();
                         if (qword_100229410 != -1)
@@ -2696,24 +1795,24 @@ LABEL_91:
                           dispatch_once(&qword_100229410, &stru_1001FCD98);
                         }
 
-                        v1 = v240;
-                        v176 = qword_100229408;
-                        v177 = sub_100159E00(v176, *(v240 + 336), v175);
+                        v1 = v233;
+                        v174 = qword_100229408;
+                        v175 = sub_100159E00(v174, *(v233 + 336), v173);
                       }
 
-                      v164 = [v232 countByEnumeratingWithState:&v245 objects:v274 count:16];
+                      v162 = [v225 countByEnumeratingWithState:&v238 objects:v267 count:16];
                     }
 
-                    while (v164);
+                    while (v162);
                   }
 
-                  v178 = [NEPolicy alloc];
-                  v179 = [NEPolicyResult skipWithOrder:599];
+                  v176 = [NEPolicy alloc];
+                  v177 = [NEPolicyResult skipWithOrder:599];
                   v43 = &dispatch_group_enter_ptr;
-                  v180 = +[NEPolicyCondition allInterfaces];
-                  v271 = v180;
-                  v181 = [NSArray arrayWithObjects:&v271 count:1];
-                  v182 = [v178 initWithOrder:(v228 + 6) result:v179 conditions:v181];
+                  v178 = +[NEPolicyCondition allInterfaces];
+                  v264 = v178;
+                  v179 = [NSArray arrayWithObjects:&v264 count:1];
+                  v180 = [v176 initWithOrder:(v221 + 6) result:v177 conditions:v179];
 
                   objc_opt_self();
                   if (qword_100229410 != -1)
@@ -2721,73 +1820,73 @@ LABEL_91:
                     dispatch_once(&qword_100229410, &stru_1001FCD98);
                   }
 
-                  v79 = v225;
-                  v80 = v235;
-                  v183 = qword_100229408;
-                  v184 = sub_100159E00(v183, *(v1 + 336), v182);
+                  v79 = v218;
+                  v80 = v228;
+                  v181 = qword_100229408;
+                  v182 = sub_100159E00(v181, *(v1 + 336), v180);
 
-                  v228 += 7;
+                  v221 += 7;
 LABEL_82:
                 }
 
-                v220 = [obj countByEnumeratingWithState:&v259 objects:v281 count:16];
-                if (!v220)
+                v213 = [obj countByEnumeratingWithState:&v252 objects:v274 count:16];
+                if (!v213)
                 {
                   goto LABEL_155;
                 }
               }
             }
 
-            v217 = 0;
-            v230 = 0;
+            v210 = 0;
+            v223 = 0;
 LABEL_155:
 
-            if ([v215 count])
+            if ([v208 count])
             {
-              v185 = [NEPolicyResult skipWithOrder:591];
-              v186 = [NEPolicy alloc];
-              v187 = [v43[327] allInterfaces];
-              v270 = v187;
-              v188 = [NSArray arrayWithObjects:&v270 count:1];
-              v233 = v185;
-              v189 = [v186 initWithOrder:589 result:v185 conditions:v188];
+              v183 = [NEPolicyResult skipWithOrder:591];
+              v184 = [NEPolicy alloc];
+              v185 = [v43[327] allInterfaces];
+              v263 = v185;
+              v186 = [NSArray arrayWithObjects:&v263 count:1];
+              v226 = v183;
+              v187 = [v184 initWithOrder:589 result:v183 conditions:v186];
 
-              v190 = sub_1001599CC();
-              v229 = v189;
-              v191 = sub_100159E00(v190, *(v1 + 336), v189);
+              v188 = sub_1001599CC(NRDPolicySessionManager);
+              v222 = v187;
+              v189 = sub_100159E00(v188, *(v1 + 336), v187);
 
-              v243 = 0u;
-              v244 = 0u;
-              v241 = 0u;
-              v242 = 0u;
-              v236 = v215;
-              v192 = [v236 countByEnumeratingWithState:&v241 objects:v269 count:16];
-              if (v192)
+              v236 = 0u;
+              v237 = 0u;
+              v234 = 0u;
+              v235 = 0u;
+              v229 = v208;
+              v190 = [v229 countByEnumeratingWithState:&v234 objects:v262 count:16];
+              if (v190)
               {
-                v193 = v192;
-                v239 = *v242;
+                v191 = v190;
+                v232 = *v235;
                 do
                 {
-                  for (n = 0; n != v193; n = n + 1)
+                  for (n = 0; n != v191; n = n + 1)
                   {
-                    if (*v242 != v239)
+                    if (*v235 != v232)
                     {
-                      objc_enumerationMutation(v236);
+                      objc_enumerationMutation(v229);
                     }
 
-                    v195 = *(*(&v241 + 1) + 8 * n);
-                    v196 = [NEPolicyRouteRule routeRuleWithAction:7 forType:0, v207];
-                    [v196 setControlUnit:0xFFFFFFFLL];
-                    v197 = [NEPolicy alloc];
-                    v268 = v196;
-                    v198 = [NSArray arrayWithObjects:&v268 count:1];
-                    v199 = [NEPolicyResult routeRules:v198];
-                    v200 = +[NEPolicyCondition allInterfaces];
-                    v267[0] = v200;
-                    v201 = [NEPolicyCondition effectiveApplication:v195];
-                    v267[1] = v201;
-                    v202 = [NSArray arrayWithObjects:v267 count:2];
-                    v203 = [v197 initWithOrder:590 result:v199 conditions:v202];
+                    v193 = *(*(&v234 + 1) + 8 * n);
+                    v194 = [NEPolicyRouteRule routeRuleWithAction:7 forType:0];
+                    [v194 setControlUnit:0xFFFFFFFLL];
+                    v195 = [NEPolicy alloc];
+                    v261 = v194;
+                    v196 = [NSArray arrayWithObjects:&v261 count:1];
+                    v197 = [NEPolicyResult routeRules:v196];
+                    v198 = +[NEPolicyCondition allInterfaces];
+                    v260[0] = v198;
+                    v199 = [NEPolicyCondition effectiveApplication:v193];
+                    v260[1] = v199;
+                    v200 = [NSArray arrayWithObjects:v260 count:2];
+                    v201 = [v195 initWithOrder:590 result:v197 conditions:v200];
 
                     objc_opt_self();
                     if (qword_100229410 != -1)
@@ -2795,23 +1894,23 @@ LABEL_155:
                       dispatch_once(&qword_100229410, &stru_1001FCD98);
                     }
 
-                    v204 = qword_100229408;
-                    v205 = sub_100159E00(v204, *(v240 + 336), v203);
+                    v202 = qword_100229408;
+                    v203 = sub_100159E00(v202, *(v233 + 336), v201);
                   }
 
-                  v193 = [v236 countByEnumeratingWithState:&v241 objects:v269 count:16];
+                  v191 = [v229 countByEnumeratingWithState:&v234 objects:v262 count:16];
                 }
 
-                while (v193);
+                while (v191);
               }
 
-              v1 = v240;
+              v1 = v233;
             }
 
-            v206 = sub_1001599CC();
-            sub_10015A52C(v206);
+            v204 = sub_1001599CC(NRDPolicySessionManager);
+            sub_10015A52C(v204);
 
-            if (v217)
+            if (v210)
             {
               sub_1001075E4(v1);
             }
@@ -2821,8 +1920,8 @@ LABEL_155:
               sub_1001070B0(v1);
             }
 
-            v2 = v214;
-            if ((v230 & 1) == 0)
+            v2 = v207;
+            if ((v223 & 1) == 0)
             {
               goto LABEL_17;
             }
@@ -2838,19 +1937,19 @@ LABEL_155:
         [v53 setNegative:1];
         v54 = [NEPolicyResult skipWithOrder:304];
         v55 = [NEPolicy alloc];
-        v284[0] = v51;
-        v284[1] = v52;
-        v284[2] = v53;
-        v56 = [NSArray arrayWithObjects:v284 count:3];
+        v277[0] = v51;
+        v277[1] = v52;
+        v277[2] = v53;
+        v56 = [NSArray arrayWithObjects:v277 count:3];
         v57 = [v55 initWithOrder:302 result:v54 conditions:v56];
 
-        v58 = sub_1001599CC();
+        v58 = sub_1001599CC(NRDPolicySessionManager);
         v59 = sub_100159E00(v58, *(v1 + 336), v57);
 
-        v60 = v214;
-        if (v214)
+        v60 = v207;
+        if (v207)
         {
-          v60 = v214[18];
+          v60 = v207[18];
         }
 
         v61 = v60;
@@ -2869,15 +1968,15 @@ LABEL_155:
 
         v65 = [NEPolicyResult skipWithOrder:v64];
         v66 = [NEPolicy alloc];
-        v283 = v51;
-        v67 = [NSArray arrayWithObjects:&v283 count:1];
+        v276 = v51;
+        v67 = [NSArray arrayWithObjects:&v276 count:1];
         v68 = [v66 initWithOrder:303 result:v65 conditions:v67];
 
-        v69 = sub_1001599CC();
-        v70 = sub_100159E00(v69, *(v240 + 336), v68);
+        v69 = sub_1001599CC(NRDPolicySessionManager);
+        v70 = sub_100159E00(v69, *(v233 + 336), v68);
 
-        v1 = v240;
-        v228 = 304;
+        v1 = v233;
+        v221 = 304;
         v43 = &dispatch_group_enter_ptr;
         goto LABEL_60;
       }
@@ -2888,12 +1987,11 @@ LABEL_155:
       if (v45)
       {
         v46 = sub_1000E83DC();
-        v208 = *(v1 + 160);
-        _NRLogWithArgs();
+        _NRLogWithArgs(v46, 17, "invalid interface name for %@", *(v1 + 160));
       }
 
 LABEL_16:
-      v2 = v214;
+      v2 = v207;
     }
 
 LABEL_17:
@@ -3139,13 +2237,13 @@ void sub_1001067E0(uint64_t a1)
 {
   if (a1)
   {
-    v66 = sub_100163A30(NRDLocalDevice, *(a1 + 96));
+    v55 = sub_100163A30(NRDLocalDevice, *(a1 + 96));
     if ((*(a1 + 49) & 1) == 0)
     {
-      v2 = v66;
-      if (v66)
+      v2 = v55;
+      if (v55)
       {
-        v2 = *(v66 + 144);
+        v2 = *(v55 + 144);
       }
 
       v3 = v2;
@@ -3153,18 +2251,18 @@ void sub_1001067E0(uint64_t a1)
 
       if (!v4)
       {
-        goto LABEL_21;
+        goto LABEL_22;
       }
     }
 
     if (*(a1 + 656))
     {
-      goto LABEL_21;
+      goto LABEL_22;
     }
 
-    if (v66)
+    if (v55)
     {
-      v5 = *(v66 + 48);
+      v5 = *(v55 + 48);
       if ((v5 & 0x20) != 0)
       {
         LOBYTE(v7) = 1;
@@ -3176,7 +2274,7 @@ void sub_1001067E0(uint64_t a1)
 
       else
       {
-        v6 = (v5 & 0x10) != 0 || *(v66 + 16) > 0x12u;
+        v6 = (v5 & 0x10) != 0 || *(v55 + 16) > 0x12u;
         v7 = (v5 >> 14) & 1 | v6;
         if ((v5 & 0x1000) == 0)
         {
@@ -3184,223 +2282,216 @@ void sub_1001067E0(uint64_t a1)
         }
       }
 
-      if ((((*(v66 + 48) & 0x2000) != 0) & v7) != 0)
+      if ((((*(v55 + 48) & 0x2000) != 0) & v7) != 0)
       {
-        if (*(v66 + 16) > 0x15u)
+        if (*(v55 + 16) > 0x15u)
         {
-          v16 = *(v66 + 40);
+          v13 = *(v55 + 40);
 
-          if (v16)
+          if (v13)
           {
-            v17 = [NRApplicationServiceClient alloc];
-            v18 = a1;
-            v19 = *(a1 + 136);
-            v20 = v18[12];
-            v21 = v19;
-            v22 = sub_10011E9B8(&v17->super.isa, v18, v21, v20);
-            v23 = v18[82];
-            v18[82] = v22;
+            v14 = [NRApplicationServiceClient alloc];
+            v15 = a1;
+            v16 = *(a1 + 136);
+            v17 = v15[12];
+            v18 = v16;
+            v19 = sub_10011E9B8(&v14->super.isa, v15, v18, v17);
+            v20 = v15[82];
+            v15[82] = v19;
 
-            v65 = v18;
-            v24 = v18[82];
-            if (v24 && (v24[9] & 1) == 0)
+            v54 = v15;
+            v21 = v15[82];
+            if (v21 && (v21[9] & 1) == 0)
             {
-              if ((v24[8] & 1) == 0)
+              if ((v21[8] & 1) == 0)
               {
-                v24[8] = 1;
+                v21[8] = 1;
                 objc_opt_self();
                 if (qword_1002291A0 != -1)
                 {
                   dispatch_once(&qword_1002291A0, &stru_1001FBD88);
                 }
 
-                v36 = qword_100229198;
-                v37 = v24;
-                if (v36)
+                v29 = qword_100229198;
+                v30 = v21;
+                if (v29)
                 {
-                  dispatch_assert_queue_V2(*(v36 + 16));
-                  [*(v36 + 56) addObject:v37];
-                  v81 = 0u;
-                  v82 = 0u;
-                  v79 = 0u;
-                  v80 = 0u;
-                  v64 = v36;
-                  v38 = *(v36 + 40);
-                  v39 = [v38 countByEnumeratingWithState:&v79 objects:location count:16];
-                  if (v39)
+                  dispatch_assert_queue_V2(*(v29 + 16));
+                  [*(v29 + 56) addObject:v30];
+                  v70 = 0u;
+                  v71 = 0u;
+                  v68 = 0u;
+                  v69 = 0u;
+                  v53 = v29;
+                  v31 = *(v29 + 40);
+                  v32 = [v31 countByEnumeratingWithState:&v68 objects:location count:16];
+                  if (v32)
                   {
-                    v40 = *v80;
+                    v33 = *v69;
                     do
                     {
-                      for (i = 0; i != v39; i = i + 1)
+                      for (i = 0; i != v32; i = i + 1)
                       {
-                        if (*v80 != v40)
+                        if (*v69 != v33)
                         {
-                          objc_enumerationMutation(v38);
+                          objc_enumerationMutation(v31);
                         }
 
-                        v42 = *(*(&v79 + 1) + 8 * i);
-                        v43 = v37[9];
+                        v35 = *(*(&v68 + 1) + 8 * i);
+                        v36 = v30[9];
                         block[0] = _NSConcreteStackBlock;
                         block[1] = 3221225472;
                         block[2] = sub_10011E67C;
                         block[3] = &unk_1001FD060;
-                        v77 = v37;
-                        v78 = v42;
-                        dispatch_async(v43, block);
+                        v66 = v30;
+                        v67 = v35;
+                        dispatch_async(v36, block);
                       }
 
-                      v39 = [v38 countByEnumeratingWithState:&v79 objects:location count:16];
+                      v32 = [v31 countByEnumeratingWithState:&v68 objects:location count:16];
                     }
 
-                    while (v39);
+                    while (v32);
                   }
 
-                  v75 = 0u;
-                  v73 = 0u;
-                  v74 = 0u;
-                  v72 = 0u;
-                  v44 = *(v64 + 48);
-                  v45 = [v44 countByEnumeratingWithState:&v72 objects:v83 count:16];
-                  if (v45)
+                  v64 = 0u;
+                  v62 = 0u;
+                  v63 = 0u;
+                  v61 = 0u;
+                  v37 = *(v53 + 48);
+                  v38 = [v37 countByEnumeratingWithState:&v61 objects:v72 count:16];
+                  if (v38)
                   {
-                    v46 = *v73;
+                    v39 = *v62;
                     do
                     {
-                      for (j = 0; j != v45; j = j + 1)
+                      for (j = 0; j != v38; j = j + 1)
                       {
-                        if (*v73 != v46)
+                        if (*v62 != v39)
                         {
-                          objc_enumerationMutation(v44);
+                          objc_enumerationMutation(v37);
                         }
 
-                        v48 = *(*(&v72 + 1) + 8 * j);
-                        v49 = v37[9];
-                        v69[0] = _NSConcreteStackBlock;
-                        v69[1] = 3221225472;
-                        v69[2] = sub_10011E688;
-                        v69[3] = &unk_1001FD060;
-                        v70 = v37;
-                        v71 = v48;
-                        dispatch_async(v49, v69);
+                        v41 = *(*(&v61 + 1) + 8 * j);
+                        v42 = v30[9];
+                        v58[0] = _NSConcreteStackBlock;
+                        v58[1] = 3221225472;
+                        v58[2] = sub_10011E688;
+                        v58[3] = &unk_1001FD060;
+                        v59 = v30;
+                        v60 = v41;
+                        dispatch_async(v42, v58);
                       }
 
-                      v45 = [v44 countByEnumeratingWithState:&v72 objects:v83 count:16];
+                      v38 = [v37 countByEnumeratingWithState:&v61 objects:v72 count:16];
                     }
 
-                    while (v45);
+                    while (v38);
                   }
                 }
 
-                v50 = v37[7];
-                v51 = _NRCopyLogObjectForNRUUID();
+                v43 = _NRCopyLogObjectForNRUUID();
                 IsLevelEnabled = _NRLogIsLevelEnabled();
 
                 if (IsLevelEnabled)
                 {
-                  v53 = v37[7];
-                  v54 = _NRCopyLogObjectForNRUUID();
-                  _NRLogWithArgs();
+                  v45 = _NRCopyLogObjectForNRUUID();
+                  _NRLogWithArgs(v45, 1, "%s%.30s:%-4d %@ start", "", "[NRApplicationServiceClient start]", 1375, v30);
                 }
               }
 
-              v55 = objc_alloc_init(NSMutableDictionary);
-              objc_storeStrong((v65 + 672), v55);
+              v46 = objc_alloc_init(NSMutableDictionary);
+              objc_storeStrong((v54 + 672), v46);
 
-              v56 = objc_alloc_init(NSMutableDictionary);
-              objc_storeStrong((v65 + 680), v56);
+              v47 = objc_alloc_init(NSMutableDictionary);
+              objc_storeStrong((v54 + 680), v47);
 
-              v57 = objc_alloc_init(NSMutableDictionary);
-              objc_storeStrong((v65 + 688), v57);
+              v48 = objc_alloc_init(NSMutableDictionary);
+              objc_storeStrong((v54 + 688), v48);
 
-              v58 = *(v65 + 96);
-              v59 = _NRCopyLogObjectForNRUUID();
-              v60 = _NRLogIsLevelEnabled();
+              v49 = _NRCopyLogObjectForNRUUID();
+              v50 = _NRLogIsLevelEnabled();
 
-              if (v60)
+              if (v50)
               {
-                v61 = *(v65 + 96);
-                v62 = _NRCopyLogObjectForNRUUID();
-                v63 = *(v65 + 656);
-                _NRLogWithArgs();
+                v51 = *(v54 + 96);
+                v52 = _NRCopyLogObjectForNRUUID();
+                _NRLogWithArgs(v52, 0, "%s%.30s:%-4d registered application service client %@", "", "[NRDDeviceConductor registerASClientIfNeeded]", 9588, *(v54 + 656));
               }
 
-              sub_1000FB114(v65, 0);
+              sub_1000FB114(v54, 0);
             }
 
             else
             {
-              v25 = v18[12];
-              v26 = _NRCopyLogObjectForNRUUID();
-              v27 = _NRLogIsLevelEnabled();
+              v22 = _NRCopyLogObjectForNRUUID();
+              v23 = _NRLogIsLevelEnabled();
 
-              if (v27)
+              if (v23)
               {
-                v28 = v18[12];
-                v29 = _NRCopyLogObjectForNRUUID();
-                _NRLogWithArgs();
+                v24 = _NRCopyLogObjectForNRUUID();
+                _NRLogWithArgs(v24, 17, "failed to start AS client");
               }
 
-              objc_storeStrong(v18 + 82, 0);
+              objc_storeStrong(v15 + 82, 0);
             }
           }
 
           else
           {
-            v30 = *(a1 + 96);
-            v31 = _NRCopyLogObjectForNRUUID();
-            v32 = _NRLogIsLevelEnabled();
+            v25 = _NRCopyLogObjectForNRUUID();
+            v26 = _NRLogIsLevelEnabled();
 
-            if (v32)
+            if (v26)
             {
-              v33 = *(a1 + 96);
-              v34 = _NRCopyLogObjectForNRUUID();
-              _NRLogWithArgs();
+              v27 = _NRCopyLogObjectForNRUUID();
+              _NRLogWithArgs(v27, 2, "%s%.30s:%-4d waiting on peer IDS device ID to complete ASClient registration", "", "[NRDDeviceConductor registerASClientIfNeeded]", 9559);
             }
 
             objc_initWeak(location, a1);
-            v35 = *(a1 + 96);
-            v67[0] = _NSConcreteStackBlock;
-            v67[1] = 3221225472;
-            v67[2] = sub_100106F40;
-            v67[3] = &unk_1001FBC20;
-            objc_copyWeak(&v68, location);
-            sub_100170E74(NRDLocalDevice, v35, v67);
+            v28 = *(a1 + 96);
+            v56[0] = _NSConcreteStackBlock;
+            v56[1] = 3221225472;
+            v56[2] = sub_100106F40;
+            v56[3] = &unk_1001FBC20;
+            objc_copyWeak(&v57, location);
+            sub_100170E74(NRDLocalDevice, v28, v56);
 
-            objc_destroyWeak(&v68);
+            objc_destroyWeak(&v57);
             objc_destroyWeak(location);
           }
 
-          goto LABEL_21;
+          goto LABEL_22;
         }
 
-        v8 = *(a1 + 96);
-        v9 = _NRCopyLogObjectForNRUUID();
-        v10 = _NRLogIsLevelEnabled();
+        v8 = _NRCopyLogObjectForNRUUID();
+        v9 = _NRLogIsLevelEnabled();
 
-        if (v10)
+        if (v9)
         {
-          goto LABEL_20;
+          v10 = _NRCopyLogObjectForNRUUID();
+          _NRLogWithArgs(v10, 2, "%s%.30s:%-4d ignoring ASClient registration for unsupported peer");
+LABEL_21:
+
+          goto LABEL_22;
         }
 
-        goto LABEL_21;
+        goto LABEL_22;
       }
     }
 
 LABEL_19:
-    v11 = *(a1 + 96);
-    v12 = _NRCopyLogObjectForNRUUID();
-    v13 = _NRLogIsLevelEnabled();
+    v11 = _NRCopyLogObjectForNRUUID();
+    v12 = _NRLogIsLevelEnabled();
 
-    if (v13)
+    if (v12)
     {
-LABEL_20:
-      v14 = *(a1 + 96);
-      v15 = _NRCopyLogObjectForNRUUID();
-      _NRLogWithArgs();
+      v10 = _NRCopyLogObjectForNRUUID();
+      _NRLogWithArgs(v10, 2, "%s%.30s:%-4d ignoring ASClient registration as peer not paired");
+      goto LABEL_21;
     }
 
-LABEL_21:
+LABEL_22:
   }
 }
 
@@ -3413,21 +2504,21 @@ void sub_100106F1C(_Unwind_Exception *a1)
 
 void sub_100106F40(uint64_t a1, void *a2)
 {
-  v19 = a2;
+  v16 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v4 = WeakRetained;
   if (WeakRetained && *(WeakRetained + 14) == 1)
   {
-    v5 = *(WeakRetained + 12);
-    v6 = v19 ? v19[3] : 0;
+    v5 = WeakRetained[12];
+    v6 = v16 ? v16[3] : 0;
     v7 = v6;
     v8 = [v5 isEqual:v7];
 
     if (v8)
     {
-      if (v19)
+      if (v16)
       {
-        v9 = v19[5];
+        v9 = v16[5];
       }
 
       else
@@ -3437,17 +2528,15 @@ void sub_100106F40(uint64_t a1, void *a2)
 
       v10 = v9;
 
-      v11 = v4[12];
-      v12 = _NRCopyLogObjectForNRUUID();
+      v11 = _NRCopyLogObjectForNRUUID();
       if (v10)
       {
         IsLevelEnabled = _NRLogIsLevelEnabled();
 
         if (IsLevelEnabled)
         {
-          v14 = v4[12];
-          v15 = _NRCopyLogObjectForNRUUID();
-          _NRLogWithArgs();
+          v13 = _NRCopyLogObjectForNRUUID();
+          _NRLogWithArgs(v13, 0, "%s%.30s:%-4d received peer IDS device ID. Registering ASClient", "", "[NRDDeviceConductor registerASClientIfNeeded]_block_invoke", 9571);
         }
 
         sub_1001067E0(v4);
@@ -3455,13 +2544,12 @@ void sub_100106F40(uint64_t a1, void *a2)
 
       else
       {
-        v16 = _NRLogIsLevelEnabled();
+        v14 = _NRLogIsLevelEnabled();
 
-        if (v16)
+        if (v14)
         {
-          v17 = v4[12];
-          v18 = _NRCopyLogObjectForNRUUID();
-          _NRLogWithArgs();
+          v15 = _NRCopyLogObjectForNRUUID();
+          _NRLogWithArgs(v15, 17, "no IDS device ID");
         }
       }
     }
@@ -3472,20 +2560,18 @@ void sub_1001070B0(uint64_t a1)
 {
   if (*(a1 + 50) == 1)
   {
-    v8 = +[NSDistributedNotificationCenter defaultCenter];
-    [v8 removeObserver:a1 name:@"com.apple.LaunchServices.applicationRegistered" object:0];
-    [v8 removeObserver:a1 name:@"com.apple.LaunchServices.applicationStateChanged" object:0];
-    [v8 removeObserver:a1 name:@"com.apple.LaunchServices.applicationUnregistered" object:0];
+    v6 = +[NSDistributedNotificationCenter defaultCenter];
+    [v6 removeObserver:a1 name:@"com.apple.LaunchServices.applicationRegistered" object:0];
+    [v6 removeObserver:a1 name:@"com.apple.LaunchServices.applicationStateChanged" object:0];
+    [v6 removeObserver:a1 name:@"com.apple.LaunchServices.applicationUnregistered" object:0];
     *(a1 + 50) = 0;
-    v3 = *(a1 + 96);
-    v4 = _NRCopyLogObjectForNRUUID();
+    v3 = _NRCopyLogObjectForNRUUID();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (IsLevelEnabled)
     {
-      v6 = *(a1 + 96);
-      v7 = _NRCopyLogObjectForNRUUID();
-      _NRLogWithArgs();
+      v5 = _NRCopyLogObjectForNRUUID();
+      _NRLogWithArgs(v5, 0, "%s%.30s:%-4d stopped monitoring LS events", "", "[NRDDeviceConductor stopMonitoringLSAppEvents]", 4645);
     }
   }
 }
@@ -3565,34 +2651,33 @@ id sub_100107380(uint64_t a1, void *a2)
     *(a1 + 696) = v4;
   }
 
-  v6 = *(a1 + 136);
-  v7 = nw_agent_create();
-  v8 = dispatch_data_create([v3 bytes], objc_msgSend(v3, "length"), *(a1 + 136), 0);
+  v6 = nw_agent_create();
+  v7 = dispatch_data_create([v3 bytes], objc_msgSend(v3, "length"), *(a1 + 136), 0);
   nw_agent_change_state();
   objc_initWeak(&location, a1);
-  objc_initWeak(&from, v7);
-  v12[1] = _NSConcreteStackBlock;
-  v12[2] = 3221225472;
-  v12[3] = sub_10010777C;
-  v12[4] = &unk_1001FBA20;
-  objc_copyWeak(&v14, &location);
-  objc_copyWeak(&v15, &from);
-  v9 = v8;
-  v13 = v9;
+  objc_initWeak(&from, v6);
+  v11[1] = _NSConcreteStackBlock;
+  v11[2] = 3221225472;
+  v11[3] = sub_10010777C;
+  v11[4] = &unk_1001FBA20;
+  objc_copyWeak(&v13, &location);
+  objc_copyWeak(&v14, &from);
+  v8 = v7;
+  v12 = v8;
   nw_agent_set_token_low_water_mark();
-  objc_copyWeak(v12, &location);
+  objc_copyWeak(v11, &location);
   nw_agent_set_error_handler();
-  sub_100107924(v7, v9);
-  v10 = *(a1 + 696);
-  [v10 setObject:v7 forKeyedSubscript:{v3, _NSConcreteStackBlock, 3221225472, sub_100107860, &unk_1001FBA48}];
+  sub_100107924(v6, v8);
+  v9 = *(a1 + 696);
+  [v9 setObject:v6 forKeyedSubscript:{v3, _NSConcreteStackBlock, 3221225472, sub_100107860, &unk_1001FBA48}];
 
-  objc_destroyWeak(v12);
-  objc_destroyWeak(&v15);
+  objc_destroyWeak(v11);
   objc_destroyWeak(&v14);
+  objc_destroyWeak(&v13);
   objc_destroyWeak(&from);
   objc_destroyWeak(&location);
 
-  return v7;
+  return v6;
 }
 
 void sub_1001075A4(_Unwind_Exception *a1)
@@ -3609,20 +2694,18 @@ void sub_1001075E4(uint64_t a1)
 {
   if ((*(a1 + 50) & 1) == 0)
   {
-    v8 = +[NSDistributedNotificationCenter defaultCenter];
-    [v8 addObserver:a1 selector:"processAppStateChanged:" name:@"com.apple.LaunchServices.applicationRegistered" object:0];
-    [v8 addObserver:a1 selector:"processAppStateChanged:" name:@"com.apple.LaunchServices.applicationStateChanged" object:0];
-    [v8 addObserver:a1 selector:"processAppStateChanged:" name:@"com.apple.LaunchServices.applicationUnregistered" object:0];
+    v6 = +[NSDistributedNotificationCenter defaultCenter];
+    [v6 addObserver:a1 selector:"processAppStateChanged:" name:@"com.apple.LaunchServices.applicationRegistered" object:0];
+    [v6 addObserver:a1 selector:"processAppStateChanged:" name:@"com.apple.LaunchServices.applicationStateChanged" object:0];
+    [v6 addObserver:a1 selector:"processAppStateChanged:" name:@"com.apple.LaunchServices.applicationUnregistered" object:0];
     *(a1 + 50) = 1;
-    v3 = *(a1 + 96);
-    v4 = _NRCopyLogObjectForNRUUID();
+    v3 = _NRCopyLogObjectForNRUUID();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (IsLevelEnabled)
     {
-      v6 = *(a1 + 96);
-      v7 = _NRCopyLogObjectForNRUUID();
-      _NRLogWithArgs();
+      v5 = _NRCopyLogObjectForNRUUID();
+      _NRLogWithArgs(v5, 0, "%s%.30s:%-4d started monitoring for LS events", "", "[NRDDeviceConductor startMonitoringLSAppEvents]", 4669);
     }
   }
 }
@@ -3644,25 +2727,23 @@ void sub_10010777C(void **a1)
   WeakRetained = objc_loadWeakRetained(a1 + 5);
   if (WeakRetained && WeakRetained[14] == 1)
   {
-    v9 = WeakRetained;
+    v7 = WeakRetained;
     v3 = objc_loadWeakRetained(a1 + 6);
     if (v3)
     {
-      v4 = v9[12];
-      v5 = _NRCopyLogObjectForNRUUID();
+      v4 = _NRCopyLogObjectForNRUUID();
       IsLevelEnabled = _NRLogIsLevelEnabled();
 
       if (IsLevelEnabled)
       {
-        v7 = v9[12];
-        v8 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        v6 = _NRCopyLogObjectForNRUUID();
+        _NRLogWithArgs(v6, 1, "%s%.30s:%-4d tokens needed", "", "[NRDDeviceConductor createTokenAgentForToken:]_block_invoke", 5048);
       }
 
       sub_100107924(v3, a1[4]);
     }
 
-    WeakRetained = v9;
+    WeakRetained = v7;
   }
 }
 
@@ -3673,21 +2754,19 @@ void sub_100107860(uint64_t a1, uint64_t a2, int a3)
   {
     if (a3)
     {
-      if (*(WeakRetained + 14))
+      if (WeakRetained[14])
       {
-        v10 = WeakRetained;
-        v5 = *(WeakRetained + 12);
-        v6 = _NRCopyLogObjectForNRUUID();
+        v8 = WeakRetained;
+        v5 = _NRCopyLogObjectForNRUUID();
         IsLevelEnabled = _NRLogIsLevelEnabled();
 
-        WeakRetained = v10;
+        WeakRetained = v8;
         if (IsLevelEnabled)
         {
-          v8 = *(v10 + 12);
-          v9 = _NRCopyLogObjectForNRUUID();
-          _NRLogWithArgs();
+          v7 = _NRCopyLogObjectForNRUUID();
+          _NRLogWithArgs(v7, 16, "%s%.30s:%-4d token agent received error %d", "", "[NRDDeviceConductor createTokenAgentForToken:]_block_invoke_2", 5057, a3);
 
-          WeakRetained = v10;
+          WeakRetained = v8;
         }
       }
     }
@@ -3718,7 +2797,7 @@ void sub_100107924(void *a1, void *a2)
 void sub_100107A24(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v12 = v3;
+  v10 = v3;
   if (v3)
   {
     [v3 UTF8String];
@@ -3730,22 +2809,20 @@ void sub_100107A24(uint64_t a1, void *a2)
       v7 = *(a1 + 768);
       *(a1 + 768) = v6;
 
-      v8 = *(a1 + 768);
       nw_agent_change_state();
-      v9 = *(a1 + 768);
     }
 
     nw_agent_add_to_interface();
     goto LABEL_5;
   }
 
-  v10 = sub_1000E83DC();
+  v8 = sub_1000E83DC();
   IsLevelEnabled = _NRLogIsLevelEnabled();
 
   if (IsLevelEnabled)
   {
     v4 = sub_1000E83DC();
-    _NRLogWithArgs();
+    _NRLogWithArgs(v4, 17, "%s called with null intfName", "[NRDDeviceConductor addCompanionScopingAgentToInterface:]");
 LABEL_5:
   }
 }
@@ -3755,12 +2832,12 @@ void sub_100107B28(void **a1, void *a2)
   v3 = a2;
   if (([v3 hasCompanionDatapath] & 1) == 0)
   {
-    v351 = objc_alloc_init(NSMutableArray);
+    v304 = objc_alloc_init(NSMutableArray);
     v4 = sub_100163A30(NRDLocalDevice, a1[12]);
     v5 = [v3 localInterfaceName];
-    v349 = v3;
-    v350 = a1;
-    v340 = v4;
+    v302 = v3;
+    v303 = a1;
+    v293 = v4;
     if (v5)
     {
       v6 = v5;
@@ -3795,8 +2872,8 @@ LABEL_8:
       if ((v105 & 1) == 0)
       {
         v106 = +[NEPolicyCondition allInterfaces];
-        v379 = v106;
-        v17 = [NSArray arrayWithObjects:&v379 count:1];
+        v332 = v106;
+        v17 = [NSArray arrayWithObjects:&v332 count:1];
 
         v107 = [v3 localInterfaceName];
         v108 = [NEPolicyRouteRule routeRuleWithAction:5 forInterfaceName:v107];
@@ -3805,11 +2882,11 @@ LABEL_8:
         [v108 setNetworkAgentUUID:v109];
 
         obj = v108;
-        v378 = v108;
-        v110 = [NSArray arrayWithObjects:&v378 count:1];
+        v331 = v108;
+        v110 = [NSArray arrayWithObjects:&v331 count:1];
         v111 = [NEPolicyResult routeRules:v110];
 
-        v334 = v111;
+        v287 = v111;
         v112 = [[NEPolicy alloc] initWithOrder:10 result:v111 conditions:v17];
         objc_opt_self();
         if (qword_100229410 != -1)
@@ -3822,48 +2899,41 @@ LABEL_8:
 
         if (![v114 unsignedIntegerValue])
         {
-          v292 = *(v350 + 96);
-          v293 = _NRCopyLogObjectForNRUUID();
+          v258 = _NRCopyLogObjectForNRUUID();
           IsLevelEnabled = _NRLogIsLevelEnabled();
 
           if (IsLevelEnabled)
           {
-            v295 = *(v350 + 96);
-            v296 = _NRCopyLogObjectForNRUUID();
-            v325 = v112;
-            v326 = *(v350 + 304);
-            v323 = 3843;
-            v324 = v349;
-            _NRLogWithArgs();
+            v260 = v303[12];
+            v261 = _NRCopyLogObjectForNRUUID();
+            _NRLogWithArgs(v261, 16, "%s%.30s:%-4d %@ failed to add generalPolicy %@ to session %@", "", "[NRDDeviceConductor setPoliciesForNonCompanionDatapath:]", 3843, v302, v112, v303[38]);
           }
 
-          v297 = *(v350 + 96);
-          v298 = _NRCopyLogObjectForNRUUID();
-          v299 = _NRLogIsLevelEnabled();
+          v262 = _NRCopyLogObjectForNRUUID();
+          v263 = _NRLogIsLevelEnabled();
 
-          if (v299)
+          if (v263)
           {
-            v300 = *(v350 + 96);
-            v301 = _NRCopyLogObjectForNRUUID();
-            _NRLogWithArgs();
+            v264 = _NRCopyLogObjectForNRUUID();
+            _NRLogWithArgs(v264, 17, "Failed to add generalPolicy");
           }
 
-          v3 = v349;
-          [v349 cancelWithReason:{@"Failed to add generalPolicy %@ to session %@", v112, *(v350 + 304), v323, v324, v325, v326}];
+          v3 = v302;
+          [v302 cancelWithReason:{@"Failed to add generalPolicy %@ to session %@", v112, v303[38]}];
 
           goto LABEL_196;
         }
 
-        [v351 addObject:v114];
+        [v304 addObject:v114];
 
-        v333 = [NEPolicy alloc];
-        v115 = [v349 proxyAgentUUID];
+        v286 = [NEPolicy alloc];
+        v115 = [v302 proxyAgentUUID];
         v116 = [NEPolicyResult netAgentUUID:v115];
-        v117 = [v349 localInterfaceName];
+        v117 = [v302 localInterfaceName];
         v118 = [NEPolicyCondition scopedInterface:v117];
-        v377 = v118;
-        v119 = [NSArray arrayWithObjects:&v377 count:1];
-        v120 = [v333 initWithOrder:10 result:v116 conditions:v119];
+        v330 = v118;
+        v119 = [NSArray arrayWithObjects:&v330 count:1];
+        v120 = [v286 initWithOrder:10 result:v116 conditions:v119];
 
         objc_opt_self();
         if (qword_100229410 != -1)
@@ -3872,50 +2942,43 @@ LABEL_8:
         }
 
         v121 = obj;
-        a1 = v350;
+        a1 = v303;
         v122 = qword_100229408;
         v123 = v120;
-        v124 = sub_100159E00(v122, *(v350 + 304), v120);
+        v124 = sub_100159E00(v122, v303[38], v120);
 
         v125 = [v124 unsignedIntegerValue];
         if (v125)
         {
-          [v351 addObject:v124];
-          v3 = v349;
+          [v304 addObject:v124];
+          v3 = v302;
         }
 
         else
         {
-          v302 = *(v350 + 96);
-          v303 = _NRCopyLogObjectForNRUUID();
-          v304 = _NRLogIsLevelEnabled();
+          v265 = _NRCopyLogObjectForNRUUID();
+          v266 = _NRLogIsLevelEnabled();
 
-          if (v304)
+          if (v266)
           {
-            v305 = *(v350 + 96);
-            v306 = _NRCopyLogObjectForNRUUID();
-            v325 = v120;
-            v326 = *(v350 + 304);
-            v323 = 3848;
-            v324 = v349;
-            _NRLogWithArgs();
+            v267 = v303[12];
+            v268 = _NRCopyLogObjectForNRUUID();
+            _NRLogWithArgs(v268, 16, "%s%.30s:%-4d %@ failed to add generalPolicy %@ to session %@", "", "[NRDDeviceConductor setPoliciesForNonCompanionDatapath:]", 3848, v302, v120, v303[38]);
           }
 
-          v307 = *(v350 + 96);
-          v308 = _NRCopyLogObjectForNRUUID();
-          v309 = _NRLogIsLevelEnabled();
+          v269 = _NRCopyLogObjectForNRUUID();
+          v270 = _NRLogIsLevelEnabled();
 
-          if (v309)
+          if (v270)
           {
-            v310 = *(v350 + 96);
-            v311 = _NRCopyLogObjectForNRUUID();
-            _NRLogWithArgs();
+            v271 = _NRCopyLogObjectForNRUUID();
+            _NRLogWithArgs(v271, 17, "Failed to add generalPolicy");
           }
 
-          v3 = v349;
-          a1 = v350;
+          v3 = v302;
+          a1 = v303;
           v123 = v120;
-          [v349 cancelWithReason:{@"Failed to add generalPolicy %@ to session %@", v120, *(v350 + 304), v323, v324, v325, v326}];
+          [v302 cancelWithReason:{@"Failed to add generalPolicy %@ to session %@", v120, v303[38]}];
           v121 = obj;
         }
 
@@ -3961,15 +3024,15 @@ LABEL_23:
         [v17 setNetworkAgentUUID:v37];
 
         v38 = [NEPolicy alloc];
-        v374 = v17;
-        v39 = [NSArray arrayWithObjects:&v374 count:1];
+        v327 = v17;
+        v39 = [NSArray arrayWithObjects:&v327 count:1];
         v40 = [NEPolicyResult routeRules:v39];
         v41 = +[NEPolicyCondition allInterfaces];
-        v373[0] = v41;
+        v326[0] = v41;
         objc_opt_self();
         v42 = [NEPolicyCondition clientFlags:0x80000000];
-        v373[1] = v42;
-        v43 = [NSArray arrayWithObjects:v373 count:2];
+        v326[1] = v42;
+        v43 = [NSArray arrayWithObjects:v326 count:2];
         obja = [v38 initWithOrder:(v14 + 1) result:v40 conditions:v43];
 
         objc_opt_self();
@@ -3979,59 +3042,52 @@ LABEL_23:
         }
 
         v44 = qword_100229408;
-        v45 = sub_100159E00(v44, *(v350 + 304), obja);
+        v45 = sub_100159E00(v44, v303[38], obja);
 
-        v3 = v349;
-        v4 = v340;
+        v3 = v302;
+        v4 = v293;
         if (![v45 unsignedIntegerValue])
         {
-          v232 = *(v350 + 96);
-          v233 = _NRCopyLogObjectForNRUUID();
-          v234 = _NRLogIsLevelEnabled();
+          v216 = _NRCopyLogObjectForNRUUID();
+          v217 = _NRLogIsLevelEnabled();
 
-          if (v234)
+          if (v217)
           {
-            v235 = *(v350 + 96);
-            v236 = _NRCopyLogObjectForNRUUID();
-            v325 = obja;
-            v326 = *(v350 + 304);
-            v323 = 3904;
-            v324 = v349;
-            _NRLogWithArgs();
+            v218 = v303[12];
+            v219 = _NRCopyLogObjectForNRUUID();
+            _NRLogWithArgs(v219, 16, "%s%.30s:%-4d %@ failed to add policy %@ to session %@", "", "[NRDDeviceConductor setPoliciesForNonCompanionDatapath:]", 3904, v302, obja, v303[38]);
           }
 
-          v237 = *(v350 + 96);
-          v238 = _NRCopyLogObjectForNRUUID();
-          v239 = _NRLogIsLevelEnabled();
+          v220 = _NRCopyLogObjectForNRUUID();
+          v221 = _NRLogIsLevelEnabled();
 
-          if (v239)
+          if (v221)
           {
-            v240 = *(v350 + 96);
-            v241 = _NRCopyLogObjectForNRUUID();
-            _NRLogWithArgs();
+            v222 = _NRCopyLogObjectForNRUUID();
+            _NRLogWithArgs(v222, 17, "Failed to add policy");
           }
 
           v54 = obja;
-          [v349 cancelWithReason:{@"Failed to add policy %@ to session %@", obja, *(v350 + 304), v323, v324, v325, v326}];
+          [v302 cancelWithReason:{@"Failed to add policy %@ to session %@", obja, v303[38]}];
 
-          v4 = v340;
+          v4 = v293;
           goto LABEL_141;
         }
 
-        [v351 addObject:v45];
+        [v304 addObject:v45];
       }
 
       v46 = [NEPolicy alloc];
       v47 = +[NEPolicyResult drop];
       v48 = +[NEPolicyCondition allInterfaces];
-      v372[0] = v48;
+      v325[0] = v48;
       objc_opt_self();
       v49 = [NEPolicyCondition clientFlags:0x80000000];
-      v372[1] = v49;
+      v325[1] = v49;
       objc_opt_self();
       v50 = [NEPolicyCondition requiredAgentDomain:@"com.apple.networkrelay" agentType:@"ASResolver"];
-      v372[2] = v50;
-      v51 = [NSArray arrayWithObjects:v372 count:3];
+      v325[2] = v50;
+      v51 = [NSArray arrayWithObjects:v325 count:3];
       v17 = [v46 initWithOrder:(v14 + 1) result:v47 conditions:v51];
 
       objc_opt_self();
@@ -4040,13 +3096,13 @@ LABEL_23:
         dispatch_once(&qword_100229410, &stru_1001FCD98);
       }
 
-      v52 = v350;
+      v52 = v303;
       v53 = qword_100229408;
-      v54 = sub_100159E00(v53, *(v350 + 304), v17);
+      v54 = sub_100159E00(v53, v303[38], v17);
 
       if ([v54 unsignedIntegerValue])
       {
-        [v351 addObject:v54];
+        [v304 addObject:v54];
 
         v55 = [v3 migrationInfoAgent];
 
@@ -4054,7 +3110,7 @@ LABEL_23:
         {
           v56 = [v3 localInterfaceName];
           v57 = [v3 remoteOuterEndpoint];
-          v58 = sub_10010DC08(v350, v56, v57);
+          v58 = sub_10010DC08(v303, v56, v57);
           [v3 setMigrationInfoAgent:v58];
         }
 
@@ -4085,11 +3141,11 @@ LABEL_23:
         v62 = [NEPolicy alloc];
         v63 = [NEPolicyResult skipWithOrder:(v14 + 4)];
         v64 = +[NEPolicyCondition allInterfaces];
-        v371[0] = v64;
+        v324[0] = v64;
         objc_opt_self();
         v65 = [NEPolicyCondition clientFlags:536879104];
-        v371[1] = v65;
-        v66 = [NSArray arrayWithObjects:v371 count:2];
+        v324[1] = v65;
+        v66 = [NSArray arrayWithObjects:v324 count:2];
         v17 = [v62 initWithOrder:(v14 + 2) result:v63 conditions:v66];
 
         objc_opt_self();
@@ -4099,18 +3155,18 @@ LABEL_23:
         }
 
         v67 = qword_100229408;
-        v54 = sub_100159E00(v67, *(v350 + 304), v17);
+        v54 = sub_100159E00(v67, v303[38], v17);
 
         if ([v54 unsignedIntegerValue])
         {
-          [v351 addObject:v54];
+          [v304 addObject:v54];
 
           v54 = objc_alloc_init(NSMutableArray);
           v68 = [NEPolicyRouteRule routeRuleWithAction:6 forType:0];
           v69 = [v3 proxyAgentUUID];
           [v68 setNetworkAgentUUID:v69];
 
-          v335 = v68;
+          v288 = v68;
           [v54 addObject:v68];
           v70 = [v3 companionProxyAgent];
           if (v70)
@@ -4123,11 +3179,11 @@ LABEL_44:
               obje = [NEPolicy alloc];
               v75 = [NEPolicyResult routeRules:v54];
               v76 = +[NEPolicyCondition allInterfaces];
-              v370[0] = v76;
+              v323[0] = v76;
               objc_opt_self();
               v77 = [NEPolicyCondition clientFlags:0x20000000];
-              v370[1] = v77;
-              v78 = [NSArray arrayWithObjects:v370 count:2];
+              v323[1] = v77;
+              v78 = [NSArray arrayWithObjects:v323 count:2];
               objb = [obje initWithOrder:(v14 + 3) result:v75 conditions:v78];
 
               objc_opt_self();
@@ -4137,52 +3193,45 @@ LABEL_44:
               }
 
               v79 = qword_100229408;
-              v80 = sub_100159E00(v79, *(v350 + 304), objb);
+              v80 = sub_100159E00(v79, v303[38], objb);
 
               if (![v80 unsignedIntegerValue])
               {
-                v272 = *(v350 + 96);
-                v273 = _NRCopyLogObjectForNRUUID();
-                v274 = _NRLogIsLevelEnabled();
+                v244 = _NRCopyLogObjectForNRUUID();
+                v245 = _NRLogIsLevelEnabled();
 
-                if (v274)
+                if (v245)
                 {
-                  v275 = *(v350 + 96);
-                  v276 = _NRCopyLogObjectForNRUUID();
-                  v325 = objb;
-                  v326 = *(v350 + 304);
-                  v323 = 3947;
-                  v324 = v349;
-                  _NRLogWithArgs();
+                  v246 = v303[12];
+                  v247 = _NRCopyLogObjectForNRUUID();
+                  _NRLogWithArgs(v247, 16, "%s%.30s:%-4d %@ failed to add policy %@ to session %@", "", "[NRDDeviceConductor setPoliciesForNonCompanionDatapath:]", 3947, v302, objb, v303[38]);
                 }
 
-                v277 = *(v350 + 96);
-                v278 = _NRCopyLogObjectForNRUUID();
-                v279 = _NRLogIsLevelEnabled();
+                v248 = _NRCopyLogObjectForNRUUID();
+                v249 = _NRLogIsLevelEnabled();
 
-                if (v279)
+                if (v249)
                 {
-                  v280 = *(v350 + 96);
-                  v281 = _NRCopyLogObjectForNRUUID();
-                  _NRLogWithArgs();
+                  v250 = _NRCopyLogObjectForNRUUID();
+                  _NRLogWithArgs(v250, 17, "Failed to add policy");
                 }
 
-                v3 = v349;
-                [v349 cancelWithReason:{@"Failed to add policy %@ to session %@", objb, *(v350 + 304), v323, v324, v325, v326}];
+                v3 = v302;
+                [v302 cancelWithReason:{@"Failed to add policy %@ to session %@", objb, v303[38]}];
 
                 v17 = objb;
-                v4 = v340;
+                v4 = v293;
                 goto LABEL_141;
               }
 
-              [v351 addObject:v80];
+              [v304 addObject:v80];
 
               v81 = objc_alloc_init(NSMutableArray);
-              v82 = [NEPolicyRouteRule routeRuleWithAction:5 forNetworkAgent:*(v350 + 760)];
+              v82 = [NEPolicyRouteRule routeRuleWithAction:5 forNetworkAgent:v303[95]];
               v83 = [v3 proxyAgentUUID];
               [v82 setNetworkAgentUUID:v83];
 
-              v328 = v82;
+              v281 = v82;
               [v81 addObject:v82];
               v84 = [v3 companionProxyAgent];
               if (!v84 || (v85 = v84[15], v84, (v85 & 1) == 0))
@@ -4196,11 +3245,11 @@ LABEL_44:
               }
 
               v90 = [NEPolicy alloc];
-              v331 = v81;
+              v284 = v81;
               v91 = [NEPolicyResult routeRules:v81];
               v92 = +[NEPolicyCondition allInterfaces];
-              v369 = v92;
-              v93 = [NSArray arrayWithObjects:&v369 count:1];
+              v322 = v92;
+              v93 = [NSArray arrayWithObjects:&v322 count:1];
               v94 = [v90 initWithOrder:(v14 + 5) result:v91 conditions:v93];
 
               objc_opt_self();
@@ -4209,49 +3258,42 @@ LABEL_44:
                 dispatch_once(&qword_100229410, &stru_1001FCD98);
               }
 
-              v4 = v340;
-              v52 = v350;
+              v4 = v293;
+              v52 = v303;
               v95 = qword_100229408;
-              v96 = sub_100159E00(v95, *(v350 + 304), v94);
+              v96 = sub_100159E00(v95, v303[38], v94);
 
               v97 = [v96 unsignedIntegerValue];
               if (v97)
               {
-                [v351 addObject:v96];
+                [v304 addObject:v96];
               }
 
               else
               {
-                v282 = *(v350 + 96);
-                v283 = _NRCopyLogObjectForNRUUID();
-                v284 = _NRLogIsLevelEnabled();
+                v251 = _NRCopyLogObjectForNRUUID();
+                v252 = _NRLogIsLevelEnabled();
 
-                if (v284)
+                if (v252)
                 {
-                  v285 = *(v350 + 96);
-                  v286 = _NRCopyLogObjectForNRUUID();
-                  v325 = v94;
-                  v326 = *(v350 + 304);
-                  v323 = 3963;
-                  v324 = v349;
-                  _NRLogWithArgs();
+                  v253 = v303[12];
+                  v254 = _NRCopyLogObjectForNRUUID();
+                  _NRLogWithArgs(v254, 16, "%s%.30s:%-4d %@ failed to add policy %@ to session %@", "", "[NRDDeviceConductor setPoliciesForNonCompanionDatapath:]", 3963, v302, v94, v303[38]);
                 }
 
-                v287 = *(v350 + 96);
-                v288 = _NRCopyLogObjectForNRUUID();
-                v289 = _NRLogIsLevelEnabled();
+                v255 = _NRCopyLogObjectForNRUUID();
+                v256 = _NRLogIsLevelEnabled();
 
-                if (v289)
+                if (v256)
                 {
-                  v290 = *(v350 + 96);
-                  v291 = _NRCopyLogObjectForNRUUID();
-                  _NRLogWithArgs();
+                  v257 = _NRCopyLogObjectForNRUUID();
+                  _NRLogWithArgs(v257, 17, "Failed to add policy");
                 }
 
-                v3 = v349;
-                v52 = v350;
-                [v349 cancelWithReason:{@"Failed to add policy %@ to session %@", v94, *(v350 + 304), v323, v324, v325, v326}];
-                v4 = v340;
+                v3 = v302;
+                v52 = v303;
+                [v302 cancelWithReason:{@"Failed to add policy %@ to session %@", v94, v303[38]}];
+                v4 = v293;
               }
 
               if (!v97)
@@ -4267,27 +3309,27 @@ LABEL_57:
                 if (*(v52 + 47) == 1)
                 {
                   objf = +[NEPolicyCondition allInterfaces];
-                  v382[0] = objf;
+                  v335[0] = objf;
                   objc_opt_self();
-                  v336 = [NEPolicyCondition clientFlags:0x10000000];
-                  v382[1] = v336;
-                  v332 = [NSArray arrayWithObjects:v382 count:2];
-                  v383 = v332;
-                  v329 = +[NEPolicyCondition allInterfaces];
-                  v381[0] = v329;
+                  v289 = [NEPolicyCondition clientFlags:0x10000000];
+                  v335[1] = v289;
+                  v285 = [NSArray arrayWithObjects:v335 count:2];
+                  v336 = v285;
+                  v282 = +[NEPolicyCondition allInterfaces];
+                  v334[0] = v282;
                   objc_opt_self();
                   v99 = [NEPolicyCondition clientFlags:536879104];
-                  v381[1] = v99;
-                  v100 = [NSArray arrayWithObjects:v381 count:2];
-                  v384 = v100;
+                  v334[1] = v99;
+                  v100 = [NSArray arrayWithObjects:v334 count:2];
+                  v337 = v100;
                   v101 = +[NEPolicyCondition allInterfaces];
-                  v380[0] = v101;
+                  v333[0] = v101;
                   objc_opt_self();
                   v102 = [NEPolicyCondition clientFlags:0x40000000];
-                  v380[1] = v102;
-                  v103 = [NSArray arrayWithObjects:v380 count:2];
-                  v385 = v103;
-                  v104 = [NSArray arrayWithObjects:&v383 count:3];
+                  v333[1] = v102;
+                  v103 = [NSArray arrayWithObjects:v333 count:2];
+                  v338 = v103;
+                  v104 = [NSArray arrayWithObjects:&v336 count:3];
                 }
 
                 else
@@ -4295,28 +3337,28 @@ LABEL_57:
                   v104 = 0;
                 }
 
-                v360 = 0u;
-                v361 = 0u;
-                v362 = 0u;
-                v363 = 0u;
+                v313 = 0u;
+                v314 = 0u;
+                v315 = 0u;
+                v316 = 0u;
                 v17 = v104;
-                v126 = [v17 countByEnumeratingWithState:&v360 objects:v368 count:16];
+                v126 = [v17 countByEnumeratingWithState:&v313 objects:v321 count:16];
                 if (v126)
                 {
                   v127 = v126;
-                  v128 = *v361;
+                  v128 = *v314;
 LABEL_74:
                   v129 = 0;
                   while (1)
                   {
-                    if (*v361 != v128)
+                    if (*v314 != v128)
                     {
                       objc_enumerationMutation(v17);
                     }
 
-                    v130 = *(*(&v360 + 1) + 8 * v129);
+                    v130 = *(*(&v313 + 1) + 8 * v129);
                     v131 = [NEPolicy alloc];
-                    v132 = [v349 proxyAgentUUID];
+                    v132 = [v302 proxyAgentUUID];
                     v133 = [NEPolicyResult netAgentUUID:v132];
                     v134 = [v131 initWithOrder:(v14 + 4) result:v133 conditions:v130];
 
@@ -4327,18 +3369,18 @@ LABEL_74:
                     }
 
                     v135 = qword_100229408;
-                    v136 = sub_100159E00(v135, *(v350 + 304), v134);
+                    v136 = sub_100159E00(v135, v303[38], v134);
 
                     if (![v136 unsignedIntegerValue])
                     {
                       break;
                     }
 
-                    [v351 addObject:v136];
+                    [v304 addObject:v136];
 
                     if (v127 == ++v129)
                     {
-                      v127 = [v17 countByEnumeratingWithState:&v360 objects:v368 count:16];
+                      v127 = [v17 countByEnumeratingWithState:&v313 objects:v321 count:16];
                       if (!v127)
                       {
                         goto LABEL_82;
@@ -4348,35 +3390,28 @@ LABEL_74:
                     }
                   }
 
-                  v191 = *(v350 + 96);
-                  v192 = _NRCopyLogObjectForNRUUID();
-                  v193 = _NRLogIsLevelEnabled();
+                  v187 = _NRCopyLogObjectForNRUUID();
+                  v188 = _NRLogIsLevelEnabled();
 
-                  v3 = v349;
-                  if (v193)
+                  v3 = v302;
+                  if (v188)
                   {
-                    v194 = *(v350 + 96);
-                    v195 = _NRCopyLogObjectForNRUUID();
-                    v325 = v134;
-                    v326 = *(v350 + 304);
-                    v323 = 3973;
-                    v324 = v349;
-                    _NRLogWithArgs();
+                    v189 = v303[12];
+                    v190 = _NRCopyLogObjectForNRUUID();
+                    _NRLogWithArgs(v190, 16, "%s%.30s:%-4d %@ failed to add policy %@ to session %@", "", "[NRDDeviceConductor setPoliciesForNonCompanionDatapath:]", 3973, v302, v134, v303[38]);
                   }
 
-                  v196 = *(v350 + 96);
-                  v197 = _NRCopyLogObjectForNRUUID();
-                  v198 = _NRLogIsLevelEnabled();
+                  v191 = _NRCopyLogObjectForNRUUID();
+                  v192 = _NRLogIsLevelEnabled();
 
-                  v4 = v340;
-                  if (v198)
+                  v4 = v293;
+                  if (v192)
                   {
-                    v199 = *(v350 + 96);
-                    v200 = _NRCopyLogObjectForNRUUID();
-                    _NRLogWithArgs();
+                    v193 = _NRCopyLogObjectForNRUUID();
+                    _NRLogWithArgs(v193, 17, "Failed to add policy");
                   }
 
-                  [v349 cancelWithReason:{@"Failed to add policy %@ to session %@", v134, *(v350 + 304), v323, v324, v325, v326}];
+                  [v302 cancelWithReason:{@"Failed to add policy %@ to session %@", v134, v303[38]}];
 
                   goto LABEL_135;
                 }
@@ -4384,15 +3419,15 @@ LABEL_74:
 LABEL_82:
 
                 v137 = [NEPolicy alloc];
-                v3 = v349;
-                objg = [v349 proxyAgentUUID];
+                v3 = v302;
+                objg = [v302 proxyAgentUUID];
                 v138 = [NEPolicyResult removeNetworkAgentUUID:objg];
                 v139 = +[NEPolicyCondition allInterfaces];
-                v367[0] = v139;
+                v320[0] = v139;
                 objc_opt_self();
                 v140 = [NEPolicyCondition requiredAgentDomain:@"com.apple.networkrelay" agentType:@"ASResolver"];
-                v367[1] = v140;
-                v141 = [NSArray arrayWithObjects:v367 count:2];
+                v320[1] = v140;
+                v141 = [NSArray arrayWithObjects:v320 count:2];
                 v54 = [v137 initWithOrder:10 result:v138 conditions:v141];
 
                 objc_opt_self();
@@ -4403,106 +3438,92 @@ LABEL_82:
 
                 v142 = qword_100229408;
                 objc = v54;
-                v143 = sub_100159E00(v142, *(v350 + 304), v54);
+                v143 = sub_100159E00(v142, v303[38], v54);
 
                 if (![v143 unsignedIntegerValue])
                 {
-                  v242 = *(v350 + 96);
-                  v243 = _NRCopyLogObjectForNRUUID();
-                  v244 = _NRLogIsLevelEnabled();
+                  v223 = _NRCopyLogObjectForNRUUID();
+                  v224 = _NRLogIsLevelEnabled();
 
-                  if (v244)
+                  if (v224)
                   {
-                    v245 = *(v350 + 96);
-                    v246 = _NRCopyLogObjectForNRUUID();
-                    v325 = v54;
-                    v326 = *(v350 + 304);
-                    v323 = 3980;
-                    v324 = v349;
-                    _NRLogWithArgs();
+                    v225 = v303[12];
+                    v226 = _NRCopyLogObjectForNRUUID();
+                    _NRLogWithArgs(v226, 16, "%s%.30s:%-4d %@ failed to add removeProxyPolicyForResolver %@ to session %@", "", "[NRDDeviceConductor setPoliciesForNonCompanionDatapath:]", 3980, v302, v54, v303[38]);
                   }
 
-                  v247 = *(v350 + 96);
-                  v248 = _NRCopyLogObjectForNRUUID();
-                  v249 = _NRLogIsLevelEnabled();
+                  v227 = _NRCopyLogObjectForNRUUID();
+                  v228 = _NRLogIsLevelEnabled();
 
-                  if (v249)
+                  if (v228)
                   {
-                    v250 = *(v350 + 96);
-                    v251 = _NRCopyLogObjectForNRUUID();
-                    _NRLogWithArgs();
+                    v229 = _NRCopyLogObjectForNRUUID();
+                    _NRLogWithArgs(v229, 17, "Failed to add removeProxyPolicyForResolver");
                   }
 
-                  v3 = v349;
-                  [v349 cancelWithReason:{@"Failed to add removeProxyPolicyForResolver %@ to session %@", v54, *(v350 + 304), v323, v324, v325, v326}];
+                  v3 = v302;
+                  [v302 cancelWithReason:{@"Failed to add removeProxyPolicyForResolver %@ to session %@", v54, v303[38]}];
 
-                  v4 = v340;
+                  v4 = v293;
                   goto LABEL_141;
                 }
 
-                [v351 addObject:v143];
+                [v304 addObject:v143];
 
-                v337 = [NEPolicy alloc];
-                v144 = [v349 proxyAgentUUID];
+                v290 = [NEPolicy alloc];
+                v144 = [v302 proxyAgentUUID];
                 v145 = [NEPolicyResult removeNetworkAgentUUID:v144];
                 v146 = +[NEPolicyCondition allInterfaces];
-                v366[0] = v146;
+                v319[0] = v146;
                 objc_opt_self();
                 v147 = [NEPolicyCondition requiredAgentDomain:@"com.apple.networkrelay" agentType:@"ASListener"];
-                v366[1] = v147;
-                v148 = [NSArray arrayWithObjects:v366 count:2];
-                v338 = [v337 initWithOrder:10 result:v145 conditions:v148];
+                v319[1] = v147;
+                v148 = [NSArray arrayWithObjects:v319 count:2];
+                v291 = [v290 initWithOrder:10 result:v145 conditions:v148];
 
                 objc_opt_self();
-                v4 = v340;
+                v4 = v293;
                 if (qword_100229410 != -1)
                 {
                   dispatch_once(&qword_100229410, &stru_1001FCD98);
                 }
 
-                v52 = v350;
+                v52 = v303;
                 v149 = qword_100229408;
-                v150 = sub_100159E00(v149, *(v350 + 304), v338);
+                v150 = sub_100159E00(v149, v303[38], v291);
 
                 v151 = [v150 unsignedIntegerValue];
                 v152 = objc;
                 if (v151)
                 {
-                  [v351 addObject:v150];
+                  [v304 addObject:v150];
                 }
 
                 else
                 {
-                  v252 = *(v350 + 96);
-                  v253 = _NRCopyLogObjectForNRUUID();
-                  v254 = _NRLogIsLevelEnabled();
+                  v230 = _NRCopyLogObjectForNRUUID();
+                  v231 = _NRLogIsLevelEnabled();
 
-                  if (v254)
+                  if (v231)
                   {
-                    v255 = *(v350 + 96);
-                    v256 = _NRCopyLogObjectForNRUUID();
-                    v325 = v338;
-                    v326 = *(v350 + 304);
-                    v323 = 3986;
-                    v324 = v349;
-                    _NRLogWithArgs();
+                    v232 = v303[12];
+                    v233 = _NRCopyLogObjectForNRUUID();
+                    _NRLogWithArgs(v233, 16, "%s%.30s:%-4d %@ failed to add removeProxyPolicyForListener %@ to session %@", "", "[NRDDeviceConductor setPoliciesForNonCompanionDatapath:]", 3986, v302, v291, v303[38]);
                   }
 
-                  v257 = *(v350 + 96);
-                  v258 = _NRCopyLogObjectForNRUUID();
-                  v259 = _NRLogIsLevelEnabled();
+                  v234 = _NRCopyLogObjectForNRUUID();
+                  v235 = _NRLogIsLevelEnabled();
 
-                  if (v259)
+                  if (v235)
                   {
-                    v260 = *(v350 + 96);
-                    v261 = _NRCopyLogObjectForNRUUID();
-                    _NRLogWithArgs();
+                    v236 = _NRCopyLogObjectForNRUUID();
+                    _NRLogWithArgs(v236, 17, "Failed to add removeProxyPolicyForListener");
                   }
 
-                  v3 = v349;
-                  [v349 cancelWithReason:{@"Failed to add removeProxyPolicyForListener %@ to session %@", v338, *(v350 + 304), v323, v324, v325, v326}];
-                  v4 = v340;
-                  v52 = v350;
+                  v3 = v302;
+                  [v302 cancelWithReason:{@"Failed to add removeProxyPolicyForListener %@ to session %@", v291, v303[38]}];
+                  v4 = v293;
+                  v52 = v303;
                   v152 = objc;
                 }
 
@@ -4518,33 +3539,33 @@ LABEL_82:
 
               if (v154)
               {
-                v339 = v153;
-                v356 = 0u;
-                v357 = 0u;
-                v358 = 0u;
-                v359 = 0u;
+                v292 = v153;
+                v309 = 0u;
+                v310 = 0u;
+                v311 = 0u;
+                v312 = 0u;
                 objd = sub_10010DCE4(v52, v153 != 0, 0);
-                v155 = [objd countByEnumeratingWithState:&v356 objects:v365 count:16];
+                v155 = [objd countByEnumeratingWithState:&v309 objects:v318 count:16];
                 if (v155)
                 {
                   v156 = v155;
-                  v157 = *v357;
+                  v157 = *v310;
 LABEL_94:
                   v158 = 0;
                   while (1)
                   {
-                    if (*v357 != v157)
+                    if (*v310 != v157)
                     {
                       objc_enumerationMutation(objd);
                     }
 
-                    v159 = *(*(&v356 + 1) + 8 * v158);
-                    v383 = 0;
-                    v384 = 0;
-                    v160 = [v349 migrationInfoAgent];
+                    v159 = *(*(&v309 + 1) + 8 * v158);
+                    v336 = 0;
+                    v337 = 0;
+                    v160 = [v302 migrationInfoAgent];
                     nw_agent_get_uuid();
 
-                    v161 = [[NSUUID alloc] initWithUUIDBytes:&v383];
+                    v161 = [[NSUUID alloc] initWithUUIDBytes:&v336];
                     v162 = [NEPolicy alloc];
                     v163 = [NEPolicyResult netAgentUUID:v161];
                     v164 = [v162 initWithOrder:(v14 + 6) result:v163 conditions:v159];
@@ -4556,18 +3577,18 @@ LABEL_94:
                     }
 
                     v165 = qword_100229408;
-                    v166 = sub_100159E00(v165, *(v350 + 304), v164);
+                    v166 = sub_100159E00(v165, v303[38], v164);
 
                     if (![v166 unsignedIntegerValue])
                     {
                       break;
                     }
 
-                    [v351 addObject:v166];
+                    [v304 addObject:v166];
 
                     if (v156 == ++v158)
                     {
-                      v156 = [objd countByEnumeratingWithState:&v356 objects:v365 count:16];
+                      v156 = [objd countByEnumeratingWithState:&v309 objects:v318 count:16];
                       if (!v156)
                       {
                         goto LABEL_102;
@@ -4577,36 +3598,29 @@ LABEL_94:
                     }
                   }
 
-                  v211 = *(v350 + 96);
-                  v212 = _NRCopyLogObjectForNRUUID();
-                  v213 = _NRLogIsLevelEnabled();
+                  v201 = _NRCopyLogObjectForNRUUID();
+                  v202 = _NRLogIsLevelEnabled();
 
-                  v3 = v349;
-                  if (v213)
+                  v3 = v302;
+                  if (v202)
                   {
-                    v214 = *(v350 + 96);
-                    v215 = _NRCopyLogObjectForNRUUID();
-                    v325 = v164;
-                    v326 = *(v350 + 304);
-                    v323 = 4001;
-                    v324 = v349;
-                    _NRLogWithArgs();
+                    v203 = v303[12];
+                    v204 = _NRCopyLogObjectForNRUUID();
+                    _NRLogWithArgs(v204, 16, "%s%.30s:%-4d %@ failed to add policy %@ to session %@", "", "[NRDDeviceConductor setPoliciesForNonCompanionDatapath:]", 4001, v302, v164, v303[38]);
                   }
 
-                  v216 = *(v350 + 96);
-                  v217 = _NRCopyLogObjectForNRUUID();
-                  v218 = _NRLogIsLevelEnabled();
+                  v205 = _NRCopyLogObjectForNRUUID();
+                  v206 = _NRLogIsLevelEnabled();
 
-                  v4 = v340;
+                  v4 = v293;
                   v54 = objd;
-                  if (v218)
+                  if (v206)
                   {
-                    v219 = *(v350 + 96);
-                    v220 = _NRCopyLogObjectForNRUUID();
-                    _NRLogWithArgs();
+                    v207 = _NRCopyLogObjectForNRUUID();
+                    _NRLogWithArgs(v207, 17, "Failed to add policy");
                   }
 
-                  [v349 cancelWithReason:{@"Failed to add policy %@ to session %@", v164, *(v350 + 304), v323, v324, v325, v326}];
+                  [v302 cancelWithReason:{@"Failed to add policy %@ to session %@", v164, v303[38]}];
 
                   v17 = objd;
                   goto LABEL_141;
@@ -4614,9 +3628,9 @@ LABEL_94:
 
 LABEL_102:
 
-                v3 = v349;
-                v52 = v350;
-                v153 = v339;
+                v3 = v302;
+                v52 = v303;
+                v153 = v292;
               }
 
               v167 = [v3 virtualInterface];
@@ -4631,21 +3645,21 @@ LABEL_102:
                 v169 = sub_10010DCE4(v52, v168, 0);
               }
 
-              v354 = 0u;
-              v355 = 0u;
-              v352 = 0u;
-              v353 = 0u;
+              v307 = 0u;
+              v308 = 0u;
+              v305 = 0u;
+              v306 = 0u;
               v17 = v169;
-              v170 = [v17 countByEnumeratingWithState:&v352 objects:v364 count:16];
+              v170 = [v17 countByEnumeratingWithState:&v305 objects:v317 count:16];
               if (!v170)
               {
 LABEL_117:
 
-                if ([v351 count])
+                if ([v304 count])
                 {
                   objc_opt_self();
-                  v3 = v349;
-                  v4 = v340;
+                  v3 = v302;
+                  v4 = v293;
                   if (qword_100229410 != -1)
                   {
                     dispatch_once(&qword_100229410, &stru_1001FCD98);
@@ -4654,31 +3668,28 @@ LABEL_117:
                   v180 = qword_100229408;
                   sub_10015A52C(v180);
 
-                  v54 = [v349 policyIDs];
+                  v54 = [v302 policyIDs];
                   v181 = [[NSMutableArray alloc] initWithArray:v54];
-                  [v181 addObjectsFromArray:v351];
-                  [v349 setPolicyIDs:v181];
-                  v182 = *(v52 + 96);
-                  v183 = _NRCopyLogObjectForNRUUID();
-                  v184 = _NRLogIsLevelEnabled();
+                  [v181 addObjectsFromArray:v304];
+                  [v302 setPolicyIDs:v181];
+                  v182 = _NRCopyLogObjectForNRUUID();
+                  v183 = _NRLogIsLevelEnabled();
 
-                  if (v184)
+                  if (v183)
                   {
-                    v185 = *(v52 + 96);
-                    v186 = _NRCopyLogObjectForNRUUID();
-                    _NRLogWithArgs();
+                    v184 = _NRCopyLogObjectForNRUUID();
+                    _NRLogWithArgs(v184, 0, "%s%.30s:%-4d Successfully set policies for TLS link: %@", "", "[NRDDeviceConductor setPoliciesForNonCompanionDatapath:]", 4032, v302);
                   }
                 }
 
                 else
                 {
-                  v187 = *(v52 + 96);
-                  v188 = _NRCopyLogObjectForNRUUID();
-                  v189 = _NRLogIsLevelEnabled();
+                  v185 = _NRCopyLogObjectForNRUUID();
+                  v186 = _NRLogIsLevelEnabled();
 
-                  v3 = v349;
-                  v4 = v340;
-                  if (!v189)
+                  v3 = v302;
+                  v4 = v293;
+                  if (!v186)
                   {
 LABEL_142:
 
@@ -4686,9 +3697,8 @@ LABEL_143:
                     goto LABEL_144;
                   }
 
-                  v190 = *(v52 + 96);
                   v54 = _NRCopyLogObjectForNRUUID();
-                  _NRLogWithArgs();
+                  _NRLogWithArgs(v54, 0, "%s%.30s:%-4d No new policies added for link: %@", "", "[NRDDeviceConductor setPoliciesForNonCompanionDatapath:]", 4034, v302);
                 }
 
 LABEL_141:
@@ -4697,19 +3707,19 @@ LABEL_141:
               }
 
               v171 = v170;
-              v172 = *v353;
+              v172 = *v306;
 LABEL_109:
               v173 = 0;
               while (1)
               {
-                if (*v353 != v172)
+                if (*v306 != v172)
                 {
                   objc_enumerationMutation(v17);
                 }
 
-                v174 = *(*(&v352 + 1) + 8 * v173);
+                v174 = *(*(&v305 + 1) + 8 * v173);
                 v175 = [NEPolicy alloc];
-                v176 = [v349 localInterfaceName];
+                v176 = [v302 localInterfaceName];
                 v177 = [NEPolicyResult scopeSocketToInterfaceName:v176];
                 v134 = [v175 initWithOrder:(v14 + 7) result:v177 conditions:v174];
 
@@ -4719,20 +3729,19 @@ LABEL_109:
                   dispatch_once(&qword_100229410, &stru_1001FCD98);
                 }
 
-                v52 = v350;
                 v178 = qword_100229408;
-                v179 = sub_100159E00(v178, *(v350 + 304), v134);
+                v179 = sub_100159E00(v178, v303[38], v134);
 
                 if (![v179 unsignedIntegerValue])
                 {
                   break;
                 }
 
-                [v351 addObject:v179];
+                [v304 addObject:v179];
 
                 if (v171 == ++v173)
                 {
-                  v171 = [v17 countByEnumeratingWithState:&v352 objects:v364 count:16];
+                  v171 = [v17 countByEnumeratingWithState:&v305 objects:v317 count:16];
                   if (!v171)
                   {
                     goto LABEL_117;
@@ -4742,35 +3751,28 @@ LABEL_109:
                 }
               }
 
-              v201 = *(v350 + 96);
-              v202 = _NRCopyLogObjectForNRUUID();
-              v203 = _NRLogIsLevelEnabled();
+              v194 = _NRCopyLogObjectForNRUUID();
+              v195 = _NRLogIsLevelEnabled();
 
-              v3 = v349;
-              if (v203)
+              v3 = v302;
+              if (v195)
               {
-                v204 = *(v350 + 96);
-                v205 = _NRCopyLogObjectForNRUUID();
-                v325 = v134;
-                v326 = *(v350 + 304);
-                v323 = 4022;
-                v324 = v349;
-                _NRLogWithArgs();
+                v196 = v303[12];
+                v197 = _NRCopyLogObjectForNRUUID();
+                _NRLogWithArgs(v197, 16, "%s%.30s:%-4d %@ failed to add policy %@ to session %@", "", "[NRDDeviceConductor setPoliciesForNonCompanionDatapath:]", 4022, v302, v134, v303[38]);
               }
 
-              v206 = *(v350 + 96);
-              v207 = _NRCopyLogObjectForNRUUID();
-              v208 = _NRLogIsLevelEnabled();
+              v198 = _NRCopyLogObjectForNRUUID();
+              v199 = _NRLogIsLevelEnabled();
 
-              v4 = v340;
-              if (v208)
+              v4 = v293;
+              if (v199)
               {
-                v209 = *(v350 + 96);
-                v210 = _NRCopyLogObjectForNRUUID();
-                _NRLogWithArgs();
+                v200 = _NRCopyLogObjectForNRUUID();
+                _NRLogWithArgs(v200, 17, "Failed to add policy");
               }
 
-              [v349 cancelWithReason:{@"Failed to add policy %@ to session %@", v134, *(v350 + 304), v323, v324, v325, v326}];
+              [v302 cancelWithReason:{@"Failed to add policy %@ to session %@", v134, v303[38]}];
 
 LABEL_135:
               v54 = v17;
@@ -4794,69 +3796,55 @@ LABEL_135:
           goto LABEL_44;
         }
 
-        v262 = *(v350 + 96);
-        v263 = _NRCopyLogObjectForNRUUID();
-        v264 = _NRLogIsLevelEnabled();
+        v237 = _NRCopyLogObjectForNRUUID();
+        v238 = _NRLogIsLevelEnabled();
 
-        if (v264)
+        if (v238)
         {
-          v265 = *(v350 + 96);
-          v266 = _NRCopyLogObjectForNRUUID();
-          v325 = v17;
-          v326 = *(v350 + 304);
-          v323 = 3927;
-          v324 = v349;
-          _NRLogWithArgs();
+          v239 = v303[12];
+          v240 = _NRCopyLogObjectForNRUUID();
+          _NRLogWithArgs(v240, 16, "%s%.30s:%-4d %@ failed to add policy %@ to session %@", "", "[NRDDeviceConductor setPoliciesForNonCompanionDatapath:]", 3927, v302, v17, v303[38]);
         }
 
-        v267 = *(v350 + 96);
-        v268 = _NRCopyLogObjectForNRUUID();
-        v269 = _NRLogIsLevelEnabled();
+        v241 = _NRCopyLogObjectForNRUUID();
+        v242 = _NRLogIsLevelEnabled();
 
-        if (v269)
+        if (v242)
         {
-          v270 = *(v350 + 96);
-          v271 = _NRCopyLogObjectForNRUUID();
-          _NRLogWithArgs();
+          v243 = _NRCopyLogObjectForNRUUID();
+          _NRLogWithArgs(v243, 17, "Failed to add policy");
         }
 
-        v3 = v349;
-        v231 = *(v350 + 304);
+        v3 = v302;
+        v215 = v303[38];
       }
 
       else
       {
-        v221 = *(v350 + 96);
-        v222 = _NRCopyLogObjectForNRUUID();
-        v223 = _NRLogIsLevelEnabled();
+        v208 = _NRCopyLogObjectForNRUUID();
+        v209 = _NRLogIsLevelEnabled();
 
-        if (v223)
+        if (v209)
         {
-          v224 = *(v350 + 96);
-          v225 = _NRCopyLogObjectForNRUUID();
-          v325 = v17;
-          v326 = *(v350 + 304);
-          v323 = 3911;
-          v324 = v3;
-          _NRLogWithArgs();
+          v210 = v303[12];
+          v211 = _NRCopyLogObjectForNRUUID();
+          _NRLogWithArgs(v211, 16, "%s%.30s:%-4d %@ failed to add policy %@ to session %@", "", "[NRDDeviceConductor setPoliciesForNonCompanionDatapath:]", 3911, v3, v17, v303[38]);
         }
 
-        v226 = *(v350 + 96);
-        v227 = _NRCopyLogObjectForNRUUID();
-        v228 = _NRLogIsLevelEnabled();
+        v212 = _NRCopyLogObjectForNRUUID();
+        v213 = _NRLogIsLevelEnabled();
 
-        if (v228)
+        if (v213)
         {
-          v229 = *(v350 + 96);
-          v230 = _NRCopyLogObjectForNRUUID();
-          _NRLogWithArgs();
+          v214 = _NRCopyLogObjectForNRUUID();
+          _NRLogWithArgs(v214, 17, "Failed to add policy");
         }
 
-        v231 = *(v350 + 304);
+        v215 = v303[38];
       }
 
-      [v3 cancelWithReason:{@"Failed to add policy %@ to session %@", v17, v231, v323, v324, v325, v326}];
-      v4 = v340;
+      [v3 cancelWithReason:{@"Failed to add policy %@ to session %@", v17, v215}];
+      v4 = v293;
       goto LABEL_141;
     }
 
@@ -4877,27 +3865,27 @@ LABEL_22:
       }
     }
 
-    v330 = v20;
-    v334 = v19;
+    v283 = v20;
+    v287 = v19;
     obj = v18;
-    v383 = 0;
-    v384 = 0;
-    v327 = v21;
+    v336 = 0;
+    v337 = 0;
+    v280 = v21;
     nw_agent_get_uuid();
     v22 = [v3 proxyAgentUUID];
     v23 = [NEPolicyRouteRule routeRuleWithAction:5 forNetworkAgent:v22];
 
-    v24 = [[NSUUID alloc] initWithUUIDBytes:&v383];
+    v24 = [[NSUUID alloc] initWithUUIDBytes:&v336];
     [v23 setNetworkAgentUUID:v24];
 
     v25 = [NEPolicy alloc];
     v26 = v23;
-    v376 = v23;
-    v27 = [NSArray arrayWithObjects:&v376 count:1];
+    v329 = v23;
+    v27 = [NSArray arrayWithObjects:&v329 count:1];
     v28 = [NEPolicyResult routeRules:v27];
     v29 = +[NEPolicyCondition allInterfaces];
-    v375 = v29;
-    v30 = [NSArray arrayWithObjects:&v375 count:1];
+    v328 = v29;
+    v30 = [NSArray arrayWithObjects:&v328 count:1];
     v31 = [v25 initWithOrder:v14 result:v28 conditions:v30];
 
     objc_opt_self();
@@ -4907,52 +3895,45 @@ LABEL_22:
     }
 
     v32 = qword_100229408;
-    v33 = sub_100159E00(v32, *(v350 + 304), v31);
+    v33 = sub_100159E00(v32, v303[38], v31);
 
     v34 = v31;
-    v4 = v340;
+    v4 = v293;
     if ([v33 unsignedIntegerValue])
     {
-      [v351 addObject:v33];
+      [v304 addObject:v33];
 
       v18 = obj;
-      v20 = v330;
-      v19 = v334;
+      v20 = v283;
+      v19 = v287;
       goto LABEL_22;
     }
 
-    v312 = v34;
-    v313 = *(v350 + 96);
-    v314 = _NRCopyLogObjectForNRUUID();
-    v315 = _NRLogIsLevelEnabled();
+    v272 = v34;
+    v273 = _NRCopyLogObjectForNRUUID();
+    v274 = _NRLogIsLevelEnabled();
 
-    if (v315)
+    if (v274)
     {
-      v316 = *(v350 + 96);
-      v317 = _NRCopyLogObjectForNRUUID();
-      v325 = v312;
-      v326 = *(v350 + 304);
-      v323 = 3890;
-      v324 = v349;
-      _NRLogWithArgs();
+      v275 = v303[12];
+      v276 = _NRCopyLogObjectForNRUUID();
+      _NRLogWithArgs(v276, 16, "%s%.30s:%-4d %@ failed to add policy %@ to session %@", "", "[NRDDeviceConductor setPoliciesForNonCompanionDatapath:]", 3890, v302, v272, v303[38], v280);
     }
 
-    v318 = *(v350 + 96);
-    v319 = _NRCopyLogObjectForNRUUID();
-    v320 = _NRLogIsLevelEnabled();
+    v277 = _NRCopyLogObjectForNRUUID();
+    v278 = _NRLogIsLevelEnabled();
 
-    if (v320)
+    if (v278)
     {
-      v321 = *(v350 + 96);
-      v322 = _NRCopyLogObjectForNRUUID();
-      _NRLogWithArgs();
+      v279 = _NRCopyLogObjectForNRUUID();
+      _NRLogWithArgs(v279, 17, "Failed to add policy");
     }
 
-    v3 = v349;
-    [v349 cancelWithReason:{@"Failed to add policy %@ to session %@", v312, *(v350 + 304), v323, v324, v325, v326}];
+    v3 = v302;
+    [v302 cancelWithReason:{@"Failed to add policy %@ to session %@", v272, v303[38]}];
 
 LABEL_196:
-    v4 = v340;
+    v4 = v293;
     v54 = obj;
     goto LABEL_141;
   }
@@ -4962,80 +3943,76 @@ LABEL_144:
 
 uint64_t sub_10010A0D8(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  if ([v3 type] == 1)
+  v2 = a2;
+  if ([v2 type] == 1)
   {
-    v4 = 800;
+    v3 = 800;
   }
 
-  else if ([v3 type] == 2)
+  else if ([v2 type] == 2)
   {
-    if ([v3 subtype] == 102)
+    if ([v2 subtype] == 102)
     {
-      v4 = 1100;
+      v3 = 1100;
     }
 
-    else if ([v3 subtype] == 103)
+    else if ([v2 subtype] == 103)
     {
-      v4 = 1000;
+      v3 = 1000;
     }
 
-    else if ([v3 subtype] == 104)
+    else if ([v2 subtype] == 104)
     {
-      v4 = 950;
+      v3 = 950;
     }
 
     else
     {
-      v4 = 900;
+      v3 = 900;
     }
   }
 
-  else if ([v3 type] == 4)
+  else if ([v2 type] == 4)
   {
-    v4 = 1200;
+    v3 = 1200;
   }
 
-  else if ([v3 type] == 5)
+  else if ([v2 type] == 5)
   {
-    v4 = 700;
+    v3 = 700;
   }
 
   else
   {
-    v6 = *(a1 + 96);
-    v7 = _NRCopyLogObjectForNRUUID();
+    v5 = _NRCopyLogObjectForNRUUID();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (IsLevelEnabled)
     {
-      v9 = *(a1 + 96);
-      v10 = _NRCopyLogObjectForNRUUID();
-      [v3 type];
+      v7 = _NRCopyLogObjectForNRUUID();
+      [v2 type];
       StringFromNRLinkType = createStringFromNRLinkType();
-      _NRLogWithArgs();
+      _NRLogWithArgs(v7, 17, "Received unexpected link type %@", StringFromNRLinkType);
     }
 
-    v4 = 0;
+    v3 = 0;
   }
 
-  return v4;
+  return v3;
 }
 
-id sub_10010A218(uint64_t a1, void *a2, unsigned int a3)
+id sub_10010A218(uint64_t a1, void *a2, int a3)
 {
   v6 = a2;
   if ([v6 state] != 8)
   {
-    v33 = *(a1 + 96);
-    v34 = _NRCopyLogObjectForNRUUID();
+    v33 = _NRCopyLogObjectForNRUUID();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (IsLevelEnabled)
     {
-      v36 = *(a1 + 96);
-      v37 = _NRCopyLogObjectForNRUUID();
-      _NRLogWithArgs();
+      v35 = _NRCopyLogObjectForNRUUID();
+      _NRLogWithArgs(v35, 0, "%s%.30s:%-4d Not setting IP tunnel policies because link is not ready %@", "", "[NRDDeviceConductor addIPTunnelPolicyForLinkInner:policyOrder:]", 4069, v6);
     }
 
     goto LABEL_31;
@@ -5044,7 +4021,7 @@ id sub_10010A218(uint64_t a1, void *a2, unsigned int a3)
   if (!a3)
   {
 LABEL_31:
-    v38 = 0;
+    v36 = 0;
     goto LABEL_40;
   }
 
@@ -5054,30 +4031,26 @@ LABEL_31:
     v7 = NEVirtualInterfaceCopyName();
     if (!v7)
     {
-      v184 = *(a1 + 96);
-      v185 = _NRCopyLogObjectForNRUUID();
-      v186 = _NRLogIsLevelEnabled();
+      v178 = _NRCopyLogObjectForNRUUID();
+      v179 = _NRLogIsLevelEnabled();
 
-      if (v186)
+      if (v179)
       {
-        v187 = *(a1 + 96);
-        v188 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        v180 = _NRCopyLogObjectForNRUUID();
+        _NRLogWithArgs(v180, 16, "%s%.30s:%-4d %@ failed to get virtual interface name to set IP tunnel policies", "", "[NRDDeviceConductor addIPTunnelPolicyForLinkInner:policyOrder:]", 4087, v6);
       }
 
-      v189 = *(a1 + 96);
-      v190 = _NRCopyLogObjectForNRUUID();
-      v191 = _NRLogIsLevelEnabled();
+      v181 = _NRCopyLogObjectForNRUUID();
+      v182 = _NRLogIsLevelEnabled();
 
-      if (v191)
+      if (v182)
       {
-        v192 = *(a1 + 96);
-        v193 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        v183 = _NRCopyLogObjectForNRUUID();
+        _NRLogWithArgs(v183, 17, "Failed to get virtual interface name to set IP tunnel policies");
       }
 
       [v6 cancelWithReason:@"Failed to get virtual interface name to set IP tunnel policies"];
-      v38 = 0;
+      v36 = 0;
       goto LABEL_39;
     }
 
@@ -5090,71 +4063,67 @@ LABEL_31:
 
       if (v3)
       {
-        v414 = a3;
+        LODWORD(v357) = a3;
         sub_10010D154(a1);
         if ((*(a1 + 47) & 1) == 0 && *(a1 + 49) == 1 && ([v6 hasRouteRulePolicy] & 1) == 0)
         {
-          v403 = a1;
+          v353 = a1;
           v11 = +[NEPolicyCondition allInterfaces];
-          v443 = v11;
-          v12 = [NSArray arrayWithObjects:&v443 count:1];
+          v379 = v11;
+          v12 = [NSArray arrayWithObjects:&v379 count:1];
 
-          v409 = v7;
+          v355 = v7;
           v13 = [NEPolicyRouteRule routeRuleWithAction:2 forInterfaceName:v7];
-          v442 = v13;
-          v14 = [NSArray arrayWithObjects:&v442 count:1];
+          v378 = v13;
+          v14 = [NSArray arrayWithObjects:&v378 count:1];
           v15 = [NEPolicyResult routeRules:v14];
 
-          v395 = v12;
+          v352 = v12;
           v16 = [[NEPolicy alloc] initWithOrder:210 result:v15 conditions:v12];
           objc_opt_self();
-          v412 = v9;
+          v356 = v9;
           if (qword_100229410 != -1)
           {
             dispatch_once(&qword_100229410, &stru_1001FCD98);
           }
 
           v17 = qword_100229408;
-          v18 = *(v403 + 304);
+          v18 = *(v353 + 304);
           v19 = sub_100159E00(v17, v18, v16);
 
           if (![v19 unsignedIntegerValue])
           {
-            v407 = v3;
-            v219 = *(v403 + 96);
-            v220 = _NRCopyLogObjectForNRUUID();
-            v221 = _NRLogIsLevelEnabled();
+            v354 = v3;
+            v205 = _NRCopyLogObjectForNRUUID();
+            v206 = _NRLogIsLevelEnabled();
 
-            if (v221)
+            if (v206)
             {
-              v222 = *(v403 + 96);
-              v223 = _NRCopyLogObjectForNRUUID();
-              v355 = *(v403 + 304);
-              _NRLogWithArgs();
+              v207 = *(v353 + 96);
+              v208 = _NRCopyLogObjectForNRUUID();
+              _NRLogWithArgs(v208, 16, "%s%.30s:%-4d %@ failed to add generalPolicy %@ to session %@", "", "[NRDDeviceConductor addIPTunnelPolicyForLinkInner:policyOrder:]", 4116, v6, v16, *(v353 + 304));
             }
 
-            v224 = *(v403 + 96);
-            v225 = _NRCopyLogObjectForNRUUID();
-            v226 = _NRLogIsLevelEnabled();
+            v209 = _NRCopyLogObjectForNRUUID();
+            v210 = _NRLogIsLevelEnabled();
 
-            if (v226)
+            if (v210)
             {
-              v227 = *(v403 + 96);
-              v228 = _NRCopyLogObjectForNRUUID();
-              _NRLogWithArgs();
+              v211 = _NRCopyLogObjectForNRUUID();
+              _NRLogWithArgs(v211, 17, "Failed to add generalPolicy");
             }
 
-            [v6 cancelWithReason:{@"Failed to add generalPolicy %@ to session %@", v16, *(v403 + 304)}];
+            [v6 cancelWithReason:{@"Failed to add generalPolicy %@ to session %@", v16, *(v353 + 304)}];
 
-            goto LABEL_125;
+            goto LABEL_126;
           }
 
-          v9 = v412;
-          [v412 addObject:v19];
+          v9 = v356;
+          [v356 addObject:v19];
 
           [v6 setHasRouteRulePolicy:1];
-          v7 = v409;
-          a1 = v403;
+          v7 = v355;
+          a1 = v353;
         }
 
         if ([v6 type] == 1 || objc_msgSend(v6, "type") == 2 || objc_msgSend(v6, "type") == 5)
@@ -5165,19 +4134,19 @@ LABEL_31:
             v21 = sub_100003490();
             dispatch_assert_queue_V2(v21);
 
-            v407 = v3;
+            v354 = v3;
             v22 = sub_1001677D0(v3, @"0");
             v23 = [NEPolicyCondition remoteAddress:v22 prefix:128];
-            v441[0] = v23;
+            v377[0] = v23;
             v24 = +[NEPolicyCondition allInterfaces];
-            v441[1] = v24;
-            v25 = [NSArray arrayWithObjects:v441 count:2];
+            v377[1] = v24;
+            v25 = [NSArray arrayWithObjects:v377 count:2];
 
-            v409 = v7;
+            v355 = v7;
             v26 = [NEPolicyResult tunnelIPToInterfaceName:v7 secondaryResultType:0];
-            v27 = [[NEPolicy alloc] initWithOrder:v414 result:v26 conditions:v25];
+            v27 = [[NEPolicy alloc] initWithOrder:v357 result:v26 conditions:v25];
             objc_opt_self();
-            v412 = v9;
+            v356 = v9;
             if (qword_100229410 != -1)
             {
               dispatch_once(&qword_100229410, &stru_1001FCD98);
@@ -5188,47 +4157,42 @@ LABEL_31:
 
             if (![v29 unsignedIntegerValue])
             {
-              v202 = *(v20 + 96);
-              v203 = _NRCopyLogObjectForNRUUID();
-              v415 = _NRLogIsLevelEnabled();
+              v195 = _NRCopyLogObjectForNRUUID();
+              LODWORD(v357) = _NRLogIsLevelEnabled();
 
-              if (v415)
+              if (v357)
               {
-                v416 = *(v20 + 96);
-                v204 = _NRCopyLogObjectForNRUUID();
-                v353 = *(v20 + 304);
-                v205 = v204;
-                _NRLogWithArgs();
+                v357 = *(v20 + 96);
+                v196 = _NRCopyLogObjectForNRUUID();
+                _NRLogWithArgs(v196, 16, "%s%.30s:%-4d %@ failed to add generalPolicyClassD %@ to session %@", "", "[NRDDeviceConductor addIPTunnelPolicyForLinkInner:policyOrder:]", 4136, v6, v27, *(v20 + 304));
               }
 
-              v206 = *(v20 + 96);
-              v207 = _NRCopyLogObjectForNRUUID();
-              v417 = _NRLogIsLevelEnabled();
+              v197 = _NRCopyLogObjectForNRUUID();
+              LODWORD(v357) = _NRLogIsLevelEnabled();
 
-              if (v417)
+              if (v357)
               {
-                v208 = *(v20 + 96);
-                v209 = _NRCopyLogObjectForNRUUID();
-                _NRLogWithArgs();
+                v198 = _NRCopyLogObjectForNRUUID();
+                _NRLogWithArgs(v198, 17, "Failed to add generalPolicyClassD");
               }
 
               [v6 cancelWithReason:{@"Failed to add generalPolicyClassD %@ to session %@", v27, *(v20 + 304)}];
-LABEL_119:
+LABEL_120:
 
-LABEL_125:
-              v38 = 0;
-              v7 = v409;
-              v9 = v412;
-              v3 = v407;
+LABEL_126:
+              v36 = 0;
+              v7 = v355;
+              v9 = v356;
+              v3 = v354;
               goto LABEL_38;
             }
 
-            v9 = v412;
-            [v412 addObject:v29];
+            v9 = v356;
+            [v356 addObject:v29];
 
             [v6 setHasClassDPolicies:1];
-            v3 = v407;
-            v7 = v409;
+            v3 = v354;
+            v7 = v355;
             a1 = v20;
           }
 
@@ -5237,72 +4201,68 @@ LABEL_125:
             goto LABEL_37;
           }
 
-          v404 = a1;
+          v353 = a1;
           v30 = sub_100003490();
           dispatch_assert_queue_V2(v30);
 
-          v407 = v3;
+          v354 = v3;
           v22 = sub_100167B9C(v3, @"0");
           v23 = [NEPolicyCondition remoteAddress:v22 prefix:128];
-          v440[0] = v23;
+          v376[0] = v23;
           v31 = +[NEPolicyCondition allInterfaces];
-          v440[1] = v31;
-          v25 = [NSArray arrayWithObjects:v440 count:2];
+          v376[1] = v31;
+          v25 = [NSArray arrayWithObjects:v376 count:2];
 
-          v409 = v7;
+          v355 = v7;
           v26 = [NEPolicyResult tunnelIPToInterfaceName:v7 secondaryResultType:0];
-          v27 = [[NEPolicy alloc] initWithOrder:v414 result:v26 conditions:v25];
+          v27 = [[NEPolicy alloc] initWithOrder:v357 result:v26 conditions:v25];
           objc_opt_self();
-          v412 = v9;
+          v356 = v9;
           if (qword_100229410 != -1)
           {
             dispatch_once(&qword_100229410, &stru_1001FCD98);
           }
 
           v32 = qword_100229408;
-          v29 = sub_100159E00(v32, *(v404 + 304), v27);
+          v29 = sub_100159E00(v32, *(v353 + 304), v27);
 
           if ([v29 unsignedIntegerValue])
           {
-            v9 = v412;
-            [v412 addObject:v29];
+            v9 = v356;
+            [v356 addObject:v29];
 
             [v6 setHasClassCPolicies:1];
-            v3 = v407;
-            v7 = v409;
+            v3 = v354;
+            v7 = v355;
 LABEL_37:
-            v38 = v9;
+            v36 = v9;
 LABEL_38:
 
 LABEL_39:
             goto LABEL_40;
           }
 
-          v210 = *(v404 + 96);
-          v211 = _NRCopyLogObjectForNRUUID();
-          v212 = _NRLogIsLevelEnabled();
+          v199 = _NRCopyLogObjectForNRUUID();
+          v200 = _NRLogIsLevelEnabled();
 
-          if (v212)
+          if (v200)
           {
-            v418 = *(v404 + 96);
-            v213 = _NRCopyLogObjectForNRUUID();
-            v354 = *(v404 + 304);
-            _NRLogWithArgs();
+            v357 = *(v353 + 96);
+            v201 = _NRCopyLogObjectForNRUUID();
+            _NRLogWithArgs(v201, 16, "%s%.30s:%-4d %@ failed to add generalPolicyClassC %@ to session %@", "", "[NRDDeviceConductor addIPTunnelPolicyForLinkInner:policyOrder:]", 4153, v6, v27, *(v353 + 304));
           }
 
-          v214 = *(v404 + 96);
-          v215 = _NRCopyLogObjectForNRUUID();
-          v216 = _NRLogIsLevelEnabled();
+          v202 = _NRCopyLogObjectForNRUUID();
+          v203 = _NRLogIsLevelEnabled();
 
-          if (v216)
+          if (v203)
           {
-            v217 = *(v404 + 96);
-            v218 = _NRCopyLogObjectForNRUUID();
-            _NRLogWithArgs();
+            v204 = _NRCopyLogObjectForNRUUID();
+            _NRLogWithArgs(v204, 17, "Failed to add generalPolicyClassC");
           }
 
-          [v6 cancelWithReason:{@"Failed to add generalPolicyClassC %@ to session %@", v27, *(v404 + 304)}];
-          goto LABEL_119;
+          [v6 cancelWithReason:{@"Failed to add generalPolicyClassC %@ to session %@", v27, *(v353 + 304)}];
+          goto LABEL_120;
         }
 
         if ([v6 type] != 4)
@@ -5312,429 +4272,429 @@ LABEL_39:
 
         if ([v6 ikeClassDEstablished] && (objc_msgSend(v6, "hasClassDPolicies") & 1) == 0)
         {
-          v413 = v9;
-          v408 = v3;
-          v396 = sub_1001672A0(v3, @"61315");
-          v381 = [NEPolicyCondition localAddress:"localAddress:prefix:" prefix:?];
-          v439[0] = v381;
-          v40 = +[NEPolicyCondition allInterfaces];
-          v439[1] = v40;
-          v41 = [NSArray arrayWithObjects:v439 count:2];
+          v356 = v9;
+          v354 = v3;
+          v352 = sub_1001672A0(v3, @"61315");
+          v351 = [NEPolicyCondition localAddress:"localAddress:prefix:" prefix:?];
+          v375[0] = v351;
+          v38 = +[NEPolicyCondition allInterfaces];
+          v375[1] = v38;
+          v39 = [NSArray arrayWithObjects:v375 count:2];
 
-          v410 = v7;
-          v42 = [NEPolicyResult tunnelIPToInterfaceName:v7 secondaryResultType:0];
-          v43 = v414;
-          v44 = [[NEPolicy alloc] initWithOrder:? result:? conditions:?];
-          v45 = sub_1001599CC();
-          v405 = a1;
-          v46 = *(a1 + 304);
-          v47 = sub_100159E00(v45, v46, v44);
+          v355 = v7;
+          v40 = [NEPolicyResult tunnelIPToInterfaceName:v7 secondaryResultType:0];
+          v41 = v357;
+          v42 = [[NEPolicy alloc] initWithOrder:? result:? conditions:?];
+          v43 = sub_1001599CC(NRDPolicySessionManager);
+          v353 = a1;
+          v44 = *(a1 + 304);
+          v45 = sub_100159E00(v43, v44, v42);
 
-          v48 = [v47 unsignedIntegerValue];
-          if (v48)
+          v46 = [v45 unsignedIntegerValue];
+          if (v46)
           {
-            v9 = v413;
-            [v413 addObject:v47];
+            v9 = v356;
+            [v356 addObject:v45];
           }
 
           else
           {
-            v229 = *(v405 + 96);
-            v230 = _NRCopyLogObjectForNRUUID();
-            v231 = _NRLogIsLevelEnabled();
+            v212 = *(v353 + 96);
+            v213 = _NRCopyLogObjectForNRUUID();
+            v214 = _NRLogIsLevelEnabled();
 
-            if (v231)
+            if (v214)
             {
-              v232 = *(v405 + 96);
-              v233 = _NRCopyLogObjectForNRUUID();
-              v356 = *(v405 + 304);
-              _NRLogWithArgs();
+              v215 = *(v353 + 96);
+              v216 = _NRCopyLogObjectForNRUUID();
+              v217 = *(v353 + 304);
+              _NRLogWithArgs(v216, 16, "%s%.30s:%-4d %@ failed to add localConditionPolicy %@ to session %@", "", "[NRDDeviceConductor addIPTunnelPolicyForLinkInner:policyOrder:]", 4172, v6, v42, v217);
             }
 
-            v234 = *(v405 + 96);
-            v235 = _NRCopyLogObjectForNRUUID();
-            v236 = _NRLogIsLevelEnabled();
+            v218 = *(v353 + 96);
+            v219 = _NRCopyLogObjectForNRUUID();
+            v220 = _NRLogIsLevelEnabled();
 
-            if (v236)
+            if (v220)
             {
-              v237 = *(v405 + 96);
-              v238 = _NRCopyLogObjectForNRUUID();
-              _NRLogWithArgs();
+              v221 = *(v353 + 96);
+              v222 = _NRCopyLogObjectForNRUUID();
+              _NRLogWithArgs(v222, 17, "Failed to add localConditionPolicy");
             }
 
-            v239 = *(v405 + 304);
-            [v6 cancelWithReason:{@"Failed to add localConditionPolicy %@ to session %@", v44, v239}];
+            v223 = *(v353 + 304);
+            [v6 cancelWithReason:{@"Failed to add localConditionPolicy %@ to session %@", v42, v223}];
 
-            v9 = v413;
-            v43 = v414;
+            v9 = v356;
+            v41 = v357;
           }
 
-          if (!v48)
+          if (!v46)
           {
             goto LABEL_89;
           }
 
-          v397 = sub_1001677D0(v408, @"61315");
-          v382 = [NEPolicyCondition remoteAddress:"remoteAddress:prefix:" prefix:?];
-          v438[0] = v382;
-          v49 = +[NEPolicyCondition allInterfaces];
-          v438[1] = v49;
-          v50 = [NSArray arrayWithObjects:v438 count:2];
+          v352 = sub_1001677D0(v354, @"61315");
+          v351 = [NEPolicyCondition remoteAddress:"remoteAddress:prefix:" prefix:?];
+          v374[0] = v351;
+          v47 = +[NEPolicyCondition allInterfaces];
+          v374[1] = v47;
+          v48 = [NSArray arrayWithObjects:v374 count:2];
 
-          v51 = [NEPolicyResult tunnelIPToInterfaceName:v410 secondaryResultType:0];
-          v52 = [[NEPolicy alloc] initWithOrder:v43 result:v51 conditions:v50];
-          v53 = sub_1001599CC();
-          v54 = *(v405 + 304);
-          v55 = sub_100159E00(v53, v54, v52);
+          v49 = [NEPolicyResult tunnelIPToInterfaceName:v355 secondaryResultType:0];
+          v50 = [[NEPolicy alloc] initWithOrder:v41 result:v49 conditions:v48];
+          v51 = sub_1001599CC(NRDPolicySessionManager);
+          v52 = *(v353 + 304);
+          v53 = sub_100159E00(v51, v52, v50);
 
-          v56 = [v55 unsignedIntegerValue];
-          if (v56)
+          v54 = [v53 unsignedIntegerValue];
+          if (v54)
           {
-            v9 = v413;
-            [v413 addObject:v55];
+            v9 = v356;
+            [v356 addObject:v53];
           }
 
           else
           {
-            v251 = *(v405 + 96);
-            v252 = _NRCopyLogObjectForNRUUID();
-            v253 = _NRLogIsLevelEnabled();
+            v236 = *(v353 + 96);
+            v237 = _NRCopyLogObjectForNRUUID();
+            v238 = _NRLogIsLevelEnabled();
 
-            if (v253)
+            if (v238)
             {
-              v254 = *(v405 + 96);
-              v255 = _NRCopyLogObjectForNRUUID();
-              v358 = *(v405 + 304);
-              _NRLogWithArgs();
+              v239 = *(v353 + 96);
+              v240 = _NRCopyLogObjectForNRUUID();
+              v241 = *(v353 + 304);
+              _NRLogWithArgs(v240, 16, "%s%.30s:%-4d %@ failed to add remoteConditionPolicy %@ to session %@", "", "[NRDDeviceConductor addIPTunnelPolicyForLinkInner:policyOrder:]", 4186, v6, v50, v241);
             }
 
-            v256 = *(v405 + 96);
-            v257 = _NRCopyLogObjectForNRUUID();
-            v258 = _NRLogIsLevelEnabled();
+            v242 = *(v353 + 96);
+            v243 = _NRCopyLogObjectForNRUUID();
+            v244 = _NRLogIsLevelEnabled();
 
-            if (v258)
+            if (v244)
             {
-              v259 = *(v405 + 96);
-              v260 = _NRCopyLogObjectForNRUUID();
-              _NRLogWithArgs();
+              v245 = *(v353 + 96);
+              v246 = _NRCopyLogObjectForNRUUID();
+              _NRLogWithArgs(v246, 17, "Failed to add remoteConditionPolicy");
             }
 
-            v261 = *(v405 + 304);
-            [v6 cancelWithReason:{@"Failed to add remoteConditionPolicy %@ to session %@", v52, v261}];
+            v247 = *(v353 + 304);
+            [v6 cancelWithReason:{@"Failed to add remoteConditionPolicy %@ to session %@", v50, v247}];
 
-            v9 = v413;
+            v9 = v356;
           }
 
-          if (!v56)
+          if (!v54)
           {
             goto LABEL_89;
           }
 
-          v398 = sub_1001689F8(v408);
-          v57 = [NEPolicyCondition remoteAddress:"remoteAddress:prefix:" prefix:?];
+          v352 = sub_1001689F8(v354);
+          v55 = [NEPolicyCondition remoteAddress:"remoteAddress:prefix:" prefix:?];
           [NEPolicyCondition ipProtocol:58];
-          v383 = v57;
-          v436 = v435 = v57;
-          v58 = v436;
-          v59 = +[NEPolicyCondition allInterfaces];
-          v437 = v59;
-          v60 = [NSArray arrayWithObjects:&v435 count:3];
+          v351 = v55;
+          v372 = v371 = v55;
+          v56 = v372;
+          v57 = +[NEPolicyCondition allInterfaces];
+          v373 = v57;
+          v58 = [NSArray arrayWithObjects:&v371 count:3];
 
-          v61 = [NEPolicyResult tunnelIPToInterfaceName:v410 secondaryResultType:0];
-          v62 = [[NEPolicy alloc] initWithOrder:v414 result:v61 conditions:v60];
-          v63 = sub_1001599CC();
-          v64 = *(v405 + 304);
-          v65 = sub_100159E00(v63, v64, v62);
+          v59 = [NEPolicyResult tunnelIPToInterfaceName:v355 secondaryResultType:0];
+          v60 = [[NEPolicy alloc] initWithOrder:v357 result:v59 conditions:v58];
+          v61 = sub_1001599CC(NRDPolicySessionManager);
+          v62 = *(v353 + 304);
+          v63 = sub_100159E00(v61, v62, v60);
 
-          v66 = [v65 unsignedIntegerValue];
-          if (v66)
+          v64 = [v63 unsignedIntegerValue];
+          if (v64)
           {
-            v9 = v413;
-            [v413 addObject:v65];
+            v9 = v356;
+            [v356 addObject:v63];
           }
 
           else
           {
-            v273 = *(v405 + 96);
-            v274 = _NRCopyLogObjectForNRUUID();
-            v372 = _NRLogIsLevelEnabled();
+            v260 = *(v353 + 96);
+            v261 = _NRCopyLogObjectForNRUUID();
+            LODWORD(v350) = _NRLogIsLevelEnabled();
 
-            if (v372)
+            if (v350)
             {
-              v370 = *(v405 + 96);
-              v275 = _NRCopyLogObjectForNRUUID();
-              v360 = *(v405 + 304);
-              _NRLogWithArgs();
+              v350 = *(v353 + 96);
+              v262 = _NRCopyLogObjectForNRUUID();
+              v263 = *(v353 + 304);
+              _NRLogWithArgs(v262, 16, "%s%.30s:%-4d %@ failed to add icmpConditionPolicy %@ to session %@", "", "[NRDDeviceConductor addIPTunnelPolicyForLinkInner:policyOrder:]", 4201, v6, v60, v263);
             }
 
-            v276 = *(v405 + 96);
-            v277 = _NRCopyLogObjectForNRUUID();
-            LODWORD(v370) = _NRLogIsLevelEnabled();
+            v264 = *(v353 + 96);
+            v265 = _NRCopyLogObjectForNRUUID();
+            LODWORD(v350) = _NRLogIsLevelEnabled();
 
-            if (v370)
+            if (v350)
             {
-              v278 = *(v405 + 96);
-              v279 = _NRCopyLogObjectForNRUUID();
-              _NRLogWithArgs();
+              v266 = *(v353 + 96);
+              v267 = _NRCopyLogObjectForNRUUID();
+              _NRLogWithArgs(v267, 17, "Failed to add icmpConditionPolicy");
             }
 
-            v280 = *(v405 + 304);
-            [v6 cancelWithReason:{@"Failed to add icmpConditionPolicy %@ to session %@", v62, v280}];
+            v268 = *(v353 + 304);
+            [v6 cancelWithReason:{@"Failed to add icmpConditionPolicy %@ to session %@", v60, v268}];
 
-            v9 = v413;
+            v9 = v356;
           }
 
-          if (!v66)
+          if (!v64)
           {
             goto LABEL_89;
           }
 
-          v3 = v408;
-          v7 = v410;
+          v3 = v354;
+          v7 = v355;
           if (_NRIsAppleInternal())
           {
-            v399 = [[NSString alloc] initWithUTF8String:"18999"];
-            v384 = sub_1001672A0(v408, v399);
-            v67 = [NEPolicyCondition localAddress:"localAddress:prefix:" prefix:?];
-            v434[0] = v67;
-            v68 = +[NEPolicyCondition allInterfaces];
-            v434[1] = v68;
-            v69 = [NSArray arrayWithObjects:v434 count:2];
+            v352 = [[NSString alloc] initWithUTF8String:"18999"];
+            v351 = sub_1001672A0(v354, v352);
+            v65 = [NEPolicyCondition localAddress:"localAddress:prefix:" prefix:?];
+            v370[0] = v65;
+            v66 = +[NEPolicyCondition allInterfaces];
+            v370[1] = v66;
+            v67 = [NSArray arrayWithObjects:v370 count:2];
 
-            v70 = [NEPolicyResult tunnelIPToInterfaceName:v410 secondaryResultType:0];
-            v71 = [[NEPolicy alloc] initWithOrder:v414 result:v70 conditions:v69];
-            v72 = sub_1001599CC();
-            v73 = *(v405 + 304);
-            v74 = sub_100159E00(v72, v73, v71);
+            v68 = [NEPolicyResult tunnelIPToInterfaceName:v355 secondaryResultType:0];
+            v69 = [[NEPolicy alloc] initWithOrder:v357 result:v68 conditions:v67];
+            v70 = sub_1001599CC(NRDPolicySessionManager);
+            v71 = *(v353 + 304);
+            v72 = sub_100159E00(v70, v71, v69);
 
-            v75 = [v74 unsignedIntegerValue];
-            if (v75)
+            v73 = [v72 unsignedIntegerValue];
+            if (v73)
             {
-              v9 = v413;
-              [v413 addObject:v74];
+              v9 = v356;
+              [v356 addObject:v72];
             }
 
             else
             {
-              v289 = *(v405 + 96);
-              v290 = _NRCopyLogObjectForNRUUID();
-              v374 = _NRLogIsLevelEnabled();
+              v278 = *(v353 + 96);
+              v279 = _NRCopyLogObjectForNRUUID();
+              LODWORD(v350) = _NRLogIsLevelEnabled();
 
-              if (v374)
+              if (v350)
               {
-                v370 = *(v405 + 96);
-                v291 = _NRCopyLogObjectForNRUUID();
-                v362 = *(v405 + 304);
-                _NRLogWithArgs();
+                v350 = *(v353 + 96);
+                v280 = _NRCopyLogObjectForNRUUID();
+                v281 = *(v353 + 304);
+                _NRLogWithArgs(v280, 16, "%s%.30s:%-4d %@ failed to add localConditionPolicyForTest %@ to session %@", "", "[NRDDeviceConductor addIPTunnelPolicyForLinkInner:policyOrder:]", 4223, v6, v69, v281);
               }
 
-              v292 = *(v405 + 96);
-              v293 = _NRCopyLogObjectForNRUUID();
-              LODWORD(v370) = _NRLogIsLevelEnabled();
+              v282 = *(v353 + 96);
+              v283 = _NRCopyLogObjectForNRUUID();
+              LODWORD(v350) = _NRLogIsLevelEnabled();
 
-              if (v370)
+              if (v350)
               {
-                v294 = *(v405 + 96);
-                v295 = _NRCopyLogObjectForNRUUID();
-                _NRLogWithArgs();
+                v284 = *(v353 + 96);
+                v285 = _NRCopyLogObjectForNRUUID();
+                _NRLogWithArgs(v285, 17, "Failed to add localConditionPolicyForTest");
               }
 
-              v296 = *(v405 + 304);
-              [v6 cancelWithReason:{@"Failed to add localConditionPolicyForTest %@ to session %@", v71, v296}];
+              v286 = *(v353 + 304);
+              [v6 cancelWithReason:{@"Failed to add localConditionPolicyForTest %@ to session %@", v69, v286}];
 
-              v9 = v413;
+              v9 = v356;
             }
 
-            if (!v75)
+            if (!v73)
             {
               goto LABEL_90;
             }
 
-            v76 = sub_1001677D0(v408, v399);
-            v385 = [NEPolicyCondition remoteAddress:v76 prefix:128];
-            v433[0] = v385;
-            v77 = +[NEPolicyCondition allInterfaces];
-            v433[1] = v77;
-            v78 = [NSArray arrayWithObjects:v433 count:2];
+            v74 = sub_1001677D0(v354, v352);
+            v351 = [NEPolicyCondition remoteAddress:v74 prefix:128];
+            v369[0] = v351;
+            v75 = +[NEPolicyCondition allInterfaces];
+            v369[1] = v75;
+            v76 = [NSArray arrayWithObjects:v369 count:2];
 
-            v79 = [NEPolicyResult tunnelIPToInterfaceName:v410 secondaryResultType:0];
-            v80 = [[NEPolicy alloc] initWithOrder:v414 result:v79 conditions:v78];
-            v81 = sub_1001599CC();
-            v82 = *(v405 + 304);
-            v83 = sub_100159E00(v81, v82, v80);
+            v77 = [NEPolicyResult tunnelIPToInterfaceName:v355 secondaryResultType:0];
+            v78 = [[NEPolicy alloc] initWithOrder:v357 result:v77 conditions:v76];
+            v79 = sub_1001599CC(NRDPolicySessionManager);
+            v80 = *(v353 + 304);
+            v81 = sub_100159E00(v79, v80, v78);
 
-            v84 = [v83 unsignedIntegerValue];
-            if (v84)
+            v82 = [v81 unsignedIntegerValue];
+            if (v82)
             {
-              v9 = v413;
-              [v413 addObject:v83];
+              v9 = v356;
+              [v356 addObject:v81];
             }
 
             else
             {
-              v305 = *(v405 + 96);
-              v306 = _NRCopyLogObjectForNRUUID();
-              v376 = _NRLogIsLevelEnabled();
+              v296 = *(v353 + 96);
+              v297 = _NRCopyLogObjectForNRUUID();
+              LODWORD(v350) = _NRLogIsLevelEnabled();
 
-              if (v376)
+              if (v350)
               {
-                v370 = *(v405 + 96);
-                v307 = _NRCopyLogObjectForNRUUID();
-                v364 = *(v405 + 304);
-                _NRLogWithArgs();
+                v350 = *(v353 + 96);
+                v298 = _NRCopyLogObjectForNRUUID();
+                v299 = *(v353 + 304);
+                _NRLogWithArgs(v298, 16, "%s%.30s:%-4d %@ failed to add remoteConditionPolicyForTest %@ to session %@", "", "[NRDDeviceConductor addIPTunnelPolicyForLinkInner:policyOrder:]", 4240, v6, v78, v299);
               }
 
-              v308 = *(v405 + 96);
-              v309 = _NRCopyLogObjectForNRUUID();
-              LODWORD(v370) = _NRLogIsLevelEnabled();
+              v300 = *(v353 + 96);
+              v301 = _NRCopyLogObjectForNRUUID();
+              LODWORD(v350) = _NRLogIsLevelEnabled();
 
-              if (v370)
+              if (v350)
               {
-                v310 = *(v405 + 96);
-                v311 = _NRCopyLogObjectForNRUUID();
-                _NRLogWithArgs();
+                v302 = *(v353 + 96);
+                v303 = _NRCopyLogObjectForNRUUID();
+                _NRLogWithArgs(v303, 17, "Failed to add remoteConditionPolicyForTest");
               }
 
-              v312 = *(v405 + 304);
-              [v6 cancelWithReason:{@"Failed to add remoteConditionPolicyForTest %@ to session %@", v80, v312}];
+              v304 = *(v353 + 304);
+              [v6 cancelWithReason:{@"Failed to add remoteConditionPolicyForTest %@ to session %@", v78, v304}];
 
-              v9 = v413;
+              v9 = v356;
             }
 
-            if (!v84)
+            if (!v82)
             {
               goto LABEL_90;
             }
 
-            v85 = [[NSString alloc] initWithUTF8String:"19999"];
-            v86 = sub_1001672A0(v408, v85);
+            v83 = [[NSString alloc] initWithUTF8String:"19999"];
+            v84 = sub_1001672A0(v354, v83);
 
-            v386 = v86;
-            v87 = [NEPolicyCondition localAddress:v86 prefix:128];
-            v432[0] = v87;
-            v88 = +[NEPolicyCondition allInterfaces];
-            v432[1] = v88;
-            v89 = [NSArray arrayWithObjects:v432 count:2];
+            v351 = v84;
+            v85 = [NEPolicyCondition localAddress:v84 prefix:128];
+            v368[0] = v85;
+            v86 = +[NEPolicyCondition allInterfaces];
+            v368[1] = v86;
+            v87 = [NSArray arrayWithObjects:v368 count:2];
 
-            v90 = [NEPolicyResult tunnelIPToInterfaceName:v410 secondaryResultType:0];
-            v91 = [[NEPolicy alloc] initWithOrder:v414 result:v90 conditions:v89];
-            v92 = sub_1001599CC();
-            v93 = *(v405 + 304);
-            v94 = sub_100159E00(v92, v93, v91);
+            v88 = [NEPolicyResult tunnelIPToInterfaceName:v355 secondaryResultType:0];
+            v89 = [[NEPolicy alloc] initWithOrder:v357 result:v88 conditions:v87];
+            v90 = sub_1001599CC(NRDPolicySessionManager);
+            v91 = *(v353 + 304);
+            v92 = sub_100159E00(v90, v91, v89);
 
-            v95 = [v94 unsignedIntegerValue];
-            if (v95)
+            v93 = [v92 unsignedIntegerValue];
+            if (v93)
             {
-              v9 = v413;
-              [v413 addObject:v94];
+              v9 = v356;
+              [v356 addObject:v92];
             }
 
             else
             {
-              v321 = *(v405 + 96);
-              v322 = _NRCopyLogObjectForNRUUID();
-              v378 = _NRLogIsLevelEnabled();
+              v314 = *(v353 + 96);
+              v315 = _NRCopyLogObjectForNRUUID();
+              LODWORD(v350) = _NRLogIsLevelEnabled();
 
-              if (v378)
+              if (v350)
               {
-                v370 = *(v405 + 96);
-                v323 = _NRCopyLogObjectForNRUUID();
-                v366 = *(v405 + 304);
-                _NRLogWithArgs();
+                v350 = *(v353 + 96);
+                v316 = _NRCopyLogObjectForNRUUID();
+                v317 = *(v353 + 304);
+                _NRLogWithArgs(v316, 16, "%s%.30s:%-4d %@ failed to add localConditionPolicyForTest %@ to session %@", "", "[NRDDeviceConductor addIPTunnelPolicyForLinkInner:policyOrder:]", 4257, v6, v89, v317);
               }
 
-              v324 = *(v405 + 96);
-              v325 = _NRCopyLogObjectForNRUUID();
-              LODWORD(v370) = _NRLogIsLevelEnabled();
+              v318 = *(v353 + 96);
+              v319 = _NRCopyLogObjectForNRUUID();
+              LODWORD(v350) = _NRLogIsLevelEnabled();
 
-              if (v370)
+              if (v350)
               {
-                v326 = *(v405 + 96);
-                v327 = _NRCopyLogObjectForNRUUID();
-                _NRLogWithArgs();
+                v320 = *(v353 + 96);
+                v321 = _NRCopyLogObjectForNRUUID();
+                _NRLogWithArgs(v321, 17, "Failed to add localConditionPolicyForTest");
               }
 
-              v328 = *(v405 + 304);
-              [v6 cancelWithReason:{@"Failed to add localConditionPolicyForTest %@ to session %@", v91, v328}];
+              v322 = *(v353 + 304);
+              [v6 cancelWithReason:{@"Failed to add localConditionPolicyForTest %@ to session %@", v89, v322}];
 
-              v9 = v413;
+              v9 = v356;
             }
 
-            if (!v95)
+            if (!v93)
             {
 LABEL_90:
-              v3 = v408;
-              v7 = v410;
+              v3 = v354;
+              v7 = v355;
 
 LABEL_91:
-              v38 = 0;
+              v36 = 0;
               goto LABEL_38;
             }
 
-            v96 = [[NSString alloc] initWithUTF8String:"19999"];
-            v97 = sub_1001677D0(v408, v96);
+            v94 = [[NSString alloc] initWithUTF8String:"19999"];
+            v95 = sub_1001677D0(v354, v94);
 
-            v387 = v97;
-            v98 = [NEPolicyCondition remoteAddress:v97 prefix:128];
-            v431[0] = v98;
-            v99 = +[NEPolicyCondition allInterfaces];
-            v431[1] = v99;
-            v100 = [NSArray arrayWithObjects:v431 count:2];
+            v351 = v95;
+            v96 = [NEPolicyCondition remoteAddress:v95 prefix:128];
+            v367[0] = v96;
+            v97 = +[NEPolicyCondition allInterfaces];
+            v367[1] = v97;
+            v98 = [NSArray arrayWithObjects:v367 count:2];
 
-            v101 = [NEPolicyResult tunnelIPToInterfaceName:v410 secondaryResultType:0];
-            v102 = [[NEPolicy alloc] initWithOrder:v414 result:v101 conditions:v100];
-            v103 = sub_1001599CC();
-            v104 = *(v405 + 304);
-            v105 = sub_100159E00(v103, v104, v102);
+            v99 = [NEPolicyResult tunnelIPToInterfaceName:v355 secondaryResultType:0];
+            v100 = [[NEPolicy alloc] initWithOrder:v357 result:v99 conditions:v98];
+            v101 = sub_1001599CC(NRDPolicySessionManager);
+            v102 = *(v353 + 304);
+            v103 = sub_100159E00(v101, v102, v100);
 
-            v106 = [v105 unsignedIntegerValue];
-            if (v106)
+            v104 = [v103 unsignedIntegerValue];
+            if (v104)
             {
-              v9 = v413;
-              [v413 addObject:v105];
+              v9 = v356;
+              [v356 addObject:v103];
             }
 
             else
             {
-              v337 = *(v405 + 96);
-              v338 = _NRCopyLogObjectForNRUUID();
-              v380 = _NRLogIsLevelEnabled();
+              v332 = *(v353 + 96);
+              v333 = _NRCopyLogObjectForNRUUID();
+              LODWORD(v350) = _NRLogIsLevelEnabled();
 
-              if (v380)
+              if (v350)
               {
-                v370 = *(v405 + 96);
+                v350 = *(v353 + 96);
+                v334 = _NRCopyLogObjectForNRUUID();
+                v335 = *(v353 + 304);
+                _NRLogWithArgs(v334, 16, "%s%.30s:%-4d %@ failed to add remoteConditionPolicyForTest %@ to session %@", "", "[NRDDeviceConductor addIPTunnelPolicyForLinkInner:policyOrder:]", 4274, v6, v100, v335);
+              }
+
+              v336 = *(v353 + 96);
+              v337 = _NRCopyLogObjectForNRUUID();
+              LODWORD(v350) = _NRLogIsLevelEnabled();
+
+              if (v350)
+              {
+                v338 = *(v353 + 96);
                 v339 = _NRCopyLogObjectForNRUUID();
-                v368 = *(v405 + 304);
-                _NRLogWithArgs();
+                _NRLogWithArgs(v339, 17, "Failed to add remoteConditionPolicyForTest");
               }
 
-              v340 = *(v405 + 96);
-              v341 = _NRCopyLogObjectForNRUUID();
-              LODWORD(v370) = _NRLogIsLevelEnabled();
+              v340 = *(v353 + 304);
+              [v6 cancelWithReason:{@"Failed to add remoteConditionPolicyForTest %@ to session %@", v100, v340}];
 
-              if (v370)
-              {
-                v342 = *(v405 + 96);
-                v343 = _NRCopyLogObjectForNRUUID();
-                _NRLogWithArgs();
-              }
-
-              v344 = *(v405 + 304);
-              [v6 cancelWithReason:{@"Failed to add remoteConditionPolicyForTest %@ to session %@", v102, v344}];
-
-              v9 = v413;
+              v9 = v356;
             }
 
-            v3 = v408;
-            v7 = v410;
-            if (!v106)
+            v3 = v354;
+            v7 = v355;
+            if (!v104)
             {
               goto LABEL_91;
             }
           }
 
-          a1 = v405;
-          sub_1000FC7D0(v405, 0);
+          a1 = v353;
+          sub_1000FC7D0(v353, 0);
           [v6 setHasClassDPolicies:1];
         }
 
@@ -5743,408 +4703,408 @@ LABEL_91:
           goto LABEL_37;
         }
 
-        v411 = v9;
-        v408 = v3;
-        v400 = sub_1001679E0(v3, @"61315");
-        v388 = [NEPolicyCondition localAddress:"localAddress:prefix:" prefix:?];
-        v430[0] = v388;
-        v107 = +[NEPolicyCondition allInterfaces];
-        v430[1] = v107;
-        v108 = [NSArray arrayWithObjects:v430 count:2];
+        v356 = v9;
+        v354 = v3;
+        v352 = sub_1001679E0(v3, @"61315");
+        v351 = [NEPolicyCondition localAddress:"localAddress:prefix:" prefix:?];
+        v366[0] = v351;
+        v105 = +[NEPolicyCondition allInterfaces];
+        v366[1] = v105;
+        v106 = [NSArray arrayWithObjects:v366 count:2];
 
-        v410 = v7;
-        v109 = [NEPolicyResult tunnelIPToInterfaceName:v7 secondaryResultType:0];
-        v110 = v414;
-        v111 = [[NEPolicy alloc] initWithOrder:? result:? conditions:?];
-        v112 = sub_1001599CC();
-        v406 = a1;
-        v113 = *(a1 + 304);
-        v114 = sub_100159E00(v112, v113, v111);
+        v355 = v7;
+        v107 = [NEPolicyResult tunnelIPToInterfaceName:v7 secondaryResultType:0];
+        v108 = v357;
+        v109 = [[NEPolicy alloc] initWithOrder:? result:? conditions:?];
+        v110 = sub_1001599CC(NRDPolicySessionManager);
+        v353 = a1;
+        v111 = *(a1 + 304);
+        v112 = sub_100159E00(v110, v111, v109);
 
-        v115 = [v114 unsignedIntegerValue];
-        if (v115)
+        v113 = [v112 unsignedIntegerValue];
+        if (v113)
         {
-          v9 = v411;
-          [v411 addObject:v114];
+          v9 = v356;
+          [v356 addObject:v112];
         }
 
         else
         {
-          v240 = *(v406 + 96);
-          v241 = _NRCopyLogObjectForNRUUID();
-          v242 = _NRLogIsLevelEnabled();
+          v224 = *(v353 + 96);
+          v225 = _NRCopyLogObjectForNRUUID();
+          v226 = _NRLogIsLevelEnabled();
 
-          if (v242)
+          if (v226)
           {
-            v243 = *(v406 + 96);
-            v244 = _NRCopyLogObjectForNRUUID();
-            v357 = *(v406 + 304);
-            _NRLogWithArgs();
+            v227 = *(v353 + 96);
+            v228 = _NRCopyLogObjectForNRUUID();
+            v229 = *(v353 + 304);
+            _NRLogWithArgs(v228, 16, "%s%.30s:%-4d %@ failed to add localConditionPolicy %@ to session %@", "", "[NRDDeviceConductor addIPTunnelPolicyForLinkInner:policyOrder:]", 4295, v6, v109, v229);
           }
 
-          v245 = *(v406 + 96);
-          v246 = _NRCopyLogObjectForNRUUID();
-          v247 = _NRLogIsLevelEnabled();
+          v230 = *(v353 + 96);
+          v231 = _NRCopyLogObjectForNRUUID();
+          v232 = _NRLogIsLevelEnabled();
 
-          if (v247)
+          if (v232)
           {
-            v248 = *(v406 + 96);
-            v249 = _NRCopyLogObjectForNRUUID();
-            _NRLogWithArgs();
+            v233 = *(v353 + 96);
+            v234 = _NRCopyLogObjectForNRUUID();
+            _NRLogWithArgs(v234, 17, "Failed to add localConditionPolicy");
           }
 
-          v250 = *(v406 + 304);
-          [v6 cancelWithReason:{@"Failed to add localConditionPolicy %@ to session %@", v111, v250}];
+          v235 = *(v353 + 304);
+          [v6 cancelWithReason:{@"Failed to add localConditionPolicy %@ to session %@", v109, v235}];
 
-          v9 = v411;
-          v110 = v414;
+          v9 = v356;
+          v108 = v357;
         }
 
-        if (v115)
+        if (v113)
         {
-          v401 = sub_100167B9C(v408, @"61315");
-          v389 = [NEPolicyCondition remoteAddress:"remoteAddress:prefix:" prefix:?];
-          v429[0] = v389;
-          v116 = +[NEPolicyCondition allInterfaces];
-          v429[1] = v116;
-          v117 = [NSArray arrayWithObjects:v429 count:2];
+          v352 = sub_100167B9C(v354, @"61315");
+          v351 = [NEPolicyCondition remoteAddress:"remoteAddress:prefix:" prefix:?];
+          v365[0] = v351;
+          v114 = +[NEPolicyCondition allInterfaces];
+          v365[1] = v114;
+          v115 = [NSArray arrayWithObjects:v365 count:2];
 
-          v118 = [NEPolicyResult tunnelIPToInterfaceName:v410 secondaryResultType:0];
-          v119 = [[NEPolicy alloc] initWithOrder:v110 result:v118 conditions:v117];
-          v120 = sub_1001599CC();
-          v121 = *(v406 + 304);
-          v122 = sub_100159E00(v120, v121, v119);
+          v116 = [NEPolicyResult tunnelIPToInterfaceName:v355 secondaryResultType:0];
+          v117 = [[NEPolicy alloc] initWithOrder:v108 result:v116 conditions:v115];
+          v118 = sub_1001599CC(NRDPolicySessionManager);
+          v119 = *(v353 + 304);
+          v120 = sub_100159E00(v118, v119, v117);
 
-          v123 = [v122 unsignedIntegerValue];
-          if (v123)
+          v121 = [v120 unsignedIntegerValue];
+          if (v121)
           {
-            v9 = v411;
-            [v411 addObject:v122];
+            v9 = v356;
+            [v356 addObject:v120];
           }
 
           else
           {
-            v262 = *(v406 + 96);
-            v263 = _NRCopyLogObjectForNRUUID();
-            v264 = _NRLogIsLevelEnabled();
+            v248 = *(v353 + 96);
+            v249 = _NRCopyLogObjectForNRUUID();
+            v250 = _NRLogIsLevelEnabled();
 
-            if (v264)
+            if (v250)
             {
-              v265 = *(v406 + 96);
-              v266 = _NRCopyLogObjectForNRUUID();
-              v359 = *(v406 + 304);
-              _NRLogWithArgs();
+              v251 = *(v353 + 96);
+              v252 = _NRCopyLogObjectForNRUUID();
+              v253 = *(v353 + 304);
+              _NRLogWithArgs(v252, 16, "%s%.30s:%-4d %@ failed to add remoteConditionPolicy %@ to session %@", "", "[NRDDeviceConductor addIPTunnelPolicyForLinkInner:policyOrder:]", 4309, v6, v117, v253);
             }
 
-            v267 = *(v406 + 96);
-            v268 = _NRCopyLogObjectForNRUUID();
-            v269 = _NRLogIsLevelEnabled();
+            v254 = *(v353 + 96);
+            v255 = _NRCopyLogObjectForNRUUID();
+            v256 = _NRLogIsLevelEnabled();
 
-            if (v269)
+            if (v256)
             {
-              v270 = *(v406 + 96);
-              v271 = _NRCopyLogObjectForNRUUID();
-              _NRLogWithArgs();
+              v257 = *(v353 + 96);
+              v258 = _NRCopyLogObjectForNRUUID();
+              _NRLogWithArgs(v258, 17, "Failed to add remoteConditionPolicy");
             }
 
-            v272 = *(v406 + 304);
-            [v6 cancelWithReason:{@"Failed to add remoteConditionPolicy %@ to session %@", v119, v272}];
+            v259 = *(v353 + 304);
+            [v6 cancelWithReason:{@"Failed to add remoteConditionPolicy %@ to session %@", v117, v259}];
 
-            v9 = v411;
+            v9 = v356;
           }
 
-          if (v123)
+          if (v121)
           {
-            v402 = sub_100168A4C(v408);
-            v124 = [NEPolicyCondition remoteAddress:"remoteAddress:prefix:" prefix:?];
+            v352 = sub_100168A4C(v354);
+            v122 = [NEPolicyCondition remoteAddress:"remoteAddress:prefix:" prefix:?];
             [NEPolicyCondition ipProtocol:58];
-            v390 = v124;
-            v427 = v426 = v124;
-            v125 = v427;
-            v126 = +[NEPolicyCondition allInterfaces];
-            v428 = v126;
-            v127 = [NSArray arrayWithObjects:&v426 count:3];
+            v351 = v122;
+            v363 = v362 = v122;
+            v123 = v363;
+            v124 = +[NEPolicyCondition allInterfaces];
+            v364 = v124;
+            v125 = [NSArray arrayWithObjects:&v362 count:3];
 
-            v128 = [NEPolicyResult tunnelIPToInterfaceName:v410 secondaryResultType:0];
-            v129 = [[NEPolicy alloc] initWithOrder:v414 result:v128 conditions:v127];
-            v130 = sub_1001599CC();
-            v131 = *(v406 + 304);
-            v132 = sub_100159E00(v130, v131, v129);
+            v126 = [NEPolicyResult tunnelIPToInterfaceName:v355 secondaryResultType:0];
+            v127 = [[NEPolicy alloc] initWithOrder:v357 result:v126 conditions:v125];
+            v128 = sub_1001599CC(NRDPolicySessionManager);
+            v129 = *(v353 + 304);
+            v130 = sub_100159E00(v128, v129, v127);
 
-            v133 = [v132 unsignedIntegerValue];
-            if (v133)
+            v131 = [v130 unsignedIntegerValue];
+            if (v131)
             {
-              v9 = v411;
-              [v411 addObject:v132];
+              v9 = v356;
+              [v356 addObject:v130];
             }
 
             else
             {
-              v281 = *(v406 + 96);
-              v282 = _NRCopyLogObjectForNRUUID();
-              v373 = _NRLogIsLevelEnabled();
+              v269 = *(v353 + 96);
+              v270 = _NRCopyLogObjectForNRUUID();
+              LODWORD(v350) = _NRLogIsLevelEnabled();
 
-              if (v373)
+              if (v350)
               {
-                v371 = *(v406 + 96);
-                v283 = _NRCopyLogObjectForNRUUID();
-                v361 = *(v406 + 304);
-                _NRLogWithArgs();
+                v350 = *(v353 + 96);
+                v271 = _NRCopyLogObjectForNRUUID();
+                v272 = *(v353 + 304);
+                _NRLogWithArgs(v271, 16, "%s%.30s:%-4d %@ failed to add icmpConditionPolicy %@ to session %@", "", "[NRDDeviceConductor addIPTunnelPolicyForLinkInner:policyOrder:]", 4324, v6, v127, v272);
               }
 
-              v284 = *(v406 + 96);
-              v285 = _NRCopyLogObjectForNRUUID();
-              LODWORD(v371) = _NRLogIsLevelEnabled();
+              v273 = *(v353 + 96);
+              v274 = _NRCopyLogObjectForNRUUID();
+              LODWORD(v350) = _NRLogIsLevelEnabled();
 
-              if (v371)
+              if (v350)
               {
-                v286 = *(v406 + 96);
-                v287 = _NRCopyLogObjectForNRUUID();
-                _NRLogWithArgs();
+                v275 = *(v353 + 96);
+                v276 = _NRCopyLogObjectForNRUUID();
+                _NRLogWithArgs(v276, 17, "Failed to add icmpConditionPolicy");
               }
 
-              v288 = *(v406 + 304);
-              [v6 cancelWithReason:{@"Failed to add icmpConditionPolicy %@ to session %@", v129, v288}];
+              v277 = *(v353 + 304);
+              [v6 cancelWithReason:{@"Failed to add icmpConditionPolicy %@ to session %@", v127, v277}];
 
-              v9 = v411;
+              v9 = v356;
             }
 
-            if (v133)
+            if (v131)
             {
-              v3 = v408;
-              v7 = v410;
+              v3 = v354;
+              v7 = v355;
               if (!_NRIsAppleInternal())
               {
 LABEL_88:
-                [v6 setHasClassCPolicies:{1, v371}];
-                v9 = v411;
+                [v6 setHasClassCPolicies:{1, v350}];
+                v9 = v356;
                 goto LABEL_37;
               }
 
-              v399 = [[NSString alloc] initWithUTF8String:"18999"];
-              v391 = sub_1001679E0(v408, v399);
-              v134 = [NEPolicyCondition localAddress:"localAddress:prefix:" prefix:?];
-              v425[0] = v134;
-              v135 = +[NEPolicyCondition allInterfaces];
-              v425[1] = v135;
-              v136 = [NSArray arrayWithObjects:v425 count:2];
+              v352 = [[NSString alloc] initWithUTF8String:"18999"];
+              v351 = sub_1001679E0(v354, v352);
+              v132 = [NEPolicyCondition localAddress:"localAddress:prefix:" prefix:?];
+              v361[0] = v132;
+              v133 = +[NEPolicyCondition allInterfaces];
+              v361[1] = v133;
+              v134 = [NSArray arrayWithObjects:v361 count:2];
 
-              v137 = [NEPolicyResult tunnelIPToInterfaceName:v410 secondaryResultType:0];
-              v138 = [[NEPolicy alloc] initWithOrder:v414 result:v137 conditions:v136];
-              v139 = sub_1001599CC();
-              v140 = *(v406 + 304);
-              v141 = sub_100159E00(v139, v140, v138);
+              v135 = [NEPolicyResult tunnelIPToInterfaceName:v355 secondaryResultType:0];
+              v136 = [[NEPolicy alloc] initWithOrder:v357 result:v135 conditions:v134];
+              v137 = sub_1001599CC(NRDPolicySessionManager);
+              v138 = *(v353 + 304);
+              v139 = sub_100159E00(v137, v138, v136);
 
-              v142 = [v141 unsignedIntegerValue];
-              if (v142)
+              v140 = [v139 unsignedIntegerValue];
+              if (v140)
               {
-                v9 = v411;
-                [v411 addObject:v141];
+                v9 = v356;
+                [v356 addObject:v139];
               }
 
               else
               {
-                v297 = *(v406 + 96);
-                v298 = _NRCopyLogObjectForNRUUID();
-                v375 = _NRLogIsLevelEnabled();
+                v287 = *(v353 + 96);
+                v288 = _NRCopyLogObjectForNRUUID();
+                LODWORD(v350) = _NRLogIsLevelEnabled();
 
-                if (v375)
+                if (v350)
                 {
-                  v371 = *(v406 + 96);
-                  v299 = _NRCopyLogObjectForNRUUID();
-                  v363 = *(v406 + 304);
-                  _NRLogWithArgs();
+                  v350 = *(v353 + 96);
+                  v289 = _NRCopyLogObjectForNRUUID();
+                  v290 = *(v353 + 304);
+                  _NRLogWithArgs(v289, 16, "%s%.30s:%-4d %@ failed to add localConditionPolicyForTest %@ to session %@", "", "[NRDDeviceConductor addIPTunnelPolicyForLinkInner:policyOrder:]", 4346, v6, v136, v290);
                 }
 
-                v300 = *(v406 + 96);
-                v301 = _NRCopyLogObjectForNRUUID();
-                LODWORD(v371) = _NRLogIsLevelEnabled();
+                v291 = *(v353 + 96);
+                v292 = _NRCopyLogObjectForNRUUID();
+                LODWORD(v350) = _NRLogIsLevelEnabled();
 
-                if (v371)
+                if (v350)
                 {
-                  v302 = *(v406 + 96);
-                  v303 = _NRCopyLogObjectForNRUUID();
-                  _NRLogWithArgs();
+                  v293 = *(v353 + 96);
+                  v294 = _NRCopyLogObjectForNRUUID();
+                  _NRLogWithArgs(v294, 17, "Failed to add localConditionPolicyForTest");
                 }
 
-                v304 = *(v406 + 304);
-                [v6 cancelWithReason:{@"Failed to add localConditionPolicyForTest %@ to session %@", v138, v304}];
+                v295 = *(v353 + 304);
+                [v6 cancelWithReason:{@"Failed to add localConditionPolicyForTest %@ to session %@", v136, v295}];
 
-                v9 = v411;
+                v9 = v356;
               }
 
-              if (v142)
+              if (v140)
               {
-                v143 = sub_100167B9C(v408, v399);
-                v392 = [NEPolicyCondition remoteAddress:v143 prefix:128];
-                v424[0] = v392;
-                v144 = +[NEPolicyCondition allInterfaces];
-                v424[1] = v144;
-                v145 = [NSArray arrayWithObjects:v424 count:2];
+                v141 = sub_100167B9C(v354, v352);
+                v351 = [NEPolicyCondition remoteAddress:v141 prefix:128];
+                v360[0] = v351;
+                v142 = +[NEPolicyCondition allInterfaces];
+                v360[1] = v142;
+                v143 = [NSArray arrayWithObjects:v360 count:2];
 
-                v146 = [NEPolicyResult tunnelIPToInterfaceName:v410 secondaryResultType:0];
-                v147 = [[NEPolicy alloc] initWithOrder:v414 result:v146 conditions:v145];
-                v148 = sub_1001599CC();
-                v149 = *(v406 + 304);
-                v150 = sub_100159E00(v148, v149, v147);
+                v144 = [NEPolicyResult tunnelIPToInterfaceName:v355 secondaryResultType:0];
+                v145 = [[NEPolicy alloc] initWithOrder:v357 result:v144 conditions:v143];
+                v146 = sub_1001599CC(NRDPolicySessionManager);
+                v147 = *(v353 + 304);
+                v148 = sub_100159E00(v146, v147, v145);
 
-                v151 = [v150 unsignedIntegerValue];
-                if (v151)
+                v149 = [v148 unsignedIntegerValue];
+                if (v149)
                 {
-                  v9 = v411;
-                  [v411 addObject:v150];
+                  v9 = v356;
+                  [v356 addObject:v148];
                 }
 
                 else
                 {
-                  v313 = *(v406 + 96);
-                  v314 = _NRCopyLogObjectForNRUUID();
-                  v377 = _NRLogIsLevelEnabled();
+                  v305 = *(v353 + 96);
+                  v306 = _NRCopyLogObjectForNRUUID();
+                  LODWORD(v350) = _NRLogIsLevelEnabled();
 
-                  if (v377)
+                  if (v350)
                   {
-                    v371 = *(v406 + 96);
-                    v315 = _NRCopyLogObjectForNRUUID();
-                    v365 = *(v406 + 304);
-                    _NRLogWithArgs();
+                    v350 = *(v353 + 96);
+                    v307 = _NRCopyLogObjectForNRUUID();
+                    v308 = *(v353 + 304);
+                    _NRLogWithArgs(v307, 16, "%s%.30s:%-4d %@ failed to add remoteConditionPolicyForTest %@ to session %@", "", "[NRDDeviceConductor addIPTunnelPolicyForLinkInner:policyOrder:]", 4363, v6, v145, v308);
                   }
 
-                  v316 = *(v406 + 96);
-                  v317 = _NRCopyLogObjectForNRUUID();
-                  LODWORD(v371) = _NRLogIsLevelEnabled();
+                  v309 = *(v353 + 96);
+                  v310 = _NRCopyLogObjectForNRUUID();
+                  LODWORD(v350) = _NRLogIsLevelEnabled();
 
-                  if (v371)
+                  if (v350)
                   {
-                    v318 = *(v406 + 96);
-                    v319 = _NRCopyLogObjectForNRUUID();
-                    _NRLogWithArgs();
+                    v311 = *(v353 + 96);
+                    v312 = _NRCopyLogObjectForNRUUID();
+                    _NRLogWithArgs(v312, 17, "Failed to add remoteConditionPolicyForTest");
                   }
 
-                  v320 = *(v406 + 304);
-                  [v6 cancelWithReason:{@"Failed to add remoteConditionPolicyForTest %@ to session %@", v147, v320}];
+                  v313 = *(v353 + 304);
+                  [v6 cancelWithReason:{@"Failed to add remoteConditionPolicyForTest %@ to session %@", v145, v313}];
 
-                  v9 = v411;
+                  v9 = v356;
                 }
 
-                if (v151)
+                if (v149)
                 {
-                  v152 = [[NSString alloc] initWithUTF8String:"19999"];
-                  v153 = sub_1001679E0(v408, v152);
+                  v150 = [[NSString alloc] initWithUTF8String:"19999"];
+                  v151 = sub_1001679E0(v354, v150);
 
-                  v393 = v153;
-                  v154 = [NEPolicyCondition localAddress:v153 prefix:128];
-                  v423[0] = v154;
-                  v155 = +[NEPolicyCondition allInterfaces];
-                  v423[1] = v155;
-                  v156 = [NSArray arrayWithObjects:v423 count:2];
+                  v351 = v151;
+                  v152 = [NEPolicyCondition localAddress:v151 prefix:128];
+                  v359[0] = v152;
+                  v153 = +[NEPolicyCondition allInterfaces];
+                  v359[1] = v153;
+                  v154 = [NSArray arrayWithObjects:v359 count:2];
 
-                  v157 = [NEPolicyResult tunnelIPToInterfaceName:v410 secondaryResultType:0];
-                  v158 = [[NEPolicy alloc] initWithOrder:v414 result:v157 conditions:v156];
-                  v159 = sub_1001599CC();
-                  v160 = *(v406 + 304);
-                  v161 = sub_100159E00(v159, v160, v158);
+                  v155 = [NEPolicyResult tunnelIPToInterfaceName:v355 secondaryResultType:0];
+                  v156 = [[NEPolicy alloc] initWithOrder:v357 result:v155 conditions:v154];
+                  v157 = sub_1001599CC(NRDPolicySessionManager);
+                  v158 = *(v353 + 304);
+                  v159 = sub_100159E00(v157, v158, v156);
 
-                  v162 = [v161 unsignedIntegerValue];
-                  if (v162)
+                  v160 = [v159 unsignedIntegerValue];
+                  if (v160)
                   {
-                    v9 = v411;
-                    [v411 addObject:v161];
+                    v9 = v356;
+                    [v356 addObject:v159];
                   }
 
                   else
                   {
-                    v329 = *(v406 + 96);
-                    v330 = _NRCopyLogObjectForNRUUID();
-                    v379 = _NRLogIsLevelEnabled();
+                    v323 = *(v353 + 96);
+                    v324 = _NRCopyLogObjectForNRUUID();
+                    LODWORD(v350) = _NRLogIsLevelEnabled();
 
-                    if (v379)
+                    if (v350)
                     {
-                      v371 = *(v406 + 96);
-                      v331 = _NRCopyLogObjectForNRUUID();
-                      v367 = *(v406 + 304);
-                      _NRLogWithArgs();
+                      v350 = *(v353 + 96);
+                      v325 = _NRCopyLogObjectForNRUUID();
+                      v326 = *(v353 + 304);
+                      _NRLogWithArgs(v325, 16, "%s%.30s:%-4d %@ failed to add localConditionPolicyForTest %@ to session %@", "", "[NRDDeviceConductor addIPTunnelPolicyForLinkInner:policyOrder:]", 4380, v6, v156, v326);
                     }
 
-                    v332 = *(v406 + 96);
-                    v333 = _NRCopyLogObjectForNRUUID();
-                    LODWORD(v371) = _NRLogIsLevelEnabled();
+                    v327 = *(v353 + 96);
+                    v328 = _NRCopyLogObjectForNRUUID();
+                    LODWORD(v350) = _NRLogIsLevelEnabled();
 
-                    if (v371)
+                    if (v350)
                     {
-                      v334 = *(v406 + 96);
-                      v335 = _NRCopyLogObjectForNRUUID();
-                      _NRLogWithArgs();
+                      v329 = *(v353 + 96);
+                      v330 = _NRCopyLogObjectForNRUUID();
+                      _NRLogWithArgs(v330, 17, "Failed to add localConditionPolicyForTest");
                     }
 
-                    v336 = *(v406 + 304);
-                    [v6 cancelWithReason:{@"Failed to add localConditionPolicyForTest %@ to session %@", v158, v336}];
+                    v331 = *(v353 + 304);
+                    [v6 cancelWithReason:{@"Failed to add localConditionPolicyForTest %@ to session %@", v156, v331}];
 
-                    v9 = v411;
+                    v9 = v356;
                   }
 
-                  if (v162)
+                  if (v160)
                   {
-                    v163 = [[NSString alloc] initWithUTF8String:"19999"];
-                    v164 = sub_100167B9C(v408, v163);
+                    v161 = [[NSString alloc] initWithUTF8String:"19999"];
+                    v162 = sub_100167B9C(v354, v161);
 
-                    v394 = v164;
-                    v165 = [NEPolicyCondition remoteAddress:v164 prefix:128];
-                    v422[0] = v165;
-                    v166 = +[NEPolicyCondition allInterfaces];
-                    v422[1] = v166;
-                    v167 = [NSArray arrayWithObjects:v422 count:2];
+                    v351 = v162;
+                    v163 = [NEPolicyCondition remoteAddress:v162 prefix:128];
+                    v358[0] = v163;
+                    v164 = +[NEPolicyCondition allInterfaces];
+                    v358[1] = v164;
+                    v165 = [NSArray arrayWithObjects:v358 count:2];
 
-                    v168 = [NEPolicyResult tunnelIPToInterfaceName:v410 secondaryResultType:0];
-                    v169 = [[NEPolicy alloc] initWithOrder:v414 result:v168 conditions:v167];
-                    v170 = sub_1001599CC();
-                    v171 = *(v406 + 304);
-                    v172 = sub_100159E00(v170, v171, v169);
+                    v166 = [NEPolicyResult tunnelIPToInterfaceName:v355 secondaryResultType:0];
+                    v167 = [[NEPolicy alloc] initWithOrder:v357 result:v166 conditions:v165];
+                    v168 = sub_1001599CC(NRDPolicySessionManager);
+                    v169 = *(v353 + 304);
+                    v170 = sub_100159E00(v168, v169, v167);
 
-                    v173 = [v172 unsignedIntegerValue];
-                    if (v173)
+                    v171 = [v170 unsignedIntegerValue];
+                    if (v171)
                     {
-                      [v411 addObject:v172];
+                      [v356 addObject:v170];
                     }
 
                     else
                     {
-                      v345 = *(v406 + 96);
+                      v341 = *(v353 + 96);
+                      v342 = _NRCopyLogObjectForNRUUID();
+                      LODWORD(v357) = _NRLogIsLevelEnabled();
+
+                      if (v357)
+                      {
+                        v357 = *(v353 + 96);
+                        v343 = _NRCopyLogObjectForNRUUID();
+                        v344 = *(v353 + 304);
+                        _NRLogWithArgs(v343, 16, "%s%.30s:%-4d %@ failed to add remoteConditionPolicyForTest %@ to session %@", "", "[NRDDeviceConductor addIPTunnelPolicyForLinkInner:policyOrder:]", 4397, v6, v167, v344);
+                      }
+
+                      v345 = *(v353 + 96);
                       v346 = _NRCopyLogObjectForNRUUID();
-                      v419 = _NRLogIsLevelEnabled();
+                      LODWORD(v357) = _NRLogIsLevelEnabled();
 
-                      if (v419)
+                      if (v357)
                       {
-                        v420 = *(v406 + 96);
-                        v347 = _NRCopyLogObjectForNRUUID();
-                        v369 = *(v406 + 304);
-                        _NRLogWithArgs();
+                        v347 = *(v353 + 96);
+                        v348 = _NRCopyLogObjectForNRUUID();
+                        _NRLogWithArgs(v348, 17, "Failed to add remoteConditionPolicyForTest");
                       }
 
-                      v348 = *(v406 + 96);
-                      v349 = _NRCopyLogObjectForNRUUID();
-                      v421 = _NRLogIsLevelEnabled();
-
-                      if (v421)
-                      {
-                        v350 = *(v406 + 96);
-                        v351 = _NRCopyLogObjectForNRUUID();
-                        _NRLogWithArgs();
-                      }
-
-                      v352 = *(v406 + 304);
-                      [v6 cancelWithReason:{@"Failed to add remoteConditionPolicyForTest %@ to session %@", v169, v352}];
+                      v349 = *(v353 + 304);
+                      [v6 cancelWithReason:{@"Failed to add remoteConditionPolicyForTest %@ to session %@", v167, v349}];
                     }
 
-                    v3 = v408;
-                    v7 = v410;
-                    if (v173)
+                    v3 = v354;
+                    v7 = v355;
+                    if (v171)
                     {
                       goto LABEL_88;
                     }
 
-LABEL_108:
-                    v38 = 0;
-                    v9 = v411;
+LABEL_109:
+                    v36 = 0;
+                    v9 = v356;
                     goto LABEL_38;
                   }
                 }
@@ -6156,72 +5116,74 @@ LABEL_108:
         }
 
 LABEL_89:
-        v38 = 0;
-        v3 = v408;
-        v7 = v410;
+        v36 = 0;
+        v3 = v354;
+        v7 = v355;
         goto LABEL_38;
       }
 
-      v197 = sub_1000E83DC();
-      v198 = _NRLogIsLevelEnabled();
+      v190 = sub_1000E83DC();
+      v191 = _NRLogIsLevelEnabled();
 
-      if (v198)
+      if (v191)
       {
-        v199 = sub_1000E83DC();
-        _NRLogWithArgs();
+        v192 = sub_1000E83DC();
+        _NRLogWithArgs(v192, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: (localDevice) != ((void*)0)", "", "[NRDDeviceConductor addIPTunnelPolicyForLinkInner:policyOrder:]", 4097);
       }
+
+      v6 = _os_log_pack_size();
+      v193 = &v350 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+      v194 = *__error();
+      v189 = _os_log_pack_fill(v193, v6, v194, &_mh_execute_header, "%{public}s Assertion Failed: (localDevice) != ((void*)0)");
     }
 
     else
     {
-      v194 = sub_1000E83DC();
-      v195 = _NRLogIsLevelEnabled();
+      v184 = sub_1000E83DC();
+      v185 = _NRLogIsLevelEnabled();
 
-      if (v195)
+      if (v185)
       {
-        v196 = sub_1000E83DC();
-        _NRLogWithArgs();
+        v186 = sub_1000E83DC();
+        _NRLogWithArgs(v186, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: (addedPolicyIDs) != ((void*)0)", "", "[NRDDeviceConductor addIPTunnelPolicyForLinkInner:policyOrder:]", 4094);
       }
+
+      v6 = _os_log_pack_size();
+      v187 = &v350 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+      v188 = *__error();
+      v189 = _os_log_pack_fill(v187, v6, v188, &_mh_execute_header, "%{public}s Assertion Failed: (addedPolicyIDs) != ((void*)0)");
     }
 
-    v6 = _os_log_pack_size();
-    __chkstk_darwin();
-    v200 = *__error();
-    v201 = _os_log_pack_fill();
-    *v201 = 136446210;
-    *(v201 + 4) = "[NRDDeviceConductor addIPTunnelPolicyForLinkInner:policyOrder:]";
+    *v189 = 136446210;
+    *(v189 + 4) = "[NRDDeviceConductor addIPTunnelPolicyForLinkInner:policyOrder:]";
     sub_1000E83DC();
     _NRLogAbortWithPack();
-    goto LABEL_108;
+    goto LABEL_109;
   }
 
-  v174 = *(a1 + 96);
+  v172 = _NRCopyLogObjectForNRUUID();
+  v173 = _NRLogIsLevelEnabled();
+
+  if (v173)
+  {
+    v174 = _NRCopyLogObjectForNRUUID();
+    _NRLogWithArgs(v174, 16, "%s%.30s:%-4d %@ failed to get virtual interface to set IP tunnel policies", "", "[NRDDeviceConductor addIPTunnelPolicyForLinkInner:policyOrder:]", 4079, v6);
+  }
+
   v175 = _NRCopyLogObjectForNRUUID();
   v176 = _NRLogIsLevelEnabled();
 
   if (v176)
   {
-    v177 = *(a1 + 96);
-    v178 = _NRCopyLogObjectForNRUUID();
-    _NRLogWithArgs();
-  }
-
-  v179 = *(a1 + 96);
-  v180 = _NRCopyLogObjectForNRUUID();
-  v181 = _NRLogIsLevelEnabled();
-
-  if (v181)
-  {
-    v182 = *(a1 + 96);
-    v183 = _NRCopyLogObjectForNRUUID();
-    _NRLogWithArgs();
+    v177 = _NRCopyLogObjectForNRUUID();
+    _NRLogWithArgs(v177, 17, "Failed to get virtual interface to set IP tunnel policies");
   }
 
   [v6 cancelWithReason:@"Failed to get virtual interface to set IP tunnel policies"];
-  v38 = 0;
+  v36 = 0;
 LABEL_40:
 
-  return v38;
+  return v36;
 }
 
 void sub_10010D154(uint64_t a1)
@@ -6234,22 +5196,22 @@ void sub_10010D154(uint64_t a1)
     v3 = sub_100003490();
     dispatch_assert_queue_V2(v3);
 
-    v60 = xmmword_100196400;
-    v4 = [[NSData alloc] initWithBytes:&v60 length:16];
+    v55 = xmmword_100196400;
+    v4 = [[NSData alloc] initWithBytes:&v55 length:16];
     v5 = sub_100167F00(NRDLocalDevice, v4, @"0");
 
     v6 = [NEPolicyCondition remoteAddress:v5 prefix:64];
     v7 = [NEPolicyCondition ipProtocol:58];
-    v65[0] = v6;
-    v65[1] = v7;
+    v60[0] = v6;
+    v60[1] = v7;
     v8 = +[NEPolicyCondition allInterfaces];
-    v65[2] = v8;
-    v9 = [NSArray arrayWithObjects:v65 count:3];
+    v60[2] = v8;
+    v9 = [NSArray arrayWithObjects:v60 count:3];
 
     v10 = [NEPolicyResult skipWithOrder:220];
     v11 = [[NEPolicy alloc] initWithOrder:200 result:v10 conditions:v9];
     objc_opt_self();
-    v59 = v2;
+    v54 = v2;
     if (qword_100229410 != -1)
     {
       dispatch_once(&qword_100229410, &stru_1001FCD98);
@@ -6258,22 +5220,22 @@ void sub_10010D154(uint64_t a1)
     v12 = qword_100229408;
     v13 = sub_100159E00(v12, *(a1 + 304), v11);
 
-    [v59 addObject:v13];
+    [v54 addObject:v13];
     objc_opt_self();
     v14 = sub_100003490();
     dispatch_assert_queue_V2(v14);
 
-    v60 = xmmword_100196400;
-    v15 = [[NSData alloc] initWithBytes:&v60 length:16];
+    v55 = xmmword_100196400;
+    v15 = [[NSData alloc] initWithBytes:&v55 length:16];
     v16 = sub_100167F00(NRDLocalDevice, v15, @"0");
 
     v17 = [NEPolicyCondition remoteAddress:v16 prefix:64];
     v18 = +[NEPolicyCondition platformBinary];
-    v64[0] = v17;
-    v64[1] = v18;
+    v59[0] = v17;
+    v59[1] = v18;
     v19 = +[NEPolicyCondition allInterfaces];
-    v64[2] = v19;
-    v20 = [NSArray arrayWithObjects:v64 count:3];
+    v59[2] = v19;
+    v20 = [NSArray arrayWithObjects:v59 count:3];
 
     v21 = [NEPolicyResult skipWithOrder:220];
     v22 = [[NEPolicy alloc] initWithOrder:200 result:v21 conditions:v20];
@@ -6286,14 +5248,14 @@ void sub_10010D154(uint64_t a1)
     v23 = qword_100229408;
     v24 = sub_100159E00(v23, *(a1 + 304), v22);
 
-    [v59 addObject:v24];
+    [v54 addObject:v24];
     v25 = [NEPolicyCondition requiredAgentDomain:@"com.apple.networkrelay" agentType:@"ASListener"];
     v26 = +[NEPolicyCondition platformBinary];
-    v63[0] = v25;
-    v63[1] = v26;
+    v58[0] = v25;
+    v58[1] = v26;
     v27 = +[NEPolicyCondition allInterfaces];
-    v63[2] = v27;
-    v28 = [NSArray arrayWithObjects:v63 count:3];
+    v58[2] = v27;
+    v28 = [NSArray arrayWithObjects:v58 count:3];
 
     v29 = [NEPolicyResult skipWithOrder:220];
     v30 = [[NEPolicy alloc] initWithOrder:200 result:v29 conditions:v28];
@@ -6306,14 +5268,14 @@ void sub_10010D154(uint64_t a1)
     v31 = qword_100229408;
     v32 = sub_100159E00(v31, *(a1 + 304), v30);
 
-    [v59 addObject:v32];
+    [v54 addObject:v32];
     v33 = [NEPolicyCondition requiredAgentDomain:@"com.apple.networkrelay" agentType:@"ASResolver"];
     v34 = +[NEPolicyCondition platformBinary];
-    v62[0] = v33;
-    v62[1] = v34;
+    v57[0] = v33;
+    v57[1] = v34;
     v35 = +[NEPolicyCondition allInterfaces];
-    v62[2] = v35;
-    v36 = [NSArray arrayWithObjects:v62 count:3];
+    v57[2] = v35;
+    v36 = [NSArray arrayWithObjects:v57 count:3];
 
     v37 = [NEPolicyResult skipWithOrder:220];
     v38 = [[NEPolicy alloc] initWithOrder:200 result:v37 conditions:v36];
@@ -6326,41 +5288,38 @@ void sub_10010D154(uint64_t a1)
     v39 = qword_100229408;
     v40 = sub_100159E00(v39, *(a1 + 304), v38);
 
-    [v59 addObject:v40];
+    [v54 addObject:v40];
     v41 = [[NSUUID alloc] initWithUUIDString:@"4946eeba-8277-69b4-e898-d635c8fde872"];
-    v61 = v41;
-    v42 = [NSArray arrayWithObjects:&v61 count:1];
-    sub_10010D97C(a1, v42, v59, @"4946eeba-8277-69b4-e898-d635c8fde872");
+    v56 = v41;
+    v42 = [NSArray arrayWithObjects:&v56 count:1];
+    sub_10010D97C(a1, v42, v54, @"4946eeba-8277-69b4-e898-d635c8fde872");
 
     if (_NRIsAppleInternal())
     {
       v43 = sub_10013A6D4(@"com.apple.Home");
       v44 = [v43 count];
-      v45 = *(a1 + 96);
-      v46 = _NRCopyLogObjectForNRUUID();
+      v45 = _NRCopyLogObjectForNRUUID();
       if (v44)
       {
         IsLevelEnabled = _NRLogIsLevelEnabled();
 
         if (IsLevelEnabled)
         {
-          v48 = *(a1 + 96);
-          v49 = _NRCopyLogObjectForNRUUID();
-          _NRLogWithArgs();
+          v47 = _NRCopyLogObjectForNRUUID();
+          _NRLogWithArgs(v47, 0, "%s%.30s:%-4d UUIDs for '%s': %@", "", "[NRDDeviceConductor setPermittedClientPolicies]", 3721, "com.apple.Home", v43);
         }
 
-        sub_10010D97C(a1, v43, v59, @"com.apple.Home");
+        sub_10010D97C(a1, v43, v54, @"com.apple.Home");
       }
 
       else
       {
-        v50 = _NRLogIsLevelEnabled();
+        v48 = _NRLogIsLevelEnabled();
 
-        if (v50)
+        if (v48)
         {
-          v51 = *(a1 + 96);
-          v52 = _NRCopyLogObjectForNRUUID();
-          _NRLogWithArgs();
+          v49 = _NRCopyLogObjectForNRUUID();
+          _NRLogWithArgs(v49, 16, "%s%.30s:%-4d Failed to retrieve UUIDs for '%s' (may not be installed)", "", "[NRDDeviceConductor setPermittedClientPolicies]", 3718, "com.apple.Home");
         }
       }
     }
@@ -6371,21 +5330,19 @@ void sub_10010D154(uint64_t a1)
       dispatch_once(&qword_100229410, &stru_1001FCD98);
     }
 
-    v53 = qword_100229408;
-    sub_10015A52C(v53);
+    v50 = qword_100229408;
+    sub_10015A52C(v50);
 
     *(a1 + 38) = 1;
-    [v59 addObjectsFromArray:*(a1 + 272)];
-    objc_storeStrong((a1 + 272), v59);
-    v54 = *(a1 + 96);
-    v55 = _NRCopyLogObjectForNRUUID();
-    v56 = _NRLogIsLevelEnabled();
+    [v54 addObjectsFromArray:*(a1 + 272)];
+    objc_storeStrong((a1 + 272), v54);
+    v51 = _NRCopyLogObjectForNRUUID();
+    v52 = _NRLogIsLevelEnabled();
 
-    if (v56)
+    if (v52)
     {
-      v57 = *(a1 + 96);
-      v58 = _NRCopyLogObjectForNRUUID();
-      _NRLogWithArgs();
+      v53 = _NRCopyLogObjectForNRUUID();
+      _NRLogWithArgs(v53, 0, "%s%.30s:%-4d Added permitted client policies", "", "[NRDDeviceConductor setPermittedClientPolicies]", 3733);
     }
   }
 }
@@ -6393,33 +5350,33 @@ void sub_10010D154(uint64_t a1)
 void sub_10010D97C(uint64_t a1, void *a2, void *a3, void *a4)
 {
   v6 = a2;
-  v27 = a3;
-  v24 = a4;
+  v24 = a3;
+  v21 = a4;
+  v25 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
-  v30 = 0u;
-  v31 = 0u;
   obj = v6;
-  v7 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
+  v7 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v29;
+    v9 = *v26;
     do
     {
       v10 = 0;
       do
       {
-        if (*v29 != v9)
+        if (*v26 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = [NEPolicyCondition effectiveApplication:*(*(&v28 + 1) + 8 * v10), v23];
+        v11 = [NEPolicyCondition effectiveApplication:*(*(&v25 + 1) + 8 * v10)];
         v12 = +[NEPolicyCondition allInterfaces];
-        v32[0] = v12;
-        v32[1] = v11;
-        v13 = [NSArray arrayWithObjects:v32 count:2];
+        v29[0] = v12;
+        v29[1] = v11;
+        v13 = [NSArray arrayWithObjects:v29 count:2];
 
         v14 = [NEPolicyResult skipWithOrder:220];
         v15 = [[NEPolicy alloc] initWithOrder:200 result:v14 conditions:v13];
@@ -6434,20 +5391,17 @@ void sub_10010D97C(uint64_t a1, void *a2, void *a3, void *a4)
           v16 = qword_100229408;
           v17 = sub_100159E00(v16, *(a1 + 304), v15);
 
-          [v27 addObject:v17];
+          [v24 addObject:v17];
           goto LABEL_10;
         }
 
-        v18 = *(a1 + 96);
-        v19 = _NRCopyLogObjectForNRUUID();
+        v18 = _NRCopyLogObjectForNRUUID();
         IsLevelEnabled = _NRLogIsLevelEnabled();
 
         if (IsLevelEnabled)
         {
-          v21 = *(a1 + 96);
           v17 = _NRCopyLogObjectForNRUUID();
-          v23 = v24;
-          _NRLogWithArgs();
+          _NRLogWithArgs(v17, 17, "Failed to create effective application policy for %@", v21);
 LABEL_10:
         }
 
@@ -6460,11 +5414,11 @@ LABEL_10:
       }
 
       while (v8 != v10);
-      v22 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
-      v8 = v22;
+      v20 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v8 = v20;
     }
 
-    while (v22);
+    while (v20);
   }
 
 LABEL_17:
@@ -6472,21 +5426,20 @@ LABEL_17:
 
 uint64_t sub_10010DC08(uint64_t a1, void *a2, void *a3)
 {
-  v5 = a2;
-  v6 = a3;
-  v7 = nw_quic_migration_info_create();
-  [v5 UTF8String];
-  v8 = nw_interface_create_with_name();
+  v4 = a2;
+  v5 = a3;
+  v6 = nw_quic_migration_info_create();
+  [v4 UTF8String];
+  v7 = nw_interface_create_with_name();
   nw_quic_migration_info_set_interface();
-  v9 = [v6 copyCEndpoint];
+  v8 = [v5 copyCEndpoint];
 
   nw_quic_migration_info_set_remote_endpoint();
-  v10 = *(a1 + 136);
-  v11 = nw_agent_create_with_quic_migration_info();
-  v12 = nw_quic_migration_info_copy_data();
+  v9 = nw_agent_create_with_quic_migration_info();
+  v10 = nw_quic_migration_info_copy_data();
   nw_agent_change_state();
 
-  return v11;
+  return v9;
 }
 
 id sub_10010DCE4(uint64_t a1, int a2, int a3)
@@ -6637,15 +5590,15 @@ uint64_t sub_10010E200(uint64_t a1)
   return v5;
 }
 
-void sub_10010E27C(uint64_t a1)
+void sub_10010E27C(void *a1)
 {
-  if (*(a1 + 488) || !sub_10010E200(a1))
+  if (a1[61] || !sub_10010E200(a1))
   {
     return;
   }
 
-  v2 = sub_100163A30(NRDLocalDevice, *(a1 + 96));
-  v34 = v2;
+  v2 = sub_100163A30(NRDLocalDevice, a1[12]);
+  v24 = v2;
   if (v2)
   {
     v3 = *(v2 + 144);
@@ -6669,8 +5622,8 @@ void sub_10010E27C(uint64_t a1)
     v6 = 2;
   }
 
-  v7 = sub_100144910(v6, *(a1 + 136));
-  *(a1 + 488) = v7;
+  v7 = sub_100144910(v6, a1[17]);
+  a1[61] = v7;
   if (!v7)
   {
     if (qword_100229160 != -1)
@@ -6685,84 +5638,76 @@ void sub_10010E27C(uint64_t a1)
         dispatch_once(&qword_100229160, &stru_1001FBC40);
       }
 
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_100229158, 17, "NRLinkVirtualInterfaceCreate failed");
     }
 
-    goto LABEL_31;
+    goto LABEL_32;
   }
 
   objc_opt_self();
   v8 = sub_100003490();
   dispatch_assert_queue_V2(v8);
 
-  v35 = xmmword_100196400;
-  v9 = [[NSData alloc] initWithBytes:&v35 length:16];
+  v25 = xmmword_100196400;
+  v9 = [[NSData alloc] initWithBytes:&v25 length:16];
   v10 = sub_100167F00(NRDLocalDevice, v9, @"0");
 
-  v11 = *(a1 + 488);
-  v12 = [v10 hostname];
+  v11 = [v10 hostname];
   NEVirtualInterfaceAddIPv6Route();
 
-  v13 = *(a1 + 488);
   NEVirtualInterfaceSetIPv6Router();
-  v14 = *(a1 + 488);
   NEVirtualInterfaceSetRankNever();
   if (v5)
   {
-    v15 = *(a1 + 488);
     NEVirtualInterfaceEnableFlowswitch();
   }
 
-  v16 = *(a1 + 488);
-  v17 = NEVirtualInterfaceCopyName();
-  if (sub_10013AD6C(v17, 8) & 1) != 0 || (!v34 ? (v18 = 0) : (v18 = v34[18]), v19 = v18, v20 = [v19 usesTLS], v19, (v20))
+  v12 = NEVirtualInterfaceCopyName();
+  if (sub_10013AD6C(v12, 8) & 1) != 0 || (!v24 ? (v13 = 0) : (v13 = v24[18]), v14 = v13, v15 = [v14 usesTLS], v14, (v15))
   {
-    if (sub_10013B900(v17))
+    if (sub_10013B900(v12))
     {
-      sub_100107A24(a1, v17);
-      v21 = *(a1 + 96);
-      v22 = _NRCopyLogObjectForNRUUID();
+      sub_100107A24(a1, v12);
+      v16 = _NRCopyLogObjectForNRUUID();
       IsLevelEnabled = _NRLogIsLevelEnabled();
 
       if (IsLevelEnabled)
       {
-        v24 = *(a1 + 96);
-        v25 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        v18 = _NRCopyLogObjectForNRUUID();
+        _NRLogWithArgs(v18, 0, "%s%.30s:%-4d Created catch-all interface (%@)", "", "[NRDDeviceConductor createCatchAllInterfaceIfNeeded]", 8517, v12);
       }
 
-      goto LABEL_30;
+      goto LABEL_31;
     }
 
-    v26 = *(a1 + 96);
-    v27 = _NRCopyLogObjectForNRUUID();
-    v28 = _NRLogIsLevelEnabled();
+    v19 = _NRCopyLogObjectForNRUUID();
+    v20 = _NRLogIsLevelEnabled();
 
-    if (v28)
+    if (v20)
     {
-      goto LABEL_28;
+      v21 = _NRCopyLogObjectForNRUUID();
+      _NRLogWithArgs(v21, 17, "Failed to set no ack prioritization for catch-all %@", v12);
+LABEL_29:
     }
   }
 
   else
   {
-    v29 = *(a1 + 96);
-    v30 = _NRCopyLogObjectForNRUUID();
-    v31 = _NRLogIsLevelEnabled();
+    v22 = _NRCopyLogObjectForNRUUID();
+    v23 = _NRLogIsLevelEnabled();
 
-    if (v31)
+    if (v23)
     {
-LABEL_28:
-      v32 = *(a1 + 96);
-      v33 = _NRCopyLogObjectForNRUUID();
-      _NRLogWithArgs();
+      v21 = _NRCopyLogObjectForNRUUID();
+      _NRLogWithArgs(v21, 17, "Failed to set interface subfamily for catch-all %@", v12);
+      goto LABEL_29;
     }
   }
 
   sub_10010EE28(a1);
-LABEL_30:
-
 LABEL_31:
+
+LABEL_32:
 }
 
 void sub_10010E5CC(uint64_t a1, void *a2)
@@ -6771,24 +5716,24 @@ void sub_10010E5CC(uint64_t a1, void *a2)
   v7 = sub_100163A30(NRDLocalDevice, v6);
   if (!v7)
   {
-    v45 = sub_1000E83DC();
+    v44 = sub_1000E83DC();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
-    v20 = "[NRDDeviceConductor updateProxyAgentForNRUUID:]";
+    v19 = "[NRDDeviceConductor updateProxyAgentForNRUUID:]";
     if (IsLevelEnabled)
     {
-      v47 = sub_1000E83DC();
-      _NRLogWithArgs();
+      v46 = sub_1000E83DC();
+      _NRLogWithArgs(v46, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: localDevice", "", "[NRDDeviceConductor updateProxyAgentForNRUUID:]", 8683);
     }
 
     v6 = _os_log_pack_size();
-    v8 = (&v54 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0));
-    v48 = *__error();
-    v49 = _os_log_pack_fill();
-    *v49 = 136446210;
-    *(v49 + 4) = "[NRDDeviceConductor updateProxyAgentForNRUUID:]";
+    v8 = (&v53 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0));
+    v47 = __error();
+    v48 = _os_log_pack_fill(v8, v6, *v47, &_mh_execute_header, "%{public}s Assertion Failed: localDevice");
+    *v48 = 136446210;
+    *(v48 + 4) = "[NRDDeviceConductor updateProxyAgentForNRUUID:]";
     sub_1000E83DC();
-    v25 = _NRLogAbortWithPack();
+    v24 = _NRLogAbortWithPack();
     goto LABEL_28;
   }
 
@@ -6827,33 +5772,32 @@ LABEL_7:
         objc_storeStrong((a1 + 504), v8[12]);
         if (*(a1 + 504))
         {
-          v62 = 0;
-          v63 = 0;
           v61 = 0;
-          v19 = *(a1 + 488);
-          v20 = NEVirtualInterfaceCopyName();
-          v21 = *(a1 + 504);
-          v22 = [a1 description];
-          v23 = sub_1001428D4(v8, v21, v20, &v62, &v63, &v61, 0, v22);
+          v62 = 0;
+          v60 = 0;
+          v19 = NEVirtualInterfaceCopyName();
+          v20 = *(a1 + 504);
+          v21 = [a1 description];
+          v22 = sub_1001428D4(v8, v20, v19, &v61, &v62, &v60, 0, v21);
 
-          if ((v23 & 1) == 0)
+          if ((v22 & 1) == 0)
           {
-            v44 = *(a1 + 504);
+            v43 = *(a1 + 504);
             *(a1 + 504) = 0;
 
-            v4 = v62;
-            objc_storeStrong((a1 + 512), v62);
-            v2 = v63;
-            objc_storeStrong((a1 + 520), v63);
-            objc_storeStrong((a1 + 528), v61);
+            v4 = v61;
+            objc_storeStrong((a1 + 512), v61);
+            v2 = v62;
+            objc_storeStrong((a1 + 520), v62);
+            objc_storeStrong((a1 + 528), v60);
             goto LABEL_23;
           }
 
-          v4 = v62;
-          objc_storeStrong((a1 + 512), v62);
-          v2 = v63;
-          objc_storeStrong((a1 + 520), v63);
-          objc_storeStrong((a1 + 528), v61);
+          v4 = v61;
+          objc_storeStrong((a1 + 512), v61);
+          v2 = v62;
+          objc_storeStrong((a1 + 520), v62);
+          objc_storeStrong((a1 + 528), v60);
           if (!*(a1 + 528))
           {
 LABEL_23:
@@ -6861,48 +5805,48 @@ LABEL_23:
             goto LABEL_24;
           }
 
-          v24 = *(a1 + 568);
+          v23 = *(a1 + 568);
           v2 = v2;
-          v3 = v20;
-          v25 = v24;
+          v3 = v19;
+          v24 = v23;
           if (v2)
           {
-            v59 = v25;
-            if (v25)
+            v58 = v24;
+            if (v24)
             {
-              v60 = objc_alloc_init(NSMutableArray);
-              v26 = +[NEPolicyCondition allInterfaces];
-              v66 = v26;
-              v27 = [NSArray arrayWithObjects:&v66 count:1];
+              v59 = objc_alloc_init(NSMutableArray);
+              v25 = +[NEPolicyCondition allInterfaces];
+              v65 = v25;
+              v26 = [NSArray arrayWithObjects:&v65 count:1];
 
-              v58 = v3;
-              v28 = [NEPolicyRouteRule routeRuleWithAction:5 forInterfaceName:v3];
-              [v28 setNetworkAgentUUID:v2];
-              v55 = v28;
-              v65 = v28;
-              v29 = [NSArray arrayWithObjects:&v65 count:1];
-              v30 = [NEPolicyResult routeRules:v29];
+              v57 = v3;
+              v27 = [NEPolicyRouteRule routeRuleWithAction:5 forInterfaceName:v3];
+              [v27 setNetworkAgentUUID:v2];
+              v54 = v27;
+              v64 = v27;
+              v28 = [NSArray arrayWithObjects:&v64 count:1];
+              v29 = [NEPolicyResult routeRules:v28];
 
-              v54 = v30;
-              v57 = v27;
-              v31 = [[NEPolicy alloc] initWithOrder:10 result:v30 conditions:v27];
+              v53 = v29;
+              v56 = v26;
+              v30 = [[NEPolicy alloc] initWithOrder:10 result:v29 conditions:v26];
               objc_opt_self();
-              v56 = v4;
+              v55 = v4;
               if (qword_100229410 != -1)
               {
                 dispatch_once(&qword_100229410, &stru_1001FCD98);
               }
 
-              v32 = qword_100229408;
-              v33 = sub_100159E00(v32, v59, v31);
+              v31 = qword_100229408;
+              v32 = sub_100159E00(v31, v58, v30);
 
-              [v60 addObject:v33];
-              v34 = [NEPolicy alloc];
-              v35 = [NEPolicyResult netAgentUUID:v2];
-              v36 = [NEPolicyCondition scopedInterface:v58];
-              v64 = v36;
-              v37 = [NSArray arrayWithObjects:&v64 count:1];
-              v38 = [v34 initWithOrder:10 result:v35 conditions:v37];
+              [v59 addObject:v32];
+              v33 = [NEPolicy alloc];
+              v34 = [NEPolicyResult netAgentUUID:v2];
+              v35 = [NEPolicyCondition scopedInterface:v57];
+              v63 = v35;
+              v36 = [NSArray arrayWithObjects:&v63 count:1];
+              v37 = [v33 initWithOrder:10 result:v34 conditions:v36];
 
               objc_opt_self();
               if (qword_100229410 != -1)
@@ -6910,60 +5854,60 @@ LABEL_23:
                 dispatch_once(&qword_100229410, &stru_1001FCD98);
               }
 
-              v39 = qword_100229408;
-              v40 = v59;
-              v41 = sub_100159E00(v39, v59, v38);
+              v38 = qword_100229408;
+              v39 = v58;
+              v40 = sub_100159E00(v38, v58, v37);
 
-              [v60 addObject:v41];
+              [v59 addObject:v40];
               objc_opt_self();
-              v42 = v58;
+              v41 = v57;
               if (qword_100229410 != -1)
               {
                 dispatch_once(&qword_100229410, &stru_1001FCD98);
               }
 
-              v4 = v56;
-              v43 = qword_100229408;
-              sub_10015A52C(v43);
+              v4 = v55;
+              v42 = qword_100229408;
+              sub_10015A52C(v42);
             }
 
             else
             {
-              v42 = v3;
-              v52 = sub_100140094();
-              v53 = _NRLogIsLevelEnabled();
+              v41 = v3;
+              v51 = sub_100140094();
+              v52 = _NRLogIsLevelEnabled();
 
-              if (!v53)
+              if (!v52)
               {
-                v60 = 0;
-                v40 = v59;
+                v59 = 0;
+                v39 = v58;
                 goto LABEL_20;
               }
 
-              v57 = sub_100140094();
-              _NRLogWithArgs();
-              v60 = 0;
-              v40 = v59;
+              v56 = sub_100140094();
+              _NRLogWithArgs(v56, 17, "%s called with null policyIdentifierString", "NRLinkApplyPoliciesForMASQUEProxyAgent");
+              v59 = 0;
+              v39 = v58;
             }
 
             goto LABEL_19;
           }
 
 LABEL_28:
-          v40 = v25;
-          v42 = v3;
-          v50 = sub_100140094();
-          v51 = _NRLogIsLevelEnabled();
+          v39 = v24;
+          v41 = v3;
+          v49 = sub_100140094();
+          v50 = _NRLogIsLevelEnabled();
 
-          if (!v51)
+          if (!v50)
           {
-            v60 = 0;
+            v59 = 0;
             goto LABEL_20;
           }
 
-          v57 = sub_100140094();
-          _NRLogWithArgs();
-          v60 = 0;
+          v56 = sub_100140094();
+          _NRLogWithArgs(v56, 17, "%s called with null proxyAgentUUID", "NRLinkApplyPoliciesForMASQUEProxyAgent");
+          v59 = 0;
 LABEL_19:
 
 LABEL_20:
@@ -6976,17 +5920,17 @@ LABEL_20:
 LABEL_24:
 }
 
-void sub_10010EC78(uint64_t a1)
+void sub_10010EC78(void *a1)
 {
-  v2 = *(a1 + 512);
+  v2 = a1[64];
   if (v2)
   {
     [v2 unregisterNetworkAgent];
-    v3 = *(a1 + 512);
-    *(a1 + 512) = 0;
+    v3 = a1[64];
+    a1[64] = 0;
   }
 
-  if (*(a1 + 528))
+  if (a1[66])
   {
     objc_opt_self();
     if (qword_100229410 != -1)
@@ -6995,7 +5939,7 @@ void sub_10010EC78(uint64_t a1)
     }
 
     v4 = qword_100229408;
-    sub_10015A238(v4, *(a1 + 568));
+    sub_10015A238(v4, a1[71]);
 
     objc_opt_self();
     if (qword_100229410 != -1)
@@ -7006,10 +5950,9 @@ void sub_10010EC78(uint64_t a1)
     v5 = qword_100229408;
     sub_10015A52C(v5);
 
-    v6 = *(a1 + 528);
     nw_proxy_config_unpublish();
-    v7 = *(a1 + 528);
-    *(a1 + 528) = 0;
+    v6 = a1[66];
+    a1[66] = 0;
 
     if (qword_100229160 != -1)
     {
@@ -7023,15 +5966,15 @@ void sub_10010EC78(uint64_t a1)
         dispatch_once(&qword_100229160, &stru_1001FBC40);
       }
 
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_100229158, 2, "%s%.30s:%-4d unregistered MASQUE proxy agent", "", "[NRDDeviceConductor unregisterProxyAgent]", 8673);
     }
   }
 
-  v8 = *(a1 + 504);
-  *(a1 + 504) = 0;
+  v7 = a1[63];
+  a1[63] = 0;
 
-  v9 = *(a1 + 520);
-  *(a1 + 520) = 0;
+  v8 = a1[65];
+  a1[65] = 0;
 }
 
 void sub_10010EE28(uint64_t a1)
@@ -7040,53 +5983,47 @@ void sub_10010EE28(uint64_t a1)
   {
     sub_10010EC78(a1);
     sub_100101F8C(a1);
-    v2 = *(a1 + 488);
-    v10 = NEVirtualInterfaceCopyName();
-    v3 = *(a1 + 488);
+    v6 = NEVirtualInterfaceCopyName();
     NEVirtualInterfaceInvalidate();
-    v4 = *(a1 + 488);
-    if (v4)
+    v2 = *(a1 + 488);
+    if (v2)
     {
-      CFRelease(v4);
+      CFRelease(v2);
     }
 
     *(a1 + 488) = 0;
     *(a1 + 59) = 0;
-    v5 = *(a1 + 96);
-    v6 = _NRCopyLogObjectForNRUUID();
+    v3 = _NRCopyLogObjectForNRUUID();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (IsLevelEnabled)
     {
-      v8 = *(a1 + 96);
-      v9 = _NRCopyLogObjectForNRUUID();
-      _NRLogWithArgs();
+      v5 = _NRCopyLogObjectForNRUUID();
+      _NRLogWithArgs(v5, 0, "%s%.30s:%-4d Removed catch-all interface (%@)", "", "[NRDDeviceConductor removeCatchAllInterface]", 8463, v6);
     }
   }
 }
 
 void sub_10010F970(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  if (v2)
-  {
-    v3 = *(v2 + 96);
-  }
-
-  v4 = _NRCopyLogObjectForNRUUID();
+  v2 = _NRCopyLogObjectForNRUUID();
   IsLevelEnabled = _NRLogIsLevelEnabled();
 
   if (IsLevelEnabled)
   {
-    v6 = *(a1 + 32);
-    if (v6)
+    v4 = _NRCopyLogObjectForNRUUID();
+    v6 = v4;
+    if (*(a1 + 40))
     {
-      v7 = *(v6 + 96);
+      v5 = "enable";
     }
 
-    v8 = _NRCopyLogObjectForNRUUID();
-    *(a1 + 40);
-    _NRLogWithArgs();
+    else
+    {
+      v5 = "disable";
+    }
+
+    _NRLogWithArgs(v4, 0, "%s%.30s:%-4d Re-sent prefer wi-fi: %s", "", "[NRDDeviceConductor linkIsAvailable:]_block_invoke", 6103, v5);
   }
 }
 
@@ -7096,50 +6033,62 @@ void sub_10010FA5C(uint64_t a1)
   if (v1 && *(v1 + 14) == 1)
   {
     *(v1 + 52) = 0;
-    v3 = *(a1 + 32);
-    if (v3)
-    {
-      v4 = *(v3 + 96);
-    }
-
-    v5 = _NRCopyLogObjectForNRUUID();
+    v3 = _NRCopyLogObjectForNRUUID();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (IsLevelEnabled)
     {
-      v7 = *(a1 + 32);
-      if (v7)
+      v5 = *(a1 + 32);
+      if (v5)
       {
-        v7 = v7[12];
+        v5 = v5[12];
       }
 
+      v6 = v5;
+      v7 = _NRCopyLogObjectForNRUUID();
       v8 = v7;
-      v9 = _NRCopyLogObjectForNRUUID();
-      v10 = *(a1 + 32);
-      if (v10)
+      v9 = *(a1 + 32);
+      if (v9)
       {
-        v11 = *(v10 + 15);
-        v12 = *(v10 + 26);
+        v10 = *(v9 + 15);
+        LODWORD(v9) = *(v9 + 26);
       }
 
-      _NRLogWithArgs();
+      else
+      {
+        v10 = 0;
+      }
+
+      _NRLogWithArgs(v7, 0, "%s%.30s:%-4d attempting to send request %d %d ", "", "[NRDDeviceConductor linkIsAvailable:]_block_invoke_2", 6174, v10, v9);
     }
 
-    v13 = *(a1 + 32);
-    if (v13 && ((*(v13 + 15) & 1) != 0 || *(v13 + 26) == 1))
+    v11 = *(a1 + 32);
+    if (v11 && ((*(v11 + 15) & 1) != 0 || *(v11 + 26) == 1))
     {
-      dispatch_assert_queue_V2(*(v13 + 136));
+      dispatch_assert_queue_V2(*(v11 + 136));
       objc_opt_self();
       if (qword_1002290C0 != -1)
       {
         dispatch_once(&qword_1002290C0, &stru_1001FB2B0);
       }
 
-      v14 = qword_1002290B8;
-      v15 = v14;
-      if (v14)
+      v12 = qword_1002290B8;
+      v13 = v12;
+      if (v12)
       {
-        v16 = *(v14 + 6);
+        v14 = *(v12 + 6);
+      }
+
+      else
+      {
+        v14 = 0;
+      }
+
+      v15 = v14;
+
+      if (v15)
+      {
+        v16 = v15[7];
       }
 
       else
@@ -7151,19 +6100,7 @@ void sub_10010FA5C(uint64_t a1)
 
       if (v17)
       {
-        v18 = v17[7];
-      }
-
-      else
-      {
-        v18 = 0;
-      }
-
-      v19 = v18;
-
-      if (v19)
-      {
-        goto LABEL_21;
+        goto LABEL_19;
       }
 
       objc_opt_self();
@@ -7172,30 +6109,30 @@ void sub_10010FA5C(uint64_t a1)
         dispatch_once(&qword_1002290C0, &stru_1001FB2B0);
       }
 
-      v21 = qword_1002290B8;
+      v19 = qword_1002290B8;
+      v20 = v19;
+      v21 = v19 ? *(v19 + 12) : 0;
       v22 = v21;
-      v23 = v21 ? *(v21 + 12) : 0;
-      v24 = v23;
-      v25 = sub_10007401C(v24, 0);
+      v23 = sub_10007401C(v22, 0);
 
-      if (v25)
+      if (v23)
       {
-        v26 = sub_1000EA2C8(*(a1 + 32), 2, 102);
-        if (v26)
+        v24 = sub_1000EA2C8(*(a1 + 32), 2, 102);
+        if (v24)
         {
-          v27 = v26;
-          v28 = [v26 state];
+          v25 = v24;
+          v26 = [v24 state];
 
-          if (v28 != 255)
+          if (v26 != 255)
           {
-LABEL_21:
-            v20 = *(a1 + 32);
-            v29[0] = _NSConcreteStackBlock;
-            v29[1] = 3221225472;
-            v29[2] = sub_10010FCFC;
-            v29[3] = &unk_1001FD3C8;
-            v29[4] = v20;
-            sub_1000EF670(v20, 1, 1, 0, 0, v29);
+LABEL_19:
+            v18 = *(a1 + 32);
+            v27[0] = _NSConcreteStackBlock;
+            v27[1] = 3221225472;
+            v27[2] = sub_10010FCFC;
+            v27[3] = &unk_1001FD3C8;
+            v27[4] = v18;
+            sub_1000EF670(v18, 1, 1, 0, 0, v27);
           }
         }
       }
@@ -7259,7 +6196,9 @@ LABEL_6:
       dispatch_once(&qword_100229160, &stru_1001FBC40);
     }
 
-    return _NRLogWithArgs();
+    v8 = qword_100229158;
+
+    return _NRLogWithArgs(v8, 17, "[[NWNetworkOfInterestManager alloc] init] failed");
   }
 
   return result;
@@ -7324,27 +6263,25 @@ void sub_100110754(uint64_t a1)
   v2 = *(a1 + 32);
   if (v2 && *(v2 + 14) == 1 && *(v2 + 50) == 1)
   {
-    v4 = *(v2 + 96);
-    v5 = _NRCopyLogObjectForNRUUID();
+    v4 = _NRCopyLogObjectForNRUUID();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (IsLevelEnabled)
     {
-      v7 = *(a1 + 32);
-      if (v7)
+      v6 = *(a1 + 32);
+      if (v6)
       {
-        v7 = v7[12];
+        v6 = v6[12];
       }
 
-      v8 = v7;
-      v9 = _NRCopyLogObjectForNRUUID();
-      v11 = *(a1 + 40);
-      _NRLogWithArgs();
+      v7 = v6;
+      v8 = _NRCopyLogObjectForNRUUID();
+      _NRLogWithArgs(v8, 0, "%s%.30s:%-4d received notification: %@", "", "[NRDDeviceConductor processAppStateChanged:]_block_invoke", 4678, *(a1 + 40));
     }
 
-    v10 = *(a1 + 32);
+    v9 = *(a1 + 32);
 
-    sub_100104BB4(v10);
+    sub_100104BB4(v9);
   }
 }
 
@@ -7355,7 +6292,7 @@ char *sub_100110920(char *a1, void *a2, void *a3)
   v8 = v7;
   if (!a1)
   {
-    goto LABEL_18;
+    goto LABEL_19;
   }
 
   if (!v6)
@@ -7365,30 +6302,32 @@ char *sub_100110920(char *a1, void *a2, void *a3)
 
     if (IsLevelEnabled)
     {
-      goto LABEL_17;
-    }
-
-    goto LABEL_18;
-  }
-
-  if (!v7)
-  {
-    v74 = sub_1000E83DC();
-    v75 = _NRLogIsLevelEnabled();
-
-    if (v75)
-    {
-LABEL_17:
-      v76 = sub_1000E83DC();
-      _NRLogWithArgs();
+      v74 = sub_1000E83DC();
+      _NRLogWithArgs(v74, 17, "%s called with null nrUUID");
+LABEL_18:
 
       v70 = 0;
       goto LABEL_13;
     }
 
-LABEL_18:
+LABEL_19:
     v70 = 0;
     goto LABEL_13;
+  }
+
+  if (!v7)
+  {
+    v75 = sub_1000E83DC();
+    v76 = _NRLogIsLevelEnabled();
+
+    if (v76)
+    {
+      v74 = sub_1000E83DC();
+      _NRLogWithArgs(v74, 17, "%s called with null queue");
+      goto LABEL_18;
+    }
+
+    goto LABEL_19;
   }
 
   v83.receiver = a1;
@@ -7403,18 +6342,18 @@ LABEL_18:
     if (v78)
     {
       v79 = sub_1000E83DC();
-      _NRLogWithArgs();
+      _NRLogWithArgs(v79, 16, "%s%.30s:%-4d ABORTING: [super init] failed", "", "[NRDDeviceConductor initConductorWithNRUUID:queue:]", 353);
     }
 
     v6 = _os_log_pack_size();
     v8 = &v82 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
-    v80 = *__error();
-    v81 = _os_log_pack_fill();
+    v80 = __error();
+    v81 = _os_log_pack_fill(v8, v6, *v80, &_mh_execute_header, "%{public}s [super init] failed");
     *v81 = 136446210;
     *(v81 + 4) = "[NRDDeviceConductor initConductorWithNRUUID:queue:]";
     sub_1000E83DC();
     _NRLogAbortWithPack();
-    goto LABEL_22;
+    goto LABEL_23;
   }
 
   v10 = v9;
@@ -7514,7 +6453,7 @@ LABEL_18:
   objc_opt_self();
   if (qword_100228F50 != -1)
   {
-LABEL_22:
+LABEL_23:
     dispatch_once(&qword_100228F50, &stru_1001FA740);
   }
 
@@ -7533,7 +6472,7 @@ LABEL_22:
       if (v67)
       {
         v68 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v68, 17, "registering uuid when already registered");
       }
     }
 
@@ -7605,52 +6544,50 @@ void sub_1001111C4(uint64_t a1)
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained && *(WeakRetained + 14) == 1)
   {
-    v12 = WeakRetained;
-    v2 = *(WeakRetained + 12);
-    v3 = _NRCopyLogObjectForNRUUID();
+    v10 = WeakRetained;
+    v2 = _NRCopyLogObjectForNRUUID();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (IsLevelEnabled)
     {
-      v5 = *(v12 + 12);
-      v6 = _NRCopyLogObjectForNRUUID();
-      _NRLogWithArgs();
+      v4 = _NRCopyLogObjectForNRUUID();
+      _NRLogWithArgs(v4, 0, "%s%.30s:%-4d starting AWDL manager", "", "[NRDDeviceConductor setSupportsAWDL:]_block_invoke_2", 423);
     }
 
-    dispatch_assert_queue_V2(*(v12 + 17));
+    dispatch_assert_queue_V2(v10[17]);
     objc_opt_self();
     if (qword_1002290C0 != -1)
     {
       dispatch_once(&qword_1002290C0, &stru_1001FB2B0);
     }
 
-    v7 = qword_1002290B8;
-    v8 = v7;
-    if (v7)
+    v5 = qword_1002290B8;
+    v6 = v5;
+    if (v5)
     {
-      v9 = *(v7 + 6);
+      v7 = *(v5 + 6);
     }
 
     else
     {
-      v9 = 0;
+      v7 = 0;
     }
 
-    v10 = v9;
+    v8 = v7;
 
-    if (v10)
+    if (v8)
     {
-      v11 = v10[3];
-      dispatch_assert_queue_V2(v11);
+      v9 = v8[3];
+      dispatch_assert_queue_V2(v9);
 
-      if ((*(v10 + 36) & 1) == 0 && *(v10 + 3) != 1004)
+      if ((*(v8 + 36) & 1) == 0 && *(v8 + 3) != 1004)
       {
-        *(v10 + 36) = 1;
-        sub_10017FDF0(v10, 1);
+        *(v8 + 36) = 1;
+        sub_10017FDF0(v8, 1);
       }
     }
 
-    WeakRetained = v12;
+    WeakRetained = v10;
   }
 }
 
@@ -7659,40 +6596,39 @@ void sub_100111330(uint64_t a1)
   v2 = sub_100163A30(NRDLocalDevice, *(a1 + 96));
   if (!v2)
   {
-    v77 = sub_1000E83DC();
+    v72 = sub_1000E83DC();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (IsLevelEnabled)
     {
-      v79 = sub_1000E83DC();
-      _NRLogWithArgs();
+      v74 = sub_1000E83DC();
+      _NRLogWithArgs(v74, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: (localDevice) != ((void*)0)", "", "[NRDDeviceConductor updateOperatingMode]", 433);
     }
 
-    _os_log_pack_size();
-    v80 = *__error();
-    v81 = _os_log_pack_fill();
-    *v81 = 136446210;
-    *(v81 + 4) = "[NRDDeviceConductor updateOperatingMode]";
+    v75 = _os_log_pack_size();
+    v76 = __error();
+    v77 = _os_log_pack_fill(&v78 - ((v75 + 15) & 0xFFFFFFFFFFFFFFF0), v75, *v76, &_mh_execute_header, "%{public}s Assertion Failed: (localDevice) != ((void*)0)");
+    *v77 = 136446210;
+    *(v77 + 4) = "[NRDDeviceConductor updateOperatingMode]";
     sub_1000E83DC();
     _NRLogAbortWithPack();
   }
 
-  v84 = v2;
-  v3 = *(a1 + 96);
-  v4 = _NRCopyLogObjectForNRUUID();
-  v5 = _NRLogIsLevelEnabled();
+  v78 = v2;
+  v3 = _NRCopyLogObjectForNRUUID();
+  v4 = _NRLogIsLevelEnabled();
 
-  if (v5)
+  if (v4)
   {
-    v6 = *(a1 + 96);
-    v7 = _NRCopyLogObjectForNRUUID();
-    v82 = *(v84 + 144);
-    _NRLogWithArgs();
+    v5 = _NRCopyLogObjectForNRUUID();
+    v6 = v78[18];
+    _NRLogWithArgs(v5, 0, "%s%.30s:%-4d starting with operational properties: %@", "", "[NRDDeviceConductor updateOperatingMode]", 435, v6);
   }
 
-  if ((*(v84 + 48) & 8) == 0)
+  v7 = v78;
+  if ((v78[6] & 8) == 0)
   {
-    v8 = *(v84 + 144);
+    v8 = v78[18];
 
     if (!v8)
     {
@@ -7706,153 +6642,150 @@ void sub_100111330(uint64_t a1)
       goto LABEL_69;
     }
 
-    v9 = *(a1 + 96);
-    v10 = _NRCopyLogObjectForNRUUID();
-    v11 = _NRLogIsLevelEnabled();
+    v9 = _NRCopyLogObjectForNRUUID();
+    v10 = _NRLogIsLevelEnabled();
 
-    if (v11)
+    if (v10)
     {
-      v12 = *(a1 + 96);
-      v13 = _NRCopyLogObjectForNRUUID();
-      v83 = *(v84 + 144);
-      _NRLogWithArgs();
+      v11 = _NRCopyLogObjectForNRUUID();
+      v12 = v78[18];
+      _NRLogWithArgs(v11, 0, "%s%.30s:%-4d retrieved operational properties: %@", "", "[NRDDeviceConductor updateOperatingMode]", 475, v12);
     }
 
-    v14 = *(v84 + 144);
-    if ([v14 proxyCapability] == 1)
+    v13 = v78[18];
+    if ([v13 proxyCapability] == 1)
     {
     }
 
     else
     {
-      v23 = *(v84 + 144);
-      v24 = [v23 proxyCapability];
+      v20 = v78[18];
+      v21 = [v20 proxyCapability];
 
-      if (v24 != 2)
+      if (v21 != 2)
       {
-        v58 = *(v84 + 144);
-        if ([v58 bluetoothRole] == 1)
+        v55 = v78[18];
+        if ([v55 bluetoothRole] == 1)
         {
         }
 
         else
         {
-          v65 = *(v84 + 144);
-          v66 = [v65 bluetoothRole];
+          v62 = v78[18];
+          v63 = [v62 bluetoothRole];
 
-          if (v66 != 2)
+          if (v63 != 2)
           {
-            v67 = *(v84 + 144);
-            if ([v67 bluetoothEndpointType] == 2)
+            v64 = v78[18];
+            if ([v64 bluetoothEndpointType] == 2)
             {
             }
 
             else
             {
-              v68 = *(v84 + 144);
-              v69 = [v68 bluetoothEndpointType];
+              v65 = v78[18];
+              v66 = [v65 bluetoothEndpointType];
 
-              if (v69 != 1)
+              if (v66 != 1)
               {
-                v70 = sub_100172E20(v84);
-                v71 = sub_100172EF0(v84);
-                v72 = [v70 compare:v71];
+                v67 = sub_100172E20(v78);
+                v68 = sub_100172EF0(v78);
+                v69 = [v67 compare:v68];
 
-                if (v72 == -1)
+                if (v69 == -1)
                 {
                   *(a1 + 58) = 1;
                   goto LABEL_23;
                 }
 
-                v73 = *(a1 + 96);
-                v74 = _NRCopyLogObjectForNRUUID();
-                v75 = _NRLogIsLevelEnabled();
+                v70 = _NRCopyLogObjectForNRUUID();
+                v71 = _NRLogIsLevelEnabled();
 
-                v29 = v84;
-                if (!v75)
+                v26 = v78;
+                if (!v71)
                 {
 LABEL_24:
-                  *(a1 + 49) = sub_100169428(v29);
+                  *(a1 + 49) = sub_100169428(v26);
                   *(a1 + 39) = sub_1000ED714(a1);
-                  v30 = *(v84 + 144);
-                  *(a1 + 44) = [v30 handlesLinkRecommendations];
+                  v27 = v78[18];
+                  *(a1 + 44) = [v27 handlesLinkRecommendations];
 
-                  v31 = *(v84 + 144);
-                  if ([v31 isReachableOverWiFi])
+                  v28 = v78[18];
+                  if ([v28 isReachableOverWiFi])
                   {
-                    v32 = *(a1 + 58);
+                    v29 = *(a1 + 58);
                   }
 
                   else
                   {
-                    v32 = 0;
+                    v29 = 0;
                   }
 
-                  *(a1 + 45) = v32 & 1;
+                  *(a1 + 45) = v29 & 1;
 
-                  v33 = *(v84 + 144);
-                  *(a1 + 48) = [v33 allowsDirectToCloud];
+                  v30 = v78[18];
+                  *(a1 + 48) = [v30 allowsDirectToCloud];
 
-                  v34 = *(v84 + 144);
-                  *(a1 + 46) = [v34 proxyCapability] == 1;
+                  v31 = v78[18];
+                  *(a1 + 46) = [v31 proxyCapability] == 1;
 
-                  v35 = *(v84 + 144);
-                  *(a1 + 47) = [v35 proxyCapability] == 2;
+                  v32 = v78[18];
+                  *(a1 + 47) = [v32 proxyCapability] == 2;
 
-                  v36 = *(v84 + 144);
-                  if ([v36 isReachableOverWiFi])
+                  v33 = v78[18];
+                  if ([v33 isReachableOverWiFi])
                   {
-                    v37 = *(a1 + 46);
+                    v34 = *(a1 + 46);
                   }
 
                   else
                   {
-                    v37 = 0;
+                    v34 = 0;
                   }
 
-                  *(a1 + 8) = v37 & 1;
+                  *(a1 + 8) = v34 & 1;
 
                   *(a1 + 57) = *(a1 + 47);
-                  v38 = *(v84 + 144);
-                  v39 = [v38 allowedLinkSubtypes];
-                  v40 = [v39 containsObject:&off_100209C38];
+                  v35 = v78[18];
+                  v36 = [v35 allowedLinkSubtypes];
+                  v37 = [v36 containsObject:&off_100209C38];
 
-                  if (v40)
+                  if (v37)
                   {
                     sub_100110FD4(a1);
                   }
 
-                  v41 = *(v84 + 144);
-                  v42 = [v41 allowedLinkTypes];
-                  if (v42)
+                  v38 = v78[18];
+                  v39 = [v38 allowedLinkTypes];
+                  if (v39)
                   {
-                    v43 = v42;
-                    v44 = *(v84 + 144);
-                    v45 = [v44 allowedLinkTypes];
-                    v46 = [v45 containsObject:&off_100209C50];
+                    v40 = v39;
+                    v41 = v78[18];
+                    v42 = [v41 allowedLinkTypes];
+                    v43 = [v42 containsObject:&off_100209C50];
 
-                    if (!v46)
+                    if (!v43)
                     {
 LABEL_37:
-                      v47 = *(v84 + 144);
-                      v48 = [v47 version];
+                      v44 = v78[18];
+                      v45 = [v44 version];
 
-                      if (v48)
+                      if (v45)
                       {
-                        v49 = *(v84 + 144);
-                        *(a1 + 9) = [v49 providesPhoneCallRelaySupport];
+                        v46 = v78[18];
+                        *(a1 + 9) = [v46 providesPhoneCallRelaySupport];
                       }
 
-                      v50 = *(v84 + 144);
-                      v51 = [v50 allowedLinkTypes];
-                      if (v51)
+                      v47 = v78[18];
+                      v48 = [v47 allowedLinkTypes];
+                      if (v48)
                       {
-                        v52 = v51;
-                        v53 = *(v84 + 144);
-                        v54 = [v53 allowedLinkTypes];
-                        v55 = [v54 containsObject:&off_100209C68];
+                        v49 = v48;
+                        v50 = v78[18];
+                        v51 = [v50 allowedLinkTypes];
+                        v52 = [v51 containsObject:&off_100209C68];
 
-                        if (!v55)
+                        if (!v52)
                         {
 LABEL_44:
                           objc_opt_self();
@@ -7863,12 +6796,12 @@ LABEL_44:
 
                           if (*(a1 + 47) == 1)
                           {
-                            v56 = *(v84 + 144);
-                            if ([v56 requiresReachability])
+                            v53 = v78[18];
+                            if ([v53 requiresReachability])
                             {
-                              v57 = *(a1 + 49);
+                              v54 = *(a1 + 49);
 
-                              if ((v57 & 1) == 0)
+                              if ((v54 & 1) == 0)
                               {
                                 *(a1 + 61) = 1;
                               }
@@ -7882,50 +6815,50 @@ LABEL_44:
                           sub_100104190(a1);
                           if (objc_opt_class() && *(a1 + 49) == 1)
                           {
-                            v59 = *(a1 + 47);
-                            *(a1 + 12) = v59;
-                            if (v59 == 1)
+                            v56 = *(a1 + 47);
+                            *(a1 + 12) = v56;
+                            if (v56 == 1)
                             {
-                              v60 = _os_feature_enabled_impl();
+                              v57 = _os_feature_enabled_impl();
                             }
 
                             else
                             {
-                              v60 = 0;
+                              v57 = 0;
                             }
                           }
 
                           else
                           {
-                            v60 = 0;
+                            v57 = 0;
                             *(a1 + 12) = 0;
                           }
 
-                          *(a1 + 13) = v60;
+                          *(a1 + 13) = v57;
                           if (*(a1 + 49) == 1)
                           {
-                            v61 = _os_feature_enabled_impl();
+                            v58 = _os_feature_enabled_impl();
                           }
 
                           else
                           {
-                            v61 = 0;
+                            v58 = 0;
                           }
 
-                          *(a1 + 63) = v61;
-                          v62 = *(v84 + 48);
-                          if ((v62 & 0x20) != 0)
+                          *(a1 + 63) = v58;
+                          v59 = v78[6];
+                          if ((v59 & 0x20) != 0)
                           {
-                            LOBYTE(v64) = 1;
+                            LOBYTE(v61) = 1;
                           }
 
                           else
                           {
-                            v63 = (v62 & 0x10) != 0 || *(v84 + 16) > 0x12u;
-                            v64 = (v62 >> 14) & 1 | v63;
+                            v60 = (v59 & 0x10) != 0 || *(v78 + 8) > 0x12u;
+                            v61 = (v59 >> 14) & 1 | v60;
                           }
 
-                          *(a1 + 70) = (*(v84 + 48) & 0x1000) == 0 || (*(v84 + 48) & 0x2000) == 0 || (v64 & 1) == 0;
+                          *(a1 + 70) = (v78[6] & 0x1000) == 0 || (v78[6] & 0x2000) == 0 || (v61 & 1) == 0;
                           goto LABEL_69;
                         }
                       }
@@ -7948,62 +6881,59 @@ LABEL_44:
                   goto LABEL_37;
                 }
 
-                v76 = *(a1 + 96);
-                v25 = _NRCopyLogObjectForNRUUID();
-                _NRLogWithArgs();
+                v22 = _NRCopyLogObjectForNRUUID();
+                _NRLogWithArgs(v22, 17, "unable to determine link follower");
 LABEL_22:
 
 LABEL_23:
-                v29 = v84;
+                v26 = v78;
                 goto LABEL_24;
               }
             }
 
-            v25 = *(v84 + 144);
-            v27 = [v25 bluetoothEndpointType] == 2;
+            v22 = v78[18];
+            v24 = [v22 bluetoothEndpointType] == 2;
 LABEL_18:
-            v28 = v27;
-            *(a1 + 58) = v28;
+            v25 = v24;
+            *(a1 + 58) = v25;
             goto LABEL_22;
           }
         }
 
-        v25 = *(v84 + 144);
-        v26 = [v25 bluetoothRole];
+        v22 = v78[18];
+        v23 = [v22 bluetoothRole];
 LABEL_17:
-        v27 = v26 == 1;
+        v24 = v23 == 1;
         goto LABEL_18;
       }
     }
 
-    v25 = *(v84 + 144);
-    v26 = [v25 proxyCapability];
+    v22 = v78[18];
+    v23 = [v22 proxyCapability];
     goto LABEL_17;
   }
 
   *(a1 + 43) = 1;
-  v15 = *(v84 + 144);
+  v14 = v7[18];
 
-  if (v15)
+  if (v14)
   {
-    v16 = *(v84 + 144);
-    *(a1 + 46) = [v16 proxyCapability] == 1;
+    v15 = v78[18];
+    *(a1 + 46) = [v15 proxyCapability] == 1;
 
-    v17 = *(v84 + 144);
-    *(a1 + 47) = [v17 proxyCapability] == 2;
+    v16 = v78[18];
+    *(a1 + 47) = [v16 proxyCapability] == 2;
   }
 
   else
   {
-    v18 = *(a1 + 96);
-    v19 = _NRCopyLogObjectForNRUUID();
-    v20 = _NRLogIsLevelEnabled();
+    v17 = _NRCopyLogObjectForNRUUID();
+    v18 = _NRLogIsLevelEnabled();
 
-    if (v20)
+    if (v18)
     {
-      v21 = *(a1 + 96);
-      v22 = _NRCopyLogObjectForNRUUID();
-      _NRLogWithArgs();
+      v19 = _NRCopyLogObjectForNRUUID();
+      _NRLogWithArgs(v19, 16, "%s%.30s:%-4d invalid operational properties for external device", "", "[NRDDeviceConductor updateOperatingMode]", 441);
     }
   }
 
@@ -8264,8 +7194,8 @@ void sub_10011222C(uint64_t a1)
 
           v16 = v15;
           v17 = [NWAddressEndpoint endpointWithHostname:v12 port:@"0"];
-          v75 = v17;
-          v18 = [NSArray arrayWithObjects:&v75 count:1];
+          v73 = v17;
+          v18 = [NSArray arrayWithObjects:&v73 count:1];
           v19 = *(a1 + 32);
           if (v19)
           {
@@ -8289,12 +7219,12 @@ void sub_10011222C(uint64_t a1)
     }
 
     v21 = qword_1002290B8;
-    v71[0] = _NSConcreteStackBlock;
-    v71[1] = 3221225472;
-    v71[2] = sub_100112BC0;
-    v71[3] = &unk_1001FD3C8;
-    v71[4] = *(a1 + 32);
-    sub_1000C95D8(v21, v71);
+    v69[0] = _NSConcreteStackBlock;
+    v69[1] = 3221225472;
+    v69[2] = sub_100112BC0;
+    v69[3] = &unk_1001FD3C8;
+    v69[4] = *(a1 + 32);
+    sub_1000C95D8(v21, v69);
 
     v22 = *(a1 + 32);
     if (v22 && *(v22 + 46) == 1 && *(v22 + 49) == 1 && !*(v22 + 536))
@@ -8302,13 +7232,13 @@ void sub_10011222C(uint64_t a1)
       v23 = sub_10001CB9C([NRNetInfo alloc], *(v22 + 136));
       objc_initWeak(&location, v22);
       objc_initWeak(&from, v23);
-      v76 = _NSConcreteStackBlock;
-      v77 = 3221225472;
-      v78 = sub_100113254;
-      v79 = &unk_1001FB9B0;
-      objc_copyWeak(&v80, &location);
-      objc_copyWeak(&v81, &from);
-      v24 = &v76;
+      v74 = _NSConcreteStackBlock;
+      v75 = 3221225472;
+      v76 = sub_100113254;
+      v77 = &unk_1001FB9B0;
+      objc_copyWeak(&v78, &location);
+      objc_copyWeak(&v79, &from);
+      v24 = &v74;
       v25 = v24;
       if (v23)
       {
@@ -8323,17 +7253,17 @@ void sub_10011222C(uint64_t a1)
         dispatch_assert_queue_V2(*(v23 + 6));
         if ((v23[10] & 1) == 0)
         {
-          objc_initWeak(&v74, v23);
+          objc_initWeak(&v72, v23);
           obj = nw_path_create_evaluator_for_endpoint();
           v28 = *(v23 + 6);
           newValue = _NSConcreteStackBlock;
-          v83 = 3221225472;
-          v84 = sub_10001DC04;
-          v85 = &unk_1001FA490;
-          objc_copyWeak(&v88, &v74);
+          v81 = 3221225472;
+          v82 = sub_10001DC04;
+          v83 = &unk_1001FA490;
+          objc_copyWeak(&v86, &v72);
           v29 = obj;
-          v86 = v29;
-          v87 = v23;
+          v84 = v29;
+          v85 = v23;
           nw_path_evaluator_set_update_handler();
 
           nw_path_evaluator_start();
@@ -8353,14 +7283,14 @@ void sub_10011222C(uint64_t a1)
             }
 
             v32 = qword_100228ED0;
-            _NRLogWithArgs();
+            _NRLogWithArgs(v32, 0, "%s%.30s:%-4d started evaluator: %@", "", "[NRNetInfo start]", 170, v29);
           }
 
           objc_storeStrong(v23 + 9, obj);
           sub_10001E128(v23);
 
-          objc_destroyWeak(&v88);
-          objc_destroyWeak(&v74);
+          objc_destroyWeak(&v86);
+          objc_destroyWeak(&v72);
         }
       }
 
@@ -8371,8 +7301,8 @@ void sub_10011222C(uint64_t a1)
       v33 = *(v22 + 536);
       *(v22 + 536) = v23;
 
-      objc_destroyWeak(&v81);
-      objc_destroyWeak(&v80);
+      objc_destroyWeak(&v79);
+      objc_destroyWeak(&v78);
       objc_destroyWeak(&from);
       objc_destroyWeak(&location);
       v22 = *(a1 + 32);
@@ -8433,10 +7363,10 @@ void sub_10011222C(uint64_t a1)
         }
 
         newValue = _NSConcreteStackBlock;
-        v83 = 3221225472;
-        v84 = sub_10011323C;
-        v85 = &unk_1001FD3C8;
-        v86 = v34;
+        v81 = 3221225472;
+        v82 = sub_10011323C;
+        v83 = &unk_1001FD3C8;
+        v84 = v34;
         if (p_isa)
         {
           objc_setProperty_nonatomic_copy(p_isa, v46, &newValue, 48);
@@ -8470,25 +7400,32 @@ void sub_10011222C(uint64_t a1)
           v55 = *(v47 + 752);
           *(v47 + 752) = v54;
 
-          v56 = *(v47 + 752);
           nw_agent_change_state();
           newValue = 0;
-          v83 = 0;
-          v57 = *(v47 + 752);
+          v81 = 0;
           nw_agent_get_uuid();
-          v58 = [[NSUUID alloc] initWithUUIDBytes:&newValue];
-          v59 = *(v47 + 760);
-          *(v47 + 760) = v58;
+          v56 = [[NSUUID alloc] initWithUUIDBytes:&newValue];
+          v57 = *(v47 + 760);
+          *(v47 + 760) = v56;
 
-          v60 = [NEPolicyCondition requiredAgentDomain:@"com.apple.networkrelay" agentType:@"DTCFallbackAgent"];
-          v61 = [NEPolicy alloc];
-          v62 = *(v47 + 760);
-          v63 = [NEPolicyResult netAgentUUID:v62];
-          v64 = +[NEPolicyCondition allInterfaces];
-          v76 = v64;
-          v77 = v60;
-          v65 = [NSArray arrayWithObjects:&v76 count:2];
-          v66 = [v61 initWithOrder:10 result:v63 conditions:v65];
+          v58 = [NEPolicyCondition requiredAgentDomain:@"com.apple.networkrelay" agentType:@"DTCFallbackAgent"];
+          v59 = [NEPolicy alloc];
+          v60 = *(v47 + 760);
+          v61 = [NEPolicyResult netAgentUUID:v60];
+          v62 = +[NEPolicyCondition allInterfaces];
+          v74 = v62;
+          v75 = v58;
+          v63 = [NSArray arrayWithObjects:&v74 count:2];
+          v64 = [v59 initWithOrder:10 result:v61 conditions:v63];
+
+          objc_opt_self();
+          if (qword_100229410 != -1)
+          {
+            dispatch_once(&qword_100229410, &stru_1001FCD98);
+          }
+
+          v65 = qword_100229408;
+          v66 = sub_100159E00(v65, *(v47 + 304), v64);
 
           objc_opt_self();
           if (qword_100229410 != -1)
@@ -8497,16 +7434,7 @@ void sub_10011222C(uint64_t a1)
           }
 
           v67 = qword_100229408;
-          v68 = sub_100159E00(v67, *(v47 + 304), v66);
-
-          objc_opt_self();
-          if (qword_100229410 != -1)
-          {
-            dispatch_once(&qword_100229410, &stru_1001FCD98);
-          }
-
-          v69 = qword_100229408;
-          sub_10015A52C(v69);
+          sub_10015A52C(v67);
         }
       }
     }
@@ -8585,15 +7513,13 @@ LABEL_13:
       }
     }
 
-    v8 = *(v1 + 96);
-    v9 = _NRCopyLogObjectForNRUUID();
+    v8 = _NRCopyLogObjectForNRUUID();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (IsLevelEnabled)
     {
-      v11 = *(v1 + 96);
-      v12 = _NRCopyLogObjectForNRUUID();
-      _NRLogWithArgs();
+      v10 = _NRCopyLogObjectForNRUUID();
+      _NRLogWithArgs(v10, 0, "%s%.30s:%-4d creating pairing links", "", "[NRDDeviceConductor createPairingLinksIfNeeded]", 794);
     }
 
     if (qword_100229238 != -1)
@@ -8603,83 +7529,82 @@ LABEL_13:
 
     if (byte_100229230 == 1)
     {
-      v13 = v1;
-      v14 = 5;
-      v15 = 0;
+      v11 = v1;
+      v12 = 5;
+      v13 = 0;
     }
 
     else
     {
-      v16 = *(v3 + 144);
-      v17 = [v16 allowedLinkTypes];
-      if (![v17 containsObject:&off_100209C50] || (v18 = *(v3 + 48), (~*(v3 + 48) & 0x82) != 0))
+      v14 = *(v3 + 144);
+      v15 = [v14 allowedLinkTypes];
+      if (![v15 containsObject:&off_100209C50] || (v16 = *(v3 + 48), (~*(v3 + 48) & 0x82) != 0))
       {
       }
 
       else
       {
 
-        if ((v18 & 0x40) == 0)
+        if ((v16 & 0x40) == 0)
         {
           sub_1000ECF74(v1, 1u, 0);
         }
       }
 
       sub_1000EA6A0(v1);
-      v19 = *(v3 + 144);
-      v20 = [v19 allowedLinkTypes];
-      v21 = [v20 containsObject:&off_100209C80];
+      v17 = *(v3 + 144);
+      v18 = [v17 allowedLinkTypes];
+      v19 = [v18 containsObject:&off_100209C80];
 
       p_vtable = NRSCDInterfaceConfig.vtable;
-      if (v21)
+      if (v19)
       {
-        v23 = *(v1 + 96);
+        v21 = *(v1 + 96);
         objc_opt_self();
-        v24 = sub_100172CE0(NRDLocalDevice, v23, &off_100209EF0);
+        v22 = sub_100172CE0(NRDLocalDevice, v21, &off_100209EF0);
 
-        if (v24)
+        if (v22)
         {
-          v25 = [v24 copyCEndpoint];
+          v23 = [v22 copyCEndpoint];
           evaluator_for_endpoint = nw_path_create_evaluator_for_endpoint();
 
-          v27 = nw_path_evaluator_copy_path();
-          v28 = *(v1 + 96);
-          v29 = _NRCopyLogObjectForNRUUID();
-          v30 = _NRLogIsLevelEnabled();
+          v25 = nw_path_evaluator_copy_path();
+          v26 = _NRCopyLogObjectForNRUUID();
+          v27 = _NRLogIsLevelEnabled();
 
-          if (v30)
+          if (v27)
           {
-            v31 = *(v1 + 96);
-            v32 = _NRCopyLogObjectForNRUUID();
-            _NRLogWithArgs();
+            v28 = *(v1 + 96);
+            v29 = _NRCopyLogObjectForNRUUID();
+            _NRLogWithArgs(v29, 0, "%s%.30s:%-4d path for wired endpoint %@ is %@", "", "[NRDDeviceConductor createPairingLinksIfNeeded]", 815, v22, v25);
           }
 
-          v33 = nw_path_copy_interface();
-          name = nw_interface_get_name(v33);
+          v30 = nw_path_copy_interface();
+          name = nw_interface_get_name(v30);
           if (name)
           {
-            v35 = name;
-            v36 = sub_1000BA648();
-            v37 = v36;
-            v63 = evaluator_for_endpoint;
-            if (v36)
+            v32 = name;
+            v33 = sub_1000BA648(NRLinkDirector);
+            v34 = v33;
+            v60 = evaluator_for_endpoint;
+            if (v33)
             {
-              v38 = *(v36 + 8);
+              v35 = *(v33 + 8);
             }
 
             else
             {
-              v38 = 0;
+              v35 = 0;
             }
 
-            v39 = v38;
-            v65 = v24;
-            v40 = [NSArray arrayWithObjects:&v65 count:1];
-            v41 = [NSString stringWithUTF8String:v35];
-            sub_1000E6CEC(v39, v40, v41, *(v1 + 96));
+            v36 = v35;
+            v62 = v22;
+            v37 = [NSArray arrayWithObjects:&v62 count:1];
+            v38 = [NSString stringWithUTF8String:v32];
+            sub_1000E6CEC(v36, v37, v38, *(v1 + 96));
 
             p_vtable = (NRSCDInterfaceConfig + 24);
-            evaluator_for_endpoint = v63;
+            evaluator_for_endpoint = v60;
           }
         }
 
@@ -8689,34 +7614,34 @@ LABEL_13:
         }
       }
 
-      v42 = *(v3 + 144);
-      v43 = [v42 allowedLinkSubtypes];
-      v44 = [v43 containsObject:&off_100209C98];
+      v39 = *(v3 + 144);
+      v40 = [v39 allowedLinkSubtypes];
+      v41 = [v40 containsObject:&off_100209C98];
 
-      if (v44)
+      if (v41)
       {
-        v45 = *(v1 + 96);
+        v42 = *(v1 + 96);
         objc_opt_self();
-        v46 = sub_100172CE0((p_vtable + 37), v45, &off_100209EA8);
+        v43 = sub_100172CE0((p_vtable + 37), v42, &off_100209EA8);
 
-        if (v46)
+        if (v43)
         {
-          v47 = [v46 hostname];
+          v44 = [v43 hostname];
           objc_opt_self();
           if (qword_100228E88 != -1)
           {
             dispatch_once(&qword_100228E88, &stru_1001FA180);
           }
 
-          v48 = qword_100228E80;
-          v49 = @"62743";
-          if (!v48)
+          v45 = qword_100228E80;
+          v46 = @"62743";
+          if (!v45)
           {
-            v49 = 0;
+            v46 = 0;
           }
 
-          v50 = v49;
-          v51 = [NWAddressEndpoint endpointWithHostname:v47 port:v50];
+          v47 = v46;
+          v48 = [NWAddressEndpoint endpointWithHostname:v44 port:v47];
 
           dispatch_assert_queue_V2(*(v1 + 136));
           objc_opt_self();
@@ -8725,23 +7650,23 @@ LABEL_13:
             dispatch_once(&qword_1002290C0, &stru_1001FB2B0);
           }
 
-          v52 = qword_1002290B8;
-          v53 = v52;
-          if (v52)
+          v49 = qword_1002290B8;
+          v50 = v49;
+          if (v49)
           {
-            v54 = *(v52 + 6);
+            v51 = *(v49 + 6);
           }
 
           else
           {
-            v54 = 0;
+            v51 = 0;
           }
 
-          v55 = v54;
+          v52 = v51;
 
-          v64 = v51;
-          v56 = [NSArray arrayWithObjects:&v64 count:1];
-          sub_10017E570(v55, v56, *(v1 + 96));
+          v61 = v48;
+          v53 = [NSArray arrayWithObjects:&v61 count:1];
+          sub_10017E570(v52, v53, *(v1 + 96));
 
           if (*(v1 + 49) == 1)
           {
@@ -8755,30 +7680,30 @@ LABEL_13:
         }
       }
 
-      v57 = *(v3 + 144);
-      v58 = [v57 allowedLinkSubtypes];
-      v59 = [v58 containsObject:&off_100209CB0];
+      v54 = *(v3 + 144);
+      v55 = [v54 allowedLinkSubtypes];
+      v56 = [v55 containsObject:&off_100209CB0];
 
-      if (v59)
+      if (v56)
       {
         sub_1000ECF74(v1, 2u, 103);
       }
 
-      v60 = *(v3 + 144);
-      v61 = [v60 allowedLinkSubtypes];
-      v62 = [v61 containsObject:&off_100209CC8];
+      v57 = *(v3 + 144);
+      v58 = [v57 allowedLinkSubtypes];
+      v59 = [v58 containsObject:&off_100209CC8];
 
-      if (!v62)
+      if (!v59)
       {
         goto LABEL_60;
       }
 
-      v13 = v1;
-      v14 = 2;
-      v15 = 104;
+      v11 = v1;
+      v12 = 2;
+      v13 = 104;
     }
 
-    sub_1000ECF74(v13, v14, v15);
+    sub_1000ECF74(v11, v12, v13);
 LABEL_60:
   }
 }
@@ -9080,55 +8005,53 @@ void sub_100113628(uint64_t a1)
         {
           if (([v22 unregisterNetworkAgent] & 1) == 0)
           {
-            v23 = *(v19 + 40);
-            v24 = _NRCopyLogObjectForNRUUID();
+            v23 = _NRCopyLogObjectForNRUUID();
             IsLevelEnabled = _NRLogIsLevelEnabled();
 
             if (IsLevelEnabled)
             {
-              v26 = *(v19 + 40);
-              v27 = _NRCopyLogObjectForNRUUID();
-              _NRLogWithArgs();
+              v25 = _NRCopyLogObjectForNRUUID();
+              _NRLogWithArgs(v25, 17, "Failed to unregister PhoneCallRelay agent");
             }
           }
 
-          v28 = *(v19 + 56);
+          v26 = *(v19 + 56);
           *(v19 + 56) = 0;
 
-          v29 = *(v19 + 40);
-          v30 = *(v19 + 80);
-          v31 = v29;
-          v32 = [v19 agentUUID];
-          v33 = [v32 UUIDString];
-          sub_1000059A8(v31, 17003, v30, v33);
+          v27 = *(v19 + 40);
+          v28 = *(v19 + 80);
+          v29 = v27;
+          v30 = [v19 agentUUID];
+          v31 = [v30 UUIDString];
+          sub_1000059A8(v29, 17003, v28, v31);
         }
 
         *(v19 + 14) = 0;
-        v34 = *(a1 + 224);
+        v32 = *(a1 + 224);
         *(a1 + 224) = 0;
       }
 
-      v35 = *(a1 + 232);
-      if (v35)
+      v33 = *(a1 + 232);
+      if (v33)
       {
-        sub_1000782D4(v35);
-        v36 = *(a1 + 232);
+        sub_1000782D4(v33);
+        v34 = *(a1 + 232);
         *(a1 + 232) = 0;
       }
 
-      v37 = *(a1 + 424);
-      if (v37)
+      v35 = *(a1 + 424);
+      if (v35)
       {
-        sub_10007AE28(v37);
-        v38 = *(a1 + 424);
+        sub_10007AE28(v35);
+        v36 = *(a1 + 424);
         *(a1 + 424) = 0;
       }
 
-      v39 = *(a1 + 480);
-      if (v39)
+      v37 = *(a1 + 480);
+      if (v37)
       {
-        sub_1000707D0(v39);
-        v40 = *(a1 + 480);
+        sub_1000707D0(v37);
+        v38 = *(a1 + 480);
         *(a1 + 480) = 0;
       }
 
@@ -9149,19 +8072,19 @@ void sub_100113628(uint64_t a1)
         dispatch_once(&qword_1002290C0, &stru_1001FB2B0);
       }
 
-      v41 = qword_1002290B8;
-      sub_1000CA918(v41, 0, *(a1 + 96));
+      v39 = qword_1002290B8;
+      sub_1000CA918(v39, 0, *(a1 + 96));
 
       sub_1001070B0(a1);
-      v42 = *(a1 + 696);
+      v40 = *(a1 + 696);
       *(a1 + 696) = 0;
 
       if (*(a1 + 57) == 1)
       {
-        v43 = *(a1 + 712);
+        v41 = *(a1 + 712);
         *(a1 + 712) = 0;
 
-        v44 = *(a1 + 720);
+        v42 = *(a1 + 720);
         *(a1 + 720) = 0;
 
         objc_opt_self();
@@ -9170,15 +8093,15 @@ void sub_100113628(uint64_t a1)
           dispatch_once(&qword_100229410, &stru_1001FCD98);
         }
 
-        v45 = qword_100229408;
-        sub_10015A238(v45, *(a1 + 320));
+        v43 = qword_100229408;
+        sub_10015A238(v43, *(a1 + 320));
 
         if (*(a1 + 57))
         {
-          v46 = *(a1 + 704);
+          v44 = *(a1 + 704);
           *(a1 + 704) = 0;
 
-          v47 = *(a1 + 552);
+          v45 = *(a1 + 552);
           *(a1 + 552) = 0;
 
           objc_opt_self();
@@ -9187,8 +8110,8 @@ void sub_100113628(uint64_t a1)
             dispatch_once(&qword_100229410, &stru_1001FCD98);
           }
 
-          v48 = qword_100229408;
-          sub_10015A238(v48, *(a1 + 312));
+          v46 = qword_100229408;
+          sub_10015A238(v46, *(a1 + 312));
         }
       }
 
@@ -9198,8 +8121,8 @@ void sub_100113628(uint64_t a1)
         dispatch_once(&qword_100229410, &stru_1001FCD98);
       }
 
-      v49 = qword_100229408;
-      sub_10015A238(v49, *(a1 + 304));
+      v47 = qword_100229408;
+      sub_10015A238(v47, *(a1 + 304));
 
       objc_opt_self();
       if (qword_100229410 != -1)
@@ -9207,8 +8130,8 @@ void sub_100113628(uint64_t a1)
         dispatch_once(&qword_100229410, &stru_1001FCD98);
       }
 
-      v50 = qword_100229408;
-      sub_10015A238(v50, *(a1 + 344));
+      v48 = qword_100229408;
+      sub_10015A238(v48, *(a1 + 344));
 
       if (*(a1 + 328))
       {
@@ -9218,8 +8141,8 @@ void sub_100113628(uint64_t a1)
           dispatch_once(&qword_100229410, &stru_1001FCD98);
         }
 
-        v51 = qword_100229408;
-        sub_10015A238(v51, *(a1 + 328));
+        v49 = qword_100229408;
+        sub_10015A238(v49, *(a1 + 328));
       }
 
       objc_opt_self();
@@ -9228,8 +8151,8 @@ void sub_100113628(uint64_t a1)
         dispatch_once(&qword_100229410, &stru_1001FCD98);
       }
 
-      v52 = qword_100229408;
-      sub_10015A238(v52, *(a1 + 568));
+      v50 = qword_100229408;
+      sub_10015A238(v50, *(a1 + 568));
 
       if (*(a1 + 336))
       {
@@ -9239,11 +8162,11 @@ void sub_100113628(uint64_t a1)
           dispatch_once(&qword_100229410, &stru_1001FCD98);
         }
 
-        v53 = qword_100229408;
-        sub_10015A238(v53, *(a1 + 336));
+        v51 = qword_100229408;
+        sub_10015A238(v51, *(a1 + 336));
       }
 
-      v54 = *(a1 + 728);
+      v52 = *(a1 + 728);
       *(a1 + 728) = 0;
 
       objc_opt_self();
@@ -9252,8 +8175,8 @@ void sub_100113628(uint64_t a1)
         dispatch_once(&qword_100229410, &stru_1001FCD98);
       }
 
-      v55 = qword_100229408;
-      sub_10015A238(v55, *(a1 + 744));
+      v53 = qword_100229408;
+      sub_10015A238(v53, *(a1 + 744));
 
       objc_opt_self();
       if (qword_100229410 != -1)
@@ -9261,125 +8184,119 @@ void sub_100113628(uint64_t a1)
         dispatch_once(&qword_100229410, &stru_1001FCD98);
       }
 
-      v56 = qword_100229408;
-      sub_10015A52C(v56);
+      v54 = qword_100229408;
+      sub_10015A52C(v54);
 
-      v57 = *(a1 + 464);
+      v55 = *(a1 + 464);
       *(a1 + 464) = 0;
 
-      v58 = *(a1 + 456);
-      if (v58)
+      v56 = *(a1 + 456);
+      if (v56)
       {
-        sub_10014F1DC(v58);
-        v59 = *(a1 + 456);
+        sub_10014F1DC(v56);
+        v57 = *(a1 + 456);
         *(a1 + 456) = 0;
       }
 
-      v60 = *(a1 + 272);
+      v58 = *(a1 + 272);
       *(a1 + 272) = 0;
 
-      v61 = *(a1 + 400);
-      if (v61)
+      v59 = *(a1 + 400);
+      if (v59)
       {
-        dispatch_source_cancel(v61);
-        v62 = *(a1 + 400);
+        dispatch_source_cancel(v59);
+        v60 = *(a1 + 400);
         *(a1 + 400) = 0;
       }
 
       [*(a1 + 152) removeAllObjects];
-      v63 = *(a1 + 216);
-      if (v63)
+      v61 = *(a1 + 216);
+      if (v61)
       {
-        v64 = *(v63 + 24);
+        v62 = *(v61 + 24);
+        if (v62)
+        {
+          dispatch_assert_queue_V2(v62);
+        }
+
+        v63 = _NRCopyLogObjectForNRUUID();
+        v64 = _NRLogIsLevelEnabled();
+
         if (v64)
         {
-          dispatch_assert_queue_V2(v64);
+          v65 = _NRCopyLogObjectForNRUUID();
+          _NRLogWithArgs(v65, 0, "%s%.30s:%-4d Cancel %@", "", "[NRDevicePreferencesManager cancel]", 77, v61);
         }
 
-        v65 = *(v63 + 16);
-        v66 = _NRCopyLogObjectForNRUUID();
-        v67 = _NRLogIsLevelEnabled();
-
-        if (v67)
-        {
-          v68 = *(v63 + 16);
-          v69 = _NRCopyLogObjectForNRUUID();
-          v87 = 77;
-          v88 = v63;
-          v85 = "";
-          v86 = "[NRDevicePreferencesManager cancel]";
-          _NRLogWithArgs();
-        }
-
-        [*(v63 + 32) removeAllObjects];
-        sub_100148E4C(v63);
-        [*(v63 + 40) removeAllObjects];
-        sub_100149594(v63);
-        v70 = *(a1 + 216);
+        [*(v61 + 32) removeAllObjects];
+        sub_100148E4C(v61);
+        [*(v61 + 40) removeAllObjects];
+        sub_100149594(v61);
+        v66 = *(a1 + 216);
       }
 
       else
       {
-        v70 = 0;
+        v66 = 0;
       }
 
       *(a1 + 216) = 0;
 
-      v96 = 0u;
-      v97 = 0u;
-      v94 = 0u;
-      v95 = 0u;
-      v71 = *(a1 + 200);
-      v72 = [v71 countByEnumeratingWithState:&v94 objects:v99 count:16];
-      if (v72)
+      v86 = 0u;
+      v87 = 0u;
+      v84 = 0u;
+      v85 = 0u;
+      v67 = *(a1 + 200);
+      v68 = [v67 countByEnumeratingWithState:&v84 objects:v89 count:16];
+      if (v68)
       {
-        v73 = v72;
-        v74 = *v95;
+        v69 = v68;
+        v70 = *v85;
         do
         {
-          for (i = 0; i != v73; i = i + 1)
+          for (i = 0; i != v69; i = i + 1)
           {
-            if (*v95 != v74)
+            if (*v85 != v70)
             {
-              objc_enumerationMutation(v71);
+              objc_enumerationMutation(v67);
             }
 
-            xpc_connection_cancel(*(*(&v94 + 1) + 8 * i));
+            xpc_connection_cancel(*(*(&v84 + 1) + 8 * i));
           }
 
-          v73 = [v71 countByEnumeratingWithState:&v94 objects:v99 count:16];
+          v69 = [v67 countByEnumeratingWithState:&v84 objects:v89 count:16];
         }
 
-        while (v73);
+        while (v69);
       }
 
       [*(a1 + 200) removeAllObjects];
-      v92 = 0u;
-      v93 = 0u;
-      v90 = 0u;
-      v91 = 0u;
-      v80 = *(a1 + 208);
-      v81 = [v80 countByEnumeratingWithState:&v90 objects:v98 count:16];
-      if (v81)
+      v82 = 0u;
+      v83 = 0u;
+      v80 = 0u;
+      v81 = 0u;
+      v74 = *(a1 + 208);
+      v75 = [v74 countByEnumeratingWithState:&v80 objects:v88 count:16];
+      if (v75)
       {
-        v82 = v81;
-        v83 = *v91;
+        v76 = v75;
+        v77 = *v81;
         do
         {
-          for (j = 0; j != v82; j = j + 1)
+          for (j = 0; j != v76; j = j + 1)
           {
-            if (*v91 != v83)
+            if (*v81 != v77)
             {
-              objc_enumerationMutation(v80);
+              objc_enumerationMutation(v74);
             }
 
-            xpc_connection_cancel(*(*(&v90 + 1) + 8 * j));
+            xpc_connection_cancel(*(*(&v80 + 1) + 8 * j));
           }
 
-          v82 = [v80 countByEnumeratingWithState:&v90 objects:v98 count:16];
+          v76 = [v74 countByEnumeratingWithState:&v80 objects:v88 count:16];
         }
 
-        while (v82);
+        while (v76);
       }
 
       [*(a1 + 208) removeAllObjects];
@@ -9389,16 +8306,893 @@ void sub_100113628(uint64_t a1)
 
     else
     {
-      v76 = *(a1 + 96);
-      v77 = _NRCopyLogObjectForNRUUID();
-      v78 = _NRLogIsLevelEnabled();
+      v72 = _NRCopyLogObjectForNRUUID();
+      v73 = _NRLogIsLevelEnabled();
 
-      if (v78)
+      if (v73)
       {
-        v79 = *(a1 + 96);
-        v89 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        v79 = _NRCopyLogObjectForNRUUID();
+        _NRLogWithArgs(v79, 1, "%s%.30s:%-4d Skipping cancel as conductor is already disabled", "", "[NRDDeviceConductor cancelConductor]", 1427);
       }
     }
   }
+}
+
+id sub_100114094(uint64_t a1)
+{
+  if (!a1)
+  {
+    return 0;
+  }
+
+  dispatch_assert_queue_V2(*(a1 + 136));
+  v2 = [*(a1 + 144) count];
+  sub_1000EC910(a1, 1013, @"%u available", v3, v4, v5, v6, v7, v2);
+  v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v8 = *(a1 + 144);
+  v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (v9)
+  {
+    v10 = v9;
+    v11 = *v15;
+    do
+    {
+      v12 = 0;
+      do
+      {
+        if (*v15 != v11)
+        {
+          objc_enumerationMutation(v8);
+        }
+
+        [*(*(&v14 + 1) + 8 * v12) cancelWithReason:@"Cancelling all links"];
+        v12 = v12 + 1;
+      }
+
+      while (v10 != v12);
+      v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    }
+
+    while (v10);
+  }
+
+  sub_10010073C(a1, 0);
+  [*(a1 + 144) removeAllObjects];
+  return v2;
+}
+
+void sub_1001141F4(uint64_t a1, int a2)
+{
+  dispatch_assert_queue_V2(*(a1 + 136));
+  if (*(a1 + 17) != a2)
+  {
+    sub_1000EC910(a1, 1033, @"%d -> %d", v4, v5, v6, v7, v8, *(a1 + 17));
+    *(a1 + 17) = a2;
+    if (a2)
+    {
+      sub_1000F2504(a1, @"Device setup in progress", v9, v10, v11, v12, v13, v14, v24);
+    }
+
+    if (*(a1 + 8) == 1 && (*(a1 + 17) & 1) == 0)
+    {
+      dispatch_assert_queue_V2(*(a1 + 136));
+      objc_opt_self();
+      if (qword_1002290C0 != -1)
+      {
+        dispatch_once(&qword_1002290C0, &stru_1001FB2B0);
+      }
+
+      v15 = qword_1002290B8;
+      v16 = v15;
+      if (v15)
+      {
+        v17 = *(v15 + 6);
+      }
+
+      else
+      {
+        v17 = 0;
+      }
+
+      v25 = v17;
+
+      v18 = v25;
+      if (v25 && (v19 = v25[3], dispatch_assert_queue_V2(v19), v19, v18 = v25, *(v25 + 10) >= 1))
+      {
+        v20 = *(a1 + 15);
+
+        if ((v20 & 1) == 0)
+        {
+          v21 = _NRCopyLogObjectForNRUUID();
+          IsLevelEnabled = _NRLogIsLevelEnabled();
+
+          if (IsLevelEnabled)
+          {
+            v23 = _NRCopyLogObjectForNRUUID();
+            _NRLogWithArgs(v23, 0, "%s%.30s:%-4d processing outstanding prefer Wi-Fi requests", "", "[NRDDeviceConductor setDeviceSetupInProgress:]", 2115);
+          }
+
+          [a1 preferWiFiRequestAvailable];
+        }
+      }
+
+      else
+      {
+      }
+    }
+  }
+}
+
+void sub_1001143D0(uint64_t a1, void *a2)
+{
+  v6 = a2;
+  if (a1)
+  {
+    dispatch_assert_queue_V2(*(a1 + 136));
+    if (v6)
+    {
+      [*(a1 + 200) addObject:v6];
+    }
+
+    else
+    {
+      v3 = sub_1000E83DC();
+      IsLevelEnabled = _NRLogIsLevelEnabled();
+
+      if (IsLevelEnabled)
+      {
+        v5 = sub_1000E83DC();
+        _NRLogWithArgs(v5, 17, "%s called with null connection", "[NRDDeviceConductor addDeviceMonitorConnection:]");
+      }
+    }
+  }
+}
+
+uint64_t sub_10011447C(uint64_t a1, const char *a2, void *a3)
+{
+  v5 = a3;
+  v6 = _NRCopyLogObjectForNRUUID();
+  IsLevelEnabled = _NRLogIsLevelEnabled();
+
+  if (IsLevelEnabled)
+  {
+    v8 = _NRCopyLogObjectForNRUUID();
+    _NRLogWithArgs(v8, 0, "%s%.30s:%-4d Received data key: %s", "", "[NRDDeviceConductor processXPCCommNotificationForConnection:notificationDictionary:]_block_invoke", 7999, a2);
+  }
+
+  if (!strcmp(a2, kNRXPCCommNotificationTypeXPCommDictionary))
+  {
+    if (xpc_get_type(v5) == &_xpc_type_dictionary)
+    {
+      v12 = _CFXPCCreateCFObjectFromXPCObject();
+      v13 = *(*(a1 + 40) + 8);
+      v14 = *(v13 + 40);
+      *(v13 + 40) = v12;
+
+      v15 = _NRCopyLogObjectForNRUUID();
+      v16 = _NRLogIsLevelEnabled();
+
+      if (v16)
+      {
+        v17 = *(a1 + 32);
+        if (v17)
+        {
+          v17 = v17[12];
+        }
+
+        v18 = v17;
+        v11 = _NRCopyLogObjectForNRUUID();
+        _NRLogWithArgs(v11, 0, "%s%.30s:%-4d Received data: %@", "", "[NRDDeviceConductor processXPCCommNotificationForConnection:notificationDictionary:]_block_invoke", 8003, *(*(*(a1 + 40) + 8) + 40));
+
+        goto LABEL_11;
+      }
+    }
+
+    else
+    {
+      v9 = _NRCopyLogObjectForNRUUID();
+      v10 = _NRLogIsLevelEnabled();
+
+      if (v10)
+      {
+        v11 = _NRCopyLogObjectForNRUUID();
+        _NRLogWithArgs(v11, 17, "Invalid type for key %s", a2);
+LABEL_11:
+      }
+    }
+  }
+
+  return 1;
+}
+
+void sub_100114680(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  if (a1 && *(a1 + 14) == 1)
+  {
+    v4 = [*(a1 + 184) count];
+    if (!v3 || v4)
+    {
+      v45 = v3;
+      v64 = 0u;
+      v65 = 0u;
+      v62 = 0u;
+      v63 = 0u;
+      v46 = *(a1 + 192);
+      v50 = [v46 countByEnumeratingWithState:&v62 objects:v68 count:16];
+      if (v50)
+      {
+        v49 = *v63;
+        v48 = kNRXPCCommNotificationTypeXPCommDictionary;
+        v47 = nrXPCKeyXPCCommNotification;
+        do
+        {
+          v8 = 0;
+          do
+          {
+            if (*v63 != v49)
+            {
+              objc_enumerationMutation(v46);
+            }
+
+            v9 = xpc_dictionary_create(0, 0, 0);
+            if (!v9)
+            {
+              if (qword_100229160 != -1)
+              {
+                dispatch_once(&qword_100229160, &stru_1001FBC40);
+              }
+
+              v33 = qword_100229158;
+              IsLevelEnabled = _NRLogIsLevelEnabled();
+
+              if (!IsLevelEnabled)
+              {
+                goto LABEL_49;
+              }
+
+              goto LABEL_47;
+            }
+
+            v10 = v9;
+            v11 = xpc_dictionary_create(0, 0, 0);
+            if (!v11)
+            {
+              if (qword_100229160 != -1)
+              {
+                dispatch_once(&qword_100229160, &stru_1001FBC40);
+              }
+
+              v35 = qword_100229158;
+              v36 = _NRLogIsLevelEnabled();
+
+              if (!v36)
+              {
+                goto LABEL_49;
+              }
+
+LABEL_47:
+              v37 = sub_1000E83DC();
+              _NRLogWithArgs(v37, 16, "%s%.30s:%-4d ABORTING: xpc_dictionary_create(%p, %p, %u) failed", "", "nr_xpc_dictionary_create", 74, 0, 0, 0);
+              goto LABEL_48;
+            }
+
+            v12 = v11;
+            v53 = v8;
+            v51 = _CFXPCCreateXPCObjectFromCFObject();
+            xpc_dictionary_set_value(v12, v48, v51);
+            v52 = v12;
+            xpc_dictionary_set_value(v10, v47, v12);
+            v60 = 0u;
+            v61 = 0u;
+            v58 = 0u;
+            v59 = 0u;
+            v13 = *(a1 + 184);
+            v14 = [v13 countByEnumeratingWithState:&v58 objects:v67 count:16];
+            if (v14)
+            {
+              v15 = v14;
+              v16 = *v59;
+              do
+              {
+                for (i = 0; i != v15; i = i + 1)
+                {
+                  if (*v59 != v16)
+                  {
+                    objc_enumerationMutation(v13);
+                  }
+
+                  xpc_connection_send_message(*(*(&v58 + 1) + 8 * i), v10);
+                  v18 = _NRCopyLogObjectForNRUUID();
+                  v19 = _NRLogIsLevelEnabled();
+
+                  if (v19)
+                  {
+                    v20 = _NRCopyLogObjectForNRUUID();
+                    _NRLogWithArgs(v20, 0, "%s%.30s:%-4d sending xpcComm pending message", "", "[NRDDeviceConductor sendXPCCommDictionary:]", 8068);
+                  }
+                }
+
+                v15 = [v13 countByEnumeratingWithState:&v58 objects:v67 count:16];
+              }
+
+              while (v15);
+            }
+
+            v8 = v53 + 1;
+          }
+
+          while (v53 + 1 != v50);
+          v50 = [v46 countByEnumeratingWithState:&v62 objects:v68 count:16];
+        }
+
+        while (v50);
+      }
+
+      [*(a1 + 192) removeAllObjects];
+      v3 = v45;
+      if (v45)
+      {
+        v21 = xpc_dictionary_create(0, 0, 0);
+        if (!v21 || (v22 = v21, (v23 = xpc_dictionary_create(0, 0, 0)) == 0))
+        {
+          while (1)
+          {
+            v42 = sub_1000E83DC();
+            v43 = _NRLogIsLevelEnabled();
+
+            if (v43)
+            {
+              v37 = sub_1000E83DC();
+              _NRLogWithArgs(v37, 16, "%s%.30s:%-4d ABORTING: xpc_dictionary_create(%p, %p, %u) failed", "", "nr_xpc_dictionary_create", 74, 0, 0, 0);
+LABEL_48:
+            }
+
+LABEL_49:
+            v38 = _os_log_pack_size();
+            v39 = &v44 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+            v40 = __error();
+            v41 = _os_log_pack_fill(v39, v38, *v40, &_mh_execute_header, "%{public}s xpc_dictionary_create(%p, %p, %u) failed");
+            sub_1000F4320(v41, "nr_xpc_dictionary_create");
+            sub_1000E83DC();
+            _NRLogAbortWithPack();
+          }
+        }
+
+        v24 = v23;
+        v52 = _CFXPCCreateXPCObjectFromCFObject();
+        xpc_dictionary_set_value(v24, kNRXPCCommNotificationTypeXPCommDictionary, v52);
+        v53 = v24;
+        xpc_dictionary_set_value(v22, nrXPCKeyXPCCommNotification, v24);
+        v56 = 0u;
+        v57 = 0u;
+        v54 = 0u;
+        v55 = 0u;
+        v25 = *(a1 + 184);
+        v26 = [v25 countByEnumeratingWithState:&v54 objects:v66 count:16];
+        if (v26)
+        {
+          v27 = v26;
+          v28 = *v55;
+          do
+          {
+            for (j = 0; j != v27; j = j + 1)
+            {
+              if (*v55 != v28)
+              {
+                objc_enumerationMutation(v25);
+              }
+
+              xpc_connection_send_message(*(*(&v54 + 1) + 8 * j), v22);
+              v30 = _NRCopyLogObjectForNRUUID();
+              v31 = _NRLogIsLevelEnabled();
+
+              if (v31)
+              {
+                v32 = _NRCopyLogObjectForNRUUID();
+                _NRLogWithArgs(v32, 0, "%s%.30s:%-4d sending xpcComm message", "", "[NRDDeviceConductor sendXPCCommDictionary:]", 8082);
+              }
+            }
+
+            v27 = [v25 countByEnumeratingWithState:&v54 objects:v66 count:16];
+          }
+
+          while (v27);
+        }
+
+        v3 = v45;
+      }
+    }
+
+    else
+    {
+      v5 = *(a1 + 192);
+      if (!v5)
+      {
+        v6 = objc_alloc_init(NSMutableArray);
+        v7 = *(a1 + 192);
+        *(a1 + 192) = v6;
+
+        v5 = *(a1 + 192);
+      }
+
+      [v5 addObject:v3];
+    }
+  }
+}
+
+void sub_100114D18(_BYTE *a1, int a2)
+{
+  if (a1 && a1[68] != a2 && a1[14] == 1 && a1[47] == 1 && a1[49] == 1)
+  {
+    if (qword_100229160 != -1)
+    {
+      dispatch_once(&qword_100229160, &stru_1001FBC40);
+    }
+
+    if (_NRLogIsLevelEnabled())
+    {
+      if (qword_100229160 != -1)
+      {
+        dispatch_once(&qword_100229160, &stru_1001FBC40);
+      }
+
+      _NRLogWithArgs(qword_100229158, 0, "%s%.30s:%-4d has non companion clients %d", "", "[NRDDeviceConductor updateHasNonCompanionClients:]", 8775, a2);
+    }
+
+    a1[68] = a2;
+
+    sub_1000FAEC0(a1);
+  }
+}
+
+void sub_100114E3C(void *a1)
+{
+  if (a1[4])
+  {
+    v2 = +[NRPairedDeviceRegistry sharedInstance];
+    v3 = [v2 deviceForBluetoothID:a1[4]];
+    if (!v3)
+    {
+      v33 = _NRCopyLogObjectForNRUUID();
+      IsLevelEnabled = _NRLogIsLevelEnabled();
+
+      if (IsLevelEnabled)
+      {
+        v35 = a1[5];
+        if (v35)
+        {
+          v35 = v35[12];
+        }
+
+        v36 = v35;
+        v37 = _NRCopyLogObjectForNRUUID();
+        _NRLogWithArgs(v37, 16, "%s%.30s:%-4d NanoRegistry didn't return device for %@", "", "[NRDDeviceConductor updatePerpetualStandaloneMeadowStateWithDispatchGroup:]_block_invoke_2", 8901, a1[6]);
+      }
+
+      v38 = a1[5];
+      if (v38)
+      {
+        *(v38 + 11) = 0;
+      }
+
+      goto LABEL_33;
+    }
+
+    v4 = [[NPSDomainAccessor alloc] initWithDomain:@"com.apple.system.prefs" pairedDevice:v3];
+    if (!v4)
+    {
+      v5 = _NRCopyLogObjectForNRUUID();
+      v6 = _NRLogIsLevelEnabled();
+
+      if (v6)
+      {
+        v7 = _NRCopyLogObjectForNRUUID();
+        _NRLogWithArgs(v7, 16, "%s%.30s:%-4d Didn't get domain accessor for %@", "", "[NRDDeviceConductor updatePerpetualStandaloneMeadowStateWithDispatchGroup:]_block_invoke_2", 8909, v3);
+      }
+
+      v8 = a1[5];
+      if (v8)
+      {
+        *(v8 + 11) = 0;
+      }
+    }
+
+    v9 = [v4 copyKeyList];
+    v10 = _NRCopyLogObjectForNRUUID();
+    v11 = _NRLogIsLevelEnabled();
+
+    if (v11)
+    {
+      v12 = _NRCopyLogObjectForNRUUID();
+      _NRLogWithArgs(v12, 2, "%s%.30s:%-4d Perpetual standalone Meadow keySet: %@", "", "[NRDDeviceConductor updatePerpetualStandaloneMeadowStateWithDispatchGroup:]_block_invoke_2", 8914, v9);
+    }
+
+    v39 = 0;
+    v13 = [v4 BOOLForKey:@"PerpetualMeadowStandaloneWiFiEnabled" keyExistsAndHasValidFormat:&v39];
+    v14 = _NRCopyLogObjectForNRUUID();
+    v15 = _NRLogIsLevelEnabled();
+
+    if (v15)
+    {
+      v16 = _NRCopyLogObjectForNRUUID();
+      _NRLogWithArgs(v16, 0, "%s%.30s:%-4d Perpetual standalone Meadow WiFi %u exists %u", "", "[NRDDeviceConductor updatePerpetualStandaloneMeadowStateWithDispatchGroup:]_block_invoke_2", 8919, v13, v39);
+    }
+
+    v39 = 0;
+    v17 = [v4 BOOLForKey:@"PerpetualMeadowStandaloneCellularEnabled" keyExistsAndHasValidFormat:&v39];
+    v18 = _NRCopyLogObjectForNRUUID();
+    v19 = _NRLogIsLevelEnabled();
+
+    if (v19)
+    {
+      v20 = _NRCopyLogObjectForNRUUID();
+      _NRLogWithArgs(v20, 0, "%s%.30s:%-4d Perpetual standalone Meadow cell %u exists %u", "", "[NRDDeviceConductor updatePerpetualStandaloneMeadowStateWithDispatchGroup:]_block_invoke_2", 8924, v17, v39);
+    }
+
+    [v4 invalidate];
+    v21 = a1[5];
+    if (v21)
+    {
+      v22 = *(v21 + 11);
+      *(v21 + 11) = (v13 | v17) & 1;
+      v23 = a1[5];
+      if (v23)
+      {
+        if ((*(v23 + 11) ^ v22))
+        {
+          v24 = v22 & 1;
+          goto LABEL_18;
+        }
+      }
+
+      else if (v22)
+      {
+        v24 = 1;
+LABEL_18:
+        v25 = _NRCopyLogObjectForNRUUID();
+        v26 = _NRLogIsLevelEnabled();
+
+        if (v26)
+        {
+          v27 = a1[5];
+          if (v27)
+          {
+            v27 = v27[12];
+          }
+
+          v28 = v27;
+          v29 = _NRCopyLogObjectForNRUUID();
+          v30 = v29;
+          v31 = a1[5];
+          if (v31)
+          {
+            v31 = *(v31 + 11) & 1;
+          }
+
+          _NRLogWithArgs(v29, 0, "%s%.30s:%-4d perpetualStandaloneMeadowEnabled(%@): %u -> %u", "", "[NRDDeviceConductor updatePerpetualStandaloneMeadowStateWithDispatchGroup:]_block_invoke_2", 8934, a1[6], v24, v31);
+        }
+      }
+    }
+
+LABEL_33:
+    return;
+  }
+
+  v32 = a1[5];
+  if (v32)
+  {
+    *(v32 + 11) = 0;
+  }
+}
+
+void sub_1001152AC(id a1)
+{
+  v1 = _NRCopySerialQueueAttr();
+  v2 = dispatch_queue_create("com.apple.networkrelay.NanoRegistry", v1);
+
+  if (!v2)
+  {
+    v4 = sub_1000E83DC();
+    IsLevelEnabled = _NRLogIsLevelEnabled();
+
+    if (IsLevelEnabled)
+    {
+      v6 = sub_1000E83DC();
+      _NRLogWithArgs(v6, 16, "%s%.30s:%-4d ABORTING: dispatch_queue_create(%s) failed", "", "nr_dispatch_queue_create", 196, "com.apple.networkrelay.NanoRegistry");
+    }
+
+    v7 = _os_log_pack_size();
+    v8 = &v11 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+    v9 = __error();
+    v10 = _os_log_pack_fill(v8, v7, *v9, &_mh_execute_header, "%{public}s dispatch_queue_create(%s) failed");
+    *v10 = 136446466;
+    *(v10 + 4) = "nr_dispatch_queue_create";
+    *(v10 + 12) = 2080;
+    *(v10 + 14) = "com.apple.networkrelay.NanoRegistry";
+    sub_1000E83DC();
+    _NRLogAbortWithPack();
+  }
+
+  v3 = qword_100229148;
+  qword_100229148 = v2;
+}
+
+void *sub_100115508(void *a1)
+{
+  if (!a1)
+  {
+    return 0;
+  }
+
+  v21.receiver = a1;
+  v21.super_class = NRDIDSKeyManager;
+  v1 = objc_msgSendSuper2(&v21, "init");
+  if (!v1)
+  {
+    v8 = sub_10011573C();
+    IsLevelEnabled = _NRLogIsLevelEnabled();
+
+    if (IsLevelEnabled)
+    {
+      v10 = sub_10011573C();
+      _NRLogWithArgs(v10, 16, "%s%.30s:%-4d ABORTING: [super init] failed", "", "[NRDIDSKeyManager initInternal]", 98);
+    }
+
+    v11 = _os_log_pack_size();
+    v12 = __error();
+    v13 = _os_log_pack_fill(&v20 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0), v11, *v12, &_mh_execute_header, "%{public}s [super init] failed");
+    *v13 = 136446210;
+    *(v13 + 4) = "[NRDIDSKeyManager initInternal]";
+    goto LABEL_11;
+  }
+
+  v2 = v1;
+  v3 = sub_100003490();
+  v4 = v2[2];
+  v2[2] = v3;
+
+  v5 = objc_alloc_init(NSMutableDictionary);
+  v6 = v2[6];
+  v2[6] = v5;
+
+  if (!v2[6])
+  {
+    v14 = sub_10011573C();
+    v15 = _NRLogIsLevelEnabled();
+
+    if (v15)
+    {
+      v16 = sub_10011573C();
+      _NRLogWithArgs(v16, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: (self.deviceRecords) != ((void*)0)", "", "[NRDIDSKeyManager initInternal]", 101);
+    }
+
+    v17 = _os_log_pack_size();
+    v18 = __error();
+    v19 = _os_log_pack_fill(&v20 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0), v17, *v18, &_mh_execute_header, "%{public}s Assertion Failed: (self.deviceRecords) != ((void*)0)");
+    *v19 = 136446210;
+    *(v19 + 4) = "[NRDIDSKeyManager initInternal]";
+LABEL_11:
+    sub_10011573C();
+    _NRLogAbortWithPack();
+    return 0;
+  }
+
+  return v2;
+}
+
+id sub_10011573C()
+{
+  if (qword_100229180 != -1)
+  {
+    dispatch_once(&qword_100229180, &stru_1001FBD48);
+  }
+
+  v1 = qword_100229178;
+
+  return v1;
+}
+
+void sub_100115790(id a1)
+{
+  v1 = os_log_create("com.apple.networkrelay", "");
+  v2 = qword_100229178;
+  qword_100229178 = v1;
+
+  _objc_release_x1(v1, v2);
+}
+
+void sub_1001157D4(id a1)
+{
+  v1 = sub_100115508([NRDIDSKeyManager alloc]);
+  v2 = qword_100229168;
+  qword_100229168 = v1;
+
+  _objc_release_x1(v1, v2);
+}
+
+uint64_t sub_100115814(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  if (a1)
+  {
+    dispatch_assert_queue_V2(*(a1 + 16));
+    v4 = [v3 fullIdentity];
+    if (v4)
+    {
+      a1 = *(v4 + 3);
+      if (a1)
+      {
+        CFRetain(*(v4 + 3));
+        goto LABEL_5;
+      }
+
+      v9 = sub_10011573C();
+      IsLevelEnabled = _NRLogIsLevelEnabled();
+
+      if (IsLevelEnabled)
+      {
+        v8 = sub_10011573C();
+        _NRLogWithArgs(v8, 17, "privateSigningKey missing from mpsFullID");
+        goto LABEL_10;
+      }
+    }
+
+    else
+    {
+      v6 = sub_10011573C();
+      v7 = _NRLogIsLevelEnabled();
+
+      if (v7)
+      {
+        v8 = sub_10011573C();
+        _NRLogWithArgs(v8, 17, "Failed to extract fullIdentity from localPrivateIDSIdentity");
+LABEL_10:
+      }
+    }
+
+    a1 = 0;
+  }
+
+LABEL_5:
+
+  return a1;
+}
+
+uint64_t sub_1001158E4(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  if (a1)
+  {
+    dispatch_assert_queue_V2(*(a1 + 16));
+    v4 = [v3 publicIdentity];
+    if (v4)
+    {
+      a1 = *(v4 + 2);
+      if (a1)
+      {
+        CFRetain(*(v4 + 2));
+        goto LABEL_5;
+      }
+
+      v9 = sub_10011573C();
+      IsLevelEnabled = _NRLogIsLevelEnabled();
+
+      if (IsLevelEnabled)
+      {
+        v8 = sub_10011573C();
+        _NRLogWithArgs(v8, 17, "publicSigningKey missing from mpsPublicID");
+        goto LABEL_10;
+      }
+    }
+
+    else
+    {
+      v6 = sub_10011573C();
+      v7 = _NRLogIsLevelEnabled();
+
+      if (v7)
+      {
+        v8 = sub_10011573C();
+        _NRLogWithArgs(v8, 17, "Failed to extract publicIdentity from remotePublicIDSIdentity");
+LABEL_10:
+      }
+    }
+
+    a1 = 0;
+  }
+
+LABEL_5:
+
+  return a1;
+}
+
+void sub_1001159B4(uint64_t a1, int a2)
+{
+  if (a1)
+  {
+    dispatch_assert_queue_V2(*(a1 + 16));
+    if (*(a1 + 8) == 1)
+    {
+      if (a2)
+      {
+        *(a1 + 9) = 1;
+      }
+    }
+
+    else
+    {
+      *(a1 + 8) = 1;
+      if (!*(a1 + 56))
+      {
+        v4 = objc_alloc_init(NRAnalyticsKeyManager);
+        v5 = *(a1 + 56);
+        *(a1 + 56) = v4;
+      }
+
+      sub_1000059A8(0, 5500, &stru_1001FDE68, 0);
+      v6 = nr_absolute_time();
+      v7 = *(a1 + 56);
+      if (v7)
+      {
+        *(v7 + 24) = v6;
+      }
+
+      if (qword_100229188 != -1)
+      {
+        dispatch_once(&qword_100229188, &stru_1001FBD68);
+      }
+
+      block[0] = _NSConcreteStackBlock;
+      block[1] = 3221225472;
+      block[2] = sub_100115AE4;
+      block[3] = &unk_1001FD3C8;
+      block[4] = a1;
+      dispatch_async(qword_100229190, block);
+    }
+  }
+}
+
+uint64_t sub_100115AE4(uint64_t a1)
+{
+  if (qword_100229188 != -1)
+  {
+    dispatch_once(&qword_100229188, &stru_1001FBD68);
+  }
+
+  return IDSLocalPairingGetPairingRecordsWithCompletionBlock();
+}
+
+void sub_100115B84(uint64_t a1, void *a2, void *a3, void *a4)
+{
+  v7 = a2;
+  v8 = a3;
+  v9 = a4;
+  v10 = v9;
+  v11 = *(a1 + 32);
+  if (v11)
+  {
+    v12 = *(v11 + 16);
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  v16[0] = _NSConcreteStackBlock;
+  v16[1] = 3221225472;
+  v16[2] = sub_100115C84;
+  v16[3] = &unk_1001FCE28;
+  v16[4] = v11;
+  v17 = v9;
+  v18 = v7;
+  v19 = v8;
+  v13 = v8;
+  v14 = v7;
+  v15 = v10;
+  dispatch_async(v12, v16);
 }

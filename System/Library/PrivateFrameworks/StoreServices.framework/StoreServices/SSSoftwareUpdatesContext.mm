@@ -40,14 +40,14 @@
 {
   if (encoding && MEMORY[0x1DA6E0380](encoding, a2) == MEMORY[0x1E69E9E80])
   {
-    v7.receiver = self;
-    v7.super_class = SSSoftwareUpdatesContext;
-    v5 = [(SSSoftwareUpdatesContext *)&v7 init];
+    v8.receiver = self;
+    v8.super_class = SSSoftwareUpdatesContext;
+    v5 = [(SSSoftwareUpdatesContext *)&v8 init];
     if (v5)
     {
       v5->_forced = xpc_dictionary_get_BOOL(encoding, "0");
-      objc_opt_class();
-      v5->_softwareTypes = SSXPCDictionaryCopyCFObjectWithClass(encoding, "1");
+      v7 = objc_opt_class();
+      v5->_softwareTypes = SSXPCDictionaryCopyCFObjectWithClass(encoding, "1", v7);
     }
   }
 

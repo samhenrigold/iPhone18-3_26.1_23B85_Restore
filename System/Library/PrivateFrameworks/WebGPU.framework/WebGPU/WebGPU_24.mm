@@ -37,7 +37,7 @@ WTF::StringImpl *WGSL::Parser<WGSL::Lexer<unsigned char>>::parseTypeName(uint64_
   *(a2 + 48) = v6 + 1;
   if ((v6 + 1) >= 0x10)
   {
-    WTF::String::number(0xF);
+    WTF::String::number(&v17, 0xF);
     WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral>("composite type may not be nested more than ", 44, &v17, " levels", 8, &v13);
     v12 = v5 | ((*(a2 + 96) - v5) << 32);
     *a1 = v13;
@@ -168,12 +168,12 @@ uint64_t std::experimental::fundamentals_v3::expected<std::reference_wrapper<WGS
   return result;
 }
 
-mpark *WGSL::Parser<WGSL::Lexer<unsigned char>>::parseArrayType(uint64_t a1, uint64_t a2)
+WTF::StringImpl *WGSL::Parser<WGSL::Lexer<unsigned char>>::parseArrayType(uint64_t a1, uint64_t a2)
 {
   v4 = *(a2 + 88);
   v5 = *(a2 + 96);
+  v57 = 0;
   v56 = 0;
-  v55 = 0;
   v6 = v5;
   if (*(a2 + 56) != 83)
   {
@@ -241,18 +241,18 @@ LABEL_5:
   }
 
   while (v7 == 82);
-  result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseTypeName(&v52, a2);
-  if (v54)
+  result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseTypeName(&v53, a2);
+  if (v55)
   {
-    if (v54 == 1)
+    if (v55 == 1)
     {
-      v17 = v52;
-      if (v52)
+      v17 = v53;
+      if (v53)
       {
-        atomic_fetch_add_explicit(v52, 2u, memory_order_relaxed);
+        atomic_fetch_add_explicit(v53, 2u, memory_order_relaxed);
       }
 
-      *(a1 + 8) = v53;
+      *(a1 + 8) = v54;
       *a1 = v17;
       goto LABEL_95;
     }
@@ -261,7 +261,7 @@ LABEL_102:
     mpark::throw_bad_variant_access(result);
   }
 
-  v56 = v52;
+  v57 = v53;
   v18 = *(a2 + 56);
   if (v18 != 48)
   {
@@ -331,12 +331,12 @@ LABEL_48:
         *(a2 + 96) = v28;
         if (v27 != 82)
         {
-          if (v54)
+          if (v55)
           {
-            if (v54 != 255)
+            if (v55 != 255)
             {
-              v35 = v52;
-              v52 = 0;
+              v35 = v53;
+              v53 = 0;
               if (v35)
               {
                 if (atomic_fetch_add_explicit(v35, 0xFFFFFFFE, memory_order_relaxed) == 2)
@@ -349,20 +349,21 @@ LABEL_48:
 
           v6 = *(a2 + 96);
 LABEL_65:
-          v52 = v4;
-          LODWORD(v53) = v5;
-          DWORD1(v53) = v6 - v5;
-          WGSL::AST::Builder::construct<WGSL::AST::ArrayTypeExpression,WGSL::SourceSpan,WGSL::AST::Expression *&,WGSL::AST::Expression *&,void>();
+          v36 = *(a2 + 8);
+          v53 = v4;
+          LODWORD(v54) = v5;
+          DWORD1(v54) = v6 - v5;
+          WGSL::AST::Builder::construct<WGSL::AST::ArrayTypeExpression,WGSL::SourceSpan,WGSL::AST::Expression *&,WGSL::AST::Expression *&,void>(v36, &v53, &v57, &v56);
         }
       }
     }
 
     WGSL::toString();
     WGSL::toString();
-    if (v48)
+    if (v49)
     {
-      v36 = *(v48 + 1);
-      if (v47)
+      v37 = *(v49 + 1);
+      if (v48)
       {
         goto LABEL_69;
       }
@@ -370,12 +371,12 @@ LABEL_65:
 
     else
     {
-      v36 = 0;
-      if (v47)
+      v37 = 0;
+      if (v48)
       {
 LABEL_69:
-        v37 = *(v47 + 1);
-        if (v37 < 0)
+        v38 = *(v48 + 1);
+        if (v38 < 0)
         {
 LABEL_106:
           __break(0xC471u);
@@ -384,58 +385,58 @@ LABEL_107:
         }
 
 LABEL_73:
-        v38 = __OFADD__(v37, 12);
-        v39 = v37 + 12;
-        v40 = v38;
-        if (v36 < 0)
+        v39 = __OFADD__(v38, 12);
+        v40 = v38 + 12;
+        v41 = v39;
+        if (v37 < 0)
         {
           goto LABEL_106;
         }
 
-        if (v40)
+        if (v41)
         {
           goto LABEL_106;
         }
 
-        v38 = __OFADD__(v36, v39);
-        v41 = v36 + v39;
-        if (v38)
+        v39 = __OFADD__(v37, v40);
+        v42 = v37 + v40;
+        if (v39)
         {
           goto LABEL_106;
         }
 
-        v42 = (v41 + 11);
-        if (__OFADD__(v41, 11))
+        v43 = (v42 + 11);
+        if (__OFADD__(v42, 11))
         {
           goto LABEL_106;
         }
 
-        if (v48)
+        if (v49)
         {
-          v43 = *(v48 + 4);
-          v44 = (v43 >> 2) & 1;
-          if (!v47 || (v43 & 4) == 0)
+          v44 = *(v49 + 4);
+          v45 = (v44 >> 2) & 1;
+          if (!v48 || (v44 & 4) == 0)
           {
 LABEL_87:
-            WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>>(v42, v44, "Expected a ", 0xBuLL, v48, ", but got a ", 0xCuLL, v47, &v49);
-            v45 = v49;
-            if (v49)
+            WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>>(v43, v45, "Expected a ", 0xBuLL, v49, ", but got a ", 0xCuLL, &v50, v48);
+            v46 = v50;
+            if (v50)
             {
-              if (v47 && atomic_fetch_add_explicit(v47, 0xFFFFFFFE, memory_order_relaxed) == 2)
-              {
-                WTF::StringImpl::destroy(v47, v16);
-              }
-
-              result = v48;
               if (v48 && atomic_fetch_add_explicit(v48, 0xFFFFFFFE, memory_order_relaxed) == 2)
               {
-                result = WTF::StringImpl::destroy(v48, v16);
+                WTF::StringImpl::destroy(v48, v16);
               }
 
-              v46 = v5 | ((*(a2 + 96) - v5) << 32);
-              *a1 = v45;
+              result = v49;
+              if (v49 && atomic_fetch_add_explicit(v49, 0xFFFFFFFE, memory_order_relaxed) == 2)
+              {
+                result = WTF::StringImpl::destroy(v49, v16);
+              }
+
+              v47 = v5 | ((*(a2 + 96) - v5) << 32);
+              *a1 = v46;
               *(a1 + 8) = v4;
-              *(a1 + 16) = v46;
+              *(a1 + 16) = v47;
               goto LABEL_95;
             }
 
@@ -443,18 +444,18 @@ LABEL_87:
           }
         }
 
-        else if (!v47)
+        else if (!v48)
         {
-          v44 = 1;
+          v45 = 1;
           goto LABEL_87;
         }
 
-        v44 = (*(v47 + 16) >> 2) & 1;
+        v45 = (*(v48 + 16) >> 2) & 1;
         goto LABEL_87;
       }
     }
 
-    v37 = 0;
+    v38 = 0;
     goto LABEL_73;
   }
 
@@ -527,10 +528,10 @@ LABEL_28:
     goto LABEL_49;
   }
 
-  result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseExpression(&v49, a2);
-  if (!v51)
+  result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseExpression(&v50, a2);
+  if (!v52)
   {
-    v55 = v49;
+    v56 = v50;
     v18 = *(a2 + 56);
     if (v18 == 48)
     {
@@ -541,23 +542,23 @@ LABEL_28:
     goto LABEL_44;
   }
 
-  if (v51 != 1)
+  if (v52 != 1)
   {
     goto LABEL_102;
   }
 
-  result = v49;
-  if (!v49)
+  result = v50;
+  if (!v50)
   {
-    *(a1 + 8) = v50;
+    *(a1 + 8) = v51;
     *a1 = 0;
 LABEL_95:
     *(a1 + 24) = 1;
     goto LABEL_96;
   }
 
-  atomic_fetch_add_explicit(v49, 2u, memory_order_relaxed);
-  *(a1 + 8) = v50;
+  atomic_fetch_add_explicit(v50, 2u, memory_order_relaxed);
+  *(a1 + 8) = v51;
   *a1 = result;
   *(a1 + 24) = 1;
   if (atomic_fetch_add_explicit(result, 0xFFFFFFFE, memory_order_relaxed) == 2)
@@ -566,12 +567,12 @@ LABEL_95:
   }
 
 LABEL_96:
-  if (v54)
+  if (v55)
   {
-    if (v54 != 255)
+    if (v55 != 255)
     {
-      result = v52;
-      v52 = 0;
+      result = v53;
+      v53 = 0;
       if (result)
       {
         if (atomic_fetch_add_explicit(result, 0xFFFFFFFE, memory_order_relaxed) == 2)
@@ -589,58 +590,59 @@ WTF *WGSL::Parser<WGSL::Lexer<unsigned char>>::parseTypeNameAfterIdentifier(uint
 {
   if (*(a2 + 56) != 83)
   {
-    v17 = *(a2 + 96) - a5;
-    v63 = a4;
-    *&v64 = __PAIR64__(v17, a5);
-    WGSL::AST::Builder::construct<WGSL::AST::IdentifierExpression,WGSL::SourceSpan,WGSL::AST::Identifier,void>();
+    v18 = *(a2 + 8);
+    v19 = *(a2 + 96) - a5;
+    v66 = a4;
+    *&v67 = __PAIR64__(v19, a5);
+    WGSL::AST::Builder::construct<WGSL::AST::IdentifierExpression,WGSL::SourceSpan,WGSL::AST::Identifier,void>(v18, &v66, a3);
   }
 
   do
   {
-    v11 = *(a2 + 36);
-    v12 = (*(a2 + 40) + 1);
-    *(a2 + 40) = v12;
-    if (v11 <= v12)
+    v12 = *(a2 + 36);
+    v13 = (*(a2 + 40) + 1);
+    *(a2 + 40) = v13;
+    if (v12 <= v13)
     {
       __break(0xC471u);
       JUMPOUT(0x225773208);
     }
 
-    v13 = *(a2 + 24) + 32 * v12;
-    v9 = *v13;
-    *(a2 + 56) = *v13;
-    *(a2 + 60) = *(v13 + 4);
-    v14 = *v13;
-    if (*v13 <= 8u)
+    v14 = *(a2 + 24) + 32 * v13;
+    v10 = *v14;
+    *(a2 + 56) = *v14;
+    *(a2 + 60) = *(v14 + 4);
+    v15 = *v14;
+    if (*v14 <= 8u)
     {
-      if (((1 << v14) & 0x38) != 0)
+      if (((1 << v15) & 0x38) != 0)
       {
-        *(a2 + 80) = *(v13 + 24);
+        *(a2 + 80) = *(v14 + 24);
 LABEL_4:
-        v9 = *(a2 + 56);
+        v10 = *(a2 + 56);
         goto LABEL_5;
       }
 
-      if (((1 << v14) & 0xC4) != 0)
+      if (((1 << v15) & 0xC4) != 0)
       {
-        *(a2 + 80) = *(v13 + 24);
+        *(a2 + 80) = *(v14 + 24);
         goto LABEL_4;
       }
 
-      if (v14 == 8)
+      if (v15 == 8)
       {
         *(a2 + 80) = 0;
-        v15 = *(v13 + 24);
-        if (v15)
+        v16 = *(v14 + 24);
+        if (v16)
         {
-          atomic_fetch_add_explicit(v15, 2u, memory_order_relaxed);
-          v16 = *(a2 + 80);
-          *(a2 + 80) = v15;
-          if (v16)
+          atomic_fetch_add_explicit(v16, 2u, memory_order_relaxed);
+          v17 = *(a2 + 80);
+          *(a2 + 80) = v16;
+          if (v17)
           {
-            if (atomic_fetch_add_explicit(v16, 0xFFFFFFFE, memory_order_relaxed) == 2)
+            if (atomic_fetch_add_explicit(v17, 0xFFFFFFFE, memory_order_relaxed) == 2)
             {
-              WTF::StringImpl::destroy(v16, a2);
+              WTF::StringImpl::destroy(v17, a2);
             }
           }
         }
@@ -650,43 +652,43 @@ LABEL_4:
     }
 
 LABEL_5:
-    v10 = *(a2 + 68);
+    v11 = *(a2 + 68);
     *(a2 + 88) = *(a2 + 60);
-    *(a2 + 96) = v10;
+    *(a2 + 96) = v11;
   }
 
-  while (v9 == 82);
-  v58 = a4;
-  v59 = a5;
-  v60 = 0;
-  v18 = 0;
-  v66 = 0;
-  v67 = 0;
-  v19 = *a1;
-  v20 = a1;
-  v21 = *(a1 + 24);
+  while (v10 == 82);
+  v61 = a4;
+  v62 = a5;
+  v63 = 0;
+  v20 = 0;
+  v69 = 0;
+  v70 = 0;
+  v21 = *a1;
+  v22 = a1;
+  v23 = *(a1 + 24);
   while (1)
   {
-    v22 = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseTypeName(&v63, a2);
-    if (!v65)
+    v24 = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseTypeName(&v66, a2);
+    if (!v68)
     {
-      if (v18 == v67)
+      if (v20 == v70)
       {
-        v26 = WTF::Vector<WebGPU::BindGroupLayout::Entry const*,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v66, v18 + 1, &v63);
-        v27 = HIDWORD(v67);
-        v60 = v66;
-        *(v66 + HIDWORD(v67)) = *v26;
-        v18 = v27 + 1;
-        HIDWORD(v67) = v27 + 1;
+        v28 = WTF::Vector<WebGPU::BindGroupLayout::Entry const*,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v69, v20 + 1, &v66);
+        v29 = HIDWORD(v70);
+        v63 = v69;
+        *(v69 + HIDWORD(v70)) = *v28;
+        v20 = v29 + 1;
+        HIDWORD(v70) = v29 + 1;
         if (*(a2 + 56) == 48)
         {
           goto LABEL_33;
         }
 
 LABEL_28:
-        v24 = 4;
-        v25 = v65;
-        if (v65)
+        v26 = 4;
+        v27 = v68;
+        if (v68)
         {
           goto LABEL_44;
         }
@@ -694,8 +696,8 @@ LABEL_28:
         goto LABEL_48;
       }
 
-      *(v60 + v18) = v63;
-      v18 = ++HIDWORD(v67);
+      *(v63 + v20) = v66;
+      v20 = ++HIDWORD(v70);
       if (*(a2 + 56) != 48)
       {
         goto LABEL_28;
@@ -704,70 +706,70 @@ LABEL_28:
       while (1)
       {
 LABEL_33:
-        v30 = *(a2 + 36);
-        v31 = (*(a2 + 40) + 1);
-        *(a2 + 40) = v31;
-        if (v30 <= v31)
+        v32 = *(a2 + 36);
+        v33 = (*(a2 + 40) + 1);
+        *(a2 + 40) = v33;
+        if (v32 <= v33)
         {
-          *(v20 + 24) = v21;
-          *v20 = v19;
+          *(v22 + 24) = v23;
+          *v22 = v21;
           __break(0xC471u);
           goto LABEL_108;
         }
 
-        v32 = *(a2 + 24) + 32 * v31;
-        v28 = *v32;
-        *(a2 + 56) = *v32;
-        *(a2 + 60) = *(v32 + 4);
-        v33 = *v32;
-        if (*v32 <= 8u)
+        v34 = *(a2 + 24) + 32 * v33;
+        v30 = *v34;
+        *(a2 + 56) = *v34;
+        *(a2 + 60) = *(v34 + 4);
+        v35 = *v34;
+        if (*v34 <= 8u)
         {
-          if (((1 << v33) & 0x38) != 0)
+          if (((1 << v35) & 0x38) != 0)
           {
-            *(a2 + 80) = *(v32 + 24);
+            *(a2 + 80) = *(v34 + 24);
           }
 
-          else if (((1 << v33) & 0xC4) != 0)
+          else if (((1 << v35) & 0xC4) != 0)
           {
-            *(a2 + 80) = *(v32 + 24);
+            *(a2 + 80) = *(v34 + 24);
           }
 
           else
           {
-            if (v33 != 8)
+            if (v35 != 8)
             {
               goto LABEL_32;
             }
 
             *(a2 + 80) = 0;
-            v34 = *(v32 + 24);
-            if (v34)
+            v36 = *(v34 + 24);
+            if (v36)
             {
-              atomic_fetch_add_explicit(v34, 2u, memory_order_relaxed);
-              v35 = *(a2 + 80);
-              *(a2 + 80) = v34;
-              if (v35)
+              atomic_fetch_add_explicit(v36, 2u, memory_order_relaxed);
+              v37 = *(a2 + 80);
+              *(a2 + 80) = v36;
+              if (v37)
               {
-                if (atomic_fetch_add_explicit(v35, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                if (atomic_fetch_add_explicit(v37, 0xFFFFFFFE, memory_order_relaxed) == 2)
                 {
-                  WTF::StringImpl::destroy(v35, v23);
+                  WTF::StringImpl::destroy(v37, v25);
                 }
               }
             }
           }
 
-          v28 = *(a2 + 56);
+          v30 = *(a2 + 56);
         }
 
 LABEL_32:
-        v29 = *(a2 + 68);
+        v31 = *(a2 + 68);
         *(a2 + 88) = *(a2 + 60);
-        *(a2 + 96) = v29;
-        if (v28 != 82)
+        *(a2 + 96) = v31;
+        if (v30 != 82)
         {
-          v24 = 0;
-          v25 = v65;
-          if (v65)
+          v26 = 0;
+          v27 = v68;
+          if (v68)
           {
             goto LABEL_44;
           }
@@ -777,60 +779,60 @@ LABEL_32:
       }
     }
 
-    if (v65 != 1)
+    if (v68 != 1)
     {
-      *(v20 + 24) = v21;
-      *v20 = v19;
-      mpark::throw_bad_variant_access(v22);
+      *(v22 + 24) = v23;
+      *v22 = v21;
+      mpark::throw_bad_variant_access(v24);
     }
 
-    v19 = v63;
-    if (v63)
+    v21 = v66;
+    if (v66)
     {
-      atomic_fetch_add_explicit(v63, 2u, memory_order_relaxed);
+      atomic_fetch_add_explicit(v66, 2u, memory_order_relaxed);
     }
 
-    *(v20 + 8) = v64;
-    v21 = 1;
-    v24 = 1;
-    v25 = v65;
-    if (v65)
+    *(v22 + 8) = v67;
+    v23 = 1;
+    v26 = 1;
+    v27 = v68;
+    if (v68)
     {
 LABEL_44:
-      if (v25 != 255)
+      if (v27 != 255)
       {
-        v36 = v63;
-        v63 = 0;
-        if (v36)
+        v38 = v66;
+        v66 = 0;
+        if (v38)
         {
-          if (atomic_fetch_add_explicit(v36, 0xFFFFFFFE, memory_order_relaxed) == 2)
+          if (atomic_fetch_add_explicit(v38, 0xFFFFFFFE, memory_order_relaxed) == 2)
           {
-            WTF::StringImpl::destroy(v36, v23);
+            WTF::StringImpl::destroy(v38, v25);
           }
         }
       }
     }
 
 LABEL_48:
-    if (v24)
+    if (v26)
     {
       break;
     }
 
     if (*(a2 + 56) == 84)
     {
-      *(v20 + 24) = v21;
-      *v20 = v19;
+      *(v22 + 24) = v23;
+      *v22 = v21;
       goto LABEL_57;
     }
   }
 
-  if (v24 != 4)
+  if (v26 != 4)
   {
-    *(v20 + 24) = v21;
-    *v20 = v19;
-    result = v60;
-    if (!v60)
+    *(v22 + 24) = v23;
+    *v22 = v21;
+    result = v63;
+    if (!v63)
     {
       return result;
     }
@@ -843,88 +845,89 @@ LABEL_48:
     while (1)
     {
 LABEL_57:
-      v39 = *(a2 + 36);
-      v40 = (*(a2 + 40) + 1);
-      *(a2 + 40) = v40;
-      if (v39 <= v40)
+      v41 = *(a2 + 36);
+      v42 = (*(a2 + 40) + 1);
+      *(a2 + 40) = v42;
+      if (v41 <= v42)
       {
         __break(0xC471u);
         JUMPOUT(0x225773210);
       }
 
-      v41 = *(a2 + 24) + 32 * v40;
-      v37 = *v41;
-      *(a2 + 56) = *v41;
-      *(a2 + 60) = *(v41 + 4);
-      v42 = *v41;
-      if (*v41 <= 8u)
+      v43 = *(a2 + 24) + 32 * v42;
+      v39 = *v43;
+      *(a2 + 56) = *v43;
+      *(a2 + 60) = *(v43 + 4);
+      v44 = *v43;
+      if (*v43 <= 8u)
       {
-        if (((1 << v42) & 0x38) != 0)
+        if (((1 << v44) & 0x38) != 0)
         {
-          *(a2 + 80) = *(v41 + 24);
+          *(a2 + 80) = *(v43 + 24);
         }
 
-        else if (((1 << v42) & 0xC4) != 0)
+        else if (((1 << v44) & 0xC4) != 0)
         {
-          *(a2 + 80) = *(v41 + 24);
+          *(a2 + 80) = *(v43 + 24);
         }
 
         else
         {
-          if (v42 != 8)
+          if (v44 != 8)
           {
             goto LABEL_56;
           }
 
           *(a2 + 80) = 0;
-          v43 = *(v41 + 24);
-          if (v43)
+          v45 = *(v43 + 24);
+          if (v45)
           {
-            atomic_fetch_add_explicit(v43, 2u, memory_order_relaxed);
-            v44 = *(a2 + 80);
-            *(a2 + 80) = v43;
-            if (v44)
+            atomic_fetch_add_explicit(v45, 2u, memory_order_relaxed);
+            v46 = *(a2 + 80);
+            *(a2 + 80) = v45;
+            if (v46)
             {
-              if (atomic_fetch_add_explicit(v44, 0xFFFFFFFE, memory_order_relaxed) == 2)
+              if (atomic_fetch_add_explicit(v46, 0xFFFFFFFE, memory_order_relaxed) == 2)
               {
-                WTF::StringImpl::destroy(v44, v23);
+                WTF::StringImpl::destroy(v46, v25);
               }
             }
           }
         }
 
-        v37 = *(a2 + 56);
+        v39 = *(a2 + 56);
       }
 
 LABEL_56:
-      v38 = *(a2 + 68);
+      v40 = *(a2 + 68);
       *(a2 + 88) = *(a2 + 60);
-      *(a2 + 96) = v38;
-      if (v37 != 82)
+      *(a2 + 96) = v40;
+      if (v39 != 82)
       {
-        v63 = v58;
-        LODWORD(v64) = v59;
-        DWORD1(v64) = v38 - v59;
-        WGSL::AST::Builder::construct<WGSL::AST::ElaboratedTypeExpression,WGSL::SourceSpan,WGSL::AST::Identifier,WTF::ReferenceWrapperVector<WGSL::AST::Expression,0ul>,void>();
+        v47 = *(a2 + 8);
+        v66 = v61;
+        LODWORD(v67) = v62;
+        DWORD1(v67) = v40 - v62;
+        WGSL::AST::Builder::construct<WGSL::AST::ElaboratedTypeExpression,WGSL::SourceSpan,WGSL::AST::Identifier,WTF::ReferenceWrapperVector<WGSL::AST::Expression,0ul>,void>(v47, &v66, a3, &v69);
       }
     }
   }
 
   WGSL::toString();
   WGSL::toString();
-  if (!v62)
+  if (!v65)
   {
-    v47 = 0;
-    v48 = v59;
-    if (v61)
+    v50 = 0;
+    v51 = v62;
+    if (v64)
     {
       goto LABEL_73;
     }
 
 LABEL_80:
-    v50 = 12;
-    v51 = v46;
-    if (v47 < 0)
+    v53 = 12;
+    v54 = v49;
+    if (v50 < 0)
     {
       goto LABEL_107;
     }
@@ -932,30 +935,30 @@ LABEL_80:
     goto LABEL_84;
   }
 
-  v47 = *(v62 + 1);
-  v48 = v59;
-  if (!v61)
+  v50 = *(v65 + 1);
+  v51 = v62;
+  if (!v64)
   {
     goto LABEL_80;
   }
 
 LABEL_73:
-  v49 = *(v61 + 1);
-  if (v49 < 0)
+  v52 = *(v64 + 1);
+  if (v52 < 0)
   {
     goto LABEL_107;
   }
 
-  v46 = __OFADD__(v49, 12);
-  v50 = v49 + 12;
-  v51 = v46;
-  if (v47 < 0)
+  v49 = __OFADD__(v52, 12);
+  v53 = v52 + 12;
+  v54 = v49;
+  if (v50 < 0)
   {
     goto LABEL_107;
   }
 
 LABEL_84:
-  if ((v51 & 1) != 0 || (v46 = __OFADD__(v47, v50), v52 = v47 + v50, v46) || (v53 = (v52 + 11), __OFADD__(v52, 11)))
+  if ((v54 & 1) != 0 || (v49 = __OFADD__(v50, v53), v55 = v50 + v53, v49) || (v56 = (v55 + 11), __OFADD__(v55, 11)))
   {
 LABEL_107:
     __break(0xC471u);
@@ -963,56 +966,56 @@ LABEL_108:
     JUMPOUT(0x225773200);
   }
 
-  if (!v62)
+  if (!v65)
   {
-    if (!v61)
+    if (!v64)
     {
-      v55 = 1;
+      v58 = 1;
       goto LABEL_94;
     }
 
 LABEL_92:
-    v55 = (*(v61 + 16) >> 2) & 1;
+    v58 = (*(v64 + 16) >> 2) & 1;
     goto LABEL_94;
   }
 
-  v54 = *(v62 + 4);
-  v55 = (v54 >> 2) & 1;
-  if (v61 && (v54 & 4) != 0)
+  v57 = *(v65 + 4);
+  v58 = (v57 >> 2) & 1;
+  if (v64 && (v57 & 4) != 0)
   {
     goto LABEL_92;
   }
 
 LABEL_94:
-  WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>>(v53, v55, "Expected a ", 0xBuLL, v62, ", but got a ", 0xCuLL, v61, &v63);
-  v56 = v63;
-  if (!v63)
+  WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>>(v56, v58, "Expected a ", 0xBuLL, v65, ", but got a ", 0xCuLL, &v66, v64);
+  v59 = v66;
+  if (!v66)
   {
     goto LABEL_107;
   }
 
-  if (v61 && atomic_fetch_add_explicit(v61, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  if (v64 && atomic_fetch_add_explicit(v64, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v61, v23);
+    WTF::StringImpl::destroy(v64, v25);
   }
 
-  if (v62 && atomic_fetch_add_explicit(v62, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  if (v65 && atomic_fetch_add_explicit(v65, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v62, v23);
+    WTF::StringImpl::destroy(v65, v25);
   }
 
-  v57 = v48 | ((*(a2 + 96) - v48) << 32);
-  *v20 = v56;
-  *(v20 + 8) = v58;
-  *(v20 + 16) = v57;
-  *(v20 + 24) = 1;
-  result = v60;
-  if (v60)
+  v60 = v51 | ((*(a2 + 96) - v51) << 32);
+  *v22 = v59;
+  *(v22 + 8) = v61;
+  *(v22 + 16) = v60;
+  *(v22 + 24) = 1;
+  result = v63;
+  if (v63)
   {
 LABEL_69:
-    v66 = 0;
-    LODWORD(v67) = 0;
-    return WTF::fastFree(result, v23);
+    v69 = 0;
+    LODWORD(v70) = 0;
+    return WTF::fastFree(result, v25);
   }
 
   return result;
@@ -1020,18 +1023,18 @@ LABEL_69:
 
 WTF::StringImpl *WGSL::Parser<WGSL::Lexer<unsigned char>>::parseExpression(WTF::StringImpl **a1, uint64_t a2)
 {
-  result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseUnaryExpression(&v30, a2);
-  if (v32)
+  result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseUnaryExpression(&v31, a2);
+  if (v33)
   {
-    if (v32 == 1)
+    if (v33 == 1)
     {
-      v5 = v30;
-      if (v30)
+      v5 = v31;
+      if (v31)
       {
-        atomic_fetch_add_explicit(v30, 2u, memory_order_relaxed);
+        atomic_fetch_add_explicit(v31, 2u, memory_order_relaxed);
       }
 
-      *(a1 + 1) = v31;
+      *(a1 + 1) = v32;
       *a1 = v5;
       *(a1 + 24) = 1;
       goto LABEL_37;
@@ -1043,10 +1046,10 @@ WTF::StringImpl *WGSL::Parser<WGSL::Lexer<unsigned char>>::parseExpression(WTF::
   v6 = *(a2 + 56);
   if ((v6 - 36) <= 0x2C && ((1 << (v6 - 36)) & 0x100010000001) != 0)
   {
-    v25 = *(a2 + 88);
+    v26 = *(a2 + 88);
     v8 = *(a2 + 96);
     result = WGSL::toBinaryOperation(v6);
-    v36 = result;
+    v37 = result;
     v10 = *a1;
     v11 = *(a1 + 24);
     while (1)
@@ -1112,30 +1115,31 @@ LABEL_14:
       *(a2 + 96) = v13;
       if (v12 != 82)
       {
-        result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseUnaryExpression(&v33, a2);
-        if (!v35)
+        result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseUnaryExpression(&v34, a2);
+        if (!v36)
         {
-          v20 = *(a2 + 96) - v8;
-          v27 = v25;
-          *&v28 = __PAIR64__(v20, v8);
-          WGSL::AST::Builder::construct<WGSL::AST::BinaryExpression,WGSL::SourceSpan,std::reference_wrapper<WGSL::AST::Expression>,std::reference_wrapper<WGSL::AST::Expression>,WGSL::AST::BinaryOperation const&,void>();
+          v20 = *(a2 + 8);
+          v21 = *(a2 + 96) - v8;
+          v28 = v26;
+          *&v29 = __PAIR64__(v21, v8);
+          WGSL::AST::Builder::construct<WGSL::AST::BinaryExpression,WGSL::SourceSpan,std::reference_wrapper<WGSL::AST::Expression>,std::reference_wrapper<WGSL::AST::Expression>,WGSL::AST::BinaryOperation const&,void>(v20, &v28, &v31, &v34, &v37);
         }
 
-        if (v35 == 1)
+        if (v36 == 1)
         {
-          v19 = v33;
-          if (v33)
+          v19 = v34;
+          if (v34)
           {
-            atomic_fetch_add_explicit(v33, 2u, memory_order_relaxed);
+            atomic_fetch_add_explicit(v34, 2u, memory_order_relaxed);
           }
 
-          *(a1 + 1) = v34;
-          if (v35)
+          *(a1 + 1) = v35;
+          if (v36)
           {
-            if (v35 != 255)
+            if (v36 != 255)
             {
-              result = v33;
-              v33 = 0;
+              result = v34;
+              v34 = 0;
               if (result)
               {
                 if (atomic_fetch_add_explicit(result, 0xFFFFFFFE, memory_order_relaxed) == 2)
@@ -1159,80 +1163,80 @@ LABEL_69:
     }
   }
 
-  result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseRelationalExpressionPostUnary(&v33, a2, &v30);
-  if (v35)
+  result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseRelationalExpressionPostUnary(&v34, a2, &v31);
+  if (v36)
   {
-    if (v35 != 1)
+    if (v36 != 1)
     {
       goto LABEL_69;
     }
 
-    v21 = v33;
-    if (v33)
+    v22 = v34;
+    if (v34)
     {
-      atomic_fetch_add_explicit(v33, 2u, memory_order_relaxed);
+      atomic_fetch_add_explicit(v34, 2u, memory_order_relaxed);
     }
 
-    v22 = a1;
-    *(a1 + 1) = v34;
-    *a1 = v21;
+    v23 = a1;
+    *(a1 + 1) = v35;
+    *a1 = v22;
     goto LABEL_48;
   }
 
-  v23 = *(a2 + 56);
-  if (v23 == 37)
+  v24 = *(a2 + 56);
+  if (v24 == 37)
   {
-    result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseShortCircuitExpression(&v27, a2, &v33, 37);
-    if (v29)
+    result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseShortCircuitExpression(&v28, a2, &v34, 37, 16);
+    if (v30)
     {
-      if (v29 != 1)
+      if (v30 != 1)
       {
         goto LABEL_69;
       }
 
-      result = v27;
-      if (v27)
+      result = v28;
+      if (v28)
       {
         goto LABEL_54;
       }
 
 LABEL_59:
-      v22 = a1;
+      v23 = a1;
       *a1 = 0;
-      *(a1 + 1) = v28;
+      *(a1 + 1) = v29;
 LABEL_48:
-      *(v22 + 24) = 1;
+      *(v23 + 24) = 1;
       goto LABEL_63;
     }
 
     goto LABEL_61;
   }
 
-  if (v23 != 65)
+  if (v24 != 65)
   {
-    v24 = v33;
+    v25 = v34;
 LABEL_62:
-    *a1 = v24;
+    *a1 = v25;
     *(a1 + 24) = 0;
     goto LABEL_63;
   }
 
-  result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseShortCircuitExpression(&v27, a2, &v33, 65);
-  if (!v29)
+  result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseShortCircuitExpression(&v28, a2, &v34, 65, 17);
+  if (!v30)
   {
 LABEL_61:
-    v24 = v27;
-    v33 = v27;
+    v25 = v28;
+    v34 = v28;
     goto LABEL_62;
   }
 
-  if (v29 != 1)
+  if (v30 != 1)
   {
     goto LABEL_69;
   }
 
-  result = v27;
-  if (!v27)
+  result = v28;
+  if (!v28)
   {
     goto LABEL_59;
   }
@@ -1240,7 +1244,7 @@ LABEL_61:
 LABEL_54:
   atomic_fetch_add_explicit(result, 2u, memory_order_relaxed);
   *a1 = result;
-  *(a1 + 1) = v28;
+  *(a1 + 1) = v29;
   *(a1 + 24) = 1;
   if (atomic_fetch_add_explicit(result, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
@@ -1248,14 +1252,14 @@ LABEL_54:
   }
 
 LABEL_63:
-  if (v35)
+  if (v36)
   {
-    if (v35 != 255)
+    if (v36 != 255)
     {
-      result = v33;
-      if (v33)
+      result = v34;
+      if (v34)
       {
-        if (atomic_fetch_add_explicit(v33, 0xFFFFFFFE, memory_order_relaxed) == 2)
+        if (atomic_fetch_add_explicit(v34, 0xFFFFFFFE, memory_order_relaxed) == 2)
         {
           result = WTF::StringImpl::destroy(result, v4);
         }
@@ -1264,12 +1268,12 @@ LABEL_63:
   }
 
 LABEL_37:
-  if (v32)
+  if (v33)
   {
-    if (v32 != 255)
+    if (v33 != 255)
     {
-      result = v30;
-      v30 = 0;
+      result = v31;
+      v31 = 0;
       if (result)
       {
         if (atomic_fetch_add_explicit(result, 0xFFFFFFFE, memory_order_relaxed) == 2)
@@ -1342,221 +1346,224 @@ LABEL_44:
         {
           if (v9 != 5)
           {
-            LODWORD(v131[0]) = 6;
-            *(v131 + 4) = *(a2 + 60);
-            v132 = *(a2 + 80);
-            v133 = 0;
+            *v145 = 6;
+            *&v145[4] = *(a2 + 60);
+            v146 = *(a2 + 80);
+            v147 = 0;
             while (1)
             {
-              v25 = *(a2 + 36);
-              v26 = (*(a2 + 40) + 1);
-              *(a2 + 40) = v26;
-              if (v25 <= v26)
+              v26 = *(a2 + 36);
+              v27 = (*(a2 + 40) + 1);
+              *(a2 + 40) = v27;
+              if (v26 <= v27)
               {
                 __break(0xC471u);
                 JUMPOUT(0x225774978);
               }
 
-              v27 = *(a2 + 24) + 32 * v26;
-              v23 = *v27;
-              *(a2 + 56) = *v27;
-              *(a2 + 60) = *(v27 + 4);
-              v28 = *v27;
-              if (*v27 <= 8u)
+              v28 = *(a2 + 24) + 32 * v27;
+              v24 = *v28;
+              *(a2 + 56) = *v28;
+              *(a2 + 60) = *(v28 + 4);
+              v29 = *v28;
+              if (*v28 <= 8u)
               {
-                if (((1 << v28) & 0x38) != 0)
+                if (((1 << v29) & 0x38) != 0)
                 {
-                  *(a2 + 80) = *(v27 + 24);
+                  *(a2 + 80) = *(v28 + 24);
                 }
 
-                else if (((1 << v28) & 0xC4) != 0)
+                else if (((1 << v29) & 0xC4) != 0)
                 {
-                  *(a2 + 80) = *(v27 + 24);
+                  *(a2 + 80) = *(v28 + 24);
                 }
 
                 else
                 {
-                  if (v28 != 8)
+                  if (v29 != 8)
                   {
                     goto LABEL_51;
                   }
 
                   *(a2 + 80) = 0;
-                  v29 = *(v27 + 24);
-                  if (v29)
+                  v30 = *(v28 + 24);
+                  if (v30)
                   {
-                    atomic_fetch_add_explicit(v29, 2u, memory_order_relaxed);
-                    v30 = *(a2 + 80);
-                    *(a2 + 80) = v29;
-                    if (v30)
+                    atomic_fetch_add_explicit(v30, 2u, memory_order_relaxed);
+                    v31 = *(a2 + 80);
+                    *(a2 + 80) = v30;
+                    if (v31)
                     {
-                      if (atomic_fetch_add_explicit(v30, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                      if (atomic_fetch_add_explicit(v31, 0xFFFFFFFE, memory_order_relaxed) == 2)
                       {
-                        WTF::StringImpl::destroy(v30, a2);
+                        WTF::StringImpl::destroy(v31, a2);
                       }
                     }
                   }
                 }
 
-                v23 = *(a2 + 56);
+                v24 = *(a2 + 56);
               }
 
 LABEL_51:
-              v24 = *(a2 + 68);
+              v25 = *(a2 + 68);
               *(a2 + 88) = *(a2 + 60);
-              *(a2 + 96) = v24;
-              if (v23 != 82)
+              *(a2 + 96) = v25;
+              if (v24 != 82)
               {
-                v128 = v4;
-                LODWORD(v129) = v5;
-                DWORD1(v129) = v24 - v5;
-                WGSL::AST::Builder::construct<WGSL::AST::Float32Literal,WGSL::SourceSpan,double &,void>();
+                v94 = *(a2 + 8);
+                v142 = v4;
+                LODWORD(v143) = v5;
+                DWORD1(v143) = v25 - v5;
+                WGSL::AST::Builder::construct<WGSL::AST::Float32Literal,WGSL::SourceSpan,double &,void>(v94, &v142, &v146);
               }
             }
           }
 
-          LODWORD(v131[0]) = 5;
-          *(v131 + 4) = *(a2 + 60);
-          v132 = *(a2 + 80);
-          v133 = 0;
+          *v145 = 5;
+          *&v145[4] = *(a2 + 60);
+          v146 = *(a2 + 80);
+          v147 = 0;
           while (1)
           {
-            v74 = *(a2 + 36);
-            v75 = (*(a2 + 40) + 1);
-            *(a2 + 40) = v75;
-            if (v74 <= v75)
+            v75 = *(a2 + 36);
+            v76 = (*(a2 + 40) + 1);
+            *(a2 + 40) = v76;
+            if (v75 <= v76)
             {
               __break(0xC471u);
               JUMPOUT(0x2257749A8);
             }
 
-            v76 = *(a2 + 24) + 32 * v75;
-            v72 = *v76;
-            *(a2 + 56) = *v76;
-            *(a2 + 60) = *(v76 + 4);
-            v77 = *v76;
-            if (*v76 <= 8u)
+            v77 = *(a2 + 24) + 32 * v76;
+            v73 = *v77;
+            *(a2 + 56) = *v77;
+            *(a2 + 60) = *(v77 + 4);
+            v78 = *v77;
+            if (*v77 <= 8u)
             {
-              if (((1 << v77) & 0x38) != 0)
+              if (((1 << v78) & 0x38) != 0)
               {
-                *(a2 + 80) = *(v76 + 24);
+                *(a2 + 80) = *(v77 + 24);
               }
 
-              else if (((1 << v77) & 0xC4) != 0)
+              else if (((1 << v78) & 0xC4) != 0)
               {
-                *(a2 + 80) = *(v76 + 24);
+                *(a2 + 80) = *(v77 + 24);
               }
 
               else
               {
-                if (v77 != 8)
+                if (v78 != 8)
                 {
                   goto LABEL_151;
                 }
 
                 *(a2 + 80) = 0;
-                v78 = *(v76 + 24);
-                if (v78)
+                v79 = *(v77 + 24);
+                if (v79)
                 {
-                  atomic_fetch_add_explicit(v78, 2u, memory_order_relaxed);
-                  v79 = *(a2 + 80);
-                  *(a2 + 80) = v78;
-                  if (v79)
+                  atomic_fetch_add_explicit(v79, 2u, memory_order_relaxed);
+                  v80 = *(a2 + 80);
+                  *(a2 + 80) = v79;
+                  if (v80)
                   {
-                    if (atomic_fetch_add_explicit(v79, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                    if (atomic_fetch_add_explicit(v80, 0xFFFFFFFE, memory_order_relaxed) == 2)
                     {
-                      WTF::StringImpl::destroy(v79, a2);
+                      WTF::StringImpl::destroy(v80, a2);
                     }
                   }
                 }
               }
 
-              v72 = *(a2 + 56);
+              v73 = *(a2 + 56);
             }
 
 LABEL_151:
-            v73 = *(a2 + 68);
+            v74 = *(a2 + 68);
             *(a2 + 88) = *(a2 + 60);
-            *(a2 + 96) = v73;
-            if (v72 != 82)
+            *(a2 + 96) = v74;
+            if (v73 != 82)
             {
-              v128 = v4;
-              LODWORD(v129) = v5;
-              DWORD1(v129) = v73 - v5;
-              WGSL::AST::Builder::construct<WGSL::AST::Unsigned32Literal,WGSL::SourceSpan,long long &,void>();
+              v95 = *(a2 + 8);
+              v142 = v4;
+              LODWORD(v143) = v5;
+              DWORD1(v143) = v74 - v5;
+              WGSL::AST::Builder::construct<WGSL::AST::Unsigned32Literal,WGSL::SourceSpan,long long &,void>(v95, &v142, &v146);
             }
           }
         }
 
-        LODWORD(v131[0]) = 4;
-        *(v131 + 4) = *(a2 + 60);
-        v132 = *(a2 + 80);
-        v133 = 0;
+        *v145 = 4;
+        *&v145[4] = *(a2 + 60);
+        v146 = *(a2 + 80);
+        v147 = 0;
         while (1)
         {
-          v58 = *(a2 + 36);
-          v59 = (*(a2 + 40) + 1);
-          *(a2 + 40) = v59;
-          if (v58 <= v59)
+          v59 = *(a2 + 36);
+          v60 = (*(a2 + 40) + 1);
+          *(a2 + 40) = v60;
+          if (v59 <= v60)
           {
             __break(0xC471u);
             JUMPOUT(0x225774998);
           }
 
-          v60 = *(a2 + 24) + 32 * v59;
-          v56 = *v60;
-          *(a2 + 56) = *v60;
-          *(a2 + 60) = *(v60 + 4);
-          v61 = *v60;
-          if (*v60 <= 8u)
+          v61 = *(a2 + 24) + 32 * v60;
+          v57 = *v61;
+          *(a2 + 56) = *v61;
+          *(a2 + 60) = *(v61 + 4);
+          v62 = *v61;
+          if (*v61 <= 8u)
           {
-            if (((1 << v61) & 0x38) != 0)
+            if (((1 << v62) & 0x38) != 0)
             {
-              *(a2 + 80) = *(v60 + 24);
+              *(a2 + 80) = *(v61 + 24);
             }
 
-            else if (((1 << v61) & 0xC4) != 0)
+            else if (((1 << v62) & 0xC4) != 0)
             {
-              *(a2 + 80) = *(v60 + 24);
+              *(a2 + 80) = *(v61 + 24);
             }
 
             else
             {
-              if (v61 != 8)
+              if (v62 != 8)
               {
                 goto LABEL_123;
               }
 
               *(a2 + 80) = 0;
-              v62 = *(v60 + 24);
-              if (v62)
+              v63 = *(v61 + 24);
+              if (v63)
               {
-                atomic_fetch_add_explicit(v62, 2u, memory_order_relaxed);
-                v63 = *(a2 + 80);
-                *(a2 + 80) = v62;
-                if (v63)
+                atomic_fetch_add_explicit(v63, 2u, memory_order_relaxed);
+                v64 = *(a2 + 80);
+                *(a2 + 80) = v63;
+                if (v64)
                 {
-                  if (atomic_fetch_add_explicit(v63, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                  if (atomic_fetch_add_explicit(v64, 0xFFFFFFFE, memory_order_relaxed) == 2)
                   {
-                    WTF::StringImpl::destroy(v63, a2);
+                    WTF::StringImpl::destroy(v64, a2);
                   }
                 }
               }
             }
 
-            v56 = *(a2 + 56);
+            v57 = *(a2 + 56);
           }
 
 LABEL_123:
-          v57 = *(a2 + 68);
+          v58 = *(a2 + 68);
           *(a2 + 88) = *(a2 + 60);
-          *(a2 + 96) = v57;
-          if (v56 != 82)
+          *(a2 + 96) = v58;
+          if (v57 != 82)
           {
-            v128 = v4;
-            LODWORD(v129) = v5;
-            DWORD1(v129) = v57 - v5;
-            WGSL::AST::Builder::construct<WGSL::AST::Signed32Literal,WGSL::SourceSpan,long long &,void>();
+            v92 = *(a2 + 8);
+            v142 = v4;
+            LODWORD(v143) = v5;
+            DWORD1(v143) = v58 - v5;
+            WGSL::AST::Builder::construct<WGSL::AST::Signed32Literal,WGSL::SourceSpan,long long &,void>(v92, &v142, &v146);
           }
         }
       }
@@ -1565,154 +1572,156 @@ LABEL_123:
       {
         if (v9 == 3)
         {
-          LODWORD(v131[0]) = 3;
-          *(v131 + 4) = *(a2 + 60);
-          v132 = *(a2 + 80);
-          v133 = 0;
+          *v145 = 3;
+          *&v145[4] = *(a2 + 60);
+          v146 = *(a2 + 80);
+          v147 = 0;
           while (1)
           {
-            v41 = *(a2 + 36);
-            v42 = (*(a2 + 40) + 1);
-            *(a2 + 40) = v42;
-            if (v41 <= v42)
+            v42 = *(a2 + 36);
+            v43 = (*(a2 + 40) + 1);
+            *(a2 + 40) = v43;
+            if (v42 <= v43)
             {
               __break(0xC471u);
               JUMPOUT(0x225774988);
             }
 
-            v43 = *(a2 + 24) + 32 * v42;
-            v39 = *v43;
-            *(a2 + 56) = *v43;
-            *(a2 + 60) = *(v43 + 4);
-            v44 = *v43;
-            if (*v43 <= 8u)
+            v44 = *(a2 + 24) + 32 * v43;
+            v40 = *v44;
+            *(a2 + 56) = *v44;
+            *(a2 + 60) = *(v44 + 4);
+            v45 = *v44;
+            if (*v44 <= 8u)
             {
-              if (((1 << v44) & 0x38) != 0)
+              if (((1 << v45) & 0x38) != 0)
               {
-                *(a2 + 80) = *(v43 + 24);
+                *(a2 + 80) = *(v44 + 24);
               }
 
-              else if (((1 << v44) & 0xC4) != 0)
+              else if (((1 << v45) & 0xC4) != 0)
               {
-                *(a2 + 80) = *(v43 + 24);
+                *(a2 + 80) = *(v44 + 24);
               }
 
               else
               {
-                if (v44 != 8)
+                if (v45 != 8)
                 {
                   goto LABEL_85;
                 }
 
                 *(a2 + 80) = 0;
-                v45 = *(v43 + 24);
-                if (v45)
+                v46 = *(v44 + 24);
+                if (v46)
                 {
-                  atomic_fetch_add_explicit(v45, 2u, memory_order_relaxed);
-                  v46 = *(a2 + 80);
-                  *(a2 + 80) = v45;
-                  if (v46)
+                  atomic_fetch_add_explicit(v46, 2u, memory_order_relaxed);
+                  v47 = *(a2 + 80);
+                  *(a2 + 80) = v46;
+                  if (v47)
                   {
-                    if (atomic_fetch_add_explicit(v46, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                    if (atomic_fetch_add_explicit(v47, 0xFFFFFFFE, memory_order_relaxed) == 2)
                     {
-                      WTF::StringImpl::destroy(v46, a2);
+                      WTF::StringImpl::destroy(v47, a2);
                     }
                   }
                 }
               }
 
-              v39 = *(a2 + 56);
+              v40 = *(a2 + 56);
             }
 
 LABEL_85:
-            v40 = *(a2 + 68);
+            v41 = *(a2 + 68);
             *(a2 + 88) = *(a2 + 60);
-            *(a2 + 96) = v40;
-            if (v39 != 82)
+            *(a2 + 96) = v41;
+            if (v40 != 82)
             {
-              v128 = v4;
-              LODWORD(v129) = v5;
-              DWORD1(v129) = v40 - v5;
-              WGSL::AST::Builder::construct<WGSL::AST::AbstractIntegerLiteral,WGSL::SourceSpan,long long &,void>();
+              v90 = *(a2 + 8);
+              v142 = v4;
+              LODWORD(v143) = v5;
+              DWORD1(v143) = v41 - v5;
+              WGSL::AST::Builder::construct<WGSL::AST::AbstractIntegerLiteral,WGSL::SourceSpan,long long &,void>(v90, &v142, &v146);
             }
           }
         }
 
 LABEL_176:
         result = WTF::StringImpl::createWithoutCopyingNonEmpty();
-        v88 = v5 | ((*(a2 + 96) - v5) << 32);
+        v89 = v5 | ((*(a2 + 96) - v5) << 32);
         goto LABEL_177;
       }
 
-      LODWORD(v131[0]) = 2;
-      *(v131 + 4) = *(a2 + 60);
-      v132 = *(a2 + 80);
-      v133 = 0;
+      *v145 = 2;
+      *&v145[4] = *(a2 + 60);
+      v146 = *(a2 + 80);
+      v147 = 0;
       while (1)
       {
-        v50 = *(a2 + 36);
-        v51 = (*(a2 + 40) + 1);
-        *(a2 + 40) = v51;
-        if (v50 <= v51)
+        v51 = *(a2 + 36);
+        v52 = (*(a2 + 40) + 1);
+        *(a2 + 40) = v52;
+        if (v51 <= v52)
         {
           __break(0xC471u);
           JUMPOUT(0x225774990);
         }
 
-        v52 = *(a2 + 24) + 32 * v51;
-        v48 = *v52;
-        *(a2 + 56) = *v52;
-        *(a2 + 60) = *(v52 + 4);
-        v53 = *v52;
-        if (*v52 <= 8u)
+        v53 = *(a2 + 24) + 32 * v52;
+        v49 = *v53;
+        *(a2 + 56) = *v53;
+        *(a2 + 60) = *(v53 + 4);
+        v54 = *v53;
+        if (*v53 <= 8u)
         {
-          if (((1 << v53) & 0x38) != 0)
+          if (((1 << v54) & 0x38) != 0)
           {
-            *(a2 + 80) = *(v52 + 24);
+            *(a2 + 80) = *(v53 + 24);
           }
 
-          else if (((1 << v53) & 0xC4) != 0)
+          else if (((1 << v54) & 0xC4) != 0)
           {
-            *(a2 + 80) = *(v52 + 24);
+            *(a2 + 80) = *(v53 + 24);
           }
 
           else
           {
-            if (v53 != 8)
+            if (v54 != 8)
             {
               goto LABEL_107;
             }
 
             *(a2 + 80) = 0;
-            v54 = *(v52 + 24);
-            if (v54)
+            v55 = *(v53 + 24);
+            if (v55)
             {
-              atomic_fetch_add_explicit(v54, 2u, memory_order_relaxed);
-              v55 = *(a2 + 80);
-              *(a2 + 80) = v54;
-              if (v55)
+              atomic_fetch_add_explicit(v55, 2u, memory_order_relaxed);
+              v56 = *(a2 + 80);
+              *(a2 + 80) = v55;
+              if (v56)
               {
-                if (atomic_fetch_add_explicit(v55, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                if (atomic_fetch_add_explicit(v56, 0xFFFFFFFE, memory_order_relaxed) == 2)
                 {
-                  WTF::StringImpl::destroy(v55, a2);
+                  WTF::StringImpl::destroy(v56, a2);
                 }
               }
             }
           }
 
-          v48 = *(a2 + 56);
+          v49 = *(a2 + 56);
         }
 
 LABEL_107:
-        v49 = *(a2 + 68);
+        v50 = *(a2 + 68);
         *(a2 + 88) = *(a2 + 60);
-        *(a2 + 96) = v49;
-        if (v48 != 82)
+        *(a2 + 96) = v50;
+        if (v49 != 82)
         {
-          v128 = v4;
-          LODWORD(v129) = v5;
-          DWORD1(v129) = v49 - v5;
-          WGSL::AST::Builder::construct<WGSL::AST::AbstractFloatLiteral,WGSL::SourceSpan,double &,void>();
+          v91 = *(a2 + 8);
+          v142 = v4;
+          LODWORD(v143) = v5;
+          DWORD1(v143) = v50 - v5;
+          WGSL::AST::Builder::construct<WGSL::AST::AbstractFloatLiteral,WGSL::SourceSpan,double &,void>(v91, &v142, &v146);
         }
       }
     }
@@ -1730,78 +1739,78 @@ LABEL_107:
 
           while (1)
           {
-            v33 = *(a2 + 36);
-            v34 = (*(a2 + 40) + 1);
-            *(a2 + 40) = v34;
-            if (v33 <= v34)
+            v34 = *(a2 + 36);
+            v35 = (*(a2 + 40) + 1);
+            *(a2 + 40) = v35;
+            if (v34 <= v35)
             {
               __break(0xC471u);
               JUMPOUT(0x225774980);
             }
 
-            v35 = *(a2 + 24) + 32 * v34;
-            v31 = *v35;
-            *(a2 + 56) = *v35;
-            *(a2 + 60) = *(v35 + 4);
-            v36 = *v35;
-            if (*v35 > 8u)
+            v36 = *(a2 + 24) + 32 * v35;
+            v32 = *v36;
+            *(a2 + 56) = *v36;
+            *(a2 + 60) = *(v36 + 4);
+            v37 = *v36;
+            if (*v36 > 8u)
             {
               goto LABEL_69;
             }
 
-            if (((1 << v36) & 0x38) != 0)
+            if (((1 << v37) & 0x38) != 0)
             {
-              *(a2 + 80) = *(v35 + 24);
+              *(a2 + 80) = *(v36 + 24);
             }
 
-            else if (((1 << v36) & 0xC4) != 0)
+            else if (((1 << v37) & 0xC4) != 0)
             {
-              *(a2 + 80) = *(v35 + 24);
+              *(a2 + 80) = *(v36 + 24);
             }
 
             else
             {
-              if (v36 != 8)
+              if (v37 != 8)
               {
                 goto LABEL_69;
               }
 
               *(a2 + 80) = 0;
-              v37 = *(v35 + 24);
-              if (v37)
+              v38 = *(v36 + 24);
+              if (v38)
               {
-                atomic_fetch_add_explicit(v37, 2u, memory_order_relaxed);
-                v38 = *(a2 + 80);
-                *(a2 + 80) = v37;
-                if (v38)
+                atomic_fetch_add_explicit(v38, 2u, memory_order_relaxed);
+                v39 = *(a2 + 80);
+                *(a2 + 80) = v38;
+                if (v39)
                 {
-                  if (atomic_fetch_add_explicit(v38, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                  if (atomic_fetch_add_explicit(v39, 0xFFFFFFFE, memory_order_relaxed) == 2)
                   {
-                    WTF::StringImpl::destroy(v38, a2);
+                    WTF::StringImpl::destroy(v39, a2);
                   }
                 }
               }
             }
 
-            v31 = *(a2 + 56);
+            v32 = *(a2 + 56);
 LABEL_69:
-            v32 = *(a2 + 68);
+            v33 = *(a2 + 68);
             *(a2 + 88) = *(a2 + 60);
-            *(a2 + 96) = v32;
-            if (v31 != 82)
+            *(a2 + 96) = v33;
+            if (v32 != 82)
             {
-              result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseExpression(v131, a2);
-              if (v132)
+              result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseExpression(v145, a2);
+              if (v146)
               {
-                if (v132 == 1)
+                if (v146 == 1)
                 {
-                  result = v131[0];
-                  if (v131[0])
+                  result = *v145;
+                  if (*v145)
                   {
-                    atomic_fetch_add_explicit(v131[0], 2u, memory_order_relaxed);
-                    v122 = *&v131[1];
-                    v121 = result;
-                    v123 = 1;
+                    atomic_fetch_add_explicit(*v145, 2u, memory_order_relaxed);
+                    v136 = *&v145[8];
+                    v135 = result;
+                    v137 = 1;
                     if (atomic_fetch_add_explicit(result, 0xFFFFFFFE, memory_order_relaxed) != 2)
                     {
                       goto LABEL_192;
@@ -1812,10 +1821,10 @@ LABEL_285:
                     goto LABEL_192;
                   }
 
-                  v122 = *&v131[1];
-                  v121 = 0;
+                  v136 = *&v145[8];
+                  v135 = 0;
 LABEL_178:
-                  v123 = 1;
+                  v137 = 1;
                   goto LABEL_192;
                 }
 
@@ -1827,43 +1836,43 @@ LABEL_297:
               {
                 while (2)
                 {
-                  v99 = *(a2 + 36);
-                  v100 = (*(a2 + 40) + 1);
-                  *(a2 + 40) = v100;
-                  if (v99 <= v100)
+                  v107 = *(a2 + 36);
+                  v108 = (*(a2 + 40) + 1);
+                  *(a2 + 40) = v108;
+                  if (v107 <= v108)
                   {
                     __break(0xC471u);
                     JUMPOUT(0x2257749E8);
                   }
 
-                  v101 = *(a2 + 24) + 32 * v100;
-                  v97 = *v101;
-                  *(a2 + 56) = *v101;
-                  *(a2 + 60) = *(v101 + 4);
-                  v102 = *v101;
-                  if (*v101 <= 8u)
+                  v109 = *(a2 + 24) + 32 * v108;
+                  v105 = *v109;
+                  *(a2 + 56) = *v109;
+                  *(a2 + 60) = *(v109 + 4);
+                  v110 = *v109;
+                  if (*v109 <= 8u)
                   {
-                    if (((1 << v102) & 0x38) != 0)
+                    if (((1 << v110) & 0x38) != 0)
                     {
-                      *(a2 + 80) = *(v101 + 24);
+                      *(a2 + 80) = *(v109 + 24);
                       goto LABEL_226;
                     }
 
-                    if (((1 << v102) & 0xC4) != 0)
+                    if (((1 << v110) & 0xC4) != 0)
                     {
-                      *(a2 + 80) = *(v101 + 24);
+                      *(a2 + 80) = *(v109 + 24);
                       goto LABEL_226;
                     }
 
-                    if (v102 == 8)
+                    if (v110 == 8)
                     {
                       *(a2 + 80) = 0;
-                      v103 = *(v101 + 24);
-                      if (v103)
+                      v111 = *(v109 + 24);
+                      if (v111)
                       {
-                        atomic_fetch_add_explicit(v103, 2u, memory_order_relaxed);
+                        atomic_fetch_add_explicit(v111, 2u, memory_order_relaxed);
                         result = *(a2 + 80);
-                        *(a2 + 80) = v103;
+                        *(a2 + 80) = v111;
                         if (result)
                         {
                           if (atomic_fetch_add_explicit(result, 0xFFFFFFFE, memory_order_relaxed) == 2)
@@ -1874,17 +1883,17 @@ LABEL_297:
                       }
 
 LABEL_226:
-                      v97 = *(a2 + 56);
+                      v105 = *(a2 + 56);
                     }
                   }
 
-                  v98 = *(a2 + 68);
+                  v106 = *(a2 + 68);
                   *(a2 + 88) = *(a2 + 60);
-                  *(a2 + 96) = v98;
-                  if (v97 != 82)
+                  *(a2 + 96) = v106;
+                  if (v105 != 82)
                   {
-                    v121 = v131[0];
-                    v123 = 0;
+                    v135 = *v145;
+                    v137 = 0;
                     goto LABEL_192;
                   }
 
@@ -1894,20 +1903,20 @@ LABEL_226:
 
               WGSL::toString();
               WGSL::toString();
-              if (v125)
+              if (v139)
               {
-                v106 = *(v125 + 1);
+                v114 = *(v139 + 1);
               }
 
               else
               {
-                v106 = 0;
+                v114 = 0;
               }
 
-              if (v124)
+              if (v138)
               {
-                v109 = *(v124 + 1);
-                if (v109 < 0)
+                v117 = *(v138 + 4);
+                if (v117 < 0)
                 {
                   goto LABEL_311;
                 }
@@ -1915,63 +1924,65 @@ LABEL_226:
 
               else
               {
-                v109 = 0;
+                v117 = 0;
               }
 
-              v110 = __OFADD__(v109, 12);
-              v111 = v109 + 12;
-              v112 = v110;
-              if ((v106 & 0x80000000) == 0 && (v112 & 1) == 0)
+              v118 = __OFADD__(v117, 12);
+              v119 = v117 + 12;
+              v120 = v118;
+              if ((v114 & 0x80000000) == 0 && (v120 & 1) == 0)
               {
-                v110 = __OFADD__(v106, v111);
-                v113 = v106 + v111;
-                if (!v110)
+                v118 = __OFADD__(v114, v119);
+                v121 = v114 + v119;
+                if (!v118)
                 {
-                  v114 = (v113 + 11);
-                  if (!__OFADD__(v113, 11))
+                  v122 = (v121 + 11);
+                  if (!__OFADD__(v121, 11))
                   {
-                    if (v125)
+                    if (v139)
                     {
-                      v115 = *(v125 + 4);
-                      v116 = (v115 >> 2) & 1;
-                      if (!v124 || (v115 & 4) == 0)
+                      v123 = *(v139 + 4);
+                      v124 = (v123 >> 2) & 1;
+                      if (!v138 || (v123 & 4) == 0)
                       {
 LABEL_287:
-                        WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>>(v114, v116, "Expected a ", 0xBuLL, v125, ", but got a ", 0xCuLL, v124, &v128);
-                        v120 = v128;
-                        if (!v128)
+                        WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>>(v122, v124, "Expected a ", 0xBuLL, v139, ", but got a ", 0xCuLL, &v142, v138);
+                        v133 = v142;
+                        if (!v142)
                         {
                           goto LABEL_311;
                         }
 
-                        if (v124 && atomic_fetch_add_explicit(v124, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                        v134 = v138;
+                        *&v138 = 0;
+                        if (v134 && atomic_fetch_add_explicit(v134, 0xFFFFFFFE, memory_order_relaxed) == 2)
                         {
-                          WTF::StringImpl::destroy(v124, v20);
+                          WTF::StringImpl::destroy(v134, v20);
                         }
 
-                        result = v125;
-                        v125 = 0;
+                        result = v139;
+                        v139 = 0;
                         if (result && atomic_fetch_add_explicit(result, 0xFFFFFFFE, memory_order_relaxed) == 2)
                         {
                           result = WTF::StringImpl::destroy(result, v20);
                         }
 
-                        v88 = v5 | ((*(a2 + 96) - v5) << 32);
-                        v121 = v120;
+                        v89 = v5 | ((*(a2 + 96) - v5) << 32);
+                        v135 = v133;
 LABEL_177:
-                        *&v122 = v4;
-                        *(&v122 + 1) = v88;
+                        *&v136 = v4;
+                        *(&v136 + 1) = v89;
                         goto LABEL_178;
                       }
                     }
 
-                    else if (!v124)
+                    else if (!v138)
                     {
-                      v116 = 1;
+                      v124 = 1;
                       goto LABEL_287;
                     }
 
-                    v116 = (*(v124 + 16) >> 2) & 1;
+                    v124 = (*(v138 + 16) >> 2) & 1;
                     goto LABEL_287;
                   }
                 }
@@ -1987,142 +1998,144 @@ LABEL_312:
 
         while (1)
         {
-          v82 = *(a2 + 36);
-          v83 = (*(a2 + 40) + 1);
-          *(a2 + 40) = v83;
-          if (v82 <= v83)
+          v83 = *(a2 + 36);
+          v84 = (*(a2 + 40) + 1);
+          *(a2 + 40) = v84;
+          if (v83 <= v84)
           {
             __break(0xC471u);
             JUMPOUT(0x2257749B0);
           }
 
-          v84 = *(a2 + 24) + 32 * v83;
-          v80 = *v84;
-          *(a2 + 56) = *v84;
-          *(a2 + 60) = *(v84 + 4);
-          v85 = *v84;
-          if (*v84 > 8u)
+          v85 = *(a2 + 24) + 32 * v84;
+          v81 = *v85;
+          *(a2 + 56) = *v85;
+          *(a2 + 60) = *(v85 + 4);
+          v86 = *v85;
+          if (*v85 > 8u)
           {
             goto LABEL_165;
           }
 
-          if (((1 << v85) & 0x38) != 0)
+          if (((1 << v86) & 0x38) != 0)
           {
-            *(a2 + 80) = *(v84 + 24);
+            *(a2 + 80) = *(v85 + 24);
           }
 
-          else if (((1 << v85) & 0xC4) != 0)
+          else if (((1 << v86) & 0xC4) != 0)
           {
-            *(a2 + 80) = *(v84 + 24);
+            *(a2 + 80) = *(v85 + 24);
           }
 
           else
           {
-            if (v85 != 8)
+            if (v86 != 8)
             {
               goto LABEL_165;
             }
 
             *(a2 + 80) = 0;
-            v86 = *(v84 + 24);
-            if (v86)
+            v87 = *(v85 + 24);
+            if (v87)
             {
-              atomic_fetch_add_explicit(v86, 2u, memory_order_relaxed);
-              v87 = *(a2 + 80);
-              *(a2 + 80) = v86;
-              if (v87)
+              atomic_fetch_add_explicit(v87, 2u, memory_order_relaxed);
+              v88 = *(a2 + 80);
+              *(a2 + 80) = v87;
+              if (v88)
               {
-                if (atomic_fetch_add_explicit(v87, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                if (atomic_fetch_add_explicit(v88, 0xFFFFFFFE, memory_order_relaxed) == 2)
                 {
-                  WTF::StringImpl::destroy(v87, a2);
+                  WTF::StringImpl::destroy(v88, a2);
                 }
               }
             }
           }
 
-          v80 = *(a2 + 56);
+          v81 = *(a2 + 56);
 LABEL_165:
-          v81 = *(a2 + 68);
+          v82 = *(a2 + 68);
           *(a2 + 88) = *(a2 + 60);
-          *(a2 + 96) = v81;
-          if (v80 != 82)
+          *(a2 + 96) = v82;
+          if (v81 != 82)
           {
-            v131[0] = v4;
-            LODWORD(v131[1]) = v5;
-            HIDWORD(v131[1]) = v81 - v5;
-            LOBYTE(v128) = 1;
+            v93 = *(a2 + 8);
+            *v145 = v4;
+            *&v145[8] = v5;
+            *&v145[12] = v82 - v5;
+            LOBYTE(v142) = 1;
 LABEL_191:
-            WGSL::AST::Builder::construct<WGSL::AST::BoolLiteral,WGSL::SourceSpan,BOOL,void>();
+            WGSL::AST::Builder::construct<WGSL::AST::BoolLiteral,WGSL::SourceSpan,BOOL,void>(v93, v145, &v142);
           }
         }
       }
 
       while (1)
       {
-        v66 = *(a2 + 36);
-        v67 = (*(a2 + 40) + 1);
-        *(a2 + 40) = v67;
-        if (v66 <= v67)
+        v67 = *(a2 + 36);
+        v68 = (*(a2 + 40) + 1);
+        *(a2 + 40) = v68;
+        if (v67 <= v68)
         {
           __break(0xC471u);
           JUMPOUT(0x2257749A0);
         }
 
-        v68 = *(a2 + 24) + 32 * v67;
-        v64 = *v68;
-        *(a2 + 56) = *v68;
-        *(a2 + 60) = *(v68 + 4);
-        v69 = *v68;
-        if (*v68 > 8u)
+        v69 = *(a2 + 24) + 32 * v68;
+        v65 = *v69;
+        *(a2 + 56) = *v69;
+        *(a2 + 60) = *(v69 + 4);
+        v70 = *v69;
+        if (*v69 > 8u)
         {
           goto LABEL_137;
         }
 
-        if (((1 << v69) & 0x38) != 0)
+        if (((1 << v70) & 0x38) != 0)
         {
-          *(a2 + 80) = *(v68 + 24);
+          *(a2 + 80) = *(v69 + 24);
         }
 
-        else if (((1 << v69) & 0xC4) != 0)
+        else if (((1 << v70) & 0xC4) != 0)
         {
-          *(a2 + 80) = *(v68 + 24);
+          *(a2 + 80) = *(v69 + 24);
         }
 
         else
         {
-          if (v69 != 8)
+          if (v70 != 8)
           {
             goto LABEL_137;
           }
 
           *(a2 + 80) = 0;
-          v70 = *(v68 + 24);
-          if (v70)
+          v71 = *(v69 + 24);
+          if (v71)
           {
-            atomic_fetch_add_explicit(v70, 2u, memory_order_relaxed);
-            v71 = *(a2 + 80);
-            *(a2 + 80) = v70;
-            if (v71)
+            atomic_fetch_add_explicit(v71, 2u, memory_order_relaxed);
+            v72 = *(a2 + 80);
+            *(a2 + 80) = v71;
+            if (v72)
             {
-              if (atomic_fetch_add_explicit(v71, 0xFFFFFFFE, memory_order_relaxed) == 2)
+              if (atomic_fetch_add_explicit(v72, 0xFFFFFFFE, memory_order_relaxed) == 2)
               {
-                WTF::StringImpl::destroy(v71, a2);
+                WTF::StringImpl::destroy(v72, a2);
               }
             }
           }
         }
 
-        v64 = *(a2 + 56);
+        v65 = *(a2 + 56);
 LABEL_137:
-        v65 = *(a2 + 68);
+        v66 = *(a2 + 68);
         *(a2 + 88) = *(a2 + 60);
-        *(a2 + 96) = v65;
-        if (v64 != 82)
+        *(a2 + 96) = v66;
+        if (v65 != 82)
         {
-          v131[0] = v4;
-          LODWORD(v131[1]) = v5;
-          HIDWORD(v131[1]) = v65 - v5;
-          LOBYTE(v128) = 0;
+          v93 = *(a2 + 8);
+          *v145 = v4;
+          *&v145[8] = v5;
+          *&v145[12] = v66 - v5;
+          LOBYTE(v142) = 0;
           goto LABEL_191;
         }
       }
@@ -2135,44 +2148,44 @@ LABEL_137:
         goto LABEL_176;
       }
 
-      result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseIdentifier(v131, a2);
-      if (v133)
+      result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseIdentifier(v145, a2);
+      if (v147)
       {
-        if (v133 != 1)
+        if (v147 != 1)
         {
           goto LABEL_297;
         }
 
-        v47 = v131[0];
-        if (v131[0])
+        v48 = *v145;
+        if (*v145)
         {
-          atomic_fetch_add_explicit(v131[0], 2u, memory_order_relaxed);
+          atomic_fetch_add_explicit(*v145, 2u, memory_order_relaxed);
         }
 
-        v122 = *&v131[1];
-        v121 = v47;
+        v136 = *&v145[8];
+        v135 = v48;
 LABEL_103:
-        v123 = 1;
+        v137 = 1;
         goto LABEL_279;
       }
 
-      if (MEMORY[0x22AA683D0](v132, "array", 5))
+      if (MEMORY[0x22AA683D0](v146, "array", 5))
       {
-        result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseArrayType(&v128, a2);
-        if (v130)
+        result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseArrayType(&v142, a2);
+        if (v144)
         {
-          if (v130 != 1)
+          if (v144 != 1)
           {
             goto LABEL_297;
           }
 
-          result = v128;
-          if (v128)
+          result = v142;
+          if (v142)
           {
-            atomic_fetch_add_explicit(v128, 2u, memory_order_relaxed);
-            v122 = v129;
-            v121 = result;
-            v123 = 1;
+            atomic_fetch_add_explicit(v142, 2u, memory_order_relaxed);
+            v136 = v143;
+            v135 = result;
+            v137 = 1;
             if (atomic_fetch_add_explicit(result, 0xFFFFFFFE, memory_order_relaxed) == 2)
             {
               result = WTF::StringImpl::destroy(result, v20);
@@ -2181,101 +2194,110 @@ LABEL_103:
             goto LABEL_279;
           }
 
-          v122 = v129;
-          v121 = 0;
+          v136 = v143;
+          v135 = 0;
           goto LABEL_103;
         }
 
-        result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseArgumentExpressionList(&v125, a2);
-        if (!v127)
+        result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseArgumentExpressionList(&v139, a2);
+        if (!v141)
         {
-          WGSL::AST::Builder::construct<WGSL::AST::CallExpression,WGSL::SourceSpan,std::reference_wrapper<WGSL::AST::Expression>,WTF::ReferenceWrapperVector<WGSL::AST::Expression,0ul>,void>();
+          v129 = *(a2 + 8);
+          v130 = *(a2 + 96) - v5;
+          *&v138 = v4;
+          *(&v138 + 1) = __PAIR64__(v130, v5);
+          WGSL::AST::Builder::construct<WGSL::AST::CallExpression,WGSL::SourceSpan,std::reference_wrapper<WGSL::AST::Expression>,WTF::ReferenceWrapperVector<WGSL::AST::Expression,0ul>,void>(v129, &v138, &v142, &v139);
         }
 
-        if (v127 != 1)
+        if (v141 != 1)
         {
           goto LABEL_297;
         }
 
-        v108 = v125;
-        if (v125)
+        v116 = v139;
+        if (v139)
         {
-          atomic_fetch_add_explicit(v125, 2u, memory_order_relaxed);
+          atomic_fetch_add_explicit(v139, 2u, memory_order_relaxed);
         }
 
-        v122 = v126;
-        v121 = v108;
-        v123 = 1;
-        result = std::experimental::fundamentals_v3::expected<WTF::ReferenceWrapperVector<WGSL::AST::Attribute,0ul>,WGSL::CompilationMessage>::~expected(&v125, v107);
+        v136 = v140;
+        v135 = v116;
+        v137 = 1;
+        result = std::experimental::fundamentals_v3::expected<WTF::ReferenceWrapperVector<WGSL::AST::Attribute,0ul>,WGSL::CompilationMessage>::~expected(&v139, v115);
       }
 
       else
       {
         if ((*(a2 + 56) | 0x10) != 0x53)
         {
-          v117 = *(a2 + 96) - v5;
-          v128 = v4;
-          *&v129 = __PAIR64__(v117, v5);
-          WGSL::AST::Builder::construct<WGSL::AST::IdentifierExpression,WGSL::SourceSpan,WGSL::AST::Identifier,void>();
+          v125 = *(a2 + 8);
+          v126 = *(a2 + 96) - v5;
+          v142 = v4;
+          *&v143 = __PAIR64__(v126, v5);
+          WGSL::AST::Builder::construct<WGSL::AST::IdentifierExpression,WGSL::SourceSpan,WGSL::AST::Identifier,void>(v125, &v142, v145);
         }
 
-        result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseTypeNameAfterIdentifier(&v128, a2, v131, v4, v5);
-        if (v130)
+        result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseTypeNameAfterIdentifier(&v142, a2, v145, v4, v5);
+        if (v144)
         {
-          if (v130 != 1)
+          if (v144 != 1)
           {
             goto LABEL_297;
           }
 
-          v105 = v128;
-          if (v128)
+          v113 = v142;
+          if (v142)
           {
-            atomic_fetch_add_explicit(v128, 2u, memory_order_relaxed);
+            atomic_fetch_add_explicit(v142, 2u, memory_order_relaxed);
           }
 
-          v122 = v129;
-          v121 = v105;
-          v123 = 1;
+          v136 = v143;
+          v135 = v113;
+          v137 = 1;
         }
 
         else
         {
-          result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseArgumentExpressionList(&v125, a2);
-          if (!v127)
+          result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseArgumentExpressionList(&v139, a2);
+          if (!v141)
           {
-            WGSL::AST::Builder::construct<WGSL::AST::CallExpression,WGSL::SourceSpan,std::reference_wrapper<WGSL::AST::Expression>,WTF::ReferenceWrapperVector<WGSL::AST::Expression,0ul>,void>();
+            v131 = *(a2 + 8);
+            v132 = *(a2 + 96) - v5;
+            *&v138 = v4;
+            *(&v138 + 1) = __PAIR64__(v132, v5);
+            WGSL::AST::Builder::construct<WGSL::AST::CallExpression,WGSL::SourceSpan,std::reference_wrapper<WGSL::AST::Expression>,WTF::ReferenceWrapperVector<WGSL::AST::Expression,0ul>,void>(v131, &v138, &v142, &v139);
           }
 
-          if (v127 != 1)
+          if (v141 != 1)
           {
             goto LABEL_297;
           }
 
-          v119 = v125;
-          if (v125)
+          v128 = v139;
+          if (v139)
           {
-            atomic_fetch_add_explicit(v125, 2u, memory_order_relaxed);
+            atomic_fetch_add_explicit(v139, 2u, memory_order_relaxed);
           }
 
-          v122 = v126;
-          v121 = v119;
-          v123 = 1;
-          std::experimental::fundamentals_v3::expected<WTF::ReferenceWrapperVector<WGSL::AST::Attribute,0ul>,WGSL::CompilationMessage>::~expected(&v125, v118);
+          v136 = v140;
+          v135 = v128;
+          v137 = 1;
+          std::experimental::fundamentals_v3::expected<WTF::ReferenceWrapperVector<WGSL::AST::Attribute,0ul>,WGSL::CompilationMessage>::~expected(&v139, v127);
         }
 
-        result = std::experimental::fundamentals_v3::expected<std::reference_wrapper<WGSL::AST::Expression>,WGSL::CompilationMessage>::~expected(&v128, v104);
+        result = std::experimental::fundamentals_v3::expected<std::reference_wrapper<WGSL::AST::Expression>,WGSL::CompilationMessage>::~expected(&v142, v112);
       }
 
 LABEL_279:
-      if (v133 == 255)
+      if (v147 == 255)
       {
         goto LABEL_192;
       }
 
-      if (v133)
+      if (v147)
       {
-        result = v131[0];
-        v131[0] = 0;
+        result = *v145;
+        *v145 = 0;
         if (!result)
         {
           goto LABEL_192;
@@ -2284,9 +2306,9 @@ LABEL_279:
 
       else
       {
-        result = v132;
-        v131[0] = off_2838D37C0;
-        v132 = 0;
+        result = v146;
+        *v145 = off_2838D37C0;
+        v146 = 0;
         if (!result)
         {
           goto LABEL_192;
@@ -2299,32 +2321,32 @@ LABEL_279:
       }
 
 LABEL_192:
-      if (v123)
+      if (v137)
       {
-        if (v123 != 1)
+        if (v137 != 1)
         {
           goto LABEL_297;
         }
 
-        if (v121)
+        if (v135)
         {
-          atomic_fetch_add_explicit(v121, 2u, memory_order_relaxed);
+          atomic_fetch_add_explicit(v135, 2u, memory_order_relaxed);
         }
 
-        *(a1 + 8) = v122;
-        *a1 = v121;
+        *(a1 + 8) = v136;
+        *a1 = v135;
         *(a1 + 24) = 1;
       }
 
       else
       {
-        result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parsePostfixExpression(a1, a2, v121, v4, v5);
+        result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parsePostfixExpression(a1, a2, v135, v4, v5);
       }
 
-      if (v123)
+      if (v137)
       {
-        result = v121;
-        if (v121)
+        result = v135;
+        if (v135)
         {
           goto LABEL_42;
         }
@@ -2338,75 +2360,76 @@ LABEL_192:
       goto LABEL_176;
     }
 
-    LODWORD(v131[0]) = 7;
-    *(v131 + 4) = *(a2 + 60);
-    v132 = *(a2 + 80);
-    v133 = 0;
+    *v145 = 7;
+    *&v145[4] = *(a2 + 60);
+    v146 = *(a2 + 80);
+    v147 = 0;
     while (1)
     {
-      v91 = *(a2 + 36);
-      v92 = (*(a2 + 40) + 1);
-      *(a2 + 40) = v92;
-      if (v91 <= v92)
+      v98 = *(a2 + 36);
+      v99 = (*(a2 + 40) + 1);
+      *(a2 + 40) = v99;
+      if (v98 <= v99)
       {
         __break(0xC471u);
         JUMPOUT(0x2257749D8);
       }
 
-      v93 = *(a2 + 24) + 32 * v92;
-      v89 = *v93;
-      *(a2 + 56) = *v93;
-      *(a2 + 60) = *(v93 + 4);
-      v94 = *v93;
-      if (*v93 <= 8u)
+      v100 = *(a2 + 24) + 32 * v99;
+      v96 = *v100;
+      *(a2 + 56) = *v100;
+      *(a2 + 60) = *(v100 + 4);
+      v101 = *v100;
+      if (*v100 <= 8u)
       {
-        if (((1 << v94) & 0x38) != 0)
+        if (((1 << v101) & 0x38) != 0)
         {
-          *(a2 + 80) = *(v93 + 24);
+          *(a2 + 80) = *(v100 + 24);
         }
 
-        else if (((1 << v94) & 0xC4) != 0)
+        else if (((1 << v101) & 0xC4) != 0)
         {
-          *(a2 + 80) = *(v93 + 24);
+          *(a2 + 80) = *(v100 + 24);
         }
 
         else
         {
-          if (v94 != 8)
+          if (v101 != 8)
           {
             goto LABEL_205;
           }
 
           *(a2 + 80) = 0;
-          v95 = *(v93 + 24);
-          if (v95)
+          v102 = *(v100 + 24);
+          if (v102)
           {
-            atomic_fetch_add_explicit(v95, 2u, memory_order_relaxed);
-            v96 = *(a2 + 80);
-            *(a2 + 80) = v95;
-            if (v96)
+            atomic_fetch_add_explicit(v102, 2u, memory_order_relaxed);
+            v103 = *(a2 + 80);
+            *(a2 + 80) = v102;
+            if (v103)
             {
-              if (atomic_fetch_add_explicit(v96, 0xFFFFFFFE, memory_order_relaxed) == 2)
+              if (atomic_fetch_add_explicit(v103, 0xFFFFFFFE, memory_order_relaxed) == 2)
               {
-                WTF::StringImpl::destroy(v96, a2);
+                WTF::StringImpl::destroy(v103, a2);
               }
             }
           }
         }
 
-        v89 = *(a2 + 56);
+        v96 = *(a2 + 56);
       }
 
 LABEL_205:
-      v90 = *(a2 + 68);
+      v97 = *(a2 + 68);
       *(a2 + 88) = *(a2 + 60);
-      *(a2 + 96) = v90;
-      if (v89 != 82)
+      *(a2 + 96) = v97;
+      if (v96 != 82)
       {
-        v128 = v4;
-        LODWORD(v129) = v5;
-        DWORD1(v129) = v90 - v5;
-        WGSL::AST::Builder::construct<WGSL::AST::Float16Literal,WGSL::SourceSpan,double &,void>();
+        v104 = *(a2 + 8);
+        v142 = v4;
+        LODWORD(v143) = v5;
+        DWORD1(v143) = v97 - v5;
+        WGSL::AST::Builder::construct<WGSL::AST::Float16Literal,WGSL::SourceSpan,double &,void>(v104, &v142, &v146);
       }
     }
   }
@@ -2445,7 +2468,7 @@ LABEL_6:
 
   v11 = 2;
 LABEL_19:
-  LOBYTE(v125) = v11;
+  LOBYTE(v139) = v11;
   do
   {
     v14 = *(a2 + 36);
@@ -2507,35 +2530,36 @@ LABEL_22:
   }
 
   while (v12 == 82);
-  result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseUnaryExpression(v131, a2);
-  if (!v132)
+  result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseUnaryExpression(v145, a2);
+  if (!v146)
   {
-    v22 = *(a2 + 96) - v5;
-    v128 = v4;
-    *&v129 = __PAIR64__(v22, v5);
-    WGSL::AST::Builder::construct<WGSL::AST::UnaryExpression,WGSL::SourceSpan,std::reference_wrapper<WGSL::AST::Expression>,WGSL::AST::UnaryOperation &,void>();
+    v22 = *(a2 + 8);
+    v23 = *(a2 + 96) - v5;
+    v142 = v4;
+    *&v143 = __PAIR64__(v23, v5);
+    WGSL::AST::Builder::construct<WGSL::AST::UnaryExpression,WGSL::SourceSpan,std::reference_wrapper<WGSL::AST::Expression>,WGSL::AST::UnaryOperation &,void>(v22, &v142, v145, &v139);
   }
 
-  if (v132 != 1)
+  if (v146 != 1)
   {
     goto LABEL_297;
   }
 
-  v21 = v131[0];
-  if (v131[0])
+  v21 = *v145;
+  if (*v145)
   {
-    atomic_fetch_add_explicit(v131[0], 2u, memory_order_relaxed);
+    atomic_fetch_add_explicit(*v145, 2u, memory_order_relaxed);
   }
 
-  *(a1 + 8) = *&v131[1];
+  *(a1 + 8) = *&v145[8];
   *a1 = v21;
   *(a1 + 24) = 1;
-  if (v132)
+  if (v146)
   {
-    if (v132 != 255)
+    if (v146 != 255)
     {
-      result = v131[0];
-      v131[0] = 0;
+      result = *v145;
+      *v145 = 0;
       if (result)
       {
 LABEL_42:
@@ -2556,18 +2580,18 @@ mpark *WGSL::Parser<WGSL::Lexer<unsigned char>>::parseRelationalExpressionPostUn
 {
   v6 = *(a2 + 88);
   v7 = *(a2 + 96);
-  result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseShiftExpressionPostUnary(&v27, a2, a3);
-  if (v29)
+  result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseShiftExpressionPostUnary(&v31, a2, a3);
+  if (v33)
   {
-    if (v29 == 1)
+    if (v33 == 1)
     {
-      result = v27;
-      if (v27)
+      result = v31;
+      if (v31)
       {
-        atomic_fetch_add_explicit(v27, 2u, memory_order_relaxed);
+        atomic_fetch_add_explicit(v31, 2u, memory_order_relaxed);
       }
 
-      *(a1 + 8) = v28;
+      *(a1 + 8) = v32;
       *a1 = result;
       *(a1 + 24) = 1;
       if (result)
@@ -2582,8 +2606,8 @@ LABEL_59:
     mpark::throw_bad_variant_access(result);
   }
 
-  result = v27;
-  *a3 = v27;
+  result = v31;
+  *a3 = v31;
   v10 = *(a2 + 56);
   if (v10 > 0x38 || ((1 << v10) & 0x19C040000000000) == 0)
   {
@@ -2593,6 +2617,7 @@ LABEL_59:
   }
 
   result = WGSL::toBinaryOperation(*(a2 + 56));
+  v30 = result;
   do
   {
     v15 = *(a2 + 36);
@@ -2654,25 +2679,27 @@ LABEL_15:
   }
 
   while (v13 == 82);
-  result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseUnaryExpression(&v33, a2);
-  if (!v35)
+  result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseUnaryExpression(&v37, a2);
+  if (!v39)
   {
-    result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseShiftExpressionPostUnary(&v30, a2, &v33);
-    v23 = v32;
-    if (v32)
+    result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseShiftExpressionPostUnary(&v34, a2, &v37);
+    v23 = v36;
+    if (v36)
     {
-      if (v32 != 1)
+      if (v36 != 1)
       {
         goto LABEL_59;
       }
 
-      v20 = v30;
-      if (!v30)
+      v20 = v34;
+      if (!v34)
       {
-        v26 = v31;
+        v27 = 0;
+        v28 = v35;
+        v29 = 1;
         v21 = 0;
-        v22 = v35;
-        if (!v35)
+        v22 = v39;
+        if (!v39)
         {
           goto LABEL_44;
         }
@@ -2680,14 +2707,16 @@ LABEL_15:
         goto LABEL_40;
       }
 
-      atomic_fetch_add_explicit(v30, 2u, memory_order_relaxed);
-      v26 = v31;
+      atomic_fetch_add_explicit(v34, 2u, memory_order_relaxed);
+      v27 = v20;
+      v28 = v35;
+      v29 = 1;
       if (atomic_fetch_add_explicit(v20, 0xFFFFFFFE, memory_order_relaxed) == 2)
       {
         result = WTF::StringImpl::destroy(v20, v9);
         v21 = 0;
-        v22 = v35;
-        if (!v35)
+        v22 = v39;
+        if (!v39)
         {
           goto LABEL_44;
         }
@@ -2698,12 +2727,14 @@ LABEL_15:
 
     else
     {
-      v20 = v30;
+      v20 = v34;
+      v27 = v34;
+      v29 = 0;
     }
 
     v21 = v23 == 0;
-    v22 = v35;
-    if (!v35)
+    v22 = v39;
+    if (!v39)
     {
       goto LABEL_44;
     }
@@ -2711,8 +2742,8 @@ LABEL_15:
 LABEL_40:
     if (v22 != 255)
     {
-      result = v33;
-      v33 = 0;
+      result = v37;
+      v37 = 0;
       if (result)
       {
         if (atomic_fetch_add_explicit(result, 0xFFFFFFFE, memory_order_relaxed) == 2)
@@ -2725,21 +2756,23 @@ LABEL_40:
     goto LABEL_44;
   }
 
-  if (v35 != 1)
+  if (v39 != 1)
   {
     goto LABEL_59;
   }
 
-  v20 = v33;
-  if (v33)
+  v20 = v37;
+  if (v37)
   {
-    atomic_fetch_add_explicit(v33, 2u, memory_order_relaxed);
+    atomic_fetch_add_explicit(v37, 2u, memory_order_relaxed);
   }
 
   v21 = 0;
-  v26 = v34;
-  v22 = v35;
-  if (v35)
+  v28 = v38;
+  v27 = v20;
+  v29 = 1;
+  v22 = v39;
+  if (v39)
   {
     goto LABEL_40;
   }
@@ -2747,34 +2780,36 @@ LABEL_40:
 LABEL_44:
   if (v21)
   {
-    v24 = *(a2 + 96) - v7;
-    v33 = v6;
-    *&v34 = __PAIR64__(v24, v7);
-    WGSL::AST::Builder::construct<WGSL::AST::BinaryExpression,WGSL::SourceSpan,std::reference_wrapper<WGSL::AST::Expression>,std::reference_wrapper<WGSL::AST::Expression>,WGSL::AST::BinaryOperation const&,void>();
+    v24 = *(a2 + 8);
+    v25 = *(a2 + 96) - v7;
+    v37 = v6;
+    *&v38 = __PAIR64__(v25, v7);
+    WGSL::AST::Builder::construct<WGSL::AST::BinaryExpression,WGSL::SourceSpan,std::reference_wrapper<WGSL::AST::Expression>,std::reference_wrapper<WGSL::AST::Expression>,WGSL::AST::BinaryOperation const&,void>(v24, &v37, a3, &v27, &v30);
   }
 
   if (v20)
   {
     atomic_fetch_add_explicit(v20, 2u, memory_order_relaxed);
-    *(a1 + 8) = v26;
+    *(a1 + 8) = v28;
     *a1 = v20;
     *(a1 + 24) = 1;
+    v27 = 0;
     if (atomic_fetch_add_explicit(v20, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       result = WTF::StringImpl::destroy(v20, v9);
     }
 
-    v25 = v29;
-    if (v29)
+    v26 = v33;
+    if (v33)
     {
 LABEL_52:
-      if (v25 == 255)
+      if (v26 == 255)
       {
         return result;
       }
 
-      result = v27;
-      if (!v27)
+      result = v31;
+      if (!v31)
       {
         return result;
       }
@@ -2789,11 +2824,11 @@ LABEL_6:
 
   else
   {
-    *(a1 + 8) = v26;
+    *(a1 + 8) = v28;
     *a1 = 0;
     *(a1 + 24) = 1;
-    v25 = v29;
-    if (v29)
+    v26 = v33;
+    if (v33)
     {
       goto LABEL_52;
     }
@@ -2802,66 +2837,67 @@ LABEL_6:
   return result;
 }
 
-WTF::StringImpl *WGSL::Parser<WGSL::Lexer<unsigned char>>::parseShortCircuitExpression(WTF::StringImpl *result, uint64_t a2, WTF::StringImpl **a3, int a4)
+WTF::StringImpl *WGSL::Parser<WGSL::Lexer<unsigned char>>::parseShortCircuitExpression(WTF::StringImpl *result, uint64_t a2, WTF::StringImpl **a3, int a4, char a5)
 {
-  v4 = result;
+  v6 = result;
+  v32 = a5;
   if (*(a2 + 56) != a4)
   {
     result = *a3;
-    *v4 = *a3;
-    *(v4 + 24) = 0;
+    *v6 = *a3;
+    *(v6 + 24) = 0;
     return result;
   }
 
-  v6 = *(a2 + 88);
-  v7 = *(a2 + 92);
-  v8 = *(a2 + 96);
-  v24 = *result;
-  v25 = result;
-  v23 = *(result + 24);
+  v8 = *(a2 + 88);
+  v9 = *(a2 + 92);
+  v10 = *(a2 + 96);
+  v27 = *result;
+  v28 = result;
+  v26 = *(result + 24);
   do
   {
-    v9 = *(a2 + 36);
-    v10 = (*(a2 + 40) + 1);
-    *(a2 + 40) = v10;
-    if (v9 <= v10)
+    v11 = *(a2 + 36);
+    v12 = (*(a2 + 40) + 1);
+    *(a2 + 40) = v12;
+    if (v11 <= v12)
     {
-      *(v25 + 24) = v23;
-      *v25 = v24;
+      *(v28 + 24) = v26;
+      *v28 = v27;
       __break(0xC471u);
       return result;
     }
 
-    v11 = *(a2 + 24) + 32 * v10;
-    v12 = *v11;
-    *(a2 + 56) = *v11;
-    *(a2 + 60) = *(v11 + 4);
-    v13 = *v11;
-    if (*v11 <= 8u)
+    v13 = *(a2 + 24) + 32 * v12;
+    v14 = *v13;
+    *(a2 + 56) = *v13;
+    *(a2 + 60) = *(v13 + 4);
+    v15 = *v13;
+    if (*v13 <= 8u)
     {
-      if (((1 << v13) & 0x38) != 0)
+      if (((1 << v15) & 0x38) != 0)
       {
-        *(a2 + 80) = *(v11 + 24);
+        *(a2 + 80) = *(v13 + 24);
         goto LABEL_9;
       }
 
-      if (((1 << v13) & 0xC4) != 0)
+      if (((1 << v15) & 0xC4) != 0)
       {
-        *(a2 + 80) = *(v11 + 24);
+        *(a2 + 80) = *(v13 + 24);
 LABEL_9:
-        v12 = *(a2 + 56);
+        v14 = *(a2 + 56);
         goto LABEL_10;
       }
 
-      if (v13 == 8)
+      if (v15 == 8)
       {
         *(a2 + 80) = 0;
-        v20 = *(v11 + 24);
-        if (v20)
+        v22 = *(v13 + 24);
+        if (v22)
         {
-          atomic_fetch_add_explicit(v20, 2u, memory_order_relaxed);
+          atomic_fetch_add_explicit(v22, 2u, memory_order_relaxed);
           result = *(a2 + 80);
-          *(a2 + 80) = v20;
+          *(a2 + 80) = v22;
           if (result)
           {
             if (atomic_fetch_add_explicit(result, 0xFFFFFFFE, memory_order_relaxed) == 2)
@@ -2876,32 +2912,34 @@ LABEL_9:
     }
 
 LABEL_10:
-    v14 = *(a2 + 68);
+    v16 = *(a2 + 68);
     *(a2 + 88) = *(a2 + 60);
-    *(a2 + 96) = v14;
+    *(a2 + 96) = v16;
   }
 
-  while (v12 == 82);
-  result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseUnaryExpression(&v30, a2);
-  if (!v32)
+  while (v14 == 82);
+  result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseUnaryExpression(&v36, a2);
+  if (!v38)
   {
-    result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseRelationalExpressionPostUnary(&v27, a2, &v30);
-    v19 = v29;
-    if (v29)
+    result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseRelationalExpressionPostUnary(&v33, a2, &v36);
+    v21 = v35;
+    if (v35)
     {
-      if (v29 != 1)
+      if (v35 != 1)
       {
 LABEL_44:
         mpark::throw_bad_variant_access(result);
       }
 
-      v16 = v27;
-      if (!v27)
+      v18 = v33;
+      if (!v33)
       {
-        v26 = v28;
-        v17 = 0;
-        v18 = v32;
-        if (!v32)
+        v29 = 0;
+        v30 = v34;
+        v31 = 1;
+        v19 = 0;
+        v20 = v38;
+        if (!v38)
         {
           goto LABEL_34;
         }
@@ -2909,14 +2947,16 @@ LABEL_44:
         goto LABEL_30;
       }
 
-      atomic_fetch_add_explicit(v27, 2u, memory_order_relaxed);
-      v26 = v28;
-      if (atomic_fetch_add_explicit(v16, 0xFFFFFFFE, memory_order_relaxed) == 2)
+      atomic_fetch_add_explicit(v33, 2u, memory_order_relaxed);
+      v29 = v18;
+      v30 = v34;
+      v31 = 1;
+      if (atomic_fetch_add_explicit(v18, 0xFFFFFFFE, memory_order_relaxed) == 2)
       {
-        result = WTF::StringImpl::destroy(v16, v15);
-        v17 = 0;
-        v18 = v32;
-        if (!v32)
+        result = WTF::StringImpl::destroy(v18, v17);
+        v19 = 0;
+        v20 = v38;
+        if (!v38)
         {
           goto LABEL_34;
         }
@@ -2927,12 +2967,14 @@ LABEL_44:
 
     else
     {
-      v16 = v27;
+      v18 = v33;
+      v29 = v33;
+      v31 = 0;
     }
 
-    v17 = v19 == 0;
-    v18 = v32;
-    if (!v32)
+    v19 = v21 == 0;
+    v20 = v38;
+    if (!v38)
     {
       goto LABEL_34;
     }
@@ -2940,76 +2982,80 @@ LABEL_44:
     goto LABEL_30;
   }
 
-  if (v32 != 1)
+  if (v38 != 1)
   {
     goto LABEL_44;
   }
 
-  v16 = v30;
-  if (v30)
+  v18 = v36;
+  if (v36)
   {
-    atomic_fetch_add_explicit(v30, 2u, memory_order_relaxed);
+    atomic_fetch_add_explicit(v36, 2u, memory_order_relaxed);
   }
 
-  v17 = 0;
-  v26 = v31;
-  v18 = v32;
-  if (v32)
+  v19 = 0;
+  v30 = v37;
+  v29 = v18;
+  v31 = 1;
+  v20 = v38;
+  if (v38)
   {
 LABEL_30:
-    if (v18 != 255)
+    if (v20 != 255)
     {
-      result = v30;
-      v30 = 0;
+      result = v36;
+      v36 = 0;
       if (result)
       {
         if (atomic_fetch_add_explicit(result, 0xFFFFFFFE, memory_order_relaxed) == 2)
         {
-          result = WTF::StringImpl::destroy(result, v15);
+          result = WTF::StringImpl::destroy(result, v17);
         }
       }
     }
   }
 
 LABEL_34:
-  if (v17)
+  if (v19)
   {
-    v21 = *(a2 + 96) - v8;
-    v30 = __PAIR64__(v7, v6);
-    *&v31 = __PAIR64__(v21, v8);
-    WGSL::AST::Builder::construct<WGSL::AST::BinaryExpression,WGSL::SourceSpan,std::reference_wrapper<WGSL::AST::Expression>,std::reference_wrapper<WGSL::AST::Expression>,WGSL::AST::BinaryOperation const&,void>();
+    v23 = *(a2 + 8);
+    v24 = *(a2 + 96) - v10;
+    v36 = __PAIR64__(v9, v8);
+    *&v37 = __PAIR64__(v24, v10);
+    WGSL::AST::Builder::construct<WGSL::AST::BinaryExpression,WGSL::SourceSpan,std::reference_wrapper<WGSL::AST::Expression>,std::reference_wrapper<WGSL::AST::Expression>,WGSL::AST::BinaryOperation const&,void>(v23, &v36, a3, &v29, &v32);
   }
 
-  if (v16)
+  if (v18)
   {
-    atomic_fetch_add_explicit(v16, 2u, memory_order_relaxed);
-    v22 = v25;
-    *(v25 + 8) = v26;
-    if (atomic_fetch_add_explicit(v16, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    atomic_fetch_add_explicit(v18, 2u, memory_order_relaxed);
+    v25 = v28;
+    *(v28 + 8) = v30;
+    v29 = 0;
+    if (atomic_fetch_add_explicit(v18, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      result = WTF::StringImpl::destroy(v16, v15);
-      v22 = v25;
+      result = WTF::StringImpl::destroy(v18, v17);
+      v25 = v28;
     }
   }
 
   else
   {
-    v22 = v25;
-    *(v25 + 8) = v26;
+    v25 = v28;
+    *(v28 + 8) = v30;
   }
 
-  *(v22 + 24) = 1;
-  *v22 = v16;
+  *(v25 + 24) = 1;
+  *v25 = v18;
   return result;
 }
 
-WTF::StringImpl *WGSL::Parser<WGSL::Lexer<unsigned char>>::parsePostfixExpression(WTF::StringImpl **a1, uint64_t a2, WTF::StringImpl *a3, unint64_t a4, int a5)
+WTF::StringImpl *WGSL::Parser<WGSL::Lexer<unsigned char>>::parsePostfixExpression(uint64_t *a1, uint64_t a2, WTF::StringImpl *a3, unint64_t a4, unsigned int a5)
 {
   v6 = a4;
   result = a3;
   v61 = *(a2 + 96);
   v62 = *(a2 + 88);
-  v75 = a3;
+  v73 = a3;
   v64 = *a1;
   v10 = HIDWORD(a4);
   v63 = *(a1 + 24);
@@ -3114,13 +3160,13 @@ LABEL_7:
         {
           WGSL::toString();
           WGSL::toString();
-          if (v74)
+          if (v72)
           {
-            v48 = *(v74 + 1);
-            if (v73)
+            v48 = *(v72 + 1);
+            if (v71)
             {
 LABEL_69:
-              v49 = *(v73 + 1);
+              v49 = *(v71 + 1);
               if (v49 < 0)
               {
                 goto LABEL_105;
@@ -3153,22 +3199,22 @@ LABEL_80:
                 goto LABEL_105;
               }
 
-              if (v74)
+              if (v72)
               {
-                v54 = *(v74 + 4);
+                v54 = *(v72 + 4);
                 v55 = (v54 >> 2) & 1;
-                if (!v73 || (v54 & 4) == 0)
+                if (!v71 || (v54 & 4) == 0)
                 {
                   goto LABEL_90;
                 }
 
 LABEL_88:
-                v55 = (*(v73 + 16) >> 2) & 1;
+                v55 = (*(v71 + 16) >> 2) & 1;
               }
 
               else
               {
-                if (v73)
+                if (v71)
                 {
                   goto LABEL_88;
                 }
@@ -3177,20 +3223,20 @@ LABEL_88:
               }
 
 LABEL_90:
-              WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>>(v53, v55, "Expected a ", 0xBuLL, v74, ", but got a ", 0xCuLL, v73, &v70);
+              WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>>(v53, v55, "Expected a ", 0xBuLL, v72, ", but got a ", 0xCuLL, &v70, v71);
               v57 = v70;
               if (v70)
               {
-                v58 = v73;
-                v73 = 0;
+                v58 = v71;
+                v71 = 0;
                 if (v58 && atomic_fetch_add_explicit(v58, 0xFFFFFFFE, memory_order_relaxed) == 2)
                 {
                   WTF::StringImpl::destroy(v58, v56);
                 }
 
                 v65 = v57;
-                result = v74;
-                v74 = 0;
+                result = v72;
+                v72 = 0;
                 if (result && atomic_fetch_add_explicit(result, 0xFFFFFFFE, memory_order_relaxed) == 2)
                 {
                   result = WTF::StringImpl::destroy(result, v56);
@@ -3212,7 +3258,7 @@ LABEL_106:
           else
           {
             v48 = 0;
-            if (v73)
+            if (v71)
             {
               goto LABEL_69;
             }
@@ -3288,10 +3334,10 @@ LABEL_22:
           *(a2 + 96) = v23;
           if (v22 != 82)
           {
-            v70 = __PAIR64__(v10, v6);
-            v71 = a5;
-            v72 = v23 - a5;
-            WGSL::AST::Builder::construct<WGSL::AST::IndexAccessExpression,WGSL::SourceSpan &,std::reference_wrapper<WGSL::AST::Expression>,std::reference_wrapper<WGSL::AST::Expression>,void>();
+            *&v70 = __PAIR64__(v10, v6);
+            DWORD2(v70) = a5;
+            HIDWORD(v70) = v23 - a5;
+            WGSL::AST::Builder::construct<WGSL::AST::IndexAccessExpression,WGSL::SourceSpan &,std::reference_wrapper<WGSL::AST::Expression>,std::reference_wrapper<WGSL::AST::Expression>,void>(*(a2 + 8), &v70, &v73, &v66);
           }
 
           continue;
@@ -3380,10 +3426,9 @@ LABEL_38:
   if (!v69)
   {
     v44 = *(a2 + 96) - a5;
-    v70 = __PAIR64__(v10, v6);
-    v71 = a5;
-    v72 = v44;
-    WGSL::AST::Builder::construct<WGSL::AST::FieldAccessExpression,WGSL::SourceSpan &,std::reference_wrapper<WGSL::AST::Expression>,WGSL::AST::Identifier,void>();
+    *&v70 = __PAIR64__(v10, v6);
+    *(&v70 + 1) = __PAIR64__(v44, a5);
+    WGSL::AST::Builder::construct<WGSL::AST::FieldAccessExpression,WGSL::SourceSpan &,std::reference_wrapper<WGSL::AST::Expression>,WGSL::AST::Identifier,void>(*(a2 + 8), &v70, &v73, &v66);
   }
 
   if (v69 != 1)
@@ -3402,7 +3447,7 @@ LABEL_38:
 
   v65 = v43;
   a1 = v60;
-  *(v60 + 1) = v67;
+  *(v60 + 8) = v67;
   if (v69 != 255)
   {
     if (v69)
@@ -3509,7 +3554,7 @@ LABEL_113:
           if (!v70 || (v56 & 4) == 0)
           {
 LABEL_123:
-            WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>>(v55, v57, "Expected a ", 0xBuLL, v71, ", but got a ", 0xCuLL, v70, &v65);
+            WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>>(v55, v57, "Expected a ", 0xBuLL, v71, ", but got a ", 0xCuLL, &v65, v70);
             v59 = v65;
             if (v65)
             {
@@ -3932,7 +3977,7 @@ LABEL_67:
 
     v44 = (*(v29 + 16) >> 2) & 1;
 LABEL_77:
-    WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>>(v42, v44, "Expected a ", 0xBuLL, v64, ", but got a ", 0xCuLL, v29, &v72);
+    WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>>(v42, v44, "Expected a ", 0xBuLL, v64, ", but got a ", 0xCuLL, &v72, v29);
     v22 = v72;
     if (!v72)
     {
@@ -4183,7 +4228,7 @@ uint64_t WGSL::toBinaryOperation(int a1)
   return result;
 }
 
-atomic_uint *WGSL::Parser<WGSL::Lexer<unsigned char>>::parseShiftExpressionPostUnary(atomic_uint *result, uint64_t a2, void *a3)
+atomic_uint *WGSL::Parser<WGSL::Lexer<unsigned char>>::parseShiftExpressionPostUnary(atomic_uint *result, uint64_t a2, WTF::StringImpl **a3)
 {
   v5 = result;
   v6 = *(a2 + 56);
@@ -4206,21 +4251,23 @@ LABEL_108:
 
       *(*(a2 + 24) + 32 * (*(a2 + 40) + 1)) = 59;
 LABEL_3:
-      result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseMultiplicativeExpressionPostUnary(&v55, a2, a3);
-      if (v57)
+      v7 = *(a2 + 88);
+      v51 = *(a2 + 96);
+      result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseMultiplicativeExpressionPostUnary(&v61, a2, a3);
+      if (v63)
       {
-        if (v57 != 1)
+        if (v63 != 1)
         {
           goto LABEL_102;
         }
 
-        result = v55;
-        if (v55)
+        result = v61;
+        if (v61)
         {
-          atomic_fetch_add_explicit(v55, 2u, memory_order_relaxed);
+          atomic_fetch_add_explicit(v61, 2u, memory_order_relaxed);
         }
 
-        *(v5 + 2) = v56;
+        *(v5 + 2) = v62;
         *v5 = result;
         *(v5 + 24) = 1;
         if (!result)
@@ -4231,29 +4278,29 @@ LABEL_3:
 LABEL_50:
         if (atomic_fetch_add_explicit(result, 0xFFFFFFFE, memory_order_relaxed) == 2)
         {
-          return WTF::StringImpl::destroy(result, v7);
+          return WTF::StringImpl::destroy(result, v8);
         }
 
         return result;
       }
 
-      v46 = v55;
-      *a3 = v55;
-      v8 = *v5;
-      v47 = *(v5 + 24);
+      v50 = v61;
+      *a3 = v61;
+      v9 = *v5;
+      v52 = *(v5 + 24);
 LABEL_10:
-      v9 = *(a2 + 56);
-      if ((v9 - 59) > 0x11)
+      v10 = *(a2 + 56);
+      if ((v10 - 59) > 0x11)
       {
 LABEL_72:
         *v5 = *a3;
         *(v5 + 24) = 0;
-        return v46;
+        return v50;
       }
 
-      if (((1 << (v9 - 59)) & 0x28809) == 0)
+      if (((1 << (v10 - 59)) & 0x28809) == 0)
       {
-        if (v9 != 60)
+        if (v10 != 60)
         {
           goto LABEL_72;
         }
@@ -4261,97 +4308,97 @@ LABEL_72:
         *(a2 + 56) = 59;
         if (*(a2 + 36) <= (*(a2 + 40) + 1))
         {
-          *(v5 + 24) = v47;
-          *v5 = v8;
+          *(v5 + 24) = v52;
+          *v5 = v9;
           __break(0xC471u);
           JUMPOUT(0x22577797CLL);
         }
 
         *(*(a2 + 24) + 32 * (*(a2 + 40) + 1)) = 59;
-        v9 = *(a2 + 56);
+        v10 = *(a2 + 56);
       }
 
-      v54 = WGSL::toBinaryOperation(v9);
+      v60 = WGSL::toBinaryOperation(v10);
       while (1)
       {
-        v13 = *(a2 + 36);
-        v14 = (*(a2 + 40) + 1);
-        *(a2 + 40) = v14;
-        if (v13 <= v14)
+        v14 = *(a2 + 36);
+        v15 = (*(a2 + 40) + 1);
+        *(a2 + 40) = v15;
+        if (v14 <= v15)
         {
-          *(v5 + 24) = v47;
-          *v5 = v8;
+          *(v5 + 24) = v52;
+          *v5 = v9;
           __break(0xC471u);
           goto LABEL_108;
         }
 
-        v15 = *(a2 + 24) + 32 * v14;
-        v11 = *v15;
-        *(a2 + 56) = *v15;
-        *(a2 + 60) = *(v15 + 4);
-        v16 = *v15;
-        if (*v15 > 8u)
+        v16 = *(a2 + 24) + 32 * v15;
+        v12 = *v16;
+        *(a2 + 56) = *v16;
+        *(a2 + 60) = *(v16 + 4);
+        v17 = *v16;
+        if (*v16 > 8u)
         {
           goto LABEL_15;
         }
 
-        if (((1 << v16) & 0x38) != 0)
+        if (((1 << v17) & 0x38) != 0)
         {
-          *(a2 + 80) = *(v15 + 24);
+          *(a2 + 80) = *(v16 + 24);
         }
 
-        else if (((1 << v16) & 0xC4) != 0)
+        else if (((1 << v17) & 0xC4) != 0)
         {
-          *(a2 + 80) = *(v15 + 24);
+          *(a2 + 80) = *(v16 + 24);
         }
 
         else
         {
-          if (v16 != 8)
+          if (v17 != 8)
           {
             goto LABEL_15;
           }
 
           *(a2 + 80) = 0;
-          v17 = *(v15 + 24);
-          if (v17)
+          v18 = *(v16 + 24);
+          if (v18)
           {
-            atomic_fetch_add_explicit(v17, 2u, memory_order_relaxed);
-            v18 = *(a2 + 80);
-            *(a2 + 80) = v17;
-            if (v18)
+            atomic_fetch_add_explicit(v18, 2u, memory_order_relaxed);
+            v19 = *(a2 + 80);
+            *(a2 + 80) = v18;
+            if (v19)
             {
-              if (atomic_fetch_add_explicit(v18, 0xFFFFFFFE, memory_order_relaxed) == 2)
+              if (atomic_fetch_add_explicit(v19, 0xFFFFFFFE, memory_order_relaxed) == 2)
               {
-                WTF::StringImpl::destroy(v18, v10);
+                WTF::StringImpl::destroy(v19, v11);
               }
             }
           }
         }
 
-        v11 = *(a2 + 56);
+        v12 = *(a2 + 56);
 LABEL_15:
-        v12 = *(a2 + 68);
+        v13 = *(a2 + 68);
         *(a2 + 88) = *(a2 + 60);
-        *(a2 + 96) = v12;
-        if (v11 != 82)
+        *(a2 + 96) = v13;
+        if (v12 != 82)
         {
-          result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseUnaryExpression(&v51, a2);
-          if (v53)
+          result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseUnaryExpression(&v57, a2);
+          if (v59)
           {
-            if (v53 == 1)
+            if (v59 == 1)
             {
-              v8 = v51;
-              if (v51)
+              v9 = v57;
+              if (v57)
               {
-                atomic_fetch_add_explicit(v51, 2u, memory_order_relaxed);
+                atomic_fetch_add_explicit(v57, 2u, memory_order_relaxed);
               }
 
-              v20 = 0;
-              *(v5 + 2) = v52;
-              v47 = 1;
-              v21 = v53;
-              if (!v53)
+              v21 = 0;
+              *(v5 + 2) = v58;
+              v52 = 1;
+              v22 = v59;
+              if (!v59)
               {
                 goto LABEL_9;
               }
@@ -4360,31 +4407,35 @@ LABEL_15:
             }
 
 LABEL_101:
-            *(v5 + 24) = v47;
-            *v5 = v8;
+            *(v5 + 24) = v52;
+            *v5 = v9;
 LABEL_102:
             mpark::throw_bad_variant_access(result);
           }
 
-          result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseMultiplicativeExpressionPostUnary(&v48, a2, &v51);
-          v20 = v50 == 0;
-          if (!v50)
+          result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseMultiplicativeExpressionPostUnary(&v54, a2, &v57);
+          v21 = v56 == 0;
+          if (!v56)
           {
-            WGSL::AST::Builder::construct<WGSL::AST::BinaryExpression,WGSL::SourceSpan,std::reference_wrapper<WGSL::AST::Expression>,std::reference_wrapper<WGSL::AST::Expression>,WGSL::AST::BinaryOperation const&,void>();
+            v24 = *(a2 + 8);
+            v25 = *(a2 + 96) - v51;
+            *&v53 = v7;
+            *(&v53 + 1) = __PAIR64__(v25, v51);
+            WGSL::AST::Builder::construct<WGSL::AST::BinaryExpression,WGSL::SourceSpan,std::reference_wrapper<WGSL::AST::Expression>,std::reference_wrapper<WGSL::AST::Expression>,WGSL::AST::BinaryOperation const&,void>(v24, &v53, a3, &v54, &v60);
           }
 
-          if (v50 != 1)
+          if (v56 != 1)
           {
             goto LABEL_101;
           }
 
-          v8 = v48;
-          if (!v48)
+          v9 = v54;
+          if (!v54)
           {
-            *(v5 + 2) = v49;
-            v47 = 1;
-            v21 = v53;
-            if (!v53)
+            *(v5 + 2) = v55;
+            v52 = 1;
+            v22 = v59;
+            if (!v59)
             {
               goto LABEL_9;
             }
@@ -4392,38 +4443,38 @@ LABEL_102:
             goto LABEL_38;
           }
 
-          atomic_fetch_add_explicit(v48, 2u, memory_order_relaxed);
-          *(v5 + 2) = v49;
-          if (atomic_fetch_add_explicit(v8, 0xFFFFFFFE, memory_order_relaxed) == 2)
+          atomic_fetch_add_explicit(v54, 2u, memory_order_relaxed);
+          *(v5 + 2) = v55;
+          if (atomic_fetch_add_explicit(v9, 0xFFFFFFFE, memory_order_relaxed) == 2)
           {
-            WTF::StringImpl::destroy(v8, v19);
+            WTF::StringImpl::destroy(v9, v20);
           }
 
-          v47 = 1;
-          v21 = v53;
-          if (v53)
+          v52 = 1;
+          v22 = v59;
+          if (v59)
           {
 LABEL_38:
-            if (v21 != 255)
+            if (v22 != 255)
             {
-              v22 = v51;
-              v51 = 0;
-              if (v22)
+              v23 = v57;
+              v57 = 0;
+              if (v23)
               {
-                if (atomic_fetch_add_explicit(v22, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                if (atomic_fetch_add_explicit(v23, 0xFFFFFFFE, memory_order_relaxed) == 2)
                 {
-                  WTF::StringImpl::destroy(v22, v19);
+                  WTF::StringImpl::destroy(v23, v20);
                 }
               }
             }
           }
 
 LABEL_9:
-          if (!v20)
+          if (!v21)
           {
             *(v5 + 24) = 1;
-            *v5 = v8;
-            return v46;
+            *v5 = v9;
+            return v50;
           }
 
           goto LABEL_10;
@@ -4432,8 +4483,8 @@ LABEL_9:
     }
   }
 
-  v23 = *(a2 + 88);
-  v24 = *(a2 + 96);
+  v26 = *(a2 + 88);
+  v27 = *(a2 + 96);
   if (v6 != 57)
   {
     if (v6 != 53)
@@ -4445,74 +4496,75 @@ LABEL_9:
 
     while (1)
     {
-      v27 = *(a2 + 36);
-      v28 = (*(a2 + 40) + 1);
-      *(a2 + 40) = v28;
-      if (v27 <= v28)
+      v30 = *(a2 + 36);
+      v31 = (*(a2 + 40) + 1);
+      *(a2 + 40) = v31;
+      if (v30 <= v31)
       {
         __break(0xC471u);
         JUMPOUT(0x225777984);
       }
 
-      v29 = *(a2 + 24) + 32 * v28;
-      v25 = *v29;
-      *(a2 + 56) = *v29;
-      *(a2 + 60) = *(v29 + 4);
-      v30 = *v29;
-      if (*v29 > 8u)
+      v32 = *(a2 + 24) + 32 * v31;
+      v28 = *v32;
+      *(a2 + 56) = *v32;
+      *(a2 + 60) = *(v32 + 4);
+      v33 = *v32;
+      if (*v32 > 8u)
       {
         goto LABEL_61;
       }
 
-      if (((1 << v30) & 0x38) != 0)
+      if (((1 << v33) & 0x38) != 0)
       {
-        *(a2 + 80) = *(v29 + 24);
+        *(a2 + 80) = *(v32 + 24);
       }
 
-      else if (((1 << v30) & 0xC4) != 0)
+      else if (((1 << v33) & 0xC4) != 0)
       {
-        *(a2 + 80) = *(v29 + 24);
+        *(a2 + 80) = *(v32 + 24);
       }
 
       else
       {
-        if (v30 != 8)
+        if (v33 != 8)
         {
           goto LABEL_61;
         }
 
         *(a2 + 80) = 0;
-        v31 = *(v29 + 24);
-        if (v31)
+        v34 = *(v32 + 24);
+        if (v34)
         {
-          atomic_fetch_add_explicit(v31, 2u, memory_order_relaxed);
-          v32 = *(a2 + 80);
-          *(a2 + 80) = v31;
-          if (v32)
+          atomic_fetch_add_explicit(v34, 2u, memory_order_relaxed);
+          v35 = *(a2 + 80);
+          *(a2 + 80) = v34;
+          if (v35)
           {
-            if (atomic_fetch_add_explicit(v32, 0xFFFFFFFE, memory_order_relaxed) == 2)
+            if (atomic_fetch_add_explicit(v35, 0xFFFFFFFE, memory_order_relaxed) == 2)
             {
-              WTF::StringImpl::destroy(v32, a2);
+              WTF::StringImpl::destroy(v35, a2);
             }
           }
         }
       }
 
-      v25 = *(a2 + 56);
+      v28 = *(a2 + 56);
 LABEL_61:
-      v26 = *(a2 + 68);
+      v29 = *(a2 + 68);
       *(a2 + 88) = *(a2 + 60);
-      *(a2 + 96) = v26;
-      if (v25 != 82)
+      *(a2 + 96) = v29;
+      if (v28 != 82)
       {
-        result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseUnaryExpression(&v55, a2);
-        v41 = v57;
-        if (!v57)
+        result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseUnaryExpression(&v61, a2);
+        v44 = v63;
+        if (!v63)
         {
-          v42 = *(a2 + 96) - v24;
-          v51 = v23;
-          *&v52 = __PAIR64__(v42, v24);
-          v43 = 9;
+          v45 = *(a2 + 8);
+          v46 = *(a2 + 96) - v27;
+          v57 = v26;
+          *&v58 = __PAIR64__(v46, v27);
+          v47 = 9;
           goto LABEL_96;
         }
 
@@ -4523,50 +4575,50 @@ LABEL_61:
 
   do
   {
-    v35 = *(a2 + 36);
-    v36 = (*(a2 + 40) + 1);
-    *(a2 + 40) = v36;
-    if (v35 <= v36)
+    v38 = *(a2 + 36);
+    v39 = (*(a2 + 40) + 1);
+    *(a2 + 40) = v39;
+    if (v38 <= v39)
     {
       __break(0xC471u);
       JUMPOUT(0x22577798CLL);
     }
 
-    v37 = *(a2 + 24) + 32 * v36;
-    v33 = *v37;
-    *(a2 + 56) = *v37;
-    *(a2 + 60) = *(v37 + 4);
-    v38 = *v37;
-    if (*v37 <= 8u)
+    v40 = *(a2 + 24) + 32 * v39;
+    v36 = *v40;
+    *(a2 + 56) = *v40;
+    *(a2 + 60) = *(v40 + 4);
+    v41 = *v40;
+    if (*v40 <= 8u)
     {
-      if (((1 << v38) & 0x38) != 0)
+      if (((1 << v41) & 0x38) != 0)
       {
-        *(a2 + 80) = *(v37 + 24);
+        *(a2 + 80) = *(v40 + 24);
 LABEL_75:
-        v33 = *(a2 + 56);
+        v36 = *(a2 + 56);
         goto LABEL_76;
       }
 
-      if (((1 << v38) & 0xC4) != 0)
+      if (((1 << v41) & 0xC4) != 0)
       {
-        *(a2 + 80) = *(v37 + 24);
+        *(a2 + 80) = *(v40 + 24);
         goto LABEL_75;
       }
 
-      if (v38 == 8)
+      if (v41 == 8)
       {
         *(a2 + 80) = 0;
-        v39 = *(v37 + 24);
-        if (v39)
+        v42 = *(v40 + 24);
+        if (v42)
         {
-          atomic_fetch_add_explicit(v39, 2u, memory_order_relaxed);
-          v40 = *(a2 + 80);
-          *(a2 + 80) = v39;
-          if (v40)
+          atomic_fetch_add_explicit(v42, 2u, memory_order_relaxed);
+          v43 = *(a2 + 80);
+          *(a2 + 80) = v42;
+          if (v43)
           {
-            if (atomic_fetch_add_explicit(v40, 0xFFFFFFFE, memory_order_relaxed) == 2)
+            if (atomic_fetch_add_explicit(v43, 0xFFFFFFFE, memory_order_relaxed) == 2)
             {
-              WTF::StringImpl::destroy(v40, a2);
+              WTF::StringImpl::destroy(v43, a2);
             }
           }
         }
@@ -4576,46 +4628,47 @@ LABEL_75:
     }
 
 LABEL_76:
-    v34 = *(a2 + 68);
+    v37 = *(a2 + 68);
     *(a2 + 88) = *(a2 + 60);
-    *(a2 + 96) = v34;
+    *(a2 + 96) = v37;
   }
 
-  while (v33 == 82);
-  result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseUnaryExpression(&v55, a2);
-  v41 = v57;
-  if (!v57)
+  while (v36 == 82);
+  result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseUnaryExpression(&v61, a2);
+  v44 = v63;
+  if (!v63)
   {
-    v45 = *(a2 + 96) - v24;
-    v51 = v23;
-    *&v52 = __PAIR64__(v45, v24);
-    v43 = 8;
+    v45 = *(a2 + 8);
+    v49 = *(a2 + 96) - v27;
+    v57 = v26;
+    *&v58 = __PAIR64__(v49, v27);
+    v47 = 8;
 LABEL_96:
-    LOBYTE(v48) = v43;
-    WGSL::AST::Builder::construct<WGSL::AST::BinaryExpression,WGSL::SourceSpan,std::reference_wrapper<WGSL::AST::Expression>,std::reference_wrapper<WGSL::AST::Expression>,WGSL::AST::BinaryOperation const&,void>();
+    LOBYTE(v54) = v47;
+    WGSL::AST::Builder::construct<WGSL::AST::BinaryExpression,WGSL::SourceSpan,std::reference_wrapper<WGSL::AST::Expression>,std::reference_wrapper<WGSL::AST::Expression>,WGSL::AST::BinaryOperation const&,void>(v45, &v57, a3, &v61, &v54);
   }
 
 LABEL_91:
-  if (v41 != 1)
+  if (v44 != 1)
   {
     goto LABEL_102;
   }
 
-  v44 = v55;
-  if (v55)
+  v48 = v61;
+  if (v61)
   {
-    atomic_fetch_add_explicit(v55, 2u, memory_order_relaxed);
+    atomic_fetch_add_explicit(v61, 2u, memory_order_relaxed);
   }
 
-  *(v5 + 2) = v56;
-  *v5 = v44;
+  *(v5 + 2) = v62;
+  *v5 = v48;
   *(v5 + 24) = 1;
-  if (v57)
+  if (v63)
   {
-    if (v57 != 255)
+    if (v63 != 255)
     {
-      result = v55;
-      v55 = 0;
+      result = v61;
+      v61 = 0;
       if (result)
       {
         goto LABEL_50;
@@ -4626,39 +4679,42 @@ LABEL_91:
   return result;
 }
 
-mpark *WGSL::Parser<WGSL::Lexer<unsigned char>>::parseMultiplicativeExpressionPostUnary(mpark *result, uint64_t a2, void *a3)
+WTF::StringImpl *WGSL::Parser<WGSL::Lexer<unsigned char>>::parseMultiplicativeExpressionPostUnary(WTF::StringImpl *result, uint64_t a2, WTF::StringImpl **a3)
 {
-  v4 = result;
-  v5 = *result;
-  v19 = *(result + 24);
-  v6 = *(a2 + 56);
-  if ((v6 - 62) > 0xE || ((1 << (v6 - 62)) & 0x5001) == 0)
+  v5 = result;
+  v23 = *(a2 + 92);
+  v24 = *(a2 + 88);
+  v6 = *(a2 + 96);
+  v7 = *result;
+  v25 = *(result + 24);
+  v8 = *(a2 + 56);
+  if ((v8 - 62) > 0xE || ((1 << (v8 - 62)) & 0x5001) == 0)
   {
     *result = *a3;
     *(result + 24) = 0;
     return result;
   }
 
-  v23 = 2;
-  if (v6 == 62)
+  v30 = 2;
+  if (v8 == 62)
   {
-    v8 = 4;
+    v10 = 4;
     goto LABEL_11;
   }
 
-  if (v6 == 74)
+  if (v8 == 74)
   {
-    v8 = 3;
+    v10 = 3;
 LABEL_11:
-    v23 = v8;
+    v30 = v10;
     goto LABEL_17;
   }
 
-  if (v6 != 76)
+  if (v8 != 76)
   {
 LABEL_41:
-    *(v4 + 24) = v19;
-    *v4 = v5;
+    *(v5 + 24) = v25;
+    *v5 = v7;
     __break(0xC471u);
     JUMPOUT(0x225777C04);
   }
@@ -4666,49 +4722,49 @@ LABEL_41:
   do
   {
 LABEL_17:
-    v11 = *(a2 + 36);
-    v12 = (*(a2 + 40) + 1);
-    *(a2 + 40) = v12;
-    if (v11 <= v12)
+    v13 = *(a2 + 36);
+    v14 = (*(a2 + 40) + 1);
+    *(a2 + 40) = v14;
+    if (v13 <= v14)
     {
       goto LABEL_41;
     }
 
-    v13 = *(a2 + 24) + 32 * v12;
-    v9 = *v13;
-    *(a2 + 56) = *v13;
-    *(a2 + 60) = *(v13 + 4);
-    v14 = *v13;
-    if (*v13 <= 8u)
+    v15 = *(a2 + 24) + 32 * v14;
+    v11 = *v15;
+    *(a2 + 56) = *v15;
+    *(a2 + 60) = *(v15 + 4);
+    v16 = *v15;
+    if (*v15 <= 8u)
     {
-      if (((1 << v14) & 0x38) != 0)
+      if (((1 << v16) & 0x38) != 0)
       {
-        *(a2 + 80) = *(v13 + 24);
+        *(a2 + 80) = *(v15 + 24);
 LABEL_15:
-        v9 = *(a2 + 56);
+        v11 = *(a2 + 56);
         goto LABEL_16;
       }
 
-      if (((1 << v14) & 0xC4) != 0)
+      if (((1 << v16) & 0xC4) != 0)
       {
-        *(a2 + 80) = *(v13 + 24);
+        *(a2 + 80) = *(v15 + 24);
         goto LABEL_15;
       }
 
-      if (v14 == 8)
+      if (v16 == 8)
       {
         *(a2 + 80) = 0;
-        v15 = *(v13 + 24);
-        if (v15)
+        v17 = *(v15 + 24);
+        if (v17)
         {
-          atomic_fetch_add_explicit(v15, 2u, memory_order_relaxed);
-          v16 = *(a2 + 80);
-          *(a2 + 80) = v15;
-          if (v16)
+          atomic_fetch_add_explicit(v17, 2u, memory_order_relaxed);
+          v18 = *(a2 + 80);
+          *(a2 + 80) = v17;
+          if (v18)
           {
-            if (atomic_fetch_add_explicit(v16, 0xFFFFFFFE, memory_order_relaxed) == 2)
+            if (atomic_fetch_add_explicit(v18, 0xFFFFFFFE, memory_order_relaxed) == 2)
             {
-              WTF::StringImpl::destroy(v16, a2);
+              WTF::StringImpl::destroy(v18, a2);
             }
           }
         }
@@ -4718,50 +4774,54 @@ LABEL_15:
     }
 
 LABEL_16:
-    v10 = *(a2 + 68);
+    v12 = *(a2 + 68);
     *(a2 + 88) = *(a2 + 60);
-    *(a2 + 96) = v10;
+    *(a2 + 96) = v12;
   }
 
-  while (v9 == 82);
-  result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseUnaryExpression(&v20, a2);
-  if (!v22)
+  while (v11 == 82);
+  result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseUnaryExpression(&v27, a2);
+  if (!v29)
   {
-    WGSL::AST::Builder::construct<WGSL::AST::BinaryExpression,WGSL::SourceSpan,std::reference_wrapper<WGSL::AST::Expression>,std::reference_wrapper<WGSL::AST::Expression>,WGSL::AST::BinaryOperation const&,void>();
+    v21 = *(a2 + 8);
+    v22 = *(a2 + 96) - v6;
+    *&v26 = __PAIR64__(v23, v24);
+    *(&v26 + 1) = __PAIR64__(v22, v6);
+    WGSL::AST::Builder::construct<WGSL::AST::BinaryExpression,WGSL::SourceSpan,std::reference_wrapper<WGSL::AST::Expression>,std::reference_wrapper<WGSL::AST::Expression>,WGSL::AST::BinaryOperation const&,void>(v21, &v26, a3, &v27, &v30);
   }
 
-  if (v22 != 1)
+  if (v29 != 1)
   {
-    *(v4 + 24) = v19;
-    *v4 = v5;
+    *(v5 + 24) = v25;
+    *v5 = v7;
     mpark::throw_bad_variant_access(result);
   }
 
-  v18 = v20;
-  if (v20)
+  v20 = v27;
+  if (v27)
   {
-    atomic_fetch_add_explicit(v20, 2u, memory_order_relaxed);
+    atomic_fetch_add_explicit(v27, 2u, memory_order_relaxed);
   }
 
-  *(v4 + 8) = v21;
-  if (v22)
+  *(v5 + 8) = v28;
+  if (v29)
   {
-    if (v22 != 255)
+    if (v29 != 255)
     {
-      result = v20;
-      v20 = 0;
+      result = v27;
+      v27 = 0;
       if (result)
       {
         if (atomic_fetch_add_explicit(result, 0xFFFFFFFE, memory_order_relaxed) == 2)
         {
-          result = WTF::StringImpl::destroy(result, v17);
+          result = WTF::StringImpl::destroy(result, v19);
         }
       }
     }
   }
 
-  *(v4 + 24) = 1;
-  *v4 = v18;
+  *(v5 + 24) = 1;
+  *v5 = v20;
   return result;
 }
 
@@ -4862,13 +4922,13 @@ void WGSL::Parser<WGSL::Lexer<unsigned char>>::parseAttribute(uint64_t a1, uint6
   {
     WGSL::toString();
     WGSL::toString();
-    if (v257)
+    if (v274)
     {
-      v15 = *(v257 + 1);
-      if (v256)
+      v15 = *(v274 + 1);
+      if (v273)
       {
 LABEL_18:
-        v16 = *(v256 + 4);
+        v16 = *(v273 + 4);
         if (v16 < 0)
         {
           goto LABEL_490;
@@ -4889,7 +4949,7 @@ LABEL_18:
     else
     {
       v15 = 0;
-      if (v256)
+      if (v273)
       {
         goto LABEL_18;
       }
@@ -4921,27 +4981,27 @@ LABEL_45:
       goto LABEL_490;
     }
 
-    if (v257)
+    if (v274)
     {
-      v29 = *(v257 + 4);
+      v29 = *(v274 + 4);
       v30 = (v29 >> 2) & 1;
-      if (!v256 || (v29 & 4) == 0)
+      if (!v273 || (v29 & 4) == 0)
       {
 LABEL_125:
-        WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>>(v28, v30, "Expected a ", 0xBuLL, v257, ", but got a ", 0xCuLL, v256, v249);
-        v70 = *v249;
-        if (*v249)
+        WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>>(v28, v30, "Expected a ", 0xBuLL, v274, ", but got a ", 0xCuLL, v266, v273);
+        v71 = *v266;
+        if (*v266)
         {
-          v71 = v256;
-          v256 = 0;
-          if (v71 && atomic_fetch_add_explicit(v71, 0xFFFFFFFE, memory_order_relaxed) == 2)
+          v72 = v273;
+          v273 = 0;
+          if (v72 && atomic_fetch_add_explicit(v72, 0xFFFFFFFE, memory_order_relaxed) == 2)
           {
-            WTF::StringImpl::destroy(v71, v69);
+            WTF::StringImpl::destroy(v72, v70);
           }
 
-          v72 = v257;
-          v257 = 0;
-          if (!v72)
+          v73 = v274;
+          v274 = 0;
+          if (!v73)
           {
             goto LABEL_182;
           }
@@ -4955,13 +5015,13 @@ LABEL_490:
       }
     }
 
-    else if (!v256)
+    else if (!v273)
     {
       v30 = 1;
       goto LABEL_125;
     }
 
-    v30 = (*(v256 + 16) >> 2) & 1;
+    v30 = (*(v273 + 16) >> 2) & 1;
     goto LABEL_125;
   }
 
@@ -5162,21 +5222,21 @@ LABEL_89:
               *(a2 + 96) = v50;
               if (v49 != 82)
               {
-                v45 = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseExpression(&v229, a2);
-                if (v231)
+                v45 = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseExpression(&v246, a2);
+                if (v248[0])
                 {
-                  if (v231 == 1)
+                  if (v248[0] == 1)
                   {
-                    v88 = v229;
-                    if (v229)
+                    v89 = v246;
+                    if (v246)
                     {
-                      atomic_fetch_add_explicit(v229, 2u, memory_order_relaxed);
-                      *(a1 + 8) = v230;
-                      *a1 = v88;
+                      atomic_fetch_add_explicit(v246, 2u, memory_order_relaxed);
+                      *(a1 + 8) = v247;
+                      *a1 = v89;
                       *(a1 + 24) = 1;
-                      if (atomic_fetch_add_explicit(v88, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                      if (atomic_fetch_add_explicit(v89, 0xFFFFFFFE, memory_order_relaxed) == 2)
                       {
-                        WTF::StringImpl::destroy(v88, v46);
+                        WTF::StringImpl::destroy(v89, v46);
                         if (!v31)
                         {
                           return;
@@ -5197,13 +5257,13 @@ LABEL_333:
                         return;
                       }
 
-                      v68 = v31;
+                      v69 = v31;
 LABEL_335:
-                      WTF::StringImpl::destroy(v68, v46);
+                      WTF::StringImpl::destroy(v69, v46);
                       return;
                     }
 
-                    *(a1 + 8) = v230;
+                    *(a1 + 8) = v247;
                     *a1 = 0;
 LABEL_331:
                     *(a1 + 24) = 1;
@@ -5214,111 +5274,112 @@ LABEL_486:
                   mpark::throw_bad_variant_access(v45);
                 }
 
-                v99 = *(a2 + 56);
-                if (v99 == 48)
+                v100 = *(a2 + 56);
+                if (v100 == 48)
                 {
                   WGSL::Parser<WGSL::Lexer<unsigned char>>::consume(a2, v46);
-                  v99 = *(a2 + 56);
+                  v100 = *(a2 + 56);
                 }
 
-                if (v99 != 68)
+                if (v100 != 68)
                 {
-                  *v249 = v99;
-                  LOBYTE(v251) = 1;
+                  *v266 = v100;
+                  LOBYTE(v268) = 1;
                   v45 = WGSL::toString();
-                  if (v251 != 1)
+                  if (v268 != 1)
                   {
                     goto LABEL_486;
                   }
 
                   WGSL::toString();
-                  WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v244, ", but got a ", 13, &v243, &v220);
-                  v124 = v243;
-                  v243 = 0;
-                  if (v124 && atomic_fetch_add_explicit(v124, 0xFFFFFFFE, memory_order_relaxed) == 2)
-                  {
-                    WTF::StringImpl::destroy(v124, v93);
-                  }
-
-                  v125 = v244;
-                  v244 = 0;
+                  WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v261, 13, &v260, &v237, ", but got a ");
+                  v125 = v260;
+                  v260 = 0;
                   if (v125 && atomic_fetch_add_explicit(v125, 0xFFFFFFFE, memory_order_relaxed) == 2)
                   {
-                    WTF::StringImpl::destroy(v125, v93);
+                    WTF::StringImpl::destroy(v125, v94);
                   }
 
-                  v117 = (*(a2 + 96) - v5);
-                  v118 = v220;
+                  v126 = v261;
+                  v261 = 0;
+                  if (v126 && atomic_fetch_add_explicit(v126, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                  {
+                    WTF::StringImpl::destroy(v126, v94);
+                  }
+
+                  v118 = (*(a2 + 96) - v5);
+                  v119 = v237;
                   goto LABEL_268;
                 }
 
-                *v249 = 68;
-                *&v249[4] = *(a2 + 60);
-                LOBYTE(v251) = 0;
+                *v266 = 68;
+                *&v266[4] = *(a2 + 60);
+                LOBYTE(v268) = 0;
                 while (2)
                 {
-                  v102 = *(a2 + 36);
-                  v103 = (*(a2 + 40) + 1);
-                  *(a2 + 40) = v103;
-                  if (v102 <= v103)
+                  v103 = *(a2 + 36);
+                  v104 = (*(a2 + 40) + 1);
+                  *(a2 + 40) = v104;
+                  if (v103 <= v104)
                   {
                     __break(0xC471u);
                     JUMPOUT(0x22577A1A0);
                   }
 
-                  v104 = *(a2 + 24) + 32 * v103;
-                  v100 = *v104;
-                  *(a2 + 56) = *v104;
-                  *(a2 + 60) = *(v104 + 4);
-                  v105 = *v104;
-                  if (*v104 <= 8u)
+                  v105 = *(a2 + 24) + 32 * v104;
+                  v101 = *v105;
+                  *(a2 + 56) = *v105;
+                  *(a2 + 60) = *(v105 + 4);
+                  v106 = *v105;
+                  if (*v105 <= 8u)
                   {
-                    if (((1 << v105) & 0x38) != 0)
+                    if (((1 << v106) & 0x38) != 0)
                     {
-                      *(a2 + 80) = *(v104 + 24);
+                      *(a2 + 80) = *(v105 + 24);
                       goto LABEL_204;
                     }
 
-                    if (((1 << v105) & 0xC4) != 0)
+                    if (((1 << v106) & 0xC4) != 0)
                     {
-                      *(a2 + 80) = *(v104 + 24);
+                      *(a2 + 80) = *(v105 + 24);
                       goto LABEL_204;
                     }
 
-                    if (v105 == 8)
+                    if (v106 == 8)
                     {
                       *(a2 + 80) = 0;
-                      v106 = *(v104 + 24);
-                      if (v106)
+                      v107 = *(v105 + 24);
+                      if (v107)
                       {
-                        atomic_fetch_add_explicit(v106, 2u, memory_order_relaxed);
-                        v107 = *(a2 + 80);
-                        *(a2 + 80) = v106;
-                        if (v107)
+                        atomic_fetch_add_explicit(v107, 2u, memory_order_relaxed);
+                        v108 = *(a2 + 80);
+                        *(a2 + 80) = v107;
+                        if (v108)
                         {
-                          if (atomic_fetch_add_explicit(v107, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                          if (atomic_fetch_add_explicit(v108, 0xFFFFFFFE, memory_order_relaxed) == 2)
                           {
-                            WTF::StringImpl::destroy(v107, v46);
+                            WTF::StringImpl::destroy(v108, v46);
                           }
                         }
                       }
 
 LABEL_204:
-                      v100 = *(a2 + 56);
+                      v101 = *(a2 + 56);
                     }
                   }
 
-                  v101 = *(a2 + 68);
+                  v102 = *(a2 + 68);
                   *(a2 + 88) = *(a2 + 60);
-                  *(a2 + 96) = v101;
-                  if (v100 != 82)
+                  *(a2 + 96) = v102;
+                  if (v101 != 82)
                   {
-                    std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v249, v46);
-                    v126 = *(a2 + 96) - v5;
-                    *v249 = v4;
-                    *&v249[8] = v5;
-                    *&v249[12] = v126;
-                    WGSL::AST::Builder::construct<WGSL::AST::GroupAttribute,WGSL::SourceSpan,std::reference_wrapper<WGSL::AST::Expression>,void>();
+                    std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v266, v46);
+                    v127 = *(a2 + 8);
+                    v128 = *(a2 + 96) - v5;
+                    *v266 = v4;
+                    *&v266[8] = v5;
+                    *&v266[12] = v128;
+                    WGSL::AST::Builder::construct<WGSL::AST::GroupAttribute,WGSL::SourceSpan,std::reference_wrapper<WGSL::AST::Expression>,void>(v127, v266, &v246);
                   }
 
                   continue;
@@ -5329,28 +5390,28 @@ LABEL_204:
 
           WGSL::toString();
           WGSL::toString();
-          if (v246)
+          if (v263)
           {
-            v77 = *(v246 + 1);
-            if (v245)
+            v78 = *(v263 + 1);
+            if (v262)
             {
               goto LABEL_150;
             }
 
 LABEL_217:
-            v78 = 0;
+            v79 = 0;
             goto LABEL_218;
           }
 
-          v77 = 0;
-          if (!v245)
+          v78 = 0;
+          if (!v262)
           {
             goto LABEL_217;
           }
 
 LABEL_150:
-          v78 = *(v245 + 4);
-          if (v78 < 0)
+          v79 = *(v262 + 4);
+          if (v79 < 0)
           {
 LABEL_496:
             __break(0xC471u);
@@ -5358,82 +5419,82 @@ LABEL_496:
           }
 
 LABEL_218:
-          v14 = __OFADD__(v78, 12);
-          v108 = v78 + 12;
-          v109 = v14;
-          if (v77 < 0)
+          v14 = __OFADD__(v79, 12);
+          v109 = v79 + 12;
+          v110 = v14;
+          if (v78 < 0)
           {
             goto LABEL_496;
           }
 
-          if (v109)
+          if (v110)
           {
             goto LABEL_496;
           }
 
-          v14 = __OFADD__(v77, v108);
-          v110 = v77 + v108;
+          v14 = __OFADD__(v78, v109);
+          v111 = v78 + v109;
           if (v14)
           {
             goto LABEL_496;
           }
 
-          v111 = (v110 + 11);
-          if (__OFADD__(v110, 11))
+          v112 = (v111 + 11);
+          if (__OFADD__(v111, 11))
           {
             goto LABEL_496;
           }
 
-          if (v246)
+          if (v263)
           {
-            v112 = *(v246 + 4);
-            v113 = (v112 >> 2) & 1;
-            if (!v245 || (v112 & 4) == 0)
+            v113 = *(v263 + 4);
+            v114 = (v113 >> 2) & 1;
+            if (!v262 || (v113 & 4) == 0)
             {
 LABEL_290:
-              WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>>(v111, v113, "Expected a ", 0xBuLL, v246, ", but got a ", 0xCuLL, v245, v249);
-              v134 = *v249;
-              if (!*v249)
+              WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>>(v112, v114, "Expected a ", 0xBuLL, v263, ", but got a ", 0xCuLL, v266, v262);
+              v136 = *v266;
+              if (!*v266)
               {
                 goto LABEL_496;
               }
 
-              v135 = v245;
-              v245 = 0;
-              if (v135 && atomic_fetch_add_explicit(v135, 0xFFFFFFFE, memory_order_relaxed) == 2)
+              v137 = v262;
+              v262 = 0;
+              if (v137 && atomic_fetch_add_explicit(v137, 0xFFFFFFFE, memory_order_relaxed) == 2)
               {
-                WTF::StringImpl::destroy(v135, v46);
+                WTF::StringImpl::destroy(v137, v46);
               }
 
-              v136 = v246;
-              v246 = 0;
-              if (!v136)
+              v138 = v263;
+              v263 = 0;
+              if (!v138)
               {
 LABEL_330:
-                v147 = v5 | ((*(a2 + 96) - v5) << 32);
-                *a1 = v134;
+                v150 = v5 | ((*(a2 + 96) - v5) << 32);
+                *a1 = v136;
                 *(a1 + 8) = v4;
-                *(a1 + 16) = v147;
+                *(a1 + 16) = v150;
                 goto LABEL_331;
               }
 
 LABEL_328:
-              if (atomic_fetch_add_explicit(v136, 0xFFFFFFFE, memory_order_relaxed) == 2)
+              if (atomic_fetch_add_explicit(v138, 0xFFFFFFFE, memory_order_relaxed) == 2)
               {
-                WTF::StringImpl::destroy(v136, v46);
+                WTF::StringImpl::destroy(v138, v46);
               }
 
               goto LABEL_330;
             }
           }
 
-          else if (!v245)
+          else if (!v262)
           {
-            v113 = 1;
+            v114 = 1;
             goto LABEL_290;
           }
 
-          v113 = (*(v245 + 16) >> 2) & 1;
+          v114 = (*(v262 + 16) >> 2) & 1;
           goto LABEL_290;
         }
 
@@ -5441,9 +5502,9 @@ LABEL_328:
         {
           if (*(a2 + 56) == 67)
           {
-            *v249 = 67;
-            *&v249[4] = *(a2 + 60);
-            LOBYTE(v251) = 0;
+            *v266 = 67;
+            *&v266[4] = *(a2 + 60);
+            LOBYTE(v268) = 0;
             while (1)
             {
               v60 = *(a2 + 36);
@@ -5506,65 +5567,66 @@ LABEL_105:
               *(a2 + 96) = v59;
               if (v58 != 82)
               {
-                std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v249, v57);
-                v45 = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseExpression(&v229, a2);
-                v97 = v231;
-                if (v231)
+                std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v266, v57);
+                v45 = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseExpression(&v246, a2);
+                v98 = v248[0];
+                if (v248[0])
                 {
                   goto LABEL_195;
                 }
 
                 if (*(a2 + 56) == 48)
                 {
-                  WGSL::Parser<WGSL::Lexer<unsigned char>>::consume(a2, v96);
+                  WGSL::Parser<WGSL::Lexer<unsigned char>>::consume(a2, v97);
                 }
 
-                WGSL::Parser<WGSL::Lexer<unsigned char>>::consumeType(v249, a2, 68);
-                if (!v251)
+                WGSL::Parser<WGSL::Lexer<unsigned char>>::consumeType(v266, a2, 68);
+                if (!v268)
                 {
-                  std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v249, v119);
-                  v145 = *(a2 + 96) - v5;
-                  *v249 = v4;
-                  *&v249[8] = v5;
-                  *&v249[12] = v145;
-                  WGSL::AST::Builder::construct<WGSL::AST::BindingAttribute,WGSL::SourceSpan,std::reference_wrapper<WGSL::AST::Expression>,void>();
+                  std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v266, v120);
+                  v147 = *(a2 + 8);
+                  v148 = *(a2 + 96) - v5;
+                  *v266 = v4;
+                  *&v266[8] = v5;
+                  *&v266[12] = v148;
+                  WGSL::AST::Builder::construct<WGSL::AST::BindingAttribute,WGSL::SourceSpan,std::reference_wrapper<WGSL::AST::Expression>,void>(v147, v266, &v246);
                 }
 
                 v45 = WGSL::toString();
-                if (v251 != 1)
+                if (v268 != 1)
                 {
                   goto LABEL_486;
                 }
 
                 WGSL::toString();
-                WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v240, ", but got a ", 13, &v239, &v220);
-                v121 = v239;
-                v239 = 0;
-                if (v121 && atomic_fetch_add_explicit(v121, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v257, 13, &v256, &v237, ", but got a ");
+                v122 = v256;
+                v256 = 0;
+                if (v122 && atomic_fetch_add_explicit(v122, 0xFFFFFFFE, memory_order_relaxed) == 2)
                 {
-                  WTF::StringImpl::destroy(v121, v120);
+                  WTF::StringImpl::destroy(v122, v121);
                 }
 
-                v122 = v240;
-                v240 = 0;
-                if (v122)
+                v123 = v257;
+                v257 = 0;
+                if (v123)
                 {
 LABEL_257:
-                  if (atomic_fetch_add_explicit(v122, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                  if (atomic_fetch_add_explicit(v123, 0xFFFFFFFE, memory_order_relaxed) == 2)
                   {
-                    WTF::StringImpl::destroy(v122, v120);
+                    WTF::StringImpl::destroy(v123, v121);
                   }
                 }
 
 LABEL_259:
-                v123 = v5 | ((*(a2 + 96) - v5) << 32);
-                *a1 = v220;
+                v124 = v5 | ((*(a2 + 96) - v5) << 32);
+                *a1 = v237;
                 *(a1 + 8) = v4;
-                *(a1 + 16) = v123;
+                *(a1 + 16) = v124;
                 *(a1 + 24) = 1;
-                std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v249, v120);
+                std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v266, v121);
 LABEL_320:
-                std::experimental::fundamentals_v3::expected<std::reference_wrapper<WGSL::AST::Expression>,WGSL::CompilationMessage>::~expected(&v229, v96);
+                std::experimental::fundamentals_v3::expected<std::reference_wrapper<WGSL::AST::Expression>,WGSL::CompilationMessage>::~expected(&v246, v97);
                 if (!v31)
                 {
                   return;
@@ -5577,20 +5639,20 @@ LABEL_320:
 
           WGSL::toString();
           WGSL::toString();
-          if (v242)
+          if (v259)
           {
-            v91 = *(v242 + 1);
+            v92 = *(v259 + 1);
           }
 
           else
           {
-            v91 = 0;
+            v92 = 0;
           }
 
-          if (v241)
+          if (v258)
           {
-            v127 = *(v241 + 4);
-            if (v127 < 0)
+            v129 = *(v258 + 4);
+            if (v129 < 0)
             {
               goto LABEL_497;
             }
@@ -5598,59 +5660,59 @@ LABEL_320:
 
           else
           {
-            v127 = 0;
+            v129 = 0;
           }
 
-          v14 = __OFADD__(v127, 12);
-          v128 = v127 + 12;
-          v129 = v14;
-          if ((v91 & 0x80000000) == 0 && (v129 & 1) == 0)
+          v14 = __OFADD__(v129, 12);
+          v130 = v129 + 12;
+          v131 = v14;
+          if ((v92 & 0x80000000) == 0 && (v131 & 1) == 0)
           {
-            v14 = __OFADD__(v91, v128);
-            v130 = v91 + v128;
+            v14 = __OFADD__(v92, v130);
+            v132 = v92 + v130;
             if (!v14)
             {
-              v131 = (v130 + 11);
-              if (!__OFADD__(v130, 11))
+              v133 = (v132 + 11);
+              if (!__OFADD__(v132, 11))
               {
-                if (v242)
+                if (v259)
                 {
-                  v132 = *(v242 + 4);
-                  v133 = (v132 >> 2) & 1;
-                  if (!v241 || (v132 & 4) == 0)
+                  v134 = *(v259 + 4);
+                  v135 = (v134 >> 2) & 1;
+                  if (!v258 || (v134 & 4) == 0)
                   {
                     goto LABEL_323;
                   }
 
 LABEL_288:
-                  v133 = (*(v241 + 16) >> 2) & 1;
+                  v135 = (*(v258 + 16) >> 2) & 1;
                 }
 
                 else
                 {
-                  if (v241)
+                  if (v258)
                   {
                     goto LABEL_288;
                   }
 
-                  v133 = 1;
+                  v135 = 1;
                 }
 
 LABEL_323:
-                WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>>(v131, v133, "Expected a ", 0xBuLL, v242, ", but got a ", 0xCuLL, v241, &v229);
-                v134 = v229;
-                if (v229)
+                WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>>(v133, v135, "Expected a ", 0xBuLL, v259, ", but got a ", 0xCuLL, &v246, v258);
+                v136 = v246;
+                if (v246)
                 {
-                  v146 = v241;
-                  v241 = 0;
-                  if (v146 && atomic_fetch_add_explicit(v146, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                  v149 = v258;
+                  v258 = 0;
+                  if (v149 && atomic_fetch_add_explicit(v149, 0xFFFFFFFE, memory_order_relaxed) == 2)
                   {
-                    WTF::StringImpl::destroy(v146, v46);
+                    WTF::StringImpl::destroy(v149, v46);
                   }
 
-                  v136 = v242;
-                  v242 = 0;
-                  if (!v136)
+                  v138 = v259;
+                  v259 = 0;
+                  if (!v138)
                   {
                     goto LABEL_330;
                   }
@@ -5671,110 +5733,110 @@ LABEL_498:
         {
           if (*(a2 + 56) != 67)
           {
-            *v249 = *(a2 + 56);
-            LOBYTE(v251) = 1;
+            *v266 = *(a2 + 56);
+            LOBYTE(v268) = 1;
             goto LABEL_241;
           }
 
-          *v249 = 67;
-          *&v249[4] = *(a2 + 60);
-          LOBYTE(v251) = 0;
+          *v266 = 67;
+          *&v266[4] = *(a2 + 60);
+          LOBYTE(v268) = 0;
           while (1)
           {
-            v82 = *(a2 + 36);
-            v83 = (*(a2 + 40) + 1);
-            *(a2 + 40) = v83;
-            if (v82 <= v83)
+            v83 = *(a2 + 36);
+            v84 = (*(a2 + 40) + 1);
+            *(a2 + 40) = v84;
+            if (v83 <= v84)
             {
               __break(0xC471u);
               JUMPOUT(0x22577A198);
             }
 
-            v84 = *(a2 + 24) + 32 * v83;
-            v80 = *v84;
-            *(a2 + 56) = *v84;
-            *(a2 + 60) = *(v84 + 4);
-            v85 = *v84;
-            if (*v84 > 8u)
+            v85 = *(a2 + 24) + 32 * v84;
+            v81 = *v85;
+            *(a2 + 56) = *v85;
+            *(a2 + 60) = *(v85 + 4);
+            v86 = *v85;
+            if (*v85 > 8u)
             {
               goto LABEL_157;
             }
 
-            if (((1 << v85) & 0x38) != 0)
+            if (((1 << v86) & 0x38) != 0)
             {
-              *(a2 + 80) = *(v84 + 24);
+              *(a2 + 80) = *(v85 + 24);
             }
 
-            else if (((1 << v85) & 0xC4) != 0)
+            else if (((1 << v86) & 0xC4) != 0)
             {
-              *(a2 + 80) = *(v84 + 24);
+              *(a2 + 80) = *(v85 + 24);
             }
 
             else
             {
-              if (v85 != 8)
+              if (v86 != 8)
               {
                 goto LABEL_157;
               }
 
               *(a2 + 80) = 0;
-              v86 = *(v84 + 24);
-              if (v86)
+              v87 = *(v85 + 24);
+              if (v87)
               {
-                atomic_fetch_add_explicit(v86, 2u, memory_order_relaxed);
-                v87 = *(a2 + 80);
-                *(a2 + 80) = v86;
-                if (v87)
+                atomic_fetch_add_explicit(v87, 2u, memory_order_relaxed);
+                v88 = *(a2 + 80);
+                *(a2 + 80) = v87;
+                if (v88)
                 {
-                  if (atomic_fetch_add_explicit(v87, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                  if (atomic_fetch_add_explicit(v88, 0xFFFFFFFE, memory_order_relaxed) == 2)
                   {
-                    WTF::StringImpl::destroy(v87, v79);
+                    WTF::StringImpl::destroy(v88, v80);
                   }
                 }
               }
             }
 
-            v80 = *(a2 + 56);
+            v81 = *(a2 + 56);
 LABEL_157:
-            v81 = *(a2 + 68);
+            v82 = *(a2 + 68);
             *(a2 + 88) = *(a2 + 60);
-            *(a2 + 96) = v81;
-            if (v80 != 82)
+            *(a2 + 96) = v82;
+            if (v81 != 82)
             {
-              if (v251)
+              if (v268)
               {
 LABEL_241:
                 v45 = WGSL::toString();
-                if (v251 != 1)
+                if (v268 != 1)
                 {
                   goto LABEL_486;
                 }
 
                 WGSL::toString();
-                WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v238, ", but got a ", 13, &v237, &v229);
-                v116 = v237;
-                v237 = 0;
-                if (v116 && atomic_fetch_add_explicit(v116, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v255, 13, &v254, &v246, ", but got a ");
+                v117 = v254;
+                v254 = 0;
+                if (v117 && atomic_fetch_add_explicit(v117, 0xFFFFFFFE, memory_order_relaxed) == 2)
                 {
-                  WTF::StringImpl::destroy(v116, v93);
+                  WTF::StringImpl::destroy(v117, v94);
                 }
 
-                v95 = v238;
-                v238 = 0;
-                if (v95)
+                v96 = v255;
+                v255 = 0;
+                if (v96)
                 {
                   goto LABEL_246;
                 }
 
 LABEL_248:
-                v117 = (*(a2 + 96) - v5);
-                v118 = v229;
+                v118 = (*(a2 + 96) - v5);
+                v119 = v246;
 LABEL_268:
-                *a1 = v118;
+                *a1 = v119;
                 *(a1 + 8) = v4;
-                *(a1 + 16) = v5 | (v117 << 32);
+                *(a1 + 16) = v5 | (v118 << 32);
                 *(a1 + 24) = 1;
-                std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v249, v93);
+                std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v266, v94);
                 if (!v31)
                 {
                   return;
@@ -5783,45 +5845,46 @@ LABEL_268:
                 goto LABEL_333;
               }
 
-              std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v249, v79);
-              v45 = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseExpression(&v229, a2);
-              v97 = v231;
-              if (!v231)
+              std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v266, v80);
+              v45 = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseExpression(&v246, a2);
+              v98 = v248[0];
+              if (!v248[0])
               {
                 if (*(a2 + 56) == 48)
                 {
-                  WGSL::Parser<WGSL::Lexer<unsigned char>>::consume(a2, v96);
+                  WGSL::Parser<WGSL::Lexer<unsigned char>>::consume(a2, v97);
                 }
 
-                WGSL::Parser<WGSL::Lexer<unsigned char>>::consumeType(v249, a2, 68);
-                if (!v251)
+                WGSL::Parser<WGSL::Lexer<unsigned char>>::consumeType(v266, a2, 68);
+                if (!v268)
                 {
-                  std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v249, v143);
-                  v160 = *(a2 + 96) - v5;
-                  *v249 = v4;
-                  *&v249[8] = v5;
-                  *&v249[12] = v160;
-                  WGSL::AST::Builder::construct<WGSL::AST::LocationAttribute,WGSL::SourceSpan,std::reference_wrapper<WGSL::AST::Expression>,void>();
+                  std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v266, v145);
+                  v164 = *(a2 + 8);
+                  v165 = *(a2 + 96) - v5;
+                  *v266 = v4;
+                  *&v266[8] = v5;
+                  *&v266[12] = v165;
+                  WGSL::AST::Builder::construct<WGSL::AST::LocationAttribute,WGSL::SourceSpan,std::reference_wrapper<WGSL::AST::Expression>,void>(v164, v266, &v246);
                 }
 
                 v45 = WGSL::toString();
-                if (v251 != 1)
+                if (v268 != 1)
                 {
                   goto LABEL_486;
                 }
 
                 WGSL::toString();
-                WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v236, ", but got a ", 13, &v235, &v220);
-                v144 = v235;
-                v235 = 0;
-                if (v144 && atomic_fetch_add_explicit(v144, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v253, 13, &v252, &v237, ", but got a ");
+                v146 = v252;
+                v252 = 0;
+                if (v146 && atomic_fetch_add_explicit(v146, 0xFFFFFFFE, memory_order_relaxed) == 2)
                 {
-                  WTF::StringImpl::destroy(v144, v120);
+                  WTF::StringImpl::destroy(v146, v121);
                 }
 
-                v122 = v236;
-                v236 = 0;
-                if (v122)
+                v123 = v253;
+                v253 = 0;
+                if (v123)
                 {
                   goto LABEL_257;
                 }
@@ -5830,19 +5893,19 @@ LABEL_268:
               }
 
 LABEL_195:
-              if (v97 != 1)
+              if (v98 != 1)
               {
                 goto LABEL_486;
               }
 
-              v98 = v229;
-              if (v229)
+              v99 = v246;
+              if (v246)
               {
-                atomic_fetch_add_explicit(v229, 2u, memory_order_relaxed);
+                atomic_fetch_add_explicit(v246, 2u, memory_order_relaxed);
               }
 
-              *(a1 + 8) = v230;
-              *a1 = v98;
+              *(a1 + 8) = v247;
+              *a1 = v99;
               *(a1 + 24) = 1;
               goto LABEL_320;
             }
@@ -5851,27 +5914,27 @@ LABEL_195:
 
         if (MEMORY[0x22AA683D0](v31, "builtin", 7))
         {
-          WGSL::Parser<WGSL::Lexer<unsigned char>>::consumeType(v249, a2, 67);
-          if (v251)
+          WGSL::Parser<WGSL::Lexer<unsigned char>>::consumeType(v266, a2, 67);
+          if (v268)
           {
             v45 = WGSL::toString();
-            if (v251 != 1)
+            if (v268 != 1)
             {
               goto LABEL_486;
             }
 
             WGSL::toString();
-            WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v234, ", but got a ", 13, &v233, &v229);
-            v94 = v233;
-            v233 = 0;
-            if (v94 && atomic_fetch_add_explicit(v94, 0xFFFFFFFE, memory_order_relaxed) == 2)
+            WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v251, 13, &v250, &v246, ", but got a ");
+            v95 = v250;
+            v250 = 0;
+            if (v95 && atomic_fetch_add_explicit(v95, 0xFFFFFFFE, memory_order_relaxed) == 2)
             {
-              WTF::StringImpl::destroy(v94, v93);
+              WTF::StringImpl::destroy(v95, v94);
             }
 
-            v95 = v234;
-            v234 = 0;
-            if (v95)
+            v96 = v251;
+            v251 = 0;
+            if (v96)
             {
               goto LABEL_246;
             }
@@ -5879,28 +5942,28 @@ LABEL_195:
             goto LABEL_248;
           }
 
-          v139 = std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v249, v92);
-          v45 = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseIdentifier(v139, a2);
-          v141 = v251;
-          if (v251)
+          v141 = std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v266, v93);
+          v45 = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseIdentifier(v141, a2);
+          v143 = v268;
+          if (v268)
           {
 LABEL_305:
-            if (v141 != 1)
+            if (v143 != 1)
             {
               goto LABEL_486;
             }
 
-            v142 = *v249;
-            if (*v249)
+            v144 = *v266;
+            if (*v266)
             {
-              atomic_fetch_add_explicit(*v249, 2u, memory_order_relaxed);
+              atomic_fetch_add_explicit(*v266, 2u, memory_order_relaxed);
             }
 
-            *(a1 + 8) = *&v249[8];
-            *a1 = v142;
+            *(a1 + 8) = *&v266[8];
+            *a1 = v144;
 LABEL_377:
             *(a1 + 24) = 1;
-            std::experimental::fundamentals_v3::expected<WGSL::AST::Identifier,WGSL::CompilationMessage>::~expected(v249, v140);
+            std::experimental::fundamentals_v3::expected<WGSL::AST::Identifier,WGSL::CompilationMessage>::~expected(v266, v142);
             if (!v31)
             {
               return;
@@ -5909,26 +5972,27 @@ LABEL_377:
             goto LABEL_333;
           }
 
-          v152 = WTF::SortedArrayMap<std::pair<WTF::ComparableASCIISubsetLiteral<(WTF::ASCIISubset)0>,WGSL::Builtin> [12]>::tryGet<WTF::String>(WGSL::parseBuiltin(WTF::String const&)::__map, &v250);
-          if (v152)
+          v155 = WTF::SortedArrayMap<std::pair<WTF::ComparableASCIISubsetLiteral<(WTF::ASCIISubset)0>,WGSL::Builtin> [12]>::tryGet<WTF::String>(WGSL::parseBuiltin(WTF::String const&)::__map, v267);
+          if (v155)
           {
-            v154 = *v152;
-            if (v154 > 7)
+            v157 = v155;
+            v158 = *v155;
+            if (v158 > 7)
             {
-              if (v154 == 8)
+              if (v158 == 8)
               {
                 *(*a2 + 26) = 1;
               }
 
-              else if (v154 == 9)
+              else if (v158 == 9)
               {
                 *(*a2 + 24) = 1;
               }
             }
 
-            else if (*v152)
+            else if (*v155)
             {
-              if (v154 == 1)
+              if (v158 == 1)
               {
                 *(*a2 + 25) = 1;
               }
@@ -5941,37 +6005,38 @@ LABEL_377:
 
             if (*(a2 + 56) == 48)
             {
-              WGSL::Parser<WGSL::Lexer<unsigned char>>::consume(a2, v153);
+              WGSL::Parser<WGSL::Lexer<unsigned char>>::consume(a2, v156);
             }
 
-            WGSL::Parser<WGSL::Lexer<unsigned char>>::consumeType(&v229, a2, 68);
-            if (!v232)
+            WGSL::Parser<WGSL::Lexer<unsigned char>>::consumeType(&v246, a2, 68);
+            if (!v249)
             {
-              std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(&v229, v170);
-              v176 = *(a2 + 96) - v5;
-              v229 = v4;
-              *&v230 = __PAIR64__(v176, v5);
-              WGSL::AST::Builder::construct<WGSL::AST::BuiltinAttribute,WGSL::SourceSpan,WGSL::Builtin const&,void>();
+              std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(&v246, v178);
+              v184 = *(a2 + 8);
+              v185 = *(a2 + 96) - v5;
+              v246 = v4;
+              *&v247 = __PAIR64__(v185, v5);
+              WGSL::AST::Builder::construct<WGSL::AST::BuiltinAttribute,WGSL::SourceSpan,WGSL::Builtin const&,void>(v184, &v246, v157);
             }
 
             v45 = WGSL::toString();
-            if (v232 != 1)
+            if (v249 != 1)
             {
               goto LABEL_486;
             }
 
             WGSL::toString();
-            WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v228, ", but got a ", 13, &v227, &v220);
-            v172 = v227;
-            v227 = 0;
-            if (v172 && atomic_fetch_add_explicit(v172, 0xFFFFFFFE, memory_order_relaxed) == 2)
+            WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v245, 13, &v244, &v237, ", but got a ");
+            v180 = v244;
+            v244 = 0;
+            if (v180 && atomic_fetch_add_explicit(v180, 0xFFFFFFFE, memory_order_relaxed) == 2)
             {
-              WTF::StringImpl::destroy(v172, v171);
+              WTF::StringImpl::destroy(v180, v179);
             }
 
-            v173 = v228;
-            v228 = 0;
-            if (v173)
+            v181 = v245;
+            v245 = 0;
+            if (v181)
             {
               goto LABEL_421;
             }
@@ -5981,36 +6046,36 @@ LABEL_377:
 
 LABEL_376:
           WTF::StringImpl::createWithoutCopyingNonEmpty();
-          v159 = v5 | ((*(a2 + 96) - v5) << 32);
-          *a1 = v229;
+          v163 = v5 | ((*(a2 + 96) - v5) << 32);
+          *a1 = v246;
           *(a1 + 8) = v4;
-          *(a1 + 16) = v159;
+          *(a1 + 16) = v163;
           goto LABEL_377;
         }
 
         if (MEMORY[0x22AA683D0](v31, "workgroup_size", 14))
         {
-          WGSL::Parser<WGSL::Lexer<unsigned char>>::consumeType(v249, a2, 67);
-          if (v251)
+          WGSL::Parser<WGSL::Lexer<unsigned char>>::consumeType(v266, a2, 67);
+          if (v268)
           {
             v45 = WGSL::toString();
-            if (v251 != 1)
+            if (v268 != 1)
             {
               goto LABEL_486;
             }
 
             WGSL::toString();
-            WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v226, ", but got a ", 13, &v225, &v229);
-            v115 = v225;
-            v225 = 0;
-            if (v115 && atomic_fetch_add_explicit(v115, 0xFFFFFFFE, memory_order_relaxed) == 2)
+            WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v243, 13, &v242, &v246, ", but got a ");
+            v116 = v242;
+            v242 = 0;
+            if (v116 && atomic_fetch_add_explicit(v116, 0xFFFFFFFE, memory_order_relaxed) == 2)
             {
-              WTF::StringImpl::destroy(v115, v93);
+              WTF::StringImpl::destroy(v116, v94);
             }
 
-            v95 = v226;
-            v226 = 0;
-            if (v95)
+            v96 = v243;
+            v243 = 0;
+            if (v96)
             {
               goto LABEL_246;
             }
@@ -6018,113 +6083,114 @@ LABEL_376:
             goto LABEL_248;
           }
 
-          std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v249, v114);
-          v45 = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseExpression(&v229, a2);
-          v97 = v231;
-          if (v231)
+          std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v266, v115);
+          v45 = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseExpression(&v246, a2);
+          v98 = v248[0];
+          if (v248[0])
           {
             goto LABEL_195;
           }
 
-          v223 = 0;
-          v224 = 0;
+          v240 = 0;
+          v241 = 0;
           if (*(a2 + 56) == 48)
           {
-            WGSL::Parser<WGSL::Lexer<unsigned char>>::consume(a2, v96);
+            WGSL::Parser<WGSL::Lexer<unsigned char>>::consume(a2, v97);
             if (*(a2 + 56) != 68)
             {
-              v45 = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseExpression(v249, a2);
-              if (v250)
+              v45 = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseExpression(v266, a2);
+              if (v267[0])
               {
-                if (v250 != 1)
+                if (v267[0] != 1)
                 {
                   goto LABEL_486;
                 }
 
-                v151 = *v249;
-                if (*v249)
+                v154 = *v266;
+                if (*v266)
                 {
-                  atomic_fetch_add_explicit(*v249, 2u, memory_order_relaxed);
+                  atomic_fetch_add_explicit(*v266, 2u, memory_order_relaxed);
                 }
 
-                *(a1 + 8) = *&v249[8];
-                *a1 = v151;
+                *(a1 + 8) = *&v266[8];
+                *a1 = v154;
                 *(a1 + 24) = 1;
 LABEL_352:
-                std::experimental::fundamentals_v3::expected<std::reference_wrapper<WGSL::AST::Expression>,WGSL::CompilationMessage>::~expected(v249, v150);
+                std::experimental::fundamentals_v3::expected<std::reference_wrapper<WGSL::AST::Expression>,WGSL::CompilationMessage>::~expected(v266, v153);
                 goto LABEL_320;
               }
 
-              v224 = *v249;
+              v241 = *v266;
               if (*(a2 + 56) == 48)
               {
-                WGSL::Parser<WGSL::Lexer<unsigned char>>::consume(a2, v150);
+                WGSL::Parser<WGSL::Lexer<unsigned char>>::consume(a2, v153);
                 if (*(a2 + 56) != 68)
                 {
-                  v45 = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseExpression(&v220, a2);
-                  if (v222)
+                  v45 = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseExpression(&v237, a2);
+                  if (v239)
                   {
-                    if (v222 != 1)
+                    if (v239 != 1)
                     {
                       goto LABEL_486;
                     }
 
-                    v182 = v220;
-                    if (v220)
+                    v193 = v237;
+                    if (v237)
                     {
-                      atomic_fetch_add_explicit(v220, 2u, memory_order_relaxed);
+                      atomic_fetch_add_explicit(v237, 2u, memory_order_relaxed);
                     }
 
-                    *(a1 + 8) = v221;
-                    *a1 = v182;
+                    *(a1 + 8) = v238;
+                    *a1 = v193;
                     *(a1 + 24) = 1;
-                    std::experimental::fundamentals_v3::expected<std::reference_wrapper<WGSL::AST::Expression>,WGSL::CompilationMessage>::~expected(&v220, v181);
+                    std::experimental::fundamentals_v3::expected<std::reference_wrapper<WGSL::AST::Expression>,WGSL::CompilationMessage>::~expected(&v237, v192);
                     goto LABEL_352;
                   }
 
-                  v223 = v220;
+                  v240 = v237;
                   if (*(a2 + 56) == 48)
                   {
-                    WGSL::Parser<WGSL::Lexer<unsigned char>>::consume(a2, v181);
+                    WGSL::Parser<WGSL::Lexer<unsigned char>>::consume(a2, v192);
                   }
 
-                  std::experimental::fundamentals_v3::expected<std::reference_wrapper<WGSL::AST::Expression>,WGSL::CompilationMessage>::~expected(&v220, v181);
+                  std::experimental::fundamentals_v3::expected<std::reference_wrapper<WGSL::AST::Expression>,WGSL::CompilationMessage>::~expected(&v237, v192);
                 }
               }
 
-              std::experimental::fundamentals_v3::expected<std::reference_wrapper<WGSL::AST::Expression>,WGSL::CompilationMessage>::~expected(v249, v150);
+              std::experimental::fundamentals_v3::expected<std::reference_wrapper<WGSL::AST::Expression>,WGSL::CompilationMessage>::~expected(v266, v153);
             }
           }
 
-          WGSL::Parser<WGSL::Lexer<unsigned char>>::consumeType(v249, a2, 68);
-          if (!v251)
+          WGSL::Parser<WGSL::Lexer<unsigned char>>::consumeType(v266, a2, 68);
+          if (!v268)
           {
-            std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v249, v195);
-            v197 = *(a2 + 96) - v5;
-            *v249 = v4;
-            *&v249[8] = v5;
-            *&v249[12] = v197;
-            WGSL::AST::Builder::construct<WGSL::AST::WorkgroupSizeAttribute,WGSL::SourceSpan,std::reference_wrapper<WGSL::AST::Expression>,WGSL::AST::Expression*,WGSL::AST::Expression*,void>();
+            std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v266, v211);
+            v213 = *(a2 + 8);
+            v214 = *(a2 + 96) - v5;
+            *v266 = v4;
+            *&v266[8] = v5;
+            *&v266[12] = v214;
+            WGSL::AST::Builder::construct<WGSL::AST::WorkgroupSizeAttribute,WGSL::SourceSpan,std::reference_wrapper<WGSL::AST::Expression>,WGSL::AST::Expression*,WGSL::AST::Expression*,void>(v213, v266, &v246, &v241, &v240);
           }
 
           v45 = WGSL::toString();
-          if (v251 != 1)
+          if (v268 != 1)
           {
             goto LABEL_486;
           }
 
           WGSL::toString();
-          WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v219, ", but got a ", 13, &v218, &v220);
-          v196 = v218;
-          v218 = 0;
-          if (v196 && atomic_fetch_add_explicit(v196, 0xFFFFFFFE, memory_order_relaxed) == 2)
+          WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v236, 13, &v235, &v237, ", but got a ");
+          v212 = v235;
+          v235 = 0;
+          if (v212 && atomic_fetch_add_explicit(v212, 0xFFFFFFFE, memory_order_relaxed) == 2)
           {
-            WTF::StringImpl::destroy(v196, v120);
+            WTF::StringImpl::destroy(v212, v121);
           }
 
-          v122 = v219;
-          v219 = 0;
-          if (v122)
+          v123 = v236;
+          v236 = 0;
+          if (v123)
           {
             goto LABEL_257;
           }
@@ -6134,48 +6200,49 @@ LABEL_352:
 
         if (MEMORY[0x22AA683D0](v31, "align", 5))
         {
-          WGSL::Parser<WGSL::Lexer<unsigned char>>::consumeType(v249, a2, 67);
-          if (!v251)
+          WGSL::Parser<WGSL::Lexer<unsigned char>>::consumeType(v266, a2, 67);
+          if (!v268)
           {
-            std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v249, v137);
-            v45 = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseExpression(&v229, a2);
-            v97 = v231;
-            if (!v231)
+            std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v266, v139);
+            v45 = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseExpression(&v246, a2);
+            v98 = v248[0];
+            if (!v248[0])
             {
               if (*(a2 + 56) == 48)
               {
-                WGSL::Parser<WGSL::Lexer<unsigned char>>::consume(a2, v96);
+                WGSL::Parser<WGSL::Lexer<unsigned char>>::consume(a2, v97);
               }
 
-              WGSL::Parser<WGSL::Lexer<unsigned char>>::consumeType(v249, a2, 68);
-              if (!v251)
+              WGSL::Parser<WGSL::Lexer<unsigned char>>::consumeType(v266, a2, 68);
+              if (!v268)
               {
-                std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v249, v157);
-                v177 = *(a2 + 96) - v5;
-                *v249 = v4;
-                *&v249[8] = v5;
-                *&v249[12] = v177;
-                WGSL::AST::Builder::construct<WGSL::AST::AlignAttribute,WGSL::SourceSpan,std::reference_wrapper<WGSL::AST::Expression>,void>();
+                std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v266, v161);
+                v186 = *(a2 + 8);
+                v187 = *(a2 + 96) - v5;
+                *v266 = v4;
+                *&v266[8] = v5;
+                *&v266[12] = v187;
+                WGSL::AST::Builder::construct<WGSL::AST::AlignAttribute,WGSL::SourceSpan,std::reference_wrapper<WGSL::AST::Expression>,void>(v186, v266, &v246);
               }
 
               v45 = WGSL::toString();
-              if (v251 != 1)
+              if (v268 != 1)
               {
                 goto LABEL_486;
               }
 
               WGSL::toString();
-              WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v215, ", but got a ", 13, &v214, &v220);
-              v158 = v214;
-              v214 = 0;
-              if (v158 && atomic_fetch_add_explicit(v158, 0xFFFFFFFE, memory_order_relaxed) == 2)
+              WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v232, 13, &v231, &v237, ", but got a ");
+              v162 = v231;
+              v231 = 0;
+              if (v162 && atomic_fetch_add_explicit(v162, 0xFFFFFFFE, memory_order_relaxed) == 2)
               {
-                WTF::StringImpl::destroy(v158, v120);
+                WTF::StringImpl::destroy(v162, v121);
               }
 
-              v122 = v215;
-              v215 = 0;
-              if (v122)
+              v123 = v232;
+              v232 = 0;
+              if (v123)
               {
                 goto LABEL_257;
               }
@@ -6187,31 +6254,31 @@ LABEL_352:
           }
 
           v45 = WGSL::toString();
-          if (v251 != 1)
+          if (v268 != 1)
           {
             goto LABEL_486;
           }
 
           WGSL::toString();
-          WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v217, ", but got a ", 13, &v216, &v229);
-          v138 = v216;
-          v216 = 0;
-          if (v138 && atomic_fetch_add_explicit(v138, 0xFFFFFFFE, memory_order_relaxed) == 2)
+          WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v234, 13, &v233, &v246, ", but got a ");
+          v140 = v233;
+          v233 = 0;
+          if (v140 && atomic_fetch_add_explicit(v140, 0xFFFFFFFE, memory_order_relaxed) == 2)
           {
-            WTF::StringImpl::destroy(v138, v93);
+            WTF::StringImpl::destroy(v140, v94);
           }
 
-          v95 = v217;
-          v217 = 0;
-          if (!v95)
+          v96 = v234;
+          v234 = 0;
+          if (!v96)
           {
             goto LABEL_248;
           }
 
 LABEL_246:
-          if (atomic_fetch_add_explicit(v95, 0xFFFFFFFE, memory_order_relaxed) == 2)
+          if (atomic_fetch_add_explicit(v96, 0xFFFFFFFE, memory_order_relaxed) == 2)
           {
-            WTF::StringImpl::destroy(v95, v93);
+            WTF::StringImpl::destroy(v96, v94);
           }
 
           goto LABEL_248;
@@ -6221,48 +6288,49 @@ LABEL_246:
         {
           if (MEMORY[0x22AA683D0](v31, "size", 4))
           {
-            WGSL::Parser<WGSL::Lexer<unsigned char>>::consumeType(v249, a2, 67);
-            if (!v251)
+            WGSL::Parser<WGSL::Lexer<unsigned char>>::consumeType(v266, a2, 67);
+            if (!v268)
             {
-              std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v249, v155);
-              v45 = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseExpression(&v229, a2);
-              v97 = v231;
-              if (!v231)
+              std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v266, v159);
+              v45 = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseExpression(&v246, a2);
+              v98 = v248[0];
+              if (!v248[0])
               {
                 if (*(a2 + 56) == 48)
                 {
-                  WGSL::Parser<WGSL::Lexer<unsigned char>>::consume(a2, v96);
+                  WGSL::Parser<WGSL::Lexer<unsigned char>>::consume(a2, v97);
                 }
 
-                WGSL::Parser<WGSL::Lexer<unsigned char>>::consumeType(v249, a2, 68);
-                if (!v251)
+                WGSL::Parser<WGSL::Lexer<unsigned char>>::consumeType(v266, a2, 68);
+                if (!v268)
                 {
-                  std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v249, v168);
-                  v184 = *(a2 + 96) - v5;
-                  *v249 = v4;
-                  *&v249[8] = v5;
-                  *&v249[12] = v184;
-                  WGSL::AST::Builder::construct<WGSL::AST::SizeAttribute,WGSL::SourceSpan,std::reference_wrapper<WGSL::AST::Expression>,void>();
+                  std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v266, v176);
+                  v196 = *(a2 + 8);
+                  v197 = *(a2 + 96) - v5;
+                  *v266 = v4;
+                  *&v266[8] = v5;
+                  *&v266[12] = v197;
+                  WGSL::AST::Builder::construct<WGSL::AST::SizeAttribute,WGSL::SourceSpan,std::reference_wrapper<WGSL::AST::Expression>,void>(v196, v266, &v246);
                 }
 
                 v45 = WGSL::toString();
-                if (v251 != 1)
+                if (v268 != 1)
                 {
                   goto LABEL_486;
                 }
 
                 WGSL::toString();
-                WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v207, ", but got a ", 13, &v206, &v220);
-                v169 = v206;
-                v206 = 0;
-                if (v169 && atomic_fetch_add_explicit(v169, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v224, 13, &v223, &v237, ", but got a ");
+                v177 = v223;
+                v223 = 0;
+                if (v177 && atomic_fetch_add_explicit(v177, 0xFFFFFFFE, memory_order_relaxed) == 2)
                 {
-                  WTF::StringImpl::destroy(v169, v120);
+                  WTF::StringImpl::destroy(v177, v121);
                 }
 
-                v122 = v207;
-                v207 = 0;
-                if (v122)
+                v123 = v224;
+                v224 = 0;
+                if (v123)
                 {
                   goto LABEL_257;
                 }
@@ -6274,23 +6342,23 @@ LABEL_246:
             }
 
             v45 = WGSL::toString();
-            if (v251 != 1)
+            if (v268 != 1)
             {
               goto LABEL_486;
             }
 
             WGSL::toString();
-            WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v209, ", but got a ", 13, &v208, &v229);
-            v156 = v208;
-            v208 = 0;
-            if (v156 && atomic_fetch_add_explicit(v156, 0xFFFFFFFE, memory_order_relaxed) == 2)
+            WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v226, 13, &v225, &v246, ", but got a ");
+            v160 = v225;
+            v225 = 0;
+            if (v160 && atomic_fetch_add_explicit(v160, 0xFFFFFFFE, memory_order_relaxed) == 2)
             {
-              WTF::StringImpl::destroy(v156, v93);
+              WTF::StringImpl::destroy(v160, v94);
             }
 
-            v95 = v209;
-            v209 = 0;
-            if (!v95)
+            v96 = v226;
+            v226 = 0;
+            if (!v96)
             {
               goto LABEL_248;
             }
@@ -6302,47 +6370,52 @@ LABEL_246:
             {
               if (MEMORY[0x22AA683D0](v31, "invariant", 9))
               {
-                v167 = *(a2 + 96) - v5;
-                *v249 = v4;
-                *&v249[8] = v5;
-                *&v249[12] = v167;
-                WGSL::AST::Builder::construct<WGSL::AST::InvariantAttribute,WGSL::SourceSpan,void>();
+                v174 = *(a2 + 8);
+                v175 = *(a2 + 96) - v5;
+                *v266 = v4;
+                *&v266[8] = v5;
+                *&v266[12] = v175;
+                WGSL::AST::Builder::construct<WGSL::AST::InvariantAttribute,WGSL::SourceSpan,void>(v174, v266);
               }
 
               if (MEMORY[0x22AA683D0](v31, "must_use", 8))
               {
-                v178 = *(a2 + 96) - v5;
-                *v249 = v4;
-                *&v249[8] = v5;
-                *&v249[12] = v178;
-                WGSL::AST::Builder::construct<WGSL::AST::MustUseAttribute,WGSL::SourceSpan,void>();
+                v188 = *(a2 + 8);
+                v189 = *(a2 + 96) - v5;
+                *v266 = v4;
+                *&v266[8] = v5;
+                *&v266[12] = v189;
+                WGSL::AST::Builder::construct<WGSL::AST::MustUseAttribute,WGSL::SourceSpan,void>(v188, v266);
               }
 
               if (MEMORY[0x22AA683D0](v31, "const", 5))
               {
-                v183 = *(a2 + 96) - v5;
-                *v249 = v4;
-                *&v249[8] = v5;
-                *&v249[12] = v183;
-                WGSL::AST::Builder::construct<WGSL::AST::ConstAttribute,WGSL::SourceSpan,void>();
+                v194 = *(a2 + 8);
+                v195 = *(a2 + 96) - v5;
+                *v266 = v4;
+                *&v266[8] = v5;
+                *&v266[12] = v195;
+                WGSL::AST::Builder::construct<WGSL::AST::ConstAttribute,WGSL::SourceSpan,void>(v194, v266);
               }
 
               if (MEMORY[0x22AA683D0](v31, "vertex", 6))
               {
-                v185 = *(a2 + 96) - v5;
-                *v249 = v4;
-                *&v249[8] = v5;
-                *&v249[12] = v185;
-                v186 = 1;
+                v198 = *(a2 + 8);
+                v199 = *(a2 + 96) - v5;
+                *v266 = v4;
+                *&v266[8] = v5;
+                *&v266[12] = v199;
+                v200 = 1;
               }
 
               else if (MEMORY[0x22AA683D0](v31, "compute", 7))
               {
-                v194 = *(a2 + 96) - v5;
-                *v249 = v4;
-                *&v249[8] = v5;
-                *&v249[12] = v194;
-                v186 = 4;
+                v198 = *(a2 + 8);
+                v210 = *(a2 + 96) - v5;
+                *v266 = v4;
+                *&v266[8] = v5;
+                *&v266[12] = v210;
+                v200 = 4;
               }
 
               else
@@ -6350,66 +6423,68 @@ LABEL_246:
                 if (!MEMORY[0x22AA683D0](v31, "fragment", 8))
                 {
                   WTF::StringImpl::createWithoutCopyingNonEmpty();
-                  v201 = v5 | ((*(a2 + 96) - v5) << 32);
-                  *a1 = *v249;
+                  v218 = v5 | ((*(a2 + 96) - v5) << 32);
+                  *a1 = *v266;
                   *(a1 + 8) = v4;
-                  *(a1 + 16) = v201;
+                  *(a1 + 16) = v218;
                   goto LABEL_331;
                 }
 
-                v200 = *(a2 + 96) - v5;
-                *v249 = v4;
-                *&v249[8] = v5;
-                *&v249[12] = v200;
-                v186 = 2;
+                v198 = *(a2 + 8);
+                v217 = *(a2 + 96) - v5;
+                *v266 = v4;
+                *&v266[8] = v5;
+                *&v266[12] = v217;
+                v200 = 2;
               }
 
-              LOBYTE(v229) = v186;
-              WGSL::AST::Builder::construct<WGSL::AST::StageAttribute,WGSL::SourceSpan,WGSL::ShaderStage,void>();
+              LOBYTE(v246) = v200;
+              WGSL::AST::Builder::construct<WGSL::AST::StageAttribute,WGSL::SourceSpan,WGSL::ShaderStage,void>(v198, v266, &v246);
             }
 
-            WGSL::Parser<WGSL::Lexer<unsigned char>>::consumeType(v249, a2, 67);
-            if (!v251)
+            WGSL::Parser<WGSL::Lexer<unsigned char>>::consumeType(v266, a2, 67);
+            if (!v268)
             {
-              std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v249, v161);
-              v45 = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseExpression(&v229, a2);
-              v97 = v231;
-              if (!v231)
+              std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v266, v166);
+              v45 = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseExpression(&v246, a2);
+              v98 = v248[0];
+              if (!v248[0])
               {
                 if (*(a2 + 56) == 48)
                 {
-                  WGSL::Parser<WGSL::Lexer<unsigned char>>::consume(a2, v96);
+                  WGSL::Parser<WGSL::Lexer<unsigned char>>::consume(a2, v97);
                 }
 
-                WGSL::Parser<WGSL::Lexer<unsigned char>>::consumeType(v249, a2, 68);
-                if (!v251)
+                WGSL::Parser<WGSL::Lexer<unsigned char>>::consumeType(v266, a2, 68);
+                if (!v268)
                 {
-                  std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v249, v179);
-                  v193 = *(a2 + 96) - v5;
-                  *v249 = v4;
-                  *&v249[8] = v5;
-                  *&v249[12] = v193;
-                  WGSL::AST::Builder::construct<WGSL::AST::IdAttribute,WGSL::SourceSpan,std::reference_wrapper<WGSL::AST::Expression>,void>();
+                  std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v266, v190);
+                  v208 = *(a2 + 8);
+                  v209 = *(a2 + 96) - v5;
+                  *v266 = v4;
+                  *&v266[8] = v5;
+                  *&v266[12] = v209;
+                  WGSL::AST::Builder::construct<WGSL::AST::IdAttribute,WGSL::SourceSpan,std::reference_wrapper<WGSL::AST::Expression>,void>(v208, v266, &v246);
                 }
 
                 v45 = WGSL::toString();
-                if (v251 != 1)
+                if (v268 != 1)
                 {
                   goto LABEL_486;
                 }
 
                 WGSL::toString();
-                WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v203, ", but got a ", 13, &v202, &v220);
-                v180 = v202;
-                v202 = 0;
-                if (v180 && atomic_fetch_add_explicit(v180, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v220, 13, &v219, &v237, ", but got a ");
+                v191 = v219;
+                v219 = 0;
+                if (v191 && atomic_fetch_add_explicit(v191, 0xFFFFFFFE, memory_order_relaxed) == 2)
                 {
-                  WTF::StringImpl::destroy(v180, v120);
+                  WTF::StringImpl::destroy(v191, v121);
                 }
 
-                v122 = v203;
-                v203 = 0;
-                if (v122)
+                v123 = v220;
+                v220 = 0;
+                if (v123)
                 {
                   goto LABEL_257;
                 }
@@ -6421,23 +6496,23 @@ LABEL_246:
             }
 
             v45 = WGSL::toString();
-            if (v251 != 1)
+            if (v268 != 1)
             {
               goto LABEL_486;
             }
 
             WGSL::toString();
-            WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v205, ", but got a ", 13, &v204, &v229);
-            v162 = v204;
-            v204 = 0;
-            if (v162 && atomic_fetch_add_explicit(v162, 0xFFFFFFFE, memory_order_relaxed) == 2)
+            WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v222, 13, &v221, &v246, ", but got a ");
+            v167 = v221;
+            v221 = 0;
+            if (v167 && atomic_fetch_add_explicit(v167, 0xFFFFFFFE, memory_order_relaxed) == 2)
             {
-              WTF::StringImpl::destroy(v162, v93);
+              WTF::StringImpl::destroy(v167, v94);
             }
 
-            v95 = v205;
-            v205 = 0;
-            if (!v95)
+            v96 = v222;
+            v222 = 0;
+            if (!v96)
             {
               goto LABEL_248;
             }
@@ -6446,27 +6521,27 @@ LABEL_246:
           goto LABEL_246;
         }
 
-        WGSL::Parser<WGSL::Lexer<unsigned char>>::consumeType(v249, a2, 67);
-        if (v251)
+        WGSL::Parser<WGSL::Lexer<unsigned char>>::consumeType(v266, a2, 67);
+        if (v268)
         {
           v45 = WGSL::toString();
-          if (v251 != 1)
+          if (v268 != 1)
           {
             goto LABEL_486;
           }
 
           WGSL::toString();
-          WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v213, ", but got a ", 13, &v212, &v229);
-          v149 = v212;
-          v212 = 0;
-          if (v149 && atomic_fetch_add_explicit(v149, 0xFFFFFFFE, memory_order_relaxed) == 2)
+          WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v230, 13, &v229, &v246, ", but got a ");
+          v152 = v229;
+          v229 = 0;
+          if (v152 && atomic_fetch_add_explicit(v152, 0xFFFFFFFE, memory_order_relaxed) == 2)
           {
-            WTF::StringImpl::destroy(v149, v93);
+            WTF::StringImpl::destroy(v152, v94);
           }
 
-          v95 = v213;
-          v213 = 0;
-          if (!v95)
+          v96 = v230;
+          v230 = 0;
+          if (!v96)
           {
             goto LABEL_248;
           }
@@ -6474,43 +6549,45 @@ LABEL_246:
           goto LABEL_246;
         }
 
-        v163 = std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v249, v148);
-        v45 = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseIdentifier(v163, a2);
-        v141 = v251;
-        if (v251)
+        v168 = std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v266, v151);
+        v45 = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseIdentifier(v168, a2);
+        v143 = v268;
+        if (v268)
         {
           goto LABEL_305;
         }
 
-        if (!WGSL::parseInterpolationType(&v250))
+        v169 = WGSL::parseInterpolationType(v267);
+        if (!v169)
         {
           goto LABEL_376;
         }
 
-        LOBYTE(v224) = 0;
+        v171 = v169;
+        LOBYTE(v241) = 0;
         if (*(a2 + 56) == 48)
         {
-          WGSL::Parser<WGSL::Lexer<unsigned char>>::consume(a2, v164);
-          v45 = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseIdentifier(&v229, a2);
-          if (v232)
+          WGSL::Parser<WGSL::Lexer<unsigned char>>::consume(a2, v170);
+          v45 = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseIdentifier(&v246, a2);
+          if (v249)
           {
-            if (v232 != 1)
+            if (v249 != 1)
             {
               goto LABEL_486;
             }
 
-            v166 = v229;
-            if (v229)
+            v173 = v246;
+            if (v246)
             {
-              atomic_fetch_add_explicit(v229, 2u, memory_order_relaxed);
+              atomic_fetch_add_explicit(v246, 2u, memory_order_relaxed);
             }
 
-            *(a1 + 8) = v230;
-            *a1 = v166;
+            *(a1 + 8) = v247;
+            *a1 = v173;
 LABEL_479:
             *(a1 + 24) = 1;
-            std::experimental::fundamentals_v3::expected<WGSL::AST::Identifier,WGSL::CompilationMessage>::~expected(&v229, v165);
-            std::experimental::fundamentals_v3::expected<WGSL::AST::Identifier,WGSL::CompilationMessage>::~expected(v249, v199);
+            std::experimental::fundamentals_v3::expected<WGSL::AST::Identifier,WGSL::CompilationMessage>::~expected(&v246, v172);
+            std::experimental::fundamentals_v3::expected<WGSL::AST::Identifier,WGSL::CompilationMessage>::~expected(v266, v216);
             if (!v31)
             {
               return;
@@ -6519,69 +6596,70 @@ LABEL_479:
             goto LABEL_333;
           }
 
-          v187 = WTF::SortedArrayMap<std::pair<WTF::ComparableASCIISubsetLiteral<(WTF::ASCIISubset)0>,WGSL::InterpolationSampling> [5]>::tryGet<WTF::String>(WGSL::parseInterpolationSampling(WTF::String const&)::__map, &v231);
-          if (!v187)
+          v201 = WTF::SortedArrayMap<std::pair<WTF::ComparableASCIISubsetLiteral<(WTF::ASCIISubset)0>,WGSL::InterpolationSampling> [5]>::tryGet<WTF::String>(WGSL::parseInterpolationSampling(WTF::String const&)::__map, v248);
+          if (!v201)
           {
             WTF::StringImpl::createWithoutCopyingNonEmpty();
-            v198 = v5 | ((*(a2 + 96) - v5) << 32);
-            *a1 = v220;
+            v215 = v5 | ((*(a2 + 96) - v5) << 32);
+            *a1 = v237;
             *(a1 + 8) = v4;
-            *(a1 + 16) = v198;
+            *(a1 + 16) = v215;
             goto LABEL_479;
           }
 
-          LOBYTE(v224) = *v187;
-          std::experimental::fundamentals_v3::expected<WGSL::AST::Identifier,WGSL::CompilationMessage>::~expected(&v229, v188);
+          LOBYTE(v241) = *v201;
+          std::experimental::fundamentals_v3::expected<WGSL::AST::Identifier,WGSL::CompilationMessage>::~expected(&v246, v202);
           if (*(a2 + 56) == 48)
           {
-            WGSL::Parser<WGSL::Lexer<unsigned char>>::consume(a2, v189);
+            WGSL::Parser<WGSL::Lexer<unsigned char>>::consume(a2, v203);
           }
         }
 
-        WGSL::Parser<WGSL::Lexer<unsigned char>>::consumeType(&v229, a2, 68);
-        if (!v232)
+        WGSL::Parser<WGSL::Lexer<unsigned char>>::consumeType(&v246, a2, 68);
+        if (!v249)
         {
-          std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(&v229, v190);
-          v192 = *(a2 + 96) - v5;
-          v229 = v4;
-          *&v230 = __PAIR64__(v192, v5);
-          WGSL::AST::Builder::construct<WGSL::AST::InterpolateAttribute,WGSL::SourceSpan,WGSL::InterpolationType const&,WGSL::InterpolationSampling &,void>();
+          std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(&v246, v204);
+          v206 = *(a2 + 8);
+          v207 = *(a2 + 96) - v5;
+          v246 = v4;
+          *&v247 = __PAIR64__(v207, v5);
+          WGSL::AST::Builder::construct<WGSL::AST::InterpolateAttribute,WGSL::SourceSpan,WGSL::InterpolationType const&,WGSL::InterpolationSampling &,void>(v206, &v246, v171, &v241);
         }
 
         v45 = WGSL::toString();
-        if (v232 != 1)
+        if (v249 != 1)
         {
           goto LABEL_486;
         }
 
         WGSL::toString();
-        WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v211, ", but got a ", 13, &v210, &v220);
-        v191 = v210;
-        v210 = 0;
-        if (v191 && atomic_fetch_add_explicit(v191, 0xFFFFFFFE, memory_order_relaxed) == 2)
+        WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v228, 13, &v227, &v237, ", but got a ");
+        v205 = v227;
+        v227 = 0;
+        if (v205 && atomic_fetch_add_explicit(v205, 0xFFFFFFFE, memory_order_relaxed) == 2)
         {
-          WTF::StringImpl::destroy(v191, v171);
+          WTF::StringImpl::destroy(v205, v179);
         }
 
-        v173 = v211;
-        v211 = 0;
-        if (v173)
+        v181 = v228;
+        v228 = 0;
+        if (v181)
         {
 LABEL_421:
-          if (atomic_fetch_add_explicit(v173, 0xFFFFFFFE, memory_order_relaxed) == 2)
+          if (atomic_fetch_add_explicit(v181, 0xFFFFFFFE, memory_order_relaxed) == 2)
           {
-            WTF::StringImpl::destroy(v173, v171);
+            WTF::StringImpl::destroy(v181, v179);
           }
         }
 
 LABEL_423:
-        v174 = v5 | ((*(a2 + 96) - v5) << 32);
-        *a1 = v220;
+        v182 = v5 | ((*(a2 + 96) - v5) << 32);
+        *a1 = v237;
         *(a1 + 8) = v4;
-        *(a1 + 16) = v174;
+        *(a1 + 16) = v182;
         *(a1 + 24) = 1;
-        std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(&v229, v171);
-        std::experimental::fundamentals_v3::expected<WGSL::AST::Identifier,WGSL::CompilationMessage>::~expected(v249, v175);
+        std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(&v246, v179);
+        std::experimental::fundamentals_v3::expected<WGSL::AST::Identifier,WGSL::CompilationMessage>::~expected(v266, v183);
         if (!v31)
         {
           return;
@@ -6596,13 +6674,13 @@ LABEL_423:
   {
     WGSL::toString();
     WGSL::toString();
-    if (v248)
+    if (v265)
     {
-      v41 = *(v248 + 1);
-      if (v247)
+      v41 = *(v265 + 1);
+      if (v264)
       {
 LABEL_72:
-        v42 = *(v247 + 4);
+        v42 = *(v264 + 4);
         if (v42 < 0)
         {
           goto LABEL_492;
@@ -6623,7 +6701,7 @@ LABEL_72:
     else
     {
       v41 = 0;
-      if (v247)
+      if (v264)
       {
         goto LABEL_72;
       }
@@ -6654,69 +6732,69 @@ LABEL_136:
     }
 
     v14 = __OFADD__(v41, v43);
-    v73 = v41 + v43;
+    v74 = v41 + v43;
     if (v14)
     {
       goto LABEL_492;
     }
 
-    v74 = (v73 + 11);
-    if (__OFADD__(v73, 11))
+    v75 = (v74 + 11);
+    if (__OFADD__(v74, 11))
     {
       goto LABEL_492;
     }
 
-    if (v248)
+    if (v265)
     {
-      v75 = *(v248 + 4);
-      v76 = (v75 >> 2) & 1;
-      if (!v247 || (v75 & 4) == 0)
+      v76 = *(v265 + 4);
+      v77 = (v76 >> 2) & 1;
+      if (!v264 || (v76 & 4) == 0)
       {
 LABEL_175:
-        WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>>(v74, v76, "Expected a ", 0xBuLL, v248, ", but got a ", 0xCuLL, v247, v249);
-        v70 = *v249;
-        if (!*v249)
+        WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>>(v75, v77, "Expected a ", 0xBuLL, v265, ", but got a ", 0xCuLL, v266, v264);
+        v71 = *v266;
+        if (!*v266)
         {
           goto LABEL_492;
         }
 
-        v89 = v247;
-        v247 = 0;
-        if (v89 && atomic_fetch_add_explicit(v89, 0xFFFFFFFE, memory_order_relaxed) == 2)
+        v90 = v264;
+        v264 = 0;
+        if (v90 && atomic_fetch_add_explicit(v90, 0xFFFFFFFE, memory_order_relaxed) == 2)
         {
-          WTF::StringImpl::destroy(v89, v69);
+          WTF::StringImpl::destroy(v90, v70);
         }
 
-        v72 = v248;
-        v248 = 0;
-        if (!v72)
+        v73 = v265;
+        v265 = 0;
+        if (!v73)
         {
 LABEL_182:
-          v90 = v5 | ((*(a2 + 96) - v5) << 32);
-          *a1 = v70;
+          v91 = v5 | ((*(a2 + 96) - v5) << 32);
+          *a1 = v71;
           *(a1 + 8) = v4;
-          *(a1 + 16) = v90;
+          *(a1 + 16) = v91;
           *(a1 + 24) = 1;
           return;
         }
 
 LABEL_180:
-        if (atomic_fetch_add_explicit(v72, 0xFFFFFFFE, memory_order_relaxed) == 2)
+        if (atomic_fetch_add_explicit(v73, 0xFFFFFFFE, memory_order_relaxed) == 2)
         {
-          WTF::StringImpl::destroy(v72, v69);
+          WTF::StringImpl::destroy(v73, v70);
         }
 
         goto LABEL_182;
       }
     }
 
-    else if (!v247)
+    else if (!v264)
     {
-      v76 = 1;
+      v77 = 1;
       goto LABEL_175;
     }
 
-    v76 = (*(v247 + 16) >> 2) & 1;
+    v77 = (*(v264 + 16) >> 2) & 1;
     goto LABEL_175;
   }
 
@@ -6784,36 +6862,37 @@ LABEL_28:
     break;
   }
 
-  WGSL::Parser<WGSL::Lexer<unsigned char>>::parseDiagnostic(v249, a2);
-  if (!v255)
+  WGSL::Parser<WGSL::Lexer<unsigned char>>::parseDiagnostic(v266, a2);
+  if (!v272)
   {
-    v66 = *(a2 + 96) - v5;
-    v229 = v4;
-    *&v230 = __PAIR64__(v66, v5);
-    WGSL::AST::Builder::construct<WGSL::AST::DiagnosticAttribute,WGSL::SourceSpan,WGSL::AST::Diagnostic,void>();
+    v66 = *(a2 + 8);
+    v67 = *(a2 + 96) - v5;
+    v246 = v4;
+    *&v247 = __PAIR64__(v67, v5);
+    WGSL::AST::Builder::construct<WGSL::AST::DiagnosticAttribute,WGSL::SourceSpan,WGSL::AST::Diagnostic,void>(v66, &v246, v266);
   }
 
-  if (v255 != 1)
+  if (v272 != 1)
   {
     goto LABEL_486;
   }
 
-  v47 = *v249;
-  if (*v249)
+  v47 = *v266;
+  if (*v266)
   {
-    atomic_fetch_add_explicit(*v249, 2u, memory_order_relaxed);
+    atomic_fetch_add_explicit(*v266, 2u, memory_order_relaxed);
   }
 
-  *(a1 + 8) = *&v249[8];
+  *(a1 + 8) = *&v266[8];
   *a1 = v47;
   *(a1 + 24) = 1;
-  if (v255 != 255)
+  if (v272 != 255)
   {
-    if (v255)
+    if (v272)
     {
-      v68 = *v249;
-      *v249 = 0;
-      if (!v68)
+      v69 = *v266;
+      *v266 = 0;
+      if (!v69)
       {
         return;
       }
@@ -6821,30 +6900,30 @@ LABEL_28:
 
     else
     {
-      if (v254 == 1)
+      if (v271 == 1)
       {
-        v67 = v253;
-        v252 = off_2838D37C0;
-        v253 = 0;
-        if (v67)
+        v68 = v270;
+        v269 = off_2838D37C0;
+        v270 = 0;
+        if (v68)
         {
-          if (atomic_fetch_add_explicit(v67, 0xFFFFFFFE, memory_order_relaxed) == 2)
+          if (atomic_fetch_add_explicit(v68, 0xFFFFFFFE, memory_order_relaxed) == 2)
           {
-            WTF::StringImpl::destroy(v67, v46);
+            WTF::StringImpl::destroy(v68, v46);
           }
         }
       }
 
-      v68 = v251;
-      *&v249[8] = off_2838D37C0;
-      v251 = 0;
-      if (!v68)
+      v69 = v268;
+      *&v266[8] = off_2838D37C0;
+      v268 = 0;
+      if (!v69)
       {
         return;
       }
     }
 
-    if (atomic_fetch_add_explicit(v68, 0xFFFFFFFE, memory_order_relaxed) != 2)
+    if (atomic_fetch_add_explicit(v69, 0xFFFFFFFE, memory_order_relaxed) != 2)
     {
       return;
     }
@@ -6911,7 +6990,7 @@ void WGSL::AST::DiagnosticAttribute::~DiagnosticAttribute(WGSL::AST::DiagnosticA
   JUMPOUT(0x22AA68560);
 }
 
-uint64_t WTF::makeString<WTF::ASCIILiteral,WGSL::AST::Identifier,WTF::ASCIILiteral,WGSL::AST::Identifier,char>(uint64_t result, unint64_t a2, uint64_t a3)
+uint64_t *WTF::makeString<WTF::ASCIILiteral,WGSL::AST::Identifier,WTF::ASCIILiteral,WGSL::AST::Identifier,char>(uint64_t *result, unint64_t a2, uint64_t a3)
 {
   v5 = a2;
   v6 = result;
@@ -6987,24 +7066,24 @@ LABEL_9:
       if (v13 <= 0x7FFFFFEF)
       {
         v14 = v13;
-        result = WTF::tryFastCompactMalloc((2 * v13 + 20));
+        result = WTF::tryFastCompactMalloc(&v102, (2 * v13 + 20));
         v18 = v102;
         if (v102)
         {
           *v102 = 2;
-          *(v102 + 4) = v13;
-          *(v102 + 20) = xmmword_225882740;
-          *(v102 + 8) = v102 + 20;
-          *(v102 + 16) = 0;
-          *(v102 + 36) = xmmword_225882750;
+          v18[1] = v13;
+          *(v18 + 5) = xmmword_225882740;
+          *(v18 + 1) = v18 + 5;
+          v18[4] = 0;
+          *(v18 + 9) = xmmword_225882750;
           v19 = 2555936;
-          *(v102 + 52) = 2555936;
+          v18[13] = 2555936;
           if (v13 <= 0x11)
           {
             goto LABEL_165;
           }
 
-          v13 = v102 + 56;
+          v13 = (v18 + 14);
           v14 -= 18;
           if (!v5)
           {
@@ -7020,14 +7099,14 @@ LABEL_9:
             v19 = v13 + 2 * v20;
             if (v20 < 0x40)
             {
-              v16 = v102 + 56;
+              v16 = (v18 + 14);
             }
 
             else
             {
               v16 = v13 + 2 * (v20 & 0xFFFFFFC0);
               v25 = 0uLL;
-              v26 = (v102 + 56);
+              v26 = (v18 + 14);
               do
               {
                 v103.val[0] = *v15;
@@ -7056,7 +7135,7 @@ LABEL_9:
 
             if (v16 != v19)
             {
-              v33 = v102 + 2 * v20 - v16 + 54;
+              v33 = v18 + 2 * v20 - v16 + 54;
               if (v33 < 0xE || (v16 < v15->u64 + (v33 >> 1) + 1 ? (v34 = v15 >= (v33 & 0xFFFFFFFFFFFFFFFELL) + v16 + 2) : (v34 = 1), !v34))
               {
                 v36 = v15;
@@ -7133,7 +7212,7 @@ LABEL_9:
 
             else
             {
-              result = memcpy((v102 + 56), v15, 2 * v20);
+              result = memcpy(v18 + 14, v15, 2 * v20);
             }
           }
 
@@ -7258,7 +7337,7 @@ LABEL_97:
             goto LABEL_98;
           }
 
-          v54 = v18 + 2 * (v23 + v45) - v16 + 80;
+          v54 = v18 + 2 * v23 + 2 * v45 - v16 + 80;
           if (v54 < 0xE || v16 < v15->u64 + (v54 >> 1) + 1 && v15 < (v54 & 0xFFFFFFFFFFFFFFFELL) + v16 + 2)
           {
             v55 = v15;
@@ -7353,7 +7432,7 @@ LABEL_39:
     goto LABEL_39;
   }
 
-  if ((v13 & 0x80000000) != 0 || (v14 = v13, result = WTF::tryFastCompactMalloc((v13 + 20)), (v18 = v102) == 0))
+  if ((v13 & 0x80000000) != 0 || (v14 = v13, result = WTF::tryFastCompactMalloc(&v102, (v13 + 20)), (v18 = v102) == 0))
   {
 LABEL_170:
     *v6 = 0;
@@ -7363,19 +7442,19 @@ LABEL_170:
 
   v16 = 2;
   *v102 = 2;
-  *(v102 + 4) = v13;
-  *(v102 + 8) = v102 + 20;
-  *(v102 + 16) = 4;
-  *(v102 + 36) = 10016;
+  v18[1] = v13;
+  *(v18 + 1) = v18 + 5;
+  v18[4] = 4;
+  *(v18 + 18) = 10016;
   v19 = "duplicate member '";
-  *(v102 + 20) = *"duplicate member '";
+  *(v18 + 5) = *"duplicate member '";
   if (v13 <= 0x11)
   {
     goto LABEL_165;
   }
 
   v14 = v13 - 18;
-  v13 = v102 + 38;
+  v13 = v18 + 38;
   if (!v5)
   {
     v24 = 0;
@@ -7397,7 +7476,7 @@ LABEL_170:
 
       else
       {
-        result = memcpy((v102 + 38), v15, v21);
+        result = memcpy(v18 + 38, v15, v21);
       }
     }
   }
@@ -7407,12 +7486,12 @@ LABEL_170:
     v19 = v13 + v21;
     if (v21 < 0x10)
     {
-      v16 = v102 + 38;
+      v16 = v18 + 38;
     }
 
     else
     {
-      v16 = v102 + 38;
+      v16 = v18 + 38;
       do
       {
         v22 = vld2q_s8(v15->i8);
@@ -7426,9 +7505,9 @@ LABEL_170:
 
     if (v16 != v19)
     {
-      v39 = v102 + v21;
-      v40 = v102 + v21 - v16 + 38;
-      if (v40 < 4 || ((v17 = v15 - 2 * v16, v16 < v17 + 2 * v39 + 76) ? (v41 = v15 >= v39 + 38) : (v41 = 1), !v41))
+      v39 = v18 + v21;
+      v40 = v18 + v21 - v16 + 38;
+      if (v40 < 4 || ((v17 = v15 - 2 * v16, v16 < v17 + 2 * v39 + 76) ? (v41 = v15 >= (v39 + 38)) : (v41 = 1), !v41))
       {
         v42 = v16;
         v43 = v15;
@@ -7570,9 +7649,9 @@ LABEL_102:
 
     if (v16 != v59)
     {
-      v61 = v24 + v102 + v58;
-      v62 = v61 - v16 + 51;
-      if (v62 < 4 || ((v17 = v15 - 2 * v16, v16 < v17 + 2 * v61 + 102) ? (v63 = v15 >= v61 + 51) : (v63 = 1), !v63))
+      v61 = v18 + v24 + v58;
+      v62 = &v61[-v16 + 51];
+      if (v62 < 4 || ((v17 = v15 - 2 * v16, v16 < v17 + 2 * v61 + 102) ? (v63 = v15 >= (v61 + 51)) : (v63 = 1), !v63))
       {
         v64 = v16;
         v65 = v15;
@@ -7678,7 +7757,7 @@ WTF::StringImpl *WTF::HashTable<WTF::String,WTF::String,WTF::IdentityExtractor,W
   v6 = *a2;
   if (!*a2)
   {
-    WTF::HashTable<WTF::String,WTF::String,WTF::IdentityExtractor,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::rehash(a2, 8u, 0);
+    WTF::HashTable<WTF::String,WTF::String,WTF::IdentityExtractor,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::rehash(a2, 8uLL, 0);
     v6 = *a2;
     if (!*a2)
     {
@@ -7775,7 +7854,7 @@ LABEL_34:
 
           if (!v23)
           {
-            result = WTF::HashTable<WTF::String,WTF::String,WTF::IdentityExtractor,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::rehash(a2, 8u, v14);
+            result = WTF::HashTable<WTF::String,WTF::String,WTF::IdentityExtractor,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::rehash(a2, 8uLL, v14);
             v14 = result;
             v19 = *a2;
             if (!*a2)
@@ -7791,7 +7870,7 @@ LABEL_33:
           }
 
 LABEL_32:
-          result = WTF::HashTable<WTF::String,WTF::String,WTF::IdentityExtractor,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::rehash(a2, v23 << (6 * v21 >= (2 * v23)), v14);
+          result = WTF::HashTable<WTF::String,WTF::String,WTF::IdentityExtractor,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::rehash(a2, (v23 << (6 * v21 >= (2 * v23))), v14);
           v14 = result;
           v19 = *a2;
           if (!*a2)
@@ -7914,25 +7993,25 @@ WTF::StringImpl *WGSL::TemplateTypes<(WGSL::TokenType)13,(WGSL::TokenType)28,(WG
   return result;
 }
 
-WTF::StringImpl *WGSL::Parser<WGSL::Lexer<unsigned char>>::parseCompoundStatement(uint64_t a1, uint64_t a2)
+WTF::StringImpl *WGSL::Parser<WGSL::Lexer<unsigned char>>::parseCompoundStatement(uint64_t a1, unint64_t a2)
 {
   v4 = *(a2 + 88);
   v5 = *(a2 + 96);
-  WGSL::Parser<WGSL::Lexer<unsigned char>>::parseAttributes(&v59, a2);
-  if (v61)
+  WGSL::Parser<WGSL::Lexer<unsigned char>>::parseAttributes(&v60, a2);
+  if (v62)
   {
-    if (v61 == 1)
+    if (v62 == 1)
     {
-      v8 = v59;
-      if (v59)
+      v8 = v60;
+      if (v60)
       {
-        atomic_fetch_add_explicit(v59, 2u, memory_order_relaxed);
+        atomic_fetch_add_explicit(v60, 2u, memory_order_relaxed);
       }
 
-      *(a1 + 8) = v60;
+      *(a1 + 8) = v61;
       *a1 = v8;
       *(a1 + 24) = 1;
-      result = v59;
+      result = v60;
       goto LABEL_6;
     }
 
@@ -7944,13 +8023,13 @@ LABEL_112:
   {
     WGSL::toString();
     WGSL::toString();
-    if (v58)
+    if (v59)
     {
-      v19 = *(v58 + 1);
-      if (v57)
+      v19 = *(v59 + 1);
+      if (v58)
       {
 LABEL_26:
-        v20 = *(v57 + 1);
+        v20 = *(v58 + 1);
         if (v20 < 0)
         {
           goto LABEL_116;
@@ -7971,36 +8050,29 @@ LABEL_90:
         }
 
         v18 = __OFADD__(v19, v21);
-        v44 = v19 + v21;
+        v45 = v19 + v21;
         if (v18)
         {
           goto LABEL_116;
         }
 
-        v45 = (v44 + 11);
-        if (__OFADD__(v44, 11))
+        v46 = (v45 + 11);
+        if (__OFADD__(v45, 11))
         {
           goto LABEL_116;
         }
 
-        if (v58)
+        if (v59)
         {
-          v46 = *(v58 + 4);
-          v47 = (v46 >> 2) & 1;
-          if (!v57 || (v46 & 4) == 0)
+          v47 = *(v59 + 4);
+          v48 = (v47 >> 2) & 1;
+          if (!v58 || (v47 & 4) == 0)
           {
 LABEL_100:
-            WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>>(v45, v47, "Expected a ", 0xBuLL, v58, ", but got a ", 0xCuLL, v57, &v52);
-            v48 = v52;
-            if (v52)
+            WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>>(v46, v48, "Expected a ", 0xBuLL, v59, ", but got a ", 0xCuLL, &v53, v58);
+            v49 = v53;
+            if (v53)
             {
-              v49 = v57;
-              v57 = 0;
-              if (v49 && atomic_fetch_add_explicit(v49, 0xFFFFFFFE, memory_order_relaxed) == 2)
-              {
-                WTF::StringImpl::destroy(v49, v7);
-              }
-
               v50 = v58;
               v58 = 0;
               if (v50 && atomic_fetch_add_explicit(v50, 0xFFFFFFFE, memory_order_relaxed) == 2)
@@ -8008,17 +8080,24 @@ LABEL_100:
                 WTF::StringImpl::destroy(v50, v7);
               }
 
-              v51 = v5 | ((*(a2 + 96) - v5) << 32);
-              *a1 = v48;
+              v51 = v59;
+              v59 = 0;
+              if (v51 && atomic_fetch_add_explicit(v51, 0xFFFFFFFE, memory_order_relaxed) == 2)
+              {
+                WTF::StringImpl::destroy(v51, v7);
+              }
+
+              v52 = v5 | ((*(a2 + 96) - v5) << 32);
+              *a1 = v49;
               *(a1 + 8) = v4;
-              *(a1 + 16) = v51;
+              *(a1 + 16) = v52;
               *(a1 + 24) = 1;
-              result = v59;
+              result = v60;
 LABEL_108:
               if (result)
               {
-                v59 = 0;
-                LODWORD(v60) = 0;
+                v60 = 0;
+                LODWORD(v61) = 0;
                 return WTF::fastFree(result, v7);
               }
 
@@ -8032,13 +8111,13 @@ LABEL_117:
           }
         }
 
-        else if (!v57)
+        else if (!v58)
         {
-          v47 = 1;
+          v48 = 1;
           goto LABEL_100;
         }
 
-        v47 = (*(v57 + 16) >> 2) & 1;
+        v48 = (*(v58 + 16) >> 2) & 1;
         goto LABEL_100;
       }
     }
@@ -8046,7 +8125,7 @@ LABEL_117:
     else
     {
       v19 = 0;
-      if (v57)
+      if (v58)
       {
         goto LABEL_26;
       }
@@ -8123,8 +8202,8 @@ LABEL_13:
   }
 
   while (v10 == 82);
-  v55 = 0;
   v56 = 0;
+  v57 = 0;
   v23 = *a1;
   v24 = *(a1 + 24);
   while (1)
@@ -8265,25 +8344,26 @@ LABEL_67:
         *(a2 + 96) = v37;
         if (v36 != 82)
         {
-          v52 = v4;
-          LODWORD(v53) = v5;
-          DWORD1(v53) = v37 - v5;
-          WGSL::AST::Builder::construct<WGSL::AST::CompoundStatement,WGSL::SourceSpan,WTF::ReferenceWrapperVector<WGSL::AST::Attribute,0ul>,WTF::ReferenceWrapperVector<WGSL::AST::Statement,0ul>,void>();
+          v44 = *(a2 + 8);
+          v53 = v4;
+          LODWORD(v54) = v5;
+          DWORD1(v54) = v37 - v5;
+          WGSL::AST::Builder::construct<WGSL::AST::CompoundStatement,WGSL::SourceSpan,WTF::ReferenceWrapperVector<WGSL::AST::Attribute,0ul>,WTF::ReferenceWrapperVector<WGSL::AST::Statement,0ul>,void>(v44, &v53, &v60, &v56);
         }
       }
     }
 
-    v6 = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseStatement(&v52, a2);
-    v25 = v54;
-    if (!v54)
+    v6 = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseStatement(&v53, a2);
+    v25 = v55;
+    if (!v55)
     {
-      if (HIDWORD(v56) == v56)
+      if (HIDWORD(v57) == v57)
       {
-        v34 = WTF::Vector<WebGPU::BindGroupLayout::Entry const*,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v55, HIDWORD(v56) + 1, &v52);
-        *(v55 + HIDWORD(v56)) = *v34;
-        ++HIDWORD(v56);
-        v26 = v54;
-        if (!v54)
+        v34 = WTF::Vector<WebGPU::BindGroupLayout::Entry const*,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v56, HIDWORD(v57) + 1, &v53);
+        *(v56 + HIDWORD(v57)) = *v34;
+        ++HIDWORD(v57);
+        v26 = v55;
+        if (!v55)
         {
           goto LABEL_62;
         }
@@ -8291,10 +8371,10 @@ LABEL_67:
 
       else
       {
-        *(v55 + HIDWORD(v56)) = v52;
-        ++HIDWORD(v56);
-        v26 = v54;
-        if (!v54)
+        *(v56 + HIDWORD(v57)) = v53;
+        ++HIDWORD(v57);
+        v26 = v55;
+        if (!v55)
         {
           goto LABEL_62;
         }
@@ -8303,8 +8383,8 @@ LABEL_67:
 LABEL_58:
       if (v26 != 255)
       {
-        v35 = v52;
-        v52 = 0;
+        v35 = v53;
+        v53 = 0;
         if (v35)
         {
           if (atomic_fetch_add_explicit(v35, 0xFFFFFFFE, memory_order_relaxed) == 2)
@@ -8317,23 +8397,23 @@ LABEL_58:
       goto LABEL_62;
     }
 
-    if (v54 != 1)
+    if (v55 != 1)
     {
       *(a1 + 24) = v24;
       *a1 = v23;
       goto LABEL_112;
     }
 
-    v23 = v52;
-    if (v52)
+    v23 = v53;
+    if (v53)
     {
-      atomic_fetch_add_explicit(v52, 2u, memory_order_relaxed);
+      atomic_fetch_add_explicit(v53, 2u, memory_order_relaxed);
     }
 
-    *(a1 + 8) = v53;
+    *(a1 + 8) = v54;
     v24 = 1;
-    v26 = v54;
-    if (v54)
+    v26 = v55;
+    if (v55)
     {
       goto LABEL_58;
     }
@@ -8349,21 +8429,21 @@ LABEL_62:
 
   *(a1 + 24) = v24;
   *a1 = v23;
-  result = v55;
-  if (v55)
+  result = v56;
+  if (v56)
   {
-    v55 = 0;
-    LODWORD(v56) = 0;
+    v56 = 0;
+    LODWORD(v57) = 0;
     result = WTF::fastFree(result, v7);
   }
 
-  if (v61 != 255)
+  if (v62 != 255)
   {
-    result = v59;
-    if (v61)
+    result = v60;
+    if (v62)
     {
 LABEL_6:
-      v59 = 0;
+      v60 = 0;
       if (result)
       {
         if (atomic_fetch_add_explicit(result, 0xFFFFFFFE, memory_order_relaxed) == 2)
@@ -8381,7 +8461,7 @@ LABEL_6:
   return result;
 }
 
-WTF::StringImpl *WGSL::Parser<WGSL::Lexer<unsigned char>>::parseStatement(uint64_t a1, uint64_t a2)
+WTF::StringImpl *WGSL::Parser<WGSL::Lexer<unsigned char>>::parseStatement(WTF::StringImpl **a1, unint64_t a2)
 {
   v4 = *(a2 + 88);
   v5 = *(a2 + 96);
@@ -8395,22 +8475,22 @@ WTF::StringImpl *WGSL::Parser<WGSL::Lexer<unsigned char>>::parseStatement(uint64
   switch(*(a2 + 56))
   {
     case 8:
-      result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseIdentifier(v475, a2);
-      if (v477)
+      result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseIdentifier(v491, a2);
+      if (v493)
       {
-        if (v477 != 1)
+        if (v493 != 1)
         {
-          goto LABEL_969;
+          goto LABEL_971;
         }
 
-        v62 = *v475;
-        if (*v475)
+        v63 = *v491;
+        if (*v491)
         {
-          atomic_fetch_add_explicit(*v475, 2u, memory_order_relaxed);
+          atomic_fetch_add_explicit(*v491, 2u, memory_order_relaxed);
         }
 
-        *(a1 + 8) = *&v475[8];
-        *a1 = v62;
+        *(a1 + 1) = *&v491[8];
+        *a1 = v63;
         *(a1 + 24) = 1;
       }
 
@@ -8418,168 +8498,170 @@ WTF::StringImpl *WGSL::Parser<WGSL::Lexer<unsigned char>>::parseStatement(uint64
       {
         if ((*(a2 + 56) | 0x10) != 0x53)
         {
-          v300 = *(a2 + 96) - v5;
-          v466 = v4;
-          *&v467 = __PAIR64__(v300, v5);
-          WGSL::AST::Builder::construct<WGSL::AST::IdentifierExpression,WGSL::SourceSpan,WGSL::AST::Identifier,void>();
+          v310 = *(a2 + 8);
+          v311 = *(a2 + 96) - v5;
+          v482 = v4;
+          *&v483 = __PAIR64__(v311, v5);
+          WGSL::AST::Builder::construct<WGSL::AST::IdentifierExpression,WGSL::SourceSpan,WGSL::AST::Identifier,void>(v310, &v482, v491);
         }
 
-        result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseTypeNameAfterIdentifier(&v488, a2, v475, v4, v5);
-        if (v490)
+        result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseTypeNameAfterIdentifier(&v504, a2, v491, v4, v5);
+        if (v506)
         {
-          if (v490 != 1)
+          if (v506 != 1)
           {
-            goto LABEL_969;
+            goto LABEL_971;
           }
 
-          v301 = v488;
-          if (v488)
+          v312 = v504;
+          if (v504)
           {
-            atomic_fetch_add_explicit(v488, 2u, memory_order_relaxed);
+            atomic_fetch_add_explicit(v504, 2u, memory_order_relaxed);
           }
 
-          *(a1 + 8) = v489;
-          *a1 = v301;
+          *(a1 + 1) = v505;
+          *a1 = v312;
           *(a1 + 24) = 1;
         }
 
         else
         {
-          result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseArgumentExpressionList(&v483, a2);
-          if (!v485)
+          result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseArgumentExpressionList(&v499, a2);
+          if (!v501)
           {
-            v378 = *(a2 + 96) - v5;
-            v466 = v4;
-            *&v467 = __PAIR64__(v378, v5);
-            WGSL::AST::Builder::construct<WGSL::AST::CallExpression,WGSL::SourceSpan,std::reference_wrapper<WGSL::AST::Expression>,WTF::ReferenceWrapperVector<WGSL::AST::Expression,0ul>,void>();
+            v391 = *(a2 + 8);
+            v392 = *(a2 + 96) - v5;
+            v482 = v4;
+            *&v483 = __PAIR64__(v392, v5);
+            WGSL::AST::Builder::construct<WGSL::AST::CallExpression,WGSL::SourceSpan,std::reference_wrapper<WGSL::AST::Expression>,WTF::ReferenceWrapperVector<WGSL::AST::Expression,0ul>,void>(v391, &v482, &v504, &v499);
           }
 
-          if (v485 != 1)
+          if (v501 != 1)
           {
-            goto LABEL_969;
+            goto LABEL_971;
           }
 
-          v175 = v483;
-          if (v483)
+          v181 = v499;
+          if (v499)
           {
-            atomic_fetch_add_explicit(v483, 2u, memory_order_relaxed);
+            atomic_fetch_add_explicit(v499, 2u, memory_order_relaxed);
           }
 
-          *(a1 + 8) = v484;
-          *a1 = v175;
+          *(a1 + 1) = v500;
+          *a1 = v181;
           *(a1 + 24) = 1;
-          std::experimental::fundamentals_v3::expected<WTF::ReferenceWrapperVector<WGSL::AST::Attribute,0ul>,WGSL::CompilationMessage>::~expected(&v483, v174);
+          std::experimental::fundamentals_v3::expected<WTF::ReferenceWrapperVector<WGSL::AST::Attribute,0ul>,WGSL::CompilationMessage>::~expected(&v499, v180);
         }
 
-        result = std::experimental::fundamentals_v3::expected<std::reference_wrapper<WGSL::AST::Expression>,WGSL::CompilationMessage>::~expected(&v488, v173);
+        result = std::experimental::fundamentals_v3::expected<std::reference_wrapper<WGSL::AST::Expression>,WGSL::CompilationMessage>::~expected(&v504, v179);
       }
 
-      if (v477 == 255)
+      if (v493 == 255)
       {
         goto LABEL_4;
       }
 
-      if (!v477)
+      if (!v493)
       {
-        result = v476;
-        *v475 = off_2838D37C0;
-        v476 = 0;
+        result = v492;
+        *v491 = off_2838D37C0;
+        v492 = 0;
         if (result)
         {
-          goto LABEL_949;
+          goto LABEL_951;
         }
 
         goto LABEL_4;
       }
 
-      result = *v475;
-      *v475 = 0;
+      result = *v491;
+      *v491 = 0;
       if (!result)
       {
         goto LABEL_4;
       }
 
-      goto LABEL_949;
+      goto LABEL_951;
     case 0xB:
       while (1)
       {
-        v65 = *(a2 + 36);
-        v66 = (*(a2 + 40) + 1);
-        *(a2 + 40) = v66;
-        if (v65 <= v66)
+        v66 = *(a2 + 36);
+        v67 = (*(a2 + 40) + 1);
+        *(a2 + 40) = v67;
+        if (v66 <= v67)
         {
           __break(0xC471u);
           JUMPOUT(0x225781290);
         }
 
-        v67 = *(a2 + 24) + 32 * v66;
-        v63 = *v67;
-        *(a2 + 56) = *v67;
-        *(a2 + 60) = *(v67 + 4);
-        v68 = *v67;
-        if (*v67 > 8u)
+        v68 = *(a2 + 24) + 32 * v67;
+        v64 = *v68;
+        *(a2 + 56) = *v68;
+        *(a2 + 60) = *(v68 + 4);
+        v69 = *v68;
+        if (*v68 > 8u)
         {
           goto LABEL_129;
         }
 
-        if (((1 << v68) & 0x38) != 0)
+        if (((1 << v69) & 0x38) != 0)
         {
-          *(a2 + 80) = *(v67 + 24);
+          *(a2 + 80) = *(v68 + 24);
         }
 
-        else if (((1 << v68) & 0xC4) != 0)
+        else if (((1 << v69) & 0xC4) != 0)
         {
-          *(a2 + 80) = *(v67 + 24);
+          *(a2 + 80) = *(v68 + 24);
         }
 
         else
         {
-          if (v68 != 8)
+          if (v69 != 8)
           {
             goto LABEL_129;
           }
 
           *(a2 + 80) = 0;
-          v69 = *(v67 + 24);
-          if (v69)
+          v70 = *(v68 + 24);
+          if (v70)
           {
-            atomic_fetch_add_explicit(v69, 2u, memory_order_relaxed);
-            v70 = *(a2 + 80);
-            *(a2 + 80) = v69;
-            if (v70)
+            atomic_fetch_add_explicit(v70, 2u, memory_order_relaxed);
+            v71 = *(a2 + 80);
+            *(a2 + 80) = v70;
+            if (v71)
             {
-              if (atomic_fetch_add_explicit(v70, 0xFFFFFFFE, memory_order_relaxed) == 2)
+              if (atomic_fetch_add_explicit(v71, 0xFFFFFFFE, memory_order_relaxed) == 2)
               {
-                WTF::StringImpl::destroy(v70, a2);
+                WTF::StringImpl::destroy(v71, a2);
               }
             }
           }
         }
 
-        v63 = *(a2 + 56);
+        v64 = *(a2 + 56);
 LABEL_129:
-        v64 = *(a2 + 68);
+        v65 = *(a2 + 68);
         *(a2 + 88) = *(a2 + 60);
-        *(a2 + 96) = v64;
-        if (v63 != 82)
+        *(a2 + 96) = v65;
+        if (v64 != 82)
         {
-          if (v63 != 73)
+          if (v64 != 73)
           {
-            *v475 = v63;
-            LOBYTE(v477) = 1;
+            *v491 = v64;
+            LOBYTE(v493) = 1;
             WGSL::toString();
             WGSL::toString();
-            WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v456, ", but got a ", 13, &v455, &v466);
-            v165 = v455;
-            v455 = 0;
-            if (v165 && atomic_fetch_add_explicit(v165, 0xFFFFFFFE, memory_order_relaxed) == 2)
+            WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v472, 13, &v471, &v482, ", but got a ");
+            v168 = v471;
+            v471 = 0;
+            if (v168 && atomic_fetch_add_explicit(v168, 0xFFFFFFFE, memory_order_relaxed) == 2)
             {
-              WTF::StringImpl::destroy(v165, v146);
+              WTF::StringImpl::destroy(v168, v148);
             }
 
-            v161 = v456;
-            v456 = 0;
-            if (!v161)
+            v164 = v472;
+            v472 = 0;
+            if (!v164)
             {
               goto LABEL_394;
             }
@@ -8587,73 +8669,74 @@ LABEL_129:
             goto LABEL_392;
           }
 
-          *v475 = 73;
-          *&v475[4] = *(a2 + 60);
-          LOBYTE(v477) = 0;
+          *v491 = 73;
+          *&v491[4] = *(a2 + 60);
+          LOBYTE(v493) = 0;
           while (2)
           {
-            v122 = *(a2 + 36);
-            v123 = (*(a2 + 40) + 1);
-            *(a2 + 40) = v123;
-            if (v122 <= v123)
+            v124 = *(a2 + 36);
+            v125 = (*(a2 + 40) + 1);
+            *(a2 + 40) = v125;
+            if (v124 <= v125)
             {
               __break(0xC471u);
               JUMPOUT(0x2257812E8);
             }
 
-            v124 = *(a2 + 24) + 32 * v123;
-            v120 = *v124;
-            *(a2 + 56) = *v124;
-            *(a2 + 60) = *(v124 + 4);
-            v125 = *v124;
-            if (*v124 <= 8u)
+            v126 = *(a2 + 24) + 32 * v125;
+            v122 = *v126;
+            *(a2 + 56) = *v126;
+            *(a2 + 60) = *(v126 + 4);
+            v127 = *v126;
+            if (*v126 <= 8u)
             {
-              if (((1 << v125) & 0x38) != 0)
+              if (((1 << v127) & 0x38) != 0)
               {
-                *(a2 + 80) = *(v124 + 24);
+                *(a2 + 80) = *(v126 + 24);
                 goto LABEL_234;
               }
 
-              if (((1 << v125) & 0xC4) != 0)
+              if (((1 << v127) & 0xC4) != 0)
               {
-                *(a2 + 80) = *(v124 + 24);
+                *(a2 + 80) = *(v126 + 24);
                 goto LABEL_234;
               }
 
-              if (v125 == 8)
+              if (v127 == 8)
               {
                 *(a2 + 80) = 0;
-                v126 = *(v124 + 24);
-                if (v126)
+                v128 = *(v126 + 24);
+                if (v128)
                 {
-                  atomic_fetch_add_explicit(v126, 2u, memory_order_relaxed);
-                  v127 = *(a2 + 80);
-                  *(a2 + 80) = v126;
-                  if (v127)
+                  atomic_fetch_add_explicit(v128, 2u, memory_order_relaxed);
+                  v129 = *(a2 + 80);
+                  *(a2 + 80) = v128;
+                  if (v129)
                   {
-                    if (atomic_fetch_add_explicit(v127, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                    if (atomic_fetch_add_explicit(v129, 0xFFFFFFFE, memory_order_relaxed) == 2)
                     {
-                      WTF::StringImpl::destroy(v127, a2);
+                      WTF::StringImpl::destroy(v129, a2);
                     }
                   }
                 }
 
 LABEL_234:
-                v120 = *(a2 + 56);
+                v122 = *(a2 + 56);
               }
             }
 
-            v121 = *(a2 + 68);
+            v123 = *(a2 + 68);
             *(a2 + 88) = *(a2 + 60);
-            *(a2 + 96) = v121;
-            if (v120 != 82)
+            *(a2 + 96) = v123;
+            if (v122 != 82)
             {
-              std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v475, a2);
-              v169 = *(a2 + 96) - v5;
-              *v475 = v4;
-              *&v475[8] = v5;
-              *&v475[12] = v169;
-              WGSL::AST::Builder::construct<WGSL::AST::BreakStatement,WGSL::SourceSpan,void>();
+              std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v491, a2);
+              v173 = *(a2 + 8);
+              v174 = *(a2 + 96) - v5;
+              *v491 = v4;
+              *&v491[8] = v5;
+              *&v491[12] = v174;
+              WGSL::AST::Builder::construct<WGSL::AST::BreakStatement,WGSL::SourceSpan,void>(v173, v491);
             }
 
             continue;
@@ -8664,20 +8747,20 @@ LABEL_234:
     case 0xD:
     case 0x1A:
     case 0x22:
-      *v475 = 0;
-      *&v475[8] = 0;
-      WGSL::Parser<WGSL::Lexer<unsigned char>>::parseVariableWithAttributes(&v466, a2);
-      result = *v475;
-      if (*v475)
+      *v491 = 0;
+      *&v491[8] = 0;
+      WGSL::Parser<WGSL::Lexer<unsigned char>>::parseVariableWithAttributes(&v482, a2, v491);
+      result = *v491;
+      if (*v491)
       {
-        result = WTF::fastFree(*v475, a2);
+        result = WTF::fastFree(*v491, a2);
       }
 
-      if (v468)
+      if (v484)
       {
-        if (v468 != 1)
+        if (v484 != 1)
         {
-          goto LABEL_969;
+          goto LABEL_971;
         }
 
         goto LABEL_196;
@@ -8685,38 +8768,38 @@ LABEL_234:
 
       if (*(a2 + 56) != 73)
       {
-        *v475 = *(a2 + 56);
-        LOBYTE(v477) = 1;
+        *v491 = *(a2 + 56);
+        LOBYTE(v493) = 1;
         result = WGSL::toString();
-        if (v477 != 1)
+        if (v493 != 1)
         {
-          goto LABEL_969;
+          goto LABEL_971;
         }
 
         WGSL::toString();
-        WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v460, ", but got a ", 13, &v459, &v488);
-        v147 = v459;
-        v459 = 0;
-        if (v147 && atomic_fetch_add_explicit(v147, 0xFFFFFFFE, memory_order_relaxed) == 2)
+        WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v476, 13, &v475, &v504, ", but got a ");
+        v149 = v475;
+        v475 = 0;
+        if (v149 && atomic_fetch_add_explicit(v149, 0xFFFFFFFE, memory_order_relaxed) == 2)
         {
-          WTF::StringImpl::destroy(v147, v146);
+          WTF::StringImpl::destroy(v149, v148);
         }
 
-        v148 = v460;
-        v460 = 0;
-        if (v148 && atomic_fetch_add_explicit(v148, 0xFFFFFFFE, memory_order_relaxed) == 2)
+        v150 = v476;
+        v476 = 0;
+        if (v150 && atomic_fetch_add_explicit(v150, 0xFFFFFFFE, memory_order_relaxed) == 2)
         {
-          WTF::StringImpl::destroy(v148, v146);
+          WTF::StringImpl::destroy(v150, v148);
         }
 
-        v149 = (*(a2 + 96) - v5);
-        v150 = v488;
+        v151 = (*(a2 + 96) - v5);
+        v152 = v504;
         goto LABEL_395;
       }
 
-      *v475 = 73;
-      *&v475[4] = *(a2 + 60);
-      LOBYTE(v477) = 0;
+      *v491 = 73;
+      *&v491[4] = *(a2 + 60);
+      LOBYTE(v493) = 0;
       while (1)
       {
         v12 = *(a2 + 36);
@@ -8778,107 +8861,109 @@ LABEL_20:
         *(a2 + 96) = v11;
         if (v10 != 82)
         {
-          std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v475, a2);
-          v151 = *(a2 + 96) - v5;
-          *v475 = v4;
-          *&v475[8] = v5;
-          *&v475[12] = v151;
-          WGSL::AST::Builder::construct<WGSL::AST::VariableStatement,WGSL::SourceSpan,std::reference_wrapper<WGSL::AST::Variable>,void>();
+          std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v491, a2);
+          v153 = *(a2 + 8);
+          v154 = *(a2 + 96) - v5;
+          *v491 = v4;
+          *&v491[8] = v5;
+          *&v491[12] = v154;
+          WGSL::AST::Builder::construct<WGSL::AST::VariableStatement,WGSL::SourceSpan,std::reference_wrapper<WGSL::AST::Variable>,void>(v153, v491, &v482);
         }
       }
 
     case 0xE:
-      result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseConstAssert(v475, a2);
-      v52 = v476;
-      if (!v476)
+      result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseConstAssert(v491, a2);
+      v52 = v492;
+      if (!v492)
       {
-        v53 = *(a2 + 96) - v5;
-        v466 = v4;
-        *&v467 = __PAIR64__(v53, v5);
-        WGSL::AST::Builder::construct<WGSL::AST::ConstAssertStatement,WGSL::SourceSpan,std::reference_wrapper<WGSL::AST::ConstAssert>,void>();
+        v53 = *(a2 + 8);
+        v54 = *(a2 + 96) - v5;
+        v482 = v4;
+        *&v483 = __PAIR64__(v54, v5);
+        WGSL::AST::Builder::construct<WGSL::AST::ConstAssertStatement,WGSL::SourceSpan,std::reference_wrapper<WGSL::AST::ConstAssert>,void>(v53, &v482, v491);
       }
 
       goto LABEL_267;
     case 0xF:
       while (1)
       {
-        v81 = *(a2 + 36);
-        v82 = (*(a2 + 40) + 1);
-        *(a2 + 40) = v82;
-        if (v81 <= v82)
+        v82 = *(a2 + 36);
+        v83 = (*(a2 + 40) + 1);
+        *(a2 + 40) = v83;
+        if (v82 <= v83)
         {
           __break(0xC471u);
           JUMPOUT(0x2257812A0);
         }
 
-        v83 = *(a2 + 24) + 32 * v82;
-        v79 = *v83;
-        *(a2 + 56) = *v83;
-        *(a2 + 60) = *(v83 + 4);
-        v84 = *v83;
-        if (*v83 > 8u)
+        v84 = *(a2 + 24) + 32 * v83;
+        v80 = *v84;
+        *(a2 + 56) = *v84;
+        *(a2 + 60) = *(v84 + 4);
+        v85 = *v84;
+        if (*v84 > 8u)
         {
           goto LABEL_155;
         }
 
-        if (((1 << v84) & 0x38) != 0)
+        if (((1 << v85) & 0x38) != 0)
         {
-          *(a2 + 80) = *(v83 + 24);
+          *(a2 + 80) = *(v84 + 24);
         }
 
-        else if (((1 << v84) & 0xC4) != 0)
+        else if (((1 << v85) & 0xC4) != 0)
         {
-          *(a2 + 80) = *(v83 + 24);
+          *(a2 + 80) = *(v84 + 24);
         }
 
         else
         {
-          if (v84 != 8)
+          if (v85 != 8)
           {
             goto LABEL_155;
           }
 
           *(a2 + 80) = 0;
-          v85 = *(v83 + 24);
-          if (v85)
+          v86 = *(v84 + 24);
+          if (v86)
           {
-            atomic_fetch_add_explicit(v85, 2u, memory_order_relaxed);
-            v86 = *(a2 + 80);
-            *(a2 + 80) = v85;
-            if (v86)
+            atomic_fetch_add_explicit(v86, 2u, memory_order_relaxed);
+            v87 = *(a2 + 80);
+            *(a2 + 80) = v86;
+            if (v87)
             {
-              if (atomic_fetch_add_explicit(v86, 0xFFFFFFFE, memory_order_relaxed) == 2)
+              if (atomic_fetch_add_explicit(v87, 0xFFFFFFFE, memory_order_relaxed) == 2)
               {
-                WTF::StringImpl::destroy(v86, a2);
+                WTF::StringImpl::destroy(v87, a2);
               }
             }
           }
         }
 
-        v79 = *(a2 + 56);
+        v80 = *(a2 + 56);
 LABEL_155:
-        v80 = *(a2 + 68);
+        v81 = *(a2 + 68);
         *(a2 + 88) = *(a2 + 60);
-        *(a2 + 96) = v80;
-        if (v79 != 82)
+        *(a2 + 96) = v81;
+        if (v80 != 82)
         {
-          if (v79 != 73)
+          if (v80 != 73)
           {
-            *v475 = v79;
-            LOBYTE(v477) = 1;
+            *v491 = v80;
+            LOBYTE(v493) = 1;
             WGSL::toString();
             WGSL::toString();
-            WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v454, ", but got a ", 13, &v453, &v466);
-            v166 = v453;
-            v453 = 0;
-            if (v166 && atomic_fetch_add_explicit(v166, 0xFFFFFFFE, memory_order_relaxed) == 2)
+            WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v470, 13, &v469, &v482, ", but got a ");
+            v169 = v469;
+            v469 = 0;
+            if (v169 && atomic_fetch_add_explicit(v169, 0xFFFFFFFE, memory_order_relaxed) == 2)
             {
-              WTF::StringImpl::destroy(v166, v146);
+              WTF::StringImpl::destroy(v169, v148);
             }
 
-            v161 = v454;
-            v454 = 0;
-            if (!v161)
+            v164 = v470;
+            v470 = 0;
+            if (!v164)
             {
               goto LABEL_394;
             }
@@ -8886,73 +8971,74 @@ LABEL_155:
             goto LABEL_392;
           }
 
-          *v475 = 73;
-          *&v475[4] = *(a2 + 60);
-          LOBYTE(v477) = 0;
+          *v491 = 73;
+          *&v491[4] = *(a2 + 60);
+          LOBYTE(v493) = 0;
           while (2)
           {
-            v131 = *(a2 + 36);
-            v132 = (*(a2 + 40) + 1);
-            *(a2 + 40) = v132;
-            if (v131 <= v132)
+            v133 = *(a2 + 36);
+            v134 = (*(a2 + 40) + 1);
+            *(a2 + 40) = v134;
+            if (v133 <= v134)
             {
               __break(0xC471u);
               JUMPOUT(0x2257812F0);
             }
 
-            v133 = *(a2 + 24) + 32 * v132;
-            v129 = *v133;
-            *(a2 + 56) = *v133;
-            *(a2 + 60) = *(v133 + 4);
-            v134 = *v133;
-            if (*v133 <= 8u)
+            v135 = *(a2 + 24) + 32 * v134;
+            v131 = *v135;
+            *(a2 + 56) = *v135;
+            *(a2 + 60) = *(v135 + 4);
+            v136 = *v135;
+            if (*v135 <= 8u)
             {
-              if (((1 << v134) & 0x38) != 0)
+              if (((1 << v136) & 0x38) != 0)
               {
-                *(a2 + 80) = *(v133 + 24);
+                *(a2 + 80) = *(v135 + 24);
                 goto LABEL_254;
               }
 
-              if (((1 << v134) & 0xC4) != 0)
+              if (((1 << v136) & 0xC4) != 0)
               {
-                *(a2 + 80) = *(v133 + 24);
+                *(a2 + 80) = *(v135 + 24);
                 goto LABEL_254;
               }
 
-              if (v134 == 8)
+              if (v136 == 8)
               {
                 *(a2 + 80) = 0;
-                v135 = *(v133 + 24);
-                if (v135)
+                v137 = *(v135 + 24);
+                if (v137)
                 {
-                  atomic_fetch_add_explicit(v135, 2u, memory_order_relaxed);
-                  v136 = *(a2 + 80);
-                  *(a2 + 80) = v135;
-                  if (v136)
+                  atomic_fetch_add_explicit(v137, 2u, memory_order_relaxed);
+                  v138 = *(a2 + 80);
+                  *(a2 + 80) = v137;
+                  if (v138)
                   {
-                    if (atomic_fetch_add_explicit(v136, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                    if (atomic_fetch_add_explicit(v138, 0xFFFFFFFE, memory_order_relaxed) == 2)
                     {
-                      WTF::StringImpl::destroy(v136, a2);
+                      WTF::StringImpl::destroy(v138, a2);
                     }
                   }
                 }
 
 LABEL_254:
-                v129 = *(a2 + 56);
+                v131 = *(a2 + 56);
               }
             }
 
-            v130 = *(a2 + 68);
+            v132 = *(a2 + 68);
             *(a2 + 88) = *(a2 + 60);
-            *(a2 + 96) = v130;
-            if (v129 != 82)
+            *(a2 + 96) = v132;
+            if (v131 != 82)
             {
-              std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v475, a2);
-              v170 = *(a2 + 96) - v5;
-              *v475 = v4;
-              *&v475[8] = v5;
-              *&v475[12] = v170;
-              WGSL::AST::Builder::construct<WGSL::AST::ContinueStatement,WGSL::SourceSpan,void>();
+              std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v491, a2);
+              v175 = *(a2 + 8);
+              v176 = *(a2 + 96) - v5;
+              *v491 = v4;
+              *&v491[8] = v5;
+              *&v491[12] = v176;
+              WGSL::AST::Builder::construct<WGSL::AST::ContinueStatement,WGSL::SourceSpan,void>(v175, v491);
             }
 
             continue;
@@ -9025,21 +9111,21 @@ LABEL_86:
         {
           if (v43 != 73)
           {
-            *v475 = v43;
-            LOBYTE(v477) = 1;
+            *v491 = v43;
+            LOBYTE(v493) = 1;
             WGSL::toString();
             WGSL::toString();
-            WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v452, ", but got a ", 13, &v451, &v466);
-            v160 = v451;
-            v451 = 0;
-            if (v160 && atomic_fetch_add_explicit(v160, 0xFFFFFFFE, memory_order_relaxed) == 2)
+            WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v468, 13, &v467, &v482, ", but got a ");
+            v163 = v467;
+            v467 = 0;
+            if (v163 && atomic_fetch_add_explicit(v163, 0xFFFFFFFE, memory_order_relaxed) == 2)
             {
-              WTF::StringImpl::destroy(v160, v146);
+              WTF::StringImpl::destroy(v163, v148);
             }
 
-            v161 = v452;
-            v452 = 0;
-            if (!v161)
+            v164 = v468;
+            v468 = 0;
+            if (!v164)
             {
               goto LABEL_394;
             }
@@ -9047,73 +9133,74 @@ LABEL_86:
             goto LABEL_392;
           }
 
-          *v475 = 73;
-          *&v475[4] = *(a2 + 60);
-          LOBYTE(v477) = 0;
+          *v491 = 73;
+          *&v491[4] = *(a2 + 60);
+          LOBYTE(v493) = 0;
           while (2)
           {
-            v106 = *(a2 + 36);
-            v107 = (*(a2 + 40) + 1);
-            *(a2 + 40) = v107;
-            if (v106 <= v107)
+            v108 = *(a2 + 36);
+            v109 = (*(a2 + 40) + 1);
+            *(a2 + 40) = v109;
+            if (v108 <= v109)
             {
               __break(0xC471u);
               JUMPOUT(0x2257812E0);
             }
 
-            v108 = *(a2 + 24) + 32 * v107;
-            v104 = *v108;
-            *(a2 + 56) = *v108;
-            *(a2 + 60) = *(v108 + 4);
-            v109 = *v108;
-            if (*v108 <= 8u)
+            v110 = *(a2 + 24) + 32 * v109;
+            v106 = *v110;
+            *(a2 + 56) = *v110;
+            *(a2 + 60) = *(v110 + 4);
+            v111 = *v110;
+            if (*v110 <= 8u)
             {
-              if (((1 << v109) & 0x38) != 0)
+              if (((1 << v111) & 0x38) != 0)
               {
-                *(a2 + 80) = *(v108 + 24);
+                *(a2 + 80) = *(v110 + 24);
                 goto LABEL_204;
               }
 
-              if (((1 << v109) & 0xC4) != 0)
+              if (((1 << v111) & 0xC4) != 0)
               {
-                *(a2 + 80) = *(v108 + 24);
+                *(a2 + 80) = *(v110 + 24);
                 goto LABEL_204;
               }
 
-              if (v109 == 8)
+              if (v111 == 8)
               {
                 *(a2 + 80) = 0;
-                v110 = *(v108 + 24);
-                if (v110)
+                v112 = *(v110 + 24);
+                if (v112)
                 {
-                  atomic_fetch_add_explicit(v110, 2u, memory_order_relaxed);
-                  v111 = *(a2 + 80);
-                  *(a2 + 80) = v110;
-                  if (v111)
+                  atomic_fetch_add_explicit(v112, 2u, memory_order_relaxed);
+                  v113 = *(a2 + 80);
+                  *(a2 + 80) = v112;
+                  if (v113)
                   {
-                    if (atomic_fetch_add_explicit(v111, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                    if (atomic_fetch_add_explicit(v113, 0xFFFFFFFE, memory_order_relaxed) == 2)
                     {
-                      WTF::StringImpl::destroy(v111, a2);
+                      WTF::StringImpl::destroy(v113, a2);
                     }
                   }
                 }
 
 LABEL_204:
-                v104 = *(a2 + 56);
+                v106 = *(a2 + 56);
               }
             }
 
-            v105 = *(a2 + 68);
+            v107 = *(a2 + 68);
             *(a2 + 88) = *(a2 + 60);
-            *(a2 + 96) = v105;
-            if (v104 != 82)
+            *(a2 + 96) = v107;
+            if (v106 != 82)
             {
-              std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v475, a2);
-              v168 = *(a2 + 96) - v5;
-              *v475 = v4;
-              *&v475[8] = v5;
-              *&v475[12] = v168;
-              WGSL::AST::Builder::construct<WGSL::AST::DiscardStatement,WGSL::SourceSpan,void>();
+              std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v491, a2);
+              v171 = *(a2 + 8);
+              v172 = *(a2 + 96) - v5;
+              *v491 = v4;
+              *&v491[8] = v5;
+              *&v491[12] = v172;
+              WGSL::AST::Builder::construct<WGSL::AST::DiscardStatement,WGSL::SourceSpan,void>(v171, v491);
             }
 
             continue;
@@ -9124,50 +9211,50 @@ LABEL_204:
     case 0x18:
       do
       {
-        v56 = *(a2 + 36);
-        v57 = (*(a2 + 40) + 1);
-        *(a2 + 40) = v57;
-        if (v56 <= v57)
+        v57 = *(a2 + 36);
+        v58 = (*(a2 + 40) + 1);
+        *(a2 + 40) = v58;
+        if (v57 <= v58)
         {
           __break(0xC471u);
           JUMPOUT(0x225781288);
         }
 
-        v58 = *(a2 + 24) + 32 * v57;
-        v54 = *v58;
-        *(a2 + 56) = *v58;
-        *(a2 + 60) = *(v58 + 4);
-        v59 = *v58;
-        if (*v58 <= 8u)
+        v59 = *(a2 + 24) + 32 * v58;
+        v55 = *v59;
+        *(a2 + 56) = *v59;
+        *(a2 + 60) = *(v59 + 4);
+        v60 = *v59;
+        if (*v59 <= 8u)
         {
-          if (((1 << v59) & 0x38) != 0)
+          if (((1 << v60) & 0x38) != 0)
           {
-            *(a2 + 80) = *(v58 + 24);
+            *(a2 + 80) = *(v59 + 24);
 LABEL_105:
-            v54 = *(a2 + 56);
+            v55 = *(a2 + 56);
             goto LABEL_106;
           }
 
-          if (((1 << v59) & 0xC4) != 0)
+          if (((1 << v60) & 0xC4) != 0)
           {
-            *(a2 + 80) = *(v58 + 24);
+            *(a2 + 80) = *(v59 + 24);
             goto LABEL_105;
           }
 
-          if (v59 == 8)
+          if (v60 == 8)
           {
             *(a2 + 80) = 0;
-            v60 = *(v58 + 24);
-            if (v60)
+            v61 = *(v59 + 24);
+            if (v61)
             {
-              atomic_fetch_add_explicit(v60, 2u, memory_order_relaxed);
-              v61 = *(a2 + 80);
-              *(a2 + 80) = v60;
-              if (v61)
+              atomic_fetch_add_explicit(v61, 2u, memory_order_relaxed);
+              v62 = *(a2 + 80);
+              *(a2 + 80) = v61;
+              if (v62)
               {
-                if (atomic_fetch_add_explicit(v61, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                if (atomic_fetch_add_explicit(v62, 0xFFFFFFFE, memory_order_relaxed) == 2)
                 {
-                  WTF::StringImpl::destroy(v61, a2);
+                  WTF::StringImpl::destroy(v62, a2);
                 }
               }
             }
@@ -9177,29 +9264,29 @@ LABEL_105:
         }
 
 LABEL_106:
-        v55 = *(a2 + 68);
+        v56 = *(a2 + 68);
         *(a2 + 88) = *(a2 + 60);
-        *(a2 + 96) = v55;
+        *(a2 + 96) = v56;
       }
 
-      while (v54 == 82);
-      v488 = 0;
-      v483 = 0;
-      v470 = 0;
-      if (v54 != 67)
+      while (v55 == 82);
+      v504 = 0;
+      v499 = 0;
+      v486 = 0;
+      if (v55 != 67)
       {
         WGSL::toString();
         WGSL::toString();
-        WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v486, ", but got a ", 13, &v481, v475);
-        v163 = v481;
-        v481 = 0;
-        if (v163 && atomic_fetch_add_explicit(v163, 0xFFFFFFFE, memory_order_relaxed) == 2)
+        WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v502, 13, &v497, v491, ", but got a ");
+        v166 = v497;
+        v497 = 0;
+        if (v166 && atomic_fetch_add_explicit(v166, 0xFFFFFFFE, memory_order_relaxed) == 2)
         {
-          WTF::StringImpl::destroy(v163, v162);
+          WTF::StringImpl::destroy(v166, v165);
         }
 
-        result = v486;
-        v486 = 0;
+        result = v502;
+        v502 = 0;
         if (result)
         {
           goto LABEL_325;
@@ -9210,61 +9297,61 @@ LABEL_106:
 
       while (2)
       {
-        v112 = *(a2 + 36);
-        v113 = (*(a2 + 40) + 1);
-        *(a2 + 40) = v113;
-        if (v112 <= v113)
+        v114 = *(a2 + 36);
+        v115 = (*(a2 + 40) + 1);
+        *(a2 + 40) = v115;
+        if (v114 <= v115)
         {
           __break(0xC471u);
           JUMPOUT(0x225781350);
         }
 
-        v114 = *(a2 + 24) + 32 * v113;
-        v115 = *v114;
-        *(a2 + 56) = *v114;
-        *(a2 + 60) = *(v114 + 4);
-        v116 = *v114;
-        if (*v114 <= 8u)
+        v116 = *(a2 + 24) + 32 * v115;
+        v117 = *v116;
+        *(a2 + 56) = *v116;
+        *(a2 + 60) = *(v116 + 4);
+        v118 = *v116;
+        if (*v116 <= 8u)
         {
-          if (((1 << v116) & 0x38) != 0)
+          if (((1 << v118) & 0x38) != 0)
           {
-            *(a2 + 80) = *(v114 + 24);
+            *(a2 + 80) = *(v116 + 24);
             goto LABEL_223;
           }
 
-          if (((1 << v116) & 0xC4) != 0)
+          if (((1 << v118) & 0xC4) != 0)
           {
-            *(a2 + 80) = *(v114 + 24);
+            *(a2 + 80) = *(v116 + 24);
             goto LABEL_223;
           }
 
-          if (v116 == 8)
+          if (v118 == 8)
           {
             *(a2 + 80) = 0;
-            v118 = *(v114 + 24);
-            if (v118)
+            v120 = *(v116 + 24);
+            if (v120)
             {
-              atomic_fetch_add_explicit(v118, 2u, memory_order_relaxed);
-              v119 = *(a2 + 80);
-              *(a2 + 80) = v118;
-              if (v119)
+              atomic_fetch_add_explicit(v120, 2u, memory_order_relaxed);
+              v121 = *(a2 + 80);
+              *(a2 + 80) = v120;
+              if (v121)
               {
-                if (atomic_fetch_add_explicit(v119, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                if (atomic_fetch_add_explicit(v121, 0xFFFFFFFE, memory_order_relaxed) == 2)
                 {
-                  WTF::StringImpl::destroy(v119, a2);
+                  WTF::StringImpl::destroy(v121, a2);
                 }
               }
             }
 
 LABEL_223:
-            v115 = *(a2 + 56);
+            v117 = *(a2 + 56);
           }
         }
 
-        v117 = *(a2 + 68);
+        v119 = *(a2 + 68);
         *(a2 + 88) = *(a2 + 60);
-        *(a2 + 96) = v117;
-        if (v115 == 82)
+        *(a2 + 96) = v119;
+        if (v117 == 82)
         {
           continue;
         }
@@ -9272,100 +9359,106 @@ LABEL_223:
         break;
       }
 
-      if (v115 > 25)
+      if (v117 > 25)
       {
-        if (v115 != 26 && v115 != 34)
+        if (v117 != 26 && v117 != 34)
         {
-          if (v115 == 73)
+          if (v117 == 73)
           {
-            goto LABEL_862;
+            goto LABEL_864;
           }
 
-LABEL_812:
+LABEL_814:
           result = WTF::StringImpl::createWithoutCopyingNonEmpty();
-          v164 = v5 | ((*(a2 + 96) - v5) << 32);
-LABEL_823:
-          *(a1 + 8) = v4;
-          *(a1 + 16) = v164;
+          v167 = v5 | ((*(a2 + 96) - v5) << 32);
+LABEL_825:
+          a1[1] = v4;
+          a1[2] = v167;
           goto LABEL_3;
         }
 
 LABEL_617:
-        v466 = 0;
-        *&v467 = 0;
-        WGSL::Parser<WGSL::Lexer<unsigned char>>::parseVariableWithAttributes(v475, a2);
-        result = 0;
-        v52 = v476;
-        if (!v476)
+        v482 = 0;
+        *&v483 = 0;
+        WGSL::Parser<WGSL::Lexer<unsigned char>>::parseVariableWithAttributes(v491, a2, &v482);
+        result = v482;
+        if (v482)
         {
-          v291 = *(a2 + 96) - v5;
-          v466 = v4;
-          *&v467 = __PAIR64__(v291, v5);
-          WGSL::AST::Builder::construct<WGSL::AST::VariableStatement,WGSL::SourceSpan,std::reference_wrapper<WGSL::AST::Variable>,void>();
+          result = WTF::fastFree(v482, a2);
+        }
+
+        v52 = v492;
+        if (!v492)
+        {
+          v300 = *(a2 + 8);
+          v301 = *(a2 + 96) - v5;
+          v482 = v4;
+          *&v483 = __PAIR64__(v301, v5);
+          WGSL::AST::Builder::construct<WGSL::AST::VariableStatement,WGSL::SourceSpan,std::reference_wrapper<WGSL::AST::Variable>,void>(v300, &v482, v491);
         }
 
 LABEL_267:
         if (v52 != 1)
         {
-          goto LABEL_969;
+          goto LABEL_971;
         }
 
-        result = *v475;
-        if (*v475)
+        result = *v491;
+        if (*v491)
         {
-          atomic_fetch_add_explicit(*v475, 2u, memory_order_relaxed);
-          v137 = *&v475[8];
+          atomic_fetch_add_explicit(*v491, 2u, memory_order_relaxed);
+          v139 = *&v491[8];
           goto LABEL_270;
         }
 
-LABEL_965:
-        v431 = *&v475[8];
-LABEL_966:
-        *(a1 + 8) = v431;
+LABEL_967:
+        v447 = *&v491[8];
+LABEL_968:
+        *(a1 + 1) = v447;
         *a1 = 0;
         goto LABEL_3;
       }
 
-      if (v115 != 8)
+      if (v117 != 8)
       {
-        if (v115 != 13)
+        if (v117 != 13)
         {
-          goto LABEL_812;
+          goto LABEL_814;
         }
 
         goto LABEL_617;
       }
 
-      result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseLHSExpression(v475, a2);
-      if (v476)
+      result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseLHSExpression(v491, a2);
+      if (v492)
       {
-        if (v476 != 1)
+        if (v492 != 1)
         {
-          goto LABEL_969;
+          goto LABEL_971;
         }
 
-        v377 = *v475;
-        if (*v475)
+        v390 = *v491;
+        if (*v491)
         {
-          atomic_fetch_add_explicit(*v475, 2u, memory_order_relaxed);
+          atomic_fetch_add_explicit(*v491, 2u, memory_order_relaxed);
         }
 
-        v467 = *&v475[8];
-        v466 = v377;
-        v468 = 1;
+        v483 = *&v491[8];
+        v482 = v390;
+        v484 = 1;
       }
 
       else
       {
-        result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseVariableUpdatingStatement(&v466, a2);
+        result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseVariableUpdatingStatement(&v482, a2, v491);
       }
 
-      if (v476)
+      if (v492)
       {
-        if (v476 != 255)
+        if (v492 != 255)
         {
-          result = *v475;
-          *v475 = 0;
+          result = *v491;
+          *v491 = 0;
           if (result)
           {
             if (atomic_fetch_add_explicit(result, 0xFFFFFFFE, memory_order_relaxed) == 2)
@@ -9376,126 +9469,126 @@ LABEL_966:
         }
       }
 
-      if (!v468)
+      if (!v484)
       {
-        v488 = v466;
+        v504 = v482;
         if (*(a2 + 56) == 73)
         {
           while (1)
           {
-LABEL_862:
-            v395 = *(a2 + 36);
-            v396 = (*(a2 + 40) + 1);
-            *(a2 + 40) = v396;
-            if (v395 <= v396)
+LABEL_864:
+            v409 = *(a2 + 36);
+            v410 = (*(a2 + 40) + 1);
+            *(a2 + 40) = v410;
+            if (v409 <= v410)
             {
               __break(0xC471u);
               JUMPOUT(0x225781360);
             }
 
-            v397 = *(a2 + 24) + 32 * v396;
-            v398 = *v397;
-            *(a2 + 56) = *v397;
-            *(a2 + 60) = *(v397 + 4);
-            v399 = *v397;
-            if (*v397 > 8u)
+            v411 = *(a2 + 24) + 32 * v410;
+            v412 = *v411;
+            *(a2 + 56) = *v411;
+            *(a2 + 60) = *(v411 + 4);
+            v413 = *v411;
+            if (*v411 > 8u)
             {
-              goto LABEL_869;
+              goto LABEL_871;
             }
 
-            if (((1 << v399) & 0x38) != 0)
+            if (((1 << v413) & 0x38) != 0)
             {
-              *(a2 + 80) = *(v397 + 24);
+              *(a2 + 80) = *(v411 + 24);
             }
 
-            else if (((1 << v399) & 0xC4) != 0)
+            else if (((1 << v413) & 0xC4) != 0)
             {
-              *(a2 + 80) = *(v397 + 24);
+              *(a2 + 80) = *(v411 + 24);
             }
 
             else
             {
-              if (v399 != 8)
+              if (v413 != 8)
               {
-                goto LABEL_869;
+                goto LABEL_871;
               }
 
               *(a2 + 80) = 0;
-              v401 = *(v397 + 24);
-              if (v401)
+              v415 = *(v411 + 24);
+              if (v415)
               {
-                atomic_fetch_add_explicit(v401, 2u, memory_order_relaxed);
-                v402 = *(a2 + 80);
-                *(a2 + 80) = v401;
-                if (v402)
+                atomic_fetch_add_explicit(v415, 2u, memory_order_relaxed);
+                v416 = *(a2 + 80);
+                *(a2 + 80) = v415;
+                if (v416)
                 {
-                  if (atomic_fetch_add_explicit(v402, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                  if (atomic_fetch_add_explicit(v416, 0xFFFFFFFE, memory_order_relaxed) == 2)
                   {
-                    WTF::StringImpl::destroy(v402, a2);
+                    WTF::StringImpl::destroy(v416, a2);
                   }
                 }
               }
             }
 
-            v398 = *(a2 + 56);
-LABEL_869:
-            v400 = *(a2 + 68);
+            v412 = *(a2 + 56);
+LABEL_871:
+            v414 = *(a2 + 68);
             *(a2 + 88) = *(a2 + 60);
-            *(a2 + 96) = v400;
-            if (v398 != 82)
+            *(a2 + 96) = v414;
+            if (v412 != 82)
             {
-              if (v398 == 73)
+              if (v412 == 73)
               {
-                goto LABEL_877;
+                goto LABEL_879;
               }
 
-              result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseExpression(v475, a2);
-              if (v476)
+              result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseExpression(v491, a2);
+              if (v492)
               {
-                if (v476 != 1)
+                if (v492 != 1)
                 {
-                  goto LABEL_969;
+                  goto LABEL_971;
                 }
 
-                result = *v475;
-                if (!*v475)
+                result = *v491;
+                if (!*v491)
                 {
-LABEL_910:
+LABEL_912:
                   *a1 = 0;
-                  *(a1 + 8) = *&v475[8];
+                  *(a1 + 1) = *&v491[8];
                   goto LABEL_3;
                 }
 
 LABEL_120:
                 atomic_fetch_add_explicit(result, 2u, memory_order_relaxed);
                 *a1 = result;
-                *(a1 + 8) = *&v475[8];
+                *(a1 + 1) = *&v491[8];
                 *(a1 + 24) = 1;
                 if (atomic_fetch_add_explicit(result, 0xFFFFFFFE, memory_order_relaxed) != 2)
                 {
                   goto LABEL_4;
                 }
 
-LABEL_950:
+LABEL_952:
                 result = WTF::StringImpl::destroy(result, a2);
                 goto LABEL_4;
               }
 
-              v483 = *v475;
+              v499 = *v491;
               if (*(a2 + 56) != 73)
               {
                 WGSL::toString();
                 WGSL::toString();
-                WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v474, ", but got a ", 13, &v473, v475);
-                v423 = v473;
-                v473 = 0;
-                if (v423 && atomic_fetch_add_explicit(v423, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v490, 13, &v489, v491, ", but got a ");
+                v437 = v489;
+                v489 = 0;
+                if (v437 && atomic_fetch_add_explicit(v437, 0xFFFFFFFE, memory_order_relaxed) == 2)
                 {
-                  WTF::StringImpl::destroy(v423, v162);
+                  WTF::StringImpl::destroy(v437, v165);
                 }
 
-                result = v474;
-                v474 = 0;
+                result = v490;
+                v490 = 0;
                 if (!result)
                 {
                   goto LABEL_327;
@@ -9504,241 +9597,242 @@ LABEL_950:
 LABEL_325:
                 if (atomic_fetch_add_explicit(result, 0xFFFFFFFE, memory_order_relaxed) == 2)
                 {
-                  result = WTF::StringImpl::destroy(result, v162);
+                  result = WTF::StringImpl::destroy(result, v165);
                 }
 
                 goto LABEL_327;
               }
 
-LABEL_877:
+LABEL_879:
               while (2)
               {
-                v403 = *(a2 + 36);
-                v404 = (*(a2 + 40) + 1);
-                *(a2 + 40) = v404;
-                if (v403 <= v404)
+                v417 = *(a2 + 36);
+                v418 = (*(a2 + 40) + 1);
+                *(a2 + 40) = v418;
+                if (v417 <= v418)
                 {
                   __break(0xC471u);
                   JUMPOUT(0x225781378);
                 }
 
-                v405 = *(a2 + 24) + 32 * v404;
-                v406 = *v405;
-                *(a2 + 56) = *v405;
-                *(a2 + 60) = *(v405 + 4);
-                v407 = *v405;
-                if (*v405 <= 8u)
+                v419 = *(a2 + 24) + 32 * v418;
+                v420 = *v419;
+                *(a2 + 56) = *v419;
+                *(a2 + 60) = *(v419 + 4);
+                v421 = *v419;
+                if (*v419 <= 8u)
                 {
-                  if (((1 << v407) & 0x38) != 0)
+                  if (((1 << v421) & 0x38) != 0)
                   {
-                    *(a2 + 80) = *(v405 + 24);
-                    goto LABEL_883;
+                    *(a2 + 80) = *(v419 + 24);
+                    goto LABEL_885;
                   }
 
-                  if (((1 << v407) & 0xC4) != 0)
+                  if (((1 << v421) & 0xC4) != 0)
                   {
-                    *(a2 + 80) = *(v405 + 24);
-                    goto LABEL_883;
+                    *(a2 + 80) = *(v419 + 24);
+                    goto LABEL_885;
                   }
 
-                  if (v407 == 8)
+                  if (v421 == 8)
                   {
                     *(a2 + 80) = 0;
-                    v409 = *(v405 + 24);
-                    if (v409)
+                    v423 = *(v419 + 24);
+                    if (v423)
                     {
-                      atomic_fetch_add_explicit(v409, 2u, memory_order_relaxed);
-                      v410 = *(a2 + 80);
-                      *(a2 + 80) = v409;
-                      if (v410)
+                      atomic_fetch_add_explicit(v423, 2u, memory_order_relaxed);
+                      v424 = *(a2 + 80);
+                      *(a2 + 80) = v423;
+                      if (v424)
                       {
-                        if (atomic_fetch_add_explicit(v410, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                        if (atomic_fetch_add_explicit(v424, 0xFFFFFFFE, memory_order_relaxed) == 2)
                         {
-                          WTF::StringImpl::destroy(v410, a2);
+                          WTF::StringImpl::destroy(v424, a2);
                         }
                       }
                     }
 
-LABEL_883:
-                    v406 = *(a2 + 56);
+LABEL_885:
+                    v420 = *(a2 + 56);
                   }
                 }
 
-                v408 = *(a2 + 68);
+                v422 = *(a2 + 68);
                 *(a2 + 88) = *(a2 + 60);
-                *(a2 + 96) = v408;
-                if (v406 != 82)
+                *(a2 + 96) = v422;
+                if (v420 != 82)
                 {
-                  if (v406 != 8)
+                  if (v420 != 8)
                   {
-                    if (v406 == 68)
+                    if (v420 == 68)
                     {
-                      goto LABEL_893;
+                      goto LABEL_895;
                     }
 
 LABEL_2:
                     result = WTF::StringImpl::createWithoutCopyingNonEmpty();
                     v8 = v5 | ((*(a2 + 96) - v5) << 32);
-                    *a1 = *v475;
-                    *(a1 + 8) = v4;
-                    *(a1 + 16) = v8;
+                    *a1 = *v491;
+                    a1[1] = v4;
+                    a1[2] = v8;
 LABEL_3:
                     *(a1 + 24) = 1;
                     goto LABEL_4;
                   }
 
-                  result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseVariableUpdatingStatement(v475, a2);
-                  if (v476)
+                  result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseVariableUpdatingStatement(v491, a2);
+                  if (v492)
                   {
-                    if (v476 != 1)
+                    if (v492 != 1)
                     {
-                      goto LABEL_969;
+                      goto LABEL_971;
                     }
 
-                    v422 = *v475;
-                    if (*v475)
+                    v436 = *v491;
+                    if (*v491)
                     {
-                      atomic_fetch_add_explicit(*v475, 2u, memory_order_relaxed);
+                      atomic_fetch_add_explicit(*v491, 2u, memory_order_relaxed);
                     }
 
-LABEL_931:
-                    *(a1 + 8) = *&v475[8];
-                    *a1 = v422;
+LABEL_933:
+                    *(a1 + 1) = *&v491[8];
+                    *a1 = v436;
                     *(a1 + 24) = 1;
-                    result = std::experimental::fundamentals_v3::expected<std::reference_wrapper<WGSL::AST::Expression>,WGSL::CompilationMessage>::~expected(v475, v421);
+                    result = std::experimental::fundamentals_v3::expected<std::reference_wrapper<WGSL::AST::Expression>,WGSL::CompilationMessage>::~expected(v491, v435);
                     goto LABEL_4;
                   }
 
-                  v470 = *v475;
-                  std::experimental::fundamentals_v3::expected<std::reference_wrapper<WGSL::AST::Expression>,WGSL::CompilationMessage>::~expected(v475, v421);
+                  v486 = *v491;
+                  std::experimental::fundamentals_v3::expected<std::reference_wrapper<WGSL::AST::Expression>,WGSL::CompilationMessage>::~expected(v491, v435);
                   if (*(a2 + 56) != 68)
                   {
-                    *v475 = *(a2 + 56);
-                    LOBYTE(v477) = 1;
+                    *v491 = *(a2 + 56);
+                    LOBYTE(v493) = 1;
                     result = WGSL::toString();
-                    if (v477 != 1)
+                    if (v493 != 1)
                     {
-                      goto LABEL_969;
+                      goto LABEL_971;
                     }
 
                     WGSL::toString();
-                    WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v465, ", but got a ", 13, &v464, &v466);
-                    v426 = v464;
-                    v464 = 0;
-                    if (v426 && atomic_fetch_add_explicit(v426, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                    WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v481, 13, &v480, &v482, ", but got a ");
+                    v442 = v480;
+                    v480 = 0;
+                    if (v442 && atomic_fetch_add_explicit(v442, 0xFFFFFFFE, memory_order_relaxed) == 2)
                     {
-                      WTF::StringImpl::destroy(v426, v146);
+                      WTF::StringImpl::destroy(v442, v148);
                     }
 
-                    v161 = v465;
-                    v465 = 0;
-                    if (!v161)
+                    v164 = v481;
+                    v481 = 0;
+                    if (!v164)
                     {
 LABEL_394:
-                      v149 = (*(a2 + 96) - v5);
-                      v150 = v466;
+                      v151 = (*(a2 + 96) - v5);
+                      v152 = v482;
 LABEL_395:
-                      *a1 = v150;
-                      *(a1 + 8) = v4;
-                      *(a1 + 16) = v5 | (v149 << 32);
+                      *a1 = v152;
+                      a1[1] = v4;
+                      a1[2] = (v5 | (v151 << 32));
                       *(a1 + 24) = 1;
-                      result = std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v475, v146);
+                      result = std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v491, v148);
                       goto LABEL_4;
                     }
 
 LABEL_392:
-                    if (atomic_fetch_add_explicit(v161, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                    if (atomic_fetch_add_explicit(v164, 0xFFFFFFFE, memory_order_relaxed) == 2)
                     {
-                      WTF::StringImpl::destroy(v161, v146);
+                      WTF::StringImpl::destroy(v164, v148);
                     }
 
                     goto LABEL_394;
                   }
 
-LABEL_893:
-                  *v475 = 68;
-                  *&v475[4] = *(a2 + 60);
-                  LOBYTE(v477) = 0;
+LABEL_895:
+                  *v491 = 68;
+                  *&v491[4] = *(a2 + 60);
+                  LOBYTE(v493) = 0;
                   while (2)
                   {
-                    v413 = *(a2 + 36);
-                    v414 = (*(a2 + 40) + 1);
-                    *(a2 + 40) = v414;
-                    if (v413 <= v414)
+                    v427 = *(a2 + 36);
+                    v428 = (*(a2 + 40) + 1);
+                    *(a2 + 40) = v428;
+                    if (v427 <= v428)
                     {
                       __break(0xC471u);
                       JUMPOUT(0x225781370);
                     }
 
-                    v415 = *(a2 + 24) + 32 * v414;
-                    v411 = *v415;
-                    *(a2 + 56) = *v415;
-                    *(a2 + 60) = *(v415 + 4);
-                    v416 = *v415;
-                    if (*v415 <= 8u)
+                    v429 = *(a2 + 24) + 32 * v428;
+                    v425 = *v429;
+                    *(a2 + 56) = *v429;
+                    *(a2 + 60) = *(v429 + 4);
+                    v430 = *v429;
+                    if (*v429 <= 8u)
                     {
-                      if (((1 << v416) & 0x38) != 0)
+                      if (((1 << v430) & 0x38) != 0)
                       {
-                        *(a2 + 80) = *(v415 + 24);
-                        goto LABEL_895;
+                        *(a2 + 80) = *(v429 + 24);
+                        goto LABEL_897;
                       }
 
-                      if (((1 << v416) & 0xC4) != 0)
+                      if (((1 << v430) & 0xC4) != 0)
                       {
-                        *(a2 + 80) = *(v415 + 24);
-                        goto LABEL_895;
+                        *(a2 + 80) = *(v429 + 24);
+                        goto LABEL_897;
                       }
 
-                      if (v416 == 8)
+                      if (v430 == 8)
                       {
                         *(a2 + 80) = 0;
-                        v417 = *(v415 + 24);
-                        if (v417)
+                        v431 = *(v429 + 24);
+                        if (v431)
                         {
-                          atomic_fetch_add_explicit(v417, 2u, memory_order_relaxed);
-                          v418 = *(a2 + 80);
-                          *(a2 + 80) = v417;
-                          if (v418)
+                          atomic_fetch_add_explicit(v431, 2u, memory_order_relaxed);
+                          v432 = *(a2 + 80);
+                          *(a2 + 80) = v431;
+                          if (v432)
                           {
-                            if (atomic_fetch_add_explicit(v418, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                            if (atomic_fetch_add_explicit(v432, 0xFFFFFFFE, memory_order_relaxed) == 2)
                             {
-                              WTF::StringImpl::destroy(v418, a2);
+                              WTF::StringImpl::destroy(v432, a2);
                             }
                           }
                         }
 
-LABEL_895:
-                        v411 = *(a2 + 56);
+LABEL_897:
+                        v425 = *(a2 + 56);
                       }
                     }
 
-                    v412 = *(a2 + 68);
+                    v426 = *(a2 + 68);
                     *(a2 + 88) = *(a2 + 60);
-                    *(a2 + 96) = v412;
-                    if (v411 != 82)
+                    *(a2 + 96) = v426;
+                    if (v425 != 82)
                     {
-                      v420 = std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v475, a2);
-                      result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseCompoundStatement(v420, a2);
-                      if (!v476)
+                      v434 = std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v491, a2);
+                      result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseCompoundStatement(v434, a2);
+                      if (!v492)
                       {
-                        v425 = *(a2 + 96) - v5;
-                        v466 = v4;
-                        *&v467 = __PAIR64__(v425, v5);
-                        WGSL::AST::Builder::construct<WGSL::AST::ForStatement,WGSL::SourceSpan,WGSL::AST::Statement *&,WGSL::AST::Expression *&,WGSL::AST::Statement *&,std::reference_wrapper<WGSL::AST::CompoundStatement>,void>();
+                        v440 = *(a2 + 8);
+                        v441 = *(a2 + 96) - v5;
+                        v482 = v4;
+                        *&v483 = __PAIR64__(v441, v5);
+                        WGSL::AST::Builder::construct<WGSL::AST::ForStatement,WGSL::SourceSpan,WGSL::AST::Statement *&,WGSL::AST::Expression *&,WGSL::AST::Statement *&,std::reference_wrapper<WGSL::AST::CompoundStatement>,void>(v440, &v482, &v504, &v499, &v486, v491);
                       }
 
-                      if (v476 == 1)
+                      if (v492 == 1)
                       {
-                        v422 = *v475;
-                        if (*v475)
+                        v436 = *v491;
+                        if (*v491)
                         {
-                          atomic_fetch_add_explicit(*v475, 2u, memory_order_relaxed);
+                          atomic_fetch_add_explicit(*v491, 2u, memory_order_relaxed);
                         }
 
-                        goto LABEL_931;
+                        goto LABEL_933;
                       }
 
-LABEL_969:
+LABEL_971:
                       mpark::throw_bad_variant_access(result);
                     }
 
@@ -9754,46 +9848,46 @@ LABEL_969:
 
         WGSL::toString();
         WGSL::toString();
-        WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v480, ", but got a ", 13, &v479, v475);
-        v419 = v479;
-        v479 = 0;
-        if (v419 && atomic_fetch_add_explicit(v419, 0xFFFFFFFE, memory_order_relaxed) == 2)
+        WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v496, 13, &v495, v491, ", but got a ");
+        v433 = v495;
+        v495 = 0;
+        if (v433 && atomic_fetch_add_explicit(v433, 0xFFFFFFFE, memory_order_relaxed) == 2)
         {
-          WTF::StringImpl::destroy(v419, v162);
+          WTF::StringImpl::destroy(v433, v165);
         }
 
-        result = v480;
-        v480 = 0;
+        result = v496;
+        v496 = 0;
         if (result)
         {
           goto LABEL_325;
         }
 
 LABEL_327:
-        v164 = v5 | ((*(a2 + 96) - v5) << 32);
-        *a1 = *v475;
-        goto LABEL_823;
+        v167 = v5 | ((*(a2 + 96) - v5) << 32);
+        *a1 = *v491;
+        goto LABEL_825;
       }
 
-      if (v468 != 1)
+      if (v484 != 1)
       {
-        goto LABEL_969;
+        goto LABEL_971;
       }
 
-      v394 = v466;
-      if (!v466)
+      v408 = v482;
+      if (!v482)
       {
         *a1 = 0;
-        *(a1 + 8) = v467;
+        *(a1 + 1) = v483;
         goto LABEL_3;
       }
 
-      atomic_fetch_add_explicit(v466, 2u, memory_order_relaxed);
-      v156 = v468;
-      *a1 = v394;
-      *(a1 + 8) = v467;
+      atomic_fetch_add_explicit(v482, 2u, memory_order_relaxed);
+      v159 = v484;
+      *a1 = v408;
+      *(a1 + 1) = v483;
       *(a1 + 24) = 1;
-      if (v156)
+      if (v159)
       {
         goto LABEL_306;
       }
@@ -9802,209 +9896,209 @@ LABEL_4:
       *(a2 + 44) = v6;
       return result;
     case 0x19:
-      WGSL::Parser<WGSL::Lexer<unsigned char>>::parseAttributes(v475, a2);
-      if (v476)
+      WGSL::Parser<WGSL::Lexer<unsigned char>>::parseAttributes(v491, a2);
+      if (v492)
       {
-        if (v476 != 1)
+        if (v492 != 1)
         {
-          goto LABEL_969;
+          goto LABEL_971;
         }
 
-        v51 = *v475;
-        if (*v475)
+        v51 = *v491;
+        if (*v491)
         {
-          atomic_fetch_add_explicit(*v475, 2u, memory_order_relaxed);
+          atomic_fetch_add_explicit(*v491, 2u, memory_order_relaxed);
         }
 
-        *(a1 + 8) = *&v475[8];
+        *(a1 + 1) = *&v491[8];
         *a1 = v51;
         *(a1 + 24) = 1;
-        result = *v475;
-        goto LABEL_803;
+        result = *v491;
+        goto LABEL_805;
       }
 
-      result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseIfStatementWithAttributes(a1, a2, v475, v4, v5);
-      if (v476 == 255)
+      result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseIfStatementWithAttributes(a1, a2, v491, v4, v5);
+      if (v492 == 255)
       {
         goto LABEL_4;
       }
 
-      result = *v475;
-      if (!v476)
+      result = *v491;
+      if (!v492)
       {
         goto LABEL_403;
       }
 
-      goto LABEL_803;
+      goto LABEL_805;
     case 0x1B:
       while (1)
       {
-        v73 = *(a2 + 36);
-        v74 = (*(a2 + 40) + 1);
-        *(a2 + 40) = v74;
-        if (v73 <= v74)
+        v74 = *(a2 + 36);
+        v75 = (*(a2 + 40) + 1);
+        *(a2 + 40) = v75;
+        if (v74 <= v75)
         {
           __break(0xC471u);
           JUMPOUT(0x225781298);
         }
 
-        v75 = *(a2 + 24) + 32 * v74;
-        v71 = *v75;
-        *(a2 + 56) = *v75;
-        *(a2 + 60) = *(v75 + 4);
-        v76 = *v75;
-        if (*v75 > 8u)
+        v76 = *(a2 + 24) + 32 * v75;
+        v72 = *v76;
+        *(a2 + 56) = *v76;
+        *(a2 + 60) = *(v76 + 4);
+        v77 = *v76;
+        if (*v76 > 8u)
         {
           goto LABEL_142;
         }
 
-        if (((1 << v76) & 0x38) != 0)
+        if (((1 << v77) & 0x38) != 0)
         {
-          *(a2 + 80) = *(v75 + 24);
+          *(a2 + 80) = *(v76 + 24);
         }
 
-        else if (((1 << v76) & 0xC4) != 0)
+        else if (((1 << v77) & 0xC4) != 0)
         {
-          *(a2 + 80) = *(v75 + 24);
+          *(a2 + 80) = *(v76 + 24);
         }
 
         else
         {
-          if (v76 != 8)
+          if (v77 != 8)
           {
             goto LABEL_142;
           }
 
           *(a2 + 80) = 0;
-          v77 = *(v75 + 24);
-          if (v77)
+          v78 = *(v76 + 24);
+          if (v78)
           {
-            atomic_fetch_add_explicit(v77, 2u, memory_order_relaxed);
-            v78 = *(a2 + 80);
-            *(a2 + 80) = v77;
-            if (v78)
+            atomic_fetch_add_explicit(v78, 2u, memory_order_relaxed);
+            v79 = *(a2 + 80);
+            *(a2 + 80) = v78;
+            if (v79)
             {
-              if (atomic_fetch_add_explicit(v78, 0xFFFFFFFE, memory_order_relaxed) == 2)
+              if (atomic_fetch_add_explicit(v79, 0xFFFFFFFE, memory_order_relaxed) == 2)
               {
-                WTF::StringImpl::destroy(v78, a2);
+                WTF::StringImpl::destroy(v79, a2);
               }
             }
           }
         }
 
-        v71 = *(a2 + 56);
+        v72 = *(a2 + 56);
 LABEL_142:
-        v72 = *(a2 + 68);
+        v73 = *(a2 + 68);
         *(a2 + 88) = *(a2 + 60);
-        *(a2 + 96) = v72;
-        if (v71 != 82)
+        *(a2 + 96) = v73;
+        if (v72 != 82)
         {
-          WGSL::Parser<WGSL::Lexer<unsigned char>>::parseAttributes(&v488, a2);
-          if (v490)
+          WGSL::Parser<WGSL::Lexer<unsigned char>>::parseAttributes(&v504, a2);
+          if (v506)
           {
-            if (v490 != 1)
+            if (v506 != 1)
             {
-              goto LABEL_969;
+              goto LABEL_971;
             }
 
-            v128 = v488;
-            if (v488)
+            v130 = v504;
+            if (v504)
             {
-              atomic_fetch_add_explicit(v488, 2u, memory_order_relaxed);
+              atomic_fetch_add_explicit(v504, 2u, memory_order_relaxed);
             }
 
-            *(a1 + 8) = v489;
-            *a1 = v128;
+            *(a1 + 1) = v505;
+            *a1 = v130;
             *(a1 + 24) = 1;
-            result = v488;
-            goto LABEL_803;
+            result = v504;
+            goto LABEL_805;
           }
 
           if (*(a2 + 56) != 43)
           {
             WGSL::toString();
             WGSL::toString();
-            WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v466, ", but got a ", 13, &v483, v475);
-            v186 = v483;
-            v483 = 0;
-            if (v186 && atomic_fetch_add_explicit(v186, 0xFFFFFFFE, memory_order_relaxed) == 2)
+            WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v482, 13, &v499, v491, ", but got a ");
+            v193 = v499;
+            v499 = 0;
+            if (v193 && atomic_fetch_add_explicit(v193, 0xFFFFFFFE, memory_order_relaxed) == 2)
             {
-              WTF::StringImpl::destroy(v186, a2);
+              WTF::StringImpl::destroy(v193, a2);
             }
 
-            v187 = v466;
-            v466 = 0;
-            if (v187 && atomic_fetch_add_explicit(v187, 0xFFFFFFFE, memory_order_relaxed) == 2)
+            v194 = v482;
+            v482 = 0;
+            if (v194 && atomic_fetch_add_explicit(v194, 0xFFFFFFFE, memory_order_relaxed) == 2)
             {
-              WTF::StringImpl::destroy(v187, a2);
+              WTF::StringImpl::destroy(v194, a2);
             }
 
-            v188 = v5 | ((*(a2 + 96) - v5) << 32);
-            *a1 = *v475;
-            *(a1 + 8) = v4;
-            *(a1 + 16) = v188;
+            v195 = v5 | ((*(a2 + 96) - v5) << 32);
+            *a1 = *v491;
+            a1[1] = v4;
+            a1[2] = v195;
             *(a1 + 24) = 1;
-            result = v488;
+            result = v504;
             goto LABEL_403;
           }
 
           while (2)
           {
-            v179 = *(a2 + 36);
-            v180 = (*(a2 + 40) + 1);
-            *(a2 + 40) = v180;
-            if (v179 <= v180)
+            v185 = *(a2 + 36);
+            v186 = (*(a2 + 40) + 1);
+            *(a2 + 40) = v186;
+            if (v185 <= v186)
             {
               __break(0xC471u);
               JUMPOUT(0x225781330);
             }
 
-            v181 = *(a2 + 24) + 32 * v180;
-            v177 = *v181;
-            *(a2 + 56) = *v181;
-            *(a2 + 60) = *(v181 + 4);
-            v182 = *v181;
-            if (*v181 <= 8u)
+            v187 = *(a2 + 24) + 32 * v186;
+            v183 = *v187;
+            *(a2 + 56) = *v187;
+            *(a2 + 60) = *(v187 + 4);
+            v188 = *v187;
+            if (*v187 <= 8u)
             {
-              if (((1 << v182) & 0x38) != 0)
+              if (((1 << v188) & 0x38) != 0)
               {
-                *(a2 + 80) = *(v181 + 24);
+                *(a2 + 80) = *(v187 + 24);
                 goto LABEL_375;
               }
 
-              if (((1 << v182) & 0xC4) != 0)
+              if (((1 << v188) & 0xC4) != 0)
               {
-                *(a2 + 80) = *(v181 + 24);
+                *(a2 + 80) = *(v187 + 24);
                 goto LABEL_375;
               }
 
-              if (v182 == 8)
+              if (v188 == 8)
               {
                 *(a2 + 80) = 0;
-                v183 = *(v181 + 24);
-                if (v183)
+                v189 = *(v187 + 24);
+                if (v189)
                 {
-                  atomic_fetch_add_explicit(v183, 2u, memory_order_relaxed);
-                  v184 = *(a2 + 80);
-                  *(a2 + 80) = v183;
-                  if (v184)
+                  atomic_fetch_add_explicit(v189, 2u, memory_order_relaxed);
+                  v190 = *(a2 + 80);
+                  *(a2 + 80) = v189;
+                  if (v190)
                   {
-                    if (atomic_fetch_add_explicit(v184, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                    if (atomic_fetch_add_explicit(v190, 0xFFFFFFFE, memory_order_relaxed) == 2)
                     {
-                      WTF::StringImpl::destroy(v184, a2);
+                      WTF::StringImpl::destroy(v190, a2);
                     }
                   }
                 }
 
 LABEL_375:
-                v177 = *(a2 + 56);
+                v183 = *(a2 + 56);
               }
             }
 
-            v178 = *(a2 + 68);
+            v184 = *(a2 + 68);
             *(a2 + 88) = *(a2 + 60);
-            *(a2 + 96) = v178;
-            if (v177 == 82)
+            *(a2 + 96) = v184;
+            if (v183 == 82)
             {
               continue;
             }
@@ -10012,58 +10106,58 @@ LABEL_375:
             break;
           }
 
-          v443 = 0;
-          v486 = 0;
-          v487 = 0;
-          v475[0] = 0;
-          v478 = 0;
-          v189 = *a1;
-          v190 = *(a1 + 24);
+          v459 = 0;
+          v502 = 0;
+          v503 = 0;
+          v491[0] = 0;
+          v494 = 0;
+          v196 = *a1;
+          v197 = *(a1 + 24);
           while (2)
           {
             while (2)
             {
-              v191 = *(a2 + 56);
-              if (v191 != 16)
+              v198 = *(a2 + 56);
+              if (v198 != 16)
               {
-                if (v191 != 44)
+                if (v198 != 44)
                 {
-                  v192 = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseStatement(&v466, a2);
-                  v193 = v468;
-                  if (v468)
+                  v199 = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseStatement(&v482, a2);
+                  v200 = v484;
+                  if (v484)
                   {
-                    if (v468 != 1)
+                    if (v484 != 1)
                     {
-LABEL_970:
-                      *(a1 + 24) = v190;
-                      *a1 = v189;
-                      mpark::throw_bad_variant_access(v192);
+LABEL_972:
+                      *(a1 + 24) = v197;
+                      *a1 = v196;
+                      mpark::throw_bad_variant_access(v199);
                     }
 
-                    v189 = v466;
-                    if (v466)
+                    v196 = v482;
+                    if (v482)
                     {
-                      atomic_fetch_add_explicit(v466, 2u, memory_order_relaxed);
+                      atomic_fetch_add_explicit(v482, 2u, memory_order_relaxed);
                     }
 
-                    *(a1 + 8) = v467;
-                    v190 = 1;
-                    v194 = v468;
-                    if (!v468)
+                    *(a1 + 1) = v483;
+                    v197 = 1;
+                    v201 = v484;
+                    if (!v484)
                     {
                       goto LABEL_406;
                     }
 
 LABEL_419:
-                    if (v194 != 255)
+                    if (v201 != 255)
                     {
-                      v199 = v466;
-                      v466 = 0;
-                      if (v199)
+                      v206 = v482;
+                      v482 = 0;
+                      if (v206)
                       {
-                        if (atomic_fetch_add_explicit(v199, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                        if (atomic_fetch_add_explicit(v206, 0xFFFFFFFE, memory_order_relaxed) == 2)
                         {
-                          WTF::StringImpl::destroy(v199, a2);
+                          WTF::StringImpl::destroy(v206, a2);
                         }
                       }
                     }
@@ -10071,105 +10165,106 @@ LABEL_419:
 
                   else
                   {
-                    v195 = HIDWORD(v487);
-                    if (HIDWORD(v487) == v487)
+                    v202 = HIDWORD(v503);
+                    if (HIDWORD(v503) == v503)
                     {
-                      v196 = WTF::Vector<WebGPU::BindGroupLayout::Entry const*,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v486, HIDWORD(v487) + 1, &v466);
-                      v195 = HIDWORD(v487);
-                      v197 = v486;
-                      v198 = *v196;
+                      v203 = WTF::Vector<WebGPU::BindGroupLayout::Entry const*,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v502, HIDWORD(v503) + 1, &v482);
+                      v202 = HIDWORD(v503);
+                      v204 = v502;
+                      v205 = *v203;
                     }
 
                     else
                     {
-                      v197 = v486;
-                      v198 = v466;
+                      v204 = v502;
+                      v205 = v482;
                     }
 
-                    *(v197 + 8 * v195) = v198;
-                    ++HIDWORD(v487);
-                    v194 = v468;
-                    if (v468)
+                    *(v204 + v202) = v205;
+                    ++HIDWORD(v503);
+                    v201 = v484;
+                    if (v484)
                     {
                       goto LABEL_419;
                     }
                   }
 
 LABEL_406:
-                  if (v193)
+                  if (v200)
                   {
-                    *(a1 + 24) = v190;
-                    *a1 = v189;
-                    goto LABEL_794;
+                    *(a1 + 24) = v197;
+                    *a1 = v196;
+                    goto LABEL_796;
                   }
 
                   continue;
                 }
 
-                *(a1 + 24) = v190;
-                *a1 = v189;
+                *(a1 + 24) = v197;
+                *a1 = v196;
                 while (2)
                 {
-                  v370 = *(a2 + 36);
-                  v371 = (*(a2 + 40) + 1);
-                  *(a2 + 40) = v371;
-                  if (v370 <= v371)
+                  v381 = *(a2 + 36);
+                  v382 = (*(a2 + 40) + 1);
+                  *(a2 + 40) = v382;
+                  if (v381 <= v382)
                   {
                     __break(0xC471u);
                     JUMPOUT(0x225781348);
                   }
 
-                  v372 = *(a2 + 24) + 32 * v371;
-                  v368 = *v372;
-                  *(a2 + 56) = *v372;
-                  *(a2 + 60) = *(v372 + 4);
-                  v373 = *v372;
-                  if (*v372 <= 8u)
+                  v383 = *(a2 + 24) + 32 * v382;
+                  v379 = *v383;
+                  *(a2 + 56) = *v383;
+                  *(a2 + 60) = *(v383 + 4);
+                  v384 = *v383;
+                  if (*v383 <= 8u)
                   {
-                    if (((1 << v373) & 0x38) != 0)
+                    if (((1 << v384) & 0x38) != 0)
                     {
-                      *(a2 + 80) = *(v372 + 24);
-                      goto LABEL_780;
+                      *(a2 + 80) = *(v383 + 24);
+                      goto LABEL_782;
                     }
 
-                    if (((1 << v373) & 0xC4) != 0)
+                    if (((1 << v384) & 0xC4) != 0)
                     {
-                      *(a2 + 80) = *(v372 + 24);
-                      goto LABEL_780;
+                      *(a2 + 80) = *(v383 + 24);
+                      goto LABEL_782;
                     }
 
-                    if (v373 == 8)
+                    if (v384 == 8)
                     {
                       *(a2 + 80) = 0;
-                      v374 = *(v372 + 24);
-                      if (v374)
+                      v385 = *(v383 + 24);
+                      if (v385)
                       {
-                        atomic_fetch_add_explicit(v374, 2u, memory_order_relaxed);
-                        v375 = *(a2 + 80);
-                        *(a2 + 80) = v374;
-                        if (v375)
+                        atomic_fetch_add_explicit(v385, 2u, memory_order_relaxed);
+                        v386 = *(a2 + 80);
+                        *(a2 + 80) = v385;
+                        if (v386)
                         {
-                          if (atomic_fetch_add_explicit(v375, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                          if (atomic_fetch_add_explicit(v386, 0xFFFFFFFE, memory_order_relaxed) == 2)
                           {
-                            WTF::StringImpl::destroy(v375, a2);
+                            WTF::StringImpl::destroy(v386, a2);
                           }
                         }
                       }
 
-LABEL_780:
-                      v368 = *(a2 + 56);
+LABEL_782:
+                      v379 = *(a2 + 56);
                     }
                   }
 
-                  v369 = *(a2 + 68);
+                  v380 = *(a2 + 68);
                   *(a2 + 88) = *(a2 + 60);
-                  *(a2 + 96) = v369;
-                  if (v368 != 82)
+                  *(a2 + 96) = v380;
+                  if (v379 != 82)
                   {
-                    v466 = v4;
-                    LODWORD(v467) = v5;
-                    DWORD1(v467) = v369 - v5;
-                    WGSL::AST::Builder::construct<WGSL::AST::LoopStatement,WGSL::SourceSpan,WTF::ReferenceWrapperVector<WGSL::AST::Attribute,0ul>,WTF::ReferenceWrapperVector<WGSL::AST::Statement,0ul>,std::optional<WGSL::AST::Continuing>,void>();
+                    v387 = *(a2 + 8);
+                    v482 = v4;
+                    LODWORD(v483) = v5;
+                    DWORD1(v483) = v380 - v5;
+                    WGSL::AST::Builder::construct<WGSL::AST::LoopStatement,WGSL::SourceSpan,WTF::ReferenceWrapperVector<WGSL::AST::Attribute,0ul>,WTF::ReferenceWrapperVector<WGSL::AST::Statement,0ul>,std::optional<WGSL::AST::Continuing>,void>(v387, &v482, &v504, &v502, v491);
                   }
 
                   continue;
@@ -10179,91 +10274,91 @@ LABEL_780:
               break;
             }
 
-            *(a1 + 24) = v190;
-            *a1 = v189;
+            *(a1 + 24) = v197;
+            *a1 = v196;
 LABEL_427:
-            v202 = *(a2 + 36);
-            v203 = (*(a2 + 40) + 1);
-            *(a2 + 40) = v203;
-            if (v202 <= v203)
+            v209 = *(a2 + 36);
+            v210 = (*(a2 + 40) + 1);
+            *(a2 + 40) = v210;
+            if (v209 <= v210)
             {
               __break(0xC471u);
               JUMPOUT(0x225781338);
             }
 
-            v204 = *(a2 + 24) + 32 * v203;
-            v200 = *v204;
-            *(a2 + 56) = *v204;
-            *(a2 + 60) = *(v204 + 4);
-            v205 = *v204;
-            if (*v204 <= 8u)
+            v211 = *(a2 + 24) + 32 * v210;
+            v207 = *v211;
+            *(a2 + 56) = *v211;
+            *(a2 + 60) = *(v211 + 4);
+            v212 = *v211;
+            if (*v211 <= 8u)
             {
-              if (((1 << v205) & 0x38) != 0)
+              if (((1 << v212) & 0x38) != 0)
               {
-                *(a2 + 80) = *(v204 + 24);
+                *(a2 + 80) = *(v211 + 24);
                 goto LABEL_425;
               }
 
-              if (((1 << v205) & 0xC4) != 0)
+              if (((1 << v212) & 0xC4) != 0)
               {
-                *(a2 + 80) = *(v204 + 24);
+                *(a2 + 80) = *(v211 + 24);
                 goto LABEL_425;
               }
 
-              if (v205 == 8)
+              if (v212 == 8)
               {
                 *(a2 + 80) = 0;
-                v206 = *(v204 + 24);
-                if (v206)
+                v213 = *(v211 + 24);
+                if (v213)
                 {
-                  atomic_fetch_add_explicit(v206, 2u, memory_order_relaxed);
-                  v207 = *(a2 + 80);
-                  *(a2 + 80) = v206;
-                  if (v207)
+                  atomic_fetch_add_explicit(v213, 2u, memory_order_relaxed);
+                  v214 = *(a2 + 80);
+                  *(a2 + 80) = v213;
+                  if (v214)
                   {
-                    if (atomic_fetch_add_explicit(v207, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                    if (atomic_fetch_add_explicit(v214, 0xFFFFFFFE, memory_order_relaxed) == 2)
                     {
-                      WTF::StringImpl::destroy(v207, a2);
+                      WTF::StringImpl::destroy(v214, a2);
                     }
                   }
                 }
 
 LABEL_425:
-                v200 = *(a2 + 56);
+                v207 = *(a2 + 56);
               }
             }
 
-            v201 = *(a2 + 68);
+            v208 = *(a2 + 68);
             *(a2 + 88) = *(a2 + 60);
-            *(a2 + 96) = v201;
-            if (v200 != 82)
+            *(a2 + 96) = v208;
+            if (v207 != 82)
             {
-              v481 = 0;
-              v482 = 0;
-              WGSL::Parser<WGSL::Lexer<unsigned char>>::parseAttributes(&v483, a2);
-              if (v485)
+              v497 = 0;
+              v498 = 0;
+              WGSL::Parser<WGSL::Lexer<unsigned char>>::parseAttributes(&v499, a2);
+              if (v501)
               {
-                if (v485 != 1)
+                if (v501 != 1)
                 {
-                  goto LABEL_969;
+                  goto LABEL_971;
                 }
 
-                v189 = v483;
-                if (v483)
+                v196 = v499;
+                if (v499)
                 {
-                  atomic_fetch_add_explicit(v483, 2u, memory_order_relaxed);
+                  atomic_fetch_add_explicit(v499, 2u, memory_order_relaxed);
                 }
 
-                v208 = 0;
-                *(a1 + 8) = v484;
-                *a1 = v189;
-                v190 = 1;
+                v215 = 0;
+                *(a1 + 1) = v500;
+                *a1 = v196;
+                v197 = 1;
                 *(a1 + 24) = 1;
-                v209 = v483;
+                v216 = v499;
 LABEL_442:
-                if (v209 && atomic_fetch_add_explicit(v209, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                if (v216 && atomic_fetch_add_explicit(v216, 0xFFFFFFFE, memory_order_relaxed) == 2)
                 {
-                  WTF::StringImpl::destroy(v209, a2);
+                  WTF::StringImpl::destroy(v216, a2);
                 }
 
                 goto LABEL_553;
@@ -10273,17 +10368,17 @@ LABEL_442:
               {
                 WGSL::toString();
                 WGSL::toString();
-                WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v480, ", but got a ", 13, &v479, &v466);
-                v210 = v479;
-                v479 = 0;
-                if (v210 && atomic_fetch_add_explicit(v210, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v496, 13, &v495, &v482, ", but got a ");
+                v217 = v495;
+                v495 = 0;
+                if (v217 && atomic_fetch_add_explicit(v217, 0xFFFFFFFE, memory_order_relaxed) == 2)
                 {
-                  WTF::StringImpl::destroy(v210, a2);
+                  WTF::StringImpl::destroy(v217, a2);
                 }
 
-                v211 = v480;
-                v480 = 0;
-                if (v211)
+                v218 = v496;
+                v496 = 0;
+                if (v218)
                 {
                   goto LABEL_531;
                 }
@@ -10293,61 +10388,61 @@ LABEL_442:
 
               while (2)
               {
-                v214 = *(a2 + 36);
-                v215 = (*(a2 + 40) + 1);
-                *(a2 + 40) = v215;
-                if (v214 <= v215)
+                v221 = *(a2 + 36);
+                v222 = (*(a2 + 40) + 1);
+                *(a2 + 40) = v222;
+                if (v221 <= v222)
                 {
                   __break(0xC471u);
                   JUMPOUT(0x225781380);
                 }
 
-                v216 = *(a2 + 24) + 32 * v215;
-                v212 = *v216;
-                *(a2 + 56) = *v216;
-                *(a2 + 60) = *(v216 + 4);
-                v217 = *v216;
-                if (*v216 <= 8u)
+                v223 = *(a2 + 24) + 32 * v222;
+                v219 = *v223;
+                *(a2 + 56) = *v223;
+                *(a2 + 60) = *(v223 + 4);
+                v224 = *v223;
+                if (*v223 <= 8u)
                 {
-                  if (((1 << v217) & 0x38) != 0)
+                  if (((1 << v224) & 0x38) != 0)
                   {
-                    *(a2 + 80) = *(v216 + 24);
+                    *(a2 + 80) = *(v223 + 24);
                     goto LABEL_452;
                   }
 
-                  if (((1 << v217) & 0xC4) != 0)
+                  if (((1 << v224) & 0xC4) != 0)
                   {
-                    *(a2 + 80) = *(v216 + 24);
+                    *(a2 + 80) = *(v223 + 24);
                     goto LABEL_452;
                   }
 
-                  if (v217 == 8)
+                  if (v224 == 8)
                   {
                     *(a2 + 80) = 0;
-                    v218 = *(v216 + 24);
-                    if (v218)
+                    v225 = *(v223 + 24);
+                    if (v225)
                     {
-                      atomic_fetch_add_explicit(v218, 2u, memory_order_relaxed);
-                      v219 = *(a2 + 80);
-                      *(a2 + 80) = v218;
-                      if (v219)
+                      atomic_fetch_add_explicit(v225, 2u, memory_order_relaxed);
+                      v226 = *(a2 + 80);
+                      *(a2 + 80) = v225;
+                      if (v226)
                       {
-                        if (atomic_fetch_add_explicit(v219, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                        if (atomic_fetch_add_explicit(v226, 0xFFFFFFFE, memory_order_relaxed) == 2)
                         {
-                          WTF::StringImpl::destroy(v219, a2);
+                          WTF::StringImpl::destroy(v226, a2);
                         }
                       }
                     }
 
 LABEL_452:
-                    v212 = *(a2 + 56);
+                    v219 = *(a2 + 56);
                   }
                 }
 
-                v213 = *(a2 + 68);
+                v220 = *(a2 + 68);
                 *(a2 + 88) = *(a2 + 60);
-                *(a2 + 96) = v213;
-                if (v212 == 82)
+                *(a2 + 96) = v220;
+                if (v219 == 82)
                 {
                   continue;
                 }
@@ -10357,206 +10452,206 @@ LABEL_452:
 
               while (2)
               {
-                v220 = *(a2 + 56);
-                if (v220 != 11)
+                v227 = *(a2 + 56);
+                if (v227 != 11)
                 {
-                  if (v220 != 44)
+                  if (v227 != 44)
                   {
-                    v192 = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseStatement(&v466, a2);
-                    v237 = v468;
-                    if (v468)
+                    v199 = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseStatement(&v482, a2);
+                    v245 = v484;
+                    if (v484)
                     {
-                      if (v468 != 1)
+                      if (v484 != 1)
                       {
-                        goto LABEL_970;
+                        goto LABEL_972;
                       }
 
-                      v189 = v466;
-                      if (v466)
+                      v196 = v482;
+                      if (v482)
                       {
-                        atomic_fetch_add_explicit(v466, 2u, memory_order_relaxed);
+                        atomic_fetch_add_explicit(v482, 2u, memory_order_relaxed);
                       }
 
-                      *(a1 + 8) = v467;
-                      v190 = 1;
+                      *(a1 + 1) = v483;
+                      v197 = 1;
                     }
 
                     else
                     {
-                      v238 = HIDWORD(v482);
-                      if (HIDWORD(v482) == v482)
+                      v246 = HIDWORD(v498);
+                      if (HIDWORD(v498) == v498)
                       {
-                        v239 = WTF::Vector<WebGPU::BindGroupLayout::Entry const*,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v481, HIDWORD(v482) + 1, &v466);
-                        v238 = HIDWORD(v482);
-                        v240 = v481;
-                        v241 = *v239;
+                        v247 = WTF::Vector<WebGPU::BindGroupLayout::Entry const*,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v497, HIDWORD(v498) + 1, &v482);
+                        v246 = HIDWORD(v498);
+                        v248 = v497;
+                        v249 = *v247;
                       }
 
                       else
                       {
-                        v240 = v481;
-                        v241 = v466;
+                        v248 = v497;
+                        v249 = v482;
                       }
 
-                      *(v240 + v238) = v241;
-                      ++HIDWORD(v482);
+                      *(v248 + v246) = v249;
+                      ++HIDWORD(v498);
                     }
 
-                    if (v468)
+                    if (v484)
                     {
-                      if (v468 != 255)
+                      if (v484 != 255)
                       {
-                        v242 = v466;
-                        v466 = 0;
-                        if (v242)
+                        v250 = v482;
+                        v482 = 0;
+                        if (v250)
                         {
-                          if (atomic_fetch_add_explicit(v242, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                          if (atomic_fetch_add_explicit(v250, 0xFFFFFFFE, memory_order_relaxed) == 2)
                           {
-                            WTF::StringImpl::destroy(v242, a2);
+                            WTF::StringImpl::destroy(v250, a2);
                           }
                         }
                       }
                     }
 
-                    if (v237)
+                    if (v245)
                     {
-                      v208 = 0;
-                      *(a1 + 24) = v190;
-                      *a1 = v189;
+                      v215 = 0;
+                      *(a1 + 24) = v197;
+                      *a1 = v196;
                       goto LABEL_549;
                     }
 
                     continue;
                   }
 
-                  v439 = 0;
-                  *(a1 + 24) = v190;
-                  *a1 = v189;
+                  v455 = 0;
+                  *(a1 + 24) = v197;
+                  *a1 = v196;
 LABEL_570:
                   while (2)
                   {
-                    v268 = *(a2 + 36);
-                    v269 = (*(a2 + 40) + 1);
-                    *(a2 + 40) = v269;
-                    if (v268 <= v269)
+                    v276 = *(a2 + 36);
+                    v277 = (*(a2 + 40) + 1);
+                    *(a2 + 40) = v277;
+                    if (v276 <= v277)
                     {
                       __break(0xC471u);
                       JUMPOUT(0x2257813C0);
                     }
 
-                    v270 = *(a2 + 24) + 32 * v269;
-                    v266 = *v270;
-                    *(a2 + 56) = *v270;
-                    *(a2 + 60) = *(v270 + 4);
-                    v271 = *v270;
-                    if (*v270 <= 8u)
+                    v278 = *(a2 + 24) + 32 * v277;
+                    v274 = *v278;
+                    *(a2 + 56) = *v278;
+                    *(a2 + 60) = *(v278 + 4);
+                    v279 = *v278;
+                    if (*v278 <= 8u)
                     {
-                      if (((1 << v271) & 0x38) != 0)
+                      if (((1 << v279) & 0x38) != 0)
                       {
-                        *(a2 + 80) = *(v270 + 24);
+                        *(a2 + 80) = *(v278 + 24);
                         goto LABEL_568;
                       }
 
-                      if (((1 << v271) & 0xC4) != 0)
+                      if (((1 << v279) & 0xC4) != 0)
                       {
-                        *(a2 + 80) = *(v270 + 24);
+                        *(a2 + 80) = *(v278 + 24);
                         goto LABEL_568;
                       }
 
-                      if (v271 == 8)
+                      if (v279 == 8)
                       {
                         *(a2 + 80) = 0;
-                        v272 = *(v270 + 24);
-                        if (v272)
+                        v280 = *(v278 + 24);
+                        if (v280)
                         {
-                          atomic_fetch_add_explicit(v272, 2u, memory_order_relaxed);
-                          v273 = *(a2 + 80);
-                          *(a2 + 80) = v272;
-                          if (v273)
+                          atomic_fetch_add_explicit(v280, 2u, memory_order_relaxed);
+                          v281 = *(a2 + 80);
+                          *(a2 + 80) = v280;
+                          if (v281)
                           {
-                            if (atomic_fetch_add_explicit(v273, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                            if (atomic_fetch_add_explicit(v281, 0xFFFFFFFE, memory_order_relaxed) == 2)
                             {
-                              WTF::StringImpl::destroy(v273, a2);
+                              WTF::StringImpl::destroy(v281, a2);
                             }
                           }
                         }
 
 LABEL_568:
-                        v266 = *(a2 + 56);
+                        v274 = *(a2 + 56);
                       }
                     }
 
-                    v267 = *(a2 + 68);
+                    v275 = *(a2 + 68);
                     *(a2 + 88) = *(a2 + 60);
-                    *(a2 + 96) = v267;
-                    if (v266 != 82)
+                    *(a2 + 96) = v275;
+                    if (v274 != 82)
                     {
-                      v274 = v481;
-                      v481 = 0;
-                      v275 = HIDWORD(v482);
-                      v432 = v482;
-                      v482 = 0;
-                      __src = v483;
-                      v483 = 0;
-                      v276 = DWORD1(v484);
-                      v433 = v275;
-                      v435 = v484;
-                      *&v484 = 0;
-                      if ((v443 & 1) == 0)
+                      v282 = v497;
+                      v497 = 0;
+                      v283 = HIDWORD(v498);
+                      v448 = v498;
+                      v498 = 0;
+                      __src = v499;
+                      v499 = 0;
+                      v284 = DWORD1(v500);
+                      v449 = v283;
+                      v451 = v500;
+                      *&v500 = 0;
+                      if ((v459 & 1) == 0)
                       {
-                        *v475 = v274;
-                        *&v475[8] = v432;
-                        *&v475[12] = v275;
-                        *&v475[16] = __src;
-                        v476 = __PAIR64__(v276, v435);
-                        v477 = v439;
-                        v208 = 1;
-                        v443 = 1;
-                        v441 = __src;
-                        v478 = 1;
+                        *v491 = v282;
+                        *&v491[8] = v448;
+                        *&v491[12] = v283;
+                        *&v491[16] = __src;
+                        v492 = __PAIR64__(v284, v451);
+                        v493 = v455;
+                        v215 = 1;
+                        v459 = 1;
+                        v457 = __src;
+                        v494 = 1;
                         goto LABEL_549;
                       }
 
-                      if (*v475)
+                      if (*v491)
                       {
-                        WTF::fastFree(*v475, a2);
+                        WTF::fastFree(*v491, a2);
                       }
 
-                      *v475 = v274;
-                      *&v475[8] = v432;
-                      *&v475[12] = v433;
-                      if (!v441)
+                      *v491 = v282;
+                      *&v491[8] = v448;
+                      *&v491[12] = v449;
+                      if (!v457)
                       {
-                        v258 = __src;
-                        *&v475[16] = __src;
-                        v476 = __PAIR64__(v276, v435);
-                        v477 = v439;
-                        v443 = 1;
-                        v208 = 1;
-                        v209 = v483;
+                        v266 = __src;
+                        *&v491[16] = __src;
+                        v492 = __PAIR64__(v284, v451);
+                        v493 = v455;
+                        v459 = 1;
+                        v215 = 1;
+                        v216 = v499;
                         goto LABEL_550;
                       }
 
-                      *&v475[16] = 0;
-                      LODWORD(v476) = 0;
-                      WTF::fastFree(v441, a2);
-                      *&v475[16] = __src;
-                      v476 = __PAIR64__(v276, v435);
-                      v477 = v439;
-                      if (v485 == 255)
+                      *&v491[16] = 0;
+                      LODWORD(v492) = 0;
+                      WTF::fastFree(v457, a2);
+                      *&v491[16] = __src;
+                      v492 = __PAIR64__(v284, v451);
+                      v493 = v455;
+                      if (v501 == 255)
                       {
-                        v208 = 1;
-                        v443 = 1;
-                        v441 = __src;
+                        v215 = 1;
+                        v459 = 1;
+                        v457 = __src;
                         goto LABEL_553;
                       }
 
-                      v443 = 1;
-                      v209 = v483;
-                      v208 = 1;
-                      v258 = __src;
-                      v441 = __src;
-                      if (!v485)
+                      v459 = 1;
+                      v216 = v499;
+                      v215 = 1;
+                      v266 = __src;
+                      v457 = __src;
+                      if (!v501)
                       {
                         goto LABEL_550;
                       }
@@ -10573,63 +10668,63 @@ LABEL_568:
 
               while (2)
               {
-                v221 = *(a2 + 36);
-                v222 = (*(a2 + 40) + 1);
-                *(a2 + 40) = v222;
-                if (v221 <= v222)
+                v228 = *(a2 + 36);
+                v229 = (*(a2 + 40) + 1);
+                *(a2 + 40) = v229;
+                if (v228 <= v229)
                 {
-                  *a1 = v189;
-                  *(a1 + 24) = v190;
+                  *a1 = v196;
+                  *(a1 + 24) = v197;
                   __break(0xC471u);
                   JUMPOUT(0x225781390);
                 }
 
-                v223 = *(a2 + 24) + 32 * v222;
-                v224 = *v223;
-                *(a2 + 56) = *v223;
-                *(a2 + 60) = *(v223 + 4);
-                v225 = *v223;
-                if (*v223 <= 8u)
+                v230 = *(a2 + 24) + 32 * v229;
+                v231 = *v230;
+                *(a2 + 56) = *v230;
+                *(a2 + 60) = *(v230 + 4);
+                v232 = *v230;
+                if (*v230 <= 8u)
                 {
-                  if (((1 << v225) & 0x38) != 0)
+                  if (((1 << v232) & 0x38) != 0)
                   {
-                    *(a2 + 80) = *(v223 + 24);
+                    *(a2 + 80) = *(v230 + 24);
                     goto LABEL_471;
                   }
 
-                  if (((1 << v225) & 0xC4) != 0)
+                  if (((1 << v232) & 0xC4) != 0)
                   {
-                    *(a2 + 80) = *(v223 + 24);
+                    *(a2 + 80) = *(v230 + 24);
                     goto LABEL_471;
                   }
 
-                  if (v225 == 8)
+                  if (v232 == 8)
                   {
                     *(a2 + 80) = 0;
-                    v227 = *(v223 + 24);
-                    if (v227)
+                    v234 = *(v230 + 24);
+                    if (v234)
                     {
-                      atomic_fetch_add_explicit(v227, 2u, memory_order_relaxed);
-                      v228 = *(a2 + 80);
-                      *(a2 + 80) = v227;
-                      if (v228)
+                      atomic_fetch_add_explicit(v234, 2u, memory_order_relaxed);
+                      v235 = *(a2 + 80);
+                      *(a2 + 80) = v234;
+                      if (v235)
                       {
-                        if (atomic_fetch_add_explicit(v228, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                        if (atomic_fetch_add_explicit(v235, 0xFFFFFFFE, memory_order_relaxed) == 2)
                         {
-                          WTF::StringImpl::destroy(v228, a2);
+                          WTF::StringImpl::destroy(v235, a2);
                         }
                       }
                     }
 
 LABEL_471:
-                    v224 = *(a2 + 56);
+                    v231 = *(a2 + 56);
                   }
                 }
 
-                v226 = *(a2 + 68);
+                v233 = *(a2 + 68);
                 *(a2 + 88) = *(a2 + 60);
-                *(a2 + 96) = v226;
-                if (v224 == 82)
+                *(a2 + 96) = v233;
+                if (v231 == 82)
                 {
                   continue;
                 }
@@ -10637,172 +10732,173 @@ LABEL_471:
                 break;
               }
 
-              if (v224 != 25)
+              if (v231 != 25)
               {
-                if (v224 != 73)
+                if (v231 != 73)
                 {
                   WGSL::toString();
                   WGSL::toString();
-                  WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v474, ", but got a ", 13, &v473, &v466);
-                  v251 = v473;
-                  v473 = 0;
-                  if (v251 && atomic_fetch_add_explicit(v251, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                  WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v490, 13, &v489, &v482, ", but got a ");
+                  v259 = v489;
+                  v489 = 0;
+                  if (v259 && atomic_fetch_add_explicit(v259, 0xFFFFFFFE, memory_order_relaxed) == 2)
                   {
-                    WTF::StringImpl::destroy(v251, a2);
+                    WTF::StringImpl::destroy(v259, a2);
                   }
 
-                  v211 = v474;
-                  v474 = 0;
-                  if (v211)
+                  v218 = v490;
+                  v490 = 0;
+                  if (v218)
                   {
 LABEL_531:
-                    if (atomic_fetch_add_explicit(v211, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                    if (atomic_fetch_add_explicit(v218, 0xFFFFFFFE, memory_order_relaxed) == 2)
                     {
-                      WTF::StringImpl::destroy(v211, a2);
+                      WTF::StringImpl::destroy(v218, a2);
                     }
                   }
 
 LABEL_564:
-                  v208 = 0;
-                  v189 = v466;
-                  v265 = v5 | ((*(a2 + 96) - v5) << 32);
-                  *a1 = v466;
-                  *(a1 + 8) = v4;
-                  *(a1 + 16) = v265;
-                  v190 = 1;
+                  v215 = 0;
+                  v196 = v482;
+                  v273 = v5 | ((*(a2 + 96) - v5) << 32);
+                  *a1 = v482;
+                  a1[1] = v4;
+                  a1[2] = v273;
+                  v197 = 1;
                   *(a1 + 24) = 1;
                   goto LABEL_549;
                 }
 
                 while (2)
                 {
-                  v231 = *(a2 + 36);
-                  v232 = (*(a2 + 40) + 1);
-                  *(a2 + 40) = v232;
-                  if (v231 <= v232)
+                  v238 = *(a2 + 36);
+                  v239 = (*(a2 + 40) + 1);
+                  *(a2 + 40) = v239;
+                  if (v238 <= v239)
                   {
-                    *a1 = v189;
-                    *(a1 + 24) = v190;
+                    *a1 = v196;
+                    *(a1 + 24) = v197;
                     __break(0xC471u);
                     JUMPOUT(0x2257813A0);
                   }
 
-                  v233 = *(a2 + 24) + 32 * v232;
-                  v229 = *v233;
-                  *(a2 + 56) = *v233;
-                  *(a2 + 60) = *(v233 + 4);
-                  v234 = *v233;
-                  if (*v233 <= 8u)
+                  v240 = *(a2 + 24) + 32 * v239;
+                  v236 = *v240;
+                  *(a2 + 56) = *v240;
+                  *(a2 + 60) = *(v240 + 4);
+                  v241 = *v240;
+                  if (*v240 <= 8u)
                   {
-                    if (((1 << v234) & 0x38) != 0)
+                    if (((1 << v241) & 0x38) != 0)
                     {
-                      *(a2 + 80) = *(v233 + 24);
+                      *(a2 + 80) = *(v240 + 24);
                       goto LABEL_483;
                     }
 
-                    if (((1 << v234) & 0xC4) != 0)
+                    if (((1 << v241) & 0xC4) != 0)
                     {
-                      *(a2 + 80) = *(v233 + 24);
+                      *(a2 + 80) = *(v240 + 24);
                       goto LABEL_483;
                     }
 
-                    if (v234 == 8)
+                    if (v241 == 8)
                     {
                       *(a2 + 80) = 0;
-                      v235 = *(v233 + 24);
-                      if (v235)
+                      v242 = *(v240 + 24);
+                      if (v242)
                       {
-                        atomic_fetch_add_explicit(v235, 2u, memory_order_relaxed);
-                        v236 = *(a2 + 80);
-                        *(a2 + 80) = v235;
-                        if (v236)
+                        atomic_fetch_add_explicit(v242, 2u, memory_order_relaxed);
+                        v243 = *(a2 + 80);
+                        *(a2 + 80) = v242;
+                        if (v243)
                         {
-                          if (atomic_fetch_add_explicit(v236, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                          if (atomic_fetch_add_explicit(v243, 0xFFFFFFFE, memory_order_relaxed) == 2)
                           {
-                            WTF::StringImpl::destroy(v236, a2);
+                            WTF::StringImpl::destroy(v243, a2);
                           }
                         }
                       }
 
 LABEL_483:
-                      v229 = *(a2 + 56);
+                      v236 = *(a2 + 56);
                     }
                   }
 
-                  v230 = *(a2 + 68);
+                  v237 = *(a2 + 68);
                   *(a2 + 88) = *(a2 + 60);
-                  *(a2 + 96) = v230;
-                  if (v229 != 82)
+                  *(a2 + 96) = v237;
+                  if (v236 != 82)
                   {
-                    v466 = v4;
-                    LODWORD(v467) = v5;
-                    DWORD1(v467) = v230 - v5;
-                    WGSL::AST::Builder::construct<WGSL::AST::BreakStatement,WGSL::SourceSpan,void>();
+                    v244 = *(a2 + 8);
+                    v482 = v4;
+                    LODWORD(v483) = v5;
+                    DWORD1(v483) = v237 - v5;
+                    WGSL::AST::Builder::construct<WGSL::AST::BreakStatement,WGSL::SourceSpan,void>(v244, &v482);
                   }
 
                   continue;
                 }
               }
 
-              *a1 = v189;
-              *(a1 + 24) = v190;
+              *a1 = v196;
+              *(a1 + 24) = v197;
               while (2)
               {
-                v245 = *(a2 + 36);
-                v246 = (*(a2 + 40) + 1);
-                *(a2 + 40) = v246;
-                if (v245 <= v246)
+                v253 = *(a2 + 36);
+                v254 = (*(a2 + 40) + 1);
+                *(a2 + 40) = v254;
+                if (v253 <= v254)
                 {
                   __break(0xC471u);
                   JUMPOUT(0x2257813A8);
                 }
 
-                v247 = *(a2 + 24) + 32 * v246;
-                v243 = *v247;
-                *(a2 + 56) = *v247;
-                *(a2 + 60) = *(v247 + 4);
-                v248 = *v247;
-                if (*v247 <= 8u)
+                v255 = *(a2 + 24) + 32 * v254;
+                v251 = *v255;
+                *(a2 + 56) = *v255;
+                *(a2 + 60) = *(v255 + 4);
+                v256 = *v255;
+                if (*v255 <= 8u)
                 {
-                  if (((1 << v248) & 0x38) != 0)
+                  if (((1 << v256) & 0x38) != 0)
                   {
-                    *(a2 + 80) = *(v247 + 24);
+                    *(a2 + 80) = *(v255 + 24);
                     goto LABEL_515;
                   }
 
-                  if (((1 << v248) & 0xC4) != 0)
+                  if (((1 << v256) & 0xC4) != 0)
                   {
-                    *(a2 + 80) = *(v247 + 24);
+                    *(a2 + 80) = *(v255 + 24);
                     goto LABEL_515;
                   }
 
-                  if (v248 == 8)
+                  if (v256 == 8)
                   {
                     *(a2 + 80) = 0;
-                    v249 = *(v247 + 24);
-                    if (v249)
+                    v257 = *(v255 + 24);
+                    if (v257)
                     {
-                      atomic_fetch_add_explicit(v249, 2u, memory_order_relaxed);
-                      v250 = *(a2 + 80);
-                      *(a2 + 80) = v249;
-                      if (v250)
+                      atomic_fetch_add_explicit(v257, 2u, memory_order_relaxed);
+                      v258 = *(a2 + 80);
+                      *(a2 + 80) = v257;
+                      if (v258)
                       {
-                        if (atomic_fetch_add_explicit(v250, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                        if (atomic_fetch_add_explicit(v258, 0xFFFFFFFE, memory_order_relaxed) == 2)
                         {
-                          WTF::StringImpl::destroy(v250, a2);
+                          WTF::StringImpl::destroy(v258, a2);
                         }
                       }
                     }
 
 LABEL_515:
-                    v243 = *(a2 + 56);
+                    v251 = *(a2 + 56);
                   }
                 }
 
-                v244 = *(a2 + 68);
+                v252 = *(a2 + 68);
                 *(a2 + 88) = *(a2 + 60);
-                *(a2 + 96) = v244;
-                if (v243 == 82)
+                *(a2 + 96) = v252;
+                if (v251 == 82)
                 {
                   continue;
                 }
@@ -10810,32 +10906,32 @@ LABEL_515:
                 break;
               }
 
-              result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseExpression(&v470, a2);
-              if (v472)
+              result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseExpression(&v486, a2);
+              if (v488)
               {
-                if (v472 != 1)
+                if (v488 != 1)
                 {
-                  goto LABEL_969;
+                  goto LABEL_971;
                 }
 
-                v189 = v470;
-                if (v470)
+                v196 = v486;
+                if (v486)
                 {
-                  atomic_fetch_add_explicit(v470, 2u, memory_order_relaxed);
+                  atomic_fetch_add_explicit(v486, 2u, memory_order_relaxed);
                 }
 
-                *(a1 + 8) = v471;
-                *a1 = v189;
+                *(a1 + 1) = v487;
+                *a1 = v196;
                 *(a1 + 24) = 1;
                 goto LABEL_548;
               }
 
-              WGSL::Parser<WGSL::Lexer<unsigned char>>::consumeType(&v466, a2, 73);
-              if (!v469)
+              WGSL::Parser<WGSL::Lexer<unsigned char>>::consumeType(&v482, a2, 73);
+              if (!v485)
               {
-                std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(&v466, v253);
-                v439 = v470;
-                std::experimental::fundamentals_v3::expected<std::reference_wrapper<WGSL::AST::Expression>,WGSL::CompilationMessage>::~expected(&v470, v262);
+                std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(&v482, v261);
+                v455 = v486;
+                std::experimental::fundamentals_v3::expected<std::reference_wrapper<WGSL::AST::Expression>,WGSL::CompilationMessage>::~expected(&v486, v270);
                 if (*(a2 + 56) == 44)
                 {
                   goto LABEL_570;
@@ -10843,124 +10939,124 @@ LABEL_515:
 
                 WGSL::toString();
                 WGSL::toString();
-                WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v462, ", but got a ", 13, &v461, &v466);
-                v263 = v461;
-                v461 = 0;
-                if (v263 && atomic_fetch_add_explicit(v263, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v478, 13, &v477, &v482, ", but got a ");
+                v271 = v477;
+                v477 = 0;
+                if (v271 && atomic_fetch_add_explicit(v271, 0xFFFFFFFE, memory_order_relaxed) == 2)
                 {
-                  WTF::StringImpl::destroy(v263, a2);
+                  WTF::StringImpl::destroy(v271, a2);
                 }
 
-                v264 = v462;
-                v462 = 0;
-                if (v264 && atomic_fetch_add_explicit(v264, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                v272 = v478;
+                v478 = 0;
+                if (v272 && atomic_fetch_add_explicit(v272, 0xFFFFFFFE, memory_order_relaxed) == 2)
                 {
-                  WTF::StringImpl::destroy(v264, a2);
+                  WTF::StringImpl::destroy(v272, a2);
                 }
 
                 goto LABEL_564;
               }
 
               result = WGSL::toString();
-              if (v469 != 1)
+              if (v485 != 1)
               {
-                goto LABEL_969;
+                goto LABEL_971;
               }
 
               WGSL::toString();
-              WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v464, ", but got a ", 13, &v463, &v465);
-              v255 = v463;
-              v463 = 0;
-              if (v255 && atomic_fetch_add_explicit(v255, 0xFFFFFFFE, memory_order_relaxed) == 2)
+              WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v480, 13, &v479, &v481, ", but got a ");
+              v263 = v479;
+              v479 = 0;
+              if (v263 && atomic_fetch_add_explicit(v263, 0xFFFFFFFE, memory_order_relaxed) == 2)
               {
-                WTF::StringImpl::destroy(v255, v254);
+                WTF::StringImpl::destroy(v263, v262);
               }
 
-              v256 = v464;
-              v464 = 0;
-              if (v256 && atomic_fetch_add_explicit(v256, 0xFFFFFFFE, memory_order_relaxed) == 2)
+              v264 = v480;
+              v480 = 0;
+              if (v264 && atomic_fetch_add_explicit(v264, 0xFFFFFFFE, memory_order_relaxed) == 2)
               {
-                WTF::StringImpl::destroy(v256, v254);
+                WTF::StringImpl::destroy(v264, v262);
               }
 
-              v189 = v465;
-              v257 = v5 | ((*(a2 + 96) - v5) << 32);
-              *a1 = v465;
-              *(a1 + 8) = v4;
-              *(a1 + 16) = v257;
+              v196 = v481;
+              v265 = v5 | ((*(a2 + 96) - v5) << 32);
+              *a1 = v481;
+              a1[1] = v4;
+              a1[2] = v265;
               *(a1 + 24) = 1;
-              std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(&v466, v254);
+              std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(&v482, v262);
 LABEL_548:
-              std::experimental::fundamentals_v3::expected<std::reference_wrapper<WGSL::AST::Expression>,WGSL::CompilationMessage>::~expected(&v470, v252);
-              v208 = 0;
-              v190 = 1;
+              std::experimental::fundamentals_v3::expected<std::reference_wrapper<WGSL::AST::Expression>,WGSL::CompilationMessage>::~expected(&v486, v260);
+              v215 = 0;
+              v197 = 1;
 LABEL_549:
-              v209 = v483;
-              v258 = v441;
+              v216 = v499;
+              v266 = v457;
 LABEL_550:
-              if (v209)
+              if (v216)
               {
-                v483 = 0;
-                v259 = v208;
-                v260 = v258;
-                WTF::fastFree(v209, a2);
-                v441 = v260;
-                v208 = v259;
+                v499 = 0;
+                v267 = v215;
+                v268 = v266;
+                WTF::fastFree(v216, a2);
+                v457 = v268;
+                v215 = v267;
               }
 
               else
               {
-                v441 = v258;
+                v457 = v266;
               }
 
 LABEL_553:
-              v261 = v481;
-              if (v481)
+              v269 = v497;
+              if (v497)
               {
-                v481 = 0;
-                LODWORD(v482) = 0;
-                WTF::fastFree(v261, a2);
+                v497 = 0;
+                LODWORD(v498) = 0;
+                WTF::fastFree(v269, a2);
               }
 
-              if ((v208 & 1) == 0)
+              if ((v215 & 1) == 0)
               {
-LABEL_794:
-                if (v443)
+LABEL_796:
+                if (v459)
                 {
-                  if (*&v475[16])
+                  if (*&v491[16])
                   {
-                    WTF::fastFree(*&v475[16], a2);
+                    WTF::fastFree(*&v491[16], a2);
                   }
 
-                  if (*v475)
+                  if (*v491)
                   {
-                    WTF::fastFree(*v475, a2);
+                    WTF::fastFree(*v491, a2);
                   }
                 }
 
-                result = v486;
-                if (v486)
+                result = v502;
+                if (v502)
                 {
-                  v486 = 0;
-                  LODWORD(v487) = 0;
+                  v502 = 0;
+                  LODWORD(v503) = 0;
                   result = WTF::fastFree(result, a2);
                 }
 
-                if (v490 == 255)
+                if (v506 == 255)
                 {
                   goto LABEL_4;
                 }
 
-                result = v488;
-                if (v490)
+                result = v504;
+                if (v506)
                 {
-LABEL_803:
+LABEL_805:
                   if (!result)
                   {
                     goto LABEL_4;
                   }
 
-                  goto LABEL_949;
+                  goto LABEL_951;
                 }
 
 LABEL_403:
@@ -11045,52 +11141,54 @@ LABEL_77:
         {
           if (v38 == 73)
           {
-            *v475 = v4;
-            *&v475[8] = v5;
-            *&v475[12] = v40 - v5;
-            WGSL::AST::Builder::construct<WGSL::AST::ReturnStatement,WGSL::SourceSpan,decltype(nullptr),void>();
+            v104 = *(a2 + 8);
+            *v491 = v4;
+            *&v491[8] = v5;
+            *&v491[12] = v40 - v5;
+            WGSL::AST::Builder::construct<WGSL::AST::ReturnStatement,WGSL::SourceSpan,decltype(nullptr),void>(v104, v491);
           }
 
-          result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseExpression(v475, a2);
-          if (!v476)
+          result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseExpression(v491, a2);
+          if (!v492)
           {
-            v185 = *(a2 + 96) - v5;
-            v466 = v4;
-            *&v467 = __PAIR64__(v185, v5);
-            v488 = *v475;
-            WGSL::AST::Builder::construct<WGSL::AST::ReturnStatement,WGSL::SourceSpan,WGSL::AST::Expression *,void>();
+            v191 = *(a2 + 8);
+            v192 = *(a2 + 96) - v5;
+            v482 = v4;
+            *&v483 = __PAIR64__(v192, v5);
+            v504 = *v491;
+            WGSL::AST::Builder::construct<WGSL::AST::ReturnStatement,WGSL::SourceSpan,WGSL::AST::Expression *,void>(v191, &v482, &v504);
           }
 
-          if (v476 != 1)
+          if (v492 != 1)
           {
-            goto LABEL_969;
+            goto LABEL_971;
           }
 
-          v158 = *v475;
-          if (*v475)
+          v161 = *v491;
+          if (*v491)
           {
-            atomic_fetch_add_explicit(*v475, 2u, memory_order_relaxed);
-            v159 = *&v475[8];
-            if (atomic_fetch_add_explicit(v158, 0xFFFFFFFE, memory_order_relaxed) == 2)
+            atomic_fetch_add_explicit(*v491, 2u, memory_order_relaxed);
+            v162 = *&v491[8];
+            if (atomic_fetch_add_explicit(v161, 0xFFFFFFFE, memory_order_relaxed) == 2)
             {
-              v445 = v159;
-              result = WTF::StringImpl::destroy(v158, v157);
-              v159 = v445;
+              v461 = v162;
+              result = WTF::StringImpl::destroy(v161, v160);
+              v162 = v461;
             }
 
-            atomic_fetch_add_explicit(v158, 2u, memory_order_relaxed);
-            *(a1 + 8) = v159;
-            *a1 = v158;
+            atomic_fetch_add_explicit(v161, 2u, memory_order_relaxed);
+            *(a1 + 1) = v162;
+            *a1 = v161;
             *(a1 + 24) = 1;
-            if (atomic_fetch_add_explicit(v158, 0xFFFFFFFE, memory_order_relaxed) == 2)
+            if (atomic_fetch_add_explicit(v161, 0xFFFFFFFE, memory_order_relaxed) == 2)
             {
-              result = WTF::StringImpl::destroy(v158, v157);
+              result = WTF::StringImpl::destroy(v161, v160);
             }
 
             goto LABEL_4;
           }
 
-          goto LABEL_965;
+          goto LABEL_967;
         }
       }
 
@@ -11157,58 +11255,58 @@ LABEL_59:
         *(a2 + 96) = v28;
         if (v27 != 82)
         {
-          result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseExpression(&v466, a2);
-          if (v468)
+          result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseExpression(&v482, a2);
+          if (v484)
           {
-            if (v468 != 1)
+            if (v484 != 1)
             {
-              goto LABEL_969;
+              goto LABEL_971;
             }
 
 LABEL_196:
-            v103 = v466;
-            if (v466)
+            v105 = v482;
+            if (v482)
             {
-              atomic_fetch_add_explicit(v466, 2u, memory_order_relaxed);
+              atomic_fetch_add_explicit(v482, 2u, memory_order_relaxed);
             }
 
-            *(a1 + 8) = v467;
-            *a1 = v103;
+            *(a1 + 1) = v483;
+            *a1 = v105;
             *(a1 + 24) = 1;
 LABEL_199:
-            result = v466;
-            if (!v466)
+            result = v482;
+            if (!v482)
             {
               goto LABEL_4;
             }
 
-LABEL_949:
+LABEL_951:
             if (atomic_fetch_add_explicit(result, 0xFFFFFFFE, memory_order_relaxed) != 2)
             {
               goto LABEL_4;
             }
 
-            goto LABEL_950;
+            goto LABEL_952;
           }
 
-          WGSL::Parser<WGSL::Lexer<unsigned char>>::parseAttributes(&v488, a2);
-          if (v490)
+          WGSL::Parser<WGSL::Lexer<unsigned char>>::parseAttributes(&v504, a2);
+          if (v506)
           {
-            if (v490 != 1)
+            if (v506 != 1)
             {
-              goto LABEL_969;
+              goto LABEL_971;
             }
 
-            v176 = v488;
-            if (v488)
+            v182 = v504;
+            if (v504)
             {
-              atomic_fetch_add_explicit(v488, 2u, memory_order_relaxed);
+              atomic_fetch_add_explicit(v504, 2u, memory_order_relaxed);
             }
 
-            *(a1 + 8) = v489;
-            *a1 = v176;
+            *(a1 + 1) = v505;
+            *a1 = v182;
             *(a1 + 24) = 1;
-            result = v488;
+            result = v504;
             goto LABEL_369;
           }
 
@@ -11216,87 +11314,87 @@ LABEL_949:
           {
             WGSL::toString();
             WGSL::toString();
-            WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v483, ", but got a ", 13, &v470, v475);
-            v302 = v470;
-            v470 = 0;
-            if (v302 && atomic_fetch_add_explicit(v302, 0xFFFFFFFE, memory_order_relaxed) == 2)
+            WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v499, 13, &v486, v491, ", but got a ");
+            v313 = v486;
+            v486 = 0;
+            if (v313 && atomic_fetch_add_explicit(v313, 0xFFFFFFFE, memory_order_relaxed) == 2)
             {
-              WTF::StringImpl::destroy(v302, a2);
+              WTF::StringImpl::destroy(v313, a2);
             }
 
-            v303 = v483;
-            v483 = 0;
-            if (v303 && atomic_fetch_add_explicit(v303, 0xFFFFFFFE, memory_order_relaxed) == 2)
+            v314 = v499;
+            v499 = 0;
+            if (v314 && atomic_fetch_add_explicit(v314, 0xFFFFFFFE, memory_order_relaxed) == 2)
             {
-              WTF::StringImpl::destroy(v303, a2);
+              WTF::StringImpl::destroy(v314, a2);
             }
 
-            v304 = v5 | ((*(a2 + 96) - v5) << 32);
-            *a1 = *v475;
-            *(a1 + 8) = v4;
-            *(a1 + 16) = v304;
+            v315 = v5 | ((*(a2 + 96) - v5) << 32);
+            *a1 = *v491;
+            a1[1] = v4;
+            a1[2] = v315;
             *(a1 + 24) = 1;
-            result = v488;
-            goto LABEL_649;
+            result = v504;
+            goto LABEL_651;
           }
 
           while (2)
           {
-            v284 = *(a2 + 36);
-            v285 = (*(a2 + 40) + 1);
-            *(a2 + 40) = v285;
-            if (v284 <= v285)
+            v292 = *(a2 + 36);
+            v293 = (*(a2 + 40) + 1);
+            *(a2 + 40) = v293;
+            if (v292 <= v293)
             {
               __break(0xC471u);
               JUMPOUT(0x225781340);
             }
 
-            v286 = *(a2 + 24) + 32 * v285;
-            v282 = *v286;
-            *(a2 + 56) = *v286;
-            *(a2 + 60) = *(v286 + 4);
-            v287 = *v286;
-            if (*v286 <= 8u)
+            v294 = *(a2 + 24) + 32 * v293;
+            v290 = *v294;
+            *(a2 + 56) = *v294;
+            *(a2 + 60) = *(v294 + 4);
+            v295 = *v294;
+            if (*v294 <= 8u)
             {
-              if (((1 << v287) & 0x38) != 0)
+              if (((1 << v295) & 0x38) != 0)
               {
-                *(a2 + 80) = *(v286 + 24);
+                *(a2 + 80) = *(v294 + 24);
                 goto LABEL_602;
               }
 
-              if (((1 << v287) & 0xC4) != 0)
+              if (((1 << v295) & 0xC4) != 0)
               {
-                *(a2 + 80) = *(v286 + 24);
+                *(a2 + 80) = *(v294 + 24);
                 goto LABEL_602;
               }
 
-              if (v287 == 8)
+              if (v295 == 8)
               {
                 *(a2 + 80) = 0;
-                v288 = *(v286 + 24);
-                if (v288)
+                v296 = *(v294 + 24);
+                if (v296)
                 {
-                  atomic_fetch_add_explicit(v288, 2u, memory_order_relaxed);
-                  v289 = *(a2 + 80);
-                  *(a2 + 80) = v288;
-                  if (v289)
+                  atomic_fetch_add_explicit(v296, 2u, memory_order_relaxed);
+                  v297 = *(a2 + 80);
+                  *(a2 + 80) = v296;
+                  if (v297)
                   {
-                    if (atomic_fetch_add_explicit(v289, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                    if (atomic_fetch_add_explicit(v297, 0xFFFFFFFE, memory_order_relaxed) == 2)
                     {
-                      WTF::StringImpl::destroy(v289, a2);
+                      WTF::StringImpl::destroy(v297, a2);
                     }
                   }
                 }
 
 LABEL_602:
-                v282 = *(a2 + 56);
+                v290 = *(a2 + 56);
               }
             }
 
-            v283 = *(a2 + 68);
+            v291 = *(a2 + 68);
             *(a2 + 88) = *(a2 + 60);
-            *(a2 + 96) = v283;
-            if (v282 == 82)
+            *(a2 + 96) = v291;
+            if (v290 == 82)
             {
               continue;
             }
@@ -11304,92 +11402,92 @@ LABEL_602:
             break;
           }
 
-          v434 = 0;
-          v444 = 0;
+          v450 = 0;
+          v460 = 0;
           __srca = 0;
-          v486 = 0;
-          v487 = 0;
-          LOBYTE(v483) = 0;
-          v485 = 0;
-LABEL_653:
-          v305 = *(a2 + 56);
-          if (v305 != 44)
+          v502 = 0;
+          v503 = 0;
+          LOBYTE(v499) = 0;
+          v501 = 0;
+LABEL_655:
+          v316 = *(a2 + 56);
+          if (v316 != 44)
           {
-            v481 = 0;
-            v482 = 0;
-            if (v305 != 12)
+            v497 = 0;
+            v498 = 0;
+            if (v316 != 12)
             {
-              if (v305 != 17)
+              if (v316 != 17)
               {
                 WTF::StringImpl::createWithoutCopyingNonEmpty();
-                v306 = 0;
-                v307 = v5 | ((*(a2 + 96) - v5) << 32);
-                *(a1 + 8) = v4;
-                *(a1 + 16) = v307;
+                v317 = 0;
+                v318 = v5 | ((*(a2 + 96) - v5) << 32);
+                a1[1] = v4;
+                a1[2] = v318;
                 *(a1 + 24) = 1;
-                goto LABEL_770;
+                goto LABEL_772;
               }
 
               while (2)
               {
-                v310 = *(a2 + 36);
-                v311 = (*(a2 + 40) + 1);
-                *(a2 + 40) = v311;
-                if (v310 <= v311)
+                v321 = *(a2 + 36);
+                v322 = (*(a2 + 40) + 1);
+                *(a2 + 40) = v322;
+                if (v321 <= v322)
                 {
                   __break(0xC471u);
                   JUMPOUT(0x2257812C8);
                 }
 
-                v312 = *(a2 + 24) + 32 * v311;
-                v308 = *v312;
-                *(a2 + 56) = *v312;
-                *(a2 + 60) = *(v312 + 4);
-                v313 = *v312;
-                if (*v312 <= 8u)
+                v323 = *(a2 + 24) + 32 * v322;
+                v319 = *v323;
+                *(a2 + 56) = *v323;
+                *(a2 + 60) = *(v323 + 4);
+                v324 = *v323;
+                if (*v323 <= 8u)
                 {
-                  if (((1 << v313) & 0x38) != 0)
+                  if (((1 << v324) & 0x38) != 0)
                   {
-                    *(a2 + 80) = *(v312 + 24);
-                    goto LABEL_658;
+                    *(a2 + 80) = *(v323 + 24);
+                    goto LABEL_660;
                   }
 
-                  if (((1 << v313) & 0xC4) != 0)
+                  if (((1 << v324) & 0xC4) != 0)
                   {
-                    *(a2 + 80) = *(v312 + 24);
-                    goto LABEL_658;
+                    *(a2 + 80) = *(v323 + 24);
+                    goto LABEL_660;
                   }
 
-                  if (v313 == 8)
+                  if (v324 == 8)
                   {
                     *(a2 + 80) = 0;
-                    v314 = *(v312 + 24);
-                    if (v314)
+                    v325 = *(v323 + 24);
+                    if (v325)
                     {
-                      atomic_fetch_add_explicit(v314, 2u, memory_order_relaxed);
-                      v315 = *(a2 + 80);
-                      *(a2 + 80) = v314;
-                      if (v315)
+                      atomic_fetch_add_explicit(v325, 2u, memory_order_relaxed);
+                      v326 = *(a2 + 80);
+                      *(a2 + 80) = v325;
+                      if (v326)
                       {
-                        if (atomic_fetch_add_explicit(v315, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                        if (atomic_fetch_add_explicit(v326, 0xFFFFFFFE, memory_order_relaxed) == 2)
                         {
-                          WTF::StringImpl::destroy(v315, a2);
+                          WTF::StringImpl::destroy(v326, a2);
                         }
                       }
                     }
 
-LABEL_658:
-                    v308 = *(a2 + 56);
+LABEL_660:
+                    v319 = *(a2 + 56);
                   }
                 }
 
-                v309 = *(a2 + 68);
+                v320 = *(a2 + 68);
                 *(a2 + 88) = *(a2 + 60);
-                *(a2 + 96) = v309;
-                if (v308 != 82)
+                *(a2 + 96) = v320;
+                if (v319 != 82)
                 {
-                  v446 = 0;
-                  goto LABEL_734;
+                  v462 = 0;
+                  goto LABEL_736;
                 }
 
                 continue;
@@ -11398,61 +11496,61 @@ LABEL_658:
 
             while (2)
             {
-              v317 = *(a2 + 36);
-              v318 = (*(a2 + 40) + 1);
-              *(a2 + 40) = v318;
-              if (v317 <= v318)
+              v328 = *(a2 + 36);
+              v329 = (*(a2 + 40) + 1);
+              *(a2 + 40) = v329;
+              if (v328 <= v329)
               {
                 __break(0xC471u);
                 JUMPOUT(0x2257812D0);
               }
 
-              v319 = *(a2 + 24) + 32 * v318;
-              v308 = *v319;
-              *(a2 + 56) = *v319;
-              *(a2 + 60) = *(v319 + 4);
-              v320 = *v319;
-              if (*v319 <= 8u)
+              v330 = *(a2 + 24) + 32 * v329;
+              v319 = *v330;
+              *(a2 + 56) = *v330;
+              *(a2 + 60) = *(v330 + 4);
+              v331 = *v330;
+              if (*v330 <= 8u)
               {
-                if (((1 << v320) & 0x38) != 0)
+                if (((1 << v331) & 0x38) != 0)
                 {
-                  *(a2 + 80) = *(v319 + 24);
-                  goto LABEL_672;
+                  *(a2 + 80) = *(v330 + 24);
+                  goto LABEL_674;
                 }
 
-                if (((1 << v320) & 0xC4) != 0)
+                if (((1 << v331) & 0xC4) != 0)
                 {
-                  *(a2 + 80) = *(v319 + 24);
-                  goto LABEL_672;
+                  *(a2 + 80) = *(v330 + 24);
+                  goto LABEL_674;
                 }
 
-                if (v320 == 8)
+                if (v331 == 8)
                 {
                   *(a2 + 80) = 0;
-                  v321 = *(v319 + 24);
-                  if (v321)
+                  v332 = *(v330 + 24);
+                  if (v332)
                   {
-                    atomic_fetch_add_explicit(v321, 2u, memory_order_relaxed);
-                    v322 = *(a2 + 80);
-                    *(a2 + 80) = v321;
-                    if (v322)
+                    atomic_fetch_add_explicit(v332, 2u, memory_order_relaxed);
+                    v333 = *(a2 + 80);
+                    *(a2 + 80) = v332;
+                    if (v333)
                     {
-                      if (atomic_fetch_add_explicit(v322, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                      if (atomic_fetch_add_explicit(v333, 0xFFFFFFFE, memory_order_relaxed) == 2)
                       {
-                        WTF::StringImpl::destroy(v322, a2);
+                        WTF::StringImpl::destroy(v333, a2);
                       }
                     }
                   }
 
-LABEL_672:
-                  v308 = *(a2 + 56);
+LABEL_674:
+                  v319 = *(a2 + 56);
                 }
               }
 
-              v316 = *(a2 + 68);
+              v327 = *(a2 + 68);
               *(a2 + 88) = *(a2 + 60);
-              *(a2 + 96) = v316;
-              if (v308 == 82)
+              *(a2 + 96) = v327;
+              if (v319 == 82)
               {
                 continue;
               }
@@ -11460,129 +11558,460 @@ LABEL_672:
               break;
             }
 
-            v436 = 0;
-            v446 = 0;
-            v442 = 0;
-            v323 = *a1;
-            v440 = *(a1 + 24);
-LABEL_686:
-            if (v308 != 17)
+            v452 = 0;
+            v462 = 0;
+            v458 = 0;
+            v334 = *a1;
+            v456 = *(a1 + 24);
+LABEL_688:
+            if (v319 != 17)
             {
-              v324 = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseExpression(v475, a2);
-              v325 = v476;
-              if (v476)
+              v335 = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseExpression(v491, a2);
+              v336 = v492;
+              if (v492)
               {
-                if (v476 != 1)
+                if (v492 != 1)
                 {
-                  *(a1 + 24) = v440;
-                  *a1 = v323;
-                  mpark::throw_bad_variant_access(v324);
+                  *(a1 + 24) = v456;
+                  *a1 = v334;
+                  mpark::throw_bad_variant_access(v335);
                 }
 
-                v323 = *v475;
-                if (*v475)
+                v334 = *v491;
+                if (*v491)
                 {
-                  atomic_fetch_add_explicit(*v475, 2u, memory_order_relaxed);
+                  atomic_fetch_add_explicit(*v491, 2u, memory_order_relaxed);
                 }
 
-                *(a1 + 8) = *&v475[8];
-                v440 = 1;
+                *(a1 + 1) = *&v491[8];
+                v456 = 1;
               }
 
               else
               {
-                v333 = v446;
-                if (v446 == v482)
+                v344 = v462;
+                if (v462 == v498)
                 {
-                  v334 = WTF::Vector<WebGPU::BindGroupLayout::Entry const*,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v481, v446 + 1, v475);
-                  v335 = HIDWORD(v482);
-                  v436 = v481;
-                  *(v481 + HIDWORD(v482)) = *v334;
-                  v446 = v335 + 1;
-                  HIDWORD(v482) = v335 + 1;
+                  v345 = WTF::Vector<WebGPU::BindGroupLayout::Entry const*,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v497, v462 + 1, v491);
+                  v346 = HIDWORD(v498);
+                  v452 = v497;
+                  *(v497 + HIDWORD(v498)) = *v345;
+                  v462 = v346 + 1;
+                  HIDWORD(v498) = v346 + 1;
                 }
 
                 else
                 {
-                  *(v436 + v446++) = *v475;
-                  HIDWORD(v482) = v333 + 1;
+                  *(v452 + v462++) = *v491;
+                  HIDWORD(v498) = v344 + 1;
                 }
               }
 
-              if (v476)
+              if (v492)
               {
-                if (v476 != 255)
+                if (v492 != 255)
                 {
-                  v336 = *v475;
-                  *v475 = 0;
-                  if (v336)
+                  v347 = *v491;
+                  *v491 = 0;
+                  if (v347)
                   {
-                    if (atomic_fetch_add_explicit(v336, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                    if (atomic_fetch_add_explicit(v347, 0xFFFFFFFE, memory_order_relaxed) == 2)
                     {
-                      WTF::StringImpl::destroy(v336, a2);
+                      WTF::StringImpl::destroy(v347, a2);
                     }
                   }
                 }
               }
 
               ++__srca;
-              if (v325)
+              if (v336)
               {
-                v306 = 0;
-                *(a1 + 24) = v440;
-                *a1 = v323;
-                goto LABEL_770;
+                v317 = 0;
+                *(a1 + 24) = v456;
+                *a1 = v334;
+                goto LABEL_772;
               }
 
-              v308 = *(a2 + 56);
-LABEL_716:
-              if (v308 != 48)
+              v319 = *(a2 + 56);
+LABEL_718:
+              if (v319 != 48)
               {
-                goto LABEL_733;
+                goto LABEL_735;
               }
 
               while (1)
               {
-                v337 = *(a2 + 36);
-                v338 = (*(a2 + 40) + 1);
-                *(a2 + 40) = v338;
-                if (v337 <= v338)
+                v348 = *(a2 + 36);
+                v349 = (*(a2 + 40) + 1);
+                *(a2 + 40) = v349;
+                if (v348 <= v349)
                 {
-                  *(a1 + 24) = v440;
-                  *a1 = v323;
+                  *(a1 + 24) = v456;
+                  *a1 = v334;
                   __break(0xC471u);
                   JUMPOUT(0x225781328);
                 }
 
-                v339 = *(a2 + 24) + 32 * v338;
-                v308 = *v339;
-                *(a2 + 56) = *v339;
-                *(a2 + 60) = *(v339 + 4);
-                v340 = *v339;
-                if (*v339 > 8u)
+                v350 = *(a2 + 24) + 32 * v349;
+                v319 = *v350;
+                *(a2 + 56) = *v350;
+                *(a2 + 60) = *(v350 + 4);
+                v351 = *v350;
+                if (*v350 > 8u)
                 {
-                  goto LABEL_724;
+                  goto LABEL_726;
                 }
 
-                if (((1 << v340) & 0x38) != 0)
+                if (((1 << v351) & 0x38) != 0)
                 {
-                  *(a2 + 80) = *(v339 + 24);
+                  *(a2 + 80) = *(v350 + 24);
                 }
 
-                else if (((1 << v340) & 0xC4) != 0)
+                else if (((1 << v351) & 0xC4) != 0)
                 {
-                  *(a2 + 80) = *(v339 + 24);
+                  *(a2 + 80) = *(v350 + 24);
                 }
 
                 else
                 {
-                  if (v340 != 8)
+                  if (v351 != 8)
                   {
-                    goto LABEL_724;
+                    goto LABEL_726;
                   }
 
                   *(a2 + 80) = 0;
-                  v342 = *(v339 + 24);
+                  v353 = *(v350 + 24);
+                  if (v353)
+                  {
+                    atomic_fetch_add_explicit(v353, 2u, memory_order_relaxed);
+                    v354 = *(a2 + 80);
+                    *(a2 + 80) = v353;
+                    if (v354)
+                    {
+                      if (atomic_fetch_add_explicit(v354, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                      {
+                        WTF::StringImpl::destroy(v354, a2);
+                      }
+                    }
+                  }
+                }
+
+                v319 = *(a2 + 56);
+LABEL_726:
+                v352 = *(a2 + 68);
+                *(a2 + 88) = *(a2 + 60);
+                *(a2 + 96) = v352;
+                if (v319 != 82)
+                {
+                  if (v319 == 43 || v319 == 47)
+                  {
+LABEL_735:
+                    *(a1 + 24) = v456;
+                    *a1 = v334;
+                    if (v458)
+                    {
+LABEL_736:
+                      v355 = 1;
+                      if (v460)
+                      {
+                        WTF::StringImpl::createWithoutCopyingNonEmpty();
+                        v317 = 0;
+                        v356 = v5 | ((*(a2 + 96) - v5) << 32);
+                        *a1 = *v491;
+                        a1[1] = v4;
+                        a1[2] = v356;
+                        *(a1 + 24) = 1;
+                        v460 = 1;
+                        goto LABEL_772;
+                      }
+                    }
+
+                    else
+                    {
+                      v355 = 0;
+                    }
+
+                    if (v319 != 47)
+                    {
+LABEL_740:
+                      result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseCompoundStatement(v491, a2);
+                      if (v492)
+                      {
+                        if (v492 != 1)
+                        {
+                          goto LABEL_971;
+                        }
+
+                        v357 = *v491;
+                        if (*v491)
+                        {
+                          atomic_fetch_add_explicit(*v491, 2u, memory_order_relaxed);
+                          *(a1 + 1) = *&v491[8];
+                          *a1 = v357;
+                          *(a1 + 24) = 1;
+                          if (atomic_fetch_add_explicit(v357, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                          {
+                            WTF::StringImpl::destroy(v357, a2);
+                          }
+
+                          v317 = 0;
+                        }
+
+                        else
+                        {
+                          v317 = 0;
+                          *(a1 + 1) = *&v491[8];
+                          *a1 = 0;
+                          *(a1 + 24) = 1;
+                        }
+                      }
+
+                      else
+                      {
+                        if (v355)
+                        {
+                          v366 = v497;
+                          v367 = v498;
+                          v497 = 0;
+                          v498 = 0;
+                          v368 = *v491;
+                          if (v450)
+                          {
+                            if (v499)
+                            {
+                              WTF::fastFree(v499, a2);
+                            }
+
+                            v499 = v366;
+                            *&v500 = __PAIR64__(v462, v367);
+                            v450 = 1;
+                            v460 = 1;
+                            *(&v500 + 1) = v368;
+                          }
+
+                          else
+                          {
+                            v499 = v366;
+                            *&v500 = __PAIR64__(v462, v367);
+                            *(&v500 + 1) = *v491;
+                            v460 = 1;
+                            v450 = 1;
+                            v501 = 1;
+                          }
+                        }
+
+                        else
+                        {
+                          v486 = v497;
+                          v369 = v498;
+                          v497 = 0;
+                          v498 = 0;
+                          *&v487 = __PAIR64__(v462, v369);
+                          *(&v487 + 1) = *v491;
+                          v370 = HIDWORD(v503);
+                          if (HIDWORD(v503) == v503)
+                          {
+                            v371 = WTF::Vector<WGSL::AST::SwitchClause,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v502, HIDWORD(v503) + 1, &v486);
+                            v370 = HIDWORD(v503);
+                            v372 = v502 + 24 * HIDWORD(v503);
+                            *v372 = 0;
+                            *(v372 + 1) = 0;
+                            v373 = *v371;
+                            *v371 = 0;
+                            *v372 = v373;
+                            LODWORD(v373) = *(v371 + 8);
+                            *(v371 + 8) = 0;
+                            *(v372 + 2) = v373;
+                            LODWORD(v373) = *(v371 + 12);
+                            *(v371 + 12) = 0;
+                            *(v372 + 3) = v373;
+                            v374 = (v371 + 16);
+                          }
+
+                          else
+                          {
+                            v372 = v502 + 24 * HIDWORD(v503);
+                            *v372 = 0;
+                            *(v372 + 1) = 0;
+                            v375 = v486;
+                            v486 = 0;
+                            *v372 = v375;
+                            *(v372 + 2) = v487;
+                            LODWORD(v375) = DWORD1(v487);
+                            DWORD1(v487) = 0;
+                            *(v372 + 3) = v375;
+                            v374 = &v487 + 1;
+                          }
+
+                          *(v372 + 2) = *v374;
+                          HIDWORD(v503) = v370 + 1;
+                          v376 = v486;
+                          if (v486)
+                          {
+                            v486 = 0;
+                            LODWORD(v487) = 0;
+                            WTF::fastFree(v376, a2);
+                          }
+                        }
+
+                        if (__srca >= 0x400)
+                        {
+                          WTF::String::number(&v496, 0x3FF);
+                          WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral>("switch statement cannot have more than ", 40, &v496, " case selector values", 22, &v486);
+                          v377 = v5 | ((*(a2 + 96) - v5) << 32);
+                          *a1 = v486;
+                          a1[1] = v4;
+                          a1[2] = v377;
+                          *(a1 + 24) = 1;
+                          v486 = 0;
+                          v378 = v496;
+                          v496 = 0;
+                          if (v378 && atomic_fetch_add_explicit(v378, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                          {
+                            WTF::StringImpl::destroy(v378, a2);
+                          }
+
+                          v317 = 0;
+                        }
+
+                        else
+                        {
+                          v317 = 1;
+                        }
+                      }
+
+LABEL_772:
+                      result = v497;
+                      if (v497)
+                      {
+                        v497 = 0;
+                        result = WTF::fastFree(result, a2);
+                      }
+
+                      if ((v317 & 1) == 0)
+                      {
+LABEL_849:
+                        if (v450)
+                        {
+                          result = v499;
+                          if (v499)
+                          {
+                            result = WTF::fastFree(v499, a2);
+                          }
+                        }
+
+                        goto LABEL_954;
+                      }
+
+                      goto LABEL_655;
+                    }
+
+                    while (2)
+                    {
+                      v360 = *(a2 + 36);
+                      v361 = (*(a2 + 40) + 1);
+                      *(a2 + 40) = v361;
+                      if (v360 <= v361)
+                      {
+                        __break(0xC471u);
+                        JUMPOUT(0x225781314);
+                      }
+
+                      v362 = *(a2 + 24) + 32 * v361;
+                      v358 = *v362;
+                      *(a2 + 56) = *v362;
+                      *(a2 + 60) = *(v362 + 4);
+                      v363 = *v362;
+                      if (*v362 <= 8u)
+                      {
+                        if (((1 << v363) & 0x38) != 0)
+                        {
+                          *(a2 + 80) = *(v362 + 24);
+                          goto LABEL_747;
+                        }
+
+                        if (((1 << v363) & 0xC4) != 0)
+                        {
+                          *(a2 + 80) = *(v362 + 24);
+                          goto LABEL_747;
+                        }
+
+                        if (v363 == 8)
+                        {
+                          *(a2 + 80) = 0;
+                          v364 = *(v362 + 24);
+                          if (v364)
+                          {
+                            atomic_fetch_add_explicit(v364, 2u, memory_order_relaxed);
+                            v365 = *(a2 + 80);
+                            *(a2 + 80) = v364;
+                            if (v365)
+                            {
+                              if (atomic_fetch_add_explicit(v365, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                              {
+                                WTF::StringImpl::destroy(v365, a2);
+                              }
+                            }
+                          }
+
+LABEL_747:
+                          v358 = *(a2 + 56);
+                        }
+                      }
+
+                      v359 = *(a2 + 68);
+                      *(a2 + 88) = *(a2 + 60);
+                      *(a2 + 96) = v359;
+                      if (v358 != 82)
+                      {
+                        goto LABEL_740;
+                      }
+
+                      continue;
+                    }
+                  }
+
+                  goto LABEL_688;
+                }
+              }
+            }
+
+            while (2)
+            {
+              v338 = *(a2 + 36);
+              v339 = (*(a2 + 40) + 1);
+              *(a2 + 40) = v339;
+              if (v338 <= v339)
+              {
+                *(a1 + 24) = v456;
+                *a1 = v334;
+                __break(0xC471u);
+                JUMPOUT(0x22578130CLL);
+              }
+
+              v340 = *(a2 + 24) + 32 * v339;
+              v319 = *v340;
+              *(a2 + 56) = *v340;
+              *(a2 + 60) = *(v340 + 4);
+              v341 = *v340;
+              if (*v340 <= 8u)
+              {
+                if (((1 << v341) & 0x38) != 0)
+                {
+                  *(a2 + 80) = *(v340 + 24);
+                  goto LABEL_695;
+                }
+
+                if (((1 << v341) & 0xC4) != 0)
+                {
+                  *(a2 + 80) = *(v340 + 24);
+                  goto LABEL_695;
+                }
+
+                if (v341 == 8)
+                {
+                  *(a2 + 80) = 0;
+                  v342 = *(v340 + 24);
                   if (v342)
                   {
                     atomic_fetch_add_explicit(v342, 2u, memory_order_relaxed);
@@ -11596,498 +12025,168 @@ LABEL_716:
                       }
                     }
                   }
-                }
 
-                v308 = *(a2 + 56);
-LABEL_724:
-                v341 = *(a2 + 68);
-                *(a2 + 88) = *(a2 + 60);
-                *(a2 + 96) = v341;
-                if (v308 != 82)
-                {
-                  if (v308 == 43 || v308 == 47)
-                  {
-LABEL_733:
-                    *(a1 + 24) = v440;
-                    *a1 = v323;
-                    if (v442)
-                    {
-LABEL_734:
-                      v344 = 1;
-                      if (v444)
-                      {
-                        WTF::StringImpl::createWithoutCopyingNonEmpty();
-                        v306 = 0;
-                        v345 = v5 | ((*(a2 + 96) - v5) << 32);
-                        *a1 = *v475;
-                        *(a1 + 8) = v4;
-                        *(a1 + 16) = v345;
-                        *(a1 + 24) = 1;
-                        v444 = 1;
-                        goto LABEL_770;
-                      }
-                    }
-
-                    else
-                    {
-                      v344 = 0;
-                    }
-
-                    if (v308 != 47)
-                    {
-LABEL_738:
-                      result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseCompoundStatement(v475, a2);
-                      if (v476)
-                      {
-                        if (v476 != 1)
-                        {
-                          goto LABEL_969;
-                        }
-
-                        v346 = *v475;
-                        if (*v475)
-                        {
-                          atomic_fetch_add_explicit(*v475, 2u, memory_order_relaxed);
-                          *(a1 + 8) = *&v475[8];
-                          *a1 = v346;
-                          *(a1 + 24) = 1;
-                          if (atomic_fetch_add_explicit(v346, 0xFFFFFFFE, memory_order_relaxed) == 2)
-                          {
-                            WTF::StringImpl::destroy(v346, a2);
-                          }
-
-                          v306 = 0;
-                        }
-
-                        else
-                        {
-                          v306 = 0;
-                          *(a1 + 8) = *&v475[8];
-                          *a1 = 0;
-                          *(a1 + 24) = 1;
-                        }
-                      }
-
-                      else
-                      {
-                        if (v344)
-                        {
-                          v355 = v481;
-                          v356 = v482;
-                          v481 = 0;
-                          v482 = 0;
-                          v357 = *v475;
-                          if (v434)
-                          {
-                            if (v483)
-                            {
-                              WTF::fastFree(v483, a2);
-                            }
-
-                            v483 = v355;
-                            *&v484 = __PAIR64__(v446, v356);
-                            v434 = 1;
-                            v444 = 1;
-                            *(&v484 + 1) = v357;
-                          }
-
-                          else
-                          {
-                            v483 = v355;
-                            *&v484 = __PAIR64__(v446, v356);
-                            *(&v484 + 1) = *v475;
-                            v444 = 1;
-                            v434 = 1;
-                            v485 = 1;
-                          }
-                        }
-
-                        else
-                        {
-                          v470 = v481;
-                          v358 = v482;
-                          v481 = 0;
-                          v482 = 0;
-                          *&v471 = __PAIR64__(v446, v358);
-                          *(&v471 + 1) = *v475;
-                          v359 = HIDWORD(v487);
-                          if (HIDWORD(v487) == v487)
-                          {
-                            v360 = WTF::Vector<WGSL::AST::SwitchClause,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v486, HIDWORD(v487) + 1, &v470);
-                            v359 = HIDWORD(v487);
-                            v361 = v486 + 24 * HIDWORD(v487);
-                            *v361 = 0;
-                            *(v361 + 1) = 0;
-                            v362 = *v360;
-                            *v360 = 0;
-                            *v361 = v362;
-                            LODWORD(v362) = *(v360 + 8);
-                            *(v360 + 8) = 0;
-                            *(v361 + 2) = v362;
-                            LODWORD(v362) = *(v360 + 12);
-                            *(v360 + 12) = 0;
-                            *(v361 + 3) = v362;
-                            v363 = (v360 + 16);
-                          }
-
-                          else
-                          {
-                            v361 = v486 + 24 * HIDWORD(v487);
-                            *v361 = 0;
-                            *(v361 + 1) = 0;
-                            v364 = v470;
-                            v470 = 0;
-                            *v361 = v364;
-                            *(v361 + 2) = v471;
-                            LODWORD(v364) = DWORD1(v471);
-                            DWORD1(v471) = 0;
-                            *(v361 + 3) = v364;
-                            v363 = &v471 + 1;
-                          }
-
-                          *(v361 + 2) = *v363;
-                          HIDWORD(v487) = v359 + 1;
-                          v365 = v470;
-                          if (v470)
-                          {
-                            v470 = 0;
-                            LODWORD(v471) = 0;
-                            WTF::fastFree(v365, a2);
-                          }
-                        }
-
-                        if (__srca >= 0x400)
-                        {
-                          WTF::String::number(0x3FF);
-                          WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral>("switch statement cannot have more than ", 40, &v480, " case selector values", 22, &v470);
-                          v366 = v5 | ((*(a2 + 96) - v5) << 32);
-                          *a1 = v470;
-                          *(a1 + 8) = v4;
-                          *(a1 + 16) = v366;
-                          *(a1 + 24) = 1;
-                          v470 = 0;
-                          v367 = v480;
-                          v480 = 0;
-                          if (v367 && atomic_fetch_add_explicit(v367, 0xFFFFFFFE, memory_order_relaxed) == 2)
-                          {
-                            WTF::StringImpl::destroy(v367, a2);
-                          }
-
-                          v306 = 0;
-                        }
-
-                        else
-                        {
-                          v306 = 1;
-                        }
-                      }
-
-LABEL_770:
-                      result = v481;
-                      if (v481)
-                      {
-                        v481 = 0;
-                        result = WTF::fastFree(result, a2);
-                      }
-
-                      if ((v306 & 1) == 0)
-                      {
-LABEL_847:
-                        if (v434)
-                        {
-                          result = v483;
-                          if (v483)
-                          {
-                            result = WTF::fastFree(v483, a2);
-                          }
-                        }
-
-                        goto LABEL_952;
-                      }
-
-                      goto LABEL_653;
-                    }
-
-                    while (2)
-                    {
-                      v349 = *(a2 + 36);
-                      v350 = (*(a2 + 40) + 1);
-                      *(a2 + 40) = v350;
-                      if (v349 <= v350)
-                      {
-                        __break(0xC471u);
-                        JUMPOUT(0x225781314);
-                      }
-
-                      v351 = *(a2 + 24) + 32 * v350;
-                      v347 = *v351;
-                      *(a2 + 56) = *v351;
-                      *(a2 + 60) = *(v351 + 4);
-                      v352 = *v351;
-                      if (*v351 <= 8u)
-                      {
-                        if (((1 << v352) & 0x38) != 0)
-                        {
-                          *(a2 + 80) = *(v351 + 24);
-                          goto LABEL_745;
-                        }
-
-                        if (((1 << v352) & 0xC4) != 0)
-                        {
-                          *(a2 + 80) = *(v351 + 24);
-                          goto LABEL_745;
-                        }
-
-                        if (v352 == 8)
-                        {
-                          *(a2 + 80) = 0;
-                          v353 = *(v351 + 24);
-                          if (v353)
-                          {
-                            atomic_fetch_add_explicit(v353, 2u, memory_order_relaxed);
-                            v354 = *(a2 + 80);
-                            *(a2 + 80) = v353;
-                            if (v354)
-                            {
-                              if (atomic_fetch_add_explicit(v354, 0xFFFFFFFE, memory_order_relaxed) == 2)
-                              {
-                                WTF::StringImpl::destroy(v354, a2);
-                              }
-                            }
-                          }
-
-LABEL_745:
-                          v347 = *(a2 + 56);
-                        }
-                      }
-
-                      v348 = *(a2 + 68);
-                      *(a2 + 88) = *(a2 + 60);
-                      *(a2 + 96) = v348;
-                      if (v347 != 82)
-                      {
-                        goto LABEL_738;
-                      }
-
-                      continue;
-                    }
-                  }
-
-                  goto LABEL_686;
-                }
-              }
-            }
-
-            while (2)
-            {
-              v327 = *(a2 + 36);
-              v328 = (*(a2 + 40) + 1);
-              *(a2 + 40) = v328;
-              if (v327 <= v328)
-              {
-                *(a1 + 24) = v440;
-                *a1 = v323;
-                __break(0xC471u);
-                JUMPOUT(0x22578130CLL);
-              }
-
-              v329 = *(a2 + 24) + 32 * v328;
-              v308 = *v329;
-              *(a2 + 56) = *v329;
-              *(a2 + 60) = *(v329 + 4);
-              v330 = *v329;
-              if (*v329 <= 8u)
-              {
-                if (((1 << v330) & 0x38) != 0)
-                {
-                  *(a2 + 80) = *(v329 + 24);
-                  goto LABEL_693;
-                }
-
-                if (((1 << v330) & 0xC4) != 0)
-                {
-                  *(a2 + 80) = *(v329 + 24);
-                  goto LABEL_693;
-                }
-
-                if (v330 == 8)
-                {
-                  *(a2 + 80) = 0;
-                  v331 = *(v329 + 24);
-                  if (v331)
-                  {
-                    atomic_fetch_add_explicit(v331, 2u, memory_order_relaxed);
-                    v332 = *(a2 + 80);
-                    *(a2 + 80) = v331;
-                    if (v332)
-                    {
-                      if (atomic_fetch_add_explicit(v332, 0xFFFFFFFE, memory_order_relaxed) == 2)
-                      {
-                        WTF::StringImpl::destroy(v332, a2);
-                      }
-                    }
-                  }
-
-LABEL_693:
-                  v308 = *(a2 + 56);
+LABEL_695:
+                  v319 = *(a2 + 56);
                 }
               }
 
-              v326 = *(a2 + 68);
+              v337 = *(a2 + 68);
               *(a2 + 88) = *(a2 + 60);
-              *(a2 + 96) = v326;
-              if (v308 != 82)
+              *(a2 + 96) = v337;
+              if (v319 != 82)
               {
-                v442 = 1;
-                goto LABEL_716;
+                v458 = 1;
+                goto LABEL_718;
               }
 
               continue;
             }
           }
 
-          *v475 = 44;
-          *&v475[4] = *(a2 + 60);
-          LOBYTE(v477) = 0;
+          *v491 = 44;
+          *&v491[4] = *(a2 + 60);
+          LOBYTE(v493) = 0;
           while (2)
           {
-            v384 = *(a2 + 36);
-            v385 = (*(a2 + 40) + 1);
-            *(a2 + 40) = v385;
-            if (v384 <= v385)
+            v398 = *(a2 + 36);
+            v399 = (*(a2 + 40) + 1);
+            *(a2 + 40) = v399;
+            if (v398 <= v399)
             {
               __break(0xC471u);
               JUMPOUT(0x225781368);
             }
 
-            v386 = *(a2 + 24) + 32 * v385;
-            v382 = *v386;
-            *(a2 + 56) = *v386;
-            *(a2 + 60) = *(v386 + 4);
-            v387 = *v386;
-            if (*v386 <= 8u)
+            v400 = *(a2 + 24) + 32 * v399;
+            v396 = *v400;
+            *(a2 + 56) = *v400;
+            *(a2 + 60) = *(v400 + 4);
+            v401 = *v400;
+            if (*v400 <= 8u)
             {
-              if (((1 << v387) & 0x38) != 0)
+              if (((1 << v401) & 0x38) != 0)
               {
-                *(a2 + 80) = *(v386 + 24);
-                goto LABEL_826;
+                *(a2 + 80) = *(v400 + 24);
+                goto LABEL_828;
               }
 
-              if (((1 << v387) & 0xC4) != 0)
+              if (((1 << v401) & 0xC4) != 0)
               {
-                *(a2 + 80) = *(v386 + 24);
-                goto LABEL_826;
+                *(a2 + 80) = *(v400 + 24);
+                goto LABEL_828;
               }
 
-              if (v387 == 8)
+              if (v401 == 8)
               {
                 *(a2 + 80) = 0;
-                v388 = *(v386 + 24);
-                if (v388)
+                v402 = *(v400 + 24);
+                if (v402)
                 {
-                  atomic_fetch_add_explicit(v388, 2u, memory_order_relaxed);
-                  v389 = *(a2 + 80);
-                  *(a2 + 80) = v388;
-                  if (v389)
+                  atomic_fetch_add_explicit(v402, 2u, memory_order_relaxed);
+                  v403 = *(a2 + 80);
+                  *(a2 + 80) = v402;
+                  if (v403)
                   {
-                    if (atomic_fetch_add_explicit(v389, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                    if (atomic_fetch_add_explicit(v403, 0xFFFFFFFE, memory_order_relaxed) == 2)
                     {
-                      WTF::StringImpl::destroy(v389, a2);
+                      WTF::StringImpl::destroy(v403, a2);
                     }
                   }
                 }
 
-LABEL_826:
-                v382 = *(a2 + 56);
+LABEL_828:
+                v396 = *(a2 + 56);
               }
             }
 
-            v383 = *(a2 + 68);
+            v397 = *(a2 + 68);
             *(a2 + 88) = *(a2 + 60);
-            *(a2 + 96) = v383;
-            if (v382 != 82)
+            *(a2 + 96) = v397;
+            if (v396 != 82)
             {
-              if (v477)
+              if (v493)
               {
                 result = WGSL::toString();
-                if (v477 != 1)
+                if (v493 != 1)
                 {
-                  goto LABEL_969;
+                  goto LABEL_971;
                 }
 
                 WGSL::toString();
-                WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v481, ", but got a ", 13, &v479, &v470);
-                v391 = v479;
-                v479 = 0;
-                if (v391 && atomic_fetch_add_explicit(v391, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v497, 13, &v495, &v486, ", but got a ");
+                v405 = v495;
+                v495 = 0;
+                if (v405 && atomic_fetch_add_explicit(v405, 0xFFFFFFFE, memory_order_relaxed) == 2)
                 {
-                  WTF::StringImpl::destroy(v391, v390);
+                  WTF::StringImpl::destroy(v405, v404);
                 }
 
-                v392 = v481;
-                v481 = 0;
-                if (v392 && atomic_fetch_add_explicit(v392, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                v406 = v497;
+                v497 = 0;
+                if (v406 && atomic_fetch_add_explicit(v406, 0xFFFFFFFE, memory_order_relaxed) == 2)
                 {
-                  WTF::StringImpl::destroy(v392, v390);
+                  WTF::StringImpl::destroy(v406, v404);
                 }
 
-                v393 = v5 | ((*(a2 + 96) - v5) << 32);
-                *a1 = v470;
-                *(a1 + 8) = v4;
-                *(a1 + 16) = v393;
+                v407 = v5 | ((*(a2 + 96) - v5) << 32);
+                *a1 = v486;
+                a1[1] = v4;
+                a1[2] = v407;
                 *(a1 + 24) = 1;
-                result = std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v475, v390);
-                goto LABEL_847;
+                result = std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v491, v404);
+                goto LABEL_849;
               }
 
-              std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v475, a2);
-              if (v434)
+              std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v491, a2);
+              if (v450)
               {
-                v424 = *(a2 + 96) - v5;
-                *v475 = v4;
-                *&v475[8] = v5;
-                *&v475[12] = v424;
-                WGSL::AST::Builder::construct<WGSL::AST::SwitchStatement,WGSL::SourceSpan,std::reference_wrapper<WGSL::AST::Expression>,WTF::ReferenceWrapperVector<WGSL::AST::Attribute,0ul>,WTF::Vector<WGSL::AST::SwitchClause,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,WGSL::AST::SwitchClause,void>();
+                v438 = *(a2 + 8);
+                v439 = *(a2 + 96) - v5;
+                *v491 = v4;
+                *&v491[8] = v5;
+                *&v491[12] = v439;
+                WGSL::AST::Builder::construct<WGSL::AST::SwitchStatement,WGSL::SourceSpan,std::reference_wrapper<WGSL::AST::Expression>,WTF::ReferenceWrapperVector<WGSL::AST::Attribute,0ul>,WTF::Vector<WGSL::AST::SwitchClause,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,WGSL::AST::SwitchClause,void>(v438, v491, &v482, &v504, &v502, &v499);
               }
 
               result = WTF::StringImpl::createWithoutCopyingNonEmpty();
-              v427 = v5 | ((*(a2 + 96) - v5) << 32);
-              *a1 = *v475;
-              *(a1 + 8) = v4;
-              *(a1 + 16) = v427;
+              v443 = v5 | ((*(a2 + 96) - v5) << 32);
+              *a1 = *v491;
+              a1[1] = v4;
+              a1[2] = v443;
               *(a1 + 24) = 1;
-LABEL_952:
-              v428 = v486;
-              if (HIDWORD(v487))
+LABEL_954:
+              v444 = v502;
+              if (HIDWORD(v503))
               {
-                v429 = 24 * HIDWORD(v487);
-                v430 = v486;
+                v445 = 24 * HIDWORD(v503);
+                v446 = v502;
                 do
                 {
-                  result = *v430;
-                  if (*v430)
+                  result = *v446;
+                  if (*v446)
                   {
-                    *v430 = 0;
-                    *(v430 + 8) = 0;
+                    *v446 = 0;
+                    *(v446 + 2) = 0;
                     result = WTF::fastFree(result, a2);
                   }
 
-                  v430 += 24;
-                  v429 -= 24;
+                  v446 = (v446 + 24);
+                  v445 -= 24;
                 }
 
-                while (v429);
+                while (v445);
               }
 
-              if (v428)
+              if (v444)
               {
-                result = WTF::fastFree(v428, a2);
+                result = WTF::fastFree(v444, a2);
               }
 
-              if (v490 == 255)
+              if (v506 == 255)
               {
-LABEL_960:
-                if (!v468 || v468 == 255)
+LABEL_962:
+                if (!v484 || v484 == 255)
                 {
                   goto LABEL_4;
                 }
@@ -12095,16 +12194,16 @@ LABEL_960:
                 goto LABEL_199;
               }
 
-              result = v488;
-              if (!v490)
+              result = v504;
+              if (!v506)
               {
-LABEL_649:
+LABEL_651:
                 if (result)
                 {
                   result = WTF::fastFree(result, a2);
                 }
 
-                goto LABEL_960;
+                goto LABEL_962;
               }
 
 LABEL_369:
@@ -12113,7 +12212,7 @@ LABEL_369:
                 result = WTF::StringImpl::destroy(result, a2);
               }
 
-              goto LABEL_960;
+              goto LABEL_962;
             }
 
             continue;
@@ -12124,94 +12223,95 @@ LABEL_369:
     case 0x23:
       while (1)
       {
-        v89 = *(a2 + 36);
-        v90 = (*(a2 + 40) + 1);
-        *(a2 + 40) = v90;
-        if (v89 <= v90)
+        v90 = *(a2 + 36);
+        v91 = (*(a2 + 40) + 1);
+        *(a2 + 40) = v91;
+        if (v90 <= v91)
         {
           __break(0xC471u);
           JUMPOUT(0x2257812A8);
         }
 
-        v91 = *(a2 + 24) + 32 * v90;
-        v87 = *v91;
-        *(a2 + 56) = *v91;
-        *(a2 + 60) = *(v91 + 4);
-        v92 = *v91;
-        if (*v91 > 8u)
+        v92 = *(a2 + 24) + 32 * v91;
+        v88 = *v92;
+        *(a2 + 56) = *v92;
+        *(a2 + 60) = *(v92 + 4);
+        v93 = *v92;
+        if (*v92 > 8u)
         {
           goto LABEL_168;
         }
 
-        if (((1 << v92) & 0x38) != 0)
+        if (((1 << v93) & 0x38) != 0)
         {
-          *(a2 + 80) = *(v91 + 24);
+          *(a2 + 80) = *(v92 + 24);
         }
 
-        else if (((1 << v92) & 0xC4) != 0)
+        else if (((1 << v93) & 0xC4) != 0)
         {
-          *(a2 + 80) = *(v91 + 24);
+          *(a2 + 80) = *(v92 + 24);
         }
 
         else
         {
-          if (v92 != 8)
+          if (v93 != 8)
           {
             goto LABEL_168;
           }
 
           *(a2 + 80) = 0;
-          v93 = *(v91 + 24);
-          if (v93)
+          v94 = *(v92 + 24);
+          if (v94)
           {
-            atomic_fetch_add_explicit(v93, 2u, memory_order_relaxed);
-            v94 = *(a2 + 80);
-            *(a2 + 80) = v93;
-            if (v94)
+            atomic_fetch_add_explicit(v94, 2u, memory_order_relaxed);
+            v95 = *(a2 + 80);
+            *(a2 + 80) = v94;
+            if (v95)
             {
-              if (atomic_fetch_add_explicit(v94, 0xFFFFFFFE, memory_order_relaxed) == 2)
+              if (atomic_fetch_add_explicit(v95, 0xFFFFFFFE, memory_order_relaxed) == 2)
               {
-                WTF::StringImpl::destroy(v94, a2);
+                WTF::StringImpl::destroy(v95, a2);
               }
             }
           }
         }
 
-        v87 = *(a2 + 56);
+        v88 = *(a2 + 56);
 LABEL_168:
-        v88 = *(a2 + 68);
+        v89 = *(a2 + 68);
         *(a2 + 88) = *(a2 + 60);
-        *(a2 + 96) = v88;
-        if (v87 != 82)
+        *(a2 + 96) = v89;
+        if (v88 != 82)
         {
-          result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseExpression(v475, a2);
-          v52 = v476;
-          if (v476)
+          result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseExpression(v491, a2);
+          v52 = v492;
+          if (v492)
           {
             goto LABEL_267;
           }
 
-          result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseCompoundStatement(&v466, a2);
-          if (!v468)
+          result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseCompoundStatement(&v482, a2);
+          if (!v484)
           {
-            v290 = *(a2 + 96) - v5;
-            v488 = v4;
-            *&v489 = __PAIR64__(v290, v5);
-            WGSL::AST::Builder::construct<WGSL::AST::WhileStatement,WGSL::SourceSpan,std::reference_wrapper<WGSL::AST::Expression>,std::reference_wrapper<WGSL::AST::CompoundStatement>,void>();
+            v298 = *(a2 + 8);
+            v299 = *(a2 + 96) - v5;
+            v504 = v4;
+            *&v505 = __PAIR64__(v299, v5);
+            WGSL::AST::Builder::construct<WGSL::AST::WhileStatement,WGSL::SourceSpan,std::reference_wrapper<WGSL::AST::Expression>,std::reference_wrapper<WGSL::AST::CompoundStatement>,void>(v298, &v504, v491, &v482);
           }
 
-          if (v468 != 1)
+          if (v484 != 1)
           {
-            goto LABEL_969;
+            goto LABEL_971;
           }
 
-          result = v466;
-          if (v466)
+          result = v482;
+          if (v482)
           {
-            atomic_fetch_add_explicit(v466, 2u, memory_order_relaxed);
-            v137 = v467;
+            atomic_fetch_add_explicit(v482, 2u, memory_order_relaxed);
+            v139 = v483;
 LABEL_270:
-            *(a1 + 8) = v137;
+            *(a1 + 1) = v139;
             *a1 = result;
             *(a1 + 24) = 1;
             if (atomic_fetch_add_explicit(result, 0xFFFFFFFE, memory_order_relaxed) != 2)
@@ -12219,47 +12319,47 @@ LABEL_270:
               goto LABEL_4;
             }
 
-            goto LABEL_950;
+            goto LABEL_952;
           }
 
-          v431 = v467;
-          goto LABEL_966;
+          v447 = v483;
+          goto LABEL_968;
         }
       }
 
     case 0x24:
     case 0x43:
     case 0x4C:
-      result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseLHSExpression(v475, a2);
-      if (v476)
+      result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseLHSExpression(v491, a2);
+      if (v492)
       {
-        if (v476 != 1)
+        if (v492 != 1)
         {
-          goto LABEL_969;
+          goto LABEL_971;
         }
 
-        v9 = *v475;
-        if (*v475)
+        v9 = *v491;
+        if (*v491)
         {
-          atomic_fetch_add_explicit(*v475, 2u, memory_order_relaxed);
+          atomic_fetch_add_explicit(*v491, 2u, memory_order_relaxed);
         }
 
-        v467 = *&v475[8];
-        v466 = v9;
-        v468 = 1;
+        v483 = *&v491[8];
+        v482 = v9;
+        v484 = 1;
       }
 
       else
       {
-        result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseVariableUpdatingStatement(&v466, a2);
+        result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseVariableUpdatingStatement(&v482, a2, v491);
       }
 
-      if (v476)
+      if (v492)
       {
-        if (v476 != 255)
+        if (v492 != 255)
         {
-          result = *v475;
-          *v475 = 0;
+          result = *v491;
+          *v491 = 0;
           if (result)
           {
             if (atomic_fetch_add_explicit(result, 0xFFFFFFFE, memory_order_relaxed) == 2)
@@ -12270,20 +12370,20 @@ LABEL_270:
         }
       }
 
-      if (v468)
+      if (v484)
       {
-        if (v468 != 1)
+        if (v484 != 1)
         {
-          goto LABEL_969;
+          goto LABEL_971;
         }
 
-        v18 = v466;
-        if (v466)
+        v18 = v482;
+        if (v482)
         {
-          atomic_fetch_add_explicit(v466, 2u, memory_order_relaxed);
+          atomic_fetch_add_explicit(v482, 2u, memory_order_relaxed);
         }
 
-        *(a1 + 8) = v467;
+        *(a1 + 1) = v483;
         *a1 = v18;
         *(a1 + 24) = 1;
         goto LABEL_305;
@@ -12291,62 +12391,62 @@ LABEL_270:
 
       if (*(a2 + 56) != 73)
       {
-        *v475 = *(a2 + 56);
-        LOBYTE(v477) = 1;
+        *v491 = *(a2 + 56);
+        LOBYTE(v493) = 1;
         result = WGSL::toString();
-        if (v477 != 1)
+        if (v493 != 1)
         {
-          goto LABEL_969;
+          goto LABEL_971;
         }
 
         WGSL::toString();
-        WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v458, ", but got a ", 13, &v457, &v488);
-        v153 = v457;
-        v457 = 0;
-        if (v153 && atomic_fetch_add_explicit(v153, 0xFFFFFFFE, memory_order_relaxed) == 2)
+        WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v474, 13, &v473, &v504, ", but got a ");
+        v156 = v473;
+        v473 = 0;
+        if (v156 && atomic_fetch_add_explicit(v156, 0xFFFFFFFE, memory_order_relaxed) == 2)
         {
-          WTF::StringImpl::destroy(v153, v152);
+          WTF::StringImpl::destroy(v156, v155);
         }
 
-        v154 = v458;
-        v458 = 0;
-        if (v154 && atomic_fetch_add_explicit(v154, 0xFFFFFFFE, memory_order_relaxed) == 2)
+        v157 = v474;
+        v474 = 0;
+        if (v157 && atomic_fetch_add_explicit(v157, 0xFFFFFFFE, memory_order_relaxed) == 2)
         {
-          WTF::StringImpl::destroy(v154, v152);
+          WTF::StringImpl::destroy(v157, v155);
         }
 
-        v155 = v5 | ((*(a2 + 96) - v5) << 32);
-        *a1 = v488;
-        *(a1 + 8) = v4;
-        *(a1 + 16) = v155;
+        v158 = v5 | ((*(a2 + 96) - v5) << 32);
+        *a1 = v504;
+        a1[1] = v4;
+        a1[2] = v158;
         *(a1 + 24) = 1;
-        result = std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v475, v152);
+        result = std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v491, v155);
 LABEL_305:
-        v156 = v468;
-        if (!v468)
+        v159 = v484;
+        if (!v484)
         {
           goto LABEL_4;
         }
 
 LABEL_306:
-        if (v156 == 255)
+        if (v159 == 255)
         {
           goto LABEL_4;
         }
 
-        result = v466;
-        v466 = 0;
+        result = v482;
+        v482 = 0;
         if (!result)
         {
           goto LABEL_4;
         }
 
-        goto LABEL_949;
+        goto LABEL_951;
       }
 
-      *v475 = 73;
-      *&v475[4] = *(a2 + 60);
-      LOBYTE(v477) = 0;
+      *v491 = 73;
+      *&v491[4] = *(a2 + 60);
+      LOBYTE(v493) = 0;
       while (1)
       {
         v21 = *(a2 + 36);
@@ -12409,34 +12509,34 @@ LABEL_46:
         *(a2 + 96) = v20;
         if (v19 != 82)
         {
-          result = std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v475, a2);
-          *a1 = v466;
+          result = std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v491, a2);
+          *a1 = v482;
           *(a1 + 24) = 0;
           goto LABEL_305;
         }
       }
 
     case 0x2B:
-      result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseCompoundStatement(v475, a2);
-      if (!v476)
+      result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseCompoundStatement(v491, a2);
+      if (!v492)
       {
-        *a1 = *v475;
+        *a1 = *v491;
         *(a1 + 24) = 0;
         goto LABEL_4;
       }
 
-      if (v476 != 1)
+      if (v492 != 1)
       {
-        goto LABEL_969;
+        goto LABEL_971;
       }
 
-      result = *v475;
-      if (*v475)
+      result = *v491;
+      if (*v491)
       {
         goto LABEL_120;
       }
 
-      goto LABEL_910;
+      goto LABEL_912;
     case 0x4F:
       goto LABEL_182;
     default:
@@ -12446,197 +12546,198 @@ LABEL_46:
   while (1)
   {
 LABEL_182:
-    v97 = *(a2 + 36);
-    v98 = (*(a2 + 40) + 1);
-    *(a2 + 40) = v98;
-    if (v97 <= v98)
+    v98 = *(a2 + 36);
+    v99 = (*(a2 + 40) + 1);
+    *(a2 + 40) = v99;
+    if (v98 <= v99)
     {
       __break(0xC471u);
       JUMPOUT(0x2257812B0);
     }
 
-    v99 = *(a2 + 24) + 32 * v98;
-    v95 = *v99;
-    *(a2 + 56) = *v99;
-    *(a2 + 60) = *(v99 + 4);
-    v100 = *v99;
-    if (*v99 > 8u)
+    v100 = *(a2 + 24) + 32 * v99;
+    v96 = *v100;
+    *(a2 + 56) = *v100;
+    *(a2 + 60) = *(v100 + 4);
+    v101 = *v100;
+    if (*v100 > 8u)
     {
       goto LABEL_181;
     }
 
-    if (((1 << v100) & 0x38) != 0)
+    if (((1 << v101) & 0x38) != 0)
     {
-      *(a2 + 80) = *(v99 + 24);
+      *(a2 + 80) = *(v100 + 24);
     }
 
-    else if (((1 << v100) & 0xC4) != 0)
+    else if (((1 << v101) & 0xC4) != 0)
     {
-      *(a2 + 80) = *(v99 + 24);
+      *(a2 + 80) = *(v100 + 24);
     }
 
     else
     {
-      if (v100 != 8)
+      if (v101 != 8)
       {
         goto LABEL_181;
       }
 
       *(a2 + 80) = 0;
-      v101 = *(v99 + 24);
-      if (v101)
+      v102 = *(v100 + 24);
+      if (v102)
       {
-        atomic_fetch_add_explicit(v101, 2u, memory_order_relaxed);
-        v102 = *(a2 + 80);
-        *(a2 + 80) = v101;
-        if (v102)
+        atomic_fetch_add_explicit(v102, 2u, memory_order_relaxed);
+        v103 = *(a2 + 80);
+        *(a2 + 80) = v102;
+        if (v103)
         {
-          if (atomic_fetch_add_explicit(v102, 0xFFFFFFFE, memory_order_relaxed) == 2)
+          if (atomic_fetch_add_explicit(v103, 0xFFFFFFFE, memory_order_relaxed) == 2)
           {
-            WTF::StringImpl::destroy(v102, a2);
+            WTF::StringImpl::destroy(v103, a2);
           }
         }
       }
     }
 
-    v95 = *(a2 + 56);
+    v96 = *(a2 + 56);
 LABEL_181:
-    v96 = *(a2 + 68);
+    v97 = *(a2 + 68);
     *(a2 + 88) = *(a2 + 60);
-    *(a2 + 96) = v96;
-    if (v95 != 82)
+    *(a2 + 96) = v97;
+    if (v96 != 82)
     {
-      if (v95 == 49)
+      if (v96 == 49)
       {
-        *v475 = 49;
-        *&v475[4] = *(a2 + 60);
-        LOBYTE(v477) = 0;
+        *v491 = 49;
+        *&v491[4] = *(a2 + 60);
+        LOBYTE(v493) = 0;
         while (1)
         {
-          v140 = *(a2 + 36);
-          v141 = (*(a2 + 40) + 1);
-          *(a2 + 40) = v141;
-          if (v140 <= v141)
+          v142 = *(a2 + 36);
+          v143 = (*(a2 + 40) + 1);
+          *(a2 + 40) = v143;
+          if (v142 <= v143)
           {
             __break(0xC471u);
             JUMPOUT(0x2257812F8);
           }
 
-          v142 = *(a2 + 24) + 32 * v141;
-          v138 = *v142;
-          *(a2 + 56) = *v142;
-          *(a2 + 60) = *(v142 + 4);
-          v143 = *v142;
-          if (*v142 > 8u)
+          v144 = *(a2 + 24) + 32 * v143;
+          v140 = *v144;
+          *(a2 + 56) = *v144;
+          *(a2 + 60) = *(v144 + 4);
+          v145 = *v144;
+          if (*v144 > 8u)
           {
             goto LABEL_276;
           }
 
-          if (((1 << v143) & 0x38) != 0)
+          if (((1 << v145) & 0x38) != 0)
           {
-            *(a2 + 80) = *(v142 + 24);
+            *(a2 + 80) = *(v144 + 24);
           }
 
-          else if (((1 << v143) & 0xC4) != 0)
+          else if (((1 << v145) & 0xC4) != 0)
           {
-            *(a2 + 80) = *(v142 + 24);
+            *(a2 + 80) = *(v144 + 24);
           }
 
           else
           {
-            if (v143 != 8)
+            if (v145 != 8)
             {
               goto LABEL_276;
             }
 
             *(a2 + 80) = 0;
-            v144 = *(v142 + 24);
-            if (v144)
+            v146 = *(v144 + 24);
+            if (v146)
             {
-              atomic_fetch_add_explicit(v144, 2u, memory_order_relaxed);
-              v145 = *(a2 + 80);
-              *(a2 + 80) = v144;
-              if (v145)
+              atomic_fetch_add_explicit(v146, 2u, memory_order_relaxed);
+              v147 = *(a2 + 80);
+              *(a2 + 80) = v146;
+              if (v147)
               {
-                if (atomic_fetch_add_explicit(v145, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                if (atomic_fetch_add_explicit(v147, 0xFFFFFFFE, memory_order_relaxed) == 2)
                 {
-                  WTF::StringImpl::destroy(v145, a2);
+                  WTF::StringImpl::destroy(v147, a2);
                 }
               }
             }
           }
 
-          v138 = *(a2 + 56);
+          v140 = *(a2 + 56);
 LABEL_276:
-          v139 = *(a2 + 68);
+          v141 = *(a2 + 68);
           *(a2 + 88) = *(a2 + 60);
-          *(a2 + 96) = v139;
-          if (v138 != 82)
+          *(a2 + 96) = v141;
+          if (v140 != 82)
           {
-            std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v475, a2);
-            result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseExpression(&v466, a2);
-            if (v468)
+            std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v491, a2);
+            result = WGSL::Parser<WGSL::Lexer<unsigned char>>::parseExpression(&v482, a2);
+            if (v484)
             {
-              if (v468 != 1)
+              if (v484 != 1)
               {
-                goto LABEL_969;
+                goto LABEL_971;
               }
 
-              v172 = v466;
-              if (v466)
+              v178 = v482;
+              if (v482)
               {
-                atomic_fetch_add_explicit(v466, 2u, memory_order_relaxed);
+                atomic_fetch_add_explicit(v482, 2u, memory_order_relaxed);
               }
 
-              *(a1 + 8) = v467;
-              *a1 = v172;
+              *(a1 + 1) = v483;
+              *a1 = v178;
               *(a1 + 24) = 1;
             }
 
             else
             {
-              WGSL::Parser<WGSL::Lexer<unsigned char>>::consumeType(v475, a2, 73);
-              if (!v477)
+              WGSL::Parser<WGSL::Lexer<unsigned char>>::consumeType(v491, a2, 73);
+              if (!v493)
               {
-                std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v475, v277);
-                v376 = *(a2 + 96) - v5;
-                *v475 = v4;
-                *&v475[8] = v5;
-                *&v475[12] = v376;
-                WGSL::AST::Builder::construct<WGSL::AST::PhonyAssignmentStatement,WGSL::SourceSpan,std::reference_wrapper<WGSL::AST::Expression>,void>();
+                std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v491, v285);
+                v388 = *(a2 + 8);
+                v389 = *(a2 + 96) - v5;
+                *v491 = v4;
+                *&v491[8] = v5;
+                *&v491[12] = v389;
+                WGSL::AST::Builder::construct<WGSL::AST::PhonyAssignmentStatement,WGSL::SourceSpan,std::reference_wrapper<WGSL::AST::Expression>,void>(v388, v491, &v482);
               }
 
               result = WGSL::toString();
-              if (v477 != 1)
+              if (v493 != 1)
               {
-                goto LABEL_969;
+                goto LABEL_971;
               }
 
               WGSL::toString();
-              WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v448, ", but got a ", 13, &v447, &v488);
-              v279 = v447;
-              v447 = 0;
-              if (v279 && atomic_fetch_add_explicit(v279, 0xFFFFFFFE, memory_order_relaxed) == 2)
+              WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("Expected a ", 12, &v464, 13, &v463, &v504, ", but got a ");
+              v287 = v463;
+              v463 = 0;
+              if (v287 && atomic_fetch_add_explicit(v287, 0xFFFFFFFE, memory_order_relaxed) == 2)
               {
-                WTF::StringImpl::destroy(v279, v278);
+                WTF::StringImpl::destroy(v287, v286);
               }
 
-              v280 = v448;
-              v448 = 0;
-              if (v280 && atomic_fetch_add_explicit(v280, 0xFFFFFFFE, memory_order_relaxed) == 2)
+              v288 = v464;
+              v464 = 0;
+              if (v288 && atomic_fetch_add_explicit(v288, 0xFFFFFFFE, memory_order_relaxed) == 2)
               {
-                WTF::StringImpl::destroy(v280, v278);
+                WTF::StringImpl::destroy(v288, v286);
               }
 
-              v281 = v5 | ((*(a2 + 96) - v5) << 32);
-              *a1 = v488;
-              *(a1 + 8) = v4;
-              *(a1 + 16) = v281;
+              v289 = v5 | ((*(a2 + 96) - v5) << 32);
+              *a1 = v504;
+              a1[1] = v4;
+              a1[2] = v289;
               *(a1 + 24) = 1;
-              std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v475, v278);
+              std::experimental::fundamentals_v3::expected<WGSL::Token,WGSL::TokenType>::~expected(v491, v286);
             }
 
-            result = std::experimental::fundamentals_v3::expected<std::reference_wrapper<WGSL::AST::Expression>,WGSL::CompilationMessage>::~expected(&v466, v171);
+            result = std::experimental::fundamentals_v3::expected<std::reference_wrapper<WGSL::AST::Expression>,WGSL::CompilationMessage>::~expected(&v482, v177);
             goto LABEL_4;
           }
         }
@@ -12644,93 +12745,93 @@ LABEL_276:
 
       WGSL::toString();
       WGSL::toString();
-      if (v450)
+      if (v466)
       {
-        v167 = *(v450 + 1);
+        v170 = *(v466 + 1);
       }
 
       else
       {
-        v167 = 0;
+        v170 = 0;
       }
 
-      if (v449)
+      if (v465)
       {
-        v292 = *(v449 + 1);
-        if (v292 < 0)
+        v302 = *(v465 + 1);
+        if (v302 < 0)
         {
-          goto LABEL_997;
+          goto LABEL_999;
         }
       }
 
       else
       {
-        v292 = 0;
+        v302 = 0;
       }
 
-      v293 = __OFADD__(v292, 12);
-      v294 = v292 + 12;
-      v295 = v293;
-      if ((v167 & 0x80000000) == 0 && (v295 & 1) == 0)
+      v303 = __OFADD__(v302, 12);
+      v304 = v302 + 12;
+      v305 = v303;
+      if ((v170 & 0x80000000) == 0 && (v305 & 1) == 0)
       {
-        v293 = __OFADD__(v167, v294);
-        v296 = v167 + v294;
-        if (!v293)
+        v303 = __OFADD__(v170, v304);
+        v306 = v170 + v304;
+        if (!v303)
         {
-          v297 = (v296 + 11);
-          if (!__OFADD__(v296, 11))
+          v307 = (v306 + 11);
+          if (!__OFADD__(v306, 11))
           {
-            if (v450)
+            if (v466)
             {
-              v298 = *(v450 + 4);
-              v299 = (v298 >> 2) & 1;
-              if (!v449 || (v298 & 4) == 0)
+              v308 = *(v466 + 4);
+              v309 = (v308 >> 2) & 1;
+              if (!v465 || (v308 & 4) == 0)
               {
-                goto LABEL_815;
+                goto LABEL_817;
               }
 
-LABEL_636:
-              v299 = (*(v449 + 16) >> 2) & 1;
+LABEL_638:
+              v309 = (*(v465 + 16) >> 2) & 1;
             }
 
             else
             {
-              if (v449)
+              if (v465)
               {
-                goto LABEL_636;
+                goto LABEL_638;
               }
 
-              v299 = 1;
+              v309 = 1;
             }
 
-LABEL_815:
-            WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>>(v297, v299, "Expected a ", 0xBuLL, v450, ", but got a ", 0xCuLL, v449, &v466);
-            v380 = v466;
-            if (v466)
+LABEL_817:
+            WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>>(v307, v309, "Expected a ", 0xBuLL, v466, ", but got a ", 0xCuLL, &v482, v465);
+            v394 = v482;
+            if (v482)
             {
-              v381 = v449;
-              v449 = 0;
-              if (v381 && atomic_fetch_add_explicit(v381, 0xFFFFFFFE, memory_order_relaxed) == 2)
+              v395 = v465;
+              v465 = 0;
+              if (v395 && atomic_fetch_add_explicit(v395, 0xFFFFFFFE, memory_order_relaxed) == 2)
               {
-                WTF::StringImpl::destroy(v381, v379);
+                WTF::StringImpl::destroy(v395, v393);
               }
 
-              result = v450;
-              v450 = 0;
+              result = v466;
+              v466 = 0;
               if (result && atomic_fetch_add_explicit(result, 0xFFFFFFFE, memory_order_relaxed) == 2)
               {
-                result = WTF::StringImpl::destroy(result, v379);
+                result = WTF::StringImpl::destroy(result, v393);
               }
 
-              v164 = v5 | ((*(a2 + 96) - v5) << 32);
-              *a1 = v380;
-              goto LABEL_823;
+              v167 = v5 | ((*(a2 + 96) - v5) << 32);
+              *a1 = v394;
+              goto LABEL_825;
             }
           }
         }
       }
 
-LABEL_997:
+LABEL_999:
       __break(0xC471u);
       JUMPOUT(0x225781358);
     }

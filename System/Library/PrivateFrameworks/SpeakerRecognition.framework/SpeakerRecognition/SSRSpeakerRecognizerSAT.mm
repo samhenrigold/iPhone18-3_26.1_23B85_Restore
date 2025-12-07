@@ -19,7 +19,7 @@
 
 - (void)voiceRecognitionSATAnalyzerFinishedProcessing:(id)processing withVoiceRecognitionInfo:(id)info
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   v7 = [infoCopy objectForKeyedSubscript:@"sessionId"];
   if (v7 && ![(NSString *)self->_sessionId isEqualToString:v7])
@@ -30,13 +30,13 @@
       spIdCtx = self->_spIdCtx;
       v10 = v11;
       sessionId = [(SSRSpeakerRecognitionContext *)spIdCtx sessionId];
-      v15 = 136315650;
-      v16 = "[SSRSpeakerRecognizerSAT voiceRecognitionSATAnalyzerFinishedProcessing:withVoiceRecognitionInfo:]";
-      v17 = 2114;
-      v18 = sessionId;
-      v19 = 2114;
-      v20 = v7;
-      _os_log_impl(&dword_225E12000, v10, OS_LOG_TYPE_DEFAULT, "%s Discarded ScoreCard for mismatch session - {%{public}@, %{public}@}", &v15, 0x20u);
+      v14 = 136315650;
+      v15 = "[SSRSpeakerRecognizerSAT voiceRecognitionSATAnalyzerFinishedProcessing:withVoiceRecognitionInfo:]";
+      v16 = 2114;
+      v17 = sessionId;
+      v18 = 2114;
+      v19 = v7;
+      _os_log_impl(&dword_225E12000, v10, OS_LOG_TYPE_DEFAULT, "%s Discarded ScoreCard for mismatch session - {%{public}@, %{public}@}", &v14, 0x20u);
 
       goto LABEL_7;
     }
@@ -55,13 +55,11 @@
 LABEL_7:
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)voiceRecognitionSATAnalyzer:(id)analyzer hasVoiceRecognitionInfo:(id)info
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   v7 = [infoCopy objectForKeyedSubscript:@"sessionId"];
   if (v7 && ![(NSString *)self->_sessionId isEqualToString:v7])
@@ -72,13 +70,13 @@ LABEL_7:
       spIdCtx = self->_spIdCtx;
       v10 = v11;
       sessionId = [(SSRSpeakerRecognitionContext *)spIdCtx sessionId];
-      v15 = 136315650;
-      v16 = "[SSRSpeakerRecognizerSAT voiceRecognitionSATAnalyzer:hasVoiceRecognitionInfo:]";
-      v17 = 2114;
-      v18 = sessionId;
-      v19 = 2114;
-      v20 = v7;
-      _os_log_impl(&dword_225E12000, v10, OS_LOG_TYPE_DEFAULT, "%s Discarded ScoreCard for mismatch session - {%{public}@, %{public}@}", &v15, 0x20u);
+      v14 = 136315650;
+      v15 = "[SSRSpeakerRecognizerSAT voiceRecognitionSATAnalyzer:hasVoiceRecognitionInfo:]";
+      v16 = 2114;
+      v17 = sessionId;
+      v18 = 2114;
+      v19 = v7;
+      _os_log_impl(&dword_225E12000, v10, OS_LOG_TYPE_DEFAULT, "%s Discarded ScoreCard for mismatch session - {%{public}@, %{public}@}", &v14, 0x20u);
 
       goto LABEL_7;
     }
@@ -97,8 +95,6 @@ LABEL_7:
 LABEL_7:
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (NSDictionary)lastScoreCard
@@ -146,29 +142,28 @@ LABEL_7:
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D015C8];
   if (os_log_type_enabled(*MEMORY[0x277D015C8], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v7 = "[SSRSpeakerRecognizerSAT dealloc]";
+    v6 = "[SSRSpeakerRecognizerSAT dealloc]";
     _os_log_impl(&dword_225E12000, v3, OS_LOG_TYPE_DEFAULT, "%s SSRSpeakerRecognizerSAT dealloc", buf, 0xCu);
   }
 
-  v5.receiver = self;
-  v5.super_class = SSRSpeakerRecognizerSAT;
-  [(SSRSpeakerRecognizerSAT *)&v5 dealloc];
-  v4 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = SSRSpeakerRecognizerSAT;
+  [(SSRSpeakerRecognizerSAT *)&v4 dealloc];
 }
 
 - (SSRSpeakerRecognizerSAT)initWithContext:(id)context delegate:(id)delegate
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   delegateCopy = delegate;
-  v25.receiver = self;
-  v25.super_class = SSRSpeakerRecognizerSAT;
-  v9 = [(SSRSpeakerRecognizerSAT *)&v25 init];
+  v24.receiver = self;
+  v24.super_class = SSRSpeakerRecognizerSAT;
+  v9 = [(SSRSpeakerRecognizerSAT *)&v24 init];
   if (!v9)
   {
 LABEL_9:
@@ -202,17 +197,17 @@ LABEL_9:
       tdEndInSampleCount = v9->_tdEndInSampleCount;
       [MEMORY[0x277D016E0] inputRecordingSampleRate];
       *buf = 136316418;
-      v27 = "[SSRSpeakerRecognizerSAT initWithContext:delegate:]";
-      v28 = 2112;
-      v29 = v16;
-      v30 = 2112;
-      v31 = sessionId;
-      v32 = 2048;
-      v33 = extraSamplesAtStart;
-      v34 = 2048;
-      v35 = tdEndInSampleCount;
-      v36 = 2048;
-      v37 = ((tdEndInSampleCount / v20) * 1000.0);
+      v26 = "[SSRSpeakerRecognizerSAT initWithContext:delegate:]";
+      v27 = 2112;
+      v28 = v16;
+      v29 = 2112;
+      v30 = sessionId;
+      v31 = 2048;
+      v32 = extraSamplesAtStart;
+      v33 = 2048;
+      v34 = tdEndInSampleCount;
+      v35 = 2048;
+      v36 = ((tdEndInSampleCount / v20) * 1000.0);
       _os_log_impl(&dword_225E12000, v15, OS_LOG_TYPE_DEFAULT, "%s %@::uniqueUttTag: %@, extraSamplesAtStart: %lu, _tdEndInSampleCount: %lu(%f ms)", buf, 0x3Eu);
     }
 
@@ -222,14 +217,13 @@ LABEL_9:
   if (v14)
   {
     *buf = 136315138;
-    v27 = "[SSRSpeakerRecognizerSAT initWithContext:delegate:]";
+    v26 = "[SSRSpeakerRecognizerSAT initWithContext:delegate:]";
     _os_log_impl(&dword_225E12000, v13, OS_LOG_TYPE_DEFAULT, "%s Failed to create SSRSpeakerAnalyzerSAT", buf, 0xCu);
   }
 
   v21 = 0;
 LABEL_13:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v21;
 }
 

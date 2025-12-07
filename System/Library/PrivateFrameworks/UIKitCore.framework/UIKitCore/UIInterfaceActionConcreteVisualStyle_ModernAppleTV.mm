@@ -101,7 +101,7 @@ LABEL_11:
 
     if ((isPreferred & 1) == 0)
     {
-      v11 = +[UIColor blackColor];
+      v11 = objc_msgSend_blackColor(UIColor);
       goto LABEL_11;
     }
 

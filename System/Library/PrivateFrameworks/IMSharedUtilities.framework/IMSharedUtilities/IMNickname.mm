@@ -381,7 +381,7 @@ LABEL_9:
 
 + (id)uniqueFilePathForWritingImageData
 {
-  v2 = IMSafeTemporaryDirectory();
+  v2 = IMSafeTemporaryDirectory(self);
   v3 = [v2 URLByAppendingPathComponent:@"com.apple.messages"];
   path = [v3 path];
 
@@ -396,7 +396,7 @@ LABEL_9:
 
 + (id)uniqueFilePathForWritingWallpaperData
 {
-  v2 = IMSafeTemporaryDirectory();
+  v2 = IMSafeTemporaryDirectory(self);
   v3 = [v2 URLByAppendingPathComponent:@"com.apple.messages"];
   path = [v3 path];
 

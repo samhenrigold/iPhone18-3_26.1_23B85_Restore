@@ -22,9 +22,9 @@
 
 - (MSDAlarmManager)init
 {
-  v10.receiver = self;
-  v10.super_class = MSDAlarmManager;
-  v2 = [(MSDAlarmManager *)&v10 init];
+  v11.receiver = self;
+  v11.super_class = MSDAlarmManager;
+  v2 = [(MSDAlarmManager *)&v11 init];
   if (v2)
   {
     v3 = objc_opt_new();
@@ -37,14 +37,14 @@
 
     if (!v2->_sleepStore)
     {
-      v7 = defaultLogHandle();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = defaultLogHandle(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        sub_BDFC(v7);
+        sub_BDFC(v8);
       }
     }
 
-    v8 = v2;
+    v9 = v2;
   }
 
   return v2;
@@ -57,10 +57,10 @@
 
   if (userInterfaceIdiom)
   {
-    v5 = defaultLogHandle();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = defaultLogHandle(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      sub_BE40(v5);
+      sub_BE40(v6);
     }
 
     sleepAlarmsSync = 0;
@@ -85,79 +85,78 @@
 
   if (userInterfaceIdiom)
   {
-    v5 = defaultLogHandle();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = defaultLogHandle(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      sub_BEC4(v5);
+      sub_BEC4(v6);
     }
   }
 
   else
   {
     sleepStore = [(MSDAlarmManager *)self sleepStore];
-    v26 = 0;
-    v7 = [sleepStore currentSleepScheduleWithError:&v26];
-    v5 = v26;
+    v27 = 0;
+    v8 = [sleepStore currentSleepScheduleWithError:&v27];
+    v6 = v27;
 
-    v8 = [v7 mutableCopy];
-    v9 = v8;
-    if (v7)
+    v9 = [v8 mutableCopy];
+    v10 = v9;
+    if (v8)
     {
-      v24 = 0u;
       v25 = 0u;
-      v22 = 0u;
+      v26 = 0u;
       v23 = 0u;
-      occurrences = [v8 occurrences];
-      v11 = [occurrences countByEnumeratingWithState:&v22 objects:v28 count:16];
-      if (v11)
+      v24 = 0u;
+      occurrences = [v9 occurrences];
+      v12 = [occurrences countByEnumeratingWithState:&v23 objects:v29 count:16];
+      if (v12)
       {
-        v12 = v11;
-        v20 = v7;
-        v21 = v5;
-        v13 = *v23;
+        v13 = v12;
+        v21 = v8;
+        v22 = v6;
+        v14 = *v24;
         do
         {
-          for (i = 0; i != v12; i = i + 1)
+          for (i = 0; i != v13; i = i + 1)
           {
-            if (*v23 != v13)
+            if (*v24 != v14)
             {
               objc_enumerationMutation(occurrences);
             }
 
-            v15 = [*(*(&v22 + 1) + 8 * i) mutableCopy];
-            alarmConfiguration = [v15 alarmConfiguration];
-            v17 = [alarmConfiguration mutableCopy];
+            v16 = [*(*(&v23 + 1) + 8 * i) mutableCopy];
+            alarmConfiguration = [v16 alarmConfiguration];
+            v18 = [alarmConfiguration mutableCopy];
 
-            if ([v17 isEnabled])
+            if ([v18 isEnabled])
             {
-              [v17 setEnabled:0];
-              v18 = defaultLogHandle();
-              if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+              v19 = defaultLogHandle([v18 setEnabled:0]);
+              if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138543362;
-                *&buf[4] = v17;
-                _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, " Set mutableAlarmConfiguration enabled to NO : %{public}@", buf, 0xCu);
+                *&buf[4] = v18;
+                _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEFAULT, " Set mutableAlarmConfiguration enabled to NO : %{public}@", buf, 0xCu);
               }
 
-              [v15 setAlarmConfiguration:v17];
-              [v9 saveOccurrence:v15];
+              [v16 setAlarmConfiguration:v18];
+              [v10 saveOccurrence:v16];
               sleepStore2 = [(MSDAlarmManager *)self sleepStore];
-              [sleepStore2 saveCurrentSleepSchedule:v9 options:4 completion:&stru_18650];
+              [sleepStore2 saveCurrentSleepSchedule:v10 options:4 completion:&stru_18650];
             }
           }
 
-          v12 = [occurrences countByEnumeratingWithState:&v22 objects:v28 count:16];
+          v13 = [occurrences countByEnumeratingWithState:&v23 objects:v29 count:16];
         }
 
-        while (v12);
-        v7 = v20;
-        v5 = v21;
+        while (v13);
+        v8 = v21;
+        v6 = v22;
       }
     }
 
     else
     {
-      sub_BF48(v5, buf);
+      sub_BF48(v6, buf);
       occurrences = *buf;
     }
   }
@@ -168,49 +167,50 @@
   mtAlarmManager = [(MSDAlarmManager *)self mtAlarmManager];
   alarmsSync = [mtAlarmManager alarmsSync];
 
-  v20 = 0u;
   v21 = 0u;
-  v18 = 0u;
+  v22 = 0u;
   v19 = 0u;
+  v20 = 0u;
   v5 = alarmsSync;
-  v6 = [v5 countByEnumeratingWithState:&v18 objects:v24 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v19 objects:v25 count:16];
   if (v6)
   {
     v8 = v6;
     v9 = 0;
-    v10 = *v19;
+    v10 = *v20;
     *&v7 = 138543362;
-    v17 = v7;
+    v18 = v7;
     do
     {
       for (i = 0; i != v8; i = i + 1)
       {
-        if (*v19 != v10)
+        if (*v20 != v10)
         {
           objc_enumerationMutation(v5);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * i);
-        if ([v12 isEnabled])
+        v12 = *(*(&v19 + 1) + 8 * i);
+        isEnabled = [v12 isEnabled];
+        if (isEnabled)
         {
-          v13 = defaultLogHandle();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+          v14 = defaultLogHandle(isEnabled);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
           {
-            *buf = v17;
-            v23 = v12;
-            _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "Disabling alarm %{public}@", buf, 0xCu);
+            *buf = v18;
+            v24 = v12;
+            _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "Disabling alarm %{public}@", buf, 0xCu);
           }
 
-          v14 = [v12 mutableCopy];
-          [v14 setEnabled:0];
+          v15 = [v12 mutableCopy];
+          [v15 setEnabled:0];
           mtAlarmManager2 = [(MSDAlarmManager *)self mtAlarmManager];
-          v16 = [mtAlarmManager2 updateAlarm:v14];
+          v17 = [mtAlarmManager2 updateAlarm:v15];
 
-          v9 = v14;
+          v9 = v15;
         }
       }
 
-      v8 = [v5 countByEnumeratingWithState:&v18 objects:v24 count:16];
+      v8 = [v5 countByEnumeratingWithState:&v19 objects:v25 count:16];
     }
 
     while (v8);

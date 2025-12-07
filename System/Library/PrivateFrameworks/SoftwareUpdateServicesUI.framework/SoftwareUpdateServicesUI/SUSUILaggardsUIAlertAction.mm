@@ -52,49 +52,47 @@
 
 void __65__SUSUILaggardsUIAlertAction_initWithDescriptor_completionBlock___block_invoke(void *a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   location[1] = a1;
   location[0] = 0;
   objc_storeStrong(location, a2);
-  v15 = a1;
-  v9 = [location[0] info];
-  [v9 flagForSetting:SUSUILaggardsUIAlertActionOutputSuccess];
+  v14 = a1;
+  v8 = [location[0] info];
+  [v8 flagForSetting:SUSUILaggardsUIAlertActionOutputSuccess];
   IsYes = BSSettingFlagIsYes();
-  MEMORY[0x277D82BD8](v9);
-  v14 = IsYes;
-  v13 = SUSUILog();
-  v12 = OS_LOG_TYPE_DEFAULT;
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  MEMORY[0x277D82BD8](v8);
+  v13 = IsYes;
+  v12 = SUSUILog();
+  v11 = OS_LOG_TYPE_DEFAULT;
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    log = v13;
-    type = v12;
-    v2 = a1[4];
-    v3 = objc_opt_class();
-    v4 = MEMORY[0x277D82BE0](v3);
-    v11 = v4;
-    if (v14)
+    log = v12;
+    type = v11;
+    v2 = objc_opt_class();
+    v3 = MEMORY[0x277D82BE0](v2);
+    v10 = v3;
+    if (v13)
     {
-      v5 = @"YES";
+      v4 = @"YES";
     }
 
     else
     {
-      v5 = @"NO";
+      v4 = @"NO";
     }
 
-    __os_log_helper_16_2_2_8_64_8_64(v17, v4, v5);
-    _os_log_impl(&dword_26AC54000, log, type, "%@ got response: %@", v17, 0x16u);
-    objc_storeStrong(&v11, 0);
+    __os_log_helper_16_2_2_8_64_8_64(v16, v3, v4);
+    _os_log_impl(&dword_26AC54000, log, type, "%@ got response: %@", v16, 0x16u);
+    objc_storeStrong(&v10, 0);
   }
 
-  objc_storeStrong(&v13, 0);
+  objc_storeStrong(&v12, 0);
   if (a1[5])
   {
     (*(a1[5] + 16))();
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (SUDescriptor)descriptor

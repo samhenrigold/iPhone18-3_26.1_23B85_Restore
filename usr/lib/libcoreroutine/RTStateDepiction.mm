@@ -1706,7 +1706,7 @@ uint64_t __70__RTStateDepiction_getPredState_predictionWindow_numOfWeeks_uniqueI
   }
 }
 
-uint64_t __70__RTStateDepiction_getPredState_predictionWindow_numOfWeeks_uniqueID___block_invoke_2(uint64_t a1, void *a2)
+void *__70__RTStateDepiction_getPredState_predictionWindow_numOfWeeks_uniqueID___block_invoke_2(uint64_t a1, void *a2)
 {
   result = [a2 intValue];
   *(*(*(a1 + 32) + 8) + 24) += result;
@@ -1714,7 +1714,7 @@ uint64_t __70__RTStateDepiction_getPredState_predictionWindow_numOfWeeks_uniqueI
   return result;
 }
 
-uint64_t __70__RTStateDepiction_getPredState_predictionWindow_numOfWeeks_uniqueID___block_invoke_3(uint64_t a1, void *a2)
+void *__70__RTStateDepiction_getPredState_predictionWindow_numOfWeeks_uniqueID___block_invoke_3(uint64_t a1, void *a2)
 {
   result = [a2 intValue];
   *(*(*(a1 + 32) + 8) + 24) += result;
@@ -2198,7 +2198,7 @@ LABEL_11:
   return v37;
 }
 
-uint64_t __75__RTStateDepiction_RTMetricManager___excludeEntryExitOutlierDates_options___block_invoke(void *a1, void *a2)
+void *__75__RTStateDepiction_RTMetricManager___excludeEntryExitOutlierDates_options___block_invoke(void *a1, void *a2)
 {
   result = [a2 betweenDate:a1[4] andDate:a1[5]];
   if (result)

@@ -68,29 +68,29 @@
 
   if (!v15)
   {
-    v19 = _ISDefaultLog();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v20 = _ISDefaultLog(v16);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      *v21 = 0;
-      _os_log_impl(&dword_1A77B8000, v19, OS_LOG_TYPE_DEFAULT, "Failed to find icon stack", v21, 2u);
+      *v22 = 0;
+      _os_log_impl(&dword_1A77B8000, v20, OS_LOG_TYPE_DEFAULT, "Failed to find icon stack", v22, 2u);
     }
 
     goto LABEL_9;
   }
 
-  v16 = [v15 _IS_finalizedIconWithCompositingDescriptor:descriptorCopy];
-  if (!v16)
+  v17 = [v15 _IS_finalizedIconWithCompositingDescriptor:descriptorCopy];
+  if (!v17)
   {
 LABEL_9:
     v8 = 0;
     goto LABEL_10;
   }
 
-  v17 = v16;
+  v18 = v17;
   finalizedIcons2 = [(ISICRCompositor *)self finalizedIcons];
-  [finalizedIcons2 setObject:v17 forKey:v5];
+  [finalizedIcons2 setObject:v18 forKey:v5];
 
-  v8 = v17;
+  v8 = v18;
 LABEL_10:
 
 LABEL_11:
@@ -100,7 +100,7 @@ LABEL_11:
 
 - (id)imageForCompositingDescriptor:(id)descriptor
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   descriptorCopy = descriptor;
   v5 = [(ISICRCompositor *)self _finalizedIconForCompositingDescriptor:descriptorCopy];
   v6 = v5;
@@ -115,17 +115,17 @@ LABEL_11:
 
     else
     {
-      v16 = _ISDefaultLog();
+      v16 = _ISDefaultLog(0);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         iconStack = [(ISICRCompositor *)self iconStack];
         v18 = MEMORY[0x1AC55B6D0]();
         compositingDescriptor = [(ISICRCompositor *)self compositingDescriptor];
-        v27 = 138412546;
-        v28 = v18;
-        v29 = 2112;
-        v30 = compositingDescriptor;
-        _os_log_impl(&dword_1A77B8000, v16, OS_LOG_TYPE_DEFAULT, "Failed to generate flatten representation for icon stack %@ with descriptor: %@", &v27, 0x16u);
+        v26 = 138412546;
+        v27 = v18;
+        v28 = 2112;
+        v29 = compositingDescriptor;
+        _os_log_impl(&dword_1A77B8000, v16, OS_LOG_TYPE_DEFAULT, "Failed to generate flatten representation for icon stack %@ with descriptor: %@", &v26, 0x16u);
       }
 
       [descriptorCopy size];
@@ -147,8 +147,6 @@ LABEL_11:
     v15 = [(ISICRCompositor *)self _fallbackImageForSize:v11 scale:v13, v14];
   }
 
-  v25 = *MEMORY[0x1E69E9840];
-
   return v15;
 }
 
@@ -158,15 +156,16 @@ LABEL_11:
   v5 = v4;
   if (v4)
   {
-    v10 = 0;
-    v6 = [v4 serializedDataWithError:&v10];
-    v7 = v10;
-    if (!v6 || ![v6 length])
+    v11 = 0;
+    v6 = [v4 serializedDataWithError:&v11];
+    v7 = v11;
+    v8 = v7;
+    if (!v6 || (v7 = [v6 length]) == 0)
     {
-      v8 = _ISDefaultLog();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = _ISDefaultLog(v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        [(ISICRCompositor *)self layerDataForCompositingDescriptor:v8];
+        [(ISICRCompositor *)self layerDataForCompositingDescriptor:v9];
       }
     }
   }
@@ -191,17 +190,15 @@ LABEL_11:
 
 - (void)layerDataForCompositingDescriptor:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = [a1 iconStack];
   v5 = MEMORY[0x1AC55B6D0]();
   v6 = [a1 compositingDescriptor];
-  v8 = 138412546;
-  v9 = v5;
-  v10 = 2112;
-  v11 = v6;
-  _os_log_error_impl(&dword_1A77B8000, a2, OS_LOG_TYPE_ERROR, "Failed to serialize finalized icon for icon stack %@ with descriptor: %@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7 = 138412546;
+  v8 = v5;
+  v9 = 2112;
+  v10 = v6;
+  _os_log_error_impl(&dword_1A77B8000, a2, OS_LOG_TYPE_ERROR, "Failed to serialize finalized icon for icon stack %@ with descriptor: %@", &v7, 0x16u);
 }
 
 @end

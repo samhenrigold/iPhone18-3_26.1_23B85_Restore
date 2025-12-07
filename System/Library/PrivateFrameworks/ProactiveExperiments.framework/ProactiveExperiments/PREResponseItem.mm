@@ -12,12 +12,9 @@
 
 - (id)description
 {
-  v3 = objc_alloc(MEMORY[0x277CCACA8]);
-  v4 = *&self->_categoryId;
-  v5 = *&self->_replyTextId;
-  v6 = [v3 initWithFormat:@"categoryId: %@, modelId: %@, responseClassId: %@, replySubgroupId: %@, replyTextId: %@, replyText: %@, language: %@, isCustomResponse: %@, isRobotResponse %@", self->_categoryId, self->_modelId, self->_responseClassId, self->_replySubgroupId, self->_replyTextId, self->_replyText, self->_language, self->_isCustomResponse, self->_isRobotResponse];
+  v2 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"categoryId: %@, modelId: %@, responseClassId: %@, replySubgroupId: %@, replyTextId: %@, replyText: %@, language: %@, isCustomResponse: %@, isRobotResponse %@", self->_categoryId, self->_modelId, self->_responseClassId, self->_replySubgroupId, self->_replyTextId, self->_replyText, self->_language, self->_isCustomResponse, self->_isRobotResponse];
 
-  return v6;
+  return v2;
 }
 
 - (BOOL)isEqualToResponseItem:(id)item
@@ -296,7 +293,7 @@ LABEL_6:
 
 + (id)responseItemArrayFromResponseKitArray:(id)array forLocale:(id)locale
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   localeCopy = locale;
   if (localeCopy)
@@ -310,37 +307,35 @@ LABEL_6:
   }
 
   v8 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(arrayCopy, "count")}];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v9 = arrayCopy;
-  v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v19;
+    v12 = *v18;
     v13 = MEMORY[0x277CBEC28];
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v19 != v12)
+        if (*v18 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v15 = [[PREResponseItem alloc] initWithCategoryId:0 modelId:0 responseClassId:0 replySubgroupId:0 replyTextId:0 replyText:*(*(&v18 + 1) + 8 * i) language:v7 isCustomResponse:v13 isRobotResponse:v13];
+        v15 = [[PREResponseItem alloc] initWithCategoryId:0 modelId:0 responseClassId:0 replySubgroupId:0 replyTextId:0 replyText:*(*(&v17 + 1) + 8 * i) language:v7 isCustomResponse:v13 isRobotResponse:v13];
         [v8 addObject:v15];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v11);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

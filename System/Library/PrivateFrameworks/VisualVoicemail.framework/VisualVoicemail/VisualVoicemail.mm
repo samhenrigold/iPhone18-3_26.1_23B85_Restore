@@ -1,164 +1,164 @@
-void sub_10000254C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000254C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-id sub_1000025A8()
+id sub_1000025A8(uint64_t a1)
 {
   if (qword_10010D708 != -1)
   {
     sub_10009B450();
   }
 
-  v1 = qword_10010D700;
+  v2 = qword_10010D700;
 
-  return v1;
+  return v2;
 }
 
-id sub_1000025EC()
+id sub_1000025EC(uint64_t a1)
 {
   if (qword_10010D780 != -1)
   {
     sub_10009C0C8();
   }
 
-  v1 = qword_10010D778;
+  v2 = qword_10010D778;
 
-  return v1;
+  return v2;
 }
 
-id sub_100002630()
+id sub_100002630(uint64_t a1)
 {
   if (qword_10010D798 != -1)
   {
     sub_10009C0DC();
   }
 
-  v1 = qword_10010D790;
+  v2 = qword_10010D790;
 
-  return v1;
+  return v2;
 }
 
-id sub_100002674()
+id sub_100002674(uint64_t a1)
 {
   if (qword_10010D7F0 != -1)
   {
     sub_10009C460();
   }
 
-  v1 = qword_10010D7E8;
+  v2 = qword_10010D7E8;
 
-  return v1;
+  return v2;
 }
 
-id sub_1000026B8()
+id sub_1000026B8(uint64_t a1)
 {
   if (qword_10010D800 != -1)
   {
     sub_10009C5A4();
   }
 
-  v1 = qword_10010D7F8;
+  v2 = qword_10010D7F8;
 
-  return v1;
+  return v2;
 }
 
-id sub_1000026FC()
+id sub_1000026FC(uint64_t a1)
 {
   if (qword_10010D858 != -1)
   {
     sub_10009C6DC();
   }
 
-  v1 = qword_10010D850;
+  v2 = qword_10010D850;
 
-  return v1;
+  return v2;
 }
 
-id sub_100002740()
+id sub_100002740(uint64_t a1)
 {
   if (qword_10010D878 != -1)
   {
     sub_10009CEC8();
   }
 
-  v1 = qword_10010D870;
+  v2 = qword_10010D870;
 
-  return v1;
+  return v2;
 }
 
-id sub_100002784()
+id sub_100002784(uint64_t a1)
 {
   if (qword_10010D8B8 != -1)
   {
     sub_10009CEF0();
   }
 
-  v1 = qword_10010D8B0;
+  v2 = qword_10010D8B0;
 
-  return v1;
+  return v2;
 }
 
-id sub_1000027C8()
+id sub_1000027C8(uint64_t a1)
 {
   if (qword_10010D8C8 != -1)
   {
     sub_10009CF18();
   }
 
-  v1 = qword_10010D8C0;
+  v2 = qword_10010D8C0;
 
-  return v1;
+  return v2;
 }
 
-id sub_10000280C()
+id sub_10000280C(uint64_t a1)
 {
   if (qword_10010D908 != -1)
   {
     sub_10009D0D4();
   }
 
-  v1 = qword_10010D900;
+  v2 = qword_10010D900;
 
-  return v1;
+  return v2;
 }
 
-id sub_100002850()
+id sub_100002850(uint64_t a1)
 {
   if (qword_10010D968 != -1)
   {
     sub_10009D720();
   }
 
-  v1 = qword_10010D960;
+  v2 = qword_10010D960;
 
-  return v1;
+  return v2;
 }
 
-id sub_100002894()
+id sub_100002894(uint64_t a1)
 {
   if (qword_10010DA10 != -1)
   {
     sub_10009E320();
   }
 
-  v1 = qword_10010DA08;
+  v2 = qword_10010DA08;
 
-  return v1;
+  return v2;
 }
 
-id sub_10000294C()
+id sub_10000294C(uint64_t a1)
 {
   if (qword_10010D738 != -1)
   {
     sub_10009B4F8();
   }
 
-  v1 = qword_10010D730;
+  v2 = qword_10010D730;
 
-  return v1;
+  return v2;
 }
 
 void sub_100002990(uint64_t a1)
@@ -168,85 +168,85 @@ void sub_100002990(uint64_t a1)
 
   if ([v3 count] || (objc_msgSend(*(a1 + 32), "telephonyClient"), v4 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "subscriptions"), v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v5, "count"), v5, v4, v6))
   {
+    v24 = 0u;
+    v25 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v20 = 0u;
-    v21 = 0u;
-    v7 = v3;
-    v8 = [v7 countByEnumeratingWithState:&v20 objects:v34 count:16];
-    if (v8)
+    v8 = v3;
+    v9 = [v8 countByEnumeratingWithState:&v22 objects:v36 count:16];
+    if (v9)
     {
-      v9 = v8;
-      v10 = *v21;
+      v10 = v9;
+      v11 = *v23;
       do
       {
-        for (i = 0; i != v9; i = i + 1)
+        for (i = 0; i != v10; i = i + 1)
         {
-          if (*v21 != v10)
+          if (*v23 != v11)
           {
-            objc_enumerationMutation(v7);
+            objc_enumerationMutation(v8);
           }
 
-          *(*(*(a1 + 40) + 8) + 24) |= [*(*(&v20 + 1) + 8 * i) isSubscribed];
+          *(*(*(a1 + 40) + 8) + 24) |= [*(*(&v22 + 1) + 8 * i) isSubscribed];
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v20 objects:v34 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v22 objects:v36 count:16];
       }
 
-      while (v9);
+      while (v10);
     }
 
-    v12 = sub_100002850();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = sub_100002850(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       if (*(*(*(a1 + 40) + 8) + 24))
       {
-        v13 = @"subscribed";
+        v15 = @"subscribed";
       }
 
       else
       {
-        v13 = @"not subscribed";
+        v15 = @"not subscribed";
       }
 
-      v14 = [v7 count];
-      v15 = [*(a1 + 32) telephonyClient];
-      v16 = [v15 contexts];
-      v17 = [v16 subscriptions];
-      v18 = [v17 count];
+      v16 = [v8 count];
+      v17 = [*(a1 + 32) telephonyClient];
+      v18 = [v17 contexts];
+      v19 = [v18 subscriptions];
+      v20 = [v19 count];
       *buf = 136316162;
-      v25 = "";
-      v26 = 2080;
       v27 = "";
-      v28 = 2112;
-      v29 = v13;
-      v30 = 2048;
-      v31 = v14;
+      v28 = 2080;
+      v29 = "";
+      v30 = 2112;
+      v31 = v15;
       v32 = 2048;
-      v33 = v18;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "#I %s%sVoicemail state is %@; services %lu, subscriptions %lu", buf, 0x34u);
+      v33 = v16;
+      v34 = 2048;
+      v35 = v20;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "#I %s%sVoicemail state is %@; services %lu, subscriptions %lu", buf, 0x34u);
     }
   }
 
   else
   {
-    v19 = sub_100002850();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v21 = sub_100002850(v7);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v25 = "";
-      v26 = 2080;
       v27 = "";
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "#I %s%sVoicemail state has been changed to subscribed; services and subscriptions arrays are empty", buf, 0x16u);
+      v28 = 2080;
+      v29 = "";
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "#I %s%sVoicemail state has been changed to subscribed; services and subscriptions arrays are empty", buf, 0x16u);
     }
 
     *(*(*(a1 + 40) + 8) + 24) = 1;
   }
 }
 
-void sub_100002D4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100002D4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -287,9 +287,9 @@ uint64_t sub_100002EBC()
   return result;
 }
 
-void sub_100003088(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100003088(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -312,9 +312,9 @@ void sub_1000030A0(uint64_t a1)
   *(v5 + 40) = v4;
 }
 
-void sub_1000031E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000031E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -326,85 +326,85 @@ void sub_100003200(uint64_t a1)
 
   if ([v3 count] || (objc_msgSend(*(a1 + 32), "telephonyClient"), v4 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "subscriptions"), v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v5, "count"), v5, v4, v6))
   {
+    v24 = 0u;
+    v25 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v20 = 0u;
-    v21 = 0u;
-    v7 = v3;
-    v8 = [v7 countByEnumeratingWithState:&v20 objects:v34 count:16];
-    if (v8)
+    v8 = v3;
+    v9 = [v8 countByEnumeratingWithState:&v22 objects:v36 count:16];
+    if (v9)
     {
-      v9 = v8;
-      v10 = *v21;
+      v10 = v9;
+      v11 = *v23;
       do
       {
-        for (i = 0; i != v9; i = i + 1)
+        for (i = 0; i != v10; i = i + 1)
         {
-          if (*v21 != v10)
+          if (*v23 != v11)
           {
-            objc_enumerationMutation(v7);
+            objc_enumerationMutation(v8);
           }
 
-          *(*(*(a1 + 40) + 8) + 24) |= [*(*(&v20 + 1) + 8 * i) isOnline];
+          *(*(*(a1 + 40) + 8) + 24) |= [*(*(&v22 + 1) + 8 * i) isOnline];
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v20 objects:v34 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v22 objects:v36 count:16];
       }
 
-      while (v9);
+      while (v10);
     }
 
-    v12 = sub_100002850();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = sub_100002850(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       if (*(*(*(a1 + 40) + 8) + 24))
       {
-        v13 = @"online";
+        v15 = @"online";
       }
 
       else
       {
-        v13 = @"offline";
+        v15 = @"offline";
       }
 
-      v14 = [v7 count];
-      v15 = [*(a1 + 32) telephonyClient];
-      v16 = [v15 contexts];
-      v17 = [v16 subscriptions];
-      v18 = [v17 count];
+      v16 = [v8 count];
+      v17 = [*(a1 + 32) telephonyClient];
+      v18 = [v17 contexts];
+      v19 = [v18 subscriptions];
+      v20 = [v19 count];
       *buf = 136316162;
-      v25 = "";
-      v26 = 2080;
       v27 = "";
-      v28 = 2112;
-      v29 = v13;
-      v30 = 2048;
-      v31 = v14;
+      v28 = 2080;
+      v29 = "";
+      v30 = 2112;
+      v31 = v15;
       v32 = 2048;
-      v33 = v18;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "#I %s%sVoicemail state is %@; services %lu, subscriptions %lu", buf, 0x34u);
+      v33 = v16;
+      v34 = 2048;
+      v35 = v20;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "#I %s%sVoicemail state is %@; services %lu, subscriptions %lu", buf, 0x34u);
     }
   }
 
   else
   {
-    v19 = sub_100002850();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v21 = sub_100002850(v7);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v25 = "";
-      v26 = 2080;
       v27 = "";
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "#I %s%sVoicemail state has been changed to online; services and subscriptions arrays are empty", buf, 0x16u);
+      v28 = 2080;
+      v29 = "";
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "#I %s%sVoicemail state has been changed to online; services and subscriptions arrays are empty", buf, 0x16u);
     }
 
     *(*(*(a1 + 40) + 8) + 24) = 1;
   }
 }
 
-void sub_100003570(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100003570(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -493,16 +493,16 @@ void sub_10000385C(uint64_t a1)
   }
 }
 
-void sub_100003DEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100003DEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_100004E8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100004E8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -549,9 +549,9 @@ void sub_100005140(uint64_t a1)
   [v2 removeObjectForKey:*(a1 + 40)];
 }
 
-void sub_100005270(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100005270(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -568,9 +568,9 @@ id sub_100005288(void *a1)
   return result;
 }
 
-void sub_100005450(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100005450(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -658,16 +658,15 @@ void sub_100005720(uint64_t a1)
 
 uint64_t sub_1000058D0(void *a1)
 {
-  v2 = a1[4];
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    v4 = a1[4];
-    v5 = a1[5];
-    v6 = a1[6];
-    v7 = a1[7];
+    v3 = a1[4];
+    v4 = a1[5];
+    v5 = a1[6];
+    v6 = a1[7];
 
-    return [v4 requestController:v5 didReceiveResponse:v6 forRequest:v7];
+    return [v3 requestController:v4 didReceiveResponse:v5 forRequest:v6];
   }
 
   return result;
@@ -1158,16 +1157,16 @@ void sub_1000083F8(uint64_t a1, void *a2)
   }
 }
 
-id sub_1000090B8()
+id sub_1000090B8(uint64_t a1)
 {
   if (qword_10010D6F8 != -1)
   {
     sub_10009B43C();
   }
 
-  v1 = qword_10010D6F0;
+  v2 = qword_10010D6F0;
 
-  return v1;
+  return v2;
 }
 
 void sub_100009208(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
@@ -1194,7 +1193,7 @@ uint64_t sub_100009364(uint64_t result, void *a2)
 
 void sub_100009390(uint64_t a1, uint64_t *a2)
 {
-  v4 = sub_1000090B8();
+  v4 = sub_1000090B8(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = **(a1 + 8);
@@ -1271,16 +1270,9 @@ void sub_1000095BC(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x20u);
 }
 
-uint64_t *sub_1000095DC@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
+void sub_1000097CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  *(v2 - 8) = a2;
-  v3 = *result;
-  return result;
-}
-
-void sub_1000097CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1545,7 +1537,7 @@ void sub_10000AD54(uint64_t a1, CMSampleBufferRef sbuf)
 void sub_10000AE58(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000025A8();
+  v3 = sub_1000025A8(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 138412290;
@@ -1568,16 +1560,16 @@ void sub_10000B014(id a1)
   qword_10010D710 = v1;
 }
 
-id sub_10000B2B0()
+id sub_10000B2B0(uint64_t a1)
 {
   if (qword_10010D728 != -1)
   {
     sub_10009B4E4();
   }
 
-  v1 = qword_10010D720;
+  v2 = qword_10010D720;
 
-  return v1;
+  return v2;
 }
 
 void sub_10000B440(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
@@ -1589,34 +1581,34 @@ void sub_10000B440(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void sub_10000B5D0(uint64_t a1, int a2, uint64_t a3)
 {
-  v5 = sub_10000B2B0();
+  v5 = sub_10000B2B0(a1);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315650;
-    v8 = "";
-    v9 = 2080;
-    v10 = "";
-    v11 = 1024;
-    v12 = a2;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#I %s%shandleRadioPreferencesCallback [type %d] received", &v7, 0x1Cu);
+    v8 = 136315650;
+    v9 = "";
+    v10 = 2080;
+    v11 = "";
+    v12 = 1024;
+    v13 = a2;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#I %s%shandleRadioPreferencesCallback [type %d] received", &v8, 0x1Cu);
   }
 
   if ((a2 & 2) != 0)
   {
-    v6 = +[VVMSharedPreferencesObserver sharedPreferencesObserver];
-    [v6 handleRadioPreferencesChanged:a3];
+    v7 = +[VVMSharedPreferencesObserver sharedPreferencesObserver];
+    [v7 handleRadioPreferencesChanged:a3];
   }
 
   else
   {
-    v6 = sub_10000B2B0();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_10000B2B0(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136315394;
-      v8 = "";
-      v9 = 2080;
-      v10 = "";
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "#I %s%shandleRadioPreferencesCallback: no preference changed", &v7, 0x16u);
+      v8 = 136315394;
+      v9 = "";
+      v10 = 2080;
+      v11 = "";
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "#I %s%shandleRadioPreferencesCallback: no preference changed", &v8, 0x16u);
     }
   }
 }
@@ -1900,7 +1892,7 @@ void sub_100010E84(uint64_t a1, uint64_t a2)
 void sub_100011254(void *a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_10000294C();
+  v4 = sub_10000294C(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = a1[4];
@@ -1919,10 +1911,11 @@ void sub_100011254(void *a1, void *a2)
   [v3 invoke];
 }
 
-void sub_1000114B8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000114B8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_1000114E0(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -1932,7 +1925,7 @@ void sub_1000114E0(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-const char *sub_100011B50(int a1, CFStringRef theString, char *buffer, CFIndex *a4, CFStringEncoding encoding)
+const char *sub_100011B50(uint64_t a1, CFStringRef theString, char *buffer, CFIndex *a4, CFStringEncoding encoding)
 {
   v7 = buffer;
   maxBufLen = 0;
@@ -2022,7 +2015,7 @@ LABEL_7:
   }
 }
 
-void sub_100011DB4()
+void sub_100011DB4(uint64_t result, uint64_t a2)
 {
   if (qword_10010D740 != -1)
   {
@@ -2068,7 +2061,7 @@ void sub_100011DE0(id a1)
   }
 }
 
-uint64_t sub_100011F0C()
+uint64_t sub_100011F0C(uint64_t a1, uint64_t a2)
 {
   if (qword_10010D740 != -1)
   {
@@ -2078,7 +2071,7 @@ uint64_t sub_100011F0C()
   return qword_10010D748;
 }
 
-uint64_t sub_100011F44()
+uint64_t sub_100011F44(uint64_t a1, uint64_t a2)
 {
   if (qword_10010D740 != -1)
   {
@@ -2088,7 +2081,7 @@ uint64_t sub_100011F44()
   return dword_10010D750;
 }
 
-uint64_t sub_100011F7C()
+uint64_t sub_100011F7C(uint64_t a1, uint64_t a2)
 {
   if (qword_10010D740 != -1)
   {
@@ -2098,21 +2091,21 @@ uint64_t sub_100011F7C()
   return dword_10010D754;
 }
 
-id sub_100012200()
+id sub_100012200(uint64_t a1)
 {
   if (qword_10010D760 != -1)
   {
     sub_10009BD2C();
   }
 
-  v1 = qword_10010D758;
+  v2 = qword_10010D758;
 
-  return v1;
+  return v2;
 }
 
 void sub_100012890(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_100012200();
+  v4 = sub_100012200(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
@@ -2128,7 +2121,7 @@ void sub_100012950(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v7 = sub_100012200();
+  v7 = sub_100012200(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = *(a1 + 32);
@@ -2150,7 +2143,7 @@ void sub_100012950(uint64_t a1, void *a2, void *a3)
 
 void sub_100012B70(id a1, unint64_t a2)
 {
-  v3 = sub_100012200();
+  v3 = sub_100012200(a1);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 134217984;
@@ -2163,7 +2156,7 @@ void sub_100012C14(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v7 = sub_100012200();
+  v7 = sub_100012200(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
   if (v5)
   {
@@ -2207,7 +2200,7 @@ LABEL_7:
 
 void sub_100012FF4(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_100012200();
+  v4 = sub_100012200(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [*(a1 + 32) language];
@@ -2223,75 +2216,75 @@ void sub_1000130DC(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v7 = sub_100012200();
+  v7 = sub_100012200(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = [*(a1 + 32) language];
-    v14 = 138412802;
-    v15 = v8;
-    v16 = 2112;
-    v17 = v5;
-    v18 = 2112;
-    v19 = v6;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%@ Asset download complete with path=%@ error=%@", &v14, 0x20u);
+    v15 = 138412802;
+    v16 = v8;
+    v17 = 2112;
+    v18 = v5;
+    v19 = 2112;
+    v20 = v6;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%@ Asset download complete with path=%@ error=%@", &v15, 0x20u);
   }
 
   if (v5)
   {
-    v9 = v6 == 0;
+    v10 = v6 == 0;
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
-  v10 = v9;
-  v11 = sub_100012200();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v11 = v10;
+  v12 = sub_100012200(v9);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = asNSStringBOOL();
-    v14 = 138412290;
-    v15 = v12;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Speech Asset Model install operation completed, success: %@.", &v14, 0xCu);
+    v13 = asNSStringBOOL();
+    v15 = 138412290;
+    v16 = v13;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Speech Asset Model install operation completed, success: %@.", &v15, 0xCu);
   }
 
-  v13 = *(a1 + 40);
-  if (v13)
+  v14 = *(a1 + 40);
+  if (v14)
   {
-    (*(v13 + 16))(v13, v10, v6);
+    (*(v14 + 16))(v14, v11, v6);
   }
 }
 
 void sub_1000136FC(uint64_t a1)
 {
-  v2 = sub_100012200();
+  v2 = sub_100012200(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 64);
-    v4 = asNSStringBOOL();
+    v3 = asNSStringBOOL();
     *buf = 138412290;
-    v12 = v4;
+    v11 = v3;
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Executing InstallAssetModel - begin, isLID: %@", buf, 0xCu);
   }
 
-  v5 = *(a1 + 32);
-  v6 = *(a1 + 40);
-  v7 = *(a1 + 64);
-  v8[0] = _NSConcreteStackBlock;
-  v8[1] = 3221225472;
-  v8[2] = sub_100013878;
-  v8[3] = &unk_1000EDC58;
-  v8[4] = v5;
-  v9 = *(a1 + 48);
-  v10 = *(a1 + 56);
-  [v5 _installAssetModel:v6 isLID:v7 completion:v8];
+  v4 = *(a1 + 32);
+  v5 = *(a1 + 40);
+  v6 = *(a1 + 64);
+  v7[0] = _NSConcreteStackBlock;
+  v7[1] = 3221225472;
+  v7[2] = sub_100013878;
+  v7[3] = &unk_1000EDC58;
+  v7[4] = v4;
+  v8 = *(a1 + 48);
+  v9 = *(a1 + 56);
+  [v4 _installAssetModel:v5 isLID:v6 completion:v7];
 }
 
-void sub_100013878(uint64_t a1, char a2, void *a3)
+void sub_100013878(uint64_t a1, uint64_t a2, void *a3)
 {
+  v3 = a2;
   v5 = a3;
-  v6 = sub_100012200();
+  v6 = sub_100012200(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = asNSStringBOOL();
@@ -2307,7 +2300,7 @@ void sub_100013878(uint64_t a1, char a2, void *a3)
   block[3] = &unk_1000EDC30;
   v8 = *(a1 + 40);
   v9 = *(a1 + 48);
-  v14 = a2;
+  v14 = v3;
   v12 = v5;
   v13 = v9;
   v10 = v5;
@@ -2327,7 +2320,7 @@ uint64_t sub_1000139F8(uint64_t a1)
 
 void sub_100013BE4(uint64_t a1)
 {
-  v2 = sub_100012200();
+  v2 = sub_100012200(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 64);
@@ -2358,10 +2351,11 @@ void sub_100013BE4(uint64_t a1)
   [v7 _installAssetModelWithType:v5 speechTaskHint:v6 language:v8 completion:v9];
 }
 
-void sub_100013D70(uint64_t a1, char a2, void *a3)
+void sub_100013D70(uint64_t a1, uint64_t a2, void *a3)
 {
+  v3 = a2;
   v5 = a3;
-  v6 = sub_100012200();
+  v6 = sub_100012200(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = asNSStringBOOL();
@@ -2377,7 +2371,7 @@ void sub_100013D70(uint64_t a1, char a2, void *a3)
   block[3] = &unk_1000EDC30;
   v8 = *(a1 + 40);
   v9 = *(a1 + 48);
-  v14 = a2;
+  v14 = v3;
   v12 = v5;
   v13 = v9;
   v10 = v5;
@@ -2424,16 +2418,16 @@ void sub_100015C94(id a1)
   qword_10010D790 = v1;
 }
 
-id sub_100015F94()
+id sub_100015F94(uint64_t a1)
 {
   if (qword_10010D7B0 != -1)
   {
     sub_10009C0F0();
   }
 
-  v1 = qword_10010D7A8;
+  v2 = qword_10010D7A8;
 
-  return v1;
+  return v2;
 }
 
 void sub_100016104(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
@@ -2795,9 +2789,9 @@ LABEL_79:
   return [a2 hasError] ^ 1;
 }
 
-void sub_10001B448(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10001B448(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2831,9 +2825,9 @@ void sub_10001B558(uint64_t a1)
   }
 }
 
-void sub_10001B6B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10001B6B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2860,9 +2854,9 @@ void sub_10001B7A8(uint64_t a1)
   }
 }
 
-void sub_10001B928(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10001B928(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2927,9 +2921,9 @@ uint64_t sub_10001BFFC(uint64_t result)
   return result;
 }
 
-void sub_10001C55C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10001C55C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3306,7 +3300,7 @@ unint64_t sub_10001E900(unint64_t a1)
 {
   if (HIDWORD(a1))
   {
-    v2 = sub_10001E9B0();
+    v2 = sub_10001E9B0(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       v4 = 134217984;
@@ -3318,23 +3312,23 @@ unint64_t sub_10001E900(unint64_t a1)
   return a1;
 }
 
-id sub_10001E9B0()
+id sub_10001E9B0(uint64_t a1)
 {
   if (qword_10010D7D0 != -1)
   {
     sub_10009C284();
   }
 
-  v1 = qword_10010D7C8;
+  v2 = qword_10010D7C8;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_10001E9F4(uint64_t a1)
 {
   if (a1 >= 0x80000000)
   {
-    v2 = sub_10001E9B0();
+    v2 = sub_10001E9B0(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       v4 = 134217984;
@@ -3354,20 +3348,24 @@ uint64_t sub_10001FAD0(void *a1)
     v2 = 1;
   }
 
-  else if ([v1 hasSuffix:@"Trash"])
-  {
-    v2 = 2;
-  }
-
   else
   {
-    v3 = sub_10001E9B0();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v3 = [v1 hasSuffix:@"Trash"];
+    if (v3)
     {
-      sub_10009C298(v1, v3);
+      v2 = 2;
     }
 
-    v2 = 0;
+    else
+    {
+      v4 = sub_10001E9B0(v3);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+      {
+        sub_10009C298(v1, v4);
+      }
+
+      v2 = 0;
+    }
   }
 
   return v2;
@@ -3482,16 +3480,16 @@ void sub_1000249B4(uint64_t a1)
   [v2 removeObjectForKey:*(a1 + 40)];
 }
 
-id sub_100024CBC()
+id sub_100024CBC(uint64_t a1)
 {
   if (qword_10010D7E0 != -1)
   {
     sub_10009C408();
   }
 
-  v1 = qword_10010D7D8;
+  v2 = qword_10010D7D8;
 
-  return v1;
+  return v2;
 }
 
 void sub_100024E08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
@@ -3813,12 +3811,12 @@ void sub_10002CAD4(uint64_t a1, void *a2, void *a3)
   dispatch_semaphore_signal(*(a1 + 48));
 }
 
-void sub_10002CE04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10002CE04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
-  objc_destroyWeak((v11 + 56));
+  va_start(va, a18);
+  objc_destroyWeak((v18 + 56));
   _Block_object_dispose(va, 8);
-  objc_destroyWeak((v12 - 56));
+  objc_destroyWeak((v19 - 56));
   _Unwind_Resume(a1);
 }
 
@@ -3884,51 +3882,51 @@ uint64_t start()
 {
   _set_user_dir_suffix();
   v0 = objc_autoreleasePoolPush();
-  v1 = sub_1000026B8();
+  v1 = sub_1000026B8(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "";
-    v10 = 2080;
-    v11 = "";
-    _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEFAULT, "#I %s%s------------", &v8, 0x16u);
+    v11 = 136315394;
+    v12 = "";
+    v13 = 2080;
+    v14 = "";
+    _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEFAULT, "#I %s%s------------", &v11, 0x16u);
   }
 
-  v2 = sub_1000026B8();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = sub_1000026B8(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "";
-    v10 = 2080;
-    v11 = "";
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "#I %s%svmd launched", &v8, 0x16u);
+    v11 = 136315394;
+    v12 = "";
+    v13 = 2080;
+    v14 = "";
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "#I %s%svmd launched", &v11, 0x16u);
   }
 
-  v3 = +[VMDaemon sharedDaemon];
-  [v3 start];
+  v4 = +[VMDaemon sharedDaemon];
+  [v4 start];
 
   objc_autoreleasePoolPop(v0);
-  v4 = sub_1000026B8();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-  {
-    v8 = 136315394;
-    v9 = "";
-    v10 = 2080;
-    v11 = "";
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "#I %s%svmd running loop", &v8, 0x16u);
-  }
-
-  v5 = +[NSRunLoop mainRunLoop];
-  [v5 run];
-
-  v6 = sub_1000026B8();
+  v6 = sub_1000026B8(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "";
-    v10 = 2080;
-    v11 = "";
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "#I %s%svmd run loop returned, exiting...", &v8, 0x16u);
+    v11 = 136315394;
+    v12 = "";
+    v13 = 2080;
+    v14 = "";
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "#I %s%svmd running loop", &v11, 0x16u);
+  }
+
+  v7 = +[NSRunLoop mainRunLoop];
+  [v7 run];
+
+  v9 = sub_1000026B8(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    v11 = 136315394;
+    v12 = "";
+    v13 = 2080;
+    v14 = "";
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "#I %s%svmd run loop returned, exiting...", &v11, 0x16u);
   }
 
   return 0;
@@ -4334,16 +4332,16 @@ void sub_10002EBA4(id a1)
   qword_10010D808 = v1;
 }
 
-id sub_10002EE18()
+id sub_10002EE18(uint64_t a1)
 {
   if (qword_10010D828 != -1)
   {
     sub_10009C5CC();
   }
 
-  v1 = qword_10010D820;
+  v2 = qword_10010D820;
 
-  return v1;
+  return v2;
 }
 
 void sub_10002EF10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
@@ -4359,93 +4357,91 @@ void sub_10002F130(uint64_t a1)
 {
   if (*(a1 + 32))
   {
-    v27 = (a1 + 32);
+    v26 = (a1 + 32);
     v1 = [*(a1 + 40) all];
     v2 = [v1 objectForKey:*(a1 + 32)];
-    v36 = v2;
+    v35 = v2;
 
     if (v2)
     {
       if (v2[3])
       {
-        v34 = 0u;
-        v35 = 0u;
-        v32 = 0u;
         v33 = 0u;
+        v34 = 0u;
+        v31 = 0u;
+        v32 = 0u;
         obj = v2[3];
-        v3 = [obj countByEnumeratingWithState:&v32 objects:v41 count:16];
-        if (v3)
+        v4 = [obj countByEnumeratingWithState:&v31 objects:v40 count:16];
+        if (v4)
         {
-          v4 = *v33;
-          v5 = NSDateComponentsFormatter_ptr;
-          v6 = "w";
-          v7 = "r";
+          v5 = *v32;
+          v6 = NSDateComponentsFormatter_ptr;
+          v7 = "w";
+          v8 = "r";
           do
           {
-            for (i = 0; i != v3; i = i + 1)
+            for (i = 0; i != v4; i = i + 1)
             {
-              if (*v33 != v4)
+              if (*v32 != v5)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v9 = *(*(&v32 + 1) + 8 * i);
-              v30 = [objc_alloc(v5[18]) initWithData:*(v9 + 16) encoding:4];
-              v10 = vm_imap_log();
-              if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+              v10 = *(*(&v31 + 1) + 8 * i);
+              v29 = [objc_alloc(v6[18]) initWithData:*(v10 + 16) encoding:4];
+              v11 = vm_imap_log();
+              if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
               {
-                v11 = v3;
-                v12 = v7;
-                v13 = v5;
-                v14 = v4;
-                v15 = v6;
-                v17 = v36[1];
-                v16 = v36[2];
-                v18 = *(v9 + 8);
+                v12 = v4;
+                v13 = v8;
+                v14 = v6;
+                v15 = v5;
+                v16 = v7;
+                v18 = v35[1];
+                v17 = v35[2];
                 v19 = asString();
                 *buf = 136315906;
-                *&buf[4] = v17;
+                *&buf[4] = v18;
                 *&buf[12] = 2112;
-                *&buf[14] = v16;
+                *&buf[14] = v17;
                 *&buf[22] = 2080;
-                v38 = v19;
-                v39 = 2112;
-                v40 = v30;
-                _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%s %@ %s\n%@", buf, 0x2Au);
-                v6 = v15;
-                v4 = v14;
-                v5 = v13;
-                v7 = v12;
-                v3 = v11;
+                v37 = v19;
+                v38 = 2112;
+                v39 = v29;
+                _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%s %@ %s\n%@", buf, 0x2Au);
+                v7 = v16;
+                v5 = v15;
+                v6 = v14;
+                v8 = v13;
+                v4 = v12;
               }
 
-              if ((*(v9 + 8) - 1) >= 2)
-              {
-                v20 = v6;
-              }
-
-              else
+              if ((*(v10 + 8) - 1) >= 2)
               {
                 v20 = v7;
               }
 
-              v31 = [v5[18] stringWithFormat:@"%@.%s", v36[2], v20];
-              v21 = *(v9 + 16);
+              else
+              {
+                v20 = v8;
+              }
+
+              v30 = [v6[18] stringWithFormat:@"%@.%s", v35[2], v20];
               *buf = off_1000EE060;
-              *&buf[8] = &v36;
-              *&buf[16] = &v31;
-              v38 = buf;
+              *&buf[8] = &v35;
+              *&buf[16] = &v30;
+              v37 = buf;
               logger::CFTypeRefLogger();
               sub_100009514(buf);
             }
 
-            v3 = [obj countByEnumeratingWithState:&v32 objects:v41 count:16];
+            v4 = [obj countByEnumeratingWithState:&v31 objects:v40 count:16];
           }
 
-          while (v3);
+          while (v4);
         }
 
-        [v36[3] removeAllObjects];
+        v3 = [v35[3] removeAllObjects];
       }
 
       if (*(a1 + 48) != 1)
@@ -4453,28 +4449,28 @@ void sub_10002F130(uint64_t a1)
         goto LABEL_27;
       }
 
-      v22 = sub_10002EE18();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v21 = sub_10002EE18(v3);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
-        v24 = v36[1];
-        v23 = v36[2];
+        v23 = v35[1];
+        v22 = v35[2];
         *buf = 136315394;
-        *&buf[4] = v24;
+        *&buf[4] = v23;
         *&buf[12] = 2112;
-        *&buf[14] = v23;
-        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "#I %s %@ END RAW DUMP", buf, 0x16u);
+        *&buf[14] = v22;
+        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "#I %s %@ END RAW DUMP", buf, 0x16u);
       }
 
-      v25 = [*(a1 + 40) all];
-      [v25 removeObjectForKey:*v27];
+      v24 = [*(a1 + 40) all];
+      [v24 removeObjectForKey:*v26];
     }
 
     else
     {
-      v25 = sub_10002EE18();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v24 = sub_10002EE18(v3);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
-        sub_10009C5E0(v27, v25);
+        sub_10009C5E0(v26, v24);
       }
     }
 
@@ -4482,10 +4478,10 @@ LABEL_27:
     return;
   }
 
-  v26 = sub_10002EE18();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+  v25 = sub_10002EE18(a1);
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
   {
-    sub_10009C65C(v26);
+    sub_10009C65C(v25);
   }
 }
 
@@ -4504,16 +4500,16 @@ void sub_10002F700(uint64_t a1)
       v5 = [*(a1 + 40) all];
       [v5 setObject:v4 forKey:*(a1 + 32)];
 
-      v6 = sub_10002EE18();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = sub_10002EE18(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v7 = *(v4 + 8);
-        v8 = *(v4 + 16);
-        v13 = 136315394;
-        v14 = v7;
-        v15 = 2112;
-        v16 = v8;
-        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "#I %s %@ START RAW DUMP", &v13, 0x16u);
+        v8 = *(v4 + 8);
+        v9 = *(v4 + 16);
+        v14 = 136315394;
+        v15 = v8;
+        v16 = 2112;
+        v17 = v9;
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "#I %s %@ START RAW DUMP", &v14, 0x16u);
       }
 
       v3 = v4;
@@ -4522,20 +4518,20 @@ void sub_10002F700(uint64_t a1)
     isa = v3[3].isa;
     if (!isa)
     {
-      v10 = objc_opt_new();
-      v11 = v3[3].isa;
-      v3[3].isa = v10;
+      v11 = objc_opt_new();
+      v12 = v3[3].isa;
+      v3[3].isa = v11;
 
       isa = v3[3].isa;
     }
 
-    v12 = [[NS_data_block alloc] initType:*(a1 + 72) data:*(a1 + 56)];
-    [(objc_class *)isa addObject:v12];
+    v13 = [[NS_data_block alloc] initType:*(a1 + 72) data:*(a1 + 56)];
+    [(objc_class *)isa addObject:v13];
   }
 
   else
   {
-    v3 = sub_10002EE18();
+    v3 = sub_10002EE18(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_10009C65C(v3);
@@ -4543,7 +4539,7 @@ void sub_10002F700(uint64_t a1)
   }
 }
 
-void sub_10002FA58()
+void sub_10002FA58(uint64_t result, uint64_t a2)
 {
   if (qword_10010D818 != -1)
   {
@@ -4568,7 +4564,7 @@ __n128 sub_10002FB64(uint64_t a1, uint64_t a2)
 
 void sub_10002FB94(uint64_t a1, uint64_t *a2)
 {
-  v4 = sub_10002EE18();
+  v4 = sub_10002EE18(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(**(a1 + 8) + 8);
@@ -4650,16 +4646,16 @@ const char *sub_10002FDE8(unint64_t a1)
   }
 }
 
-id sub_100030068()
+id sub_100030068(uint64_t a1)
 {
   if (qword_10010D848 != -1)
   {
     sub_10009C6B4();
   }
 
-  v1 = qword_10010D840;
+  v2 = qword_10010D840;
 
-  return v1;
+  return v2;
 }
 
 void sub_100030C50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
@@ -4675,46 +4671,46 @@ void sub_10003122C(void *a1)
 {
   WeakRetained = objc_loadWeakRetained((a1[4] + 24));
 
-  v3 = sub_100030068();
-  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
+  v4 = sub_100030068(v3);
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
   if (WeakRetained)
   {
-    if (v4)
+    if (v5)
     {
-      v5 = a1[5];
-      v6 = *(a1[4] + 48);
-      v7 = a1[6];
-      v13 = 136315906;
-      v14 = v6;
-      v15 = 2080;
-      v16 = " ";
-      v17 = 2112;
-      v18 = v5;
-      v19 = 2112;
-      v20 = v7;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "#I %s%s[IVM] Posting %@; userInfo = %@", &v13, 0x2Au);
+      v6 = a1[5];
+      v7 = *(a1[4] + 48);
+      v8 = a1[6];
+      v14 = 136315906;
+      v15 = v7;
+      v16 = 2080;
+      v17 = " ";
+      v18 = 2112;
+      v19 = v6;
+      v20 = 2112;
+      v21 = v8;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "#I %s%s[IVM] Posting %@; userInfo = %@", &v14, 0x2Au);
     }
 
-    v3 = +[NSNotificationCenter defaultCenter];
-    v8 = a1[5];
-    v9 = objc_loadWeakRetained((a1[4] + 24));
-    [v3 postNotificationName:v8 object:v9 userInfo:a1[6]];
+    v4 = +[NSNotificationCenter defaultCenter];
+    v9 = a1[5];
+    v10 = objc_loadWeakRetained((a1[4] + 24));
+    [v4 postNotificationName:v9 object:v10 userInfo:a1[6]];
   }
 
-  else if (v4)
+  else if (v5)
   {
-    v10 = a1[5];
-    v11 = *(a1[4] + 48);
-    v12 = a1[6];
-    v13 = 136315906;
-    v14 = v11;
-    v15 = 2080;
-    v16 = " ";
-    v17 = 2112;
-    v18 = v10;
-    v19 = 2112;
-    v20 = v12;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "#W %s%s[IVM] service gone, do NOT _postNotificationName: %@ %@", &v13, 0x2Au);
+    v11 = a1[5];
+    v12 = *(a1[4] + 48);
+    v13 = a1[6];
+    v14 = 136315906;
+    v15 = v12;
+    v16 = 2080;
+    v17 = " ";
+    v18 = 2112;
+    v19 = v11;
+    v20 = 2112;
+    v21 = v13;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "#W %s%s[IVM] service gone, do NOT _postNotificationName: %@ %@", &v14, 0x2Au);
   }
 }
 
@@ -4755,139 +4751,140 @@ void sub_100032D54(id a1)
   qword_10010D850 = v1;
 }
 
-id sub_1000330E0()
+id sub_1000330E0(uint64_t a1)
 {
   if (qword_10010D868 != -1)
   {
     sub_10009C6F0();
   }
 
-  v1 = qword_10010D860;
+  v2 = qword_10010D860;
 
-  return v1;
+  return v2;
 }
 
 void sub_1000331AC(uint64_t a1)
 {
-  v2 = sub_1000330E0();
+  v2 = sub_1000330E0(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v25 = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Loading transcription service.", v25, 2u);
+    *v28 = 0;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Loading transcription service.", v28, 2u);
   }
 
   v3 = +[VMTranscriptionService isTranscriptionAvailable];
   v4 = +[NSLocale currentLocale];
   v5 = [v4 localeIdentifier];
 
-  v6 = sub_1000330E0();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+  v7 = sub_1000330E0(v6);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
   if (v3)
   {
-    if (!v7)
+    if (!v8)
     {
       goto LABEL_9;
     }
 
-    *v25 = 138412290;
-    *&v25[4] = v5;
-    v8 = "loadTranscriptionService: Transcription is supported for locale %@.";
-    v9 = v6;
-    v10 = 12;
+    *v28 = 138412290;
+    *&v28[4] = v5;
+    v9 = "loadTranscriptionService: Transcription is supported for locale %@.";
+    v10 = v7;
+    v11 = 12;
   }
 
   else
   {
-    if (!v7)
+    if (!v8)
     {
       goto LABEL_9;
     }
 
-    *v25 = 0;
-    v8 = "loadTranscriptionService: Transcription is not enabled. ";
-    v9 = v6;
-    v10 = 2;
+    *v28 = 0;
+    v9 = "loadTranscriptionService: Transcription is not enabled. ";
+    v10 = v7;
+    v11 = 2;
   }
 
-  _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, v8, v25, v10);
+  _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, v9, v28, v11);
 LABEL_9:
 
-  if (v3 != [*(a1 + 32) isTranscriptionServiceAvailable])
+  v12 = [*(a1 + 32) isTranscriptionServiceAvailable];
+  if (v3 != v12)
   {
     [*(a1 + 32) setTranscriptionServiceAvailable:v3];
-    [*(a1 + 32) transcriptionAvailabilityChanged:v3];
+    v12 = [*(a1 + 32) transcriptionAvailabilityChanged:v3];
   }
 
   if (v3)
   {
-    v11 = [VMVoicemailTranscriptionController alloc];
-    v12 = +[VMConfiguration localeForTranscriptionLanguage];
-    v13 = [(VMVoicemailTranscriptionController *)v11 initWithLocale:v12];
+    v13 = [VMVoicemailTranscriptionController alloc];
+    v14 = +[VMConfiguration localeForTranscriptionLanguage];
+    v15 = [(VMVoicemailTranscriptionController *)v13 initWithLocale:v14];
 
-    if (v13)
+    if (v15)
     {
-      [v13 requestDatabaseSanitization];
+      [v15 requestDatabaseSanitization];
       if (_os_feature_enabled_impl())
       {
-        v14 = [v13 matchedSystemLocale];
-        [v13 requestSpeechAssetModelInstallation:v14];
+        v16 = [v15 matchedSystemLocale];
+        [v15 requestSpeechAssetModelInstallation:v16];
       }
 
       else
       {
-        [v13 requestTranscriptionAssetModelInstallation];
+        [v15 requestTranscriptionAssetModelInstallation];
       }
 
-      [v13 requestLanguageIDModelInstallation];
-      [v13 manageSpeechAssetSubscriptions];
+      [v15 requestLanguageIDModelInstallation:*v28];
+      [v15 manageSpeechAssetSubscriptions];
     }
 
-    [*(a1 + 32) setTranscriptionController:{v13, *v25}];
-    v15 = [*(a1 + 32) transcriptionController];
-    v16 = [v15 isTranscribing];
+    [*(a1 + 32) setTranscriptionController:{v15, *v28}];
+    v17 = [*(a1 + 32) transcriptionController];
+    v18 = [v17 isTranscribing];
 
-    if (v16 != [*(a1 + 32) cache_isTranscribing])
+    if (v18 != [*(a1 + 32) cache_isTranscribing])
     {
-      [*(a1 + 32) cache_setTranscribing:v16];
-      v17 = *(a1 + 32);
-      v18 = [v17 transcriptionController];
-      [v17 transcriptionController:v18 transcriptionStatusChanged:v16];
+      [*(a1 + 32) cache_setTranscribing:v18];
+      v19 = *(a1 + 32);
+      v20 = [v19 transcriptionController];
+      [v19 transcriptionController:v20 transcriptionStatusChanged:v18];
     }
 
     [*(a1 + 32) resetTranscriptionProgress];
-    v19 = [*(a1 + 32) transcriptionController];
-    v20 = *(a1 + 32);
-    v21 = [v20 queue];
-    [v19 addDelegate:v20 queue:v21];
+    v21 = [*(a1 + 32) transcriptionController];
+    v22 = *(a1 + 32);
+    v23 = [v22 queue];
+    [v21 addDelegate:v22 queue:v23];
 
-    v22 = sub_1000330E0();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v25 = sub_1000330E0(v24);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
-      *v25 = 0;
-      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Loading transcription service completed.", v25, 2u);
+      *v28 = 0;
+      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Loading transcription service completed.", v28, 2u);
     }
   }
 
   else
   {
-    v13 = sub_1000330E0();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v15 = sub_1000330E0(v12);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      *v25 = 0;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Loading transcription service was aborted.", v25, 2u);
+      *v28 = 0;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Loading transcription service was aborted.", v28, 2u);
     }
   }
 
-  v23 = +[NSNotificationCenter defaultCenter];
-  [v23 addObserver:*(a1 + 32) selector:"handleNSCurrentLocaleDidChangeNotification:" name:NSCurrentLocaleDidChangeNotification object:0];
+  v26 = +[NSNotificationCenter defaultCenter];
+  [v26 addObserver:*(a1 + 32) selector:"handleNSCurrentLocaleDidChangeNotification:" name:NSCurrentLocaleDidChangeNotification object:0];
 
-  v24 = +[NSNotificationCenter defaultCenter];
-  [v24 addObserver:*(a1 + 32) selector:"handleAFLanguageCodeDidChangeNotification:" name:AFLanguageCodeDidChangeNotification object:0];
+  v27 = +[NSNotificationCenter defaultCenter];
+  [v27 addObserver:*(a1 + 32) selector:"handleAFLanguageCodeDidChangeNotification:" name:AFLanguageCodeDidChangeNotification object:0];
 }
 
 id sub_100033698(uint64_t a1)
 {
-  v2 = sub_1000330E0();
+  v2 = sub_1000330E0(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
@@ -4927,80 +4924,81 @@ void sub_100033AE8(id *a1, void *a2, void *a3)
 void sub_100033BF8(uint64_t a1)
 {
   v2 = *(a1 + 32);
+  v3 = v2;
   if (*(a1 + 40))
   {
-    v3 = sub_1000330E0();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_1000330E0(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = *(a1 + 40);
-      [v4 confidence];
+      v5 = *(a1 + 40);
+      [v5 confidence];
       *buf = 138412546;
-      v14 = v4;
-      v15 = 2048;
       v16 = v5;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Dictation result was: '%@', confidence %f", buf, 0x16u);
+      v17 = 2048;
+      v18 = v6;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Dictation result was: '%@', confidence %f", buf, 0x16u);
     }
 
-    v6 = [NSURL fileURLWithPath:*(a1 + 48) isDirectory:0];
-    if (v6)
+    v7 = [NSURL fileURLWithPath:*(a1 + 48) isDirectory:0];
+    if (v7)
     {
-      v7 = [*(a1 + 40) archivedData];
-      v12 = v2;
-      v8 = [v7 writeToURL:v6 options:268435457 error:&v12];
-      v9 = v12;
+      v8 = [*(a1 + 40) archivedData];
+      v14 = v3;
+      v9 = [v8 writeToURL:v7 options:268435457 error:&v14];
+      v10 = v14;
     }
 
     else
     {
-      v9 = [NSError errorWithDomain:kVVErrorDomain code:1010 localizedDescription:@"Unable to create NSURL for transcription"];
+      v10 = [NSError errorWithDomain:kVVErrorDomain code:1010 localizedDescription:@"Unable to create NSURL for transcription"];
 
-      v7 = sub_1000330E0();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = sub_1000330E0(v12);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         sub_10009C704();
       }
 
-      v8 = 0;
+      v9 = 0;
     }
   }
 
   else
   {
-    v6 = sub_1000330E0();
-    v10 = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
-    if (v2)
+    v7 = sub_1000330E0(v2);
+    v11 = os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
+    if (v3)
     {
-      if (v10)
+      if (v11)
       {
         sub_10009C774();
       }
 
-      v8 = 0;
-      v9 = v2;
+      v9 = 0;
+      v10 = v3;
     }
 
     else
     {
-      if (v10)
+      if (v11)
       {
         sub_10009C7E4();
       }
 
+      v10 = 0;
       v9 = 0;
-      v8 = 0;
     }
   }
 
-  v11 = *(a1 + 56);
-  if (v11)
+  v13 = *(a1 + 56);
+  if (v13)
   {
-    (*(v11 + 16))(v11, v8, v9);
+    (*(v13 + 16))(v13, v9, v10);
   }
 }
 
 void sub_100033E50(id a1)
 {
-  v1 = sub_1000330E0();
+  v1 = sub_1000330E0(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
     *v2 = 0;
@@ -5008,7 +5006,7 @@ void sub_100033E50(id a1)
   }
 }
 
-void sub_1000343B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, void *a11, void *a12, void *a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, void *a21, void *a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, void *a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, void *a48, char a49, uint64_t a50, uint64_t a51, uint64_t a52, char a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, id a58, char a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_1000343B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, void *a11, void *a12, void *a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, void *a21, void *a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, void *a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, void *a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, id a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   _Block_object_dispose(&a49, 8);
   _Block_object_dispose(&a53, 8);
@@ -5016,8 +5014,8 @@ void sub_1000343B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Block_object_dispose(&a59, 8);
   _Block_object_dispose(&a65, 8);
 
-  _Block_object_dispose((v74 - 224), 8);
-  _Block_object_dispose((v74 - 176), 8);
+  _Block_object_dispose((v70 - 224), 8);
+  _Block_object_dispose((v70 - 176), 8);
 
   _Unwind_Resume(a1);
 }
@@ -5042,7 +5040,7 @@ void sub_1000344DC(uint64_t a1)
 
 void sub_10003457C(uint64_t a1)
 {
-  v2 = sub_1000330E0();
+  v2 = sub_1000330E0(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -5180,92 +5178,92 @@ void sub_100034A9C(uint64_t a1)
 
   if (v20 && *(*(*(a1 + 120) + 8) + 24) == 1)
   {
-    v22 = sub_1000330E0();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v23 = sub_1000330E0(v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = *(a1 + 56);
-      v24 = [v20 localeIdentifier];
+      v24 = *(a1 + 56);
+      v25 = [v20 localeIdentifier];
       *buf = 138412546;
-      v35 = v23;
-      v36 = 2112;
-      v37 = v24;
-      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "processAudioForFileAtURL:Attempting to transcribe audio at external URL %@ in locale %@", buf, 0x16u);
+      v36 = v24;
+      v37 = 2112;
+      v38 = v25;
+      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "processAudioForFileAtURL:Attempting to transcribe audio at external URL %@ in locale %@", buf, 0x16u);
     }
 
-    v25 = [*(a1 + 32) transcriptionController];
-    [v25 retrieveDictationResultWithLocaleForFileAtURL:*(a1 + 56) locale:v20 profanityFilterOverride:objc_msgSend(*(a1 + 32) queuePriority:"enableProfanityFilter:" duration:0) transcriptionBeginCallback:*(a1 + 128) completion:{*(a1 + 64), *(a1 + 72), *(a1 + 136)}];
+    v26 = [*(a1 + 32) transcriptionController];
+    [v26 retrieveDictationResultWithLocaleForFileAtURL:*(a1 + 56) locale:v20 profanityFilterOverride:objc_msgSend(*(a1 + 32) queuePriority:"enableProfanityFilter:" duration:0) transcriptionBeginCallback:*(a1 + 128) completion:{*(a1 + 64), *(a1 + 72), *(a1 + 136)}];
   }
 
   else
   {
-    v26 = sub_1000330E0();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    v27 = sub_1000330E0(v22);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
-      v27 = *(a1 + 56);
-      v28 = *(*(*(a1 + 80) + 8) + 40);
+      v28 = *(a1 + 56);
+      v29 = *(*(*(a1 + 80) + 8) + 40);
       *buf = 138412546;
-      v35 = v27;
-      v36 = 2112;
-      v37 = v28;
-      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "processAudioForFileAtURL:Abandon transcription for audio at external URL %@ with transcriptionAssetLocale %@ as not inferred", buf, 0x16u);
+      v36 = v28;
+      v37 = 2112;
+      v38 = v29;
+      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "processAudioForFileAtURL:Abandon transcription for audio at external URL %@ with transcriptionAssetLocale %@ as not inferred", buf, 0x16u);
     }
 
-    v25 = [NSString stringWithFormat:@"Not attempting transcription as model is not inferred."];
-    v29 = *(a1 + 72);
-    v32 = NSLocalizedDescriptionKey;
-    v33 = v25;
-    v30 = [NSDictionary dictionaryWithObjects:&v33 forKeys:&v32 count:1];
-    v31 = [NSError errorWithDomain:kVVErrorDomain code:5001 userInfo:v30];
-    (*(v29 + 16))(v29, 0, v31);
+    v26 = [NSString stringWithFormat:@"Not attempting transcription as model is not inferred."];
+    v30 = *(a1 + 72);
+    v33 = NSLocalizedDescriptionKey;
+    v34 = v26;
+    v31 = [NSDictionary dictionaryWithObjects:&v34 forKeys:&v33 count:1];
+    v32 = [NSError errorWithDomain:kVVErrorDomain code:5001 userInfo:v31];
+    (*(v30 + 16))(v30, 0, v32);
   }
 }
 
-void sub_100034F8C(uint64_t a1)
+void sub_100034F8C(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 56);
   v3 = VMStoreCopyRecordWithIdentifier();
   if (v3)
   {
     v4 = v3;
-    v5 = VMStoreRecordCopyDataPath();
+    v5 = VMStoreRecordCopyDataPath(v3);
     Duration = VMStoreRecordGetDuration(v4);
-    if ([v5 length])
+    v7 = [v5 length];
+    if (v7)
     {
       v7 = [NSURL fileURLWithPath:v5 isDirectory:0];
       v8 = v7;
       if (v7 && Duration >= 1)
       {
-        v42[0] = _NSConcreteStackBlock;
-        v42[1] = 3221225472;
+        v43[0] = _NSConcreteStackBlock;
+        v43[1] = 3221225472;
         v9 = *(a1 + 32);
-        v42[2] = sub_1000354B4;
-        v42[3] = &unk_1000EE348;
-        v42[4] = v9;
-        v43 = *(a1 + 56);
-        v33 = objc_retainBlock(v42);
+        v43[2] = sub_1000354B4;
+        v43[3] = &unk_1000EE348;
+        v43[4] = v9;
+        v44 = *(a1 + 56);
+        v34 = objc_retainBlock(v43);
         v10 = Duration;
-        v40[0] = _NSConcreteStackBlock;
-        v40[1] = 3221225472;
-        v40[2] = sub_100035624;
-        v40[3] = &unk_1000EE398;
-        v40[4] = *(a1 + 32);
-        v41 = *(a1 + 56);
-        *&v40[5] = Duration;
-        v11 = objc_retainBlock(v40);
-        v34[0] = _NSConcreteStackBlock;
-        v34[1] = 3221225472;
-        v34[2] = sub_100035F48;
-        v34[3] = &unk_1000EE3E8;
-        v34[4] = *(a1 + 32);
-        v39 = *(a1 + 56);
+        v41[0] = _NSConcreteStackBlock;
+        v41[1] = 3221225472;
+        v41[2] = sub_100035624;
+        v41[3] = &unk_1000EE398;
+        v41[4] = *(a1 + 32);
+        v42 = *(a1 + 56);
+        *&v41[5] = Duration;
+        v11 = objc_retainBlock(v41);
+        v35[0] = _NSConcreteStackBlock;
+        v35[1] = 3221225472;
+        v35[2] = sub_100035F48;
+        v35[3] = &unk_1000EE3E8;
+        v35[4] = *(a1 + 32);
+        v40 = *(a1 + 56);
         v12 = v8;
         v13 = *(a1 + 48);
-        v35 = v12;
-        v38 = v13;
+        v36 = v12;
+        v39 = v13;
         v14 = v11;
-        v36 = v14;
-        v37 = *(a1 + 40);
-        v15 = objc_retainBlock(v34);
+        v37 = v14;
+        v38 = *(a1 + 40);
+        v15 = objc_retainBlock(v35);
         Flags = VMStoreRecordGetFlags(v4);
         v17 = [*(a1 + 32) transcriptionController];
         v18 = v17 == 0;
@@ -5299,12 +5297,12 @@ void sub_100034F8C(uint64_t a1)
 
         if (v30)
         {
-          v32 = sub_1000330E0();
-          if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+          v33 = sub_1000330E0(v31);
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v45 = v28;
-            _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "Transcription service is disabled, not transcribing %@", buf, 0xCu);
+            v46 = v28;
+            _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "Transcription service is disabled, not transcribing %@", buf, 0xCu);
           }
 
           (v15[2])(v15, 0, 0);
@@ -5312,8 +5310,8 @@ void sub_100034F8C(uint64_t a1)
 
         else
         {
-          v31 = [*(a1 + 32) transcriptionController];
-          [v31 retrieveDictationResultForFileAtURL:v12 queuePriority:*(a1 + 48) duration:v33 transcriptionBeginCallback:v15 completion:v10];
+          v32 = [*(a1 + 32) transcriptionController];
+          [v32 retrieveDictationResultForFileAtURL:v12 queuePriority:*(a1 + 48) duration:v34 transcriptionBeginCallback:v15 completion:v10];
         }
 
 LABEL_26:
@@ -5330,12 +5328,12 @@ LABEL_26:
       v12 = 0;
     }
 
-    v25 = sub_1000330E0();
+    v25 = sub_1000330E0(v7);
     if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       v26 = VMStoreRecordGetLabel(v4);
       *buf = 138412290;
-      v45 = v26;
+      v46 = v26;
       _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "dataURL is empty or duration is 0, not transcribing %@", buf, 0xCu);
     }
 
@@ -5348,12 +5346,12 @@ LABEL_26:
     goto LABEL_26;
   }
 
-  v22 = sub_1000330E0();
+  v22 = sub_1000330E0(0);
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
     v23 = *(a1 + 56);
     *buf = 67109120;
-    LODWORD(v45) = v23;
+    LODWORD(v46) = v23;
     _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Record deleted before processing began for VM with identifier %d", buf, 8u);
   }
 
@@ -5375,9 +5373,8 @@ void sub_1000354B4(uint64_t a1)
   dispatch_async(v2, block);
 }
 
-void sub_100035544(uint64_t a1)
+void sub_100035544(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
   v2 = VMStoreCopyRecordWithIdentifier();
   if (v2)
   {
@@ -5391,7 +5388,7 @@ void sub_100035544(uint64_t a1)
 
   else
   {
-    v5 = sub_1000330E0();
+    v5 = sub_1000330E0(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -5419,136 +5416,134 @@ void sub_100035624(uint64_t a1, void *a2, void *a3)
   dispatch_async(v7, block);
 }
 
-void sub_100035724(uint64_t a1)
+void sub_100035724(uint64_t a1, uint64_t a2)
 {
-  v3 = (a1 + 64);
-  v2 = *(a1 + 64);
-  v49 = v3;
+  v53 = (a1 + 64);
   cf = VMStoreCopyRecordWithIdentifier();
   if (cf)
   {
-    v4 = +[NSLocale currentLocale];
-    v5 = [v4 localeIdentifier];
+    v3 = +[NSLocale currentLocale];
+    v4 = [v3 localeIdentifier];
 
-    v52 = v5;
-    v6 = [*(a1 + 32) transcriptionController];
-    v47 = [v6 getTranscriptionLocaleIdentifier];
+    v56 = v4;
+    v5 = [*(a1 + 32) transcriptionController];
+    v51 = [v5 getTranscriptionLocaleIdentifier];
 
-    v54 = objc_alloc_init(NSMutableDictionary);
-    v7 = [NSNumber numberWithInt:*v49];
-    [v54 setObject:v7 forKeyedSubscript:@"vmIdentifier"];
+    v58 = objc_alloc_init(NSMutableDictionary);
+    v6 = [NSNumber numberWithInt:*v53];
+    [v58 setObject:v6 forKeyedSubscript:@"vmIdentifier"];
 
-    v8 = *(a1 + 32);
-    v9 = VMStoreRecordCopyTranscriptionPath();
-    v10 = [v8 readDataFromFile:v9];
+    v7 = *(a1 + 32);
+    v8 = VMStoreRecordCopyTranscriptionPath(cf);
+    v9 = [v7 readDataFromFile:v8];
 
-    v50 = v10;
-    if (v10 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+    v54 = v9;
+    if (v9 && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) != 0))
     {
-      [v10 confidence];
+      [v9 confidence];
       v11 = [NSNumber numberWithFloat:?];
-      [v54 setObject:v11 forKeyedSubscript:@"transcriptionConfidence"];
-      v12 = [v10 confidenceRating];
-      v45 = v12 > 1;
+      [v58 setObject:v11 forKeyedSubscript:@"transcriptionConfidence"];
+      v12 = [v9 confidenceRating];
+      v49 = v12 > 1;
       v13 = &off_1000F57D0;
       if (v12 > 1)
       {
         v13 = 0;
       }
 
-      v44 = v13;
-      v48 = v11;
+      v48 = v13;
+      v52 = v11;
     }
 
     else
     {
-      v14 = sub_1000330E0();
+      v14 = sub_1000330E0(isKindOfClass);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        sub_10009C820(v49);
+        sub_10009C820();
       }
 
-      [v54 setObject:&off_1000F57E8 forKeyedSubscript:@"transcriptionConfidence"];
-      v48 = 0;
-      v45 = 0;
-      v44 = &off_1000F5800;
+      [v58 setObject:&off_1000F57E8 forKeyedSubscript:@"transcriptionConfidence"];
+      v52 = 0;
+      v49 = 0;
+      v48 = &off_1000F5800;
     }
 
     v15 = *(a1 + 40);
     if (v15)
     {
       v16 = [v15 dominantLocale];
-      v51 = [v16 languageIdentifier];
+      v55 = [v16 languageIdentifier];
 
-      v17 = sub_1000330E0();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v18 = sub_1000330E0(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = *(a1 + 40);
-        v19 = *(a1 + 64);
+        v19 = *(a1 + 40);
+        v20 = *(a1 + 64);
         *buf = 138412802;
-        v61 = v18;
-        v62 = 2112;
-        v63 = v51;
-        v64 = 1024;
         v65 = v19;
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Language ID result:'%@' Dominant Locale: '%@' for voicemail with identifier %d", buf, 0x1Cu);
+        v66 = 2112;
+        v67 = v55;
+        v68 = 1024;
+        v69 = v20;
+        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Language ID result:'%@' Dominant Locale: '%@' for voicemail with identifier %d", buf, 0x1Cu);
       }
 
-      v20 = [*(a1 + 40) detectedLanguageCode];
-      v46 = [v20 isEqualToString:@"en"];
+      v21 = [*(a1 + 40) detectedLanguageCode];
+      v50 = [v21 isEqualToString:@"en"];
 
-      v21 = [NSNumber numberWithInt:v46];
-      [v54 setObject:v21 forKeyedSubscript:@"isEnglish"];
+      v22 = [NSNumber numberWithInt:v50];
+      [v58 setObject:v22 forKeyedSubscript:@"isEnglish"];
 
-      [v54 setObject:v51 forKeyedSubscript:@"detectedDominantLocale"];
-      v22 = +[NSMutableDictionary dictionary];
-      v57 = 0u;
-      v58 = 0u;
-      v55 = 0u;
-      v56 = 0u;
-      v23 = [*(a1 + 40) alternatives];
-      v24 = [v23 countByEnumeratingWithState:&v55 objects:v59 count:16];
-      if (v24)
+      [v58 setObject:v55 forKeyedSubscript:@"detectedDominantLocale"];
+      v23 = +[NSMutableDictionary dictionary];
+      v61 = 0u;
+      v62 = 0u;
+      v59 = 0u;
+      v60 = 0u;
+      v24 = [*(a1 + 40) alternatives];
+      v25 = [v24 countByEnumeratingWithState:&v59 objects:v63 count:16];
+      if (v25)
       {
-        v25 = *v56;
+        v26 = *v60;
         do
         {
-          for (i = 0; i != v24; i = i + 1)
+          for (i = 0; i != v25; i = i + 1)
           {
-            if (*v56 != v25)
+            if (*v60 != v26)
             {
-              objc_enumerationMutation(v23);
+              objc_enumerationMutation(v24);
             }
 
-            v27 = *(*(&v55 + 1) + 8 * i);
-            [v27 confidence];
-            v28 = [NSNumber numberWithDouble:?];
-            v29 = [v27 locale];
-            v30 = [v29 localeIdentifier];
-            [v22 setObject:v28 forKeyedSubscript:v30];
+            v28 = *(*(&v59 + 1) + 8 * i);
+            [v28 confidence];
+            v29 = [NSNumber numberWithDouble:?];
+            v30 = [v28 locale];
+            v31 = [v30 localeIdentifier];
+            [v23 setObject:v29 forKeyedSubscript:v31];
           }
 
-          v24 = [v23 countByEnumeratingWithState:&v55 objects:v59 count:16];
+          v25 = [v24 countByEnumeratingWithState:&v59 objects:v63 count:16];
         }
 
-        while (v24);
+        while (v25);
       }
 
-      if ([v22 count])
+      if ([v23 count])
       {
-        [v54 setObject:v22 forKeyedSubscript:@"altLocaleDict"];
+        [v58 setObject:v23 forKeyedSubscript:@"altLocaleDict"];
       }
 
-      v31 = [v54 objectForKeyedSubscript:@"altLocaleDict"];
-      v32 = [v31 objectForKeyedSubscript:v51];
+      v32 = [v58 objectForKeyedSubscript:@"altLocaleDict"];
+      v33 = [v32 objectForKeyedSubscript:v55];
 
-      [*(a1 + 32) donateToLanguageConsumptionBiomeStream:v51 confidence:v32 duration:*(a1 + 56)];
-      v33 = +[VMAWDReporter sharedInstance];
-      v34 = [v54 objectForKeyedSubscript:@"altLocaleDict"];
-      LOBYTE(v43) = v46;
-      [v33 reportVoicemailProcessed:v52 transcriptionSuccess:v45 transcriptionFailureReason:v44 assetLocale:v47 transcriptionConfidence:v48 lidSuccess:1 lidFailureReason:0 isEnglish:v43 dominantLocale:v51 dominantLocaleConfidence:v32 altLocaleDict:v34];
+      [*(a1 + 32) donateToLanguageConsumptionBiomeStream:v55 confidence:v33 duration:*(a1 + 56)];
+      v34 = +[VMAWDReporter sharedInstance];
+      v35 = [v58 objectForKeyedSubscript:@"altLocaleDict"];
+      LOBYTE(v47) = v50;
+      [v34 reportVoicemailProcessed:v56 transcriptionSuccess:v49 transcriptionFailureReason:v48 assetLocale:v51 transcriptionConfidence:v52 lidSuccess:1 lidFailureReason:0 isEnglish:v47 dominantLocale:v55 dominantLocaleConfidence:v33 altLocaleDict:v35];
 
-      v35 = v51;
+      v36 = v55;
     }
 
     else
@@ -5558,52 +5553,53 @@ void sub_100035724(uint64_t a1)
         goto LABEL_24;
       }
 
-      v41 = +[VMAWDReporter sharedInstance];
-      v42 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [*(a1 + 32) languageIDFailureReasonForError:*(a1 + 48)]);
-      LOBYTE(v43) = 0;
-      [v41 reportVoicemailProcessed:v52 transcriptionSuccess:v45 transcriptionFailureReason:v44 assetLocale:v47 transcriptionConfidence:v48 lidSuccess:0 lidFailureReason:v42 isEnglish:v43 dominantLocale:0 dominantLocaleConfidence:0 altLocaleDict:0];
+      v44 = +[VMAWDReporter sharedInstance];
+      v45 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [*(a1 + 32) languageIDFailureReasonForError:*(a1 + 48)]);
+      LOBYTE(v47) = 0;
+      [v44 reportVoicemailProcessed:v56 transcriptionSuccess:v49 transcriptionFailureReason:v48 assetLocale:v51 transcriptionConfidence:v52 lidSuccess:0 lidFailureReason:v45 isEnglish:v47 dominantLocale:0 dominantLocaleConfidence:0 altLocaleDict:0];
 
-      v35 = sub_1000330E0();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+      v36 = sub_1000330E0(v46);
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
       {
-        sub_10009C898((a1 + 48));
+        sub_10009C898();
       }
     }
 
 LABEL_24:
-    v36 = VMStoreRecordCopySummarizationPath();
-    if (([*(a1 + 32) writeDataToFile:v36 fileData:v54] & 1) == 0)
+    v37 = VMStoreRecordCopySummarizationPath(cf);
+    v38 = [*(a1 + 32) writeDataToFile:v37 fileData:v58];
+    if ((v38 & 1) == 0)
     {
-      v37 = sub_1000330E0();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+      v39 = sub_1000330E0(v38);
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
       {
-        sub_10009C910(v49);
+        sub_10009C910();
       }
     }
 
     CFRelease(cf);
 
-    v38 = 1;
+    v40 = 1;
     goto LABEL_32;
   }
 
-  v39 = sub_1000330E0();
-  v52 = v39;
-  if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+  v41 = sub_1000330E0(0);
+  v56 = v41;
+  if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "Record deleted during Language ID operation, ignoring LID result.", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "Record deleted during Language ID operation, ignoring LID result.", buf, 2u);
   }
 
-  v38 = 0;
+  v40 = 0;
 LABEL_32:
 
-  v40 = sub_1000330E0();
-  if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+  v43 = sub_1000330E0(v42);
+  if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    LODWORD(v61) = v38;
-    _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "Exiting LID Completion handler. Finished? %d", buf, 8u);
+    LODWORD(v65) = v40;
+    _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "Exiting LID Completion handler. Finished? %d", buf, 8u);
   }
 }
 
@@ -5632,81 +5628,82 @@ void sub_100035F48(uint64_t a1, void *a2, void *a3)
   dispatch_async(v7, v13);
 }
 
-uint64_t sub_100036080(uint64_t a1)
+uint64_t sub_100036080(uint64_t a1, uint64_t a2)
 {
   v3 = (a1 + 88);
-  v2 = *(a1 + 88);
   v4 = VMStoreCopyRecordWithIdentifier();
   if (v4)
   {
     v5 = v4;
     v6 = VMStoreRecordGetLabel(v4);
     v7 = +[NSLocale currentLocale];
-    v37 = [v7 localeIdentifier];
+    v42 = [v7 localeIdentifier];
 
     v8 = [*(a1 + 32) transcriptionController];
-    v38 = [v8 getTranscriptionLocaleIdentifier];
+    v43 = [v8 getTranscriptionLocaleIdentifier];
 
     if (!*(a1 + 40))
     {
       if (!*(a1 + 48))
       {
-        v15 = 0;
+        v16 = 0;
 LABEL_29:
-        v25 = +[VMAWDReporter sharedInstance];
-        [v25 reportVoicemailTranscriptionAttempted];
+        v28 = +[VMAWDReporter sharedInstance];
+        [v28 reportVoicemailTranscriptionAttempted];
 
         Flags = VMStoreRecordGetFlags(v5);
         VMStoreRecordSetFlags(v6, v5, Flags & 0xFFFF6DFF | 0x1000);
         VMStoreSave();
-        LODWORD(v25) = _os_feature_enabled_impl();
-        v27 = sub_1000330E0();
-        v28 = os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT);
-        if (v25)
+        v30 = _os_feature_enabled_impl();
+        LODWORD(v28) = v30;
+        v31 = sub_1000330E0(v30);
+        v32 = os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT);
+        if (v28)
         {
-          if (v28)
+          if (v32)
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "processTranscriptForRecordWithIdentifier: Flag languageIDEnabled enabled.", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "processTranscriptForRecordWithIdentifier: Flag languageIDEnabled enabled.", buf, 2u);
           }
 
-          v29 = [*(a1 + 32) transcriptionController];
-          [v29 retrieveLanguageIDResultForFileAtURL:*(a1 + 56) queuePriority:*(a1 + 80) completion:*(a1 + 64)];
+          v33 = [*(a1 + 32) transcriptionController];
+          [v33 retrieveLanguageIDResultForFileAtURL:*(a1 + 56) queuePriority:*(a1 + 80) completion:*(a1 + 64)];
         }
 
         else
         {
-          if (v28)
+          if (v32)
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "VMTranscriptionControllerCompletion: Preparing voicemail metadata", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "VMTranscriptionControllerCompletion: Preparing voicemail metadata", buf, 2u);
           }
 
-          v29 = objc_alloc_init(NSMutableDictionary);
-          v31 = *(a1 + 40);
-          if (v31)
+          v33 = objc_alloc_init(NSMutableDictionary);
+          v35 = *(a1 + 40);
+          if (v35)
           {
-            [v31 confidence];
+            [v35 confidence];
           }
 
           else
           {
-            LODWORD(v30) = -1.0;
+            LODWORD(v34) = -1.0;
           }
 
-          v32 = [NSNumber numberWithFloat:v30];
-          [v29 setObject:v32 forKeyedSubscript:@"Transcription Confidence"];
+          v36 = [NSNumber numberWithFloat:v34];
+          [v33 setObject:v36 forKeyedSubscript:@"Transcription Confidence"];
 
-          v33 = [NSNumber numberWithInt:*v3];
-          [v29 setObject:v33 forKeyedSubscript:@"vmIdentifier"];
+          v37 = [NSNumber numberWithInt:*v3];
+          [v33 setObject:v37 forKeyedSubscript:@"vmIdentifier"];
 
-          v34 = VMStoreRecordCopySummarizationPath();
-          if (([*(a1 + 32) writeDataToFile:v34 fileData:v29] & 1) == 0)
+          v38 = VMStoreRecordCopySummarizationPath(v5);
+          v39 = [*(a1 + 32) writeDataToFile:v38 fileData:v33];
+          if ((v39 & 1) == 0)
           {
-            v35 = sub_1000330E0();
-            if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+            v40 = sub_1000330E0(v39);
+            if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
             {
-              sub_10009CAAC(v3);
+              sub_10009CAAC();
             }
           }
         }
@@ -5715,79 +5712,79 @@ LABEL_29:
         goto LABEL_44;
       }
 
-      v16 = +[VMAWDReporter sharedInstance];
-      [v16 reportVoicemailTranscriptionFailedWithReason:{objc_msgSend(*(a1 + 32), "transcriptionFailureReasonForError:", *(a1 + 48))}];
-
       v17 = +[VMAWDReporter sharedInstance];
-      v18 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [*(a1 + 32) transcriptionFailureReasonForError:*(a1 + 48)]);
-      [v17 reportVoicemailTranscriptionProcessed:v37 success:0 reason:v18 assetLocale:v38 confidence:0];
+      [v17 reportVoicemailTranscriptionFailedWithReason:{objc_msgSend(*(a1 + 32), "transcriptionFailureReasonForError:", *(a1 + 48))}];
 
-      v19 = sub_1000330E0();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v18 = +[VMAWDReporter sharedInstance];
+      v19 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [*(a1 + 32) transcriptionFailureReasonForError:*(a1 + 48)]);
+      [v18 reportVoicemailTranscriptionProcessed:v42 success:0 reason:v19 assetLocale:v43 confidence:0];
+
+      v21 = sub_1000330E0(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        sub_10009CA34((a1 + 48));
+        sub_10009CA34();
       }
 
-      v15 = 0;
+      v16 = 0;
 LABEL_28:
 
       goto LABEL_29;
     }
 
-    v9 = sub_1000330E0();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_1000330E0(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = *(a1 + 40);
-      [v10 confidence];
+      v11 = *(a1 + 40);
+      [v11 confidence];
       *buf = 138412546;
-      v41 = v10;
-      v42 = 2048;
-      v43 = v11;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Dictation result was: '%@', confidence %f", buf, 0x16u);
+      v46 = v11;
+      v47 = 2048;
+      v48 = v12;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Dictation result was: '%@', confidence %f", buf, 0x16u);
     }
 
     if ([*(a1 + 40) confidenceRating] < 2)
     {
-      v20 = +[VMAWDReporter sharedInstance];
-      [v20 reportVoicemailTranscriptionFailedWithReason:2];
+      v22 = +[VMAWDReporter sharedInstance];
+      [v22 reportVoicemailTranscriptionFailedWithReason:2];
 
-      v13 = +[VMAWDReporter sharedInstance];
+      v14 = +[VMAWDReporter sharedInstance];
       [*(a1 + 40) confidence];
-      v14 = [NSNumber numberWithFloat:?];
-      [v13 reportVoicemailTranscriptionProcessed:v37 success:0 reason:&off_1000F57D0 assetLocale:v38 confidence:v14];
+      v15 = [NSNumber numberWithFloat:?];
+      [v14 reportVoicemailTranscriptionProcessed:v42 success:0 reason:&off_1000F57D0 assetLocale:v43 confidence:v15];
     }
 
     else
     {
-      v12 = +[VMAWDReporter sharedInstance];
-      [v12 reportVoicemailTranscriptionCompleted];
-
       v13 = +[VMAWDReporter sharedInstance];
+      [v13 reportVoicemailTranscriptionCompleted];
+
+      v14 = +[VMAWDReporter sharedInstance];
       [*(a1 + 40) confidence];
-      v14 = [NSNumber numberWithFloat:?];
-      [v13 reportVoicemailTranscriptionProcessed:v37 success:1 reason:0 assetLocale:v38 confidence:v14];
+      v15 = [NSNumber numberWithFloat:?];
+      [v14 reportVoicemailTranscriptionProcessed:v42 success:1 reason:0 assetLocale:v43 confidence:v15];
     }
 
-    v19 = VMStoreRecordCopyTranscriptionPath();
-    if ([v19 length])
+    v21 = VMStoreRecordCopyTranscriptionPath(v5);
+    if ([v21 length])
     {
-      v21 = [NSURL fileURLWithPath:v19 isDirectory:0];
-      if (v21)
+      v23 = [NSURL fileURLWithPath:v21 isDirectory:0];
+      if (v23)
       {
-        v22 = [*(a1 + 40) archivedData];
-        v39 = 0;
-        v15 = [v22 writeToURL:v21 options:268435457 error:&v39];
-        v23 = v39;
+        v24 = [*(a1 + 40) archivedData];
+        v44 = 0;
+        v16 = [v24 writeToURL:v23 options:268435457 error:&v44];
+        v25 = v44;
 
-        if (v15)
+        if (v16)
         {
           VMStoreRecordSetFlag(v6, v5, 0x100u);
         }
 
         else
         {
-          v24 = sub_1000330E0();
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+          v27 = sub_1000330E0(v26);
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
           {
             sub_10009C988();
           }
@@ -5799,33 +5796,33 @@ LABEL_28:
 
     else
     {
-      v21 = sub_1000330E0();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v23 = sub_1000330E0(0);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         sub_10009C9F8();
       }
     }
 
-    v15 = 0;
+    v16 = 0;
 LABEL_27:
 
     goto LABEL_28;
   }
 
-  v6 = sub_1000330E0();
+  v6 = sub_1000330E0(0);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Record deleted during transcribe operation, ignoring transcript result.", buf, 2u);
   }
 
-  v15 = 0;
+  v16 = 0;
 LABEL_44:
 
   result = *(a1 + 72);
   if (result)
   {
-    return (*(result + 16))(result, v15);
+    return (*(result + 16))(result, v16);
   }
 
   return result;
@@ -5916,16 +5913,16 @@ void sub_100038764(uint64_t a1)
   v3 = [v2 objectForKey:@"transcriptionAssetLocale"];
   if (!v3)
   {
-    v13 = sub_1000330E0();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v15 = sub_1000330E0(0);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = *(a1 + 96);
-      v20 = 67109120;
-      v21 = v14;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Abandon transcription for record with identifier %d as empty transcriptionAssetLocale", &v20, 8u);
+      v16 = *(a1 + 96);
+      v22 = 67109120;
+      v23 = v16;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Abandon transcription for record with identifier %d as empty transcriptionAssetLocale", &v22, 8u);
     }
 
-    (*(*(a1 + 64) + 16))();
+    v14 = (*(*(a1 + 64) + 16))();
     goto LABEL_12;
   }
 
@@ -5937,73 +5934,73 @@ void sub_100038764(uint64_t a1)
     goto LABEL_6;
   }
 
-  v6 = sub_1000330E0();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_1000330E0(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v20) = 0;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "personalizedTranscriptionEnabled enabled.", &v20, 2u);
+    LOWORD(v22) = 0;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "personalizedTranscriptionEnabled enabled.", &v22, 2u);
   }
 
-  v7 = [*(a1 + 32) transcriptionController];
-  v8 = [v7 isInferredLanguage:v3];
+  v8 = [*(a1 + 32) transcriptionController];
+  v9 = [v8 isInferredLanguage:v3];
 
-  if (v8)
+  if (v9)
   {
 LABEL_6:
-    v9 = sub_1000330E0();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_1000330E0(v6);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = *(a1 + 96);
-      v11 = [v3 localeIdentifier];
-      v20 = 67109378;
-      v21 = v10;
-      v22 = 2112;
+      v11 = *(a1 + 96);
+      v12 = [v3 localeIdentifier];
+      v22 = 67109378;
       v23 = v11;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Attempting to transcribe record with identifier %d in locale %@", &v20, 0x12u);
+      v24 = 2112;
+      v25 = v12;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Attempting to transcribe record with identifier %d in locale %@", &v22, 0x12u);
     }
 
-    v12 = [*(a1 + 32) transcriptionController];
-    [v12 retrieveDictationResultWithLocaleForFileAtURL:*(a1 + 56) locale:v3 profanityFilterOverride:objc_msgSend(*(a1 + 32) queuePriority:"enableProfanityFilter:" duration:0) transcriptionBeginCallback:*(a1 + 88) completion:{*(a1 + 72), *(a1 + 64), *(a1 + 80)}];
+    v13 = [*(a1 + 32) transcriptionController];
+    [v13 retrieveDictationResultWithLocaleForFileAtURL:*(a1 + 56) locale:v3 profanityFilterOverride:objc_msgSend(*(a1 + 32) queuePriority:"enableProfanityFilter:" duration:0) transcriptionBeginCallback:*(a1 + 88) completion:{*(a1 + 72), *(a1 + 64), *(a1 + 80)}];
 
 LABEL_12:
-    v15 = sub_1000330E0();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v17 = sub_1000330E0(v14);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = *(a1 + 96);
-      v20 = 67109120;
-      v21 = v16;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Exiting LID completion handler for record with identifier %d", &v20, 8u);
+      v18 = *(a1 + 96);
+      v22 = 67109120;
+      v23 = v18;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Exiting LID completion handler for record with identifier %d", &v22, 8u);
     }
 
     goto LABEL_15;
   }
 
-  v17 = sub_1000330E0();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v19 = sub_1000330E0(v6);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = *(a1 + 96);
-    v19 = [v3 localeIdentifier];
-    v20 = 67109378;
-    v21 = v18;
-    v22 = 2112;
-    v23 = v19;
-    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Abandon transcription for record with identifier %d as transcriptionAssetLocale %@ not inferred.", &v20, 0x12u);
+    v20 = *(a1 + 96);
+    v21 = [v3 localeIdentifier];
+    v22 = 67109378;
+    v23 = v20;
+    v24 = 2112;
+    v25 = v21;
+    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Abandon transcription for record with identifier %d as transcriptionAssetLocale %@ not inferred.", &v22, 0x12u);
   }
 
   (*(*(a1 + 64) + 16))();
 LABEL_15:
 }
 
-void sub_100038C34(uint64_t a1)
+void sub_100038C34(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 56);
   v3 = VMStoreCopyRecordWithIdentifier();
   if (v3)
   {
     v4 = v3;
-    v5 = VMStoreRecordCopyDataPath();
+    v5 = VMStoreRecordCopyDataPath(v3);
     Duration = VMStoreRecordGetDuration(v4);
-    if ([v5 length])
+    v7 = [v5 length];
+    if (v7)
     {
       v7 = [NSURL fileURLWithPath:v5 isDirectory:0];
       v8 = v7;
@@ -6059,7 +6056,7 @@ LABEL_23:
       v19 = 0;
     }
 
-    v20 = sub_1000330E0();
+    v20 = sub_1000330E0(v7);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       v21 = VMStoreRecordGetLabel(v4);
@@ -6077,7 +6074,7 @@ LABEL_23:
     goto LABEL_23;
   }
 
-  v16 = sub_1000330E0();
+  v16 = sub_1000330E0(0);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     v17 = *(a1 + 56);
@@ -6096,12 +6093,12 @@ LABEL_23:
 void sub_10003989C(uint64_t a1)
 {
   v2 = VMStoreRecordCopyDescription(*(a1 + 40));
-  v3 = sub_1000330E0();
+  v3 = sub_1000330E0(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
-    v11 = v2;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Reporting transcription problem for record %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v2;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Reporting transcription problem for record %@", &v9, 0xCu);
   }
 
   if (v2)
@@ -6113,15 +6110,14 @@ void sub_10003989C(uint64_t a1)
   v5 = VMStoreRecordGetLabel(*(a1 + 40));
   VMStoreRecordSetFlags(v5, *(a1 + 40), Flags | 0x40800u);
   VMStoreSave();
-  v6 = *(a1 + 40);
-  v7 = VMStoreRecordCopyDataPath();
-  if ([v7 length])
+  v6 = VMStoreRecordCopyDataPath(*(a1 + 40));
+  if ([v6 length])
   {
-    v8 = [NSURL fileURLWithPath:v7 isDirectory:0];
-    if (v8)
+    v7 = [NSURL fileURLWithPath:v6 isDirectory:0];
+    if (v7)
     {
-      v9 = [*(a1 + 32) transcriptionController];
-      [v9 reportDictationProblemForFileAtURL:v8];
+      v8 = [*(a1 + 32) transcriptionController];
+      [v8 reportDictationProblemForFileAtURL:v7];
     }
   }
 
@@ -6131,7 +6127,7 @@ void sub_10003989C(uint64_t a1)
 void sub_100039AF0(uint64_t a1)
 {
   v2 = VMStoreRecordCopyDescription(*(a1 + 32));
-  v3 = sub_1000330E0();
+  v3 = sub_1000330E0(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = @"NO";
@@ -6175,17 +6171,16 @@ void sub_100039AF0(uint64_t a1)
 
 id sub_100039D3C(uint64_t a1)
 {
-  v2 = sub_1000330E0();
+  v2 = sub_1000330E0(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = objc_opt_class();
-    v5 = [*(a1 + 40) name];
-    v7 = 138412546;
-    v8 = v4;
-    v9 = 2112;
-    v10 = v5;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%@ is handling <%@>", &v7, 0x16u);
+    v3 = objc_opt_class();
+    v4 = [*(a1 + 40) name];
+    v6 = 138412546;
+    v7 = v3;
+    v8 = 2112;
+    v9 = v4;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%@ is handling <%@>", &v6, 0x16u);
   }
 
   [*(a1 + 32) unloadTranscriptionService];
@@ -6194,17 +6189,16 @@ id sub_100039D3C(uint64_t a1)
 
 id sub_100039F14(uint64_t a1)
 {
-  v2 = sub_1000330E0();
+  v2 = sub_1000330E0(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = objc_opt_class();
-    v5 = [*(a1 + 40) name];
-    v7 = 138412546;
-    v8 = v4;
-    v9 = 2112;
-    v10 = v5;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%@ is handling <%@>", &v7, 0x16u);
+    v3 = objc_opt_class();
+    v4 = [*(a1 + 40) name];
+    v6 = 138412546;
+    v7 = v3;
+    v8 = 2112;
+    v9 = v4;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%@ is handling <%@>", &v6, 0x16u);
   }
 
   [*(a1 + 32) unloadTranscriptionService];
@@ -6263,14 +6257,13 @@ void sub_10003ABF4(uint64_t a1)
 
 uint64_t sub_10003ADC8(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    v4 = *(a1 + 32);
-    v5 = *(a1 + 40);
+    v3 = *(a1 + 32);
+    v4 = *(a1 + 40);
 
-    return [v4 transcriptionAvailabilityChanged:v5];
+    return [v3 transcriptionAvailabilityChanged:v4];
   }
 
   return result;
@@ -6323,15 +6316,14 @@ void sub_10003AFD0(uint64_t a1)
 
 uint64_t sub_10003B1B8(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    v4 = *(a1 + 32);
-    v5 = *(a1 + 40);
-    v6 = *(a1 + 48);
+    v3 = *(a1 + 32);
+    v4 = *(a1 + 40);
+    v5 = *(a1 + 48);
 
-    return [v4 transcriptionController:v5 transcriptionStatusChanged:v6];
+    return [v3 transcriptionController:v4 transcriptionStatusChanged:v5];
   }
 
   return result;
@@ -6384,15 +6376,14 @@ void sub_10003B3A0(uint64_t a1)
 
 uint64_t sub_10003B588(double *a1)
 {
-  v2 = *(a1 + 4);
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    v4 = *(a1 + 4);
-    v5 = *(a1 + 5);
-    v6 = a1[6];
+    v3 = *(a1 + 4);
+    v4 = *(a1 + 5);
+    v5 = a1[6];
 
-    return [v4 transcriptionController:v5 transcriptionProgressFractionCompletedChanged:v6];
+    return [v3 transcriptionController:v4 transcriptionProgressFractionCompletedChanged:v5];
   }
 
   return result;
@@ -6447,15 +6438,14 @@ void sub_10003B76C(uint64_t a1)
 
 uint64_t sub_10003B950(void *a1)
 {
-  v2 = a1[4];
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    v4 = a1[4];
-    v5 = a1[5];
-    v6 = a1[6];
+    v3 = a1[4];
+    v4 = a1[5];
+    v5 = a1[6];
 
-    return [v4 transcriptionController:v5 transcriptionProgressTotalUnitCountChanged:v6];
+    return [v3 transcriptionController:v4 transcriptionProgressTotalUnitCountChanged:v5];
   }
 
   return result;
@@ -6487,16 +6477,16 @@ void sub_10003DB24(id a1)
   qword_10010D870 = v1;
 }
 
-id sub_10003DD84()
+id sub_10003DD84(uint64_t a1)
 {
   if (qword_10010D888 != -1)
   {
     sub_10009CEDC();
   }
 
-  v1 = qword_10010D880;
+  v2 = qword_10010D880;
 
-  return v1;
+  return v2;
 }
 
 void sub_10003DED0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
@@ -6512,49 +6502,49 @@ void sub_10003DFE4(uint64_t a1)
   {
     if (*(a1 + 48) > 3.0)
     {
-      [*(a1 + 40) doubleValue];
-      if (v2 > 0.7)
+      v2 = [*(a1 + 40) doubleValue];
+      if (v3 > 0.7)
       {
-        v3 = sub_10003DD84();
-        if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+        v4 = sub_10003DD84(v2);
+        if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
         {
-          v4 = *(a1 + 32);
-          v5 = *(a1 + 40);
-          v16 = 136315906;
-          v17 = "";
-          v18 = 2080;
+          v5 = *(a1 + 32);
+          v6 = *(a1 + 40);
+          v18 = 136315906;
           v19 = "";
-          v20 = 2112;
-          v21 = v4;
+          v20 = 2080;
+          v21 = "";
           v22 = 2112;
           v23 = v5;
-          _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "#I %s%sCreating App.LanguageConsumption Event for language %@, confidence %@", &v16, 0x2Au);
+          v24 = 2112;
+          v25 = v6;
+          _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "#I %s%sCreating App.LanguageConsumption Event for language %@, confidence %@", &v18, 0x2Au);
         }
 
-        v6 = BiomeLibrary();
-        v7 = [v6 App];
-        v8 = [v7 LanguageConsumption];
+        v7 = BiomeLibrary();
+        v8 = [v7 App];
+        v9 = [v8 LanguageConsumption];
 
-        v9 = [v8 source];
-        v10 = [BMAppLanguageConsumption alloc];
-        v11 = *(a1 + 32);
-        v12 = [NSNumber numberWithDouble:*(a1 + 48)];
-        v13 = [v10 initWithDataSource:5 adamID:0 contentLanguage:v11 contentGenre:0 timeSpent:v12];
+        v10 = [v9 source];
+        v11 = [BMAppLanguageConsumption alloc];
+        v12 = *(a1 + 32);
+        v13 = [NSNumber numberWithDouble:*(a1 + 48)];
+        v14 = [v11 initWithDataSource:5 adamID:0 contentLanguage:v12 contentGenre:0 timeSpent:v13];
 
-        v14 = sub_10003DD84();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v16 = sub_10003DD84(v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
-          v15 = [v13 description];
-          v16 = 136315650;
-          v17 = "";
-          v18 = 2080;
+          v17 = [v14 description];
+          v18 = 136315650;
           v19 = "";
-          v20 = 2112;
-          v21 = v15;
-          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "#I %s%sDonating App.LanguageConsumption Event: %@", &v16, 0x20u);
+          v20 = 2080;
+          v21 = "";
+          v22 = 2112;
+          v23 = v17;
+          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "#I %s%sDonating App.LanguageConsumption Event: %@", &v18, 0x20u);
         }
 
-        [v9 sendEvent:v13];
+        [v10 sendEvent:v14];
       }
     }
   }
@@ -6615,7 +6605,7 @@ void sub_10003EE28(id *a1)
 
 void sub_10003EEF8(uint64_t a1)
 {
-  v2 = sub_100002784();
+  v2 = sub_100002784(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -6662,29 +6652,28 @@ void sub_1000410E4(uint64_t a1, void *a2)
 
   else
   {
-    v8 = sub_100002784();
+    v8 = sub_100002784(v7);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = *(a1 + 32);
-      v11 = 136316162;
-      v12 = "";
-      v13 = 2080;
-      v14 = "";
-      v15 = 2112;
-      v16 = objc_opt_class();
-      v17 = 2112;
-      v18 = 0;
-      v19 = 2112;
-      v20 = v6;
-      v10 = v16;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "#W %s%s%@ event stream handler can't handle notification %@ with user info %@.", &v11, 0x34u);
+      v10 = 136316162;
+      v11 = "";
+      v12 = 2080;
+      v13 = "";
+      v14 = 2112;
+      v15 = objc_opt_class();
+      v16 = 2112;
+      v17 = 0;
+      v18 = 2112;
+      v19 = v6;
+      v9 = v15;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "#W %s%s%@ event stream handler can't handle notification %@ with user info %@.", &v10, 0x34u);
     }
   }
 }
 
 void sub_1000412D8(uint64_t a1)
 {
-  v2 = sub_100002784();
+  v2 = sub_100002784(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) locked];
@@ -6726,60 +6715,61 @@ void sub_100041638(uint64_t a1)
 
 void sub_100041800(uint64_t a1)
 {
-  v8 = 0;
-  v1 = [*(a1 + 32) unlock_if_needed:&v8];
+  v9 = 0;
+  v1 = [*(a1 + 32) unlock_if_needed:&v9];
+  v2 = v1;
   if (!v1)
   {
-    v6 = v8;
-    v2 = sub_100002784();
-    v7 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
-    if (v6 == 1)
+    v7 = v9;
+    v3 = sub_100002784(0);
+    v8 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
+    if (v7 == 1)
     {
-      if (!v7)
+      if (!v8)
       {
         goto LABEL_11;
       }
 
       *buf = 136315394;
-      v10 = "";
-      v11 = 2080;
-      v12 = "";
-      v3 = "#I %s%skVMDeviceUnlockedNotification unlocked the daemon";
+      v11 = "";
+      v12 = 2080;
+      v13 = "";
+      v4 = "#I %s%skVMDeviceUnlockedNotification unlocked the daemon";
     }
 
     else
     {
-      if (!v7)
+      if (!v8)
       {
         goto LABEL_11;
       }
 
       *buf = 136315394;
-      v10 = "";
-      v11 = 2080;
-      v12 = "";
-      v3 = "#I %s%skVMDeviceUnlockedNotification happened but daemon was already unlocked";
+      v11 = "";
+      v12 = 2080;
+      v13 = "";
+      v4 = "#I %s%skVMDeviceUnlockedNotification happened but daemon was already unlocked";
     }
 
-    v4 = v2;
-    v5 = 22;
+    v5 = v3;
+    v6 = 22;
     goto LABEL_10;
   }
 
-  v2 = sub_100002784();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = sub_100002784(v1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v10 = "";
-    v11 = 2080;
-    v12 = "";
-    v13 = 2112;
-    v14 = v1;
-    v3 = "#W %s%sUnable to first unlock the device: %@";
-    v4 = v2;
-    v5 = 32;
+    v11 = "";
+    v12 = 2080;
+    v13 = "";
+    v14 = 2112;
+    v15 = v2;
+    v4 = "#W %s%sUnable to first unlock the device: %@";
+    v5 = v3;
+    v6 = 32;
 LABEL_10:
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, v3, buf, v5);
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, v4, buf, v6);
   }
 
 LABEL_11:
@@ -6806,16 +6796,16 @@ void sub_100042CF0(id a1)
   qword_10010D8D0 = v1;
 }
 
-id sub_1000430EC()
+id sub_1000430EC(uint64_t a1)
 {
   if (qword_10010D8E8 != -1)
   {
     sub_10009CF40();
   }
 
-  v1 = qword_10010D8E0;
+  v2 = qword_10010D8E0;
 
-  return v1;
+  return v2;
 }
 
 void sub_100043258(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
@@ -6846,9 +6836,9 @@ uint64_t sub_100043C30(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_100043D30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100043D30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6875,9 +6865,9 @@ void sub_100043E28(uint64_t a1)
   }
 }
 
-void sub_100043F80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100043F80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6922,7 +6912,7 @@ void sub_1000456F8(id *a1)
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v55 = v3;
+    v54 = v3;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "local_voicemailInfoAvailableNotification: %@", buf, 0xCu);
   }
 
@@ -6935,110 +6925,109 @@ void sub_1000456F8(id *a1)
     v8 = vm_vmd_log();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = a1[4];
-      v10 = objc_opt_class();
+      v9 = objc_opt_class();
       *buf = 138412546;
-      v55 = v10;
-      v56 = 2112;
-      v57 = v3;
-      v11 = v10;
+      v54 = v9;
+      v55 = 2112;
+      v56 = v3;
+      v10 = v9;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%@ is handling %@ ", buf, 0x16u);
     }
 
-    v12 = [NSUUID alloc];
-    v13 = [a1[6] labelID];
-    v14 = [v12 initWithUUIDString:v13];
+    v11 = [NSUUID alloc];
+    v12 = [a1[6] labelID];
+    v13 = [v11 initWithUUIDString:v12];
 
-    v15 = v14;
-    v16 = [v3 userInfo];
-    v17 = v16;
-    if (v15 && v16)
+    v14 = v13;
+    v15 = [v3 userInfo];
+    v16 = v15;
+    if (v14 && v15)
     {
       [a1[4] accounts];
+      v48 = 0u;
       v49 = 0u;
       v50 = 0u;
-      v51 = 0u;
-      v18 = v52 = 0u;
-      v19 = [v18 countByEnumeratingWithState:&v49 objects:v53 count:16];
-      if (v19)
+      v17 = v51 = 0u;
+      v18 = [v17 countByEnumeratingWithState:&v48 objects:v52 count:16];
+      if (v18)
       {
-        v20 = v19;
-        v21 = *v50;
-        v46 = v17;
+        v19 = v18;
+        v20 = *v49;
+        v45 = v16;
         while (2)
         {
-          for (i = 0; i != v20; i = i + 1)
+          for (i = 0; i != v19; i = i + 1)
           {
-            if (*v50 != v21)
+            if (*v49 != v20)
             {
-              objc_enumerationMutation(v18);
+              objc_enumerationMutation(v17);
             }
 
-            v23 = *(*(&v49 + 1) + 8 * i);
-            v24 = [v23 UUID];
-            v25 = [v24 isEqual:v15];
+            v22 = *(*(&v48 + 1) + 8 * i);
+            v23 = [v22 UUID];
+            v24 = [v23 isEqual:v14];
 
-            if (v25)
+            if (v24)
             {
-              v26 = [v23 copy];
-              v27 = [a1[4] telephonyClient];
-              v28 = [a1[6] context];
-              v48 = 0;
-              v29 = [v27 getShortLabel:v28 error:&v48];
-              v30 = v48;
-              [v26 setAbbreviatedAccountDescription:v29];
+              v25 = [v22 copy];
+              v26 = [a1[4] telephonyClient];
+              v27 = [a1[6] context];
+              v47 = 0;
+              v28 = [v26 getShortLabel:v27 error:&v47];
+              v29 = v47;
+              [v25 setAbbreviatedAccountDescription:v28];
 
-              v31 = [a1[6] label];
-              [v26 setAccountDescription:v31];
+              v30 = [a1[6] label];
+              [v25 setAccountDescription:v30];
 
-              v32 = [a1[4] telephonyClient];
-              v33 = [a1[6] context];
-              v47 = v30;
-              v34 = [v32 getMobileSubscriberHomeCountryList:v33 error:&v47];
-              v44 = v47;
+              v31 = [a1[4] telephonyClient];
+              v32 = [a1[6] context];
+              v46 = v29;
+              v33 = [v31 getMobileSubscriberHomeCountryList:v32 error:&v46];
+              v43 = v46;
 
-              v35 = [v34 firstObject];
-              [v26 setIsoCountryCode:v35];
+              v34 = [v33 firstObject];
+              [v25 setIsoCountryCode:v34];
 
-              v36 = vm_vmd_log();
-              v17 = v46;
-              if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+              v35 = vm_vmd_log();
+              v16 = v45;
+              if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412546;
-                v55 = v26;
-                v56 = 2112;
-                v57 = v46;
-                _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "Updating account %@ with carrier information %@ ", buf, 0x16u);
+                v54 = v25;
+                v55 = 2112;
+                v56 = v45;
+                _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "Updating account %@ with carrier information %@ ", buf, 0x16u);
               }
 
-              v37 = sub_10006B7E4();
-              v38 = [v46 objectForKeyedSubscript:v37];
+              v36 = sub_10006B7E4();
+              v37 = [v45 objectForKeyedSubscript:v36];
 
-              v39 = sub_10006B7C4();
-              v40 = [v46 objectForKeyedSubscript:v39];
+              v38 = sub_10006B7C4();
+              v39 = [v45 objectForKeyedSubscript:v38];
 
-              if (v38)
+              if (v37)
               {
-                [v26 setProvisioned:{objc_msgSend(v38, "isEqualToString:", @"NewAccount", v44) ^ 1}];
+                [v25 setProvisioned:{objc_msgSend(v37, "isEqualToString:", @"NewAccount", v43) ^ 1}];
               }
 
-              if (v40)
+              if (v39)
               {
-                v41 = [[VMHandle alloc] initWithType:1 value:v40];
-                [v26 setHandle:v41];
+                v40 = [[VMHandle alloc] initWithType:1 value:v39];
+                [v25 setHandle:v40];
               }
 
-              v42 = a1[4];
-              v43 = [v26 copy];
-              [v42 setAccount:v43 forUUID:v15];
+              v41 = a1[4];
+              v42 = [v25 copy];
+              [v41 setAccount:v42 forUUID:v14];
 
               goto LABEL_24;
             }
           }
 
-          v20 = [v18 countByEnumeratingWithState:&v49 objects:v53 count:16];
-          v17 = v46;
-          if (v20)
+          v19 = [v17 countByEnumeratingWithState:&v48 objects:v52 count:16];
+          v16 = v45;
+          if (v19)
           {
             continue;
           }
@@ -7386,7 +7375,7 @@ LABEL_66:
   return [a2 hasError] ^ 1;
 }
 
-uint64_t sub_10004766C()
+uint64_t sub_10004766C(uint64_t a1, uint64_t a2)
 {
   if (qword_10010D8F8 != -1)
   {
@@ -7446,12 +7435,12 @@ void sub_100048014(uint64_t a1, void *a2, void *a3)
   dispatch_semaphore_signal(*(a1 + 48));
 }
 
-void sub_100048328(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100048328(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
-  objc_destroyWeak((v11 + 56));
+  va_start(va, a18);
+  objc_destroyWeak((v18 + 56));
   _Block_object_dispose(va, 8);
-  objc_destroyWeak((v12 - 56));
+  objc_destroyWeak((v19 - 56));
   _Unwind_Resume(a1);
 }
 
@@ -7772,16 +7761,16 @@ void sub_10004A354(id a1)
   qword_10010D900 = v1;
 }
 
-id sub_10004A3F0()
+id sub_10004A3F0(uint64_t a1)
 {
   if (qword_10010D918 != -1)
   {
     sub_10009D0E8();
   }
 
-  v1 = qword_10010D910;
+  v2 = qword_10010D910;
 
-  return v1;
+  return v2;
 }
 
 void sub_10004A434(id a1)
@@ -7861,9 +7850,9 @@ void sub_10004BB58(uint64_t a1)
   [v4 postNotificationName:@"VVServiceSubscriptionStatusChangedNotification" object:v3 userInfo:v8];
 }
 
-void sub_10004C220(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10004C220(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7887,16 +7876,16 @@ void sub_10004C2C0(uint64_t a1)
   }
 }
 
-void sub_10004C460(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10004C460(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_10004C530(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10004C530(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7938,9 +7927,9 @@ void sub_10004C5D0(uint64_t a1)
   }
 }
 
-void sub_10004C7E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10004C7E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7957,9 +7946,9 @@ uint64_t sub_10004C880(uint64_t result)
   return result;
 }
 
-void sub_10004C940(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10004C940(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7976,9 +7965,9 @@ uint64_t sub_10004C9DC(uint64_t result)
   return result;
 }
 
-void sub_10004CAA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10004CAA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8002,7 +7991,7 @@ uint64_t sub_10004CB48(uint64_t result)
   return result;
 }
 
-void sub_10004CC4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_10004CC4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -8016,9 +8005,9 @@ uint64_t sub_10004CC6C(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_10004CDF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10004CDF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8035,9 +8024,9 @@ uint64_t sub_10004CE94(uint64_t result)
   return result;
 }
 
-void sub_10004CF54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10004CF54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8091,9 +8080,9 @@ void sub_10004D084(uint64_t a1)
   [v6 postNotificationName:@"VVServiceTrashedCountChangedNotification" object:v7 userInfo:v9];
 }
 
-void sub_10004D2D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10004D2D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8187,9 +8176,9 @@ void sub_10004E440(uint64_t a1, void *a2)
   }
 }
 
-void sub_10005004C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10005004C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8366,7 +8355,7 @@ void sub_10005331C(uint64_t a1)
   [v2 setObject:0 forKeyedSubscript:*(a1 + 40)];
 }
 
-void sub_100053470(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_100053470(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -8398,16 +8387,16 @@ void sub_100054288(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-id sub_10005435C()
+id sub_10005435C(uint64_t a1)
 {
   if (qword_10010D958 != -1)
   {
     sub_10009D2C4();
   }
 
-  v1 = qword_10010D950;
+  v2 = qword_10010D950;
 
-  return v1;
+  return v2;
 }
 
 void sub_1000543A0(uint64_t a1)
@@ -8428,10 +8417,9 @@ void sub_1000543A0(uint64_t a1)
   v9 = *(*v3 + 88);
   *(*v3 + 88) = v8;
 
-  v10 = sub_10005435C();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = sub_10005435C(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = *(a1 + 32);
     v12 = objc_opt_class();
     v13 = *(a1 + 32);
     v29 = 138412546;
@@ -8439,7 +8427,7 @@ void sub_1000543A0(uint64_t a1)
     v31 = 2048;
     v32 = v13;
     v14 = v12;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "<%@ %p> Adding transcription operation observers", &v29, 0x16u);
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "<%@ %p> Adding transcription operation observers", &v29, 0x16u);
   }
 
   v15 = *(a1 + 32);
@@ -8457,10 +8445,9 @@ void sub_1000543A0(uint64_t a1)
   v23 = NSStringFromSelector("totalUnitCount");
   [v22 addObserver:v21 forKeyPath:v23 options:1 context:off_10010D3D8];
 
-  v24 = sub_10005435C();
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+  v25 = sub_10005435C(v24);
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
-    v25 = *(a1 + 32);
     v26 = objc_opt_class();
     v27 = *(a1 + 32);
     v29 = 138412546;
@@ -8468,7 +8455,7 @@ void sub_1000543A0(uint64_t a1)
     v31 = 2048;
     v32 = v27;
     v28 = v26;
-    _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "<%@ %p> Created", &v29, 0x16u);
+    _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "<%@ %p> Created", &v29, 0x16u);
   }
 }
 
@@ -8499,9 +8486,9 @@ void sub_100055150(uint64_t a1)
   *(*(*(a1 + 48) + 8) + 24) = [v2 isInferredLanguage:*(a1 + 40)];
 }
 
-void sub_1000552B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8, uint64_t a9, ...)
+void sub_1000552B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -8551,15 +8538,16 @@ void sub_100055D10(id *a1)
 {
   if ([a1[4] isFileURL])
   {
-    if ([a1[5] isDictationModelInstalled])
+    v2 = [a1[5] isDictationModelInstalled];
+    if (v2)
     {
-      v2 = sub_10005435C();
-      if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+      v3 = sub_10005435C(v2);
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
       {
-        v3 = a1[4];
+        v4 = a1[4];
         *buf = 138412290;
-        v20 = v3;
-        _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Dictation model is already installed. Initiating operation to transcribe audio file at %@.", buf, 0xCu);
+        v21 = v4;
+        _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Dictation model is already installed. Initiating operation to transcribe audio file at %@.", buf, 0xCu);
       }
 
       [a1[5] setTranscriptionAssetModelProcessed:1];
@@ -8568,42 +8556,42 @@ void sub_100055D10(id *a1)
 
     else
     {
-      v14[0] = _NSConcreteStackBlock;
-      v14[1] = 3221225472;
-      v14[2] = sub_100055F7C;
-      v14[3] = &unk_1000EEC48;
-      v8 = a1[5];
-      *&v9 = a1[4];
-      *(&v9 + 1) = a1[5];
-      v13 = v9;
-      v10 = a1[6];
-      v11 = a1[7];
-      *&v12 = v10;
-      *(&v12 + 1) = v11;
-      v15 = v13;
-      v16 = v12;
-      [v8 requestTranscriptionAssetModelOperationWithCompletion:v14];
+      v15[0] = _NSConcreteStackBlock;
+      v15[1] = 3221225472;
+      v15[2] = sub_100055F7C;
+      v15[3] = &unk_1000EEC48;
+      v9 = a1[5];
+      *&v10 = a1[4];
+      *(&v10 + 1) = a1[5];
+      v14 = v10;
+      v11 = a1[6];
+      v12 = a1[7];
+      *&v13 = v11;
+      *(&v13 + 1) = v12;
+      v16 = v14;
+      v17 = v13;
+      [v9 requestTranscriptionAssetModelOperationWithCompletion:v15];
     }
   }
 
   else
   {
-    v4 = a1[7];
-    v17[0] = NSLocalizedDescriptionKey;
-    v17[1] = NSURLErrorKey;
-    v5 = a1[4];
-    v18[0] = @"Expected a file URL.";
-    v18[1] = v5;
-    v6 = [NSDictionary dictionaryWithObjects:v18 forKeys:v17 count:2];
-    v7 = [NSError errorWithDomain:kVVErrorDomain code:1039 userInfo:v6];
-    v4[2](v4, 0, v7);
+    v5 = a1[7];
+    v18[0] = NSLocalizedDescriptionKey;
+    v18[1] = NSURLErrorKey;
+    v6 = a1[4];
+    v19[0] = @"Expected a file URL.";
+    v19[1] = v6;
+    v7 = [NSDictionary dictionaryWithObjects:v19 forKeys:v18 count:2];
+    v8 = [NSError errorWithDomain:kVVErrorDomain code:1039 userInfo:v7];
+    v5[2](v5, 0, v8);
   }
 }
 
 void sub_100055F7C(uint64_t a1, int a2, void *a3)
 {
   v5 = a3;
-  v6 = sub_10005435C();
+  v6 = sub_10005435C(v5);
   v7 = v6;
   if (a2)
   {
@@ -8651,15 +8639,16 @@ void sub_1000563CC(id *a1)
 {
   if ([a1[4] isFileURL])
   {
-    if ([a1[5] isLanguageIDModelInstalled])
+    v2 = [a1[5] isLanguageIDModelInstalled];
+    if (v2)
     {
-      v2 = sub_10005435C();
-      if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+      v3 = sub_10005435C(v2);
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
       {
-        v3 = a1[4];
+        v4 = a1[4];
         *buf = 138412290;
-        v16 = v3;
-        _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Language ID model is already installed. Initiating operation to LID audio file at %@.", buf, 0xCu);
+        v17 = v4;
+        _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Language ID model is already installed. Initiating operation to LID audio file at %@.", buf, 0xCu);
       }
 
       (*(a1[6] + 2))();
@@ -8667,36 +8656,36 @@ void sub_1000563CC(id *a1)
 
     else
     {
-      v9[0] = _NSConcreteStackBlock;
-      v9[1] = 3221225472;
-      v9[2] = sub_100056614;
-      v9[3] = &unk_1000EECC0;
-      v8 = a1[5];
-      v10 = a1[4];
-      v11 = a1[6];
-      v12 = a1[7];
-      [v8 requestLanguageIDModelOperationWithCompletion:v9];
+      v10[0] = _NSConcreteStackBlock;
+      v10[1] = 3221225472;
+      v10[2] = sub_100056614;
+      v10[3] = &unk_1000EECC0;
+      v9 = a1[5];
+      v11 = a1[4];
+      v12 = a1[6];
+      v13 = a1[7];
+      [v9 requestLanguageIDModelOperationWithCompletion:v10];
     }
   }
 
   else
   {
-    v4 = a1[7];
-    v13[0] = NSLocalizedDescriptionKey;
-    v13[1] = NSURLErrorKey;
-    v5 = a1[4];
-    v14[0] = @"Expected a file URL.";
-    v14[1] = v5;
-    v6 = [NSDictionary dictionaryWithObjects:v14 forKeys:v13 count:2];
-    v7 = [NSError errorWithDomain:kVVErrorDomain code:1042 userInfo:v6];
-    v4[2](v4, 0, v7);
+    v5 = a1[7];
+    v14[0] = NSLocalizedDescriptionKey;
+    v14[1] = NSURLErrorKey;
+    v6 = a1[4];
+    v15[0] = @"Expected a file URL.";
+    v15[1] = v6;
+    v7 = [NSDictionary dictionaryWithObjects:v15 forKeys:v14 count:2];
+    v8 = [NSError errorWithDomain:kVVErrorDomain code:1042 userInfo:v7];
+    v5[2](v5, 0, v8);
   }
 }
 
 void sub_100056614(void *a1, int a2, void *a3)
 {
   v5 = a3;
-  v6 = sub_10005435C();
+  v6 = sub_10005435C(v5);
   v7 = v6;
   if (a2)
   {
@@ -8758,37 +8747,39 @@ void sub_100056BDC(uint64_t a1)
 {
   if ([*(a1 + 32) isFileURL])
   {
-    *(*(*(a1 + 72) + 8) + 24) = +[VMConfiguration getVMLocaleSpeechAssetTypeforLocale:gasrEnabled:](VMConfiguration, "getVMLocaleSpeechAssetTypeforLocale:gasrEnabled:", *(a1 + 40), [*(a1 + 48) isGasrModelAvailable]);
-    v2 = sub_10005435C();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v2 = +[VMConfiguration getVMLocaleSpeechAssetTypeforLocale:gasrEnabled:](VMConfiguration, "getVMLocaleSpeechAssetTypeforLocale:gasrEnabled:", *(a1 + 40), [*(a1 + 48) isGasrModelAvailable]);
+    *(*(*(a1 + 72) + 8) + 24) = v2;
+    v3 = sub_10005435C(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = [*(a1 + 32) path];
-      v4 = [*(a1 + 40) localeIdentifier];
-      v5 = *(*(*(a1 + 72) + 8) + 24);
+      v4 = [*(a1 + 32) path];
+      v5 = [*(a1 + 40) localeIdentifier];
+      v6 = *(*(*(a1 + 72) + 8) + 24);
       *buf = 138412802;
-      v36 = v3;
-      v37 = 2112;
-      v38 = v4;
-      v39 = 2048;
-      v40 = v5;
-      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Retrieving dictation for file at %@, locale %@, type %lu", buf, 0x20u);
+      v39 = v4;
+      v40 = 2112;
+      v41 = v5;
+      v42 = 2048;
+      v43 = v6;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Retrieving dictation for file at %@, locale %@, type %lu", buf, 0x20u);
     }
 
-    v6 = *(*(*(a1 + 72) + 8) + 24);
-    if (v6 == kVM_GASRTaskHint || v6 == kVM_NGASRTaskHint)
+    v8 = *(*(*(a1 + 72) + 8) + 24);
+    if (v8 == kVM_GASRTaskHint || v8 == kVM_NGASRTaskHint)
     {
-      if ([*(a1 + 48) isSpeechAnalyzerTranscriptionModelInstalledForTaskHint:*(a1 + 40) taskHint:?])
+      v10 = [*(a1 + 48) isSpeechAnalyzerTranscriptionModelInstalledForTaskHint:*(a1 + 40) taskHint:?];
+      if (v10)
       {
-        v8 = sub_10005435C();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+        v11 = sub_10005435C(v10);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
-          v9 = [*(a1 + 40) localeIdentifier];
-          v10 = *(a1 + 32);
+          v12 = [*(a1 + 40) localeIdentifier];
+          v13 = *(a1 + 32);
           *buf = 138412546;
-          v36 = v9;
-          v37 = 2112;
-          v38 = v10;
-          _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Transcription model %@ is already installed. Initiating operation to transcribe audio file at %@.", buf, 0x16u);
+          v39 = v12;
+          v40 = 2112;
+          v41 = v13;
+          _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Transcription model %@ is already installed. Initiating operation to transcribe audio file at %@.", buf, 0x16u);
         }
 
         (*(*(a1 + 64) + 16))();
@@ -8796,60 +8787,60 @@ void sub_100056BDC(uint64_t a1)
 
       else
       {
-        v21 = [*(a1 + 48) assetModel];
-        v22 = *(*(*(a1 + 72) + 8) + 24);
-        v23 = [*(a1 + 40) localeIdentifier];
-        v24 = [*(a1 + 48) serialDispatchQueue];
-        v26[0] = _NSConcreteStackBlock;
-        v26[1] = 3221225472;
-        v26[2] = sub_1000570DC;
-        v26[3] = &unk_1000EED10;
-        v25 = *(a1 + 72);
-        v26[4] = *(a1 + 48);
-        v30 = v25;
-        v27 = *(a1 + 32);
-        v28 = *(a1 + 64);
-        v29 = *(a1 + 56);
-        [v21 performInstallAssetModelWithType:1 speechTaskHint:v22 language:v23 queue:v24 completion:v26];
+        v24 = [*(a1 + 48) assetModel];
+        v25 = *(*(*(a1 + 72) + 8) + 24);
+        v26 = [*(a1 + 40) localeIdentifier];
+        v27 = [*(a1 + 48) serialDispatchQueue];
+        v29[0] = _NSConcreteStackBlock;
+        v29[1] = 3221225472;
+        v29[2] = sub_1000570DC;
+        v29[3] = &unk_1000EED10;
+        v28 = *(a1 + 72);
+        v29[4] = *(a1 + 48);
+        v33 = v28;
+        v30 = *(a1 + 32);
+        v31 = *(a1 + 64);
+        v32 = *(a1 + 56);
+        [v24 performInstallAssetModelWithType:1 speechTaskHint:v25 language:v26 queue:v27 completion:v29];
       }
     }
 
     else
     {
-      v15 = sub_10005435C();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v18 = sub_10005435C(v7);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        v17 = [*(a1 + 40) localeIdentifier];
-        sub_10009D3C8(v17, buf, v15);
+        v20 = [*(a1 + 40) localeIdentifier];
+        sub_10009D3C8(v20, buf, v18);
       }
 
-      v18 = *(a1 + 56);
-      v33 = NSLocalizedDescriptionKey;
-      v34 = @"Locale's task hint not supported.";
-      v19 = [NSDictionary dictionaryWithObjects:&v34 forKeys:&v33 count:1];
-      v20 = [NSError errorWithDomain:kVVErrorDomain code:1040 userInfo:v19];
-      (*(v18 + 16))(v18, 0, v20);
+      v21 = *(a1 + 56);
+      v36 = NSLocalizedDescriptionKey;
+      v37 = @"Locale's task hint not supported.";
+      v22 = [NSDictionary dictionaryWithObjects:&v37 forKeys:&v36 count:1];
+      v23 = [NSError errorWithDomain:kVVErrorDomain code:1040 userInfo:v22];
+      (*(v21 + 16))(v21, 0, v23);
     }
   }
 
   else
   {
-    v11 = *(a1 + 56);
-    v31[0] = NSLocalizedDescriptionKey;
-    v31[1] = NSURLErrorKey;
-    v12 = *(a1 + 32);
-    v32[0] = @"Expected a file URL.";
-    v32[1] = v12;
-    v13 = [NSDictionary dictionaryWithObjects:v32 forKeys:v31 count:2];
-    v14 = [NSError errorWithDomain:kVVErrorDomain code:1039 userInfo:v13];
-    (*(v11 + 16))(v11, 0, v14);
+    v14 = *(a1 + 56);
+    v34[0] = NSLocalizedDescriptionKey;
+    v34[1] = NSURLErrorKey;
+    v15 = *(a1 + 32);
+    v35[0] = @"Expected a file URL.";
+    v35[1] = v15;
+    v16 = [NSDictionary dictionaryWithObjects:v35 forKeys:v34 count:2];
+    v17 = [NSError errorWithDomain:kVVErrorDomain code:1039 userInfo:v16];
+    (*(v14 + 16))(v14, 0, v17);
   }
 }
 
 void sub_1000570DC(uint64_t a1, int a2, void *a3)
 {
   v5 = a3;
-  v6 = sub_10005435C();
+  v6 = sub_10005435C(v5);
   v7 = v6;
   if (a2)
   {
@@ -8902,69 +8893,68 @@ void sub_10005761C(uint64_t a1)
 
     if (v4)
     {
-      v7 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v7 = v6 <= 0;
+      v8 = v6 <= 0;
     }
 
-    if (!v7 || (v4 >= 1 ? (v8 = v6 == 0) : (v8 = 0), v8))
+    if (!v8 || (v4 >= 1 ? (v9 = v6 == 0) : (v9 = 0), v9))
     {
-      v9 = sub_10005435C();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = sub_10005435C(v7);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = *(a1 + 40);
         v11 = objc_opt_class();
         v12 = *(a1 + 40);
         *buf = 138413058;
-        v44 = v11;
-        v45 = 2048;
-        v46 = v12;
-        v47 = 2048;
-        v48 = v4;
-        v49 = 2048;
-        v50 = v6;
+        v43 = v11;
+        v44 = 2048;
+        v45 = v12;
+        v46 = 2048;
+        v47 = v4;
+        v48 = 2048;
+        v49 = v6;
         v13 = v11;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "<%@ %p> observeValueForKeyPath: oldOperationCount %ld, newOperationCount %ld", buf, 0x2Au);
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "<%@ %p> observeValueForKeyPath: oldOperationCount %ld, newOperationCount %ld", buf, 0x2Au);
       }
 
-      v40 = 0u;
-      v41 = 0u;
-      v38 = 0u;
       v39 = 0u;
+      v40 = 0u;
+      v37 = 0u;
+      v38 = 0u;
       v14 = [*(*(a1 + 40) + 48) operations];
-      v15 = [v14 countByEnumeratingWithState:&v38 objects:v42 count:16];
+      v15 = [v14 countByEnumeratingWithState:&v37 objects:v41 count:16];
       if (v15)
       {
-        v16 = *v39;
+        v16 = *v38;
         while (2)
         {
           for (i = 0; i != v15; i = i + 1)
           {
-            if (*v39 != v16)
+            if (*v38 != v16)
             {
               objc_enumerationMutation(v14);
             }
 
-            v18 = *(*(&v38 + 1) + 8 * i);
+            v18 = *(*(&v37 + 1) + 8 * i);
             objc_opt_class();
-            if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
+            isKindOfClass = objc_opt_isKindOfClass();
+            if (isKindOfClass & 1) != 0 || (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass))
             {
-              v27 = sub_10005435C();
+              v27 = sub_10005435C(isKindOfClass);
               if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
               {
-                v28 = *(a1 + 40);
-                v29 = objc_opt_class();
-                v30 = *(a1 + 40);
+                v28 = objc_opt_class();
+                v29 = *(a1 + 40);
                 *buf = 138412802;
-                v44 = v29;
-                v45 = 2048;
-                v46 = v30;
-                v47 = 2112;
-                v48 = v18;
-                v31 = v29;
+                v43 = v28;
+                v44 = 2048;
+                v45 = v29;
+                v46 = 2112;
+                v47 = v18;
+                v30 = v28;
                 _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "<%@ %p> observeValueForKeyPath: transcription operation %@", buf, 0x20u);
               }
 
@@ -8972,24 +8962,23 @@ void sub_10005761C(uint64_t a1)
               goto LABEL_37;
             }
 
-            v19 = sub_10005435C();
-            if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+            v20 = sub_10005435C(isKindOfClass);
+            if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
             {
-              v20 = *(a1 + 40);
               v21 = objc_opt_class();
               v22 = *(a1 + 40);
               *buf = 138412802;
-              v44 = v21;
-              v45 = 2048;
-              v46 = v22;
-              v47 = 2112;
-              v48 = v18;
+              v43 = v21;
+              v44 = 2048;
+              v45 = v22;
+              v46 = 2112;
+              v47 = v18;
               v23 = v21;
-              _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "<%@ %p> observeValueForKeyPath: non-transcription operation %@", buf, 0x20u);
+              _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "<%@ %p> observeValueForKeyPath: non-transcription operation %@", buf, 0x20u);
             }
           }
 
-          v15 = [v14 countByEnumeratingWithState:&v38 objects:v42 count:16];
+          v15 = [v14 countByEnumeratingWithState:&v37 objects:v41 count:16];
           v24 = 0;
           if (v15)
           {
@@ -9007,19 +8996,18 @@ void sub_10005761C(uint64_t a1)
 
 LABEL_37:
 
-      v32 = sub_10005435C();
+      v32 = sub_10005435C(v31);
       if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
       {
-        v33 = *(a1 + 40);
-        v34 = objc_opt_class();
-        v35 = *(a1 + 40);
-        v36 = asNSStringBOOL();
+        v33 = objc_opt_class();
+        v34 = *(a1 + 40);
+        v35 = asNSStringBOOL();
         *buf = 138412802;
-        v44 = v34;
-        v45 = 2048;
-        v46 = v35;
-        v47 = 2112;
-        v48 = v36;
+        v43 = v33;
+        v44 = 2048;
+        v45 = v34;
+        v46 = 2112;
+        v47 = v35;
         _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "<%@ %p> observeValueForKeyPath: transcribing is %@", buf, 0x20u);
       }
 
@@ -9036,7 +9024,7 @@ LABEL_37:
     {
       v25 = *(a1 + 48);
       v26 = *(a1 + 40);
-      v37 = v25;
+      v36 = v25;
       [v25 fractionCompleted];
       [v26 notifyTranscriptionProgressFractionCompletedChanged:?];
     }
@@ -9048,8 +9036,8 @@ LABEL_37:
         return;
       }
 
-      v37 = *(a1 + 48);
-      [*(a1 + 40) notifyTranscriptionProgressTotalUnitCountChanged:{objc_msgSend(v37, "totalUnitCount")}];
+      v36 = *(a1 + 48);
+      [*(a1 + 40) notifyTranscriptionProgressTotalUnitCountChanged:{objc_msgSend(v36, "totalUnitCount")}];
     }
   }
 }

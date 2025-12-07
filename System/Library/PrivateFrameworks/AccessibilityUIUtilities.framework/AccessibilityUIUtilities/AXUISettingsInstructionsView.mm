@@ -887,11 +887,11 @@ void __80__AXUISettingsInstructionsView_textView_primaryActionForTextItem_defaul
   return v6 + 5.0;
 }
 
-- (uint64_t)textView:primaryActionForTextItem:defaultAction:.cold.1()
+- (void)textView:primaryActionForTextItem:defaultAction:.cold.1()
 {
-  dlerror();
-  abort_report_np();
-  return __getBFFStyleClass_block_invoke_cold_1();
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  __getBFFStyleClass_block_invoke_cold_1();
 }
 
 @end

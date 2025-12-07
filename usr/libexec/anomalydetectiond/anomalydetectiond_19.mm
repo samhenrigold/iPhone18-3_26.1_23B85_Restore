@@ -1,3 +1,629 @@
+uint64_t CMMsl::FallDetectionReplay::writeTo(uint64_t this, PB::Writer *a2)
+{
+  v3 = this;
+  v4 = (this + 364);
+  v5 = *(this + 364);
+  if ((v5 & 0x40000000) != 0)
+  {
+    this = PB::Writer::writeVarInt(a2, *(this + 248), 1u);
+    v5 = *v4;
+    if ((*v4 & 0x80000000) == 0)
+    {
+LABEL_3:
+      if ((v5 & 0x80000) == 0)
+      {
+        goto LABEL_4;
+      }
+
+      goto LABEL_49;
+    }
+  }
+
+  else if ((v5 & 0x80000000) == 0)
+  {
+    goto LABEL_3;
+  }
+
+  this = PB::Writer::writeVarInt(a2, *(v3 + 256), 2u);
+  v5 = *v4;
+  if ((*v4 & 0x80000) == 0)
+  {
+LABEL_4:
+    if ((v5 & 0x100000) == 0)
+    {
+      goto LABEL_5;
+    }
+
+    goto LABEL_50;
+  }
+
+LABEL_49:
+  this = PB::Writer::writeVarInt(a2, *(v3 + 160), 0x15u);
+  v5 = *v4;
+  if ((*v4 & 0x100000) == 0)
+  {
+LABEL_5:
+    if ((v5 & 0x200000) == 0)
+    {
+      goto LABEL_6;
+    }
+
+    goto LABEL_51;
+  }
+
+LABEL_50:
+  this = PB::Writer::writeVarInt(a2, *(v3 + 168), 0x16u);
+  v5 = *v4;
+  if ((*v4 & 0x200000) == 0)
+  {
+LABEL_6:
+    if ((v5 & 0x8000000000) == 0)
+    {
+      goto LABEL_7;
+    }
+
+    goto LABEL_52;
+  }
+
+LABEL_51:
+  this = PB::Writer::writeVarInt(a2, *(v3 + 176), 0x2Cu);
+  v5 = *v4;
+  if ((*v4 & 0x8000000000) == 0)
+  {
+LABEL_7:
+    if ((v5 & 0x40000000000) == 0)
+    {
+      goto LABEL_8;
+    }
+
+    goto LABEL_53;
+  }
+
+LABEL_52:
+  this = PB::Writer::writeVarInt(a2, *(v3 + 320), 0x2Du);
+  v5 = *v4;
+  if ((*v4 & 0x40000000000) == 0)
+  {
+LABEL_8:
+    if ((v5 & 0x10000000000) == 0)
+    {
+      goto LABEL_9;
+    }
+
+    goto LABEL_54;
+  }
+
+LABEL_53:
+  this = PB::Writer::writeVarInt(a2, *(v3 + 344), 0x2Eu);
+  v5 = *v4;
+  if ((*v4 & 0x10000000000) == 0)
+  {
+LABEL_9:
+    if ((v5 & 0x20000000000) == 0)
+    {
+      goto LABEL_10;
+    }
+
+    goto LABEL_55;
+  }
+
+LABEL_54:
+  this = PB::Writer::writeVarInt(a2, *(v3 + 328), 0x2Fu);
+  v5 = *v4;
+  if ((*v4 & 0x20000000000) == 0)
+  {
+LABEL_10:
+    if ((v5 & 0x80000000000) == 0)
+    {
+      goto LABEL_11;
+    }
+
+    goto LABEL_56;
+  }
+
+LABEL_55:
+  this = PB::Writer::writeVarInt(a2, *(v3 + 336), 0x30u);
+  v5 = *v4;
+  if ((*v4 & 0x80000000000) == 0)
+  {
+LABEL_11:
+    if ((v5 & 0x100000000000) == 0)
+    {
+      goto LABEL_12;
+    }
+
+    goto LABEL_57;
+  }
+
+LABEL_56:
+  this = PB::Writer::writeVarInt(a2, *(v3 + 352), 0x31u);
+  v5 = *v4;
+  if ((*v4 & 0x100000000000) == 0)
+  {
+LABEL_12:
+    if ((v5 & 0x1000000) == 0)
+    {
+      goto LABEL_13;
+    }
+
+    goto LABEL_58;
+  }
+
+LABEL_57:
+  this = PB::Writer::writeVarInt(a2, *(v3 + 360), 0x32u);
+  v5 = *v4;
+  if ((*v4 & 0x1000000) == 0)
+  {
+LABEL_13:
+    if ((v5 & 0x8000000) == 0)
+    {
+      goto LABEL_14;
+    }
+
+    goto LABEL_59;
+  }
+
+LABEL_58:
+  this = PB::Writer::writeVarInt(a2, *(v3 + 200), 0x33u);
+  v5 = *v4;
+  if ((*v4 & 0x8000000) == 0)
+  {
+LABEL_14:
+    if ((v5 & 0x2000000) == 0)
+    {
+      goto LABEL_15;
+    }
+
+    goto LABEL_60;
+  }
+
+LABEL_59:
+  this = PB::Writer::writeVarInt(a2, *(v3 + 224), 0x34u);
+  v5 = *v4;
+  if ((*v4 & 0x2000000) == 0)
+  {
+LABEL_15:
+    if ((v5 & 0x4000000) == 0)
+    {
+      goto LABEL_16;
+    }
+
+    goto LABEL_61;
+  }
+
+LABEL_60:
+  this = PB::Writer::writeVarInt(a2, *(v3 + 208), 0x35u);
+  v5 = *v4;
+  if ((*v4 & 0x4000000) == 0)
+  {
+LABEL_16:
+    if ((v5 & 0x400000) == 0)
+    {
+      goto LABEL_17;
+    }
+
+    goto LABEL_62;
+  }
+
+LABEL_61:
+  this = PB::Writer::writeVarInt(a2, *(v3 + 216), 0x36u);
+  v5 = *v4;
+  if ((*v4 & 0x400000) == 0)
+  {
+LABEL_17:
+    if ((v5 & 0x800000) == 0)
+    {
+      goto LABEL_18;
+    }
+
+    goto LABEL_63;
+  }
+
+LABEL_62:
+  this = PB::Writer::writeVarInt(a2, *(v3 + 184), 0x37u);
+  v5 = *v4;
+  if ((*v4 & 0x800000) == 0)
+  {
+LABEL_18:
+    if ((v5 & 0x20) == 0)
+    {
+      goto LABEL_19;
+    }
+
+    goto LABEL_64;
+  }
+
+LABEL_63:
+  this = PB::Writer::writeVarInt(a2, *(v3 + 192), 0x38u);
+  v5 = *v4;
+  if ((*v4 & 0x20) == 0)
+  {
+LABEL_19:
+    if ((v5 & 8) == 0)
+    {
+      goto LABEL_20;
+    }
+
+    goto LABEL_65;
+  }
+
+LABEL_64:
+  this = PB::Writer::writeVarInt(a2, *(v3 + 48), 0x3Bu);
+  v5 = *v4;
+  if ((*v4 & 8) == 0)
+  {
+LABEL_20:
+    if ((v5 & 1) == 0)
+    {
+      goto LABEL_21;
+    }
+
+    goto LABEL_66;
+  }
+
+LABEL_65:
+  this = PB::Writer::writeVarInt(a2, *(v3 + 32), 0x3Cu);
+  v5 = *v4;
+  if ((*v4 & 1) == 0)
+  {
+LABEL_21:
+    if ((v5 & 0x40) == 0)
+    {
+      goto LABEL_22;
+    }
+
+    goto LABEL_67;
+  }
+
+LABEL_66:
+  this = PB::Writer::writeVarInt(a2, *(v3 + 8), 0x3Du);
+  v5 = *v4;
+  if ((*v4 & 0x40) == 0)
+  {
+LABEL_22:
+    if ((v5 & 0x100) == 0)
+    {
+      goto LABEL_23;
+    }
+
+    goto LABEL_68;
+  }
+
+LABEL_67:
+  this = PB::Writer::writeVarInt(a2, *(v3 + 56), 0x3Eu);
+  v5 = *v4;
+  if ((*v4 & 0x100) == 0)
+  {
+LABEL_23:
+    if ((v5 & 0x10) == 0)
+    {
+      goto LABEL_24;
+    }
+
+    goto LABEL_69;
+  }
+
+LABEL_68:
+  this = PB::Writer::writeVarInt(a2, *(v3 + 72), 0x3Fu);
+  v5 = *v4;
+  if ((*v4 & 0x10) == 0)
+  {
+LABEL_24:
+    if ((v5 & 0x200) == 0)
+    {
+      goto LABEL_25;
+    }
+
+    goto LABEL_70;
+  }
+
+LABEL_69:
+  this = PB::Writer::writeVarInt(a2, *(v3 + 40), 0x40u);
+  v5 = *v4;
+  if ((*v4 & 0x200) == 0)
+  {
+LABEL_25:
+    if ((v5 & 0x400) == 0)
+    {
+      goto LABEL_26;
+    }
+
+    goto LABEL_71;
+  }
+
+LABEL_70:
+  this = PB::Writer::writeVarInt(a2, *(v3 + 80), 0x41u);
+  v5 = *v4;
+  if ((*v4 & 0x400) == 0)
+  {
+LABEL_26:
+    if ((v5 & 0x800) == 0)
+    {
+      goto LABEL_27;
+    }
+
+    goto LABEL_72;
+  }
+
+LABEL_71:
+  this = PB::Writer::writeVarInt(a2, *(v3 + 88), 0x42u);
+  v5 = *v4;
+  if ((*v4 & 0x800) == 0)
+  {
+LABEL_27:
+    if ((v5 & 0x4000) == 0)
+    {
+      goto LABEL_28;
+    }
+
+    goto LABEL_73;
+  }
+
+LABEL_72:
+  this = PB::Writer::writeVarInt(a2, *(v3 + 96), 0x43u);
+  v5 = *v4;
+  if ((*v4 & 0x4000) == 0)
+  {
+LABEL_28:
+    if ((v5 & 2) == 0)
+    {
+      goto LABEL_29;
+    }
+
+    goto LABEL_74;
+  }
+
+LABEL_73:
+  this = PB::Writer::writeVarInt(a2, *(v3 + 120), 0x44u);
+  v5 = *v4;
+  if ((*v4 & 2) == 0)
+  {
+LABEL_29:
+    if ((v5 & 0x8000) == 0)
+    {
+      goto LABEL_30;
+    }
+
+    goto LABEL_75;
+  }
+
+LABEL_74:
+  this = PB::Writer::writeVarInt(a2, *(v3 + 16), 0x45u);
+  v5 = *v4;
+  if ((*v4 & 0x8000) == 0)
+  {
+LABEL_30:
+    if ((v5 & 0x800000000) == 0)
+    {
+      goto LABEL_31;
+    }
+
+    goto LABEL_76;
+  }
+
+LABEL_75:
+  this = PB::Writer::writeVarInt(a2, *(v3 + 128), 0x46u);
+  v5 = *v4;
+  if ((*v4 & 0x800000000) == 0)
+  {
+LABEL_31:
+    if ((v5 & 0x400000000) == 0)
+    {
+      goto LABEL_32;
+    }
+
+    goto LABEL_77;
+  }
+
+LABEL_76:
+  this = PB::Writer::writeVarInt(a2, *(v3 + 288), 0x47u);
+  v5 = *v4;
+  if ((*v4 & 0x400000000) == 0)
+  {
+LABEL_32:
+    if ((v5 & 0x200000000) == 0)
+    {
+      goto LABEL_33;
+    }
+
+    goto LABEL_78;
+  }
+
+LABEL_77:
+  this = PB::Writer::writeVarInt(a2, *(v3 + 280), 0x48u);
+  v5 = *v4;
+  if ((*v4 & 0x200000000) == 0)
+  {
+LABEL_33:
+    if ((v5 & 0x100000000) == 0)
+    {
+      goto LABEL_34;
+    }
+
+    goto LABEL_79;
+  }
+
+LABEL_78:
+  this = PB::Writer::writeVarInt(a2, *(v3 + 272), 0x49u);
+  v5 = *v4;
+  if ((*v4 & 0x100000000) == 0)
+  {
+LABEL_34:
+    if ((v5 & 0x20000000) == 0)
+    {
+      goto LABEL_35;
+    }
+
+    goto LABEL_80;
+  }
+
+LABEL_79:
+  this = PB::Writer::writeVarInt(a2, *(v3 + 264), 0x4Au);
+  v5 = *v4;
+  if ((*v4 & 0x20000000) == 0)
+  {
+LABEL_35:
+    if ((v5 & 0x10000000) == 0)
+    {
+      goto LABEL_36;
+    }
+
+    goto LABEL_81;
+  }
+
+LABEL_80:
+  this = PB::Writer::writeVarInt(a2, *(v3 + 240), 0x51u);
+  v5 = *v4;
+  if ((*v4 & 0x10000000) == 0)
+  {
+LABEL_36:
+    if ((v5 & 0x2000) == 0)
+    {
+      goto LABEL_37;
+    }
+
+    goto LABEL_82;
+  }
+
+LABEL_81:
+  this = PB::Writer::writeVarInt(a2, *(v3 + 232), 0x52u);
+  v5 = *v4;
+  if ((*v4 & 0x2000) == 0)
+  {
+LABEL_37:
+    if ((v5 & 0x10000) == 0)
+    {
+      goto LABEL_38;
+    }
+
+    goto LABEL_83;
+  }
+
+LABEL_82:
+  this = PB::Writer::writeVarInt(a2, *(v3 + 112), 0x53u);
+  v5 = *v4;
+  if ((*v4 & 0x10000) == 0)
+  {
+LABEL_38:
+    if ((v5 & 4) == 0)
+    {
+      goto LABEL_39;
+    }
+
+    goto LABEL_84;
+  }
+
+LABEL_83:
+  this = PB::Writer::writeVarInt(a2, *(v3 + 136), 0x54u);
+  v5 = *v4;
+  if ((*v4 & 4) == 0)
+  {
+LABEL_39:
+    if ((v5 & 0x40000) == 0)
+    {
+      goto LABEL_40;
+    }
+
+    goto LABEL_85;
+  }
+
+LABEL_84:
+  this = PB::Writer::writeVarInt(a2, *(v3 + 24), 0x55u);
+  v5 = *v4;
+  if ((*v4 & 0x40000) == 0)
+  {
+LABEL_40:
+    if ((v5 & 0x20000) == 0)
+    {
+      goto LABEL_41;
+    }
+
+    goto LABEL_86;
+  }
+
+LABEL_85:
+  this = PB::Writer::writeVarInt(a2, *(v3 + 152), 0x56u);
+  v5 = *v4;
+  if ((*v4 & 0x20000) == 0)
+  {
+LABEL_41:
+    if ((v5 & 0x80) == 0)
+    {
+      goto LABEL_42;
+    }
+
+    goto LABEL_87;
+  }
+
+LABEL_86:
+  this = PB::Writer::writeVarInt(a2, *(v3 + 144), 0x57u);
+  v5 = *v4;
+  if ((*v4 & 0x80) == 0)
+  {
+LABEL_42:
+    if ((v5 & 0x1000) == 0)
+    {
+      goto LABEL_43;
+    }
+
+    goto LABEL_88;
+  }
+
+LABEL_87:
+  this = PB::Writer::writeVarInt(a2, *(v3 + 64), 0x58u);
+  v5 = *v4;
+  if ((*v4 & 0x1000) == 0)
+  {
+LABEL_43:
+    if ((v5 & 0x4000000000) == 0)
+    {
+      goto LABEL_44;
+    }
+
+    goto LABEL_89;
+  }
+
+LABEL_88:
+  this = PB::Writer::writeVarInt(a2, *(v3 + 104), 0x59u);
+  v5 = *v4;
+  if ((*v4 & 0x4000000000) == 0)
+  {
+LABEL_44:
+    if ((v5 & 0x1000000000) == 0)
+    {
+      goto LABEL_45;
+    }
+
+LABEL_90:
+    this = PB::Writer::writeVarInt(a2, *(v3 + 296), 0x65u);
+    if ((*v4 & 0x2000000000) == 0)
+    {
+      return this;
+    }
+
+    goto LABEL_91;
+  }
+
+LABEL_89:
+  this = PB::Writer::writeVarInt(a2, *(v3 + 312), 0x64u);
+  v5 = *v4;
+  if ((*v4 & 0x1000000000) != 0)
+  {
+    goto LABEL_90;
+  }
+
+LABEL_45:
+  if ((v5 & 0x2000000000) == 0)
+  {
+    return this;
+  }
+
+LABEL_91:
+  v6 = *(v3 + 304);
+
+  return PB::Writer::write(a2, v6, 0x66u);
+}
+
 BOOL CMMsl::FallDetectionReplay::operator==(uint64_t a1, uint64_t a2)
 {
   v2 = *(a1 + 364);
@@ -2009,7 +2635,7 @@ double CMMsl::FallDetectionStateMachine::FallDetectionStateMachine(uint64_t a1, 
   return result;
 }
 
-CMMsl *CMMsl::FallDetectionStateMachine::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::FallDetectionStateMachine::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -7048,7 +7674,7 @@ uint64_t CMMsl::FallDetectionWristStateReplay::FallDetectionWristStateReplay(uin
   return a1;
 }
 
-CMMsl *CMMsl::FallDetectionWristStateReplay::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::FallDetectionWristStateReplay::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {

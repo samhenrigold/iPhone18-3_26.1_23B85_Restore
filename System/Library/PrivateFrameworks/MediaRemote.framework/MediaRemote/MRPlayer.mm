@@ -12,8 +12,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)debugDescription;
 - (id)description;
-- (id)initWithProtobuf:(id)protobuf;
 - (unint64_t)hash;
+- (void)initWithProtobuf:(void *)protobuf;
 - (void)mergeFrom:(id)from;
 @end
 
@@ -73,16 +73,15 @@ void __25__MRPlayer_defaultPlayer__block_invoke()
 
 - (unint64_t)hash
 {
-  v58 = *MEMORY[0x1E69E9840];
   v3 = MSVHasherSharedSeed();
   v4 = v3 ^ 0x736F6D6570736575;
-  v53 = v3 ^ 0x736F6D6570736575;
+  v52 = v3 ^ 0x736F6D6570736575;
   v6 = v5 ^ 0x646F72616E646F6DLL;
   v7 = v3 ^ 0x6C7967656E657261;
-  v54 = v5 ^ 0x646F72616E646F6DLL;
-  v55 = v3 ^ 0x6C7967656E657261;
+  v53 = v5 ^ 0x646F72616E646F6DLL;
+  v54 = v3 ^ 0x6C7967656E657261;
   v8 = v5 ^ 0x7465646279746573;
-  v56 = v5 ^ 0x7465646279746573;
+  v55 = v5 ^ 0x7465646279746573;
   v9 = self->_identifier;
   uTF8String = [(NSString *)v9 UTF8String];
   v11 = [(NSString *)v9 length];
@@ -105,11 +104,11 @@ void __25__MRPlayer_defaultPlayer__block_invoke()
       v8 = v17 ^ __ROR8__(v15 ^ v16, 43);
       v6 = (v15 + v14) ^ __ROR8__(v14, 47);
       v7 = __ROR8__(v15 + v14, 32);
-      v55 = v7;
-      v56 = v8;
+      v54 = v7;
+      v55 = v8;
       v4 = v17 ^ v13;
-      v53 = v17 ^ v13;
-      v54 = v6;
+      v52 = v17 ^ v13;
+      v53 = v6;
       v11 -= 8;
     }
 
@@ -138,16 +137,16 @@ void __25__MRPlayer_defaultPlayer__block_invoke()
     v22 = v12 << 56;
   }
 
-  v57 = v22;
+  v56 = v22;
 
-  v23 = (v53 + v54) ^ __ROR8__(v54, 51);
-  v24 = v55 + (v56 ^ v57);
-  v25 = __ROR8__(v56 ^ v57, 48);
-  v26 = (v24 ^ v25) + __ROR8__(v53 + v54, 32);
+  v23 = (v52 + v53) ^ __ROR8__(v53, 51);
+  v24 = v54 + (v55 ^ v56);
+  v25 = __ROR8__(v55 ^ v56, 48);
+  v26 = (v24 ^ v25) + __ROR8__(v52 + v53, 32);
   v27 = v26 ^ __ROR8__(v24 ^ v25, 43);
   v28 = v24 + v23;
   v29 = v28 ^ __ROR8__(v23, 47);
-  v30 = (v26 ^ v57) + v29;
+  v30 = (v26 ^ v56) + v29;
   v31 = v30 ^ __ROR8__(v29, 51);
   v32 = (__ROR8__(v28, 32) ^ 0xFFLL) + v27;
   v33 = __ROR8__(v27, 48);
@@ -168,13 +167,12 @@ void __25__MRPlayer_defaultPlayer__block_invoke()
   v48 = __ROR8__(v44, 32) + v43;
   v49 = __ROR8__(v43, 48);
   v50 = __ROR8__(v46, 32) + (v48 ^ v49);
-  v51 = *MEMORY[0x1E69E9840];
   return (v47 + v48) ^ __ROR8__(v47, 47) ^ v50 ^ __ROR8__(v47 + v48, 32) ^ v50 ^ __ROR8__(v48 ^ v49, 43);
 }
 
 - (_MRNowPlayingPlayerProtobuf)protobuf
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (self)
   {
     v2 = objc_alloc_init(_MRNowPlayingPlayerProtobuf);
@@ -201,29 +199,29 @@ void __25__MRPlayer_defaultPlayer__block_invoke()
 
     [(_MRNowPlayingPlayerProtobuf *)v2 setAudioSessionType:v8];
     -[_MRNowPlayingPlayerProtobuf setHasAudioSessionType:](v2, "setHasAudioSessionType:", [self audioSessionType] != 0);
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     mxSessionIDs = [self mxSessionIDs];
-    v10 = [mxSessionIDs countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v10 = [mxSessionIDs countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v17;
+      v12 = *v16;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v17 != v12)
+          if (*v16 != v12)
           {
             objc_enumerationMutation(mxSessionIDs);
           }
 
-          -[_MRNowPlayingPlayerProtobuf addMxSessionID:](v2, "addMxSessionID:", [*(*(&v16 + 1) + 8 * i) integerValue]);
+          -[_MRNowPlayingPlayerProtobuf addMxSessionID:](v2, "addMxSessionID:", [*(*(&v15 + 1) + 8 * i) integerValue]);
         }
 
-        v11 = [mxSessionIDs countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v11 = [mxSessionIDs countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v11);
@@ -236,8 +234,6 @@ void __25__MRPlayer_defaultPlayer__block_invoke()
   {
     v2 = 0;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
@@ -316,7 +312,7 @@ void __25__MRPlayer_defaultPlayer__block_invoke()
   equalCopy = equal;
   if (equalCopy == self)
   {
-    v7 = 1;
+    isEqualToString = 1;
   }
 
   else
@@ -326,16 +322,16 @@ void __25__MRPlayer_defaultPlayer__block_invoke()
     {
       identifier = [(MRPlayer *)equalCopy identifier];
       identifier2 = [(MRPlayer *)self identifier];
-      v7 = [identifier isEqualToString:identifier2];
+      isEqualToString = objc_msgSend_isEqualToString_(identifier);
     }
 
     else
     {
-      v7 = 0;
+      isEqualToString = 0;
     }
   }
 
-  return v7;
+  return isEqualToString;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -408,7 +404,7 @@ void __25__MRPlayer_defaultPlayer__block_invoke()
   }
 }
 
-- (id)initWithProtobuf:(id)protobuf
+- (void)initWithProtobuf:(void *)protobuf
 {
   v3 = a2;
   v4 = v3;

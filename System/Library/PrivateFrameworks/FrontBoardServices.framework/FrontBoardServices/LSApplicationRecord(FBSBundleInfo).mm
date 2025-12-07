@@ -10,7 +10,7 @@
   compatibilityObject = [self compatibilityObject];
   if (!compatibilityObject)
   {
-    v3 = FBSLogApplicationLibrary();
+    v3 = FBSLogApplicationLibrary(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v5 = 138412290;

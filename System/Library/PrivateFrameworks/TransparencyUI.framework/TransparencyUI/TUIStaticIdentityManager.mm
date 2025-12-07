@@ -83,7 +83,7 @@ uint64_t __64__TUIStaticIdentityManager_initWithConversationMembers_options___bl
 
 - (void)deleteKTSession
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (TRANSPARENCYUI_DEFAULT_LOG_BLOCK_22 != -1)
   {
     [TUIStaticIdentityManager deleteKTSession];
@@ -94,9 +94,9 @@ uint64_t __64__TUIStaticIdentityManager_initWithConversationMembers_options___bl
   {
     v4 = v3;
     ktSession = [(TUIStaticIdentityManager *)self ktSession];
-    v13 = 138412290;
-    v14 = ktSession;
-    _os_log_impl(&dword_26F50B000, v4, OS_LOG_TYPE_DEBUG, "Deleting ktsession: %@", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = ktSession;
+    _os_log_impl(&dword_26F50B000, v4, OS_LOG_TYPE_DEBUG, "Deleting ktsession: %@", &v12, 0xCu);
   }
 
   staticKey = [(TUIStaticIdentityManager *)self staticKey];
@@ -115,8 +115,6 @@ uint64_t __64__TUIStaticIdentityManager_initWithConversationMembers_options___bl
       [(TUIStaticIdentityManager *)self setKtSession:0];
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __43__TUIStaticIdentityManager_deleteKTSession__block_invoke()
@@ -128,10 +126,9 @@ uint64_t __43__TUIStaticIdentityManager_deleteKTSession__block_invoke()
 
 - (void)requestSelfAccountKey
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, v6);
 }
 
 uint64_t __49__TUIStaticIdentityManager_requestSelfAccountKey__block_invoke()
@@ -164,13 +161,13 @@ void __49__TUIStaticIdentityManager_requestSelfAccountKey__block_invoke_17(uint6
     block[1] = 3221225472;
     block[2] = __49__TUIStaticIdentityManager_requestSelfAccountKey__block_invoke_24;
     block[3] = &unk_279DDABF0;
-    objc_copyWeak(&v10, location);
-    v8 = v3;
-    v9 = 0;
+    objc_copyWeak(&v9, location);
+    v7 = v3;
+    v8 = 0;
     v4 = v3;
     dispatch_async(MEMORY[0x277D85CD0], block);
 
-    objc_destroyWeak(&v10);
+    objc_destroyWeak(&v9);
     objc_destroyWeak(location);
   }
 
@@ -189,8 +186,6 @@ void __49__TUIStaticIdentityManager_requestSelfAccountKey__block_invoke_17(uint6
       _os_log_impl(&dword_26F50B000, v5, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", location, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __49__TUIStaticIdentityManager_requestSelfAccountKey__block_invoke_2()
@@ -209,7 +204,7 @@ uint64_t __49__TUIStaticIdentityManager_requestSelfAccountKey__block_invoke_20()
 
 void __49__TUIStaticIdentityManager_requestSelfAccountKey__block_invoke_24(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -227,7 +222,7 @@ void __49__TUIStaticIdentityManager_requestSelfAccountKey__block_invoke_24(uint6
 
       if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_22, OS_LOG_TYPE_DEBUG))
       {
-        __49__TUIStaticIdentityManager_requestSelfAccountKey__block_invoke_24_cold_2(v3, v3 + 4);
+        __49__TUIStaticIdentityManager_requestSelfAccountKey__block_invoke_24_cold_2();
       }
     }
 
@@ -240,7 +235,7 @@ void __49__TUIStaticIdentityManager_requestSelfAccountKey__block_invoke_24(uint6
 
       if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_22, OS_LOG_TYPE_ERROR))
       {
-        __49__TUIStaticIdentityManager_requestSelfAccountKey__block_invoke_24_cold_4(v3, a1);
+        __49__TUIStaticIdentityManager_requestSelfAccountKey__block_invoke_24_cold_4();
       }
 
       v7 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
@@ -262,13 +257,11 @@ void __49__TUIStaticIdentityManager_requestSelfAccountKey__block_invoke_24(uint6
     v6 = TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_22;
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_22, OS_LOG_TYPE_ERROR))
     {
-      v11 = 136315138;
-      v12 = "[TUIStaticIdentityManager requestSelfAccountKey]_block_invoke";
-      _os_log_impl(&dword_26F50B000, v6, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", &v11, 0xCu);
+      v10 = 136315138;
+      v11 = "[TUIStaticIdentityManager requestSelfAccountKey]_block_invoke";
+      _os_log_impl(&dword_26F50B000, v6, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", &v10, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __49__TUIStaticIdentityManager_requestSelfAccountKey__block_invoke_2_25()
@@ -294,10 +287,9 @@ uint64_t __49__TUIStaticIdentityManager_requestSelfAccountKey__block_invoke_31()
 
 - (void)requestNewSasCodeWithDelay
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, v6);
 }
 
 uint64_t __54__TUIStaticIdentityManager_requestNewSasCodeWithDelay__block_invoke()
@@ -309,7 +301,7 @@ uint64_t __54__TUIStaticIdentityManager_requestNewSasCodeWithDelay__block_invoke
 
 void __54__TUIStaticIdentityManager_requestNewSasCodeWithDelay__block_invoke_46(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = WeakRetained;
   if (WeakRetained)
@@ -327,13 +319,11 @@ void __54__TUIStaticIdentityManager_requestNewSasCodeWithDelay__block_invoke_46(
     v3 = TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_22;
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_22, OS_LOG_TYPE_ERROR))
     {
-      v5 = 136315138;
-      v6 = "[TUIStaticIdentityManager requestNewSasCodeWithDelay]_block_invoke";
-      _os_log_impl(&dword_26F50B000, v3, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", &v5, 0xCu);
+      v4 = 136315138;
+      v5 = "[TUIStaticIdentityManager requestNewSasCodeWithDelay]_block_invoke";
+      _os_log_impl(&dword_26F50B000, v3, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", &v4, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __54__TUIStaticIdentityManager_requestNewSasCodeWithDelay__block_invoke_2()
@@ -345,10 +335,9 @@ uint64_t __54__TUIStaticIdentityManager_requestNewSasCodeWithDelay__block_invoke
 
 - (void)requestNewSasCode
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, v6);
 }
 
 uint64_t __45__TUIStaticIdentityManager_requestNewSasCode__block_invoke()
@@ -361,7 +350,7 @@ uint64_t __45__TUIStaticIdentityManager_requestNewSasCode__block_invoke()
 - (void)requestConversationVerificationState:(BOOL)state completionHandler:(id)handler
 {
   stateCopy = state;
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   self->_conversationVerified = 0;
   [(TUIStaticIdentityManager *)self _updateUI];
@@ -385,10 +374,10 @@ uint64_t __45__TUIStaticIdentityManager_requestNewSasCode__block_invoke()
     block[2] = __83__TUIStaticIdentityManager_requestConversationVerificationState_completionHandler___block_invoke_60;
     block[3] = &unk_279DDB430;
     block[4] = self;
-    v18 = stateCopy;
-    v17 = handlerCopy;
-    v15 = v7;
-    v16 = v9;
+    v17 = stateCopy;
+    v16 = handlerCopy;
+    v14 = v7;
+    v15 = v9;
     dispatch_async(v10, block);
   }
 
@@ -404,9 +393,9 @@ uint64_t __45__TUIStaticIdentityManager_requestNewSasCode__block_invoke()
     {
       options = self->_options;
       *buf = 138412546;
-      v20 = v7;
-      v21 = 2112;
-      v22 = options;
+      v19 = v7;
+      v20 = 2112;
+      v21 = options;
       _os_log_impl(&dword_26F50B000, v11, OS_LOG_TYPE_ERROR, "failed get peer verification status (invalid parameters uri = %@, options = %@)", buf, 0x16u);
     }
 
@@ -423,8 +412,6 @@ uint64_t __45__TUIStaticIdentityManager_requestNewSasCode__block_invoke()
 
     handlerCopy[2](handlerCopy);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __83__TUIStaticIdentityManager_requestConversationVerificationState_completionHandler___block_invoke()
@@ -436,40 +423,38 @@ uint64_t __83__TUIStaticIdentityManager_requestConversationVerificationState_com
 
 void __83__TUIStaticIdentityManager_requestConversationVerificationState_completionHandler___block_invoke_60(uint64_t a1)
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc(MEMORY[0x277D73570]);
   v3 = [v2 initWithApplication:*MEMORY[0x277D735B0]];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __83__TUIStaticIdentityManager_requestConversationVerificationState_completionHandler___block_invoke_2;
-  v9[3] = &unk_279DDB3E0;
-  v9[4] = *(a1 + 32);
-  v11 = *(a1 + 64);
-  v10 = *(a1 + 56);
-  v4 = MEMORY[0x274393BA0](v9);
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __83__TUIStaticIdentityManager_requestConversationVerificationState_completionHandler___block_invoke_2;
+  v8[3] = &unk_279DDB3E0;
+  v8[4] = *(a1 + 32);
+  v10 = *(a1 + 64);
+  v9 = *(a1 + 56);
+  v4 = MEMORY[0x274393BA0](v8);
   if (_os_feature_enabled_impl())
   {
-    v12[0] = *(a1 + 40);
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __83__TUIStaticIdentityManager_requestConversationVerificationState_completionHandler___block_invoke_66;
-    v7[3] = &unk_279DDB408;
-    v8 = v4;
-    [v3 getCachedValidatePeerResults:v5 completionBlock:v7];
+    v11[0] = *(a1 + 40);
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+    v6[0] = MEMORY[0x277D85DD0];
+    v6[1] = 3221225472;
+    v6[2] = __83__TUIStaticIdentityManager_requestConversationVerificationState_completionHandler___block_invoke_66;
+    v6[3] = &unk_279DDB408;
+    v7 = v4;
+    [v3 getCachedValidatePeerResults:v5 completionBlock:v6];
   }
 
   else
   {
     [v3 getValidatePeerResult:*(a1 + 40) uuid:*(a1 + 48) completionBlock:v4];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __83__TUIStaticIdentityManager_requestConversationVerificationState_completionHandler___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (TRANSPARENCYUI_DEFAULT_LOG_BLOCK_22 != -1)
@@ -480,11 +465,11 @@ void __83__TUIStaticIdentityManager_requestConversationVerificationState_complet
   v7 = TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_22;
   if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_22, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 138478083;
-    v20 = v5;
-    v21 = 2114;
-    v22 = v6;
-    _os_log_impl(&dword_26F50B000, v7, OS_LOG_TYPE_DEFAULT, "getValidatePeerResult result = %{private}@, error = %{public}@", &v19, 0x16u);
+    v18 = 138478083;
+    v19 = v5;
+    v20 = 2114;
+    v21 = v6;
+    _os_log_impl(&dword_26F50B000, v7, OS_LOG_TYPE_DEFAULT, "getValidatePeerResult result = %{private}@, error = %{public}@", &v18, 0x16u);
   }
 
   v8 = v5 && [v5 staticAccountKeyEnforced] && objc_msgSend(v5, "staticAccountKeyStatus") == 0;
@@ -517,8 +502,6 @@ void __83__TUIStaticIdentityManager_requestConversationVerificationState_complet
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __83__TUIStaticIdentityManager_requestConversationVerificationState_completionHandler___block_invoke_3()
@@ -548,7 +531,7 @@ void __83__TUIStaticIdentityManager_requestConversationVerificationState_complet
 
 - (void)verifyConversation
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = [(TUIStaticIdentityManager *)self peerCNContact:self->_contactIdentifier];
   if (v3)
   {
@@ -566,11 +549,11 @@ void __83__TUIStaticIdentityManager_requestConversationVerificationState_complet
     {
       contactIdentifier = self->_contactIdentifier;
       peerPublicAccountIdentity = self->_peerPublicAccountIdentity;
-      v13 = 138412546;
-      v14 = contactIdentifier;
-      v15 = 2112;
-      v16 = peerPublicAccountIdentity;
-      _os_log_impl(&dword_26F50B000, v5, OS_LOG_TYPE_DEBUG, "Updating contact %@ with public key: %@", &v13, 0x16u);
+      v12 = 138412546;
+      v13 = contactIdentifier;
+      v14 = 2112;
+      v15 = peerPublicAccountIdentity;
+      _os_log_impl(&dword_26F50B000, v5, OS_LOG_TYPE_DEBUG, "Updating contact %@ with public key: %@", &v12, 0x16u);
     }
 
     delegate = [(TUIStaticIdentityManager *)self delegate];
@@ -589,13 +572,11 @@ void __83__TUIStaticIdentityManager_requestConversationVerificationState_complet
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_22, OS_LOG_TYPE_ERROR))
     {
       v11 = self->_contactIdentifier;
-      v13 = 138412290;
-      v14 = v11;
-      _os_log_impl(&dword_26F50B000, v10, OS_LOG_TYPE_ERROR, "failed to verify conversation (no peer) %@", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = v11;
+      _os_log_impl(&dword_26F50B000, v10, OS_LOG_TYPE_ERROR, "failed to verify conversation (no peer) %@", &v12, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __46__TUIStaticIdentityManager_verifyConversation__block_invoke()
@@ -673,7 +654,7 @@ uint64_t __46__TUIStaticIdentityManager_verifyConversation__block_invoke_74()
 
 - (id)localizedPeerAccountNameMessage:(id)message
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   personNameComponents = self->_personNameComponents;
   if (personNameComponents)
@@ -693,7 +674,7 @@ uint64_t __46__TUIStaticIdentityManager_verifyConversation__block_invoke_74()
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_22, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v25 = v6;
+      v24 = v6;
       _os_log_impl(&dword_26F50B000, v7, OS_LOG_TYPE_DEBUG, "peer account: %@", buf, 0xCu);
     }
 
@@ -763,8 +744,6 @@ LABEL_13:
   }
   v21 = ;
 
-  v22 = *MEMORY[0x277D85DE8];
-
   return v21;
 }
 
@@ -784,39 +763,39 @@ uint64_t __60__TUIStaticIdentityManager_localizedPeerAccountNameMessage___block_
 
 - (id)peerCNContact:(id)contact
 {
-  v31[1] = *MEMORY[0x277D85DE8];
+  v30[1] = *MEMORY[0x277D85DE8];
   contactCopy = contact;
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x3032000000;
-  v23 = __Block_byref_object_copy__0;
-  v24 = __Block_byref_object_dispose__0;
-  v25 = 0;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = __Block_byref_object_copy__0;
+  v23 = __Block_byref_object_dispose__0;
+  v24 = 0;
   if (contactCopy)
   {
     v4 = objc_alloc(MEMORY[0x277CBDA70]);
     descriptorForRequiredKeys = [MEMORY[0x277CBDC08] descriptorForRequiredKeys];
-    v31[0] = descriptorForRequiredKeys;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:1];
+    v30[0] = descriptorForRequiredKeys;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
     v7 = [v4 initWithKeysToFetch:v6];
 
     v8 = MEMORY[0x277CBDA58];
-    v30 = contactCopy;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:1];
+    v29 = contactCopy;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
     v10 = [v8 predicateForContactsWithIdentifiers:v9];
     [v7 setPredicate:v10];
 
     v11 = objc_opt_new();
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __42__TUIStaticIdentityManager_peerCNContact___block_invoke;
-    v18[3] = &unk_279DDB458;
-    v18[4] = &v20;
-    v19 = 0;
-    [v11 enumerateContactsWithFetchRequest:v7 error:&v19 usingBlock:v18];
-    v12 = v19;
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __42__TUIStaticIdentityManager_peerCNContact___block_invoke;
+    v17[3] = &unk_279DDB458;
+    v17[4] = &v19;
+    v18 = 0;
+    [v11 enumerateContactsWithFetchRequest:v7 error:&v18 usingBlock:v17];
+    v12 = v18;
 
-    v13 = v21[5];
+    v13 = v20[5];
     if (v13)
     {
       goto LABEL_10;
@@ -837,18 +816,16 @@ uint64_t __60__TUIStaticIdentityManager_localizedPeerAccountNameMessage___block_
   if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_22, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412546;
-    v27 = contactCopy;
-    v28 = 2112;
-    v29 = v12;
+    v26 = contactCopy;
+    v27 = 2112;
+    v28 = v12;
     _os_log_impl(&dword_26F50B000, v14, OS_LOG_TYPE_ERROR, "failed to fetch a contact for contactIdentifier = %@, error = %@", buf, 0x16u);
   }
 
-  v13 = v21[5];
+  v13 = v20[5];
 LABEL_10:
   v15 = v13;
-  _Block_object_dispose(&v20, 8);
-
-  v16 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v19, 8);
 
   return v15;
 }
@@ -862,7 +839,7 @@ uint64_t __42__TUIStaticIdentityManager_peerCNContact___block_invoke_2()
 
 - (int64_t)_sessionStateWithStateString:(id)string
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   if ([stringCopy isEqualToString:*MEMORY[0x277D73638]])
   {
@@ -894,15 +871,14 @@ uint64_t __42__TUIStaticIdentityManager_peerCNContact___block_invoke_2()
     v5 = TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_22;
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_22, OS_LOG_TYPE_ERROR))
     {
-      v8 = 138412290;
-      v9 = stringCopy;
-      _os_log_impl(&dword_26F50B000, v5, OS_LOG_TYPE_ERROR, "invalid session state %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = stringCopy;
+      _os_log_impl(&dword_26F50B000, v5, OS_LOG_TYPE_ERROR, "invalid session state %@", &v7, 0xCu);
     }
 
     v4 = 0;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -944,7 +920,7 @@ uint64_t __57__TUIStaticIdentityManager__sessionStateWithStateString___block_inv
 
 void __43__TUIStaticIdentityManager__setupKTSession__block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = WeakRetained;
   if (WeakRetained)
@@ -977,17 +953,17 @@ void __43__TUIStaticIdentityManager__setupKTSession__block_invoke(uint64_t a1)
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_22, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v17 = v7;
+      v16 = v7;
       _os_log_impl(&dword_26F50B000, v11, OS_LOG_TYPE_DEFAULT, "setupKTSession (%{public}@)", buf, 0xCu);
     }
 
     v12 = [v2 staticKey];
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __43__TUIStaticIdentityManager__setupKTSession__block_invoke_110;
-    v15[3] = &unk_279DDB480;
-    v15[4] = v2;
-    [v12 setupKTSession:v7 complete:v15];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __43__TUIStaticIdentityManager__setupKTSession__block_invoke_110;
+    v14[3] = &unk_279DDB480;
+    v14[4] = v2;
+    [v12 setupKTSession:v7 complete:v14];
   }
 
   else
@@ -1001,12 +977,10 @@ void __43__TUIStaticIdentityManager__setupKTSession__block_invoke(uint64_t a1)
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_22, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v17 = "[TUIStaticIdentityManager _setupKTSession]_block_invoke";
+      v16 = "[TUIStaticIdentityManager _setupKTSession]_block_invoke";
       _os_log_impl(&dword_26F50B000, v13, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", buf, 0xCu);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __43__TUIStaticIdentityManager__setupKTSession__block_invoke_2()
@@ -1025,7 +999,7 @@ uint64_t __43__TUIStaticIdentityManager__setupKTSession__block_invoke_107()
 
 void __43__TUIStaticIdentityManager__setupKTSession__block_invoke_110(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -1038,9 +1012,9 @@ void __43__TUIStaticIdentityManager__setupKTSession__block_invoke_110(uint64_t a
     v7 = TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_22;
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_22, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138543362;
-      v11 = v5;
-      _os_log_impl(&dword_26F50B000, v7, OS_LOG_TYPE_DEFAULT, "setupKTSession succeeded, session = %{public}@", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v5;
+      _os_log_impl(&dword_26F50B000, v7, OS_LOG_TYPE_DEFAULT, "setupKTSession succeeded, session = %{public}@", &v9, 0xCu);
     }
 
     [*(a1 + 32) setKtSession:v5];
@@ -1056,15 +1030,13 @@ void __43__TUIStaticIdentityManager__setupKTSession__block_invoke_110(uint64_t a
     v8 = TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_22;
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_22, OS_LOG_TYPE_ERROR))
     {
-      v10 = 138543362;
-      v11 = v6;
-      _os_log_impl(&dword_26F50B000, v8, OS_LOG_TYPE_ERROR, "setupKTSession failed: %{public}@", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v6;
+      _os_log_impl(&dword_26F50B000, v8, OS_LOG_TYPE_ERROR, "setupKTSession failed: %{public}@", &v9, 0xCu);
     }
 
     [*(a1 + 32) requestNewSasCodeWithDelay];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __43__TUIStaticIdentityManager__setupKTSession__block_invoke_2_111()
@@ -1093,7 +1065,7 @@ uint64_t __43__TUIStaticIdentityManager__setupKTSession__block_invoke_114()
 
 - (void)postNotificationName:(id)name object:(id)object userInfo:(id)info deliverImmediately:(BOOL)immediately
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   v8 = [infoCopy objectForKeyedSubscript:*MEMORY[0x277D73618]];
   v9 = [(TUIStaticIdentityManager *)self _sessionStateWithStateString:v8];
@@ -1107,9 +1079,9 @@ uint64_t __43__TUIStaticIdentityManager__setupKTSession__block_invoke_114()
   if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_22, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v20 = infoCopy;
-    v21 = 1024;
-    v22 = v9;
+    v19 = infoCopy;
+    v20 = 1024;
+    v21 = v9;
     _os_log_impl(&dword_26F50B000, v10, OS_LOG_TYPE_DEFAULT, "postNotificationName: %@/%d", buf, 0x12u);
   }
 
@@ -1123,15 +1095,15 @@ uint64_t __43__TUIStaticIdentityManager__setupKTSession__block_invoke_114()
   {
     v11 = [infoCopy objectForKeyedSubscript:*MEMORY[0x277D73610]];
     staticKey = self->_staticKey;
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __84__TUIStaticIdentityManager_postNotificationName_object_userInfo_deliverImmediately___block_invoke_120;
-    v15[3] = &unk_279DDB4A8;
-    v16 = v11;
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __84__TUIStaticIdentityManager_postNotificationName_object_userInfo_deliverImmediately___block_invoke_120;
+    v14[3] = &unk_279DDB4A8;
+    v15 = v11;
     selfCopy = self;
-    v18 = 2;
+    v17 = 2;
     v13 = v11;
-    [(TransparencyStaticKey *)staticKey getKTSessionByID:v13 complete:v15];
+    [(TransparencyStaticKey *)staticKey getKTSessionByID:v13 complete:v14];
   }
 
   else
@@ -1140,8 +1112,6 @@ uint64_t __43__TUIStaticIdentityManager__setupKTSession__block_invoke_114()
     self->_sasCodeRefreshRequired = 1;
     [(TUIStaticIdentityManager *)self requestNewSasCode];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __84__TUIStaticIdentityManager_postNotificationName_object_userInfo_deliverImmediately___block_invoke()
@@ -1153,7 +1123,7 @@ uint64_t __84__TUIStaticIdentityManager_postNotificationName_object_userInfo_del
 
 void __84__TUIStaticIdentityManager_postNotificationName_object_userInfo_deliverImmediately___block_invoke_120(uint64_t a1, void *a2)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (TRANSPARENCYUI_DEFAULT_LOG_BLOCK_22 != -1)
   {
@@ -1179,15 +1149,15 @@ void __84__TUIStaticIdentityManager_postNotificationName_object_userInfo_deliver
     v9 = [v3 sessionExpire];
     v10 = [v3 peerAccountIdentity];
     v11 = [v10 publicAccountIdentity];
-    v29 = 138413058;
-    v30 = v5;
-    v31 = 2112;
-    v32 = v8;
-    v33 = 2112;
-    v34 = v9;
-    v35 = 2112;
-    v36 = v11;
-    _os_log_impl(&dword_26F50B000, v6, OS_LOG_TYPE_DEFAULT, "post notification, sessionId = %@ code = %@, expiration = %@, peer identity = %@", &v29, 0x2Au);
+    v28 = 138413058;
+    v29 = v5;
+    v30 = 2112;
+    v31 = v8;
+    v32 = 2112;
+    v33 = v9;
+    v34 = 2112;
+    v35 = v11;
+    _os_log_impl(&dword_26F50B000, v6, OS_LOG_TYPE_DEFAULT, "post notification, sessionId = %@ code = %@, expiration = %@, peer identity = %@", &v28, 0x2Au);
   }
 
   v12 = [v3 sasCode];
@@ -1234,8 +1204,6 @@ void __84__TUIStaticIdentityManager_postNotificationName_object_userInfo_deliver
   *(*(a1 + 40) + 48) = v27;
   [*(a1 + 40) _updateUI];
 LABEL_15:
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __84__TUIStaticIdentityManager_postNotificationName_object_userInfo_deliverImmediately___block_invoke_2()
@@ -1247,7 +1215,7 @@ uint64_t __84__TUIStaticIdentityManager_postNotificationName_object_userInfo_del
 
 - (void)sessionExpired:(id)expired
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   expiredCopy = expired;
   if (TRANSPARENCYUI_DEFAULT_LOG_BLOCK_22 != -1)
   {
@@ -1261,11 +1229,11 @@ uint64_t __84__TUIStaticIdentityManager_postNotificationName_object_userInfo_del
     v7 = v5;
     sessionID = [(KTIDSSession *)ktSession sessionID];
     conversationVerified = self->_conversationVerified;
-    v11 = 138412546;
-    v12 = sessionID;
-    v13 = 1024;
-    v14 = conversationVerified;
-    _os_log_impl(&dword_26F50B000, v7, OS_LOG_TYPE_DEBUG, "session expired, sessionID = %@, conversationVerified = %d", &v11, 0x12u);
+    v10 = 138412546;
+    v11 = sessionID;
+    v12 = 1024;
+    v13 = conversationVerified;
+    _os_log_impl(&dword_26F50B000, v7, OS_LOG_TYPE_DEBUG, "session expired, sessionID = %@, conversationVerified = %d", &v10, 0x12u);
   }
 
   if (self->_sessionExpiredTimer && !self->_conversationVerified)
@@ -1273,8 +1241,6 @@ uint64_t __84__TUIStaticIdentityManager_postNotificationName_object_userInfo_del
     self->_sasCodeRefreshRequired = 1;
     [(TUIStaticIdentityManager *)self requestNewSasCode];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __43__TUIStaticIdentityManager_sessionExpired___block_invoke()
@@ -1293,29 +1259,24 @@ uint64_t __43__TUIStaticIdentityManager_sessionExpired___block_invoke()
 
 void __49__TUIStaticIdentityManager_requestSelfAccountKey__block_invoke_17_cold_2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_debug_impl(&dword_26F50B000, a2, OS_LOG_TYPE_DEBUG, "%{public}@ requesting self public account key...", &v3, 0xCu);
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_debug_impl(&dword_26F50B000, a2, OS_LOG_TYPE_DEBUG, "%{public}@ requesting self public account key...", &v2, 0xCu);
+}
+
+void __49__TUIStaticIdentityManager_requestSelfAccountKey__block_invoke_24_cold_2()
+{
   v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_2();
+  _os_log_debug_impl(&dword_26F50B000, v0, OS_LOG_TYPE_DEBUG, "%{public}@ got self public account key: %{public}@", v1, 0x16u);
 }
 
-void __49__TUIStaticIdentityManager_requestSelfAccountKey__block_invoke_24_cold_2(uint64_t a1, uint64_t *a2)
+void __49__TUIStaticIdentityManager_requestSelfAccountKey__block_invoke_24_cold_4()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_2();
-  _os_log_debug_impl(&dword_26F50B000, v3, OS_LOG_TYPE_DEBUG, "%{public}@ got self public account key: %{public}@", v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-void __49__TUIStaticIdentityManager_requestSelfAccountKey__block_invoke_24_cold_4(uint64_t a1, uint64_t a2)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *(a2 + 40);
-  OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(&dword_26F50B000, v3, OS_LOG_TYPE_ERROR, "%{public}@ failed to get self public account key: %{public}@", v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_26F50B000, v0, OS_LOG_TYPE_ERROR, "%{public}@ failed to get self public account key: %{public}@", v1, 0x16u);
 }
 
 @end

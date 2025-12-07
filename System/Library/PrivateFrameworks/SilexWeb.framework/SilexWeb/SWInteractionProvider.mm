@@ -67,7 +67,7 @@ void __103__SWInteractionProvider_initWithMessageHandlerManager_documentStatePro
 
 - (void)didReceiveMessage:(id)message securityOrigin:(id)origin
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   name = [messageCopy name];
   v7 = [name isEqualToString:@"interaction"];
@@ -117,33 +117,33 @@ void __103__SWInteractionProvider_initWithMessageHandlerManager_documentStatePro
           [logger2 log:v26];
 
           objc_storeStrong(&self->_interaction, v18);
-          v36 = 0u;
-          v37 = 0u;
-          v34 = 0u;
           v35 = 0u;
+          v36 = 0u;
+          v33 = 0u;
+          v34 = 0u;
           blocks = [(SWInteractionProvider *)self blocks];
           v28 = [blocks copy];
 
-          v29 = [v28 countByEnumeratingWithState:&v34 objects:v38 count:16];
+          v29 = [v28 countByEnumeratingWithState:&v33 objects:v37 count:16];
           if (v29)
           {
             v30 = v29;
-            v31 = *v35;
+            v31 = *v34;
             do
             {
               v32 = 0;
               do
               {
-                if (*v35 != v31)
+                if (*v34 != v31)
                 {
                   objc_enumerationMutation(v28);
                 }
 
-                (*(*(*(&v34 + 1) + 8 * v32++) + 16))();
+                (*(*(*(&v33 + 1) + 8 * v32++) + 16))();
               }
 
               while (v30 != v32);
-              v30 = [v28 countByEnumeratingWithState:&v34 objects:v38 count:16];
+              v30 = [v28 countByEnumeratingWithState:&v33 objects:v37 count:16];
             }
 
             while (v30);
@@ -152,8 +152,6 @@ void __103__SWInteractionProvider_initWithMessageHandlerManager_documentStatePro
       }
     }
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 @end

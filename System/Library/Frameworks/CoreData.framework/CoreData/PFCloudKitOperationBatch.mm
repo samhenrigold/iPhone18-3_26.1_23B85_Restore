@@ -1,7 +1,7 @@
 @interface PFCloudKitOperationBatch
 - (PFCloudKitOperationBatch)init;
-- (uint64_t)addRecord:(uint64_t)result;
 - (void)addDeletedRecordID:(uint64_t)d forRecordOfType:;
+- (void)addRecord:(void *)result;
 - (void)dealloc;
 @end
 
@@ -38,14 +38,14 @@
   [(PFCloudKitOperationBatch *)&v3 dealloc];
 }
 
-- (uint64_t)addRecord:(uint64_t)result
+- (void)addRecord:(void *)result
 {
   if (result)
   {
     v3 = result;
-    *(result + 40) += [a2 size];
-    [*(v3 + 24) addObject:a2];
-    v4 = *(v3 + 32);
+    result[5] += [a2 size];
+    [v3[3] addObject:a2];
+    v4 = v3[4];
     recordID = [a2 recordID];
 
     return [v4 addObject:recordID];

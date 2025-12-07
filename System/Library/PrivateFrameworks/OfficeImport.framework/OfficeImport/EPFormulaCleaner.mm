@@ -1989,7 +1989,7 @@ LABEL_3:
       string = [MEMORY[0x277CCACA8] stringWithOcText:OcTextFromPtgStrBuffer];
       if (OcTextFromPtgStrBuffer)
       {
-        (*(*OcTextFromPtgStrBuffer + 8))(OcTextFromPtgStrBuffer);
+        (*(OcTextFromPtgStrBuffer->var0 + 1))(OcTextFromPtgStrBuffer);
       }
 
       goto LABEL_6;

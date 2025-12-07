@@ -43,18 +43,16 @@ void __40___KSTextReplacementLegacyStore_cleanup__block_invoke(uint64_t a1)
 
   if (!v4)
   {
-    v5 = KSCategory();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = KSCategory(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
       v10 = "[_KSTextReplacementLegacyStore cleanup]_block_invoke";
-      _os_log_impl(&dword_2557E2000, v5, OS_LOG_TYPE_INFO, "%s  Invalidaitng bird connection", buf, 0xCu);
+      _os_log_impl(&dword_2557E2000, v6, OS_LOG_TYPE_INFO, "%s  Invalidaitng bird connection", buf, 0xCu);
     }
 
     softLinkBRDaemonConnectionInvalidate();
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __40___KSTextReplacementLegacyStore_cleanup__block_invoke_2(uint64_t a1)
@@ -69,13 +67,13 @@ void __40___KSTextReplacementLegacyStore_cleanup__block_invoke_2(uint64_t a1)
 
 uint64_t __65___KSTextReplacementLegacyStore_importSampleShortcutsIfNecessary__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = KSCategory();
+  v9 = *MEMORY[0x277D85DE8];
+  v2 = KSCategory(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    v8 = 136315138;
-    v9 = "[_KSTextReplacementLegacyStore importSampleShortcutsIfNecessary]_block_invoke";
-    _os_log_impl(&dword_2557E2000, v2, OS_LOG_TYPE_INFO, "%s  >>> finished importing sample shortcut", &v8, 0xCu);
+    v7 = 136315138;
+    v8 = "[_KSTextReplacementLegacyStore importSampleShortcutsIfNecessary]_block_invoke";
+    _os_log_impl(&dword_2557E2000, v2, OS_LOG_TYPE_INFO, "%s  >>> finished importing sample shortcut", &v7, 0xCu);
   }
 
   v3 = objc_loadWeakRetained((a1 + 48));
@@ -85,9 +83,7 @@ uint64_t __65___KSTextReplacementLegacyStore_importSampleShortcutsIfNecessary__b
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   [WeakRetained setPendingSampleShortcutImport:0];
 
-  result = [*(a1 + 32) setValue:*(a1 + 40) forKey:@"kDidInsertSampleShortcutForPeer"];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) setValue:*(a1 + 40) forKey:@"kDidInsertSampleShortcutForPeer"];
 }
 
 intptr_t __52___KSTextReplacementLegacyStore_prepareForMigration__block_invoke(uint64_t a1)
@@ -107,136 +103,135 @@ void __80___KSTextReplacementLegacyStore_addEntries_removeEntries_withCompletion
 
   if (v3)
   {
-    v4 = objc_loadWeakRetained((a1 + 64));
-    [v4 loadPersistentStoreIfNecessary];
+    v5 = objc_loadWeakRetained((a1 + 64));
+    [v5 loadPersistentStoreIfNecessary];
 
     v32 = [MEMORY[0x277CBEB18] array];
-    v5 = [MEMORY[0x277CBEB18] array];
+    v6 = [MEMORY[0x277CBEB18] array];
     v37 = 0u;
     v38 = 0u;
     v39 = 0u;
     v40 = 0u;
-    v6 = *(a1 + 32);
-    v7 = [v6 countByEnumeratingWithState:&v37 objects:v42 count:16];
-    if (v7)
+    v7 = *(a1 + 32);
+    v8 = [v7 countByEnumeratingWithState:&v37 objects:v42 count:16];
+    if (v8)
     {
-      v8 = v7;
-      v9 = *v38;
+      v9 = v8;
+      v10 = *v38;
       do
       {
-        for (i = 0; i != v8; ++i)
+        for (i = 0; i != v9; ++i)
         {
-          if (*v38 != v9)
+          if (*v38 != v10)
           {
-            objc_enumerationMutation(v6);
+            objc_enumerationMutation(v7);
           }
 
-          v11 = [_KSTextReplacementHelper transactionFromTextReplacementEntry:*(*(&v37 + 1) + 8 * i) forDelete:0];
-          v12 = *(a1 + 48);
-          v13 = [v11 valueToInsert];
-          [v12 insertEntryWithValue:v13];
+          v12 = [_KSTextReplacementHelper transactionFromTextReplacementEntry:*(*(&v37 + 1) + 8 * i) forDelete:0];
+          v13 = *(a1 + 48);
+          v14 = [v12 valueToInsert];
+          [v13 insertEntryWithValue:v14];
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v37 objects:v42 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v37 objects:v42 count:16];
       }
 
-      while (v8);
+      while (v9);
     }
 
     v35 = 0u;
     v36 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v14 = *(a1 + 40);
-    v15 = [v14 countByEnumeratingWithState:&v33 objects:v41 count:16];
-    if (v15)
+    v15 = *(a1 + 40);
+    v16 = [v15 countByEnumeratingWithState:&v33 objects:v41 count:16];
+    if (v16)
     {
-      v16 = v15;
-      v17 = *v34;
+      v17 = v16;
+      v18 = *v34;
       do
       {
-        for (j = 0; j != v16; ++j)
+        for (j = 0; j != v17; ++j)
         {
-          if (*v34 != v17)
+          if (*v34 != v18)
           {
-            objc_enumerationMutation(v14);
+            objc_enumerationMutation(v15);
           }
 
-          v19 = *(*(&v33 + 1) + 8 * j);
-          v20 = [_KSTextReplacementHelper transactionFromTextReplacementEntry:v19 forDelete:1];
-          v21 = [*(a1 + 48) _deleteTransaction:v20];
-          if (v21)
+          v20 = *(*(&v33 + 1) + 8 * j);
+          v21 = [_KSTextReplacementHelper transactionFromTextReplacementEntry:v20 forDelete:1];
+          v22 = [*(a1 + 48) _deleteTransaction:v21];
+          if (v22)
           {
-            v22 = [_KSTextReplacementHelper errorWithCode:-2 forEntry:v19];
-            [v5 addObject:v22];
+            v23 = [_KSTextReplacementHelper errorWithCode:-2 forEntry:v20];
+            [v6 addObject:v23];
           }
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v33 objects:v41 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v33 objects:v41 count:16];
       }
 
-      while (v16);
+      while (v17);
     }
 
-    v23 = objc_loadWeakRetained((a1 + 64));
-    [v23 setShouldUpdateTheCache:1];
-
     v24 = objc_loadWeakRetained((a1 + 64));
-    v25 = [v24 save];
+    [v24 setShouldUpdateTheCache:1];
 
-    if (v25)
+    v25 = objc_loadWeakRetained((a1 + 64));
+    v26 = [v25 save];
+
+    if (v26)
     {
-      v26 = v32;
-      v27 = [_KSTextReplacementHelper multipleAddErrors:v32 removeErrors:v5];
+      v27 = v32;
+      v28 = [_KSTextReplacementHelper multipleAddErrors:v32 removeErrors:v6];
     }
 
     else
     {
-      v27 = [_KSTextReplacementHelper errorWithCode:-2 failedAdds:*(a1 + 32) failedDeletes:*(a1 + 40)];
-      v29 = KSCategory();
-      v26 = v32;
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+      v28 = [_KSTextReplacementHelper errorWithCode:-2 failedAdds:*(a1 + 32) failedDeletes:*(a1 + 40)];
+      v30 = KSCategory(v28);
+      v27 = v32;
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
         v44 = "[_KSTextReplacementLegacyStore addEntries:removeEntries:withCompletionHandler:]_block_invoke";
-        _os_log_impl(&dword_2557E2000, v29, OS_LOG_TYPE_INFO, "%s  Failed to save to coredata store", buf, 0xCu);
+        _os_log_impl(&dword_2557E2000, v30, OS_LOG_TYPE_INFO, "%s  Failed to save to coredata store", buf, 0xCu);
       }
     }
   }
 
   else
   {
-    v28 = KSCategory();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+    v29 = KSCategory(v4);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
       v44 = "[_KSTextReplacementLegacyStore addEntries:removeEntries:withCompletionHandler:]_block_invoke";
       v45 = 1024;
       v46 = -2;
-      _os_log_impl(&dword_2557E2000, v28, OS_LOG_TYPE_INFO, "%s  Replying with error = %i", buf, 0x12u);
+      _os_log_impl(&dword_2557E2000, v29, OS_LOG_TYPE_INFO, "%s  Replying with error = %i", buf, 0x12u);
     }
 
-    v27 = [_KSTextReplacementHelper errorWithCode:-2 failedAdds:*(a1 + 32) failedDeletes:*(a1 + 40)];
+    v28 = [_KSTextReplacementHelper errorWithCode:-2 failedAdds:*(a1 + 32) failedDeletes:*(a1 + 40)];
   }
 
-  v30 = [MEMORY[0x277CCAB98] defaultCenter];
-  [v30 postNotificationName:@"_KSTRLegacyStoreDidImportChangesNotification" object:0];
+  v31 = [MEMORY[0x277CCAB98] defaultCenter];
+  [v31 postNotificationName:@"_KSTRLegacyStoreDidImportChangesNotification" object:0];
 
   (*(*(a1 + 56) + 16))();
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __65___KSTextReplacementLegacyStore_requestSync_withCompletionBlock___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if ((*(a1 + 48) | 4) == 4)
   {
-    v2 = KSCategory();
+    v2 = KSCategory(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
     {
-      v5 = 136315138;
-      v6 = "[_KSTextReplacementLegacyStore requestSync:withCompletionBlock:]_block_invoke";
-      _os_log_impl(&dword_2557E2000, v2, OS_LOG_TYPE_INFO, "%s  sync request due to maintainence / client, loading ubiquity", &v5, 0xCu);
+      v4 = 136315138;
+      v5 = "[_KSTextReplacementLegacyStore requestSync:withCompletionBlock:]_block_invoke";
+      _os_log_impl(&dword_2557E2000, v2, OS_LOG_TYPE_INFO, "%s  sync request due to maintainence / client, loading ubiquity", &v4, 0xCu);
     }
 
     [*(a1 + 32) loadPersistentStoreIfNecessary];
@@ -251,10 +246,9 @@ uint64_t __65___KSTextReplacementLegacyStore_requestSync_withCompletionBlock___b
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))(result, 1);
+    return (*(result + 16))(result, 1);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -318,34 +312,30 @@ void __60___KSTextReplacementLegacyStore_removeEntriesWithPredicate___block_invo
   objc_storeStrong((v10 + 40), obj);
   if (*(*(*v7 + 8) + 40))
   {
-    v11 = KSCategory();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = KSCategory(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      __60___KSTextReplacementLegacyStore_removeEntriesWithPredicate___block_invoke_cold_1(v7, v11);
+      __60___KSTextReplacementLegacyStore_removeEntriesWithPredicate___block_invoke_cold_1(v7, v12);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __55___KSTextReplacementLegacyStore_textReplacementEntries__block_invoke(uint64_t a1)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"timestamp" ascending:1 selector:sel_compare_];
-  v9[0] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+  v8[0] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   v5 = [v2 entriesUsingSortDescriptors:v4];
   v6 = *(*(a1 + 40) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v5;
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __77___KSTextReplacementLegacyStore_queryTextReplacementsWithPredicate_callback___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) ubiquityStoreLoaded] & 1) != 0 || (objc_msgSend(*(a1 + 32), "shouldUpdateTheCache"))
   {
     goto LABEL_8;
@@ -363,16 +353,15 @@ void __77___KSTextReplacementLegacyStore_queryTextReplacementsWithPredicate_call
   {
 LABEL_8:
     [*(a1 + 32) loadPersistentStoreIfNecessary];
-    v7 = *(a1 + 32);
-    v8 = objc_opt_class();
-    v9 = [*(a1 + 32) entriesMatchingPredicate:*(a1 + 40) sortDescriptors:*(a1 + 48)];
-    v2 = [v8 textReplacementEntriesFromManagedObjects:v9];
+    v7 = objc_opt_class();
+    v8 = [*(a1 + 32) entriesMatchingPredicate:*(a1 + 40) sortDescriptors:*(a1 + 48)];
+    v2 = [v7 textReplacementEntriesFromManagedObjects:v8];
 
-    v10 = KSCategory();
+    v10 = KSCategory(v9);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v16 = "[_KSTextReplacementLegacyStore queryTextReplacementsWithPredicate:callback:]_block_invoke";
+      v15 = "[_KSTextReplacementLegacyStore queryTextReplacementsWithPredicate:callback:]_block_invoke";
       _os_log_impl(&dword_2557E2000, v10, OS_LOG_TYPE_INFO, "%s  read entries from ubiquity store", buf, 0xCu);
     }
 
@@ -385,9 +374,9 @@ LABEL_8:
   }
 
   v4 = *(a1 + 32);
-  v14 = 0;
-  v2 = [v4 entriesFromCache:&v14];
-  v5 = v14;
+  v13 = 0;
+  v2 = [v4 entriesFromCache:&v13];
+  v5 = v13;
   if (v5)
   {
     v6 = v5;
@@ -397,24 +386,22 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  v12 = KSCategory();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+  v11 = KSCategory(0);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
-    v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v2, "count")}];
+    v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v2, "count")}];
     *buf = 136315394;
-    v16 = "[_KSTextReplacementLegacyStore queryTextReplacementsWithPredicate:callback:]_block_invoke";
-    v17 = 2112;
-    v18 = v13;
-    _os_log_impl(&dword_2557E2000, v12, OS_LOG_TYPE_INFO, "%s  read entries from cache: \n %@", buf, 0x16u);
+    v15 = "[_KSTextReplacementLegacyStore queryTextReplacementsWithPredicate:callback:]_block_invoke";
+    v16 = 2112;
+    v17 = v12;
+    _os_log_impl(&dword_2557E2000, v11, OS_LOG_TYPE_INFO, "%s  read entries from cache: \n %@", buf, 0x16u);
   }
 
 LABEL_12:
   (*(*(a1 + 56) + 16))();
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __53___KSTextReplacementLegacyStore_scheduleCacheUpdate___block_invoke(uint64_t a1)
+void *__53___KSTextReplacementLegacyStore_scheduleCacheUpdate___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) writeEntriesToCache:*(a1 + 40)];
   if (result)
@@ -433,7 +420,7 @@ uint64_t __53___KSTextReplacementLegacyStore_scheduleCacheUpdate___block_invoke(
 void __56___KSTextReplacementLegacyStore_iCloudAccountDidChange___block_invoke(uint64_t a1)
 {
   v15 = *MEMORY[0x277D85DE8];
-  v2 = KSCategory();
+  v2 = KSCategory(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
@@ -447,32 +434,30 @@ void __56___KSTextReplacementLegacyStore_iCloudAccountDidChange___block_invoke(u
 
   if (v5)
   {
-    v6 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v6 = v3 == 0;
+    v7 = v3 == 0;
   }
 
-  if (!v6)
+  if (!v7)
   {
-    v7 = KSCategory();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = KSCategory(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
       v14 = "[_KSTextReplacementLegacyStore iCloudAccountDidChange:]_block_invoke";
-      _os_log_impl(&dword_2557E2000, v7, OS_LOG_TYPE_INFO, "%s  detected account change, invalidating cache", buf, 0xCu);
+      _os_log_impl(&dword_2557E2000, v8, OS_LOG_TYPE_INFO, "%s  detected account change, invalidating cache", buf, 0xCu);
     }
 
-    v8 = [MEMORY[0x277CCAA00] defaultManager];
-    v9 = [*(a1 + 32) cacheFilePath];
+    v9 = [MEMORY[0x277CCAA00] defaultManager];
+    v10 = [*(a1 + 32) cacheFilePath];
     v12 = 0;
-    [v8 removeItemAtPath:v9 error:&v12];
-    v10 = v12;
+    [v9 removeItemAtPath:v10 error:&v12];
+    v11 = v12;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __54___KSTextReplacementLegacyStore_insertEntryWithValue___block_invoke(uint64_t a1)
@@ -545,7 +530,7 @@ void __74___KSTextReplacementLegacyStore_entriesMatchingPredicate_sortDescriptor
 
 void __82___KSTextReplacementLegacyStore_persistentStoreDidImportUbiquitousContentChanges___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) persistentStore];
 
   if (v2)
@@ -564,16 +549,15 @@ void __82___KSTextReplacementLegacyStore_persistentStoreDidImportUbiquitousConte
     }
 
     v6 = [*(a1 + 32) managedObjectContext];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __82___KSTextReplacementLegacyStore_persistentStoreDidImportUbiquitousContentChanges___block_invoke_2;
-    v16[3] = &unk_2797F6310;
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __82___KSTextReplacementLegacyStore_persistentStoreDidImportUbiquitousContentChanges___block_invoke_2;
+    v15[3] = &unk_2797F6310;
     v7 = v6;
-    v17 = v7;
-    [v7 performBlockAndWait:v16];
+    v16 = v7;
+    [v7 performBlockAndWait:v15];
     [*(a1 + 32) performMaintenanceIfNecessary];
-    [*(a1 + 32) setShouldUpdateTheCache:1];
-    v8 = KSCategory();
+    v8 = KSCategory([*(a1 + 32) setShouldUpdateTheCache:1]);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v9 = MEMORY[0x277CCABB0];
@@ -581,9 +565,9 @@ void __82___KSTextReplacementLegacyStore_persistentStoreDidImportUbiquitousConte
       [v10 timeIntervalSinceNow];
       v12 = [v9 numberWithDouble:-v11];
       *buf = 136315394;
-      v19 = "[_KSTextReplacementLegacyStore persistentStoreDidImportUbiquitousContentChanges:]_block_invoke";
-      v20 = 2112;
-      v21 = v12;
+      v18 = "[_KSTextReplacementLegacyStore persistentStoreDidImportUbiquitousContentChanges:]_block_invoke";
+      v19 = 2112;
+      v20 = v12;
       _os_log_impl(&dword_2557E2000, v8, OS_LOG_TYPE_INFO, "%s  time to import changes since PS load request: %@", buf, 0x16u);
     }
 
@@ -593,8 +577,6 @@ void __82___KSTextReplacementLegacyStore_persistentStoreDidImportUbiquitousConte
     v14 = [MEMORY[0x277CCAB98] defaultCenter];
     [v14 postNotificationName:@"_KSTRLegacyStoreDidImportUbiquitousChanges" object:0];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __59___KSTextReplacementLegacyStore_mergeShortcutsFromContext___block_invoke(void *a1)
@@ -612,55 +594,53 @@ void __59___KSTextReplacementLegacyStore_mergeShortcutsFromContext___block_invok
 
 void __59___KSTextReplacementLegacyStore_mergeShortcutsFromContext___block_invoke_2(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   obj = *(*(*(a1 + 48) + 8) + 40);
-  v2 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v2 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v2)
   {
-    v3 = *v23;
+    v3 = *v22;
     do
     {
       for (i = 0; i != v2; ++i)
       {
-        if (*v23 != v3)
+        if (*v22 != v3)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v22 + 1) + 8 * i);
+        v5 = *(*(&v21 + 1) + 8 * i);
         v6 = [v5 objectForKey:@"shortcut"];
         v7 = [v5 objectForKey:@"phrase"];
         v8 = *(a1 + 32);
-        v15[0] = MEMORY[0x277D85DD0];
-        v15[1] = 3221225472;
-        v15[2] = __59___KSTextReplacementLegacyStore_mergeShortcutsFromContext___block_invoke_3;
-        v15[3] = &unk_2797F7440;
-        objc_copyWeak(&v21, (a1 + 64));
+        v14[0] = MEMORY[0x277D85DD0];
+        v14[1] = 3221225472;
+        v14[2] = __59___KSTextReplacementLegacyStore_mergeShortcutsFromContext___block_invoke_3;
+        v14[3] = &unk_2797F7440;
+        objc_copyWeak(&v20, (a1 + 64));
         v9 = v6;
-        v16 = v9;
+        v15 = v9;
         v10 = v7;
-        v17 = v10;
-        v18 = *(a1 + 32);
+        v16 = v10;
+        v17 = *(a1 + 32);
         v11 = *(a1 + 40);
         v12 = *(a1 + 56);
-        v19 = v11;
-        v20 = v12;
-        [v8 performBlockAndWait:v15];
+        v18 = v11;
+        v19 = v12;
+        [v8 performBlockAndWait:v14];
 
-        objc_destroyWeak(&v21);
+        objc_destroyWeak(&v20);
       }
 
-      v2 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v2 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v2);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __59___KSTextReplacementLegacyStore_mergeShortcutsFromContext___block_invoke_3(uint64_t a1)
@@ -708,7 +688,7 @@ uint64_t __59___KSTextReplacementLegacyStore_mergeShortcutsFromContext___block_i
 
 void __69___KSTextReplacementLegacyStore_detectAndCleanDuplicatesWithContext___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
   v4 = *(*(a1 + 56) + 8);
@@ -719,26 +699,26 @@ void __69___KSTextReplacementLegacyStore_detectAndCleanDuplicatesWithContext___b
   v7 = *(v6 + 40);
   *(v6 + 40) = v5;
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v8 = *(*(*(a1 + 48) + 8) + 40);
-  v9 = [v8 countByEnumeratingWithState:&v20 objects:v25 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v19 objects:v24 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v21;
+    v11 = *v20;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v21 != v11)
+        if (*v20 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v20 + 1) + 8 * i);
+        v13 = *(*(&v19 + 1) + 8 * i);
         v14 = [v13 objectForKey:@"count"];
         v15 = [v14 integerValue];
 
@@ -754,14 +734,13 @@ void __69___KSTextReplacementLegacyStore_detectAndCleanDuplicatesWithContext___b
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v20 objects:v25 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v19 objects:v24 count:16];
     }
 
     while (v10);
   }
 
   NSLog(&cfstr_DeduplicationC.isa, *(*(*(a1 + 72) + 8) + 24));
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __55___KSTextReplacementLegacyStore_basePersistentStoreURL__block_invoke()
@@ -776,32 +755,30 @@ void __55___KSTextReplacementLegacyStore_basePersistentStoreURL__block_invoke()
 
 void __76___KSTextReplacementLegacyStore_persistentStoreCoordinatorStoresWillChange___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v2 = KSCategory();
+  v10 = *MEMORY[0x277D85DE8];
+  v2 = KSCategory(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v10 = "[_KSTextReplacementLegacyStore persistentStoreCoordinatorStoresWillChange:]_block_invoke";
+    v9 = "[_KSTextReplacementLegacyStore persistentStoreCoordinatorStoresWillChange:]_block_invoke";
     _os_log_impl(&dword_2557E2000, v2, OS_LOG_TYPE_INFO, "%s  Suspending user dictionary due to impending account change.", buf, 0xCu);
   }
 
   v3 = [*(a1 + 32) managedObjectContext];
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __76___KSTextReplacementLegacyStore_persistentStoreCoordinatorStoresWillChange___block_invoke_371;
-  v7[3] = &unk_2797F6310;
-  v8 = v3;
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __76___KSTextReplacementLegacyStore_persistentStoreCoordinatorStoresWillChange___block_invoke_371;
+  v6[3] = &unk_2797F6310;
+  v7 = v3;
   v4 = v3;
-  [v4 performBlockAndWait:v7];
+  [v4 performBlockAndWait:v6];
   v5 = [*(a1 + 32) workQueue];
   dispatch_suspend(v5);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __75___KSTextReplacementLegacyStore_persistentStoreCoordinatorStoresDidChange___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) setForceMaintenance:1];
   v2 = [*(a1 + 32) persistentStore];
   v3 = [v2 URL];
@@ -812,54 +789,51 @@ void __75___KSTextReplacementLegacyStore_persistentStoreCoordinatorStoresDidChan
   v6 = *(a1 + 32);
   if (v5)
   {
-    [v6 runMaintenanceIncludeLocalVariations:0];
+    v7 = [v6 runMaintenanceIncludeLocalVariations:0];
   }
 
   else
   {
-    [v6 loadPersistentStoreIfNecessary];
+    v7 = [v6 loadPersistentStoreIfNecessary];
   }
 
-  v7 = KSCategory();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v8 = KSCategory(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v15 = 136315394;
-    v16 = "[_KSTextReplacementLegacyStore persistentStoreCoordinatorStoresDidChange:]_block_invoke";
-    v17 = 2112;
-    v18 = v4;
-    _os_log_impl(&dword_2557E2000, v7, OS_LOG_TYPE_INFO, "%s  >>> current legacy store: %@", &v15, 0x16u);
+    v16 = 136315394;
+    v17 = "[_KSTextReplacementLegacyStore persistentStoreCoordinatorStoresDidChange:]_block_invoke";
+    v18 = 2112;
+    v19 = v4;
+    _os_log_impl(&dword_2557E2000, v8, OS_LOG_TYPE_INFO, "%s  >>> current legacy store: %@", &v16, 0x16u);
   }
 
-  v8 = [MEMORY[0x277CCAB98] defaultCenter];
-  [v8 postNotificationName:@"_KSTRLegacyStoreDidImportChangesNotification" object:0];
+  v9 = [MEMORY[0x277CCAB98] defaultCenter];
+  [v9 postNotificationName:@"_KSTRLegacyStoreDidImportChangesNotification" object:0];
 
-  v9 = KSCategory();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v11 = KSCategory(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
-    v10 = MEMORY[0x277CCABB0];
-    v11 = [*(a1 + 32) ubiquityStoreLoadStartTime];
-    [v11 timeIntervalSinceNow];
-    v13 = [v10 numberWithDouble:-v12];
-    v15 = 136315394;
-    v16 = "[_KSTextReplacementLegacyStore persistentStoreCoordinatorStoresDidChange:]_block_invoke";
-    v17 = 2112;
-    v18 = v13;
-    _os_log_impl(&dword_2557E2000, v9, OS_LOG_TYPE_INFO, "%s  time since PS load request: %@", &v15, 0x16u);
+    v12 = MEMORY[0x277CCABB0];
+    v13 = [*(a1 + 32) ubiquityStoreLoadStartTime];
+    [v13 timeIntervalSinceNow];
+    v15 = [v12 numberWithDouble:-v14];
+    v16 = 136315394;
+    v17 = "[_KSTextReplacementLegacyStore persistentStoreCoordinatorStoresDidChange:]_block_invoke";
+    v18 = 2112;
+    v19 = v15;
+    _os_log_impl(&dword_2557E2000, v11, OS_LOG_TYPE_INFO, "%s  time since PS load request: %@", &v16, 0x16u);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __60___KSTextReplacementLegacyStore_removeEntriesWithPredicate___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = *(*(*a1 + 8) + 40);
-  v4 = 136315394;
-  v5 = "[_KSTextReplacementLegacyStore removeEntriesWithPredicate:]_block_invoke";
-  v6 = 2112;
-  v7 = v2;
-  _os_log_error_impl(&dword_2557E2000, a2, OS_LOG_TYPE_ERROR, "%s  ERROR!!! Failed to remove entrtries with error: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 136315394;
+  v4 = "[_KSTextReplacementLegacyStore removeEntriesWithPredicate:]_block_invoke";
+  v5 = 2112;
+  v6 = v2;
+  _os_log_error_impl(&dword_2557E2000, a2, OS_LOG_TYPE_ERROR, "%s  ERROR!!! Failed to remove entrtries with error: %@", &v3, 0x16u);
 }
 
 @end

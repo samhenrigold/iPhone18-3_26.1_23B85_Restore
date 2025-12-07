@@ -73,44 +73,44 @@
 {
   selfCopy = self;
   sub_10000501C(__p, "/cc/requests/unexpected_mo_dial");
-  v3 = selfCopy;
-  v10 = off_101E390F8;
-  v11 = v3;
-  v12 = &v10;
+  v4 = selfCopy;
+  v11 = off_101E390F8;
+  v12 = v4;
+  v13 = &v11;
   ctu::RestModule::registerAsRequestSink();
-  sub_1002C2508(&v10);
-  if (v9 < 0)
+  sub_1002C2508(&v11);
+  if (v10 < 0)
   {
     operator delete(__p[0]);
   }
 
-  v4 = v3;
-  sub_10000501C(__p, "/cc/events/unexpected_answer");
   v5 = v4;
-  v10 = off_101E39188;
-  v11 = v5;
-  v12 = &v10;
-  ctu::RestModule::observeEvent();
-  sub_1000062D4(&v10);
-  if (v9 < 0)
-  {
-    operator delete(__p[0]);
-  }
-
+  sub_10000501C(__p, "/cc/events/unexpected_answer");
   v6 = v5;
-  sub_10000501C(__p, "/cc/events/unexpected_hold");
-  v7 = v6;
-  v10 = off_101E39208;
-  v11 = v7;
-  v12 = &v10;
+  v11 = off_101E39188;
+  v12 = v6;
+  v13 = &v11;
   ctu::RestModule::observeEvent();
-  sub_1000062D4(&v10);
-  if (v9 < 0)
+  sub_1000062D4(&v11);
+  if (v10 < 0)
   {
     operator delete(__p[0]);
   }
 
-  sub_1002C0694(&v7->fCurrentCalls.fValue.__end_);
+  v7 = v6;
+  sub_10000501C(__p, "/cc/events/unexpected_hold");
+  v8 = v7;
+  v11 = off_101E39208;
+  v12 = v8;
+  v13 = &v11;
+  ctu::RestModule::observeEvent();
+  sub_1000062D4(&v11);
+  if (v10 < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+  sub_1002C0694(&v8->fCurrentCalls.fValue.__end_, self->fRestModule.__ptr_);
 }
 
 - (void)handleUnexpectedMODial:(const dict *)dial responder:(void *)responder
@@ -219,7 +219,7 @@
       xpc::dyn_cast_or_default(v40, 1, v22);
       xpc_release(*v40);
       memset(buf, 0, sizeof(buf));
-      PersonalityIdFromSlotIdEx();
+      PersonalityIdFromSlotIdEx(buf);
       *v40 = 0;
       UuidFromPersonalityId();
       v34 = 0;

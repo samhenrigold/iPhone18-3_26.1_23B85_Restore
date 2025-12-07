@@ -9,7 +9,7 @@
 
 - (void)main
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   configuration = [(HDCloudSyncOperation *)self configuration];
   repository = [configuration repository];
 
@@ -17,9 +17,9 @@
   cachedCloudState = [configuration2 cachedCloudState];
   primaryCKContainer = [repository primaryCKContainer];
   containerIdentifier = [primaryCKContainer containerIdentifier];
-  v20 = 0;
-  v9 = [cachedCloudState privateMetadataZoneForContainerID:containerIdentifier error:&v20];
-  v10 = v20;
+  v19 = 0;
+  v9 = [cachedCloudState privateMetadataZoneForContainerID:containerIdentifier error:&v19];
+  v10 = v19;
   privateMetadataZone = self->_privateMetadataZone;
   self->_privateMetadataZone = v9;
 
@@ -61,15 +61,13 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __52__HDCloudSyncSharedSummaryPushPrepareOperation_main__block_invoke;
-  v19[3] = &unk_27861BB60;
-  v19[4] = self;
-  [(HDCloudSyncSharedSummaryPushPrepareOperation *)self _fetchAllTransactionsWithCompletion:v19];
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __52__HDCloudSyncSharedSummaryPushPrepareOperation_main__block_invoke;
+  v18[3] = &unk_27861BB60;
+  v18[4] = self;
+  [(HDCloudSyncSharedSummaryPushPrepareOperation *)self _fetchAllTransactionsWithCompletion:v18];
 LABEL_12:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __52__HDCloudSyncSharedSummaryPushPrepareOperation_main__block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -97,7 +95,7 @@ void __52__HDCloudSyncSharedSummaryPushPrepareOperation_main__block_invoke(uint6
 
 void __52__HDCloudSyncSharedSummaryPushPrepareOperation_main__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a3;
   if (!v6)
@@ -118,7 +116,7 @@ LABEL_8:
     {
       v13 = *(a1 + 32);
       *buf = 138543362;
-      v17 = v13;
+      v16 = v13;
       _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@: [summary-sharing] No pending or accepted participants found", buf, 0xCu);
     }
 
@@ -130,15 +128,13 @@ LABEL_8:
 
   objc_storeStrong((*(a1 + 32) + 112), a2);
   v8 = *(a1 + 32);
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __52__HDCloudSyncSharedSummaryPushPrepareOperation_main__block_invoke_292;
-  v15[3] = &unk_27861BB38;
-  v15[4] = v8;
-  [v8 _fetchAuthorizationIdentifiersByContactIdentifierForParticipants:v6 completion:v15];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __52__HDCloudSyncSharedSummaryPushPrepareOperation_main__block_invoke_292;
+  v14[3] = &unk_27861BB38;
+  v14[4] = v8;
+  [v8 _fetchAuthorizationIdentifiersByContactIdentifierForParticipants:v6 completion:v14];
 LABEL_9:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __52__HDCloudSyncSharedSummaryPushPrepareOperation_main__block_invoke_292(uint64_t a1, void *a2, void *a3)
@@ -241,7 +237,7 @@ BOOL __103__HDCloudSyncSharedSummaryPushPrepareOperation__pendingAndAcceptedPart
 
 void __103__HDCloudSyncSharedSummaryPushPrepareOperation__pendingAndAcceptedParticipantRecordsInZone_completion___block_invoke_3(void *a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -250,11 +246,11 @@ void __103__HDCloudSyncSharedSummaryPushPrepareOperation__pendingAndAcceptedPart
     v7 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
-      v11 = a1[4];
+      v10 = a1[4];
       *buf = 138543618;
-      v15 = v11;
-      v16 = 2114;
-      v17 = v6;
+      v14 = v10;
+      v15 = 2114;
+      v16 = v6;
       _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "%{public}@: [summary-sharing] Failed to read pause status for participants with error %{public}@.", buf, 0x16u);
     }
 
@@ -264,16 +260,14 @@ void __103__HDCloudSyncSharedSummaryPushPrepareOperation__pendingAndAcceptedPart
   else
   {
     v8 = a1[5];
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __103__HDCloudSyncSharedSummaryPushPrepareOperation__pendingAndAcceptedParticipantRecordsInZone_completion___block_invoke_299;
-    v12[3] = &unk_27861AD28;
-    v13 = v5;
-    v9 = [v8 hk_filter:v12];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __103__HDCloudSyncSharedSummaryPushPrepareOperation__pendingAndAcceptedParticipantRecordsInZone_completion___block_invoke_299;
+    v11[3] = &unk_27861AD28;
+    v12 = v5;
+    v9 = [v8 hk_filter:v11];
     (*(a1[6] + 16))();
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __103__HDCloudSyncSharedSummaryPushPrepareOperation__pendingAndAcceptedParticipantRecordsInZone_completion___block_invoke_299(uint64_t a1, void *a2)

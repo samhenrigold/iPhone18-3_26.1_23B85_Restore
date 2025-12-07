@@ -1,17 +1,3 @@
-void sub_100070A44(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, char a9, uint64_t a10, uint64_t a11)
-{
-  if (a2 == 1)
-  {
-    v11 = objc_begin_catch(exception_object);
-    _AXLogWithFacility();
-
-    objc_end_catch();
-    JUMPOUT(0x1000709FCLL);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
 void sub_10007149C(uint64_t a1, void *a2, uint64_t a3)
 {
   v19 = a2;
@@ -246,9 +232,9 @@ void sub_100077634(uint64_t a1)
   objc_destroyWeak(&v1);
 }
 
-void sub_1000776BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1000776BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   objc_destroyWeak(va);
   _Unwind_Resume(a1);
 }
@@ -266,9 +252,9 @@ void sub_100077714(uint64_t a1)
   objc_destroyWeak(&v1);
 }
 
-void sub_10007779C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_10007779C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   objc_destroyWeak(va);
   _Unwind_Resume(a1);
 }
@@ -286,9 +272,9 @@ void sub_1000777F4(uint64_t a1)
   objc_destroyWeak(&v1);
 }
 
-void sub_10007787C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_10007787C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   objc_destroyWeak(va);
   _Unwind_Resume(a1);
 }
@@ -306,9 +292,9 @@ void sub_1000778D4(uint64_t a1)
   objc_destroyWeak(&v1);
 }
 
-void sub_10007795C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_10007795C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   objc_destroyWeak(va);
   _Unwind_Resume(a1);
 }
@@ -326,9 +312,9 @@ void sub_1000779B4(uint64_t a1)
   objc_destroyWeak(&v1);
 }
 
-void sub_100077A3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_100077A3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   objc_destroyWeak(va);
   _Unwind_Resume(a1);
 }
@@ -346,9 +332,9 @@ void sub_100077A94(uint64_t a1)
   objc_destroyWeak(&v1);
 }
 
-void sub_100077B1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_100077B1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   objc_destroyWeak(va);
   _Unwind_Resume(a1);
 }
@@ -366,9 +352,9 @@ void sub_100077B74(uint64_t a1)
   objc_destroyWeak(&v1);
 }
 
-void sub_100077BFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_100077BFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   objc_destroyWeak(va);
   _Unwind_Resume(a1);
 }
@@ -386,9 +372,9 @@ void sub_100077C54(uint64_t a1)
   objc_destroyWeak(&v1);
 }
 
-void sub_100077CDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_100077CDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   objc_destroyWeak(va);
   _Unwind_Resume(a1);
 }
@@ -418,9 +404,9 @@ void sub_100077DA0(uint64_t a1)
   objc_destroyWeak(&v1);
 }
 
-void sub_100077E28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_100077E28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   objc_destroyWeak(va);
   _Unwind_Resume(a1);
 }
@@ -447,9 +433,9 @@ void sub_100077EF8(uint64_t a1)
   objc_destroyWeak(&v1);
 }
 
-void sub_100077F80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_100077F80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   objc_destroyWeak(va);
   _Unwind_Resume(a1);
 }
@@ -477,9 +463,9 @@ void sub_10007805C(uint64_t a1)
   objc_destroyWeak(&v1);
 }
 
-void sub_1000780E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1000780E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   objc_destroyWeak(va);
   _Unwind_Resume(a1);
 }
@@ -534,9 +520,9 @@ id sub_10007850C(uint64_t a1, void *a2)
   return v4;
 }
 
-void sub_100078768(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100078768(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1843,9 +1829,9 @@ id sub_100092084(uint64_t a1)
   return v4;
 }
 
-void sub_1000921A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000921A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1938,63 +1924,63 @@ id sub_10009507C(uint64_t a1, double a2, double a3, double a4, double a5)
 
 id sub_100095354(uint64_t a1, int a2, CGFloat a3, CGFloat a4, double a5, double a6, CGFloat a7, double a8, double a9, double a10, double a11, double a12)
 {
-  v24 = *(a1 + 40) * 0.5 + *(a1 + 48);
-  v25 = a2 != 0;
+  v19 = *(a1 + 40) * 0.5 + *(a1 + 48);
+  v20 = a2 != 0;
   if (a2)
   {
-    v26 = a5 - v24;
+    v21 = a5 - v19;
   }
 
   else
   {
-    v26 = v24 + a5;
+    v21 = v19 + a5;
   }
 
   if (a2)
   {
-    v27 = v24 + a5;
+    v22 = v19 + a5;
   }
 
   else
   {
-    v27 = a5 - v24;
+    v22 = a5 - v19;
   }
 
-  v28 = *(a1 + 56);
-  v29 = __sincos_stret(a6);
-  CGPathMoveToPoint(v28, 0, a3 + v26 * v29.__cosval, a4 + v26 * v29.__sinval);
-  CGPathAddArc(*(a1 + 56), 0, a3, a4, v26, a6, a7, v25);
-  v30 = *(a1 + 56);
-  v53 = a7;
-  v31 = __sincos_stret(a7);
-  CGPathAddLineToPoint(v30, 0, a3 + v27 * v31.__cosval, a4 + v27 * v31.__sinval);
-  CGPathAddArc(*(a1 + 56), 0, a3, a4, v27, a7, a6, a2 != 1);
+  v23 = *(a1 + 56);
+  v24 = __sincos_stret(a6);
+  CGPathMoveToPoint(v23, 0, a3 + v21 * v24.__cosval, a4 + v21 * v24.__sinval);
+  CGPathAddArc(*(a1 + 56), 0, a3, a4, v21, a6, a7, v20);
+  v25 = *(a1 + 56);
+  v48 = a7;
+  v26 = __sincos_stret(a7);
+  CGPathAddLineToPoint(v25, 0, a3 + v22 * v26.__cosval, a4 + v22 * v26.__sinval);
+  CGPathAddArc(*(a1 + 56), 0, a3, a4, v22, a7, a6, a2 != 1);
   [*(a1 + 32) tailAngle];
-  v33 = v24 * cos(v32 + 1.57079633);
+  v28 = v19 * cos(v27 + 1.57079633);
   [*(a1 + 32) tailAngle];
-  v35 = v24 * sin(v34 + 1.57079633);
-  v36 = *(a1 + 48);
+  v30 = v19 * sin(v29 + 1.57079633);
+  v31 = *(a1 + 48);
   [*(a1 + 32) tailAngle];
-  v38 = v36 * cos(v37);
-  v39 = *(a1 + 48);
+  v33 = v31 * cos(v32);
+  v34 = *(a1 + 48);
   [*(a1 + 32) tailAngle];
-  v41 = v39 * sin(v40);
-  v42 = *(a1 + 40) * 0.5;
+  v36 = v34 * sin(v35);
+  v37 = *(a1 + 40) * 0.5;
   [*(a1 + 32) tailAngle];
-  v44 = v42 * cos(v43 + 1.57079633);
-  v45 = *(a1 + 40) * 0.5;
+  v39 = v37 * cos(v38 + 1.57079633);
+  v40 = *(a1 + 40) * 0.5;
   [*(a1 + 32) tailAngle];
-  v47 = v45 * sin(v46 + 1.57079633);
-  CGPathAddArcToPoint(*(a1 + 56), 0, a8 + v33 - v38, a9 + v35 - v41, a8 + v44 - v38, a9 + v47 - v41, *(a1 + 48));
-  CGPathAddLineToPoint(*(a1 + 56), 0, a8 - v44 - v38, a9 - v47 - v41);
-  CGPathAddArcToPoint(*(a1 + 56), 0, a8 - v33 - v38, a9 - v35 - v41, a8 - v33, a9 - v35, *(a1 + 48));
+  v42 = v40 * sin(v41 + 1.57079633);
+  CGPathAddArcToPoint(*(a1 + 56), 0, a8 + v28 - v33, a9 + v30 - v36, a8 + v39 - v33, a9 + v42 - v36, *(a1 + 48));
+  CGPathAddLineToPoint(*(a1 + 56), 0, a8 - v39 - v33, a9 - v42 - v36);
+  CGPathAddArcToPoint(*(a1 + 56), 0, a8 - v28 - v33, a9 - v30 - v36, a8 - v28, a9 - v30, *(a1 + 48));
   CGPathCloseSubpath(*(a1 + 56));
-  v48 = *(a1 + 32);
-  v49 = *(a1 + 56);
-  [v48 curvature];
-  v51 = v53 - dbl_1001BD410[v50 < 0.0];
+  v43 = *(a1 + 32);
+  v44 = *(a1 + 56);
+  [v43 curvature];
+  v46 = v48 - dbl_1001BD410[v45 < 0.0];
 
-  return [v48 _addGrayArrowHeadToPath:v49 tipAngle:v51 tipPoint:{a11, a12}];
+  return [v43 _addGrayArrowHeadToPath:v44 tipAngle:v46 tipPoint:{a11, a12}];
 }
 
 void sub_100095BFC(uint64_t a1, CGFloat a2, CGFloat a3, double a4)
@@ -2829,10 +2815,11 @@ void sub_1000A5960(uint64_t a1, void *a2, uint64_t a3)
   [*(a1 + 56) addObject:v8];
 }
 
-void sub_1000A5CC0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000A5CC0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, &a9, 0xCu);
+  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, va, 0xCu);
 }
 
 void sub_1000A603C(uint64_t a1)
@@ -2918,16 +2905,16 @@ LABEL_12:
   return v7;
 }
 
-id sub_1000A8954()
+id sub_1000A8954(uint64_t a1)
 {
   if (qword_100218B68 != -1)
   {
     sub_10012AB18();
   }
 
-  v1 = qword_100218B60;
+  v2 = qword_100218B60;
 
-  return v1;
+  return v2;
 }
 
 void sub_1000A8998(id a1)
@@ -3074,10 +3061,11 @@ void sub_1000AA2C4(id a1)
   _objc_release_x1(v1, v2);
 }
 
-void sub_1000AA34C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000AA34C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x16u);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
 void sub_1000AC050(id a1)
@@ -3354,19 +3342,19 @@ uint64_t sub_1000B23EC(uint64_t a1, void *a2)
   return 1;
 }
 
-void sub_1000B3168(uint64_t a1, void *a2)
+void sub_1000B3168(void *a1, void *a2)
 {
   v9 = a2;
   v3 = objc_opt_new();
   v4 = objc_opt_new();
-  SCATGetActionIdentifiersForRecipeAndSwitch(*(a1 + 32), v9, v3, v4);
-  v5 = *(a1 + 40);
+  SCATGetActionIdentifiersForRecipeAndSwitch(a1[4], v9, v3, v4);
+  v5 = a1[5];
   v6 = [v9 uuid];
   [v5 setObject:v3 forKeyedSubscript:v6];
 
   if ([v4 action])
   {
-    v7 = *(a1 + 48);
+    v7 = a1[6];
     v8 = [v9 uuid];
     [v7 setObject:v4 forKeyedSubscript:v8];
   }
@@ -3583,11 +3571,11 @@ void sub_1000C2B64(uint64_t a1)
 
 CGPath *sub_1000C4F9C(CGFloat a1, CGFloat a2, double a3, double a4, CGFloat a5, CGFloat a6, CGFloat a7, CGFloat a8, CGFloat a9)
 {
-  v28.origin.x = a5;
-  v28.origin.y = a6;
-  v28.size.width = a7;
-  v28.size.height = a8;
-  if (NSIsEmptyRect(v28))
+  v20.origin.x = a5;
+  v20.origin.y = a6;
+  v20.size.width = a7;
+  v20.size.height = a8;
+  if (NSIsEmptyRect(v20))
   {
 
     return sub_1000C5150(a1, a2, a3, a4, a9);
@@ -3649,94 +3637,94 @@ CGContext *sub_1000C5248(CGFloat a1, CGFloat a2, CGFloat a3)
   return v8;
 }
 
-void sub_1000C5330(CGContext *a1, CGColor *a2, CGColor *a3, CGFloat a4, CGFloat a5, CGFloat a6, CGFloat a7, CGFloat a8, CGFloat a9, CGFloat width, CGFloat a11, double a12, CGFloat a13, double a14)
+void sub_1000C5330(CGContext *a1, CGColor *a2, CGColor *a3, CGFloat a4, CGFloat a5, CGFloat a6, CGFloat a7, CGFloat a8, CGFloat a9, CGFloat width, CGFloat a11, double a12, CGFloat a13, CGFloat a14)
 {
   DeviceRGB = CGColorSpaceCreateDeviceRGB();
-  v28 = a14 * 0.5;
-  v47 = 1.0 / a12;
-  v29 = [UIColor colorWithWhite:0.0 alpha:0.2];
-  v30 = CGColorRetain([v29 CGColor]);
+  v23 = a14 * 0.5;
+  v42 = 1.0 / a12;
+  v24 = [UIColor colorWithWhite:0.0 alpha:0.2];
+  v25 = CGColorRetain([v24 CGColor]);
 
-  v51.origin.x = a4;
-  v51.origin.y = a5;
-  v51.size.width = a6;
-  v51.size.height = a7;
-  v52 = CGRectInset(v51, v28, v28);
-  y = v52.origin.y;
-  height = v52.size.height;
-  v43 = v52.origin.x + 0.0;
-  rect = v52.size.width;
+  v46.origin.x = a4;
+  v46.origin.y = a5;
+  v46.size.width = a6;
+  v46.size.height = a7;
+  v47 = CGRectInset(v46, v23, v23);
+  y = v47.origin.y;
+  height = v47.size.height;
+  v38 = v47.origin.x + 0.0;
+  rect = v47.size.width;
   x = a8;
-  v52.origin.x = a8;
-  v52.origin.y = a9;
-  v52.size.width = width;
-  v52.size.height = a11;
-  if (CGRectIsEmpty(v52))
+  v47.origin.x = a8;
+  v47.origin.y = a9;
+  v47.size.width = width;
+  v47.size.height = a11;
+  if (CGRectIsEmpty(v47))
   {
-    v42 = a11;
-    v34 = y;
+    v37 = a11;
+    v29 = y;
   }
 
   else
   {
-    v53.origin.x = a8;
-    v53.origin.y = a9;
-    v53.size.width = width;
-    v53.size.height = a11;
-    v54 = CGRectInset(v53, v28, v28);
-    x = v54.origin.x;
-    a9 = v54.origin.y;
-    width = v54.size.width;
-    v34 = y + v54.size.height;
-    v42 = v54.size.height;
-    height = height - v54.size.height;
+    v48.origin.x = a8;
+    v48.origin.y = a9;
+    v48.size.width = width;
+    v48.size.height = a11;
+    v49 = CGRectInset(v48, v23, v23);
+    x = v49.origin.x;
+    a9 = v49.origin.y;
+    width = v49.size.width;
+    v29 = y + v49.size.height;
+    v37 = v49.size.height;
+    height = height - v49.size.height;
   }
 
-  v55.origin.x = v43;
-  v55.origin.y = v34;
-  v55.size.width = rect;
-  v55.size.height = height;
-  v56 = CGRectInset(v55, v47 * 0.5 + v28, v47 * 0.5 + v28);
+  v50.origin.x = v38;
+  v50.origin.y = v29;
+  v50.size.width = rect;
+  v50.size.height = height;
+  v51 = CGRectInset(v50, v42 * 0.5 + v23, v42 * 0.5 + v23);
   if (a1)
   {
-    v35 = v56.origin.x;
-    v36 = v43;
-    v37 = v56.origin.y;
-    v44 = v56.size.width;
-    v38 = v56.size.height;
-    v39 = sub_1000C4F9C(v36, v34, rect, height, x, a9, width, v42, a13);
-    v40 = a13 * 0.5;
+    v30 = v51.origin.x;
+    v31 = v38;
+    v32 = v51.origin.y;
+    v39 = v51.size.width;
+    v33 = v51.size.height;
+    v34 = sub_1000C4F9C(v31, v29, rect, height, x, a9, width, v37, a13);
+    v35 = a13 * 0.5;
     if (a13 >= 4.0)
     {
-      v40 = a13;
+      v35 = a13;
     }
 
-    v41 = sub_1000C4F9C(v35, v37, v44, v38, x, a9, width, v42, v40);
+    v36 = sub_1000C4F9C(v30, v32, v39, v33, x, a9, width, v37, v35);
     CGContextSetFillColorWithColor(a1, a2);
-    CGContextAddPath(a1, v39);
+    CGContextAddPath(a1, v34);
     CGContextFillPath(a1);
     CGContextSetStrokeColorWithColor(a1, a3);
-    CGContextAddPath(a1, v39);
+    CGContextAddPath(a1, v34);
     CGContextSetLineWidth(a1, a14);
     CGContextStrokePath(a1);
-    CGContextSetStrokeColorWithColor(a1, v30);
-    CGContextAddPath(a1, v41);
-    CGContextSetLineWidth(a1, v47);
+    CGContextSetStrokeColorWithColor(a1, v25);
+    CGContextAddPath(a1, v36);
+    CGContextSetLineWidth(a1, v42);
     CGContextStrokePath(a1);
-    if (v41)
+    if (v36)
     {
-      CFRelease(v41);
+      CFRelease(v36);
     }
 
-    if (v39)
+    if (v34)
     {
-      CFRelease(v39);
+      CFRelease(v34);
     }
   }
 
-  if (v30)
+  if (v25)
   {
-    CFRelease(v30);
+    CFRelease(v25);
   }
 
   if (DeviceRGB)
@@ -3746,15 +3734,15 @@ void sub_1000C5330(CGContext *a1, CGColor *a2, CGColor *a3, CGFloat a4, CGFloat 
   }
 }
 
-CGContext *sub_1000C5640(CGColor *a1, CGColor *a2, CGFloat a3, CGFloat a4, CGFloat a5, CGFloat a6, CGFloat a7, CGFloat a8, CGFloat a9, CGFloat a10, CGFloat a11, CGFloat a12, double a13)
+CGImageRef sub_1000C5640(CGColor *a1, CGColor *a2, CGFloat a3, CGFloat a4, CGFloat a5, CGFloat a6, CGFloat a7, CGFloat a8, CGFloat a9, CGFloat a10, CGFloat a11, CGFloat a12, CGFloat a13)
 {
   result = sub_1000C5248(a5, a6, a11);
   if (result)
   {
-    v29 = result;
+    v23 = result;
     sub_1000C5330(result, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13);
-    Image = CGBitmapContextCreateImage(v29);
-    CFRelease(v29);
+    Image = CGBitmapContextCreateImage(v23);
+    CFRelease(v23);
     return Image;
   }
 
@@ -3794,28 +3782,28 @@ void sub_1000C6DEC(uint64_t a1)
   [WeakRetained _assistAppValidationMode];
 }
 
-id sub_1000C6E2C(uint64_t a1)
+id sub_1000C6E2C(uint64_t a1, uint64_t a2)
 {
-  v2 = ASTLogCommon();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = ASTLogCommon();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Reached timeout for waiting for IDS message. Will stop if no activity is in progress.", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Reached timeout for waiting for IDS message. Will stop if no activity is in progress.", v5, 2u);
   }
 
   return [*(a1 + 32) stopIfAllowed];
 }
 
-uint64_t sub_1000C6EA0()
+uint64_t sub_1000C6EA0(uint64_t a1, uint64_t a2)
 {
   result = AXInPreboardScenario();
   if ((result & 1) == 0)
   {
-    v1 = ASTLogCommon();
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
+    v3 = ASTLogCommon();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      *v2 = 0;
-      _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEFAULT, "No longer in PreBoard scenario.  Killing ourselves so we can relaunch with a proper SpringBoard server.", v2, 2u);
+      *v4 = 0;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "No longer in PreBoard scenario.  Killing ourselves so we can relaunch with a proper SpringBoard server.", v4, 2u);
     }
 
     exit(0);
@@ -3824,20 +3812,20 @@ uint64_t sub_1000C6EA0()
   return result;
 }
 
-BOOL sub_1000C6F18(uint64_t a1)
+BOOL sub_1000C6F18(uint64_t a1, uint64_t a2)
 {
-  [HNDHandManager screenFrame:]_0();
-  v2 = ASTLogRuntimeManager();
-  v3 = v2;
-  v4 = *(a1 + 32);
-  if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v2))
+  [HNDHandManager screenFrame:]_0(a1, a2);
+  v3 = ASTLogRuntimeManager();
+  v4 = v3;
+  v5 = *(a1 + 32);
+  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
   {
-    *v8 = 0;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v3, OS_SIGNPOST_INTERVAL_END, v4, "Setup AST/SC runtime.", "", v8, 2u);
+    *v11 = 0;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v4, OS_SIGNPOST_INTERVAL_END, v5, "Setup AST/SC runtime.", "", v11, 2u);
   }
 
-  [HNDHandManager screenFrame:]_0();
-  return v6 != CGSizeZero.height || v5 != CGSizeZero.width;
+  [HNDHandManager screenFrame:]_0(v6, v7);
+  return v9 != CGSizeZero.height || v8 != CGSizeZero.width;
 }
 
 id sub_1000C71BC(uint64_t a1, void *a2, const void *a3)
@@ -3869,25 +3857,25 @@ id sub_1000C71BC(uint64_t a1, void *a2, const void *a3)
   return result;
 }
 
-void sub_1000C7684(uint64_t a1)
+void sub_1000C7684(uint64_t a1, uint64_t a2)
 {
   if (_AXSAssistiveTouchEnabled() || _AXSAssistiveTouchScannerEnabled())
   {
-    v2 = ASTLogCommon();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = ASTLogCommon();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      *v4 = 0;
-      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Not stopping, because either AssistiveTouch or Switch Control was enabled.", v4, 2u);
+      *v5 = 0;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Not stopping, because either AssistiveTouch or Switch Control was enabled.", v5, 2u);
     }
   }
 
   else
   {
-    v3 = ASTLogCommon();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = ASTLogCommon();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "AssistiveTouch and Switch Control were both disabled. Stopping.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "AssistiveTouch and Switch Control were both disabled. Stopping.", buf, 2u);
     }
 
     [*(a1 + 32) stop];
@@ -3929,18 +3917,18 @@ void sub_1000C7BC0(id a1)
   [v1 unloadScanner];
 }
 
-void sub_1000C7DEC(uint64_t a1)
+void sub_1000C7DEC(uint64_t a1, uint64_t a2)
 {
-  v2 = ASTLogCommon();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = ASTLogCommon();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Received reset notification from event manager.", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Received reset notification from event manager.", v5, 2u);
   }
 
   [*(a1 + 32) setShouldStop:1];
-  v3 = [*(a1 + 32) delegate];
-  [v3 stop];
+  v4 = [*(a1 + 32) delegate];
+  [v4 stop];
 }
 
 void sub_1000C8680(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
@@ -4234,7 +4222,7 @@ void sub_1000CDD60(uint64_t a1)
         if (v14)
         {
           v19 = [NSNumber numberWithInt:v14];
-          _AXLogWithFacility();
+          _AXLogWithFacility(0, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Could not create system coundID. error:%@. url:%@");
         }
 
         else
@@ -4313,9 +4301,9 @@ void *sub_1000CF1DC(void *result, void *a2, uint64_t a3)
   return result;
 }
 
-void sub_1000CF4D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000CF4D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4358,10 +4346,11 @@ void sub_1000D01A8(uint64_t a1, void *a2, char a3)
   dispatch_async(v8, v9);
 }
 
-void sub_1000D02F0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000D02F0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_1000D0350(id a1)
@@ -4395,9 +4384,9 @@ void sub_1000D0D74(id a1, id a2, unint64_t a3, BOOL *a4)
   }
 }
 
-void sub_1000D0F70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000D0F70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4811,7 +4800,7 @@ Class sub_1000DB394(uint64_t a1)
   return result;
 }
 
-uint64_t sub_1000DB4C0()
+uint64_t sub_1000DB4C0(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_100218C30 = result;
@@ -5099,9 +5088,9 @@ uint64_t sub_1000E1F60(uint64_t a1)
   return result;
 }
 
-void sub_1000E2C18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000E2C18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5119,9 +5108,9 @@ id sub_1000E2C30(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
   return result;
 }
 
-void sub_1000E2E28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000E2E28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5620,7 +5609,7 @@ void sub_1000F1B88(id a1, NSError *a2)
 {
   if (a2)
   {
-    _AXLogWithFacility();
+    _AXLogWithFacility(0, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Received error from Speak This!: %@");
   }
 }
 
@@ -5809,17 +5798,17 @@ id sub_1000F2CE0(void *a1, uint64_t a2, void *a3)
   return v5;
 }
 
-id sub_1000F2D78(uint64_t a1, uint64_t (*a2)(void))
+id sub_1000F2D78(uint64_t a1, uint64_t (*a2)(uint64_t))
 {
   v4.receiver = v2;
-  v4.super_class = a2();
+  v4.super_class = a2(a1);
   return objc_msgSendSuper2(&v4, "dealloc");
 }
 
-void *sub_1000F2E14(uint64_t a1, uint64_t a2)
+void *sub_1000F2E14(uint64_t a1, uint64_t *a2)
 {
   v2 = *a2;
-  v3 = *(a2 + 8);
+  v3 = a2[1];
   v4 = *(a2 + 16);
   v5 = objc_allocWithZone(type metadata accessor for SlideToTypeHostingController(0));
 
@@ -5847,7 +5836,7 @@ id sub_1000F2EC8()
   return v1;
 }
 
-uint64_t sub_1000F2F44(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t sub_1000F2F44(uint64_t a1, uint64_t a2, char a3, uint64_t a4)
 {
   v5 = static Alignment.center.getter();
   v7 = v6;
@@ -5874,8 +5863,8 @@ uint64_t sub_1000F2F44(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   v33 = v44;
   v32[2] = v36;
   v32[3] = v37;
-  sub_1000F44E4(&v21, &v9, &qword_100217458);
-  sub_1000F454C(v32, &qword_100217458);
+  sub_1000F44E4(&v21, &v9, &qword_100217458, &qword_1001BD6F0);
+  sub_1000F454C(v32, &qword_100217458, &qword_1001BD6F0);
   v18 = v29;
   v19 = v30;
   LOBYTE(v20) = v31;
@@ -5891,7 +5880,7 @@ uint64_t sub_1000F2F44(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   *(&v9 + 1) = v7;
   *(&v20 + 1) = a4;
 
-  sub_1000F40B0(&qword_100217460);
+  sub_1000F40B0(&qword_100217460, &qword_1001BD6F8);
   sub_1000F40F8();
   View.allowsSecureDrawing()();
   v42 = v17;
@@ -5906,149 +5895,149 @@ uint64_t sub_1000F2F44(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   v35 = v10;
   v36 = v11;
   v37 = v12;
-  return sub_1000F454C(&v34, &qword_100217460);
+  return sub_1000F454C(&v34, &qword_100217460, &qword_1001BD6F8);
 }
 
-uint64_t sub_1000F313C@<X0>(_OWORD *a1@<X8>)
+uint64_t sub_1000F313C@<X0>(_OWORD *a4@<X8>)
 {
-  v28 = a1;
-  v1 = type metadata accessor for Image.ResizingMode();
-  v2 = *(v1 - 8);
-  __chkstk_darwin();
-  v4 = &v24 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v31 = a4;
+  v4 = type metadata accessor for Image.ResizingMode();
+  v5 = *(v4 - 8);
+  __chkstk_darwin(v4);
+  v7 = &v27 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   Image.init(systemName:)();
-  v5 = *(v2 + 104);
-  HIDWORD(v24) = enum case for Image.ResizingMode.stretch(_:);
-  v25 = v5;
-  v5(v4);
-  v27 = Image.resizable(capInsets:resizingMode:)();
+  v8 = *(v5 + 104);
+  HIDWORD(v27) = enum case for Image.ResizingMode.stretch(_:);
+  v28 = v8;
+  v8(v7);
+  v30 = Image.resizable(capInsets:resizingMode:)();
 
-  v26 = *(v2 + 8);
-  v26(v4, v1);
+  v29 = *(v5 + 8);
+  v29(v7, v4);
   static Alignment.center.getter();
   _FrameLayout.init(width:height:alignment:)();
-  LOBYTE(v48) = 1;
-  *&v47[3] = *&v47[27];
-  *&v47[11] = *&v47[35];
-  *&v47[19] = *&v47[43];
+  LOBYTE(v51) = 1;
+  *&v50[3] = *&v50[27];
+  *&v50[11] = *&v50[35];
+  *&v50[19] = *&v50[43];
   type metadata accessor for SlideToTypeObservable(0);
   sub_1000F4224();
-  v6 = StateObject.wrappedValue.getter();
+  v9 = StateObject.wrappedValue.getter();
   swift_getKeyPath();
   swift_getKeyPath();
   static Published.subscript.getter();
 
-  if (v48 == 1)
+  if (v51 == 1)
   {
     Image.init(systemName:)();
-    v25(v4, HIDWORD(v24), v1);
-    v7 = Image.resizable(capInsets:resizingMode:)();
+    v28(v7, HIDWORD(v27), v4);
+    v10 = Image.resizable(capInsets:resizingMode:)();
 
-    v26(v4, v1);
+    v29(v7, v4);
     static Font.title.getter();
     static Font.Weight.light.getter();
-    v8 = Font.weight(_:)();
+    v11 = Font.weight(_:)();
 
     KeyPath = swift_getKeyPath();
     static Alignment.center.getter();
     _FrameLayout.init(width:height:alignment:)();
-    LOBYTE(v40[0]) = 0;
-    v42 = v7;
-    LOWORD(v43) = 1;
-    *(&v43 + 1) = KeyPath;
-    *&v44 = v8;
-    BYTE8(v46[1]) = 0;
+    LOBYTE(v43[0]) = 0;
+    v45 = v10;
+    LOWORD(v46) = 1;
+    *(&v46 + 1) = KeyPath;
+    *&v47 = v11;
+    BYTE8(v49[1]) = 0;
   }
 
   else
   {
     Image.init(systemName:)();
-    v25(v4, HIDWORD(v24), v1);
-    v10 = Image.resizable(capInsets:resizingMode:)();
+    v28(v7, HIDWORD(v27), v4);
+    v13 = Image.resizable(capInsets:resizingMode:)();
 
-    v26(v4, v1);
+    v29(v7, v4);
     static Font.title.getter();
     static Font.Weight.light.getter();
-    v11 = Font.weight(_:)();
+    v14 = Font.weight(_:)();
 
-    v12 = swift_getKeyPath();
+    v15 = swift_getKeyPath();
     static Alignment.center.getter();
     _FrameLayout.init(width:height:alignment:)();
-    LOBYTE(v40[0]) = 1;
-    v42 = v10;
-    LOWORD(v43) = 1;
-    *(&v43 + 1) = v12;
-    *&v44 = v11;
-    BYTE8(v46[1]) = 1;
+    LOBYTE(v43[0]) = 1;
+    v45 = v13;
+    LOWORD(v46) = 1;
+    *(&v46 + 1) = v15;
+    *&v47 = v14;
+    BYTE8(v49[1]) = 1;
   }
 
-  sub_1000F40B0(&qword_100217490);
+  sub_1000F40B0(&qword_100217490, &qword_1001BD788);
   sub_1000F42D4();
   _ConditionalContent<>.init(storage:)();
-  v44 = v50;
+  v47 = v53;
+  v48 = v54;
+  v49[0] = v55[0];
+  *(v49 + 9) = *(v55 + 9);
   v45 = v51;
-  v46[0] = v52[0];
-  *(v46 + 9) = *(v52 + 9);
-  v42 = v48;
-  v43 = v49;
-  v13 = v27;
-  v38[0] = v27;
-  v38[1] = 0;
-  v39[0] = 1;
-  v39[1] = 0;
-  *&v39[48] = *&v47[23];
-  *&v39[34] = *&v47[16];
-  *&v39[18] = *&v47[8];
-  *&v39[2] = *v47;
-  v35 = *&v39[16];
-  v36 = *&v39[32];
-  *&v34[23] = v27;
-  *&v34[31] = *v39;
-  v40[0] = v48;
-  v40[1] = v49;
-  *(v41 + 9) = *(v52 + 9);
-  v40[3] = v51;
-  v41[0] = v52[0];
-  v40[2] = v50;
-  *v37 = *&v39[48];
-  *&v37[24] = v49;
-  *&v37[8] = v48;
-  *&v37[81] = *(v52 + 9);
-  *&v37[72] = v52[0];
-  *&v37[56] = v51;
-  *&v37[40] = v50;
-  v14 = *v39;
-  v15 = v28;
-  *v28 = v27;
-  v15[1] = v14;
-  v16 = v35;
-  v17 = v36;
-  v18 = *&v37[16];
-  v15[4] = *v37;
-  v15[5] = v18;
-  v15[2] = v16;
-  v15[3] = v17;
-  v19 = *&v37[32];
-  v20 = *&v37[48];
-  v21 = *&v37[64];
-  v22 = *&v37[80];
-  *(v15 + 160) = v37[96];
-  v15[8] = v21;
-  v15[9] = v22;
-  v15[6] = v19;
-  v15[7] = v20;
-  sub_1000F44E4(v38, v29, &qword_1002174D0);
-  sub_1000F44E4(v40, v29, &qword_1002174D8);
-  sub_1000F454C(&v42, &qword_1002174D8);
-  v29[0] = v13;
-  v29[1] = 0;
-  v30 = 1;
-  v31 = 0;
-  v32 = *v47;
-  v33 = *&v47[8];
-  *v34 = *&v47[16];
-  *&v34[7] = *&v47[23];
-  return sub_1000F454C(v29, &qword_1002174D0);
+  v46 = v52;
+  v16 = v30;
+  v41[0] = v30;
+  v41[1] = 0;
+  v42[0] = 1;
+  v42[1] = 0;
+  *&v42[48] = *&v50[23];
+  *&v42[34] = *&v50[16];
+  *&v42[18] = *&v50[8];
+  *&v42[2] = *v50;
+  v38 = *&v42[16];
+  v39 = *&v42[32];
+  *&v37[23] = v30;
+  *&v37[31] = *v42;
+  v43[0] = v51;
+  v43[1] = v52;
+  *(v44 + 9) = *(v55 + 9);
+  v43[3] = v54;
+  v44[0] = v55[0];
+  v43[2] = v53;
+  *v40 = *&v42[48];
+  *&v40[24] = v52;
+  *&v40[8] = v51;
+  *&v40[81] = *(v55 + 9);
+  *&v40[72] = v55[0];
+  *&v40[56] = v54;
+  *&v40[40] = v53;
+  v17 = *v42;
+  v18 = v31;
+  *v31 = v30;
+  v18[1] = v17;
+  v19 = v38;
+  v20 = v39;
+  v21 = *&v40[16];
+  v18[4] = *v40;
+  v18[5] = v21;
+  v18[2] = v19;
+  v18[3] = v20;
+  v22 = *&v40[32];
+  v23 = *&v40[48];
+  v24 = *&v40[64];
+  v25 = *&v40[80];
+  *(v18 + 160) = v40[96];
+  v18[8] = v24;
+  v18[9] = v25;
+  v18[6] = v22;
+  v18[7] = v23;
+  sub_1000F44E4(v41, v32, &qword_1002174D0, &qword_1001BD7A8);
+  sub_1000F44E4(v43, v32, &qword_1002174D8, &qword_1001BD7B0);
+  sub_1000F454C(&v45, &qword_1002174D8, &qword_1001BD7B0);
+  v32[0] = v16;
+  v32[1] = 0;
+  v33 = 1;
+  v34 = 0;
+  v35 = *v50;
+  v36 = *&v50[8];
+  *v37 = *&v50[16];
+  *&v37[7] = *&v50[23];
+  return sub_1000F454C(v32, &qword_1002174D0, &qword_1001BD7A8);
 }
 
 id sub_1000F3750()
@@ -6067,11 +6056,11 @@ uint64_t sub_1000F3858()
   return v1;
 }
 
-__CFNotificationCenter *sub_1000F38CC()
+CFNotificationCenterRef sub_1000F38CC()
 {
-  v1 = sub_1000F40B0(&unk_1002174E0);
+  v1 = sub_1000F40B0(&unk_1002174E0, &unk_1001BD7B8);
   v2 = *(v1 - 8);
-  __chkstk_darwin();
+  __chkstk_darwin(v1);
   v4 = &v13 - v3;
   v5 = OBJC_IVAR____TtC15assistivetouchdP33_E95A5B9CFBC065073A07D7F97181393021SlideToTypeObservable__isDwellSlideToTypeEnabled;
   v6 = [objc_opt_self() sharedInstance];
@@ -6107,13 +6096,13 @@ void sub_1000F3A88(uint64_t a1, void *a2)
   if (a2)
   {
     v2 = a2;
-    __chkstk_darwin();
+    __chkstk_darwin(v2);
     static Animation.default.getter();
     withAnimation<A>(_:_:)();
   }
 }
 
-__CFNotificationCenter *sub_1000F3B5C()
+CFNotificationCenterRef sub_1000F3B5C()
 {
   result = CFNotificationCenterGetLocalCenter();
   if (kAXSDwellKeyboardContinuousPathEnabledNotification)
@@ -6135,25 +6124,25 @@ __CFNotificationCenter *sub_1000F3B5C()
   return result;
 }
 
-uint64_t sub_1000F3CFC@<X0>(uint64_t *a1@<X8>)
+uint64_t sub_1000F3CFC@<X0>(uint64_t *a2@<X8>)
 {
   type metadata accessor for SlideToTypeObservable(0);
   result = ObservableObject<>.objectWillChange.getter();
-  *a1 = result;
+  *a2 = result;
   return result;
 }
 
-uint64_t sub_1000F3D3C@<X0>(_BYTE *a1@<X8>)
+uint64_t sub_1000F3D3C@<X0>(_BYTE *a2@<X8>)
 {
   swift_getKeyPath();
   swift_getKeyPath();
   static Published.subscript.getter();
 
-  *a1 = v3;
+  *a2 = v4;
   return result;
 }
 
-uint64_t sub_1000F3DBC(uint64_t a1, void **a2)
+uint64_t sub_1000F3DBC(char *a1, void **a2)
 {
   v2 = *a2;
   swift_getKeyPath();
@@ -6162,7 +6151,7 @@ uint64_t sub_1000F3DBC(uint64_t a1, void **a2)
   return static Published.subscript.setter();
 }
 
-uint64_t sub_1000F3EC0(uint64_t a1, uint64_t *a2)
+uint64_t sub_1000F3EC0(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   result = *a2;
   if (!*a2)
@@ -6173,10 +6162,10 @@ uint64_t sub_1000F3EC0(uint64_t a1, uint64_t *a2)
   return result;
 }
 
-void sub_1000F3EF8()
+void sub_1000F3EF8(uint64_t a1)
 {
   sub_1000F3F88();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     swift_updateClassMetadata2();
   }
@@ -6262,7 +6251,7 @@ LABEL_8:
   return result;
 }
 
-uint64_t sub_1000F40B0(uint64_t *a1)
+uint64_t sub_1000F40B0(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -6279,9 +6268,9 @@ unint64_t sub_1000F40F8()
   result = qword_100217468;
   if (!qword_100217468)
   {
-    sub_1000F41DC(&qword_100217460);
-    sub_1000F449C(&qword_100217470, &qword_100217478);
-    sub_1000F449C(&qword_100217480, &qword_100217488);
+    sub_1000F41DC(&qword_100217460, &qword_1001BD6F8);
+    sub_1000F449C(&qword_100217470, &qword_100217478, &qword_1001BD700, &protocol conformance descriptor for ZStack<A>);
+    sub_1000F449C(&qword_100217480, &qword_100217488, &qword_1001BD708, &protocol conformance descriptor for _ForegroundStyleModifier<A>);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_100217468);
   }
@@ -6289,7 +6278,7 @@ unint64_t sub_1000F40F8()
   return result;
 }
 
-uint64_t sub_1000F41DC(uint64_t *a1)
+uint64_t sub_1000F41DC(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -6326,7 +6315,7 @@ unint64_t sub_1000F42D4()
   result = qword_100217498;
   if (!qword_100217498)
   {
-    sub_1000F41DC(&qword_100217490);
+    sub_1000F41DC(&qword_100217490, &qword_1001BD788);
     sub_1000F4360();
     result = swift_getWitnessTable();
     atomic_store(result, &qword_100217498);
@@ -6340,9 +6329,9 @@ unint64_t sub_1000F4360()
   result = qword_1002174A0;
   if (!qword_1002174A0)
   {
-    sub_1000F41DC(&qword_1002174A8);
+    sub_1000F41DC(&qword_1002174A8, &qword_1001BD790);
     sub_1000F4418();
-    sub_1000F449C(&qword_1002174C0, &qword_1002174C8);
+    sub_1000F449C(&qword_1002174C0, &qword_1002174C8, &qword_1001BD7A0, &protocol conformance descriptor for _EnvironmentKeyWritingModifier<A>);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1002174A0);
   }
@@ -6355,7 +6344,7 @@ unint64_t sub_1000F4418()
   result = qword_1002174B0;
   if (!qword_1002174B0)
   {
-    sub_1000F41DC(&qword_1002174B8);
+    sub_1000F41DC(&qword_1002174B8, &qword_1001BD798);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1002174B0);
   }
@@ -6363,12 +6352,12 @@ unint64_t sub_1000F4418()
   return result;
 }
 
-uint64_t sub_1000F449C(unint64_t *a1, uint64_t *a2)
+uint64_t sub_1000F449C(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
   {
-    sub_1000F41DC(a2);
+    sub_1000F41DC(a2, a3);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -6376,17 +6365,17 @@ uint64_t sub_1000F449C(unint64_t *a1, uint64_t *a2)
   return result;
 }
 
-uint64_t sub_1000F44E4(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t sub_1000F44E4(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
-  v5 = sub_1000F40B0(a3);
-  (*(*(v5 - 8) + 16))(a2, a1, v5);
+  v6 = sub_1000F40B0(a3, a4);
+  (*(*(v6 - 8) + 16))(a2, a1, v6);
   return a2;
 }
 
-uint64_t sub_1000F454C(uint64_t a1, uint64_t *a2)
+uint64_t sub_1000F454C(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
-  v3 = sub_1000F40B0(a2);
-  (*(*(v3 - 8) + 8))(a1, v3);
+  v4 = sub_1000F40B0(a2, a3);
+  (*(*(v4 - 8) + 8))(a1, v4);
   return a1;
 }
 
@@ -6428,7 +6417,7 @@ uint64_t sub_1000F4668(uint64_t a1, uint64_t a2, char a3)
 
 uint64_t sub_1000F4678()
 {
-  sub_1000F41DC(&qword_100217460);
+  sub_1000F41DC(&qword_100217460, &qword_1001BD6F8);
   sub_1000F40F8();
   return swift_getOpaqueTypeConformance2();
 }
@@ -6459,11 +6448,11 @@ Swift::Int sub_1000F47A8()
   return Hasher._finalize()();
 }
 
-Swift::Int sub_1000F481C()
+Swift::Int sub_1000F481C(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  Hasher._combine(_:)(v1);
+  Hasher._combine(_:)(v2);
   return Hasher._finalize()();
 }
 
@@ -6496,10 +6485,10 @@ id static CameraInputSourceManager.CameraInputSourceDefaults.previewLayerColor.g
   return v1;
 }
 
-void sub_1000F4988(uint64_t a1)
+void sub_1000F4988(void *result)
 {
   v2 = *(*(v1 + OBJC_IVAR____TtC15assistivetouchd24CameraInputSourceManager_delegates) + 16);
-  if (*(a1 + 16))
+  if (result[2])
   {
     if (!v2)
     {
@@ -6646,14 +6635,14 @@ id sub_1000F4FC8()
 {
   v1 = v0;
   v2 = type metadata accessor for OS_dispatch_queue.AutoreleaseFrequency();
-  v12 = *(v2 - 8);
-  v13 = v2;
-  __chkstk_darwin();
-  v11 = &v11 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for OS_dispatch_queue.Attributes();
-  __chkstk_darwin();
-  type metadata accessor for DispatchQoS();
-  __chkstk_darwin();
+  v14 = *(v2 - 8);
+  v15 = v2;
+  __chkstk_darwin(v2);
+  v13 = &v13 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = type metadata accessor for OS_dispatch_queue.Attributes();
+  __chkstk_darwin(v4);
+  v5 = type metadata accessor for DispatchQoS();
+  __chkstk_darwin(v5 - 8);
   *&v0[OBJC_IVAR____TtC15assistivetouchd24CameraInputSourceManager_captureSession] = 0;
   *&v0[OBJC_IVAR____TtC15assistivetouchd24CameraInputSourceManager_captureOutputPreview] = 0;
   if (qword_100218DE0 != -1)
@@ -6661,35 +6650,35 @@ id sub_1000F4FC8()
     swift_once();
   }
 
-  v4 = type metadata accessor for Logger();
-  sub_1000F4758(v4, qword_10021C8E0);
-  v5 = Logger.logObject.getter();
-  v6 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v5, v6))
+  v6 = type metadata accessor for Logger();
+  sub_1000F4758(v6, qword_10021C8E0);
+  v7 = Logger.logObject.getter();
+  v8 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v7, v8))
   {
-    v7 = swift_slowAlloc();
-    *v7 = 0;
-    _os_log_impl(&_mh_execute_header, v5, v6, "Initializing Camera Input Source Manager.", v7, 2u);
+    v9 = swift_slowAlloc();
+    *v9 = 0;
+    _os_log_impl(&_mh_execute_header, v7, v8, "Initializing Camera Input Source Manager.", v9, 2u);
   }
 
-  *&v1[OBJC_IVAR____TtC15assistivetouchd24CameraInputSourceManager_delegates] = &_swiftEmptyArrayStorage;
-  *&v1[OBJC_IVAR____TtC15assistivetouchd24CameraInputSourceManager_layers] = sub_1000FB45C(&_swiftEmptyArrayStorage);
+  *&v1[OBJC_IVAR____TtC15assistivetouchd24CameraInputSourceManager_delegates] = _swiftEmptyArrayStorage;
+  *&v1[OBJC_IVAR____TtC15assistivetouchd24CameraInputSourceManager_layers] = sub_1000FB45C(_swiftEmptyArrayStorage);
   *&v1[OBJC_IVAR____TtC15assistivetouchd24CameraInputSourceManager_captureSessionPreset] = AVCaptureSessionPreset640x480;
   *&v1[OBJC_IVAR____TtC15assistivetouchd24CameraInputSourceManager_captureOutputPixelFormat] = 875704422;
-  sub_1000FB560(0, &unk_100217B00);
-  v8 = AVCaptureSessionPreset640x480;
+  sub_1000FB560(0, &unk_100217B00, OS_dispatch_queue_ptr);
+  v10 = AVCaptureSessionPreset640x480;
   static DispatchQoS.unspecified.getter();
-  v15 = &_swiftEmptyArrayStorage;
-  sub_1000FAD78(&qword_100217600, &type metadata accessor for OS_dispatch_queue.Attributes);
-  sub_1000F40B0(&qword_100217608);
-  sub_1000F449C(&qword_100217610, &qword_100217608);
+  v17 = _swiftEmptyArrayStorage;
+  sub_1000FAD78(&qword_100217600, &type metadata accessor for OS_dispatch_queue.Attributes, &protocol conformance descriptor for OS_dispatch_queue.Attributes);
+  sub_1000F40B0(&qword_100217608, qword_1001BDE70);
+  sub_1000F449C(&qword_100217610, &qword_100217608, qword_1001BDE70, &protocol conformance descriptor for [A]);
   dispatch thunk of SetAlgebra.init<A>(_:)();
-  (*(v12 + 104))(v11, enum case for OS_dispatch_queue.AutoreleaseFrequency.inherit(_:), v13);
+  (*(v14 + 104))(v13, enum case for OS_dispatch_queue.AutoreleaseFrequency.inherit(_:), v15);
   *&v1[OBJC_IVAR____TtC15assistivetouchd24CameraInputSourceManager_captureOutputQueue] = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
-  v9 = type metadata accessor for CameraInputSourceManager();
-  v14.receiver = v1;
-  v14.super_class = v9;
-  return objc_msgSendSuper2(&v14, "init");
+  v11 = type metadata accessor for CameraInputSourceManager();
+  v16.receiver = v1;
+  v16.super_class = v11;
+  return objc_msgSendSuper2(&v16, "init");
 }
 
 id CameraInputSourceManager.__deallocating_deinit()
@@ -6780,7 +6769,7 @@ void CameraInputSourceManager.addObserver<A>(_:)(void *a1, uint64_t a2, uint64_t
     *v13 = v9;
     v14 = v9;
     _os_log_impl(&_mh_execute_header, v10, v11, "Adding observer: %@", v12, 0xCu);
-    sub_1000F454C(v13, &qword_100217528);
+    sub_1000F454C(v13, &qword_100217528, &qword_1001BD800);
   }
 
   if ((*((swift_isaMask & *v4) + 0x168))(v9, a2, a3))
@@ -6798,7 +6787,7 @@ void CameraInputSourceManager.addObserver<A>(_:)(void *a1, uint64_t a2, uint64_t
       *v18 = v15;
       v19 = v15;
       _os_log_impl(&_mh_execute_header, oslog, v16, "Observer has already been added. Ignoring observer: %@", v17, 0xCu);
-      sub_1000F454C(v18, &qword_100217528);
+      sub_1000F454C(v18, &qword_100217528, &qword_1001BD800);
     }
   }
 
@@ -6853,7 +6842,7 @@ void CameraInputSourceManager.removeObserver<A>(_:)(void *a1, uint64_t a2, uint6
     *v12 = v8;
     v13 = v8;
     _os_log_impl(&_mh_execute_header, v9, v10, "Removing observer: %@", v11, 0xCu);
-    sub_1000F454C(v12, &qword_100217528);
+    sub_1000F454C(v12, &qword_100217528, &qword_1001BD800);
   }
 
   sub_1000FA0E4(v8, v3, v14, a3);
@@ -6931,7 +6920,7 @@ BOOL CameraInputSourceManager.containsObserver<A>(_:)(void *a1, uint64_t a2, uin
     *v11 = v7;
     v12 = v7;
     _os_log_impl(&_mh_execute_header, v8, v9, "Checking if we already have observer: %@", v10, 0xCu);
-    sub_1000F454C(v11, &qword_100217528);
+    sub_1000F454C(v11, &qword_100217528, &qword_1001BD800);
   }
 
   sub_1000FA0E4(v7, v3, v13, a3);
@@ -7088,7 +7077,7 @@ void sub_1000F6330()
     *v7 = v2;
     v8 = v2;
     _os_log_impl(&_mh_execute_header, v4, v5, "Setting up new capture session: %@", v6, 0xCu);
-    sub_1000F454C(v7, &qword_100217528);
+    sub_1000F454C(v7, &qword_100217528, &qword_1001BD800);
   }
 
   swift_beginAccess();
@@ -7244,7 +7233,7 @@ LABEL_13:
     *v35 = v31;
     v36 = v31;
     _os_log_impl(&_mh_execute_header, v32, v33, "Created capture output preview: %@", v34, 0xCu);
-    sub_1000F454C(v35, &qword_100217528);
+    sub_1000F454C(v35, &qword_100217528, &qword_1001BD800);
   }
 
   v37 = OBJC_IVAR____TtC15assistivetouchd24CameraInputSourceManager_captureOutputPreview;
@@ -7276,7 +7265,7 @@ void sub_1000F6D60()
     *v6 = v7;
     v8 = v7;
     _os_log_impl(&_mh_execute_header, v3, v4, "Tearing down capture session: %@", v5, 0xCu);
-    sub_1000F454C(v6, &qword_100217528);
+    sub_1000F454C(v6, &qword_100217528, &qword_1001BD800);
   }
 
   v9 = OBJC_IVAR____TtC15assistivetouchd24CameraInputSourceManager_captureSession;
@@ -7290,7 +7279,7 @@ void sub_1000F6ED4(id *a1)
   v3 = v2;
   v4 = v1;
   v5 = (*((swift_isaMask & *v1) + 0xB8))();
-  sub_1000F40B0(&qword_1002175E8);
+  sub_1000F40B0(&qword_1002175E8, &unk_1001BDB80);
   v6 = swift_allocObject();
   *(v6 + 16) = xmmword_1001BD7D0;
   *(v6 + 32) = AVCaptureDeviceTypeBuiltInUltraWideCamera;
@@ -7305,7 +7294,7 @@ void sub_1000F6ED4(id *a1)
   v12 = [objc_opt_self() discoverySessionWithDeviceTypes:isa mediaType:v10 position:2];
 
   v13 = [v12 devices];
-  sub_1000FB560(0, &unk_1002175F0);
+  sub_1000FB560(0, &unk_1002175F0, AVCaptureDevice_ptr);
   v14 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   if (!(v14 >> 62))
@@ -7400,7 +7389,7 @@ LABEL_10:
     *(v23 + 4) = v25;
     *v24 = v25;
     _os_log_impl(&_mh_execute_header, v22, v18, "Could not create capture device input. Error: %@", v23, 0xCu);
-    sub_1000F454C(v24, &qword_100217528);
+    sub_1000F454C(v24, &qword_100217528, &qword_1001BD800);
     v10 = v70;
   }
 
@@ -7464,7 +7453,7 @@ LABEL_13:
     while (v34 != v29);
 
     [v30 setAlwaysDiscardsLateVideoFrames:1];
-    sub_1000F40B0(&qword_1002175D0);
+    sub_1000F40B0(&qword_1002175D0, &qword_1001BDB68);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_1001BD7E0;
     *(inited + 32) = static String._unconditionallyBridgeFromObjectiveC(_:)();
@@ -7473,7 +7462,7 @@ LABEL_13:
     *(inited + 48) = v29;
     sub_1000FAE08(inited);
     swift_setDeallocating();
-    sub_1000F454C(inited + 32, &qword_1002175D8);
+    sub_1000F454C(inited + 32, &qword_1002175D8, &qword_1001BDB70);
     v37 = Dictionary._bridgeToObjectiveC()().super.isa;
 
     [v30 setVideoSettings:v37];
@@ -7508,15 +7497,15 @@ LABEL_13:
             v44 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
             v75[0] = v44;
-            sub_1000F40B0(&qword_1002175B0);
+            sub_1000F40B0(&qword_1002175B0, &qword_1001BDB58);
             v45 = swift_allocObject();
             *(v45 + 16) = xmmword_1001BD7E0;
             *(v45 + 32) = AVMetadataObjectTypeFace;
             v75[11] = v45;
             v68 = AVMetadataObjectTypeFace;
-            sub_1000F40B0(&qword_1002175B8);
-            sub_1000F449C(&qword_1002175C0, &qword_1002175B8);
-            sub_1000FAD78(&qword_1002175C8, type metadata accessor for ObjectType);
+            sub_1000F40B0(&qword_1002175B8, &qword_1001BDB60);
+            sub_1000F449C(&qword_1002175C0, &qword_1002175B8, &qword_1001BDB60, &protocol conformance descriptor for [A]);
+            sub_1000FAD78(&qword_1002175C8, type metadata accessor for ObjectType, &unk_1001BDE24);
             LOBYTE(v43) = Collection<>.contains<A>(_:)();
 
             if (v43)
@@ -7628,7 +7617,7 @@ LABEL_36:
     *v53 = v18;
     v18 = v50;
     _os_log_impl(&_mh_execute_header, v5, v51, "Could not create capture output. Could not add capture device input: %@", v52, 0xCu);
-    sub_1000F454C(v53, &qword_100217528);
+    sub_1000F454C(v53, &qword_100217528, &qword_1001BD800);
 
 LABEL_40:
   }
@@ -7636,7 +7625,7 @@ LABEL_40:
 LABEL_57:
 }
 
-uint64_t CameraInputSourceManager.createLayer(withID:color:width:height:)(uint64_t a1, unint64_t a2, void *a3, double a4, double a5)
+id CameraInputSourceManager.createLayer(withID:color:width:height:)(uint64_t a1, unint64_t a2, void *a3, double a4, double a5)
 {
   v6 = v5;
   v12 = OBJC_IVAR____TtC15assistivetouchd24CameraInputSourceManager_layers;
@@ -7712,11 +7701,11 @@ LABEL_19:
 
     v29 = v27;
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v41 = *(v6 + v12);
+    v44 = *(v6 + v12);
     *(v6 + v12) = 0x8000000000000000;
     sub_1000F9E00(v29, a1, a2, isUniquelyReferenced_nonNull_native);
 
-    *(v6 + v12) = v41;
+    *(v6 + v12) = v44;
     swift_endAccess();
     v31 = swift_allocObject();
     v31[2] = a1;
@@ -7757,9 +7746,9 @@ LABEL_14:
     _os_log_impl(&_mh_execute_header, v36, v37, "Capture output preview is not setup!", v38, 2u);
   }
 
-  sub_1000FA274();
+  sub_1000FA274(v39, v40, v41);
   swift_allocError();
-  *v39 = 1;
+  *v42 = 1;
   return swift_willThrow();
 }
 
@@ -8046,12 +8035,12 @@ uint64_t sub_1000F8BE8(uint64_t a1, id *a2)
   return v3 & 1;
 }
 
-uint64_t sub_1000F8C68@<X0>(void *a1@<X8>)
+uint64_t sub_1000F8C68@<X0>(void *a2@<X8>)
 {
   static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v2 = String._bridgeToObjectiveC()();
+  v3 = String._bridgeToObjectiveC()();
 
-  *a1 = v2;
+  *a2 = v3;
   return result;
 }
 
@@ -8065,32 +8054,32 @@ uint64_t sub_1000F8CB0@<X0>(uint64_t *a1@<X8>)
 
 uint64_t sub_1000F8CDC(uint64_t a1)
 {
-  v2 = sub_1000FAD78(&qword_100217680, type metadata accessor for DeviceType);
-  v3 = sub_1000FAD78(&qword_100217688, type metadata accessor for DeviceType);
+  v2 = sub_1000FAD78(&qword_100217680, type metadata accessor for DeviceType, &unk_1001BDF58);
+  v3 = sub_1000FAD78(&qword_100217688, type metadata accessor for DeviceType, &unk_1001BDF18);
 
   return _SwiftNewtypeWrapper<>._toCustomAnyHashable()(a1, v2, v3, &protocol witness table for String);
 }
 
-uint64_t sub_1000F8D98@<X0>(void *a1@<X8>)
+uint64_t sub_1000F8D98@<X0>(void *a2@<X8>)
 {
-  v2 = String._bridgeToObjectiveC()();
+  v3 = String._bridgeToObjectiveC()();
 
-  *a1 = v2;
+  *a2 = v3;
   return result;
 }
 
 uint64_t sub_1000F8DE0(uint64_t a1)
 {
-  v2 = sub_1000FAD78(&qword_100217598, type metadata accessor for Preset);
-  v3 = sub_1000FAD78(&unk_1002175A0, type metadata accessor for Preset);
+  v2 = sub_1000FAD78(&qword_100217598, type metadata accessor for Preset, &unk_1001BDAC4);
+  v3 = sub_1000FAD78(&unk_1002175A0, type metadata accessor for Preset, &unk_1001BDA64);
 
   return _SwiftNewtypeWrapper<>._toCustomAnyHashable()(a1, v2, v3, &protocol witness table for String);
 }
 
 uint64_t sub_1000F8E9C(uint64_t a1)
 {
-  v2 = sub_1000FAD78(&qword_100217690, type metadata accessor for ObjectType);
-  v3 = sub_1000FAD78(&qword_100217698, type metadata accessor for ObjectType);
+  v2 = sub_1000FAD78(&qword_100217690, type metadata accessor for ObjectType, &unk_1001BDCCC);
+  v3 = sub_1000FAD78(&qword_100217698, type metadata accessor for ObjectType, &unk_1001BDC98);
 
   return _SwiftNewtypeWrapper<>._toCustomAnyHashable()(a1, v2, v3, &protocol witness table for String);
 }
@@ -8103,37 +8092,37 @@ uint64_t sub_1000F8F64()
   return v0;
 }
 
-uint64_t sub_1000F8FA0()
+uint64_t sub_1000F8FA0(uint64_t a1)
 {
   static String._unconditionallyBridgeFromObjectiveC(_:)();
   String.hash(into:)();
 }
 
-Swift::Int sub_1000F8FF4()
+Swift::Int sub_1000F8FF4(uint64_t a1)
 {
   static String._unconditionallyBridgeFromObjectiveC(_:)();
   Hasher.init(_seed:)();
   String.hash(into:)();
-  v0 = Hasher._finalize()();
+  v1 = Hasher._finalize()();
 
-  return v0;
+  return v1;
 }
 
-uint64_t sub_1000F906C()
+uint64_t sub_1000F906C(void *a1, uint64_t *a2)
 {
-  v0 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v2 = v1;
-  if (v0 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v2 == v3)
+  v2 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v4 = v3;
+  if (v2 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v4 == v5)
   {
-    v5 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v5 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v7 = _stringCompareWithSmolCheck(_:_:expecting:)();
   }
 
-  return v5 & 1;
+  return v7 & 1;
 }
 
 void *sub_1000F90F4(void *result, int64_t a2, char a3, void *a4)
@@ -8177,7 +8166,7 @@ void *sub_1000F90F4(void *result, int64_t a2, char a3, void *a4)
 
   if (v9)
   {
-    sub_1000F40B0(&qword_100217628);
+    sub_1000F40B0(&qword_100217628, &qword_1001BDBA0);
     v10 = swift_allocObject();
     v11 = j__malloc_size(v10);
     v12 = v11 - 32;
@@ -8192,7 +8181,7 @@ void *sub_1000F90F4(void *result, int64_t a2, char a3, void *a4)
 
   else
   {
-    v10 = &_swiftEmptyArrayStorage;
+    v10 = _swiftEmptyArrayStorage;
   }
 
   if (v5)
@@ -8207,7 +8196,7 @@ void *sub_1000F90F4(void *result, int64_t a2, char a3, void *a4)
 
   else
   {
-    sub_1000F40B0(&qword_100217630);
+    sub_1000F40B0(&qword_100217630, &qword_1001BDBA8);
     swift_arrayInitWithCopy();
   }
 
@@ -8312,14 +8301,14 @@ LABEL_8:
   }
 }
 
-char *sub_1000F9400(uint64_t a1, unint64_t a2)
+void *sub_1000F9400(uint64_t a1, unint64_t a2)
 {
   v3 = sub_1000F944C(a1, a2);
   sub_1000F957C(&off_1001D7DD8);
   return v3;
 }
 
-char *sub_1000F944C(uint64_t a1, unint64_t a2)
+void *sub_1000F944C(uint64_t a1, unint64_t a2)
 {
   if ((a2 & 0x1000000000000000) != 0)
   {
@@ -8339,7 +8328,7 @@ char *sub_1000F944C(uint64_t a1, unint64_t a2)
 
   if (!v5)
   {
-    return &_swiftEmptyArrayStorage;
+    return _swiftEmptyArrayStorage;
   }
 
   v6 = sub_1000F9668(v5, 0);
@@ -8348,7 +8337,7 @@ char *sub_1000F944C(uint64_t a1, unint64_t a2)
   {
     v15[0] = a1;
     v15[1] = a2 & 0xFFFFFFFFFFFFFFLL;
-    memcpy(v6 + 32, v15, HIBYTE(a2) & 0xF);
+    memcpy(v6 + 4, v15, HIBYTE(a2) & 0xF);
     return v7;
   }
 
@@ -8365,7 +8354,7 @@ char *sub_1000F944C(uint64_t a1, unint64_t a2)
   if (v4 >= v9)
   {
 LABEL_9:
-    memcpy(v7 + 32, v8, v9);
+    memcpy(v7 + 4, v8, v9);
     if (v9 != v4)
     {
       while (1)
@@ -8375,7 +8364,7 @@ LABEL_13:
         v10 = String.UTF8View._foreignCount()();
         if (!v10)
         {
-          return &_swiftEmptyArrayStorage;
+          return _swiftEmptyArrayStorage;
         }
 
         v11 = v10;
@@ -8497,10 +8486,10 @@ void *sub_1000F9668(uint64_t a1, uint64_t a2)
 
   if (!v2)
   {
-    return &_swiftEmptyArrayStorage;
+    return _swiftEmptyArrayStorage;
   }
 
-  sub_1000F40B0(&qword_100217620);
+  sub_1000F40B0(&qword_100217620, &unk_1001BF8B0);
   v4 = swift_allocObject();
   v5 = j__malloc_size(v4);
   result = v4;
@@ -8550,7 +8539,7 @@ char *sub_1000F96DC(char *result, int64_t a2, char a3, char *a4)
 
   if (v9)
   {
-    sub_1000F40B0(&qword_100217620);
+    sub_1000F40B0(&qword_100217620, &unk_1001BF8B0);
     v10 = swift_allocObject();
     v11 = j__malloc_size(v10);
     *(v10 + 2) = v8;
@@ -8559,7 +8548,7 @@ char *sub_1000F96DC(char *result, int64_t a2, char a3, char *a4)
 
   else
   {
-    v10 = &_swiftEmptyArrayStorage;
+    v10 = _swiftEmptyArrayStorage;
   }
 
   v12 = v10 + 32;
@@ -8645,12 +8634,13 @@ uint64_t sub_1000F9914(uint64_t a1, uint64_t a2)
   return v9;
 }
 
-uint64_t sub_1000F99AC(uint64_t a1, char a2)
+Swift::Int sub_1000F99AC(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
+  v4 = a2;
   v5 = *v2;
-  sub_1000F40B0(&qword_100217618);
-  v35 = a2;
+  sub_1000F40B0(&qword_100217618, &unk_1001BDB90);
+  v35 = v4;
   result = static _DictionaryStorage.resize(original:capacity:move:)();
   v7 = result;
   if (*(v5 + 16))
@@ -8931,7 +8921,7 @@ LABEL_17:
 id sub_1000F9F78()
 {
   v1 = v0;
-  sub_1000F40B0(&qword_100217618);
+  sub_1000F40B0(&qword_100217618, &unk_1001BDB90);
   v2 = *v0;
   v3 = static _DictionaryStorage.copy(original:)();
   v4 = v3;

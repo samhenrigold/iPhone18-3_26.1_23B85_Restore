@@ -52,6 +52,7 @@
 - (void)revertIdentity:(id)identity withOptions:(id)options completion:(id)completion;
 - (void)sendDelegateMessagesComplete;
 - (void)sendProgressWithDictionary:(id)dictionary;
+- (void)sendProgressWithStatus:(id)status percentComplete:(unsigned int)complete;
 - (void)setDataSeparatedAppsWithBundleIDs:(id)ds withPersona:(id)persona withCompletion:(id)completion;
 - (void)setEligibilityTestOverrides:(id)overrides withCompletion:(id)completion;
 - (void)setLaunchWarningForApp:(id)app withUniqueInstallIdentifier:(id)identifier warningData:(id)data completion:(id)completion;
@@ -67,6 +68,7 @@
 - (void)unregisterContentsOnOSModuleAtURL:(id)l completion:(id)completion;
 - (void)updatePlaceholderMetadataForApp:(id)app installType:(unint64_t)type failureReason:(unint64_t)reason underlyingError:(id)error failureSource:(unint64_t)source completion:(id)completion;
 - (void)updateSinfForIXWithIdentifier:(id)identifier withOptions:(id)options sinfData:(id)data completion:(id)completion;
+- (void)updateSystemAppStateForIdentifier:(id)identifier appState:(int)state completion:(id)completion;
 - (void)updateiTunesMetadataForIXWithIdentifier:(id)identifier metadata:(id)metadata completion:(id)completion;
 - (void)waitForSystemAppMigratorToComplete:(id)complete;
 @end
@@ -109,6 +111,26 @@
   {
     MOLogWrite();
   }
+}
+
+- (void)sendProgressWithStatus:(id)status percentComplete:(unsigned int)complete
+{
+  percentComplete = self->_percentComplete;
+  if (percentComplete < complete)
+  {
+    self->_percentComplete = complete;
+    percentComplete = *&complete;
+  }
+
+  v9[0] = @"Status";
+  v9[1] = @"PercentComplete";
+  v10[0] = status;
+  statusCopy = status;
+  v7 = [NSNumber numberWithUnsignedInt:percentComplete];
+  v10[1] = v7;
+  v8 = [NSDictionary dictionaryWithObjects:v10 forKeys:v9 count:2];
+
+  [(MIClientConnection *)self sendProgressWithDictionary:v8];
 }
 
 - (void)sendDelegateMessagesComplete
@@ -169,28 +191,28 @@
 {
   dCopy = d;
   v8 = +[MIAppReferenceManager defaultManager];
-  v9 = [v8 personaUniqueStringsForAppWithBundleID:dCopy domain:domain forUserWithID:sub_100009864() error:0];
+  v10 = [v8 personaUniqueStringsForAppWithBundleID:dCopy domain:domain forUserWithID:sub_100009864(v8 error:{v9), 0}];
 
-  v10 = [v9 count];
-  if (v10)
+  v11 = [v10 count];
+  if (v11)
   {
-    v11 = MIInstallerErrorDomain;
-    v16 = MIStringForInstallationDomain();
-    v13 = sub_100010734("[MIClientConnection _validateAppWithBundleID:isNotInstalledInDomain:error:]", 303, v11, 189, 0, 0, @"Found references (%@) for %@ in %@", v12, v9);
+    v12 = MIInstallerErrorDomain;
+    v17 = MIStringForInstallationDomain();
+    v14 = sub_100010734("[MIClientConnection _validateAppWithBundleID:isNotInstalledInDomain:error:]", 303, v12, 189, 0, 0, @"Found references (%@) for %@ in %@", v13, v10);
 
     if (error)
     {
-      v14 = v13;
-      *error = v13;
+      v15 = v14;
+      *error = v14;
     }
   }
 
   else
   {
-    v13 = 0;
+    v14 = 0;
   }
 
-  return v10 == 0;
+  return v11 == 0;
 }
 
 - (void)_doInstallationForURL:(id)l identity:(id)identity domain:(unint64_t)domain options:(id)options operationType:(unint64_t)type completion:(id)completion
@@ -355,22 +377,23 @@ LABEL_14:
   identifierCopy = identifier;
   lCopy = l;
   completionCopy = completion;
-  if ((+[ICLFeatureFlags twoStageAppInstallEnabled]& 1) != 0)
+  v13 = +[ICLFeatureFlags twoStageAppInstallEnabled];
+  if (v13)
   {
-    v14 = sub_1000129E4();
-    v15 = sub_100012A28(self, @"InstallForInstallCoordination");
-    if (v15)
+    v15 = sub_1000129E4(v13);
+    v16 = sub_100012A28(self, @"InstallForInstallCoordination");
+    if (v16)
     {
       [(MIClientConnection *)self sendDelegateMessagesComplete];
-      v18[0] = _NSConcreteStackBlock;
-      v18[1] = 3221225472;
-      v18[2] = sub_100012D98;
-      v18[3] = &unk_100091110;
-      v20 = completionCopy;
-      v19 = v15;
-      [(MIClientConnection *)self _callBlockAfterDelegateMessagesSend:"com.apple.installd.placeholder-install-for-staged-update-error" dispatchBlock:v18];
+      v19[0] = _NSConcreteStackBlock;
+      v19[1] = 3221225472;
+      v19[2] = sub_100012D98;
+      v19[3] = &unk_100091110;
+      v21 = completionCopy;
+      v20 = v16;
+      [(MIClientConnection *)self _callBlockAfterDelegateMessagesSend:"com.apple.installd.placeholder-install-for-staged-update-error" dispatchBlock:v19];
 
-      v16 = v20;
+      v17 = v21;
     }
 
     else
@@ -381,26 +404,26 @@ LABEL_14:
         MOLogWrite();
       }
 
-      v16 = sub_100012BD0(0);
-      dispatch_semaphore_wait(v14, 0xFFFFFFFFFFFFFFFFLL);
-      v21 = _NSConcreteStackBlock;
-      v22 = 3221225472;
-      v23 = sub_100012CC4;
-      v24 = &unk_100091188;
+      v17 = sub_100012BD0(0);
+      dispatch_semaphore_wait(v15, 0xFFFFFFFFFFFFFFFFLL);
+      v22 = _NSConcreteStackBlock;
+      v23 = 3221225472;
+      v24 = sub_100012CC4;
+      v25 = &unk_100091188;
       selfCopy = self;
-      v26 = identifierCopy;
-      v27 = lCopy;
-      v29 = completionCopy;
+      v27 = identifierCopy;
+      v28 = lCopy;
+      v30 = completionCopy;
       infoCopy = info;
-      v28 = v14;
+      v29 = v15;
       MIRunTransactionalTask();
     }
   }
 
   else
   {
-    v15 = sub_100010734("[MIClientConnection installParallelPlaceholderForStagedIdentifier:fromURL:returningResultInfo:completion:]", 422, MIInstallerErrorDomain, 161, 0, 0, @"%s is not enabled", v13, "[MIClientConnection installParallelPlaceholderForStagedIdentifier:fromURL:returningResultInfo:completion:]");
-    (*(completionCopy + 2))(completionCopy, 0, 0, 0, v15);
+    v16 = sub_100010734("[MIClientConnection installParallelPlaceholderForStagedIdentifier:fromURL:returningResultInfo:completion:]", 422, MIInstallerErrorDomain, 161, 0, 0, @"%s is not enabled", v14, "[MIClientConnection installParallelPlaceholderForStagedIdentifier:fromURL:returningResultInfo:completion:]");
+    (*(completionCopy + 2))(completionCopy, 0, 0, 0, v16);
   }
 }
 
@@ -623,163 +646,163 @@ LABEL_5:
 {
   referenceCopy = reference;
   completionCopy = completion;
+  v89 = 0;
+  v90 = &v89;
+  v91 = 0x3032000000;
+  v92 = sub_1000141D4;
+  v93 = sub_1000141E4;
+  v94 = 0;
+  v83 = 0;
+  v84 = &v83;
+  v85 = 0x3032000000;
+  v86 = sub_1000141D4;
+  v87 = sub_1000141E4;
   v88 = 0;
-  v89 = &v88;
-  v90 = 0x3032000000;
-  v91 = sub_1000141D4;
-  v92 = sub_1000141E4;
-  v93 = 0;
-  v82 = 0;
-  v83 = &v82;
-  v84 = 0x3032000000;
-  v85 = sub_1000141D4;
-  v86 = sub_1000141E4;
-  v87 = 0;
-  v64 = referenceCopy;
+  v65 = referenceCopy;
   identity = [referenceCopy identity];
   if ((+[ICLFeatureFlags appReferencesEnabled]& 1) == 0)
   {
-    v38 = sub_100010734("[MIClientConnection registerPlaceholderForReference:completion:]", 625, MIInstallerErrorDomain, 161, 0, 0, @"%s is not enabled", v6, "[MIClientConnection registerPlaceholderForReference:completion:]");
-    v39 = v89[5];
-    v89[5] = v38;
+    v39 = sub_100010734("[MIClientConnection registerPlaceholderForReference:completion:]", 625, MIInstallerErrorDomain, 161, 0, 0, @"%s is not enabled", v6, "[MIClientConnection registerPlaceholderForReference:completion:]");
+    v40 = v90[5];
+    v90[5] = v39;
 
-    v65 = 0;
+    v66 = 0;
     v16 = 0;
-    v60 = 0;
     v61 = 0;
-    v36 = 0;
+    v62 = 0;
+    v37 = 0;
     v23 = 0;
     v32 = 0;
 LABEL_26:
-    completionCopy[2](completionCopy, 0, v89[5]);
+    completionCopy[2](completionCopy, 0, v90[5]);
     goto LABEL_27;
   }
 
   bundleID = [identity bundleID];
   sub_100054628(bundleID);
   domain = [referenceCopy domain];
-  v9 = (v89 + 5);
-  obj = v89[5];
-  v61 = [MIBundleContainer appBundleContainerForIdentifier:bundleID inDomain:domain withError:&obj];
-  v60 = bundleID;
+  v9 = (v90 + 5);
+  obj = v90[5];
+  v62 = [MIBundleContainer appBundleContainerForIdentifier:bundleID inDomain:domain withError:&obj];
+  v61 = bundleID;
   objc_storeStrong(v9, obj);
-  if (!v61)
+  if (!v62)
   {
-    v40 = sub_100010734("[MIClientConnection registerPlaceholderForReference:completion:]", 635, MIInstallerErrorDomain, 4, v89[5], 0, @"Failed to find bundle container when registering placeholder for %@", v10, referenceCopy);
+    v41 = sub_100010734("[MIClientConnection registerPlaceholderForReference:completion:]", 635, MIInstallerErrorDomain, 4, v90[5], 0, @"Failed to find bundle container when registering placeholder for %@", v10, referenceCopy);
 LABEL_21:
-    v41 = 0;
+    v42 = 0;
     v16 = 0;
     v23 = 0;
-    v42 = v89[5];
-    v89[5] = v40;
+    v43 = v90[5];
+    v90[5] = v41;
 LABEL_22:
 
 LABEL_24:
     v32 = 0;
 LABEL_25:
-    v36 = 0;
-    v65 = v41;
-    identity2 = [v64 identity];
+    v37 = 0;
+    v66 = v42;
+    identity2 = [v65 identity];
     bundleID2 = [identity2 bundleID];
     sub_100054780(bundleID2);
 
     goto LABEL_26;
   }
 
-  v80 = 0;
-  bundle = [v61 bundle];
+  v81 = 0;
+  bundle = [v62 bundle];
   if (!bundle)
   {
-    v40 = sub_100010734("[MIClientConnection registerPlaceholderForReference:completion:]", 642, MIInstallerErrorDomain, 36, 0, 0, @"Failed to find bundle in bundle container %@", v12, v61);
+    v41 = sub_100010734("[MIClientConnection registerPlaceholderForReference:completion:]", 642, MIInstallerErrorDomain, 36, 0, 0, @"Failed to find bundle in bundle container %@", v12, v62);
     goto LABEL_21;
   }
 
-  v13 = (v89 + 5);
-  v79 = v89[5];
+  v13 = (v90 + 5);
+  v80 = v90[5];
   v14 = bundle;
-  v15 = [identity resolvePersonaWithError:&v79];
-  objc_storeStrong(v13, v79);
+  v15 = [identity resolvePersonaWithError:&v80];
+  objc_storeStrong(v13, v80);
   v16 = v14;
   if (!v15)
   {
-    v41 = 0;
+    v42 = 0;
     v23 = 0;
     goto LABEL_24;
   }
 
   v17 = v14;
   personaUniqueString = [identity personaUniqueString];
-  v19 = (v89 + 5);
-  v78 = v89[5];
-  v20 = [MIDataContainer dataContainerForExecutableBundle:v17 forPersona:personaUniqueString createIfNeeded:1 temporary:0 created:&v80 error:&v78];
-  objc_storeStrong(v19, v78);
+  v19 = (v90 + 5);
+  v79 = v90[5];
+  v20 = [MIDataContainer dataContainerForExecutableBundle:v17 forPersona:personaUniqueString createIfNeeded:1 temporary:0 created:&v81 error:&v79];
+  objc_storeStrong(v19, v79);
 
-  v59 = personaUniqueString;
+  v60 = personaUniqueString;
   if (!v20)
   {
     v23 = personaUniqueString;
-    v45 = sub_100010734("[MIClientConnection registerPlaceholderForReference:completion:]", 652, MIInstallerErrorDomain, 4, v89[5], 0, @"Failed to create data container when registering placeholder for %@", v21, referenceCopy);
-    v41 = 0;
-    v42 = v89[5];
-    v89[5] = v45;
+    v46 = sub_100010734("[MIClientConnection registerPlaceholderForReference:completion:]", 652, MIInstallerErrorDomain, 4, v90[5], 0, @"Failed to create data container when registering placeholder for %@", v21, referenceCopy);
+    v42 = 0;
+    v43 = v90[5];
+    v90[5] = v46;
     v16 = v17;
     goto LABEL_22;
   }
 
-  v22 = (v89 + 5);
-  v77 = v89[5];
+  v22 = (v90 + 5);
+  v78 = v90[5];
   v23 = personaUniqueString;
-  v24 = [v17 appExtensionBundlesWithError:&v77];
-  objc_storeStrong(v22, v77);
+  v24 = [v17 appExtensionBundlesWithError:&v78];
+  objc_storeStrong(v22, v78);
   v16 = v17;
   if (!v24)
   {
-    v51 = sub_100010734("[MIClientConnection registerPlaceholderForReference:completion:]", 658, MIInstallerErrorDomain, 4, v89[5], 0, @"Failed to get app extensions when registering placeholder for %@", v25, referenceCopy);
-    v41 = 0;
-    v42 = v89[5];
-    v89[5] = v51;
+    v52 = sub_100010734("[MIClientConnection registerPlaceholderForReference:completion:]", 658, MIInstallerErrorDomain, 4, v90[5], 0, @"Failed to get app extensions when registering placeholder for %@", v25, referenceCopy);
+    v42 = 0;
+    v43 = v90[5];
+    v90[5] = v52;
     goto LABEL_22;
   }
 
-  v75 = 0u;
   v76 = 0u;
-  v73 = 0u;
+  v77 = 0u;
   v74 = 0u;
-  v65 = v24;
-  v26 = [v65 countByEnumeratingWithState:&v73 objects:v94 count:16];
+  v75 = 0u;
+  v66 = v24;
+  v26 = [v66 countByEnumeratingWithState:&v74 objects:v95 count:16];
   if (v26)
   {
-    v27 = *v74;
+    v27 = *v75;
     while (2)
     {
       for (i = 0; i != v26; i = i + 1)
       {
-        if (*v74 != v27)
+        if (*v75 != v27)
         {
-          objc_enumerationMutation(v65);
+          objc_enumerationMutation(v66);
         }
 
-        v29 = *(*(&v73 + 1) + 8 * i);
-        v30 = (v89 + 5);
-        v72 = v89[5];
-        v31 = [v29 dataContainerCreatingIfNeeded:1 forPersona:v59 makeLive:1 created:0 error:&v72];
-        objc_storeStrong(v30, v72);
+        v29 = *(*(&v74 + 1) + 8 * i);
+        v30 = (v90 + 5);
+        v73 = v90[5];
+        v31 = [v29 dataContainerCreatingIfNeeded:1 forPersona:v60 makeLive:1 created:0 error:&v73];
+        objc_storeStrong(v30, v73);
 
         if (!v31)
         {
-          v46 = v89[5];
+          v47 = v90[5];
           identifier = [v29 identifier];
-          v49 = sub_100010734("[MIClientConnection registerPlaceholderForReference:completion:]", 664, MIInstallerErrorDomain, 4, v46, 0, @"Failed to create data container for app extension %@ when registering placeholder for %@", v48, identifier);
-          v50 = v89[5];
-          v89[5] = v49;
+          v50 = sub_100010734("[MIClientConnection registerPlaceholderForReference:completion:]", 664, MIInstallerErrorDomain, 4, v47, 0, @"Failed to create data container for app extension %@ when registering placeholder for %@", v49, identifier);
+          v51 = v90[5];
+          v90[5] = v50;
 
-          v42 = v65;
-          v41 = v65;
+          v43 = v66;
+          v42 = v66;
           goto LABEL_22;
         }
       }
 
-      v26 = [v65 countByEnumeratingWithState:&v73 objects:v94 count:16];
+      v26 = [v66 countByEnumeratingWithState:&v74 objects:v95 count:16];
       if (v26)
       {
         continue;
@@ -789,51 +812,51 @@ LABEL_25:
     }
   }
 
-  v32 = [[MIInstalledInfoGatherer alloc] initWithBundleContainer:v61 forPersona:v59];
-  v33 = (v89 + 5);
-  v71 = v89[5];
-  v57 = [v32 bundleRecordWithError:&v71];
-  objc_storeStrong(v33, v71);
-  if (!v57)
+  v32 = [[MIInstalledInfoGatherer alloc] initWithBundleContainer:v62 forPersona:v60];
+  v33 = (v90 + 5);
+  v72 = v90[5];
+  v58 = [v32 bundleRecordWithError:&v72];
+  objc_storeStrong(v33, v72);
+  if (!v58)
   {
-    v41 = v65;
+    v42 = v66;
     goto LABEL_25;
   }
 
-  [v57 setIsPlaceholder:1];
-  identity3 = [v64 identity];
+  [v58 setIsPlaceholder:1];
+  identity3 = [v65 identity];
   bundleID3 = [identity3 bundleID];
   sub_100054780(bundleID3);
 
-  v35 = sub_10000998C();
+  v36 = sub_10000998C(v35);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_1000141EC;
   block[3] = &unk_100090CD8;
-  v69 = &v82;
-  v36 = v57;
-  v67 = v36;
-  v37 = v64;
+  v70 = &v83;
+  v37 = v58;
   v68 = v37;
-  v70 = &v88;
-  dispatch_sync(v35, block);
+  v38 = v65;
+  v69 = v38;
+  v71 = &v89;
+  dispatch_sync(v36, block);
 
-  if (!v83[5])
+  if (!v84[5])
   {
-    v58 = v89[5];
-    identity4 = [v37 identity];
-    v54 = sub_100010734("[MIClientConnection registerPlaceholderForReference:completion:]", 689, MIInstallerErrorDomain, 4, v58, 0, @"Failed to register installation record for %@", v53, identity4);
-    v55 = v89[5];
-    v89[5] = v54;
+    v59 = v90[5];
+    identity4 = [v38 identity];
+    v55 = sub_100010734("[MIClientConnection registerPlaceholderForReference:completion:]", 689, MIInstallerErrorDomain, 4, v59, 0, @"Failed to register installation record for %@", v54, identity4);
+    v56 = v90[5];
+    v90[5] = v55;
 
     goto LABEL_26;
   }
 
-  completionCopy[2](completionCopy, v83[5], 0);
+  completionCopy[2](completionCopy, v84[5], 0);
 LABEL_27:
 
-  _Block_object_dispose(&v82, 8);
-  _Block_object_dispose(&v88, 8);
+  _Block_object_dispose(&v83, 8);
+  _Block_object_dispose(&v89, 8);
 }
 
 - (BOOL)_validateInstallRequestForURL:(id)l identity:(id)identity targetingDomain:(unint64_t)domain options:(id)options withError:(id *)error
@@ -982,7 +1005,7 @@ LABEL_21:
   identityCopy = identity;
   optionsCopy = options;
   completionCopy = completion;
-  v18 = sub_1000129E4();
+  v18 = sub_1000129E4(completionCopy);
   v37[0] = 0;
   v19 = [(MIClientConnection *)self _validateInstallRequestForURL:lCopy identity:identityCopy targetingDomain:domain options:optionsCopy withError:v37];
   v20 = v37[0];
@@ -1097,7 +1120,7 @@ LABEL_14:
   identityCopy = identity;
   optionsCopy = options;
   completionCopy = completion;
-  v16 = sub_1000129E4();
+  v16 = sub_1000129E4(completionCopy);
   if ((+[ICLFeatureFlags twoStageAppInstallEnabled]& 1) != 0)
   {
     v35[0] = 0;
@@ -1243,45 +1266,46 @@ LABEL_16:
 {
   identifierCopy = identifier;
   completionCopy = completion;
-  if ((+[ICLFeatureFlags twoStageAppInstallEnabled]& 1) != 0)
+  v10 = +[ICLFeatureFlags twoStageAppInstallEnabled];
+  if (v10)
   {
-    v11 = sub_1000129E4();
-    v12 = sub_100012A28(self, @"InstallForInstallCoordination");
-    if (v12)
+    v12 = sub_1000129E4(v10);
+    v13 = sub_100012A28(self, @"InstallForInstallCoordination");
+    if (v13)
     {
       [(MIClientConnection *)self sendDelegateMessagesComplete];
-      v14[0] = _NSConcreteStackBlock;
-      v14[1] = 3221225472;
-      v14[2] = sub_100015C28;
-      v14[3] = &unk_100091110;
-      v16 = completionCopy;
-      v15 = v12;
-      [(MIClientConnection *)self _callBlockAfterDelegateMessagesSend:"com.apple.installd.installation-for-staged-update" dispatchBlock:v14];
+      v15[0] = _NSConcreteStackBlock;
+      v15[1] = 3221225472;
+      v15[2] = sub_100015C28;
+      v15[3] = &unk_100091110;
+      v17 = completionCopy;
+      v16 = v13;
+      [(MIClientConnection *)self _callBlockAfterDelegateMessagesSend:"com.apple.installd.installation-for-staged-update" dispatchBlock:v15];
 
-      v13 = v16;
+      v14 = v17;
     }
 
     else
     {
-      v13 = sub_100012BD0(0);
-      dispatch_semaphore_wait(v11, 0xFFFFFFFFFFFFFFFFLL);
-      v17 = _NSConcreteStackBlock;
-      v18 = 3221225472;
-      v19 = sub_100015B5C;
-      v20 = &unk_100091228;
+      v14 = sub_100012BD0(0);
+      dispatch_semaphore_wait(v12, 0xFFFFFFFFFFFFFFFFLL);
+      v18 = _NSConcreteStackBlock;
+      v19 = 3221225472;
+      v20 = sub_100015B5C;
+      v21 = &unk_100091228;
       selfCopy = self;
-      v22 = identifierCopy;
-      v24 = completionCopy;
+      v23 = identifierCopy;
+      v25 = completionCopy;
       infoCopy = info;
-      v23 = v11;
+      v24 = v12;
       MIRunTransactionalTask();
     }
   }
 
   else
   {
-    v12 = sub_100010734("[MIClientConnection finalizeStagedInstallForIdentifier:returningResultInfo:completion:]", 1050, MIInstallerErrorDomain, 161, 0, 0, @"%s is not enabled", v10, "[MIClientConnection finalizeStagedInstallForIdentifier:returningResultInfo:completion:]");
-    (*(completionCopy + 2))(completionCopy, 0, 0, 0, v12);
+    v13 = sub_100010734("[MIClientConnection finalizeStagedInstallForIdentifier:returningResultInfo:completion:]", 1050, MIInstallerErrorDomain, 161, 0, 0, @"%s is not enabled", v11, "[MIClientConnection finalizeStagedInstallForIdentifier:returningResultInfo:completion:]");
+    (*(completionCopy + 2))(completionCopy, 0, 0, 0, v13);
   }
 }
 
@@ -1449,12 +1473,12 @@ LABEL_22:
     {
       if (v14)
       {
-        objc_opt_class();
-        v16 = sub_100010AB8(v14);
+        v16 = objc_opt_class();
+        v17 = sub_100010AB8(v14, v16);
 
-        if (v16)
+        if (v17)
         {
-          if (!optionsCopy || ((objc_opt_class(), v17 = optionsCopy, (objc_opt_isKindOfClass() & 1) == 0) ? (v18 = 0) : (v18 = v17), v17, v18, v18))
+          if (!optionsCopy || ((objc_opt_class(), v18 = optionsCopy, (objc_opt_isKindOfClass() & 1) == 0) ? (v19 = 0) : (v19 = v18), v18, v19, v19))
           {
             if ([v14 count] == 1)
             {
@@ -1464,9 +1488,9 @@ LABEL_22:
               }
 
               clientName = [(MIClientConnection *)self clientName];
-              v33 = [v14 objectAtIndexedSubscript:0];
-              v34 = optionsCopy;
-              v32 = clientName;
+              v34 = [v14 objectAtIndexedSubscript:0];
+              v35 = optionsCopy;
+              v33 = clientName;
               MOLogWrite();
             }
 
@@ -1478,26 +1502,26 @@ LABEL_22:
               }
 
               clientName = [(MIClientConnection *)self clientName];
-              v33 = v14;
-              v34 = optionsCopy;
-              v32 = clientName;
+              v34 = v14;
+              v35 = optionsCopy;
+              v33 = clientName;
               MOLogWrite();
             }
 
 LABEL_25:
-            v27 = [MIUninstaller uninstallerForIdentities:v14 withOptions:optionsCopy forClient:self, v32, v33, v34];
-            v12 = v27;
-            if (v27)
+            v28 = [MIUninstaller uninstallerForIdentities:v14 withOptions:optionsCopy forClient:self, v33, v34, v35];
+            v12 = v28;
+            if (v28)
             {
-              v39 = 0;
-              v29 = [v27 performUninstallationWithError:&v39];
-              v30 = v39;
-              if (v29)
+              v40 = 0;
+              v30 = [v28 performUninstallationWithError:&v40];
+              v31 = v40;
+              if (v30)
               {
                 receipt = [v12 receipt];
                 if (!receipt)
                 {
-                  v11 = sub_100010734("[MIClientConnection _uninstallIdentities:withOptions:completion:]", 1227, MIInstallerErrorDomain, 4, 0, &off_10009BF48, @"Failed to get receipt after uninstalling %@", v31, v14);
+                  v11 = sub_100010734("[MIClientConnection _uninstallIdentities:withOptions:completion:]", 1227, MIInstallerErrorDomain, 4, 0, &off_10009BF48, @"Failed to get receipt after uninstalling %@", v32, v14);
 
                   goto LABEL_3;
                 }
@@ -1505,7 +1529,7 @@ LABEL_25:
                 if (qword_1000A9720 && *(qword_1000A9720 + 44) >= 7)
                 {
                   MOLogWrite();
-                  v11 = v30;
+                  v11 = v31;
                   goto LABEL_14;
                 }
               }
@@ -1515,23 +1539,23 @@ LABEL_25:
                 receipt = 0;
               }
 
-              v11 = v30;
+              v11 = v31;
               goto LABEL_14;
             }
 
-            v22 = sub_100010734("[MIClientConnection _uninstallIdentities:withOptions:completion:]", 1217, MIInstallerErrorDomain, 4, 0, &off_10009BF20, @"Failed to create uninstaller for %@", v28, v14);
+            v23 = sub_100010734("[MIClientConnection _uninstallIdentities:withOptions:completion:]", 1217, MIInstallerErrorDomain, 4, 0, &off_10009BF20, @"Failed to create uninstaller for %@", v29, v14);
 LABEL_13:
-            v11 = v22;
+            v11 = v23;
             v12 = 0;
             receipt = 0;
             goto LABEL_14;
           }
 
-          v19 = @"Options provided was not a dictionary";
-          v20 = 1205;
-          v21 = &off_10009BEF8;
+          v20 = @"Options provided was not a dictionary";
+          v21 = 1205;
+          v22 = &off_10009BEF8;
 LABEL_12:
-          v22 = sub_100010734("[MIClientConnection _uninstallIdentities:withOptions:completion:]", v20, MIInstallerErrorDomain, 25, 0, v21, v19, v15, v32);
+          v23 = sub_100010734("[MIClientConnection _uninstallIdentities:withOptions:completion:]", v21, MIInstallerErrorDomain, 25, 0, v22, v20, v15, v33);
           goto LABEL_13;
         }
       }
@@ -1541,9 +1565,9 @@ LABEL_12:
     {
     }
 
-    v19 = @"Identifers provided was not an array of strings";
-    v20 = 1200;
-    v21 = &off_10009BED0;
+    v20 = @"Identifers provided was not an array of strings";
+    v21 = 1200;
+    v22 = &off_10009BED0;
     goto LABEL_12;
   }
 
@@ -1553,17 +1577,17 @@ LABEL_3:
 LABEL_14:
 
   [(MIClientConnection *)self sendDelegateMessagesComplete];
-  v35[0] = _NSConcreteStackBlock;
-  v35[1] = 3221225472;
-  v35[2] = sub_1000168C4;
-  v35[3] = &unk_1000911D8;
-  v23 = completionCopy;
-  v38 = v23;
-  v24 = receipt;
-  v36 = v24;
-  v25 = v11;
+  v36[0] = _NSConcreteStackBlock;
+  v36[1] = 3221225472;
+  v36[2] = sub_1000168C4;
+  v36[3] = &unk_1000911D8;
+  v24 = completionCopy;
+  v39 = v24;
+  v25 = receipt;
   v37 = v25;
-  [(MIClientConnection *)self _callBlockAfterDelegateMessagesSend:"com.apple.installd.uninstall-identifiers-complete" dispatchBlock:v35];
+  v26 = v11;
+  v38 = v26;
+  [(MIClientConnection *)self _callBlockAfterDelegateMessagesSend:"com.apple.installd.uninstall-identifiers-complete" dispatchBlock:v36];
 }
 
 - (void)uninstallIdentity:(id)identity withOptions:(id)options completion:(id)completion
@@ -1647,8 +1671,8 @@ LABEL_19:
 
     if (!v12)
     {
-      v17 = @"Options provided was not a dictionary";
-      v18 = 1307;
+      v18 = @"Options provided was not a dictionary";
+      v19 = 1307;
       goto LABEL_17;
     }
   }
@@ -1659,10 +1683,10 @@ LABEL_19:
   {
 
 LABEL_15:
-    v17 = @"Identifers provided was not an array of strings";
-    v18 = 1312;
+    v18 = @"Identifers provided was not an array of strings";
+    v19 = 1312;
 LABEL_17:
-    v10 = sub_100010734("[MIClientConnection clearUninstalledIdentifiers:withOptions:completion:]", v18, MIInstallerErrorDomain, 25, 0, 0, v17, v13, v19);
+    v10 = sub_100010734("[MIClientConnection clearUninstalledIdentifiers:withOptions:completion:]", v19, MIInstallerErrorDomain, 25, 0, 0, v18, v13, v20);
     goto LABEL_18;
   }
 
@@ -1671,10 +1695,10 @@ LABEL_17:
     goto LABEL_15;
   }
 
-  objc_opt_class();
-  v15 = sub_100010AB8(v14);
+  v15 = objc_opt_class();
+  v16 = sub_100010AB8(v14, v15);
 
-  if ((v15 & 1) == 0)
+  if ((v16 & 1) == 0)
   {
     goto LABEL_15;
   }
@@ -1682,13 +1706,13 @@ LABEL_17:
   if (!qword_1000A9720 || *(qword_1000A9720 + 44) >= 5)
   {
     [(MIClientConnection *)self clientName];
-    v20 = optionsCopy;
-    v19 = v21 = v14;
+    v21 = optionsCopy;
+    v20 = v22 = v14;
     MOLogWrite();
   }
 
-  v16 = [MIUninstalledAppList sharedList:v19];
-  [v16 removeIdentifiers:v14];
+  v17 = [MIUninstalledAppList sharedList:v20];
+  [v17 removeIdentifiers:v14];
 
   v10 = 0;
 LABEL_18:
@@ -1740,6 +1764,66 @@ LABEL_18:
   v13 = 0;
 LABEL_19:
   completionCopy[2](completionCopy, v13, v7);
+}
+
+- (void)updateSystemAppStateForIdentifier:(id)identifier appState:(int)state completion:(id)completion
+{
+  v6 = *&state;
+  identifierCopy = identifier;
+  completionCopy = completion;
+  v10 = sub_100012A28(self, @"UpdateSystemAppState");
+  if (!v10)
+  {
+    objc_opt_class();
+    v11 = identifierCopy;
+    if (objc_opt_isKindOfClass())
+    {
+      v12 = v11;
+    }
+
+    else
+    {
+      v12 = 0;
+    }
+
+    if (!v12)
+    {
+      v14 = sub_100010734("[MIClientConnection updateSystemAppStateForIdentifier:appState:completion:]", 1385, MIInstallerErrorDomain, 25, 0, 0, @"bundleID parameter was not a string", v13, v18);
+      goto LABEL_9;
+    }
+
+    if (v6 >= 7)
+    {
+      v14 = sub_100010734("[MIClientConnection updateSystemAppStateForIdentifier:appState:completion:]", 1390, MIInstallerErrorDomain, 25, 0, 0, @"Unknown value for appState key : %lu", v13, v6);
+LABEL_9:
+      v10 = v14;
+      goto LABEL_10;
+    }
+
+    if (!qword_1000A9720 || *(qword_1000A9720 + 44) >= 5)
+    {
+      clientName = [(MIClientConnection *)self clientName];
+      MOLogWrite();
+    }
+
+    +[MISystemAppState sharedList];
+    if (v6)
+      v15 = {;
+      [v15 addIdentifier:v11 withState:v6];
+    }
+
+    else
+      v16 = {;
+      v20 = v11;
+      v17 = [NSArray arrayWithObjects:&v20 count:1];
+      [v16 removeIdentifiers:v17];
+    }
+
+    v10 = 0;
+  }
+
+LABEL_10:
+  completionCopy[2](completionCopy, v10);
 }
 
 - (void)registerContentsForDiskImageAtURL:(id)l completion:(id)completion
@@ -2264,43 +2348,43 @@ LABEL_21:
   optionsCopy = options;
   dataCopy = data;
   completionCopy = completion;
-  v77 = 0;
-  v78 = &v77;
-  v79 = 0x3032000000;
-  v80 = sub_1000141D4;
-  v81 = sub_1000141E4;
-  v82 = 0;
-  v73 = 0;
-  v74 = &v73;
-  v75 = 0x2020000000;
   v76 = 0;
+  v77 = &v76;
+  v78 = 0x3032000000;
+  v79 = sub_1000141D4;
+  v80 = sub_1000141E4;
+  v81 = 0;
+  v72 = 0;
+  v73 = &v72;
+  v74 = 0x2020000000;
+  v75 = 0;
   v11 = sub_100012A28(self, @"UpdateSinfForInstallCoordination");
-  v12 = v78[5];
-  v78[5] = v11;
+  v12 = v77[5];
+  v77[5] = v11;
 
-  v13 = v78 + 5;
-  if (v78[5] || (v72 = 0, v14 = [(MIClientConnection *)self _validateArgsForMethodWithName:"[MIClientConnection updateSinfForIXWithIdentifier:withOptions:sinfData:completion:]" bundleIdentifier:identifierCopy data:dataCopy optionalOptions:optionsCopy error:&v72], objc_storeStrong(v13, v72), !v14))
+  v13 = v77 + 5;
+  if (v77[5] || (v71 = 0, v14 = [(MIClientConnection *)self _validateArgsForMethodWithName:"[MIClientConnection updateSinfForIXWithIdentifier:withOptions:sinfData:completion:]" bundleIdentifier:identifierCopy data:dataCopy optionalOptions:optionsCopy error:&v71], objc_storeStrong(v13, v71), !v14))
   {
     v16 = 0;
     v19 = 0;
     rootSinfURL = 0;
-    v26 = 0;
+    v27 = 0;
     v22 = 0;
-    v33 = 0;
+    v35 = 0;
     goto LABEL_27;
   }
 
   if (!qword_1000A9720 || *(qword_1000A9720 + 44) >= 5)
   {
     [(MIClientConnection *)self clientName];
-    v50 = identifierCopy;
-    v47 = v54 = optionsCopy;
+    v51 = identifierCopy;
+    v49 = v53 = optionsCopy;
     MOLogWrite();
   }
 
   sub_100054630(identifierCopy);
-  v15 = v78;
-  obj = v78[5];
+  v15 = v77;
+  obj = v77[5];
   v16 = [MIBundleContainer appBundleContainerWithIdentifier:identifierCopy createIfNeeded:0 created:0 error:&obj];
   objc_storeStrong(v15 + 5, obj);
   if (!v16)
@@ -2309,7 +2393,7 @@ LABEL_21:
     {
       v19 = 0;
       rootSinfURL = 0;
-      v26 = 0;
+      v27 = 0;
       v22 = 0;
     }
 
@@ -2317,9 +2401,8 @@ LABEL_21:
     {
       v19 = 0;
       rootSinfURL = 0;
-      v52 = v78[5];
       MOLogWrite();
-      v26 = 0;
+      v27 = 0;
       v22 = 0;
     }
 
@@ -2330,45 +2413,45 @@ LABEL_21:
   v19 = bundle;
   if (!bundle)
   {
-    v36 = sub_100010734("[MIClientConnection updateSinfForIXWithIdentifier:withOptions:sinfData:completion:]", 2054, MIInstallerErrorDomain, 36, 0, 0, @"Failed to get app bundle in bundle container for %@", v18, identifierCopy);
+    v38 = sub_100010734("[MIClientConnection updateSinfForIXWithIdentifier:withOptions:sinfData:completion:]", 2054, MIInstallerErrorDomain, 36, 0, 0, @"Failed to get app bundle in bundle container for %@", v18, identifierCopy);
     v19 = 0;
     rootSinfURL = 0;
-    v26 = 0;
+    v27 = 0;
     v22 = 0;
-    path = v78[5];
-    v78[5] = v36;
+    path = v77[5];
+    v77[5] = v38;
 LABEL_55:
 
     goto LABEL_56;
   }
 
   rootSinfURL = [bundle rootSinfURL];
-  v21 = v78;
-  v70 = v78[5];
-  v22 = [NSData dataWithContentsOfURL:rootSinfURL options:2 error:&v70];
-  objc_storeStrong(v21 + 5, v70);
+  v21 = v77;
+  v69 = v77[5];
+  v22 = [NSData dataWithContentsOfURL:rootSinfURL options:2 error:&v69];
+  objc_storeStrong(v21 + 5, v69);
   if (v22)
   {
     goto LABEL_9;
   }
 
-  domain = [v78[5] domain];
+  domain = [v77[5] domain];
   if (([domain isEqualToString:NSCocoaErrorDomain] & 1) == 0)
   {
 
 LABEL_38:
-    v39 = v78[5];
+    v41 = v77[5];
     path = [rootSinfURL path];
-    v41 = sub_100010734("[MIClientConnection updateSinfForIXWithIdentifier:withOptions:sinfData:completion:]", 2062, MIInstallerErrorDomain, 4, v39, 0, @"Failed to read SINF from %@", v40, path);
-    v42 = v78[5];
-    v78[5] = v41;
+    v43 = sub_100010734("[MIClientConnection updateSinfForIXWithIdentifier:withOptions:sinfData:completion:]", 2062, MIInstallerErrorDomain, 4, v41, 0, @"Failed to read SINF from %@", v42, path);
+    v44 = v77[5];
+    v77[5] = v43;
 
-    v26 = 0;
+    v27 = 0;
     v22 = 0;
     goto LABEL_55;
   }
 
-  code = [v78[5] code];
+  code = [v77[5] code];
 
   if (code != 260)
   {
@@ -2376,67 +2459,65 @@ LABEL_38:
   }
 
 LABEL_9:
-  v69 = 0;
-  v23 = v78;
-  v68 = v78[5];
-  v24 = [v19 getSinfDataType:&v69 withError:{&v68, v47, v50, v54}];
-  objc_storeStrong(v23 + 5, v68);
+  v68 = 0;
+  v23 = v77;
+  v67 = v77[5];
+  v24 = [v19 getSinfDataType:&v68 withError:{&v67, v49, v51, v53}];
+  objc_storeStrong(v23 + 5, v67);
   if ((v24 & 1) == 0)
   {
-    v26 = 0;
+    v27 = 0;
 LABEL_56:
-    v33 = 0;
+    v35 = 0;
     sub_100054780(identifierCopy);
     goto LABEL_27;
   }
 
   v25 = [optionsCopy objectForKeyedSubscript:@"ApplicationSINFDataType"];
-  objc_opt_class();
-  v26 = sub_1000146E0(v25);
+  v26 = objc_opt_class();
+  v27 = sub_1000146E0(v25, v26);
 
-  if (v26 && (v27 = [v26 unsignedIntValue], v27 != v69))
+  if (v27 && (v28 = [v27 unsignedIntValue], v28 != v68))
   {
-    v44 = v78;
-    v67 = v78[5];
-    v45 = [v19 setSinfDataType:v27 withError:&v67];
-    objc_storeStrong(v44 + 5, v67);
-    if ((v45 & 1) == 0)
+    v46 = v77;
+    v66 = v77[5];
+    v47 = [v19 setSinfDataType:v28 withError:&v66];
+    objc_storeStrong(v46 + 5, v66);
+    if ((v47 & 1) == 0)
     {
       if (!qword_1000A9720 || *(qword_1000A9720 + 44) >= 3)
       {
-        v53 = v78[5];
         MOLogWrite();
       }
 
       goto LABEL_56;
     }
 
-    v55 = 1;
+    v54 = 1;
   }
 
   else
   {
-    v55 = 0;
+    v54 = 0;
   }
 
-  v28 = v78;
-  v66 = v78[5];
-  v29 = [v19 updateAndValidateSinf:dataCopy error:&v66];
-  objc_storeStrong(v28 + 5, v66);
-  if (!v29)
+  v29 = v77;
+  v65 = v77[5];
+  v30 = [v19 updateAndValidateSinf:dataCopy error:&v65];
+  objc_storeStrong(v29 + 5, v65);
+  if (!v30)
   {
     if (!qword_1000A9720 || *(qword_1000A9720 + 44) >= 3)
     {
-      v49 = v78[5];
       MOLogWrite();
     }
 
-    if (v55)
+    if (v54)
     {
-      v65 = 0;
-      v43 = [v19 setSinfDataType:v69 withError:&v65];
-      path = v65;
-      if ((v43 & 1) == 0 && (!qword_1000A9720 || *(qword_1000A9720 + 44) >= 3))
+      v64 = 0;
+      v45 = [v19 setSinfDataType:v68 withError:&v64];
+      path = v64;
+      if ((v45 & 1) == 0 && (!qword_1000A9720 || *(qword_1000A9720 + 44) >= 3))
       {
         MOLogWrite();
       }
@@ -2450,48 +2531,48 @@ LABEL_56:
     goto LABEL_55;
   }
 
-  v30 = v78[5];
-  v78[5] = 0;
+  v31 = v77[5];
+  v77[5] = 0;
 
   if (qword_1000A9720 && *(qword_1000A9720 + 44) >= 7)
   {
-    v48 = v29;
+    v50 = v30;
     MOLogWrite();
   }
 
-  sub_100054780(identifierCopy);
-  v31 = sub_10000998C();
+  v32 = sub_100054780(identifierCopy);
+  v33 = sub_10000998C(v32);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_100019F68;
   block[3] = &unk_100090CD8;
-  v63 = &v73;
-  v32 = identifierCopy;
-  v61 = v32;
-  v33 = v29;
-  v62 = v33;
-  v64 = &v77;
-  dispatch_sync(v31, block);
+  v62 = &v72;
+  v34 = identifierCopy;
+  v60 = v34;
+  v35 = v30;
+  v61 = v35;
+  v63 = &v76;
+  dispatch_sync(v33, block);
 
-  if ((v74[3] & 1) == 0)
+  if ((v73[3] & 1) == 0)
   {
     if (!qword_1000A9720 || *(qword_1000A9720 + 44) >= 3)
     {
-      v48 = v32;
-      v51 = v78[5];
+      v50 = v34;
+      v52 = v77[5];
       MOLogWrite();
     }
 
-    sub_100054630(v32);
-    if (v55)
+    sub_100054630(v34);
+    if (v54)
     {
-      v59 = 0;
-      v34 = [v19 setSinfDataType:v69 withError:&v59];
-      path = v59;
-      if ((v34 & 1) == 0 && (!qword_1000A9720 || *(qword_1000A9720 + 44) >= 3))
+      v58 = 0;
+      v36 = [v19 setSinfDataType:v68 withError:&v58];
+      path = v58;
+      if ((v36 & 1) == 0 && (!qword_1000A9720 || *(qword_1000A9720 + 44) >= 3))
       {
-        v48 = v69;
-        v51 = path;
+        v50 = v68;
+        v52 = path;
         MOLogWrite();
       }
     }
@@ -2508,10 +2589,10 @@ LABEL_56:
   }
 
 LABEL_27:
-  (completionCopy)[2](completionCopy, v33, v78[5]);
+  (completionCopy)[2](completionCopy, v35, v77[5]);
 
-  _Block_object_dispose(&v73, 8);
-  _Block_object_dispose(&v77, 8);
+  _Block_object_dispose(&v72, 8);
+  _Block_object_dispose(&v76, 8);
 }
 
 - (void)updateiTunesMetadataForIXWithIdentifier:(id)identifier metadata:(id)metadata completion:(id)completion
@@ -2552,15 +2633,15 @@ LABEL_27:
 
   if (!v13)
   {
-    v26 = @"Parameter validation failed: bundleIdentifier parameter was not a string";
-    v27 = 2161;
+    v27 = @"Parameter validation failed: bundleIdentifier parameter was not a string";
+    v28 = 2161;
 LABEL_21:
-    v28 = sub_100010734("[MIClientConnection updateiTunesMetadataForIXWithIdentifier:metadata:completion:]", v27, MIInstallerErrorDomain, 25, 0, 0, v26, v14, clientName);
-    v29 = v56[5];
-    v56[5] = v28;
+    v29 = sub_100010734("[MIClientConnection updateiTunesMetadataForIXWithIdentifier:metadata:completion:]", v28, MIInstallerErrorDomain, 25, 0, 0, v27, v14, clientName);
+    v30 = v56[5];
+    v56[5] = v29;
 
 LABEL_22:
-    v25 = 0;
+    v26 = 0;
     v16 = 0;
     iTunesMetadataURL = 0;
     goto LABEL_23;
@@ -2569,15 +2650,15 @@ LABEL_22:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v26 = @"Parameter validation failed: metadata parameter was not MIStoreMetadata instance";
-    v27 = 2166;
+    v27 = @"Parameter validation failed: metadata parameter was not MIStoreMetadata instance";
+    v28 = 2166;
     goto LABEL_21;
   }
 
   if (!qword_1000A9720 || *(qword_1000A9720 + 44) >= 5)
   {
     clientName = [(MIClientConnection *)self clientName];
-    v39 = v12;
+    v40 = v12;
     MOLogWrite();
   }
 
@@ -2590,8 +2671,7 @@ LABEL_22:
   {
     if (!qword_1000A9720 || *(qword_1000A9720 + 44) >= 3)
     {
-      v25 = 0;
-      v41 = v56[5];
+      v26 = 0;
       MOLogWrite();
       iTunesMetadataURL = 0;
       v16 = 0;
@@ -2603,7 +2683,7 @@ LABEL_35:
     iTunesMetadataURL = 0;
     v16 = 0;
 LABEL_34:
-    v25 = 0;
+    v26 = 0;
     goto LABEL_35;
   }
 
@@ -2622,11 +2702,11 @@ LABEL_34:
   {
 
 LABEL_33:
-    v32 = v56[5];
+    v33 = v56[5];
     path = [iTunesMetadataURL path];
-    v35 = sub_100010734("[MIClientConnection updateiTunesMetadataForIXWithIdentifier:metadata:completion:]", 2185, MIInstallerErrorDomain, 4, v32, 0, @"Failed to read iTunesMetadata from %@", v34, path);
-    v36 = v56[5];
-    v56[5] = v35;
+    v36 = sub_100010734("[MIClientConnection updateiTunesMetadataForIXWithIdentifier:metadata:completion:]", 2185, MIInstallerErrorDomain, 4, v33, 0, @"Failed to read iTunesMetadata from %@", v35, path);
+    v37 = v56[5];
+    v56[5] = v36;
 
     goto LABEL_34;
   }
@@ -2641,44 +2721,44 @@ LABEL_33:
 LABEL_12:
   v20 = v56;
   v48 = v56[5];
-  v21 = [v16 writeiTunesMetadata:metadataCopy error:{&v48, clientName, v39}];
+  v21 = [v16 writeiTunesMetadata:metadataCopy error:{&v48, clientName, v40}];
   objc_storeStrong(v20 + 5, v48);
   *(v52 + 24) = v21;
   if (!v21)
   {
-    v25 = v19;
+    v26 = v19;
     goto LABEL_35;
   }
 
   v22 = v56[5];
   v56[5] = 0;
 
-  sub_100054780(v12);
-  v23 = sub_10000998C();
+  v23 = sub_100054780(v12);
+  v24 = sub_10000998C(v23);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_10001A780;
   block[3] = &unk_100090CD8;
   v46 = &v51;
-  v24 = v12;
-  v44 = v24;
+  v25 = v12;
+  v44 = v25;
   v45 = metadataCopy;
   v47 = &v55;
-  dispatch_sync(v23, block);
+  dispatch_sync(v24, block);
 
   if ((v52[3] & 1) == 0)
   {
     if (!qword_1000A9720 || *(qword_1000A9720 + 44) >= 3)
     {
-      v38 = v24;
-      v40 = v56[5];
+      v39 = v25;
+      v41 = v56[5];
       MOLogWrite();
     }
 
-    [v16 bestEffortRollbackiTunesMetadata:v19 error:{0, v38, v40}];
+    [v16 bestEffortRollbackiTunesMetadata:v19 error:{0, v39, v41}];
   }
 
-  v25 = v19;
+  v26 = v19;
 LABEL_23:
   (completionCopy)[2](completionCopy, v56[5]);
 
@@ -2703,12 +2783,12 @@ LABEL_23:
   {
 
 LABEL_9:
-    v17 = @"Identifers provided was not an array of strings";
-    v18 = 2244;
+    v18 = @"Identifers provided was not an array of strings";
+    v19 = 2244;
 LABEL_10:
-    v11 = sub_100010734("[MIClientConnection fetchDiskUsageForIdentifiers:withOptions:completion:]", v18, MIInstallerErrorDomain, 25, 0, 0, v17, v13, v21);
+    v11 = sub_100010734("[MIClientConnection fetchDiskUsageForIdentifiers:withOptions:completion:]", v19, MIInstallerErrorDomain, 25, 0, 0, v18, v13, v22);
 LABEL_11:
-    v19 = 0;
+    v20 = 0;
     goto LABEL_12;
   }
 
@@ -2717,10 +2797,10 @@ LABEL_11:
     goto LABEL_9;
   }
 
-  objc_opt_class();
-  v14 = sub_100010AB8(v12);
+  v14 = objc_opt_class();
+  v15 = sub_100010AB8(v12, v14);
 
-  if (!v14)
+  if (!v15)
   {
     goto LABEL_9;
   }
@@ -2728,13 +2808,13 @@ LABEL_11:
   if (optionsCopy)
   {
     objc_opt_class();
-    v15 = optionsCopy;
-    v16 = (objc_opt_isKindOfClass() & 1) != 0 ? v15 : 0;
+    v16 = optionsCopy;
+    v17 = (objc_opt_isKindOfClass() & 1) != 0 ? v16 : 0;
 
-    if (!v16)
+    if (!v17)
     {
-      v17 = @"Options provided was not a dictionary";
-      v18 = 2249;
+      v18 = @"Options provided was not a dictionary";
+      v19 = 2249;
       goto LABEL_10;
     }
   }
@@ -2745,13 +2825,13 @@ LABEL_11:
     MOLogWrite();
   }
 
-  v20 = [[MIDiskUsageGatherer alloc] initWithIdentifiers:v12 options:optionsCopy];
-  v23 = 0;
-  v19 = [(MIDiskUsageGatherer *)v20 gatherUsageInfoWithError:&v23];
-  v11 = v23;
+  v21 = [[MIDiskUsageGatherer alloc] initWithIdentifiers:v12 options:optionsCopy];
+  v24 = 0;
+  v20 = [(MIDiskUsageGatherer *)v21 gatherUsageInfoWithError:&v24];
+  v11 = v24;
 
 LABEL_12:
-  completionCopy[2](completionCopy, v19, v11);
+  completionCopy[2](completionCopy, v20, v11);
 }
 
 - (void)registerSafeHarborAtPath:(id)path forIdentity:(id)identity ofType:(unint64_t)type withOptions:(id)options completion:(id)completion
@@ -2777,19 +2857,19 @@ LABEL_12:
 
     if (!v18)
     {
-      v16 = sub_100010734("[MIClientConnection registerSafeHarborAtPath:forIdentity:ofType:withOptions:completion:]", 2283, MIInstallerErrorDomain, 25, 0, 0, @"Path parameter was not a string", v19, v33);
+      v16 = sub_100010734("[MIClientConnection registerSafeHarborAtPath:forIdentity:ofType:withOptions:completion:]", 2283, MIInstallerErrorDomain, 25, 0, 0, @"Path parameter was not a string", v19, v34);
       goto LABEL_2;
     }
 
-    v41 = 0;
-    v20 = [MIAppIdentity validateAppIdentity:identityCopy withError:&v41];
-    v21 = v41;
+    v42 = 0;
+    v20 = [MIAppIdentity validateAppIdentity:identityCopy withError:&v42];
+    v21 = v42;
     v16 = v21;
     if (v20)
     {
-      v40 = v21;
-      v22 = [identityCopy resolvePersonaWithError:&v40];
-      v23 = v40;
+      v41 = v21;
+      v22 = [identityCopy resolvePersonaWithError:&v41];
+      v23 = v41;
 
       if (!v22)
       {
@@ -2799,7 +2879,7 @@ LABEL_12:
 
       if (type - 15 <= 0xFFFFFFFFFFFFFFF1)
       {
-        v25 = sub_100010734("[MIClientConnection registerSafeHarborAtPath:forIdentity:ofType:withOptions:completion:]", 2296, MIInstallerErrorDomain, 25, 0, 0, @"Container type parameter did not correspond to a defined container content class.", v24, v33);
+        v25 = sub_100010734("[MIClientConnection registerSafeHarborAtPath:forIdentity:ofType:withOptions:completion:]", 2296, MIInstallerErrorDomain, 25, 0, 0, @"Container type parameter did not correspond to a defined container content class.", v24, v34);
 LABEL_11:
         v16 = v25;
 
@@ -2808,12 +2888,12 @@ LABEL_11:
 
       if (optionsCopy)
       {
-        objc_opt_class();
-        v26 = sub_1000146E0(optionsCopy);
+        v26 = objc_opt_class();
+        v27 = sub_1000146E0(optionsCopy, v26);
 
-        if (!v26)
+        if (!v27)
         {
-          v25 = sub_100010734("[MIClientConnection registerSafeHarborAtPath:forIdentity:ofType:withOptions:completion:]", 2301, MIInstallerErrorDomain, 25, 0, 0, @"Options parameter was not a dictionary", v27, v33);
+          v25 = sub_100010734("[MIClientConnection registerSafeHarborAtPath:forIdentity:ofType:withOptions:completion:]", 2301, MIInstallerErrorDomain, 25, 0, 0, @"Options parameter was not a dictionary", v28, v34);
           goto LABEL_11;
         }
       }
@@ -2822,22 +2902,22 @@ LABEL_11:
       {
         [(MIClientConnection *)self clientName];
         typeCopy = type;
-        v37 = optionsCopy;
-        v34 = v17;
-        v33 = v35 = identityCopy;
+        v38 = optionsCopy;
+        v35 = v17;
+        v34 = v36 = identityCopy;
         MOLogWrite();
       }
 
-      v28 = [MISafeHarborManager defaultManager:v33];
-      v29 = [NSURL fileURLWithPath:v17];
+      v29 = [MISafeHarborManager defaultManager:v34];
+      v30 = [NSURL fileURLWithPath:v17];
       bundleID = [identityCopy bundleID];
       personaUniqueString = [identityCopy personaUniqueString];
-      v39 = v23;
-      v38 = [v28 registerSafeHarborAtURL:v29 withOptions:optionsCopy forIdentifier:bundleID forPersona:personaUniqueString ofType:type error:&v39];
-      v32 = v28;
-      v16 = v39;
+      v40 = v23;
+      v39 = [v29 registerSafeHarborAtURL:v30 withOptions:optionsCopy forIdentifier:bundleID forPersona:personaUniqueString ofType:type error:&v40];
+      v33 = v29;
+      v16 = v40;
 
-      if ((v38 & 1) == 0 && (!qword_1000A9720 || *(qword_1000A9720 + 44) >= 3))
+      if ((v39 & 1) == 0 && (!qword_1000A9720 || *(qword_1000A9720 + 44) >= 3))
       {
         MOLogWrite();
       }
@@ -3061,21 +3141,21 @@ LABEL_19:
   appCopy = app;
   errorCopy = error;
   completionCopy = completion;
+  v61 = 0;
+  v62 = &v61;
+  v63 = 0x3032000000;
+  v64 = sub_1000141D4;
+  v65 = sub_1000141E4;
+  v66 = 0;
+  v57 = 0;
+  v58 = &v57;
+  v59 = 0x2020000000;
   v60 = 0;
-  v61 = &v60;
-  v62 = 0x3032000000;
-  v63 = sub_1000141D4;
-  v64 = sub_1000141E4;
-  v65 = 0;
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x2020000000;
-  v59 = 0;
   v15 = sub_100012A28(self, @"UpdatePlaceholderMetadata");
-  v16 = v61[5];
-  v61[5] = v15;
+  v16 = v62[5];
+  v62[5] = v15;
 
-  if (v61[5])
+  if (v62[5])
   {
     goto LABEL_2;
   }
@@ -3094,9 +3174,9 @@ LABEL_19:
 
   if (!v24)
   {
-    v34 = sub_100010734("[MIClientConnection updatePlaceholderMetadataForApp:installType:failureReason:underlyingError:failureSource:completion:]", 2481, MIInstallerErrorDomain, 25, 0, 0, @"bundleID parameter was not a string", v25, v36);
-    v35 = v61[5];
-    v61[5] = v34;
+    v36 = sub_100010734("[MIClientConnection updatePlaceholderMetadataForApp:installType:failureReason:underlyingError:failureSource:completion:]", 2481, MIInstallerErrorDomain, 25, 0, 0, @"bundleID parameter was not a string", v25, v38);
+    v37 = v62[5];
+    v62[5] = v36;
 
 LABEL_2:
     v17 = 0;
@@ -3110,17 +3190,17 @@ LABEL_3:
   if (!qword_1000A9720 || *(qword_1000A9720 + 44) >= 5)
   {
     [(MIClientConnection *)self clientName];
-    v41 = errorCopy;
+    v42 = errorCopy;
     sourceCopy = source;
     typeCopy = type;
-    v36 = v40 = reason;
-    v37 = v23;
+    v38 = v41 = reason;
+    v39 = v23;
     MOLogWrite();
   }
 
   sub_100054630(v23);
-  v26 = v61;
-  obj = v61[5];
+  v26 = v62;
+  obj = v62[5];
   v20 = 1;
   v19 = [MIBundleContainer appBundleContainerWithIdentifier:v23 createIfNeeded:0 created:0 error:&obj];
   objc_storeStrong(v26 + 5, obj);
@@ -3130,10 +3210,10 @@ LABEL_3:
     goto LABEL_31;
   }
 
-  v27 = v61;
-  v54 = v61[5];
-  v17 = [v19 bundleMetadataWithError:&v54];
-  objc_storeStrong(v27 + 5, v54);
+  v27 = v62;
+  v55 = v62[5];
+  v17 = [v19 bundleMetadataWithError:&v55];
+  objc_storeStrong(v27 + 5, v55);
   if (!v17)
   {
 LABEL_31:
@@ -3150,48 +3230,47 @@ LABEL_31:
     [v18 setInstallType:type];
   }
 
-  v28 = v61;
-  v53 = v61[5];
-  v29 = [v19 saveBundleMetadata:v18 withError:{&v53, v36, v37, typeCopy, v40, v41, sourceCopy}];
-  objc_storeStrong(v28 + 5, v53);
+  v28 = v62;
+  v54 = v62[5];
+  v29 = [v19 saveBundleMetadata:v18 withError:{&v54, v38, v39, typeCopy, v41, v42, sourceCopy}];
+  objc_storeStrong(v28 + 5, v54);
   if (v29)
   {
     sub_100054780(v23);
     v30 = objc_opt_new();
-    v31 = [NSNumber numberWithUnsignedInt:sub_100009864()];
-    [v30 setTargetUserID:v31];
+    v32 = [NSNumber numberWithUnsignedInt:sub_100009864(v30, v31)];
+    [v30 setTargetUserID:v32];
 
-    v32 = sub_10000998C();
+    v34 = sub_10000998C(v33);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_10001C034;
     block[3] = &unk_1000912C8;
-    v49 = &v56;
-    v47 = v23;
-    v48 = v30;
+    v50 = &v57;
+    v48 = v23;
+    v49 = v30;
     typeCopy2 = type;
     reasonCopy = reason;
-    v50 = &v60;
-    v33 = v30;
-    dispatch_sync(v32, block);
+    v51 = &v61;
+    v35 = v30;
+    dispatch_sync(v34, block);
 
-    if ((v57[3] & 1) != 0 || qword_1000A9720 && *(qword_1000A9720 + 44) < 3)
+    if ((v58[3] & 1) != 0 || qword_1000A9720 && *(qword_1000A9720 + 44) < 3)
     {
       goto LABEL_3;
     }
 
     v20 = 0;
-    v38 = v61[5];
     MOLogWrite();
   }
 
 LABEL_4:
 
-  if ((v57[3] & 1) == 0)
+  if ((v58[3] & 1) == 0)
   {
-    v45 = 0;
-    v21 = [v19 saveBundleMetadata:v17 withError:&v45];
-    v22 = v45;
+    v46 = 0;
+    v21 = [v19 saveBundleMetadata:v17 withError:&v46];
+    v22 = v46;
     if ((v21 & 1) == 0 && (!qword_1000A9720 || *(qword_1000A9720 + 44) >= 3))
     {
       MOLogWrite();
@@ -3203,10 +3282,10 @@ LABEL_4:
     sub_100054780(appCopy);
   }
 
-  (completionCopy)[2](completionCopy, v61[5]);
+  (completionCopy)[2](completionCopy, v62[5]);
 
-  _Block_object_dispose(&v56, 8);
-  _Block_object_dispose(&v60, 8);
+  _Block_object_dispose(&v57, 8);
+  _Block_object_dispose(&v61, 8);
 }
 
 - (void)getAppMetadataForApp:(id)app completion:(id)completion
@@ -3558,12 +3637,12 @@ LABEL_29:
 
   if ((+[ICLFeatureFlags appReferencesEnabled]& 1) == 0)
   {
-    v29 = sub_100010734("[MIClientConnection finalizeReference:completion:]", 2846, MIInstallerErrorDomain, 161, 0, 0, @"%s is not enabled", v15, "[MIClientConnection finalizeReference:completion:]");
+    v30 = sub_100010734("[MIClientConnection finalizeReference:completion:]", 2846, MIInstallerErrorDomain, 161, 0, 0, @"%s is not enabled", v15, "[MIClientConnection finalizeReference:completion:]");
     bundle = 0;
     v13 = 0;
     v14 = 0;
-    v28 = v58[5];
-    v58[5] = v29;
+    v29 = v58[5];
+    v58[5] = v30;
 LABEL_16:
 
     goto LABEL_21;
@@ -3596,9 +3675,9 @@ LABEL_2:
   bundle = [v13 bundle];
   if (!bundle)
   {
-    v30 = sub_100010734("[MIClientConnection finalizeReference:completion:]", 2864, MIInstallerErrorDomain, 36, 0, 0, @"Failed to find bundle in bundle container %@ for %@", v20, v13);
-    v31 = v58[5];
-    v58[5] = v30;
+    v31 = sub_100010734("[MIClientConnection finalizeReference:completion:]", 2864, MIInstallerErrorDomain, 36, 0, 0, @"Failed to find bundle in bundle container %@ for %@", v20, v13);
+    v32 = v58[5];
+    v58[5] = v31;
 
 LABEL_18:
     bundle = 0;
@@ -3636,8 +3715,8 @@ LABEL_19:
 
     if (v34)
     {
-      sub_100054780(bundleID);
-      locationb = sub_10000998C();
+      v28 = sub_100054780(bundleID);
+      locationb = sub_10000998C(v28);
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = sub_10001D6AC;
@@ -3646,15 +3725,14 @@ LABEL_19:
       v14 = v24;
       v39 = v14;
       v40 = bundleID;
-      v28 = v27;
-      v41 = v28;
+      v29 = v27;
+      v41 = v29;
       v42 = referenceCopy;
       v44 = &v57;
       dispatch_sync(locationb, block);
 
       if (!v52[5] && (!qword_1000A9720 || *(qword_1000A9720 + 44) >= 3))
       {
-        v33 = v58[5];
         MOLogWrite();
       }
 
@@ -3672,10 +3750,10 @@ LABEL_20:
   v14 = v24;
   sub_100054780(bundleID);
 LABEL_21:
-  v32 = v52[5];
-  if (v32)
+  v33 = v52[5];
+  if (v33)
   {
-    completionCopy[2](completionCopy, v32, 0);
+    completionCopy[2](completionCopy, v33, 0);
   }
 
   else
@@ -4729,7 +4807,7 @@ LABEL_33:
     v31 = xpcConnection;
     if (xpcConnection)
     {
-      [xpcConnection auditToken];
+      objc_msgSend_auditToken(xpcConnection);
     }
 
     else

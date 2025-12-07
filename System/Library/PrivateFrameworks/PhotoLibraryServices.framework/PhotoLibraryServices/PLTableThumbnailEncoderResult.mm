@@ -25,7 +25,7 @@
     [v8 replaceBytesInRange:0 withBytes:{v10, objc_msgSend(imageData3, "bytes")}];
 
     LODWORD(v15) = 0;
-    [(PLTableThumbnailEncoderResult *)self tableFooter:0];
+    objc_msgSend_tableFooter(self, 0, 0, 0, v15);
     [v8 replaceBytesInRange:objc_msgSend(v8 withBytes:{"length") - 28, 28, &v13}];
   }
 

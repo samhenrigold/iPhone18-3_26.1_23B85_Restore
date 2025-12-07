@@ -57,8 +57,8 @@
 
 - (void)scene:(id)scene openURLContexts:(id)contexts
 {
-  sub_100006370(0, &unk_1019FCBA0);
-  sub_10000FDE0(&unk_101A15B40, &unk_1019FCBA0);
+  sub_100006370(0, &unk_1019FCBA0, UIOpenURLContext_ptr);
+  sub_10000FDE0(&unk_101A15B40, &unk_1019FCBA0, UIOpenURLContext_ptr, &protocol conformance descriptor for NSObject);
   v6 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   sceneCopy = scene;
   selfCopy = self;
@@ -132,7 +132,7 @@
   }
 
   v11 = static OS_os_log.crlError;
-  sub_1005B981C(&qword_1019F54E0);
+  sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_10146BDE0;
   *(inited + 56) = &type metadata for String;
@@ -150,7 +150,7 @@
   sub_100005404(v11, &_mh_execute_header, v16, "Unable to accept Handoff with type: %@, error: %@.", 50, 2, inited);
 
   swift_setDeallocating();
-  sub_1005B981C(&unk_1019F5670);
+  sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
   swift_arrayDestroy();
 }
 
@@ -172,7 +172,7 @@
 
   sub_100C2AEA8();
 
-  sub_10000CAAC(v6, &unk_1019F4D00);
+  sub_10000CAAC(v6, &unk_1019F4D00, &unk_10146E7F0);
 }
 
 - (void)presentationControllerDidDismiss:(id)dismiss
@@ -187,11 +187,10 @@
   v0 = objc_opt_self();
   _atomicIncrementAssertCount = [v0 _atomicIncrementAssertCount];
   v23 = [objc_allocWithZone(NSString) init];
-  sub_100604538(_swiftEmptyArrayStorage, &v23);
-  StaticString.description.getter();
+  StaticString.description.getter("userActivity", 12, 2);
   v2 = String._bridgeToObjectiveC()();
 
-  StaticString.description.getter();
+  StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CrossPlatformUI/CRLSceneDelegate.swift", 92, 2);
   v3 = String._bridgeToObjectiveC()();
 
   lastPathComponent = [v3 lastPathComponent];
@@ -205,15 +204,15 @@
   }
 
   v8 = static OS_os_log.crlAssert;
-  sub_1005B981C(&qword_1019F54E0);
+  sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_10146CA70;
   *(inited + 56) = &type metadata for Int32;
   *(inited + 64) = &protocol witness table for Int32;
   *(inited + 32) = _atomicIncrementAssertCount;
-  v10 = sub_100006370(0, &qword_1019F4D30);
+  v10 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
   *(inited + 96) = v10;
-  v11 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30);
+  v11 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30, NSString_ptr, &protocol conformance descriptor for NSObject);
   *(inited + 104) = v11;
   *(inited + 72) = v2;
   *(inited + 136) = &type metadata for String;
@@ -233,7 +232,7 @@
   v16 = static os_log_type_t.error.getter();
   sub_100005404(v8, &_mh_execute_header, v16, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, inited);
   swift_setDeallocating();
-  sub_1005B981C(&unk_1019F5670);
+  sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
   swift_arrayDestroy();
   v17 = static os_log_type_t.error.getter();
 
@@ -244,13 +243,12 @@
   v18[4] = 0;
   v18[5] = 0;
   v19 = __VaListBuilder.va_list()();
-  StaticString.description.getter();
+  StaticString.description.getter("userActivity", 12, 2);
   v20 = String._bridgeToObjectiveC()();
 
-  StaticString.description.getter();
+  StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CrossPlatformUI/CRLSceneDelegate.swift", 92, 2);
   v21 = String._bridgeToObjectiveC()();
 
-  StaticString.description.getter();
   v22 = String._bridgeToObjectiveC()();
 
   [v0 handleFailureInFunction:v20 file:v21 lineNumber:582 isFatal:0 format:v22 args:v19];

@@ -69,8 +69,9 @@ LABEL_3:
       if ([identifierCopy isSystemPlaceholder])
       {
         v19 = _LSFindBundleWithInfo(details, 7uLL, bundleIdentifier, 0, 0, 0, 0);
-        v20 = _LSBundleGet(details->db, v19);
-        if (v20)
+        v20 = v19;
+        v21 = _LSBundleGet(details->db, v19);
+        if (v21)
         {
           v32 = 0;
           v33 = 0;
@@ -79,8 +80,8 @@ LABEL_3:
           v36 = 0u;
           std::optional<LSBinding>::operator=[abi:nn200100]<LSBinding,void>(retstr, &v32);
 
-          retstr->var0.var1.bundle = v19;
-          retstr->var0.var1.bundleData = v20;
+          retstr->var0.var1.bundle = v20;
+          retstr->var0.var1.bundleData = v21;
         }
       }
 
@@ -95,7 +96,7 @@ LABEL_3:
         v26 = applicationIdentifierPrefix;
         v27 = applicationIdentifier;
         LaunchServices::BindingEvaluator::setFilter_NoIO(&v32, @"universal links", v25);
-        LaunchServices::BindingEvaluator::getBestBinding(&v32);
+        LaunchServices::BindingEvaluator::getBestBinding(&v32, details, 0, v28);
         std::__optional_storage_base<LSBinding,false>::__assign_from[abi:nn200100]<std::__optional_move_assign_base<LSBinding,false>>(retstr, v28);
         if (v31 == 1)
         {
@@ -106,13 +107,12 @@ LABEL_3:
     }
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)enumerateBindingsWithContext:(LSContext *)context forSWCResults:(id)results block:(id)block
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   resultsCopy = results;
   blockCopy = block;
   if (!resultsCopy)
@@ -134,122 +134,121 @@ LABEL_3:
     callingBundleIdentifier = [(_LSSharedWebCredentialsAppLinkPlugIn *)self callingBundleIdentifier];
   }
 
-  memset(v32, 0, sizeof(v32));
-  v33 = 1065353216;
+  memset(v30, 0, sizeof(v30));
+  v31 = 1065353216;
+  v26 = 0u;
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
-  v31 = 0u;
-  v13 = resultsCopy;
-  v14 = [v13 countByEnumeratingWithState:&v28 objects:v34 count:16];
-  if (v14)
+  v12 = resultsCopy;
+  v13 = [v12 countByEnumeratingWithState:&v26 objects:v32 count:16];
+  if (v13)
   {
-    v15 = 0;
-    v16 = *v29;
+    v14 = 0;
+    v15 = *v27;
     do
     {
-      v17 = 0;
+      v16 = 0;
       do
       {
-        if (*v29 != v16)
+        if (*v27 != v15)
         {
-          objc_enumerationMutation(v13);
+          objc_enumerationMutation(v12);
         }
 
-        v18 = *(*(&v28 + 1) + 8 * v17);
-        v19 = objc_autoreleasePoolPush();
-        [(_LSSharedWebCredentialsAppLinkPlugIn *)self bindingWithContext:context forServiceDetails:v18 callingBundleIdentifier:callingBundleIdentifier];
-        if (v27 == 1)
+        v17 = *(*(&v26 + 1) + 8 * v16);
+        v18 = objc_autoreleasePoolPush();
+        objc_msgSend_bindingWithContext_forServiceDetails_callingBundleIdentifier_(self);
+        if (v25 == 1)
         {
-          if (std::__hash_table<std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>>>::find<unsigned int>(v32, v24))
+          if (std::__hash_table<std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>>>::find<unsigned int>(v30, v22))
           {
-            v20 = 0;
+            v19 = 0;
             goto LABEL_17;
           }
 
-          std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int &>(v32, v24);
-          if ((v27 & 1) == 0)
+          std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int &>(v30, v22, v22);
+          if ((v25 & 1) == 0)
           {
             std::__throw_bad_optional_access[abi:nn200100]();
           }
 
-          blockCopy[2](blockCopy, v24, v18);
-          ++v15;
+          blockCopy[2](blockCopy, v22, v17);
+          ++v14;
         }
 
-        v20 = 1;
+        v19 = 1;
 LABEL_17:
-        if (v27 == 1)
+        if (v25 == 1)
         {
         }
 
-        objc_autoreleasePoolPop(v19);
-        if (!v20 || v15 >= [(_LSAppLinkPlugIn *)self limit])
+        objc_autoreleasePoolPop(v18);
+        if (!v19 || v14 >= [(_LSAppLinkPlugIn *)self limit])
         {
           goto LABEL_23;
         }
 
-        ++v17;
+        ++v16;
       }
 
-      while (v14 != v17);
-      v14 = [v13 countByEnumeratingWithState:&v28 objects:v34 count:16];
+      while (v13 != v16);
+      v13 = [v12 countByEnumeratingWithState:&v26 objects:v32 count:16];
     }
 
-    while (v14);
+    while (v13);
   }
 
 LABEL_23:
 
-  std::__hash_table<std::__hash_value_type<unsigned int,LSApplicationRecordUpdateAvailability>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,LSApplicationRecordUpdateAvailability>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,LSApplicationRecordUpdateAvailability>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,LSApplicationRecordUpdateAvailability>>>::~__hash_table(v32);
-  v21 = *MEMORY[0x1E69E9840];
+  std::__hash_table<std::__hash_value_type<unsigned int,LSApplicationRecordUpdateAvailability>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,LSApplicationRecordUpdateAvailability>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,LSApplicationRecordUpdateAvailability>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,LSApplicationRecordUpdateAvailability>>>::~__hash_table(v30);
 }
 
 - (id)appLinksWithContext:(LSContext *)context forSWCResults:(id)results
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   resultsCopy = results;
   array = [MEMORY[0x1E695DF70] array];
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x4812000000;
-  v32 = __Block_byref_object_copy__5;
-  v33 = __Block_byref_object_dispose__5;
-  v34 = &unk_1818533FF;
-  memset(v35, 0, sizeof(v35));
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __74___LSSharedWebCredentialsAppLinkPlugIn_appLinksWithContext_forSWCResults___block_invoke;
-  v25[3] = &unk_1E6A1A610;
+  v27[0] = 0;
+  v27[1] = v27;
+  v27[2] = 0x4812000000;
+  v27[3] = __Block_byref_object_copy__5;
+  v27[4] = __Block_byref_object_dispose__5;
+  v27[5] = &unk_1818533FF;
+  memset(v28, 0, sizeof(v28));
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __74___LSSharedWebCredentialsAppLinkPlugIn_appLinksWithContext_forSWCResults___block_invoke;
+  v23[3] = &unk_1E6A1A610;
   contextCopy = context;
-  v25[4] = self;
+  v23[4] = self;
   v8 = array;
-  v26 = v8;
-  v27 = &v29;
-  [(_LSSharedWebCredentialsAppLinkPlugIn *)self enumerateBindingsWithContext:context forSWCResults:resultsCopy block:v25];
+  v24 = v8;
+  v25 = v27;
+  [(_LSSharedWebCredentialsAppLinkPlugIn *)self enumerateBindingsWithContext:context forSWCResults:resultsCopy block:v23];
   if (-[_LSAppLinkPlugIn limit](self, "limit") != -1 && [v8 count] >= 2)
   {
     array2 = [MEMORY[0x1E695DF70] array];
     array3 = [MEMORY[0x1E695DF70] array];
-    v23 = 0u;
-    v24 = 0u;
     v21 = 0u;
     v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v11 = v8;
-    v12 = [v11 countByEnumeratingWithState:&v21 objects:v37 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v19 objects:v30 count:16];
     if (v12)
     {
-      v13 = *v22;
+      v13 = *v20;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v22 != v13)
+          if (*v20 != v13)
           {
             objc_enumerationMutation(v11);
           }
 
-          v15 = *(*(&v21 + 1) + 8 * i);
+          v15 = *(*(&v19 + 1) + 8 * i);
           if ([v15 isEnabled])
           {
             v16 = array2;
@@ -263,7 +262,7 @@ LABEL_23:
           [v16 addObject:v15];
         }
 
-        v12 = [v11 countByEnumeratingWithState:&v21 objects:v37 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v19 objects:v30 count:16];
       }
 
       while (v12);
@@ -277,14 +276,11 @@ LABEL_23:
     }
   }
 
-  v18 = v30[7] - v30[6];
   [LSRecord resolveAllPropertiesOfRecords:"resolveAllPropertiesOfRecords:count:andDetachOnQueue:" count:? andDetachOnQueue:?];
 
-  _Block_object_dispose(&v29, 8);
-  v36 = v35;
-  std::vector<LSApplicationRecord * {__strong}>::__destroy_vector::operator()[abi:nn200100](&v36);
-
-  v19 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(v27, 8);
+  v29 = v28;
+  std::vector<LSApplicationRecord * {__strong}>::__destroy_vector::operator()[abi:nn200100](&v29);
 
   return v8;
 }
@@ -292,19 +288,20 @@ LABEL_23:
 - (id)callingBundleIdentifier
 {
   state = [(_LSAppLinkPlugIn *)self state];
-  v3 = _LSCopyBundleIdentifierForAuditToken([state auditToken], 1);
+  v3 = objc_msgSend_auditToken(state);
+  v4 = _LSCopyBundleIdentifierForAuditToken(v3, 1);
 
-  return v3;
+  return v4;
 }
 
 - (id)appLinksWithContext:(LSContext *)context error:(id *)error
 {
-  v40 = 0;
-  v41 = &v40;
-  v42 = 0x3032000000;
-  v43 = __Block_byref_object_copy__142;
-  v44 = __Block_byref_object_dispose__143;
-  v45 = MEMORY[0x1E695E0F0];
+  v41 = 0;
+  v42 = &v41;
+  v43 = 0x3032000000;
+  v44 = __Block_byref_object_copy__142;
+  v45 = __Block_byref_object_dispose__143;
+  v46 = MEMORY[0x1E695E0F0];
   v7 = objc_autoreleasePoolPush();
   v8 = objc_alloc(_LSSWCServiceSpecifierClass());
   v9 = _LSSWCServiceTypeAppLinks();
@@ -313,55 +310,55 @@ LABEL_23:
   v12 = [v8 initWithServiceType:v9 applicationIdentifier:0 domain:host];
 
   state = [(_LSAppLinkPlugIn *)self state];
-  auditToken = [state auditToken];
+  v14 = objc_msgSend_auditToken(state);
 
-  if (auditToken && (_LSSWCServiceDetailsClass(), (objc_opt_respondsToSelector() & 1) != 0))
+  if (v14 && (_LSSWCServiceDetailsClass(), (objc_opt_respondsToSelector() & 1) != 0))
   {
     v15 = _LSSWCServiceDetailsClass();
     uRLComponents2 = [(_LSAppLinkPlugIn *)self URLComponents];
     limit = [(_LSAppLinkPlugIn *)self limit];
-    v18 = auditToken[1];
-    v39[0] = *auditToken;
-    v39[1] = v18;
-    v38 = 0;
-    v19 = [v15 serviceDetailsWithServiceSpecifier:v12 URLComponents:uRLComponents2 limit:limit auditToken:v39 error:&v38];
-    v20 = v38;
+    v18 = v14[1];
+    v40[0] = *v14;
+    v40[1] = v18;
+    v39 = 0;
+    v19 = [(objc_class *)v15 serviceDetailsWithServiceSpecifier:v12 URLComponents:uRLComponents2 limit:limit auditToken:v40 error:&v39];
+    v20 = v39;
   }
 
   else
   {
     v21 = _LSSWCServiceDetailsClass();
     uRLComponents2 = [(_LSAppLinkPlugIn *)self URLComponents];
-    v37 = 0;
-    v19 = [v21 serviceDetailsWithServiceSpecifier:v12 URLComponents:uRLComponents2 limit:-[_LSAppLinkPlugIn limit](self error:{"limit"), &v37}];
-    v20 = v37;
+    v38 = 0;
+    v19 = [(objc_class *)v21 serviceDetailsWithServiceSpecifier:v12 URLComponents:uRLComponents2 limit:[(_LSAppLinkPlugIn *)self limit] error:&v38];
+    v20 = v38;
   }
 
   v22 = v20;
 
   if ([v19 count])
   {
-    v33[0] = MEMORY[0x1E69E9820];
-    v33[1] = 3221225472;
-    v33[2] = __66___LSSharedWebCredentialsAppLinkPlugIn_appLinksWithContext_error___block_invoke;
-    v33[3] = &unk_1E6A1A638;
-    v35 = &v40;
+    v34[0] = MEMORY[0x1E69E9820];
+    v34[1] = 3221225472;
+    v34[2] = __66___LSSharedWebCredentialsAppLinkPlugIn_appLinksWithContext_error___block_invoke;
+    v34[3] = &unk_1E6A1A638;
+    v36 = &v41;
     contextCopy = context;
-    v33[4] = self;
-    v34 = v19;
-    v23 = MEMORY[0x1865D71B0](v33);
-    if ([__LSDefaultsGetSharedInstance() isServer])
+    v34[4] = self;
+    v35 = v19;
+    v23 = MEMORY[0x1865D71B0](v34);
+    if ([__LSDefaultsGetSharedInstance(v23 v24)])
     {
-      v24 = _LSServer_DatabaseExecutionContext();
-      [(LSDBExecutionContext *)v24 assertNotActiveForThisThread];
-
       v25 = _LSServer_DatabaseExecutionContext();
-      v31[0] = MEMORY[0x1E69E9820];
-      v31[1] = 3221225472;
-      v31[2] = __66___LSSharedWebCredentialsAppLinkPlugIn_appLinksWithContext_error___block_invoke_2;
-      v31[3] = &unk_1E6A1A660;
-      v32 = v23;
-      [(LSDBExecutionContext *)v25 syncRead:v31];
+      [(LSDBExecutionContext *)v25 assertNotActiveForThisThread];
+
+      v26 = _LSServer_DatabaseExecutionContext();
+      v32[0] = MEMORY[0x1E69E9820];
+      v32[1] = 3221225472;
+      v32[2] = __66___LSSharedWebCredentialsAppLinkPlugIn_appLinksWithContext_error___block_invoke_2;
+      v32[3] = &unk_1E6A1A660;
+      v33 = v23;
+      [(LSDBExecutionContext *)v26 syncRead:v32];
     }
 
     else
@@ -372,24 +369,24 @@ LABEL_23:
 
   else if (v19)
   {
-    v26 = v41[5];
-    v41[5] = MEMORY[0x1E695E0F0];
+    v27 = v42[5];
+    v42[5] = MEMORY[0x1E695E0F0];
   }
 
   objc_autoreleasePoolPop(v7);
-  v27 = v41[5];
-  if (error && !v27)
+  v28 = v42[5];
+  if (error && !v28)
   {
-    v28 = v22;
+    v29 = v22;
     *error = v22;
-    v27 = v41[5];
+    v28 = v42[5];
   }
 
-  v29 = v27;
+  v30 = v28;
 
-  _Block_object_dispose(&v40, 8);
+  _Block_object_dispose(&v41, 8);
 
-  return v29;
+  return v30;
 }
 
 @end

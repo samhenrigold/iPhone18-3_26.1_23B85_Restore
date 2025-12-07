@@ -449,9 +449,9 @@ LABEL_10:
 {
   if ((objc_msgSend_tsp_isUnarchiverThread(MEMORY[0x277CCACC8], a2, identifiers) & 1) == 0)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d This method should only be called from the unarchiver thread.", "[TSPDatabaseReader filterIdentifiers:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDatabaseReader.mm", 341);
     v30 = MEMORY[0x277D81150];
-    v32 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v31, "[TSPDatabaseReader filterIdentifiers:]", "[TSPDatabaseReader filterIdentifiers:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDatabaseReader.mm", 341);
+    v32 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v31, "[TSPDatabaseReader filterIdentifiers:]");
     v34 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v33, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDatabaseReader.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v30, v35, v32, v34, 341, 1, "This method should only be called from the unarchiver thread.");
 

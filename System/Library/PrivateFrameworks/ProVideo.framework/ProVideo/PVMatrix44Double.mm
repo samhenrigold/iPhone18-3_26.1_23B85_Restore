@@ -232,13 +232,13 @@ LABEL_10:
   }
 
   info[4] = xmmword_260342820;
-  info[5] = unk_260342830;
+  info[5] = qword_260342830;
   info[6] = xmmword_260342840;
-  info[7] = unk_260342850;
+  info[7] = qword_260342850;
   *info = pv_transform_info_identity;
   info[1] = *algn_2603427F0;
   info[2] = xmmword_260342800;
-  info[3] = unk_260342810;
+  info[3] = qword_260342810;
   v5 = self[6];
   v15[4] = self[5];
   v15[5] = v5;
@@ -294,7 +294,7 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  [(PCMatrix44Double *)v5 SIMDDouble4x4Value];
+  objc_msgSend_SIMDDouble4x4Value(v5);
   v6 = [(PVMatrix44Double *)self initWithSIMDDouble4x4:&v9];
 LABEL_6:
   self = v6;
@@ -351,7 +351,7 @@ LABEL_8:
   {
     if (equalCopy)
     {
-      [equalCopy SIMDDouble4x4];
+      objc_msgSend_SIMDDouble4x4(equalCopy);
       v5 = v17;
       v6 = v18;
       v7 = v19;
@@ -467,7 +467,7 @@ LABEL_8:
   v13 = 0u;
   v14 = 0u;
   v12 = 0;
-  [(PVMatrix44Double *)self getTransformInfo:&v12];
+  objc_msgSend_getTransformInfo_(self, a2, &v12);
   v3 = v12;
   v4 = MEMORY[0x277CCACA8];
   v5 = [(PVMatrix44Double *)self description];
@@ -593,7 +593,7 @@ LABEL_8:
   v10 = 0u;
   v12 = 0u;
   v13 = 0u;
-  [(PVMatrix44Double *)self SIMDDouble4x4];
+  objc_msgSend_SIMDDouble4x4(self, a2);
   pv_PCMatrix44d_from_simd_double4x4(v4, &v5);
   v2 = [[PCMatrix44Double alloc] initWithPCMatrix:&v5];
 

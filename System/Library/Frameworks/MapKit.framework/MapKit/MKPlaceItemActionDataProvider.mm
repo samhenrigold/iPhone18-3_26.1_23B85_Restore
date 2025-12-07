@@ -33,7 +33,7 @@
   if ([phoneNumbers count])
   {
     placeItem = [(MKPlaceItemActionDataProvider *)self placeItem];
-    v6 = ([placeItem options] & 8) == 0;
+    v6 = (objc_msgSend_options(placeItem) & 8) == 0;
   }
 
   else

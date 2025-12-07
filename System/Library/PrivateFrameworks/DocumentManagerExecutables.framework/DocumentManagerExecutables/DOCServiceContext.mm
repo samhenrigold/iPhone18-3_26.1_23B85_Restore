@@ -56,7 +56,7 @@
   selfCopy = self;
   v8(appearanceCopy, 0, v6, v7);
 
-  outlined consume of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v6);
+  outlined consume of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v6, v7);
 }
 
 - (void)updateAppearance:(id)appearance shouldFlushCA:(BOOL)a completionBlock:(id)block
@@ -82,7 +82,7 @@
   v13 = v11();
   (*((*v10 & *v13) + 0x130))(appearanceCopy, aCopy, v8, v9);
 
-  outlined consume of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v8);
+  outlined consume of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v8, v9);
 }
 
 - (void)updateEditingTo:(BOOL)to animated:(BOOL)animated
@@ -129,7 +129,7 @@
 
 - (_TtC26DocumentManagerExecutables17DOCServiceContext)initWithInputItems:(id)items contextUUID:(id)d
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   MEMORY[0x28223BE20](v6 - 8, v7);
   v9 = &v13 - v8;
   if (items)
@@ -155,7 +155,7 @@
 
 - (_TtC26DocumentManagerExecutables17DOCServiceContext)initWithInputItems:(id)items listenerEndpoint:(id)endpoint contextUUID:(id)d
 {
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   MEMORY[0x28223BE20](v8 - 8, v9);
   v11 = &v16 - v10;
   if (items)

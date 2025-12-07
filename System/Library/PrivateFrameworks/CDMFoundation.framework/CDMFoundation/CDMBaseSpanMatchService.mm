@@ -19,14 +19,12 @@
 
 - (id)handleRequestCommandTypeNames
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E695DFD8];
   v3 = +[(CDMBaseCommand *)CDMSpanMatcherRequestCommand];
-  v8[0] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+  v7[0] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
   v5 = [v2 setWithArray:v4];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -49,32 +47,30 @@
 
 - (void)limitNumberOfSpans:(id)spans
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   spansCopy = spans;
   if ([spansCopy count] >= 0x65)
   {
     v4 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      v6 = 136315650;
-      v7 = "[CDMBaseSpanMatchService limitNumberOfSpans:]";
-      v8 = 2048;
-      v9 = [spansCopy count];
-      v10 = 1024;
-      v11 = 100;
-      _os_log_debug_impl(&dword_1DC287000, v4, OS_LOG_TYPE_DEBUG, "%s Matched count=%lu spans, filtering spans to the limit=%d", &v6, 0x1Cu);
+      v5 = 136315650;
+      v6 = "[CDMBaseSpanMatchService limitNumberOfSpans:]";
+      v7 = 2048;
+      v8 = [spansCopy count];
+      v9 = 1024;
+      v10 = 100;
+      _os_log_debug_impl(&dword_1DC287000, v4, OS_LOG_TYPE_DEBUG, "%s Matched count=%lu spans, filtering spans to the limit=%d", &v5, 0x1Cu);
     }
 
     [spansCopy removeObjectsInRange:{100, objc_msgSend(spansCopy, "count") - 100}];
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)spanizeTokenChain:(id)chain spans:(id)spans isTopAsr:(BOOL)asr topAsrSpansFiltered:(id)filtered asrHypothesis:(id)hypothesis
 {
   asrCopy = asr;
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   chainCopy = chain;
   filteredCopy = filtered;
   hypothesisCopy = hypothesis;
@@ -84,13 +80,13 @@
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
     normalizedString = [chainCopy normalizedString];
-    v25 = 136315650;
-    v26 = "[CDMBaseSpanMatchService spanizeTokenChain:spans:isTopAsr:topAsrSpansFiltered:asrHypothesis:]";
-    v27 = 2112;
-    v28 = normalizedString;
-    v29 = 2112;
-    v30 = spanMatcher;
-    _os_log_debug_impl(&dword_1DC287000, v17, OS_LOG_TYPE_DEBUG, "%s Start spanizing utterance: [%@]; with span matcher: %@", &v25, 0x20u);
+    v24 = 136315650;
+    v25 = "[CDMBaseSpanMatchService spanizeTokenChain:spans:isTopAsr:topAsrSpansFiltered:asrHypothesis:]";
+    v26 = 2112;
+    v27 = normalizedString;
+    v28 = 2112;
+    v29 = spanMatcher;
+    _os_log_debug_impl(&dword_1DC287000, v17, OS_LOG_TYPE_DEBUG, "%s Start spanizing utterance: [%@]; with span matcher: %@", &v24, 0x20u);
   }
 
   v18 = [spanMatcher matchSpansForTokenChain:chainCopy asrHypothesis:hypothesisCopy];
@@ -101,9 +97,9 @@
     v19 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
     {
-      v25 = 136315138;
-      v26 = "[CDMBaseSpanMatchService spanizeTokenChain:spans:isTopAsr:topAsrSpansFiltered:asrHypothesis:]";
-      _os_log_debug_impl(&dword_1DC287000, v19, OS_LOG_TYPE_DEBUG, "%s Add selected spans from top ASR for use later in post-processing of ASR alternatives", &v25, 0xCu);
+      v24 = 136315138;
+      v25 = "[CDMBaseSpanMatchService spanizeTokenChain:spans:isTopAsr:topAsrSpansFiltered:asrHypothesis:]";
+      _os_log_debug_impl(&dword_1DC287000, v19, OS_LOG_TYPE_DEBUG, "%s Add selected spans from top ASR for use later in post-processing of ASR alternatives", &v24, 0xCu);
     }
 
     [filteredCopy addObjectsFromArray:v18];
@@ -113,50 +109,48 @@
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
   {
     normalizedString2 = [chainCopy normalizedString];
-    v24 = [v18 count];
-    v25 = 136315906;
-    v26 = "[CDMBaseSpanMatchService spanizeTokenChain:spans:isTopAsr:topAsrSpansFiltered:asrHypothesis:]";
-    v27 = 2112;
-    v28 = normalizedString2;
-    v29 = 2048;
-    v30 = v24;
-    v31 = 2112;
-    v32 = spanMatcher;
-    _os_log_debug_impl(&dword_1DC287000, v20, OS_LOG_TYPE_DEBUG, "%s Spanized utterance: [%@]; Created %lu span(s) for span matcher: %@", &v25, 0x2Au);
+    v23 = [v18 count];
+    v24 = 136315906;
+    v25 = "[CDMBaseSpanMatchService spanizeTokenChain:spans:isTopAsr:topAsrSpansFiltered:asrHypothesis:]";
+    v26 = 2112;
+    v27 = normalizedString2;
+    v28 = 2048;
+    v29 = v23;
+    v30 = 2112;
+    v31 = spanMatcher;
+    _os_log_debug_impl(&dword_1DC287000, v20, OS_LOG_TYPE_DEBUG, "%s Spanized utterance: [%@]; Created %lu span(s) for span matcher: %@", &v24, 0x2Au);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)spanizeAsrs:(id)asrs asrSpansMap:(id)map topAsrSpans:(id)spans topAsrSpansFiltered:(id)filtered asrHypotheses:(id)hypotheses
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   asrsCopy = asrs;
   mapCopy = map;
   spansCopy = spans;
   filteredCopy = filtered;
   hypothesesCopy = hypotheses;
   v14 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(hypothesesCopy, "count")}];
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
   v15 = hypothesesCopy;
-  v16 = [v15 countByEnumeratingWithState:&v41 objects:v49 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v40 objects:v48 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v42;
+    v18 = *v41;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v42 != v18)
+        if (*v41 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = *(*(&v41 + 1) + 8 * i);
+        v20 = *(*(&v40 + 1) + 8 * i);
         v21 = [v20 idA];
 
         if (v21)
@@ -166,7 +160,7 @@
         }
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v41 objects:v49 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v40 objects:v48 count:16];
     }
 
     while (v17);
@@ -176,10 +170,10 @@
   {
     v24 = 0;
     *&v23 = 136315138;
-    v37 = v23;
+    v36 = v23;
     do
     {
-      v25 = [asrsCopy objectAtIndexedSubscript:{v24, v37}];
+      v25 = [asrsCopy objectAtIndexedSubscript:{v24, v36}];
       v26 = [CDMTokenChain alloc];
       tokenChain = [v25 tokenChain];
       v28 = [(CDMTokenChain *)v26 initWithProtoTokenChain:tokenChain];
@@ -204,8 +198,8 @@
         v33 = CDMOSLoggerForCategory(0);
         if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
         {
-          *buf = v37;
-          v46 = "[CDMBaseSpanMatchService spanizeAsrs:asrSpansMap:topAsrSpans:topAsrSpansFiltered:asrHypotheses:]";
+          *buf = v36;
+          v45 = "[CDMBaseSpanMatchService spanizeAsrs:asrSpansMap:topAsrSpans:topAsrSpansFiltered:asrHypotheses:]";
           _os_log_debug_impl(&dword_1DC287000, v33, OS_LOG_TYPE_DEBUG, "%s This is top ASR, set the topAsrSpans", buf, 0xCu);
         }
 
@@ -226,9 +220,9 @@
         if (os_log_type_enabled(asrId4, OS_LOG_TYPE_INFO))
         {
           *buf = 136315394;
-          v46 = "[CDMBaseSpanMatchService spanizeAsrs:asrSpansMap:topAsrSpans:topAsrSpansFiltered:asrHypotheses:]";
-          v47 = 2112;
-          v48 = v25;
+          v45 = "[CDMBaseSpanMatchService spanizeAsrs:asrSpansMap:topAsrSpans:topAsrSpansFiltered:asrHypotheses:]";
+          v46 = 2112;
+          v47 = v25;
           _os_log_impl(&dword_1DC287000, asrId4, OS_LOG_TYPE_INFO, "%s [WARN]: Did not expect a request w/o ASR uuid? %@", buf, 0x16u);
         }
       }
@@ -238,21 +232,19 @@
 
     while ([asrsCopy count] > v24);
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 - (id)warmup:(id)warmup
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v4 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     serviceName = [(CDMBaseService *)self serviceName];
     *buf = 136315394;
-    v17 = "[CDMBaseSpanMatchService warmup:]";
-    v18 = 2112;
-    v19 = serviceName;
+    v16 = "[CDMBaseSpanMatchService warmup:]";
+    v17 = 2112;
+    v18 = serviceName;
     _os_log_impl(&dword_1DC287000, v4, OS_LOG_TYPE_INFO, "%s Prewarm Span Matcher %@", buf, 0x16u);
   }
 
@@ -268,14 +260,12 @@
   serviceName2 = [(CDMBaseService *)self serviceName];
   v13 = [(CDMWarmupResponseCommand *)v10 initWithServiceState:serviceState serviceName:serviceName2];
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return v13;
 }
 
 - (id)setup:(id)setup
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   setupCopy = setup;
   v5 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
@@ -283,9 +273,9 @@
     v6 = objc_opt_class();
     v7 = NSStringFromClass(v6);
     *buf = 136315394;
-    v17 = "[CDMBaseSpanMatchService setup:]";
-    v18 = 2112;
-    v19 = v7;
+    v16 = "[CDMBaseSpanMatchService setup:]";
+    v17 = 2112;
+    v18 = v7;
     _os_log_impl(&dword_1DC287000, v5, OS_LOG_TYPE_INFO, "%s Setup %@", buf, 0x16u);
   }
 
@@ -308,38 +298,34 @@
     createSetupResponseCommand = [(CDMBaseSpanMatchService *)self createErrorSetupResponseCommand:v13];
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return createSetupResponseCommand;
 }
 
 - (id)createErrorSetupResponseCommand:(id)command
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   commandCopy = command;
   self->super.super._serviceState = 3;
   v5 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v10 = 136315394;
-    v11 = "[CDMBaseSpanMatchService createErrorSetupResponseCommand:]";
-    v12 = 2112;
-    v13 = commandCopy;
-    _os_log_impl(&dword_1DC287000, v5, OS_LOG_TYPE_INFO, "%s [WARN]: %@", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = "[CDMBaseSpanMatchService createErrorSetupResponseCommand:]";
+    v11 = 2112;
+    v12 = commandCopy;
+    _os_log_impl(&dword_1DC287000, v5, OS_LOG_TYPE_INFO, "%s [WARN]: %@", &v9, 0x16u);
   }
 
   createSetupResponseCommand = [(CDMBaseService *)self createSetupResponseCommand];
   v7 = [(CDMBaseService *)self createErrorWithCode:1 description:commandCopy];
   [createSetupResponseCommand setCmdError:v7];
 
-  v8 = *MEMORY[0x1E69E9840];
-
   return createSetupResponseCommand;
 }
 
 - (id)_handle:(id)_handle
 {
-  v66 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
   _handleCopy = _handle;
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
@@ -351,7 +337,7 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v59 = "[CDMBaseSpanMatchService _handle:]";
+      v58 = "[CDMBaseSpanMatchService _handle:]";
       _os_log_debug_impl(&dword_1DC287000, v9, OS_LOG_TYPE_DEBUG, "%s Spanize all ASR(s) and fill in asrSpansMap & topAsrSpansFiltered", buf, 0xCu);
     }
 
@@ -366,7 +352,7 @@
 
     spanMatchRequests3 = [_handleCopy spanMatchRequests];
     asrHypothesis = [_handleCopy asrHypothesis];
-    v55 = v16;
+    v54 = v16;
     [(CDMBaseSpanMatchService *)self spanizeAsrs:spanMatchRequests3 asrSpansMap:v10 topAsrSpans:v13 topAsrSpansFiltered:v16 asrHypotheses:asrHypothesis];
 
     spanMatchRequests4 = [_handleCopy spanMatchRequests];
@@ -374,13 +360,13 @@
 
     v21 = [CDMTokenChain alloc];
     tokenChain = [firstObject tokenChain];
-    v57 = [(CDMTokenChain *)v21 initWithProtoTokenChain:tokenChain];
+    v56 = [(CDMTokenChain *)v21 initWithProtoTokenChain:tokenChain];
 
     v23 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v59 = "[CDMBaseSpanMatchService _handle:]";
+      v58 = "[CDMBaseSpanMatchService _handle:]";
       _os_log_debug_impl(&dword_1DC287000, v23, OS_LOG_TYPE_DEBUG, "%s Creating a map of {ASR uuid: {char_index: timing}} for ASR alternatives", buf, 0xCu);
     }
 
@@ -391,14 +377,14 @@
     if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v59 = "[CDMBaseSpanMatchService _handle:]";
+      v58 = "[CDMBaseSpanMatchService _handle:]";
       _os_log_debug_impl(&dword_1DC287000, v26, OS_LOG_TYPE_DEBUG, "%s Get the {char_index: timing} map for top ASR", buf, 0xCu);
     }
 
-    v53 = firstObject;
+    v52 = firstObject;
     asrId = [firstObject asrId];
-    v54 = v25;
-    v56 = [v25 objectForKey:asrId];
+    v53 = v25;
+    v55 = [v25 objectForKey:asrId];
 
     asrHypothesis3 = [_handleCopy asrHypothesis];
     v29 = [asrHypothesis3 count];
@@ -416,7 +402,7 @@
 
       asrHypothesis4 = [_handleCopy asrHypothesis];
       v34 = [asrHypothesis4 objectAtIndexedSubscript:0];
-      [CDMSpanMatchUtils addAsrConfidenceToSpans:v13 tokenChain:v57 asrTimingMap:v56 asrHypothesis:v34];
+      [CDMSpanMatchUtils addAsrConfidenceToSpans:v13 tokenChain:v56 asrTimingMap:v55 asrHypothesis:v34];
 
       v35 = CDMLogContext;
       v36 = v35;
@@ -434,7 +420,7 @@
     {
       spanMatchRequests6 = [_handleCopy spanMatchRequests];
       asrHypothesis5 = [_handleCopy asrHypothesis];
-      [CDMSpanMatchUtils postProcessSpans:spanMatchRequests6 asrSpansMap:v10 asrHypothesis:asrHypothesis5 asrMaps:v54 topAsrTokenChain:v57 asrMapTopAsr:v56 topAsrSpansFiltered:v55];
+      [CDMSpanMatchUtils postProcessSpans:spanMatchRequests6 asrSpansMap:v10 asrHypothesis:asrHypothesis5 asrMaps:v53 topAsrTokenChain:v56 asrMapTopAsr:v55 topAsrSpansFiltered:v54];
     }
 
     v41 = os_signpost_id_generate(CDMLogContext);
@@ -454,17 +440,17 @@
     v46 = CDMLogContext;
     if (os_log_type_enabled(CDMLogContext, OS_LOG_TYPE_DEBUG))
     {
-      v51 = v46;
-      v52 = [v13 count];
+      v50 = v46;
+      v51 = [v13 count];
       *buf = 136315906;
-      v59 = "[CDMBaseSpanMatchService _handle:]";
-      v60 = 2112;
-      v61 = @"spanmatch";
-      v62 = 2112;
+      v58 = "[CDMBaseSpanMatchService _handle:]";
+      v59 = 2112;
+      v60 = @"spanmatch";
+      v61 = 2112;
       serviceState2 = v6;
-      v64 = 1024;
-      v65 = v52;
-      _os_log_debug_impl(&dword_1DC287000, v51, OS_LOG_TYPE_DEBUG, "%s [insights-cdm-%@]:\n%@ generated number of spans: %d", buf, 0x26u);
+      v63 = 1024;
+      v64 = v51;
+      _os_log_debug_impl(&dword_1DC287000, v50, OS_LOG_TYPE_DEBUG, "%s [insights-cdm-%@]:\n%@ generated number of spans: %d", buf, 0x26u);
 
       v46 = CDMLogContext;
     }
@@ -483,10 +469,10 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 136315650;
-      v59 = "[CDMBaseSpanMatchService _handle:]";
-      v60 = 2112;
-      v61 = v6;
-      v62 = 2048;
+      v58 = "[CDMBaseSpanMatchService _handle:]";
+      v59 = 2112;
+      v60 = v6;
+      v61 = 2048;
       serviceState2 = [(CDMBaseService *)self serviceState];
       _os_log_impl(&dword_1DC287000, v9, OS_LOG_TYPE_INFO, "%s %@ Not Ready! State: %tu", buf, 0x20u);
     }
@@ -495,8 +481,6 @@
     v10 = [(CDMBaseService *)self createErrorWithCode:1 description:@"Service Not Ready"];
     [(CDMBaseCommand *)v45 setCmdError:v10];
   }
-
-  v49 = *MEMORY[0x1E69E9840];
 
   return v45;
 }
@@ -534,7 +518,7 @@
 
 + (id)convertToSpanMatchRequest:(id)request nlContext:(id)context
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E69D1398];
   contextCopy = context;
   requestCopy = request;
@@ -553,54 +537,50 @@
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     utterance = [v8 utterance];
-    v16 = 136315394;
-    v17 = "+[CDMBaseSpanMatchService convertToSpanMatchRequest:nlContext:]";
-    v18 = 2112;
-    v19 = utterance;
-    _os_log_debug_impl(&dword_1DC287000, v12, OS_LOG_TYPE_DEBUG, "%s Converted TokenizerResponse -> SpanMatchRequest for utterance: %@", &v16, 0x16u);
+    v15 = 136315394;
+    v16 = "+[CDMBaseSpanMatchService convertToSpanMatchRequest:nlContext:]";
+    v17 = 2112;
+    v18 = utterance;
+    _os_log_debug_impl(&dword_1DC287000, v12, OS_LOG_TYPE_DEBUG, "%s Converted TokenizerResponse -> SpanMatchRequest for utterance: %@", &v15, 0x16u);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 + (id)convertToSpanMatchRequests:(id)requests nlContext:(id)context
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   requestsCopy = requests;
   contextCopy = context;
   v7 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(requestsCopy, "count")}];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v8 = requestsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v17;
+    v11 = *v16;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = [CDMBaseSpanMatchService convertToSpanMatchRequest:*(*(&v16 + 1) + 8 * i) nlContext:contextCopy, v16];
+        v13 = [CDMBaseSpanMatchService convertToSpanMatchRequest:*(*(&v15 + 1) + 8 * i) nlContext:contextCopy, v15];
         [v7 addObject:v13];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v10);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

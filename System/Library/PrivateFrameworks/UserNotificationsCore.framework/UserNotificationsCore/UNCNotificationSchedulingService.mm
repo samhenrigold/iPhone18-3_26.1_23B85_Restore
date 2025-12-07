@@ -220,10 +220,7 @@ uint64_t __113__UNCNotificationSchedulingService_removeAllPendingNotificationRec
 
 uint64_t __82__UNCNotificationSchedulingService_pendingNotificationRecordsForBundleIdentifier___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _queue_pendingNotificationRecordsForBundleIdentifier:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _queue_pendingNotificationRecordsForBundleIdentifier:*(a1 + 40)];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -256,10 +253,7 @@ uint64_t __82__UNCNotificationSchedulingService_pendingNotificationRecordsForBun
 
 uint64_t __86__UNCNotificationSchedulingService_undeliveredNotificationRecordsForBundleIdentifier___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _queue_undeliveredNotificationRequestsForBundleIdentifier:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _queue_undeliveredNotificationRequestsForBundleIdentifier:*(a1 + 40)];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -394,179 +388,171 @@ uint64_t __86__UNCNotificationSchedulingService_undeliveredNotificationRecordsFo
 
 - (void)_queue_notificationSourcesDidUninstall:(id)uninstall
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   uninstallCopy = uninstall;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v5 = [uninstallCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [uninstallCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(uninstallCopy);
         }
 
-        bundleIdentifier = [*(*(&v11 + 1) + 8 * v8) bundleIdentifier];
+        bundleIdentifier = [*(*(&v10 + 1) + 8 * v8) bundleIdentifier];
         [(UNCNotificationSchedulingService *)self _queue_removeClientForBundleIdentifier:bundleIdentifier];
 
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [uninstallCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [uninstallCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_queue_applicationStateDidRestore
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = *MEMORY[0x1E6983378];
   if (os_log_type_enabled(*MEMORY[0x1E6983378], OS_LOG_TYPE_DEFAULT))
   {
     clients = self->_clients;
     v5 = v3;
     *buf = 134217984;
-    v18 = [(NSMutableDictionary *)clients count];
+    v17 = [(NSMutableDictionary *)clients count];
     _os_log_impl(&dword_1DA7A9000, v5, OS_LOG_TYPE_DEFAULT, "Application state restored for %ld clients", buf, 0xCu);
   }
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   allValues = [(NSMutableDictionary *)self->_clients allValues];
-  v7 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(allValues);
         }
 
-        [*(*(&v12 + 1) + 8 * v10++) handleApplicationStateRestore];
+        [*(*(&v11 + 1) + 8 * v10++) handleApplicationStateRestore];
       }
 
       while (v8 != v10);
-      v8 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_queue_localeDidChange
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = *MEMORY[0x1E6983378];
   if (os_log_type_enabled(*MEMORY[0x1E6983378], OS_LOG_TYPE_DEFAULT))
   {
     clients = self->_clients;
     v5 = v3;
     *buf = 134217984;
-    v18 = [(NSMutableDictionary *)clients count];
+    v17 = [(NSMutableDictionary *)clients count];
     _os_log_impl(&dword_1DA7A9000, v5, OS_LOG_TYPE_DEFAULT, "Handle locale change for %ld clients", buf, 0xCu);
   }
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   allValues = [(NSMutableDictionary *)self->_clients allValues];
-  v7 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(allValues);
         }
 
-        [*(*(&v12 + 1) + 8 * v10++) handleLocaleChange];
+        [*(*(&v11 + 1) + 8 * v10++) handleLocaleChange];
       }
 
       while (v8 != v10);
-      v8 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_queue_timeDidChangeSignificantly
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = *MEMORY[0x1E6983378];
   if (os_log_type_enabled(*MEMORY[0x1E6983378], OS_LOG_TYPE_DEFAULT))
   {
     clients = self->_clients;
     v5 = v3;
     *buf = 134217984;
-    v18 = [(NSMutableDictionary *)clients count];
+    v17 = [(NSMutableDictionary *)clients count];
     _os_log_impl(&dword_1DA7A9000, v5, OS_LOG_TYPE_DEFAULT, "Handle significant time change for %ld clients", buf, 0xCu);
   }
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   allValues = [(NSMutableDictionary *)self->_clients allValues];
-  v7 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(allValues);
         }
 
-        [*(*(&v12 + 1) + 8 * v10++) handleSignificantTimeChange];
+        [*(*(&v11 + 1) + 8 * v10++) handleSignificantTimeChange];
       }
 
       while (v8 != v10);
-      v8 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_queue_addClientForBundleIdentifier:(id)identifier

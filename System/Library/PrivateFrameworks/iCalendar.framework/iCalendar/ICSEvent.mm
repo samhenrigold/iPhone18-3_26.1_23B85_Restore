@@ -29,11 +29,11 @@
 
 - (void)fixComponent
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
-  v52.receiver = self;
-  v52.super_class = ICSEvent;
-  [(ICSComponent *)&v52 fixComponent];
+  v51.receiver = self;
+  v51.super_class = ICSEvent;
+  [(ICSComponent *)&v51 fixComponent];
   [(ICSEvent *)self fixAttendeeComments];
   v4 = [(ICSComponent *)self propertiesForName:@"DTEND"];
 
@@ -144,29 +144,29 @@ LABEL_14:
 
   if (v33)
   {
-    v47 = v3;
+    v46 = v3;
     v34 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v35 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    v47 = 0u;
     v48 = 0u;
     v49 = 0u;
     v50 = 0u;
-    v51 = 0u;
     exdate = [(ICSComponent *)self exdate];
-    v37 = [exdate countByEnumeratingWithState:&v48 objects:v53 count:16];
+    v37 = [exdate countByEnumeratingWithState:&v47 objects:v52 count:16];
     if (v37)
     {
       v38 = v37;
-      v39 = *v49;
+      v39 = *v48;
       do
       {
         for (i = 0; i != v38; ++i)
         {
-          if (*v49 != v39)
+          if (*v48 != v39)
           {
             objc_enumerationMutation(exdate);
           }
 
-          v41 = *(*(&v48 + 1) + 8 * i);
+          v41 = *(*(&v47 + 1) + 8 * i);
           v42 = [(ICSCalendar *)v32 systemDateForDate:v41 options:1];
           if (([v35 containsObject:v42] & 1) == 0)
           {
@@ -175,7 +175,7 @@ LABEL_14:
           }
         }
 
-        v38 = [exdate countByEnumeratingWithState:&v48 objects:v53 count:16];
+        v38 = [exdate countByEnumeratingWithState:&v47 objects:v52 count:16];
       }
 
       while (v38);
@@ -190,11 +190,10 @@ LABEL_14:
       [(ICSComponent *)self setExdate:v34];
     }
 
-    v3 = v47;
+    v3 = v46;
   }
 
   objc_autoreleasePoolPop(v3);
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fixAttendeeComments
@@ -284,7 +283,7 @@ LABEL_14:
   {
     v10 = MEMORY[0x277CBEBB0];
     tzid2 = [dtstart tzid];
-    v12 = [v10 timeZoneWithName:tzid2];
+    v12 = objc_msgSend_timeZoneWithName_(v10);
   }
 
   else
@@ -303,7 +302,7 @@ LABEL_14:
 
   v16 = MEMORY[0x277CBEBB0];
   tzid4 = [dtend tzid];
-  v18 = [v16 timeZoneWithName:tzid4];
+  v18 = objc_msgSend_timeZoneWithName_(v16);
 
   if (!v12 || !v18)
   {
@@ -669,26 +668,26 @@ LABEL_25:
 
 - (BOOL)isDefaultAlarmDeleted
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   components = [(ICSComponent *)self components];
-  v3 = [components countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [components countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
-    v4 = *v12;
+    v4 = *v11;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v12 != v4)
+        if (*v11 != v4)
         {
           objc_enumerationMutation(components);
         }
 
-        v6 = *(*(&v11 + 1) + 8 * i);
+        v6 = *(*(&v10 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -710,7 +709,7 @@ LABEL_25:
         }
       }
 
-      v3 = [components countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v3 = [components countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v3)
       {
         continue;
@@ -722,7 +721,6 @@ LABEL_25:
 
 LABEL_15:
 
-  v9 = *MEMORY[0x277D85DE8];
   return v3;
 }
 

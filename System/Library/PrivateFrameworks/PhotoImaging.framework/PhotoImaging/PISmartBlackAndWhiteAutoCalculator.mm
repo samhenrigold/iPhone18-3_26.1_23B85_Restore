@@ -509,7 +509,7 @@ LABEL_44:
     v156 = 0;
     v137 = v147[0];
     v138 = v147[0];
-    std::vector<double>::vector[abi:ne200100](__p, v137 * v137);
+    std::vector<double>::vector[abi:ne200100](__p, v137 * v137, &v156);
     v65 = v138;
     if (v138)
     {

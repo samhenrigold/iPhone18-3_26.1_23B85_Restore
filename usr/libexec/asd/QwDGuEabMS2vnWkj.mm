@@ -203,9 +203,9 @@
   cCopy = c;
   completionCopy = completion;
   v7 = objc_opt_self();
-  v43 = 0;
-  v8 = [ASDGeoCodingKeyedUnarchiver unarchivedObjectOfClass:v7 fromData:cCopy error:&v43];
-  v9 = v43;
+  v42 = 0;
+  v8 = [ASDGeoCodingKeyedUnarchiver unarchivedObjectOfClass:v7 fromData:cCopy error:&v42];
+  v9 = v42;
 
   v10 = [v8 objectForKeyedSubscript:@"addresses"];
   v11 = [v8 objectForKeyedSubscript:@"locations"];
@@ -223,33 +223,32 @@ LABEL_2:
     goto LABEL_28;
   }
 
-  v32 = v10;
-  v33 = v11;
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
+  v31 = v10;
+  v32 = v11;
   v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   v13 = v10;
-  v14 = [v13 countByEnumeratingWithState:&v39 objects:v45 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v38 objects:v44 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v40;
+    v16 = *v39;
     while (2)
     {
       v17 = 0;
       do
       {
-        if (*v40 != v16)
+        if (*v39 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v39 + 1) + 8 * v17);
-        v19 = objc_opt_self();
-        LOBYTE(v18) = objc_opt_isKindOfClass();
+        v18 = objc_opt_self();
+        isKindOfClass = objc_opt_isKindOfClass();
 
-        if ((v18 & 1) == 0)
+        if ((isKindOfClass & 1) == 0)
         {
           v9 = +[QwDGuEabMS2vnWkj wrongXPCParameterError];
           completionCopy[2](completionCopy, v9);
@@ -257,11 +256,11 @@ LABEL_2:
           goto LABEL_27;
         }
 
-        v17 = v17 + 1;
+        ++v17;
       }
 
       while (v15 != v17);
-      v15 = [v13 countByEnumeratingWithState:&v39 objects:v45 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v38 objects:v44 count:16];
       if (v15)
       {
         continue;
@@ -271,55 +270,54 @@ LABEL_2:
     }
   }
 
-  v30 = completionCopy;
-  v31 = cCopy;
+  v29 = completionCopy;
+  v30 = cCopy;
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
-  v20 = v33;
-  v21 = [v20 countByEnumeratingWithState:&v35 objects:v44 count:16];
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  v20 = v32;
+  v21 = [v20 countByEnumeratingWithState:&v34 objects:v43 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v36;
+    v23 = *v35;
     while (2)
     {
       v24 = 0;
       do
       {
-        if (*v36 != v23)
+        if (*v35 != v23)
         {
           objc_enumerationMutation(v20);
         }
 
-        v25 = *(*(&v35 + 1) + 8 * v24);
-        v26 = objc_opt_self();
+        v25 = objc_opt_self();
         if (objc_opt_isKindOfClass())
         {
         }
 
         else
         {
-          v27 = objc_opt_self();
-          isKindOfClass = objc_opt_isKindOfClass();
+          v26 = objc_opt_self();
+          v27 = objc_opt_isKindOfClass();
 
-          if ((isKindOfClass & 1) == 0)
+          if ((v27 & 1) == 0)
           {
             v9 = +[QwDGuEabMS2vnWkj wrongXPCParameterError];
-            completionCopy = v30;
-            v30[2](v30, v9);
+            completionCopy = v29;
+            v29[2](v29, v9);
 
             goto LABEL_26;
           }
         }
 
-        v24 = v24 + 1;
+        ++v24;
       }
 
       while (v22 != v24);
-      v22 = [v20 countByEnumeratingWithState:&v35 objects:v44 count:16];
+      v22 = [v20 countByEnumeratingWithState:&v34 objects:v43 count:16];
       if (v22)
       {
         continue;
@@ -329,18 +327,18 @@ LABEL_2:
     }
   }
 
-  v29 = +[PJXBDBF1h0EU80dy sharedInstance];
-  v34 = 0;
-  [v29 updateGeoCodeForAddresses:v13 locations:v20 error:&v34];
-  v9 = v34;
+  v28 = +[PJXBDBF1h0EU80dy sharedInstance];
+  v33 = 0;
+  [v28 updateGeoCodeForAddresses:v13 locations:v20 error:&v33];
+  v9 = v33;
 
-  completionCopy = v30;
-  v30[2](v30, v9);
+  completionCopy = v29;
+  v29[2](v29, v9);
 LABEL_26:
-  cCopy = v31;
+  cCopy = v30;
 LABEL_27:
-  v10 = v32;
-  v12 = v33;
+  v10 = v31;
+  v12 = v32;
 LABEL_28:
 }
 
@@ -385,18 +383,17 @@ LABEL_28:
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v21 + 1) + 8 * v15);
-          v17 = objc_opt_self();
-          LOBYTE(v16) = objc_opt_isKindOfClass();
+          v16 = objc_opt_self();
+          isKindOfClass = objc_opt_isKindOfClass();
 
-          if ((v16 & 1) == 0)
+          if ((isKindOfClass & 1) == 0)
           {
             v9 = +[QwDGuEabMS2vnWkj wrongXPCParameterError];
             completionCopy[2](completionCopy, 0, v9);
             goto LABEL_16;
           }
 
-          v15 = v15 + 1;
+          ++v15;
         }
 
         while (v13 != v15);

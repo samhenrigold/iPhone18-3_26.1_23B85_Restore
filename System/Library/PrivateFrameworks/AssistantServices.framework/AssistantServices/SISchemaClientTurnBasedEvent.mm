@@ -13,7 +13,7 @@
 
 - (id)si_dictionaryRepresentation
 {
-  v14[2] = *MEMORY[0x1E69E9840];
+  v13[2] = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   turnContext = self->_turnContext;
   if (turnContext)
@@ -22,12 +22,12 @@
 
     if (turnID)
     {
-      v14[0] = 0;
-      v14[1] = 0;
+      v13[0] = 0;
+      v13[1] = 0;
       turnID2 = [(SISchemaClientTurnContext *)self->_turnContext turnID];
-      [turnID2 getBytes:v14 length:16];
+      [turnID2 getBytes:v13 length:16];
 
-      v7 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:v14];
+      v7 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:v13];
       v8 = v7;
       if (v7)
       {
@@ -43,8 +43,6 @@
     si_dictionaryRepresentation = [(SISchemaClientAnyEvent *)event si_dictionaryRepresentation];
     [dictionary setObject:si_dictionaryRepresentation forKey:@"event"];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }

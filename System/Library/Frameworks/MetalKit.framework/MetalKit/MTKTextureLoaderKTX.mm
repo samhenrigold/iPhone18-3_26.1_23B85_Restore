@@ -29,9 +29,9 @@
 
 - (MTKTextureLoaderKTX)initWithData:(id)data options:(id)options error:(id *)error
 {
-  v42.receiver = self;
-  v42.super_class = MTKTextureLoaderKTX;
-  v8 = [(MTKTextureLoaderData *)&v42 init];
+  v43.receiver = self;
+  v43.super_class = MTKTextureLoaderKTX;
+  v8 = [(MTKTextureLoaderData *)&v43 init];
   if (v8)
   {
     if (![MTKTextureLoaderKTX isKTXFile:data])
@@ -118,10 +118,10 @@ LABEL_34:
 
     [v8 pixelFormat];
     MTLPixelFormatGetInfoForDevice();
-    v20 = v40[0];
-    v21 = v40[1];
-    v22 = v40[2];
-    *(v8 + 17) = v41;
+    v20 = v41[0];
+    v21 = v41[1];
+    v22 = v41[2];
+    *(v8 + 17) = v42;
     *(v8 + 104) = v21;
     *(v8 + 120) = v22;
     *(v8 + 88) = v20;
@@ -212,9 +212,9 @@ LABEL_53:
       v30 = 0;
       while (1)
       {
-        *&v40[0] = 0;
-        v43 = 0;
-        v31 = [v8 getDataForArrayElement:v27 face:v28 level:v29 depthPlane:v30 bytesPerRow:v40 bytesPerImage:&v43];
+        *&v41[0] = 0;
+        v44 = 0;
+        v31 = [v8 getDataForArrayElement:v27 face:v28 level:v29 depthPlane:v30 bytesPerRow:v41 bytesPerImage:&v44];
         if (!v31)
         {
           break;
@@ -272,40 +272,40 @@ LABEL_59:
         goto LABEL_33;
       }
 
-      if (!_mtkLinkedOnOrAfter(1))
+      if (!_mtkLinkedOnOrAfter(1, v36))
       {
         v8[144] = 1;
         return v8;
       }
 
-      v36 = [options objectForKey:@"MTKTextureLoaderOptionSRGB"];
-      if (!v36)
+      v37 = [options objectForKey:@"MTKTextureLoaderOptionSRGB"];
+      if (!v37)
       {
         goto LABEL_80;
       }
 
-      v37 = v36;
-      if ([v36 BOOLValue])
+      v38 = v37;
+      if ([v37 BOOLValue])
       {
-        v38 = selectSRGBFormat([v8 pixelFormat]);
+        v39 = selectSRGBFormat([v8 pixelFormat]);
       }
 
       else
       {
-        if ([v37 BOOLValue])
+        if ([v38 BOOLValue])
         {
           goto LABEL_80;
         }
 
-        v38 = selectRGBPixelFormat([v8 pixelFormat]);
+        v39 = selectRGBPixelFormat([v8 pixelFormat]);
       }
 
-      [v8 setPixelFormat:v38];
+      [v8 setPixelFormat:v39];
 LABEL_80:
-      v39 = [options objectForKey:@"MTKTextureLoaderOptionPackedRowStride"];
-      if (v39)
+      v40 = [options objectForKey:@"MTKTextureLoaderOptionPackedRowStride"];
+      if (v40)
       {
-        v8[144] = [v39 BOOLValue];
+        v8[144] = [v40 BOOLValue];
       }
 
       else
@@ -391,19 +391,19 @@ LABEL_11:
 
 - (BOOL)parseKey:(id)key value:(id)value error:(id *)error
 {
-  if ([objc_msgSend(key "lowercaseString")] && _mtkLinkedOnOrAfter(0))
+  if ([objc_msgSend(key "lowercaseString")] && _mtkLinkedOnOrAfter(0, v8))
   {
-    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:value encoding:4];
-    if ([v8 hasPrefix:{@"S=r, T=d"}])
+    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:value encoding:4];
+    if ([v9 hasPrefix:{@"S=r, T=d"}])
     {
-      v9 = &MTKTextureLoaderOriginTopLeft;
+      v10 = &MTKTextureLoaderOriginTopLeft;
     }
 
     else
     {
-      if (([v8 hasPrefix:{@"S=r, T=u"}] & 1) == 0)
+      if (([v9 hasPrefix:{@"S=r, T=u"}] & 1) == 0)
       {
-        v10 = 0;
+        v11 = 0;
         if (error)
         {
           *error = _newMTKTextureErrorWithCodeAndErrorString(0, @"Unsupported image orientation");
@@ -412,14 +412,14 @@ LABEL_11:
         goto LABEL_9;
       }
 
-      v9 = &MTKTextureLoaderOriginBottomLeft;
+      v10 = &MTKTextureLoaderOriginBottomLeft;
     }
 
-    [(MTKTextureLoaderData *)self setImageOrigin:*v9];
-    v10 = 1;
+    [(MTKTextureLoaderData *)self setImageOrigin:*v10];
+    v11 = 1;
 LABEL_9:
 
-    return v10;
+    return v11;
   }
 
   return 1;
@@ -807,7 +807,7 @@ LABEL_32:
 
 - (unint64_t)determineFormatFromSizedFormat:(unint64_t)format
 {
-  v4 = _mtkLinkedBefore(1);
+  v4 = _mtkLinkedBefore(1, a2);
   v5 = 0;
   while (determineFormatFromSizedFormat__ktxFormats[v5] != format)
   {

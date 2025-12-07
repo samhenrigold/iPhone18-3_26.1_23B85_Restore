@@ -107,7 +107,7 @@ LABEL_10:
 
 - (id)uniqueIdentifier
 {
-  v10[2] = *MEMORY[0x1E69E9840];
+  v9[2] = *MEMORY[0x1E69E9840];
   operation = [(WFToggleSettingContextualAction *)self operation];
   if (operation > 2)
   {
@@ -120,13 +120,11 @@ LABEL_10:
   }
 
   identifier = [(WFContextualAction *)self identifier];
-  v10[0] = identifier;
-  v10[1] = v4;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
+  v9[0] = identifier;
+  v9[1] = v4;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
 
   v7 = [v6 componentsJoinedByString:@"."];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -409,7 +407,7 @@ LABEL_38:
 {
   unconfiguredCopy = unconfigured;
   v8 = 0;
-  v56[2] = *MEMORY[0x1E69E9840];
+  v55[2] = *MEMORY[0x1E69E9840];
   v9 = @"OnValue";
   if (setting > 4)
   {
@@ -538,7 +536,7 @@ LABEL_26:
   v16 = [WFContextualActionIcon iconWithSystemName:v18];
 LABEL_27:
   operationCopy = operation;
-  v48 = v14;
+  v47 = v14;
   switch(operation)
   {
     case 2uLL:
@@ -549,9 +547,9 @@ LABEL_27:
 
       v23 = WFLocalizedStringWithKey(@"Toggle (System Setting, Subtitle)", @"Toggle");
       v35 = [[WFContextualActionParameter alloc] initWithType:@"WFNumberContentItem" displayString:0 wfParameterKey:v9 wfSerializedRepresentation:&unk_1F292CD18];
-      v52 = v35;
+      v51 = v35;
       v36 = @"toggle";
-      v37 = &v52;
+      v37 = &v51;
 LABEL_39:
       v38 = [[WFContextualActionParameter alloc] initWithType:@"WFStringContentItem" displayString:0 wfParameterKey:@"operation" wfSerializedRepresentation:v36];
       v37[1] = v38;
@@ -572,18 +570,18 @@ LABEL_39:
 
         v22 = v30;
         v23 = [[WFContextualActionParameter alloc] initWithType:@"WFStringContentItem" displayString:0 wfParameterKey:@"operation" wfSerializedRepresentation:@"set"];
-        v54[0] = v23;
+        v53[0] = v23;
         v25 = [[WFContextualActionParameter alloc] initWithType:@"WFStringContentItem" displayString:0 wfParameterKey:@"style" wfSerializedRepresentation:@"light"];
-        v54[1] = v25;
+        v53[1] = v25;
         v26 = MEMORY[0x1E695DEC8];
-        v27 = v54;
+        v27 = v53;
         goto LABEL_34;
       }
 
       v35 = [[WFContextualActionParameter alloc] initWithType:@"WFNumberContentItem" displayString:0 wfParameterKey:v9 wfSerializedRepresentation:&unk_1F292CD30];
-      v53 = v35;
+      v52 = v35;
       v36 = @"set";
-      v37 = &v53;
+      v37 = &v52;
       goto LABEL_39;
     case 0uLL:
       v19 = unconfiguredCopy;
@@ -598,11 +596,11 @@ LABEL_39:
 
         v22 = v24;
         v23 = [[WFContextualActionParameter alloc] initWithType:@"WFStringContentItem" displayString:0 wfParameterKey:@"operation" wfSerializedRepresentation:@"set"];
-        v56[0] = v23;
+        v55[0] = v23;
         v25 = [[WFContextualActionParameter alloc] initWithType:@"WFStringContentItem" displayString:0 wfParameterKey:@"style" wfSerializedRepresentation:@"dark"];
-        v56[1] = v25;
+        v55[1] = v25;
         v26 = MEMORY[0x1E695DEC8];
-        v27 = v56;
+        v27 = v55;
 LABEL_34:
         v31 = [v26 arrayWithObjects:v27 count:2];
 
@@ -614,9 +612,9 @@ LABEL_43:
       }
 
       v35 = [[WFContextualActionParameter alloc] initWithType:@"WFNumberContentItem" displayString:0 wfParameterKey:v9 wfSerializedRepresentation:&unk_1F292CD18];
-      v55 = v35;
+      v54 = v35;
       v36 = @"set";
-      v37 = &v55;
+      v37 = &v54;
       goto LABEL_39;
   }
 
@@ -631,16 +629,16 @@ LABEL_40:
   }
 
 LABEL_44:
-  v51[0] = @"com.apple.shortcuts.toggle-setting";
-  v51[1] = v48;
-  v39 = [MEMORY[0x1E695DEC8] arrayWithObjects:v51 count:2];
+  v50[0] = @"com.apple.shortcuts.toggle-setting";
+  v50[1] = v47;
+  v39 = [MEMORY[0x1E695DEC8] arrayWithObjects:v50 count:2];
   v40 = [v39 componentsJoinedByString:@"."];
 
-  v50.receiver = self;
-  v50.super_class = WFToggleSettingContextualAction;
-  BYTE2(v46) = 0;
-  LOWORD(v46) = 0;
-  v41 = [WFContextualAction initWithIdentifier:sel_initWithIdentifier_wfActionIdentifier_associatedAppBundleIdentifier_parameters_displayString_title_subtitle_icon_accessoryIcon_actionShowsUserInterface_actionHasResult_isReversible_ wfActionIdentifier:v40 associatedAppBundleIdentifier:v8 parameters:@"com.apple.Preferences" displayString:v31 title:v22 subtitle:v15 icon:v23 accessoryIcon:v16 actionShowsUserInterface:0 actionHasResult:v46 isReversible:?];
+  v49.receiver = self;
+  v49.super_class = WFToggleSettingContextualAction;
+  BYTE2(v45) = 0;
+  LOWORD(v45) = 0;
+  v41 = [WFContextualAction initWithIdentifier:sel_initWithIdentifier_wfActionIdentifier_associatedAppBundleIdentifier_parameters_displayString_title_subtitle_icon_accessoryIcon_actionShowsUserInterface_actionHasResult_isReversible_ wfActionIdentifier:v40 associatedAppBundleIdentifier:v8 parameters:@"com.apple.Preferences" displayString:v31 title:v22 subtitle:v15 icon:v23 accessoryIcon:v16 actionShowsUserInterface:0 actionHasResult:v45 isReversible:?];
   v42 = v41;
   if (v41)
   {
@@ -649,7 +647,6 @@ LABEL_44:
     v43 = v41;
   }
 
-  v44 = *MEMORY[0x1E69E9840];
   return v42;
 }
 

@@ -35,17 +35,17 @@
 
 - (void)editor:(id)editor didInitializeWithEnvironment:(id)environment
 {
-  v5 = *(&self->super.isa + OBJC_IVAR____TtC23GradientPosterExtension24GradientPosterController_editor);
+  v6 = *(&self->super.isa + OBJC_IVAR____TtC23GradientPosterExtension24GradientPosterController_editor);
   *(&self->super.isa + OBJC_IVAR____TtC23GradientPosterExtension24GradientPosterController_editor) = editor;
   editorCopy = editor;
   swift_unknownObjectRetain();
   selfCopy = self;
 
   swift_getObjectType();
-  v7 = sub_10000AED4();
+  v8 = sub_10000AED4(environment);
 
   swift_unknownObjectRelease();
-  *(&selfCopy->super.isa + OBJC_IVAR____TtC23GradientPosterExtension24GradientPosterController_rotationAngle) = v7;
+  *(&selfCopy->super.isa + OBJC_IVAR____TtC23GradientPosterExtension24GradientPosterController_rotationAngle) = v8;
 }
 
 - (void)editorDidFinishInitialLayout:(id)layout
@@ -100,12 +100,16 @@
 
 - (double)editor:(id)editor luminanceForLook:(id)look inRect:(CGRect)rect
 {
+  height = rect.size.height;
+  width = rect.size.width;
+  y = rect.origin.y;
+  x = rect.origin.x;
   editorCopy = editor;
   lookCopy = look;
   selfCopy = self;
-  v10 = sub_10000BC8C(lookCopy);
+  v14 = sub_10000BC8C(lookCopy, x, y, width, height);
 
-  return v10;
+  return v14;
 }
 
 - (void)editor:(id)editor populateViews:(id)views forLook:(id)look
@@ -150,7 +154,7 @@
 {
   editorCopy = editor;
   selfCopy = self;
-  v6 = sub_100008374(editorCopy);
+  v6 = sub_100008374();
 
   return v6;
 }

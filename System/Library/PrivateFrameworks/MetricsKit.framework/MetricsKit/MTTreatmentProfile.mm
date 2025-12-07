@@ -47,11 +47,11 @@ uint64_t __53__MTTreatmentProfile_treatmentProfileWithConfigData___block_invoke(
 
 - (MTTreatmentProfile)initWithConfigDictionary:(id)dictionary
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v26.receiver = self;
-  v26.super_class = MTTreatmentProfile;
-  v5 = [(MTTreatmentProfile *)&v26 init];
+  v27.receiver = self;
+  v27.super_class = MTTreatmentProfile;
+  v5 = [(MTTreatmentProfile *)&v27 init];
   if (!v5)
   {
     goto LABEL_18;
@@ -59,80 +59,85 @@ uint64_t __53__MTTreatmentProfile_treatmentProfileWithConfigData___block_invoke(
 
   v6 = [dictionaryCopy objectForKeyedSubscript:@"version"];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && [v6 intValue] > 1)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v9 = [dictionaryCopy objectForKeyedSubscript:@"treatments"];
-    if (v9)
+    isKindOfClass = [v6 intValue];
+    if (isKindOfClass > 1)
     {
-      objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) == 0)
+      v10 = [dictionaryCopy objectForKeyedSubscript:@"treatments"];
+      if (v10)
       {
-        v20 = MTMetricsKitOSLog();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        objc_opt_class();
+        v11 = objc_opt_isKindOfClass();
+        if ((v11 & 1) == 0)
         {
-          *buf = 0;
-          _os_log_impl(&dword_258F4B000, v20, OS_LOG_TYPE_ERROR, "MetricsKit: Treatment profile doesn't have valid treatments configuration", buf, 2u);
-        }
-
-        goto LABEL_7;
-      }
-    }
-
-    v10 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v9, "count")}];
-    v21 = 0u;
-    v22 = 0u;
-    v23 = 0u;
-    v24 = 0u;
-    v11 = v9;
-    v12 = [v11 countByEnumeratingWithState:&v21 objects:v27 count:16];
-    if (v12)
-    {
-      v13 = v12;
-      v14 = *v22;
-      do
-      {
-        v15 = 0;
-        do
-        {
-          if (*v22 != v14)
+          v21 = MTMetricsKitOSLog(v11);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
           {
-            objc_enumerationMutation(v11);
+            *buf = 0;
+            _os_log_impl(&dword_258F4B000, v21, OS_LOG_TYPE_ERROR, "MetricsKit: Treatment profile doesn't have valid treatments configuration", buf, 2u);
           }
 
-          v16 = [MTTreatment treatmentWithConfigData:*(*(&v21 + 1) + 8 * v15), v21];
-          [v10 addObject:v16];
-
-          ++v15;
+          goto LABEL_7;
         }
-
-        while (v13 != v15);
-        v13 = [v11 countByEnumeratingWithState:&v21 objects:v27 count:16];
       }
 
-      while (v13);
-    }
+      v12 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v10, "count")}];
+      v22 = 0u;
+      v23 = 0u;
+      v24 = 0u;
+      v25 = 0u;
+      v13 = v10;
+      v14 = [v13 countByEnumeratingWithState:&v22 objects:v28 count:16];
+      if (v14)
+      {
+        v15 = v14;
+        v16 = *v23;
+        do
+        {
+          v17 = 0;
+          do
+          {
+            if (*v23 != v16)
+            {
+              objc_enumerationMutation(v13);
+            }
 
-    v17 = [v10 copy];
-    [(MTTreatmentProfile *)v5 setTreatments:v17];
+            v18 = [MTTreatment treatmentWithConfigData:*(*(&v22 + 1) + 8 * v17), v22];
+            [v12 addObject:v18];
+
+            ++v17;
+          }
+
+          while (v15 != v17);
+          v15 = [v13 countByEnumeratingWithState:&v22 objects:v28 count:16];
+        }
+
+        while (v15);
+      }
+
+      v19 = [v12 copy];
+      [(MTTreatmentProfile *)v5 setTreatments:v19];
 
 LABEL_18:
-    v8 = v5;
-    goto LABEL_19;
+      v9 = v5;
+      goto LABEL_19;
+    }
   }
 
-  v7 = MTMetricsKitOSLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v8 = MTMetricsKitOSLog(isKindOfClass);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
-    _os_log_impl(&dword_258F4B000, v7, OS_LOG_TYPE_ERROR, "MetricsKit: Treatment profile configuration is empty or the format version is not supported", buf, 2u);
+    _os_log_impl(&dword_258F4B000, v8, OS_LOG_TYPE_ERROR, "MetricsKit: Treatment profile configuration is empty or the format version is not supported", buf, 2u);
   }
 
 LABEL_7:
-  v8 = 0;
+  v9 = 0;
 LABEL_19:
 
-  v18 = *MEMORY[0x277D85DE8];
-  return v8;
+  return v9;
 }
 
 - (id)performTreatments:(id)treatments
@@ -160,13 +165,11 @@ LABEL_19:
 
 uint64_t __40__MTTreatmentProfile_performTreatments___block_invoke(uint64_t result, void *a2, uint64_t a3, _BYTE *a4)
 {
-  if (*(*(*(result + 32) + 8) + 40))
+  v4 = *(*(*(result + 32) + 8) + 40);
+  if (v4)
   {
-    v4 = result;
-    v5 = [a2 performTreatment:?];
-    v6 = *(*(v4 + 32) + 8);
-    v7 = *(v6 + 40);
-    *(v6 + 40) = v5;
+    v5 = result;
+    *(*(*(v5 + 32) + 8) + 40) = [a2 performTreatment:{v4, a4}];
 
     return MEMORY[0x2821F96F8]();
   }

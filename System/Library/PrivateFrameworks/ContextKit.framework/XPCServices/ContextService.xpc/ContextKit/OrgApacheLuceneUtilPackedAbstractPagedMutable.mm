@@ -1,5 +1,4 @@
 @interface OrgApacheLuceneUtilPackedAbstractPagedMutable
-- (NSString)description;
 - (int)lastPageSizeWithLong:(int64_t)long;
 - (int64_t)baseRamBytesUsed;
 - (int64_t)getWithLong:(int64_t)long;
@@ -167,14 +166,6 @@ LABEL_7:
   }
 
   return v7;
-}
-
-- (NSString)description
-{
-  v3 = [-[OrgApacheLuceneUtilPackedAbstractPagedMutable getClass](self "getClass")];
-  v13 = (self->pageMask_ + 1);
-  size = self->size_;
-  return JreStrcat("$$J$IC", v4, v5, v6, v7, v8, v9, v10, v3);
 }
 
 - (void)dealloc

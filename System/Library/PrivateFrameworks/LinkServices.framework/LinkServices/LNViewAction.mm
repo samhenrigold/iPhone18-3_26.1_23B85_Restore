@@ -63,7 +63,7 @@
   v3 = MEMORY[0x1E696AEC0];
   actionIdentifier = [(LNViewAction *)self actionIdentifier];
   viewIdentifier = [(LNViewAction *)self viewIdentifier];
-  v6 = LNViewLocationAsString(&self->_location);
+  v6 = LNViewLocationAsString(&self->_location.x);
   v7 = [v3 stringWithFormat:@"%@(%ld) @ %@", actionIdentifier, viewIdentifier, v6];
 
   return v7;

@@ -13,34 +13,38 @@
 
 - (CLLocationManagerGathering)init
 {
-  v3 = dispatch_queue_create([objc_msgSend(MEMORY[0x1E696AEC0] stringWithFormat:@"_CLLocationManagerGatheringProxy, %p", self), "UTF8String"], 0);
-  v4 = [(CLLocationManagerGathering *)self initWithQueue:v3];
-  dispatch_release(v3);
-  return v4;
+  v4 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], a2, @"_CLLocationManagerGatheringProxy, %p", v2, self);
+  v8 = objc_msgSend_UTF8String(v4, v5, v6, v7);
+  v9 = dispatch_queue_create(v8, 0);
+  v12 = objc_msgSend_initWithQueue_(self, v10, v9, v11);
+  dispatch_release(v9);
+  return v12;
 }
 
 - (CLLocationManagerGathering)initWithQueue:(id)queue
 {
   if (!queue)
   {
-    [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
+    v9 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, 0, v3);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v9, v10, a2, self, @"CLLocationManagerGathering.mm", 38, @"Invalid parameter not satisfying: %@", @"queue");
   }
 
-  v7.receiver = self;
-  v7.super_class = CLLocationManagerGathering;
-  v5 = [(CLLocationManagerGathering *)&v7 init];
-  if (v5)
+  v11.receiver = self;
+  v11.super_class = CLLocationManagerGathering;
+  v6 = [(CLLocationManagerGathering *)&v11 init];
+  if (v6)
   {
-    v5->_queue = queue;
+    v6->_queue = queue;
   }
 
-  return v5;
+  return v6;
 }
 
 - (void)dealloc
 {
-  [(NSXPCConnection *)[(CLLocationManagerGathering *)self connection] invalidate];
-  [(CLLocationManagerGathering *)self setConnection:0];
+  v5 = objc_msgSend_connection(self, a2, v2, v3);
+  objc_msgSend_invalidate(v5, v6, v7, v8);
+  objc_msgSend_setConnection_(self, v9, 0, v10);
   queue = self->_queue;
   if (queue)
   {
@@ -48,14 +52,14 @@
     self->_queue = 0;
   }
 
-  v4.receiver = self;
-  v4.super_class = CLLocationManagerGathering;
-  [(CLLocationManagerGathering *)&v4 dealloc];
+  v12.receiver = self;
+  v12.super_class = CLLocationManagerGathering;
+  [(CLLocationManagerGathering *)&v12 dealloc];
 }
 
 - (id)getConnection
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   result = self->_connection;
   if (!result)
   {
@@ -81,7 +85,7 @@
       }
 
       LOWORD(location) = 0;
-      v6 = _os_log_send_and_compose_impl();
+      v6 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE4710, 2, "Creating new connection...", &location, 2);
       sub_19B885924("Generic", 1, 0, 2, "[CLLocationManagerGathering getConnection]", "CoreLocation: %s\n", v6);
       if (v6 != buf)
       {
@@ -89,54 +93,61 @@
       }
     }
 
-    v7 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithMachServiceName:@"com.apple.locationd.gathering" options:4096];
-    self->_connection = v7;
-    if (v7)
+    v7 = objc_alloc(MEMORY[0x1E696B0B8]);
+    v9 = objc_msgSend_initWithMachServiceName_options_(v7, v8, @"com.apple.locationd.gathering", 4096);
+    self->_connection = v9;
+    if (v9)
     {
-      [(NSXPCConnection *)v7 _setQueue:self->_queue];
-      -[NSXPCConnection setExportedInterface:](self->_connection, "setExportedInterface:", [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F0EAC8C8]);
-      [(NSXPCConnection *)self->_connection setExportedObject:self];
-      -[NSXPCConnection setRemoteObjectInterface:](self->_connection, "setRemoteObjectInterface:", [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F0EAC928]);
-      remoteObjectInterface = [(NSXPCConnection *)self->_connection remoteObjectInterface];
-      v9 = MEMORY[0x1E695DFD8];
-      v10 = objc_opt_class();
-      -[NSXPCInterface setClasses:forSelector:argumentIndex:ofReply:](remoteObjectInterface, "setClasses:forSelector:argumentIndex:ofReply:", [v9 setWithObjects:{v10, objc_opt_class(), 0}], sel_fetchAdvertisementsWithCompletion_, 0, 1);
-      remoteObjectInterface2 = [(NSXPCConnection *)self->_connection remoteObjectInterface];
-      v12 = MEMORY[0x1E695DFD8];
-      v13 = objc_opt_class();
-      -[NSXPCInterface setClasses:forSelector:argumentIndex:ofReply:](remoteObjectInterface2, "setClasses:forSelector:argumentIndex:ofReply:", [v12 setWithObjects:{v13, objc_opt_class(), 0}], sel_fetchAdvertisementsDetailedWithCompletion_, 0, 1);
-      serviceName = [(NSXPCConnection *)self->_connection serviceName];
+      objc_msgSend__setQueue_(v9, v10, self->_queue, v11);
+      v14 = objc_msgSend_interfaceWithProtocol_(MEMORY[0x1E696B0D0], v12, &unk_1F0EAC8C8, v13);
+      objc_msgSend_setExportedInterface_(self->_connection, v15, v14, v16);
+      objc_msgSend_setExportedObject_(self->_connection, v17, self, v18);
+      v21 = objc_msgSend_interfaceWithProtocol_(MEMORY[0x1E696B0D0], v19, &unk_1F0EAC928, v20);
+      objc_msgSend_setRemoteObjectInterface_(self->_connection, v22, v21, v23);
+      v27 = objc_msgSend_remoteObjectInterface(self->_connection, v24, v25, v26);
+      v28 = MEMORY[0x1E695DFD8];
+      v29 = objc_opt_class();
+      v30 = objc_opt_class();
+      v33 = objc_msgSend_setWithObjects_(v28, v31, v29, v32, v30, 0);
+      objc_msgSend_setClasses_forSelector_argumentIndex_ofReply_(v27, v34, v33, sel_fetchAdvertisementsWithCompletion_, 0, 1);
+      v38 = objc_msgSend_remoteObjectInterface(self->_connection, v35, v36, v37);
+      v39 = MEMORY[0x1E695DFD8];
+      v40 = objc_opt_class();
+      v41 = objc_opt_class();
+      v44 = objc_msgSend_setWithObjects_(v39, v42, v40, v43, v41, 0);
+      objc_msgSend_setClasses_forSelector_argumentIndex_ofReply_(v38, v45, v44, sel_fetchAdvertisementsDetailedWithCompletion_, 0, 1);
+      v49 = objc_msgSend_serviceName(self->_connection, v46, v47, v48);
       connection = self->_connection;
-      v27[0] = MEMORY[0x1E69E9820];
-      v27[1] = 3221225472;
-      v27[2] = sub_19B8E23A4;
-      v27[3] = &unk_1E753CC90;
-      v27[4] = serviceName;
-      [(NSXPCConnection *)connection setInterruptionHandler:v27];
+      v69[0] = MEMORY[0x1E69E9820];
+      v69[1] = 3221225472;
+      v69[2] = sub_19B8E23A4;
+      v69[3] = &unk_1E753CC90;
+      v69[4] = v49;
+      objc_msgSend_setInterruptionHandler_(connection, v51, v69, v52);
       objc_initWeak(&location, self);
-      v16 = self->_connection;
-      v24[0] = MEMORY[0x1E69E9820];
-      v24[1] = 3221225472;
-      v24[2] = sub_19B8E2570;
-      v24[3] = &unk_1E753D618;
-      v24[4] = serviceName;
-      objc_copyWeak(&v25, &location);
-      [(NSXPCConnection *)v16 setInvalidationHandler:v24];
-      [(NSXPCConnection *)self->_connection activate];
+      v53 = self->_connection;
+      v66[0] = MEMORY[0x1E69E9820];
+      v66[1] = 3221225472;
+      v66[2] = sub_19B8E2570;
+      v66[3] = &unk_1E753D618;
+      v66[4] = v49;
+      objc_copyWeak(&v67, &location);
+      objc_msgSend_setInvalidationHandler_(v53, v54, v66, v55);
+      objc_msgSend_activate(self->_connection, v56, v57, v58);
       if (qword_1EAFE46D8 != -1)
       {
         dispatch_once(&qword_1EAFE46D8, &unk_1F0E6B960);
       }
 
-      v17 = qword_1EAFE4710;
+      v59 = qword_1EAFE4710;
       if (os_log_type_enabled(qword_1EAFE4710, OS_LOG_TYPE_DEBUG))
       {
         *buf = 0;
-        _os_log_impl(&dword_19B873000, v17, OS_LOG_TYPE_DEBUG, "Creating new connection... activated!", buf, 2u);
+        _os_log_impl(&dword_19B873000, v59, OS_LOG_TYPE_DEBUG, "Creating new connection... activated!", buf, 2u);
       }
 
-      v18 = sub_19B87DD40();
-      if (*(v18 + 160) > 1 || *(v18 + 164) > 1 || *(v18 + 168) > 1 || *(v18 + 152))
+      v60 = sub_19B87DD40();
+      if (*(v60 + 160) > 1 || *(v60 + 164) > 1 || *(v60 + 168) > 1 || *(v60 + 152))
       {
         bzero(buf, 0x65CuLL);
         if (qword_1EAFE46D8 != -1)
@@ -144,17 +155,18 @@
           dispatch_once(&qword_1EAFE46D8, &unk_1F0E6B960);
         }
 
-        v19 = _os_log_send_and_compose_impl();
-        sub_19B885924("Generic", 1, 0, 2, "[CLLocationManagerGathering getConnection]", "CoreLocation: %s\n", v19);
-        if (v19 != buf)
+        v65[0] = 0;
+        v61 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE4710, 2, "Creating new connection... activated!", v65, 2);
+        sub_19B885924("Generic", 1, 0, 2, "[CLLocationManagerGathering getConnection]", "CoreLocation: %s\n", v61);
+        if (v61 != buf)
         {
-          free(v19);
+          free(v61);
         }
       }
 
-      objc_destroyWeak(&v25);
+      objc_destroyWeak(&v67);
       objc_destroyWeak(&location);
-      result = self->_connection;
+      return self->_connection;
     }
 
     else
@@ -164,15 +176,15 @@
         dispatch_once(&qword_1EAFE46D8, &unk_1F0E6B960);
       }
 
-      v20 = qword_1EAFE4710;
+      v62 = qword_1EAFE4710;
       if (os_log_type_enabled(qword_1EAFE4710, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_19B873000, v20, OS_LOG_TYPE_DEFAULT, "NSXPCConnection failed to init", buf, 2u);
+        _os_log_impl(&dword_19B873000, v62, OS_LOG_TYPE_DEFAULT, "NSXPCConnection failed to init", buf, 2u);
       }
 
-      v21 = sub_19B87DD40();
-      if (*(v21 + 160) > 1 || *(v21 + 164) > 1 || *(v21 + 168) > 1 || *(v21 + 152))
+      v63 = sub_19B87DD40();
+      if (*(v63 + 160) > 1 || *(v63 + 164) > 1 || *(v63 + 168) > 1 || *(v63 + 152))
       {
         bzero(buf, 0x65CuLL);
         if (qword_1EAFE46D8 != -1)
@@ -181,32 +193,31 @@
         }
 
         LOWORD(location) = 0;
-        v22 = _os_log_send_and_compose_impl();
-        sub_19B885924("Generic", 1, 0, 2, "[CLLocationManagerGathering getConnection]", "CoreLocation: %s\n", v22);
-        if (v22 != buf)
+        v64 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE4710, 0, "NSXPCConnection failed to init", &location, 2);
+        sub_19B885924("Generic", 1, 0, 2, "[CLLocationManagerGathering getConnection]", "CoreLocation: %s\n", v64);
+        if (v64 != buf)
         {
-          free(v22);
+          free(v64);
         }
       }
 
-      result = 0;
+      return 0;
     }
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (id)getRemoteObjectProxy
 {
-  getConnection = [(CLLocationManagerGathering *)self getConnection];
+  Connection = objc_msgSend_getConnection(self, a2, v2, v3);
 
-  return [getConnection remoteObjectProxyWithErrorHandler:&unk_1F0E6B940];
+  return objc_msgSend_remoteObjectProxyWithErrorHandler_(Connection, v5, &unk_1F0E6B940, v6);
 }
 
 - (void)fetchAdvertisementsWithHandler:(id)handler
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (qword_1EAFE46D8 != -1)
   {
     dispatch_once(&qword_1EAFE46D8, &unk_1F0E6B960);
@@ -228,19 +239,20 @@
       dispatch_once(&qword_1EAFE46D8, &unk_1F0E6B960);
     }
 
-    v12 = 0;
-    v8 = _os_log_send_and_compose_impl();
-    sub_19B885924("Generic", 1, 0, 2, "[CLLocationManagerGathering fetchAdvertisementsWithHandler:]", "CoreLocation: %s\n", v8);
-    if (v8 != buf)
+    v16[0] = 0;
+    v11 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE4710, 2, "fetchAdvertisementsWithHandler", v16, 2);
+    sub_19B885924("Generic", 1, 0, 2, "[CLLocationManagerGathering fetchAdvertisementsWithHandler:]", "CoreLocation: %s\n", v11);
+    if (v11 != buf)
     {
-      free(v8);
+      free(v11);
     }
   }
 
   queue = self->_queue;
   if (!queue)
   {
-    [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
+    v13 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v8, v9, v10);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v13, v14, a2, self, @"CLLocationManagerGathering.mm", 119, @"Invalid parameter not satisfying: %@", @"_queue");
     queue = self->_queue;
   }
 
@@ -251,12 +263,11 @@
   block[4] = self;
   block[5] = handler;
   dispatch_async(queue, block);
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchAdvertisementsDetailedWithHandler:(id)handler
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (qword_1EAFE46D8 != -1)
   {
     dispatch_once(&qword_1EAFE46D8, &unk_1F0E6B960);
@@ -278,19 +289,20 @@
       dispatch_once(&qword_1EAFE46D8, &unk_1F0E6B960);
     }
 
-    v12 = 0;
-    v8 = _os_log_send_and_compose_impl();
-    sub_19B885924("Generic", 1, 0, 2, "[CLLocationManagerGathering fetchAdvertisementsDetailedWithHandler:]", "CoreLocation: %s\n", v8);
-    if (v8 != buf)
+    v16[0] = 0;
+    v11 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE4710, 2, "fetchAdvertisementsDetailedWithHandler", v16, 2);
+    sub_19B885924("Generic", 1, 0, 2, "[CLLocationManagerGathering fetchAdvertisementsDetailedWithHandler:]", "CoreLocation: %s\n", v11);
+    if (v11 != buf)
     {
-      free(v8);
+      free(v11);
     }
   }
 
   queue = self->_queue;
   if (!queue)
   {
-    [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
+    v13 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v8, v9, v10);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v13, v14, a2, self, @"CLLocationManagerGathering.mm", 143, @"Invalid parameter not satisfying: %@", @"_queue");
     queue = self->_queue;
   }
 
@@ -301,12 +313,11 @@
   block[4] = self;
   block[5] = handler;
   dispatch_async(queue, block);
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)configure:(id)configure withCompletionHandler:(id)handler
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (qword_1EAFE46D8 != -1)
   {
     dispatch_once(&qword_1EAFE46D8, &unk_1F0E6B960);
@@ -328,19 +339,20 @@
       dispatch_once(&qword_1EAFE46D8, &unk_1F0E6B960);
     }
 
-    v14 = 0;
-    v10 = _os_log_send_and_compose_impl();
-    sub_19B885924("Generic", 1, 0, 2, "[CLLocationManagerGathering configure:withCompletionHandler:]", "CoreLocation: %s\n", v10);
-    if (v10 != buf)
+    v18[0] = 0;
+    v13 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE4710, 2, "configure:withCompletionHandler:", v18, 2);
+    sub_19B885924("Generic", 1, 0, 2, "[CLLocationManagerGathering configure:withCompletionHandler:]", "CoreLocation: %s\n", v13);
+    if (v13 != buf)
     {
-      free(v10);
+      free(v13);
     }
   }
 
   queue = self->_queue;
   if (!queue)
   {
-    [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
+    v15 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v10, v11, v12);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v15, v16, a2, self, @"CLLocationManagerGathering.mm", 169, @"Invalid parameter not satisfying: %@", @"_queue");
     queue = self->_queue;
   }
 
@@ -352,7 +364,6 @@
   block[5] = handler;
   block[6] = configure;
   dispatch_async(queue, block);
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 @end

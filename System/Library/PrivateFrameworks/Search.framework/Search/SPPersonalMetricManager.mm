@@ -27,9 +27,11 @@
 
 uint64_t __41__SPPersonalMetricManager_sharedInstance__block_invoke()
 {
-  sharedInstance_manager = objc_opt_new();
+  v0 = objc_opt_new();
+  v1 = sharedInstance_manager;
+  sharedInstance_manager = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (SPPersonalMetricManager)init
@@ -176,8 +178,8 @@ uint64_t __41__SPPersonalMetricManager_sharedInstance__block_invoke()
 
 id __43__SPPersonalMetricManager_didRankSections___block_invoke(uint64_t a1)
 {
-  v59 = *MEMORY[0x1E69E9840];
-  v2 = SPLogForSPLogCategoryDefault();
+  v58 = *MEMORY[0x1E69E9840];
+  v2 = SPLogForSPLogCategoryDefault(a1);
   v3 = gSPLogInfoAsDefault;
   if (os_log_type_enabled(v2, ((gSPLogInfoAsDefault & 1) == 0)))
   {
@@ -192,12 +194,12 @@ id __43__SPPersonalMetricManager_didRankSections___block_invoke(uint64_t a1)
   *(v5 + 48) = v4;
 
   [*(a1 + 32) _updateTrialInfo];
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
   v53 = 0u;
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
   obj = [*(a1 + 40) sections];
-  v7 = [obj countByEnumeratingWithState:&v52 objects:v58 count:16];
+  v7 = [obj countByEnumeratingWithState:&v51 objects:v57 count:16];
   if (!v7)
   {
     v9 = 0;
@@ -207,34 +209,34 @@ id __43__SPPersonalMetricManager_didRankSections___block_invoke(uint64_t a1)
   v8 = v7;
   v9 = 0;
   v10 = 0;
-  v11 = *v53;
+  v11 = *v52;
   v12 = *MEMORY[0x1E69D3F68];
-  v44 = *MEMORY[0x1E69D3F08];
-  v39 = *MEMORY[0x1E69D3F68];
-  v40 = *v53;
+  v43 = *MEMORY[0x1E69D3F08];
+  v38 = *MEMORY[0x1E69D3F68];
+  v39 = *v52;
   do
   {
     v13 = 0;
-    v41 = v8;
+    v40 = v8;
     do
     {
       v14 = v11;
-      if (*v53 != v11)
+      if (*v52 != v11)
       {
         objc_enumerationMutation(obj);
       }
 
-      v45 = v13;
-      v15 = [*(*(&v52 + 1) + 8 * v13) section];
+      v44 = v13;
+      v15 = [*(*(&v51 + 1) + 8 * v13) section];
       v16 = [v15 bundleIdentifier];
       v17 = v12;
       v18 = [v16 isEqualToString:v12];
 
       v19 = v15;
       v20 = [v15 bundleIdentifier];
-      v21 = [v20 isEqualToString:v44];
+      v21 = [v20 isEqualToString:v43];
 
-      v46 = v21;
+      v45 = v21;
       if ((v21 & 1) == 0 && !v18)
       {
         v11 = v14;
@@ -242,30 +244,30 @@ id __43__SPPersonalMetricManager_didRankSections___block_invoke(uint64_t a1)
         goto LABEL_33;
       }
 
-      v50 = 0u;
-      v51 = 0u;
-      v48 = 0u;
       v49 = 0u;
-      v43 = v19;
-      v47 = [v19 results];
-      v22 = [v47 countByEnumeratingWithState:&v48 objects:v57 count:16];
+      v50 = 0u;
+      v47 = 0u;
+      v48 = 0u;
+      v42 = v19;
+      v46 = [v19 results];
+      v22 = [v46 countByEnumeratingWithState:&v47 objects:v56 count:16];
       if (!v22)
       {
         goto LABEL_32;
       }
 
       v23 = v22;
-      v24 = *v49;
+      v24 = *v48;
       do
       {
         for (i = 0; i != v23; ++i)
         {
-          if (*v49 != v24)
+          if (*v48 != v24)
           {
-            objc_enumerationMutation(v47);
+            objc_enumerationMutation(v46);
           }
 
-          v26 = *(*(&v48 + 1) + 8 * i);
+          v26 = *(*(&v47 + 1) + 8 * i);
           v27 = [v26 identifier];
           if ([v27 length])
           {
@@ -273,7 +275,7 @@ id __43__SPPersonalMetricManager_didRankSections___block_invoke(uint64_t a1)
             {
               [*(*(a1 + 32) + 24) addObject:v27];
               v28 = *(*(a1 + 32) + 48);
-              if ((v46 & 1) == 0)
+              if ((v45 & 1) == 0)
               {
                 [v28 setGeoResultWasTopHit:0];
                 goto LABEL_30;
@@ -298,7 +300,7 @@ id __43__SPPersonalMetricManager_didRankSections___block_invoke(uint64_t a1)
 
           else
           {
-            v32 = SPLogForSPLogCategoryDefault();
+            v32 = SPLogForSPLogCategoryDefault(0);
             v33 = v32;
             if (gSPLogDebugAsDefault)
             {
@@ -320,23 +322,23 @@ id __43__SPPersonalMetricManager_didRankSections___block_invoke(uint64_t a1)
 LABEL_30:
         }
 
-        v23 = [v47 countByEnumeratingWithState:&v48 objects:v57 count:16];
+        v23 = [v46 countByEnumeratingWithState:&v47 objects:v56 count:16];
       }
 
       while (v23);
 LABEL_32:
 
-      v12 = v39;
-      v11 = v40;
-      v8 = v41;
-      v19 = v43;
+      v12 = v38;
+      v11 = v39;
+      v8 = v40;
+      v19 = v42;
 LABEL_33:
 
-      v13 = v45 + 1;
+      v13 = v44 + 1;
     }
 
-    while (v45 + 1 != v8);
-    v8 = [obj countByEnumeratingWithState:&v52 objects:v58 count:16];
+    while (v44 + 1 != v8);
+    v8 = [obj countByEnumeratingWithState:&v51 objects:v57 count:16];
   }
 
   while (v8);
@@ -345,7 +347,7 @@ LABEL_37:
   [*(*(a1 + 32) + 48) setNumberOfPersonalGeoResults:v9];
   if (![*(*(a1 + 32) + 8) count])
   {
-    v35 = SPLogForSPLogCategoryDefault();
+    v35 = SPLogForSPLogCategoryDefault(0);
     v36 = gSPLogInfoAsDefault;
     if (os_log_type_enabled(v35, ((gSPLogInfoAsDefault & 1) == 0)))
     {
@@ -357,10 +359,9 @@ LABEL_37:
   result = *(a1 + 48);
   if (result)
   {
-    result = objc_opt_self();
+    return objc_opt_self();
   }
 
-  v38 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -379,7 +380,7 @@ LABEL_37:
 
 id __51__SPPersonalMetricManager_resultsDidBecomeVisible___block_invoke(uint64_t a1)
 {
-  v2 = SPLogForSPLogCategoryDefault();
+  v2 = SPLogForSPLogCategoryDefault(a1);
   v3 = gSPLogInfoAsDefault;
   if (os_log_type_enabled(v2, ((gSPLogInfoAsDefault & 1) == 0)))
   {
@@ -415,7 +416,7 @@ id __51__SPPersonalMetricManager_resultsDidBecomeVisible___block_invoke(uint64_t
 
 void __43__SPPersonalMetricManager_didEngageResult___block_invoke(uint64_t a1)
 {
-  v2 = SPLogForSPLogCategoryDefault();
+  v2 = SPLogForSPLogCategoryDefault(a1);
   v3 = gSPLogInfoAsDefault;
   if (os_log_type_enabled(v2, ((gSPLogInfoAsDefault & 1) == 0)))
   {
@@ -423,149 +424,153 @@ void __43__SPPersonalMetricManager_didEngageResult___block_invoke(uint64_t a1)
     _os_log_impl(&dword_1C81BF000, v2, ((v3 & 1) == 0), "SPPersonalMetricManager: didEngageResult", buf, 2u);
   }
 
-  v4 = *(a1 + 32);
-  if (*(v4 + 48) && [*(v4 + 8) count])
+  v5 = *(a1 + 32);
+  if (*(v5 + 48))
   {
-    v5 = [*(a1 + 48) result];
-    v6 = [v5 sectionBundleIdentifier];
-    v7 = [v6 isEqualToString:*MEMORY[0x1E69D3F08]];
-
-    v8 = [v5 identifier];
-    if ([v8 length])
+    v4 = [*(v5 + 8) count];
+    if (v4)
     {
-      v9 = [*(*(a1 + 32) + 8) objectForKey:v8];
-      v10 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(*(*(a1 + 32) + 24), "containsObject:", v8)}];
-      [*(*(a1 + 32) + 48) setEngagedResultWasTopHit:v10];
+      v6 = [*(a1 + 48) result];
+      v7 = [v6 sectionBundleIdentifier];
+      v8 = [v7 isEqualToString:*MEMORY[0x1E69D3F08]];
 
-      if (v9)
+      v9 = [v6 identifier];
+      if ([v9 length])
       {
-        v11 = v7;
-      }
+        v10 = [*(*(a1 + 32) + 8) objectForKey:v9];
+        v11 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(*(*(a1 + 32) + 24), "containsObject:", v9)}];
+        [*(*(a1 + 32) + 48) setEngagedResultWasTopHit:v11];
 
-      else
-      {
-        v11 = 0;
-      }
-
-      if (v11 == 1)
-      {
-        [*(*(a1 + 32) + 48) setEngagedGeoResultPosition:v9];
-        if ([v5 containsPersonalResult] && (objc_msgSend(v5, "mapsPersonalizationResult"), v12 = objc_claimAutoreleasedReturnValue(), v12, v12))
+        if (v10)
         {
-          v13 = [v5 mapsPersonalizationResult];
-          v14 = [v13 entityRelevanceScore];
-          [*(*(a1 + 32) + 48) setEngagedGeoResultEntityRelevanceScore:v14];
-
-          v15 = [v5 mapsPersonalizationResult];
-          v16 = [v15 numberOfVisits];
-          [*(*(a1 + 32) + 48) setEngagedGeoResultNumberOfVisits:v16];
-
-          v17 = [v5 mapsPersonalizationResult];
-          v18 = [v17 numberOfVisitsGivenLocation];
-          [*(*(a1 + 32) + 48) setEngagedGeoResultNumberOfVisitsGivenLocation:v18];
-
-          v19 = MEMORY[0x1E696AD98];
-          v20 = [v5 mapsPersonalizationResult];
-          v21 = [v19 numberWithUnsignedInteger:{objc_msgSend(v20, "resultType")}];
-          [*(*(a1 + 32) + 48) setEngagedGeoResultPersonalizationType:v21];
-
-          v22 = [v5 mapsPersonalizationResult];
-          v23 = [v22 dateOfLastVisit];
-          if (v23)
-          {
-            v24 = MEMORY[0x1E696AD98];
-            v25 = [v5 mapsPersonalizationResult];
-            v26 = [v25 dateOfLastVisit];
-            [v26 timeIntervalSinceNow];
-            v28 = [v24 numberWithDouble:v27 / -3600.0];
-            [*(*(a1 + 32) + 48) setEngagedGeoResultTimeSinceLastVisit:v28];
-          }
-
-          else
-          {
-            [*(*(a1 + 32) + 48) setEngagedGeoResultTimeSinceLastVisit:0];
-          }
-
-          v36 = [v5 mapsPersonalizationResult];
-          v37 = [v36 startEventDate];
-          if (v37)
-          {
-            v38 = MEMORY[0x1E696AD98];
-            v39 = [v5 mapsPersonalizationResult];
-            v40 = [v39 startEventDate];
-            [v40 timeIntervalSinceNow];
-            v42 = [v38 numberWithDouble:v41 / 3600.0];
-            [*(*(a1 + 32) + 48) setEngagedGeoResultTimeUntilUpcomingEvent:v42];
-          }
-
-          else
-          {
-            [*(*(a1 + 32) + 48) setEngagedGeoResultTimeUntilUpcomingEvent:0];
-          }
-
-          v43 = [v5 didRerankPersonalResult];
-          v33 = *(*(a1 + 32) + 48);
-          if (v43)
-          {
-            v34 = 1;
-          }
-
-          else
-          {
-            v34 = 2;
-          }
+          v12 = v8;
         }
 
         else
         {
-          v33 = *(*(a1 + 32) + 48);
-          v34 = 3;
+          v12 = 0;
         }
 
-        goto LABEL_24;
+        if (v12 == 1)
+        {
+          [*(*(a1 + 32) + 48) setEngagedGeoResultPosition:v10];
+          if ([v6 containsPersonalResult] && (objc_msgSend(v6, "mapsPersonalizationResult"), v13 = objc_claimAutoreleasedReturnValue(), v13, v13))
+          {
+            v14 = [v6 mapsPersonalizationResult];
+            v15 = [v14 entityRelevanceScore];
+            [*(*(a1 + 32) + 48) setEngagedGeoResultEntityRelevanceScore:v15];
+
+            v16 = [v6 mapsPersonalizationResult];
+            v17 = [v16 numberOfVisits];
+            [*(*(a1 + 32) + 48) setEngagedGeoResultNumberOfVisits:v17];
+
+            v18 = [v6 mapsPersonalizationResult];
+            v19 = [v18 numberOfVisitsGivenLocation];
+            [*(*(a1 + 32) + 48) setEngagedGeoResultNumberOfVisitsGivenLocation:v19];
+
+            v20 = MEMORY[0x1E696AD98];
+            v21 = [v6 mapsPersonalizationResult];
+            v22 = [v20 numberWithUnsignedInteger:{objc_msgSend(v21, "resultType")}];
+            [*(*(a1 + 32) + 48) setEngagedGeoResultPersonalizationType:v22];
+
+            v23 = [v6 mapsPersonalizationResult];
+            v24 = [v23 dateOfLastVisit];
+            if (v24)
+            {
+              v25 = MEMORY[0x1E696AD98];
+              v26 = [v6 mapsPersonalizationResult];
+              v27 = [v26 dateOfLastVisit];
+              [v27 timeIntervalSinceNow];
+              v29 = [v25 numberWithDouble:v28 / -3600.0];
+              [*(*(a1 + 32) + 48) setEngagedGeoResultTimeSinceLastVisit:v29];
+            }
+
+            else
+            {
+              [*(*(a1 + 32) + 48) setEngagedGeoResultTimeSinceLastVisit:0];
+            }
+
+            v37 = [v6 mapsPersonalizationResult];
+            v38 = [v37 startEventDate];
+            if (v38)
+            {
+              v39 = MEMORY[0x1E696AD98];
+              v40 = [v6 mapsPersonalizationResult];
+              v41 = [v40 startEventDate];
+              [v41 timeIntervalSinceNow];
+              v43 = [v39 numberWithDouble:v42 / 3600.0];
+              [*(*(a1 + 32) + 48) setEngagedGeoResultTimeUntilUpcomingEvent:v43];
+            }
+
+            else
+            {
+              [*(*(a1 + 32) + 48) setEngagedGeoResultTimeUntilUpcomingEvent:0];
+            }
+
+            v44 = [v6 didRerankPersonalResult];
+            v34 = *(*(a1 + 32) + 48);
+            if (v44)
+            {
+              v35 = 1;
+            }
+
+            else
+            {
+              v35 = 2;
+            }
+          }
+
+          else
+          {
+            v34 = *(*(a1 + 32) + 48);
+            v35 = 3;
+          }
+
+          goto LABEL_24;
+        }
       }
-    }
 
-    else
-    {
-      v9 = 0;
-    }
+      else
+      {
+        v10 = 0;
+      }
 
-    v33 = *(*(a1 + 32) + 48);
-    v34 = 4;
+      v34 = *(*(a1 + 32) + 48);
+      v35 = 4;
 LABEL_24:
-    [v33 setInteraction:v34];
-    [*(a1 + 32) _sendCAMetrics];
-    [*(a1 + 32) _clearState];
-    if (*(a1 + 40))
-    {
-      v35 = objc_opt_self();
-    }
+      [v34 setInteraction:v35];
+      [*(a1 + 32) _sendCAMetrics];
+      [*(a1 + 32) _clearState];
+      if (*(a1 + 40))
+      {
+        v36 = objc_opt_self();
+      }
 
-    return;
+      return;
+    }
   }
 
-  v29 = SPLogForSPLogCategoryDefault();
-  v30 = v29;
+  v30 = SPLogForSPLogCategoryDefault(v4);
+  v31 = v30;
   if (gSPLogDebugAsDefault)
   {
-    v31 = OS_LOG_TYPE_DEFAULT;
+    v32 = OS_LOG_TYPE_DEFAULT;
   }
 
   else
   {
-    v31 = OS_LOG_TYPE_DEBUG;
+    v32 = OS_LOG_TYPE_DEBUG;
   }
 
-  if (os_log_type_enabled(v29, v31))
+  if (os_log_type_enabled(v30, v32))
   {
-    *v44 = 0;
-    _os_log_impl(&dword_1C81BF000, v30, v31, "SPPersonalMetricManager: Missing ranked feedback. Exiting early.", v44, 2u);
+    *v45 = 0;
+    _os_log_impl(&dword_1C81BF000, v31, v32, "SPPersonalMetricManager: Missing ranked feedback. Exiting early.", v45, 2u);
   }
 
   if (*(a1 + 40))
   {
-    v32 = objc_opt_self();
+    v33 = objc_opt_self();
   }
 }
 
@@ -585,7 +590,7 @@ LABEL_24:
 
 id __50__SPPersonalMetricManager_searchViewDidDisappear___block_invoke(uint64_t a1)
 {
-  v2 = SPLogForSPLogCategoryDefault();
+  v2 = SPLogForSPLogCategoryDefault(a1);
   v3 = gSPLogInfoAsDefault;
   if (os_log_type_enabled(v2, ((gSPLogInfoAsDefault & 1) == 0)))
   {
@@ -593,8 +598,8 @@ id __50__SPPersonalMetricManager_searchViewDidDisappear___block_invoke(uint64_t 
     _os_log_impl(&dword_1C81BF000, v2, ((v3 & 1) == 0), "SPPersonalMetricManager: searchViewDidDisappear", buf, 2u);
   }
 
-  v4 = *(a1 + 32);
-  if (*(v4 + 48) && [*(v4 + 8) count])
+  v5 = *(a1 + 32);
+  if (*(v5 + 48) && (v4 = [*(v5 + 8) count]) != 0)
   {
     [*(*(a1 + 32) + 48) setInteraction:5];
     [*(a1 + 32) _sendCAMetrics];
@@ -603,22 +608,22 @@ id __50__SPPersonalMetricManager_searchViewDidDisappear___block_invoke(uint64_t 
 
   else
   {
-    v5 = SPLogForSPLogCategoryDefault();
-    v6 = v5;
+    v6 = SPLogForSPLogCategoryDefault(v4);
+    v7 = v6;
     if (gSPLogDebugAsDefault)
     {
-      v7 = OS_LOG_TYPE_DEFAULT;
+      v8 = OS_LOG_TYPE_DEFAULT;
     }
 
     else
     {
-      v7 = OS_LOG_TYPE_DEBUG;
+      v8 = OS_LOG_TYPE_DEBUG;
     }
 
-    if (os_log_type_enabled(v5, v7))
+    if (os_log_type_enabled(v6, v8))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_1C81BF000, v6, v7, "SPPersonalMetricManager: Missing ranked feedback. Exiting early.", v9, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_1C81BF000, v7, v8, "SPPersonalMetricManager: Missing ranked feedback. Exiting early.", v10, 2u);
     }
   }
 
@@ -633,15 +638,15 @@ id __50__SPPersonalMetricManager_searchViewDidDisappear___block_invoke(uint64_t 
 
 - (void)_sendCAMetrics
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v3 = SPLogForSPLogCategoryDefault();
+  v10 = *MEMORY[0x1E69E9840];
+  v3 = SPLogForSPLogCategoryDefault(self);
   v4 = gSPLogInfoAsDefault;
   if (os_log_type_enabled(v3, ((gSPLogInfoAsDefault & 1) == 0)))
   {
     serializedMetric = [(SPGeoPersonalizationEngagementMetric *)self->_metric serializedMetric];
-    v9 = 138412290;
-    v10 = serializedMetric;
-    _os_log_impl(&dword_1C81BF000, v3, ((v4 & 1) == 0), "SPPersonalMetricManager: _sendCAMetrics: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = serializedMetric;
+    _os_log_impl(&dword_1C81BF000, v3, ((v4 & 1) == 0), "SPPersonalMetricManager: _sendCAMetrics: %@", &v8, 0xCu);
   }
 
   metric = self->_metric;
@@ -650,8 +655,6 @@ id __50__SPPersonalMetricManager_searchViewDidDisappear___block_invoke(uint64_t 
     serializedMetric2 = [(SPGeoPersonalizationEngagementMetric *)metric serializedMetric];
     AnalyticsSendEvent();
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 @end

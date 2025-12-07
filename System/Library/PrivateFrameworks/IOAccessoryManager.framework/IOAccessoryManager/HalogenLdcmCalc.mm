@@ -1015,28 +1015,24 @@ LABEL_30:
 {
   wetCopy = wet;
   emptyCopy = empty;
-  v29 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   self->_capacitanceInNanoF = 0.0;
   *&self->_compensatedImpedance = 0u;
   *&self->_clippingScore = 0u;
   *&self->_goertzelImpedance = 0u;
   [(HalogenLdcmCalc *)self _applyGain:data toData:self->_adcGain];
-  adcGain = self->_adcGain;
   [OUTLINED_FUNCTION_2_4() _applyGain:? toData:?];
-  v14 = self->_currentPhaseCompensation / -360.0 / self->_signalFrequency * self->_sampleRate;
   [OUTLINED_FUNCTION_1_4() _applyFractionalPhaseShift:? withPhaseDelay:?];
-  currentGainCorrection = self->_currentGainCorrection;
   [OUTLINED_FUNCTION_1_4() _applyGain:? toData:?];
-  voltageGainCorrection = self->_voltageGainCorrection;
   [OUTLINED_FUNCTION_2_4() _applyGain:? toData:?];
-  v17 = [OUTLINED_FUNCTION_1_4() _isClipped:?];
+  v13 = [OUTLINED_FUNCTION_1_4() _isClipped:?];
   [OUTLINED_FUNCTION_2_4() _applyTiaGain:? toCurrentData:?];
   [OUTLINED_FUNCTION_2_4() _snr:? withGain:? hasSignalLevel:? hasNoiseLevel:? hasCondetSnr:?];
-  v19 = v18;
-  self->_measurementVoltageSNR = v18;
+  v15 = v14;
+  self->_measurementVoltageSNR = v14;
   [OUTLINED_FUNCTION_1_4() _snr:? withGain:? hasSignalLevel:? hasNoiseLevel:? hasCondetSnr:?];
-  v21 = v20;
-  self->_measurementCurrentSNR = v20;
+  v17 = v16;
+  self->_measurementCurrentSNR = v16;
   if (emptyCopy && self->_measurementCondetSNR >= 1.0)
   {
     [(HalogenLdcmCalc *)self setIsDigitalFilterTrigger:1];
@@ -1051,16 +1047,16 @@ LABEL_30:
   [OUTLINED_FUNCTION_2_4() _goertzelSecondOrder:? hasFftValue:? hasPhase:? withHanning:?];
   [OUTLINED_FUNCTION_1_4() _goertzelSecondOrder:? hasFftValue:? hasPhase:? withHanning:?];
   self->_goertzelImpedance = NAN / NAN;
-  v22 = NAN - NAN;
+  v18 = NAN - NAN;
   if (NAN - NAN > 0.0)
   {
-    v22 = fmod(v22, 360.0) + -360.0;
+    v18 = fmod(v18, 360.0) + -360.0;
   }
 
-  self->_goertzelPhase = v22;
+  self->_goertzelPhase = v18;
   [(HalogenLdcmCalc *)self _doHydraComp:NAN / NAN withPhase:-1, -1];
   [(HalogenLdcmCalc *)self _rcSolver];
-  if (v19 >= 26.0)
+  if (v15 >= 26.0)
   {
     result = 3;
   }
@@ -1070,14 +1066,14 @@ LABEL_30:
     result = 8;
   }
 
-  if (!((v19 < 26.0) | v17 & 1))
+  if (!((v15 < 26.0) | v13 & 1))
   {
     if ([(HalogenLdcmCalc *)self isLowerBoundViolation_goertzelImpedance]|| [(HalogenLdcmCalc *)self isUpperBoundViolation_goertzelImpedance]|| [(HalogenLdcmCalc *)self isLowerBoundViolation_goertzelPhase]|| [(HalogenLdcmCalc *)self isUpperBoundViolation_goertzelPhase])
     {
-      result = 0;
+      return 0;
     }
 
-    else if (v21 >= 7.0 || self->_isDigitalFilterTrigger)
+    else if (v17 >= 7.0 || self->_isDigitalFilterTrigger)
     {
       if (!wetCopy)
       {
@@ -1088,29 +1084,28 @@ LABEL_30:
       {
         *buf = 134218240;
         transitionThresholdCopy = transitionThreshold;
-        v27 = 1024;
-        v28 = wetCopy;
+        v22 = 1024;
+        v23 = wetCopy;
         _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "HalogenLdcmCalc:doLiquidDetection capacitanceThreshholdNanoF = %f, isReceptacleWet: %d", buf, 0x12u);
       }
 
       if (self->_capacitanceInNanoF <= transitionThreshold)
       {
-        result = 1;
+        return 1;
       }
 
       else
       {
-        result = 2;
+        return 2;
       }
     }
 
     else
     {
-      result = 8;
+      return 8;
     }
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1118,7 +1113,8 @@ LABEL_30:
 {
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    OUTLINED_FUNCTION_0_5(&dword_2548F1000, MEMORY[0x277D86220], v0, "HalogenLdcmCalc:_allocBuffers() failed", v1, v2, v3, v4, 0);
+    v5 = 0;
+    OUTLINED_FUNCTION_0_5(&dword_2548F1000, MEMORY[0x277D86220], v0, "HalogenLdcmCalc:_allocBuffers() failed", v1, v2, v3, v4, v5);
   }
 }
 
@@ -1126,7 +1122,8 @@ LABEL_30:
 {
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    OUTLINED_FUNCTION_0_5(&dword_2548F1000, MEMORY[0x277D86220], v0, "HalogenLdcmCalc:vDSP_create_fftsetupD() failed", v1, v2, v3, v4, 0);
+    v5 = 0;
+    OUTLINED_FUNCTION_0_5(&dword_2548F1000, MEMORY[0x277D86220], v0, "HalogenLdcmCalc:vDSP_create_fftsetupD() failed", v1, v2, v3, v4, v5);
   }
 }
 
@@ -1134,7 +1131,8 @@ LABEL_30:
 {
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    OUTLINED_FUNCTION_0_5(&dword_2548F1000, MEMORY[0x277D86220], v2, "HalogenLdcmCalc:Failed to alloc _tmp1DataBuff", v3, v4, v5, v6, 0);
+    v7 = 0;
+    OUTLINED_FUNCTION_0_5(&dword_2548F1000, MEMORY[0x277D86220], v2, "HalogenLdcmCalc:Failed to alloc _tmp1DataBuff", v3, v4, v5, v6, v7);
   }
 
   *self = 0;

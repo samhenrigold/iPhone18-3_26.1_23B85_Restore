@@ -39,56 +39,56 @@
 - (id)parseResponseForError:(id)error andPayload:(id)payload
 {
   errorCopy = error;
-  v23.receiver = self;
-  v23.super_class = MSDGetAccountSettingsRequest;
-  v7 = [(MSDServerRequest *)&v23 parseResponseForError:errorCopy andPayload:payload];
+  v25.receiver = self;
+  v25.super_class = MSDGetAccountSettingsRequest;
+  v7 = [(MSDServerRequest *)&v25 parseResponseForError:errorCopy andPayload:payload];
   error = [v7 error];
 
   if (!error)
   {
-    v9 = sub_100063A54();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100063A54(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       getName = [(MSDServerRequest *)self getName];
       data = [v7 data];
       *buf = 138543618;
-      v25 = getName;
-      v26 = 2114;
-      v27 = data;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: data from server: %{public}@", buf, 0x16u);
+      v27 = getName;
+      v28 = 2114;
+      v29 = data;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: data from server: %{public}@", buf, 0x16u);
     }
 
     data2 = [v7 data];
-    if (data2 && (v13 = data2, [v7 data], v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v14, "length"), v14, v13, v15))
+    if (data2 && (v14 = data2, [v7 data], v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v15, "length"), v15, v14, v16))
     {
       data3 = [v7 data];
-      v17 = [NSDictionary dictionaryFromJsonData:data3];
+      v18 = [NSDictionary dictionaryFromJsonData:data3];
 
-      if (!v17)
+      if (!v18)
       {
-        v18 = sub_100063A54();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+        v20 = sub_100063A54(v19);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
           getName2 = [(MSDServerRequest *)self getName];
           *buf = 138543362;
-          v25 = getName2;
-          _os_log_error_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "%{public}@: failed to convert data to dict", buf, 0xCu);
+          v27 = getName2;
+          _os_log_error_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "%{public}@: failed to convert data to dict", buf, 0xCu);
         }
 
-        v22 = errorCopy;
-        sub_1000C1390(&v22, 3727744512, @"Unexpected server response.");
-        v17 = errorCopy;
-        errorCopy = v22;
+        v24 = errorCopy;
+        sub_1000C1390(&v24, 3727744512, @"Unexpected server response.");
+        v18 = errorCopy;
+        errorCopy = v24;
         goto LABEL_12;
       }
     }
 
     else
     {
-      v17 = +[NSDictionary dictionary];
+      v18 = +[NSDictionary dictionary];
     }
 
-    [v7 setAccountSettings:v17];
+    [v7 setAccountSettings:v18];
 LABEL_12:
   }
 

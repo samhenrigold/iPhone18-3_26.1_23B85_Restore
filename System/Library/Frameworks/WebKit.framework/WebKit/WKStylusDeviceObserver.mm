@@ -35,8 +35,8 @@
     if (v3)
     {
       [v3 doubleValue];
-      changeTimeInterval = v4;
-      WTFLogAlways();
+      changeTimeInterval = *&v4;
+      WTFLogAlways("Warning: WKStylusDeviceObserver changeTimeInterval was overriden via user defaults and is now %g seconds", v4);
     }
   }
 
@@ -79,7 +79,7 @@
   if (self->_hasStylusDevice != device)
   {
     self->_hasStylusDevice = device;
-    WebKit::WebProcessProxy::notifyHasStylusDeviceChanged(device);
+    WebKit::WebProcessProxy::notifyHasStylusDeviceChanged(device, a2);
   }
 
   [(NSTimer *)self->_changeTimer.m_ptr invalidate];

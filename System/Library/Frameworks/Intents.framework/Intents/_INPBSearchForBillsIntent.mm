@@ -1,8 +1,10 @@
 @interface _INPBSearchForBillsIntent
 - (BOOL)isEqual:(id)equal;
 - (_INPBSearchForBillsIntent)initWithCoder:(id)coder;
+- (id)billTypeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)statusAsString:(int)string;
 - (int)StringAsBillType:(id)type;
 - (int)StringAsStatus:(id)status;
 - (unint64_t)hash;
@@ -308,7 +310,6 @@ LABEL_27:
 
   if ([(_INPBSearchForBillsIntent *)self hasBillType])
   {
-    billType = self->_billType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -338,7 +339,6 @@ LABEL_27:
 
   if ([(_INPBSearchForBillsIntent *)self hasStatus])
   {
-    status = self->_status;
     PBDataWriterWriteInt32Field();
   }
 }
@@ -374,6 +374,21 @@ LABEL_27:
   else
   {
     v4 = 1;
+  }
+
+  return v4;
+}
+
+- (id)statusAsString:(int)string
+{
+  if ((string - 1) >= 5)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7283AB8[string - 1];
   }
 
   return v4;
@@ -525,6 +540,21 @@ LABEL_27:
   else
   {
     v4 = 1;
+  }
+
+  return v4;
+}
+
+- (id)billTypeAsString:(int)string
+{
+  if ((string - 1) >= 0x16)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7283A08[string - 1];
   }
 
   return v4;

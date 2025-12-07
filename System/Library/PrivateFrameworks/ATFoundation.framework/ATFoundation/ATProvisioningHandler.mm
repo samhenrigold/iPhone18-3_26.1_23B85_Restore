@@ -27,7 +27,7 @@
 
 void __78__ATProvisioningHandler__processProvisioningResponse_toCommand_onMessageLink___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -36,13 +36,13 @@ void __78__ATProvisioningHandler__processProvisioningResponse_toCommand_onMessag
     {
       v5 = *(a1 + 32);
       v6 = *(a1 + 48);
-      v11 = 138543874;
-      v12 = v5;
-      v13 = 2114;
-      v14 = v6;
-      v15 = 2114;
-      v16 = v3;
-      _os_log_impl(&dword_22392A000, v4, OS_LOG_TYPE_ERROR, "failed to process provisioning response to command %{public}@ on %{public}@ - closing. err=%{public}@", &v11, 0x20u);
+      v10 = 138543874;
+      v11 = v5;
+      v12 = 2114;
+      v13 = v6;
+      v14 = 2114;
+      v15 = v3;
+      _os_log_impl(&dword_22392A000, v4, OS_LOG_TYPE_ERROR, "failed to process provisioning response to command %{public}@ on %{public}@ - closing. err=%{public}@", &v10, 0x20u);
     }
 
     [*(a1 + 48) close];
@@ -74,8 +74,6 @@ void __78__ATProvisioningHandler__processProvisioningResponse_toCommand_onMessag
   }
 
 LABEL_11:
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendProvisioningRequest:(id)request OnMessageLink:(id)link
@@ -99,7 +97,7 @@ LABEL_11:
 
 void __64__ATProvisioningHandler__sendProvisioningRequest_OnMessageLink___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (([v5 isPartial] & 1) == 0)
@@ -110,11 +108,11 @@ void __64__ATProvisioningHandler__sendProvisioningRequest_OnMessageLink___block_
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         v8 = *(a1 + 48);
-        v10 = 138543618;
-        v11 = v8;
-        v12 = 2114;
-        v13 = v6;
-        _os_log_impl(&dword_22392A000, v7, OS_LOG_TYPE_ERROR, "failed to send provisioning request on %{public}@ - closing. err=%{public}@", &v10, 0x16u);
+        v9 = 138543618;
+        v10 = v8;
+        v11 = 2114;
+        v12 = v6;
+        _os_log_impl(&dword_22392A000, v7, OS_LOG_TYPE_ERROR, "failed to send provisioning request on %{public}@ - closing. err=%{public}@", &v9, 0x16u);
       }
 
       [*(a1 + 48) close];
@@ -125,13 +123,11 @@ void __64__ATProvisioningHandler__sendProvisioningRequest_OnMessageLink___block_
       [*(a1 + 32) _processProvisioningResponse:v5 toCommand:*(a1 + 40) onMessageLink:*(a1 + 48)];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messageLink:(id)link didReceiveRequest:(id)request
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   linkCopy = link;
   requestCopy = request;
   if (([linkCopy isInitialized] & 1) != 0 || (objc_msgSend(requestCopy, "command"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "isEqualToString:", self->_expectedRequestCommand), v8, (v9 & 1) == 0))
@@ -142,10 +138,10 @@ void __64__ATProvisioningHandler__sendProvisioningRequest_OnMessageLink___block_
       command = [requestCopy command];
       expectedRequestCommand = self->_expectedRequestCommand;
       *buf = 138543874;
-      v23 = command;
-      v24 = 2114;
-      v25 = expectedRequestCommand;
-      v26 = 1024;
+      v22 = command;
+      v23 = 2114;
+      v24 = expectedRequestCommand;
+      v25 = 1024;
       isInitialized = [linkCopy isInitialized];
       _os_log_impl(&dword_22392A000, v10, OS_LOG_TYPE_DEFAULT, "received unexpected provisioning request %{public}@. expected %{public}@, isInitialized=%d", buf, 0x1Cu);
     }
@@ -155,23 +151,21 @@ void __64__ATProvisioningHandler__sendProvisioningRequest_OnMessageLink___block_
 
   command2 = [requestCopy command];
   parameters = [requestCopy parameters];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __55__ATProvisioningHandler_messageLink_didReceiveRequest___block_invoke;
-  v18[3] = &unk_2784E8DA8;
-  v19 = linkCopy;
-  v20 = requestCopy;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __55__ATProvisioningHandler_messageLink_didReceiveRequest___block_invoke;
+  v17[3] = &unk_2784E8DA8;
+  v18 = linkCopy;
+  v19 = requestCopy;
   selfCopy = self;
   v15 = requestCopy;
   v16 = linkCopy;
-  [(ATProvisioningHandler *)self _processProvisioningRequest:command2 withParams:parameters onMessageLink:v16 withCompletion:v18];
-
-  v17 = *MEMORY[0x277D85DE8];
+  [(ATProvisioningHandler *)self _processProvisioningRequest:command2 withParams:parameters onMessageLink:v16 withCompletion:v17];
 }
 
 void __55__ATProvisioningHandler_messageLink_didReceiveRequest___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = _ATLogCategoryFramework();
@@ -179,7 +173,7 @@ void __55__ATProvisioningHandler_messageLink_didReceiveRequest___block_invoke(ui
   {
     v8 = *(a1 + 32);
     *buf = 138543362;
-    v26 = v8;
+    v25 = v8;
     _os_log_impl(&dword_22392A000, v7, OS_LOG_TYPE_DEFAULT, "messageLink -> %{public}@", buf, 0xCu);
   }
 
@@ -203,13 +197,13 @@ void __55__ATProvisioningHandler_messageLink_didReceiveRequest___block_invoke(ui
 LABEL_12:
         v17 = *(a1 + 32);
         v18 = [*(a1 + 40) responseWithError:0 parameters:v6];
-        v22[0] = MEMORY[0x277D85DD0];
-        v22[1] = 3221225472;
-        v22[2] = __55__ATProvisioningHandler_messageLink_didReceiveRequest___block_invoke_7;
-        v22[3] = &unk_2784E8D80;
-        v23 = *(a1 + 32);
-        v24 = *(a1 + 40);
-        [v17 sendResponse:v18 withCompletion:v22];
+        v21[0] = MEMORY[0x277D85DD0];
+        v21[1] = 3221225472;
+        v21[2] = __55__ATProvisioningHandler_messageLink_didReceiveRequest___block_invoke_7;
+        v21[3] = &unk_2784E8D80;
+        v22 = *(a1 + 32);
+        v23 = *(a1 + 40);
+        [v17 sendResponse:v18 withCompletion:v21];
 
         goto LABEL_13;
       }
@@ -228,7 +222,7 @@ LABEL_12:
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     *buf = 138543362;
-    v26 = v5;
+    v25 = v5;
     _os_log_impl(&dword_22392A000, v9, OS_LOG_TYPE_ERROR, "failed to provision link - closing. err=%{public}@", buf, 0xCu);
   }
 
@@ -239,25 +233,23 @@ LABEL_13:
   {
     v20 = *(a1 + 32);
     *buf = 138543362;
-    v26 = v20;
+    v25 = v20;
     _os_log_impl(&dword_22392A000, v19, OS_LOG_TYPE_DEFAULT, "messageLink -> %{public}@", buf, 0xCu);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __55__ATProvisioningHandler_messageLink_didReceiveRequest___block_invoke_7(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
     v4 = _ATLogCategoryFramework();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v10 = 138543362;
-      v11 = v3;
-      _os_log_impl(&dword_22392A000, v4, OS_LOG_TYPE_ERROR, "error sending response to provision message link. err=%{public}@", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v3;
+      _os_log_impl(&dword_22392A000, v4, OS_LOG_TYPE_ERROR, "error sending response to provision message link. err=%{public}@", &v9, 0xCu);
     }
 
     [*(a1 + 32) close];
@@ -279,13 +271,11 @@ void __55__ATProvisioningHandler_messageLink_didReceiveRequest___block_invoke_7(
       }
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messageLinkWasOpened:(id)opened
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   openedCopy = opened;
   endpointType = self->_endpointType;
   v6 = _ATLogCategoryFramework();
@@ -294,9 +284,9 @@ void __55__ATProvisioningHandler_messageLink_didReceiveRequest___block_invoke_7(
   {
     if (v7)
     {
-      v9 = 138543362;
-      v10 = openedCopy;
-      _os_log_impl(&dword_22392A000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ opened - starting provisioning", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = openedCopy;
+      _os_log_impl(&dword_22392A000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ opened - starting provisioning", &v8, 0xCu);
     }
 
     [(ATProvisioningHandler *)self _sendProvisioningRequest:@"ProvisioningRegisterEndpoint" OnMessageLink:openedCopy];
@@ -306,13 +296,11 @@ void __55__ATProvisioningHandler_messageLink_didReceiveRequest___block_invoke_7(
   {
     if (v7)
     {
-      v9 = 138543362;
-      v10 = openedCopy;
-      _os_log_impl(&dword_22392A000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ opened - waiting for provisioning message from server", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = openedCopy;
+      _os_log_impl(&dword_22392A000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ opened - waiting for provisioning message from server", &v8, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)initAsEndpointType:(int)type

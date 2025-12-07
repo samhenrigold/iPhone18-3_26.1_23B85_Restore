@@ -24,28 +24,28 @@
 
 - (void)parserFoundAttributes:(id)attributes
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   attributesCopy = attributes;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v5 = [attributesCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v5 = [attributesCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v19;
+    v7 = *v18;
     v8 = *MEMORY[0x277CFDFA8];
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v19 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(attributesCopy);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * i);
+        v10 = *(*(&v17 + 1) + 8 * i);
         name = [v10 name];
         v12 = [name isEqualToString:v8];
 
@@ -65,13 +65,11 @@
         }
       }
 
-      v6 = [attributesCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v6 = [attributesCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v6);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addChangedParameter:(id)parameter

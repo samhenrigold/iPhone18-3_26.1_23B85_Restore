@@ -1,4 +1,5 @@
 @interface CNVCardActivityAlertScanner
++ (BOOL)characterIsStringValueCharacter:(unsigned __int16)character;
 + (id)scanAlertValueFromString:(id)string;
 + (id)scannerWithString:(id)string;
 - (BOOL)scanPastCharacter:(unsigned __int16)character;
@@ -67,7 +68,7 @@
 
 - (id)scanKeyValuePair
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   scanStringValue = [(CNVCardActivityAlertScanner *)self scanStringValue];
   [(CNVCardActivityAlertScanner *)self scanPastKeyValueSeparator];
   scanStringValue2 = [(CNVCardActivityAlertScanner *)self scanStringValue];
@@ -79,12 +80,10 @@
 
   else
   {
-    v9 = scanStringValue;
-    v10[0] = scanStringValue2;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+    v8 = scanStringValue;
+    v9[0] = scanStringValue2;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -168,6 +167,20 @@
   [(CNVCardActivityAlertScanner *)self scanCharacter];
 
   return string;
+}
+
++ (BOOL)characterIsStringValueCharacter:(unsigned __int16)character
+{
+  characterCopy = character;
+  whitespaceCharacterSet = [MEMORY[0x277CCA900] whitespaceCharacterSet];
+  v5 = [whitespaceCharacterSet characterIsMember:characterCopy];
+
+  if (v5)
+  {
+    return 0;
+  }
+
+  return characterCopy != 61 && characterCopy != 44;
 }
 
 - (unsigned)scanCharacterWithEscaping:(BOOL)escaping

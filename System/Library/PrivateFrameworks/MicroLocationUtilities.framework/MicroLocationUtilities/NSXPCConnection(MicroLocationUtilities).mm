@@ -29,11 +29,11 @@
 
 - (id)signingIdentity
 {
-  v2 = objc_opt_class();
-  [self auditToken];
-  v3 = [v2 _signingIdentityForAuditToken:&v5];
+  v3 = objc_opt_class();
+  objc_msgSend_auditToken(self);
+  v4 = [v3 _signingIdentityForAuditToken:&v6];
 
-  return v3;
+  return v4;
 }
 
 - (uint64_t)hasBooleanEntitlement:()MicroLocationUtilities
@@ -46,20 +46,20 @@
 
 + (id)_signingIdentityForAuditToken:()MicroLocationUtilities
 {
-  v0 = xpc_copy_code_signing_identity_for_token();
-  if (v0)
+  v3 = xpc_copy_code_signing_identity_for_token();
+  if (v3)
   {
-    v1 = v0;
-    v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:v0];
-    free(v1);
+    v4 = v3;
+    v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:v3];
+    free(v4);
   }
 
   else
   {
-    v2 = 0;
+    v5 = 0;
   }
 
-  return v2;
+  return v5;
 }
 
 @end

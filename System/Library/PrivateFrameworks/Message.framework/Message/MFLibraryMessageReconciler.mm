@@ -89,7 +89,7 @@
 
 - (void)reconcileAllObjectsWithWindow:(id)window
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   windowCopy = window;
   v5 = objc_alloc_init(MEMORY[0x1E695DF00]);
   v6 = MFReconciliationSignpostLog();
@@ -122,14 +122,14 @@
   ef_matchEverythingPredicate = [MEMORY[0x1E696AE18] ef_matchEverythingPredicate];
   v15 = [v12 initWithTargetClass:v13 predicate:ef_matchEverythingPredicate sortDescriptors:MEMORY[0x1E695E0F0] queryOptions:256 label:0];
 
-  v21 = 0;
-  [(MFLibraryMessageReconciler *)self _performReconciliationForQuery:v15 window:windowCopy reconciledMessageCount:&v21 reconciledConversations:0];
+  v20 = 0;
+  [(MFLibraryMessageReconciler *)self _performReconciliationForQuery:v15 window:windowCopy reconciledMessageCount:&v20 reconciledConversations:0];
   [(MFLibraryMessageReconciler *)self _cleanup];
   v16 = MFReconciliationLog();
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v23 = v21;
+    v22 = v20;
     _os_log_impl(&dword_1B0389000, v16, OS_LOG_TYPE_DEFAULT, "Finished message reconciliation for all messages. Reconciled %lu messages", buf, 0xCu);
   }
 
@@ -138,7 +138,7 @@
   if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
   {
     *buf = 134349056;
-    v23 = v21;
+    v22 = v20;
     _os_signpost_emit_with_name_impl(&dword_1B0389000, v18, OS_SIGNPOST_INTERVAL_END, v7, "MFLibraryMessageAllMessageReconciliation", "MessagesReconciled=%{public,signpost.telemetry:number1}lu enableTelemetry=YES ", buf, 0xCu);
   }
 
@@ -147,8 +147,6 @@
   {
     EFSaveTailspin();
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (uint64_t)_performReconciliationForQuery:(void *)query window:(void *)window reconciledMessageCount:(void *)count reconciledConversations:
@@ -215,7 +213,7 @@
 
 - (id)reconcileWithMessageReconciliationQueries:(id)queries window:(id)window
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   queriesCopy = queries;
   windowCopy = window;
   v8 = objc_alloc_init(MEMORY[0x1E695DF00]);
@@ -226,16 +224,16 @@
   v12 = MFReconciliationLog();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v23) = 0;
-    _os_log_impl(&dword_1B0389000, v12, OS_LOG_TYPE_INFO, "Starting context based message reconciliation batch", &v23, 2u);
+    LOWORD(v22) = 0;
+    _os_log_impl(&dword_1B0389000, v12, OS_LOG_TYPE_INFO, "Starting context based message reconciliation batch", &v22, 2u);
   }
 
   v13 = MFReconciliationSignpostLog();
   v14 = v13;
   if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
   {
-    LOWORD(v23) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1B0389000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v10, "MFLibraryMessageContextBasedReconciliation", "Starting context based reconciliation enableTelemetry=YES ", &v23, 2u);
+    LOWORD(v22) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1B0389000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v10, "MFLibraryMessageContextBasedReconciliation", "Starting context based reconciliation enableTelemetry=YES ", &v22, 2u);
   }
 
   v15 = [(MFLibraryMessageReconciler *)self _reconcileMessagesWithQueries:queriesCopy window:windowCopy signpostID:v10 reconciledConversations:v11];
@@ -243,9 +241,9 @@
   v17 = v16;
   if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
   {
-    v23 = 134349056;
-    v24 = v15;
-    _os_signpost_emit_with_name_impl(&dword_1B0389000, v17, OS_SIGNPOST_INTERVAL_END, v10, "MFLibraryMessageContextBasedReconciliation", "MessagesReconciled=%{public,signpost.telemetry:number1}lu enableTelemetry=YES ", &v23, 0xCu);
+    v22 = 134349056;
+    v23 = v15;
+    _os_signpost_emit_with_name_impl(&dword_1B0389000, v17, OS_SIGNPOST_INTERVAL_END, v10, "MFLibraryMessageContextBasedReconciliation", "MessagesReconciled=%{public,signpost.telemetry:number1}lu enableTelemetry=YES ", &v22, 0xCu);
   }
 
   [v8 timeIntervalSinceNow];
@@ -253,9 +251,9 @@
   v20 = MFReconciliationLog();
   if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
   {
-    v23 = 134217984;
-    v24 = v15;
-    _os_log_impl(&dword_1B0389000, v20, OS_LOG_TYPE_INFO, "Reconciled batch of %lu messages using message query", &v23, 0xCu);
+    v22 = 134217984;
+    v23 = v15;
+    _os_log_impl(&dword_1B0389000, v20, OS_LOG_TYPE_INFO, "Reconciled batch of %lu messages using message query", &v22, 0xCu);
   }
 
   if (v19 < -10.0)
@@ -263,41 +261,39 @@
     EFSaveTailspin();
   }
 
-  v21 = *MEMORY[0x1E69E9840];
-
   return v11;
 }
 
 - (uint64_t)_reconcileMessagesWithQueries:(void *)queries window:(os_signpost_id_t)window signpostID:(void *)d reconciledConversations:
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v8 = a2;
   queriesCopy = queries;
   dCopy = d;
   selfCopy = self;
-  v26 = v8;
+  v25 = v8;
   if (self)
   {
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     obj = v8;
     v9 = 0;
-    v10 = [obj countByEnumeratingWithState:&v35 objects:v39 count:{16, v8}];
+    v10 = [obj countByEnumeratingWithState:&v34 objects:v38 count:{16, v8}];
     if (v10)
     {
-      v29 = *v36;
+      v28 = *v35;
 LABEL_4:
       v11 = 0;
       while (1)
       {
-        if (*v36 != v29)
+        if (*v35 != v28)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v35 + 1) + 8 * v11);
+        v12 = *(*(&v34 + 1) + 8 * v11);
         if (([v12 queryOptions] & 0x100) == 0)
         {
           v13 = objc_alloc(MEMORY[0x1E699AE28]);
@@ -311,7 +307,7 @@ LABEL_4:
           v12 = v19;
         }
 
-        v34 = 0;
+        v33 = 0;
         v20 = MFReconciliationSignpostLog();
         v21 = v20;
         if (window - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
@@ -320,8 +316,8 @@ LABEL_4:
           _os_signpost_emit_with_name_impl(&dword_1B0389000, v21, OS_SIGNPOST_EVENT, window, "MFLibraryMessageContextBasedReconciliation", "Reconciling for query", buf, 2u);
         }
 
-        v22 = [(MFLibraryMessageReconciler *)selfCopy _performReconciliationBatchForQuery:v12 window:queriesCopy reconciledMessageCount:&v34 reconciledConversations:dCopy];
-        v23 = v34;
+        v22 = [(MFLibraryMessageReconciler *)selfCopy _performReconciliationBatchForQuery:v12 window:queriesCopy reconciledMessageCount:&v33 reconciledConversations:dCopy];
+        v23 = v33;
 
         v9 += v23;
         if ((v22 & 1) == 0)
@@ -331,7 +327,7 @@ LABEL_4:
 
         if (v10 == ++v11)
         {
-          v10 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+          v10 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
           if (v10)
           {
             goto LABEL_4;
@@ -348,13 +344,12 @@ LABEL_4:
     v9 = 0;
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (id)reconcileWithThreadReconciliationQueries:(id)queries window:(id)window
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   queriesCopy = queries;
   windowCopy = window;
   v8 = objc_alloc_init(MEMORY[0x1E695DF00]);
@@ -366,16 +361,16 @@ LABEL_4:
   v13 = MFReconciliationLog();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v24) = 0;
-    _os_log_impl(&dword_1B0389000, v13, OS_LOG_TYPE_INFO, "Starting context based message reconciliation batch", &v24, 2u);
+    LOWORD(v23) = 0;
+    _os_log_impl(&dword_1B0389000, v13, OS_LOG_TYPE_INFO, "Starting context based message reconciliation batch", &v23, 2u);
   }
 
   v14 = MFReconciliationSignpostLog();
   v15 = v14;
   if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
   {
-    LOWORD(v24) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1B0389000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v10, "MFLibraryMessageContextBasedReconciliation", "Starting context based reconciliation enableTelemetry=YES ", &v24, 2u);
+    LOWORD(v23) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1B0389000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v10, "MFLibraryMessageContextBasedReconciliation", "Starting context based reconciliation enableTelemetry=YES ", &v23, 2u);
   }
 
   v16 = [(MFLibraryMessageReconciler *)self _reconcileMessagesWithQueries:v12 window:windowCopy signpostID:v10 reconciledConversations:v11];
@@ -383,9 +378,9 @@ LABEL_4:
   v18 = v17;
   if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
   {
-    v24 = 134349056;
-    v25 = v16;
-    _os_signpost_emit_with_name_impl(&dword_1B0389000, v18, OS_SIGNPOST_INTERVAL_END, v10, "MFLibraryMessageContextBasedReconciliation", "MessagesReconciled=%{public,signpost.telemetry:number1}lu enableTelemetry=YES ", &v24, 0xCu);
+    v23 = 134349056;
+    v24 = v16;
+    _os_signpost_emit_with_name_impl(&dword_1B0389000, v18, OS_SIGNPOST_INTERVAL_END, v10, "MFLibraryMessageContextBasedReconciliation", "MessagesReconciled=%{public,signpost.telemetry:number1}lu enableTelemetry=YES ", &v23, 0xCu);
   }
 
   [v8 timeIntervalSinceNow];
@@ -393,17 +388,15 @@ LABEL_4:
   v21 = MFReconciliationLog();
   if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
   {
-    v24 = 134217984;
-    v25 = v16;
-    _os_log_impl(&dword_1B0389000, v21, OS_LOG_TYPE_INFO, "Reconciled batch of %lu messages using thread query", &v24, 0xCu);
+    v23 = 134217984;
+    v24 = v16;
+    _os_log_impl(&dword_1B0389000, v21, OS_LOG_TYPE_INFO, "Reconciled batch of %lu messages using thread query", &v23, 0xCu);
   }
 
   if (v20 < -10.0)
   {
     EFSaveTailspin();
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -424,13 +417,13 @@ id __78__MFLibraryMessageReconciler_reconcileWithThreadReconciliationQueries_win
 
 - (id)reconcileInboxMessagesWithWindow:(id)window
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   windowCopy = window;
   v5 = objc_alloc_init(MEMORY[0x1E695DF00]);
   v6 = MFReconciliationSignpostLog();
   v7 = os_signpost_id_generate(v6);
 
-  v25 = 0;
+  v24 = 0;
   v8 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   v9 = MFReconciliationLog();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
@@ -443,8 +436,8 @@ id __78__MFLibraryMessageReconciler_reconcileWithThreadReconciliationQueries_win
   v11 = objc_alloc(MEMORY[0x1E699AE28]);
   v12 = objc_opt_class();
   v13 = [MEMORY[0x1E699ADA0] sortDescriptorForDateAscending:0];
-  v28[0] = v13;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:1];
+  v27[0] = v13;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:1];
   v15 = [v11 initWithTargetClass:v12 predicate:v10 sortDescriptors:v14 queryOptions:256 label:0];
 
   v16 = MFReconciliationSignpostLog();
@@ -455,13 +448,13 @@ id __78__MFLibraryMessageReconciler_reconcileWithThreadReconciliationQueries_win
     _os_signpost_emit_with_name_impl(&dword_1B0389000, v17, OS_SIGNPOST_INTERVAL_BEGIN, v7, "MFLibraryMessageContextBasedReconciliation", "Starting inbox reconciliation enableTelemetry=YES ", buf, 2u);
   }
 
-  [(MFLibraryMessageReconciler *)self _performReconciliationBatchForQuery:v15 window:windowCopy reconciledMessageCount:&v25 reconciledConversations:v8];
+  [(MFLibraryMessageReconciler *)self _performReconciliationBatchForQuery:v15 window:windowCopy reconciledMessageCount:&v24 reconciledConversations:v8];
   v18 = MFReconciliationSignpostLog();
   v19 = v18;
   if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
   {
     *buf = 134349056;
-    v27 = v25;
+    v26 = v24;
     _os_signpost_emit_with_name_impl(&dword_1B0389000, v19, OS_SIGNPOST_INTERVAL_END, v7, "MFLibraryMessageContextBasedReconciliation", "MessagesReconciled=%{public,signpost.telemetry:number1}lu enableTelemetry=YES ", buf, 0xCu);
   }
 
@@ -471,7 +464,7 @@ id __78__MFLibraryMessageReconciler_reconcileWithThreadReconciliationQueries_win
   if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
   {
     *buf = 134217984;
-    v27 = v25;
+    v26 = v24;
     _os_log_impl(&dword_1B0389000, v22, OS_LOG_TYPE_INFO, "Finished inbox reconciliation. Reconciled %lu messages", buf, 0xCu);
   }
 
@@ -480,55 +473,53 @@ id __78__MFLibraryMessageReconciler_reconcileWithThreadReconciliationQueries_win
     EFSaveTailspin();
   }
 
-  v23 = *MEMORY[0x1E69E9840];
-
   return v8;
 }
 
 - (uint64_t)_performReconciliationBatchForQuery:(void *)query window:(uint64_t *)window reconciledMessageCount:(void *)count reconciledConversations:
 {
-  v40 = *MEMORY[0x1E69E9840];
-  v25 = a2;
+  v39 = *MEMORY[0x1E69E9840];
+  v24 = a2;
   queryCopy = query;
   countCopy = count;
   if (self)
   {
-    v35 = 0;
-    v36 = &v35;
-    v37 = 0x2020000000;
-    v38 = 1;
+    v34 = 0;
+    v35 = &v34;
+    v36 = 0x2020000000;
+    v37 = 1;
     WeakRetained = objc_loadWeakRetained((self + 24));
-    v11 = [WeakRetained persistedMessagesMatchingQuery:v25 limit:100 requireProtectedData:1];
+    v11 = [WeakRetained persistedMessagesMatchingQuery:v24 limit:100 requireProtectedData:1];
 
     if (countCopy)
     {
-      v33 = 0u;
-      v34 = 0u;
-      v31 = 0u;
       v32 = 0u;
+      v33 = 0u;
+      v30 = 0u;
+      v31 = 0u;
       v12 = v11;
-      v13 = [v12 countByEnumeratingWithState:&v31 objects:v39 count:{16, queryCopy}];
+      v13 = [v12 countByEnumeratingWithState:&v30 objects:v38 count:{16, queryCopy}];
       if (v13)
       {
-        v14 = *v32;
+        v14 = *v31;
         do
         {
           v15 = 0;
           do
           {
-            if (*v32 != v14)
+            if (*v31 != v14)
             {
               objc_enumerationMutation(v12);
             }
 
-            v16 = [MEMORY[0x1E696AD98] numberWithLongLong:{objc_msgSend(*(*(&v31 + 1) + 8 * v15), "conversationID")}];
+            v16 = [MEMORY[0x1E696AD98] numberWithLongLong:{objc_msgSend(*(*(&v30 + 1) + 8 * v15), "conversationID")}];
             [countCopy addObject:v16];
 
             ++v15;
           }
 
           while (v13 != v15);
-          v13 = [v12 countByEnumeratingWithState:&v31 objects:v39 count:16];
+          v13 = [v12 countByEnumeratingWithState:&v30 objects:v38 count:16];
         }
 
         while (v13);
@@ -539,24 +530,24 @@ id __78__MFLibraryMessageReconciler_reconcileWithThreadReconciliationQueries_win
     {
       v17 = *(self + 16);
       v18 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[MFLibraryMessageReconciler _performReconciliationBatchForQuery:window:reconciledMessageCount:reconciledConversations:]"];
-      v26[0] = MEMORY[0x1E69E9820];
-      v26[1] = 3221225472;
-      v26[2] = __120__MFLibraryMessageReconciler__performReconciliationBatchForQuery_window_reconciledMessageCount_reconciledConversations___block_invoke;
-      v26[3] = &unk_1E7AA3DB0;
-      v27 = queryCopy;
-      v30 = &v35;
-      v28 = v11;
+      v25[0] = MEMORY[0x1E69E9820];
+      v25[1] = 3221225472;
+      v25[2] = __120__MFLibraryMessageReconciler__performReconciliationBatchForQuery_window_reconciledMessageCount_reconciledConversations___block_invoke;
+      v25[3] = &unk_1E7AA3DB0;
+      v26 = queryCopy;
+      v29 = &v34;
+      v27 = v11;
       selfCopy = self;
-      [v17 __performWriteWithCaller:v18 usingBlock:v26];
+      [v17 __performWriteWithCaller:v18 usingBlock:v25];
     }
 
-    v19 = v36;
+    v19 = v35;
     if (window)
     {
-      if (*(v36 + 24) == 1)
+      if (*(v35 + 24) == 1)
       {
         v20 = [v11 count];
-        v19 = v36;
+        v19 = v35;
       }
 
       else
@@ -569,7 +560,7 @@ id __78__MFLibraryMessageReconciler_reconcileWithThreadReconciliationQueries_win
 
     v21 = *(v19 + 24);
 
-    _Block_object_dispose(&v35, 8);
+    _Block_object_dispose(&v34, 8);
   }
 
   else
@@ -577,13 +568,12 @@ id __78__MFLibraryMessageReconciler_reconcileWithThreadReconciliationQueries_win
     v21 = 0;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v21 & 1;
 }
 
 uint64_t __120__MFLibraryMessageReconciler__performReconciliationBatchForQuery_window_reconciledMessageCount_reconciledConversations___block_invoke(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v3 = a2;
   [*(a1 + 32) insertGeneration:{objc_msgSend(v3, "transactionGeneration")}];
   if ([v3 protectedDatabaseAttached])
@@ -603,34 +593,34 @@ uint64_t __120__MFLibraryMessageReconciler__performReconciliationBatchForQuery_w
       {
         v9 = [*(a1 + 40) count];
         *buf = 134217984;
-        v25 = v9;
+        v24 = v9;
         _os_log_impl(&dword_1B0389000, v8, OS_LOG_TYPE_DEFAULT, "reconciled %llu messages", buf, 0xCu);
       }
 
-      v21 = 0u;
-      v22 = 0u;
-      v19 = 0u;
       v20 = 0u;
+      v21 = 0u;
+      v18 = 0u;
+      v19 = 0u;
       v10 = *(a1 + 40);
-      v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v11)
       {
-        v12 = *v20;
+        v12 = *v19;
         do
         {
           v13 = 0;
           do
           {
-            if (*v20 != v12)
+            if (*v19 != v12)
             {
               objc_enumerationMutation(v10);
             }
 
-            [*(*(&v19 + 1) + 8 * v13++) setIsJournaled:{0, v19}];
+            [*(*(&v18 + 1) + 8 * v13++) setIsJournaled:{0, v18}];
           }
 
           while (v11 != v13);
-          v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+          v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
         }
 
         while (v11);
@@ -647,7 +637,7 @@ uint64_t __120__MFLibraryMessageReconciler__performReconciliationBatchForQuery_w
         v15 = 0;
       }
 
-      [v15 persistenceDidReconcileJournaledMessages:*(a1 + 40) generationWindow:{*(a1 + 32), v19}];
+      [v15 persistenceDidReconcileJournaledMessages:*(a1 + 40) generationWindow:{*(a1 + 32), v18}];
     }
 
     v16 = *(*(*(a1 + 56) + 8) + 24);
@@ -659,7 +649,6 @@ uint64_t __120__MFLibraryMessageReconciler__performReconciliationBatchForQuery_w
     v16 = 1;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v16 & 1;
 }
 

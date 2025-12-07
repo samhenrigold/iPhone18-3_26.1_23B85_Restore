@@ -13,6 +13,9 @@
 - (void)_setNavigationPalette:(id)palette hidesPaletteShadow:(BOOL)shadow;
 - (void)_viewControllerNeedsNavigationBarAppearanceUpdate:(id)update;
 - (void)attachPalette:(id)palette isPinned:(BOOL)pinned;
+- (void)childViewControllerForStatusBarHidden;
+- (void)childViewControllerForStatusBarStyle;
+- (void)description;
 - (void)didShowViewController:(id)controller animated:(BOOL)animated;
 - (void)pushViewController:(id)controller animated:(BOOL)animated;
 - (void)setViewControllers:(id)controllers animated:(BOOL)animated;
@@ -652,7 +655,7 @@ LABEL_43:
 LABEL_62:
 }
 
-uint64_t __103__SKUINavigationController__configureNavigationBarForViewController_shouldIgnoreTransitionCoordinator___block_invoke(uint64_t a1, void *a2)
+void *__103__SKUINavigationController__configureNavigationBarForViewController_shouldIgnoreTransitionCoordinator___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 isCancelled];
   if (result)
@@ -815,6 +818,66 @@ uint64_t __74__SKUINavigationController__accessibilityButtonBackgroundDefaultTin
   _accessibilityButtonBackgroundDefaultTintColor_defaultTintColor = v0;
 
   return MEMORY[0x2821F96F8](v0, v1);
+}
+
+- (void)description
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUINavigationController description]";
+}
+
+- (void)childViewControllerForStatusBarHidden
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUINavigationController childViewControllerForStatusBarHidden]";
+}
+
+- (void)childViewControllerForStatusBarStyle
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUINavigationController childViewControllerForStatusBarStyle]";
+}
+
+- (void)popToRootViewControllerAnimated:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUINavigationController popToRootViewControllerAnimated:]";
+}
+
+- (void)popToViewController:(uint64_t)a3 animated:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUINavigationController popToViewController:animated:]";
+}
+
+- (void)popViewControllerAnimated:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUINavigationController popViewControllerAnimated:]";
+}
+
+- (void)pushViewController:(uint64_t)a3 animated:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUINavigationController pushViewController:animated:]";
+}
+
+- (void)setViewControllers:(uint64_t)a3 animated:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUINavigationController setViewControllers:animated:]";
+}
+
+- (void)attachPalette:(uint64_t)a3 isPinned:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUINavigationController attachPalette:isPinned:]";
+}
+
+- (void)didShowViewController:(uint64_t)a3 animated:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUINavigationController didShowViewController:animated:]";
 }
 
 @end

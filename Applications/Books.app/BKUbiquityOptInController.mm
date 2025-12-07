@@ -9,7 +9,7 @@
 
 - (void)_cleanupUserDefaults
 {
-  v2 = sub_1000061F0();
+  v2 = sub_1000061F0(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *v9 = 0;
@@ -78,7 +78,7 @@
 - (void)_updateStatusMonitorsWithOptedIn:(BOOL)in
 {
   inCopy = in;
-  v5 = sub_1000061F0();
+  v5 = sub_1000061F0(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_100790948(inCopy, v5);

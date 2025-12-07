@@ -71,7 +71,7 @@
 
 - (BOOL)wantsContentType:(id)type
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   if ([(NSArray *)self->_contentTypes count])
   {
@@ -101,26 +101,26 @@ LABEL_30:
 
   if (([(NSMutableSet *)self->_negativeSet containsObject:typeCopy]& 1) == 0)
   {
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     v7 = self->_contentTypes;
-    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v29 objects:v34 count:16];
+    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v28 objects:v33 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v30;
+      v10 = *v29;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v30 != v10)
+          if (*v29 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          if (UTTypeConformsTo(typeCopy, *(*(&v29 + 1) + 8 * i)))
+          if (UTTypeConformsTo(typeCopy, *(*(&v28 + 1) + 8 * i)))
           {
             positiveSet = self->_positiveSet;
             if (!positiveSet)
@@ -138,7 +138,7 @@ LABEL_30:
           }
         }
 
-        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v29 objects:v34 count:16];
+        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v28 objects:v33 count:16];
         if (v9)
         {
           continue;
@@ -148,44 +148,44 @@ LABEL_30:
       }
     }
 
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v12 = self->_disableContentTypes;
-    v13 = [(NSArray *)v12 countByEnumeratingWithState:&v25 objects:v33 count:16];
+    v13 = [(NSArray *)v12 countByEnumeratingWithState:&v24 objects:v32 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v26;
+      v15 = *v25;
       while (2)
       {
         for (j = 0; j != v14; ++j)
         {
-          if (*v26 != v15)
+          if (*v25 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          if (UTTypeConformsTo(typeCopy, *(*(&v25 + 1) + 8 * j)))
+          if (UTTypeConformsTo(typeCopy, *(*(&v24 + 1) + 8 * j)))
           {
             negativeSet = self->_negativeSet;
             if (!negativeSet)
             {
-              v23 = objc_alloc_init(MEMORY[0x277CBEB58]);
-              v24 = self->_negativeSet;
-              self->_negativeSet = v23;
+              v22 = objc_alloc_init(MEMORY[0x277CBEB58]);
+              v23 = self->_negativeSet;
+              self->_negativeSet = v22;
 
               negativeSet = self->_negativeSet;
             }
 
-            [(NSMutableSet *)negativeSet addObject:typeCopy, v25];
+            [(NSMutableSet *)negativeSet addObject:typeCopy, v24];
 
             goto LABEL_9;
           }
         }
 
-        v14 = [(NSArray *)v12 countByEnumeratingWithState:&v25 objects:v33 count:16];
+        v14 = [(NSArray *)v12 countByEnumeratingWithState:&v24 objects:v32 count:16];
         if (v14)
         {
           continue;
@@ -195,14 +195,13 @@ LABEL_30:
       }
     }
 
-    [(NSMutableSet *)self->_negativeSet addObject:typeCopy, v25];
+    [(NSMutableSet *)self->_negativeSet addObject:typeCopy, v24];
   }
 
 LABEL_9:
   v6 = 0;
 LABEL_31:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

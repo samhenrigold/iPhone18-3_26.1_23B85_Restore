@@ -6,89 +6,88 @@
 
 - (void)performWithCompletion:(id)completion
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v109 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  if (![(NSString *)self->_requestAceHash length])
+  if (!objc_msgSend_length(self->_requestAceHash, v5, v6, v7, v8))
   {
-    aceId = [(MPAssistantGetNowPlayingQueueDetailsRemote *)self aceId];
-    v6 = sub_233505670(@"Get Now Playing Queue Details Remote", aceId);
+    v13 = objc_msgSend_aceId(self, v9, v10, v11, v12);
+    v14 = sub_233505670(@"Get Now Playing Queue Details Remote", v13);
     requestAceHash = self->_requestAceHash;
-    self->_requestAceHash = v6;
+    self->_requestAceHash = v14;
   }
 
-  v8 = _MPLogCategoryAssistant();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v16 = _MPLogCategoryAssistant();
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = self->_requestAceHash;
-    hashedRouteUIDs = [(MPAssistantGetNowPlayingQueueDetailsRemote *)self hashedRouteUIDs];
-    v11 = [hashedRouteUIDs count];
-    queueDetails = [(MPAssistantGetNowPlayingQueueDetailsRemote *)self queueDetails];
-    dictionary = [queueDetails dictionary];
-    [(MPAssistantGetNowPlayingQueueDetailsRemote *)self routeTimeout];
+    v21 = self->_requestAceHash;
+    v22 = objc_msgSend_hashedRouteUIDs(self, v17, v18, v19, v20);
+    v27 = objc_msgSend_count(v22, v23, v24, v25, v26);
+    v32 = objc_msgSend_queueDetails(self, v28, v29, v30, v31);
+    v37 = objc_msgSend_dictionary(v32, v33, v34, v35, v36);
+    objc_msgSend_routeTimeout(self, v38, v39, v40, v41);
     *buf = 138544130;
-    v37 = v9;
-    v38 = 2048;
-    v39 = v11;
-    v40 = 2114;
-    v41 = dictionary;
-    v42 = 2048;
-    v43 = v14;
-    _os_log_impl(&dword_2334D9000, v8, OS_LOG_TYPE_DEFAULT, "Get Now Playing Queue Details Remote (invoke) <%{public}@>: %lu UIDs, queue %{public}@, timeout %f", buf, 0x2Au);
+    v102 = v21;
+    v103 = 2048;
+    v104 = v27;
+    v105 = 2114;
+    v106 = v37;
+    v107 = 2048;
+    v108 = v42;
+    _os_log_impl(&dword_2334D9000, v16, OS_LOG_TYPE_DEFAULT, "Get Now Playing Queue Details Remote (invoke) <%{public}@>: %lu UIDs, queue %{public}@, timeout %f", buf, 0x2Au);
   }
 
-  v15 = self->_requestAceHash;
-  hashedRouteUIDs2 = [(MPAssistantGetNowPlayingQueueDetailsRemote *)self hashedRouteUIDs];
-  sub_2335057BC(@"Get Now Playing Queue Details Remote", v15, hashedRouteUIDs2);
+  v43 = self->_requestAceHash;
+  v48 = objc_msgSend_hashedRouteUIDs(self, v44, v45, v46, v47);
+  sub_2335057BC(@"Get Now Playing Queue Details Remote", v43, v48);
 
-  hashedRouteUIDs3 = [(MPAssistantGetNowPlayingQueueDetailsRemote *)self hashedRouteUIDs];
-  v18 = [hashedRouteUIDs3 count];
+  v53 = objc_msgSend_hashedRouteUIDs(self, v49, v50, v51, v52);
+  v58 = objc_msgSend_count(v53, v54, v55, v56, v57);
 
-  if (v18 == 1)
+  if (v58 == 1)
   {
-    v19 = dispatch_group_create();
-    v20 = objc_alloc_init(MEMORY[0x277D27840]);
-    hashedRouteUIDs4 = [(MPAssistantGetNowPlayingQueueDetailsRemote *)self hashedRouteUIDs];
-    v31[0] = MEMORY[0x277D85DD0];
-    v31[1] = 3221225472;
-    v31[2] = sub_2334E9660;
-    v31[3] = &unk_2789DB508;
-    v32 = v20;
+    v59 = dispatch_group_create();
+    v60 = objc_alloc_init(MEMORY[0x277D27840]);
+    v65 = objc_msgSend_hashedRouteUIDs(self, v61, v62, v63, v64);
+    v96[0] = MEMORY[0x277D85DD0];
+    v96[1] = 3221225472;
+    v96[2] = sub_2334E9660;
+    v96[3] = &unk_2789DB508;
+    v97 = v60;
     selfCopy = self;
-    v34 = v19;
-    v35 = completionCopy;
-    dictionary3 = v19;
-    v23 = v20;
-    [v23 decodeHashedRouteUIDs:hashedRouteUIDs4 completion:v31];
+    v99 = v59;
+    v100 = completionCopy;
+    v66 = v59;
+    v67 = v60;
+    objc_msgSend_decodeHashedRouteUIDs_completion_(v67, v68, v65, v96, v69);
   }
 
   else
   {
-    v23 = [objc_alloc(MEMORY[0x277D47208]) initWithReason:@"Too many UIDs requested"];
-    if (![(NSString *)self->_requestAceHash length])
+    v70 = objc_alloc(MEMORY[0x277D47208]);
+    v67 = objc_msgSend_initWithReason_(v70, v71, @"Too many UIDs requested", v72, v73);
+    if (!objc_msgSend_length(self->_requestAceHash, v74, v75, v76, v77))
     {
-      aceId2 = [(MPAssistantGetNowPlayingQueueDetailsRemote *)self aceId];
-      v25 = sub_233505670(@"Get Now Playing Queue Details Remote", aceId2);
-      v26 = self->_requestAceHash;
-      self->_requestAceHash = v25;
+      v82 = objc_msgSend_aceId(self, v78, v79, v80, v81);
+      v83 = sub_233505670(@"Get Now Playing Queue Details Remote", v82);
+      v84 = self->_requestAceHash;
+      self->_requestAceHash = v83;
     }
 
-    v27 = _MPLogCategoryAssistant();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v85 = _MPLogCategoryAssistant();
+    if (os_log_type_enabled(v85, OS_LOG_TYPE_ERROR))
     {
-      v28 = self->_requestAceHash;
-      dictionary2 = [v23 dictionary];
+      v90 = self->_requestAceHash;
+      v91 = objc_msgSend_dictionary(v67, v86, v87, v88, v89);
       *buf = 138543618;
-      v37 = v28;
-      v38 = 2114;
-      v39 = dictionary2;
-      _os_log_impl(&dword_2334D9000, v27, OS_LOG_TYPE_ERROR, "Get Now Playing Queue Details Remote (completion) <%{public}@>: notifying assistant %{public}@", buf, 0x16u);
+      v102 = v90;
+      v103 = 2114;
+      v104 = v91;
+      _os_log_impl(&dword_2334D9000, v85, OS_LOG_TYPE_ERROR, "Get Now Playing Queue Details Remote (completion) <%{public}@>: notifying assistant %{public}@", buf, 0x16u);
     }
 
-    dictionary3 = [v23 dictionary];
-    (*(completionCopy + 2))(completionCopy, dictionary3);
+    v66 = objc_msgSend_dictionary(v67, v92, v93, v94, v95);
+    (*(completionCopy + 2))(completionCopy, v66);
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 @end

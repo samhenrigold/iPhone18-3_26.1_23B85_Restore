@@ -149,7 +149,7 @@
 
 - (void)_updateCurrentMode
 {
-  v3 = sub_10001C784();
+  v3 = sub_10001C784(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     _silentModeDebugDescription = [(CARSilentModePanel *)self _silentModeDebugDescription];
@@ -216,7 +216,7 @@ LABEL_11:
 - (void)_updateCarPlaySilentModePreference:(BOOL)preference
 {
   preferenceCopy = preference;
-  v5 = sub_10001C784();
+  v5 = sub_10001C784(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     _silentModeDebugDescription = [(CARSilentModePanel *)self _silentModeDebugDescription];

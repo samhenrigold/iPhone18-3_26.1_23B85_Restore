@@ -7,6 +7,7 @@
 + (id)databaseEncryptionKeyWithIdentifier:(uint64_t)identifier;
 + (id)transporterConfiguration;
 + (uint64_t)setTransporterConfiguration:(uint64_t)configuration;
++ (void)_setBool:(BOOL)bool forKey:(__CFString *)key applicationId:(__CFString *)id;
 + (void)_setDouble:(double)double forKey:(__CFString *)key applicationId:(__CFString *)id;
 + (void)_setNullableValue:(void *)value forKey:(__CFString *)key;
 + (void)setDatabaseEncryptionKey:(void *)key withIdentifier:;
@@ -77,9 +78,9 @@
 + (id)transporterConfiguration
 {
   objc_opt_self();
-  v0 = CFPreferencesCopyAppValue(@"TransporterConfiguration", @"com.apple.appstoreutilities");
+  v1 = CFPreferencesCopyAppValue(@"TransporterConfiguration", @"com.apple.appstoreutilities");
 
-  return v0;
+  return v1;
 }
 
 + (uint64_t)setTransporterConfiguration:(uint64_t)configuration
@@ -104,6 +105,13 @@
   {
     return missing;
   }
+}
+
++ (void)_setBool:(BOOL)bool forKey:(__CFString *)key applicationId:(__CFString *)id
+{
+  v7 = [MEMORY[0x277CCABB0] numberWithBool:bool];
+
+  CFPreferencesSetAppValue(key, v7, id);
 }
 
 + (double)_doubleForKey:(__CFString *)key applicationId:(__CFString *)id ifMissing:(double)missing
@@ -164,21 +172,19 @@
 
 void __53__ASUDefaultsManager__isRunningInAppleVirtualMachine__block_invoke()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v3 = 4;
-  if (sysctlbyname("kern.hv_vmm_present", &_MergedGlobals, &v3, 0, 0))
+  v5 = *MEMORY[0x277D85DE8];
+  v2 = 4;
+  if (sysctlbyname("kern.hv_vmm_present", &_MergedGlobals, &v2, 0, 0))
   {
     v0 = ASULogHandleForCategory(1);
     if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
     {
-      v2 = *__error();
+      v1 = *__error();
       *buf = 67109120;
-      v5 = v2;
+      v4 = v1;
       _os_log_fault_impl(&dword_2400F8000, v0, OS_LOG_TYPE_FAULT, "sysctlbyname for kern.hv_vmm_present failed with error: %{darwin.errno}d", buf, 8u);
     }
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 @end

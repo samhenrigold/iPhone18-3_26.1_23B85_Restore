@@ -13,7 +13,6 @@
 - (id)dumpDescription;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
-- (void)invalidateDescription;
 - (void)removeDescriptorWithAssertionID:(id)d;
 - (void)removeDescriptorWithClientID:(id)d;
 @end
@@ -73,12 +72,12 @@
           if (v18)
           {
 
-            v22 = DefaultLog();
-            if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+            v23 = DefaultLog(v22);
+            if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543362;
               v32 = dCopy;
-              _os_log_impl(&dword_1DF7C6000, v22, OS_LOG_TYPE_DEFAULT, "Descriptor with assertion id: %{public}@ already added.", buf, 0xCu);
+              _os_log_impl(&dword_1DF7C6000, v23, OS_LOG_TYPE_DEFAULT, "Descriptor with assertion id: %{public}@ already added.", buf, 0xCu);
             }
 
             v20 = 0;
@@ -109,8 +108,6 @@
 
   [(DDSAssertion *)self invalidateDescription];
 LABEL_16:
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return v20;
 }
@@ -367,20 +364,19 @@ void __48__DDSAssertion_removeDescriptorWithAssertionID___block_invoke(uint64_t 
     v6 = v5;
     if (v20)
     {
-      v22 = DefaultLog();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v23 = DefaultLog(v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
-        [(DDSAssertion *)v20 initWithCoder:v22];
+        [(DDSAssertion *)v20 initWithCoder:v23];
       }
 
       v6 = 0;
     }
   }
 
-  v23 = v6;
+  v24 = v6;
 
-  v24 = *MEMORY[0x1E69E9840];
-  return v23;
+  return v24;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -397,13 +393,6 @@ void __48__DDSAssertion_removeDescriptorWithAssertionID___block_invoke(uint64_t 
   descriptors = [(DDSAssertion *)self descriptors];
   v9 = NSStringFromSelector(sel_descriptors);
   [coderCopy encodeObject:descriptors forKey:v9];
-}
-
-- (void)invalidateDescription
-{
-  description = self->_description;
-  self->_description = 0;
-  MEMORY[0x1EEE66BB8]();
 }
 
 - (id)description
@@ -429,7 +418,7 @@ void __48__DDSAssertion_removeDescriptorWithAssertionID___block_invoke(uint64_t 
 {
   v21 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
-  if (DDS_IS_INTERNAL_INSTALL())
+  if (DDS_IS_INTERNAL_INSTALL(v3, v4))
   {
     query = [(DDSAssertion *)self query];
     dumpDescription = [query dumpDescription];
@@ -440,16 +429,16 @@ void __48__DDSAssertion_removeDescriptorWithAssertionID___block_invoke(uint64_t 
     v16 = 0u;
     v17 = 0u;
     descriptors = [(DDSAssertion *)self descriptors];
-    v7 = [descriptors countByEnumeratingWithState:&v16 objects:v20 count:16];
-    if (v7)
+    v8 = [descriptors countByEnumeratingWithState:&v16 objects:v20 count:16];
+    if (v8)
     {
-      v8 = v7;
-      v9 = *v17;
+      v9 = v8;
+      v10 = *v17;
       do
       {
-        for (i = 0; i != v8; ++i)
+        for (i = 0; i != v9; ++i)
         {
-          if (*v17 != v9)
+          if (*v17 != v10)
           {
             objc_enumerationMutation(descriptors);
           }
@@ -458,18 +447,16 @@ void __48__DDSAssertion_removeDescriptorWithAssertionID___block_invoke(uint64_t 
           [v3 appendFormat:@"\n%@", dumpDescription2];
         }
 
-        v8 = [descriptors countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v9 = [descriptors countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
-      while (v8);
+      while (v9);
     }
 
     lastUpdated = [(DDSAssertion *)self lastUpdated];
-    v13 = DDS_STRING_FROM_DATE(lastUpdated);
-    [v3 appendFormat:@"\n\nUpdated: %@\n]", v13];
+    v14 = DDS_STRING_FROM_DATE(lastUpdated);
+    [v3 appendFormat:@"\n\nUpdated: %@\n]", v14];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -557,11 +544,10 @@ void __48__DDSAssertion_removeDescriptorWithAssertionID___block_invoke(uint64_t 
 
 - (void)initWithCoder:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1DF7C6000, a2, OS_LOG_TYPE_ERROR, "Error decoding descriptors: (%{public}@)", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1DF7C6000, a2, OS_LOG_TYPE_ERROR, "Error decoding descriptors: (%{public}@)", &v2, 0xCu);
 }
 
 @end

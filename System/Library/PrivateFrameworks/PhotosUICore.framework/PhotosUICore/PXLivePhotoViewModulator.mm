@@ -313,7 +313,7 @@ void __40__PXLivePhotoViewModulator__updateInput__block_invoke_2(uint64_t a1, vo
     {
       objc_storeStrong(&v9->_imageModulator, modulator);
       objc_storeStrong(&v10->_videoModulator, videoModulator);
-      v10->_gainMapImage = PXImageCreateBlackPlaceholderImageWithSize();
+      v10->_gainMapImage = PXImageCreateBlackPlaceholderImageWithSize(1.0, 1.0);
     }
 
     self = v10;

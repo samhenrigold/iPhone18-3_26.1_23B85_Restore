@@ -28,44 +28,44 @@
 - (id)coalescedNodesForNewAvailableNodes:(id)nodes
 {
   nodesCopy = nodes;
-  v91 = objc_opt_new();
-  v100 = objc_opt_new();
-  v90 = objc_opt_new();
-  v87 = objc_opt_new();
-  v89 = objc_opt_new();
+  v86 = objc_opt_new();
+  v95 = objc_opt_new();
+  v85 = objc_opt_new();
+  v82 = objc_opt_new();
+  v84 = objc_opt_new();
   selfCopy = self;
   v6 = objc_opt_new();
   objc_storeStrong(&self->_availableNodes, nodes);
-  v113 = 0u;
-  v114 = 0u;
-  v111 = 0u;
-  v112 = 0u;
+  v108 = 0u;
+  v109 = 0u;
+  v106 = 0u;
+  v107 = 0u;
   obj = self->_availableNodes;
   selfCopy2 = self;
-  v95 = v6;
-  v94 = [(NSArray *)obj countByEnumeratingWithState:&v111 objects:v124 count:16];
-  if (v94)
+  v90 = v6;
+  v89 = [(NSArray *)obj countByEnumeratingWithState:&v106 objects:v119 count:16];
+  if (v89)
   {
-    v93 = *v112;
-    v92 = kSFNodeKindRapport;
+    v88 = *v107;
+    v87 = kSFNodeKindRapport;
     do
     {
-      for (i = 0; i != v94; i = v49 + 1)
+      for (i = 0; i != v89; i = v50 + 1)
       {
-        if (*v112 != v93)
+        if (*v107 != v88)
         {
           objc_enumerationMutation(obj);
         }
 
-        v102 = i;
-        v8 = *(*(&v111 + 1) + 8 * i);
+        v97 = i;
+        v8 = *(*(&v106 + 1) + 8 * i);
         v9 = SFNodeCopyKinds();
         v10 = SFNodeCopyRealName();
         v11 = SFNodeCopyContactIdentifiers();
         v12 = SFNodeCopyContactIdentifier();
         v13 = SFNodeCopyUserName();
-        v96 = [v9 containsObject:v92];
-        v14 = sub_100090360();
+        v91 = [v9 containsObject:v87];
+        v14 = sub_100090360(v8);
         if (v11)
         {
           if (v12)
@@ -76,18 +76,18 @@
 
         else
         {
-          v11 = sub_100090478();
+          v11 = sub_100090478(v8);
           if (v12)
           {
 LABEL_8:
             v15 = 1;
 LABEL_15:
-            v105 = v12;
+            v100 = v12;
             goto LABEL_16;
           }
         }
 
-        v16 = sub_1000904C4();
+        v16 = sub_1000904C4(v8);
         v15 = v16 != 0;
         if (v16)
         {
@@ -106,34 +106,27 @@ LABEL_15:
         }
 
         v15 = 0;
-        v105 = 0;
+        v100 = 0;
         v12 = v13;
 LABEL_16:
         v18 = v12;
         v19 = airdrop_log();
         if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
         {
-          v84 = v96;
-          v85 = v14;
-          v82 = v13;
-          v83 = v18;
-          v80 = v10;
-          v81 = v105;
-          v79 = v9;
-          v50 = NSPrintF();
+          v51 = NSPrintF("kinds=%##@ realName=%@ cnId=%@ aTag=%@ id=%@ isRap=%d isMe=%d", v9, v10, v100, v13, v18, v91, v14, nodesCopy);
           *buf = 138412546;
-          v116 = v8;
-          v117 = 2112;
-          v118 = v50;
+          v111 = v8;
+          v112 = 2112;
+          v113 = v51;
           _os_log_debug_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEBUG, "Coalescing node %@: %@", buf, 0x16u);
 
-          v6 = v95;
+          v6 = v90;
         }
 
         if (v18)
         {
-          v97 = v15;
-          v98 = v14;
+          v92 = v15;
+          v93 = v14;
           v20 = v13;
           v21 = v11;
           v14 = v10;
@@ -143,16 +136,16 @@ LABEL_16:
           v25 = sub_1001EAE00();
           v26 = sub_1001EACB0(v24, v25);
 
-          v27 = magic_head_log();
-          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+          v28 = magic_head_log(v27);
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
           {
             *buf = 136315650;
-            v116 = "[SDNodeCoalescer coalescedNodesForNewAvailableNodes:]";
-            v117 = 2112;
-            v118 = v18;
-            v119 = 2112;
-            v120 = v26;
-            _os_log_debug_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEBUG, "%s identifier: %@, mostRevelant: %@", buf, 0x20u);
+            v111 = "[SDNodeCoalescer coalescedNodesForNewAvailableNodes:]";
+            v112 = 2112;
+            v113 = v18;
+            v114 = 2112;
+            v115 = v26;
+            _os_log_debug_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEBUG, "%s identifier: %@, mostRevelant: %@", buf, 0x20u);
           }
 
           [v23 setObject:v26 forKeyedSubscript:v18];
@@ -161,8 +154,8 @@ LABEL_16:
           v10 = v14;
           v11 = v21;
           v13 = v20;
-          LODWORD(v14) = v98;
-          v15 = v97;
+          LODWORD(v14) = v93;
+          v15 = v92;
         }
 
         else
@@ -171,279 +164,281 @@ LABEL_16:
           if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v116 = v8;
+            v111 = v8;
             _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "No identifier found for node %@", buf, 0xCu);
           }
         }
 
         if (v14)
         {
-          v28 = SFNodeCopyIDSDeviceIdentifier();
-          if (v28)
+          v29 = SFNodeCopyIDSDeviceIdentifier();
+          if (v29)
           {
-            v29 = v28;
+            v30 = v29;
             selfCopy = selfCopy2;
             goto LABEL_44;
           }
 
-          v41 = SFNodeCopyComputerName();
+          v42 = SFNodeCopyComputerName();
           selfCopy = selfCopy2;
-          if (v41)
+          if (v42)
           {
-            v29 = v41;
+            v30 = v42;
 LABEL_44:
-            v42 = [(NSMutableDictionary *)selfCopy->_originalNodes objectForKeyedSubscript:v29, v79];
+            v43 = [(NSMutableDictionary *)selfCopy->_originalNodes objectForKeyedSubscript:v30];
 
-            if (!v42)
+            if (!v43)
             {
               Copy = SFNodeCreateCopy();
-              [(NSMutableDictionary *)selfCopy->_originalNodes setObject:Copy forKeyedSubscript:v29];
+              [(NSMutableDictionary *)selfCopy->_originalNodes setObject:Copy forKeyedSubscript:v30];
               CFRelease(Copy);
             }
 
-            v44 = [(NSMutableDictionary *)selfCopy->_originalNodes objectForKeyedSubscript:v29];
-            [v91 setObject:v44 forKeyedSubscript:v29];
+            v45 = [(NSMutableDictionary *)selfCopy->_originalNodes objectForKeyedSubscript:v30];
+            [v86 setObject:v45 forKeyedSubscript:v30];
 
-            v45 = [v100 objectForKeyedSubscript:v29];
-            if (v45)
+            v46 = [v95 objectForKeyedSubscript:v30];
+            if (v46)
             {
-              v46 = v45;
-              if (([v45 containsObject:v8] & 1) == 0)
+              v47 = v46;
+              if (([v46 containsObject:v8] & 1) == 0)
               {
-                [v46 addObject:v8];
+                [v47 addObject:v8];
               }
             }
 
             else
             {
-              v46 = [NSMutableArray arrayWithObject:v8];
+              v47 = [NSMutableArray arrayWithObject:v8];
             }
 
-            [v100 setObject:v46 forKeyedSubscript:v29];
-            v47 = SFNodeCopyModelIdentifier();
-            if (v47)
+            [v95 setObject:v47 forKeyedSubscript:v30];
+            v48 = SFNodeCopyModelIdentifier();
+            if (v48)
             {
-              v48 = SFNodeCopyIconData();
-              [v89 setObject:v48 forKeyedSubscript:v29];
+              v49 = SFNodeCopyIconData();
+              [v84 setObject:v49 forKeyedSubscript:v30];
             }
 
-            v6 = v95;
+            v6 = v90;
           }
 
           else
           {
-            v29 = airdrop_log();
-            if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+            v30 = airdrop_log();
+            if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v116 = v8;
-              _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "coalescedNodesForNewAvailableNodes: Device ID is not available for %@", buf, 0xCu);
+              v111 = v8;
+              _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "coalescedNodesForNewAvailableNodes: Device ID is not available for %@", buf, 0xCu);
             }
           }
 
 LABEL_54:
-          v49 = v102;
+          v50 = v97;
           goto LABEL_62;
         }
 
         if (v15)
         {
           selfCopy = selfCopy2;
-          v30 = [(SDNodeCoalescer *)selfCopy2 setMappedContactIdentifier:v105 relatedContactIdentifiers:v11];
-          v31 = [(NSMutableDictionary *)selfCopy2->_originalNodes objectForKeyedSubscript:v30];
+          v31 = [(SDNodeCoalescer *)selfCopy2 setMappedContactIdentifier:v100 relatedContactIdentifiers:v11];
+          v32 = [(NSMutableDictionary *)selfCopy2->_originalNodes objectForKeyedSubscript:v31];
 
-          if (!v31)
+          if (!v32)
           {
-            v32 = SFNodeCreateCopy();
-            [(NSMutableDictionary *)selfCopy2->_originalNodes setObject:v32 forKeyedSubscript:v30];
-            CFRelease(v32);
+            v33 = SFNodeCreateCopy();
+            [(NSMutableDictionary *)selfCopy2->_originalNodes setObject:v33 forKeyedSubscript:v31];
+            CFRelease(v33);
           }
 
-          v33 = [(NSMutableDictionary *)selfCopy2->_originalNodes objectForKeyedSubscript:v30, v79];
-          [v91 setObject:v33 forKeyedSubscript:v30];
+          v34 = [(NSMutableDictionary *)selfCopy2->_originalNodes objectForKeyedSubscript:v31];
+          [v86 setObject:v34 forKeyedSubscript:v31];
 
-          v34 = [v90 objectForKeyedSubscript:v30];
-          if (v34)
+          v35 = [v85 objectForKeyedSubscript:v31];
+          if (v35)
           {
-            v35 = v34;
-            if (([v34 containsObject:v8] & 1) == 0)
+            v36 = v35;
+            if (([v35 containsObject:v8] & 1) == 0)
             {
-              [v35 addObject:v8];
+              [v36 addObject:v8];
             }
           }
 
           else
           {
-            v35 = [NSMutableArray arrayWithObject:v8];
+            v36 = [NSMutableArray arrayWithObject:v8];
           }
 
-          v49 = v102;
-          [v90 setObject:v35 forKeyedSubscript:v30];
+          v50 = v97;
+          [v85 setObject:v36 forKeyedSubscript:v31];
         }
 
         else
         {
           if (!v13)
           {
-            [v91 setObject:v8 forKeyedSubscript:v10];
+            [v86 setObject:v8 forKeyedSubscript:v10];
             selfCopy = selfCopy2;
             goto LABEL_54;
           }
 
           selfCopy = selfCopy2;
-          if ((v96 & 1) == 0)
+          if ((v91 & 1) == 0)
           {
-            v36 = [(NSMutableDictionary *)selfCopy2->_originalNodes objectForKeyedSubscript:v13];
+            v37 = [(NSMutableDictionary *)selfCopy2->_originalNodes objectForKeyedSubscript:v13];
 
-            if (!v36)
+            if (!v37)
             {
-              v37 = SFNodeCreateCopy();
-              [(NSMutableDictionary *)selfCopy2->_originalNodes setObject:v37 forKeyedSubscript:v13];
-              CFRelease(v37);
+              v38 = SFNodeCreateCopy();
+              [(NSMutableDictionary *)selfCopy2->_originalNodes setObject:v38 forKeyedSubscript:v13];
+              CFRelease(v38);
             }
 
-            nodesCopy = [(NSMutableDictionary *)selfCopy2->_originalNodes objectForKeyedSubscript:v13, v79, v80, v81, v82, v83, v84, v85, nodesCopy];
-            [v91 setObject:nodesCopy forKeyedSubscript:v13];
+            v39 = [(NSMutableDictionary *)selfCopy2->_originalNodes objectForKeyedSubscript:v13];
+            [v86 setObject:v39 forKeyedSubscript:v13];
           }
 
-          v39 = [v87 objectForKeyedSubscript:{v13, v79}];
-          if (v39)
+          v40 = [v82 objectForKeyedSubscript:v13];
+          if (v40)
           {
-            v40 = v39;
-            if (([v39 containsObject:v8] & 1) == 0)
+            v41 = v40;
+            if (([v40 containsObject:v8] & 1) == 0)
             {
-              [v40 addObject:v8];
+              [v41 addObject:v8];
             }
           }
 
           else
           {
-            v40 = [NSMutableArray arrayWithObject:v8];
+            v41 = [NSMutableArray arrayWithObject:v8];
           }
 
-          v49 = v102;
-          [v87 setObject:v40 forKeyedSubscript:v13];
+          v50 = v97;
+          [v82 setObject:v41 forKeyedSubscript:v13];
         }
 
 LABEL_62:
       }
 
-      v94 = [(NSArray *)obj countByEnumeratingWithState:&v111 objects:v124 count:16];
+      v89 = [(NSArray *)obj countByEnumeratingWithState:&v106 objects:v119 count:16];
     }
 
-    while (v94);
+    while (v89);
   }
 
-  v109 = 0u;
-  v110 = 0u;
-  v107 = 0u;
-  v108 = 0u;
-  allValues = [v91 allValues];
-  v104 = [allValues countByEnumeratingWithState:&v107 objects:v123 count:16];
-  if (!v104)
+  v104 = 0u;
+  v105 = 0u;
+  v102 = 0u;
+  v103 = 0u;
+  allValues = [v86 allValues];
+  v99 = [allValues countByEnumeratingWithState:&v102 objects:v118 count:16];
+  if (!v99)
   {
     goto LABEL_108;
   }
 
-  v103 = *v108;
+  v98 = *v103;
   do
   {
-    v51 = 0;
+    v52 = 0;
     do
     {
-      if (*v108 != v103)
+      if (*v103 != v98)
       {
         objc_enumerationMutation(allValues);
       }
 
-      v52 = *(*(&v107 + 1) + 8 * v51);
-      v53 = sub_100090360();
-      v54 = SFNodeCopyContactIdentifier();
-      if (!v54)
+      v53 = *(*(&v102 + 1) + 8 * v52);
+      v54 = sub_100090360(v53);
+      v55 = SFNodeCopyContactIdentifier();
+      if (!v55)
       {
-        v54 = sub_1000904C4();
+        v55 = sub_1000904C4(v53);
       }
 
-      v55 = SFNodeCopyUserName();
-      v56 = v55;
-      if (v54)
-      {
-        v57 = v53;
-      }
-
-      else
-      {
-        v57 = 1;
-      }
-
-      if (((v54 == 0) & ~v53) != 0)
-      {
-        v58 = v55;
-      }
-
-      else
+      v56 = SFNodeCopyUserName();
+      v57 = v56;
+      if (v55)
       {
         v58 = v54;
       }
 
-      if (v57)
+      else
       {
-        v59 = 0;
+        v58 = 1;
+      }
+
+      if (((v55 == 0) & ~v54) != 0)
+      {
+        v59 = v56;
       }
 
       else
       {
-        v59 = [(SDNodeCoalescer *)selfCopy mappedContactIdentifierForContactIdentifier:v54];
-        v58 = v54;
+        v59 = v55;
       }
 
-      v60 = v58;
-      if (v60)
+      if (v58)
       {
-        v61 = [v95 objectForKeyedSubscript:v60];
-        v62 = [NSKeyedArchiver archivedDataWithRootObject:v61 requiringSecureCoding:1 error:0];
+        v60 = 0;
       }
 
       else
       {
-        v62 = 0;
-        v61 = 0;
+        v60 = [(SDNodeCoalescer *)selfCopy mappedContactIdentifierForContactIdentifier:v55];
+        v59 = v55;
       }
 
-      v63 = magic_head_log();
-      if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
+      v61 = v59;
+      v62 = v61;
+      if (v61)
+      {
+        v63 = [v90 objectForKeyedSubscript:v61];
+        v61 = [NSKeyedArchiver archivedDataWithRootObject:v63 requiringSecureCoding:1 error:0];
+        v64 = v61;
+      }
+
+      else
+      {
+        v64 = 0;
+        v63 = 0;
+      }
+
+      v65 = magic_head_log(v61);
+      if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138413058;
-        v64 = @"mapped ID %@";
-        if (!v59)
+        v66 = @"mapped ID %@";
+        if (!v60)
         {
-          v64 = @"no mapped ID";
+          v66 = @"no mapped ID";
         }
 
-        v116 = v61;
-        v117 = 2112;
-        v118 = v52;
-        v119 = 2112;
-        v120 = v54;
-        v121 = 2112;
-        v122 = v64;
-        _os_log_impl(&_mh_execute_header, v63, OS_LOG_TYPE_DEFAULT, "SDNodeBrowser: Setting score to %@ for node %@ with ID %@ and %@", buf, 0x2Au);
+        v111 = v63;
+        v112 = 2112;
+        v113 = v53;
+        v114 = 2112;
+        v115 = v55;
+        v116 = 2112;
+        v117 = v66;
+        _os_log_impl(&_mh_execute_header, v65, OS_LOG_TYPE_DEFAULT, "SDNodeBrowser: Setting score to %@ for node %@ with ID %@ and %@", buf, 0x2Au);
       }
 
       SFNodeSetRangingData();
-      v106 = v56;
-      if (sub_100090360())
+      v101 = v57;
+      if (sub_100090360(v53))
       {
-        v65 = SFNodeCopyIDSDeviceIdentifier();
-        if (!v65)
+        v67 = SFNodeCopyIDSDeviceIdentifier();
+        if (!v67)
         {
-          v65 = SFNodeCopyComputerName();
+          v67 = SFNodeCopyComputerName();
         }
 
-        v66 = [v100 objectForKeyedSubscript:{v65, v79}];
+        v68 = [v95 objectForKeyedSubscript:v67];
         SFNodeSetSiblingNodes();
-        v67 = [v89 objectForKeyedSubscript:v65];
-        if (v67)
+        v69 = [v84 objectForKeyedSubscript:v67];
+        if (v69)
         {
           SFNodeSetIconData();
         }
@@ -452,69 +447,68 @@ LABEL_62:
         goto LABEL_98;
       }
 
-      if (v59)
+      if (v60)
       {
-        v68 = v90;
-        v69 = v59;
+        v70 = v85;
+        v71 = v60;
 LABEL_97:
-        v66 = [v68 objectForKeyedSubscript:{v69, v79}];
+        v68 = [v70 objectForKeyedSubscript:v71];
         SFNodeSetSiblingNodes();
         goto LABEL_98;
       }
 
-      if (v56)
+      if (v57)
       {
-        v68 = v87;
-        v69 = v56;
+        v70 = v82;
+        v71 = v57;
         goto LABEL_97;
       }
 
-      v71 = airdrop_log();
-      if (os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT))
+      v73 = airdrop_log();
+      if (os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v116 = v52;
-        _os_log_impl(&_mh_execute_header, v71, OS_LOG_TYPE_DEFAULT, "Coalesced node %@ not handled", buf, 0xCu);
+        v111 = v53;
+        _os_log_impl(&_mh_execute_header, v73, OS_LOG_TYPE_DEFAULT, "Coalesced node %@ not handled", buf, 0xCu);
       }
 
-      v66 = 0;
+      v68 = 0;
 LABEL_98:
-      if ([v66 count] >= 2)
+      if ([v68 count] >= 2)
       {
-        v70 = airdrop_log();
-        if (os_log_type_enabled(v70, OS_LOG_TYPE_DEBUG))
+        v72 = airdrop_log();
+        if (os_log_type_enabled(v72, OS_LOG_TYPE_DEBUG))
         {
-          v79 = v66;
-          v72 = NSPrintF();
+          v74 = NSPrintF("%##@", v68);
           *buf = 138412546;
-          v116 = v52;
-          v117 = 2112;
-          v118 = v72;
-          _os_log_debug_impl(&_mh_execute_header, v70, OS_LOG_TYPE_DEBUG, "Coalesced node %@ represents nodes %@", buf, 0x16u);
+          v111 = v53;
+          v112 = 2112;
+          v113 = v74;
+          _os_log_debug_impl(&_mh_execute_header, v72, OS_LOG_TYPE_DEBUG, "Coalesced node %@ represents nodes %@", buf, 0x16u);
 
           selfCopy = selfCopy2;
         }
       }
 
-      v51 = v51 + 1;
+      v52 = v52 + 1;
     }
 
-    while (v104 != v51);
-    v73 = [allValues countByEnumeratingWithState:&v107 objects:v123 count:16];
-    v104 = v73;
+    while (v99 != v52);
+    v75 = [allValues countByEnumeratingWithState:&v102 objects:v118 count:16];
+    v99 = v75;
   }
 
-  while (v73);
+  while (v75);
 LABEL_108:
 
-  allValues2 = [v91 allValues];
+  allValues2 = [v86 allValues];
   coalescedNodes = selfCopy->_coalescedNodes;
   selfCopy->_coalescedNodes = allValues2;
 
-  v76 = selfCopy->_coalescedNodes;
-  v77 = v76;
+  v78 = selfCopy->_coalescedNodes;
+  v79 = v78;
 
-  return v76;
+  return v78;
 }
 
 - (id)setMappedContactIdentifier:(id)identifier relatedContactIdentifiers:(id)identifiers

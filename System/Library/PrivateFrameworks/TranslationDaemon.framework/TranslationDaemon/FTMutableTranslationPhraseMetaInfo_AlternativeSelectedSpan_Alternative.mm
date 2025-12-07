@@ -4,6 +4,9 @@
 - (int)alternative_description_index;
 - (int)selection_span_index;
 - (int)translation_phrase_index;
+- (void)setAlternative_description_index:(int)alternative_description_index;
+- (void)setSelection_span_index:(int)selection_span_index;
+- (void)setTranslation_phrase_index:(int)translation_phrase_index;
 @end
 
 @implementation FTMutableTranslationPhraseMetaInfo_AlternativeSelectedSpan_Alternative
@@ -41,6 +44,12 @@
   return intValue;
 }
 
+- (void)setAlternative_description_index:(int)alternative_description_index
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&alternative_description_index];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
+
 - (int)translation_phrase_index
 {
   v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:@"translation_phrase_index"];
@@ -49,12 +58,24 @@
   return intValue;
 }
 
+- (void)setTranslation_phrase_index:(int)translation_phrase_index
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&translation_phrase_index];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
+
 - (int)selection_span_index
 {
   v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:@"selection_span_index"];
   intValue = [v2 intValue];
 
   return intValue;
+}
+
+- (void)setSelection_span_index:(int)selection_span_index
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&selection_span_index];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 @end

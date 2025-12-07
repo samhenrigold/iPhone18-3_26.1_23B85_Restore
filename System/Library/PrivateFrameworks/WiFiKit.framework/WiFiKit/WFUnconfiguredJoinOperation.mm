@@ -74,7 +74,7 @@ LABEL_6:
 
 - (void)airPortAssistantComplete:(id)complete result:(int)result context:(id)context animated:(BOOL)animated
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   completeCopy = complete;
   contextCopy = context;
   if (result == -6723)
@@ -95,15 +95,16 @@ LABEL_10:
     {
       v13 = WFLogForCategory(0);
       v14 = OSLogForWFLogLevel(3uLL);
-      if (WFCurrentLogLevel() >= 3 && v13)
+      v15 = v14;
+      if (WFCurrentLogLevel(v14, v16) >= 3 && v13)
       {
-        v15 = v13;
-        if (os_log_type_enabled(v15, v14))
+        v17 = v13;
+        if (os_log_type_enabled(v17, v15))
         {
           configuredSSID2 = [completeCopy configuredSSID];
-          v18 = 138412290;
-          v19 = configuredSSID2;
-          _os_log_impl(&dword_273ECD000, v15, v14, "Successfully configured SSID %@", &v18, 0xCu);
+          v19 = 138412290;
+          v20 = configuredSSID2;
+          _os_log_impl(&dword_273ECD000, v17, v15, "Successfully configured SSID %@", &v19, 0xCu);
         }
       }
 
@@ -113,18 +114,17 @@ LABEL_10:
 
 LABEL_11:
   [(WFUnconfiguredJoinOperation *)self finish];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithParameters:rootViewController:.cold.1()
 {
   v0 = WFLogForCategory(0);
   v1 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v0 && os_log_type_enabled(v0, v1))
+  v2 = v1;
+  if (WFCurrentLogLevel(v1, v3) && v0 && os_log_type_enabled(v0, v2))
   {
-    *v2 = 0;
-    _os_log_impl(&dword_273ECD000, v0, v1, "Unable to create AirPortAssistantController", v2, 2u);
+    *v4 = 0;
+    _os_log_impl(&dword_273ECD000, v0, v2, "Unable to create AirPortAssistantController", v4, 2u);
   }
 }
 

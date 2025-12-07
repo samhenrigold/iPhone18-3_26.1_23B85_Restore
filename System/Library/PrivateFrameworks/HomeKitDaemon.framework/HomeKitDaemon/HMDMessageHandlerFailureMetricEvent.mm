@@ -7,16 +7,14 @@
 
 - (NSDictionary)coreAnalyticsEventDictionary
 {
-  v9[2] = *MEMORY[0x277D85DE8];
-  v8[0] = @"messageName";
+  v8[2] = *MEMORY[0x277D85DE8];
+  v7[0] = @"messageName";
   messageName = [(HMDMessageHandlerFailureMetricEvent *)self messageName];
-  v8[1] = @"failureType";
-  v9[0] = messageName;
+  v7[1] = @"failureType";
+  v8[0] = messageName;
   type = [(HMDMessageHandlerFailureMetricEvent *)self type];
-  v9[1] = type;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v8[1] = type;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
 
   return v5;
 }

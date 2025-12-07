@@ -40,19 +40,19 @@
 + (PUIImageTreatmentOptions)identity
 {
   objc_opt_self();
-  v0 = [PUIImageTreatmentOptions alloc];
-  if (v0)
+  v1 = [PUIImageTreatmentOptions alloc];
+  if (v1)
   {
-    v0 = [(PUIImageTreatmentOptions *)v0 init];
-    if (v0)
+    v1 = [(PUIImageTreatmentOptions *)v1 init];
+    if (v1)
     {
       __asm { FMOV            V0.2D, #1.0 }
 
-      *&v0->_originalScale = _Q0;
+      *&v1->_originalScale = _Q0;
     }
   }
 
-  return v0;
+  return v1;
 }
 
 - (id)copyWithZone:(_NSZone *)zone

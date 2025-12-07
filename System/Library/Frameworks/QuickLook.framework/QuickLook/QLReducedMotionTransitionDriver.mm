@@ -13,7 +13,7 @@
   [destinationView setAlpha:v4];
 
   v7 = MEMORY[0x277D75D18];
-  [(QLTransitionDriver *)self duration];
+  objc_msgSend_duration(self);
   v8[0] = MEMORY[0x277D85DD0];
   v8[1] = 3221225472;
   v8[2] = __52__QLReducedMotionTransitionDriver_animateTransition__block_invoke;

@@ -9,17 +9,17 @@
 + (uint64_t)hapErrorWithCode:()HAPError;
 + (uint64_t)hapErrorWithCode:()HAPError marker:;
 - (uint64_t)isHAPError;
-- (uint64_t)isHAPOperationDelayed;
+- (void)isHAPOperationDelayed;
 @end
 
 @implementation NSError(HAPError)
 
-- (uint64_t)isHAPOperationDelayed
+- (void)isHAPOperationDelayed
 {
   result = [self isHAPError];
   if (result)
   {
-    return [self code] == 40;
+    return ([self code] == 40);
   }
 
   return result;
@@ -242,12 +242,13 @@
 
 + (id)errorWithOSStatus:()HAPError
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   if (a3)
   {
+    v3 = a3;
     v4 = objc_alloc(MEMORY[0x277CCA9B8]);
     v5 = *MEMORY[0x277CCA590];
-    v13 = *MEMORY[0x277CCA450];
+    v12 = *MEMORY[0x277CCA450];
     v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:DebugGetErrorString()];
     v7 = v6;
     v8 = @"?";
@@ -256,17 +257,15 @@
       v8 = v6;
     }
 
-    v14[0] = v8;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
-    v10 = [v4 initWithDomain:v5 code:a3 userInfo:v9];
+    v13[0] = v8;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v10 = [v4 initWithDomain:v5 code:v3 userInfo:v9];
   }
 
   else
   {
     v10 = 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

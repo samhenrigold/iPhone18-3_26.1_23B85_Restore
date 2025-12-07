@@ -91,7 +91,7 @@ LABEL_72:
   v19 = sourceFrame5;
   if (sourceFrame5)
   {
-    [sourceFrame5 presentationTimeStamp];
+    objc_msgSend_presentationTimeStamp(sourceFrame5);
   }
 
   else
@@ -139,7 +139,7 @@ LABEL_80:
       v29 = previousFrame4;
       if (previousFrame4)
       {
-        [previousFrame4 presentationTimeStamp];
+        objc_msgSend_presentationTimeStamp(previousFrame4);
       }
 
       else
@@ -188,7 +188,7 @@ LABEL_17:
     v38 = nextFrame4;
     if (nextFrame4)
     {
-      [nextFrame4 presentationTimeStamp];
+      objc_msgSend_presentationTimeStamp(nextFrame4);
     }
 
     else
@@ -620,7 +620,7 @@ LABEL_31:
   self->_prevIndex = 1;
   v8 = 2;
 LABEL_10:
-  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_0_0(732311268);
   v26 = [[MotionBlurEngine alloc] initWithWidth:self->_frameWidth height:self->_frameHeight vsaPipeMode:v8];
   motionBlurEngine = self->_motionBlurEngine;
   self->_motionBlurEngine = v26;
@@ -639,7 +639,7 @@ LABEL_28:
     goto LABEL_30;
   }
 
-  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_0_0(732311664);
   if (!self->_usePrecomputedFlow)
   {
     [(OpticalFlowProcessor *)self->_opticalFlowProcessor setStreamingMode:1];

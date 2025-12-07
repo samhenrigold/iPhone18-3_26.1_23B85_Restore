@@ -141,7 +141,6 @@
     xpc_dictionary_set_uint64(xdict, "intF", internalFlags);
   }
 
-  remoteDevice = self->_remoteDevice;
   CUXPCEncodeObject();
   useCase = self->_useCase;
   if (useCase)
@@ -149,7 +148,6 @@
     xpc_dictionary_set_uint64(xdict, "ucas", useCase);
   }
 
-  useCaseClientIDs = self->_useCaseClientIDs;
   CUXPCEncodeNSArrayOfNSString();
   if (self->_airdropFlags)
   {
@@ -159,22 +157,22 @@
   airdropTempAuthTagData = self->_airdropTempAuthTagData;
   if (airdropTempAuthTagData)
   {
-    v12 = airdropTempAuthTagData;
-    v13 = xdict;
-    bytes = [(NSData *)v12 bytes];
+    v10 = airdropTempAuthTagData;
+    v11 = xdict;
+    bytes = [(NSData *)v10 bytes];
     if (bytes)
     {
-      v15 = bytes;
+      v13 = bytes;
     }
 
     else
     {
-      v15 = "";
+      v13 = "";
     }
 
-    v16 = [(NSData *)v12 length];
+    v14 = [(NSData *)v10 length];
 
-    xpc_dictionary_set_data(v13, "adTa", v15, v16);
+    xpc_dictionary_set_data(v11, "adTa", v13, v14);
   }
 
   if (self->_airdropModel)
@@ -215,22 +213,22 @@
   airplaySourceAuthTagData = self->_airplaySourceAuthTagData;
   if (airplaySourceAuthTagData)
   {
-    v18 = airplaySourceAuthTagData;
-    v19 = xdict;
-    bytes2 = [(NSData *)v18 bytes];
+    v16 = airplaySourceAuthTagData;
+    v17 = xdict;
+    bytes2 = [(NSData *)v16 bytes];
     if (bytes2)
     {
-      v21 = bytes2;
+      v19 = bytes2;
     }
 
     else
     {
-      v21 = "";
+      v19 = "";
     }
 
-    v22 = [(NSData *)v18 length];
+    v20 = [(NSData *)v16 length];
 
-    xpc_dictionary_set_data(v19, "apAT", v21, v22);
+    xpc_dictionary_set_data(v17, "apAT", v19, v20);
   }
 
   if (self->_airplaySourceFlags)
@@ -241,22 +239,22 @@
   airplaySourceUWBConfigData = self->_airplaySourceUWBConfigData;
   if (airplaySourceUWBConfigData)
   {
-    v24 = airplaySourceUWBConfigData;
-    v25 = xdict;
-    bytes3 = [(NSData *)v24 bytes];
+    v22 = airplaySourceUWBConfigData;
+    v23 = xdict;
+    bytes3 = [(NSData *)v22 bytes];
     if (bytes3)
     {
-      v27 = bytes3;
+      v25 = bytes3;
     }
 
     else
     {
-      v27 = "";
+      v25 = "";
     }
 
-    v28 = [(NSData *)v24 length];
+    v26 = [(NSData *)v22 length];
 
-    xpc_dictionary_set_data(v25, "apUW", v27, v28);
+    xpc_dictionary_set_data(v23, "apUW", v25, v26);
   }
 
   if (self->_airplayTargetConfigSeed)
@@ -313,22 +311,22 @@
   fidoPayloadData = self->_fidoPayloadData;
   if (fidoPayloadData)
   {
-    v31 = fidoPayloadData;
-    v32 = xdict;
-    bytes4 = [(NSData *)v31 bytes];
+    v29 = fidoPayloadData;
+    v30 = xdict;
+    bytes4 = [(NSData *)v29 bytes];
     if (bytes4)
     {
-      v34 = bytes4;
+      v32 = bytes4;
     }
 
     else
     {
-      v34 = "";
+      v32 = "";
     }
 
-    v35 = [(NSData *)v31 length];
+    v33 = [(NSData *)v29 length];
 
-    xpc_dictionary_set_data(v32, "fdPD", v34, v35);
+    xpc_dictionary_set_data(v30, "fdPD", v32, v33);
   }
 
   if (self->_heySiriConfidence)
@@ -364,22 +362,22 @@
   nearbyActionAuthTagData = self->_nearbyActionAuthTagData;
   if (nearbyActionAuthTagData)
   {
-    v37 = nearbyActionAuthTagData;
-    v38 = xdict;
-    bytes5 = [(NSData *)v37 bytes];
+    v35 = nearbyActionAuthTagData;
+    v36 = xdict;
+    bytes5 = [(NSData *)v35 bytes];
     if (bytes5)
     {
-      v40 = bytes5;
+      v38 = bytes5;
     }
 
     else
     {
-      v40 = "";
+      v38 = "";
     }
 
-    v41 = [(NSData *)v37 length];
+    v39 = [(NSData *)v35 length];
 
-    xpc_dictionary_set_data(v38, "nbAT", v40, v41);
+    xpc_dictionary_set_data(v36, "nbAT", v38, v39);
   }
 
   if (self->_nearbyActionColorCode)
@@ -390,22 +388,22 @@
   nearbyActionExtraData = self->_nearbyActionExtraData;
   if (nearbyActionExtraData)
   {
-    v43 = nearbyActionExtraData;
-    v44 = xdict;
-    bytes6 = [(NSData *)v43 bytes];
+    v41 = nearbyActionExtraData;
+    v42 = xdict;
+    bytes6 = [(NSData *)v41 bytes];
     if (bytes6)
     {
-      v46 = bytes6;
+      v44 = bytes6;
     }
 
     else
     {
-      v46 = "";
+      v44 = "";
     }
 
-    v47 = [(NSData *)v43 length];
+    v45 = [(NSData *)v41 length];
 
-    xpc_dictionary_set_data(v44, "naED", v46, v47);
+    xpc_dictionary_set_data(v42, "naED", v44, v45);
   }
 
   nearbyActionFlags = self->_nearbyActionFlags;
@@ -417,22 +415,22 @@
   nearbyActionTargetData = self->_nearbyActionTargetData;
   if (nearbyActionTargetData)
   {
-    v50 = nearbyActionTargetData;
-    v51 = xdict;
-    bytes7 = [(NSData *)v50 bytes];
+    v48 = nearbyActionTargetData;
+    v49 = xdict;
+    bytes7 = [(NSData *)v48 bytes];
     if (bytes7)
     {
-      v53 = bytes7;
+      v51 = bytes7;
     }
 
     else
     {
-      v53 = "";
+      v51 = "";
     }
 
-    v54 = [(NSData *)v50 length];
+    v52 = [(NSData *)v48 length];
 
-    xpc_dictionary_set_data(v51, "nbTg", v53, v54);
+    xpc_dictionary_set_data(v49, "nbTg", v51, v52);
   }
 
   if (self->_nearbyActionType)
@@ -449,22 +447,22 @@
   nearbyActionV2TargetData = self->_nearbyActionV2TargetData;
   if (nearbyActionV2TargetData)
   {
-    v57 = nearbyActionV2TargetData;
-    v58 = xdict;
-    bytes8 = [(NSData *)v57 bytes];
+    v55 = nearbyActionV2TargetData;
+    v56 = xdict;
+    bytes8 = [(NSData *)v55 bytes];
     if (bytes8)
     {
-      v60 = bytes8;
+      v58 = bytes8;
     }
 
     else
     {
-      v60 = "";
+      v58 = "";
     }
 
-    v61 = [(NSData *)v57 length];
+    v59 = [(NSData *)v55 length];
 
-    xpc_dictionary_set_data(v58, "n2Tg", v60, v61);
+    xpc_dictionary_set_data(v56, "n2Tg", v58, v59);
   }
 
   if (self->_nearbyActionV2Type)
@@ -507,43 +505,43 @@
   nearbyInfoV2AuthTagData = self->_nearbyInfoV2AuthTagData;
   if (nearbyInfoV2AuthTagData)
   {
-    v65 = nearbyInfoV2AuthTagData;
-    v66 = xdict;
-    bytes9 = [(NSData *)v65 bytes];
+    v63 = nearbyInfoV2AuthTagData;
+    v64 = xdict;
+    bytes9 = [(NSData *)v63 bytes];
     if (bytes9)
     {
-      v68 = bytes9;
+      v66 = bytes9;
     }
 
     else
     {
-      v68 = "";
+      v66 = "";
     }
 
-    v69 = [(NSData *)v65 length];
+    v67 = [(NSData *)v63 length];
 
-    xpc_dictionary_set_data(v66, "nb2A", v68, v69);
+    xpc_dictionary_set_data(v64, "nb2A", v66, v67);
   }
 
   nearbyInfoV2AuthIntegrityTagData = self->_nearbyInfoV2AuthIntegrityTagData;
   if (nearbyInfoV2AuthIntegrityTagData)
   {
-    v71 = nearbyInfoV2AuthIntegrityTagData;
-    v72 = xdict;
-    bytes10 = [(NSData *)v71 bytes];
+    v69 = nearbyInfoV2AuthIntegrityTagData;
+    v70 = xdict;
+    bytes10 = [(NSData *)v69 bytes];
     if (bytes10)
     {
-      v74 = bytes10;
+      v72 = bytes10;
     }
 
     else
     {
-      v74 = "";
+      v72 = "";
     }
 
-    v75 = [(NSData *)v71 length];
+    v73 = [(NSData *)v69 length];
 
-    xpc_dictionary_set_data(v72, "nb2Ai", v74, v75);
+    xpc_dictionary_set_data(v70, "nb2Ai", v72, v73);
   }
 
   if (self->_nearbyInfoV2InvitationCounter)
@@ -564,43 +562,43 @@
   nearbyInfoV2NearbyFaceTimeData = self->_nearbyInfoV2NearbyFaceTimeData;
   if (nearbyInfoV2NearbyFaceTimeData)
   {
-    v77 = nearbyInfoV2NearbyFaceTimeData;
-    v78 = xdict;
-    bytes11 = [(NSData *)v77 bytes];
+    v75 = nearbyInfoV2NearbyFaceTimeData;
+    v76 = xdict;
+    bytes11 = [(NSData *)v75 bytes];
     if (bytes11)
     {
-      v80 = bytes11;
+      v78 = bytes11;
     }
 
     else
     {
-      v80 = "";
+      v78 = "";
     }
 
-    v81 = [(NSData *)v77 length];
+    v79 = [(NSData *)v75 length];
 
-    xpc_dictionary_set_data(v78, "nb2FT", v80, v81);
+    xpc_dictionary_set_data(v76, "nb2FT", v78, v79);
   }
 
   proximityServicePayload = self->_proximityServicePayload;
   if (proximityServicePayload)
   {
-    v83 = proximityServicePayload;
-    v84 = xdict;
-    bytes12 = [(NSData *)v83 bytes];
+    v81 = proximityServicePayload;
+    v82 = xdict;
+    bytes12 = [(NSData *)v81 bytes];
     if (bytes12)
     {
-      v86 = bytes12;
+      v84 = bytes12;
     }
 
     else
     {
-      v86 = "";
+      v84 = "";
     }
 
-    v87 = [(NSData *)v83 length];
+    v85 = [(NSData *)v81 length];
 
-    xpc_dictionary_set_data(v84, "pxSP", v86, v87);
+    xpc_dictionary_set_data(v82, "pxSP", v84, v85);
   }
 
   if (self->_proximityServiceSubType)
@@ -611,64 +609,64 @@
   safetyAlertsAlertData = self->_safetyAlertsAlertData;
   if (safetyAlertsAlertData)
   {
-    v89 = safetyAlertsAlertData;
-    v90 = xdict;
-    bytes13 = [(NSData *)v89 bytes];
+    v87 = safetyAlertsAlertData;
+    v88 = xdict;
+    bytes13 = [(NSData *)v87 bytes];
     if (bytes13)
     {
-      v92 = bytes13;
+      v90 = bytes13;
     }
 
     else
     {
-      v92 = "";
+      v90 = "";
     }
 
-    v93 = [(NSData *)v89 length];
+    v91 = [(NSData *)v87 length];
 
-    xpc_dictionary_set_data(v90, "saAd", v92, v93);
+    xpc_dictionary_set_data(v88, "saAd", v90, v91);
   }
 
   safetyAlertsAlertID = self->_safetyAlertsAlertID;
   if (safetyAlertsAlertID)
   {
-    v95 = safetyAlertsAlertID;
-    v96 = xdict;
-    bytes14 = [(NSData *)v95 bytes];
+    v93 = safetyAlertsAlertID;
+    v94 = xdict;
+    bytes14 = [(NSData *)v93 bytes];
     if (bytes14)
     {
-      v98 = bytes14;
+      v96 = bytes14;
     }
 
     else
     {
-      v98 = "";
+      v96 = "";
     }
 
-    v99 = [(NSData *)v95 length];
+    v97 = [(NSData *)v93 length];
 
-    xpc_dictionary_set_data(v96, "saAi", v98, v99);
+    xpc_dictionary_set_data(v94, "saAi", v96, v97);
   }
 
   safetyAlertsSignature = self->_safetyAlertsSignature;
   if (safetyAlertsSignature)
   {
-    v101 = safetyAlertsSignature;
-    v102 = xdict;
-    bytes15 = [(NSData *)v101 bytes];
+    v99 = safetyAlertsSignature;
+    v100 = xdict;
+    bytes15 = [(NSData *)v99 bytes];
     if (bytes15)
     {
-      v104 = bytes15;
+      v102 = bytes15;
     }
 
     else
     {
-      v104 = "";
+      v102 = "";
     }
 
-    v105 = [(NSData *)v101 length];
+    v103 = [(NSData *)v99 length];
 
-    xpc_dictionary_set_data(v102, "saSg", v104, v105);
+    xpc_dictionary_set_data(v100, "saSg", v102, v103);
   }
 
   if (self->_safetyAlertsVersion)
@@ -681,27 +679,26 @@
     xpc_dictionary_set_uint64(xdict, "suA", self->_softwareUpdateActionType);
   }
 
-  softwareUpdateDataArray = self->_softwareUpdateDataArray;
   CUXPCEncodeNSArrayOfNSData();
   watchSetupData = self->_watchSetupData;
   if (watchSetupData)
   {
-    v108 = watchSetupData;
-    v109 = xdict;
-    bytes16 = [(NSData *)v108 bytes];
+    v105 = watchSetupData;
+    v106 = xdict;
+    bytes16 = [(NSData *)v105 bytes];
     if (bytes16)
     {
-      v111 = bytes16;
+      v108 = bytes16;
     }
 
     else
     {
-      v111 = "";
+      v108 = "";
     }
 
-    v112 = [(NSData *)v108 length];
+    v109 = [(NSData *)v105 length];
 
-    xpc_dictionary_set_data(v109, "wsDa", v111, v112);
+    xpc_dictionary_set_data(v106, "wsDa", v108, v109);
   }
 
   if (self->_nearbyActionNoWakeType)
@@ -717,85 +714,90 @@
   nearbyActionNoWakeAuthTagData = self->_nearbyActionNoWakeAuthTagData;
   if (nearbyActionNoWakeAuthTagData)
   {
-    v114 = nearbyActionNoWakeAuthTagData;
-    v115 = xdict;
-    bytes17 = [(NSData *)v114 bytes];
+    v111 = nearbyActionNoWakeAuthTagData;
+    v112 = xdict;
+    bytes17 = [(NSData *)v111 bytes];
     if (bytes17)
     {
-      v117 = bytes17;
+      v114 = bytes17;
     }
 
     else
     {
-      v117 = "";
+      v114 = "";
     }
 
-    v118 = [(NSData *)v114 length];
+    v115 = [(NSData *)v111 length];
 
-    xpc_dictionary_set_data(v115, "nawA", v117, v118);
+    xpc_dictionary_set_data(v112, "nawA", v114, v115);
   }
 
   nearbyActionNoWakeConfigData = self->_nearbyActionNoWakeConfigData;
-  v120 = xdict;
+  v117 = xdict;
   if (nearbyActionNoWakeConfigData)
   {
-    v121 = nearbyActionNoWakeConfigData;
-    v122 = xdict;
-    bytes18 = [(NSData *)v121 bytes];
+    v118 = nearbyActionNoWakeConfigData;
+    v119 = xdict;
+    bytes18 = [(NSData *)v118 bytes];
     if (bytes18)
     {
-      v124 = bytes18;
+      v121 = bytes18;
     }
 
     else
     {
-      v124 = "";
+      v121 = "";
     }
 
-    v125 = [(NSData *)v121 length];
+    v122 = [(NSData *)v118 length];
 
-    xpc_dictionary_set_data(v122, "nawC", v124, v125);
-    v120 = xdict;
+    xpc_dictionary_set_data(v119, "nawC", v121, v122);
+    v117 = xdict;
   }
 
-  MEMORY[0x1EEE66BB8](nearbyActionNoWakeConfigData, v120);
+  MEMORY[0x1EEE66BB8](nearbyActionNoWakeConfigData, v117);
 }
 
 - (id)descriptionWithLevel:(int)level
 {
-  NSAppendPrintF_safe();
-  v4 = 0;
+  v261 = 0;
+  NSAppendPrintF_safe(&v261, "CBAdvertiser", *&level);
+  v4 = v261;
   v5 = self->_label;
+  v6 = v5;
   if (v5)
   {
-    NSAppendPrintF_safe();
-    v6 = v4;
+    v260 = v4;
+    NSAppendPrintF_safe(&v260, "-%@", v5);
+    v7 = v260;
 
-    v4 = v6;
+    v4 = v7;
   }
 
-  clientID = self->_clientID;
-  NSAppendPrintF_safe();
-  v7 = v4;
+  v259 = v4;
+  NSAppendPrintF_safe(&v259, ", CID 0x%X", self->_clientID);
+  v8 = v259;
 
   if (self->_direct)
   {
-    NSAppendPrintF_safe();
-    v8 = v7;
+    v258 = v8;
+    NSAppendPrintF_safe(&v258, ", direct");
+    v9 = v258;
 
-    v7 = v8;
+    v8 = v9;
   }
 
   advertiseRate = self->_advertiseRate;
   if (advertiseRate)
   {
+    v257 = v8;
     if (advertiseRate <= 39)
     {
       if (advertiseRate > 19)
       {
         if (advertiseRate == 20)
         {
-          v10 = "350 ms";
+          v11 = "350 ms";
           goto LABEL_26;
         }
       }
@@ -804,13 +806,13 @@
       {
         if (advertiseRate == 10)
         {
-          v10 = "2 seconds";
+          v11 = "2 seconds";
           goto LABEL_26;
         }
 
         if (advertiseRate == 15)
         {
-          v10 = "1022.5 ms";
+          v11 = "1022.5 ms";
           goto LABEL_26;
         }
       }
@@ -820,13 +822,13 @@
     {
       if (advertiseRate == 40)
       {
-        v10 = "181.25 ms";
+        v11 = "181.25 ms";
         goto LABEL_26;
       }
 
       if (advertiseRate == 42)
       {
-        v10 = "120 ms";
+        v11 = "120 ms";
         goto LABEL_26;
       }
     }
@@ -836,724 +838,850 @@
       switch(advertiseRate)
       {
         case '-':
-          v10 = "60 ms";
+          v11 = "60 ms";
           goto LABEL_26;
         case '2':
-          v10 = "30 ms";
+          v11 = "30 ms";
           goto LABEL_26;
         case '<':
-          v10 = "20 ms";
+          v11 = "20 ms";
 LABEL_26:
-          clientID = v10;
-          NSAppendPrintF_safe();
-          v11 = v7;
+          NSAppendPrintF_safe(&v257, ", advR %s", v11);
+          v12 = v257;
 
-          v7 = v11;
+          v8 = v12;
           goto LABEL_27;
       }
     }
 
-    v10 = "270 ms";
+    v11 = "270 ms";
     goto LABEL_26;
   }
 
 LABEL_27:
-  v12 = self->_advertisingAddressDataConnectable;
-  if (v12)
+  v13 = self->_advertisingAddressDataConnectable;
+  if (v13)
   {
-    clientID = CUPrintNSDataAddress();
-    NSAppendPrintF_safe();
-    v13 = v7;
+    v256 = v8;
+    v14 = CUPrintNSDataAddress();
+    NSAppendPrintF_safe(&v256, ", CA %@", v14);
+    v15 = v256;
 
-    v7 = v13;
+    v8 = v15;
   }
 
-  v14 = self->_advertisingAddressDataNonConnectable;
-  if (v14)
-  {
-    clientID = CUPrintNSDataAddress();
-    NSAppendPrintF_safe();
-    v15 = v7;
-
-    v7 = v15;
-  }
-
-  v16 = self->_advertisingAddressDataNonConnectableSecondary;
+  v16 = self->_advertisingAddressDataNonConnectable;
   if (v16)
   {
-    clientID = CUPrintNSDataAddress();
-    NSAppendPrintF_safe();
-    v17 = v7;
+    v255 = v8;
+    v17 = CUPrintNSDataAddress();
+    NSAppendPrintF_safe(&v255, ", NA %@", v17);
+    v18 = v255;
 
-    v7 = v17;
+    v8 = v18;
   }
 
-  v18 = self->_remoteDevice;
-  v19 = v18;
-  if (v18)
+  v19 = self->_advertisingAddressDataNonConnectableSecondary;
+  if (v19)
   {
-    clientID = v18;
-    NSAppendPrintF_safe();
-    v20 = v7;
+    v254 = v8;
+    v20 = CUPrintNSDataAddress();
+    NSAppendPrintF_safe(&v254, ", NA2nd %@", v20);
+    v21 = v254;
 
-    v7 = v20;
+    v8 = v21;
+  }
+
+  v22 = self->_remoteDevice;
+  v23 = v22;
+  if (v22)
+  {
+    v253 = v8;
+    NSAppendPrintF_safe(&v253, ", Remote %@", v22);
+    v24 = v253;
+
+    v8 = v24;
   }
 
   useCase = self->_useCase;
   if (useCase)
   {
-    clientID = CBUseCaseToString(useCase);
-    NSAppendPrintF_safe();
-    v22 = v7;
+    v26 = CBUseCaseToString(useCase);
+    v252 = v8;
+    NSAppendPrintF_safe(&v252, ", ucas %s", v26);
+    v27 = v252;
 
-    v7 = v22;
+    v8 = v27;
   }
 
-  v23 = self->_useCaseClientIDs;
-  if (v23)
+  v28 = self->_useCaseClientIDs;
+  if (v28)
   {
-    clientID = CUPrintNSObjectOneLine();
-    NSAppendPrintF_safe();
-    v24 = v7;
+    v251 = v8;
+    v29 = CUPrintNSObjectOneLine();
+    NSAppendPrintF_safe(&v251, ", ucid %@", v29);
+    v30 = v251;
 
-    v7 = v24;
+    v8 = v30;
   }
 
   if (self->_airdropFlags)
   {
-    clientID = CUPrintFlags32();
-    NSAppendPrintF_safe();
-    v25 = v7;
+    v250 = v8;
+    v31 = CUPrintFlags32();
+    NSAppendPrintF_safe(&v250, ", adFl %@", v31);
+    v32 = v250;
 
-    v7 = v25;
+    v8 = v32;
   }
 
-  v26 = self->_airdropTempAuthTagData;
-  if (v26)
+  v33 = self->_airdropTempAuthTagData;
+  if (v33)
   {
-    clientID = CUPrintNSDataHex();
-    NSAppendPrintF_safe();
-    v27 = v7;
+    v249 = v8;
+    v34 = CUPrintNSDataHex();
+    NSAppendPrintF_safe(&v249, ", adTa <%@>", v34);
+    v35 = v249;
 
-    v7 = v27;
+    v8 = v35;
   }
 
+  airdropModel = self->_airdropModel;
   if (self->_airdropModel)
   {
-    clientID = self->_airdropModel;
-    NSAppendPrintF_safe();
-    v28 = v7;
+    v248 = v8;
+    NSAppendPrintF_safe(&v248, ", adMl %d", airdropModel);
+    v37 = v248;
 
-    v7 = v28;
+    v8 = v37;
   }
 
+  airdropVersion = self->_airdropVersion;
   if (self->_airdropVersion)
   {
-    clientID = self->_airdropVersion;
-    NSAppendPrintF_safe();
-    v29 = v7;
+    v247 = v8;
+    NSAppendPrintF_safe(&v247, ", adVs %d", airdropVersion);
+    v39 = v247;
 
-    v7 = v29;
+    v8 = v39;
   }
 
+  airdropHash1 = self->_airdropHash1;
   if (self->_airdropHash1)
   {
-    clientID = self->_airdropHash1;
-    NSAppendPrintF_safe();
-    v30 = v7;
+    v246 = v8;
+    NSAppendPrintF_safe(&v246, ", adH1 0x%04X", airdropHash1);
+    v41 = v246;
 
-    v7 = v30;
+    v8 = v41;
   }
 
+  airdropHash2 = self->_airdropHash2;
   if (self->_airdropHash2)
   {
-    clientID = self->_airdropHash2;
-    NSAppendPrintF_safe();
-    v31 = v7;
+    v245 = v8;
+    NSAppendPrintF_safe(&v245, ", adH2 0x%04X", airdropHash2);
+    v43 = v245;
 
-    v7 = v31;
+    v8 = v43;
   }
 
+  airdropHash3 = self->_airdropHash3;
   if (self->_airdropHash3)
   {
-    clientID = self->_airdropHash3;
-    NSAppendPrintF_safe();
-    v32 = v7;
+    v244 = v8;
+    NSAppendPrintF_safe(&v244, ", adH3 0x%04X", airdropHash3);
+    v45 = v244;
 
-    v7 = v32;
+    v8 = v45;
   }
 
+  airdropHash4 = self->_airdropHash4;
   if (self->_airdropHash4)
   {
-    clientID = self->_airdropHash4;
-    NSAppendPrintF_safe();
-    v33 = v7;
+    v243 = v8;
+    NSAppendPrintF_safe(&v243, ", adH4 0x%04X", airdropHash4);
+    v47 = v243;
 
-    v7 = v33;
+    v8 = v47;
   }
 
   if (self->_airdropConfigData)
   {
-    clientID = CUPrintFlags32();
-    NSAppendPrintF_safe();
-    v34 = v7;
+    v242 = v8;
+    v48 = CUPrintFlags32();
+    NSAppendPrintF_safe(&v242, ", adCd %@", v48);
+    v49 = v242;
 
-    v7 = v34;
+    v8 = v49;
   }
 
-  v35 = self->_airplaySourceAuthTagData;
-  if (v35)
+  v50 = self->_airplaySourceAuthTagData;
+  if (v50)
   {
-    clientID = CUPrintNSDataHex();
-    NSAppendPrintF_safe();
-    v36 = v7;
+    v241 = v8;
+    v51 = CUPrintNSDataHex();
+    NSAppendPrintF_safe(&v241, ", apAT %@", v51);
+    v52 = v241;
 
-    v7 = v36;
+    v8 = v52;
   }
 
   if (self->_airplaySourceFlags)
   {
-    clientID = CUPrintFlags32();
-    NSAppendPrintF_safe();
-    v37 = v7;
+    v240 = v8;
+    v53 = CUPrintFlags32();
+    NSAppendPrintF_safe(&v240, ", apSF %@", v53);
+    v54 = v240;
 
-    v7 = v37;
+    v8 = v54;
   }
 
-  v38 = self->_airplaySourceUWBConfigData;
-  if (v38)
+  v55 = self->_airplaySourceUWBConfigData;
+  if (v55)
   {
-    clientID = CUPrintNSDataHex();
-    NSAppendPrintF_safe();
-    v39 = v7;
+    v239 = v8;
+    v56 = CUPrintNSDataHex();
+    NSAppendPrintF_safe(&v239, ", apUW %@", v56);
+    v57 = v239;
 
-    v7 = v39;
+    v8 = v57;
   }
 
+  airplayTargetConfigSeed = self->_airplayTargetConfigSeed;
   if (self->_airplayTargetConfigSeed)
   {
-    clientID = self->_airplayTargetConfigSeed;
-    NSAppendPrintF_safe();
-    v40 = v7;
+    v238 = v8;
+    NSAppendPrintF_safe(&v238, ", apCS %u", airplayTargetConfigSeed);
+    v59 = v238;
 
-    v7 = v40;
+    v8 = v59;
   }
 
   if (self->_airplayTargetFlags)
   {
-    clientID = CUPrintFlags32();
-    NSAppendPrintF_safe();
-    v41 = v7;
+    v237 = v8;
+    v60 = CUPrintFlags32();
+    NSAppendPrintF_safe(&v237, ", apTF %@", v60);
+    v61 = v237;
 
-    v7 = v41;
+    v8 = v61;
   }
 
   if (self->_airplayTargetIPv4)
   {
-    clientID = CUPrintAddress();
-    NSAppendPrintF_safe();
-    v42 = v7;
+    v235 = v8;
+    v62 = CUPrintAddress();
+    NSAppendPrintF_safe(&v235, ", apTI %@", v62);
+    v63 = v235;
 
-    v7 = v42;
+    v8 = v63;
   }
 
+  airplayTargetPort = self->_airplayTargetPort;
   if (self->_airplayTargetPort)
   {
-    clientID = self->_airplayTargetPort;
-    NSAppendPrintF_safe();
-    v43 = v7;
+    v234 = v8;
+    NSAppendPrintF_safe(&v234, ", apTP %u", airplayTargetPort);
+    v65 = v234;
 
-    v7 = v43;
+    v8 = v65;
   }
 
   if (self->_dsActionFlags)
   {
-    clientID = CUPrintFlags32();
-    NSAppendPrintF_safe();
-    v44 = v7;
+    v233 = v8;
+    v66 = CUPrintFlags32();
+    NSAppendPrintF_safe(&v233, ", dsAF %@", v66);
+    v67 = v233;
 
-    v7 = v44;
+    v8 = v67;
   }
 
+  dsActionMeasuredPower = self->_dsActionMeasuredPower;
   if (self->_dsActionMeasuredPower)
   {
-    clientID = self->_dsActionMeasuredPower;
-    NSAppendPrintF_safe();
-    v45 = v7;
+    v232 = v8;
+    NSAppendPrintF_safe(&v232, ", dsAP %d", dsActionMeasuredPower);
+    v69 = v232;
 
-    v7 = v45;
+    v8 = v69;
   }
 
+  dsActionTieBreaker = self->_dsActionTieBreaker;
   if (self->_dsActionTieBreaker)
   {
-    clientID = self->_dsActionTieBreaker;
-    NSAppendPrintF_safe();
-    v46 = v7;
+    v231 = v8;
+    NSAppendPrintF_safe(&v231, ", dsAT 0x%02X", dsActionTieBreaker);
+    v71 = v231;
 
-    v7 = v46;
+    v8 = v71;
   }
 
   if (self->_dsInfoVehicleConfidence)
   {
-    [(CBAdvertiser *)self dsInfoVehicleConfidence];
-    NSAppendPrintF_safe();
-    v47 = v7;
+    v230 = v8;
+    NSAppendPrintF_safe(&v230, ", dsVC %u", [(CBAdvertiser *)self dsInfoVehicleConfidence]);
+    v72 = v230;
 
-    v7 = v47;
+    v8 = v72;
   }
 
   if (self->_dsInfoVehicleState)
   {
+    v229 = v8;
     dsInfoVehicleState = [(CBAdvertiser *)self dsInfoVehicleState];
-    if (dsInfoVehicleState <= 2)
+    if (dsInfoVehicleState > 2)
     {
-      v49 = off_1E811DDD8[dsInfoVehicleState];
+      v74 = "?";
     }
 
-    NSAppendPrintF_safe();
-    v50 = v7;
+    else
+    {
+      v74 = off_1E811DDD8[dsInfoVehicleState];
+    }
 
-    v7 = v50;
+    NSAppendPrintF_safe(&v229, ", dsVS %s", v74);
+    v75 = v229;
+
+    v8 = v75;
   }
 
   if (self->_enableEPAForLEAdvertisement)
   {
-    NSAppendPrintF_safe();
-    v51 = v7;
+    v228 = v8;
+    NSAppendPrintF_safe(&v228, ", naEE %d", 1);
+    v76 = v228;
 
-    v7 = v51;
+    v8 = v76;
   }
 
-  v52 = self->_fidoPayloadData;
-  if (v52)
+  v77 = self->_fidoPayloadData;
+  if (v77)
   {
-    v127 = CUPrintNSDataHex();
-    NSAppendPrintF_safe();
-    v53 = v7;
+    v227 = v8;
+    v78 = CUPrintNSDataHex();
+    NSAppendPrintF_safe(&v227, ", fdPD %@", v78);
+    v79 = v227;
 
-    v7 = v53;
+    v8 = v79;
   }
 
+  heySiriConfidence = self->_heySiriConfidence;
   if (self->_heySiriConfidence)
   {
-    heySiriConfidence = self->_heySiriConfidence;
-    NSAppendPrintF_safe();
-    v54 = v7;
+    v226 = v8;
+    NSAppendPrintF_safe(&v226, ", hsCf %u", heySiriConfidence);
+    v81 = v226;
 
-    v7 = v54;
+    v8 = v81;
   }
 
   heySiriDeviceClass = self->_heySiriDeviceClass;
   if (self->_heySiriDeviceClass)
   {
-    if (heySiriDeviceClass <= 0xA)
+    v225 = v8;
+    if (heySiriDeviceClass > 0xA)
     {
-      v56 = off_1E811D640[heySiriDeviceClass - 1];
+      v83 = "?";
     }
 
-    NSAppendPrintF_safe();
-    v57 = v7;
+    else
+    {
+      v83 = off_1E811D640[heySiriDeviceClass - 1];
+    }
 
-    v7 = v57;
+    NSAppendPrintF_safe(&v225, ", hsDC %s", v83);
+    v84 = v225;
+
+    v8 = v84;
   }
 
+  heySiriPerceptualHash = self->_heySiriPerceptualHash;
   if (self->_heySiriPerceptualHash)
   {
-    heySiriPerceptualHash = self->_heySiriPerceptualHash;
-    NSAppendPrintF_safe();
-    v58 = v7;
+    v224 = v8;
+    NSAppendPrintF_safe(&v224, ", hsPH 0x%04X", heySiriPerceptualHash);
+    v86 = v224;
 
-    v7 = v58;
+    v8 = v86;
   }
 
   heySiriProductType = self->_heySiriProductType;
   if (self->_heySiriProductType)
   {
-    if (heySiriProductType <= 4)
+    v223 = v8;
+    if (heySiriProductType > 4)
     {
-      v60 = off_1E811D690[heySiriProductType - 1];
+      v88 = "?";
     }
 
-    NSAppendPrintF_safe();
-    v61 = v7;
+    else
+    {
+      v88 = off_1E811D690[heySiriProductType - 1];
+    }
 
-    v7 = v61;
+    NSAppendPrintF_safe(&v223, ", hsPT %s", v88);
+    v89 = v223;
+
+    v8 = v89;
   }
 
+  heySiriRandom = self->_heySiriRandom;
   if (self->_heySiriRandom)
   {
-    heySiriRandom = self->_heySiriRandom;
-    NSAppendPrintF_safe();
-    v62 = v7;
+    v222 = v8;
+    NSAppendPrintF_safe(&v222, ", hsRn 0x%02X", heySiriRandom);
+    v91 = v222;
 
-    v7 = v62;
+    v8 = v91;
   }
 
+  heySiriSNR = self->_heySiriSNR;
   if (self->_heySiriSNR)
   {
-    heySiriSNR = self->_heySiriSNR;
-    NSAppendPrintF_safe();
-    v63 = v7;
+    v221 = v8;
+    NSAppendPrintF_safe(&v221, ", hsSN %u", heySiriSNR);
+    v93 = v221;
 
-    v7 = v63;
+    v8 = v93;
   }
 
-  v64 = self->_nearbyActionAuthTagData;
-  if (v64)
+  v94 = self->_nearbyActionAuthTagData;
+  if (v94)
   {
-    v132 = CUPrintNSDataHex();
-    NSAppendPrintF_safe();
-    v65 = v7;
+    v220 = v8;
+    v95 = CUPrintNSDataHex();
+    NSAppendPrintF_safe(&v220, ", nbAT %@", v95);
+    v96 = v220;
 
-    v7 = v65;
+    v8 = v96;
   }
 
+  nearbyActionColorCode = self->_nearbyActionColorCode;
   if (self->_nearbyActionColorCode)
   {
-    nearbyActionColorCode = self->_nearbyActionColorCode;
-    NSAppendPrintF_safe();
-    v66 = v7;
+    v219 = v8;
+    NSAppendPrintF_safe(&v219, ", naCC %u", nearbyActionColorCode);
+    v98 = v219;
 
-    v7 = v66;
+    v8 = v98;
   }
 
-  v67 = self->_nearbyActionExtraData;
-  if (v67)
+  v99 = self->_nearbyActionExtraData;
+  if (v99)
   {
-    v134 = CUPrintNSDataHex();
-    NSAppendPrintF_safe();
-    v68 = v7;
+    v218 = v8;
+    v100 = CUPrintNSDataHex();
+    NSAppendPrintF_safe(&v218, ", naED %@", v100);
+    v101 = v218;
 
-    v7 = v68;
+    v8 = v101;
   }
 
   if (self->_nearbyActionFlags)
   {
-    v135 = CUPrintFlags32();
-    NSAppendPrintF_safe();
-    v69 = v7;
+    v217 = v8;
+    v102 = CUPrintFlags32();
+    NSAppendPrintF_safe(&v217, ", nbAF %@", v102);
+    v103 = v217;
 
-    v7 = v69;
+    v8 = v103;
   }
 
   nearbyActionType = self->_nearbyActionType;
   if (self->_nearbyActionType)
   {
-    if (nearbyActionType <= 0x5F)
+    v216 = v8;
+    if (nearbyActionType > 0x5F)
     {
-      v71 = off_1E811D6B0[nearbyActionType - 1];
+      v105 = "?";
     }
 
-    NSAppendPrintF_safe();
-    v72 = v7;
+    else
+    {
+      v105 = off_1E811D6B0[nearbyActionType - 1];
+    }
 
-    v7 = v72;
+    NSAppendPrintF_safe(&v216, ", nbAc %s", v105);
+    v106 = v216;
+
+    v8 = v106;
   }
 
-  v73 = self->_nearbyActionTargetData;
-  if (v73)
+  v107 = self->_nearbyActionTargetData;
+  if (v107)
   {
-    v136 = CUPrintNSDataHex();
-    NSAppendPrintF_safe();
-    v74 = v7;
+    v215 = v8;
+    v108 = CUPrintNSDataHex();
+    NSAppendPrintF_safe(&v215, ", nbTg %@", v108);
+    v109 = v215;
 
-    v7 = v74;
+    v8 = v109;
   }
 
   if (self->_nearbyActionV2Flags)
   {
-    v137 = CUPrintFlags32();
-    NSAppendPrintF_safe();
-    v75 = v7;
+    v214 = v8;
+    v110 = CUPrintFlags32();
+    NSAppendPrintF_safe(&v214, ", n2AF %@", v110);
+    v111 = v214;
 
-    v7 = v75;
+    v8 = v111;
   }
 
-  v76 = self->_nearbyActionV2TargetData;
-  if (v76)
+  v112 = self->_nearbyActionV2TargetData;
+  if (v112)
   {
-    v138 = CUPrintNSDataHex();
-    NSAppendPrintF_safe();
-    v77 = v7;
+    v213 = v8;
+    v113 = CUPrintNSDataHex();
+    NSAppendPrintF_safe(&v213, ", n2Tg %@", v113);
+    v114 = v213;
 
-    v7 = v77;
+    v8 = v114;
   }
 
   nearbyActionV2Type = self->_nearbyActionV2Type;
   if (self->_nearbyActionV2Type)
   {
-    if (nearbyActionV2Type <= 0x5F)
+    v212 = v8;
+    if (nearbyActionV2Type > 0x5F)
     {
-      v79 = off_1E811D6B0[nearbyActionV2Type - 1];
+      v116 = "?";
     }
 
-    NSAppendPrintF_safe();
-    v80 = v7;
+    else
+    {
+      v116 = off_1E811D6B0[nearbyActionV2Type - 1];
+    }
 
-    v7 = v80;
+    NSAppendPrintF_safe(&v212, ", n2Ac %s", v116);
+    v117 = v212;
+
+    v8 = v117;
   }
 
   if (self->_nearbyInfoFlags)
   {
-    v139 = CUPrintFlags32();
-    NSAppendPrintF_safe();
-    v81 = v7;
+    v211 = v8;
+    v118 = CUPrintFlags32();
+    NSAppendPrintF_safe(&v211, ", niFl %@", v118);
+    v119 = v211;
 
-    v7 = v81;
+    v8 = v119;
   }
 
-  if (self->_nearbyInfoStatusProgress != 0.0)
+  nearbyInfoStatusProgress = self->_nearbyInfoStatusProgress;
+  if (nearbyInfoStatusProgress != 0.0)
   {
-    NSAppendPrintF_safe();
-    v82 = v7;
+    v210 = v8;
+    NSAppendPrintF_safe(&v210, ", nsPr %.0f%%", nearbyInfoStatusProgress * 100.0);
+    v121 = v210;
 
-    v7 = v82;
+    v8 = v121;
   }
 
   nearbyInfoStatusTime = self->_nearbyInfoStatusTime;
   if (self->_nearbyInfoStatusTime)
   {
-    if (nearbyInfoStatusTime <= 0xE)
+    v209 = v8;
+    if (nearbyInfoStatusTime > 0xE)
     {
-      v84 = off_1E811D9A8[nearbyInfoStatusTime - 1];
+      v123 = "?";
     }
 
-    NSAppendPrintF_safe();
-    v85 = v7;
+    else
+    {
+      v123 = off_1E811D9A8[nearbyInfoStatusTime - 1];
+    }
 
-    v7 = v85;
+    NSAppendPrintF_safe(&v209, ", nsTi %s", v123);
+    v124 = v209;
+
+    v8 = v124;
   }
 
   nearbyInfoStatusType = self->_nearbyInfoStatusType;
   if (self->_nearbyInfoStatusType)
   {
-    if (nearbyInfoStatusType <= 0xD)
+    v208 = v8;
+    if (nearbyInfoStatusType > 0xD)
     {
-      v87 = off_1E811DA18[nearbyInfoStatusType - 1];
+      v126 = "?";
     }
 
-    NSAppendPrintF_safe();
-    v88 = v7;
+    else
+    {
+      v126 = off_1E811DA18[nearbyInfoStatusType - 1];
+    }
 
-    v7 = v88;
+    NSAppendPrintF_safe(&v208, ", nsTy %s", v126);
+    v127 = v208;
+
+    v8 = v127;
   }
 
   if (self->_nearbyInfoV2Flags)
   {
-    v140 = CUPrintFlags32();
-    NSAppendPrintF_safe();
-    v89 = v7;
+    v207 = v8;
+    v128 = CUPrintFlags32();
+    NSAppendPrintF_safe(&v207, ", nb2F %@", v128);
+    v129 = v207;
 
-    v7 = v89;
+    v8 = v129;
   }
 
   if (self->_nearbyInfoV2DecryptedFlags)
   {
-    v141 = CUPrintFlags32();
-    NSAppendPrintF_safe();
-    v90 = v7;
+    v206 = v8;
+    v130 = CUPrintFlags32();
+    NSAppendPrintF_safe(&v206, ", nb2E %@", v130);
+    v131 = v206;
 
-    v7 = v90;
+    v8 = v131;
   }
 
-  v91 = self->_nearbyInfoV2AuthTagData;
-  if (v91)
+  v132 = self->_nearbyInfoV2AuthTagData;
+  if (v132)
   {
-    v142 = CUPrintNSDataHex();
-    NSAppendPrintF_safe();
-    v92 = v7;
+    v205 = v8;
+    v133 = CUPrintNSDataHex();
+    NSAppendPrintF_safe(&v205, ", nb2A %@", v133);
+    v134 = v205;
 
-    v7 = v92;
+    v8 = v134;
   }
 
-  v93 = self->_nearbyInfoV2AuthIntegrityTagData;
-  if (v93)
+  v135 = self->_nearbyInfoV2AuthIntegrityTagData;
+  if (v135)
   {
-    v143 = CUPrintNSDataHex();
-    NSAppendPrintF_safe();
-    v94 = v7;
+    v204 = v8;
+    v136 = CUPrintNSDataHex();
+    NSAppendPrintF_safe(&v204, ", nb2Ai %@", v136);
+    v137 = v204;
 
-    v7 = v94;
+    v8 = v137;
   }
 
+  nearbyInfoV2InvitationCounter = self->_nearbyInfoV2InvitationCounter;
   if (self->_nearbyInfoV2InvitationCounter)
   {
-    nearbyInfoV2InvitationCounter = self->_nearbyInfoV2InvitationCounter;
-    NSAppendPrintF_safe();
-    v95 = v7;
+    v203 = v8;
+    NSAppendPrintF_safe(&v203, ", nb2Ic %u", nearbyInfoV2InvitationCounter);
+    v139 = v203;
 
-    v7 = v95;
+    v8 = v139;
   }
 
   if (self->_nearbyInfoV2InvitationTypes)
   {
-    v145 = CUPrintFlags32();
-    NSAppendPrintF_safe();
-    v96 = v7;
+    v202 = v8;
+    v140 = CUPrintFlags32();
+    NSAppendPrintF_safe(&v202, ", nb2It %@", v140);
+    v141 = v202;
 
-    v7 = v96;
+    v8 = v141;
   }
 
   nearbyInfoV2InvitationRouteType = self->_nearbyInfoV2InvitationRouteType;
   if (self->_nearbyInfoV2InvitationRouteType)
   {
-    if (nearbyInfoV2InvitationRouteType <= 0xB)
+    v201 = v8;
+    if (nearbyInfoV2InvitationRouteType > 0xB)
     {
-      v98 = off_1E811DA80[nearbyInfoV2InvitationRouteType - 1];
+      v143 = "?";
     }
 
-    NSAppendPrintF_safe();
-    v99 = v7;
+    else
+    {
+      v143 = off_1E811DA80[nearbyInfoV2InvitationRouteType - 1];
+    }
 
-    v7 = v99;
+    NSAppendPrintF_safe(&v201, ", nb2Ir %s", v143);
+    v144 = v201;
+
+    v8 = v144;
   }
 
-  v100 = self->_nearbyInfoV2NearbyFaceTimeData;
-  if (v100)
+  v145 = self->_nearbyInfoV2NearbyFaceTimeData;
+  if (v145)
   {
+    v200 = v8;
     v146 = CUPrintNSDataHex();
-    NSAppendPrintF_safe();
-    v101 = v7;
+    NSAppendPrintF_safe(&v200, ", nb2FT %@", v146);
+    v147 = v200;
 
-    v7 = v101;
+    v8 = v147;
   }
 
   if (self->_nearbyActionNoWakeType)
   {
-    self->_nearbyActionNoWakeType;
-    NSAppendPrintF_safe();
-    v102 = v7;
+    if (self->_nearbyActionNoWakeType == 1)
+    {
+      v148 = "PrecisionFinding";
+    }
 
-    v7 = v102;
+    else
+    {
+      v148 = "?";
+    }
+
+    v199 = v8;
+    NSAppendPrintF_safe(&v199, ", nawT %s", v148);
+    v149 = v199;
+
+    v8 = v149;
   }
 
-  v103 = self->_proximityServicePayload;
-  if (v103)
+  v150 = self->_proximityServicePayload;
+  if (v150)
   {
-    v157 = CUPrintNSDataHex();
-    NSAppendPrintF_safe();
-    v104 = v7;
+    v198 = v8;
+    v151 = CUPrintNSDataHex();
+    NSAppendPrintF_safe(&v198, ", %s <%@>", "pxSP", v151);
+    v152 = v198;
 
-    v7 = v104;
+    v8 = v152;
   }
 
+  proximityServiceSubType = self->_proximityServiceSubType;
   if (self->_proximityServiceSubType)
   {
-    proximityServiceSubType = self->_proximityServiceSubType;
-    NSAppendPrintF_safe();
-    v105 = v7;
+    v197 = v8;
+    NSAppendPrintF_safe(&v197, ", %s %u", "pxSS", proximityServiceSubType);
+    v154 = v197;
 
-    v7 = v105;
+    v8 = v154;
   }
 
-  v106 = self->_safetyAlertsAlertData;
-  if (v106)
+  v155 = self->_safetyAlertsAlertData;
+  if (v155)
   {
-    v147 = CUPrintNSDataHex();
-    NSAppendPrintF_safe();
-    v107 = v7;
+    v196 = v8;
+    v156 = CUPrintNSDataHex();
+    NSAppendPrintF_safe(&v196, ", saAd <%@>", v156);
+    v157 = v196;
 
-    v7 = v107;
+    v8 = v157;
   }
 
-  v108 = self->_safetyAlertsAlertID;
-  if (v108)
+  v158 = self->_safetyAlertsAlertID;
+  if (v158)
   {
-    v148 = CUPrintNSDataHex();
-    NSAppendPrintF_safe();
-    v109 = v7;
+    v195 = v8;
+    v159 = CUPrintNSDataHex();
+    NSAppendPrintF_safe(&v195, ", saAi <%@>", v159);
+    v160 = v195;
 
-    v7 = v109;
+    v8 = v160;
   }
 
-  v110 = self->_safetyAlertsSignature;
-  if (v110)
+  v161 = self->_safetyAlertsSignature;
+  if (v161)
   {
-    v149 = CUPrintNSDataHex();
-    NSAppendPrintF_safe();
-    v111 = v7;
+    v194 = v8;
+    v162 = CUPrintNSDataHex();
+    NSAppendPrintF_safe(&v194, ", saSg <%@>", v162);
+    v163 = v194;
 
-    v7 = v111;
+    v8 = v163;
   }
 
   if (self->_safetyAlertsVersion)
   {
-    self->_safetyAlertsVersion;
-    NSAppendPrintF_safe();
-    v112 = v7;
+    if (self->_safetyAlertsVersion == 1)
+    {
+      v164 = "1";
+    }
 
-    v7 = v112;
+    else
+    {
+      v164 = "?";
+    }
+
+    v193 = v8;
+    NSAppendPrintF_safe(&v193, ", saVs %s", v164);
+    v165 = v193;
+
+    v8 = v165;
   }
 
+  softwareUpdateActionType = self->_softwareUpdateActionType;
   if (self->_softwareUpdateActionType)
   {
-    softwareUpdateActionType = self->_softwareUpdateActionType;
-    NSAppendPrintF_safe();
-    v113 = v7;
+    v192 = v8;
+    NSAppendPrintF_safe(&v192, ", suA %d", softwareUpdateActionType);
+    v167 = v192;
 
-    v7 = v113;
+    v8 = v167;
   }
 
-  v114 = self->_softwareUpdateDataArray;
-  if (v114)
+  v168 = self->_softwareUpdateDataArray;
+  if (v168)
   {
-    v151 = CUPrintNSObjectOneLine();
-    NSAppendPrintF_safe();
-    v115 = v7;
+    v191 = v8;
+    v169 = CUPrintNSObjectOneLine();
+    NSAppendPrintF_safe(&v191, ", suD %@", v169);
+    v170 = v191;
 
-    v7 = v115;
+    v8 = v170;
   }
 
+  softwareUpdateDataArrayCountMaximumLimit = self->_softwareUpdateDataArrayCountMaximumLimit;
   if (self->_softwareUpdateDataArrayCountMaximumLimit)
   {
-    softwareUpdateDataArrayCountMaximumLimit = self->_softwareUpdateDataArrayCountMaximumLimit;
-    NSAppendPrintF_safe();
-    v116 = v7;
+    v190 = v8;
+    NSAppendPrintF_safe(&v190, ", suDMs %d", softwareUpdateDataArrayCountMaximumLimit);
+    v172 = v190;
 
-    v7 = v116;
+    v8 = v172;
   }
 
-  v117 = self->_watchSetupData;
-  if (v117)
+  v173 = self->_watchSetupData;
+  if (v173)
   {
-    v153 = CUPrintNSDataHex();
-    NSAppendPrintF_safe();
-    v118 = v7;
+    v189 = v8;
+    v174 = CUPrintNSDataHex();
+    NSAppendPrintF_safe(&v189, ", wsDa %@", v174);
+    v175 = v189;
 
-    v7 = v118;
+    v8 = v175;
   }
 
   if (self->_nearbyActionNWPrecisionFindingStatus)
   {
-    v154 = CUPrintFlags32();
-    NSAppendPrintF_safe();
-    v119 = v7;
+    v188 = v8;
+    v176 = CUPrintFlags32();
+    NSAppendPrintF_safe(&v188, ", nawS %@", v176);
+    v177 = v188;
 
-    v7 = v119;
+    v8 = v177;
   }
 
-  v120 = self->_nearbyActionNoWakeAuthTagData;
-  if (v120)
+  v178 = self->_nearbyActionNoWakeAuthTagData;
+  if (v178)
   {
-    v155 = CUPrintNSDataHex();
-    NSAppendPrintF_safe();
-    v121 = v7;
+    v187 = v8;
+    v179 = CUPrintNSDataHex();
+    NSAppendPrintF_safe(&v187, ", nawA <%@>", v179);
+    v180 = v187;
 
-    v7 = v121;
+    v8 = v180;
   }
 
-  v122 = self->_nearbyActionNoWakeConfigData;
-  if (v122)
+  v181 = self->_nearbyActionNoWakeConfigData;
+  if (v181)
   {
-    v156 = CUPrintNSDataHex();
-    NSAppendPrintF_safe();
-    v123 = v7;
+    v186 = v8;
+    v182 = CUPrintNSDataHex();
+    NSAppendPrintF_safe(&v186, ", nawC <%@>", v182);
+    v183 = v186;
 
-    v7 = v123;
+    v8 = v183;
   }
 
-  v124 = v7;
-  return v7;
+  v184 = v8;
+  return v8;
 }
 
 - (void)setAdvertiseRate:(int)rate
@@ -2310,9 +2438,9 @@ BOOL __30__CBAdvertiser_setHeySiriSNR___block_invoke(uint64_t a1)
 {
   objc_storeStrong(&self->_label, label);
   labelCopy = label;
-  v4 = labelCopy;
-  [labelCopy UTF8String];
-  LogCategoryReplaceF();
+  v5 = qword_1ED7C1CF0;
+  v6 = labelCopy;
+  LogCategoryReplaceF(&self->_ucat, "%s-%s", v5, [labelCopy UTF8String]);
 }
 
 - (void)setNearbyActionColorCode:(unsigned __int8)code
@@ -3328,6 +3456,7 @@ BOOL __30__CBAdvertiser_setEpaTxPower___block_invoke(uint64_t a1)
 
 - (BOOL)updateWithCBAdvertiser:(id)advertiser
 {
+  v501[0] = 8;
   advertiserCopy = advertiser;
   advertiseRate = [advertiserCopy advertiseRate];
   advertiseRate = self->_advertiseRate;
@@ -3335,6 +3464,7 @@ BOOL __30__CBAdvertiser_setEpaTxPower___block_invoke(uint64_t a1)
   if (advertiseRate != advertiseRate)
   {
     v7 = advertiseRate;
+    v500 = 0;
     if (advertiseRate > 39)
     {
       if (advertiseRate <= 44)
@@ -3523,10 +3653,8 @@ LABEL_35:
 LABEL_59:
     v12 = "?";
 LABEL_60:
-    v396 = v8;
-    v452 = v12;
-    CUAppendF();
-    v9 = 0;
+    CUAppendF(&v500, v501, "AdvR: %s -> %s", v8, v12);
+    v9 = v500;
     self->_advertiseRate = v7;
     useCase = [advertiserCopy useCase];
     useCase = self->_useCase;
@@ -3544,23 +3672,24 @@ LABEL_60:
   if (useCase != useCase)
   {
 LABEL_61:
-    v395 = CBUseCaseToString(useCase);
-    v451 = CBUseCaseToString(useCase);
-    CUAppendF();
-    v13 = v9;
+    v499 = v9;
+    v13 = CBUseCaseToString(useCase);
+    v14 = CBUseCaseToString(useCase);
+    CUAppendF(&v499, v501, "ucas: %s -> %s", v13, v14);
+    v15 = v499;
 
     self->_useCase = useCase;
     v6 = 1;
-    v9 = v13;
+    v9 = v15;
   }
 
 LABEL_62:
   useCaseClientIDs = [advertiserCopy useCaseClientIDs];
   useCaseClientIDs = self->_useCaseClientIDs;
-  v16 = useCaseClientIDs;
-  v17 = useCaseClientIDs;
-  v527 = v16;
-  if (v16 == v17)
+  v18 = useCaseClientIDs;
+  v19 = useCaseClientIDs;
+  v431 = v18;
+  if (v18 == v19)
   {
 
     enableEPAForLEAdvertisement = [advertiserCopy enableEPAForLEAdvertisement];
@@ -3581,20 +3710,20 @@ LABEL_66:
     goto LABEL_67;
   }
 
-  if ((v16 != 0) == (v17 == 0))
+  if ((v18 != 0) == (v19 == 0))
   {
 
 LABEL_140:
-    v139 = self->_useCaseClientIDs;
-    v140 = CUPrintNSObjectOneLine();
-    v468 = CUPrintNSObjectOneLine();
-    CUAppendF();
-    v141 = v9;
+    v498 = v9;
+    v147 = CUPrintNSObjectOneLine();
+    v148 = CUPrintNSObjectOneLine();
+    CUAppendF(&v498, v501, "ucid: %@ -> %@", v147, v148);
+    v149 = v498;
 
-    v142 = v527;
-    v143 = self->_useCaseClientIDs;
-    self->_useCaseClientIDs = v142;
-    v9 = v141;
+    v150 = v431;
+    v151 = self->_useCaseClientIDs;
+    self->_useCaseClientIDs = v150;
+    v9 = v149;
     v6 = 1;
 
     enableEPAForLEAdvertisement = [advertiserCopy enableEPAForLEAdvertisement];
@@ -3607,10 +3736,10 @@ LABEL_140:
     goto LABEL_66;
   }
 
-  v18 = v17;
-  v19 = [(NSArray *)v16 isEqual:v17];
+  v20 = v19;
+  v21 = [(NSArray *)v18 isEqual:v19];
 
-  if ((v19 & 1) == 0)
+  if ((v21 & 1) == 0)
   {
     goto LABEL_140;
   }
@@ -3623,38 +3752,36 @@ LABEL_140:
   }
 
 LABEL_141:
-  v144 = enableEPAForLEAdvertisement;
-  v412 = enableEPAForLEAdvertisement;
-  v469 = enableEPAForLEAdvertisement;
-  CUAppendF();
-  v145 = v9;
+  v152 = enableEPAForLEAdvertisement;
+  v497 = v9;
+  CUAppendF(&v497, v501, "naEE: %d -> %d", enableEPAForLEAdvertisement, enableEPAForLEAdvertisement);
+  v153 = v497;
 
-  self->_enableEPAForLEAdvertisement = v144;
+  self->_enableEPAForLEAdvertisement = v152;
   v6 = 1;
-  v9 = v145;
+  v9 = v153;
   airdropFlags = [advertiserCopy airdropFlags];
   airdropFlags = self->_airdropFlags;
   if (airdropFlags != airdropFlags)
   {
 LABEL_67:
-    v24 = airdropFlags;
-    v397 = airdropFlags;
-    v453 = airdropFlags;
-    CUAppendF();
-    v25 = v9;
+    v26 = airdropFlags;
+    v496 = v9;
+    CUAppendF(&v496, v501, "adFl: 0x%2X -> 0x%2X", airdropFlags, airdropFlags);
+    v27 = v496;
 
-    self->_airdropFlags = v24;
+    self->_airdropFlags = v26;
     v6 = 1;
-    v9 = v25;
+    v9 = v27;
   }
 
 LABEL_68:
   airdropTempAuthTagData = [advertiserCopy airdropTempAuthTagData];
   airdropTempAuthTagData = self->_airdropTempAuthTagData;
-  v28 = airdropTempAuthTagData;
-  v29 = airdropTempAuthTagData;
-  v526 = v28;
-  if (v28 == v29)
+  v30 = airdropTempAuthTagData;
+  v31 = airdropTempAuthTagData;
+  v430 = v30;
+  if (v30 == v31)
   {
 
     airdropModel = [advertiserCopy airdropModel];
@@ -3675,20 +3802,20 @@ LABEL_72:
     goto LABEL_146;
   }
 
-  if ((v28 != 0) == (v29 == 0))
+  if ((v30 != 0) == (v31 == 0))
   {
 
 LABEL_144:
-    v146 = self->_airdropTempAuthTagData;
-    v147 = CUPrintNSDataHex();
-    v470 = CUPrintNSDataHex();
-    CUAppendF();
-    v148 = v9;
+    v495 = v9;
+    v154 = CUPrintNSDataHex();
+    v155 = CUPrintNSDataHex();
+    CUAppendF(&v495, v501, "adTa: <%@> -> <%@>", v154, v155);
+    v156 = v495;
 
-    v149 = v526;
-    v150 = self->_airdropTempAuthTagData;
-    self->_airdropTempAuthTagData = v149;
-    v9 = v148;
+    v157 = v430;
+    v158 = self->_airdropTempAuthTagData;
+    self->_airdropTempAuthTagData = v157;
+    v9 = v156;
     v6 = 1;
 
     airdropModel = [advertiserCopy airdropModel];
@@ -3701,10 +3828,10 @@ LABEL_144:
     goto LABEL_72;
   }
 
-  v30 = v29;
-  v31 = [(NSData *)v28 isEqual:v29];
+  v32 = v31;
+  v33 = [(NSData *)v30 isEqual:v31];
 
-  if ((v31 & 1) == 0)
+  if ((v33 & 1) == 0)
   {
     goto LABEL_144;
   }
@@ -3717,15 +3844,14 @@ LABEL_144:
   }
 
 LABEL_145:
-  v151 = airdropModel;
-  v413 = airdropModel;
-  v471 = airdropModel;
-  CUAppendF();
-  v152 = v9;
+  v159 = airdropModel;
+  v494 = v9;
+  CUAppendF(&v494, v501, "adMl: 0x%2X -> 0x%2X", airdropModel, airdropModel);
+  v160 = v494;
 
-  self->_airdropModel = v151;
+  self->_airdropModel = v159;
   v6 = 1;
-  v9 = v152;
+  v9 = v160;
   airdropVersion = [advertiserCopy airdropVersion];
   airdropVersion = self->_airdropVersion;
   if (airdropVersion == airdropVersion)
@@ -3742,15 +3868,14 @@ LABEL_73:
   }
 
 LABEL_146:
-  v153 = airdropVersion;
-  v414 = airdropVersion;
-  v472 = airdropVersion;
-  CUAppendF();
-  v154 = v9;
+  v161 = airdropVersion;
+  v493 = v9;
+  CUAppendF(&v493, v501, "adVs: %d -> %d", airdropVersion, airdropVersion);
+  v162 = v493;
 
-  self->_airdropVersion = v153;
+  self->_airdropVersion = v161;
   v6 = 1;
-  v9 = v154;
+  v9 = v162;
   airdropHash1 = [advertiserCopy airdropHash1];
   airdropHash1 = self->_airdropHash1;
   if (airdropHash1 == airdropHash1)
@@ -3767,15 +3892,14 @@ LABEL_74:
   }
 
 LABEL_147:
-  v155 = airdropHash1;
-  v415 = airdropHash1;
-  v473 = airdropHash1;
-  CUAppendF();
-  v156 = v9;
+  v163 = airdropHash1;
+  v492 = v9;
+  CUAppendF(&v492, v501, "adH1: 0x%04X -> 0x%04X", airdropHash1, airdropHash1);
+  v164 = v492;
 
-  self->_airdropHash1 = v155;
+  self->_airdropHash1 = v163;
   v6 = 1;
-  v9 = v156;
+  v9 = v164;
   airdropHash2 = [advertiserCopy airdropHash2];
   airdropHash2 = self->_airdropHash2;
   if (airdropHash2 == airdropHash2)
@@ -3792,15 +3916,14 @@ LABEL_75:
   }
 
 LABEL_148:
-  v157 = airdropHash2;
-  v416 = airdropHash2;
-  v474 = airdropHash2;
-  CUAppendF();
-  v158 = v9;
+  v165 = airdropHash2;
+  v491 = v9;
+  CUAppendF(&v491, v501, "adH2: 0x%04X -> 0x%04X", airdropHash2, airdropHash2);
+  v166 = v491;
 
-  self->_airdropHash2 = v157;
+  self->_airdropHash2 = v165;
   v6 = 1;
-  v9 = v158;
+  v9 = v166;
   airdropHash3 = [advertiserCopy airdropHash3];
   airdropHash3 = self->_airdropHash3;
   if (airdropHash3 == airdropHash3)
@@ -3817,15 +3940,14 @@ LABEL_76:
   }
 
 LABEL_149:
-  v159 = airdropHash3;
-  v417 = airdropHash3;
-  v475 = airdropHash3;
-  CUAppendF();
-  v160 = v9;
+  v167 = airdropHash3;
+  v490 = v9;
+  CUAppendF(&v490, v501, "adH3: 0x%04X -> 0x%04X", airdropHash3, airdropHash3);
+  v168 = v490;
 
-  self->_airdropHash3 = v159;
+  self->_airdropHash3 = v167;
   v6 = 1;
-  v9 = v160;
+  v9 = v168;
   airdropHash4 = [advertiserCopy airdropHash4];
   airdropHash4 = self->_airdropHash4;
   if (airdropHash4 == airdropHash4)
@@ -3842,51 +3964,49 @@ LABEL_77:
   }
 
 LABEL_150:
-  v161 = airdropHash4;
-  v418 = airdropHash4;
-  v476 = airdropHash4;
-  CUAppendF();
-  v162 = v9;
+  v169 = airdropHash4;
+  v489 = v9;
+  CUAppendF(&v489, v501, "adH4: 0x%04X -> 0x%04X", airdropHash4, airdropHash4);
+  v170 = v489;
 
-  self->_airdropHash4 = v161;
+  self->_airdropHash4 = v169;
   v6 = 1;
-  v9 = v162;
+  v9 = v170;
   airdropConfigData = [advertiserCopy airdropConfigData];
   airdropConfigData = self->_airdropConfigData;
   if (airdropConfigData != airdropConfigData)
   {
 LABEL_78:
-    v46 = airdropConfigData;
-    v398 = airdropConfigData;
-    v454 = airdropConfigData;
-    CUAppendF();
-    v47 = v9;
+    v48 = airdropConfigData;
+    v488 = v9;
+    CUAppendF(&v488, v501, "adCd: 0x%02X -> 0x%02X", airdropConfigData, airdropConfigData);
+    v49 = v488;
 
-    self->_airdropConfigData = v46;
+    self->_airdropConfigData = v48;
     v6 = 1;
-    v9 = v47;
+    v9 = v49;
   }
 
 LABEL_79:
   airplaySourceAuthTagData = [advertiserCopy airplaySourceAuthTagData];
   airplaySourceAuthTagData = self->_airplaySourceAuthTagData;
-  v50 = airplaySourceAuthTagData;
-  v51 = airplaySourceAuthTagData;
-  v525 = v50;
-  if (v50 == v51)
+  v52 = airplaySourceAuthTagData;
+  v53 = airplaySourceAuthTagData;
+  v429 = v52;
+  if (v52 == v53)
   {
 
-    v135 = v50;
+    v143 = v52;
   }
 
   else
   {
-    if ((v50 != 0) != (v51 == 0))
+    if ((v52 != 0) != (v53 == 0))
     {
-      v52 = v51;
-      v53 = [(NSData *)v50 isEqual:v51];
+      v54 = v53;
+      v55 = [(NSData *)v52 isEqual:v53];
 
-      if (v53)
+      if (v55)
       {
         airplaySourceFlags = [advertiserCopy airplaySourceFlags];
         if (airplaySourceFlags == self->_airplaySourceFlags)
@@ -3902,17 +4022,16 @@ LABEL_79:
     {
     }
 
-    v163 = self->_airplaySourceAuthTagData;
-    v164 = CUPrintNSDataHex();
-    CUPrintNSDataHex();
-    v455 = v399 = v164;
-    CUAppendF();
-    v165 = v9;
+    v487 = v9;
+    v171 = CUPrintNSDataHex();
+    v172 = CUPrintNSDataHex();
+    CUAppendF(&v487, v501, "apTA: <%@> -> <%@>", v171, v172);
+    v173 = v487;
 
-    v166 = v525;
-    v135 = self->_airplaySourceAuthTagData;
-    self->_airplaySourceAuthTagData = v166;
-    v9 = v165;
+    v174 = v429;
+    v143 = self->_airplaySourceAuthTagData;
+    self->_airplaySourceAuthTagData = v174;
+    v9 = v173;
     v6 = 1;
   }
 
@@ -3920,36 +4039,36 @@ LABEL_79:
   if (airplaySourceFlags != self->_airplaySourceFlags)
   {
 LABEL_83:
-    v55 = CUPrintFlags32();
-    CUPrintFlags32();
-    v455 = v399 = v55;
-    CUAppendF();
-    v56 = v9;
+    v486 = v9;
+    v57 = CUPrintFlags32();
+    v58 = CUPrintFlags32();
+    CUAppendF(&v486, v501, "apSF: %@ -> %@", v57, v58);
+    v59 = v486;
 
     self->_airplaySourceFlags = airplaySourceFlags;
     v6 = 1;
-    v9 = v56;
+    v9 = v59;
   }
 
 LABEL_84:
   airplaySourceUWBConfigData = [advertiserCopy airplaySourceUWBConfigData];
   airplaySourceUWBConfigData = self->_airplaySourceUWBConfigData;
-  v59 = airplaySourceUWBConfigData;
-  v60 = airplaySourceUWBConfigData;
-  if (v59 == v60)
+  v62 = airplaySourceUWBConfigData;
+  v63 = airplaySourceUWBConfigData;
+  if (v62 == v63)
   {
 
-    v136 = v59;
+    v144 = v62;
   }
 
   else
   {
-    if ((v59 != 0) != (v60 == 0))
+    if ((v62 != 0) != (v63 == 0))
     {
-      v61 = v60;
-      v62 = [(NSData *)v59 isEqual:v60];
+      v64 = v63;
+      v65 = [(NSData *)v62 isEqual:v63];
 
-      if (v62)
+      if (v65)
       {
         airplayTargetConfigSeed = [advertiserCopy airplayTargetConfigSeed];
         airplayTargetConfigSeed = self->_airplayTargetConfigSeed;
@@ -3966,17 +4085,16 @@ LABEL_84:
     {
     }
 
-    v167 = self->_airplaySourceUWBConfigData;
-    v168 = CUPrintNSDataHex();
-    CUPrintNSDataHex();
-    v456 = v400 = v168;
-    CUAppendF();
-    v169 = v9;
+    v485 = v9;
+    v175 = CUPrintNSDataHex();
+    v176 = CUPrintNSDataHex();
+    CUAppendF(&v485, v501, "apUW: %@ -> %@", v175, v176);
+    v177 = v485;
 
-    v170 = v59;
-    v136 = self->_airplaySourceUWBConfigData;
-    self->_airplaySourceUWBConfigData = v170;
-    v9 = v169;
+    v178 = v62;
+    v144 = self->_airplaySourceUWBConfigData;
+    self->_airplaySourceUWBConfigData = v178;
+    v9 = v177;
     v6 = 1;
   }
 
@@ -3985,59 +4103,58 @@ LABEL_84:
   if (airplayTargetConfigSeed != airplayTargetConfigSeed)
   {
 LABEL_88:
-    v65 = airplayTargetConfigSeed;
-    v400 = airplayTargetConfigSeed;
-    v456 = airplayTargetConfigSeed;
-    CUAppendF();
-    v66 = v9;
+    v68 = airplayTargetConfigSeed;
+    v484 = v9;
+    CUAppendF(&v484, v501, "apSF: %u -> %u", airplayTargetConfigSeed, airplayTargetConfigSeed);
+    v69 = v484;
 
-    self->_airplayTargetConfigSeed = v65;
+    self->_airplayTargetConfigSeed = v68;
     v6 = 1;
-    v9 = v66;
+    v9 = v69;
   }
 
 LABEL_89:
   airplayTargetFlags = [advertiserCopy airplayTargetFlags];
-  v520 = v59;
+  v424 = v62;
   if (airplayTargetFlags != self->_airplayTargetFlags)
   {
-    v68 = CUPrintFlags32();
-    CUPrintFlags32();
-    v457 = v401 = v68;
-    CUAppendF();
-    v69 = v9;
+    v483 = v9;
+    v71 = CUPrintFlags32();
+    v72 = CUPrintFlags32();
+    CUAppendF(&v483, v501, "apTF: %@ -> %@", v71, v72);
+    v73 = v483;
 
     self->_airplayTargetFlags = airplayTargetFlags;
     v6 = 1;
-    v9 = v69;
+    v9 = v73;
   }
 
   airplayTargetIPv4 = [advertiserCopy airplayTargetIPv4];
   if (airplayTargetIPv4 != self->_airplayTargetIPv4)
   {
+    v481 = v9;
     v6 = 1;
-    v70 = CUPrintAddress();
-    CUPrintAddress();
-    v458 = v402 = v70;
-    CUAppendF();
-    v71 = v9;
+    v74 = CUPrintAddress();
+    v75 = CUPrintAddress();
+    CUAppendF(&v481, v501, "apTI: %@ -> %@", v74, v75);
+    v76 = v481;
 
     self->_airplayTargetIPv4 = airplayTargetIPv4;
-    v9 = v71;
+    v9 = v76;
   }
 
   airplayTargetPort = [advertiserCopy airplayTargetPort];
-  if (airplayTargetPort != self->_airplayTargetPort)
+  airplayTargetPort = self->_airplayTargetPort;
+  if (airplayTargetPort != airplayTargetPort)
   {
-    v75 = airplayTargetPort;
-    airplayTargetPort = self->_airplayTargetPort;
-    v460 = airplayTargetPort;
-    CUAppendF();
-    v76 = v9;
+    v81 = airplayTargetPort;
+    v480 = v9;
+    CUAppendF(&v480, v501, "apTP: %u -> %u", airplayTargetPort, airplayTargetPort);
+    v82 = v480;
 
-    self->_airplayTargetPort = v75;
-    v73 = 1;
-    v9 = v76;
+    self->_airplayTargetPort = v81;
+    v79 = 1;
+    v9 = v82;
     dsActionFlags = [advertiserCopy dsActionFlags];
     if (dsActionFlags == self->_dsActionFlags)
     {
@@ -4047,24 +4164,25 @@ LABEL_89:
     goto LABEL_97;
   }
 
-  v73 = v6;
+  v79 = v6;
   dsActionFlags = [advertiserCopy dsActionFlags];
   if (dsActionFlags != self->_dsActionFlags)
   {
 LABEL_97:
-    v77 = CUPrintFlags32();
-    CUPrintFlags32();
-    v459 = v403 = v77;
-    CUAppendF();
-    v78 = v9;
+    v479 = v9;
+    v83 = CUPrintFlags32();
+    v84 = CUPrintFlags32();
+    CUAppendF(&v479, v501, "dsAF: %@ -> %@", v83, v84);
+    v85 = v479;
 
     self->_dsActionFlags = dsActionFlags;
-    v73 = 1;
-    v9 = v78;
+    v79 = 1;
+    v9 = v85;
   }
 
 LABEL_98:
   dsActionMeasuredPower = [advertiserCopy dsActionMeasuredPower];
+  dsActionMeasuredPower = self->_dsActionMeasuredPower;
   if (dsActionMeasuredPower == self->_dsActionMeasuredPower)
   {
     dsActionTieBreaker = [advertiserCopy dsActionTieBreaker];
@@ -4077,15 +4195,14 @@ LABEL_98:
 
   else
   {
-    v126 = dsActionMeasuredPower;
-    dsActionMeasuredPower = self->_dsActionMeasuredPower;
-    v465 = dsActionMeasuredPower;
-    CUAppendF();
-    v127 = v9;
+    v134 = dsActionMeasuredPower;
+    v478 = v9;
+    CUAppendF(&v478, v501, "dsAP: %d -> %d", dsActionMeasuredPower, dsActionMeasuredPower);
+    v135 = v478;
 
-    self->_dsActionMeasuredPower = v126;
-    v73 = 1;
-    v9 = v127;
+    self->_dsActionMeasuredPower = v134;
+    v79 = 1;
+    v9 = v135;
     dsActionTieBreaker = [advertiserCopy dsActionTieBreaker];
     dsActionTieBreaker = self->_dsActionTieBreaker;
     if (dsActionTieBreaker == dsActionTieBreaker)
@@ -4102,15 +4219,14 @@ LABEL_100:
     }
   }
 
-  v128 = dsActionTieBreaker;
-  v410 = dsActionTieBreaker;
-  v466 = dsActionTieBreaker;
-  CUAppendF();
-  v129 = v9;
+  v136 = dsActionTieBreaker;
+  v477 = v9;
+  CUAppendF(&v477, v501, "dsAT: 0x%02X -> 0x%02X", dsActionTieBreaker, dsActionTieBreaker);
+  v137 = v477;
 
-  self->_dsActionTieBreaker = v128;
-  v73 = 1;
-  v9 = v129;
+  self->_dsActionTieBreaker = v136;
+  v79 = 1;
+  v9 = v137;
   dsInfoVehicleConfidence = [advertiserCopy dsInfoVehicleConfidence];
   dsInfoVehicleConfidence = self->_dsInfoVehicleConfidence;
   if (dsInfoVehicleConfidence == dsInfoVehicleConfidence)
@@ -4127,23 +4243,22 @@ LABEL_101:
   }
 
 LABEL_125:
-  v130 = dsInfoVehicleConfidence;
-  v411 = dsInfoVehicleConfidence;
-  v467 = dsInfoVehicleConfidence;
-  CUAppendF();
-  v131 = v9;
+  v138 = dsInfoVehicleConfidence;
+  v476 = v9;
+  CUAppendF(&v476, v501, "dsVC: %u -> %u", dsInfoVehicleConfidence, dsInfoVehicleConfidence);
+  v139 = v476;
 
-  self->_dsInfoVehicleConfidence = v130;
-  v73 = 1;
-  v9 = v131;
+  self->_dsInfoVehicleConfidence = v138;
+  v79 = 1;
+  v9 = v139;
   dsInfoVehicleState = [advertiserCopy dsInfoVehicleState];
   dsInfoVehicleState = self->_dsInfoVehicleState;
   if (dsInfoVehicleState == dsInfoVehicleState)
   {
 LABEL_102:
     enableEPAForLEAdvertisement2 = [advertiserCopy enableEPAForLEAdvertisement];
-    v87 = self->_enableEPAForLEAdvertisement;
-    if (v87 == enableEPAForLEAdvertisement2)
+    v95 = self->_enableEPAForLEAdvertisement;
+    if (v95 == enableEPAForLEAdvertisement2)
     {
       goto LABEL_104;
     }
@@ -4152,10 +4267,11 @@ LABEL_102:
   }
 
 LABEL_126:
-  v132 = dsInfoVehicleState;
+  v140 = dsInfoVehicleState;
+  v475 = v9;
   if (dsInfoVehicleState > 2)
   {
-    v133 = "?";
+    v141 = "?";
     if (dsInfoVehicleState > 2)
     {
       goto LABEL_128;
@@ -4164,47 +4280,44 @@ LABEL_126:
 
   else
   {
-    v133 = off_1E811DDD8[dsInfoVehicleState];
+    v141 = off_1E811DDD8[dsInfoVehicleState];
     if (dsInfoVehicleState > 2)
     {
 LABEL_128:
-      v134 = "?";
+      v142 = "?";
       goto LABEL_313;
     }
   }
 
-  v134 = off_1E811DDD8[dsInfoVehicleState];
+  v142 = off_1E811DDD8[dsInfoVehicleState];
 LABEL_313:
-  v443 = v133;
-  v503 = v134;
-  CUAppendF();
-  v375 = v9;
+  CUAppendF(&v475, v501, "dsVS: %s -> %s", v141, v142);
+  v397 = v475;
 
-  self->_dsInfoVehicleState = v132;
-  v73 = 1;
-  v9 = v375;
+  self->_dsInfoVehicleState = v140;
+  v79 = 1;
+  v9 = v397;
   enableEPAForLEAdvertisement2 = [advertiserCopy enableEPAForLEAdvertisement];
-  v87 = self->_enableEPAForLEAdvertisement;
-  if (v87 != enableEPAForLEAdvertisement2)
+  v95 = self->_enableEPAForLEAdvertisement;
+  if (v95 != enableEPAForLEAdvertisement2)
   {
 LABEL_103:
-    v88 = enableEPAForLEAdvertisement2;
-    v405 = v87;
-    v461 = enableEPAForLEAdvertisement2;
-    CUAppendF();
-    v89 = v9;
+    v96 = enableEPAForLEAdvertisement2;
+    v474 = v9;
+    CUAppendF(&v474, v501, "naEE: %d -> %d", v95, enableEPAForLEAdvertisement2);
+    v97 = v474;
 
-    self->_enableEPAForLEAdvertisement = v88;
-    v73 = 1;
-    v9 = v89;
+    self->_enableEPAForLEAdvertisement = v96;
+    v79 = 1;
+    v9 = v97;
   }
 
 LABEL_104:
   fidoPayloadData = [advertiserCopy fidoPayloadData];
   fidoPayloadData = self->_fidoPayloadData;
-  v92 = fidoPayloadData;
-  v93 = fidoPayloadData;
-  if (v92 == v93)
+  v100 = fidoPayloadData;
+  v101 = fidoPayloadData;
+  if (v100 == v101)
   {
 
     heySiriConfidence = [advertiserCopy heySiriConfidence];
@@ -4225,21 +4338,21 @@ LABEL_108:
     goto LABEL_163;
   }
 
-  if ((v92 != 0) == (v93 == 0))
+  if ((v100 != 0) == (v101 == 0))
   {
 
 LABEL_161:
-    v171 = self->_fidoPayloadData;
-    v172 = CUPrintNSDataHex();
-    v477 = CUPrintNSDataHex();
-    CUAppendF();
-    v173 = v9;
+    v473 = v9;
+    v179 = CUPrintNSDataHex();
+    v180 = CUPrintNSDataHex();
+    CUAppendF(&v473, v501, "fdPD: <%@> -> <%@>", v179, v180);
+    v181 = v473;
 
-    v174 = v92;
-    v175 = self->_fidoPayloadData;
-    self->_fidoPayloadData = v174;
-    v9 = v173;
-    v73 = 1;
+    v182 = v100;
+    v183 = self->_fidoPayloadData;
+    self->_fidoPayloadData = v182;
+    v9 = v181;
+    v79 = 1;
 
     heySiriConfidence = [advertiserCopy heySiriConfidence];
     heySiriConfidence = self->_heySiriConfidence;
@@ -4251,10 +4364,10 @@ LABEL_161:
     goto LABEL_108;
   }
 
-  v94 = v93;
-  v95 = [(NSData *)v92 isEqual:v93];
+  v102 = v101;
+  v103 = [(NSData *)v100 isEqual:v101];
 
-  if ((v95 & 1) == 0)
+  if ((v103 & 1) == 0)
   {
     goto LABEL_161;
   }
@@ -4267,15 +4380,14 @@ LABEL_161:
   }
 
 LABEL_162:
-  v176 = heySiriConfidence;
-  v419 = heySiriConfidence;
-  v478 = heySiriConfidence;
-  CUAppendF();
-  v177 = v9;
+  v184 = heySiriConfidence;
+  v472 = v9;
+  CUAppendF(&v472, v501, "hsCf: %u -> %u", heySiriConfidence, heySiriConfidence);
+  v185 = v472;
 
-  self->_heySiriConfidence = v176;
-  v73 = 1;
-  v9 = v177;
+  self->_heySiriConfidence = v184;
+  v79 = 1;
+  v9 = v185;
   heySiriDeviceClass = [advertiserCopy heySiriDeviceClass];
   heySiriDeviceClass = self->_heySiriDeviceClass;
   if (heySiriDeviceClass == heySiriDeviceClass)
@@ -4292,10 +4404,11 @@ LABEL_109:
   }
 
 LABEL_163:
-  v178 = heySiriDeviceClass;
+  v186 = heySiriDeviceClass;
+  v471 = v9;
   if (heySiriDeviceClass > 0xA)
   {
-    v179 = "?";
+    v187 = "?";
     if (heySiriDeviceClass > 0xA)
     {
       goto LABEL_165;
@@ -4304,25 +4417,23 @@ LABEL_163:
 
   else
   {
-    v179 = off_1E811DDF0[heySiriDeviceClass];
+    v187 = off_1E811DDF0[heySiriDeviceClass];
     if (heySiriDeviceClass > 0xA)
     {
 LABEL_165:
-      v180 = "?";
+      v188 = "?";
       goto LABEL_317;
     }
   }
 
-  v180 = off_1E811DDF0[heySiriDeviceClass];
+  v188 = off_1E811DDF0[heySiriDeviceClass];
 LABEL_317:
-  v444 = v179;
-  v504 = v180;
-  CUAppendF();
-  v376 = v9;
+  CUAppendF(&v471, v501, "hsDC: %s -> %s", v187, v188);
+  v398 = v471;
 
-  self->_heySiriDeviceClass = v178;
-  v73 = 1;
-  v9 = v376;
+  self->_heySiriDeviceClass = v186;
+  v79 = 1;
+  v9 = v398;
   heySiriPerceptualHash = [advertiserCopy heySiriPerceptualHash];
   heySiriPerceptualHash = self->_heySiriPerceptualHash;
   if (heySiriPerceptualHash == heySiriPerceptualHash)
@@ -4339,15 +4450,14 @@ LABEL_110:
   }
 
 LABEL_318:
-  v377 = heySiriPerceptualHash;
-  v445 = heySiriPerceptualHash;
-  v505 = heySiriPerceptualHash;
-  CUAppendF();
-  v378 = v9;
+  v399 = heySiriPerceptualHash;
+  v470 = v9;
+  CUAppendF(&v470, v501, "hsPH: 0x%04X -> 0x%04X", heySiriPerceptualHash, heySiriPerceptualHash);
+  v400 = v470;
 
-  self->_heySiriPerceptualHash = v377;
-  v73 = 1;
-  v9 = v378;
+  self->_heySiriPerceptualHash = v399;
+  v79 = 1;
+  v9 = v400;
   heySiriProductType = [advertiserCopy heySiriProductType];
   heySiriProductType = self->_heySiriProductType;
   if (heySiriProductType == heySiriProductType)
@@ -4364,10 +4474,11 @@ LABEL_111:
   }
 
 LABEL_319:
-  v379 = heySiriProductType;
+  v401 = heySiriProductType;
+  v469 = v9;
   if (heySiriProductType > 4)
   {
-    v380 = "?";
+    v402 = "?";
     if (heySiriProductType > 4)
     {
       goto LABEL_321;
@@ -4376,25 +4487,23 @@ LABEL_319:
 
   else
   {
-    v380 = off_1E811DE48[heySiriProductType];
+    v402 = off_1E811DE48[heySiriProductType];
     if (heySiriProductType > 4)
     {
 LABEL_321:
-      v381 = "?";
+      v403 = "?";
       goto LABEL_330;
     }
   }
 
-  v381 = off_1E811DE48[heySiriProductType];
+  v403 = off_1E811DE48[heySiriProductType];
 LABEL_330:
-  v447 = v380;
-  v507 = v381;
-  CUAppendF();
-  v386 = v9;
+  CUAppendF(&v469, v501, "hsPT: %s -> %s", v402, v403);
+  v408 = v469;
 
-  self->_heySiriProductType = v379;
-  v73 = 1;
-  v9 = v386;
+  self->_heySiriProductType = v401;
+  v79 = 1;
+  v9 = v408;
   heySiriRandom = [advertiserCopy heySiriRandom];
   heySiriRandom = self->_heySiriRandom;
   if (heySiriRandom == heySiriRandom)
@@ -4411,51 +4520,49 @@ LABEL_112:
   }
 
 LABEL_331:
-  v387 = heySiriRandom;
-  v448 = heySiriRandom;
-  v508 = heySiriRandom;
-  CUAppendF();
-  v388 = v9;
+  v409 = heySiriRandom;
+  v468 = v9;
+  CUAppendF(&v468, v501, "hsRn: 0x%02X -> 0x%02X", heySiriRandom, heySiriRandom);
+  v410 = v468;
 
-  self->_heySiriRandom = v387;
-  v73 = 1;
-  v9 = v388;
+  self->_heySiriRandom = v409;
+  v79 = 1;
+  v9 = v410;
   heySiriSNR = [advertiserCopy heySiriSNR];
   heySiriSNR = self->_heySiriSNR;
   if (heySiriSNR != heySiriSNR)
   {
 LABEL_113:
-    v108 = heySiriSNR;
-    v406 = heySiriSNR;
-    v462 = heySiriSNR;
-    CUAppendF();
-    v109 = v9;
+    v116 = heySiriSNR;
+    v467 = v9;
+    CUAppendF(&v467, v501, "hsSN: %u -> %u", heySiriSNR, heySiriSNR);
+    v117 = v467;
 
-    self->_heySiriSNR = v108;
-    v73 = 1;
-    v9 = v109;
+    self->_heySiriSNR = v116;
+    v79 = 1;
+    v9 = v117;
   }
 
 LABEL_114:
   nearbyActionAuthTagData = [advertiserCopy nearbyActionAuthTagData];
   nearbyActionAuthTagData = self->_nearbyActionAuthTagData;
-  v112 = nearbyActionAuthTagData;
-  v113 = nearbyActionAuthTagData;
-  v524 = v112;
-  if (v112 == v113)
+  v120 = nearbyActionAuthTagData;
+  v121 = nearbyActionAuthTagData;
+  v428 = v120;
+  if (v120 == v121)
   {
 
-    v137 = v112;
+    v145 = v120;
   }
 
   else
   {
-    if ((v112 != 0) != (v113 == 0))
+    if ((v120 != 0) != (v121 == 0))
     {
-      v114 = v113;
-      v115 = [(NSData *)v112 isEqual:v113];
+      v122 = v121;
+      v123 = [(NSData *)v120 isEqual:v121];
 
-      if (v115)
+      if (v123)
       {
         nearbyActionColorCode = [advertiserCopy nearbyActionColorCode];
         nearbyActionColorCode = self->_nearbyActionColorCode;
@@ -4472,18 +4579,17 @@ LABEL_114:
     {
     }
 
-    v181 = self->_nearbyActionAuthTagData;
-    v182 = CUPrintNSDataHex();
-    CUPrintNSDataHex();
-    v463 = v407 = v182;
-    CUAppendF();
-    v183 = v9;
+    v466 = v9;
+    v189 = CUPrintNSDataHex();
+    v190 = CUPrintNSDataHex();
+    CUAppendF(&v466, v501, "nbAT: <%@> -> <%@>", v189, v190);
+    v191 = v466;
 
-    v184 = v524;
-    v137 = self->_nearbyActionAuthTagData;
-    self->_nearbyActionAuthTagData = v184;
-    v9 = v183;
-    v73 = 1;
+    v192 = v428;
+    v145 = self->_nearbyActionAuthTagData;
+    self->_nearbyActionAuthTagData = v192;
+    v9 = v191;
+    v79 = 1;
   }
 
   nearbyActionColorCode = [advertiserCopy nearbyActionColorCode];
@@ -4491,108 +4597,107 @@ LABEL_114:
   if (nearbyActionColorCode != nearbyActionColorCode)
   {
 LABEL_118:
-    v118 = nearbyActionColorCode;
-    v407 = nearbyActionColorCode;
-    v463 = nearbyActionColorCode;
-    CUAppendF();
-    v119 = v9;
+    v126 = nearbyActionColorCode;
+    v465 = v9;
+    CUAppendF(&v465, v501, "naCC: %u -> %u", nearbyActionColorCode, nearbyActionColorCode);
+    v127 = v465;
 
-    self->_nearbyActionColorCode = v118;
-    v73 = 1;
-    v9 = v119;
+    self->_nearbyActionColorCode = v126;
+    v79 = 1;
+    v9 = v127;
   }
 
 LABEL_119:
   nearbyActionExtraData = [advertiserCopy nearbyActionExtraData];
   nearbyActionExtraData = self->_nearbyActionExtraData;
-  v122 = nearbyActionExtraData;
-  v123 = nearbyActionExtraData;
-  if (v122 == v123)
+  v130 = nearbyActionExtraData;
+  v131 = nearbyActionExtraData;
+  if (v130 == v131)
   {
 
-    v138 = v122;
+    v146 = v130;
 LABEL_172:
 
     goto LABEL_173;
   }
 
-  if ((v122 != 0) == (v123 == 0))
+  if ((v130 != 0) == (v131 == 0))
   {
 
     goto LABEL_171;
   }
 
-  v124 = v123;
-  v125 = [(NSData *)v122 isEqual:v123];
+  v132 = v131;
+  v133 = [(NSData *)v130 isEqual:v131];
 
-  if ((v125 & 1) == 0)
+  if ((v133 & 1) == 0)
   {
 LABEL_171:
-    v185 = self->_nearbyActionExtraData;
-    v186 = CUPrintNSDataHex();
-    CUPrintNSDataHex();
-    v464 = v408 = v186;
-    CUAppendF();
-    v187 = v9;
+    v464 = v9;
+    v193 = CUPrintNSDataHex();
+    v194 = CUPrintNSDataHex();
+    CUAppendF(&v464, v501, "naED: <%@> -> <%@>", v193, v194);
+    v195 = v464;
 
-    v188 = v122;
-    v138 = self->_nearbyActionExtraData;
-    self->_nearbyActionExtraData = v188;
-    v9 = v187;
-    v73 = 1;
+    v196 = v130;
+    v146 = self->_nearbyActionExtraData;
+    self->_nearbyActionExtraData = v196;
+    v9 = v195;
+    v79 = 1;
     goto LABEL_172;
   }
 
 LABEL_173:
   nearbyActionFlags = [advertiserCopy nearbyActionFlags];
-  v518 = v122;
-  v519 = v92;
+  v422 = v130;
+  v423 = v100;
   if (nearbyActionFlags != self->_nearbyActionFlags)
   {
-    v190 = CUPrintFlags32();
-    CUPrintFlags32();
-    v479 = v420 = v190;
-    CUAppendF();
-    v191 = v9;
+    v463 = v9;
+    v198 = CUPrintFlags32();
+    v199 = CUPrintFlags32();
+    CUAppendF(&v463, v501, "nbAF: %@ -> %@", v198, v199);
+    v200 = v463;
 
     self->_nearbyActionFlags = nearbyActionFlags;
-    v73 = 1;
-    v9 = v191;
+    v79 = 1;
+    v9 = v200;
   }
 
   nearbyActionType = [advertiserCopy nearbyActionType];
   nearbyActionType = self->_nearbyActionType;
   if (nearbyActionType != nearbyActionType)
   {
-    v421 = CBNearbyActionTypeToString(nearbyActionType);
-    v480 = CBNearbyActionTypeToString(nearbyActionType);
-    CUAppendF();
-    v194 = v9;
+    v462 = v9;
+    v203 = CBNearbyActionTypeToString(nearbyActionType);
+    v204 = CBNearbyActionTypeToString(nearbyActionType);
+    CUAppendF(&v462, v501, "nbAc: %s -> %s", v203, v204);
+    v205 = v462;
 
     self->_nearbyActionType = nearbyActionType;
-    v73 = 1;
-    v9 = v194;
+    v79 = 1;
+    v9 = v205;
   }
 
   nearbyActionTargetData = [advertiserCopy nearbyActionTargetData];
   nearbyActionTargetData = self->_nearbyActionTargetData;
-  v197 = nearbyActionTargetData;
-  v198 = nearbyActionTargetData;
-  v523 = v197;
-  if (v197 == v198)
+  v208 = nearbyActionTargetData;
+  v209 = nearbyActionTargetData;
+  v427 = v208;
+  if (v208 == v209)
   {
 
-    v237 = v197;
+    v253 = v208;
   }
 
   else
   {
-    if ((v197 != 0) != (v198 == 0))
+    if ((v208 != 0) != (v209 == 0))
     {
-      v199 = v198;
-      v200 = [(NSData *)v197 isEqual:v198];
+      v210 = v209;
+      v211 = [(NSData *)v208 isEqual:v209];
 
-      if (v200)
+      if (v211)
       {
         nearbyActionV2Flags = [advertiserCopy nearbyActionV2Flags];
         if (nearbyActionV2Flags == self->_nearbyActionV2Flags)
@@ -4608,54 +4713,53 @@ LABEL_173:
     {
     }
 
-    v240 = self->_nearbyActionTargetData;
-    v241 = CUPrintNSDataHex();
-    CUPrintNSDataHex();
-    v481 = v422 = v241;
-    CUAppendF();
-    v242 = v9;
+    v461 = v9;
+    v256 = CUPrintNSDataHex();
+    v257 = CUPrintNSDataHex();
+    CUAppendF(&v461, v501, "nbTg: <%@> -> <%@>", v256, v257);
+    v258 = v461;
 
-    v243 = v523;
-    v237 = self->_nearbyActionTargetData;
-    self->_nearbyActionTargetData = v243;
-    v9 = v242;
-    v73 = 1;
+    v259 = v427;
+    v253 = self->_nearbyActionTargetData;
+    self->_nearbyActionTargetData = v259;
+    v9 = v258;
+    v79 = 1;
   }
 
   nearbyActionV2Flags = [advertiserCopy nearbyActionV2Flags];
   if (nearbyActionV2Flags != self->_nearbyActionV2Flags)
   {
 LABEL_181:
-    v202 = CUPrintFlags32();
-    CUPrintFlags32();
-    v481 = v422 = v202;
-    CUAppendF();
-    v203 = v9;
+    v460 = v9;
+    v213 = CUPrintFlags32();
+    v214 = CUPrintFlags32();
+    CUAppendF(&v460, v501, "n2AF: %@ -> %@", v213, v214);
+    v215 = v460;
 
     self->_nearbyActionV2Flags = nearbyActionV2Flags;
-    v73 = 1;
-    v9 = v203;
+    v79 = 1;
+    v9 = v215;
   }
 
 LABEL_182:
   nearbyActionV2TargetData = [advertiserCopy nearbyActionV2TargetData];
   nearbyActionV2TargetData = self->_nearbyActionV2TargetData;
-  v206 = nearbyActionV2TargetData;
-  v207 = nearbyActionV2TargetData;
-  if (v206 == v207)
+  v218 = nearbyActionV2TargetData;
+  v219 = nearbyActionV2TargetData;
+  if (v218 == v219)
   {
 
-    v238 = v206;
+    v254 = v218;
   }
 
   else
   {
-    if ((v206 != 0) != (v207 == 0))
+    if ((v218 != 0) != (v219 == 0))
     {
-      v208 = v207;
-      v209 = [(NSData *)v206 isEqual:v207];
+      v220 = v219;
+      v221 = [(NSData *)v218 isEqual:v219];
 
-      if (v209)
+      if (v221)
       {
         nearbyActionV2Type = [advertiserCopy nearbyActionV2Type];
         nearbyActionV2Type = self->_nearbyActionV2Type;
@@ -4672,18 +4776,17 @@ LABEL_182:
     {
     }
 
-    v244 = self->_nearbyActionV2TargetData;
-    v245 = CUPrintNSDataHex();
-    CUPrintNSDataHex();
-    v482 = v423 = v245;
-    CUAppendF();
-    v246 = v9;
+    v459 = v9;
+    v260 = CUPrintNSDataHex();
+    v261 = CUPrintNSDataHex();
+    CUAppendF(&v459, v501, "n2Tg: <%@> -> <%@>", v260, v261);
+    v262 = v459;
 
-    v247 = v206;
-    v238 = self->_nearbyActionV2TargetData;
-    self->_nearbyActionV2TargetData = v247;
-    v9 = v246;
-    v73 = 1;
+    v263 = v218;
+    v254 = self->_nearbyActionV2TargetData;
+    self->_nearbyActionV2TargetData = v263;
+    v9 = v262;
+    v79 = 1;
   }
 
   nearbyActionV2Type = [advertiserCopy nearbyActionV2Type];
@@ -4691,45 +4794,45 @@ LABEL_182:
   if (nearbyActionV2Type != nearbyActionV2Type)
   {
 LABEL_186:
-    v423 = CBNearbyActionTypeToString(nearbyActionV2Type);
-    v482 = CBNearbyActionTypeToString(nearbyActionV2Type);
-    CUAppendF();
-    v212 = v9;
+    v458 = v9;
+    v224 = CBNearbyActionTypeToString(nearbyActionV2Type);
+    v225 = CBNearbyActionTypeToString(nearbyActionV2Type);
+    CUAppendF(&v458, v501, "n2Ac: %s -> %s", v224, v225);
+    v226 = v458;
 
     self->_nearbyActionV2Type = nearbyActionV2Type;
-    v73 = 1;
-    v9 = v212;
+    v79 = 1;
+    v9 = v226;
   }
 
 LABEL_187:
   nearbyInfoFlags = [advertiserCopy nearbyInfoFlags];
-  v517 = v206;
+  v421 = v218;
   if (nearbyInfoFlags != self->_nearbyInfoFlags)
   {
-    v214 = CUPrintFlags32();
-    CUPrintFlags32();
-    v483 = v424 = v214;
-    CUAppendF();
-    v215 = v9;
+    v457 = v9;
+    v228 = CUPrintFlags32();
+    v229 = CUPrintFlags32();
+    CUAppendF(&v457, v501, "niFl: %@ -> %@", v228, v229);
+    v230 = v457;
 
     self->_nearbyInfoFlags = nearbyInfoFlags;
-    v73 = 1;
-    v9 = v215;
+    v79 = 1;
+    v9 = v230;
   }
 
   [advertiserCopy nearbyInfoStatusProgress];
   nearbyInfoStatusProgress = self->_nearbyInfoStatusProgress;
-  if (v216 != nearbyInfoStatusProgress)
+  if (v231 != nearbyInfoStatusProgress)
   {
-    v425 = nearbyInfoStatusProgress * 100.0;
-    v484 = v216 * 100.0;
-    v218 = v216;
-    CUAppendF();
-    v219 = v9;
+    v456 = v9;
+    v233 = v231;
+    CUAppendF(&v456, v501, "nsPr: %.0f%% -> %.0f%%", nearbyInfoStatusProgress * 100.0, v231 * 100.0);
+    v234 = v456;
 
-    self->_nearbyInfoStatusProgress = v218;
-    v73 = 1;
-    v9 = v219;
+    self->_nearbyInfoStatusProgress = v233;
+    v79 = 1;
+    v9 = v234;
   }
 
   nearbyInfoStatusTime = [advertiserCopy nearbyInfoStatusTime];
@@ -4746,10 +4849,11 @@ LABEL_187:
     goto LABEL_325;
   }
 
-  v234 = nearbyInfoStatusTime;
+  v250 = nearbyInfoStatusTime;
+  v455 = v9;
   if (nearbyInfoStatusTime > 0xE)
   {
-    v235 = "?";
+    v251 = "?";
     if (nearbyInfoStatusTime > 0xE)
     {
       goto LABEL_202;
@@ -4758,25 +4862,23 @@ LABEL_187:
 
   else
   {
-    v235 = off_1E811DE70[self->_nearbyInfoStatusTime];
+    v251 = off_1E811DE70[nearbyInfoStatusTime];
     if (nearbyInfoStatusTime > 0xE)
     {
 LABEL_202:
-      v236 = "?";
+      v252 = "?";
       goto LABEL_324;
     }
   }
 
-  v236 = off_1E811DE70[nearbyInfoStatusTime];
+  v252 = off_1E811DE70[nearbyInfoStatusTime];
 LABEL_324:
-  v446 = v235;
-  v506 = v236;
-  CUAppendF();
-  v382 = v9;
+  CUAppendF(&v455, v501, "nsTi: %s -> %s", v251, v252);
+  v404 = v455;
 
-  self->_nearbyInfoStatusTime = v234;
-  v73 = 1;
-  v9 = v382;
+  self->_nearbyInfoStatusTime = v250;
+  v79 = 1;
+  v9 = v404;
   nearbyInfoStatusType = [advertiserCopy nearbyInfoStatusType];
   nearbyInfoStatusType = self->_nearbyInfoStatusType;
   if (nearbyInfoStatusType == nearbyInfoStatusType)
@@ -4792,10 +4894,11 @@ LABEL_193:
   }
 
 LABEL_325:
-  v383 = nearbyInfoStatusType;
+  v405 = nearbyInfoStatusType;
+  v454 = v9;
   if (nearbyInfoStatusType > 0xD)
   {
-    v384 = "?";
+    v406 = "?";
     if (nearbyInfoStatusType > 0xD)
     {
       goto LABEL_327;
@@ -4804,25 +4907,23 @@ LABEL_325:
 
   else
   {
-    v384 = off_1E811DEE8[nearbyInfoStatusType];
+    v406 = off_1E811DEE8[nearbyInfoStatusType];
     if (nearbyInfoStatusType > 0xD)
     {
 LABEL_327:
-      v385 = "?";
+      v407 = "?";
       goto LABEL_335;
     }
   }
 
-  v385 = off_1E811DEE8[nearbyInfoStatusType];
+  v407 = off_1E811DEE8[nearbyInfoStatusType];
 LABEL_335:
-  v449 = v384;
-  v509 = v385;
-  CUAppendF();
-  v389 = v9;
+  CUAppendF(&v454, v501, "nsTy: %s -> %s", v406, v407);
+  v411 = v454;
 
-  self->_nearbyInfoStatusType = v383;
-  v73 = 1;
-  v9 = v389;
+  self->_nearbyInfoStatusType = v405;
+  v79 = 1;
+  v9 = v411;
   nearbyInfoV2DecryptedFlags = [advertiserCopy nearbyInfoV2DecryptedFlags];
   if (nearbyInfoV2DecryptedFlags == self->_nearbyInfoV2DecryptedFlags)
   {
@@ -4837,94 +4938,93 @@ LABEL_194:
   }
 
 LABEL_336:
-  v390 = CUPrintFlags32();
-  CUPrintFlags32();
-  v510 = v450 = v390;
-  CUAppendF();
-  v391 = v9;
+  v453 = v9;
+  v412 = CUPrintFlags32();
+  v413 = CUPrintFlags32();
+  CUAppendF(&v453, v501, "nb2Fe: %@ -> %@", v412, v413);
+  v414 = v453;
 
   self->_nearbyInfoV2DecryptedFlags = nearbyInfoV2DecryptedFlags;
-  v73 = 1;
-  v9 = v391;
+  v79 = 1;
+  v9 = v414;
   nearbyInfoV2Flags = [advertiserCopy nearbyInfoV2Flags];
   if (nearbyInfoV2Flags != self->_nearbyInfoV2Flags)
   {
 LABEL_195:
-    v226 = CUPrintFlags32();
-    CUPrintFlags32();
-    v485 = v426 = v226;
-    CUAppendF();
-    v227 = v9;
+    v452 = v9;
+    v241 = CUPrintFlags32();
+    v242 = CUPrintFlags32();
+    CUAppendF(&v452, v501, "nb2F: %@ -> %@", v241, v242);
+    v243 = v452;
 
     self->_nearbyInfoV2Flags = nearbyInfoV2Flags;
-    v73 = 1;
-    v9 = v227;
+    v79 = 1;
+    v9 = v243;
   }
 
 LABEL_196:
   nearbyInfoV2AuthIntegrityTagData = [advertiserCopy nearbyInfoV2AuthIntegrityTagData];
   nearbyInfoV2AuthIntegrityTagData = self->_nearbyInfoV2AuthIntegrityTagData;
-  v230 = nearbyInfoV2AuthIntegrityTagData;
-  v231 = nearbyInfoV2AuthIntegrityTagData;
-  if (v230 == v231)
+  v246 = nearbyInfoV2AuthIntegrityTagData;
+  v247 = nearbyInfoV2AuthIntegrityTagData;
+  if (v246 == v247)
   {
 
-    v239 = v230;
+    v255 = v246;
 LABEL_216:
 
     goto LABEL_217;
   }
 
-  if ((v230 != 0) == (v231 == 0))
+  if ((v246 != 0) == (v247 == 0))
   {
 
     goto LABEL_215;
   }
 
-  v232 = v231;
-  v233 = [(NSData *)v230 isEqual:v231];
+  v248 = v247;
+  v249 = [(NSData *)v246 isEqual:v247];
 
-  if ((v233 & 1) == 0)
+  if ((v249 & 1) == 0)
   {
 LABEL_215:
-    v248 = self->_nearbyInfoV2AuthIntegrityTagData;
-    v249 = CUPrintNSDataHex();
-    CUPrintNSDataHex();
-    v486 = v427 = v249;
-    CUAppendF();
-    v250 = v9;
+    v451 = v9;
+    v264 = CUPrintNSDataHex();
+    v265 = CUPrintNSDataHex();
+    CUAppendF(&v451, v501, "nb2Ai: <%@> -> <%@>", v264, v265);
+    v266 = v451;
 
-    v251 = v230;
-    v239 = self->_nearbyInfoV2AuthIntegrityTagData;
-    self->_nearbyInfoV2AuthIntegrityTagData = v251;
-    v9 = v250;
-    v73 = 1;
+    v267 = v246;
+    v255 = self->_nearbyInfoV2AuthIntegrityTagData;
+    self->_nearbyInfoV2AuthIntegrityTagData = v267;
+    v9 = v266;
+    v79 = 1;
     goto LABEL_216;
   }
 
 LABEL_217:
   nearbyInfoV2AuthTagData = [advertiserCopy nearbyInfoV2AuthTagData];
   nearbyInfoV2AuthTagData = self->_nearbyInfoV2AuthTagData;
-  v254 = nearbyInfoV2AuthTagData;
-  v255 = nearbyInfoV2AuthTagData;
-  if (v254 == v255)
+  v270 = nearbyInfoV2AuthTagData;
+  v271 = nearbyInfoV2AuthTagData;
+  if (v270 == v271)
   {
 
-    v288 = v254;
+    v305 = v270;
   }
 
   else
   {
-    if ((v254 != 0) != (v255 == 0))
+    if ((v270 != 0) != (v271 == 0))
     {
-      v256 = v255;
-      v257 = [(NSData *)v254 isEqual:v255];
+      v272 = v271;
+      v273 = [(NSData *)v270 isEqual:v271];
 
-      if (v257)
+      if (v273)
       {
         nearbyInfoV2InvitationCounter = [advertiserCopy nearbyInfoV2InvitationCounter];
         nearbyInfoV2InvitationCounter = self->_nearbyInfoV2InvitationCounter;
-        v515 = v254;
+        v419 = v270;
         if (nearbyInfoV2InvitationCounter == nearbyInfoV2InvitationCounter)
         {
           goto LABEL_221;
@@ -4938,23 +5038,22 @@ LABEL_217:
     {
     }
 
-    v291 = self->_nearbyInfoV2AuthTagData;
-    v292 = CUPrintNSDataHex();
-    CUPrintNSDataHex();
-    v487 = v428 = v292;
-    CUAppendF();
-    v293 = v9;
+    v450 = v9;
+    v308 = CUPrintNSDataHex();
+    v309 = CUPrintNSDataHex();
+    CUAppendF(&v450, v501, "nb2A: <%@> -> <%@>", v308, v309);
+    v310 = v450;
 
-    v294 = v254;
-    v288 = self->_nearbyInfoV2AuthTagData;
-    self->_nearbyInfoV2AuthTagData = v294;
-    v9 = v293;
-    v73 = 1;
+    v311 = v270;
+    v305 = self->_nearbyInfoV2AuthTagData;
+    self->_nearbyInfoV2AuthTagData = v311;
+    v9 = v310;
+    v79 = 1;
   }
 
   nearbyInfoV2InvitationCounter = [advertiserCopy nearbyInfoV2InvitationCounter];
   nearbyInfoV2InvitationCounter = self->_nearbyInfoV2InvitationCounter;
-  v515 = v254;
+  v419 = v270;
   if (nearbyInfoV2InvitationCounter == nearbyInfoV2InvitationCounter)
   {
 LABEL_221:
@@ -4969,15 +5068,14 @@ LABEL_221:
   }
 
 LABEL_251:
-  v295 = nearbyInfoV2InvitationCounter;
-  v433 = nearbyInfoV2InvitationCounter;
-  v492 = nearbyInfoV2InvitationCounter;
-  CUAppendF();
-  v296 = v9;
+  v312 = nearbyInfoV2InvitationCounter;
+  v449 = v9;
+  CUAppendF(&v449, v501, "nb2IC: %u -> %u", nearbyInfoV2InvitationCounter, nearbyInfoV2InvitationCounter);
+  v313 = v449;
 
-  self->_nearbyInfoV2InvitationCounter = v295;
-  v73 = 1;
-  v9 = v296;
+  self->_nearbyInfoV2InvitationCounter = v312;
+  v79 = 1;
+  v9 = v313;
   nearbyInfoV2InvitationTypes = [advertiserCopy nearbyInfoV2InvitationTypes];
   nearbyInfoV2InvitationTypes = self->_nearbyInfoV2InvitationTypes;
   if (nearbyInfoV2InvitationTypes == nearbyInfoV2InvitationTypes)
@@ -4994,67 +5092,64 @@ LABEL_222:
   }
 
 LABEL_252:
-  v297 = nearbyInfoV2InvitationTypes;
-  v434 = nearbyInfoV2InvitationTypes;
-  v493 = nearbyInfoV2InvitationTypes;
-  CUAppendF();
-  v298 = v9;
+  v314 = nearbyInfoV2InvitationTypes;
+  v448 = v9;
+  CUAppendF(&v448, v501, "nb2It: %u -> %u", nearbyInfoV2InvitationTypes, nearbyInfoV2InvitationTypes);
+  v315 = v448;
 
-  self->_nearbyInfoV2InvitationTypes = v297;
-  v73 = 1;
-  v9 = v298;
+  self->_nearbyInfoV2InvitationTypes = v314;
+  v79 = 1;
+  v9 = v315;
   nearbyInfoV2InvitationRouteType = [advertiserCopy nearbyInfoV2InvitationRouteType];
   nearbyInfoV2InvitationRouteType = self->_nearbyInfoV2InvitationRouteType;
   if (nearbyInfoV2InvitationRouteType != nearbyInfoV2InvitationRouteType)
   {
 LABEL_223:
-    v264 = nearbyInfoV2InvitationRouteType;
-    v429 = nearbyInfoV2InvitationRouteType;
-    v488 = nearbyInfoV2InvitationRouteType;
-    CUAppendF();
-    v265 = v9;
+    v280 = nearbyInfoV2InvitationRouteType;
+    v447 = v9;
+    CUAppendF(&v447, v501, "nb2Ir: %u -> %u", nearbyInfoV2InvitationRouteType, nearbyInfoV2InvitationRouteType);
+    v281 = v447;
 
-    self->_nearbyInfoV2InvitationRouteType = v264;
-    v73 = 1;
-    v9 = v265;
+    self->_nearbyInfoV2InvitationRouteType = v280;
+    v79 = 1;
+    v9 = v281;
   }
 
 LABEL_224:
   nearbyInfoV2NearbyFaceTimeData = [advertiserCopy nearbyInfoV2NearbyFaceTimeData];
   nearbyInfoV2NearbyFaceTimeData = self->_nearbyInfoV2NearbyFaceTimeData;
-  v268 = nearbyInfoV2NearbyFaceTimeData;
-  v269 = nearbyInfoV2NearbyFaceTimeData;
-  if (v268 == v269)
+  v284 = nearbyInfoV2NearbyFaceTimeData;
+  v285 = nearbyInfoV2NearbyFaceTimeData;
+  if (v284 == v285)
   {
 
-    v289 = v268;
+    v306 = v284;
     goto LABEL_256;
   }
 
-  if ((v268 != 0) == (v269 == 0))
+  if ((v284 != 0) == (v285 == 0))
   {
 
     goto LABEL_255;
   }
 
-  v270 = v269;
-  v271 = [(NSData *)v268 isEqual:v269];
+  v286 = v285;
+  v287 = [(NSData *)v284 isEqual:v285];
 
-  if ((v271 & 1) == 0)
+  if ((v287 & 1) == 0)
   {
 LABEL_255:
-    v299 = self->_nearbyInfoV2NearbyFaceTimeData;
-    v300 = CUPrintNSDataHex();
-    CUPrintNSDataHex();
-    v489 = v430 = v300;
-    CUAppendF();
-    v301 = v9;
+    v446 = v9;
+    v316 = CUPrintNSDataHex();
+    v317 = CUPrintNSDataHex();
+    CUAppendF(&v446, v501, "nb2FT: <%@> -> <%@>", v316, v317);
+    v318 = v446;
 
-    v302 = v268;
-    v289 = self->_nearbyInfoV2NearbyFaceTimeData;
-    self->_nearbyInfoV2NearbyFaceTimeData = v302;
-    v9 = v301;
-    v73 = 1;
+    v319 = v284;
+    v306 = self->_nearbyInfoV2NearbyFaceTimeData;
+    self->_nearbyInfoV2NearbyFaceTimeData = v319;
+    v9 = v318;
+    v79 = 1;
 LABEL_256:
 
     nearbyActionNoWakeType = [advertiserCopy nearbyActionNoWakeType];
@@ -5075,166 +5170,163 @@ LABEL_256:
   }
 
 LABEL_228:
-  v274 = "?";
+  v290 = "?";
+  v445 = v9;
   if (nearbyActionNoWakeType == 1)
   {
-    v275 = "PrecisionFinding";
+    v291 = "PrecisionFinding";
   }
 
   else
   {
-    v275 = "?";
+    v291 = "?";
   }
 
   if (nearbyActionNoWakeType)
   {
-    v276 = v275;
+    v292 = v291;
   }
 
   else
   {
-    v276 = "Unspecified";
+    v292 = "Unspecified";
   }
 
   if (nearbyActionNoWakeType == 1)
   {
-    v274 = "PrecisionFinding";
+    v290 = "PrecisionFinding";
   }
 
   if (!nearbyActionNoWakeType)
   {
-    v274 = "Unspecified";
+    v290 = "Unspecified";
   }
 
-  v430 = v276;
-  v489 = v274;
-  v277 = nearbyActionNoWakeType;
-  CUAppendF();
-  v278 = v9;
+  v293 = nearbyActionNoWakeType;
+  CUAppendF(&v445, v501, "nawT: %s -> %s", v292, v290);
+  v294 = v445;
 
-  self->_nearbyActionNoWakeType = v277;
-  v73 = 1;
-  v9 = v278;
+  self->_nearbyActionNoWakeType = v293;
+  v79 = 1;
+  v9 = v294;
 LABEL_239:
   nearbyActionNWPrecisionFindingStatus = [advertiserCopy nearbyActionNWPrecisionFindingStatus];
-  v516 = v230;
+  v420 = v246;
   if (nearbyActionNWPrecisionFindingStatus != self->_nearbyActionNWPrecisionFindingStatus)
   {
-    v280 = CUPrintFlags32();
-    CUPrintFlags32();
-    v490 = v431 = v280;
-    CUAppendF();
-    v281 = v9;
+    v444 = v9;
+    v296 = CUPrintFlags32();
+    v297 = CUPrintFlags32();
+    CUAppendF(&v444, v501, "nawS: %@ -> %@", v296, v297);
+    v298 = v444;
 
     self->_nearbyActionNWPrecisionFindingStatus = nearbyActionNWPrecisionFindingStatus;
-    v73 = 1;
-    v9 = v281;
+    v79 = 1;
+    v9 = v298;
   }
 
   nearbyActionNoWakeAuthTagData = [advertiserCopy nearbyActionNoWakeAuthTagData];
   nearbyActionNoWakeAuthTagData = self->_nearbyActionNoWakeAuthTagData;
-  v284 = nearbyActionNoWakeAuthTagData;
-  v285 = nearbyActionNoWakeAuthTagData;
-  if (v284 == v285)
+  v301 = nearbyActionNoWakeAuthTagData;
+  v302 = nearbyActionNoWakeAuthTagData;
+  if (v301 == v302)
   {
 
-    v290 = v284;
+    v307 = v301;
 LABEL_260:
 
     goto LABEL_261;
   }
 
-  if ((v284 != 0) == (v285 == 0))
+  if ((v301 != 0) == (v302 == 0))
   {
 
     goto LABEL_259;
   }
 
-  v286 = v285;
-  v287 = [(NSData *)v284 isEqual:v285];
+  v303 = v302;
+  v304 = [(NSData *)v301 isEqual:v302];
 
-  if ((v287 & 1) == 0)
+  if ((v304 & 1) == 0)
   {
 LABEL_259:
-    v303 = self->_nearbyActionNoWakeAuthTagData;
-    v304 = CUPrintNSDataHex();
-    CUPrintNSDataHex();
-    v491 = v432 = v304;
-    CUAppendF();
-    v305 = v9;
+    v443 = v9;
+    v320 = CUPrintNSDataHex();
+    v321 = CUPrintNSDataHex();
+    CUAppendF(&v443, v501, "nawA: <%@> -> <%@>", v320, v321);
+    v322 = v443;
 
-    v306 = v284;
-    v290 = self->_nearbyActionNoWakeAuthTagData;
-    self->_nearbyActionNoWakeAuthTagData = v306;
-    v9 = v305;
-    v73 = 1;
+    v323 = v301;
+    v307 = self->_nearbyActionNoWakeAuthTagData;
+    self->_nearbyActionNoWakeAuthTagData = v323;
+    v9 = v322;
+    v79 = 1;
     goto LABEL_260;
   }
 
 LABEL_261:
   nearbyActionNoWakeConfigData = [advertiserCopy nearbyActionNoWakeConfigData];
   nearbyActionNoWakeConfigData = self->_nearbyActionNoWakeConfigData;
-  v309 = nearbyActionNoWakeConfigData;
-  v310 = nearbyActionNoWakeConfigData;
-  v522 = v309;
-  if (v309 == v310)
+  v326 = nearbyActionNoWakeConfigData;
+  v327 = nearbyActionNoWakeConfigData;
+  v426 = v326;
+  if (v326 == v327)
   {
 
 LABEL_268:
     goto LABEL_269;
   }
 
-  if ((v309 != 0) == (v310 == 0))
+  if ((v326 != 0) == (v327 == 0))
   {
 
     goto LABEL_267;
   }
 
-  v311 = v310;
-  v312 = [(NSData *)v309 isEqual:v310];
+  v328 = v327;
+  v329 = [(NSData *)v326 isEqual:v327];
 
-  if ((v312 & 1) == 0)
+  if ((v329 & 1) == 0)
   {
 LABEL_267:
-    v313 = self->_nearbyActionNoWakeConfigData;
-    v314 = CUPrintNSDataHex();
-    CUPrintNSDataHex();
-    v494 = v435 = v314;
-    CUAppendF();
-    v315 = v9;
+    v442 = v9;
+    v330 = CUPrintNSDataHex();
+    v331 = CUPrintNSDataHex();
+    CUAppendF(&v442, v501, "nawC: <%@> -> <%@>", v330, v331);
+    v332 = v442;
 
-    v316 = v522;
-    v309 = self->_nearbyActionNoWakeConfigData;
-    self->_nearbyActionNoWakeConfigData = v316;
-    v9 = v315;
-    v73 = 1;
+    v333 = v426;
+    v326 = self->_nearbyActionNoWakeConfigData;
+    self->_nearbyActionNoWakeConfigData = v333;
+    v9 = v332;
+    v79 = 1;
     goto LABEL_268;
   }
 
 LABEL_269:
   proximityServicePayload = [advertiserCopy proximityServicePayload];
   proximityServicePayload = self->_proximityServicePayload;
-  v319 = proximityServicePayload;
-  v320 = proximityServicePayload;
-  v514 = v284;
-  if (v319 == v320)
+  v336 = proximityServicePayload;
+  v337 = proximityServicePayload;
+  v418 = v301;
+  if (v336 == v337)
   {
 
-    v348 = v319;
+    v370 = v336;
   }
 
   else
   {
-    if ((v319 != 0) != (v320 == 0))
+    if ((v336 != 0) != (v337 == 0))
     {
-      v321 = v320;
-      v322 = [(NSData *)v319 isEqual:v320];
+      v338 = v337;
+      v339 = [(NSData *)v336 isEqual:v337];
 
-      if (v322)
+      if (v339)
       {
         proximityServiceSubType = [advertiserCopy proximityServiceSubType];
         proximityServiceSubType = self->_proximityServiceSubType;
-        v513 = v319;
+        v417 = v336;
         if (proximityServiceSubType == proximityServiceSubType)
         {
           goto LABEL_274;
@@ -5248,132 +5340,128 @@ LABEL_269:
     {
     }
 
-    v350 = self->_proximityServicePayload;
-    v73 = 1;
-    v351 = CUPrintNSDataHex();
-    CUPrintNSDataHex();
-    v511 = v495 = v351;
-    v436 = "pxSP";
-    CUAppendF();
-    v352 = v9;
+    v441 = v9;
+    v79 = 1;
+    v372 = CUPrintNSDataHex();
+    v373 = CUPrintNSDataHex();
+    CUAppendF(&v441, v501, "%s: <%@> -> <%@>", "pxSP", v372, v373);
+    v374 = v441;
 
-    v353 = v319;
-    v348 = self->_proximityServicePayload;
-    self->_proximityServicePayload = v353;
-    v9 = v352;
+    v375 = v336;
+    v370 = self->_proximityServicePayload;
+    self->_proximityServicePayload = v375;
+    v9 = v374;
   }
 
   proximityServiceSubType = [advertiserCopy proximityServiceSubType];
   proximityServiceSubType = self->_proximityServiceSubType;
-  v513 = v319;
+  v417 = v336;
   if (proximityServiceSubType != proximityServiceSubType)
   {
 LABEL_273:
-    v325 = proximityServiceSubType;
-    v495 = proximityServiceSubType;
-    v511 = proximityServiceSubType;
-    v436 = "pxSS";
-    CUAppendF();
-    v326 = v9;
+    v342 = proximityServiceSubType;
+    v440 = v9;
+    CUAppendF(&v440, v501, "%s: %u -> %u", "pxSS", proximityServiceSubType, proximityServiceSubType);
+    v343 = v440;
 
-    self->_proximityServiceSubType = v325;
-    v73 = 1;
-    v9 = v326;
+    self->_proximityServiceSubType = v342;
+    v79 = 1;
+    v9 = v343;
   }
 
 LABEL_274:
   safetyAlertsAlertData = [advertiserCopy safetyAlertsAlertData];
   if (safetyAlertsAlertData != self->_safetyAlertsAlertData)
   {
-    v73 = 1;
-    v328 = CUPrintNSDataHex();
-    CUPrintNSDataHex();
-    v496 = v437 = v328;
-    CUAppendF();
-    v329 = v9;
+    v439 = v9;
+    v79 = 1;
+    v345 = CUPrintNSDataHex();
+    v346 = CUPrintNSDataHex();
+    CUAppendF(&v439, v501, "saAd: %@ -> %@", v345, v346);
+    v347 = v439;
 
     objc_storeStrong(&self->_safetyAlertsAlertData, safetyAlertsAlertData);
-    v9 = v329;
+    v9 = v347;
   }
 
   safetyAlertsAlertID = [advertiserCopy safetyAlertsAlertID];
-  v512 = safetyAlertsAlertID;
+  v416 = safetyAlertsAlertID;
   if (safetyAlertsAlertID != self->_safetyAlertsAlertID)
   {
-    v73 = 1;
-    v331 = CUPrintNSDataHex();
-    CUPrintNSDataHex();
-    v497 = v438 = v331;
-    CUAppendF();
-    v332 = v9;
+    v438 = v9;
+    v79 = 1;
+    v349 = CUPrintNSDataHex();
+    v350 = CUPrintNSDataHex();
+    CUAppendF(&v438, v501, "saAi: %@ -> %@", v349, v350);
+    v351 = v438;
 
     objc_storeStrong(&self->_safetyAlertsAlertID, safetyAlertsAlertID);
-    v9 = v332;
+    v9 = v351;
   }
 
   safetyAlertsSignature = [advertiserCopy safetyAlertsSignature];
   if (safetyAlertsSignature != self->_safetyAlertsSignature)
   {
-    v73 = 1;
-    v334 = CUPrintNSDataHex();
-    CUPrintNSDataHex();
-    v498 = v439 = v334;
-    CUAppendF();
-    v335 = v9;
+    v437 = v9;
+    v79 = 1;
+    v353 = CUPrintNSDataHex();
+    v354 = CUPrintNSDataHex();
+    CUAppendF(&v437, v501, "saSg: %@ -> %@", v353, v354);
+    v355 = v437;
 
     objc_storeStrong(&self->_safetyAlertsSignature, safetyAlertsSignature);
-    v9 = v335;
+    v9 = v355;
   }
 
   safetyAlertsVersion = [advertiserCopy safetyAlertsVersion];
-  if (safetyAlertsVersion != self->_safetyAlertsVersion)
+  safetyAlertsVersion = self->_safetyAlertsVersion;
+  if (safetyAlertsVersion != safetyAlertsVersion)
   {
-    v337 = safetyAlertsVersion;
-    safetyAlertsVersion = self->_safetyAlertsVersion;
-    v499 = safetyAlertsVersion;
-    CUAppendF();
-    v338 = v9;
+    v358 = safetyAlertsVersion;
+    v436 = v9;
+    CUAppendF(&v436, v501, "saVs: %d -> %d", safetyAlertsVersion, safetyAlertsVersion);
+    v359 = v436;
 
-    self->_safetyAlertsVersion = v337;
-    v73 = 1;
-    v9 = v338;
+    self->_safetyAlertsVersion = v358;
+    v79 = 1;
+    v9 = v359;
   }
 
   softwareUpdateActionType = [advertiserCopy softwareUpdateActionType];
-  if (softwareUpdateActionType != self->_softwareUpdateActionType)
+  softwareUpdateActionType = self->_softwareUpdateActionType;
+  if (softwareUpdateActionType != softwareUpdateActionType)
   {
-    v340 = softwareUpdateActionType;
-    softwareUpdateActionType = self->_softwareUpdateActionType;
-    v500 = softwareUpdateActionType;
-    CUAppendF();
-    v341 = v9;
+    v362 = softwareUpdateActionType;
+    v435 = v9;
+    CUAppendF(&v435, v501, "suA: %d -> %d", softwareUpdateActionType, softwareUpdateActionType);
+    v363 = v435;
 
-    self->_softwareUpdateActionType = v340;
-    v73 = 1;
-    v9 = v341;
+    self->_softwareUpdateActionType = v362;
+    v79 = 1;
+    v9 = v363;
   }
 
   softwareUpdateDataArray = [advertiserCopy softwareUpdateDataArray];
   softwareUpdateDataArray = self->_softwareUpdateDataArray;
-  v344 = softwareUpdateDataArray;
-  v345 = softwareUpdateDataArray;
-  if (v344 == v345)
+  v366 = softwareUpdateDataArray;
+  v367 = softwareUpdateDataArray;
+  if (v366 == v367)
   {
-    v521 = v73;
+    v425 = v79;
 
-    v349 = v344;
+    v371 = v366;
   }
 
   else
   {
-    if ((v344 != 0) != (v345 == 0))
+    if ((v366 != 0) != (v367 == 0))
     {
-      v346 = v345;
-      v347 = [(NSArray *)v344 isEqual:v345];
+      v368 = v367;
+      v369 = [(NSArray *)v366 isEqual:v367];
 
-      if (v347)
+      if (v369)
       {
-        v521 = v73;
+        v425 = v79;
         goto LABEL_297;
       }
     }
@@ -5382,125 +5470,104 @@ LABEL_274:
     {
     }
 
-    v354 = self->_softwareUpdateDataArray;
-    v355 = CUPrintNSObjectOneLine();
-    CUPrintNSObjectOneLine();
-    v501 = v442 = v355;
-    CUAppendF();
-    v356 = v9;
+    v434 = v9;
+    v376 = CUPrintNSObjectOneLine();
+    v377 = CUPrintNSObjectOneLine();
+    CUAppendF(&v434, v501, "suD: %@ -> %@", v376, v377);
+    v378 = v434;
 
-    v357 = v344;
-    v349 = self->_softwareUpdateDataArray;
-    self->_softwareUpdateDataArray = v357;
-    v521 = 1;
-    v9 = v356;
+    v379 = v366;
+    v371 = self->_softwareUpdateDataArray;
+    self->_softwareUpdateDataArray = v379;
+    v425 = 1;
+    v9 = v378;
   }
 
 LABEL_297:
   watchSetupData = [advertiserCopy watchSetupData];
   watchSetupData = self->_watchSetupData;
-  v360 = watchSetupData;
-  v361 = watchSetupData;
-  v362 = v361;
-  if (v360 == v361)
+  v382 = watchSetupData;
+  v383 = watchSetupData;
+  v384 = v383;
+  if (v382 == v383)
   {
 
-    v365 = v519;
-    v364 = v520;
-    v366 = v517;
+    v387 = v423;
+    v386 = v424;
+    v388 = v421;
     var0 = self->_ucat->var0;
-    if (!v9)
+    if (v9)
     {
-      goto LABEL_308;
+      goto LABEL_301;
     }
 
-LABEL_301:
-    if (var0 <= 30)
+LABEL_308:
+    if (var0 <= 10 && (var0 != -1 || _LogCategory_Initialize()))
     {
-      if (var0 == -1)
-      {
-        if (!_LogCategory_Initialize())
-        {
-          goto LABEL_341;
-        }
-
-        ucat = self->_ucat;
-      }
-
       goto LABEL_310;
     }
 
     goto LABEL_341;
   }
 
-  if ((v360 != 0) == (v361 == 0))
+  if ((v382 != 0) == (v383 == 0))
   {
 
 LABEL_307:
-    v368 = self->_watchSetupData;
-    v521 = 1;
-    v369 = CUPrintNSDataHex();
-    v502 = CUPrintNSDataHex();
-    CUAppendF();
-    v370 = v268;
-    v371 = safetyAlertsAlertData;
-    v372 = v9;
+    v433 = v9;
+    v425 = 1;
+    v390 = CUPrintNSDataHex();
+    v391 = CUPrintNSDataHex();
+    CUAppendF(&v433, v501, "wsDa: <%@> -> <%@>", v390, v391);
+    v392 = v284;
+    v393 = safetyAlertsAlertData;
+    v394 = v433;
 
-    v373 = v360;
-    v374 = self->_watchSetupData;
-    self->_watchSetupData = v373;
-    v9 = v372;
-    safetyAlertsAlertData = v371;
-    v268 = v370;
+    v395 = v382;
+    v396 = self->_watchSetupData;
+    self->_watchSetupData = v395;
+    v9 = v394;
+    safetyAlertsAlertData = v393;
+    v284 = v392;
 
-    v365 = v519;
-    v364 = v520;
-    v366 = v517;
+    v387 = v423;
+    v386 = v424;
+    v388 = v421;
     var0 = self->_ucat->var0;
-    if (!v9)
+    if (v9)
     {
-      goto LABEL_308;
+      goto LABEL_301;
     }
 
-    goto LABEL_301;
+    goto LABEL_308;
   }
 
-  v363 = [(NSData *)v360 isEqual:v361];
+  v385 = [(NSData *)v382 isEqual:v383];
 
-  if ((v363 & 1) == 0)
+  if ((v385 & 1) == 0)
   {
     goto LABEL_307;
   }
 
-  v365 = v519;
-  v364 = v520;
-  v366 = v517;
+  v387 = v423;
+  v386 = v424;
+  v388 = v421;
   var0 = self->_ucat->var0;
-  if (v9)
+  if (!v9)
   {
-    goto LABEL_301;
+    goto LABEL_308;
   }
 
-LABEL_308:
-  if (var0 <= 10)
+LABEL_301:
+  if (var0 <= 30 && (var0 != -1 || _LogCategory_Initialize()))
   {
-    if (var0 == -1)
-    {
-      if (!_LogCategory_Initialize())
-      {
-        goto LABEL_341;
-      }
-
-      v394 = self->_ucat;
-    }
-
 LABEL_310:
     LogPrintF_safe();
   }
 
 LABEL_341:
 
-  return v521;
+  return v425;
 }
 
 - (void)activateWithCompletion:(id)completion
@@ -5530,7 +5597,7 @@ LABEL_341:
 - (void)_activate
 {
   v3 = self->_mockID;
-  v16 = v3;
+  v14 = v3;
   if (v3)
   {
     CBMockAddOrUpdateAdvertiser(v3, self);
@@ -5567,42 +5634,30 @@ LABEL_26:
   self->_direct = v7;
   if (self->_invalidateCalled)
   {
-    v4 = NSErrorF();
+    v4 = NSErrorF(@"CBErrorDomain", 4294896148, "Activate after invalidate");
     var0 = self->_ucat->var0;
-    if (var0 <= 90)
+    if (var0 <= 90 && (var0 != -1 || _LogCategory_Initialize()))
     {
-      if (var0 == -1)
-      {
-        ucat = self->_ucat;
-        if (!_LogCategory_Initialize())
-        {
-          goto LABEL_20;
-        }
-
-        v14 = self->_ucat;
-      }
-
-      v15 = CUPrintNSError();
+      v13 = CUPrintNSError();
       LogPrintF_safe();
     }
 
-LABEL_20:
-    v10 = MEMORY[0x1C68DF720](self->_activateCompletion);
-    v11 = self->_activateCompletion;
+    v9 = MEMORY[0x1C68DF720](self->_activateCompletion);
+    v10 = self->_activateCompletion;
     self->_activateCompletion = 0;
 
-    if (v10)
+    if (v9)
     {
-      v10[2](v10, v4);
+      v9[2](v9, v4);
     }
 
     else
     {
-      v12 = MEMORY[0x1C68DF720](self->_errorHandler);
-      v13 = v12;
-      if (v12)
+      v11 = MEMORY[0x1C68DF720](self->_errorHandler);
+      v12 = v11;
+      if (v11)
       {
-        (*(v12 + 16))(v12, v4);
+        (*(v11 + 16))(v11, v4);
       }
     }
 
@@ -5625,29 +5680,18 @@ LABEL_27:
 - (void)_activateDirectStart
 {
   var0 = self->_ucat->var0;
-  if (var0 <= 30)
+  if (var0 <= 30 && (var0 != -1 || _LogCategory_Initialize()))
   {
-    if (var0 == -1)
-    {
-      if (!_LogCategory_Initialize())
-      {
-        goto LABEL_5;
-      }
-
-      ucat = self->_ucat;
-    }
-
     clientID = self->_clientID;
     LogPrintF_safe();
   }
 
-LABEL_5:
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __36__CBAdvertiser__activateDirectStart__block_invoke;
-  v6[3] = &unk_1E811D5F8;
-  v6[4] = self;
-  [gCBDaemonServer activateCBAdvertiser:self completion:{v6, clientID}];
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3221225472;
+  v5[2] = __36__CBAdvertiser__activateDirectStart__block_invoke;
+  v5[3] = &unk_1E811D5F8;
+  v5[4] = self;
+  [gCBDaemonServer activateCBAdvertiser:self completion:{v5, clientID}];
 }
 
 void __36__CBAdvertiser__activateDirectStart__block_invoke(uint64_t a1, void *a2)
@@ -5667,81 +5711,50 @@ void __36__CBAdvertiser__activateDirectStart__block_invoke(uint64_t a1, void *a2
 
 void __36__CBAdvertiser__activateDirectStart__block_invoke_2(uint64_t a1)
 {
-  v15 = MEMORY[0x1C68DF720](*(*(a1 + 32) + 16));
+  v9 = MEMORY[0x1C68DF720](*(*(a1 + 32) + 16));
   v2 = *(a1 + 32);
   v3 = *(v2 + 16);
   *(v2 + 16) = 0;
 
-  v4 = *(a1 + 32);
-  v5 = **(v4 + 32);
+  v4 = **(*(a1 + 32) + 32);
   if (*(a1 + 40))
   {
-    if (v5 > 90)
+    if (v4 <= 90 && (v4 != -1 || _LogCategory_Initialize()))
     {
-      goto LABEL_9;
+      v8 = CUPrintNSError();
+      LogPrintF_safe();
     }
 
-    if (v5 == -1)
+    if (v9)
     {
-      v6 = *(v4 + 32);
-      if (!_LogCategory_Initialize())
+      (*(v9 + 16))(v9, *(a1 + 40));
+    }
+
+    else
+    {
+      v5 = MEMORY[0x1C68DF720](*(*(a1 + 32) + 192));
+      v6 = v5;
+      if (v5)
       {
-LABEL_9:
-        if (v15)
-        {
-          (*(v15 + 16))(v15, *(a1 + 40));
-        }
-
-        else
-        {
-          v7 = MEMORY[0x1C68DF720](*(*(a1 + 32) + 192));
-          v8 = v7;
-          if (v7)
-          {
-            (*(v7 + 16))(v7, *(a1 + 40));
-          }
-        }
-
-        goto LABEL_17;
+        (*(v5 + 16))(v5, *(a1 + 40));
       }
-
-      v11 = *(a1 + 40);
-      v12 = *(*(a1 + 32) + 32);
     }
 
-    v14 = CUPrintNSError();
-    LogPrintF_safe();
-
-    goto LABEL_9;
+    goto LABEL_17;
   }
 
-  if (v5 <= 30)
+  if (v4 <= 30 && (v4 != -1 || _LogCategory_Initialize()))
   {
-    if (v5 == -1)
-    {
-      v9 = *(v4 + 32);
-      if (!_LogCategory_Initialize())
-      {
-        goto LABEL_15;
-      }
-
-      v13 = *(*(a1 + 32) + 32);
-    }
-
     LogPrintF_safe();
   }
 
-LABEL_15:
-  v10 = v15;
-  if (!v15)
+  v7 = v9;
+  if (v9)
   {
-    goto LABEL_18;
-  }
-
-  (*(v15 + 16))(v15, 0);
+    (*(v9 + 16))(v9, 0);
 LABEL_17:
-  v10 = v15;
-LABEL_18:
+    v7 = v9;
+  }
 }
 
 - (void)_activateXPCStart:(BOOL)start
@@ -5749,42 +5762,21 @@ LABEL_18:
   var0 = self->_ucat->var0;
   if (start)
   {
-    if (var0 <= 30)
+    if (var0 <= 30 && (var0 != -1 || _LogCategory_Initialize()))
     {
-      if (var0 == -1)
-      {
-        if (!_LogCategory_Initialize())
-        {
-          goto LABEL_11;
-        }
-
-        ucat = self->_ucat;
-      }
-
-      goto LABEL_7;
-    }
-  }
-
-  else if (var0 <= 30)
-  {
-    if (var0 == -1)
-    {
-      if (!_LogCategory_Initialize())
-      {
-        goto LABEL_11;
-      }
-
-      v9 = self->_ucat;
-    }
-
 LABEL_7:
-    LogPrintF_safe();
+      LogPrintF_safe();
+    }
   }
 
-LABEL_11:
-  v6 = xpc_dictionary_create(0, 0, 0);
-  [(CBAdvertiser *)self encodeWithXPCObject:v6];
-  xpc_dictionary_set_string(v6, "mTyp", "AdvA");
+  else if (var0 <= 30 && (var0 != -1 || _LogCategory_Initialize()))
+  {
+    goto LABEL_7;
+  }
+
+  v5 = xpc_dictionary_create(0, 0, 0);
+  [(CBAdvertiser *)self encodeWithXPCObject:v5];
+  xpc_dictionary_set_string(v5, "mTyp", "AdvA");
   _ensureXPCStarted = [(CBAdvertiser *)self _ensureXPCStarted];
   dispatchQueue = self->_dispatchQueue;
   handler[0] = MEMORY[0x1E69E9820];
@@ -5792,120 +5784,92 @@ LABEL_11:
   handler[2] = __34__CBAdvertiser__activateXPCStart___block_invoke;
   handler[3] = &unk_1E811D158;
   handler[4] = self;
-  xpc_connection_send_message_with_reply(_ensureXPCStarted, v6, dispatchQueue, handler);
+  xpc_connection_send_message_with_reply(_ensureXPCStarted, v5, dispatchQueue, handler);
 }
 
 - (void)_activateXPCCompleted:(id)completed
 {
   completedCopy = completed;
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x3032000000;
-  v16 = __Block_byref_object_copy__0;
-  v17 = __Block_byref_object_dispose__0;
-  v18 = 0;
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __38__CBAdvertiser__activateXPCCompleted___block_invoke;
-  v12[3] = &unk_1E811D378;
-  v12[4] = self;
-  v12[5] = &v13;
-  v5 = MEMORY[0x1C68DF720](v12);
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy__0;
+  v16 = __Block_byref_object_dispose__0;
+  v17 = 0;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __38__CBAdvertiser__activateXPCCompleted___block_invoke;
+  v11[3] = &unk_1E811D378;
+  v11[4] = self;
+  v11[5] = &v12;
+  v5 = MEMORY[0x1C68DF720](v11);
   v6 = CUXPCDecodeNSErrorIfNeeded();
-  v7 = v14[5];
-  v14[5] = v6;
+  v7 = v13[5];
+  v13[5] = v6;
 
-  if (v14[5])
+  if (!v13[5])
   {
-    goto LABEL_9;
-  }
-
-  CUXPCDecodeNSData();
-  CUXPCDecodeNSData();
-  CUXPCDecodeNSData();
-  self->_softwareUpdateDataArrayCountMaximumLimit = xpc_dictionary_get_int64(completedCopy, "aSuda");
-  self->_bluetoothState = xpc_dictionary_get_int64(completedCopy, "pwrS");
-  var0 = self->_ucat->var0;
-  if (var0 <= 30)
-  {
-    if (var0 == -1)
+    CUXPCDecodeNSData();
+    CUXPCDecodeNSData();
+    CUXPCDecodeNSData();
+    self->_softwareUpdateDataArrayCountMaximumLimit = xpc_dictionary_get_int64(completedCopy, "aSuda");
+    self->_bluetoothState = xpc_dictionary_get_int64(completedCopy, "pwrS");
+    var0 = self->_ucat->var0;
+    if (var0 <= 30 && (var0 != -1 || _LogCategory_Initialize()))
     {
-      if (!_LogCategory_Initialize())
-      {
-        goto LABEL_6;
-      }
-
-      ucat = self->_ucat;
+      LogPrintF_safe();
     }
 
-    LogPrintF_safe();
+    v9 = MEMORY[0x1C68DF720](self->_activateCompletion);
+    activateCompletion = self->_activateCompletion;
+    self->_activateCompletion = 0;
+
+    if (v9)
+    {
+      v9[2](v9, 0);
+    }
   }
 
-LABEL_6:
-  v9 = MEMORY[0x1C68DF720](self->_activateCompletion);
-  activateCompletion = self->_activateCompletion;
-  self->_activateCompletion = 0;
-
-  if (v9)
-  {
-    v9[2](v9, 0);
-  }
-
-LABEL_9:
   v5[2](v5);
 
-  _Block_object_dispose(&v13, 8);
+  _Block_object_dispose(&v12, 8);
 }
 
 void __38__CBAdvertiser__activateXPCCompleted___block_invoke(uint64_t a1)
 {
-  if (!*(*(*(a1 + 40) + 8) + 40))
+  if (*(*(*(a1 + 40) + 8) + 40))
   {
-    return;
-  }
-
-  v2 = *(a1 + 32);
-  v3 = **(v2 + 32);
-  if (v3 <= 90)
-  {
-    if (v3 == -1)
+    v2 = *(a1 + 32);
+    v3 = **(v2 + 32);
+    if (v3 <= 90)
     {
-      v4 = *(v2 + 32);
-      v5 = _LogCategory_Initialize();
-      v2 = *(a1 + 32);
-      if (!v5)
+      if (v3 != -1 || (v4 = _LogCategory_Initialize(), v2 = *(a1 + 32), v4))
       {
-        goto LABEL_7;
-      }
+        v9 = CUPrintNSError();
+        LogPrintF_safe();
 
-      v10 = *(v2 + 32);
-      v11 = *(*(*(a1 + 40) + 8) + 40);
+        v2 = *(a1 + 32);
+      }
     }
 
-    v12 = CUPrintNSError();
-    LogPrintF_safe();
+    v10 = MEMORY[0x1C68DF720](*(v2 + 16));
+    v5 = *(a1 + 32);
+    v6 = *(v5 + 16);
+    *(v5 + 16) = 0;
 
-    v2 = *(a1 + 32);
-  }
-
-LABEL_7:
-  v13 = MEMORY[0x1C68DF720](*(v2 + 16));
-  v6 = *(a1 + 32);
-  v7 = *(v6 + 16);
-  *(v6 + 16) = 0;
-
-  if (v13)
-  {
-    v13[2](v13, *(*(*(a1 + 40) + 8) + 40));
-  }
-
-  else
-  {
-    v8 = MEMORY[0x1C68DF720](*(*(a1 + 32) + 192));
-    v9 = v8;
-    if (v8)
+    if (v10)
     {
-      (*(v8 + 16))(v8, *(*(*(a1 + 40) + 8) + 40));
+      v10[2](v10, *(*(*(a1 + 40) + 8) + 40));
+    }
+
+    else
+    {
+      v7 = MEMORY[0x1C68DF720](*(*(a1 + 32) + 192));
+      v8 = v7;
+      if (v7)
+      {
+        (*(v7 + 16))(v7, *(*(*(a1 + 40) + 8) + 40));
+      }
     }
   }
 }
@@ -5963,44 +5927,31 @@ void *__33__CBAdvertiser__ensureXPCStarted__block_invoke(uint64_t a1, uint64_t a
 
 - (void)_interrupted
 {
-  if (self->_invalidateCalled)
+  if (!self->_invalidateCalled)
   {
-    return;
-  }
-
-  var0 = self->_ucat->var0;
-  if (var0 <= 90)
-  {
-    if (var0 == -1)
+    var0 = self->_ucat->var0;
+    if (var0 <= 90 && (var0 != -1 || _LogCategory_Initialize()))
     {
-      if (!_LogCategory_Initialize())
-      {
-        goto LABEL_6;
-      }
-
-      ucat = self->_ucat;
+      LogPrintF_safe();
     }
 
-    LogPrintF_safe();
-  }
+    v5 = MEMORY[0x1C68DF720](self->_interruptionHandler);
+    v6 = v5;
+    if (v5)
+    {
+      (*(v5 + 16))(v5);
+    }
 
-LABEL_6:
-  v5 = MEMORY[0x1C68DF720](self->_interruptionHandler);
-  v6 = v5;
-  if (v5)
-  {
-    (*(v5 + 16))(v5);
-  }
+    self->_bluetoothState = 1;
+    v7 = MEMORY[0x1C68DF720](self->_bluetoothStateChangedHandler);
+    v8 = v7;
+    if (v7)
+    {
+      (*(v7 + 16))(v7);
+    }
 
-  self->_bluetoothState = 1;
-  v7 = MEMORY[0x1C68DF720](self->_bluetoothStateChangedHandler);
-  v8 = v7;
-  if (v7)
-  {
-    (*(v7 + 16))(v7);
+    [(CBAdvertiser *)self _activateXPCStart:1];
   }
-
-  [(CBAdvertiser *)self _activateXPCStart:1];
 }
 
 - (void)invalidate
@@ -6017,55 +5968,43 @@ LABEL_6:
 void __26__CBAdvertiser_invalidate__block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  if (*(v2 + 26))
+  if ((*(v2 + 26) & 1) == 0)
   {
-    return;
-  }
-
-  *(v2 + 26) = 1;
-  v4 = *(a1 + 32);
-  v5 = **(v4 + 32);
-  if (v5 <= 30)
-  {
-    if (v5 == -1)
+    *(v2 + 26) = 1;
+    v4 = *(a1 + 32);
+    v5 = **(v4 + 32);
+    if (v5 <= 30)
     {
-      v6 = _LogCategory_Initialize();
-      v4 = *(a1 + 32);
-      if (!v6)
+      if (v5 != -1 || (v6 = _LogCategory_Initialize(), v4 = *(a1 + 32), v6))
       {
-        goto LABEL_6;
+        v10 = v4;
+        LogPrintF_safe();
+        v4 = *(a1 + 32);
       }
-
-      v10 = *(v4 + 32);
     }
 
-    v11 = v4;
-    LogPrintF_safe();
-    v4 = *(a1 + 32);
-  }
+    v7 = *(v4 + 256);
+    v11 = v7;
+    if (v7)
+    {
+      CBMockRemoveAdvertiser(v7, *(a1 + 32));
+    }
 
-LABEL_6:
-  v7 = *(v4 + 256);
-  v12 = v7;
-  if (v7)
-  {
-    CBMockRemoveAdvertiser(v7, *(a1 + 32));
-  }
-
-  v8 = *(a1 + 32);
-  if (*(v8 + 25) == 1)
-  {
-    [v8 _invalidateDirect];
     v8 = *(a1 + 32);
-  }
+    if (*(v8 + 25) == 1)
+    {
+      [v8 _invalidateDirect];
+      v8 = *(a1 + 32);
+    }
 
-  v9 = *(v8 + 40);
-  if (v9)
-  {
-    xpc_connection_cancel(v9);
-  }
+    v9 = *(v8 + 40);
+    if (v9)
+    {
+      xpc_connection_cancel(v9);
+    }
 
-  [*(a1 + 32) _invalidated];
+    [*(a1 + 32) _invalidated];
+  }
 }
 
 void __33__CBAdvertiser__invalidateDirect__block_invoke(uint64_t a1)
@@ -6111,20 +6050,9 @@ void __33__CBAdvertiser__invalidateDirect__block_invoke(uint64_t a1)
 
     selfCopy2->_invalidateDone = 1;
     var0 = selfCopy2->_ucat->var0;
-    if (var0 <= 30)
+    if (var0 <= 30 && (var0 != -1 || _LogCategory_Initialize()))
     {
-      if (var0 != -1)
-      {
-LABEL_10:
-        LogPrintF_safe();
-        return;
-      }
-
-      if (_LogCategory_Initialize())
-      {
-        ucat = selfCopy2->_ucat;
-        goto LABEL_10;
-      }
+      LogPrintF_safe();
     }
   }
 }
@@ -6151,179 +6079,121 @@ LABEL_10:
 
 - (void)_update
 {
-  if (self->_invalidateCalled)
+  if (!self->_invalidateCalled)
   {
-    return;
-  }
+    selfCopy = self;
+    objc_sync_enter(selfCopy);
+    changesPending = selfCopy->_changesPending;
+    selfCopy->_changesPending = 0;
+    objc_sync_exit(selfCopy);
 
-  selfCopy = self;
-  objc_sync_enter(selfCopy);
-  changesPending = selfCopy->_changesPending;
-  selfCopy->_changesPending = 0;
-  objc_sync_exit(selfCopy);
-
-  var0 = selfCopy->_ucat->var0;
-  if (!changesPending)
-  {
-    if (var0 > 10)
+    var0 = selfCopy->_ucat->var0;
+    if (changesPending)
     {
-      return;
-    }
-
-    if (var0 == -1)
-    {
-      if (!_LogCategory_Initialize())
+      if (var0 <= 30 && (var0 != -1 || _LogCategory_Initialize()))
       {
-        return;
+        LogPrintF_safe();
       }
 
-      ucat = selfCopy->_ucat;
+      xdict = xpc_dictionary_create(0, 0, 0);
+      [(CBAdvertiser *)selfCopy encodeWithXPCObject:xdict];
+      xpc_dictionary_set_string(xdict, "mTyp", "AdvU");
+      _ensureXPCStarted = [(CBAdvertiser *)selfCopy _ensureXPCStarted];
+      xpc_connection_send_message(_ensureXPCStarted, xdict);
     }
 
-    LogPrintF_safe();
-    return;
-  }
-
-  if (var0 <= 30)
-  {
-    if (var0 == -1)
+    else if (var0 <= 10 && (var0 != -1 || _LogCategory_Initialize()))
     {
-      if (!_LogCategory_Initialize())
-      {
-        goto LABEL_11;
-      }
-
-      v7 = selfCopy->_ucat;
+      LogPrintF_safe();
     }
-
-    LogPrintF_safe();
   }
-
-LABEL_11:
-  xdict = xpc_dictionary_create(0, 0, 0);
-  [(CBAdvertiser *)selfCopy encodeWithXPCObject:xdict];
-  xpc_dictionary_set_string(xdict, "mTyp", "AdvU");
-  _ensureXPCStarted = [(CBAdvertiser *)selfCopy _ensureXPCStarted];
-  xpc_connection_send_message(_ensureXPCStarted, xdict);
 }
 
 - (void)xpcReceivedMessage:(id)message
 {
   messageCopy = message;
   var0 = self->_ucat->var0;
-  v21 = messageCopy;
+  v18 = messageCopy;
   if (var0 <= 9)
   {
-    if (var0 != -1)
+    if (var0 != -1 || (v6 = _LogCategory_Initialize(), messageCopy = v18, v6))
     {
-LABEL_3:
-      v19 = CUPrintXPC();
+      v16 = CUPrintXPC();
       LogPrintF_safe();
 
-      messageCopy = v21;
-      goto LABEL_5;
-    }
-
-    v6 = _LogCategory_Initialize();
-    messageCopy = v21;
-    if (v6)
-    {
-      ucat = self->_ucat;
-      goto LABEL_3;
+      messageCopy = v18;
     }
   }
 
-LABEL_5:
   if (MEMORY[0x1C68DFDD0](messageCopy) == MEMORY[0x1E69E9E80])
   {
-    [(CBAdvertiser *)self _xpcReceivedMessage:v21];
+    [(CBAdvertiser *)self _xpcReceivedMessage:v18];
     goto LABEL_26;
   }
 
-  if (v21 == MEMORY[0x1E69E9E18])
+  if (v18 == MEMORY[0x1E69E9E18])
   {
     [(CBAdvertiser *)self _interrupted];
     goto LABEL_26;
   }
 
-  if (v21 == MEMORY[0x1E69E9E20])
+  if (v18 != MEMORY[0x1E69E9E20])
   {
-    if (self->_invalidateCalled)
+    v7 = CUXPCDecodeNSErrorIfNeeded();
+    v8 = v7;
+    if (v7)
     {
-      goto LABEL_25;
-    }
+      v9 = v7;
 
-    v11 = self->_ucat->var0;
-    if (v11 > 90)
-    {
-      goto LABEL_25;
-    }
-
-    if (v11 == -1)
-    {
-      if (!_LogCategory_Initialize())
+      v10 = self->_ucat->var0;
+      if (v10 > 90)
       {
-        goto LABEL_25;
+        goto LABEL_21;
       }
-
-      v18 = self->_ucat;
     }
 
-    LogPrintF_safe();
-LABEL_25:
-    xpcCnx = self->_xpcCnx;
-    self->_xpcCnx = 0;
-
-    [(CBAdvertiser *)self _invalidated];
-    goto LABEL_26;
-  }
-
-  v7 = CUXPCDecodeNSErrorIfNeeded();
-  v8 = v7;
-  if (v7)
-  {
-    v9 = v7;
-
-    v10 = self->_ucat->var0;
-    if (v10 > 90)
+    else
     {
-      goto LABEL_21;
-    }
-  }
+      v9 = NSErrorF(@"CBErrorDomain", 4294960596, "XPC event error");
 
-  else
-  {
-    v9 = NSErrorF();
-
-    v10 = self->_ucat->var0;
-    if (v10 > 90)
-    {
-      goto LABEL_21;
-    }
-  }
-
-  if (v10 == -1)
-  {
-    if (!_LogCategory_Initialize())
-    {
-      goto LABEL_21;
-    }
-
-    v17 = self->_ucat;
-  }
-
-  v12 = CUPrintNSError();
-  v20 = CUPrintXPC();
-  LogPrintF_safe();
-
+      v10 = self->_ucat->var0;
+      if (v10 > 90)
+      {
 LABEL_21:
-  v13 = MEMORY[0x1C68DF720](self->_errorHandler);
-  v14 = v13;
-  if (v13)
-  {
-    (*(v13 + 16))(v13, v9);
+        v13 = MEMORY[0x1C68DF720](self->_errorHandler);
+        v14 = v13;
+        if (v13)
+        {
+          (*(v13 + 16))(v13, v9);
+        }
+
+        goto LABEL_26;
+      }
+    }
+
+    if (v10 != -1 || _LogCategory_Initialize())
+    {
+      v12 = CUPrintNSError();
+      v17 = CUPrintXPC();
+      LogPrintF_safe();
+    }
+
+    goto LABEL_21;
   }
 
+  if (!self->_invalidateCalled)
+  {
+    v11 = self->_ucat->var0;
+    if (v11 <= 90 && (v11 != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF_safe();
+    }
+  }
+
+  xpcCnx = self->_xpcCnx;
+  self->_xpcCnx = 0;
+
+  [(CBAdvertiser *)self _invalidated];
 LABEL_26:
 }
 
@@ -6334,27 +6204,12 @@ LABEL_26:
   if (!string)
   {
     var0 = self->_ucat->var0;
-    if (var0 > 90)
-    {
-      goto LABEL_10;
-    }
-
-    if (var0 != -1)
+    if (var0 <= 90 && (var0 != -1 || _LogCategory_Initialize()))
     {
       goto LABEL_9;
     }
 
-    if (_LogCategory_Initialize())
-    {
-      ucat = self->_ucat;
-LABEL_9:
-      LogPrintF_safe();
-    }
-
-LABEL_10:
-    v8 = messageCopy;
-
-    goto LABEL_12;
+    goto LABEL_10;
   }
 
   v5 = string;
@@ -6369,23 +6224,16 @@ LABEL_10:
     if (strcmp(v5, "PwrC"))
     {
       v6 = self->_ucat->var0;
-      if (v6 > 90)
+      if (v6 <= 90 && (v6 != -1 || _LogCategory_Initialize()))
       {
-        goto LABEL_10;
+LABEL_9:
+        LogPrintF_safe();
       }
 
-      if (v6 != -1)
-      {
-        goto LABEL_9;
-      }
+LABEL_10:
+      v8 = messageCopy;
 
-      if (_LogCategory_Initialize())
-      {
-        v10 = self->_ucat;
-        goto LABEL_9;
-      }
-
-      goto LABEL_10;
+      goto LABEL_12;
     }
 
     [(CBAdvertiser *)self _xpcReceivedPowerStateChanged:messageCopy];
@@ -6402,28 +6250,16 @@ LABEL_12:
   CUXPCDecodeNSData();
   CUXPCDecodeNSData();
   var0 = self->_ucat->var0;
-  if (var0 <= 30)
+  if (var0 <= 30 && (var0 != -1 || _LogCategory_Initialize()))
   {
-    if (var0 == -1)
-    {
-      ucat = self->_ucat;
-      if (!_LogCategory_Initialize())
-      {
-        goto LABEL_4;
-      }
-
-      v9 = self->_ucat;
-    }
-
     LogPrintF_safe();
   }
 
-LABEL_4:
-  v7 = MEMORY[0x1C68DF720](self->_advertisingAddressChangedHandler);
-  v8 = v7;
-  if (v7)
+  v6 = MEMORY[0x1C68DF720](self->_advertisingAddressChangedHandler);
+  v7 = v6;
+  if (v6)
   {
-    (*(v7 + 16))(v7);
+    (*(v6 + 16))(v6);
   }
 }
 
@@ -6459,12 +6295,12 @@ LABEL_4:
   {
     if (!error)
     {
-      goto LABEL_175;
+      goto LABEL_176;
     }
 
-LABEL_171:
-    NSErrorF();
-    *error = v56 = 0;
+    NSErrorF(@"CBErrorDomain", 4294960540, "CBAdvertiser init failed");
+LABEL_172:
+    *error = v277 = 0;
     goto LABEL_167;
   }
 
@@ -6472,10 +6308,11 @@ LABEL_171:
   {
     if (!error)
     {
-      goto LABEL_175;
+      goto LABEL_176;
     }
 
-    goto LABEL_171;
+    NSErrorF(@"CBErrorDomain", 4294960540, "XPC non-dict");
+    goto LABEL_172;
   }
 
   v8 = CUXPCDecodeSInt64RangedEx();
@@ -6486,688 +6323,688 @@ LABEL_171:
 
   else if (v8 == 5)
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
-  OUTLINED_FUNCTION_0();
-  v9 = OUTLINED_FUNCTION_5();
-  if (v9 == 6)
+  v9 = OUTLINED_FUNCTION_0();
+  v14 = OUTLINED_FUNCTION_5(v9, v10, v11, v12, v13);
+  if (v14 == 6)
   {
     v7->_clientID = 0;
   }
 
-  else if (v9 == 5)
+  else if (v14 == 5)
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
-  OUTLINED_FUNCTION_0();
-  v10 = OUTLINED_FUNCTION_5();
-  if (v10 == 6)
+  v15 = OUTLINED_FUNCTION_0();
+  v20 = OUTLINED_FUNCTION_5(v15, v16, v17, v18, v19);
+  if (v20 == 6)
   {
     v7->_internalFlags = 0;
   }
 
-  else if (v10 == 5)
+  else if (v20 == 5)
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
   objc_opt_class();
   if (!CUXPCDecodeObject())
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
-  OUTLINED_FUNCTION_0();
-  v11 = OUTLINED_FUNCTION_5();
-  if (v11 == 6)
+  v21 = OUTLINED_FUNCTION_0();
+  v26 = OUTLINED_FUNCTION_5(v21, v22, v23, v24, v25);
+  if (v26 == 6)
   {
     v7->_useCase = 0;
   }
 
-  else if (v11 == 5)
+  else if (v26 == 5)
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
   OUTLINED_FUNCTION_1_0();
   if (!CUXPCDecodeNSArrayOfNSString())
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
-  OUTLINED_FUNCTION_0();
-  v12 = OUTLINED_FUNCTION_3_1();
-  if (v12 == 6)
+  v27 = OUTLINED_FUNCTION_0();
+  v32 = OUTLINED_FUNCTION_3_1(v27, v28, v29, v30, v31);
+  if (v32 == 6)
   {
     v7->_airdropFlags = 0;
   }
 
-  else if (v12 == 5)
+  else if (v32 == 5)
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
   OUTLINED_FUNCTION_1_0();
   if (!CUXPCDecodeNSData())
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
-  OUTLINED_FUNCTION_0();
-  v13 = OUTLINED_FUNCTION_3_1();
-  if (v13 == 6)
+  v33 = OUTLINED_FUNCTION_0();
+  v38 = OUTLINED_FUNCTION_3_1(v33, v34, v35, v36, v37);
+  if (v38 == 6)
   {
     v7->_airdropModel = 0;
   }
 
-  else if (v13 == 5)
+  else if (v38 == 5)
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
-  OUTLINED_FUNCTION_0();
-  v14 = OUTLINED_FUNCTION_3_1();
-  if (v14 == 6)
+  v39 = OUTLINED_FUNCTION_0();
+  v44 = OUTLINED_FUNCTION_3_1(v39, v40, v41, v42, v43);
+  if (v44 == 6)
   {
     v7->_airdropVersion = 0;
   }
 
-  else if (v14 == 5)
+  else if (v44 == 5)
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
-  OUTLINED_FUNCTION_0();
-  v15 = OUTLINED_FUNCTION_4_0();
-  if (v15 == 6)
+  v45 = OUTLINED_FUNCTION_0();
+  v50 = OUTLINED_FUNCTION_4_0(v45, v46, v47, v48, v49);
+  if (v50 == 6)
   {
     v7->_airdropHash1 = 0;
   }
 
-  else if (v15 == 5)
+  else if (v50 == 5)
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
-  OUTLINED_FUNCTION_0();
-  v16 = OUTLINED_FUNCTION_4_0();
-  if (v16 == 6)
+  v51 = OUTLINED_FUNCTION_0();
+  v56 = OUTLINED_FUNCTION_4_0(v51, v52, v53, v54, v55);
+  if (v56 == 6)
   {
     v7->_airdropHash2 = 0;
   }
 
-  else if (v16 == 5)
+  else if (v56 == 5)
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
-  OUTLINED_FUNCTION_0();
-  v17 = OUTLINED_FUNCTION_4_0();
-  if (v17 == 6)
+  v57 = OUTLINED_FUNCTION_0();
+  v62 = OUTLINED_FUNCTION_4_0(v57, v58, v59, v60, v61);
+  if (v62 == 6)
   {
     v7->_airdropHash3 = 0;
   }
 
-  else if (v17 == 5)
+  else if (v62 == 5)
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
-  OUTLINED_FUNCTION_0();
-  v18 = OUTLINED_FUNCTION_4_0();
-  if (v18 == 6)
+  v63 = OUTLINED_FUNCTION_0();
+  v68 = OUTLINED_FUNCTION_4_0(v63, v64, v65, v66, v67);
+  if (v68 == 6)
   {
     v7->_airdropHash4 = 0;
   }
 
-  else if (v18 == 5)
+  else if (v68 == 5)
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
-  OUTLINED_FUNCTION_0();
-  v19 = OUTLINED_FUNCTION_3_1();
-  if (v19 == 6)
+  v69 = OUTLINED_FUNCTION_0();
+  v74 = OUTLINED_FUNCTION_3_1(v69, v70, v71, v72, v73);
+  if (v74 == 6)
   {
     v7->_airdropConfigData = 0;
   }
 
-  else if (v19 == 5)
+  else if (v74 == 5)
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
   OUTLINED_FUNCTION_1_0();
   if (!CUXPCDecodeNSData())
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
-  OUTLINED_FUNCTION_0();
-  v20 = OUTLINED_FUNCTION_3_1();
-  if (v20 == 6)
+  v75 = OUTLINED_FUNCTION_0();
+  v80 = OUTLINED_FUNCTION_3_1(v75, v76, v77, v78, v79);
+  if (v80 == 6)
   {
     v7->_airplaySourceFlags = 0;
   }
 
-  else if (v20 == 5)
+  else if (v80 == 5)
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
   OUTLINED_FUNCTION_1_0();
   if (!CUXPCDecodeNSData())
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
-  OUTLINED_FUNCTION_0();
-  v21 = OUTLINED_FUNCTION_3_1();
-  if (v21 == 6)
+  v81 = OUTLINED_FUNCTION_0();
+  v86 = OUTLINED_FUNCTION_3_1(v81, v82, v83, v84, v85);
+  if (v86 == 6)
   {
     v7->_airplayTargetConfigSeed = 0;
   }
 
-  else if (v21 == 5)
+  else if (v86 == 5)
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
-  OUTLINED_FUNCTION_0();
-  v22 = OUTLINED_FUNCTION_3_1();
-  if (v22 == 6)
+  v87 = OUTLINED_FUNCTION_0();
+  v92 = OUTLINED_FUNCTION_3_1(v87, v88, v89, v90, v91);
+  if (v92 == 6)
   {
     v7->_airplayTargetFlags = 0;
   }
 
-  else if (v22 == 5)
+  else if (v92 == 5)
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
-  OUTLINED_FUNCTION_0();
-  v23 = OUTLINED_FUNCTION_5();
-  if (v23 == 6)
+  v93 = OUTLINED_FUNCTION_0();
+  v98 = OUTLINED_FUNCTION_5(v93, v94, v95, v96, v97);
+  if (v98 == 6)
   {
     v7->_airplayTargetIPv4 = 0;
   }
 
-  else if (v23 == 5)
+  else if (v98 == 5)
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
-  OUTLINED_FUNCTION_0();
-  v24 = OUTLINED_FUNCTION_4_0();
-  if (v24 == 6)
+  v99 = OUTLINED_FUNCTION_0();
+  v104 = OUTLINED_FUNCTION_4_0(v99, v100, v101, v102, v103);
+  if (v104 == 6)
   {
     v7->_airplayTargetPort = 0;
   }
 
-  else if (v24 == 5)
+  else if (v104 == 5)
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
-  OUTLINED_FUNCTION_0();
-  v25 = OUTLINED_FUNCTION_3_1();
-  if (v25 == 6)
+  v105 = OUTLINED_FUNCTION_0();
+  v110 = OUTLINED_FUNCTION_3_1(v105, v106, v107, v108, v109);
+  if (v110 == 6)
   {
     v7->_dsActionFlags = 0;
   }
 
-  else if (v25 == 5)
+  else if (v110 == 5)
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
-  v26 = CUXPCDecodeSInt64RangedEx();
-  if (v26 == 6)
+  v111 = CUXPCDecodeSInt64RangedEx();
+  if (v111 == 6)
   {
     v7->_dsActionMeasuredPower = 0;
   }
 
-  else if (v26 == 5)
+  else if (v111 == 5)
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
-  OUTLINED_FUNCTION_0();
-  v27 = OUTLINED_FUNCTION_3_1();
-  if (v27 == 6)
+  v112 = OUTLINED_FUNCTION_0();
+  v117 = OUTLINED_FUNCTION_3_1(v112, v113, v114, v115, v116);
+  if (v117 == 6)
   {
     v7->_dsActionTieBreaker = 0;
   }
 
-  else if (v27 == 5)
+  else if (v117 == 5)
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
-  OUTLINED_FUNCTION_0();
-  v28 = OUTLINED_FUNCTION_3_1();
-  if (v28 == 6)
+  v118 = OUTLINED_FUNCTION_0();
+  v123 = OUTLINED_FUNCTION_3_1(v118, v119, v120, v121, v122);
+  if (v123 == 6)
   {
     v7->_dsInfoVehicleConfidence = 0;
   }
 
-  else if (v28 == 5)
+  else if (v123 == 5)
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
-  OUTLINED_FUNCTION_0();
-  v29 = OUTLINED_FUNCTION_3_1();
-  if (v29 == 6)
+  v124 = OUTLINED_FUNCTION_0();
+  v129 = OUTLINED_FUNCTION_3_1(v124, v125, v126, v127, v128);
+  if (v129 == 6)
   {
     v7->_dsInfoVehicleState = 0;
   }
 
-  else if (v29 == 5)
+  else if (v129 == 5)
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
   OUTLINED_FUNCTION_1_0();
   if (!CUXPCDecodeBool())
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
   OUTLINED_FUNCTION_1_0();
   if (!CUXPCDecodeNSData())
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
-  OUTLINED_FUNCTION_0();
-  v30 = OUTLINED_FUNCTION_3_1();
-  if (v30 == 6)
+  v130 = OUTLINED_FUNCTION_0();
+  v135 = OUTLINED_FUNCTION_3_1(v130, v131, v132, v133, v134);
+  if (v135 == 6)
   {
     v7->_heySiriConfidence = 0;
   }
 
-  else if (v30 == 5)
+  else if (v135 == 5)
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
-  OUTLINED_FUNCTION_0();
-  v31 = OUTLINED_FUNCTION_4_0();
-  if (v31 == 6)
+  v136 = OUTLINED_FUNCTION_0();
+  v141 = OUTLINED_FUNCTION_4_0(v136, v137, v138, v139, v140);
+  if (v141 == 6)
   {
     v7->_heySiriDeviceClass = 0;
   }
 
-  else if (v31 == 5)
+  else if (v141 == 5)
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
-  OUTLINED_FUNCTION_0();
-  v32 = OUTLINED_FUNCTION_4_0();
-  if (v32 == 6)
+  v142 = OUTLINED_FUNCTION_0();
+  v147 = OUTLINED_FUNCTION_4_0(v142, v143, v144, v145, v146);
+  if (v147 == 6)
   {
     v7->_heySiriPerceptualHash = 0;
   }
 
-  else if (v32 == 5)
+  else if (v147 == 5)
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
-  OUTLINED_FUNCTION_0();
-  v33 = OUTLINED_FUNCTION_3_1();
-  if (v33 == 6)
+  v148 = OUTLINED_FUNCTION_0();
+  v153 = OUTLINED_FUNCTION_3_1(v148, v149, v150, v151, v152);
+  if (v153 == 6)
   {
     v7->_heySiriProductType = 0;
   }
 
-  else if (v33 == 5)
+  else if (v153 == 5)
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
-  OUTLINED_FUNCTION_0();
-  v34 = OUTLINED_FUNCTION_3_1();
-  if (v34 == 6)
+  v154 = OUTLINED_FUNCTION_0();
+  v159 = OUTLINED_FUNCTION_3_1(v154, v155, v156, v157, v158);
+  if (v159 == 6)
   {
     v7->_heySiriRandom = 0;
   }
 
-  else if (v34 == 5)
+  else if (v159 == 5)
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
-  OUTLINED_FUNCTION_0();
-  v35 = OUTLINED_FUNCTION_3_1();
-  if (v35 == 6)
+  v160 = OUTLINED_FUNCTION_0();
+  v165 = OUTLINED_FUNCTION_3_1(v160, v161, v162, v163, v164);
+  if (v165 == 6)
   {
     v7->_heySiriSNR = 0;
   }
 
-  else if (v35 == 5)
+  else if (v165 == 5)
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
-  if (!OUTLINED_FUNCTION_2_1())
+  if (!OUTLINED_FUNCTION_2_1(v165, "nbAT", v166, &v7->_nearbyActionAuthTagData))
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
-  OUTLINED_FUNCTION_0();
-  v36 = OUTLINED_FUNCTION_3_1();
-  if (v36 == 6)
+  v167 = OUTLINED_FUNCTION_0();
+  v172 = OUTLINED_FUNCTION_3_1(v167, v168, v169, v170, v171);
+  if (v172 == 6)
   {
     v7->_nearbyActionColorCode = 0;
   }
 
-  else if (v36 == 5)
+  else if (v172 == 5)
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
   OUTLINED_FUNCTION_1_0();
   if (!CUXPCDecodeNSData())
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
-  OUTLINED_FUNCTION_0();
-  v37 = OUTLINED_FUNCTION_5();
-  if (v37 == 6)
+  v173 = OUTLINED_FUNCTION_0();
+  v178 = OUTLINED_FUNCTION_5(v173, v174, v175, v176, v177);
+  if (v178 == 6)
   {
     v7->_nearbyActionFlags = 0;
   }
 
-  else if (v37 == 5)
+  else if (v178 == 5)
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
-  OUTLINED_FUNCTION_0();
-  v38 = OUTLINED_FUNCTION_3_1();
-  if (v38 == 6)
+  v179 = OUTLINED_FUNCTION_0();
+  v184 = OUTLINED_FUNCTION_3_1(v179, v180, v181, v182, v183);
+  if (v184 == 6)
   {
     v7->_nearbyActionType = 0;
   }
 
-  else if (v38 == 5)
+  else if (v184 == 5)
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
-  if (!OUTLINED_FUNCTION_2_1())
+  if (!OUTLINED_FUNCTION_2_1(v184, "nbTg", v185, &v7->_nearbyActionTargetData))
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
-  OUTLINED_FUNCTION_0();
-  v39 = OUTLINED_FUNCTION_5();
-  if (v39 == 6)
+  v186 = OUTLINED_FUNCTION_0();
+  v191 = OUTLINED_FUNCTION_5(v186, v187, v188, v189, v190);
+  if (v191 == 6)
   {
     v7->_nearbyActionV2Flags = 0;
   }
 
-  else if (v39 == 5)
+  else if (v191 == 5)
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
-  if (!OUTLINED_FUNCTION_2_1())
+  if (!OUTLINED_FUNCTION_2_1(v191, "n2Tg", v192, &v7->_nearbyActionV2TargetData))
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
-  OUTLINED_FUNCTION_0();
-  v40 = OUTLINED_FUNCTION_3_1();
-  if (v40 == 6)
+  v193 = OUTLINED_FUNCTION_0();
+  v198 = OUTLINED_FUNCTION_3_1(v193, v194, v195, v196, v197);
+  if (v198 == 6)
   {
     v7->_nearbyActionV2Type = 0;
   }
 
-  else if (v40 == 5)
+  else if (v198 == 5)
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
-  OUTLINED_FUNCTION_0();
-  v41 = OUTLINED_FUNCTION_5();
-  if (v41 == 6)
+  v199 = OUTLINED_FUNCTION_0();
+  v204 = OUTLINED_FUNCTION_5(v199, v200, v201, v202, v203);
+  if (v204 == 6)
   {
     v7->_nearbyInfoFlags = 0;
   }
 
-  else if (v41 == 5)
+  else if (v204 == 5)
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
   OUTLINED_FUNCTION_1_0();
   if (!CUXPCDecodeDouble())
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
-  OUTLINED_FUNCTION_0();
-  v42 = OUTLINED_FUNCTION_3_1();
-  if (v42 == 6)
+  v205 = OUTLINED_FUNCTION_0();
+  v210 = OUTLINED_FUNCTION_3_1(v205, v206, v207, v208, v209);
+  if (v210 == 6)
   {
     v7->_nearbyInfoStatusTime = 0;
   }
 
-  else if (v42 == 5)
+  else if (v210 == 5)
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
-  OUTLINED_FUNCTION_0();
-  v43 = OUTLINED_FUNCTION_3_1();
-  if (v43 == 6)
+  v211 = OUTLINED_FUNCTION_0();
+  v216 = OUTLINED_FUNCTION_3_1(v211, v212, v213, v214, v215);
+  if (v216 == 6)
   {
     v7->_nearbyInfoStatusType = 0;
   }
 
-  else if (v43 == 5)
+  else if (v216 == 5)
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
-  OUTLINED_FUNCTION_0();
-  v44 = OUTLINED_FUNCTION_3_1();
-  if (v44 == 6)
+  v217 = OUTLINED_FUNCTION_0();
+  v222 = OUTLINED_FUNCTION_3_1(v217, v218, v219, v220, v221);
+  if (v222 == 6)
   {
     v7->_nearbyInfoV2DecryptedFlags = 0;
   }
 
-  else if (v44 == 5)
+  else if (v222 == 5)
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
-  OUTLINED_FUNCTION_0();
-  v45 = OUTLINED_FUNCTION_3_1();
-  if (v45 == 6)
+  v223 = OUTLINED_FUNCTION_0();
+  v228 = OUTLINED_FUNCTION_3_1(v223, v224, v225, v226, v227);
+  if (v228 == 6)
   {
     v7->_nearbyInfoV2Flags = 0;
   }
 
-  else if (v45 == 5)
+  else if (v228 == 5)
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
   OUTLINED_FUNCTION_1_0();
   if (!CUXPCDecodeNSData())
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
   OUTLINED_FUNCTION_1_0();
   if (!CUXPCDecodeNSData())
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
-  OUTLINED_FUNCTION_0();
-  v46 = OUTLINED_FUNCTION_3_1();
-  if (v46 == 6)
+  v229 = OUTLINED_FUNCTION_0();
+  v234 = OUTLINED_FUNCTION_3_1(v229, v230, v231, v232, v233);
+  if (v234 == 6)
   {
     v7->_nearbyInfoV2InvitationCounter = 0;
   }
 
-  else if (v46 == 5)
+  else if (v234 == 5)
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
-  OUTLINED_FUNCTION_0();
-  v47 = OUTLINED_FUNCTION_3_1();
-  if (v47 == 6)
+  v235 = OUTLINED_FUNCTION_0();
+  v240 = OUTLINED_FUNCTION_3_1(v235, v236, v237, v238, v239);
+  if (v240 == 6)
   {
     v7->_nearbyInfoV2InvitationTypes = 0;
   }
 
-  else if (v47 == 5)
+  else if (v240 == 5)
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
-  OUTLINED_FUNCTION_0();
-  v48 = OUTLINED_FUNCTION_3_1();
-  if (v48 == 6)
+  v241 = OUTLINED_FUNCTION_0();
+  v246 = OUTLINED_FUNCTION_3_1(v241, v242, v243, v244, v245);
+  if (v246 == 6)
   {
     v7->_nearbyInfoV2InvitationRouteType = 0;
   }
 
-  else if (v48 == 5)
+  else if (v246 == 5)
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
   OUTLINED_FUNCTION_1_0();
   if (!CUXPCDecodeNSData())
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
   OUTLINED_FUNCTION_1_0();
   if (!CUXPCDecodeNSData())
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
-  OUTLINED_FUNCTION_0();
-  v49 = OUTLINED_FUNCTION_3_1();
-  if (v49 == 6)
+  v247 = OUTLINED_FUNCTION_0();
+  v252 = OUTLINED_FUNCTION_3_1(v247, v248, v249, v250, v251);
+  if (v252 == 6)
   {
     v7->_proximityServiceSubType = 0;
   }
 
-  else if (v49 == 5)
+  else if (v252 == 5)
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
   OUTLINED_FUNCTION_1_0();
   if (!CUXPCDecodeNSData())
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
-  v50 = v7->_safetyAlertsAlertData;
-  v51 = v50;
-  if (v50 && [(NSData *)v50 length]>= 0x1D)
+  v253 = v7->_safetyAlertsAlertData;
+  v254 = v253;
+  if (v253 && [(NSData *)v253 length]>= 0x1D)
   {
     if (error)
     {
-      *error = NSErrorF();
+      *error = NSErrorF(@"CBErrorDomain", 4294960553, "Safety Alerts Alert Data exceeds max length of %d bytes", 28);
     }
 
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
-  if (!OUTLINED_FUNCTION_2_1() || !CUXPCDecodeNSDataOfLength())
+  if (!OUTLINED_FUNCTION_2_1(v255, "saAi", v256, &v7->_safetyAlertsAlertID) || !CUXPCDecodeNSDataOfLength())
   {
-LABEL_175:
-    v56 = 0;
+LABEL_176:
+    v277 = 0;
     goto LABEL_167;
   }
 
-  OUTLINED_FUNCTION_0();
-  v52 = OUTLINED_FUNCTION_3_1();
-  if (v52 == 6)
+  v257 = OUTLINED_FUNCTION_0();
+  v262 = OUTLINED_FUNCTION_3_1(v257, v258, v259, v260, v261);
+  if (v262 == 6)
   {
     v7->_safetyAlertsVersion = 0;
   }
 
-  else if (v52 == 5)
+  else if (v262 == 5)
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
   OUTLINED_FUNCTION_0();
-  v53 = CUXPCDecodeUInt64RangedEx();
-  if (v53 == 6)
+  v263 = CUXPCDecodeUInt64RangedEx();
+  if (v263 == 6)
   {
     v7->_softwareUpdateActionType = 0;
   }
 
-  else if (v53 == 5)
+  else if (v263 == 5)
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
   if (!CUXPCDecodeNSArrayOfNSData())
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
   OUTLINED_FUNCTION_1_0();
   if (!CUXPCDecodeNSData())
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
-  OUTLINED_FUNCTION_0();
-  v54 = OUTLINED_FUNCTION_3_1();
-  if (v54 == 6)
+  v264 = OUTLINED_FUNCTION_0();
+  v269 = OUTLINED_FUNCTION_3_1(v264, v265, v266, v267, v268);
+  if (v269 == 6)
   {
     v7->_nearbyActionNoWakeType = 0;
   }
 
-  else if (v54 == 5)
+  else if (v269 == 5)
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
-  OUTLINED_FUNCTION_0();
-  v55 = OUTLINED_FUNCTION_3_1();
-  if (v55 != 6)
+  v270 = OUTLINED_FUNCTION_0();
+  v275 = OUTLINED_FUNCTION_3_1(v270, v271, v272, v273, v274);
+  if (v275 != 6)
   {
-    if (v55 != 5)
+    if (v275 != 5)
     {
       goto LABEL_164;
     }
 
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
   v7->_nearbyActionNWPrecisionFindingStatus = 0;
 LABEL_164:
-  if (!OUTLINED_FUNCTION_2_1() || !CUXPCDecodeNSDataOfLength())
+  if (!OUTLINED_FUNCTION_2_1(v275, "nawA", v276, &v7->_nearbyActionNoWakeAuthTagData) || !CUXPCDecodeNSDataOfLength())
   {
-    goto LABEL_175;
+    goto LABEL_176;
   }
 
-  v56 = v7;
+  v277 = v7;
 LABEL_167:
 
-  return v56;
+  return v277;
 }
 
 - (int)_xpcReceivedPowerStateChanged:(uint64_t)a1 .cold.1(uint64_t a1)
@@ -7175,18 +7012,11 @@ LABEL_167:
   result = *(a1 + 32);
   if (*result <= 90)
   {
-    if (*result == -1)
+    if (*result != -1 || (result = _LogCategory_Initialize(), result))
     {
-      result = _LogCategory_Initialize();
-      if (!result)
-      {
-        return result;
-      }
 
-      v3 = *(a1 + 32);
+      return LogPrintF_safe();
     }
-
-    return LogPrintF_safe();
   }
 
   return result;

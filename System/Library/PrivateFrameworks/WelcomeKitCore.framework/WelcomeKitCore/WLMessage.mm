@@ -188,7 +188,7 @@ void __45__WLMessage__dateFormatterForMimeDateStrings__block_invoke()
 
 - (void)parseMIMEData:(id)data sqlController:(id)controller
 {
-  v91 = *MEMORY[0x277D85DE8];
+  v90 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   controllerCopy = controller;
   objc_storeStrong(&self->_mimeData, data);
@@ -198,17 +198,17 @@ void __45__WLMessage__dateFormatterForMimeDateStrings__block_invoke()
     v10 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:6];
     v11 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:1];
     selfCopy = self;
-    v77 = v9;
+    v76 = v9;
     v12 = +[WLMessage _populateMimeHeaders:recipients:fromRange:ofString:addCountryCodeToParties:sqlController:](WLMessage, "_populateMimeHeaders:recipients:fromRange:ofString:addCountryCodeToParties:sqlController:", v10, v11, 0, [v9 length], v9, 1, controllerCopy);
     v14 = v13;
     _WLLog();
     obj = v11;
-    v67 = v11;
+    v66 = v11;
     v15 = 0x28208F000uLL;
     _WLLog();
-    v16 = [v10 objectForKeyedSubscript:{@"X-CMD-Message-Type", self, v67}];
+    v16 = [v10 objectForKeyedSubscript:{@"X-CMD-Message-Type", self, v66}];
     self->_messageType = [v16 isEqualToString:@"sms"];
-    v79 = v10;
+    v78 = v10;
     v17 = [v10 objectForKeyedSubscript:@"Date"];
     dateString = self->_dateString;
     self->_dateString = v17;
@@ -220,15 +220,15 @@ void __45__WLMessage__dateFormatterForMimeDateStrings__block_invoke()
       date = self->_date;
       self->_date = v20;
 
-      v68 = self->_date;
-      v70 = self->_dateString;
+      v67 = self->_date;
+      v69 = self->_dateString;
       selfCopy2 = self;
       _WLLog();
     }
 
-    v22 = [v10 objectForKeyedSubscript:{@"X-CMD-Message-Direction", selfCopy2, v68, v70}];
+    v22 = [v10 objectForKeyedSubscript:{@"X-CMD-Message-Direction", selfCopy2, v67, v69}];
 
-    v76 = v22;
+    v75 = v22;
     if ([v22 isEqualToString:@"sent"])
     {
       self->_messageDirection = 0;
@@ -242,14 +242,14 @@ void __45__WLMessage__dateFormatterForMimeDateStrings__block_invoke()
     else
     {
       self->_messageDirection = 1;
-      v23 = [v79 objectForKeyedSubscript:@"From"];
+      v23 = [v78 objectForKeyedSubscript:@"From"];
       sender = self->_sender;
       self->_sender = v23;
     }
 
     objc_storeStrong(&self->_recipients, obj);
     self->_isGroupMessage = [(NSArray *)self->_recipients count]> 1;
-    v25 = [v79 objectForKeyedSubscript:{@"Subject", selfCopy3}];
+    v25 = [v78 objectForKeyedSubscript:{@"Subject", selfCopy3}];
     subject = self->_subject;
     self->_subject = v25;
 
@@ -260,38 +260,38 @@ void __45__WLMessage__dateFormatterForMimeDateStrings__block_invoke()
 
     else
     {
-      v27 = [v79 objectForKeyedSubscript:@"X-CMD-Message-Thread"];
+      v27 = [v78 objectForKeyedSubscript:@"X-CMD-Message-Thread"];
     }
 
     threadID = self->_threadID;
     self->_threadID = v27;
 
-    v29 = [v77 rangeOfString:@"\r\n" options:8 range:{v12, v14}];
+    v29 = [v76 rangeOfString:@"\r\n" options:8 range:{v12, v14}];
     if (v30)
     {
       v12 = v29 + v30;
-      v14 = [v77 length] - (v29 + v30);
+      v14 = [v76 length] - (v29 + v30);
     }
 
-    v31 = v79;
+    v31 = v78;
     if (self->_messageType == 1)
     {
-      v9 = v77;
-      [v77 rangeOfString:@"\r\n" options:12 range:{v12, v14}];
-      v33 = [v77 substringWithRange:{v12, v14 - v32}];
+      v9 = v76;
+      [v76 rangeOfString:@"\r\n" options:12 range:{v12, v14}];
+      v33 = [v76 substringWithRange:{v12, v14 - v32}];
       messageText = self->_messageText;
       self->_messageText = v33;
     }
 
     else
     {
-      v35 = [v79 objectForKeyedSubscript:@"Content-Type"];
-      v74 = controllerCopy;
-      v75 = dataCopy;
-      v73 = v35;
+      v35 = [v78 objectForKeyedSubscript:@"Content-Type"];
+      v73 = controllerCopy;
+      v74 = dataCopy;
+      v72 = v35;
       if (v35)
       {
-        [v79 setObject:v35 forKey:@"content-type"];
+        [v78 setObject:v35 forKey:@"content-type"];
       }
 
       else
@@ -305,35 +305,35 @@ void __45__WLMessage__dateFormatterForMimeDateStrings__block_invoke()
 
       v38 = [(NSData *)self->_mimeData mutableCopy];
       v39 = objc_alloc(MEMORY[0x277D28260]);
-      v81 = v38;
-      v40 = [v39 initWithBodyData:v38 topLevelHeaders:v79 headersToPreserve:MEMORY[0x277CBEBF8]];
+      v80 = v38;
+      v40 = [v39 initWithBodyData:v38 topLevelHeaders:v78 headersToPreserve:MEMORY[0x277CBEBF8]];
       [v40 setDelegate:self];
-      v72 = v40;
+      v71 = v40;
       [v40 start];
-      v80 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_mimeParts, "count")}];
+      v79 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_mimeParts, "count")}];
+      v85 = 0u;
       v86 = 0u;
       v87 = 0u;
       v88 = 0u;
-      v89 = 0u;
-      v83 = self->_mimeParts;
-      v41 = [(NSMutableArray *)v83 countByEnumeratingWithState:&v86 objects:v90 count:16];
+      v82 = self->_mimeParts;
+      v41 = [(NSMutableArray *)v82 countByEnumeratingWithState:&v85 objects:v89 count:16];
       if (v41)
       {
         v42 = v41;
         v43 = @"%@: begin attachment creation for part %@";
-        v85 = *v87;
+        v84 = *v86;
         do
         {
           v44 = 0;
-          v82 = v42;
+          v81 = v42;
           do
           {
-            if (*v87 != v85)
+            if (*v86 != v84)
             {
-              objc_enumerationMutation(v83);
+              objc_enumerationMutation(v82);
             }
 
-            v45 = *(*(&v86 + 1) + 8 * v44);
+            v45 = *(*(&v85 + 1) + 8 * v44);
             _WLLog();
             contentTransferEncoding = [v45 contentTransferEncoding];
             lowercaseString = [contentTransferEncoding lowercaseString];
@@ -342,15 +342,15 @@ void __45__WLMessage__dateFormatterForMimeDateStrings__block_invoke()
             if (v48)
             {
               range = [v45 range];
-              v51 = [v81 subdataWithRange:{range, v50}];
+              v51 = [v80 subdataWithRange:{range, v50}];
               v52 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedData:v51 options:1];
               v53 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v52, "length")}];
-              v71 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v51, "length")}];
+              v70 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v51, "length")}];
               _WLLog();
 
               if (v52)
               {
-                v54 = [v15 + 1872 _fileNameForPart:v45 smilContext:{self->_smilContext, self, v53, v71}];
+                v54 = [v15 + 1872 _fileNameForPart:v45 smilContext:{self->_smilContext, self, v53, v70}];
                 v55 = MEMORY[0x277CCACA8];
                 type = [v45 type];
                 [v45 subtype];
@@ -362,7 +362,7 @@ void __45__WLMessage__dateFormatterForMimeDateStrings__block_invoke()
 
                 _WLLog();
                 v62 = [[WLMessageAttachment alloc] _initWithData:v52 fileName:v54 mimeType:v59 uti:identifier, selfCopy, identifier, v59];
-                [v80 addObject:v62];
+                [v79 addObject:v62];
 
                 v43 = v57;
                 v15 = 0x28208F000;
@@ -374,7 +374,7 @@ void __45__WLMessage__dateFormatterForMimeDateStrings__block_invoke()
                 _WLLog();
               }
 
-              v42 = v82;
+              v42 = v81;
             }
 
             _WLLog();
@@ -382,13 +382,13 @@ void __45__WLMessage__dateFormatterForMimeDateStrings__block_invoke()
           }
 
           while (v42 != v44);
-          v42 = [(NSMutableArray *)v83 countByEnumeratingWithState:&v86 objects:v90 count:16, self, v45];
+          v42 = [(NSMutableArray *)v82 countByEnumeratingWithState:&v85 objects:v89 count:16, self, v45];
         }
 
         while (v42);
       }
 
-      objc_storeStrong(&self->_attachments, v80);
+      objc_storeStrong(&self->_attachments, v79);
       if (!self->_messageText)
       {
         _WLLog();
@@ -396,36 +396,34 @@ void __45__WLMessage__dateFormatterForMimeDateStrings__block_invoke()
         self->_messageText = &stru_2882CBB40;
       }
 
-      controllerCopy = v74;
-      dataCopy = v75;
-      v9 = v77;
-      v31 = v79;
+      controllerCopy = v73;
+      dataCopy = v74;
+      v9 = v76;
+      v31 = v78;
     }
   }
 
   else
   {
-    v69 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(dataCopy, "length")}];
+    v68 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(dataCopy, "length")}];
     _WLLog();
   }
-
-  v64 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_fileNameForPart:(id)part smilContext:(id)context
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   partCopy = part;
   contextCopy = context;
   disposition = [partCopy disposition];
   if (!disposition || (v9 = [disposition rangeOfString:@" filename="], v9 == 0x7FFFFFFFFFFFFFFFLL) || (v11 = v9 + v10, v12 = objc_msgSend(v8, "rangeOfString:options:range:", @", 0, v11, objc_msgSend(v8, "length") - v11), v12 == 0x7FFFFFFFFFFFFFFFLL) || (objc_msgSend(v8, "substringWithRange:"", v11, v12 - v11), (v13 = v8 = disposition;
   {
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     parts = [contextCopy parts];
-    v15 = [parts countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v15 = [parts countByEnumeratingWithState:&v28 objects:v32 count:16];
     if (!v15)
     {
 
@@ -439,19 +437,19 @@ LABEL_17:
     }
 
     v16 = v15;
-    v28 = contextCopy;
+    v27 = contextCopy;
     v13 = 0;
-    v17 = *v30;
+    v17 = *v29;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v30 != v17)
+        if (*v29 != v17)
         {
           objc_enumerationMutation(parts);
         }
 
-        v19 = *(*(&v29 + 1) + 8 * i);
+        v19 = *(*(&v28 + 1) + 8 * i);
         elementName = [v19 elementName];
         v21 = [elementName isEqualToString:@"text"];
 
@@ -463,12 +461,12 @@ LABEL_17:
         }
       }
 
-      v16 = [parts countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v16 = [parts countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v16);
 
-    contextCopy = v28;
+    contextCopy = v27;
     if (!v13)
     {
       goto LABEL_17;
@@ -476,8 +474,6 @@ LABEL_17:
   }
 
 LABEL_18:
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -544,7 +540,6 @@ void __41__WLMessage__shouldIgnoreMessageThreadID__block_invoke()
 
       if ([(NSString *)self->_messageText length]<= 0x63)
       {
-        v28 = self->_messageText;
         _WLLog();
 LABEL_20:
 
@@ -593,11 +588,11 @@ LABEL_15:
     v14 = [(NSData *)v22 wl_subdataWithRangeExcludingTrailingCrnl:range2, v24];
     v25 = [objc_alloc(MEMORY[0x277CCAE70]) initWithData:v14];
     [v25 setDelegate:self->_smilContext];
-    v29 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v14 encoding:4];
+    v28 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v14 encoding:4];
     _WLLog();
 
     parse = [v25 parse];
-    v30 = [MEMORY[0x277CCABB0] numberWithBool:parse];
+    v29 = [MEMORY[0x277CCABB0] numberWithBool:parse];
     _WLLog();
 
     goto LABEL_19;

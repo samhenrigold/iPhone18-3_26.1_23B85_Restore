@@ -478,7 +478,6 @@ LABEL_15:
   has = self->_has;
   if ((has & 0x10) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 8) == 0)
@@ -498,7 +497,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  selfFgDuration = self->_selfFgDuration;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -513,7 +511,6 @@ LABEL_4:
   }
 
 LABEL_33:
-  selfBgDuration = self->_selfBgDuration;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x400) == 0)
@@ -528,7 +525,6 @@ LABEL_5:
   }
 
 LABEL_34:
-  selfBgEntryCount = self->_selfBgEntryCount;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x800) == 0)
@@ -543,7 +539,6 @@ LABEL_6:
   }
 
 LABEL_35:
-  selfPeerRssi24G = self->_selfPeerRssi24G;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x1000) == 0)
@@ -558,7 +553,6 @@ LABEL_7:
   }
 
 LABEL_36:
-  selfPeerRssi5G = self->_selfPeerRssi5G;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x4000) == 0)
@@ -573,7 +567,6 @@ LABEL_8:
   }
 
 LABEL_37:
-  selfIsSDB = self->_selfIsSDB;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 2) == 0)
@@ -588,7 +581,6 @@ LABEL_9:
   }
 
 LABEL_38:
-  remoteFgDuration = self->_remoteFgDuration;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -603,7 +595,6 @@ LABEL_10:
   }
 
 LABEL_39:
-  remoteBgDuration = self->_remoteBgDuration;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -618,7 +609,6 @@ LABEL_11:
   }
 
 LABEL_40:
-  remoteBgEntryCount = self->_remoteBgEntryCount;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -633,7 +623,6 @@ LABEL_12:
   }
 
 LABEL_41:
-  remotePeerRssi24G = self->_remotePeerRssi24G;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x200) == 0)
@@ -648,12 +637,10 @@ LABEL_13:
   }
 
 LABEL_42:
-  remotePeerRssi5G = self->_remotePeerRssi5G;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 0x2000) != 0)
   {
 LABEL_14:
-    remotefIsSDB = self->_remotefIsSDB;
     PBDataWriterWriteBOOLField();
   }
 
@@ -678,17 +665,15 @@ LABEL_15:
     PBDataWriterWriteSubmessage();
   }
 
-  v6 = self->_has;
-  if ((v6 & 0x40) != 0)
+  v5 = self->_has;
+  if ((v5 & 0x40) != 0)
   {
-    pencilOnCount = self->_pencilOnCount;
     PBDataWriterWriteUint32Field();
-    v6 = self->_has;
+    v5 = self->_has;
   }
 
-  if ((v6 & 0x20) != 0)
+  if ((v5 & 0x20) != 0)
   {
-    pencilOffCount = self->_pencilOffCount;
     PBDataWriterWriteUint32Field();
   }
 
@@ -1231,7 +1216,6 @@ LABEL_15:
       goto LABEL_79;
     }
 
-    v8 = *(equal + 129);
     if (self->_selfIsSDB)
     {
       if ((*(equal + 129) & 1) == 0)
@@ -1323,7 +1307,6 @@ LABEL_15:
       goto LABEL_79;
     }
 
-    v15 = *(equal + 128);
     if (self->_remotefIsSDB)
     {
       if ((*(equal + 128) & 1) == 0)
@@ -1383,24 +1366,24 @@ LABEL_15:
     }
   }
 
-  v13 = self->_has;
-  v14 = *(equal + 66);
-  if ((v13 & 0x40) != 0)
+  v12 = self->_has;
+  v13 = *(equal + 66);
+  if ((v12 & 0x40) != 0)
   {
-    if ((v14 & 0x40) == 0 || self->_pencilOnCount != *(equal + 13))
+    if ((v13 & 0x40) == 0 || self->_pencilOnCount != *(equal + 13))
     {
       goto LABEL_79;
     }
   }
 
-  else if ((v14 & 0x40) != 0)
+  else if ((v13 & 0x40) != 0)
   {
     goto LABEL_79;
   }
 
-  if ((v13 & 0x20) != 0)
+  if ((v12 & 0x20) != 0)
   {
-    if ((v14 & 0x20) == 0 || self->_pencilOffCount != *(equal + 12))
+    if ((v13 & 0x20) == 0 || self->_pencilOffCount != *(equal + 12))
     {
       goto LABEL_79;
     }
@@ -1408,7 +1391,7 @@ LABEL_15:
     goto LABEL_93;
   }
 
-  if ((v14 & 0x20) != 0)
+  if ((v13 & 0x20) != 0)
   {
 LABEL_79:
     LOBYTE(v5) = 0;

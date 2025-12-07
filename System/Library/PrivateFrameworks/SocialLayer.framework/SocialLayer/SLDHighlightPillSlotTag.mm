@@ -95,11 +95,11 @@
 
 - (SLDHighlightPillSlotTag)initWithCoder:(id)coder
 {
-  v30[2] = *MEMORY[0x277D85DE8];
+  v29[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v29.receiver = self;
-  v29.super_class = SLDHighlightPillSlotTag;
-  v5 = [(SLDHighlightPillSlotTag *)&v29 init];
+  v28.receiver = self;
+  v28.super_class = SLDHighlightPillSlotTag;
+  v5 = [(SLDHighlightPillSlotTag *)&v28 init];
   if (v5)
   {
     [coderCopy decodeDoubleForKey:@"maxWidth"];
@@ -122,9 +122,9 @@
     }
 
     v12 = MEMORY[0x277CBEB98];
-    v30[0] = objc_opt_class();
-    v30[1] = objc_opt_class();
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:2];
+    v29[0] = objc_opt_class();
+    v29[1] = objc_opt_class();
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:2];
     v14 = [v12 setWithArray:v13];
     v15 = [coderCopy decodeObjectOfClasses:v14 forKey:@"sendersToDisplay"];
     sendersToDisplay = v5->_sendersToDisplay;
@@ -152,7 +152,6 @@
     v5->_groupName = v25;
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -580,33 +579,33 @@ LABEL_62:
 - (void)_generateCollaborationSendersForSingleAttribution:(id)attribution maxSendersToDisplay:(unint64_t)display
 {
   displayCopy = display;
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   attributionCopy = attribution;
   array = [MEMORY[0x277CBEB18] array];
   array2 = [MEMORY[0x277CBEA60] array];
-  v48 = +[SLPerson fetchMeContact];
+  v47 = +[SLPerson fetchMeContact];
+  v49 = 0u;
   v50 = 0u;
   v51 = 0u;
   v52 = 0u;
-  v53 = 0u;
   obj = [attributionCopy relatedPersons];
-  v6 = [obj countByEnumeratingWithState:&v50 objects:v54 count:16];
-  v49 = array;
+  v6 = [obj countByEnumeratingWithState:&v49 objects:v53 count:16];
+  v48 = array;
   if (v6)
   {
     v7 = v6;
-    v8 = *v51;
+    v8 = *v50;
     v9 = attributionCopy;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v51 != v8)
+        if (*v50 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v50 + 1) + 8 * i);
+        v11 = *(*(&v49 + 1) + 8 * i);
         if ([attributionCopy isFromMe])
         {
           sender = [attributionCopy sender];
@@ -620,19 +619,19 @@ LABEL_62:
 
         contact = [v11 contact];
         identifier = [contact identifier];
-        identifier2 = [v48 identifier];
+        identifier2 = [v47 identifier];
         v17 = [identifier isEqualToString:identifier2];
 
-        array = v49;
-        if ((SLPersonArrayContainsPerson(v49, v11) & 1) == 0 && (IsEqualToPerson & 1) == 0 && (v17 & 1) == 0)
+        array = v48;
+        if ((SLPersonArrayContainsPerson(v48, v11) & 1) == 0 && (IsEqualToPerson & 1) == 0 && (v17 & 1) == 0)
         {
-          [v49 addObject:v11];
+          [v48 addObject:v11];
         }
 
         attributionCopy = v9;
       }
 
-      v7 = [obj countByEnumeratingWithState:&v50 objects:v54 count:16];
+      v7 = [obj countByEnumeratingWithState:&v49 objects:v53 count:16];
     }
 
     while (v7);
@@ -647,7 +646,7 @@ LABEL_62:
     {
       relatedPersons2 = [attributionCopy relatedPersons];
       firstObject = [relatedPersons2 firstObject];
-      [v49 addObject:firstObject];
+      [v48 addObject:firstObject];
     }
   }
 
@@ -675,21 +674,21 @@ LABEL_62:
       if (groupID2)
       {
         v31 = 1;
-        v32 = v49;
+        v32 = v48;
         v33 = array2;
         goto LABEL_31;
       }
     }
 
-    v32 = v49;
-    if (v44)
+    v32 = v48;
+    if (v43)
     {
-      v34 = v49;
+      v34 = v48;
     }
 
     else
     {
-      v34 = [v49 subarrayWithRange:{0, 0}];
+      v34 = [v48 subarrayWithRange:{0, 0}];
     }
 
     v37 = v34;
@@ -699,17 +698,17 @@ LABEL_62:
 
   else
   {
-    v32 = v49;
-    v31 = [v49 count];
+    v32 = v48;
+    v31 = [v48 count];
     v35 = array2;
-    if (v31 >= v44)
+    if (v31 >= v43)
     {
-      v36 = [v49 subarrayWithRange:0];
+      v36 = [v48 subarrayWithRange:0];
     }
 
     else
     {
-      v36 = v49;
+      v36 = v48;
     }
 
     v37 = v36;
@@ -737,13 +736,11 @@ LABEL_31:
   if (isPinned)
   {
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_generateCollaborationSendersForMultipleAttributions:(id)attributions maxSendersToDisplay:(unint64_t)display
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   attributionsCopy = attributions;
   v5 = [objc_alloc(MEMORY[0x277CCAC98]) initWithKey:@"timestamp" ascending:0];
   v6 = [MEMORY[0x277CBEA60] arrayWithObject:v5];
@@ -751,28 +748,28 @@ LABEL_31:
 
   array = [MEMORY[0x277CBEB18] array];
   array2 = [MEMORY[0x277CBEB18] array];
+  v58 = 0u;
   v59 = 0u;
   v60 = 0u;
   v61 = 0u;
-  v62 = 0u;
   v9 = v7;
-  v10 = [v9 countByEnumeratingWithState:&v59 objects:v65 count:16];
-  v44 = v5;
-  v45 = attributionsCopy;
+  v10 = [v9 countByEnumeratingWithState:&v58 objects:v64 count:16];
+  v43 = v5;
+  v44 = attributionsCopy;
   if (v10)
   {
     v11 = v10;
-    v12 = *v60;
+    v12 = *v59;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v60 != v12)
+        if (*v59 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v59 + 1) + 8 * i);
+        v14 = *(*(&v58 + 1) + 8 * i);
         if ([v14 isPinned])
         {
           sender = [v14 sender];
@@ -803,7 +800,7 @@ LABEL_31:
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v59 objects:v65 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v58 objects:v64 count:16];
       if (v11)
       {
         continue;
@@ -815,27 +812,27 @@ LABEL_31:
 
   sender = 0;
 LABEL_16:
-  v43 = sender;
+  v42 = sender;
 
-  v57 = 0u;
-  v58 = 0u;
-  v55 = 0u;
   v56 = 0u;
+  v57 = 0u;
+  v54 = 0u;
+  v55 = 0u;
   obj = v9;
-  v50 = [obj countByEnumeratingWithState:&v55 objects:v64 count:16];
-  if (v50)
+  v49 = [obj countByEnumeratingWithState:&v54 objects:v63 count:16];
+  if (v49)
   {
-    v49 = *v56;
+    v48 = *v55;
     do
     {
-      for (j = 0; j != v50; ++j)
+      for (j = 0; j != v49; ++j)
       {
-        if (*v56 != v49)
+        if (*v55 != v48)
         {
           objc_enumerationMutation(obj);
         }
 
-        v23 = *(*(&v55 + 1) + 8 * j);
+        v23 = *(*(&v54 + 1) + 8 * j);
         if (([v23 isPinned] & 1) == 0)
         {
           sender3 = [v23 sender];
@@ -867,26 +864,26 @@ LABEL_16:
           }
         }
 
-        v53 = 0u;
-        v54 = 0u;
-        v51 = 0u;
         v52 = 0u;
+        v53 = 0u;
+        v50 = 0u;
+        v51 = 0u;
         relatedPersons3 = [v23 relatedPersons];
-        v32 = [relatedPersons3 countByEnumeratingWithState:&v51 objects:v63 count:16];
+        v32 = [relatedPersons3 countByEnumeratingWithState:&v50 objects:v62 count:16];
         if (v32)
         {
           v33 = v32;
-          v34 = *v52;
+          v34 = *v51;
           do
           {
             for (k = 0; k != v33; ++k)
             {
-              if (*v52 != v34)
+              if (*v51 != v34)
               {
                 objc_enumerationMutation(relatedPersons3);
               }
 
-              v36 = *(*(&v51 + 1) + 8 * k);
+              v36 = *(*(&v50 + 1) + 8 * k);
               if ([v23 isFromMe])
               {
                 sender5 = [v23 sender];
@@ -904,17 +901,17 @@ LABEL_16:
               }
             }
 
-            v33 = [relatedPersons3 countByEnumeratingWithState:&v51 objects:v63 count:16];
+            v33 = [relatedPersons3 countByEnumeratingWithState:&v50 objects:v62 count:16];
           }
 
           while (v33);
         }
       }
 
-      v50 = [obj countByEnumeratingWithState:&v55 objects:v64 count:16];
+      v49 = [obj countByEnumeratingWithState:&v54 objects:v63 count:16];
     }
 
-    while (v50);
+    while (v49);
   }
 
   self->_allSendersNumber = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(array, "count")}];
@@ -923,32 +920,30 @@ LABEL_16:
   self->_sendersToDisplay = v39;
 
   pinnedSender = self->_pinnedSender;
-  self->_pinnedSender = v43;
-
-  v42 = *MEMORY[0x277D85DE8];
+  self->_pinnedSender = v42;
 }
 
 - (void)_generateSendersWithDisplayPolicyForAttributions:(id)attributions maxSendersToDisplay:(unint64_t)display
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   attributionsCopy = attributions;
-  v40 = [objc_alloc(MEMORY[0x277CCAC98]) initWithKey:@"timestamp" ascending:0];
+  v39 = [objc_alloc(MEMORY[0x277CCAC98]) initWithKey:@"timestamp" ascending:0];
   v6 = [MEMORY[0x277CBEA60] arrayWithObject:?];
-  v42 = attributionsCopy;
+  v41 = attributionsCopy;
   v7 = [attributionsCopy sortedArrayUsingDescriptors:v6];
 
   array = [MEMORY[0x277CBEB18] array];
   array2 = [MEMORY[0x277CBEB18] array];
+  v47 = 0u;
   v48 = 0u;
   v49 = 0u;
   v50 = 0u;
-  v51 = 0u;
   v10 = v7;
-  v11 = [v10 countByEnumeratingWithState:&v48 objects:v53 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v47 objects:v52 count:16];
   if (!v11)
   {
 
-    v39 = 0;
+    v38 = 0;
     sender2 = 0;
     goto LABEL_30;
   }
@@ -956,18 +951,18 @@ LABEL_16:
   v12 = v11;
   sender3 = 0;
   sender2 = 0;
-  v15 = *v49;
+  v15 = *v48;
   obj = v10;
   while (2)
   {
     for (i = 0; i != v12; ++i)
     {
-      if (*v49 != v15)
+      if (*v48 != v15)
       {
         objc_enumerationMutation(obj);
       }
 
-      v17 = *(*(&v48 + 1) + 8 * i);
+      v17 = *(*(&v47 + 1) + 8 * i);
       if (sender2 && sender3)
       {
         v10 = obj;
@@ -982,7 +977,7 @@ LABEL_23:
         goto LABEL_25;
       }
 
-      sender = [*(*(&v48 + 1) + 8 * i) sender];
+      sender = [*(*(&v47 + 1) + 8 * i) sender];
 
       if (sender)
       {
@@ -1023,7 +1018,7 @@ LABEL_13:
     }
 
     v10 = obj;
-    v12 = [obj countByEnumeratingWithState:&v48 objects:v53 count:16];
+    v12 = [obj countByEnumeratingWithState:&v47 objects:v52 count:16];
     if (v12)
     {
       continue;
@@ -1040,7 +1035,7 @@ LABEL_13:
 LABEL_25:
   if (sender3)
   {
-    v39 = sender3;
+    v38 = sender3;
     if ((SLPersonArrayContainsPerson(array, sender3) & 1) == 0)
     {
       [array addObject:sender3];
@@ -1050,31 +1045,31 @@ LABEL_25:
 
   else
   {
-    v39 = 0;
+    v38 = 0;
   }
 
 LABEL_30:
-  v38 = sender2;
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
+  v37 = sender2;
   v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   v19 = v10;
-  v20 = [v19 countByEnumeratingWithState:&v44 objects:v52 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v43 objects:v51 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v45;
+    v22 = *v44;
     do
     {
       for (j = 0; j != v21; ++j)
       {
-        if (*v45 != v22)
+        if (*v44 != v22)
         {
           objc_enumerationMutation(v19);
         }
 
-        v24 = *(*(&v44 + 1) + 8 * j);
+        v24 = *(*(&v43 + 1) + 8 * j);
         sender4 = [v24 sender];
         if (sender4)
         {
@@ -1101,7 +1096,7 @@ LABEL_30:
         }
       }
 
-      v21 = [v19 countByEnumeratingWithState:&v44 objects:v52 count:16];
+      v21 = [v19 countByEnumeratingWithState:&v43 objects:v51 count:16];
     }
 
     while (v21);
@@ -1113,38 +1108,36 @@ LABEL_30:
   self->_sendersToDisplay = v32;
 
   pinnedSender = self->_pinnedSender;
-  self->_pinnedSender = v38;
-  v35 = v38;
+  self->_pinnedSender = v37;
+  v35 = v37;
 
   meSender = self->_meSender;
-  self->_meSender = v39;
-
-  v37 = *MEMORY[0x277D85DE8];
+  self->_meSender = v38;
 }
 
 - (id)_personOtherThanPerson:(id)person inArray:(id)array
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   personCopy = person;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   arrayCopy = array;
-  v7 = [arrayCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [arrayCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
-    v8 = *v14;
+    v8 = *v13;
     while (2)
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(arrayCopy);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * i);
+        v10 = *(*(&v12 + 1) + 8 * i);
         if ((SLPersonIsEqualToPerson(v10, personCopy) & 1) == 0)
         {
           v7 = v10;
@@ -1152,7 +1145,7 @@ LABEL_30:
         }
       }
 
-      v7 = [arrayCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [arrayCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v7)
       {
         continue;
@@ -1163,8 +1156,6 @@ LABEL_30:
   }
 
 LABEL_11:
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

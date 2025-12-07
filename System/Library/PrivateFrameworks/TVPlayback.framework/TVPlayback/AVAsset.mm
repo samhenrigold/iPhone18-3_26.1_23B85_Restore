@@ -60,15 +60,15 @@ LABEL_9:
 
 void __79__AVAsset_TVPAudioSubtitleAdditions__tvp_sortedSubtitleAVMediaSelectionOptions__block_invoke_2(uint64_t a1, void *a2, unint64_t a3)
 {
-  v17 = a2;
-  v5 = [v17 hasMediaCharacteristic:*MEMORY[0x277CE5E20]];
+  v15 = a2;
+  v5 = [v15 hasMediaCharacteristic:*MEMORY[0x277CE5E20]];
   v6 = 40;
   if (v5)
   {
     v6 = 32;
   }
 
-  [*(a1 + v6) addObject:v17];
+  [*(a1 + v6) addObject:v15];
   if (*(a1 + 72) - 1 <= a3)
   {
     v7 = 0;
@@ -79,7 +79,7 @@ void __79__AVAsset_TVPAudioSubtitleAdditions__tvp_sortedSubtitleAVMediaSelection
     v7 = [*(a1 + 48) objectAtIndex:a3 + 1];
   }
 
-  v8 = [v17 tvp_languageCodeFromLocale];
+  v8 = [v15 tvp_languageCodeFromLocale];
   v9 = [v7 tvp_languageCodeFromLocale];
   v10 = v9;
   if (v8)
@@ -118,15 +118,13 @@ LABEL_12:
   }
 
 LABEL_13:
-  v12 = *(a1 + 56);
-  v11 = *(a1 + 64);
-  v13 = [objc_opt_class() tvp_filteredAndSubsortedMainProgramSubtitleOptionsFromOptions:*(a1 + 32)];
-  [v12 addObjectsFromArray:v13];
+  v11 = *(a1 + 56);
+  v12 = [objc_opt_class() tvp_filteredAndSubsortedMainProgramSubtitleOptionsFromOptions:*(a1 + 32)];
+  [v11 addObjectsFromArray:v12];
 
-  v15 = *(a1 + 56);
-  v14 = *(a1 + 64);
-  v16 = [objc_opt_class() tvp_sortedAuxSubtitleOptionsFromOptions:*(a1 + 40)];
-  [v15 addObjectsFromArray:v16];
+  v13 = *(a1 + 56);
+  v14 = [objc_opt_class() tvp_sortedAuxSubtitleOptionsFromOptions:*(a1 + 40)];
+  [v13 addObjectsFromArray:v14];
 
   [*(a1 + 32) removeAllObjects];
   [*(a1 + 40) removeAllObjects];

@@ -167,25 +167,17 @@
 
 - (Class)_optionClassForCustomEditMode:(int64_t)mode
 {
-  if (mode == 10)
+  if (mode == 10 || mode == 15)
   {
-    v4 = NTKFaceColorEditOption_ptr;
-LABEL_5:
-    v5 = *v4;
-    v6 = objc_opt_class();
-
-    return v6;
+    v4 = objc_opt_class();
   }
 
-  if (mode == 15)
+  else
   {
-    v4 = &off_10260;
-    goto LABEL_5;
+    v4 = 0;
   }
 
-  v6 = 0;
-
-  return v6;
+  return v4;
 }
 
 - (id)complicationSlotsHiddenByEditOption:(id)option

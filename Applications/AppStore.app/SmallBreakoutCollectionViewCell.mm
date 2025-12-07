@@ -35,13 +35,13 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_100129494();
+  sub_100129494(selfCopy, v2);
 }
 
 - (void)prepareForReuse
 {
   selfCopy = self;
-  sub_100129764();
+  sub_100129764(selfCopy, v2);
 }
 
 @end

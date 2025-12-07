@@ -68,9 +68,9 @@ void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<
   else
   {
     *v2 = 0xE57C2F66048E40BDLL;
-    v2[1] = "md::ls::RequireTypedRenderableForLegacyReasons<md::DaVinciGroundRenderable>]";
-    v2[2] = 75;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ls::RequireTypedRenderableForLegacyReasons<md::DaVinciGroundRenderable>]";
+    *(v2 + 2) = 75;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;
@@ -145,9 +145,9 @@ void gdc::typelist_as_vector<std::tuple<md::ls::CommandBufferDescriptionCreation
   else
   {
     *v2 = 0x7C0654221E3B4567;
-    v2[1] = "md::ls::CommandBufferDescriptionCreation]";
-    v2[2] = 40;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ls::CommandBufferDescriptionCreation]";
+    *(v2 + 2) = 40;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;
@@ -359,9 +359,9 @@ void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<
   else
   {
     *v2 = 0x414BF8D9069621AELL;
-    v2[1] = "md::ls::TileViewConstantDataHandle]";
-    v2[2] = 34;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ls::TileViewConstantDataHandle]";
+    *(v2 + 2) = 34;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;
@@ -573,9 +573,9 @@ void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<
   else
   {
     *v2 = 0xD270E8E58701C515;
-    v2[1] = "md::ls::TileTransformConstantDataHandle]";
-    v2[2] = 39;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ls::TileTransformConstantDataHandle]";
+    *(v2 + 2) = 39;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;
@@ -650,9 +650,9 @@ void gdc::typelist_as_vector<std::tuple<md::ls::TileMatrix>>(void **a1)
   else
   {
     *v2 = 0xBCC33905201D8160;
-    v2[1] = "md::ls::TileMatrix]";
-    v2[2] = 18;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ls::TileMatrix]";
+    *(v2 + 2) = 18;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;
@@ -727,9 +727,9 @@ void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<
   else
   {
     *v2 = 0x80A8239313E99C5FLL;
-    v2[1] = "md::ls::TileStyleCameraConstantDataHandle]";
-    v2[2] = 41;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ls::TileStyleCameraConstantDataHandle]";
+    *(v2 + 2) = 41;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;
@@ -1136,9 +1136,9 @@ void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<
   else
   {
     *v2 = 0xF2296D6406C155CBLL;
-    v2[1] = "md::ls::TileShadowConstantDataHandle]";
-    v2[2] = 36;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ls::TileShadowConstantDataHandle]";
+    *(v2 + 2) = 36;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;
@@ -1408,9 +1408,9 @@ void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<
   else
   {
     *v2 = 0xF13A29B8320B78ALL;
-    v2[1] = "md::ls::TileProjectionTypeT<md::ls::TileProjectionType::Mercator>]";
-    v2[2] = 65;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ls::TileProjectionTypeT<md::ls::TileProjectionType::Mercator>]";
+    *(v2 + 2) = 65;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;
@@ -1680,9 +1680,9 @@ void gdc::typelist_as_vector<std::tuple<md::ls::UniqueStyleEmissiveDataKeyHandle
   else
   {
     *v2 = 0xEBDB618C34E97A19;
-    v2[1] = "md::ls::UniqueStyleEmissiveDataKeyHandle]";
-    v2[2] = 40;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ls::UniqueStyleEmissiveDataKeyHandle]";
+    *(v2 + 2) = 40;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;
@@ -2558,9 +2558,9 @@ void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<
   else
   {
     *v2 = 0x5EBA003AC7A96B8ALL;
-    v2[1] = "md::ls::SharedRenderableDataHandle]";
-    v2[2] = 34;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ls::SharedRenderableDataHandle]";
+    *(v2 + 2) = 34;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;
@@ -3257,9 +3257,9 @@ void gdc::typelist_as_vector<std::tuple<md::ls::PassToCommandBuffers>>(void **a1
   else
   {
     *v2 = 0xA7E255916A50AFB1;
-    v2[1] = "md::ls::PassToCommandBuffers]";
-    v2[2] = 28;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ls::PassToCommandBuffers]";
+    *(v2 + 2) = 28;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;
@@ -3529,9 +3529,9 @@ void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<
   else
   {
     *v2 = 0xDC66BF6D06F6D0BALL;
-    v2[1] = "md::ls::RasterOverlayConstantDataHandle]";
-    v2[2] = 39;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ls::RasterOverlayConstantDataHandle]";
+    *(v2 + 2) = 39;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;
@@ -4112,9 +4112,9 @@ void gdc::typelist_as_vector<std::tuple<md::ls::StyleRouteLineMaskDataKeyHandle>
   else
   {
     *v2 = 0x8E45E81B6E5A8E0ELL;
-    v2[1] = "md::ls::StyleRouteLineMaskDataKeyHandle]";
-    v2[2] = 39;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ls::StyleRouteLineMaskDataKeyHandle]";
+    *(v2 + 2) = 39;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;
@@ -4189,9 +4189,9 @@ void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<
   else
   {
     *v2 = 0x3AC919C8A5243F9;
-    v2[1] = "md::ls::StyleSSAODataKeyHandle]";
-    v2[2] = 30;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ls::StyleSSAODataKeyHandle]";
+    *(v2 + 2) = 30;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;
@@ -4266,9 +4266,9 @@ void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<
   else
   {
     *v2 = 0xA3F884E4E2541296;
-    v2[1] = "md::ls::ColorDataHandle]";
-    v2[2] = 23;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ls::ColorDataHandle]";
+    *(v2 + 2) = 23;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;
@@ -5551,9 +5551,9 @@ void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<
   else
   {
     *v2 = 0x1631ACE79ACA9DD7;
-    v2[1] = "md::ls::MaterialSpecularity]";
-    v2[2] = 27;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ls::MaterialSpecularity]";
+    *(v2 + 2) = 27;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;
@@ -5628,9 +5628,9 @@ void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<
   else
   {
     *v2 = 0x6E6C3F5AAEB152E5;
-    v2[1] = "md::ls::SupportsStylizedShading]";
-    v2[2] = 31;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ls::SupportsStylizedShading]";
+    *(v2 + 2) = 31;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;
@@ -5842,9 +5842,9 @@ void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<
   else
   {
     *v2 = 0x1D932F2BF291491;
-    v2[1] = "md::ls::TextureHandleForType<DaVinci::TexTexture>]";
-    v2[2] = 49;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ls::TextureHandleForType<DaVinci::TexTexture>]";
+    *(v2 + 2) = 49;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;
@@ -6678,9 +6678,9 @@ void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<
   else
   {
     *v2 = 0xE54E641F7C1F9B89;
-    v2[1] = "md::ls::RequiredPipelinePoolID]";
-    v2[2] = 30;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ls::RequiredPipelinePoolID]";
+    *(v2 + 2) = 30;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;
@@ -7672,12 +7672,12 @@ void sub_1B27C3B9C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void md::Monitorable<md::ConfigValue<GEOConfigKeyBOOL,BOOL>>::Monitorable(uint64_t a1, _OWORD *a2)
+void md::Monitorable<md::ConfigValue<GEOConfigKeyBOOL,BOOL>>::Monitorable(uint64_t *a1, _OWORD *a2)
 {
   *a1 = *a2;
   if (*a1)
   {
-    v3 = *(a1 + 8) == 0;
+    v3 = a1[1] == 0;
   }
 
   else
@@ -7690,7 +7690,7 @@ void md::Monitorable<md::ConfigValue<GEOConfigKeyBOOL,BOOL>>::Monitorable(uint64
     *(a1 + 16) = GEOConfigGetBOOL();
   }
 
-  *(a1 + 24) = 0;
+  a1[3] = 0;
   operator new();
 }
 

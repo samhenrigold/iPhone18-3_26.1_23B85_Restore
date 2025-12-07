@@ -25,7 +25,7 @@
 
 - (BOOL)shouldAllowAnalysisWithFeatureStatus:(id)status
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   statusCopy = status;
   v5 = [statusCopy objectForKeyedSubscript:*MEMORY[0x277CCBEA0]];
   areAllRequirementsSatisfied = [v5 areAllRequirementsSatisfied];
@@ -58,75 +58,75 @@
         onboardingRecord = [statusCopy onboardingRecord];
         allOnboardingCompletionsRegardlessOfSupportedState = [onboardingRecord allOnboardingCompletionsRegardlessOfSupportedState];
 
-        v58 = 0u;
-        v59 = 0u;
-        v56 = 0u;
         v57 = 0u;
+        v58 = 0u;
+        v55 = 0u;
+        v56 = 0u;
         v15 = pairedDevices;
-        v16 = [v15 countByEnumeratingWithState:&v56 objects:v61 count:16];
+        v16 = [v15 countByEnumeratingWithState:&v55 objects:v60 count:16];
         if (v16)
         {
           v17 = v16;
-          v18 = *v57;
-          v47 = pairedDevices;
-          v49 = v15;
-          v50 = allOnboardingCompletionsRegardlessOfSupportedState;
-          v45 = *v57;
+          v18 = *v56;
+          v46 = pairedDevices;
+          v48 = v15;
+          v49 = allOnboardingCompletionsRegardlessOfSupportedState;
+          v44 = *v56;
           while (2)
           {
             v19 = 0;
-            v46 = v17;
+            v45 = v17;
             do
             {
-              if (*v57 != v18)
+              if (*v56 != v18)
               {
                 objc_enumerationMutation(v15);
               }
 
-              v20 = *(*(&v56 + 1) + 8 * v19);
+              v20 = *(*(&v55 + 1) + 8 * v19);
               onboardingEligibilityDeterminer = self->_onboardingEligibilityDeterminer;
-              v55 = 0;
-              v22 = [(HDFeatureAvailabilityOnboardingEligibilityDeterminer *)onboardingEligibilityDeterminer onboardingEligibilitiesForDevice:v20 onboardingCompletions:allOnboardingCompletionsRegardlessOfSupportedState error:&v55, v45];
-              v23 = v55;
+              v54 = 0;
+              v22 = [(HDFeatureAvailabilityOnboardingEligibilityDeterminer *)onboardingEligibilityDeterminer onboardingEligibilitiesForDevice:v20 onboardingCompletions:allOnboardingCompletionsRegardlessOfSupportedState error:&v54, v44];
+              v23 = v54;
               v8 = v23 == 0;
               if (v23)
               {
                 v24 = v23;
                 _HKInitializeLogging();
-                v44 = HKHRAFibBurdenLogForCategory();
-                if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+                v43 = HKHRAFibBurdenLogForCategory();
+                if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
                 {
-                  [(HKHRAFibBurdenSevenDayAnalysisFeatureStatusInspector *)self shouldAllowAnalysisWithFeatureStatus:v24, v44];
+                  [(HKHRAFibBurdenSevenDayAnalysisFeatureStatusInspector *)self shouldAllowAnalysisWithFeatureStatus:v24, v43];
                 }
 
                 [(HDHRAFibBurdenSevenDayAnalysisBreadcrumbManaging *)self->_breadcrumbManager dropAnalysisResultBreadcrumbWithContext:@"Error determining onboarding eligibility"];
-                pairedDevices = v47;
+                pairedDevices = v46;
 LABEL_40:
 
                 goto LABEL_41;
               }
 
-              v53 = 0u;
-              v54 = 0u;
-              v51 = 0u;
               v52 = 0u;
-              v48 = v22;
+              v53 = 0u;
+              v50 = 0u;
+              v51 = 0u;
+              v47 = v22;
               v24 = v22;
-              v25 = [v24 countByEnumeratingWithState:&v51 objects:v60 count:16];
+              v25 = [v24 countByEnumeratingWithState:&v50 objects:v59 count:16];
               if (v25)
               {
                 v26 = v25;
-                v27 = *v52;
+                v27 = *v51;
                 while (2)
                 {
                   for (i = 0; i != v26; ++i)
                   {
-                    if (*v52 != v27)
+                    if (*v51 != v27)
                     {
                       objc_enumerationMutation(v24);
                     }
 
-                    onboardingEligibility = [*(*(&v51 + 1) + 8 * i) onboardingEligibility];
+                    onboardingEligibility = [*(*(&v50 + 1) + 8 * i) onboardingEligibility];
                     isEligible = [onboardingEligibility isEligible];
 
                     if (isEligible)
@@ -140,15 +140,15 @@ LABEL_40:
                         _os_log_impl(&dword_229486000, v41, OS_LOG_TYPE_DEFAULT, "[%{public}@] At least one paired device has supported onboarding completion, allowing analysis", buf, 0xCu);
                       }
 
-                      pairedDevices = v47;
-                      v22 = v48;
-                      v15 = v49;
-                      allOnboardingCompletionsRegardlessOfSupportedState = v50;
+                      pairedDevices = v46;
+                      v22 = v47;
+                      v15 = v48;
+                      allOnboardingCompletionsRegardlessOfSupportedState = v49;
                       goto LABEL_40;
                     }
                   }
 
-                  v26 = [v24 countByEnumeratingWithState:&v51 objects:v60 count:16];
+                  v26 = [v24 countByEnumeratingWithState:&v50 objects:v59 count:16];
                   if (v26)
                   {
                     continue;
@@ -159,14 +159,14 @@ LABEL_40:
               }
 
               ++v19;
-              v18 = v45;
-              v15 = v49;
-              allOnboardingCompletionsRegardlessOfSupportedState = v50;
+              v18 = v44;
+              v15 = v48;
+              allOnboardingCompletionsRegardlessOfSupportedState = v49;
             }
 
-            while (v19 != v46);
-            v17 = [v49 countByEnumeratingWithState:&v56 objects:v61 count:16];
-            pairedDevices = v47;
+            while (v19 != v45);
+            v17 = [v48 countByEnumeratingWithState:&v55 objects:v60 count:16];
+            pairedDevices = v46;
             if (v17)
             {
               continue;
@@ -210,8 +210,8 @@ LABEL_41:
     {
       v32 = [statusCopy objectForKeyedSubscript:v9];
       unsatisfiedRequirementIdentifiers = [v32 unsatisfiedRequirementIdentifiers];
-      v62 = *MEMORY[0x277CCBF38];
-      v34 = [MEMORY[0x277CBEA60] arrayWithObjects:&v62 count:1];
+      v61 = *MEMORY[0x277CCBF38];
+      v34 = [MEMORY[0x277CBEA60] arrayWithObjects:&v61 count:1];
       v35 = [unsatisfiedRequirementIdentifiers isEqualToArray:v34];
 
       _HKInitializeLogging();
@@ -248,7 +248,6 @@ LABEL_41:
     }
   }
 
-  v42 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -263,13 +262,12 @@ LABEL_41:
 
 - (void)shouldAllowAnalysisWithFeatureStatus:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_error_impl(&dword_229486000, log, OS_LOG_TYPE_ERROR, "[%{public}@] Error when retrieving onboarding eligibility: %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_error_impl(&dword_229486000, log, OS_LOG_TYPE_ERROR, "[%{public}@] Error when retrieving onboarding eligibility: %{public}@", &v3, 0x16u);
 }
 
 @end

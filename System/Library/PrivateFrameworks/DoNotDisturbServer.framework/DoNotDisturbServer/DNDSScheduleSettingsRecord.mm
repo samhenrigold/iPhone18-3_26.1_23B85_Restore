@@ -1216,7 +1216,7 @@ LABEL_12:
 
 - (id)legacyBehaviorOverride
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEAB8]);
   timePeriodStartTimeHour = [(DNDSScheduleSettingsRecord *)self timePeriodStartTimeHour];
   [v3 setHour:{objc_msgSend(timePeriodStartTimeHour, "unsignedIntegerValue")}];
@@ -1251,11 +1251,9 @@ LABEL_12:
   }
 
   v16 = [DNDSLegacyBehaviorOverride alloc];
-  v21[0] = v12;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
+  v20[0] = v12;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
   v18 = [(DNDSLegacyBehaviorOverride *)v16 initWithOverrideType:1 mode:v15 effectiveIntervals:v17];
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }

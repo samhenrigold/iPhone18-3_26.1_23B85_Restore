@@ -87,23 +87,8 @@ LABEL_10:
   os_unfair_lock_unlock(&self->_selectorLock);
   if (!v6)
   {
-    MethodDescription = protocol_getMethodDescription(protocol, selector, 1, 1);
-    types = MethodDescription.types;
-    if (MethodDescription.name || (v9 = protocol_getMethodDescription(protocol, selector, 0, 1), types = v9.types, v9.name))
+    if (((MethodDescription = protocol_getMethodDescription(protocol, selector, 1, 1), types = MethodDescription.types, MethodDescription.name) || (v9 = protocol_getMethodDescription(protocol, selector, 0, 1), types = v9.types, v9.name)) && ([MEMORY[0x1E695DF68] signatureWithObjCTypes:types], (v6 = objc_claimAutoreleasedReturnValue()) != 0) || (v11.receiver = self, v11.super_class = _MSXPCRemoteProxy, -[_MSXPCRemoteProxy methodSignatureForSelector:](&v11, sel_methodSignatureForSelector_, selector), (v6 = objc_claimAutoreleasedReturnValue()) != 0))
     {
-      v6 = [MEMORY[0x1E695DF68] signatureWithObjCTypes:types];
-      if (v6)
-      {
-        goto LABEL_8;
-      }
-    }
-
-    v11.receiver = self;
-    v11.super_class = _MSXPCRemoteProxy;
-    v6 = [(_MSXPCRemoteProxy *)&v11 methodSignatureForSelector:selector];
-    if (v6)
-    {
-LABEL_8:
       os_unfair_lock_lock(&self->_selectorLock);
       CFDictionarySetValue(self->_knownSelectors, selector, v6);
       os_unfair_lock_unlock(&self->_selectorLock);

@@ -22,15 +22,7 @@
     goto LABEL_9;
   }
 
-  if (!contextCopy)
-  {
-    goto LABEL_9;
-  }
-
-  serviceContexts = [contextCopy serviceContexts];
-  v7 = [serviceContexts count];
-
-  if (!v7 || (v18.receiver = self, v18.super_class = PCSCKKSFetchCurrentOperation, v8 = [(PCSCKKSFetchCurrentOperation *)&v18 init], (self = v8) == 0))
+  if (!contextCopy || ([contextCopy serviceContexts], v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "count"), v6, !v7) || (v18.receiver = self, v18.super_class = PCSCKKSFetchCurrentOperation, v8 = -[PCSCKKSFetchCurrentOperation init](&v18, sel_init), (self = v8) == 0))
   {
 LABEL_9:
     selfCopy = 0;
@@ -38,14 +30,14 @@ LABEL_9:
   }
 
   objc_storeStrong(&v8->_context, context);
-  serviceContexts2 = [contextCopy serviceContexts];
-  v10 = [serviceContexts2 count];
+  serviceContexts = [contextCopy serviceContexts];
+  v10 = [serviceContexts count];
 
   v11 = MEMORY[0x1E696AEC0];
   if (v10 == 1)
   {
-    serviceContexts3 = [(PCSCKKSItemModifyContext *)self->_context serviceContexts];
-    allKeys = [serviceContexts3 allKeys];
+    serviceContexts2 = [(PCSCKKSItemModifyContext *)self->_context serviceContexts];
+    allKeys = [serviceContexts2 allKeys];
     v14 = [allKeys objectAtIndexedSubscript:0];
     v15 = [v11 stringWithFormat:@"FetchCurrentOperation service: %@", v14];
     [(PCSCKKSFetchCurrentOperation *)self setName:v15];
@@ -53,8 +45,8 @@ LABEL_9:
 
   else
   {
-    serviceContexts3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"FetchCurrentOperation service: %@", @"bulk-service-identity-creation-identifier"];
-    [(PCSCKKSFetchCurrentOperation *)self setName:serviceContexts3];
+    serviceContexts2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"FetchCurrentOperation service: %@", @"bulk-service-identity-creation-identifier"];
+    [(PCSCKKSFetchCurrentOperation *)self setName:serviceContexts2];
   }
 
   self = self;
@@ -129,7 +121,7 @@ void __37__PCSCKKSFetchCurrentOperation_start__block_invoke(uint64_t a1, uint64_
 
 - (void)fetchComplete:(id)complete currentItemData:(id)data point:(id)point error:(id)error
 {
-  v39[1] = *MEMORY[0x1E69E9840];
+  v38[1] = *MEMORY[0x1E69E9840];
   completeCopy = complete;
   dataCopy = data;
   pointCopy = point;
@@ -147,9 +139,9 @@ void __37__PCSCKKSFetchCurrentOperation_start__block_invoke(uint64_t a1, uint64_
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v35 = completeCopy;
-        v36 = 2112;
-        v37 = errorCopy;
+        v34 = completeCopy;
+        v35 = 2112;
+        v36 = errorCopy;
         _os_log_impl(&dword_1B229C000, v17, OS_LOG_TYPE_DEFAULT, "Failed to get CKKS current service %@: %@", buf, 0x16u);
       }
     }
@@ -171,14 +163,14 @@ void __37__PCSCKKSFetchCurrentOperation_start__block_invoke(uint64_t a1, uint64_
 
       else
       {
-        v27 = MEMORY[0x1E696ABC0];
-        v28 = kPCSErrorDomain;
-        v32 = *MEMORY[0x1E696A578];
+        v26 = MEMORY[0x1E696ABC0];
+        v27 = kPCSErrorDomain;
+        v31 = *MEMORY[0x1E696A578];
         completeCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"Fetch current identity failed for service %@", completeCopy];
-        v33 = completeCopy;
-        v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
-        v31 = [v27 errorWithDomain:v28 code:104 userInfo:v30];
-        [(PCSCKKSOperation *)self setError:v31];
+        v32 = completeCopy;
+        v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+        v30 = [v26 errorWithDomain:v27 code:104 userInfo:v29];
+        [(PCSCKKSOperation *)self setError:v30];
       }
 
       v24 = pointCopy;
@@ -201,19 +193,18 @@ LABEL_14:
 
   v20 = MEMORY[0x1E696ABC0];
   v21 = kPCSErrorDomain;
-  v38 = *MEMORY[0x1E696A578];
-  v39[0] = @"dsid does not match current persona's account dsid";
-  v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v39 forKeys:&v38 count:1];
+  v37 = *MEMORY[0x1E696A578];
+  v38[0] = @"dsid does not match current persona's account dsid";
+  v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:&v37 count:1];
   v23 = [v20 errorWithDomain:v21 code:146 userInfo:v22];
   [(PCSCKKSOperation *)self setError:v23];
 
 LABEL_15:
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchCurrentItem:(id)item viewhint:(id)viewhint complete:(id)complete
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   itemCopy = item;
   viewhintCopy = viewhint;
   completeCopy = complete;
@@ -232,14 +223,14 @@ LABEL_15:
 
     else
     {
-      v20 = MEMORY[0x1E696ABC0];
-      v21 = kPCSErrorDomain;
-      v25 = *MEMORY[0x1E696A578];
+      v19 = MEMORY[0x1E696ABC0];
+      v20 = kPCSErrorDomain;
+      v24 = *MEMORY[0x1E696A578];
       viewhintCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"No view hint for %@", itemCopy];
-      v26 = viewhintCopy;
-      v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
-      v23 = [v20 errorWithDomain:v21 code:102 userInfo:v22];
-      completeCopy[2](completeCopy, 0, v23);
+      v25 = viewhintCopy;
+      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+      v22 = [v19 errorWithDomain:v20 code:102 userInfo:v21];
+      completeCopy[2](completeCopy, 0, v22);
     }
   }
 
@@ -253,15 +244,13 @@ LABEL_15:
 
     v15 = MEMORY[0x1E696ABC0];
     v16 = kPCSErrorDomain;
-    v27 = *MEMORY[0x1E696A578];
-    v28[0] = @"dsid does not match current persona's account dsid";
-    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+    v26 = *MEMORY[0x1E696A578];
+    v27[0] = @"dsid does not match current persona's account dsid";
+    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
     v18 = [v15 errorWithDomain:v16 code:146 userInfo:v17];
 
     completeCopy[2](completeCopy, 0, v18);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchPersistentRef:(id)ref persistentRef:(id)persistentRef

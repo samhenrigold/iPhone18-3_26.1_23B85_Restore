@@ -377,7 +377,7 @@ LABEL_17:
     if (0xAAAAAAAAAAAAAAABLL * ((*(breakpoints + 1) - *breakpoints) >> 3))
     {
       invalidSingleCharCNNCode = [(CRLanguageCorrection *)self invalidSingleCharCNNCode];
-      CRLattice::CRLattice(v47, imageCopy, v23, v24, invalidSingleCharCNNCode, segmenter, region, spacing);
+      CRLattice::CRLattice(v47, imageCopy, v23, v24, invalidSingleCharCNNCode, segmenter, 0, ratio, region, spacing, idx);
     }
 
     std::vector<std::vector<BreakPoint>>::__throw_out_of_range[abi:ne200100]();
@@ -738,7 +738,7 @@ LABEL_31:
     v13 = [cols3 objectAtIndexedSubscript:v52];
 
     v50 = v13;
-    rows = [v13 rows];
+    v14 = objc_msgSend_rows(v13);
     rowCount2 = [v13 rowCount];
     if (rowCount2 >= extract)
     {
@@ -765,13 +765,13 @@ LABEL_31:
 LABEL_14:
         }
 
-        v22 = [rows objectAtIndexedSubscript:v17];
+        v22 = [v14 objectAtIndexedSubscript:v17];
         string = [v22 string];
 
         v24 = [array objectAtIndexedSubscript:v17];
         [v24 appendString:string];
 
-        v25 = [rows objectAtIndexedSubscript:v17];
+        v25 = [v14 objectAtIndexedSubscript:v17];
         [v25 score];
         v27 = __exp10(-v26 / (v11 + [string length]));
 
@@ -782,7 +782,7 @@ LABEL_14:
         [array2 setObject:v31 atIndexedSubscript:v17];
 
         v32 = [array3 objectAtIndexedSubscript:v17];
-        v33 = [rows objectAtIndexedSubscript:v17];
+        v33 = [v14 objectAtIndexedSubscript:v17];
         features = [v33 features];
         [v32 addObjectsFromArray:features];
 
@@ -957,7 +957,7 @@ LABEL_2:
         *v89 = v92;
         *v91 = v90;
         v98 = v10;
-        v99 = (v10 + 1);
+        v99 = v10 + 1;
         result = v90;
         if (v95 < v97)
         {
@@ -968,14 +968,14 @@ LABEL_2:
       else
       {
         v98 = v10;
-        v99 = (v10 + 2);
+        v99 = v10 + 2;
         result = *v10;
         if (v96 >= v97)
         {
           *v10 = v90;
           v10[1] = v93;
           v98 = v10 + 1;
-          v99 = (v10 + 2);
+          v99 = v10 + 2;
           result = v93;
           if (v95 >= v97)
           {
@@ -1159,7 +1159,7 @@ LABEL_125:
               v123 = v122 + 2;
               if (v123 < v11)
               {
-                result = (v115 + 1);
+                result = v115 + 1;
                 if (*(v117 + 8 * v115[1]) < *(v117 + 8 * *v115))
                 {
                   ++v115;
@@ -1595,7 +1595,7 @@ LABEL_81:
 
       if (*(v14 + 8 * *(a2 - 1)) >= v56)
       {
-        v71 = v10 + 1;
+        v71 = (v10 + 1);
         do
         {
           v10 = v71;
@@ -1604,7 +1604,7 @@ LABEL_81:
             break;
           }
 
-          ++v71;
+          v71 += 8;
         }
 
         while (*(v14 + 8 * *v10) >= v56);

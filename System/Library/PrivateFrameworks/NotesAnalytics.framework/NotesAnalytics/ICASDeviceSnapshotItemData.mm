@@ -44,8 +44,8 @@
 
 - (id)toDict
 {
-  v37[10] = *MEMORY[0x277D85DE8];
-  v36[0] = @"deviceModel";
+  v36[10] = *MEMORY[0x277D85DE8];
+  v35[0] = @"deviceModel";
   deviceModel = [(ICASDeviceSnapshotItemData *)self deviceModel];
   if (deviceModel)
   {
@@ -57,9 +57,9 @@
     deviceModel2 = objc_opt_new();
   }
 
-  v34 = deviceModel2;
-  v37[0] = deviceModel2;
-  v36[1] = @"devicePlatform";
+  v33 = deviceModel2;
+  v36[0] = deviceModel2;
+  v35[1] = @"devicePlatform";
   devicePlatform = [(ICASDeviceSnapshotItemData *)self devicePlatform];
   if (devicePlatform)
   {
@@ -71,9 +71,9 @@
     devicePlatform2 = objc_opt_new();
   }
 
-  v32 = devicePlatform2;
-  v37[1] = devicePlatform2;
-  v36[2] = @"bioAuthEnabled";
+  v31 = devicePlatform2;
+  v36[1] = devicePlatform2;
+  v35[2] = @"bioAuthEnabled";
   bioAuthEnabled = [(ICASDeviceSnapshotItemData *)self bioAuthEnabled];
   if (bioAuthEnabled)
   {
@@ -85,9 +85,9 @@
     bioAuthEnabled2 = objc_opt_new();
   }
 
-  v30 = bioAuthEnabled2;
-  v37[2] = bioAuthEnabled2;
-  v36[3] = @"localNotesEnabled";
+  v29 = bioAuthEnabled2;
+  v36[2] = bioAuthEnabled2;
+  v35[3] = @"localNotesEnabled";
   localNotesEnabled = [(ICASDeviceSnapshotItemData *)self localNotesEnabled];
   if (localNotesEnabled)
   {
@@ -99,9 +99,9 @@
     localNotesEnabled2 = objc_opt_new();
   }
 
-  v28 = localNotesEnabled2;
-  v37[3] = localNotesEnabled2;
-  v36[4] = @"osVersion";
+  v27 = localNotesEnabled2;
+  v36[3] = localNotesEnabled2;
+  v35[4] = @"osVersion";
   osVersion = [(ICASDeviceSnapshotItemData *)self osVersion];
   if (osVersion)
   {
@@ -113,9 +113,9 @@
     osVersion2 = objc_opt_new();
   }
 
-  v26 = osVersion2;
-  v37[4] = osVersion2;
-  v36[5] = @"deviceID";
+  v25 = osVersion2;
+  v36[4] = osVersion2;
+  v35[5] = @"deviceID";
   deviceID = [(ICASDeviceSnapshotItemData *)self deviceID];
   if (deviceID)
   {
@@ -128,8 +128,8 @@
   }
 
   v9 = deviceID2;
-  v37[5] = deviceID2;
-  v36[6] = @"audioTranscriptEnabled";
+  v36[5] = deviceID2;
+  v35[6] = @"audioTranscriptEnabled";
   audioTranscriptEnabled = [(ICASDeviceSnapshotItemData *)self audioTranscriptEnabled];
   if (audioTranscriptEnabled)
   {
@@ -142,8 +142,8 @@
   }
 
   v12 = audioTranscriptEnabled2;
-  v37[6] = audioTranscriptEnabled2;
-  v36[7] = @"audioSummaryEnabled";
+  v36[6] = audioTranscriptEnabled2;
+  v35[7] = @"audioSummaryEnabled";
   audioSummaryEnabled = [(ICASDeviceSnapshotItemData *)self audioSummaryEnabled];
   if (audioSummaryEnabled)
   {
@@ -156,8 +156,8 @@
   }
 
   v15 = audioSummaryEnabled2;
-  v37[7] = audioSummaryEnabled2;
-  v36[8] = @"mathTextEnabled";
+  v36[7] = audioSummaryEnabled2;
+  v35[8] = @"mathTextEnabled";
   mathTextEnabled = [(ICASDeviceSnapshotItemData *)self mathTextEnabled];
   if (mathTextEnabled)
   {
@@ -170,8 +170,8 @@
   }
 
   v18 = mathTextEnabled2;
-  v37[8] = mathTextEnabled2;
-  v36[9] = @"mathHandwritingEnabled";
+  v36[8] = mathTextEnabled2;
+  v35[9] = @"mathHandwritingEnabled";
   mathHandwritingEnabled = [(ICASDeviceSnapshotItemData *)self mathHandwritingEnabled];
   if (mathHandwritingEnabled)
   {
@@ -184,10 +184,8 @@
   }
 
   v21 = mathHandwritingEnabled2;
-  v37[9] = mathHandwritingEnabled2;
-  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:10];
-
-  v23 = *MEMORY[0x277D85DE8];
+  v36[9] = mathHandwritingEnabled2;
+  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:v35 count:10];
 
   return v22;
 }

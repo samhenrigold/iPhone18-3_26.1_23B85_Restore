@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)networkTypeAsString:(int)string;
+- (id)trainingCompletionCodeAsString:(int)string;
 - (int)StringAsNetworkType:(id)type;
 - (int)StringAsTrainingCompletionCode:(id)code;
 - (int)networkType;
@@ -69,6 +71,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFDFF | v3;
+}
+
+- (id)networkTypeAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_27898C2D8 + (string - 1));
+  }
+
+  return v4;
 }
 
 - (int)StringAsNetworkType:(id)type
@@ -138,6 +155,21 @@
   }
 
   *&self->_has = *&self->_has & 0xEFFF | v3;
+}
+
+- (id)trainingCompletionCodeAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_27898C2F0 + (string - 1));
+  }
+
+  return v4;
 }
 
 - (int)StringAsTrainingCompletionCode:(id)code
@@ -557,7 +589,6 @@ LABEL_16:
   has = self->_has;
   if ((has & 0x20) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x200) == 0)
@@ -577,7 +608,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  networkType = self->_networkType;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -592,7 +622,6 @@ LABEL_4:
   }
 
 LABEL_21:
-  timeSinceLastTrainedSecs = self->_timeSinceLastTrainedSecs;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x1000) == 0)
@@ -607,7 +636,6 @@ LABEL_5:
   }
 
 LABEL_22:
-  trainingCompletionCode = self->_trainingCompletionCode;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -622,7 +650,6 @@ LABEL_6:
   }
 
 LABEL_23:
-  lifetimeOldestItemSecs = self->_lifetimeOldestItemSecs;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x2000) == 0)
@@ -637,7 +664,6 @@ LABEL_7:
   }
 
 LABEL_24:
-  trainingProgress1000 = self->_trainingProgress1000;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x400) == 0)
@@ -652,7 +678,6 @@ LABEL_8:
   }
 
 LABEL_25:
-  predictionErrorOver24hr1000 = self->_predictionErrorOver24hr1000;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -667,7 +692,6 @@ LABEL_9:
   }
 
 LABEL_26:
-  uniquePredictionClients = self->_uniquePredictionClients;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -682,7 +706,6 @@ LABEL_10:
   }
 
 LABEL_27:
-  predictionQueries = self->_predictionQueries;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -697,7 +720,6 @@ LABEL_11:
   }
 
 LABEL_28:
-  modelRecalls = self->_modelRecalls;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -712,7 +734,6 @@ LABEL_12:
   }
 
 LABEL_29:
-  modelGraphPullups = self->_modelGraphPullups;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x800) == 0)
@@ -727,7 +748,6 @@ LABEL_13:
   }
 
 LABEL_30:
-  timeZoneMarker = self->_timeZoneMarker;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -742,12 +762,10 @@ LABEL_14:
   }
 
 LABEL_31:
-  calendarTypeMarker = self->_calendarTypeMarker;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x100) != 0)
   {
 LABEL_15:
-    dayAlikeGroups = self->_dayAlikeGroups;
     PBDataWriterWriteUint32Field();
   }
 

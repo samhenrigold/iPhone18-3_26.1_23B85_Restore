@@ -29,9 +29,11 @@
 
 void __39__SCATOnboardingManager_sharedInstance__block_invoke(id a1)
 {
-  sharedInstance__shared = objc_alloc_init(SCATOnboardingManager);
+  v1 = objc_alloc_init(SCATOnboardingManager);
+  v2 = sharedInstance__shared;
+  sharedInstance__shared = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 - (SCATOnboardingManager)init

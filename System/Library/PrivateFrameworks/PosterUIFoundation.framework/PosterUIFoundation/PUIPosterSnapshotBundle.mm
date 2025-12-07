@@ -281,33 +281,33 @@ LABEL_14:
 LABEL_7:
     if (self->_bundleURL)
     {
-      [(PUIPosterSnapshotBundle *)self interfaceOrientation];
-      [(PUIPosterSnapshotBundle *)self deviceOrientation];
+      interfaceOrientation = [(PUIPosterSnapshotBundle *)self interfaceOrientation];
+      deviceOrientation = [(PUIPosterSnapshotBundle *)self deviceOrientation];
       [(PUIPosterSnapshotBundle *)self snapshotScale];
-      v12 = v11;
-      v13 = PUIPosterSnapshotBundleURLForComponent(self->_bundleURL, component);
+      v14 = v13;
+      v15 = PUIPosterSnapshotBundleURLForComponent(self->_bundleURL, component);
       ondiskFormat = [(PUIPosterSnapshotBundle *)self ondiskFormat];
-      v15 = [[PUIImageEncoder alloc] initWithURL:v13 format:ondiskFormat];
-      v20 = 0;
-      v16 = [(PUIImageEncoder *)v15 createUIImageWithOrientation:PUIImageOrientationForImageCapturedInInterfaceOrientationToBeDisplayedInInterfaceOrientation() scale:&v20 error:v12];
-      v17 = v20;
+      v17 = [[PUIImageEncoder alloc] initWithURL:v15 format:ondiskFormat];
+      v22 = 0;
+      v18 = [(PUIImageEncoder *)v17 createUIImageWithOrientation:PUIImageOrientationForImageCapturedInInterfaceOrientationToBeDisplayedInInterfaceOrientation(interfaceOrientation scale:deviceOrientation) error:&v22, v14];
+      v19 = v22;
 
       objc_autoreleasePoolPop(v7);
-      if (error && v17)
+      if (error && v19)
       {
-        v18 = v17;
-        *error = v17;
+        v20 = v19;
+        *error = v19;
       }
     }
 
     else
     {
       objc_autoreleasePoolPop(v7);
-      v16 = 0;
-      v17 = 0;
+      v18 = 0;
+      v19 = 0;
     }
 
-    v10 = v16;
+    v10 = v18;
 
     goto LABEL_13;
   }
@@ -342,14 +342,14 @@ LABEL_14:
 
     else if (self->_bundleURL)
     {
-      [(PUIPosterSnapshotBundle *)self interfaceOrientation];
-      [(PUIPosterSnapshotBundle *)self deviceOrientation];
+      interfaceOrientation = [(PUIPosterSnapshotBundle *)self interfaceOrientation];
+      deviceOrientation = [(PUIPosterSnapshotBundle *)self deviceOrientation];
       [(PUIPosterSnapshotBundle *)self snapshotScale];
-      v12 = v11;
-      v13 = PUIPosterSnapshotBundleURLForPosterLevelSet(self->_bundleURL, setCopy);
+      v14 = v13;
+      v15 = PUIPosterSnapshotBundleURLForPosterLevelSet(self->_bundleURL, setCopy);
       ondiskFormat = [(PUIPosterSnapshotBundle *)self ondiskFormat];
-      v15 = [[PUIImageEncoder alloc] initWithURL:v13 format:ondiskFormat];
-      v8 = [(PUIImageEncoder *)v15 createUIImageWithOrientation:PUIImageOrientationForImageCapturedInInterfaceOrientationToBeDisplayedInInterfaceOrientation() scale:error error:v12];
+      v17 = [[PUIImageEncoder alloc] initWithURL:v15 format:ondiskFormat];
+      v8 = [(PUIImageEncoder *)v17 createUIImageWithOrientation:PUIImageOrientationForImageCapturedInInterfaceOrientationToBeDisplayedInInterfaceOrientation(interfaceOrientation scale:deviceOrientation) error:error, v14];
     }
 
     else

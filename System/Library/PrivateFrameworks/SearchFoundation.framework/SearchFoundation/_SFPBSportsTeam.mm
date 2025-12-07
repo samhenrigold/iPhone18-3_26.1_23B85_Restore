@@ -493,36 +493,28 @@ LABEL_33:
 
 - (void)setName:(id)name
 {
-  v4 = [name copy];
-  name = self->_name;
-  self->_name = v4;
+  self->_name = [name copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setAccessibilityDescription:(id)description
 {
-  v4 = [description copy];
-  accessibilityDescription = self->_accessibilityDescription;
-  self->_accessibilityDescription = v4;
+  self->_accessibilityDescription = [description copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setScore:(id)score
 {
-  v4 = [score copy];
-  score = self->_score;
-  self->_score = v4;
+  self->_score = [score copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setRecord:(id)record
 {
-  v4 = [record copy];
-  record = self->_record;
-  self->_record = v4;
+  self->_record = [record copy];
 
   MEMORY[0x1EEE66BB8]();
 }

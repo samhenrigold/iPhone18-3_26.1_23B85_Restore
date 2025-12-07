@@ -137,14 +137,14 @@
     v8 = v6;
     if (!v8)
     {
-      [FBSceneWorkspace _initWithProcessManager:? identifier:?];
+      [FBSceneWorkspace _initWithProcessManager:self identifier:?];
     }
 
     v9 = v8;
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      [FBSceneWorkspace _initWithProcessManager:v9 identifier:sel__initWithProcessManager_identifier_];
+      [(FBSceneWorkspace *)v9 _initWithProcessManager:self identifier:?];
     }
 
     v10 = managerCopy;
@@ -157,7 +157,7 @@
 
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        [FBSceneWorkspace _initWithProcessManager:? identifier:?];
+        [(FBSceneWorkspace *)sel__initWithProcessManager_identifier_ _initWithProcessManager:self identifier:v38];
       }
 
       [v38 UTF8String];
@@ -168,7 +168,7 @@
 
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      [FBSceneWorkspace _initWithProcessManager:v10 identifier:sel__initWithProcessManager_identifier_];
+      [(FBSceneWorkspace *)v10 _initWithProcessManager:self identifier:?];
     }
 
     if (_initWithProcessManager_identifier__onceToken != -1)
@@ -269,11 +269,10 @@ uint64_t __55__FBSceneWorkspace__initWithProcessManager_identifier___block_invok
 
 uint64_t __55__FBSceneWorkspace__initWithProcessManager_identifier___block_invoke_34(uint64_t a1, void *a2)
 {
-  v3 = [a2 workspaceIdentifier];
-  v4 = *(a1 + 32);
-  v5 = BSEqualStrings();
+  v2 = [a2 workspaceIdentifier];
+  v3 = BSEqualStrings();
 
-  return v5;
+  return v3;
 }
 
 id __55__FBSceneWorkspace__initWithProcessManager_identifier___block_invoke_45(uint64_t a1)
@@ -339,8 +338,10 @@ id __55__FBSceneWorkspace__initWithProcessManager_identifier___block_invoke_45(u
     objc_claimAutoreleasedReturnValue();
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
+    LODWORD(v10) = 138544642;
+    *(&v10 + 4) = self;
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, 2u);
+    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, DWORD2(v10));
   }
 
   [v2 UTF8String];
@@ -401,28 +402,28 @@ id __55__FBSceneWorkspace__initWithProcessManager_identifier___block_invoke_45(u
 
 - (void)removeObserver:(id)observer
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_lock);
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v5 = [(NSMutableOrderedSet *)self->_lock_observers copy];
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         observer = [v10 observer];
         v12 = observer;
         if (observer)
@@ -441,14 +442,13 @@ id __55__FBSceneWorkspace__initWithProcessManager_identifier___block_invoke_45(u
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)sceneWithIdentifier:(id)identifier
@@ -568,7 +568,7 @@ id __55__FBSceneWorkspace__initWithProcessManager_identifier___block_invoke_45(u
 
   if (self->_buildingDefinition)
   {
-    [FBSceneWorkspace createScene:a2];
+    [(FBSceneWorkspace *)a2 createScene:?];
   }
 
   definition = [MEMORY[0x1E699FB50] definition];
@@ -593,7 +593,7 @@ id __55__FBSceneWorkspace__initWithProcessManager_identifier___block_invoke_45(u
 
 - (id)_createSceneWithDefinition:(void *)definition settings:(void *)settings initialClientSettings:(void *)clientSettings transitionContext:(void *)context fromRemnant:(void *)remnant usingClientProvider:(void *)provider completion:
 {
-  v60 = a2;
+  v58 = a2;
   definitionCopy = definition;
   settingsCopy = settings;
   clientSettingsCopy = clientSettings;
@@ -602,7 +602,7 @@ id __55__FBSceneWorkspace__initWithProcessManager_identifier___block_invoke_45(u
   providerCopy = provider;
   if (!self)
   {
-    v49 = 0;
+    v47 = 0;
     goto LABEL_55;
   }
 
@@ -616,12 +616,12 @@ id __55__FBSceneWorkspace__initWithProcessManager_identifier___block_invoke_45(u
     [FBSceneWorkspace _createSceneWithDefinition:? settings:? initialClientSettings:? transitionContext:? fromRemnant:? usingClientProvider:? completion:?];
   }
 
-  if (([v60 isValid] & 1) == 0)
+  if (([v58 isValid] & 1) == 0)
   {
     [FBSceneWorkspace _createSceneWithDefinition:? settings:? initialClientSettings:? transitionContext:? fromRemnant:? usingClientProvider:? completion:?];
   }
 
-  identity = [v60 identity];
+  identity = [v58 identity];
   identifier = [identity identifier];
 
   v20 = identifier;
@@ -636,7 +636,7 @@ id __55__FBSceneWorkspace__initWithProcessManager_identifier___block_invoke_45(u
     [FBSceneWorkspace _createSceneWithDefinition:? settings:? initialClientSettings:? transitionContext:? fromRemnant:? usingClientProvider:? completion:?];
   }
 
-  specification = [v60 specification];
+  specification = [v58 specification];
   NSClassFromString(&cfstr_Fbsscenespecif.isa);
   if (!specification)
   {
@@ -648,9 +648,9 @@ id __55__FBSceneWorkspace__initWithProcessManager_identifier___block_invoke_45(u
     [FBSceneWorkspace _createSceneWithDefinition:? settings:? initialClientSettings:? transitionContext:? fromRemnant:? usingClientProvider:? completion:?];
   }
 
-  v57 = v20;
-  v54 = contextCopy;
-  v55 = remnantCopy;
+  v55 = v20;
+  v52 = contextCopy;
+  v53 = remnantCopy;
   if (contextCopy)
   {
     v22 = contextCopy;
@@ -666,16 +666,15 @@ id __55__FBSceneWorkspace__initWithProcessManager_identifier___block_invoke_45(u
     definition = [v22 definition];
     identity2 = [definition identity];
     internalWorkspaceIdentifier = [identity2 internalWorkspaceIdentifier];
-    v28 = *(self + 88);
-    v29 = BSEqualObjects();
+    v28 = BSEqualObjects();
 
-    if ((v29 & 1) == 0)
+    if ((v28 & 1) == 0)
     {
       [FBSceneWorkspace _createSceneWithDefinition:? settings:? initialClientSettings:? transitionContext:? fromRemnant:? usingClientProvider:? completion:?];
     }
 
     clientSettingsCopy = v24;
-    remnantCopy = v55;
+    remnantCopy = v53;
     specification = v23;
     if ([v22 _hasBeenInvalidated])
     {
@@ -683,8 +682,8 @@ id __55__FBSceneWorkspace__initWithProcessManager_identifier___block_invoke_45(u
     }
   }
 
-  v30 = clientSettingsCopy;
-  if (v30)
+  v29 = clientSettingsCopy;
+  if (v29)
   {
     NSClassFromString(&cfstr_Fbsscenetransi_0.isa);
     if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -693,16 +692,16 @@ id __55__FBSceneWorkspace__initWithProcessManager_identifier___block_invoke_45(u
     }
   }
 
-  v31 = remnantCopy;
-  v32 = v31;
-  if (v31 && ([v31 conformsToProtocol:&unk_1F1C19098] & 1) == 0)
+  v30 = remnantCopy;
+  v31 = v30;
+  if (v30 && ([v30 conformsToProtocol:&unk_1F1C19098] & 1) == 0)
   {
     [FBSceneWorkspace _createSceneWithDefinition:? settings:? initialClientSettings:? transitionContext:? fromRemnant:? usingClientProvider:? completion:?];
   }
 
   _legacyWorkspace = [(FBSceneWorkspace *)self _legacyWorkspace];
 
-  if (v32)
+  if (v31)
   {
     if (!_legacyWorkspace)
     {
@@ -724,7 +723,7 @@ id __55__FBSceneWorkspace__initWithProcessManager_identifier___block_invoke_45(u
 
   else
   {
-    if (v30 && !contextCopy)
+    if (v29 && !contextCopy)
     {
       [FBSceneWorkspace _createSceneWithDefinition:? settings:? initialClientSettings:? transitionContext:? fromRemnant:? usingClientProvider:? completion:?];
     }
@@ -745,9 +744,22 @@ id __55__FBSceneWorkspace__initWithProcessManager_identifier___block_invoke_45(u
     }
   }
 
-  v35 = definitionCopy;
+  v34 = definitionCopy;
   NSClassFromString(&cfstr_Fbsscenesettin.isa);
-  definitionCopy = v35;
+  definitionCopy = v34;
+  if (!v34)
+  {
+    [FBSceneWorkspace _createSceneWithDefinition:? settings:? initialClientSettings:? transitionContext:? fromRemnant:? usingClientProvider:? completion:?];
+  }
+
+  if ((objc_opt_isKindOfClass() & 1) == 0)
+  {
+    [FBSceneWorkspace _createSceneWithDefinition:? settings:? initialClientSettings:? transitionContext:? fromRemnant:? usingClientProvider:? completion:?];
+  }
+
+  v35 = settingsCopy;
+  NSClassFromString(&cfstr_Fbssceneclient_0.isa);
+  settingsCopy = v35;
   if (!v35)
   {
     [FBSceneWorkspace _createSceneWithDefinition:? settings:? initialClientSettings:? transitionContext:? fromRemnant:? usingClientProvider:? completion:?];
@@ -758,114 +770,100 @@ id __55__FBSceneWorkspace__initWithProcessManager_identifier___block_invoke_45(u
     [FBSceneWorkspace _createSceneWithDefinition:? settings:? initialClientSettings:? transitionContext:? fromRemnant:? usingClientProvider:? completion:?];
   }
 
-  v36 = settingsCopy;
-  NSClassFromString(&cfstr_Fbssceneclient_0.isa);
-  settingsCopy = v36;
-  if (!v36)
-  {
-    [FBSceneWorkspace _createSceneWithDefinition:? settings:? initialClientSettings:? transitionContext:? fromRemnant:? usingClientProvider:? completion:?];
-  }
-
-  if ((objc_opt_isKindOfClass() & 1) == 0)
-  {
-    [FBSceneWorkspace _createSceneWithDefinition:? settings:? initialClientSettings:? transitionContext:? fromRemnant:? usingClientProvider:? completion:?];
-  }
-
-  identity3 = [v60 identity];
+  identity3 = [v58 identity];
   workspaceIdentifier = [identity3 workspaceIdentifier];
-  v39 = workspaceIdentifier;
+  v38 = workspaceIdentifier;
   if (_legacyWorkspace)
   {
-    v40 = clientSettingsCopy;
+    v39 = clientSettingsCopy;
     if (workspaceIdentifier)
     {
       if (([workspaceIdentifier isEqualToString:@"FBSceneManager"] & 1) == 0)
       {
         os_unfair_lock_lock(&__WorkspacesLock);
-        v41 = [__Workspaces objectForKey:v39];
+        v40 = [__Workspaces objectForKey:v38];
 
         os_unfair_lock_unlock(&__WorkspacesLock);
-        if (v41)
+        if (v40)
         {
-          [FBSceneWorkspace _createSceneWithDefinition:v39 settings:sel__createSceneWithDefinition_settings_initialClientSettings_transitionContext_fromRemnant_usingClientProvider_completion_ initialClientSettings:? transitionContext:? fromRemnant:? usingClientProvider:? completion:?];
+          [FBSceneWorkspace _createSceneWithDefinition:v38 settings:sel__createSceneWithDefinition_settings_initialClientSettings_transitionContext_fromRemnant_usingClientProvider_completion_ initialClientSettings:? transitionContext:? fromRemnant:? usingClientProvider:? completion:?];
         }
       }
     }
 
-    v42 = [identity3 mutableCopy];
-    v43 = v42;
-    v44 = @"FBSceneManager";
+    v41 = [identity3 mutableCopy];
+    v42 = v41;
+    v43 = @"FBSceneManager";
 LABEL_43:
-    [v42 setInternalWorkspaceIdentifier:v44];
-    v46 = [v60 mutableCopy];
-    [v46 setIdentity:v43];
+    [v41 setInternalWorkspaceIdentifier:v43];
+    v44 = [v58 mutableCopy];
+    [v44 setIdentity:v42];
 
-    clientSettingsCopy = v40;
-    contextCopy = v54;
+    clientSettingsCopy = v39;
+    contextCopy = v52;
     goto LABEL_44;
   }
 
-  v45 = *(self + 88);
   if ((BSEqualStrings() & 1) == 0)
   {
-    if (v39)
+    if (v38)
     {
-      v53 = [MEMORY[0x1E696AEC0] stringWithFormat:@"provided workspaceID %@ does not match actual workspaceID %@", v39, *(self + 88)];
+      v51 = [MEMORY[0x1E696AEC0] stringWithFormat:@"provided workspaceID %@ does not match actual workspaceID %@", v38, *(self + 88)];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        [FBSceneWorkspace _createSceneWithDefinition:? settings:? initialClientSettings:? transitionContext:? fromRemnant:? usingClientProvider:? completion:?];
+        [FBSceneWorkspace _createSceneWithDefinition:self settings:? initialClientSettings:? transitionContext:? fromRemnant:? usingClientProvider:? completion:?];
       }
 
-      [v53 UTF8String];
+      [v51 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x1A8A1DEF8);
     }
 
-    v40 = clientSettingsCopy;
-    v43 = [identity3 mutableCopy];
-    [v43 setWorkspaceIdentifier:*(self + 88)];
-    v42 = v43;
-    v44 = 0;
+    v39 = clientSettingsCopy;
+    v42 = [identity3 mutableCopy];
+    [v42 setWorkspaceIdentifier:*(self + 88)];
+    v41 = v42;
+    v43 = 0;
     goto LABEL_43;
   }
 
-  v46 = 0;
+  v44 = 0;
 LABEL_44:
 
-  if (v46)
+  if (v44)
   {
-    v47 = [v46 copy];
+    v45 = [v44 copy];
 
-    v60 = v47;
+    v58 = v45;
   }
 
-  v48 = [[FBScene alloc] initWithDefiniton:v60 remnant:contextCopy settings:v35 initialClientSettings:settingsCopy clientProvider:v32 workspace:self];
-  if (!v48)
+  v46 = [[FBScene alloc] initWithDefiniton:v58 remnant:contextCopy settings:v34 initialClientSettings:settingsCopy clientProvider:v31 workspace:self];
+  if (!v46)
   {
     [FBSceneWorkspace _createSceneWithDefinition:? settings:? initialClientSettings:? transitionContext:? fromRemnant:? usingClientProvider:? completion:?];
   }
 
-  v49 = v48;
-  v50 = [*(self + 48) objectForKey:v57];
+  v47 = v46;
+  v48 = [*(self + 48) objectForKey:v55];
 
-  if (v50)
+  if (v48)
   {
-    [FBSceneWorkspace _createSceneWithDefinition:self settings:v57 initialClientSettings:sel__createSceneWithDefinition_settings_initialClientSettings_transitionContext_fromRemnant_usingClientProvider_completion_ transitionContext:? fromRemnant:? usingClientProvider:? completion:?];
+    [FBSceneWorkspace _createSceneWithDefinition:self settings:v55 initialClientSettings:sel__createSceneWithDefinition_settings_initialClientSettings_transitionContext_fromRemnant_usingClientProvider_completion_ transitionContext:? fromRemnant:? usingClientProvider:? completion:?];
   }
 
-  [*(self + 48) setObject:v49 forKey:v57];
-  if (contextCopy | v32)
+  [*(self + 48) setObject:v47 forKey:v55];
+  if (contextCopy | v31)
   {
-    [v49 activateWithTransitionContext:v30 completion:providerCopy];
-    if (v32)
+    [v47 activateWithTransitionContext:v29 completion:providerCopy];
+    if (v31)
     {
-      if (([v49 isActive] & 1) == 0)
+      if (([v47 isActive] & 1) == 0)
       {
-        [v49 invalidate];
-        v51 = [*(self + 48) objectForKey:v57];
+        [v47 invalidate];
+        v49 = [*(self + 48) objectForKey:v55];
 
-        if (v51)
+        if (v49)
         {
           [FBSceneWorkspace _createSceneWithDefinition:? settings:? initialClientSettings:? transitionContext:? fromRemnant:? usingClientProvider:? completion:?];
         }
@@ -875,13 +873,13 @@ LABEL_44:
 
   else
   {
-    [self didAddScene:v49];
+    [self didAddScene:v47];
   }
 
-  remnantCopy = v55;
+  remnantCopy = v53;
 LABEL_55:
 
-  return v49;
+  return v47;
 }
 
 - (id)createSceneFromRemnant:(id)remnant withSettings:(id)settings transitionContext:(id)context
@@ -898,7 +896,7 @@ LABEL_55:
 
 - (void)invalidate
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_allScenesByID count] == 0"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(self);
@@ -906,7 +904,7 @@ LABEL_55:
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_allScenesByID count] == 0", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1096,35 +1094,35 @@ void __44__FBSceneWorkspace_scene_didCompleteUpdate___block_invoke(void *a1, voi
 
 - (void)didReceiveHandshake:(id)handshake
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   handshakeCopy = handshake;
   if (self->_suppressConnectionHandshakes || (v5 = self->_delegate) == 0)
   {
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     remnants = [handshakeCopy remnants];
-    v7 = [remnants countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v7 = [remnants countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v13;
+      v9 = *v12;
       do
       {
         v10 = 0;
         do
         {
-          if (*v13 != v9)
+          if (*v12 != v9)
           {
             objc_enumerationMutation(remnants);
           }
 
-          [*(*(&v12 + 1) + 8 * v10++) invalidate];
+          [*(*(&v11 + 1) + 8 * v10++) invalidate];
         }
 
         while (v8 != v10);
-        v8 = [remnants countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v8 = [remnants countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v8);
@@ -1136,8 +1134,6 @@ void __44__FBSceneWorkspace_scene_didCompleteUpdate___block_invoke(void *a1, voi
     remnants = v5;
     [(FBSceneManagerObserver *)v5 workspace:self clientDidConnectWithHandshake:handshakeCopy];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)didReceiveSceneRequest:(id)request fromHandle:(id)handle
@@ -1463,7 +1459,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
 
 - (void)_iterateObservers:(uint64_t)observers
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (observers)
   {
@@ -1478,27 +1474,27 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
     v6 = [array copy];
 
     os_unfair_lock_unlock((observers + 80));
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v7 = v6;
-    v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v14;
+      v10 = *v13;
       do
       {
         v11 = 0;
         do
         {
-          if (*v14 != v10)
+          if (*v13 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          if (*(*(&v13 + 1) + 8 * v11) != v4)
+          if (*(*(&v12 + 1) + 8 * v11) != v4)
           {
             (v3[2])(v3);
           }
@@ -1507,14 +1503,12 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
         }
 
         while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v9);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)didAddScene:(id)scene
@@ -1554,7 +1548,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
 
 - (void)scene:(id)scene didPrepareUpdate:(id)update
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   sceneCopy = scene;
   updateCopy = update;
   _legacyWorkspace = [(FBSceneWorkspace *)&self->super.isa _legacyWorkspace];
@@ -1563,15 +1557,15 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
     transitionContext = [updateCopy transitionContext];
     updateContext = [transitionContext updateContext];
 
-    v49[0] = MEMORY[0x1E69E9820];
-    v49[1] = 3221225472;
-    v49[2] = __43__FBSceneWorkspace_scene_didPrepareUpdate___block_invoke;
-    v49[3] = &unk_1E783CA80;
-    v50 = _legacyWorkspace;
-    v51 = sceneCopy;
-    v52 = updateContext;
-    v27 = updateContext;
-    [(FBSceneWorkspace *)self _iterateObservers:v49];
+    v48[0] = MEMORY[0x1E69E9820];
+    v48[1] = 3221225472;
+    v48[2] = __43__FBSceneWorkspace_scene_didPrepareUpdate___block_invoke;
+    v48[3] = &unk_1E783CA80;
+    v49 = _legacyWorkspace;
+    v50 = sceneCopy;
+    v51 = updateContext;
+    v26 = updateContext;
+    [(FBSceneWorkspace *)self _iterateObservers:v48];
   }
 
   settingsDiff = [updateCopy settingsDiff];
@@ -1590,19 +1584,19 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
 
       if (targetsClientEndpoint)
       {
-        v28 = [MEMORY[0x1E696AEC0] stringWithFormat:@"reconnect not supported for direct connections"];
+        v27 = [MEMORY[0x1E696AEC0] stringWithFormat:@"reconnect not supported for direct connections"];
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          v29 = NSStringFromSelector(a2);
-          v30 = objc_opt_class();
-          v31 = NSStringFromClass(v30);
+          v28 = NSStringFromSelector(a2);
+          v29 = objc_opt_class();
+          v30 = NSStringFromClass(v29);
           OUTLINED_FUNCTION_1_1();
           OUTLINED_FUNCTION_10_0();
           OUTLINED_FUNCTION_9_1();
-          OUTLINED_FUNCTION_3_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v32, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v53);
+          OUTLINED_FUNCTION_3_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v31, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v52);
         }
 
-        [v28 UTF8String];
+        [v27 UTF8String];
         _bs_set_crash_log_message();
         __break(0);
         JUMPOUT(0x1A8A54284);
@@ -1615,23 +1609,23 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
 
       if ((v20 & 1) == 0)
       {
-        v33 = MEMORY[0x1E696AEC0];
+        v32 = MEMORY[0x1E696AEC0];
         identifier = self->_identifier;
         loggingIdentifier = [sceneCopy loggingIdentifier];
-        v36 = [v33 stringWithFormat:@"workspace (%@) of scene (%@) does not support reconnect", identifier, loggingIdentifier];
+        v35 = [v32 stringWithFormat:@"workspace (%@) of scene (%@) does not support reconnect", identifier, loggingIdentifier];
 
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          v37 = NSStringFromSelector(a2);
-          v38 = objc_opt_class();
-          v39 = NSStringFromClass(v38);
+          v36 = NSStringFromSelector(a2);
+          v37 = objc_opt_class();
+          v38 = NSStringFromClass(v37);
           OUTLINED_FUNCTION_1_1();
           OUTLINED_FUNCTION_10_0();
           OUTLINED_FUNCTION_9_1();
-          OUTLINED_FUNCTION_3_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v40, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v53);
+          OUTLINED_FUNCTION_3_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v39, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v52);
         }
 
-        [v36 UTF8String];
+        [v35 UTF8String];
         _bs_set_crash_log_message();
         __break(0);
         JUMPOUT(0x1A8A54358);
@@ -1647,23 +1641,23 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
 
         if ((v22 & 1) == 0)
         {
-          v41 = MEMORY[0x1E696AEC0];
-          v42 = self->_identifier;
+          v40 = MEMORY[0x1E696AEC0];
+          v41 = self->_identifier;
           loggingIdentifier2 = [sceneCopy loggingIdentifier];
-          v44 = [v41 stringWithFormat:@"reconnect not supported for (legacy) scenes with conflicting workspace identifiers : workspace (%@) != scene (%@)", v42, loggingIdentifier2];
+          v43 = [v40 stringWithFormat:@"reconnect not supported for (legacy) scenes with conflicting workspace identifiers : workspace (%@) != scene (%@)", v41, loggingIdentifier2];
 
           if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
-            v45 = NSStringFromSelector(a2);
-            v46 = objc_opt_class();
-            v47 = NSStringFromClass(v46);
+            v44 = NSStringFromSelector(a2);
+            v45 = objc_opt_class();
+            v46 = NSStringFromClass(v45);
             OUTLINED_FUNCTION_1_1();
             OUTLINED_FUNCTION_10_0();
             OUTLINED_FUNCTION_9_1();
-            OUTLINED_FUNCTION_3_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v48, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v53);
+            OUTLINED_FUNCTION_3_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v47, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v52);
           }
 
-          [v44 UTF8String];
+          [v43 UTF8String];
           _bs_set_crash_log_message();
           __break(0);
           JUMPOUT(0x1A8A5442CLL);
@@ -1671,8 +1665,6 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
       }
     }
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)scene:(id)scene didApplyUpdate:(id)update
@@ -1753,80 +1745,79 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
   return result;
 }
 
-- (void)_initWithProcessManager:(void *)a1 identifier:(const char *)a2 .cold.1(void *a1, const char *a2)
+- (void)_initWithProcessManager:(uint64_t)a3 identifier:.cold.1(void *a1, const char *a2, uint64_t a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v3 = MEMORY[0x1E696AEC0];
-  v4 = [a1 classForCoder];
-  if (!v4)
+  v22 = *MEMORY[0x1E69E9840];
+  v4 = MEMORY[0x1E696AEC0];
+  v5 = [a1 classForCoder];
+  if (!v5)
   {
-    v4 = objc_opt_class();
+    v5 = objc_opt_class();
   }
 
-  v5 = NSStringFromClass(v4);
-  v6 = objc_opt_class();
-  v7 = NSStringFromClass(v6);
-  v8 = [v3 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"processManager", v5, v7];
+  v6 = NSStringFromClass(v5);
+  v7 = objc_opt_class();
+  v8 = NSStringFromClass(v7);
+  v9 = [v4 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"processManager", v6, v8];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v9 = NSStringFromSelector(a2);
-    v10 = objc_opt_class();
-    v11 = NSStringFromClass(v10);
+    v10 = NSStringFromSelector(a2);
+    v11 = objc_opt_class();
+    v12 = NSStringFromClass(v11);
     OUTLINED_FUNCTION_1_0();
-    v16 = @"FBSceneWorkspace.m";
-    v17 = 1024;
-    v18 = 74;
-    v19 = v12;
-    v20 = v8;
-    OUTLINED_FUNCTION_3_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v13, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v15);
+    v17 = @"FBSceneWorkspace.m";
+    v18 = 1024;
+    v19 = 74;
+    v20 = v13;
+    v21 = v9;
+    OUTLINED_FUNCTION_3_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v14, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v16);
   }
 
-  v14 = v8;
-  [v8 UTF8String];
+  v15 = v9;
+  [v9 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)_initWithProcessManager:(void *)a1 identifier:(const char *)a2 .cold.2(void *a1, const char *a2)
+- (void)_initWithProcessManager:(uint64_t)a3 identifier:.cold.2(void *a1, const char *a2, uint64_t a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v3 = MEMORY[0x1E696AEC0];
-  v4 = [a1 classForCoder];
-  if (!v4)
+  v22 = *MEMORY[0x1E69E9840];
+  v4 = MEMORY[0x1E696AEC0];
+  v5 = [a1 classForCoder];
+  if (!v5)
   {
-    v4 = objc_opt_class();
+    v5 = objc_opt_class();
   }
 
-  v5 = NSStringFromClass(v4);
-  v6 = objc_opt_class();
-  v7 = NSStringFromClass(v6);
-  v8 = [v3 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"identifier", v5, v7];
+  v6 = NSStringFromClass(v5);
+  v7 = objc_opt_class();
+  v8 = NSStringFromClass(v7);
+  v9 = [v4 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"identifier", v6, v8];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v9 = NSStringFromSelector(a2);
-    v10 = objc_opt_class();
-    v11 = NSStringFromClass(v10);
+    v10 = NSStringFromSelector(a2);
+    v11 = objc_opt_class();
+    v12 = NSStringFromClass(v11);
     OUTLINED_FUNCTION_1_0();
-    v16 = @"FBSceneWorkspace.m";
-    v17 = 1024;
-    v18 = 75;
-    v19 = v12;
-    v20 = v8;
-    OUTLINED_FUNCTION_3_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v13, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v15);
+    v17 = @"FBSceneWorkspace.m";
+    v18 = 1024;
+    v19 = 75;
+    v20 = v13;
+    v21 = v9;
+    OUTLINED_FUNCTION_3_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v14, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v16);
   }
 
-  v14 = v8;
-  [v8 UTF8String];
+  v15 = v9;
+  [v9 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
 - (void)_initWithProcessManager:(char *)a1 identifier:.cold.4(char *a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1834,7 +1825,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSStringClass]", v11, v12);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11, v12);
   }
 
   v10 = v2;
@@ -1845,8 +1836,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
 
 - (void)_initWithProcessManager:(uint64_t)a1 identifier:(char *)a2 .cold.5(uint64_t a1, char *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"workspace already exists with identifier %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"workspace already exists with identifier %@", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
@@ -1854,7 +1844,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
     v4 = OUTLINED_FUNCTION_12();
     v5 = NSStringFromClass(v4);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, a1, v13, v14);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v12, v13);
   }
 
   v11 = v3;
@@ -1865,8 +1855,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
 
 - (void)_initWithProcessManager:(uint64_t)a1 identifier:(char *)a2 .cold.6(uint64_t a1, char *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"legacy scene manager contains scene with workspaceID %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"legacy scene manager contains scene with workspaceID %@", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
@@ -1874,7 +1863,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
     v4 = OUTLINED_FUNCTION_12();
     v5 = NSStringFromClass(v4);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, a1, v13, v14);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v12, v13);
   }
 
   v11 = v3;
@@ -1883,43 +1872,50 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
   __break(0);
 }
 
-- (void)_initWithProcessManager:(const char *)a1 identifier:.cold.7(const char *a1)
+- (void)_initWithProcessManager:(uint64_t)a3 identifier:.cold.7(const char *a1, uint64_t a2, uint64_t a3)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = NSStringFromSelector(a1);
-  v2 = objc_opt_class();
-  v9 = NSStringFromClass(v2);
-  OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v3, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  v5 = NSStringFromSelector(a1);
+  v6 = objc_opt_class();
+  v7 = NSStringFromClass(v6);
+  *v13 = 138544642;
+  *&v13[4] = v5;
+  *&v13[12] = 2114;
+  *&v13[14] = v7;
+  *&v13[22] = 2048;
+  LOWORD(v14) = 2114;
+  *(&v14 + 2) = @"FBSceneWorkspace.m";
+  WORD5(v14) = 1024;
+  HIDWORD(v14) = 75;
+  LOWORD(v15) = 2114;
+  *(&v15 + 2) = a3;
+  OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, *v13, *&v13[8], *&v13[16], a2, v14, v15, HIWORD(a3));
 }
 
-- (void)_initWithProcessManager:(const char *)a1 identifier:.cold.8(const char *a1)
+- (void)_initWithProcessManager:(const char *)a1 identifier:(uint64_t)a2 .cold.8(const char *a1, uint64_t a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v2 = MEMORY[0x1E696AEC0];
-  v3 = objc_opt_class();
-  v14 = NSStringFromClass(v3);
-  v4 = [v2 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@."];
+  v3 = MEMORY[0x1E696AEC0];
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
+  v6 = [v3 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"processManager", v5];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v5 = NSStringFromSelector(a1);
-    v6 = objc_opt_class();
-    v7 = NSStringFromClass(v6);
+    v7 = NSStringFromSelector(a1);
+    v8 = objc_opt_class();
+    v9 = NSStringFromClass(v8);
     OUTLINED_FUNCTION_0_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, @"processManager", v14, v15);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v10, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v11, v12, v13, v14, v16, v17);
   }
 
-  v13 = v4;
-  [v4 UTF8String];
+  v15 = v6;
+  [v6 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
 - (void)initWithIdentifier:(uint64_t)a1 .cold.1(uint64_t a1, char *a2)
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ is reserved"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ is reserved", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
@@ -1927,7 +1923,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
     v4 = OUTLINED_FUNCTION_12();
     v5 = NSStringFromClass(v4);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, a1, v12, v13);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12);
   }
 
   [v3 UTF8String];
@@ -1937,7 +1933,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
 
 + (void)workspaceWithIdentifier:(uint64_t)a1 .cold.1(uint64_t a1, char *a2)
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ is reserved"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ is reserved", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
@@ -1945,7 +1941,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
     v4 = OUTLINED_FUNCTION_12();
     v5 = NSStringFromClass(v4);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, a1, v12, v13);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12);
   }
 
   [v3 UTF8String];
@@ -1955,7 +1951,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
 
 - (void)sceneWithIdentityToken:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"token"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1963,7 +1959,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"token", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1973,7 +1969,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
 
 - (void)sceneIdentityTokenForIdentifier:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1981,7 +1977,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSStringClass]", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1991,7 +1987,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
 
 - (void)sceneIdentityTokenForIdentifier:(char *)a1 .cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1999,7 +1995,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2009,7 +2005,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
 
 + (void)sceneIdentityTokenForIdentifier:(char *)a1 workspaceIdentifier:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2017,7 +2013,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSStringClass]", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2027,7 +2023,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
 
 + (void)sceneIdentityTokenForIdentifier:(char *)a1 workspaceIdentifier:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2035,7 +2031,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSStringClass]", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2045,7 +2041,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
 
 + (void)sceneIdentityTokenForIdentifier:(char *)a1 workspaceIdentifier:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2053,7 +2049,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2063,7 +2059,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
 
 + (void)sceneIdentityTokenForIdentifier:(char *)a1 workspaceIdentifier:.cold.4(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2071,7 +2067,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2079,29 +2075,29 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
   __break(0);
 }
 
-- (void)createScene:(const char *)a1 .cold.1(const char *a1)
+- (void)createScene:(const char *)a1 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = MEMORY[0x1E696AEC0];
-  v12 = NSStringFromSelector(a1);
-  v3 = [v2 stringWithFormat:@"%@ was called reentrantly"];
+  v3 = MEMORY[0x1E696AEC0];
+  v4 = NSStringFromSelector(a1);
+  v5 = [v3 stringWithFormat:@"%@ was called reentrantly", v4];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v4 = NSStringFromSelector(a1);
-    v5 = objc_opt_class();
-    v6 = NSStringFromClass(v5);
+    v6 = NSStringFromSelector(a1);
+    v7 = objc_opt_class();
+    v8 = NSStringFromClass(v7);
     OUTLINED_FUNCTION_0_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13, v14);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v9, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v10, v11, v12, v13, v14, v15);
   }
 
-  [v3 UTF8String];
+  [v5 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
 - (void)_createSceneWithDefinition:(char *)a1 settings:initialClientSettings:transitionContext:fromRemnant:usingClientProvider:completion:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[definition isValid]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2109,7 +2105,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[definition isValid]", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2119,7 +2115,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
 
 - (void)_createSceneWithDefinition:(char *)a1 settings:initialClientSettings:transitionContext:fromRemnant:usingClientProvider:completion:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2127,7 +2123,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSStringClass]", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2137,7 +2133,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
 
 - (void)_createSceneWithDefinition:(char *)a1 settings:initialClientSettings:transitionContext:fromRemnant:usingClientProvider:completion:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:FBSSceneSpecificationClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2145,7 +2141,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:FBSSceneSpecificationClass]", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2155,7 +2151,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
 
 - (void)_createSceneWithDefinition:(char *)a1 settings:initialClientSettings:transitionContext:fromRemnant:usingClientProvider:completion:.cold.4(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:FBSceneRemnantClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2163,7 +2159,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:FBSceneRemnantClass]", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2173,7 +2169,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
 
 - (void)_createSceneWithDefinition:(char *)a1 settings:initialClientSettings:transitionContext:fromRemnant:usingClientProvider:completion:.cold.5(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"BSEqualObjects([[[remnant definition] identity] internalWorkspaceIdentifier], _identifier)"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2181,7 +2177,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"BSEqualObjects([[[remnant definition] identity] internalWorkspaceIdentifier], _identifier)", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2191,7 +2187,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
 
 - (void)_createSceneWithDefinition:(char *)a1 settings:initialClientSettings:transitionContext:fromRemnant:usingClientProvider:completion:.cold.6(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:FBSSceneTransitionContextClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2199,7 +2195,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:FBSSceneTransitionContextClass]", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2209,7 +2205,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
 
 - (void)_createSceneWithDefinition:(char *)a1 settings:initialClientSettings:transitionContext:fromRemnant:usingClientProvider:completion:.cold.7(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object conformsToProtocol:@protocol(FBSceneClientProvider)]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2217,7 +2213,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object conformsToProtocol:@protocol(FBSceneClientProvider)]", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2227,7 +2223,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
 
 - (void)_createSceneWithDefinition:(char *)a1 settings:initialClientSettings:transitionContext:fromRemnant:usingClientProvider:completion:.cold.8(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"remnant != nil || transitionContext == nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2235,7 +2231,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"remnant != nil || transitionContext == nil", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2245,7 +2241,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
 
 - (void)_createSceneWithDefinition:(char *)a1 settings:initialClientSettings:transitionContext:fromRemnant:usingClientProvider:completion:.cold.9(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"completion == nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2253,7 +2249,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"completion == nil", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2263,7 +2259,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
 
 - (void)_createSceneWithDefinition:(char *)a1 settings:initialClientSettings:transitionContext:fromRemnant:usingClientProvider:completion:.cold.10(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:FBSDisplayConfigurationClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2271,7 +2267,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:FBSDisplayConfigurationClass]", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2281,7 +2277,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
 
 - (void)_createSceneWithDefinition:(char *)a1 settings:initialClientSettings:transitionContext:fromRemnant:usingClientProvider:completion:.cold.11(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:FBSSceneSettingsClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2289,7 +2285,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:FBSSceneSettingsClass]", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2299,7 +2295,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
 
 - (void)_createSceneWithDefinition:(char *)a1 settings:initialClientSettings:transitionContext:fromRemnant:usingClientProvider:completion:.cold.12(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:FBSSceneClientSettingsClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2307,7 +2303,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:FBSSceneClientSettingsClass]", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2317,7 +2313,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
 
 - (void)_createSceneWithDefinition:(uint64_t)a1 settings:(char *)a2 initialClientSettings:transitionContext:fromRemnant:usingClientProvider:completion:.cold.13(uint64_t a1, char *a2)
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"modern workspace %@ already exists"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"modern workspace %@ already exists", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
@@ -2325,7 +2321,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
     v4 = OUTLINED_FUNCTION_12();
     v5 = NSStringFromClass(v4);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, a1, v12, v13);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12);
   }
 
   [v3 UTF8String];
@@ -2333,22 +2329,20 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
   __break(0);
 }
 
-- (void)_createSceneWithDefinition:(const char *)a1 settings:initialClientSettings:transitionContext:fromRemnant:usingClientProvider:completion:.cold.14(const char *a1)
+- (void)_createSceneWithDefinition:(const char *)a1 settings:(uint64_t)a2 initialClientSettings:transitionContext:fromRemnant:usingClientProvider:completion:.cold.14(const char *a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = NSStringFromSelector(a1);
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
+  v2 = NSStringFromSelector(a1);
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  LODWORD(v10) = 138544642;
+  *(&v10 + 4) = v2;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8, 2u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
 - (void)_createSceneWithDefinition:(char *)a3 settings:initialClientSettings:transitionContext:fromRemnant:usingClientProvider:completion:.cold.15(uint64_t a1, uint64_t a2, char *a3)
 {
-  v13 = *(a1 + 88);
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"scene %@ already exists in workspace %@"];
+  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"scene %@ already exists in workspace %@", a2, *(a1 + 88)];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a3);
@@ -2356,7 +2350,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
     v5 = OUTLINED_FUNCTION_12();
     v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, a2, v13, v14);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v4 UTF8String];
@@ -2366,7 +2360,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
 
 - (void)_createSceneWithDefinition:(char *)a1 settings:initialClientSettings:transitionContext:fromRemnant:usingClientProvider:completion:.cold.16(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_allScenesByID objectForKey:identifier] == nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2374,7 +2368,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_allScenesByID objectForKey:identifier] == nil", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2384,7 +2378,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
 
 - (void)_createSceneWithDefinition:(char *)a1 settings:initialClientSettings:transitionContext:fromRemnant:usingClientProvider:completion:.cold.17(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"scene != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2392,7 +2386,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"scene != nil", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2402,7 +2396,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
 
 - (void)_createSceneWithDefinition:(char *)a1 settings:initialClientSettings:transitionContext:fromRemnant:usingClientProvider:completion:.cold.18(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2410,7 +2404,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2420,7 +2414,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
 
 - (void)_createSceneWithDefinition:(char *)a1 settings:initialClientSettings:transitionContext:fromRemnant:usingClientProvider:completion:.cold.19(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2428,7 +2422,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2438,7 +2432,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
 
 - (void)_createSceneWithDefinition:(char *)a1 settings:initialClientSettings:transitionContext:fromRemnant:usingClientProvider:completion:.cold.20(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2446,7 +2440,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2463,8 +2457,10 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
     objc_claimAutoreleasedReturnValue();
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
+    LODWORD(v10) = 138544642;
+    *(&v10 + 4) = a1;
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, 2u);
+    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, DWORD2(v10));
   }
 
   [v2 UTF8String];
@@ -2481,8 +2477,10 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
     objc_claimAutoreleasedReturnValue();
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
+    LODWORD(v10) = 138544642;
+    *(&v10 + 4) = a1;
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, 2u);
+    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, DWORD2(v10));
   }
 
   [v2 UTF8String];
@@ -2492,7 +2490,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
 
 - (void)_createSceneWithDefinition:(char *)a1 settings:initialClientSettings:transitionContext:fromRemnant:usingClientProvider:completion:.cold.23(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2500,7 +2498,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2510,7 +2508,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
 
 - (void)_createSceneWithDefinition:(char *)a1 settings:initialClientSettings:transitionContext:fromRemnant:usingClientProvider:completion:.cold.24(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2518,7 +2516,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2528,7 +2526,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
 
 - (void)_createSceneWithDefinition:(char *)a1 settings:initialClientSettings:transitionContext:fromRemnant:usingClientProvider:completion:.cold.25(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"!_invalidated"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2536,7 +2534,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"!_invalidated", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2546,7 +2544,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
 
 - (void)setIdentifier:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2554,7 +2552,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSStringClass]", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2564,7 +2562,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
 
 - (void)setIdentifier:(char *)a1 .cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2572,7 +2570,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2582,7 +2580,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
 
 - (void)setIdentifier:(char *)a1 .cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_buildingDefinition != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2590,7 +2588,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_buildingDefinition != nil", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2600,7 +2598,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
 
 - (void)setIdentity:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:FBSSceneIdentityClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2608,7 +2606,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:FBSSceneIdentityClass]", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2618,7 +2616,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
 
 - (void)setIdentity:(char *)a1 .cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[self _legacyWorkspace]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2626,7 +2624,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[self _legacyWorkspace]", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2636,7 +2634,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
 
 - (void)setIdentity:(char *)a1 .cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2644,7 +2642,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2654,7 +2652,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
 
 - (void)setIdentity:(char *)a1 .cold.4(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_buildingDefinition != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2662,7 +2660,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_buildingDefinition != nil", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2672,7 +2670,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
 
 - (void)setSpecification:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:FBSSceneSpecificationClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2680,7 +2678,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:FBSSceneSpecificationClass]", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2690,7 +2688,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
 
 - (void)setSpecification:(char *)a1 .cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2698,7 +2696,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2708,7 +2706,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
 
 - (void)setSpecification:(char *)a1 .cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_buildingDefinition != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2716,7 +2714,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_buildingDefinition != nil", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2726,7 +2724,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
 
 - (void)setClientIdentity:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"realID != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2734,7 +2732,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"realID != nil", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2744,7 +2742,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
 
 - (void)setClientIdentity:(char *)a1 .cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"clientID != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2752,7 +2750,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"clientID != nil", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2762,7 +2760,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
 
 - (void)setClientIdentity:(char *)a1 .cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_buildingDefinition != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2770,7 +2768,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_buildingDefinition != nil", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2780,7 +2778,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
 
 - (void)configureParameters:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"specification != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2788,7 +2786,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"specification != nil", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2798,7 +2796,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
 
 - (void)configureParameters:(char *)a1 .cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_buildingDefinition != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2806,7 +2804,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_buildingDefinition != nil", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2816,7 +2814,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
 
 - (void)didReceiveSceneRequest:(uint64_t)a1 fromHandle:(char *)a2 .cold.1(uint64_t a1, char *a2)
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"we should never get a scene request without a clientIdentity specified by the time it gets through the dispatcher : %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"we should never get a scene request without a clientIdentity specified by the time it gets through the dispatcher : %@", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
@@ -2824,7 +2822,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
     v4 = OUTLINED_FUNCTION_12();
     v5 = NSStringFromClass(v4);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, a1, v12, v13);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12);
   }
 
   [v3 UTF8String];
@@ -2832,17 +2830,12 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
   __break(0);
 }
 
-- (void)didReceiveSceneRequest:(uint64_t)a1 fromHandle:(void *)a2 .cold.2(uint64_t a1, void *a2)
+- (void)didReceiveSceneRequest:(id *)a1 fromHandle:(void *)a2 .cold.2(id *a1, void *a2)
 {
-  v4 = [(FBSceneWorkspace *)a1 _legacyWorkspace];
+  [(FBSceneWorkspace *)a1 _legacyWorkspace];
 
-  if (!v4)
-  {
-    v5 = *(a1 + 88);
-  }
-
-  v6 = FBSWorkspaceErrorCreate();
-  [a2 invalidateWithError:v6];
+  v3 = FBSWorkspaceErrorCreate();
+  [a2 invalidateWithError:v3];
 }
 
 - (void)didReceiveSceneRequest:(char *)a1 fromHandle:.cold.3(char *a1)
@@ -2854,8 +2847,10 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
     objc_claimAutoreleasedReturnValue();
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
+    LODWORD(v10) = 138544642;
+    *(&v10 + 4) = a1;
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, 2u);
+    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, DWORD2(v10));
   }
 
   [v2 UTF8String];
@@ -2865,7 +2860,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
 
 - (void)didReceiveSceneRequest:(uint64_t)a1 fromHandle:(char *)a2 .cold.4(uint64_t a1, char *a2)
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"we should never get a scene request without a clientIdentity specified by the time it gets through the dispatcher : %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"we should never get a scene request without a clientIdentity specified by the time it gets through the dispatcher : %@", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
@@ -2873,7 +2868,7 @@ void __58__FBSceneWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
     v4 = OUTLINED_FUNCTION_12();
     v5 = NSStringFromClass(v4);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, a1, v12, v13);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12);
   }
 
   [v3 UTF8String];

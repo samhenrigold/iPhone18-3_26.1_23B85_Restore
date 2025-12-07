@@ -24,7 +24,7 @@
   [v5 setCompletionCurve:{objc_msgSend(contextCopy, "completionCurve")}];
   if (contextCopy)
   {
-    [contextCopy targetTransform];
+    objc_msgSend_targetTransform(contextCopy);
   }
 
   else
@@ -57,7 +57,7 @@
   [(_UIViewControllerTransitionCoordinatorContextDescription *)self completionVelocity];
   [coderCopy encodeDouble:@"_UIViewControllerTransitionCoordinatorDescriptionCompletionVelocityKey" forKey:?];
   [coderCopy encodeInteger:-[_UIViewControllerTransitionCoordinatorContextDescription completionCurve](self forKey:{"completionCurve"), @"_UIViewControllerTransitionCoordinatorDescriptionCompletionCurveKey"}];
-  [(_UIViewControllerTransitionCoordinatorContextDescription *)self targetTransform];
+  objc_msgSend_targetTransform(self);
   v5 = NSStringFromCGAffineTransform(&v6);
   [coderCopy encodeObject:v5 forKey:@"_UIViewControllerTransitionCoordinatorDescriptionTargetTransformKey"];
 

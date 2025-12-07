@@ -30,20 +30,14 @@ void __110__NSObject_AXCollectionsExtensions___ax_appendPrettyDescriptionToStrin
 
 uint64_t __57__NSObject_UIAccessibilitySafeCategory__safeValueForKey___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) __axValueForKey:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) __axValueForKey:*(a1 + 40)];
 
   return MEMORY[0x1EEE66BB8]();
 }
 
 uint64_t __61__NSObject_UIAccessibilitySafeCategory__safeValueForKeyPath___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) valueForKeyPath:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) valueForKeyPath:*(a1 + 40)];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -57,10 +51,7 @@ void __71__NSObject_UIAccessibilitySafeCategory__safeIntegerForIvarKey_onClass__
 
 uint64_t __53__NSObject_AXSideStorage___accessibilityValueForKey___block_invoke(uint64_t a1)
 {
-  v2 = objc_getAssociatedObject(*(a1 + 32), &AXPropertiesKey_0);
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = objc_getAssociatedObject(*(a1 + 32), &AXPropertiesKey_0);
 
   return MEMORY[0x1EEE66BB8]();
 }

@@ -41,54 +41,54 @@ flatbuffers::DetachedBuffer *__30__QSSFinishAudio_flatbuffData__block_invoke(uin
 
 - (Offset<siri::speech::schema_fb::FinishAudio>)addObjectToBuffer:(void *)buffer
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   packet_count = [(QSSFinishAudio *)self packet_count];
   [(QSSFinishAudio *)self total_audio_recorded_seconds];
   v6 = v5;
-  memset(&v36, 0, sizeof(v36));
+  memset(&v32, 0, sizeof(v32));
   features_at_endpoint = [(QSSFinishAudio *)self features_at_endpoint];
-  std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v36, [features_at_endpoint count]);
+  std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v32, [features_at_endpoint count]);
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
-  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   features_at_endpoint2 = [(QSSFinishAudio *)self features_at_endpoint];
-  v9 = [features_at_endpoint2 countByEnumeratingWithState:&v32 objects:v38 count:16];
+  v9 = [features_at_endpoint2 countByEnumeratingWithState:&v28 objects:v34 count:16];
   if (v9)
   {
-    v10 = *v33;
+    v10 = *v29;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v33 != v10)
+        if (*v29 != v10)
         {
           objc_enumerationMutation(features_at_endpoint2);
         }
 
-        [*(*(&v32 + 1) + 8 * i) floatValue];
-        v31 = v12;
-        std::vector<float>::push_back[abi:ne200100](&v36, &v31);
+        [*(*(&v28 + 1) + 8 * i) floatValue];
+        v27 = v12;
+        std::vector<float>::push_back[abi:ne200100](&v32, &v27);
       }
 
-      v9 = [features_at_endpoint2 countByEnumeratingWithState:&v32 objects:v38 count:16];
+      v9 = [features_at_endpoint2 countByEnumeratingWithState:&v28 objects:v34 count:16];
     }
 
     while (v9);
   }
 
-  if (v36.__end_ == v36.__begin_)
+  if (v32.__end_ == v32.__begin_)
   {
     begin = &flatbuffers::data<float,std::allocator<float>>(std::vector<float> const&)::t;
   }
 
   else
   {
-    begin = v36.__begin_;
+    begin = v32.__begin_;
   }
 
-  v24 = flatbuffers::FlatBufferBuilder::CreateVector<int>(buffer, begin, v36.__end_ - v36.__begin_);
+  v23 = flatbuffers::FlatBufferBuilder::CreateVector<int>(buffer, begin, v32.__end_ - v32.__begin_);
   server_feature_latency_distribution = [(QSSFinishAudio *)self server_feature_latency_distribution];
   v15 = [server_feature_latency_distribution count];
   if (v15)
@@ -101,16 +101,11 @@ flatbuffers::DetachedBuffer *__30__QSSFinishAudio_flatbuffData__block_invoke(uin
     std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::__throw_length_error[abi:ne200100]();
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
-  v28 = 0u;
+  memset(v26, 0, sizeof(v26));
   obj = [(QSSFinishAudio *)self server_feature_latency_distribution];
-  if ([obj countByEnumeratingWithState:&v27 objects:v37 count:16])
+  if ([obj countByEnumeratingWithState:v26 objects:v33 count:16])
   {
-    *v28;
-    *v28;
-    [**(&v27 + 1) addObjectToBuffer:buffer];
+    [**(&v26[0] + 1) addObjectToBuffer:buffer];
     std::__allocate_at_least[abi:ne200100]<std::allocator<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>>(1uLL);
   }
 
@@ -123,7 +118,7 @@ flatbuffers::DetachedBuffer *__30__QSSFinishAudio_flatbuffData__block_invoke(uin
   v19 = *(buffer + 10);
   flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(buffer, 4, packet_count);
   flatbuffers::FlatBufferBuilder::AddElement<float>(buffer, 6, v6);
-  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 8, v24);
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 8, v23);
   if (v16)
   {
     v20 = flatbuffers::FlatBufferBuilder::ReferTo(buffer, v16);
@@ -131,12 +126,11 @@ flatbuffers::DetachedBuffer *__30__QSSFinishAudio_flatbuffData__block_invoke(uin
   }
 
   v21.var0 = flatbuffers::FlatBufferBuilder::EndTable(buffer, v17 - v18 + v19);
-  if (v36.__begin_)
+  if (v32.__begin_)
   {
-    operator delete(v36.__begin_);
+    operator delete(v32.__begin_);
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v21;
 }
 

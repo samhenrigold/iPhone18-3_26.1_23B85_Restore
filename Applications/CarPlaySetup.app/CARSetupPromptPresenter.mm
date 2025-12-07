@@ -9,10 +9,13 @@
 - (void)promptDirector:(id)director wantsToPresentAssetProgressPromptForVehicleName:(id)name progressReporter:(id)reporter cancelHandler:(id)handler;
 - (void)promptDirector:(id)director wantsToPresentAssetReadyPromptForVehicleName:(id)name appClipIDs:(id)ds confirmationHandler:(id)handler;
 - (void)promptDirector:(id)director wantsToPresentAssetReadySoonPromptForVehicleName:(id)name confirmationHandler:(id)handler;
+- (void)promptDirector:(id)director wantsToPresentAssetSupportingConnectPromptWithBluetoothOnlyOption:(BOOL)option wirelessEnablement:(unint64_t)enablement responseHandler:(id)handler;
 - (void)promptDirector:(id)director wantsToPresentAssetSupportingUseWirelessPromptWithWirelessEnablement:(unint64_t)enablement declineVariant:(unint64_t)variant responseHandler:(id)handler;
 - (void)promptDirector:(id)director wantsToPresentAssetUnavailablePromptWithDescription:(id)description responseHandler:(id)handler;
 - (void)promptDirector:(id)director wantsToPresentBluetoothConfirmationPromptForVehicleName:(id)name numericCode:(id)code responseHandler:(id)handler;
 - (void)promptDirector:(id)director wantsToPresentBluetoothContactsSyncPromptWithResponseHandler:(id)handler;
+- (void)promptDirector:(id)director wantsToPresentBluetoothFailedPromptForVehicleName:(id)name isTimeout:(BOOL)timeout responseHandler:(id)handler;
+- (void)promptDirector:(id)director wantsToPresentConnectPromptWithBluetoothOnlyOption:(BOOL)option wirelessEnablement:(unint64_t)enablement responseHandler:(id)handler;
 - (void)promptDirector:(id)director wantsToPresentEnhancedIntegrationPromptForVehicleName:(id)name responseHandler:(id)handler;
 - (void)promptDirector:(id)director wantsToPresentSetupCarKeysPromptForVehicleName:(id)name carKeyInfo:(id)info cancelHandler:(id)handler;
 - (void)promptDirector:(id)director wantsToPresentUseWirelessPromptWithWirelessEnablement:(unint64_t)enablement declineVariant:(unint64_t)variant responseHandler:(id)handler;
@@ -160,6 +163,19 @@
   [(CARSetupPromptPresenter *)self _presentPromptViewController:v6];
 }
 
+- (void)promptDirector:(id)director wantsToPresentBluetoothFailedPromptForVehicleName:(id)name isTimeout:(BOOL)timeout responseHandler:(id)handler
+{
+  timeoutCopy = timeout;
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_100002054;
+  v11[3] = &unk_1000103A0;
+  handlerCopy = handler;
+  v9 = handlerCopy;
+  v10 = [CARSetupPrompts bluetoothFailedPromptForVehicleName:name isTimeout:timeoutCopy responseHandler:v11];
+  [(CARSetupPromptPresenter *)self _presentPromptViewController:v10];
+}
+
 - (void)promptDirectorWantsToPresentWaitingOnMessaging:(id)messaging
 {
   v4 = +[CARSetupPrompts waitingOnMessagingPrompt];
@@ -176,6 +192,19 @@
   v7 = handlerCopy;
   v8 = [CARSetupPrompts allowWhileLockedPromptForVehicleName:name responseHandler:v9];
   [(CARSetupPromptPresenter *)self _presentPromptViewController:v8];
+}
+
+- (void)promptDirector:(id)director wantsToPresentConnectPromptWithBluetoothOnlyOption:(BOOL)option wirelessEnablement:(unint64_t)enablement responseHandler:(id)handler
+{
+  optionCopy = option;
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_1000023A8;
+  v11[3] = &unk_100010378;
+  handlerCopy = handler;
+  v9 = handlerCopy;
+  v10 = [CARSetupPrompts connectPromptWithBluetoothOnlyOption:optionCopy wirelessEnablement:enablement responseHandler:v11];
+  [(CARSetupPromptPresenter *)self _presentPromptViewController:v10];
 }
 
 - (void)promptDirector:(id)director wantsToPresentUseWirelessPromptWithWirelessEnablement:(unint64_t)enablement declineVariant:(unint64_t)variant responseHandler:(id)handler
@@ -206,6 +235,19 @@
   v7 = handlerCopy;
   v8 = [CARSetupPrompts enhancedIntegrationPromptForVehicleName:name responseHandler:v9];
   [(CARSetupPromptPresenter *)self _presentPromptViewController:v8];
+}
+
+- (void)promptDirector:(id)director wantsToPresentAssetSupportingConnectPromptWithBluetoothOnlyOption:(BOOL)option wirelessEnablement:(unint64_t)enablement responseHandler:(id)handler
+{
+  optionCopy = option;
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_100002910;
+  v11[3] = &unk_100010378;
+  handlerCopy = handler;
+  v9 = handlerCopy;
+  v10 = [CARSetupPrompts assetSupportingConnectPromptWithBluetoothOnlyOption:optionCopy wirelessEnablement:enablement responseHandler:v11];
+  [(CARSetupPromptPresenter *)self _presentPromptViewController:v10];
 }
 
 - (void)promptDirector:(id)director wantsToPresentAssetSupportingUseWirelessPromptWithWirelessEnablement:(unint64_t)enablement declineVariant:(unint64_t)variant responseHandler:(id)handler

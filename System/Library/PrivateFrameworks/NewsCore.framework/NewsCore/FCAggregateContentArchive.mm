@@ -10,29 +10,29 @@
 
 void __51__FCAggregateContentArchive_initWithChildArchives___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       v8 = 0;
       do
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * v8);
+        v9 = *(*(&v11 + 1) + 8 * v8);
         objc_opt_class();
         if (v9 && (objc_opt_isKindOfClass() & 1) != 0)
         {
@@ -42,7 +42,7 @@ void __51__FCAggregateContentArchive_initWithChildArchives___block_invoke(uint64
 
         else
         {
-          [v3 addObject:{v9, v12}];
+          [v3 addObject:{v9, v11}];
           v10 = 0;
         }
 
@@ -50,13 +50,11 @@ void __51__FCAggregateContentArchive_initWithChildArchives___block_invoke(uint64
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)description
@@ -91,15 +89,15 @@ void __51__FCAggregateContentArchive_initWithChildArchives___block_invoke(uint64
   return v5;
 }
 
-uint64_t __43__FCAggregateContentArchive_initWithCoder___block_invoke()
+uint64_t __43__FCAggregateContentArchive_initWithCoder___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = MEMORY[0x1E695DFD8];
-  v1 = objc_opt_class();
-  v2 = [v0 setWithObjects:{v1, objc_opt_class(), 0}];
-  v3 = qword_1EDB26E30;
-  qword_1EDB26E30 = v2;
+  v2 = MEMORY[0x1E695DFD8];
+  v3 = objc_opt_class();
+  v4 = [v2 setWithObjects:{v3, objc_opt_class(), 0}];
+  v5 = qword_1EDB26E30;
+  qword_1EDB26E30 = v4;
 
-  return MEMORY[0x1EEE66BB8](v2, v3);
+  return MEMORY[0x1EEE66BB8](v4, v5);
 }
 
 - (id)unarchiveIntoContentContext:(id)context
@@ -128,31 +126,31 @@ uint64_t __43__FCAggregateContentArchive_initWithCoder___block_invoke()
 
 - (int64_t)storageSize
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v2 = self->_childArchives;
-  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        v5 += [*(*(&v10 + 1) + 8 * i) storageSize];
+        v5 += [*(*(&v9 + 1) + 8 * i) storageSize];
       }
 
-      v4 = [(NSArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [(NSArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
@@ -163,7 +161,6 @@ uint64_t __43__FCAggregateContentArchive_initWithCoder___block_invoke()
     v5 = 0;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

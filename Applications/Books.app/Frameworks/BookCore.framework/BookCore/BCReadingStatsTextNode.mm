@@ -33,18 +33,18 @@
   if (!v6)
   {
     v7 = objc_autoreleasePoolPush();
-    v14 = 0;
-    v8 = [BCCFI cfiWithString:v4 error:&v14];
-    v9 = v14;
+    v15 = 0;
+    v8 = [BCCFI cfiWithString:v4 error:&v15];
+    v9 = v15;
     v10 = self->_cachedCFI;
     self->_cachedCFI = v8;
 
     if (v9)
     {
-      v11 = BCReadingStatisticsLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = BCReadingStatisticsLog(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        sub_1EA504(v4, v9, v11);
+        sub_1EA504(v4, v9, v12);
       }
     }
 
@@ -53,7 +53,7 @@
     cachedCFI = self->_cachedCFI;
   }
 
-  v12 = cachedCFI;
+  v13 = cachedCFI;
 
   return cachedCFI;
 }

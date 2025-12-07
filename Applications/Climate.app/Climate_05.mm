@@ -1,3 +1,545 @@
+void sub_10006C2E8()
+{
+  v1 = v0;
+  v2 = *&v0[OBJC_IVAR____TtC7Climate23ClimateDefrostIndicator_defrostButton];
+  v3 = OBJC_IVAR____TtC7Climate27ClimateDefrostServiceButton_defrost;
+  v4 = [*(v2 + OBJC_IVAR____TtC7Climate27ClimateDefrostServiceButton_defrost) level];
+  v5 = [*(v2 + v3) levelInvalid];
+  v1[OBJC_IVAR____TtC7Climate16ClimateIndicator_isIndicatorOn] = (v4 != 0) & ~v5;
+  sub_1000C10C4();
+  v6 = *&v1[OBJC_IVAR____TtC7Climate23ClimateDefrostIndicator_defrostButton];
+  v7 = OBJC_IVAR____TtC7Climate27ClimateDefrostServiceButton_defrost;
+  [*(v6 + OBJC_IVAR____TtC7Climate27ClimateDefrostServiceButton_defrost) level];
+  [v1 setEnabled:{objc_msgSend(*(v6 + v7), "levelInvalid") ^ 1}];
+  ClimateButton.refreshColorConfig()();
+  ClimateButton.refreshColorConfig()();
+
+  ClimateButton.createEdgeInsets()();
+}
+
+void sub_10006C3D0()
+{
+  v1 = *(v0 + OBJC_IVAR____TtC7Climate23ClimateDefrostIndicator_defrostButton);
+}
+
+id sub_10006C410()
+{
+  v2.receiver = v0;
+  v2.super_class = type metadata accessor for ClimateDefrostIndicator(0);
+  return objc_msgSendSuper2(&v2, "dealloc");
+}
+
+uint64_t type metadata accessor for ClimateDefrostIndicator(uint64_t a1)
+{
+  result = qword_1001167F8;
+  if (!qword_1001167F8)
+  {
+    return swift_getSingletonMetadata();
+  }
+
+  return result;
+}
+
+void sub_10006C530(void *a1, char a2)
+{
+  v3 = [a1 receivedAllValues];
+  v4 = static os_log_type_t.debug.getter();
+  if (v3)
+  {
+    if (qword_100113F00 != -1)
+    {
+      v9 = v4;
+      swift_once();
+      LOBYTE(v4) = v9;
+    }
+
+    v5 = qword_10011B1C0;
+    v6 = v4;
+    if (os_log_type_enabled(qword_10011B1C0, v4))
+    {
+      v7 = swift_slowAlloc();
+      *v7 = 67109120;
+      *(v7 + 4) = a2 != 0;
+      _os_log_impl(&_mh_execute_header, v5, v6, "Defrost indicator did update ON: %{BOOL}d", v7, 8u);
+    }
+
+    sub_10006C2E8();
+  }
+
+  else
+  {
+    if (qword_100113F00 != -1)
+    {
+      v10 = v4;
+      swift_once();
+      v4 = v10;
+    }
+
+    v8 = qword_10011B1C0;
+
+    os_log(_:dso:log:_:_:)(v4, &_mh_execute_header, v8, "Defrost service hasn't receivedAllValues.", 41, 2, _swiftEmptyArrayStorage);
+  }
+}
+
+Climate::ClimatePresentation __swiftcall ClimatePresentation.init(on:auto:restricted:invalid:disabled:)(Swift::Bool on, Swift::Bool a2, Swift::Bool restricted, Swift::Bool invalid, Swift::Bool disabled)
+{
+  if (on)
+  {
+    if (a2)
+    {
+      if (restricted)
+      {
+        if (invalid)
+        {
+          result.rawValue = 15;
+        }
+
+        else
+        {
+          result.rawValue = 7;
+        }
+
+        if (!disabled)
+        {
+          return result;
+        }
+
+        return (result.rawValue | 0x10);
+      }
+
+      if (invalid)
+      {
+        result.rawValue = 11;
+      }
+
+      else
+      {
+        result.rawValue = 3;
+      }
+
+      if (disabled)
+      {
+        return (result.rawValue | 0x10);
+      }
+    }
+
+    else if (restricted)
+    {
+      if (invalid)
+      {
+        result.rawValue = 13;
+      }
+
+      else
+      {
+        result.rawValue = 5;
+      }
+
+      if (disabled)
+      {
+        return (result.rawValue | 0x10);
+      }
+    }
+
+    else
+    {
+      if (invalid)
+      {
+        result.rawValue = 9;
+      }
+
+      else
+      {
+        result.rawValue = 1;
+      }
+
+      if (disabled)
+      {
+        return (result.rawValue | 0x10);
+      }
+    }
+  }
+
+  else if (a2)
+  {
+    if (restricted)
+    {
+      if (invalid)
+      {
+        result.rawValue = 14;
+      }
+
+      else
+      {
+        result.rawValue = 6;
+      }
+
+      if (disabled)
+      {
+        return (result.rawValue | 0x10);
+      }
+    }
+
+    else
+    {
+      if (invalid)
+      {
+        result.rawValue = 10;
+      }
+
+      else
+      {
+        result.rawValue = 2;
+      }
+
+      if (disabled)
+      {
+        return (result.rawValue | 0x10);
+      }
+    }
+  }
+
+  else if (restricted)
+  {
+    if (invalid)
+    {
+      result.rawValue = 12;
+    }
+
+    else
+    {
+      result.rawValue = 4;
+    }
+
+    if (disabled)
+    {
+      return (result.rawValue | 0x10);
+    }
+  }
+
+  else
+  {
+    if (invalid)
+    {
+      result.rawValue = 8;
+    }
+
+    else
+    {
+      result.rawValue = 0;
+    }
+
+    if (disabled)
+    {
+      return (result.rawValue | 0x10);
+    }
+  }
+
+  return result;
+}
+
+Swift::Int sub_10006C83C()
+{
+  v1 = *v0;
+  Hasher.init(_seed:)();
+  Hasher._combine(_:)(v1);
+  return Hasher._finalize()();
+}
+
+Swift::Int sub_10006C8B0(uint64_t a1)
+{
+  v2 = *v1;
+  Hasher.init(_seed:)();
+  Hasher._combine(_:)(v2);
+  return Hasher._finalize()();
+}
+
+uint64_t sub_10006C8F4@<X0>(uint64_t *a2@<X8>)
+{
+  v3 = sub_1000504C8();
+
+  *a2 = v3;
+  return result;
+}
+
+uint64_t ClimatePresentation.description.getter(char a1)
+{
+  _StringGuts.grow(_:)(73);
+  v2._object = 0x80000001000DD0C0;
+  v2._countAndFlagsBits = 0xD00000000000001FLL;
+  String.append(_:)(v2);
+  if ((a1 & 0x10) != 0)
+  {
+    v3 = 1702195828;
+  }
+
+  else
+  {
+    v3 = 0x65736C6166;
+  }
+
+  if ((a1 & 0x10) != 0)
+  {
+    v4 = 0xE400000000000000;
+  }
+
+  else
+  {
+    v4 = 0xE500000000000000;
+  }
+
+  v5 = v4;
+  String.append(_:)(*&v3);
+
+  v6._countAndFlagsBits = 0x64696C61766E6920;
+  v6._object = 0xE90000000000003DLL;
+  String.append(_:)(v6);
+  if ((a1 & 8) != 0)
+  {
+    v7 = 1702195828;
+  }
+
+  else
+  {
+    v7 = 0x65736C6166;
+  }
+
+  if ((a1 & 8) != 0)
+  {
+    v8 = 0xE400000000000000;
+  }
+
+  else
+  {
+    v8 = 0xE500000000000000;
+  }
+
+  v9 = v8;
+  String.append(_:)(*&v7);
+
+  v10._countAndFlagsBits = 0x6369727473657220;
+  v10._object = 0xEC0000003D646574;
+  String.append(_:)(v10);
+  if ((a1 & 4) != 0)
+  {
+    v11 = 1702195828;
+  }
+
+  else
+  {
+    v11 = 0x65736C6166;
+  }
+
+  if ((a1 & 4) != 0)
+  {
+    v12 = 0xE400000000000000;
+  }
+
+  else
+  {
+    v12 = 0xE500000000000000;
+  }
+
+  v13 = v12;
+  String.append(_:)(*&v11);
+
+  v14._countAndFlagsBits = 0x3D6F74756120;
+  v14._object = 0xE600000000000000;
+  String.append(_:)(v14);
+  if ((a1 & 2) != 0)
+  {
+    v15 = 1702195828;
+  }
+
+  else
+  {
+    v15 = 0x65736C6166;
+  }
+
+  if ((a1 & 2) != 0)
+  {
+    v16 = 0xE400000000000000;
+  }
+
+  else
+  {
+    v16 = 0xE500000000000000;
+  }
+
+  v17 = v16;
+  String.append(_:)(*&v15);
+
+  v18._countAndFlagsBits = 1030647584;
+  v18._object = 0xE400000000000000;
+  String.append(_:)(v18);
+  if (a1)
+  {
+    v19 = 1702195828;
+  }
+
+  else
+  {
+    v19 = 0x65736C6166;
+  }
+
+  if (a1)
+  {
+    v20 = 0xE400000000000000;
+  }
+
+  else
+  {
+    v20 = 0xE500000000000000;
+  }
+
+  v21 = v20;
+  String.append(_:)(*&v19);
+
+  v22._countAndFlagsBits = 62;
+  v22._object = 0xE100000000000000;
+  String.append(_:)(v22);
+  return 0;
+}
+
+uint64_t ClimatePresentation.accessibilityLabel.getter(char a1)
+{
+  _StringGuts.grow(_:)(52);
+  v2._countAndFlagsBits = 0x656C62617369643CLL;
+  v2._object = 0xEA00000000003D64;
+  String.append(_:)(v2);
+  if ((a1 & 0x10) != 0)
+  {
+    v3 = 1702195828;
+  }
+
+  else
+  {
+    v3 = 0x65736C6166;
+  }
+
+  if ((a1 & 0x10) != 0)
+  {
+    v4 = 0xE400000000000000;
+  }
+
+  else
+  {
+    v4 = 0xE500000000000000;
+  }
+
+  v5 = v4;
+  String.append(_:)(*&v3);
+
+  v6._countAndFlagsBits = 0x64696C61766E6920;
+  v6._object = 0xE90000000000003DLL;
+  String.append(_:)(v6);
+  if ((a1 & 8) != 0)
+  {
+    v7 = 1702195828;
+  }
+
+  else
+  {
+    v7 = 0x65736C6166;
+  }
+
+  if ((a1 & 8) != 0)
+  {
+    v8 = 0xE400000000000000;
+  }
+
+  else
+  {
+    v8 = 0xE500000000000000;
+  }
+
+  v9 = v8;
+  String.append(_:)(*&v7);
+
+  v10._countAndFlagsBits = 0x6369727473657220;
+  v10._object = 0xEC0000003D646574;
+  String.append(_:)(v10);
+  if ((a1 & 4) != 0)
+  {
+    v11 = 1702195828;
+  }
+
+  else
+  {
+    v11 = 0x65736C6166;
+  }
+
+  if ((a1 & 4) != 0)
+  {
+    v12 = 0xE400000000000000;
+  }
+
+  else
+  {
+    v12 = 0xE500000000000000;
+  }
+
+  v13 = v12;
+  String.append(_:)(*&v11);
+
+  v14._countAndFlagsBits = 0x3D6F74756120;
+  v14._object = 0xE600000000000000;
+  String.append(_:)(v14);
+  if ((a1 & 2) != 0)
+  {
+    v15 = 1702195828;
+  }
+
+  else
+  {
+    v15 = 0x65736C6166;
+  }
+
+  if ((a1 & 2) != 0)
+  {
+    v16 = 0xE400000000000000;
+  }
+
+  else
+  {
+    v16 = 0xE500000000000000;
+  }
+
+  v17 = v16;
+  String.append(_:)(*&v15);
+
+  v18._countAndFlagsBits = 1030647584;
+  v18._object = 0xE400000000000000;
+  String.append(_:)(v18);
+  if (a1)
+  {
+    v19 = 1702195828;
+  }
+
+  else
+  {
+    v19 = 0x65736C6166;
+  }
+
+  if (a1)
+  {
+    v20 = 0xE400000000000000;
+  }
+
+  else
+  {
+    v20 = 0xE500000000000000;
+  }
+
+  v21 = v20;
+  String.append(_:)(*&v19);
+
+  v22._countAndFlagsBits = 62;
+  v22._object = 0xE100000000000000;
+  String.append(_:)(v22);
+  return 0;
+}
+
 unint64_t sub_10006CCB0()
 {
   result = qword_100116808;
@@ -74,7 +616,7 @@ uint64_t sub_10006CE48(void *a1, uint64_t (*a2)(BOOL, void, _BOOL8))
   return a2(v11 > 0, v11 >> 31, v8);
 }
 
-void sub_10006CFA8(char a1, char a2, char a3)
+void sub_10006CFA8(char a1, char a2, uint64_t a3)
 {
   v4 = v3;
   v5 = *(v3 + OBJC_IVAR____TtC7Climate26ClimateSteeringWheelButton_currentValue);
@@ -169,7 +711,7 @@ LABEL_21:
         CAFRange.maximumValue<A>()();
 
         v24 = [v22 heatingCoolingLevelRange];
-        if (v28 < 0)
+        if ((v28 & 0x80000000) != 0)
         {
           CAFRange.maximumValue<A>()();
         }
@@ -252,7 +794,7 @@ LABEL_41:
   }
 }
 
-uint64_t sub_10006D4C4(char a1, char a2, char a3)
+uint64_t sub_10006D4C4(char a1, char a2, uint64_t a3)
 {
   v4 = v3;
   v5 = OBJC_IVAR____TtC7Climate38ClimateSeatHeatingCoolingServiceButton_currentValue;
@@ -463,7 +1005,7 @@ void sub_10006DBC8(uint64_t *a1, uint64_t (*a2)(void))
     [v23 setTintColor:qword_10011AFA0];
     [v2 addSubview:v23];
     v8 = objc_opt_self();
-    sub_1000040E8(&unk_100114770);
+    sub_1000040E8(&unk_100114770, qword_1000D58D0);
     v9 = swift_allocObject();
     *(v9 + 16) = xmmword_1000D5D90;
     v10 = [v23 topAnchor];
@@ -484,7 +1026,7 @@ void sub_10006DBC8(uint64_t *a1, uint64_t (*a2)(void))
 
     v19 = [v18 constraintEqualToConstant:15.0];
     *(v9 + 56) = v19;
-    sub_10000827C(0, &qword_1001149C0);
+    sub_10000827C(0, &qword_1001149C0, NSLayoutConstraint_ptr);
     isa = Array._bridgeToObjectiveC()().super.isa;
 
     [v8 activateConstraints:isa];
@@ -515,7 +1057,7 @@ void sub_10006DFB4(void *a1)
   v5 = a1;
 
   v6 = ClimateButton.imageSymbolConfiguration.getter();
-  sub_10000827C(0, &qword_100116930);
+  sub_10000827C(0, &qword_100116930, UIImageSymbolConfiguration_ptr);
   LOBYTE(v4) = static NSObject.== infix(_:_:)();
 
   if ((v4 & 1) == 0)
@@ -524,7 +1066,7 @@ void sub_10006DFB4(void *a1)
   }
 }
 
-void (*sub_10006E098(void *a1))(uint64_t a1, char a2)
+void (*sub_10006E098(uint64_t *a1))(uint64_t a1, char a2)
 {
   v3 = *(v1 + OBJC_IVAR____TtC7Climate38ClimateSeatHeatingCoolingServiceButton_progressView);
   v4 = OBJC_IVAR____TtC7Climate19ClimateProgressView_contentView;
@@ -999,16 +1541,16 @@ uint64_t sub_10006E114()
 char *sub_10006E5D8(void *a1, int a2)
 {
   v3 = v2;
-  v183 = a2;
+  v185 = a2;
   v5 = type metadata accessor for CAUVehicleLayoutKey();
   v6 = *(v5 - 8);
   __chkstk_darwin(v5);
-  v8 = &v175 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v177 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   *&v2[OBJC_IVAR____TtC7Climate38ClimateSeatHeatingCoolingServiceButton_currentValue] = 0;
   v9 = OBJC_IVAR____TtC7Climate38ClimateSeatHeatingCoolingServiceButton_autoModeGlyph;
   *&v3[v9] = [objc_allocWithZone(UIImageView) init];
   *&v3[OBJC_IVAR____TtC7Climate38ClimateSeatHeatingCoolingServiceButton_seatHeatingCooling] = a1;
-  sub_10000827C(0, &unk_100116920);
+  sub_10000827C(0, &unk_100116920, CAFSeatHeatingCooling_ptr);
   v10 = a1;
   CAFPositionedRequired.layoutKey.getter();
   sub_100028A98();
@@ -1032,10 +1574,10 @@ char *sub_10006E5D8(void *a1, int a2)
   v15 = [v10 heatingCoolingLevel];
   v3[OBJC_IVAR____TtC7Climate38ClimateSeatHeatingCoolingServiceButton_isInPositiveRange] = v15 >= 0;
   v16 = v14[1];
-  v181 = *v14;
-  v182 = v16;
+  v183 = *v14;
+  v184 = v16;
 
-  v184 = [v10 heatingCoolingLevel];
+  v186 = [v10 heatingCoolingLevel];
   v17 = [v10 heatingCoolingLevelRange];
   v18 = &selRef_maxDefrostOn;
   v19 = [v17 minimum];
@@ -1068,8 +1610,8 @@ LABEL_63:
     goto LABEL_64;
   }
 
-  v179 = v3;
-  v180 = v10;
+  v181 = v3;
+  v182 = v10;
   if (v24 >= 0)
   {
     v31 = v24;
@@ -1085,17 +1627,17 @@ LABEL_63:
     v30 = -v30;
   }
 
-  v178 = v17;
+  v180 = v17;
   if (v31 <= 3 && v30 < 4)
   {
     v32 = objc_allocWithZone(type metadata accessor for ClimateDotsProgressView());
     v33 = OBJC_IVAR____TtC7Climate23ClimateDotsProgressView_stackView;
-    sub_10000827C(0, &unk_100116370);
+    sub_10000827C(0, &unk_100116370, UIStackView_ptr);
     *&v32[v33] = UIStackView.init(axis:spacing:arrangedSubviews:)();
-    *&v32[OBJC_IVAR____TtC7Climate23ClimateDotsProgressView_dots] = &_swiftEmptyArrayStorage;
+    *&v32[OBJC_IVAR____TtC7Climate23ClimateDotsProgressView_dots] = _swiftEmptyArrayStorage;
     *&v32[OBJC_IVAR____TtC7Climate23ClimateDotsProgressView_diameter] = 0x4010000000000000;
     v34 = OBJC_IVAR____TtC7Climate19ClimateProgressView_contentView;
-    v35 = objc_allocWithZone(type metadata accessor for ClimatePassthroughButton());
+    v35 = objc_allocWithZone(type metadata accessor for ClimatePassthroughButton(0));
     v36 = v17;
     *&v32[v34] = [v35 init];
     v32[OBJC_IVAR____TtC7Climate19ClimateProgressView_isHighlighted] = 0;
@@ -1112,12 +1654,12 @@ LABEL_63:
     v37[3] = &_swiftEmptyDictionarySingleton;
     *&v32[OBJC_IVAR____TtC7Climate19ClimateProgressView_centerSymbolYConstraint] = 0;
     *&v32[OBJC_IVAR____TtC7Climate19ClimateProgressView_range] = v36;
-    *&v32[OBJC_IVAR____TtC7Climate19ClimateProgressView_currentValue] = v184;
+    *&v32[OBJC_IVAR____TtC7Climate19ClimateProgressView_currentValue] = v186;
     v43 = type metadata accessor for ClimateProgressView();
-    v187.receiver = v32;
-    v187.super_class = v43;
+    v189.receiver = v32;
+    v189.super_class = v43;
     v44 = v36;
-    v45 = objc_msgSendSuper2(&v187, "initWithFrame:", 0.0, 0.0, 0.0, 0.0);
+    v45 = objc_msgSendSuper2(&v189, "initWithFrame:", 0.0, 0.0, 0.0, 0.0);
     [v45 setTranslatesAutoresizingMaskIntoConstraints:0];
     v46 = OBJC_IVAR____TtC7Climate19ClimateProgressView_contentView;
     [*(v45 + OBJC_IVAR____TtC7Climate19ClimateProgressView_contentView) setTranslatesAutoresizingMaskIntoConstraints:0];
@@ -1125,7 +1667,7 @@ LABEL_63:
     if (result)
     {
       v48 = result;
-      v177 = v44;
+      v179 = v44;
       v49 = [objc_opt_self() configurationWithFont:result scale:3];
 
       v50 = *(v45 + v46);
@@ -1136,7 +1678,7 @@ LABEL_63:
       v54 = v51;
 
       v55 = ClimateButton.imageSymbolConfiguration.getter();
-      sub_10000827C(0, &qword_100116930);
+      sub_10000827C(0, &qword_100116930, UIImageSymbolConfiguration_ptr);
       LOBYTE(v53) = static NSObject.== infix(_:_:)();
 
       if ((v53 & 1) == 0)
@@ -1144,16 +1686,16 @@ LABEL_63:
         ClimateButton.updateClimateConfiguration()();
       }
 
-      v176 = v54;
+      v178 = v54;
 
       v56 = *(v45 + v46);
       v57 = &v56[OBJC_IVAR____TtC7Climate13ClimateButton_imageSystemName];
       swift_beginAccess();
       v58 = *v57;
       v59 = *(v57 + 1);
-      v60 = v181;
-      v61 = v182;
-      *v57 = v181;
+      v60 = v183;
+      v61 = v184;
+      *v57 = v183;
       *(v57 + 1) = v61;
       if (!v59 || (v60 != v58 || v59 != v61) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
       {
@@ -1199,7 +1741,7 @@ LABEL_63:
       sub_10007A4CC(v74, v75, &_swiftEmptyDictionarySingleton);
 
       [v45 addSubview:*(v45 + v46)];
-      if (v183)
+      if (v185)
       {
         v76 = 30.0;
       }
@@ -1214,7 +1756,7 @@ LABEL_63:
       v79 = [v77 constraintEqualToAnchor:v78];
 
       v80 = objc_opt_self();
-      sub_1000040E8(&unk_100114770);
+      sub_1000040E8(&unk_100114770, qword_1000D58D0);
       v81 = swift_allocObject();
       *(v81 + 16) = xmmword_1000D5D90;
       v82 = [*(v45 + v46) widthAnchor];
@@ -1233,7 +1775,7 @@ LABEL_63:
 
       v90 = [v88 constraintEqualToAnchor:v89];
       *(v81 + 56) = v90;
-      sub_10000827C(0, &qword_1001149C0);
+      sub_10000827C(0, &qword_1001149C0, NSLayoutConstraint_ptr);
       isa = Array._bridgeToObjectiveC()().super.isa;
 
       [v80 activateConstraints:isa];
@@ -1242,7 +1784,7 @@ LABEL_63:
       *(v45 + OBJC_IVAR____TtC7Climate19ClimateProgressView_centerSymbolYConstraint) = v87;
       v93 = v87;
 
-      if (v184)
+      if (v186)
       {
         (*((swift_isaMask & *v45) + 0x128))(0);
       }
@@ -1252,13 +1794,13 @@ LABEL_63:
         (*((swift_isaMask & *v45) + 0x120))(0);
       }
 
-      v158 = v180;
-      v159 = v179;
-      v160 = v178;
+      v158 = v182;
+      v159 = v181;
+      v160 = v180;
 
-      v164 = v177;
+      v164 = v179;
       v163 = v45;
-      sub_100034D30(v184, v164, 4.0);
+      sub_100034D30(v186, v164, 4.0);
       goto LABEL_58;
     }
 
@@ -1281,7 +1823,7 @@ LABEL_66:
 
   *&v94[OBJC_IVAR____TtC7Climate22ClimateBarProgressView_progressViewConstraint] = v98;
   v99 = OBJC_IVAR____TtC7Climate19ClimateProgressView_contentView;
-  v100 = objc_allocWithZone(type metadata accessor for ClimatePassthroughButton());
+  v100 = objc_allocWithZone(type metadata accessor for ClimatePassthroughButton(0));
   v101 = v17;
   *&v94[v99] = [v100 init];
   v94[OBJC_IVAR____TtC7Climate19ClimateProgressView_isHighlighted] = 0;
@@ -1298,12 +1840,12 @@ LABEL_66:
   v102[3] = &_swiftEmptyDictionarySingleton;
   *&v94[OBJC_IVAR____TtC7Climate19ClimateProgressView_centerSymbolYConstraint] = 0;
   *&v94[OBJC_IVAR____TtC7Climate19ClimateProgressView_range] = v101;
-  *&v94[OBJC_IVAR____TtC7Climate19ClimateProgressView_currentValue] = v184;
+  *&v94[OBJC_IVAR____TtC7Climate19ClimateProgressView_currentValue] = v186;
   v108 = type metadata accessor for ClimateProgressView();
-  v185.receiver = v94;
-  v185.super_class = v108;
+  v187.receiver = v94;
+  v187.super_class = v108;
   v109 = v101;
-  v110 = objc_msgSendSuper2(&v185, "initWithFrame:", 0.0, 0.0, 0.0, 0.0);
+  v110 = objc_msgSendSuper2(&v187, "initWithFrame:", 0.0, 0.0, 0.0, 0.0);
   [v110 setTranslatesAutoresizingMaskIntoConstraints:0];
   v111 = OBJC_IVAR____TtC7Climate19ClimateProgressView_contentView;
   [*(v110 + OBJC_IVAR____TtC7Climate19ClimateProgressView_contentView) setTranslatesAutoresizingMaskIntoConstraints:0];
@@ -1325,7 +1867,7 @@ LABEL_66:
   v118 = v115;
 
   v119 = ClimateButton.imageSymbolConfiguration.getter();
-  sub_10000827C(0, &qword_100116930);
+  sub_10000827C(0, &qword_100116930, UIImageSymbolConfiguration_ptr);
   LOBYTE(v117) = static NSObject.== infix(_:_:)();
 
   if ((v117 & 1) == 0)
@@ -1333,16 +1875,16 @@ LABEL_66:
     ClimateButton.updateClimateConfiguration()();
   }
 
-  v177 = v118;
+  v179 = v118;
 
   v120 = *(v110 + v111);
   v121 = &v120[OBJC_IVAR____TtC7Climate13ClimateButton_imageSystemName];
   swift_beginAccess();
   v122 = *v121;
   v123 = *(v121 + 1);
-  v124 = v181;
-  v125 = v182;
-  *v121 = v181;
+  v124 = v183;
+  v125 = v184;
+  *v121 = v183;
   *(v121 + 1) = v125;
   if (!v123 || (v124 != v122 || v123 != v125) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
   {
@@ -1371,7 +1913,7 @@ LABEL_66:
     [v131 setNumberOfLines:1];
   }
 
-  v182 = v109;
+  v184 = v109;
   v133 = *(v110 + v111);
   v134 = OBJC_IVAR____TtC7Climate13ClimateButton_smallTitle;
   swift_beginAccess();
@@ -1389,7 +1931,7 @@ LABEL_66:
   sub_10007A4CC(v138, v139, &_swiftEmptyDictionarySingleton);
 
   [v110 addSubview:*(v110 + v111)];
-  if (v183)
+  if (v185)
   {
     v140 = 30.0;
   }
@@ -1404,7 +1946,7 @@ LABEL_66:
   v143 = [v141 constraintEqualToAnchor:v142];
 
   v144 = objc_opt_self();
-  sub_1000040E8(&unk_100114770);
+  sub_1000040E8(&unk_100114770, qword_1000D58D0);
   v145 = swift_allocObject();
   *(v145 + 16) = xmmword_1000D5D90;
   v146 = [*(v110 + v111) widthAnchor];
@@ -1423,7 +1965,7 @@ LABEL_66:
 
   v154 = [v152 constraintEqualToAnchor:v153];
   *(v145 + 56) = v154;
-  sub_10000827C(0, &qword_1001149C0);
+  sub_10000827C(0, &qword_1001149C0, NSLayoutConstraint_ptr);
   v155 = Array._bridgeToObjectiveC()().super.isa;
 
   [v144 activateConstraints:v155];
@@ -1432,7 +1974,7 @@ LABEL_66:
   *(v110 + OBJC_IVAR____TtC7Climate19ClimateProgressView_centerSymbolYConstraint) = v151;
   v157 = v151;
 
-  if (v184)
+  if (v186)
   {
     (*((swift_isaMask & *v110) + 0x128))(0);
   }
@@ -1442,12 +1984,12 @@ LABEL_66:
     (*((swift_isaMask & *v110) + 0x120))(0);
   }
 
-  v158 = v180;
-  v159 = v179;
-  v160 = v178;
-  v161 = v182;
+  v158 = v182;
+  v159 = v181;
+  v160 = v180;
+  v161 = v184;
 
-  if (v183)
+  if (v185)
   {
     v162 = 18.0;
   }
@@ -1462,10 +2004,10 @@ LABEL_66:
 LABEL_58:
 
   *&v159[OBJC_IVAR____TtC7Climate38ClimateSeatHeatingCoolingServiceButton_progressView] = v163;
-  v165 = type metadata accessor for ClimateSeatHeatingCoolingServiceButton();
-  v186.receiver = v159;
-  v186.super_class = v165;
-  v166 = objc_msgSendSuper2(&v186, "init");
+  v165 = type metadata accessor for ClimateSeatHeatingCoolingServiceButton(0);
+  v188.receiver = v159;
+  v188.super_class = v165;
+  v166 = objc_msgSendSuper2(&v188, "init");
   sub_10007006C();
   [v158 registerObserver:v166];
   v167 = swift_allocObject();
@@ -1476,12 +2018,13 @@ LABEL_58:
   v169 = &v166[OBJC_IVAR____TtC7Climate13ClimateButton_action];
   swift_beginAccess();
   v170 = *v169;
+  v171 = v169[1];
   *v169 = sub_1000707FC;
   v169[1] = v168;
   v18 = v158;
   v21 = v166;
 
-  sub_100003380(v170);
+  sub_100003380(v170, v171);
 
   if (qword_100113ED0 != -1)
   {
@@ -1489,20 +2032,20 @@ LABEL_64:
     swift_once();
   }
 
-  v171 = qword_10011B088;
-  v172 = qword_10011B098;
+  v172 = qword_10011B088;
+  v173 = qword_10011B098;
   if (qword_100113E90 != -1)
   {
     swift_once();
   }
 
-  v173 = qword_10011AFA8;
-  v174 = v171;
+  v174 = qword_10011AFA8;
+  v175 = v172;
 
-  sub_1000A70A8(v174, v173, v172);
+  sub_1000A70A8(v175, v174, v173);
 
   sub_10006DBC8(&OBJC_IVAR____TtC7Climate38ClimateSeatHeatingCoolingServiceButton_autoModeGlyph, sub_10006E114);
-  sub_10006FBC4();
+  sub_10006FBC4(v176);
 
   return v21;
 }
@@ -1517,54 +2060,53 @@ void sub_10006FA8C(uint64_t a1, uint64_t a2, void *a3)
     if ([Strong isEnabled])
     {
       sub_10006CE48(&OBJC_IVAR____TtC7Climate38ClimateSeatHeatingCoolingServiceButton_seatHeatingCooling, sub_10006D4C4);
-      [a3 setHeatingCoolingLevel:*&v5[OBJC_IVAR____TtC7Climate38ClimateSeatHeatingCoolingServiceButton_currentValue]];
-      sub_10006FBC4();
+      sub_10006FBC4([a3 setHeatingCoolingLevel:*&v5[OBJC_IVAR____TtC7Climate38ClimateSeatHeatingCoolingServiceButton_currentValue]]);
     }
   }
 }
 
-uint64_t sub_10006FBC4()
+uint64_t sub_10006FBC4(uint64_t a1)
 {
-  v1 = v0;
-  v2 = *&v0[OBJC_IVAR____TtC7Climate38ClimateSeatHeatingCoolingServiceButton_autoModeGlyph];
-  if (v2)
+  v2 = v1;
+  v3 = *&v1[OBJC_IVAR____TtC7Climate38ClimateSeatHeatingCoolingServiceButton_autoModeGlyph];
+  if (v3)
   {
-    v3 = v2;
-    [v3 setHidden:(sub_10006E114() & 0x1A) != 2];
+    v4 = v3;
+    [v4 setHidden:(sub_10006E114() & 0x1A) != 2];
   }
 
   sub_1000C10C4();
-  [v0 setEnabled:sub_10006E114() < 8];
+  [v1 setEnabled:sub_10006E114() < 8];
   sub_10006FDB4();
   ClimateButton.refreshColorConfig()();
-  v4 = *&v0[OBJC_IVAR____TtC7Climate38ClimateSeatHeatingCoolingServiceButton_progressView];
-  v5 = &v0[OBJC_IVAR____TtC7Climate13ClimateButton_colorConfig];
-  v6 = *&v0[OBJC_IVAR____TtC7Climate13ClimateButton_colorConfig + 8];
-  v7 = *&v1[OBJC_IVAR____TtC7Climate13ClimateButton_colorConfig + 16];
-  v8 = *&v1[OBJC_IVAR____TtC7Climate13ClimateButton_colorConfig];
-  v9 = v6;
+  v5 = *&v1[OBJC_IVAR____TtC7Climate38ClimateSeatHeatingCoolingServiceButton_progressView];
+  v6 = &v1[OBJC_IVAR____TtC7Climate13ClimateButton_colorConfig];
+  v7 = *&v1[OBJC_IVAR____TtC7Climate13ClimateButton_colorConfig + 8];
+  v8 = *&v2[OBJC_IVAR____TtC7Climate13ClimateButton_colorConfig + 16];
+  v9 = *&v2[OBJC_IVAR____TtC7Climate13ClimateButton_colorConfig];
+  v10 = v7;
 
-  v10 = sub_10006E114();
-  v11 = sub_10007E990(v10, v9, v7);
+  v11 = sub_10006E114();
+  v12 = sub_10007E990(v11, v10, v8);
 
-  v12 = [v5[1] colorWithAlphaComponent:0.25];
-  v13 = v5[1];
-  v14 = *((swift_isaMask & *v4) + 0xD0);
-  v15 = v13;
-  v14(v11, v12, v13, &_swiftEmptyDictionarySingleton);
+  v13 = [v6[1] colorWithAlphaComponent:0.25];
+  v14 = v6[1];
+  v15 = *((swift_isaMask & *v5) + 0xD0);
+  v16 = v14;
+  v15(v12, v13, v14, &_swiftEmptyDictionarySingleton);
   ClimateButton.createEdgeInsets()();
   if (sub_10006E114() > 7)
   {
-    v16 = 0;
+    v17 = 0;
   }
 
   else
   {
-    v16 = [*&v1[OBJC_IVAR____TtC7Climate38ClimateSeatHeatingCoolingServiceButton_seatHeatingCooling] heatingCoolingLevel];
+    v17 = [*&v2[OBJC_IVAR____TtC7Climate38ClimateSeatHeatingCoolingServiceButton_seatHeatingCooling] heatingCoolingLevel];
   }
 
-  *&v1[OBJC_IVAR____TtC7Climate38ClimateSeatHeatingCoolingServiceButton_currentValue] = v16;
-  return (*((swift_isaMask & *v4) + 0x88))();
+  *&v2[OBJC_IVAR____TtC7Climate38ClimateSeatHeatingCoolingServiceButton_currentValue] = v17;
+  return (*((swift_isaMask & *v5) + 0x88))();
 }
 
 void sub_10006FDB4()
@@ -1666,7 +2208,7 @@ void sub_10007006C()
   v1 = *&v0[OBJC_IVAR____TtC7Climate38ClimateSeatHeatingCoolingServiceButton_progressView];
   [v0 addSubview:v1];
   v2 = objc_opt_self();
-  sub_1000040E8(&unk_100114770);
+  sub_1000040E8(&unk_100114770, qword_1000D58D0);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_1000D5D90;
   v4 = [v1 leadingAnchor];
@@ -1689,7 +2231,7 @@ void sub_10007006C()
   v15 = [v13 constraintEqualToAnchor:v14];
 
   *(v3 + 56) = v15;
-  sub_10000827C(0, &qword_1001149C0);
+  sub_10000827C(0, &qword_1001149C0, NSLayoutConstraint_ptr);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
   [v2 activateConstraints:isa];
@@ -1724,11 +2266,11 @@ void sub_1000703E4()
 id sub_100070448()
 {
   v2.receiver = v0;
-  v2.super_class = type metadata accessor for ClimateSeatHeatingCoolingServiceButton();
+  v2.super_class = type metadata accessor for ClimateSeatHeatingCoolingServiceButton(0);
   return objc_msgSendSuper2(&v2, "dealloc");
 }
 
-uint64_t type metadata accessor for ClimateSeatHeatingCoolingServiceButton()
+uint64_t type metadata accessor for ClimateSeatHeatingCoolingServiceButton(uint64_t a1)
 {
   result = qword_100116858;
   if (!qword_100116858)
@@ -1741,32 +2283,32 @@ uint64_t type metadata accessor for ClimateSeatHeatingCoolingServiceButton()
 
 uint64_t sub_100070650(uint64_t a1)
 {
-  result = sub_100070740(&qword_100116908);
+  result = sub_100070740(&qword_100116908, &unk_1000D7F30);
   *(a1 + 16) = result;
   return result;
 }
 
 uint64_t sub_100070694(uint64_t a1)
 {
-  result = sub_100070740(&qword_100116908);
+  result = sub_100070740(&qword_100116908, &unk_1000D7F30);
   *(a1 + 8) = result;
   return result;
 }
 
 uint64_t sub_1000706D8(uint64_t a1)
 {
-  *(a1 + 8) = sub_100070740(&qword_100116910);
-  result = sub_100070740(&qword_100116918);
+  *(a1 + 8) = sub_100070740(&qword_100116910, &unk_1000D7F4C);
+  result = sub_100070740(&qword_100116918, &unk_1000D7F68);
   *(a1 + 16) = result;
   return result;
 }
 
-uint64_t sub_100070740(unint64_t *a1)
+uint64_t sub_100070740(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
   {
-    type metadata accessor for ClimateSeatHeatingCoolingServiceButton();
+    type metadata accessor for ClimateSeatHeatingCoolingServiceButton(255);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -1846,7 +2388,7 @@ void sub_10007080C(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t
   else if (*((v12 & 0xFFFFFFFFFFFFFF8) + 0x10))
   {
 LABEL_10:
-    sub_10000827C(0, &unk_100116370);
+    sub_10000827C(0, &unk_100116370, UIStackView_ptr);
     v20 = UIStackView.init(axis:spacing:arrangedSubviews:)();
     [v20 setDistribution:1];
     [v20 setAlignment:3];
@@ -1862,7 +2404,7 @@ id sub_100070A74(uint64_t a1, uint64_t a2, uint64_t a3)
   v8 = *(v7 - 8);
   __chkstk_darwin(v7);
   v10 = &v67 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = sub_1000040E8(&unk_100117950);
+  v11 = sub_1000040E8(&unk_100117950, &qword_1000D6DF0);
   __chkstk_darwin(v11 - 8);
   v13 = &v67 - v12;
   v14 = type metadata accessor for CAUVehicleLayoutInfo();
@@ -1880,7 +2422,7 @@ id sub_100070A74(uint64_t a1, uint64_t a2, uint64_t a3)
     (*(*(v23 - 8) + 56))(v13, 1, 1, v23);
 
     CAUVehicleLayoutInfo.init(x:y:height:width:baselineAnchor:)();
-    v24 = objc_allocWithZone(type metadata accessor for ClimateZonePositionView());
+    v24 = objc_allocWithZone(type metadata accessor for ClimateZonePositionView(0));
     swift_unknownObjectRetain();
     sub_1000A62B8(v20, a2, a3, v16);
     v26 = v25;
@@ -1902,7 +2444,7 @@ id sub_100070A74(uint64_t a1, uint64_t a2, uint64_t a3)
     [v28 setText:v30];
 
     v68 = objc_opt_self();
-    sub_1000040E8(&unk_100114770);
+    sub_1000040E8(&unk_100114770, qword_1000D58D0);
     v31 = swift_allocObject();
     *(v31 + 16) = xmmword_1000D7FB0;
     v32 = [v27 heightAnchor];
@@ -1952,7 +2494,7 @@ id sub_100070A74(uint64_t a1, uint64_t a2, uint64_t a3)
     v56 = [v54 constraintEqualToAnchor:v55];
 
     *(v31 + 96) = v56;
-    sub_10000827C(0, &qword_1001149C0);
+    sub_10000827C(0, &qword_1001149C0, NSLayoutConstraint_ptr);
     isa = Array._bridgeToObjectiveC()().super.isa;
 
     [v68 activateConstraints:isa];
@@ -2011,7 +2553,7 @@ id sub_100071468()
 
 uint64_t sub_1000714A4()
 {
-  v1 = sub_1000040E8(&qword_100116B90);
+  v1 = sub_1000040E8(&qword_100116B90, &qword_1000D8050);
   v2 = v1 - 8;
   __chkstk_darwin(v1);
   v4 = &v14 - v3;
@@ -2038,7 +2580,7 @@ uint64_t sub_1000714A4()
 
   else
   {
-    sub_100008904(v4, &qword_100116B90);
+    sub_100008904(v4, &qword_100116B90, &qword_1000D8050);
     return 2;
   }
 
@@ -2056,7 +2598,7 @@ uint64_t sub_10007163C()
   sub_100072760((v0 + v1));
   swift_endAccess();
   v2 = [*(v0 + 16) allObjects];
-  sub_1000040E8(&unk_100116BB0);
+  sub_1000040E8(&unk_100116BB0, &qword_1000D8070);
   v3 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   if (v3 >> 62)
@@ -2117,7 +2659,7 @@ id sub_1000717C8()
 
     if (v3 && (v4 = [v3 defrosts], v3, v4))
     {
-      sub_10000827C(0, &qword_1001167B0);
+      sub_10000827C(0, &qword_1001167B0, CAFDefrost_ptr);
       v5 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
       return v5;
@@ -2151,7 +2693,7 @@ uint64_t sub_100071888()
   return v2;
 }
 
-uint64_t sub_100071964(unint64_t a1, char *a2, void *a3)
+id *sub_100071964(unint64_t a1, char *a2, void *a3)
 {
   v4 = v3;
   v8 = type metadata accessor for CAUVehicleLayoutKey();
@@ -2351,7 +2893,7 @@ LABEL_15:
         *v41 = v22;
         v22 = v22;
         _os_log_impl(&_mh_execute_header, v40, v39, "unknown service: %{public}@", v82, 0xCu);
-        sub_100008904(v81, &unk_1001149E0);
+        sub_100008904(v81, &unk_1001149E0, &unk_1000D7380);
       }
     }
 
@@ -2395,7 +2937,7 @@ LABEL_46:
 
         *(v68 + 4) = v74;
         *(v68 + 12) = 2082;
-        sub_10000827C(0, &qword_100116078);
+        sub_10000827C(0, &qword_100116078, CAFService_ptr);
         v75 = Array.description.getter();
         v77 = v76;
 
@@ -2421,7 +2963,7 @@ LABEL_46:
 
       swift_unknownObjectWeakDestroy();
 
-      type metadata accessor for ClimateZone();
+      type metadata accessor for ClimateZone(0);
       swift_deallocPartialClassInstance();
       return 0;
     }
@@ -2474,7 +3016,7 @@ LABEL_54:
 
     *(v53 + 4) = v59;
     *(v53 + 12) = 2082;
-    sub_10000827C(0, &qword_100116078);
+    sub_10000827C(0, &qword_100116078, CAFService_ptr);
     v60 = Array.description.getter();
     v62 = v61;
 
@@ -2567,7 +3109,7 @@ Swift::Int sub_100072760(uint64_t *a1)
   v2 = *a1;
   if (!swift_isUniquelyReferenced_nonNull_bridgeObject() || v2 < 0 || (v2 & 0x4000000000000000) != 0)
   {
-    v2 = sub_100056B94(v2);
+    v2 = sub_100056B94();
   }
 
   v3 = *((v2 & 0xFFFFFFFFFFFFFF8) + 0x10);
@@ -2583,7 +3125,7 @@ Swift::Int sub_100072810(uint64_t *a1)
   v2 = *a1;
   if (!swift_isUniquelyReferenced_nonNull_bridgeObject() || v2 < 0 || (v2 & 0x4000000000000000) != 0)
   {
-    v2 = sub_100056B94(v2);
+    v2 = sub_100056B94();
   }
 
   v3 = *((v2 & 0xFFFFFFFFFFFFFF8) + 0x10);
@@ -2599,7 +3141,7 @@ Swift::Int sub_1000728C0(uint64_t *a1)
   v2 = *a1;
   if (!swift_isUniquelyReferenced_nonNull_bridgeObject() || v2 < 0 || (v2 & 0x4000000000000000) != 0)
   {
-    v2 = sub_100056B94(v2);
+    v2 = sub_100056B94();
   }
 
   v3 = *((v2 & 0xFFFFFFFFFFFFFF8) + 0x10);
@@ -2655,9 +3197,9 @@ double sub_100072970()
       }
 
       v35 = v8;
-      sub_10000827C(0, &qword_100116078);
+      sub_10000827C(0, &qword_100116078, CAFService_ptr);
       v11 = v9;
-      sub_1000040E8(&qword_100116B98);
+      sub_1000040E8(&qword_100116B98, &qword_1000D8058);
       if (swift_dynamicCast())
       {
         v12 = v2;
@@ -2733,7 +3275,7 @@ LABEL_26:
 
         v34 = 0;
         memset(v33, 0, sizeof(v33));
-        sub_100008904(v33, &qword_100116BA0);
+        sub_100008904(v33, &qword_100116BA0, &qword_1000D8060);
         if (v5 == i)
         {
           goto LABEL_26;
@@ -2751,7 +3293,7 @@ LABEL_29:
   v6 = _swiftEmptyArrayStorage;
   v7 = _swiftEmptyArrayStorage;
 LABEL_31:
-  sub_1000040E8(&qword_100116BA8);
+  sub_1000040E8(&qword_100116BA8, &qword_1000D8068);
   v26 = swift_allocObject();
   *&result = 2;
   *(v26 + 16) = xmmword_1000D5BA0;
@@ -2778,7 +3320,7 @@ uint64_t sub_100072DFC()
   return swift_deallocClassInstance();
 }
 
-uint64_t type metadata accessor for ClimateZone()
+uint64_t type metadata accessor for ClimateZone(uint64_t a1)
 {
   result = qword_100116998;
   if (!qword_100116998)
@@ -2789,10 +3331,10 @@ uint64_t type metadata accessor for ClimateZone()
   return result;
 }
 
-uint64_t sub_100072EA8()
+uint64_t sub_100072EA8(uint64_t a1)
 {
   result = type metadata accessor for CAUVehicleLayoutKey();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     return swift_updateClassMetadata2();
   }
@@ -2922,33 +3464,33 @@ LABEL_16:
   }
 }
 
-Swift::Int sub_1000732E4(uint64_t a1, unint64_t *a2, uint64_t a3, void (*a4)(void *, _BYTE *, uint64_t, Swift::Int), uint64_t (*a5)(void, Swift::Int, uint64_t, uint64_t))
+Swift::Int sub_1000732E4(uint64_t a1, unint64_t *a2, void *a3, void (*a4)(void *, _BYTE *, uint64_t, Swift::Int), uint64_t (*a5)(void, Swift::Int, uint64_t, uint64_t))
 {
-  v9 = *(a1 + 8);
-  result = _minimumMergeRunLength(_:)(v9);
-  if (result < v9)
+  v10 = *(a1 + 8);
+  result = _minimumMergeRunLength(_:)(v10);
+  if (result < v10)
   {
-    if (v9 >= -1)
+    if (v10 >= -1)
     {
-      v11 = result;
-      v12 = v9 / 2;
-      if (v9 <= 1)
+      v12 = result;
+      v13 = v10 / 2;
+      if (v10 <= 1)
       {
-        v13 = _swiftEmptyArrayStorage;
+        v14 = _swiftEmptyArrayStorage;
       }
 
       else
       {
-        sub_10000827C(0, a2);
-        v13 = static Array._allocateBufferUninitialized(minimumCapacity:)();
-        *((v13 & 0xFFFFFFFFFFFFFF8) + 0x10) = v12;
+        sub_10000827C(0, a2, a3);
+        v14 = static Array._allocateBufferUninitialized(minimumCapacity:)();
+        *((v14 & 0xFFFFFFFFFFFFFF8) + 0x10) = v13;
       }
 
-      v14 = v13 & 0xFFFFFFFFFFFFFF8;
-      v15[0] = (v13 & 0xFFFFFFFFFFFFFF8) + 32;
-      v15[1] = v12;
-      a4(v15, v16, a1, v11);
-      *(v14 + 16) = 0;
+      v15 = v14 & 0xFFFFFFFFFFFFFF8;
+      v16[0] = (v14 & 0xFFFFFFFFFFFFFF8) + 32;
+      v16[1] = v13;
+      a4(v16, v17, a1, v12);
+      *(v15 + 16) = 0;
     }
 
     __break(1u);
@@ -2957,14 +3499,14 @@ LABEL_12:
     return result;
   }
 
-  if (v9 < 0)
+  if (v10 < 0)
   {
     goto LABEL_12;
   }
 
-  if (v9)
+  if (v10)
   {
-    return a5(0, v9, 1, a1);
+    return a5(0, v10, 1, a1);
   }
 
   return result;
@@ -3135,7 +3677,7 @@ LABEL_4:
   return result;
 }
 
-void sub_1000736C4(char **a1, uint64_t a2, uint64_t *a3, uint64_t a4)
+void sub_1000736C4(id *a1, uint64_t a2, uint64_t *a3, uint64_t a4)
 {
   v5 = v4;
   v6 = a3[1];
@@ -3209,7 +3751,8 @@ LABEL_100:
   v8 = _swiftEmptyArrayStorage;
   while (1)
   {
-    v9 = v7++;
+    v9 = v7;
+    v7 = (v7 + 1);
     if (v7 < v6)
     {
       v100 = v5;
@@ -3297,7 +3840,7 @@ LABEL_100:
 
       if (v7 - v9 < a4)
       {
-        v30 = (v9 + a4);
+        v30 = v9 + a4;
         if (__OFADD__(v9, a4))
         {
           goto LABEL_120;
@@ -3616,7 +4159,7 @@ LABEL_32:
     if (v40 >= v41)
     {
 LABEL_31:
-      v7 = v106 + 1;
+      v7 = (v106 + 1);
       v32 += 8;
       --v33;
       if ((v106 + 1) != v104)
@@ -3797,7 +4340,7 @@ LABEL_27:
 
       if (v9 - v8 < a4)
       {
-        v23 = (v8 + a4);
+        v23 = v8 + a4;
         if (__OFADD__(v8, a4))
         {
           goto LABEL_129;
@@ -4189,7 +4732,7 @@ LABEL_36:
           v9 = v27 + 1;
           v25 += 8;
           --v26;
-          if ((v27 + 1) != v92)
+          if (v27 + 1 != v92)
           {
             goto LABEL_37;
           }
@@ -4341,7 +4884,7 @@ LABEL_126:
 
           else
           {
-            v22 = (v8 + v81);
+            v22 = v8 + v81;
           }
 
           if (v22 < v8)
@@ -4723,7 +5266,7 @@ LABEL_119:
   }
 }
 
-uint64_t sub_100074964(char *__dst, void **a2, id *a3, char *__src)
+uint64_t sub_100074964(void **__dst, void **a2, id *a3, void **__src)
 {
   v4 = a3;
   v5 = __dst;
@@ -4755,7 +5298,7 @@ uint64_t sub_100074964(char *__dst, void **a2, id *a3, char *__src)
     }
 
     v41 = __src;
-    v14 = &__src[8 * v11];
+    v14 = &__src[v11];
     if (v9 < 8)
     {
       v13 = __src;
@@ -4776,7 +5319,8 @@ LABEL_27:
         {
           v27 = v14;
           v28 = v4 + 1;
-          v29 = *--v26;
+          v29 = *(v26 - 1);
+          v26 -= 8;
           v30 = v25;
           v31 = *v25;
           v32 = v29;
@@ -4824,7 +5368,7 @@ LABEL_27:
   {
     v12 = a2;
     v13 = __src;
-    if (__src != __dst || &__dst[8 * v8] <= __src)
+    if (__src != __dst || &__dst[v8] <= __src)
     {
       memmove(__src, __dst, 8 * v8);
     }
@@ -5189,7 +5733,7 @@ char *sub_100075214(void *a1)
 {
   *(v1 + OBJC_IVAR____TtC7Climate27ClimateSeatHeatingIndicator_delegate + 8) = 0;
   swift_unknownObjectWeakInit();
-  v3 = objc_allocWithZone(type metadata accessor for ClimateSeatHeatingCoolingServiceButton());
+  v3 = objc_allocWithZone(type metadata accessor for ClimateSeatHeatingCoolingServiceButton(0));
   v4 = a1;
   *(v1 + OBJC_IVAR____TtC7Climate27ClimateSeatHeatingIndicator_seatButton) = sub_10006E5D8(v4, 0);
   *(v1 + OBJC_IVAR____TtC7Climate27ClimateSeatHeatingIndicator_seat) = v4;
@@ -5223,10 +5767,11 @@ char *sub_100075214(void *a1)
   v21 = &v20[OBJC_IVAR____TtC7Climate13ClimateButton_action];
   swift_beginAccess();
   v22 = *v21;
+  v23 = v21[1];
   *v21 = 0;
   v21[1] = 0;
-  v23 = v20;
-  sub_100003380(v22);
+  v24 = v20;
+  sub_100003380(v22, v23);
 
   [v5 registerObserver:v9];
   [v9 addSubview:*&v6[v7]];
@@ -5240,7 +5785,7 @@ void sub_100075430()
 {
   v1 = v0;
   v2 = objc_opt_self();
-  sub_1000040E8(&unk_100114770);
+  sub_1000040E8(&unk_100114770, qword_1000D58D0);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_1000D5D90;
   v4 = *&v1[OBJC_IVAR____TtC7Climate27ClimateSeatHeatingIndicator_seatButton];
@@ -5338,11 +5883,11 @@ void sub_100075934()
 id sub_100075984()
 {
   v2.receiver = v0;
-  v2.super_class = type metadata accessor for ClimateSeatHeatingIndicator();
+  v2.super_class = type metadata accessor for ClimateSeatHeatingIndicator(0);
   return objc_msgSendSuper2(&v2, "dealloc");
 }
 
-uint64_t type metadata accessor for ClimateSeatHeatingIndicator()
+uint64_t type metadata accessor for ClimateSeatHeatingIndicator(uint64_t a1)
 {
   result = qword_100116BE8;
   if (!qword_100116BE8)
@@ -5360,53 +5905,61 @@ uint64_t sub_100075AC0(void *a1, char a2)
   {
     if (v5 == (CAFSeatHeatingCooling.isHeating.getter() & 1))
     {
-      goto LABEL_3;
+LABEL_3:
+      v6 = static os_log_type_t.debug.getter();
+      if (qword_100113F00 != -1)
+      {
+        v16 = v6;
+        swift_once();
+        v6 = v16;
+      }
+
+      v7 = qword_10011B1C0;
+      v8 = "Seat indicator did update with same ON value. Skipping.";
+      v9 = 55;
+LABEL_18:
+
+      return os_log(_:dso:log:_:_:)(v6, &_mh_execute_header, v7, v8, v9, 2, _swiftEmptyArrayStorage);
     }
   }
 
   else if ((v5 & 1) == 0)
   {
-LABEL_3:
-    static os_log_type_t.debug.getter();
-    if (qword_100113F00 == -1)
-    {
-      goto LABEL_16;
-    }
-
-    goto LABEL_15;
+    goto LABEL_3;
   }
 
-  v6 = [a1 receivedAllValues];
-  v7 = static os_log_type_t.debug.getter();
-  if (!v6)
+  v10 = [a1 receivedAllValues];
+  v6 = static os_log_type_t.debug.getter();
+  if (!v10)
   {
-    if (qword_100113F00 == -1)
+    if (qword_100113F00 != -1)
     {
-LABEL_16:
-
-      return os_log(_:dso:log:_:_:)();
+      v18 = v6;
+      swift_once();
+      v6 = v18;
     }
 
-LABEL_15:
-    swift_once();
-    goto LABEL_16;
+    v7 = qword_10011B1C0;
+    v8 = "Seat service hasn't receivedAllValues.";
+    v9 = 38;
+    goto LABEL_18;
   }
 
   if (qword_100113F00 != -1)
   {
-    v13 = v7;
+    v17 = v6;
     swift_once();
-    v7 = v13;
+    LOBYTE(v6) = v17;
   }
 
-  v8 = qword_10011B1C0;
-  v9 = v7;
-  if (os_log_type_enabled(qword_10011B1C0, v7))
+  v11 = qword_10011B1C0;
+  v12 = v6;
+  if (os_log_type_enabled(qword_10011B1C0, v6))
   {
-    v10 = swift_slowAlloc();
-    *v10 = 67109120;
-    *(v10 + 4) = a2 & 1;
-    _os_log_impl(&_mh_execute_header, v8, v9, "Seat indicator did update ON: %{BOOL}d", v10, 8u);
+    v13 = swift_slowAlloc();
+    *v13 = 67109120;
+    *(v13 + 4) = a2 & 1;
+    _os_log_impl(&_mh_execute_header, v11, v12, "Seat indicator did update ON: %{BOOL}d", v13, 8u);
   }
 
   sub_10007578C();
@@ -5415,15 +5968,15 @@ LABEL_15:
   {
     if ((sub_10006E114() & 0x19) == 1)
     {
-      v12 = CAFSeatHeatingCooling.isHeating.getter() ^ 1;
+      v15 = CAFSeatHeatingCooling.isHeating.getter() ^ 1;
     }
 
     else
     {
-      v12 = 1;
+      v15 = 1;
     }
 
-    sub_1000A1708(v12 & 1);
+    sub_1000A1708(v15 & 1);
 
     return swift_unknownObjectRelease();
   }
@@ -5533,7 +6086,7 @@ id sub_100076230(uint64_t a1, uint64_t a2, void *a3)
 char *sub_10007627C()
 {
   v17.receiver = v0;
-  v17.super_class = type metadata accessor for ClimateStepperPowerButton();
+  v17.super_class = type metadata accessor for ClimateStepperPowerButton(0);
   v1 = objc_msgSendSuper2(&v17, "init");
   v2 = &v1[OBJC_IVAR____TtC7Climate13ClimateButton_imageSystemName];
   swift_beginAccess();
@@ -5575,11 +6128,11 @@ char *sub_10007627C()
 id sub_100076420()
 {
   v2.receiver = v0;
-  v2.super_class = type metadata accessor for ClimateStepperPowerButton();
+  v2.super_class = type metadata accessor for ClimateStepperPowerButton(0);
   return objc_msgSendSuper2(&v2, "dealloc");
 }
 
-uint64_t type metadata accessor for ClimateStepperPowerButton()
+uint64_t type metadata accessor for ClimateStepperPowerButton(uint64_t a1)
 {
   result = qword_100116C30;
   if (!qword_100116C30)
@@ -5610,7 +6163,7 @@ uint64_t ClimateButton.action.getter()
   v1 = (v0 + OBJC_IVAR____TtC7Climate13ClimateButton_action);
   swift_beginAccess();
   v2 = *v1;
-  sub_10001B054(*v1);
+  sub_10001B054(*v1, v1[1]);
   return v2;
 }
 
@@ -5619,9 +6172,10 @@ uint64_t ClimateButton.action.setter(uint64_t a1, uint64_t a2)
   v5 = (v2 + OBJC_IVAR____TtC7Climate13ClimateButton_action);
   swift_beginAccess();
   v6 = *v5;
+  v7 = v5[1];
   *v5 = a1;
   v5[1] = a2;
-  return sub_100003380(v6);
+  return sub_100003380(v6, v7);
 }
 
 uint64_t ClimateButton.popoverDelegate.setter(uint64_t a1, uint64_t a2)
@@ -5730,7 +6284,7 @@ void sub_1000769E8(uint64_t a1, char a2)
     v9 = v6;
 
     v10 = v5();
-    sub_10000827C(0, &qword_100116930);
+    sub_10000827C(0, &qword_100116930, UIImageSymbolConfiguration_ptr);
     v11 = static NSObject.== infix(_:_:)();
 
     if ((v11 & 1) == 0)
@@ -5749,7 +6303,7 @@ void sub_1000769E8(uint64_t a1, char a2)
     v17 = v4;
 
     v15 = v5();
-    sub_10000827C(0, &qword_100116930);
+    sub_10000827C(0, &qword_100116930, UIImageSymbolConfiguration_ptr);
     v16 = static NSObject.== infix(_:_:)();
 
     if ((v16 & 1) == 0)
@@ -5761,7 +6315,7 @@ void sub_1000769E8(uint64_t a1, char a2)
   }
 }
 
-void (*ClimateButton.imageSystemName.modify(uint64_t *a1))(uint64_t a1, char a2)
+void (*ClimateButton.imageSystemName.modify(uint64_t *a1))(uint64_t a1, uint64_t a2)
 {
   if (&_swift_coroFrameAlloc)
   {
@@ -5823,7 +6377,7 @@ uint64_t sub_100076CBC(uint64_t a1, uint64_t a2, void *a3)
   ClimateButton.updateClimateConfiguration()();
 }
 
-void (*ClimateButton.title.modify(uint64_t *a1))(uint64_t a1, char a2)
+void (*ClimateButton.title.modify(uint64_t *a1))(uint64_t a1, uint64_t a2)
 {
   if (&_swift_coroFrameAlloc)
   {
@@ -6140,24 +6694,25 @@ LABEL_7:
 uint64_t ClimateButton.touchUpInsideActionTriggered()()
 {
   v1 = v0;
-  v2 = (v0 + OBJC_IVAR____TtC7Climate13ClimateButton_action);
+  v2 = v0 + OBJC_IVAR____TtC7Climate13ClimateButton_action;
   swift_beginAccess();
   v3 = *v2;
   if (*v2)
   {
+    v4 = *(v2 + 8);
 
     v3(v1);
-    sub_100003380(v3);
+    sub_100003380(v3, v4);
   }
 
-  v4 = v1 + OBJC_IVAR____TtC7Climate13ClimateButton_popoverDelegate;
+  v5 = v1 + OBJC_IVAR____TtC7Climate13ClimateButton_popoverDelegate;
   swift_beginAccess();
   result = swift_unknownObjectWeakLoadStrong();
   if (result)
   {
-    v6 = *(v4 + 8);
+    v7 = *(v5 + 8);
     ObjectType = swift_getObjectType();
-    (*(v6 + 8))(0, ObjectType, v6);
+    (*(v7 + 8))(0, ObjectType, v7);
     return swift_unknownObjectRelease();
   }
 
@@ -6169,19 +6724,19 @@ uint64_t ClimateButton.longPressGestureTriggered(_:)(void *a1)
   v2 = v1;
   if ([a1 state] == 1)
   {
-    static os_log_type_t.default.getter();
-    sub_10000827C(0, &qword_1001149B0);
-    v4 = static OS_os_log.default.getter();
-    os_log(_:dso:log:_:_:)();
+    v4 = static os_log_type_t.default.getter();
+    sub_10000827C(0, &qword_1001149B0, OS_os_log_ptr);
+    v5 = static OS_os_log.default.getter();
+    os_log(_:dso:log:_:_:)(v4, &_mh_execute_header, v5, "Button did start longPress gesture", 34, 2, _swiftEmptyArrayStorage);
 
-    v5 = &v2[OBJC_IVAR____TtC7Climate13ClimateButton_popoverDelegate];
+    v6 = &v2[OBJC_IVAR____TtC7Climate13ClimateButton_popoverDelegate];
     swift_beginAccess();
     result = swift_unknownObjectWeakLoadStrong();
     if (result)
     {
-      v7 = *(v5 + 1);
+      v8 = *(v6 + 1);
       ObjectType = swift_getObjectType();
-      (*(v7 + 8))(1, ObjectType, v7);
+      (*(v8 + 8))(1, ObjectType, v8);
       return swift_unknownObjectRelease();
     }
   }
@@ -6191,28 +6746,28 @@ uint64_t ClimateButton.longPressGestureTriggered(_:)(void *a1)
     result = [a1 state];
     if (result == 3)
     {
-      static os_log_type_t.default.getter();
-      sub_10000827C(0, &qword_1001149B0);
-      v9 = static OS_os_log.default.getter();
-      os_log(_:dso:log:_:_:)();
+      v10 = static os_log_type_t.default.getter();
+      sub_10000827C(0, &qword_1001149B0, OS_os_log_ptr);
+      v11 = static OS_os_log.default.getter();
+      os_log(_:dso:log:_:_:)(v10, &_mh_execute_header, v11, "Button did end longPress gesture", 32, 2, _swiftEmptyArrayStorage);
 
-      v10 = &v2[OBJC_IVAR____TtC7Climate13ClimateButton_popoverDelegate];
+      v12 = &v2[OBJC_IVAR____TtC7Climate13ClimateButton_popoverDelegate];
       swift_beginAccess();
       if (swift_unknownObjectWeakLoadStrong())
       {
-        v11 = *(v10 + 1);
-        v12 = swift_getObjectType();
-        (*(v11 + 8))(0, v12, v11);
+        v13 = *(v12 + 1);
+        v14 = swift_getObjectType();
+        (*(v13 + 8))(0, v14, v13);
         swift_unknownObjectRelease();
       }
 
       [a1 locationInView:v2];
-      v14 = v13;
       v16 = v15;
+      v18 = v17;
       [v2 bounds];
-      v17.x = v14;
-      v17.y = v16;
-      result = CGRectContainsPoint(v18, v17);
+      v19.x = v16;
+      v19.y = v18;
+      result = CGRectContainsPoint(v20, v19);
       if (result)
       {
         return [v2 sendActionsForControlEvents:64];
@@ -6295,7 +6850,7 @@ LABEL_16:
 
 uint64_t ClimateButton.layoutKey.getter@<X0>(uint64_t a1@<X8>)
 {
-  if ([v1 superview] && (sub_10000827C(0, &qword_100115400), sub_1000040E8(&unk_100116C60), (swift_dynamicCast() & 1) != 0))
+  if ([v1 superview] && (sub_10000827C(0, &qword_100115400, UIView_ptr), sub_1000040E8(&unk_100116C60, &qword_1000D8138), (swift_dynamicCast() & 1) != 0))
   {
     if (*(&v8 + 1))
     {
@@ -6315,7 +6870,7 @@ uint64_t ClimateButton.layoutKey.getter@<X0>(uint64_t a1@<X8>)
     v8 = 0u;
   }
 
-  sub_100008904(&v7, &unk_100116C50);
+  sub_100008904(&v7, &unk_100116C50, &qword_1000D8130);
   v6 = type metadata accessor for CAUVehicleLayoutKey();
   return (*(*(v6 - 8) + 56))(a1, 1, 1, v6);
 }
@@ -6393,16 +6948,16 @@ uint64_t sub_100078128(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 8))
   {
-    sub_100008904(a1, &qword_100116D28);
+    sub_100008904(a1, &qword_100116D28, &qword_1000D82C8);
     sub_100046820(a2, v9);
     v4 = type metadata accessor for UUID();
     (*(*(v4 - 8) + 8))(a2, v4);
-    return sub_100008904(v9, &qword_100116D28);
+    return sub_100008904(v9, &qword_100116D28, &qword_1000D82C8);
   }
 
   else
   {
-    sub_10000A930(a1, v9, &unk_100116D30);
+    sub_10000A930(a1, v9, &unk_100116D30, &qword_1000D7250);
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
     v8 = *v2;
     sub_10004B04C(v9, a2, isUniquelyReferenced_nonNull_native);
@@ -6418,16 +6973,16 @@ uint64_t sub_100078254(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 8))
   {
-    sub_100008904(a1, &qword_100116D10);
+    sub_100008904(a1, &qword_100116D10, &unk_1000D82A0);
     sub_100046844(a2, v9);
     v4 = type metadata accessor for UUID();
     (*(*(v4 - 8) + 8))(a2, v4);
-    return sub_100008904(v9, &qword_100116D10);
+    return sub_100008904(v9, &qword_100116D10, &unk_1000D82A0);
   }
 
   else
   {
-    sub_10000A930(a1, v9, &unk_100117FE0);
+    sub_10000A930(a1, v9, &unk_100117FE0, &qword_1000D6290);
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
     v8 = *v2;
     sub_10004B274(v9, a2, isUniquelyReferenced_nonNull_native);
@@ -6439,7 +6994,7 @@ uint64_t sub_100078254(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t sub_100078380(char a1, uint64_t a2)
+uint64_t sub_100078380(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
   if (a1 == 5)
@@ -6593,20 +7148,20 @@ uint64_t sub_100078700(uint64_t a1, uint64_t a2)
 
 uint64_t sub_1000788C0(uint64_t a1, uint64_t a2)
 {
-  v5 = sub_1000040E8(&unk_1001153F0);
+  v5 = sub_1000040E8(&unk_1001153F0, qword_1000D5C40);
   __chkstk_darwin(v5 - 8);
   v7 = &v17 - v6;
-  v8 = sub_1000040E8(&unk_100114790);
+  v8 = sub_1000040E8(&unk_100114790, &qword_1000D6820);
   v9 = *(v8 - 8);
   v10 = __chkstk_darwin(v8);
   v12 = &v17 - v11;
   if ((*(v9 + 48))(a1, 1, v8, v10) == 1)
   {
-    sub_100008904(a1, &unk_1001153F0);
-    sub_100046A28(a2, v7);
+    sub_100008904(a1, &unk_1001153F0, qword_1000D5C40);
+    sub_100046A28(v7, a2);
     v13 = type metadata accessor for UUID();
     (*(*(v13 - 8) + 8))(a2, v13);
-    return sub_100008904(v7, &unk_1001153F0);
+    return sub_100008904(v7, &unk_1001153F0, qword_1000D5C40);
   }
 
   else
@@ -6647,14 +7202,14 @@ void ClimateButton.backgroundColor.setter(void *a1)
 id ClimateButton.isHighlighted.getter()
 {
   v2.receiver = v0;
-  v2.super_class = type metadata accessor for ClimateButton();
+  v2.super_class = type metadata accessor for ClimateButton(0);
   return objc_msgSendSuper2(&v2, "isHighlighted");
 }
 
 void ClimateButton.isHighlighted.setter(char a1)
 {
   v13.receiver = v1;
-  v13.super_class = type metadata accessor for ClimateButton();
+  v13.super_class = type metadata accessor for ClimateButton(0);
   objc_msgSendSuper2(&v13, "setHighlighted:", a1 & 1);
   v3 = [v1 isHighlighted];
   v4 = v1 + OBJC_IVAR____TtC7Climate13ClimateButton_colorConfig;
@@ -6680,7 +7235,7 @@ void ClimateButton.isHighlighted.setter(char a1)
 
 char *ClimateButton.init()()
 {
-  v1 = sub_1000040E8(&qword_100115840);
+  v1 = sub_1000040E8(&qword_100115840, &qword_1000D6440);
   __chkstk_darwin(v1 - 8);
   v3 = &v54 - v2;
   v57 = type metadata accessor for CAUVehicleLayoutKey();
@@ -6728,7 +7283,7 @@ char *ClimateButton.init()()
   *v15 = qword_10011B070;
   v15[1] = v13;
   v15[2] = v14;
-  v16 = type metadata accessor for ClimateButton();
+  v16 = type metadata accessor for ClimateButton(0);
   v61.receiver = v0;
   v61.super_class = v16;
   v17 = v12;
@@ -6747,7 +7302,7 @@ char *ClimateButton.init()()
   }
 
   v24 = objc_opt_self();
-  sub_1000040E8(&unk_100114770);
+  sub_1000040E8(&unk_100114770, qword_1000D58D0);
   v25 = swift_allocObject();
   *(v25 + 16) = xmmword_1000D5D90;
   v26 = [*&v19[v20] leadingAnchor];
@@ -6771,13 +7326,13 @@ char *ClimateButton.init()()
   v38 = [v36 constraintEqualToAnchor:v37];
 
   *(v25 + 56) = v38;
-  sub_10000827C(0, &qword_1001149C0);
+  sub_10000827C(0, &qword_1001149C0, NSLayoutConstraint_ptr);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
   [v24 activateConstraints:isa];
 
   ObjectType = swift_getObjectType();
-  sub_1000040E8(&qword_100116C70);
+  sub_1000040E8(&qword_100116C70, &qword_1000D8140);
   ObjectType = String.init<A>(describing:)();
   v60 = v40;
   (*((swift_isaMask & *v27) + 0x230))();
@@ -6786,7 +7341,7 @@ char *ClimateButton.init()()
   if ((*(v56 + 48))(v3, 1, v57) == 1)
   {
 
-    sub_100008904(v3, &qword_100115840);
+    sub_100008904(v3, &qword_100115840, &qword_1000D6440);
   }
 
   else
@@ -6876,7 +7431,7 @@ void ClimateButton.__deallocating_deinit()
     swift_endAccess();
 
     (*(v3 + 8))(v8, v2);
-    v14 = type metadata accessor for ClimateButton();
+    v14 = type metadata accessor for ClimateButton(0);
     v16.receiver = v1;
     v16.super_class = v14;
     objc_msgSendSuper2(&v16, "dealloc");
@@ -6898,7 +7453,7 @@ id ClimateGlassView.__allocating_init(coder:)(void *a1)
 void ClimateButton.draw(_:)(double a1, double a2, double a3, double a4)
 {
   v9.receiver = v4;
-  v9.super_class = type metadata accessor for ClimateButton();
+  v9.super_class = type metadata accessor for ClimateButton(0);
   objc_msgSendSuper2(&v9, "drawRect:", a1, a2, a3, a4);
   ClimateButton.createEdgeInsets()();
 }
@@ -6944,19 +7499,19 @@ void sub_100079D18()
               v19 = [v18 userInterfaceLayoutDirection];
 
               v20 = [objc_allocWithZone(NSString) initWithString:v41];
-              sub_1000040E8(&qword_100116D18);
+              sub_1000040E8(&qword_100116D18, qword_1000D82B0);
               inited = swift_initStackObject();
               *(inited + 16) = xmmword_1000D5970;
               static String._unconditionallyBridgeFromObjectiveC(_:)();
               v22 = String._bridgeToObjectiveC()();
 
               *(inited + 32) = v22;
-              *(inited + 64) = sub_10000827C(0, &unk_100114780);
+              *(inited + 64) = sub_10000827C(0, &unk_100114780, UIFont_ptr);
               *(inited + 40) = v13;
               v23 = v13;
               sub_10004EFA0(inited);
               swift_setDeallocating();
-              sub_100008904(inited + 32, &qword_100115F58);
+              sub_100008904(inited + 32, &qword_100115F58, &unk_1000D7410);
               type metadata accessor for Key(0);
               sub_10007A980();
               isa = Dictionary._bridgeToObjectiveC()().super.isa;
@@ -7056,7 +7611,7 @@ void sub_100079D18()
 Swift::Void __swiftcall ClimateButton.didUpdateFocus(in:with:)(UIFocusUpdateContext in, UIFocusAnimationCoordinator with)
 {
   v6.receiver = v2;
-  v6.super_class = type metadata accessor for ClimateButton();
+  v6.super_class = type metadata accessor for ClimateButton(0);
   v5 = objc_msgSendSuper2(&v6, "didUpdateFocusInContext:withAnimationCoordinator:", in.super.isa, with.super.isa);
   (*((swift_isaMask & *v2) + 0x208))(v5);
 }
@@ -7064,7 +7619,7 @@ Swift::Void __swiftcall ClimateButton.didUpdateFocus(in:with:)(UIFocusUpdateCont
 Swift::Void __swiftcall ClimateButton.didMoveToSuperview()()
 {
   v1.receiver = v0;
-  v1.super_class = type metadata accessor for ClimateButton();
+  v1.super_class = type metadata accessor for ClimateButton(0);
   objc_msgSendSuper2(&v1, "didMoveToSuperview");
   sub_1000946A8();
 }
@@ -7078,7 +7633,7 @@ uint64_t sub_10007A4CC(void *a1, void *a2, uint64_t a3)
   *v7 = a1;
   v7[1] = a2;
   v7[2] = a3;
-  sub_10000827C(0, &qword_100115110);
+  sub_10000827C(0, &qword_100115110, NSObject_ptr);
   v11 = a1;
   v12 = a2;
 
@@ -7098,7 +7653,7 @@ void sub_10007A5EC(void *a1)
   v6 = a1;
 
   v7 = v4();
-  sub_10000827C(0, &qword_100116930);
+  sub_10000827C(0, &qword_100116930, UIImageSymbolConfiguration_ptr);
   LOBYTE(v5) = static NSObject.== infix(_:_:)();
 
   if ((v5 & 1) == 0)
@@ -7107,7 +7662,7 @@ void sub_10007A5EC(void *a1)
   }
 }
 
-uint64_t type metadata accessor for ClimateButton()
+uint64_t type metadata accessor for ClimateButton(uint64_t a1)
 {
   result = qword_100116D00;
   if (!qword_100116D00)
@@ -7118,44 +7673,44 @@ uint64_t type metadata accessor for ClimateButton()
   return result;
 }
 
-void _s7Climate0A6ButtonC5coderACSgSo7NSCoderC_tcfc_0()
+void _s7Climate0A6ButtonC5coderACSgSo7NSCoderC_tcfc_0(__n128 a1)
 {
   UUID.init()();
-  *(v0 + OBJC_IVAR____TtC7Climate13ClimateButton_allowFocus) = 1;
-  v1 = (v0 + OBJC_IVAR____TtC7Climate13ClimateButton_action);
-  *v1 = 0;
-  v1[1] = 0;
-  *(v0 + OBJC_IVAR____TtC7Climate13ClimateButton_popoverDelegate + 8) = 0;
-  swift_unknownObjectWeakInit();
-  *(v0 + OBJC_IVAR____TtC7Climate13ClimateButton____lazy_storage___imageSymbolConfiguration) = 0;
-  v2 = (v0 + OBJC_IVAR____TtC7Climate13ClimateButton_imageSystemName);
+  *(v1 + OBJC_IVAR____TtC7Climate13ClimateButton_allowFocus) = 1;
+  v2 = (v1 + OBJC_IVAR____TtC7Climate13ClimateButton_action);
   *v2 = 0;
   v2[1] = 0;
-  v3 = (v0 + OBJC_IVAR____TtC7Climate13ClimateButton_title);
+  *(v1 + OBJC_IVAR____TtC7Climate13ClimateButton_popoverDelegate + 8) = 0;
+  swift_unknownObjectWeakInit();
+  *(v1 + OBJC_IVAR____TtC7Climate13ClimateButton____lazy_storage___imageSymbolConfiguration) = 0;
+  v3 = (v1 + OBJC_IVAR____TtC7Climate13ClimateButton_imageSystemName);
   *v3 = 0;
   v3[1] = 0;
-  *(v0 + OBJC_IVAR____TtC7Climate13ClimateButton_attributedTitle) = 0;
-  *(v0 + OBJC_IVAR____TtC7Climate13ClimateButton_smallTitle) = 0;
-  *(v0 + OBJC_IVAR____TtC7Climate13ClimateButton_spaceBetweenSymbolAndTitle) = 0x4008000000000000;
-  *(v0 + OBJC_IVAR____TtC7Climate13ClimateButton_textOnTopOfSymbol) = 0;
-  v4 = OBJC_IVAR____TtC7Climate13ClimateButton_backgroundView;
+  v4 = (v1 + OBJC_IVAR____TtC7Climate13ClimateButton_title);
+  *v4 = 0;
+  v4[1] = 0;
+  *(v1 + OBJC_IVAR____TtC7Climate13ClimateButton_attributedTitle) = 0;
+  *(v1 + OBJC_IVAR____TtC7Climate13ClimateButton_smallTitle) = 0;
+  *(v1 + OBJC_IVAR____TtC7Climate13ClimateButton_spaceBetweenSymbolAndTitle) = 0x4008000000000000;
+  *(v1 + OBJC_IVAR____TtC7Climate13ClimateButton_textOnTopOfSymbol) = 0;
+  v5 = OBJC_IVAR____TtC7Climate13ClimateButton_backgroundView;
   type metadata accessor for ClimateTransparentView();
-  *(v0 + v4) = [objc_allocWithZone(swift_getObjCClassFromMetadata()) init];
-  v5 = (v0 + OBJC_IVAR____TtC7Climate13ClimateButton_accessibilityLabelModifier);
-  *v5 = 0;
-  v5[1] = 0;
-  *(v0 + OBJC_IVAR____TtC7Climate13ClimateButton_accessibilityLabelShouldIncludeStates) = 1;
-  v6 = (v0 + OBJC_IVAR____TtC7Climate13ClimateButton_accessibilityIdentifierModifier);
+  *(v1 + v5) = [objc_allocWithZone(swift_getObjCClassFromMetadata()) init];
+  v6 = (v1 + OBJC_IVAR____TtC7Climate13ClimateButton_accessibilityLabelModifier);
   *v6 = 0;
   v6[1] = 0;
+  *(v1 + OBJC_IVAR____TtC7Climate13ClimateButton_accessibilityLabelShouldIncludeStates) = 1;
+  v7 = (v1 + OBJC_IVAR____TtC7Climate13ClimateButton_accessibilityIdentifierModifier);
+  *v7 = 0;
+  v7[1] = 0;
   _assertionFailure(_:_:file:line:flags:)();
   __break(1u);
 }
 
-uint64_t sub_10007A898()
+uint64_t sub_10007A898(uint64_t a1)
 {
   result = type metadata accessor for UUID();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     return swift_updateClassMetadata2();
   }
@@ -7179,10 +7734,10 @@ unint64_t sub_10007A980()
 double sub_10007A9DC()
 {
   v1 = *v0;
-  v2 = objc_allocWithZone(type metadata accessor for ClimateSeatFanServiceButton());
+  v2 = objc_allocWithZone(type metadata accessor for ClimateSeatFanServiceButton(0));
   v3 = sub_1000584A8(v1);
   [v3 setTranslatesAutoresizingMaskIntoConstraints:0];
-  sub_1000040E8(&unk_1001179E0);
+  sub_1000040E8(&unk_1001179E0, qword_1000D5C90);
   v4 = swift_allocObject();
   *&result = 1;
   *(v4 + 16) = xmmword_1000D5970;
@@ -7208,40 +7763,40 @@ char *sub_10007AA8C(void *a1)
   v4[2] = v9;
   v4[3] = &_swiftEmptyDictionarySingleton;
   *(v2 + OBJC_IVAR____TtC7Climate19ClimateFanIndicator_autoModeGlyph) = 0;
-  v10 = objc_allocWithZone(type metadata accessor for ClimateFanButton());
+  v10 = objc_allocWithZone(type metadata accessor for ClimateFanButton(0));
   v11 = a1;
-  sub_10009C11C(v11, 1u);
-  v12 = OBJC_IVAR____TtC7Climate19ClimateFanIndicator_fanButton;
-  *(v2 + OBJC_IVAR____TtC7Climate19ClimateFanIndicator_fanButton) = v13;
-  [v13 setTranslatesAutoresizingMaskIntoConstraints:0];
-  v14 = *(v2 + v12);
-  v16 = *v4;
-  v15 = v4[1];
-  v17 = v4[2];
-  v18 = v4[3];
-  v19 = v17;
+  sub_10009C11C(v11, 1u, v12);
+  v13 = OBJC_IVAR____TtC7Climate19ClimateFanIndicator_fanButton;
+  *(v2 + OBJC_IVAR____TtC7Climate19ClimateFanIndicator_fanButton) = v14;
+  [v14 setTranslatesAutoresizingMaskIntoConstraints:0];
+  v15 = *(v2 + v13);
+  v17 = *v4;
+  v16 = v4[1];
+  v18 = v4[2];
+  v19 = v4[3];
+  v20 = v18;
 
-  v20 = v14;
-  v21 = v16;
-  v22 = v15;
-  sub_10009E0D8(v21, v15, v17, v18);
+  v21 = v15;
+  v22 = v17;
+  v23 = v16;
+  sub_10009E0D8(v22, v16, v18, v19);
 
   *(v2 + OBJC_IVAR____TtC7Climate19ClimateFanIndicator_fan) = v11;
-  v23 = v11;
-  v24 = sub_10001414C(0, 0, 1);
-  [v23 registerObserver:v24];
-  [v24 addSubview:*&v24[OBJC_IVAR____TtC7Climate19ClimateFanIndicator_fanButton]];
+  v24 = v11;
+  v25 = sub_10001414C(0, 0, 1);
+  [v24 registerObserver:v25];
+  [v25 addSubview:*&v25[OBJC_IVAR____TtC7Climate19ClimateFanIndicator_fanButton]];
   sub_10007AC9C();
   sub_10007AEE4();
 
-  return v24;
+  return v25;
 }
 
 void sub_10007AC9C()
 {
   v1 = v0;
   v2 = objc_opt_self();
-  sub_1000040E8(&unk_100114770);
+  sub_1000040E8(&unk_100114770, qword_1000D58D0);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_1000D5D90;
   v4 = *&v1[OBJC_IVAR____TtC7Climate19ClimateFanIndicator_fanButton];
@@ -7298,56 +7853,57 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  v9 = [v6 fanLevel];
+  v10 = [v6 fanLevel];
+  v9 = v10;
 LABEL_6:
-  sub_10009BE64(v9);
+  sub_10009BE64(v10, v9);
   sub_1000C10C4();
-  [v1 setEnabled:(sub_10009BF70() & 0x18) == 0];
-  sub_10007B060();
+  v11 = [v1 setEnabled:(sub_10009BF70() & 0x18) == 0];
+  sub_10007B060(v11);
   ClimateButton.refreshColorConfig()();
 
   ClimateButton.createEdgeInsets()();
 }
 
-void sub_10007B060()
+void sub_10007B060(uint64_t a1)
 {
-  v1 = v0;
-  v2 = *(v0 + OBJC_IVAR____TtC7Climate19ClimateFanIndicator_fanButton);
+  v2 = v1;
+  v3 = *(v1 + OBJC_IVAR____TtC7Climate19ClimateFanIndicator_fanButton);
   if ((sub_10009BF70() & 0x1A) == 2)
   {
-    v3 = objc_opt_self();
-    v4 = [v3 labelColor];
-    v5 = [v3 systemGreenColor];
-    v6 = [v5 colorWithAlphaComponent:0.25];
+    v4 = objc_opt_self();
+    v5 = [v4 labelColor];
+    v6 = [v4 systemGreenColor];
+    v7 = [v6 colorWithAlphaComponent:0.25];
 
-    v7 = [v3 systemGreenColor];
-    sub_10009E0D8(v4, v6, v7, &_swiftEmptyDictionarySingleton);
+    v8 = [v4 systemGreenColor];
+    sub_10009E0D8(v5, v7, v8, &_swiftEmptyDictionarySingleton);
 LABEL_5:
 
     goto LABEL_6;
   }
 
-  v9 = *(v2 + OBJC_IVAR____TtC7Climate16ClimateFanButton_progressColors);
-  v8 = *(v2 + OBJC_IVAR____TtC7Climate16ClimateFanButton_progressColors + 8);
-  v10 = *(v2 + OBJC_IVAR____TtC7Climate16ClimateFanButton_progressColors + 16);
-  v11 = *(v2 + OBJC_IVAR____TtC7Climate16ClimateFanButton_progressColors + 24);
-  v12 = *(v1 + OBJC_IVAR____TtC7Climate19ClimateFanIndicator_defaultProgressViewColorConfig);
-  v13 = *(v1 + OBJC_IVAR____TtC7Climate19ClimateFanIndicator_defaultProgressViewColorConfig + 8);
-  v15 = *(v1 + OBJC_IVAR____TtC7Climate19ClimateFanIndicator_defaultProgressViewColorConfig + 16);
-  v14 = *(v1 + OBJC_IVAR____TtC7Climate19ClimateFanIndicator_defaultProgressViewColorConfig + 24);
-  v18 = v10;
+  v10 = *(v3 + OBJC_IVAR____TtC7Climate16ClimateFanButton_progressColors);
+  v9 = *(v3 + OBJC_IVAR____TtC7Climate16ClimateFanButton_progressColors + 8);
+  v11 = *(v3 + OBJC_IVAR____TtC7Climate16ClimateFanButton_progressColors + 16);
+  v12 = *(v3 + OBJC_IVAR____TtC7Climate16ClimateFanButton_progressColors + 24);
+  v13 = *(v2 + OBJC_IVAR____TtC7Climate19ClimateFanIndicator_defaultProgressViewColorConfig);
+  v14 = *(v2 + OBJC_IVAR____TtC7Climate19ClimateFanIndicator_defaultProgressViewColorConfig + 8);
+  v16 = *(v2 + OBJC_IVAR____TtC7Climate19ClimateFanIndicator_defaultProgressViewColorConfig + 16);
+  v15 = *(v2 + OBJC_IVAR____TtC7Climate19ClimateFanIndicator_defaultProgressViewColorConfig + 24);
+  v19 = v11;
 
-  v16 = v9;
-  v17 = v8;
-  LOBYTE(v8) = sub_1000AF2DC(v16, v8, v10, v11, v12, v13, v15, v14);
+  v17 = v10;
+  v18 = v9;
+  LOBYTE(v9) = sub_1000AF2DC(v17, v9, v11, v12, v13, v14, v16, v15);
 
-  if ((v8 & 1) == 0)
+  if ((v9 & 1) == 0)
   {
-    v7 = v15;
+    v8 = v16;
 
-    v4 = v12;
-    v6 = v13;
-    sub_10009E0D8(v4, v13, v15, v14);
+    v5 = v13;
+    v7 = v14;
+    sub_10009E0D8(v5, v14, v16, v15);
 
     goto LABEL_5;
   }
@@ -7370,11 +7926,11 @@ void sub_10007B248()
 id sub_10007B2DC()
 {
   v2.receiver = v0;
-  v2.super_class = type metadata accessor for ClimateFanIndicator();
+  v2.super_class = type metadata accessor for ClimateFanIndicator(0);
   return objc_msgSendSuper2(&v2, "dealloc");
 }
 
-uint64_t type metadata accessor for ClimateFanIndicator()
+uint64_t type metadata accessor for ClimateFanIndicator(uint64_t a1)
 {
   result = qword_100116D68;
   if (!qword_100116D68)
@@ -7618,17 +8174,17 @@ LABEL_19:
 
 void sub_10007BD94(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, int a5)
 {
-  v57 = a5;
-  v54 = a3;
-  v60 = a2;
-  v56 = a1;
-  v7 = sub_1000040E8(&qword_100115108);
+  v59 = a5;
+  v56 = a3;
+  v62 = a2;
+  v58 = a1;
+  v7 = sub_1000040E8(&qword_100115108, &qword_1000D6448);
   __chkstk_darwin(v7 - 8);
-  v9 = &v53 - v8;
+  v9 = &v55 - v8;
   v10 = type metadata accessor for URL();
-  v59 = *(v10 - 8);
+  v61 = *(v10 - 8);
   __chkstk_darwin(v10);
-  v12 = &v53 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = &v55 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   v13 = static os_log_type_t.debug.getter();
   if (qword_100113F00 != -1)
   {
@@ -7644,9 +8200,9 @@ void sub_10007BD94(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, int a5)
     _os_log_impl(&_mh_execute_header, v14, v13, "Updating popover for side: %{public}lu", v15, 0xCu);
   }
 
-  v55 = v12;
-  v58 = a4;
-  v61 = v5;
+  v57 = v12;
+  v60 = a4;
+  v63 = v5;
   v16 = objc_opt_self();
   v17 = [v16 sharedApplication];
   v18 = [v17 delegate];
@@ -7665,7 +8221,7 @@ void sub_10007BD94(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, int a5)
   swift_getKeyPath();
   static Published.subscript.getter();
 
-  if ((v62 & 4) == 0)
+  if ((v64 & 4) == 0)
   {
     v20 = [v16 sharedApplication];
     v21 = [v20 delegate];
@@ -7677,9 +8233,9 @@ void sub_10007BD94(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, int a5)
       swift_unknownObjectRelease();
       v23 = v22[OBJC_IVAR____TtC7Climate18ClimateCoordinator_hasDualStatusBar];
 
-      v24 = v61;
-      v25 = v58;
-      if (!v56)
+      v24 = v63;
+      v25 = v60;
+      if (!v58)
       {
         v26 = static os_log_type_t.debug.getter();
         if (os_log_type_enabled(v14, v26))
@@ -7690,37 +8246,37 @@ void sub_10007BD94(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, int a5)
           _os_log_impl(&_mh_execute_header, v14, v26, "Creating popover for side: %{public}lu", v27, 0xCu);
         }
 
-        [v54 bounds];
+        [v56 bounds];
         if (v23)
         {
           v32 = CGRectGetHeight(*&v28) + -8.0 + -24.0;
           v33 = objc_allocWithZone(type metadata accessor for ClimateVerticalQuickActionPopover());
 
-          sub_10003CABC(v32, v34, v24, &off_1000F8A80);
+          sub_10003CABC(v34, v24, &off_1000F8A80, v32);
           v36 = v35;
         }
 
         else
         {
-          v44 = CGRectGetWidth(*&v28) + -12.0;
-          v45 = objc_allocWithZone(type metadata accessor for ClimateHorizontalQuickActionPopover());
+          v46 = CGRectGetWidth(*&v28) + -12.0;
+          v47 = objc_allocWithZone(type metadata accessor for ClimateHorizontalQuickActionPopover());
 
-          v36 = sub_10009BB14(v46, v24, &off_1000F8A80, v44);
+          v36 = sub_10009BB14(v48, v24, &off_1000F8A80, v46);
         }
 
-        v47 = 40;
+        v49 = 40;
         if (v25 == 2)
         {
-          v47 = 24;
+          v49 = 24;
         }
 
-        v48 = *(v24 + v47);
-        *(v24 + v47) = v36;
-        v49 = v36;
+        v50 = *(v24 + v49);
+        *(v24 + v49) = v36;
+        v51 = v36;
 
         if (swift_unknownObjectWeakLoadStrong())
         {
-          sub_1000238B4(v49, v25);
+          sub_1000238B4(v51, v25);
 
           swift_unknownObjectRelease();
         }
@@ -7731,26 +8287,26 @@ void sub_10007BD94(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, int a5)
       }
 
       Strong = swift_unknownObjectWeakLoadStrong();
-      v51 = v57;
+      v53 = v59;
       if (Strong)
       {
-        sub_10002253C(v57 & 1, v25, 0);
+        sub_10002253C(v59 & 1, v25, 0);
         swift_unknownObjectRelease();
       }
 
-      if (((v23 | v51) & 1) == 0 && swift_unknownObjectWeakLoadStrong())
+      if (((v23 | v53) & 1) == 0 && swift_unknownObjectWeakLoadStrong())
       {
         if (v25 == 2)
         {
-          v52 = 8;
+          v54 = 8;
         }
 
         else
         {
-          v52 = 2;
+          v54 = 2;
         }
 
-        sub_10002253C(1, v52, 0);
+        sub_10002253C(1, v54, 0);
         swift_unknownObjectRelease();
       }
 
@@ -7763,29 +8319,29 @@ LABEL_34:
     return;
   }
 
-  sub_100096674(v60 + OBJC_IVAR____TtC7Climate11ClimateZone_key, v9);
-  v37 = v59;
-  if ((*(v59 + 48))(v9, 1, v10) == 1)
+  sub_100096674(v62 + OBJC_IVAR____TtC7Climate11ClimateZone_key, v9);
+  v37 = v61;
+  if ((*(v61 + 48))(v9, 1, v10) == 1)
   {
     sub_100067DD8(v9);
-    sub_10007C424();
+    sub_10007C424(v38);
   }
 
   else
   {
-    v38 = v55;
-    (*(v37 + 32))(v55, v9, v10);
-    v39 = swift_unknownObjectWeakLoadStrong();
-    if (v39)
+    v39 = v57;
+    (*(v37 + 32))(v57, v9, v10);
+    v40 = swift_unknownObjectWeakLoadStrong();
+    if (v40)
     {
-      v41 = v39;
-      URL._bridgeToObjectiveC()(v40);
-      v43 = v42;
-      [v41 openURL:v42 options:0 completionHandler:0];
+      v42 = v40;
+      URL._bridgeToObjectiveC()(v41);
+      v44 = v43;
+      [v42 openURL:v43 options:0 completionHandler:0];
     }
 
-    (*(v37 + 8))(v38, v10);
-    sub_10007C424();
+    v45.n128_f64[0] = (*(v37 + 8))(v39, v10);
+    sub_10007C424(v45);
   }
 }
 
@@ -7798,82 +8354,82 @@ uint64_t sub_10007C3A0()
   return swift_deallocClassInstance();
 }
 
-void sub_10007C424()
+void sub_10007C424(__n128 a1)
 {
-  v1 = v0;
-  v2 = type metadata accessor for CAUFeatureConfiguration();
-  v3 = *(v2 - 8);
-  __chkstk_darwin(v2);
-  v5 = &v24 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = type metadata accessor for CAUFeatureConfiguration.Climate();
-  v7 = *(v6 - 8);
-  v8 = __chkstk_darwin(v6);
-  v10 = &v24 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v8);
-  v12 = &v24 - v11;
-  v13 = [objc_opt_self() sharedApplication];
-  v14 = [v13 delegate];
+  v2 = v1;
+  v3 = type metadata accessor for CAUFeatureConfiguration();
+  v4 = *(v3 - 8);
+  __chkstk_darwin(v3);
+  v6 = &v25 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = type metadata accessor for CAUFeatureConfiguration.Climate();
+  v8 = *(v7 - 8);
+  __chkstk_darwin(v7);
+  v10 = &v25 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v11);
+  v13 = &v25 - v12;
+  v14 = [objc_opt_self() sharedApplication];
+  v15 = [v14 delegate];
 
-  if (v14)
+  if (v15)
   {
     type metadata accessor for ClimateAppDelegate();
     swift_dynamicCastClassUnconditional();
-    v15 = sub_1000AF438();
+    v16 = sub_1000AF438();
     swift_unknownObjectRelease();
 
-    v16 = dispatch thunk of CAUAssetLibraryManager.slimAssetLibrary.getter();
+    v17 = dispatch thunk of CAUAssetLibraryManager.slimAssetLibrary.getter();
 
-    if (v16 && (CAUAssetLibrary.featureConfiguration()(), v16, CAUFeatureConfiguration.climate.getter(), (*(v3 + 8))(v5, v2), (*(v7 + 32))(v12, v10, v6), v17 = CAUFeatureConfiguration.Climate.oemPunchThroughs.getter(), (*(v7 + 8))(v12, v6), v17))
+    if (v17 && (CAUAssetLibrary.featureConfiguration()(), v17, CAUFeatureConfiguration.climate.getter(), (*(v4 + 8))(v6, v3), (*(v8 + 32))(v13, v10, v7), v18 = CAUFeatureConfiguration.Climate.oemPunchThroughs.getter(), (*(v8 + 8))(v13, v7), v18))
     {
-      v18 = *(v17 + 16);
+      v19 = *(v18 + 16);
 
-      v19 = v18 == 0;
+      v20 = v19 == 0;
     }
 
     else
     {
-      v19 = 1;
+      v20 = 1;
     }
 
     if (swift_unknownObjectWeakLoadStrong())
     {
-      sub_10002253C(1, 2, v19);
+      sub_10002253C(1, 2, v20);
       swift_unknownObjectRelease();
     }
 
     if (swift_unknownObjectWeakLoadStrong())
     {
-      sub_10002253C(1, 8, v19);
+      sub_10002253C(1, 8, v20);
       swift_unknownObjectRelease();
     }
 
-    v20 = *(v1 + 32);
-    if (v20)
+    v21 = *(v2 + 32);
+    if (v21)
     {
-      [v20 invalidate];
-      v21 = *(v1 + 32);
+      [v21 invalidate];
+      v22 = *(v2 + 32);
     }
 
     else
     {
-      v21 = 0;
+      v22 = 0;
     }
 
-    *(v1 + 32) = 0;
+    *(v2 + 32) = 0;
 
-    v22 = *(v1 + 48);
-    if (v22)
+    v23 = *(v2 + 48);
+    if (v23)
     {
-      [v22 invalidate];
-      v23 = *(v1 + 48);
+      [v23 invalidate];
+      v24 = *(v2 + 48);
     }
 
     else
     {
-      v23 = 0;
+      v24 = 0;
     }
 
-    *(v1 + 48) = 0;
+    *(v2 + 48) = 0;
   }
 
   else
@@ -7891,51 +8447,53 @@ void sub_10007C758(uint64_t a1)
   v6 = swift_allocObject();
   *(v6 + 16) = v5;
   *(v6 + 24) = a1;
-  v14[4] = sub_10007CD28;
-  v14[5] = v6;
-  v14[0] = _NSConcreteStackBlock;
-  v14[1] = 1107296256;
-  v14[2] = sub_1000AD34C;
-  v14[3] = &unk_1000F8AF0;
-  v7 = _Block_copy(v14);
+  v16[4] = sub_10007CD28;
+  v16[5] = v6;
+  v16[0] = _NSConcreteStackBlock;
+  v16[1] = 1107296256;
+  v16[2] = sub_1000AD34C;
+  v16[3] = &unk_1000F8AF0;
+  v7 = _Block_copy(v16);
 
   v8 = [v3 scheduledTimerWithTimeInterval:0 repeats:v7 block:v4];
   _Block_release(v7);
-  static os_log_type_t.debug.getter();
+  v9 = static os_log_type_t.debug.getter();
   if (qword_100113F00 != -1)
   {
+    v15 = v9;
     swift_once();
+    v9 = v15;
   }
 
-  os_log(_:dso:log:_:_:)();
+  os_log(_:dso:log:_:_:)(v9, &_mh_execute_header, qword_10011B1C0, "ClimatePopoverManager timer created.", 36, 2, _swiftEmptyArrayStorage);
   if (a1 != 2)
   {
-    v13 = *(v1 + 48);
-    v10 = (v1 + 48);
-    v9 = v13;
-    if (v13)
+    v14 = *(v1 + 48);
+    v11 = (v1 + 48);
+    v10 = v14;
+    if (v14)
     {
       goto LABEL_5;
     }
 
 LABEL_7:
-    v12 = 0;
+    v13 = 0;
     goto LABEL_8;
   }
 
-  v11 = *(v1 + 32);
-  v10 = (v1 + 32);
-  v9 = v11;
-  if (!v11)
+  v12 = *(v1 + 32);
+  v11 = (v1 + 32);
+  v10 = v12;
+  if (!v12)
   {
     goto LABEL_7;
   }
 
 LABEL_5:
-  [v9 invalidate];
-  v12 = *v10;
+  [v10 invalidate];
+  v13 = *v11;
 LABEL_8:
-  *v10 = v8;
+  *v11 = v8;
 }
 
 void sub_10007C924(void *a1, char a2)
@@ -8011,37 +8569,47 @@ LABEL_12:
   }
 }
 
-uint64_t sub_10007CB28(void *a1, uint64_t a2, uint64_t a3)
+double sub_10007CB28(void *a1, uint64_t a2, uint64_t a3)
 {
   swift_beginAccess();
   if (swift_weakLoadStrong())
   {
     if ([a1 isValid])
     {
-      static os_log_type_t.debug.getter();
+      v5 = static os_log_type_t.debug.getter();
       if (qword_100113F00 != -1)
       {
+        v9 = v5;
         swift_once();
+        v5 = v9;
       }
 
-      os_log(_:dso:log:_:_:)();
-      if (!swift_unknownObjectWeakLoadStrong())
+      os_log(_:dso:log:_:_:)(v5, &_mh_execute_header, qword_10011B1C0, "ClimatePopoverManager timer did fired.", 38, 2, _swiftEmptyArrayStorage);
+      if (swift_unknownObjectWeakLoadStrong())
+      {
+        sub_10002253C(1, a3, 0);
+
+        swift_unknownObjectRelease();
+      }
+
+      else
       {
       }
 
-      sub_10002253C(1, a3, 0);
-
-      return swift_unknownObjectRelease();
+      return result;
     }
   }
 
-  static os_log_type_t.debug.getter();
+  v7 = static os_log_type_t.debug.getter();
   if (qword_100113F00 != -1)
   {
+    v8 = v7;
     swift_once();
+    v7 = v8;
   }
 
-  return os_log(_:dso:log:_:_:)();
+  os_log(_:dso:log:_:_:)(v7, &_mh_execute_header, qword_10011B1C0, "ClimatePopoverManager timer invalidated.", 40, 2, _swiftEmptyArrayStorage);
+  return result;
 }
 
 uint64_t sub_10007CCB8()
@@ -8057,11 +8625,13 @@ uint64_t sub_10007CCF0()
   return _swift_deallocObject(v0, 32, 7);
 }
 
-uint64_t sub_10007CD30(uint64_t a1, uint64_t a2)
+double sub_10007CD30(uint64_t a1, uint64_t a2)
 {
   v2 = *(a2 + 40);
   *(a1 + 32) = *(a2 + 32);
   *(a1 + 40) = v2;
+
+  return result;
 }
 
 uint64_t sub_10007CD50(uint64_t *a1, int a2)
@@ -8128,7 +8698,7 @@ id sub_10007CDE8()
   v1 = [v0 labelColor];
   v2 = [v1 colorWithAlphaComponent:0.6];
 
-  sub_10000827C(0, &qword_1001167A8);
+  sub_10000827C(0, &qword_1001167A8, UIColor_ptr);
   LOBYTE(v1) = static NSObject.== infix(_:_:)();
 
   if (v1 & 1) != 0 || (v3 = [v0 cl_carSystemTertiaryColor], v4 = objc_msgSend(v3, "colorWithAlphaComponent:", 0.1), v3, LOBYTE(v3) = static NSObject.== infix(_:_:)(), v4, (v3) || (v5 = objc_msgSend(v0, "clearColor"), v6 = static NSObject.== infix(_:_:)(), v5, (v6))
@@ -8156,11 +8726,11 @@ id sub_10007CDE8()
   }
 }
 
-void sub_10007CFD0(uint64_t a1, uint64_t a2)
+void sub_10007CFD0(uint64_t *a1, uint64_t a2)
 {
-  v2 = *(a1 + 16);
+  v2 = a1[2];
   v3 = *(a2 + 16);
-  sub_10000827C(0, &qword_100115110);
+  sub_10000827C(0, &qword_100115110, NSObject_ptr);
   if (static NSObject.== infix(_:_:)() & 1) != 0 && (static NSObject.== infix(_:_:)())
   {
 
@@ -8187,41 +8757,41 @@ unint64_t sub_10007D0DC(uint64_t a1)
   return result;
 }
 
-uint64_t sub_10007D104(void *a1, void *a2)
+uint64_t sub_10007D104(void *a1, void *a2, uint64_t a3)
 {
   _StringGuts.grow(_:)(59);
-  v4._object = 0x80000001000DD800;
-  v4._countAndFlagsBits = 0xD000000000000020;
-  String.append(_:)(v4);
-  v5 = [a1 description];
-  v6 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v8 = v7;
+  v5._object = 0x80000001000DD800;
+  v5._countAndFlagsBits = 0xD000000000000020;
+  String.append(_:)(v5);
+  v6 = [a1 description];
+  v7 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v9 = v8;
 
-  v9._countAndFlagsBits = v6;
-  v9._object = v8;
-  String.append(_:)(v9);
-
-  v10._countAndFlagsBits = 0x6F726765726F6620;
-  v10._object = 0xEC0000003D646E75;
+  v10._countAndFlagsBits = v7;
+  v10._object = v9;
   String.append(_:)(v10);
-  v11 = [a2 description];
-  v12 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v14 = v13;
 
-  v15._countAndFlagsBits = v12;
-  v15._object = v14;
-  String.append(_:)(v15);
+  v11._countAndFlagsBits = 0x6F726765726F6620;
+  v11._object = 0xEC0000003D646E75;
+  String.append(_:)(v11);
+  v12 = [a2 description];
+  v13 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v15 = v14;
 
-  v16._countAndFlagsBits = 0x3D73657461747320;
-  v16._object = 0xE800000000000000;
+  v16._countAndFlagsBits = v13;
+  v16._object = v15;
   String.append(_:)(v16);
-  sub_10007D298();
-  v17._countAndFlagsBits = Dictionary.description.getter();
-  String.append(_:)(v17);
 
-  v18._countAndFlagsBits = 62;
-  v18._object = 0xE100000000000000;
+  v17._countAndFlagsBits = 0x3D73657461747320;
+  v17._object = 0xE800000000000000;
+  String.append(_:)(v17);
+  sub_10007D298();
+  v18._countAndFlagsBits = Dictionary.description.getter();
   String.append(_:)(v18);
+
+  v19._countAndFlagsBits = 62;
+  v19._object = 0xE100000000000000;
+  String.append(_:)(v19);
   return 0;
 }
 
@@ -8363,7 +8933,7 @@ LABEL_13:
     v23 = *(v21 + 8);
     v25 = *(v21 + 24);
     v45 = *(v21 + 16);
-    sub_10000827C(0, &qword_100115110);
+    sub_10000827C(0, &qword_100115110, NSObject_ptr);
     v46 = v45;
     v48 = v25;
 
@@ -8390,7 +8960,7 @@ LABEL_28:
         goto LABEL_28;
       }
 
-      sub_10000827C(0, &qword_1001167A8);
+      sub_10000827C(0, &qword_1001167A8, UIColor_ptr);
       v32 = v49;
       v33 = v27;
       v34 = static NSObject.== infix(_:_:)();
@@ -8423,7 +8993,7 @@ LABEL_34:
         goto LABEL_33;
       }
 
-      sub_10000827C(0, &qword_1001167A8);
+      sub_10000827C(0, &qword_1001167A8, UIColor_ptr);
       v36 = v35;
       v37 = v29;
       v38 = static NSObject.== infix(_:_:)();
@@ -8505,7 +9075,7 @@ void sub_10007DB08(uint64_t a1, uint64_t a2)
       while (v8)
       {
         v10 = __clz(__rbit64(v8));
-        v31 = (v8 - 1) & v8;
+        v32 = (v8 - 1) & v8;
 LABEL_13:
         v13 = v10 | (v4 << 6);
         v14 = *(*(v3 + 48) + 8 * v13);
@@ -8521,14 +9091,14 @@ LABEL_13:
 
         v21 = *(v2 + 56) + 24 * v19;
         v22 = *v21;
-        v32 = *(v21 + 8);
+        v33 = *(v21 + 8);
         v23 = *(v21 + 16);
-        sub_10000827C(0, &qword_100115110);
+        sub_10000827C(0, &qword_100115110, NSObject_ptr);
         v24 = v17;
         v25 = v16;
 
         v26 = v22;
-        v27 = v32;
+        v27 = v33;
 
         if ((static NSObject.== infix(_:_:)() & 1) == 0 || (static NSObject.== infix(_:_:)() & 1) == 0)
         {
@@ -8536,12 +9106,13 @@ LABEL_13:
           return;
         }
 
-        v28 = sub_10007DB08(v23, v18);
+        sub_10007DB08(v23, v18);
+        v29 = v28;
 
         v3 = a1;
         v2 = a2;
-        v8 = v31;
-        if ((v28 & 1) == 0)
+        v8 = v32;
+        if ((v29 & 1) == 0)
         {
           return;
         }
@@ -8566,7 +9137,7 @@ LABEL_13:
         if (v12)
         {
           v10 = __clz(__rbit64(v12));
-          v31 = (v12 - 1) & v12;
+          v32 = (v12 - 1) & v12;
           goto LABEL_13;
         }
       }
@@ -8588,7 +9159,7 @@ unint64_t sub_10007DD14(Swift::UInt a1)
 unint64_t sub_10007DD80(uint64_t a1)
 {
   type metadata accessor for UUID();
-  sub_10007E6D8(&qword_100115800, &type metadata accessor for UUID);
+  sub_10007E6D8(&qword_100115800, &type metadata accessor for UUID, &protocol conformance descriptor for UUID);
   v2 = dispatch thunk of Hashable._rawHashValue(seed:)();
   return sub_10007E304(a1, v2, &type metadata accessor for UUID, &qword_100114CA8, &type metadata accessor for UUID, &protocol conformance descriptor for UUID);
 }
@@ -8606,17 +9177,18 @@ unint64_t sub_10007DE54(uint64_t a1)
 unint64_t sub_10007DEE8(uint64_t a1)
 {
   type metadata accessor for CAUVehicleLayoutKey();
-  sub_10007E6D8(&qword_100115E40, &type metadata accessor for CAUVehicleLayoutKey);
+  sub_10007E6D8(&qword_100115E40, &type metadata accessor for CAUVehicleLayoutKey, &protocol conformance descriptor for CAUVehicleLayoutKey);
   v2 = dispatch thunk of Hashable._rawHashValue(seed:)();
   return sub_10007E304(a1, v2, &type metadata accessor for CAUVehicleLayoutKey, &qword_1001152B0, &type metadata accessor for CAUVehicleLayoutKey, &protocol conformance descriptor for CAUVehicleLayoutKey);
 }
 
-unint64_t sub_10007DFBC(uint64_t a1, uint64_t a2, char a3)
+unint64_t sub_10007DFBC(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
   Hasher.init(_seed:)();
-  if (a3)
+  if (v3)
   {
-    if (a3 == 1)
+    if (v3 == 1)
     {
       Hasher._combine(_:)(3uLL);
       v6 = a1;
@@ -8651,7 +9223,7 @@ unint64_t sub_10007DFBC(uint64_t a1, uint64_t a2, char a3)
 
   v7 = Hasher._finalize()();
 
-  return sub_10007E4A4(a1, a2, a3, v7);
+  return sub_10007E4A4(a1, a2, v3, v7);
 }
 
 unint64_t sub_10007E0B0(uint64_t a1, uint64_t a2)
@@ -8663,13 +9235,14 @@ unint64_t sub_10007E0B0(uint64_t a1, uint64_t a2)
   return sub_10007E620(a1, a2, v4);
 }
 
-unint64_t sub_10007E128(unsigned __int8 a1)
+unint64_t sub_10007E128(uint64_t a1)
 {
+  v1 = a1;
   Hasher.init(_seed:)();
-  Hasher._combine(_:)(a1);
+  Hasher._combine(_:)(v1);
   v2 = Hasher._finalize()();
 
-  return sub_10007E720(a1, v2);
+  return sub_10007E720(v1, v2);
 }
 
 unint64_t sub_10007E194(uint64_t a1, uint64_t a2)
@@ -8729,45 +9302,45 @@ unint64_t sub_10007E200(uint64_t a1, uint64_t a2)
   return v4;
 }
 
-unint64_t sub_10007E304(uint64_t a1, uint64_t a2, uint64_t (*a3)(void), unint64_t *a4, void (*a5)(uint64_t), uint64_t a6)
+unint64_t sub_10007E304(uint64_t a1, uint64_t a2, uint64_t (*a3)(void), unint64_t *a4, uint64_t (*a5)(uint64_t), uint64_t a6)
 {
-  v24 = a5;
-  v25 = a6;
-  v23 = a4;
-  v21[1] = a1;
+  v25 = a5;
+  v26 = a6;
+  v24 = a4;
+  v22[1] = a1;
   v8 = a3(0);
   v9 = *(v8 - 8);
-  __chkstk_darwin(v8);
-  v11 = v21 - v10;
-  v22 = v6;
-  v12 = -1 << *(v6 + 32);
-  v13 = a2 & ~v12;
-  v21[0] = v6 + 64;
-  if ((*(v6 + 64 + ((v13 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v13))
+  v10 = __chkstk_darwin(v8);
+  v12 = v22 - v11;
+  v23 = v6;
+  v13 = -1 << *(v6 + 32);
+  v14 = a2 & ~v13;
+  v22[0] = v6 + 64;
+  if ((*(v6 + 64 + ((v14 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v14))
   {
-    v14 = ~v12;
-    v17 = *(v9 + 16);
-    v16 = v9 + 16;
-    v15 = v17;
-    v18 = *(v16 + 56);
+    v15 = ~v13;
+    v18 = *(v9 + 16);
+    v17 = v9 + 16;
+    v16 = v18;
+    v19 = *(v17 + 56);
     do
     {
-      v15(v11, *(v22 + 48) + v18 * v13, v8);
-      sub_10007E6D8(v23, v24);
-      v19 = dispatch thunk of static Equatable.== infix(_:_:)();
-      (*(v16 - 8))(v11, v8);
-      if (v19)
+      v16(v12, *(v23 + 48) + v19 * v14, v8, v10);
+      sub_10007E6D8(v24, v25, v26);
+      v20 = dispatch thunk of static Equatable.== infix(_:_:)();
+      (*(v17 - 8))(v12, v8);
+      if (v20)
       {
         break;
       }
 
-      v13 = (v13 + 1) & v14;
+      v14 = (v14 + 1) & v15;
     }
 
-    while (((*(v21[0] + ((v13 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v13) & 1) != 0);
+    while (((*(v22[0] + ((v14 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v14) & 1) != 0);
   }
 
-  return v13;
+  return v14;
 }
 
 unint64_t sub_10007E4A4(uint64_t a1, uint64_t a2, char a3, uint64_t a4)
@@ -8889,7 +9462,7 @@ unint64_t sub_10007E620(uint64_t a1, uint64_t a2, uint64_t a3)
   return v5;
 }
 
-uint64_t sub_10007E6D8(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_10007E6D8(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -8980,7 +9553,7 @@ id sub_10007E858(char a1, void *a2, uint64_t a3)
 
   v8 = objc_opt_self();
   v9 = [v8 clearColor];
-  sub_10000827C(0, &qword_1001167A8);
+  sub_10000827C(0, &qword_1001167A8, UIColor_ptr);
   v10 = static NSObject.== infix(_:_:)();
 
   if ((a1 & 8) == 0)
@@ -9041,7 +9614,7 @@ id sub_10007E990(char a1, void *a2, uint64_t a3)
 
     v8 = v17;
     v24 = [v17 clearColor];
-    sub_10000827C(0, &qword_1001167A8);
+    sub_10000827C(0, &qword_1001167A8, UIColor_ptr);
     v25 = static NSObject.== infix(_:_:)();
 
     if (v25)
@@ -9072,7 +9645,7 @@ LABEL_33:
   {
     v8 = objc_opt_self();
     v9 = [v8 clearColor];
-    sub_10000827C(0, &qword_1001167A8);
+    sub_10000827C(0, &qword_1001167A8, UIColor_ptr);
     v10 = static NSObject.== infix(_:_:)();
 
     if (v10)
@@ -9105,7 +9678,7 @@ LABEL_33:
   {
     v26 = v21;
     v27 = [v21 clearColor];
-    sub_10000827C(0, &qword_1001167A8);
+    sub_10000827C(0, &qword_1001167A8, UIColor_ptr);
     v28 = static NSObject.== infix(_:_:)();
 
     if (v28)
@@ -9133,7 +9706,7 @@ LABEL_23:
   v6 = v23;
   v29 = objc_opt_self();
   v30 = [v29 clearColor];
-  sub_10000827C(0, &qword_1001167A8);
+  sub_10000827C(0, &qword_1001167A8, UIColor_ptr);
   v31 = static NSObject.== infix(_:_:)();
 
   if (v31)
@@ -9197,641 +9770,6 @@ uint64_t sub_10007EE90()
 id sub_10007EFB0()
 {
   v2.receiver = v0;
-  v2.super_class = type metadata accessor for ClimateDeepLinkAutomakerSettingButton();
+  v2.super_class = type metadata accessor for ClimateDeepLinkAutomakerSettingButton(0);
   return objc_msgSendSuper2(&v2, "dealloc");
-}
-
-uint64_t type metadata accessor for ClimateDeepLinkAutomakerSettingButton()
-{
-  result = qword_100116FA8;
-  if (!qword_100116FA8)
-  {
-    return swift_getSingletonMetadata();
-  }
-
-  return result;
-}
-
-id sub_10007F094()
-{
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for ClimateTargetTemperatureTracker();
-  return objc_msgSendSuper2(&v2, "dealloc");
-}
-
-uint64_t sub_10007F0FC(void *a1)
-{
-  v2 = v1;
-  v4 = sub_1000040E8(&unk_1001153F0);
-  __chkstk_darwin(v4 - 8);
-  v34 = &v31 - v5;
-  v6 = type metadata accessor for UUID();
-  v7 = *(v6 - 8);
-  __chkstk_darwin(v6);
-  v33 = &v31 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v9);
-  v11 = &v31 - v10;
-  v12 = sub_1000040E8(&unk_100114790);
-  v13 = *(v12 - 8);
-  __chkstk_darwin(v12);
-  v15 = &v31 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  *&v17 = __chkstk_darwin(v16).n128_u64[0];
-  v19 = &v31 - v18;
-  v32 = a1;
-  v20 = [a1 uniqueIdentifier];
-  static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-
-  v21 = OBJC_IVAR____TtC7Climate31ClimateTargetTemperatureTracker_targetTemperatures;
-  swift_beginAccess();
-  v22 = *(v2 + v21);
-  if (*(v22 + 16))
-  {
-
-    v23 = sub_10007DD80(v11);
-    if (v24)
-    {
-      (*(v13 + 16))(v15, *(v22 + 56) + *(v13 + 72) * v23, v12);
-      (*(v7 + 8))(v11, v6);
-
-      (*(v13 + 32))(v19, v15, v12);
-      v25 = v32;
-      CAFTemperature.adjustTargetTemperatureIfNeeded(visibleTemperature:)(v19);
-      v26 = [v25 uniqueIdentifier];
-      v27 = v33;
-      static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-
-      v28 = [v25 targetTemperature];
-      sub_10007F6E4();
-      v29 = v34;
-      static Measurement._unconditionallyBridgeFromObjectiveC(_:)();
-
-      (*(v13 + 56))(v29, 0, 1, v12);
-      swift_beginAccess();
-      sub_1000788C0(v29, v27);
-      swift_endAccess();
-      return (*(v13 + 8))(v19, v12);
-    }
-  }
-
-  return (*(v7 + 8))(v11, v6);
-}
-
-unint64_t sub_10007F6E4()
-{
-  result = qword_100114AB0;
-  if (!qword_100114AB0)
-  {
-    objc_opt_self();
-    result = swift_getObjCClassMetadata();
-    atomic_store(result, &qword_100114AB0);
-  }
-
-  return result;
-}
-
-id sub_10007F79C()
-{
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for ClimatePassthroughButton();
-  return objc_msgSendSuper2(&v2, "dealloc");
-}
-
-uint64_t type metadata accessor for ClimatePassthroughButton()
-{
-  result = qword_100117018;
-  if (!qword_100117018)
-  {
-    return swift_getSingletonMetadata();
-  }
-
-  return result;
-}
-
-void sub_10007F828()
-{
-  v1 = v0;
-  v2 = type metadata accessor for CAUVehicleLayoutKey();
-  v3 = *(v2 - 8);
-  v4 = __chkstk_darwin(v2);
-  v6 = &v23 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  if (((*((swift_isaMask & *v0) + 0x118))(v4) & 0x18) != 0)
-  {
-    v7 = [*(v0 + OBJC_IVAR____TtC7Climate24ClimateVentServiceButton_vent) combinations];
-    sub_10000827C(0, &qword_1001170B8);
-    v8 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
-
-    v9 = v8 >> 62 ? _CocoaArrayWrapper.endIndex.getter() : *((v8 & 0xFFFFFFFFFFFFFF8) + 0x10);
-
-    if (v9 >= 2)
-    {
-      v11 = *(v1 + OBJC_IVAR____TtC7Climate24ClimateVentServiceButton_defaultSymbolName);
-      v10 = *(v1 + OBJC_IVAR____TtC7Climate24ClimateVentServiceButton_defaultSymbolName + 8);
-      v12 = (v1 + OBJC_IVAR____TtC7Climate13ClimateButton_imageSystemName);
-      swift_beginAccess();
-      v13 = *v12;
-      v14 = v12[1];
-      *v12 = v11;
-      v12[1] = v10;
-      if (v14)
-      {
-        v15 = v11 == v13 && v14 == v10;
-        if (v15 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-        {
-
-          goto LABEL_21;
-        }
-      }
-
-LABEL_20:
-      ClimateButton.updateClimateConfiguration()();
-      goto LABEL_21;
-    }
-  }
-
-  sub_10000827C(0, &qword_100115830);
-  CAFPositionedRequired.layoutKey.getter();
-  sub_100028A98();
-  v17 = v16;
-  (*(v3 + 8))(v6, v2);
-  v18 = CAFVent.symbolName(useRightFacingSeat:)(v17 & 1);
-  v19 = (v1 + OBJC_IVAR____TtC7Climate13ClimateButton_imageSystemName);
-  swift_beginAccess();
-  countAndFlagsBits = v19->_countAndFlagsBits;
-  object = v19->_object;
-  *v19 = v18;
-  if (!object)
-  {
-    goto LABEL_20;
-  }
-
-  v22 = v18._countAndFlagsBits == countAndFlagsBits && object == v18._object;
-  if (!v22 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
-  {
-    goto LABEL_20;
-  }
-
-LABEL_21:
-
-  sub_1000C10C4();
-  [v1 setEnabled:((*((swift_isaMask & *v1) + 0x118))() & 0x18) == 0];
-  sub_10007FF08();
-  (*((swift_isaMask & *v1) + 0x208))();
-  ClimateButton.createEdgeInsets()();
-}
-
-uint64_t sub_10007FB98()
-{
-  v1 = *(v0 + OBJC_IVAR____TtC7Climate24ClimateVentServiceButton_vent);
-  if (![v1 hasOn])
-  {
-    v5 = [v1 autoMode];
-    v6 = [v1 currentIndexRestricted];
-    v7 = [v1 currentIndexInvalid];
-    v8 = [v1 currentIndexDisabled];
-    if (v5)
-    {
-      if (v6)
-      {
-        v9 = 7;
-        v10 = 15;
-        goto LABEL_12;
-      }
-
-      if (v7)
-      {
-        result = 11;
-      }
-
-      else
-      {
-        result = 3;
-      }
-
-      if (!v8)
-      {
-        return result;
-      }
-    }
-
-    else
-    {
-      if (v6)
-      {
-        v9 = 5;
-        v10 = 13;
-LABEL_12:
-        if (v7)
-        {
-          result = v10;
-        }
-
-        else
-        {
-          result = v9;
-        }
-
-        if ((v8 & 1) == 0)
-        {
-          return result;
-        }
-
-        return result | 0x10;
-      }
-
-      if (v7)
-      {
-        result = 9;
-      }
-
-      else
-      {
-        result = 1;
-      }
-
-      if ((v8 & 1) == 0)
-      {
-        return result;
-      }
-    }
-
-    return result | 0x10;
-  }
-
-  v2 = [v1 on];
-  v3 = [v1 autoMode];
-  if ([v1 onRestricted])
-  {
-    v4 = 1;
-  }
-
-  else
-  {
-    v4 = [v1 currentIndexRestricted];
-  }
-
-  if ([v1 onInvalid])
-  {
-    v11 = 1;
-  }
-
-  else
-  {
-    v11 = [v1 currentIndexInvalid];
-  }
-
-  if ([v1 onDisabled])
-  {
-    if (v2)
-    {
-      if (v3)
-      {
-        if (v4)
-        {
-          if (v11)
-          {
-            return 31;
-          }
-
-          return 23;
-        }
-
-        if (v11)
-        {
-          return 27;
-        }
-
-        return 19;
-      }
-
-      if (v4)
-      {
-        if (v11)
-        {
-          return 29;
-        }
-
-        return 21;
-      }
-
-      if (v11)
-      {
-        return 25;
-      }
-
-      return 17;
-    }
-
-    if (v3)
-    {
-      if (v4)
-      {
-        if (v11)
-        {
-          return 30;
-        }
-
-        return 22;
-      }
-
-      if (v11)
-      {
-        return 26;
-      }
-
-      return 18;
-    }
-
-    if (v4)
-    {
-      if (v11)
-      {
-        return 28;
-      }
-
-      return 20;
-    }
-
-    if (v11)
-    {
-      return 24;
-    }
-
-    return 16;
-  }
-
-  v13 = [v1 currentIndexDisabled];
-  if (v2)
-  {
-    if (v3)
-    {
-      if (v4)
-      {
-        if (v11)
-        {
-          if (v13)
-          {
-            return 31;
-          }
-
-          return 15;
-        }
-
-        else
-        {
-          if (v13)
-          {
-            return 23;
-          }
-
-          return 7;
-        }
-      }
-
-      else if (v11)
-      {
-        if (v13)
-        {
-          return 27;
-        }
-
-        return 11;
-      }
-
-      else
-      {
-        if (v13)
-        {
-          return 19;
-        }
-
-        return 3;
-      }
-    }
-
-    else if (v4)
-    {
-      if (v11)
-      {
-        if (v13)
-        {
-          return 29;
-        }
-
-        return 13;
-      }
-
-      else
-      {
-        if (v13)
-        {
-          return 21;
-        }
-
-        return 5;
-      }
-    }
-
-    else if (v11)
-    {
-      if (v13)
-      {
-        return 25;
-      }
-
-      return 9;
-    }
-
-    else
-    {
-      if (v13)
-      {
-        return 17;
-      }
-
-      return 1;
-    }
-  }
-
-  else if (v3)
-  {
-    if (v4)
-    {
-      if (v11)
-      {
-        if (v13)
-        {
-          return 30;
-        }
-
-        return 14;
-      }
-
-      else
-      {
-        if (v13)
-        {
-          return 22;
-        }
-
-        return 6;
-      }
-    }
-
-    else if (v11)
-    {
-      if (v13)
-      {
-        return 26;
-      }
-
-      return 10;
-    }
-
-    else
-    {
-      if (v13)
-      {
-        return 18;
-      }
-
-      return 2;
-    }
-  }
-
-  else if (v4)
-  {
-    if (v11)
-    {
-      if (v13)
-      {
-        return 28;
-      }
-
-      return 12;
-    }
-
-    else
-    {
-      if (v13)
-      {
-        return 20;
-      }
-
-      return 4;
-    }
-  }
-
-  else if (v11)
-  {
-    if (v13)
-    {
-      return 24;
-    }
-
-    return 8;
-  }
-
-  else
-  {
-    if (v13)
-    {
-      return 16;
-    }
-
-    return 0;
-  }
-}
-
-void sub_10007FF08()
-{
-  v1 = v0;
-  if (((*((swift_isaMask & *v0) + 0x118))() & 0x1B) == 1)
-  {
-    v2 = &OBJC_IVAR____TtC7Climate15ClimateOnButton_onColor;
-  }
-
-  else
-  {
-    v2 = &OBJC_IVAR____TtC7Climate15ClimateOnButton_offColor;
-  }
-
-  v3 = v0 + *v2;
-  v4 = *(v3 + 1);
-  v5 = *(v3 + 2);
-  v6 = *v3;
-  v7 = v4;
-
-  sub_10007A4CC(v6, v7, v5);
-
-  v8 = (*((swift_isaMask & *v1) + 0x118))();
-  if ((v8 & 0x1A) == 2)
-  {
-    v9 = v8;
-    v10 = [objc_opt_self() systemGreenColor];
-    if ((v9 & 4) != 0)
-    {
-      v17 = sub_10007CDE8();
-
-      v18 = *(v1 + OBJC_IVAR____TtC7Climate13ClimateButton_colorConfig + 8);
-      v11 = sub_10007CDE8();
-
-      v10 = v17;
-    }
-
-    else
-    {
-      v11 = *(v1 + OBJC_IVAR____TtC7Climate13ClimateButton_colorConfig + 8);
-    }
-
-    v19 = [objc_opt_self() systemFontOfSize:19.0 weight:UIFontWeightRegular];
-    v20 = objc_opt_self();
-    v21 = [v20 configurationWithFont:v19 scale:-1];
-
-    sub_1000040E8(&unk_100114770);
-    v22 = swift_allocObject();
-    *(v22 + 16) = xmmword_1000D58A0;
-    *(v22 + 32) = v10;
-    *(v22 + 40) = v11;
-    sub_10000827C(0, &qword_1001167A8);
-    v15 = v10;
-    v30 = v11;
-    isa = Array._bridgeToObjectiveC()().super.isa;
-
-    v24 = [v20 configurationWithPaletteColors:isa];
-
-    v25 = [v21 configurationByApplyingConfiguration:v24];
-    v26 = ClimateButton.imageSymbolConfiguration.getter();
-    v27 = *(v1 + OBJC_IVAR____TtC7Climate13ClimateButton____lazy_storage___imageSymbolConfiguration);
-    *(v1 + OBJC_IVAR____TtC7Climate13ClimateButton____lazy_storage___imageSymbolConfiguration) = v25;
-    v28 = v25;
-
-    v29 = ClimateButton.imageSymbolConfiguration.getter();
-    sub_10000827C(0, &qword_100116930);
-    LOBYTE(v27) = static NSObject.== infix(_:_:)();
-
-    if ((v27 & 1) == 0)
-    {
-      ClimateButton.updateClimateConfiguration()();
-    }
-  }
-
-  else
-  {
-    v12 = [objc_opt_self() systemFontOfSize:19.0 weight:UIFontWeightRegular];
-    v13 = [objc_opt_self() configurationWithFont:v12 scale:-1];
-
-    v30 = ClimateButton.imageSymbolConfiguration.getter();
-    v14 = *(v1 + OBJC_IVAR____TtC7Climate13ClimateButton____lazy_storage___imageSymbolConfiguration);
-    *(v1 + OBJC_IVAR____TtC7Climate13ClimateButton____lazy_storage___imageSymbolConfiguration) = v13;
-    v15 = v13;
-
-    v16 = ClimateButton.imageSymbolConfiguration.getter();
-    sub_10000827C(0, &qword_100116930);
-    LOBYTE(v14) = static NSObject.== infix(_:_:)();
-
-    if ((v14 & 1) == 0)
-    {
-      ClimateButton.updateClimateConfiguration()();
-    }
-  }
 }

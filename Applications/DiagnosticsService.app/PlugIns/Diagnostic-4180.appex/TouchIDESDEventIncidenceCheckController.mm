@@ -6,18 +6,8 @@
 
 - (void)start
 {
-  if (([(TouchIDESDEventIncidenceCheckController *)self isCancelled]& 1) != 0)
+  if ((-[TouchIDESDEventIncidenceCheckController isCancelled](self, "isCancelled") & 1) != 0 || (-[TouchIDESDEventIncidenceCheckController inputs](self, "inputs"), v3 = objc_claimAutoreleasedReturnValue(), [v3 biokitOptions], v4 = objc_claimAutoreleasedReturnValue(), +[TouchIDManager runTouchIDDiagnostic:options:](TouchIDManager, "runTouchIDDiagnostic:options:", 5, v4), v9 = objc_claimAutoreleasedReturnValue(), v4, v3, !v9))
   {
-    goto LABEL_5;
-  }
-
-  inputs = [(TouchIDESDEventIncidenceCheckController *)self inputs];
-  biokitOptions = [inputs biokitOptions];
-  v9 = [TouchIDManager runTouchIDDiagnostic:5 options:biokitOptions];
-
-  if (!v9)
-  {
-LABEL_5:
     v9 = 0;
   }
 

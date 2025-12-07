@@ -67,7 +67,7 @@
       v14 = airdrop_log();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        sub_10026BD44(error);
+        sub_10026BD44();
       }
     }
 
@@ -87,7 +87,7 @@
     v15 = airdrop_log();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      sub_10026BDBC(error);
+      sub_10026BDBC();
     }
 
     v16 = 0;

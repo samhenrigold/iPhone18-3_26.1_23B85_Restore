@@ -95,16 +95,16 @@
 
 - (void)setUpUI
 {
-  v52.receiver = self;
-  v52.super_class = HROnboardingAtrialFibrillationGateViewController;
-  [(HROnboardingAtrialFibrillationGateViewController *)&v52 setUpUI];
+  v56.receiver = self;
+  v56.super_class = HROnboardingAtrialFibrillationGateViewController;
+  [(HROnboardingAtrialFibrillationGateViewController *)&v56 setUpUI];
   v3 = objc_alloc_init(MEMORY[0x277D756B8]);
   [(HROnboardingAtrialFibrillationGateViewController *)self setTitleLabel:v3];
 
-  v4 = HRHeartRhythmUIFrameworkBundle();
-  v5 = [v4 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETECTION_ONBOARDING_GATE_TITLE" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
+  v5 = HRHeartRhythmUIFrameworkBundle(v4);
+  v6 = [v5 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETECTION_ONBOARDING_GATE_TITLE" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
   titleLabel = [(HROnboardingAtrialFibrillationGateViewController *)self titleLabel];
-  [titleLabel setText:v5];
+  [titleLabel setText:v6];
 
   titleLabel2 = [(HROnboardingAtrialFibrillationGateViewController *)self titleLabel];
   [titleLabel2 setTextAlignment:4];
@@ -123,13 +123,13 @@
   titleLabel6 = [(HROnboardingAtrialFibrillationGateViewController *)self titleLabel];
   [contentView addSubview:titleLabel6];
 
-  v14 = objc_alloc_init(MEMORY[0x277D756B8]);
-  [(HROnboardingAtrialFibrillationGateViewController *)self setBodyLabel:v14];
+  v15 = objc_alloc_init(MEMORY[0x277D756B8]);
+  [(HROnboardingAtrialFibrillationGateViewController *)self setBodyLabel:v15];
 
-  v15 = HRHeartRhythmUIFrameworkBundle();
-  v16 = [v15 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETECTION_ONBOARDING_GATE_BODY" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
+  v17 = HRHeartRhythmUIFrameworkBundle(v16);
+  v18 = [v17 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETECTION_ONBOARDING_GATE_BODY" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
   bodyLabel = [(HROnboardingAtrialFibrillationGateViewController *)self bodyLabel];
-  [bodyLabel setText:v16];
+  [bodyLabel setText:v18];
 
   bodyLabel2 = [(HROnboardingAtrialFibrillationGateViewController *)self bodyLabel];
   [bodyLabel2 setTextAlignment:4];
@@ -148,16 +148,16 @@
   bodyLabel6 = [(HROnboardingAtrialFibrillationGateViewController *)self bodyLabel];
   [bodyLabel6 setNumberOfLines:0];
 
-  v25 = [(HROnboardingAtrialFibrillationGateViewController *)self axidForElementWithString:@"GetStartedSubtitle"];
+  v27 = [(HROnboardingAtrialFibrillationGateViewController *)self axidForElementWithString:@"GetStartedSubtitle"];
   bodyLabel7 = [(HROnboardingAtrialFibrillationGateViewController *)self bodyLabel];
-  [bodyLabel7 setAccessibilityIdentifier:v25];
+  [bodyLabel7 setAccessibilityIdentifier:v27];
 
   contentView2 = [(HROnboardingAtrialFibrillationGateViewController *)self contentView];
   bodyLabel8 = [(HROnboardingAtrialFibrillationGateViewController *)self bodyLabel];
   [contentView2 addSubview:bodyLabel8];
 
-  v29 = objc_alloc_init(HRQuestionSelectionView);
-  [(HROnboardingAtrialFibrillationGateViewController *)self setAgeQuestionView:v29];
+  v31 = objc_alloc_init(HRQuestionSelectionView);
+  [(HROnboardingAtrialFibrillationGateViewController *)self setAgeQuestionView:v31];
 
   ageQuestionView = [(HROnboardingAtrialFibrillationGateViewController *)self ageQuestionView];
   [ageQuestionView setTranslatesAutoresizingMaskIntoConstraints:0];
@@ -168,10 +168,10 @@
   ageQuestionView3 = [(HROnboardingAtrialFibrillationGateViewController *)self ageQuestionView];
   [ageQuestionView3 setDelegate:self];
 
-  v33 = HRHeartRhythmUIFrameworkBundle();
-  v34 = [v33 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETECTION_ONBOARDING_GATE_AGE_PROMPT" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
+  v36 = HRHeartRhythmUIFrameworkBundle(v35);
+  v37 = [v36 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETECTION_ONBOARDING_GATE_AGE_PROMPT" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
   ageQuestionView4 = [(HROnboardingAtrialFibrillationGateViewController *)self ageQuestionView];
-  [ageQuestionView4 setQuestionText:v34];
+  [ageQuestionView4 setQuestionText:v37];
 
   ageQuestionView5 = [(HROnboardingAtrialFibrillationGateViewController *)self ageQuestionView];
   [ageQuestionView5 reloadOptions];
@@ -180,16 +180,16 @@
   ageQuestionView6 = [(HROnboardingAtrialFibrillationGateViewController *)self ageQuestionView];
   [contentView3 addSubview:ageQuestionView6];
 
-  v39 = objc_alloc_init(HRQuestionSelectionView);
-  [(HROnboardingAtrialFibrillationGateViewController *)self setPreviousAfibQuestionView:v39];
+  v42 = objc_alloc_init(HRQuestionSelectionView);
+  [(HROnboardingAtrialFibrillationGateViewController *)self setPreviousAfibQuestionView:v42];
 
   previousAfibQuestionView = [(HROnboardingAtrialFibrillationGateViewController *)self previousAfibQuestionView];
   [previousAfibQuestionView setTranslatesAutoresizingMaskIntoConstraints:0];
 
-  v41 = HRHeartRhythmUIFrameworkBundle();
-  v42 = [v41 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETECTION_ONBOARDING_GATE_DIAGNOSIS_PROMPT" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
+  v45 = HRHeartRhythmUIFrameworkBundle(v44);
+  v46 = [v45 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETECTION_ONBOARDING_GATE_DIAGNOSIS_PROMPT" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
   previousAfibQuestionView2 = [(HROnboardingAtrialFibrillationGateViewController *)self previousAfibQuestionView];
-  [previousAfibQuestionView2 setQuestionText:v42];
+  [previousAfibQuestionView2 setQuestionText:v46];
 
   previousAfibQuestionView3 = [(HROnboardingAtrialFibrillationGateViewController *)self previousAfibQuestionView];
   [previousAfibQuestionView3 setIdentifier:@"DiagnosisQuestionID"];
@@ -200,9 +200,9 @@
   prefilledDiagnosis = self->_prefilledDiagnosis;
   if (prefilledDiagnosis)
   {
-    v47 = [(NSNumber *)prefilledDiagnosis isEqual:&unk_286471770];
+    v51 = [(NSNumber *)prefilledDiagnosis isEqual:&unk_286471770];
     previousAfibQuestionView5 = [(HROnboardingAtrialFibrillationGateViewController *)self previousAfibQuestionView];
-    [previousAfibQuestionView5 setSelectedIndex:v47];
+    [previousAfibQuestionView5 setSelectedIndex:v51];
   }
 
   previousAfibQuestionView6 = [(HROnboardingAtrialFibrillationGateViewController *)self previousAfibQuestionView];
@@ -219,7 +219,7 @@
 - (void)_setUpStackedButtonView
 {
   v10[1] = *MEMORY[0x277D85DE8];
-  v3 = HRHeartRhythmUIFrameworkBundle();
+  v3 = HRHeartRhythmUIFrameworkBundle(self);
   v4 = [v3 localizedStringForKey:@"ONBOARDING_CONTINUE" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable"];
   v10[0] = v4;
   v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
@@ -592,7 +592,7 @@ LABEL_8:
 
 - (id)ageIneligiblePromptTitleString
 {
-  v2 = HRHeartRhythmUIFrameworkBundle();
+  v2 = HRHeartRhythmUIFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETECTION_AGE_GATE_INELIGIBLE_TITLE" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
 
   return v3;
@@ -600,7 +600,7 @@ LABEL_8:
 
 - (id)ageIneligiblePromptBodyString
 {
-  v2 = HRHeartRhythmUIFrameworkBundle();
+  v2 = HRHeartRhythmUIFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETECTION_AGE_GATE_INELIGIBLE_BODY" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
 
   return v3;
@@ -608,7 +608,7 @@ LABEL_8:
 
 - (id)ageIneligiblePromptAckButtonString
 {
-  v2 = HRHeartRhythmUIFrameworkBundle();
+  v2 = HRHeartRhythmUIFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETECTION_AGE_GATE_INELIGIBLE_ACK_BUTTON" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
 
   return v3;
@@ -616,7 +616,7 @@ LABEL_8:
 
 - (id)diagnosisIneligiblePromptTitleString
 {
-  v2 = HRHeartRhythmUIFrameworkBundle();
+  v2 = HRHeartRhythmUIFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETECTION_DIAGNOSIS_GATE_INELIGIBLE_TITLE" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
 
   return v3;
@@ -624,7 +624,7 @@ LABEL_8:
 
 - (id)diagnosisIneligiblePromptBodyString
 {
-  v2 = HRHeartRhythmUIFrameworkBundle();
+  v2 = HRHeartRhythmUIFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETECTION_DIAGNOSIS_GATE_INELIGIBLE_BODY" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
 
   return v3;
@@ -632,7 +632,7 @@ LABEL_8:
 
 - (id)diagnosisIneligiblePromptAckButtonString
 {
-  v2 = HRHeartRhythmUIFrameworkBundle();
+  v2 = HRHeartRhythmUIFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETECTION_DIAGNOSIS_GATE_INELIGIBLE_ACK_BUTTON" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
 
   return v3;
@@ -640,7 +640,7 @@ LABEL_8:
 
 - (id)footnoteString
 {
-  v2 = HRHeartRhythmUIFrameworkBundle();
+  v2 = HRHeartRhythmUIFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETECTION_ONBOARDING_GATE_FOOTER" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
 
   return v3;

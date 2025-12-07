@@ -45,10 +45,10 @@
 - (void)loadView
 {
   selfCopy = self;
-  v23 = a2;
-  v22.receiver = self;
-  v22.super_class = BuddyMandatoryUpdateAboutController;
-  [(BuddyMandatoryUpdateAboutController *)&v22 loadView];
+  v25 = a2;
+  v24.receiver = self;
+  v24.super_class = BuddyMandatoryUpdateAboutController;
+  [(BuddyMandatoryUpdateAboutController *)&v24 loadView];
   v2 = +[UIColor systemBackgroundColor];
   view = [(BuddyMandatoryUpdateAboutController *)selfCopy view];
   [view setBackgroundColor:v2];
@@ -63,22 +63,22 @@
   location = [(BuddyMandatoryUpdateAboutController *)selfCopy topLevelStackView];
   topAnchor = [safeAreaLayoutGuide topAnchor];
   topAnchor2 = [location topAnchor];
-  v17 = [topAnchor constraintEqualToAnchor:-57.0 constant:?];
-  v25[0] = v17;
+  v19 = [topAnchor constraintEqualToAnchor:-57.0 constant:?];
+  v27[0] = v19;
   bottomAnchor = [safeAreaLayoutGuide bottomAnchor];
   bottomAnchor2 = [location bottomAnchor];
   v9 = [bottomAnchor constraintGreaterThanOrEqualToAnchor:bottomAnchor2 constant:57.0];
-  v25[1] = v9;
+  v27[1] = v9;
   leadingAnchor = [safeAreaLayoutGuide leadingAnchor];
   leadingAnchor2 = [location leadingAnchor];
-  v12 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:-sub_1000BC3F0()];
-  v25[2] = v12;
+  v13 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:{-sub_1000BC3F0(leadingAnchor2, v12)}];
+  v27[2] = v13;
   trailingAnchor = [safeAreaLayoutGuide trailingAnchor];
   trailingAnchor2 = [location trailingAnchor];
-  v15 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:sub_1000BC3F0()];
-  v25[3] = v15;
-  v16 = [NSArray arrayWithObjects:v25 count:4];
-  [NSLayoutConstraint activateConstraints:v16];
+  v17 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:{sub_1000BC3F0(trailingAnchor2, v16)}];
+  v27[3] = v17;
+  v18 = [NSArray arrayWithObjects:v27 count:4];
+  [NSLayoutConstraint activateConstraints:v18];
 
   objc_storeStrong(&location, 0);
   objc_storeStrong(&safeAreaLayoutGuide, 0);

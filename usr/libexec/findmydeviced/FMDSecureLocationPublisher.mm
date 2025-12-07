@@ -119,16 +119,16 @@
 
   if (isMonitoring)
   {
-    v8 = +[FMNetworkMonitor sharedInstance];
-    isNetworkUp = [v8 isNetworkUp];
+    v9 = +[FMNetworkMonitor sharedInstance];
+    isNetworkUp = [v9 isNetworkUp];
 
     if ((isNetworkUp & 1) == 0)
     {
-      v10 = sub_1000029E0();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v12 = sub_1000029E0(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "SecureLocationPublisher: network is not up. lets keep location, not publish it", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "SecureLocationPublisher: network is not up. lets keep location, not publish it", buf, 2u);
       }
 
       [(FMDSecureLocationPublisher *)self setLastReceivedLocation:locationCopy];
@@ -138,11 +138,11 @@
 
   else
   {
-    v11 = sub_1000029E0();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = sub_1000029E0(v8);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "SecureLocationPublisher: we are not monitoring network. lets publish and try", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "SecureLocationPublisher: we are not monitoring network. lets publish and try", buf, 2u);
     }
   }
 
@@ -151,30 +151,30 @@
   if (publishingBlock)
   {
     publishQueue = [(FMDSecureLocationPublisher *)self publishQueue];
-    v18 = _NSConcreteStackBlock;
-    v19 = 3221225472;
-    v20 = sub_1001D6CFC;
-    v21 = &unk_1002CD8B0;
-    v23 = publishingBlock;
-    v14 = locationCopy;
-    v22 = v14;
-    dispatch_async(publishQueue, &v18);
+    v20 = _NSConcreteStackBlock;
+    v21 = 3221225472;
+    v22 = sub_1001D6CFC;
+    v23 = &unk_1002CD8B0;
+    v25 = publishingBlock;
+    v16 = locationCopy;
+    v24 = v16;
+    dispatch_async(publishQueue, &v20);
 
-    locationInfo = [v14 locationInfo];
+    locationInfo = [v16 locationInfo];
     timestamp = [locationInfo timestamp];
     [(FMDSecureLocationPublisher *)self _persistLastPublishedTimestamp:timestamp];
 
     [(FMDSecureLocationPublisher *)self setLastReceivedLocation:0];
-    v17 = v23;
+    v19 = v25;
   }
 
   else
   {
-    v17 = sub_1000029E0();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v19 = sub_1000029E0(0);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "SecureLocationPublisher: no publish block to send locations to", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "SecureLocationPublisher: no publish block to send locations to", buf, 2u);
     }
   }
 
@@ -211,16 +211,16 @@ LABEL_14:
   if (timestampCopy)
   {
     [timestampCopy timeIntervalSince1970];
-    v6 = [NSNumber numberWithDouble:?];
-    [FMPreferencesUtil setObject:v6 forKey:@"secureLocationsLastPublishedTimestamp" inDomain:kFMDNotBackedUpPrefDomain];
+    v7 = [NSNumber numberWithDouble:?];
+    [FMPreferencesUtil setObject:v7 forKey:@"secureLocationsLastPublishedTimestamp" inDomain:kFMDNotBackedUpPrefDomain];
   }
 
-  v7 = sub_1000029E0();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = sub_1000029E0(v6);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = timestampCopy;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "SecureLocationPublisher: Persisted lastPublished %@", &v8, 0xCu);
+    v9 = 138412290;
+    v10 = timestampCopy;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "SecureLocationPublisher: Persisted lastPublished %@", &v9, 0xCu);
   }
 }
 

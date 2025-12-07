@@ -2,6 +2,7 @@
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection;
 - (CDXManager)init;
 - (id)_loadExtensionDataOperationWithStore:(id)store extension:(id)extension;
+- (id)identificationEntryFrom:(id)from withName:(id)name withIconURL:(id)l withType:(int64_t)type fromCache:(BOOL)cache;
 - (void)_setUpTemporaryDirectory;
 - (void)callDirectoryHost:(id)host requestedEnabledForLiveLookupExtension:(id)extension completionHandler:(id)handler;
 - (void)callDirectoryHost:(id)host requestedEnabledStatusForExtension:(id)extension completionHandler:(id)handler;
@@ -14,9 +15,11 @@
 - (void)callDirectoryHost:(id)host requestedRefreshPIRParametersForLiveLookupExtension:(id)extension completionHandler:(id)handler;
 - (void)callDirectoryHost:(id)host requestedReloadForExtension:(id)extension completionHandler:(id)handler;
 - (void)callDirectoryHost:(id)host requestedResetForLiveLookupExtension:(id)extension completionHandler:(id)handler;
+- (void)callDirectoryHost:(id)host requestedSetEnabled:(BOOL)enabled forLiveLookupExtension:(id)extension completionHandler:(id)handler;
 - (void)callDirectoryHost:(id)host requestedToCompactStoreWithCompletionHandler:(id)handler;
 - (void)callDirectoryHost:(id)host requestedToLaunchCallDirectorySettingsWithCompletionHandler:(id)handler;
 - (void)callDirectoryHost:(id)host requestedToPrepareStoreWithCompletionHandler:(id)handler;
+- (void)callDirectoryHost:(id)host requestedToSetEnabled:(BOOL)enabled forExtension:(id)extension completionHandler:(id)handler;
 - (void)callDirectoryHost:(id)host requestedToSetPrioritizedExtensionIdentifiers:(id)identifiers completionHandler:(id)handler;
 - (void)callDirectoryHost:(id)host requestedToSynchronizeExtensionsWithCompletionHandler:(id)handler;
 - (void)callDirectoryHostRequestedToCleanupLiveLookupData:(id)data;
@@ -100,7 +103,8 @@
 
   else
   {
-    if (![bundleIdentifier isEqualToString:CXCallDirectoryMaintenanceHostBundleIdentifier])
+    v8 = [bundleIdentifier isEqualToString:CXCallDirectoryMaintenanceHostBundleIdentifier];
+    if (!v8)
     {
       goto LABEL_7;
     }
@@ -121,7 +125,7 @@
   }
 
 LABEL_7:
-  v9 = sub_100005CC4();
+  v9 = sub_100005CC4(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     sub_100021B60();
@@ -137,40 +141,41 @@ LABEL_10:
 {
   extensionCopy = extension;
   handlerCopy = handler;
-  v9 = sub_100005CC4();
+  v9 = sub_100005CC4(handlerCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v20 = extensionCopy;
+    v21 = extensionCopy;
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "extension %@", buf, 0xCu);
   }
 
-  v18 = 0;
-  v10 = [[CXCallDirectoryStore alloc] initForReadingAndWritingWithError:&v18];
-  v11 = v18;
+  v19 = 0;
+  v10 = [[CXCallDirectoryStore alloc] initForReadingAndWritingWithError:&v19];
+  v11 = v19;
+  v12 = v11;
   if (v10)
   {
-    v12 = [(CDXManager *)self _loadExtensionDataOperationWithStore:v10 extension:extensionCopy];
-    v14[0] = _NSConcreteStackBlock;
-    v14[1] = 3221225472;
-    v14[2] = sub_100009F68;
-    v14[3] = &unk_100034DC8;
-    v15 = extensionCopy;
-    v16 = v10;
-    v17 = handlerCopy;
-    [v12 performWithCompletionHandler:v14];
+    v13 = [(CDXManager *)self _loadExtensionDataOperationWithStore:v10 extension:extensionCopy];
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = sub_100009F68;
+    v15[3] = &unk_100034DC8;
+    v16 = extensionCopy;
+    v17 = v10;
+    v18 = handlerCopy;
+    [v13 performWithCompletionHandler:v15];
   }
 
   else
   {
-    v13 = sub_100005CC4();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = sub_100005CC4(v11);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_100021BC8();
     }
 
-    v12 = [NSError cx_callDirectoryManagerErrorWithCode:0];
-    (*(handlerCopy + 2))(handlerCopy, v12);
+    v13 = [NSError cx_callDirectoryManagerErrorWithCode:0];
+    (*(handlerCopy + 2))(handlerCopy, v13);
   }
 }
 
@@ -178,78 +183,37 @@ LABEL_10:
 {
   extensionCopy = extension;
   handlerCopy = handler;
-  v8 = sub_100005CC4();
+  v8 = sub_100005CC4(handlerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v21 = extensionCopy;
+    v22 = extensionCopy;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "extension %@", buf, 0xCu);
   }
 
-  v19 = 0;
-  v9 = [[CXCallDirectoryStore alloc] initForReadingAndWritingWithError:&v19];
-  v10 = v19;
+  v20 = 0;
+  v9 = [[CXCallDirectoryStore alloc] initForReadingAndWritingWithError:&v20];
+  v10 = v20;
+  v11 = v10;
   if (v9)
   {
-    v11 = [CDXRetrieveExtensionEnabledStatusOperation alloc];
+    v12 = [CDXRetrieveExtensionEnabledStatusOperation alloc];
     identifier = [extensionCopy identifier];
-    v13 = [(CDXRetrieveExtensionEnabledStatusOperation *)v11 initWithExtensionIdentifier:identifier store:v9];
+    v14 = [(CDXRetrieveExtensionEnabledStatusOperation *)v12 initWithExtensionIdentifier:identifier store:v9];
 
-    v15[0] = _NSConcreteStackBlock;
-    v15[1] = 3221225472;
-    v15[2] = sub_10000A200;
-    v15[3] = &unk_100034DF0;
-    v16 = extensionCopy;
-    v17 = v9;
-    v18 = handlerCopy;
-    [(CDXRetrieveExtensionEnabledStatusOperation *)v13 performWithCompletionHandler:v15];
-  }
-
-  else
-  {
-    v14 = sub_100005CC4();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
-    {
-      sub_100021CB0();
-    }
-
-    v13 = [NSError cx_callDirectoryManagerErrorWithCode:0];
-    (*(handlerCopy + 2))(handlerCopy, 0, v13);
-  }
-}
-
-- (void)callDirectoryHost:(id)host requestedFirstIdentificationEntriesForEnabledExtensionsWithPhoneNumbers:(id)numbers cacheOnly:(BOOL)only completionHandler:(id)handler
-{
-  numbersCopy = numbers;
-  handlerCopy = handler;
-  v11 = sub_100005CC4();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 138412290;
-    v23 = numbersCopy;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "phoneNumbers %@", buf, 0xCu);
-  }
-
-  v21 = 0;
-  v12 = [[CXCallDirectoryStore alloc] initForReadingAndWritingWithError:&v21];
-  v13 = v21;
-  if (v12)
-  {
-    v14 = [[CDXRetrieveFirstIdentificationEntriesOperation alloc] initWithPhoneNumbers:numbersCopy store:v12];
     v16[0] = _NSConcreteStackBlock;
     v16[1] = 3221225472;
-    v16[2] = sub_10000A760;
-    v16[3] = &unk_100034E68;
-    v17 = numbersCopy;
-    selfCopy = self;
-    onlyCopy = only;
+    v16[2] = sub_10000A200;
+    v16[3] = &unk_100034DF0;
+    v17 = extensionCopy;
+    v18 = v9;
     v19 = handlerCopy;
-    [(CDXRetrieveFirstIdentificationEntriesOperation *)v14 performWithCompletionHandler:v16];
+    [(CDXRetrieveExtensionEnabledStatusOperation *)v14 performWithCompletionHandler:v16];
   }
 
   else
   {
-    v15 = sub_100005CC4();
+    v15 = sub_100005CC4(v10);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       sub_100021CB0();
@@ -257,6 +221,99 @@ LABEL_10:
 
     v14 = [NSError cx_callDirectoryManagerErrorWithCode:0];
     (*(handlerCopy + 2))(handlerCopy, 0, v14);
+  }
+}
+
+- (void)callDirectoryHost:(id)host requestedToSetEnabled:(BOOL)enabled forExtension:(id)extension completionHandler:(id)handler
+{
+  enabledCopy = enabled;
+  extensionCopy = extension;
+  handlerCopy = handler;
+  v11 = sub_100005CC4(handlerCopy);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412546;
+    v27 = extensionCopy;
+    v28 = 1024;
+    v29 = enabledCopy;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "extension %@ enabled %d", buf, 0x12u);
+  }
+
+  v25 = 0;
+  v12 = [[CXCallDirectoryStore alloc] initForReadingAndWritingWithError:&v25];
+  v13 = v25;
+  v14 = v13;
+  if (v12)
+  {
+    v15 = [(CDXManager *)self _loadExtensionDataOperationWithStore:v12 extension:extensionCopy];
+    v16 = [CDXSetExtensionEnabledOperation alloc];
+    identifier = [extensionCopy identifier];
+    v18 = [(CDXSetExtensionEnabledOperation *)v16 initWithExtensionIdentifier:identifier enabled:enabledCopy loadExtensionDataOperation:v15 store:v12];
+
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = sub_10000A4E0;
+    v20[3] = &unk_100034E18;
+    v24 = enabledCopy;
+    v21 = extensionCopy;
+    v22 = v12;
+    v23 = handlerCopy;
+    [(CDXSetExtensionEnabledOperation *)v18 performWithCompletionHandler:v20];
+  }
+
+  else
+  {
+    v19 = sub_100005CC4(v13);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    {
+      sub_100021BC8();
+    }
+
+    v15 = [NSError cx_callDirectoryManagerErrorWithCode:0];
+    (*(handlerCopy + 2))(handlerCopy, v15);
+  }
+}
+
+- (void)callDirectoryHost:(id)host requestedFirstIdentificationEntriesForEnabledExtensionsWithPhoneNumbers:(id)numbers cacheOnly:(BOOL)only completionHandler:(id)handler
+{
+  numbersCopy = numbers;
+  handlerCopy = handler;
+  v11 = sub_100005CC4(handlerCopy);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412290;
+    v24 = numbersCopy;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "phoneNumbers %@", buf, 0xCu);
+  }
+
+  v22 = 0;
+  v12 = [[CXCallDirectoryStore alloc] initForReadingAndWritingWithError:&v22];
+  v13 = v22;
+  v14 = v13;
+  if (v12)
+  {
+    v15 = [[CDXRetrieveFirstIdentificationEntriesOperation alloc] initWithPhoneNumbers:numbersCopy store:v12];
+    v17[0] = _NSConcreteStackBlock;
+    v17[1] = 3221225472;
+    v17[2] = sub_10000A760;
+    v17[3] = &unk_100034E68;
+    v18 = numbersCopy;
+    selfCopy = self;
+    onlyCopy = only;
+    v20 = handlerCopy;
+    [(CDXRetrieveFirstIdentificationEntriesOperation *)v15 performWithCompletionHandler:v17];
+  }
+
+  else
+  {
+    v16 = sub_100005CC4(v13);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    {
+      sub_100021CB0();
+    }
+
+    v15 = [NSError cx_callDirectoryManagerErrorWithCode:0];
+    (*(handlerCopy + 2))(handlerCopy, 0, v15);
   }
 }
 
@@ -320,11 +377,11 @@ LABEL_7:
   v15 = [[NSString alloc] initWithFormat:@"%@.block", v14];
   v16 = [[CMLClientConfig alloc] initWithUseCase:v15 sourceApplicationBundleIdentifier:v14];
   v17 = [[CMLKeywordPIRClient alloc] initWithClientConfig:v16];
-  v18 = sub_100005CC4();
+  v18 = sub_100005CC4(v17);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v58 = v15;
+    v59 = v15;
     _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "requestData useCase: %@", buf, 0xCu);
   }
 
@@ -332,60 +389,85 @@ LABEL_7:
   liveLookupGroup = [(CDXManager *)self liveLookupGroup];
   dispatch_group_enter(liveLookupGroup);
 
-  v49[0] = _NSConcreteStackBlock;
-  v49[1] = 3221225472;
-  v49[2] = sub_10000B28C;
-  v49[3] = &unk_100034EB8;
-  v39 = v19;
-  v50 = v39;
+  v50[0] = _NSConcreteStackBlock;
+  v50[1] = 3221225472;
+  v50[2] = sub_10000B28C;
+  v50[3] = &unk_100034EB8;
+  v40 = v19;
+  v51 = v40;
   selfCopy = self;
   v21 = v14;
-  v52 = v21;
-  v53 = v15;
+  v53 = v21;
+  v54 = v15;
   v22 = completionCopy;
-  v56 = v22;
+  v57 = v22;
   v23 = forCopy;
-  v54 = v23;
+  v55 = v23;
   v24 = withCopy;
-  v55 = v24;
+  v56 = v24;
   v25 = v15;
-  [v17 requestDataByStringKeyword:v23 completionHandler:v49];
+  [v17 requestDataByStringKeyword:v23 completionHandler:v50];
   v26 = [NSString alloc];
 
   v27 = [v26 initWithFormat:@"%@.identity", v21];
   v28 = [[CMLClientConfig alloc] initWithUseCase:v27 sourceApplicationBundleIdentifier:v21];
 
   v29 = [[CMLKeywordPIRClient alloc] initWithClientConfig:v28];
-  v30 = sub_100005CC4();
-  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+  v31 = sub_100005CC4(v30);
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v58 = v27;
-    _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "requestData useCase: %@", buf, 0xCu);
+    v59 = v27;
+    _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "requestData useCase: %@", buf, 0xCu);
   }
 
-  v31 = +[NSDate date];
+  v32 = +[NSDate date];
   liveLookupGroup2 = [(CDXManager *)self liveLookupGroup];
   dispatch_group_enter(liveLookupGroup2);
 
-  v41[0] = _NSConcreteStackBlock;
-  v41[1] = 3221225472;
-  v41[2] = sub_10000B598;
-  v41[3] = &unk_100034EB8;
-  v42 = v31;
+  v42[0] = _NSConcreteStackBlock;
+  v42[1] = 3221225472;
+  v42[2] = sub_10000B598;
+  v42[3] = &unk_100034EB8;
+  v43 = v32;
   selfCopy2 = self;
-  v44 = v21;
-  v45 = v27;
-  v47 = v24;
-  v48 = identityCompletionCopy;
-  v46 = v23;
-  v33 = v24;
-  v34 = v23;
-  v35 = identityCompletionCopy;
-  v36 = v27;
-  v37 = v21;
-  v38 = v31;
-  [v29 requestDataByStringKeyword:v34 completionHandler:v41];
+  v45 = v21;
+  v46 = v27;
+  v48 = v24;
+  v49 = identityCompletionCopy;
+  v47 = v23;
+  v34 = v24;
+  v35 = v23;
+  v36 = identityCompletionCopy;
+  v37 = v27;
+  v38 = v21;
+  v39 = v32;
+  [v29 requestDataByStringKeyword:v35 completionHandler:v42];
+}
+
+- (id)identificationEntryFrom:(id)from withName:(id)name withIconURL:(id)l withType:(int64_t)type fromCache:(BOOL)cache
+{
+  cacheCopy = cache;
+  lCopy = l;
+  nameCopy = name;
+  v13 = [NSExtension extensionWithIdentifier:from error:0];
+  v14 = objc_alloc_init(CXCallDirectoryIdentificationEntry);
+  identifier = [v13 identifier];
+  [v14 setExtensionIdentifier:identifier];
+
+  localizedName = [v13 localizedName];
+  [v14 setLocalizedExtensionName:localizedName];
+
+  localizedContainingAppName = [v13 localizedContainingAppName];
+  [v14 setLocalizedExtensionContainingAppName:localizedContainingAppName];
+
+  [v14 setLocalizedLabel:nameCopy];
+  [v14 setIconURL:lCopy];
+
+  [v14 setType:type];
+  [v14 setFromCache:cacheCopy];
+
+  return v14;
 }
 
 - (void)fetchLiveIdentityInfoFor:(id)for cacheOnly:(BOOL)only completionHandler:(id)handler
@@ -393,7 +475,7 @@ LABEL_7:
   onlyCopy = only;
   forCopy = for;
   handlerCopy = handler;
-  v8 = sub_100005CC4();
+  v8 = sub_100005CC4(handlerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
@@ -410,100 +492,100 @@ LABEL_7:
 
   if (v12)
   {
-    v13 = sub_100005CC4();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = sub_100005CC4(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       serverBag2 = [(CDXManager *)self serverBag];
       identityWaitSeconds = [serverBag2 identityWaitSeconds];
       *buf = 134217984;
       *&buf[4] = identityWaitSeconds;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "not all previous fetches completed within %lu second(s) continuing", buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "not all previous fetches completed within %lu second(s) continuing", buf, 0xCu);
     }
   }
 
-  v90[0] = _NSConcreteStackBlock;
-  v90[1] = 3221225472;
-  v90[2] = sub_10000C590;
-  v90[3] = &unk_100034F08;
-  v90[4] = self;
-  v61 = handlerCopy;
-  v91 = v61;
-  v62 = objc_retainBlock(v90);
+  v95[0] = _NSConcreteStackBlock;
+  v95[1] = 3221225472;
+  v95[2] = sub_10000C590;
+  v95[3] = &unk_100034F08;
+  v95[4] = self;
+  v66 = handlerCopy;
+  v96 = v66;
+  v67 = objc_retainBlock(v95);
   liveLookupStore = [(CDXManager *)self liveLookupStore];
   activeExtensions = [liveLookupStore activeExtensions];
 
-  v18 = sub_100005CC4();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v20 = sub_100005CC4(v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = [activeExtensions count];
+    v21 = [activeExtensions count];
     *buf = 134218242;
-    *&buf[4] = v19;
+    *&buf[4] = v21;
     *&buf[12] = 2112;
     *&buf[14] = forCopy;
-    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "extensions=%lu handle=%@", buf, 0x16u);
+    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "extensions=%lu handle=%@", buf, 0x16u);
   }
 
-  v88 = 0u;
-  v89 = 0u;
-  v86 = 0u;
-  v87 = 0u;
+  v93 = 0u;
+  v94 = 0u;
+  v91 = 0u;
+  v92 = 0u;
   obj = activeExtensions;
-  v20 = [obj countByEnumeratingWithState:&v86 objects:v100 count:16];
-  if (v20)
+  v22 = [obj countByEnumeratingWithState:&v91 objects:v105 count:16];
+  if (v22)
   {
-    v64 = *v87;
+    v69 = *v92;
     while (2)
     {
-      for (i = 0; i != v20; i = i + 1)
+      for (i = 0; i != v22; i = i + 1)
       {
-        if (*v87 != v64)
+        if (*v92 != v69)
         {
           objc_enumerationMutation(obj);
         }
 
-        v22 = *(*(&v86 + 1) + 8 * i);
+        v24 = *(*(&v91 + 1) + 8 * i);
         liveLookupStore2 = [(CDXManager *)self liveLookupStore];
-        v24 = [liveLookupStore2 extensionIdentifierFor:v22];
+        v26 = [liveLookupStore2 extensionIdentifierFor:v24];
 
         liveLookupStore3 = [(CDXManager *)self liveLookupStore];
-        v26 = [liveLookupStore3 fetchIdentityInfoFor:forCopy from:v22];
+        v28 = [liveLookupStore3 fetchIdentityInfoFor:forCopy from:v24];
 
-        if (v26)
+        if (v28)
         {
           liveLookupStore4 = [(CDXManager *)self liveLookupStore];
-          v28 = [liveLookupStore4 nameFor:v26];
+          v30 = [liveLookupStore4 nameFor:v28];
 
           liveLookupStore5 = [(CDXManager *)self liveLookupStore];
-          v30 = [liveLookupStore5 iconURLFor:v26];
+          v32 = [liveLookupStore5 iconURLFor:v28];
 
           liveLookupStore6 = [(CDXManager *)self liveLookupStore];
-          v32 = [liveLookupStore6 identityTypeFor:v26];
+          v34 = [liveLookupStore6 identityTypeFor:v28];
 
-          v33 = [(CDXManager *)self identificationEntryFrom:v24 withName:v28 withIconURL:v30 withType:v32 fromCache:1];
-          v34 = sub_100005CC4();
-          if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+          v35 = [(CDXManager *)self identificationEntryFrom:v26 withName:v30 withIconURL:v32 withType:v34 fromCache:1];
+          v36 = sub_100005CC4(v35);
+          if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
-            *&buf[4] = v26;
+            *&buf[4] = v28;
             *&buf[12] = 2112;
-            *&buf[14] = v24;
-            _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "found %@ in cache for %@", buf, 0x16u);
+            *&buf[14] = v26;
+            _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "found %@ in cache for %@", buf, 0x16u);
           }
 
-          localizedLabel = [v33 localizedLabel];
-          v36 = [localizedLabel length] == 0;
+          localizedLabel = [v35 localizedLabel];
+          v38 = [localizedLabel length] == 0;
 
-          if (!v36)
+          if (!v38)
           {
-            (v62[2])(v62, v33, 0);
+            (v67[2])(v67, v35, 0);
 
             goto LABEL_50;
           }
         }
       }
 
-      v20 = [obj countByEnumeratingWithState:&v86 objects:v100 count:16];
-      if (v20)
+      v22 = [obj countByEnumeratingWithState:&v91 objects:v105 count:16];
+      if (v22)
       {
         continue;
       }
@@ -514,132 +596,132 @@ LABEL_7:
 
   if (!onlyCopy)
   {
-    v37 = dispatch_group_create();
-    v81 = 0;
-    v82 = &v81;
-    v83 = 0x2810000000;
-    v84 = &unk_10002D2A5;
-    v85 = 0;
+    v40 = dispatch_group_create();
+    v86 = 0;
+    v87 = &v86;
+    v88 = 0x2810000000;
+    v89 = &unk_10002D2A5;
+    v90 = 0;
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v97 = sub_10000C670;
-    v98 = sub_10000C680;
-    v99 = [[NSMutableArray alloc] initWithCapacity:{objc_msgSend(obj, "count")}];
-    v77 = 0u;
-    v78 = 0u;
-    v79 = 0u;
-    v80 = 0u;
-    v65 = obj;
-    v38 = [v65 countByEnumeratingWithState:&v77 objects:v95 count:16];
-    if (v38)
+    v102 = sub_10000C670;
+    v103 = sub_10000C680;
+    v104 = [[NSMutableArray alloc] initWithCapacity:{objc_msgSend(obj, "count")}];
+    v82 = 0u;
+    v83 = 0u;
+    v84 = 0u;
+    v85 = 0u;
+    v70 = obj;
+    v41 = [v70 countByEnumeratingWithState:&v82 objects:v100 count:16];
+    if (v41)
     {
-      v39 = *v78;
+      v42 = *v83;
       do
       {
-        for (j = 0; j != v38; j = j + 1)
+        for (j = 0; j != v41; j = j + 1)
         {
-          if (*v78 != v39)
+          if (*v83 != v42)
           {
-            objc_enumerationMutation(v65);
+            objc_enumerationMutation(v70);
           }
 
-          v41 = *(*(&v77 + 1) + 8 * j);
+          v44 = *(*(&v82 + 1) + 8 * j);
           liveLookupStore7 = [(CDXManager *)self liveLookupStore];
-          v43 = [liveLookupStore7 extensionIdentifierFor:v41];
+          v46 = [liveLookupStore7 extensionIdentifierFor:v44];
 
-          dispatch_group_enter(v37);
-          v44 = sub_100005CC4();
-          if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+          dispatch_group_enter(v40);
+          v48 = sub_100005CC4(v47);
+          if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
           {
-            *v93 = 138412290;
-            v94 = v43;
-            _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "fetching identity for %@", v93, 0xCu);
+            *v98 = 138412290;
+            v99 = v46;
+            _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEFAULT, "fetching identity for %@", v98, 0xCu);
           }
 
-          v71[0] = _NSConcreteStackBlock;
-          v71[1] = 3221225472;
-          v71[2] = sub_10000C688;
-          v71[3] = &unk_100034F30;
-          v45 = v43;
-          v72 = v45;
+          v76[0] = _NSConcreteStackBlock;
+          v76[1] = 3221225472;
+          v76[2] = sub_10000C688;
+          v76[3] = &unk_100034F30;
+          v49 = v46;
+          v77 = v49;
           selfCopy = self;
-          v75 = &v81;
-          v76 = buf;
-          v74 = v37;
-          [(CDXManager *)self fetchLiveInfoFor:forCopy with:v41 blockingCompletion:0 identityCompletion:v71];
+          v80 = &v86;
+          v81 = buf;
+          v79 = v40;
+          [(CDXManager *)self fetchLiveInfoFor:forCopy with:v44 blockingCompletion:0 identityCompletion:v76];
         }
 
-        v38 = [v65 countByEnumeratingWithState:&v77 objects:v95 count:16];
+        v41 = [v70 countByEnumeratingWithState:&v82 objects:v100 count:16];
       }
 
-      while (v38);
+      while (v41);
     }
 
     serverBag3 = [(CDXManager *)self serverBag];
-    v47 = dispatch_time(0, 1000000000 * [serverBag3 identityWaitSeconds]);
-    v48 = dispatch_group_wait(v37, v47);
+    v51 = dispatch_time(0, 1000000000 * [serverBag3 identityWaitSeconds]);
+    v52 = dispatch_group_wait(v40, v51);
 
-    if (v48)
+    if (v52)
     {
-      v49 = sub_100005CC4();
-      if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+      v54 = sub_100005CC4(v53);
+      if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
       {
         serverBag4 = [(CDXManager *)self serverBag];
         identityWaitSeconds2 = [serverBag4 identityWaitSeconds];
-        *v93 = 134217984;
-        v94 = identityWaitSeconds2;
-        _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEFAULT, "not all identity fetches returned within %lu second(s)", v93, 0xCu);
+        *v98 = 134217984;
+        v99 = identityWaitSeconds2;
+        _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_DEFAULT, "not all identity fetches returned within %lu second(s)", v98, 0xCu);
       }
     }
 
     else
     {
-      v49 = sub_100005CC4();
-      if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+      v54 = sub_100005CC4(v53);
+      if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
       {
-        *v93 = 0;
-        _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEFAULT, "all identity fetches complete", v93, 2u);
+        *v98 = 0;
+        _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_DEFAULT, "all identity fetches complete", v98, 2u);
       }
     }
 
-    os_unfair_lock_lock(v82 + 8);
-    v69 = 0u;
-    v70 = 0u;
-    v67 = 0u;
-    v68 = 0u;
-    v52 = *(*&buf[8] + 40);
-    v53 = [v52 countByEnumeratingWithState:&v67 objects:v92 count:16];
-    if (v53)
+    os_unfair_lock_lock(v87 + 8);
+    v74 = 0u;
+    v75 = 0u;
+    v72 = 0u;
+    v73 = 0u;
+    v57 = *(*&buf[8] + 40);
+    v58 = [v57 countByEnumeratingWithState:&v72 objects:v97 count:16];
+    if (v58)
     {
-      v54 = *v68;
+      v59 = *v73;
       while (2)
       {
-        for (k = 0; k != v53; k = k + 1)
+        for (k = 0; k != v58; k = k + 1)
         {
-          if (*v68 != v54)
+          if (*v73 != v59)
           {
-            objc_enumerationMutation(v52);
+            objc_enumerationMutation(v57);
           }
 
-          v56 = *(*(&v67 + 1) + 8 * k);
-          localizedLabel2 = [v56 localizedLabel];
-          v58 = [localizedLabel2 length] == 0;
+          v61 = *(*(&v72 + 1) + 8 * k);
+          localizedLabel2 = [v61 localizedLabel];
+          v63 = [localizedLabel2 length] == 0;
 
-          if (!v58)
+          if (!v63)
           {
-            (v62[2])(v62, v56, 0);
-            os_unfair_lock_unlock(v82 + 8);
+            (v67[2])(v67, v61, 0);
+            os_unfair_lock_unlock(v87 + 8);
 
             _Block_object_dispose(buf, 8);
-            _Block_object_dispose(&v81, 8);
+            _Block_object_dispose(&v86, 8);
 
             goto LABEL_50;
           }
         }
 
-        v53 = [v52 countByEnumeratingWithState:&v67 objects:v92 count:16];
-        if (v53)
+        v58 = [v57 countByEnumeratingWithState:&v72 objects:v97 count:16];
+        if (v58)
         {
           continue;
         }
@@ -648,20 +730,20 @@ LABEL_7:
       }
     }
 
-    os_unfair_lock_unlock(v82 + 8);
+    os_unfair_lock_unlock(v87 + 8);
     _Block_object_dispose(buf, 8);
 
-    _Block_object_dispose(&v81, 8);
+    _Block_object_dispose(&v86, 8);
   }
 
-  v59 = sub_100005CC4();
-  if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
+  v64 = sub_100005CC4(v39);
+  if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_DEFAULT, "No found entries.", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v64, OS_LOG_TYPE_DEFAULT, "No found entries.", buf, 2u);
   }
 
-  (*(v61 + 2))(v61, 0, 0);
+  (*(v66 + 2))(v66, 0, 0);
 LABEL_50:
 }
 
@@ -670,7 +752,7 @@ LABEL_50:
   hostCopy = host;
   forCopy = for;
   handlerCopy = handler;
-  v8 = sub_100005CC4();
+  v8 = sub_100005CC4(handlerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -682,162 +764,163 @@ LABEL_50:
   activeExtensions = [liveLookupStore activeExtensions];
 
   liveLookupStore2 = [(CDXManager *)self liveLookupStore];
-  v48 = [liveLookupStore2 getBlockingInfoFor:forCopy];
+  v51 = [liveLookupStore2 getBlockingInfoFor:forCopy];
 
-  if ([v48 count] && ((-[CDXManager liveLookupStore](self, "liveLookupStore", hostCopy), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v11, "shouldBlockWith:", v48), v11, (v12 & 1) != 0) || (v13 = objc_msgSend(v48, "count"), v13 == objc_msgSend(activeExtensions, "count"))))
+  v11 = [v51 count];
+  if (v11 && ((-[CDXManager liveLookupStore](self, "liveLookupStore", hostCopy), v12 = objc_claimAutoreleasedReturnValue(), v13 = [v12 shouldBlockWith:v51], v12, (v13 & 1) != 0) || (v14 = objc_msgSend(v51, "count"), v11 = objc_msgSend(activeExtensions, "count"), v14 == v11)))
   {
-    v14 = sub_100005CC4();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = sub_100005CC4(v11);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109378;
-      *&buf[4] = v12;
+      *&buf[4] = v13;
       *&buf[8] = 2112;
       *&buf[10] = forCopy;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "cache says block (%d) for handle=%@", buf, 0x12u);
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "cache says block (%d) for handle=%@", buf, 0x12u);
     }
 
-    v61 = 0u;
+    v64 = 0u;
+    v65 = 0u;
     v62 = 0u;
-    v59 = 0u;
-    v60 = 0u;
-    v15 = v48;
-    v16 = [v15 countByEnumeratingWithState:&v59 objects:v68 count:16];
-    if (v16)
+    v63 = 0u;
+    v16 = v51;
+    v17 = [v16 countByEnumeratingWithState:&v62 objects:v71 count:16];
+    if (v17)
     {
-      v17 = *v60;
+      v18 = *v63;
       do
       {
-        for (i = 0; i != v16; i = i + 1)
+        for (i = 0; i != v17; i = i + 1)
         {
-          if (*v60 != v17)
+          if (*v63 != v18)
           {
-            objc_enumerationMutation(v15);
+            objc_enumerationMutation(v16);
           }
 
-          v19 = *(*(&v59 + 1) + 8 * i);
+          v20 = *(*(&v62 + 1) + 8 * i);
           analyticsReporter = [(CDXManager *)self analyticsReporter];
           liveLookupStore3 = [(CDXManager *)self liveLookupStore];
-          v22 = [liveLookupStore3 extensionIdentifierFrom:v19];
-          [analyticsReporter sendBlockingCacheHitFor:v22];
+          v23 = [liveLookupStore3 extensionIdentifierFrom:v20];
+          [analyticsReporter sendBlockingCacheHitFor:v23];
         }
 
-        v16 = [v15 countByEnumeratingWithState:&v59 objects:v68 count:16];
+        v17 = [v16 countByEnumeratingWithState:&v62 objects:v71 count:16];
       }
 
-      while (v16);
+      while (v17);
     }
 
-    handlerCopy[2](handlerCopy, v12, 0);
+    handlerCopy[2](handlerCopy, v13, 0);
   }
 
   else
   {
-    v23 = sub_100005CC4();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v24 = sub_100005CC4(v11);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = [activeExtensions count];
+      v25 = [activeExtensions count];
       *buf = 134218242;
-      *&buf[4] = v24;
+      *&buf[4] = v25;
       *&buf[12] = 2112;
       *&buf[14] = forCopy;
-      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "extensions=%lu handle=%@", buf, 0x16u);
+      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "extensions=%lu handle=%@", buf, 0x16u);
     }
 
     if ([activeExtensions count])
     {
-      v25 = dispatch_group_create();
+      v26 = dispatch_group_create();
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x2020000000;
-      v67 = 0;
-      v55 = 0u;
-      v56 = 0u;
-      v57 = 0u;
+      v70 = 0;
       v58 = 0u;
-      v26 = activeExtensions;
-      v27 = [v26 countByEnumeratingWithState:&v55 objects:v65 count:16];
-      if (v27)
+      v59 = 0u;
+      v60 = 0u;
+      v61 = 0u;
+      v27 = activeExtensions;
+      v28 = [v27 countByEnumeratingWithState:&v58 objects:v68 count:16];
+      if (v28)
       {
-        v28 = *v56;
+        v29 = *v59;
         do
         {
-          for (j = 0; j != v27; j = j + 1)
+          for (j = 0; j != v28; j = j + 1)
           {
-            if (*v56 != v28)
+            if (*v59 != v29)
             {
-              objc_enumerationMutation(v26);
+              objc_enumerationMutation(v27);
             }
 
-            v30 = *(*(&v55 + 1) + 8 * j);
+            v31 = *(*(&v58 + 1) + 8 * j);
             liveLookupStore4 = [(CDXManager *)self liveLookupStore];
-            v32 = [liveLookupStore4 extensionIdentifierFor:v30];
+            v33 = [liveLookupStore4 extensionIdentifierFor:v31];
 
             liveLookupStore5 = [(CDXManager *)self liveLookupStore];
-            v34 = [liveLookupStore5 llExtension:v30 containedIn:v48];
+            v35 = [liveLookupStore5 llExtension:v31 containedIn:v51];
 
-            if (v34)
+            if (v35)
             {
               analyticsReporter2 = [(CDXManager *)self analyticsReporter];
-              [analyticsReporter2 sendBlockingCacheHitFor:v32];
+              [analyticsReporter2 sendBlockingCacheHitFor:v33];
             }
 
             else
             {
-              dispatch_group_enter(v25);
-              v36 = sub_100005CC4();
-              if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+              dispatch_group_enter(v26);
+              v38 = sub_100005CC4(v37);
+              if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
               {
-                *v63 = 138412290;
-                v64 = v32;
-                _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "fetching blocking for %@", v63, 0xCu);
+                *v66 = 138412290;
+                v67 = v33;
+                _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "fetching blocking for %@", v66, 0xCu);
               }
 
-              v49[0] = _NSConcreteStackBlock;
-              v49[1] = 3221225472;
-              v49[2] = sub_10000CED4;
-              v49[3] = &unk_100034F58;
-              v37 = v32;
-              v54 = buf;
-              v50 = v37;
+              v52[0] = _NSConcreteStackBlock;
+              v52[1] = 3221225472;
+              v52[2] = sub_10000CED4;
+              v52[3] = &unk_100034F58;
+              v39 = v33;
+              v57 = buf;
+              v53 = v39;
               selfCopy = self;
-              v53 = handlerCopy;
-              v52 = v25;
-              [(CDXManager *)self fetchLiveInfoFor:forCopy with:v30 blockingCompletion:v49 identityCompletion:0];
+              v56 = handlerCopy;
+              v55 = v26;
+              [(CDXManager *)self fetchLiveInfoFor:forCopy with:v31 blockingCompletion:v52 identityCompletion:0];
 
-              analyticsReporter2 = v50;
+              analyticsReporter2 = v53;
             }
           }
 
-          v27 = [v26 countByEnumeratingWithState:&v55 objects:v65 count:16];
+          v28 = [v27 countByEnumeratingWithState:&v58 objects:v68 count:16];
         }
 
-        while (v27);
+        while (v28);
       }
 
       serverBag = [(CDXManager *)self serverBag];
-      v39 = dispatch_time(0, 1000000000 * [serverBag blockingWaitSeconds]);
-      v40 = dispatch_group_wait(v25, v39);
+      v41 = dispatch_time(0, 1000000000 * [serverBag blockingWaitSeconds]);
+      v42 = dispatch_group_wait(v26, v41);
 
-      if (v40)
+      if (v42)
       {
-        v41 = sub_100005CC4();
-        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+        v44 = sub_100005CC4(v43);
+        if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
         {
           serverBag2 = [(CDXManager *)self serverBag];
           blockingWaitSeconds = [serverBag2 blockingWaitSeconds];
-          *v63 = 134217984;
-          v64 = blockingWaitSeconds;
-          _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "not all blocking fetches returned within %lu second(s)", v63, 0xCu);
+          *v66 = 134217984;
+          v67 = blockingWaitSeconds;
+          _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "not all blocking fetches returned within %lu second(s)", v66, 0xCu);
         }
       }
 
       else
       {
-        v41 = sub_100005CC4();
-        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+        v44 = sub_100005CC4(v43);
+        if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
         {
-          *v63 = 0;
-          _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "all blocking fetches complete", v63, 2u);
+          *v66 = 0;
+          _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "all blocking fetches complete", v66, 2u);
         }
       }
 
@@ -860,12 +943,12 @@ LABEL_50:
 {
   numberCopy = number;
   handlerCopy = handler;
-  v9 = sub_100005CC4();
+  v9 = sub_100005CC4(handlerCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 138412290;
-    v16 = numberCopy;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "requestedFirstEnabledLiveBlockingExtensionIdentifierForPhoneNumber handle=%@", &v15, 0xCu);
+    v16 = 138412290;
+    v17 = numberCopy;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "requestedFirstEnabledLiveBlockingExtensionIdentifierForPhoneNumber handle=%@", &v16, 0xCu);
   }
 
   liveLookupStore = [(CDXManager *)self liveLookupStore];
@@ -876,14 +959,14 @@ LABEL_50:
     liveLookupStore2 = [(CDXManager *)self liveLookupStore];
     v13 = [liveLookupStore2 firstEnabledBlockedExtensionIdentifierFor:v11];
 
-    v14 = sub_100005CC4();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = sub_100005CC4(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138412546;
-      v16 = v13;
-      v17 = 2112;
-      v18 = numberCopy;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "cache says blocked by (%@) for handle=%@", &v15, 0x16u);
+      v16 = 138412546;
+      v17 = v13;
+      v18 = 2112;
+      v19 = numberCopy;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "cache says blocked by (%@) for handle=%@", &v16, 0x16u);
     }
 
     handlerCopy[2](handlerCopy, v13, 0);
@@ -899,83 +982,85 @@ LABEL_50:
 - (void)callDirectoryHost:(id)host requestedToSynchronizeExtensionsWithCompletionHandler:(id)handler
 {
   handlerCopy = handler;
-  v6 = sub_100005CC4();
+  v6 = sub_100005CC4(handlerCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "requested to synchronize extensions", buf, 2u);
   }
 
-  v15 = 0;
-  v7 = [[CXCallDirectoryStore alloc] initForReadingAndWritingWithError:&v15];
-  v8 = v15;
+  v16 = 0;
+  v7 = [[CXCallDirectoryStore alloc] initForReadingAndWritingWithError:&v16];
+  v8 = v16;
+  v9 = v8;
   if (v7)
   {
-    v9 = [CDXSynchronizeExtensionsOperation alloc];
+    v10 = [CDXSynchronizeExtensionsOperation alloc];
     systemMonitor = [(CDXManager *)self systemMonitor];
-    v11 = -[CDXSynchronizeExtensionsOperation initWithStore:firstUnlockStatus:](v9, "initWithStore:firstUnlockStatus:", v7, [systemMonitor firstUnlocked]);
+    v12 = -[CDXSynchronizeExtensionsOperation initWithStore:firstUnlockStatus:](v10, "initWithStore:firstUnlockStatus:", v7, [systemMonitor firstUnlocked]);
 
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3221225472;
-    v13[2] = sub_10000D378;
-    v13[3] = &unk_100034F80;
-    v14 = handlerCopy;
-    [(CDXSynchronizeExtensionsOperation *)v11 performWithCompletionHandler:v13];
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_10000D378;
+    v14[3] = &unk_100034F80;
+    v15 = handlerCopy;
+    [(CDXSynchronizeExtensionsOperation *)v12 performWithCompletionHandler:v14];
   }
 
   else
   {
-    v12 = sub_100005CC4();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = sub_100005CC4(v8);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_100021F78();
     }
 
-    v11 = [NSError cx_callDirectoryManagerErrorWithCode:0];
-    (*(handlerCopy + 2))(handlerCopy, v11);
+    v12 = [NSError cx_callDirectoryManagerErrorWithCode:0];
+    (*(handlerCopy + 2))(handlerCopy, v12);
   }
 }
 
 - (void)callDirectoryHost:(id)host requestedToCompactStoreWithCompletionHandler:(id)handler
 {
   handlerCopy = handler;
-  v5 = sub_100005CC4();
+  v5 = sub_100005CC4(handlerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "requested to compact store", buf, 2u);
   }
 
-  v12 = 0;
-  v6 = [[CXCallDirectoryStore alloc] initForReadingAndWritingWithError:&v12];
-  v7 = v12;
+  v13 = 0;
+  v6 = [[CXCallDirectoryStore alloc] initForReadingAndWritingWithError:&v13];
+  v7 = v13;
+  v8 = v7;
   if (v6)
   {
-    v8 = [[CDXCompactStoreOperation alloc] initWithStore:v6];
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = sub_10000D578;
-    v10[3] = &unk_100034F80;
-    v11 = handlerCopy;
-    [(CDXCompactStoreOperation *)v8 performWithCompletionHandler:v10];
+    v9 = [[CDXCompactStoreOperation alloc] initWithStore:v6];
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_10000D578;
+    v11[3] = &unk_100034F80;
+    v12 = handlerCopy;
+    [(CDXCompactStoreOperation *)v9 performWithCompletionHandler:v11];
   }
 
   else
   {
-    v9 = sub_100005CC4();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = sub_100005CC4(v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_100021F78();
     }
 
-    v8 = [NSError cx_callDirectoryManagerErrorWithCode:0];
-    (*(handlerCopy + 2))(handlerCopy, v8);
+    v9 = [NSError cx_callDirectoryManagerErrorWithCode:0];
+    (*(handlerCopy + 2))(handlerCopy, v9);
   }
 }
 
 - (void)callDirectoryHostRequestedToCleanupLiveLookupData:(id)data
 {
-  v4 = sub_100005CC4();
+  v4 = sub_100005CC4(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -989,7 +1074,7 @@ LABEL_50:
 - (void)callDirectoryHost:(id)host requestedToLaunchCallDirectorySettingsWithCompletionHandler:(id)handler
 {
   handlerCopy = handler;
-  v5 = sub_100005CC4();
+  v5 = sub_100005CC4(handlerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -998,9 +1083,9 @@ LABEL_50:
 
   v6 = [NSURL URLWithString:@"prefs:root=Phone&path=CALL_DIRECTORIES"];
   v7 = +[LSApplicationWorkspace defaultWorkspace];
-  v11 = 0;
-  v8 = [v7 openSensitiveURL:v6 withOptions:0 error:&v11];
-  v9 = v11;
+  v12 = 0;
+  v8 = [v7 openSensitiveURL:v6 withOptions:0 error:&v12];
+  v9 = v12;
 
   if ((v8 & 1) != 0 || !v9)
   {
@@ -1012,8 +1097,8 @@ LABEL_50:
 
   else
   {
-    v10 = sub_100005CC4();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = sub_100005CC4(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_1000220B0();
     }
@@ -1028,37 +1113,38 @@ LABEL_50:
 - (void)callDirectoryHost:(id)host requestedExtensionsWithCompletionHandler:(id)handler
 {
   handlerCopy = handler;
-  v5 = sub_100005CC4();
+  v5 = sub_100005CC4(handlerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "requested extensions", buf, 2u);
   }
 
-  v12 = 0;
-  v6 = [[CXCallDirectoryStore alloc] initForReadingAndWritingWithError:&v12];
-  v7 = v12;
+  v13 = 0;
+  v6 = [[CXCallDirectoryStore alloc] initForReadingAndWritingWithError:&v13];
+  v7 = v13;
+  v8 = v7;
   if (v6)
   {
-    v8 = [[CDXRetrieveExtensionsOperation alloc] initWithStore:v6];
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = sub_10000D94C;
-    v10[3] = &unk_100034FA8;
-    v11 = handlerCopy;
-    [(CDXRetrieveExtensionsOperation *)v8 performWithCompletionHandler:v10];
+    v9 = [[CDXRetrieveExtensionsOperation alloc] initWithStore:v6];
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_10000D94C;
+    v11[3] = &unk_100034FA8;
+    v12 = handlerCopy;
+    [(CDXRetrieveExtensionsOperation *)v9 performWithCompletionHandler:v11];
   }
 
   else
   {
-    v9 = sub_100005CC4();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = sub_100005CC4(v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_100021CB0();
     }
 
-    v8 = [NSError cx_callDirectoryManagerErrorWithCode:0];
-    (*(handlerCopy + 2))(handlerCopy, 0, v8);
+    v9 = [NSError cx_callDirectoryManagerErrorWithCode:0];
+    (*(handlerCopy + 2))(handlerCopy, 0, v9);
   }
 }
 
@@ -1066,23 +1152,24 @@ LABEL_50:
 {
   identifiersCopy = identifiers;
   handlerCopy = handler;
-  v8 = sub_100005CC4();
+  v8 = sub_100005CC4(handlerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v19 = identifiersCopy;
+    v21 = identifiersCopy;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "prioritizedExtensionIdentifiers %@", buf, 0xCu);
   }
 
-  if ([identifiersCopy count] < 2)
+  v9 = [identifiersCopy count];
+  if (v9 < 2)
   {
-    v12 = sub_100005CC4();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = sub_100005CC4(v9);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = [identifiersCopy count];
+      v15 = [identifiersCopy count];
       *buf = 134217984;
-      v19 = v13;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "prioritizedExtensionIdentifiers count is %ld, so doing nothing", buf, 0xCu);
+      v21 = v15;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "prioritizedExtensionIdentifiers count is %ld, so doing nothing", buf, 0xCu);
     }
 
     handlerCopy[2](handlerCopy, 0);
@@ -1090,30 +1177,31 @@ LABEL_50:
 
   else
   {
-    v17 = 0;
-    v9 = [[CXCallDirectoryStore alloc] initForReadingAndWritingWithError:&v17];
-    v10 = v17;
-    if (v9)
+    v19 = 0;
+    v10 = [[CXCallDirectoryStore alloc] initForReadingAndWritingWithError:&v19];
+    v11 = v19;
+    v12 = v11;
+    if (v10)
     {
-      v11 = [[CDXPrioritizeExtensionsOperation alloc] initWithPrioritizedExtensionIdentifiers:identifiersCopy store:v9];
-      v15[0] = _NSConcreteStackBlock;
-      v15[1] = 3221225472;
-      v15[2] = sub_10000DCAC;
-      v15[3] = &unk_100034F80;
-      v16 = handlerCopy;
-      [(CDXPrioritizeExtensionsOperation *)v11 performWithCompletionHandler:v15];
+      v13 = [[CDXPrioritizeExtensionsOperation alloc] initWithPrioritizedExtensionIdentifiers:identifiersCopy store:v10];
+      v17[0] = _NSConcreteStackBlock;
+      v17[1] = 3221225472;
+      v17[2] = sub_10000DCAC;
+      v17[3] = &unk_100034F80;
+      v18 = handlerCopy;
+      [(CDXPrioritizeExtensionsOperation *)v13 performWithCompletionHandler:v17];
     }
 
     else
     {
-      v14 = sub_100005CC4();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v16 = sub_100005CC4(v11);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         sub_100021F78();
       }
 
-      v11 = [NSError cx_callDirectoryManagerErrorWithCode:0];
-      (handlerCopy)[2](handlerCopy, v11);
+      v13 = [NSError cx_callDirectoryManagerErrorWithCode:0];
+      (handlerCopy)[2](handlerCopy, v13);
     }
   }
 }
@@ -1121,7 +1209,7 @@ LABEL_50:
 - (void)callDirectoryHost:(id)host requestedToPrepareStoreWithCompletionHandler:(id)handler
 {
   handlerCopy = handler;
-  v6 = sub_100005CC4();
+  v6 = sub_100005CC4(handlerCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1135,7 +1223,7 @@ LABEL_50:
   v15 = 0;
   v10 = [(CDXPrepareStoreOperation *)v9 performWithError:&v15];
   v11 = v15;
-  v12 = sub_100005CC4();
+  v12 = sub_100005CC4(v11);
   v13 = v12;
   if (v10)
   {
@@ -1165,6 +1253,17 @@ LABEL_50:
   identifier = [extensionCopy identifier];
 
   (*(handler + 2))(handlerCopy, [liveLookupStore enabledForExtensionWith:identifier], 0);
+}
+
+- (void)callDirectoryHost:(id)host requestedSetEnabled:(BOOL)enabled forLiveLookupExtension:(id)extension completionHandler:(id)handler
+{
+  enabledCopy = enabled;
+  handlerCopy = handler;
+  extensionCopy = extension;
+  liveLookupStore = [(CDXManager *)self liveLookupStore];
+  identifier = [extensionCopy identifier];
+
+  [liveLookupStore setEnabled:enabledCopy forExtensionWith:identifier completionHandler:handlerCopy];
 }
 
 - (void)callDirectoryHost:(id)host requestedResetForLiveLookupExtension:(id)extension completionHandler:(id)handler
@@ -1233,7 +1332,7 @@ LABEL_50:
   hostCopy = host;
   extensionCopy = extension;
   handlerCopy = handler;
-  v11 = sub_100005CC4();
+  v11 = sub_100005CC4(handlerCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [extensionCopy identifier];
@@ -1274,11 +1373,12 @@ LABEL_50:
 - (void)_setUpTemporaryDirectory
 {
   unsetenv("TMPDIR");
-  bzero(v4, 0x400uLL);
-  if (!_set_user_dir_suffix() || !confstr(65537, v4, 0x400uLL) || mkdir(v4, 0x1C0u) && *__error() != 17)
+  bzero(v5, 0x400uLL);
+  v2 = _set_user_dir_suffix();
+  if (!v2 || (v2 = confstr(65537, v5, 0x400uLL)) == 0 || mkdir(v5, 0x1C0u) && (v2 = __error(), *v2 != 17))
   {
-    v2 = sub_100005CC4();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = sub_100005CC4(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_1000222EC();
     }
@@ -1288,11 +1388,11 @@ LABEL_11:
     exit(1);
   }
 
-  bzero(v3, 0x400uLL);
-  if (!realpath_DARWIN_EXTSN(v4, v3))
+  bzero(v4, 0x400uLL);
+  if (!realpath_DARWIN_EXTSN(v5, v4))
   {
-    v2 = sub_100005CC4();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = sub_100005CC4(0);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_100022264();
     }

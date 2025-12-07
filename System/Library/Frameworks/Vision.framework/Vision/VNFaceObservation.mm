@@ -485,7 +485,7 @@ LABEL_42:
     v36 = 0;
     v37 = 0;
     v38 = 0;
-    Geometry2D_mallocCart2D(&v36, 63);
+    Geometry2D_mallocCart2D(&v36, 0x3Fu);
     v8 = v36;
     v9 = v37;
     v10 = v38;
@@ -524,7 +524,7 @@ LABEL_42:
     v39 = 0;
     v40 = 0;
     v41 = 0;
-    Geometry2D_mallocCart2D(v45, 63);
+    Geometry2D_mallocCart2D(v45, 0x3Fu);
     LOBYTE(v14) = 0;
     v15 = 0;
     if (!v45[0] || !v45[1] || v46 < 1)
@@ -795,7 +795,8 @@ LABEL_38:
     *&v1 = *[v2 bytes];
   }
 
-  return *&v1;
+  *&result = v1;
+  return result;
 }
 
 - (VNFaceLandmarks3D)landmarks3d

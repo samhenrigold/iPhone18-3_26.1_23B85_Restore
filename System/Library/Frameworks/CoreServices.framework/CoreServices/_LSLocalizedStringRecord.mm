@@ -2,9 +2,11 @@
 + (id)sanitizeString:(id)string;
 - (NSDictionary)allStringValues;
 - (NSString)defaultStringValue;
+- (id)_initWithContext:(LSContext *)context unitID:(unsigned int)d;
 - (id)_missingBundleLocsWithContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(const LocalizedString *)bytes;
 - (id)debugDescription;
 - (id)stringValueWithPreferredLocalizations:(id)localizations;
+- (void)_detachFromContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(const void *)bytes;
 @end
 
 @implementation _LSLocalizedStringRecord
@@ -49,9 +51,27 @@
   stringCopy = string;
   v4 = _LSBalanceBiDiControlCharacters(stringCopy);
 
-  v5 = _LSReplaceForbiddenCharacters(v4, 1);
+  v5 = _LSReplaceForbiddenCharacters(v4, 1u);
 
   return v5;
+}
+
+- (id)_initWithContext:(LSContext *)context unitID:(unsigned int)d
+{
+  v4 = *&d;
+  if (LaunchServices::LocalizedString::Get(context->db, *&d))
+  {
+    v7 = *([(_LSDatabase *)context->db schema]+ 1604);
+    v9.receiver = self;
+    v9.super_class = _LSLocalizedStringRecord;
+    return [(LSRecord *)&v9 _initWithContext:context tableID:v7 unitID:v4];
+  }
+
+  else
+  {
+
+    return 0;
+  }
 }
 
 - (id)stringValueWithPreferredLocalizations:(id)localizations
@@ -94,7 +114,7 @@
 
 - (id)_missingBundleLocsWithContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(const LocalizedString *)bytes
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v7 = LaunchServices::LocalizedString::getBundleLocs(bytes, context->db);
   v8 = objc_alloc(MEMORY[0x1E695DFA8]);
   if (v7)
@@ -108,38 +128,36 @@
   }
 
   v10 = [v8 initWithArray:v9];
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   _allUnsanitizedStringValues = [(_LSLocalizedStringRecord *)self _allUnsanitizedStringValues];
   allKeys = [_allUnsanitizedStringValues allKeys];
 
-  v13 = [allKeys countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v13 = [allKeys countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v13)
   {
-    v14 = *v20;
+    v14 = *v19;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v20 != v14)
+        if (*v19 != v14)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        [v10 removeObject:*(*(&v19 + 1) + 8 * i)];
+        [v10 removeObject:*(*(&v18 + 1) + 8 * i)];
       }
 
-      v13 = [allKeys countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v13 = [allKeys countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v13);
   }
 
   allObjects = [v10 allObjects];
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return allObjects;
 }
@@ -191,6 +209,18 @@
   v6 = [v3 initWithFormat:@"<%@ %p> %@", v4, self, stringValue];
 
   return v6;
+}
+
+- (void)_detachFromContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(const void *)bytes
+{
+  v7 = *&iD;
+  v8 = *&d;
+  [(_LSLocalizedStringRecord *)self _allUnsanitizedStringValues];
+
+  [(_LSLocalizedStringRecord *)self _missingBundleLocs];
+  v11.receiver = self;
+  v11.super_class = _LSLocalizedStringRecord;
+  [(LSRecord *)&v11 _detachFromContext:context tableID:v8 unitID:v7 unitBytes:bytes];
 }
 
 @end

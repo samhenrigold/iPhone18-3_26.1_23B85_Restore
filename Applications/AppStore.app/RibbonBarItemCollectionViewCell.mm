@@ -34,11 +34,12 @@
   v2 = *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC8AppStore31RibbonBarItemCollectionViewCell_tapAction);
   if (v2)
   {
+    v3 = *&self->titleLabel[OBJC_IVAR____TtC8AppStore31RibbonBarItemCollectionViewCell_tapAction];
     selfCopy = self;
-    v4 = sub_10000827C(v2);
-    v2(v4);
+    v5 = sub_10000827C(v2, v3);
+    v2(v5);
 
-    sub_10001F63C(v2);
+    sub_10001F63C(v2, v3);
   }
 }
 
@@ -47,7 +48,7 @@
   swift_unknownObjectRetain();
   selfCopy = self;
   sub_1006EA084(v20);
-  sub_10002A400(v20, v20[3]);
+  sub_10002A400(v20, v21);
   traitCollection = [in traitCollection];
   dispatch thunk of Placeable.measure(toFit:with:)();
   v9 = v8;

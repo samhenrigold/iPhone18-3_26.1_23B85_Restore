@@ -39,7 +39,7 @@
 {
   v16[1] = *MEMORY[0x1E69E9840];
   dsCopy = ds;
-  if ([(NSSet *)self->_members count]> 1)
+  if (objc_msgSend_count(self->_members) > 1)
   {
     v13 = [(PLSocialGroupAssetContainment *)self _assetIDsWithRequiredPersonsPresentWithAssetIDs:dsCopy minimumNumberOfSharedAssets:assets error:error];
   }
@@ -141,7 +141,7 @@
   {
     [v20 inclusiveAssetIDs];
     v21 = v29 = v20;
-    v22 = [v21 count];
+    v22 = objc_msgSend_count(v21);
 
     if (v22 < assetsCopy)
     {
@@ -213,7 +213,7 @@ LABEL_25:
   v11 = [v9 set];
   v12 = [MEMORY[0x1E695DFA8] set];
   v13 = [MEMORY[0x1E696AE38] progressWithTotalUnitCount:1];
-  v14 = [MEMORY[0x1E696AE38] progressWithTotalUnitCount:{objc_msgSend(dCopy, "count")}];
+  v14 = [MEMORY[0x1E696AE38] progressWithTotalUnitCount:objc_msgSend_count(dCopy)];
   [v13 becomeCurrentWithPendingUnitCount:1];
   v25 = MEMORY[0x1E69E9820];
   v26 = 3221225472;
@@ -576,10 +576,10 @@ LABEL_14:
   v40 = *MEMORY[0x1E69E9840];
   dictionariesCopy = dictionaries;
   dsCopy = ds;
-  v8 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(dsCopy, "count")}];
-  if ([dictionariesCopy count])
+  v8 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:objc_msgSend_count(dsCopy)];
+  if (objc_msgSend_count(dictionariesCopy))
   {
-    v9 = [MEMORY[0x1E696AE38] progressWithTotalUnitCount:{objc_msgSend(dictionariesCopy, "count")}];
+    v9 = [MEMORY[0x1E696AE38] progressWithTotalUnitCount:objc_msgSend_count(dictionariesCopy)];
   }
 
   else
@@ -844,7 +844,7 @@ LABEL_21:
   edgeExternalIdentifiersHavingLabel = [label edgeExternalIdentifiersHavingLabel];
   if (edgeExternalIdentifiersHavingLabel)
   {
-    v12 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(identifiersCopy, "count")}];
+    v12 = [MEMORY[0x1E695DFA8] setWithCapacity:objc_msgSend_count(identifiersCopy)];
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
@@ -905,7 +905,7 @@ LABEL_21:
 {
   v40[1] = *MEMORY[0x1E69E9840];
   dsCopy = ds;
-  if ([(NSSet *)self->_members count]> 1)
+  if (objc_msgSend_count(self->_members) > 1)
   {
     v9 = +[PLGraphEdge fetchRequest];
     array = [MEMORY[0x1E695DF70] array];
@@ -1012,10 +1012,10 @@ LABEL_21:
   v7 = [v6 mutableCopy];
 
   [v7 intersectSet:requirementsCopy];
-  if ([(NSSet *)self->_members count])
+  if (objc_msgSend_count(self->_members))
   {
-    v8 = [v7 count];
-    v9 = v8 >= [(NSSet *)self->_members count];
+    v8 = objc_msgSend_count(v7);
+    v9 = v8 >= objc_msgSend_count(self->_members);
   }
 
   else
@@ -1259,11 +1259,11 @@ void __95__PLSocialGroupAssetContainment_updateAndSaveAssetPersonEdgesForAssetsW
   return v6;
 }
 
-uint64_t __48__PLSocialGroupAssetContainment__batchAssetIDs___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__48__PLSocialGroupAssetContainment__batchAssetIDs___block_invoke(uint64_t a1, uint64_t a2, char *a3)
 {
   [*(a1 + 32) addObject:a2];
-  v5 = [*(a1 + 40) count];
-  result = [*(a1 + 32) count];
+  v5 = objc_msgSend_count(*(a1 + 40));
+  result = objc_msgSend_count(*(a1 + 32));
   if (result == 400 || v5 - 1 == a3)
   {
     v8 = *(a1 + 48);
@@ -1505,7 +1505,7 @@ void __91__PLSocialGroupAssetContainment__updateAssetPersonEdgesForAssetIDsInBat
 
   v61 = v11;
   [v11 setFetchBatchSize:100];
-  v18 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(dsCopy, "count")}];
+  v18 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:objc_msgSend_count(dsCopy)];
   v72 = 0u;
   v73 = 0u;
   v74 = 0u;

@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)errorSourceAsString:(int)string;
 - (int)StringAsErrorSource:(id)source;
 - (int)errorSource;
 - (unint64_t)hash;
@@ -40,6 +41,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)errorSourceAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27991B978[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsErrorSource:(id)source
@@ -123,31 +139,29 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v7 = toCopy;
+  v5 = toCopy;
   if (*&self->_has)
   {
-    code = self->_code;
     PBDataWriterWriteInt32Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_errorDescription)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    errorSource = self->_errorSource;
     PBDataWriterWriteInt32Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_requestId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 }
 
@@ -216,7 +230,6 @@
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 40);
   if (has)
   {
     if ((*(equalCopy + 40) & 1) == 0 || self->_code != *(equalCopy + 2))
@@ -236,14 +249,13 @@
     if (![(NSString *)errorDescription isEqual:?])
     {
 LABEL_17:
-      v10 = 0;
+      v8 = 0;
       goto LABEL_18;
     }
 
     has = self->_has;
   }
 
-  v8 = *(equalCopy + 40);
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 40) & 2) == 0 || self->_errorSource != *(equalCopy + 6))
@@ -260,17 +272,17 @@ LABEL_17:
   requestId = self->_requestId;
   if (requestId | *(equalCopy + 4))
   {
-    v10 = [(NSString *)requestId isEqual:?];
+    v8 = [(NSString *)requestId isEqual:?];
   }
 
   else
   {
-    v10 = 1;
+    v8 = 1;
   }
 
 LABEL_18:
 
-  return v10;
+  return v8;
 }
 
 - (unint64_t)hash

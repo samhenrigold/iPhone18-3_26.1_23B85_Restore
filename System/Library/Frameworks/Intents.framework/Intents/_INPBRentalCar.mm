@@ -261,7 +261,6 @@ LABEL_28:
 
   if (make)
   {
-    make = self->_make;
     PBDataWriterWriteStringField();
   }
 
@@ -269,7 +268,6 @@ LABEL_28:
 
   if (model)
   {
-    model = self->_model;
     PBDataWriterWriteStringField();
   }
 
@@ -277,7 +275,6 @@ LABEL_28:
 
   if (rentalCarDescription)
   {
-    rentalCarDescription = self->_rentalCarDescription;
     PBDataWriterWriteStringField();
   }
 
@@ -285,18 +282,16 @@ LABEL_28:
 
   if (rentalCompanyName)
   {
-    rentalCompanyName = self->_rentalCompanyName;
     PBDataWriterWriteStringField();
   }
 
   type = [(_INPBRentalCar *)self type];
 
-  v13 = toCopy;
+  v9 = toCopy;
   if (type)
   {
-    type = self->_type;
     PBDataWriterWriteStringField();
-    v13 = toCopy;
+    v9 = toCopy;
   }
 }
 

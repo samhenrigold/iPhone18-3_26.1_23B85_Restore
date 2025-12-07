@@ -88,16 +88,15 @@
 {
   completionCopy = completion;
   [resource type];
-  v5 = *MEMORY[0x277CCA590];
-  v6 = NSErrorF();
+  v5 = NSErrorF();
   if (gLogCategory_ASMPolarisResourceProvider <= 90 && (gLogCategory_ASMPolarisResourceProvider != -1 || _LogCategory_Initialize()))
   {
-    [ASMPolarisResourceProvider _publishResource:completion:];
+    [ASMPolarisResourceProvider _publishResource:v5 completion:?];
   }
 
   if (completionCopy)
   {
-    completionCopy[2](completionCopy, v6);
+    completionCopy[2](completionCopy, v5);
   }
 }
 
@@ -128,32 +127,32 @@
 
 - (void)resourcesRequested:(id)requested
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   requestedCopy = requested;
   dispatch_assert_queue_V2(self->_dispatchQueue);
   array = [MEMORY[0x277CBEB18] array];
   array2 = [MEMORY[0x277CBEB18] array];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v6 = requestedCopy;
-  v7 = [v6 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v26;
+    v9 = *v25;
     do
     {
       v10 = 0;
       do
       {
-        if (*v26 != v9)
+        if (*v25 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v25 + 1) + 8 * v10);
+        v11 = *(*(&v24 + 1) + 8 * v10);
         currentResourcesMap = self->_currentResourcesMap;
         resourceKey = [v11 resourceKey];
         v14 = [(NSMutableDictionary *)currentResourcesMap objectForKeyedSubscript:resourceKey];
@@ -181,7 +180,7 @@
       }
 
       while (v8 != v10);
-      v19 = [v6 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v19 = [v6 countByEnumeratingWithState:&v24 objects:v28 count:16];
       v8 = v19;
     }
 
@@ -197,11 +196,9 @@
     block[2] = __49__ASMPolarisResourceProvider_resourcesRequested___block_invoke;
     block[3] = &unk_278BF7830;
     block[4] = self;
-    v24 = array2;
+    v23 = array2;
     dispatch_async(dispatchQueue, block);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __49__ASMPolarisResourceProvider_resourcesRequested___block_invoke(uint64_t a1)
@@ -217,31 +214,31 @@ uint64_t __49__ASMPolarisResourceProvider_resourcesRequested___block_invoke(uint
 
 - (void)resourcesNoLongerWanted:(id)wanted
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   wantedCopy = wanted;
   dispatch_assert_queue_V2(self->_dispatchQueue);
   array = [MEMORY[0x277CBEB18] array];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v6 = wantedCopy;
-  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v18;
     do
     {
       v10 = 0;
       do
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [(NSMutableDictionary *)self->_currentResourcesMap objectForKeyedSubscript:*(*(&v18 + 1) + 8 * v10)];
+        v11 = [(NSMutableDictionary *)self->_currentResourcesMap objectForKeyedSubscript:*(*(&v17 + 1) + 8 * v10)];
         if (v11)
         {
           [array addObject:v11];
@@ -255,7 +252,7 @@ uint64_t __49__ASMPolarisResourceProvider_resourcesRequested___block_invoke(uint
       }
 
       while (v8 != v10);
-      v12 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v12 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
       v8 = v12;
     }
 
@@ -263,16 +260,14 @@ uint64_t __49__ASMPolarisResourceProvider_resourcesRequested___block_invoke(uint
   }
 
   dispatchQueue = self->_dispatchQueue;
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __54__ASMPolarisResourceProvider_resourcesNoLongerWanted___block_invoke;
-  v16[3] = &unk_278BF7830;
-  v16[4] = self;
-  v17 = array;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __54__ASMPolarisResourceProvider_resourcesNoLongerWanted___block_invoke;
+  v15[3] = &unk_278BF7830;
+  v15[4] = self;
+  v16 = array;
   v14 = array;
-  dispatch_async(dispatchQueue, v16);
-
-  v15 = *MEMORY[0x277D85DE8];
+  dispatch_async(dispatchQueue, v15);
 }
 
 uint64_t __54__ASMPolarisResourceProvider_resourcesNoLongerWanted___block_invoke(uint64_t a1)
@@ -296,13 +291,13 @@ uint64_t __54__ASMPolarisResourceProvider_resourcesNoLongerWanted___block_invoke
 - (void)resourcesRequested:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 resourceKey];
-  LogPrintF();
+  LogPrintF(&gLogCategory_ASMPolarisResourceProvider, "[ASMPolarisResourceProvider resourcesRequested:]", 30, "Resource requested %@", v1);
 }
 
 - (void)resourcesNoLongerWanted:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 resourceKey];
-  LogPrintF();
+  LogPrintF(&gLogCategory_ASMPolarisResourceProvider, "[ASMPolarisResourceProvider resourcesNoLongerWanted:]", 30, "Resource no longer wanted %@", v1);
 }
 
 @end

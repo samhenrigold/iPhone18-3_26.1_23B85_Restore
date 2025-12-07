@@ -85,9 +85,9 @@
 {
   v2 = *(&self->super.isa + OBJC_IVAR____TtC27HealthMenstrualCyclesDaemon20HDMCPregnancyManager_lockedOperationState);
   selfCopy = self;
-  os_unfair_lock_lock((v2 + 20));
-  sub_2294425E4((v2 + 16), &v6);
-  os_unfair_lock_unlock((v2 + 20));
+  os_unfair_lock_lock(v2 + 5);
+  sub_2294425E4(&v6);
+  os_unfair_lock_unlock(v2 + 5);
 
   v4 = sub_22944F864();
 

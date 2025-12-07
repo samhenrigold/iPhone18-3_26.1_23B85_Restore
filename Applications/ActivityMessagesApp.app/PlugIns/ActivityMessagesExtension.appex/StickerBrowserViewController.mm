@@ -29,8 +29,9 @@
 
 - (void)viewWillAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_10000F148(appear);
+  sub_10000F148(appearCopy);
 }
 
 - (int64_t)numberOfStickersInStickerBrowserView:(id)view

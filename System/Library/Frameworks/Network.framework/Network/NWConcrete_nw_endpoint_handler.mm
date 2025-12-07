@@ -1,5 +1,5 @@
 @interface NWConcrete_nw_endpoint_handler
-- (id)initWithEndpoint:(void *)endpoint parameters:(void *)parameters reportCallback:(void *)callback context:(void *)context parent:(unsigned int)parent identifier:(unsigned __int8 *)identifier connection_uuid:;
+- (NWConcrete_nw_endpoint_handler)initWithEndpoint:(void *)endpoint parameters:(void *)parameters reportCallback:(void *)callback context:(void *)context parent:(unsigned int)parent identifier:(unsigned __int8 *)identifier connection_uuid:;
 - (void)dealloc;
 @end
 
@@ -7,7 +7,7 @@
 
 - (void)dealloc
 {
-  v119 = *MEMORY[0x1E69E9840];
+  v117 = *MEMORY[0x1E69E9840];
   state = self->state;
   if (state)
   {
@@ -131,40 +131,38 @@ LABEL_28:
 
 LABEL_31:
 
-  v97 = v20;
+  v95 = v20;
   v23 = v20;
   os_unfair_lock_lock(&v23->lock);
   v24 = v23->current_path;
   os_unfair_lock_unlock(&v23->lock);
 
   *buf = 136447746;
-  v104 = "[NWConcrete_nw_endpoint_handler dealloc]";
+  v102 = "[NWConcrete_nw_endpoint_handler dealloc]";
+  v103 = 2082;
+  v104 = id_str;
   v105 = 2082;
-  v106 = id_str;
+  v106 = v11;
   v107 = 2082;
-  v108 = v11;
+  v108 = logging_description;
   v109 = 2082;
-  v110 = logging_description;
+  v110 = v18;
   v111 = 2082;
-  v112 = v18;
-  v113 = 2082;
-  v114 = v22;
-  v115 = 2114;
-  v116 = v24;
-  v89 = 72;
-  v88 = buf;
-  v25 = _os_log_send_and_compose_impl();
+  v112 = v22;
+  v113 = 2114;
+  v114 = v24;
+  v25 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v7, 16, "%{public}s [C%{public}s %{public}s%{public}s %{public}s %{public}s (%{public}@)] deallocated in unexpected state", buf, 72);
 
   type = OS_LOG_TYPE_ERROR;
-  v101 = 0;
-  if (!__nwlog_fault(v25, &type, &v101))
+  v99 = 0;
+  if (!__nwlog_fault(v25, &type, &v99))
   {
     goto LABEL_97;
   }
 
   if (type != OS_LOG_TYPE_FAULT)
   {
-    if (v101 == 1)
+    if (v99 == 1)
     {
       backtrace_string = __nw_create_backtrace_string();
       if (!backtrace_string)
@@ -180,25 +178,25 @@ LABEL_31:
         {
           id_string = nw_endpoint_handler_get_id_string(v23);
           v53 = nw_endpoint_handler_dry_run_string(v23);
-          v99 = nw_endpoint_handler_copy_endpoint(v23);
-          v54 = nw_endpoint_get_logging_description(v99);
+          v97 = nw_endpoint_handler_copy_endpoint(v23);
+          v54 = nw_endpoint_get_logging_description(v97);
           v55 = nw_endpoint_handler_state_string(v23);
           v56 = nw_endpoint_handler_mode_string(v23);
           v57 = nw_endpoint_handler_copy_current_path(v23);
           *buf = 136447746;
-          v104 = "[NWConcrete_nw_endpoint_handler dealloc]";
+          v102 = "[NWConcrete_nw_endpoint_handler dealloc]";
+          v103 = 2082;
+          v104 = id_string;
           v105 = 2082;
-          v106 = id_string;
+          v106 = v53;
           v107 = 2082;
-          v108 = v53;
+          v108 = v54;
           v109 = 2082;
-          v110 = v54;
+          v110 = v55;
           v111 = 2082;
-          v112 = v55;
-          v113 = 2082;
-          v114 = v56;
-          v115 = 2114;
-          v116 = v57;
+          v112 = v56;
+          v113 = 2114;
+          v114 = v57;
           _os_log_impl(&dword_181A37000, v26, v51, "%{public}s [C%{public}s %{public}s%{public}s %{public}s %{public}s (%{public}@)] deallocated in unexpected state, no backtrace", buf, 0x48u);
         }
 
@@ -243,15 +241,15 @@ LABEL_126:
 
       v42 = nw_endpoint_handler_copy_endpoint(v39);
       v43 = v42;
-      v96 = v41;
+      v94 = v41;
       if (v42)
       {
-        v94 = _nw_endpoint_get_logging_description(v42);
+        v92 = _nw_endpoint_get_logging_description(v42);
       }
 
       else
       {
-        v94 = "<NULL>";
+        v92 = "<NULL>";
       }
 
       v76 = v39;
@@ -267,11 +265,11 @@ LABEL_126:
         v79 = off_1E6A31048[v78];
       }
 
-      v92 = v79;
+      v90 = v79;
 
       v80 = v77;
       v81 = v80;
-      v82 = v97->mode;
+      v82 = v95->mode;
       if (v82 > 2)
       {
         switch(v82)
@@ -308,21 +306,21 @@ LABEL_125:
             os_unfair_lock_unlock(&v23->lock);
 
             *buf = 136448002;
-            v104 = "[NWConcrete_nw_endpoint_handler dealloc]";
+            v102 = "[NWConcrete_nw_endpoint_handler dealloc]";
+            v103 = 2082;
+            v104 = id_str;
             v105 = 2082;
-            v106 = id_str;
+            v106 = v94;
             v107 = 2082;
-            v108 = v96;
+            v108 = v92;
             v109 = 2082;
-            v110 = v94;
+            v110 = v90;
             v111 = 2082;
-            v112 = v92;
-            v113 = 2082;
-            v114 = v83;
-            v115 = 2114;
-            v116 = v87;
-            v117 = 2082;
-            v118 = v35;
+            v112 = v83;
+            v113 = 2114;
+            v114 = v87;
+            v115 = 2082;
+            v116 = v35;
             _os_log_impl(&dword_181A37000, v36, v37, "%{public}s [C%{public}s %{public}s%{public}s %{public}s %{public}s (%{public}@)] deallocated in unexpected state, dumping backtrace:%{public}s", buf, 0x52u);
 
             goto LABEL_126;
@@ -362,15 +360,15 @@ LABEL_125:
 
     v49 = nw_endpoint_handler_copy_endpoint(v46);
     v50 = v49;
-    v91 = v48;
+    v89 = v48;
     if (v49)
     {
-      v95 = _nw_endpoint_get_logging_description(v49);
+      v93 = _nw_endpoint_get_logging_description(v49);
     }
 
     else
     {
-      v95 = "<NULL>";
+      v93 = "<NULL>";
     }
 
     v66 = v46;
@@ -388,7 +386,7 @@ LABEL_125:
 
     v70 = v67;
     v71 = v70;
-    v72 = v97->mode;
+    v72 = v95->mode;
     if (v72 > 2)
     {
       switch(v72)
@@ -425,19 +423,19 @@ LABEL_118:
           os_unfair_lock_unlock(&v23->lock);
 
           *buf = 136447746;
-          v104 = "[NWConcrete_nw_endpoint_handler dealloc]";
+          v102 = "[NWConcrete_nw_endpoint_handler dealloc]";
+          v103 = 2082;
+          v104 = id_str;
           v105 = 2082;
-          v106 = id_str;
+          v106 = v89;
           v107 = 2082;
-          v108 = v91;
+          v108 = v93;
           v109 = 2082;
-          v110 = v95;
+          v110 = v69;
           v111 = 2082;
-          v112 = v69;
-          v113 = 2082;
-          v114 = v73;
-          v115 = 2114;
-          v116 = v85;
+          v112 = v73;
+          v113 = 2114;
+          v114 = v85;
           _os_log_impl(&dword_181A37000, v26, v44, "%{public}s [C%{public}s %{public}s%{public}s %{public}s %{public}s (%{public}@)] deallocated in unexpected state, backtrace limit exceeded", buf, 0x48u);
 
           goto LABEL_96;
@@ -477,15 +475,15 @@ LABEL_118:
 
   v32 = nw_endpoint_handler_copy_endpoint(v29);
   v33 = v32;
-  v90 = v31;
+  v88 = v31;
   if (v32)
   {
-    v93 = _nw_endpoint_get_logging_description(v32);
+    v91 = _nw_endpoint_get_logging_description(v32);
   }
 
   else
   {
-    v93 = "<NULL>";
+    v91 = "<NULL>";
   }
 
   v58 = v29;
@@ -503,7 +501,7 @@ LABEL_118:
 
   v62 = v59;
   v63 = v62;
-  v64 = v97->mode;
+  v64 = v95->mode;
   if (v64 > 2)
   {
     switch(v64)
@@ -550,19 +548,19 @@ LABEL_95:
   os_unfair_lock_unlock(&v23->lock);
 
   *buf = 136447746;
-  v104 = "[NWConcrete_nw_endpoint_handler dealloc]";
+  v102 = "[NWConcrete_nw_endpoint_handler dealloc]";
+  v103 = 2082;
+  v104 = id_str;
   v105 = 2082;
-  v106 = id_str;
+  v106 = v88;
   v107 = 2082;
-  v108 = v90;
+  v108 = v91;
   v109 = 2082;
-  v110 = v93;
+  v110 = v61;
   v111 = 2082;
-  v112 = v61;
-  v113 = 2082;
-  v114 = v65;
-  v115 = 2114;
-  v116 = v75;
+  v112 = v65;
+  v113 = 2114;
+  v114 = v75;
   _os_log_impl(&dword_181A37000, v26, v27, "%{public}s [C%{public}s %{public}s%{public}s %{public}s %{public}s (%{public}@)] deallocated in unexpected state", buf, 0x48u);
 
 LABEL_96:
@@ -574,12 +572,12 @@ LABEL_98:
   }
 
 LABEL_99:
-  v100.receiver = self;
-  v100.super_class = NWConcrete_nw_endpoint_handler;
-  [(NWConcrete_nw_endpoint_handler *)&v100 dealloc:v88];
+  v98.receiver = self;
+  v98.super_class = NWConcrete_nw_endpoint_handler;
+  [(NWConcrete_nw_endpoint_handler *)&v98 dealloc];
 }
 
-- (id)initWithEndpoint:(void *)endpoint parameters:(void *)parameters reportCallback:(void *)callback context:(void *)context parent:(unsigned int)parent identifier:(unsigned __int8 *)identifier connection_uuid:
+- (NWConcrete_nw_endpoint_handler)initWithEndpoint:(void *)endpoint parameters:(void *)parameters reportCallback:(void *)callback context:(void *)context parent:(unsigned int)parent identifier:(unsigned __int8 *)identifier connection_uuid:
 {
   v42 = *MEMORY[0x1E69E9840];
   v16 = a2;
@@ -593,24 +591,24 @@ LABEL_99:
 
   v37.receiver = self;
   v37.super_class = NWConcrete_nw_endpoint_handler;
-  v20 = objc_msgSendSuper2(&v37, sel_init);
+  v20 = [(NWConcrete_nw_endpoint_handler *)&v37 init];
   self = v20;
   if (v20)
   {
     objc_storeStrong(v20 + 3, a2);
     v21 = _nw_parameters_copy_immutable(endpointCopy);
-    v22 = self[4];
-    self[4] = v21;
+    parameters = self->parameters;
+    self->parameters = v21;
 
-    self[1] = parameters;
-    objc_storeWeak(self + 2, callbackCopy);
-    *(self + 30) = 0;
-    *(self + 28) = 0;
+    self->report_callback = parameters;
+    objc_storeWeak(&self->callback_context, callbackCopy);
+    self->state = 0;
+    self->lock._os_unfair_lock_opaque = 0;
     v23 = nw_parameters_copy_context(endpointCopy);
-    v24 = self[5];
-    self[5] = v23;
+    context = self->context;
+    self->context = v23;
 
-    *(self + 70) = 0;
+    self->privacy_stance = 0;
     if (nw_parameters_get_logging_disabled(endpointCopy))
     {
       v25 = 64;
@@ -629,7 +627,7 @@ LABEL_99:
   v27 = __nwlog_obj();
   *buf = 136446210;
   v39 = "[NWConcrete_nw_endpoint_handler initWithEndpoint:parameters:reportCallback:context:parent:identifier:connection_uuid:]";
-  v28 = _os_log_send_and_compose_impl();
+  v28 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v27, 16, "%{public}s [super init] failed", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v35 = 0;

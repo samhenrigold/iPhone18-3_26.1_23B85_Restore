@@ -26,7 +26,7 @@
 - (void)didMoveToWindow
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for NavMetricsView();
+  v3.super_class = type metadata accessor for NavMetricsView(0);
   v2 = v3.receiver;
   [(NavMetricsView *)&v3 didMoveToWindow];
   sub_1004FD1C0(0);

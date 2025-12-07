@@ -55,7 +55,7 @@
 
     else
     {
-      p_super = persistenceLogHandle();
+      p_super = persistenceLogHandle(0);
       if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
       {
         *v16 = 0;
@@ -94,7 +94,7 @@
 
 - (id)prepareDataDirectoryWithName:(id)name containerPath:(id)path
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   pathCopy = path;
   if ([pathCopy length])
@@ -111,17 +111,17 @@
     }
 
     v10 = v8;
-    v18 = 0;
-    v11 = [defaultManager createDirectoryAtPath:v8 withIntermediateDirectories:1 attributes:0 error:&v18];
-    v12 = v18;
-    v13 = persistenceLogHandle();
+    v17 = 0;
+    v11 = [defaultManager createDirectoryAtPath:v8 withIntermediateDirectories:1 attributes:0 error:&v17];
+    v12 = v17;
+    v13 = persistenceLogHandle(v12);
     v14 = v13;
     if (v11)
     {
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v20 = v10;
+        v19 = v10;
         _os_log_impl(&dword_241804000, v14, OS_LOG_TYPE_DEBUG, "ABC data directory is ready at: %@", buf, 0xCu);
       }
 
@@ -134,9 +134,9 @@
       {
         localizedFailureReason = [v12 localizedFailureReason];
         *buf = 138412546;
-        v20 = v10;
-        v21 = 2112;
-        v22 = localizedFailureReason;
+        v19 = v10;
+        v20 = 2112;
+        v21 = localizedFailureReason;
         _os_log_impl(&dword_241804000, v14, OS_LOG_TYPE_ERROR, "Unable to create ABC data directory: %@ (%@)", buf, 0x16u);
       }
 
@@ -146,59 +146,59 @@
 
   else
   {
-    defaultManager = persistenceLogHandle();
+    defaultManager = persistenceLogHandle(0);
     if (os_log_type_enabled(defaultManager, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v20 = pathCopy;
+      v19 = pathCopy;
       _os_log_impl(&dword_241804000, defaultManager, OS_LOG_TYPE_ERROR, "Invalid container directory specified: %@", buf, 0xCu);
     }
 
     v9 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (BOOL)prepareWorkspaceWithDirectoryPath:(id)path
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   pathCopy = path;
+  v5 = pathCopy;
   if (!self->tempWorkspace)
   {
-    v5 = persistenceLogHandle();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = persistenceLogHandle(pathCopy);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_241804000, v5, OS_LOG_TYPE_DEFAULT, "Preparing workspace", buf, 2u);
+      _os_log_impl(&dword_241804000, v6, OS_LOG_TYPE_DEFAULT, "Preparing workspace", buf, 2u);
     }
 
-    v6 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v7 = [AnalyticsWorkspace workspaceWithName:@"autobugcapture" atPath:pathCopy objectModelName:@"AutoBugCapture" objectModelBundle:v6 useReadOnly:0];
+    v7 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v8 = [AnalyticsWorkspace workspaceWithName:@"autobugcapture" atPath:v5 objectModelName:@"AutoBugCapture" objectModelBundle:v7 useReadOnly:0];
     tempWorkspace = self->tempWorkspace;
-    self->tempWorkspace = v7;
+    self->tempWorkspace = v8;
   }
 
   ++prepareWorkspaceWithDirectoryPath__attempts;
-  v9 = persistenceLogHandle();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = persistenceLogHandle(pathCopy);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_241804000, v9, OS_LOG_TYPE_DEFAULT, "Bootstrapping persistent store", buf, 2u);
+    _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_DEFAULT, "Bootstrapping persistent store", buf, 2u);
   }
 
   save = [(AnalyticsWorkspace *)self->tempWorkspace save];
+  v12 = save;
   if (save)
   {
     objc_storeStrong(&self->_workspace, self->tempWorkspace);
     self->workspaceReady = 1;
-    v11 = persistenceLogHandle();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v14 = persistenceLogHandle(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_241804000, v11, OS_LOG_TYPE_DEFAULT, "Workspace and persistent store is ready for use", buf, 2u);
+      _os_log_impl(&dword_241804000, v14, OS_LOG_TYPE_DEFAULT, "Workspace and persistent store is ready for use", buf, 2u);
     }
 
     delegate = [(ABCPersistentStoreController *)self delegate];
@@ -217,57 +217,57 @@
 
     else
     {
-      delegate = [MEMORY[0x277CCACA8] stringWithFormat:@" (%ld attempts)", prepareWorkspaceWithDirectoryPath__attempts];
+      save = [MEMORY[0x277CCACA8] stringWithFormat:@" (%ld attempts)", prepareWorkspaceWithDirectoryPath__attempts];
+      delegate = save;
     }
 
-    v13 = persistenceLogHandle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v16 = persistenceLogHandle(save);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v24 = delegate;
-      _os_log_impl(&dword_241804000, v13, OS_LOG_TYPE_ERROR, "Workspace and persistent store failed to initialize.%@", buf, 0xCu);
+      v28 = delegate;
+      _os_log_impl(&dword_241804000, v16, OS_LOG_TYPE_ERROR, "Workspace and persistent store failed to initialize.%@", buf, 0xCu);
     }
 
     if (prepareWorkspaceWithDirectoryPath__attempts > 0x13)
     {
-      v18 = persistenceLogHandle();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v23 = persistenceLogHandle(v17);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_241804000, v18, OS_LOG_TYPE_ERROR, "Exhausted retry attempts. Unable to provide a functioning workspace and persistent store", buf, 2u);
+        _os_log_impl(&dword_241804000, v23, OS_LOG_TYPE_ERROR, "Exhausted retry attempts. Unable to provide a functioning workspace and persistent store", buf, 2u);
       }
     }
 
     else
     {
-      v14 = (pow(1.5, (prepareWorkspaceWithDirectoryPath__attempts - 1)) * 5.0);
-      v15 = persistenceLogHandle();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v18 = (pow(1.5, (prepareWorkspaceWithDirectoryPath__attempts - 1)) * 5.0);
+      v20 = persistenceLogHandle(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v24 = v14;
-        _os_log_impl(&dword_241804000, v15, OS_LOG_TYPE_DEFAULT, "Retrying persistent store initialization after %lu seconds", buf, 0xCu);
+        v28 = v18;
+        _os_log_impl(&dword_241804000, v20, OS_LOG_TYPE_DEFAULT, "Retrying persistent store initialization after %lu seconds", buf, 0xCu);
       }
 
-      v16 = dispatch_time(0, 1000000000 * v14);
+      v21 = dispatch_time(0, 1000000000 * v18);
       storeQueue = self->storeQueue;
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __66__ABCPersistentStoreController_prepareWorkspaceWithDirectoryPath___block_invoke;
       block[3] = &unk_278CF04F8;
       block[4] = self;
-      v22 = pathCopy;
-      dispatch_after(v16, storeQueue, block);
+      v26 = v5;
+      dispatch_after(v21, storeQueue, block);
     }
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-  return save;
+  return v12;
 }
 
 uint64_t __66__ABCPersistentStoreController_prepareWorkspaceWithDirectoryPath___block_invoke(uint64_t a1)
 {
-  v2 = persistenceLogHandle();
+  v2 = persistenceLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;
@@ -418,8 +418,8 @@ void __37__ABCPersistentStoreController_save___block_invoke_2(uint64_t a1)
 
 void __58__ABCPersistentStoreController_cleanupDiagnosticCaseUsage__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v2 = persistenceLogHandle();
+  v13 = *MEMORY[0x277D85DE8];
+  v2 = persistenceLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -432,17 +432,15 @@ void __58__ABCPersistentStoreController_cleanupDiagnosticCaseUsage__block_invoke
   v5 = [MEMORY[0x277CCAC30] predicateWithFormat:@"lastSeen <= %@", v4];
   v6 = [*(a1 + 32) caseUsageAnalytics];
   v7 = [v6 removeEntitiesMatching:v5];
-  v8 = symptomsLogHandle();
+  v8 = symptomsLogHandle(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218240;
-    v11 = v7;
-    v12 = 1024;
-    v13 = 14;
+    v10 = v7;
+    v11 = 1024;
+    v12 = 14;
     _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_DEFAULT, "Removed %ld DiagnosticCaseUsage object(s) with lastSeen older than %d days.", buf, 0x12u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cleanupDiagnosticCaseStorage
@@ -458,8 +456,8 @@ void __58__ABCPersistentStoreController_cleanupDiagnosticCaseUsage__block_invoke
 
 void __60__ABCPersistentStoreController_cleanupDiagnosticCaseStorage__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v2 = symptomsLogHandle();
+  v13 = *MEMORY[0x277D85DE8];
+  v2 = symptomsLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -472,17 +470,15 @@ void __60__ABCPersistentStoreController_cleanupDiagnosticCaseStorage__block_invo
   v5 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K <= %@", @"timeStamp", v4];
   v6 = [*(a1 + 32) caseStorageAnalytics];
   v7 = [v6 removeEntitiesMatching:v5];
-  v8 = symptomsLogHandle();
+  v8 = symptomsLogHandle(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218240;
-    v11 = v7;
-    v12 = 1024;
-    v13 = 10;
+    v10 = v7;
+    v11 = 1024;
+    v12 = 10;
     _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_DEFAULT, "Removed %ld DiagnosticCaseStorage object(s) older than %d days.", buf, 0x12u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cleanupDiagnosticCaseSummary
@@ -498,12 +494,12 @@ void __60__ABCPersistentStoreController_cleanupDiagnosticCaseStorage__block_invo
 
 void __60__ABCPersistentStoreController_cleanupDiagnosticCaseSummary__block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v2 = symptomsLogHandle();
+  v18 = *MEMORY[0x277D85DE8];
+  v2 = symptomsLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v15) = 0;
-    _os_log_impl(&dword_241804000, v2, OS_LOG_TYPE_INFO, "Cleaning out old DiagnosticCaseSummary objects...", &v15, 2u);
+    LOWORD(v14) = 0;
+    _os_log_impl(&dword_241804000, v2, OS_LOG_TYPE_INFO, "Cleaning out old DiagnosticCaseSummary objects...", &v14, 2u);
   }
 
   v3 = [*(a1 + 32) caseSummaryAnalytics];
@@ -512,14 +508,14 @@ void __60__ABCPersistentStoreController_cleanupDiagnosticCaseSummary__block_invo
   v6 = [v5 submittedCaseSummaryRetentionDays];
 
   v7 = [v3 removeDiagnosticCaseSummariesWithState:1 olderThan:v6];
-  v8 = symptomsLogHandle();
+  v8 = symptomsLogHandle(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 134218240;
-    v16 = v7;
-    v17 = 2048;
-    v18 = v6;
-    _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_DEFAULT, "DiagnosticCaseSummaryLog: Removed %ld submitted object(s) older than %ld days.", &v15, 0x16u);
+    v14 = 134218240;
+    v15 = v7;
+    v16 = 2048;
+    v17 = v6;
+    _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_DEFAULT, "DiagnosticCaseSummaryLog: Removed %ld submitted object(s) older than %ld days.", &v14, 0x16u);
   }
 
   v9 = +[ABCAdministrator sharedInstance];
@@ -527,17 +523,15 @@ void __60__ABCPersistentStoreController_cleanupDiagnosticCaseSummary__block_invo
   v11 = [v10 unsubmittedCaseSummaryRetentionDays];
 
   v12 = [v3 removeDiagnosticCaseSummariesWithState:0 olderThan:v11];
-  v13 = symptomsLogHandle();
+  v13 = symptomsLogHandle(v12);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 134218240;
-    v16 = v12;
-    v17 = 2048;
-    v18 = v11;
-    _os_log_impl(&dword_241804000, v13, OS_LOG_TYPE_DEFAULT, "DiagnosticCaseSummaryLog: Removed %ld unsubmitted object(s) older than %ld days.", &v15, 0x16u);
+    v14 = 134218240;
+    v15 = v12;
+    v16 = 2048;
+    v17 = v11;
+    _os_log_impl(&dword_241804000, v13, OS_LOG_TYPE_DEFAULT, "DiagnosticCaseSummaryLog: Removed %ld unsubmitted object(s) older than %ld days.", &v14, 0x16u);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cleanupUploadRecord
@@ -553,26 +547,24 @@ void __60__ABCPersistentStoreController_cleanupDiagnosticCaseSummary__block_invo
 
 void __51__ABCPersistentStoreController_cleanupUploadRecord__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = symptomsLogHandle();
+  v9 = *MEMORY[0x277D85DE8];
+  v2 = symptomsLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v8) = 0;
-    _os_log_impl(&dword_241804000, v2, OS_LOG_TYPE_INFO, "Cleaning out orphaned UploadRecord objects...", &v8, 2u);
+    LOWORD(v7) = 0;
+    _os_log_impl(&dword_241804000, v2, OS_LOG_TYPE_INFO, "Cleaning out orphaned UploadRecord objects...", &v7, 2u);
   }
 
   v3 = [MEMORY[0x277CCAC30] predicateWithFormat:@"caseStorage == NULL"];
   v4 = [*(a1 + 32) uploadRecordAnalytics];
   v5 = [v4 removeEntitiesMatching:v3];
-  v6 = symptomsLogHandle();
+  v6 = symptomsLogHandle(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 134217984;
-    v9 = v5;
-    _os_log_impl(&dword_241804000, v6, OS_LOG_TYPE_DEFAULT, "Removed %ld orphaned UploadRecord object(s)", &v8, 0xCu);
+    v7 = 134217984;
+    v8 = v5;
+    _os_log_impl(&dword_241804000, v6, OS_LOG_TYPE_DEFAULT, "Removed %ld orphaned UploadRecord object(s)", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)caseAttachmentsForAllDiagnosticCasesWithQueue:(id)queue reply:(id)reply
@@ -635,37 +627,37 @@ void __84__ABCPersistentStoreController_caseAttachmentsForAllDiagnosticCasesWith
 
 void __80__ABCPersistentStoreController_caseAttachmentsForDiagnosticCaseIDs_queue_reply___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) caseStorageAnalytics];
   v3 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(*(a1 + 40), "count")}];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v4 = *(a1 + 40);
-  v5 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v20;
+    v7 = *v19;
     do
     {
       v8 = 0;
       do
       {
-        if (*v20 != v7)
+        if (*v19 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = [MEMORY[0x277CCAC30] predicateWithFormat:@"caseID == %@", *(*(&v19 + 1) + 8 * v8)];
+        v9 = [MEMORY[0x277CCAC30] predicateWithFormat:@"caseID == %@", *(*(&v18 + 1) + 8 * v8)];
         [v3 addObject:v9];
 
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v6);
@@ -684,12 +676,10 @@ void __80__ABCPersistentStoreController_caseAttachmentsForDiagnosticCaseIDs_queu
     block[1] = 3221225472;
     block[2] = __80__ABCPersistentStoreController_caseAttachmentsForDiagnosticCaseIDs_queue_reply___block_invoke_2;
     block[3] = &unk_278CEFF50;
-    v18 = v13;
-    v17 = v12;
+    v17 = v13;
+    v16 = v12;
     dispatch_async(v14, block);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeCaseStoragesWithUUIDs:(id)ds
@@ -710,43 +700,42 @@ void __80__ABCPersistentStoreController_caseAttachmentsForDiagnosticCaseIDs_queu
 
 void __60__ABCPersistentStoreController_removeCaseStoragesWithUUIDs___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEB18] array];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v3 = *(a1 + 32);
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [*(*(&v10 + 1) + 8 * v7) UUIDString];
+        v8 = [*(*(&v9 + 1) + 8 * v7) UUIDString];
         [v2 addObject:v8];
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
 
   [*(a1 + 40) removeCaseStoragesWithCaseIDs:v2];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeCaseStoragesWithCaseIDs:(id)ds
@@ -767,37 +756,37 @@ void __60__ABCPersistentStoreController_removeCaseStoragesWithUUIDs___block_invo
 
 void __62__ABCPersistentStoreController_removeCaseStoragesWithCaseIDs___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) caseStorageAnalytics];
   v3 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(*(a1 + 40), "count")}];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v4 = *(a1 + 40);
-  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       v8 = 0;
       do
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = [MEMORY[0x277CCAC30] predicateWithFormat:@"caseID == %@", *(*(&v12 + 1) + 8 * v8)];
+        v9 = [MEMORY[0x277CCAC30] predicateWithFormat:@"caseID == %@", *(*(&v11 + 1) + 8 * v8)];
         [v3 addObject:v9];
 
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
@@ -805,8 +794,6 @@ void __62__ABCPersistentStoreController_removeCaseStoragesWithCaseIDs___block_in
 
   v10 = [MEMORY[0x277CCA920] orPredicateWithSubpredicates:v3];
   [v2 removeEntitiesMatching:v10];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeCaseStorageWithID:(id)d
@@ -846,18 +833,16 @@ void __56__ABCPersistentStoreController_removeCaseStorageWithID___block_invoke(u
 
 void __53__ABCPersistentStoreController_removeAllCaseStorages__block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v1 = [*(a1 + 32) caseStorageAnalytics];
   v2 = [v1 removeAllDiagnosticCaseStorages];
-  v3 = casemanagementLogHandle();
+  v3 = casemanagementLogHandle(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v5 = 134217984;
-    v6 = v2;
-    _os_log_impl(&dword_241804000, v3, OS_LOG_TYPE_INFO, "Removed %ld cases from persistent store", &v5, 0xCu);
+    v4 = 134217984;
+    v5 = v2;
+    _os_log_impl(&dword_241804000, v3, OS_LOG_TYPE_INFO, "Removed %ld cases from persistent store", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (ABCPersistentStoreControllerDelegate)delegate

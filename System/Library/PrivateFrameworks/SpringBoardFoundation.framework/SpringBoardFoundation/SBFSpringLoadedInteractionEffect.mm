@@ -38,9 +38,10 @@
     _blinkEffect = [MEMORY[0x1E69DCF80] _blinkEffect];
   }
 
+  blinkEffect = self->_blinkEffect;
   self->_blinkEffect = _blinkEffect;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](_blinkEffect, blinkEffect);
 }
 
 - (void)interaction:(id)interaction didChangeWithContext:(id)context

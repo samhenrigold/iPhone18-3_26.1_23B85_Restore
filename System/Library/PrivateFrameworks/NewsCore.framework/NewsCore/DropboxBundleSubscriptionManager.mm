@@ -69,19 +69,16 @@
 
 - (FCEntitlementsOverrideProviderType)entitlementsOverrideProvider
 {
-  v3 = OBJC_IVAR____TtC8NewsCore32DropboxBundleSubscriptionManager_entitlementsOverrideProvider;
   swift_beginAccess();
-  v4 = *(&self->super.isa + v3);
-  v5 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v5;
+  return v2;
 }
 
 - (void)setEntitlementsOverrideProvider:(id)provider
 {
   v5 = OBJC_IVAR____TtC8NewsCore32DropboxBundleSubscriptionManager_entitlementsOverrideProvider;
   swift_beginAccess();
-  v6 = *(&self->super.isa + v5);
   *(&self->super.isa + v5) = provider;
   swift_unknownObjectRetain();
   swift_unknownObjectRelease();
@@ -92,18 +89,21 @@
   v5 = _Block_copy(completion);
   if (v5)
   {
-    *(swift_allocObject() + 16) = v5;
-    v6 = sub_1B644DCAC;
+    v6 = v5;
+    v7 = swift_allocObject();
+    *(v7 + 16) = v6;
+    v8 = sub_1B644DCAC;
   }
 
   else
   {
-    v6 = 0;
+    v8 = 0;
+    v7 = 0;
   }
 
   selfCopy = self;
-  sub_1B644DA6C(v6);
-  sub_1B64475B8(v6);
+  sub_1B644DA6C(v8);
+  sub_1B64475B8(v8, v7);
 }
 
 - (void)refreshBundleSubscriptionWithCachePolicy:(unint64_t)policy hideBundleDetectionUI:(BOOL)i completion:(id)completion
@@ -111,18 +111,21 @@
   v6 = _Block_copy(completion);
   if (v6)
   {
-    *(swift_allocObject() + 16) = v6;
-    v7 = sub_1B644DBF4;
+    v7 = v6;
+    v8 = swift_allocObject();
+    *(v8 + 16) = v7;
+    v9 = sub_1B644DBF4;
   }
 
   else
   {
-    v7 = 0;
+    v9 = 0;
+    v8 = 0;
   }
 
   selfCopy = self;
-  sub_1B644DA6C(v7);
-  sub_1B64475B8(v7);
+  sub_1B644DA6C(v9);
+  sub_1B64475B8(v9, v8);
 }
 
 - (id)bundleSubscriptionLookupEntry

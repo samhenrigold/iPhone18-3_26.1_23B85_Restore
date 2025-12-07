@@ -104,7 +104,7 @@
 
 void __58__ACHTemplateStore_initWithClient_assertionClient_device___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = [WeakRetained client];
   v4 = [v3 isProtectedDataAvailable];
@@ -112,9 +112,9 @@ void __58__ACHTemplateStore_initWithClient_assertionClient_device___block_invoke
   v5 = ACHLogTemplates();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v9[0] = 67109120;
-    v9[1] = v4;
-    _os_log_impl(&dword_221DDC000, v5, OS_LOG_TYPE_DEFAULT, "Template store detected received notification of a change in protected data availability: %d", v9, 8u);
+    v8[0] = 67109120;
+    v8[1] = v4;
+    _os_log_impl(&dword_221DDC000, v5, OS_LOG_TYPE_DEFAULT, "Template store detected received notification of a change in protected data availability: %d", v8, 8u);
   }
 
   v6 = objc_loadWeakRetained((a1 + 32));
@@ -125,8 +125,6 @@ void __58__ACHTemplateStore_initWithClient_assertionClient_device___block_invoke
     v7 = objc_loadWeakRetained((a1 + 32));
     [v7 _queue_loadAllTemplatesFromDatabaseIfNecessary];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __58__ACHTemplateStore_initWithClient_assertionClient_device___block_invoke_305(uint64_t a1)
@@ -154,7 +152,7 @@ void __58__ACHTemplateStore_initWithClient_assertionClient_device___block_invoke
 
 - (void)_queue_protectedDataAvailabilityChanged:(BOOL)changed
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (changed)
   {
     if ([(ACHTemplateStore *)self needsUpdateWhenProtectedDataAvailable])
@@ -177,13 +175,13 @@ void __58__ACHTemplateStore_initWithClient_assertionClient_device___block_invoke
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v16 = [v7 count];
+        v15 = [v7 count];
         _os_log_impl(&dword_221DDC000, v9, OS_LOG_TYPE_DEFAULT, "Adding %lu templates after protected data became available", buf, 0xCu);
       }
 
-      v14 = 0;
-      v10 = [(ACHTemplateStore *)self _queue_addTemplates:v7 triggerSync:1 error:&v14];
-      v11 = v14;
+      v13 = 0;
+      v10 = [(ACHTemplateStore *)self _queue_addTemplates:v7 triggerSync:1 error:&v13];
+      v11 = v13;
       if (!v10)
       {
         v12 = ACHLogTemplates();
@@ -194,8 +192,6 @@ void __58__ACHTemplateStore_initWithClient_assertionClient_device___block_invoke
       }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)allTemplates
@@ -297,28 +293,28 @@ void __42__ACHTemplateStore_templateForUniqueName___block_invoke(uint64_t a1)
 
 void __46__ACHTemplateStore__templatesWithUniqueNames___block_invoke(id *a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v2 = a1[4];
-  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     do
     {
       v6 = 0;
       do
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * v6);
+        v7 = *(*(&v10 + 1) + 8 * v6);
         v8 = [a1[5] templatesByUniqueName];
         v9 = [v8 objectForKeyedSubscript:v7];
 
@@ -331,13 +327,11 @@ void __46__ACHTemplateStore__templatesWithUniqueNames___block_invoke(id *a1)
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)templateForTemplateKey:(unint64_t)key
@@ -478,7 +472,7 @@ void __68__ACHTemplateStore_availableTemplatesForDateComponents_countryCode___bl
   return selfCopy;
 }
 
-uint64_t __59__ACHTemplateStore_loadAllTemplatesFromDatabaseIfNecessary__block_invoke(uint64_t a1)
+void *__59__ACHTemplateStore_loadAllTemplatesFromDatabaseIfNecessary__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _queue_loadAllTemplatesFromDatabaseIfNecessary];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -487,7 +481,7 @@ uint64_t __59__ACHTemplateStore_loadAllTemplatesFromDatabaseIfNecessary__block_i
 
 - (BOOL)_queue_loadAllTemplatesFromDatabaseIfNecessary
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if ([(ACHTemplateStore *)self initialFetchComplete])
   {
     v3 = ACHLogDatabase();
@@ -503,9 +497,9 @@ uint64_t __59__ACHTemplateStore_loadAllTemplatesFromDatabaseIfNecessary__block_i
   else
   {
     client = [(ACHTemplateStore *)self client];
-    v12 = 0;
-    v6 = [client fetchAllTemplatesWithError:&v12];
-    v3 = v12;
+    v11 = 0;
+    v6 = [client fetchAllTemplatesWithError:&v11];
+    v3 = v11;
 
     if ([v6 count])
     {
@@ -520,7 +514,7 @@ uint64_t __59__ACHTemplateStore_loadAllTemplatesFromDatabaseIfNecessary__block_i
       if (v8)
       {
         *buf = 138412290;
-        v14 = v3;
+        v13 = v3;
         _os_log_impl(&dword_221DDC000, v7, OS_LOG_TYPE_DEFAULT, "Error fetching templates: %@", buf, 0xCu);
       }
     }
@@ -531,7 +525,7 @@ uint64_t __59__ACHTemplateStore_loadAllTemplatesFromDatabaseIfNecessary__block_i
       {
         v9 = [v6 count];
         *buf = 134217984;
-        v14 = v9;
+        v13 = v9;
         _os_log_impl(&dword_221DDC000, v7, OS_LOG_TYPE_DEFAULT, "Initial fetch returned %lu templates, notifying observers of new templates and initial fetch complete", buf, 0xCu);
       }
 
@@ -540,16 +534,66 @@ uint64_t __59__ACHTemplateStore_loadAllTemplatesFromDatabaseIfNecessary__block_i
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 - (void)_queue_updateTemplatesFromDatabase
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_221DDC000, v0, v1, "Error fetching templates: %@\nWill run again when protected data becomes available.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  client = [(ACHTemplateStore *)self client];
+  isProtectedDataAvailable = [client isProtectedDataAvailable];
+
+  if (isProtectedDataAvailable)
+  {
+    [(ACHTemplateStore *)self setNeedsUpdateWhenProtectedDataAvailable:0];
+    client2 = [(ACHTemplateStore *)self client];
+    v13 = 0;
+    v6 = [client2 fetchAllTemplatesWithError:&v13];
+    v7 = v13;
+
+    if (v7 || ![v6 count])
+    {
+      v8 = ACHLogDatabase();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      {
+        [ACHTemplateStore _queue_updateTemplatesFromDatabase];
+      }
+
+      [(ACHTemplateStore *)self setNeedsUpdateWhenProtectedDataAvailable:1];
+      v9 = MEMORY[0x277CBEBF8];
+      v10 = MEMORY[0x277CBEBF8];
+    }
+
+    else
+    {
+      v11 = ACHLogDatabase();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      {
+        *v12 = 0;
+        _os_log_impl(&dword_221DDC000, v11, OS_LOG_TYPE_DEFAULT, "Succeeded in fetching templates, updating...", v12, 2u);
+      }
+
+      v10 = [(ACHTemplateStore *)self _queue_templatesFilteredForDuplicates:v6];
+      v9 = [(ACHTemplateStore *)self _queue_orphanedTemplatesWithFetchedTemplates:v6];
+    }
+
+    if ([v10 count])
+    {
+      [(ACHTemplateStore *)self _addTemplatesToLocalCollections:v10];
+      [(ACHTemplateStore *)self _notifyObserversOfNewTemplates:v10];
+    }
+
+    if ([v9 count])
+    {
+      [(ACHTemplateStore *)self _removeTemplatesFromLocalCollections:v9];
+      [(ACHTemplateStore *)self _notifyObserversOfRemovedTemplates:v9];
+    }
+  }
+
+  else
+  {
+
+    [(ACHTemplateStore *)self setNeedsUpdateWhenProtectedDataAvailable:1];
+  }
 }
 
 - (id)_queue_templatesFilteredForDuplicates:(id)duplicates
@@ -590,34 +634,34 @@ BOOL __58__ACHTemplateStore__queue_templatesFilteredForDuplicates___block_invoke
 
 - (id)_queue_orphanedTemplatesWithFetchedTemplates:(id)templates
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   templatesCopy = templates;
   v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v6 = templatesCopy;
-  v7 = [v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v24;
+    v9 = *v23;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v24 != v9)
+        if (*v23 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v23 + 1) + 8 * i);
+        v11 = *(*(&v22 + 1) + 8 * i);
         uniqueName = [v11 uniqueName];
         [v5 setObject:v11 forKeyedSubscript:uniqueName];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v8);
@@ -626,16 +670,14 @@ BOOL __58__ACHTemplateStore__queue_templatesFilteredForDuplicates___block_invoke
   templates = [(ACHTemplateStore *)self templates];
   allObjects = [templates allObjects];
   v15 = MEMORY[0x277CCAC30];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __65__ACHTemplateStore__queue_orphanedTemplatesWithFetchedTemplates___block_invoke;
-  v21[3] = &unk_278491088;
-  v22 = v5;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __65__ACHTemplateStore__queue_orphanedTemplatesWithFetchedTemplates___block_invoke;
+  v20[3] = &unk_278491088;
+  v21 = v5;
   v16 = v5;
-  v17 = [v15 predicateWithBlock:v21];
+  v17 = [v15 predicateWithBlock:v20];
   v18 = [allObjects filteredArrayUsingPredicate:v17];
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -811,13 +853,14 @@ id __58__ACHTemplateStore__queue_addTemplates_triggerSync_error___block_invoke_3
   return v3;
 }
 
-void __58__ACHTemplateStore__queue_addTemplates_triggerSync_error___block_invoke_2(uint64_t a1, char a2, void *a3)
+void __58__ACHTemplateStore__queue_addTemplates_triggerSync_error___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
+  v3 = a2;
   v4 = a3;
   v5 = ACHLogSync();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    __58__ACHTemplateStore__queue_addTemplates_triggerSync_error___block_invoke_2_cold_1(a2, v5);
+    __58__ACHTemplateStore__queue_addTemplates_triggerSync_error___block_invoke_2_cold_1(v3, v5);
   }
 
   if (v4)
@@ -832,15 +875,15 @@ void __58__ACHTemplateStore__queue_addTemplates_triggerSync_error___block_invoke
 
 - (BOOL)_queue_addTemplatesToDatabase:(id)database error:(id *)error
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   databaseCopy = database;
   synchronizationQueue = [(ACHTemplateStore *)self synchronizationQueue];
   dispatch_assert_queue_V2(synchronizationQueue);
 
   databaseAssertionClient = [(ACHTemplateStore *)self databaseAssertionClient];
-  v36 = 0;
-  v8 = [databaseAssertionClient acquireDatabaseAssertionWithIdentifier:@"ACHTemplateStore" error:&v36];
-  v9 = v36;
+  v35 = 0;
+  v8 = [databaseAssertionClient acquireDatabaseAssertionWithIdentifier:@"ACHTemplateStore" error:&v35];
+  v9 = v35;
 
   if (!v8)
   {
@@ -848,34 +891,34 @@ void __58__ACHTemplateStore__queue_addTemplates_triggerSync_error___block_invoke
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v38[0] = v9;
+      v37[0] = v9;
       _os_log_impl(&dword_221DDC000, v10, OS_LOG_TYPE_DEFAULT, "BEWARE: Unable to acquire a database assertion. The following operation may fail. %@", buf, 0xCu);
     }
   }
 
-  v29 = v9;
+  v28 = v9;
   v11 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   v12 = databaseCopy;
-  v13 = [v12 countByEnumeratingWithState:&v32 objects:v39 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v31 objects:v38 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v33;
+    v15 = *v32;
     do
     {
       v16 = 0;
       do
       {
-        if (*v33 != v15)
+        if (*v32 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v32 + 1) + 8 * v16);
+        v17 = *(*(&v31 + 1) + 8 * v16);
         templatesByUniqueName = [(ACHTemplateStore *)self templatesByUniqueName];
         uniqueName = [v17 uniqueName];
         v20 = [templatesByUniqueName objectForKeyedSubscript:uniqueName];
@@ -889,7 +932,7 @@ void __58__ACHTemplateStore__queue_addTemplates_triggerSync_error___block_invoke
       }
 
       while (v14 != v16);
-      v14 = [v12 countByEnumeratingWithState:&v32 objects:v39 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v31 objects:v38 count:16];
     }
 
     while (v14);
@@ -901,59 +944,58 @@ void __58__ACHTemplateStore__queue_addTemplates_triggerSync_error___block_invoke
   if (v8)
   {
     databaseAssertionClient2 = [(ACHTemplateStore *)self databaseAssertionClient];
-    v31 = v29;
-    v24 = [databaseAssertionClient2 invalidateAssertionWithToken:v8 error:&v31];
-    v25 = v31;
+    v30 = v28;
+    v24 = [databaseAssertionClient2 invalidateAssertionWithToken:v8 error:&v30];
+    v25 = v30;
 
     v26 = ACHLogTemplates();
     if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109378;
-      LODWORD(v38[0]) = v24;
-      WORD2(v38[0]) = 2112;
-      *(v38 + 6) = v25;
+      LODWORD(v37[0]) = v24;
+      WORD2(v37[0]) = 2112;
+      *(v37 + 6) = v25;
       _os_log_impl(&dword_221DDC000, v26, OS_LOG_TYPE_DEFAULT, "Invalidated assertion with success %d; error: %@", buf, 0x12u);
     }
   }
 
   else
   {
-    v25 = v29;
+    v25 = v28;
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
 - (void)_addTemplatesToLocalCollections:(id)collections
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   collectionsCopy = collections;
   synchronizationQueue = [(ACHTemplateStore *)self synchronizationQueue];
   dispatch_assert_queue_V2(synchronizationQueue);
 
   v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   obj = collectionsCopy;
-  v7 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+  v7 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v36;
+    v9 = *v35;
     do
     {
       v10 = 0;
       do
       {
-        if (*v36 != v9)
+        if (*v35 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v35 + 1) + 8 * v10);
+        v11 = *(*(&v34 + 1) + 8 * v10);
         templatesByUniqueName = [(ACHTemplateStore *)self templatesByUniqueName];
         uniqueName = [v11 uniqueName];
         v14 = [templatesByUniqueName objectForKeyedSubscript:uniqueName];
@@ -1019,7 +1061,7 @@ LABEL_18:
       }
 
       while (v8 != v10);
-      v8 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+      v8 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
     }
 
     while (v8);
@@ -1029,8 +1071,6 @@ LABEL_18:
   {
     [(ACHTemplateStore *)self _notifyObserversOfRemovedTemplates:v6];
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)removeTemplates:(id)templates error:(id *)error
@@ -1143,32 +1183,32 @@ void __42__ACHTemplateStore_removeTemplates_error___block_invoke(uint64_t a1)
 
 - (void)_removeTemplatesFromLocalCollections:(id)collections
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   collectionsCopy = collections;
   synchronizationQueue = [(ACHTemplateStore *)self synchronizationQueue];
   dispatch_assert_queue_V2(synchronizationQueue);
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v6 = collectionsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v27;
+    v9 = *v26;
     v10 = MEMORY[0x277CBEBF8];
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v27 != v9)
+        if (*v26 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v26 + 1) + 8 * i);
+        v12 = *(*(&v25 + 1) + 8 * i);
         templatesByUniqueName = [(ACHTemplateStore *)self templatesByUniqueName];
         uniqueName = [v12 uniqueName];
         v15 = [templatesByUniqueName objectForKeyedSubscript:uniqueName];
@@ -1197,7 +1237,7 @@ void __42__ACHTemplateStore_removeTemplates_error___block_invoke(uint64_t a1)
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v8);
@@ -1212,8 +1252,6 @@ void __42__ACHTemplateStore_removeTemplates_error___block_invoke(uint64_t a1)
   {
     [(ACHTemplateStore *)self _notifyObserversOfRemovedTemplates:v10];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addObserver:(id)observer
@@ -1230,7 +1268,7 @@ void __42__ACHTemplateStore_removeTemplates_error___block_invoke(uint64_t a1)
   dispatch_async(notificationQueue, v7);
 }
 
-uint64_t __32__ACHTemplateStore_addObserver___block_invoke(uint64_t a1)
+void *__32__ACHTemplateStore_addObserver___block_invoke(uint64_t a1)
 {
   v2 = (a1 + 32);
   if ([*(a1 + 32) conformsToProtocol:&unk_283565E80])
@@ -1296,38 +1334,36 @@ void __35__ACHTemplateStore_removeObserver___block_invoke(uint64_t a1)
 
 void __60__ACHTemplateStore__notifyObserversOfInitialFetchCompletion__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = [*(a1 + 32) observers];
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) templateStoreDidFinishInitialFetch:*(a1 + 32)];
+        [*(*(&v7 + 1) + 8 * v6++) templateStoreDidFinishInitialFetch:*(a1 + 32)];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notifyObserversOfNewTemplates:(id)templates
@@ -1346,38 +1382,36 @@ void __60__ACHTemplateStore__notifyObserversOfInitialFetchCompletion__block_invo
 
 void __51__ACHTemplateStore__notifyObserversOfNewTemplates___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = [*(a1 + 32) observers];
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) templateStore:*(a1 + 32) didAddNewTemplates:*(a1 + 40)];
+        [*(*(&v7 + 1) + 8 * v6++) templateStore:*(a1 + 32) didAddNewTemplates:*(a1 + 40)];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notifyObserversOfRemovedTemplates:(id)templates
@@ -1396,95 +1430,72 @@ void __51__ACHTemplateStore__notifyObserversOfNewTemplates___block_invoke(uint64
 
 void __55__ACHTemplateStore__notifyObserversOfRemovedTemplates___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = [*(a1 + 32) observers];
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) templateStore:*(a1 + 32) didRemoveTemplates:*(a1 + 40)];
+        [*(*(&v7 + 1) + 8 * v6++) templateStore:*(a1 + 32) didRemoveTemplates:*(a1 + 40)];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_queue_protectedDataAvailabilityChanged:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_221DDC000, v0, v1, "Error adding templates after protected data became available: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __39__ACHTemplateStore_addTemplates_error___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*(*(*a1 + 8) + 40));
-  OUTLINED_FUNCTION_0(&dword_221DDC000, a2, a3, "Error adding templates: %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = *(*(*a1 + 8) + 40);
+  OUTLINED_FUNCTION_0(&dword_221DDC000, a2, a3, "Error adding templates: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __58__ACHTemplateStore__queue_addTemplates_triggerSync_error___block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v3 = [a1 uniqueName];
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_221DDC000, a2, OS_LOG_TYPE_DEBUG, "Template minimum engine version higher than we support, not adding: %@", v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_221DDC000, a2, OS_LOG_TYPE_DEBUG, "Template minimum engine version higher than we support, not adding: %@", v4, 0xCu);
 }
 
 void __58__ACHTemplateStore__queue_addTemplates_triggerSync_error___block_invoke_2_cold_1(char a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = @"NO";
   if (a1)
   {
     v2 = @"YES";
   }
 
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_221DDC000, a2, OS_LOG_TYPE_DEBUG, "Triggered sync for templates, success: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-void __58__ACHTemplateStore__queue_addTemplates_triggerSync_error___block_invoke_2_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_221DDC000, v0, v1, "Error triggering sync for templates: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_221DDC000, a2, OS_LOG_TYPE_DEBUG, "Triggered sync for templates, success: %@", &v3, 0xCu);
 }
 
 void __32__ACHTemplateStore_addObserver___block_invoke_cold_1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0(&dword_221DDC000, a2, a3, "Template store did not add observer %@ since it doesn't conform to the observer protocol.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0(&dword_221DDC000, a2, a3, "Template store did not add observer %@ since it doesn't conform to the observer protocol.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

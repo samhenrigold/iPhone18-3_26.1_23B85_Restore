@@ -151,7 +151,7 @@ void __49__UIUpdateLink_addActionToPhase_target_selector___block_invoke(uint64_t
     *(active + 49) = a2;
     if (a2)
     {
-      _UIUpdateRequestRegistryAddRecord(&mainRegistry, (active + 16), 0x10003Au);
+      _UIUpdateRequestRegistryAddRecord(&mainRegistry, (active + 16), 1048634);
       for (i = *(active + 8); i; i = *i)
       {
         v4 = i[2];
@@ -171,7 +171,7 @@ void __49__UIUpdateLink_addActionToPhase_target_selector___block_invoke(uint64_t
 
     else
     {
-      _UIUpdateRequestRegistryRemoveRecord(&mainRegistry, (active + 16), 0x10003Au);
+      _UIUpdateRequestRegistryRemoveRecord(&mainRegistry, (active + 16), 1048634);
       for (j = *(active + 8); j; j = *j)
       {
         v7 = j[4];
@@ -202,14 +202,14 @@ void __49__UIUpdateLink_addActionToPhase_target_selector___block_invoke(uint64_t
     v3 = result;
     if (*(result + 49) == 1)
     {
-      _UIUpdateRequestRegistryRemoveRecord(&mainRegistry, (result + 16), 0x10003Au);
+      _UIUpdateRequestRegistryRemoveRecord(&mainRegistry, (result + 16), 1048634);
     }
 
     result = (*(a2 + 16))(a2);
     if (*(v3 + 49) == 1)
     {
 
-      return _UIUpdateRequestRegistryAddRecord(&mainRegistry, (v3 + 16), 0x10003Au);
+      return _UIUpdateRequestRegistryAddRecord(&mainRegistry, (v3 + 16), 1048634);
     }
   }
 

@@ -104,13 +104,13 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  v15 = sub_100063A54();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v16 = sub_100063A54(v14);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     profileIdentifier5 = [(MSDConfigurationProfile *)self profileIdentifier];
-    v17 = 138543362;
-    v18 = profileIdentifier5;
-    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "getProfileData called for unknown profile type: %{public}@", &v17, 0xCu);
+    v18 = 138543362;
+    v19 = profileIdentifier5;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "getProfileData called for unknown profile type: %{public}@", &v18, 0xCu);
   }
 
   v9 = 0;

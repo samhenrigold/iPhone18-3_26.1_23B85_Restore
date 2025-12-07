@@ -1,3 +1,808 @@
+void uniform_matrix3x4fv(__GLIContextRec *a1, uint64_t a2, uint64_t a3, uint64_t a4, const float *a5)
+{
+  v10 = *(ContextInfo::activeCtxInfoMap + 8);
+  if (!v10)
+  {
+    goto LABEL_9;
+  }
+
+  v11 = ContextInfo::activeCtxInfoMap + 8;
+  do
+  {
+    v12 = *(v10 + 32);
+    v13 = v12 >= a1;
+    v14 = v12 < a1;
+    if (v13)
+    {
+      v11 = v10;
+    }
+
+    v10 = *(v10 + 8 * v14);
+  }
+
+  while (v10);
+  if (v11 == ContextInfo::activeCtxInfoMap + 8 || *(v11 + 32) > a1)
+  {
+LABEL_9:
+    v11 = ContextInfo::activeCtxInfoMap + 8;
+  }
+
+  v15 = *(v11 + 40);
+  v16 = atomic_fetch_add((v15 + 4640), 1u) + 1;
+  if (gCheckGLErrors != 1 || v16 <= 1)
+  {
+    if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
+    {
+LABEL_24:
+      atomic_fetch_add((v15 + 4640), 0xFFFFFFFF);
+      v20 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
+      dispatch_sync_f(v20, 0, do_nothing);
+LABEL_29:
+      v21 = *(*(v15 + 24) + 6024);
+
+      v21(a1, a2, a3, a4, a5);
+      return;
+    }
+  }
+
+  else
+  {
+    handle_opengl_thread_conflict(v15);
+    if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
+    {
+      goto LABEL_24;
+    }
+  }
+
+  *(v15 + 4838) = 1;
+  if ([DYGetGLGuestAppClient() state] == &dword_0 + 1 && objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
+  {
+    atomic_fetch_add((v15 + 4640), 0xFFFFFFFF);
+    [DYGetGLGuestAppClient() triggerArmedCapture];
+    goto LABEL_29;
+  }
+
+  v18 = wrapper_map_uniform_loc(v15, *(v15 + 2068), a2);
+  (*(*(v15 + 32) + 6024))(a1, v18, a3, a4, a5);
+  ++*(v15 + 3704);
+  if (gCheckGLErrors == 1)
+  {
+    alpha_func(v15);
+  }
+
+  add = atomic_fetch_add((v15 + 4640), 0xFFFFFFFF);
+  if (gCheckGLErrors == 1 && (add - 1) >= 1)
+  {
+
+    handle_opengl_thread_conflict(v15);
+  }
+}
+
+{
+  v10 = *(ContextInfo::activeCtxInfoMap + 8);
+  if (!v10)
+  {
+    goto LABEL_9;
+  }
+
+  v11 = ContextInfo::activeCtxInfoMap + 8;
+  do
+  {
+    v12 = *(v10 + 32);
+    v13 = v12 >= a1;
+    v14 = v12 < a1;
+    if (v13)
+    {
+      v11 = v10;
+    }
+
+    v10 = *(v10 + 8 * v14);
+  }
+
+  while (v10);
+  if (v11 == ContextInfo::activeCtxInfoMap + 8 || *(v11 + 32) > a1)
+  {
+LABEL_9:
+    v11 = ContextInfo::activeCtxInfoMap + 8;
+  }
+
+  v15 = *(v11 + 40);
+  v16 = atomic_fetch_add((v15 + 4640), 1u) + 1;
+  if (gCheckGLErrors != 1 || v16 <= 1)
+  {
+    if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
+    {
+LABEL_24:
+      atomic_fetch_add((v15 + 4640), 0xFFFFFFFF);
+      v23 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
+      dispatch_sync_f(v23, 0, do_nothing);
+LABEL_29:
+      v24 = *(*(v15 + 24) + 6024);
+
+      v24(a1, a2, a3, a4, a5);
+      return;
+    }
+  }
+
+  else
+  {
+    handle_opengl_thread_conflict(v15);
+    if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
+    {
+      goto LABEL_24;
+    }
+  }
+
+  *(v15 + 4838) = 1;
+  if ([DYGetGLGuestAppClient() state] == &dword_0 + 1 && objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
+  {
+    atomic_fetch_add((v15 + 4640), 0xFFFFFFFF);
+    [DYGetGLGuestAppClient() triggerArmedCapture];
+    goto LABEL_29;
+  }
+
+  v18 = wrapper_map_uniform_loc(v15, *(v15 + 2068), a2);
+  v19 = mach_absolute_time();
+  (*(*(v15 + 32) + 6024))(a1, v18, a3, a4, a5);
+  v20 = mach_absolute_time();
+  v21 = vdupq_n_s64(1uLL);
+  v21.i64[0] = v20 - v19;
+  *(v15 + 3696) = vaddq_s64(v21, *(v15 + 3696));
+  if (gCheckGLErrors == 1)
+  {
+    alpha_func(v15);
+  }
+
+  add = atomic_fetch_add((v15 + 4640), 0xFFFFFFFF);
+  if (gCheckGLErrors == 1 && (add - 1) >= 1)
+  {
+
+    handle_opengl_thread_conflict(v15);
+  }
+}
+
+void uniform_matrix4x3fv(__GLIContextRec *a1, uint64_t a2, uint64_t a3, uint64_t a4, const float *a5)
+{
+  v10 = *(ContextInfo::activeCtxInfoMap + 8);
+  if (!v10)
+  {
+    goto LABEL_9;
+  }
+
+  v11 = ContextInfo::activeCtxInfoMap + 8;
+  do
+  {
+    v12 = *(v10 + 32);
+    v13 = v12 >= a1;
+    v14 = v12 < a1;
+    if (v13)
+    {
+      v11 = v10;
+    }
+
+    v10 = *(v10 + 8 * v14);
+  }
+
+  while (v10);
+  if (v11 == ContextInfo::activeCtxInfoMap + 8 || *(v11 + 32) > a1)
+  {
+LABEL_9:
+    v11 = ContextInfo::activeCtxInfoMap + 8;
+  }
+
+  v15 = *(v11 + 40);
+  v16 = atomic_fetch_add((v15 + 4640), 1u) + 1;
+  if (gCheckGLErrors != 1 || v16 <= 1)
+  {
+    if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
+    {
+LABEL_24:
+      atomic_fetch_add((v15 + 4640), 0xFFFFFFFF);
+      v20 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
+      dispatch_sync_f(v20, 0, do_nothing);
+LABEL_29:
+      v21 = *(*(v15 + 24) + 6032);
+
+      v21(a1, a2, a3, a4, a5);
+      return;
+    }
+  }
+
+  else
+  {
+    handle_opengl_thread_conflict(v15);
+    if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
+    {
+      goto LABEL_24;
+    }
+  }
+
+  *(v15 + 4838) = 1;
+  if ([DYGetGLGuestAppClient() state] == &dword_0 + 1 && objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
+  {
+    atomic_fetch_add((v15 + 4640), 0xFFFFFFFF);
+    [DYGetGLGuestAppClient() triggerArmedCapture];
+    goto LABEL_29;
+  }
+
+  v18 = wrapper_map_uniform_loc(v15, *(v15 + 2068), a2);
+  (*(*(v15 + 32) + 6032))(a1, v18, a3, a4, a5);
+  ++*(v15 + 3704);
+  if (gCheckGLErrors == 1)
+  {
+    alpha_func(v15);
+  }
+
+  add = atomic_fetch_add((v15 + 4640), 0xFFFFFFFF);
+  if (gCheckGLErrors == 1 && (add - 1) >= 1)
+  {
+
+    handle_opengl_thread_conflict(v15);
+  }
+}
+
+{
+  v10 = *(ContextInfo::activeCtxInfoMap + 8);
+  if (!v10)
+  {
+    goto LABEL_9;
+  }
+
+  v11 = ContextInfo::activeCtxInfoMap + 8;
+  do
+  {
+    v12 = *(v10 + 32);
+    v13 = v12 >= a1;
+    v14 = v12 < a1;
+    if (v13)
+    {
+      v11 = v10;
+    }
+
+    v10 = *(v10 + 8 * v14);
+  }
+
+  while (v10);
+  if (v11 == ContextInfo::activeCtxInfoMap + 8 || *(v11 + 32) > a1)
+  {
+LABEL_9:
+    v11 = ContextInfo::activeCtxInfoMap + 8;
+  }
+
+  v15 = *(v11 + 40);
+  v16 = atomic_fetch_add((v15 + 4640), 1u) + 1;
+  if (gCheckGLErrors != 1 || v16 <= 1)
+  {
+    if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
+    {
+LABEL_24:
+      atomic_fetch_add((v15 + 4640), 0xFFFFFFFF);
+      v23 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
+      dispatch_sync_f(v23, 0, do_nothing);
+LABEL_29:
+      v24 = *(*(v15 + 24) + 6032);
+
+      v24(a1, a2, a3, a4, a5);
+      return;
+    }
+  }
+
+  else
+  {
+    handle_opengl_thread_conflict(v15);
+    if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
+    {
+      goto LABEL_24;
+    }
+  }
+
+  *(v15 + 4838) = 1;
+  if ([DYGetGLGuestAppClient() state] == &dword_0 + 1 && objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
+  {
+    atomic_fetch_add((v15 + 4640), 0xFFFFFFFF);
+    [DYGetGLGuestAppClient() triggerArmedCapture];
+    goto LABEL_29;
+  }
+
+  v18 = wrapper_map_uniform_loc(v15, *(v15 + 2068), a2);
+  v19 = mach_absolute_time();
+  (*(*(v15 + 32) + 6032))(a1, v18, a3, a4, a5);
+  v20 = mach_absolute_time();
+  v21 = vdupq_n_s64(1uLL);
+  v21.i64[0] = v20 - v19;
+  *(v15 + 3696) = vaddq_s64(v21, *(v15 + 3696));
+  if (gCheckGLErrors == 1)
+  {
+    alpha_func(v15);
+  }
+
+  add = atomic_fetch_add((v15 + 4640), 0xFFFFFFFF);
+  if (gCheckGLErrors == 1 && (add - 1) >= 1)
+  {
+
+    handle_opengl_thread_conflict(v15);
+  }
+}
+
+void blit_framebuffer(__GLIContextRec *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unsigned int a6, unsigned int a7, unsigned int a8, uint64_t a9, unsigned int a10)
+{
+  v15 = *(ContextInfo::activeCtxInfoMap + 8);
+  if (!v15)
+  {
+    goto LABEL_9;
+  }
+
+  v16 = ContextInfo::activeCtxInfoMap + 8;
+  do
+  {
+    v17 = *(v15 + 32);
+    v18 = v17 >= a1;
+    v19 = v17 < a1;
+    if (v18)
+    {
+      v16 = v15;
+    }
+
+    v15 = *(v15 + 8 * v19);
+  }
+
+  while (v15);
+  if (v16 == ContextInfo::activeCtxInfoMap + 8 || *(v16 + 32) > a1)
+  {
+LABEL_9:
+    v16 = ContextInfo::activeCtxInfoMap + 8;
+  }
+
+  v20 = *(v16 + 40);
+  v21 = atomic_fetch_add((v20 + 4640), 1u) + 1;
+  if (gCheckGLErrors != 1 || v21 <= 1)
+  {
+    if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
+    {
+LABEL_25:
+      atomic_fetch_add((v20 + 4640), 0xFFFFFFFF);
+      v25 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
+      dispatch_sync_f(v25, 0, do_nothing);
+LABEL_34:
+      v28 = *(*(v20 + 24) + 6040);
+
+      v28(a1, a2, a3, a4, a5, a6, a7, a8, a9);
+      return;
+    }
+  }
+
+  else
+  {
+    handle_opengl_thread_conflict(v20);
+    v24 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
+    if (v24 >= 1)
+    {
+      goto LABEL_25;
+    }
+  }
+
+  *(v20 + 4838) = 257;
+  if ([DYGetGLGuestAppClient() state] == &dword_0 + 1 && objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
+  {
+    atomic_fetch_add((v20 + 4640), 0xFFFFFFFF);
+    [DYGetGLGuestAppClient() triggerArmedCapture];
+    goto LABEL_34;
+  }
+
+  if ([DYGetGLGuestAppClient() overrideFlags])
+  {
+    if (([DYGetGLGuestAppClient() overrideFlags] & 8) == 0)
+    {
+      v26 = [DYGetGLGuestAppClient() overrideFlags];
+      apply_draw_overrides(v20, v26);
+      (*(*(v20 + 32) + 6040))(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10);
+      ++*(v20 + 3704);
+      if (gCheckGLErrors == 1)
+      {
+        alpha_func(v20);
+      }
+
+      v27 = [DYGetGLGuestAppClient() overrideFlags];
+      unapply_draw_overrides(v20, v27);
+    }
+  }
+
+  else
+  {
+    (*(*(v20 + 32) + 6040))(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10);
+    ++*(v20 + 3704);
+    if (gCheckGLErrors == 1)
+    {
+      alpha_func(v20);
+    }
+  }
+
+  add = atomic_fetch_add((v20 + 4640), 0xFFFFFFFF);
+  if (gCheckGLErrors == 1 && (add - 1) >= 1)
+  {
+
+    handle_opengl_thread_conflict(v20);
+  }
+}
+
+void renderbuffer_storage_multisample(__GLIContextRec *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  v12 = *(ContextInfo::activeCtxInfoMap + 8);
+  if (!v12)
+  {
+    goto LABEL_9;
+  }
+
+  v13 = ContextInfo::activeCtxInfoMap + 8;
+  do
+  {
+    v14 = *(v12 + 32);
+    v15 = v14 >= a1;
+    v16 = v14 < a1;
+    if (v15)
+    {
+      v13 = v12;
+    }
+
+    v12 = *(v12 + 8 * v16);
+  }
+
+  while (v12);
+  if (v13 == ContextInfo::activeCtxInfoMap + 8 || *(v13 + 32) > a1)
+  {
+LABEL_9:
+    v13 = ContextInfo::activeCtxInfoMap + 8;
+  }
+
+  v17 = *(v13 + 40);
+  v18 = atomic_fetch_add((v17 + 4640), 1u) + 1;
+  if (gCheckGLErrors != 1 || v18 <= 1)
+  {
+    if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
+    {
+LABEL_24:
+      atomic_fetch_add((v17 + 4640), 0xFFFFFFFF);
+      v21 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
+      dispatch_sync_f(v21, 0, do_nothing);
+LABEL_29:
+      v22 = *(*(v17 + 24) + 6048);
+
+      v22(a1, a2, a3, a4, a5, a6);
+      return;
+    }
+  }
+
+  else
+  {
+    handle_opengl_thread_conflict(v17);
+    if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
+    {
+      goto LABEL_24;
+    }
+  }
+
+  *(v17 + 4838) = 1;
+  if ([DYGetGLGuestAppClient() state] == &dword_0 + 1 && objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
+  {
+    atomic_fetch_add((v17 + 4640), 0xFFFFFFFF);
+    [DYGetGLGuestAppClient() triggerArmedCapture];
+    goto LABEL_29;
+  }
+
+  (*(*(v17 + 32) + 6048))(a1, a2, a3, a4, a5, a6);
+  ++*(v17 + 3704);
+  if (gCheckGLErrors == 1)
+  {
+    alpha_func(v17);
+  }
+
+  add = atomic_fetch_add((v17 + 4640), 0xFFFFFFFF);
+  if (gCheckGLErrors == 1 && (add - 1) >= 1)
+  {
+
+    handle_opengl_thread_conflict(v17);
+  }
+}
+
+{
+  v12 = *(ContextInfo::activeCtxInfoMap + 8);
+  if (!v12)
+  {
+    goto LABEL_9;
+  }
+
+  v13 = ContextInfo::activeCtxInfoMap + 8;
+  do
+  {
+    v14 = *(v12 + 32);
+    v15 = v14 >= a1;
+    v16 = v14 < a1;
+    if (v15)
+    {
+      v13 = v12;
+    }
+
+    v12 = *(v12 + 8 * v16);
+  }
+
+  while (v12);
+  if (v13 == ContextInfo::activeCtxInfoMap + 8 || *(v13 + 32) > a1)
+  {
+LABEL_9:
+    v13 = ContextInfo::activeCtxInfoMap + 8;
+  }
+
+  v17 = *(v13 + 40);
+  v18 = atomic_fetch_add((v17 + 4640), 1u) + 1;
+  if (gCheckGLErrors != 1 || v18 <= 1)
+  {
+    if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
+    {
+LABEL_24:
+      atomic_fetch_add((v17 + 4640), 0xFFFFFFFF);
+      v24 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
+      dispatch_sync_f(v24, 0, do_nothing);
+LABEL_29:
+      v25 = *(*(v17 + 24) + 6048);
+
+      v25(a1, a2, a3, a4, a5, a6);
+      return;
+    }
+  }
+
+  else
+  {
+    handle_opengl_thread_conflict(v17);
+    if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
+    {
+      goto LABEL_24;
+    }
+  }
+
+  *(v17 + 4838) = 1;
+  if ([DYGetGLGuestAppClient() state] == &dword_0 + 1 && objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
+  {
+    atomic_fetch_add((v17 + 4640), 0xFFFFFFFF);
+    [DYGetGLGuestAppClient() triggerArmedCapture];
+    goto LABEL_29;
+  }
+
+  v20 = mach_absolute_time();
+  (*(*(v17 + 32) + 6048))(a1, a2, a3, a4, a5, a6);
+  v21 = mach_absolute_time();
+  v22 = vdupq_n_s64(1uLL);
+  v22.i64[0] = v21 - v20;
+  *(v17 + 3696) = vaddq_s64(v22, *(v17 + 3696));
+  if (gCheckGLErrors == 1)
+  {
+    alpha_func(v17);
+  }
+
+  add = atomic_fetch_add((v17 + 4640), 0xFFFFFFFF);
+  if (gCheckGLErrors == 1 && (add - 1) >= 1)
+  {
+
+    handle_opengl_thread_conflict(v17);
+  }
+}
+
+void draw_arrays_instanced(__GLIContextRec *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v10 = *(ContextInfo::activeCtxInfoMap + 8);
+  if (!v10)
+  {
+    goto LABEL_9;
+  }
+
+  v11 = ContextInfo::activeCtxInfoMap + 8;
+  do
+  {
+    v12 = *(v10 + 32);
+    v13 = v12 >= a1;
+    v14 = v12 < a1;
+    if (v13)
+    {
+      v11 = v10;
+    }
+
+    v10 = *(v10 + 8 * v14);
+  }
+
+  while (v10);
+  if (v11 == ContextInfo::activeCtxInfoMap + 8 || *(v11 + 32) > a1)
+  {
+LABEL_9:
+    v11 = ContextInfo::activeCtxInfoMap + 8;
+  }
+
+  v15 = *(v11 + 40);
+  v16 = atomic_fetch_add((v15 + 4640), 1u) + 1;
+  if (gCheckGLErrors != 1 || v16 <= 1)
+  {
+    if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
+    {
+LABEL_27:
+      atomic_fetch_add((v15 + 4640), 0xFFFFFFFF);
+      v19 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
+      dispatch_sync_f(v19, 0, do_nothing);
+LABEL_36:
+      v22 = *(*(v15 + 24) + 6096);
+
+      v22(a1, a2, a3, a4, a5);
+      return;
+    }
+  }
+
+  else
+  {
+    handle_opengl_thread_conflict(v15);
+    if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
+    {
+      goto LABEL_27;
+    }
+  }
+
+  *(v15 + 4838) = 257;
+  if ([DYGetGLGuestAppClient() state] == &dword_0 + 1 && objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
+  {
+    atomic_fetch_add((v15 + 4640), 0xFFFFFFFF);
+    [DYGetGLGuestAppClient() triggerArmedCapture];
+    goto LABEL_36;
+  }
+
+  if ([DYGetGLGuestAppClient() overrideFlags])
+  {
+    if (([DYGetGLGuestAppClient() overrideFlags] & 8) == 0)
+    {
+      v20 = [DYGetGLGuestAppClient() overrideFlags];
+      apply_draw_overrides(v15, v20);
+      (*(*(v15 + 32) + 6096))(a1, a2, a3, a4, a5);
+      ++*(v15 + 3704);
+      if (gCheckGLErrors == 1)
+      {
+        alpha_func(v15);
+      }
+
+      v21 = [DYGetGLGuestAppClient() overrideFlags];
+      unapply_draw_overrides(v15, v21);
+    }
+  }
+
+  else
+  {
+    (*(*(v15 + 32) + 6096))(a1, a2, a3, a4, a5);
+    ++*(v15 + 3704);
+    if (gCheckGLErrors == 1)
+    {
+      alpha_func(v15);
+    }
+  }
+
+  if (!*(v15 + 3404))
+  {
+    GLDrawCommandStatistics::update((v15 + 32 * a2 + 4408), a2, a4, a5);
+  }
+
+  add = atomic_fetch_add((v15 + 4640), 0xFFFFFFFF);
+  if (gCheckGLErrors == 1 && (add - 1) >= 1)
+  {
+
+    handle_opengl_thread_conflict(v15);
+  }
+}
+
+{
+  v10 = *(ContextInfo::activeCtxInfoMap + 8);
+  if (!v10)
+  {
+    goto LABEL_9;
+  }
+
+  v11 = ContextInfo::activeCtxInfoMap + 8;
+  do
+  {
+    v12 = *(v10 + 32);
+    v13 = v12 >= a1;
+    v14 = v12 < a1;
+    if (v13)
+    {
+      v11 = v10;
+    }
+
+    v10 = *(v10 + 8 * v14);
+  }
+
+  while (v10);
+  if (v11 == ContextInfo::activeCtxInfoMap + 8 || *(v11 + 32) > a1)
+  {
+LABEL_9:
+    v11 = ContextInfo::activeCtxInfoMap + 8;
+  }
+
+  v15 = *(v11 + 40);
+  v16 = atomic_fetch_add((v15 + 4640), 1u) + 1;
+  if (gCheckGLErrors != 1 || v16 <= 1)
+  {
+    if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
+    {
+LABEL_27:
+      atomic_fetch_add((v15 + 4640), 0xFFFFFFFF);
+      v22 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
+      dispatch_sync_f(v22, 0, do_nothing);
+LABEL_36:
+      v28 = *(*(v15 + 24) + 6096);
+
+      v28(a1, a2, a3, a4, a5);
+      return;
+    }
+  }
+
+  else
+  {
+    handle_opengl_thread_conflict(v15);
+    if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
+    {
+      goto LABEL_27;
+    }
+  }
+
+  *(v15 + 4838) = 257;
+  if ([DYGetGLGuestAppClient() state] == &dword_0 + 1 && objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
+  {
+    atomic_fetch_add((v15 + 4640), 0xFFFFFFFF);
+    [DYGetGLGuestAppClient() triggerArmedCapture];
+    goto LABEL_36;
+  }
+
+  if ([DYGetGLGuestAppClient() overrideFlags])
+  {
+    if (([DYGetGLGuestAppClient() overrideFlags] & 8) == 0)
+    {
+      v23 = [DYGetGLGuestAppClient() overrideFlags];
+      apply_draw_overrides(v15, v23);
+      v24 = mach_absolute_time();
+      (*(*(v15 + 32) + 6096))(a1, a2, a3, a4, a5);
+      v25 = mach_absolute_time();
+      v26 = vdupq_n_s64(1uLL);
+      v26.i64[0] = v25 - v24;
+      *(v15 + 3696) = vaddq_s64(v26, *(v15 + 3696));
+      if (gCheckGLErrors == 1)
+      {
+        alpha_func(v15);
+      }
+
+      v27 = [DYGetGLGuestAppClient() overrideFlags];
+      unapply_draw_overrides(v15, v27);
+    }
+  }
+
+  else
+  {
+    v18 = mach_absolute_time();
+    (*(*(v15 + 32) + 6096))(a1, a2, a3, a4, a5);
+    v19 = mach_absolute_time();
+    v20 = vdupq_n_s64(1uLL);
+    v20.i64[0] = v19 - v18;
+    *(v15 + 3696) = vaddq_s64(v20, *(v15 + 3696));
+    if (gCheckGLErrors == 1)
+    {
+      alpha_func(v15);
+    }
+  }
+
+  if (!*(v15 + 3404))
+  {
+    GLDrawCommandStatistics::update((v15 + 32 * a2 + 4408), a2, a4, a5);
+  }
+
+  add = atomic_fetch_add((v15 + 4640), 0xFFFFFFFF);
+  if (gCheckGLErrors == 1 && (add - 1) >= 1)
+  {
+
+    handle_opengl_thread_conflict(v15);
+  }
+}
+
 void draw_elements_instanced(__GLIContextRec *a1, uint64_t a2, uint64_t a3, uint64_t a4, const void *a5, uint64_t a6)
 {
   v12 = *(ContextInfo::activeCtxInfoMap + 8);
@@ -713,6 +1518,215 @@ LABEL_9:
   v10 = *(v8 + 16);
 
   return v9(v10, 34965, v8 + 2036);
+}
+
+void clear_bufferfi(__GLIContextRec *a1, uint64_t a2, uint64_t a3, float a4, uint64_t a5)
+{
+  v10 = *(ContextInfo::activeCtxInfoMap + 8);
+  if (!v10)
+  {
+    goto LABEL_9;
+  }
+
+  v11 = ContextInfo::activeCtxInfoMap + 8;
+  do
+  {
+    v12 = *(v10 + 32);
+    v13 = v12 >= a1;
+    v14 = v12 < a1;
+    if (v13)
+    {
+      v11 = v10;
+    }
+
+    v10 = *(v10 + 8 * v14);
+  }
+
+  while (v10);
+  if (v11 == ContextInfo::activeCtxInfoMap + 8 || *(v11 + 32) > a1)
+  {
+LABEL_9:
+    v11 = ContextInfo::activeCtxInfoMap + 8;
+  }
+
+  v15 = *(v11 + 40);
+  v16 = atomic_fetch_add((v15 + 4640), 1u) + 1;
+  if (gCheckGLErrors != 1 || v16 <= 1)
+  {
+    if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
+    {
+LABEL_25:
+      atomic_fetch_add((v15 + 4640), 0xFFFFFFFF);
+      v19 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
+      dispatch_sync_f(v19, 0, do_nothing);
+LABEL_34:
+      v23 = *(*(v15 + 24) + 6216);
+      v20.n128_f32[0] = a4;
+
+      v23(a1, a2, a3, a5, v20);
+      return;
+    }
+  }
+
+  else
+  {
+    handle_opengl_thread_conflict(v15);
+    if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
+    {
+      goto LABEL_25;
+    }
+  }
+
+  *(v15 + 4838) = 257;
+  if ([DYGetGLGuestAppClient() state] == &dword_0 + 1 && objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
+  {
+    atomic_fetch_add((v15 + 4640), 0xFFFFFFFF);
+    [DYGetGLGuestAppClient() triggerArmedCapture];
+    goto LABEL_34;
+  }
+
+  if ([DYGetGLGuestAppClient() overrideFlags])
+  {
+    if (([DYGetGLGuestAppClient() overrideFlags] & 8) == 0)
+    {
+      v21 = [DYGetGLGuestAppClient() overrideFlags];
+      apply_draw_overrides(v15, v21);
+      (*(*(v15 + 32) + 6216))(a1, a2, a3, a5, a4);
+      ++*(v15 + 3704);
+      if (gCheckGLErrors == 1)
+      {
+        alpha_func(v15);
+      }
+
+      v22 = [DYGetGLGuestAppClient() overrideFlags];
+      unapply_draw_overrides(v15, v22);
+    }
+  }
+
+  else
+  {
+    (*(*(v15 + 32) + 6216))(a1, a2, a3, a5, a4);
+    ++*(v15 + 3704);
+    if (gCheckGLErrors == 1)
+    {
+      alpha_func(v15);
+    }
+  }
+
+  add = atomic_fetch_add((v15 + 4640), 0xFFFFFFFF);
+  if (gCheckGLErrors == 1 && (add - 1) >= 1)
+  {
+
+    handle_opengl_thread_conflict(v15);
+  }
+}
+
+{
+  v10 = *(ContextInfo::activeCtxInfoMap + 8);
+  if (!v10)
+  {
+    goto LABEL_9;
+  }
+
+  v11 = ContextInfo::activeCtxInfoMap + 8;
+  do
+  {
+    v12 = *(v10 + 32);
+    v13 = v12 >= a1;
+    v14 = v12 < a1;
+    if (v13)
+    {
+      v11 = v10;
+    }
+
+    v10 = *(v10 + 8 * v14);
+  }
+
+  while (v10);
+  if (v11 == ContextInfo::activeCtxInfoMap + 8 || *(v11 + 32) > a1)
+  {
+LABEL_9:
+    v11 = ContextInfo::activeCtxInfoMap + 8;
+  }
+
+  v15 = *(v11 + 40);
+  v16 = atomic_fetch_add((v15 + 4640), 1u) + 1;
+  if (gCheckGLErrors != 1 || v16 <= 1)
+  {
+    if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
+    {
+LABEL_25:
+      atomic_fetch_add((v15 + 4640), 0xFFFFFFFF);
+      v22 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
+      dispatch_sync_f(v22, 0, do_nothing);
+LABEL_34:
+      v29 = *(*(v15 + 24) + 6216);
+      v23.n128_f32[0] = a4;
+
+      v29(a1, a2, a3, a5, v23);
+      return;
+    }
+  }
+
+  else
+  {
+    handle_opengl_thread_conflict(v15);
+    if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
+    {
+      goto LABEL_25;
+    }
+  }
+
+  *(v15 + 4838) = 257;
+  if ([DYGetGLGuestAppClient() state] == &dword_0 + 1 && objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
+  {
+    atomic_fetch_add((v15 + 4640), 0xFFFFFFFF);
+    [DYGetGLGuestAppClient() triggerArmedCapture];
+    goto LABEL_34;
+  }
+
+  if ([DYGetGLGuestAppClient() overrideFlags])
+  {
+    if (([DYGetGLGuestAppClient() overrideFlags] & 8) == 0)
+    {
+      v24 = [DYGetGLGuestAppClient() overrideFlags];
+      apply_draw_overrides(v15, v24);
+      v25 = mach_absolute_time();
+      (*(*(v15 + 32) + 6216))(a1, a2, a3, a5, a4);
+      v26 = mach_absolute_time();
+      v27 = vdupq_n_s64(1uLL);
+      v27.i64[0] = v26 - v25;
+      *(v15 + 3696) = vaddq_s64(v27, *(v15 + 3696));
+      if (gCheckGLErrors == 1)
+      {
+        alpha_func(v15);
+      }
+
+      v28 = [DYGetGLGuestAppClient() overrideFlags];
+      unapply_draw_overrides(v15, v28);
+    }
+  }
+
+  else
+  {
+    v18 = mach_absolute_time();
+    (*(*(v15 + 32) + 6216))(a1, a2, a3, a5, a4);
+    v19 = mach_absolute_time();
+    v20 = vdupq_n_s64(1uLL);
+    v20.i64[0] = v19 - v18;
+    *(v15 + 3696) = vaddq_s64(v20, *(v15 + 3696));
+    if (gCheckGLErrors == 1)
+    {
+      alpha_func(v15);
+    }
+  }
+
+  add = atomic_fetch_add((v15 + 4640), 0xFFFFFFFF);
+  if (gCheckGLErrors == 1 && (add - 1) >= 1)
+  {
+
+    handle_opengl_thread_conflict(v15);
+  }
 }
 
 void get_integer64v(__GLIContextRec *a1, uint64_t a2, uint64_t *a3)
@@ -8649,1021 +9663,5 @@ LABEL_29:
   {
 
     handle_opengl_thread_conflict(v17);
-  }
-}
-
-void drawtexs_OES(__GLIContextRec *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
-{
-  v12 = *(ContextInfo::activeCtxInfoMap + 8);
-  if (!v12)
-  {
-    goto LABEL_9;
-  }
-
-  v13 = ContextInfo::activeCtxInfoMap + 8;
-  do
-  {
-    v14 = *(v12 + 32);
-    v15 = v14 >= a1;
-    v16 = v14 < a1;
-    if (v15)
-    {
-      v13 = v12;
-    }
-
-    v12 = *(v12 + 8 * v16);
-  }
-
-  while (v12);
-  if (v13 == ContextInfo::activeCtxInfoMap + 8 || *(v13 + 32) > a1)
-  {
-LABEL_9:
-    v13 = ContextInfo::activeCtxInfoMap + 8;
-  }
-
-  v17 = *(v13 + 40);
-  v18 = atomic_fetch_add((v17 + 4640), 1u) + 1;
-  if (gCheckGLErrors != 1 || v18 <= 1)
-  {
-    if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
-    {
-LABEL_24:
-      atomic_fetch_add((v17 + 4640), 0xFFFFFFFF);
-      v21 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
-      dispatch_sync_f(v21, 0, do_nothing);
-LABEL_29:
-      v22 = *(*(v17 + 24) + 8120);
-
-      v22(a1, a2, a3, a4, a5, a6);
-      return;
-    }
-  }
-
-  else
-  {
-    handle_opengl_thread_conflict(v17);
-    if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
-    {
-      goto LABEL_24;
-    }
-  }
-
-  *(v17 + 4838) = 1;
-  if ([DYGetGLGuestAppClient() state] == &dword_0 + 1 && objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
-  {
-    atomic_fetch_add((v17 + 4640), 0xFFFFFFFF);
-    [DYGetGLGuestAppClient() triggerArmedCapture];
-    goto LABEL_29;
-  }
-
-  (*(*(v17 + 32) + 8120))(a1, a2, a3, a4, a5, a6);
-  ++*(v17 + 3704);
-  if (gCheckGLErrors == 1)
-  {
-    alpha_func(v17);
-  }
-
-  add = atomic_fetch_add((v17 + 4640), 0xFFFFFFFF);
-  if (gCheckGLErrors == 1 && (add - 1) >= 1)
-  {
-
-    handle_opengl_thread_conflict(v17);
-  }
-}
-
-{
-  v12 = *(ContextInfo::activeCtxInfoMap + 8);
-  if (!v12)
-  {
-    goto LABEL_9;
-  }
-
-  v13 = ContextInfo::activeCtxInfoMap + 8;
-  do
-  {
-    v14 = *(v12 + 32);
-    v15 = v14 >= a1;
-    v16 = v14 < a1;
-    if (v15)
-    {
-      v13 = v12;
-    }
-
-    v12 = *(v12 + 8 * v16);
-  }
-
-  while (v12);
-  if (v13 == ContextInfo::activeCtxInfoMap + 8 || *(v13 + 32) > a1)
-  {
-LABEL_9:
-    v13 = ContextInfo::activeCtxInfoMap + 8;
-  }
-
-  v17 = *(v13 + 40);
-  v18 = atomic_fetch_add((v17 + 4640), 1u) + 1;
-  if (gCheckGLErrors != 1 || v18 <= 1)
-  {
-    if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
-    {
-LABEL_24:
-      atomic_fetch_add((v17 + 4640), 0xFFFFFFFF);
-      v24 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
-      dispatch_sync_f(v24, 0, do_nothing);
-LABEL_29:
-      v25 = *(*(v17 + 24) + 8120);
-
-      v25(a1, a2, a3, a4, a5, a6);
-      return;
-    }
-  }
-
-  else
-  {
-    handle_opengl_thread_conflict(v17);
-    if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
-    {
-      goto LABEL_24;
-    }
-  }
-
-  *(v17 + 4838) = 1;
-  if ([DYGetGLGuestAppClient() state] == &dword_0 + 1 && objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
-  {
-    atomic_fetch_add((v17 + 4640), 0xFFFFFFFF);
-    [DYGetGLGuestAppClient() triggerArmedCapture];
-    goto LABEL_29;
-  }
-
-  v20 = mach_absolute_time();
-  (*(*(v17 + 32) + 8120))(a1, a2, a3, a4, a5, a6);
-  v21 = mach_absolute_time();
-  v22 = vdupq_n_s64(1uLL);
-  v22.i64[0] = v21 - v20;
-  *(v17 + 3696) = vaddq_s64(v22, *(v17 + 3696));
-  if (gCheckGLErrors == 1)
-  {
-    alpha_func(v17);
-  }
-
-  add = atomic_fetch_add((v17 + 4640), 0xFFFFFFFF);
-  if (gCheckGLErrors == 1 && (add - 1) >= 1)
-  {
-
-    handle_opengl_thread_conflict(v17);
-  }
-}
-
-void drawtexi_OES(__GLIContextRec *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
-{
-  v12 = *(ContextInfo::activeCtxInfoMap + 8);
-  if (!v12)
-  {
-    goto LABEL_9;
-  }
-
-  v13 = ContextInfo::activeCtxInfoMap + 8;
-  do
-  {
-    v14 = *(v12 + 32);
-    v15 = v14 >= a1;
-    v16 = v14 < a1;
-    if (v15)
-    {
-      v13 = v12;
-    }
-
-    v12 = *(v12 + 8 * v16);
-  }
-
-  while (v12);
-  if (v13 == ContextInfo::activeCtxInfoMap + 8 || *(v13 + 32) > a1)
-  {
-LABEL_9:
-    v13 = ContextInfo::activeCtxInfoMap + 8;
-  }
-
-  v17 = *(v13 + 40);
-  v18 = atomic_fetch_add((v17 + 4640), 1u) + 1;
-  if (gCheckGLErrors != 1 || v18 <= 1)
-  {
-    if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
-    {
-LABEL_24:
-      atomic_fetch_add((v17 + 4640), 0xFFFFFFFF);
-      v21 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
-      dispatch_sync_f(v21, 0, do_nothing);
-LABEL_29:
-      v22 = *(*(v17 + 24) + 8128);
-
-      v22(a1, a2, a3, a4, a5, a6);
-      return;
-    }
-  }
-
-  else
-  {
-    handle_opengl_thread_conflict(v17);
-    if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
-    {
-      goto LABEL_24;
-    }
-  }
-
-  *(v17 + 4838) = 1;
-  if ([DYGetGLGuestAppClient() state] == &dword_0 + 1 && objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
-  {
-    atomic_fetch_add((v17 + 4640), 0xFFFFFFFF);
-    [DYGetGLGuestAppClient() triggerArmedCapture];
-    goto LABEL_29;
-  }
-
-  (*(*(v17 + 32) + 8128))(a1, a2, a3, a4, a5, a6);
-  ++*(v17 + 3704);
-  if (gCheckGLErrors == 1)
-  {
-    alpha_func(v17);
-  }
-
-  add = atomic_fetch_add((v17 + 4640), 0xFFFFFFFF);
-  if (gCheckGLErrors == 1 && (add - 1) >= 1)
-  {
-
-    handle_opengl_thread_conflict(v17);
-  }
-}
-
-{
-  v12 = *(ContextInfo::activeCtxInfoMap + 8);
-  if (!v12)
-  {
-    goto LABEL_9;
-  }
-
-  v13 = ContextInfo::activeCtxInfoMap + 8;
-  do
-  {
-    v14 = *(v12 + 32);
-    v15 = v14 >= a1;
-    v16 = v14 < a1;
-    if (v15)
-    {
-      v13 = v12;
-    }
-
-    v12 = *(v12 + 8 * v16);
-  }
-
-  while (v12);
-  if (v13 == ContextInfo::activeCtxInfoMap + 8 || *(v13 + 32) > a1)
-  {
-LABEL_9:
-    v13 = ContextInfo::activeCtxInfoMap + 8;
-  }
-
-  v17 = *(v13 + 40);
-  v18 = atomic_fetch_add((v17 + 4640), 1u) + 1;
-  if (gCheckGLErrors != 1 || v18 <= 1)
-  {
-    if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
-    {
-LABEL_24:
-      atomic_fetch_add((v17 + 4640), 0xFFFFFFFF);
-      v24 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
-      dispatch_sync_f(v24, 0, do_nothing);
-LABEL_29:
-      v25 = *(*(v17 + 24) + 8128);
-
-      v25(a1, a2, a3, a4, a5, a6);
-      return;
-    }
-  }
-
-  else
-  {
-    handle_opengl_thread_conflict(v17);
-    if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
-    {
-      goto LABEL_24;
-    }
-  }
-
-  *(v17 + 4838) = 1;
-  if ([DYGetGLGuestAppClient() state] == &dword_0 + 1 && objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
-  {
-    atomic_fetch_add((v17 + 4640), 0xFFFFFFFF);
-    [DYGetGLGuestAppClient() triggerArmedCapture];
-    goto LABEL_29;
-  }
-
-  v20 = mach_absolute_time();
-  (*(*(v17 + 32) + 8128))(a1, a2, a3, a4, a5, a6);
-  v21 = mach_absolute_time();
-  v22 = vdupq_n_s64(1uLL);
-  v22.i64[0] = v21 - v20;
-  *(v17 + 3696) = vaddq_s64(v22, *(v17 + 3696));
-  if (gCheckGLErrors == 1)
-  {
-    alpha_func(v17);
-  }
-
-  add = atomic_fetch_add((v17 + 4640), 0xFFFFFFFF);
-  if (gCheckGLErrors == 1 && (add - 1) >= 1)
-  {
-
-    handle_opengl_thread_conflict(v17);
-  }
-}
-
-void drawtexx_OES(__GLIContextRec *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
-{
-  v12 = *(ContextInfo::activeCtxInfoMap + 8);
-  if (!v12)
-  {
-    goto LABEL_9;
-  }
-
-  v13 = ContextInfo::activeCtxInfoMap + 8;
-  do
-  {
-    v14 = *(v12 + 32);
-    v15 = v14 >= a1;
-    v16 = v14 < a1;
-    if (v15)
-    {
-      v13 = v12;
-    }
-
-    v12 = *(v12 + 8 * v16);
-  }
-
-  while (v12);
-  if (v13 == ContextInfo::activeCtxInfoMap + 8 || *(v13 + 32) > a1)
-  {
-LABEL_9:
-    v13 = ContextInfo::activeCtxInfoMap + 8;
-  }
-
-  v17 = *(v13 + 40);
-  v18 = atomic_fetch_add((v17 + 4640), 1u) + 1;
-  if (gCheckGLErrors != 1 || v18 <= 1)
-  {
-    if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
-    {
-LABEL_24:
-      atomic_fetch_add((v17 + 4640), 0xFFFFFFFF);
-      v21 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
-      dispatch_sync_f(v21, 0, do_nothing);
-LABEL_29:
-      v22 = *(*(v17 + 24) + 8136);
-
-      v22(a1, a2, a3, a4, a5, a6);
-      return;
-    }
-  }
-
-  else
-  {
-    handle_opengl_thread_conflict(v17);
-    if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
-    {
-      goto LABEL_24;
-    }
-  }
-
-  *(v17 + 4838) = 1;
-  if ([DYGetGLGuestAppClient() state] == &dword_0 + 1 && objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
-  {
-    atomic_fetch_add((v17 + 4640), 0xFFFFFFFF);
-    [DYGetGLGuestAppClient() triggerArmedCapture];
-    goto LABEL_29;
-  }
-
-  (*(*(v17 + 32) + 8136))(a1, a2, a3, a4, a5, a6);
-  ++*(v17 + 3704);
-  if (gCheckGLErrors == 1)
-  {
-    alpha_func(v17);
-  }
-
-  add = atomic_fetch_add((v17 + 4640), 0xFFFFFFFF);
-  if (gCheckGLErrors == 1 && (add - 1) >= 1)
-  {
-
-    handle_opengl_thread_conflict(v17);
-  }
-}
-
-{
-  v12 = *(ContextInfo::activeCtxInfoMap + 8);
-  if (!v12)
-  {
-    goto LABEL_9;
-  }
-
-  v13 = ContextInfo::activeCtxInfoMap + 8;
-  do
-  {
-    v14 = *(v12 + 32);
-    v15 = v14 >= a1;
-    v16 = v14 < a1;
-    if (v15)
-    {
-      v13 = v12;
-    }
-
-    v12 = *(v12 + 8 * v16);
-  }
-
-  while (v12);
-  if (v13 == ContextInfo::activeCtxInfoMap + 8 || *(v13 + 32) > a1)
-  {
-LABEL_9:
-    v13 = ContextInfo::activeCtxInfoMap + 8;
-  }
-
-  v17 = *(v13 + 40);
-  v18 = atomic_fetch_add((v17 + 4640), 1u) + 1;
-  if (gCheckGLErrors != 1 || v18 <= 1)
-  {
-    if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
-    {
-LABEL_24:
-      atomic_fetch_add((v17 + 4640), 0xFFFFFFFF);
-      v24 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
-      dispatch_sync_f(v24, 0, do_nothing);
-LABEL_29:
-      v25 = *(*(v17 + 24) + 8136);
-
-      v25(a1, a2, a3, a4, a5, a6);
-      return;
-    }
-  }
-
-  else
-  {
-    handle_opengl_thread_conflict(v17);
-    if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
-    {
-      goto LABEL_24;
-    }
-  }
-
-  *(v17 + 4838) = 1;
-  if ([DYGetGLGuestAppClient() state] == &dword_0 + 1 && objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
-  {
-    atomic_fetch_add((v17 + 4640), 0xFFFFFFFF);
-    [DYGetGLGuestAppClient() triggerArmedCapture];
-    goto LABEL_29;
-  }
-
-  v20 = mach_absolute_time();
-  (*(*(v17 + 32) + 8136))(a1, a2, a3, a4, a5, a6);
-  v21 = mach_absolute_time();
-  v22 = vdupq_n_s64(1uLL);
-  v22.i64[0] = v21 - v20;
-  *(v17 + 3696) = vaddq_s64(v22, *(v17 + 3696));
-  if (gCheckGLErrors == 1)
-  {
-    alpha_func(v17);
-  }
-
-  add = atomic_fetch_add((v17 + 4640), 0xFFFFFFFF);
-  if (gCheckGLErrors == 1 && (add - 1) >= 1)
-  {
-
-    handle_opengl_thread_conflict(v17);
-  }
-}
-
-int64x2_t *GLDrawCommandStatistics::update(int64x2_t *this, int a2, int a3, unsigned int a4)
-{
-  if (a2 > 4)
-  {
-    if ((a2 - 5) < 2)
-    {
-      v4 = a3 - 2;
-      v5 = a3 <= 2;
-      goto LABEL_16;
-    }
-
-    if (a2 == 7)
-    {
-      v4 = a3 / 4;
-      goto LABEL_19;
-    }
-
-    if (a2 == 8)
-    {
-      v4 = (a3 - 2) >> 1;
-      v5 = a3 <= 3;
-      goto LABEL_16;
-    }
-  }
-
-  else
-  {
-    v4 = a3;
-    if (a2 > 1)
-    {
-      if (a2 == 2)
-      {
-LABEL_19:
-        v6.i64[0] = vdupq_n_s64(1uLL).u64[0];
-        v6.i64[1] = (a4 * a3);
-        v7 = vaddw_s32(this[1], __PAIR64__(a4, v4 * a4));
-        *this = vaddq_s64(*this, v6);
-        this[1] = v7;
-        return this;
-      }
-
-      if (a2 != 3)
-      {
-        v4 = a3 / 3;
-        goto LABEL_19;
-      }
-
-      v4 = a3 - 1;
-      v5 = a3 <= 1;
-LABEL_16:
-      if (v5)
-      {
-        v4 = 0;
-      }
-
-      goto LABEL_19;
-    }
-
-    if (!a2)
-    {
-      goto LABEL_19;
-    }
-
-    if (a2 == 1)
-    {
-      v4 = a3 >> 1;
-      goto LABEL_19;
-    }
-  }
-
-  v8 = dy_abort();
-  return ___ZL24delete_program_pipelinesP15__GLIContextReciPKj_block_invoke(v8);
-}
-
-void ___ZL24delete_program_pipelinesP15__GLIContextReciPKj_block_invoke(uint64_t a1)
-{
-  (*(*(*(a1 + 32) + 32) + 6584))(*(a1 + 40), *(a1 + 56), *(a1 + 48));
-  v2 = *(a1 + 32);
-  ++*(v2 + 3704);
-  if (gCheckGLErrors == 1)
-  {
-    ___ZL24delete_program_pipelinesP15__GLIContextReciPKj_block_invoke_cold_1(v2, a1 + 32);
-  }
-}
-
-BOOL OUTLINED_FUNCTION_4_0(uint64_t a1)
-{
-
-  return check_errors(a1);
-}
-
-BOOL OUTLINED_FUNCTION_6_0(uint64_t a1)
-{
-
-  return check_errors(a1);
-}
-
-BOOL OUTLINED_FUNCTION_8_0(uint64_t a1)
-{
-
-  return check_errors(a1);
-}
-
-void copy_tex_image2D(__GLIContextRec *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unsigned int a7, uint64_t a8, int a9)
-{
-  v16 = *(ContextInfo::activeCtxInfoMap + 8);
-  if (!v16)
-  {
-    goto LABEL_9;
-  }
-
-  v17 = ContextInfo::activeCtxInfoMap + 8;
-  do
-  {
-    v18 = *(v16 + 32);
-    v19 = v18 >= a1;
-    v20 = v18 < a1;
-    if (v19)
-    {
-      v17 = v16;
-    }
-
-    v16 = *(v16 + 8 * v20);
-  }
-
-  while (v16);
-  if (v17 == ContextInfo::activeCtxInfoMap + 8 || *(v17 + 32) > a1)
-  {
-LABEL_9:
-    v17 = ContextInfo::activeCtxInfoMap + 8;
-  }
-
-  v21 = *(v17 + 40);
-  v22 = atomic_fetch_add((v21 + 4640), 1u) + 1;
-  if (gCheckGLErrors != 1 || v22 <= 1)
-  {
-    if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
-    {
-LABEL_24:
-      atomic_fetch_add((v21 + 4640), 0xFFFFFFFF);
-      v31 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
-      dispatch_sync_f(v31, 0, do_nothing);
-LABEL_29:
-      v32 = *(*(v21 + 24) + 432);
-
-      v32(a1, a2, a3, a4, a5, a6, a7, a8);
-      return;
-    }
-  }
-
-  else
-  {
-    handle_opengl_thread_conflict(v21);
-    v30 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
-    if (v30 >= 1)
-    {
-      goto LABEL_24;
-    }
-  }
-
-  *(v21 + 4838) = 1;
-  if ([DYGetGLGuestAppClient() state] == &dword_0 + 1 && objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
-  {
-    atomic_fetch_add((v21 + 4640), 0xFFFFFFFF);
-    [DYGetGLGuestAppClient() triggerArmedCapture];
-    goto LABEL_29;
-  }
-
-  v24 = mach_absolute_time();
-  v25 = a8;
-  v26 = v24;
-  (*(*(v21 + 32) + 432))(a1, a2, a3, a4, a5, a6, a7, v25, a9);
-  v27 = mach_absolute_time();
-  v28 = vdupq_n_s64(1uLL);
-  v28.i64[0] = v27 - v26;
-  *(v21 + 3696) = vaddq_s64(v28, *(v21 + 3696));
-  if (gCheckGLErrors == 1)
-  {
-    alpha_func(v21);
-  }
-
-  add = atomic_fetch_add((v21 + 4640), 0xFFFFFFFF);
-  if (gCheckGLErrors == 1 && (add - 1) >= 1)
-  {
-
-    handle_opengl_thread_conflict(v21);
-  }
-}
-
-void copy_tex_sub_image2D(__GLIContextRec *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unsigned int a7, uint64_t a8, int a9)
-{
-  v16 = *(ContextInfo::activeCtxInfoMap + 8);
-  if (!v16)
-  {
-    goto LABEL_9;
-  }
-
-  v17 = ContextInfo::activeCtxInfoMap + 8;
-  do
-  {
-    v18 = *(v16 + 32);
-    v19 = v18 >= a1;
-    v20 = v18 < a1;
-    if (v19)
-    {
-      v17 = v16;
-    }
-
-    v16 = *(v16 + 8 * v20);
-  }
-
-  while (v16);
-  if (v17 == ContextInfo::activeCtxInfoMap + 8 || *(v17 + 32) > a1)
-  {
-LABEL_9:
-    v17 = ContextInfo::activeCtxInfoMap + 8;
-  }
-
-  v21 = *(v17 + 40);
-  v22 = atomic_fetch_add((v21 + 4640), 1u) + 1;
-  if (gCheckGLErrors != 1 || v22 <= 1)
-  {
-    if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
-    {
-LABEL_24:
-      atomic_fetch_add((v21 + 4640), 0xFFFFFFFF);
-      v31 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
-      dispatch_sync_f(v31, 0, do_nothing);
-LABEL_29:
-      v32 = *(*(v21 + 24) + 448);
-
-      v32(a1, a2, a3, a4, a5, a6, a7, a8);
-      return;
-    }
-  }
-
-  else
-  {
-    handle_opengl_thread_conflict(v21);
-    v30 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
-    if (v30 >= 1)
-    {
-      goto LABEL_24;
-    }
-  }
-
-  *(v21 + 4838) = 1;
-  if ([DYGetGLGuestAppClient() state] == &dword_0 + 1 && objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
-  {
-    atomic_fetch_add((v21 + 4640), 0xFFFFFFFF);
-    [DYGetGLGuestAppClient() triggerArmedCapture];
-    goto LABEL_29;
-  }
-
-  v24 = mach_absolute_time();
-  v25 = a8;
-  v26 = v24;
-  (*(*(v21 + 32) + 448))(a1, a2, a3, a4, a5, a6, a7, v25, a9);
-  v27 = mach_absolute_time();
-  v28 = vdupq_n_s64(1uLL);
-  v28.i64[0] = v27 - v26;
-  *(v21 + 3696) = vaddq_s64(v28, *(v21 + 3696));
-  if (gCheckGLErrors == 1)
-  {
-    alpha_func(v21);
-  }
-
-  add = atomic_fetch_add((v21 + 4640), 0xFFFFFFFF);
-  if (gCheckGLErrors == 1 && (add - 1) >= 1)
-  {
-
-    handle_opengl_thread_conflict(v21);
-  }
-}
-
-void tex_image2D(__GLIContextRec *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unsigned int a6, unsigned int a7, uint64_t a8, uint64_t a9, const void *a10)
-{
-  v16 = *(ContextInfo::activeCtxInfoMap + 8);
-  if (!v16)
-  {
-    goto LABEL_9;
-  }
-
-  v17 = ContextInfo::activeCtxInfoMap + 8;
-  do
-  {
-    v18 = *(v16 + 32);
-    v19 = v18 >= a1;
-    v20 = v18 < a1;
-    if (v19)
-    {
-      v17 = v16;
-    }
-
-    v16 = *(v16 + 8 * v20);
-  }
-
-  while (v16);
-  if (v17 == ContextInfo::activeCtxInfoMap + 8 || *(v17 + 32) > a1)
-  {
-LABEL_9:
-    v17 = ContextInfo::activeCtxInfoMap + 8;
-  }
-
-  v21 = *(v17 + 40);
-  v22 = atomic_fetch_add((v21 + 4640), 1u) + 1;
-  if (gCheckGLErrors != 1 || v22 <= 1)
-  {
-    if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
-    {
-LABEL_24:
-      atomic_fetch_add((v21 + 4640), 0xFFFFFFFF);
-      v31 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
-      dispatch_sync_f(v31, 0, do_nothing);
-LABEL_29:
-      v32 = *(*(v21 + 24) + 2408);
-
-      v32(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10);
-      return;
-    }
-  }
-
-  else
-  {
-    handle_opengl_thread_conflict(v21);
-    v30 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
-    if (v30 >= 1)
-    {
-      goto LABEL_24;
-    }
-  }
-
-  *(v21 + 4838) = 1;
-  if ([DYGetGLGuestAppClient() state] == &dword_0 + 1 && objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
-  {
-    atomic_fetch_add((v21 + 4640), 0xFFFFFFFF);
-    [DYGetGLGuestAppClient() triggerArmedCapture];
-    goto LABEL_29;
-  }
-
-  v24 = mach_absolute_time();
-  v25 = a8;
-  v26 = v24;
-  (*(*(v21 + 32) + 2408))(a1, a2, a3, a4, a5, a6, a7, v25, a9, a10);
-  v27 = mach_absolute_time();
-  v28 = vdupq_n_s64(1uLL);
-  v28.i64[0] = v27 - v26;
-  *(v21 + 3696) = vaddq_s64(v28, *(v21 + 3696));
-  if (gCheckGLErrors == 1)
-  {
-    alpha_func(v21);
-  }
-
-  add = atomic_fetch_add((v21 + 4640), 0xFFFFFFFF);
-  if (gCheckGLErrors == 1 && (add - 1) >= 1)
-  {
-
-    handle_opengl_thread_conflict(v21);
-  }
-}
-
-void tex_sub_image2D(__GLIContextRec *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unsigned int a6, unsigned int a7, uint64_t a8, uint64_t a9, const void *a10)
-{
-  v16 = *(ContextInfo::activeCtxInfoMap + 8);
-  if (!v16)
-  {
-    goto LABEL_9;
-  }
-
-  v17 = ContextInfo::activeCtxInfoMap + 8;
-  do
-  {
-    v18 = *(v16 + 32);
-    v19 = v18 >= a1;
-    v20 = v18 < a1;
-    if (v19)
-    {
-      v17 = v16;
-    }
-
-    v16 = *(v16 + 8 * v20);
-  }
-
-  while (v16);
-  if (v17 == ContextInfo::activeCtxInfoMap + 8 || *(v17 + 32) > a1)
-  {
-LABEL_9:
-    v17 = ContextInfo::activeCtxInfoMap + 8;
-  }
-
-  v21 = *(v17 + 40);
-  v22 = atomic_fetch_add((v21 + 4640), 1u) + 1;
-  if (gCheckGLErrors != 1 || v22 <= 1)
-  {
-    if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
-    {
-LABEL_24:
-      atomic_fetch_add((v21 + 4640), 0xFFFFFFFF);
-      v31 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
-      dispatch_sync_f(v31, 0, do_nothing);
-LABEL_29:
-      v32 = *(*(v21 + 24) + 2456);
-
-      v32(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10);
-      return;
-    }
-  }
-
-  else
-  {
-    handle_opengl_thread_conflict(v21);
-    v30 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
-    if (v30 >= 1)
-    {
-      goto LABEL_24;
-    }
-  }
-
-  *(v21 + 4838) = 1;
-  if ([DYGetGLGuestAppClient() state] == &dword_0 + 1 && objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
-  {
-    atomic_fetch_add((v21 + 4640), 0xFFFFFFFF);
-    [DYGetGLGuestAppClient() triggerArmedCapture];
-    goto LABEL_29;
-  }
-
-  v24 = mach_absolute_time();
-  v25 = a8;
-  v26 = v24;
-  (*(*(v21 + 32) + 2456))(a1, a2, a3, a4, a5, a6, a7, v25, a9, a10);
-  v27 = mach_absolute_time();
-  v28 = vdupq_n_s64(1uLL);
-  v28.i64[0] = v27 - v26;
-  *(v21 + 3696) = vaddq_s64(v28, *(v21 + 3696));
-  if (gCheckGLErrors == 1)
-  {
-    alpha_func(v21);
-  }
-
-  add = atomic_fetch_add((v21 + 4640), 0xFFFFFFFF);
-  if (gCheckGLErrors == 1 && (add - 1) >= 1)
-  {
-
-    handle_opengl_thread_conflict(v21);
-  }
-}
-
-void compressed_tex_image3D(__GLIContextRec *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unsigned int a6, unsigned int a7, uint64_t a8, uint64_t a9, const void *a10)
-{
-  v16 = *(ContextInfo::activeCtxInfoMap + 8);
-  if (!v16)
-  {
-    goto LABEL_9;
-  }
-
-  v17 = ContextInfo::activeCtxInfoMap + 8;
-  do
-  {
-    v18 = *(v16 + 32);
-    v19 = v18 >= a1;
-    v20 = v18 < a1;
-    if (v19)
-    {
-      v17 = v16;
-    }
-
-    v16 = *(v16 + 8 * v20);
-  }
-
-  while (v16);
-  if (v17 == ContextInfo::activeCtxInfoMap + 8 || *(v17 + 32) > a1)
-  {
-LABEL_9:
-    v17 = ContextInfo::activeCtxInfoMap + 8;
-  }
-
-  v21 = *(v17 + 40);
-  v22 = atomic_fetch_add((v21 + 4640), 1u) + 1;
-  if (gCheckGLErrors != 1 || v22 <= 1)
-  {
-    if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
-    {
-LABEL_24:
-      atomic_fetch_add((v21 + 4640), 0xFFFFFFFF);
-      v31 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
-      dispatch_sync_f(v31, 0, do_nothing);
-LABEL_29:
-      v32 = *(*(v21 + 24) + 3032);
-
-      v32(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10);
-      return;
-    }
-  }
-
-  else
-  {
-    handle_opengl_thread_conflict(v21);
-    v30 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
-    if (v30 >= 1)
-    {
-      goto LABEL_24;
-    }
-  }
-
-  *(v21 + 4838) = 1;
-  if ([DYGetGLGuestAppClient() state] == &dword_0 + 1 && objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
-  {
-    atomic_fetch_add((v21 + 4640), 0xFFFFFFFF);
-    [DYGetGLGuestAppClient() triggerArmedCapture];
-    goto LABEL_29;
-  }
-
-  v24 = mach_absolute_time();
-  v25 = a8;
-  v26 = v24;
-  (*(*(v21 + 32) + 3032))(a1, a2, a3, a4, a5, a6, a7, v25, a9, a10);
-  v27 = mach_absolute_time();
-  v28 = vdupq_n_s64(1uLL);
-  v28.i64[0] = v27 - v26;
-  *(v21 + 3696) = vaddq_s64(v28, *(v21 + 3696));
-  if (gCheckGLErrors == 1)
-  {
-    alpha_func(v21);
-  }
-
-  add = atomic_fetch_add((v21 + 4640), 0xFFFFFFFF);
-  if (gCheckGLErrors == 1 && (add - 1) >= 1)
-  {
-
-    handle_opengl_thread_conflict(v21);
   }
 }

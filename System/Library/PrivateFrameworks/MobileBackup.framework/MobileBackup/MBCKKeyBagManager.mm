@@ -93,7 +93,7 @@
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Fetching all keybags from server for device %{public}@", buf, 0xCu);
 
     deviceUUID2 = [device deviceUUID];
-    _MBLog();
+    _MBLog(@"Df", "Fetching all keybags from server for device %{public}@", deviceUUID2);
   }
 
   if ([(MBCKKeyBagManager *)self hasFetchedKeybags])
@@ -104,16 +104,16 @@
   else
   {
     keybagRefs = [(MBCKKeyBagManager *)self keybagRefs];
-    v13 = [keybagRefs count] == 0;
+    v14 = [keybagRefs count] == 0;
 
-    if (v13)
+    if (v14)
     {
-      v22 = MBGetDefaultLog();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v23 = MBGetDefaultLog();
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "No keybags references stored with device record", buf, 2u);
-        _MBLog();
+        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "No keybags references stored with device record", buf, 2u);
+        _MBLog(@"Df", "No keybags references stored with device record");
       }
 
       [(MBCKKeyBagManager *)self setHasFetchedKeybags:1];
@@ -123,35 +123,35 @@
     else
     {
       keybagRefs2 = [(MBCKKeyBagManager *)self keybagRefs];
-      v15 = [NSPredicate predicateWithFormat:@"recordID IN %@", keybagRefs2];
+      v16 = [NSPredicate predicateWithFormat:@"recordID IN %@", keybagRefs2];
 
-      v16 = [CKQuery alloc];
-      v17 = +[(MBCKModel *)MBCKKeyBag];
-      v18 = [v16 initWithRecordType:v17 predicate:v15];
+      v17 = [CKQuery alloc];
+      v18 = +[(MBCKModel *)MBCKKeyBag];
+      v19 = [v17 initWithRecordType:v18 predicate:v16];
 
-      v19 = [[CKQueryOperation alloc] initWithQuery:v18];
+      v20 = [[CKQueryOperation alloc] initWithQuery:v19];
       syncZoneID = [trackerCopy syncZoneID];
-      [v19 setZoneID:syncZoneID];
+      [v20 setZoneID:syncZoneID];
 
-      objc_initWeak(buf, v19);
+      objc_initWeak(buf, v20);
       v28[0] = _NSConcreteStackBlock;
       v28[1] = 3221225472;
       v28[2] = sub_1001B4E04;
       v28[3] = &unk_1003C0E28;
-      v21 = device;
-      v29 = v21;
+      v22 = device;
+      v29 = v22;
       selfCopy = self;
-      [v19 setRecordFetchedBlock:v28];
+      [v20 setRecordFetchedBlock:v28];
       v24[0] = _NSConcreteStackBlock;
       v24[1] = 3221225472;
       v24[2] = sub_1001B4F50;
       v24[3] = &unk_1003C0E50;
       objc_copyWeak(&v27, buf);
       v24[4] = self;
-      v25 = v21;
+      v25 = v22;
       v26 = v8;
-      [v19 setQueryCompletionBlock:v24];
-      [trackerCopy addDatabaseOperation:v19];
+      [v20 setQueryCompletionBlock:v24];
+      [trackerCopy addDatabaseOperation:v20];
 
       objc_destroyWeak(&v27);
       objc_destroyWeak(buf);
@@ -207,7 +207,7 @@
       *buf = 138412290;
       v11 = v5;
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_FAULT, "MBKeybagUUIDForEncryptionKey failed: %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"F ", "MBKeybagUUIDForEncryptionKey failed: %@", v5);
     }
 
     v7 = 0;

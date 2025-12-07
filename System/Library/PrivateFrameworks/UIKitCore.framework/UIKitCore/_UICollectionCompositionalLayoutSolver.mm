@@ -1,13 +1,13 @@
 @interface _UICollectionCompositionalLayoutSolver
-+ (CGFloat)_globalFrameForSolutionFrame:(CGFloat)frame solutionGlobalFrame:(CGFloat)globalFrame contentInsetsOffset:(double)offset container:(uint64_t)container;
-+ (CGFloat)_queryResultForItemAtIndexPath:(void *)path dataSourceSnapshot:(void *)snapshot solutionBookmarks:(void *)bookmarks container:(void *)container globalFrame:;
-+ (CGFloat)_queryResultForSectionSupplementaryViewOfKind:(void *)kind withIndexPath:(void *)path solutionBookmarks:(void *)bookmarks container:(void *)container globalFrame:;
++ (CGFloat)_globalFrameForSolutionFrame:(CGFloat)frame solutionGlobalFrame:(CGFloat)globalFrame contentInsetsOffset:(CGFloat)offset container:(CGFloat)container;
 + (double)_globalFrameForBackgroundDecoration:(uint64_t)decoration forSectionWithBookmark:(id *)bookmark;
++ (double)_queryResultForItemAtIndexPath:(void *)path dataSourceSnapshot:(void *)snapshot solutionBookmarks:(void *)bookmarks container:(void *)container globalFrame:;
++ (double)_queryResultForSectionSupplementaryViewOfKind:(void *)kind withIndexPath:(void *)path solutionBookmarks:(void *)bookmarks container:(void *)container globalFrame:;
 + (id)traitsRequiringInvalidationForChanges;
-+ (void)_globalFrameForSectionAuxiliaryFrame:(CGFloat)frame bookmark:(CGFloat)bookmark container:(uint64_t)container;
-+ (void)_globalFrameForSolutionFrame:(CGFloat)frame bookmark:(CGFloat)bookmark container:(uint64_t)container;
++ (void)_globalFrameForSectionAuxiliaryFrame:(void *)frame bookmark:(CGFloat)bookmark container:(CGFloat)container;
++ (void)_globalFrameForSolutionFrame:(void *)frame bookmark:(CGFloat)bookmark container:(CGFloat)container;
 - (BOOL)elementShouldAppearAboveOrthogonalScrollingContainer:(uint64_t)container;
-- (BOOL)hasPinnedSupplementaryItems;
+- (BOOL)orthogonalScrollingSectionSupplementaryShouldScrollWithContentForIndexPath:(uint64_t)path elementKind:;
 - (BOOL)shouldInvalidateForBoundsChange:(double)change requiresContainerUpdate:(double)update;
 - (CGFloat)_frameByExtendingGlobalSectionFrame:(uint64_t)frame toOverlapPinnedSupplementaryInSection:(CGFloat)section onEdge:(CGFloat)edge visibleBounds:(CGFloat)bounds extensionBehavior:(CGFloat)behavior didExtend:(double)extend;
 - (CGRect)_dynamicReferenceBounds;
@@ -21,7 +21,7 @@
 - (_UICollectionCompositionalLayoutSolverResolveResult)resolveForUpdatingSectionDefinitionsWithContainer:(id *)container;
 - (_UICollectionCompositionalLayoutSolverResolveResult)resolveSolutionForUpdate:(void *)update container:(int)container ignoreEmptyUpdate:;
 - (_UICollectionLayoutUpdateContainerOffsetResult)updatePinnedSectionSupplementaryItemsForVisibleBounds:(CGFloat)bounds;
-- (double)_containerByApplyingInsetsFromEnvironment:(double)environment toSize:(double)size onAxis:;
+- (double)_containerByApplyingInsetsFromEnvironment:(__n128)environment toSize:(__n128)size onAxis:;
 - (double)_firstBookmarkOffset;
 - (double)_globalFrameForSolution:(double)solution offset:;
 - (double)_validatedRoundedFrame:(uint64_t)frame forElementOfCategory:(uint64_t)category atIndexPath:(CGFloat)path elementKind:(CGFloat)kind;
@@ -40,6 +40,7 @@
 - (id)_fetchUpdatedSectionDefinitionsFromSectionProvider;
 - (id)_leadingSwipeActionsConfigurationForIndexPath:(uint64_t)path;
 - (id)_snapshotBookmarks:(void *)bookmarks;
+- (id)_supportsSwipeActionsForIndexPath:(id *)result;
 - (id)_trailingSwipeActionsConfigurationForIndexPath:(uint64_t)path;
 - (id)auxillaryHostAuxillaryItems;
 - (id)auxillaryHostContainer;
@@ -56,18 +57,15 @@
 - (id)mutatedVisibleItemsForElementsForVisibleBounds:(double)bounds;
 - (id)resolveForInvalidatedPreferredAttributes:(double)attributes scrollOffset:(double)offset visibleRect:(double)rect;
 - (id)resolveForScrollViewLayoutAdjustmentsChange:(id *)change;
-- (id)resolveForUpdatedGlobalSupplementaries:(void *)supplementaries;
 - (id)restorableState;
 - (id)sectionDescriptorForSectionIndex:(uint64_t)index;
 - (uint64_t)_anchorForAuxiliaryElementOfKind:(uint64_t)kind;
 - (uint64_t)_invalidateAllAttributes;
 - (uint64_t)_sectionHasBackgroundDecorationView:(uint64_t)view;
-- (uint64_t)_supportsSwipeActionsForIndexPath:(uint64_t)result;
 - (uint64_t)_wantsSwipeActions;
 - (uint64_t)elementShouldAppearBelowOrthogonalScrollingContainer:(uint64_t)container;
-- (uint64_t)enumerateSectionDefinitionsWithBlock:(uint64_t)result;
+- (uint64_t)hasPinnedSupplementaryItems;
 - (uint64_t)orthogonalScrollingSectionDecorationShouldScrollWithContentForIndexPath:(uint64_t)path elementKind:;
-- (uint64_t)orthogonalScrollingSectionSupplementaryShouldScrollWithContentForIndexPath:(uint64_t)path elementKind:;
 - (uint64_t)shouldEmplaceElementOutsideSectionContainer:(uint64_t)container;
 - (uint64_t)updatePreferredSizeIfNeededForPreferredLayoutAttributes:(void *)attributes withOriginalAttributes:(uint64_t)originalAttributes debugger:;
 - (uint64_t)updateVisibleBoundsForDynamicAnimator:(CGFloat)animator previousVisibleBounds:(double)bounds;
@@ -90,11 +88,13 @@
 - (void)_willBeginSwiping;
 - (void)dealloc;
 - (void)enumeratePinnedSupplementaryItems:(uint64_t)items;
+- (void)enumerateSectionDefinitionsWithBlock:(void *)result;
 - (void)finalizeCollectionViewUpdates;
 - (void)invalidateCachedDecorationAttributesForElementKind:(uint64_t)kind atIndexPaths:;
 - (void)invalidateCachedSupplementaryAttributesForElementKind:(uint64_t)kind atIndexPaths:;
 - (void)prepareForCollectionViewUpdates;
 - (void)prepareForPreferredAttributesQueryForView:(_DWORD *)view withLayoutAttributes:;
+- (void)resolveForUpdatedGlobalSupplementaries:(void *)supplementaries;
 - (void)setDynamicsConfigurationHandler:(uint64_t)handler;
 - (void)setOrthogonalOffset:(double)offset forSection:(double)section;
 - (void)setSolutionBookmarks:(uint64_t)bookmarks;
@@ -110,9 +110,9 @@
     dispatch_once(&_MergedGlobals_205, &__block_literal_global_123_0);
   }
 
-  v0 = qword_1ED4932F0;
+  v1 = qword_1ED4932F0;
 
-  return v0;
+  return v1;
 }
 
 - (uint64_t)_wantsSwipeActions
@@ -264,7 +264,7 @@ LABEL_16:
 
     v6 = container;
     [(_UICollectionLayoutContainer *)self->_container contentSize];
-    v9 = [(_UIContentInsetsEnvironment *)v6 layoutContainerForContainerSize:v7 layoutAxis:v8];
+    v9 = [(_UIContentInsetsEnvironment *)v6 layoutContainerForContainerSize:v7 layoutAxis:v8, self->_layoutAxis];
 
     v4 = v9;
   }
@@ -492,7 +492,7 @@ LABEL_15:
   }
 }
 
-- (BOOL)hasPinnedSupplementaryItems
+- (uint64_t)hasPinnedSupplementaryItems
 {
   if (result)
   {
@@ -1308,10 +1308,10 @@ LABEL_13:
   {
     if (a2)
     {
-      v26 = *(a2 + 24);
-      v27 = *(a2 + 32);
-      v28 = *(a2 + 40);
-      v29 = *(a2 + 48);
+      v26 = *(a2 + 3);
+      v27 = *(a2 + 4);
+      v28 = *(a2 + 5);
+      v29 = *(a2 + 6);
     }
 
     else
@@ -1334,7 +1334,7 @@ LABEL_13:
       {
         if (a2)
         {
-          v31 = *(a2 + 8);
+          v31 = *(a2 + 1);
         }
 
         else
@@ -1402,7 +1402,7 @@ LABEL_13:
         v38 = 0.0;
       }
 
-      [(_UICollectionCompositionalLayoutSolver *)v38 _globalFrameForSectionAuxiliaryFrame:v39 bookmark:v40 container:v41, _UICollectionCompositionalLayoutSolver, a2, *(self + 48)];
+      [_UICollectionCompositionalLayoutSolver _globalFrameForSectionAuxiliaryFrame:a2 bookmark:*(self + 48) container:v38, v39, v40, v41];
       v43 = v42;
       v45 = v44;
       v47 = v46;
@@ -1855,15 +1855,15 @@ LABEL_36:
   return v24;
 }
 
-+ (void)_globalFrameForSectionAuxiliaryFrame:(CGFloat)frame bookmark:(CGFloat)bookmark container:(uint64_t)container
++ (void)_globalFrameForSectionAuxiliaryFrame:(void *)frame bookmark:(CGFloat)bookmark container:(CGFloat)container
 {
   objc_opt_self();
-  if (a6)
+  if (a2)
   {
-    v14 = a6[3];
-    v13 = a6[4];
-    v15 = a6[5];
-    v16 = a6[6];
+    v14 = a2[3];
+    v13 = a2[4];
+    v15 = a2[5];
+    v16 = a2[6];
   }
 
   else
@@ -1874,8 +1874,8 @@ LABEL_36:
     v14 = 0.0;
   }
 
-  sectionAuxiliaryContentInsetsOffset = [(_UICollectionSectionSolutionBookmark *)a6 sectionAuxiliaryContentInsetsOffset];
-  [(_UICollectionCompositionalLayoutSolver *)self _globalFrameForSolutionFrame:a2 solutionGlobalFrame:frame contentInsetsOffset:bookmark container:v14, _UICollectionCompositionalLayoutSolver, a7, v13, v15, v16, sectionAuxiliaryContentInsetsOffset];
+  sectionAuxiliaryContentInsetsOffset = [(_UICollectionSectionSolutionBookmark *)a2 sectionAuxiliaryContentInsetsOffset];
+  [_UICollectionCompositionalLayoutSolver _globalFrameForSolutionFrame:frame solutionGlobalFrame:bookmark contentInsetsOffset:container container:a6, a7, v14, v13, v15, v16, sectionAuxiliaryContentInsetsOffset];
 }
 
 - (uint64_t)updateVisibleBoundsForDynamicAnimator:(CGFloat)animator previousVisibleBounds:(double)bounds
@@ -2494,19 +2494,19 @@ LABEL_7:
   return *&v18;
 }
 
-+ (CGFloat)_queryResultForItemAtIndexPath:(void *)path dataSourceSnapshot:(void *)snapshot solutionBookmarks:(void *)bookmarks container:(void *)container globalFrame:
++ (double)_queryResultForItemAtIndexPath:(void *)path dataSourceSnapshot:(void *)snapshot solutionBookmarks:(void *)bookmarks container:(void *)container globalFrame:
 {
   objc_opt_self();
   if (a2)
   {
-    if (-[CGFloat length](a2, "length") < 2 || [path globalIndexForIndexPath:a2] == 0x7FFFFFFFFFFFFFFFLL)
+    if ([a2 length] < 2 || objc_msgSend(path, "globalIndexForIndexPath:", a2) == 0x7FFFFFFFFFFFFFFFLL)
     {
       a2 = 0;
     }
 
     else
     {
-      v11 = [snapshot objectAtIndexedSubscript:{-[CGFloat section](a2, "section")}];
+      v11 = [snapshot objectAtIndexedSubscript:{objc_msgSend(a2, "section")}];
       v12 = v11;
       if (v11)
       {
@@ -2519,11 +2519,11 @@ LABEL_7:
       }
 
       v14 = v13;
-      a2 = [v14 frameForIndex:{-[CGFloat item](a2, "item")}];
+      a2 = [v14 frameForIndex:{objc_msgSend(a2, "item")}];
 
       if (a2)
       {
-        [(_UICollectionCompositionalLayoutSolver *)a2[10] _globalFrameForSolutionFrame:a2[12] bookmark:a2[13] container:_UICollectionCompositionalLayoutSolver, v12, bookmarks];
+        [_UICollectionCompositionalLayoutSolver _globalFrameForSolutionFrame:v12 bookmark:bookmarks container:a2[10], a2[11], a2[12], a2[13]];
         *container = v15;
         container[1] = v16;
         container[2] = v17;
@@ -2629,15 +2629,15 @@ LABEL_7:
   return v16;
 }
 
-+ (void)_globalFrameForSolutionFrame:(CGFloat)frame bookmark:(CGFloat)bookmark container:(uint64_t)container
++ (void)_globalFrameForSolutionFrame:(void *)frame bookmark:(CGFloat)bookmark container:(CGFloat)container
 {
   objc_opt_self();
-  if (a6)
+  if (a2)
   {
-    v14 = a6[3];
-    v13 = a6[4];
-    v15 = a6[5];
-    v16 = a6[6];
+    v14 = a2[3];
+    v13 = a2[4];
+    v15 = a2[5];
+    v16 = a2[6];
   }
 
   else
@@ -2648,8 +2648,8 @@ LABEL_7:
     v14 = 0.0;
   }
 
-  contentInsetsOffset = [(_UICollectionSectionSolutionBookmark *)a6 contentInsetsOffset];
-  [(_UICollectionCompositionalLayoutSolver *)self _globalFrameForSolutionFrame:a2 solutionGlobalFrame:frame contentInsetsOffset:bookmark container:v14, _UICollectionCompositionalLayoutSolver, a7, v13, v15, v16, contentInsetsOffset];
+  contentInsetsOffset = [(_UICollectionSectionSolutionBookmark *)a2 contentInsetsOffset];
+  [_UICollectionCompositionalLayoutSolver _globalFrameForSolutionFrame:frame solutionGlobalFrame:bookmark contentInsetsOffset:container container:a6, a7, v14, v13, v15, v16, contentInsetsOffset];
 }
 
 - (double)preUpdateFrameForSupplementaryViewOfKind:(void *)kind withInitialIndexPath:
@@ -2744,7 +2744,7 @@ LABEL_12:
   return *&v33;
 }
 
-+ (CGFloat)_queryResultForSectionSupplementaryViewOfKind:(void *)kind withIndexPath:(void *)path solutionBookmarks:(void *)bookmarks container:(void *)container globalFrame:
++ (double)_queryResultForSectionSupplementaryViewOfKind:(void *)kind withIndexPath:(void *)path solutionBookmarks:(void *)bookmarks container:(void *)container globalFrame:
 {
   v11 = objc_opt_self();
   section = [kind section];
@@ -2770,7 +2770,7 @@ LABEL_12:
     v15 = v20;
     if (v20)
     {
-      [(_UICollectionCompositionalLayoutSolver *)v20[10] _globalFrameForSectionAuxiliaryFrame:v20[12] bookmark:v20[13] container:_UICollectionCompositionalLayoutSolver, v17, bookmarks];
+      [_UICollectionCompositionalLayoutSolver _globalFrameForSectionAuxiliaryFrame:v17 bookmark:bookmarks container:v20[10], v20[11], v20[12], v20[13]];
       v22 = v21;
       v24 = v23;
       v26 = v25;
@@ -2951,7 +2951,7 @@ LABEL_4:
     v13 = [v12 unpinnedSectionSupplementaryFrameForIndex:{objc_msgSend(kind, "item")}];
     if (v13)
     {
-      [(_UICollectionCompositionalLayoutSolver *)v13[10] _globalFrameForSectionAuxiliaryFrame:v13[12] bookmark:v13[13] container:_UICollectionCompositionalLayoutSolver, v10, self[6]];
+      [_UICollectionCompositionalLayoutSolver _globalFrameForSectionAuxiliaryFrame:v10 bookmark:self[6] container:v13[10], v13[11], v13[12], v13[13]];
       v15 = v14;
     }
 
@@ -3052,7 +3052,7 @@ LABEL_29:
                   [currentHandler handleFailureInMethod:sel_preUpdateFrameForDecorationViewOfKind_withInitialIndexPath_ object:self file:@"_UICollectionCompositionalLayoutSolver.m" lineNumber:872 description:{@"Invalid parameter not satisfying: %@", @"result.isDecoration"}];
                 }
 
-                [(_UICollectionCompositionalLayoutSolver *)v31[10] _globalFrameForSolutionFrame:v31[12] bookmark:v31[13] container:_UICollectionCompositionalLayoutSolver, v15, self[31]];
+                [_UICollectionCompositionalLayoutSolver _globalFrameForSolutionFrame:v15 bookmark:self[31] container:v31[10], v31[11], v31[12], v31[13]];
                 v26 = v32;
               }
 
@@ -3217,7 +3217,7 @@ LABEL_27:
             [currentHandler handleFailureInMethod:sel_layoutAttributesForDecorationViewOfKind_withIndexPath_ object:self file:@"_UICollectionCompositionalLayoutSolver.m" lineNumber:928 description:{@"Invalid parameter not satisfying: %@", @"result.isDecoration"}];
           }
 
-          [(_UICollectionCompositionalLayoutSolver *)*(elementKind + 80) _globalFrameForSolutionFrame:*(elementKind + 96) bookmark:*(elementKind + 104) container:_UICollectionCompositionalLayoutSolver, v14, *(self + 48)];
+          [_UICollectionCompositionalLayoutSolver _globalFrameForSolutionFrame:v14 bookmark:*(self + 48) container:*(elementKind + 80), *(elementKind + 88), *(elementKind + 96), *(elementKind + 104)];
           v39 = v38;
           v41 = v40;
           v43 = v42;
@@ -3552,6 +3552,7 @@ LABEL_14:
   v76 = *MEMORY[0x1E69E9840];
   if (self)
   {
+    v8 = a2.n128_f64[0];
     v67 = 0;
     v68 = &v67;
     v69 = 0x3032000000;
@@ -3564,7 +3565,7 @@ LABEL_14:
     v65[3] = __Block_byref_object_copy__28;
     v65[4] = __Block_byref_object_dispose__28;
     v66 = 0;
-    [(_UICollectionCompositionalLayoutSolver *)self _attributesQueryInfosForQueryRect:a2, bounds, a4, a5];
+    [(_UICollectionCompositionalLayoutSolver *)self _attributesQueryInfosForQueryRect:bounds, a4, a5];
     v63 = 0u;
     v64 = 0u;
     v61 = 0u;
@@ -3673,7 +3674,7 @@ LABEL_14:
             }
 
             visibleItemsInvalidationHandler = [layoutSection visibleItemsInvalidationHandler];
-            (visibleItemsInvalidationHandler)[2](visibleItemsInvalidationHandler, v27, v20, a2 + v32, bounds + v34);
+            (visibleItemsInvalidationHandler)[2](visibleItemsInvalidationHandler, v27, v20, v8 + v32, bounds + v34);
 
             if (*(self + 12))
             {
@@ -3992,9 +3993,9 @@ LABEL_6:
 
       else
       {
-        v12 = [update isEqual:*(selfCopy4 + 48)];
+        isEqual = objc_msgSend_isEqual_(update);
 
-        if (v12)
+        if (isEqual)
         {
           [(_UICollectionCompositionalLayoutSolver *)selfCopy4 _invalidateAllAttributes];
 LABEL_63:
@@ -4809,14 +4810,14 @@ LABEL_60:
     }
 
     v17 = v16;
-    v18 = [v15 isEqual:v17];
+    isEqual = objc_msgSend_isEqual_(v15);
 
     objc_storeStrong((change + 48), a2);
     v19 = *(change + 184);
     v20 = [v19 count];
     numberOfSections = [*(change + 72) numberOfSections];
 
-    if (v18 && v7 == v11 && v9 == v13 && v20 == numberOfSections)
+    if (isEqual && v7 == v11 && v9 == v13 && v20 == numberOfSections)
     {
       v22 = [(_UICollectionCompositionalLayoutSolver *)change _resolveOptionallyQueryingForSectionDefinitions:1 retainPreferredSizing:?];
 
@@ -4971,14 +4972,14 @@ LABEL_60:
   return change;
 }
 
-- (id)resolveForUpdatedGlobalSupplementaries:(void *)supplementaries
+- (void)resolveForUpdatedGlobalSupplementaries:(void *)supplementaries
 {
   if (supplementaries)
   {
     supplementariesCopy = supplementaries;
     v4 = [a2 copy];
-    v5 = *(supplementariesCopy + 264);
-    *(supplementariesCopy + 264) = v4;
+    v5 = supplementariesCopy[33];
+    supplementariesCopy[33] = v4;
 
     supplementaries = [(_UICollectionCompositionalLayoutSolver *)supplementariesCopy _resolveOptionallyQueryingForSectionDefinitions:1 retainPreferredSizing:?];
     v2 = vars8;
@@ -4999,7 +5000,7 @@ LABEL_60:
     }
 
     *a2 = 0;
-    if ([(_UICollectionCompositionalLayoutSolver *)v9 hasPinnedSupplementaryItems]|| *(v9 + 288) > 0)
+    if (([(_UICollectionCompositionalLayoutSolver *)v9 hasPinnedSupplementaryItems]& 1) != 0 || *(v9 + 288) > 0)
     {
       return 1;
     }
@@ -5091,7 +5092,7 @@ LABEL_30:
 
       if (v20)
       {
-        v25 = *(v20 + 8);
+        v25 = v20[1];
       }
 
       else
@@ -5127,7 +5128,7 @@ LABEL_18:
           {
             if (v20)
             {
-              v32 = *(v20 + 104);
+              v32 = v20[13];
             }
 
             else
@@ -5467,20 +5468,20 @@ LABEL_28:
   return v27;
 }
 
-- (uint64_t)_supportsSwipeActionsForIndexPath:(uint64_t)result
+- (id)_supportsSwipeActionsForIndexPath:(id *)result
 {
   if (result)
   {
     v2 = result;
     section = [a2 section];
-    if (section >= [*(v2 + 184) count])
+    if (section >= [v2[23] count])
     {
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
       v8 = [MEMORY[0x1E696AD98] numberWithInteger:section];
       [currentHandler handleFailureInMethod:sel__supportsSwipeActionsForIndexPath_ object:v2 file:@"_UICollectionCompositionalLayoutSolver.m" lineNumber:1816 description:{@"Invalid section %@.", v8}];
     }
 
-    v4 = [*(v2 + 184) objectAtIndexedSubscript:section];
+    v4 = [v2[23] objectAtIndexedSubscript:section];
     v5 = v4;
     if (v4)
     {
@@ -5720,7 +5721,7 @@ LABEL_28:
 
 - (void)setOrthogonalOffset:(double)offset forSection:(double)section
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   if (self && [*(self + 184) count] > a2)
   {
     v8 = [*(self + 184) objectAtIndexedSubscript:a2];
@@ -5740,7 +5741,7 @@ LABEL_28:
     {
       if (v9)
       {
-        v12 = v9[1];
+        v12 = *(v9 + 8);
       }
 
       else
@@ -5776,11 +5777,11 @@ LABEL_28:
       if ([v11 _hasVisibleItemsHandler])
       {
         memoizedDescriptor3 = [(_UICollectionSectionSolutionBookmark *)v9 memoizedDescriptor];
-        v35 = v11;
-        v36 = v9;
+        v36 = v11;
+        v37 = v9;
         if (memoizedDescriptor3)
         {
-          v23 = memoizedDescriptor3[14];
+          v23 = *(memoizedDescriptor3 + 14);
           v22 = memoizedDescriptor3[15];
           v24 = memoizedDescriptor3[16];
           v25 = memoizedDescriptor3[17];
@@ -5791,72 +5792,73 @@ LABEL_28:
           v22 = 0.0;
           v24 = 0.0;
           v25 = 0.0;
-          v23 = 0.0;
+          v23 = 0;
         }
 
-        v26 = [(_UICollectionCompositionalLayoutSolver *)self mutatedVisibleItemsForElementsForVisibleBounds:v23, v22, v24, v25];
-        v37 = 0u;
+        v26.n128_u64[0] = v23;
+        v27 = [(_UICollectionCompositionalLayoutSolver *)self mutatedVisibleItemsForElementsForVisibleBounds:v26, v22, v24, v25];
         v38 = 0u;
         v39 = 0u;
         v40 = 0u;
-        v27 = [v26 countByEnumeratingWithState:&v37 objects:v44 count:16];
-        if (v27)
+        v41 = 0u;
+        v28 = [v27 countByEnumeratingWithState:&v38 objects:v45 count:16];
+        if (v28)
         {
-          v28 = v27;
-          v29 = *v38;
+          v29 = v28;
+          v30 = *v39;
           do
           {
-            for (i = 0; i != v28; ++i)
+            for (i = 0; i != v29; ++i)
             {
-              if (*v38 != v29)
+              if (*v39 != v30)
               {
-                objc_enumerationMutation(v26);
+                objc_enumerationMutation(v27);
               }
 
-              v31 = *(*(&v37 + 1) + 8 * i);
-              if ([v31 representedElementCategory])
+              v32 = *(*(&v38 + 1) + 8 * i);
+              if ([v32 representedElementCategory])
               {
-                if ([v31 representedElementCategory] == 1)
+                if ([v32 representedElementCategory] == 1)
                 {
-                  representedElementKind = [v31 representedElementKind];
-                  indexPath = [v31 indexPath];
-                  v42 = indexPath;
-                  v34 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v42 count:1];
-                  [(UICollectionViewLayoutInvalidationContext *)v20 invalidateSupplementaryElementsOfKind:representedElementKind atIndexPaths:v34];
+                  representedElementKind = [v32 representedElementKind];
+                  indexPath = [v32 indexPath];
+                  v43 = indexPath;
+                  v35 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v43 count:1];
+                  [(UICollectionViewLayoutInvalidationContext *)v20 invalidateSupplementaryElementsOfKind:representedElementKind atIndexPaths:v35];
                 }
 
                 else
                 {
-                  if ([v31 representedElementCategory] != 2)
+                  if ([v32 representedElementCategory] != 2)
                   {
                     continue;
                   }
 
-                  representedElementKind = [v31 representedElementKind];
-                  indexPath = [v31 indexPath];
-                  v41 = indexPath;
-                  v34 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v41 count:1];
-                  [(UICollectionViewLayoutInvalidationContext *)v20 invalidateDecorationElementsOfKind:representedElementKind atIndexPaths:v34];
+                  representedElementKind = [v32 representedElementKind];
+                  indexPath = [v32 indexPath];
+                  v42 = indexPath;
+                  v35 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v42 count:1];
+                  [(UICollectionViewLayoutInvalidationContext *)v20 invalidateDecorationElementsOfKind:representedElementKind atIndexPaths:v35];
                 }
               }
 
               else
               {
-                representedElementKind = [v31 indexPath];
-                v43 = representedElementKind;
-                indexPath = [MEMORY[0x1E695DEC8] arrayWithObjects:&v43 count:1];
+                representedElementKind = [v32 indexPath];
+                v44 = representedElementKind;
+                indexPath = [MEMORY[0x1E695DEC8] arrayWithObjects:&v44 count:1];
                 [(UICollectionViewLayoutInvalidationContext *)v20 invalidateItemsAtIndexPaths:indexPath];
               }
             }
 
-            v28 = [v26 countByEnumeratingWithState:&v37 objects:v44 count:16];
+            v29 = [v27 countByEnumeratingWithState:&v38 objects:v45 count:16];
           }
 
-          while (v28);
+          while (v29);
         }
 
-        v11 = v35;
-        v9 = v36;
+        v11 = v36;
+        v9 = v37;
       }
 
       (*(*(self + 136) + 16))();
@@ -5937,7 +5939,7 @@ LABEL_28:
   return selfCopy;
 }
 
-- (uint64_t)orthogonalScrollingSectionSupplementaryShouldScrollWithContentForIndexPath:(uint64_t)path elementKind:
+- (BOOL)orthogonalScrollingSectionSupplementaryShouldScrollWithContentForIndexPath:(uint64_t)path elementKind:
 {
   if (!self || [a2 length] == 1)
   {
@@ -6086,7 +6088,7 @@ LABEL_15:
       {
         v16 = [(_UICollectionCompositionalLayoutSolver *)self orthogonalScrollingSectionSupplementaryShouldScrollWithContentForIndexPath:indexPath elementKind:v15];
 
-        if ((v16 & 1) == 0)
+        if (!v16)
         {
           goto LABEL_15;
         }
@@ -6220,9 +6222,9 @@ LABEL_7:
   return v2;
 }
 
-- (double)_containerByApplyingInsetsFromEnvironment:(double)environment toSize:(double)size onAxis:
+- (double)_containerByApplyingInsetsFromEnvironment:(__n128)environment toSize:(__n128)size onAxis:
 {
-  v4 = [(_UIContentInsetsEnvironment *)self layoutContainerForContainerSize:a2 layoutAxis:environment, size];
+  v4 = [(_UIContentInsetsEnvironment *)self layoutContainerForContainerSize:environment layoutAxis:size, a2];
   v5 = [_UICollectionLayoutContainer alloc];
   [v4 effectiveContentSize];
   v8 = [(_UICollectionLayoutContainer *)v5 initWithContentSize:v6 contentInsets:v7, 0.0, 0.0, 0.0, 0.0];
@@ -6776,30 +6778,30 @@ LABEL_9:
   }
 }
 
-+ (CGFloat)_globalFrameForSolutionFrame:(CGFloat)frame solutionGlobalFrame:(CGFloat)globalFrame contentInsetsOffset:(double)offset container:(uint64_t)container
++ (CGFloat)_globalFrameForSolutionFrame:(CGFloat)frame solutionGlobalFrame:(CGFloat)globalFrame contentInsetsOffset:(CGFloat)offset container:(CGFloat)container
 {
-  v20 = objc_opt_self();
-  if (!a7)
+  v17 = objc_opt_self();
+  if (!a2)
   {
-    v24 = v20;
+    v21 = v17;
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    [currentHandler handleFailureInMethod:sel__globalFrameForSolutionFrame_solutionGlobalFrame_contentInsetsOffset_container_ object:v24 file:@"_UICollectionCompositionalLayoutSolver.m" lineNumber:3006 description:{@"Invalid parameter not satisfying: %@", @"container != nil"}];
+    [currentHandler handleFailureInMethod:sel__globalFrameForSolutionFrame_solutionGlobalFrame_contentInsetsOffset_container_ object:v21 file:@"_UICollectionCompositionalLayoutSolver.m" lineNumber:3006 description:{@"Invalid parameter not satisfying: %@", @"container != nil"}];
   }
 
   objc_opt_self();
-  [a7 effectiveContentInsets];
-  v22 = self + offset + a11 + v21 + *MEMORY[0x1E695EFF8];
-  v26.origin.x = self;
-  v26.origin.y = a2;
-  v26.size.width = frame;
-  v26.size.height = globalFrame;
-  CGRectGetWidth(v26);
-  v27.origin.x = self;
-  v27.origin.y = a2;
-  v27.size.width = frame;
-  v27.size.height = globalFrame;
-  CGRectGetHeight(v27);
-  return v22;
+  [a2 effectiveContentInsets];
+  v19 = frame + a7 + a11 + v18 + *MEMORY[0x1E695EFF8];
+  v23.origin.x = frame;
+  v23.origin.y = globalFrame;
+  v23.size.width = offset;
+  v23.size.height = container;
+  CGRectGetWidth(v23);
+  v24.origin.x = frame;
+  v24.origin.y = globalFrame;
+  v24.size.width = offset;
+  v24.size.height = container;
+  CGRectGetHeight(v24);
+  return v19;
 }
 
 - (id)sectionDescriptorForSectionIndex:(uint64_t)index
@@ -6928,11 +6930,11 @@ LABEL_24:
   return _excludesBoundarySupplementariesFromClipping;
 }
 
-- (uint64_t)enumerateSectionDefinitionsWithBlock:(uint64_t)result
+- (void)enumerateSectionDefinitionsWithBlock:(void *)result
 {
   if (result)
   {
-    v2 = *(result + 184);
+    v2 = result[23];
     v3[0] = MEMORY[0x1E69E9820];
     v3[1] = 3221225472;
     v3[2] = __79___UICollectionCompositionalLayoutSolver_enumerateSectionDefinitionsWithBlock___block_invoke;

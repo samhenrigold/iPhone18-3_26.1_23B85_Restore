@@ -85,33 +85,33 @@ uint64_t __36__TUSearchController_sharedInstance__block_invoke()
 
 void __44__TUSearchController_recentsWithCompletion___block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) _cancelRecentSearches];
   v2 = +[TUSearchModuleManager recentsModuleClasses];
   v3 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v2, "count")}];
   [*(a1 + 32) setRecentsModules:v3];
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v4 = v2;
-  v5 = [v4 countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v22 objects:v27 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v24;
+    v7 = *v23;
     do
     {
       v8 = 0;
       do
       {
-        if (*v24 != v7)
+        if (*v23 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = objc_alloc_init(*(*(&v23 + 1) + 8 * v8));
+        v9 = objc_alloc_init(*(*(&v22 + 1) + 8 * v8));
         [v9 setSearchController:*(a1 + 32)];
         v10 = [*(a1 + 32) recentsModules];
         [v10 addObject:v9];
@@ -120,33 +120,33 @@ void __44__TUSearchController_recentsWithCompletion___block_invoke(uint64_t a1)
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
     while (v6);
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v11 = [*(a1 + 32) recentsModules];
-  v12 = [v11 countByEnumeratingWithState:&v19 objects:v27 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v18 objects:v26 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v20;
+    v14 = *v19;
     do
     {
       v15 = 0;
       do
       {
-        if (*v20 != v14)
+        if (*v19 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v19 + 1) + 8 * v15);
+        v16 = *(*(&v18 + 1) + 8 * v15);
         v17 = [*(a1 + 32) recentsModuleCompletionWithCompletion:*(a1 + 40)];
         [v16 searchForString:&stru_1F098C218 completion:v17];
 
@@ -154,13 +154,11 @@ void __44__TUSearchController_recentsWithCompletion___block_invoke(uint64_t a1)
       }
 
       while (v13 != v15);
-      v13 = [v11 countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v18 objects:v26 count:16];
     }
 
     while (v13);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)searchForString:(id)string completion:(id)completion
@@ -182,35 +180,35 @@ void __44__TUSearchController_recentsWithCompletion___block_invoke(uint64_t a1)
 
 void __49__TUSearchController_searchForString_completion___block_invoke(uint64_t a1)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) _cancelSearchsForSearchTerm:*(a1 + 40)];
   v2 = +[TUSearchModuleManager searchModuleClasses];
   v3 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v2, "count")}];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v4 = v2;
-  v5 = [v4 countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v24 objects:v29 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v26;
+    v7 = *v25;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v26 != v7)
+        if (*v25 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = objc_alloc_init(*(*(&v25 + 1) + 8 * i));
+        v9 = objc_alloc_init(*(*(&v24 + 1) + 8 * i));
         [v9 setSearchController:*(a1 + 32)];
         [v3 addObject:v9];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v24 objects:v29 count:16];
     }
 
     while (v6);
@@ -224,73 +222,71 @@ void __49__TUSearchController_searchForString_completion___block_invoke(uint64_t
     [v11 setObject:v10 forKeyedSubscript:*(a1 + 40)];
 
     os_unfair_lock_unlock((*(a1 + 32) + 8));
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v12 = v3;
-    v13 = [v12 countByEnumeratingWithState:&v21 objects:v29 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v20 objects:v28 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v22;
+      v15 = *v21;
       do
       {
         for (j = 0; j != v14; ++j)
         {
-          if (*v22 != v15)
+          if (*v21 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = *(*(&v21 + 1) + 8 * j);
+          v17 = *(*(&v20 + 1) + 8 * j);
           v18 = *(a1 + 40);
-          v19 = [*(a1 + 32) searchModuleCompletionWithSearchTerm:v18 completion:{*(a1 + 48), v21}];
+          v19 = [*(a1 + 32) searchModuleCompletionWithSearchTerm:v18 completion:{*(a1 + 48), v20}];
           [v17 searchForString:v18 completion:v19];
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v21 objects:v29 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v20 objects:v28 count:16];
       }
 
       while (v14);
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_cancelRecentSearches
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   recentsModules = [(TUSearchController *)self recentsModules];
 
   if (recentsModules)
   {
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     recentsModules2 = [(TUSearchController *)self recentsModules];
-    v5 = [recentsModules2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v5 = [recentsModules2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v12;
+      v7 = *v11;
       do
       {
         v8 = 0;
         do
         {
-          if (*v12 != v7)
+          if (*v11 != v7)
           {
             objc_enumerationMutation(recentsModules2);
           }
 
-          [*(*(&v11 + 1) + 8 * v8++) cancelSearch];
+          [*(*(&v10 + 1) + 8 * v8++) cancelSearch];
         }
 
         while (v6 != v8);
-        v6 = [recentsModules2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v6 = [recentsModules2 countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
       while (v6);
@@ -302,13 +298,11 @@ void __49__TUSearchController_searchForString_completion___block_invoke(uint64_t
 
     [(TUSearchController *)self _clearIdsDestinations];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_cancelSearchsForSearchTerm:(id)term
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   termCopy = term;
   os_unfair_lock_lock(&self->_searchModulesLock);
   searchModules = [(TUSearchController *)self searchModules];
@@ -316,31 +310,31 @@ void __49__TUSearchController_searchForString_completion___block_invoke(uint64_t
 
   if (v6)
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v7 = v6;
-    v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v16;
+      v10 = *v15;
       do
       {
         v11 = 0;
         do
         {
-          if (*v16 != v10)
+          if (*v15 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          [*(*(&v15 + 1) + 8 * v11++) cancelSearch];
+          [*(*(&v14 + 1) + 8 * v11++) cancelSearch];
         }
 
         while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v9);
@@ -356,8 +350,6 @@ void __49__TUSearchController_searchForString_completion___block_invoke(uint64_t
   }
 
   os_unfair_lock_unlock(&self->_searchModulesLock);
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_fetchIdsDestinationsIfNeeded:(id)needed withReason:(int)reason
@@ -475,36 +467,36 @@ void __92__TUSearchController__searchModuleCompletionWithModules_searchTerm_resu
 
 void __92__TUSearchController__searchModuleCompletionWithModules_searchTerm_resultsClass_completion___block_invoke_2(uint64_t a1)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) containsObject:*(a1 + 40)])
   {
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
     v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
     v2 = *(a1 + 32);
-    v3 = [v2 countByEnumeratingWithState:&v33 objects:v39 count:16];
+    v3 = [v2 countByEnumeratingWithState:&v32 objects:v38 count:16];
     if (v3)
     {
       v4 = v3;
-      v5 = *v34;
+      v5 = *v33;
 LABEL_4:
       v6 = 0;
       while (1)
       {
-        if (*v34 != v5)
+        if (*v33 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        if (![*(*(&v33 + 1) + 8 * v6) isSearchComplete])
+        if (![*(*(&v32 + 1) + 8 * v6) isSearchComplete])
         {
           break;
         }
 
         if (v4 == ++v6)
         {
-          v4 = [v2 countByEnumeratingWithState:&v33 objects:v39 count:16];
+          v4 = [v2 countByEnumeratingWithState:&v32 objects:v38 count:16];
           if (v4)
           {
             goto LABEL_4;
@@ -530,34 +522,34 @@ LABEL_10:
       }
 
       v2 = [objc_alloc(*(a1 + 72)) initWithSearchTerm:*(a1 + 48) shouldAddAdhocResults:v7];
+      v28 = 0u;
       v29 = 0u;
       v30 = 0u;
       v31 = 0u;
-      v32 = 0u;
       v8 = *(a1 + 32);
-      v9 = [v8 countByEnumeratingWithState:&v29 objects:v38 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v28 objects:v37 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v30;
+        v11 = *v29;
         do
         {
           v12 = 0;
           do
           {
-            if (*v30 != v11)
+            if (*v29 != v11)
             {
               objc_enumerationMutation(v8);
             }
 
-            v13 = [*(*(&v29 + 1) + 8 * v12) searchResults];
+            v13 = [*(*(&v28 + 1) + 8 * v12) searchResults];
             [v2 addSearchResults:v13];
 
             ++v12;
           }
 
           while (v10 != v12);
-          v10 = [v8 countByEnumeratingWithState:&v29 objects:v38 count:16];
+          v10 = [v8 countByEnumeratingWithState:&v28 objects:v37 count:16];
         }
 
         while (v10);
@@ -565,34 +557,34 @@ LABEL_10:
 
       [v2 finalizeSearchResults];
       v14 = [MEMORY[0x1E695DFA8] set];
+      v24 = 0u;
       v25 = 0u;
       v26 = 0u;
       v27 = 0u;
-      v28 = 0u;
       v15 = [v2 allDataItems];
-      v16 = [v15 countByEnumeratingWithState:&v25 objects:v37 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v24 objects:v36 count:16];
       if (v16)
       {
         v17 = v16;
-        v18 = *v26;
+        v18 = *v25;
         do
         {
           v19 = 0;
           do
           {
-            if (*v26 != v18)
+            if (*v25 != v18)
             {
               objc_enumerationMutation(v15);
             }
 
-            v20 = [*(*(&v25 + 1) + 8 * v19) idsCanonicalDestinations];
+            v20 = [*(*(&v24 + 1) + 8 * v19) idsCanonicalDestinations];
             [v14 addObjectsFromArray:v20];
 
             ++v19;
           }
 
           while (v17 != v19);
-          v17 = [v15 countByEnumeratingWithState:&v25 objects:v37 count:16];
+          v17 = [v15 countByEnumeratingWithState:&v24 objects:v36 count:16];
         }
 
         while (v17);
@@ -617,8 +609,6 @@ LABEL_10:
       }
     }
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 @end

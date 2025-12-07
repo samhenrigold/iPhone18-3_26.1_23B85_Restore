@@ -47,32 +47,32 @@
 
 id __72__PGMeaningfulEventSceneCollectionTrait_debugDescriptionWithMomentNode___block_invoke(uint64_t a1, void *a2)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v26 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v3, "count")}];
-  v25 = [*(a1 + 32) collection];
+  v25 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v3, "count")}];
+  v24 = [*(a1 + 32) collection];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   obj = v3;
-  v4 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v4 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v28;
+    v6 = *v27;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v28 != v6)
+        if (*v27 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v27 + 1) + 8 * i);
+        v8 = *(*(&v26 + 1) + 8 * i);
         v9 = [v8 collection];
-        v10 = [(PGGraphEdgeCollection *)PGGraphSceneEdgeCollection edgesFromNodes:v25 toNodes:v9];
+        v10 = [(PGGraphEdgeCollection *)PGGraphSceneEdgeCollection edgesFromNodes:v24 toNodes:v9];
         v11 = [v10 anyEdge];
 
         LODWORD(v9) = [v11 isReliable];
@@ -91,18 +91,16 @@ id __72__PGMeaningfulEventSceneCollectionTrait_debugDescriptionWithMomentNode___
         v19 = [v15 stringWithFormat:@"%@ (confidence %.2f, #assets %lu, #highConf. %lu, #searchConf. %lu, reliable %@)", v16, v17, v12, v13, v14, v18];
 
         v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v13];
-        [v26 setObject:v20 forKeyedSubscript:v19];
+        [v25 setObject:v20 forKeyedSubscript:v19];
       }
 
-      v5 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v5 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v5);
   }
 
-  v21 = [v26 keysSortedByValueUsingSelector:sel_compare_];
-
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = [v25 keysSortedByValueUsingSelector:sel_compare_];
 
   return v21;
 }

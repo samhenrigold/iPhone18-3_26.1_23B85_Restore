@@ -88,22 +88,20 @@
 
 - (void)workoutManager:(id)manager didStartWorkout:(id)workout atDate:(id)date
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   workoutCopy = workout;
   dateCopy = date;
   _HKInitializeLogging();
   v9 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEBUG))
   {
-    v12 = 138412290;
+    v11 = 138412290;
     selfCopy = self;
-    _os_log_debug_impl(&dword_228986000, v9, OS_LOG_TYPE_DEBUG, "%@: Received workoutManagerDidStartWorkout event", &v12, 0xCu);
+    _os_log_debug_impl(&dword_228986000, v9, OS_LOG_TYPE_DEBUG, "%@: Received workoutManagerDidStartWorkout event", &v11, 0xCu);
   }
 
   sessionId = [workoutCopy sessionId];
   [(HDAutoPauseWorkoutEventCollector *)self _deliverWorkoutEvent:sessionId sessionId:dateCopy eventDate:?];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_deliverWorkoutEvent:(void *)event sessionId:(void *)id eventDate:
@@ -123,76 +121,70 @@
 
 - (void)workoutManager:(id)manager didStopWorkout:(id)workout atDate:(id)date
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   workoutCopy = workout;
   dateCopy = date;
   _HKInitializeLogging();
   v9 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEBUG))
   {
-    v12 = 138412290;
+    v11 = 138412290;
     selfCopy = self;
-    _os_log_debug_impl(&dword_228986000, v9, OS_LOG_TYPE_DEBUG, "%@: Received workoutManagerDidStopWorkout event", &v12, 0xCu);
+    _os_log_debug_impl(&dword_228986000, v9, OS_LOG_TYPE_DEBUG, "%@: Received workoutManagerDidStopWorkout event", &v11, 0xCu);
   }
 
   sessionId = [workoutCopy sessionId];
   [(HDAutoPauseWorkoutEventCollector *)self _deliverWorkoutEvent:sessionId sessionId:dateCopy eventDate:?];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)workoutManager:(id)manager willPauseWorkout:(id)workout atDate:(id)date
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   workoutCopy = workout;
   dateCopy = date;
   _HKInitializeLogging();
   v9 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEBUG))
   {
-    v12 = 138412290;
+    v11 = 138412290;
     selfCopy = self;
-    _os_log_debug_impl(&dword_228986000, v9, OS_LOG_TYPE_DEBUG, "%@: Received workoutManagerWillPauseWorkout event", &v12, 0xCu);
+    _os_log_debug_impl(&dword_228986000, v9, OS_LOG_TYPE_DEBUG, "%@: Received workoutManagerWillPauseWorkout event", &v11, 0xCu);
   }
 
   sessionId = [workoutCopy sessionId];
   [(HDAutoPauseWorkoutEventCollector *)self _deliverWorkoutEvent:sessionId sessionId:dateCopy eventDate:?];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)workoutManager:(id)manager willResumeWorkout:(id)workout atDate:(id)date
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   workoutCopy = workout;
   dateCopy = date;
   _HKInitializeLogging();
   v9 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEBUG))
   {
-    v12 = 138412290;
+    v11 = 138412290;
     selfCopy = self;
-    _os_log_debug_impl(&dword_228986000, v9, OS_LOG_TYPE_DEBUG, "%@: Received workoutManagerWillResumeWorkout event", &v12, 0xCu);
+    _os_log_debug_impl(&dword_228986000, v9, OS_LOG_TYPE_DEBUG, "%@: Received workoutManagerWillResumeWorkout event", &v11, 0xCu);
   }
 
   sessionId = [workoutCopy sessionId];
   [(HDAutoPauseWorkoutEventCollector *)self _deliverWorkoutEvent:sessionId sessionId:dateCopy eventDate:?];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)workoutManager:(id)manager didFailWorkout:(id)workout withError:(id)error
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   workoutCopy = workout;
   _HKInitializeLogging();
   v9 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEBUG))
   {
-    v15 = 138412290;
+    v14 = 138412290;
     selfCopy = self;
-    _os_log_debug_impl(&dword_228986000, v9, OS_LOG_TYPE_DEBUG, "%@: Received workoutManagerDidFail event", &v15, 0xCu);
+    _os_log_debug_impl(&dword_228986000, v9, OS_LOG_TYPE_DEBUG, "%@: Received workoutManagerDidFail event", &v14, 0xCu);
   }
 
   v10 = objc_alloc(MEMORY[0x277CCDE58]);
@@ -201,13 +193,11 @@
   v12 = [v10 initWithSessionId:sessionId error:errorCopy];
   delegate = [(HDWorkoutEventCollector *)self delegate];
   [delegate receivedWorkoutEvent:v12];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)workoutManager:(id)manager suggestedStopWorkout:(id)workout atDate:(id)date
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   workoutCopy = workout;
   dateCopy = date;
   standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
@@ -219,21 +209,19 @@
     v12 = *MEMORY[0x277CCC330];
     if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEBUG))
     {
-      v15 = 138412290;
+      v14 = 138412290;
       selfCopy = self;
-      _os_log_debug_impl(&dword_228986000, v12, OS_LOG_TYPE_DEBUG, "%@: Received catflexing event", &v15, 0xCu);
+      _os_log_debug_impl(&dword_228986000, v12, OS_LOG_TYPE_DEBUG, "%@: Received catflexing event", &v14, 0xCu);
     }
 
     sessionId = [workoutCopy sessionId];
     [(HDAutoPauseWorkoutEventCollector *)self _deliverWorkoutEvent:sessionId sessionId:dateCopy eventDate:?];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)workoutManager:(id)manager workoutLocationEventUpdate:(id)update
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   _HKInitializeLogging();
   v6 = *MEMORY[0x277CCC330];
@@ -251,109 +239,103 @@
 
   v11 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:date duration:0.0];
   v12 = [MEMORY[0x277CCABB0] numberWithBool:{v8, *MEMORY[0x277CCC4C0]}];
-  v18 = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+  v17 = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
   v14 = [v9 initWithWorkoutEventType:12 sessionUUID:sessionId dateInterval:v11 metadata:v13 error:0];
 
   delegate = [(HDWorkoutEventCollector *)self delegate];
   [delegate receivedWorkoutEvent:v14];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)workoutManager:(id)manager didBeginWorkoutSessionWithWorkout:(id)workout withOverview:(id)overview
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   overviewCopy = overview;
   workoutCopy = workout;
   _HKInitializeLogging();
   v9 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEBUG))
   {
-    v13 = 138412290;
+    v12 = 138412290;
     selfCopy = self;
-    _os_log_debug_impl(&dword_228986000, v9, OS_LOG_TYPE_DEBUG, "%@: Received workoutManagerdidBeginWorkoutSession event", &v13, 0xCu);
+    _os_log_debug_impl(&dword_228986000, v9, OS_LOG_TYPE_DEBUG, "%@: Received workoutManagerdidBeginWorkoutSession event", &v12, 0xCu);
   }
 
   overviewId = [overviewCopy overviewId];
   startDate = [workoutCopy startDate];
 
   [(HDAutoPauseWorkoutEventCollector *)self _deliverWorkoutEvent:overviewId sessionId:startDate eventDate:?];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)workoutManager:(id)manager didEndWorkoutSessionWithWorkout:(id)workout withOverview:(id)overview
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   overviewCopy = overview;
   workoutCopy = workout;
   _HKInitializeLogging();
   v9 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEBUG))
   {
-    v13 = 138412290;
+    v12 = 138412290;
     selfCopy = self;
-    _os_log_debug_impl(&dword_228986000, v9, OS_LOG_TYPE_DEBUG, "%@: Received workoutManagerdidEndWorkoutSession event", &v13, 0xCu);
+    _os_log_debug_impl(&dword_228986000, v9, OS_LOG_TYPE_DEBUG, "%@: Received workoutManagerdidEndWorkoutSession event", &v12, 0xCu);
   }
 
   overviewId = [overviewCopy overviewId];
   endDate = [workoutCopy endDate];
 
   [(HDAutoPauseWorkoutEventCollector *)self _deliverWorkoutEvent:overviewId sessionId:endDate eventDate:?];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)workoutManager:(id)manager didPauseWorkout:(id)workout withOverview:(id)overview
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   overviewCopy = overview;
   _HKInitializeLogging();
   v7 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEBUG))
   {
-    v11 = 138412290;
+    v10 = 138412290;
     selfCopy = self;
-    _os_log_debug_impl(&dword_228986000, v7, OS_LOG_TYPE_DEBUG, "%@: Received workoutManagerdidPauseWorkout event", &v11, 0xCu);
+    _os_log_debug_impl(&dword_228986000, v7, OS_LOG_TYPE_DEBUG, "%@: Received workoutManagerdidPauseWorkout event", &v10, 0xCu);
   }
 
   date = [MEMORY[0x277CBEAA8] date];
   overviewId = [overviewCopy overviewId];
 
   [(HDAutoPauseWorkoutEventCollector *)self _deliverWorkoutEvent:overviewId sessionId:date eventDate:?];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)workoutManager:(id)manager didResumeWorkout:(id)workout withOverview:(id)overview
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   overviewCopy = overview;
   _HKInitializeLogging();
   v7 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEBUG))
   {
-    v11 = 138412290;
+    v10 = 138412290;
     selfCopy = self;
-    _os_log_debug_impl(&dword_228986000, v7, OS_LOG_TYPE_DEBUG, "%@: Received workoutManagerdidResumeWorkout event", &v11, 0xCu);
+    _os_log_debug_impl(&dword_228986000, v7, OS_LOG_TYPE_DEBUG, "%@: Received workoutManagerdidResumeWorkout event", &v10, 0xCu);
   }
 
   date = [MEMORY[0x277CBEAA8] date];
   overviewId = [overviewCopy overviewId];
 
   [(HDAutoPauseWorkoutEventCollector *)self _deliverWorkoutEvent:overviewId sessionId:date eventDate:?];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)workoutManager:(id)manager didSetCurrentWorkoutType:(id)type withOverview:(id)overview
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   _HKInitializeLogging();
   v7 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEBUG))
   {
-    v16 = 138412290;
+    v15 = 138412290;
     selfCopy = self;
-    _os_log_debug_impl(&dword_228986000, v7, OS_LOG_TYPE_DEBUG, "%@: Received workoutManagerdidSetCurrentWorkoutType event", &v16, 0xCu);
+    _os_log_debug_impl(&dword_228986000, v7, OS_LOG_TYPE_DEBUG, "%@: Received workoutManagerdidSetCurrentWorkoutType event", &v15, 0xCu);
   }
 
   v8 = objc_alloc(MEMORY[0x277CCA970]);
@@ -366,13 +348,11 @@
   v13 = [v11 initWithWorkoutEventType:13 sessionUUID:sessionId dateInterval:v10 metadata:0 error:0];
   delegate = [(HDWorkoutEventCollector *)self delegate];
   [delegate receivedWorkoutEvent:v13];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)workoutManager:(id)manager detectedChangeInWorkoutType:(id)type withOverview:(id)overview
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   _HKInitializeLogging();
   v7 = MEMORY[0x277CCC330];
@@ -656,13 +636,11 @@ LABEL_5:
 
   delegate = [(HDWorkoutEventCollector *)self delegate];
   [delegate receivedWorkoutEvent:v14 forWorkoutActivity:v37];
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 void __75__HDAutoPauseWorkoutEventCollector__listenForCatFlexingFakingNotifications__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -680,7 +658,7 @@ void __75__HDAutoPauseWorkoutEventCollector__listenForCatFlexingFakingNotificati
     if (os_log_type_enabled(*v1, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v9 = 0x4014000000000000;
+      v8 = 0x4014000000000000;
       _os_log_impl(&dword_228986000, v3, OS_LOG_TYPE_DEFAULT, "CatFlexing: setting setSuggestedStopTimeout to %f seconds", buf, 0xCu);
     }
 
@@ -688,8 +666,6 @@ void __75__HDAutoPauseWorkoutEventCollector__listenForCatFlexingFakingNotificati
     v5 = [MEMORY[0x277CBEAA8] date];
     [(HDAutoPauseWorkoutEventCollector *)WeakRetained _deliverWorkoutEvent:v4 sessionId:v5 eventDate:?];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unitTest_setCMWorkoutManager:(id)manager

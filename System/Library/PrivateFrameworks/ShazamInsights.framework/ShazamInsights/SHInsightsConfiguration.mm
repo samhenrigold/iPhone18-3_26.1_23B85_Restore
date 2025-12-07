@@ -51,22 +51,20 @@ uint64_t __61__SHInsightsConfiguration_fetchSharedInstanceWithCompletion___block
 
 void __61__SHInsightsConfiguration_fetchSharedInstanceWithCompletion___block_invoke_38(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
     v4 = shcore_log_object();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      v6 = 138412290;
-      v7 = v3;
-      _os_log_impl(&dword_265F78000, v4, OS_LOG_TYPE_DEBUG, "Failed to load insights configuration %@, using defaults", &v6, 0xCu);
+      v5 = 138412290;
+      v6 = v3;
+      _os_log_impl(&dword_265F78000, v4, OS_LOG_TYPE_DEBUG, "Failed to load insights configuration %@, using defaults", &v5, 0xCu);
     }
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (id)bagContract

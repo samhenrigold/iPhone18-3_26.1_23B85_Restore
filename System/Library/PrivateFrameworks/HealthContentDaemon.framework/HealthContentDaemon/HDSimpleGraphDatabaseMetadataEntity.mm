@@ -157,24 +157,23 @@ uint64_t __83__HDSimpleGraphDatabaseMetadataEntity_metadataValueForKey_valueOut_
 
 + (BOOL)enumerateMetadataValuesWithPredicate:(id)predicate database:(id)database error:(id *)error enumerationHandler:(id)handler
 {
-  v21[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
-  v21[0] = @"key";
-  v21[1] = @"value";
+  v20[0] = @"key";
+  v20[1] = @"value";
   v11 = MEMORY[0x277CBEA60];
   databaseCopy = database;
   predicateCopy = predicate;
-  v14 = [v11 arrayWithObjects:v21 count:2];
+  v14 = [v11 arrayWithObjects:v20 count:2];
   v15 = *MEMORY[0x277D10C08];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __110__HDSimpleGraphDatabaseMetadataEntity_enumerateMetadataValuesWithPredicate_database_error_enumerationHandler___block_invoke;
-  v19[3] = &unk_2796B9958;
-  v20 = handlerCopy;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __110__HDSimpleGraphDatabaseMetadataEntity_enumerateMetadataValuesWithPredicate_database_error_enumerationHandler___block_invoke;
+  v18[3] = &unk_2796B9958;
+  v19 = handlerCopy;
   v16 = handlerCopy;
-  LOBYTE(self) = [self enumerateQueryResultsFromColumns:v14 properties:v14 predicate:predicateCopy groupBy:0 orderingTerms:0 limit:v15 database:databaseCopy error:error enumerationHandler:v19];
+  LOBYTE(self) = [self enumerateQueryResultsFromColumns:v14 properties:v14 predicate:predicateCopy groupBy:0 orderingTerms:0 limit:v15 database:databaseCopy error:error enumerationHandler:v18];
 
-  v17 = *MEMORY[0x277D85DE8];
   return self;
 }
 
@@ -187,13 +186,10 @@ uint64_t __110__HDSimpleGraphDatabaseMetadataEntity_enumerateMetadataValuesWithP
   return v7;
 }
 
-uint64_t __76__HDSimpleGraphDatabaseMetadataEntity__setMetadataValue_key_database_error___block_invoke_2(uint64_t a1)
+uint64_t __76__HDSimpleGraphDatabaseMetadataEntity__setMetadataValue_key_database_error___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
   HDSQLiteBindStringToStatement();
-  v3 = *(a1 + 40);
   HDSQLiteBindFoundationValueToStatement();
-  v4 = *(a1 + 40);
 
   return HDSQLiteBindFoundationValueToStatement();
 }

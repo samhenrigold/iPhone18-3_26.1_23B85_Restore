@@ -1,13 +1,12 @@
 int main(int argc, const char **argv, const char **envp)
 {
-  v3 = (*(*(sub_100001094(&qword_100008000, "\n") - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  sub_100001094(&qword_100008000, "\n");
   __chkstk_darwin();
-  v5 = &v15 - v4;
-  v6 = sub_1000011AC();
-  v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
+  v4 = &v13 - v3;
+  v5 = sub_1000011AC();
+  v6 = *(v5 - 8);
   __chkstk_darwin();
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   _CFPrefsSetDirectModeEnabled();
   _CFPrefsSetReadOnly();
   qword_100008010 = &off_100004138;
@@ -20,14 +19,14 @@ int main(int argc, const char **argv, const char **envp)
   sub_10000121C();
   sub_1000010DC();
   sub_1000011FC();
-  (*(v7 + 8))(v10, v6);
-  v11 = enum case for SandboxID.blastdoor(_:);
-  v12 = sub_10000122C();
-  v13 = *(v12 - 8);
-  (*(v13 + 104))(v5, v11, v12);
-  (*(v13 + 56))(v5, 0, 1, v12);
+  (*(v6 + 8))(v8, v5);
+  v9 = enum case for SandboxID.blastdoor(_:);
+  v10 = sub_10000122C();
+  v11 = *(v10 - 8);
+  (*(v11 + 104))(v4, v9, v10);
+  (*(v11 + 56))(v4, 0, 1, v10);
   sub_1000011DC();
-  sub_100001134(v5);
+  sub_100001134(v4);
   return 0;
 }
 
@@ -36,7 +35,6 @@ uint64_t sub_100001094(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }

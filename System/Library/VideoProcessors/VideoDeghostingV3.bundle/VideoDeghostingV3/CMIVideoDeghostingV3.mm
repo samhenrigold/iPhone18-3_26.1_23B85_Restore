@@ -11,8 +11,6 @@
 - (int)purgeResources;
 - (int)repair;
 - (int)resetState;
-- (uint64_t)detectAndTrack;
-- (uint64_t)repair;
 - (void)dealloc;
 - (void)setCameraInfoByPortType:(id)type;
 @end
@@ -299,23 +297,20 @@ LABEL_6:
 
 void __38__CMIVideoDeghostingV3_detectAndTrack__block_invoke(void *a1, void *a2)
 {
-  v6 = a2;
-  if ([v6 status] == &dword_4)
+  v2 = a2;
+  if ([v2 status] == &dword_4)
   {
-    [v6 GPUEndTime];
-    [v6 GPUStartTime];
+    [v2 GPUEndTime];
+    [v2 GPUStartTime];
   }
 
   else
   {
-    [v6 status];
+    [v2 status];
   }
 
   if (gGMFigKTraceEnabled == 1)
   {
-    v3 = a1[4];
-    v4 = a1[5];
-    v5 = a1[6];
     kdebug_trace();
   }
 }
@@ -324,7 +319,7 @@ void __38__CMIVideoDeghostingV3_detectAndTrack__block_invoke(void *a1, void *a2)
 {
   if (self->_bypassRepair)
   {
-    LODWORD(v2) = 0;
+    LODWORD(process) = 0;
   }
 
   else
@@ -342,7 +337,7 @@ void __38__CMIVideoDeghostingV3_detectAndTrack__block_invoke(void *a1, void *a2)
 
           [(VEVideoDeghostingRepairV3 *)self->_repair setInputSampleBuffer:self->_repairInputSampleBuffer];
           [(VEVideoDeghostingRepairV3 *)self->_repair setGhostInformationLookAheadPointer:&self->_ghostInformationLookAhead];
-          LODWORD(v2) = [(VEVideoDeghostingRepairV3 *)self->_repair process];
+          process = [(VEVideoDeghostingRepairV3 *)self->_repair process];
           if (gGMFigKTraceEnabled)
           {
             commandQueue = [(FigMetalContext *)self->_metalContext commandQueue];
@@ -358,16 +353,16 @@ void __38__CMIVideoDeghostingV3_detectAndTrack__block_invoke(void *a1, void *a2)
             [commandBuffer commit];
           }
 
-          if (v2)
+          if (process)
           {
-            [CMIVideoDeghostingV3 repair];
+            [(CMIVideoDeghostingV3 *)process repair];
           }
 
           else
           {
-            v2 = [(NSDictionary *)self->_repairInputDetectionResult objectForKeyedSubscript:@"RepairMeta"];
+            process = [(NSDictionary *)self->_repairInputDetectionResult objectForKeyedSubscript:@"RepairMeta"];
 
-            if (v2)
+            if (process)
             {
               v6 = [(NSDictionary *)self->_repairInputDetectionResult objectForKeyedSubscript:@"AverageGhostCount"];
               [v6 floatValue];
@@ -449,11 +444,11 @@ void __38__CMIVideoDeghostingV3_detectAndTrack__block_invoke(void *a1, void *a2)
               [v44 floatValue];
               self->_accumulatedStatistics.lightweightDetector5FalsePositive = self->_accumulatedStatistics.lightweightDetector5FalsePositive + v45;
 
-              v2 = [(NSDictionary *)self->_repairInputDetectionResult objectForKeyedSubscript:@"LightweightDetector5FalseNegative"];
-              [v2 floatValue];
+              process = [(NSDictionary *)self->_repairInputDetectionResult objectForKeyedSubscript:@"LightweightDetector5FalseNegative"];
+              [process floatValue];
               self->_accumulatedStatistics.lightweightDetector5FalseNegative = self->_accumulatedStatistics.lightweightDetector5FalseNegative + v46;
 
-              LODWORD(v2) = 0;
+              LODWORD(process) = 0;
               ++self->_repairedFrameCount;
             }
           }
@@ -461,7 +456,7 @@ void __38__CMIVideoDeghostingV3_detectAndTrack__block_invoke(void *a1, void *a2)
 
         else
         {
-          LODWORD(v2) = 0;
+          LODWORD(process) = 0;
         }
 
         v47 = 1;
@@ -475,7 +470,7 @@ void __38__CMIVideoDeghostingV3_detectAndTrack__block_invoke(void *a1, void *a2)
         }
 
         v47 = 0;
-        LODWORD(v2) = 0;
+        LODWORD(process) = 0;
       }
     }
 
@@ -483,34 +478,31 @@ void __38__CMIVideoDeghostingV3_detectAndTrack__block_invoke(void *a1, void *a2)
     {
       [(CMIVideoDeghostingV3 *)&self->_prevShouldRunRepair repair];
       v47 = v50;
-      LODWORD(v2) = 2;
+      LODWORD(process) = 2;
     }
 
     self->_prevShouldRunRepair = v47;
   }
 
-  return v2;
+  return process;
 }
 
 void __30__CMIVideoDeghostingV3_repair__block_invoke(void *a1, void *a2)
 {
-  v6 = a2;
-  if ([v6 status] == &dword_4)
+  v2 = a2;
+  if ([v2 status] == &dword_4)
   {
-    [v6 GPUEndTime];
-    [v6 GPUStartTime];
+    [v2 GPUEndTime];
+    [v2 GPUStartTime];
   }
 
   else
   {
-    [v6 status];
+    [v2 status];
   }
 
   if (gGMFigKTraceEnabled == 1)
   {
-    v3 = a1[4];
-    v4 = a1[5];
-    v5 = a1[6];
     kdebug_trace();
   }
 }
@@ -539,20 +531,21 @@ void __30__CMIVideoDeghostingV3_repair__block_invoke(void *a1, void *a2)
   resetState = [(VEVideoDeghostingDetectionAndTrackingV3 *)self->_detectionAndTracking resetState];
   if (resetState)
   {
-    resetState2 = resetState;
+    v6 = resetState;
     [CMIVideoDeghostingV3 resetState];
   }
 
   else
   {
     resetState2 = [(VEVideoDeghostingRepairV3 *)self->_repair resetState];
+    v6 = resetState2;
     if (resetState2)
     {
-      [CMIVideoDeghostingV3 resetState];
+      [(CMIVideoDeghostingV3 *)resetState2 resetState];
     }
   }
 
-  return resetState2;
+  return v6;
 }
 
 - (int)initGhostInformationLookAheadForSize:(int)size
@@ -672,6 +665,8 @@ LABEL_6:
   {
     if (self->_prevShouldRunVideoDeghosting && dword_52408 != 0)
     {
+      v16 = 0;
+      v15 = 0;
       v12 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -692,6 +687,8 @@ LABEL_6:
   {
     if (dword_52408)
     {
+      v16 = 0;
+      v15 = 0;
       v10 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -706,6 +703,8 @@ LABEL_17:
   {
     if (dword_52408)
     {
+      v16 = 0;
+      v15 = 0;
       v13 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
       prevShouldRunVideoDeghosting = 1;
@@ -758,50 +757,9 @@ LABEL_18:
   [(VEVideoDeghostingDetectionAndTrackingV3 *)self->_detectionAndTracking setCameraInfoByPortType:typeCopy];
 }
 
-- (void)initWithCommandQueue:(uint64_t)a1 imageDimensions:(void *)a2 tuningParameters:.cold.2(uint64_t a1, void *a2)
-{
-  OUTLINED_FUNCTION_1_1();
-  FigDebugAssert3();
-}
-
-- (void)initWithCommandQueue:(uint64_t)a1 imageDimensions:(void *)a2 tuningParameters:.cold.3(uint64_t a1, void *a2)
-{
-  OUTLINED_FUNCTION_1_1();
-  FigDebugAssert3();
-}
-
-- (void)initWithCommandQueue:(void *)a1 imageDimensions:tuningParameters:.cold.4(void *a1)
-{
-  OUTLINED_FUNCTION_0_0();
-  FigDebugAssert3();
-}
-
-- (void)initWithCommandQueue:(void *)a1 imageDimensions:tuningParameters:.cold.5(void *a1)
-{
-  OUTLINED_FUNCTION_0_0();
-  FigDebugAssert3();
-}
-
-- (uint64_t)detectAndTrack
-{
-  OUTLINED_FUNCTION_0_0();
-  result = FigDebugAssert3();
-  *a2 = self & 1;
-  return result;
-}
-
-- (uint64_t)repair
-{
-  v3 = *self;
-  OUTLINED_FUNCTION_0_0();
-  result = FigDebugAssert3();
-  *a2 = v3;
-  return result;
-}
-
 - (uint64_t)_extractAndCheckTuningParameters:(uint64_t)a1 .cold.1(uint64_t a1, _DWORD *a2)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v5, vars0);
   *a2 = result;
   return result;
 }

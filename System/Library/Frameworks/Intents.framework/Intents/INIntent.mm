@@ -136,9 +136,12 @@
 - (void)_setOriginatingDeviceRapportMediaSystemIdentifier:(id)identifier;
 - (void)_setParameterImages:(id)images;
 - (void)_setParametersForcedToNeedsValue:(id)value;
+- (void)_setPrimaryDisplayDisabled:(BOOL)disabled;
 - (void)_setUiExtensionBundleId:(id)id;
+- (void)_setUserConfirmationRequired:(BOOL)required;
 - (void)_updateWithJSONDictionary:(id)dictionary;
 - (void)encodeWithCoder:(id)coder;
+- (void)setDidAuthenticateAppProtection:(BOOL)protection;
 - (void)setDomain:(id)domain;
 - (void)setDonationMetadata:(INIntentDonationMetadata *)donationMetadata;
 - (void)setImage:(INImage *)image forParameterNamed:(NSString *)parameterName;
@@ -163,7 +166,7 @@
 
 - (INIntent)init
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_class();
   if (v3 == objc_opt_class())
   {
@@ -185,27 +188,8 @@
 
   v6 = objc_opt_class();
   v7 = NSStringFromClass(v6);
-  if (([objc_opt_class() shouldSkipDefaultSchemaCheck] & 1) == 0)
+  if (([objc_opt_class() shouldSkipDefaultSchemaCheck] & 1) == 0 && +[INSchema _defaultSchemaCanSupportIntent:](INSchema, "_defaultSchemaCanSupportIntent:", v7) && (+[INSchema defaultSchema](INSchema, "defaultSchema"), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "intentWithName:", v7), v9 = objc_claimAutoreleasedReturnValue(), v8, v9) || (objc_msgSend(MEMORY[0x1E696AAE8], "bundleForClass:", objc_opt_class()), v10 = objc_claimAutoreleasedReturnValue(), +[INSchema _defaultSchemaForBundle:](INSchema, "_defaultSchemaForBundle:", v10), v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v11, "intentWithName:", v7), v9 = objc_claimAutoreleasedReturnValue(), v11, v10, v9))
   {
-    if ([INSchema _defaultSchemaCanSupportIntent:v7])
-    {
-      v8 = +[INSchema defaultSchema];
-      v9 = [v8 intentWithName:v7];
-
-      if (v9)
-      {
-        goto LABEL_8;
-      }
-    }
-  }
-
-  v10 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  v11 = [INSchema _defaultSchemaForBundle:v10];
-  v9 = [v11 intentWithName:v7];
-
-  if (v9)
-  {
-LABEL_8:
     v12 = v9;
 
     self = v12;
@@ -227,20 +211,19 @@ LABEL_9:
     goto LABEL_12;
   }
 
-  v21 = INSiriLogContextIntents;
+  v20 = INSiriLogContextIntents;
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
   {
-    v22 = 136315394;
-    v23 = "[INIntent init]";
-    v24 = 2112;
-    v25 = v7;
-    _os_log_error_impl(&dword_18E991000, v21, OS_LOG_TYPE_ERROR, "%s Unable to initialize '%@'. Please make sure that your intent definition file is valid.", &v22, 0x16u);
+    v21 = 136315394;
+    v22 = "[INIntent init]";
+    v23 = 2112;
+    v24 = v7;
+    _os_log_error_impl(&dword_18E991000, v20, OS_LOG_TYPE_ERROR, "%s Unable to initialize '%@'. Please make sure that your intent definition file is valid.", &v21, 0x16u);
   }
 
   selfCopy = 0;
 LABEL_12:
 
-  v19 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -440,7 +423,7 @@ LABEL_7:
 
 - (id)_nonNilParameters
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   backingStore = [(INIntent *)self backingStore];
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
@@ -455,26 +438,26 @@ LABEL_7:
   {
     intentDescription = [objc_opt_class() intentDescription];
     _nonNilAttributes = [MEMORY[0x1E695DFA8] set];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     slotDescriptions = [intentDescription slotDescriptions];
-    v9 = [slotDescriptions countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v9 = [slotDescriptions countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v20;
+      v11 = *v19;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v20 != v11)
+          if (*v19 != v11)
           {
             objc_enumerationMutation(slotDescriptions);
           }
 
-          v13 = *(*(&v19 + 1) + 8 * i);
+          v13 = *(*(&v18 + 1) + 8 * i);
           facadePropertyName = [v13 facadePropertyName];
           v15 = [(INIntent *)self valueForKey:facadePropertyName];
 
@@ -485,14 +468,12 @@ LABEL_7:
           }
         }
 
-        v10 = [slotDescriptions countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v10 = [slotDescriptions countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v10);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return _nonNilAttributes;
 }
@@ -604,7 +585,7 @@ LABEL_10:
     _objectDescription = [backingStore2 _objectDescription];
     typeName = [_objectDescription typeName];
     _className = [(INIntent *)self _className];
-    v8 = [(NSString *)_className stringByAppendingString:@"Response"];
+    v8 = objc_msgSend_stringByAppendingString_(_className);
     v9 = objc_opt_class();
     v10 = NSClassFromString(v8);
     if (v10 && (v11 = v10, [(objc_class *)v10 isSubclassOfClass:v9]))
@@ -759,31 +740,31 @@ LABEL_10:
 
 - (NSArray)_parameterImages
 {
-  v28 = *MEMORY[0x1E69E9840];
-  v22 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v27 = *MEMORY[0x1E69E9840];
+  v21 = objc_alloc_init(MEMORY[0x1E695DF70]);
   _metadata = [(INIntent *)self _metadata];
   parameterImages = [_metadata parameterImages];
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   obj = parameterImages;
-  v5 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v5 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v24;
+    v7 = *v23;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v24 != v7)
+        if (*v23 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v23 + 1) + 8 * i);
+        v9 = *(*(&v22 + 1) + 8 * i);
         v10 = [INParameterImage alloc];
         v11 = objc_opt_class();
         v12 = [v9 key];
@@ -792,17 +773,16 @@ LABEL_10:
         firstObject = [pairImageValues firstObject];
         v16 = INIntentSlotValueTransformFromImageValue(firstObject);
         v17 = [(INParameterImage *)v10 initWithParameter:v13 image:v16];
-        [v22 addObject:v17];
+        [v21 addObject:v17];
       }
 
-      v6 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v6 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v6);
   }
 
-  v18 = [v22 copy];
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = [v21 copy];
 
   return v18;
 }
@@ -1025,7 +1005,7 @@ LABEL_10:
 
 - (id)_intents_bundleIdForDisplay
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   _intents_bestBundleIdentifier = [(INIntent *)self _intents_bestBundleIdentifier];
   if (_intents_bestBundleIdentifier)
   {
@@ -1045,37 +1025,37 @@ LABEL_10:
 
     if ([v11 count])
     {
-      v20 = 0;
-      v21 = &v20;
-      v22 = 0x3032000000;
-      v23 = __Block_byref_object_copy__37078;
-      v24 = __Block_byref_object_dispose__37079;
-      v25 = 0;
-      v19[0] = MEMORY[0x1E69E9820];
-      v19[1] = 3221225472;
-      v19[2] = ___INSpecialCaseDisplayableBundleIdentifier_block_invoke_24;
-      v19[3] = &unk_1E7280290;
-      v19[4] = &v20;
-      [v11 enumerateObjectsUsingBlock:v19];
-      if ((v4 & [v21[5] isEqualToString:@"com.apple.mobilephone"]) == 1)
+      v19 = 0;
+      v20 = &v19;
+      v21 = 0x3032000000;
+      v22 = __Block_byref_object_copy__37078;
+      v23 = __Block_byref_object_dispose__37079;
+      v24 = 0;
+      v18[0] = MEMORY[0x1E69E9820];
+      v18[1] = 3221225472;
+      v18[2] = ___INSpecialCaseDisplayableBundleIdentifier_block_invoke_24;
+      v18[3] = &unk_1E7280290;
+      v18[4] = &v19;
+      [v11 enumerateObjectsUsingBlock:v18];
+      if ((v4 & [v20[5] isEqualToString:@"com.apple.mobilephone"]) == 1)
       {
-        v12 = v21[5];
-        v21[5] = @"com.apple.facetime";
+        v12 = v20[5];
+        v20[5] = @"com.apple.facetime";
       }
 
       v13 = INSiriLogContextIntents;
       if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
       {
-        v14 = v21[5];
+        v14 = v20[5];
         *buf = 136315394;
-        v27 = "_INSpecialCaseDisplayableBundleIdentifier";
-        v28 = 2114;
-        v29 = v14;
+        v26 = "_INSpecialCaseDisplayableBundleIdentifier";
+        v27 = 2114;
+        v28 = v14;
         _os_log_impl(&dword_18E991000, v13, OS_LOG_TYPE_INFO, "%s Choosing displayableApplicationBundleIdentifier=%{public}@, from displayableBundleIdentifierOverrides", buf, 0x16u);
       }
 
-      v15 = v21[5];
-      _Block_object_dispose(&v20, 8);
+      v15 = v20[5];
+      _Block_object_dispose(&v19, 8);
     }
 
     else
@@ -1100,8 +1080,6 @@ LABEL_10:
   {
     v5 = 0;
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -1325,10 +1303,9 @@ uint64_t __74__INIntent_INImageProxyInjecting___injectProxyForDefaultImage_compl
   result = *(a1 + 40);
   if (result)
   {
-    v4 = *(a1 + 32);
-    v5 = *(result + 16);
+    v4 = *(result + 16);
 
-    return v5();
+    return v4();
   }
 
   return result;
@@ -1336,102 +1313,98 @@ uint64_t __74__INIntent_INImageProxyInjecting___injectProxyForDefaultImage_compl
 
 - (void)_injectProxiesForImagesUsingCustomCodableStrategy:(id)strategy completion:(id)completion
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   strategyCopy = strategy;
   completionCopy = completion;
-  v31 = [(INIntent *)self copy];
+  v28 = [(INIntent *)self copy];
   group = dispatch_group_create();
-  v28 = dispatch_queue_create("com.apple.intents.custom-codable-strategy-queue", MEMORY[0x1E69E96A8]);
+  v25 = dispatch_queue_create("com.apple.intents.custom-codable-strategy-queue", MEMORY[0x1E69E96A8]);
+  v42 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
-  v47 = 0u;
-  v48 = 0u;
   selfCopy = self;
   _codableDescription = [(INIntent *)self _codableDescription];
   attributes = [_codableDescription attributes];
 
   obj = attributes;
-  v8 = [attributes countByEnumeratingWithState:&v45 objects:v49 count:16];
+  v8 = [attributes countByEnumeratingWithState:&v42 objects:v46 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v46;
-    v11 = 0x1E727A000uLL;
+    v10 = *v43;
     do
     {
-      v12 = 0;
-      v33 = v9;
+      v11 = 0;
+      v30 = v9;
       do
       {
-        if (*v46 != v10)
+        if (*v43 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v45 + 1) + 8 * v12);
-        v14 = *(v11 + 3104);
+        v12 = *(*(&v42 + 1) + 8 * v11);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v15 = v13;
-          valueTransformer = [v15 valueTransformer];
+          v13 = v12;
+          valueTransformer = [v13 valueTransformer];
           transformedValueClass = [objc_opt_class() transformedValueClass];
-          v18 = NSStringFromSelector([v15 getter]);
+          v16 = NSStringFromSelector([v13 getter]);
           backingStore = [(INIntent *)selfCopy backingStore];
-          v20 = [backingStore valueForKey:v18];
+          v18 = [backingStore valueForKey:v16];
 
-          if (v20)
+          if (v18)
           {
-            v21 = v10;
-            v22 = NSStringFromClass(transformedValueClass);
-            v23 = objc_opt_class();
-            v24 = NSStringFromClass(v23);
-            v25 = [v22 isEqualToString:v24];
+            v19 = v10;
+            v20 = NSStringFromClass(transformedValueClass);
+            v21 = objc_opt_class();
+            v22 = NSStringFromClass(v21);
+            v23 = [v20 isEqualToString:v22];
 
-            if (v25)
+            if (v23)
             {
-              v26 = v20;
+              v24 = v18;
               dispatch_group_enter(group);
-              v41[0] = MEMORY[0x1E69E9820];
-              v41[1] = 3221225472;
-              v41[2] = __96__INIntent_INImageProxyInjecting___injectProxiesForImagesUsingCustomCodableStrategy_completion___block_invoke;
-              v41[3] = &unk_1E727D740;
-              v42 = group;
-              v43 = v31;
-              v44 = v18;
-              strategyCopy[2](strategyCopy, v26, v41);
+              v38[0] = MEMORY[0x1E69E9820];
+              v38[1] = 3221225472;
+              v38[2] = __96__INIntent_INImageProxyInjecting___injectProxiesForImagesUsingCustomCodableStrategy_completion___block_invoke;
+              v38[3] = &unk_1E727D740;
+              v39 = group;
+              v40 = v28;
+              v41 = v16;
+              strategyCopy[2](strategyCopy, v24, v38);
 
-              v10 = v21;
-              v9 = v33;
-              v11 = 0x1E727A000;
+              v10 = v19;
+              v9 = v30;
             }
 
             else
             {
-              v10 = v21;
-              v9 = v33;
-              v11 = 0x1E727A000;
+              v10 = v19;
+              v9 = v30;
               if ([(objc_class *)transformedValueClass conformsToProtocol:&unk_1F02E20C8])
               {
                 dispatch_group_enter(group);
-                v38[0] = MEMORY[0x1E69E9820];
-                v38[1] = 3221225472;
-                v38[2] = __96__INIntent_INImageProxyInjecting___injectProxiesForImagesUsingCustomCodableStrategy_completion___block_invoke_2;
-                v38[3] = &unk_1E727D7F8;
-                v38[4] = v31;
-                v39 = v18;
-                v40 = group;
-                [v20 _injectProxiesForImages:strategyCopy completion:v38];
+                v35[0] = MEMORY[0x1E69E9820];
+                v35[1] = 3221225472;
+                v35[2] = __96__INIntent_INImageProxyInjecting___injectProxiesForImagesUsingCustomCodableStrategy_completion___block_invoke_2;
+                v35[3] = &unk_1E727D7F8;
+                v35[4] = v28;
+                v36 = v16;
+                v37 = group;
+                [v18 _injectProxiesForImages:strategyCopy completion:v35];
               }
             }
           }
         }
 
-        ++v12;
+        ++v11;
       }
 
-      while (v9 != v12);
-      v9 = [obj countByEnumeratingWithState:&v45 objects:v49 count:16];
+      while (v9 != v11);
+      v9 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
     }
 
     while (v9);
@@ -1443,12 +1416,10 @@ uint64_t __74__INIntent_INImageProxyInjecting___injectProxyForDefaultImage_compl
     block[1] = 3221225472;
     block[2] = __96__INIntent_INImageProxyInjecting___injectProxiesForImagesUsingCustomCodableStrategy_completion___block_invoke_3;
     block[3] = &unk_1E7287140;
-    block[4] = v31;
-    v37 = completionCopy;
-    dispatch_group_notify(group, v28, block);
+    block[4] = v28;
+    v34 = completionCopy;
+    dispatch_group_notify(group, v25, block);
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 void __96__INIntent_INImageProxyInjecting___injectProxiesForImagesUsingCustomCodableStrategy_completion___block_invoke(uint64_t a1, void *a2)
@@ -1510,29 +1481,29 @@ void __96__INIntent_INImageProxyInjecting___injectProxiesForImagesUsingCustomCod
 
 - (int64_t)_intents_toggleState
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   _intentInstanceDescription = [(INIntent *)self _intentInstanceDescription];
   slotDescriptions = [_intentInstanceDescription slotDescriptions];
 
-  v5 = [slotDescriptions countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [slotDescriptions countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(slotDescriptions);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         if ([v9 valueType] == 204)
         {
           name = [v9 name];
@@ -1543,7 +1514,7 @@ void __96__INIntent_INImageProxyInjecting___injectProxiesForImagesUsingCustomCod
         }
       }
 
-      v6 = [slotDescriptions countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [slotDescriptions countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v6)
       {
         continue;
@@ -1556,7 +1527,6 @@ void __96__INIntent_INImageProxyInjecting___injectProxiesForImagesUsingCustomCod
   integerValue = 0;
 LABEL_11:
 
-  v13 = *MEMORY[0x1E69E9840];
   return integerValue;
 }
 
@@ -1579,31 +1549,12 @@ LABEL_11:
   lCopy = l;
   localizerCopy = localizer;
   bundleIdentifier = [tableCopy bundleIdentifier];
-  if (!bundleIdentifier)
+  if (!bundleIdentifier || ((v17 = bundleIdentifier, -[INIntent extensionBundleId](self, "extensionBundleId"), v18 = objc_claimAutoreleasedReturnValue(), [tableCopy bundleIdentifier], v19 = objc_claimAutoreleasedReturnValue(), !objc_msgSend(v18, "containsString:", v19)) ? (v20 = 0) : (-[INIntent extensionBundleId](self, "extensionBundleId"), v20 = objc_claimAutoreleasedReturnValue()), v19, v18, v17, !v20))
   {
-    goto LABEL_6;
-  }
-
-  v17 = bundleIdentifier;
-  extensionBundleId = [(INIntent *)self extensionBundleId];
-  bundleIdentifier2 = [tableCopy bundleIdentifier];
-  if ([extensionBundleId containsString:bundleIdentifier2])
-  {
-    extensionBundleId2 = [(INIntent *)self extensionBundleId];
-  }
-
-  else
-  {
-    extensionBundleId2 = 0;
-  }
-
-  if (!extensionBundleId2)
-  {
-LABEL_6:
     _intents_launchIdForCurrentPlatform = [(INIntent *)self _intents_launchIdForCurrentPlatform];
     v44 = 0;
     INExtractAppInfoFromSiriLaunchId(_intents_launchIdForCurrentPlatform, &v44, 0);
-    extensionBundleId2 = v44;
+    v20 = v44;
   }
 
   if ([localizerCopy bundleWithIdentifier:0 fileURL:lCopy])
@@ -1616,7 +1567,7 @@ LABEL_6:
 
   else
   {
-    [localizerCopy bundleWithIdentifier:extensionBundleId2 fileURL:0];
+    [localizerCopy bundleWithIdentifier:v20 fileURL:0];
     if (lCopy)
     {
       goto LABEL_16;
@@ -1625,12 +1576,12 @@ LABEL_6:
 
   languageCode = [localizerCopy languageCode];
 
-  if (!languageCode && extensionBundleId2)
+  if (!languageCode && v20)
   {
     v23 = _INVCIntentDefinitionManagerClass();
     if (objc_opt_respondsToSelector())
     {
-      lCopy = [v23 intentDefinitionBundleURLForBundleID:extensionBundleId2];
+      lCopy = [v23 intentDefinitionBundleURLForBundleID:v20];
     }
 
     else
@@ -1640,7 +1591,7 @@ LABEL_6:
   }
 
 LABEL_16:
-  v24 = [localizerCopy bundleWithIdentifier:extensionBundleId2 fileURL:lCopy];
+  v24 = [localizerCopy bundleWithIdentifier:v20 fileURL:lCopy];
   languageCode2 = [localizerCopy languageCode];
   v39 = tableCopy;
   tableName = [tableCopy tableName];
@@ -1675,7 +1626,7 @@ LABEL_23:
     goto LABEL_29;
   }
 
-  v27 = [extensionBundleId2 hasPrefix:@"com.apple."];
+  v27 = [v20 hasPrefix:@"com.apple."];
   backingStore = [(INIntent *)self backingStore];
   v43 = languageCode2;
   v29 = INLocalizedFormatStringFromCodable(keyCopy, valueCopy, tableName, v24, localizerCopy, backingStore, 0, &v43, v27);
@@ -2078,7 +2029,7 @@ LABEL_31:
 
 - (id)_intents_bundleIdForLaunching
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   _intents_bestBundleIdentifier = [(INIntent *)self _intents_bestBundleIdentifier];
   if (_intents_bestBundleIdentifier)
   {
@@ -2099,11 +2050,11 @@ LABEL_31:
       v9 = INSiriLogContextIntents;
       if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
       {
-        v14 = 136315394;
-        v15 = "_INSpecialCaseLaunchableBundleIdentifier";
-        v16 = 2114;
-        v17 = v8;
-        _os_log_impl(&dword_18E991000, v9, OS_LOG_TYPE_INFO, "%s Choosing launchableApplicationBundleIdentifier=%{public}@, from launchableBundleIdentifierOverrides", &v14, 0x16u);
+        v13 = 136315394;
+        v14 = "_INSpecialCaseLaunchableBundleIdentifier";
+        v15 = 2114;
+        v16 = v8;
+        _os_log_impl(&dword_18E991000, v9, OS_LOG_TYPE_INFO, "%s Choosing launchableApplicationBundleIdentifier=%{public}@, from launchableBundleIdentifierOverrides", &v13, 0x16u);
       }
 
       v10 = v8;
@@ -2123,20 +2074,18 @@ LABEL_31:
     v11 = 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return v11;
 }
 
 - (INImage)_keyImage
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   _sortedParameterImages = [(INIntent *)self _sortedParameterImages];
-  v4 = [_sortedParameterImages countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v4 = [_sortedParameterImages countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (!v4)
   {
 
@@ -2151,17 +2100,17 @@ LABEL_14:
 
   v5 = v4;
   _defaultImage = 0;
-  v7 = *v17;
+  v7 = *v16;
   do
   {
     for (i = 0; i != v5; ++i)
     {
-      if (*v17 != v7)
+      if (*v16 != v7)
       {
         objc_enumerationMutation(_sortedParameterImages);
       }
 
-      v9 = *(*(&v16 + 1) + 8 * i);
+      v9 = *(*(&v15 + 1) + 8 * i);
       image = [v9 image];
       if (image)
       {
@@ -2177,7 +2126,7 @@ LABEL_14:
       }
     }
 
-    v5 = [_sortedParameterImages countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v5 = [_sortedParameterImages countByEnumeratingWithState:&v15 objects:v19 count:16];
   }
 
   while (v5);
@@ -2188,7 +2137,6 @@ LABEL_14:
   }
 
 LABEL_17:
-  v14 = *MEMORY[0x1E69E9840];
 
   return _defaultImage;
 }
@@ -2259,7 +2207,7 @@ LABEL_17:
 - (BOOL)configureAttributeSet:(id)set includingData:(BOOL)data
 {
   dataCopy = data;
-  v56 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   setCopy = set;
   displayName = [setCopy displayName];
 
@@ -2368,9 +2316,9 @@ LABEL_17:
           if (![_imageData length])
           {
             v35 = +[INImageServiceConnection sharedConnection];
-            v49 = 0;
-            v36 = [v35 loadDataImageFromImage:v30 scaledSize:&v49 error:{0.0, 0.0}];
-            v37 = v49;
+            v48 = 0;
+            v36 = [v35 loadDataImageFromImage:v30 scaledSize:&v48 error:{0.0, 0.0}];
+            v37 = v48;
             _imageData2 = [v36 _imageData];
 
             if (v37)
@@ -2379,11 +2327,11 @@ LABEL_17:
               if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
               {
                 *buf = 136315650;
-                v51 = "[INIntent configureAttributeSet:includingData:]";
-                v52 = 2112;
-                v53 = v30;
-                v54 = 2112;
-                v55 = v37;
+                v50 = "[INIntent configureAttributeSet:includingData:]";
+                v51 = 2112;
+                v52 = v30;
+                v53 = 2112;
+                v54 = v37;
                 _os_log_error_impl(&dword_18E991000, v39, OS_LOG_TYPE_ERROR, "%s Failed to load image data for %@ for indexing: %@", buf, 0x20u);
               }
             }
@@ -2402,9 +2350,9 @@ LABEL_17:
 
   if (dataCopy)
   {
-    v48 = 0;
-    v40 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v48];
-    v41 = v48;
+    v47 = 0;
+    v40 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v47];
+    v41 = v47;
     v42 = v40 != 0;
     if (v40)
     {
@@ -2417,9 +2365,9 @@ LABEL_17:
       if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v51 = "[INIntent configureAttributeSet:includingData:]";
-        v52 = 2112;
-        v53 = v41;
+        v50 = "[INIntent configureAttributeSet:includingData:]";
+        v51 = 2112;
+        v52 = v41;
         _os_log_error_impl(&dword_18E991000, v43, OS_LOG_TYPE_ERROR, "%s Failed to encode intent into attribute set: %@", buf, 0x16u);
       }
     }
@@ -2430,13 +2378,12 @@ LABEL_17:
     v42 = 1;
   }
 
-  v44 = *MEMORY[0x1E69E9840];
   return v42;
 }
 
 - (void)setValue:(id)value forUndefinedKey:(id)key
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   keyCopy = key;
   _inCodable = [(INIntent *)self _inCodable];
@@ -2451,12 +2398,12 @@ LABEL_17:
 
     else
     {
-      v17[0] = MEMORY[0x1E69E9820];
-      v17[1] = 3221225472;
-      v17[2] = __37__INIntent_setValue_forUndefinedKey___block_invoke;
-      v17[3] = &unk_1E7283DA8;
-      v17[4] = self;
-      v10 = [(INIntent *)self _querySchemaWithBlock:v17 contentOptions:31];
+      v16[0] = MEMORY[0x1E69E9820];
+      v16[1] = 3221225472;
+      v16[2] = __37__INIntent_setValue_forUndefinedKey___block_invoke;
+      v16[3] = &unk_1E7283DA8;
+      v16[4] = self;
+      v10 = [(INIntent *)self _querySchemaWithBlock:v16 contentOptions:31];
       [_inCodable _setObjectDescription:v10];
       if ([_inCodable isValidKey:keyCopy])
       {
@@ -2468,16 +2415,16 @@ LABEL_17:
         v11 = INSiriLogContextIntents;
         if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_FAULT))
         {
-          v13 = v11;
-          v14 = objc_opt_class();
-          v15 = NSStringFromClass(v14);
+          v12 = v11;
+          v13 = objc_opt_class();
+          v14 = NSStringFromClass(v13);
           *buf = 136315650;
-          v19 = "[INIntent setValue:forUndefinedKey:]";
-          v20 = 2112;
-          v21 = keyCopy;
-          v22 = 2112;
-          v23 = v15;
-          _os_log_fault_impl(&dword_18E991000, v13, OS_LOG_TYPE_FAULT, "%s '%@' is an invalid parameter for '%@'. Please make sure that your intent definition file is valid.", buf, 0x20u);
+          v18 = "[INIntent setValue:forUndefinedKey:]";
+          v19 = 2112;
+          v20 = keyCopy;
+          v21 = 2112;
+          v22 = v14;
+          _os_log_fault_impl(&dword_18E991000, v12, OS_LOG_TYPE_FAULT, "%s '%@' is an invalid parameter for '%@'. Please make sure that your intent definition file is valid.", buf, 0x20u);
         }
       }
     }
@@ -2485,12 +2432,10 @@ LABEL_17:
 
   else
   {
-    v16.receiver = self;
-    v16.super_class = INIntent;
-    [(INIntent *)&v16 setValue:valueCopy forUndefinedKey:keyCopy];
+    v15.receiver = self;
+    v15.super_class = INIntent;
+    [(INIntent *)&v15 setValue:valueCopy forUndefinedKey:keyCopy];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 id __37__INIntent_setValue_forUndefinedKey___block_invoke(uint64_t a1, void *a2)
@@ -2505,15 +2450,15 @@ id __37__INIntent_setValue_forUndefinedKey___block_invoke(uint64_t a1, void *a2)
 
 - (id)valueForUndefinedKey:(id)key
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   _inCodable = [(INIntent *)self _inCodable];
   v6 = _inCodable;
   if (!_inCodable)
   {
-    v17.receiver = self;
-    v17.super_class = INIntent;
-    v8 = [(INIntent *)&v17 valueForUndefinedKey:keyCopy];
+    v16.receiver = self;
+    v16.super_class = INIntent;
+    v8 = [(INIntent *)&v16 valueForUndefinedKey:keyCopy];
     goto LABEL_7;
   }
 
@@ -2526,12 +2471,12 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __33__INIntent_valueForUndefinedKey___block_invoke;
-  v16[3] = &unk_1E7283DA8;
-  v16[4] = self;
-  v7 = [(INIntent *)self _querySchemaWithBlock:v16 contentOptions:31];
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __33__INIntent_valueForUndefinedKey___block_invoke;
+  v15[3] = &unk_1E7283DA8;
+  v15[4] = self;
+  v7 = [(INIntent *)self _querySchemaWithBlock:v15 contentOptions:31];
   [v6 _setObjectDescription:v7];
   if ([v6 isValidKey:keyCopy])
   {
@@ -2539,25 +2484,23 @@ LABEL_7:
     goto LABEL_5;
   }
 
-  v12 = INSiriLogContextIntents;
+  v11 = INSiriLogContextIntents;
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_FAULT))
   {
-    v13 = v12;
-    v14 = objc_opt_class();
-    v15 = NSStringFromClass(v14);
+    v12 = v11;
+    v13 = objc_opt_class();
+    v14 = NSStringFromClass(v13);
     *buf = 136315650;
-    v19 = "[INIntent valueForUndefinedKey:]";
-    v20 = 2112;
-    v21 = keyCopy;
-    v22 = 2112;
-    v23 = v15;
-    _os_log_fault_impl(&dword_18E991000, v13, OS_LOG_TYPE_FAULT, "%s '%@' is an invalid parameter for '%@'. Please make sure that your intent definition file is valid.", buf, 0x20u);
+    v18 = "[INIntent valueForUndefinedKey:]";
+    v19 = 2112;
+    v20 = keyCopy;
+    v21 = 2112;
+    v22 = v14;
+    _os_log_fault_impl(&dword_18E991000, v12, OS_LOG_TYPE_FAULT, "%s '%@' is an invalid parameter for '%@'. Please make sure that your intent definition file is valid.", buf, 0x20u);
   }
 
   v9 = 0;
 LABEL_8:
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -2596,7 +2539,7 @@ id __33__INIntent_valueForUndefinedKey___block_invoke(uint64_t a1, void *a2)
 
 - (BOOL)_isValueValidForKey:(id)key unsupportedReason:(id *)reason
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   if (reason)
   {
@@ -2616,27 +2559,27 @@ id __33__INIntent_valueForUndefinedKey___block_invoke(uint64_t a1, void *a2)
 
       if (v11)
       {
-        v32 = 0u;
-        v33 = 0u;
-        v30 = 0u;
         v31 = 0u;
+        v32 = 0u;
+        v29 = 0u;
+        v30 = 0u;
         unsupportedReasons2 = [v9 unsupportedReasons];
-        v13 = [unsupportedReasons2 countByEnumeratingWithState:&v30 objects:v34 count:16];
+        v13 = [unsupportedReasons2 countByEnumeratingWithState:&v29 objects:v33 count:16];
         if (v13)
         {
           v14 = v13;
-          v29 = keyCopy;
-          v15 = *v31;
+          v28 = keyCopy;
+          v15 = *v30;
           while (2)
           {
             for (i = 0; i != v14; ++i)
             {
-              if (*v31 != v15)
+              if (*v30 != v15)
               {
                 objc_enumerationMutation(unsupportedReasons2);
               }
 
-              v17 = *(*(&v30 + 1) + 8 * i);
+              v17 = *(*(&v29 + 1) + 8 * i);
               predicateFormat = [v17 predicateFormat];
               v19 = [predicateFormat length];
 
@@ -2662,7 +2605,7 @@ id __33__INIntent_valueForUndefinedKey___block_invoke(uint64_t a1, void *a2)
               }
             }
 
-            v14 = [unsupportedReasons2 countByEnumeratingWithState:&v30 objects:v34 count:16];
+            v14 = [unsupportedReasons2 countByEnumeratingWithState:&v29 objects:v33 count:16];
             if (v14)
             {
               continue;
@@ -2673,7 +2616,7 @@ id __33__INIntent_valueForUndefinedKey___block_invoke(uint64_t a1, void *a2)
 
           v26 = 1;
 LABEL_23:
-          keyCopy = v29;
+          keyCopy = v28;
         }
 
         else
@@ -2699,7 +2642,6 @@ LABEL_23:
     v26 = 0;
   }
 
-  v27 = *MEMORY[0x1E69E9840];
   return v26;
 }
 
@@ -2725,7 +2667,7 @@ LABEL_23:
 
 - (INAppIntent)_asMigratedAppIntent
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = _INVCVoiceShortcutClient();
   if (!v3)
   {
@@ -2738,7 +2680,7 @@ LABEL_10:
     }
 
     *buf = 136315138;
-    v13 = "[INIntent _asMigratedAppIntent]";
+    v12 = "[INIntent _asMigratedAppIntent]";
     v8 = "%s No VoiceShortcutClient; completing with nil";
 LABEL_15:
     _os_log_error_impl(&dword_18E991000, v7, OS_LOG_TYPE_ERROR, v8, buf, 0xCu);
@@ -2754,59 +2696,58 @@ LABEL_15:
     }
 
     *buf = 136315138;
-    v13 = "[INIntent _asMigratedAppIntent]";
+    v12 = "[INIntent _asMigratedAppIntent]";
     v8 = "%s VoiceShortcutClient hasn't implement migratedAppIntentWithINIntent:error: yet.";
     goto LABEL_15;
   }
 
-  v11 = 0;
-  v4 = [v3 migratedAppIntentWithINIntent:self error:&v11];
-  v5 = v11;
+  v10 = 0;
+  v4 = [v3 migratedAppIntentWithINIntent:self error:&v10];
+  v5 = v10;
   if (!v4)
   {
     v6 = INSiriLogContextIntents;
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v13 = "[INIntent _asMigratedAppIntent]";
-      v14 = 2114;
-      v15 = v5;
+      v12 = "[INIntent _asMigratedAppIntent]";
+      v13 = 2114;
+      v14 = v5;
       _os_log_error_impl(&dword_18E991000, v6, OS_LOG_TYPE_ERROR, "%s No AppIntent; returning nil. Error: %{public}@", buf, 0x16u);
     }
   }
 
 LABEL_11:
-  v9 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 - (INIntentKeyParameter)_keyParameter
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_keyParameterLock);
   if (!self->_hasLoadedKeyParameter)
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     _keyCodableAttributes = [(INIntent *)self _keyCodableAttributes];
-    v4 = [_keyCodableAttributes countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v4 = [_keyCodableAttributes countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v20;
+      v6 = *v19;
       while (2)
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v20 != v6)
+          if (*v19 != v6)
           {
             objc_enumerationMutation(_keyCodableAttributes);
           }
 
-          v8 = *(*(&v19 + 1) + 8 * i);
+          v8 = *(*(&v18 + 1) + 8 * i);
           propertyName = [v8 propertyName];
           if ([(INIntent *)self _isValidKey:propertyName])
           {
@@ -2825,7 +2766,7 @@ LABEL_11:
           }
         }
 
-        v5 = [_keyCodableAttributes countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v5 = [_keyCodableAttributes countByEnumeratingWithState:&v18 objects:v22 count:16];
         if (v5)
         {
           continue;
@@ -2842,7 +2783,6 @@ LABEL_13:
 
   os_unfair_lock_unlock(&self->_keyParameterLock);
   v16 = self->_keyParameter;
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -3076,7 +3016,7 @@ void __32__INIntent_setParametersByName___block_invoke(uint64_t a1, void *a2, vo
 
 - (NSDictionary)parametersByName
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   _typedBackingStore = [(INIntent *)self _typedBackingStore];
 
   if (_typedBackingStore)
@@ -3094,26 +3034,26 @@ void __32__INIntent_setParametersByName___block_invoke(uint64_t a1, void *a2, vo
       v6 = 0;
     }
 
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v11 = parameters;
-    v12 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v22;
+      v14 = *v21;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v22 != v14)
+          if (*v21 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v21 + 1) + 8 * i);
+          v16 = *(*(&v20 + 1) + 8 * i);
           role = [v16 role];
           if (role)
           {
@@ -3122,7 +3062,7 @@ void __32__INIntent_setParametersByName___block_invoke(uint64_t a1, void *a2, vo
           }
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v13);
@@ -3148,8 +3088,6 @@ void __32__INIntent_setParametersByName___block_invoke(uint64_t a1, void *a2, vo
       v10 = 0;
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -3357,42 +3295,40 @@ void __32__INIntent_setParametersByName___block_invoke(uint64_t a1, void *a2, vo
   parametersCopy = parameters;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   [dictionary intents_setPlistSafeObject:self->_identifier forKey:@"identifier"];
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x3032000000;
-  v41 = __Block_byref_object_copy__90461;
-  v42 = __Block_byref_object_dispose__90462;
-  v43 = 0;
-  backingStore = self->_backingStore;
+  v36 = 0;
+  v37 = &v36;
+  v38 = 0x3032000000;
+  v39 = __Block_byref_object_copy__90461;
+  v40 = __Block_byref_object_dispose__90462;
+  v41 = 0;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v9 = self->_backingStore;
-    v10 = (v39 + 5);
-    obj = v39[5];
-    [dictionary intents_setWidgetPlistRepresentable:v9 forKey:@"backingStore" parameters:parametersCopy error:&obj];
-    objc_storeStrong(v10, obj);
+    backingStore = self->_backingStore;
+    v9 = (v37 + 5);
+    obj = v37[5];
+    [dictionary intents_setWidgetPlistRepresentable:backingStore forKey:@"backingStore" parameters:parametersCopy error:&obj];
+    objc_storeStrong(v9, obj);
   }
 
   else
   {
-    v11 = MEMORY[0x1E696AEC0];
-    v12 = self->_backingStore;
-    v13 = objc_opt_class();
-    v14 = NSStringFromClass(v13);
-    v15 = [v11 stringWithFormat:@"Unsupported backing store type: %@", v14];
-    v16 = INIntentError(8001, v15, 0);
-    v17 = v39[5];
-    v39[5] = v16;
+    v10 = MEMORY[0x1E696AEC0];
+    v11 = objc_opt_class();
+    v12 = NSStringFromClass(v11);
+    v13 = [v10 stringWithFormat:@"Unsupported backing store type: %@", v12];
+    v14 = INIntentError(8001, v13, 0);
+    v15 = v37[5];
+    v37[5] = v14;
   }
 
-  v18 = v39[5];
-  if (v18)
+  v16 = v37[5];
+  if (v16)
   {
     if (error)
     {
-      v19 = 0;
-      *error = v18;
+      v17 = 0;
+      *error = v16;
       goto LABEL_20;
     }
 
@@ -3403,61 +3339,61 @@ void __32__INIntent_setParametersByName___block_invoke(uint64_t a1, void *a2, vo
   {
     array = [MEMORY[0x1E695DF70] array];
     parameterCombinations = self->_parameterCombinations;
-    v32[0] = MEMORY[0x1E69E9820];
-    v32[1] = 3221225472;
-    v32[2] = __62__INIntent_widgetPlistableRepresentationWithParameters_error___block_invoke;
-    v32[3] = &unk_1E7283D30;
-    v33 = parametersCopy;
-    v36 = &v38;
-    v22 = array;
-    v34 = v22;
+    v30[0] = MEMORY[0x1E69E9820];
+    v30[1] = 3221225472;
+    v30[2] = __62__INIntent_widgetPlistableRepresentationWithParameters_error___block_invoke;
+    v30[3] = &unk_1E7283D30;
+    v31 = parametersCopy;
+    v34 = &v36;
+    v20 = array;
+    v32 = v20;
     selfCopy = self;
-    [(NSDictionary *)parameterCombinations enumerateKeysAndObjectsUsingBlock:v32];
-    v23 = v39[5];
-    if (v23)
+    [(NSDictionary *)parameterCombinations enumerateKeysAndObjectsUsingBlock:v30];
+    v21 = v37[5];
+    if (v21)
     {
       if (error)
       {
-        v24 = v23;
-        *error = v23;
+        v22 = v21;
+        *error = v21;
       }
     }
 
     else
     {
-      [dictionary intents_setPlistSafeObject:v22 forKey:@"parameterCombinations"];
+      [dictionary intents_setPlistSafeObject:v20 forKey:@"parameterCombinations"];
     }
 
-    if (v23)
+    if (v21)
     {
 LABEL_13:
-      v19 = 0;
+      v17 = 0;
       goto LABEL_20;
     }
   }
 
   if (self->_indexingHash)
   {
-    v25 = [MEMORY[0x1E696AD98] numberWithLongLong:?];
-    [dictionary intents_setPlistSafeObject:v25 forKey:@"_indexingHash"];
+    v23 = [MEMORY[0x1E696AD98] numberWithLongLong:?];
+    [dictionary intents_setPlistSafeObject:v23 forKey:@"_indexingHash"];
   }
 
   parameterContexts = self->_parameterContexts;
   if (parameterContexts && ![(INParameterContexts *)parameterContexts _isEmpty])
   {
-    v27 = self->_parameterContexts;
-    v28 = objc_alloc_init(INJSONEncoder);
+    v25 = self->_parameterContexts;
+    v26 = objc_alloc_init(INJSONEncoder);
     _codableDescription = [(INIntent *)self _codableDescription];
-    v30 = [(INParameterContexts *)v27 _intents_encodeWithJSONEncoder:v28 codableDescription:_codableDescription];
+    v28 = [(INParameterContexts *)v25 _intents_encodeWithJSONEncoder:v26 codableDescription:_codableDescription];
 
-    [dictionary intents_setPlistSafeObject:v30 forKey:@"_parameterContexts"];
+    [dictionary intents_setPlistSafeObject:v28 forKey:@"_parameterContexts"];
   }
 
-  v19 = dictionary;
+  v17 = dictionary;
 LABEL_20:
-  _Block_object_dispose(&v38, 8);
+  _Block_object_dispose(&v36, 8);
 
-  return v19;
+  return v17;
 }
 
 void __62__INIntent_widgetPlistableRepresentationWithParameters_error___block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)
@@ -3491,28 +3427,25 @@ void __62__INIntent_widgetPlistableRepresentationWithParameters_error___block_in
 
 - (id)_backingStoreData
 {
-  v10[2] = *MEMORY[0x1E69E9840];
-  backingStore = self->_backingStore;
+  v8[2] = *MEMORY[0x1E69E9840];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     identifier = self->_identifier;
-    v9[0] = @"id";
-    v9[1] = @"data";
-    v10[0] = identifier;
+    v7[0] = @"id";
+    v7[1] = @"data";
+    v8[0] = identifier;
     data = [(PBCodable *)self->_backingStore data];
-    v10[1] = data;
-    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
+    v8[1] = data;
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:2];
   }
 
   else
   {
-    v6 = 0;
+    v5 = 0;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
-
-  return v6;
+  return v5;
 }
 
 - (id)_copyApplyingNewBackingStoreData:(id)data error:(id *)error
@@ -3523,90 +3456,86 @@ void __62__INIntent_widgetPlistableRepresentationWithParameters_error___block_in
 
   if (!v8)
   {
-    v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unable to create new intent from backing store data:  Identifier not found"];
-    v21 = INIntentError(8001, v20, 0);
+    v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unable to create new intent from backing store data:  Identifier not found"];
+    v19 = INIntentError(8001, v18, 0);
 
-    if (v21)
+    if (v19)
     {
       if (error)
       {
-        v22 = v21;
-        *error = v21;
+        v20 = v19;
+        *error = v19;
       }
 
 LABEL_12:
-      v10 = 0;
+      v9 = 0;
       goto LABEL_13;
     }
   }
 
-  backingStore = self->_backingStore;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v13 = MEMORY[0x1E696AEC0];
-    v14 = self->_backingStore;
-    v15 = objc_opt_class();
-    v16 = NSStringFromClass(v15);
-    v17 = [v13 stringWithFormat:@"Unsupported backing store to set data on: %@", v16];
-    v18 = INIntentError(8001, v17, 0);
+    v12 = MEMORY[0x1E696AEC0];
+    v13 = objc_opt_class();
+    v14 = NSStringFromClass(v13);
+    v15 = [v12 stringWithFormat:@"Unsupported backing store to set data on: %@", v14];
+    v16 = INIntentError(8001, v15, 0);
 
-    if (error && v18)
+    if (error && v16)
     {
-      v19 = v18;
-      *error = v18;
+      v17 = v16;
+      *error = v16;
     }
 
     goto LABEL_12;
   }
 
-  v10 = [(INIntent *)self copyWithZone:0];
-  [v10[12] _setData:v7 error:error];
-  v11 = [v8 copy];
-  v12 = v10[10];
-  v10[10] = v11;
+  v9 = [(INIntent *)self copyWithZone:0];
+  [v9[12] _setData:v7 error:error];
+  v10 = [v8 copy];
+  v11 = v9[10];
+  v9[10] = v10;
 
-  v10[8] = 0;
+  v9[8] = 0;
 LABEL_13:
 
-  return v10;
+  return v9;
 }
 
 - (id)_copyWithoutBackingStoreData:(id *)data
 {
-  backingStore = self->_backingStore;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v6 = [(INIntent *)self copyWithZone:0];
-    [v6[12] _setData:0 error:data];
+    v5 = [(INIntent *)self copyWithZone:0];
+    [v5[12] _setData:0 error:data];
     uUID = [MEMORY[0x1E696AFB0] UUID];
     uUIDString = [uUID UUIDString];
-    v9 = v6[10];
-    v6[10] = uUIDString;
+    v8 = v5[10];
+    v5[10] = uUIDString;
 
-    v6[8] = 0;
+    v5[8] = 0;
   }
 
   else
   {
-    v10 = MEMORY[0x1E696AEC0];
-    v11 = self->_backingStore;
-    v12 = objc_opt_class();
-    v13 = NSStringFromClass(v12);
-    v14 = [v10 stringWithFormat:@"Unsupported backing store to set data on: %@", v13];
-    v15 = INIntentError(8001, v14, 0);
+    v9 = MEMORY[0x1E696AEC0];
+    v10 = objc_opt_class();
+    v11 = NSStringFromClass(v10);
+    v12 = [v9 stringWithFormat:@"Unsupported backing store to set data on: %@", v11];
+    v13 = INIntentError(8001, v12, 0);
 
-    if (data && v15)
+    if (data && v13)
     {
-      v16 = v15;
-      *data = v15;
+      v14 = v13;
+      *data = v13;
     }
 
     return 0;
   }
 
-  return v6;
+  return v5;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -3663,10 +3592,9 @@ LABEL_13:
       goto LABEL_6;
     }
 
-    backingStore = self->_backingStore;
-    v7 = objc_alloc_init(objc_opt_class());
-    v8 = *(_init + 96);
-    *(_init + 96) = v7;
+    v6 = objc_alloc_init(objc_opt_class());
+    v7 = *(_init + 96);
+    *(_init + 96) = v6;
 
     objc_storeStrong((_init + 40), self->_parameterCombinations);
     objc_storeStrong((_init + 104), self->_recordRoute);
@@ -3682,7 +3610,7 @@ LABEL_13:
 LABEL_6:
   uUID = [MEMORY[0x1E696AFB0] UUID];
   uUIDString = [uUID UUIDString];
-  v11 = *(_init + 80);
+  v10 = *(_init + 80);
   *(_init + 80) = uUIDString;
 
   return _init;
@@ -3717,7 +3645,7 @@ LABEL_6:
 
 - (void)trimDataAgainstTCCForAuditToken:(id *)token bundle:(id)bundle
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   bundleCopy = bundle;
   _metadata = [(INIntent *)self _metadata];
   v8 = INPrivacyEntitlementOptionsForIntentMetadata(_metadata);
@@ -3725,9 +3653,9 @@ LABEL_6:
   if (v8)
   {
     v9 = *&token->var0[4];
-    *v17 = *token->var0;
-    *&v17[16] = v9;
-    v10 = INPrivacyEntitlementOptionsMissingForExtension(v8, v17, bundleCopy);
+    *v16 = *token->var0;
+    *&v16[16] = v9;
+    v10 = INPrivacyEntitlementOptionsMissingForExtension(v8, v16, bundleCopy);
     if (v10)
     {
       v11 = v10;
@@ -3736,19 +3664,24 @@ LABEL_6:
       {
         v13 = v12;
         v14 = INPrivacyEntitlementOptionsGetNames(v11);
-        *v17 = 136315394;
-        *&v17[4] = "[INIntent trimDataAgainstTCCForAuditToken:bundle:]";
-        *&v17[12] = 2114;
-        *&v17[14] = v14;
-        _os_log_impl(&dword_18E991000, v13, OS_LOG_TYPE_INFO, "%s Missing required entitlement: %{public}@, redacting data accordingly", v17, 0x16u);
+        *v16 = 136315394;
+        *&v16[4] = "[INIntent trimDataAgainstTCCForAuditToken:bundle:]";
+        *&v16[12] = 2114;
+        *&v16[14] = v14;
+        _os_log_impl(&dword_18E991000, v13, OS_LOG_TYPE_INFO, "%s Missing required entitlement: %{public}@, redacting data accordingly", v16, 0x16u);
       }
 
       v15 = INContainingAppBundleIdentifierForBundle(bundleCopy);
       [(INIntent *)self _redactForMissingPrivacyEntitlementOptions:v11 containingAppBundleId:v15];
     }
   }
+}
 
-  v16 = *MEMORY[0x1E69E9840];
+- (void)_setUserConfirmationRequired:(BOOL)required
+{
+  requiredCopy = required;
+  _metadata = [(INIntent *)self _metadata];
+  [_metadata setUserConfirmationRequired:requiredCopy];
 }
 
 - (BOOL)_isUserConfirmationRequired
@@ -3885,7 +3818,7 @@ uint64_t __43__INIntent__displayOrderedNonNilParameters__block_invoke(uint64_t a
 
 - (id)_validParameterCombinationsWithSchema:(id)schema
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   schemaCopy = schema;
   if (schemaCopy)
   {
@@ -3900,40 +3833,38 @@ uint64_t __43__INIntent__displayOrderedNonNilParameters__block_invoke(uint64_t a
 
   _nonNilParameters = [(INIntent *)self _nonNilParameters];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v9 = _parameterCombinations;
-  v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v19;
+    v12 = *v18;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v19 != v12)
+        if (*v18 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v18 + 1) + 8 * i);
-        if ([v14 isSubsetOfSet:{_nonNilParameters, v18}])
+        v14 = *(*(&v17 + 1) + 8 * i);
+        if ([v14 isSubsetOfSet:{_nonNilParameters, v17}])
         {
           v15 = [v9 objectForKey:v14];
           [dictionary setObject:v15 forKey:v14];
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v11);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -4009,7 +3940,7 @@ id __46__INIntent__configurableParameterCombinations__block_invoke(uint64_t a1, 
 
 - (id)_querySchemaWithBlock:(id)block contentOptions:(unint64_t)options
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   launchId = [(INIntent *)self launchId];
 
@@ -4026,9 +3957,9 @@ LABEL_23:
   }
 
   launchId2 = [(INIntent *)self launchId];
-  v38 = 0;
-  INExtractAppInfoFromSiriLaunchId(launchId2, &v38, 0);
-  v9 = v38;
+  v37 = 0;
+  INExtractAppInfoFromSiriLaunchId(launchId2, &v37, 0);
+  v9 = v37;
 
   CanMapLSDatabase = INThisProcessCanMapLSDatabase(0);
   bundleRecordForCurrentProcess = [MEMORY[0x1E6963620] bundleRecordForCurrentProcess];
@@ -4042,9 +3973,9 @@ LABEL_23:
 
   else if (CanMapLSDatabase)
   {
-    v37 = 0;
-    v14 = [MEMORY[0x1E6963620] bundleRecordWithBundleIdentifier:v9 allowPlaceholder:0 error:&v37];
-    v16 = v37;
+    v36 = 0;
+    v14 = [MEMORY[0x1E6963620] bundleRecordWithBundleIdentifier:v9 allowPlaceholder:0 error:&v36];
+    v16 = v36;
     if (v16)
     {
       v17 = v16;
@@ -4052,11 +3983,11 @@ LABEL_23:
       if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
-        v41 = "[INIntent _querySchemaWithBlock:contentOptions:]";
-        v42 = 2114;
-        v43 = v9;
-        v44 = 2114;
-        v45 = v17;
+        v40 = "[INIntent _querySchemaWithBlock:contentOptions:]";
+        v41 = 2114;
+        v42 = v9;
+        v43 = 2114;
+        v44 = v17;
         _os_log_error_impl(&dword_18E991000, v18, OS_LOG_TYPE_ERROR, "%s Unable to get bundle record with identifier: %{public}@, error: %{public}@", buf, 0x20u);
       }
     }
@@ -4074,7 +4005,7 @@ LABEL_23:
   if (v21)
   {
     v22 = v14;
-    v36 = bundleRecordForCurrentProcess;
+    v35 = bundleRecordForCurrentProcess;
     if (v22)
     {
       objc_opt_class();
@@ -4112,13 +4043,13 @@ LABEL_23:
 
     bundleIdentifier2 = [v29 bundleIdentifier];
 
-    v39 = v21;
-    v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v39 count:1];
+    v38 = v21;
+    v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v38 count:1];
     v15 = [INSchema _schemaWithIntentDefinitionURLs:v31 bundleIdentifier:v9 mainBundleIdentifier:bundleIdentifier2 contentOptions:options];
 
     v24 = blockCopy[2](blockCopy, v15);
 
-    bundleRecordForCurrentProcess = v36;
+    bundleRecordForCurrentProcess = v35;
   }
 
   else
@@ -4133,8 +4064,6 @@ LABEL_23:
   }
 
 LABEL_24:
-
-  v34 = *MEMORY[0x1E69E9840];
 
   return v24;
 }
@@ -4162,7 +4091,7 @@ LABEL_24:
 
 void __32__INIntent__setParameterImages___block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 parameter];
   v5 = [v4 parameterKeyPath];
@@ -4171,8 +4100,8 @@ void __32__INIntent__setParameterImages___block_invoke(uint64_t a1, void *a2)
   {
     v7 = objc_alloc_init(_INPBPair);
     v8 = INIntentSlotValueTransformToImageValue(v6);
-    v16 = v8;
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v16 count:1];
+    v15 = v8;
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v15 count:1];
     [(_INPBPair *)v7 setPairImageValues:v9];
 
     [(_INPBPair *)v7 setKey:v5];
@@ -4185,21 +4114,19 @@ void __32__INIntent__setParameterImages___block_invoke(uint64_t a1, void *a2)
     v10 = INSiriLogContextIntents;
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
     {
-      v12 = v10;
-      v13 = [v3 image];
-      v14 = objc_opt_class();
-      v15 = NSStringFromClass(v14);
+      v11 = v10;
+      v12 = [v3 image];
+      v13 = objc_opt_class();
+      v14 = NSStringFromClass(v13);
       *buf = 136315650;
-      v18 = "[INIntent _setParameterImages:]_block_invoke";
-      v19 = 2112;
-      v20 = v15;
-      v21 = 2112;
-      v22 = v5;
-      _os_log_error_impl(&dword_18E991000, v12, OS_LOG_TYPE_ERROR, "%s Wrong image class (%@) for parameter keyPath: %@", buf, 0x20u);
+      v17 = "[INIntent _setParameterImages:]_block_invoke";
+      v18 = 2112;
+      v19 = v14;
+      v20 = 2112;
+      v21 = v5;
+      _os_log_error_impl(&dword_18E991000, v11, OS_LOG_TYPE_ERROR, "%s Wrong image class (%@) for parameter keyPath: %@", buf, 0x20u);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (NSArray)_sortedParameterImages
@@ -4313,27 +4240,27 @@ uint64_t __34__INIntent__sortedParameterImages__block_invoke_3(uint64_t a1, uint
 
 - (id)_imageForParameter:(id)parameter
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   parameterCopy = parameter;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   _parameterImages = [(INIntent *)self _parameterImages];
-  image = [_parameterImages countByEnumeratingWithState:&v14 objects:v18 count:16];
+  image = [_parameterImages countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (image)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != image; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(_parameterImages);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         parameter = [v9 parameter];
         v11 = [parameter isEqualToParameter:parameterCopy];
 
@@ -4344,7 +4271,7 @@ uint64_t __34__INIntent__sortedParameterImages__block_invoke_3(uint64_t a1, uint
         }
       }
 
-      image = [_parameterImages countByEnumeratingWithState:&v14 objects:v18 count:16];
+      image = [_parameterImages countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (image)
       {
         continue;
@@ -4355,8 +4282,6 @@ uint64_t __34__INIntent__sortedParameterImages__block_invoke_3(uint64_t a1, uint
   }
 
 LABEL_11:
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return image;
 }
@@ -4444,6 +4369,13 @@ uint64_t __35__INIntent__setImage_forParameter___block_invoke(uint64_t a1, void 
   v8 = [INParameter parameterForClass:objc_opt_class() keyPath:v6];
 
   [(INIntent *)self _setImage:v7 forParameter:v8];
+}
+
+- (void)setDidAuthenticateAppProtection:(BOOL)protection
+{
+  protectionCopy = protection;
+  _metadata = [(INIntent *)self _metadata];
+  [_metadata setBypassAppProtectionAuthentication:protectionCopy];
 }
 
 - (BOOL)didAuthenticateAppProtection
@@ -4670,6 +4602,13 @@ void __36__INIntent_setShortcutAvailability___block_invoke(uint64_t a1, uint64_t
   return originatingDeviceIdsIdentifier;
 }
 
+- (void)_setPrimaryDisplayDisabled:(BOOL)disabled
+{
+  disabledCopy = disabled;
+  _metadata = [(INIntent *)self _metadata];
+  [_metadata setIsPrimaryDisplayDisabled:disabledCopy];
+}
+
 - (BOOL)_isPrimaryDisplayDisabled
 {
   _metadata = [(INIntent *)self _metadata];
@@ -4894,7 +4833,7 @@ LABEL_7:
 
 - (id)_initWithIdentifier:(id)identifier schema:(id)schema name:(id)name data:(id)data
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   schemaCopy = schema;
   nameCopy = name;
@@ -4961,8 +4900,8 @@ LABEL_7:
     else
     {
       v27 = [[INCodable alloc] initWithCodableDescription:v14 data:dataCopy];
-      v31 = 0;
-      self = [(INIntent *)self _initWithIdentifier:identifierCopy backingStore:v27 schema:schemaCopy error:&v31];
+      v30 = 0;
+      self = [(INIntent *)self _initWithIdentifier:identifierCopy backingStore:v27 schema:schemaCopy error:&v30];
       selfCopy = self;
     }
   }
@@ -4972,7 +4911,6 @@ LABEL_7:
     selfCopy = 0;
   }
 
-  v29 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -5048,24 +4986,14 @@ LABEL_8:
   _metadata2 = [(INIntent *)self _metadata];
   [_metadata2 setDefaultImageValue:0];
 
-  if ([(INIntent *)self _type]!= 2)
+  if (-[INIntent _type](self, "_type") == 2 && (-[INIntent _inCodable](self, "_inCodable"), v29 = objc_claimAutoreleasedReturnValue(), [v29 _objectDescription], v30 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v30, v29, (isKindOfClass & 1) != 0))
   {
-    goto LABEL_20;
-  }
-
-  _inCodable = [(INIntent *)self _inCodable];
-  _objectDescription = [_inCodable _objectDescription];
-  objc_opt_class();
-  isKindOfClass = objc_opt_isKindOfClass();
-
-  if (isKindOfClass)
-  {
-    _inCodable2 = [(INIntent *)self _inCodable];
-    _objectDescription2 = [_inCodable2 _objectDescription];
+    _inCodable = [(INIntent *)self _inCodable];
+    _objectDescription = [_inCodable _objectDescription];
 
     if (![(INIntent *)self _intentCategory])
     {
-      -[INIntent _setIntentCategory:](self, "_setIntentCategory:", [_objectDescription2 intentCategory]);
+      -[INIntent _setIntentCategory:](self, "_setIntentCategory:", [_objectDescription intentCategory]);
     }
 
     _metadata3 = [(INIntent *)self _metadata];
@@ -5074,27 +5002,26 @@ LABEL_8:
 
     if (!v36)
     {
-      verb = [_objectDescription2 verb];
+      verb = [_objectDescription verb];
       [(INIntent *)self _setCategoryVerb:verb];
     }
 
-    -[INIntent _setUserConfirmationRequired:](self, "_setUserConfirmationRequired:", [_objectDescription2 userConfirmationRequired]);
-    versioningHash = [_objectDescription2 versioningHash];
+    -[INIntent _setUserConfirmationRequired:](self, "_setUserConfirmationRequired:", [_objectDescription userConfirmationRequired]);
+    versioningHash = [_objectDescription versioningHash];
 
     if (versioningHash)
     {
       _metadata4 = [(INIntent *)self _metadata];
-      versioningHash2 = [_objectDescription2 versioningHash];
+      versioningHash2 = [_objectDescription versioningHash];
       [_metadata4 setVersioningHash:{objc_msgSend(versioningHash2, "unsignedLongLongValue")}];
     }
   }
 
   else
   {
-LABEL_20:
     [(INIntent *)self _setIntentCategory:[(INIntent *)self _intentCategory]];
-    _objectDescription2 = [(INIntent *)self _categoryVerb];
-    [(INIntent *)self _setCategoryVerb:_objectDescription2];
+    _objectDescription = [(INIntent *)self _categoryVerb];
+    [(INIntent *)self _setCategoryVerb:_objectDescription];
   }
 
   self->_keyParameterLock._os_unfair_lock_opaque = 0;
@@ -5105,15 +5032,15 @@ LABEL_22:
 
 - (INIntent)initWithIdentifier:(id)identifier backingStore:(id)store
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
-  v17.receiver = self;
-  v17.super_class = INIntent;
+  v16.receiver = self;
+  v16.super_class = INIntent;
   storeCopy = store;
-  v16 = 0;
-  v8 = [[(INIntent *)&v17 init] _initWithIdentifier:identifierCopy backingStore:storeCopy schema:0 error:&v16];
+  v15 = 0;
+  v8 = [[(INIntent *)&v16 init] _initWithIdentifier:identifierCopy backingStore:storeCopy schema:0 error:&v15];
 
-  v9 = v16;
+  v9 = v15;
   v10 = v8;
   v11 = v10;
   if (v9)
@@ -5122,11 +5049,11 @@ LABEL_22:
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v19 = "[INIntent initWithIdentifier:backingStore:]";
-      v20 = 2112;
-      v21 = identifierCopy;
-      v22 = 2112;
-      v23 = v9;
+      v18 = "[INIntent initWithIdentifier:backingStore:]";
+      v19 = 2112;
+      v20 = identifierCopy;
+      v21 = 2112;
+      v22 = v9;
       _os_log_error_impl(&dword_18E991000, v12, OS_LOG_TYPE_ERROR, "%s Failed to initialize intent with identifier %@ due to error %@", buf, 0x20u);
     }
 
@@ -5138,7 +5065,6 @@ LABEL_22:
     v13 = v10;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -5295,7 +5221,7 @@ void __56__INIntent_makeFromWidgetPlistableRepresentation_error___block_invoke(u
 
 void __56__INIntent_makeFromWidgetPlistableRepresentation_error___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v7 = a2;
   if (a3 != 1)
   {
@@ -5313,59 +5239,58 @@ void __56__INIntent_makeFromWidgetPlistableRepresentation_error___block_invoke_2
     v8 = v7;
     if (![v8 count])
     {
-      v20 = [MEMORY[0x1E695DFD8] set];
-      v21 = *(*(a1 + 40) + 8);
-      v22 = *(v21 + 40);
-      *(v21 + 40) = v20;
+      v19 = [MEMORY[0x1E695DFD8] set];
+      v20 = *(*(a1 + 40) + 8);
+      v21 = *(v20 + 40);
+      *(v20 + 40) = v19;
 
 LABEL_25:
 LABEL_26:
       if (!*(*(*(a1 + 40) + 8) + 40))
       {
-        v23 = objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"Unable to decode parameter combination key (expected NSSet<NSString *> *, but received: %@"), v7;
-        v24 = INIntentError(8001, v23, 0);
-        v25 = *(*(a1 + 48) + 8);
-        v26 = *(v25 + 40);
-        *(v25 + 40) = v24;
+        v22 = objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"Unable to decode parameter combination key (expected NSSet<NSString *> *, but received: %@"), v7;
+        v23 = INIntentError(8001, v22, 0);
+        v24 = *(*(a1 + 48) + 8);
+        v25 = *(v24 + 40);
+        *(v24 + 40) = v23;
       }
 
       goto LABEL_28;
     }
 
-    v31 = 0u;
-    v32 = 0u;
     v29 = 0u;
     v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     v9 = v8;
-    v10 = [v9 countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v27 objects:v31 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v30;
+      v12 = *v28;
       v13 = 1;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v30 != v12)
+          if (*v28 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v15 = *(*(&v29 + 1) + 8 * i);
           objc_opt_class();
           v13 &= objc_opt_isKindOfClass();
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v27 objects:v31 count:16];
       }
 
       while (v11);
 
       if ((v13 & 1) == 0)
       {
+        v15 = 0;
         v16 = 0;
-        v17 = 0;
         goto LABEL_23;
       }
     }
@@ -5374,11 +5299,11 @@ LABEL_26:
     {
     }
 
-    v17 = [MEMORY[0x1E695DFD8] setWithArray:v9];
-    v16 = 1;
+    v16 = [MEMORY[0x1E695DFD8] setWithArray:v9];
+    v15 = 1;
 LABEL_23:
-    objc_storeStrong((*(*(a1 + 40) + 8) + 40), v17);
-    if (v16)
+    objc_storeStrong((*(*(a1 + 40) + 8) + 40), v16);
+    if (v15)
     {
     }
 
@@ -5388,20 +5313,18 @@ LABEL_23:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v18 = *(*(a1 + 48) + 8);
-    obj = *(v18 + 40);
-    v19 = [INParameterCombination makeFromWidgetPlistableRepresentation:v7 error:&obj];
-    objc_storeStrong((v18 + 40), obj);
-    if (v19 && *(*(*(a1 + 40) + 8) + 40))
+    v17 = *(*(a1 + 48) + 8);
+    obj = *(v17 + 40);
+    v18 = [INParameterCombination makeFromWidgetPlistableRepresentation:v7 error:&obj];
+    objc_storeStrong((v17 + 40), obj);
+    if (v18 && *(*(*(a1 + 40) + 8) + 40))
     {
-      [*(a1 + 32) setObject:v19 forKeyedSubscript:?];
+      [*(a1 + 32) setObject:v18 forKeyedSubscript:?];
     }
   }
 
   *a4 = 1;
 LABEL_28:
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_enumerateWithValueProcessingBlock:(id)block

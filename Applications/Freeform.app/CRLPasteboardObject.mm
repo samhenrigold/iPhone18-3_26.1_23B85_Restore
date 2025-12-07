@@ -59,16 +59,16 @@
 
 - (BOOL)hasNativeText
 {
-  v3 = sub_1005B981C(&unk_101A0B1C0);
+  v3 = sub_1005B981C(&unk_101A0B1C0, &qword_101470EC0);
   __chkstk_darwin(v3 - 8);
   v5 = &v10 - v4;
   v6 = *(&self->super.isa + OBJC_IVAR____TtC8Freeform19CRLPasteboardObject_pasteboardData);
   v7 = OBJC_IVAR____TtC8Freeform23CRLPasteboardObjectData_textCRDT;
   swift_beginAccess();
-  sub_10000BE14(v6 + v7, v5, &unk_101A0B1C0);
+  sub_10000BE14(v6 + v7, v5, &unk_101A0B1C0, &qword_101470EC0);
   v8 = type metadata accessor for CRLWPStorageCRDTData(0);
   LOBYTE(v6) = (*(*(v8 - 8) + 48))(v5, 1, v8) != 1;
-  sub_10000CAAC(v5, &unk_101A0B1C0);
+  sub_10000CAAC(v5, &unk_101A0B1C0, &qword_101470EC0);
   return v6;
 }
 

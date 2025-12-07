@@ -19,6 +19,7 @@
 - (void)batchQueryController:(id)controller updatedDestinationsStatus:(id)status onService:(id)service error:(id)error;
 - (void)dealloc;
 - (void)isCapabilityEnabledForDestination:(id)destination capability:(id)capability completionHandler:(id)handler;
+- (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error;
 - (void)service:(id)service account:(id)account incomingData:(id)data fromID:(id)d context:(id)context;
 - (void)service:(id)service account:(id)account incomingResourceAtURL:(id)l fromID:(id)d context:(id)context;
 - (void)service:(id)service activeAccountsChanged:(id)changed;
@@ -539,6 +540,38 @@ LABEL_7:
   v18 = capabilityCopy;
   v19 = destinationCopy;
   [v12 currentRemoteDevicesForDestinations:v13 service:serviceName listenerID:serviceName2 queue:serviceQueue completionBlock:v20];
+}
+
+- (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error
+{
+  successCopy = success;
+  accountCopy = account;
+  identifierCopy = identifier;
+  errorCopy = error;
+  v14 = +[STLog familyMessaging];
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  {
+    v15 = @"NO";
+    v17 = 136447235;
+    v18 = "[STConcreteIDSTransportPrimitives service:account:identifier:didSendWithSuccess:error:]";
+    v19 = 2113;
+    v20 = accountCopy;
+    if (successCopy)
+    {
+      v15 = @"YES";
+    }
+
+    v21 = 2114;
+    v22 = identifierCopy;
+    v23 = 2114;
+    v24 = v15;
+    v25 = 2114;
+    v26 = errorCopy;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "[v2] %{public}s: \naccount: %{private}@, \nidentifier: %{public}@, \nsuccess: %{public}@, \nerror: %{public}@", &v17, 0x34u);
+  }
+
+  delegate = [(STConcreteIDSTransportPrimitives *)self delegate];
+  [delegate primitives:self didSendMessageWithPrimitiveIdentifier:identifierCopy success:successCopy error:errorCopy];
 }
 
 - (void)service:(id)service account:(id)account incomingData:(id)data fromID:(id)d context:(id)context

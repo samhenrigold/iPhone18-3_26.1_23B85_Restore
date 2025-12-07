@@ -26,30 +26,30 @@
 
 - (id)requestBody
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   [v3 switchToCodePage:8];
   [v3 openTag:7];
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   obj = self->_responseItems;
-  v4 = [(NSArray *)obj countByEnumeratingWithState:&v37 objects:v41 count:16];
+  v4 = [(NSArray *)obj countByEnumeratingWithState:&v36 objects:v40 count:16];
   if (v4)
   {
     v5 = v4;
-    v36 = *v38;
+    v35 = *v37;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v38 != v36)
+        if (*v37 != v35)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v37 + 1) + 8 * i);
+        v7 = *(*(&v36 + 1) + 8 * i);
         [v3 openTag:9];
         [v3 appendTag:12 withIntContent:{objc_msgSend(v7, "meetingResponse")}];
         deliveryItemFolderId = [v7 deliveryItemFolderId];
@@ -145,7 +145,7 @@ LABEL_25:
         [v3 closeTag:9];
       }
 
-      v5 = [(NSArray *)obj countByEnumeratingWithState:&v37 objects:v41 count:16];
+      v5 = [(NSArray *)obj countByEnumeratingWithState:&v36 objects:v40 count:16];
     }
 
     while (v5);
@@ -153,8 +153,6 @@ LABEL_25:
 
   [v3 closeTag:7];
   data = [v3 data];
-
-  v33 = *MEMORY[0x277D85DE8];
 
   return data;
 }
@@ -169,7 +167,7 @@ LABEL_25:
 
 - (BOOL)processContext:(id)context
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   currentlyParsingItem = [(ASTask *)self currentlyParsingItem];
 
@@ -303,13 +301,12 @@ LABEL_17:
   v16 = 0;
 LABEL_31:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (void)finishWithError:(id)error
 {
-  v103 = *MEMORY[0x277D85DE8];
+  v102 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v5 = [(ASTask *)self taskStatusForError:errorCopy];
   if (errorCopy)
@@ -337,8 +334,8 @@ LABEL_31:
       {
         *buf = 138412546;
         selfCopy = objc_opt_class();
-        v96 = 2112;
-        v97 = errorCopy;
+        v95 = 2112;
+        v96 = errorCopy;
         v9 = selfCopy;
         _os_log_impl(&dword_24A0AC000, v7, v8, "%@ failed: %@", buf, 0x16u);
       }
@@ -371,8 +368,8 @@ LABEL_31:
   {
     *buf = 138412546;
     selfCopy = objc_opt_class();
-    v96 = 2112;
-    v97 = v7;
+    v95 = 2112;
+    v96 = v7;
     v13 = selfCopy;
     _os_log_impl(&dword_24A0AC000, v11, v12, "%@ Parsed response of %@", buf, 0x16u);
   }
@@ -424,27 +421,27 @@ LABEL_31:
         _os_log_impl(&dword_24A0AC000, v30, v31, "Apply status code 4 to all meeting responses", buf, 2u);
       }
 
-      v92 = 0u;
-      v93 = 0u;
-      v90 = 0u;
       v91 = 0u;
+      v92 = 0u;
+      v89 = 0u;
+      v90 = 0u;
       obj = self->_responseItems;
-      v32 = [(NSArray *)obj countByEnumeratingWithState:&v90 objects:v102 count:16];
+      v32 = [(NSArray *)obj countByEnumeratingWithState:&v89 objects:v101 count:16];
       if (v32)
       {
         v33 = v32;
         v34 = v7;
-        v35 = *v91;
+        v35 = *v90;
         do
         {
           for (i = 0; i != v33; ++i)
           {
-            if (*v91 != v35)
+            if (*v90 != v35)
             {
               objc_enumerationMutation(obj);
             }
 
-            v37 = *(*(&v90 + 1) + 8 * i);
+            v37 = *(*(&v89 + 1) + 8 * i);
             eventId2 = [v16 eventId];
             [v37 setCalEventServerId:eventId2];
 
@@ -452,7 +449,7 @@ LABEL_31:
             [v37 setStatus:{-[ASMeetingResponseTask taskStatusForExchangeStatus:](self, "taskStatusForExchangeStatus:", objc_msgSend(status3, "intValue"))}];
           }
 
-          v33 = [(NSArray *)obj countByEnumeratingWithState:&v90 objects:v102 count:16];
+          v33 = [(NSArray *)obj countByEnumeratingWithState:&v89 objects:v101 count:16];
         }
 
         while (v33);
@@ -470,39 +467,39 @@ LABEL_31:
 
   obj = objc_opt_new();
   [(NSArray *)obj addObjectsFromArray:self->_responseItems];
-  v88 = 0u;
-  v89 = 0u;
   v87 = 0u;
+  v88 = 0u;
   v86 = 0u;
+  v85 = 0u;
   singularResponses6 = [v7 singularResponses];
-  v74 = [singularResponses6 countByEnumeratingWithState:&v86 objects:v101 count:16];
-  if (!v74)
+  v73 = [singularResponses6 countByEnumeratingWithState:&v85 objects:v100 count:16];
+  if (!v73)
   {
     goto LABEL_60;
   }
 
-  v71 = v5;
-  v72 = v7;
-  v75 = *v87;
+  v70 = v5;
+  v71 = v7;
+  v74 = *v86;
   selfCopy2 = self;
   while (2)
   {
     v40 = 0;
     do
     {
-      if (*v87 != v75)
+      if (*v86 != v74)
       {
         objc_enumerationMutation(singularResponses6);
       }
 
-      v77 = v40;
-      v41 = *(*(&v86 + 1) + 8 * v40);
+      v76 = v40;
+      v41 = *(*(&v85 + 1) + 8 * v40);
+      v81 = 0u;
       v82 = 0u;
       v83 = 0u;
       v84 = 0u;
-      v85 = 0u;
       v42 = obj;
-      v43 = [(NSArray *)v42 countByEnumeratingWithState:&v82 objects:v100 count:16];
+      v43 = [(NSArray *)v42 countByEnumeratingWithState:&v81 objects:v99 count:16];
       if (!v43)
       {
 LABEL_56:
@@ -511,18 +508,18 @@ LABEL_57:
         v60 = DALoggingwithCategory();
         v61 = *(MEMORY[0x277D03988] + 3);
         self = selfCopy2;
-        v7 = v72;
+        v7 = v71;
         if (os_log_type_enabled(v60, v61))
         {
           responseItems = selfCopy2->_responseItems;
-          singularResponses7 = [v72 singularResponses];
+          singularResponses7 = [v71 singularResponses];
           *buf = 138412546;
           selfCopy = responseItems;
-          v96 = 2112;
-          v97 = singularResponses7;
+          v95 = 2112;
+          v96 = singularResponses7;
           _os_log_impl(&dword_24A0AC000, v60, v61, "Got a meeting response for something I didn't respond to?.  Sent responses %@, responses-to-the-responses %@", buf, 0x16u);
 
-          v7 = v72;
+          v7 = v71;
         }
 
         v5 = 1;
@@ -531,17 +528,17 @@ LABEL_57:
       }
 
       v44 = v43;
-      v45 = *v83;
+      v45 = *v82;
 LABEL_40:
       v46 = 0;
       while (1)
       {
-        if (*v83 != v45)
+        if (*v82 != v45)
         {
           objc_enumerationMutation(v42);
         }
 
-        v47 = *(*(&v82 + 1) + 8 * v46);
+        v47 = *(*(&v81 + 1) + 8 * v46);
         deliveryItemServerId = [v47 deliveryItemServerId];
         requestId = [v41 requestId];
         v50 = [deliveryItemServerId isEqualToString:requestId];
@@ -574,7 +571,7 @@ LABEL_40:
 LABEL_47:
         if (v44 == ++v46)
         {
-          v44 = [(NSArray *)v42 countByEnumeratingWithState:&v82 objects:v100 count:16];
+          v44 = [(NSArray *)v42 countByEnumeratingWithState:&v81 objects:v99 count:16];
           if (v44)
           {
             goto LABEL_40;
@@ -600,12 +597,12 @@ LABEL_52:
       [v47 setStatus:{-[ASMeetingResponseTask taskStatusForExchangeStatus:](selfCopy2, "taskStatusForExchangeStatus:", objc_msgSend(status4, "intValue"))}];
 
       [(NSArray *)v42 removeObject:v47];
-      v40 = v77 + 1;
+      v40 = v76 + 1;
     }
 
-    while (v77 + 1 != v74);
-    v74 = [singularResponses6 countByEnumeratingWithState:&v86 objects:v101 count:16];
-    if (v74)
+    while (v76 + 1 != v73);
+    v73 = [singularResponses6 countByEnumeratingWithState:&v85 objects:v100 count:16];
+    if (v73)
     {
       continue;
     }
@@ -614,8 +611,8 @@ LABEL_52:
   }
 
   errorCopy = 0;
-  v7 = v72;
-  v5 = v71;
+  v7 = v71;
+  v5 = v70;
 LABEL_60:
 
   if ([(NSArray *)obj count])
@@ -631,10 +628,10 @@ LABEL_60:
       *buf = 134218498;
       selfCopy = v67;
       v7 = v66;
-      v96 = 2112;
-      v97 = v68;
-      v98 = 2112;
-      v99 = singularResponses8;
+      v95 = 2112;
+      v96 = v68;
+      v97 = 2112;
+      v98 = singularResponses8;
       _os_log_impl(&dword_24A0AC000, v64, v65, "No response for %lu meeting responses.  Sent responses %@, responses-to-the-responses %@", buf, 0x20u);
     }
 
@@ -648,19 +645,17 @@ LABEL_66:
 
   if (![(ASTask *)self attemptRetryWithStatus:v5 error:errorCopy])
   {
-    v79[0] = MEMORY[0x277D85DD0];
-    v79[1] = 3221225472;
-    v79[2] = __41__ASMeetingResponseTask_finishWithError___block_invoke;
-    v79[3] = &unk_278FC7B68;
-    v79[4] = self;
-    v81 = v5;
-    v80 = errorCopy;
-    [(ASTask *)self finishWithError:v80 afterDelegateCallout:v79];
+    v78[0] = MEMORY[0x277D85DD0];
+    v78[1] = 3221225472;
+    v78[2] = __41__ASMeetingResponseTask_finishWithError___block_invoke;
+    v78[3] = &unk_278FC7B68;
+    v78[4] = self;
+    v80 = v5;
+    v79 = errorCopy;
+    [(ASTask *)self finishWithError:v79 afterDelegateCallout:v78];
   }
 
   [(ASTask *)self setCurrentlyParsingItem:0];
-
-  v70 = *MEMORY[0x277D85DE8];
 }
 
 void __41__ASMeetingResponseTask_finishWithError___block_invoke(void *a1)
@@ -671,32 +666,26 @@ void __41__ASMeetingResponseTask_finishWithError___block_invoke(void *a1)
 
 - (int64_t)taskStatusForExchangeStatus:(int)status
 {
-  v14 = *MEMORY[0x277D85DE8];
-  if (status >= 5)
+  v13 = *MEMORY[0x277D85DE8];
+  if (status < 5)
   {
-    v5 = DALoggingwithCategory();
-    v6 = *(MEMORY[0x277D03988] + 3);
-    if (os_log_type_enabled(v5, v6))
-    {
-      v7 = objc_opt_class();
-      v8 = NSStringFromClass(v7);
-      v10 = 138412546;
-      v11 = v8;
-      v12 = 1024;
-      statusCopy = status;
-      _os_log_impl(&dword_24A0AC000, v5, v6, "%@: Unknown status code (%d)", &v10, 0x12u);
-    }
-
-    result = 10;
+    return qword_24A14DB60[status];
   }
 
-  else
+  v5 = DALoggingwithCategory();
+  v6 = *(MEMORY[0x277D03988] + 3);
+  if (os_log_type_enabled(v5, v6))
   {
-    result = qword_24A14DB60[status];
+    v7 = objc_opt_class();
+    v8 = NSStringFromClass(v7);
+    v9 = 138412546;
+    v10 = v8;
+    v11 = 1024;
+    statusCopy = status;
+    _os_log_impl(&dword_24A0AC000, v5, v6, "%@: Unknown status code (%d)", &v9, 0x12u);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return 10;
 }
 
 @end

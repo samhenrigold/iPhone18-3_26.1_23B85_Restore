@@ -24,21 +24,22 @@
 - (NSFileProviderKnownFolderLocations)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v13.receiver = self;
-  v13.super_class = NSFileProviderKnownFolderLocations;
-  v5 = [(NSFileProviderKnownFolderLocations *)&v13 init];
+  v15.receiver = self;
+  v15.super_class = NSFileProviderKnownFolderLocations;
+  v5 = [(NSFileProviderKnownFolderLocations *)&v15 init];
   if (v5)
   {
-    v5->_shouldCreateBinaryCompatibilitySymlink = [coderCopy decodeBoolForKey:@"_shouldCreateBinaryCompatibilitySymlink"];
-    v6 = knownFolderLocationConcreteClasses();
-    v7 = [coderCopy decodeObjectOfClasses:v6 forKey:@"_desktopLocation"];
+    v6 = [coderCopy decodeBoolForKey:@"_shouldCreateBinaryCompatibilitySymlink"];
+    v5->_shouldCreateBinaryCompatibilitySymlink = v6;
+    v7 = knownFolderLocationConcreteClasses(v6);
+    v8 = [coderCopy decodeObjectOfClasses:v7 forKey:@"_desktopLocation"];
     desktopLocation = v5->_desktopLocation;
-    v5->_desktopLocation = v7;
+    v5->_desktopLocation = v8;
 
-    v9 = knownFolderLocationConcreteClasses();
-    v10 = [coderCopy decodeObjectOfClasses:v9 forKey:@"_documentsLocation"];
+    v11 = knownFolderLocationConcreteClasses(v10);
+    v12 = [coderCopy decodeObjectOfClasses:v11 forKey:@"_documentsLocation"];
     documentsLocation = v5->_documentsLocation;
-    v5->_documentsLocation = v10;
+    v5->_documentsLocation = v12;
   }
 
   return v5;

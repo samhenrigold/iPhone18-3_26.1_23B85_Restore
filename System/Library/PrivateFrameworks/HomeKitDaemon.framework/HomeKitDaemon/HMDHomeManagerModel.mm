@@ -20,34 +20,32 @@
 
 void __33__HMDHomeManagerModel_properties__block_invoke()
 {
-  v7[3] = *MEMORY[0x277D85DE8];
-  v6[0] = @"controllerKeyIdentifier";
+  v6[3] = *MEMORY[0x277D85DE8];
+  v5[0] = @"controllerKeyIdentifier";
   v0 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v7[0] = v0;
-  v6[1] = @"primaryHomeUUID";
+  v6[0] = v0;
+  v5[1] = @"primaryHomeUUID";
   v1 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v7[1] = v1;
-  v6[2] = @"cloudZoneInformation";
+  v6[1] = v1;
+  v5[2] = @"cloudZoneInformation";
   v2 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v7[2] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:3];
+  v6[2] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:3];
   v4 = properties__properties_149197;
   properties__properties_149197 = v3;
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)cd_generateValueForProperty:(id)property managedObjectField:(id)field context:(id)context
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   propertyCopy = property;
   fieldCopy = field;
   contextCopy = context;
   if (![fieldCopy isEqualToString:@"primaryHome"])
   {
-    v27.receiver = self;
-    v27.super_class = HMDHomeManagerModel;
-    null = [(HMDBackingStoreModelObject *)&v27 cd_generateValueForProperty:propertyCopy managedObjectField:fieldCopy context:contextCopy];
+    v26.receiver = self;
+    v26.super_class = HMDHomeManagerModel;
+    null = [(HMDBackingStoreModelObject *)&v26 cd_generateValueForProperty:propertyCopy managedObjectField:fieldCopy context:contextCopy];
 LABEL_9:
     v16 = null;
     goto LABEL_14;
@@ -74,31 +72,31 @@ LABEL_9:
   if (v14)
   {
     v15 = [HMDHomeManagerHomeModel deriveUUIDFromHomeUUID:v14];
-    v28 = 0;
-    v16 = [HMDBackingStore cdlsFetchManagedObjectWithUUID:v15 ofModelType:objc_opt_class() error:&v28];
-    v17 = v28;
+    v27 = 0;
+    v16 = [HMDBackingStore cdlsFetchManagedObjectWithUUID:v15 ofModelType:objc_opt_class() error:&v27];
+    v17 = v27;
 
     if (!v16 || v17)
     {
-      v21 = objc_autoreleasePoolPush();
+      v20 = objc_autoreleasePoolPush();
       selfCopy = self;
-      v23 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
+      v22 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
       {
-        v24 = HMFGetLogIdentifier();
+        v23 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v30 = v24;
-        v31 = 2112;
-        v32 = v14;
-        v33 = 2112;
-        v34 = v17;
-        _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_FAULT, "%{public}@Submitting ABC event for failure: Unable to find NSManagedObject for home manager home with UUID %@: %@", buf, 0x20u);
+        v29 = v23;
+        v30 = 2112;
+        v31 = v14;
+        v32 = 2112;
+        v33 = v17;
+        _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_FAULT, "%{public}@Submitting ABC event for failure: Unable to find NSManagedObject for home manager home with UUID %@: %@", buf, 0x20u);
       }
 
-      objc_autoreleasePoolPop(v21);
-      v25 = [[HMDAssertionLogEvent alloc] initWithReason:@"Unable to find NSManagedObject for home manager home with UUID %@: %@", v14, v17];
-      v26 = +[HMDMetricsManager sharedLogEventSubmitter];
-      [v26 submitLogEvent:v25];
+      objc_autoreleasePoolPop(v20);
+      v24 = [[HMDAssertionLogEvent alloc] initWithReason:@"Unable to find NSManagedObject for home manager home with UUID %@: %@", v14, v17];
+      v25 = +[HMDMetricsManager sharedLogEventSubmitter];
+      [v25 submitLogEvent:v24];
     }
   }
 
@@ -108,7 +106,6 @@ LABEL_9:
   }
 
 LABEL_14:
-  v19 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

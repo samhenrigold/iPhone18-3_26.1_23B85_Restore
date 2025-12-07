@@ -167,9 +167,9 @@ LABEL_11:
 + (id)fiui_workoutPickerURL
 {
   fiui_workoutPickerURLComponents = [objc_opt_class() fiui_workoutPickerURLComponents];
-  v1 = [fiui_workoutPickerURLComponents URL];
+  v2 = [fiui_workoutPickerURLComponents URL];
 
-  return v1;
+  return v2;
 }
 
 @end

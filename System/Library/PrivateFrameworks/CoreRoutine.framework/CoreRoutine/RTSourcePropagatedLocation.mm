@@ -26,49 +26,46 @@
 
 - (RTSourcePropagatedLocation)initWithCoder:(id)coder
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   if (([coderCopy allowsKeyedCoding] & 1) == 0)
   {
     v5 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v10 = 136315394;
-      v11 = "[RTSourcePropagatedLocation initWithCoder:]";
-      v12 = 1024;
-      v13 = 33;
-      _os_log_error_impl(&dword_1BF1C4000, v5, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: [aDecoder allowsKeyedCoding] (in %s:%d)", &v10, 0x12u);
+      v9 = 136315394;
+      v10 = "[RTSourcePropagatedLocation initWithCoder:]";
+      v11 = 1024;
+      v12 = 33;
+      _os_log_error_impl(&dword_1BF1C4000, v5, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: [aDecoder allowsKeyedCoding] (in %s:%d)", &v9, 0x12u);
     }
   }
 
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"date"];
 
   v7 = [(RTSourcePropagatedLocation *)self initWithDate:v6];
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   if (([coderCopy allowsKeyedCoding] & 1) == 0)
   {
     v5 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v8 = 136315394;
-      v9 = "[RTSourcePropagatedLocation encodeWithCoder:]";
-      v10 = 1024;
-      v11 = 43;
-      _os_log_error_impl(&dword_1BF1C4000, v5, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: [aCoder allowsKeyedCoding] (in %s:%d)", &v8, 0x12u);
+      v7 = 136315394;
+      v8 = "[RTSourcePropagatedLocation encodeWithCoder:]";
+      v9 = 1024;
+      v10 = 43;
+      _os_log_error_impl(&dword_1BF1C4000, v5, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: [aCoder allowsKeyedCoding] (in %s:%d)", &v7, 0x12u);
     }
   }
 
   date = [(RTSourcePropagatedLocation *)self date];
   [coderCopy encodeObject:date forKey:@"date"];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isEqual:(id)equal

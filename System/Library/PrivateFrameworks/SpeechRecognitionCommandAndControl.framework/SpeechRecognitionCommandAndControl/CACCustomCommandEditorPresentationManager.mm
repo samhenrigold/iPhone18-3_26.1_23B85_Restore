@@ -10,9 +10,10 @@
 
 - (BOOL)showCustomCommandEditorWithGesture:(id)gesture
 {
-  v8 = 0;
-  v4 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:gesture requiringSecureCoding:1 error:&v8];
-  v5 = v8;
+  v9 = 0;
+  v4 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:gesture requiringSecureCoding:1 error:&v9];
+  v5 = v9;
+  v6 = v5;
   if (v4)
   {
     [(CACCustomCommandEditorPresentationManager *)self _showCustomCommandEditorWithContextKey:*MEMORY[0x277CE7BB0] contextValue:v4];
@@ -20,8 +21,8 @@
 
   else
   {
-    v6 = CACLogPreferences();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = CACLogPreferences(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [CACCustomCommandEditorPresentationManager showCustomCommandEditorWithGesture:];
     }
@@ -32,9 +33,10 @@
 
 - (BOOL)showCustomCommandEditorWithRecordedUserActionFlow:(id)flow
 {
-  v8 = 0;
-  v4 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:flow requiringSecureCoding:1 error:&v8];
-  v5 = v8;
+  v9 = 0;
+  v4 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:flow requiringSecureCoding:1 error:&v9];
+  v5 = v9;
+  v6 = v5;
   if (v4)
   {
     [(CACCustomCommandEditorPresentationManager *)self _showCustomCommandEditorWithContextKey:*MEMORY[0x277CE7BC0] contextValue:v4];
@@ -42,8 +44,8 @@
 
   else
   {
-    v6 = CACLogPreferences();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = CACLogPreferences(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [CACCustomCommandEditorPresentationManager showCustomCommandEditorWithGesture:];
     }
@@ -65,8 +67,8 @@
 
   else
   {
-    v7 = CACLogShortcuts();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = CACLogShortcuts(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [CACCustomCommandEditorPresentationManager showCustomCommandEditorWithShortcutsWorkflow:];
     }
@@ -95,11 +97,11 @@
 {
   dataCopy = data;
   v4 = [dataCopy objectForKeyedSubscript:*MEMORY[0x277CE6D10]];
-  v5 = [dataCopy objectForKeyedSubscript:*MEMORY[0x277CE6D08]];
-  v6 = v5;
+  isKindOfClass = [dataCopy objectForKeyedSubscript:*MEMORY[0x277CE6D08]];
+  v6 = isKindOfClass;
   if (v4)
   {
-    v7 = v5 == 0;
+    v7 = isKindOfClass == 0;
   }
 
   else
@@ -107,7 +109,7 @@
     v7 = 1;
   }
 
-  if (!v7 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  if (!v7 && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) != 0) && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) != 0))
   {
     v8 = +[CACPreferences sharedPreferences];
     [v8 setProperties:v6 forCommandIdentifier:v4];
@@ -115,7 +117,7 @@
 
   else
   {
-    v8 = CACLogPreferences();
+    v8 = CACLogPreferences(isKindOfClass);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [CACCustomCommandEditorPresentationManager handleAXNotificationData:];

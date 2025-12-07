@@ -6,10 +6,10 @@
 
 - (uint64_t)HKGraphSeriesDataBlockPathValue
 {
-  *x8_0 = 0;
-  x8_0[1] = 0;
-  x8_0[2] = 0;
-  return [self getValue:x8_0];
+  *a2 = 0;
+  a2[1] = 0;
+  a2[2] = 0;
+  return [self getValue:a2];
 }
 
 @end

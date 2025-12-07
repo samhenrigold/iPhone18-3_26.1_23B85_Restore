@@ -14,7 +14,7 @@
 
   v5 = static MutableLivePhotoViewModel.empty;
   v8 = 2;
-  v6 = objc_allocWithZone(type metadata accessor for LivePhotoView());
+  v6 = objc_allocWithZone(type metadata accessor for LivePhotoView(0));
   *(&self->super.super.super.super.super.super.isa + v4) = LivePhotoView.init(viewModel:style:)(v5, &v8);
   result = _assertionFailure(_:_:file:line:flags:)();
   __break(1u);

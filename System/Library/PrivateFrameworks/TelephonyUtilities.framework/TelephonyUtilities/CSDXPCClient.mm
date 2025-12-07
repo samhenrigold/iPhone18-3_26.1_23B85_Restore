@@ -78,9 +78,9 @@
 - (CSDXPCClient)initWithConnection:(id)connection queue:(id)queue
 {
   connectionCopy = connection;
-  v27.receiver = self;
-  v27.super_class = CSDXPCClient;
-  v8 = [(CSDClient *)&v27 initWithObject:connectionCopy queue:queue];
+  v28.receiver = self;
+  v28.super_class = CSDXPCClient;
+  v8 = [(CSDClient *)&v28 initWithObject:connectionCopy queue:queue];
   if (v8)
   {
     processIdentifier = [connectionCopy processIdentifier];
@@ -121,28 +121,29 @@
     if (v21)
     {
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      isKindOfClass = objc_opt_isKindOfClass();
+      if (isKindOfClass)
       {
-        v22 = [NSSet setWithArray:v21];
+        v23 = [NSSet setWithArray:v21];
         p_super = &v8->_entitledCapabilities->super;
-        v8->_entitledCapabilities = v22;
+        v8->_entitledCapabilities = v23;
       }
 
       else
       {
-        p_super = sub_100004778();
+        p_super = sub_100004778(isKindOfClass);
         if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
         {
-          v25 = objc_opt_class();
-          v26 = v8->_processName;
+          v26 = objc_opt_class();
+          v27 = v8->_processName;
           *buf = 138413058;
-          v29 = v20;
-          v30 = 2112;
-          v31 = v25;
-          v32 = 2112;
-          v33 = v21;
-          v34 = 2112;
-          v35 = v26;
+          v30 = v20;
+          v31 = 2112;
+          v32 = v26;
+          v33 = 2112;
+          v34 = v21;
+          v35 = 2112;
+          v36 = v27;
           _os_log_error_impl(&_mh_execute_header, p_super, OS_LOG_TYPE_ERROR, "Entitlement for key '%@' is non-nil but is of class %@ rather than an NSArray (%@), so assuming process %@ has no entitlements", buf, 0x2Au);
         }
       }
@@ -166,20 +167,21 @@
 
 - (void)performBlockAfterCoalescing:(id)coalescing
 {
-  v8[0] = _NSConcreteStackBlock;
-  v8[1] = 3221225472;
-  v8[2] = sub_10011FB8C;
-  v8[3] = &unk_10061ACD0;
-  v8[4] = self;
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_10011FB8C;
+  v9[3] = &unk_10061ACD0;
+  v9[4] = self;
   coalescingCopy = coalescing;
-  v4 = objc_retainBlock(v8);
+  v4 = objc_retainBlock(v9);
   acquireAssertionIfNecessary = [(CSDXPCClient *)self acquireAssertionIfNecessary];
+  v6 = acquireAssertionIfNecessary;
   if (acquireAssertionIfNecessary)
   {
-    v6 = sub_100004778();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = sub_100004778(acquireAssertionIfNecessary);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_10047591C(self, acquireAssertionIfNecessary, v6);
+      sub_10047591C(self, v6, v7);
     }
   }
 

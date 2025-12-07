@@ -37,7 +37,7 @@
 
 - (void)run
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D69B38] = [MEMORY[0x277D69B38] sharedAccountsLogoutConfig];
   if (!mEMORY[0x277D69B38])
   {
@@ -47,47 +47,51 @@
   shouldLog = [mEMORY[0x277D69B38] shouldLog];
   if ([mEMORY[0x277D69B38] shouldLogToDisk])
   {
-    v5 = shouldLog | 2;
+    LODWORD(v5) = shouldLog | 2;
   }
 
   else
   {
-    v5 = shouldLog;
+    LODWORD(v5) = shouldLog;
   }
 
   oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
 
   if (!v5)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
   v7 = objc_opt_class();
   v8 = v7;
-  [(ISLogoutOperation *)self logKey];
-  v12 = 138543618;
-  v13 = v7;
-  v15 = v14 = 2114;
-  LODWORD(v11) = 22;
-  v9 = _os_log_send_and_compose_impl();
+  logKey = [(ISLogoutOperation *)self logKey];
+  v11 = 138543618;
+  v12 = v7;
+  v13 = 2114;
+  v14 = logKey;
+  v10 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &dword_275BC3000, oSLogObject, 1, "%{public}@: [%{public}@] Running logout operation.", &v11, 22);
 
-  if (v9)
+  if (v10)
   {
-    oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v9 encoding:{4, &v12, v11}];
-    free(v9);
+    oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v10 encoding:4];
+    free(v10);
     SSFileLog();
-LABEL_11:
+LABEL_12:
   }
 
   [(ISLogoutOperation *)self _disableAutomaticDownloadKinds];
   [(ISLogoutOperation *)self _disableBookkeeper];
   [(ISLogoutOperation *)self _sendLogoutRequest];
   [(ISOperation *)self setSuccess:1];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_copyAuthenticationContext
@@ -161,7 +165,7 @@ LABEL_11:
 
 - (void)_disableAutomaticDownloadKinds
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   if (SSIsInternalBuild() && _os_feature_enabled_impl())
   {
     mEMORY[0x277D69B38] = [MEMORY[0x277D69B38] sharedStoreServicesConfig];
@@ -194,11 +198,8 @@ LABEL_11:
 
     if (v7)
     {
-      v25 = 136446210;
-      v26 = "[ISLogoutOperation _disableAutomaticDownloadKinds]";
-      LODWORD(v23) = 12;
-      v22 = &v25;
-      v8 = _os_log_send_and_compose_impl();
+      v24 = 136446210;
+      v25 = "[ISLogoutOperation _disableAutomaticDownloadKinds]";
 
       if (!v8)
       {
@@ -207,9 +208,9 @@ LABEL_15:
         goto LABEL_16;
       }
 
-      oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v8 encoding:{4, &v25, v23}];
+      oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v8 encoding:4];
       free(v8);
-      v22 = oSLogObject;
+      v21 = oSLogObject;
       SSFileLog();
     }
 
@@ -226,41 +227,46 @@ LABEL_16:
   shouldLog2 = [mEMORY[0x277D69B38]2 shouldLog];
   if ([mEMORY[0x277D69B38]2 shouldLogToDisk])
   {
-    v11 = shouldLog2 | 2;
+    LODWORD(v11) = shouldLog2 | 2;
   }
 
   else
   {
-    v11 = shouldLog2;
+    LODWORD(v11) = shouldLog2;
   }
 
   oSLogObject2 = [mEMORY[0x277D69B38]2 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+  {
+    v11 = v11;
+  }
+
+  else
   {
     v11 &= 2u;
   }
 
   if (!v11)
   {
-    goto LABEL_26;
+    goto LABEL_27;
   }
 
   v13 = objc_opt_class();
   v14 = v13;
   logKey = [(ISLogoutOperation *)self logKey];
-  v25 = 138543618;
-  v26 = v13;
-  v27 = 2114;
-  v28 = logKey;
-  LODWORD(v23) = 22;
-  v16 = _os_log_send_and_compose_impl();
+  v24 = 138543618;
+  v25 = v13;
+  v26 = 2114;
+  v27 = logKey;
+  LODWORD(v22) = 22;
+  v16 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &dword_275BC3000, oSLogObject2, 1, "%{public}@: [%{public}@] Disabling automatic download kinds.", &v24, v22);
 
   if (v16)
   {
-    oSLogObject2 = [MEMORY[0x277CCACA8] stringWithCString:v16 encoding:{4, &v25, v23}];
+    oSLogObject2 = [MEMORY[0x277CCACA8] stringWithCString:v16 encoding:4];
     free(v16);
     SSFileLog();
-LABEL_26:
+LABEL_27:
   }
 
   v17 = SSXPCCreateMessageDictionary();
@@ -269,142 +275,138 @@ LABEL_26:
 
   v19 = objc_alloc(MEMORY[0x277D69D68]);
   v20 = [v19 initWithServiceName:*MEMORY[0x277D6A6A8]];
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __51__ISLogoutOperation__disableAutomaticDownloadKinds__block_invoke;
-  v24[3] = &unk_27A671620;
-  v24[4] = self;
-  [v20 sendMessage:v17 withReply:v24];
-
-  v21 = *MEMORY[0x277D85DE8];
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __51__ISLogoutOperation__disableAutomaticDownloadKinds__block_invoke;
+  v23[3] = &unk_27A671620;
+  v23[4] = self;
+  [v20 sendMessage:v17 withReply:v23];
 }
 
 void __51__ISLogoutOperation__disableAutomaticDownloadKinds__block_invoke(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
-  if (v3 == MEMORY[0x277D863F0])
+  if (v3 != MEMORY[0x277D863F0] && v3 && MEMORY[0x277C8C570](v3) == MEMORY[0x277D86468])
   {
-    v6 = *MEMORY[0x277D6A110];
-    goto LABEL_6;
-  }
-
-  if (!v3 || MEMORY[0x277C8C570](v3) != MEMORY[0x277D86468])
-  {
-    v5 = *MEMORY[0x277D6A110];
-LABEL_6:
-    v7 = SSError();
-    goto LABEL_7;
-  }
-
-  v25 = objc_alloc(MEMORY[0x277CCA9B8]);
-  v26 = xpc_dictionary_get_value(v4, "0");
-  v7 = [v25 initWithXPCEncoding:v26];
-
-LABEL_7:
-  v8 = [MEMORY[0x277D69B38] sharedAccountsLogoutConfig];
-  v9 = v8;
-  if (v7)
-  {
-    if (!v8)
-    {
-      v9 = [MEMORY[0x277D69B38] sharedConfig];
-    }
-
-    v10 = [v9 shouldLog];
-    if ([v9 shouldLogToDisk])
-    {
-      v11 = v10 | 2;
-    }
-
-    else
-    {
-      v11 = v10;
-    }
-
-    v12 = [v9 OSLogObject];
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-    {
-      v11 &= 2u;
-    }
-
-    if (!v11)
-    {
-      goto LABEL_28;
-    }
-
-    v13 = *(a1 + 32);
-    v14 = objc_opt_class();
-    v15 = *(a1 + 32);
-    v16 = v14;
-    v17 = [v15 logKey];
-    *v28 = 138543874;
-    *&v28[4] = v14;
-    *&v28[12] = 2114;
-    *&v28[14] = v17;
-    *&v28[22] = 2114;
-    v29 = v7;
-    LODWORD(v27) = 32;
+    v21 = objc_alloc(MEMORY[0x277CCA9B8]);
+    v22 = xpc_dictionary_get_value(v4, "0");
+    v5 = [v21 initWithXPCEncoding:v22];
   }
 
   else
   {
-    if (!v8)
+    v5 = SSError();
+  }
+
+  v6 = [MEMORY[0x277D69B38] sharedAccountsLogoutConfig];
+  v7 = v6;
+  if (v5)
+  {
+    if (!v6)
     {
-      v9 = [MEMORY[0x277D69B38] sharedConfig];
+      v7 = [MEMORY[0x277D69B38] sharedConfig];
     }
 
-    v18 = [v9 shouldLog];
-    if ([v9 shouldLogToDisk])
+    v8 = [v7 shouldLog];
+    if ([v7 shouldLogToDisk])
     {
-      v19 = v18 | 2;
+      LODWORD(v9) = v8 | 2;
     }
 
     else
     {
-      v19 = v18;
+      LODWORD(v9) = v8;
     }
 
-    v12 = [v9 OSLogObject];
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v10 = [v7 OSLogObject];
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v19 &= 2u;
+      v9 = v9;
     }
 
-    if (!v19)
+    else
+    {
+      v9 &= 2u;
+    }
+
+    if (!v9)
     {
       goto LABEL_28;
     }
 
-    v20 = *(a1 + 32);
-    v21 = objc_opt_class();
-    v22 = *(a1 + 32);
-    v16 = v21;
-    v17 = [v22 logKey];
-    *v28 = 138543618;
-    *&v28[4] = v21;
-    *&v28[12] = 2114;
-    *&v28[14] = v17;
-    LODWORD(v27) = 22;
+    v11 = objc_opt_class();
+    v12 = *(a1 + 32);
+    v13 = v11;
+    v14 = [v12 logKey];
+    *v23 = 138543874;
+    *&v23[4] = v11;
+    *&v23[12] = 2114;
+    *&v23[14] = v14;
+    *&v23[22] = 2114;
+    v15 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_275BC3000, v10, 16, "%{public}@: [%{public}@] Failed to disable automatic download kinds. error = %{public}@", v23, 32, *v23, *&v23[8], v5);
   }
 
-  v23 = _os_log_send_and_compose_impl();
-
-  if (v23)
+  else
   {
-    v12 = [MEMORY[0x277CCACA8] stringWithCString:v23 encoding:{4, v28, v27, *v28, *&v28[16]}];
-    free(v23);
+    if (!v6)
+    {
+      v7 = [MEMORY[0x277D69B38] sharedConfig];
+    }
+
+    v16 = [v7 shouldLog];
+    if ([v7 shouldLogToDisk])
+    {
+      LODWORD(v17) = v16 | 2;
+    }
+
+    else
+    {
+      LODWORD(v17) = v16;
+    }
+
+    v10 = [v7 OSLogObject];
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    {
+      v17 = v17;
+    }
+
+    else
+    {
+      v17 &= 2u;
+    }
+
+    if (!v17)
+    {
+      goto LABEL_28;
+    }
+
+    v18 = objc_opt_class();
+    v19 = *(a1 + 32);
+    v13 = v18;
+    v14 = [v19 logKey];
+    *v23 = 138543618;
+    *&v23[4] = v18;
+    *&v23[12] = 2114;
+    *&v23[14] = v14;
+    v15 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &dword_275BC3000, v10, 1, "%{public}@: [%{public}@] Successfully disabled automatic download kinds.", v23, 22, *v23, *&v23[8], v24);
+  }
+
+  v20 = v15;
+
+  if (v20)
+  {
+    v10 = [MEMORY[0x277CCACA8] stringWithCString:v20 encoding:4];
+    free(v20);
     SSFileLog();
 LABEL_28:
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_disableBookkeeper
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D69B38] = [MEMORY[0x277D69B38] sharedAccountsLogoutConfig];
   if (!mEMORY[0x277D69B38])
   {
@@ -414,16 +416,21 @@ LABEL_28:
   shouldLog = [mEMORY[0x277D69B38] shouldLog];
   if ([mEMORY[0x277D69B38] shouldLogToDisk])
   {
-    v5 = shouldLog | 2;
+    LODWORD(v5) = shouldLog | 2;
   }
 
   else
   {
-    v5 = shouldLog;
+    LODWORD(v5) = shouldLog;
   }
 
   oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
@@ -433,26 +440,24 @@ LABEL_28:
     v7 = objc_opt_class();
     v8 = v7;
     logKey = [(ISLogoutOperation *)self logKey];
-    v60 = 138543618;
-    v61 = v7;
-    v62 = 2114;
-    v63 = logKey;
-    LODWORD(v53) = 22;
-    v52 = &v60;
-    v10 = _os_log_send_and_compose_impl();
+    v59 = 138543618;
+    v60 = v7;
+    v61 = 2114;
+    v62 = logKey;
+    v10 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &dword_275BC3000, oSLogObject, 1, "%{public}@: [%{public}@] Disabling bookkeeper.", &v59, 22);
 
     if (!v10)
     {
-      goto LABEL_12;
+      goto LABEL_13;
     }
 
-    oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v10 encoding:{4, &v60, v53}];
+    oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v10 encoding:4];
     free(v10);
-    v52 = oSLogObject;
+    v51 = oSLogObject;
     SSFileLog();
   }
 
-LABEL_12:
+LABEL_13:
   v11 = [MEMORY[0x277D69C90] contextWithBagType:0];
   account = [(ISLogoutOperation *)self account];
   uniqueIdentifier = [account uniqueIdentifier];
@@ -478,12 +483,12 @@ LABEL_12:
       v21 = [(ISLogoutOperation *)self _createDisableBookkeeperRequestPropertiesWithURL:v20];
       [(ISURLOperation *)mEMORY[0x277D69B38]4 setRequestProperties:v21];
 
-      v59 = 0;
-      [(ISOperation *)self runSubOperation:mEMORY[0x277D69B38]4 returningError:&v59];
-      oSLogObject3 = v59;
+      v58 = 0;
+      [(ISOperation *)self runSubOperation:mEMORY[0x277D69B38]4 returningError:&v58];
+      oSLogObject3 = v58;
       mEMORY[0x277D69B38]2 = [MEMORY[0x277D69B38] sharedAccountsLogoutConfig];
       mEMORY[0x277D69B38]3 = mEMORY[0x277D69B38]2;
-      v57 = v15;
+      v56 = v15;
       if (oSLogObject3)
       {
         if (!mEMORY[0x277D69B38]2)
@@ -510,37 +515,37 @@ LABEL_12:
 
         if (v27)
         {
-          v55 = v14;
+          v54 = v14;
           v28 = objc_opt_class();
-          v54 = v28;
+          v53 = v28;
           logKey2 = [(ISLogoutOperation *)self logKey];
-          v60 = 138543874;
-          v61 = v28;
-          v62 = 2114;
-          v63 = logKey2;
-          v64 = 2114;
-          v65 = oSLogObject3;
-          LODWORD(v53) = 32;
-          v30 = _os_log_send_and_compose_impl();
+          v59 = 138543874;
+          v60 = v28;
+          v61 = 2114;
+          v62 = logKey2;
+          v63 = 2114;
+          v64 = oSLogObject3;
+          LODWORD(v52) = 32;
+          v30 = _os_log_send_and_compose_impl(v27, 0, 0, 0, &dword_275BC3000, oSLogObject2, 16, "%{public}@: [%{public}@] Failed to disable bookkeeper. error = %{public}@", &v59, v52);
 
           if (v30)
           {
-            v14 = v55;
-LABEL_57:
-            v15 = v57;
-            oSLogObject2 = [MEMORY[0x277CCACA8] stringWithCString:v30 encoding:{4, &v60, v53}];
+            v14 = v54;
+LABEL_58:
+            v15 = v56;
+            oSLogObject2 = [MEMORY[0x277CCACA8] stringWithCString:v30 encoding:4];
             free(v30);
             SSFileLog();
-LABEL_59:
+LABEL_60:
 
-LABEL_63:
-            goto LABEL_64;
+LABEL_64:
+            goto LABEL_65;
           }
 
-          v14 = v55;
-LABEL_62:
-          v15 = v57;
-          goto LABEL_63;
+          v14 = v54;
+LABEL_63:
+          v15 = v56;
+          goto LABEL_64;
         }
       }
 
@@ -571,27 +576,27 @@ LABEL_62:
         if (v47)
         {
           v48 = objc_opt_class();
-          v56 = v48;
+          v55 = v48;
           logKey3 = [(ISLogoutOperation *)self logKey];
-          v60 = 138543618;
-          v61 = v48;
-          v62 = 2114;
-          v63 = logKey3;
+          v59 = 138543618;
+          v60 = v48;
+          v61 = 2114;
+          v62 = logKey3;
           v50 = logKey3;
-          LODWORD(v53) = 22;
-          v30 = _os_log_send_and_compose_impl();
+          LODWORD(v52) = 22;
+          v30 = _os_log_send_and_compose_impl(v47, 0, 0, 0, &dword_275BC3000, oSLogObject2, 1, "%{public}@: [%{public}@] Successfully disabled bookkeeper.", &v59, v52);
 
           if (v30)
           {
-            goto LABEL_57;
+            goto LABEL_58;
           }
 
-          goto LABEL_62;
+          goto LABEL_63;
         }
       }
 
-      v15 = v57;
-      goto LABEL_59;
+      v15 = v56;
+      goto LABEL_60;
     }
 
     mEMORY[0x277D69B38]4 = [MEMORY[0x277D69B38] sharedAccountsLogoutConfig];
@@ -624,35 +629,35 @@ LABEL_62:
 
     if (!v41)
     {
-      goto LABEL_64;
-    }
-
-    v58 = v15;
-    v42 = objc_opt_class();
-    v43 = v42;
-    logKey4 = [(ISLogoutOperation *)self logKey];
-    v60 = 138543618;
-    v61 = v42;
-    v62 = 2114;
-    v63 = logKey4;
-    LODWORD(v53) = 22;
-    v45 = _os_log_send_and_compose_impl();
-
-    if (v45)
-    {
-      oSLogObject3 = [MEMORY[0x277CCACA8] stringWithCString:v45 encoding:{4, &v60, v53}];
-      free(v45);
-      SSFileLog();
-      v15 = v58;
-LABEL_64:
-
       goto LABEL_65;
     }
 
-    v15 = v58;
+    v57 = v15;
+    v42 = objc_opt_class();
+    v43 = v42;
+    logKey4 = [(ISLogoutOperation *)self logKey];
+    v59 = 138543618;
+    v60 = v42;
+    v61 = 2114;
+    v62 = logKey4;
+    LODWORD(v52) = 22;
+    v45 = _os_log_send_and_compose_impl(v41, 0, 0, 0, &dword_275BC3000, oSLogObject3, 16, "%{public}@: [%{public}@] Unable to disable bookkeeper. Bag is misconfigured and doesn't contain add push notification type url.", &v59, v52);
+
+    if (v45)
+    {
+      oSLogObject3 = [MEMORY[0x277CCACA8] stringWithCString:v45 encoding:4];
+      free(v45);
+      SSFileLog();
+      v15 = v57;
 LABEL_65:
 
-    goto LABEL_66;
+      goto LABEL_66;
+    }
+
+    v15 = v57;
+LABEL_66:
+
+    goto LABEL_67;
   }
 
   mEMORY[0x277D69B38]5 = [MEMORY[0x277D69B38] sharedAccountsLogoutConfig];
@@ -685,33 +690,31 @@ LABEL_65:
 
   if (!v33)
   {
-    goto LABEL_65;
+    goto LABEL_66;
   }
 
   v34 = v15;
   v35 = objc_opt_class();
   v36 = v35;
   logKey5 = [(ISLogoutOperation *)self logKey];
-  v60 = 138543618;
-  v61 = v35;
-  v62 = 2114;
-  v63 = logKey5;
-  LODWORD(v53) = 22;
-  v38 = _os_log_send_and_compose_impl();
+  v59 = 138543618;
+  v60 = v35;
+  v61 = 2114;
+  v62 = logKey5;
+  LODWORD(v52) = 22;
+  v38 = _os_log_send_and_compose_impl(v33, 0, 0, 0, &dword_275BC3000, mEMORY[0x277D69B38]4, 16, "%{public}@: [%{public}@] Unable to disable bookkeeper. Bag is misconfigured and doesn't contain the push notification types.", &v59, v52);
 
   if (v38)
   {
-    mEMORY[0x277D69B38]4 = [MEMORY[0x277CCACA8] stringWithCString:v38 encoding:{4, &v60, v53}];
+    mEMORY[0x277D69B38]4 = [MEMORY[0x277CCACA8] stringWithCString:v38 encoding:4];
     free(v38);
     SSFileLog();
     v15 = v34;
-    goto LABEL_65;
+    goto LABEL_66;
   }
 
   v15 = v34;
-LABEL_66:
-
-  v51 = *MEMORY[0x277D85DE8];
+LABEL_67:
 }
 
 - (id)_sbsyncData
@@ -750,7 +753,7 @@ LABEL_66:
 
 - (void)_sendLogoutRequest
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D69B38] = [MEMORY[0x277D69B38] sharedAccountsLogoutConfig];
   if (!mEMORY[0x277D69B38])
   {
@@ -760,16 +763,21 @@ LABEL_66:
   shouldLog = [mEMORY[0x277D69B38] shouldLog];
   if ([mEMORY[0x277D69B38] shouldLogToDisk])
   {
-    v5 = shouldLog | 2;
+    LODWORD(v5) = shouldLog | 2;
   }
 
   else
   {
-    v5 = shouldLog;
+    LODWORD(v5) = shouldLog;
   }
 
   oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
@@ -779,26 +787,24 @@ LABEL_66:
     v7 = objc_opt_class();
     v8 = v7;
     logKey = [(ISLogoutOperation *)self logKey];
-    v32 = 138543618;
-    v33 = v7;
-    v34 = 2114;
-    v35 = logKey;
-    LODWORD(v30) = 22;
-    v29 = &v32;
-    v10 = _os_log_send_and_compose_impl();
+    v31 = 138543618;
+    v32 = v7;
+    v33 = 2114;
+    v34 = logKey;
+    v10 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &dword_275BC3000, oSLogObject, 1, "%{public}@: [%{public}@] Sending logout request.", &v31, 22);
 
     if (!v10)
     {
-      goto LABEL_12;
+      goto LABEL_13;
     }
 
-    oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v10 encoding:{4, &v32, v30}];
+    oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v10 encoding:4];
     free(v10);
-    v29 = oSLogObject;
+    v28 = oSLogObject;
     SSFileLog();
   }
 
-LABEL_12:
+LABEL_13:
   v11 = objc_alloc_init(ISStoreURLOperation);
   _copyAuthenticationContext = [(ISLogoutOperation *)self _copyAuthenticationContext];
   [(ISURLOperation *)v11 setAuthenticationContext:_copyAuthenticationContext];
@@ -810,12 +816,12 @@ LABEL_12:
   [(ISURLOperation *)v11 setRequestProperties:_createLogoutRequestProperties];
 
   [(ISStoreURLOperation *)v11 setUseUserSpecificURLBag:1];
-  v31 = 0;
-  [(ISOperation *)self runSubOperation:v11 returningError:&v31];
-  v15 = v31;
+  v30 = 0;
+  [(ISOperation *)self runSubOperation:v11 returningError:&v30];
+  v15 = v30;
   if (!v15)
   {
-    goto LABEL_25;
+    goto LABEL_27;
   }
 
   mEMORY[0x277D69B38]2 = [MEMORY[0x277D69B38] sharedAccountsLogoutConfig];
@@ -827,48 +833,52 @@ LABEL_12:
   shouldLog2 = [mEMORY[0x277D69B38]2 shouldLog];
   if ([mEMORY[0x277D69B38]2 shouldLogToDisk])
   {
-    v18 = shouldLog2 | 2;
+    LODWORD(v18) = shouldLog2 | 2;
   }
 
   else
   {
-    v18 = shouldLog2;
+    LODWORD(v18) = shouldLog2;
   }
 
   oSLogObject2 = [mEMORY[0x277D69B38]2 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
+  {
+    v18 = v18;
+  }
+
+  else
   {
     v18 &= 2u;
   }
 
   if (!v18)
   {
-    goto LABEL_23;
+    goto LABEL_25;
   }
 
   v20 = objc_opt_class();
   v21 = v20;
   logKey2 = [(ISLogoutOperation *)self logKey];
-  v32 = 138543874;
-  v33 = v20;
-  v34 = 2114;
-  v35 = logKey2;
-  v36 = 2114;
-  v37 = v15;
-  LODWORD(v30) = 32;
-  v29 = &v32;
-  v23 = _os_log_send_and_compose_impl();
+  v31 = 138543874;
+  v32 = v20;
+  v33 = 2114;
+  v34 = logKey2;
+  v35 = 2114;
+  v36 = v15;
+  LODWORD(v29) = 32;
+  v23 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &dword_275BC3000, oSLogObject2, 16, "%{public}@: [%{public}@] An error occurred while sending logout request. error = %{public}@", &v31, v29);
 
   if (v23)
   {
-    oSLogObject2 = [MEMORY[0x277CCACA8] stringWithCString:v23 encoding:{4, &v32, v30}];
+    oSLogObject2 = [MEMORY[0x277CCACA8] stringWithCString:v23 encoding:4];
     free(v23);
-    v29 = oSLogObject2;
+    v28 = oSLogObject2;
     SSFileLog();
-LABEL_23:
+LABEL_25:
   }
 
-LABEL_25:
+LABEL_27:
   dataProvider = [(ISURLOperation *)v11 dataProvider];
   output = [dataProvider output];
 
@@ -882,8 +892,6 @@ LABEL_25:
       [v27 importSubscriptionKeyBagData:v26 returningError:0];
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 @end

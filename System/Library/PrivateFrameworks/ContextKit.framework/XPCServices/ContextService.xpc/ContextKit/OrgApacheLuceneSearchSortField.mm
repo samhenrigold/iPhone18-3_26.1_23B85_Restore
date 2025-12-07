@@ -3,6 +3,7 @@
 - (BOOL)isEqual:(id)equal;
 - (BOOL)needsScores;
 - (id)description;
+- (id)getComparatorWithInt:(int)int withInt:(int)withInt;
 - (unint64_t)hash;
 - (void)dealloc;
 - (void)setMissingValueWithId:(id)id;
@@ -285,6 +286,132 @@ LABEL_12:
   return v5;
 }
 
+- (id)getComparatorWithInt:(int)int withInt:(int)withInt
+{
+  v4 = *&withInt;
+  v5 = *&int;
+  ordinal = [(JavaLangEnum *)self->type_ ordinal];
+  if (ordinal <= 4)
+  {
+    if (ordinal > 1)
+    {
+      if (ordinal == 2)
+      {
+        v18 = new_OrgApacheLuceneSearchFieldComparator_TermOrdValComparator_initWithInt_withNSString_withBoolean_(v5, self->field_, self->missingValue_ == OrgApacheLuceneSearchSortField_STRING_LAST_);
+        goto LABEL_27;
+      }
+
+      if (ordinal == 3)
+      {
+        p_missingValue = &self->missingValue_;
+        missingValue = self->missingValue_;
+        v26 = p_missingValue[1];
+        objc_opt_class();
+        if (!missingValue || (objc_opt_isKindOfClass() & 1) != 0)
+        {
+          v18 = new_OrgApacheLuceneSearchFieldComparator_IntComparator_initWithInt_withNSString_withJavaLangInteger_(v5, v26, missingValue);
+          goto LABEL_27;
+        }
+      }
+
+      else
+      {
+        v17 = &self->missingValue_;
+        v15 = self->missingValue_;
+        v16 = v17[1];
+        objc_opt_class();
+        if (!v15 || (objc_opt_isKindOfClass() & 1) != 0)
+        {
+          v18 = new_OrgApacheLuceneSearchFieldComparator_FloatComparator_initWithInt_withNSString_withJavaLangFloat_(v5, v16, v15);
+LABEL_27:
+
+          return v18;
+        }
+      }
+
+LABEL_34:
+      JreThrowClassCastException();
+    }
+
+    if (!ordinal)
+    {
+      v18 = new_OrgApacheLuceneSearchFieldComparator_RelevanceComparator_initWithInt_(v5);
+      goto LABEL_27;
+    }
+
+    if (ordinal == 1)
+    {
+      v18 = new_OrgApacheLuceneSearchFieldComparator_DocComparator_initWithInt_(v5);
+      goto LABEL_27;
+    }
+
+    goto LABEL_38;
+  }
+
+  if (ordinal <= 6)
+  {
+    if (ordinal == 5)
+    {
+      v24 = &self->missingValue_;
+      v22 = self->missingValue_;
+      v23 = v24[1];
+      objc_opt_class();
+      if (!v22 || (objc_opt_isKindOfClass() & 1) != 0)
+      {
+        v18 = new_OrgApacheLuceneSearchFieldComparator_LongComparator_initWithInt_withNSString_withJavaLangLong_(v5, v23, v22);
+        goto LABEL_27;
+      }
+    }
+
+    else
+    {
+      v21 = &self->missingValue_;
+      v19 = self->missingValue_;
+      v20 = v21[1];
+      objc_opt_class();
+      if (!v19 || (objc_opt_isKindOfClass() & 1) != 0)
+      {
+        v18 = new_OrgApacheLuceneSearchFieldComparator_DoubleComparator_initWithInt_withNSString_withJavaLangDouble_(v5, v20, v19);
+        goto LABEL_27;
+      }
+    }
+
+    goto LABEL_34;
+  }
+
+  if (ordinal != 7)
+  {
+    if (ordinal == 8)
+    {
+      v18 = new_OrgApacheLuceneSearchFieldComparator_TermValComparator_initWithInt_withNSString_withBoolean_(v5, self->field_, self->missingValue_ == OrgApacheLuceneSearchSortField_STRING_LAST_);
+      goto LABEL_27;
+    }
+
+    if (ordinal == 10)
+    {
+      v32 = @"SortField needs to be rewritten through Sort.rewrite(..) and SortField.rewrite(..)";
+      goto LABEL_39;
+    }
+
+LABEL_38:
+    v32 = JreStrcat("$@", v8, v9, v10, v11, v12, v13, v14, @"Illegal sort type: ");
+LABEL_39:
+    v33 = new_JavaLangIllegalStateException_initWithNSString_(v32);
+    objc_exception_throw(v33);
+  }
+
+  comparatorSource = self->comparatorSource_;
+  if (!comparatorSource)
+  {
+    JreThrowNullPointerException();
+  }
+
+  field = self->field_;
+  reverse = self->reverse_;
+
+  return [(OrgApacheLuceneSearchFieldComparatorSource *)comparatorSource newComparatorWithNSString:field withInt:v5 withInt:v4 withBoolean:reverse];
+}
+
 - (BOOL)needsScores
 {
   type = self->type_;
@@ -293,7 +420,7 @@ LABEL_12:
     sub_100055468();
   }
 
-  return type == OrgApacheLuceneSearchSortField_TypeEnum_values_;
+  return type == OrgApacheLuceneSearchSortField_TypeEnum_values_[0];
 }
 
 - (void)dealloc
@@ -312,7 +439,7 @@ LABEL_12:
       sub_100055468();
     }
 
-    v2 = OrgApacheLuceneSearchSortField_TypeEnum_values_;
+    v2 = OrgApacheLuceneSearchSortField_TypeEnum_values_[0];
     v3 = [OrgApacheLuceneSearchSortField alloc];
     OrgApacheLuceneSearchSortField_initWithNSString_withOrgApacheLuceneSearchSortField_TypeEnum_(v3, 0, v2);
     JreStrongAssignAndConsume(&OrgApacheLuceneSearchSortField_FIELD_SCORE_, v3);

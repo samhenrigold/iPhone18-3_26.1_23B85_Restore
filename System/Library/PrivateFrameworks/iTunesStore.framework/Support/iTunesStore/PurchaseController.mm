@@ -247,15 +247,21 @@
     shouldLog = [v7 shouldLog];
     if ([v7 shouldLogToDisk])
     {
-      v9 = shouldLog | 2;
+      LODWORD(v9) = shouldLog | 2;
     }
 
     else
     {
-      v9 = shouldLog;
+      LODWORD(v9) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v7 OSLogObject], OS_LOG_TYPE_INFO))
+    oSLogObject = [v7 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    {
+      v9 = v9;
+    }
+
+    else
     {
       v9 &= 2u;
     }
@@ -268,15 +274,13 @@
       count = xpc_array_get_count(purchases);
       v20 = 2112;
       clientCopy = client;
-      LODWORD(v14) = 32;
-      v13 = &v16;
-      v10 = _os_log_send_and_compose_impl();
-      if (v10)
+      v11 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Cancel %zu purchases for client: %@", &v16, 32);
+      if (v11)
       {
-        v11 = v10;
-        v12 = [NSString stringWithCString:v10 encoding:4, &v16, v14];
-        free(v11);
-        v13 = v12;
+        v12 = v11;
+        v13 = [NSString stringWithCString:v11 encoding:4];
+        free(v12);
+        v14 = v13;
         SSFileLog();
       }
     }
@@ -302,15 +306,21 @@
   shouldLog = [v7 shouldLog];
   if ([v7 shouldLogToDisk])
   {
-    v9 = shouldLog | 2;
+    LODWORD(v9) = shouldLog | 2;
   }
 
   else
   {
-    v9 = shouldLog;
+    LODWORD(v9) = shouldLog;
   }
 
-  if (!os_log_type_enabled([v7 OSLogObject], OS_LOG_TYPE_INFO))
+  oSLogObject = [v7 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v9 = v9;
+  }
+
+  else
   {
     v9 &= 2u;
   }
@@ -321,23 +331,21 @@
     *&v17[4] = objc_opt_class();
     *&v17[12] = 2112;
     *&v17[14] = client;
-    LODWORD(v15) = 22;
-    v14 = v17;
-    v10 = _os_log_send_and_compose_impl();
-    if (v10)
+    v11 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Connected purchase manager: %@", v17, 22);
+    if (v11)
     {
-      v11 = v10;
-      v12 = [NSString stringWithCString:v10 encoding:4, v17, v15];
-      free(v11);
-      v14 = v12;
+      v12 = v11;
+      v13 = [NSString stringWithCString:v11 encoding:4];
+      free(v12);
+      v15 = v13;
       SSFileLog();
     }
   }
 
-  v13 = [client outputConnection] == 0;
+  v14 = [client outputConnection] == 0;
   [client setOutputConnectionWithConnection:connection];
   [client ackConnection];
-  if (v13 && [client finishesPurchases])
+  if (v14 && [client finishesPurchases])
   {
     *v17 = 0;
     *&v17[8] = v17;
@@ -375,15 +383,21 @@
     shouldLog = [v6 shouldLog];
     if ([v6 shouldLogToDisk])
     {
-      v8 = shouldLog | 2;
+      LODWORD(v8) = shouldLog | 2;
     }
 
     else
     {
-      v8 = shouldLog;
+      LODWORD(v8) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v6 OSLogObject], OS_LOG_TYPE_INFO))
+    oSLogObject = [v6 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    {
+      v8 = v8;
+    }
+
+    else
     {
       v8 &= 2u;
     }
@@ -396,15 +410,13 @@
       count = xpc_array_get_count(identifiers);
       v19 = 2112;
       clientCopy = client;
-      LODWORD(v13) = 32;
-      v12 = &v15;
-      v9 = _os_log_send_and_compose_impl();
-      if (v9)
+      v10 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Finishing: %zu purchases for client: %@", &v15, 32);
+      if (v10)
       {
-        v10 = v9;
-        v11 = [NSString stringWithCString:v9 encoding:4, &v15, v13];
-        free(v10);
-        v12 = v11;
+        v11 = v10;
+        v12 = [NSString stringWithCString:v10 encoding:4];
+        free(v11);
+        v13 = v12;
         SSFileLog();
       }
     }
@@ -432,121 +444,130 @@
     shouldLog = [v9 shouldLog];
     if ([v9 shouldLogToDisk])
     {
-      v11 = shouldLog | 2;
+      LODWORD(v11) = shouldLog | 2;
     }
 
     else
     {
-      v11 = shouldLog;
+      LODWORD(v11) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v9 OSLogObject], OS_LOG_TYPE_INFO))
+    oSLogObject = [v9 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    {
+      v11 = v11;
+    }
+
+    else
     {
       v11 &= 2u;
     }
 
     if (v11)
     {
-      *v42 = 138412802;
-      *&v42[4] = objc_opt_class();
-      *&v42[12] = 2048;
-      *&v42[14] = [v8 count];
-      *&v42[22] = 2112;
+      *v44 = 138412802;
+      *&v44[4] = objc_opt_class();
+      *&v44[12] = 2048;
+      *&v44[14] = [v8 count];
+      *&v44[22] = 2112;
       clientCopy = client;
-      LODWORD(v27) = 32;
-      v25 = v42;
-      v12 = _os_log_send_and_compose_impl();
-      if (v12)
+      v13 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Inserting %lu purchases for client: %@", v44, 32);
+      if (v13)
       {
-        v13 = v12;
-        v14 = [NSString stringWithCString:v12 encoding:4, v42, v27];
-        free(v13);
-        v25 = v14;
+        v14 = v13;
+        v15 = [NSString stringWithCString:v13 encoding:4];
+        free(v14);
+        v27 = v15;
         SSFileLog();
       }
     }
 
-    *v42 = 0;
-    *&v42[8] = v42;
-    *&v42[16] = 0x3052000000;
+    *v44 = 0;
+    *&v44[8] = v44;
+    *&v44[16] = 0x3052000000;
     clientCopy = sub_100215494;
-    v44 = sub_1002154A4;
-    v45 = 0;
-    v30 = 0;
-    v31 = &v30;
-    v32 = 0x3052000000;
-    v33 = sub_100215494;
-    v34 = sub_1002154A4;
-    v35 = 0;
-    v29[0] = _NSConcreteStackBlock;
-    v29[1] = 3221225472;
-    v29[2] = sub_100216FA8;
-    v29[3] = &unk_10032C790;
-    v29[4] = self;
-    v29[5] = v8;
-    v29[8] = &v30;
-    v29[9] = d;
-    v29[6] = client;
-    v29[7] = v42;
+    v46 = sub_1002154A4;
+    v47 = 0;
+    v32 = 0;
+    v33 = &v32;
+    v34 = 0x3052000000;
+    v35 = sub_100215494;
+    v36 = sub_1002154A4;
+    v37 = 0;
+    v31[0] = _NSConcreteStackBlock;
+    v31[1] = 3221225472;
+    v31[2] = sub_100216FA8;
+    v31[3] = &unk_10032C790;
+    v31[4] = self;
+    v31[5] = v8;
+    v31[8] = &v32;
+    v31[9] = d;
+    v31[6] = client;
+    v31[7] = v44;
     [+[DownloadsDatabase downloadsDatabase](DownloadsDatabase downloadsDatabase];
-    if ([*(*&v42[8] + 40) count])
+    if ([*(*&v44[8] + 40) count])
     {
-      v15 = +[SSLogConfig sharedDaemonConfig];
-      if (!v15)
+      v16 = +[SSLogConfig sharedDaemonConfig];
+      if (!v16)
       {
-        v15 = +[SSLogConfig sharedConfig];
+        v16 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog2 = [v15 shouldLog];
-      shouldLogToDisk = [v15 shouldLogToDisk];
-      oSLogObject = [v15 OSLogObject];
+      LODWORD(v17) = [v16 shouldLog];
+      shouldLogToDisk = [v16 shouldLogToDisk];
+      oSLogObject2 = [v16 OSLogObject];
+      v20 = oSLogObject2;
       if (shouldLogToDisk)
       {
-        shouldLog2 |= 2u;
+        LODWORD(v17) = v17 | 2;
       }
 
-      if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
       {
-        shouldLog2 &= 2u;
+        v17 = v17;
       }
 
-      if (shouldLog2)
+      else
       {
-        v19 = objc_opt_class();
-        v20 = [*(*&v42[8] + 40) count];
-        v36 = 138412802;
-        v37 = v19;
-        v38 = 2048;
-        v39 = v20;
-        v40 = 2112;
+        v17 &= 2u;
+      }
+
+      if (v17)
+      {
+        v21 = objc_opt_class();
+        v22 = [*(*&v44[8] + 40) count];
+        v38 = 138412802;
+        v39 = v21;
+        v40 = 2048;
+        v41 = v22;
+        v42 = 2112;
         clientCopy2 = client;
-        LODWORD(v27) = 32;
-        v26 = &v36;
-        v21 = _os_log_send_and_compose_impl();
-        if (v21)
+        LODWORD(v29) = 32;
+        v23 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &_mh_execute_header, v20, 0, "%@: Skipping %ld existing purchases from client: %@", &v38, v29);
+        if (v23)
         {
-          v22 = v21;
-          v23 = [NSString stringWithCString:v21 encoding:4, &v36, v27];
-          free(v22);
-          v26 = v23;
+          v24 = v23;
+          v25 = [NSString stringWithCString:v23 encoding:4];
+          free(v24);
+          v28 = v25;
           SSFileLog();
         }
       }
 
-      v24 = *(*&v42[8] + 40);
-      v28[0] = _NSConcreteStackBlock;
-      v28[1] = 3221225472;
-      v28[2] = sub_10021723C;
-      v28[3] = &unk_10032C7B8;
-      v28[4] = client;
-      [v24 enumerateKeysAndObjectsUsingBlock:{v28, v26}];
+      v26 = *(*&v44[8] + 40);
+      v30[0] = _NSConcreteStackBlock;
+      v30[1] = 3221225472;
+      v30[2] = sub_10021723C;
+      v30[3] = &unk_10032C7B8;
+      v30[4] = client;
+      [v26 enumerateKeysAndObjectsUsingBlock:{v30, v28}];
     }
 
-    [(PurchaseController *)self _authenticateForPurchases:v31[5] client:client];
+    [(PurchaseController *)self _authenticateForPurchases:v33[5] client:client];
     [(PurchaseController *)self _enqueueNextPurchase];
 
-    _Block_object_dispose(&v30, 8);
-    _Block_object_dispose(v42, 8);
+    _Block_object_dispose(&v32, 8);
+    _Block_object_dispose(v44, 8);
   }
 }
 
@@ -561,15 +582,21 @@
   shouldLog = [v5 shouldLog];
   if ([v5 shouldLogToDisk])
   {
-    v7 = shouldLog | 2;
+    LODWORD(v7) = shouldLog | 2;
   }
 
   else
   {
-    v7 = shouldLog;
+    LODWORD(v7) = shouldLog;
   }
 
-  if (!os_log_type_enabled([v5 OSLogObject], OS_LOG_TYPE_INFO))
+  oSLogObject = [v5 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v7 = v7;
+  }
+
+  else
   {
     v7 &= 2u;
   }
@@ -580,15 +607,13 @@
     v15 = objc_opt_class();
     v16 = 2112;
     identifierCopy = identifier;
-    LODWORD(v13) = 22;
-    v12 = &v14;
-    v8 = _os_log_send_and_compose_impl();
-    if (v8)
+    v9 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Canceled inflight purchase: %@", &v14, 22);
+    if (v9)
     {
-      v9 = v8;
-      v10 = [NSString stringWithCString:v8 encoding:4, &v14, v13];
-      free(v9);
-      v12 = v10;
+      v10 = v9;
+      v11 = [NSString stringWithCString:v9 encoding:4];
+      free(v10);
+      v13 = v11;
       SSFileLog();
     }
   }
@@ -600,7 +625,7 @@
     self->_inflightCanceledIdentifiers = inflightCanceledIdentifiers;
   }
 
-  [(NSMutableSet *)inflightCanceledIdentifiers addObject:identifier, v12];
+  [(NSMutableSet *)inflightCanceledIdentifiers addObject:identifier, v13];
 }
 
 - (void)_moveEncodedPurchaseIDs:(id)ds afterPurchaseID:(int64_t)d forClient:(id)client
@@ -667,122 +692,131 @@
     shouldLog = [v7 shouldLog];
     if ([v7 shouldLogToDisk])
     {
-      v9 = shouldLog | 2;
+      LODWORD(v9) = shouldLog | 2;
     }
 
     else
     {
-      v9 = shouldLog;
+      LODWORD(v9) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v7 OSLogObject], OS_LOG_TYPE_INFO))
+    oSLogObject = [v7 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    {
+      v9 = v9;
+    }
+
+    else
     {
       v9 &= 2u;
     }
 
     if (v9)
     {
-      *v40 = 138412802;
-      *&v40[4] = objc_opt_class();
-      *&v40[12] = 2048;
-      *&v40[14] = [purchases count];
-      *&v40[22] = 2112;
+      *v42 = 138412802;
+      *&v42[4] = objc_opt_class();
+      *&v42[12] = 2048;
+      *&v42[14] = [purchases count];
+      *&v42[22] = 2112;
       clientCopy = client;
-      LODWORD(v25) = 32;
-      v23 = v40;
-      v10 = _os_log_send_and_compose_impl();
-      if (v10)
+      v11 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "[%@]: Adding %lu purchases from client: %@", v42, 32);
+      if (v11)
       {
-        v11 = v10;
-        v12 = [NSString stringWithCString:v10 encoding:4, v40, v25];
-        free(v11);
-        v23 = v12;
+        v12 = v11;
+        v13 = [NSString stringWithCString:v11 encoding:4];
+        free(v12);
+        v25 = v13;
         SSFileLog();
       }
     }
 
-    *v40 = 0;
-    *&v40[8] = v40;
-    *&v40[16] = 0x3052000000;
+    *v42 = 0;
+    *&v42[8] = v42;
+    *&v42[16] = 0x3052000000;
     clientCopy = sub_100215494;
-    v42 = sub_1002154A4;
-    v43 = 0;
-    v28 = 0;
-    v29 = &v28;
-    v30 = 0x3052000000;
-    v31 = sub_100215494;
-    v32 = sub_1002154A4;
-    v33 = 0;
-    v27[0] = _NSConcreteStackBlock;
-    v27[1] = 3221225472;
-    v27[2] = sub_100217D24;
-    v27[3] = &unk_10032C808;
-    v27[4] = self;
-    v27[5] = purchases;
-    v27[7] = v40;
-    v27[8] = &v28;
-    v27[6] = client;
+    v44 = sub_1002154A4;
+    v45 = 0;
+    v30 = 0;
+    v31 = &v30;
+    v32 = 0x3052000000;
+    v33 = sub_100215494;
+    v34 = sub_1002154A4;
+    v35 = 0;
+    v29[0] = _NSConcreteStackBlock;
+    v29[1] = 3221225472;
+    v29[2] = sub_100217D24;
+    v29[3] = &unk_10032C808;
+    v29[4] = self;
+    v29[5] = purchases;
+    v29[7] = v42;
+    v29[8] = &v30;
+    v29[6] = client;
     [+[DownloadsDatabase downloadsDatabase](DownloadsDatabase downloadsDatabase];
-    if ([*(*&v40[8] + 40) count])
+    if ([*(*&v42[8] + 40) count])
     {
-      v13 = +[SSLogConfig sharedDaemonConfig];
-      if (!v13)
+      v14 = +[SSLogConfig sharedDaemonConfig];
+      if (!v14)
       {
-        v13 = +[SSLogConfig sharedConfig];
+        v14 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog2 = [v13 shouldLog];
-      shouldLogToDisk = [v13 shouldLogToDisk];
-      oSLogObject = [v13 OSLogObject];
+      LODWORD(v15) = [v14 shouldLog];
+      shouldLogToDisk = [v14 shouldLogToDisk];
+      oSLogObject2 = [v14 OSLogObject];
+      v18 = oSLogObject2;
       if (shouldLogToDisk)
       {
-        shouldLog2 |= 2u;
+        LODWORD(v15) = v15 | 2;
       }
 
-      if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
       {
-        shouldLog2 &= 2u;
+        v15 = v15;
       }
 
-      if (shouldLog2)
+      else
       {
-        v17 = objc_opt_class();
-        v18 = [*(*&v40[8] + 40) count];
-        v34 = 138412802;
-        v35 = v17;
-        v36 = 2048;
-        v37 = v18;
-        v38 = 2112;
+        v15 &= 2u;
+      }
+
+      if (v15)
+      {
+        v19 = objc_opt_class();
+        v20 = [*(*&v42[8] + 40) count];
+        v36 = 138412802;
+        v37 = v19;
+        v38 = 2048;
+        v39 = v20;
+        v40 = 2112;
         clientCopy2 = client;
-        LODWORD(v25) = 32;
-        v24 = &v34;
-        v19 = _os_log_send_and_compose_impl();
-        if (v19)
+        LODWORD(v27) = 32;
+        v21 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &_mh_execute_header, v18, 0, "%@: Skipping %ld existing purchases from client: %@", &v36, v27);
+        if (v21)
         {
-          v20 = v19;
-          v21 = [NSString stringWithCString:v19 encoding:4, &v34, v25];
-          free(v20);
-          v24 = v21;
+          v22 = v21;
+          v23 = [NSString stringWithCString:v21 encoding:4];
+          free(v22);
+          v26 = v23;
           SSFileLog();
         }
       }
 
-      v22 = *(*&v40[8] + 40);
-      v26[0] = _NSConcreteStackBlock;
-      v26[1] = 3221225472;
-      v26[2] = sub_100217FB4;
-      v26[3] = &unk_10032C7B8;
-      v26[4] = client;
-      [v22 enumerateKeysAndObjectsUsingBlock:{v26, v24}];
+      v24 = *(*&v42[8] + 40);
+      v28[0] = _NSConcreteStackBlock;
+      v28[1] = 3221225472;
+      v28[2] = sub_100217FB4;
+      v28[3] = &unk_10032C7B8;
+      v28[4] = client;
+      [v24 enumerateKeysAndObjectsUsingBlock:{v28, v26}];
     }
 
-    if ([v29[5] count])
+    if ([v31[5] count])
     {
-      [(PurchaseController *)self _beginPurchaseBatch:v29[5] forClient:client];
+      [(PurchaseController *)self _beginPurchaseBatch:v31[5] forClient:client];
     }
 
-    _Block_object_dispose(&v28, 8);
-    _Block_object_dispose(v40, 8);
+    _Block_object_dispose(&v30, 8);
+    _Block_object_dispose(v42, 8);
   }
 }
 
@@ -871,36 +905,36 @@ LABEL_11:
 
 - (void)_beginPurchaseBatch:(id)batch forClient:(id)client
 {
-  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v7 = [batch countByEnumeratingWithState:&v28 objects:v38 count:16];
+  v32 = 0u;
+  v7 = [batch countByEnumeratingWithState:&v29 objects:v39 count:16];
   if (!v7)
   {
-    goto LABEL_22;
+    goto LABEL_23;
   }
 
   v8 = v7;
   v9 = 0;
-  v10 = *v29;
+  v10 = *v30;
   do
   {
     for (i = 0; i != v8; i = i + 1)
     {
-      if (*v29 != v10)
+      if (*v30 != v10)
       {
         objc_enumerationMutation(batch);
       }
 
-      v12 = *(*(&v28 + 1) + 8 * i);
+      v12 = *(*(&v29 + 1) + 8 * i);
       if ([v12 createsDownloads])
       {
         v9 += [v12 expectedDownloadFileSize];
       }
     }
 
-    v8 = [batch countByEnumeratingWithState:&v28 objects:v38 count:16];
+    v8 = [batch countByEnumeratingWithState:&v29 objects:v39 count:16];
   }
 
   while (v8);
@@ -919,55 +953,60 @@ LABEL_11:
     shouldLog = [v17 shouldLog];
     if ([v17 shouldLogToDisk])
     {
-      v19 = shouldLog | 2;
+      LODWORD(v19) = shouldLog | 2;
     }
 
     else
     {
-      v19 = shouldLog;
+      LODWORD(v19) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v17 OSLogObject], OS_LOG_TYPE_DEBUG))
+    oSLogObject = [v17 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    {
+      v19 = v19;
+    }
+
+    else
     {
       v19 &= 2u;
     }
 
     if (v19)
     {
-      v20 = objc_opt_class();
-      v21 = [batch count];
-      v32 = 138412802;
-      v33 = v20;
-      v34 = 2048;
-      v35 = v9;
-      v36 = 2048;
-      v37 = v21;
-      LODWORD(v26) = 32;
-      v25 = &v32;
-      v22 = _os_log_send_and_compose_impl();
-      if (v22)
+      v21 = objc_opt_class();
+      v22 = [batch count];
+      v33 = 138412802;
+      v34 = v21;
+      v35 = 2048;
+      v36 = v9;
+      v37 = 2048;
+      v38 = v22;
+      LODWORD(v27) = 32;
+      v23 = _os_log_send_and_compose_impl(v19, 0, 0, 0, &_mh_execute_header, oSLogObject, 2, "%@: Requesting %llu bytes for %lu purchases", &v33, v27);
+      if (v23)
       {
-        v23 = v22;
-        v24 = [NSString stringWithCString:v22 encoding:4, &v32, v26];
-        free(v23);
-        v25 = v24;
+        v24 = v23;
+        v25 = [NSString stringWithCString:v23 encoding:4];
+        free(v24);
+        v26 = v25;
         SSFileLog();
       }
     }
 
-    v27[0] = _NSConcreteStackBlock;
-    v27[1] = 3221225472;
-    v27[2] = sub_10021861C;
-    v27[3] = &unk_10032C858;
-    v27[4] = self;
-    v27[5] = batch;
-    v27[6] = client;
-    [+[ISDevice requestFreeSpace:v25]atPath:"requestFreeSpace:atPath:withOptions:completionBlock:" withOptions:v9 completionBlock:v16, v15, v27];
+    v28[0] = _NSConcreteStackBlock;
+    v28[1] = 3221225472;
+    v28[2] = sub_10021861C;
+    v28[3] = &unk_10032C858;
+    v28[4] = self;
+    v28[5] = batch;
+    v28[6] = client;
+    [+[ISDevice requestFreeSpace:v26]atPath:"requestFreeSpace:atPath:withOptions:completionBlock:" withOptions:v9 completionBlock:v16, v15, v28];
   }
 
   else
   {
-LABEL_22:
+LABEL_23:
     [(PurchaseController *)self _authenticateForPurchases:batch client:client];
     [(PurchaseController *)self _enqueueNextPurchase];
   }
@@ -1036,15 +1075,21 @@ LABEL_22:
   shouldLog = [v8 shouldLog];
   if ([v8 shouldLogToDisk])
   {
-    v10 = shouldLog | 2;
+    LODWORD(v10) = shouldLog | 2;
   }
 
   else
   {
-    v10 = shouldLog;
+    LODWORD(v10) = shouldLog;
   }
 
-  if (!os_log_type_enabled([v8 OSLogObject], OS_LOG_TYPE_INFO))
+  oSLogObject = [v8 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v10 = v10;
+  }
+
+  else
   {
     v10 &= 2u;
   }
@@ -1055,13 +1100,12 @@ LABEL_22:
     v16 = objc_opt_class();
     v17 = 2112;
     v18 = v6;
-    LODWORD(v14) = 22;
-    v11 = _os_log_send_and_compose_impl();
-    if (v11)
+    v12 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Checking queue(s) after purchase trigger-download with kind: %@", &v15, 22);
+    if (v12)
     {
-      v12 = v11;
-      [NSString stringWithCString:v11 encoding:4, &v15, v14];
-      free(v12);
+      v13 = v12;
+      [NSString stringWithCString:v12 encoding:4];
+      free(v13);
       SSFileLog();
     }
   }
@@ -1070,12 +1114,12 @@ LABEL_22:
   {
     if (userIdentifier)
     {
-      v13 = objc_alloc_init(StoreDownloadQueueRequest);
-      [(StoreDownloadQueueRequest *)v13 setAccountIdentifier:userIdentifier];
-      -[StoreDownloadQueueRequest setCancelsDuplicateDownloads:](v13, "setCancelsDuplicateDownloads:", [objc_msgSend(purchase valueForDownloadProperty:{SSDownloadPropertyShouldCancelIfDuplicate), "BOOLValue"}]);
-      -[StoreDownloadQueueRequest setPurchaseIdentifier:](v13, "setPurchaseIdentifier:", [purchase uniqueIdentifier]);
-      [(StoreDownloadQueueRequest *)v13 setQueueIdentifier:sub_10012E754(v6)];
-      [(StoreDownloadQueueRequest *)v13 setReason:@"trigger-download"];
+      v14 = objc_alloc_init(StoreDownloadQueueRequest);
+      [(StoreDownloadQueueRequest *)v14 setAccountIdentifier:userIdentifier];
+      -[StoreDownloadQueueRequest setCancelsDuplicateDownloads:](v14, "setCancelsDuplicateDownloads:", [objc_msgSend(purchase valueForDownloadProperty:{SSDownloadPropertyShouldCancelIfDuplicate), "BOOLValue"}]);
+      -[StoreDownloadQueueRequest setPurchaseIdentifier:](v14, "setPurchaseIdentifier:", [purchase uniqueIdentifier]);
+      [(StoreDownloadQueueRequest *)v14 setQueueIdentifier:sub_10012E754(v6)];
+      [(StoreDownloadQueueRequest *)v14 setReason:@"trigger-download"];
       [+[StoreDownloadQueue sharedDownloadQueue](StoreDownloadQueue "sharedDownloadQueue")];
     }
   }
@@ -1307,26 +1351,26 @@ LABEL_3:
 {
   v6 = objc_alloc_init(NSMutableDictionary);
   obj = purchases;
-  v29 = objc_alloc_init(NSMutableArray);
-  v32 = 0u;
+  v30 = objc_alloc_init(NSMutableArray);
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v7 = [purchases countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v36 = 0u;
+  v7 = [purchases countByEnumeratingWithState:&v33 objects:v37 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v33;
+    v9 = *v34;
     do
     {
       for (i = 0; i != v8; i = i + 1)
       {
-        if (*v33 != v9)
+        if (*v34 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v32 + 1) + 8 * i);
+        v11 = *(*(&v33 + 1) + 8 * i);
         v12 = objc_autoreleasePoolPush();
         v13 = [transaction existingDownloadForPurchase:v11];
         [v13 valueForProperty:@"kind"];
@@ -1354,72 +1398,72 @@ LABEL_3:
             shouldLog |= 2u;
           }
 
-          if (os_log_type_enabled([v15 OSLogObject], OS_LOG_TYPE_INFO))
+          oSLogObject = [v15 OSLogObject];
+          if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
           {
-            v17 = shouldLog;
+            v18 = shouldLog;
           }
 
           else
           {
-            v17 = shouldLog & 2;
+            v18 = shouldLog & 2;
           }
 
-          if (v17)
+          if (v18)
           {
-            v31[0] = 0;
-            LODWORD(v26) = 2;
-            v25 = v31;
-            v18 = _os_log_send_and_compose_impl();
-            if (v18)
+            v32[0] = 0;
+            LODWORD(v27) = 2;
+            v19 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "Found existing book download, sending to bookassetd to sort it out", v32, v27);
+            if (v19)
             {
-              v19 = v18;
-              v20 = [NSString stringWithCString:v18 encoding:4, v31, v26];
-              free(v19);
-              v25 = v20;
+              v20 = v19;
+              v21 = [NSString stringWithCString:v19 encoding:4];
+              free(v20);
+              v26 = v21;
               SSFileLog();
             }
           }
 
 LABEL_23:
-          [v29 addObject:{v11, v25}];
+          [v30 addObject:{v11, v26}];
           goto LABEL_28;
         }
 
-        v21 = IsSoftwareKind ^ 1;
+        v22 = IsSoftwareKind ^ 1;
         if (!v13)
         {
-          v21 = 0;
+          v22 = 0;
         }
 
-        if ((v21 & 1) == 0)
+        if ((v22 & 1) == 0)
         {
           goto LABEL_23;
         }
 
-        v22 = [[NSNumber alloc] initWithLongLong:{objc_msgSend(v13, "databaseID")}];
-        v23 = [v6 objectForKey:v22];
-        if (v23)
+        v23 = [[NSNumber alloc] initWithLongLong:{objc_msgSend(v13, "databaseID")}];
+        v24 = [v6 objectForKey:v23];
+        if (v24)
         {
-          [v23 addObject:v11];
+          [v24 addObject:v11];
         }
 
         else
         {
-          v24 = [[NSMutableArray alloc] initWithObjects:{v11, 0}];
-          [v6 setObject:v24 forKey:v22];
+          v25 = [[NSMutableArray alloc] initWithObjects:{v11, 0}];
+          [v6 setObject:v25 forKey:v23];
         }
 
 LABEL_28:
         objc_autoreleasePoolPop(v12);
       }
 
-      v8 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v8 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
     }
 
     while (v8);
   }
 
-  (*(block + 2))(block, v29, v6);
+  (*(block + 2))(block, v30, v6);
 }
 
 - (void)_finishAuthenticationRequestForBatchIdentifier:(int64_t)identifier client:(id)client withAccountID:(id)d error:(id)error

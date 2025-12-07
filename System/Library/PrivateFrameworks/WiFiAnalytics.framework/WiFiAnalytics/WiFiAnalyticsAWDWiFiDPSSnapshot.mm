@@ -278,27 +278,7 @@
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
-  if (![equalCopy isMemberOfClass:objc_opt_class()])
-  {
-    goto LABEL_22;
-  }
-
-  txCompletionSnapshotBE = self->_txCompletionSnapshotBE;
-  if (txCompletionSnapshotBE | equalCopy[7])
-  {
-    if (![(WiFiAnalyticsAWDWiFiDPSPerACTxCompletionSnapshot *)txCompletionSnapshotBE isEqual:?])
-    {
-      goto LABEL_22;
-    }
-  }
-
-  txCompletionSnapshotBK = self->_txCompletionSnapshotBK;
-  if (txCompletionSnapshotBK | equalCopy[8] && ![(WiFiAnalyticsAWDWiFiDPSPerACTxCompletionSnapshot *)txCompletionSnapshotBK isEqual:?])
-  {
-    goto LABEL_22;
-  }
-
-  if (((txCompletionSnapshotVO = self->_txCompletionSnapshotVO, !(txCompletionSnapshotVO | equalCopy[10])) || [(WiFiAnalyticsAWDWiFiDPSPerACTxCompletionSnapshot *)txCompletionSnapshotVO isEqual:?]) && ((txCompletionSnapshotVI = self->_txCompletionSnapshotVI, !(txCompletionSnapshotVI | equalCopy[9])) || [(WiFiAnalyticsAWDWiFiDPSPerACTxCompletionSnapshot *)txCompletionSnapshotVI isEqual:?]) && ((btSnapshot = self->_btSnapshot, !(btSnapshot | equalCopy[2])) || [(WiFiAnalyticsAWDWiFiDPSBTSnapshot *)btSnapshot isEqual:?]) && ((awdlSnapshot = self->_awdlSnapshot, !(awdlSnapshot | equalCopy[1])) || [(WiFiAnalyticsAWDWiFiDPSAWDLSnapshot *)awdlSnapshot isEqual:?]) && ((rc1Snapshot = self->_rc1Snapshot, !(rc1Snapshot | equalCopy[5])) || [(WiFiAnalyticsAWDWiFiUsageSnapshot *)rc1Snapshot isEqual:?]) && ((rc2Snapshot = self->_rc2Snapshot, !(rc2Snapshot | equalCopy[6])) || [(WiFiAnalyticsAWDWiFiUsageSnapshot *)rc2Snapshot isEqual:?]) && ((lteSnapshot = self->_lteSnapshot, !(lteSnapshot | equalCopy[3])) || [(WiFiAnalyticsAWDWiFiUsageSnapshot *)lteSnapshot isEqual:?]))
+  if ([equalCopy isMemberOfClass:objc_opt_class()] && ((txCompletionSnapshotBE = self->_txCompletionSnapshotBE, !(txCompletionSnapshotBE | equalCopy[7])) || -[WiFiAnalyticsAWDWiFiDPSPerACTxCompletionSnapshot isEqual:](txCompletionSnapshotBE, "isEqual:")) && ((txCompletionSnapshotBK = self->_txCompletionSnapshotBK, !(txCompletionSnapshotBK | equalCopy[8])) || -[WiFiAnalyticsAWDWiFiDPSPerACTxCompletionSnapshot isEqual:](txCompletionSnapshotBK, "isEqual:")) && ((txCompletionSnapshotVO = self->_txCompletionSnapshotVO, !(txCompletionSnapshotVO | equalCopy[10])) || -[WiFiAnalyticsAWDWiFiDPSPerACTxCompletionSnapshot isEqual:](txCompletionSnapshotVO, "isEqual:")) && ((txCompletionSnapshotVI = self->_txCompletionSnapshotVI, !(txCompletionSnapshotVI | equalCopy[9])) || -[WiFiAnalyticsAWDWiFiDPSPerACTxCompletionSnapshot isEqual:](txCompletionSnapshotVI, "isEqual:")) && ((btSnapshot = self->_btSnapshot, !(btSnapshot | equalCopy[2])) || -[WiFiAnalyticsAWDWiFiDPSBTSnapshot isEqual:](btSnapshot, "isEqual:")) && ((awdlSnapshot = self->_awdlSnapshot, !(awdlSnapshot | equalCopy[1])) || -[WiFiAnalyticsAWDWiFiDPSAWDLSnapshot isEqual:](awdlSnapshot, "isEqual:")) && ((rc1Snapshot = self->_rc1Snapshot, !(rc1Snapshot | equalCopy[5])) || -[WiFiAnalyticsAWDWiFiUsageSnapshot isEqual:](rc1Snapshot, "isEqual:")) && ((rc2Snapshot = self->_rc2Snapshot, !(rc2Snapshot | equalCopy[6])) || -[WiFiAnalyticsAWDWiFiUsageSnapshot isEqual:](rc2Snapshot, "isEqual:")) && ((lteSnapshot = self->_lteSnapshot, !(lteSnapshot | equalCopy[3])) || -[WiFiAnalyticsAWDWiFiUsageSnapshot isEqual:](lteSnapshot, "isEqual:")))
   {
     nanSnapshot = self->_nanSnapshot;
     if (nanSnapshot | equalCopy[4])
@@ -314,7 +294,6 @@
 
   else
   {
-LABEL_22:
     v15 = 0;
   }
 

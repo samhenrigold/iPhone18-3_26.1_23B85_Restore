@@ -3,7 +3,7 @@
 
 @implementation AXSPointerScaleWithZoomLevelEnabled
 
-uint64_t ___AXSPointerScaleWithZoomLevelEnabled_block_invoke()
+void *___AXSPointerScaleWithZoomLevelEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

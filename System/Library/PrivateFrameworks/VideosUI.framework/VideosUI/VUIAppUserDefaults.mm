@@ -24,12 +24,12 @@
   return v2;
 }
 
-void __40__VUIAppUserDefaults_sharedUserDefaults__block_invoke()
+void __40__VUIAppUserDefaults_sharedUserDefaults__block_invoke(uint64_t a1)
 {
   objc_opt_class();
-  v0 = objc_opt_new();
-  v1 = sharedUserDefaults_userDefaults;
-  sharedUserDefaults_userDefaults = v0;
+  v1 = objc_opt_new();
+  v2 = sharedUserDefaults_userDefaults;
+  sharedUserDefaults_userDefaults = v1;
 }
 
 - (id)dataForKey:(id)key

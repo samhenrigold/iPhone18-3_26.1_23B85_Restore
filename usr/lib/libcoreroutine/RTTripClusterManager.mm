@@ -7447,7 +7447,8 @@ LABEL_4:
     v13 = 6;
     do
     {
-      *v28 = 0uLL;
+      *v28 = 0;
+      *&v28[8] = 0;
       v14 = [routeCopy objectAtIndexedSubscript:v11];
       countOfTraversal = [v14 countOfTraversal];
       minimumTraversalCountForLearnedRoutes = [(RTTripClusterManager *)self minimumTraversalCountForLearnedRoutes];
@@ -7460,8 +7461,8 @@ LABEL_4:
 
         if (*v28 < __PAIR128__(v13, v12))
         {
-          v13 = *&v28[8];
           v12 = *v28;
+          v13 = *&v28[8];
           v10 = v11;
         }
       }

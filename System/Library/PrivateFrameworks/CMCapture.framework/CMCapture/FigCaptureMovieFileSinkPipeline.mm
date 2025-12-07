@@ -1,63 +1,63 @@
 @interface FigCaptureMovieFileSinkPipeline
 + (void)initialize;
 - (double)irisVISCleanOutputRectForCLAP;
+- (id)fileCoordinatorNode;
 - (id)initWithConfiguration:(uint64_t)configuration videoSourceCaptureOutputsByConnectionID:(uint64_t)d audioSourceCaptureOutput:(uint64_t)output audioSourceCinematicAudioCaptureOutput:(uint64_t)captureOutput smartCameraInferenceOutput:(void *)inferenceOutput detectedObjectBoxedMetadataOutputs:(uint64_t)outputs objectDetectionSourceOutput:(uint64_t)sourceOutput metadataSourcePipelineOutputs:(uint64_t)self0 graph:(uint64_t)self1 name:(uint64_t)self2 inferenceScheduler:(void *)self3 captureDevicesByConnectionID:(uint64_t)self4 audioSourceDelegate:(uint64_t)self5 fileCoordinatorStatusDelegate:(uint64_t)self6 recordingStatusDelegate:(uint64_t)self7 irisRequestDelegate:(uint64_t)self8 multiCamClientCompositingCallback:(uint64_t)self9 masterClock:(unsigned __int8)clock delayedCompressorCleanupEnabled:;
+- (id)irisStagingNode;
+- (id)liveReconfigureForOutputDimensions:(id *)result;
+- (id)setMrcSceneObserver:(id *)result;
+- (id)setOverCaptureTailPipelineRenderingEnabled:(id *)result;
+- (id)setRecording:(unint64_t)recording forTailPipelineIndex:;
+- (id)setRecordingForAllTailPipelines:(id *)result;
+- (id)setSceneClassifierSuspended:(id *)result;
+- (id)setSemanticStyleSceneObserver:(id *)result;
+- (id)videoConnectionID;
+- (id)videoOrientationMetadataNode;
+- (id)videoSourceDeviceType;
+- (id)videoSourceID;
 - (uint64_t)atLeastOneTailIsRecording;
-- (uint64_t)fileCoordinatorNode;
-- (uint64_t)irisStagingNode;
-- (uint64_t)ispProcessingSession;
-- (uint64_t)liveReconfigureForOutputDimensions:(uint64_t)result;
 - (uint64_t)movieFileSinkNodes;
 - (uint64_t)overCaptureEnabled;
 - (uint64_t)primaryCaptureDevice;
 - (uint64_t)primaryMovieFileVideoCaptureConnectionConfiguration;
 - (uint64_t)sdofCompressorNodes;
-- (uint64_t)setMrcSceneObserver:(uint64_t)result;
-- (uint64_t)setRecording:(unint64_t)recording forTailPipelineIndex:;
-- (uint64_t)setSceneClassifierSuspended:(uint64_t)result;
-- (uint64_t)setSemanticStyleSceneObserver:(uint64_t)result;
-- (uint64_t)setUpBackPressureForResolvedRetainedBufferCounts;
 - (uint64_t)smartStyleReversibilityEnabled;
 - (uint64_t)videoCompressorNodes;
-- (uint64_t)videoConnectionID;
-- (uint64_t)videoOrientationMetadataNode;
-- (uint64_t)videoSourceDeviceType;
-- (uint64_t)videoSourceID;
 - (uint64_t)videoStabilizationStrength;
-- (unint64_t)setOverCaptureTailPipelineRenderingEnabled:(unint64_t)result;
-- (unint64_t)setRecordingForAllTailPipelines:(unint64_t)result;
 - (void)dealloc;
+- (void)ispProcessingSession;
+- (void)setUpBackPressureForResolvedRetainedBufferCounts;
 @end
 
 @implementation FigCaptureMovieFileSinkPipeline
 
-- (uint64_t)videoSourceDeviceType
+- (id)videoSourceDeviceType
 {
   if (result)
   {
-    return [*(result + 56) videoSourceDeviceType];
+    return [result[7] videoSourceDeviceType];
   }
 
   return result;
 }
 
-- (uint64_t)videoSourceID
+- (id)videoSourceID
 {
   if (result)
   {
-    return [*(result + 56) videoSourceID];
+    return [result[7] videoSourceID];
   }
 
   return result;
 }
 
-- (uint64_t)setUpBackPressureForResolvedRetainedBufferCounts
+- (void)setUpBackPressureForResolvedRetainedBufferCounts
 {
   if (result)
   {
     v8 = result;
-    v9 = *(result + 72);
-    result = OUTLINED_FUNCTION_1_3(result, a2, a3, a4, a5, a6, a7, a8, v24, v26, v28, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, 0);
+    v9 = result[9];
+    result = OUTLINED_FUNCTION_1_3(result, a2, a3, a4, a5, a6, a7, a8, v24, v26, v28, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54);
     if (result)
     {
       v10 = result;
@@ -72,15 +72,15 @@
             objc_enumerationMutation(v9);
           }
 
-          irisIntermediateJPEGPhotoDecompressorNode = [*(v8 + 56) irisIntermediateJPEGPhotoDecompressorNode];
-          [*(v8 + 56) videoDefringingNode];
+          irisIntermediateJPEGPhotoDecompressorNode = [v8[7] irisIntermediateJPEGPhotoDecompressorNode];
+          [v8[7] videoDefringingNode];
           v14 = OUTLINED_FUNCTION_7();
           v16 = [(FigCaptureMovieFileSinkTailPipeline *)v14 setUpBackPressureSemaphoresWithIrisIntermediateJPEGPhotoDecompressorNode:irisIntermediateJPEGPhotoDecompressorNode videoDefringingNode:v15];
-          ++v12;
+          v12 = (v12 + 1);
         }
 
         while (v10 != v12);
-        result = OUTLINED_FUNCTION_1_3(v16, v17, v18, v19, v20, v21, v22, v23, v25, v27, v29, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v56);
+        result = OUTLINED_FUNCTION_1_3(v16, v17, v18, v19, v20, v21, v22, v23, v25, v27, v29, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55);
         v10 = result;
       }
 
@@ -91,11 +91,11 @@
   return result;
 }
 
-- (uint64_t)irisStagingNode
+- (id)irisStagingNode
 {
   if (result)
   {
-    return [*(result + 56) irisStagingNode];
+    return [result[7] irisStagingNode];
   }
 
   return result;
@@ -119,27 +119,28 @@
   [(FigCaptureSinkPipeline *)&v3 dealloc];
 }
 
-- (uint64_t)setRecording:(unint64_t)recording forTailPipelineIndex:
+- (id)setRecording:(unint64_t)recording forTailPipelineIndex:
 {
   if (result)
   {
+    v4 = a2;
     v5 = result;
-    if ([*(result + 72) count] < recording)
+    if ([result[9] count] < recording)
     {
       [FigCaptureMovieFileSinkPipeline setRecording:forTailPipelineIndex:];
     }
 
-    return [(FigCaptureMovieFileSinkPipeline *)v5 setRecording:recording forTailPipelineIndex:a2];
+    return [(FigCaptureMovieFileSinkPipeline *)v5 setRecording:recording forTailPipelineIndex:v4];
   }
 
   return result;
 }
 
-- (uint64_t)videoOrientationMetadataNode
+- (id)videoOrientationMetadataNode
 {
   if (result)
   {
-    return [*(result + 56) videoOrientationMetadataNode];
+    return [result[7] videoOrientationMetadataNode];
   }
 
   return result;
@@ -213,7 +214,7 @@ LABEL_86:
         }
 
         v74 = v27;
-        v31 = BWCreateWorkgroupWithName();
+        v31 = BWCreateWorkgroupWithName("com.apple.coremedia.capture.moviefile");
         selfCopy[16] = v31;
         v32 = [BWPipelineStage pipelineStageWithName:@"com.apple.coremedia.capture.moviefile" priority:14 workgroup:v31];
         [BWPipelineStage pipelineStageWithName:@"com.apple.coremedia.capture.moviefile.transfer" priority:14 workgroup:selfCopy[16]];
@@ -504,8 +505,8 @@ LABEL_55:
 
 LABEL_90:
         OUTLINED_FUNCTION_0();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
 LABEL_95:
-        FigDebugAssert3();
 
         return 0;
       }
@@ -513,57 +514,58 @@ LABEL_95:
 
 LABEL_94:
     OUTLINED_FUNCTION_0();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     goto LABEL_95;
   }
 
   return selfCopy;
 }
 
-- (uint64_t)setMrcSceneObserver:(uint64_t)result
+- (id)setMrcSceneObserver:(id *)result
 {
   if (result)
   {
-    return [*(result + 56) setMrcSceneObserver:a2];
+    return [result[7] setMrcSceneObserver:a2];
   }
 
   return result;
 }
 
-- (uint64_t)setSemanticStyleSceneObserver:(uint64_t)result
+- (id)setSemanticStyleSceneObserver:(id *)result
 {
   if (result)
   {
-    return [*(result + 56) setSemanticStyleSceneObserver:a2];
+    return [result[7] setSemanticStyleSceneObserver:a2];
   }
 
   return result;
 }
 
-- (uint64_t)videoConnectionID
+- (id)videoConnectionID
 {
   if (result)
   {
-    return [*(result + 56) videoConnectionID];
+    return [result[7] videoConnectionID];
   }
 
   return result;
 }
 
-- (uint64_t)fileCoordinatorNode
+- (id)fileCoordinatorNode
 {
   if (result)
   {
-    return [*(result + 56) fileCoordinatorNode];
+    return [result[7] fileCoordinatorNode];
   }
 
   return result;
 }
 
-- (uint64_t)ispProcessingSession
+- (void)ispProcessingSession
 {
   if (result)
   {
-    v8 = *(result + 72);
+    v8 = result[9];
     result = OUTLINED_FUNCTION_57(result, a2, a3, a4, a5, a6, a7, a8, v19);
     if (result)
     {
@@ -623,32 +625,32 @@ LABEL_4:
   return result;
 }
 
-- (uint64_t)setSceneClassifierSuspended:(uint64_t)result
+- (id)setSceneClassifierSuspended:(id *)result
 {
   if (result)
   {
-    return [*(result + 56) setSceneClassifierSuspended:a2];
+    return [result[7] setSceneClassifierSuspended:a2];
   }
 
   return result;
 }
 
-- (unint64_t)setRecordingForAllTailPipelines:(unint64_t)result
+- (id)setRecordingForAllTailPipelines:(id *)result
 {
   if (result)
   {
     v3 = result;
-    result = [*(result + 72) count];
+    result = [result[9] count];
     if (result)
     {
       for (i = 0; i < result; ++i)
       {
         if ((*(v3 + 113) & 1) != 0 || i != 1)
         {
-          [objc_msgSend(*(v3 + 72) objectAtIndexedSubscript:{i), "setRecording:", a2}];
+          [objc_msgSend(v3[9] objectAtIndexedSubscript:{i), "setRecording:", a2}];
         }
 
-        result = [*(v3 + 72) count];
+        result = [v3[9] count];
       }
     }
   }
@@ -679,12 +681,12 @@ LABEL_4:
   return result;
 }
 
-- (unint64_t)setOverCaptureTailPipelineRenderingEnabled:(unint64_t)result
+- (id)setOverCaptureTailPipelineRenderingEnabled:(id *)result
 {
   if (result)
   {
     v3 = result;
-    result = [*(result + 72) count];
+    result = [result[9] count];
     if (result >= 2)
     {
       *(v3 + 113) = a2;
@@ -694,15 +696,15 @@ LABEL_4:
   return result;
 }
 
-- (uint64_t)liveReconfigureForOutputDimensions:(uint64_t)result
+- (id)liveReconfigureForOutputDimensions:(id *)result
 {
   if (result)
   {
     v3 = result;
-    -[FigCaptureVISPipeline liveReconfigureForOutputDimensions:]([*(result + 64) overCaptureVISPipeline], a2);
-    -[FigCaptureVISPipeline liveReconfigureForOutputDimensions:]([*(v3 + 64) visPipeline], a2);
-    v4 = *(v3 + 72);
-    result = OUTLINED_FUNCTION_1_3(v5, v6, v7, v8, v9, v10, v11, v12, v25, v27, v29, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, 0);
+    -[FigCaptureVISPipeline liveReconfigureForOutputDimensions:]([result[8] overCaptureVISPipeline], a2);
+    -[FigCaptureVISPipeline liveReconfigureForOutputDimensions:]([v3[8] visPipeline], a2);
+    v4 = v3[9];
+    result = OUTLINED_FUNCTION_1_3(v5, v6, v7, v8, v9, v10, v11, v12, v25, v27, v29, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55);
     if (result)
     {
       v13 = result;
@@ -722,11 +724,11 @@ LABEL_4:
           [objc_msgSend(v16 "scalerNode")];
           [objc_msgSend(v16 "scalerNode")];
           v17 = [objc_msgSend(v16 "smartCropNode")];
-          ++v15;
+          v15 = (v15 + 1);
         }
 
         while (v13 != v15);
-        result = OUTLINED_FUNCTION_1_3(v17, v18, v19, v20, v21, v22, v23, v24, v26, v28, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v57);
+        result = OUTLINED_FUNCTION_1_3(v17, v18, v19, v20, v21, v22, v23, v24, v26, v28, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56);
         v13 = result;
       }
 
@@ -813,11 +815,11 @@ LABEL_4:
   return result;
 }
 
-- (uint64_t)setRecording:(char)a3 forTailPipelineIndex:.cold.2(uint64_t result, uint64_t a2, char a3)
+- (id)setRecording:(char)a3 forTailPipelineIndex:.cold.2(id *result, uint64_t a2, char a3)
 {
   if (a2 != 1 || (*(result + 113) & 1) != 0)
   {
-    v4 = [*(result + 72) objectAtIndexedSubscript:a2];
+    v4 = [result[9] objectAtIndexedSubscript:a2];
 
     return [v4 setRecording:a3 & 1];
   }

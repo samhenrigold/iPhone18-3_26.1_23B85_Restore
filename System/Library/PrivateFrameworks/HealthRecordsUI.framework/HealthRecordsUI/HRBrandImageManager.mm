@@ -286,7 +286,7 @@ void __68__HRBrandImageManager_retrieveLogoForBrand_size_options_completion___bl
     v12 = *MEMORY[0x1E696B948];
     if (os_log_type_enabled(*MEMORY[0x1E696B948], OS_LOG_TYPE_ERROR))
     {
-      [HRBrandImageManager processFetchResponseWithData:v12 error:brandCopy brand:?];
+      [HRBrandImageManager processFetchResponseWithData:v12 error:brandCopy brand:errorCopy];
     }
 
     v13 = MEMORY[0x1E696ABC0];
@@ -585,18 +585,18 @@ void __45__HRBrandImageManager__writeImageData_brand___block_invoke(uint64_t a1)
   return v3;
 }
 
-- (void)processFetchResponseWithData:(void *)a1 error:(void *)a2 brand:.cold.1(void *a1, void *a2)
+- (void)processFetchResponseWithData:(void *)a1 error:(void *)a2 brand:(uint64_t)a3 .cold.1(void *a1, void *a2, uint64_t a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v3 = a1;
-  v4 = [a2 externalID];
-  v5 = HKSensitiveLogItem();
+  v12 = *MEMORY[0x1E69E9840];
+  v4 = a1;
+  v5 = [a2 externalID];
   v6 = HKSensitiveLogItem();
-  v7 = 138412546;
-  v8 = v5;
-  v9 = 2114;
-  v10 = v6;
-  _os_log_error_impl(&dword_1D101F000, v3, OS_LOG_TYPE_ERROR, "Unable to fetch image for brand %@. error: %{public}@", &v7, 0x16u);
+  v7 = HKSensitiveLogItem();
+  v8 = 138412546;
+  v9 = v6;
+  v10 = 2114;
+  v11 = v7;
+  _os_log_error_impl(&dword_1D101F000, v4, OS_LOG_TYPE_ERROR, "Unable to fetch image for brand %@. error: %{public}@", &v8, 0x16u);
 }
 
 @end

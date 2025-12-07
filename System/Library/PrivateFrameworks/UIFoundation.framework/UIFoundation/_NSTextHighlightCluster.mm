@@ -1,8 +1,8 @@
 @interface _NSTextHighlightCluster
-- (uint64_t)addRunsWithTextRangeArray:(uint64_t)result;
 - (uint64_t)bottomNeighborExistsAtPoint:(uint64_t)point withinDistance:(double)distance withLeftCornerExtensionDistance:(double)extensionDistance withRightCornerExtensionDistance:(double)cornerExtensionDistance;
 - (uint64_t)topNeighborExistsAtPoint:(uint64_t)point withinDistance:(double)distance withLeftCornerExtensionDistance:(double)extensionDistance withRightCornerExtensionDistance:(double)cornerExtensionDistance;
 - (void)accessBorderDict:(id)dict forKey:(double)key usingBlock:(id)block;
+- (void)addRunsWithTextRangeArray:(void *)result;
 - (void)addToBorderDict:(id)dict key:(double)key object:(CGRect)object;
 - (void)drawRunsUsingBlock:(uint64_t)block;
 - (void)initWithShapeProvider:(void *)provider;
@@ -133,23 +133,39 @@
 - (void)registerMinYOfRun:(id)run
 {
   runCopy = run;
-  if (runCopy && [runCopy[7] count])
+  v4 = runCopy;
+  if (runCopy)
   {
-    [_NSTextHighlightCluster registerMinYOfRun:];
+    v5 = runCopy;
+    runCopy = [runCopy[7] count];
+    v4 = v5;
+    if (runCopy)
+    {
+      [_NSTextHighlightCluster registerMinYOfRun:];
+      v4 = v5;
+    }
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](runCopy, v4);
 }
 
 - (void)registerMaxYOfRun:(id)run
 {
   runCopy = run;
-  if (runCopy && [runCopy[7] count])
+  v4 = runCopy;
+  if (runCopy)
   {
-    [_NSTextHighlightCluster registerMaxYOfRun:];
+    v5 = runCopy;
+    runCopy = [runCopy[7] count];
+    v4 = v5;
+    if (runCopy)
+    {
+      [_NSTextHighlightCluster registerMaxYOfRun:];
+      v4 = v5;
+    }
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](runCopy, v4);
 }
 
 - (void)initWithShapeProvider:(void *)provider
@@ -181,7 +197,7 @@
   return provider;
 }
 
-- (uint64_t)addRunsWithTextRangeArray:(uint64_t)result
+- (void)addRunsWithTextRangeArray:(void *)result
 {
   if (result)
   {

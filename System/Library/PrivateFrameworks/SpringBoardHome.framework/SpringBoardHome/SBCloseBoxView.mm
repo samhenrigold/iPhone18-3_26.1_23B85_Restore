@@ -84,7 +84,7 @@
 {
   y = inside.y;
   x = inside.x;
-  [(SBCloseBoxView *)self bounds];
+  objc_msgSend_bounds(self, a2, event);
   v8 = v7;
   v10 = v9;
   v12 = v11;
@@ -106,7 +106,7 @@
 {
   v5 = objc_alloc_init(MEMORY[0x1E69DCE28]);
   v6 = MEMORY[0x1E69DC728];
-  [(SBCloseBoxView *)self bounds];
+  objc_msgSend_bounds(self);
   v15 = CGRectInset(v14, 1.0, 1.0);
   v7 = [v6 bezierPathWithOvalInRect:{v15.origin.x, v15.origin.y, v15.size.width, v15.size.height}];
   [v5 setShadowPath:v7];

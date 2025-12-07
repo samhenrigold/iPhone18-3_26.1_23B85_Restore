@@ -1,565 +1,65 @@
-uint64_t raven::RavenPredictor::HandleEvent(raven::RavenPredictor *this, const raven::TimeMarkEvent *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  if (*this)
-  {
-    v9 = (this + 8144);
-    result = sub_1D0B7CF88(a2 + 1, this + 1018);
-    if (result)
-    {
-      result = 0;
-      v11 = *(a2 + 24);
-      *v9 = *(a2 + 8);
-      v9[1] = v11;
-      v12 = *(a2 + 40);
-      v13 = *(a2 + 56);
-      v14 = *(a2 + 88);
-      v9[4] = *(a2 + 72);
-      v9[5] = v14;
-      v9[2] = v12;
-      v9[3] = v13;
-    }
-  }
-
-  else
-  {
-    v17 = 12;
-    v16 = 4;
-    cnprint::CNPrinter::Print(&v17, &v16, "Error: RavenPredictor::HandleEvent(TimeMarkEvent) failed. Predictor is not configured.", a4, a5, a6, a7, a8, v15);
-    return 0xFFFFFFFFLL;
-  }
-
-  return result;
-}
-
-cnprint::CNPrinter *sub_1D0BB8984(uint64_t a1, raven::RavenUserSpeedActiveObject **a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v8 = *a2;
-  sub_1D0B94708(v10, a3, a3, a4, a5, a6, a7, a8);
-  return raven::RavenUserSpeedActiveObject::HandleEvent(v8, v10);
-}
-
-cnprint::CNPrinter *raven::RavenUserSpeedActiveObject::HandleEvent(raven::RavenUserSpeedActiveObject *this, const raven::TimeMarkEvent *a2)
-{
-  result = (*(*a2 + 16))(a2);
-  *&v33 = result;
-  *(&v33 + 1) = v5;
-  if (*(this + 1320) == 1)
-  {
-    v25 = (*(*(this + 150) + 16))();
-    *&v26 = v6;
-    result = CNTimeSpan::operator-(&v33, &v25, v7, v8);
-    v10 = v9 + result;
-    if (v10 <= 3.56)
-    {
-      if (v10 >= 0.0)
-      {
-        if (*(this + 1320))
-        {
-          v24 = 0;
-          v25 = &unk_1F4CEF718;
-          v11 = *(this + 1240);
-          v29 = *(this + 1256);
-          v12 = *(this + 1288);
-          v30 = *(this + 1272);
-          v31 = v12;
-          v32 = *(this + 1304);
-          v13 = *(this + 1224);
-          v26 = *(this + 1208);
-          memset(&v23[1], 0, 64);
-          v23[0] = v33;
-          v26 = v33;
-          v27 = 0u;
-          v30 = 0u;
-          v29 = 0u;
-          v28 = 0u;
-          *&v31 = 0;
-          *(&v31 + 1) = 0x7FF8000000000000;
-          if (!cnprint::CNPrinter::GetLogLevel(result))
-          {
-            LOWORD(v23[0]) = 12;
-            v22 = 0;
-            v14 = (*(*a2 + 16))(a2);
-            v21 = v15 + v14;
-            cnprint::CNPrinter::Print(v23, &v22, "t,%.3lf,UserSpeedAO: UserSpeedEvent,age,%.2lf", v16, v17, v18, v19, v20, SLOBYTE(v21));
-          }
-
-          sub_1D0D48BB8();
-        }
-
-        sub_1D0C42F28();
-      }
-    }
-
-    else if (*(this + 1320) == 1)
-    {
-      *(this + 1320) = 0;
-    }
-  }
-
-  return result;
-}
-
-double sub_1D0BB8BAC(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v8 = *a2;
-  sub_1D0B99264(v15, a3, a3, a4, a5, a6, a7, a8);
-  v9 = v24;
-  *(v8 + 568) = v23;
-  *(v8 + 584) = v9;
-  *(v8 + 600) = v25;
-  *(v8 + 616) = v26;
-  v10 = v20;
-  *(v8 + 504) = v19;
-  *(v8 + 520) = v10;
-  v11 = v22;
-  *(v8 + 536) = v21;
-  *(v8 + 552) = v11;
-  v12 = v16;
-  *(v8 + 440) = *&v15[8];
-  *(v8 + 456) = v12;
-  result = *&v17;
-  v14 = v18;
-  *(v8 + 472) = v17;
-  *(v8 + 488) = v14;
-  return result;
-}
-
-void sub_1D0BB8C34(uint64_t a1, raven::RavenPositionContextEstimatorActiveObject **a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v8 = *a2;
-  sub_1D0B99264(v9, a3, a3, a4, a5, a6, a7, a8);
-  raven::RavenPositionContextEstimatorActiveObject::HandleEvent(v8, v9);
-}
-
-uint64_t raven::RavenPositionContextEstimator::HandleEvent(raven::RavenPositionContextEstimator *this, const raven::ActivityStateEvent *a2)
-{
-  if (*this != 1)
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  v13 = v2;
-  v14 = v3;
-  v11 = (*(*a2 + 16))(a2);
-  v12 = v6;
-  v10[0] = *(a2 + 104);
-  raven::RavenPositionContextEstimator::HandleEvidence(this, v10, v7, v8);
-  return 0;
-}
-
-void raven::RavenPositionContextEstimatorActiveObject::HandleEvent(raven::RavenPositionContextEstimatorActiveObject *this, const raven::ActivityStateEvent *a2)
-{
-  if (*(this + 224))
-  {
-    v3 = (this + 320);
-
-    raven::RavenPositionContextEstimator::HandleEvent(v3, a2);
-  }
-
-  else
-  {
-    v13 = 12;
-    v12 = 2;
-    v11[0] = (*(*a2 + 16))(a2);
-    v11[1] = v4;
-    cnprint::CNLogFormatter::FormatGeneral(this + 264, v11, "RavenPositionContextEstimatorActiveObject is not configured.");
-    if (*(this + 287) >= 0)
-    {
-      LOBYTE(v10) = this + 8;
-    }
-
-    else
-    {
-      v10 = *(this + 33);
-    }
-
-    cnprint::CNPrinter::Print(&v13, &v12, "%s", v5, v6, v7, v8, v9, v10);
-  }
-}
-
-void raven::RavenPositionContextEstimator::HandleEvidence(uint64_t a1, uint64_t a2, int8x16_t a3, int8x16_t a4)
-{
-  v6 = CNTimeSpan::operator-((a2 + 8), (a1 + 152), a3, a4);
-  v21[0] = v6;
-  *&v21[1] = v7;
-  if (v6 < 0 || (*v8.i64 = v7, v7 < 0.0))
-  {
-    v6 = CNTimeSpan::operator-(v21, v8, v9);
-    v8.i64[0] = v10;
-  }
-
-  if ((v6 || (v8.i64[0] & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL) && v6 != 10)
-  {
-    if (v6 < 11)
-    {
-      goto LABEL_16;
-    }
-  }
-
-  else if (*v8.i64 <= 0.0)
-  {
-    goto LABEL_16;
-  }
-
-  if (cnprint::CNPrinter::GetLogLevel(v6) <= 1)
-  {
-    v20 = 12;
-    v19 = 1;
-    v11 = cnprint::CNLogFormatter::FormatGeneral((a1 + 424), "RavenPositionContextEstimator::HandleEvidence(ActivityStateEvidence),last estimate is too old, re-initialize the HMM");
-    if (*(a1 + 447) >= 0)
-    {
-      LOBYTE(v17) = v11;
-    }
-
-    else
-    {
-      v17 = *(a1 + 424);
-    }
-
-    cnprint::CNPrinter::Print(&v20, &v19, "%s", v12, v13, v14, v15, v16, v17);
-  }
-
-  *(a1 + 400) = 0;
-  *(a1 + 408) = *(*(a1 + 8) + 2480);
-  raven::RavenPositionContextEstimator::InitializeHiddenMarkovModel(a1);
-LABEL_16:
-  if (*a2 != 5 || *(a1 + 176) == 1 && *(a1 + 168) >= 5.0)
-  {
-    raven::RavenPositionContextEstimator::HmmPredictAndUpdate(a1, a2);
-    if (!v18)
-    {
-
-      raven::RavenPositionContextEstimator::UpdatePositionContextStateEvent(a1);
-    }
-  }
-}
-
-{
-  v6 = CNTimeSpan::operator-((a2 + 16), (a1 + 152), a3, a4);
-  v21[0] = v6;
-  *&v21[1] = v7;
-  if (v6 < 0 || (*v8.i64 = v7, v7 < 0.0))
-  {
-    v6 = CNTimeSpan::operator-(v21, v8, v9);
-    v8.i64[0] = v10;
-  }
-
-  if ((v6 || (v8.i64[0] & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL) && v6 != 10)
-  {
-    if (v6 < 11)
-    {
-      goto LABEL_16;
-    }
-  }
-
-  else if (*v8.i64 <= 0.0)
-  {
-    goto LABEL_16;
-  }
-
-  if (cnprint::CNPrinter::GetLogLevel(v6) <= 1)
-  {
-    v20 = 12;
-    v19 = 1;
-    v11 = cnprint::CNLogFormatter::FormatGeneral((a1 + 424), "RavenPositionContextEstimator::HandleEvidence(AvailabilityEvidence),last estimate is too old, re-initialize the HMM");
-    if (*(a1 + 447) >= 0)
-    {
-      LOBYTE(v17) = v11;
-    }
-
-    else
-    {
-      v17 = *(a1 + 424);
-    }
-
-    cnprint::CNPrinter::Print(&v20, &v19, "%s", v12, v13, v14, v15, v16, v17);
-  }
-
-  *(a1 + 400) = 0;
-  *(a1 + 408) = *(*(a1 + 8) + 2480);
-  raven::RavenPositionContextEstimator::InitializeHiddenMarkovModel(a1);
-LABEL_16:
-  raven::RavenPositionContextEstimator::HmmPredictAndUpdate(a1, a2);
-  if (!v18)
-  {
-
-    raven::RavenPositionContextEstimator::UpdatePositionContextStateEvent(a1);
-  }
-}
-
-{
-  v6 = CNTimeSpan::operator-((a2 + 8), (a1 + 152), a3, a4);
-  v21[0] = v6;
-  *&v21[1] = v7;
-  if (v6 < 0 || (*v8.i64 = v7, v7 < 0.0))
-  {
-    v6 = CNTimeSpan::operator-(v21, v8, v9);
-    v8.i64[0] = v10;
-  }
-
-  if ((v6 || (v8.i64[0] & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL) && v6 != 10)
-  {
-    if (v6 < 11)
-    {
-      goto LABEL_16;
-    }
-  }
-
-  else if (*v8.i64 <= 0.0)
-  {
-    goto LABEL_16;
-  }
-
-  if (cnprint::CNPrinter::GetLogLevel(v6) <= 1)
-  {
-    v20 = 12;
-    v19 = 1;
-    v11 = cnprint::CNLogFormatter::FormatGeneral((a1 + 424), "RavenPositionContextEstimator::HandleEvidence(GnssEvidence),last estimate is too old, re-initialize the HMM");
-    if (*(a1 + 447) >= 0)
-    {
-      LOBYTE(v17) = v11;
-    }
-
-    else
-    {
-      v17 = *(a1 + 424);
-    }
-
-    cnprint::CNPrinter::Print(&v20, &v19, "%s", v12, v13, v14, v15, v16, v17);
-  }
-
-  *(a1 + 400) = 0;
-  *(a1 + 408) = *(*(a1 + 8) + 2480);
-  raven::RavenPositionContextEstimator::InitializeHiddenMarkovModel(a1);
-LABEL_16:
-  raven::RavenPositionContextEstimator::HmmPredictAndUpdate(a1, a2);
-  if (!v18)
-  {
-
-    raven::RavenPositionContextEstimator::UpdatePositionContextStateEvent(a1);
-  }
-}
-
-uint64_t raven::RavenMovingStateEstimator::GetMovingStateEvent(raven::RavenMovingStateEstimator *this, raven::MovingStateEvent *a2)
-{
-  if (*(this + 217) != 1 || *(this + 216) != 1)
-  {
-    return 0;
-  }
-
-  v42[5] = v2;
-  v42[6] = v3;
-  v5 = 72;
-  if (!*(this + 1088))
-  {
-    v5 = 8;
-  }
-
-  v40 = 0x100000003;
-  v38 = &unk_1F4CDEB28;
-  v39 = xmmword_1D0E7DCC0;
-  v41 = v42;
-  sub_1D0B894B0(&v38, this + v5 + 4216);
-  v6 = v41;
-  v7 = *v41;
-  if ((*v41 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
-  {
-    return 0;
-  }
-
-  v8 = v41[1];
-  if ((*&v8 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
-  {
-    return 0;
-  }
-
-  v9 = v41[2];
-  if ((*&v9 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
-  {
-    return 0;
-  }
-
-  v10 = 0.0;
-  if (v7 <= 1.0)
-  {
-    v11 = *v41;
-  }
-
-  else
-  {
-    v11 = 1.0;
-  }
-
-  if (v7 >= 0.0)
-  {
-    v12 = v11;
-  }
-
-  else
-  {
-    v12 = 0.0;
-  }
-
-  if (v8 <= 1.0)
-  {
-    v13 = v41[1];
-  }
-
-  else
-  {
-    v13 = 1.0;
-  }
-
-  if (v8 >= 0.0)
-  {
-    v14 = v13;
-  }
-
-  else
-  {
-    v14 = 0.0;
-  }
-
-  *v41 = v12;
-  v6[1] = v14;
-  if (v9 >= 0.0)
-  {
-    v10 = 1.0;
-    if (v9 <= 1.0)
-    {
-      v10 = v9;
-    }
-  }
-
-  v6[2] = v10;
-  v15 = DWORD1(v39);
-  if (DWORD1(v39))
-  {
-    v16 = 0;
-    v17 = v39;
-    v18 = 1;
-    do
-    {
-      v19 = v6[(v17 * v16)];
-      v20 = v18;
-      v21 = v17 - 1;
-      if (v17 >= 2)
-      {
-        do
-        {
-          v19 = v19 + v6[v20++];
-          --v21;
-        }
-
-        while (v21);
-      }
-
-      v37[v16++] = v19;
-      v18 += v17;
-    }
-
-    while (v16 != v15);
-    v22 = v37[0] + -1.0;
-  }
-
-  else
-  {
-    v22 = NAN;
-  }
-
-  if (fabs(v22) > 0.000000015)
-  {
-    return 0;
-  }
-
-  v35 = 0x100000001;
-  v33 = &unk_1F4CDF418;
-  *&v24 = 0x100000001;
-  *(&v24 + 1) = 0x100000001;
-  v34 = v24;
-  v36 = v37;
-  v30 = 0x100000001;
-  v28 = &unk_1F4CDF460;
-  v29 = v24;
-  v31 = &v32;
-  sub_1D0BBAD9C(&v38, &v33, &v28);
-  if (*v31 <= 2u)
-  {
-    *(a2 + 104) = *v31 + 1;
-  }
-
-  v25 = v41;
-  v26 = *v41;
-  *(a2 + 15) = *v41;
-  v27 = v25[1];
-  *(a2 + 16) = v27;
-  *(a2 + 17) = 1.0 - v26 - v27;
-  *(a2 + 14) = 0;
-  return 1;
-}
-
-double raven::RavenPNTEstimator::HandleEvent(raven::RavenPNTEstimator *this, const raven::MountStateEvent *a2, uint64_t a3, uint64_t a4, int8x16_t a5, int8x16_t a6)
+double raven::RavenPNTEstimator::HandleEvent(raven::RavenPNTEstimator *this, const raven::MountStateEvent *a2, int8x16_t a3, int8x16_t a4)
 {
   if (*(this + 58) == 1 && *(this + 1848) == 1)
   {
-    v8 = *(this + 1960);
-    if (v8 > 3 || v8 == 1)
+    v6 = *(this + 1960);
+    if (v6 > 3 || v6 == 1)
     {
-      v20 = *(a2 + 104);
-      v21 = v20 > 3 || v20 == 1;
-      if (!v21 && *(this + 1208) == 1 && ((*(this + 1320) - 4) & 0xFA) == 0)
+      v18 = *(a2 + 104);
+      v19 = v18 > 3 || v18 == 1;
+      if (!v19 && *(this + 1208) == 1 && ((*(this + 1320) - 4) & 0xFA) == 0)
       {
-        v22 = *(this + 146);
-        v23 = v22[118];
-        v24 = raven::RavenPNTEstimator::UseHighAccelerationParameters(this, a5, a6);
-        v25 = v24 ? 752 : 744;
-        v26 = v24 ? 776 : 768;
-        v27 = *(this + 3781);
-        v28 = *(this + 1892);
-        if (*(v28 + 48 * v27 + 48) < v23 && *(v28 + 56 * v27 + 56) < v23 && *(v28 + (v27 << 6) + 64) < v23 && *(v28 + 72 * v27 + 72) < v23)
+        v20 = *(this + 146);
+        v21 = v20[118];
+        v22 = raven::RavenPNTEstimator::UseHighAccelerationParameters(this, a3, a4);
+        v23 = v22 ? 752 : 744;
+        v24 = v22 ? 776 : 768;
+        v25 = *(this + 3781);
+        v26 = *(this + 1892);
+        if (*(v26 + 48 * v25 + 48) < v21 && *(v26 + 56 * v25 + 56) < v21 && *(v26 + (v25 << 6) + 64) < v21 && *(v26 + 72 * v25 + 72) < v21)
         {
-          v29 = *(v22 + v25) * *(v22 + v25);
-          if (*(v28 + 80 * v27 + 80) < v29 && *(v28 + 88 * v27 + 88) < v29 && *(v28 + 96 * v27 + 96) < v29)
+          v27 = *(v20 + v23) * *(v20 + v23);
+          if (*(v26 + 80 * v25 + 80) < v27 && *(v26 + 88 * v25 + 88) < v27 && *(v26 + 96 * v25 + 96) < v27)
           {
-            v30 = v22[91] * v22[91];
-            if (*(v28 + 104 * v27 + 104) < v30 && *(v28 + 112 * v27 + 112) < v30 && *(v28 + 120 * v27 + 120) < v30)
+            v28 = v20[91] * v20[91];
+            if (*(v26 + 104 * v25 + 104) < v28 && *(v26 + 112 * v25 + 112) < v28 && *(v26 + 120 * v25 + 120) < v28)
             {
-              v31 = *(v22 + v26) * *(v22 + v26);
-              if (*(v28 + (v27 << 7) + 128) < v31 && *(v28 + 136 * v27 + 136) < v31 && *(v28 + 144 * v27 + 144) < v31)
+              v29 = *(v20 + v24) * *(v20 + v24);
+              if (*(v26 + (v25 << 7) + 128) < v29 && *(v26 + 136 * v25 + 136) < v29 && *(v26 + 144 * v25 + 144) < v29)
               {
-                raven::RavenPNTEstimator::InflateAttitudeUncertainty(this, v22[178] + v22[178]);
-                raven::RavenPNTEstimator::InflateInsUncertainty(this, *(*(this + 146) + 1432));
-                v32 = *(*(this + 146) + 1448);
+                raven::RavenPNTEstimator::InflateAttitudeUncertainty(this, v20[178] + v20[178], 0);
+                raven::RavenPNTEstimator::InflateInsUncertainty(this, *(*(this + 146) + 1432), 0);
+                v30 = *(*(this + 146) + 1448);
                 if (*(this + 2760) == 1)
                 {
-                  raven::RavenPNTEstimator::InflateDeviceVelocityUncertainty(this, v32);
-                  raven::RavenPNTEstimator::InflateUserVelocityUncertainty(this, *(*(this + 146) + 1448));
-                  raven::RavenPNTEstimator::InflateUserPositionUncertainty(this, *(*(this + 146) + 1440));
+                  raven::RavenPNTEstimator::InflateDeviceVelocityUncertainty(this, v30, 0);
+                  raven::RavenPNTEstimator::InflateUserVelocityUncertainty(this, *(*(this + 146) + 1448), 0);
+                  raven::RavenPNTEstimator::InflateUserPositionUncertainty(this, *(*(this + 146) + 1440), 0);
                 }
 
                 else
                 {
-                  raven::RavenPNTEstimator::InflateVelocityUncertainty(this, v32);
+                  raven::RavenPNTEstimator::InflateVelocityUncertainty(this, v30, 0);
                 }
 
-                if (raven::RavenPNTEstimator::UpdateFullStateEstimate(this, v33, v34, v35))
+                if (raven::RavenPNTEstimator::UpdateFullStateEstimate(this))
                 {
-                  v46 = 12;
-                  v45 = 4;
-                  v44[0] = (*(*a2 + 16))(a2);
-                  v44[1] = v37;
-                  cnprint::CNLogFormatter::FormatGeneral(this + 2712, v44, "Could not update full states after dismount");
+                  v36 = 12;
+                  v35 = 4;
+                  v34[0] = (*(*a2 + 16))(a2);
+                  v34[1] = v32;
+                  cnprint::CNLogFormatter::FormatGeneral(this + 2712, v34, "Could not update full states after dismount");
                   if (*(this + 2735) >= 0)
                   {
-                    LOBYTE(v43) = this - 104;
+                    v33 = this + 2712;
                   }
 
                   else
                   {
-                    v43 = *(this + 339);
+                    v33 = *(this + 339);
                   }
 
-                  cnprint::CNPrinter::Print(&v46, &v45, "%s", v38, v39, v40, v41, v42, v43);
+                  cnprint::CNPrinter::Print(&v36, &v35, "%s", v33);
                   raven::RavenPNTEstimator::Reset(this);
                 }
               }
@@ -570,12 +70,12 @@ double raven::RavenPNTEstimator::HandleEvent(raven::RavenPNTEstimator *this, con
     }
   }
 
-  v10 = *(this + 2760);
+  v8 = *(this + 2760);
   if (*(this + 2760))
   {
-    if (v10 != 1)
+    if (v8 != 1)
     {
-      if (v10 == 2)
+      if (v8 == 2)
       {
         __assert_rtn("HandleEvent", "ravenpntestimator.cpp", 2851, "false && Unexpected case RavenPNTEstimatorStateParameterization::ParameterizationCount");
       }
@@ -583,44 +83,44 @@ double raven::RavenPNTEstimator::HandleEvent(raven::RavenPNTEstimator *this, con
       goto LABEL_27;
     }
 
-    v11 = *(a2 + 104);
-    if (v11 > 3 || v11 == 1)
+    v9 = *(a2 + 104);
+    if (v9 > 3 || v9 == 1)
     {
       goto LABEL_27;
     }
 
-    LOBYTE(v44[0]) = 0;
+    LOBYTE(v34[0]) = 0;
 LABEL_16:
-    raven::RavenPNTEstimator::SetStateParameterization(this, v44, a3, a4);
+    raven::RavenPNTEstimator::SetStateParameterization(this);
     goto LABEL_27;
   }
 
-  v13 = *(this + 3781);
-  v14 = *(this + 1892);
-  v15 = (*(this + 58) & 1) == 0 || sqrt(*(v14 + 200 * v13 + 200) + *(v14 + 208 * v13 + 208) + *(v14 + 216 * v13 + 216)) * 57.2957795 >= 10.0;
-  a5.i64[0] = *(v14 + (v13 << 7) + 128);
-  a6.i64[0] = *(v14 + 136 * v13 + 136);
-  if (*a6.i64 <= *(v14 + 144 * v13 + 144))
+  v11 = *(this + 3781);
+  v12 = *(this + 1892);
+  v13 = (*(this + 58) & 1) == 0 || sqrt(*(v12 + 200 * v11 + 200) + *(v12 + 208 * v11 + 208) + *(v12 + 216 * v11 + 216)) * 57.2957795 >= 10.0;
+  a3.i64[0] = *(v12 + (v11 << 7) + 128);
+  a4.i64[0] = *(v12 + 136 * v11 + 136);
+  if (*a4.i64 <= *(v12 + 144 * v11 + 144))
   {
-    a6.i64[0] = *(v14 + 144 * v13 + 144);
+    a4.i64[0] = *(v12 + 144 * v11 + 144);
   }
 
-  if (*a5.i64 <= *a6.i64)
+  if (*a3.i64 <= *a4.i64)
   {
-    a5.i64[0] = a6.i64[0];
+    a3.i64[0] = a4.i64[0];
   }
 
-  v16 = *a5.i64;
+  v14 = *a3.i64;
   if (*(this + 58))
   {
-    v17 = *(*(this + 146) + 784);
-    v18 = *(a2 + 104);
-    if ((v18 > 3 || v18 == 1) && *(this + 1848) == 1)
+    v15 = *(*(this + 146) + 784);
+    v16 = *(a2 + 104);
+    if ((v16 > 3 || v16 == 1) && *(this + 1848) == 1)
     {
-      v36 = *(this + 1960);
-      if ((v36 > 3 || v36 == 1) && *(this + 1208) == 1 && ((*(this + 1320) - 4) & 0xFA) == 0 && !raven::RavenPNTEstimator::UseHighAccelerationParameters(this, a5, a6) && !v15 && sqrt(v16) <= v17 * 20.0)
+      v31 = *(this + 1960);
+      if ((v31 > 3 || v31 == 1) && *(this + 1208) == 1 && ((*(this + 1320) - 4) & 0xFA) == 0 && !raven::RavenPNTEstimator::UseHighAccelerationParameters(this, a3, a4) && !v13 && sqrt(v14) <= v15 * 20.0)
       {
-        LOBYTE(v44[0]) = 1;
+        LOBYTE(v34[0]) = 1;
         goto LABEL_16;
       }
     }
@@ -636,24 +136,24 @@ void raven::RavenMovingStateEstimatorActiveObject::HandleEvent(raven::RavenMovin
 {
   if ((*(this + 224) & 1) == 0)
   {
-    LOWORD(v15) = 12;
+    LOWORD(v10) = 12;
     LOBYTE(__p) = 2;
     v5 = this + 232;
-    v16 = (*(*a2 + 16))(a2);
-    *&v17 = v12;
-    cnprint::CNLogFormatter::FormatGeneral(v5, &v16, "RavenMovingStateEstimatorActiveObject is not configured.");
+    v11 = (*(*a2 + 16))(a2);
+    *&v12 = v7;
+    cnprint::CNLogFormatter::FormatGeneral(v5, &v11, "RavenMovingStateEstimatorActiveObject is not configured.");
 LABEL_6:
     if (*(this + 255) >= 0)
     {
-      LOBYTE(v13) = v5;
+      v8 = v5;
     }
 
     else
     {
-      v13 = *(this + 29);
+      v8 = *(this + 29);
     }
 
-    cnprint::CNPrinter::Print(&v15, &__p, "%s", v7, v8, v9, v10, v11, v13);
+    cnprint::CNPrinter::Print(&v10, &__p, "%s", v8);
     return;
   }
 
@@ -665,30 +165,30 @@ LABEL_6:
       return;
     }
 
-    LOWORD(v15) = 12;
+    LOWORD(v10) = 12;
     LOBYTE(__p) = 1;
-    LOBYTE(v5) = this - 24;
-    v16 = (*(*a2 + 16))(a2);
-    *&v17 = v6;
-    cnprint::CNLogFormatter::FormatGeneral(this + 232, &v16, "RavenMovingStateEstimatorActiveObject,failed to handle TimeMarkEvent in moving state estimator");
+    v5 = this + 232;
+    v11 = (*(*a2 + 16))(a2);
+    *&v12 = v6;
+    cnprint::CNLogFormatter::FormatGeneral(this + 232, &v11, "RavenMovingStateEstimatorActiveObject,failed to handle TimeMarkEvent in moving state estimator");
     goto LABEL_6;
   }
 
-  v16 = &unk_1F4CEF778;
-  v23 = 0;
-  v24 = 0x3FF0000000000000;
-  v25 = 0;
-  v26 = 0;
-  v27 = 0;
-  v19 = *(a2 + 40);
-  v20 = *(a2 + 56);
-  v21 = *(a2 + 72);
-  v22 = *(a2 + 88);
-  v17 = *(a2 + 8);
-  v18 = *(a2 + 24);
-  if (raven::RavenMovingStateEstimator::GetMovingStateEvent((this + 280), &v16))
+  v11 = &unk_1F4CEF778;
+  v18 = 0;
+  v19 = 0x3FF0000000000000;
+  v20 = 0;
+  v21 = 0;
+  v22 = 0;
+  v14 = *(a2 + 40);
+  v15 = *(a2 + 56);
+  v16 = *(a2 + 72);
+  v17 = *(a2 + 88);
+  v12 = *(a2 + 8);
+  v13 = *(a2 + 24);
+  if (raven::RavenMovingStateEstimator::GetMovingStateEvent((this + 280), &v11))
   {
-    sub_1D0BB7A20();
+    sub_1D0BB7A20(this, &v11);
   }
 }
 
@@ -711,220 +211,200 @@ uint64_t raven::RavenMovingStateEstimator::Predict(uint64_t a1, __int128 *a2)
 {
   if ((*(a1 + 217) & 1) == 0)
   {
-    LOWORD(v66) = 12;
-    LOBYTE(v81) = 4;
-    v7 = cnprint::CNLogFormatter::FormatGeneral(a1 + 4384, a2, "failed to predict, Unconfigured");
+    LOWORD(v30) = 12;
+    LOBYTE(v45) = 4;
+    cnprint::CNLogFormatter::FormatGeneral(a1 + 4384, a2, "failed to predict, Unconfigured");
 LABEL_7:
-    if (*(a1 + 4407) >= 0)
-    {
-      LOBYTE(v13) = v7;
-    }
-
-    else
-    {
-      v13 = *(a1 + 4384);
-    }
-
-    cnprint::CNPrinter::Print(&v66, &v81, "%s", v8, v9, v10, v11, v12, v13);
+    cnprint::CNPrinter::Print(&v30, &v45, "%s");
     return 0xFFFFFFFFLL;
   }
 
   if ((*(a1 + 216) & 1) == 0)
   {
-    LOWORD(v66) = 12;
-    LOBYTE(v81) = 4;
-    v7 = cnprint::CNLogFormatter::FormatGeneral(a1 + 4384, a2, "failed to predict, Uninitialized");
+    LOWORD(v30) = 12;
+    LOBYTE(v45) = 4;
+    cnprint::CNLogFormatter::FormatGeneral(a1 + 4384, a2, "failed to predict, Uninitialized");
     goto LABEL_7;
   }
 
-  v69 = 0x300000003;
-  v67 = &unk_1F4CD5DD0;
-  v70 = &v71;
-  memset(v73, 0, sizeof(v73));
-  v66 = *a2;
-  v68 = xmmword_1D0E76C10;
+  v33 = 0x300000003;
+  v31 = &unk_1F4CD5DD0;
+  v34 = &v35;
+  memset(v37, 0, sizeof(v37));
+  v30 = *a2;
+  v32 = xmmword_1D0E76C10;
   if (*(a1 + 1040))
   {
-    v4 = v73;
+    v4 = v37;
     v5 = xmmword_1D0E7F460;
     v6 = 0.25;
   }
 
   else
   {
-    *&v73[0] = 0x3FA999999999999ALL;
+    *&v37[0] = 0x3FA999999999999ALL;
     v5 = xmmword_1D0E7F470;
-    v4 = &v73[1] + 1;
+    v4 = &v37[1] + 1;
     v6 = 0.2;
   }
 
   *v4 = 0x3FA999999999999ALL;
-  v71 = v5;
-  v74 = v6;
-  v72 = 0x3FD6666666666666;
-  *(v73 + 8) = xmmword_1D0E7F480;
-  v75 = 0x3FE8000000000000;
+  v35 = v5;
+  v38 = v6;
+  v36 = 0x3FD6666666666666;
+  *(v37 + 8) = xmmword_1D0E7F480;
+  v39 = 0x3FE8000000000000;
   if (!*(a1 + 4352))
   {
     sub_1D0B894B0(a1 + 4288, a1 + 4224);
   }
 
-  v15 = *(a1 + 4296);
-  v16 = *(a1 + 4300);
-  if (v15)
+  v8 = *(a1 + 4296);
+  v9 = *(a1 + 4300);
+  if (v8)
   {
-    v17 = v16 == 0;
+    v10 = v9 == 0;
   }
 
   else
   {
-    v17 = 1;
+    v10 = 1;
   }
 
-  v18 = v17;
-  if (v15 <= v16)
+  v11 = v10;
+  if (v8 <= v9)
   {
-    v19 = *(a1 + 4300);
-  }
-
-  else
-  {
-    v19 = *(a1 + 4296);
-  }
-
-  if (v18)
-  {
-    v20 = 0;
+    v12 = *(a1 + 4300);
   }
 
   else
   {
-    v20 = v19;
+    v12 = *(a1 + 4296);
   }
 
-  if (v18 == 1)
+  if (v11)
   {
-    v88 = 0x100000003;
-    v86 = &unk_1F4CDEB28;
-    v89 = v90;
-    v87 = xmmword_1D0E7F490;
-    v83 = 0x100000003;
-    *&v21.f64[1] = 0x300000003;
-    v82 = xmmword_1D0E7DCC0;
-    v81 = &unk_1F4CDEB28;
-    v84 = v85;
-    v21.f64[0] = INFINITY;
-    v22 = &v86;
-LABEL_34:
-    sub_1D0B8930C(v22, &v81, v21);
-    goto LABEL_37;
+    v13 = 0;
   }
 
-  v23 = *(a1 + 4360);
-  v83 = 0x100000003;
-  v82 = xmmword_1D0E7DCC0;
-  v81 = &unk_1F4CDEB28;
-  v84 = v85;
-  v24 = sub_1D0B94BA0(a1 + 4288, 1, &v81);
-  v25 = *v84;
-  if (fabs(*v84 + -1.0) > v23)
+  else
   {
-    if (cnprint::CNPrinter::GetLogLevel(v24) <= 1)
+    v13 = v12;
+  }
+
+  if (v11 == 1)
+  {
+    v52 = 0x100000003;
+    v50 = &unk_1F4CDEB28;
+    v53 = v54;
+    v51 = xmmword_1D0E7F490;
+    v47 = 0x100000003;
+    *&v14.f64[1] = 0x300000003;
+    v46 = xmmword_1D0E7DCC0;
+    v45 = &unk_1F4CDEB28;
+    v48 = v49;
+    v14.f64[0] = INFINITY;
+    v15 = &v50;
+LABEL_31:
+    sub_1D0B8930C(v15, &v45, v14);
+    goto LABEL_34;
+  }
+
+  v16 = *(a1 + 4360);
+  v47 = 0x100000003;
+  v46 = xmmword_1D0E7DCC0;
+  v45 = &unk_1F4CDEB28;
+  v48 = v49;
+  v17 = sub_1D0B94BA0(a1 + 4288, 1, &v45);
+  v18 = *v48;
+  if (fabs(*v48 + -1.0) > v16)
+  {
+    if (cnprint::CNPrinter::GetLogLevel(v17) <= 1)
     {
-      LOWORD(v81) = 2;
-      LOBYTE(v86) = 1;
-      cnprint::CNPrinter::Print(&v81, &v86, "WARNING: HMM prediction passed a non-normalized probability vector.", v26, v27, v28, v29, v30, v65);
+      LOWORD(v45) = 2;
+      LOBYTE(v50) = 1;
+      cnprint::CNPrinter::Print(&v45, &v50, "WARNING: HMM prediction passed a non-normalized probability vector.");
     }
 
-    if ((v19 & 0x80000000) == 0)
+    if ((v12 & 0x80000000) == 0)
     {
-      sub_1D0BBA094(&v86, a1 + 4288);
-      *&v87 = v19 | 0x100000000;
-      DWORD2(v87) = v19;
-      HIDWORD(v87) = v19;
-      v83 = 0x100000003;
-      *&v21.f64[1] = 0x300000003;
-      v82 = xmmword_1D0E7DCC0;
-      v81 = &unk_1F4CDEB28;
-      v84 = v85;
-      v21.f64[0] = 1.0 / v25;
-      goto LABEL_34;
+      sub_1D0BBA094(&v50, a1 + 4288);
+      *&v51 = v12 | 0x100000000;
+      DWORD2(v51) = v12;
+      HIDWORD(v51) = v12;
+      v47 = 0x100000003;
+      *&v14.f64[1] = 0x300000003;
+      v46 = xmmword_1D0E7DCC0;
+      v45 = &unk_1F4CDEB28;
+      v48 = v49;
+      v14.f64[0] = 1.0 / v18;
+      goto LABEL_31;
     }
 
-LABEL_59:
+LABEL_53:
     __assert_rtn("Reshape", "cnmatrix.h", 2936, "nr >= 0");
   }
 
-  if ((v19 & 0x80000000) != 0)
+  if ((v12 & 0x80000000) != 0)
   {
-    goto LABEL_59;
+    goto LABEL_53;
   }
 
-  sub_1D0BBA094(&v81, a1 + 4288);
-  *&v82 = v19 | 0x100000000;
-  DWORD2(v82) = v19;
-  HIDWORD(v82) = v19;
-LABEL_37:
-  sub_1D0B894B0(a1 + 4288, &v81);
+  sub_1D0BBA094(&v45, a1 + 4288);
+  *&v46 = v12 | 0x100000000;
+  DWORD2(v46) = v12;
+  HIDWORD(v46) = v12;
+LABEL_34:
+  sub_1D0B894B0(a1 + 4288, &v45);
   *(a1 + 4352) = 1;
-  v83 = 0x300000003;
-  v82 = xmmword_1D0E76C10;
-  v81 = &unk_1F4CD5DD0;
-  v84 = v85;
-  v37 = sub_1D0BBA1DC(&v66, &v81, v31, v32, v33, v34, v35, v36);
-  if (v37)
+  v47 = 0x300000003;
+  v46 = xmmword_1D0E76C10;
+  v45 = &unk_1F4CD5DD0;
+  v48 = v49;
+  v19 = sub_1D0BBA1DC(&v30, &v45);
+  if (v19)
   {
-    LOWORD(v86) = 2;
-    LOBYTE(v76) = 4;
-    cnprint::CNPrinter::Print(&v86, &v76, "ERROR: HMM transition probability function failed.", v38, v39, v40, v41, v42, v65);
-    v43 = 27;
-LABEL_39:
-    LOWORD(v81) = 12;
-    LOBYTE(v86) = 4;
-    v44 = cnprint::CNLogFormatter::FormatGeneral(a1 + 4384, a1 + 4368, "failed to predict,code,%d", v43);
-    if (*(a1 + 4407) >= 0)
-    {
-      LOBYTE(v50) = v44;
-    }
-
-    else
-    {
-      v50 = *(a1 + 4384);
-    }
-
-    cnprint::CNPrinter::Print(&v81, &v86, "%s", v45, v46, v47, v48, v49, v50);
+    LOWORD(v50) = 2;
+    LOBYTE(v40) = 4;
+    cnprint::CNPrinter::Print(&v50, &v40, "ERROR: HMM transition probability function failed.");
+    v20 = 27;
+LABEL_36:
+    LOWORD(v45) = 12;
+    LOBYTE(v50) = 4;
+    cnprint::CNLogFormatter::FormatGeneral(a1 + 4384, a1 + 4368, "failed to predict,code,%d", v20);
+    cnprint::CNPrinter::Print(&v45, &v50, "%s");
     return 0xFFFFFFFFLL;
   }
 
-  if (v20)
+  if (v13)
   {
-    v51 = 0;
-    v52 = 0;
-    v53 = v84;
-LABEL_45:
-    v54 = 0.0;
-    v55 = v53;
-    v56 = v20;
+    v21 = 0;
+    v22 = 0;
+    v23 = v48;
+LABEL_39:
+    v24 = 0.0;
+    v25 = v23;
+    v26 = v13;
     while (1)
     {
-      v57 = *v55;
-      if (*v55 < 0.0 || v57 > 1.0)
+      v27 = *v25;
+      if (*v25 < 0.0 || v27 > 1.0)
       {
         break;
       }
 
-      v54 = v54 + v57;
-      ++v55;
-      if (!--v56)
+      v24 = v24 + v27;
+      ++v25;
+      if (!--v26)
       {
-        if (fabs(v54 + -1.0) <= *(a1 + 4360))
+        if (fabs(v24 + -1.0) <= *(a1 + 4360))
         {
-          ++v51;
-          v53 += SHIDWORD(v82);
-          v52 = v51 >= v20;
-          if (v51 != v20)
+          ++v21;
+          v23 += SHIDWORD(v46);
+          v22 = v21 >= v13;
+          if (v21 != v13)
           {
-            goto LABEL_45;
+            goto LABEL_39;
           }
         }
 
@@ -932,38 +412,38 @@ LABEL_45:
       }
     }
 
-    if (!v52)
+    if (!v22)
     {
-      if (cnprint::CNPrinter::GetLogLevel(v37) <= 1)
+      if (cnprint::CNPrinter::GetLogLevel(v19) <= 1)
       {
-        LOWORD(v86) = 2;
-        LOBYTE(v76) = 1;
-        cnprint::CNPrinter::Print(&v86, &v76, "ERROR: HMM transition probability matrix is invalid.", v60, v61, v62, v63, v64, v65);
+        LOWORD(v50) = 2;
+        LOBYTE(v40) = 1;
+        cnprint::CNPrinter::Print(&v50, &v40, "ERROR: HMM transition probability matrix is invalid.");
       }
 
-      v43 = 28;
-      goto LABEL_39;
+      v20 = 28;
+      goto LABEL_36;
     }
   }
 
-  v88 = 0x100000003;
-  v87 = xmmword_1D0E7DCC0;
-  v86 = &unk_1F4CDEB28;
-  v89 = v90;
-  sub_1D0B89390(&v81, a1 + 4288, &v86);
-  sub_1D0B894B0(a1 + 4224, &v86);
-  v78 = 0x100000003;
-  v77 = xmmword_1D0E7DCC0;
-  v76 = &unk_1F4CDEB28;
-  v79 = &v80;
-  sub_1D0B94BA0(a1 + 4224, 1, &v76);
-  v59.f64[0] = 1.0 / *v79;
-  v88 = 0x100000003;
-  v87 = xmmword_1D0E7DCC0;
-  v86 = &unk_1F4CDEB28;
-  v89 = v90;
-  sub_1D0B8930C(a1 + 4224, &v86, v59);
-  sub_1D0B894B0(a1 + 4224, &v86);
+  v52 = 0x100000003;
+  v51 = xmmword_1D0E7DCC0;
+  v50 = &unk_1F4CDEB28;
+  v53 = v54;
+  sub_1D0B89390(&v45, a1 + 4288, &v50);
+  sub_1D0B894B0(a1 + 4224, &v50);
+  v42 = 0x100000003;
+  v41 = xmmword_1D0E7DCC0;
+  v40 = &unk_1F4CDEB28;
+  v43 = &v44;
+  sub_1D0B94BA0(a1 + 4224, 1, &v40);
+  v29.f64[0] = 1.0 / *v43;
+  v52 = 0x100000003;
+  v51 = xmmword_1D0E7DCC0;
+  v50 = &unk_1F4CDEB28;
+  v53 = v54;
+  sub_1D0B8930C(a1 + 4224, &v50, v29);
+  sub_1D0B894B0(a1 + 4224, &v50);
   result = 0;
   *(a1 + 4352) = 0;
   *(a1 + 4368) = *a2;
@@ -1047,164 +527,163 @@ LABEL_16:
   return result;
 }
 
-uint64_t sub_1D0BBA1DC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_1D0BBA1DC(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    LOWORD(v47) = 12;
-    v44[0] = 4;
-    cnprint::CNPrinter::Print(&v47, v44, "time,%.3lf,t-function failure on line %d: %s() %s", a4, a5, a6, a7, a8, 0);
+    LOWORD(v35) = 12;
+    v32[0] = 4;
+    cnprint::CNPrinter::Print(&v35, v32, "time,%.3lf,t-function failure on line %d: %s() %s", 0.0, 398, "t_MovingState", "NULL input arguments");
     return 0xFFFFFFFFLL;
   }
 
   if ((atomic_load_explicit(&qword_1EE053950, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE053950))
   {
-    v49 = 0x300000001;
-    v47 = &unk_1F4CDF0C8;
-    v50 = &v51;
-    v48 = xmmword_1D0E7F310;
-    v51 = 0x100000000;
-    v52 = 2;
-    sub_1D0D2CF48(&v47, &unk_1EE053958);
-    __cxa_atexit(sub_1D0D26840, &unk_1EE053958, &dword_1D0B71000);
+    v37 = 0x300000001;
+    v35 = &unk_1F4CDF0C8;
+    v38 = &v39;
+    v36 = xmmword_1D0E7F310;
+    v39 = 0x100000000;
+    v40 = 2;
+    sub_1D0D2CF48(&v35, qword_1EE053958);
+    __cxa_atexit(sub_1D0D26840, qword_1EE053958, &dword_1D0B71000);
     __cxa_guard_release(&qword_1EE053950);
   }
 
-  sub_1D0BB77E0(&v47, a1 + 16, 0);
-  v15 = v48;
-  if (v48)
+  sub_1D0BB77E0(&v35, a1 + 16, 0);
+  v4 = v36;
+  if (v36)
   {
-    v16 = 0;
-    v17 = 0.0;
+    v5 = 0;
+    v6 = 0.0;
     while (1)
     {
-      v18 = *(v50 + (v16 >> 29));
-      v19 = (*&v18 & 0x7FFFFFFFFFFFFFFFuLL) - 1 < 0xFFFFFFFFFFFFFLL;
-      v20 = v18 < 0.0 && ((*&v18 & 0x7FFFFFFFFFFFFFFFuLL) - 0x10000000000000) >> 53 < 0x3FF;
-      if (v18 >= 0.0)
+      v7 = *(v38 + (v5 >> 29));
+      v8 = (*&v7 & 0x7FFFFFFFFFFFFFFFuLL) - 1 < 0xFFFFFFFFFFFFFLL;
+      v9 = v7 < 0.0 && ((*&v7 & 0x7FFFFFFFFFFFFFFFuLL) - 0x10000000000000) >> 53 < 0x3FF;
+      if (v7 >= 0.0)
       {
-        v19 = 0;
+        v8 = 0;
       }
 
-      v21 = (*&v18 & 0x7FFFFFFFFFFFFFFFLL) == 0x7FF0000000000000 || v19;
-      if ((*&v18 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FF0000000000000)
+      v10 = (*&v7 & 0x7FFFFFFFFFFFFFFFLL) == 0x7FF0000000000000 || v8;
+      if ((*&v7 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FF0000000000000)
       {
-        v21 = 1;
+        v10 = 1;
       }
 
-      if (((v21 | v20) & 1) != 0 || v18 > 1.0)
+      if (((v10 | v9) & 1) != 0 || v7 > 1.0)
       {
         goto LABEL_58;
       }
 
-      v17 = v17 + v18;
-      v16 += 0x100000000;
-      if (!--v15)
+      v6 = v6 + v7;
+      v5 += 0x100000000;
+      if (!--v4)
       {
-        v22 = v17 + -1.0;
+        v11 = v6 + -1.0;
         goto LABEL_21;
       }
     }
   }
 
-  v22 = -1.0;
+  v11 = -1.0;
 LABEL_21:
-  if (fabs(v22) >= 2.22044605e-16)
+  if (fabs(v11) >= 2.22044605e-16)
   {
     goto LABEL_58;
   }
 
-  sub_1D0BB77E0(v44, a1 + 16, 1);
-  v23 = v45;
-  if (v45)
+  sub_1D0BB77E0(v32, a1 + 16, 1);
+  v12 = v33;
+  if (v33)
   {
-    v24 = 0;
-    v25 = 0.0;
+    v13 = 0;
+    v14 = 0.0;
     while (1)
     {
-      v26 = *(v46 + (v24 >> 29));
-      v27 = (*&v26 & 0x7FFFFFFFFFFFFFFFuLL) - 1 < 0xFFFFFFFFFFFFFLL;
-      v28 = v26 < 0.0 && ((*&v26 & 0x7FFFFFFFFFFFFFFFuLL) - 0x10000000000000) >> 53 < 0x3FF;
-      if (v26 >= 0.0)
+      v15 = *(v34 + (v13 >> 29));
+      v16 = (*&v15 & 0x7FFFFFFFFFFFFFFFuLL) - 1 < 0xFFFFFFFFFFFFFLL;
+      v17 = v15 < 0.0 && ((*&v15 & 0x7FFFFFFFFFFFFFFFuLL) - 0x10000000000000) >> 53 < 0x3FF;
+      if (v15 >= 0.0)
       {
-        v27 = 0;
+        v16 = 0;
       }
 
-      v29 = (*&v26 & 0x7FFFFFFFFFFFFFFFLL) == 0x7FF0000000000000 || v27;
-      if ((*&v26 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FF0000000000000)
+      v18 = (*&v15 & 0x7FFFFFFFFFFFFFFFLL) == 0x7FF0000000000000 || v16;
+      if ((*&v15 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FF0000000000000)
       {
-        v29 = 1;
+        v18 = 1;
       }
 
-      if (((v29 | v28) & 1) != 0 || v26 > 1.0)
+      if (((v18 | v17) & 1) != 0 || v15 > 1.0)
       {
         goto LABEL_58;
       }
 
-      v25 = v25 + v26;
-      v24 += 0x100000000;
-      if (!--v23)
+      v14 = v14 + v15;
+      v13 += 0x100000000;
+      if (!--v12)
       {
-        v30 = v25 + -1.0;
+        v19 = v14 + -1.0;
         goto LABEL_39;
       }
     }
   }
 
-  v30 = -1.0;
+  v19 = -1.0;
 LABEL_39:
-  if (fabs(v30) >= 2.22044605e-16)
+  if (fabs(v19) >= 2.22044605e-16)
   {
     goto LABEL_58;
   }
 
-  sub_1D0BB77E0(v41, a1 + 16, 2);
-  v31 = v42;
-  if (v42)
+  sub_1D0BB77E0(v29, a1 + 16, 2);
+  v20 = v30;
+  if (v30)
   {
-    v32 = 0;
-    v33 = 0.0;
+    v21 = 0;
+    v22 = 0.0;
     while (1)
     {
-      v34 = *(v43 + (v32 >> 29));
-      v35 = (*&v34 & 0x7FFFFFFFFFFFFFFFuLL) - 1 < 0xFFFFFFFFFFFFFLL;
-      v36 = v34 < 0.0 && ((*&v34 & 0x7FFFFFFFFFFFFFFFuLL) - 0x10000000000000) >> 53 < 0x3FF;
-      if (v34 >= 0.0)
+      v23 = *(v31 + (v21 >> 29));
+      v24 = (*&v23 & 0x7FFFFFFFFFFFFFFFuLL) - 1 < 0xFFFFFFFFFFFFFLL;
+      v25 = v23 < 0.0 && ((*&v23 & 0x7FFFFFFFFFFFFFFFuLL) - 0x10000000000000) >> 53 < 0x3FF;
+      if (v23 >= 0.0)
       {
-        v35 = 0;
+        v24 = 0;
       }
 
-      v37 = (*&v34 & 0x7FFFFFFFFFFFFFFFLL) == 0x7FF0000000000000 || v35;
-      if ((*&v34 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FF0000000000000)
+      v26 = (*&v23 & 0x7FFFFFFFFFFFFFFFLL) == 0x7FF0000000000000 || v24;
+      if ((*&v23 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FF0000000000000)
       {
-        v37 = 1;
+        v26 = 1;
       }
 
-      if (((v37 | v36) & 1) != 0 || v34 > 1.0)
+      if (((v26 | v25) & 1) != 0 || v23 > 1.0)
       {
         break;
       }
 
-      v33 = v33 + v34;
-      v32 += 0x100000000;
-      if (!--v31)
+      v22 = v22 + v23;
+      v21 += 0x100000000;
+      if (!--v20)
       {
-        v38 = v33 + -1.0;
+        v27 = v22 + -1.0;
         goto LABEL_57;
       }
     }
 
 LABEL_58:
-    LOWORD(v47) = 12;
-    v44[0] = 4;
-    v40 = *(a1 + 8) + *a1;
-    cnprint::CNPrinter::Print(&v47, v44, "time,%.3lf,t-function failure on line %d: %s() %s", v10, v11, v12, v13, v14, SLOBYTE(v40));
+    LOWORD(v35) = 12;
+    v32[0] = 4;
+    cnprint::CNPrinter::Print(&v35, v32, "time,%.3lf,t-function failure on line %d: %s() %s", *(a1 + 8) + *a1, 432, "t_MovingState", "invalid transition probability");
     return 0xFFFFFFFFLL;
   }
 
-  v38 = -1.0;
+  v27 = -1.0;
 LABEL_57:
-  if (fabs(v38) >= 2.22044605e-16)
+  if (fabs(v27) >= 2.22044605e-16)
   {
     goto LABEL_58;
   }
@@ -1221,21 +700,21 @@ void sub_1D0BBA5C4(uint64_t a1, uint64_t a2, uint64_t a3)
     sub_1D0B894B0(a1 + 8, a1 + 72);
   }
 
-  v76 = 0x100000001;
-  v74[3] = &unk_1F4CDF2C0;
+  v58 = 0x100000001;
+  v56[3] = &unk_1F4CDF2C0;
   *&v6 = 0x100000001;
   *(&v6 + 1) = 0x100000001;
-  v75 = v6;
-  v77 = &v78;
-  v78 = a2;
-  v72 = 0x100000003;
-  v70 = &unk_1F4CDF348;
-  v71 = v6;
-  v73 = v74;
-  v74[0] = a3;
+  v57 = v6;
+  v59 = &v60;
+  v60 = a2;
+  v54 = 0x100000003;
+  v52 = &unk_1F4CDF348;
+  v53 = v6;
+  v55 = v56;
+  v56[0] = a3;
   v7 = *(a1 + 16);
   v8 = *(a1 + 20);
-  sub_1D0B95DC8(v68, &v70);
+  sub_1D0B95DC8(v50, &v52);
   if (v7 <= v8)
   {
     v9 = v8;
@@ -1274,288 +753,281 @@ void sub_1D0BBA5C4(uint64_t a1, uint64_t a2, uint64_t a3)
       __assert_rtn("Ones", "cnmatrix.h", 2317, "nr >= 0");
     }
 
-    v87 = 0x100000003;
-    v85 = &unk_1F4CDEB28;
-    v88 = v89;
-    *&v86 = v11 | 0x100000000;
-    v20 = 1.0 / v11;
-    DWORD2(v86) = v11;
-    HIDWORD(v86) = v11;
+    v69 = 0x100000003;
+    v67 = &unk_1F4CDEB28;
+    v70 = v71;
+    *&v68 = v11 | 0x100000000;
+    v15 = 1.0 / v11;
+    DWORD2(v68) = v11;
+    HIDWORD(v68) = v11;
     if (v11 > 3)
     {
-      memset_pattern16(v89, &unk_1D0E7F4B0, 16 * ((v11 - 1) >> 1));
+      memset_pattern16(v71, &unk_1D0E7F4B0, 16 * ((v11 - 1) >> 1));
       __asm { FMOV            V0.2D, #1.0 }
 
-      *(&v87 + v11) = _Q0;
+      *(&v69 + v11) = _Q0;
     }
 
     else if (v11)
     {
-      memset_pattern16(v89, &unk_1D0E7F4B0, (8 * v11));
+      memset_pattern16(v71, &unk_1D0E7F4B0, (8 * v11));
     }
 
-    v92 = 0x100000003;
-    *&v22.f64[1] = 0x300000003;
-    v91 = xmmword_1D0E7DCC0;
-    v90 = &unk_1F4CDEB28;
-    v93 = v94;
-    v21 = &v85;
+    v74 = 0x100000003;
+    *&v17.f64[1] = 0x300000003;
+    v73 = xmmword_1D0E7DCC0;
+    v72 = &unk_1F4CDEB28;
+    v75 = v76;
+    v16 = &v67;
     goto LABEL_27;
   }
 
-  v92 = 0x100000003;
-  v66 = xmmword_1D0E7DCC0;
-  v91 = xmmword_1D0E7DCC0;
-  v90 = &unk_1F4CDEB28;
-  v93 = v94;
-  v13 = sub_1D0B94BA0(a1 + 8, 1, &v90);
-  v14 = *v93;
-  if (fabs(*v93 + -1.0) <= v12)
+  v74 = 0x100000003;
+  v73 = xmmword_1D0E7DCC0;
+  v72 = &unk_1F4CDEB28;
+  v75 = v76;
+  v13 = sub_1D0B94BA0(a1 + 8, 1, &v72);
+  v14 = *v75;
+  if (fabs(*v75 + -1.0) <= v12)
   {
     if ((v11 & 0x80000000) == 0)
     {
-      sub_1D0BBA094(&v90, a1 + 8);
-      *&v91 = v11 | 0x100000000;
-      DWORD2(v91) = v11;
-      HIDWORD(v91) = v11;
+      sub_1D0BBA094(&v72, a1 + 8);
+      *&v73 = v11 | 0x100000000;
+      DWORD2(v73) = v11;
+      HIDWORD(v73) = v11;
       goto LABEL_28;
     }
 
-LABEL_64:
+LABEL_63:
     __assert_rtn("Reshape", "cnmatrix.h", 2936, "nr >= 0");
   }
 
   if (cnprint::CNPrinter::GetLogLevel(v13) <= 1)
   {
-    LOWORD(v90) = 2;
-    LOBYTE(v85) = 1;
-    cnprint::CNPrinter::Print(&v90, &v85, "WARNING: HMM update passed a non-normalized probability vector.", v15, v16, v17, v18, v19, 3);
+    LOWORD(v72) = 2;
+    LOBYTE(v67) = 1;
+    cnprint::CNPrinter::Print(&v72, &v67, "WARNING: HMM update passed a non-normalized probability vector.");
   }
 
   if ((v11 & 0x80000000) != 0)
   {
-    goto LABEL_64;
+    goto LABEL_63;
   }
 
-  v20 = 1.0 / v14;
-  sub_1D0BBA094(&v85, a1 + 8);
-  *&v86 = v11 | 0x100000000;
-  DWORD2(v86) = v11;
-  HIDWORD(v86) = v11;
-  v92 = 0x100000003;
-  *&v22.f64[1] = 0x300000003;
-  v91 = v66;
-  v90 = &unk_1F4CDEB28;
-  v93 = v94;
+  v15 = 1.0 / v14;
+  sub_1D0BBA094(&v67, a1 + 8);
+  *&v68 = v11 | 0x100000000;
+  DWORD2(v68) = v11;
+  HIDWORD(v68) = v11;
+  v74 = 0x100000003;
+  *&v17.f64[1] = 0x300000003;
+  v73 = xmmword_1D0E7DCC0;
+  v72 = &unk_1F4CDEB28;
+  v75 = v76;
 LABEL_27:
-  v22.f64[0] = v20;
-  sub_1D0B8930C(v21, &v90, v22);
+  v17.f64[0] = v15;
+  sub_1D0B8930C(v16, &v72, v17);
 LABEL_28:
-  sub_1D0B894B0(a1 + 8, &v90);
-  sub_1D0BBA094(&v90, a1 + 8);
-  v27 = *v77;
-  v87 = 0x100000003;
-  v85 = &unk_1F4CDEB28;
-  v67 = xmmword_1D0E7DCC0;
-  v86 = xmmword_1D0E7DCC0;
-  v88 = v89;
-  v28 = v27(*v69, &v85);
-  if (v28)
+  sub_1D0B894B0(a1 + 8, &v72);
+  sub_1D0BBA094(&v72, a1 + 8);
+  v22 = *v59;
+  v69 = 0x100000003;
+  v67 = &unk_1F4CDEB28;
+  v68 = xmmword_1D0E7DCC0;
+  v70 = v71;
+  v23 = v22(*v51, &v67);
+  if (v23)
   {
-    LOWORD(v79) = 2;
-    v84 = 4;
-    v35 = "ERROR: HMM emission function failed.";
-LABEL_30:
-    cnprint::CNPrinter::Print(&v79, &v84, v35, v29, v30, v31, v32, v33, 3);
+    LOWORD(v61) = 2;
+    v66 = 4;
+    cnprint::CNPrinter::Print(&v61, &v66, "ERROR: HMM emission function failed.");
     return;
   }
 
   if (v11)
   {
-    v36 = 0.0;
-    v37 = v88;
-    v38 = v88;
-    v39 = v11;
+    v25 = 0.0;
+    v26 = v70;
+    v27 = v70;
+    v28 = v11;
     do
     {
-      v40 = *v38;
-      if (*v38 < 0.0 || v40 > 1.0)
+      v29 = *v27;
+      if (*v27 < 0.0 || v29 > 1.0)
       {
-        LOWORD(v79) = 2;
-        v84 = 4;
-        v35 = "ERROR: HMM emission probability matrix is invalid.";
-        goto LABEL_30;
+        LOWORD(v61) = 2;
+        v66 = 4;
+        cnprint::CNPrinter::Print(&v61, &v66, "ERROR: HMM emission probability matrix is invalid.");
+        return;
       }
 
-      v36 = v36 + v40;
-      ++v38;
-      --v39;
+      v25 = v25 + v29;
+      ++v27;
+      --v28;
     }
 
-    while (v39);
-    if (fabs(v36) > v12)
+    while (v28);
+    if (fabs(v25) > v12)
     {
-      v42 = v93;
+      v31 = v75;
       do
       {
-        v43 = *v37++;
-        v34.n128_f64[0] = v43 * *v42;
-        *v42++ = v34.n128_f64[0];
+        v32 = *v26++;
+        v24.n128_f64[0] = v32 * *v31;
+        *v31++ = v24.n128_f64[0];
         --v11;
       }
 
       while (v11);
-      goto LABEL_44;
+      goto LABEL_43;
     }
 
-LABEL_50:
-    LOWORD(v79) = 2;
-    v84 = 4;
-    v35 = "ERROR: HMM emission probability matrix is null matrix";
-    goto LABEL_30;
+LABEL_49:
+    LOWORD(v61) = 2;
+    v66 = 4;
+    cnprint::CNPrinter::Print(&v61, &v66, "ERROR: HMM emission probability matrix is null matrix");
+    return;
   }
 
   if (v12 >= 0.0)
   {
-    goto LABEL_50;
+    goto LABEL_49;
   }
 
-LABEL_44:
-  v44 = DWORD1(v91);
-  if (DWORD1(v91))
+LABEL_43:
+  v33 = DWORD1(v73);
+  if (DWORD1(v73))
   {
-    v45 = 0;
-    v46 = v91;
-    v47 = v93;
-    v48 = 1;
-    v49 = xmmword_1D0E7DCC0;
+    v34 = 0;
+    v35 = v73;
+    v36 = v75;
+    v37 = 1;
+    v38 = xmmword_1D0E7DCC0;
     do
     {
-      v50 = v47[(v46 * v45)];
-      v51 = v48;
-      v52 = v46 - 1;
-      if (v46 >= 2)
+      v39 = v36[(v35 * v34)];
+      v40 = v37;
+      v41 = v35 - 1;
+      if (v35 >= 2)
       {
         do
         {
-          v50 = v50 + v47[v51++];
-          --v52;
+          v39 = v39 + v36[v40++];
+          --v41;
         }
 
-        while (v52);
+        while (v41);
       }
 
-      v83[v45++] = v50;
-      v48 += v46;
+      v65[v34++] = v39;
+      v37 += v35;
     }
 
-    while (v45 != v44);
-    v34.n128_f64[0] = v83[0];
+    while (v34 != v33);
+    v24.n128_f64[0] = v65[0];
   }
 
   else
   {
-    v49 = xmmword_1D0E7DCC0;
+    v38 = xmmword_1D0E7DCC0;
   }
 
-  if (fabs(v34.n128_f64[0]) < 2.22044605e-16)
+  if (fabs(v24.n128_f64[0]) < 2.22044605e-16)
   {
-    if (cnprint::CNPrinter::GetLogLevel(v28) <= 1)
+    if (cnprint::CNPrinter::GetLogLevel(v23) <= 1)
     {
-      LOWORD(v79) = 2;
-      v84 = 1;
-      cnprint::CNPrinter::Print(&v79, &v84, "HMM state is null vector after update; revert to input state", v53, v54, v55, v56, v57, 3);
+      LOWORD(v61) = 2;
+      v66 = 1;
+      cnprint::CNPrinter::Print(&v61, &v66, "HMM state is null vector after update; revert to input state");
     }
 
-    v34 = sub_1D0B894B0(&v90, a1 + 8);
-    v58 = DWORD1(v91);
-    if (DWORD1(v91))
+    v24 = sub_1D0B894B0(&v72, a1 + 8);
+    v42 = DWORD1(v73);
+    if (DWORD1(v73))
     {
-      v59 = 0;
-      v60 = v91;
-      v61 = v93;
-      v62 = 1;
-      v49 = v67;
+      v43 = 0;
+      v44 = v73;
+      v45 = v75;
+      v46 = 1;
+      v38 = xmmword_1D0E7DCC0;
       do
       {
-        v63 = v61[(v60 * v59)];
-        v64 = v62;
-        v65 = v60 - 1;
-        if (v60 >= 2)
+        v47 = v45[(v44 * v43)];
+        v48 = v46;
+        v49 = v44 - 1;
+        if (v44 >= 2)
         {
           do
           {
-            v63 = v63 + v61[v64++];
-            --v65;
+            v47 = v47 + v45[v48++];
+            --v49;
           }
 
-          while (v65);
+          while (v49);
         }
 
-        v83[v59++] = v63;
-        v62 += v60;
+        v65[v43++] = v47;
+        v46 += v44;
       }
 
-      while (v59 != v58);
-      v34.n128_f64[0] = v83[0];
+      while (v43 != v42);
+      v24.n128_f64[0] = v65[0];
     }
 
     else
     {
-      v49 = v67;
+      v38 = xmmword_1D0E7DCC0;
     }
   }
 
-  v81 = 0x100000003;
-  v80 = v49;
-  v79 = &unk_1F4CDEB28;
-  v82 = v83;
-  v34.n128_f64[0] = 1.0 / v34.n128_f64[0];
-  sub_1D0B8930C(&v90, &v79, v34);
-  sub_1D0B894B0(&v90, &v79);
-  sub_1D0B894B0(a1 + 72, &v90);
+  v63 = 0x100000003;
+  v62 = v38;
+  v61 = &unk_1F4CDEB28;
+  v64 = v65;
+  v24.n128_f64[0] = 1.0 / v24.n128_f64[0];
+  sub_1D0B8930C(&v72, &v61, v24);
+  sub_1D0B894B0(&v72, &v61);
+  sub_1D0B894B0(a1 + 72, &v72);
   *(a1 + 136) = 1;
 }
 
-uint64_t sub_1D0BBABC4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_1D0BBABC4(void *a1, uint64_t a2)
 {
-  v8 = *(a1 + 16);
-  if ((v8 <= -1 || ((v8 & 0x7FFFFFFFFFFFFFFFuLL) - 0x10000000000000) >> 53 >= 0x3FF) && (v8 - 1) >= 0xFFFFFFFFFFFFFLL && (v8 & 0x7FFFFFFFFFFFFFFFLL) != 0)
+  v2 = a1[2];
+  if ((v2 <= -1 || ((v2 & 0x7FFFFFFFFFFFFFFFuLL) - 0x10000000000000) >> 53 >= 0x3FF) && (v2 - 1) >= 0xFFFFFFFFFFFFFLL && (v2 & 0x7FFFFFFFFFFFFFFFLL) != 0)
   {
-    v27 = 12;
-    v26 = 4;
-    v23 = *(a1 + 8) + *a1;
-    cnprint::CNPrinter::Print(&v27, &v26, "time,%.3lf,e-function failure on line %d: %s() %s", a4, a5, a6, a7, a8, SLOBYTE(v23));
+    v18 = 12;
+    v17 = 4;
+    cnprint::CNPrinter::Print(&v18, &v17, "time,%.3lf,e-function failure on line %d: %s() %s");
     return 0xFFFFFFFFLL;
   }
 
-  v12 = *(a1 + 24);
-  if ((v12 <= -1 || ((v12 & 0x7FFFFFFFFFFFFFFFuLL) - 0x10000000000000) >> 53 >= 0x3FF) && (v12 - 1) >= 0xFFFFFFFFFFFFFLL && (v12 & 0x7FFFFFFFFFFFFFFFLL) != 0)
+  v6 = a1[3];
+  if ((v6 <= -1 || ((v6 & 0x7FFFFFFFFFFFFFFFuLL) - 0x10000000000000) >> 53 >= 0x3FF) && (v6 - 1) >= 0xFFFFFFFFFFFFFLL && (v6 & 0x7FFFFFFFFFFFFFFFLL) != 0)
   {
-    v29 = 12;
-    v28 = 4;
-    v24 = *(a1 + 8) + *a1;
-    cnprint::CNPrinter::Print(&v29, &v28, "time,%.3lf,e-function failure on line %d: %s() %s", a4, a5, a6, a7, a8, SLOBYTE(v24));
+    v20 = 12;
+    v19 = 4;
+    cnprint::CNPrinter::Print(&v20, &v19, "time,%.3lf,e-function failure on line %d: %s() %s");
     return 0xFFFFFFFFLL;
   }
 
-  v16 = *(a1 + 32);
-  if ((v16 <= -1 || ((v16 & 0x7FFFFFFFFFFFFFFFuLL) - 0x10000000000000) >> 53 >= 0x3FF) && (v16 - 1) >= 0xFFFFFFFFFFFFFLL && (v16 & 0x7FFFFFFFFFFFFFFFLL) != 0)
+  v10 = a1[4];
+  if ((v10 <= -1 || ((v10 & 0x7FFFFFFFFFFFFFFFuLL) - 0x10000000000000) >> 53 >= 0x3FF) && (v10 - 1) >= 0xFFFFFFFFFFFFFLL && (v10 & 0x7FFFFFFFFFFFFFFFLL) != 0)
   {
-    v31 = 12;
-    v30 = 4;
-    v25 = *(a1 + 8) + *a1;
-    cnprint::CNPrinter::Print(&v31, &v30, "time,%.3lf,e-function failure on line %d: %s() %s", a4, a5, a6, a7, a8, SLOBYTE(v25));
+    v22 = 12;
+    v21 = 4;
+    cnprint::CNPrinter::Print(&v22, &v21, "time,%.3lf,e-function failure on line %d: %s() %s");
     return 0xFFFFFFFFLL;
   }
 
-  v20 = 0;
+  v14 = 0;
   *(a2 + 8) = xmmword_1D0E7DCC0;
-  v21 = *(a2 + 32);
-  *v21 = v8;
-  v21[1] = *(a1 + 24);
-  v21[2] = *(a1 + 32);
-  return v20;
+  v15 = *(a2 + 32);
+  *v15 = v2;
+  v15[1] = a1[3];
+  v15[2] = a1[4];
+  return v14;
 }
 
 __n128 sub_1D0BBAD9C(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -1591,57 +1063,57 @@ __n128 sub_1D0BBAD9C(uint64_t a1, uint64_t a2, uint64_t a3)
   return result;
 }
 
-void sub_1D0BBAE84(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_1D0BBAE84(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
-  v8 = *a2;
-  sub_1D0B99264(&v19, a3, a3, a4, a5, a6, a7, a8);
-  if (*(v8 + 432) == 1)
+  v3 = *a2;
+  sub_1D0B99264(&v14, a3);
+  if (*(v3 + 432) == 1)
   {
-    *(v8 + 424) = v31;
-    *(v8 + 248) = v20;
-    v9 = v28;
-    v10 = v30;
-    *(v8 + 392) = v29;
-    *(v8 + 408) = v10;
-    v11 = v24;
-    v12 = v26;
-    *(v8 + 328) = v25;
-    *(v8 + 344) = v12;
-    *(v8 + 360) = v27;
-    *(v8 + 376) = v9;
-    v13 = v22;
-    *(v8 + 264) = v21;
-    *(v8 + 280) = v13;
-    *(v8 + 296) = v23;
-    *(v8 + 312) = v11;
+    *(v3 + 424) = v26;
+    *(v3 + 248) = v15;
+    v4 = v23;
+    v5 = v25;
+    *(v3 + 392) = v24;
+    *(v3 + 408) = v5;
+    v6 = v19;
+    v7 = v21;
+    *(v3 + 328) = v20;
+    *(v3 + 344) = v7;
+    *(v3 + 360) = v22;
+    *(v3 + 376) = v4;
+    v8 = v17;
+    *(v3 + 264) = v16;
+    *(v3 + 280) = v8;
+    *(v3 + 296) = v18;
+    *(v3 + 312) = v6;
   }
 
   else
   {
-    *(v8 + 240) = &unk_1F4CEF688;
-    *(v8 + 424) = v31;
-    *(v8 + 248) = v20;
-    v14 = v28;
-    v15 = v30;
-    *(v8 + 392) = v29;
-    *(v8 + 408) = v15;
-    v16 = v24;
-    v17 = v26;
-    *(v8 + 328) = v25;
-    *(v8 + 344) = v17;
-    *(v8 + 360) = v27;
-    *(v8 + 376) = v14;
-    v18 = v22;
-    *(v8 + 264) = v21;
-    *(v8 + 280) = v18;
-    *(v8 + 296) = v23;
-    *(v8 + 312) = v16;
-    *(v8 + 432) = 1;
+    *(v3 + 240) = &unk_1F4CEF688;
+    *(v3 + 424) = v26;
+    *(v3 + 248) = v15;
+    v9 = v23;
+    v10 = v25;
+    *(v3 + 392) = v24;
+    *(v3 + 408) = v10;
+    v11 = v19;
+    v12 = v21;
+    *(v3 + 328) = v20;
+    *(v3 + 344) = v12;
+    *(v3 + 360) = v22;
+    *(v3 + 376) = v9;
+    v13 = v17;
+    *(v3 + 264) = v16;
+    *(v3 + 280) = v13;
+    *(v3 + 296) = v18;
+    *(v3 + 312) = v11;
+    *(v3 + 432) = 1;
   }
 
-  if ((v26 & 0xFE) != 2 && *(v8 + 1320) == 1)
+  if ((v21 & 0xFE) != 2 && *(v3 + 1320) == 1)
   {
-    *(v8 + 1320) = 0;
+    *(v3 + 1320) = 0;
   }
 }
 
@@ -1704,70 +1176,67 @@ void CoreNavigation::CLP::LogEntry::PrivateData::BaroSample::~BaroSample(CoreNav
   JUMPOUT(0x1D387ECA0);
 }
 
-uint64_t sub_1D0BBB210(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_1D0BBB210(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
-  v8 = *a2;
-  sub_1D0B9356C(v10, a3, a3, a4, a5, a6, a7, a8);
-  *(v8 + 256) = *(v8 + 112);
-  v11[1] = 0;
-  v11[2] = 0;
-  v11[0] = &unk_1F4CEF538;
+  v3 = *a2;
+  sub_1D0B9356C(v4, a3);
+  *(v3 + 256) = *(v3 + 112);
+  v5[1] = 0;
+  v5[2] = 0;
+  v5[0] = &unk_1F4CEF538;
+  v6 = 0;
+  v7 = 0;
+  v8 = 0;
+  v9 = 0;
+  v10 = 0;
+  v11 = 0;
   v12 = 0;
   v13 = 0;
   v14 = 0;
-  v15 = 0;
+  v15 = 0x7FF8000000000000;
   v16 = 0;
-  v17 = 0;
+  v17 = 0x3FF0000000000000;
   v18 = 0;
   v19 = 0;
   v20 = 0;
-  v21 = 0x7FF8000000000000;
-  v22 = 0;
-  v23 = 0x3FF0000000000000;
-  v24 = 0;
-  v25 = 0;
-  v26 = 0;
-  result = raven::MountStateChecker::HandleEvent(*(v8 + 1888), v10, v11);
-  if (!result)
+  if (!raven::MountStateChecker::HandleEvent(*(v3 + 1888), v4, v5))
   {
-    sub_1D0B9E5C4();
+    sub_1D0B9E5C4(v3, v5);
   }
-
-  return result;
 }
 
-double sub_1D0BBB2E0(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double sub_1D0BBB2E0(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
-  v8 = *a2;
-  sub_1D0B9356C(&v10, a3, a3, a4, a5, a6, a7, a8);
-  if (*(v8 + 1120) == 1)
+  v3 = *a2;
+  sub_1D0B9356C(&v5, a3);
+  if (*(v3 + 1120) == 1)
   {
-    *(v8 + 1216) = v16;
-    *(v8 + 1232) = v17;
-    *(v8 + 1248) = v18;
-    *(v8 + 1264) = v19;
-    *(v8 + 1152) = v12;
-    *(v8 + 1168) = v13;
-    *(v8 + 1184) = v14;
-    *(v8 + 1200) = v15;
-    result = *&v11;
-    *(v8 + 1136) = v11;
+    *(v3 + 1216) = v11;
+    *(v3 + 1232) = v12;
+    *(v3 + 1248) = v13;
+    *(v3 + 1264) = v14;
+    *(v3 + 1152) = v7;
+    *(v3 + 1168) = v8;
+    *(v3 + 1184) = v9;
+    *(v3 + 1200) = v10;
+    result = *&v6;
+    *(v3 + 1136) = v6;
   }
 
   else
   {
-    *(v8 + 1128) = &unk_1F4CEF538;
-    *(v8 + 1216) = v16;
-    *(v8 + 1232) = v17;
-    *(v8 + 1248) = v18;
-    *(v8 + 1264) = v19;
-    *(v8 + 1152) = v12;
-    *(v8 + 1168) = v13;
-    *(v8 + 1184) = v14;
-    *(v8 + 1200) = v15;
-    result = *&v11;
-    *(v8 + 1136) = v11;
-    *(v8 + 1120) = 1;
+    *(v3 + 1128) = &unk_1F4CEF538;
+    *(v3 + 1216) = v11;
+    *(v3 + 1232) = v12;
+    *(v3 + 1248) = v13;
+    *(v3 + 1264) = v14;
+    *(v3 + 1152) = v7;
+    *(v3 + 1168) = v8;
+    *(v3 + 1184) = v9;
+    *(v3 + 1200) = v10;
+    result = *&v6;
+    *(v3 + 1136) = v6;
+    *(v3 + 1120) = 1;
   }
 
   return result;
@@ -1782,7 +1251,7 @@ uint64_t cnprint::CNLogFormatter::FormatGeneral(uint64_t a1, uint64_t a2, char *
 
 void cnprint::CNLogFormatter::FormatCore(uint64_t a1, const void **a2, uint64_t a3, int a4, char *__format, va_list a6)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   memset(&__p, 0, sizeof(__p));
   if (a4 && snprintf(__str, 0x800uLL, "time,%.3lf,", *(a3 + 8) + *a3) >= 1)
   {
@@ -1791,23 +1260,23 @@ void cnprint::CNLogFormatter::FormatCore(uint64_t a1, const void **a2, uint64_t 
 
   if (vsnprintf(__str, 0x800uLL, __format, a6) < 0)
   {
-    sub_1D0BBB79C(a2, &__p.__r_.__value_.__l.__data_, &v16);
+    sub_1D0BBB79C(a2, &__p.__r_.__value_.__l.__data_, &v15);
     if (*(a1 + 23) < 0)
     {
       operator delete(*a1);
     }
 
-    *a1 = v16;
+    *a1 = v15;
   }
 
   else
   {
-    sub_1D0BBB79C(a2, &__p.__r_.__value_.__l.__data_, &v16);
+    sub_1D0BBB79C(a2, &__p.__r_.__value_.__l.__data_, &v15);
     v10 = strlen(__str);
-    v11 = std::string::append(&v16, __str, v10);
+    v11 = std::string::append(&v15, __str, v10);
     v12 = v11->__r_.__value_.__r.__words[0];
-    v18[0] = v11->__r_.__value_.__l.__size_;
-    *(v18 + 7) = *(&v11->__r_.__value_.__r.__words[1] + 7);
+    v17[0] = v11->__r_.__value_.__l.__size_;
+    *(v17 + 7) = *(&v11->__r_.__value_.__r.__words[1] + 7);
     v13 = HIBYTE(v11->__r_.__value_.__r.__words[2]);
     v11->__r_.__value_.__l.__size_ = 0;
     v11->__r_.__value_.__r.__words[2] = 0;
@@ -1817,14 +1286,14 @@ void cnprint::CNLogFormatter::FormatCore(uint64_t a1, const void **a2, uint64_t 
       operator delete(*a1);
     }
 
-    v14 = v18[0];
+    v14 = v17[0];
     *a1 = v12;
     *(a1 + 8) = v14;
-    *(a1 + 15) = *(v18 + 7);
+    *(a1 + 15) = *(v17 + 7);
     *(a1 + 23) = v13;
-    if (SHIBYTE(v16.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v15.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v16.__r_.__value_.__l.__data_);
+      operator delete(v15.__r_.__value_.__l.__data_);
     }
   }
 
@@ -1832,8 +1301,6 @@ void cnprint::CNLogFormatter::FormatCore(uint64_t a1, const void **a2, uint64_t 
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1D0BBB5D0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
@@ -1902,7 +1369,7 @@ LABEL_6:
   return __dst;
 }
 
-uint64_t sub_1D0BBB710(uint64_t result, unint64_t a2)
+uint64_t sub_1D0BBB710(uint64_t a1, unint64_t a2)
 {
   if (a2 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -1914,14 +1381,14 @@ uint64_t sub_1D0BBB710(uint64_t result, unint64_t a2)
     operator new();
   }
 
-  *(result + 8) = 0;
-  *(result + 16) = 0;
-  *result = 0;
-  *(result + 23) = a2;
-  return result;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *a1 = 0;
+  *(a1 + 23) = a2;
+  return a1;
 }
 
-uint64_t sub_1D0BBB79C@<X0>(const void **a1@<X0>, const void **a2@<X1>, uint64_t a3@<X8>)
+char *sub_1D0BBB79C@<X0>(const void **a1@<X0>, const void **a2@<X1>, uint64_t a3@<X8>)
 {
   if (*(a1 + 23) >= 0)
   {
@@ -1944,7 +1411,7 @@ uint64_t sub_1D0BBB79C@<X0>(const void **a1@<X0>, const void **a2@<X1>, uint64_t
   }
 
   result = sub_1D0BBB710(a3, v6 + v5);
-  if (*(result + 23) >= 0)
+  if (result[23] >= 0)
   {
     v8 = result;
   }
@@ -2254,11 +1721,11 @@ void sub_1D0BBBD80(void ***a1)
   }
 }
 
-void sub_1D0BBBDF8(uint64_t a1, raven::RavenIonosphereEstimatorActiveObject **a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_1D0BBBDF8(uint64_t a1, raven::RavenIonosphereEstimatorActiveObject **a2, uint64_t a3)
 {
-  v8 = *a2;
-  sub_1D0B94708(v9, a3, a3, a4, a5, a6, a7, a8);
-  raven::RavenIonosphereEstimatorActiveObject::HandleEvent(v8, v9);
+  v3 = *a2;
+  sub_1D0B94708(v4, a3);
+  raven::RavenIonosphereEstimatorActiveObject::HandleEvent(v3, v4);
 }
 
 void raven::RavenIonosphereEstimatorActiveObject::HandleEvent(raven::RavenIonosphereEstimatorActiveObject *this, const raven::TimeMarkEvent *a2)
@@ -2269,91 +1736,91 @@ void raven::RavenIonosphereEstimatorActiveObject::HandleEvent(raven::RavenIonosp
     {
       std::mutex::lock((this + 1968));
       raven::RavenIonosphereEstimator::HandleEvent((this + 2032), a2);
-      if (*(this + 1904) != 1 || (v60 = (*(*(this + 134) + 16))(this + 1072), v61 = v4, v58 = 1, v59 = 0, v25 = CNTimeSpan::operator+(&v60, &v58, v5, v6), *&v26 = v7, sub_1D0B8E6A8(a2 + 1, &v25)))
+      if (*(this + 1904) != 1 || (v55 = (*(*(this + 134) + 16))(this + 1072), v56 = v4, v53 = 1, v54 = 0, v20 = CNTimeSpan::operator+(&v55, &v53, v5, v6), *&v21 = v7, sub_1D0B8E6A8(a2 + 1, &v20)))
       {
-        v25 = &unk_1F4CEF2B8;
+        v20 = &unk_1F4CEF2B8;
+        v27 = 0;
+        v28 = 0;
+        v29 = 0;
+        v30 = vdupq_n_s64(0x7FF8000000000000uLL);
+        v31 = 0x7FF8000000000000;
         v32 = 0;
+        v34 = v30;
+        v35 = v30;
+        v36 = v30;
+        v37 = v30;
+        v38 = v30;
+        v39 = v30;
         v33 = 0;
-        v34 = 0;
-        v35 = vdupq_n_s64(0x7FF8000000000000uLL);
-        v36 = 0x7FF8000000000000;
-        v37 = 0;
-        v39 = v35;
-        v40 = v35;
-        v41 = v35;
-        v42 = v35;
-        v43 = v35;
-        v44 = v35;
-        v38 = 0;
-        v45 = 0x7FF8000000000000;
-        v46 = 0x7FF8000000000000;
-        v47 = 0u;
-        v48 = 0u;
-        v49 = 0u;
+        v40 = 0x7FF8000000000000;
+        v41 = 0x7FF8000000000000;
+        v42 = 0u;
+        v43 = 0u;
+        v44 = 0u;
+        v45 = 0u;
+        v46 = 0u;
+        v47 = 0;
+        v48 = 0x7FF8000000000000;
+        v49 = 0;
         v50 = 0u;
         v51 = 0u;
-        v52 = 0;
-        v53 = 0x7FF8000000000000;
-        v54 = 0;
-        v55 = 0u;
-        v56 = 0u;
-        v57 = 0u;
+        v52 = 0u;
         v8 = *(a2 + 56);
-        v28 = *(a2 + 40);
-        v29 = v8;
+        v23 = *(a2 + 40);
+        v24 = v8;
         v9 = *(a2 + 88);
-        v30 = *(a2 + 72);
-        v31 = v9;
+        v25 = *(a2 + 72);
+        v26 = v9;
         v10 = *(a2 + 24);
-        v26 = *(a2 + 8);
-        v27 = v10;
-        if (!raven::RavenIonosphereEstimator::PopulateEvent((this + 2032), &v25))
+        v21 = *(a2 + 8);
+        v22 = v10;
+        if (!raven::RavenIonosphereEstimator::PopulateEvent(this + 127, &v20))
         {
           operator new();
         }
       }
 
-      if (*(this + 1064) != 1 || (v60 = (*(*(this + 29) + 16))(this + 232), v61 = v18, v58 = 1, v59 = 0, v25 = CNTimeSpan::operator+(&v60, &v58, v19, v20), *&v26 = v21, sub_1D0B8E6A8(a2 + 1, &v25)))
+      if (*(this + 1064) != 1 || (v55 = (*(*(this + 29) + 16))(this + 232), v56 = v13, v53 = 1, v54 = 0, v20 = CNTimeSpan::operator+(&v55, &v53, v14, v15), *&v21 = v16, sub_1D0B8E6A8(a2 + 1, &v20)))
       {
-        v25 = &unk_1F4CEE948;
-        v32 = 0;
+        v20 = &unk_1F4CEE948;
+        v27 = 0;
+        v28 = 0;
+        v29 = 0;
+        v30.i8[0] = 0;
+        v30.i64[1] = 0;
+        v31 = 0;
+        LOBYTE(v32) = 0;
         v33 = 0;
-        v34 = 0;
-        v35.i8[0] = 0;
-        v35.i64[1] = 0;
-        v36 = 0;
-        LOBYTE(v37) = 0;
-        v38 = 0;
-        v39.i64[0] = 0;
-        v39.i8[8] = 0;
-        v40 = 0uLL;
-        v41 = vdupq_n_s64(0x7FF8000000000000uLL);
-        v42 = v41;
-        v43 = v41;
-        v44 = v41;
-        v45 = 0x7FF8000000000000;
-        v46 = 0x7FF8000000000000;
+        v34.i64[0] = 0;
+        v34.i8[8] = 0;
+        v35 = 0uLL;
+        v36 = vdupq_n_s64(0x7FF8000000000000uLL);
+        v37 = v36;
+        v38 = v36;
+        v39 = v36;
+        v40 = 0x7FF8000000000000;
+        v41 = 0x7FF8000000000000;
+        v45 = 0u;
+        v46 = 0u;
+        v43 = 0u;
+        v44 = 0u;
+        v42 = 0u;
+        v47 = 0;
+        v48 = 0x7FF8000000000000;
+        v49 = 0;
         v50 = 0u;
         v51 = 0u;
-        v48 = 0u;
-        v49 = 0u;
-        v47 = 0u;
-        v52 = 0;
-        v53 = 0x7FF8000000000000;
-        v54 = 0;
-        v55 = 0u;
-        v56 = 0u;
-        v57 = 0u;
-        v22 = *(a2 + 56);
-        v28 = *(a2 + 40);
-        v29 = v22;
-        v23 = *(a2 + 88);
-        v30 = *(a2 + 72);
-        v31 = v23;
-        v24 = *(a2 + 24);
-        v26 = *(a2 + 8);
-        v27 = v24;
-        if (!raven::RavenIonosphereEstimator::PopulateEvent((this + 2032), &v25))
+        v52 = 0u;
+        v17 = *(a2 + 56);
+        v23 = *(a2 + 40);
+        v24 = v17;
+        v18 = *(a2 + 88);
+        v25 = *(a2 + 72);
+        v26 = v18;
+        v19 = *(a2 + 24);
+        v21 = *(a2 + 8);
+        v22 = v19;
+        if (!raven::RavenIonosphereEstimator::PopulateEvent((this + 2032), &v20))
         {
           operator new();
         }
@@ -2365,20 +1832,20 @@ void raven::RavenIonosphereEstimatorActiveObject::HandleEvent(raven::RavenIonosp
 
   else
   {
-    LOWORD(v25) = 12;
-    LOBYTE(v60) = 2;
+    LOWORD(v20) = 12;
+    LOBYTE(v55) = 2;
     v11 = cnprint::CNLogFormatter::FormatGeneral(this + 239, "RavenIonosphereEstimatorActiveObject: not configured");
     if (*(this + 1935) >= 0)
     {
-      LOBYTE(v17) = v11;
+      v12 = v11;
     }
 
     else
     {
-      v17 = *(this + 239);
+      v12 = *(this + 239);
     }
 
-    cnprint::CNPrinter::Print(&v25, &v60, "%s", v12, v13, v14, v15, v16, v17);
+    cnprint::CNPrinter::Print(&v20, &v55, "%s", v12);
   }
 }
 
@@ -2417,15 +1884,15 @@ uint64_t raven::RavenIonosphereEstimator::HandleEvent(raven::RavenIonosphereEsti
     return 0;
   }
 
-  v55.i64[0] = (*(*a2 + 16))(a2);
-  v55.i64[1] = v8;
-  v51 = *(this + 2);
-  v10 = CNTimeSpan::operator-(&v55, &v51, v51, v9);
+  v40.i64[0] = (*(*a2 + 16))(a2);
+  v40.i64[1] = v8;
+  v36 = *(this + 2);
+  v10 = CNTimeSpan::operator-(&v40, &v36, v36, v9);
   *v13.i64 = v12 + v10;
   if (*v13.i64 >= 0.0)
   {
-    v25 = *(this + 504);
-    *v13.i64 = *v13.i64 / *(v25 + 2568);
+    v20 = *(this + 504);
+    *v13.i64 = *v13.i64 / *(v20 + 2568);
     v11.i64[0] = 1.0;
     if (*v13.i64 > 1.0)
     {
@@ -2434,35 +1901,35 @@ uint64_t raven::RavenIonosphereEstimator::HandleEvent(raven::RavenIonosphereEsti
         goto LABEL_19;
       }
 
-      v27 = CNTimeSpan::operator-(this + 58, this + 8, v13, v11);
-      v51.i64[0] = v27;
-      *&v51.i64[1] = v28;
-      if (v27 < 0 || (*v29.i64 = v28, v28 < 0.0))
+      v22 = CNTimeSpan::operator-(this + 58, this + 8, v13, v11);
+      v36.i64[0] = v22;
+      *&v36.i64[1] = v23;
+      if (v22 < 0 || (*v24.i64 = v23, v23 < 0.0))
       {
-        v27 = CNTimeSpan::operator-(v51.i64, v29, v30);
-        v29.i64[0] = v31;
+        v22 = CNTimeSpan::operator-(v36.i64, v24, v25);
+        v24.i64[0] = v26;
       }
 
-      if (*v29.i64 + v27 >= *(v25 + 3136))
+      if (*v24.i64 + v22 >= *(v20 + 3136))
       {
 LABEL_19:
         updated = raven::RavenIonosphereEstimator::UpdateEstimatorParametersViaPolyfitToKlobucharModel(this);
         if (updated && cnprint::CNPrinter::GetLogLevel(updated) <= 1)
         {
-          v51.i16[0] = 12;
-          v54.i8[0] = 1;
-          v33 = cnprint::CNLogFormatter::FormatGeneral(this + 505, "Warning: UpdateEstimatorParametersViaPolyfitToKlobucharModel failed, continuing without updating parameters");
+          v36.i16[0] = 12;
+          v39.i8[0] = 1;
+          v28 = cnprint::CNLogFormatter::FormatGeneral(this + 505, "Warning: UpdateEstimatorParametersViaPolyfitToKlobucharModel failed, continuing without updating parameters");
           if (*(this + 4063) >= 0)
           {
-            LOBYTE(v39) = v33;
+            v29 = v28;
           }
 
           else
           {
-            v39 = *(this + 505);
+            v29 = *(this + 505);
           }
 
-          cnprint::CNPrinter::Print(&v51, &v54, "%s", v34, v35, v36, v37, v38, v39);
+          cnprint::CNPrinter::Print(&v36, &v39, "%s", v29);
         }
       }
 
@@ -2491,36 +1958,36 @@ LABEL_19:
       *(this + 3288) = 0u;
       *(this + 3240) = 0u;
       *(this + 3256) = 0u;
-      v40 = *(this + 2);
-      v53 = v55;
-      v54 = v40;
-      v51 = 0uLL;
-      v52 = 0x7FF8000000000000;
-      EstimatorPredictAndUpdateArguments = raven::RavenIonosphereEstimator::GetEstimatorPredictAndUpdateArguments(this, &v54, &v53, &v51, *v55.i64, v40);
+      v30 = *(this + 2);
+      v38 = v40;
+      v39 = v30;
+      v36 = 0uLL;
+      v37 = 0x7FF8000000000000;
+      EstimatorPredictAndUpdateArguments = raven::RavenIonosphereEstimator::GetEstimatorPredictAndUpdateArguments(this, &v39, &v38, &v36, *v40.i64, v30);
       if (EstimatorPredictAndUpdateArguments)
       {
-        v24 = raven::RavenIonosphereEstimator::PredictAndUpdate(this, &v51);
-        v49 = v24;
-        sub_1D0BAAFCC(&v49);
-        return v24;
+        v19 = raven::RavenIonosphereEstimator::PredictAndUpdate(this, &v36);
+        v34 = v19;
+        sub_1D0BAAFCC(&v34);
+        return v19;
       }
 
       if (cnprint::CNPrinter::GetLogLevel(EstimatorPredictAndUpdateArguments) <= 1)
       {
-        LOWORD(v49) = 12;
-        v50 = 1;
-        v42 = cnprint::CNLogFormatter::FormatGeneral(this + 4040, &v55, "Could not get predict and update arguments");
+        LOWORD(v34) = 12;
+        v35 = 1;
+        v32 = cnprint::CNLogFormatter::FormatGeneral(this + 4040, &v40, "Could not get predict and update arguments");
         if (*(this + 4063) >= 0)
         {
-          LOBYTE(v48) = v42;
+          v33 = v32;
         }
 
         else
         {
-          v48 = *(this + 505);
+          v33 = *(this + 505);
         }
 
-        cnprint::CNPrinter::Print(&v49, &v50, "%s", v43, v44, v45, v46, v47, v48);
+        cnprint::CNPrinter::Print(&v34, &v35, "%s", v33);
       }
     }
 
@@ -2529,33 +1996,33 @@ LABEL_19:
 
   if (cnprint::CNPrinter::GetLogLevel(v10) <= 1)
   {
-    v54.i16[0] = 12;
-    v53.i8[0] = 1;
-    v51.i64[0] = (*(*a2 + 16))(a2);
-    v51.i64[1] = v14;
+    v39.i16[0] = 12;
+    v38.i8[0] = 1;
+    v36.i64[0] = (*(*a2 + 16))(a2);
+    v36.i64[1] = v14;
     v15 = *(this + 5) + *(this + 4);
     v16 = (*(*a2 + 16))(a2);
-    cnprint::CNLogFormatter::FormatGeneral(this + 4040, &v51, "Estimator time is greater than event time,%.3lf > %.3lf", v15, v17 + v16);
+    cnprint::CNLogFormatter::FormatGeneral(this + 4040, &v36, "Estimator time is greater than event time,%.3lf > %.3lf", v15, v17 + v16);
     if (*(this + 4063) >= 0)
     {
-      LOBYTE(v23) = this - 56;
+      v18 = this + 4040;
     }
 
     else
     {
-      v23 = *(this + 505);
+      v18 = *(this + 505);
     }
 
-    cnprint::CNPrinter::Print(&v54, &v53, "%s", v18, v19, v20, v21, v22, v23);
+    cnprint::CNPrinter::Print(&v39, &v38, "%s", v18);
   }
 
   return 64;
 }
 
-void *sub_1D0BBCAA4(uint64_t a1, unint64_t a2)
+uint64_t *sub_1D0BBCAA4(uint64_t **a1, unint64_t a2, void **a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
 LABEL_7:
     operator new();
@@ -2565,27 +2032,27 @@ LABEL_7:
   {
     while (1)
     {
-      v3 = v2;
-      v4 = v2[4];
-      if (v4 <= a2)
+      v4 = v3;
+      v5 = v3[4];
+      if (v5 <= a2)
       {
         break;
       }
 
-      v2 = *v3;
-      if (!*v3)
+      v3 = *v4;
+      if (!*v4)
       {
         goto LABEL_7;
       }
     }
 
-    if (v4 >= a2)
+    if (v5 >= a2)
     {
-      return v3;
+      return v4;
     }
 
-    v2 = v3[1];
-    if (!v2)
+    v3 = v4[1];
+    if (!v3)
     {
       goto LABEL_7;
     }
@@ -2703,7 +2170,7 @@ uint64_t sub_1D0BBCC94(uint64_t a1, uint64_t a2)
   return result;
 }
 
-_BYTE *sub_1D0BBCCD4(uint64_t a1, uint64_t a2)
+_OWORD *sub_1D0BBCCD4(uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 8);
   *v3 = *a2;
@@ -2724,50 +2191,50 @@ _BYTE *sub_1D0BBCCD4(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void sub_1D0BBCD70(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_1D0BBCD70(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
-  v8 = *a2;
-  v9 = sub_1D0B99264(v23, a3, a3, a4, a5, a6, a7, a8);
-  if (*(v8 + 224))
+  v3 = *a2;
+  v4 = sub_1D0B99264(v8, a3);
+  if (*(v3 + 224))
   {
-    if (*(v8 + 497) == 1 && *(v8 + 496) == 1)
+    if (*(v3 + 497) == 1 && *(v3 + 496) == 1)
     {
-      raven::RavenMovingStateEstimator::HandleEvent((v8 + 280), v23);
+      raven::RavenMovingStateEstimator::HandleEvent((v3 + 280), v8);
     }
   }
 
   else
   {
-    v28 = 12;
-    v27 = 2;
-    v26[0] = (*(v23[0] + 16))(v23, v9);
-    v26[1] = v10;
-    (*(v23[0] + 24))(v24, v23);
-    if (v25 >= 0)
+    v13 = 12;
+    v12 = 2;
+    v11[0] = (*(v8[0] + 16))(v8, v4);
+    v11[1] = v5;
+    (*(v8[0] + 24))(v9, v8);
+    if (v10 >= 0)
     {
-      v16 = v24;
+      v6 = v9;
     }
 
     else
     {
-      v16 = v24[0];
+      v6 = v9[0];
     }
 
-    cnprint::CNLogFormatter::FormatWarning(v8 + 232, v26, "Failed to handle event - %s.", v11, v12, v13, v14, v15, v16);
-    if (*(v8 + 255) >= 0)
+    cnprint::CNLogFormatter::FormatWarning(v3 + 232, v11, "Failed to handle event - %s.", v6);
+    if (*(v3 + 255) >= 0)
     {
-      LOBYTE(v22) = v8 - 24;
+      v7 = (v3 + 232);
     }
 
     else
     {
-      v22 = *(v8 + 232);
+      v7 = *(v3 + 232);
     }
 
-    cnprint::CNPrinter::Print(&v28, &v27, "%s", v17, v18, v19, v20, v21, v22);
-    if (v25 < 0)
+    cnprint::CNPrinter::Print(&v13, &v12, "%s", v7);
+    if (v10 < 0)
     {
-      operator delete(v24[0]);
+      operator delete(v9[0]);
     }
   }
 }
@@ -2876,54 +2343,54 @@ double sub_1D0BBD090(unsigned __int8 *a1)
   return result;
 }
 
-double sub_1D0BBD0B4(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double sub_1D0BBD0B4(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
-  v8 = *a2;
-  sub_1D0B99264(&v20, a3, a3, a4, a5, a6, a7, a8);
-  if (*(v8 + 432) == 1)
+  v3 = *a2;
+  sub_1D0B99264(&v15, a3);
+  if (*(v3 + 432) == 1)
   {
-    *(v8 + 424) = v32;
-    *(v8 + 248) = v21;
-    v9 = v29;
-    v10 = v31;
-    *(v8 + 392) = v30;
-    *(v8 + 408) = v10;
-    v11 = v25;
-    v12 = v27;
-    *(v8 + 328) = v26;
-    *(v8 + 344) = v12;
-    *(v8 + 360) = v28;
-    *(v8 + 376) = v9;
-    v13 = v23;
-    *(v8 + 264) = v22;
-    *(v8 + 280) = v13;
-    result = *&v24;
-    *(v8 + 296) = v24;
-    *(v8 + 312) = v11;
+    *(v3 + 424) = v27;
+    *(v3 + 248) = v16;
+    v4 = v24;
+    v5 = v26;
+    *(v3 + 392) = v25;
+    *(v3 + 408) = v5;
+    v6 = v20;
+    v7 = v22;
+    *(v3 + 328) = v21;
+    *(v3 + 344) = v7;
+    *(v3 + 360) = v23;
+    *(v3 + 376) = v4;
+    v8 = v18;
+    *(v3 + 264) = v17;
+    *(v3 + 280) = v8;
+    result = *&v19;
+    *(v3 + 296) = v19;
+    *(v3 + 312) = v6;
   }
 
   else
   {
-    *(v8 + 240) = &unk_1F4CEF688;
-    *(v8 + 424) = v32;
-    *(v8 + 248) = v21;
-    v15 = v29;
-    v16 = v31;
-    *(v8 + 392) = v30;
-    *(v8 + 408) = v16;
-    v17 = v25;
-    v18 = v27;
-    *(v8 + 328) = v26;
-    *(v8 + 344) = v18;
-    *(v8 + 360) = v28;
-    *(v8 + 376) = v15;
-    v19 = v23;
-    *(v8 + 264) = v22;
-    *(v8 + 280) = v19;
-    result = *&v24;
-    *(v8 + 296) = v24;
-    *(v8 + 312) = v17;
-    *(v8 + 432) = 1;
+    *(v3 + 240) = &unk_1F4CEF688;
+    *(v3 + 424) = v27;
+    *(v3 + 248) = v16;
+    v10 = v24;
+    v11 = v26;
+    *(v3 + 392) = v25;
+    *(v3 + 408) = v11;
+    v12 = v20;
+    v13 = v22;
+    *(v3 + 328) = v21;
+    *(v3 + 344) = v13;
+    *(v3 + 360) = v23;
+    *(v3 + 376) = v10;
+    v14 = v18;
+    *(v3 + 264) = v17;
+    *(v3 + 280) = v14;
+    result = *&v19;
+    *(v3 + 296) = v19;
+    *(v3 + 312) = v12;
+    *(v3 + 432) = 1;
   }
 
   return result;
@@ -2935,9 +2402,9 @@ uint64_t raven::GnssMeasurementPreprocessor::GetKlobucharParametersEvent(raven::
   {
     if (cnprint::CNPrinter::GetLogLevel(this) <= 1)
     {
-      v16 = 12;
-      v15 = 1;
-      cnprint::CNPrinter::Print(&v16, &v15, "#gmp,KlobucharParametersEvent,not configured", v9, v10, v11, v12, v13, v14);
+      v10 = 12;
+      v9 = 1;
+      cnprint::CNPrinter::Print(&v10, &v9, "#gmp,KlobucharParametersEvent,not configured");
     }
 
     return 0;
@@ -2984,70 +2451,70 @@ void CoreNavigation::CLP::LogEntry::PrivateData::GnssAvailabilityPrediction::~Gn
   JUMPOUT(0x1D387ECA0);
 }
 
-void sub_1D0BBD378(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_1D0BBD378(uint64_t a1, char **a2, uint64_t a3)
 {
-  v8 = *a2;
-  sub_1D0BCA910(v33, a3, a3, a4, a5, a6, a7, a8);
-  if ((*(*v8 + 88))(v8))
+  v3 = *a2;
+  sub_1D0BCA910(v11, a3);
+  if ((*(*v3 + 88))(v3))
   {
-    v11 = raven::RavenConvergenceEstimator::HandleEvent((v8 + 2968), v33, v9, v10);
-    if (v11 && cnprint::CNPrinter::GetLogLevel(v11) <= 1)
+    v4 = raven::RavenConvergenceEstimator::HandleEvent((v3 + 2968), v11);
+    if (v4 && cnprint::CNPrinter::GetLogLevel(v4) <= 1)
     {
-      v39[0] = 12;
-      v38 = 1;
-      v37[0] = (*(v33[0] + 16))(v33);
-      v37[1] = v12;
-      (*(v33[0] + 24))(v35, v33);
-      if (v36 >= 0)
+      v17[0] = 12;
+      v16 = 1;
+      v15[0] = (*(v11[0] + 16))(v11);
+      v15[1] = v5;
+      (*(v11[0] + 24))(v13, v11);
+      if (v14 >= 0)
       {
-        v18 = v35;
+        v6 = v13;
       }
 
       else
       {
-        v18 = v35[0];
+        v6 = v13[0];
       }
 
-      v19 = cnprint::CNLogFormatter::FormatWarning(v8 + 240, v37, "Failed to handle event - %s.", v13, v14, v15, v16, v17, v18);
-      if (*(v8 + 263) >= 0)
+      v7 = cnprint::CNLogFormatter::FormatWarning(v3 + 240, v15, "Failed to handle event - %s.", v6);
+      if (*(v3 + 263) >= 0)
       {
-        LOBYTE(v25) = v19;
+        v8 = v7;
       }
 
       else
       {
-        v25 = *(v8 + 240);
+        v8 = *(v3 + 240);
       }
 
-      cnprint::CNPrinter::Print(v39, &v38, "%s", v20, v21, v22, v23, v24, v25);
-      if (v36 < 0)
+      cnprint::CNPrinter::Print(v17, &v16, "%s", v8);
+      if (v14 < 0)
       {
-        operator delete(v35[0]);
+        operator delete(v13[0]);
       }
     }
   }
 
   else
   {
-    LOWORD(v35[0]) = 12;
-    LOBYTE(v37[0]) = 2;
-    v26 = cnprint::CNLogFormatter::FormatGeneral((v8 + 240), "Warning,RavenConvergenceEstimatorActiveObject is not configured");
-    if (*(v8 + 263) >= 0)
+    LOWORD(v13[0]) = 12;
+    LOBYTE(v15[0]) = 2;
+    v9 = cnprint::CNLogFormatter::FormatGeneral((v3 + 240), "Warning,RavenConvergenceEstimatorActiveObject is not configured");
+    if (*(v3 + 263) >= 0)
     {
-      LOBYTE(v32) = v26;
+      v10 = v9;
     }
 
     else
     {
-      v32 = *(v8 + 240);
+      v10 = *(v3 + 240);
     }
 
-    cnprint::CNPrinter::Print(v35, v37, "%s", v27, v28, v29, v30, v31, v32);
+    cnprint::CNPrinter::Print(v13, v15, "%s", v10);
   }
 
-  v33[0] = &unk_1F4CEF598;
-  v35[0] = &v34;
-  sub_1D0BBBD80(v35);
+  v11[0] = &unk_1F4CEF598;
+  v13[0] = &v12;
+  sub_1D0BBBD80(v13);
 }
 
 void sub_1D0BBD554(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23)
@@ -3062,7 +2529,7 @@ void sub_1D0BBD554(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_1D0BBD5A4(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *sub_1D0BBD5A4(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -3079,7 +2546,7 @@ void sub_1D0BBD60C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_1D0BBD62C(uint64_t a1, unint64_t a2)
+void sub_1D0BBD62C(uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -3089,7 +2556,7 @@ void sub_1D0BBD62C(uint64_t a1, unint64_t a2)
   sub_1D0D31B50();
 }
 
-void sub_1D0BBD668(uint64_t *a1, uint64_t *a2, uint64_t *a3, unint64_t a4)
+void sub_1D0BBD668(uint64_t **a1, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   v8 = *a1;
   if (a4 > (a1[2] - *a1) >> 4)
@@ -3164,22 +2631,22 @@ uint64_t raven::RavenEstimator::HandleGnssPreprocessedMeasurementsEvent(raven::R
   {
     if (cnprint::CNPrinter::GetLogLevel(this) <= 1)
     {
-      v20 = 12;
-      v19 = 1;
-      v18[0] = (*(*a2 + 16))(a2);
-      v18[1] = v5;
-      cnprint::CNLogFormatter::FormatWarning(this + 2712, v18, "Estimator not configured, failed to handle GnssPreprocessedMeasurementsEvent.", v6, v7, v8, v9, v10, v17);
+      v9 = 12;
+      v8 = 1;
+      v7[0] = (*(*a2 + 16))(a2);
+      v7[1] = v5;
+      cnprint::CNLogFormatter::FormatWarning(this + 2712, v7, "Estimator not configured, failed to handle GnssPreprocessedMeasurementsEvent.");
       if (*(this + 2735) >= 0)
       {
-        LOBYTE(v16) = this - 104;
+        v6 = this + 2712;
       }
 
       else
       {
-        v16 = *(this + 339);
+        v6 = *(this + 339);
       }
 
-      cnprint::CNPrinter::Print(&v20, &v19, "%s", v11, v12, v13, v14, v15, v16);
+      cnprint::CNPrinter::Print(&v9, &v8, "%s", v6);
     }
 
     return 0xFFFFFFFFLL;
@@ -3189,28 +2656,28 @@ uint64_t raven::RavenEstimator::HandleGnssPreprocessedMeasurementsEvent(raven::R
 BOOL raven::RavenEstimator::AreGnssMeasurementsAtSameTime(uint64_t a1, void *a2, _OWORD *a3, int8x16_t a4, int8x16_t a5)
 {
   v6 = *a4.i64;
-  LOBYTE(v49) = 0;
-  *(&v49 + 1) = 0;
-  *&v50 = 0;
-  BYTE8(v50) = 0;
-  v51 = 0uLL;
-  LOBYTE(v52) = 0;
-  *(&v52 + 1) = 0;
-  *&v53 = 0;
-  *(&v53 + 1) = 0x7FF8000000000000;
+  LOBYTE(v44) = 0;
+  *(&v44 + 1) = 0;
+  *&v45 = 0;
+  BYTE8(v45) = 0;
+  v46 = 0uLL;
+  LOBYTE(v47) = 0;
+  *(&v47 + 1) = 0;
   *&v48 = 0;
-  *(&v48 + 1) = 0x7FF0000000000000;
-  LOBYTE(v43) = 0;
-  *(&v43 + 1) = 0;
-  v44.i64[0] = 0;
-  v44.i8[8] = 0;
-  v45 = 0uLL;
-  LOBYTE(v46) = 0;
-  *(&v46 + 1) = 0;
-  *&v47 = 0;
-  *(&v47 + 1) = 0x7FF8000000000000;
+  *(&v48 + 1) = 0x7FF8000000000000;
+  *&v43 = 0;
+  *(&v43 + 1) = 0x7FF0000000000000;
+  LOBYTE(v38) = 0;
+  *(&v38 + 1) = 0;
+  v39.i64[0] = 0;
+  v39.i8[8] = 0;
+  v40 = 0uLL;
+  LOBYTE(v41) = 0;
+  *(&v41 + 1) = 0;
   *&v42 = 0;
-  *(&v42 + 1) = 0xFFF0000000000000;
+  *(&v42 + 1) = 0x7FF8000000000000;
+  *&v37 = 0;
+  *(&v37 + 1) = 0xFFF0000000000000;
   v9 = a2[12];
   v10 = a2[13];
   while (v9 != v10)
@@ -3222,32 +2689,32 @@ BOOL raven::RavenEstimator::AreGnssMeasurementsAtSameTime(uint64_t a1, void *a2,
       v13 = *(v11 + 336);
       while (v12 != v13)
       {
-        if (sub_1D0B7C8AC(v12, &v48))
+        if (sub_1D0B7C8AC(v12, &v43))
         {
           v14 = *v12;
-          v49 = *(v12 + 1);
-          v48 = v14;
+          v44 = *(v12 + 1);
+          v43 = v14;
           v15 = *(v12 + 2);
           v16 = *(v12 + 3);
           v17 = *(v12 + 5);
-          v52 = *(v12 + 4);
-          v53 = v17;
-          v50 = v15;
-          v51 = v16;
+          v47 = *(v12 + 4);
+          v48 = v17;
+          v45 = v15;
+          v46 = v16;
         }
 
-        if (sub_1D0B7CF88(v12, &v42))
+        if (sub_1D0B7CF88(v12, &v37))
         {
           v18 = *(v12 + 1);
-          v42 = *v12;
-          v43 = v18;
+          v37 = *v12;
+          v38 = v18;
           a4 = *(v12 + 4);
           a5 = *(v12 + 6);
           v19 = *(v12 + 5);
-          v46 = *(v12 + 4);
-          v47 = v19;
-          v44 = a4;
-          v45 = a5;
+          v41 = *(v12 + 4);
+          v42 = v19;
+          v39 = a4;
+          v40 = a5;
         }
 
         v12 += 26;
@@ -3257,47 +2724,47 @@ BOOL raven::RavenEstimator::AreGnssMeasurementsAtSameTime(uint64_t a1, void *a2,
     v9 += 2;
   }
 
-  v20 = CNTimeSpan::operator-(&v42, &v48, a4, a5);
-  v40 = v20;
-  v41 = v21;
+  v20 = CNTimeSpan::operator-(&v37, &v43, a4, a5);
+  v35 = v20;
+  v36 = v21;
   if (v20 < 0 || (*v22.i64 = v21, v21 < 0.0))
   {
-    v20 = CNTimeSpan::operator-(&v40, v22, v23);
+    v20 = CNTimeSpan::operator-(&v35, v22, v23);
     v22.i64[0] = v24;
   }
 
   v25 = fabs(*v22.i64 + v20);
   if (v25 > v6)
   {
-    v39 = 12;
-    v38 = 4;
-    v40 = (*(*a2 + 16))(a2);
-    v41 = v30;
-    cnprint::CNLogFormatter::FormatGeneral(a1 + 2712, &v40, "GNSS measurements do not share a common time,min_time,%.3lf,max_time,%.3lf", *(&v48 + 1) + v48, *(&v42 + 1) + v42);
+    v34 = 12;
+    v33 = 4;
+    v35 = (*(*a2 + 16))(a2);
+    v36 = v30;
+    cnprint::CNLogFormatter::FormatGeneral(a1 + 2712, &v35, "GNSS measurements do not share a common time,min_time,%.3lf,max_time,%.3lf", *(&v43 + 1) + v43, *(&v37 + 1) + v37);
     if (*(a1 + 2735) >= 0)
     {
-      LOBYTE(v36) = a1 - 104;
+      v31 = (a1 + 2712);
     }
 
     else
     {
-      v36 = *(a1 + 2712);
+      v31 = *(a1 + 2712);
     }
 
-    cnprint::CNPrinter::Print(&v39, &v38, "%s", v31, v32, v33, v34, v35, v36);
+    cnprint::CNPrinter::Print(&v34, &v33, "%s", v31);
   }
 
   else
   {
-    v26 = v51;
-    v27 = v52;
-    v28 = v49;
-    a3[2] = v50;
+    v26 = v46;
+    v27 = v47;
+    v28 = v44;
+    a3[2] = v45;
     a3[3] = v26;
-    v29 = v53;
+    v29 = v48;
     a3[4] = v27;
     a3[5] = v29;
-    *a3 = v48;
+    *a3 = v43;
     a3[1] = v28;
   }
 
@@ -3320,29 +2787,29 @@ double sub_1D0BBDAB8@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-void sub_1D0BBDB14(uint64_t a1)
+void sub_1D0BBDB14(uint64_t result)
 {
-  if (*(a1 + 24))
+  if (*(result + 24))
   {
-    sub_1D0BC27A8(a1, *(a1 + 16));
-    *(a1 + 16) = 0;
-    v2 = *(a1 + 8);
+    sub_1D0BC27A8(result, *(result + 16));
+    *(result + 16) = 0;
+    v2 = *(result + 8);
     if (v2)
     {
       for (i = 0; i != v2; ++i)
       {
-        *(*a1 + 8 * i) = 0;
+        *(*result + 8 * i) = 0;
       }
     }
 
-    *(a1 + 24) = 0;
+    *(result + 24) = 0;
   }
 }
 
-const void **sub_1D0BBDB70(uint64_t a1)
+void sub_1D0BBDB70(const void **a1)
 {
-  v1 = *(a1 + 8);
-  v2 = *(a1 + 16);
+  v1 = a1[1];
+  v2 = a1[2];
   v3 = v2 - v1;
   if (v2 == v1)
   {
@@ -3354,15 +2821,15 @@ const void **sub_1D0BBDB70(uint64_t a1)
     v4 = 26 * ((v2 - v1) >> 3) - 1;
   }
 
-  v5 = *(a1 + 32);
-  if ((v4 - (*(a1 + 40) + v5)) < 0x1A)
+  v5 = a1[4];
+  if ((v4 - (a1[5] + v5)) < 0x1A)
   {
-    v7 = *(a1 + 24);
-    v8 = *a1;
-    v9 = &v7[-*a1];
-    if (v3 < v9)
+    v6 = a1[3];
+    v7 = *a1;
+    v8 = v6 - *a1;
+    if (v3 < v8)
     {
-      if (v1 != v8)
+      if (v1 != v7)
       {
         operator new();
       }
@@ -3370,24 +2837,24 @@ const void **sub_1D0BBDB70(uint64_t a1)
       operator new();
     }
 
-    if (v7 == v8)
+    if (v6 == v7)
     {
-      v10 = 1;
+      v9 = 1;
     }
 
     else
     {
-      v10 = v9 >> 2;
+      v9 = v8 >> 2;
     }
 
-    v11[4] = a1;
-    sub_1D0C54E78(a1, v10);
+    v10[4] = a1;
+    sub_1D0C54E78(a1, v9);
   }
 
-  *(a1 + 32) = v5 + 26;
-  v11[0] = *(v2 - 1);
-  *(a1 + 16) = v2 - 8;
-  return sub_1D0BA02E4(a1, v11);
+  a1[4] = (v5 + 26);
+  v10[0] = *(v2 - 8);
+  a1[2] = (v2 - 8);
+  sub_1D0BA02E4(a1, v10);
 }
 
 void sub_1D0BBDD74(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12)
@@ -3401,27 +2868,24 @@ void sub_1D0BBDD74(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t raven::RavenSupervisor::RaiseEventsFrom(raven::RavenSupervisor *this, const CoreNavigation::CLP::LogEntry::PrivateData::GnssAvailabilityPrediction *a2, raven::GnssAvailabilityEvent *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, double a9, int8x16_t a10)
+void raven::RavenSupervisor::RaiseEventsFrom(raven::RavenSupervisor *this, const CoreNavigation::CLP::LogEntry::PrivateData::GnssAvailabilityPrediction *a2, raven::GnssAvailabilityEvent *a3, double a4, int8x16_t a5)
 {
-  v12 = 0uLL;
-  v11 = &unk_1F4CEF048;
+  v6 = 0uLL;
+  v5 = &unk_1F4CEF048;
+  v7 = 0;
+  v8 = 0;
+  v9 = 0;
+  v10 = 0;
+  v11 = 0uLL;
+  v12 = 0;
   v13 = 0;
-  v14 = 0;
+  v14[0] = 0;
+  *&v14[1] = xmmword_1D0E83F80;
   v15 = 0;
-  v16 = 0;
-  v17 = 0uLL;
-  v18 = 0;
-  v19 = 0;
-  v20[0] = 0;
-  *&v20[1] = xmmword_1D0E83F80;
-  v21 = 0;
-  result = raven::ConvertProtobufToGnssAvailabilityEvent(a2, &v11, a3, a4, a5, a6, a7, a8, xmmword_1D0E83F80, a10);
-  if (result)
+  if (raven::ConvertProtobufToGnssAvailabilityEvent(a2, &v5, a3, xmmword_1D0E83F80, a5))
   {
     operator new();
   }
-
-  return result;
 }
 
 void sub_1D0BBE06C(_Unwind_Exception *a1)
@@ -3436,23 +2900,23 @@ void sub_1D0BBE06C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t raven::ConvertProtobufToGnssAvailabilityEvent(raven *this, const CoreNavigation::CLP::LogEntry::PrivateData::GnssAvailabilityPrediction *a2, raven::GnssAvailabilityEvent *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int8x16_t a9, int8x16_t a10)
+uint64_t raven::ConvertProtobufToGnssAvailabilityEvent(raven *this, const CoreNavigation::CLP::LogEntry::PrivateData::GnssAvailabilityPrediction *a2, raven::GnssAvailabilityEvent *a3, int8x16_t a4, int8x16_t a5)
 {
   if ((*(this + 36) & 1) == 0)
   {
     return 0;
   }
 
-  v38 = v10;
-  v39 = v11;
-  v15 = *(this + 1);
-  if (!v15)
+  v21 = v5;
+  v22 = v6;
+  v10 = *(this + 1);
+  if (!v10)
   {
     CoreNavigation::CLP::LogEntry::PrivateData::protobuf_AddDesc_CoreNavigationCLPPrivateDataShared_2eproto(0);
-    v15 = *(CoreNavigation::CLP::LogEntry::PrivateData::GnssAvailabilityPrediction::default_instance_ + 8);
+    v10 = *(CoreNavigation::CLP::LogEntry::PrivateData::GnssAvailabilityPrediction::default_instance_ + 8);
   }
 
-  result = raven::ConvertProtobufToRavenTime(v15, a2 + 8, 0, a4, a5, a6, a7, a8, a9, a10);
+  result = raven::ConvertProtobufToRavenTime(v10, a2 + 8, 0, a4, a5);
   if (result)
   {
     *(a2 + 13) = *(this + 2);
@@ -3461,127 +2925,125 @@ uint64_t raven::ConvertProtobufToGnssAvailabilityEvent(raven *this, const CoreNa
       result = cnprint::CNPrinter::GetLogLevel(result);
       if (result <= 1)
       {
-        v37 = 12;
-        v36 = 1;
-        v17 = (*(*a2 + 16))(a2);
-        v32 = v18 + v17;
-        cnprint::CNPrinter::Print(&v37, &v36, "t,%.3lf,WARNING: Gnss Availability Prediction, unknown measurement source", v19, v20, v21, v22, v23, SLOBYTE(v32));
+        v20 = 12;
+        v19 = 1;
+        v12 = (*(*a2 + 16))(a2);
+        cnprint::CNPrinter::Print(&v20, &v19, "t,%.3lf,WARNING: Gnss Availability Prediction, unknown measurement source", v13 + v12);
       }
 
-      v16 = 0;
+      v11 = 0;
     }
 
     else
     {
-      v16 = *(this + 28);
+      v11 = *(this + 28);
     }
 
-    *(a2 + 113) = v16;
-    v24 = *(this + 6) - 1;
-    if (v24 >= 3)
+    *(a2 + 113) = v11;
+    v14 = *(this + 6) - 1;
+    if (v14 >= 3)
     {
       if (cnprint::CNPrinter::GetLogLevel(result) <= 1)
       {
-        v35 = 12;
-        v34 = 1;
-        v25 = (*(*a2 + 16))(a2);
-        v33 = v26 + v25;
-        cnprint::CNPrinter::Print(&v35, &v34, "t,%.3lf,WARNING: Gnss Availability Prediction, unknown state", v27, v28, v29, v30, v31, SLOBYTE(v33));
+        v18 = 12;
+        v17 = 1;
+        v15 = (*(*a2 + 16))(a2);
+        cnprint::CNPrinter::Print(&v18, &v17, "t,%.3lf,WARNING: Gnss Availability Prediction, unknown state", v16 + v15);
       }
 
-      LOBYTE(v24) = 0;
+      LOBYTE(v14) = 0;
     }
 
-    *(a2 + 112) = v24;
+    *(a2 + 112) = v14;
     return 1;
   }
 
   return result;
 }
 
-void sub_1D0BBE2A8(uint64_t a1, raven::RavenPositionContextEstimatorActiveObject **a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_1D0BBE2A8(uint64_t a1, raven::RavenPositionContextEstimatorActiveObject **a2, uint64_t a3)
 {
-  v9 = *a2;
+  v4 = *a2;
   if (*(a3 + 8) == 1)
   {
-    v10 = *(a3 + 24);
+    v5 = *(a3 + 24);
   }
 
   else
   {
-    LOWORD(v27.__vftable) = 3;
-    LOBYTE(v35) = 5;
-    cnprint::CNPrinter::Print(&v27, &v35, "Attempted to access type of uninitialized GenericEvent.", a4, a5, a6, a7, a8, v26);
-    v10 = MEMORY[0x1E69E54A8];
+    LOWORD(v16.__vftable) = 3;
+    LOBYTE(v24) = 5;
+    cnprint::CNPrinter::Print(&v16, &v24, "Attempted to access type of uninitialized GenericEvent.");
+    v5 = MEMORY[0x1E69E54A8];
   }
 
   {
-    v16 = *(a3 + 16);
-    if (v16)
+    v6 = *(a3 + 16);
+    if (v6)
     {
-      v17 = (*(*v16 + 16))(v16);
+      v7 = (*(*v6 + 16))(v6);
     }
 
     else
     {
-      v17 = MEMORY[0x1E69E54A8];
+      v7 = MEMORY[0x1E69E54A8];
     }
 
-    v19 = (*(v17 + 8) & 0x7FFFFFFFFFFFFFFFLL);
-    if (v19 != (off_1F4CEF070 & 0x7FFFFFFFFFFFFFFFLL) && strcmp(v19, (off_1F4CEF070 & 0x7FFFFFFFFFFFFFFFLL)))
+    v9 = (*(v7 + 8) & 0x7FFFFFFFFFFFFFFFLL);
+    if (v9 != (off_1F4CEF070 & 0x7FFFFFFFFFFFFFFFLL) && strcmp(v9, (off_1F4CEF070 & 0x7FFFFFFFFFFFFFFFLL)))
     {
-      v27.__vftable = 0;
-      std::bad_cast::bad_cast(&v27);
-      v27.__vftable = &unk_1F4CE4880;
-      sub_1D0DC7F8C();
+      v16.__vftable = 0;
+      std::bad_cast::bad_cast(&v16);
+      v16.__vftable = &unk_1F4CE4880;
+      sub_1D0DC7F8C(&v16);
     }
 
-    v20 = *(a3 + 16);
-    v27.__vftable = &unk_1F4CEF048;
-    v22 = v20[2];
-    v21 = v20[3];
-    v28 = v20[1];
-    v29 = v22;
-    v30 = v21;
-    v24 = v20[5];
-    v23 = v20[6];
-    v25 = *(v20 + 106);
-    v31 = v20[4];
-    *&v33[10] = v25;
-    *v33 = v23;
-    v32 = v24;
+    v10 = *(a3 + 16);
+    v16.__vftable = &unk_1F4CEF048;
+    v12 = v10[2];
+    v11 = v10[3];
+    v17 = v10[1];
+    v18 = v12;
+    v19 = v11;
+    v14 = v10[5];
+    v13 = v10[6];
+    v15 = *(v10 + 106);
+    v20 = v10[4];
+    *&v22[10] = v15;
+    *v22 = v13;
+    v21 = v14;
   }
 
   else
   {
-    v35 = 3;
-    v34 = 5;
+    v24 = 3;
+    v23 = 5;
     if (*(a3 + 8) == 1)
     {
-      v18 = *(a3 + 24);
+      v8 = *(a3 + 24);
     }
 
     else
     {
-      LOWORD(v27.__vftable) = 3;
-      v36 = 5;
-      cnprint::CNPrinter::Print(&v27, &v36, "Attempted to access type of uninitialized GenericEvent.", v11, v12, v13, v14, v15, v26);
-      v18 = MEMORY[0x1E69E54A8];
+      LOWORD(v16.__vftable) = 3;
+      v25 = 5;
+      cnprint::CNPrinter::Print(&v16, &v25, "Attempted to access type of uninitialized GenericEvent.");
+      v8 = MEMORY[0x1E69E54A8];
     }
 
-    cnprint::CNPrinter::Print(&v35, &v34, "Attempted to cast a GenericEvent of type %s to type %s.", v11, v12, v13, v14, v15, *(v18 + 8));
-    v29 = 0uLL;
-    v32 = 0uLL;
-    *&v33[16] = 0u;
-    v28 = 0uLL;
-    v27.__vftable = &unk_1F4CEF048;
-    v30 = 0uLL;
-    v31 = 0uLL;
-    *v33 = 0;
-    *&v33[8] = 0x7FF8000000000000;
+    cnprint::CNPrinter::Print(&v24, &v23, "Attempted to cast a GenericEvent of type %s to type %s.", (*(v8 + 8) & 0x7FFFFFFFFFFFFFFFLL), (off_1F4CEF070 & 0x7FFFFFFFFFFFFFFFLL));
+    v18 = 0uLL;
+    v21 = 0uLL;
+    *&v22[16] = 0u;
+    v17 = 0uLL;
+    v16.__vftable = &unk_1F4CEF048;
+    v19 = 0uLL;
+    v20 = 0uLL;
+    *v22 = 0;
+    *&v22[8] = 0x7FF8000000000000;
   }
 
-  raven::RavenPositionContextEstimatorActiveObject::HandleEvent(v9, &v27);
+  raven::RavenPositionContextEstimatorActiveObject::HandleEvent(v4, &v16);
 }
 
 void raven::RavenPositionContextEstimatorActiveObject::HandleEvent(raven::RavenPositionContextEstimatorActiveObject *this, const raven::GnssAvailabilityEvent *a2)
@@ -3595,22 +3057,22 @@ void raven::RavenPositionContextEstimatorActiveObject::HandleEvent(raven::RavenP
 
   else
   {
-    v13 = 12;
-    v12 = 2;
-    v11[0] = (*(*a2 + 16))(a2);
-    v11[1] = v4;
-    cnprint::CNLogFormatter::FormatGeneral(this + 264, v11, "RavenPositionContextEstimatorActiveObject is not configured.");
+    v8 = 12;
+    v7 = 2;
+    v6[0] = (*(*a2 + 16))(a2);
+    v6[1] = v4;
+    cnprint::CNLogFormatter::FormatGeneral(this + 264, v6, "RavenPositionContextEstimatorActiveObject is not configured.");
     if (*(this + 287) >= 0)
     {
-      LOBYTE(v10) = this + 8;
+      v5 = this + 264;
     }
 
     else
     {
-      v10 = *(this + 33);
+      v5 = *(this + 33);
     }
 
-    cnprint::CNPrinter::Print(&v13, &v12, "%s", v5, v6, v7, v8, v9, v10);
+    cnprint::CNPrinter::Print(&v8, &v7, "%s", v5);
   }
 }
 
@@ -3636,110 +3098,110 @@ __n128 raven::RavenPositionContextEstimator::HmmPredictAndUpdate(uint64_t a1, ui
 {
   if (*(a1 + 1) == 1)
   {
-    v45 = v2;
-    v46 = v3;
+    v30 = v2;
+    v31 = v3;
     if (*a1 == 1)
     {
       v6 = *(*(a1 + 8) + 2496);
-      v44[0] = *(a2 + 16);
-      v44[1] = v6;
-      if (sub_1D0BBEAAC(a1 + 16, v44))
+      v29[0] = *(a2 + 16);
+      v29[1] = v6;
+      if (sub_1D0BBEAAC(a1 + 16, v29))
       {
-        v29[0] = 12;
-        v28[0] = 4;
-        v12 = a1 - 88;
+        LOWORD(v14[0]) = 12;
+        v13[0] = 4;
+        v7 = (a1 + 424);
         cnprint::CNLogFormatter::FormatGeneral(a1 + 424, a1 + 152, "RavenPositionContextEstimator::HmmPredictAndUpdate(),failed to predict,code,%d");
 LABEL_5:
         if (*(a1 + 447) >= 0)
         {
-          LOBYTE(v18) = v12;
+          v8 = v7;
         }
 
         else
         {
-          v18 = *(a1 + 424);
+          v8 = *(a1 + 424);
         }
 
 LABEL_20:
-        cnprint::CNPrinter::Print(v29, v28, "%s", v13, v14, v15, v16, v17, v18);
+        cnprint::CNPrinter::Print(v14, v13, "%s", v8);
         return result;
       }
 
-      v41 = 0x100000001;
-      *&v19 = 0x100000001;
-      *(&v19 + 1) = 0x100000001;
-      v40 = v19;
-      v39 = &unk_1F4CE0380;
-      v42 = &v43;
-      v43 = sub_1D0BBF854;
-      v36 = 0x100000001;
-      v35 = v19;
-      v34 = &unk_1F4CDF3D0;
-      v37 = &v38;
-      v31 = *(a2 + 16);
-      v30 = -1.0;
-      if (raven::RavenPositionContextStateLookupTables::PositionContextStateLookupTables::LookupGnssAvailabilityStateProbabilityGivenOutdoor(a1 + 472, (a2 + 8), &v30, v7, v8, v9, v10, v11))
+      v26 = 0x100000001;
+      *&v9 = 0x100000001;
+      *(&v9 + 1) = 0x100000001;
+      v25 = v9;
+      v24 = &unk_1F4CE0380;
+      v27 = &v28;
+      v28 = sub_1D0BBF854;
+      v21 = 0x100000001;
+      v20 = v9;
+      v19 = &unk_1F4CDF3D0;
+      v22 = &v23;
+      v16 = *(a2 + 16);
+      v15 = -1.0;
+      if (raven::RavenPositionContextStateLookupTables::PositionContextStateLookupTables::LookupGnssAvailabilityStateProbabilityGivenOutdoor(a1 + 472, (a2 + 8), &v15))
       {
-        v29[0] = 12;
-        v28[0] = 4;
-        v25 = cnprint::CNLogFormatter::FormatGeneral(a1 + 424, a1 + 152, "RavenPositionContextEstimator::HmmPredictAndUpdate(),LookupGnssAvailabilityStateProbabilityGivenOutdoor failed");
+        LOWORD(v14[0]) = 12;
+        v13[0] = 4;
+        v10 = cnprint::CNLogFormatter::FormatGeneral(a1 + 424, a1 + 152, "RavenPositionContextEstimator::HmmPredictAndUpdate(),LookupGnssAvailabilityStateProbabilityGivenOutdoor failed");
       }
 
-      else if (v30 < 0.0 || v30 > 1.0 || (*&v30 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
+      else if (v15 < 0.0 || v15 > 1.0 || (*&v15 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
       {
-        v29[0] = 12;
-        v28[0] = 4;
-        v25 = cnprint::CNLogFormatter::FormatGeneral(a1 + 424, a1 + 152, "RavenPositionContextEstimator::HmmPredictAndUpdate(),LookupGnssAvailabilityStateProbabilityGivenOutdoor returned invalid probability");
+        LOWORD(v14[0]) = 12;
+        v13[0] = 4;
+        v10 = cnprint::CNLogFormatter::FormatGeneral(a1 + 424, a1 + 152, "RavenPositionContextEstimator::HmmPredictAndUpdate(),LookupGnssAvailabilityStateProbabilityGivenOutdoor returned invalid probability");
       }
 
       else
       {
-        v33 = v30;
-        v30 = -1.0;
-        if (raven::RavenPositionContextStateLookupTables::PositionContextStateLookupTables::LookupGnssAvailabilityStateProbabilityGivenIndoor(a1 + 472, (a2 + 8), &v30, v20, v21, v22, v23, v24))
+        v18 = v15;
+        v15 = -1.0;
+        if (raven::RavenPositionContextStateLookupTables::PositionContextStateLookupTables::LookupGnssAvailabilityStateProbabilityGivenIndoor(a1 + 472, (a2 + 8), &v15))
         {
-          v29[0] = 12;
-          v28[0] = 4;
-          v25 = cnprint::CNLogFormatter::FormatGeneral(a1 + 424, a1 + 152, "RavenPositionContextEstimator::HmmPredictAndUpdate(),LookupGnssAvailabilityStateProbabilityGivenIndoor failed");
+          LOWORD(v14[0]) = 12;
+          v13[0] = 4;
+          v10 = cnprint::CNLogFormatter::FormatGeneral(a1 + 424, a1 + 152, "RavenPositionContextEstimator::HmmPredictAndUpdate(),LookupGnssAvailabilityStateProbabilityGivenIndoor failed");
         }
 
         else
         {
-          if (v30 >= 0.0 && v30 <= 1.0 && (*&v30 & 0x7FFFFFFFFFFFFFFFuLL) < 0x7FF0000000000000)
+          if (v15 >= 0.0 && v15 <= 1.0 && (*&v15 & 0x7FFFFFFFFFFFFFFFuLL) < 0x7FF0000000000000)
           {
-            v32 = v30;
-            *v37 = &v31;
-            sub_1D0BBF10C(a1 + 16, v29);
-            sub_1D0BBF168(v28, &v39);
-            sub_1D0BBF75C(v27, &v34);
-            if (!sub_1D0BBF260(a1 + 16, v29, 1, v28, v27))
+            v17 = v15;
+            *v22 = &v16;
+            sub_1D0BBF10C(a1 + 16, v14);
+            sub_1D0BBF168(v13, &v24);
+            sub_1D0BBF75C(v12, &v19);
+            if (!sub_1D0BBF260(a1 + 16, v14, 1, v13, v12))
             {
               result = *(a2 + 16);
               *(a1 + 152) = result;
               return result;
             }
 
-            v29[0] = 12;
-            v28[0] = 4;
-            v12 = a1 - 88;
+            LOWORD(v14[0]) = 12;
+            v13[0] = 4;
+            v7 = (a1 + 424);
             cnprint::CNLogFormatter::FormatGeneral(a1 + 424, a1 + 152, "RavenPositionContextEstimator::HmmPredictAndUpdate(),failed to update,code,%d");
             goto LABEL_5;
           }
 
-          v29[0] = 12;
-          v28[0] = 4;
-          v25 = cnprint::CNLogFormatter::FormatGeneral(a1 + 424, a1 + 152, "RavenPositionContextEstimator::HmmPredictAndUpdate(),LookupGnssAvailabilityStateProbabilityGivenIndoor returned invalid probability");
+          LOWORD(v14[0]) = 12;
+          v13[0] = 4;
+          v10 = cnprint::CNLogFormatter::FormatGeneral(a1 + 424, a1 + 152, "RavenPositionContextEstimator::HmmPredictAndUpdate(),LookupGnssAvailabilityStateProbabilityGivenIndoor returned invalid probability");
         }
       }
 
       if (*(a1 + 447) >= 0)
       {
-        LOBYTE(v18) = v25;
+        v8 = v10;
       }
 
       else
       {
-        v18 = *(a1 + 424);
+        v8 = *(a1 + 424);
       }
 
       goto LABEL_20;
@@ -3750,289 +3212,254 @@ LABEL_20:
 }
 
 {
-  if (*(a1 + 1) != 1)
+  if (*(a1 + 1) == 1)
   {
-    return result;
-  }
-
-  v70 = v2;
-  v71 = v3;
-  if (*a1 != 1)
-  {
-    return result;
-  }
-
-  v6 = *(*(a1 + 8) + 2496);
-  v69[0] = *(a2 + 8);
-  v69[1] = v6;
-  v7 = sub_1D0BBEAAC(a1 + 16, v69);
-  if (!v7)
-  {
-    v66 = 0x100000002;
-    v65 = xmmword_1D0E83F60;
-    v64 = &unk_1F4CE02B0;
-    v67 = v68;
-    v68[0] = sub_1D0BBF854;
-    v68[1] = sub_1D0BBF854;
-    v61 = 0x100000002;
-    v60 = xmmword_1D0E83F60;
-    v59 = &unk_1F4CE0338;
-    v62 = &v63;
-    __asm { FMOV            V0.2D, #-1.0 }
-
-    v24 = *(a2 + 8);
-    v55 = _Q0;
-    v56 = v24;
-    v54 = v24;
-    v25 = 0.0;
-    if (*a2 >= 0.0)
+    v39 = v2;
+    v40 = v3;
+    if (*a1 == 1)
     {
-      v25 = *a2;
-    }
-
-    v53 = v25;
-    v52 = *(a1 + 288);
-    v51 = -1.0;
-    if (raven::RavenPositionContextStateLookupTables::PositionContextStateLookupTables::LookupMeanCn0ProbabilityGivenOutdoor(a1 + 472, &v53, &v52, &v51, v8, v9, v10, v11))
-    {
-      v50 = 4;
-      v31 = cnprint::CNLogFormatter::FormatGeneral(a1 + 424, a1 + 152, "RavenPositionContextEstimator::HmmPredictAndUpdate(),LookupMeanCn0ProbabilityGivenOutdoor failed for signal environment,%hhu");
-    }
-
-    else if (v51 < 0.0 || v51 > 1.0 || (*&v51 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
-    {
-      LOWORD(v49[0]) = 12;
-      v50 = 4;
-      v31 = cnprint::CNLogFormatter::FormatGeneral(a1 + 424, a1 + 152, "RavenPositionContextEstimator::HmmPredictAndUpdate(),LookupMeanCn0ProbabilityGivenOutdoor returned invalid probability", v48, v49[0]);
-    }
-
-    else
-    {
-      v58 = v51;
-      v51 = -1.0;
-      if (raven::RavenPositionContextStateLookupTables::PositionContextStateLookupTables::LookupMeanCn0ProbabilityGivenIndoor((a1 + 472), &v53, &v51, v26, v27, v28, v29, v30))
+      v6 = *(*(a1 + 8) + 2496);
+      v38[0] = *(a2 + 8);
+      v38[1] = v6;
+      v7 = sub_1D0BBEAAC(a1 + 16, v38);
+      if (v7)
       {
-        LOWORD(v49[0]) = 12;
-        v50 = 4;
-        v31 = cnprint::CNLogFormatter::FormatGeneral(a1 + 424, a1 + 152, "RavenPositionContextEstimator::HmmPredictAndUpdate(),LookupMeanCn0ProbabilityGivenIndoor failed", v48, v49[0]);
+        LOWORD(v33) = 12;
+        LOBYTE(v28) = 4;
+        cnprint::CNLogFormatter::FormatGeneral(a1 + 424, a1 + 152, "RavenPositionContextEstimator::HmmPredictAndUpdate(),failed to predict,code,%d", v7);
+        cnprint::CNPrinter::Print(&v33, &v28, "%s");
+        return result;
       }
 
-      else if (v51 < 0.0 || v51 > 1.0 || (*&v51 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
+      v35 = 0x100000002;
+      v34 = xmmword_1D0E83F60;
+      v33 = &unk_1F4CE02B0;
+      v36 = v37;
+      v37[0] = sub_1D0BBF854;
+      v37[1] = sub_1D0BBF854;
+      v30 = 0x100000002;
+      v29 = xmmword_1D0E83F60;
+      v28 = &unk_1F4CE0338;
+      v31 = &v32;
+      __asm { FMOV            V0.2D, #-1.0 }
+
+      v14 = *(a2 + 8);
+      v24 = _Q0;
+      v25 = v14;
+      v23 = v14;
+      v15 = 0.0;
+      if (*a2 >= 0.0)
       {
-        LOWORD(v49[0]) = 12;
-        v50 = 4;
-        v31 = cnprint::CNLogFormatter::FormatGeneral(a1 + 424, a1 + 152, "RavenPositionContextEstimator::HmmPredictAndUpdate(),LookupMeanCn0ProbabilityGivenIndoor returned invalid probability", v48, v49[0]);
+        v15 = *a2;
+      }
+
+      v22 = v15;
+      v21 = *(a1 + 288);
+      v20 = -1.0;
+      if (raven::RavenPositionContextStateLookupTables::PositionContextStateLookupTables::LookupMeanCn0ProbabilityGivenOutdoor(a1 + 472, &v22, &v21, &v20))
+      {
+        v19 = 4;
+        cnprint::CNLogFormatter::FormatGeneral(a1 + 424, a1 + 152, "RavenPositionContextEstimator::HmmPredictAndUpdate(),LookupMeanCn0ProbabilityGivenOutdoor failed for signal environment,%hhu");
+      }
+
+      else if (v20 < 0.0 || v20 > 1.0 || (*&v20 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
+      {
+        LOWORD(v18[0]) = 12;
+        v19 = 4;
+        cnprint::CNLogFormatter::FormatGeneral(a1 + 424, a1 + 152, "RavenPositionContextEstimator::HmmPredictAndUpdate(),LookupMeanCn0ProbabilityGivenOutdoor returned invalid probability", v17, v18[0]);
       }
 
       else
       {
-        v57 = v51;
-        *v62 = &v56;
-        v53 = *(a2 + 4);
-        v51 = -1.0;
-        if (raven::RavenPositionContextStateLookupTables::PositionContextStateLookupTables::LookupNumSatsProbabilityGivenOutdoor(a1 + 472, &v53, &v52, &v51, v37, v38, v39, v40))
+        v27 = v20;
+        v20 = -1.0;
+        if (raven::RavenPositionContextStateLookupTables::PositionContextStateLookupTables::LookupMeanCn0ProbabilityGivenIndoor((a1 + 472), &v22, &v20))
         {
-          v50 = 4;
-          v31 = cnprint::CNLogFormatter::FormatGeneral(a1 + 424, a1 + 152, "RavenPositionContextEstimator::HmmPredictAndUpdate(),LookupNumSatsProbabilityGivenOutdoor failed for signal environment,%hhu");
+          LOWORD(v18[0]) = 12;
+          v19 = 4;
+          cnprint::CNLogFormatter::FormatGeneral(a1 + 424, a1 + 152, "RavenPositionContextEstimator::HmmPredictAndUpdate(),LookupMeanCn0ProbabilityGivenIndoor failed", v17, v18[0]);
         }
 
-        else if (v51 < 0.0 || v51 > 1.0 || (*&v51 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
+        else if (v20 < 0.0 || v20 > 1.0 || (*&v20 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
         {
-          LOWORD(v49[0]) = 12;
-          v50 = 4;
-          v31 = cnprint::CNLogFormatter::FormatGeneral(a1 + 424, a1 + 152, "RavenPositionContextEstimator::HmmPredictAndUpdate(),LookupNumSatsProbabilityGivenOutdoor returned invalid probability", v48, v49[0]);
+          LOWORD(v18[0]) = 12;
+          v19 = 4;
+          cnprint::CNLogFormatter::FormatGeneral(a1 + 424, a1 + 152, "RavenPositionContextEstimator::HmmPredictAndUpdate(),LookupMeanCn0ProbabilityGivenIndoor returned invalid probability", v17, v18[0]);
         }
 
         else
         {
-          *(&v55 + 1) = v51;
-          v51 = -1.0;
-          if (raven::RavenPositionContextStateLookupTables::PositionContextStateLookupTables::LookupNumSatsProbabilityGivenIndoor((a1 + 472), &v53, &v51, v42, v43, v44, v45, v46))
+          v26 = v20;
+          *v31 = &v25;
+          v22 = *(a2 + 4);
+          v20 = -1.0;
+          if (raven::RavenPositionContextStateLookupTables::PositionContextStateLookupTables::LookupNumSatsProbabilityGivenOutdoor(a1 + 472, &v22, &v21, &v20))
           {
-            LOWORD(v49[0]) = 12;
-            v50 = 4;
-            v31 = cnprint::CNLogFormatter::FormatGeneral(a1 + 424, a1 + 152, "RavenPositionContextEstimator::HmmPredictAndUpdate(),LookupNumSatsProbabilityGivenIndoor failed", v48, v49[0]);
+            v19 = 4;
+            cnprint::CNLogFormatter::FormatGeneral(a1 + 424, a1 + 152, "RavenPositionContextEstimator::HmmPredictAndUpdate(),LookupNumSatsProbabilityGivenOutdoor failed for signal environment,%hhu");
+          }
+
+          else if (v20 < 0.0 || v20 > 1.0 || (*&v20 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
+          {
+            LOWORD(v18[0]) = 12;
+            v19 = 4;
+            cnprint::CNLogFormatter::FormatGeneral(a1 + 424, a1 + 152, "RavenPositionContextEstimator::HmmPredictAndUpdate(),LookupNumSatsProbabilityGivenOutdoor returned invalid probability", v17, v18[0]);
           }
 
           else
           {
-            if (v51 >= 0.0 && v51 <= 1.0 && (*&v51 & 0x7FFFFFFFFFFFFFFFuLL) < 0x7FF0000000000000)
+            *(&v24 + 1) = v20;
+            v20 = -1.0;
+            if (raven::RavenPositionContextStateLookupTables::PositionContextStateLookupTables::LookupNumSatsProbabilityGivenIndoor((a1 + 472), &v22, &v20))
             {
-              *&v55 = v51;
-              v62[1] = &v54;
-              sub_1D0BBF10C(a1 + 16, v49);
-              v47 = sub_1D0BBF260(a1 + 16, v49, 2, &v64, &v59);
-              if (!v47)
+              LOWORD(v18[0]) = 12;
+              v19 = 4;
+              cnprint::CNLogFormatter::FormatGeneral(a1 + 424, a1 + 152, "RavenPositionContextEstimator::HmmPredictAndUpdate(),LookupNumSatsProbabilityGivenIndoor failed", v17, v18[0]);
+            }
+
+            else if (v20 < 0.0 || v20 > 1.0 || (*&v20 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
+            {
+              LOWORD(v18[0]) = 12;
+              v19 = 4;
+              cnprint::CNLogFormatter::FormatGeneral(a1 + 424, a1 + 152, "RavenPositionContextEstimator::HmmPredictAndUpdate(),LookupNumSatsProbabilityGivenIndoor returned invalid probability", v17, v18[0]);
+            }
+
+            else
+            {
+              *&v24 = v20;
+              v31[1] = &v23;
+              sub_1D0BBF10C(a1 + 16, v18);
+              v16 = sub_1D0BBF260(a1 + 16, v18, 2, &v33, &v28);
+              if (!v16)
               {
                 result = *(a2 + 8);
                 *(a1 + 152) = result;
                 return result;
               }
 
-              LOWORD(v49[0]) = 12;
-              v50 = 4;
-              cnprint::CNLogFormatter::FormatGeneral(a1 + 424, a1 + 152, "RavenPositionContextEstimator::HmmPredictAndUpdate(),failed to update,code,%d", v47);
-              if (*(a1 + 447) >= 0)
-              {
-                LOBYTE(v41) = a1 - 88;
-              }
-
-              else
-              {
-                v41 = *(a1 + 424);
-              }
-
-              goto LABEL_22;
+              LOWORD(v18[0]) = 12;
+              v19 = 4;
+              cnprint::CNLogFormatter::FormatGeneral(a1 + 424, a1 + 152, "RavenPositionContextEstimator::HmmPredictAndUpdate(),failed to update,code,%d", v16);
             }
-
-            LOWORD(v49[0]) = 12;
-            v50 = 4;
-            v31 = cnprint::CNLogFormatter::FormatGeneral(a1 + 424, a1 + 152, "RavenPositionContextEstimator::HmmPredictAndUpdate(),LookupNumSatsProbabilityGivenIndoor returned invalid probability", v48, v49[0]);
           }
         }
       }
-    }
 
-    if (*(a1 + 447) >= 0)
-    {
-      LOBYTE(v41) = v31;
+      cnprint::CNPrinter::Print(v18, &v19, "%s");
     }
-
-    else
-    {
-      v41 = *(a1 + 424);
-    }
-
-LABEL_22:
-    cnprint::CNPrinter::Print(v49, &v50, "%s", v32, v33, v34, v35, v36, v41);
-    return result;
   }
 
-  LOWORD(v64) = 12;
-  LOBYTE(v59) = 4;
-  cnprint::CNLogFormatter::FormatGeneral(a1 + 424, a1 + 152, "RavenPositionContextEstimator::HmmPredictAndUpdate(),failed to predict,code,%d", v7);
-  if (*(a1 + 447) >= 0)
-  {
-    LOBYTE(v17) = a1 - 88;
-  }
-
-  else
-  {
-    v17 = *(a1 + 424);
-  }
-
-  cnprint::CNPrinter::Print(&v64, &v59, "%s", v12, v13, v14, v15, v16, v17);
   return result;
 }
 
 {
   if (*(a1 + 1) == 1)
   {
-    v44 = v2;
-    v45 = v3;
+    v31 = v2;
+    v32 = v3;
     if (*a1 == 1)
     {
       v6 = *(*(a1 + 8) + 2496);
-      v43[0] = *(a2 + 8);
-      v43[1] = v6;
-      if (sub_1D0BBEAAC(a1 + 16, v43))
+      v30[0] = *(a2 + 8);
+      v30[1] = v6;
+      if (sub_1D0BBEAAC(a1 + 16, v30))
       {
-        v27[0] = 12;
-        v26[0] = 4;
-        v11 = a1 - 88;
+        v14[0] = 12;
+        v13[0] = 4;
+        v7 = (a1 + 424);
         cnprint::CNLogFormatter::FormatGeneral(a1 + 424, a1 + 152, "RavenPositionContextEstimator::HmmPredictAndUpdate(),failed to predict,code,%d");
 LABEL_5:
         if (*(a1 + 447) >= 0)
         {
-          LOBYTE(v17) = v11;
+          v8 = v7;
         }
 
         else
         {
-          v17 = *(a1 + 424);
+          v8 = *(a1 + 424);
         }
 
 LABEL_20:
-        cnprint::CNPrinter::Print(v27, v26, "%s", v12, v13, v14, v15, v16, v17);
+        cnprint::CNPrinter::Print(v14, v13, "%s", v8);
         return result;
       }
 
-      v40 = 0x100000001;
-      *&v18 = 0x100000001;
-      *(&v18 + 1) = 0x100000001;
-      v39 = v18;
-      v38 = &unk_1F4CE0380;
-      v41 = &v42;
-      v42 = sub_1D0BBF854;
-      v35 = 0x100000001;
-      v34 = v18;
-      v33 = &unk_1F4CDF3D0;
-      v36 = &v37;
-      v30 = *(a2 + 8);
-      v29 = *(a1 + 288);
-      v28 = -1.0;
-      if (raven::RavenPositionContextStateLookupTables::PositionContextStateLookupTables::LookupActivityStateProbabilityGivenOutdoor(a1 + 472, a2, &v29, &v28, v7, v8, v9, v10))
+      v27 = 0x100000001;
+      *&v9 = 0x100000001;
+      *(&v9 + 1) = 0x100000001;
+      v26 = v9;
+      v25 = &unk_1F4CE0380;
+      v28 = &v29;
+      v29 = sub_1D0BBF854;
+      v22 = 0x100000001;
+      v21 = v9;
+      v20 = &unk_1F4CDF3D0;
+      v23 = &v24;
+      v17 = *(a2 + 8);
+      v16 = *(a1 + 288);
+      v15 = -1.0;
+      if (raven::RavenPositionContextStateLookupTables::PositionContextStateLookupTables::LookupActivityStateProbabilityGivenOutdoor(a1 + 472, a2, &v16, &v15))
       {
-        v27[0] = 12;
-        v26[0] = 4;
-        v23 = cnprint::CNLogFormatter::FormatGeneral(a1 + 424, a1 + 152, "RavenPositionContextEstimator::HmmPredictAndUpdate(),LookupActivityStateProbabilityGivenOutdoor failed");
+        v14[0] = 12;
+        v13[0] = 4;
+        v10 = cnprint::CNLogFormatter::FormatGeneral(a1 + 424, a1 + 152, "RavenPositionContextEstimator::HmmPredictAndUpdate(),LookupActivityStateProbabilityGivenOutdoor failed");
       }
 
-      else if (v28 < 0.0 || v28 > 1.0 || (*&v28 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
+      else if (v15 < 0.0 || v15 > 1.0 || (*&v15 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
       {
-        v27[0] = 12;
-        v26[0] = 4;
-        v23 = cnprint::CNLogFormatter::FormatGeneral(a1 + 424, a1 + 152, "RavenPositionContextEstimator::HmmPredictAndUpdate(),LookupActivityStateProbabilityGivenOutdoor returned invalid probability");
+        v14[0] = 12;
+        v13[0] = 4;
+        v10 = cnprint::CNLogFormatter::FormatGeneral(a1 + 424, a1 + 152, "RavenPositionContextEstimator::HmmPredictAndUpdate(),LookupActivityStateProbabilityGivenOutdoor returned invalid probability");
       }
 
       else
       {
-        v32 = v28;
-        v28 = -1.0;
-        if (raven::RavenPositionContextStateLookupTables::PositionContextStateLookupTables::LookupActivityStateProbabilityGivenIndoor(a1 + 472, a2, &v29, &v28, v19, v20, v21, v22))
+        v19 = v15;
+        v15 = -1.0;
+        if (raven::RavenPositionContextStateLookupTables::PositionContextStateLookupTables::LookupActivityStateProbabilityGivenIndoor(a1 + 472, a2, &v16, &v15))
         {
-          v27[0] = 12;
-          v26[0] = 4;
-          v23 = cnprint::CNLogFormatter::FormatGeneral(a1 + 424, a1 + 152, "RavenPositionContextEstimator::HmmPredictAndUpdate(),LookupActivityStateProbabilityGivenIndoor failed");
+          v14[0] = 12;
+          v13[0] = 4;
+          v10 = cnprint::CNLogFormatter::FormatGeneral(a1 + 424, a1 + 152, "RavenPositionContextEstimator::HmmPredictAndUpdate(),LookupActivityStateProbabilityGivenIndoor failed");
         }
 
         else
         {
-          if (v28 >= 0.0 && v28 <= 1.0 && (*&v28 & 0x7FFFFFFFFFFFFFFFuLL) < 0x7FF0000000000000)
+          if (v15 >= 0.0 && v15 <= 1.0 && (*&v15 & 0x7FFFFFFFFFFFFFFFuLL) < 0x7FF0000000000000)
           {
-            v31 = v28;
-            *v36 = &v30;
-            sub_1D0BBF10C(a1 + 16, v27);
-            sub_1D0BBF168(v26, &v38);
-            sub_1D0BBF75C(v25, &v33);
-            if (!sub_1D0BBF260(a1 + 16, v27, 1, v26, v25))
+            v18 = v15;
+            *v23 = &v17;
+            sub_1D0BBF10C(a1 + 16, v14);
+            sub_1D0BBF168(v13, &v25);
+            sub_1D0BBF75C(v12, &v20);
+            if (!sub_1D0BBF260(a1 + 16, v14, 1, v13, v12))
             {
               result = *(a2 + 8);
               *(a1 + 152) = result;
               return result;
             }
 
-            v27[0] = 12;
-            v26[0] = 4;
-            v11 = a1 - 88;
+            v14[0] = 12;
+            v13[0] = 4;
+            v7 = (a1 + 424);
             cnprint::CNLogFormatter::FormatGeneral(a1 + 424, a1 + 152, "RavenPositionContextEstimator::HmmPredictAndUpdate(),failed to update,code,%d");
             goto LABEL_5;
           }
 
-          v27[0] = 12;
-          v26[0] = 4;
-          v23 = cnprint::CNLogFormatter::FormatGeneral(a1 + 424, a1 + 152, "RavenPositionContextEstimator::HmmPredictAndUpdate(),LookupActivityStateProbabilityGivenIndoor returned invalid probability");
+          v14[0] = 12;
+          v13[0] = 4;
+          v10 = cnprint::CNLogFormatter::FormatGeneral(a1 + 424, a1 + 152, "RavenPositionContextEstimator::HmmPredictAndUpdate(),LookupActivityStateProbabilityGivenIndoor returned invalid probability");
         }
       }
 
       if (*(a1 + 447) >= 0)
       {
-        LOBYTE(v17) = v23;
+        v8 = v10;
       }
 
       else
       {
-        v17 = *(a1 + 424);
+        v8 = *(a1 + 424);
       }
 
       goto LABEL_20;
@@ -4084,50 +3511,49 @@ uint64_t sub_1D0BBEAAC(uint64_t a1, uint64_t a2)
 
   if (v7 == 1)
   {
-    v60 = 0x100000002;
-    v58 = &unk_1F4CE0220;
-    v61 = v62;
-    v59 = xmmword_1D0E7F490;
-    v55 = 0x100000002;
-    v53 = &unk_1F4CE0220;
+    v38 = 0x100000002;
+    v36 = &unk_1F4CE0220;
+    v39 = v40;
+    v37 = xmmword_1D0E7F490;
+    v33 = 0x100000002;
+    v31 = &unk_1F4CE0220;
     *&v10.f64[1] = 0x200000002;
-    v54 = xmmword_1D0E83F60;
-    v56 = v57;
+    v32 = xmmword_1D0E83F60;
+    v34 = v35;
     v10.f64[0] = INFINITY;
-    v11 = &v58;
+    v11 = &v36;
 LABEL_22:
-    sub_1D0B8930C(v11, &v53, v10);
+    sub_1D0B8930C(v11, &v31, v10);
     goto LABEL_25;
   }
 
   v12 = *(a1 + 128);
-  v55 = 0x100000002;
-  v53 = &unk_1F4CE0220;
-  v47 = xmmword_1D0E83F60;
-  v54 = xmmword_1D0E83F60;
-  v56 = v57;
-  v13 = sub_1D0B94BA0(a1 + 64, 1, &v53);
-  v14 = *v56;
-  if (fabs(*v56 + -1.0) > v12)
+  v33 = 0x100000002;
+  v31 = &unk_1F4CE0220;
+  v32 = xmmword_1D0E83F60;
+  v34 = v35;
+  v13 = sub_1D0B94BA0(a1 + 64, 1, &v31);
+  v14 = *v34;
+  if (fabs(*v34 + -1.0) > v12)
   {
     if (cnprint::CNPrinter::GetLogLevel(v13) <= 1)
     {
-      LOWORD(v53) = 2;
-      LOBYTE(v58) = 1;
-      cnprint::CNPrinter::Print(&v53, &v58, "WARNING: HMM prediction passed a non-normalized probability vector.", v15, v16, v17, v18, v19, 2);
+      LOWORD(v31) = 2;
+      LOBYTE(v36) = 1;
+      cnprint::CNPrinter::Print(&v31, &v36, "WARNING: HMM prediction passed a non-normalized probability vector.");
     }
 
     if ((v8 & 0x80000000) == 0)
     {
-      sub_1D0BBEF48(&v58, a1 + 64);
-      *&v59 = v8 | 0x100000000;
-      DWORD2(v59) = v8;
-      HIDWORD(v59) = v8;
-      v55 = 0x100000002;
-      v53 = &unk_1F4CE0220;
+      sub_1D0BBEF48(&v36, a1 + 64);
+      *&v37 = v8 | 0x100000000;
+      DWORD2(v37) = v8;
+      HIDWORD(v37) = v8;
+      v33 = 0x100000002;
+      v31 = &unk_1F4CE0220;
       *&v10.f64[1] = 0x200000002;
-      v54 = v47;
-      v56 = v57;
+      v32 = xmmword_1D0E83F60;
+      v34 = v35;
       v10.f64[0] = 1.0 / v14;
       goto LABEL_22;
     }
@@ -4141,23 +3567,23 @@ LABEL_43:
     goto LABEL_43;
   }
 
-  sub_1D0BBEF48(&v53, a1 + 64);
-  *&v54 = v8 | 0x100000000;
-  DWORD2(v54) = v8;
-  HIDWORD(v54) = v8;
+  sub_1D0BBEF48(&v31, a1 + 64);
+  *&v32 = v8 | 0x100000000;
+  DWORD2(v32) = v8;
+  HIDWORD(v32) = v8;
 LABEL_25:
-  sub_1D0B894B0(a1 + 64, &v53);
+  sub_1D0B894B0(a1 + 64, &v31);
   *(a1 + 120) = 1;
-  v55 = 0x200000002;
-  v53 = &unk_1F4CE0268;
-  v54 = xmmword_1D0E83F70;
-  v56 = v57;
-  v26 = sub_1D0BBFE0C(a2, &v53, v20, v21, v22, v23, v24, v25);
-  if (v26)
+  v33 = 0x200000002;
+  v31 = &unk_1F4CE0268;
+  v32 = xmmword_1D0E83F70;
+  v34 = v35;
+  v15 = sub_1D0BBFE0C(a2, &v31);
+  if (v15)
   {
-    LOWORD(v58) = 2;
-    LOBYTE(v48) = 4;
-    cnprint::CNPrinter::Print(&v58, &v48, "ERROR: HMM transition probability function failed.", v27, v28, v29, v30, v31, v47);
+    LOWORD(v36) = 2;
+    LOBYTE(v26) = 4;
+    cnprint::CNPrinter::Print(&v36, &v26, "ERROR: HMM transition probability function failed.");
     return 27;
   }
 
@@ -4168,31 +3594,31 @@ LABEL_25:
       goto LABEL_39;
     }
 
-    v33 = 0;
-    v34 = 0;
-    v35 = v56;
+    v17 = 0;
+    v18 = 0;
+    v19 = v34;
 LABEL_29:
-    v36 = 0.0;
-    v37 = v35;
-    v38 = v9;
+    v20 = 0.0;
+    v21 = v19;
+    v22 = v9;
     while (1)
     {
-      v39 = *v37;
-      if (*v37 < 0.0 || v39 > 1.0)
+      v23 = *v21;
+      if (*v21 < 0.0 || v23 > 1.0)
       {
         break;
       }
 
-      v36 = v36 + v39;
-      ++v37;
-      if (!--v38)
+      v20 = v20 + v23;
+      ++v21;
+      if (!--v22)
       {
-        if (fabs(v36 + -1.0) <= *(a1 + 128))
+        if (fabs(v20 + -1.0) <= *(a1 + 128))
         {
-          ++v33;
-          v35 += SHIDWORD(v54);
-          v34 = v33 >= v9;
-          if (v33 != v9)
+          ++v17;
+          v19 += SHIDWORD(v32);
+          v18 = v17 >= v9;
+          if (v17 != v9)
           {
             goto LABEL_29;
           }
@@ -4202,13 +3628,13 @@ LABEL_29:
       }
     }
 
-    if (!v34)
+    if (!v18)
     {
-      if (cnprint::CNPrinter::GetLogLevel(v26) <= 1)
+      if (cnprint::CNPrinter::GetLogLevel(v15) <= 1)
       {
-        LOWORD(v58) = 2;
-        LOBYTE(v48) = 1;
-        cnprint::CNPrinter::Print(&v58, &v48, "ERROR: HMM transition probability matrix is invalid.", v42, v43, v44, v45, v46, v47);
+        LOWORD(v36) = 2;
+        LOBYTE(v26) = 1;
+        cnprint::CNPrinter::Print(&v36, &v26, "ERROR: HMM transition probability matrix is invalid.");
       }
 
       return 28;
@@ -4217,24 +3643,24 @@ LABEL_29:
     else
     {
 LABEL_39:
-      v60 = 0x100000002;
-      v59 = xmmword_1D0E83F60;
-      v58 = &unk_1F4CE0220;
-      v61 = v62;
-      sub_1D0B89390(&v53, a1 + 64, &v58);
-      sub_1D0B894B0(a1 + 8, &v58);
-      v50 = 0x100000002;
-      v48 = &unk_1F4CE0220;
-      v49 = xmmword_1D0E83F60;
-      v51 = &v52;
-      sub_1D0B94BA0(a1 + 8, 1, &v48);
-      v41.f64[0] = 1.0 / *v51;
-      v60 = 0x100000002;
-      v59 = xmmword_1D0E83F60;
-      v58 = &unk_1F4CE0220;
-      v61 = v62;
-      sub_1D0B8930C(a1 + 8, &v58, v41);
-      sub_1D0B894B0(a1 + 8, &v58);
+      v38 = 0x100000002;
+      v37 = xmmword_1D0E83F60;
+      v36 = &unk_1F4CE0220;
+      v39 = v40;
+      sub_1D0B89390(&v31, a1 + 64, &v36);
+      sub_1D0B894B0(a1 + 8, &v36);
+      v28 = 0x100000002;
+      v26 = &unk_1F4CE0220;
+      v27 = xmmword_1D0E83F60;
+      v29 = &v30;
+      sub_1D0B94BA0(a1 + 8, 1, &v26);
+      v25.f64[0] = 1.0 / *v29;
+      v38 = 0x100000002;
+      v37 = xmmword_1D0E83F60;
+      v36 = &unk_1F4CE0220;
+      v39 = v40;
+      sub_1D0B8930C(a1 + 8, &v36, v25);
+      sub_1D0B894B0(a1 + 8, &v36);
       result = 0;
       *(a1 + 120) = 0;
     }
@@ -4320,25 +3746,25 @@ LABEL_16:
   return result;
 }
 
-uint64_t raven::RavenPositionContextStateLookupTables::PositionContextStateLookupTables::LookupGnssAvailabilityStateProbabilityGivenOutdoor(uint64_t a1, unsigned __int8 *a2, double *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t raven::RavenPositionContextStateLookupTables::PositionContextStateLookupTables::LookupGnssAvailabilityStateProbabilityGivenOutdoor(uint64_t a1, unsigned __int8 *a2, double *a3)
 {
-  v9 = *a2;
-  if (v9 < 4)
+  v4 = *a2;
+  if (v4 < 4)
   {
     result = 0;
-    v11 = dbl_1D0E82D30[v9];
+    v6 = dbl_1D0E82D30[v4];
   }
 
   else
   {
-    v13 = 12;
-    v12 = 4;
-    cnprint::CNPrinter::Print(&v13, &v12, "LookupGnssAvailabilityStateProbabilityGivenOutdoor(),index out of bound,%lu", a4, a5, a6, a7, a8, v9);
+    v8 = 12;
+    v7 = 4;
+    cnprint::CNPrinter::Print(&v8, &v7, "LookupGnssAvailabilityStateProbabilityGivenOutdoor(),index out of bound,%lu", v4);
     result = 0xFFFFFFFFLL;
-    v11 = -1.0;
+    v6 = -1.0;
   }
 
-  *a3 = v11;
+  *a3 = v6;
   return result;
 }
 
@@ -4418,208 +3844,205 @@ uint64_t sub_1D0BBF260(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a
 
   if (v10)
   {
-    v73 = 0x100000002;
-    v71 = &unk_1F4CE0220;
-    v74 = v75;
-    v72 = xmmword_1D0E83F60;
-    memset_pattern16(v75, &unk_1D0E7F4B0, 0x10uLL);
-    v78 = 0x100000002;
+    v56 = 0x100000002;
+    v54 = &unk_1F4CE0220;
+    v57 = v58;
+    v55 = xmmword_1D0E83F60;
+    memset_pattern16(v58, &unk_1D0E7F4B0, 0x10uLL);
+    v61 = 0x100000002;
     *&v11.f64[1] = 0x200000002;
-    v77 = xmmword_1D0E83F60;
-    v76 = &unk_1F4CE0220;
-    v79 = v80;
+    v60 = xmmword_1D0E83F60;
+    v59 = &unk_1F4CE0220;
+    v62 = v63;
     v11.f64[0] = 0.5;
   }
 
   else
   {
-    v78 = 0x100000002;
-    v63 = xmmword_1D0E83F60;
-    v77 = xmmword_1D0E83F60;
-    v76 = &unk_1F4CE0220;
-    v79 = v80;
-    v13 = sub_1D0B94BA0(a2, 1, &v76);
-    v14 = *v79;
-    if (fabs(*v79 + -1.0) <= v9)
+    v61 = 0x100000002;
+    v60 = xmmword_1D0E83F60;
+    v59 = &unk_1F4CE0220;
+    v62 = v63;
+    v13 = sub_1D0B94BA0(a2, 1, &v59);
+    v14 = *v62;
+    if (fabs(*v62 + -1.0) <= v9)
     {
-      sub_1D0BBEF48(&v76, a2);
-      v77 = xmmword_1D0E83F60;
+      sub_1D0BBEF48(&v59, a2);
+      v60 = xmmword_1D0E83F60;
       goto LABEL_13;
     }
 
     if (cnprint::CNPrinter::GetLogLevel(v13) <= 1)
     {
-      LOWORD(v76) = 2;
-      LOBYTE(v71) = 1;
-      cnprint::CNPrinter::Print(&v76, &v71, "WARNING: HMM update passed a non-normalized probability vector.", v15, v16, v17, v18, v19, 2);
+      LOWORD(v59) = 2;
+      LOBYTE(v54) = 1;
+      cnprint::CNPrinter::Print(&v59, &v54, "WARNING: HMM update passed a non-normalized probability vector.");
     }
 
-    sub_1D0BBEF48(&v71, a2);
+    sub_1D0BBEF48(&v54, a2);
     *&v11.f64[1] = 0x200000002;
-    v72 = v63;
-    v78 = 0x100000002;
-    v77 = v63;
-    v76 = &unk_1F4CE0220;
-    v79 = v80;
+    v55 = xmmword_1D0E83F60;
+    v61 = 0x100000002;
+    v60 = xmmword_1D0E83F60;
+    v59 = &unk_1F4CE0220;
+    v62 = v63;
     v11.f64[0] = 1.0 / v14;
   }
 
-  sub_1D0B8930C(&v71, &v76, v11);
+  sub_1D0B8930C(&v54, &v59, v11);
 LABEL_13:
-  sub_1D0B894B0(a1 + 8, &v76);
-  sub_1D0BBEF48(&v76, a1 + 8);
-  v20 = 0;
-  v21 = xmmword_1D0E83F60;
-  v64 = xmmword_1D0E83F60;
+  sub_1D0B894B0(a1 + 8, &v59);
+  sub_1D0BBEF48(&v59, a1 + 8);
+  v15 = 0;
+  v16 = xmmword_1D0E83F60;
   while (1)
   {
-    v22 = *(*(a4 + 32) + 8 * v20);
-    v73 = 0x100000002;
-    v71 = &unk_1F4CE0220;
-    v72 = v21;
-    v74 = v75;
-    v23 = v22(*(*(a5 + 32) + 8 * v20), &v71);
-    if (v23)
+    v17 = *(*(a4 + 32) + 8 * v15);
+    v56 = 0x100000002;
+    v54 = &unk_1F4CE0220;
+    v55 = v16;
+    v57 = v58;
+    v18 = v17(*(*(a5 + 32) + 8 * v15), &v54);
+    if (v18)
     {
       break;
     }
 
-    v30 = 0;
-    v31 = 0;
-    v32 = 0.0;
-    v33 = v74;
+    v20 = 0;
+    v21 = 0;
+    v22 = 0.0;
+    v23 = v57;
     do
     {
-      v34 = *&v74[8 * v31];
-      if (v34 < 0.0 || v34 > 1.0)
+      v24 = *&v57[8 * v21];
+      if (v24 < 0.0 || v24 > 1.0)
       {
-        LOWORD(v65) = 2;
-        v70 = 4;
-        v62 = "ERROR: HMM emission probability matrix is invalid.";
-LABEL_41:
-        cnprint::CNPrinter::Print(&v65, &v70, v62, v24, v25, v26, v27, v28, v64);
+        LOWORD(v48) = 2;
+        v53 = 4;
+        cnprint::CNPrinter::Print(&v48, &v53, "ERROR: HMM emission probability matrix is invalid.", v22, 0x100000002, 0x200000002);
         return 30;
       }
 
-      v36 = v30;
-      v32 = v32 + v34;
-      v30 = 1;
-      v31 = 1;
+      v26 = v20;
+      v22 = v22 + v24;
+      v20 = 1;
+      v21 = 1;
     }
 
-    while ((v36 & 1) == 0);
-    if (fabs(v32) <= v9)
+    while ((v26 & 1) == 0);
+    v27 = fabs(v22);
+    if (v27 <= v9)
     {
-      LOWORD(v65) = 2;
-      v70 = 4;
-      v62 = "ERROR: HMM emission probability matrix is null matrix";
-      goto LABEL_41;
+      LOWORD(v48) = 2;
+      v53 = 4;
+      cnprint::CNPrinter::Print(&v48, &v53, "ERROR: HMM emission probability matrix is null matrix", v27, 0x100000002, 0x200000002);
+      return 30;
     }
 
-    v37 = 0;
-    v38 = v79;
+    v28 = 0;
+    v29 = v62;
     do
     {
-      v38[v37] = *&v33[v37 * 8] * v38[v37];
-      ++v37;
+      v29[v28] = *&v23[v28 * 8] * v29[v28];
+      ++v28;
     }
 
-    while (v37 != 2);
-    v39 = DWORD1(v77);
-    if (DWORD1(v77))
+    while (v28 != 2);
+    v30 = DWORD1(v60);
+    if (DWORD1(v60))
     {
-      v40 = 0;
-      v41 = v77;
-      v42 = v77 - 1;
-      v43 = 1;
+      v31 = 0;
+      v32 = v60;
+      v33 = v60 - 1;
+      v34 = 1;
       do
       {
-        v44 = v38[v41 * v40];
-        v45 = v43;
-        v46 = v42;
-        if (v41 >= 2)
+        v35 = v29[v32 * v31];
+        v36 = v34;
+        v37 = v33;
+        if (v32 >= 2)
         {
           do
           {
-            v44 = v44 + v38[v45++];
-            --v46;
+            v35 = v35 + v29[v36++];
+            --v37;
           }
 
-          while (v46);
+          while (v37);
         }
 
-        v69[v40++] = v44;
-        v43 += v41;
+        v52[v31++] = v35;
+        v34 += v32;
       }
 
-      while (v40 != v39);
+      while (v31 != v30);
     }
 
-    v29.n128_f64[0] = v69[0];
-    if (fabs(v69[0]) < 2.22044605e-16)
+    v19.n128_f64[0] = v52[0];
+    if (fabs(v52[0]) < 2.22044605e-16)
     {
-      if (cnprint::CNPrinter::GetLogLevel(v23) <= 1)
+      if (cnprint::CNPrinter::GetLogLevel(v18) <= 1)
       {
-        LOWORD(v65) = 2;
-        v70 = 1;
-        cnprint::CNPrinter::Print(&v65, &v70, "HMM state is null vector after update; revert to input state", v47, v48, v49, v50, v51, v64);
+        LOWORD(v48) = 2;
+        v53 = 1;
+        cnprint::CNPrinter::Print(&v48, &v53, "HMM state is null vector after update; revert to input state");
       }
 
-      v29 = sub_1D0B894B0(&v76, a1 + 8);
-      v52 = DWORD1(v77);
-      if (DWORD1(v77))
+      v19 = sub_1D0B894B0(&v59, a1 + 8);
+      v38 = DWORD1(v60);
+      if (DWORD1(v60))
       {
-        v53 = 0;
-        v54 = v77;
-        v55 = v79;
-        v56 = v77 - 1;
-        v57 = 1;
+        v39 = 0;
+        v40 = v60;
+        v41 = v62;
+        v42 = v60 - 1;
+        v43 = 1;
         do
         {
-          v58 = v55[v54 * v53];
-          v59 = v57;
-          v60 = v56;
-          if (v54 >= 2)
+          v44 = v41[v40 * v39];
+          v45 = v43;
+          v46 = v42;
+          if (v40 >= 2)
           {
             do
             {
-              v58 = v58 + v55[v59++];
-              --v60;
+              v44 = v44 + v41[v45++];
+              --v46;
             }
 
-            while (v60);
+            while (v46);
           }
 
-          v69[v53++] = v58;
-          v57 += v54;
+          v52[v39++] = v44;
+          v43 += v40;
         }
 
-        while (v53 != v52);
+        while (v39 != v38);
       }
 
-      v29.n128_f64[0] = v69[0];
+      v19.n128_f64[0] = v52[0];
     }
 
-    v67 = 0x100000002;
-    v65 = &unk_1F4CE0220;
-    v66 = v64;
-    v68 = v69;
-    v29.n128_f64[0] = 1.0 / v29.n128_f64[0];
-    sub_1D0B8930C(&v76, &v65, v29);
-    sub_1D0B894B0(&v76, &v65);
-    v21 = v64;
-    if (++v20 == a3)
+    v50 = 0x100000002;
+    v48 = &unk_1F4CE0220;
+    v49 = xmmword_1D0E83F60;
+    v51 = v52;
+    v19.n128_f64[0] = 1.0 / v19.n128_f64[0];
+    sub_1D0B8930C(&v59, &v48, v19);
+    sub_1D0B894B0(&v59, &v48);
+    v16 = xmmword_1D0E83F60;
+    if (++v15 == a3)
     {
-      sub_1D0B894B0(a1 + 64, &v76);
+      sub_1D0B894B0(a1 + 64, &v59);
       result = 0;
       *(a1 + 120) = 1;
       return result;
     }
   }
 
-  LOWORD(v65) = 2;
-  v70 = 4;
-  cnprint::CNPrinter::Print(&v65, &v70, "ERROR: HMM emission function failed.", v24, v25, v26, v27, v28, v64);
+  LOWORD(v48) = 2;
+  v53 = 4;
+  cnprint::CNPrinter::Print(&v48, &v53, "ERROR: HMM emission function failed.");
   return 29;
 }
 
@@ -4668,34 +4091,32 @@ LABEL_9:
   return result;
 }
 
-uint64_t sub_1D0BBF854(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_1D0BBF854(uint64_t a1, uint64_t a2)
 {
-  v8 = *(a1 + 16);
-  if ((*&v8 & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL && (v8 >= 0.0 ? (v9 = v8 <= 1.0) : (v9 = 0), v9))
+  v2 = *(a1 + 16);
+  if ((*&v2 & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL && (v2 >= 0.0 ? (v3 = v2 <= 1.0) : (v3 = 0), v3))
   {
-    v12 = *(a1 + 24);
-    if ((*&v12 & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL && v12 >= 0.0 && v12 <= 1.0)
+    v6 = *(a1 + 24);
+    if ((*&v6 & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL && v6 >= 0.0 && v6 <= 1.0)
     {
-      v10 = 0;
+      v4 = 0;
       *(a2 + 8) = xmmword_1D0E83F60;
-      v14 = *(a2 + 32);
-      *v14 = v8;
-      *(v14 + 8) = *(a1 + 24);
-      return v10;
+      v8 = *(a2 + 32);
+      *v8 = v2;
+      *(v8 + 8) = *(a1 + 24);
+      return v4;
     }
 
-    v20 = 12;
-    v19 = 4;
-    v16 = *(a1 + 8) + *a1;
-    cnprint::CNPrinter::Print(&v20, &v19, "time,%.3lf,e-function failure on line %d: %s() %s", a4, a5, a6, a7, a8, SLOBYTE(v16));
+    v12 = 12;
+    v11 = 4;
+    cnprint::CNPrinter::Print(&v12, &v11, "time,%.3lf,e-function failure on line %d: %s() %s");
   }
 
   else
   {
-    v18 = 12;
-    v17 = 4;
-    v15 = *(a1 + 8) + *a1;
-    cnprint::CNPrinter::Print(&v18, &v17, "time,%.3lf,e-function failure on line %d: %s() %s", a4, a5, a6, a7, a8, SLOBYTE(v15));
+    v10 = 12;
+    v9 = 4;
+    cnprint::CNPrinter::Print(&v10, &v9, "time,%.3lf,e-function failure on line %d: %s() %s");
   }
 
   return 0xFFFFFFFFLL;
@@ -4742,7 +4163,7 @@ double raven::RavenPositionContextEstimator::GetStateProbability(uint64_t a1, in
   return *&v10[*a2];
 }
 
-uint64_t CoreNavigation::CLP::LogEntry::PrivateData::GnssAvailabilityPrediction::MergePartialFromCodedStream(CoreNavigation::CLP::LogEntry::PrivateData::GnssAvailabilityPrediction *this, wireless_diagnostics::google::protobuf::io::CodedInputStream *a2)
+uint64_t CoreNavigation::CLP::LogEntry::PrivateData::GnssAvailabilityPrediction::MergePartialFromCodedStream(CoreNavigation::CLP::LogEntry::PrivateData::GnssAvailabilityPrediction *this, wireless_diagnostics::google::protobuf::io::CodedInputStream *a2, unsigned int a3)
 {
   while (1)
   {
@@ -4750,8 +4171,8 @@ uint64_t CoreNavigation::CLP::LogEntry::PrivateData::GnssAvailabilityPrediction:
     {
       while (1)
       {
-        v4 = *(a2 + 1);
-        if (v4 >= *(a2 + 2) || (TagFallback = *v4, (TagFallback & 0x80000000) != 0))
+        v5 = *(a2 + 1);
+        if (v5 >= *(a2 + 2) || (TagFallback = *v5, (TagFallback & 0x80000000) != 0))
         {
           TagFallback = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadTagFallback(a2);
           *(a2 + 8) = TagFallback;
@@ -4764,74 +4185,74 @@ uint64_t CoreNavigation::CLP::LogEntry::PrivateData::GnssAvailabilityPrediction:
         else
         {
           *(a2 + 8) = TagFallback;
-          *(a2 + 1) = v4 + 1;
+          *(a2 + 1) = v5 + 1;
           if (!TagFallback)
           {
             return 1;
           }
         }
 
-        v6 = TagFallback >> 3;
-        v7 = TagFallback & 7;
+        v7 = TagFallback >> 3;
+        v8 = TagFallback & 7;
         if (TagFallback >> 3 <= 2)
         {
           break;
         }
 
-        if (v6 != 3)
+        if (v7 != 3)
         {
-          if (v6 == 4 && (TagFallback & 7) == 0)
+          if (v7 == 4 && (TagFallback & 7) == 0)
           {
-            v11 = *(a2 + 1);
-            v10 = *(a2 + 2);
+            v12 = *(a2 + 1);
+            v11 = *(a2 + 2);
             goto LABEL_48;
           }
 
           goto LABEL_22;
         }
 
-        if (v7 != 1)
+        if (v8 != 1)
         {
           goto LABEL_22;
         }
 
 LABEL_44:
-        *v25 = 0;
-        if ((wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadLittleEndian64Fallback(a2, v25) & 1) == 0)
+        *v27 = 0;
+        if ((wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadLittleEndian64Fallback(a2, v27) & 1) == 0)
         {
           return 0;
         }
 
-        *(this + 2) = *v25;
+        *(this + 2) = *v27;
         *(this + 9) |= 4u;
-        v23 = *(a2 + 1);
-        v10 = *(a2 + 2);
-        if (v23 < v10 && *v23 == 32)
+        v25 = *(a2 + 1);
+        v11 = *(a2 + 2);
+        if (v25 < v11 && *v25 == 32)
         {
-          v11 = v23 + 1;
-          *(a2 + 1) = v11;
+          v12 = v25 + 1;
+          *(a2 + 1) = v12;
 LABEL_48:
-          v25[0] = 0;
-          if (v11 >= v10 || (v24 = *v11, (v24 & 0x80000000) != 0))
+          v27[0] = 0;
+          if (v12 >= v11 || (v26 = *v12, (v26 & 0x80000000) != 0))
           {
-            result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, v25);
+            result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, v27);
             if (!result)
             {
               return result;
             }
 
-            v24 = v25[0];
+            v26 = v27[0];
           }
 
           else
           {
-            *(a2 + 1) = v11 + 1;
+            *(a2 + 1) = v12 + 1;
           }
 
-          if (v24 <= 3)
+          if (v26 <= 3)
           {
             *(this + 9) |= 8u;
-            *(this + 7) = v24;
+            *(this + 7) = v26;
           }
 
           if (*(a2 + 1) == *(a2 + 2) && (*(a2 + 11) || *(a2 + 6) == *(a2 + 10)))
@@ -4844,20 +4265,20 @@ LABEL_48:
         }
       }
 
-      if (v6 == 1)
+      if (v7 == 1)
       {
         break;
       }
 
-      if (v6 == 2 && (TagFallback & 7) == 0)
+      if (v7 == 2 && (TagFallback & 7) == 0)
       {
-        v9 = *(a2 + 1);
-        v8 = *(a2 + 2);
+        v10 = *(a2 + 1);
+        v9 = *(a2 + 2);
         goto LABEL_34;
       }
 
 LABEL_22:
-      if (v7 == 4)
+      if (v8 == 4)
       {
         return 1;
       }
@@ -4868,23 +4289,23 @@ LABEL_22:
       }
     }
 
-    if (v7 != 2)
+    if (v8 != 2)
     {
       goto LABEL_22;
     }
 
     *(this + 9) |= 1u;
-    v12 = *(this + 1);
-    if (!v12)
+    v13 = *(this + 1);
+    if (!v13)
     {
       operator new();
     }
 
-    v25[0] = 0;
-    v13 = *(a2 + 1);
-    if (v13 >= *(a2 + 2) || *v13 < 0)
+    v27[0] = 0;
+    v14 = *(a2 + 1);
+    if (v14 >= *(a2 + 2) || *v14 < 0)
     {
-      if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, v25))
+      if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, v27))
       {
         return 0;
       }
@@ -4892,127 +4313,125 @@ LABEL_22:
 
     else
     {
-      v25[0] = *v13;
-      *(a2 + 1) = v13 + 1;
+      v27[0] = *v14;
+      *(a2 + 1) = v14 + 1;
     }
 
-    v14 = *(a2 + 14);
-    v15 = *(a2 + 15);
-    *(a2 + 14) = v14 + 1;
-    if (v14 >= v15)
+    v15 = *(a2 + 14);
+    v16 = *(a2 + 15);
+    *(a2 + 14) = v15 + 1;
+    if (v15 >= v16)
     {
       return 0;
     }
 
     wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(a2);
-    if (!CoreNavigation::CLP::LogEntry::PrivateData::TimeStamp::MergePartialFromCodedStream(v12, a2) || *(a2 + 36) != 1)
+    if (!CoreNavigation::CLP::LogEntry::PrivateData::TimeStamp::MergePartialFromCodedStream(v13, a2, v17) || *(a2 + 36) != 1)
     {
       return 0;
     }
 
     wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(a2);
-    v16 = *(a2 + 14);
-    v17 = __OFSUB__(v16, 1);
-    v18 = v16 - 1;
-    if (v18 < 0 == v17)
+    v18 = *(a2 + 14);
+    v19 = __OFSUB__(v18, 1);
+    v20 = v18 - 1;
+    if (v20 < 0 == v19)
     {
-      *(a2 + 14) = v18;
+      *(a2 + 14) = v20;
     }
 
-    v19 = *(a2 + 1);
-    v8 = *(a2 + 2);
-    if (v19 < v8 && *v19 == 16)
+    v21 = *(a2 + 1);
+    v9 = *(a2 + 2);
+    if (v21 < v9 && *v21 == 16)
     {
-      v9 = v19 + 1;
-      *(a2 + 1) = v9;
+      v10 = v21 + 1;
+      *(a2 + 1) = v10;
 LABEL_34:
-      v25[0] = 0;
-      if (v9 >= v8 || (v20 = *v9, (v20 & 0x80000000) != 0))
+      v27[0] = 0;
+      if (v10 >= v9 || (v22 = *v10, (v22 & 0x80000000) != 0))
       {
-        result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, v25);
+        result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, v27);
         if (!result)
         {
           return result;
         }
 
-        v20 = v25[0];
+        v22 = v27[0];
       }
 
       else
       {
-        *(a2 + 1) = v9 + 1;
+        *(a2 + 1) = v10 + 1;
       }
 
-      if (v20 <= 3)
+      if (v22 <= 3)
       {
         *(this + 9) |= 2u;
-        *(this + 6) = v20;
+        *(this + 6) = v22;
       }
 
-      v22 = *(a2 + 1);
-      if (v22 < *(a2 + 2) && *v22 == 25)
+      v24 = *(a2 + 1);
+      if (v24 < *(a2 + 2) && *v24 == 25)
       {
-        *(a2 + 1) = v22 + 1;
+        *(a2 + 1) = v24 + 1;
         goto LABEL_44;
       }
     }
   }
 }
 
-uint64_t sub_1D0BBFE0C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_1D0BBFE0C(uint64_t a1, uint64_t a2)
 {
-  v8 = *(a1 + 16);
-  if ((*&v8 & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL && (v8 >= 0.0 ? (v9 = v8 <= 1.0) : (v9 = 0), v9))
+  v2 = *(a1 + 16);
+  if ((*&v2 & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL && (v2 >= 0.0 ? (v3 = v2 <= 1.0) : (v3 = 0), v3))
   {
-    v11 = *(a1 + 24);
-    if ((*&v11 & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL && v11 >= 0.0 && v11 <= 1.0)
+    v5 = *(a1 + 24);
+    if ((*&v5 & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL && v5 >= 0.0 && v5 <= 1.0)
     {
       result = 0;
       *(a2 + 8) = xmmword_1D0E83F70;
-      v13 = *(a2 + 32);
-      *v13 = v8;
-      v13[1] = 1.0 - v8;
-      v13[2] = 1.0 - v11;
-      v13[3] = v11;
+      v7 = *(a2 + 32);
+      *v7 = v2;
+      v7[1] = 1.0 - v2;
+      v7[2] = 1.0 - v5;
+      v7[3] = v5;
       return result;
     }
 
-    v19 = 12;
-    v18 = 4;
-    v15 = *(a1 + 8) + *a1;
-    cnprint::CNPrinter::Print(&v19, &v18, "time,%.3lf,t-function failure on line %d: %s() %s", a4, a5, a6, a7, a8, SLOBYTE(v15));
+    v11 = 12;
+    v10 = 4;
+    cnprint::CNPrinter::Print(&v11, &v10, "time,%.3lf,t-function failure on line %d: %s() %s");
   }
 
   else
   {
-    v17 = 12;
-    v16 = 4;
-    v14 = *(a1 + 8) + *a1;
-    cnprint::CNPrinter::Print(&v17, &v16, "time,%.3lf,t-function failure on line %d: %s() %s", a4, a5, a6, a7, a8, SLOBYTE(v14));
+    v9 = 12;
+    v8 = 4;
+    cnprint::CNPrinter::Print(&v9, &v8, "time,%.3lf,t-function failure on line %d: %s() %s");
   }
 
   return 0xFFFFFFFFLL;
 }
 
-uint64_t raven::RavenPositionContextStateLookupTables::PositionContextStateLookupTables::LookupGnssAvailabilityStateProbabilityGivenIndoor(uint64_t a1, unsigned __int8 *a2, double *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t raven::RavenPositionContextStateLookupTables::PositionContextStateLookupTables::LookupGnssAvailabilityStateProbabilityGivenIndoor(uint64_t a1, unsigned __int8 *a2, double *a3)
 {
-  v9 = *a2;
-  if (v9 < 4)
+  v4 = *a2;
+  if (v4 < 4)
   {
     result = 0;
-    v11 = dbl_1D0E82D48[v9];
+    v6 = dbl_1D0E82D48[v4];
   }
 
   else
   {
-    v13 = 12;
-    v12 = 4;
-    cnprint::CNPrinter::Print(&v13, &v12, "LookupGnssAvailabilityStateProbabilityGivenIndoor(),index out of bound,%lu", a4, a5, a6, a7, a8, v9);
+    v8 = 12;
+    v7 = 4;
+    cnprint::CNPrinter::Print(&v8, &v7, "LookupGnssAvailabilityStateProbabilityGivenIndoor(),index out of bound,%lu", v4);
     result = 0xFFFFFFFFLL;
-    v11 = -1.0;
+    v6 = -1.0;
   }
 
-  *a3 = v11;
+  *a3 = v6;
   return result;
 }
 
@@ -5080,430 +4499,449 @@ void sub_1D0BC00C0(uint64_t a1)
   }
 }
 
-uint64_t raven::RavenConvergenceEstimator::HandleEvent(raven::RavenConvergenceEstimator *this, const raven::GnssPreprocessedMeasurementsEvent *a2, uint64_t a3, uint64_t a4)
+uint64_t raven::RavenConvergenceEstimator::HandleEvent(raven::RavenConvergenceEstimator *this, const raven::GnssPreprocessedMeasurementsEvent *a2)
 {
-  MEMORY[0x1EEE9AC00](this, a2, a3, a4);
-  v326 = *MEMORY[0x1E69E9840];
-  if (*(v4 + 57) != 1 || (v6 = v4, *(v4 + 58) != 1) || (v7 = v5, raven::RavenEstimator::HandleGnssPreprocessedMeasurementsEvent(v4, v5)) || (v285 = (*(*v7 + 16))(v7), v286 = v8, updated = raven::RavenConvergenceEstimator::UpdateClockOffsetEstimateIfNecessary(v6, (v7 + 6), &v285), !updated))
+  MEMORY[0x1EEE9AC00](this);
+  v236 = *MEMORY[0x1E69E9840];
+  if (*(v2 + 57) != 1)
   {
-    v27 = 0xFFFFFFFFLL;
-    goto LABEL_20;
+    return 0xFFFFFFFFLL;
   }
 
-  if ((v7[22] & 1) == 0)
+  v4 = v2;
+  if (*(v2 + 58) != 1)
+  {
+    return 0xFFFFFFFFLL;
+  }
+
+  v5 = v3;
+  if (raven::RavenEstimator::HandleGnssPreprocessedMeasurementsEvent(v2, v3))
+  {
+    return 0xFFFFFFFFLL;
+  }
+
+  v195 = (*(*v5 + 16))(v5);
+  v196 = v6;
+  updated = raven::RavenConvergenceEstimator::UpdateClockOffsetEstimateIfNecessary(v4, (v5 + 6), &v195);
+  if (!updated)
+  {
+    return 0xFFFFFFFFLL;
+  }
+
+  if ((v5[22] & 1) == 0)
   {
     if (cnprint::CNPrinter::GetLogLevel(updated) <= 1)
     {
-      LOWORD(v256.__r_.__value_.__l.__data_) = 12;
-      LOBYTE(v239) = 1;
-      v285 = (*(*v7 + 16))(v7);
-      v286 = v12;
-      cnprint::CNLogFormatter::FormatGeneral(v6 + 2712, &v285, "Encountered GnssPreprocessedMeasurementsEvent with no oscillator model.");
-      if (*(v6 + 2735) >= 0)
+      LOWORD(v166.__r_.__value_.__l.__data_) = 12;
+      LOBYTE(v149) = 1;
+      v195 = (*(*v5 + 16))(v5);
+      v196 = v10;
+      cnprint::CNLogFormatter::FormatGeneral(v4 + 2712, &v195, "Encountered GnssPreprocessedMeasurementsEvent with no oscillator model.");
+      if (*(v4 + 2735) >= 0)
       {
-        LOBYTE(v18) = v6 - 104;
+        v11 = (v4 + 2712);
       }
 
       else
       {
-        v18 = *(v6 + 2712);
+        v11 = *(v4 + 2712);
       }
 
-      cnprint::CNPrinter::Print(&v256, &v239, "%s", v13, v14, v15, v16, v17, v18);
+      cnprint::CNPrinter::Print(&v166, &v149, "%s", v11);
     }
 
-    raven::RavenConvergenceEstimator::ResetOscillatorStates(v6);
+    raven::RavenConvergenceEstimator::ResetOscillatorStates(v4);
   }
 
-  v311 = 0uLL;
-  v312 = 0;
-  v314 = 0;
-  v313 = 0;
-  v315 = 0;
-  v317 = 0;
-  v316 = 0;
-  v318 = 0;
-  v320 = 0;
-  v319 = 0;
-  v321 = 0x7FF8000000000000;
-  if (*(*(v6 + 1168) + 3828) != 1 || (v10.i64[0] = 0x3EB0C6F7A0B5ED8DLL, !raven::RavenEstimator::AreGnssMeasurementsAtSameTime(v6, v7, &v311, v10, v11)))
+  v221 = 0uLL;
+  v222 = 0;
+  v224 = 0;
+  v223 = 0;
+  v225 = 0;
+  v227 = 0;
+  v226 = 0;
+  v228 = 0;
+  v230 = 0;
+  v229 = 0;
+  v231 = 0x7FF8000000000000;
+  if (*(*(v4 + 1168) + 3828) != 1 || (v8.i64[0] = 0x3EB0C6F7A0B5ED8DLL, !raven::RavenEstimator::AreGnssMeasurementsAtSameTime(v4, v5, &v221, v8, v9)))
   {
-    v248 = &v248;
-    v249 = &v248;
-    v250 = 0;
+    v158 = &v158;
+    v159 = &v158;
+    v160 = 0;
     goto LABEL_22;
   }
 
-  sub_1D0BCAF88(&v285, v6 + 2864);
-  v307 = *(v6 + 8432);
-  v308 = *(v6 + 8448);
-  v309 = *(v6 + 8464);
-  v310 = *(v6 + 8480);
-  v304 = *(v6 + 8384);
-  v305 = *(v6 + 8400);
-  v306 = *(v6 + 8416);
-  v300 = v306;
-  v301 = v307;
-  v302 = v308;
-  v298 = v304;
-  v299 = v305;
-  v303 = *(v6 + 8464);
-  v297 = 0;
-  v19 = (v6 + 80);
-  *&v256.__r_.__value_.__l.__data_ = *(v6 + 80);
-  v20 = CNTimeSpan::operator-(&v311, &v256, *&v256.__r_.__value_.__l.__data_, v308);
-  v24 = v20;
-  v25 = v21;
-  if (!v20 && (*&v21 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL || !v20)
+  sub_1D0BCAF88(&v195, v4 + 2864);
+  v217 = *(v4 + 8432);
+  v218 = *(v4 + 8448);
+  v219 = *(v4 + 8464);
+  v220 = *(v4 + 8480);
+  v214 = *(v4 + 8384);
+  v215 = *(v4 + 8400);
+  v216 = *(v4 + 8416);
+  v210 = v216;
+  v211 = v217;
+  v212 = v218;
+  v208 = v214;
+  v209 = v215;
+  v213 = *(v4 + 8464);
+  v207 = 0;
+  v12 = (v4 + 80);
+  *&v166.__r_.__value_.__l.__data_ = *(v4 + 80);
+  v13 = CNTimeSpan::operator-(&v221, &v166, *&v166.__r_.__value_.__l.__data_, v218);
+  v17 = v13;
+  v18 = v14;
+  if (!v13 && (*&v14 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL || !v13)
   {
-    if (v21 >= 0.0)
+    if (v14 >= 0.0)
     {
       goto LABEL_18;
     }
 
 LABEL_122:
-    if (cnprint::CNPrinter::GetLogLevel(v20) <= 1)
+    if (cnprint::CNPrinter::GetLogLevel(v13) <= 1)
     {
-      LOWORD(v239) = 12;
-      v233[0] = 1;
-      v256.__r_.__value_.__r.__words[0] = (*(*v7 + 16))(v7);
-      v256.__r_.__value_.__l.__size_ = v149;
-      v150 = cnprint::CNLogFormatter::FormatGeneral(v6 + 2712, &v256, "GNSS measurement selection: negative prediction interval,dt,%.3lf", v25 + v24);
-      if (*(v6 + 2735) >= 0)
+      LOWORD(v149) = 12;
+      v143[0] = 1;
+      v166.__r_.__value_.__r.__words[0] = (*(*v5 + 16))(v5);
+      v166.__r_.__value_.__l.__size_ = v80;
+      v81 = cnprint::CNLogFormatter::FormatGeneral(v4 + 2712, &v166, "GNSS measurement selection: negative prediction interval,dt,%.3lf", v18 + v17);
+      if (*(v4 + 2735) >= 0)
       {
-        LOBYTE(v156) = v150;
+        v82 = v81;
       }
 
       else
       {
-        v156 = *(v6 + 2712);
+        v82 = *(v4 + 2712);
       }
 
-      cnprint::CNPrinter::Print(&v239, v233, "%s", v151, v152, v153, v154, v155, v156);
+      cnprint::CNPrinter::Print(&v149, v143, "%s", v82);
     }
 
-    v26 = 0;
+    v19 = 0;
     goto LABEL_128;
   }
 
-  if (v20 < 0)
+  if (v13 < 0)
   {
     goto LABEL_122;
   }
 
 LABEL_18:
-  v26 = 1;
+  v19 = 1;
 LABEL_128:
-  v158 = *(v6 + 88);
-  v256.__r_.__value_.__r.__words[0] = *(v6 + 80);
-  v157 = v256.__r_.__value_.__r.__words[0];
-  v256.__r_.__value_.__l.__size_ = v158;
-  v159 = CNTimeSpan::operator-(&v311, &v256, v22, v23);
-  v161 = v160;
-  v162 = *(v6 + 1168);
-  v163 = *(v162 + 872);
-  *&v325[0] = v157;
-  *(&v325[0] + 1) = v158;
-  v249 = 0;
-  v248 = 0;
-  *v164.i64 = v163;
-  CNTimeSpan::SetTimeSpan(&v248, 0, v164, v165);
-  v166.i64[0] = *(v162 + 880);
-  v284[1] = 0;
-  v284[0] = 0;
-  *v168.i64 = CNTimeSpan::SetTimeSpan(v284, 0, v166, v167);
-  if (!v26)
+  v84 = *(v4 + 88);
+  v166.__r_.__value_.__r.__words[0] = *(v4 + 80);
+  v83 = v166.__r_.__value_.__r.__words[0];
+  v166.__r_.__value_.__l.__size_ = v84;
+  v85 = CNTimeSpan::operator-(&v221, &v166, v15, v16);
+  v87 = v86;
+  v88 = *(v4 + 1168);
+  v89 = *(v88 + 872);
+  *&v235[0] = v83;
+  *(&v235[0] + 1) = v84;
+  v159 = 0;
+  v158 = 0;
+  *v90.i64 = v89;
+  CNTimeSpan::SetTimeSpan(&v158, 0, v90, v91);
+  v92.i64[0] = *(v88 + 880);
+  v194[1] = 0;
+  v194[0] = 0;
+  *v94.i64 = CNTimeSpan::SetTimeSpan(v194, 0, v92, v93);
+  if (!v19)
   {
     goto LABEL_161;
   }
 
-  *v169.i64 = v161;
-  *v168.i64 = (v161 + v159) / v163;
-  v170 = vcvtpd_s64_f64(*v168.i64);
-  if (v170 < 1)
+  *v95.i64 = v87;
+  *v94.i64 = (v87 + v85) / v89;
+  v96 = vcvtpd_s64_f64(*v94.i64);
+  if (v96 < 1)
   {
     goto LABEL_161;
   }
 
-  v223 = (v6 + 2712);
-  v171 = 1;
-  v226 = vdupq_n_s64(0x7FF8000000000000uLL);
-  v168 = xmmword_1D0E83F60;
+  v133 = (v4 + 2712);
+  v97 = 1;
+  v136 = vdupq_n_s64(0x7FF8000000000000uLL);
+  v94 = xmmword_1D0E83F60;
   while (1)
   {
-    v283[0] = CNTimeSpan::operator+(v325, &v248, v168, v169);
-    v283[1] = v172;
-    v175 = CNTimeSpan::operator+(v283, v284, v173, v174);
-    if (!v175 && (*&v176 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
+    v193[0] = CNTimeSpan::operator+(v235, &v158, v94, v95);
+    v193[1] = v98;
+    v101 = CNTimeSpan::operator+(v193, v194, v99, v100);
+    if (!v101 && (*&v102 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
     {
 LABEL_136:
-      v177.i64[0] = *(&v311 + 1);
+      v103.i64[0] = *(&v221 + 1);
 LABEL_137:
-      v178 = *v177.i64 <= v176;
+      v104 = *v103.i64 <= v102;
       goto LABEL_139;
     }
 
-    if (!v311)
+    if (!v221)
     {
-      v177.i64[0] = *(&v311 + 1);
-      if ((*(&v311 + 1) & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
+      v103.i64[0] = *(&v221 + 1);
+      if ((*(&v221 + 1) & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
       {
         goto LABEL_137;
       }
     }
 
-    if (v175 == v311)
+    if (v101 == v221)
     {
       goto LABEL_136;
     }
 
-    v178 = v175 > v311;
+    v104 = v101 > v221;
 LABEL_139:
-    v179 = v283;
-    if (v178)
+    v105 = v193;
+    if (v104)
     {
-      v179 = &v311;
+      v105 = &v221;
     }
 
-    v282 = *v179;
-    v239 = 0uLL;
-    *(v240 + 8) = v226;
-    *(&v240[1] + 8) = v226;
-    EstimatorPredictAndUpdateArguments = raven::RavenConvergenceEstimator::GetEstimatorPredictAndUpdateArguments(v6, v325, &v282, &v239, *v226.i64, v177);
+    v192 = *v105;
+    v149 = 0uLL;
+    *(v150 + 8) = v136;
+    *(&v150[1] + 8) = v136;
+    EstimatorPredictAndUpdateArguments = raven::RavenConvergenceEstimator::GetEstimatorPredictAndUpdateArguments(v4, v235, &v192, &v149, *v136.i64, v103);
     if (!EstimatorPredictAndUpdateArguments)
     {
       break;
     }
 
     data = 0x800000008;
-    *&v256.__r_.__value_.__r.__words[1] = xmmword_1D0E84510;
-    v256.__r_.__value_.__r.__words[0] = &unk_1F4CE43B0;
-    *&v258 = &v258 + 8;
-    if (sub_1D0B9E8C4(v6, &v239, &v256, v181))
+    *&v166.__r_.__value_.__r.__words[1] = xmmword_1D0E84510;
+    v166.__r_.__value_.__r.__words[0] = &unk_1F4CE43B0;
+    *&v168 = &v168 + 8;
+    if (sub_1D0B9E8C4(v4))
     {
       goto LABEL_159;
     }
 
-    *&v233[24] = 0x200000002;
-    *v233 = &unk_1F4CE14D8;
-    *&v233[8] = xmmword_1D0E83F70;
-    *&v233[32] = &v233[40];
-    *&v233[40] = xmmword_1D0E84550;
-    *&v322[24] = 0x100000002;
-    *&v322[8] = xmmword_1D0E83F60;
-    *v322 = &unk_1F4CE1520;
-    v323 = v324;
-    v324[0] = sub_1D0BA4C04;
-    v324[1] = sub_1D0BA55E4;
-    v255 = *&v240[0];
-    v254 = *&v240[0];
-    *&v236[24] = 0x100000002;
-    *&v236[8] = xmmword_1D0E83F60;
-    *v236 = &unk_1F4CE15A8;
-    v237 = v238;
-    v238[0] = &v255;
-    v238[1] = &v254;
-    v182 = sub_1D0BA19BC(&v285, &v256, v233, v322);
-    if (v182)
+    *&v143[24] = 0x200000002;
+    *v143 = &unk_1F4CE14D8;
+    *&v143[8] = xmmword_1D0E83F70;
+    *&v143[32] = &v143[40];
+    *&v143[40] = xmmword_1D0E84550;
+    *&v232[24] = 0x100000002;
+    *&v232[8] = xmmword_1D0E83F60;
+    *v232 = &unk_1F4CE1520;
+    v233 = v234;
+    v234[0] = sub_1D0BA4C04;
+    v234[1] = sub_1D0BA55E4;
+    v165 = *&v150[0];
+    v164 = *&v150[0];
+    *&v146[24] = 0x100000002;
+    *&v146[8] = xmmword_1D0E83F60;
+    *v146 = &unk_1F4CE15A8;
+    v147 = v148;
+    v148[0] = &v165;
+    v148[1] = &v164;
+    v107 = sub_1D0BA19BC(&v195);
+    if (v107)
     {
-      v253 = 12;
-      v252 = 4;
-      v251[0] = (*(*v7 + 16))(v7);
-      v251[1] = v191;
-      cnprint::CNLogFormatter::FormatGeneral(v223, v251, "GNSS measurement selection: could not predict filter,code,%d", v182);
-      if (*(v6 + 2735) >= 0)
+      v163 = 12;
+      v162 = 4;
+      v161[0] = (*(*v5 + 16))(v5);
+      v161[1] = v111;
+      cnprint::CNLogFormatter::FormatGeneral(v133, v161, "GNSS measurement selection: could not predict filter,code,%d", v107);
+      if (*(v4 + 2735) >= 0)
       {
-        LOBYTE(v197) = v6 - 104;
+        v112 = (v4 + 2712);
       }
 
       else
       {
-        v197 = *(v6 + 2712);
+        v112 = *(v4 + 2712);
       }
 
-      cnprint::CNPrinter::Print(&v253, &v252, "%s", v192, v193, v194, v195, v196, v197);
+      cnprint::CNPrinter::Print(&v163, &v162, "%s", v112);
 LABEL_159:
-      v26 = 0;
+      v19 = 0;
 LABEL_160:
-      v19 = (v6 + 80);
+      v12 = (v4 + 80);
       goto LABEL_161;
     }
 
-    v168 = v282;
-    v325[0] = v282;
-    v183 = v171++ >= v170 || v178;
-    if (v183)
+    v94 = v192;
+    v235[0] = v192;
+    v108 = v97++ >= v96 || v104;
+    if (v108)
     {
-      v26 = 1;
+      v19 = 1;
       goto LABEL_160;
     }
   }
 
-  v19 = (v6 + 80);
+  v12 = (v4 + 80);
   if (cnprint::CNPrinter::GetLogLevel(EstimatorPredictAndUpdateArguments) <= 1)
   {
-    *v233 = 12;
-    v322[0] = 1;
-    v256.__r_.__value_.__r.__words[0] = (*(*v7 + 16))(v7);
-    v256.__r_.__value_.__l.__size_ = v184;
-    cnprint::CNLogFormatter::FormatGeneral(v223, &v256, "GNSS measurement selection: could not get predict and update arguments");
-    if (*(v6 + 2735) >= 0)
+    *v143 = 12;
+    v232[0] = 1;
+    v166.__r_.__value_.__r.__words[0] = (*(*v5 + 16))(v5);
+    v166.__r_.__value_.__l.__size_ = v109;
+    cnprint::CNLogFormatter::FormatGeneral(v133, &v166, "GNSS measurement selection: could not get predict and update arguments");
+    if (*(v4 + 2735) >= 0)
     {
-      LOBYTE(v190) = v6 - 104;
+      v110 = (v4 + 2712);
     }
 
     else
     {
-      v190 = *(v6 + 2712);
+      v110 = *(v4 + 2712);
     }
 
-    cnprint::CNPrinter::Print(v233, v322, "%s", v185, v186, v187, v188, v189, v190);
+    cnprint::CNPrinter::Print(v143, v232, "%s", v110);
   }
 
-  v26 = 0;
+  v19 = 0;
 LABEL_161:
-  raven::PopulateAllTimeFields(&v311, v6 + 136, v168, v169);
-  if (*(v6 + 1208) == 1)
+  raven::PopulateAllTimeFields(&v221, v4 + 136, v94, v95);
+  if (*(v4 + 1208) == 1)
   {
-    v235 = *(v6 + 1400);
-    v198 = *(v6 + 1368);
-    *&v233[32] = *(v6 + 1352);
-    *&v233[48] = v198;
-    v234 = *(v6 + 1384);
-    v199 = *(v6 + 1336);
-    *v233 = *(v6 + 1320);
-    *&v233[16] = v199;
+    v145 = *(v4 + 1400);
+    v113 = *(v4 + 1368);
+    *&v143[32] = *(v4 + 1352);
+    *&v143[48] = v113;
+    v144 = *(v4 + 1384);
+    v114 = *(v4 + 1336);
+    *v143 = *(v4 + 1320);
+    *&v143[16] = v114;
   }
 
   else
   {
-    *v233 = 0;
-    *&v233[8] = 0x3FF0000000000000;
-    memset(&v233[16], 0, 48);
-    v234 = 0u;
-    v235 = 0;
+    *v143 = 0;
+    *&v143[8] = 0x3FF0000000000000;
+    memset(&v143[16], 0, 48);
+    v144 = 0u;
+    v145 = 0;
   }
 
-  if (*(v6 + 2592) == 1)
+  if (*(v4 + 2592) == 1)
   {
-    v200 = *(v6 + 2704);
+    v115 = *(v4 + 2704);
   }
 
   else
   {
-    v200 = 0;
+    v115 = 0;
   }
 
-  LOBYTE(v283[0]) = v200;
-  if (*(v6 + 1848) == 1)
+  LOBYTE(v193[0]) = v115;
+  if (*(v4 + 1848) == 1)
   {
-    v323 = *(v6 + 1992);
-    v201 = *(v6 + 1976);
-    *v322 = *(v6 + 1960);
-    *&v322[16] = v201;
+    v233 = *(v4 + 1992);
+    v116 = *(v4 + 1976);
+    *v232 = *(v4 + 1960);
+    *&v232[16] = v116;
   }
 
   else
   {
-    *v322 = 0;
-    *&v322[8] = 0x3FF0000000000000;
-    *&v322[24] = 0;
-    v323 = 0;
-    *&v322[16] = 0;
+    *v232 = 0;
+    *&v232[8] = 0x3FF0000000000000;
+    *&v232[24] = 0;
+    v233 = 0;
+    *&v232[16] = 0;
   }
 
-  if (*(v6 + 2000) == 1)
+  if (*(v4 + 2000) == 1)
   {
-    v202 = *(v6 + 2128);
-    *v236 = *(v6 + 2112);
-    *&v236[16] = v202;
-    v237 = *(v6 + 2144);
+    v117 = *(v4 + 2128);
+    *v146 = *(v4 + 2112);
+    *&v146[16] = v117;
+    v147 = *(v4 + 2144);
   }
 
   else
   {
-    *v236 = 0;
-    *&v236[8] = 0x3FF0000000000000;
-    *&v236[24] = 0;
-    v237 = 0;
-    *&v236[16] = 0;
+    *v146 = 0;
+    *&v146[8] = 0x3FF0000000000000;
+    *&v146[24] = 0;
+    v147 = 0;
+    *&v146[16] = 0;
   }
 
-  if (v26)
+  if (v19)
   {
-    sub_1D0BBDAB8(&v285, &v239);
-    sub_1D0BA5FC4(&v285, &v256);
-    v203 = sub_1D0BC1CEC(v6 + 5928, &v311, &v239, &v256, v233, v283, v322, v236);
+    sub_1D0BBDAB8(&v195, &v149);
+    sub_1D0BA5FC4(&v195, &v166);
+    v118 = sub_1D0BC1CEC(v4 + 5928, &v221, &v149, &v166, v143, v193, v232, v146);
   }
 
   else
   {
-    v203 = 0;
+    v118 = 0;
   }
 
-  sub_1D0BCB680(&v285);
-  v248 = &v248;
-  v249 = &v248;
-  v250 = 0;
-  if (!v203)
+  sub_1D0BCB680(&v195);
+  v158 = &v158;
+  v159 = &v158;
+  v160 = 0;
+  if (!v118)
   {
     goto LABEL_22;
   }
 
-  LOBYTE(v285) = 0;
-  LOBYTE(v286) = 0;
-  v204 = raven::RavenSequentialGNSSMeasurementSelector::SelectMeasurements(v6 + 5928, v7, &v248, &v285);
-  v207 = v204;
-  if ((v204 & 1) != 0 && v286 == 1)
+  LOBYTE(v195) = 0;
+  LOBYTE(v196) = 0;
+  v119 = raven::RavenSequentialGNSSMeasurementSelector::SelectMeasurements(v4 + 5928, v5, &v158, &v195);
+  v122 = v119;
+  if ((v119 & 1) != 0 && v196 == 1)
   {
-    v208 = v285;
-    v256.__r_.__value_.__r.__words[0] = (*(*v7 + 16))(v7);
-    v256.__r_.__value_.__l.__size_ = v209;
-    v204 = raven::RavenConvergenceEstimator::AdjustClockOffset(v6, &v256, *&v208);
-    if ((v204 & 1) == 0)
+    v123 = v195;
+    v166.__r_.__value_.__r.__words[0] = (*(*v5 + 16))(v5);
+    v166.__r_.__value_.__l.__size_ = v124;
+    v119 = raven::RavenConvergenceEstimator::AdjustClockOffset(v4, &v166, *&v123);
+    if ((v119 & 1) == 0)
     {
 LABEL_183:
-      v27 = 0xFFFFFFFFLL;
+      v20 = 0xFFFFFFFFLL;
       goto LABEL_184;
     }
   }
 
-  if (*(*(v6 + 1168) + 3369) == 1 && *(v6 + 288) < 0x1Fu)
+  if (*(*(v4 + 1168) + 3369) == 1 && *(v4 + 288) < 0x1Fu)
   {
-    v256.__r_.__value_.__r.__words[0] = CNTimeSpan::operator-(v19, (v6 + 64), v205, v206);
-    v256.__r_.__value_.__l.__size_ = v210;
-    v204 = raven::RavenEstimator::UpdateAggressiveFlooringOfOutputUncertaintyData(v6, &v256, v6 + 2152, v7[23], v211, v212);
+    v166.__r_.__value_.__r.__words[0] = CNTimeSpan::operator-(v12, (v4 + 64), v120, v121);
+    v166.__r_.__value_.__l.__size_ = v125;
+    v119 = raven::RavenEstimator::UpdateAggressiveFlooringOfOutputUncertaintyData(v4, &v166, v4 + 2152, v5[23], v126, v127);
   }
 
   else
   {
-    *(v6 + 8352) = 0;
-    *(v6 + 280) = 0;
+    *(v4 + 8352) = 0;
+    *(v4 + 280) = 0;
   }
 
-  LODWORD(v256.__r_.__value_.__l.__data_) = 1;
-  LODWORD(v239) = 5;
-  ITRCount = raven::RavenSequentialGNSSMeasurementSelector::GetITRCount(v204, (v6 + 7392), &v256, &v239);
-  v214 = ITRCount;
-  LODWORD(v256.__r_.__value_.__l.__data_) = 1;
-  LODWORD(v239) = 4;
-  v215 = raven::RavenSequentialGNSSMeasurementSelector::GetITRCount(ITRCount, (v6 + 7392), &v256, &v239);
-  v216 = v215;
-  v217 = v215 + v214;
-  *(v6 + 312) = v217 - *(v6 + 8368);
-  LODWORD(v256.__r_.__value_.__l.__data_) = 1;
-  LODWORD(v239) = 3;
-  UnprocessedMSRData = raven::RavenSequentialGNSSMeasurementSelector::GetITRCount(v215, (v6 + 7392), &v256, &v239);
-  *(v6 + 316) = UnprocessedMSRData - *(v6 + 8372);
-  if (v217)
+  LODWORD(v166.__r_.__value_.__l.__data_) = 1;
+  LODWORD(v149) = 5;
+  ITRCount = raven::RavenSequentialGNSSMeasurementSelector::GetITRCount(v119, (v4 + 7392), &v166, &v149);
+  v129 = ITRCount;
+  LODWORD(v166.__r_.__value_.__l.__data_) = 1;
+  LODWORD(v149) = 4;
+  v130 = raven::RavenSequentialGNSSMeasurementSelector::GetITRCount(ITRCount, (v4 + 7392), &v166, &v149);
+  v131 = v130;
+  v132 = v130 + v129;
+  *(v4 + 312) = v132 - *(v4 + 8368);
+  LODWORD(v166.__r_.__value_.__l.__data_) = 1;
+  LODWORD(v149) = 3;
+  UnprocessedMSRData = raven::RavenSequentialGNSSMeasurementSelector::GetITRCount(v130, (v4 + 7392), &v166, &v149);
+  *(v4 + 316) = UnprocessedMSRData - *(v4 + 8372);
+  if (v132)
   {
-    *(v6 + 320) = v216 / v217;
+    *(v4 + 320) = v131 / v132;
   }
 
-  if ((v207 & 1) == 0)
+  if ((v122 & 1) == 0)
   {
 LABEL_22:
-    UnprocessedMSRData = raven::RavenSequentialGNSSMeasurementSelector::GetUnprocessedMSRData(v6 + 5928, v7, &v248);
+    UnprocessedMSRData = raven::RavenSequentialGNSSMeasurementSelector::GetUnprocessedMSRData(v4 + 5928, v5, &v158);
     if (UnprocessedMSRData)
     {
       goto LABEL_23;
@@ -5513,484 +4951,459 @@ LABEL_22:
   }
 
 LABEL_23:
-  v31 = v249;
-  if (v249 != &v248)
+  v23 = v159;
+  if (v159 != &v158)
   {
-    v32 = 0;
-    v225 = v6 + 2712;
-    v224 = vdupq_n_s64(0x7FF8000000000000uLL);
+    v24 = 0;
+    v135 = v4 + 2712;
+    v134 = vdupq_n_s64(0x7FF8000000000000uLL);
     do
     {
-      v33 = v31 + 2;
-      v34 = v31[2];
-      v35 = *(v31 + 48);
-      if ((v35 - 1) >= 2)
+      v25 = v23 + 2;
+      v26 = v23[2];
+      v27 = *(v23 + 48);
+      if ((v27 - 1) >= 2)
       {
-        if (v35 == 3)
+        if (v27 == 3)
         {
-          ++v32;
+          ++v24;
         }
 
         else
         {
-          raven::RavenSequentialGNSSMeasurementSelector::GetFinalGnssObservable(v6 + 5928, (v31 + 2), &v239);
-          if (v247)
+          raven::RavenSequentialGNSSMeasurementSelector::GetFinalGnssObservable(v4 + 5928, (v23 + 2), &v149);
+          if (v157)
           {
-            *&v236[24] = 0x100000003;
-            *&v36 = 0x100000001;
-            *(&v36 + 1) = 0x100000001;
-            *&v236[8] = v36;
-            *v236 = &unk_1F4CDEB28;
-            v237 = v238;
-            *&v233[24] = 0x300000003;
-            *v233 = &unk_1F4CD5DD0;
-            *&v233[8] = v36;
-            *&v233[32] = &v233[40];
-            sub_1D0B751F4(&v256, &unk_1D0ED80C5);
+            *&v146[24] = 0x100000003;
+            *&v28 = 0x100000001;
+            *(&v28 + 1) = 0x100000001;
+            *&v146[8] = v28;
+            *v146 = &unk_1F4CDEB28;
+            v147 = v148;
+            *&v143[24] = 0x300000003;
+            *v143 = &unk_1F4CD5DD0;
+            *&v143[8] = v28;
+            *&v143[32] = &v143[40];
+            sub_1D0B751F4(&v166, &unk_1D0ED80C5);
             LOBYTE(data) = 0;
             HIDWORD(data) = -1;
-            v258 = 0u;
-            v259 = 0u;
-            v260 = 0u;
-            v261 = 0u;
-            v262 = 0u;
-            *&v263 = 0;
-            *(&v263 + 1) = 0x7FF8000000000000;
-            LODWORD(v264) = 0;
-            BYTE4(v264) = 0;
-            *(&v264 + 1) = 0x7FF8000000000000;
-            *&v265[8] = v224;
-            *&v265[24] = v224;
-            *&v265[40] = v224;
-            *v265 = 2143289344;
-            *&v265[56] = 2143289344;
-            v265[60] = 0;
-            LOBYTE(v266) = 0;
-            BYTE4(v266) = 0;
-            BYTE8(v266) = 0;
-            WORD6(v266) = 0;
-            BYTE14(v266) = 1;
-            v267 = v224;
-            v268 = &unk_1F4CDFE98;
-            sub_1D0B751F4(&v269, &unk_1D0ED80C5);
-            LOBYTE(v270) = 0;
-            HIDWORD(v270) = -1;
-            v271 = 0u;
-            v272 = 0u;
-            v273 = 0u;
-            v274 = 0u;
-            v275 = 0u;
-            v276 = 0u;
-            v277 = 0u;
-            v278 = 0u;
-            v279 = 0u;
-            v280 = 0u;
-            v281 = 0u;
-            v37 = *v33;
-            *&v38 = 0x100000001;
-            *(&v38 + 1) = 0x100000001;
-            *&v236[8] = v38;
-            *&v233[8] = v38;
-            *v237 = *(&v241 + 1);
-            **&v233[32] = (*(&v244 + 2) * *(&v244 + 2));
-            *&v265[48] = v244;
-            v266 = v245;
-            v267 = v246;
-            v264 = v240[5];
-            *v265 = v241;
-            *&v265[16] = v242;
-            *&v265[32] = v243;
-            v260 = v240[1];
-            v261 = v240[2];
-            v262 = v240[3];
-            v263 = v240[4];
-            v258 = v239;
-            v259 = v240[0];
-            std::string::operator=(&v256, v34);
-            data = v34[1].__r_.__value_.__l.__data_;
-            UnprocessedMSRData = std::string::operator=(&v269, (v37 + 40));
-            v270 = *(v37 + 64);
-            v39 = *(v37 + 72);
-            v40 = *(v37 + 104);
-            v272 = *(v37 + 88);
-            v273 = v40;
-            v271 = v39;
-            v41 = *(v37 + 120);
-            v42 = *(v37 + 136);
-            v43 = *(v37 + 168);
-            v276 = *(v37 + 152);
-            v277 = v43;
-            v274 = v41;
-            v275 = v42;
-            v44 = *(v37 + 184);
-            v45 = *(v37 + 200);
-            v46 = *(v37 + 232);
-            v280 = *(v37 + 216);
-            v281 = v46;
-            v278 = v44;
-            v279 = v45;
-            v47 = *(v31[3] + 96);
-            if ((v47 - 3) < 2)
+            v168 = 0u;
+            v169 = 0u;
+            v170 = 0u;
+            v171 = 0u;
+            v172 = 0u;
+            *&v173 = 0;
+            *(&v173 + 1) = 0x7FF8000000000000;
+            LODWORD(v174) = 0;
+            BYTE4(v174) = 0;
+            *(&v174 + 1) = 0x7FF8000000000000;
+            *&v175[8] = v134;
+            *&v175[24] = v134;
+            *&v175[40] = v134;
+            *v175 = 2143289344;
+            *&v175[56] = 2143289344;
+            v175[60] = 0;
+            LOBYTE(v176) = 0;
+            BYTE4(v176) = 0;
+            BYTE8(v176) = 0;
+            WORD6(v176) = 0;
+            BYTE14(v176) = 1;
+            v177 = v134;
+            v178 = &unk_1F4CDFE98;
+            sub_1D0B751F4(&v179, &unk_1D0ED80C5);
+            LOBYTE(v180) = 0;
+            HIDWORD(v180) = -1;
+            v181 = 0u;
+            v182 = 0u;
+            v183 = 0u;
+            v184 = 0u;
+            v185 = 0u;
+            v186 = 0u;
+            v187 = 0u;
+            v188 = 0u;
+            v189 = 0u;
+            v190 = 0u;
+            v191 = 0u;
+            v29 = *v25;
+            *&v30 = 0x100000001;
+            *(&v30 + 1) = 0x100000001;
+            *&v146[8] = v30;
+            *&v143[8] = v30;
+            *v147 = *(&v151 + 1);
+            **&v143[32] = (*(&v154 + 2) * *(&v154 + 2));
+            *&v175[48] = v154;
+            v176 = v155;
+            v177 = v156;
+            v174 = v150[5];
+            *v175 = v151;
+            *&v175[16] = v152;
+            *&v175[32] = v153;
+            v170 = v150[1];
+            v171 = v150[2];
+            v172 = v150[3];
+            v173 = v150[4];
+            v168 = v149;
+            v169 = v150[0];
+            std::string::operator=(&v166, v26);
+            data = v26[1].__r_.__value_.__l.__data_;
+            UnprocessedMSRData = std::string::operator=(&v179, (v29 + 40));
+            v180 = *(v29 + 64);
+            v31 = *(v29 + 72);
+            v32 = *(v29 + 104);
+            v182 = *(v29 + 88);
+            v183 = v32;
+            v181 = v31;
+            v33 = *(v29 + 120);
+            v34 = *(v29 + 136);
+            v35 = *(v29 + 168);
+            v186 = *(v29 + 152);
+            v187 = v35;
+            v184 = v33;
+            v185 = v34;
+            v36 = *(v29 + 184);
+            v37 = *(v29 + 200);
+            v38 = *(v29 + 232);
+            v190 = *(v29 + 216);
+            v191 = v38;
+            v188 = v36;
+            v189 = v37;
+            v39 = *(v23[3] + 96);
+            if ((v39 - 3) < 2)
             {
-              sub_1D0BC3810(&v285, &v256);
-              v289 = *v31[3];
-              v64 = v286;
-              v65 = sub_1D0BCFAB8(v34);
-              sub_1D0B751F4(v227, v65);
-              sub_1D0BA01A8(&v285, v64, v227);
-              if (v228 < 0)
+              sub_1D0BC3810(&v195, &v166);
+              v199 = *v23[3];
+              v48 = v196;
+              v49 = sub_1D0BCFAB8(v26);
+              sub_1D0B751F4(v137, v49);
+              sub_1D0BA01A8(&v195, v48, v137);
+              if (v138 < 0)
               {
-                operator delete(v227[0]);
+                operator delete(v137[0]);
               }
 
-              v71 = *&v233[8];
-              if ((*&v233[8] & 0x80000000) != 0)
+              v50 = *&v143[8];
+              if ((*&v143[8] & 0x80000000) != 0)
               {
                 __assert_rtn("Zeros", "cnmatrix.h", 3098, "nr >= 0");
               }
 
-              *&v322[24] = 0x100000003;
-              *v322 = &unk_1F4CDEB28;
-              v72 = v324;
-              v323 = v324;
-              *&v322[8] = *&v233[8];
-              *&v322[12] = 1;
-              *&v322[16] = *&v233[8];
-              *&v322[20] = *&v233[8];
-              if (*&v233[8] > 3u)
+              *&v232[24] = 0x100000003;
+              *v232 = &unk_1F4CDEB28;
+              v51 = v234;
+              v233 = v234;
+              *&v232[8] = *&v143[8];
+              *&v232[12] = 1;
+              *&v232[16] = *&v143[8];
+              *&v232[20] = *&v143[8];
+              if (*&v143[8] > 3u)
               {
-                bzero(v324, 16 * ((*&v233[8] - 1) >> 1));
-                v86 = &v322[8 * v71 + 24];
-                *v86 = 0;
-                v86[1] = 0;
+                bzero(v234, 16 * ((*&v143[8] - 1) >> 1));
+                v57 = &v232[8 * v50 + 24];
+                *v57 = 0;
+                v57[1] = 0;
               }
 
-              else if (*&v233[8])
+              else if (*&v143[8])
               {
-                bzero(v324, 8 * *&v233[8]);
+                bzero(v234, 8 * *&v143[8]);
               }
 
-              if (*(v6 + 8560))
+              if (*(v4 + 8560))
               {
-                if (*(v6 + 14496) == 174)
+                if (*(v4 + 14496) == 174)
                 {
-                  LOWORD(v325[0]) = 2;
-                  LOBYTE(v284[0]) = 2;
-                  v218 = *(&v289 + 1) + v289;
-                  cnprint::CNPrinter::Print(v325, v284, "MeasurementAccumulator::AddMeasurement() failed - Out of space,t_meas,%.3lf", v66, v67, v68, v69, v70, SLOBYTE(v218));
+                  LOWORD(v235[0]) = 2;
+                  LOBYTE(v194[0]) = 2;
+                  cnprint::CNPrinter::Print(v235, v194, "MeasurementAccumulator::AddMeasurement() failed - Out of space,t_meas,%.3lf", *(&v199 + 1) + v199);
                 }
 
-                else if (*(v6 + 8561) == 1)
+                else if (*(v4 + 8561) == 1)
                 {
-                  if (cnprint::CNPrinter::GetLogLevel(v72) <= 1)
+                  if (cnprint::CNPrinter::GetLogLevel(v51) <= 1)
                   {
-                    LOWORD(v325[0]) = 2;
-                    LOBYTE(v284[0]) = 1;
-                    v220 = *(&v289 + 1) + v289;
-                    cnprint::CNPrinter::Print(v325, v284, "MeasurementAccumulator::AddMeasurement() failed - Locked,t_meas,%.3lf", v92, v93, v94, v95, v96, SLOBYTE(v220));
+                    LOWORD(v235[0]) = 2;
+                    LOBYTE(v194[0]) = 1;
+                    cnprint::CNPrinter::Print(v235, v194, "MeasurementAccumulator::AddMeasurement() failed - Locked,t_meas,%.3lf", *(&v199 + 1) + v199);
                   }
                 }
 
                 else
                 {
-                  v97 = sub_1D0B7C8AC(&v289, (v6 + 8568));
-                  if (!v97)
+                  v58 = sub_1D0B7C8AC(&v199, (v4 + 8568));
+                  if (!v58)
                   {
-                    v325[0] = 0uLL;
-                    sub_1D0BCA1D4();
+                    v235[0] = 0uLL;
+                    sub_1D0BCA1D4(v235, &v195);
                   }
 
-                  if (cnprint::CNPrinter::GetLogLevel(v97) <= 1)
+                  if (cnprint::CNPrinter::GetLogLevel(v58) <= 1)
                   {
-                    LOWORD(v325[0]) = 2;
-                    LOBYTE(v284[0]) = 1;
-                    v221 = *(&v289 + 1) + v289;
-                    v222 = *(v6 + 8576) + *(v6 + 8568);
-                    cnprint::CNPrinter::Print(v325, v284, "MeasurementAccumulator::AddMeasurement() failed - Measurement too old,t_meas,%.3lf,t_start,%.3lf", v98, v99, v100, v101, v102, SLOBYTE(v221));
+                    LOWORD(v235[0]) = 2;
+                    LOBYTE(v194[0]) = 1;
+                    cnprint::CNPrinter::Print(v235, v194, "MeasurementAccumulator::AddMeasurement() failed - Measurement too old,t_meas,%.3lf,t_start,%.3lf", *(&v199 + 1) + v199, *(v4 + 8576) + *(v4 + 8568));
                   }
                 }
               }
 
-              else if (cnprint::CNPrinter::GetLogLevel(v72) <= 1)
+              else if (cnprint::CNPrinter::GetLogLevel(v51) <= 1)
               {
-                LOWORD(v325[0]) = 2;
-                LOBYTE(v284[0]) = 1;
-                v219 = *(&v289 + 1) + v289;
-                cnprint::CNPrinter::Print(v325, v284, "MeasurementAccumulator::AddMeasurement() failed - Not initialized,t_meas,%.3lf", v87, v88, v89, v90, v91, SLOBYTE(v219));
+                LOWORD(v235[0]) = 2;
+                LOBYTE(v194[0]) = 1;
+                cnprint::CNPrinter::Print(v235, v194, "MeasurementAccumulator::AddMeasurement() failed - Not initialized,t_meas,%.3lf", *(&v199 + 1) + v199);
               }
 
-              LOWORD(v325[0]) = 12;
-              LOBYTE(v284[0]) = 4;
-              *v322 = (*(*v7 + 16))(v7);
-              *&v322[8] = v103;
-              v104 = sub_1D0BCFAB8(v34);
-              cnprint::CNLogFormatter::FormatGeneral(v225, v322, "Could not add measurement - average Doppler for %s", v104);
-              LOBYTE(v110) = v6 - 104;
-              if (*(v6 + 2735) < 0)
+              LOWORD(v235[0]) = 12;
+              LOBYTE(v194[0]) = 4;
+              *v232 = (*(*v5 + 16))(v5);
+              *&v232[8] = v59;
+              v60 = sub_1D0BCFAB8(v26);
+              cnprint::CNLogFormatter::FormatGeneral(v135, v232, "Could not add measurement - average Doppler for %s", v60);
+              v61 = (v4 + 2712);
+              if (*(v4 + 2735) < 0)
               {
-                v110 = *(v6 + 2712);
+                v61 = *(v4 + 2712);
               }
 
-              cnprint::CNPrinter::Print(v325, v284, "%s", v105, v106, v107, v108, v109, v110);
-              v285 = &unk_1F4CE4300;
-              if (v288 < 0)
+              cnprint::CNPrinter::Print(v235, v194, "%s", v61);
+              v195 = &unk_1F4CE4300;
+              if (v198 < 0)
               {
-                operator delete(v287);
+                operator delete(v197);
               }
 
-              v292 = &unk_1F4CDFE98;
-              if (v294 < 0)
+              v202 = &unk_1F4CDFE98;
+              if (v204 < 0)
               {
-                operator delete(v293);
+                operator delete(v203);
               }
 
-              v292 = &unk_1F4CD5F70;
-              if (v291 < 0)
+              v202 = &unk_1F4CD5F70;
+              if (v201 < 0)
               {
-                operator delete(v290);
+                operator delete(v200);
               }
             }
 
-            else if (v47 == 2)
+            else if (v39 == 2)
             {
-              sub_1D0C4E8C4(&v285, &v256);
-              v289 = *v31[3];
-              v73 = v286;
-              v74 = sub_1D0BCFAB8(v34);
-              sub_1D0B751F4(v229, v74);
-              sub_1D0BA01A8(&v285, v73, v229);
-              if (v230 < 0)
+              sub_1D0C4E8C4(&v195, &v166);
+              v199 = *v23[3];
+              v52 = v196;
+              v53 = sub_1D0BCFAB8(v26);
+              sub_1D0B751F4(v139, v53);
+              sub_1D0BA01A8(&v195, v52, v139);
+              if (v140 < 0)
               {
-                operator delete(v229[0]);
+                operator delete(v139[0]);
               }
 
-              if (sub_1D0C4FD4C(v6 + 8560, &v289, v236, v233, &v285, v75, v76, v77))
+              if (sub_1D0C4FD4C(v4 + 8560, &v199, v146, v143, &v195))
               {
-                LOWORD(v325[0]) = 12;
-                LOBYTE(v284[0]) = 4;
-                *v322 = (*(*v7 + 16))(v7);
-                *&v322[8] = v78;
-                v79 = sub_1D0BCFAB8(v34);
-                cnprint::CNLogFormatter::FormatGeneral(v225, v322, "Could not add measurement - Doppler for %s", v79);
-                LOBYTE(v85) = v6 - 104;
-                if (*(v6 + 2735) < 0)
+                LOWORD(v235[0]) = 12;
+                LOBYTE(v194[0]) = 4;
+                *v232 = (*(*v5 + 16))(v5);
+                *&v232[8] = v54;
+                v55 = sub_1D0BCFAB8(v26);
+                cnprint::CNLogFormatter::FormatGeneral(v135, v232, "Could not add measurement - Doppler for %s", v55);
+                v56 = (v4 + 2712);
+                if (*(v4 + 2735) < 0)
                 {
-                  v85 = *(v6 + 2712);
+                  v56 = *(v4 + 2712);
                 }
 
-                cnprint::CNPrinter::Print(v325, v284, "%s", v80, v81, v82, v83, v84, v85);
+                cnprint::CNPrinter::Print(v235, v194, "%s", v56);
               }
 
-              UnprocessedMSRData = sub_1D0C504EC(&v285);
+              UnprocessedMSRData = sub_1D0C504EC(&v195);
             }
 
-            else if (v47 == 1)
+            else if (v39 == 1)
             {
-              sub_1D0BCF90C(&v285, &v256);
-              v289 = *v31[3];
-              v48 = v286;
-              v49 = sub_1D0BCFAB8(v34);
-              sub_1D0B751F4(__p, v49);
-              sub_1D0BA01A8(&v285, v48, __p);
-              if (v232 < 0)
+              sub_1D0BCF90C(&v195, &v166);
+              v199 = *v23[3];
+              v40 = v196;
+              v41 = sub_1D0BCFAB8(v26);
+              sub_1D0B751F4(__p, v41);
+              sub_1D0BA01A8(&v195, v40, __p);
+              if (v142 < 0)
               {
                 operator delete(__p[0]);
               }
 
-              v54 = *(*v33 + 312);
-              v53 = *(*v33 + 320);
-              if (v53)
+              v43 = *(*v25 + 312);
+              v42 = *(*v25 + 320);
+              if (v42)
               {
-                atomic_fetch_add_explicit(&v53->__shared_owners_, 1uLL, memory_order_relaxed);
+                atomic_fetch_add_explicit(&v42->__shared_owners_, 1uLL, memory_order_relaxed);
               }
 
-              v295 = v54;
-              v55 = v296;
-              v296 = v53;
-              if (v55)
+              v205 = v43;
+              v44 = v206;
+              v206 = v42;
+              if (v44)
               {
-                sub_1D0B7CAB8(v55);
+                sub_1D0B7CAB8(v44);
               }
 
-              if (sub_1D0BC9B98(v6 + 8560, &v289, v236, v233, &v285, v50, v51, v52))
+              if (sub_1D0BC9B98(v4 + 8560, &v199, v146, v143, &v195))
               {
-                LOWORD(v325[0]) = 12;
-                LOBYTE(v284[0]) = 4;
-                *v322 = (*(*v7 + 16))(v7);
-                *&v322[8] = v56;
-                v57 = sub_1D0BCFAB8(v34);
-                cnprint::CNLogFormatter::FormatGeneral(v225, v322, "Could not add measurement - PSR for %s", v57);
-                LOBYTE(v63) = v6 - 104;
-                if (*(v6 + 2735) < 0)
+                LOWORD(v235[0]) = 12;
+                LOBYTE(v194[0]) = 4;
+                *v232 = (*(*v5 + 16))(v5);
+                *&v232[8] = v45;
+                v46 = sub_1D0BCFAB8(v26);
+                cnprint::CNLogFormatter::FormatGeneral(v135, v232, "Could not add measurement - PSR for %s", v46);
+                v47 = (v4 + 2712);
+                if (*(v4 + 2735) < 0)
                 {
-                  v63 = *(v6 + 2712);
+                  v47 = *(v4 + 2712);
                 }
 
-                cnprint::CNPrinter::Print(v325, v284, "%s", v58, v59, v60, v61, v62, v63);
+                cnprint::CNPrinter::Print(v235, v194, "%s", v47);
               }
 
-              UnprocessedMSRData = sub_1D0BCA100(&v285);
+              UnprocessedMSRData = sub_1D0BCA100(&v195);
             }
 
-            v268 = &unk_1F4CDFE98;
-            if (SHIBYTE(v269.__r_.__value_.__r.__words[2]) < 0)
+            v178 = &unk_1F4CDFE98;
+            if (SHIBYTE(v179.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v269.__r_.__value_.__l.__data_);
+              operator delete(v179.__r_.__value_.__l.__data_);
             }
 
-            v268 = &unk_1F4CD5F70;
-            if (SHIBYTE(v256.__r_.__value_.__r.__words[2]) < 0)
+            v178 = &unk_1F4CD5F70;
+            if (SHIBYTE(v166.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v256.__r_.__value_.__l.__data_);
+              operator delete(v166.__r_.__value_.__l.__data_);
             }
           }
         }
       }
 
-      v31 = v31[1];
+      v23 = v23[1];
     }
 
-    while (v31 != &v248);
-    if (v32)
+    while (v23 != &v158);
+    if (v24)
     {
-      v111 = 1;
-      v112 = v32 / *(*(v6 + 1168) + 1472);
+      v62 = 1;
+      v63 = v24 / *(*(v4 + 1168) + 1472);
       do
       {
-        UnprocessedMSRData = sub_1D0C51528(v6 + 8488);
+        UnprocessedMSRData = sub_1D0C51528(v4 + 8488);
         if (UnprocessedMSRData)
         {
           break;
         }
       }
 
-      while (v112 > v111++);
+      while (v63 > v62++);
     }
   }
 
   LogLevel = cnprint::CNPrinter::GetLogLevel(UnprocessedMSRData);
   if (LogLevel <= 1)
   {
-    LOWORD(v239) = 12;
-    v233[0] = 1;
-    v256.__r_.__value_.__r.__words[0] = (*(*v7 + 16))(v7);
-    v256.__r_.__value_.__l.__size_ = v115;
-    raven::RavenSequentialGNSSMeasurementSelector::StringOfL1MeasurementCountsByConstellation((v6 + 5928), &v285);
-    v116 = SHIBYTE(v287) >= 0 ? &v285 : v285;
-    v117 = cnprint::CNLogFormatter::FormatGeneral(v6 + 2712, &v256, "%s", v116);
-    if (*(v6 + 2735) >= 0)
+    LOWORD(v149) = 12;
+    v143[0] = 1;
+    v166.__r_.__value_.__r.__words[0] = (*(*v5 + 16))(v5);
+    v166.__r_.__value_.__l.__size_ = v66;
+    raven::RavenSequentialGNSSMeasurementSelector::StringOfL1MeasurementCountsByConstellation((v4 + 5928), &v195);
+    v67 = SHIBYTE(v197) >= 0 ? &v195 : v195;
+    v68 = cnprint::CNLogFormatter::FormatGeneral(v4 + 2712, &v166, "%s", v67);
+    v69 = *(v4 + 2735) >= 0 ? v68 : *(v4 + 2712);
+    cnprint::CNPrinter::Print(&v149, v143, "%s", v69);
+    if (SHIBYTE(v197) < 0)
     {
-      LOBYTE(v123) = v117;
-    }
-
-    else
-    {
-      v123 = *(v6 + 2712);
-    }
-
-    cnprint::CNPrinter::Print(&v239, v233, "%s", v118, v119, v120, v121, v122, v123);
-    if (SHIBYTE(v287) < 0)
-    {
-      operator delete(v285);
+      operator delete(v195);
     }
   }
 
   if (cnprint::CNPrinter::GetLogLevel(LogLevel) <= 1)
   {
-    LOWORD(v239) = 12;
-    v233[0] = 1;
-    v256.__r_.__value_.__r.__words[0] = (*(*v7 + 16))(v7);
-    v256.__r_.__value_.__l.__size_ = v124;
-    raven::RavenSequentialGNSSMeasurementSelector::StringOfL5MeasurementCountsByConstellation((v6 + 5928), &v285);
-    v125 = SHIBYTE(v287) >= 0 ? &v285 : v285;
-    v126 = cnprint::CNLogFormatter::FormatGeneral(v6 + 2712, &v256, "%s", v125);
-    if (*(v6 + 2735) >= 0)
+    LOWORD(v149) = 12;
+    v143[0] = 1;
+    v166.__r_.__value_.__r.__words[0] = (*(*v5 + 16))(v5);
+    v166.__r_.__value_.__l.__size_ = v70;
+    raven::RavenSequentialGNSSMeasurementSelector::StringOfL5MeasurementCountsByConstellation(&v195, (v4 + 5928));
+    v71 = SHIBYTE(v197) >= 0 ? &v195 : v195;
+    v72 = cnprint::CNLogFormatter::FormatGeneral(v4 + 2712, &v166, "%s", v71);
+    v73 = *(v4 + 2735) >= 0 ? v72 : *(v4 + 2712);
+    cnprint::CNPrinter::Print(&v149, v143, "%s", v73);
+    if (SHIBYTE(v197) < 0)
     {
-      LOBYTE(v132) = v126;
-    }
-
-    else
-    {
-      v132 = *(v6 + 2712);
-    }
-
-    cnprint::CNPrinter::Print(&v239, v233, "%s", v127, v128, v129, v130, v131, v132);
-    if (SHIBYTE(v287) < 0)
-    {
-      operator delete(v285);
+      operator delete(v195);
     }
   }
 
-  LOWORD(v239) = 12;
-  v233[0] = 2;
-  v256.__r_.__value_.__r.__words[0] = (*(*v7 + 16))(v7);
-  v256.__r_.__value_.__l.__size_ = v133;
-  raven::RavenSequentialGNSSMeasurementSelector::StringOfOverallMeasurementSelectionCounts((v6 + 5928), &v285);
-  if (SHIBYTE(v287) >= 0)
+  LOWORD(v149) = 12;
+  v143[0] = 2;
+  v166.__r_.__value_.__r.__words[0] = (*(*v5 + 16))(v5);
+  v166.__r_.__value_.__l.__size_ = v74;
+  raven::RavenSequentialGNSSMeasurementSelector::StringOfOverallMeasurementSelectionCounts(&v195, (v4 + 5928));
+  if (SHIBYTE(v197) >= 0)
   {
-    v134 = &v285;
+    v75 = &v195;
   }
 
   else
   {
-    v134 = v285;
+    v75 = v195;
   }
 
-  cnprint::CNLogFormatter::FormatGeneral(v6 + 2712, &v256, "%s", v134);
-  if (*(v6 + 2735) >= 0)
+  cnprint::CNLogFormatter::FormatGeneral(v4 + 2712, &v166, "%s", v75);
+  if (*(v4 + 2735) >= 0)
   {
-    LOBYTE(v140) = v6 - 104;
+    v76 = (v4 + 2712);
   }
 
   else
   {
-    v140 = *(v6 + 2712);
+    v76 = *(v4 + 2712);
   }
 
-  cnprint::CNPrinter::Print(&v239, v233, "%s", v135, v136, v137, v138, v139, v140);
-  if (SHIBYTE(v287) < 0)
+  cnprint::CNPrinter::Print(&v149, v143, "%s", v76);
+  if (SHIBYTE(v197) < 0)
   {
-    operator delete(v285);
+    operator delete(v195);
   }
 
-  LOWORD(v239) = 12;
-  v233[0] = 2;
-  v256.__r_.__value_.__r.__words[0] = (*(*v7 + 16))(v7);
-  v256.__r_.__value_.__l.__size_ = v141;
-  raven::RavenSequentialGNSSMeasurementSelector::StringOfOverallMeasurementSelectionCountsForRayTracedMeasurements((v6 + 5928), &v285);
-  if (SHIBYTE(v287) >= 0)
+  LOWORD(v149) = 12;
+  v143[0] = 2;
+  v166.__r_.__value_.__r.__words[0] = (*(*v5 + 16))(v5);
+  v166.__r_.__value_.__l.__size_ = v77;
+  raven::RavenSequentialGNSSMeasurementSelector::StringOfOverallMeasurementSelectionCountsForRayTracedMeasurements(&v195, (v4 + 5928));
+  if (SHIBYTE(v197) >= 0)
   {
-    v142 = &v285;
+    v78 = &v195;
   }
 
   else
   {
-    v142 = v285;
+    v78 = v195;
   }
 
-  cnprint::CNLogFormatter::FormatGeneral(v6 + 2712, &v256, "%s", v142);
-  if (*(v6 + 2735) >= 0)
+  cnprint::CNLogFormatter::FormatGeneral(v4 + 2712, &v166, "%s", v78);
+  if (*(v4 + 2735) >= 0)
   {
-    LOBYTE(v148) = v6 - 104;
+    v79 = (v4 + 2712);
   }
 
   else
   {
-    v148 = *(v6 + 2712);
+    v79 = *(v4 + 2712);
   }
 
-  cnprint::CNPrinter::Print(&v239, v233, "%s", v143, v144, v145, v146, v147, v148);
-  if (SHIBYTE(v287) < 0)
+  cnprint::CNPrinter::Print(&v149, v143, "%s", v79);
+  if (SHIBYTE(v197) < 0)
   {
-    operator delete(v285);
+    operator delete(v195);
   }
 
-  v27 = 0;
+  v20 = 0;
 LABEL_184:
-  sub_1D0BCC0B4(&v248);
-LABEL_20:
-  v28 = *MEMORY[0x1E69E9840];
-  return v27;
+  sub_1D0BCC0B4(&v158);
+  return v20;
 }
 
 void sub_1D0BC1A74(_Unwind_Exception *a1, int a2)
@@ -6033,62 +5446,61 @@ void sub_1D0BC1C3C(uint64_t a1)
   }
 }
 
-uint64_t sub_1D0BC1CEC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned __int8 *a5, unsigned __int8 *a6, __int128 *a7, __int128 *a8)
+BOOL sub_1D0BC1CEC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned __int8 *a5, unsigned __int8 *a6, __int128 *a7, __int128 *a8)
 {
-  if (COERCE__INT64(fabs(*(a2 + 8) + *a2)) > 0x7FEFFFFFFFFFFFFFLL || (v126 = 0, v127 = 0, sub_1D0B7C8AC(a2, &v126)))
+  if (COERCE__INT64(fabs(*(a2 + 8) + *a2)) > 0x7FEFFFFFFFFFFFFFLL || (v109 = 0, v110 = 0, sub_1D0B7C8AC(a2, &v109)))
   {
-    LOWORD(v126) = 12;
-    v129[0] = 4;
-    v21 = cnprint::CNLogFormatter::FormatGeneral((a1 + 208), "#MSR not initialized; invalid time");
+    LOWORD(v109) = 12;
+    v112[0] = 4;
+    v16 = cnprint::CNLogFormatter::FormatGeneral((a1 + 208), "#MSR not initialized; invalid time");
 LABEL_4:
     if (*(a1 + 231) >= 0)
     {
-      LOBYTE(v27) = v21;
+      v17 = v16;
     }
 
     else
     {
-      v27 = *(a1 + 208);
+      v17 = *(a1 + 208);
     }
 
-    cnprint::CNPrinter::Print(&v126, v129, "%s", v22, v23, v24, v25, v26, v27);
+    cnprint::CNPrinter::Print(&v109, v112, "%s", v17);
     return 0;
   }
 
   if ((*a1 & 1) == 0)
   {
-    LOWORD(v126) = 12;
-    v129[0] = 2;
-    v21 = cnprint::CNLogFormatter::FormatWarning(a1 + 208, a2, "#MSR not initialized; not configured", v16, v17, v18, v19, v20, v123);
+    LOWORD(v109) = 12;
+    v112[0] = 2;
+    v16 = cnprint::CNLogFormatter::FormatWarning(a1 + 208, a2, "#MSR not initialized; not configured");
     goto LABEL_4;
   }
 
-  v31 = *(a3 + 8);
-  v30 = *(a3 + 12);
-  if (v31 <= v30)
+  v21 = *(a3 + 8);
+  v20 = *(a3 + 12);
+  if (v21 <= v20)
   {
-    v32 = *(a3 + 12);
+    v22 = *(a3 + 12);
   }
 
   else
   {
-    v32 = *(a3 + 8);
+    v22 = *(a3 + 8);
   }
 
-  if (!v31 || !v30 || v32 != 8)
+  if (!v21 || !v20 || v22 != 8)
   {
-    LOWORD(v126) = 12;
-    v129[0] = 4;
-    v40 = *(a3 + 16);
-    v21 = cnprint::CNLogFormatter::FormatGeneral(a1 + 208, a2, "#MSR not initialized; state vector has incorrect size,nx,%u");
+    LOWORD(v109) = 12;
+    v112[0] = 4;
+    v16 = cnprint::CNLogFormatter::FormatGeneral(a1 + 208, a2, "#MSR not initialized; state vector has incorrect size,nx,%u");
     goto LABEL_4;
   }
 
   if (*(a4 + 8) != 0x800000008)
   {
-    LOWORD(v126) = 12;
-    v129[0] = 4;
-    v21 = cnprint::CNLogFormatter::FormatGeneral(a1 + 208, a2, "#MSR not initialized; state covariance has incorrect size,rows,%u,cols,%u");
+    LOWORD(v109) = 12;
+    v112[0] = 4;
+    v16 = cnprint::CNLogFormatter::FormatGeneral(a1 + 208, a2, "#MSR not initialized; state covariance has incorrect size,rows,%u,cols,%u");
     goto LABEL_4;
   }
 
@@ -6096,38 +5508,38 @@ LABEL_4:
   {
     if ((*(*(a3 + 32) + 8 * i) & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
     {
-      LOWORD(v126) = 12;
-      v129[0] = 4;
-      v21 = cnprint::CNLogFormatter::FormatGeneral(a1 + 208, a2, "#MSR not initialized; infinite value at index,%d");
+      LOWORD(v109) = 12;
+      v112[0] = 4;
+      v16 = cnprint::CNLogFormatter::FormatGeneral(a1 + 208, a2, "#MSR not initialized; infinite value at index,%d");
       goto LABEL_4;
     }
   }
 
-  v34 = *(a1 + 2192);
-  if ((v34 & 1) == 0)
+  v24 = *(a1 + 2192);
+  if ((v24 & 1) == 0)
   {
-    v35 = *(a2 + 16);
+    v25 = *(a2 + 16);
     *(a1 + 2096) = *a2;
-    *(a1 + 2112) = v35;
-    v36 = *(a2 + 32);
-    v37 = *(a2 + 48);
-    v38 = *(a2 + 80);
+    *(a1 + 2112) = v25;
+    v26 = *(a2 + 32);
+    v27 = *(a2 + 48);
+    v28 = *(a2 + 80);
     *(a1 + 2160) = *(a2 + 64);
-    *(a1 + 2176) = v38;
-    *(a1 + 2128) = v36;
-    *(a1 + 2144) = v37;
+    *(a1 + 2176) = v28;
+    *(a1 + 2128) = v26;
+    *(a1 + 2144) = v27;
     *(a1 + 2192) = 1;
   }
 
   if (*(a1 + 2304))
   {
-    v39 = v34 ^ 1;
+    v29 = v24 ^ 1;
   }
 
   else
   {
     sub_1D0BC2764(a1 + 2200, a3);
-    v39 = 1;
+    v29 = 1;
   }
 
   if (*(a1 + 2416))
@@ -6141,306 +5553,306 @@ LABEL_4:
   }
 
   raven::RavenSequentialGNSSMeasurementSelector::ResetEpochSpecificMembers(a1);
-  if (v39)
+  if (v29)
   {
-    v41 = (a1 + 1512);
-    sub_1D0B751F4(&v126, "\n");
-    if ((v128 & 0x80u) == 0)
+    v30 = (a1 + 1512);
+    sub_1D0B751F4(&v109, "\n");
+    if ((v111 & 0x80u) == 0)
     {
-      v42 = &v126;
+      v31 = &v109;
     }
 
     else
     {
-      v42 = v126;
+      v31 = v109;
     }
 
-    if ((v128 & 0x80u) == 0)
+    if ((v111 & 0x80u) == 0)
     {
-      v43 = v128;
+      v32 = v111;
     }
 
     else
     {
-      v43 = v127;
+      v32 = v110;
     }
 
-    v44 = sub_1D0BCD7C4((a1 + 1512), v42, v43);
-    if ((v128 & 0x80u) == 0)
+    v33 = sub_1D0BCD7C4((a1 + 1512), v31, v32);
+    if ((v111 & 0x80u) == 0)
     {
-      v45 = &v126;
+      v34 = &v109;
     }
 
     else
     {
-      v45 = v126;
+      v34 = v109;
     }
 
-    if ((v128 & 0x80u) == 0)
+    if ((v111 & 0x80u) == 0)
     {
-      v46 = v128;
+      v35 = v111;
     }
 
     else
     {
-      v46 = v127;
+      v35 = v110;
     }
 
-    v47 = sub_1D0BCD7C4(v44, v45, v46);
-    if ((v128 & 0x80u) == 0)
+    v36 = sub_1D0BCD7C4(v33, v34, v35);
+    if ((v111 & 0x80u) == 0)
     {
-      v48 = &v126;
+      v37 = &v109;
     }
 
     else
     {
-      v48 = v126;
+      v37 = v109;
     }
 
-    if ((v128 & 0x80u) == 0)
+    if ((v111 & 0x80u) == 0)
     {
-      v49 = v128;
+      v38 = v111;
     }
 
     else
     {
-      v49 = v127;
+      v38 = v110;
     }
 
-    sub_1D0BCD7C4(v47, v48, v49);
+    sub_1D0BCD7C4(v36, v37, v38);
     sub_1D0D8DF58((a1 + 1512));
-    v50 = *v41;
-    *(v41 + *(*v41 - 24) + 16) = 3;
-    *(v41 + *(v50 - 24) + 24) = 27;
-    v51 = sub_1D0BCD7C4((a1 + 1512), "Configured Start Time    : ", 27);
+    v39 = *v30;
+    *(v30 + *(*v30 - 24) + 16) = 3;
+    *(v30 + *(v39 - 24) + 24) = 27;
+    v40 = sub_1D0BCD7C4((a1 + 1512), "Configured Start Time    : ", 27);
+    *(v40 + *(*v40 - 24) + 24) = 15;
+    if ((*(a1 + 2192) & 1) == 0)
+    {
+      sub_1D0C42F28();
+    }
+
+    v41 = MEMORY[0x1D387E990](*(a1 + 2104) + *(a1 + 2096));
+    *(v41 + *(*v41 - 24) + 24) = 15;
+    if ((*(a1 + 2192) & 1) == 0)
+    {
+      sub_1D0C42F28();
+    }
+
+    v42 = MEMORY[0x1D387E990](*(a1 + 2128) + *(a1 + 2120));
+    if ((v111 & 0x80u) == 0)
+    {
+      v43 = &v109;
+    }
+
+    else
+    {
+      v43 = v109;
+    }
+
+    if ((v111 & 0x80u) == 0)
+    {
+      v44 = v111;
+    }
+
+    else
+    {
+      v44 = v110;
+    }
+
+    v45 = sub_1D0BCD7C4(v42, v43, v44);
+    if ((v111 & 0x80u) == 0)
+    {
+      v46 = &v109;
+    }
+
+    else
+    {
+      v46 = v109;
+    }
+
+    if ((v111 & 0x80u) == 0)
+    {
+      v47 = v111;
+    }
+
+    else
+    {
+      v47 = v110;
+    }
+
+    sub_1D0BCD7C4(v45, v46, v47);
+    v48 = *v30;
+    *(v30 + *(*v30 - 24) + 16) = 3;
+    *(v30 + *(v48 - 24) + 24) = 27;
+    v49 = sub_1D0BCD7C4((a1 + 1512), "Start PVT XYZ [m or m/s] : ", 27);
+    *(v49 + *(*v49 - 24) + 24) = 15;
+    if ((*(a1 + 2304) & 1) == 0)
+    {
+      sub_1D0C42F28();
+    }
+
+    v50 = MEMORY[0x1D387E990](**(a1 + 2232));
+    *(v50 + *(*v50 - 24) + 24) = 15;
+    if ((*(a1 + 2304) & 1) == 0)
+    {
+      sub_1D0C42F28();
+    }
+
+    v51 = MEMORY[0x1D387E990](*(*(a1 + 2232) + 8));
     *(v51 + *(*v51 - 24) + 24) = 15;
-    if ((*(a1 + 2192) & 1) == 0)
+    if ((*(a1 + 2304) & 1) == 0)
     {
       sub_1D0C42F28();
     }
 
-    v52 = MEMORY[0x1D387E990](*(a1 + 2104) + *(a1 + 2096));
+    v52 = MEMORY[0x1D387E990](*(*(a1 + 2232) + 16));
     *(v52 + *(*v52 - 24) + 24) = 15;
-    if ((*(a1 + 2192) & 1) == 0)
-    {
-      sub_1D0C42F28();
-    }
-
-    v53 = MEMORY[0x1D387E990](*(a1 + 2128) + *(a1 + 2120));
-    if ((v128 & 0x80u) == 0)
-    {
-      v54 = &v126;
-    }
-
-    else
-    {
-      v54 = v126;
-    }
-
-    if ((v128 & 0x80u) == 0)
-    {
-      v55 = v128;
-    }
-
-    else
-    {
-      v55 = v127;
-    }
-
-    v56 = sub_1D0BCD7C4(v53, v54, v55);
-    if ((v128 & 0x80u) == 0)
-    {
-      v57 = &v126;
-    }
-
-    else
-    {
-      v57 = v126;
-    }
-
-    if ((v128 & 0x80u) == 0)
-    {
-      v58 = v128;
-    }
-
-    else
-    {
-      v58 = v127;
-    }
-
-    sub_1D0BCD7C4(v56, v57, v58);
-    v59 = *v41;
-    *(v41 + *(*v41 - 24) + 16) = 3;
-    *(v41 + *(v59 - 24) + 24) = 27;
-    v60 = sub_1D0BCD7C4((a1 + 1512), "Start PVT XYZ [m or m/s] : ", 27);
-    *(v60 + *(*v60 - 24) + 24) = 15;
     if ((*(a1 + 2304) & 1) == 0)
     {
       sub_1D0C42F28();
     }
 
-    v61 = MEMORY[0x1D387E990](**(a1 + 2232));
-    *(v61 + *(*v61 - 24) + 24) = 15;
+    v53 = MEMORY[0x1D387E990](*(*(a1 + 2232) + 24));
+    *(v53 + *(*v53 - 24) + 24) = 15;
     if ((*(a1 + 2304) & 1) == 0)
     {
       sub_1D0C42F28();
     }
 
-    v62 = MEMORY[0x1D387E990](*(*(a1 + 2232) + 8));
-    *(v62 + *(*v62 - 24) + 24) = 15;
+    v54 = MEMORY[0x1D387E990](*(*(a1 + 2232) + 32));
+    *(v54 + *(*v54 - 24) + 24) = 15;
     if ((*(a1 + 2304) & 1) == 0)
     {
       sub_1D0C42F28();
     }
 
-    v63 = MEMORY[0x1D387E990](*(*(a1 + 2232) + 16));
-    *(v63 + *(*v63 - 24) + 24) = 15;
-    if ((*(a1 + 2304) & 1) == 0)
+    v55 = MEMORY[0x1D387E990](*(*(a1 + 2232) + 40));
+    if ((v111 & 0x80u) == 0)
     {
-      sub_1D0C42F28();
-    }
-
-    v64 = MEMORY[0x1D387E990](*(*(a1 + 2232) + 24));
-    *(v64 + *(*v64 - 24) + 24) = 15;
-    if ((*(a1 + 2304) & 1) == 0)
-    {
-      sub_1D0C42F28();
-    }
-
-    v65 = MEMORY[0x1D387E990](*(*(a1 + 2232) + 32));
-    *(v65 + *(*v65 - 24) + 24) = 15;
-    if ((*(a1 + 2304) & 1) == 0)
-    {
-      sub_1D0C42F28();
-    }
-
-    v66 = MEMORY[0x1D387E990](*(*(a1 + 2232) + 40));
-    if ((v128 & 0x80u) == 0)
-    {
-      v67 = &v126;
+      v56 = &v109;
     }
 
     else
     {
-      v67 = v126;
+      v56 = v109;
     }
 
-    if ((v128 & 0x80u) == 0)
+    if ((v111 & 0x80u) == 0)
     {
-      v68 = v128;
-    }
-
-    else
-    {
-      v68 = v127;
-    }
-
-    v69 = sub_1D0BCD7C4(v66, v67, v68);
-    if ((v128 & 0x80u) == 0)
-    {
-      v70 = &v126;
+      v57 = v111;
     }
 
     else
     {
-      v70 = v126;
+      v57 = v110;
     }
 
-    if ((v128 & 0x80u) == 0)
+    v58 = sub_1D0BCD7C4(v55, v56, v57);
+    if ((v111 & 0x80u) == 0)
     {
-      v71 = v128;
-    }
-
-    else
-    {
-      v71 = v127;
-    }
-
-    v72 = sub_1D0BCD7C4(v69, v70, v71);
-    if ((v128 & 0x80u) == 0)
-    {
-      v73 = &v126;
+      v59 = &v109;
     }
 
     else
     {
-      v73 = v126;
+      v59 = v109;
     }
 
-    if ((v128 & 0x80u) == 0)
+    if ((v111 & 0x80u) == 0)
     {
-      v74 = v128;
+      v60 = v111;
     }
 
     else
     {
-      v74 = v127;
+      v60 = v110;
     }
 
-    sub_1D0BCD7C4(v72, v73, v74);
-    if (v128 < 0)
+    v61 = sub_1D0BCD7C4(v58, v59, v60);
+    if ((v111 & 0x80u) == 0)
     {
-      operator delete(v126);
+      v62 = &v109;
+    }
+
+    else
+    {
+      v62 = v109;
+    }
+
+    if ((v111 & 0x80u) == 0)
+    {
+      v63 = v111;
+    }
+
+    else
+    {
+      v63 = v110;
+    }
+
+    sub_1D0BCD7C4(v61, v62, v63);
+    if (v111 < 0)
+    {
+      operator delete(v109);
     }
   }
 
   sub_1D0B894B0(a1 + 360, a4);
-  v75 = 0;
-  v76 = *(a1 + 380);
-  v77 = *(a1 + 392);
-  v78 = v76 + 1;
-  v79 = 8 * v76;
-  v80 = v77;
+  v64 = 0;
+  v65 = *(a1 + 380);
+  v66 = *(a1 + 392);
+  v67 = v65 + 1;
+  v68 = 8 * v65;
+  v69 = v66;
   while (2)
   {
-    v81 = 0;
-    v82 = v80;
-    v83 = v80;
+    v70 = 0;
+    v71 = v69;
+    v72 = v69;
     do
     {
-      v84 = *v82;
-      if ((*v82 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
+      v73 = *v71;
+      if ((*v71 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
       {
 LABEL_104:
-        LOWORD(v126) = 12;
-        v129[0] = 4;
-        v21 = cnprint::CNLogFormatter::FormatGeneral(a1 + 208, a2, "#MSR not initialized; infinite input covariance,i,%u,j,%u");
+        LOWORD(v109) = 12;
+        v112[0] = 4;
+        v16 = cnprint::CNLogFormatter::FormatGeneral(a1 + 208, a2, "#MSR not initialized; infinite input covariance,i,%u,j,%u");
         goto LABEL_4;
       }
 
-      if (!v81 && v77[v78 * v75] <= 0.0)
+      if (!v70 && v66[v67 * v64] <= 0.0)
       {
-        LOWORD(v126) = 12;
-        v129[0] = 4;
-        v21 = cnprint::CNLogFormatter::FormatGeneral(a1 + 208, a2, "#MSR not initialized; non-positive variance,i,%u");
+        LOWORD(v109) = 12;
+        v112[0] = 4;
+        v16 = cnprint::CNLogFormatter::FormatGeneral(a1 + 208, a2, "#MSR not initialized; non-positive variance,i,%u");
         goto LABEL_4;
       }
 
-      v85 = *v83;
-      if ((*v83 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
+      v74 = *v72;
+      if ((*v72 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
       {
         goto LABEL_104;
       }
 
-      if (vabdd_f64(v84, v85) > 0.000000015)
+      if (vabdd_f64(v73, v74) > 0.000000015)
       {
-        LOWORD(v126) = 12;
-        v129[0] = 4;
-        v21 = cnprint::CNLogFormatter::FormatGeneral(a1 + 208, a2, "#MSR not initialized; covariance not symmetric,i,%u,j,%u,Pij,%.3e,Pji,%.3e");
+        LOWORD(v109) = 12;
+        v112[0] = 4;
+        v16 = cnprint::CNLogFormatter::FormatGeneral(a1 + 208, a2, "#MSR not initialized; covariance not symmetric,i,%u,j,%u,Pij,%.3e,Pji,%.3e");
         goto LABEL_4;
       }
 
-      v86 = (v84 + v85) * 0.5;
-      *v82 = v86;
-      *v83++ = v86;
-      --v81;
-      v82 = (v82 + v79);
+      v75 = (v73 + v74) * 0.5;
+      *v71 = v75;
+      *v72++ = v75;
+      --v70;
+      v71 = (v71 + v68);
     }
 
-    while (v75 - 8 != v81);
-    ++v75;
-    v80 = (v80 + v79 + 8);
-    if (v75 != 8)
+    while (v64 - 8 != v70);
+    ++v64;
+    v69 = (v69 + v68 + 8);
+    if (v64 != 8)
     {
       continue;
     }
@@ -6448,154 +5860,154 @@ LABEL_104:
     break;
   }
 
-  v129[0] = 0;
-  sub_1D0BDFE04(a1 + 360, v129, &v125);
-  v125 = &unk_1F4CD5E28;
-  v28 = v129[0];
-  if (v129[0])
+  v112[0] = 0;
+  sub_1D0BDFE04(a1 + 360, v112, &v108);
+  v108 = &unk_1F4CD5E28;
+  v18 = v112[0];
+  if (v112[0])
   {
-    v87 = *a6;
-    *(a1 + 1016) = v87;
-    v88 = *a5;
+    v76 = *a6;
+    *(a1 + 1016) = v76;
+    v77 = *a5;
     *(a1 + 1040) = *(a5 + 1);
-    *(a1 + 1024) = v88;
-    v89 = *(a5 + 2);
-    v90 = *(a5 + 3);
-    v91 = *(a5 + 4);
+    *(a1 + 1024) = v77;
+    v78 = *(a5 + 2);
+    v79 = *(a5 + 3);
+    v80 = *(a5 + 4);
     *(a1 + 1104) = *(a5 + 10);
-    *(a1 + 1088) = v91;
-    *(a1 + 1072) = v90;
-    *(a1 + 1056) = v89;
-    v92 = *a7;
-    v93 = a7[1];
+    *(a1 + 1088) = v80;
+    *(a1 + 1072) = v79;
+    *(a1 + 1056) = v78;
+    v81 = *a7;
+    v82 = a7[1];
     *(a1 + 1144) = *(a7 + 4);
-    *(a1 + 1112) = v92;
-    *(a1 + 1128) = v93;
-    v94 = *a8;
-    v95 = a8[1];
+    *(a1 + 1112) = v81;
+    *(a1 + 1128) = v82;
+    v83 = *a8;
+    v84 = a8[1];
     *(a1 + 1184) = *(a8 + 4);
-    *(a1 + 1168) = v95;
-    *(a1 + 1152) = v94;
-    if ((v87 - 3) > 1 || (v96 = *(a1 + 1024), v96 > 9))
+    *(a1 + 1168) = v84;
+    *(a1 + 1152) = v83;
+    if ((v76 - 3) > 1 || (v85 = *(a1 + 1024), v85 > 9))
     {
-      LOBYTE(v97) = 0;
+      LOBYTE(v86) = 0;
     }
 
     else
     {
-      v97 = 0xCu >> v96;
+      v86 = 0xCu >> v85;
     }
 
-    *(a1 + 1272) = v97 & 1;
-    v98 = *(a2 + 16);
+    *(a1 + 1272) = v86 & 1;
+    v87 = *(a2 + 16);
     *(a1 + 96) = *a2;
-    *(a1 + 112) = v98;
-    v99 = *(a2 + 32);
-    v100 = *(a2 + 48);
-    v101 = *(a2 + 80);
+    *(a1 + 112) = v87;
+    v88 = *(a2 + 32);
+    v89 = *(a2 + 48);
+    v90 = *(a2 + 80);
     *(a1 + 160) = *(a2 + 64);
-    *(a1 + 176) = v101;
-    *(a1 + 128) = v99;
-    *(a1 + 144) = v100;
+    *(a1 + 176) = v90;
+    *(a1 + 128) = v88;
+    *(a1 + 144) = v89;
     sub_1D0B894B0(a1 + 256, a3);
-    v102 = *(a1 + 192);
-    v103 = *(v102 + 1656);
-    *(a1 + 1328) = *(v102 + 1672);
-    *(a1 + 1312) = v103;
-    v104 = *(v102 + 1688);
-    *(a1 + 1296) = *(v102 + 1704);
-    *(a1 + 1280) = v104;
-    v105 = *a6;
-    if (v105 > 6)
+    v91 = *(a1 + 192);
+    v92 = *(v91 + 1656);
+    *(a1 + 1328) = *(v91 + 1672);
+    *(a1 + 1312) = v92;
+    v93 = *(v91 + 1688);
+    *(a1 + 1296) = *(v91 + 1704);
+    *(a1 + 1280) = v93;
+    v94 = *a6;
+    if (v94 > 6)
     {
       goto LABEL_126;
     }
 
-    if (((1 << v105) & 0x26) != 0)
+    if (((1 << v94) & 0x26) != 0)
     {
-      v106 = *a5;
-      v107 = v106 - 2;
-      if (v106 - 2) < 5 && ((0x1Bu >> v107))
+      v95 = *a5;
+      v96 = v95 - 2;
+      if (v95 - 2) < 5 && ((0x1Bu >> v96))
       {
-        v108 = &unk_1D0E87938;
-        v109 = &unk_1D0E87910;
+        v97 = &unk_1D0E87938;
+        v98 = &unk_1D0E87910;
         goto LABEL_125;
       }
     }
 
-    else if (((1 << v105) & 0x18) != 0)
+    else if (((1 << v94) & 0x18) != 0)
     {
-      v106 = *a5;
-      v107 = v106 - 2;
-      if (v106 - 2) < 5 && ((0x1Bu >> v107))
+      v95 = *a5;
+      v96 = v95 - 2;
+      if (v95 - 2) < 5 && ((0x1Bu >> v96))
       {
-        v108 = &unk_1D0E87988;
-        v109 = &unk_1D0E87960;
+        v97 = &unk_1D0E87988;
+        v98 = &unk_1D0E87960;
 LABEL_125:
-        v117 = v108[v107];
-        v118 = (v102 + v109[v107]);
-        v119 = v118[1];
-        *(a1 + 1312) = *v118;
-        *(a1 + 1328) = v119;
-        v120 = (v102 + v117);
-        v121 = v120[1];
-        *(a1 + 1280) = *v120;
-        *(a1 + 1296) = v121;
+        v101 = v97[v96];
+        v102 = (v91 + v98[v96]);
+        v103 = v102[1];
+        *(a1 + 1312) = *v102;
+        *(a1 + 1328) = v103;
+        v104 = (v91 + v101);
+        v105 = v104[1];
+        *(a1 + 1280) = *v104;
+        *(a1 + 1296) = v105;
         goto LABEL_126;
       }
     }
 
     else
     {
-      if (v105 != 6)
+      if (v94 != 6)
       {
 LABEL_126:
-        v106 = *a5;
+        v95 = *a5;
         goto LABEL_127;
       }
 
-      v106 = *a5;
-      v107 = v106 - 2;
-      if (v106 - 2) < 5 && ((0x1Bu >> v107))
+      v95 = *a5;
+      v96 = v95 - 2;
+      if (v95 - 2) < 5 && ((0x1Bu >> v96))
       {
-        v108 = &unk_1D0E879D8;
-        v109 = &unk_1D0E879B0;
+        v97 = &unk_1D0E879D8;
+        v98 = &unk_1D0E879B0;
         goto LABEL_125;
       }
     }
 
 LABEL_127:
-    if ((v106 - 2) > 4)
+    if ((v95 - 2) > 4)
     {
-      v122 = 2176;
+      v106 = 2176;
     }
 
     else
     {
-      v122 = qword_1D0E87A00[(v106 - 2)];
+      v106 = qword_1D0E87A00[(v95 - 2)];
     }
 
-    *(a1 + 1192) = *(v102 + v122) * *(v102 + v122);
-    *(a1 + 40) = ((v106 - 4) & 0xFA) == 0;
+    *(a1 + 1192) = *(v91 + v106) * *(v91 + v106);
+    *(a1 + 40) = ((v95 - 4) & 0xFA) == 0;
     *(a1 + 1) = 1;
-    return v28;
+    return v18;
   }
 
-  LOWORD(v126) = 12;
-  v124 = 4;
-  v110 = cnprint::CNLogFormatter::FormatGeneral(a1 + 208, a2, "#MSR not initialized; covariance not positive definite");
+  LOWORD(v109) = 12;
+  v107 = 4;
+  v99 = cnprint::CNLogFormatter::FormatGeneral(a1 + 208, a2, "#MSR not initialized; covariance not positive definite");
   if (*(a1 + 231) >= 0)
   {
-    LOBYTE(v116) = v110;
+    v100 = v99;
   }
 
   else
   {
-    v116 = *(a1 + 208);
+    v100 = *(a1 + 208);
   }
 
-  cnprint::CNPrinter::Print(&v126, &v124, "%s", v111, v112, v113, v114, v115, v116);
-  return v28;
+  cnprint::CNPrinter::Print(&v109, &v107, "%s", v100);
+  return v18;
 }
 
 void sub_1D0BC2720(_Unwind_Exception *exception_object)
@@ -6874,9 +6286,9 @@ void sub_1D0BC2E40(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-const void *sub_1D0BC2E5C@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+void *sub_1D0BC2E5C@<X0>(void *a1@<X8>, uint64_t a2@<X0>)
 {
-  result = sub_1D0BCD96C(a1);
+  result = sub_1D0BCD96C(a2);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
   {
     sub_1D0C537F0();
@@ -6888,13 +6300,13 @@ const void *sub_1D0BC2E5C@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
     operator new();
   }
 
-  a2[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
-    result = memmove(a2, result, v4);
+    result = memmove(a1, result, v4);
   }
 
-  a2[v5] = 0;
+  *(a1 + v5) = 0;
   return result;
 }
 
@@ -7335,65 +6747,65 @@ void raven::RavenSequentialGNSSMeasurementSelector::ComputeAndStoreAprioriPseudo
     }
 
     __p = 0;
-    v39 = 0;
-    v40 = 0;
-    v35[0] = 0;
-    v36 = 0;
-    v37 = 1;
+    v25 = 0;
+    v26 = 0;
+    v21[0] = 0;
+    v22 = 0;
+    v23 = 1;
     sub_1D0BC3E34(&__p);
-    v41 = 1;
-    v8 = *(a2 + 8);
-    if (v8 == a2)
+    v27 = 1;
+    v5 = *(a2 + 8);
+    if (v5 == a2)
     {
 LABEL_9:
-      if (v35[0] == 1)
+      if (v21[0] == 1)
       {
-        v10 = __p;
-        if ((v39 - __p) < 0x21)
+        v7 = __p;
+        if ((v25 - __p) < 0x21)
         {
           goto LABEL_22;
         }
 
-        v4.i64[0] = 25.0;
-        sub_1D0BC4124(v35, v4, v5, v6, v7);
+        v4.n128_u64[0] = 25.0;
+        sub_1D0BC4124(v21, v4);
+        v9 = v8;
+        v10.n128_u64[0] = 0x4049000000000000;
+        sub_1D0BC4124(v21, v10);
         v12 = v11;
-        v13.i64[0] = 0x4049000000000000;
-        sub_1D0BC4124(v35, v13, v14, v15, v16);
-        v18 = v17;
-        v19.i64[0] = 0x4052C00000000000;
-        sub_1D0BC4124(v35, v19, v20, v21, v22);
-        v24 = v23;
-        if ((*&v12 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL || (*&v18 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000 || (*&v23 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
+        v13.n128_u64[0] = 0x4052C00000000000;
+        sub_1D0BC4124(v21, v13);
+        v15 = v14;
+        if ((*&v9 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL || (*&v12 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000 || (*&v14 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
         {
-          v35[0] = 0;
-          v36 = 0;
-          v37 = 1;
-          v39 = __p;
+          v21[0] = 0;
+          v22 = 0;
+          v23 = 1;
+          v25 = __p;
           sub_1D0BC3E34(&__p);
-          v41 = 1;
-          LOWORD(v34) = 12;
-          v33 = 4;
-          v26 = cnprint::CNLogFormatter::FormatGeneral(a1 + 208, a1 + 96, "#MSR pseudorange innovation quartiles invalid,%.1lf,%.1lf,%.1lf", v12, v18, v24);
+          v27 = 1;
+          LOWORD(v20) = 12;
+          v19 = 4;
+          v17 = cnprint::CNLogFormatter::FormatGeneral(a1 + 208, a1 + 96, "#MSR pseudorange innovation quartiles invalid,%.1lf,%.1lf,%.1lf", v9, v12, v15);
           if (*(a1 + 231) >= 0)
           {
-            LOBYTE(v32) = v26;
+            v18 = v17;
           }
 
           else
           {
-            v32 = *(a1 + 208);
+            v18 = *(a1 + 208);
           }
 
-          cnprint::CNPrinter::Print(&v34, &v33, "%s", v27, v28, v29, v30, v31, v32);
+          cnprint::CNPrinter::Print(&v20, &v19, "%s", v18);
         }
 
         else
         {
-          v25 = *(a1 + 32);
-          *(a1 + 8) = v12;
-          *(a1 + 16) = v18;
-          *(a1 + 24) = v23;
-          if ((v25 & 1) == 0)
+          v16 = *(a1 + 32);
+          *(a1 + 8) = v9;
+          *(a1 + 16) = v12;
+          *(a1 + 24) = v14;
+          if ((v16 & 1) == 0)
           {
             *(a1 + 32) = 1;
           }
@@ -7405,37 +6817,37 @@ LABEL_9:
     {
       while (1)
       {
-        v9 = *(v8 + 24);
-        if (*(v9 + 96) == 1 && *(v8 + 160) == 1)
+        v6 = *(v5 + 24);
+        if (*(v6 + 96) == 1 && *(v5 + 160) == 1)
         {
-          v34 = *(v9 + 120) - *(v8 + 48);
-          if (sub_1D0BC3F08(v35, &v34, 1.0 / (*(v9 + 168) * *(v9 + 168))))
+          v20 = *(v6 + 120) - *(v5 + 48);
+          if (sub_1D0BC3F08(v21, &v20, 1.0 / (*(v6 + 168) * *(v6 + 168))))
           {
             break;
           }
         }
 
-        v8 = *(v8 + 8);
-        if (v8 == a2)
+        v5 = *(v5 + 8);
+        if (v5 == a2)
         {
           goto LABEL_9;
         }
       }
 
-      v35[0] = 0;
-      v36 = 0;
-      v37 = 1;
-      v39 = __p;
+      v21[0] = 0;
+      v22 = 0;
+      v23 = 1;
+      v25 = __p;
       sub_1D0BC3E34(&__p);
-      v41 = 1;
+      v27 = 1;
     }
 
-    v10 = __p;
+    v7 = __p;
 LABEL_22:
-    if (v10)
+    if (v7)
     {
-      v39 = v10;
-      operator delete(v10);
+      v25 = v7;
+      operator delete(v7);
     }
   }
 }
@@ -7488,24 +6900,24 @@ uint64_t raven::RavenSequentialGNSSMeasurementSelector::CheckForAndHandleGrossCl
   *(a1 + 80) = 1;
   *(*(a1 + 944) + 48) = v6 * 0.00333564095 + *(*(a1 + 944) + 48);
   raven::RavenSequentialGNSSMeasurementSelector::LogClockOffsetCorrection(a1, v6 * 0.00333564095);
-  v20 = 12;
-  v19 = 3;
+  v15 = 12;
+  v14 = 3;
   v12 = cnprint::CNLogFormatter::FormatGeneral(a1 + 208, a1 + 96, "#MSR gross clock error detected,%.3lf us,sigma,%.3lf us", v11, sqrt(v7));
   if (*(a1 + 231) >= 0)
   {
-    LOBYTE(v18) = v12;
+    v13 = v12;
   }
 
   else
   {
-    v18 = *(a1 + 208);
+    v13 = *(a1 + 208);
   }
 
-  cnprint::CNPrinter::Print(&v20, &v19, "%s", v13, v14, v15, v16, v17, v18);
+  cnprint::CNPrinter::Print(&v15, &v14, "%s", v13);
   return v9;
 }
 
-void sub_1D0BC3E34(const void **a1)
+void sub_1D0BC3E34(char **a1)
 {
   v1 = a1[1];
   v2 = *a1;
@@ -7521,9 +6933,9 @@ void sub_1D0BC3E34(const void **a1)
     v6 = 0;
     if (v3 >> 4)
     {
-      v7 = 16 * (v4 >> 4);
-      v8 = a1[1] - v2;
-      v9 = v7 - v8;
+      v7 = (16 * (v4 >> 4));
+      v8 = (a1[1] - v2);
+      v9 = (v7 - v8);
       memcpy((v7 - v8), v2, v8);
       v6 = *a1;
       *a1 = v9;
@@ -7573,76 +6985,75 @@ uint64_t sub_1D0BC3F08(uint64_t a1, uint64_t *a2, double a3)
   result = 0xFFFFFFFFLL;
   if (((v8 | v7) & 1) == 0)
   {
-    v10 = *a2;
-    v11 = *(a1 + 24);
+    v10 = *(a1 + 24);
     *(a1 + 8) = *(a1 + 8) + a3;
-    v12 = *a2;
-    v14 = *(a1 + 32);
-    v13 = *(a1 + 40);
-    if (v14 >= v13)
+    v11 = *a2;
+    v13 = *(a1 + 32);
+    v12 = *(a1 + 40);
+    if (v13 >= v12)
     {
-      v16 = (v14 - v11) >> 4;
-      v17 = v16 + 1;
-      if ((v16 + 1) >> 60)
+      v15 = (v13 - v10) >> 4;
+      v16 = v15 + 1;
+      if ((v15 + 1) >> 60)
       {
         sub_1D0C5663C();
       }
 
-      v18 = v13 - v11;
-      if (v18 >> 3 > v17)
+      v17 = v12 - v10;
+      if (v17 >> 3 > v16)
       {
-        v17 = v18 >> 3;
+        v16 = v17 >> 3;
       }
 
-      if (v18 >= 0x7FFFFFFFFFFFFFF0)
+      if (v17 >= 0x7FFFFFFFFFFFFFF0)
       {
-        v19 = 0xFFFFFFFFFFFFFFFLL;
+        v18 = 0xFFFFFFFFFFFFFFFLL;
       }
 
       else
       {
-        v19 = v17;
+        v18 = v16;
       }
 
-      if (v19)
+      if (v18)
       {
-        sub_1D0BC40DC(a1 + 24, v19);
+        sub_1D0BC40DC(a1 + 24, v18);
       }
 
-      v20 = (v14 - v11) >> 4;
-      v21 = 16 * v16;
-      *v21 = a3;
-      *(v21 + 8) = v12;
-      v15 = 16 * v16 + 16;
-      v22 = 16 * v16 - 16 * v20;
-      memcpy((v21 - 16 * v20), v11, v14 - v11);
-      v23 = *(a1 + 24);
-      *(a1 + 24) = v22;
-      *(a1 + 32) = v15;
+      v19 = (v13 - v10) >> 4;
+      v20 = 16 * v15;
+      *v20 = a3;
+      *(v20 + 8) = v11;
+      v14 = 16 * v15 + 16;
+      v21 = 16 * v15 - 16 * v19;
+      memcpy((v20 - 16 * v19), v10, v13 - v10);
+      v22 = *(a1 + 24);
+      *(a1 + 24) = v21;
+      *(a1 + 32) = v14;
       *(a1 + 40) = 0;
-      if (v23)
+      if (v22)
       {
-        operator delete(v23);
+        operator delete(v22);
       }
     }
 
     else
     {
-      *v14 = a3;
-      *(v14 + 1) = v12;
-      v15 = (v14 + 16);
+      *v13 = a3;
+      *(v13 + 1) = v11;
+      v14 = (v13 + 16);
     }
 
-    *(a1 + 32) = v15;
-    if (v14 != v11)
+    *(a1 + 32) = v14;
+    if (v13 != v10)
     {
-      v24 = *(a1 + 16);
+      v23 = *(a1 + 16);
       if (vabdd_f64(**(a1 + 24), a3) >= 2.22044605e-16)
       {
-        v24 = 0;
+        v23 = 0;
       }
 
-      *(a1 + 16) = v24;
+      *(a1 + 16) = v23;
       *(a1 + 48) = 0;
     }
 
@@ -7663,134 +7074,91 @@ void sub_1D0BC40DC(uint64_t a1, unint64_t a2)
   sub_1D0C54BE8();
 }
 
-void sub_1D0BC4124(uint64_t a1, int8x16_t a2, double a3, double a4, int8x16_t a5)
+void sub_1D0BC4124(uint64_t result, __n128 a2)
 {
-  v5 = *a2.i64;
-  v7 = *a2.i64 < 0.0 || *a2.i64 > 100.0 || (a2.i64[0] & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000;
-  if (v7 || *a1 != 1)
+  v2 = a2.n128_f64[0];
+  v3 = (a2.n128_u64[0] & 0x7FFFFFFFFFFFFFFFLL) < 0x7FF0000000000000;
+  v4 = a2.n128_f64[0] < 0.0;
+  a2.n128_u64[0] = 0x4059000000000000;
+  if (!v4 && v2 <= 100.0 && v3 && *result == 1)
   {
-    return;
-  }
-
-  v9 = *(a1 + 24);
-  v10 = *(a1 + 32);
-  if ((v10 - v9) == 16)
-  {
-    v11 = *(v9 + 8);
-    return;
-  }
-
-  v12 = (v10 - v9) >> 4;
-  if ((*(a1 + 48) & 1) == 0)
-  {
-    v13 = 126 - 2 * __clz(v12);
-    if (v10 == v9)
+    v8 = *(result + 24);
+    v9 = *(result + 32);
+    if ((v9 - v8) != 16)
     {
-      v14 = 0;
-    }
-
-    else
-    {
-      v14 = v13;
-    }
-
-    sub_1D0BD154C(v9, v10, &v37, v14, 1, 100.0);
-    *(a1 + 48) = 1;
-  }
-
-  v15 = v5 / 100.0;
-  if (*(a1 + 16) == 1)
-  {
-    v16 = v12 + 1.0;
-    if (v15 > 1.0 / v16)
-    {
-      if (v15 >= v12 / v16)
+      v10 = (v9 - v8) >> 4;
+      if ((*(result + 48) & 1) == 0)
       {
-        v34 = *(*(a1 + 32) - 8);
+        v11 = 126 - 2 * __clz(v10);
+        if (v9 == v8)
+        {
+          v12 = 0;
+        }
+
+        else
+        {
+          v12 = v11;
+        }
+
+        sub_1D0BD154C(v8, v9, &v25, v12, 1, a2);
+        *(result + 48) = 1;
+      }
+
+      v13 = v2 / 100.0;
+      if (*(result + 16) == 1)
+      {
+        v14 = v10 + 1.0;
+        if (v13 > 1.0 / v14 && v13 < v10 / v14)
+        {
+          v15 = vcvtmd_u64_f64(v13 * v14);
+          v16 = (*(result + 32) - *(result + 24)) >> 4;
+          if (v16 <= v15 - 1 || v16 <= v15)
+          {
+            sub_1D0DCE19C();
+          }
+        }
       }
 
       else
       {
-        *a2.i64 = v15 * v16;
-        v17 = vcvtmd_u64_f64(*a2.i64);
-        v18 = *(a1 + 24);
-        v19 = (*(a1 + 32) - v18) >> 4;
-        if (v19 <= v17 - 1 || v19 <= v17)
+        v17 = *(result + 8);
+        v18 = *(result + 24);
+        v19 = *v18 * 0.5 / v17;
+        if (v13 > v19)
         {
-          sub_1D0DCE19C();
-        }
+          v20 = *(result + 32);
+          if (v13 < *(v20 - 2) * -0.5 / v17 + 1.0 && v18 != v20)
+          {
+            v21 = v19 + 0.0;
+            v22 = v18 + 2;
+            do
+            {
+              v23 = v22;
+              if (v22 == v20)
+              {
+                break;
+              }
 
-        v20 = *(v18 + 16 * (v17 - 1) + 8);
-        *a5.i64 = *a2.i64 - trunc(*a2.i64);
-        v21.f64[0] = NAN;
-        v21.f64[1] = NAN;
-        v22 = v20 + *vbslq_s8(vnegq_f64(v21), a5, a2).i64 * (*(v18 + 16 * v17 + 8) - v20);
-      }
+              v24 = v21 + v19;
+              v22 += 2;
+              v19 = *v23 * 0.5 / v17;
+              v21 = v24 + v19;
+            }
 
-      return;
-    }
-
-    v24 = *(a1 + 24);
-LABEL_31:
-    v33 = *(v24 + 8);
-    return;
-  }
-
-  v23 = *(a1 + 8);
-  v24 = *(a1 + 24);
-  v25 = *v24 * 0.5 / v23;
-  if (v15 <= v25)
-  {
-    goto LABEL_31;
-  }
-
-  v26 = *(a1 + 32);
-  if (v15 >= *(v26 - 16) * -0.5 / v23 + 1.0)
-  {
-    v35 = *(v26 - 8);
-  }
-
-  else
-  {
-    v27 = *(v26 - 8);
-    if (v24 != v26)
-    {
-      v28 = v25 + 0.0;
-      v29 = v24 + 16;
-      while (1)
-      {
-        v30 = v29;
-        if (v29 == v26)
-        {
-          break;
-        }
-
-        v31 = v28 + v25;
-        v29 += 16;
-        v25 = *v30 * 0.5 / v23;
-        v28 = v31 + v25;
-        if (v28 >= v15)
-        {
-          v32 = *(v30 + 8);
-          v24 = v30 - 16;
-          goto LABEL_35;
+            while (v21 < v13);
+          }
         }
       }
-
-      v24 = v29 - 16;
     }
-
-LABEL_35:
-    v36 = *(v24 + 8);
   }
 }
 
-uint64_t sub_1D0BC437C(uint64_t result, void *a2)
+void *sub_1D0BC437C(void *result, void *a2)
 {
   if (result != a2)
   {
-    v2 = (result + 16);
-    if ((result + 16) != a2)
+    v2 = result + 2;
+    if (result + 2 != a2)
     {
       v3 = 0;
       v4 = result;
@@ -7807,17 +7175,17 @@ uint64_t sub_1D0BC437C(uint64_t result, void *a2)
           {
             v9 = result + v8;
             v10 = *(result + v8 + 8);
-            *(v9 + 16) = *(result + v8);
-            *(v9 + 24) = v10;
+            *(v9 + 2) = *(result + v8);
+            *(v9 + 3) = v10;
             if (!v8)
             {
               break;
             }
 
             v8 -= 16;
-            if (v5 >= *(v9 - 8))
+            if (v5 >= *(v9 - 1))
             {
-              v11 = result + v8 + 16;
+              v11 = (result + v8 + 16);
               goto LABEL_10;
             }
           }
@@ -7825,7 +7193,7 @@ uint64_t sub_1D0BC437C(uint64_t result, void *a2)
           v11 = result;
 LABEL_10:
           *v11 = v7;
-          *(v11 + 8) = v5;
+          v11[1] = v5;
         }
 
         v2 = v4 + 2;
@@ -7847,9 +7215,9 @@ void raven::RavenSequentialGNSSMeasurementSelector::EnsureFirstPseudorangeAprior
     v6 = a2[1];
     if (*a2 != v6)
     {
-      v34 = v2;
-      v35 = v3;
-      v36 = v4;
+      v29 = v2;
+      v30 = v3;
+      v31 = v4;
       v8 = 0;
       v9 = 0;
       v10 = *(a1 + 24);
@@ -7860,55 +7228,55 @@ void raven::RavenSequentialGNSSMeasurementSelector::EnsureFirstPseudorangeAprior
       while (2)
       {
         v15 = *v5;
-        for (i = (*v5)[1]; i != v15; i = *(i + 1))
+        for (i = (*v5)[1]; i != v15; i = *(i + 8))
         {
-          v17 = *(i + 3);
+          v17 = *(i + 24);
           if (*(v17 + 96) == 1)
           {
             if (*(i + 160) == 1)
             {
-              v18 = *(v17 + 120) - i[6];
+              v18 = *(v17 + 120) - *(i + 48);
               if (v18 >= v13 && v18 <= v14)
               {
                 if (v8)
                 {
                   if (v2 != i)
                   {
-                    v20 = *(i + 1);
+                    v20 = *(i + 8);
                     if (v20 != v2)
                     {
                       v21 = *i;
-                      *(*&v21 + 8) = v20;
+                      *(v21 + 8) = v20;
                       *v20 = v21;
                       v22 = *v2;
                       *(v22 + 8) = i;
                       *i = v22;
                       *v2 = i;
-                      *(i + 1) = v2;
+                      *(i + 8) = v2;
                       --v15[2];
                       ++v9[2];
                     }
                   }
 
-                  v23 = raven::RavenSequentialGNSSMeasurementSelector::LogChangePseudorangeReordering(a1, *(i + 2), *(v2 + 2));
+                  v23 = raven::RavenSequentialGNSSMeasurementSelector::LogChangePseudorangeReordering(a1, *(i + 16), v2[2]);
                   if (cnprint::CNPrinter::GetLogLevel(v23) <= 1)
                   {
-                    v33 = 12;
-                    v32 = 1;
-                    v24 = sub_1D0BCFAB8(*(v2 + 2));
-                    v25 = sub_1D0BCFAB8(*(i + 2));
+                    v28 = 12;
+                    v27 = 1;
+                    v24 = sub_1D0BCFAB8(v2[2]);
+                    v25 = sub_1D0BCFAB8(*(i + 16));
                     cnprint::CNLogFormatter::FormatGeneral(a1 + 208, a1 + 96, "#MSR replacing %s with %s as first pseudorange", v24, v25);
                     if (*(a1 + 231) >= 0)
                     {
-                      LOBYTE(v31) = a1 - 48;
+                      v26 = (a1 + 208);
                     }
 
                     else
                     {
-                      v31 = *(a1 + 208);
+                      v26 = *(a1 + 208);
                     }
 
-                    cnprint::CNPrinter::Print(&v33, &v32, "%s", v26, v27, v28, v29, v30, v31);
+                    cnprint::CNPrinter::Print(&v28, &v27, "%s", v26);
                   }
                 }
 
@@ -7939,34 +7307,34 @@ void raven::RavenSequentialGNSSMeasurementSelector::EnsureFirstPseudorangeAprior
 
 void *raven::RavenSequentialGNSSMeasurementSelector::TestInnovationsAndUpdateEstimator@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, int a3@<W2>, _BYTE *a4@<X8>)
 {
-  v160 = &v160;
-  v161 = &v160;
-  v162 = 0;
+  v125 = &v125;
+  v126 = &v125;
+  v127 = 0;
   v8 = a2[1];
   if (v8 == a2)
   {
     goto LABEL_162;
   }
 
-  v151 = a4;
+  v116 = a4;
   v11 = a1 + 208;
-  v154 = (a1 + 1288);
-  v155 = (a1 + 1280);
-  v152 = (a1 + 1304);
-  v153 = (a1 + 1296);
-  v149 = (a1 + 1320);
-  v150 = (a1 + 1312);
-  v147 = (a1 + 1336);
-  v148 = (a1 + 1328);
+  v119 = (a1 + 1288);
+  v120 = (a1 + 1280);
+  v117 = (a1 + 1304);
+  v118 = (a1 + 1296);
+  v114 = (a1 + 1320);
+  v115 = (a1 + 1312);
+  v112 = (a1 + 1336);
+  v113 = (a1 + 1328);
   do
   {
-    v12 = v8[1];
-    if ((v8[20] & 1) == 0)
+    v12 = *(v8 + 8);
+    if ((*(v8 + 160) & 1) == 0)
     {
       LOWORD(__p[0]) = 12;
-      LOBYTE(v159) = 4;
-      v22 = sub_1D0BCFAB8(v8[2]);
-      v23 = *(v8[3] + 96) - 1;
+      LOBYTE(v124) = 4;
+      v22 = sub_1D0BCFAB8(*(v8 + 16));
+      v23 = *(*(v8 + 24) + 96) - 1;
       v24 = "UnknownType";
       if (v23 <= 4)
       {
@@ -7976,90 +7344,90 @@ void *raven::RavenSequentialGNSSMeasurementSelector::TestInnovationsAndUpdateEst
       cnprint::CNLogFormatter::FormatGeneral(v11, a1 + 96, "#MSR no measurement function data for %s %s", v22, v24);
       if (*(a1 + 231) >= 0)
       {
-        LOBYTE(v30) = v11;
+        v25 = v11;
       }
 
       else
       {
-        v30 = *(a1 + 208);
+        v25 = *(a1 + 208);
       }
 
       goto LABEL_16;
     }
 
-    if ((v8[24] & 0xFFFFFFFE) == 2)
+    if ((*(v8 + 192) & 0xFFFFFFFE) == 2)
     {
       goto LABEL_17;
     }
 
     v13 = *(a1 + 1504) + 1;
     *(a1 + 1504) = v13;
-    *(v8 + 113) = v13;
-    ShouldMeasurementBeUsedToUpdateEstimator = raven::RavenSequentialGNSSMeasurementSelector::ShouldMeasurementBeUsedToUpdateEstimator(a1, (v8 + 2));
+    *(v8 + 226) = v13;
+    ShouldMeasurementBeUsedToUpdateEstimator = raven::RavenSequentialGNSSMeasurementSelector::ShouldMeasurementBeUsedToUpdateEstimator(a1, v8 + 16);
     if (!ShouldMeasurementBeUsedToUpdateEstimator)
     {
       if (!cnprint::CNPrinter::GetLogLevel(ShouldMeasurementBeUsedToUpdateEstimator))
       {
         LOWORD(__p[0]) = 12;
-        LOBYTE(v159) = 0;
-        v31 = sub_1D0BCFAB8(v8[2]);
-        v32 = *(v8[3] + 96) - 1;
-        v33 = "UnknownType";
-        if (v32 <= 4)
+        LOBYTE(v124) = 0;
+        v26 = sub_1D0BCFAB8(*(v8 + 16));
+        v27 = *(*(v8 + 24) + 96) - 1;
+        v28 = "UnknownType";
+        if (v27 <= 4)
         {
-          v33 = off_1E83D8358[v32];
+          v28 = off_1E83D8358[v27];
         }
 
-        cnprint::CNLogFormatter::FormatGeneral(v11, a1 + 96, "#MSR should not use %s %s", v31, v33);
+        cnprint::CNLogFormatter::FormatGeneral(v11, a1 + 96, "#MSR should not use %s %s", v26, v28);
         if (*(a1 + 231) >= 0)
         {
-          LOBYTE(v39) = v11;
+          v29 = v11;
         }
 
         else
         {
-          v39 = *(a1 + 208);
+          v29 = *(a1 + 208);
         }
 
-        cnprint::CNPrinter::Print(__p, &v159, "%s", v34, v35, v36, v37, v38, v39);
+        cnprint::CNPrinter::Print(__p, &v124, "%s", v29);
       }
 
-      v8[24] = 0x200000002;
+      *(v8 + 192) = 0x200000002;
       goto LABEL_17;
     }
 
-    raven::RavenSequentialGNSSMeasurementSelector::ComputeInnovationData(a1, v8[3], (v8 + 6), __p);
-    *(v8 + 21) = *__p;
+    raven::RavenSequentialGNSSMeasurementSelector::ComputeInnovationData(a1, *(v8 + 24), v8 + 48, __p);
+    *(v8 + 168) = *__p;
     v15 = __p[2];
     *(v8 + 184) = __p[2];
     if ((v15 & 1) == 0)
     {
       LOWORD(__p[0]) = 12;
-      LOBYTE(v159) = 4;
-      v40 = sub_1D0BCFAB8(v8[2]);
-      v41 = *(v8[3] + 96) - 1;
-      v42 = "UnknownType";
-      if (v41 <= 4)
+      LOBYTE(v124) = 4;
+      v30 = sub_1D0BCFAB8(*(v8 + 16));
+      v31 = *(*(v8 + 24) + 96) - 1;
+      v32 = "UnknownType";
+      if (v31 <= 4)
       {
-        v42 = off_1E83D8358[v41];
+        v32 = off_1E83D8358[v31];
       }
 
-      cnprint::CNLogFormatter::FormatGeneral(v11, a1 + 96, "#MSR could not compute innovations from %s %s", v40, v42);
+      cnprint::CNLogFormatter::FormatGeneral(v11, a1 + 96, "#MSR could not compute innovations from %s %s", v30, v32);
       if (*(a1 + 231) >= 0)
       {
-        LOBYTE(v30) = v11;
+        v25 = v11;
       }
 
       else
       {
-        v30 = *(a1 + 208);
+        v25 = *(a1 + 208);
       }
 
       goto LABEL_16;
     }
 
-    updated = raven::RavenSequentialGNSSMeasurementSelector::UpdateTIVsForMeasurement(a1, (v8 + 2));
-    v17 = *(v8[3] + 96);
+    updated = raven::RavenSequentialGNSSMeasurementSelector::UpdateTIVsForMeasurement(a1, v8 + 16);
+    v17 = *(*(v8 + 24) + 96);
     if (v17 <= 1)
     {
       if (!v17)
@@ -8068,24 +7436,24 @@ LABEL_44:
         if (!cnprint::CNPrinter::GetLogLevel(updated))
         {
           LOWORD(__p[0]) = 12;
-          LOBYTE(v159) = 0;
-          v56 = sub_1D0BCFAB8(v8[2]);
-          v57 = *(v8[3] + 96);
-          v58 = "UnknownType";
-          if ((v57 - 1) <= 4)
+          LOBYTE(v124) = 0;
+          v41 = sub_1D0BCFAB8(*(v8 + 16));
+          v42 = *(*(v8 + 24) + 96);
+          v43 = "UnknownType";
+          if ((v42 - 1) <= 4)
           {
-            v58 = off_1E83D8358[v57 - 1];
+            v43 = off_1E83D8358[v42 - 1];
           }
 
-          cnprint::CNLogFormatter::FormatGeneral(v11, a1 + 96, "#MSR %s %s invalid measurement type, %d", v56, v58, v57);
+          cnprint::CNLogFormatter::FormatGeneral(v11, a1 + 96, "#MSR %s %s invalid measurement type, %d", v41, v43, v42);
           if (*(a1 + 231) >= 0)
           {
-            LOBYTE(v30) = v11;
+            v25 = v11;
           }
 
           else
           {
-            v30 = *(a1 + 208);
+            v25 = *(a1 + 208);
           }
 
           goto LABEL_16;
@@ -8094,10 +7462,10 @@ LABEL_44:
         goto LABEL_17;
       }
 
-      v19 = v149;
-      v18 = v150;
-      v21 = v147;
-      v20 = v148;
+      v19 = v114;
+      v18 = v115;
+      v21 = v112;
+      v20 = v113;
       if (v17 == 1)
       {
 LABEL_34:
@@ -8110,10 +7478,10 @@ LABEL_34:
 
     else
     {
-      v19 = v154;
-      v18 = v155;
-      v21 = v152;
-      v20 = v153;
+      v19 = v119;
+      v18 = v120;
+      v21 = v117;
+      v20 = v118;
       if ((v17 - 2) < 3)
       {
         goto LABEL_34;
@@ -8125,28 +7493,28 @@ LABEL_34:
       }
     }
 
-    MSRThresholdType = raven::RavenSequentialGNSSMeasurementSelector::GetMSRThresholdType(a1, (v8 + 2));
+    MSRThresholdType = raven::RavenSequentialGNSSMeasurementSelector::GetMSRThresholdType(a1, v8 + 16);
     if (!MSRThresholdType)
     {
       LOWORD(__p[0]) = 12;
-      LOBYTE(v159) = 4;
-      v59 = sub_1D0BCFAB8(v8[2]);
-      v60 = *(v8[3] + 96) - 1;
-      v61 = "UnknownType";
-      if (v60 <= 4)
+      LOBYTE(v124) = 4;
+      v44 = sub_1D0BCFAB8(*(v8 + 16));
+      v45 = *(*(v8 + 24) + 96) - 1;
+      v46 = "UnknownType";
+      if (v45 <= 4)
       {
-        v61 = off_1E83D8358[v60];
+        v46 = off_1E83D8358[v45];
       }
 
-      cnprint::CNLogFormatter::FormatGeneral(v11, a1 + 96, "#MSR %s %s could not determine MSR threshold", v59, v61);
+      cnprint::CNLogFormatter::FormatGeneral(v11, a1 + 96, "#MSR %s %s could not determine MSR threshold", v44, v46);
       if (*(a1 + 231) >= 0)
       {
-        LOBYTE(v30) = v11;
+        v25 = v11;
       }
 
       else
       {
-        v30 = *(a1 + 208);
+        v25 = *(a1 + 208);
       }
 
       goto LABEL_16;
@@ -8155,147 +7523,147 @@ LABEL_34:
     if (MSRThresholdType == 1)
     {
       LogLevel = cnprint::CNPrinter::GetLogLevel(MSRThresholdType);
-      v45 = v7;
-      v46 = v6;
+      v35 = v7;
+      v36 = v6;
       if (!LogLevel)
       {
         LOWORD(__p[0]) = 12;
-        LOBYTE(v159) = 0;
-        v47 = sub_1D0BCFAB8(v8[2]);
-        v48 = *(v8[3] + 96) - 1;
-        v49 = "UnknownType";
-        if (v48 <= 4)
+        LOBYTE(v124) = 0;
+        v37 = sub_1D0BCFAB8(*(v8 + 16));
+        v38 = *(*(v8 + 24) + 96) - 1;
+        v39 = "UnknownType";
+        if (v38 <= 4)
         {
-          v49 = off_1E83D8358[v48];
+          v39 = off_1E83D8358[v38];
         }
 
-        cnprint::CNLogFormatter::FormatGeneral(v11, a1 + 96, "#MSR %s %s using positive-side thresholds,reweight,%.3lf,reject,%.3lf", v47, v49, v6, v7);
+        cnprint::CNLogFormatter::FormatGeneral(v11, a1 + 96, "#MSR %s %s using positive-side thresholds,reweight,%.3lf,reject,%.3lf", v37, v39, v6, v7);
         if (*(a1 + 231) >= 0)
         {
-          LOBYTE(v55) = v11;
+          v40 = v11;
         }
 
         else
         {
-          v55 = *(a1 + 208);
+          v40 = *(a1 + 208);
         }
 
-        cnprint::CNPrinter::Print(__p, &v159, "%s", v50, v51, v52, v53, v54, v55);
-        v45 = v7;
-        v46 = v6;
+        cnprint::CNPrinter::Print(__p, &v124, "%s", v40);
+        v35 = v7;
+        v36 = v6;
       }
     }
 
     else
     {
       LogLevel = cnprint::CNPrinter::GetLogLevel(MSRThresholdType);
-      v45 = v4;
-      v46 = v5;
+      v35 = v4;
+      v36 = v5;
       if (!LogLevel)
       {
         LOWORD(__p[0]) = 12;
-        LOBYTE(v159) = 0;
-        v62 = sub_1D0BCFAB8(v8[2]);
-        v63 = *(v8[3] + 96) - 1;
-        v64 = "UnknownType";
-        if (v63 <= 4)
+        LOBYTE(v124) = 0;
+        v47 = sub_1D0BCFAB8(*(v8 + 16));
+        v48 = *(*(v8 + 24) + 96) - 1;
+        v49 = "UnknownType";
+        if (v48 <= 4)
         {
-          v64 = off_1E83D8358[v63];
+          v49 = off_1E83D8358[v48];
         }
 
-        cnprint::CNLogFormatter::FormatGeneral(v11, a1 + 96, "#MSR %s %s using negative-side thresholds,reweight,%.3lf,reject,%.3lf", v62, v64, v5, v4);
+        cnprint::CNLogFormatter::FormatGeneral(v11, a1 + 96, "#MSR %s %s using negative-side thresholds,reweight,%.3lf,reject,%.3lf", v47, v49, v5, v4);
         if (*(a1 + 231) >= 0)
         {
-          LOBYTE(v70) = v11;
+          v50 = v11;
         }
 
         else
         {
-          v70 = *(a1 + 208);
+          v50 = *(a1 + 208);
         }
 
-        cnprint::CNPrinter::Print(__p, &v159, "%s", v65, v66, v67, v68, v69, v70);
-        v45 = v4;
-        v46 = v5;
+        cnprint::CNPrinter::Print(__p, &v124, "%s", v50);
+        v35 = v4;
+        v36 = v5;
       }
     }
 
-    if (*(*(a1 + 192) + 3829) != 1 || *(v8[3] + 188) != 1)
+    if (*(*(a1 + 192) + 3829) != 1 || *(*(v8 + 24) + 188) != 1)
     {
-      raven::RavenSequentialGNSSMeasurementSelector::DetermineAndSetInnovationTestResult(a1, (v8 + 2), v45, v46);
+      raven::RavenSequentialGNSSMeasurementSelector::DetermineAndSetInnovationTestResult(a1, v8 + 16, v35, v36);
       goto LABEL_73;
     }
 
-    *(v8 + 48) = 5;
+    *(v8 + 192) = 5;
     if (cnprint::CNPrinter::GetLogLevel(LogLevel))
     {
       goto LABEL_73;
     }
 
-    v159 = 12;
-    v158 = 0;
-    v71 = v8[3];
-    v72 = sub_1D0BCFAB8(v8[2]);
-    v73 = v8[3];
-    v74 = *(v73 + 96) - 1;
-    v75 = "UnknownType";
-    if (v74 <= 4)
+    v124 = 12;
+    v123 = 0;
+    v51 = *(v8 + 24);
+    v52 = sub_1D0BCFAB8(*(v8 + 16));
+    v53 = *(v8 + 24);
+    v54 = *(v53 + 96) - 1;
+    v55 = "UnknownType";
+    if (v54 <= 4)
     {
-      v75 = off_1E83D8358[v74];
+      v55 = off_1E83D8358[v54];
     }
 
-    v76 = *(v73 + 100);
+    v56 = *(v53 + 100);
     memset(__p, 0, 24);
-    if (v76 <= 4)
+    if (v56 <= 4)
     {
-      if (v76 <= 1)
+      if (v56 <= 1)
       {
         HIBYTE(__p[2]) = 4;
-        if (v76)
+        if (v56)
         {
-          v77 = 1094922572;
+          v57 = 1094922572;
         }
 
         else
         {
-          v77 = 543911509;
+          v57 = 543911509;
         }
       }
 
-      else if (v76 == 2)
+      else if (v56 == 2)
       {
         HIBYTE(__p[2]) = 4;
-        v77 = 538981708;
+        v57 = 538981708;
       }
 
       else
       {
         HIBYTE(__p[2]) = 4;
-        if (v76 == 3)
+        if (v56 == 3)
         {
-          v77 = 543568204;
+          v57 = 543568204;
         }
 
         else
         {
-          v77 = 541667650;
+          v57 = 541667650;
         }
       }
     }
 
-    else if (v76 > 7)
+    else if (v56 > 7)
     {
-      if (v76 == 8)
+      if (v56 == 8)
       {
         HIBYTE(__p[2]) = 4;
-        v77 = 543241541;
+        v57 = 543241541;
       }
 
       else
       {
-        if (v76 != 9)
+        if (v56 != 9)
         {
-          if (v76 == 10)
+          if (v56 == 10)
           {
             HIBYTE(__p[2]) = 3;
             qmemcpy(__p, "NL5", 3);
@@ -8305,78 +7673,78 @@ LABEL_34:
         }
 
         HIBYTE(__p[2]) = 4;
-        v77 = 1112748364;
+        v57 = 1112748364;
       }
     }
 
-    else if (v76 == 5)
+    else if (v56 == 5)
     {
       HIBYTE(__p[2]) = 4;
-      v77 = 541274434;
+      v57 = 541274434;
     }
 
     else
     {
       HIBYTE(__p[2]) = 4;
-      if (v76 == 6)
+      if (v56 == 6)
       {
-        v77 = 543240770;
+        v57 = 543240770;
       }
 
       else
       {
-        v77 = 538980677;
+        v57 = 538980677;
       }
     }
 
-    LODWORD(__p[0]) = v77;
+    LODWORD(__p[0]) = v57;
 LABEL_155:
-    cnprint::CNLogFormatter::FormatGeneral(v11, v71, "#MSR Skip Innovation Testing for %s %s %s with externally set uncertainty %.2f", v72, v75, __p, *(v73 + 168));
+    cnprint::CNLogFormatter::FormatGeneral(v11, v51, "#MSR Skip Innovation Testing for %s %s %s with externally set uncertainty %.2f", v52, v55, __p, *(v53 + 168));
     if (*(a1 + 231) >= 0)
     {
-      LOBYTE(v137) = v11;
+      v102 = v11;
     }
 
     else
     {
-      v137 = *(a1 + 208);
+      v102 = *(a1 + 208);
     }
 
-    cnprint::CNPrinter::Print(&v159, &v158, "%s", v132, v133, v134, v135, v136, v137);
+    cnprint::CNPrinter::Print(&v124, &v123, "%s", v102);
     if (SHIBYTE(__p[2]) < 0)
     {
       operator delete(__p[0]);
     }
 
 LABEL_73:
-    v78 = raven::RavenSequentialGNSSMeasurementSelector::UpdateITRsForMeasurement(a1, (v8 + 2));
-    v79 = *(v8 + 48);
-    if (v79 > 2)
+    v58 = raven::RavenSequentialGNSSMeasurementSelector::UpdateITRsForMeasurement(a1, v8 + 16);
+    v59 = *(v8 + 192);
+    if (v59 > 2)
     {
-      if (v79 == 3)
+      if (v59 == 3)
       {
-        if (!cnprint::CNPrinter::GetLogLevel(v78))
+        if (!cnprint::CNPrinter::GetLogLevel(v58))
         {
           LOWORD(__p[0]) = 12;
-          LOBYTE(v159) = 0;
-          v100 = v8[3];
-          v101 = sub_1D0BCFAB8(v8[2]);
-          v102 = *(v8[3] + 96) - 1;
-          v103 = "UnknownType";
-          if (v102 <= 4)
+          LOBYTE(v124) = 0;
+          v75 = *(v8 + 24);
+          v76 = sub_1D0BCFAB8(*(v8 + 16));
+          v77 = *(*(v8 + 24) + 96) - 1;
+          v78 = "UnknownType";
+          if (v77 <= 4)
           {
-            v103 = off_1E83D8358[v102];
+            v78 = off_1E83D8358[v77];
           }
 
-          cnprint::CNLogFormatter::FormatGeneral(v11, v100, "#MSR rejecting %s %s", v101, v103);
+          cnprint::CNLogFormatter::FormatGeneral(v11, v75, "#MSR rejecting %s %s", v76, v78);
           if (*(a1 + 231) >= 0)
           {
-            LOBYTE(v30) = v11;
+            v25 = v11;
           }
 
           else
           {
-            v30 = *(a1 + 208);
+            v25 = *(a1 + 208);
           }
 
           goto LABEL_16;
@@ -8385,12 +7753,12 @@ LABEL_73:
 
       else
       {
-        if (v79 != 4)
+        if (v59 != 4)
         {
-          if (v79 == 5)
+          if (v59 == 5)
           {
-            v84 = *(v8[3] + 168);
-            *(v8 + 26) = v84 * v84;
+            v64 = *(*(v8 + 24) + 168);
+            *(v8 + 208) = v64 * v64;
             *(v8 + 216) = 1;
           }
 
@@ -8398,33 +7766,33 @@ LABEL_87:
           __p[3] = 0x100000008;
           __p[0] = &unk_1F4CE4320;
           *&__p[1] = xmmword_1D0E84520;
-          __p[4] = &v157;
-          v85 = raven::RavenSequentialGNSSMeasurementSelector::UpdateEstimator(a1, (v8 + 2));
-          if ((v85 & 1) == 0 && cnprint::CNPrinter::GetLogLevel(v85) <= 1)
+          __p[4] = &v122;
+          v65 = raven::RavenSequentialGNSSMeasurementSelector::UpdateEstimator(a1, (v8 + 16));
+          if ((v65 & 1) == 0 && cnprint::CNPrinter::GetLogLevel(v65) <= 1)
           {
-            v159 = 12;
-            v158 = 1;
-            v86 = v8[3];
-            v87 = sub_1D0BCFAB8(v8[2]);
-            v88 = *(v8[3] + 96) - 1;
-            v89 = "UnknownType";
-            if (v88 <= 4)
+            v124 = 12;
+            v123 = 1;
+            v66 = *(v8 + 24);
+            v67 = sub_1D0BCFAB8(*(v8 + 16));
+            v68 = *(*(v8 + 24) + 96) - 1;
+            v69 = "UnknownType";
+            if (v68 <= 4)
             {
-              v89 = off_1E83D8358[v88];
+              v69 = off_1E83D8358[v68];
             }
 
-            cnprint::CNLogFormatter::FormatGeneral(v11, v86, "#MSR %s %s could not be used to update estimator", v87, v89);
+            cnprint::CNLogFormatter::FormatGeneral(v11, v66, "#MSR %s %s could not be used to update estimator", v67, v69);
             if (*(a1 + 231) >= 0)
             {
-              LOBYTE(v95) = v11;
+              v70 = v11;
             }
 
             else
             {
-              v95 = *(a1 + 208);
+              v70 = *(a1 + 208);
             }
 
-            cnprint::CNPrinter::Print(&v159, &v158, "%s", v90, v91, v92, v93, v94, v95);
+            cnprint::CNPrinter::Print(&v124, &v123, "%s", v70);
           }
 
           goto LABEL_17;
@@ -8432,61 +7800,61 @@ LABEL_87:
 
         if (!a3)
         {
-          raven::RavenSequentialGNSSMeasurementSelector::ComputeReweightedMeasurementVariance(a1, (v8 + 2));
-          v8[26] = v116;
-          *(v8 + 216) = v117;
-          if ((v117 & 1) == 0)
+          raven::RavenSequentialGNSSMeasurementSelector::ComputeReweightedMeasurementVariance(a1, v8 + 16);
+          *(v8 + 208) = v91;
+          *(v8 + 216) = v92;
+          if ((v92 & 1) == 0)
           {
             LOWORD(__p[0]) = 12;
-            LOBYTE(v159) = 4;
-            v128 = v8[3];
-            v129 = sub_1D0BCFAB8(v8[2]);
-            v130 = *(v8[3] + 96) - 1;
-            v131 = "UnknownType";
-            if (v130 <= 4)
+            LOBYTE(v124) = 4;
+            v98 = *(v8 + 24);
+            v99 = sub_1D0BCFAB8(*(v8 + 16));
+            v100 = *(*(v8 + 24) + 96) - 1;
+            v101 = "UnknownType";
+            if (v100 <= 4)
             {
-              v131 = off_1E83D8358[v130];
+              v101 = off_1E83D8358[v100];
             }
 
-            cnprint::CNLogFormatter::FormatGeneral(v11, v128, "#MSR %s %s could not be re-weighted", v129, v131);
+            cnprint::CNLogFormatter::FormatGeneral(v11, v98, "#MSR %s %s could not be re-weighted", v99, v101);
             if (*(a1 + 231) >= 0)
             {
-              LOBYTE(v30) = v11;
+              v25 = v11;
             }
 
             else
             {
-              v30 = *(a1 + 208);
+              v25 = *(a1 + 208);
             }
 
             goto LABEL_16;
           }
 
-          if (!cnprint::CNPrinter::GetLogLevel(v116))
+          if (!cnprint::CNPrinter::GetLogLevel(v91))
           {
             LOWORD(__p[0]) = 12;
-            LOBYTE(v159) = 0;
-            v118 = v8[3];
-            v119 = sub_1D0BCFAB8(v8[2]);
-            v120 = *(v8[3] + 96) - 1;
-            v121 = "UnknownType";
-            if (v120 <= 4)
+            LOBYTE(v124) = 0;
+            v93 = *(v8 + 24);
+            v94 = sub_1D0BCFAB8(*(v8 + 16));
+            v95 = *(*(v8 + 24) + 96) - 1;
+            v96 = "UnknownType";
+            if (v95 <= 4)
             {
-              v121 = off_1E83D8358[v120];
+              v96 = off_1E83D8358[v95];
             }
 
-            cnprint::CNLogFormatter::FormatGeneral(v11, v118, "#MSR Re-weighting %s measurement from %s", v119, v121);
+            cnprint::CNLogFormatter::FormatGeneral(v11, v93, "#MSR Re-weighting %s measurement from %s", v94, v96);
             if (*(a1 + 231) >= 0)
             {
-              LOBYTE(v127) = v11;
+              v97 = v11;
             }
 
             else
             {
-              v127 = *(a1 + 208);
+              v97 = *(a1 + 208);
             }
 
-            cnprint::CNPrinter::Print(__p, &v159, "%s", v122, v123, v124, v125, v126, v127);
+            cnprint::CNPrinter::Print(__p, &v124, "%s", v97);
           }
 
           goto LABEL_87;
@@ -8497,48 +7865,48 @@ LABEL_87:
           *(v8 + 184) = 0;
         }
 
-        *(v8 + 48) = 0;
-        v108 = raven::RavenSequentialGNSSMeasurementSelector::UpdateITRsForMeasurement(a1, (v8 + 2));
-        if (&v160 != v8)
+        *(v8 + 192) = 0;
+        v83 = raven::RavenSequentialGNSSMeasurementSelector::UpdateITRsForMeasurement(a1, v8 + 16);
+        if (&v125 != v8)
         {
-          v109 = v8[1];
-          if (v109 != &v160)
+          v84 = *(v8 + 8);
+          if (v84 != &v125)
           {
-            v110 = *v8;
-            v110[1] = v109;
-            *v109 = v110;
-            v111 = v160;
-            v160[1] = v8;
-            *v8 = v111;
-            v8[1] = &v160;
+            v85 = *v8;
+            *(v85 + 8) = v84;
+            *v84 = v85;
+            v86 = v125;
+            *(v125 + 8) = v8;
+            *v8 = v86;
+            *(v8 + 8) = &v125;
             --a2[2];
-            v160 = v8;
-            ++v162;
+            v125 = v8;
+            ++v127;
           }
         }
 
-        if (!cnprint::CNPrinter::GetLogLevel(v108))
+        if (!cnprint::CNPrinter::GetLogLevel(v83))
         {
           LOWORD(__p[0]) = 12;
-          LOBYTE(v159) = 0;
-          v112 = v8[3];
-          v113 = sub_1D0BCFAB8(v8[2]);
-          v114 = *(v8[3] + 96) - 1;
-          v115 = "UnknownType";
-          if (v114 <= 4)
+          LOBYTE(v124) = 0;
+          v87 = *(v8 + 24);
+          v88 = sub_1D0BCFAB8(*(v8 + 16));
+          v89 = *(*(v8 + 24) + 96) - 1;
+          v90 = "UnknownType";
+          if (v89 <= 4)
           {
-            v115 = off_1E83D8358[v114];
+            v90 = off_1E83D8358[v89];
           }
 
-          cnprint::CNLogFormatter::FormatGeneral(v11, v112, "#MSR %s %s delaying evaluation", v113, v115);
+          cnprint::CNLogFormatter::FormatGeneral(v11, v87, "#MSR %s %s delaying evaluation", v88, v90);
           if (*(a1 + 231) >= 0)
           {
-            LOBYTE(v30) = v11;
+            v25 = v11;
           }
 
           else
           {
-            v30 = *(a1 + 208);
+            v25 = *(a1 + 208);
           }
 
           goto LABEL_16;
@@ -8546,91 +7914,91 @@ LABEL_87:
       }
     }
 
-    else if (v79)
+    else if (v59)
     {
-      if (v79 == 1)
+      if (v59 == 1)
       {
         LOWORD(__p[0]) = 12;
-        LOBYTE(v159) = 4;
-        v104 = v8[3];
-        v105 = sub_1D0BCFAB8(v8[2]);
-        v106 = *(v8[3] + 96) - 1;
-        v107 = "UnknownType";
-        if (v106 <= 4)
+        LOBYTE(v124) = 4;
+        v79 = *(v8 + 24);
+        v80 = sub_1D0BCFAB8(*(v8 + 16));
+        v81 = *(*(v8 + 24) + 96) - 1;
+        v82 = "UnknownType";
+        if (v81 <= 4)
         {
-          v107 = off_1E83D8358[v106];
+          v82 = off_1E83D8358[v81];
         }
 
-        cnprint::CNLogFormatter::FormatGeneral(v11, v104, "#MSR error for %s %s", v105, v107);
+        cnprint::CNLogFormatter::FormatGeneral(v11, v79, "#MSR error for %s %s", v80, v82);
         if (*(a1 + 231) >= 0)
         {
-          LOBYTE(v30) = v11;
+          v25 = v11;
         }
 
         else
         {
-          v30 = *(a1 + 208);
+          v25 = *(a1 + 208);
         }
 
         goto LABEL_16;
       }
 
-      if (v79 != 2)
+      if (v59 != 2)
       {
         goto LABEL_87;
       }
 
-      if (!cnprint::CNPrinter::GetLogLevel(v78))
+      if (!cnprint::CNPrinter::GetLogLevel(v58))
       {
         LOWORD(__p[0]) = 12;
-        LOBYTE(v159) = 0;
-        v80 = v8[3];
-        v81 = sub_1D0BCFAB8(v8[2]);
-        v82 = *(v8[3] + 96) - 1;
-        v83 = "UnknownType";
-        if (v82 <= 4)
+        LOBYTE(v124) = 0;
+        v60 = *(v8 + 24);
+        v61 = sub_1D0BCFAB8(*(v8 + 16));
+        v62 = *(*(v8 + 24) + 96) - 1;
+        v63 = "UnknownType";
+        if (v62 <= 4)
         {
-          v83 = off_1E83D8358[v82];
+          v63 = off_1E83D8358[v62];
         }
 
-        cnprint::CNLogFormatter::FormatGeneral(v11, v80, "#MSR ignoring %s %s", v81, v83);
+        cnprint::CNLogFormatter::FormatGeneral(v11, v60, "#MSR ignoring %s %s", v61, v63);
         if (*(a1 + 231) >= 0)
         {
-          LOBYTE(v30) = v11;
+          v25 = v11;
         }
 
         else
         {
-          v30 = *(a1 + 208);
+          v25 = *(a1 + 208);
         }
 
 LABEL_16:
-        cnprint::CNPrinter::Print(__p, &v159, "%s", v25, v26, v27, v28, v29, v30);
+        cnprint::CNPrinter::Print(__p, &v124, "%s", v25);
       }
     }
 
-    else if (!cnprint::CNPrinter::GetLogLevel(v78))
+    else if (!cnprint::CNPrinter::GetLogLevel(v58))
     {
       LOWORD(__p[0]) = 12;
-      LOBYTE(v159) = 0;
-      v96 = v8[3];
-      v97 = sub_1D0BCFAB8(v8[2]);
-      v98 = *(v8[3] + 96) - 1;
-      v99 = "UnknownType";
-      if (v98 <= 4)
+      LOBYTE(v124) = 0;
+      v71 = *(v8 + 24);
+      v72 = sub_1D0BCFAB8(*(v8 + 16));
+      v73 = *(*(v8 + 24) + 96) - 1;
+      v74 = "UnknownType";
+      if (v73 <= 4)
       {
-        v99 = off_1E83D8358[v98];
+        v74 = off_1E83D8358[v73];
       }
 
-      cnprint::CNLogFormatter::FormatGeneral(v11, v96, "#MSR no decision for %s %s", v97, v99);
+      cnprint::CNLogFormatter::FormatGeneral(v11, v71, "#MSR no decision for %s %s", v72, v74);
       if (*(a1 + 231) >= 0)
       {
-        LOBYTE(v30) = v11;
+        v25 = v11;
       }
 
       else
       {
-        v30 = *(a1 + 208);
+        v25 = *(a1 + 208);
       }
 
       goto LABEL_16;
@@ -8641,35 +8009,35 @@ LABEL_17:
   }
 
   while (v12 != a2);
-  v138 = v162;
-  a4 = v151;
-  if (!v162)
+  v103 = v127;
+  a4 = v116;
+  if (!v127)
   {
 LABEL_162:
-    v144 = 0;
+    v109 = 0;
     *a4 = 0;
     goto LABEL_163;
   }
 
-  *v151 = v151;
-  v151[1] = v151;
-  v140 = v160;
-  v139 = v161;
-  v141 = v160[1];
-  v142 = *v161;
-  v142[1] = v141;
-  *v141 = v142;
-  v143 = *v151;
-  v143[1] = v139;
-  *v139 = v143;
-  *v151 = v140;
-  v140[1] = v151;
-  v151[2] = v138;
-  v162 = 0;
-  v144 = 1;
+  *v116 = v116;
+  *(v116 + 1) = v116;
+  v105 = v125;
+  v104 = v126;
+  v106 = *(v125 + 8);
+  v107 = *v126;
+  *(v107 + 8) = v106;
+  *v106 = v107;
+  v108 = *v116;
+  *(v108 + 8) = v104;
+  *v104 = v108;
+  *v116 = v105;
+  *(v105 + 8) = v116;
+  *(v116 + 2) = v103;
+  v127 = 0;
+  v109 = 1;
 LABEL_163:
-  a4[24] = v144;
-  return sub_1D0BCC0B4(&v160);
+  a4[24] = v109;
+  return sub_1D0BCC0B4(&v125);
 }
 
 BOOL raven::RavenSequentialGNSSMeasurementSelector::ShouldMeasurementBeUsedToUpdateEstimator(uint64_t a1, uint64_t a2)
@@ -8680,21 +8048,21 @@ BOOL raven::RavenSequentialGNSSMeasurementSelector::ShouldMeasurementBeUsedToUpd
     v9 = v4 == 5 || v4 == 0;
     if (v9 && !cnprint::CNPrinter::GetLogLevel(a1))
     {
-      v29 = 12;
-      v28 = 0;
+      v24 = 12;
+      v23 = 0;
       v10 = sub_1D0BCFAB8(*a2);
       cnprint::CNLogFormatter::FormatGeneral(a1 + 208, a1 + 96, "#MSR %s unexpected measurement type %d", v10, *(*(a2 + 8) + 96));
       if (*(a1 + 231) >= 0)
       {
-        LOBYTE(v16) = a1 - 48;
+        v11 = (a1 + 208);
       }
 
       else
       {
-        v16 = *(a1 + 208);
+        v11 = *(a1 + 208);
       }
 
-      cnprint::CNPrinter::Print(&v29, &v28, "%s", v11, v12, v13, v14, v15, v16);
+      cnprint::CNPrinter::Print(&v24, &v23, "%s", v11);
     }
 
     return 1;
@@ -8713,76 +8081,76 @@ BOOL raven::RavenSequentialGNSSMeasurementSelector::ShouldMeasurementBeUsedToUpd
     return 1;
   }
 
-  v17 = sub_1D0BD2638(a1 + 1224, v5, v6);
-  if (a1 + 1232 == v17)
+  v12 = sub_1D0BD2638(a1 + 1224, v5, v6);
+  if (a1 + 1232 == v12)
   {
     return *(*(a1 + 192) + 607) == 0;
   }
 
-  v18 = *(v17 + 48);
-  if (v18 < 4)
+  v13 = *(v12 + 48);
+  if (v13 < 4)
   {
     return *(*(a1 + 192) + 607) == 0;
   }
 
-  if (v18 != 4)
+  if (v13 != 4)
   {
     return 1;
   }
 
-  v19 = *(a1 + 1256);
-  v20 = 999.0;
-  if (v19)
+  v14 = *(a1 + 1256);
+  v15 = 999.0;
+  if (v14)
   {
-    v21 = a1 + 1256;
+    v16 = a1 + 1256;
     do
     {
-      v22 = *(v19 + 32);
-      v9 = v22 == v5;
-      v23 = v22 < v5;
+      v17 = *(v14 + 32);
+      v9 = v17 == v5;
+      v18 = v17 < v5;
       if (v9)
       {
-        v23 = *(v19 + 40) < v6;
+        v18 = *(v14 + 40) < v6;
       }
 
-      v24 = !v23;
-      if (v23)
+      v19 = !v18;
+      if (v18)
       {
-        v25 = 8;
+        v20 = 8;
       }
 
       else
       {
-        v25 = 0;
+        v20 = 0;
       }
 
-      if (v24)
+      if (v19)
       {
-        v21 = v19;
+        v16 = v14;
       }
 
-      v19 = *(v19 + v25);
+      v14 = *(v14 + v20);
     }
 
-    while (v19);
-    if (v21 != a1 + 1256)
+    while (v14);
+    if (v16 != a1 + 1256)
     {
-      v26 = *(v21 + 32);
-      v9 = v26 == v5;
-      v27 = v26 > v5;
+      v21 = *(v16 + 32);
+      v9 = v21 == v5;
+      v22 = v21 > v5;
       if (v9)
       {
-        v27 = *(v21 + 40) > v6;
+        v22 = *(v16 + 40) > v6;
       }
 
-      if (!v27)
+      if (!v22)
       {
-        v20 = fabs(*(v21 + 48));
+        v15 = fabs(*(v16 + 48));
       }
     }
   }
 
-  return v20 < *(*(a1 + 192) + 1648);
+  return v15 < *(*(a1 + 192) + 1648);
 }
 
 uint64_t raven::RavenSequentialGNSSMeasurementSelector::ComputeInnovationData@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
@@ -8855,10 +8223,10 @@ uint64_t raven::RavenSequentialGNSSMeasurementSelector::GetMSRThresholdType(uint
     return 0;
   }
 
-  v59[8] = v5;
-  v59[9] = v4;
-  v59[16] = v2;
-  v59[17] = v3;
+  v54[8] = v5;
+  v54[9] = v4;
+  v54[16] = v2;
+  v54[17] = v3;
   if (*(a2 + 168) != 1)
   {
     return 0;
@@ -8874,34 +8242,34 @@ uint64_t raven::RavenSequentialGNSSMeasurementSelector::GetMSRThresholdType(uint
     {
       v13 = *(a2 + 48);
       v12 = *(a2 + 52);
+      v42 = 0x100000008;
+      v37 = &unk_1F4CE4320;
+      v38 = v12;
+      v39 = v13;
+      v40 = v13 * v12;
+      v41 = v12;
+      v43 = &v44;
+      sub_1D0BD2018(a2 + 40, &v37);
       v47 = 0x100000008;
-      v42 = &unk_1F4CE4320;
-      v43 = v12;
-      v44 = v13;
-      v45 = v13 * v12;
-      v46 = v12;
-      v48 = &v49;
-      sub_1D0BD2018(a2 + 40, &v42);
+      v45 = &unk_1F4CE4320;
+      v46 = xmmword_1D0E84520;
+      v48 = v49;
+      sub_1D0B89390(a1 + 360, &v37, &v45);
       v52 = 0x100000008;
       v50 = &unk_1F4CE4320;
       v51 = xmmword_1D0E84520;
       v53 = v54;
-      sub_1D0B89390(a1 + 360, &v42, &v50);
-      v57 = 0x100000008;
-      v55 = &unk_1F4CE4320;
-      v56 = xmmword_1D0E84520;
-      v58 = v59;
       v14.f64[0] = 1.0 / v10;
-      v15 = sub_1D0BC5ED4(&v50, &v55, v14);
+      v15 = sub_1D0BC5ED4(&v45, &v50, v14);
       v15.f64[0] = *(a2 + 152);
-      v52 = 0x100000008;
-      v50 = &unk_1F4CE4320;
-      v51 = xmmword_1D0E84520;
-      v53 = v54;
-      sub_1D0BC5ED4(&v55, &v50, v15);
-      v16 = v53[3];
-      v17 = v53[4];
-      v18 = v53[5];
+      v47 = 0x100000008;
+      v45 = &unk_1F4CE4320;
+      v46 = xmmword_1D0E84520;
+      v48 = v49;
+      sub_1D0BC5ED4(&v50, &v45, v15);
+      v16 = v48[3];
+      v17 = v48[4];
+      v18 = v48[5];
       v19 = *(a1 + 288);
       v20 = v19[3];
       v21 = v19[4];
@@ -8945,21 +8313,21 @@ uint64_t raven::RavenSequentialGNSSMeasurementSelector::GetMSRThresholdType(uint
   if (!v11)
   {
 LABEL_20:
-    LOWORD(v55) = 12;
-    LOBYTE(v50) = 4;
+    LOWORD(v50) = 12;
+    LOBYTE(v45) = 4;
     v35 = sub_1D0BCFAB8(*a2);
     cnprint::CNLogFormatter::FormatGeneral(a1 + 208, a1 + 96, "#MSR %s unexpected measurement type when selecting thresholds, %d", v35, *(*(a2 + 8) + 96));
     if (*(a1 + 231) >= 0)
     {
-      LOBYTE(v41) = a1 - 48;
+      v36 = (a1 + 208);
     }
 
     else
     {
-      v41 = *(a1 + 208);
+      v36 = *(a1 + 208);
     }
 
-    cnprint::CNPrinter::Print(&v55, &v50, "%s", v36, v37, v38, v39, v40, v41);
+    cnprint::CNPrinter::Print(&v50, &v45, "%s", v36);
     return 0;
   }
 
@@ -8979,124 +8347,106 @@ LABEL_20:
   return result;
 }
 
-uint64_t raven::RavenSequentialGNSSMeasurementSelector::UpdateEstimator(uint64_t a1, uint64_t a2)
+uint64_t raven::RavenSequentialGNSSMeasurementSelector::UpdateEstimator(uint64_t a1, double *a2)
 {
-  if ((*(a2 + 144) & 1) == 0)
+  if ((a2[18] & 1) == 0)
   {
-    LOWORD(v46) = 12;
-    LOBYTE(v41) = 4;
+    LOWORD(v35) = 12;
+    LOBYTE(v30) = 4;
     v20 = a1 + 208;
     sub_1D0BCFAB8(*a2);
-    v21 = *(*(a2 + 8) + 96) - 1;
-    if (v21 <= 4)
-    {
-      v22 = off_1E83D8358[v21];
-    }
-
     cnprint::CNLogFormatter::FormatGeneral(v20, a1 + 96, "#MSR %s %s h-function data missing at update");
-    goto LABEL_19;
-  }
-
-  if ((*(a2 + 168) & 1) == 0)
-  {
-    LOWORD(v46) = 12;
-    LOBYTE(v41) = 4;
-    v20 = a1 + 208;
-    sub_1D0BCFAB8(*a2);
-    v23 = *(*(a2 + 8) + 96) - 1;
-    if (v23 <= 4)
-    {
-      v24 = off_1E83D8358[v23];
-    }
-
-    cnprint::CNLogFormatter::FormatGeneral(v20, a1 + 96, "#MSR %s %s innovation data missing at update");
-    goto LABEL_19;
-  }
-
-  if ((*(a2 + 200) & 1) == 0)
-  {
-    LOWORD(v46) = 12;
-    LOBYTE(v41) = 4;
-    v20 = a1 + 208;
-    sub_1D0BCFAB8(*a2);
-    v30 = *(*(a2 + 8) + 96) - 1;
-    if (v30 <= 4)
-    {
-      v31 = off_1E83D8358[v30];
-    }
-
-    cnprint::CNLogFormatter::FormatGeneral(v20, a1 + 96, "#MSR %s %s recommended variance missing at update");
-LABEL_19:
+LABEL_13:
     if (*(a1 + 231) >= 0)
     {
-      LOBYTE(v32) = v20;
+      v21 = v20;
     }
 
     else
     {
-      v32 = *(a1 + 208);
+      v21 = *(a1 + 208);
     }
 
-    cnprint::CNPrinter::Print(&v46, &v41, "%s", v25, v26, v27, v28, v29, v32);
+    cnprint::CNPrinter::Print(&v35, &v30, "%s", v21);
     return 0;
   }
 
-  v4 = *(a2 + 160);
-  v5 = *(a2 + 192);
-  v7 = *(a2 + 48);
-  v6 = *(a2 + 52);
-  v48 = 0x100000008;
-  v46 = &unk_1F4CE4320;
-  *&v47 = __PAIR64__(v7, v6);
-  DWORD2(v47) = v7 * v6;
-  HIDWORD(v47) = v6;
-  v49 = v50;
-  sub_1D0BD2018(a2 + 40, &v46);
-  v63 = 0x100000008;
-  v62 = xmmword_1D0E84520;
-  v61 = &unk_1F4CE4320;
-  v64 = &v65;
-  sub_1D0B89390(a1 + 360, &v46, &v61);
-  v58 = 0x100000008;
-  v57 = xmmword_1D0E84520;
-  v56 = &unk_1F4CE4320;
-  v59 = &v60;
+  if ((a2[21] & 1) == 0)
+  {
+    LOWORD(v35) = 12;
+    LOBYTE(v30) = 4;
+    v20 = a1 + 208;
+    sub_1D0BCFAB8(*a2);
+    cnprint::CNLogFormatter::FormatGeneral(v20, a1 + 96, "#MSR %s %s innovation data missing at update");
+    goto LABEL_13;
+  }
+
+  if ((a2[25] & 1) == 0)
+  {
+    LOWORD(v35) = 12;
+    LOBYTE(v30) = 4;
+    v20 = a1 + 208;
+    sub_1D0BCFAB8(*a2);
+    cnprint::CNLogFormatter::FormatGeneral(v20, a1 + 96, "#MSR %s %s recommended variance missing at update");
+    goto LABEL_13;
+  }
+
+  v4 = a2[20];
+  v5 = a2[24];
+  v7 = *(a2 + 12);
+  v6 = *(a2 + 13);
+  v37 = 0x100000008;
+  v35 = &unk_1F4CE4320;
+  *&v36 = __PAIR64__(v7, v6);
+  DWORD2(v36) = v7 * v6;
+  HIDWORD(v36) = v6;
+  v38 = v39;
+  sub_1D0BD2018((a2 + 5), &v35);
+  v52 = 0x100000008;
+  v51 = xmmword_1D0E84520;
+  v50 = &unk_1F4CE4320;
+  v53 = &v54;
+  sub_1D0B89390(a1 + 360, &v35, &v50);
+  v47 = 0x100000008;
+  v46 = xmmword_1D0E84520;
+  v45 = &unk_1F4CE4320;
+  v48 = &v49;
   v8.f64[0] = 1.0 / (v4 + v5);
-  v9 = sub_1D0BC5ED4(&v61, &v56, v8);
-  v9.f64[0] = *(a2 + 152);
-  v53 = 0x100000008;
-  v52 = xmmword_1D0E84520;
-  v51 = &unk_1F4CE4320;
-  v54 = &v55;
-  sub_1D0BC5ED4(&v56, &v51, v9);
-  v48 = 0x100000008;
-  v47 = xmmword_1D0E84520;
-  v46 = &unk_1F4CE4320;
-  v49 = v50;
-  sub_1D0B88838(a1 + 256, &v51, &v46);
-  sub_1D0B894B0(a1 + 256, &v46);
-  v11 = v62;
-  v10 = DWORD1(v62);
-  v38 = 0x800000001;
-  v33 = &unk_1F4CEC348;
-  v39 = v40;
-  v34 = DWORD1(v62);
-  v35 = v62;
-  v36 = v62 * DWORD1(v62);
-  v37 = DWORD1(v62);
-  if (DWORD1(v62))
+  v9 = sub_1D0BC5ED4(&v50, &v45, v8);
+  v9.f64[0] = a2[19];
+  v42 = 0x100000008;
+  v41 = xmmword_1D0E84520;
+  v40 = &unk_1F4CE4320;
+  v43 = &v44;
+  sub_1D0BC5ED4(&v45, &v40, v9);
+  v37 = 0x100000008;
+  v36 = xmmword_1D0E84520;
+  v35 = &unk_1F4CE4320;
+  v38 = v39;
+  sub_1D0B88838(a1 + 256, &v40, &v35);
+  sub_1D0B894B0(a1 + 256, &v35);
+  v11 = v51;
+  v10 = DWORD1(v51);
+  v27 = 0x800000001;
+  v22 = &unk_1F4CEC348;
+  v28 = v29;
+  v23 = DWORD1(v51);
+  v24 = v51;
+  v25 = v51 * DWORD1(v51);
+  v26 = DWORD1(v51);
+  if (DWORD1(v51))
   {
     v12 = 0;
     v13 = 0;
-    v14 = HIDWORD(v62);
-    v15 = v64;
+    v14 = HIDWORD(v51);
+    v15 = v53;
     do
     {
       v16 = v12;
       v17 = v13;
       for (i = v11; i; --i)
       {
-        v40[v17] = v15[v16];
+        v29[v17] = v15[v16];
         v17 += v10;
         ++v16;
       }
@@ -9108,23 +8458,23 @@ LABEL_19:
     while (v13 != v10);
   }
 
-  v43 = 0x800000008;
-  v41 = &unk_1F4CE43B0;
-  v42 = xmmword_1D0E84510;
-  v44 = &v45;
-  sub_1D0B89390(&v56, &v33, &v41);
-  v48 = 0x800000008;
-  v47 = xmmword_1D0E84510;
-  v46 = &unk_1F4CE43B0;
-  v49 = v50;
-  sub_1D0BA5A78(a1 + 360, &v41, &v46);
-  sub_1D0B894B0(a1 + 360, &v46);
-  v48 = 0x100000008;
-  v47 = xmmword_1D0E84520;
-  v46 = &unk_1F4CE4320;
-  v49 = v50;
-  sub_1D0B88838(a1 + 912, &v51, &v46);
-  sub_1D0B894B0(a1 + 912, &v46);
+  v32 = 0x800000008;
+  v30 = &unk_1F4CE43B0;
+  v31 = xmmword_1D0E84510;
+  v33 = &v34;
+  sub_1D0B89390(&v45, &v22, &v30);
+  v37 = 0x800000008;
+  v36 = xmmword_1D0E84510;
+  v35 = &unk_1F4CE43B0;
+  v38 = v39;
+  sub_1D0BA5A78(a1 + 360, &v30, &v35);
+  sub_1D0B894B0(a1 + 360, &v35);
+  v37 = 0x100000008;
+  v36 = xmmword_1D0E84520;
+  v35 = &unk_1F4CE4320;
+  v38 = v39;
+  sub_1D0B88838(a1 + 912, &v40, &v35);
+  sub_1D0B894B0(a1 + 912, &v35);
   return 1;
 }
 
@@ -9192,201 +8542,201 @@ void raven::RavenSequentialGNSSMeasurementSelector::ComputeHorizontalPositionMis
 {
   if (*(a2 + 16))
   {
-    sub_1D0BD2CA4(v65, **(a1 + 288), *(*(a1 + 288) + 8), *(*(a1 + 288) + 16));
-    v62 = 0;
+    sub_1D0BD2CA4(v57, **(a1 + 288), *(*(a1 + 288) + 8), *(*(a1 + 288) + 16));
+    v54 = 0;
     __p = 0;
-    v63 = 0;
-    v58[0] = 0;
-    v59 = 0;
-    v60 = 1;
+    v55 = 0;
+    v50[0] = 0;
+    v51 = 0;
+    v52 = 1;
     sub_1D0BC3E34(&__p);
-    v64 = 1;
-    v55 = 0x400000004;
-    v53 = &unk_1F4CDEB70;
-    v56 = v57;
-    v54 = xmmword_1D0E7DCD0;
-    v7.n128_u64[1] = 0;
-    memset(v57, 0, sizeof(v57));
-    v8 = *(a2 + 8);
-    if (v8 == a2)
+    v56 = 1;
+    v47 = 0x400000004;
+    v45 = &unk_1F4CDEB70;
+    v48 = v49;
+    v46 = xmmword_1D0E7DCD0;
+    v4.n128_u64[1] = 0;
+    memset(v49, 0, sizeof(v49));
+    v5 = *(a2 + 8);
+    if (v5 == a2)
     {
-      v9 = 0;
+      v6 = 0;
     }
 
     else
     {
-      v9 = 0;
-      v7.n128_u64[1] = 0x400000004;
+      v6 = 0;
+      v4.n128_u64[1] = 0x400000004;
       do
       {
-        if (*(*(v8 + 24) + 96) == 1 && (*(v8 + 192) & 0xFFFFFFFE) == 4)
+        if (*(*(v5 + 24) + 96) == 1 && (*(v5 + 192) & 0xFFFFFFFE) == 4)
         {
-          v10 = *(v8 + 16);
-          v11 = *(v10 + 264);
-          v12 = cos(v11);
+          v7 = *(v5 + 16);
+          v8 = *(v7 + 264);
+          v9 = cos(v8);
           if (*(a1 + 2424) == 1)
           {
-            v49 = 0x400000001;
-            v48 = xmmword_1D0E84480;
-            v47 = &unk_1F4CE4368;
-            v50 = &v51;
-            v13 = __sincos_stret(*(v10 + 272));
-            *&v51 = -(v12 * v13.__sinval);
-            *(&v51 + 1) = -(v12 * v13.__cosval);
-            *&v52 = -sin(v11);
-            *(&v52 + 1) = 0x3FF0000000000000;
-            v39 = 0x100000004;
-            v37 = &unk_1F4CDEBB8;
-            v40 = v41;
-            v38 = xmmword_1D0E7DCE0;
-            v41[0] = v51;
-            v41[1] = v52;
-            v44 = 0x400000004;
-            v42 = &unk_1F4CDEB70;
-            v43 = xmmword_1D0E7DCD0;
-            v45 = v46;
-            sub_1D0B89390(&v37, &v47, &v42);
-            v68 = 0x400000004;
-            v67 = xmmword_1D0E7DCD0;
-            v66 = COERCE_DOUBLE(&unk_1F4CDEB70);
-            v69 = v70;
-            sub_1D0B88838(&v53, &v42, &v66);
-            v7 = sub_1D0B894B0(&v53, &v66);
-            v11 = *(*(v8 + 16) + 264);
+            v41 = 0x400000001;
+            v40 = xmmword_1D0E84480;
+            v39 = &unk_1F4CE4368;
+            v42 = &v43;
+            v10 = __sincos_stret(*(v7 + 272));
+            *&v43 = -(v9 * v10.__sinval);
+            *(&v43 + 1) = -(v9 * v10.__cosval);
+            *&v44 = -sin(v8);
+            *(&v44 + 1) = 0x3FF0000000000000;
+            v31 = 0x100000004;
+            v29 = &unk_1F4CDEBB8;
+            v32 = v33;
+            v30 = xmmword_1D0E7DCE0;
+            v33[0] = v43;
+            v33[1] = v44;
+            v36 = 0x400000004;
+            v34 = &unk_1F4CDEB70;
+            v35 = xmmword_1D0E7DCD0;
+            v37 = v38;
+            sub_1D0B89390(&v29, &v39, &v34);
+            v60 = 0x400000004;
+            v59 = xmmword_1D0E7DCD0;
+            v58 = COERCE_DOUBLE(&unk_1F4CDEB70);
+            v61 = v62;
+            sub_1D0B88838(&v45, &v34, &v58);
+            v4 = sub_1D0B894B0(&v45, &v58);
+            v8 = *(*(v5 + 16) + 264);
           }
 
-          ++v9;
-          if (v11 <= 1.3962634 && v11 >= 0.34906585)
+          ++v6;
+          if (v8 <= 1.3962634 && v8 >= 0.34906585)
           {
-            v14 = *(*(v8 + 24) + 120);
-            v15 = *(v8 + 48);
-            v44 = 0x100000001;
-            v42 = &unk_1F4CDF418;
-            *&v16 = 0x100000001;
-            *(&v16 + 1) = 0x100000001;
-            v43 = v16;
-            v45 = v46;
-            sub_1D0B89390(v8 + 56, a1 + 912, &v42);
-            v17 = (DWORD1(v43) * v43);
-            if (v17 >= 1)
+            v11 = *(*(v5 + 24) + 120);
+            v12 = *(v5 + 48);
+            v36 = 0x100000001;
+            v34 = &unk_1F4CDF418;
+            *&v13 = 0x100000001;
+            *(&v13 + 1) = 0x100000001;
+            v35 = v13;
+            v37 = v38;
+            sub_1D0B89390(v5 + 56, a1 + 912, &v34);
+            v14 = (DWORD1(v35) * v35);
+            if (v14 >= 1)
             {
-              v18 = v45;
-              v19 = v70;
+              v15 = v37;
+              v16 = v62;
               do
               {
-                v20 = *v18++;
-                *v19++ = v14 - v15 - v20;
-                --v17;
+                v17 = *v15++;
+                *v16++ = v11 - v12 - v17;
+                --v14;
               }
 
-              while (v17);
+              while (v14);
             }
 
-            v66 = fabs(v70[0]) / v12;
-            sub_1D0BC3F08(v58, &v66, 1.0);
+            v58 = fabs(v62[0]) / v9;
+            sub_1D0BC3F08(v50, &v58, 1.0);
           }
         }
 
-        v8 = *(v8 + 8);
+        v5 = *(v5 + 8);
       }
 
-      while (v8 != a2);
+      while (v5 != a2);
     }
 
-    v21 = *(a1 + 2440);
-    if (v9 - v21 < 4)
+    v18 = *(a1 + 2440);
+    if (v6 - v18 < 4)
     {
       goto LABEL_39;
     }
 
-    if (v58[0])
+    if (v50[0])
     {
-      v22 = (v62 - __p) >> 4;
+      v19 = (v54 - __p) >> 4;
     }
 
     else
     {
-      v22 = 0;
+      v19 = 0;
     }
 
-    if (v22 - v21 < 4)
+    if (v19 - v18 < 4)
     {
 LABEL_31:
       if (*(a1 + 2424) == 1)
       {
-        v44 = 0x400000004;
-        v42 = &unk_1F4CDEB70;
-        v43 = xmmword_1D0E7DCD0;
-        v45 = v46;
-        v49 = 0x100000004;
-        v48 = xmmword_1D0E7DCE0;
-        v47 = &unk_1F4CDFDB8;
-        v50 = &v51;
-        v39 = 0x100000004;
-        v37 = &unk_1F4CDFDB8;
-        v38 = xmmword_1D0E7DCE0;
-        v40 = v41;
-        v68 = 0x100000010;
-        v67 = xmmword_1D0E83CB0;
-        v66 = COERCE_DOUBLE(&unk_1F4CDFE00);
-        v69 = v70;
-        v28 = sub_1D0BA5174(&v53, &v47, &v37, &v66, &v42);
-        if ((*&v28 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL || v28 >= *(*(a1 + 192) + 920))
+        v36 = 0x400000004;
+        v34 = &unk_1F4CDEB70;
+        v35 = xmmword_1D0E7DCD0;
+        v37 = v38;
+        v41 = 0x100000004;
+        v40 = xmmword_1D0E7DCE0;
+        v39 = &unk_1F4CDFDB8;
+        v42 = &v43;
+        v31 = 0x100000004;
+        v29 = &unk_1F4CDFDB8;
+        v30 = xmmword_1D0E7DCE0;
+        v32 = v33;
+        v60 = 0x100000010;
+        v59 = xmmword_1D0E83CB0;
+        v58 = COERCE_DOUBLE(&unk_1F4CDFE00);
+        v61 = v62;
+        v25 = sub_1D0BA5174(&v45, &v39, &v29, &v58, &v34);
+        if ((*&v25 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL || v25 >= *(*(a1 + 192) + 920))
         {
-          LOWORD(v66) = 12;
-          LOBYTE(v47) = 4;
-          v29 = cnprint::CNLogFormatter::FormatGeneral((a1 + 208), "t,%.3lf, pseudoinverse of design matrix is poorly conditioned, condition number, %.3lf", *(a1 + 104) + *(a1 + 96), v28);
+          LOWORD(v58) = 12;
+          LOBYTE(v39) = 4;
+          v26 = cnprint::CNLogFormatter::FormatGeneral((a1 + 208), "t,%.3lf, pseudoinverse of design matrix is poorly conditioned, condition number, %.3lf", *(a1 + 104) + *(a1 + 96), v25);
           if (*(a1 + 231) >= 0)
           {
-            LOBYTE(v35) = v29;
+            v27 = v26;
           }
 
           else
           {
-            v35 = *(a1 + 208);
+            v27 = *(a1 + 208);
           }
 
-          cnprint::CNPrinter::Print(&v66, &v47, "%s", v30, v31, v32, v33, v34, v35);
+          cnprint::CNPrinter::Print(&v58, &v39, "%s", v27);
         }
 
         else
         {
-          *(a1 + 2448) = sqrt(*v45 + v45[SHIDWORD(v43) + 1]);
+          *(a1 + 2448) = sqrt(*v37 + v37[SHIDWORD(v35) + 1]);
         }
       }
 
 LABEL_39:
       if (__p)
       {
-        v62 = __p;
+        v54 = __p;
         operator delete(__p);
       }
 
       return;
     }
 
-    v23 = *(a1 + 1024);
-    if (v23 > 9)
+    v20 = *(a1 + 1024);
+    if (v20 > 9)
     {
       goto LABEL_28;
     }
 
-    v24 = 1 << v23;
-    if ((v24 & 0x393) != 0)
+    v21 = 1 << v20;
+    if ((v21 & 0x393) != 0)
     {
-      v7.n128_u64[0] = 0x4052C00000000000;
+      v4.n128_u64[0] = 0x4052C00000000000;
 LABEL_30:
-      sub_1D0BC4124(v58, v7, v4, v5, v6);
-      *(a1 + 2432) = v27;
+      sub_1D0BC4124(v50, v4);
+      *(a1 + 2432) = v24;
       goto LABEL_31;
     }
 
-    if ((v24 & 0x4C) != 0)
+    if ((v21 & 0x4C) != 0)
     {
-      v25 = *(a1 + 1016);
-      if (v25 <= 6)
+      v22 = *(a1 + 1016);
+      if (v22 <= 6)
       {
-        v7.n128_u64[0] = qword_1D0EA3DF0[v25];
+        v4.n128_f64[0] = dbl_1D0EA3DF0[v22];
         goto LABEL_30;
       }
     }
@@ -9394,22 +8744,21 @@ LABEL_30:
     else
     {
 LABEL_28:
-      v26 = *(a1 + 1016);
-      if ((v26 - 3) >= 2)
+      v23 = *(a1 + 1016);
+      if ((v23 - 3) >= 2)
       {
-        v36 = v26 == 6 || v26 == 0;
-        v7.n128_u64[0] = 0x4041800000000000;
-        v4 = 75.0;
-        if (v36)
+        v28 = v23 == 6 || v23 == 0;
+        v4.n128_u64[0] = 0x4041800000000000;
+        if (v28)
         {
-          v7.n128_u64[0] = 0x4052C00000000000;
+          v4.n128_u64[0] = 0x4052C00000000000;
         }
 
         goto LABEL_30;
       }
     }
 
-    v7.n128_u64[0] = 0x4049000000000000;
+    v4.n128_u64[0] = 0x4049000000000000;
     goto LABEL_30;
   }
 }
@@ -9426,7 +8775,7 @@ void sub_1D0BC65A0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void raven::RavenSequentialGNSSMeasurementSelector::UpdateITRCounts(uint64_t *a1, uint64_t a2)
+void raven::RavenSequentialGNSSMeasurementSelector::UpdateITRCounts(cnprint::CNPrinter *a1, uint64_t a2)
 {
   v2 = *(a2 + 8);
   if (v2 == a2)
@@ -9435,12 +8784,12 @@ void raven::RavenSequentialGNSSMeasurementSelector::UpdateITRCounts(uint64_t *a1
   }
 
   v4 = a1;
-  v39 = a1 + 173;
-  v40 = a1 + 168;
+  v34 = a1 + 1384;
+  v35 = a1 + 1344;
 LABEL_3:
   v5 = *(v2 + 24);
   v6 = *(v5 + 100);
-  v7 = v40;
+  v7 = v35;
   if (v6 > 0xA)
   {
     goto LABEL_6;
@@ -9448,31 +8797,31 @@ LABEL_3:
 
   if (((1 << v6) & 0x544) != 0)
   {
-    v7 = v39;
+    v7 = v34;
     goto LABEL_6;
   }
 
-  v7 = v40;
+  v7 = v35;
   if (*(v5 + 100))
   {
 LABEL_6:
     if (*(*(v2 + 16) + 312))
     {
       v8 = *(v5 + 96);
-      v42 = v5 + 96;
-      v9 = sub_1D0BC6C68(v4 + 178, v8);
+      v37 = (v5 + 96);
+      v9 = sub_1D0BC6C68(v4 + 356, v8, &v37);
       v10 = *(v2 + 192);
       if (sub_1D0BD2DFC(v9 + 3, *(v2 + 192)))
       {
-        v42 = v2 + 192;
-        v11 = sub_1D0BD32D0(v9 + 3, v10);
+        v37 = (v2 + 192);
+        v11 = sub_1D0BD32D0(v9 + 3, v10, &v37);
         ++*(v11 + 5);
       }
 
       else
       {
-        v42 = v10 | 0x100000000;
-        sub_1D0BD2EB0(v9 + 3, v10);
+        v37 = (v10 | 0x100000000);
+        sub_1D0BD2EB0(v9 + 6, v10, &v37);
       }
     }
 
@@ -9509,45 +8858,45 @@ LABEL_26:
 
     while (1)
     {
-      v19 = v18[1];
+      v19 = *(v18 + 1);
       if (v19 == v13)
       {
         if (*(v18 + 16) == v13)
         {
           v20 = *(v2 + 24);
           v21 = *(v20 + 96);
-          v42 = v20 + 96;
-          v22 = sub_1D0BC6C68(v18 + 3, v21);
+          v37 = (v20 + 96);
+          v22 = sub_1D0BC6C68(v18 + 6, v21, &v37);
           v23 = *(v2 + 192);
           if (sub_1D0BD2DFC(v22 + 3, *(v2 + 192)))
           {
-            v42 = v2 + 192;
-            v24 = sub_1D0BD32D0(v22 + 3, v23);
+            v37 = (v2 + 192);
+            v24 = sub_1D0BD32D0(v22 + 3, v23, &v37);
             ++*(v24 + 5);
           }
 
           else
           {
-            v42 = v23 | 0x100000000;
-            sub_1D0BD2EB0(v22 + 3, v23);
+            v37 = (v23 | 0x100000000);
+            sub_1D0BD2EB0(v22 + 6, v23, &v37);
           }
 
           v25 = *(v2 + 24);
           v26 = *(v25 + 96);
-          v42 = v25 + 96;
-          v27 = sub_1D0BC6C68(v4 + 183, v26);
+          v37 = (v25 + 96);
+          v27 = sub_1D0BC6C68(v4 + 366, v26, &v37);
           v28 = *(v2 + 192);
           if (sub_1D0BD2DFC(v27 + 3, *(v2 + 192)))
           {
-            v42 = v2 + 192;
-            a1 = sub_1D0BD32D0(v27 + 3, v28);
+            v37 = (v2 + 192);
+            a1 = sub_1D0BD32D0(v27 + 3, v28, &v37);
             ++*(a1 + 5);
           }
 
           else
           {
-            v42 = v28 | 0x100000000;
-            a1 = sub_1D0BD2EB0(v27 + 3, v28);
+            v37 = (v28 | 0x100000000);
+            a1 = sub_1D0BD2EB0(v27 + 6, v28, &v37);
           }
 
           v2 = *(v2 + 8);
@@ -9591,8 +8940,8 @@ LABEL_26:
 
   if (!cnprint::CNPrinter::GetLogLevel(a1))
   {
-    LOWORD(v42) = 12;
-    v41 = 0;
+    LOWORD(v37) = 12;
+    v36 = 0;
     v29 = sub_1D0BCFAB8(*(v2 + 16));
     v30 = *(v2 + 24);
     v31 = *(v30 + 96) - 1;
@@ -9606,54 +8955,54 @@ LABEL_26:
       v32 = off_1E83D8358[v31];
     }
 
-    cnprint::CNLogFormatter::FormatGeneral((v4 + 26), (v4 + 12), "#MSR %s %s unsupported band family, %d", v29, v32, *(v30 + 100));
+    cnprint::CNLogFormatter::FormatGeneral(v4 + 208, v4 + 96, "#MSR %s %s unsupported band family, %d", v29, v32, *(v30 + 100));
     if (*(v4 + 231) >= 0)
     {
-      LOBYTE(v38) = v4 - 48;
+      v33 = v4 + 208;
     }
 
     else
     {
-      v38 = v4[26];
+      v33 = *(v4 + 26);
     }
 
-    cnprint::CNPrinter::Print(&v42, &v41, "%s", v33, v34, v35, v36, v37, v38);
+    cnprint::CNPrinter::Print(&v37, &v36, "%s", v33);
   }
 }
 
-void sub_1D0BC6C50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1D0BC6C50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   sub_1D0BD2D64(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t *sub_1D0BC6C68(void *a1, int a2)
+uint64_t *sub_1D0BC6C68(float *a1, int a2, _DWORD **a3)
 {
-  v2 = a1[1];
-  if (!v2)
+  v3 = *(a1 + 1);
+  if (!v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (v2 <= a2)
+    v5 = a2;
+    if (v3 <= a2)
     {
-      v4 = a2 % v2;
+      v5 = a2 % v3;
     }
   }
 
   else
   {
-    v4 = (v2 - 1) & a2;
+    v5 = (v3 - 1) & a2;
   }
 
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -9661,155 +9010,145 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= v2)
+      if (v8 >= v3)
       {
-        v7 %= v2;
+        v8 %= v3;
       }
     }
 
     else
     {
-      v7 &= v2 - 1;
+      v8 &= v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v6 + 4) != a2)
+  if (*(v7 + 4) != a2)
   {
     goto LABEL_17;
   }
 
-  return v6;
+  return v7;
 }
 
-void sub_1D0BC709C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D0BC709C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_1D0BD2DB0(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t raven::RavenSequentialGNSSMeasurementSelector::LogMSRData(uint64_t result, uint64_t a2)
+void raven::RavenSequentialGNSSMeasurementSelector::LogMSRData(uint64_t a1, uint64_t a2)
 {
-  if (*(result + 1))
+  if (*(a1 + 1) && *(a1 + 1506))
   {
-    v2 = result;
-    if (*(result + 1506))
+    v26 = 0x100000008;
+    v24 = &unk_1F4CE4320;
+    v25 = xmmword_1D0E84520;
+    v27 = &v28;
+    sub_1D0BA5A78(a1 + 256, a1 + 912, &v24);
+    sub_1D0B751F4(&v23, "\n");
+    v21 = 0;
+    __src = 0;
+    v22 = 0;
+    v3 = *(a2 + 16);
+    if (v3 >= 2)
     {
-      v31 = 0x100000008;
-      v29 = &unk_1F4CE4320;
-      v30 = xmmword_1D0E84520;
-      v32 = &v33;
-      sub_1D0BA5A78(result + 256, result + 912, &v29);
-      sub_1D0B751F4(&v28, "\n");
-      v26 = 0;
-      __src = 0;
-      v27 = 0;
-      v4 = *(a2 + 16);
-      if (v4 >= 2)
+      if ((v3 & 0x8000000000000000) == 0)
       {
-        if ((v4 & 0x8000000000000000) == 0)
-        {
-          sub_1D0D2FF2C(&__src, v4 >> 1);
-        }
-
-        sub_1D0C5663C();
+        sub_1D0D2FF2C(&__src, v3 >> 1);
       }
 
-      memset(v23, 0, sizeof(v23));
-      v24 = 1065353216;
-      v20 = 0u;
-      v21 = 0u;
-      v22 = 1065353216;
-      v5 = *(a2 + 8);
-      if (v5 != a2)
-      {
-        v6 = *(*(v5 + 16) + 28) + 1000 * *(*(v5 + 16) + 24);
-        LODWORD(v18.__r_.__value_.__l.__data_) = v6;
-        v7 = __src;
-        v8 = v26 - __src;
-        v9 = (v26 - __src) >> 2;
-        v10 = v9 + 1;
-        if (!((v9 + 1) >> 62))
-        {
-          v11 = v27 - __src;
-          if ((v27 - __src) >> 1 > v10)
-          {
-            v10 = v11 >> 1;
-          }
-
-          v12 = v11 >= 0x7FFFFFFFFFFFFFFCLL;
-          v13 = 0x3FFFFFFFFFFFFFFFLL;
-          if (!v12)
-          {
-            v13 = v10;
-          }
-
-          if (v13)
-          {
-            sub_1D0D2FF2C(&__src, v13);
-          }
-
-          *(4 * v9) = v6;
-          memcpy(0, v7, v8);
-          v14 = __src;
-          __src = 0;
-          v26 = 4 * v9 + 4;
-          v27 = 0;
-          if (v14)
-          {
-            operator delete(v14);
-          }
-
-          v26 = 4 * v9 + 4;
-          __b.__r_.__value_.__r.__words[0] = &v18;
-          sub_1D0E31160(v23, v18.__r_.__value_.__l.__data_);
-          operator new();
-        }
-
-        sub_1D0C5663C();
-      }
-
-      v15 = *(v2 + 192);
-      v15[3770];
-      v16 = v15[641];
-      v17 = v15[2562];
-      operator new();
+      sub_1D0C5663C();
     }
-  }
 
-  return result;
+    memset(v19, 0, 32);
+    v19[8] = 1.0;
+    v16 = 0u;
+    v17 = 0u;
+    v18 = 1065353216;
+    v4 = *(a2 + 8);
+    if (v4 != a2)
+    {
+      v5 = *(*(v4 + 16) + 28) + 1000 * *(*(v4 + 16) + 24);
+      LODWORD(v14.__r_.__value_.__l.__data_) = v5;
+      v6 = __src;
+      v7 = v21 - __src;
+      v8 = (v21 - __src) >> 2;
+      v9 = v8 + 1;
+      if (!((v8 + 1) >> 62))
+      {
+        v10 = v22 - __src;
+        if ((v22 - __src) >> 1 > v9)
+        {
+          v9 = v10 >> 1;
+        }
+
+        v11 = v10 >= 0x7FFFFFFFFFFFFFFCLL;
+        v12 = 0x3FFFFFFFFFFFFFFFLL;
+        if (!v11)
+        {
+          v12 = v9;
+        }
+
+        if (v12)
+        {
+          sub_1D0D2FF2C(&__src, v12);
+        }
+
+        *(4 * v8) = v5;
+        memcpy(0, v6, v7);
+        v13 = __src;
+        __src = 0;
+        v21 = 4 * v8 + 4;
+        v22 = 0;
+        if (v13)
+        {
+          operator delete(v13);
+        }
+
+        v21 = 4 * v8 + 4;
+        __b.__r_.__value_.__r.__words[0] = &v14;
+        sub_1D0E31160(v19, v14.__r_.__value_.__l.__data_, &__b);
+        operator new();
+      }
+
+      sub_1D0C5663C();
+    }
+
+    operator new();
+  }
 }
 
 void sub_1D0BC9638(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, void *a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, void *a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, void *a45, uint64_t a46, uint64_t a47, uint64_t a48, void *a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, void *a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, void *a63)
 {
   operator delete(__p);
-  sub_1D0E31100(&a67);
+  sub_1D0E31100(&a65);
   sub_1D0E310A0(&STACK[0x200]);
-  v68 = STACK[0x228];
+  v66 = STACK[0x228];
   if (STACK[0x228])
   {
-    STACK[0x230] = v68;
-    operator delete(v68);
+    STACK[0x230] = v66;
+    operator delete(v66);
   }
 
   if (SLOBYTE(STACK[0x257]) < 0)
@@ -9818,4 +9157,654 @@ void sub_1D0BC9638(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   }
 
   _Unwind_Resume(a1);
+}
+
+uint64_t *raven::RavenSequentialGNSSMeasurementSelector::GetITRCount(uint64_t a1, void *a2, int *a3, int *a4)
+{
+  result = sub_1D0BD3584(a2, a3);
+  if (result)
+  {
+    result = sub_1D0BD3584(result + 3, a4);
+    if (result)
+    {
+      return *(result + 5);
+    }
+  }
+
+  return result;
+}
+
+void raven::RavenSequentialGNSSMeasurementSelector::GetFinalGnssObservable(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+{
+  v4 = *(a2 + 176);
+  if ((v4 - 1) >= 3)
+  {
+    if (!v4)
+    {
+      v7 = *(a2 + 8);
+      v8 = v7[11];
+      *(a3 + 160) = v7[10];
+      *(a3 + 176) = v8;
+      *(a3 + 192) = v7[12];
+      v9 = v7[7];
+      *(a3 + 96) = v7[6];
+      *(a3 + 112) = v9;
+      v10 = v7[9];
+      *(a3 + 128) = v7[8];
+      *(a3 + 144) = v10;
+      v11 = v7[3];
+      *(a3 + 32) = v7[2];
+      *(a3 + 48) = v11;
+      v12 = v7[5];
+      *(a3 + 64) = v7[4];
+      *(a3 + 80) = v12;
+      v14 = *v7;
+      v13 = v7[1];
+      v5 = 1;
+      *a3 = v14;
+      *(a3 + 16) = v13;
+      goto LABEL_7;
+    }
+
+    if (*(a2 + 200))
+    {
+      v15 = *(a2 + 8);
+      v16 = *(v15 + 144);
+      *(a3 + 128) = *(v15 + 128);
+      *(a3 + 144) = v16;
+      *(a3 + 160) = *(v15 + 160);
+      v17 = *(v15 + 80);
+      *(a3 + 64) = *(v15 + 64);
+      *(a3 + 80) = v17;
+      v18 = *(v15 + 112);
+      *(a3 + 96) = *(v15 + 96);
+      *(a3 + 112) = v18;
+      v19 = *(v15 + 16);
+      *a3 = *v15;
+      *(a3 + 16) = v19;
+      v20 = *(v15 + 48);
+      *(a3 + 32) = *(v15 + 32);
+      *(a3 + 48) = v20;
+      *(a3 + 172) = *(v15 + 172);
+      *(a3 + 188) = *(v15 + 188);
+      *(a3 + 204) = *(v15 + 204);
+      *&v20 = sqrt(*(a2 + 192));
+      *(a3 + 168) = v20;
+      v5 = 1;
+      goto LABEL_7;
+    }
+
+    if (cnprint::CNPrinter::GetLogLevel(a1) <= 1)
+    {
+      v27 = 12;
+      v26 = 1;
+      v22 = sub_1D0BCFAB8(*a2);
+      v23 = *(*(a2 + 8) + 96) - 1;
+      if (v23 > 4)
+      {
+        v24 = "UnknownType";
+      }
+
+      else
+      {
+        v24 = off_1E83D8358[v23];
+      }
+
+      cnprint::CNLogFormatter::FormatGeneral(a1 + 208, a1 + 96, "#MSR %s %s no recommended variance", v22, v24);
+      if (*(a1 + 231) >= 0)
+      {
+        v25 = (a1 + 208);
+      }
+
+      else
+      {
+        v25 = *(a1 + 208);
+      }
+
+      cnprint::CNPrinter::Print(&v27, &v26, "%s", v25);
+    }
+  }
+
+  v5 = 0;
+  *a3 = 0;
+LABEL_7:
+  *(a3 + 208) = v5;
+}
+
+uint64_t sub_1D0BC9B98(uint64_t a1, double *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v22[4] = *MEMORY[0x1E69E9840];
+  v5 = *(a4 + 8);
+  if ((v5 & 0x80000000) != 0)
+  {
+    __assert_rtn("Zeros", "cnmatrix.h", 3098, "nr >= 0");
+  }
+
+  v18 = 0x100000003;
+  v13 = &unk_1F4CDEB28;
+  v9 = v20;
+  v19 = v20;
+  v14 = v5;
+  v15 = 1;
+  v16 = v5;
+  v17 = v5;
+  if (v5 > 3)
+  {
+    v10 = &v20[v5];
+    bzero(v20, 16 * ((v5 - 1) >> 1));
+    *(v10 - 2) = 0;
+    *(v10 - 1) = 0;
+  }
+
+  else if (v5)
+  {
+    bzero(v20, 8 * v5);
+  }
+
+  if (*a1)
+  {
+    if (*(a1 + 5936) == 174)
+    {
+      LOWORD(v22[0]) = 2;
+      v21 = 2;
+      cnprint::CNPrinter::Print(v22, &v21, "MeasurementAccumulator::AddMeasurement() failed - Out of space,t_meas,%.3lf", a2[1] + *a2);
+    }
+
+    else if (*(a1 + 1) == 1)
+    {
+      if (cnprint::CNPrinter::GetLogLevel(v9) <= 1)
+      {
+        LOWORD(v22[0]) = 2;
+        v21 = 1;
+        cnprint::CNPrinter::Print(v22, &v21, "MeasurementAccumulator::AddMeasurement() failed - Locked,t_meas,%.3lf", a2[1] + *a2);
+      }
+    }
+
+    else
+    {
+      v11 = sub_1D0B7C8AC(a2, (a1 + 8));
+      if (!v11)
+      {
+        v22[0] = 0;
+        v22[1] = 0;
+        sub_1D0BD3638(v22, a5);
+      }
+
+      if (cnprint::CNPrinter::GetLogLevel(v11) <= 1)
+      {
+        LOWORD(v22[0]) = 2;
+        v21 = 1;
+        cnprint::CNPrinter::Print(v22, &v21, "MeasurementAccumulator::AddMeasurement() failed - Measurement too old,t_meas,%.3lf,t_start,%.3lf", a2[1] + *a2, *(a1 + 16) + *(a1 + 8));
+      }
+    }
+  }
+
+  else if (cnprint::CNPrinter::GetLogLevel(v9) <= 1)
+  {
+    LOWORD(v22[0]) = 2;
+    v21 = 1;
+    cnprint::CNPrinter::Print(v22, &v21, "MeasurementAccumulator::AddMeasurement() failed - Not initialized,t_meas,%.3lf", a2[1] + *a2);
+  }
+
+  return 0xFFFFFFFFLL;
+}
+
+void sub_1D0BC9FE8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20)
+{
+  if (a2)
+  {
+    sub_1D0C537DC(exception_object);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void *sub_1D0BCA014(int a1, void *a2, void *a3, uint64_t a4, void *a5)
+{
+  if (a1 <= 1)
+  {
+    if (a1)
+    {
+      sub_1D0BD3638(a3, a2[1]);
+      return 0;
+    }
+
+    v7 = a2[1];
+    (**v7)(v7, a2, a3, a4, a5);
+    operator delete(v7);
+    result = 0;
+LABEL_9:
+    *a2 = 0;
+    return result;
+  }
+
+  if (a1 == 2)
+  {
+    result = 0;
+    v9 = a2[1];
+    *a3 = sub_1D0BCA014;
+    a3[1] = v9;
+    goto LABEL_9;
+  }
+
+  if (a1 != 3)
+  {
+    return &unk_1F4CEC240;
+  }
+
+  if (a4)
+  {
+    v6 = sub_1D0B7CA64(a4, &unk_1F4CEC240);
+  }
+
+  else
+  {
+    v6 = a5 == &std::__any_imp::__unique_typeinfo<raven::h_GnssPsrArgs_RavenConvergence>::__id;
+  }
+
+  if (v6)
+  {
+    return a2[1];
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t sub_1D0BCA100(uint64_t a1)
+{
+  *a1 = &unk_1F4CEC228;
+  v2 = *(a1 + 520);
+  if (v2)
+  {
+    sub_1D0B7CAB8(v2);
+  }
+
+  *a1 = &unk_1F4CE4300;
+  if (*(a1 + 39) < 0)
+  {
+    operator delete(*(a1 + 16));
+  }
+
+  *(a1 + 296) = &unk_1F4CDFE98;
+  if (*(a1 + 327) < 0)
+  {
+    operator delete(*(a1 + 304));
+  }
+
+  *(a1 + 296) = &unk_1F4CD5F70;
+  if (*(a1 + 79) < 0)
+  {
+    operator delete(*(a1 + 56));
+  }
+
+  return a1;
+}
+
+void sub_1D0BCA3B4(_Unwind_Exception *a1)
+{
+  sub_1D0D840AC(v1 + 56);
+  operator delete(v1);
+  _Unwind_Resume(a1);
+}
+
+void sub_1D0BCA40C(uint64_t *a1)
+{
+  v2 = *a1;
+  for (i = a1[1]; i != v2; i -= 16)
+  {
+    v4 = *(i - 8);
+    if (v4)
+    {
+      sub_1D0B7CAB8(v4);
+    }
+  }
+
+  a1[1] = v2;
+}
+
+void sub_1D0BCA45C(uint64_t a1, uint64_t a2)
+{
+  if (*(a2 + 8) == 1)
+  {
+    v4 = *(a2 + 24);
+  }
+
+  else
+  {
+    LOWORD(v14.__vftable) = 3;
+    LOBYTE(v12) = 5;
+    cnprint::CNPrinter::Print(&v14, &v12, "Attempted to access type of uninitialized GenericEvent.");
+    v4 = MEMORY[0x1E69E54A8];
+  }
+
+  {
+    v5 = *(a2 + 16);
+    if (v5)
+    {
+      v6 = (*(*v5 + 16))(v5);
+    }
+
+    else
+    {
+      v6 = MEMORY[0x1E69E54A8];
+    }
+
+    v9 = (*(v6 + 8) & 0x7FFFFFFFFFFFFFFFLL);
+    if (v9 != (off_1F4CEE718 & 0x7FFFFFFFFFFFFFFFLL) && strcmp(v9, (off_1F4CEE718 & 0x7FFFFFFFFFFFFFFFLL)))
+    {
+      v14.__vftable = 0;
+      std::bad_cast::bad_cast(&v14);
+      v14.__vftable = &unk_1F4CE4880;
+      sub_1D0DC7F8C(&v14);
+    }
+
+    v10 = *(a2 + 16);
+    *a1 = &unk_1F4CEF748;
+
+    memcpy((a1 + 8), (v10 + 16), 0x160uLL);
+  }
+
+  else
+  {
+    v12 = 3;
+    v11 = 5;
+    if (*(a2 + 8) == 1)
+    {
+      v7 = *(a2 + 24);
+    }
+
+    else
+    {
+      LOWORD(v14.__vftable) = 3;
+      v13 = 5;
+      cnprint::CNPrinter::Print(&v14, &v13, "Attempted to access type of uninitialized GenericEvent.");
+      v7 = MEMORY[0x1E69E54A8];
+    }
+
+    cnprint::CNPrinter::Print(&v12, &v11, "Attempted to cast a GenericEvent of type %s to type %s.", (*(v7 + 8) & 0x7FFFFFFFFFFFFFFFLL), (off_1F4CEE718 & 0x7FFFFFFFFFFFFFFFLL));
+    *(a1 + 280) = 0;
+    *(a1 + 248) = 0u;
+    *(a1 + 232) = 0u;
+    *(a1 + 216) = 0u;
+    *(a1 + 200) = 0u;
+    *(a1 + 184) = 0u;
+    *(a1 + 168) = 0u;
+    *(a1 + 152) = 0u;
+    *(a1 + 136) = 0u;
+    *(a1 + 120) = 0u;
+    *(a1 + 104) = 0u;
+    *(a1 + 88) = 0u;
+    *(a1 + 72) = 0u;
+    *(a1 + 56) = 0u;
+    *(a1 + 40) = 0u;
+    *(a1 + 24) = 0u;
+    *(a1 + 264) = 0u;
+    *(a1 + 8) = 0;
+    *(a1 + 16) = 0;
+    *a1 = &unk_1F4CEF748;
+    *(a1 + 24) = 0;
+    *(a1 + 32) = 0;
+    *(a1 + 40) = 0;
+    *(a1 + 48) = 0;
+    *(a1 + 56) = 0;
+    *(a1 + 64) = 0;
+    *(a1 + 72) = 0;
+    *(a1 + 80) = 0;
+    *(a1 + 88) = 0;
+    *(a1 + 104) = 0;
+    *(a1 + 112) = 0;
+    *(a1 + 96) = 0x7FF8000000000000;
+    *(a1 + 120) = 0;
+    *(a1 + 128) = 0;
+    *(a1 + 136) = 0;
+    *(a1 + 144) = 0;
+    *(a1 + 152) = 0;
+    *(a1 + 160) = 0;
+    *(a1 + 168) = 0;
+    *(a1 + 176) = 0;
+    *(a1 + 184) = 0;
+    *(a1 + 192) = 0x7FF8000000000000;
+    *(a1 + 201) = 0;
+    v8 = vdupq_n_s64(0x7FF8000000000000uLL);
+    *(a1 + 208) = v8;
+    *(a1 + 224) = v8;
+    *(a1 + 240) = v8;
+    *(a1 + 256) = v8;
+    *(a1 + 272) = 0x7FF8000000000000;
+    *(a1 + 288) = v8;
+    *(a1 + 304) = v8;
+    *(a1 + 320) = v8;
+    *(a1 + 336) = v8;
+    *(a1 + 352) = 0x7FF8000000000000;
+  }
+}
+
+void raven::RavenDeviceAttitudeActiveObject::RaiseExternalAttitudeEvent(raven::RavenDeviceAttitudeActiveObject *this, const raven::TimeMarkEvent *a2)
+{
+  if (*(*(this + 29) + 3806) == 1 && *(this + 1176) == 1 && *(this + 1168) == 1)
+  {
+    sub_1D0DD3320(this);
+  }
+}
+
+void raven::RavenDeviceAttitudeActiveObject::RemoveStaleSolutions(void *a1, void *a2, int8x16_t a3, int8x16_t a4)
+{
+  *a3.i64 = *(a1[29] + 1048) + *(a1[29] + 1048);
+  v18[0] = 0;
+  v18[1] = 0;
+  *v6.i64 = CNTimeSpan::SetTimeSpan(v18, 0, a3, a4);
+  v8 = CNTimeSpan::operator-(a2, v18, v6, v7);
+  if (a1[951])
+  {
+    v10 = v8;
+    v11 = v9;
+    if (v8)
+    {
+      v12 = 1;
+    }
+
+    else
+    {
+      v12 = (*&v9 & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL;
+    }
+
+    v13 = !v12;
+    do
+    {
+      v14 = *(a1[947] + ((a1[950] >> 1) & 0x7FFFFFFFFFFFFFF8)) + 2656 * (a1[950] & 0xFLL);
+      v15 = (*(*v14 + 16))(v14);
+      if (v15)
+      {
+        v17 = 1;
+      }
+
+      else
+      {
+        v17 = (*&v16 & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL;
+      }
+
+      if (!v17 || v13 || v15 == v10)
+      {
+        if (v16 >= v11)
+        {
+          return;
+        }
+      }
+
+      else if (v15 > v10)
+      {
+        return;
+      }
+
+      sub_1D0BAD890((a1 + 946));
+    }
+
+    while (a1[951]);
+  }
+}
+
+void sub_1D0BCA910(uint64_t a1, uint64_t a2)
+{
+  if (*(a2 + 8) == 1)
+  {
+    v4 = *(a2 + 24);
+  }
+
+  else
+  {
+    LOWORD(v22.__vftable) = 3;
+    LOBYTE(v20) = 5;
+    cnprint::CNPrinter::Print(&v22, &v20, "Attempted to access type of uninitialized GenericEvent.");
+    v4 = MEMORY[0x1E69E54A8];
+  }
+
+  {
+    v5 = *(a2 + 16);
+    if (v5)
+    {
+      v6 = (*(*v5 + 16))(v5);
+    }
+
+    else
+    {
+      v6 = MEMORY[0x1E69E54A8];
+    }
+
+    v8 = (*(v6 + 8) & 0x7FFFFFFFFFFFFFFFLL);
+    if (v8 != (off_1F4CEE988 & 0x7FFFFFFFFFFFFFFFLL) && strcmp(v8, (off_1F4CEE988 & 0x7FFFFFFFFFFFFFFFLL)))
+    {
+      v22.__vftable = 0;
+      std::bad_cast::bad_cast(&v22);
+      v22.__vftable = &unk_1F4CE4880;
+      sub_1D0DC7F8C(&v22);
+    }
+
+    v9 = *(a2 + 16);
+    *a1 = &unk_1F4CEF598;
+    v10 = *(v9 + 48);
+    v11 = *(v9 + 64);
+    v12 = *(v9 + 80);
+    v13 = *(v9 + 96);
+    v14 = *(v9 + 16);
+    v15 = *(v9 + 32);
+    *(a1 + 96) = 0;
+    v16 = (a1 + 96);
+    *(v16 - 9) = v15;
+    *(v16 - 11) = v14;
+    *(v16 - 1) = v13;
+    *(v16 - 3) = v12;
+    *(v16 - 5) = v11;
+    *(v16 - 7) = v10;
+    v16[1] = 0;
+    v16[2] = 0;
+    v17 = *(v9 + 104);
+    v18 = *(v9 + 112);
+
+    sub_1D0BBD5A4(v16, v17, v18, (v18 - v17) >> 4);
+  }
+
+  else
+  {
+    v20 = 3;
+    v19 = 5;
+    if (*(a2 + 8) == 1)
+    {
+      v7 = *(a2 + 24);
+    }
+
+    else
+    {
+      LOWORD(v22.__vftable) = 3;
+      v21 = 5;
+      cnprint::CNPrinter::Print(&v22, &v21, "Attempted to access type of uninitialized GenericEvent.");
+      v7 = MEMORY[0x1E69E54A8];
+    }
+
+    cnprint::CNPrinter::Print(&v20, &v19, "Attempted to cast a GenericEvent of type %s to type %s.", (*(v7 + 8) & 0x7FFFFFFFFFFFFFFFLL), (off_1F4CEE988 & 0x7FFFFFFFFFFFFFFFLL));
+    *(a1 + 40) = 0u;
+    *(a1 + 56) = 0u;
+    *(a1 + 72) = 0u;
+    *(a1 + 88) = 0;
+    *(a1 + 24) = 0u;
+    *(a1 + 40) = 0;
+    *(a1 + 56) = 0;
+    *(a1 + 72) = 0;
+    *(a1 + 108) = 0;
+    *(a1 + 100) = 0;
+    *(a1 + 116) = 0;
+    *(a1 + 92) = 0;
+    *(a1 + 8) = 0;
+    *(a1 + 16) = 0;
+    *a1 = &unk_1F4CEF598;
+    *(a1 + 24) = 0;
+  }
+}
+
+void sub_1D0BCAB88(uint64_t a1, unint64_t a2)
+{
+  if (!(a2 >> 60))
+  {
+    operator new();
+  }
+
+  sub_1D0C54BE8();
+}
+
+uint64_t sub_1D0BCABDC(uint64_t a1)
+{
+  if ((*(a1 + 24) & 1) == 0)
+  {
+    sub_1D0BC00C0(a1);
+  }
+
+  return a1;
+}
+
+void sub_1D0BCAC14(uint64_t a1, uint64_t a2)
+{
+  if (*a1 == 1)
+  {
+    v3 = *(a2 + 24);
+    *(a1 + 16) = *(a2 + 8);
+    *(a1 + 32) = v3;
+    v4 = *(a2 + 40);
+    v5 = *(a2 + 56);
+    v6 = *(a2 + 72);
+    *(a1 + 96) = *(a2 + 88);
+    *(a1 + 64) = v5;
+    *(a1 + 80) = v6;
+    *(a1 + 48) = v4;
+    if (a1 + 8 != a2)
+    {
+      v7 = *(a2 + 104);
+      v8 = (v7 - *(a2 + 96)) >> 4;
+      v9 = (a1 + 104);
+      v10 = *(a2 + 96);
+
+      sub_1D0BBD668(v9, v10, v7, v8);
+    }
+  }
+
+  else
+  {
+    *(a1 + 8) = &unk_1F4CEF598;
+    v11 = *(a2 + 24);
+    *(a1 + 16) = *(a2 + 8);
+    *(a1 + 32) = v11;
+    v12 = *(a2 + 40);
+    v13 = *(a2 + 56);
+    v14 = *(a2 + 72);
+    *(a1 + 96) = *(a2 + 88);
+    *(a1 + 64) = v13;
+    *(a1 + 80) = v14;
+    *(a1 + 48) = v12;
+    *(a1 + 112) = 0;
+    *(a1 + 120) = 0;
+    *(a1 + 104) = 0;
+    sub_1D0BBD5A4((a1 + 104), *(a2 + 96), *(a2 + 104), (*(a2 + 104) - *(a2 + 96)) >> 4);
+    *a1 = 1;
+  }
 }

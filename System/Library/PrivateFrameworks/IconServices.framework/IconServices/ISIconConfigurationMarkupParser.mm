@@ -31,7 +31,7 @@
 
 - (id)colorsForKey:(id)key
 {
-  v27[1] = *MEMORY[0x1E69E9840];
+  v26[1] = *MEMORY[0x1E69E9840];
   keyCopy = key;
   configDict = [(ISIconConfigurationMarkupParser *)self configDict];
 
@@ -47,8 +47,8 @@
 
       if (v9)
       {
-        v27[0] = v9;
-        v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:1];
+        v26[0] = v9;
+        v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:1];
       }
 
       else
@@ -57,27 +57,27 @@
       }
     }
 
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v10 = v7;
-    v11 = [v10 countByEnumeratingWithState:&v20 objects:v26 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v19 objects:v25 count:16];
     if (v11)
     {
       v12 = v11;
       configDict = 0;
-      v13 = *v21;
+      v13 = *v20;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v21 != v13)
+          if (*v20 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v20 + 1) + 8 * i);
+          v15 = *(*(&v19 + 1) + 8 * i);
           v16 = _ISColorForString(v15);
           if (v16)
           {
@@ -91,16 +91,16 @@
 
           else
           {
-            v17 = _ISDefaultLog();
+            v17 = _ISDefaultLog(0);
             if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              v25 = v15;
+              v24 = v15;
             }
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v20 objects:v26 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v19 objects:v25 count:16];
       }
 
       while (v12);
@@ -111,8 +111,6 @@
       configDict = 0;
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return configDict;
 }

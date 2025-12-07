@@ -48,30 +48,30 @@
 
 - (BOOL)commitWithError:(id *)error
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   if (objc_msgSend_count(self->_modifiedIdentifiers, a2, error) || objc_msgSend_count(self->_deletedIdentifiers, v4, v5))
   {
-    v58 = 0u;
-    v59 = 0u;
-    v56 = 0u;
     v57 = 0u;
+    v58 = 0u;
+    v55 = 0u;
+    v56 = 0u;
     v8 = self->_deletedIdentifiers;
-    v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v56, v61, 16);
+    v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v55, v60, 16);
     if (v10)
     {
       v12 = v10;
-      v13 = *v57;
+      v13 = *v56;
       v14 = 1;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v57 != v13)
+          if (*v56 != v13)
           {
             objc_enumerationMutation(v8);
           }
 
-          v16 = *(*(&v56 + 1) + 8 * i);
+          v16 = *(*(&v55 + 1) + 8 * i);
           if ((objc_msgSend_containsObject_(self->_newIdentifiers, v11, v16) & 1) == 0)
           {
             v17 = objc_msgSend__filePathForIdentifier_(self, v11, v16);
@@ -83,7 +83,7 @@
           }
         }
 
-        v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v11, &v56, v61, 16);
+        v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v11, &v55, v60, 16);
       }
 
       while (v12);
@@ -96,26 +96,26 @@
 
     objc_msgSend_removeAllObjects(self->_deletedIdentifiers, v23, v24);
     v27 = objc_msgSend_defaultManager(MEMORY[0x277CCAA00], v25, v26);
+    v51 = 0u;
     v52 = 0u;
     v53 = 0u;
     v54 = 0u;
-    v55 = 0u;
     v28 = self->_modifiedIdentifiers;
-    v30 = objc_msgSend_countByEnumeratingWithState_objects_count_(v28, v29, &v52, v60, 16);
+    v30 = objc_msgSend_countByEnumeratingWithState_objects_count_(v28, v29, &v51, v59, 16);
     if (v30)
     {
       v32 = v30;
-      v33 = *v53;
+      v33 = *v52;
       do
       {
         for (j = 0; j != v32; ++j)
         {
-          if (*v53 != v33)
+          if (*v52 != v33)
           {
             objc_enumerationMutation(v28);
           }
 
-          v35 = *(*(&v52 + 1) + 8 * j);
+          v35 = *(*(&v51 + 1) + 8 * j);
           v36 = objc_msgSend__filePathForIdentifier_(self, v31, v35);
           if (objc_msgSend_fileExistsAtPath_(v27, v37, v36))
           {
@@ -125,13 +125,13 @@
           }
 
           v43 = objc_msgSend__filePathForModifiedIdentifier_(self, v38, v35);
-          v51 = 0;
-          v45 = objc_msgSend_moveItemAtPath_toPath_error_(v27, v44, v43, v36, &v51);
+          v50 = 0;
+          v45 = objc_msgSend_moveItemAtPath_toPath_error_(v27, v44, v43, v36, &v50);
 
           v14 &= v45;
         }
 
-        v32 = objc_msgSend_countByEnumeratingWithState_objects_count_(v28, v31, &v52, v60, 16);
+        v32 = objc_msgSend_countByEnumeratingWithState_objects_count_(v28, v31, &v51, v59, 16);
       }
 
       while (v32);
@@ -148,7 +148,6 @@
   }
 
   objc_msgSend_removeAllObjects(self->_newIdentifiers, v6, v7);
-  v49 = *MEMORY[0x277D85DE8];
   return v14 & 1;
 }
 

@@ -14,12 +14,12 @@
 
 - (void)_connectionInvalidated
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = AFSiriLogContextAnalytics;
   if (os_log_type_enabled(AFSiriLogContextAnalytics, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v8 = "[AFAnalyticsObserverConnection _connectionInvalidated]";
+    v7 = "[AFAnalyticsObserverConnection _connectionInvalidated]";
     _os_log_error_impl(&dword_1912FE000, v3, OS_LOG_TYPE_ERROR, "%s ", buf, 0xCu);
   }
 
@@ -30,17 +30,16 @@
   block[3] = &unk_1E73497C8;
   block[4] = self;
   dispatch_async(queue, block);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_connectionInterrupted
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = AFSiriLogContextAnalytics;
   if (os_log_type_enabled(AFSiriLogContextAnalytics, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v8 = "[AFAnalyticsObserverConnection _connectionInterrupted]";
+    v7 = "[AFAnalyticsObserverConnection _connectionInterrupted]";
     _os_log_error_impl(&dword_1912FE000, v3, OS_LOG_TYPE_ERROR, "%s ", buf, 0xCu);
   }
 
@@ -51,7 +50,6 @@
   block[3] = &unk_1E73497C8;
   block[4] = self;
   dispatch_async(queue, block);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_connection
@@ -163,27 +161,25 @@ void __44__AFAnalyticsObserverConnection__connection__block_invoke_2(uint64_t a1
 
 - (void)flushWithCompletion:(id)completion
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v5 = AFSiriLogContextAnalytics;
   if (os_log_type_enabled(AFSiriLogContextAnalytics, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v12 = "[AFAnalyticsObserverConnection flushWithCompletion:]";
+    v11 = "[AFAnalyticsObserverConnection flushWithCompletion:]";
     _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s begin", buf, 0xCu);
   }
 
   queue = self->_queue;
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __53__AFAnalyticsObserverConnection_flushWithCompletion___block_invoke;
-  v9[3] = &unk_1E7349838;
-  v9[4] = self;
-  v10 = completionCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __53__AFAnalyticsObserverConnection_flushWithCompletion___block_invoke;
+  v8[3] = &unk_1E7349838;
+  v8[4] = self;
+  v9 = completionCopy;
   v7 = completionCopy;
-  dispatch_async(queue, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  dispatch_async(queue, v8);
 }
 
 void __53__AFAnalyticsObserverConnection_flushWithCompletion___block_invoke(uint64_t a1)
@@ -200,40 +196,37 @@ void __53__AFAnalyticsObserverConnection_flushWithCompletion___block_invoke(uint
 
 uint64_t __53__AFAnalyticsObserverConnection_flushWithCompletion___block_invoke_4(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextAnalytics;
   if (os_log_type_enabled(AFSiriLogContextAnalytics, OS_LOG_TYPE_INFO))
   {
-    v5 = 136315138;
-    v6 = "[AFAnalyticsObserverConnection flushWithCompletion:]_block_invoke";
-    _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s end", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[AFAnalyticsObserverConnection flushWithCompletion:]_block_invoke";
+    _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s end", &v4, 0xCu);
   }
 
   result = *(a1 + 32);
   if (result)
   {
-    result = (*(result + 16))();
+    return (*(result + 16))();
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 void __53__AFAnalyticsObserverConnection_flushWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = AFSiriLogContextAnalytics;
   if (os_log_type_enabled(AFSiriLogContextAnalytics, OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315394;
-    v6 = "[AFAnalyticsObserverConnection flushWithCompletion:]_block_invoke_2";
-    v7 = 2112;
-    v8 = v2;
-    _os_log_error_impl(&dword_1912FE000, v3, OS_LOG_TYPE_ERROR, "%s end with error %@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[AFAnalyticsObserverConnection flushWithCompletion:]_block_invoke_2";
+    v6 = 2112;
+    v7 = v2;
+    _os_log_error_impl(&dword_1912FE000, v3, OS_LOG_TYPE_ERROR, "%s end with error %@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (AFAnalyticsObserverConnection)initWithObservation:(id)observation
@@ -290,21 +283,19 @@ void __53__AFAnalyticsObserverConnection_initWithObservation___block_invoke(uint
 
 void __53__AFAnalyticsObserverConnection_initWithObservation___block_invoke_2(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = AFSiriLogContextAnalytics;
   if (os_log_type_enabled(AFSiriLogContextAnalytics, OS_LOG_TYPE_ERROR))
   {
-    v6 = 136315394;
-    v7 = "[AFAnalyticsObserverConnection initWithObservation:]_block_invoke_2";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_error_impl(&dword_1912FE000, v4, OS_LOG_TYPE_ERROR, "%s %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[AFAnalyticsObserverConnection initWithObservation:]_block_invoke_2";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_error_impl(&dword_1912FE000, v4, OS_LOG_TYPE_ERROR, "%s %@", &v5, 0x16u);
   }
 
   dispatch_semaphore_signal(*(*(a1 + 32) + 16));
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

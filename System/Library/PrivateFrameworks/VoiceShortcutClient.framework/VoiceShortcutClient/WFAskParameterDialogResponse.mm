@@ -1,6 +1,7 @@
 @interface WFAskParameterDialogResponse
 - (WFAskParameterDialogResponse)initWithBSXPCCoder:(id)coder;
 - (WFAskParameterDialogResponse)initWithCoder:(id)coder;
+- (WFAskParameterDialogResponse)initWithSerializedParameterState:(id)state cancelled:(BOOL)cancelled;
 - (id)description;
 - (void)encodeWithBSXPCCoder:(id)coder;
 - (void)encodeWithCoder:(id)coder;
@@ -93,6 +94,23 @@
   v8 = [v3 stringWithFormat:@"<%@: %p, serializedParameterState: %@, cancelled: %@>", v5, self, serializedParameterState, v7];
 
   return v8;
+}
+
+- (WFAskParameterDialogResponse)initWithSerializedParameterState:(id)state cancelled:(BOOL)cancelled
+{
+  cancelledCopy = cancelled;
+  stateCopy = state;
+  v12.receiver = self;
+  v12.super_class = WFAskParameterDialogResponse;
+  v8 = [(WFDialogResponse *)&v12 initWithCancelled:cancelledCopy];
+  v9 = v8;
+  if (v8)
+  {
+    objc_storeStrong(&v8->_serializedParameterState, state);
+    v10 = v9;
+  }
+
+  return v9;
 }
 
 @end

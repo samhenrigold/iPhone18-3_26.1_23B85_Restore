@@ -56,7 +56,7 @@
     v12 = v4;
     blockedCopy = blocked;
     self->_thermallyBlocked = blocked;
-    v7 = SBLogBacklight();
+    v7 = SBLogBacklight(self);
     v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
     if (blockedCopy)
     {

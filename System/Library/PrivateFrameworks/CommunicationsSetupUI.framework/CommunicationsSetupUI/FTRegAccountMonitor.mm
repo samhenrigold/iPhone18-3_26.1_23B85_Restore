@@ -15,10 +15,10 @@
 
 - (FTRegAccountMonitor)initWithServiceType:(int64_t)type
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v13.receiver = self;
-  v13.super_class = FTRegAccountMonitor;
-  v4 = [(FTRegAccountMonitor *)&v13 init];
+  v15 = *MEMORY[0x277D85DE8];
+  v12.receiver = self;
+  v12.super_class = FTRegAccountMonitor;
+  v4 = [(FTRegAccountMonitor *)&v12 init];
   if (v4)
   {
     v5 = FTCServiceNameForServiceType();
@@ -36,7 +36,7 @@
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v15 = v6;
+      v14 = v6;
       _os_log_impl(&dword_243BE5000, v7, OS_LOG_TYPE_DEFAULT, "Creating monitor with service: %@", buf, 0xCu);
     }
 
@@ -56,7 +56,6 @@
   v10 = v4;
 LABEL_11:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -96,36 +95,36 @@ LABEL_11:
 
 uint64_t __38__FTRegAccountMonitor__activeAccounts__block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if ([v2 CNFRegSignInComplete] && (objc_msgSend(v2, "accountType") != 1 || objc_msgSend(v2, "profileValidationStatus") == 3))
   {
-    v11 = 0u;
-    v12 = 0u;
-    v9 = 0u;
     v10 = 0u;
+    v11 = 0u;
+    v8 = 0u;
+    v9 = 0u;
     v3 = [v2 aliases];
-    v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     if (v4)
     {
-      v5 = *v10;
+      v5 = *v9;
       while (2)
       {
         for (i = 0; i != v4; ++i)
         {
-          if (*v10 != v5)
+          if (*v9 != v5)
           {
             objc_enumerationMutation(v3);
           }
 
-          if ([v2 validationStatusForAlias:*(*(&v9 + 1) + 8 * i)] == 3)
+          if ([v2 validationStatusForAlias:*(*(&v8 + 1) + 8 * i)] == 3)
           {
             v4 = 1;
             goto LABEL_15;
           }
         }
 
-        v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+        v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
         if (v4)
         {
           continue;
@@ -143,14 +142,13 @@ LABEL_15:
     v4 = 0;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 - (void)_updateAccountState:(BOOL)state
 {
   stateCopy = state;
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
@@ -170,29 +168,29 @@ LABEL_15:
     v7 = [_activeAccounts count];
     if (v7 == [(NSArray *)self->_accounts count])
     {
-      v23 = 0u;
-      v24 = 0u;
-      v21 = 0u;
       v22 = 0u;
+      v23 = 0u;
+      v20 = 0u;
+      v21 = 0u;
       v8 = self->_accounts;
-      v9 = [(NSArray *)v8 countByEnumeratingWithState:&v21 objects:v27 count:16];
+      v9 = [(NSArray *)v8 countByEnumeratingWithState:&v20 objects:v26 count:16];
       if (v9)
       {
         v10 = 0;
-        v11 = *v22;
+        v11 = *v21;
         do
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v22 != v11)
+            if (*v21 != v11)
             {
               objc_enumerationMutation(v8);
             }
 
-            v10 |= [_activeAccounts containsObject:*(*(&v21 + 1) + 8 * i)] ^ 1;
+            v10 |= [_activeAccounts containsObject:*(*(&v20 + 1) + 8 * i)] ^ 1;
           }
 
-          v9 = [(NSArray *)v8 countByEnumeratingWithState:&v21 objects:v27 count:16];
+          v9 = [(NSArray *)v8 countByEnumeratingWithState:&v20 objects:v26 count:16];
         }
 
         while (v9);
@@ -237,7 +235,7 @@ LABEL_16:
       }
 
       *buf = 138412290;
-      v26 = v16;
+      v25 = v16;
       _os_log_impl(&dword_243BE5000, v15, OS_LOG_TYPE_DEFAULT, "Accounts changed, posting: %@", buf, 0xCu);
     }
 
@@ -271,7 +269,6 @@ LABEL_36:
 
 LABEL_37:
   CNFRegLogOutdent();
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_shouldHandleAccountNofication:(id)nofication
@@ -341,7 +338,7 @@ LABEL_37:
 
 - (void)_handleAccountNotification:(id)notification
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   if ([(FTRegAccountMonitor *)self _shouldHandleAccountNofication:notificationCopy])
   {
@@ -350,7 +347,7 @@ LABEL_37:
     {
       name = [notificationCopy name];
       *buf = 138412290;
-      v10 = name;
+      v9 = name;
       _os_log_impl(&dword_243BE5000, v5, OS_LOG_TYPE_DEFAULT, "Updating account due to notification: %@", buf, 0xCu);
     }
 
@@ -364,8 +361,6 @@ LABEL_37:
     [(FTRegAccountMonitor *)self _updateAccountState:1];
     CNFRegLogOutdent();
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleDaemonConnected:(id)connected

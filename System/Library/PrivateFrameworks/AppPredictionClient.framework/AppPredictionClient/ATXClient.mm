@@ -73,7 +73,7 @@
 
 - (void)dealloc
 {
-  v3 = __atxlog_handle_default();
+  v3 = __atxlog_handle_default(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [ATXClient dealloc];
@@ -105,10 +105,10 @@
   return xpcConnection;
 }
 
-void __27__ATXClient__getConnection__block_invoke()
+void __27__ATXClient__getConnection__block_invoke(uint64_t a1)
 {
-  v0 = __atxlog_handle_default();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = __atxlog_handle_default(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __27__ATXClient__getConnection__block_invoke_cold_1();
   }
@@ -130,7 +130,7 @@ void __27__ATXClient__getConnection__block_invoke()
 void __24__ATXClient__asyncProxy__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_default();
+  v3 = __atxlog_handle_default(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __24__ATXClient__asyncProxy__block_invoke_cold_1();
@@ -148,7 +148,7 @@ void __24__ATXClient__asyncProxy__block_invoke(uint64_t a1, void *a2)
 void __23__ATXClient__syncProxy__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_default();
+  v3 = __atxlog_handle_default(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __24__ATXClient__asyncProxy__block_invoke_cold_1();
@@ -190,7 +190,7 @@ void __23__ATXClient__syncProxy__block_invoke(uint64_t a1, void *a2)
 void __35__ATXClient_approvedSiriKitIntents__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_default();
+  v3 = __atxlog_handle_default(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __35__ATXClient_approvedSiriKitIntents__block_invoke_cold_1();
@@ -201,10 +201,11 @@ void __35__ATXClient_approvedSiriKitIntents__block_invoke_21(uint64_t a1, void *
 {
   v6 = a2;
   v7 = a3;
+  v8 = v7;
   if (v7)
   {
-    v8 = __atxlog_handle_default();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = __atxlog_handle_default(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __35__ATXClient_approvedSiriKitIntents__block_invoke_cold_1();
     }
@@ -241,7 +242,7 @@ void __35__ATXClient_approvedSiriKitIntents__block_invoke_21(uint64_t a1, void *
 void __38__ATXClient_shouldPredictAppBundleId___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_default();
+  v3 = __atxlog_handle_default(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __38__ATXClient_shouldPredictAppBundleId___block_invoke_cold_1();
@@ -251,10 +252,11 @@ void __38__ATXClient_shouldPredictAppBundleId___block_invoke(uint64_t a1, void *
 void __38__ATXClient_shouldPredictAppBundleId___block_invoke_25(uint64_t a1, char a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = __atxlog_handle_default();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = __atxlog_handle_default(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __38__ATXClient_shouldPredictAppBundleId___block_invoke_cold_1();
     }
@@ -290,7 +292,7 @@ void __38__ATXClient_shouldPredictAppBundleId___block_invoke_25(uint64_t a1, cha
 void __74__ATXClient_shouldPredictBundleIdForShortcuts_action_forPrimaryShortcuts___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_default();
+  v3 = __atxlog_handle_default(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __74__ATXClient_shouldPredictBundleIdForShortcuts_action_forPrimaryShortcuts___block_invoke_cold_1();
@@ -300,10 +302,11 @@ void __74__ATXClient_shouldPredictBundleIdForShortcuts_action_forPrimaryShortcut
 void __74__ATXClient_shouldPredictBundleIdForShortcuts_action_forPrimaryShortcuts___block_invoke_29(uint64_t a1, char a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = __atxlog_handle_default();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = __atxlog_handle_default(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __74__ATXClient_shouldPredictBundleIdForShortcuts_action_forPrimaryShortcuts___block_invoke_cold_1();
     }
@@ -316,29 +319,29 @@ void __74__ATXClient_shouldPredictBundleIdForShortcuts_action_forPrimaryShortcut
 {
   v5 = *&limit;
   typeCopy = type;
-  v8 = __atxlog_handle_metrics();
+  v8 = __atxlog_handle_metrics(self);
   v9 = os_signpost_id_generate(v8);
 
-  v10 = __atxlog_handle_metrics();
-  v11 = v10;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v11 = __atxlog_handle_metrics(v10);
+  v12 = v11;
+  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1BF549000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v9, "ATXSpotlightClient.SuggestedApps", " enableTelemetry=YES ", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1BF549000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v9, "ATXSpotlightClient.SuggestedApps", " enableTelemetry=YES ", buf, 2u);
   }
 
-  v12 = objc_opt_new();
-  v13 = [(ATXClient *)self appPredictionsForConsumerSubType:typeCopy blackList:v12 limit:v5 runningDiagnostics:0];
+  v13 = objc_opt_new();
+  v14 = [(ATXClient *)self appPredictionsForConsumerSubType:typeCopy blackList:v13 limit:v5 runningDiagnostics:0];
 
-  v14 = __atxlog_handle_metrics();
-  v15 = v14;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
+  v16 = __atxlog_handle_metrics(v15);
+  v17 = v16;
+  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
   {
-    *v17 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1BF549000, v15, OS_SIGNPOST_INTERVAL_END, v9, "ATXSpotlightClient.SuggestedApps", " enableTelemetry=YES ", v17, 2u);
+    *v19 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1BF549000, v17, OS_SIGNPOST_INTERVAL_END, v9, "ATXSpotlightClient.SuggestedApps", " enableTelemetry=YES ", v19, 2u);
   }
 
-  return v13;
+  return v14;
 }
 
 - (id)_predicateForDenyList:(id)list
@@ -366,7 +369,7 @@ uint64_t __35__ATXClient__predicateForDenyList___block_invoke(uint64_t a1, void 
   {
     v6 = *(a1 + 32);
     v7 = [v3 predictedItem];
-    v8 = [v6 containsObject:v7] ^ 1;
+    v8 = objc_msgSend_containsObject_(v6) ^ 1;
   }
 
   else
@@ -381,16 +384,16 @@ uint64_t __35__ATXClient__predicateForDenyList___block_invoke(uint64_t a1, void 
 {
   v7 = *&limit;
   typeCopy = type;
-  v32 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   listCopy = list;
-  v11 = __atxlog_handle_default();
+  v11 = __atxlog_handle_default(listCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
-    v29[0] = 67109378;
-    v29[1] = typeCopy;
-    v30 = 2112;
-    v31 = listCopy;
-    _os_log_impl(&dword_1BF549000, v11, OS_LOG_TYPE_INFO, "App predictions for subtype %i deny list: %@", v29, 0x12u);
+    v30[0] = 67109378;
+    v30[1] = typeCopy;
+    v31 = 2112;
+    v32 = listCopy;
+    _os_log_impl(&dword_1BF549000, v11, OS_LOG_TYPE_INFO, "App predictions for subtype %i deny list: %@", v30, 0x12u);
   }
 
   if (diagnostics)
@@ -409,14 +412,15 @@ uint64_t __35__ATXClient__predicateForDenyList___block_invoke(uint64_t a1, void 
     if (v18)
     {
       v19 = ATXCacheFileSplitChunks();
-      if ([v19 count] == 2)
+      v20 = [v19 count];
+      if (v20 == 2)
       {
         firstObject = [v19 firstObject];
-        v21 = [ATXPredictionSetReader bundleIdReader:firstObject];
-        v22 = [v21 readScoredPredictionsWithLimit:v7 filterPredicate:v12];
-        v23 = [[ATXResponse alloc] initWithPredictions:v22 cacheFileData:v18 error:0];
+        v22 = [ATXPredictionSetReader bundleIdReader:firstObject];
+        v23 = [v22 readScoredPredictionsWithLimit:v7 filterPredicate:v12];
+        v24 = [[ATXResponse alloc] initWithPredictions:v23 cacheFileData:v18 error:0];
 
-        if (v23)
+        if (v24)
         {
 LABEL_24:
 
@@ -426,18 +430,18 @@ LABEL_24:
 
       else
       {
-        v25 = __atxlog_handle_default();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+        v26 = __atxlog_handle_default(v20);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v29[0]) = 0;
-          _os_log_impl(&dword_1BF549000, v25, OS_LOG_TYPE_DEFAULT, "No chunks returned from cache. (this may be due to a cache file change)", v29, 2u);
+          LOWORD(v30[0]) = 0;
+          _os_log_impl(&dword_1BF549000, v26, OS_LOG_TYPE_DEFAULT, "No chunks returned from cache. (this may be due to a cache file change)", v30, 2u);
         }
       }
     }
 
-    v26 = [ATXResponse alloc];
-    v27 = [MEMORY[0x1E696ABC0] errorWithDomain:@"ATXClient" code:1 userInfo:0];
-    v23 = [(ATXResponse *)v26 initWithPredictions:0 cacheFileData:0 error:v27];
+    v27 = [ATXResponse alloc];
+    v28 = [MEMORY[0x1E696ABC0] errorWithDomain:@"ATXClient" code:1 userInfo:0];
+    v24 = [(ATXResponse *)v27 initWithPredictions:0 cacheFileData:0 error:v28];
 
     goto LABEL_24;
   }
@@ -445,11 +449,11 @@ LABEL_24:
   v13 = CFPreferencesCopyAppValue(@"SuggestionsSpotlightZKWEnabled", @"com.apple.suggestions");
   if (v13 && (v14 = v13, v15 = [v13 BOOLValue], v14, !v15))
   {
-    v24 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    v25 = __atxlog_handle_blending(v13);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v29[0]) = 0;
-      _os_log_impl(&dword_1BF549000, v24, OS_LOG_TYPE_DEFAULT, "Siri setting 'Show Suggestions' turned off. [ATXClient appPredictionsForConsumerSubType:blackList:limit:runningDiagnostics:] to return an empty ATXResponse", v29, 2u);
+      LOWORD(v30[0]) = 0;
+      _os_log_impl(&dword_1BF549000, v25, OS_LOG_TYPE_DEFAULT, "Siri setting 'Show Suggestions' turned off. [ATXClient appPredictionsForConsumerSubType:blackList:limit:runningDiagnostics:] to return an empty ATXResponse", v30, 2u);
     }
 
     v17 = [[ATXResponse alloc] initWithPredictions:0 cacheFileData:0 error:0];
@@ -457,20 +461,20 @@ LABEL_24:
 
   else
   {
-    v16 = __atxlog_handle_blending();
+    v16 = __atxlog_handle_blending(v13);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v29[0]) = 0;
-      _os_log_impl(&dword_1BF549000, v16, OS_LOG_TYPE_DEFAULT, "Blending providing suggestions to ATXConsumerSubTypeSpotlightUnknown inside ATXClient...", v29, 2u);
+      LOWORD(v30[0]) = 0;
+      _os_log_impl(&dword_1BF549000, v16, OS_LOG_TYPE_DEFAULT, "Blending providing suggestions to ATXConsumerSubTypeSpotlightUnknown inside ATXClient...", v30, 2u);
     }
 
     v17 = [(ATXClient *)self atxResponseFromBlendingAppPredictionCacheForConsumerSubType:9 filterPredicate:v12 limit:v7];
   }
 
-  v23 = v17;
+  v24 = v17;
 LABEL_25:
 
-  return v23;
+  return v24;
 }
 
 - (id)atxResponseFromBlendingAppPredictionCacheForConsumerSubType:(unsigned __int8)type filterPredicate:(id)predicate limit:(int)limit
@@ -485,7 +489,7 @@ LABEL_25:
     v11 = objc_opt_new();
     v12 = objc_opt_new();
     allSuggestionsInLayout = [suggestionLayoutFromCache allSuggestionsInLayout];
-    v14 = __atxlog_handle_blending();
+    v14 = __atxlog_handle_blending(allSuggestionsInLayout);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(buf) = 134217984;
@@ -514,8 +518,7 @@ LABEL_25:
     v26 = v15;
     v16 = v12;
     v27 = v16;
-    [allSuggestionsInLayout enumerateObjectsUsingBlock:v25];
-    v17 = __atxlog_handle_blending();
+    v17 = __atxlog_handle_blending([allSuggestionsInLayout enumerateObjectsUsingBlock:v25]);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       v18 = [v15 count];
@@ -535,7 +538,7 @@ LABEL_25:
 
   else
   {
-    v23 = __atxlog_handle_blending();
+    v23 = __atxlog_handle_blending(0);
     if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf) = 0;
@@ -550,7 +553,7 @@ LABEL_25:
 
 void __95__ATXClient_atxResponseFromBlendingAppPredictionCacheForConsumerSubType_filterPredicate_limit___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = v6;
   if (*(*(*(a1 + 48) + 8) + 24) >= *(a1 + 64))
@@ -564,37 +567,38 @@ void __95__ATXClient_atxResponseFromBlendingAppPredictionCacheForConsumerSubType
     v9 = [v8 executableObject];
 
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v10 = [ATXScoredPrediction alloc];
-      v11 = [v7 scoreSpecification];
-      [v11 rawScore];
-      *&v12 = v12;
-      v13 = [(ATXScoredPrediction *)v10 initWithPredictedItem:v9 score:v12];
+      v11 = [ATXScoredPrediction alloc];
+      v12 = [v7 scoreSpecification];
+      [v12 rawScore];
+      *&v13 = v13;
+      v14 = [(ATXScoredPrediction *)v11 initWithPredictedItem:v9 score:v13];
 
-      if (v13 && ((v14 = *(*(*(a1 + 56) + 8) + 40)) == 0 || [v14 evaluateWithObject:v13]))
+      if (v14 && ((v16 = *(*(*(a1 + 56) + 8) + 40)) == 0 || (v15 = [v16 evaluateWithObject:v14], v15)))
       {
-        [*(a1 + 32) addObject:v13];
+        [*(a1 + 32) addObject:v14];
         [*(a1 + 40) addObject:v7];
         ++*(*(*(a1 + 48) + 8) + 24);
       }
 
       else
       {
-        v15 = __atxlog_handle_blending();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+        v17 = __atxlog_handle_blending(v15);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
         {
-          v16 = 138412290;
-          v17 = v9;
-          _os_log_impl(&dword_1BF549000, v15, OS_LOG_TYPE_INFO, "%@ did not pass app prediction deny list filters", &v16, 0xCu);
+          v18 = 138412290;
+          v19 = v9;
+          _os_log_impl(&dword_1BF549000, v17, OS_LOG_TYPE_INFO, "%@ did not pass app prediction deny list filters", &v18, 0xCu);
         }
       }
     }
 
     else
     {
-      v13 = __atxlog_handle_blending();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+      v14 = __atxlog_handle_blending(isKindOfClass);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
       {
         __95__ATXClient_atxResponseFromBlendingAppPredictionCacheForConsumerSubType_filterPredicate_limit___block_invoke_cold_1();
       }
@@ -605,56 +609,54 @@ void __95__ATXClient_atxResponseFromBlendingAppPredictionCacheForConsumerSubType
 - (void)logUserFeedback:(id)feedback consumerSubType:(unsigned __int8)type engagementType:(unint64_t)engagementType bundleIdentifier:(id)identifier bundleIdsShown:(id)shown explicitlyRejectedIds:(id)ids personaUID:(id)d
 {
   typeCopy = type;
-  v53 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   feedbackCopy = feedback;
   identifierCopy = identifier;
   shownCopy = shown;
   idsCopy = ids;
-  v19 = __atxlog_handle_default();
+  v19 = __atxlog_handle_default(idsCopy);
   v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG);
 
   if (v20)
   {
     engagementTypeCopy = engagementType;
     v21 = objc_opt_new();
-    if ([shownCopy count])
+    v22 = [shownCopy count];
+    if (v22)
     {
-      v22 = 0;
-      do
+      for (i = 0; i < v22; ++i)
       {
-        if (v22)
+        if (i)
         {
           [v21 appendString:{@", "}];
         }
 
-        v23 = [shownCopy objectAtIndexedSubscript:v22];
-        [v21 appendString:v23];
+        v24 = [shownCopy objectAtIndexedSubscript:i];
+        [v21 appendString:v24];
 
-        ++v22;
+        v22 = [shownCopy count];
       }
-
-      while ([shownCopy count] > v22);
     }
 
-    v24 = __atxlog_handle_default();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+    v25 = __atxlog_handle_default(v22);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
     {
-      v32 = [MEMORY[0x1E698B028] stringForConsumerType:self->_consumerType];
-      v30 = [MEMORY[0x1E698B028] stringForConsumerSubtype:typeCopy];
+      v33 = [MEMORY[0x1E698B028] stringForConsumerType:self->_consumerType];
+      v31 = [MEMORY[0x1E698B028] stringForConsumerSubtype:typeCopy];
       [MEMORY[0x1E698B028] stringForEngagementType:engagementTypeCopy];
       *buf = 138413570;
-      v42 = v32;
-      v43 = 2112;
-      v44 = feedbackCopy;
-      v45 = 2112;
-      v46 = v30;
-      v48 = v47 = 2112;
-      v31 = v48;
-      v49 = 2112;
-      v50 = identifierCopy;
-      v51 = 2112;
-      v52 = v21;
-      _os_log_debug_impl(&dword_1BF549000, v24, OS_LOG_TYPE_DEBUG, "sending feedback for\n  consumerType:%@\n  atxResponse: ***(%@)***\n  consumerSubType:%@\n  engagementType:%@\n  bundleIdentifier:%@\n  bundleIdsShown:%@", buf, 0x3Eu);
+      v43 = v33;
+      v44 = 2112;
+      v45 = feedbackCopy;
+      v46 = 2112;
+      v47 = v31;
+      v49 = v48 = 2112;
+      v32 = v49;
+      v50 = 2112;
+      v51 = identifierCopy;
+      v52 = 2112;
+      v53 = v21;
+      _os_log_debug_impl(&dword_1BF549000, v25, OS_LOG_TYPE_DEBUG, "sending feedback for\n  consumerType:%@\n  atxResponse: ***(%@)***\n  consumerSubType:%@\n  engagementType:%@\n  bundleIdentifier:%@\n  bundleIdsShown:%@", buf, 0x3Eu);
     }
 
     engagementType = engagementTypeCopy;
@@ -665,17 +667,17 @@ void __95__ATXClient_atxResponseFromBlendingAppPredictionCacheForConsumerSubType
   block[1] = 3221225472;
   block[2] = __125__ATXClient_logUserFeedback_consumerSubType_engagementType_bundleIdentifier_bundleIdsShown_explicitlyRejectedIds_personaUID___block_invoke;
   block[3] = &unk_1E80C31C0;
-  v40 = typeCopy;
+  v41 = typeCopy;
   block[4] = self;
-  v35 = feedbackCopy;
-  v36 = identifierCopy;
-  v37 = shownCopy;
-  v38 = idsCopy;
+  v36 = feedbackCopy;
+  v37 = identifierCopy;
+  v38 = shownCopy;
+  v39 = idsCopy;
   engagementTypeCopy2 = engagementType;
-  v26 = idsCopy;
-  v27 = shownCopy;
-  v28 = identifierCopy;
-  v29 = feedbackCopy;
+  v27 = idsCopy;
+  v28 = shownCopy;
+  v29 = identifierCopy;
+  v30 = feedbackCopy;
   dispatch_async(queue, block);
 }
 
@@ -687,7 +689,7 @@ void __125__ATXClient_logUserFeedback_consumerSubType_engagementType_bundleIdent
 
 void __125__ATXClient_logUserFeedback_consumerSubType_engagementType_bundleIdentifier_bundleIdsShown_explicitlyRejectedIds_personaUID___block_invoke_2(uint64_t a1, int a2)
 {
-  v3 = __atxlog_handle_default();
+  v3 = __atxlog_handle_default(a1);
   v4 = v3;
   if (a2)
   {
@@ -762,7 +764,7 @@ void __113__ATXClient_forceCacheUpdateForConsumerSubType_intent_candidateBundleI
 void __113__ATXClient_forceCacheUpdateForConsumerSubType_intent_candidateBundleIdentifiers_candidateIntentTypeIdentifiers___block_invoke_2(uint64_t a1, int a2)
 {
   *(*(*(a1 + 32) + 8) + 24) = a2;
-  v3 = __atxlog_handle_default();
+  v3 = __atxlog_handle_default(a1);
   v4 = v3;
   if (a2)
   {
@@ -815,7 +817,7 @@ void __51__ATXClient_getAppPredictorAssetMappingDescription__block_invoke(uint64
 void __51__ATXClient_getAppPredictorAssetMappingDescription__block_invoke_2(uint64_t a1, void *a2, int a3)
 {
   v5 = a2;
-  v6 = __atxlog_handle_default();
+  v6 = __atxlog_handle_default(v5);
   v7 = v6;
   if (a3)
   {
@@ -901,23 +903,24 @@ void __51__ATXClient_getAppPredictorAssetMappingDescription__block_invoke_2(uint
   v4 = [v3 objectForKeyedSubscript:@"dayZeroBumps"];
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v5 = v4;
+    v6 = v4;
   }
 
   else
   {
-    v6 = __atxlog_handle_default();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v7 = __atxlog_handle_default(isKindOfClass);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
       +[ATXClient dayZeroBundleIdsAndScoresFromDayZeroParameters:];
     }
 
-    v5 = MEMORY[0x1E695E0F8];
+    v6 = MEMORY[0x1E695E0F8];
   }
 
-  return v5;
+  return v6;
 }
 
 - (id)_minuteZeroResponse
@@ -1046,7 +1049,7 @@ void __72__ATXClient_recentURLsWithLimit_typeIdentifiersForScope_withCompletion_
 {
   v5 = a2;
   v6 = a3;
-  v7 = __atxlog_handle_document_predictor();
+  v7 = __atxlog_handle_document_predictor(v6);
   v8 = v7;
   if (v6)
   {
@@ -1079,7 +1082,7 @@ void __72__ATXClient_recentURLsWithLimit_typeIdentifiersForScope_withCompletion_
 void __36__ATXClient_notifySpotlightInvoked___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_default();
+  v3 = __atxlog_handle_default(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __36__ATXClient_notifySpotlightInvoked___block_invoke_cold_1();
@@ -1287,10 +1290,11 @@ void __64__ATXClient_semanticallySimilarDocumentsFromOnScreenAppEntities__block_
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = __atxlog_handle_screen_entities();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = __atxlog_handle_screen_entities(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __64__ATXClient_semanticallySimilarDocumentsFromOnScreenAppEntities__block_invoke_2_cold_1();
     }
@@ -1298,10 +1302,10 @@ void __64__ATXClient_semanticallySimilarDocumentsFromOnScreenAppEntities__block_
 
   if ([v5 count])
   {
-    v8 = [v5 _pas_mappedArrayWithTransform:&__block_literal_global_124];
-    v9 = *(*(a1 + 32) + 8);
-    v10 = *(v9 + 40);
-    *(v9 + 40) = v8;
+    v9 = [v5 _pas_mappedArrayWithTransform:&__block_literal_global_124];
+    v10 = *(*(a1 + 32) + 8);
+    v11 = *(v10 + 40);
+    *(v10 + 40) = v9;
   }
 }
 
@@ -1332,10 +1336,11 @@ void __37__ATXClient_fetchLastExecutedActions__block_invoke_2(uint64_t a1, void 
 {
   v6 = a2;
   v7 = a3;
+  v8 = v7;
   if (v7)
   {
-    v8 = __atxlog_handle_action_prediction();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = __atxlog_handle_action_prediction(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __37__ATXClient_fetchLastExecutedActions__block_invoke_2_cold_1();
     }

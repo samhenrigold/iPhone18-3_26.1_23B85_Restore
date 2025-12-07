@@ -109,25 +109,24 @@ uint64_t __133__CNAutocompleteRecentContactsTransform_autocompleteResultForRecen
 
   if ((v6 & 1) == 0)
   {
-    v8 = CNALoggingContextDebug();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = CNALoggingContextDebug(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = *(a1 + 40);
+      v10 = *(a1 + 40);
       *buf = 138412546;
-      v15 = v9;
+      v15 = v10;
       v16 = 2112;
       v17 = v7;
-      _os_log_impl(&dword_2155FE000, v8, OS_LOG_TYPE_DEFAULT, "Can't ignore recent: %@, with error: %@", buf, 0x16u);
+      _os_log_impl(&dword_2155FE000, v9, OS_LOG_TYPE_DEFAULT, "Can't ignore recent: %@, with error: %@", buf, 0x16u);
     }
 
     if (a2)
     {
-      v10 = v7;
+      v11 = v7;
       *a2 = v7;
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -315,12 +314,12 @@ id __130__CNAutocompleteRecentContactsTransform_groupAutocompleteResultForRecent
 
       else
       {
-        v11 = CNALoggingContextDebug();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v12 = CNALoggingContextDebug(v11);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           v14 = 138412290;
           v15 = contactCopy;
-          _os_log_impl(&dword_2155FE000, v11, OS_LOG_TYPE_DEFAULT, "Unknown address type for recent contact: %@ ", &v14, 0xCu);
+          _os_log_impl(&dword_2155FE000, v12, OS_LOG_TYPE_DEFAULT, "Unknown address type for recent contact: %@ ", &v14, 0xCu);
         }
 
         v6 = 0;
@@ -328,7 +327,6 @@ id __130__CNAutocompleteRecentContactsTransform_groupAutocompleteResultForRecent
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

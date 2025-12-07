@@ -500,7 +500,7 @@ LABEL_12:
   v97[2] = v23;
   v96[3] = @"imageExtent";
   v24 = MEMORY[0x1E695F688];
-  [imageCopy extent];
+  objc_msgSend_extent(imageCopy);
   v25 = [v24 vectorWithCGRect:?];
   v97[3] = v25;
   v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v97 forKeys:v96 count:4];

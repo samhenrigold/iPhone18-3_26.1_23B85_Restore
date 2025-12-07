@@ -19,12 +19,13 @@
 
 - (id)initPrivately
 {
-  if ([__LSDefaultsGetSharedInstance() isLightweightSystemServer])
+  v3 = [__LSDefaultsGetSharedInstance(self a2)];
+  if (v3)
   {
-    v3 = _LSDefaultLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v4 = _LSDefaultLog(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      [(_LSPersonaDatabase *)v3 initPrivately];
+      [(_LSPersonaDatabase *)v4 initPrivately];
     }
 
     return 0;
@@ -32,23 +33,23 @@
 
   else
   {
-    v9.receiver = self;
-    v9.super_class = _LSPersonaDatabase;
-    v5 = [(_LSPersonaDatabase *)&v9 init];
-    v4 = v5;
-    if (v5)
+    v10.receiver = self;
+    v10.super_class = _LSPersonaDatabase;
+    v6 = [(_LSPersonaDatabase *)&v10 init];
+    v5 = v6;
+    if (v6)
     {
-      v6 = *(v5 + 2);
-      *(v5 + 8) = 0u;
+      v7 = *(v6 + 2);
+      *(v6 + 8) = 0u;
 
-      v7 = v4[3];
-      v4[3] = 0;
+      v8 = v5[3];
+      v5[3] = 0;
 
-      v4[5] = 0;
+      v5[5] = 0;
     }
   }
 
-  return v4;
+  return v5;
 }
 
 + (id)sharedInstance
@@ -59,9 +60,9 @@
     +[_LSPersonaDatabase sharedInstance];
   }
 
-  v0 = +[_LSPersonaDatabase sharedInstance]::sharedInstance;
+  v1 = +[_LSPersonaDatabase sharedInstance]::sharedInstance;
 
-  return v0;
+  return v1;
 }
 
 - (id)_getPersonaAttributesRetryingIfNecessary
@@ -75,44 +76,45 @@
   do
   {
 
-    sharedManager = [getUMUserManagerClass() sharedManager];
+    sharedManager = [(objc_class *)getUMUserManagerClass() sharedManager];
     v14 = 0;
     v8 = [sharedManager listAllPersonaAttributesWithError:&v14];
     v3 = v14;
 
-    if ([v8 count])
+    v9 = [v8 count];
+    if (v9)
     {
       break;
     }
 
     if (v3)
     {
-      v9 = _LSDefaultLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = _LSDefaultLog(0);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
         v18 = v3;
-        _os_log_error_impl(&dword_18162D000, v9, OS_LOG_TYPE_ERROR, "error getting persona attributes list: %@", buf, 0xCu);
+        _os_log_error_impl(&dword_18162D000, v10, OS_LOG_TYPE_ERROR, "error getting persona attributes list: %@", buf, 0xCu);
       }
     }
 
     else
     {
-      v10 = _LSDefaultLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = _LSDefaultLog(0);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
         v18 = v8;
-        _os_log_error_impl(&dword_18162D000, v10, OS_LOG_TYPE_ERROR, "UM returned empty array or nil (%@) but not an error!?", buf, 0xCu);
+        _os_log_error_impl(&dword_18162D000, v11, OS_LOG_TYPE_ERROR, "UM returned empty array or nil (%@) but not an error!?", buf, 0xCu);
       }
 
       v15 = v5;
       v16 = @"placeholder for missing error; file a bug";
-      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
-      v3 = _LSMakeNSErrorImpl(v4, 5, v9, "[_LSPersonaDatabase _getPersonaAttributesRetryingIfNecessary]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Info/_LSPersonaDatabase.mm", 277);
+      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+      v3 = _LSMakeNSErrorImpl(v4, 5, v10, "[_LSPersonaDatabase _getPersonaAttributesRetryingIfNecessary]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Info/_LSPersonaDatabase.mm", 277);
     }
 
-    usleep(0x186A0u);
+    v9 = usleep(0x186A0u);
     v2 = v8;
     --v6;
   }
@@ -125,8 +127,8 @@
       goto LABEL_17;
     }
 
-    v11 = _LSDefaultLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+    v12 = _LSDefaultLog(0);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
       [(_LSPersonaDatabase *)v3 _getPersonaAttributesRetryingIfNecessary];
     }
@@ -134,15 +136,14 @@
 
   else
   {
-    v11 = _LSDefaultLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+    v12 = _LSDefaultLog(v9);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
       [(_LSPersonaDatabase *)v3 _getPersonaAttributesRetryingIfNecessary];
     }
   }
 
 LABEL_17:
-  v12 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -150,8 +151,8 @@ LABEL_17:
 - (void)getUncachedBundleIDToPersonasWithAttributesMap:(id *)map systemPersonaUniqueString:(id *)string personalPersonaUniqueString:(id *)uniqueString
 {
   uniqueStringCopy = uniqueString;
-  v46 = *MEMORY[0x1E69E9840];
-  v6 = _LSDefaultLog();
+  v45 = *MEMORY[0x1E69E9840];
+  v6 = _LSDefaultLog(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -161,29 +162,29 @@ LABEL_17:
   v7 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v8 = objc_alloc_init(MEMORY[0x1E695DF90]);
   [(_LSPersonaDatabase *)self _getPersonaAttributesRetryingIfNecessary];
+  v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
-  obj = v40 = 0u;
-  v9 = [obj countByEnumeratingWithState:&v39 objects:v45 count:16];
+  v38 = 0u;
+  obj = v39 = 0u;
+  v9 = [obj countByEnumeratingWithState:&v38 objects:v44 count:16];
   if (v9)
   {
-    v28 = 0;
-    v30 = 0;
-    v31 = *v40;
+    v27 = 0;
+    v29 = 0;
+    v30 = *v39;
     do
     {
       v10 = 0;
-      v32 = v9;
+      v31 = v9;
       do
       {
-        if (*v40 != v31)
+        if (*v39 != v30)
         {
           objc_enumerationMutation(obj);
         }
 
-        v33 = v10;
-        v11 = *(*(&v39 + 1) + 8 * v10);
+        v32 = v10;
+        v11 = *(*(&v38 + 1) + 8 * v10);
         userPersonaUniqueString = [v11 userPersonaUniqueString];
         if (userPersonaUniqueString)
         {
@@ -191,8 +192,8 @@ LABEL_17:
           {
             v13 = userPersonaUniqueString;
 
-            v34 = 3;
-            v30 = v13;
+            v33 = 3;
+            v29 = v13;
           }
 
           else
@@ -201,7 +202,7 @@ LABEL_17:
             {
               v14 = userPersonaUniqueString;
 
-              v28 = v14;
+              v27 = v14;
               v15 = 1;
             }
 
@@ -215,28 +216,28 @@ LABEL_17:
               }
             }
 
-            v34 = v15;
+            v33 = v15;
           }
 
-          v37 = 0u;
-          v38 = 0u;
-          v35 = 0u;
           v36 = 0u;
+          v37 = 0u;
+          v34 = 0u;
+          v35 = 0u;
           userPersonaBundleIDList = [v11 userPersonaBundleIDList];
-          v18 = [userPersonaBundleIDList countByEnumeratingWithState:&v35 objects:v44 count:16];
+          v18 = [userPersonaBundleIDList countByEnumeratingWithState:&v34 objects:v43 count:16];
           if (v18)
           {
-            v19 = *v36;
+            v19 = *v35;
             do
             {
               for (i = 0; i != v18; ++i)
               {
-                if (*v36 != v19)
+                if (*v35 != v19)
                 {
                   objc_enumerationMutation(userPersonaBundleIDList);
                 }
 
-                v21 = *(*(&v35 + 1) + 8 * i);
+                v21 = *(*(&v34 + 1) + 8 * i);
                 v22 = [v8 objectForKeyedSubscript:v21];
                 if (!v22)
                 {
@@ -247,25 +248,25 @@ LABEL_17:
                 v23 = [v7 objectForKey:userPersonaUniqueString];
                 if (!v23)
                 {
-                  v23 = [[_LSPersonaWithAttributes alloc] initWithPersonaType:v34 personaUniqueString:userPersonaUniqueString];
+                  v23 = [[_LSPersonaWithAttributes alloc] initWithPersonaType:v33 personaUniqueString:userPersonaUniqueString];
                   [v7 setObject:v23 forKey:userPersonaUniqueString];
                 }
 
                 [v22 addObject:v23];
               }
 
-              v18 = [userPersonaBundleIDList countByEnumeratingWithState:&v35 objects:v44 count:16];
+              v18 = [userPersonaBundleIDList countByEnumeratingWithState:&v34 objects:v43 count:16];
             }
 
             while (v18);
           }
         }
 
-        v10 = v33 + 1;
+        v10 = v32 + 1;
       }
 
-      while (v33 + 1 != v32);
-      v9 = [obj countByEnumeratingWithState:&v39 objects:v45 count:16];
+      while (v32 + 1 != v31);
+      v9 = [obj countByEnumeratingWithState:&v38 objects:v44 count:16];
     }
 
     while (v9);
@@ -273,8 +274,8 @@ LABEL_17:
 
   else
   {
-    v28 = 0;
-    v30 = 0;
+    v27 = 0;
+    v29 = 0;
   }
 
   if (map)
@@ -284,32 +285,30 @@ LABEL_17:
 
   if (string)
   {
-    objc_storeStrong(string, v30);
+    objc_storeStrong(string, v29);
   }
 
   if (uniqueStringCopy)
   {
-    objc_storeStrong(uniqueStringCopy, v28);
+    objc_storeStrong(uniqueStringCopy, v27);
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)refreshFromUserManagementIfNecessary
 {
-  sharedManager = [getUMUserManagerClass() sharedManager];
-  v10 = 0;
-  v4 = [sharedManager personaGenerationIdentifierWithError:&v10];
-  v5 = v10;
+  sharedManager = [(objc_class *)getUMUserManagerClass() sharedManager];
+  v11 = 0;
+  v4 = [sharedManager personaGenerationIdentifierWithError:&v11];
+  v5 = v11;
 
   if (self->_userManagementGenerationNumber != v4)
   {
     self->_userManagementGenerationNumber = v4;
-    v6 = _LSDefaultLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _LSDefaultLog(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_18162D000, v6, OS_LOG_TYPE_DEFAULT, "Persona list did update.", v9, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_18162D000, v7, OS_LOG_TYPE_DEFAULT, "Persona list did update.", v10, 2u);
     }
 
     os_unfair_lock_lock(&self->_ivarLock);
@@ -398,28 +397,30 @@ LABEL_17:
 
 - (id)personasWithAttributesForBundleIdentifier:(void *)identifier
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v5 = v3;
   if (identifier)
   {
-    if ([__LSDefaultsGetSharedInstance() isInEducationMode] & 1) != 0 || (objc_msgSend(__LSDefaultsGetSharedInstance(), "isUsingEphemeralStorage"))
+    v6 = [__LSDefaultsGetSharedInstance(v3 v4)];
+    if (v6 & 1) != 0 || ([__LSDefaultsGetSharedInstance(v6 v7)])
     {
-      v4 = MEMORY[0x1E695E0F0];
+      v8 = MEMORY[0x1E695E0F0];
     }
 
     else
     {
       getBundleIDToPersonasWithAttributesMap = [identifier getBundleIDToPersonasWithAttributesMap];
-      v4 = [getBundleIDToPersonasWithAttributesMap objectForKeyedSubscript:v3];
+      v8 = [getBundleIDToPersonasWithAttributesMap objectForKeyedSubscript:v5];
 
-      if (!v4)
+      if (!v8)
       {
         getPersonalPersonaUniqueString = [(_LSPersonaDatabase *)identifier getPersonalPersonaUniqueString];
         if (getPersonalPersonaUniqueString)
         {
-          v9 = [[_LSPersonaWithAttributes alloc] initWithPersonaType:getPersonalPersonaUniqueString personaUniqueString:?];
-          v10[0] = v9;
-          v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
+          v12 = [[_LSPersonaWithAttributes alloc] initWithPersonaType:getPersonalPersonaUniqueString personaUniqueString:?];
+          v13[0] = v12;
+          v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
         }
 
         else
@@ -429,7 +430,7 @@ LABEL_17:
             [_LSPersonaDatabase personasWithAttributesForBundleIdentifier:];
           }
 
-          v4 = MEMORY[0x1E695E0F0];
+          v8 = MEMORY[0x1E695E0F0];
         }
       }
     }
@@ -437,43 +438,41 @@ LABEL_17:
 
   else
   {
-    v4 = 0;
+    v8 = 0;
   }
 
-  v5 = *MEMORY[0x1E69E9840];
-
-  return v4;
+  return v8;
 }
 
 - (id)personasWithAttributesForPersonaUniqueStrings:(void *)strings error:
 {
-  v49 = *MEMORY[0x1E69E9840];
-  v33 = a2;
+  v48 = *MEMORY[0x1E69E9840];
+  v32 = a2;
   if (self)
   {
-    sharedManager = [getUMUserManagerClass() sharedManager];
+    sharedManager = [(objc_class *)getUMUserManagerClass() sharedManager];
     listAllPersonaWithAttributes = [sharedManager listAllPersonaWithAttributes];
 
     v6 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
     v40 = 0u;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
     v7 = listAllPersonaWithAttributes;
-    v8 = [v7 countByEnumeratingWithState:&v39 objects:v48 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v38 objects:v47 count:16];
     if (v8)
     {
-      v9 = *v40;
+      v9 = *v39;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v40 != v9)
+          if (*v39 != v9)
           {
             objc_enumerationMutation(v7);
           }
 
-          v11 = *(*(&v39 + 1) + 8 * i);
+          v11 = *(*(&v38 + 1) + 8 * i);
           if ([v11 userPersonaType] != 4)
           {
             userPersonaUniqueString = [v11 userPersonaUniqueString];
@@ -495,53 +494,53 @@ LABEL_17:
 
             else
             {
-              userPersonaUniqueString2 = _LSDefaultLog();
+              userPersonaUniqueString2 = _LSDefaultLog(0);
               if (os_log_type_enabled(userPersonaUniqueString2, OS_LOG_TYPE_ERROR))
               {
                 userPersonaType = [v11 userPersonaType];
                 *buf = 67109120;
-                v47 = userPersonaType;
+                v46 = userPersonaType;
                 _os_log_error_impl(&dword_18162D000, userPersonaUniqueString2, OS_LOG_TYPE_ERROR, "persona with type %d did not have a persona unique string, ignoring!", buf, 8u);
               }
             }
           }
         }
 
-        v8 = [v7 countByEnumeratingWithState:&v39 objects:v48 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v38 objects:v47 count:16];
       }
 
       while (v8);
     }
 
     v16 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
-    obj = v33;
-    v17 = [obj countByEnumeratingWithState:&v35 objects:v45 count:16];
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
+    obj = v32;
+    v17 = [obj countByEnumeratingWithState:&v34 objects:v44 count:16];
     if (v17)
     {
-      v18 = *v36;
+      v18 = *v35;
       while (2)
       {
         for (j = 0; j != v17; ++j)
         {
-          if (*v36 != v18)
+          if (*v35 != v18)
           {
             objc_enumerationMutation(obj);
           }
 
-          v20 = *(*(&v35 + 1) + 8 * j);
+          v20 = *(*(&v34 + 1) + 8 * j);
           v21 = [v6 objectForKey:v20];
           v22 = v21;
           if (!v21)
           {
 
             v26 = [MEMORY[0x1E696AEC0] stringWithFormat:@"no known persona with unique string %@", v20];
-            v43 = *MEMORY[0x1E696A278];
-            v44 = v26;
-            v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
+            v42 = *MEMORY[0x1E696A278];
+            v43 = v26;
+            v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
             v25 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A798], 2, v27, "[_LSPersonaDatabase personasWithAttributesForPersonaUniqueStrings:error:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Info/_LSPersonaDatabase.mm", 492);
 
             v16 = 0;
@@ -553,7 +552,7 @@ LABEL_17:
           [v16 addObject:v24];
         }
 
-        v17 = [obj countByEnumeratingWithState:&v35 objects:v45 count:16];
+        v17 = [obj countByEnumeratingWithState:&v34 objects:v44 count:16];
         if (v17)
         {
           continue;
@@ -578,39 +577,37 @@ LABEL_28:
     v16 = 0;
   }
 
-  v29 = *MEMORY[0x1E69E9840];
-
   return v16;
 }
 
 - (id)personasWithType:(uint64_t)type
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (type)
   {
     v3 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-    sharedManager = [getUMUserManagerClass() sharedManager];
+    sharedManager = [(objc_class *)getUMUserManagerClass() sharedManager];
     listAllPersonaWithAttributes = [sharedManager listAllPersonaWithAttributes];
 
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v6 = listAllPersonaWithAttributes;
-    v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v7)
     {
-      v8 = *v17;
+      v8 = *v16;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v17 != v8)
+          if (*v16 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          v10 = *(*(&v16 + 1) + 8 * i);
+          v10 = *(*(&v15 + 1) + 8 * i);
           if (LSPersonaTypeForPersonaAttributes(v10) == a2)
           {
             v11 = [_LSPersonaWithAttributes alloc];
@@ -620,7 +617,7 @@ LABEL_28:
           }
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v7);
@@ -631,8 +628,6 @@ LABEL_28:
   {
     v3 = 0;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -671,11 +666,10 @@ LABEL_28:
 
 - (void)_getPersonaAttributesRetryingIfNecessary
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_fault_impl(&dword_18162D000, a2, OS_LOG_TYPE_FAULT, "list of persona attributes was nil, last error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_18162D000, a2, OS_LOG_TYPE_FAULT, "list of persona attributes was nil, last error: %@", &v2, 0xCu);
 }
 
 @end

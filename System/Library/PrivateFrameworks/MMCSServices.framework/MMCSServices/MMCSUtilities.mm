@@ -7,7 +7,7 @@
 
 + (id)parseMMCSError:(id)error
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v4 = objc_alloc(MEMORY[0x277CBEB18]);
   v8 = objc_msgSend_initWithCapacity_(v4, v5, 8, v6, v7);
   if (error)
@@ -25,11 +25,11 @@
     v14 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      v26 = 138412546;
-      v27 = v9;
-      v28 = 2112;
+      v25 = 138412546;
+      v26 = v9;
+      v27 = 2112;
       errorCopy = error;
-      _os_log_impl(&dword_20E3AF000, v14, OS_LOG_TYPE_INFO, "Flattened MMCS Array from MMCS %@ using error %@", &v26, 0x16u);
+      _os_log_impl(&dword_20E3AF000, v14, OS_LOG_TYPE_INFO, "Flattened MMCS Array from MMCS %@ using error %@", &v25, 0x16u);
     }
   }
 
@@ -90,16 +90,14 @@ LABEL_13:
       v23 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
       {
-        v26 = 138412290;
-        v27 = v8;
-        _os_log_impl(&dword_20E3AF000, v23, OS_LOG_TYPE_INFO, "Resulting error array %@", &v26, 0xCu);
+        v25 = 138412290;
+        v26 = v8;
+        _os_log_impl(&dword_20E3AF000, v23, OS_LOG_TYPE_INFO, "Resulting error array %@", &v25, 0xCu);
       }
     }
   }
 
-  result = v8;
-  v25 = *MEMORY[0x277D85DE8];
-  return result;
+  return v8;
 }
 
 + (id)failReasonStringForMMCSError:(id)error

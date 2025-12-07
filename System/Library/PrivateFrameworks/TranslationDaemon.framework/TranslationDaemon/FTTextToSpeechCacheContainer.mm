@@ -36,33 +36,7 @@
   }
 
   v10->_root = root;
-  if (!verifyCopy)
-  {
-    goto LABEL_13;
-  }
-
-  bytes2 = [(NSData *)v10->_data bytes];
-  v13 = [(NSData *)v10->_data length];
-  root = v10->_root;
-  if (root < bytes2 || root > bytes2 + v13)
-  {
-    goto LABEL_14;
-  }
-
-  bytes3 = [(NSData *)v10->_data bytes];
-  v17 = [(NSData *)v10->_data length];
-  v21[0] = bytes3;
-  v21[1] = v17;
-  v22 = xmmword_233005E20;
-  v23 = 0;
-  v24 = 1;
-  v18 = v10->_root;
-  if (!v18)
-  {
-    goto LABEL_13;
-  }
-
-  if (!siri::speech::schema_fb::TextToSpeechCacheContainer::Verify(v18, v21))
+  if (verifyCopy && ((v12 = [(NSData *)v10->_data bytes], v13 = [(NSData *)v10->_data length], root = v10->_root, root >= v12) ? (v15 = root > v12 + v13) : (v15 = 1), v15 || (v16 = [(NSData *)v10->_data bytes], v17 = [(NSData *)v10->_data length], v21[0] = v16, v21[1] = v17, v22 = xmmword_233005E20, v23 = 0, v24 = 1, (v18 = v10->_root) != 0) && !siri::speech::schema_fb::TextToSpeechCacheContainer::Verify(v18, v21)))
   {
 LABEL_14:
     v19 = 0;
@@ -232,48 +206,48 @@ LABEL_8:
 
 - (Offset<siri::speech::schema_fb::TextToSpeechCacheContainer>)addObjectToBuffer:(void *)buffer
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   cache_meta_info = [(FTTextToSpeechCacheContainer *)self cache_meta_info];
   v6 = [cache_meta_info addObjectToBuffer:buffer];
 
-  memset(&v35, 0, sizeof(v35));
+  memset(&v34, 0, sizeof(v34));
   cache_object = [(FTTextToSpeechCacheContainer *)self cache_object];
-  std::vector<apple::aiml::flatbuffers2::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v35, [cache_object count]);
+  std::vector<apple::aiml::flatbuffers2::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v34, [cache_object count]);
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   cache_object2 = [(FTTextToSpeechCacheContainer *)self cache_object];
-  v30 = v6;
-  v9 = [cache_object2 countByEnumeratingWithState:&v31 objects:v36 count:16];
+  v29 = v6;
+  v9 = [cache_object2 countByEnumeratingWithState:&v30 objects:v35 count:16];
   if (v9)
   {
-    v10 = *v32;
+    v10 = *v31;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v32 != v10)
+        if (*v31 != v10)
         {
           objc_enumerationMutation(cache_object2);
         }
 
-        v12 = [*(*(&v31 + 1) + 8 * i) addObjectToBuffer:buffer];
-        end = v35.__end_;
-        if (v35.__end_ >= v35.__end_cap_.__value_)
+        v12 = [*(*(&v30 + 1) + 8 * i) addObjectToBuffer:buffer];
+        end = v34.__end_;
+        if (v34.__end_ >= v34.__end_cap_.__value_)
         {
-          begin = v35.__begin_;
-          v16 = v35.__end_ - v35.__begin_;
-          v17 = v35.__end_ - v35.__begin_;
+          begin = v34.__begin_;
+          v16 = v34.__end_ - v34.__begin_;
+          v17 = v34.__end_ - v34.__begin_;
           v18 = v17 + 1;
           if ((v17 + 1) >> 62)
           {
             std::vector<unsigned short>::__throw_length_error[abi:ne200100]();
           }
 
-          v19 = v35.__end_cap_.__value_ - v35.__begin_;
-          if ((v35.__end_cap_.__value_ - v35.__begin_) >> 1 > v18)
+          v19 = v34.__end_cap_.__value_ - v34.__begin_;
+          if ((v34.__end_cap_.__value_ - v34.__begin_) >> 1 > v18)
           {
             v18 = v19 >> 1;
           }
@@ -290,16 +264,16 @@ LABEL_8:
 
           if (v20)
           {
-            std::__allocate_at_least[abi:ne200100]<std::allocator<apple::aiml::flatbuffers2::Offset<siri::speech::schema_fb::RecognitionToken>>>(&v35, v20);
+            std::__allocate_at_least[abi:ne200100]<std::allocator<apple::aiml::flatbuffers2::Offset<siri::speech::schema_fb::RecognitionToken>>>(&v34, v20);
           }
 
           *(4 * v17) = v12;
           v14 = (4 * v17 + 4);
           memcpy(0, begin, v16);
-          v21 = v35.__begin_;
-          v35.__begin_ = 0;
-          v35.__end_ = v14;
-          v35.__end_cap_.__value_ = 0;
+          v21 = v34.__begin_;
+          v34.__begin_ = 0;
+          v34.__end_ = v14;
+          v34.__end_cap_.__value_ = 0;
           if (v21)
           {
             operator delete(v21);
@@ -308,44 +282,43 @@ LABEL_8:
 
         else
         {
-          *v35.__end_ = v12;
+          *v34.__end_ = v12;
           v14 = end + 1;
         }
 
-        v35.__end_ = v14;
+        v34.__end_ = v14;
       }
 
-      v9 = [cache_object2 countByEnumeratingWithState:&v31 objects:v36 count:16];
+      v9 = [cache_object2 countByEnumeratingWithState:&v30 objects:v35 count:16];
     }
 
     while (v9);
   }
 
-  if (v35.__end_ == v35.__begin_)
+  if (v34.__end_ == v34.__begin_)
   {
     v22 = &apple::aiml::flatbuffers2::data<apple::aiml::flatbuffers2::Offset<siri::speech::schema_fb::TextToSpeechCacheObject>,std::allocator<apple::aiml::flatbuffers2::Offset<siri::speech::schema_fb::TextToSpeechCacheObject>>>(std::vector<apple::aiml::flatbuffers2::Offset<siri::speech::schema_fb::TextToSpeechCacheObject>> const&)::t;
   }
 
   else
   {
-    v22 = v35.__begin_;
+    v22 = v34.__begin_;
   }
 
-  v23 = apple::aiml::flatbuffers2::FlatBufferBuilder::CreateVector<apple::aiml::flatbuffers2::String>(buffer, v22, v35.__end_ - v35.__begin_);
+  v23 = apple::aiml::flatbuffers2::FlatBufferBuilder::CreateVector<apple::aiml::flatbuffers2::String>(buffer, v22, v34.__end_ - v34.__begin_);
   *(buffer + 70) = 1;
   v24 = *(buffer + 8);
   v25 = *(buffer + 12);
   v26 = *(buffer + 10);
-  apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(buffer, 4, v30);
+  apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(buffer, 4, v29);
   apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(buffer, 6, v23);
   v27.var0 = apple::aiml::flatbuffers2::FlatBufferBuilder::EndTable(buffer, v24 - v25 + v26);
-  if (v35.__begin_)
+  if (v34.__begin_)
   {
-    v35.__end_ = v35.__begin_;
-    operator delete(v35.__begin_);
+    v34.__end_ = v34.__begin_;
+    operator delete(v34.__begin_);
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return v27;
 }
 

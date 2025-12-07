@@ -8,7 +8,7 @@
 {
   v4 = a3;
   v5 = v4;
-  if (!v4 || !*(v4 + 1))
+  if (!v4 || !v4[1])
   {
 LABEL_8:
     selfCopy = self;

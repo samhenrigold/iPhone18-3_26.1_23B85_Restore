@@ -46,7 +46,7 @@
 - (void)setParticipantVettingInitiatedBlock:(id)block
 {
   blockCopy = block;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -77,7 +77,7 @@ LABEL_9:
 
 - (id)participantVettingInitiatedBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -114,7 +114,7 @@ LABEL_9:
 - (void)setParticipantVettingInitiationCompletionBlock:(id)block
 {
   blockCopy = block;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -145,7 +145,7 @@ LABEL_9:
 
 - (id)participantVettingInitiationCompletionBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -272,7 +272,7 @@ LABEL_9:
 
 - (void)handleParticipantVettingProgressWithError:(id)error
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v4 = objc_msgSend_CKClientSuitableError(error, a2, error);
   if (self)
   {
@@ -324,8 +324,8 @@ LABEL_9:
       goto LABEL_21;
     }
 
-    *v37 = 138412290;
-    *&v37[4] = v4;
+    *v36 = 138412290;
+    *&v36[4] = v4;
     v19 = "Participant vetting initialiated with error: %@";
     v20 = v13;
     v21 = v18;
@@ -366,32 +366,30 @@ LABEL_9:
 
   if ((v31 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
   {
-    *v37 = 0;
+    *v36 = 0;
     v19 = "Participant vetting initialiated";
     v20 = v13;
     v21 = v31;
     v22 = 2;
 LABEL_20:
-    _os_signpost_emit_with_name_impl(&dword_1883EA000, v20, OS_SIGNPOST_EVENT, v21, "CKInitiateParticipantVettingOperation", v19, v37, v22);
+    _os_signpost_emit_with_name_impl(&dword_1883EA000, v20, OS_SIGNPOST_EVENT, v21, "CKInitiateParticipantVettingOperation", v19, v36, v22);
   }
 
 LABEL_21:
 
 LABEL_22:
-  v32 = objc_msgSend_participantVettingInitiatedBlock(self, v7, v8, *v37);
+  v32 = objc_msgSend_participantVettingInitiatedBlock(self, v7, v8, *v36, *&v36[8]);
 
   if (v32)
   {
     v35 = objc_msgSend_participantVettingInitiatedBlock(self, v33, v34);
     (v35)[2](v35, v4);
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_finishOnCallbackQueueWithError:(id)error
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (self)
   {
@@ -452,20 +450,20 @@ LABEL_22:
     v21 = ck_log_facility_ck;
     if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
     {
-      v30 = v21;
-      v31 = objc_opt_class();
-      v32 = NSStringFromClass(v31);
-      v35 = objc_msgSend_ckShortDescription(self, v33, v34);
-      v38 = objc_msgSend_CKClientSuitableError(errorCopy, v36, v37);
+      v29 = v21;
+      v30 = objc_opt_class();
+      v31 = NSStringFromClass(v30);
+      v34 = objc_msgSend_ckShortDescription(self, v32, v33);
+      v37 = objc_msgSend_CKClientSuitableError(errorCopy, v35, v36);
       *buf = 138544130;
-      v41 = v32;
-      v42 = 2048;
+      v40 = v31;
+      v41 = 2048;
       selfCopy = self;
-      v44 = 2114;
-      v45 = v35;
-      v46 = 2112;
-      v47 = v38;
-      _os_log_debug_impl(&dword_1883EA000, v30, OS_LOG_TYPE_DEBUG, "Calling participantVettingInitiationCompletionBlock for operation <%{public}@: %p; %{public}@> with error %@", buf, 0x2Au);
+      v43 = 2114;
+      v44 = v34;
+      v45 = 2112;
+      v46 = v37;
+      _os_log_debug_impl(&dword_1883EA000, v29, OS_LOG_TYPE_DEBUG, "Calling participantVettingInitiationCompletionBlock for operation <%{public}@: %p; %{public}@> with error %@", buf, 0x2Au);
     }
 
     v24 = objc_msgSend_participantVettingInitiationCompletionBlock(self, v22, v23);
@@ -476,16 +474,14 @@ LABEL_22:
   }
 
   objc_msgSend_setParticipantVettingInitiatedBlock_(self, v20, 0);
-  v39.receiver = self;
-  v39.super_class = CKInitiateParticipantVettingOperation;
-  [(CKOperation *)&v39 _finishOnCallbackQueueWithError:errorCopy];
-
-  v29 = *MEMORY[0x1E69E9840];
+  v38.receiver = self;
+  v38.super_class = CKInitiateParticipantVettingOperation;
+  [(CKOperation *)&v38 _finishOnCallbackQueueWithError:errorCopy];
 }
 
 - (void)ckSignpostBegin
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   if (self)
   {
     signpost = self->super._signpost;
@@ -538,28 +534,26 @@ LABEL_22:
       v36 = CKStringForDiscretionaryNetworkBehavior(v35);
       v39 = objc_msgSend_qualityOfService(self, v37, v38);
       v41 = CKStringForQOS(v39, v40);
-      v43 = 138413570;
-      v44 = v17;
-      v45 = 2112;
-      v46 = v20;
-      v47 = 2112;
-      v48 = v26;
-      v49 = 2114;
-      v50 = v29;
-      v51 = 2114;
-      v52 = v36;
-      v53 = 2114;
-      v54 = v41;
-      _os_signpost_emit_with_name_impl(&dword_1883EA000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v14, "CKInitiateParticipantVettingOperation", "ID=%{signpost.description:attribute}@ Container=%{signpost.description:attribute}@ GroupID=%{signpost.description:attribute}@ GroupName=%{signpost.description:attribute,public}@ Behavior=%{signpost.description:attribute,public}@ QoS=%{signpost.description:attribute,public}@ ", &v43, 0x3Eu);
+      v42 = 138413570;
+      v43 = v17;
+      v44 = 2112;
+      v45 = v20;
+      v46 = 2112;
+      v47 = v26;
+      v48 = 2114;
+      v49 = v29;
+      v50 = 2114;
+      v51 = v36;
+      v52 = 2114;
+      v53 = v41;
+      _os_signpost_emit_with_name_impl(&dword_1883EA000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v14, "CKInitiateParticipantVettingOperation", "ID=%{signpost.description:attribute}@ Container=%{signpost.description:attribute}@ GroupID=%{signpost.description:attribute}@ GroupName=%{signpost.description:attribute,public}@ Behavior=%{signpost.description:attribute,public}@ QoS=%{signpost.description:attribute,public}@ ", &v42, 0x3Eu);
     }
   }
-
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 - (void)ckSignpostEndWithError:(id)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (self)
   {
@@ -603,13 +597,11 @@ LABEL_22:
 
     if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
     {
-      v18 = 138412290;
-      v19 = errorCopy;
-      _os_signpost_emit_with_name_impl(&dword_1883EA000, v11, OS_SIGNPOST_INTERVAL_END, v16, "CKInitiateParticipantVettingOperation", "Error=%{signpost.description:attribute}@ ", &v18, 0xCu);
+      v17 = 138412290;
+      v18 = errorCopy;
+      _os_signpost_emit_with_name_impl(&dword_1883EA000, v11, OS_SIGNPOST_INTERVAL_END, v16, "CKInitiateParticipantVettingOperation", "Error=%{signpost.description:attribute}@ ", &v17, 0xCu);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 + (void)applyDaemonCallbackInterfaceTweaks:(id)tweaks

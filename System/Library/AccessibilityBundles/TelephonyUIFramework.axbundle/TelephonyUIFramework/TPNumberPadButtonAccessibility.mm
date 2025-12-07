@@ -154,13 +154,9 @@ LABEL_29:
   return accessibilityHint;
 }
 
-uint64_t __51__TPNumberPadButtonAccessibility_accessibilityHint__block_invoke(uint64_t a1)
+uint64_t __51__TPNumberPadButtonAccessibility_accessibilityHint__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
-  v3 = [objc_opt_class() localizedLettersForCharacter:*(a1 + 48)];
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 40) + 8) + 40) = [objc_opt_class() localizedLettersForCharacter:*(a1 + 48)];
 
   return MEMORY[0x2A1C71028]();
 }

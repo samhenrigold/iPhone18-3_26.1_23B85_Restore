@@ -18,7 +18,7 @@
 
 + (id)dictionaryWithPlistAssetPath:(id)path
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   if (!pathCopy)
   {
@@ -26,17 +26,17 @@
     goto LABEL_18;
   }
 
-  v13 = 0;
-  v4 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfFile:pathCopy options:1 error:&v13];
-  v5 = v13;
+  v12 = 0;
+  v4 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfFile:pathCopy options:1 error:&v12];
+  v5 = v12;
   if (!v4)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v15 = pathCopy;
-      v16 = 2112;
-      v17 = v5;
+      v14 = pathCopy;
+      v15 = 2112;
+      v16 = v5;
       _os_log_error_impl(&dword_24799E000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Error loading model plist %@: %@", buf, 0x16u);
     }
 
@@ -51,18 +51,18 @@
 
   else
   {
-    v12 = 0;
-    v7 = [MEMORY[0x277CCAC58] propertyListWithData:v4 options:0 format:0 error:&v12];
-    v9 = v12;
+    v11 = 0;
+    v7 = [MEMORY[0x277CCAC58] propertyListWithData:v4 options:0 format:0 error:&v11];
+    v9 = v11;
 
     if (v9)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v15 = v4;
-        v16 = 2112;
-        v17 = v9;
+        v14 = v4;
+        v15 = 2112;
+        v16 = v9;
         _os_log_error_impl(&dword_24799E000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Error deserializing model plist %@: %@", buf, 0x16u);
       }
 
@@ -82,7 +82,6 @@ LABEL_16:
 LABEL_17:
 
 LABEL_18:
-  v10 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

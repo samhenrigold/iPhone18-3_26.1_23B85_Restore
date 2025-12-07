@@ -31,9 +31,9 @@
 - (SFProximityEstimatorMaxOfMean)initWithProximityInfo:(id)info
 {
   infoCopy = info;
-  v16.receiver = self;
-  v16.super_class = SFProximityEstimatorMaxOfMean;
-  v5 = [(SFProximityEstimator *)&v16 initWithProximityInfo:infoCopy];
+  v14.receiver = self;
+  v14.super_class = SFProximityEstimatorMaxOfMean;
+  v5 = [(SFProximityEstimator *)&v14 initWithProximityInfo:infoCopy];
   if (!v5)
   {
     goto LABEL_10;
@@ -77,35 +77,37 @@ LABEL_10:
 
   else
   {
-    rssiMinCount = v5->_rssiMinCount;
-    FatalErrorF();
+    FatalErrorF("calloc channel numbers %u x 1 failed", v5->_rssiMinCount);
   }
 
-  v15 = v5->_rssiMinCount;
-  v12 = FatalErrorF();
+  v12 = FatalErrorF("calloc RSSIs %u x 1 failed", v5->_rssiMinCount);
   return [(SFProximityEstimatorMaxOfMean *)v12 description];
 }
 
 - (id)description
 {
-  NSAppendPrintF();
-  v3 = 0;
+  v12 = 0;
+  NSAppendPrintF(&v12, "SFProximityEstimatorMaxOfMean");
+  v3 = v12;
   descriptionParams = [(SFProximityEstimator *)self descriptionParams];
+  v5 = descriptionParams;
   if (descriptionParams)
   {
-    NSAppendPrintF();
-    v5 = v3;
+    v11 = v3;
+    NSAppendPrintF(&v11, "%@", descriptionParams);
+    v6 = v11;
 
-    v3 = v5;
+    v3 = v6;
   }
 
   if (self->_rssiMinCount)
   {
     rssiMinCount = self->_rssiMinCount;
-    NSAppendPrintF();
-    v6 = v3;
+    v10 = v3;
+    NSAppendPrintF(&v10, ", s=%u", rssiMinCount);
+    v7 = v10;
 
-    v3 = v6;
+    v3 = v7;
   }
 
   return v3;
@@ -113,7 +115,7 @@ LABEL_10:
 
 - (int)_estimateRSSIForSFBLEDevice:(id)device
 {
-  v57[2] = *MEMORY[0x1E69E9840];
+  v35[2] = *MEMORY[0x1E69E9840];
   deviceCopy = device;
   rssi = [deviceCopy rssi];
   if ((rssi & 0x8000000000000000) == 0)
@@ -153,11 +155,11 @@ LABEL_10:
     goto LABEL_17;
   }
 
-  v57[0] = 0;
-  v57[1] = 0;
-  v56[0] = 0;
-  v56[1] = 0;
-  v39 = -1;
+  v35[0] = 0;
+  v35[1] = 0;
+  v34[0] = 0;
+  v34[1] = 0;
+  v32 = -1;
   if (v11)
   {
     channelNumberArray = self->_channelNumberArray;
@@ -169,9 +171,9 @@ LABEL_10:
       v15 = v16;
       v17 = v16 & 3;
       v18 = *rssiArray++;
-      *(v57 + v17) += v18;
-      ++*(v56 + v17);
-      *(&v39 | v15 & 3) = v15;
+      *(v35 + v17) += v18;
+      ++*(v34 + v17);
+      *(&v32 | v15 & 3) = v15;
       --v11;
     }
 
@@ -182,11 +184,11 @@ LABEL_10:
   v20 = 0x80;
   do
   {
-    v21 = *(v56 + v19);
+    v21 = *(v34 + v19);
     if (v21)
     {
-      v22 = *(v57 + v19) / v21;
-      *(v57 + v19) = v22;
+      v22 = *(v35 + v19) / v21;
+      *(v35 + v19) = v22;
       if (v22 > v20)
       {
         v20 = v22;
@@ -202,63 +204,41 @@ LABEL_10:
     v23 = v20;
     if (gLogCategory_SFProximityEstimator <= 9 && (gLogCategory_SFProximityEstimator != -1 || _LogCategory_Initialize()))
     {
-      v38 = deviceCopy;
-      v26 = 0;
-      v54 = 0u;
-      v55 = 0u;
-      v52 = 0u;
-      v53 = 0u;
-      v50 = 0u;
-      v51 = 0u;
-      v48 = 0u;
-      v49 = 0u;
-      v46 = 0u;
-      v47 = 0u;
-      v44 = 0u;
-      v45 = 0u;
-      v42 = 0u;
-      v43 = 0u;
-      v40 = 0u;
-      v41 = 0u;
+      v30 = deviceCopy;
+      v25 = 0;
+      memset(v33, 0, sizeof(v33));
+      v31 = v33;
       do
       {
-        v27 = *(&v39 + v26);
-        if (v27 != 255)
+        v26 = *(&v32 + v25);
+        if (v26 != 255)
         {
-          v31 = *(&v39 + v26);
-          v32 = *(v57 + v26);
-          SNPrintF_Add();
+          SNPrintF_Add(&v31, v34, "\tCh %2u: Mean %3d: ", *(&v32 + v25), *(v35 + v25));
           rssiCount = self->_rssiCount;
           if (rssiCount)
           {
             for (i = 0; i < rssiCount; ++i)
             {
-              if (self->_channelNumberArray[i] == v27)
+              if (self->_channelNumberArray[i] == v26)
               {
-                v31 = self->_rssiArray[i];
-                SNPrintF_Add();
+                SNPrintF_Add(&v31, v34, "%3d ", self->_rssiArray[i]);
                 rssiCount = self->_rssiCount;
               }
             }
           }
 
-          SNPrintF_Add();
+          SNPrintF_Add(&v31, v34, "\n");
         }
 
-        ++v26;
+        ++v25;
       }
 
-      while (v26 != 4);
-      deviceCopy = v38;
+      while (v25 != 4);
+      deviceCopy = v30;
       if (gLogCategory_SFProximityEstimator < 51 && (gLogCategory_SFProximityEstimator != -1 || _LogCategory_Initialize()))
       {
-        identifier = [v38 identifier];
-        rssiNear = self->super._rssiNear;
-        rssiFar = self->super._rssiFar;
-        rssiExit = self->super._rssiExit;
-        rssiImmediate = self->super._rssiImmediate;
-        rssiEnter = self->super._rssiEnter;
-        LogPrintF();
+        identifier = [v30 identifier];
+        LogPrintF(&gLogCategory_SFProximityEstimator, "[SFProximityEstimatorMaxOfMean _estimateRSSIForSFBLEDevice:]", 50, "%{ptr} %@: R/E %3d/%3d, Thr %3d/%3d, I/N/F %3d/%3d/%3d, Ch %2u\n%s\n", self, identifier, v6, v23, self->super._rssiEnter, self->super._rssiExit, self->super._rssiImmediate, self->super._rssiNear, self->super._rssiFar, Int64Ranged, v33);
       }
     }
   }
@@ -266,10 +246,9 @@ LABEL_10:
   else
   {
 LABEL_17:
-    v23 = 0;
+    LODWORD(v23) = 0;
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return v23;
 }
 

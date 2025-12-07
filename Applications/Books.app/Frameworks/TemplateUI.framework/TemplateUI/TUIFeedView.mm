@@ -119,7 +119,7 @@
   v7 = renderModel;
   if (renderModel)
   {
-    [renderModel config];
+    objc_msgSend_config(renderModel);
     v8 = v37;
   }
 
@@ -140,7 +140,7 @@
     lastObject = [v10 lastObject];
     v13 = TUIDynamicCast(v11, lastObject);
 
-    if (v13 && (([v13 renderModel], v14 = objc_claimAutoreleasedReturnValue(), (v15 = v14) == 0) ? (v16 = 0, v35 = 0, v36 = 0, v37 = 0) : (objc_msgSend(v14, "config"), v16 = v37), v17 = v16 > v8, v15, !v17))
+    if (v13 && (([v13 renderModel], v14 = objc_claimAutoreleasedReturnValue(), (v15 = v14) == 0) ? (v16 = 0, v35 = 0, v36 = 0, v37 = 0) : (objc_msgSend_config(v14), v16 = v37), v17 = v16 > v8, v15, !v17))
     {
       [(TUIFeedView *)self addSubview:viewCopy];
     }
@@ -186,7 +186,7 @@
               v27 = renderModel2;
               if (renderModel2)
               {
-                [renderModel2 config];
+                objc_msgSend_config(renderModel2);
                 v28 = v37;
               }
 
@@ -643,7 +643,7 @@ LABEL_9:
 
 - (void)updateLiveTransformsIfNecessaryWithViewSize:(double)size contentOffset:(double)offset contentInsets:(double)insets safeAreaInsets:(double)areaInsets hasTabBar:(double)bar
 {
-  v32 = objc_alloc_init(TUIFeedViewInvalidationContext);
+  v28 = objc_alloc_init(TUIFeedViewInvalidationContext);
   contentInsetAdjustmentBehavior = [self contentInsetAdjustmentBehavior];
   if (contentInsetAdjustmentBehavior == &dword_0 + 2)
   {
@@ -651,7 +651,7 @@ LABEL_9:
   }
 
   bottom = UIEdgeInsetsZero.bottom;
-  [self[23] didUpdateContentOffset:v32 withInvalidationContext:{offset, insets + top}];
+  [self[23] didUpdateContentOffset:v28 withInvalidationContext:{offset, insets + top}];
   if (contentInsetAdjustmentBehavior == &dword_0 + 2)
   {
     a14 = bottom;
@@ -662,14 +662,14 @@ LABEL_9:
     a14 = a8;
   }
 
-  [self[24] updatePinningTransformsWithViewBounds:v32 adjustedViewBounds:a10 invalidationContext:offset hasTabBar:{insets, a2, size, offset, areaInsets + insets + top, a2, size - (areaInsets + top + a14)}];
-  [self[25] updateOverscrollingTransformsWithContentOffset:v32 invalidationContext:{offset, insets}];
-  invalidatedIndexPaths = [(TUIFeedViewInvalidationContext *)v32 invalidatedIndexPaths];
-  v30 = [invalidatedIndexPaths count];
+  [self[24] updatePinningTransformsWithViewBounds:v28 adjustedViewBounds:a10 invalidationContext:offset hasTabBar:{insets, a2, size, offset, areaInsets + insets + top, a2, size - (areaInsets + top + a14)}];
+  [self[25] updateOverscrollingTransformsWithContentOffset:v28 invalidationContext:{offset, insets}];
+  invalidatedIndexPaths = [(TUIFeedViewInvalidationContext *)v28 invalidatedIndexPaths];
+  v26 = [invalidatedIndexPaths count];
 
-  if (v30)
+  if (v26)
   {
-    [self invalidateWithContext:v32];
+    [self invalidateWithContext:v28];
     [self layoutIfNeeded];
   }
 }
@@ -1213,71 +1213,73 @@ LABEL_9:
 {
   pathsCopy = paths;
   v4 = [(NSArray *)self->_sectionModels count];
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
-  v22 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   obj = pathsCopy;
-  v5 = [obj countByEnumeratingWithState:&v21 objects:v33 count:16];
+  v5 = [obj countByEnumeratingWithState:&v26 objects:v38 count:16];
   if (v5)
   {
     v6 = 0;
-    v7 = *v22;
+    v7 = *v27;
     do
     {
       for (i = 0; i != v5; i = i + 1)
       {
-        if (*v22 != v7)
+        if (*v27 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v21 + 1) + 8 * i);
+        v9 = *(*(&v26 + 1) + 8 * i);
         tui_section = [v9 tui_section];
+        v12 = tui_section;
         if (tui_section >= v4)
         {
-          if (_TUIDeviceHasInternalInstall())
+          HasInternalInstall = _TUIDeviceHasInternalInstall(tui_section, v11);
+          if (HasInternalInstall)
           {
-            v12 = TUIDefaultLog();
-            if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+            v15 = TUIDefaultLog(HasInternalInstall);
+            if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
             {
               sectionModels = self->_sectionModels;
               *buf = 134218498;
-              v28 = tui_section;
-              v29 = 2048;
-              v30 = v4;
-              v31 = 2112;
-              v32 = sectionModels;
-              _os_log_error_impl(&dword_0, v12, OS_LOG_TYPE_ERROR, "invalid section addressed: %lu (of %lu) with _sectionModels: %@", buf, 0x20u);
+              v33 = v12;
+              v34 = 2048;
+              v35 = v4;
+              v36 = 2112;
+              v37 = sectionModels;
+              _os_log_error_impl(&dword_0, v15, OS_LOG_TYPE_ERROR, "invalid section addressed: %lu (of %lu) with _sectionModels: %@", buf, 0x20u);
             }
 
-            if (_TUIDeviceHasInternalInstall())
+            if (_TUIDeviceHasInternalInstall(v16, v17))
             {
-              v15 = [NSException alloc];
-              v25 = @"indexPath";
-              v26 = v9;
-              v16 = [NSDictionary dictionaryWithObjects:&v26 forKeys:&v25 count:1];
-              v17 = [v15 initWithName:@"InvalidSection" reason:@"An invalid indexPath was used" userInfo:v16];
-              v18 = v17;
+              v20 = [NSException alloc];
+              v30 = @"indexPath";
+              v31 = v9;
+              v21 = [NSDictionary dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+              v22 = [v20 initWithName:@"InvalidSection" reason:@"An invalid indexPath was used" userInfo:v21];
+              v23 = v22;
 
-              objc_exception_throw(v17);
+              objc_exception_throw(v22);
             }
           }
 
-          v11 = 0;
+          v13 = 0;
         }
 
         else
         {
-          v11 = [(NSArray *)self->_sectionModels objectAtIndexedSubscript:tui_section];
+          v13 = [(NSArray *)self->_sectionModels objectAtIndexedSubscript:tui_section];
         }
 
-        v13 = [v11 invalidateViewAtIndexPath:v9];
+        v18 = [v13 invalidateViewAtIndexPath:v9];
 
-        v6 |= v13;
+        v6 |= v18;
       }
 
-      v5 = [obj countByEnumeratingWithState:&v21 objects:v33 count:16];
+      v5 = [obj countByEnumeratingWithState:&v26 objects:v38 count:16];
     }
 
     while (v5);

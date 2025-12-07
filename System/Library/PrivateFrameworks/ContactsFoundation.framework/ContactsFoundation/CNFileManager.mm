@@ -288,7 +288,7 @@ id __77__CNFileManager_createDirectoryAtURL_withIntermediateDirectories_attribut
 
 - (id)containerURLForSecurityApplicationGroupIdentifier:(id)identifier
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v3 = [(NSFileManager *)self->_fileManager containerURLForSecurityApplicationGroupIdentifier:identifier];
   if (v3)
   {
@@ -297,15 +297,13 @@ id __77__CNFileManager_createDirectoryAtURL_withIntermediateDirectories_attribut
 
   else
   {
-    v9 = *MEMORY[0x1E696A578];
-    v10[0] = @"Failed to find the container URL for the given application group identifier";
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+    v8 = *MEMORY[0x1E696A578];
+    v9[0] = @"Failed to find the container URL for the given application group identifier";
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
     v4 = [MEMORY[0x1E696ABC0] errorWithDomain:@"CNContactsFoundationErrorDomain" code:13 userInfo:v5];
   }
 
   v6 = [CNResult resultWithValue:v3 orError:v4];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

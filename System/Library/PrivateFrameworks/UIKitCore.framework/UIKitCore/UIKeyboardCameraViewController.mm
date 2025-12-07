@@ -107,7 +107,7 @@ uint64_t __53__UIKeyboardCameraViewController_isSupportedByDevice__block_invoke(
   v5.receiver = self;
   v5.super_class = UIKeyboardCameraViewController;
   [(UIViewController *)&v5 viewDidLoad];
-  v3 = +[UIColor blackColor];
+  v3 = objc_msgSend_blackColor(UIColor);
   view = [(UIViewController *)self view];
   [view setBackgroundColor:v3];
 }

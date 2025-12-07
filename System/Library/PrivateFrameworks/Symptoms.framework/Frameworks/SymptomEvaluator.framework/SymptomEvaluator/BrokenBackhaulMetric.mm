@@ -1,11 +1,45 @@
 @interface BrokenBackhaulMetric
+- (BrokenBackhaulMetric)initWithState:(unsigned int)state;
 - (id)eventPayload;
 - (void)_populateNetworkPropertiesOnCellRelay:(id)relay isIngress:(BOOL)ingress;
 - (void)_populateNetworkPropertiesOnWiFiRelay:(id)relay isIngress:(BOOL)ingress;
 - (void)_populateWifiPropertiesToCAPayload:(id)payload isIngress:(BOOL)ingress;
+- (void)populateNetworkPropertiesOnWiFiRelay:(id)relay cellRelay:(id)cellRelay isIngress:(BOOL)ingress;
 @end
 
 @implementation BrokenBackhaulMetric
+
+- (BrokenBackhaulMetric)initWithState:(unsigned int)state
+{
+  v3 = *&state;
+  v15.receiver = self;
+  v15.super_class = BrokenBackhaulMetric;
+  v4 = [(BrokenBackhaulMetric *)&v15 init];
+  v5 = v4;
+  if (v4)
+  {
+    [(BrokenBackhaulMetric *)v4 setState:v3];
+    v6 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    ingressWifiInputTypes = v5->_ingressWifiInputTypes;
+    v5->_ingressWifiInputTypes = v6;
+
+    v8 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    egressWifiInputTypes = v5->_egressWifiInputTypes;
+    v5->_egressWifiInputTypes = v8;
+
+    v10 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    ingressCellInputTypes = v5->_ingressCellInputTypes;
+    v5->_ingressCellInputTypes = v10;
+
+    v12 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    egressCellInputTypes = v5->_egressCellInputTypes;
+    v5->_egressCellInputTypes = v12;
+
+    *&v5->_ingressWifiTcpProgressScore = 0;
+  }
+
+  return v5;
+}
 
 - (void)_populateNetworkPropertiesOnCellRelay:(id)relay isIngress:(BOOL)ingress
 {
@@ -97,10 +131,18 @@
   }
 }
 
+- (void)populateNetworkPropertiesOnWiFiRelay:(id)relay cellRelay:(id)cellRelay isIngress:(BOOL)ingress
+{
+  ingressCopy = ingress;
+  cellRelayCopy = cellRelay;
+  [(BrokenBackhaulMetric *)self _populateNetworkPropertiesOnWiFiRelay:relay isIngress:ingressCopy];
+  [(BrokenBackhaulMetric *)self _populateNetworkPropertiesOnCellRelay:cellRelayCopy isIngress:ingressCopy];
+}
+
 - (void)_populateWifiPropertiesToCAPayload:(id)payload isIngress:(BOOL)ingress
 {
   ingressCopy = ingress;
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   v7 = !ingressCopy;
   v8 = 16;
@@ -133,17 +175,17 @@
   v12 = v9;
   v13 = *(&self->super.isa + v11);
   v14 = v10;
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
-  v27 = v12;
+  v26 = v12;
   obj = [v12 allObjects];
-  v15 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v15 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v30;
+    v17 = *v29;
     v18 = &unk_2847EFBD8;
     if (v13 <= 0xA)
     {
@@ -164,12 +206,12 @@
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v30 != v17)
+        if (*v29 != v17)
         {
           objc_enumerationMutation(obj);
         }
 
-        unsignedIntValue = [*(*(&v29 + 1) + 8 * i) unsignedIntValue];
+        unsignedIntValue = [*(*(&v28 + 1) + 8 * i) unsignedIntValue];
         v22 = objc_alloc(MEMORY[0x277CCACA8]);
         if ((unsignedIntValue - 1) >= 0x21)
         {
@@ -196,18 +238,16 @@
         [payloadCopy setObject:v25 forKeyedSubscript:v24];
       }
 
-      v16 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v16 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v16);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (id)eventPayload
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:self->_state];
   [v3 setObject:v4 forKeyedSubscript:@"state"];
@@ -235,28 +275,28 @@
 
   [(BrokenBackhaulMetric *)self _populateWifiPropertiesToCAPayload:v3 isIngress:1];
   [(BrokenBackhaulMetric *)self _populateWifiPropertiesToCAPayload:v3 isIngress:0];
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
   v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   selfCopy = self;
   obj = [(NSMutableSet *)self->_egressCellInputTypes allObjects];
-  v12 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
+  v12 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v40;
+    v14 = *v39;
     v15 = MEMORY[0x277CBEC38];
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v40 != v14)
+        if (*v39 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        unsignedIntValue = [*(*(&v39 + 1) + 8 * i) unsignedIntValue];
+        unsignedIntValue = [*(*(&v38 + 1) + 8 * i) unsignedIntValue];
         v18 = objc_alloc(MEMORY[0x277CCACA8]);
         if ((unsignedIntValue - 1) >= 0x21)
         {
@@ -273,33 +313,33 @@
         [v3 setObject:v15 forKeyedSubscript:v20];
       }
 
-      v13 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
+      v13 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
     }
 
     while (v13);
   }
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   obja = [(NSMutableSet *)selfCopy->_ingressCellInputTypes allObjects];
-  v21 = [obja countByEnumeratingWithState:&v35 objects:v43 count:16];
+  v21 = [obja countByEnumeratingWithState:&v34 objects:v42 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v36;
+    v23 = *v35;
     v24 = MEMORY[0x277CBEC38];
     do
     {
       for (j = 0; j != v22; ++j)
       {
-        if (*v36 != v23)
+        if (*v35 != v23)
         {
           objc_enumerationMutation(obja);
         }
 
-        unsignedIntValue2 = [*(*(&v35 + 1) + 8 * j) unsignedIntValue];
+        unsignedIntValue2 = [*(*(&v34 + 1) + 8 * j) unsignedIntValue];
         v27 = objc_alloc(MEMORY[0x277CCACA8]);
         if ((unsignedIntValue2 - 1) >= 0x21)
         {
@@ -316,13 +356,11 @@
         [v3 setObject:v24 forKeyedSubscript:v29];
       }
 
-      v22 = [obja countByEnumeratingWithState:&v35 objects:v43 count:16];
+      v22 = [obja countByEnumeratingWithState:&v34 objects:v42 count:16];
     }
 
     while (v22);
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

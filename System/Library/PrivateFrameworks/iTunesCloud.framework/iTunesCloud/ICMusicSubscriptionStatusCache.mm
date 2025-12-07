@@ -34,9 +34,11 @@
 
 uint64_t __45__ICMusicSubscriptionStatusCache_sharedCache__block_invoke()
 {
-  sharedCache_sSharedCache = [[ICMusicSubscriptionStatusCache alloc] _init];
+  v0 = [[ICMusicSubscriptionStatusCache alloc] _init];
+  v1 = sharedCache_sSharedCache;
+  sharedCache_sSharedCache = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (id)_init

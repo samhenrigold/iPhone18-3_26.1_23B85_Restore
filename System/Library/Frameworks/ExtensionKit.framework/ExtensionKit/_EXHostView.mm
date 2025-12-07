@@ -39,7 +39,7 @@ LABEL_6:
 
 - (void)embedView:(id)view
 {
-  v24[4] = *MEMORY[0x1E69E9840];
+  v23[4] = *MEMORY[0x1E69E9840];
   viewCopy = view;
   embededView = [(_EXHostView *)self embededView];
   v6 = embededView;
@@ -59,31 +59,29 @@ LABEL_6:
       *&v8 = self->_verticalContentCompressionResistancePriority;
       [viewCopy setContentCompressionResistancePriority:1 forAxis:v8];
       [(_EXHostView *)self addSubview:viewCopy];
-      v18 = MEMORY[0x1E696ACD8];
+      v17 = MEMORY[0x1E696ACD8];
       leftAnchor = [viewCopy leftAnchor];
       leftAnchor2 = [(_EXHostView *)self leftAnchor];
-      v21 = [leftAnchor constraintEqualToAnchor:leftAnchor2];
-      v24[0] = v21;
+      v20 = [leftAnchor constraintEqualToAnchor:leftAnchor2];
+      v23[0] = v20;
       topAnchor = [viewCopy topAnchor];
       topAnchor2 = [(_EXHostView *)self topAnchor];
-      v17 = [topAnchor constraintEqualToAnchor:topAnchor2];
-      v24[1] = v17;
+      v16 = [topAnchor constraintEqualToAnchor:topAnchor2];
+      v23[1] = v16;
       rightAnchor = [viewCopy rightAnchor];
       rightAnchor2 = [(_EXHostView *)self rightAnchor];
       v11 = [rightAnchor constraintEqualToAnchor:rightAnchor2];
-      v24[2] = v11;
+      v23[2] = v11;
       bottomAnchor = [viewCopy bottomAnchor];
       bottomAnchor2 = [(_EXHostView *)self bottomAnchor];
       v14 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-      v24[3] = v14;
-      v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:4];
-      [v18 activateConstraints:v15];
+      v23[3] = v14;
+      v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:4];
+      [v17 activateConstraints:v15];
 
       [(_EXHostView *)self setEmbededView:viewCopy];
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 @end

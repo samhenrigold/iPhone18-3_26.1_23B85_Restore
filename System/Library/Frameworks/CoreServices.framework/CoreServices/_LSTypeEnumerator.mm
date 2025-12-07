@@ -28,7 +28,7 @@
   if (v7 > index)
   {
     v10 = begin[index];
-    if (_UTTypeGet(context->db))
+    if (_UTTypeGet(context->db, v10))
     {
       v11 = [(LSRecord *)[_UTDeclaredTypeRecord alloc] _initWithContext:context tableID:*([(_LSDatabase *)context->db schema]+ 16) unitID:v10];
       v12 = *object;

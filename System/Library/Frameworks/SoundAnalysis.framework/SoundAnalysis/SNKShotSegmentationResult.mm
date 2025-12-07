@@ -25,12 +25,12 @@
 - (NSArray)segments
 {
   selfCopy = self;
-  sub_1C97B5B44();
+  sub_1C97B5B44(selfCopy, v3, v4, v5);
 
   type metadata accessor for SNKShotSegment(0);
-  v3 = sub_1C9A92768();
+  v6 = sub_1C9A92768();
 
-  return v3;
+  return v6;
 }
 
 - (NSNumber)exemplarIndex

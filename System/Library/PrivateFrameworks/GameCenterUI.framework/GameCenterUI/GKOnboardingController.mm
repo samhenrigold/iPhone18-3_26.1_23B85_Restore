@@ -24,9 +24,11 @@
 
 uint64_t __32__GKOnboardingController_shared__block_invoke()
 {
-  shared_sShared = objc_alloc_init(GKOnboardingController);
+  v0 = objc_alloc_init(GKOnboardingController);
+  v1 = shared_sShared;
+  shared_sShared = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (id)landingViewControllerWithGameBundleId:(id)id

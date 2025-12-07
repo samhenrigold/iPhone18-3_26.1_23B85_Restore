@@ -9,20 +9,19 @@
 + (id)mediaPlaybackAndCaptureWithEnvironment:(id)environment
 {
   v4 = type metadata accessor for ProcessCapability(0);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x1EEE9AC00](v4);
-  v7 = &v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_19D503500(environment + OBJC_IVAR___BEMediaEnvironment_inner, v7, type metadata accessor for MediaEnvironment);
+  v6 = &v11 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_19D503500(environment + OBJC_IVAR___BEMediaEnvironment_inner, v6, type metadata accessor for MediaEnvironment);
   swift_storeEnumTagMultiPayload();
-  v8 = type metadata accessor for BEProcessCapability(0);
-  v9 = objc_allocWithZone(v8);
-  sub_19D503500(v7, v9 + OBJC_IVAR___BEProcessCapability_inner, type metadata accessor for ProcessCapability);
-  v12.receiver = v9;
-  v12.super_class = v8;
-  v10 = objc_msgSendSuper2(&v12, sel_init);
-  sub_19D5041C0(v7, type metadata accessor for ProcessCapability);
+  v7 = type metadata accessor for BEProcessCapability(0);
+  v8 = objc_allocWithZone(v7);
+  sub_19D503500(v6, v8 + OBJC_IVAR___BEProcessCapability_inner, type metadata accessor for ProcessCapability);
+  v11.receiver = v8;
+  v11.super_class = v7;
+  v9 = objc_msgSendSuper2(&v11, sel_init);
+  sub_19D5041C0(v6, type metadata accessor for ProcessCapability);
 
-  return v10;
+  return v9;
 }
 
 - (id)requestWithError:(id *)error

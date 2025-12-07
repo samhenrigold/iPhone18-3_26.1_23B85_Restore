@@ -66,7 +66,7 @@
   else
   {
     v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v3, v4))
     {
       objc_exception_throw(v3);
     }
@@ -87,9 +87,9 @@ AVCaptureDeferredPhotoProcessor *__55__AVCaptureDeferredPhotoProcessor_sharedPho
 {
   if (AVCaptureClientHasEntitlement(AVCaptureEntitlementDeferredPhotoProcessor))
   {
-    v10.receiver = self;
-    v10.super_class = AVCaptureDeferredPhotoProcessor;
-    v4 = [(AVCaptureDeferredPhotoProcessor *)&v10 init];
+    v11.receiver = self;
+    v11.super_class = AVCaptureDeferredPhotoProcessor;
+    v4 = [(AVCaptureDeferredPhotoProcessor *)&v11 init];
     if (v4)
     {
       v4->_weakReference = [objc_alloc(MEMORY[0x1E6988198]) initWithReferencedObject:v4];
@@ -107,7 +107,7 @@ AVCaptureDeferredPhotoProcessor *__55__AVCaptureDeferredPhotoProcessor_sharedPho
   else
   {
     v8 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v8, v9))
     {
       objc_exception_throw(v8);
     }
@@ -137,108 +137,103 @@ AVCaptureDeferredPhotoProcessor *__55__AVCaptureDeferredPhotoProcessor_sharedPho
 
 - (NSArray)persistentlyStoredDeferredPhotoProxies
 {
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x3052000000;
+  v41 = __Block_byref_object_copy__8;
+  v42 = __Block_byref_object_dispose__8;
   v43 = 0;
-  v44 = &v43;
-  v45 = 0x3052000000;
-  v46 = __Block_byref_object_copy__8;
-  v47 = __Block_byref_object_dispose__8;
-  v48 = 0;
-  v42[0] = MEMORY[0x1E69E9820];
-  v42[1] = 3221225472;
-  v42[2] = __73__AVCaptureDeferredPhotoProcessor_persistentlyStoredDeferredPhotoProxies__block_invoke;
-  v42[3] = &unk_1E7875930;
-  v42[4] = self;
-  v42[5] = &v43;
-  if ([(AVCaptureDeferredPhotoProcessor *)self _executeBlockOnProcessorQueueSync:v42])
+  v37[0] = MEMORY[0x1E69E9820];
+  v37[1] = 3221225472;
+  v37[2] = __73__AVCaptureDeferredPhotoProcessor_persistentlyStoredDeferredPhotoProxies__block_invoke;
+  v37[3] = &unk_1E7875930;
+  v37[4] = self;
+  v37[5] = &v38;
+  if ([(AVCaptureDeferredPhotoProcessor *)self _executeBlockOnProcessorQueueSync:v37])
   {
-    v29 = 0;
+    v24 = 0;
   }
 
   else
   {
-    v29 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v44[5], "count")}];
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
-    v39 = 0u;
-    obj = v44[5];
-    v2 = [obj countByEnumeratingWithState:&v38 objects:v37 count:16];
+    v24 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v39[5], "count")}];
+    v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
+    obj = v39[5];
+    v2 = [obj countByEnumeratingWithState:&v33 objects:v32 count:16];
     if (v2)
     {
-      v24 = *v39;
-      v23 = *MEMORY[0x1E698F9E8];
-      v22 = *MEMORY[0x1E698F9F0];
-      v21 = *MEMORY[0x1E698FA00];
-      v28 = *MEMORY[0x1E698FA08];
-      v27 = *MEMORY[0x1E698F9F8];
-      v3 = *MEMORY[0x1E698FA10];
+      v21 = *v34;
       do
       {
-        v4 = 0;
-        v25 = v2;
+        v3 = 0;
+        v22 = v2;
         do
         {
-          if (*v39 != v24)
+          if (*v34 != v21)
           {
             objc_enumerationMutation(obj);
           }
 
-          v5 = *(*(&v38 + 1) + 8 * v4);
-          v6 = [v5 objectForKeyedSubscript:v23];
-          v7 = [v5 objectForKeyedSubscript:v22];
-          v8 = [v5 objectForKeyedSubscript:v21];
-          v26 = v4;
-          v35 = 0u;
-          v36 = 0u;
-          v33 = 0u;
-          v34 = 0u;
-          v9 = [v8 countByEnumeratingWithState:&v33 objects:v32 count:16];
-          if (v9)
+          v4 = *(*(&v33 + 1) + 8 * v3);
+          v5 = objc_msgSend_objectForKeyedSubscript_(v4);
+          v6 = objc_msgSend_objectForKeyedSubscript_(v4);
+          v7 = objc_msgSend_objectForKeyedSubscript_(v4);
+          v23 = v3;
+          v30 = 0u;
+          v31 = 0u;
+          v28 = 0u;
+          v29 = 0u;
+          v8 = [v7 countByEnumeratingWithState:&v28 objects:v27 count:16];
+          if (v8)
           {
-            v10 = *v34;
+            v9 = *v29;
             do
             {
-              for (i = 0; i != v9; ++i)
+              for (i = 0; i != v8; ++i)
               {
-                if (*v34 != v10)
+                if (*v29 != v9)
                 {
-                  objc_enumerationMutation(v8);
+                  objc_enumerationMutation(v7);
                 }
 
-                v12 = *(*(&v33 + 1) + 8 * i);
-                memset(&v31, 0, sizeof(v31));
-                CMTimeMakeFromDictionary(&v31, [v12 objectForKeyedSubscript:v28]);
-                v13 = [v12 objectForKeyedSubscript:v27];
-                v14 = [v12 objectForKeyedSubscript:v3];
+                v11 = *(*(&v28 + 1) + 8 * i);
+                memset(&v26, 0, sizeof(v26));
+                v12 = objc_msgSend_objectForKeyedSubscript_(v11);
+                CMTimeMakeFromDictionary(&v26, v12);
+                v13 = objc_msgSend_objectForKeyedSubscript_(v11);
+                v14 = objc_msgSend_objectForKeyedSubscript_(v11);
                 v15 = [AVCaptureDeferredPhotoProxy alloc];
                 unsignedIntValue = [v14 unsignedIntValue];
-                v30 = v31;
-                v17 = [(AVCaptureDeferredPhotoProxy *)v15 initWithApplicationIdentifier:v6 captureRequestIdentifier:v7 photoIdentifier:v13 timestamp:&v30 expectedPhotoProcessingFlags:unsignedIntValue];
-                [(NSArray *)v29 addObject:v17];
+                v25 = v26;
+                v17 = [(AVCaptureDeferredPhotoProxy *)v15 initWithApplicationIdentifier:v5 captureRequestIdentifier:v6 photoIdentifier:v13 timestamp:&v25 expectedPhotoProcessingFlags:unsignedIntValue];
+                [(NSArray *)v24 addObject:v17];
               }
 
-              v9 = [v8 countByEnumeratingWithState:&v33 objects:v32 count:16];
+              v8 = [v7 countByEnumeratingWithState:&v28 objects:v27 count:16];
             }
 
-            while (v9);
+            while (v8);
           }
 
-          v4 = v26 + 1;
+          v3 = v23 + 1;
         }
 
-        while (v26 + 1 != v25);
-        v2 = [obj countByEnumeratingWithState:&v38 objects:v37 count:16];
+        while (v23 + 1 != v22);
+        v2 = [obj countByEnumeratingWithState:&v33 objects:v32 count:16];
       }
 
       while (v2);
     }
 
-    v44[5] = 0;
+    v39[5] = 0;
   }
 
-  if (v29)
+  if (v24)
   {
-    v18 = v29;
+    v18 = v24;
   }
 
   else
@@ -246,7 +241,7 @@ AVCaptureDeferredPhotoProcessor *__55__AVCaptureDeferredPhotoProcessor_sharedPho
     v18 = MEMORY[0x1E695E0F0];
   }
 
-  _Block_object_dispose(&v43, 8);
+  _Block_object_dispose(&v38, 8);
   return v18;
 }
 
@@ -299,22 +294,22 @@ uint64_t __73__AVCaptureDeferredPhotoProcessor_persistentlyStoredDeferredPhotoPr
 
 - (void)_processPhotoProxy:(id)proxy queuePosition:(id)position delegate:(id)delegate delegateQueue:(id)queue
 {
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x2020000000;
-  v27 = 0x7FFFFFFFFFFFFFFFLL;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x2020000000;
+  v28 = 0x7FFFFFFFFFFFFFFFLL;
   if (proxy)
   {
     FigSimpleMutexLock();
     requests = self->_requests;
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __91__AVCaptureDeferredPhotoProcessor__processPhotoProxy_queuePosition_delegate_delegateQueue___block_invoke;
-    v23[3] = &unk_1E78759A8;
-    v23[4] = proxy;
-    v23[5] = &v24;
-    [(NSMutableArray *)requests enumerateObjectsUsingBlock:v23];
-    if (v25[3] == 0x7FFFFFFFFFFFFFFFLL)
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __91__AVCaptureDeferredPhotoProcessor__processPhotoProxy_queuePosition_delegate_delegateQueue___block_invoke;
+    v24[3] = &unk_1E78759A8;
+    v24[4] = proxy;
+    v24[5] = &v25;
+    [(NSMutableArray *)requests enumerateObjectsUsingBlock:v24];
+    if (v26[3] == 0x7FFFFFFFFFFFFFFFLL)
     {
       v12 = [[AVCaptureDeferredPhotoProcessingRequest alloc] initWithPhotoProxy:proxy delegate:delegate delegateQueue:queue qosClass:qos_class_self()];
     }
@@ -322,7 +317,7 @@ uint64_t __73__AVCaptureDeferredPhotoProcessor_persistentlyStoredDeferredPhotoPr
     else
     {
       v12 = [(NSMutableArray *)self->_requests objectAtIndexedSubscript:?];
-      [(NSMutableArray *)self->_requests removeObjectAtIndex:v25[3]];
+      [(NSMutableArray *)self->_requests removeObjectAtIndex:v26[3]];
       [(AVCaptureDeferredPhotoProcessingRequest *)v12 addDelegate:delegate];
       qosClass = [(AVCaptureDeferredPhotoProcessingRequest *)v12 qosClass];
       if (qosClass < qos_class_self())
@@ -331,24 +326,24 @@ uint64_t __73__AVCaptureDeferredPhotoProcessor_persistentlyStoredDeferredPhotoPr
       }
     }
 
-    v15 = [position isEqualToString:@"Head"];
-    v16 = self->_requests;
-    if (v15)
+    v16 = [position isEqualToString:@"Head"];
+    v17 = self->_requests;
+    if (v16)
     {
-      [(NSMutableArray *)v16 insertObject:v12 atIndex:0];
+      [(NSMutableArray *)v17 insertObject:v12 atIndex:0];
     }
 
     else
     {
-      [(NSMutableArray *)v16 addObject:v12];
+      [(NSMutableArray *)v17 addObject:v12];
     }
 
     requestsWillBeReenqueued = self->_requestsWillBeReenqueued;
     FigSimpleMutexUnlock();
     if (dword_1ED806860)
     {
+      v23 = 0;
       v22 = 0;
-      v21 = 0;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -356,17 +351,17 @@ uint64_t __73__AVCaptureDeferredPhotoProcessor_persistentlyStoredDeferredPhotoPr
 
     if (!requestsWillBeReenqueued)
     {
-      v20[0] = MEMORY[0x1E69E9820];
-      v20[1] = 3221225472;
-      v20[2] = __91__AVCaptureDeferredPhotoProcessor__processPhotoProxy_queuePosition_delegate_delegateQueue___block_invoke_120;
-      v20[3] = &unk_1E78759D0;
-      v20[4] = self;
-      v20[5] = proxy;
-      v20[6] = position;
-      v19 = [(AVCaptureDeferredPhotoProcessor *)self _executeBlockOnProcessorQueueSync:v20];
-      if (v19)
+      v21[0] = MEMORY[0x1E69E9820];
+      v21[1] = 3221225472;
+      v21[2] = __91__AVCaptureDeferredPhotoProcessor__processPhotoProxy_queuePosition_delegate_delegateQueue___block_invoke_120;
+      v21[3] = &unk_1E78759D0;
+      v21[4] = self;
+      v21[5] = proxy;
+      v21[6] = position;
+      v20 = [(AVCaptureDeferredPhotoProcessor *)self _executeBlockOnProcessorQueueSync:v21];
+      if (v20)
       {
-        if (v19 == -16823)
+        if (v20 == -16823)
         {
           [(AVCaptureDeferredPhotoProcessor *)self _handleWillAbortProcessingDueToPriorityInversion];
         }
@@ -382,7 +377,7 @@ uint64_t __73__AVCaptureDeferredPhotoProcessor_persistentlyStoredDeferredPhotoPr
   else
   {
     v13 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v13, v14))
     {
       objc_exception_throw(v13);
     }
@@ -390,10 +385,10 @@ uint64_t __73__AVCaptureDeferredPhotoProcessor_persistentlyStoredDeferredPhotoPr
     NSLog(&cfstr_SuppressingExc.isa, v13);
   }
 
-  _Block_object_dispose(&v24, 8);
+  _Block_object_dispose(&v25, 8);
 }
 
-uint64_t __91__AVCaptureDeferredPhotoProcessor__processPhotoProxy_queuePosition_delegate_delegateQueue___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__91__AVCaptureDeferredPhotoProcessor__processPhotoProxy_queuePosition_delegate_delegateQueue___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   v16 = 0u;
   v17 = 0u;
@@ -425,7 +420,7 @@ uint64_t __91__AVCaptureDeferredPhotoProcessor__processPhotoProxy_queuePosition_
           }
         }
 
-        ++v11;
+        v11 = v11 + 1;
       }
 
       while (v9 != v11);
@@ -491,20 +486,20 @@ uint64_t __71__AVCaptureDeferredPhotoProcessor_cancelProcessingForPhotoProxy_err
 {
   if (dword_1ED806860)
   {
-    v10 = 0;
-    v9 = 0;
+    v8 = 0;
+    v7 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __72__AVCaptureDeferredPhotoProcessor_deletePersistentStorageForPhotoProxy___block_invoke;
-  v8[3] = &unk_1E78759F8;
-  v8[4] = self;
-  v8[5] = proxy;
-  [(AVCaptureDeferredPhotoProcessor *)self _executeBlockOnProcessorQueueSync:v8, v6, v7];
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = __72__AVCaptureDeferredPhotoProcessor_deletePersistentStorageForPhotoProxy___block_invoke;
+  v6[3] = &unk_1E78759F8;
+  v6[4] = self;
+  v6[5] = proxy;
+  [(AVCaptureDeferredPhotoProcessor *)self _executeBlockOnProcessorQueueSync:v6];
 }
 
 uint64_t __72__AVCaptureDeferredPhotoProcessor_deletePersistentStorageForPhotoProxy___block_invoke(uint64_t a1)
@@ -779,6 +774,8 @@ LABEL_8:
 LABEL_4:
   if (dword_1ED806860)
   {
+    v7 = 0;
+    v6 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -954,7 +951,7 @@ uint64_t __106__AVCaptureDeferredPhotoProcessor__handleWillBeginProcessingPhotoP
 
 - (void)_handleDidFinishProcessingPhotoProxyNotificationWithPayload:(id)payload forRequest:(id)request
 {
-  v6 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698F910]), "intValue"}];
+  v6 = [objc_msgSend_objectForKeyedSubscript_(payload a2];
   if (v6)
   {
     v48 = AVLocalizedErrorWithUnderlyingOSStatus();
@@ -965,22 +962,22 @@ uint64_t __106__AVCaptureDeferredPhotoProcessor__handleWillBeginProcessingPhotoP
     v48 = 0;
   }
 
-  cf = [payload objectForKeyedSubscript:*MEMORY[0x1E698F990]];
-  v47 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698F998]), "unsignedIntegerValue"}];
-  v46 = [payload objectForKeyedSubscript:*MEMORY[0x1E698F938]];
+  cf = objc_msgSend_objectForKeyedSubscript_(payload);
+  unsignedIntegerValue = [objc_msgSend_objectForKeyedSubscript_(payload) unsignedIntegerValue];
+  v46 = objc_msgSend_objectForKeyedSubscript_(payload);
   v73 = **&MEMORY[0x1E6960C70];
-  v7 = [payload objectForKeyedSubscript:*MEMORY[0x1E698F978]];
+  v7 = objc_msgSend_objectForKeyedSubscript_(payload);
   if (v7)
   {
     CMTimeMakeFromDictionary(&v73, v7);
   }
 
-  v45 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698F940]), "unsignedLongValue"}];
-  v44 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698F948]), "intValue"}];
-  v50 = [payload objectForKeyedSubscript:*MEMORY[0x1E698F9B0]];
-  v43 = [payload objectForKeyedSubscript:*MEMORY[0x1E698F960]];
-  v8 = [payload objectForKeyedSubscript:*MEMORY[0x1E698F8F8]];
-  v9 = [payload objectForKeyedSubscript:*MEMORY[0x1E698F950]];
+  unsignedLongValue = [objc_msgSend_objectForKeyedSubscript_(payload) unsignedLongValue];
+  intValue = [objc_msgSend_objectForKeyedSubscript_(payload) intValue];
+  v50 = objc_msgSend_objectForKeyedSubscript_(payload);
+  v43 = objc_msgSend_objectForKeyedSubscript_(payload);
+  v8 = objc_msgSend_objectForKeyedSubscript_(payload);
+  v9 = objc_msgSend_objectForKeyedSubscript_(payload);
   v67 = 0;
   v68 = &v67;
   v69 = 0x3052000000;
@@ -1058,18 +1055,18 @@ LABEL_18:
     v68[5] = v20;
   }
 
-  v21 = [payloadCopy objectForKeyedSubscript:*MEMORY[0x1E698F900]];
-  v41 = [payloadCopy objectForKeyedSubscript:*MEMORY[0x1E698F908]];
-  v22 = [payloadCopy objectForKeyedSubscript:*MEMORY[0x1E698F970]];
-  v40 = [payloadCopy objectForKeyedSubscript:*MEMORY[0x1E698F968]];
-  v23 = [payloadCopy objectForKeyedSubscript:*MEMORY[0x1E698F930]];
-  v39 = [payloadCopy objectForKeyedSubscript:*MEMORY[0x1E698F928]];
-  v24 = [payloadCopy objectForKeyedSubscript:*MEMORY[0x1E698F988]];
-  v38 = [payloadCopy objectForKeyedSubscript:*MEMORY[0x1E698F980]];
-  v25 = [payloadCopy objectForKeyedSubscript:*MEMORY[0x1E698F9A8]];
-  v37 = [payloadCopy objectForKeyedSubscript:*MEMORY[0x1E698F9A0]];
-  v26 = [payloadCopy objectForKeyedSubscript:*MEMORY[0x1E698F920]];
-  v36 = [payloadCopy objectForKeyedSubscript:*MEMORY[0x1E698F918]];
+  v21 = objc_msgSend_objectForKeyedSubscript_(payloadCopy);
+  v41 = objc_msgSend_objectForKeyedSubscript_(payloadCopy);
+  v22 = objc_msgSend_objectForKeyedSubscript_(payloadCopy);
+  v40 = objc_msgSend_objectForKeyedSubscript_(payloadCopy);
+  v23 = objc_msgSend_objectForKeyedSubscript_(payloadCopy);
+  v39 = objc_msgSend_objectForKeyedSubscript_(payloadCopy);
+  v24 = objc_msgSend_objectForKeyedSubscript_(payloadCopy);
+  v38 = objc_msgSend_objectForKeyedSubscript_(payloadCopy);
+  v25 = objc_msgSend_objectForKeyedSubscript_(payloadCopy);
+  v37 = objc_msgSend_objectForKeyedSubscript_(payloadCopy);
+  v26 = objc_msgSend_objectForKeyedSubscript_(payloadCopy);
+  v36 = objc_msgSend_objectForKeyedSubscript_(payloadCopy);
   v60 = 0u;
   v61 = 0u;
   v58 = 0u;
@@ -1136,9 +1133,9 @@ LABEL_18:
         v52[2] = __106__AVCaptureDeferredPhotoProcessor__handleDidFinishProcessingPhotoProxyNotificationWithPayload_forRequest___block_invoke;
         v52[3] = &unk_1E7875B10;
         v53 = v73;
-        v54 = v44;
-        v55 = v45;
-        v52[16] = v47;
+        v54 = intValue;
+        v55 = unsignedLongValue;
+        v52[16] = unsignedIntegerValue;
         v52[17] = v50;
         v52[4] = v43;
         v52[5] = v46;
@@ -1196,10 +1193,10 @@ void __106__AVCaptureDeferredPhotoProcessor__handleDidFinishProcessingPhotoProxy
     v20 = *(a1 + 80);
     v21 = *(a1 + 88);
     v22 = *(a1 + 224);
-    v58 = *(a1 + 192);
-    v59 = *(a1 + 208);
-    LODWORD(v45) = v22;
-    v23 = [(AVCapturePhoto *)v4 initWithTimestamp:&v58 photoSurface:v5 photoSurfaceSize:v6 processedFileType:v7 previewPhotoSurface:0 embeddedThumbnailSourceSurface:v9 photoLibraryThumbnails:v8 metadata:v10 depthDataSurface:v11 depthMetadataDictionary:v13 portraitEffectsMatteSurface:v12 portraitEffectsMatteMetadataDictionary:v14 hairSegmentationMatteSurface:v15 hairSegmentationMatteMetadataDictionary:v17 skinSegmentationMatteSurface:v16 skinSegmentationMatteMetadataDictionary:v18 teethSegmentationMatteSurface:v20 teethSegmentationMatteMetadataDictionary:v19 glassesSegmentationMatteSurface:v21 glassesSegmentationMatteMetadataDictionary:0 constantColorConfidenceMapSurface:0 constantColorMetadataDictionary:0 captureRequest:0 bracketSettings:1 sequenceCount:1 photoCount:v45 expectedPhotoProcessingFlags:@"AVCaptureDeviceTypeBuiltInDualCamera" sourceDeviceType:?];
+    v57 = *(a1 + 192);
+    v58 = *(a1 + 208);
+    LODWORD(v44) = v22;
+    v23 = [(AVCapturePhoto *)v4 initWithTimestamp:&v57 photoSurface:v5 photoSurfaceSize:v6 processedFileType:v7 previewPhotoSurface:0 embeddedThumbnailSourceSurface:v9 photoLibraryThumbnails:v8 metadata:v10 depthDataSurface:v11 depthMetadataDictionary:v13 portraitEffectsMatteSurface:v12 portraitEffectsMatteMetadataDictionary:v14 hairSegmentationMatteSurface:v15 hairSegmentationMatteMetadataDictionary:v17 skinSegmentationMatteSurface:v16 skinSegmentationMatteMetadataDictionary:v18 teethSegmentationMatteSurface:v20 teethSegmentationMatteMetadataDictionary:v19 glassesSegmentationMatteSurface:v21 glassesSegmentationMatteMetadataDictionary:0 constantColorConfidenceMapSurface:0 constantColorMetadataDictionary:0 captureRequest:0 bracketSettings:1 sequenceCount:1 photoCount:v44 expectedPhotoProcessingFlags:@"AVCaptureDeviceTypeBuiltInDualCamera" sourceDeviceType:?];
   }
 
   else
@@ -1207,58 +1204,57 @@ void __106__AVCaptureDeferredPhotoProcessor__handleDidFinishProcessingPhotoProxy
     v23 = 0;
   }
 
-  v24 = [*(a1 + 96) userInfo];
-  v25 = [v24 objectForKeyedSubscript:*MEMORY[0x1E696AA08]];
+  v24 = objc_msgSend_objectForKeyedSubscript_([*(a1 + 96) userInfo]);
   if (dword_1ED806860)
   {
-    v26 = v25;
-    v61 = 0;
-    v60 = OS_LOG_TYPE_DEFAULT;
+    v25 = v24;
+    v60[0] = 0;
+    v59 = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    v28 = v61;
-    if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, v60))
+    v27 = v60[0];
+    v28 = v59;
+    if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, v59))
     {
-      v29 = v28;
+      v29 = v27;
     }
 
     else
     {
-      v29 = v28 & 0xFFFFFFFE;
+      v29 = v27 & 0xFFFFFFFE;
     }
 
     if (v29)
     {
       v30 = [*(*(*(a1 + 112) + 8) + 40) deferredPhotoIdentifier];
-      v31 = [v26 code];
-      v32 = avcdpp_failureReasonStringForErrorStatus([v26 code]);
-      v33 = [v26 code];
-      v46 = 136316419;
-      v47 = "[AVCaptureDeferredPhotoProcessor _handleDidFinishProcessingPhotoProxyNotificationWithPayload:forRequest:]_block_invoke";
+      v31 = [v25 code];
+      v32 = avcdpp_failureReasonStringForErrorStatus([v25 code]);
+      v33 = [v25 code];
+      v45 = 136316419;
+      v46 = "[AVCaptureDeferredPhotoProcessor _handleDidFinishProcessingPhotoProxyNotificationWithPayload:forRequest:]_block_invoke";
       v34 = "";
-      v48 = 2113;
-      v49 = v30;
-      v50 = 2048;
+      v47 = 2113;
+      v48 = v30;
+      v49 = 2048;
       if (v33 == -16821)
       {
         v34 = " (deferredmediad has exited due to a camera launch)";
       }
 
-      v51 = v23;
-      v52 = 1024;
-      v53 = v31;
-      v54 = 2114;
-      v55 = v32;
-      v56 = 2080;
-      v57 = v34;
-      LODWORD(v44) = 58;
-      v43 = &v46;
-      _os_log_send_and_compose_impl();
+      v50 = v23;
+      v51 = 1024;
+      v52 = v31;
+      v53 = 2114;
+      v54 = v32;
+      v55 = 2080;
+      v56 = v34;
+      LODWORD(v43) = 58;
+      _os_log_send_and_compose_impl(v29, 0, &v57, 128, &dword_1A917C000, os_log_and_send_and_compose_flags_and_os_log_type, v28, "<<<< AVCaptureDeferredPhotoProcessor >>>> %s: Delivering final photo %{private}@ %p with error status %d%{public}@%s", &v45, v43);
     }
 
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  [a2 processor:*(a1 + 104) didFinishProcessingPhotoProxy:*(*(*(a1 + 112) + 8) + 40) finalPhoto:v23 error:{*(a1 + 96), v43, v44}];
+  [a2 processor:*(a1 + 104) didFinishProcessingPhotoProxy:*(*(*(a1 + 112) + 8) + 40) finalPhoto:v23 error:*(a1 + 96)];
 
   v35 = *(a1 + 120);
   if (v35)
@@ -1460,43 +1456,43 @@ uint64_t __75__AVCaptureDeferredPhotoProcessor__reenqueueRequestsAfterPriorityIn
   }
 }
 
-uint64_t __75__AVCaptureDeferredPhotoProcessor__reenqueueRequestsAfterPriorityInversion__block_invoke_2(uint64_t a1)
+void *__75__AVCaptureDeferredPhotoProcessor__reenqueueRequestsAfterPriorityInversion__block_invoke_2(uint64_t a1)
 {
   if (dword_1ED806860)
   {
-    v16 = 0;
-    v15 = 0;
+    v14[0] = 0;
+    v13 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v13 = 0u;
-  v14 = 0u;
   v11 = 0u;
   v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v3 = [*(a1 + 32) delegatesStorage];
-  result = [v3 countByEnumeratingWithState:&v11 objects:v10 count:16];
+  result = [v3 countByEnumeratingWithState:&v9 objects:v8 count:16];
   if (result)
   {
     v5 = result;
-    v6 = *v12;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(a1 + 40) _processPhotoProxy:*(a1 + 48) queuePosition:@"Tail" delegate:objc_msgSend(*(*(&v11 + 1) + 8 * v7) delegateQueue:{"delegate"), objc_msgSend(*(*(&v11 + 1) + 8 * v7), "delegateQueue")}];
-        ++v7;
+        [*(a1 + 40) _processPhotoProxy:*(a1 + 48) queuePosition:@"Tail" delegate:objc_msgSend(*(*(&v9 + 1) + 8 * v7) delegateQueue:{"delegate"), objc_msgSend(*(*(&v9 + 1) + 8 * v7), "delegateQueue")}];
+        v7 = v7 + 1;
       }
 
       while (v5 != v7);
-      result = [v3 countByEnumeratingWithState:&v11 objects:v10 count:16];
+      result = [v3 countByEnumeratingWithState:&v9 objects:v8 count:16];
       v5 = result;
     }
 
@@ -1570,23 +1566,22 @@ void __88__AVCaptureDeferredPhotoProcessor__dispatchFailureCallbacks_forProcessi
   v46 = 0u;
   v47 = 0u;
   obj = v3;
-  v22 = [v3 countByEnumeratingWithState:&v44 objects:v43 count:16];
-  if (v22)
+  v21 = [v3 countByEnumeratingWithState:&v44 objects:v43 count:16];
+  if (v21)
   {
-    v21 = *v45;
-    v19 = *MEMORY[0x1E696AA08];
+    v20 = *v45;
     p_vtable = AVCaptureConnection.vtable;
     do
     {
       v5 = 0;
       do
       {
-        if (*v45 != v21)
+        if (*v45 != v20)
         {
           objc_enumerationMutation(obj);
         }
 
-        v23 = v5;
+        v22 = v5;
         v6 = *(*(&v44 + 1) + 8 * v5);
         if (*(a1 + 56) & 1) != 0 && (objc_opt_respondsToSelector())
         {
@@ -1595,12 +1590,12 @@ void __88__AVCaptureDeferredPhotoProcessor__dispatchFailureCallbacks_forProcessi
 
         if ((*(a1 + 56) & 2) != 0)
         {
-          v25 = [objc_msgSend(*(a1 + 48) "userInfo")];
+          v24 = objc_msgSend_objectForKeyedSubscript_([*(a1 + 48) userInfo]);
           v7 = [*(a1 + 32) expectedPhotoCount];
           if (v7 > [*(a1 + 32) firedPhotoCallbacksCount])
           {
             v8 = 0;
-            v24 = v6;
+            v23 = v6;
             do
             {
               if (*(p_vtable + 536))
@@ -1609,63 +1604,63 @@ void __88__AVCaptureDeferredPhotoProcessor__dispatchFailureCallbacks_forProcessi
                 type = OS_LOG_TYPE_DEFAULT;
                 os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
                 v10 = v42;
+                v11 = type;
                 if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
                 {
-                  v11 = v10;
+                  v12 = v10;
                 }
 
                 else
                 {
-                  v11 = v10 & 0xFFFFFFFE;
+                  v12 = v10 & 0xFFFFFFFE;
                 }
 
-                if (v11)
+                if (v12)
                 {
-                  v27 = [v6 deferredPhotoIdentifier];
-                  v26 = [v25 code];
-                  v12 = p_vtable;
-                  v13 = avcdpp_failureReasonStringForErrorStatus([v25 code]);
-                  v14 = [*(a1 + 32) expectedPhotoCount];
-                  v15 = [*(a1 + 32) firedPhotoCallbacksCount];
-                  v29 = 136316418;
-                  v30 = "[AVCaptureDeferredPhotoProcessor _dispatchFailureCallbacks:forProcessingRequest:error:]_block_invoke";
-                  v31 = 2114;
-                  v32 = v27;
-                  v33 = 1024;
-                  v34 = v26;
-                  v35 = 2114;
-                  v36 = v13;
-                  p_vtable = v12;
-                  v37 = 1024;
-                  v38 = v8 + 1;
-                  v6 = v24;
-                  v39 = 1024;
-                  v40 = v14 - v15;
+                  v26 = [v6 deferredPhotoIdentifier];
+                  v25 = [v24 code];
+                  v13 = p_vtable;
+                  v14 = avcdpp_failureReasonStringForErrorStatus([v24 code]);
+                  v15 = [*(a1 + 32) expectedPhotoCount];
+                  v16 = [*(a1 + 32) firedPhotoCallbacksCount];
+                  v28 = 136316418;
+                  v29 = "[AVCaptureDeferredPhotoProcessor _dispatchFailureCallbacks:forProcessingRequest:error:]_block_invoke";
+                  v30 = 2114;
+                  v31 = v26;
+                  v32 = 1024;
+                  v33 = v25;
+                  v34 = 2114;
+                  v35 = v14;
+                  p_vtable = v13;
+                  v36 = 1024;
+                  v37 = v8 + 1;
+                  v6 = v23;
+                  v38 = 1024;
+                  v39 = v15 - v16;
                   LODWORD(v18) = 50;
-                  v17 = &v29;
-                  _os_log_send_and_compose_impl();
+                  _os_log_send_and_compose_impl(v12, 0, v40, 128, &dword_1A917C000, os_log_and_send_and_compose_flags_and_os_log_type, v11, "<<<< AVCaptureDeferredPhotoProcessor >>>> %s: Delivering failure callback %{public}@ with error status %d%{public}@ (%d of %d)", &v28, v18);
                 }
 
                 fig_log_call_emit_and_clean_up_after_send_and_compose();
               }
 
-              [a2 processor:*(a1 + 40) didFinishProcessingPhotoProxy:v6 finalPhoto:0 error:{*(a1 + 48), v17, v18}];
+              [a2 processor:*(a1 + 40) didFinishProcessingPhotoProxy:v6 finalPhoto:0 error:*(a1 + 48)];
               ++v8;
-              v16 = [*(a1 + 32) expectedPhotoCount];
+              v17 = [*(a1 + 32) expectedPhotoCount];
             }
 
-            while (v8 < (v16 - [*(a1 + 32) firedPhotoCallbacksCount]));
+            while (v8 < (v17 - [*(a1 + 32) firedPhotoCallbacksCount]));
           }
         }
 
-        v5 = v23 + 1;
+        v5 = v22 + 1;
       }
 
-      while (v23 + 1 != v22);
-      v22 = [obj countByEnumeratingWithState:&v44 objects:v43 count:16];
+      while (v22 + 1 != v21);
+      v21 = [obj countByEnumeratingWithState:&v44 objects:v43 count:16];
     }
 
-    while (v22);
+    while (v21);
   }
 }
 
@@ -1694,13 +1689,15 @@ void __88__AVCaptureDeferredPhotoProcessor__dispatchFailureCallbacks_forProcessi
 
   else if (dword_1ED806860)
   {
+    v11 = 0;
+    v10 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     OUTLINED_FUNCTION_1_10();
   }
 }
 
-uint64_t __69__AVCaptureDeferredPhotoProcessor__executeBlockOnProcessorQueueSync___block_invoke(uint64_t a1)
+void *__69__AVCaptureDeferredPhotoProcessor__executeBlockOnProcessorQueueSync___block_invoke(uint64_t a1)
 {
   OUTLINED_FUNCTION_0_7([*(a1 + 32) _establishServerConnection]);
   if (!v2)
@@ -1731,13 +1728,13 @@ uint64_t __69__AVCaptureDeferredPhotoProcessor__executeBlockOnProcessorQueueSync
     block[1] = 3221225472;
     block[2] = __63__AVCaptureDeferredPhotoProcessor__handleNotification_payload___block_invoke;
     block[3] = &unk_1E786EE40;
-    v32 = requestsWillBeReenqueued;
+    v31 = requestsWillBeReenqueued;
     block[4] = self;
     dispatch_sync(processorQueue, block);
     goto LABEL_15;
   }
 
-  v8 = [payload objectForKeyedSubscript:*MEMORY[0x1E698F8F8]];
+  v8 = objc_msgSend_objectForKeyedSubscript_(payload);
   if (!v8)
   {
     goto LABEL_15;
@@ -1754,36 +1751,35 @@ uint64_t __69__AVCaptureDeferredPhotoProcessor__executeBlockOnProcessorQueueSync
   if (FigCFEqual())
   {
     selfCopy = self;
-    v12 = [payload objectForKeyedSubscript:*MEMORY[0x1E698F958]];
+    v26 = 0u;
     v27 = 0u;
     v28 = 0u;
     v29 = 0u;
-    v30 = 0u;
-    obj = v12;
-    v13 = [v12 countByEnumeratingWithState:&v27 objects:v26 count:16];
-    if (v13)
+    obj = objc_msgSend_objectForKeyedSubscript_(payload);
+    v12 = [obj countByEnumeratingWithState:&v26 objects:v25 count:16];
+    if (v12)
     {
-      v14 = v13;
-      v15 = *v28;
+      v13 = v12;
+      v14 = *v27;
       do
       {
-        for (i = 0; i != v14; ++i)
+        for (i = 0; i != v13; ++i)
         {
-          if (*v28 != v15)
+          if (*v27 != v14)
           {
             objc_enumerationMutation(obj);
           }
 
-          v17 = *(*(&v27 + 1) + 8 * i);
-          v18 = [AVCaptureDeferredPhotoProxy alloc];
-          v19 = -[AVCaptureDeferredPhotoProxy initWithDeferredPhotoIdentifier:](v18, "initWithDeferredPhotoIdentifier:", [MEMORY[0x1E696AEC0] stringWithFormat:@"%@/%@", v9, v17]);
-          [v11 addProxy:v19];
+          v16 = *(*(&v26 + 1) + 8 * i);
+          v17 = [AVCaptureDeferredPhotoProxy alloc];
+          v18 = -[AVCaptureDeferredPhotoProxy initWithDeferredPhotoIdentifier:](v17, "initWithDeferredPhotoIdentifier:", [MEMORY[0x1E696AEC0] stringWithFormat:@"%@/%@", v9, v16]);
+          [v11 addProxy:v18];
         }
 
-        v14 = [obj countByEnumeratingWithState:&v27 objects:v26 count:16];
+        v13 = [obj countByEnumeratingWithState:&v26 objects:v25 count:16];
       }
 
-      while (v14);
+      while (v13);
     }
 
     [(AVCaptureDeferredPhotoProcessor *)selfCopy _handleWillBeginProcessingPhotoProxyNotificationWithPayload:payload forRequest:v11];
@@ -1797,7 +1793,7 @@ LABEL_15:
     return;
   }
 
-  if ([objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698F910]), "intValue"}] == -16823)
+  if ([objc_msgSend_objectForKeyedSubscript_(payload) intValue] == -16823)
   {
     if (requestsWillBeReenqueued)
     {
@@ -1806,14 +1802,14 @@ LABEL_15:
 
     OUTLINED_FUNCTION_2_4();
 
-    [v20 _handleWillAbortProcessingDueToPriorityInversion];
+    [v19 _handleWillAbortProcessingDueToPriorityInversion];
   }
 
   else
   {
     OUTLINED_FUNCTION_2_4();
 
-    [v22 _handleDidFinishProcessingPhotoProxyNotificationWithPayload:? forRequest:?];
+    [v21 _handleDidFinishProcessingPhotoProxyNotificationWithPayload:? forRequest:?];
   }
 }
 

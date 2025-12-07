@@ -23,14 +23,13 @@
 
 - (BOOL)allowsAutocorrectionForCurrentInputString
 {
-  v8[4] = *MEMORY[0x29EDCA608];
-  TIInputManager::input_string(v8, *(&self->super.super.super.super.super.isa + *MEMORY[0x29EDC7290]));
-  v3 = KB::ns_string(v8, v2);
-  KB::String::~String(v8);
+  v7[4] = *MEMORY[0x29EDCA608];
+  TIInputManager::input_string(v7, *(&self->super.super.super.super.super.isa + *MEMORY[0x29EDC7290]));
+  v3 = KB::ns_string(v7, v2);
+  KB::String::~String(v7);
   tI_vietnameseVIQRSpecialsCharacterSet = [MEMORY[0x29EDB9F50] TI_vietnameseVIQRSpecialsCharacterSet];
   v5 = [v3 rangeOfCharacterFromSet:tI_vietnameseVIQRSpecialsCharacterSet] == 0x7FFFFFFFFFFFFFFFLL;
 
-  v6 = *MEMORY[0x29EDCA608];
   return v5;
 }
 

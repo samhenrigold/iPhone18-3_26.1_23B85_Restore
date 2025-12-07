@@ -158,10 +158,11 @@
 
 - (void)dealloc
 {
+  v6 = 138413058;
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_5(&dword_1CADE6000, v0, v1, "Failed to load weak link class: '%@': %s:%i (%s)", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_5(&dword_1CADE6000, v0, v1, "Failed to load weak link class: '%@': %s:%i (%s)", v2, v3, v4, v5, v6);
 }
 
 - (void)_prepareForReuse
@@ -689,26 +690,29 @@ LABEL_12:
 
 - (void)_loadSticker
 {
+  v6 = 138413058;
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_5(&dword_1CADE6000, v0, v1, "Failed to load weak link class: '%@': %s:%i (%s)", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_5(&dword_1CADE6000, v0, v1, "Failed to load weak link class: '%@': %s:%i (%s)", v2, v3, v4, v5, v6);
 }
 
 - (void)clearCachedPreviewsForCurrentSticker
 {
+  v6 = 138413058;
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_5(&dword_1CADE6000, v0, v1, "Failed to load weak link class: '%@': %s:%i (%s)", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_5(&dword_1CADE6000, v0, v1, "Failed to load weak link class: '%@': %s:%i (%s)", v2, v3, v4, v5, v6);
 }
 
 - (void)_loadAnimatedStickerIfNecessary
 {
+  v6 = 138413058;
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_5(&dword_1CADE6000, v0, v1, "Failed to load weak link class: '%@': %s:%i (%s)", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_5(&dword_1CADE6000, v0, v1, "Failed to load weak link class: '%@': %s:%i (%s)", v2, v3, v4, v5, v6);
 }
 
 id __48__MSStickerView__loadAnimatedStickerIfNecessary__block_invoke(uint64_t a1)
@@ -871,10 +875,11 @@ uint64_t __48__MSStickerView__loadAnimatedStickerIfNecessary__block_invoke_5(uin
 
 - (void)_swapWithOutlineImage
 {
+  v6 = 138413058;
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_5(&dword_1CADE6000, v0, v1, "Failed to load weak link class: '%@': %s:%i (%s)", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_5(&dword_1CADE6000, v0, v1, "Failed to load weak link class: '%@': %s:%i (%s)", v2, v3, v4, v5, v6);
 }
 
 - (void)_resetPeel
@@ -918,10 +923,11 @@ uint64_t __48__MSStickerView__loadAnimatedStickerIfNecessary__block_invoke_5(uin
 
 - (void)updateAnimationTimerObserving
 {
+  v6 = 138413058;
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_5(&dword_1CADE6000, v0, v1, "Failed to load weak link class: '%@': %s:%i (%s)", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_5(&dword_1CADE6000, v0, v1, "Failed to load weak link class: '%@': %s:%i (%s)", v2, v3, v4, v5, v6);
 }
 
 - (void)prepareForSnapshotting
@@ -1231,7 +1237,7 @@ void __33__MSStickerView_handleLongPress___block_invoke_2(uint64_t a1)
   v23 = v22;
 
   v24 = objc_alloc(MEMORY[0x1E69DC9A8]);
-  +[_MSStickerDragPreviewContainerView targetPreviewTransform];
+  objc_msgSend_targetPreviewTransform(_MSStickerDragPreviewContainerView);
   v25 = [v24 initWithContainer:superview center:v41 transform:{v21, v23}];
   v26 = [objc_alloc(MEMORY[0x1E69DD068]) initWithView:v14 parameters:v6 target:v25];
 
@@ -1339,13 +1345,13 @@ void __33__MSStickerView_handleLongPress___block_invoke_2(uint64_t a1)
   [animator addCompletion:v5];
 }
 
-uint64_t __69__MSStickerView_dragInteraction_willAnimateLiftWithAnimator_session___block_invoke(uint64_t result, uint64_t a2)
+id *__69__MSStickerView_dragInteraction_willAnimateLiftWithAnimator_session___block_invoke(id *result, uint64_t a2)
 {
   if (a2 != 1)
   {
     v3 = result;
-    [*(result + 32) _swapWithOutlineImage];
-    v4 = *(v3 + 32);
+    [result[4] _swapWithOutlineImage];
+    v4 = v3[4];
 
     return [v4 setIsPeeled:1];
   }
@@ -1356,7 +1362,7 @@ uint64_t __69__MSStickerView_dragInteraction_willAnimateLiftWithAnimator_session
 - (id)dragInteraction:(id)interaction itemsForBeginningSession:(id)session
 {
   v59 = *MEMORY[0x1E69E9840];
-  v5 = ms_defaultLog();
+  v5 = ms_defaultLog(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
@@ -1450,7 +1456,7 @@ uint64_t __58__MSStickerView_dragInteraction_itemsForBeginningSession___block_in
 {
   v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = ms_defaultLog();
+  v4 = ms_defaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
@@ -1471,7 +1477,7 @@ void __58__MSStickerView_dragInteraction_itemsForBeginningSession___block_invoke
 {
   v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = ms_defaultLog();
+  v4 = ms_defaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
@@ -1939,15 +1945,16 @@ LABEL_13:
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_3(&dword_1CADE6000, v2, v3, "Loaded weak linked class: '%@': %s:%i (%s)", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_3(&dword_1CADE6000, v2, v3, "Loaded weak linked class: '%@': %s:%i (%s)", v4, v5, v6, v7);
 }
 
 - (void)sizeThatFits:.cold.2()
 {
+  v6 = 138413058;
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_5(&dword_1CADE6000, v0, v1, "Failed to load weak link class: '%@': %s:%i (%s)", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_5(&dword_1CADE6000, v0, v1, "Failed to load weak link class: '%@': %s:%i (%s)", v2, v3, v4, v5, v6);
 }
 
 - (void)setSticker:(objc_class *)a1 .cold.1(objc_class *a1)
@@ -1956,15 +1963,16 @@ LABEL_13:
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_3(&dword_1CADE6000, v2, v3, "Loaded weak linked class: '%@': %s:%i (%s)", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_3(&dword_1CADE6000, v2, v3, "Loaded weak linked class: '%@': %s:%i (%s)", v4, v5, v6, v7);
 }
 
 - (void)setSticker:.cold.2()
 {
+  v6 = 138413058;
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_5(&dword_1CADE6000, v0, v1, "Failed to load weak link class: '%@': %s:%i (%s)", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_5(&dword_1CADE6000, v0, v1, "Failed to load weak link class: '%@': %s:%i (%s)", v2, v3, v4, v5, v6);
 }
 
 - (void)_stickerPreviewCachePreviewDidChange:(objc_class *)a1 .cold.1(objc_class *a1)
@@ -1973,15 +1981,16 @@ LABEL_13:
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_3(&dword_1CADE6000, v2, v3, "Loaded weak linked class: '%@': %s:%i (%s)", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_3(&dword_1CADE6000, v2, v3, "Loaded weak linked class: '%@': %s:%i (%s)", v4, v5, v6, v7);
 }
 
 - (void)_stickerPreviewCachePreviewDidChange:.cold.2()
 {
+  v6 = 138413058;
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_5(&dword_1CADE6000, v0, v1, "Failed to load weak link class: '%@': %s:%i (%s)", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_5(&dword_1CADE6000, v0, v1, "Failed to load weak link class: '%@': %s:%i (%s)", v2, v3, v4, v5, v6);
 }
 
 void __48__MSStickerView__loadAnimatedStickerIfNecessary__block_invoke_cold_1(objc_class *a1)
@@ -1990,15 +1999,16 @@ void __48__MSStickerView__loadAnimatedStickerIfNecessary__block_invoke_cold_1(ob
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_3(&dword_1CADE6000, v2, v3, "Loaded weak linked class: '%@': %s:%i (%s)", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_3(&dword_1CADE6000, v2, v3, "Loaded weak linked class: '%@': %s:%i (%s)", v4, v5, v6, v7);
 }
 
 void __48__MSStickerView__loadAnimatedStickerIfNecessary__block_invoke_cold_2()
 {
+  v6 = 138413058;
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_5(&dword_1CADE6000, v0, v1, "Failed to load weak link class: '%@': %s:%i (%s)", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_5(&dword_1CADE6000, v0, v1, "Failed to load weak link class: '%@': %s:%i (%s)", v2, v3, v4, v5, v6);
 }
 
 void __48__MSStickerView__loadAnimatedStickerIfNecessary__block_invoke_cold_3(objc_class *a1)
@@ -2007,15 +2017,16 @@ void __48__MSStickerView__loadAnimatedStickerIfNecessary__block_invoke_cold_3(ob
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_3(&dword_1CADE6000, v2, v3, "Loaded weak linked class: '%@': %s:%i (%s)", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_3(&dword_1CADE6000, v2, v3, "Loaded weak linked class: '%@': %s:%i (%s)", v4, v5, v6, v7);
 }
 
 void __48__MSStickerView__loadAnimatedStickerIfNecessary__block_invoke_cold_4()
 {
+  v6 = 138413058;
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_5(&dword_1CADE6000, v0, v1, "Failed to load weak link class: '%@': %s:%i (%s)", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_5(&dword_1CADE6000, v0, v1, "Failed to load weak link class: '%@': %s:%i (%s)", v2, v3, v4, v5, v6);
 }
 
 @end

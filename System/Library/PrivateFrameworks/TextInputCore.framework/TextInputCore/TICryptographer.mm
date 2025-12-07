@@ -58,11 +58,11 @@
 
 void __39__TICryptographer_stringDigestForName___block_invoke(uint64_t a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) cachedRecipientName];
-  v3 = [v2 isEqualToString:*(a1 + 40)];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
-  if (v3)
+  if (isEqualToString)
   {
     v4 = [*(a1 + 32) cachedRecipientDigest];
     v5 = [v4 copy];
@@ -71,53 +71,48 @@ void __39__TICryptographer_stringDigestForName___block_invoke(uint64_t a1)
     *(v6 + 40) = v5;
   }
 
-  if (*(*(*(a1 + 48) + 8) + 40))
+  if (!*(*(*(a1 + 48) + 8) + 40))
   {
-    v8 = *MEMORY[0x277D85DE8];
-  }
-
-  else
-  {
-    v9 = *(a1 + 40);
-    v10 = [*(a1 + 32) deviceSalt];
-    if (v10)
+    v8 = *(a1 + 40);
+    v9 = [*(a1 + 32) deviceSalt];
+    if (v9)
     {
       memset(&c, 0, sizeof(c));
       CC_SHA1_Init(&c);
-      CStringPtr = CFStringGetCStringPtr(v9, 0x8000100u);
+      CStringPtr = CFStringGetCStringPtr(v8, 0x8000100u);
       if (CStringPtr)
       {
-        v12 = CStringPtr;
-        v13 = strlen(CStringPtr);
-        CC_SHA1_Update(&c, v12, v13);
+        v11 = CStringPtr;
+        v12 = strlen(CStringPtr);
+        CC_SHA1_Update(&c, v11, v12);
       }
 
       else
       {
-        Length = CFStringGetLength(v9);
+        Length = CFStringGetLength(v8);
         if (Length >= 1)
         {
-          v16 = Length;
-          v17 = 0;
+          v15 = Length;
+          v16 = 0;
           do
           {
             usedBufLen = 0;
-            v33.location = v17;
-            v33.length = v16;
-            Bytes = CFStringGetBytes(v9, v33, 0x8000100u, 0, 0, buffer, 512, &usedBufLen);
+            v31.location = v16;
+            v31.length = v15;
+            Bytes = CFStringGetBytes(v8, v31, 0x8000100u, 0, 0, buffer, 512, &usedBufLen);
             CC_SHA1_Update(&c, buffer, usedBufLen);
-            v17 += Bytes;
-            v19 = v16 <= Bytes;
-            v16 -= Bytes;
+            v16 += Bytes;
+            v18 = v15 <= Bytes;
+            v15 -= Bytes;
           }
 
-          while (!v19);
+          while (!v18);
         }
       }
 
-      BytePtr = CFDataGetBytePtr(v10);
-      v21 = CFDataGetLength(v10);
-      CC_SHA1_Update(&c, BytePtr, v21);
+      BytePtr = CFDataGetBytePtr(v9);
+      v20 = CFDataGetLength(v9);
+      CC_SHA1_Update(&c, BytePtr, v20);
       CC_SHA1_Final(buffer, &c);
       Mutable = CFStringCreateMutable(*MEMORY[0x277CBECE8], 40);
       for (i = 0; i != 20; ++i)
@@ -131,22 +126,21 @@ void __39__TICryptographer_stringDigestForName___block_invoke(uint64_t a1)
       Mutable = 0;
     }
 
-    v23 = *(*(a1 + 48) + 8);
-    v24 = *(v23 + 40);
-    *(v23 + 40) = Mutable;
+    v22 = *(*(a1 + 48) + 8);
+    v23 = *(v22 + 40);
+    *(v22 + 40) = Mutable;
 
     [*(a1 + 32) setCachedRecipientName:*(a1 + 40)];
-    v25 = *(*(*(a1 + 48) + 8) + 40);
-    v26 = *(a1 + 32);
-    v27 = *MEMORY[0x277D85DE8];
+    v24 = *(*(*(a1 + 48) + 8) + 40);
+    v25 = *(a1 + 32);
 
-    [v26 setCachedRecipientDigest:v25];
+    [v25 setCachedRecipientDigest:v24];
   }
 }
 
 - (NSData)deviceSalt
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   deviceSalt = self->_deviceSalt;
   if (!deviceSalt)
   {
@@ -185,9 +179,9 @@ void __39__TICryptographer_stringDigestForName___block_invoke(uint64_t a1)
         v11 = TIOSLogFacility();
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
         {
-          v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Failed to write to keychain with error %d", "-[TICryptographer deviceSalt]", v10];
+          v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Failed to write to keychain with error %d", "-[TICryptographer deviceSalt]", v10];
           __buf = 138412290;
-          v18 = v15;
+          v17 = v14;
           _os_log_debug_impl(&dword_22CA55000, v11, OS_LOG_TYPE_DEBUG, "%@", &__buf, 0xCu);
         }
 
@@ -199,8 +193,6 @@ void __39__TICryptographer_stringDigestForName___block_invoke(uint64_t a1)
     CFRelease(Mutable);
     deviceSalt = self->_deviceSalt;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return deviceSalt;
 }

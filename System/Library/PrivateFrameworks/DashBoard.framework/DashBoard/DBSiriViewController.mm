@@ -734,7 +734,7 @@ void __82__DBSiriViewController_siriPresentation_requestsDismissalWithOptions_wi
   [v2 _safeDismissAnimated:v3 completion:v5];
 }
 
-uint64_t __82__DBSiriViewController_siriPresentation_requestsDismissalWithOptions_withHandler___block_invoke_2(uint64_t a1)
+void *__82__DBSiriViewController_siriPresentation_requestsDismissalWithOptions_withHandler___block_invoke_2(uint64_t a1)
 {
   (*(*(a1 + 40) + 16))();
   v2 = [*(a1 + 32) pendingChangeRequest];

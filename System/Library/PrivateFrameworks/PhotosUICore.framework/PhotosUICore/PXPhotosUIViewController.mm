@@ -219,7 +219,7 @@
 {
   referenceCopy = reference;
   selfCopy = self;
-  sub_1A4850BD8();
+  sub_1A4850BD8(referenceCopy);
 }
 
 - (id)adjustOneUpAssetReferenceToScrollToVisible:(id)visible
@@ -242,11 +242,11 @@
 
 - (id)adjustHiddenAssetReferences:(id)references
 {
-  sub_1A3C52C70(0, &qword_1EB126B50);
-  sub_1A3C3A220(&qword_1EB126B48, &qword_1EB126B50);
-  sub_1A524CF44();
+  sub_1A3C52C70(0, &qword_1EB126B50, &off_1E7721490);
+  sub_1A3C3A220(&qword_1EB126B48, &qword_1EB126B50, &off_1E7721490, MEMORY[0x1E69E81B8]);
+  v4 = sub_1A524CF44();
   selfCopy = self;
-  sub_1A4850E08();
+  sub_1A4850E08(v4);
 }
 
 - (void)showPlayer
@@ -258,12 +258,14 @@
 - (BOOL)shouldBeginScrollingContentWithPanAtLocation:(CGPoint)location inCoordinateSpace:(id)space velocity:(CGPoint)velocity
 {
   y = velocity.y;
+  v7 = location.y;
+  x = location.x;
   swift_unknownObjectRetain();
   selfCopy = self;
   viewModel = [(PXPhotosUIViewController *)selfCopy viewModel];
-  v9 = [(PXPhotosViewModel *)viewModel isScrollDisabledForAxis:1];
+  v12 = [(PXPhotosViewModel *)viewModel isScrollDisabledForAxis:1];
 
-  if (v9)
+  if (v12)
   {
     swift_unknownObjectRelease();
 
@@ -278,7 +280,7 @@
       if (presentingViewController)
       {
 
-        sub_1A4852D2C();
+        sub_1A4852D2C(space, x, v7);
       }
     }
 
@@ -454,7 +456,7 @@ LABEL_16:
   v12 = 0u;
   if (selectionSnapshot)
   {
-    [selectionSnapshot cursorIndexPath];
+    objc_msgSend_cursorIndexPath(selectionSnapshot);
     v7 = v11;
   }
 
@@ -623,17 +625,17 @@ LABEL_16:
   {
     *&v39 = COERCE_DOUBLE([scrollingCopy decelerationRate]);
     contentController = [(PXPhotosUIViewController *)self contentController];
-    layout = [contentController layout];
+    v27 = objc_msgSend_layout(contentController);
 
-    rootLayout = [layout rootLayout];
-    [rootLayout convertRect:layout toDescendantLayout:{offset->x, offset->y, *MEMORY[0x1E695F060], *(MEMORY[0x1E695F060] + 8)}];
+    rootLayout = [v27 rootLayout];
+    [rootLayout convertRect:v27 toDescendantLayout:{offset->x, offset->y, *MEMORY[0x1E695F060], *(MEMORY[0x1E695F060] + 8)}];
     v30 = v29;
     v32 = v31;
 
-    [layout adjustedTargetVisibleOriginForProposedTargetVisibleOrigin:&v39 scrollingVelocity:v30 decelerationRate:{v32, v10, v9}];
-    [layout lastScrollDirection];
+    [v27 adjustedTargetVisibleOriginForProposedTargetVisibleOrigin:&v39 scrollingVelocity:v30 decelerationRate:{v32, v10, v9}];
+    [v27 lastScrollDirection];
     [scrollingCopy visibleRect];
-    [layout topCollapsibleArea];
+    [v27 topCollapsibleArea];
     PXScrollViewContentOffsetSnappedToRange();
   }
 
@@ -785,8 +787,8 @@ LABEL_16:
   if ((change & 4) != 0)
   {
     contentController = [(PXPhotosUIViewController *)self contentController];
-    layout = [contentController layout];
-    [layout clearLastVisibleAreaAnchoringInformation];
+    v10 = objc_msgSend_layout(contentController);
+    [v10 clearLastVisibleAreaAnchoringInformation];
 
     [(PXPhotosUIViewController *)self invalidateBoopableItemsProvider];
     [(PXPhotosUIViewController *)self _updateFirstResponderIfNeeded];
@@ -1510,7 +1512,7 @@ void __87__PXPhotosUIViewController_menuForPXAssetCollectionActionTypeTTRForLemo
       v24 = 0u;
       if (selectionSnapshot)
       {
-        [selectionSnapshot firstSelectedIndexPath];
+        objc_msgSend_firstSelectedIndexPath(selectionSnapshot);
       }
 
       dataSource = [selectionSnapshot dataSource];
@@ -1899,7 +1901,7 @@ LABEL_5:
     v32 = currentDataSource2;
     v47 = 0u;
     v48 = 0u;
-    if (!currentDataSource2 || ([currentDataSource2 lastItemIndexPath], v47 == *off_1E7721F68) || v48 == 0x7FFFFFFFFFFFFFFFLL || *(&v48 + 1) != 0x7FFFFFFFFFFFFFFFLL)
+    if (!currentDataSource2 || (objc_msgSend_lastItemIndexPath(currentDataSource2), v47 == *off_1E7721F68) || v48 == 0x7FFFFFFFFFFFFFFFLL || *(&v48 + 1) != 0x7FFFFFFFFFFFFFFFLL)
     {
       PXAssertGetLog();
     }
@@ -2272,7 +2274,7 @@ void *__76__PXPhotosUIViewController_navigateToDestination_options_completionHan
       v18[0] = *off_1E7722228;
       v18[1] = v10;
       v11 = [v9 initWithAssetCollection:assetCollection keyAssetReference:0 indexPath:v18];
-      if (([assetCollection isEqual:containerCollection] & 1) != 0 || (!currentDataSource ? (v12 = 0) : (objc_msgSend(currentDataSource, "indexPathForAssetCollectionReference:", v11), v12 = *&v18[0]), v12 != *off_1E7721F68 || objc_msgSend(assetCollection, "px_isRecentsSmartAlbum") && objc_msgSend(containerCollection, "px_isAllPhotosSmartAlbum") && (-[PXPhotosUIViewController viewModel](self, "viewModel"), v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v14, "viewOptionsModel"), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v15, "sortOrderState"), v16 = objc_claimAutoreleasedReturnValue(), v16, v15, v14, v16)))
+      if (([assetCollection isEqual:containerCollection] & 1) != 0 || (!currentDataSource ? (v12 = 0) : (objc_msgSend_indexPathForAssetCollectionReference_(currentDataSource), v12 = *&v18[0]), v12 != *off_1E7721F68 || objc_msgSend(assetCollection, "px_isRecentsSmartAlbum") && objc_msgSend(containerCollection, "px_isAllPhotosSmartAlbum") && (-[PXPhotosUIViewController viewModel](self, "viewModel"), v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v14, "viewOptionsModel"), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v15, "sortOrderState"), v16 = objc_claimAutoreleasedReturnValue(), v16, v15, v14, v16)))
       {
         px_isAllPhotosSmartAlbum = 1;
       }
@@ -2439,12 +2441,12 @@ void __57__PXPhotosUIViewController_resetToInitialStateIfPossible__block_invoke(
 {
   v17 = *MEMORY[0x1E69E9840];
   contentController = [(PXPhotosUIViewController *)self contentController];
-  layout = [contentController layout];
+  v4 = objc_msgSend_layout(contentController);
 
   preferredFocusAssetReference = [(PXPhotosUIViewController *)self preferredFocusAssetReference];
   if (preferredFocusAssetReference)
   {
-    v6 = [layout axLeafForObjectReference:preferredFocusAssetReference];
+    v6 = [v4 axLeafForObjectReference:preferredFocusAssetReference];
   }
 
   else
@@ -2452,7 +2454,7 @@ void __57__PXPhotosUIViewController_resetToInitialStateIfPossible__block_invoke(
     v6 = 0;
   }
 
-  axGroup = [layout axGroup];
+  axGroup = [v4 axGroup];
   v8 = axGroup;
   if (v6)
   {
@@ -2594,7 +2596,7 @@ void __38__PXPhotosUIViewController_selectAll___block_invoke(uint64_t a1, void *
   v5 = currentDataSource;
   if (currentDataSource)
   {
-    [currentDataSource firstSectionIndexPath];
+    objc_msgSend_firstSectionIndexPath(currentDataSource);
   }
 
   else
@@ -2791,7 +2793,7 @@ LABEL_35:
 
     if (currentDataSource)
     {
-      [currentDataSource firstSectionIndexPath];
+      objc_msgSend_firstSectionIndexPath(currentDataSource);
     }
 
     else
@@ -3213,8 +3215,8 @@ LABEL_36:
     v8 = v7;
 
     contentController = [(PXPhotosUIViewController *)self contentController];
-    layout = [contentController layout];
-    [layout setStatusBarHeight:v8];
+    v9 = objc_msgSend_layout(contentController);
+    [v9 setStatusBarHeight:v8];
   }
 }
 
@@ -3270,7 +3272,7 @@ void __61__PXPhotosUIViewController__scrollToInitialPositionAnimated___block_inv
       [(PXPhotosUIViewController *)self setPendingInitialNavigationRequest:0];
       destination = [pendingInitialNavigationRequest destination];
       v5 = [PXProgrammaticNavigationRequest alloc];
-      options = [pendingInitialNavigationRequest options];
+      v6 = objc_msgSend_options(pendingInitialNavigationRequest);
       v9[0] = MEMORY[0x1E69E9820];
       v9[1] = 3221225472;
       v9[2] = __63__PXPhotosUIViewController__scrollToInitialPositionIfNecessary__block_invoke;
@@ -3279,7 +3281,7 @@ void __61__PXPhotosUIViewController__scrollToInitialPositionAnimated___block_inv
       selfCopy = self;
       v12 = pendingInitialNavigationRequest;
       v7 = destination;
-      v8 = [(PXProgrammaticNavigationRequest *)v5 initWithDestination:v7 options:options completionHandler:v9];
+      v8 = [(PXProgrammaticNavigationRequest *)v5 initWithDestination:v7 options:v6 completionHandler:v9];
       PXProgrammaticNavigationRequestExecute(v8, self);
     }
 
@@ -4164,8 +4166,8 @@ LABEL_6:
 {
   referencesCopy = references;
   contentController = [(PXPhotosUIViewController *)self contentController];
-  layout = [contentController layout];
-  [layout setPendingHideAnimationType:type];
+  v8 = objc_msgSend_layout(contentController);
+  [v8 setPendingHideAnimationType:type];
 
   interaction = [(PXPhotosUIViewController *)self interaction];
   [interaction setHiddenAssetReferences:referencesCopy];
@@ -4326,8 +4328,8 @@ LABEL_6:
 - (void)_updateFooterLayout
 {
   contentController = [(PXPhotosUIViewController *)self contentController];
-  layout = [contentController layout];
-  [layout invalidateFooterSize];
+  v2 = objc_msgSend_layout(contentController);
+  [v2 invalidateFooterSize];
 }
 
 - (void)_updateDrawerButtonVisibility
@@ -4393,11 +4395,11 @@ LABEL_6:
   v12 = [leftBarButtonItems count];
 
   contentControllerIfLoaded = [(PXPhotosUIViewController *)self contentControllerIfLoaded];
-  layout = [contentControllerIfLoaded layout];
+  v14 = objc_msgSend_layout(contentControllerIfLoaded);
 
   v16 = displayMode != 3 && v12 == 0;
   v17 = ((v7 | v8) & 1) == 0 && v16;
-  [layout setWantsHeaderInSafeArea:v17];
+  [v14 setWantsHeaderInSafeArea:v17];
   splitBehavior = [px_splitViewController splitBehavior];
   v19 = displayMode == 3 || v8;
   if (v19 == 1)
@@ -4419,7 +4421,7 @@ LABEL_6:
     v21 = 0;
   }
 
-  [layout setAlignsHeaderTitleWithLayoutMargins:v21];
+  [v14 setAlignsHeaderTitleWithLayoutMargins:v21];
 }
 
 - (void)_updateSubviewsOrdering
@@ -5184,34 +5186,32 @@ void __94__PXPhotosUIViewController_PPT__ppt_navigateToAssetReference_revealInOn
   viewModel = [(PXPhotosUIViewController *)self viewModel];
   currentDataSource = [viewModel currentDataSource];
 
+  v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   if (currentDataSource)
   {
-    [currentDataSource indexPathForAssetReference:assetCopy];
+    objc_msgSend_indexPathForAssetReference_(currentDataSource);
   }
 
   contentController = [(PXPhotosUIViewController *)self contentController];
   v11 = contentController;
   if (contentController)
   {
-    v14[0] = v17;
-    v14[1] = v18;
-    [contentController selectableIndexPathClosestToIndexPath:v14 inDirection:6];
+    objc_msgSend_selectableIndexPathClosestToIndexPath_inDirection_(contentController, v16, v17);
   }
 
   else
   {
+    v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
   }
 
+  v16 = v14;
   v17 = v15;
-  v18 = v16;
 
+  v14 = v16;
   v15 = v17;
-  v16 = v18;
-  v12 = [currentDataSource assetReferenceAtItemIndexPath:&v15];
+  v12 = [currentDataSource assetReferenceAtItemIndexPath:&v14];
   [(PXPhotosUIViewController *)self scrollToCenterAssetReference:v12 completion:completionCopy];
 
   return v12;

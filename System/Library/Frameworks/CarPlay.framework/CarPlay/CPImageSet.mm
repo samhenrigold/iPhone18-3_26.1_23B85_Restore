@@ -78,12 +78,12 @@
 
 - (CPImageSet)initWithImage:(id)image treatmentBlock:(id)block
 {
-  v38[2] = *MEMORY[0x277D85DE8];
+  v37[2] = *MEMORY[0x277D85DE8];
   imageCopy = image;
   blockCopy = block;
-  v36.receiver = self;
-  v36.super_class = CPImageSet;
-  v8 = [(CPImageSet *)&v36 init];
+  v35.receiver = self;
+  v35.super_class = CPImageSet;
+  v8 = [(CPImageSet *)&v35 init];
   if (v8)
   {
     traitCollection = [imageCopy traitCollection];
@@ -92,15 +92,15 @@
     if (traitCollection)
     {
       v12 = MEMORY[0x277D75C80];
-      v38[0] = traitCollection;
-      v38[1] = v10;
-      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:2];
+      v37[0] = traitCollection;
+      v37[1] = v10;
+      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:2];
       v14 = [v12 traitCollectionWithTraitsFromCollections:v13];
 
       v15 = MEMORY[0x277D75C80];
-      v37[0] = traitCollection;
-      v37[1] = v11;
-      v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:2];
+      v36[0] = traitCollection;
+      v36[1] = v11;
+      v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:2];
       v17 = [v15 traitCollectionWithTraitsFromCollections:v16];
 
       v10 = v14;
@@ -164,7 +164,6 @@
     }
   }
 
-  v34 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -172,19 +171,8 @@
 {
   _currentTraitCollection = [MEMORY[0x277D75C80] _currentTraitCollection];
   currentAssetRegistration = [(CPImageSet *)self currentAssetRegistration];
-  if (!currentAssetRegistration)
+  if (!currentAssetRegistration || (v5 = currentAssetRegistration, -[CPImageSet currentAssetRegistration](self, "currentAssetRegistration"), v6 = objc_claimAutoreleasedReturnValue(), [v6 baseTraitCollection], v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "isEqual:", _currentTraitCollection), v7, v6, v5, (v8 & 1) == 0))
   {
-    goto LABEL_3;
-  }
-
-  v5 = currentAssetRegistration;
-  currentAssetRegistration2 = [(CPImageSet *)self currentAssetRegistration];
-  baseTraitCollection = [currentAssetRegistration2 baseTraitCollection];
-  v8 = [baseTraitCollection isEqual:_currentTraitCollection];
-
-  if ((v8 & 1) == 0)
-  {
-LABEL_3:
     v9 = [CPImageSetAssetRegistration alloc];
     lightContentImage = [(CPImageSet *)self lightContentImage];
     darkContentImage = [(CPImageSet *)self darkContentImage];
@@ -192,8 +180,8 @@ LABEL_3:
     [(CPImageSet *)self setCurrentAssetRegistration:v12];
   }
 
-  currentAssetRegistration3 = [(CPImageSet *)self currentAssetRegistration];
-  combinedImage = [currentAssetRegistration3 combinedImage];
+  currentAssetRegistration2 = [(CPImageSet *)self currentAssetRegistration];
+  combinedImage = [currentAssetRegistration2 combinedImage];
 
   return combinedImage;
 }
@@ -225,7 +213,7 @@ LABEL_3:
     v11 = self->_darkContentImage;
     self->_darkContentImage = v10;
 
-    MEMORY[0x2821F96F8]();
+    MEMORY[0x2821F96F8](v10, v11);
   }
 }
 

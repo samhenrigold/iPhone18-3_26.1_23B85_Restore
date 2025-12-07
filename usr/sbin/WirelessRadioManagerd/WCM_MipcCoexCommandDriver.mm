@@ -9,6 +9,7 @@
 - (void)handleEvent:(id)event;
 - (void)sendMessage:(unint64_t)message withArgs:(id)args withSubId:(unint64_t)id;
 - (void)setCellularController:(id)controller;
+- (void)setTxBlankingConfig:(id)config SubId:(unsigned int)id;
 - (void)updateBasebandPowerState;
 @end
 
@@ -98,6 +99,18 @@
   }
 
   return v11;
+}
+
+- (void)setTxBlankingConfig:(id)config SubId:(unsigned int)id
+{
+  v4 = *&id;
+  xdict = config;
+  [WCM_Logging logLevel:2 message:@"YYDebug_ Coex MIPC Driver: setTxBlankingPowerLimitingConfig"];
+  uint64 = xpc_dictionary_get_uint64(xdict, "kWCMCellularSetWCI2Mode_PowerThreshold");
+  v6 = xpc_dictionary_get_uint64(xdict, "kWCMCellularSetWCI2Mode_RB_Threshold");
+  v7 = xpc_dictionary_get_uint64(xdict, "kWCMCellularSetWCI2Mode_LTE_TxDenialThreshold");
+  int64 = xpc_dictionary_get_int64(xdict, "kWCMCellularSetWCI2Mode_MaxAllowedFrameDenials");
+  [WCM_Logging logLevel:3 message:@"YYDebug_ Coex MIPC driver(SubId %u): Set TX blanking Config, PowerThreshold=%llu(1/16dBm), RBThreshold=%llu, PerEventBlankingThreshold=%llu, MaxBlankingInWindow=%lld, SlidingWindowSize=%lld", v4, 16 * uint64, v6, v7, int64, xpc_dictionary_get_int64(xdict, "kWCMCellularSetWCI2Mode_FrameDenialWindow")];
 }
 
 - (void)handleEvent:(id)event

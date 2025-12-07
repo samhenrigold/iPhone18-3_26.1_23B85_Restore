@@ -46,10 +46,10 @@ LABEL_6:
 {
   if (a3)
   {
-    return [self performAsCurrentTraitCollection:?];
+    return [result performAsCurrentTraitCollection:?];
   }
 
-  return self;
+  return result;
 }
 
 @end

@@ -9,7 +9,7 @@
 
 - (void)touchesEnded:(id)ended withEvent:(id)event
 {
-  sub_241246158(0, &qword_27E538A40);
+  sub_241246158(0, &qword_27E538A40, 0x277D75C68);
   sub_2412FC7FC();
   v6 = sub_241353FFC();
   eventCopy = event;

@@ -1,13 +1,15 @@
-void OUTLINED_FUNCTION_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-void OUTLINED_FUNCTION_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 void OUTLINED_FUNCTION_4(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -17,15 +19,16 @@ void OUTLINED_FUNCTION_4(void *a1, uint64_t a2, os_log_t log, const char *a4, ..
   _os_log_debug_impl(a1, log, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
-void OUTLINED_FUNCTION_9(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_9(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x16u);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
-void sub_23161C374(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23161C374(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -37,23 +40,23 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_23161C538(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_23161C538(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_23161C71C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_23161C71C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_23161C8B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_23161C8B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -65,10 +68,11 @@ void sub_23161DEB4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_1_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x20u);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x20u);
 }
 
 uint64_t CAFPreferencesGetBoolean(const __CFString *a1, unsigned int a2)
@@ -167,9 +171,9 @@ __CFString *NSStringFromCharacteristicMetadataFormat(unint64_t a1)
   }
 }
 
-void sub_23162689C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_23162689C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -181,52 +185,32 @@ void OUTLINED_FUNCTION_3_0(void *a1, uint64_t a2, os_log_t log, const char *a4, 
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-uint64_t *OUTLINED_FUNCTION_5_0@<X0>(uint64_t *result@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
+void OUTLINED_FUNCTION_8_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  *(v3 - 8) = a3;
-  v4 = *result;
-  v5 = *a2;
-  return result;
+  va_start(va, a8);
+
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-uint64_t *OUTLINED_FUNCTION_7_0@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
+void sub_23162A400(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  *(v2 - 8) = a2;
-  v3 = *result;
-  return result;
-}
-
-void OUTLINED_FUNCTION_8_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
-{
-
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
-}
-
-uint64_t OUTLINED_FUNCTION_12@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *(result + 32);
-  return result;
-}
-
-void sub_23162A400(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_23162A7A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_23162A7A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_0_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x34u);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x34u);
 }
 
 void sub_23162AF10(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, id location)
@@ -236,16 +220,16 @@ void sub_23162AF10(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_23162B99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_23162B99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_23162BCC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23162BCC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -266,10 +250,11 @@ void sub_23162DC24(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_8_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_8_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 uint64_t OUTLINED_FUNCTION_13(uint64_t result, uint64_t a2, uint64_t a3, float a4)
@@ -294,16 +279,16 @@ id CAFFrameworkBundle()
   return v4;
 }
 
-id CAFAppIdentifier()
+id CAFAppIdentifier(uint64_t a1)
 {
   if (CAFAppIdentifier_onceToken != -1)
   {
     CAFAppIdentifier_cold_1();
   }
 
-  v1 = CAFAppIdentifier_appIdentifier;
+  v2 = CAFAppIdentifier_appIdentifier;
 
-  return v1;
+  return v2;
 }
 
 void __CAFAppIdentifier_block_invoke()
@@ -327,21 +312,21 @@ void __CAFAppIdentifier_block_invoke()
   }
 }
 
-id CAFAppInfo()
+id CAFAppInfo(uint64_t a1)
 {
   if (CAFAppInfo_onceToken != -1)
   {
     CAFAppInfo_cold_1();
   }
 
-  v1 = CAFAppInfo_appInfo;
+  v2 = CAFAppInfo_appInfo;
 
-  return v1;
+  return v2;
 }
 
 void __CAFAppInfo_block_invoke()
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   v0 = objc_opt_new();
   v1 = [MEMORY[0x277CCA8D8] mainBundle];
   v2 = [v1 bundleIdentifier];
@@ -356,25 +341,23 @@ void __CAFAppInfo_block_invoke()
 
   v6 = [MEMORY[0x277CCAC38] processInfo];
   v7 = [v6 processName];
-  v16[0] = v7;
+  v15[0] = v7;
   v8 = MEMORY[0x277CCABB0];
   v9 = [MEMORY[0x277CCAC38] processInfo];
   v10 = [v8 numberWithInt:{objc_msgSend(v9, "processIdentifier")}];
   v11 = [v10 description];
-  v16[1] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
+  v15[1] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
   [v0 addObjectsFromArray:v12];
 
   v13 = [v0 componentsJoinedByString:@"-"];
   v14 = CAFAppInfo_appInfo;
   CAFAppInfo_appInfo = v13;
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 id NSStringFromDefrostTypes(uint64_t a1)
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CCACA8];
   if ([CAFBitMaskUtilities bitmask:a1 hasOption:1])
   {
@@ -387,7 +370,7 @@ id NSStringFromDefrostTypes(uint64_t a1)
   }
 
   v4 = [v2 stringWithFormat:@"blownAir=%@", v3];
-  v15[0] = v4;
+  v14[0] = v4;
   v5 = MEMORY[0x277CCACA8];
   if ([CAFBitMaskUtilities bitmask:a1 hasOption:2])
   {
@@ -400,22 +383,20 @@ id NSStringFromDefrostTypes(uint64_t a1)
   }
 
   v7 = [v5 stringWithFormat:@"filament=%@", v6];
-  v15[1] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+  v14[1] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
 
   v9 = MEMORY[0x277CCACA8];
   v10 = [CAFBitMaskUtilities description:a1 optionCount:2];
   v11 = [v8 componentsJoinedByString:@" "];
   v12 = [v9 stringWithFormat:@"(%@) %@", v10, v11];
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 id NSStringFromSettingProminenceLevel(uint64_t a1)
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CCACA8];
   if ([CAFBitMaskUtilities bitmask:a1 hasOption:1])
   {
@@ -428,7 +409,7 @@ id NSStringFromSettingProminenceLevel(uint64_t a1)
   }
 
   v4 = [v2 stringWithFormat:@"appHomeTile=%@", v3];
-  v15[0] = v4;
+  v14[0] = v4;
   v5 = MEMORY[0x277CCACA8];
   if ([CAFBitMaskUtilities bitmask:a1 hasOption:8])
   {
@@ -441,22 +422,20 @@ id NSStringFromSettingProminenceLevel(uint64_t a1)
   }
 
   v7 = [v5 stringWithFormat:@"homescreen=%@", v6];
-  v15[1] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+  v14[1] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
 
   v9 = MEMORY[0x277CCACA8];
   v10 = [CAFBitMaskUtilities description:a1 optionCount:2];
   v11 = [v8 componentsJoinedByString:@" "];
   v12 = [v9 stringWithFormat:@"(%@) %@", v10, v11];
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 id NSStringFromVentTypes(uint64_t a1)
 {
-  v24[5] = *MEMORY[0x277D85DE8];
+  v23[5] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CCACA8];
   if ([CAFBitMaskUtilities bitmask:a1 hasOption:1])
   {
@@ -469,7 +448,7 @@ id NSStringFromVentTypes(uint64_t a1)
   }
 
   v4 = [v2 stringWithFormat:@"window=%@", v3];
-  v24[0] = v4;
+  v23[0] = v4;
   v5 = MEMORY[0x277CCACA8];
   if ([CAFBitMaskUtilities bitmask:a1 hasOption:2])
   {
@@ -482,7 +461,7 @@ id NSStringFromVentTypes(uint64_t a1)
   }
 
   v7 = [v5 stringWithFormat:@"upper=%@", v6];
-  v24[1] = v7;
+  v23[1] = v7;
   v8 = MEMORY[0x277CCACA8];
   if ([CAFBitMaskUtilities bitmask:a1 hasOption:4])
   {
@@ -495,7 +474,7 @@ id NSStringFromVentTypes(uint64_t a1)
   }
 
   v10 = [v8 stringWithFormat:@"lower=%@", v9];
-  v24[2] = v10;
+  v23[2] = v10;
   v11 = MEMORY[0x277CCACA8];
   if ([CAFBitMaskUtilities bitmask:a1 hasOption:8])
   {
@@ -508,7 +487,7 @@ id NSStringFromVentTypes(uint64_t a1)
   }
 
   v13 = [v11 stringWithFormat:@"neck=%@", v12];
-  v24[3] = v13;
+  v23[3] = v13;
   v14 = MEMORY[0x277CCACA8];
   if ([CAFBitMaskUtilities bitmask:a1 hasOption:16])
   {
@@ -521,15 +500,13 @@ id NSStringFromVentTypes(uint64_t a1)
   }
 
   v16 = [v14 stringWithFormat:@"middle=%@", v15];
-  v24[4] = v16;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:5];
+  v23[4] = v16;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:5];
 
   v18 = MEMORY[0x277CCACA8];
   v19 = [CAFBitMaskUtilities description:a1 optionCount:5];
   v20 = [v17 componentsJoinedByString:@" "];
   v21 = [v18 stringWithFormat:@"(%@) %@", v19, v20];
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v21;
 }
@@ -4453,34 +4430,32 @@ void CAFSignpostEmit_Launched()
 {
   v7 = *MEMORY[0x277D85DE8];
   v0 = CARSignpostLogForCategory();
-  if (os_signpost_enabled(v0))
+  v1 = os_signpost_enabled(v0);
+  if (v1)
   {
-    v1 = CAFAppInfo();
+    v2 = CAFAppInfo(v1);
     v5 = 138543362;
-    v6 = v1;
+    v6 = v2;
     _os_signpost_emit_with_name_impl(&dword_231618000, v0, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Launched", "%{public}@", &v5, 0xCu);
   }
 
-  v2 = [MEMORY[0x277CBEAA8] date];
-  v3 = CAFAppLaunchedDate;
-  CAFAppLaunchedDate = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = [MEMORY[0x277CBEAA8] date];
+  v4 = CAFAppLaunchedDate;
+  CAFAppLaunchedDate = v3;
 }
 
 void CAFSignpostEmit_Scene()
 {
   v5 = *MEMORY[0x277D85DE8];
   v0 = CARSignpostLogForCategory();
-  if (os_signpost_enabled(v0))
+  v1 = os_signpost_enabled(v0);
+  if (v1)
   {
-    v1 = CAFAppInfo();
+    v2 = CAFAppInfo(v1);
     v3 = 138543362;
-    v4 = v1;
+    v4 = v2;
     _os_signpost_emit_with_name_impl(&dword_231618000, v0, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Scene", "%{public}@", &v3, 0xCu);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void CAFSignpostEmit_SceneWillEnterForeground(void *a1)
@@ -4488,54 +4463,51 @@ void CAFSignpostEmit_SceneWillEnterForeground(void *a1)
   v11 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = CARSignpostLogForCategory();
-  if (os_signpost_enabled(v2))
+  v3 = os_signpost_enabled(v2);
+  if (v3)
   {
-    v3 = CAFAppInfo();
+    v4 = CAFAppInfo(v3);
     v7 = 138543618;
     v8 = v1;
     v9 = 2114;
-    v10 = v3;
+    v10 = v4;
     _os_signpost_emit_with_name_impl(&dword_231618000, v2, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "SceneWillEnterForground", "%{public}@ %{public}@", &v7, 0x16u);
   }
 
   if (([v1 isEqualToString:@"Center"] & 1) != 0 || objc_msgSend(v1, "isEqualToString:", @"UIWindowSceneSessionRoleCarPlay"))
   {
-    v4 = [MEMORY[0x277CBEAA8] date];
-    v5 = CAFAppSceneDate;
-    CAFAppSceneDate = v4;
+    v5 = [MEMORY[0x277CBEAA8] date];
+    v6 = CAFAppSceneDate;
+    CAFAppSceneDate = v5;
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void CAFSignpostEmit_InstantOn()
 {
   v5 = *MEMORY[0x277D85DE8];
   v0 = CARSignpostLogForCategory();
-  if (os_signpost_enabled(v0))
+  v1 = os_signpost_enabled(v0);
+  if (v1)
   {
-    v1 = CAFAppInfo();
+    v2 = CAFAppInfo(v1);
     v3 = 138543362;
-    v4 = v1;
+    v4 = v2;
     _os_signpost_emit_with_name_impl(&dword_231618000, v0, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "InstantOn", "%{public}@", &v3, 0xCu);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void CAFSignpostEmit_Rendered()
 {
   v5 = *MEMORY[0x277D85DE8];
   v0 = CARSignpostLogForCategory();
-  if (os_signpost_enabled(v0))
+  v1 = os_signpost_enabled(v0);
+  if (v1)
   {
-    v1 = CAFAppInfo();
+    v2 = CAFAppInfo(v1);
     v3 = 138543362;
-    v4 = v1;
+    v4 = v2;
     _os_signpost_emit_with_name_impl(&dword_231618000, v0, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Rendered", "%{public}@", &v3, 0xCu);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void CAFSignpostEmit_Finalized(void *a1)
@@ -4543,65 +4515,51 @@ void CAFSignpostEmit_Finalized(void *a1)
   v32 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = CARSignpostLogForCategory();
-  if (os_signpost_enabled(v2))
+  v3 = os_signpost_enabled(v2);
+  if (v3)
   {
-    v3 = CAFAppInfo();
+    v4 = CAFAppInfo(v3);
     LODWORD(v30) = 138543362;
-    *(&v30 + 4) = v3;
+    *(&v30 + 4) = v4;
     _os_signpost_emit_with_name_impl(&dword_231618000, v2, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Finalized", "%{public}@", &v30, 0xCu);
   }
 
   if (v1)
   {
-    v4 = [v1 car];
-    v5 = [v4 sessionAnalytics];
+    v5 = [v1 car];
+    v6 = [v5 sessionAnalytics];
 
-    v6 = [MEMORY[0x277CBEB38] dictionary];
-    v7 = [v5 name];
-    [v6 setObject:v7 forKeyedSubscript:@"name"];
+    v7 = [MEMORY[0x277CBEB38] dictionary];
+    v8 = [v6 name];
+    [v7 setObject:v8 forKeyedSubscript:@"name"];
 
-    v8 = [v5 ppid];
-    [v6 setObject:v8 forKeyedSubscript:@"ppid"];
+    v9 = [v6 ppid];
+    [v7 setObject:v9 forKeyedSubscript:@"ppid"];
 
-    v9 = [v5 firmwareVersion];
-    [v6 setObject:v9 forKeyedSubscript:@"vehicleFirmwareVersion"];
+    v10 = [v6 firmwareVersion];
+    [v7 setObject:v10 forKeyedSubscript:@"vehicleFirmwareVersion"];
 
-    v10 = [v5 hardwareVersion];
-    [v6 setObject:v10 forKeyedSubscript:@"vehicleHardwareVersion"];
+    v11 = [v6 hardwareVersion];
+    [v7 setObject:v11 forKeyedSubscript:@"vehicleHardwareVersion"];
 
-    v11 = [v5 manufacturer];
-    [v6 setObject:v11 forKeyedSubscript:@"vehicleManufacturer"];
+    v12 = [v6 manufacturer];
+    [v7 setObject:v12 forKeyedSubscript:@"vehicleManufacturer"];
 
-    v12 = [v5 model];
-    [v6 setObject:v12 forKeyedSubscript:@"vehicleModel"];
+    v13 = [v6 model];
+    [v7 setObject:v13 forKeyedSubscript:@"vehicleModel"];
 
-    v13 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v5, "supportsBluetoothLE")}];
-    [v6 setObject:v13 forKeyedSubscript:@"supportsBluetoothLE"];
+    v14 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v6, "supportsBluetoothLE")}];
+    [v7 setObject:v14 forKeyedSubscript:@"supportsBluetoothLE"];
 
-    if (!CAFAppLaunchedDate)
+    if (CAFAppLaunchedDate && ([MEMORY[0x277CCA8D8] mainBundle], v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v15, "bundleIdentifier"), v16 = objc_claimAutoreleasedReturnValue(), v15, *&v30 = @"com.apple.CarClimate", *(&v30 + 1) = @"com.apple.CarRadio", v31 = @"com.apple.AutoSettings", objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", &v30, 3), v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v17, "containsObject:", v16), v17, v16, !v18))
     {
-      goto LABEL_6;
-    }
-
-    v14 = [MEMORY[0x277CCA8D8] mainBundle];
-    v15 = [v14 bundleIdentifier];
-
-    *&v30 = @"com.apple.CarClimate";
-    *(&v30 + 1) = @"com.apple.CarRadio";
-    v31 = @"com.apple.AutoSettings";
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:3];
-    v17 = [v16 containsObject:v15];
-
-    if (!v17)
-    {
-      v19 = 1;
-      v18 = &CAFAppLaunchedDate;
+      v20 = 1;
+      v19 = &CAFAppLaunchedDate;
     }
 
     else
     {
-LABEL_6:
-      v18 = &CAFAppSceneDate;
+      v19 = &CAFAppSceneDate;
       if (!CAFAppSceneDate)
       {
 LABEL_11:
@@ -4610,41 +4568,39 @@ LABEL_11:
         goto LABEL_12;
       }
 
-      v19 = 0;
+      v20 = 0;
     }
 
-    v20 = [MEMORY[0x277CBEAA8] date];
-    [v20 timeIntervalSinceDate:*v18];
-    v22 = v21;
+    v21 = [MEMORY[0x277CBEAA8] date];
+    [v21 timeIntervalSinceDate:*v19];
+    v23 = v22;
 
-    v23 = *v18;
-    *v18 = 0;
+    v24 = *v19;
+    *v19 = 0;
 
-    if (v22 > 0.0)
+    if (v23 > 0.0)
     {
-      v24 = [MEMORY[0x277CCABB0] numberWithDouble:v22];
-      v25 = [v24 stringValue];
-      [v6 setObject:v25 forKeyedSubscript:@"launchTime"];
+      v25 = [MEMORY[0x277CCABB0] numberWithDouble:v23];
+      v26 = [v25 stringValue];
+      [v7 setObject:v26 forKeyedSubscript:@"launchTime"];
 
-      v26 = [MEMORY[0x277CCA8D8] mainBundle];
-      v27 = [v26 bundleIdentifier];
-      [v6 setObject:v27 forKeyedSubscript:@"bundleIdentifier"];
+      v27 = [MEMORY[0x277CCA8D8] mainBundle];
+      v28 = [v27 bundleIdentifier];
+      [v7 setObject:v28 forKeyedSubscript:@"bundleIdentifier"];
 
-      v28 = [MEMORY[0x277CCABB0] numberWithBool:v19];
-      [v6 setObject:v28 forKeyedSubscript:@"isColdLaunch"];
+      v29 = [MEMORY[0x277CCABB0] numberWithBool:v20];
+      [v7 setObject:v29 forKeyedSubscript:@"isColdLaunch"];
     }
 
     goto LABEL_11;
   }
 
 LABEL_12:
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
-void sub_2316E9B7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2316E9B7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4656,9 +4612,9 @@ uint64_t __Block_byref_object_copy__1(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2316F11EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2316F11EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4684,10 +4640,11 @@ void sub_2316F3628(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_0_6(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_6(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
 void sub_2316F3EB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
@@ -4704,16 +4661,16 @@ void sub_2316F4064(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-id CAFGeneralLogging()
+id CAFGeneralLogging(uint64_t a1)
 {
   if (CAFGeneralLogging_onceToken != -1)
   {
     CAFGeneralLogging_cold_1();
   }
 
-  v1 = CAFGeneralLogging_facility;
+  v2 = CAFGeneralLogging_facility;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CAFGeneralLogging_block_invoke()
@@ -4723,16 +4680,16 @@ uint64_t __CAFGeneralLogging_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id CAFCarManagerLogging()
+id CAFCarManagerLogging(uint64_t a1)
 {
   if (CAFCarManagerLogging_onceToken != -1)
   {
     CAFCarManagerLogging_cold_1();
   }
 
-  v1 = CAFCarManagerLogging_facility;
+  v2 = CAFCarManagerLogging_facility;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CAFCarManagerLogging_block_invoke()
@@ -4742,16 +4699,16 @@ uint64_t __CAFCarManagerLogging_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id CAFDataClientLogging()
+id CAFDataClientLogging(uint64_t a1)
 {
   if (CAFDataClientLogging_onceToken != -1)
   {
     CAFDataClientLogging_cold_1();
   }
 
-  v1 = CAFDataClientLogging_facility;
+  v2 = CAFDataClientLogging_facility;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CAFDataClientLogging_block_invoke()
@@ -4761,16 +4718,16 @@ uint64_t __CAFDataClientLogging_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id CAFRequestResponseLogging()
+id CAFRequestResponseLogging(uint64_t a1)
 {
   if (CAFRequestResponseLogging_onceToken != -1)
   {
     CAFRequestResponseLogging_cold_1();
   }
 
-  v1 = CAFRequestResponseLogging_facility;
+  v2 = CAFRequestResponseLogging_facility;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CAFRequestResponseLogging_block_invoke()
@@ -4780,16 +4737,16 @@ uint64_t __CAFRequestResponseLogging_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id CAFRegistrationLogging()
+id CAFRegistrationLogging(uint64_t a1)
 {
   if (CAFRegistrationLogging_onceToken != -1)
   {
     CAFRegistrationLogging_cold_1();
   }
 
-  v1 = CAFRegistrationLogging_facility;
+  v2 = CAFRegistrationLogging_facility;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CAFRegistrationLogging_block_invoke()
@@ -4799,16 +4756,16 @@ uint64_t __CAFRegistrationLogging_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id CAFCarLogging()
+id CAFCarLogging(uint64_t a1)
 {
   if (CAFCarLogging_onceToken != -1)
   {
     CAFCarLogging_cold_1();
   }
 
-  v1 = CAFCarLogging_facility;
+  v2 = CAFCarLogging_facility;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CAFCarLogging_block_invoke()
@@ -4818,16 +4775,16 @@ uint64_t __CAFCarLogging_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id CAFPositionManagerLogging()
+id CAFPositionManagerLogging(uint64_t a1)
 {
   if (CAFPositionManagerLogging_onceToken != -1)
   {
     CAFPositionManagerLogging_cold_1();
   }
 
-  v1 = CAFPositionManagerLogging_facility;
+  v2 = CAFPositionManagerLogging_facility;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CAFPositionManagerLogging_block_invoke()
@@ -4837,16 +4794,16 @@ uint64_t __CAFPositionManagerLogging_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id CAFAccessoryLogging()
+id CAFAccessoryLogging(uint64_t a1)
 {
   if (CAFAccessoryLogging_onceToken != -1)
   {
     CAFAccessoryLogging_cold_1();
   }
 
-  v1 = CAFAccessoryLogging_facility;
+  v2 = CAFAccessoryLogging_facility;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CAFAccessoryLogging_block_invoke()
@@ -4856,16 +4813,16 @@ uint64_t __CAFAccessoryLogging_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id CAFServiceLogging()
+id CAFServiceLogging(uint64_t a1)
 {
   if (CAFServiceLogging_onceToken != -1)
   {
     CAFServiceLogging_cold_1();
   }
 
-  v1 = CAFServiceLogging_facility;
+  v2 = CAFServiceLogging_facility;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CAFServiceLogging_block_invoke()
@@ -4875,16 +4832,16 @@ uint64_t __CAFServiceLogging_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id CAFCharacteristicLogging()
+id CAFCharacteristicLogging(uint64_t a1)
 {
   if (CAFCharacteristicLogging_onceToken != -1)
   {
     CAFCharacteristicLogging_cold_1();
   }
 
-  v1 = CAFCharacteristicLogging_facility;
+  v2 = CAFCharacteristicLogging_facility;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CAFCharacteristicLogging_block_invoke()
@@ -4894,16 +4851,16 @@ uint64_t __CAFCharacteristicLogging_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id CAFControlLogging()
+id CAFControlLogging(uint64_t a1)
 {
   if (CAFControlLogging_onceToken != -1)
   {
     CAFControlLogging_cold_1();
   }
 
-  v1 = CAFControlLogging_facility;
+  v2 = CAFControlLogging_facility;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CAFControlLogging_block_invoke()
@@ -4913,16 +4870,16 @@ uint64_t __CAFControlLogging_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id CAFCachedDescriptionLogging()
+id CAFCachedDescriptionLogging(uint64_t a1)
 {
   if (CAFCachedDescriptionLogging_onceToken != -1)
   {
     CAFCachedDescriptionLogging_cold_1();
   }
 
-  v1 = CAFCachedDescriptionLogging_facility;
+  v2 = CAFCachedDescriptionLogging_facility;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CAFCachedDescriptionLogging_block_invoke()
@@ -4932,16 +4889,16 @@ uint64_t __CAFCachedDescriptionLogging_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id CAFGroupRequestLogging()
+id CAFGroupRequestLogging(uint64_t a1)
 {
   if (CAFGroupRequestLogging_onceToken != -1)
   {
     CAFGroupRequestLogging_cold_1();
   }
 
-  v1 = CAFGroupRequestLogging_facility;
+  v2 = CAFGroupRequestLogging_facility;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CAFGroupRequestLogging_block_invoke()
@@ -4951,16 +4908,16 @@ uint64_t __CAFGroupRequestLogging_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id CAFValueMonitorLogging()
+id CAFValueMonitorLogging(uint64_t a1)
 {
   if (CAFValueMonitorLogging_onceToken != -1)
   {
     CAFValueMonitorLogging_cold_1();
   }
 
-  v1 = CAFValueMonitorLogging_facility;
+  v2 = CAFValueMonitorLogging_facility;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CAFValueMonitorLogging_block_invoke()
@@ -4970,16 +4927,16 @@ uint64_t __CAFValueMonitorLogging_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id CAFAssetVariantsLogging()
+id CAFAssetVariantsLogging(uint64_t a1)
 {
   if (CAFAssetVariantsLogging_onceToken != -1)
   {
     CAFAssetVariantsLogging_cold_1();
   }
 
-  v1 = CAFAssetVariantsLogging_facility;
+  v2 = CAFAssetVariantsLogging_facility;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CAFAssetVariantsLogging_block_invoke()
@@ -4989,16 +4946,16 @@ uint64_t __CAFAssetVariantsLogging_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id CAFAppLinksLogging()
+id CAFAppLinksLogging(uint64_t a1)
 {
   if (CAFAppLinksLogging_onceToken != -1)
   {
     CAFAppLinksLogging_cold_1();
   }
 
-  v1 = CAFAppLinksLogging_facility;
+  v2 = CAFAppLinksLogging_facility;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CAFAppLinksLogging_block_invoke()
@@ -5008,16 +4965,16 @@ uint64_t __CAFAppLinksLogging_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id CAFDLogging()
+id CAFDLogging(uint64_t a1)
 {
   if (CAFDLogging_onceToken != -1)
   {
     CAFDLogging_cold_1();
   }
 
-  v1 = CAFDLogging_facility;
+  v2 = CAFDLogging_facility;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CAFDLogging_block_invoke()
@@ -5027,16 +4984,16 @@ uint64_t __CAFDLogging_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id CAFDDataLogging()
+id CAFDDataLogging(uint64_t a1)
 {
   if (CAFDDataLogging_onceToken != -1)
   {
     CAFDDataLogging_cold_1();
   }
 
-  v1 = CAFDDataLogging_facility;
+  v2 = CAFDDataLogging_facility;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CAFDDataLogging_block_invoke()
@@ -5046,16 +5003,16 @@ uint64_t __CAFDDataLogging_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id CAFDAssertionLogging()
+id CAFDAssertionLogging(uint64_t a1)
 {
   if (CAFDAssertionLogging_onceToken != -1)
   {
     CAFDAssertionLogging_cold_1();
   }
 
-  v1 = CAFDAssertionLogging_facility;
+  v2 = CAFDAssertionLogging_facility;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CAFDAssertionLogging_block_invoke()
@@ -5065,16 +5022,16 @@ uint64_t __CAFDAssertionLogging_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id CAFDChannelLogging()
+id CAFDChannelLogging(uint64_t a1)
 {
   if (CAFDChannelLogging_onceToken != -1)
   {
     CAFDChannelLogging_cold_1();
   }
 
-  v1 = CAFDChannelLogging_facility;
+  v2 = CAFDChannelLogging_facility;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CAFDChannelLogging_block_invoke()
@@ -5084,16 +5041,16 @@ uint64_t __CAFDChannelLogging_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id CAFDClientLogging()
+id CAFDClientLogging(uint64_t a1)
 {
   if (CAFDClientLogging_onceToken != -1)
   {
     CAFDClientLogging_cold_1();
   }
 
-  v1 = CAFDClientLogging_facility;
+  v2 = CAFDClientLogging_facility;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CAFDClientLogging_block_invoke()
@@ -5103,16 +5060,16 @@ uint64_t __CAFDClientLogging_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id CAFToolLogging()
+id CAFToolLogging(uint64_t a1)
 {
   if (CAFToolLogging_onceToken != -1)
   {
     CAFToolLogging_cold_1();
   }
 
-  v1 = CAFToolLogging_facility;
+  v2 = CAFToolLogging_facility;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CAFToolLogging_block_invoke()
@@ -5122,16 +5079,16 @@ uint64_t __CAFToolLogging_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id CAFNowPlayingLogging()
+id CAFNowPlayingLogging(uint64_t a1)
 {
   if (CAFNowPlayingLogging_onceToken != -1)
   {
     CAFNowPlayingLogging_cold_1();
   }
 
-  v1 = CAFNowPlayingLogging_facility;
+  v2 = CAFNowPlayingLogging_facility;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CAFNowPlayingLogging_block_invoke()
@@ -5141,16 +5098,16 @@ uint64_t __CAFNowPlayingLogging_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id CAFStateCaptureLogging()
+id CAFStateCaptureLogging(uint64_t a1)
 {
   if (CAFStateCaptureLogging_onceToken != -1)
   {
     CAFStateCaptureLogging_cold_1();
   }
 
-  v1 = CAFStateCaptureLogging_facility;
+  v2 = CAFStateCaptureLogging_facility;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CAFStateCaptureLogging_block_invoke()
@@ -5212,7 +5169,7 @@ uint64_t CAFCompareObjects(void *a1, void *a2)
 
 uint64_t CAFEntityCompare(void *a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = a1;
   if ([v3 conformsToProtocol:&unk_28468A948])
   {
@@ -5241,29 +5198,29 @@ uint64_t CAFEntityCompare(void *a1, void *a2)
     v8 = [v4 baseCAFClass];
     if (v8 == [v6 baseCAFClass])
     {
-      v23 = 0u;
-      v24 = 0u;
-      v21 = 0u;
       v22 = 0u;
+      v23 = 0u;
+      v20 = 0u;
+      v21 = 0u;
       v9 = [v4 comparisonKeys];
-      v10 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
       if (v10)
       {
         v11 = v10;
         v7 = 0;
-        v12 = *v22;
+        v12 = *v21;
         do
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v22 != v12)
+            if (*v21 != v12)
             {
               objc_enumerationMutation(v9);
             }
 
             if (!v7)
             {
-              v14 = *(*(&v21 + 1) + 8 * i);
+              v14 = *(*(&v20 + 1) + 8 * i);
               v15 = [v4 valueForKeyPath:v14];
               v16 = [v6 valueForKeyPath:v14];
               v17 = v16;
@@ -5305,7 +5262,7 @@ uint64_t CAFEntityCompare(void *a1, void *a2)
             }
           }
 
-          v11 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
+          v11 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
         }
 
         while (v11);
@@ -5323,11 +5280,10 @@ uint64_t CAFEntityCompare(void *a1, void *a2)
     }
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
-uint64_t CAFCharacteristicStateIsCurrent(uint64_t a1)
+uint64_t CAFCharacteristicStateIsCurrent(uint64_t a1, uint64_t a2)
 {
   if ((a1 - 4) < 3 || a1 == 0)
   {
@@ -5342,7 +5298,7 @@ uint64_t CAFCharacteristicStateIsCurrent(uint64_t a1)
   return 1;
 }
 
-uint64_t CAFCharacteristicStateIsInitializing(uint64_t a1)
+uint64_t CAFCharacteristicStateIsInitializing(uint64_t a1, uint64_t a2)
 {
   if ((a1 - 1) < 5)
   {
@@ -5357,11 +5313,11 @@ uint64_t CAFCharacteristicStateIsInitializing(uint64_t a1)
   return 1;
 }
 
-void sub_2316F7ACC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2316F7ACC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 

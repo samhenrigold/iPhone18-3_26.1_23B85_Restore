@@ -4,6 +4,7 @@
 - (NSDictionary)servers;
 - (SMBClientdSettings)init;
 - (id)addShares:(id)shares atServer:(id)server serverDomainName:(id *)name service:(id)service;
+- (id)ejectVolumeForURL:(id)l share:(id)share how:(int)how;
 - (id)findNewMountNumber:(unsigned int *)number error:(id *)error;
 - (id)getPasswordForIdentifier:(id)identifier error:(id *)error;
 - (id)internalAddShare:(id)share server:(id)server password:(id)password service:(id)service displayName:(id)name storageName:(id)storageName existingTags:(id)tags flags:(unsigned int)self0;
@@ -22,9 +23,7 @@
   servers = self->_servers;
   self->_servers = v3;
 
-  v5 = objc_opt_new();
-  mountNumbers = self->_mountNumbers;
-  self->_mountNumbers = v5;
+  self->_mountNumbers = objc_opt_new();
 
   _objc_release_x1();
 }
@@ -205,7 +204,7 @@ LABEL_12:
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      sub_10005960C(&v39);
+      sub_10005960C();
     }
 
     v26 = [LiveFSFPExtensionHelper getNSErrorFromLiveFSErrno:v39];
@@ -926,6 +925,114 @@ LABEL_6:
 LABEL_10:
 
   return v11;
+}
+
+- (id)ejectVolumeForURL:(id)l share:(id)share how:(int)how
+{
+  v5 = *&how;
+  shareCopy = share;
+  v9 = [NSURLComponents componentsWithURL:l resolvingAgainstBaseURL:1];
+  v10 = v9;
+  if (!v9)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10005A20C();
+    }
+
+    goto LABEL_16;
+  }
+
+  v11 = sub_100035684(v9);
+  if (!v11)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10005A1C8();
+    }
+
+LABEL_16:
+    v22 = [NSError errorWithDomain:NSPOSIXErrorDomain code:22 userInfo:0];
+    goto LABEL_30;
+  }
+
+  v12 = v11;
+  v13 = [(NSMutableDictionary *)self->_servers objectForKey:v11];
+  if (!v13)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10005A184();
+    }
+
+    v22 = [NSError errorWithDomain:NSPOSIXErrorDomain code:22 userInfo:0];
+    goto LABEL_23;
+  }
+
+  v14 = v13;
+  v15 = [v13 objectForKeyedSubscript:@"storageName"];
+  shareCopy = [NSString stringWithFormat:@"%@%@", v15, shareCopy];
+  v17 = [@"com.apple.filesystems.smbclientd" stringByAppendingPathComponent:shareCopy];
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    sub_100059F5C();
+  }
+
+  v18 = +[LiveFSMountClient newClient];
+  if (!v18)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10005A140();
+    }
+
+    v22 = [NSError errorWithDomain:NSPOSIXErrorDomain code:22 userInfo:0];
+
+LABEL_23:
+    goto LABEL_30;
+  }
+
+  v19 = v18;
+  v25 = v15;
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
+  {
+    sub_100059FD4();
+  }
+
+  v20 = [v19 unmountVolume:v17 how:v5];
+  if (v20)
+  {
+    v21 = v20;
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10005A050();
+    }
+  }
+
+  else if ((v5 & 2) != 0)
+  {
+    v23 = [v14 objectForKeyedSubscript:@"shares"];
+    [v23 removeObject:shareCopy];
+
+    v26 = 0;
+    [(SMBClientdSettings *)self save:&v26];
+    v21 = v26;
+    if (v21 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10005A0C8();
+    }
+  }
+
+  else
+  {
+    v21 = 0;
+  }
+
+  v22 = v21;
+
+LABEL_30:
+
+  return v22;
 }
 
 @end

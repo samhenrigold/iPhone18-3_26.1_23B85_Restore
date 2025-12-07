@@ -2,6 +2,7 @@
 + (id)sharedManager;
 + (unint64_t)authorizationStatusForCertSerial:(id)serial;
 + (unint64_t)promptUserForAuthorizationOfAccessoryWithName:(id)name providesPower:(BOOL)power certSerial:(id)serial;
++ (void)forceRequestAuthorizationForCertSerial:(id)serial withName:(id)name providesPower:(BOOL)power completionHandler:(id)handler;
 + (void)requestAuthorizationForCertSerial:(id)serial withName:(id)name providesPower:(BOOL)power completionHandler:(id)handler;
 - (ACCAuthorizationManager)init;
 - (BOOL)bypassAuthorization;
@@ -145,6 +146,38 @@ LABEL_6:
   }
 
   __break(0x5510u);
+}
+
++ (void)forceRequestAuthorizationForCertSerial:(id)serial withName:(id)name providesPower:(BOOL)power completionHandler:(id)handler
+{
+  powerCopy = power;
+  serialCopy = serial;
+  nameCopy = name;
+  handlerCopy = handler;
+  v11 = [ACCAuthorizationManager promptUserForAuthorizationOfAccessoryWithName:nameCopy providesPower:powerCopy certSerial:serialCopy];
+  if (serialCopy && [serialCopy length] && !v11)
+  {
+    v12 = objc_alloc_init(ACCAccessoryAuthorizationEntry);
+    [(ACCAccessoryAuthorizationEntry *)v12 setCertSerialString:serialCopy];
+    [(ACCAccessoryAuthorizationEntry *)v12 setAuthorized:1];
+    if (nameCopy)
+    {
+      v13 = nameCopy;
+    }
+
+    else
+    {
+      v13 = &stru_100119FF8;
+    }
+
+    [(ACCAccessoryAuthorizationEntry *)v12 setDisplayName:v13];
+    [ACCAccessoryAuthorizationStore storeAccessory:v12];
+  }
+
+  if (handlerCopy)
+  {
+    handlerCopy[2](handlerCopy, v11 == 0);
+  }
 }
 
 + (unint64_t)promptUserForAuthorizationOfAccessoryWithName:(id)name providesPower:(BOOL)power certSerial:(id)serial

@@ -10,7 +10,7 @@
 - (_TtC13CoreIDVShared17GestureTimestamps)initWithCoder:(id)coder
 {
   ObjectType = swift_getObjectType();
-  sub_2259D8718(0, &qword_281059A70);
+  sub_2259D8718(0, &qword_281059A70, 0x277CCABB0);
   coderCopy = coder;
   v7 = sub_225CCEF34();
   if (!v7 || (v8 = sub_225B5F2C8(v7, sub_2259D5520, MEMORY[0x277CC9F98]), , !v8))

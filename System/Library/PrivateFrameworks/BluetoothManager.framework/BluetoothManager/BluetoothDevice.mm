@@ -2,8 +2,6 @@
 - ($70344DAF05348A783186C1CF166707C1)getCallManagementConfig;
 - ($9BEB610D0CE1B1EDC3D89DA2464F985F)syncSettings;
 - (BOOL)batteryStatus:(id *)status;
-- (BOOL)cloudPaired;
-- (BOOL)connected;
 - (BOOL)featureCapability:(int)capability;
 - (BOOL)getAACPCapabilityBit:(int)bit;
 - (BOOL)getAdaptiveVolumeSupport;
@@ -26,9 +24,6 @@
 - (BOOL)isProxCardShowedForFeature:(int)feature;
 - (BOOL)isProxCardSupportedForFeature:(int)feature;
 - (BOOL)isServiceSupported:(unsigned int)supported;
-- (BOOL)isTemporaryPaired;
-- (BOOL)magicPaired;
-- (BOOL)paired;
 - (BOOL)pairedDeviceNameUpdated;
 - (BOOL)setAutoAnswerMode:(int)mode;
 - (BOOL)setCallConfig:(id)config;
@@ -83,8 +78,6 @@
 - (int)singleClickMode;
 - (int)type;
 - (int64_t)compare:(id)compare;
-- (unint64_t)connectedServices;
-- (unint64_t)connectedServicesCount;
 - (unsigned)SendSetupCommand:(unsigned __int8)command;
 - (unsigned)chimeVolume;
 - (unsigned)clickHoldMode:(int *)mode rightAction:(int *)action;
@@ -111,43 +104,12 @@
 - (unsigned)vendorId;
 - (unsigned)vendorIdSrc;
 - (void)acceptSSP:(int64_t)p;
-- (void)accessorySettingFeatureBitMask;
-- (void)autoAnswerMode;
-- (void)chimeVolume;
 - (void)connect;
-- (void)crownRotationDirection;
+- (void)connectWithServices:(unsigned int)services;
 - (void)dealloc;
 - (void)disconnect;
-- (void)doubleClickMode;
-- (void)doubleTapAction;
-- (void)doubleTapCapability;
 - (void)endVoiceCommand;
-- (void)getAdaptiveVolumeSupport;
-- (void)getAutoANCSupport;
-- (void)getBehaviorForHIDDevice;
-- (void)getCallManagementConfig;
-- (void)getConversationDetectSupport;
-- (void)getDeviceAdaptiveVolumeMode;
-- (void)getDeviceConversationDetect;
-- (void)getDeviceSoundProfileAllowed;
-- (void)getDeviceSoundProfileSupport;
-- (void)getHeartRateMonitorEnabled;
-- (void)getSSLMode;
-- (void)getSSLSupport;
-- (void)getSpatialAudioPlatformSupport;
-- (void)getStereoHFPSupport;
-- (void)getWirelessSharingSpatialSupport;
-- (void)gyroInformation;
-- (void)headTrackingAvailable;
-- (void)hearingAidEnabled;
-- (void)hearingAidEnrolled;
-- (void)inEarDetectEnabled;
-- (void)isGenuineAirPods;
 - (void)isGuestPairingMode;
-- (void)listeningMode;
-- (void)listeningModeConfigs;
-- (void)micMode;
-- (void)pairedDeviceNameUpdated;
 - (void)setAdaptiveVolumeMode:(int)mode;
 - (void)setConversationDetectMode:(int)mode;
 - (void)setDevice:(BTDeviceImpl *)device;
@@ -161,10 +123,6 @@
 - (void)setProxCardShowedForFeature:(int)feature showed:(BOOL)showed;
 - (void)setSSLMode:(int)mode;
 - (void)setServiceSetting:(unsigned int)setting key:(id)key value:(id)value;
-- (void)singleClickMode;
-- (void)smartRouteMode;
-- (void)spatialAudioAllowed;
-- (void)spatialAudioMode;
 - (void)startVoiceCommand;
 - (void)unpair;
 @end
@@ -176,8 +134,7 @@
   result = self->_address;
   if (!result)
   {
-    device = self->_device;
-    result = AddressForBTDevice();
+    result = AddressForBTDevice(self->_device);
     self->_address = result;
   }
 
@@ -234,63 +191,56 @@
 
 - (id)name
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   name = self->_name;
   if (!name)
   {
-    v25 = 0;
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
+    v22 = 0;
     v20 = 0u;
-    v17 = 0u;
+    v21 = 0u;
     v18 = 0u;
-    v15 = 0u;
+    v19 = 0u;
     v16 = 0u;
-    v13 = 0u;
+    v17 = 0u;
     v14 = 0u;
-    v11 = 0u;
+    v15 = 0u;
     v12 = 0u;
+    v13 = 0u;
     v10 = 0u;
-    device = self->_device;
-    if (BTDeviceGetName() || (v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:&v10]) == 0)
+    v11 = 0u;
+    v8 = 0u;
+    v9 = 0u;
+    v7 = 0u;
+    if (BTDeviceGetName() || (v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:&v7]) == 0)
     {
-      v5 = self->_device;
       if (BTDeviceGetDefaultName())
       {
-        v6 = [(BluetoothDevice *)self address:v10];
+        return [(BluetoothDevice *)self address:v7];
       }
 
       else
       {
-        v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:&v10];
+        return [MEMORY[0x277CCACA8] stringWithUTF8String:&v7];
       }
-
-      name = v6;
     }
 
     else
     {
-      name = v7;
-      self->_name = v7;
+      name = v5;
+      self->_name = v5;
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return name;
 }
 
 - (id)productName
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   productName = self->_productName;
   if (!productName)
   {
-    v23 = 0;
-    v21 = 0u;
-    v22 = 0u;
+    v21 = 0;
     v19 = 0u;
     v20 = 0u;
     v17 = 0u;
@@ -303,27 +253,32 @@
     v12 = 0u;
     v9 = 0u;
     v10 = 0u;
+    v7 = 0u;
     v8 = 0u;
-    device = self->_device;
-    if (BTDeviceGetProductName() || (v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:&v8]) == 0)
+    v6 = 0u;
+    if (BTDeviceGetProductName())
     {
-      productName = [(BluetoothDevice *)self address:v8];
+      return [(BluetoothDevice *)self address:v6];
+    }
+
+    v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:&v6];
+    if (!v4)
+    {
+      return [(BluetoothDevice *)self address:v6];
     }
 
     else
     {
-      productName = v5;
-      self->_productName = v5;
+      productName = v4;
+      self->_productName = v4;
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return productName;
 }
 
 - (int)type
 {
-  device = self->_device;
   if (BTDeviceGetDeviceType())
   {
     return 0;
@@ -337,7 +292,6 @@
 
 - (unsigned)majorClass
 {
-  device = self->_device;
   if (BTDeviceGetDeviceClass())
   {
     return 0;
@@ -351,7 +305,6 @@
 
 - (unsigned)minorClass
 {
-  device = self->_device;
   if (BTDeviceGetDeviceClass())
   {
     return 0;
@@ -365,7 +318,6 @@
 
 - (unsigned)vendorId
 {
-  device = self->_device;
   if (BTDeviceGetDeviceId())
   {
     return 0;
@@ -379,7 +331,6 @@
 
 - (unsigned)vendorIdSrc
 {
-  device = self->_device;
   if (BTDeviceGetDeviceId())
   {
     return 0;
@@ -393,7 +344,6 @@
 
 - (unsigned)productId
 {
-  device = self->_device;
   if (BTDeviceGetDeviceId())
   {
     return 0;
@@ -403,55 +353,6 @@
   {
     return 0;
   }
-}
-
-- (BOOL)paired
-{
-  device = self->_device;
-  BTDeviceGetPairingStatus();
-  return 0;
-}
-
-- (BOOL)cloudPaired
-{
-  device = self->_device;
-  BTDeviceGetCloudPairingStatus();
-  return 0;
-}
-
-- (BOOL)magicPaired
-{
-  device = self->_device;
-  BTDeviceGetMagicPairingStatus();
-  return 0;
-}
-
-- (BOOL)connected
-{
-  device = self->_device;
-  BTDeviceGetConnectedServices();
-  return 0;
-}
-
-- (BOOL)isTemporaryPaired
-{
-  device = self->_device;
-  BTDeviceIsTemporaryPaired();
-  return 0;
-}
-
-- (unint64_t)connectedServices
-{
-  device = self->_device;
-  BTDeviceGetConnectedServices();
-  return 0;
-}
-
-- (unint64_t)connectedServicesCount
-{
-  device = self->_device;
-  BTDeviceGetConnectedServices();
-  return 0;
 }
 
 - (BOOL)supportsBatteryLevel
@@ -487,7 +388,7 @@
 
   else
   {
-    v5 = sharedBluetoothManagerLogComponent();
+    v5 = sharedBluetoothManagerLogComponent(self, a2);
     v4 = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
     if (v4)
     {
@@ -510,8 +411,8 @@
 - (BOOL)setIsHidden:(BOOL)hidden
 {
   hiddenCopy = hidden;
-  v13 = *MEMORY[0x277D85DE8];
-  v5 = sharedBluetoothManagerLogComponent();
+  v14 = *MEMORY[0x277D85DE8];
+  v5 = sharedBluetoothManagerLogComponent(self, a2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = "no";
@@ -520,267 +421,259 @@
       v6 = "yes";
     }
 
-    v11 = 136315138;
-    v12 = v6;
-    _os_log_impl(&dword_241BC5000, v5, OS_LOG_TYPE_INFO, "Set isHidden : %s", &v11, 0xCu);
+    v12 = 136315138;
+    v13 = v6;
+    _os_log_impl(&dword_241BC5000, v5, OS_LOG_TYPE_INFO, "Set isHidden : %s", &v12, 0xCu);
   }
 
   [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
   [(BluetoothDevice *)self device];
   IsHidden = BTAccessoryManagerSetIsHidden();
+  v9 = IsHidden;
   if (IsHidden)
   {
-    v8 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = sharedBluetoothManagerLogComponent(IsHidden, v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [BluetoothDevice setIsHidden:];
     }
   }
 
-  result = IsHidden == 0;
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return v9 == 0;
 }
 
 - (BOOL)inEarDetectEnabled
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
   [(BluetoothDevice *)self device];
   v3 = BTAccessoryManagerGetInEarDetectionEnable();
-  v4 = sharedBluetoothManagerLogComponent();
-  v5 = v4;
-  if (v3)
+  v4 = v3;
+  v6 = sharedBluetoothManagerLogComponent(v3, v5);
+  v7 = v6;
+  if (v4)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [BluetoothDevice inEarDetectEnabled];
     }
 
-    result = 1;
+    return 1;
   }
 
   else
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 67109120;
-      v9 = 1;
-      _os_log_impl(&dword_241BC5000, v5, OS_LOG_TYPE_INFO, "inEarDetectEnabled : %d", buf, 8u);
+      v10 = 1;
+      _os_log_impl(&dword_241BC5000, v7, OS_LOG_TYPE_INFO, "inEarDetectEnabled : %d", buf, 8u);
     }
 
-    result = 1;
+    return 1;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 - (BOOL)setInEarDetectEnabled:(BOOL)enabled
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = enabled << 31 >> 31;
-  v5 = sharedBluetoothManagerLogComponent();
+  v5 = sharedBluetoothManagerLogComponent(self, a2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v10[0] = 67109120;
-    v10[1] = v4;
-    _os_log_impl(&dword_241BC5000, v5, OS_LOG_TYPE_INFO, "Set inEarDetectEnabled : %d", v10, 8u);
+    v11[0] = 67109120;
+    v11[1] = v4;
+    _os_log_impl(&dword_241BC5000, v5, OS_LOG_TYPE_INFO, "Set inEarDetectEnabled : %d", v11, 8u);
   }
 
   [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
   [(BluetoothDevice *)self device];
   v6 = BTAccessoryManagerSetInEarDetectionEnable();
+  v8 = v6;
   if (v6)
   {
-    v7 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = sharedBluetoothManagerLogComponent(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [BluetoothDevice setInEarDetectEnabled:];
     }
   }
 
-  result = v6 == 0;
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return v8 == 0;
 }
 
 - (BOOL)setSpatialAudioAllowed:(BOOL)allowed
 {
   allowedCopy = allowed;
-  v11 = *MEMORY[0x277D85DE8];
-  v5 = sharedBluetoothManagerLogComponent();
+  v12 = *MEMORY[0x277D85DE8];
+  v5 = sharedBluetoothManagerLogComponent(self, a2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v10[0] = 67109120;
-    v10[1] = allowedCopy;
-    _os_log_impl(&dword_241BC5000, v5, OS_LOG_TYPE_DEFAULT, "Set setSpatialAudioAllowed : %d", v10, 8u);
+    v11[0] = 67109120;
+    v11[1] = allowedCopy;
+    _os_log_impl(&dword_241BC5000, v5, OS_LOG_TYPE_DEFAULT, "Set setSpatialAudioAllowed : %d", v11, 8u);
   }
 
   [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
   [(BluetoothDevice *)self device];
   v6 = BTAccessoryManagerSpatialAudioAllowed();
+  v8 = v6;
   if (v6)
   {
-    v7 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = sharedBluetoothManagerLogComponent(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [BluetoothDevice setSpatialAudioAllowed:];
     }
   }
 
-  result = v6 == 0;
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return v8 == 0;
 }
 
 - (BOOL)spatialAudioAllowed
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
   [(BluetoothDevice *)self device];
   SpatialAudioAllowed = BTAccessoryManagerGetSpatialAudioAllowed();
-  v4 = sharedBluetoothManagerLogComponent();
-  v5 = v4;
-  if (SpatialAudioAllowed)
+  v4 = SpatialAudioAllowed;
+  v6 = sharedBluetoothManagerLogComponent(SpatialAudioAllowed, v5);
+  v7 = v6;
+  if (v4)
   {
-    v6 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
-    if (v6)
+    v8 = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
+    if (v8)
     {
       [BluetoothDevice spatialAudioAllowed];
-      LOBYTE(v6) = 0;
+      LOBYTE(v8) = 0;
     }
   }
 
   else
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 67109120;
-      v10 = 0;
-      _os_log_impl(&dword_241BC5000, v5, OS_LOG_TYPE_INFO, "Spatial Audio User selection : %d", buf, 8u);
+      v11 = 0;
+      _os_log_impl(&dword_241BC5000, v7, OS_LOG_TYPE_INFO, "Spatial Audio User selection : %d", buf, 8u);
     }
 
-    LOBYTE(v6) = 0;
+    LOBYTE(v8) = 0;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-  return v6;
+  return v8;
 }
 
 - (BOOL)spatialAudioActive
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
   [(BluetoothDevice *)self device];
   SpatialAudioActive = BTAccessoryManagerGetSpatialAudioActive();
-  v4 = sharedBluetoothManagerLogComponent();
-  v5 = v4;
-  if (SpatialAudioActive)
+  v4 = SpatialAudioActive;
+  v6 = sharedBluetoothManagerLogComponent(SpatialAudioActive, v5);
+  v7 = v6;
+  if (v4)
   {
-    v6 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
-    if (v6)
+    v8 = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
+    if (v8)
     {
       [BluetoothDevice spatialAudioAllowed];
-      LOBYTE(v6) = 0;
+      LOBYTE(v8) = 0;
     }
   }
 
   else
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 67109120;
-      v10 = 0;
-      _os_log_impl(&dword_241BC5000, v5, OS_LOG_TYPE_INFO, "Spatial Audio Active  : %d", buf, 8u);
+      v11 = 0;
+      _os_log_impl(&dword_241BC5000, v7, OS_LOG_TYPE_INFO, "Spatial Audio Active  : %d", buf, 8u);
     }
 
-    LOBYTE(v6) = 0;
+    LOBYTE(v8) = 0;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-  return v6;
+  return v8;
 }
 
 - (BOOL)setSpatialAudioMode:(unsigned __int8)mode
 {
   modeCopy = mode;
-  v11 = *MEMORY[0x277D85DE8];
-  v5 = sharedBluetoothManagerLogComponent();
+  v12 = *MEMORY[0x277D85DE8];
+  v5 = sharedBluetoothManagerLogComponent(self, a2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v10[0] = 67109120;
-    v10[1] = modeCopy;
-    _os_log_impl(&dword_241BC5000, v5, OS_LOG_TYPE_INFO, "Set SpatialAudioMode : %d", v10, 8u);
+    v11[0] = 67109120;
+    v11[1] = modeCopy;
+    _os_log_impl(&dword_241BC5000, v5, OS_LOG_TYPE_INFO, "Set SpatialAudioMode : %d", v11, 8u);
   }
 
   [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
   [(BluetoothDevice *)self device];
   v6 = BTAccessoryManagerSpatialAudioConfig();
+  v8 = v6;
   if (v6)
   {
-    v7 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = sharedBluetoothManagerLogComponent(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [BluetoothDevice setSpatialAudioMode:];
     }
   }
 
-  result = v6 == 0;
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return v8 == 0;
 }
 
 - (unsigned)spatialAudioMode
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
   [(BluetoothDevice *)self device];
   SpatialAudioConfig = BTAccessoryManagerGetSpatialAudioConfig();
-  v4 = sharedBluetoothManagerLogComponent();
-  v5 = v4;
-  if (SpatialAudioConfig)
+  v4 = SpatialAudioConfig;
+  v6 = sharedBluetoothManagerLogComponent(SpatialAudioConfig, v5);
+  v7 = v6;
+  if (v4)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [BluetoothDevice spatialAudioMode];
     }
 
-    v6 = 0;
+    return 0;
   }
 
   else
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109376;
-      v10 = 255;
-      v11 = 1024;
-      v12 = -1;
-      _os_log_impl(&dword_241BC5000, v5, OS_LOG_TYPE_DEFAULT, "Spatial Audio : %d Head Tracking %d", buf, 0xEu);
+      v11 = 255;
+      v12 = 1024;
+      v13 = -1;
+      _os_log_impl(&dword_241BC5000, v7, OS_LOG_TYPE_DEFAULT, "Spatial Audio : %d Head Tracking %d", buf, 0xEu);
     }
 
-    v6 = -1;
+    return -1;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
-  return v6;
 }
 
 - (BOOL)setSpatialAudioConfig:(id)config spatialMode:(int)mode headTracking:(BOOL)tracking
 {
   trackingCopy = tracking;
-  v20 = *MEMORY[0x277D85DE8];
-  v9 = sharedBluetoothManagerLogComponent();
+  v21 = *MEMORY[0x277D85DE8];
+  v9 = sharedBluetoothManagerLogComponent(self, a2);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 138412802;
+    v15 = 138412802;
     configCopy = config;
-    v16 = 1024;
+    v17 = 1024;
     modeCopy = mode;
-    v18 = 1024;
-    v19 = trackingCopy;
-    _os_log_impl(&dword_241BC5000, v9, OS_LOG_TYPE_DEFAULT, "set Spatial Audio Config : [%@] %d head Tracking %d", &v14, 0x18u);
+    v19 = 1024;
+    v20 = trackingCopy;
+    _os_log_impl(&dword_241BC5000, v9, OS_LOG_TYPE_DEFAULT, "set Spatial Audio Config : [%@] %d head Tracking %d", &v15, 0x18u);
   }
 
   if (!config)
@@ -791,57 +684,55 @@
   [config UTF8String];
   [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
   [(BluetoothDevice *)self device];
-  if (!BTAccessoryManagerSpatialAudioConfig())
+  v10 = BTAccessoryManagerSpatialAudioConfig();
+  if (!v10)
   {
-    LOBYTE(v11) = 1;
-    goto LABEL_9;
+    LOBYTE(v13) = 1;
+    return v13;
   }
 
-  v10 = sharedBluetoothManagerLogComponent();
-  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
-  if (v11)
+  v12 = sharedBluetoothManagerLogComponent(v10, v11);
+  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_ERROR);
+  if (v13)
   {
     [BluetoothDevice setSpatialAudioMode:];
 LABEL_7:
-    LOBYTE(v11) = 0;
+    LOBYTE(v13) = 0;
   }
 
-LABEL_9:
-  v12 = *MEMORY[0x277D85DE8];
-  return v11;
+  return v13;
 }
 
 - (BOOL)headTrackingAvailable
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
   [(BluetoothDevice *)self device];
   HeadphoneFeatureValue = BTAccessoryManagerGetHeadphoneFeatureValue();
-  v4 = sharedBluetoothManagerLogComponent();
-  v5 = v4;
-  if (HeadphoneFeatureValue)
+  v4 = HeadphoneFeatureValue;
+  v6 = sharedBluetoothManagerLogComponent(HeadphoneFeatureValue, v5);
+  v7 = v6;
+  if (v4)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [BluetoothDevice headTrackingAvailable];
     }
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v9 = 1;
-    _os_log_impl(&dword_241BC5000, v5, OS_LOG_TYPE_DEFAULT, "HeadtrackingAvailable - %d", buf, 8u);
+    v10 = 1;
+    _os_log_impl(&dword_241BC5000, v7, OS_LOG_TYPE_DEFAULT, "HeadtrackingAvailable - %d", buf, 8u);
   }
 
-  result = 1;
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 - (BOOL)spatialAudioConfig:(id)config spatialMode:(int *)mode headTracking:(BOOL *)tracking
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   *mode = 255;
   if (!config)
   {
@@ -851,156 +742,152 @@ LABEL_9:
   [config UTF8String];
   [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
   [(BluetoothDevice *)self device];
-  if (BTAccessoryManagerGetSpatialAudioConfig())
+  SpatialAudioConfig = BTAccessoryManagerGetSpatialAudioConfig();
+  if (SpatialAudioConfig)
   {
-    v9 = sharedBluetoothManagerLogComponent();
-    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
-    if (v10)
+    v11 = sharedBluetoothManagerLogComponent(SpatialAudioConfig, v10);
+    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_ERROR);
+    if (v12)
     {
       [BluetoothDevice spatialAudioMode];
 LABEL_5:
-      LOBYTE(v10) = 0;
+      LOBYTE(v12) = 0;
     }
   }
 
   else
   {
     *tracking = 1;
-    v11 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = sharedBluetoothManagerLogComponent(SpatialAudioConfig, v10);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = *mode;
-      v13 = *tracking;
+      v14 = *mode;
+      v15 = *tracking;
       *buf = 138412802;
       configCopy = config;
-      v18 = 1024;
-      v19 = v12;
-      v20 = 1024;
-      v21 = v13;
-      _os_log_impl(&dword_241BC5000, v11, OS_LOG_TYPE_DEFAULT, "get SpatialAudio Config : [%@] %d Head Tracking %d", buf, 0x18u);
+      v19 = 1024;
+      v20 = v14;
+      v21 = 1024;
+      v22 = v15;
+      _os_log_impl(&dword_241BC5000, v13, OS_LOG_TYPE_DEFAULT, "get SpatialAudio Config : [%@] %d Head Tracking %d", buf, 0x18u);
     }
 
-    LOBYTE(v10) = 1;
+    LOBYTE(v12) = 1;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-  return v10;
+  return v12;
 }
 
 - (BOOL)setSmartRouteMode:(unsigned __int8)mode
 {
   modeCopy = mode;
-  v11 = *MEMORY[0x277D85DE8];
-  v5 = sharedBluetoothManagerLogComponent();
+  v12 = *MEMORY[0x277D85DE8];
+  v5 = sharedBluetoothManagerLogComponent(self, a2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v10[0] = 67109120;
-    v10[1] = modeCopy;
-    _os_log_impl(&dword_241BC5000, v5, OS_LOG_TYPE_INFO, "Set smartRouteMode : %d", v10, 8u);
+    v11[0] = 67109120;
+    v11[1] = modeCopy;
+    _os_log_impl(&dword_241BC5000, v5, OS_LOG_TYPE_INFO, "Set smartRouteMode : %d", v11, 8u);
   }
 
   [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
   [(BluetoothDevice *)self device];
   v6 = BTAccessoryManagerSmartRouteMode();
+  v8 = v6;
   if (v6)
   {
-    v7 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = sharedBluetoothManagerLogComponent(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [BluetoothDevice setSmartRouteMode:];
     }
   }
 
-  result = v6 == 0;
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return v8 == 0;
 }
 
 - (unsigned)smartRouteMode
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
   [(BluetoothDevice *)self device];
   SmartRouteMode = BTAccessoryManagerGetSmartRouteMode();
-  v4 = sharedBluetoothManagerLogComponent();
-  v5 = v4;
-  if (SmartRouteMode)
+  v4 = SmartRouteMode;
+  v6 = sharedBluetoothManagerLogComponent(SmartRouteMode, v5);
+  v7 = v6;
+  if (v4)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [BluetoothDevice smartRouteMode];
     }
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v9 = "Manual";
-    _os_log_impl(&dword_241BC5000, v5, OS_LOG_TYPE_INFO, "smart Routing : %s", buf, 0xCu);
+    v10 = "Manual";
+    _os_log_impl(&dword_241BC5000, v7, OS_LOG_TYPE_INFO, "smart Routing : %s", buf, 0xCu);
   }
 
-  result = 2;
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return 2;
 }
 
 - (BOOL)smartRouteSupport
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
   [(BluetoothDevice *)self device];
-  BTAccessoryManagerGetSmartRouteSupport();
-  v3 = sharedBluetoothManagerLogComponent();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  SmartRouteSupport = BTAccessoryManagerGetSmartRouteSupport();
+  v5 = sharedBluetoothManagerLogComponent(SmartRouteSupport, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v7 = "NOT Supported";
-    _os_log_impl(&dword_241BC5000, v3, OS_LOG_TYPE_INFO, "Smart Routing : %s", buf, 0xCu);
+    v8 = "NOT Supported";
+    _os_log_impl(&dword_241BC5000, v5, OS_LOG_TYPE_INFO, "Smart Routing : %s", buf, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (BOOL)inEarStatusPrimary:(int *)primary secondary:(int *)secondary
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   *primary = 3;
   *secondary = 3;
   [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
   [(BluetoothDevice *)self device];
   v7 = BTAccessoryManagerGetInEarStatus();
-  v8 = sharedBluetoothManagerLogComponent();
-  v9 = v8;
-  if (v7)
+  v8 = v7;
+  v10 = sharedBluetoothManagerLogComponent(v7, v9);
+  v11 = v10;
+  if (v8)
   {
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [BluetoothDevice inEarStatusPrimary:secondary:];
     }
   }
 
-  else if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = *primary;
-    v11 = *secondary;
-    v14[0] = 67109376;
-    v14[1] = v10;
-    v15 = 1024;
-    v16 = v11;
-    _os_log_impl(&dword_241BC5000, v9, OS_LOG_TYPE_DEFAULT, "Retrieved inEarStatus Primary : %u, Secondary : %u", v14, 0xEu);
+    v12 = *primary;
+    v13 = *secondary;
+    v15[0] = 67109376;
+    v15[1] = v12;
+    v16 = 1024;
+    v17 = v13;
+    _os_log_impl(&dword_241BC5000, v11, OS_LOG_TYPE_DEFAULT, "Retrieved inEarStatus Primary : %u, Secondary : %u", v15, 0xEu);
   }
 
-  result = v7 == 0;
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return v8 == 0;
 }
 
 - (unsigned)SendSetupCommand:(unsigned __int8)command
 {
   if (command == 3)
   {
-    v4 = sharedBluetoothManagerLogComponent();
+    v4 = sharedBluetoothManagerLogComponent(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(v8) = 0;
@@ -1017,7 +904,7 @@ LABEL_8:
 
   if (command == 1)
   {
-    v4 = sharedBluetoothManagerLogComponent();
+    v4 = sharedBluetoothManagerLogComponent(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v9 = 0;
@@ -1036,519 +923,513 @@ LABEL_7:
 
 - (unsigned)micMode
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
   [(BluetoothDevice *)self device];
   MicMode = BTAccessoryManagerGetMicMode();
-  v4 = sharedBluetoothManagerLogComponent();
-  v5 = v4;
-  if (MicMode)
+  v4 = MicMode;
+  v6 = sharedBluetoothManagerLogComponent(MicMode, v5);
+  v7 = v6;
+  if (v4)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [BluetoothDevice micMode];
     }
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 67109120;
-    v9 = 0;
-    _os_log_impl(&dword_241BC5000, v5, OS_LOG_TYPE_INFO, "micMode : %d", buf, 8u);
+    v10 = 0;
+    _os_log_impl(&dword_241BC5000, v7, OS_LOG_TYPE_INFO, "micMode : %d", buf, 8u);
   }
 
-  result = 0;
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 - (BOOL)setMicMode:(unsigned int)mode
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v5 = sharedBluetoothManagerLogComponent();
+  v12 = *MEMORY[0x277D85DE8];
+  v5 = sharedBluetoothManagerLogComponent(self, a2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v10[0] = 67109120;
-    v10[1] = mode;
-    _os_log_impl(&dword_241BC5000, v5, OS_LOG_TYPE_INFO, "Set micMode : %d", v10, 8u);
+    v11[0] = 67109120;
+    v11[1] = mode;
+    _os_log_impl(&dword_241BC5000, v5, OS_LOG_TYPE_INFO, "Set micMode : %d", v11, 8u);
   }
 
   [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
   [(BluetoothDevice *)self device];
   v6 = BTAccessoryManagerSetMicMode();
+  v8 = v6;
   if (v6)
   {
-    v7 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = sharedBluetoothManagerLogComponent(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [BluetoothDevice setMicMode:];
     }
   }
 
-  result = v6 == 0;
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return v8 == 0;
 }
 
 - (unsigned)doubleTapAction
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
   [(BluetoothDevice *)self device];
-  if (BTAccessoryManagerGetDoubleTapAction())
+  DoubleTapAction = BTAccessoryManagerGetDoubleTapAction();
+  if (DoubleTapAction)
   {
-    v3 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = sharedBluetoothManagerLogComponent(DoubleTapAction, v4);
+    DoubleTapAction = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
+    if (DoubleTapAction)
     {
       [BluetoothDevice doubleTapAction];
     }
   }
 
-  v4 = sharedBluetoothManagerLogComponent();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v6 = sharedBluetoothManagerLogComponent(DoubleTapAction, v4);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 67109120;
-    v8 = 1;
-    _os_log_impl(&dword_241BC5000, v4, OS_LOG_TYPE_INFO, "doubleTapAction : %d", buf, 8u);
+    v9 = 1;
+    _os_log_impl(&dword_241BC5000, v6, OS_LOG_TYPE_INFO, "doubleTapAction : %d", buf, 8u);
   }
 
-  result = 1;
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 - (BOOL)setDoubleTapAction:(unsigned int)action
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v5 = sharedBluetoothManagerLogComponent();
+  v12 = *MEMORY[0x277D85DE8];
+  v5 = sharedBluetoothManagerLogComponent(self, a2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v10[0] = 67109120;
-    v10[1] = action;
-    _os_log_impl(&dword_241BC5000, v5, OS_LOG_TYPE_INFO, "Set doubleTapAction : %d", v10, 8u);
+    v11[0] = 67109120;
+    v11[1] = action;
+    _os_log_impl(&dword_241BC5000, v5, OS_LOG_TYPE_INFO, "Set doubleTapAction : %d", v11, 8u);
   }
 
   [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
   [(BluetoothDevice *)self device];
   v6 = BTAccessoryManagerSetDoubleTapAction();
+  v8 = v6;
   if (v6)
   {
-    v7 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = sharedBluetoothManagerLogComponent(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [BluetoothDevice setDoubleTapAction:];
     }
   }
 
-  result = v6 == 0;
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return v8 == 0;
 }
 
 - (unsigned)doubleTapCapability
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
   [(BluetoothDevice *)self device];
-  if (BTAccessoryManagerGetDoubleTapCapability())
+  DoubleTapCapability = BTAccessoryManagerGetDoubleTapCapability();
+  if (DoubleTapCapability)
   {
-    v3 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = sharedBluetoothManagerLogComponent(DoubleTapCapability, v4);
+    DoubleTapCapability = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
+    if (DoubleTapCapability)
     {
       [BluetoothDevice doubleTapCapability];
     }
   }
 
-  v4 = sharedBluetoothManagerLogComponent();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v6 = sharedBluetoothManagerLogComponent(DoubleTapCapability, v4);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 67109120;
-    v8 = 0;
-    _os_log_impl(&dword_241BC5000, v4, OS_LOG_TYPE_INFO, "doubleTapCapability : %d", buf, 8u);
+    v9 = 0;
+    _os_log_impl(&dword_241BC5000, v6, OS_LOG_TYPE_INFO, "doubleTapCapability : %d", buf, 8u);
   }
 
-  result = 0;
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 - (BOOL)featureCapability:(int)capability
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
   [(BluetoothDevice *)self device];
-  if (BTAccessoryManagerGetFeatureCapability())
+  FeatureCapability = BTAccessoryManagerGetFeatureCapability();
+  if (FeatureCapability)
   {
-    v5 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = sharedBluetoothManagerLogComponent(FeatureCapability, v6);
+    FeatureCapability = os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
+    if (FeatureCapability)
     {
       [BluetoothDevice featureCapability:];
     }
   }
 
-  v6 = sharedBluetoothManagerLogComponent();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v8 = sharedBluetoothManagerLogComponent(FeatureCapability, v6);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 67109376;
     capabilityCopy = capability;
-    v11 = 1024;
-    v12 = 0;
-    _os_log_impl(&dword_241BC5000, v6, OS_LOG_TYPE_INFO, "%d capability : %d", buf, 0xEu);
+    v12 = 1024;
+    v13 = 0;
+    _os_log_impl(&dword_241BC5000, v8, OS_LOG_TYPE_INFO, "%d capability : %d", buf, 0xEu);
   }
 
-  result = 0;
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 - (unsigned)doubleTapActionEx:(unsigned int *)ex rightAction:(unsigned int *)action
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
   [(BluetoothDevice *)self device];
   DoubleTapAction = BTAccessoryManagerGetDoubleTapActionEx();
+  v9 = DoubleTapAction;
   if (DoubleTapAction)
   {
-    v8 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = sharedBluetoothManagerLogComponent(DoubleTapAction, v8);
+    DoubleTapAction = os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
+    if (DoubleTapAction)
     {
       [BluetoothDevice doubleTapActionEx:rightAction:];
     }
   }
 
-  v9 = sharedBluetoothManagerLogComponent();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v11 = sharedBluetoothManagerLogComponent(DoubleTapAction, v8);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
-    v10 = *ex;
-    v11 = *action;
-    v14[0] = 67109376;
-    v14[1] = v10;
-    v15 = 1024;
-    v16 = v11;
-    _os_log_impl(&dword_241BC5000, v9, OS_LOG_TYPE_INFO, "doubleTapActionEx Left : %d, Right : %d", v14, 0xEu);
+    v12 = *ex;
+    v13 = *action;
+    v15[0] = 67109376;
+    v15[1] = v12;
+    v16 = 1024;
+    v17 = v13;
+    _os_log_impl(&dword_241BC5000, v11, OS_LOG_TYPE_INFO, "doubleTapActionEx Left : %d, Right : %d", v15, 0xEu);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-  return DoubleTapAction;
+  return v9;
 }
 
 - (BOOL)setDoubleTapActionEx:(unsigned int)ex rightAction:(unsigned int)action
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v7 = sharedBluetoothManagerLogComponent();
+  v16 = *MEMORY[0x277D85DE8];
+  v7 = sharedBluetoothManagerLogComponent(self, a2);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v12[0] = 67109376;
-    v12[1] = ex;
-    v13 = 1024;
+    v13[0] = 67109376;
+    v13[1] = ex;
+    v14 = 1024;
     actionCopy = action;
-    _os_log_impl(&dword_241BC5000, v7, OS_LOG_TYPE_INFO, "Set doubleTapActionEx Left : %d, Right : %d", v12, 0xEu);
+    _os_log_impl(&dword_241BC5000, v7, OS_LOG_TYPE_INFO, "Set doubleTapActionEx Left : %d, Right : %d", v13, 0xEu);
   }
 
   [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
   [(BluetoothDevice *)self device];
   v8 = BTAccessoryManagerSetDoubleTapActionEx();
+  v10 = v8;
   if (v8)
   {
-    v9 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = sharedBluetoothManagerLogComponent(v8, v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [BluetoothDevice setDoubleTapActionEx:rightAction:];
     }
   }
 
-  result = v8 == 0;
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return v10 == 0;
 }
 
 - (unsigned)listeningMode
 {
-  v9 = *MEMORY[0x277D85DE8];
-  [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
-  [(BluetoothDevice *)self device];
-  if (BTAccessoryManagerGetControlCommand())
-  {
-    v3 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
-    {
-      [BluetoothDevice listeningMode];
-    }
-  }
-
-  v4 = sharedBluetoothManagerLogComponent();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
-  {
-    *buf = 67109120;
-    v8 = 0;
-    _os_log_impl(&dword_241BC5000, v4, OS_LOG_TYPE_INFO, "listening mode : %d", buf, 8u);
-  }
-
-  result = 0;
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-- (BOOL)setListeningMode:(unsigned int)mode
-{
-  v11 = *MEMORY[0x277D85DE8];
-  v5 = sharedBluetoothManagerLogComponent();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
-  {
-    v10[0] = 67109120;
-    v10[1] = mode;
-    _os_log_impl(&dword_241BC5000, v5, OS_LOG_TYPE_INFO, "Set listening mode : %d", v10, 8u);
-  }
-
-  [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
-  [(BluetoothDevice *)self device];
-  v6 = BTAccessoryManagerSendControlCommand();
-  if (v6)
-  {
-    v7 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
-    {
-      [BluetoothDevice setListeningMode:];
-    }
-  }
-
-  result = v6 == 0;
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-- (BOOL)setHeartRateMonitorEnabled:(unsigned int)enabled
-{
-  v11 = *MEMORY[0x277D85DE8];
-  v5 = sharedBluetoothManagerLogComponent();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
-  {
-    v10[0] = 67109120;
-    v10[1] = enabled;
-    _os_log_impl(&dword_241BC5000, v5, OS_LOG_TYPE_INFO, "Set Heart Rate Monitor State : %d", v10, 8u);
-  }
-
-  [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
-  [(BluetoothDevice *)self device];
-  v6 = BTAccessoryManagerSendControlCommand();
-  if (v6)
-  {
-    v7 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
-    {
-      [BluetoothDevice setHeartRateMonitorEnabled:];
-    }
-  }
-
-  result = v6 == 0;
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-- (unsigned)getHeartRateMonitorEnabled
-{
-  v9 = *MEMORY[0x277D85DE8];
-  [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
-  [(BluetoothDevice *)self device];
-  if (BTAccessoryManagerGetControlCommand())
-  {
-    v3 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
-    {
-      [BluetoothDevice getHeartRateMonitorEnabled];
-    }
-  }
-
-  v4 = sharedBluetoothManagerLogComponent();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
-  {
-    *buf = 67109120;
-    v8 = 0;
-    _os_log_impl(&dword_241BC5000, v4, OS_LOG_TYPE_INFO, "HRM state : %d", buf, 8u);
-  }
-
-  result = 0;
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-- (unsigned)listeningModeConfigs
-{
-  v9 = *MEMORY[0x277D85DE8];
-  [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
-  [(BluetoothDevice *)self device];
-  if (BTAccessoryManagerGetControlCommand())
-  {
-    v3 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
-    {
-      [BluetoothDevice listeningModeConfigs];
-    }
-  }
-
-  v4 = sharedBluetoothManagerLogComponent();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
-  {
-    *buf = 67109120;
-    v8 = 0;
-    _os_log_impl(&dword_241BC5000, v4, OS_LOG_TYPE_INFO, "listening mode configs : %d", buf, 8u);
-  }
-
-  result = 0;
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-- (BOOL)setListeningModeConfigs:(unsigned int)configs
-{
-  v11 = *MEMORY[0x277D85DE8];
-  v5 = sharedBluetoothManagerLogComponent();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
-  {
-    v10[0] = 67109120;
-    v10[1] = configs;
-    _os_log_impl(&dword_241BC5000, v5, OS_LOG_TYPE_INFO, "Set listening mode configs : %d", v10, 8u);
-  }
-
-  [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
-  [(BluetoothDevice *)self device];
-  v6 = BTAccessoryManagerSendControlCommand();
-  if (v6)
-  {
-    v7 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
-    {
-      [BluetoothDevice setListeningModeConfigs:];
-    }
-  }
-
-  result = v6 == 0;
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-- (int)singleClickMode
-{
-  v9 = *MEMORY[0x277D85DE8];
-  [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
-  [(BluetoothDevice *)self device];
-  if (BTAccessoryManagerGetControlCommand())
-  {
-    v3 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
-    {
-      [BluetoothDevice singleClickMode];
-    }
-  }
-
-  v4 = sharedBluetoothManagerLogComponent();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
-  {
-    *buf = 67109120;
-    v8 = 0;
-    _os_log_impl(&dword_241BC5000, v4, OS_LOG_TYPE_INFO, "single click mode : %d", buf, 8u);
-  }
-
-  result = 0;
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-- (BOOL)setSingleClickMode:(int)mode
-{
-  v11 = *MEMORY[0x277D85DE8];
-  v5 = sharedBluetoothManagerLogComponent();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
-  {
-    v10[0] = 67109120;
-    v10[1] = mode;
-    _os_log_impl(&dword_241BC5000, v5, OS_LOG_TYPE_INFO, "Set single click mode : %d", v10, 8u);
-  }
-
-  [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
-  [(BluetoothDevice *)self device];
-  v6 = BTAccessoryManagerSendControlCommand();
-  if (v6)
-  {
-    v7 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
-    {
-      [BluetoothDevice setSingleClickMode:];
-    }
-  }
-
-  result = v6 == 0;
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-- (int)doubleClickMode
-{
-  v9 = *MEMORY[0x277D85DE8];
-  [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
-  [(BluetoothDevice *)self device];
-  if (BTAccessoryManagerGetControlCommand())
-  {
-    v3 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
-    {
-      [BluetoothDevice doubleClickMode];
-    }
-  }
-
-  v4 = sharedBluetoothManagerLogComponent();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
-  {
-    *buf = 67109120;
-    v8 = 0;
-    _os_log_impl(&dword_241BC5000, v4, OS_LOG_TYPE_INFO, "double click mode : %d", buf, 8u);
-  }
-
-  result = 0;
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-- (BOOL)setDoubleClickMode:(int)mode
-{
-  v11 = *MEMORY[0x277D85DE8];
-  v5 = sharedBluetoothManagerLogComponent();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
-  {
-    v10[0] = 67109120;
-    v10[1] = mode;
-    _os_log_impl(&dword_241BC5000, v5, OS_LOG_TYPE_INFO, "Set double click mode : %d", v10, 8u);
-  }
-
-  [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
-  [(BluetoothDevice *)self device];
-  v6 = BTAccessoryManagerSendControlCommand();
-  if (v6)
-  {
-    v7 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
-    {
-      [BluetoothDevice setDoubleClickMode:];
-    }
-  }
-
-  result = v6 == 0;
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-- (unsigned)clickHoldModes:(id *)modes
-{
-  v22 = *MEMORY[0x277D85DE8];
-  *&modes->var0 = 0;
-  *&modes->var2 = 0;
+  v10 = *MEMORY[0x277D85DE8];
   [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
   [(BluetoothDevice *)self device];
   ControlCommand = BTAccessoryManagerGetControlCommand();
   if (ControlCommand)
   {
-    v6 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v5 = sharedBluetoothManagerLogComponent(ControlCommand, v4);
+    ControlCommand = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
+    if (ControlCommand)
+    {
+      [BluetoothDevice listeningMode];
+    }
+  }
+
+  v6 = sharedBluetoothManagerLogComponent(ControlCommand, v4);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  {
+    *buf = 67109120;
+    v9 = 0;
+    _os_log_impl(&dword_241BC5000, v6, OS_LOG_TYPE_INFO, "listening mode : %d", buf, 8u);
+  }
+
+  return 0;
+}
+
+- (BOOL)setListeningMode:(unsigned int)mode
+{
+  v12 = *MEMORY[0x277D85DE8];
+  v5 = sharedBluetoothManagerLogComponent(self, a2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  {
+    v11[0] = 67109120;
+    v11[1] = mode;
+    _os_log_impl(&dword_241BC5000, v5, OS_LOG_TYPE_INFO, "Set listening mode : %d", v11, 8u);
+  }
+
+  [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
+  [(BluetoothDevice *)self device];
+  v6 = BTAccessoryManagerSendControlCommand();
+  v8 = v6;
+  if (v6)
+  {
+    v9 = sharedBluetoothManagerLogComponent(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      [BluetoothDevice setListeningMode:];
+    }
+  }
+
+  return v8 == 0;
+}
+
+- (BOOL)setHeartRateMonitorEnabled:(unsigned int)enabled
+{
+  v12 = *MEMORY[0x277D85DE8];
+  v5 = sharedBluetoothManagerLogComponent(self, a2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  {
+    v11[0] = 67109120;
+    v11[1] = enabled;
+    _os_log_impl(&dword_241BC5000, v5, OS_LOG_TYPE_INFO, "Set Heart Rate Monitor State : %d", v11, 8u);
+  }
+
+  [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
+  [(BluetoothDevice *)self device];
+  v6 = BTAccessoryManagerSendControlCommand();
+  v8 = v6;
+  if (v6)
+  {
+    v9 = sharedBluetoothManagerLogComponent(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      [BluetoothDevice setHeartRateMonitorEnabled:];
+    }
+  }
+
+  return v8 == 0;
+}
+
+- (unsigned)getHeartRateMonitorEnabled
+{
+  v10 = *MEMORY[0x277D85DE8];
+  [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
+  [(BluetoothDevice *)self device];
+  ControlCommand = BTAccessoryManagerGetControlCommand();
+  if (ControlCommand)
+  {
+    v5 = sharedBluetoothManagerLogComponent(ControlCommand, v4);
+    ControlCommand = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
+    if (ControlCommand)
+    {
+      [BluetoothDevice getHeartRateMonitorEnabled];
+    }
+  }
+
+  v6 = sharedBluetoothManagerLogComponent(ControlCommand, v4);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  {
+    *buf = 67109120;
+    v9 = 0;
+    _os_log_impl(&dword_241BC5000, v6, OS_LOG_TYPE_INFO, "HRM state : %d", buf, 8u);
+  }
+
+  return 0;
+}
+
+- (unsigned)listeningModeConfigs
+{
+  v10 = *MEMORY[0x277D85DE8];
+  [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
+  [(BluetoothDevice *)self device];
+  ControlCommand = BTAccessoryManagerGetControlCommand();
+  if (ControlCommand)
+  {
+    v5 = sharedBluetoothManagerLogComponent(ControlCommand, v4);
+    ControlCommand = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
+    if (ControlCommand)
+    {
+      [BluetoothDevice listeningModeConfigs];
+    }
+  }
+
+  v6 = sharedBluetoothManagerLogComponent(ControlCommand, v4);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  {
+    *buf = 67109120;
+    v9 = 0;
+    _os_log_impl(&dword_241BC5000, v6, OS_LOG_TYPE_INFO, "listening mode configs : %d", buf, 8u);
+  }
+
+  return 0;
+}
+
+- (BOOL)setListeningModeConfigs:(unsigned int)configs
+{
+  v12 = *MEMORY[0x277D85DE8];
+  v5 = sharedBluetoothManagerLogComponent(self, a2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  {
+    v11[0] = 67109120;
+    v11[1] = configs;
+    _os_log_impl(&dword_241BC5000, v5, OS_LOG_TYPE_INFO, "Set listening mode configs : %d", v11, 8u);
+  }
+
+  [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
+  [(BluetoothDevice *)self device];
+  v6 = BTAccessoryManagerSendControlCommand();
+  v8 = v6;
+  if (v6)
+  {
+    v9 = sharedBluetoothManagerLogComponent(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      [BluetoothDevice setListeningModeConfigs:];
+    }
+  }
+
+  return v8 == 0;
+}
+
+- (int)singleClickMode
+{
+  v10 = *MEMORY[0x277D85DE8];
+  [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
+  [(BluetoothDevice *)self device];
+  ControlCommand = BTAccessoryManagerGetControlCommand();
+  if (ControlCommand)
+  {
+    v5 = sharedBluetoothManagerLogComponent(ControlCommand, v4);
+    ControlCommand = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
+    if (ControlCommand)
+    {
+      [BluetoothDevice singleClickMode];
+    }
+  }
+
+  v6 = sharedBluetoothManagerLogComponent(ControlCommand, v4);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  {
+    *buf = 67109120;
+    v9 = 0;
+    _os_log_impl(&dword_241BC5000, v6, OS_LOG_TYPE_INFO, "single click mode : %d", buf, 8u);
+  }
+
+  return 0;
+}
+
+- (BOOL)setSingleClickMode:(int)mode
+{
+  v12 = *MEMORY[0x277D85DE8];
+  v5 = sharedBluetoothManagerLogComponent(self, a2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  {
+    v11[0] = 67109120;
+    v11[1] = mode;
+    _os_log_impl(&dword_241BC5000, v5, OS_LOG_TYPE_INFO, "Set single click mode : %d", v11, 8u);
+  }
+
+  [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
+  [(BluetoothDevice *)self device];
+  v6 = BTAccessoryManagerSendControlCommand();
+  v8 = v6;
+  if (v6)
+  {
+    v9 = sharedBluetoothManagerLogComponent(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      [BluetoothDevice setSingleClickMode:];
+    }
+  }
+
+  return v8 == 0;
+}
+
+- (int)doubleClickMode
+{
+  v10 = *MEMORY[0x277D85DE8];
+  [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
+  [(BluetoothDevice *)self device];
+  ControlCommand = BTAccessoryManagerGetControlCommand();
+  if (ControlCommand)
+  {
+    v5 = sharedBluetoothManagerLogComponent(ControlCommand, v4);
+    ControlCommand = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
+    if (ControlCommand)
+    {
+      [BluetoothDevice doubleClickMode];
+    }
+  }
+
+  v6 = sharedBluetoothManagerLogComponent(ControlCommand, v4);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  {
+    *buf = 67109120;
+    v9 = 0;
+    _os_log_impl(&dword_241BC5000, v6, OS_LOG_TYPE_INFO, "double click mode : %d", buf, 8u);
+  }
+
+  return 0;
+}
+
+- (BOOL)setDoubleClickMode:(int)mode
+{
+  v12 = *MEMORY[0x277D85DE8];
+  v5 = sharedBluetoothManagerLogComponent(self, a2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  {
+    v11[0] = 67109120;
+    v11[1] = mode;
+    _os_log_impl(&dword_241BC5000, v5, OS_LOG_TYPE_INFO, "Set double click mode : %d", v11, 8u);
+  }
+
+  [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
+  [(BluetoothDevice *)self device];
+  v6 = BTAccessoryManagerSendControlCommand();
+  v8 = v6;
+  if (v6)
+  {
+    v9 = sharedBluetoothManagerLogComponent(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      [BluetoothDevice setDoubleClickMode:];
+    }
+  }
+
+  return v8 == 0;
+}
+
+- (unsigned)clickHoldModes:(id *)modes
+{
+  v23 = *MEMORY[0x277D85DE8];
+  *&modes->var0 = 0;
+  *&modes->var2 = 0;
+  [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
+  [(BluetoothDevice *)self device];
+  ControlCommand = BTAccessoryManagerGetControlCommand();
+  v7 = ControlCommand;
+  if (ControlCommand)
+  {
+    v8 = sharedBluetoothManagerLogComponent(ControlCommand, v6);
+    ControlCommand = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
+    if (ControlCommand)
     {
       [BluetoothDevice clickHoldModes:];
     }
@@ -1557,38 +1438,39 @@ LABEL_7:
   modes->var0 = 0;
   *&modes->var1 = vand_s8(vshl_u32(vdup_n_s32(0), 0xFFFFFFF0FFFFFFF8), 0xFF000000FFLL);
   modes->var3 = 0;
-  v7 = sharedBluetoothManagerLogComponent();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v9 = sharedBluetoothManagerLogComponent(ControlCommand, v6);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     var0 = modes->var0;
     var1 = modes->var1;
     var2 = modes->var2;
     var3 = modes->var3;
     *buf = 67109888;
-    v15 = var0;
-    v16 = 1024;
-    v17 = var1;
-    v18 = 1024;
-    v19 = var2;
-    v20 = 1024;
-    v21 = var3;
-    _os_log_impl(&dword_241BC5000, v7, OS_LOG_TYPE_INFO, "Click Hold Modes: right 0x%02X, left 0x%02X, prevRightMode 0x%02X, prevLeftMode 0x%02X", buf, 0x1Au);
+    v16 = var0;
+    v17 = 1024;
+    v18 = var1;
+    v19 = 1024;
+    v20 = var2;
+    v21 = 1024;
+    v22 = var3;
+    _os_log_impl(&dword_241BC5000, v9, OS_LOG_TYPE_INFO, "Click Hold Modes: right 0x%02X, left 0x%02X, prevRightMode 0x%02X, prevLeftMode 0x%02X", buf, 0x1Au);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-  return ControlCommand;
+  return v7;
 }
 
 - (unsigned)clickHoldMode:(int *)mode rightAction:(int *)action
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
   [(BluetoothDevice *)self device];
   ControlCommand = BTAccessoryManagerGetControlCommand();
+  v9 = ControlCommand;
   if (ControlCommand)
   {
-    v8 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = sharedBluetoothManagerLogComponent(ControlCommand, v8);
+    ControlCommand = os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
+    if (ControlCommand)
     {
       [BluetoothDevice clickHoldModes:];
     }
@@ -1596,98 +1478,96 @@ LABEL_7:
 
   *mode = 0;
   *action = 0;
-  v9 = sharedBluetoothManagerLogComponent();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v11 = sharedBluetoothManagerLogComponent(ControlCommand, v8);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
-    v10 = *mode;
-    v11 = *action;
+    v12 = *mode;
+    v13 = *action;
     *buf = 67109376;
-    v15 = v10;
-    v16 = 1024;
-    v17 = v11;
-    _os_log_impl(&dword_241BC5000, v9, OS_LOG_TYPE_INFO, "click hold leftMode : %d rightMode : %d", buf, 0xEu);
+    v16 = v12;
+    v17 = 1024;
+    v18 = v13;
+    _os_log_impl(&dword_241BC5000, v11, OS_LOG_TYPE_INFO, "click hold leftMode : %d rightMode : %d", buf, 0xEu);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-  return ControlCommand;
+  return v9;
 }
 
 - (BOOL)setClickHoldMode:(int)mode rightMode:(int)rightMode
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v7 = sharedBluetoothManagerLogComponent();
+  v16 = *MEMORY[0x277D85DE8];
+  v7 = sharedBluetoothManagerLogComponent(self, a2);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v12[0] = 67109376;
-    v12[1] = mode;
-    v13 = 1024;
+    v13[0] = 67109376;
+    v13[1] = mode;
+    v14 = 1024;
     rightModeCopy = rightMode;
-    _os_log_impl(&dword_241BC5000, v7, OS_LOG_TYPE_INFO, "Set click hold leftMode : %d rightMode : %d", v12, 0xEu);
+    _os_log_impl(&dword_241BC5000, v7, OS_LOG_TYPE_INFO, "Set click hold leftMode : %d rightMode : %d", v13, 0xEu);
   }
 
   [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
   [(BluetoothDevice *)self device];
   v8 = BTAccessoryManagerSendControlCommand();
+  v10 = v8;
   if (v8)
   {
-    v9 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = sharedBluetoothManagerLogComponent(v8, v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [BluetoothDevice setClickHoldMode:rightMode:];
     }
   }
 
-  result = v8 == 0;
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return v10 == 0;
 }
 
 - (BOOL)setClickHoldModes:(id)modes
 {
   var2 = modes.var2;
   var0 = modes.var0;
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   var1 = modes.var1;
   var3 = modes.var3;
-  v8 = sharedBluetoothManagerLogComponent();
+  v8 = sharedBluetoothManagerLogComponent(self, a2);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v13[0] = 67109888;
-    v13[1] = var1;
-    v14 = 1024;
-    v15 = var3;
-    v16 = 1024;
-    v17 = var0;
-    v18 = 1024;
-    v19 = var2;
-    _os_log_impl(&dword_241BC5000, v8, OS_LOG_TYPE_INFO, "Set click hold currentLeftMode : %d previousLeftMode : %d currentRightMode : %d previousRightMode %d", v13, 0x1Au);
+    v14[0] = 67109888;
+    v14[1] = var1;
+    v15 = 1024;
+    v16 = var3;
+    v17 = 1024;
+    v18 = var0;
+    v19 = 1024;
+    v20 = var2;
+    _os_log_impl(&dword_241BC5000, v8, OS_LOG_TYPE_INFO, "Set click hold currentLeftMode : %d previousLeftMode : %d currentRightMode : %d previousRightMode %d", v14, 0x1Au);
   }
 
   [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
   [(BluetoothDevice *)self device];
   v9 = BTAccessoryManagerSendControlCommand();
+  v11 = v9;
   if (v9)
   {
-    v10 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = sharedBluetoothManagerLogComponent(v9, v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [BluetoothDevice setClickHoldMode:rightMode:];
     }
   }
 
-  result = v9 == 0;
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return v11 == 0;
 }
 
 - (int)crownRotationDirection
 {
   [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
   [(BluetoothDevice *)self device];
-  if (BTAccessoryManagerGetControlCommand())
+  ControlCommand = BTAccessoryManagerGetControlCommand();
+  if (ControlCommand)
   {
-    v3 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = sharedBluetoothManagerLogComponent(ControlCommand, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [BluetoothDevice crownRotationDirection];
     }
@@ -1698,40 +1578,40 @@ LABEL_7:
 
 - (BOOL)setCrownRotationDirection:(int)direction
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v5 = sharedBluetoothManagerLogComponent();
+  v12 = *MEMORY[0x277D85DE8];
+  v5 = sharedBluetoothManagerLogComponent(self, a2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v10[0] = 67109120;
-    v10[1] = direction;
-    _os_log_impl(&dword_241BC5000, v5, OS_LOG_TYPE_INFO, "Set crown rotation dir : %d", v10, 8u);
+    v11[0] = 67109120;
+    v11[1] = direction;
+    _os_log_impl(&dword_241BC5000, v5, OS_LOG_TYPE_INFO, "Set crown rotation dir : %d", v11, 8u);
   }
 
   [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
   [(BluetoothDevice *)self device];
   v6 = BTAccessoryManagerSendControlCommand();
+  v8 = v6;
   if (v6)
   {
-    v7 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = sharedBluetoothManagerLogComponent(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [BluetoothDevice setCrownRotationDirection:];
     }
   }
 
-  result = v6 == 0;
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return v8 == 0;
 }
 
 - (unsigned)chimeVolume
 {
   [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
   [(BluetoothDevice *)self device];
-  if (BTAccessoryManagerGetControlCommand())
+  ControlCommand = BTAccessoryManagerGetControlCommand();
+  if (ControlCommand)
   {
-    v3 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = sharedBluetoothManagerLogComponent(ControlCommand, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [BluetoothDevice chimeVolume];
     }
@@ -1742,40 +1622,40 @@ LABEL_7:
 
 - (BOOL)setChimeVolume:(unsigned int)volume
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v5 = sharedBluetoothManagerLogComponent();
+  v12 = *MEMORY[0x277D85DE8];
+  v5 = sharedBluetoothManagerLogComponent(self, a2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v10[0] = 67109120;
-    v10[1] = volume;
-    _os_log_impl(&dword_241BC5000, v5, OS_LOG_TYPE_INFO, "Set chime volume : %d", v10, 8u);
+    v11[0] = 67109120;
+    v11[1] = volume;
+    _os_log_impl(&dword_241BC5000, v5, OS_LOG_TYPE_INFO, "Set chime volume : %d", v11, 8u);
   }
 
   [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
   [(BluetoothDevice *)self device];
   v6 = BTAccessoryManagerSendControlCommand();
+  v8 = v6;
   if (v6)
   {
-    v7 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = sharedBluetoothManagerLogComponent(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [BluetoothDevice setChimeVolume:];
     }
   }
 
-  result = v6 == 0;
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return v8 == 0;
 }
 
 - (int)autoAnswerMode
 {
   [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
   [(BluetoothDevice *)self device];
-  if (BTAccessoryManagerGetControlCommand())
+  ControlCommand = BTAccessoryManagerGetControlCommand();
+  if (ControlCommand)
   {
-    v3 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = sharedBluetoothManagerLogComponent(ControlCommand, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [BluetoothDevice autoAnswerMode];
     }
@@ -1786,57 +1666,56 @@ LABEL_7:
 
 - (BOOL)setAutoAnswerMode:(int)mode
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v5 = sharedBluetoothManagerLogComponent();
+  v12 = *MEMORY[0x277D85DE8];
+  v5 = sharedBluetoothManagerLogComponent(self, a2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v10[0] = 67109120;
-    v10[1] = mode;
-    _os_log_impl(&dword_241BC5000, v5, OS_LOG_TYPE_INFO, "Set auto answer mode : %d", v10, 8u);
+    v11[0] = 67109120;
+    v11[1] = mode;
+    _os_log_impl(&dword_241BC5000, v5, OS_LOG_TYPE_INFO, "Set auto answer mode : %d", v11, 8u);
   }
 
   [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
   [(BluetoothDevice *)self device];
   v6 = BTAccessoryManagerSendControlCommand();
+  v8 = v6;
   if (v6)
   {
-    v7 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = sharedBluetoothManagerLogComponent(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [BluetoothDevice setAutoAnswerMode:];
     }
   }
 
-  result = v6 == 0;
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return v8 == 0;
 }
 
 - (int)accessorySettingFeatureBitMask
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
   [(BluetoothDevice *)self device];
-  if (BTAccessoryManagerGetSettingFeatureBitMask())
+  SettingFeatureBitMask = BTAccessoryManagerGetSettingFeatureBitMask();
+  if (SettingFeatureBitMask)
   {
-    v3 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = sharedBluetoothManagerLogComponent(SettingFeatureBitMask, v4);
+    SettingFeatureBitMask = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
+    if (SettingFeatureBitMask)
     {
       [BluetoothDevice accessorySettingFeatureBitMask];
     }
   }
 
-  v4 = sharedBluetoothManagerLogComponent();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v6 = sharedBluetoothManagerLogComponent(SettingFeatureBitMask, v4);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 67109120;
-    v8 = 0;
-    _os_log_impl(&dword_241BC5000, v4, OS_LOG_TYPE_INFO, "Accessory feature bitmask : %x", buf, 8u);
+    v9 = 0;
+    _os_log_impl(&dword_241BC5000, v6, OS_LOG_TYPE_INFO, "Accessory feature bitmask : %x", buf, 8u);
   }
 
-  result = 0;
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 - (BOOL)pairedDeviceNameUpdated
@@ -1844,69 +1723,67 @@ LABEL_7:
   v16 = *MEMORY[0x277D85DE8];
   v15 = 0;
   memset(v14, 0, sizeof(v14));
-  device = self->_device;
   if (BTDeviceGetName())
   {
 LABEL_2:
-    LOBYTE(v4) = 0;
-    goto LABEL_10;
+    LOBYTE(v3) = 0;
+    return v3;
   }
 
-  v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:v14];
-  if (!v4)
+  v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:v14];
+  if (!v3)
   {
-    goto LABEL_10;
+    return v3;
   }
 
-  v5 = v4;
+  v4 = v3;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0 || (objc_opt_respondsToSelector() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0 || (isKindOfClass = objc_opt_respondsToSelector(), (isKindOfClass & 1) == 0))
   {
-    v7 = sharedBluetoothManagerLogComponent();
-    LODWORD(v4) = os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
-    if (!v4)
+    v8 = sharedBluetoothManagerLogComponent(isKindOfClass, v6);
+    LODWORD(v3) = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
+    if (!v3)
     {
-      goto LABEL_10;
+      return v3;
     }
 
     [BluetoothDevice pairedDeviceNameUpdated];
     goto LABEL_2;
   }
 
-  v6 = sharedBluetoothManagerLogComponent();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v7 = sharedBluetoothManagerLogComponent(isKindOfClass, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v10 = 138412546;
-    v11 = v5;
+    v11 = v4;
     v12 = 2048;
-    v13 = [v5 length];
-    _os_log_impl(&dword_241BC5000, v6, OS_LOG_TYPE_INFO, "Magic paired device name updated to %@ (%lu)", &v10, 0x16u);
+    v13 = [v4 length];
+    _os_log_impl(&dword_241BC5000, v7, OS_LOG_TYPE_INFO, "Magic paired device name updated to %@ (%lu)", &v10, 0x16u);
   }
 
   [(BluetoothDevice *)self _clearName];
-  self->_name = [v5 copy];
-  LOBYTE(v4) = 1;
-LABEL_10:
-  v8 = *MEMORY[0x277D85DE8];
-  return v4;
+  self->_name = [v4 copy];
+  LOBYTE(v3) = 1;
+  return v3;
 }
 
 - (id)accessoryInfo
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = malloc_type_malloc(0x1F40uLL, 0x86D86027uLL);
   if (!v3)
   {
-    goto LABEL_22;
+    return MEMORY[0x277CBEC10];
   }
 
   v4 = v3;
-  v17 = 0;
   v18 = 0;
+  v19 = 0;
   [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
   [(BluetoothDevice *)self device];
   AccessoryInfo = BTAccessoryManagerGetAccessoryInfo();
-  if (AccessoryInfo || v18 == 0)
+  if (AccessoryInfo || v19 == 0)
   {
     v9 = 0;
     v8 = 0;
@@ -1915,72 +1792,67 @@ LABEL_10:
   else
   {
     v7 = [MEMORY[0x277CBEA90] dataWithBytes:v4 length:?];
-    v8 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v7 options:0 error:&v17];
-    v9 = v17 != 0;
+    v8 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v7 options:0 error:&v18];
+    v9 = v18 != 0;
   }
 
   free(v4);
   if (!AccessoryInfo && !v9)
   {
-    v13 = 0;
+    v15 = 0;
   }
 
   else
   {
-    v11 = sharedBluetoothManagerLogComponent();
-    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_ERROR);
-    v13 = v17;
-    if (v12)
+    v13 = sharedBluetoothManagerLogComponent(v10, v11);
+    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_ERROR);
+    v15 = v18;
+    if (v14)
     {
       *buf = 67109378;
-      v20 = AccessoryInfo;
-      v21 = 2112;
-      v22 = v17;
-      _os_log_error_impl(&dword_241BC5000, v11, OS_LOG_TYPE_ERROR, "BTAccessoryManagerGetAccessoryInfo result %d, JSON error %@", buf, 0x12u);
-      v13 = v17;
+      v21 = AccessoryInfo;
+      v22 = 2112;
+      v23 = v18;
+      _os_log_error_impl(&dword_241BC5000, v13, OS_LOG_TYPE_ERROR, "BTAccessoryManagerGetAccessoryInfo result %d, JSON error %@", buf, 0x12u);
+      v15 = v18;
     }
   }
 
-  v14 = !AccessoryInfo && v13 == 0;
-  if (v14 && [v8 count])
+  v16 = !AccessoryInfo && v15 == 0;
+  if (v16 && [v8 count])
   {
-    result = [v8 copy];
+    return [v8 copy];
   }
 
   else
   {
-LABEL_22:
-    result = MEMORY[0x277CBEC10];
+    return MEMORY[0x277CBEC10];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 - (BOOL)getAACPCapabilityBit:(int)bit
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = malloc_type_malloc(0x3E8uLL, 0x6CC44251uLL);
   if (v5)
   {
     v6 = v5;
     [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
     [(BluetoothDevice *)self device];
-    BTAccessoryManagerGetAACPCapabilityBits();
-    v7 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    AACPCapabilityBits = BTAccessoryManagerGetAACPCapabilityBits();
+    v9 = sharedBluetoothManagerLogComponent(AACPCapabilityBits, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109376;
       bitCopy = bit;
-      v12 = 1024;
-      v13 = 0;
-      _os_log_impl(&dword_241BC5000, v7, OS_LOG_TYPE_DEFAULT, "getAACPCapabilityBit: bit %d retval %d", buf, 0xEu);
+      v13 = 1024;
+      v14 = 0;
+      _os_log_impl(&dword_241BC5000, v9, OS_LOG_TYPE_DEFAULT, "getAACPCapabilityBit: bit %d retval %d", buf, 0xEu);
     }
 
     free(v6);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -2009,10 +1881,11 @@ LABEL_22:
 
   [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
   [(BluetoothDevice *)self device];
-  if (BTAccessoryManagerGetAACPCapabilityInteger())
+  AACPCapabilityInteger = BTAccessoryManagerGetAACPCapabilityInteger();
+  if (AACPCapabilityInteger)
   {
-    v5 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = sharedBluetoothManagerLogComponent(AACPCapabilityInteger, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [BluetoothDevice getAACPCapabilityInteger:];
     }
@@ -2032,56 +1905,49 @@ LABEL_22:
 - (BOOL)isServiceSupported:(unsigned int)supported
 {
   v15 = *MEMORY[0x277D85DE8];
-  device = self->_device;
   SupportedServices = BTDeviceGetSupportedServices();
-  v6 = sharedBluetoothManagerLogComponent();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v5 = SupportedServices;
+  v7 = sharedBluetoothManagerLogComponent(SupportedServices, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *buf = 67109632;
     supportedCopy = supported;
     v11 = 1024;
     v12 = 0;
     v13 = 1024;
-    v14 = SupportedServices;
-    _os_log_impl(&dword_241BC5000, v6, OS_LOG_TYPE_INFO, "Asking for service 0x%x supported, services 0x%x, result %d", buf, 0x14u);
+    v14 = v5;
+    _os_log_impl(&dword_241BC5000, v7, OS_LOG_TYPE_INFO, "Asking for service 0x%x supported, services 0x%x, result %d", buf, 0x14u);
   }
 
-  result = 0;
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 - (id)getServiceSetting:(unsigned int)setting key:(id)key
 {
-  v8 = *MEMORY[0x277D85DE8];
-  memset(v7, 0, sizeof(v7));
-  device = self->_device;
+  v6 = *MEMORY[0x277D85DE8];
   [key UTF8String];
   if (BTDeviceGetServiceSettings())
   {
-    result = 0;
+    return 0;
   }
 
   else
   {
-    result = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:v7];
+    return [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:&v5];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 - (void)setServiceSetting:(unsigned int)setting key:(id)key value:(id)value
 {
-  device = self->_device;
   [key UTF8String];
   [value UTF8String];
-  if (BTDeviceSetServiceSettings())
+  v7 = BTDeviceSetServiceSettings();
+  if (v7)
   {
-    v8 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = sharedBluetoothManagerLogComponent(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [BluetoothDevice setServiceSetting:v8 key:? value:?];
+      [BluetoothDevice setServiceSetting:v9 key:? value:?];
     }
   }
 }
@@ -2091,6 +1957,14 @@ LABEL_22:
   v3 = +[BluetoothManager sharedInstance];
 
   [(BluetoothManager *)v3 connectDevice:self];
+}
+
+- (void)connectWithServices:(unsigned int)services
+{
+  v3 = *&services;
+  v5 = +[BluetoothManager sharedInstance];
+
+  [(BluetoothManager *)v5 connectDevice:self withServices:v3];
 }
 
 - (void)disconnect
@@ -2137,34 +2011,30 @@ LABEL_22:
 
 - ($9BEB610D0CE1B1EDC3D89DA2464F985F)syncSettings
 {
-  device = self->_device;
   BTDeviceGetSyncSettings();
-  v3 = vmovl_u16((*&vshl_u16((*&vdup_n_s16(0) & 0xFF00FF00FF00FFLL), 0xFFFFFFFDFFFEFFFCLL) & 0xFF01FF01FF01FF01));
-  v4.i64[0] = v3.u32[0];
-  v4.i64[1] = v3.u32[1];
-  v5.i64[0] = 255;
-  v5.i64[1] = 255;
-  v6 = vandq_s8(v4, v5);
-  v4.i64[0] = v3.u32[2];
-  v4.i64[1] = v3.u32[3];
-  v7 = vorrq_s8(vshlq_u64(v6, xmmword_241BD80B0), vshlq_u64(vandq_s8(v4, v5), xmmword_241BD80A0));
-  return *&vorr_s8(*v7.i8, *&vextq_s8(v7, v7, 8uLL));
+  v2 = vmovl_u16((*&vshl_u16((*&vdup_n_s16(0) & 0xFF00FF00FF00FFLL), 0xFFFFFFFDFFFEFFFCLL) & 0xFF01FF01FF01FF01));
+  v3.i64[0] = v2.u32[0];
+  v3.i64[1] = v2.u32[1];
+  v4.i64[0] = 255;
+  v4.i64[1] = 255;
+  v5 = vandq_s8(v3, v4);
+  v3.i64[0] = v2.u32[2];
+  v3.i64[1] = v2.u32[3];
+  v6 = vorrq_s8(vshlq_u64(v5, xmmword_241BD80B0), vshlq_u64(vandq_s8(v3, v4), xmmword_241BD80A0));
+  return *&vorr_s8(*v6.i8, *&vextq_s8(v6, v6, 8uLL));
 }
 
 - (id)syncGroups
 {
-  v8 = *MEMORY[0x277D85DE8];
-  array = [MEMORY[0x277CBEB18] array];
-  bzero(v7, 0x400uLL);
-  device = self->_device;
-  BTDeviceGetGroups();
   v5 = *MEMORY[0x277D85DE8];
+  array = [MEMORY[0x277CBEB18] array];
+  bzero(v4, 0x400uLL);
+  BTDeviceGetGroups();
   return array;
 }
 
 - (BOOL)isAppleAudioDevice
 {
-  device = self->_device;
   IsAppleAudioDevice = BTDeviceIsAppleAudioDevice();
   if (IsAppleAudioDevice)
   {
@@ -2176,11 +2046,10 @@ LABEL_22:
 
 - (BOOL)supportsHS
 {
-  device = self->_device;
-  v3 = BTDeviceSupportsHS();
-  if (v3)
+  v2 = BTDeviceSupportsHS();
+  if (v2)
   {
-    NSLog(&cfstr_BtmFailedToChe_0.isa, v3);
+    NSLog(&cfstr_BtmFailedToChe_0.isa, v2);
   }
 
   return 0;
@@ -2188,7 +2057,6 @@ LABEL_22:
 
 - (BOOL)isProController
 {
-  device = self->_device;
   IsProController = BTDeviceIsProController();
   if (IsProController)
   {
@@ -2203,11 +2071,10 @@ LABEL_22:
   if (![(NSString *)self->_name isEqualToString:?])
   {
     [name cStringUsingEncoding:4];
-    device = self->_device;
-    v6 = BTDeviceSetUserName();
-    if (v6)
+    v5 = BTDeviceSetUserName();
+    if (v5)
     {
-      NSLog(&cfstr_BtmFailedToSet.isa, v6);
+      NSLog(&cfstr_BtmFailedToSet.isa, v5);
       return 0;
     }
 
@@ -2220,7 +2087,6 @@ LABEL_22:
 
 - (int)getLowSecurityStatus
 {
-  device = self->_device;
   LowSecurityStatus = BTDeviceGetLowSecurityStatus();
   if (LowSecurityStatus)
   {
@@ -2232,11 +2098,11 @@ LABEL_22:
 
 - (int)getBehaviorForHIDDevice
 {
-  device = self->_device;
-  if (BTDeviceGetHIDDeviceBehavior())
+  HIDDeviceBehavior = BTDeviceGetHIDDeviceBehavior();
+  if (HIDDeviceBehavior)
   {
-    v3 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = sharedBluetoothManagerLogComponent(HIDDeviceBehavior, v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       [BluetoothDevice getBehaviorForHIDDevice];
     }
@@ -2247,110 +2113,110 @@ LABEL_22:
 
 - (int)getStereoHFPSupport
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
   [(BluetoothDevice *)self device];
-  if (BTAccessoryManagerGetStereoHFPSupport())
+  StereoHFPSupport = BTAccessoryManagerGetStereoHFPSupport();
+  if (StereoHFPSupport)
   {
-    v3 = sharedBluetoothManagerLogComponent();
-    result = os_log_type_enabled(v3, OS_LOG_TYPE_ERROR);
+    v5 = sharedBluetoothManagerLogComponent(StereoHFPSupport, v4);
+    result = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
     if (result)
     {
       [BluetoothDevice getStereoHFPSupport];
-      result = 0;
+      return 0;
     }
   }
 
   else
   {
-    v5 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v7 = sharedBluetoothManagerLogComponent(StereoHFPSupport, v4);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v8 = "spatial not supported";
-      _os_log_impl(&dword_241BC5000, v5, OS_LOG_TYPE_INFO, "Support for Stereo HFP : %s", buf, 0xCu);
+      v9 = "spatial not supported";
+      _os_log_impl(&dword_241BC5000, v7, OS_LOG_TYPE_INFO, "Support for Stereo HFP : %s", buf, 0xCu);
     }
 
-    result = 0;
+    return 0;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (BOOL)getDeviceSoundProfileSupport
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
   [(BluetoothDevice *)self device];
   DeviceSoundProfileSupport = BTAccessoryManagerGetDeviceSoundProfileSupport();
-  v4 = sharedBluetoothManagerLogComponent();
-  v5 = v4;
-  if (DeviceSoundProfileSupport)
+  v4 = DeviceSoundProfileSupport;
+  v6 = sharedBluetoothManagerLogComponent(DeviceSoundProfileSupport, v5);
+  v7 = v6;
+  if (v4)
   {
-    v6 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
-    if (v6)
+    v8 = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
+    if (v8)
     {
       [BluetoothDevice getDeviceSoundProfileSupport];
-      LOBYTE(v6) = 0;
+      LOBYTE(v8) = 0;
     }
   }
 
   else
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v10 = "NOT Supported";
-      _os_log_impl(&dword_241BC5000, v5, OS_LOG_TYPE_INFO, "Accessory support for Spatial Profile: : %s", buf, 0xCu);
+      v11 = "NOT Supported";
+      _os_log_impl(&dword_241BC5000, v7, OS_LOG_TYPE_INFO, "Accessory support for Spatial Profile: : %s", buf, 0xCu);
     }
 
-    LOBYTE(v6) = 0;
+    LOBYTE(v8) = 0;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-  return v6;
+  return v8;
 }
 
 - (BOOL)getDeviceSoundProfileAllowed
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
   [(BluetoothDevice *)self device];
   DeviceSoundProfileAllowed = BTAccessoryManagerGetDeviceSoundProfileAllowed();
-  v4 = sharedBluetoothManagerLogComponent();
-  v5 = v4;
-  if (DeviceSoundProfileAllowed)
+  v4 = DeviceSoundProfileAllowed;
+  v6 = sharedBluetoothManagerLogComponent(DeviceSoundProfileAllowed, v5);
+  v7 = v6;
+  if (v4)
   {
-    v6 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
-    if (v6)
+    v8 = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
+    if (v8)
     {
       [BluetoothDevice getDeviceSoundProfileAllowed];
-      LOBYTE(v6) = 0;
+      LOBYTE(v8) = 0;
     }
   }
 
   else
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v10 = "NOT Allowed";
-      _os_log_impl(&dword_241BC5000, v5, OS_LOG_TYPE_INFO, "Accessory Allowed for Spatial Profile: %s", buf, 0xCu);
+      v11 = "NOT Allowed";
+      _os_log_impl(&dword_241BC5000, v7, OS_LOG_TYPE_INFO, "Accessory Allowed for Spatial Profile: %s", buf, 0xCu);
     }
 
-    LOBYTE(v6) = 0;
+    LOBYTE(v8) = 0;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-  return v6;
+  return v8;
 }
 
 - (void)setDeviceSoundProfileAllowed:(BOOL)allowed
 {
   allowedCopy = allowed;
-  v11 = *MEMORY[0x277D85DE8];
-  v5 = sharedBluetoothManagerLogComponent();
+  v12 = *MEMORY[0x277D85DE8];
+  v5 = sharedBluetoothManagerLogComponent(self, a2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = "NOT Allowed";
@@ -2359,56 +2225,53 @@ LABEL_22:
       v6 = "Allowed";
     }
 
-    v9 = 136315138;
-    v10 = v6;
-    _os_log_impl(&dword_241BC5000, v5, OS_LOG_TYPE_INFO, "Accessory Allowed for Spatial Profile: %s", &v9, 0xCu);
+    v10 = 136315138;
+    v11 = v6;
+    _os_log_impl(&dword_241BC5000, v5, OS_LOG_TYPE_INFO, "Accessory Allowed for Spatial Profile: %s", &v10, 0xCu);
   }
 
   [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
   [(BluetoothDevice *)self device];
-  if (BTAccessoryManagerSetDeviceSoundProfileAllowed())
+  v7 = BTAccessoryManagerSetDeviceSoundProfileAllowed();
+  if (v7)
   {
-    v7 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = sharedBluetoothManagerLogComponent(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [BluetoothDevice getDeviceSoundProfileAllowed];
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (unsigned)getSpatialAudioPlatformSupport
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
   [(BluetoothDevice *)self device];
   SpatialAudioPlatformSupport = BTAccessoryManagerGetSpatialAudioPlatformSupport();
-  v4 = sharedBluetoothManagerLogComponent();
-  v5 = v4;
-  if (SpatialAudioPlatformSupport)
+  v4 = SpatialAudioPlatformSupport;
+  v6 = sharedBluetoothManagerLogComponent(SpatialAudioPlatformSupport, v5);
+  v7 = v6;
+  if (v4)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [BluetoothDevice getSpatialAudioPlatformSupport];
     }
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v9 = "NOT Supported";
-    _os_log_impl(&dword_241BC5000, v5, OS_LOG_TYPE_INFO, "Platform Spatial Audio Support : %s", buf, 0xCu);
+    v10 = "NOT Supported";
+    _os_log_impl(&dword_241BC5000, v7, OS_LOG_TYPE_INFO, "Platform Spatial Audio Support : %s", buf, 0xCu);
   }
 
-  result = 2;
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return 2;
 }
 
 - (int)getUserSelectedDeviceType
 {
-  device = self->_device;
   if (BTDeviceGetUserSelectedDeviceType())
   {
     return 0;
@@ -2422,27 +2285,27 @@ LABEL_22:
 
 - (BOOL)setUserSelectedDeviceType:(int)type
 {
-  device = self->_device;
-  v4 = BTDeviceSetUserSelectedDeviceType();
-  v5 = v4;
-  if (v4)
+  v3 = BTDeviceSetUserSelectedDeviceType();
+  v4 = v3;
+  if (v3)
   {
-    NSLog(&cfstr_BtmFailedToSet_0.isa, v4);
+    NSLog(&cfstr_BtmFailedToSet_0.isa, v3);
   }
 
-  return v5 == 0;
+  return v4 == 0;
 }
 
 - (id)gyroInformation
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
   [(BluetoothDevice *)self device];
-  if (BTAccessoryManagerGetGyroInformation())
+  GyroInformation = BTAccessoryManagerGetGyroInformation();
+  if (GyroInformation)
   {
-    v4 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = sharedBluetoothManagerLogComponent(GyroInformation, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [BluetoothDevice gyroInformation];
     }
@@ -2450,18 +2313,17 @@ LABEL_22:
 
   else
   {
-    v5 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = sharedBluetoothManagerLogComponent(GyroInformation, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v9 = dictionary;
-      v10 = 1024;
-      v11 = 0;
-      _os_log_impl(&dword_241BC5000, v5, OS_LOG_TYPE_DEFAULT, "gyroInformation - Generated gyro information %@ from data with length %u", buf, 0x12u);
+      v10 = dictionary;
+      v11 = 1024;
+      v12 = 0;
+      _os_log_impl(&dword_241BC5000, v7, OS_LOG_TYPE_DEFAULT, "gyroInformation - Generated gyro information %@ from data with length %u", buf, 0x12u);
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return dictionary;
 }
 
@@ -2482,55 +2344,54 @@ LABEL_22:
 
 - (BOOL)isGenuineAirPods
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
   [(BluetoothDevice *)self device];
   IsGenuineAirPods = BTAccessoryManagerIsGenuineAirPods();
-  v4 = sharedBluetoothManagerLogComponent();
-  v5 = v4;
-  if (IsGenuineAirPods)
+  v4 = IsGenuineAirPods;
+  v6 = sharedBluetoothManagerLogComponent(IsGenuineAirPods, v5);
+  v7 = v6;
+  if (v4)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [BluetoothDevice isGenuineAirPods];
     }
 
-    result = 1;
+    return 1;
   }
 
   else
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 67109120;
-      v9 = -1;
-      _os_log_impl(&dword_241BC5000, v5, OS_LOG_TYPE_INFO, "Is Genuine AirPods : %d", buf, 8u);
+      v10 = -1;
+      _os_log_impl(&dword_241BC5000, v7, OS_LOG_TYPE_INFO, "Is Genuine AirPods : %d", buf, 8u);
     }
 
-    result = 1;
+    return 1;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 - ($70344DAF05348A783186C1CF166707C1)getCallManagementConfig
 {
-  v5 = 0;
+  v7 = 0;
   [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
   [(BluetoothDevice *)self device];
-  if (BTAccessoryManagerGetCallManagementConfig())
+  v3 = BTAccessoryManagerGetCallManagementConfig();
+  if (v3)
   {
-    v3 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = sharedBluetoothManagerLogComponent(v3, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [BluetoothDevice getCallManagementConfig];
     }
 
-    BYTE1(v5) = 0;
+    BYTE1(v7) = 0;
   }
 
-  return (*(&v5 + 1) << 32);
+  return (*(&v7 + 1) << 32);
 }
 
 - (BOOL)setCallConfig:(id)config
@@ -2538,25 +2399,27 @@ LABEL_22:
   [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
   [(BluetoothDevice *)self device];
   v4 = BTAccessoryManagerSendControlCommand();
+  v6 = v4;
   if (v4)
   {
-    v5 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = sharedBluetoothManagerLogComponent(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [BluetoothDevice setCallConfig:];
     }
   }
 
-  return v4 == 0;
+  return v6 == 0;
 }
 
 - (unsigned)getDeviceAdaptiveVolumeMode
 {
-  v9 = *MEMORY[0x277D85DE8];
-  if (_os_feature_enabled_impl() && ([+[BluetoothManager _accessoryManager] sharedInstance])
+  v10 = *MEMORY[0x277D85DE8];
+  HeadphoneFeatureValue = _os_feature_enabled_impl();
+  if (HeadphoneFeatureValue && ([[BluetoothManager _accessoryManager] sharedInstance:HeadphoneFeatureValue = BTAccessoryManagerGetHeadphoneFeatureValue()])
   {
-    v3 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = sharedBluetoothManagerLogComponent(HeadphoneFeatureValue, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [BluetoothDevice getDeviceAdaptiveVolumeMode];
     }
@@ -2564,47 +2427,45 @@ LABEL_22:
 
   else
   {
-    v4 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v6 = sharedBluetoothManagerLogComponent(HeadphoneFeatureValue, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v8 = 0;
-      _os_log_impl(&dword_241BC5000, v4, OS_LOG_TYPE_DEFAULT, "Adaptive Volume: Get Mode - %d", buf, 8u);
+      v9 = 0;
+      _os_log_impl(&dword_241BC5000, v6, OS_LOG_TYPE_DEFAULT, "Adaptive Volume: Get Mode - %d", buf, 8u);
     }
   }
 
-  result = 0;
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 - (void)setDeviceAdaptiveVolumeMode:(int)mode
 {
   modeCopy = mode;
-  v9 = *MEMORY[0x277D85DE8];
-  if (_os_feature_enabled_impl())
+  v12 = *MEMORY[0x277D85DE8];
+  v5 = _os_feature_enabled_impl();
+  if (v5)
   {
-    v5 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = sharedBluetoothManagerLogComponent(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v8[0] = 67109120;
-      v8[1] = modeCopy;
-      _os_log_impl(&dword_241BC5000, v5, OS_LOG_TYPE_DEFAULT, "Adaptive Volume: Set Mode - %d", v8, 8u);
+      v11[0] = 67109120;
+      v11[1] = modeCopy;
+      _os_log_impl(&dword_241BC5000, v7, OS_LOG_TYPE_DEFAULT, "Adaptive Volume: Set Mode - %d", v11, 8u);
     }
 
     [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
     [(BluetoothDevice *)self device];
-    if (BTAccessoryManagerSendControlCommand())
+    v8 = BTAccessoryManagerSendControlCommand();
+    if (v8)
     {
-      v6 = sharedBluetoothManagerLogComponent();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v10 = sharedBluetoothManagerLogComponent(v8, v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         [BluetoothDevice setDeviceAdaptiveVolumeMode:];
       }
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)getAdaptiveVolumeSupport
@@ -2613,10 +2474,11 @@ LABEL_22:
   {
     [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
     [(BluetoothDevice *)self device];
-    if (BTAccessoryManagerGetHeadphoneFeatureValue())
+    HeadphoneFeatureValue = BTAccessoryManagerGetHeadphoneFeatureValue();
+    if (HeadphoneFeatureValue)
     {
-      v3 = sharedBluetoothManagerLogComponent();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+      v5 = sharedBluetoothManagerLogComponent(HeadphoneFeatureValue, v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         [BluetoothDevice getAdaptiveVolumeSupport];
       }
@@ -2628,11 +2490,12 @@ LABEL_22:
 
 - (unsigned)getAdaptiveVolumeMode
 {
-  v9 = *MEMORY[0x277D85DE8];
-  if (_os_feature_enabled_impl() && ([+[BluetoothManager _accessoryManager] sharedInstance])
+  v10 = *MEMORY[0x277D85DE8];
+  HeadphoneFeatureValue = _os_feature_enabled_impl();
+  if (HeadphoneFeatureValue && ([[BluetoothManager _accessoryManager] sharedInstance:HeadphoneFeatureValue = BTAccessoryManagerGetHeadphoneFeatureValue()])
   {
-    v3 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = sharedBluetoothManagerLogComponent(HeadphoneFeatureValue, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [BluetoothDevice getDeviceAdaptiveVolumeMode];
     }
@@ -2640,47 +2503,45 @@ LABEL_22:
 
   else
   {
-    v4 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v6 = sharedBluetoothManagerLogComponent(HeadphoneFeatureValue, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v8 = 0;
-      _os_log_impl(&dword_241BC5000, v4, OS_LOG_TYPE_DEFAULT, "Adaptive Volume: Get Mode - %d", buf, 8u);
+      v9 = 0;
+      _os_log_impl(&dword_241BC5000, v6, OS_LOG_TYPE_DEFAULT, "Adaptive Volume: Get Mode - %d", buf, 8u);
     }
   }
 
-  result = 0;
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 - (void)setAdaptiveVolumeMode:(int)mode
 {
   modeCopy = mode;
-  v9 = *MEMORY[0x277D85DE8];
-  if (_os_feature_enabled_impl())
+  v12 = *MEMORY[0x277D85DE8];
+  v5 = _os_feature_enabled_impl();
+  if (v5)
   {
-    v5 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = sharedBluetoothManagerLogComponent(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v8[0] = 67109120;
-      v8[1] = modeCopy;
-      _os_log_impl(&dword_241BC5000, v5, OS_LOG_TYPE_DEFAULT, "Adaptive Volume: Set Mode - %d", v8, 8u);
+      v11[0] = 67109120;
+      v11[1] = modeCopy;
+      _os_log_impl(&dword_241BC5000, v7, OS_LOG_TYPE_DEFAULT, "Adaptive Volume: Set Mode - %d", v11, 8u);
     }
 
     [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
     [(BluetoothDevice *)self device];
-    if (BTAccessoryManagerSendControlCommand())
+    v8 = BTAccessoryManagerSendControlCommand();
+    if (v8)
     {
-      v6 = sharedBluetoothManagerLogComponent();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v10 = sharedBluetoothManagerLogComponent(v8, v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         [BluetoothDevice setDeviceAdaptiveVolumeMode:];
       }
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)getAutoANCSupport
@@ -2689,10 +2550,11 @@ LABEL_22:
   {
     [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
     [(BluetoothDevice *)self device];
-    if (BTAccessoryManagerGetHeadphoneFeatureValue())
+    HeadphoneFeatureValue = BTAccessoryManagerGetHeadphoneFeatureValue();
+    if (HeadphoneFeatureValue)
     {
-      v3 = sharedBluetoothManagerLogComponent();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+      v5 = sharedBluetoothManagerLogComponent(HeadphoneFeatureValue, v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         [BluetoothDevice getAutoANCSupport];
       }
@@ -2704,11 +2566,12 @@ LABEL_22:
 
 - (unsigned)getDeviceConversationDetect
 {
-  v9 = *MEMORY[0x277D85DE8];
-  if (_os_feature_enabled_impl() && ([+[BluetoothManager _accessoryManager] sharedInstance])
+  v10 = *MEMORY[0x277D85DE8];
+  HeadphoneFeatureValue = _os_feature_enabled_impl();
+  if (HeadphoneFeatureValue && ([[BluetoothManager _accessoryManager] sharedInstance:HeadphoneFeatureValue = BTAccessoryManagerGetHeadphoneFeatureValue()])
   {
-    v3 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = sharedBluetoothManagerLogComponent(HeadphoneFeatureValue, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [BluetoothDevice getDeviceConversationDetect];
     }
@@ -2716,46 +2579,44 @@ LABEL_22:
 
   else
   {
-    v4 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v6 = sharedBluetoothManagerLogComponent(HeadphoneFeatureValue, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v8 = 0;
-      _os_log_impl(&dword_241BC5000, v4, OS_LOG_TYPE_DEFAULT, "Conversation Detect: mode - %d", buf, 8u);
+      v9 = 0;
+      _os_log_impl(&dword_241BC5000, v6, OS_LOG_TYPE_DEFAULT, "Conversation Detect: mode - %d", buf, 8u);
     }
   }
 
-  result = 0;
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 - (void)setDeviceConversationDetect:(int)detect
 {
-  v9 = *MEMORY[0x277D85DE8];
-  if (_os_feature_enabled_impl())
+  v12 = *MEMORY[0x277D85DE8];
+  v5 = _os_feature_enabled_impl();
+  if (v5)
   {
-    v5 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = sharedBluetoothManagerLogComponent(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v8[0] = 67109120;
-      v8[1] = detect;
-      _os_log_impl(&dword_241BC5000, v5, OS_LOG_TYPE_DEFAULT, "Conversation Detect: Set Mode - %d", v8, 8u);
+      v11[0] = 67109120;
+      v11[1] = detect;
+      _os_log_impl(&dword_241BC5000, v7, OS_LOG_TYPE_DEFAULT, "Conversation Detect: Set Mode - %d", v11, 8u);
     }
 
     [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
     [(BluetoothDevice *)self device];
-    if (BTAccessoryManagerSendControlCommand())
+    v8 = BTAccessoryManagerSendControlCommand();
+    if (v8)
     {
-      v6 = sharedBluetoothManagerLogComponent();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v10 = sharedBluetoothManagerLogComponent(v8, v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         [BluetoothDevice setDeviceConversationDetect:];
       }
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)getConversationDetectSupport
@@ -2764,10 +2625,11 @@ LABEL_22:
   {
     [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
     [(BluetoothDevice *)self device];
-    if (BTAccessoryManagerGetHeadphoneFeatureValue())
+    HeadphoneFeatureValue = BTAccessoryManagerGetHeadphoneFeatureValue();
+    if (HeadphoneFeatureValue)
     {
-      v3 = sharedBluetoothManagerLogComponent();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+      v5 = sharedBluetoothManagerLogComponent(HeadphoneFeatureValue, v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         [BluetoothDevice getConversationDetectSupport];
       }
@@ -2779,11 +2641,12 @@ LABEL_22:
 
 - (unsigned)getConversationDetectMode
 {
-  v9 = *MEMORY[0x277D85DE8];
-  if (_os_feature_enabled_impl() && ([+[BluetoothManager _accessoryManager] sharedInstance])
+  v10 = *MEMORY[0x277D85DE8];
+  HeadphoneFeatureValue = _os_feature_enabled_impl();
+  if (HeadphoneFeatureValue && ([[BluetoothManager _accessoryManager] sharedInstance:HeadphoneFeatureValue = BTAccessoryManagerGetHeadphoneFeatureValue()])
   {
-    v3 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = sharedBluetoothManagerLogComponent(HeadphoneFeatureValue, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [BluetoothDevice getDeviceConversationDetect];
     }
@@ -2791,46 +2654,44 @@ LABEL_22:
 
   else
   {
-    v4 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v6 = sharedBluetoothManagerLogComponent(HeadphoneFeatureValue, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v8 = 0;
-      _os_log_impl(&dword_241BC5000, v4, OS_LOG_TYPE_DEFAULT, "Conversation Detect: mode - %d", buf, 8u);
+      v9 = 0;
+      _os_log_impl(&dword_241BC5000, v6, OS_LOG_TYPE_DEFAULT, "Conversation Detect: mode - %d", buf, 8u);
     }
   }
 
-  result = 0;
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 - (void)setConversationDetectMode:(int)mode
 {
-  v9 = *MEMORY[0x277D85DE8];
-  if (_os_feature_enabled_impl())
+  v12 = *MEMORY[0x277D85DE8];
+  v5 = _os_feature_enabled_impl();
+  if (v5)
   {
-    v5 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = sharedBluetoothManagerLogComponent(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v8[0] = 67109120;
-      v8[1] = mode;
-      _os_log_impl(&dword_241BC5000, v5, OS_LOG_TYPE_DEFAULT, "Conversation Detect: Set Mode - %d", v8, 8u);
+      v11[0] = 67109120;
+      v11[1] = mode;
+      _os_log_impl(&dword_241BC5000, v7, OS_LOG_TYPE_DEFAULT, "Conversation Detect: Set Mode - %d", v11, 8u);
     }
 
     [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
     [(BluetoothDevice *)self device];
-    if (BTAccessoryManagerSendControlCommand())
+    v8 = BTAccessoryManagerSendControlCommand();
+    if (v8)
     {
-      v6 = sharedBluetoothManagerLogComponent();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v10 = sharedBluetoothManagerLogComponent(v8, v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         [BluetoothDevice setDeviceConversationDetect:];
       }
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)getSSLSupport
@@ -2839,10 +2700,11 @@ LABEL_22:
   {
     [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
     [(BluetoothDevice *)self device];
-    if (BTAccessoryManagerGetHeadphoneFeatureValue())
+    HeadphoneFeatureValue = BTAccessoryManagerGetHeadphoneFeatureValue();
+    if (HeadphoneFeatureValue)
     {
-      v3 = sharedBluetoothManagerLogComponent();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+      v5 = sharedBluetoothManagerLogComponent(HeadphoneFeatureValue, v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         [BluetoothDevice getSSLSupport];
       }
@@ -2854,11 +2716,12 @@ LABEL_22:
 
 - (unsigned)getSSLMode
 {
-  v9 = *MEMORY[0x277D85DE8];
-  if (_os_feature_enabled_impl() && ([+[BluetoothManager _accessoryManager] sharedInstance])
+  v10 = *MEMORY[0x277D85DE8];
+  HeadphoneFeatureValue = _os_feature_enabled_impl();
+  if (HeadphoneFeatureValue && ([[BluetoothManager _accessoryManager] sharedInstance:HeadphoneFeatureValue = BTAccessoryManagerGetHeadphoneFeatureValue()])
   {
-    v3 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = sharedBluetoothManagerLogComponent(HeadphoneFeatureValue, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [BluetoothDevice getSSLMode];
     }
@@ -2866,169 +2729,166 @@ LABEL_22:
 
   else
   {
-    v4 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v6 = sharedBluetoothManagerLogComponent(HeadphoneFeatureValue, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v8 = 0;
-      _os_log_impl(&dword_241BC5000, v4, OS_LOG_TYPE_DEFAULT, "SSL: mode - %d", buf, 8u);
+      v9 = 0;
+      _os_log_impl(&dword_241BC5000, v6, OS_LOG_TYPE_DEFAULT, "SSL: mode - %d", buf, 8u);
     }
   }
 
-  result = 0;
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 - (void)setSSLMode:(int)mode
 {
-  v9 = *MEMORY[0x277D85DE8];
-  if (_os_feature_enabled_impl())
+  v12 = *MEMORY[0x277D85DE8];
+  v5 = _os_feature_enabled_impl();
+  if (v5)
   {
-    v5 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = sharedBluetoothManagerLogComponent(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v8[0] = 67109120;
-      v8[1] = mode;
-      _os_log_impl(&dword_241BC5000, v5, OS_LOG_TYPE_DEFAULT, "SSL: Set Mode - %d", v8, 8u);
+      v11[0] = 67109120;
+      v11[1] = mode;
+      _os_log_impl(&dword_241BC5000, v7, OS_LOG_TYPE_DEFAULT, "SSL: Set Mode - %d", v11, 8u);
     }
 
     [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
     [(BluetoothDevice *)self device];
-    if (BTAccessoryManagerSendControlCommand())
+    v8 = BTAccessoryManagerSendControlCommand();
+    if (v8)
     {
-      v6 = sharedBluetoothManagerLogComponent();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v10 = sharedBluetoothManagerLogComponent(v8, v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         [BluetoothDevice setSSLMode:];
       }
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)getWirelessSharingSpatialSupport
 {
-  v9 = *MEMORY[0x277D85DE8];
-  if (_os_feature_enabled_impl() && ([+[BluetoothManager _accessoryManager] sharedInstance])
+  v10 = *MEMORY[0x277D85DE8];
+  WirelessSharingSpatial = _os_feature_enabled_impl();
+  if (WirelessSharingSpatial && ([[BluetoothManager _accessoryManager] sharedInstance:WirelessSharingSpatial = BTAccessoryManagerGetWirelessSharingSpatial()])
   {
-    v3 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = sharedBluetoothManagerLogComponent(WirelessSharingSpatial, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [BluetoothDevice getWirelessSharingSpatialSupport];
     }
 
-    result = 1;
+    return 1;
   }
 
   else
   {
-    v5 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v7 = sharedBluetoothManagerLogComponent(WirelessSharingSpatial, v4);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       *buf = 67109120;
-      v8 = 1;
-      _os_log_impl(&dword_241BC5000, v5, OS_LOG_TYPE_INFO, "Is Spatial Supported during Wireless splitter : %d", buf, 8u);
+      v9 = 1;
+      _os_log_impl(&dword_241BC5000, v7, OS_LOG_TYPE_INFO, "Is Spatial Supported during Wireless splitter : %d", buf, 8u);
     }
 
-    result = 1;
+    return 1;
   }
-
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 - (BOOL)isGuestPairingMode
 {
-  v13 = *MEMORY[0x277D85DE8];
-  if (_os_feature_enabled_impl())
+  v16 = *MEMORY[0x277D85DE8];
+  v3 = _os_feature_enabled_impl();
+  if (v3)
   {
     [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
     [(BluetoothDevice *)self device];
     HeadphoneFeatureValue = BTAccessoryManagerGetHeadphoneFeatureValue();
-    v4 = sharedBluetoothManagerLogComponent();
-    v5 = v4;
-    if (HeadphoneFeatureValue)
+    v6 = HeadphoneFeatureValue;
+    v8 = sharedBluetoothManagerLogComponent(HeadphoneFeatureValue, v7);
+    v9 = v8;
+    if (v6)
     {
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         [BluetoothDevice isGuestPairingMode];
       }
     }
 
-    else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    else if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109376;
-      v10 = 0;
-      v11 = 1024;
-      v12 = 0;
-      _os_log_impl(&dword_241BC5000, v5, OS_LOG_TYPE_DEFAULT, "Guest Pairing: Result: %u, Mode:  %u", buf, 0xEu);
+      v13 = 0;
+      v14 = 1024;
+      v15 = 0;
+      _os_log_impl(&dword_241BC5000, v9, OS_LOG_TYPE_DEFAULT, "Guest Pairing: Result: %u, Mode:  %u", buf, 0xEu);
     }
   }
 
   else
   {
-    v6 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v10 = sharedBluetoothManagerLogComponent(v3, v4);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [BluetoothDevice isGuestPairingMode];
     }
   }
 
-  result = 0;
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 - (void)setGuestPairingMode:(BOOL)mode
 {
   modeCopy = mode;
-  v13 = *MEMORY[0x277D85DE8];
-  if (_os_feature_enabled_impl())
+  v16 = *MEMORY[0x277D85DE8];
+  v5 = _os_feature_enabled_impl();
+  if (v5)
   {
     [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
     [(BluetoothDevice *)self device];
-    v5 = BTAccessoryManagerSetHeadphoneFeatureValue();
-    v6 = sharedBluetoothManagerLogComponent();
-    v7 = v6;
-    if (v5)
+    v7 = BTAccessoryManagerSetHeadphoneFeatureValue();
+    v8 = v7;
+    v10 = sharedBluetoothManagerLogComponent(v7, v9);
+    v11 = v10;
+    if (v8)
     {
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         [BluetoothDevice setGuestPairingMode:];
       }
     }
 
-    else if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    else if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10[0] = 67109376;
-      v10[1] = 0;
-      v11 = 1024;
-      v12 = modeCopy;
-      _os_log_impl(&dword_241BC5000, v7, OS_LOG_TYPE_DEFAULT, "Guest Pairing: Result: %u, Mode Set To:  %u", v10, 0xEu);
+      v13[0] = 67109376;
+      v13[1] = 0;
+      v14 = 1024;
+      v15 = modeCopy;
+      _os_log_impl(&dword_241BC5000, v11, OS_LOG_TYPE_DEFAULT, "Guest Pairing: Result: %u, Mode Set To:  %u", v13, 0xEu);
     }
   }
 
   else
   {
-    v8 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v12 = sharedBluetoothManagerLogComponent(v5, v6);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [BluetoothDevice setGuestPairingMode:];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isProxCardSupportedForFeature:(int)feature
 {
-  v41 = *MEMORY[0x277D85DE8];
-  if ((_os_feature_enabled_impl() & 1) == 0)
+  v54 = *MEMORY[0x277D85DE8];
+  v5 = _os_feature_enabled_impl();
+  if ((v5 & 1) == 0)
   {
-    v9 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v15 = sharedBluetoothManagerLogComponent(v5, v6);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [BluetoothDevice isProxCardSupportedForFeature:];
     }
@@ -3037,41 +2897,43 @@ LABEL_22:
   }
 
   productId = [(BluetoothDevice *)self productId];
-  v6 = sharedBluetoothManagerLogComponent();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v8 = productId;
+  v10 = sharedBluetoothManagerLogComponent(productId, v9);
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+  if (v11)
   {
     *buf = 67109120;
-    LODWORD(v34) = productId;
-    _os_log_impl(&dword_241BC5000, v6, OS_LOG_TYPE_DEFAULT, "Prox Card Status: Product ID is %i", buf, 8u);
+    LODWORD(v47) = v8;
+    _os_log_impl(&dword_241BC5000, v10, OS_LOG_TYPE_DEFAULT, "Prox Card Status: Product ID is %i", buf, 8u);
   }
 
   if (feature != 2)
   {
     if (feature != 1)
     {
-      v7 = 0x8C1u >> (productId - 11);
-      if ((productId - 8203) >= 0xC)
+      v13 = 0x8C1u >> (v8 - 11);
+      if ((v8 - 8203) >= 0xC)
       {
-        LOBYTE(v7) = 0;
+        LOBYTE(v13) = 0;
       }
 
       if (feature)
       {
-        LOBYTE(getConversationDetectSupport) = 0;
+        LOBYTE(v14) = 0;
       }
 
       else
       {
-        LOBYTE(getConversationDetectSupport) = v7;
+        LOBYTE(v14) = v13;
       }
 
-      goto LABEL_14;
+      return v14 & 1;
     }
 
-    if (productId == 8218)
+    if (v8 == 8218)
     {
-      v19 = sharedBluetoothManagerLogComponent();
-      if (!os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v28 = sharedBluetoothManagerLogComponent(v11, v12);
+      if (!os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_13;
       }
@@ -3079,14 +2941,14 @@ LABEL_22:
       goto LABEL_18;
     }
 
-    if (productId == 8230)
+    if (v8 == 8230)
     {
-      v12 = sharedBluetoothManagerLogComponent();
-      if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v17 = sharedBluetoothManagerLogComponent(v11, v12);
+      if (!os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
 LABEL_13:
-        LOBYTE(getConversationDetectSupport) = 0;
-        goto LABEL_14;
+        LOBYTE(v14) = 0;
+        return v14 & 1;
       }
 
 LABEL_18:
@@ -3096,10 +2958,11 @@ LABEL_18:
 
     [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
     [(BluetoothDevice *)self device];
-    if (BTAccessoryManagerGetCallManagementConfig())
+    v29 = BTAccessoryManagerGetCallManagementConfig();
+    if (v29)
     {
-      v20 = sharedBluetoothManagerLogComponent();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v31 = sharedBluetoothManagerLogComponent(v29, v30);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
         [BluetoothDevice isProxCardSupportedForFeature:];
       }
@@ -3107,155 +2970,114 @@ LABEL_18:
       goto LABEL_13;
     }
 
-    LOBYTE(getConversationDetectSupport) = 0;
-    v27 = sharedBluetoothManagerLogComponent();
-    if (!os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    LOBYTE(v14) = 0;
+    v40 = sharedBluetoothManagerLogComponent(v29, v30);
+    if (!os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_14;
+      return v14 & 1;
     }
 
     *buf = 136315394;
-    v34 = "No";
-    v35 = 1024;
-    LODWORD(v36) = 0;
-    v16 = "Prox Card Status: Mute Call: Support: %s -> Version: %d";
-    v17 = v27;
-    v18 = 18;
+    v47 = "No";
+    v48 = 1024;
+    LODWORD(v49) = 0;
+    v25 = "Prox Card Status: Mute Call: Support: %s -> Version: %d";
+    v26 = v40;
+    v27 = 18;
 LABEL_72:
-    _os_log_impl(&dword_241BC5000, v17, OS_LOG_TYPE_DEFAULT, v16, buf, v18);
-    goto LABEL_14;
+    _os_log_impl(&dword_241BC5000, v26, OS_LOG_TYPE_DEFAULT, v25, buf, v27);
+    return v14 & 1;
   }
 
-  if (productId > 8221)
+  if (v8 > 8221)
   {
-    if (productId == 8222)
+    if (v8 == 8222)
     {
       goto LABEL_28;
     }
 
-    if (productId != 8228)
+    if (v8 != 8228)
     {
 LABEL_56:
-      if ([(BluetoothDevice *)self getAdaptiveVolumeSupport])
+      getAdaptiveVolumeSupport = [(BluetoothDevice *)self getAdaptiveVolumeSupport];
+      if (getAdaptiveVolumeSupport)
       {
-        getConversationDetectSupport = [(BluetoothDevice *)self getConversationDetectSupport];
+        getAdaptiveVolumeSupport = [(BluetoothDevice *)self getConversationDetectSupport];
+        v14 = getAdaptiveVolumeSupport;
       }
 
       else
       {
-        getConversationDetectSupport = 0;
+        v14 = 0;
       }
 
-      v28 = sharedBluetoothManagerLogComponent();
-      if (!os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+      v41 = sharedBluetoothManagerLogComponent(getAdaptiveVolumeSupport, v39);
+      if (!os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
       {
-        goto LABEL_14;
+        return v14 & 1;
       }
 
+      if (v14)
+      {
+        v42 = "Yes";
+      }
+
+      else
+      {
+        v42 = "No";
+      }
+
+      if ([(BluetoothDevice *)self getAdaptiveVolumeSupport])
+      {
+        v43 = "Yes";
+      }
+
+      else
+      {
+        v43 = "No";
+      }
+
+      getConversationDetectSupport = [(BluetoothDevice *)self getConversationDetectSupport];
+      *buf = 136315650;
       if (getConversationDetectSupport)
       {
-        v29 = "Yes";
+        v45 = "Yes";
       }
 
       else
       {
-        v29 = "No";
+        v45 = "No";
       }
 
-      if ([(BluetoothDevice *)self getAdaptiveVolumeSupport])
-      {
-        v30 = "Yes";
-      }
-
-      else
-      {
-        v30 = "No";
-      }
-
-      getConversationDetectSupport2 = [(BluetoothDevice *)self getConversationDetectSupport];
-      *buf = 136315650;
-      if (getConversationDetectSupport2)
-      {
-        v32 = "Yes";
-      }
-
-      else
-      {
-        v32 = "No";
-      }
-
-      v34 = v29;
-      v35 = 2080;
-      v36 = v30;
-      v37 = 2080;
-      v38 = v32;
-      v16 = "Prox Card Status: Adaptive Controls: Support: %s -> AdaptiveVolume: %s, CD: %s";
-      v17 = v28;
-      v18 = 32;
+      v47 = v42;
+      v48 = 2080;
+      v49 = v43;
+      v50 = 2080;
+      v51 = v45;
+      v25 = "Prox Card Status: Adaptive Controls: Support: %s -> AdaptiveVolume: %s, CD: %s";
+      v26 = v41;
+      v27 = 32;
       goto LABEL_72;
     }
   }
 
-  else if (productId != 8212)
+  else if (v8 != 8212)
   {
-    if (productId != 8217)
+    if (v8 != 8217)
     {
       goto LABEL_56;
     }
 
 LABEL_28:
-    getConversationDetectSupport = [(BluetoothDevice *)self getAdaptiveVolumeSupport];
-    v13 = sharedBluetoothManagerLogComponent();
-    if (!os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    getAdaptiveVolumeSupport2 = [(BluetoothDevice *)self getAdaptiveVolumeSupport];
+    v14 = getAdaptiveVolumeSupport2;
+    v22 = sharedBluetoothManagerLogComponent(getAdaptiveVolumeSupport2, v21);
+    if (!os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_14;
+      return v14 & 1;
     }
 
-    if (getConversationDetectSupport)
-    {
-      v14 = "Yes";
-    }
-
-    else
-    {
-      v14 = "No";
-    }
-
-    if ([(BluetoothDevice *)self getAdaptiveVolumeSupport])
-    {
-      v15 = "Yes";
-    }
-
-    else
-    {
-      v15 = "No";
-    }
-
-    *buf = 136315394;
-    v34 = v14;
-    v35 = 2080;
-    v36 = v15;
-    v16 = "Prox Card Status: Adaptive Controls: Support: %s -> AdaptiveVolume: %s";
-    v17 = v13;
-    v18 = 22;
-    goto LABEL_72;
-  }
-
-  getConversationDetectSupport = [(BluetoothDevice *)self getSSLSupport]&& [(BluetoothDevice *)self getAdaptiveVolumeSupport]&& [(BluetoothDevice *)self getConversationDetectSupport];
-  v21 = sharedBluetoothManagerLogComponent();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
-  {
-    if (getConversationDetectSupport)
-    {
-      v22 = "Yes";
-    }
-
-    else
-    {
-      v22 = "No";
-    }
-
-    if ([(BluetoothDevice *)self getSSLSupport])
+    if (v14)
     {
       v23 = "Yes";
     }
@@ -3275,262 +3097,316 @@ LABEL_28:
       v24 = "No";
     }
 
-    getConversationDetectSupport3 = [(BluetoothDevice *)self getConversationDetectSupport];
-    *buf = 136315906;
-    if (getConversationDetectSupport3)
+    *buf = 136315394;
+    v47 = v23;
+    v48 = 2080;
+    v49 = v24;
+    v25 = "Prox Card Status: Adaptive Controls: Support: %s -> AdaptiveVolume: %s";
+    v26 = v22;
+    v27 = 22;
+    goto LABEL_72;
+  }
+
+  getSSLSupport = [(BluetoothDevice *)self getSSLSupport];
+  if (getSSLSupport && (getSSLSupport = [(BluetoothDevice *)self getAdaptiveVolumeSupport], getSSLSupport))
+  {
+    getSSLSupport = [(BluetoothDevice *)self getConversationDetectSupport];
+    v14 = getSSLSupport;
+  }
+
+  else
+  {
+    v14 = 0;
+  }
+
+  v32 = sharedBluetoothManagerLogComponent(getSSLSupport, v19);
+  if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+  {
+    if (v14)
     {
-      v26 = "Yes";
+      v33 = "Yes";
     }
 
     else
     {
-      v26 = "No";
+      v33 = "No";
     }
 
-    v34 = v22;
-    v35 = 2080;
-    v36 = v23;
-    v37 = 2080;
-    v38 = v24;
-    v39 = 2080;
-    v40 = v26;
-    v16 = "Prox Card Status: Adaptive Controls: Support: %s -> SSL: %s, AV: %s, CD: %s";
-    v17 = v21;
-    v18 = 42;
+    if ([(BluetoothDevice *)self getSSLSupport])
+    {
+      v34 = "Yes";
+    }
+
+    else
+    {
+      v34 = "No";
+    }
+
+    if ([(BluetoothDevice *)self getAdaptiveVolumeSupport])
+    {
+      v35 = "Yes";
+    }
+
+    else
+    {
+      v35 = "No";
+    }
+
+    getConversationDetectSupport2 = [(BluetoothDevice *)self getConversationDetectSupport];
+    *buf = 136315906;
+    if (getConversationDetectSupport2)
+    {
+      v37 = "Yes";
+    }
+
+    else
+    {
+      v37 = "No";
+    }
+
+    v47 = v33;
+    v48 = 2080;
+    v49 = v34;
+    v50 = 2080;
+    v51 = v35;
+    v52 = 2080;
+    v53 = v37;
+    v25 = "Prox Card Status: Adaptive Controls: Support: %s -> SSL: %s, AV: %s, CD: %s";
+    v26 = v32;
+    v27 = 42;
     goto LABEL_72;
   }
 
-LABEL_14:
-  v10 = *MEMORY[0x277D85DE8];
-  return getConversationDetectSupport;
+  return v14 & 1;
 }
 
 - (BOOL)isProxCardShowedForFeature:(int)feature
 {
-  v15 = *MEMORY[0x277D85DE8];
-  if ((_os_feature_enabled_impl() & 1) == 0)
+  v18 = *MEMORY[0x277D85DE8];
+  v5 = _os_feature_enabled_impl();
+  if ((v5 & 1) == 0)
   {
-    v6 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = sharedBluetoothManagerLogComponent(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [BluetoothDevice isProxCardShowedForFeature:];
     }
 
-    goto LABEL_14;
+    return 1;
   }
 
   if (feature <= 1)
   {
-    v5 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = sharedBluetoothManagerLogComponent(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_241BC5000, v5, OS_LOG_TYPE_DEFAULT, "Prox Card Status: Mute Call: Card Discontinued, Return as Showed", buf, 2u);
+      _os_log_impl(&dword_241BC5000, v7, OS_LOG_TYPE_DEFAULT, "Prox Card Status: Mute Call: Card Discontinued, Return as Showed", buf, 2u);
     }
 
-    goto LABEL_14;
+    return 1;
   }
 
   [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
   [(BluetoothDevice *)self device];
-  if (BTAccessoryManagerGetFeatureProxCardStatus())
+  FeatureProxCardStatus = BTAccessoryManagerGetFeatureProxCardStatus();
+  if (FeatureProxCardStatus)
   {
-    v7 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v11 = sharedBluetoothManagerLogComponent(FeatureProxCardStatus, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [BluetoothDevice isProxCardShowedForFeature:];
     }
 
-    goto LABEL_14;
+    return 1;
   }
 
   if (feature != 2)
   {
-LABEL_14:
-    result = 1;
-    goto LABEL_15;
+    return 1;
   }
 
-  v8 = sharedBluetoothManagerLogComponent();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v12 = sharedBluetoothManagerLogComponent(FeatureProxCardStatus, v10);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v12 = "No";
-    v13 = 2048;
-    v14 = 0;
-    _os_log_impl(&dword_241BC5000, v8, OS_LOG_TYPE_DEFAULT, "Prox Card Status: Adaptive Controls: Showed: %s -> Prox Card Status: 0x%08llx", buf, 0x16u);
+    v15 = "No";
+    v16 = 2048;
+    v17 = 0;
+    _os_log_impl(&dword_241BC5000, v12, OS_LOG_TYPE_DEFAULT, "Prox Card Status: Adaptive Controls: Showed: %s -> Prox Card Status: 0x%08llx", buf, 0x16u);
   }
 
   [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
   [(BluetoothDevice *)self device];
   BTAccessoryManagerSetFeatureProxCardStatus();
-  result = 0;
-LABEL_15:
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 - (void)setProxCardShowedForFeature:(int)feature showed:(BOOL)showed
 {
   showedCopy = showed;
-  v43 = *MEMORY[0x277D85DE8];
-  if (_os_feature_enabled_impl())
+  v52 = *MEMORY[0x277D85DE8];
+  v7 = _os_feature_enabled_impl();
+  if (v7)
   {
     if (feature <= 1)
     {
-      *(&v30 + 3) = 0;
-      LODWORD(v30) = 0;
+      *(&v39 + 3) = 0;
+      LODWORD(v39) = 0;
       [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
       [(BluetoothDevice *)self device];
-      if (BTAccessoryManagerGetCallManagementConfig())
+      v9 = BTAccessoryManagerGetCallManagementConfig();
+      if (v9)
       {
-        v7 = sharedBluetoothManagerLogComponent();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+        v11 = sharedBluetoothManagerLogComponent(v9, v10);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           [BluetoothDevice setProxCardShowedForFeature:showed:];
         }
 
-        goto LABEL_51;
+        return;
       }
 
-      v10 = sharedBluetoothManagerLogComponent();
-      v11 = v10;
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v16 = sharedBluetoothManagerLogComponent(v9, v10);
+      v17 = v16;
+      v22 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
+      if (v22)
       {
         *buf = 67110656;
-        *v32 = v30;
-        *&v32[4] = 1024;
-        *&v32[6] = BYTE1(v30);
-        v33 = 1024;
-        v34 = BYTE2(v30);
-        v35 = 1024;
-        v36 = BYTE3(v30);
-        v37 = 1024;
-        v38 = BYTE4(v30);
-        v39 = 1024;
-        v40 = BYTE5(v30);
-        v41 = 1024;
-        v42 = BYTE6(v30);
-        _os_log_impl(&dword_241BC5000, v11, OS_LOG_TYPE_DEFAULT, "Prox Card Status: Set: Call Management Version: %d, [0] status: %u, endCall: %u, [1] End Call Status: %u, End Call Config: %u, Mute Call Status: %u, Mute Call Config: %u", buf, 0x2Cu);
+        *v41 = v39;
+        *&v41[4] = 1024;
+        *&v41[6] = BYTE1(v39);
+        v42 = 1024;
+        v43 = BYTE2(v39);
+        v44 = 1024;
+        v45 = BYTE3(v39);
+        v46 = 1024;
+        v47 = BYTE4(v39);
+        v48 = 1024;
+        v49 = BYTE5(v39);
+        v50 = 1024;
+        v51 = BYTE6(v39);
+        _os_log_impl(&dword_241BC5000, v17, OS_LOG_TYPE_DEFAULT, "Prox Card Status: Set: Call Management Version: %d, [0] status: %u, endCall: %u, [1] End Call Status: %u, End Call Config: %u, Mute Call Status: %u, Mute Call Config: %u", buf, 0x2Cu);
       }
 
-      v14 = v30;
+      v24 = v39;
       if (feature)
       {
-        if (v30 != 1)
+        if (v39 != 1)
         {
-          v20 = sharedBluetoothManagerLogComponent();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+          v30 = sharedBluetoothManagerLogComponent(v22, v23);
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
           {
-            [(BluetoothDevice *)&v30 setProxCardShowedForFeature:v20 showed:v22, v23, v24, v25, v26, v27];
+            [(BluetoothDevice *)&v39 setProxCardShowedForFeature:v30 showed:v32, v33, v34, v35, v36, v37];
           }
 
-          goto LABEL_51;
+          return;
         }
 
         if (showedCopy)
         {
-          v14 = v30 + 1;
+          v24 = v39 + 1;
         }
 
-        BYTE5(v30) = v14;
-        v15 = sharedBluetoothManagerLogComponent();
-        if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        BYTE5(v39) = v24;
+        v25 = sharedBluetoothManagerLogComponent(v22, v23);
+        if (!os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
         {
 LABEL_50:
-          [(BluetoothDevice *)self setCallConfig:v30 | ((WORD2(v30) | (BYTE6(v30) << 16)) << 32)];
-          goto LABEL_51;
+          [(BluetoothDevice *)self setCallConfig:v39 | ((WORD2(v39) | (BYTE6(v39) << 16)) << 32)];
+          return;
         }
 
-        if (BYTE5(v30) == 2)
+        if (BYTE5(v39) == 2)
         {
-          v16 = "Set";
+          v26 = "Set";
         }
 
         else
         {
-          v16 = "Disabled";
+          v26 = "Disabled";
         }
 
         *buf = 136315138;
-        *v32 = v16;
-        v17 = "Prox Card Status: Mute Call: Set: Version: 1, Mute Call Status: %s";
+        *v41 = v26;
+        v27 = "Prox Card Status: Mute Call: Set: Version: 1, Mute Call Status: %s";
       }
 
-      else if (v30 == 1)
+      else if (v39 == 1)
       {
         if (showedCopy)
         {
-          v14 = v30 + 1;
+          v24 = v39 + 1;
         }
 
-        BYTE3(v30) = v14;
-        v15 = sharedBluetoothManagerLogComponent();
-        if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        BYTE3(v39) = v24;
+        v25 = sharedBluetoothManagerLogComponent(v22, v23);
+        if (!os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_50;
         }
 
-        if (BYTE3(v30) == 2)
+        if (BYTE3(v39) == 2)
         {
-          v28 = "Set";
+          v38 = "Set";
         }
 
         else
         {
-          v28 = "Disabled";
+          v38 = "Disabled";
         }
 
         *buf = 136315138;
-        *v32 = v28;
-        v17 = "Prox Card Status: End Call: Set: Version: 1, End Call Status: %s";
+        *v41 = v38;
+        v27 = "Prox Card Status: End Call: Set: Version: 1, End Call Status: %s";
       }
 
       else
       {
         if (showedCopy)
         {
-          v18 = 2;
+          v28 = 2;
         }
 
         else
         {
-          v18 = 1;
+          v28 = 1;
         }
 
-        BYTE1(v30) = v18;
-        v15 = sharedBluetoothManagerLogComponent();
-        if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        BYTE1(v39) = v28;
+        v25 = sharedBluetoothManagerLogComponent(v22, v23);
+        if (!os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_50;
         }
 
-        if (BYTE1(v30) == 2)
+        if (BYTE1(v39) == 2)
         {
-          v19 = "Set";
+          v29 = "Set";
         }
 
         else
         {
-          v19 = "Disabled";
+          v29 = "Disabled";
         }
 
         *buf = 136315138;
-        *v32 = v19;
-        v17 = "Prox Card Status: End Call: Set: Version: 0, End Call Status: %s";
+        *v41 = v29;
+        v27 = "Prox Card Status: End Call: Set: Version: 0, End Call Status: %s";
       }
 
-      _os_log_impl(&dword_241BC5000, v15, OS_LOG_TYPE_DEFAULT, v17, buf, 0xCu);
+      _os_log_impl(&dword_241BC5000, v25, OS_LOG_TYPE_DEFAULT, v27, buf, 0xCu);
       goto LABEL_50;
     }
 
-    v30 = 0;
+    v39 = 0;
     [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
     [(BluetoothDevice *)self device];
-    if (BTAccessoryManagerGetFeatureProxCardStatus())
+    FeatureProxCardStatus = BTAccessoryManagerGetFeatureProxCardStatus();
+    if (FeatureProxCardStatus)
     {
-      v9 = sharedBluetoothManagerLogComponent();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v15 = sharedBluetoothManagerLogComponent(FeatureProxCardStatus, v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         [BluetoothDevice setProxCardShowedForFeature:showed:];
       }
@@ -3540,22 +3416,23 @@ LABEL_50:
     {
       if (feature == 2 && showedCopy)
       {
-        v30 |= 3uLL;
-        v12 = sharedBluetoothManagerLogComponent();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+        v39 |= 3uLL;
+        v18 = sharedBluetoothManagerLogComponent(FeatureProxCardStatus, v14);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315138;
-          *v32 = "Set";
-          _os_log_impl(&dword_241BC5000, v12, OS_LOG_TYPE_DEFAULT, "Prox Card Status: Adaptive Controls: Set: Status: %s", buf, 0xCu);
+          *v41 = "Set";
+          _os_log_impl(&dword_241BC5000, v18, OS_LOG_TYPE_DEFAULT, "Prox Card Status: Adaptive Controls: Set: Status: %s", buf, 0xCu);
         }
       }
 
       [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
       [(BluetoothDevice *)self device];
-      if (BTAccessoryManagerSetFeatureProxCardStatus())
+      v19 = BTAccessoryManagerSetFeatureProxCardStatus();
+      if (v19)
       {
-        v13 = sharedBluetoothManagerLogComponent();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        v21 = sharedBluetoothManagerLogComponent(v19, v20);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
           [BluetoothDevice setProxCardShowedForFeature:showed:];
         }
@@ -3565,145 +3442,140 @@ LABEL_50:
 
   else
   {
-    v8 = sharedBluetoothManagerLogComponent();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v12 = sharedBluetoothManagerLogComponent(v7, v8);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [BluetoothDevice setProxCardShowedForFeature:showed:];
     }
   }
-
-LABEL_51:
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)hearingAidEnrolled
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
   [(BluetoothDevice *)self device];
   HeadphoneFeatureValue = BTAccessoryManagerGetHeadphoneFeatureValue();
-  v4 = sharedBluetoothManagerLogComponent();
-  v5 = v4;
-  if (HeadphoneFeatureValue)
+  v4 = HeadphoneFeatureValue;
+  v6 = sharedBluetoothManagerLogComponent(HeadphoneFeatureValue, v5);
+  v7 = v6;
+  if (v4)
   {
-    v6 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
-    if (v6)
+    v8 = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
+    if (v8)
     {
       [BluetoothDevice hearingAidEnrolled];
-      LOBYTE(v6) = 0;
+      LOBYTE(v8) = 0;
     }
   }
 
   else
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109376;
-      v10 = 0;
-      v11 = 1024;
-      v12 = 0;
-      _os_log_impl(&dword_241BC5000, v5, OS_LOG_TYPE_DEFAULT, "Hearing Aid: Result: %d, Get Enrolled:  %u", buf, 0xEu);
+      v11 = 0;
+      v12 = 1024;
+      v13 = 0;
+      _os_log_impl(&dword_241BC5000, v7, OS_LOG_TYPE_DEFAULT, "Hearing Aid: Result: %d, Get Enrolled:  %u", buf, 0xEu);
     }
 
-    LOBYTE(v6) = 0;
+    LOBYTE(v8) = 0;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-  return v6;
+  return v8;
 }
 
 - (void)setHearingAidEnrolled:(BOOL)enrolled
 {
   enrolledCopy = enrolled;
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
   [(BluetoothDevice *)self device];
   v5 = BTAccessoryManagerSetHeadphoneFeatureValue();
-  v6 = sharedBluetoothManagerLogComponent();
-  v7 = v6;
-  if (v5)
+  v6 = v5;
+  v8 = sharedBluetoothManagerLogComponent(v5, v7);
+  v9 = v8;
+  if (v6)
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [BluetoothDevice setHearingAidEnrolled:];
     }
   }
 
-  else if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v9[0] = 67109376;
-    v9[1] = 0;
-    v10 = 1024;
-    v11 = enrolledCopy;
-    _os_log_impl(&dword_241BC5000, v7, OS_LOG_TYPE_DEFAULT, "Hearing Aid: Result: %d, Set Enrolled:  %u", v9, 0xEu);
+    v10[0] = 67109376;
+    v10[1] = 0;
+    v11 = 1024;
+    v12 = enrolledCopy;
+    _os_log_impl(&dword_241BC5000, v9, OS_LOG_TYPE_DEFAULT, "Hearing Aid: Result: %d, Set Enrolled:  %u", v10, 0xEu);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)hearingAidEnabled
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
   [(BluetoothDevice *)self device];
   HeadphoneFeatureValue = BTAccessoryManagerGetHeadphoneFeatureValue();
-  v4 = sharedBluetoothManagerLogComponent();
-  v5 = v4;
-  if (HeadphoneFeatureValue)
+  v4 = HeadphoneFeatureValue;
+  v6 = sharedBluetoothManagerLogComponent(HeadphoneFeatureValue, v5);
+  v7 = v6;
+  if (v4)
   {
-    v6 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
-    if (v6)
+    v8 = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
+    if (v8)
     {
       [BluetoothDevice hearingAidEnabled];
-      LOBYTE(v6) = 0;
+      LOBYTE(v8) = 0;
     }
   }
 
   else
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109376;
-      v10 = 0;
-      v11 = 1024;
-      v12 = 0;
-      _os_log_impl(&dword_241BC5000, v5, OS_LOG_TYPE_DEFAULT, "Hearing Aid: Result: %d, Get Enabled:  %u", buf, 0xEu);
+      v11 = 0;
+      v12 = 1024;
+      v13 = 0;
+      _os_log_impl(&dword_241BC5000, v7, OS_LOG_TYPE_DEFAULT, "Hearing Aid: Result: %d, Get Enabled:  %u", buf, 0xEu);
     }
 
-    LOBYTE(v6) = 0;
+    LOBYTE(v8) = 0;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-  return v6;
+  return v8;
 }
 
 - (void)setHearingAidEnabled:(BOOL)enabled
 {
   enabledCopy = enabled;
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   [+[BluetoothManager sharedInstance](BluetoothManager _accessoryManager];
   [(BluetoothDevice *)self device];
   v5 = BTAccessoryManagerSetHeadphoneFeatureValue();
-  v6 = sharedBluetoothManagerLogComponent();
-  v7 = v6;
-  if (v5)
+  v6 = v5;
+  v8 = sharedBluetoothManagerLogComponent(v5, v7);
+  v9 = v8;
+  if (v6)
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [BluetoothDevice setHearingAidEnabled:];
     }
   }
 
-  else if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v9[0] = 67109376;
-    v9[1] = 0;
-    v10 = 1024;
-    v11 = enabledCopy;
-    _os_log_impl(&dword_241BC5000, v7, OS_LOG_TYPE_DEFAULT, "Hearing Aid: Result: %d, Set Enabled:  %u", v9, 0xEu);
+    v10[0] = 67109376;
+    v10[1] = 0;
+    v11 = 1024;
+    v12 = enabledCopy;
+    _os_log_impl(&dword_241BC5000, v9, OS_LOG_TYPE_DEFAULT, "Hearing Aid: Result: %d, Set Enabled:  %u", v10, 0xEu);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)batteryStatus:.cold.1()
@@ -3713,503 +3585,28 @@ LABEL_51:
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-- (void)setIsHidden:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Failed to set isHidden : %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)inEarDetectEnabled
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Failed to get inEar detect enabled : %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setInEarDetectEnabled:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Failed to set inEar detect enabled : %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setSpatialAudioAllowed:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Failed to set SpatialAudioAllowed : %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)spatialAudioAllowed
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Failed to get Spatial Allowed : %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setSpatialAudioMode:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Failed to set SpatialAudioMode : %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)spatialAudioMode
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Failed to get Spatial mode : %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)headTrackingAvailable
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Conversation Detect: Failed to get mode - %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setSmartRouteMode:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Failed to set smartRouteMode : %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)smartRouteMode
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Failed to get Smart Routing mode : %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)inEarStatusPrimary:secondary:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Failed to get inEarStatus : %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)micMode
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Failed to get mic mode : %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setMicMode:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Failed to set mic mode : %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)doubleTapAction
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Failed to get doubleTap action : %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setDoubleTapAction:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Failed to set doubleTap action : %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)doubleTapCapability
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Failed to get doubleTap capabilty : %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)featureCapability:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  v4 = 1024;
-  v5 = v0;
-  _os_log_error_impl(&dword_241BC5000, v1, OS_LOG_TYPE_ERROR, "Failed to get %d capability : %d", v3, 0xEu);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)doubleTapActionEx:rightAction:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Failed to get doubleTapEx action : %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setDoubleTapActionEx:rightAction:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Failed to set doubleTapEx action : %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)listeningMode
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Failed to get listening mode : %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setListeningMode:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Failed to set listening mode : %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setHeartRateMonitorEnabled:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Failed to set heart rate monitor state : %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)getHeartRateMonitorEnabled
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Failed to get heart rate monitor state : %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)listeningModeConfigs
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Failed to get listening mode configs : %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setListeningModeConfigs:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Failed to set listening mode configs : %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)singleClickMode
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Failed to get single click mode : %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setSingleClickMode:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Failed to set single click mode : %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)doubleClickMode
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Failed to get double click mode : %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setDoubleClickMode:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Failed to set double click mode : %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)clickHoldModes:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Failed to get click hold mode : %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setClickHoldMode:rightMode:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Failed to set click hold mode : %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)crownRotationDirection
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Failed to get crown rotation dir : %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setCrownRotationDirection:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Failed to set crown rotation dir : %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)chimeVolume
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Failed to get chime volume : %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setChimeVolume:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Failed to set chime volume : %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)autoAnswerMode
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Failed to get auto answer mode : %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setAutoAnswerMode:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Failed to set auto answer mode : %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)accessorySettingFeatureBitMask
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Error in retrieving BTAccessorySettings Feature bitmask : %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)pairedDeviceNameUpdated
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
   v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)getAACPCapabilityInteger:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "BTAccessoryManagerGetAACPCapabilityInteger error %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = 1024;
+  v4 = v0;
+  _os_log_error_impl(&dword_241BC5000, v1, OS_LOG_TYPE_ERROR, "Failed to get %d capability : %d", v2, 0xEu);
 }
 
 - (void)setServiceSetting:(void *)a1 key:(NSObject *)a2 value:.cold.1(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v4 = 138412290;
-  v5 = [a1 name];
-  _os_log_error_impl(&dword_241BC5000, a2, OS_LOG_TYPE_ERROR, "Failed to set service setting for device %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-- (void)getBehaviorForHIDDevice
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "BTM : Failed to get HID device behavior with error: %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)getStereoHFPSupport
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Failed to get Accessory support Head Tracked FT : %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)getDeviceSoundProfileSupport
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Failed to get Accessory support for Spatial Profile: : %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)getDeviceSoundProfileAllowed
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Failed to get Accessory Allowed for Spatial Profile: %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)getSpatialAudioPlatformSupport
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Failed to get Platform Spatial Audio Support : %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)gyroInformation
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "gyroInformation - Failed to get gyro information. result: %u", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)isGenuineAirPods
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Failed to get Is Genuine AirPods : %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)getCallManagementConfig
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Failed to get call managment configuration : %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setCallConfig:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Failed to set end call config : %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)getDeviceAdaptiveVolumeMode
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Adaptive Volume: Failed to get mode - %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setDeviceAdaptiveVolumeMode:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Adaptive Volume: Failed to set mode : %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)getAdaptiveVolumeSupport
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Adaptive Volume: Failed to get support - %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)getAutoANCSupport
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "AutoANC: Failed to get support - %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)getDeviceConversationDetect
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Conversation Detect: Failed to get mode - %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setDeviceConversationDetect:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Conversation Detect: Failed to set mode - %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)getConversationDetectSupport
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Conversation Detect: Failed to get support - %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)getSSLSupport
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "SSL: Failed to get support - %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)getSSLMode
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "SSL: Failed to get mode - %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setSSLMode:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "SSL: Failed to set mode - %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)getWirelessSharingSpatialSupport
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Failed spatial support in WS : %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = [a1 name];
+  _os_log_error_impl(&dword_241BC5000, a2, OS_LOG_TYPE_ERROR, "Failed to set service setting for device %@", &v3, 0xCu);
 }
 
 - (void)isGuestPairingMode
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Guest Pairing: Failed to get mode, result: %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_1();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
 - (void)setGuestPairingMode:.cold.1()
@@ -4217,14 +3614,6 @@ LABEL_51:
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-- (void)setGuestPairingMode:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Guest Pairing: Failed to set mode, result: %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)isProxCardSupportedForFeature:.cold.1()
@@ -4241,27 +3630,11 @@ LABEL_51:
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-- (void)isProxCardSupportedForFeature:.cold.4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Prox Card Status: Mute Call: Support: Failed to get Call Management Status, result: %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)isProxCardShowedForFeature:.cold.1()
 {
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-- (void)isProxCardShowedForFeature:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Prox Card Status: Showed: Failed to get Prox Card Status, result: %d, Return as Showed", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setProxCardShowedForFeature:showed:.cold.1()
@@ -4271,84 +3644,25 @@ LABEL_51:
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-- (void)setProxCardShowedForFeature:showed:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Prox Card Status: Set: Failed to get Prox Card Status, result: %d, Return", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setProxCardShowedForFeature:showed:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Prox Card Status: Failed to Set Prox Card Status, result: %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setProxCardShowedForFeature:showed:.cold.4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Prox Card Status: Set: Failed to set Call Management Status, result: %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)setProxCardShowedForFeature:(uint64_t)a3 showed:(uint64_t)a4 .cold.5(unsigned __int8 *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v8 = *a1;
-  OUTLINED_FUNCTION_0(&dword_241BC5000, a2, a3, "Prox Card Status: Mute Call: Set: Invalid Call Management Version: %u", a5, a6, a7, a8, 0);
-  v9 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = *a1;
+  OUTLINED_FUNCTION_0(&dword_241BC5000, a2, a3, "Prox Card Status: Mute Call: Set: Invalid Call Management Version: %u", a5, a6, a7, a8, v8);
 }
 
 - (void)setProxCardShowedForFeature:(uint64_t)a3 showed:(uint64_t)a4 .cold.6(unsigned __int8 *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v8 = *a1;
-  OUTLINED_FUNCTION_0(&dword_241BC5000, a2, a3, "Prox Card Status: Set: End Call: Invalid Call Management Version: %u", a5, a6, a7, a8, 0);
-  v9 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = *a1;
+  OUTLINED_FUNCTION_0(&dword_241BC5000, a2, a3, "Prox Card Status: Set: End Call: Invalid Call Management Version: %u", a5, a6, a7, a8, v8);
 }
 
 - (void)setProxCardShowedForFeature:(uint64_t)a3 showed:(uint64_t)a4 .cold.7(unsigned __int8 *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v8 = *a1;
-  OUTLINED_FUNCTION_0(&dword_241BC5000, a2, a3, "Prox Card Status: Set: Invalid Call Management Version: %u, Cannot Set", a5, a6, a7, a8, 0);
-  v9 = *MEMORY[0x277D85DE8];
-}
-
-- (void)hearingAidEnrolled
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Hearing Aid: Failed to get enrolled, result: %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setHearingAidEnrolled:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Hearing Aid: Failed to set enrolled, result: %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)hearingAidEnabled
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Hearing Aid: Failed to get enabled, result: %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setHearingAidEnabled:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_241BC5000, v0, v1, "Hearing Aid: Failed to set enabled, result: %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = *a1;
+  OUTLINED_FUNCTION_0(&dword_241BC5000, a2, a3, "Prox Card Status: Set: Invalid Call Management Version: %u, Cannot Set", a5, a6, a7, a8, v8);
 }
 
 @end

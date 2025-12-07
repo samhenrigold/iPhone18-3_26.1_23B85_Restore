@@ -147,7 +147,7 @@
 {
   v2 = sub_100041A74(self, 1);
 
-  return OrgApacheLuceneUtilBitUtil_zigZagDecodeWithLong_(v2);
+  return OrgApacheLuceneUtilBitUtil_zigZagDecodeWithLong_(v2, v3);
 }
 
 - (void)dealloc

@@ -13,9 +13,9 @@
 
 - (NFBugCapture)init
 {
-  v32.receiver = self;
-  v32.super_class = NFBugCapture;
-  v3 = [(NFBugCapture *)&v32 init];
+  v30.receiver = self;
+  v30.super_class = NFBugCapture;
+  v3 = [(NFBugCapture *)&v30 init];
   if (!v3)
   {
     goto LABEL_5;
@@ -24,12 +24,11 @@
   if (objc_opt_class())
   {
     sub_10027EA3C(v4);
-    v6 = *(v5 + 3912);
     if (objc_opt_class())
     {
-      v7 = objc_opt_class();
+      v5 = objc_opt_class();
       pendingRequest = v3->_pendingRequest;
-      v3->_lsApplicationWorkspace = v7;
+      v3->_lsApplicationWorkspace = v5;
       v3->_pendingRequest = 0;
 
       componentName = v3->_componentName;
@@ -38,11 +37,11 @@
       additionalInfo = v3->_additionalInfo;
       v3->_additionalInfo = 0;
 
-      v11 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-      v12 = dispatch_queue_attr_make_with_qos_class(v11, QOS_CLASS_UTILITY, 0);
-      v13 = dispatch_queue_create("com.apple.stockholm.BugCapture", v12);
+      v9 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+      v10 = dispatch_queue_attr_make_with_qos_class(v9, QOS_CLASS_UTILITY, 0);
+      v11 = dispatch_queue_create("com.apple.stockholm.BugCapture", v10);
       queue = v3->_queue;
-      v3->_queue = v13;
+      v3->_queue = v11;
 
       userDefaults = v3->_userDefaults;
       v3->_userDefaults = 0;
@@ -54,7 +53,7 @@
       v3->_subTypeContext = 0;
 
 LABEL_5:
-      v18 = v3;
+      v16 = v3;
       goto LABEL_16;
     }
   }
@@ -63,52 +62,52 @@ LABEL_5:
   Logger = NFLogGetLogger();
   if (Logger)
   {
-    v20 = Logger;
+    v18 = Logger;
     Class = object_getClass(v3);
     isMetaClass = class_isMetaClass(Class);
     ClassName = object_getClassName(v3);
     Name = sel_getName(a2);
-    v24 = 45;
+    v22 = 45;
     if (isMetaClass)
     {
-      v24 = 43;
+      v22 = 43;
     }
 
-    v20(3, "%c[%{public}s %{public}s]:%i Failed to get weak linked class", v24, ClassName, Name, 74);
+    v18(3, "%c[%{public}s %{public}s]:%i Failed to get weak linked class", v22, ClassName, Name, 74);
   }
 
   dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-  v25 = NFSharedLogGetLogger();
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+  v23 = NFSharedLogGetLogger();
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
   {
-    v26 = object_getClass(v3);
-    if (class_isMetaClass(v26))
+    v24 = object_getClass(v3);
+    if (class_isMetaClass(v24))
     {
-      v27 = 43;
+      v25 = 43;
     }
 
     else
     {
-      v27 = 45;
+      v25 = 45;
     }
 
-    v28 = object_getClassName(v3);
-    v29 = sel_getName(a2);
+    v26 = object_getClassName(v3);
+    v27 = sel_getName(a2);
     *buf = 67109890;
-    v34 = v27;
+    v32 = v25;
+    v33 = 2082;
+    v34 = v26;
     v35 = 2082;
-    v36 = v28;
-    v37 = 2082;
-    v38 = v29;
-    v39 = 1024;
-    v40 = 74;
-    _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to get weak linked class", buf, 0x22u);
+    v36 = v27;
+    v37 = 1024;
+    v38 = 74;
+    _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to get weak linked class", buf, 0x22u);
   }
 
-  v18 = 0;
+  v16 = 0;
 LABEL_16:
 
-  return v18;
+  return v16;
 }
 
 + (id)_getInstance
@@ -1427,65 +1426,65 @@ LABEL_24:
     }
 
     *buf = 67109890;
-    v95 = v24;
+    v93 = v24;
+    v94 = 2082;
+    v95 = object_getClassName(self);
     v96 = 2082;
-    v97 = object_getClassName(self);
-    v98 = 2082;
-    v99 = sel_getName(a2);
-    v100 = 1024;
-    v101 = 533;
+    v97 = sel_getName(a2);
+    v98 = 1024;
+    v99 = 533;
     _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i Requesting Auto Bug Capture!", buf, 0x22u);
   }
 
   if (!captureCopy)
   {
     dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v38 = NFLogGetLogger();
-    if (v38)
+    v36 = NFLogGetLogger();
+    if (v36)
     {
-      v39 = v38;
-      v40 = object_getClass(self);
-      v41 = class_isMetaClass(v40);
-      v42 = object_getClassName(self);
-      v76 = sel_getName(a2);
-      v43 = 45;
-      if (v41)
+      v37 = v36;
+      v38 = object_getClass(self);
+      v39 = class_isMetaClass(v38);
+      v40 = object_getClassName(self);
+      v74 = sel_getName(a2);
+      v41 = 45;
+      if (v39)
       {
-        v43 = 43;
+        v41 = 43;
       }
 
-      v39(3, "%c[%{public}s %{public}s]:%i Ignoring ABC callback with no error type.", v43, v42, v76, 536);
+      v37(3, "%c[%{public}s %{public}s]:%i Ignoring ABC callback with no error type.", v41, v40, v74, 536);
     }
 
     dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v44 = NFSharedLogGetLogger();
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+    v42 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
     {
-      v45 = object_getClass(self);
-      if (class_isMetaClass(v45))
+      v43 = object_getClass(self);
+      if (class_isMetaClass(v43))
       {
-        v46 = 43;
+        v44 = 43;
       }
 
       else
       {
-        v46 = 45;
+        v44 = 45;
       }
 
-      v47 = object_getClassName(self);
-      v48 = sel_getName(a2);
+      v45 = object_getClassName(self);
+      v46 = sel_getName(a2);
       *buf = 67109890;
-      v95 = v46;
+      v93 = v44;
+      v94 = 2082;
+      v95 = v45;
       v96 = 2082;
-      v97 = v47;
-      v98 = 2082;
-      v99 = v48;
-      v100 = 1024;
-      v101 = 536;
-      _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Ignoring ABC callback with no error type.", buf, 0x22u);
+      v97 = v46;
+      v98 = 1024;
+      v99 = 536;
+      _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Ignoring ABC callback with no error type.", buf, 0x22u);
     }
 
-    v30 = attachmentsCopy;
+    v28 = attachmentsCopy;
     if (!completionCopy)
     {
       goto LABEL_54;
@@ -1496,9 +1495,9 @@ LABEL_24:
     block[1] = 3221225472;
     block[2] = sub_10019B848;
     block[3] = &unk_100318A90;
-    v91 = completionCopy;
+    v89 = completionCopy;
     dispatch_async(queue, block);
-    v28 = v91;
+    v26 = v89;
 LABEL_53:
 
     goto LABEL_54;
@@ -1507,174 +1506,173 @@ LABEL_53:
   if (!typeCopy)
   {
     dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v50 = NFLogGetLogger();
-    if (v50)
+    v48 = NFLogGetLogger();
+    if (v48)
     {
-      v51 = v50;
-      v52 = object_getClass(self);
-      v53 = class_isMetaClass(v52);
-      v54 = object_getClassName(self);
-      v77 = sel_getName(a2);
-      v55 = 45;
-      if (v53)
+      v49 = v48;
+      v50 = object_getClass(self);
+      v51 = class_isMetaClass(v50);
+      v52 = object_getClassName(self);
+      v75 = sel_getName(a2);
+      v53 = 45;
+      if (v51)
       {
-        v55 = 43;
+        v53 = 43;
       }
 
-      v51(3, "%c[%{public}s %{public}s]:%i Ignoring ABC callback with no error subtype.", v55, v54, v77, 547);
+      v49(3, "%c[%{public}s %{public}s]:%i Ignoring ABC callback with no error subtype.", v53, v52, v75, 547);
     }
 
     dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v56 = NFSharedLogGetLogger();
-    if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+    v54 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
     {
-      v57 = object_getClass(self);
-      if (class_isMetaClass(v57))
+      v55 = object_getClass(self);
+      if (class_isMetaClass(v55))
       {
-        v58 = 43;
+        v56 = 43;
       }
 
       else
       {
-        v58 = 45;
+        v56 = 45;
       }
 
-      v59 = object_getClassName(self);
-      v60 = sel_getName(a2);
+      v57 = object_getClassName(self);
+      v58 = sel_getName(a2);
       *buf = 67109890;
-      v95 = v58;
+      v93 = v56;
+      v94 = 2082;
+      v95 = v57;
       v96 = 2082;
-      v97 = v59;
-      v98 = 2082;
-      v99 = v60;
-      v100 = 1024;
-      v101 = 547;
-      _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Ignoring ABC callback with no error subtype.", buf, 0x22u);
+      v97 = v58;
+      v98 = 1024;
+      v99 = 547;
+      _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Ignoring ABC callback with no error subtype.", buf, 0x22u);
     }
 
-    v30 = attachmentsCopy;
+    v28 = attachmentsCopy;
     if (!completionCopy)
     {
       goto LABEL_54;
     }
 
-    v61 = self->_queue;
-    v88[0] = _NSConcreteStackBlock;
-    v88[1] = 3221225472;
-    v88[2] = sub_10019B928;
-    v88[3] = &unk_100318A90;
-    v89 = completionCopy;
-    dispatch_async(v61, v88);
-    v28 = v89;
+    v59 = self->_queue;
+    v86[0] = _NSConcreteStackBlock;
+    v86[1] = 3221225472;
+    v86[2] = sub_10019B928;
+    v86[3] = &unk_100318A90;
+    v87 = completionCopy;
+    dispatch_async(v59, v86);
+    v26 = v87;
     goto LABEL_53;
   }
 
   if (!contextCopy)
   {
     dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v62 = NFLogGetLogger();
-    if (v62)
+    v60 = NFLogGetLogger();
+    if (v60)
     {
-      v63 = v62;
-      v64 = object_getClass(self);
-      v65 = class_isMetaClass(v64);
-      v66 = object_getClassName(self);
-      v78 = sel_getName(a2);
-      v67 = 45;
-      if (v65)
+      v61 = v60;
+      v62 = object_getClass(self);
+      v63 = class_isMetaClass(v62);
+      v64 = object_getClassName(self);
+      v76 = sel_getName(a2);
+      v65 = 45;
+      if (v63)
       {
-        v67 = 43;
+        v65 = 43;
       }
 
-      v63(3, "%c[%{public}s %{public}s]:%i Ignoring ABC callback with no error subtype context.", v67, v66, v78, 558);
+      v61(3, "%c[%{public}s %{public}s]:%i Ignoring ABC callback with no error subtype context.", v65, v64, v76, 558);
     }
 
     dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v68 = NFSharedLogGetLogger();
-    if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
+    v66 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
     {
-      v69 = object_getClass(self);
-      if (class_isMetaClass(v69))
+      v67 = object_getClass(self);
+      if (class_isMetaClass(v67))
       {
-        v70 = 43;
+        v68 = 43;
       }
 
       else
       {
-        v70 = 45;
+        v68 = 45;
       }
 
-      v71 = object_getClassName(self);
-      v72 = sel_getName(a2);
+      v69 = object_getClassName(self);
+      v70 = sel_getName(a2);
       *buf = 67109890;
-      v95 = v70;
+      v93 = v68;
+      v94 = 2082;
+      v95 = v69;
       v96 = 2082;
-      v97 = v71;
-      v98 = 2082;
-      v99 = v72;
-      v100 = 1024;
-      v101 = 558;
-      _os_log_impl(&_mh_execute_header, v68, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Ignoring ABC callback with no error subtype context.", buf, 0x22u);
+      v97 = v70;
+      v98 = 1024;
+      v99 = 558;
+      _os_log_impl(&_mh_execute_header, v66, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Ignoring ABC callback with no error subtype context.", buf, 0x22u);
     }
 
-    v30 = attachmentsCopy;
+    v28 = attachmentsCopy;
     if (!completionCopy)
     {
       goto LABEL_54;
     }
 
-    v73 = self->_queue;
-    v86[0] = _NSConcreteStackBlock;
-    v86[1] = 3221225472;
-    v86[2] = sub_10019BA08;
-    v86[3] = &unk_100318A90;
-    v87 = completionCopy;
-    dispatch_async(v73, v86);
-    v28 = v87;
+    v71 = self->_queue;
+    v84[0] = _NSConcreteStackBlock;
+    v84[1] = 3221225472;
+    v84[2] = sub_10019BA08;
+    v84[3] = &unk_100318A90;
+    v85 = completionCopy;
+    dispatch_async(v71, v84);
+    v26 = v85;
     goto LABEL_53;
   }
 
   if ([(NFBugCapture *)self _checkRateLimitForType:captureCopy subType:typeCopy])
   {
     sub_10027EA3C(v25);
-    v27 = *(v26 + 3912);
-    v28 = [objc_alloc(objc_opt_class()) initWithQueue:self->_queue];
-    v29 = [v28 signatureWithDomain:@"NFC/SE" type:captureCopy subType:typeCopy subtypeContext:contextCopy detectedProcess:@"Stockholm" triggerThresholdValues:0];
-    v30 = attachmentsCopy;
+    v26 = [objc_alloc(objc_opt_class()) initWithQueue:self->_queue];
+    v27 = [v26 signatureWithDomain:@"NFC/SE" type:captureCopy subType:typeCopy subtypeContext:contextCopy detectedProcess:@"Stockholm" triggerThresholdValues:0];
+    v28 = attachmentsCopy;
     [attachmentsCopy count];
-    v31 = 0;
-    v34 = sub_10027EC58(v32);
-    if (*(v35 + 3920) && v33)
+    v29 = 0;
+    v32 = sub_10027EC58(v30);
+    if (*(v33 + 3920) && v31)
     {
-      v36 = sub_10027EC58(v34);
-      v92 = **(v37 + 3920);
-      v93 = attachmentsCopy;
-      v31 = [NSDictionary dictionaryWithObjects:&v93 forKeys:&v92 count:1, v36];
+      v34 = sub_10027EC58(v32);
+      v90 = **(v35 + 3920);
+      v91 = attachmentsCopy;
+      v29 = [NSDictionary dictionaryWithObjects:&v91 forKeys:&v90 count:1, v34];
     }
 
-    v81[0] = _NSConcreteStackBlock;
-    v81[1] = 3221225472;
-    v81[2] = sub_10019BBC8;
-    v81[3] = &unk_10031ADF0;
-    v81[4] = self;
-    v83 = a2;
-    v82 = completionCopy;
-    [v28 snapshotWithSignature:v29 delay:0 events:v31 payload:0 actions:v81 reply:0.0];
+    v79[0] = _NSConcreteStackBlock;
+    v79[1] = 3221225472;
+    v79[2] = sub_10019BBC8;
+    v79[3] = &unk_10031ADF0;
+    v79[4] = self;
+    v81 = a2;
+    v80 = completionCopy;
+    [v26 snapshotWithSignature:v27 delay:0 events:v29 payload:0 actions:v79 reply:0.0];
 
     goto LABEL_53;
   }
 
-  v30 = attachmentsCopy;
+  v28 = attachmentsCopy;
   if (completionCopy)
   {
-    v74 = self->_queue;
-    v84[0] = _NSConcreteStackBlock;
-    v84[1] = 3221225472;
-    v84[2] = sub_10019BAE8;
-    v84[3] = &unk_100318A90;
-    v85 = completionCopy;
-    dispatch_async(v74, v84);
-    v28 = v85;
+    v72 = self->_queue;
+    v82[0] = _NSConcreteStackBlock;
+    v82[1] = 3221225472;
+    v82[2] = sub_10019BAE8;
+    v82[3] = &unk_100318A90;
+    v83 = completionCopy;
+    dispatch_async(v72, v82);
+    v26 = v83;
     goto LABEL_53;
   }
 

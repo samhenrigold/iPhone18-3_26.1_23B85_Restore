@@ -71,7 +71,7 @@
 
   if (taskCopy)
   {
-    [taskCopy ear_toString];
+    objc_msgSend_ear_toString(taskCopy);
   }
 
   else
@@ -127,7 +127,7 @@ LABEL_11:
   v5 = taskCopy;
   if (taskCopy)
   {
-    [taskCopy ear_toString];
+    objc_msgSend_ear_toString(taskCopy);
   }
 
   else

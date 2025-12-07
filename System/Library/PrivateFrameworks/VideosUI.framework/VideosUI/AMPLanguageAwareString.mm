@@ -56,9 +56,9 @@
 - (AMPLanguageAwareString)localizedLowercase
 {
   selfCopy = self;
-  v3 = LanguageAwareString.localizedLowercase.getter();
+  v5 = LanguageAwareString.localizedLowercase.getter(selfCopy, v3, v4);
 
-  return v3;
+  return v5;
 }
 
 - (void)setLocalizedLowercase:(id)lowercase
@@ -72,9 +72,9 @@
 - (AMPLanguageAwareString)localizedUppercase
 {
   selfCopy = self;
-  v3 = LanguageAwareString.localizedUppercase.getter();
+  v5 = LanguageAwareString.localizedUppercase.getter(selfCopy, v3, v4);
 
-  return v3;
+  return v5;
 }
 
 - (void)setLocalizedUppercase:(id)uppercase
@@ -88,9 +88,9 @@
 - (AMPLanguageAwareString)newlinesCollapsedToSpace
 {
   selfCopy = self;
-  v3 = LanguageAwareString.newlinesCollapsedToSpace.getter();
+  v5 = LanguageAwareString.newlinesCollapsedToSpace.getter(selfCopy, v3, v4);
 
-  return v3;
+  return v5;
 }
 
 - (void)setNewlinesCollapsedToSpace:(id)space

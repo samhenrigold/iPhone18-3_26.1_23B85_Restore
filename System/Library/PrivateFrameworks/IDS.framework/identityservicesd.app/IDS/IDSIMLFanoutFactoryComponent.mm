@@ -36,8 +36,8 @@
     v102 = 0u;
     v103 = 0u;
     v104 = 0u;
-    aggregatableMessages = [inputCopy aggregatableMessages];
-    v12 = [aggregatableMessages countByEnumeratingWithState:&v101 objects:v109 count:16];
+    v11 = objc_msgSend_aggregatableMessages(inputCopy);
+    v12 = [v11 countByEnumeratingWithState:&v101 objects:v109 count:16];
     if (v12)
     {
       v13 = v12;
@@ -48,7 +48,7 @@
         {
           if (*v102 != v14)
           {
-            objc_enumerationMutation(aggregatableMessages);
+            objc_enumerationMutation(v11);
           }
 
           v16 = *(*(&v101 + 1) + 8 * i);
@@ -69,27 +69,27 @@
           [v20 addObject:v16];
         }
 
-        v13 = [aggregatableMessages countByEnumeratingWithState:&v101 objects:v109 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v101 objects:v109 count:16];
       }
 
       while (v13);
     }
 
-    aggregatableMessages2 = [v10 arrayByAddingObjectsFromArray:v9];
+    v21 = [v10 arrayByAddingObjectsFromArray:v9];
 
     inputCopy = v83;
   }
 
   else
   {
-    aggregatableMessages2 = [inputCopy aggregatableMessages];
+    v21 = objc_msgSend_aggregatableMessages(inputCopy);
   }
 
   v99 = 0u;
   v100 = 0u;
   v97 = 0u;
   v98 = 0u;
-  obj = aggregatableMessages2;
+  obj = v21;
   v22 = [obj countByEnumeratingWithState:&v97 objects:v108 count:16];
   if (v22)
   {

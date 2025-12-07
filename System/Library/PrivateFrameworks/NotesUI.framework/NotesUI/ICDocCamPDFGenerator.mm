@@ -138,7 +138,7 @@ void __33__ICDocCamPDFGenerator_fileQueue__block_invoke()
   return v7;
 }
 
-uint64_t __48__ICDocCamPDFGenerator_folderPathForAttachment___block_invoke(uint64_t a1)
+void *__48__ICDocCamPDFGenerator_folderPathForAttachment___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) identifier];
   v3 = *(*(a1 + 40) + 8);
@@ -203,9 +203,10 @@ uint64_t __48__ICDocCamPDFGenerator_folderPathForAttachment___block_invoke(uint6
 
 uint64_t __52__ICDocCamPDFGenerator_versionPDFPathForAttachment___block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) title];
+  v2 = [*(a1 + 32) title];
+  *(*(*(a1 + 40) + 8) + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2);
 }
 
 + (void)createEmptyPDFFileAtURLIFNecessaryForAttachment:(id)attachment
@@ -641,7 +642,7 @@ uint64_t __126__ICDocCamPDFGenerator_generatePDFsIfNecessaryForGalleryAttachment
   return result;
 }
 
-unint64_t __126__ICDocCamPDFGenerator_generatePDFsIfNecessaryForGalleryAttachments_displayWindow_presentingViewController_completionHandler___block_invoke_2(uint64_t a1)
+void *__126__ICDocCamPDFGenerator_generatePDFsIfNecessaryForGalleryAttachments_displayWindow_presentingViewController_completionHandler___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) paperPageCount];
   if (result <= 1)
@@ -1039,9 +1040,10 @@ uint64_t __79__ICDocCamPDFGenerator_blockingGeneratePDFURLForAttachment_withProg
   v5 = *(v4 + 40);
   *(v4 + 40) = v3;
 
-  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) title];
+  v6 = [*(a1 + 32) title];
+  *(*(*(a1 + 48) + 8) + 40) = v6;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v6);
 }
 
 void __79__ICDocCamPDFGenerator_blockingGeneratePDFURLForAttachment_withProgress_error___block_invoke_3(uint64_t a1)

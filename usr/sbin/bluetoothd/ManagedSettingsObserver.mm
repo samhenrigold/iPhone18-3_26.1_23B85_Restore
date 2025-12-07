@@ -10,18 +10,26 @@
 
 - (ManagedSettingsObserver)init
 {
-  v7.receiver = self;
-  v7.super_class = ManagedSettingsObserver;
-  v2 = [(ManagedSettingsObserver *)&v7 init];
-  if (v2 && _os_feature_enabled_impl() && sub_1005FCECC())
+  v11.receiver = self;
+  v11.super_class = ManagedSettingsObserver;
+  v2 = [(ManagedSettingsObserver *)&v11 init];
+  if (v2)
   {
-    v3 = sub_100017F4C();
-    v5[0] = _NSConcreteStackBlock;
-    v5[1] = 3221225472;
-    v5[2] = sub_1004A2334;
-    v5[3] = &unk_100ADF820;
-    v6 = v2;
-    sub_10000CA94(v3, v5);
+    v3 = _os_feature_enabled_impl();
+    if (v3)
+    {
+      v5 = sub_1005FCECC(v3, v4);
+      if (v5)
+      {
+        v7 = sub_100017F4C(v5, v6);
+        v9[0] = _NSConcreteStackBlock;
+        v9[1] = 3221225472;
+        v9[2] = sub_1004A2334;
+        v9[3] = &unk_100ADF820;
+        v10 = v2;
+        sub_10000CA94(v7, v9);
+      }
+    }
   }
 
   return v2;
@@ -37,10 +45,11 @@
 
 - (void)_fetchManagedSettings
 {
-  if (_os_feature_enabled_impl() && sub_1005FCECC())
+  v3 = _os_feature_enabled_impl();
+  if (v3 && sub_1005FCECC(v3, v4))
   {
-    v3 = objc_opt_new();
-    audioAccessory = [v3 audioAccessory];
+    v5 = objc_opt_new();
+    audioAccessory = [v5 audioAccessory];
     temporaryPairingConfiguration = [audioAccessory temporaryPairingConfiguration];
     unpairingTime = [temporaryPairingConfiguration unpairingTime];
     hour = [unpairingTime hour];
@@ -48,19 +57,19 @@
     if ((hour != 0) != [(ManagedSettingsObserver *)self allowTemporaryPairingOfAppleAudioAccessories])
     {
       [(ManagedSettingsObserver *)self setAllowTemporaryPairingOfAppleAudioAccessories:hour != 0];
-      v8 = qword_100BCE8D8;
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v10 = qword_100BCE8D8;
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         allowTemporaryPairingOfAppleAudioAccessories = [(ManagedSettingsObserver *)self allowTemporaryPairingOfAppleAudioAccessories];
-        v10 = "FALSE";
+        v12 = "FALSE";
         if (allowTemporaryPairingOfAppleAudioAccessories)
         {
-          v10 = "TRUE";
+          v12 = "TRUE";
         }
 
-        v11 = 136315138;
-        v12 = v10;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "allowTemporaryPairingOfAppleAudioAccessories set to %s", &v11, 0xCu);
+        v13 = 136315138;
+        v14 = v12;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "allowTemporaryPairingOfAppleAudioAccessories set to %s", &v13, 0xCu);
       }
     }
   }

@@ -1,32 +1,3 @@
-uint64_t SIValueSet<unsigned long long>::_SIValueSetInnerIterate(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6)
-{
-  v11 = 0;
-  v12 = (a3 + 1);
-  v13 = 64 - 4 * (a3 + 1);
-  do
-  {
-    result = *(a1 + 8 * v11);
-    if (result)
-    {
-      v15 = v11 << v13;
-      if (result)
-      {
-        result = SIValueSet<unsigned long long>::_SIValueSetInnerIterate(result & 0xFFFFFFFFFFFFFFFELL, v15 | a2, v12, a4, a5, a6);
-      }
-
-      else
-      {
-        result = (*(*result + 40))(result, a6, v15 | a2, a4, a5);
-      }
-    }
-
-    ++v11;
-  }
-
-  while (v11 != 16);
-  return result;
-}
-
 uint64_t SIValueSet<unsigned long long>::_SIValueSetInnerEmpty(uint64_t a1, int a2)
 {
   v4 = 0;
@@ -37,7 +8,7 @@ uint64_t SIValueSet<unsigned long long>::_SIValueSetInnerEmpty(uint64_t a1, int 
     {
       if (v5)
       {
-        result = SIValueSet<unsigned long long>::_SIValueSetInnerEmpty(v5 & 0xFFFFFFFFFFFFFFFELL, (a2 + 1));
+        result = SIValueSet<unsigned long long>::_SIValueSetInnerEmpty(v5 & 0xFFFFFFFFFFFFFFFELL, a2 + 1);
       }
 
       else
@@ -399,7 +370,7 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_231B370FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, char a40, uint64_t a41, uint64_t a42, uint64_t a43, char a44, uint64_t a45, uint64_t a46, uint64_t a47, char a48, uint64_t a49, uint64_t a50, uint64_t a51, id location)
+void sub_231B370FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, id location)
 {
   objc_destroyWeak(&a39);
   _Block_object_dispose(&a40, 8);
@@ -410,17 +381,24 @@ void sub_231B370FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_231B37F30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_231B37F30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v12 - 176), 8);
+  _Block_object_dispose((v19 - 176), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_231B3B310(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_231B386CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
-  va_start(va, a15);
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_231B3B310(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
+{
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -432,11 +410,12 @@ void OUTLINED_FUNCTION_2_0(void *a1, uint64_t a2, os_log_t log, const char *a4, 
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-void sub_231B3C4BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43)
+void sub_231B3C4BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, ...)
 {
-  _Block_object_dispose(&a43, 8);
-  _Block_object_dispose((v43 - 256), 8);
-  _Block_object_dispose((v43 - 208), 8);
+  va_start(va, a42);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v42 - 256), 8);
+  _Block_object_dispose((v42 - 208), 8);
   _Unwind_Resume(a1);
 }
 
@@ -447,6 +426,13 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
+void sub_231B3CDCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t __Block_byref_object_copy__1(uint64_t result, uint64_t a2)
 {
   *(result + 40) = *(a2 + 40);
@@ -454,10 +440,11 @@ uint64_t __Block_byref_object_copy__1(uint64_t result, uint64_t a2)
   return result;
 }
 
-void OUTLINED_FUNCTION_1_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 void buildJournalStatsByBundle(void *a1, void *a2, void *a3, void *a4, void *a5)
@@ -535,6 +522,13 @@ void SDTransactionDone(void *a1)
   }
 }
 
+void sub_231B46910(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t __Block_byref_object_copy__2(uint64_t result, uint64_t a2)
 {
   *(result + 40) = *(a2 + 40);
@@ -542,10 +536,10 @@ uint64_t __Block_byref_object_copy__2(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t bundleIdHash(uint64_t a1, int a2)
+uint64_t bundleIdHash(uint64_t a1, unsigned int a2)
 {
   v2 = -1759636613;
-  if (a2 >= 0)
+  if ((a2 & 0x80000000) == 0)
   {
     v3 = a2;
   }
@@ -556,7 +550,7 @@ uint64_t bundleIdHash(uint64_t a1, int a2)
   }
 
   v4 = (a1 + (v3 & 0xFFFFFFFC));
-  if ((a2 + 3) >= 7)
+  if (a2 + 3 >= 7)
   {
     v7 = -(v3 >> 2);
     v8 = -1789642873;
@@ -585,7 +579,7 @@ uint64_t bundleIdHash(uint64_t a1, int a2)
   }
 
   v13 = 0;
-  if ((a2 & 3u) > 1)
+  if ((a2 & 3) > 1)
   {
     if ((a2 & 3) != 2)
     {
@@ -611,16 +605,16 @@ LABEL_17:
   return v16 & 0x7FFFFFFF ^ HIWORD(v16);
 }
 
-void sub_231B47C30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_231B47C30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_231B4A554(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_231B4A554(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -649,8 +643,6 @@ void OUTLINED_FUNCTION_19(void *a1, uint64_t a2, uint64_t a3, const char *a4, ui
 
 id OUTLINED_FUNCTION_20()
 {
-  v5 = *(v0 + 120);
-  v4 = *(v0 + 104);
   v2 = *(v0 + 48);
 
   return v2;
@@ -697,22 +689,15 @@ BOOL OUTLINED_FUNCTION_28(NSObject *a1)
   return os_log_type_enabled(a1, OS_LOG_TYPE_ERROR);
 }
 
-uint64_t OUTLINED_FUNCTION_31@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *(result + 104);
-  return result;
-}
-
 BOOL OUTLINED_FUNCTION_34(NSObject *a1)
 {
 
   return os_log_type_enabled(a1, OS_LOG_TYPE_DEBUG);
 }
 
-void EmbeddingsThrottlingSwitch(int a1)
+void EmbeddingsThrottlingSwitch(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (getEmbeddingsStatus_token != -1)
   {
     EmbeddingsThrottlingSwitch_cold_1();
@@ -744,25 +729,24 @@ void EmbeddingsThrottlingSwitch(int a1)
         if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
         {
           *buf = 67109120;
-          v10 = 2;
+          v9 = 2;
           _os_log_impl(&dword_231B25000, v7, OS_LOG_TYPE_INFO, "### changing throttle state for embeddings event %d", buf, 8u);
         }
       }
 
-      ThrottlingChanged(2u, a1);
+      ThrottlingChanged(2, a1);
     }
 
     --v6;
   }
 
   while (v6);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void ThrottlingChanged(unsigned int a1, int a2)
+void ThrottlingChanged(uint64_t a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v2 = a2;
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a1 & 0xFFFFFFFE;
   CurrentLoggingLevel = SKGLogGetCurrentLoggingLevel();
@@ -774,9 +758,9 @@ void ThrottlingChanged(unsigned int a1, int a2)
       if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
         v7 = gNames[v3];
-        v11 = 138412290;
-        v12 = v7;
-        _os_log_impl(&dword_231B25000, v6, OS_LOG_TYPE_INFO, "### task (always allowed) %@", &v11, 0xCu);
+        v10 = 138412290;
+        v11 = v7;
+        _os_log_impl(&dword_231B25000, v6, OS_LOG_TYPE_INFO, "### task (always allowed) %@", &v10, 0xCu);
       }
     }
   }
@@ -789,23 +773,21 @@ void ThrottlingChanged(unsigned int a1, int a2)
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         v9 = gNames[v3];
-        v11 = 138412546;
-        v12 = v9;
-        v13 = 1024;
-        v14 = a2;
-        _os_log_impl(&dword_231B25000, v8, OS_LOG_TYPE_INFO, "### task %@ permitted: %{BOOL}d", &v11, 0x12u);
+        v10 = 138412546;
+        v11 = v9;
+        v12 = 1024;
+        v13 = v2;
+        _os_log_impl(&dword_231B25000, v8, OS_LOG_TYPE_INFO, "### task %@ permitted: %{BOOL}d", &v10, 0x12u);
       }
     }
 
-    atomic_store(a2, &sAllowed[v3]);
+    atomic_store(v2, &sAllowed[v3]);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
-void KeyphrasesThrottlingSwitch(int a1)
+void KeyphrasesThrottlingSwitch(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = +[SKGActivityJournal sharedJournal];
   v3 = v2;
   if (a1)
@@ -831,24 +813,23 @@ void KeyphrasesThrottlingSwitch(int a1)
         if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
         {
           *buf = 67109120;
-          v9 = 3;
+          v8 = 3;
           _os_log_impl(&dword_231B25000, v6, OS_LOG_TYPE_INFO, "### changing throttle state for keyphrases event %d", buf, 8u);
         }
       }
 
-      ThrottlingChanged(3u, a1);
+      ThrottlingChanged(3, a1);
     }
 
     --v5;
   }
 
   while (v5);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-void PreExtractionThrottlingSwitch(int a1)
+void PreExtractionThrottlingSwitch(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = +[SKGActivityJournal sharedJournal];
   v3 = v2;
   if (a1)
@@ -863,9 +844,10 @@ void PreExtractionThrottlingSwitch(int a1)
 
   [v2 addEventWithType:v4 params:MEMORY[0x277CBEC10]];
 
-  for (i = 0; i != 10; ++i)
+  v5 = 0;
+  do
   {
-    if ((i & 0xE) == 6)
+    if ((v5 & 0xE) == 6)
     {
       if (SKGLogGetCurrentLoggingLevel() >= 5)
       {
@@ -873,21 +855,23 @@ void PreExtractionThrottlingSwitch(int a1)
         if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
         {
           *buf = 67109120;
-          v9 = i;
+          v8 = v5;
           _os_log_impl(&dword_231B25000, v6, OS_LOG_TYPE_INFO, "### changing throttle state for pre-extraction event %d", buf, 8u);
         }
       }
 
-      ThrottlingChanged(i, a1);
+      ThrottlingChanged(v5, a1);
     }
+
+    v5 = (v5 + 1);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
+  while (v5 != 10);
 }
 
-void PriorityThrottlingSwitch(int a1)
+void PriorityThrottlingSwitch(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = +[SKGActivityJournal sharedJournal];
   v3 = v2;
   if (a1)
@@ -913,19 +897,18 @@ void PriorityThrottlingSwitch(int a1)
         if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
         {
           *buf = 67109120;
-          v9 = 1;
+          v8 = 1;
           _os_log_impl(&dword_231B25000, v6, OS_LOG_TYPE_INFO, "### changing throttle state for priority event %d", buf, 8u);
         }
       }
 
-      ThrottlingChanged(1u, a1);
+      ThrottlingChanged(1, a1);
     }
 
     --v5;
   }
 
   while (v5);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void sub_231B4CB2C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
@@ -935,11 +918,12 @@ void sub_231B4CB2C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void completePriorityTask(uint64_t a1, char a2)
+void completePriorityTask(uint64_t a1, uint64_t a2)
 {
   v13 = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
+    v2 = a2;
     if (SKGLogGetCurrentLoggingLevel() >= 5)
     {
       v4 = SKGLogUpdaterInit();
@@ -953,164 +937,156 @@ void completePriorityTask(uint64_t a1, char a2)
     }
 
     PriorityThrottlingSwitch(0);
-    v6 = getPriorityWorkGroup();
-    v7 = *(a1 + 16);
+    v7 = getPriorityWorkGroup(v6);
+    v8 = *(a1 + 16);
     v9[0] = MEMORY[0x277D85DD0];
     v9[1] = 3221225472;
     v9[2] = __completePriorityTask_block_invoke;
     v9[3] = &__block_descriptor_41_e5_v8__0l;
     v9[4] = a1;
-    v10 = a2;
-    dispatch_group_notify(v6, v7, v9);
+    v10 = v2;
+    dispatch_group_notify(v7, v8, v9);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void completeEmbeddingsTask(uint64_t a1)
+void completeEmbeddingsTask(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
     if (SKGLogGetCurrentLoggingLevel() >= 5)
     {
-      v2 = SKGLogUpdaterInit();
-      if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+      v3 = SKGLogUpdaterInit();
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
       {
-        v3 = *(a1 + 32);
+        v4 = *(a1 + 32);
         *buf = 138412290;
-        v9 = v3;
-        _os_log_impl(&dword_231B25000, v2, OS_LOG_TYPE_INFO, "### deferring embeddings task early %@", buf, 0xCu);
+        v10 = v4;
+        _os_log_impl(&dword_231B25000, v3, OS_LOG_TYPE_INFO, "### deferring embeddings task early %@", buf, 0xCu);
       }
     }
 
     EmbeddingsThrottlingSwitch(0);
-    v4 = getEmbeddingsWorkGroup();
-    v5 = *(a1 + 16);
+    v6 = getEmbeddingsWorkGroup(v5);
+    v7 = *(a1 + 16);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __completeEmbeddingsTask_block_invoke;
     block[3] = &__block_descriptor_40_e5_v8__0l;
     block[4] = a1;
-    dispatch_group_notify(v4, v5, block);
+    dispatch_group_notify(v6, v7, block);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
-void completeKeyphrasesTask(uint64_t a1)
+void completeKeyphrasesTask(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
     if (SKGLogGetCurrentLoggingLevel() >= 5)
     {
-      v2 = SKGLogUpdaterInit();
-      if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+      v3 = SKGLogUpdaterInit();
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
       {
-        v3 = *(a1 + 32);
+        v4 = *(a1 + 32);
         *buf = 138412290;
-        v9 = v3;
-        _os_log_impl(&dword_231B25000, v2, OS_LOG_TYPE_INFO, "### deferring keyphrases task early %@", buf, 0xCu);
+        v10 = v4;
+        _os_log_impl(&dword_231B25000, v3, OS_LOG_TYPE_INFO, "### deferring keyphrases task early %@", buf, 0xCu);
       }
     }
 
     KeyphrasesThrottlingSwitch(0);
-    v4 = getKeyphrasesWorkGroup();
-    v5 = *(a1 + 16);
+    v6 = getKeyphrasesWorkGroup(v5);
+    v7 = *(a1 + 16);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __completeKeyphrasesTask_block_invoke;
     block[3] = &__block_descriptor_40_e5_v8__0l;
     block[4] = a1;
-    dispatch_group_notify(v4, v5, block);
+    dispatch_group_notify(v6, v7, block);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
-void completePreExtractionTask(uint64_t a1)
+void completePreExtractionTask(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
     if (SKGLogGetCurrentLoggingLevel() >= 5)
     {
-      v2 = SKGLogUpdaterInit();
-      if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+      v3 = SKGLogUpdaterInit();
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
       {
-        v3 = *(a1 + 32);
+        v4 = *(a1 + 32);
         *buf = 138412290;
-        v9 = v3;
-        _os_log_impl(&dword_231B25000, v2, OS_LOG_TYPE_INFO, "### deferring pre-extraction task early %@", buf, 0xCu);
+        v10 = v4;
+        _os_log_impl(&dword_231B25000, v3, OS_LOG_TYPE_INFO, "### deferring pre-extraction task early %@", buf, 0xCu);
       }
     }
 
     PreExtractionThrottlingSwitch(0);
-    v4 = getPreExtractionWorkGroup();
-    v5 = *(a1 + 16);
+    v6 = getPreExtractionWorkGroup(v5);
+    v7 = *(a1 + 16);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __completePreExtractionTask_block_invoke;
     block[3] = &__block_descriptor_40_e5_v8__0l;
     block[4] = a1;
-    dispatch_group_notify(v4, v5, block);
+    dispatch_group_notify(v6, v7, block);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
-id getPriorityWorkGroup()
+id getPriorityWorkGroup(uint64_t a1)
 {
   if (getPriorityWorkGroup_onceBGPToken != -1)
   {
     getPriorityWorkGroup_cold_1();
   }
 
-  v1 = getPriorityWorkGroup_sPriorityTaskGroup;
+  v2 = getPriorityWorkGroup_sPriorityTaskGroup;
 
-  return v1;
+  return v2;
 }
 
-id getEmbeddingsWorkGroup()
+id getEmbeddingsWorkGroup(uint64_t a1)
 {
   if (getEmbeddingsWorkGroup_onceBGToken != -1)
   {
     getEmbeddingsWorkGroup_cold_1();
   }
 
-  v1 = getEmbeddingsWorkGroup_sEmbeddingsTaskGroup;
+  v2 = getEmbeddingsWorkGroup_sEmbeddingsTaskGroup;
 
-  return v1;
+  return v2;
 }
 
-id getKeyphrasesWorkGroup()
+id getKeyphrasesWorkGroup(uint64_t a1)
 {
   if (getKeyphrasesWorkGroup_onceBGToken != -1)
   {
     getKeyphrasesWorkGroup_cold_1();
   }
 
-  v1 = getKeyphrasesWorkGroup_sKeyphrasesTaskGroup;
+  v2 = getKeyphrasesWorkGroup_sKeyphrasesTaskGroup;
 
-  return v1;
+  return v2;
 }
 
-id getPreExtractionWorkGroup()
+id getPreExtractionWorkGroup(uint64_t a1)
 {
   if (getPreExtractionWorkGroup_onceBGToken != -1)
   {
     getPreExtractionWorkGroup_cold_1();
   }
 
-  v1 = getPreExtractionWorkGroup_sPreExtractionTaskGroup;
+  v2 = getPreExtractionWorkGroup_sPreExtractionTaskGroup;
 
-  return v1;
+  return v2;
 }
 
 void queryForCleanupWithDeviceUnlocked(uint64_t a1, int a2, void *a3, void *a4, void *a5)
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   v9 = a3;
   v10 = a4;
   v11 = a5;
@@ -1125,22 +1101,22 @@ void queryForCleanupWithDeviceUnlocked(uint64_t a1, int a2, void *a3, void *a4, 
     v18 = [(SKGItemMonitor *)v16 initWithResourceDirectoryPath:v17];
     [(SKGJob *)v15 setMonitor:v18];
 
-    v30[0] = gNames[a2];
-    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
+    v29[0] = gNames[a2];
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
     v20 = [v14 protectionClasses];
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __queryForCleanupWithDeviceUnlocked_block_invoke;
-    v27[3] = &unk_27893D248;
-    v28 = v14;
-    v29 = a2;
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __queryForCleanupWithDeviceUnlocked_block_invoke_2;
-    v25[3] = &unk_27893D270;
-    v26 = v11;
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __queryForCleanupWithDeviceUnlocked_block_invoke;
+    v26[3] = &unk_27893D248;
+    v27 = v14;
+    v28 = a2;
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __queryForCleanupWithDeviceUnlocked_block_invoke_2;
+    v24[3] = &unk_27893D270;
+    v25 = v11;
     v21 = v14;
-    LODWORD(v13) = [(SKGJob *)v15 requestCSCleanupForUpdater:v19 protectionClasses:v20 flags:v13 batchUpdatedBlock:v27 cancelBlock:v25];
+    LODWORD(v13) = [(SKGJob *)v15 requestCSCleanupForUpdater:v19 protectionClasses:v20 flags:v13 batchUpdatedBlock:v26 cancelBlock:v24];
 
     v22 = [(SKGJob *)v15 monitor];
     [v22 flush];
@@ -1162,8 +1138,6 @@ void queryForCleanupWithDeviceUnlocked(uint64_t a1, int a2, void *a3, void *a4, 
   {
     v9[2](v9);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void queryForUpdatesWithDeviceUnlocked(uint64_t a1, void *a2, void *a3, void *a4)
@@ -1317,9 +1291,16 @@ void queryForUpdatesWithDeviceUnlocked(uint64_t a1, void *a2, void *a3, void *a4
   _Block_object_dispose(&v39, 8);
 }
 
+void sub_231B4F5BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
+{
+  va_start(va, a25);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void setupQueryCleanupTasks(void *a1, void *a2)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
   if (SKGLogGetCurrentLoggingLevel() >= 5)
@@ -1328,7 +1309,7 @@ void setupQueryCleanupTasks(void *a1, void *a2)
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v33 = v3;
+      v32 = v3;
       _os_log_impl(&dword_231B25000, v5, OS_LOG_TYPE_INFO, "### setting up query cleanup %@ task handler", buf, 0xCu);
     }
   }
@@ -1345,16 +1326,16 @@ void setupQueryCleanupTasks(void *a1, void *a2)
         setupQueryCleanupTasks_cold_4();
       }
 
-      v8 = &getQueryCleanupEmbeddingsStatus_status;
+      v8 = getQueryCleanupEmbeddingsStatus_status;
 LABEL_25:
       v15 = [MEMORY[0x277CF0810] sharedScheduler];
-      v16 = v8[2];
-      v31[0] = MEMORY[0x277D85DD0];
-      v31[1] = 3221225472;
-      v31[2] = __setupQueryCleanupTasks_block_invoke;
-      v31[3] = &__block_descriptor_40_e34_v16__0__BGNonRepeatingSystemTask_8l;
-      v31[4] = v8;
-      [v15 registerForTaskWithIdentifier:v3 usingQueue:v16 launchHandler:v31];
+      v16 = *(v8 + 2);
+      v30[0] = MEMORY[0x277D85DD0];
+      v30[1] = 3221225472;
+      v30[2] = __setupQueryCleanupTasks_block_invoke;
+      v30[3] = &__block_descriptor_40_e34_v16__0__BGNonRepeatingSystemTask_8l;
+      v30[4] = v8;
+      [v15 registerForTaskWithIdentifier:v3 usingQueue:v16 launchHandler:v30];
 
       goto LABEL_27;
     }
@@ -1372,7 +1353,7 @@ LABEL_25:
         setupQueryCleanupTasks_cold_3();
       }
 
-      v8 = &getQueryCleanupKeyphrasesStatus_status;
+      v8 = getQueryCleanupKeyphrasesStatus_status;
       goto LABEL_25;
     }
   }
@@ -1389,7 +1370,7 @@ LABEL_25:
         setupQueryCleanupTasks_cold_2();
       }
 
-      v8 = &getQueryCleanupDocUnderstandingStatus_status;
+      v8 = getQueryCleanupDocUnderstandingStatus_status;
       goto LABEL_25;
     }
   }
@@ -1406,7 +1387,7 @@ LABEL_25:
         setupQueryCleanupTasks_cold_1();
       }
 
-      v8 = &getQueryCleanupSuggestedEventsStatus_status;
+      v8 = getQueryCleanupSuggestedEventsStatus_status;
       goto LABEL_25;
     }
   }
@@ -1419,7 +1400,7 @@ LABEL_27:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v33 = v4;
+      v32 = v4;
       _os_log_impl(&dword_231B25000, v17, OS_LOG_TYPE_INFO, "### setting up query cleanup %@ task handler", buf, 0xCu);
     }
   }
@@ -1436,17 +1417,17 @@ LABEL_27:
         setupQueryCleanupTasks_cold_4();
       }
 
-      v20 = &getQueryCleanupEmbeddingsStatus_status;
+      v20 = getQueryCleanupEmbeddingsStatus_status;
 LABEL_51:
       v27 = [MEMORY[0x277CF0810] sharedScheduler];
-      v28 = v20[2];
-      v30[0] = MEMORY[0x277D85DD0];
-      v30[1] = 3221225472;
-      v30[2] = __setupQueryCleanupTasks_block_invoke_332;
-      v30[3] = &__block_descriptor_48_e34_v16__0__BGNonRepeatingSystemTask_8l;
-      v30[4] = v20;
-      v30[5] = v8;
-      [v27 registerForTaskWithIdentifier:v4 usingQueue:v28 launchHandler:v30];
+      v28 = *(v20 + 2);
+      v29[0] = MEMORY[0x277D85DD0];
+      v29[1] = 3221225472;
+      v29[2] = __setupQueryCleanupTasks_block_invoke_332;
+      v29[3] = &__block_descriptor_48_e34_v16__0__BGNonRepeatingSystemTask_8l;
+      v29[4] = v20;
+      v29[5] = v8;
+      [v27 registerForTaskWithIdentifier:v4 usingQueue:v28 launchHandler:v29];
     }
   }
 
@@ -1462,7 +1443,7 @@ LABEL_51:
         setupQueryCleanupTasks_cold_3();
       }
 
-      v20 = &getQueryCleanupKeyphrasesStatus_status;
+      v20 = getQueryCleanupKeyphrasesStatus_status;
       goto LABEL_51;
     }
   }
@@ -1479,7 +1460,7 @@ LABEL_51:
         setupQueryCleanupTasks_cold_2();
       }
 
-      v20 = &getQueryCleanupDocUnderstandingStatus_status;
+      v20 = getQueryCleanupDocUnderstandingStatus_status;
       goto LABEL_51;
     }
   }
@@ -1496,25 +1477,23 @@ LABEL_51:
         setupQueryCleanupTasks_cold_1();
       }
 
-      v20 = &getQueryCleanupSuggestedEventsStatus_status;
+      v20 = getQueryCleanupSuggestedEventsStatus_status;
       goto LABEL_51;
     }
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
-void setupQueryUpdatesTasks()
+void setupQueryUpdatesTasks(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (SKGLogGetCurrentLoggingLevel() >= 5)
   {
-    v0 = SKGLogUpdaterInit();
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+    v2 = SKGLogUpdaterInit();
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v8 = @"com.apple.spotlightknowledged.task.updates";
-      _os_log_impl(&dword_231B25000, v0, OS_LOG_TYPE_INFO, "### setting up query updates %@ task handler", buf, 0xCu);
+      v9 = @"com.apple.spotlightknowledged.task.updates";
+      _os_log_impl(&dword_231B25000, v2, OS_LOG_TYPE_INFO, "### setting up query updates %@ task handler", buf, 0xCu);
     }
   }
 
@@ -1523,22 +1502,22 @@ void setupQueryUpdatesTasks()
     setupQueryUpdatesTasks_cold_1();
   }
 
-  v1 = [MEMORY[0x277CF0810] sharedScheduler];
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __setupQueryUpdatesTasks_block_invoke;
-  v6[3] = &__block_descriptor_40_e34_v16__0__BGNonRepeatingSystemTask_8l;
-  v6[4] = &getQueryUpdatesStatus_status;
-  [v1 registerForTaskWithIdentifier:@"com.apple.spotlightknowledged.task.updates" usingQueue:qword_28158AB38 launchHandler:v6];
+  v3 = [MEMORY[0x277CF0810] sharedScheduler];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __setupQueryUpdatesTasks_block_invoke;
+  v7[3] = &__block_descriptor_40_e34_v16__0__BGNonRepeatingSystemTask_8l;
+  v7[4] = getQueryUpdatesStatus_status;
+  [v3 registerForTaskWithIdentifier:@"com.apple.spotlightknowledged.task.updates" usingQueue:qword_28158AB38 launchHandler:v7];
 
   if (SKGLogGetCurrentLoggingLevel() >= 5)
   {
-    v2 = SKGLogUpdaterInit();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v4 = SKGLogUpdaterInit();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v8 = @"com.apple.spotlightknowledged.task.ab-updates";
-      _os_log_impl(&dword_231B25000, v2, OS_LOG_TYPE_INFO, "### setting up query updates %@ task handler", buf, 0xCu);
+      v9 = @"com.apple.spotlightknowledged.task.ab-updates";
+      _os_log_impl(&dword_231B25000, v4, OS_LOG_TYPE_INFO, "### setting up query updates %@ task handler", buf, 0xCu);
     }
   }
 
@@ -1547,20 +1526,18 @@ void setupQueryUpdatesTasks()
     setupQueryUpdatesTasks_cold_2();
   }
 
-  v3 = [MEMORY[0x277CF0810] sharedScheduler];
-  v5[0] = MEMORY[0x277D85DD0];
-  v5[1] = 3221225472;
-  v5[2] = __setupQueryUpdatesTasks_block_invoke_337;
-  v5[3] = &__block_descriptor_40_e34_v16__0__BGNonRepeatingSystemTask_8l;
-  v5[4] = &getQueryUpdatesABStatus_status;
-  [v3 registerForTaskWithIdentifier:@"com.apple.spotlightknowledged.task.ab-updates" usingQueue:qword_28158AB70 launchHandler:v5];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v5 = [MEMORY[0x277CF0810] sharedScheduler];
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __setupQueryUpdatesTasks_block_invoke_337;
+  v6[3] = &__block_descriptor_40_e34_v16__0__BGNonRepeatingSystemTask_8l;
+  v6[4] = getQueryUpdatesABStatus_status;
+  [v5 registerForTaskWithIdentifier:@"com.apple.spotlightknowledged.task.ab-updates" usingQueue:qword_28158AB70 launchHandler:v6];
 }
 
 void launchPriorityTask(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CF0810] sharedScheduler];
   v3 = [v2 taskRequestForIdentifier:@"com.apple.spotlightknowledged.task.priority"];
 
@@ -1577,9 +1554,9 @@ void launchPriorityTask(uint64_t a1)
   v6 = v5;
   if (v3)
   {
-    v21 = 0;
-    [v5 updateTaskRequest:v4 error:&v21];
-    v7 = v21;
+    v20 = 0;
+    [v5 updateTaskRequest:v4 error:&v20];
+    v7 = v20;
 
     if (SKGLogGetCurrentLoggingLevel() >= 5)
     {
@@ -1587,7 +1564,7 @@ void launchPriorityTask(uint64_t a1)
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v23 = @"com.apple.spotlightknowledged.task.priority";
+        v22 = @"com.apple.spotlightknowledged.task.priority";
         _os_log_impl(&dword_231B25000, v8, OS_LOG_TYPE_INFO, "### submitted task %@", buf, 0xCu);
       }
     }
@@ -1597,9 +1574,9 @@ void launchPriorityTask(uint64_t a1)
 
   else
   {
-    v20 = 0;
-    v9 = [v5 submitTaskRequest:v4 error:&v20];
-    v7 = v20;
+    v19 = 0;
+    v9 = [v5 submitTaskRequest:v4 error:&v19];
+    v7 = v19;
 
     if (v9)
     {
@@ -1610,7 +1587,7 @@ void launchPriorityTask(uint64_t a1)
         if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v23 = @"com.apple.spotlightknowledged.task.priority";
+          v22 = @"com.apple.spotlightknowledged.task.priority";
           _os_log_impl(&dword_231B25000, v10, OS_LOG_TYPE_INFO, "### submitted task %@", buf, 0xCu);
         }
       }
@@ -1633,7 +1610,7 @@ void launchPriorityTask(uint64_t a1)
         v15 = SKGLogUpdaterInit();
         if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
-          launchPriorityTask_cold_1(v7, (a1 + 24));
+          launchPriorityTask_cold_1();
         }
       }
 
@@ -1647,13 +1624,11 @@ void launchPriorityTask(uint64_t a1)
       dispatch_after(v16, v17, block);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void launchEmbeddingsTask(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CF0810] sharedScheduler];
   v3 = [v2 taskRequestForIdentifier:@"com.apple.spotlightknowledged.task"];
 
@@ -1672,9 +1647,9 @@ void launchEmbeddingsTask(uint64_t a1)
   v6 = v5;
   if (v3)
   {
-    v21 = 0;
-    [v5 updateTaskRequest:v4 error:&v21];
-    v7 = v21;
+    v20 = 0;
+    [v5 updateTaskRequest:v4 error:&v20];
+    v7 = v20;
 
     if (SKGLogGetCurrentLoggingLevel() >= 5)
     {
@@ -1682,7 +1657,7 @@ void launchEmbeddingsTask(uint64_t a1)
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v23 = @"com.apple.spotlightknowledged.task";
+        v22 = @"com.apple.spotlightknowledged.task";
         _os_log_impl(&dword_231B25000, v8, OS_LOG_TYPE_INFO, "### submitted task %@", buf, 0xCu);
       }
     }
@@ -1692,9 +1667,9 @@ void launchEmbeddingsTask(uint64_t a1)
 
   else
   {
-    v20 = 0;
-    v9 = [v5 submitTaskRequest:v4 error:&v20];
-    v7 = v20;
+    v19 = 0;
+    v9 = [v5 submitTaskRequest:v4 error:&v19];
+    v7 = v19;
 
     if (v9)
     {
@@ -1705,7 +1680,7 @@ void launchEmbeddingsTask(uint64_t a1)
         if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v23 = @"com.apple.spotlightknowledged.task";
+          v22 = @"com.apple.spotlightknowledged.task";
           _os_log_impl(&dword_231B25000, v10, OS_LOG_TYPE_INFO, "### submitted task %@", buf, 0xCu);
         }
       }
@@ -1728,7 +1703,7 @@ void launchEmbeddingsTask(uint64_t a1)
         v15 = SKGLogUpdaterInit();
         if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
-          launchEmbeddingsTask_cold_1(v7, (a1 + 24));
+          launchEmbeddingsTask_cold_1();
         }
       }
 
@@ -1742,13 +1717,11 @@ void launchEmbeddingsTask(uint64_t a1)
       dispatch_after(v16, v17, block);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void launchKeyphrasesTask(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CF0810] sharedScheduler];
   v3 = [v2 taskRequestForIdentifier:@"com.apple.spotlightknowledged.task.keyphrases"];
 
@@ -1767,9 +1740,9 @@ void launchKeyphrasesTask(uint64_t a1)
   v6 = v5;
   if (v3)
   {
-    v21 = 0;
-    [v5 updateTaskRequest:v4 error:&v21];
-    v7 = v21;
+    v20 = 0;
+    [v5 updateTaskRequest:v4 error:&v20];
+    v7 = v20;
 
     if (SKGLogGetCurrentLoggingLevel() >= 5)
     {
@@ -1777,7 +1750,7 @@ void launchKeyphrasesTask(uint64_t a1)
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v23 = @"com.apple.spotlightknowledged.task.keyphrases";
+        v22 = @"com.apple.spotlightknowledged.task.keyphrases";
         _os_log_impl(&dword_231B25000, v8, OS_LOG_TYPE_INFO, "### submitted task %@", buf, 0xCu);
       }
     }
@@ -1787,9 +1760,9 @@ void launchKeyphrasesTask(uint64_t a1)
 
   else
   {
-    v20 = 0;
-    v9 = [v5 submitTaskRequest:v4 error:&v20];
-    v7 = v20;
+    v19 = 0;
+    v9 = [v5 submitTaskRequest:v4 error:&v19];
+    v7 = v19;
 
     if (v9)
     {
@@ -1800,7 +1773,7 @@ void launchKeyphrasesTask(uint64_t a1)
         if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v23 = @"com.apple.spotlightknowledged.task.keyphrases";
+          v22 = @"com.apple.spotlightknowledged.task.keyphrases";
           _os_log_impl(&dword_231B25000, v10, OS_LOG_TYPE_INFO, "### submitted task %@", buf, 0xCu);
         }
       }
@@ -1823,7 +1796,7 @@ void launchKeyphrasesTask(uint64_t a1)
         v15 = SKGLogUpdaterInit();
         if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
-          launchKeyphrasesTask_cold_1(v7, (a1 + 24));
+          launchKeyphrasesTask_cold_1();
         }
       }
 
@@ -1837,13 +1810,11 @@ void launchKeyphrasesTask(uint64_t a1)
       dispatch_after(v16, v17, block);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void launchPreExtractionTask(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CF0810] sharedScheduler];
   v3 = [v2 taskRequestForIdentifier:@"com.apple.spotlightknowledged.task.preextraction"];
 
@@ -1862,9 +1833,9 @@ void launchPreExtractionTask(uint64_t a1)
   v6 = v5;
   if (v3)
   {
-    v21 = 0;
-    [v5 updateTaskRequest:v4 error:&v21];
-    v7 = v21;
+    v20 = 0;
+    [v5 updateTaskRequest:v4 error:&v20];
+    v7 = v20;
 
     if (SKGLogGetCurrentLoggingLevel() >= 5)
     {
@@ -1872,7 +1843,7 @@ void launchPreExtractionTask(uint64_t a1)
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v23 = @"com.apple.spotlightknowledged.task.preextraction";
+        v22 = @"com.apple.spotlightknowledged.task.preextraction";
         _os_log_impl(&dword_231B25000, v8, OS_LOG_TYPE_INFO, "### submitted task %@", buf, 0xCu);
       }
     }
@@ -1882,9 +1853,9 @@ void launchPreExtractionTask(uint64_t a1)
 
   else
   {
-    v20 = 0;
-    v9 = [v5 submitTaskRequest:v4 error:&v20];
-    v7 = v20;
+    v19 = 0;
+    v9 = [v5 submitTaskRequest:v4 error:&v19];
+    v7 = v19;
 
     if (v9)
     {
@@ -1895,7 +1866,7 @@ void launchPreExtractionTask(uint64_t a1)
         if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v23 = @"com.apple.spotlightknowledged.task.preextraction";
+          v22 = @"com.apple.spotlightknowledged.task.preextraction";
           _os_log_impl(&dword_231B25000, v10, OS_LOG_TYPE_INFO, "### submitted task %@", buf, 0xCu);
         }
       }
@@ -1918,7 +1889,7 @@ void launchPreExtractionTask(uint64_t a1)
         v15 = SKGLogUpdaterInit();
         if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
-          launchPreExtractionTask_cold_1(v7, (a1 + 24));
+          launchPreExtractionTask_cold_1();
         }
       }
 
@@ -1932,13 +1903,11 @@ void launchPreExtractionTask(uint64_t a1)
       dispatch_after(v16, v17, block);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void launchQueryUpdatesTask(void *a1)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v1 = a1;
   if (SKGLogGetCurrentLoggingLevel() >= 5)
   {
@@ -1982,7 +1951,7 @@ void launchQueryUpdatesTask(void *a1)
           setupQueryUpdatesTasks_cold_2();
         }
 
-        v11 = &getQueryUpdatesABStatus_status;
+        v11 = getQueryUpdatesABStatus_status;
         v12 = 1;
       }
 
@@ -1993,7 +1962,7 @@ void launchQueryUpdatesTask(void *a1)
           setupQueryUpdatesTasks_cold_1();
         }
 
-        v11 = &getQueryUpdatesStatus_status;
+        v11 = getQueryUpdatesStatus_status;
         v12 = 4;
       }
 
@@ -2014,9 +1983,9 @@ void launchQueryUpdatesTask(void *a1)
       if (!v15)
       {
         v20 = [MEMORY[0x277CF0810] sharedScheduler];
-        v32 = 0;
-        v21 = [v20 submitTaskRequest:v13 error:&v32];
-        v18 = v32;
+        v31 = 0;
+        v21 = [v20 submitTaskRequest:v13 error:&v31];
+        v18 = v31;
 
         if ((v21 & 1) == 0)
         {
@@ -2035,7 +2004,7 @@ void launchQueryUpdatesTask(void *a1)
             v26 = SKGLogUpdaterInit();
             if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
             {
-              launchQueryUpdatesTask_cold_3(v18, v11 + 3);
+              launchQueryUpdatesTask_cold_3();
             }
           }
 
@@ -2045,7 +2014,7 @@ void launchQueryUpdatesTask(void *a1)
           block[1] = 3221225472;
           block[2] = __launchQueryUpdatesTask_block_invoke;
           block[3] = &unk_27893CE68;
-          v31 = v1;
+          v30 = v1;
           dispatch_after(v27, v28, block);
 
           goto LABEL_42;
@@ -2057,7 +2026,7 @@ void launchQueryUpdatesTask(void *a1)
           if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v35 = v1;
+            v34 = v1;
             goto LABEL_32;
           }
 
@@ -2075,9 +2044,9 @@ LABEL_42:
       if (v16)
       {
         v17 = [MEMORY[0x277CF0810] sharedScheduler];
-        v33 = 0;
-        [v17 updateTaskRequest:v13 error:&v33];
-        v18 = v33;
+        v32 = 0;
+        [v17 updateTaskRequest:v13 error:&v32];
+        v18 = v32;
 
         if (SKGLogGetCurrentLoggingLevel() >= 5)
         {
@@ -2085,7 +2054,7 @@ LABEL_42:
           if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v35 = v1;
+            v34 = v1;
 LABEL_32:
             _os_log_impl(&dword_231B25000, v19, OS_LOG_TYPE_INFO, "### submitted task %@", buf, 0xCu);
             goto LABEL_33;
@@ -2121,8 +2090,6 @@ LABEL_43:
   handleQueryUpdatesTask(0, 0);
   handleQueryUpdatesTask(0, 1);
 LABEL_44:
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __getEmbeddingsStatus_block_invoke()
@@ -2157,61 +2124,61 @@ void __getPriorityStatus_block_invoke()
   qword_28158ACB0 = 0;
 }
 
-void __completePriorityTask_block_invoke(uint64_t a1)
+void __completePriorityTask_block_invoke(uint64_t a1, uint64_t a2)
 {
   v17 = *MEMORY[0x277D85DE8];
   if (*(*(a1 + 32) + 32))
   {
     if (SKGLogGetCurrentLoggingLevel() >= 5)
     {
-      v2 = SKGLogUpdaterInit();
-      if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+      v3 = SKGLogUpdaterInit();
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
       {
-        v3 = *(*(a1 + 32) + 32);
+        v4 = *(*(a1 + 32) + 32);
         *buf = 138412290;
-        v14 = v3;
-        _os_log_impl(&dword_231B25000, v2, OS_LOG_TYPE_INFO, "###priority batches completed; marking deferred %@", buf, 0xCu);
+        v14 = v4;
+        _os_log_impl(&dword_231B25000, v3, OS_LOG_TYPE_INFO, "###priority batches completed; marking deferred %@", buf, 0xCu);
       }
     }
 
     if (*(a1 + 40))
     {
-      v4 = 0;
+      v5 = 0;
     }
 
     else
     {
-      v5 = *(*(a1 + 32) + 32);
+      v6 = *(*(a1 + 32) + 32);
       v12 = 0;
-      v6 = [v5 setTaskExpiredWithRetryAfter:&v12 error:300.0];
-      v4 = v12;
-      if (v6)
+      v7 = [v6 setTaskExpiredWithRetryAfter:&v12 error:300.0];
+      v5 = v12;
+      if (v7)
       {
         *(*(a1 + 32) + 24) = 0;
 LABEL_16:
 
-        goto LABEL_17;
+        return;
       }
     }
 
     if (SKGLogGetCurrentLoggingLevel() >= 5)
     {
-      v7 = SKGLogUpdaterInit();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      v8 = SKGLogUpdaterInit();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
-        v8 = *(*(a1 + 32) + 32);
+        v9 = *(*(a1 + 32) + 32);
         *buf = 138412546;
-        v14 = v4;
+        v14 = v5;
         v15 = 2112;
-        v16 = v8;
-        _os_log_impl(&dword_231B25000, v7, OS_LOG_TYPE_INFO, "###priority batches completed, deferring failed with error: %@; marking complete %@", buf, 0x16u);
+        v16 = v9;
+        _os_log_impl(&dword_231B25000, v8, OS_LOG_TYPE_INFO, "###priority batches completed, deferring failed with error: %@; marking complete %@", buf, 0x16u);
       }
     }
 
     [*(*(a1 + 32) + 32) setTaskCompleted];
-    v9 = *(a1 + 32);
-    v10 = *(v9 + 32);
-    *(v9 + 32) = 0;
+    v10 = *(a1 + 32);
+    v11 = *(v10 + 32);
+    *(v10 + 32) = 0;
 
     if ((sTurboMode & 1) == 0)
     {
@@ -2220,14 +2187,11 @@ LABEL_16:
 
     goto LABEL_16;
   }
-
-LABEL_17:
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __completeEmbeddingsTask_block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   launchQueryCleanupTask(@"com.apple.spotlightknowledged.task.cleanup.embeddings", 2);
   launchQueryCleanupTask(@"com.apple.spotlightknowledged.task.ab-cleanup.embeddings", 2);
   launchQueryUpdatesTask(@"com.apple.spotlightknowledged.task.updates");
@@ -2240,9 +2204,9 @@ void __completeEmbeddingsTask_block_invoke(uint64_t a1)
       if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
       {
         v3 = *(*(a1 + 32) + 32);
-        v7 = 138412290;
-        v8 = v3;
-        _os_log_impl(&dword_231B25000, v2, OS_LOG_TYPE_INFO, "### batches completed; marking complete %@", &v7, 0xCu);
+        v6 = 138412290;
+        v7 = v3;
+        _os_log_impl(&dword_231B25000, v2, OS_LOG_TYPE_INFO, "### batches completed; marking complete %@", &v6, 0xCu);
       }
     }
 
@@ -2251,13 +2215,11 @@ void __completeEmbeddingsTask_block_invoke(uint64_t a1)
     v5 = *(v4 + 32);
     *(v4 + 32) = 0;
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void launchQueryCleanupTask(void *a1, int a2)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v3 = a1;
   if (SKGLogGetCurrentLoggingLevel() >= 5)
   {
@@ -2281,7 +2243,7 @@ void launchQueryCleanupTask(void *a1, int a2)
             launchQueryCleanupTask_cold_2();
           }
 
-          v6 = &getQueryCleanupABDocUnderstandingStatus_status;
+          v6 = getQueryCleanupABDocUnderstandingStatus_status;
           goto LABEL_22;
         }
 
@@ -2290,7 +2252,7 @@ void launchQueryCleanupTask(void *a1, int a2)
           setupQueryCleanupTasks_cold_2();
         }
 
-        v6 = &getQueryCleanupDocUnderstandingStatus_status;
+        v6 = getQueryCleanupDocUnderstandingStatus_status;
         break;
       case 6:
         if ([v3 isEqualToString:@"com.apple.spotlightknowledged.task.ab-cleanup.suggestedevents"])
@@ -2300,7 +2262,7 @@ void launchQueryCleanupTask(void *a1, int a2)
             launchQueryCleanupTask_cold_4();
           }
 
-          v6 = &getQueryCleanupABSuggestedEventsStatus_status;
+          v6 = getQueryCleanupABSuggestedEventsStatus_status;
           goto LABEL_22;
         }
 
@@ -2309,7 +2271,7 @@ void launchQueryCleanupTask(void *a1, int a2)
           setupQueryCleanupTasks_cold_1();
         }
 
-        v6 = &getQueryCleanupSuggestedEventsStatus_status;
+        v6 = getQueryCleanupSuggestedEventsStatus_status;
         break;
       case 2:
         if ([v3 isEqualToString:@"com.apple.spotlightknowledged.task.ab-cleanup.embeddings"])
@@ -2319,7 +2281,7 @@ void launchQueryCleanupTask(void *a1, int a2)
             launchQueryCleanupTask_cold_6();
           }
 
-          v6 = &getQueryCleanupABEmbeddingsStatus_status;
+          v6 = getQueryCleanupABEmbeddingsStatus_status;
 LABEL_22:
           v7 = 1;
           goto LABEL_33;
@@ -2330,7 +2292,7 @@ LABEL_22:
           setupQueryCleanupTasks_cold_4();
         }
 
-        v6 = &getQueryCleanupEmbeddingsStatus_status;
+        v6 = getQueryCleanupEmbeddingsStatus_status;
         break;
       default:
         goto LABEL_56;
@@ -2362,9 +2324,9 @@ LABEL_55:
       }
 
       v12 = [MEMORY[0x277CF0810] sharedScheduler];
-      v29 = 0;
-      [v12 updateTaskRequest:v10 error:&v29];
-      v13 = v29;
+      v28 = 0;
+      [v12 updateTaskRequest:v10 error:&v28];
+      v13 = v28;
 
       if (SKGLogGetCurrentLoggingLevel() < 5)
       {
@@ -2378,15 +2340,15 @@ LABEL_55:
       }
 
       *buf = 138412290;
-      v31 = v3;
+      v30 = v3;
     }
 
     else
     {
       v15 = [MEMORY[0x277CF0810] sharedScheduler];
-      v28 = 0;
-      v16 = [v15 submitTaskRequest:v10 error:&v28];
-      v13 = v28;
+      v27 = 0;
+      v16 = [v15 submitTaskRequest:v10 error:&v27];
+      v13 = v27;
 
       if ((v16 & 1) == 0)
       {
@@ -2405,19 +2367,19 @@ LABEL_55:
           v21 = SKGLogUpdaterInit();
           if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
           {
-            launchQueryUpdatesTask_cold_3(v13, v6 + 3);
+            launchQueryUpdatesTask_cold_3();
           }
         }
 
         v22 = dispatch_time(0, *(v6 + 3));
         v23 = *(v6 + 2);
-        v25[0] = MEMORY[0x277D85DD0];
-        v25[1] = 3221225472;
-        v25[2] = __launchQueryCleanupTask_block_invoke;
-        v25[3] = &unk_27893D1B0;
-        v26 = v3;
-        v27 = a2;
-        dispatch_after(v22, v23, v25);
+        v24[0] = MEMORY[0x277D85DD0];
+        v24[1] = 3221225472;
+        v24[2] = __launchQueryCleanupTask_block_invoke;
+        v24[3] = &unk_27893D1B0;
+        v25 = v3;
+        v26 = a2;
+        dispatch_after(v22, v23, v24);
 
         goto LABEL_54;
       }
@@ -2441,7 +2403,7 @@ LABEL_45:
       }
 
       *buf = 138412290;
-      v31 = v3;
+      v30 = v3;
     }
 
     _os_log_impl(&dword_231B25000, v14, OS_LOG_TYPE_INFO, "### submitted task %@", buf, 0xCu);
@@ -2452,12 +2414,11 @@ LABEL_45:
   handleQueryCleanupTask(0, 0, v5);
   handleQueryCleanupTask(0, 1, v5);
 LABEL_56:
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
-void handleQueryCleanupTask(id *a1, int a2, uint64_t a3)
+void handleQueryCleanupTask(id *a1, uint64_t a2, uint64_t a3)
 {
+  v4 = a2;
   if (SKGLogGetCurrentLoggingLevel() >= 5)
   {
     v6 = SKGLogUpdaterInit();
@@ -2495,7 +2456,7 @@ void handleQueryCleanupTask(id *a1, int a2, uint64_t a3)
     v7[2] = __handleQueryCleanupTask_block_invoke_273;
     v7[3] = &__block_descriptor_40_e18_B16__0__NSString_8l;
     v7[4] = a1;
-    queryForCleanupWithDeviceUnlocked(a3, a2, v10, v8, v7);
+    queryForCleanupWithDeviceUnlocked(a3, v4, v10, v8, v7);
     objc_destroyWeak(v9);
     objc_destroyWeak(v11);
     objc_destroyWeak(v13);
@@ -2514,7 +2475,7 @@ void sub_231B52348(_Unwind_Exception *a1)
 
 void __handleQueryCleanupTask_block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (SKGLogGetCurrentLoggingLevel() >= 5)
   {
@@ -2522,7 +2483,7 @@ void __handleQueryCleanupTask_block_invoke(uint64_t a1)
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v14 = WeakRetained;
+      v13 = WeakRetained;
       _os_log_impl(&dword_231B25000, v3, OS_LOG_TYPE_INFO, "### query cleanup task %@ expired", buf, 0xCu);
     }
   }
@@ -2534,7 +2495,7 @@ void __handleQueryCleanupTask_block_invoke(uint64_t a1)
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v14 = WeakRetained;
+      v13 = WeakRetained;
       _os_log_impl(&dword_231B25000, v4, OS_LOG_TYPE_INFO, "### query cleanup task %@ deferring", buf, 0xCu);
     }
   }
@@ -2542,27 +2503,25 @@ void __handleQueryCleanupTask_block_invoke(uint64_t a1)
   v5 = dispatch_time(0, *(*(a1 + 40) + 24));
   v6 = *(a1 + 40);
   v7 = *(v6 + 16);
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __handleQueryCleanupTask_block_invoke_270;
-  v10[3] = &unk_27893D1D8;
-  v11 = WeakRetained;
-  v12 = v6;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __handleQueryCleanupTask_block_invoke_270;
+  v9[3] = &unk_27893D1D8;
+  v10 = WeakRetained;
+  v11 = v6;
   v8 = WeakRetained;
-  dispatch_after(v5, v7, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  dispatch_after(v5, v7, v9);
 }
 
 void __handleQueryCleanupTask_block_invoke_270(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2)
   {
-    v12 = 0;
-    v3 = [v2 setTaskExpiredWithRetryAfter:&v12 error:300.0];
-    v4 = v12;
+    v11 = 0;
+    v3 = [v2 setTaskExpiredWithRetryAfter:&v11 error:300.0];
+    v4 = v11;
     if (SKGLogGetCurrentLoggingLevel() >= 5)
     {
       v5 = SKGLogUpdaterInit();
@@ -2570,7 +2529,7 @@ void __handleQueryCleanupTask_block_invoke_270(uint64_t a1)
       {
         v6 = *(*(a1 + 40) + 32);
         *buf = 138412290;
-        v14 = v6;
+        v13 = v6;
         _os_log_impl(&dword_231B25000, v5, OS_LOG_TYPE_INFO, "### query cleanup task; marking deferred %@", buf, 0xCu);
       }
     }
@@ -2589,9 +2548,9 @@ void __handleQueryCleanupTask_block_invoke_270(uint64_t a1)
         {
           v8 = *(*(a1 + 40) + 32);
           *buf = 138412546;
-          v14 = v4;
-          v15 = 2112;
-          v16 = v8;
+          v13 = v4;
+          v14 = 2112;
+          v15 = v8;
           _os_log_impl(&dword_231B25000, v7, OS_LOG_TYPE_INFO, "### query cleanup task batches completed, deferring failed with error: %@; marking complete %@", buf, 0x16u);
         }
       }
@@ -2602,8 +2561,6 @@ void __handleQueryCleanupTask_block_invoke_270(uint64_t a1)
       *(v9 + 32) = 0;
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __handleQueryCleanupTask_block_invoke_271(uint64_t a1)
@@ -2642,7 +2599,7 @@ void __handleQueryCleanupTask_block_invoke_2(uint64_t a1)
 
 void __handleQueryCleanupTask_block_invoke_3(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (SKGLogGetCurrentLoggingLevel() >= 5)
   {
@@ -2650,7 +2607,7 @@ void __handleQueryCleanupTask_block_invoke_3(uint64_t a1)
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v13 = WeakRetained;
+      v12 = WeakRetained;
       _os_log_impl(&dword_231B25000, v3, OS_LOG_TYPE_INFO, "### query cleanup task %@ deferring", buf, 0xCu);
     }
   }
@@ -2658,27 +2615,25 @@ void __handleQueryCleanupTask_block_invoke_3(uint64_t a1)
   v4 = dispatch_time(0, *(*(a1 + 40) + 24));
   v5 = *(a1 + 40);
   v6 = *(v5 + 16);
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __handleQueryCleanupTask_block_invoke_272;
-  v9[3] = &unk_27893D1D8;
-  v10 = WeakRetained;
-  v11 = v5;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __handleQueryCleanupTask_block_invoke_272;
+  v8[3] = &unk_27893D1D8;
+  v9 = WeakRetained;
+  v10 = v5;
   v7 = WeakRetained;
-  dispatch_after(v4, v6, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  dispatch_after(v4, v6, v8);
 }
 
 void __handleQueryCleanupTask_block_invoke_272(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
     v2 = *(*(a1 + 40) + 32);
-    v12 = 0;
-    v3 = [v2 setTaskExpiredWithRetryAfter:&v12 error:300.0];
-    v4 = v12;
+    v11 = 0;
+    v3 = [v2 setTaskExpiredWithRetryAfter:&v11 error:300.0];
+    v4 = v11;
     if (SKGLogGetCurrentLoggingLevel() >= 5)
     {
       v5 = SKGLogUpdaterInit();
@@ -2686,7 +2641,7 @@ void __handleQueryCleanupTask_block_invoke_272(uint64_t a1)
       {
         v6 = *(*(a1 + 40) + 32);
         *buf = 138412290;
-        v14 = v6;
+        v13 = v6;
         _os_log_impl(&dword_231B25000, v5, OS_LOG_TYPE_INFO, "### query cleanup task; marking deferred %@", buf, 0xCu);
       }
     }
@@ -2705,9 +2660,9 @@ void __handleQueryCleanupTask_block_invoke_272(uint64_t a1)
         {
           v8 = *(*(a1 + 40) + 32);
           *buf = 138412546;
-          v14 = v4;
-          v15 = 2112;
-          v16 = v8;
+          v13 = v4;
+          v14 = 2112;
+          v15 = v8;
           _os_log_impl(&dword_231B25000, v7, OS_LOG_TYPE_INFO, "### query cleanup task batches completed, deferring failed with error: %@; marking complete %@", buf, 0x16u);
         }
       }
@@ -2718,8 +2673,6 @@ void __handleQueryCleanupTask_block_invoke_272(uint64_t a1)
       *(v9 + 32) = 0;
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __handleQueryCleanupTask_block_invoke_273(uint64_t a1)
@@ -2878,7 +2831,7 @@ void __getKeyphrasesStatus_block_invoke()
 
 void __completeKeyphrasesTask_block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   launchQueryCleanupTask(@"com.apple.spotlightknowledged.task.cleanup.keyphrases", 3);
   launchQueryCleanupTask(@"com.apple.spotlightknowledged.task.ab-cleanup.keyphrases", 3);
   launchQueryUpdatesTask(@"com.apple.spotlightknowledged.task.updates");
@@ -2891,9 +2844,9 @@ void __completeKeyphrasesTask_block_invoke(uint64_t a1)
       if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
       {
         v3 = *(*(a1 + 32) + 32);
-        v7 = 138412290;
-        v8 = v3;
-        _os_log_impl(&dword_231B25000, v2, OS_LOG_TYPE_INFO, "### keyphrases batches completed; marking deferred %@", &v7, 0xCu);
+        v6 = 138412290;
+        v7 = v3;
+        _os_log_impl(&dword_231B25000, v2, OS_LOG_TYPE_INFO, "### keyphrases batches completed; marking deferred %@", &v6, 0xCu);
       }
     }
 
@@ -2902,8 +2855,6 @@ void __completeKeyphrasesTask_block_invoke(uint64_t a1)
     v5 = *(v4 + 32);
     *(v4 + 32) = 0;
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __getPreExtractionStatus_block_invoke()
@@ -2924,7 +2875,7 @@ void __getPreExtractionStatus_block_invoke()
 
 void __completePreExtractionTask_block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277D657A0] sharedContext];
   v3 = [v2 enableSuggestedEvents];
 
@@ -2959,9 +2910,9 @@ LABEL_7:
       if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
         v7 = *(*(a1 + 32) + 32);
-        v11 = 138412290;
-        v12 = v7;
-        _os_log_impl(&dword_231B25000, v6, OS_LOG_TYPE_INFO, "### pre-extraction batches completed; marking deferred %@", &v11, 0xCu);
+        v10 = 138412290;
+        v11 = v7;
+        _os_log_impl(&dword_231B25000, v6, OS_LOG_TYPE_INFO, "### pre-extraction batches completed; marking deferred %@", &v10, 0xCu);
       }
     }
 
@@ -2970,8 +2921,6 @@ LABEL_7:
     v9 = *(v8 + 32);
     *(v8 + 32) = 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __getPriorityWorkGroup_block_invoke()
@@ -3004,21 +2953,20 @@ void __getPreExtractionWorkGroup_block_invoke()
 
 void __queryForCleanupWithDeviceUnlocked_block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = *(a1 + 32);
-  v13 = a2;
-  v14[0] = a3;
+  v12 = a2;
+  v13[0] = a3;
   v6 = MEMORY[0x277CBEAC0];
   v7 = a3;
   v8 = a2;
-  v9 = [v6 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v6 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   [v5 logQueryItemsUpdated:v9];
 
   v10 = [*(a1 + 32) feedback];
   v11 = [v7 unsignedIntegerValue];
 
   [v10 logCleanupItemCounts:v11 bundleId:v8 listenerType:*(a1 + 40)];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __queryForUpdatesWithDeviceUnlocked_block_invoke(uint64_t a1, void *a2, void *a3)
@@ -3034,33 +2982,31 @@ void __queryForUpdatesWithDeviceUnlocked_block_invoke(uint64_t a1, void *a2, voi
 
 void __queryForUpdatesWithDeviceUnlocked_block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 32);
-  v10 = a2;
-  v11[0] = a3;
+  v9 = a2;
+  v10[0] = a3;
   v5 = MEMORY[0x277CBEAC0];
   v6 = a3;
   v7 = a2;
-  v8 = [v5 dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v8 = [v5 dictionaryWithObjects:v10 forKeys:&v9 count:1];
   [v4 logQueryItemsUpdated:v8];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __setupEmbeddingsTaskHandler_block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = a2;
   objc_storeStrong((*(a1 + 32) + 32), a2);
   v5 = *(a1 + 32);
   objc_initWeak(&location, *(v5 + 32));
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __handleEmbeddingsTask_block_invoke;
-  v12[3] = &unk_27893D200;
-  objc_copyWeak(v13, &location);
-  v13[1] = v5;
-  [*(v5 + 32) setExpirationHandler:v12];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __handleEmbeddingsTask_block_invoke;
+  v11[3] = &unk_27893D200;
+  objc_copyWeak(v12, &location);
+  v12[1] = v5;
+  [*(v5 + 32) setExpirationHandler:v11];
   EmbeddingsThrottlingSwitch(1);
   v6 = +[CSXPCEventListener sharedInstance];
   atomic_store([v6 embeddingsJobCount], (v5 + 4));
@@ -3073,9 +3019,9 @@ void __setupEmbeddingsTaskHandler_block_invoke(uint64_t a1, void *a2)
       v8 = *(v5 + 32);
       v9 = atomic_load((v5 + 4));
       *buf = 138412546;
-      v16 = v8;
-      v17 = 1024;
-      v18 = v9;
+      v15 = v8;
+      v16 = 1024;
+      v17 = v9;
       _os_log_impl(&dword_231B25000, v7, OS_LOG_TYPE_INFO, "### handle embeddings task %@, job count %d", buf, 0x12u);
     }
   }
@@ -3083,10 +3029,8 @@ void __setupEmbeddingsTaskHandler_block_invoke(uint64_t a1, void *a2)
   v10 = +[CSXPCEventListener sharedInstance];
   [v10 handleEmbeddingsTaskScheduling];
 
-  objc_destroyWeak(v13);
+  objc_destroyWeak(v12);
   objc_destroyWeak(&location);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void sub_231B53800(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
@@ -3112,43 +3056,41 @@ void __handleEmbeddingsTask_block_invoke(uint64_t a1)
   }
 
   EmbeddingsThrottlingSwitch(0);
-  v4 = getEmbeddingsWorkGroup();
-  v5 = *(a1 + 40);
-  v6 = *(v5 + 16);
+  v5 = getEmbeddingsWorkGroup(v4);
+  v6 = *(a1 + 40);
+  v7 = *(v6 + 16);
   v9[0] = MEMORY[0x277D85DD0];
   v9[1] = 3221225472;
   v9[2] = __handleEmbeddingsTask_block_invoke_331;
   v9[3] = &unk_27893D1D8;
   v10 = WeakRetained;
-  v11 = v5;
-  v7 = WeakRetained;
-  dispatch_group_notify(v4, v6, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v11 = v6;
+  v8 = WeakRetained;
+  dispatch_group_notify(v5, v7, v9);
 }
 
-void __handleEmbeddingsTask_block_invoke_331(uint64_t a1)
+void __handleEmbeddingsTask_block_invoke_331(uint64_t a1, uint64_t a2)
 {
   v17 = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
     if (SKGLogGetCurrentLoggingLevel() >= 5)
     {
-      v2 = SKGLogUpdaterInit();
-      if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+      v3 = SKGLogUpdaterInit();
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
       {
-        v3 = *(a1 + 32);
+        v4 = *(a1 + 32);
         *buf = 138412290;
-        v14 = v3;
-        _os_log_impl(&dword_231B25000, v2, OS_LOG_TYPE_INFO, "### embeddings batches completed; marking deferred %@", buf, 0xCu);
+        v14 = v4;
+        _os_log_impl(&dword_231B25000, v3, OS_LOG_TYPE_INFO, "### embeddings batches completed; marking deferred %@", buf, 0xCu);
       }
     }
 
-    v4 = *(a1 + 32);
+    v5 = *(a1 + 32);
     v12 = 0;
-    v5 = [v4 setTaskExpiredWithRetryAfter:&v12 error:300.0];
-    v6 = v12;
-    if (v5)
+    v6 = [v5 setTaskExpiredWithRetryAfter:&v12 error:300.0];
+    v7 = v12;
+    if (v6)
     {
       *(*(a1 + 40) + 24) = 0;
     }
@@ -3157,28 +3099,26 @@ void __handleEmbeddingsTask_block_invoke_331(uint64_t a1)
     {
       if (SKGLogGetCurrentLoggingLevel() >= 5)
       {
-        v7 = SKGLogUpdaterInit();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+        v8 = SKGLogUpdaterInit();
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
         {
-          v8 = *(a1 + 32);
+          v9 = *(a1 + 32);
           *buf = 138412546;
-          v14 = v6;
+          v14 = v7;
           v15 = 2112;
-          v16 = v8;
-          _os_log_impl(&dword_231B25000, v7, OS_LOG_TYPE_INFO, "### embeddings batches completed, deferring failed with error: %@; marking complete %@", buf, 0x16u);
+          v16 = v9;
+          _os_log_impl(&dword_231B25000, v8, OS_LOG_TYPE_INFO, "### embeddings batches completed, deferring failed with error: %@; marking complete %@", buf, 0x16u);
         }
       }
 
       [*(a1 + 32) setTaskCompleted];
-      v9 = *(a1 + 40);
-      v10 = *(v9 + 32);
-      *(v9 + 32) = 0;
+      v10 = *(a1 + 40);
+      v11 = *(v10 + 32);
+      *(v10 + 32) = 0;
 
       launchEmbeddingsTask(*(a1 + 40));
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __setupQueryCleanupTasks_block_invoke(uint64_t a1, void *a2)
@@ -3199,18 +3139,18 @@ void __setupQueryCleanupTasks_block_invoke_332(uint64_t a1, void *a2)
 
 void __setupPriorityTaskHandler_block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = a2;
   objc_storeStrong((*(a1 + 32) + 32), a2);
   v5 = *(a1 + 32);
   objc_initWeak(&location, *(v5 + 32));
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __handlePriorityTask_block_invoke;
-  v12[3] = &unk_27893D200;
-  objc_copyWeak(v13, &location);
-  v13[1] = v5;
-  [*(v5 + 32) setExpirationHandler:v12];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __handlePriorityTask_block_invoke;
+  v11[3] = &unk_27893D200;
+  objc_copyWeak(v12, &location);
+  v12[1] = v5;
+  [*(v5 + 32) setExpirationHandler:v11];
   PriorityThrottlingSwitch(1);
   v6 = +[CSXPCEventListener sharedInstance];
   atomic_store([v6 priorityJobCount], (v5 + 4));
@@ -3223,9 +3163,9 @@ void __setupPriorityTaskHandler_block_invoke(uint64_t a1, void *a2)
       v8 = *(v5 + 32);
       v9 = atomic_load((v5 + 4));
       *buf = 138412546;
-      v16 = v8;
-      v17 = 1024;
-      v18 = v9;
+      v15 = v8;
+      v16 = 1024;
+      v17 = v9;
       _os_log_impl(&dword_231B25000, v7, OS_LOG_TYPE_INFO, "### handle priority task %@, job count %d", buf, 0x12u);
     }
   }
@@ -3233,10 +3173,8 @@ void __setupPriorityTaskHandler_block_invoke(uint64_t a1, void *a2)
   v10 = +[CSXPCEventListener sharedInstance];
   [v10 handlePriorityTaskScheduling];
 
-  objc_destroyWeak(v13);
+  objc_destroyWeak(v12);
   objc_destroyWeak(&location);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void sub_231B53DA8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
@@ -3262,43 +3200,41 @@ void __handlePriorityTask_block_invoke(uint64_t a1)
   }
 
   PriorityThrottlingSwitch(0);
-  v4 = getPriorityWorkGroup();
-  v5 = *(a1 + 40);
-  v6 = *(v5 + 16);
+  v5 = getPriorityWorkGroup(v4);
+  v6 = *(a1 + 40);
+  v7 = *(v6 + 16);
   v9[0] = MEMORY[0x277D85DD0];
   v9[1] = 3221225472;
   v9[2] = __handlePriorityTask_block_invoke_334;
   v9[3] = &unk_27893D1D8;
   v10 = WeakRetained;
-  v11 = v5;
-  v7 = WeakRetained;
-  dispatch_group_notify(v4, v6, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v11 = v6;
+  v8 = WeakRetained;
+  dispatch_group_notify(v5, v7, v9);
 }
 
-void __handlePriorityTask_block_invoke_334(uint64_t a1)
+void __handlePriorityTask_block_invoke_334(uint64_t a1, uint64_t a2)
 {
   v17 = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
     if (SKGLogGetCurrentLoggingLevel() >= 5)
     {
-      v2 = SKGLogUpdaterInit();
-      if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+      v3 = SKGLogUpdaterInit();
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
       {
-        v3 = *(a1 + 32);
+        v4 = *(a1 + 32);
         *buf = 138412290;
-        v14 = v3;
-        _os_log_impl(&dword_231B25000, v2, OS_LOG_TYPE_INFO, "### priority batches completed; marking deferred %@", buf, 0xCu);
+        v14 = v4;
+        _os_log_impl(&dword_231B25000, v3, OS_LOG_TYPE_INFO, "### priority batches completed; marking deferred %@", buf, 0xCu);
       }
     }
 
-    v4 = *(a1 + 32);
+    v5 = *(a1 + 32);
     v12 = 0;
-    v5 = [v4 setTaskExpiredWithRetryAfter:&v12 error:300.0];
-    v6 = v12;
-    if (v5)
+    v6 = [v5 setTaskExpiredWithRetryAfter:&v12 error:300.0];
+    v7 = v12;
+    if (v6)
     {
       *(*(a1 + 40) + 24) = 0;
     }
@@ -3307,44 +3243,42 @@ void __handlePriorityTask_block_invoke_334(uint64_t a1)
     {
       if (SKGLogGetCurrentLoggingLevel() >= 5)
       {
-        v7 = SKGLogUpdaterInit();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+        v8 = SKGLogUpdaterInit();
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
         {
-          v8 = *(a1 + 32);
+          v9 = *(a1 + 32);
           *buf = 138412546;
-          v14 = v6;
+          v14 = v7;
           v15 = 2112;
-          v16 = v8;
-          _os_log_impl(&dword_231B25000, v7, OS_LOG_TYPE_INFO, "### priority batches completed, deferring failed with error: %@; marking complete %@", buf, 0x16u);
+          v16 = v9;
+          _os_log_impl(&dword_231B25000, v8, OS_LOG_TYPE_INFO, "### priority batches completed, deferring failed with error: %@; marking complete %@", buf, 0x16u);
         }
       }
 
       [*(a1 + 32) setTaskCompleted];
-      v9 = *(a1 + 40);
-      v10 = *(v9 + 32);
-      *(v9 + 32) = 0;
+      v10 = *(a1 + 40);
+      v11 = *(v10 + 32);
+      *(v10 + 32) = 0;
 
       launchPriorityTask(*(a1 + 40));
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __setupKeyphrasesTaskHandler_block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = a2;
   objc_storeStrong((*(a1 + 32) + 32), a2);
   v5 = *(a1 + 32);
   objc_initWeak(&location, *(v5 + 32));
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __handleKeyphrasesTask_block_invoke;
-  v12[3] = &unk_27893D200;
-  objc_copyWeak(v13, &location);
-  v13[1] = v5;
-  [*(v5 + 32) setExpirationHandler:v12];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __handleKeyphrasesTask_block_invoke;
+  v11[3] = &unk_27893D200;
+  objc_copyWeak(v12, &location);
+  v12[1] = v5;
+  [*(v5 + 32) setExpirationHandler:v11];
   KeyphrasesThrottlingSwitch(1);
   v6 = +[CSXPCEventListener sharedInstance];
   atomic_store([v6 keyphrasesJobCount], (v5 + 4));
@@ -3357,9 +3291,9 @@ void __setupKeyphrasesTaskHandler_block_invoke(uint64_t a1, void *a2)
       v8 = *(v5 + 32);
       v9 = atomic_load((v5 + 4));
       *buf = 138412546;
-      v16 = v8;
-      v17 = 1024;
-      v18 = v9;
+      v15 = v8;
+      v16 = 1024;
+      v17 = v9;
       _os_log_impl(&dword_231B25000, v7, OS_LOG_TYPE_INFO, "### handle keyphrases task %@, job count %d", buf, 0x12u);
     }
   }
@@ -3367,10 +3301,8 @@ void __setupKeyphrasesTaskHandler_block_invoke(uint64_t a1, void *a2)
   v10 = +[CSXPCEventListener sharedInstance];
   [v10 handleKeyphrasesTaskScheduling];
 
-  objc_destroyWeak(v13);
+  objc_destroyWeak(v12);
   objc_destroyWeak(&location);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void sub_231B54270(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
@@ -3396,43 +3328,41 @@ void __handleKeyphrasesTask_block_invoke(uint64_t a1)
   }
 
   KeyphrasesThrottlingSwitch(0);
-  v4 = getKeyphrasesWorkGroup();
-  v5 = *(a1 + 40);
-  v6 = *(v5 + 16);
+  v5 = getKeyphrasesWorkGroup(v4);
+  v6 = *(a1 + 40);
+  v7 = *(v6 + 16);
   v9[0] = MEMORY[0x277D85DD0];
   v9[1] = 3221225472;
   v9[2] = __handleKeyphrasesTask_block_invoke_335;
   v9[3] = &unk_27893D1D8;
   v10 = WeakRetained;
-  v11 = v5;
-  v7 = WeakRetained;
-  dispatch_group_notify(v4, v6, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v11 = v6;
+  v8 = WeakRetained;
+  dispatch_group_notify(v5, v7, v9);
 }
 
-void __handleKeyphrasesTask_block_invoke_335(uint64_t a1)
+void __handleKeyphrasesTask_block_invoke_335(uint64_t a1, uint64_t a2)
 {
   v17 = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
     if (SKGLogGetCurrentLoggingLevel() >= 5)
     {
-      v2 = SKGLogUpdaterInit();
-      if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+      v3 = SKGLogUpdaterInit();
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
       {
-        v3 = *(a1 + 32);
+        v4 = *(a1 + 32);
         *buf = 138412290;
-        v14 = v3;
-        _os_log_impl(&dword_231B25000, v2, OS_LOG_TYPE_INFO, "### keyphrases batches completed; marking deferred %@", buf, 0xCu);
+        v14 = v4;
+        _os_log_impl(&dword_231B25000, v3, OS_LOG_TYPE_INFO, "### keyphrases batches completed; marking deferred %@", buf, 0xCu);
       }
     }
 
-    v4 = *(a1 + 32);
+    v5 = *(a1 + 32);
     v12 = 0;
-    v5 = [v4 setTaskExpiredWithRetryAfter:&v12 error:300.0];
-    v6 = v12;
-    if (v5)
+    v6 = [v5 setTaskExpiredWithRetryAfter:&v12 error:300.0];
+    v7 = v12;
+    if (v6)
     {
       *(*(a1 + 40) + 24) = 0;
     }
@@ -3441,44 +3371,42 @@ void __handleKeyphrasesTask_block_invoke_335(uint64_t a1)
     {
       if (SKGLogGetCurrentLoggingLevel() >= 5)
       {
-        v7 = SKGLogUpdaterInit();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+        v8 = SKGLogUpdaterInit();
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
         {
-          v8 = *(a1 + 32);
+          v9 = *(a1 + 32);
           *buf = 138412546;
-          v14 = v6;
+          v14 = v7;
           v15 = 2112;
-          v16 = v8;
-          _os_log_impl(&dword_231B25000, v7, OS_LOG_TYPE_INFO, "### keyphrases batches completed, deferring failed with error: %@; marking complete %@", buf, 0x16u);
+          v16 = v9;
+          _os_log_impl(&dword_231B25000, v8, OS_LOG_TYPE_INFO, "### keyphrases batches completed, deferring failed with error: %@; marking complete %@", buf, 0x16u);
         }
       }
 
       [*(a1 + 32) setTaskCompleted];
-      v9 = *(a1 + 40);
-      v10 = *(v9 + 32);
-      *(v9 + 32) = 0;
+      v10 = *(a1 + 40);
+      v11 = *(v10 + 32);
+      *(v10 + 32) = 0;
 
       launchKeyphrasesTask(*(a1 + 40));
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __setupPreExtractionTaskHandler_block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = a2;
   objc_storeStrong((*(a1 + 32) + 32), a2);
   v5 = *(a1 + 32);
   objc_initWeak(&location, *(v5 + 32));
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __handlePreExtractionTask_block_invoke;
-  v12[3] = &unk_27893D200;
-  objc_copyWeak(v13, &location);
-  v13[1] = v5;
-  [*(v5 + 32) setExpirationHandler:v12];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __handlePreExtractionTask_block_invoke;
+  v11[3] = &unk_27893D200;
+  objc_copyWeak(v12, &location);
+  v12[1] = v5;
+  [*(v5 + 32) setExpirationHandler:v11];
   PreExtractionThrottlingSwitch(1);
   v6 = +[CSXPCEventListener sharedInstance];
   atomic_store([v6 preExtractionJobCount], (v5 + 4));
@@ -3491,9 +3419,9 @@ void __setupPreExtractionTaskHandler_block_invoke(uint64_t a1, void *a2)
       v8 = *(v5 + 32);
       v9 = atomic_load((v5 + 4));
       *buf = 138412546;
-      v16 = v8;
-      v17 = 1024;
-      v18 = v9;
+      v15 = v8;
+      v16 = 1024;
+      v17 = v9;
       _os_log_impl(&dword_231B25000, v7, OS_LOG_TYPE_INFO, "### handle pre-extraction task %@, job count %d", buf, 0x12u);
     }
   }
@@ -3501,10 +3429,8 @@ void __setupPreExtractionTaskHandler_block_invoke(uint64_t a1, void *a2)
   v10 = +[CSXPCEventListener sharedInstance];
   [v10 handlePreExtractionTaskScheduling];
 
-  objc_destroyWeak(v13);
+  objc_destroyWeak(v12);
   objc_destroyWeak(&location);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void sub_231B54738(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
@@ -3530,43 +3456,41 @@ void __handlePreExtractionTask_block_invoke(uint64_t a1)
   }
 
   PreExtractionThrottlingSwitch(0);
-  v4 = getPreExtractionWorkGroup();
-  v5 = *(a1 + 40);
-  v6 = *(v5 + 16);
+  v5 = getPreExtractionWorkGroup(v4);
+  v6 = *(a1 + 40);
+  v7 = *(v6 + 16);
   v9[0] = MEMORY[0x277D85DD0];
   v9[1] = 3221225472;
   v9[2] = __handlePreExtractionTask_block_invoke_336;
   v9[3] = &unk_27893D1D8;
   v10 = WeakRetained;
-  v11 = v5;
-  v7 = WeakRetained;
-  dispatch_group_notify(v4, v6, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v11 = v6;
+  v8 = WeakRetained;
+  dispatch_group_notify(v5, v7, v9);
 }
 
-void __handlePreExtractionTask_block_invoke_336(uint64_t a1)
+void __handlePreExtractionTask_block_invoke_336(uint64_t a1, uint64_t a2)
 {
   v17 = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
     if (SKGLogGetCurrentLoggingLevel() >= 5)
     {
-      v2 = SKGLogUpdaterInit();
-      if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+      v3 = SKGLogUpdaterInit();
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
       {
-        v3 = *(a1 + 32);
+        v4 = *(a1 + 32);
         *buf = 138412290;
-        v14 = v3;
-        _os_log_impl(&dword_231B25000, v2, OS_LOG_TYPE_INFO, "### pre-extraction batches completed; marking deferred %@", buf, 0xCu);
+        v14 = v4;
+        _os_log_impl(&dword_231B25000, v3, OS_LOG_TYPE_INFO, "### pre-extraction batches completed; marking deferred %@", buf, 0xCu);
       }
     }
 
-    v4 = *(a1 + 32);
+    v5 = *(a1 + 32);
     v12 = 0;
-    v5 = [v4 setTaskExpiredWithRetryAfter:&v12 error:300.0];
-    v6 = v12;
-    if (v5)
+    v6 = [v5 setTaskExpiredWithRetryAfter:&v12 error:300.0];
+    v7 = v12;
+    if (v6)
     {
       *(*(a1 + 40) + 24) = 0;
     }
@@ -3575,28 +3499,26 @@ void __handlePreExtractionTask_block_invoke_336(uint64_t a1)
     {
       if (SKGLogGetCurrentLoggingLevel() >= 5)
       {
-        v7 = SKGLogUpdaterInit();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+        v8 = SKGLogUpdaterInit();
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
         {
-          v8 = *(a1 + 32);
+          v9 = *(a1 + 32);
           *buf = 138412546;
-          v14 = v6;
+          v14 = v7;
           v15 = 2112;
-          v16 = v8;
-          _os_log_impl(&dword_231B25000, v7, OS_LOG_TYPE_INFO, "### pre-extraction batches completed, deferring failed with error: %@; marking complete %@", buf, 0x16u);
+          v16 = v9;
+          _os_log_impl(&dword_231B25000, v8, OS_LOG_TYPE_INFO, "### pre-extraction batches completed, deferring failed with error: %@; marking complete %@", buf, 0x16u);
         }
       }
 
       [*(a1 + 32) setTaskCompleted];
-      v9 = *(a1 + 40);
-      v10 = *(v9 + 32);
-      *(v9 + 32) = 0;
+      v10 = *(a1 + 40);
+      v11 = *(v10 + 32);
+      *(v10 + 32) = 0;
 
       launchPreExtractionTask(*(a1 + 40));
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __setupQueryUpdatesTasks_block_invoke(uint64_t a1, void *a2)
@@ -3689,7 +3611,7 @@ void __getQueryUpdatesStatus_block_invoke()
 
 void __handleQueryUpdatesTask_block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (SKGLogGetCurrentLoggingLevel() >= 5)
   {
@@ -3697,7 +3619,7 @@ void __handleQueryUpdatesTask_block_invoke(uint64_t a1)
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v14 = WeakRetained;
+      v13 = WeakRetained;
       _os_log_impl(&dword_231B25000, v3, OS_LOG_TYPE_INFO, "### query updates task %@ expired", buf, 0xCu);
     }
   }
@@ -3709,7 +3631,7 @@ void __handleQueryUpdatesTask_block_invoke(uint64_t a1)
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v14 = WeakRetained;
+      v13 = WeakRetained;
       _os_log_impl(&dword_231B25000, v4, OS_LOG_TYPE_INFO, "### query updates task %@ deferring", buf, 0xCu);
     }
   }
@@ -3717,27 +3639,25 @@ void __handleQueryUpdatesTask_block_invoke(uint64_t a1)
   v5 = dispatch_time(0, *(*(a1 + 40) + 24));
   v6 = *(a1 + 40);
   v7 = *(v6 + 16);
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __handleQueryUpdatesTask_block_invoke_340;
-  v10[3] = &unk_27893D1D8;
-  v11 = WeakRetained;
-  v12 = v6;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __handleQueryUpdatesTask_block_invoke_340;
+  v9[3] = &unk_27893D1D8;
+  v10 = WeakRetained;
+  v11 = v6;
   v8 = WeakRetained;
-  dispatch_after(v5, v7, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  dispatch_after(v5, v7, v9);
 }
 
 void __handleQueryUpdatesTask_block_invoke_340(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2)
   {
-    v12 = 0;
-    v3 = [v2 setTaskExpiredWithRetryAfter:&v12 error:300.0];
-    v4 = v12;
+    v11 = 0;
+    v3 = [v2 setTaskExpiredWithRetryAfter:&v11 error:300.0];
+    v4 = v11;
     if (SKGLogGetCurrentLoggingLevel() >= 5)
     {
       v5 = SKGLogUpdaterInit();
@@ -3745,7 +3665,7 @@ void __handleQueryUpdatesTask_block_invoke_340(uint64_t a1)
       {
         v6 = *(*(a1 + 40) + 32);
         *buf = 138412290;
-        v14 = v6;
+        v13 = v6;
         _os_log_impl(&dword_231B25000, v5, OS_LOG_TYPE_INFO, "### query updates task; marking deferred %@", buf, 0xCu);
       }
     }
@@ -3764,9 +3684,9 @@ void __handleQueryUpdatesTask_block_invoke_340(uint64_t a1)
         {
           v8 = *(*(a1 + 40) + 32);
           *buf = 138412546;
-          v14 = v4;
-          v15 = 2112;
-          v16 = v8;
+          v13 = v4;
+          v14 = 2112;
+          v15 = v8;
           _os_log_impl(&dword_231B25000, v7, OS_LOG_TYPE_INFO, "### query updates task batches completed, deferring failed with error: %@; marking complete %@", buf, 0x16u);
         }
       }
@@ -3777,8 +3697,6 @@ void __handleQueryUpdatesTask_block_invoke_340(uint64_t a1)
       *(v9 + 32) = 0;
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __handleQueryUpdatesTask_block_invoke_341(uint64_t a1)
@@ -3823,7 +3741,7 @@ void __handleQueryUpdatesTask_block_invoke_2(uint64_t a1)
 
 void __handleQueryUpdatesTask_block_invoke_3(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (SKGLogGetCurrentLoggingLevel() >= 5)
   {
@@ -3831,7 +3749,7 @@ void __handleQueryUpdatesTask_block_invoke_3(uint64_t a1)
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v13 = WeakRetained;
+      v12 = WeakRetained;
       _os_log_impl(&dword_231B25000, v3, OS_LOG_TYPE_INFO, "### query updates task %@ deferring", buf, 0xCu);
     }
   }
@@ -3839,27 +3757,25 @@ void __handleQueryUpdatesTask_block_invoke_3(uint64_t a1)
   v4 = dispatch_time(0, *(*(a1 + 40) + 24));
   v5 = *(a1 + 40);
   v6 = *(v5 + 16);
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __handleQueryUpdatesTask_block_invoke_342;
-  v9[3] = &unk_27893D1D8;
-  v10 = WeakRetained;
-  v11 = v5;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __handleQueryUpdatesTask_block_invoke_342;
+  v8[3] = &unk_27893D1D8;
+  v9 = WeakRetained;
+  v10 = v5;
   v7 = WeakRetained;
-  dispatch_after(v4, v6, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  dispatch_after(v4, v6, v8);
 }
 
 void __handleQueryUpdatesTask_block_invoke_342(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2)
   {
-    v12 = 0;
-    v3 = [v2 setTaskExpiredWithRetryAfter:&v12 error:300.0];
-    v4 = v12;
+    v11 = 0;
+    v3 = [v2 setTaskExpiredWithRetryAfter:&v11 error:300.0];
+    v4 = v11;
     if (SKGLogGetCurrentLoggingLevel() >= 5)
     {
       v5 = SKGLogUpdaterInit();
@@ -3867,7 +3783,7 @@ void __handleQueryUpdatesTask_block_invoke_342(uint64_t a1)
       {
         v6 = *(*(a1 + 40) + 32);
         *buf = 138412290;
-        v14 = v6;
+        v13 = v6;
         _os_log_impl(&dword_231B25000, v5, OS_LOG_TYPE_INFO, "### query updates task; marking deferred %@", buf, 0xCu);
       }
     }
@@ -3886,9 +3802,9 @@ void __handleQueryUpdatesTask_block_invoke_342(uint64_t a1)
         {
           v8 = *(*(a1 + 40) + 32);
           *buf = 138412546;
-          v14 = v4;
-          v15 = 2112;
-          v16 = v8;
+          v13 = v4;
+          v14 = 2112;
+          v15 = v8;
           _os_log_impl(&dword_231B25000, v7, OS_LOG_TYPE_INFO, "### query updates task batches completed, deferring failed with error: %@; marking complete %@", buf, 0x16u);
         }
       }
@@ -3899,8 +3815,6 @@ void __handleQueryUpdatesTask_block_invoke_342(uint64_t a1)
       *(v9 + 32) = 0;
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __handleQueryUpdatesTask_block_invoke_343(uint64_t a1)
@@ -3951,54 +3865,54 @@ uint64_t processedForJournalPath(uint64_t a1)
 
 void purgeOldEventFilesAtRootPath(void *a1)
 {
-  v89 = *MEMORY[0x277D85DE8];
+  v88 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = objc_autoreleasePoolPush();
   +[CSEventFeedback reset];
   v3 = [MEMORY[0x277CBEBC0] fileURLWithPath:v1 isDirectory:1];
   if (v3)
   {
-    v59 = v2;
-    v60 = v1;
+    v58 = v2;
+    v59 = v1;
     v4 = [MEMORY[0x277CCAA00] defaultManager];
     v5 = *MEMORY[0x277CBE8A8];
     v6 = [MEMORY[0x277CBEA60] arrayWithObjects:{*MEMORY[0x277CBE8E8], *MEMORY[0x277CBE8A8], 0}];
-    v58 = v3;
+    v57 = v3;
     v7 = [v4 enumeratorAtURL:v3 includingPropertiesForKeys:v6 options:4 errorHandler:&__block_literal_global_6];
 
-    v81 = 0u;
-    v82 = 0u;
-    v79 = 0u;
     v80 = 0u;
+    v81 = 0u;
+    v78 = 0u;
+    v79 = 0u;
     v8 = v7;
-    v9 = [v8 countByEnumeratingWithState:&v79 objects:v86 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v78 objects:v85 count:16];
     if (!v9)
     {
-      v67 = 0;
+      v66 = 0;
       goto LABEL_58;
     }
 
     v10 = v9;
-    v67 = 0;
-    v11 = *v80;
-    v68 = v8;
-    v64 = *v80;
-    v65 = v5;
+    v66 = 0;
+    v11 = *v79;
+    v67 = v8;
+    v63 = *v79;
+    v64 = v5;
     while (1)
     {
       v12 = 0;
-      v61 = v10;
+      v60 = v10;
       do
       {
-        if (*v80 != v11)
+        if (*v79 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v79 + 1) + 8 * v12);
-        v78 = 0;
-        [v13 getResourceValue:&v78 forKey:v5 error:0];
-        v14 = v78;
+        v13 = *(*(&v78 + 1) + 8 * v12);
+        v77 = 0;
+        [v13 getResourceValue:&v77 forKey:v5 error:0];
+        v14 = v77;
         if ([v14 BOOLValue])
         {
           v15 = [v13 lastPathComponent];
@@ -4006,8 +3920,8 @@ void purgeOldEventFilesAtRootPath(void *a1)
           {
             v16 = v13;
             v17 = v15;
-            v70 = v16;
-            v71 = v14;
+            v69 = v16;
+            v70 = v14;
             v18 = [v16 lastPathComponent];
             v19 = [v18 stringByDeletingPathExtension];
 
@@ -4015,18 +3929,18 @@ void purgeOldEventFilesAtRootPath(void *a1)
             {
               v20 = v19;
               v21 = [v19 componentsSeparatedByString:@"_"];
-              v14 = v71;
+              v14 = v70;
               if ([v21 count] == 5)
               {
-                v66 = v20;
+                v65 = v20;
                 v22 = [v21 lastObject];
-                v69 = [v22 integerValue];
+                v68 = [v22 integerValue];
 
-                v23 = [v70 URLByDeletingLastPathComponent];
+                v23 = [v69 URLByDeletingLastPathComponent];
                 v24 = [v23 path];
 
-                v25 = v67;
-                if (!v67)
+                v25 = v66;
+                if (!v66)
                 {
                   v25 = objc_alloc_init(MEMORY[0x277CBEB38]);
                 }
@@ -4045,156 +3959,156 @@ void purgeOldEventFilesAtRootPath(void *a1)
                   v30 = [v25 objectForKeyedSubscript:v24];
                   [v30 setObject:v29 forKeyedSubscript:@"paths"];
 
-                  v14 = v71;
+                  v14 = v70;
                 }
 
                 v31 = [v25 objectForKeyedSubscript:v24];
                 v32 = [v31 objectForKeyedSubscript:@"version"];
 
                 v33 = v32;
-                v67 = v25;
-                if (v69 > [v32 integerValue])
+                v66 = v25;
+                if (v68 > [v32 integerValue])
                 {
-                  v62 = v24;
-                  v63 = v21;
-                  v76 = 0u;
-                  v77 = 0u;
-                  v74 = 0u;
+                  v61 = v24;
+                  v62 = v21;
                   v75 = 0u;
+                  v76 = 0u;
+                  v73 = 0u;
+                  v74 = 0u;
                   v34 = [v25 objectForKeyedSubscript:v24];
                   v35 = [v34 objectForKeyedSubscript:@"paths"];
 
-                  v36 = [v35 countByEnumeratingWithState:&v74 objects:v85 count:16];
+                  v36 = [v35 countByEnumeratingWithState:&v73 objects:v84 count:16];
                   v37 = v32;
                   if (v36)
                   {
                     v38 = v36;
-                    v39 = *v75;
+                    v39 = *v74;
                     do
                     {
                       for (i = 0; i != v38; ++i)
                       {
-                        if (*v75 != v39)
+                        if (*v74 != v39)
                         {
                           objc_enumerationMutation(v35);
                         }
 
-                        v41 = *(*(&v74 + 1) + 8 * i);
+                        v41 = *(*(&v73 + 1) + 8 * i);
                         if (SKGLogGetCurrentLoggingLevel() >= 4)
                         {
                           v42 = SKGLogInit();
                           if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
                           {
                             *buf = 138412290;
-                            v88 = v41;
+                            v87 = v41;
                             _os_log_impl(&dword_231B25000, v42, OS_LOG_TYPE_DEFAULT, "### removing <%@>", buf, 0xCu);
                           }
                         }
 
                         v43 = [MEMORY[0x277CCAA00] defaultManager];
-                        v73 = 0;
-                        [v43 removeItemAtURL:v41 error:&v73];
-                        v44 = v73;
+                        v72 = 0;
+                        [v43 removeItemAtURL:v41 error:&v72];
+                        v44 = v72;
 
                         if (v44 && SKGLogGetCurrentLoggingLevel() >= 2)
                         {
                           v45 = SKGLogInit();
                           if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
                           {
-                            purgeOldEventFilesAtRootPath_cold_1(v84, v41);
+                            purgeOldEventFilesAtRootPath_cold_1(v83, v41);
                           }
                         }
                       }
 
                       v37 = v33;
-                      v38 = [v35 countByEnumeratingWithState:&v74 objects:v85 count:16];
+                      v38 = [v35 countByEnumeratingWithState:&v73 objects:v84 count:16];
                     }
 
                     while (v38);
                   }
 
-                  v46 = [v67 objectForKeyedSubscript:v62];
+                  v46 = [v66 objectForKeyedSubscript:v61];
                   v47 = [v46 objectForKeyedSubscript:@"paths"];
                   [v47 removeAllObjects];
 
-                  v48 = [MEMORY[0x277CCABB0] numberWithInteger:v69];
-                  v49 = [v67 objectForKeyedSubscript:v62];
+                  v48 = [MEMORY[0x277CCABB0] numberWithInteger:v68];
+                  v49 = [v66 objectForKeyedSubscript:v61];
                   [v49 setObject:v48 forKeyedSubscript:@"version"];
 
-                  v50 = v62;
-                  v51 = [v67 objectForKeyedSubscript:v62];
+                  v50 = v61;
+                  v51 = [v66 objectForKeyedSubscript:v61];
                   v33 = [v51 objectForKeyedSubscript:@"version"];
                   v52 = v37;
-                  v11 = v64;
-                  v5 = v65;
-                  v10 = v61;
-                  v21 = v63;
+                  v11 = v63;
+                  v5 = v64;
+                  v10 = v60;
+                  v21 = v62;
                   goto LABEL_33;
                 }
 
-                if (v69 >= [v32 integerValue])
+                if (v68 >= [v32 integerValue])
                 {
                   v50 = v24;
-                  v5 = v65;
-                  v20 = v66;
-                  v11 = v64;
+                  v5 = v64;
+                  v20 = v65;
+                  v11 = v63;
                 }
 
                 else
                 {
                   v50 = v24;
-                  v11 = v64;
-                  v5 = v65;
+                  v11 = v63;
+                  v5 = v64;
                   if (SKGLogGetCurrentLoggingLevel() >= 4)
                   {
                     v53 = SKGLogInit();
                     if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
                     {
                       *buf = 138412290;
-                      v88 = v70;
+                      v87 = v69;
                       _os_log_impl(&dword_231B25000, v53, OS_LOG_TYPE_DEFAULT, "### removing <%@>", buf, 0xCu);
                     }
                   }
 
                   v54 = [MEMORY[0x277CCAA00] defaultManager];
-                  v72 = 0;
-                  [v54 removeItemAtURL:v70 error:&v72];
-                  v51 = v72;
+                  v71 = 0;
+                  [v54 removeItemAtURL:v69 error:&v71];
+                  v51 = v71;
 
                   if (v51 && SKGLogGetCurrentLoggingLevel() >= 2)
                   {
                     v52 = SKGLogInit();
                     if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
                     {
-                      purgeOldEventFilesAtRootPath_cold_1(v83, v70);
+                      purgeOldEventFilesAtRootPath_cold_1(v82, v69);
                     }
 
 LABEL_33:
                   }
 
-                  v20 = v66;
+                  v20 = v65;
 
-                  v14 = v71;
+                  v14 = v70;
                 }
 
-                if (v69 == [v33 integerValue])
+                if (v68 == [v33 integerValue])
                 {
-                  v55 = [v67 objectForKeyedSubscript:v50];
+                  v55 = [v66 objectForKeyedSubscript:v50];
                   v56 = [v55 objectForKeyedSubscript:@"paths"];
-                  [v56 addObject:v70];
+                  [v56 addObject:v69];
 
-                  v14 = v71;
-                  v20 = v66;
+                  v14 = v70;
+                  v20 = v65;
                 }
               }
             }
 
             else
             {
-              v14 = v71;
+              v14 = v70;
             }
 
-            v8 = v68;
+            v8 = v67;
           }
         }
 
@@ -4202,14 +4116,14 @@ LABEL_33:
       }
 
       while (v12 != v10);
-      v10 = [v8 countByEnumeratingWithState:&v79 objects:v86 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v78 objects:v85 count:16];
       if (!v10)
       {
 LABEL_58:
 
-        v2 = v59;
-        v1 = v60;
-        v3 = v58;
+        v2 = v58;
+        v1 = v59;
+        v3 = v57;
         goto LABEL_59;
       }
     }
@@ -4221,7 +4135,7 @@ LABEL_58:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v88 = [v1 UTF8String];
+      v87 = [v1 UTF8String];
       _os_log_impl(&dword_231B25000, v8, OS_LOG_TYPE_DEFAULT, "### fileURLWithPath failed for <%s>", buf, 0xCu);
     }
 
@@ -4229,7 +4143,6 @@ LABEL_59:
   }
 
   objc_autoreleasePoolPop(v2);
-  v57 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __purgeOldEventFilesAtRootPath_block_invoke(uint64_t a1, void *a2, void *a3)
@@ -4276,86 +4189,86 @@ unint64_t extractJournalNumberFromJournal(const char *a1)
   return v4;
 }
 
-void purgeFilesInOrderUntilThresholdReached(const char *a1, char *a2, void *a3)
+void purgeFilesInOrderUntilThresholdReached(char *a1, char *a2, void *a3)
 {
-  v96 = *MEMORY[0x277D85DE8];
-  v70 = a3;
+  v97 = *MEMORY[0x277D85DE8];
+  v71 = a3;
   context = objc_autoreleasePoolPush();
-  v71 = a1;
-  v5 = calculateDirectorySize(a1);
+  v72 = a1;
+  v6 = calculateDirectorySize(a1, v5);
   if (SKGLogGetCurrentLoggingLevel() >= 4)
   {
-    v6 = SKGLogInit();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = SKGLogInit();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218240;
-      v93 = v5;
-      v94 = 2048;
+      v94 = v6;
+      v95 = 2048;
       fts_name = a2;
-      _os_log_impl(&dword_231B25000, v6, OS_LOG_TYPE_DEFAULT, "### purgeFilesInOrderUntilThresholdReached currentSize: %llu threshold: %llu", buf, 0x16u);
+      _os_log_impl(&dword_231B25000, v7, OS_LOG_TYPE_DEFAULT, "### purgeFilesInOrderUntilThresholdReached currentSize: %llu threshold: %llu", buf, 0x16u);
     }
   }
 
-  v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v91[0] = v71;
-  v91[1] = 0;
-  v8 = fts_open(v91, 84, 0);
-  v69 = v7;
-  if (v8)
+  v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v92[0] = v72;
+  v92[1] = 0;
+  v9 = fts_open(v92, 84, 0);
+  v70 = v8;
+  if (v9)
   {
-    v9 = v8;
-    v10 = fts_read(v8);
-    if (v10)
+    v10 = v9;
+    v11 = fts_read(v9);
+    if (v11)
     {
-      v11 = v10;
-      v12 = "skg_events_";
+      v12 = v11;
+      v13 = "skg_events_";
       do
       {
-        fts_statp = v11->fts_statp;
-        if (fts_statp && (fts_statp->st_mode & 0xD000 | 0x2000) == 0xA000 && v11->fts_namelen >= 0xBu && (!strncmp(v11->fts_name, "evt_", 4uLL) || !strncmp(v11->fts_name, v12, 0xBuLL)) && strstr(v11->fts_name, ".journal"))
+        fts_statp = v12->fts_statp;
+        if (fts_statp && (fts_statp->st_mode & 0xD000 | 0x2000) == 0xA000 && v12->fts_namelen >= 0xBu && (!strncmp(v12->fts_name, "evt_", 4uLL) || !strncmp(v12->fts_name, v13, 0xBuLL)) && strstr(v12->fts_name, ".journal"))
         {
-          v14 = v12;
-          v15 = a2;
-          v83 = 0u;
+          v15 = v13;
+          v16 = a2;
           v84 = 0u;
-          v81 = 0u;
+          v85 = 0u;
           v82 = 0u;
-          v16 = v70;
-          v17 = [(FileEntry *)v16 countByEnumeratingWithState:&v81 objects:v90 count:16, context];
-          if (v17)
+          v83 = 0u;
+          v17 = v71;
+          v18 = [(FileEntry *)v17 countByEnumeratingWithState:&v82 objects:v91 count:16, context];
+          if (v18)
           {
-            v18 = v17;
-            v19 = *v82;
+            v19 = v18;
+            v20 = *v83;
             while (2)
             {
-              for (i = 0; i != v18; ++i)
+              for (i = 0; i != v19; ++i)
               {
-                if (*v82 != v19)
+                if (*v83 != v20)
                 {
-                  objc_enumerationMutation(v16);
+                  objc_enumerationMutation(v17);
                 }
 
-                if (strstr(v11->fts_path, [*(*(&v81 + 1) + 8 * i) UTF8String]))
+                if (strstr(v12->fts_path, [*(*(&v82 + 1) + 8 * i) UTF8String]))
                 {
                   if (SKGLogGetCurrentLoggingLevel() < 5)
                   {
-                    a2 = v15;
-                    v12 = v14;
+                    a2 = v16;
+                    v13 = v15;
                   }
 
                   else
                   {
-                    v25 = SKGLogInit();
-                    a2 = v15;
-                    v12 = v14;
-                    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+                    v26 = SKGLogInit();
+                    a2 = v16;
+                    v13 = v15;
+                    if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
                     {
-                      fts_path = v11->fts_path;
+                      fts_path = v12->fts_path;
                       *buf = 136315394;
-                      v93 = fts_path;
-                      v94 = 2080;
-                      fts_name = v11->fts_name;
-                      _os_log_impl(&dword_231B25000, v25, OS_LOG_TYPE_INFO, "### skipping receiver files %s/%s", buf, 0x16u);
+                      v94 = fts_path;
+                      v95 = 2080;
+                      fts_name = v12->fts_name;
+                      _os_log_impl(&dword_231B25000, v26, OS_LOG_TYPE_INFO, "### skipping receiver files %s/%s", buf, 0x16u);
                     }
                   }
 
@@ -4363,8 +4276,8 @@ void purgeFilesInOrderUntilThresholdReached(const char *a1, char *a2, void *a3)
                 }
               }
 
-              v18 = [(FileEntry *)v16 countByEnumeratingWithState:&v81 objects:v90 count:16];
-              if (v18)
+              v19 = [(FileEntry *)v17 countByEnumeratingWithState:&v82 objects:v91 count:16];
+              if (v19)
               {
                 continue;
               }
@@ -4373,96 +4286,96 @@ void purgeFilesInOrderUntilThresholdReached(const char *a1, char *a2, void *a3)
             }
           }
 
-          JournalNumberFromJournal = extractJournalNumberFromJournal(v11->fts_name);
-          a2 = v15;
-          v12 = v14;
+          JournalNumberFromJournal = extractJournalNumberFromJournal(v12->fts_name);
+          a2 = v16;
+          v13 = v15;
           if (JournalNumberFromJournal)
           {
-            v22 = JournalNumberFromJournal;
-            v23 = [FileEntry alloc];
-            v24 = [MEMORY[0x277CCACA8] stringWithCString:v11->fts_path encoding:4];
-            v16 = [(FileEntry *)v23 initWithFilePath:v24 journalNumber:v22 fileSize:v11->fts_statp->st_size];
+            v23 = JournalNumberFromJournal;
+            v24 = [FileEntry alloc];
+            v25 = [MEMORY[0x277CCACA8] stringWithCString:v12->fts_path encoding:4];
+            v17 = [(FileEntry *)v24 initWithFilePath:v25 journalNumber:v23 fileSize:v12->fts_statp->st_size];
 
-            [v69 addObject:v16];
+            [v70 addObject:v17];
 LABEL_29:
           }
         }
 
-        v11 = fts_read(v9);
+        v12 = fts_read(v10);
       }
 
-      while (v11);
+      while (v12);
     }
 
-    fts_close(v9);
-    v7 = v69;
+    fts_close(v10);
+    v8 = v70;
   }
 
-  [v7 sortUsingComparator:{&__block_literal_global_59, context}];
-  v27 = [v7 count];
+  [v8 sortUsingComparator:{&__block_literal_global_59, context}];
+  v28 = [v8 count];
   if (SKGLogGetCurrentLoggingLevel() >= 4)
   {
-    v28 = SKGLogInit();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    v29 = SKGLogInit();
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v93 = v27;
-      _os_log_impl(&dword_231B25000, v28, OS_LOG_TYPE_DEFAULT, "### purgeFilesInOrderUntilThresholdReached number of files: %zu", buf, 0xCu);
+      v94 = v28;
+      _os_log_impl(&dword_231B25000, v29, OS_LOG_TYPE_DEFAULT, "### purgeFilesInOrderUntilThresholdReached number of files: %zu", buf, 0xCu);
     }
   }
 
-  v79 = 0u;
   v80 = 0u;
-  v77 = 0u;
+  v81 = 0u;
   v78 = 0u;
-  v29 = [v7 reverseObjectEnumerator];
-  v30 = [v29 countByEnumeratingWithState:&v77 objects:v89 count:16];
-  if (!v30)
+  v79 = 0u;
+  v30 = [v8 reverseObjectEnumerator];
+  v31 = [v30 countByEnumeratingWithState:&v78 objects:v90 count:16];
+  if (!v31)
   {
-    v32 = 0;
     v33 = 0;
+    v34 = 0;
     goto LABEL_75;
   }
 
-  v31 = v30;
-  v32 = 0;
+  v32 = v31;
   v33 = 0;
   v34 = 0;
-  v35 = *v78;
-  v74 = *v78;
+  v35 = 0;
+  v36 = *v79;
+  v75 = *v79;
   do
   {
-    v36 = 0;
-    v75 = v31;
+    v37 = 0;
+    v76 = v32;
     do
     {
-      if (*v78 != v35)
+      if (*v79 != v36)
       {
-        objc_enumerationMutation(v29);
+        objc_enumerationMutation(v30);
       }
 
-      v37 = *(*(&v77 + 1) + 8 * v36);
-      v34 += [v37 fileSize];
-      if (v34 > a2)
+      v38 = *(*(&v78 + 1) + 8 * v37);
+      v35 += [v38 fileSize];
+      if (v35 > a2)
       {
         +[CSEventFeedback reset];
-        v38 = [v37 filePath];
-        v39 = [v38 UTF8String];
+        v39 = [v38 filePath];
+        v40 = [v39 UTF8String];
 
-        v76 = tocForJournalPath(v39);
-        v40 = processedForJournalPath(v39);
-        v41 = unlink(v39);
+        v77 = tocForJournalPath(v40);
+        v41 = processedForJournalPath(v40);
+        v42 = unlink(v40);
         CurrentLoggingLevel = SKGLogGetCurrentLoggingLevel();
-        if (v41)
+        if (v42)
         {
           if (CurrentLoggingLevel >= 2)
           {
-            v43 = SKGLogInit();
-            if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+            v44 = SKGLogInit();
+            if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315138;
-              v93 = v39;
-              _os_log_error_impl(&dword_231B25000, v43, OS_LOG_TYPE_ERROR, "### purge(failed) journal file: %s", buf, 0xCu);
+              v94 = v40;
+              _os_log_error_impl(&dword_231B25000, v44, OS_LOG_TYPE_ERROR, "### purge(failed) journal file: %s", buf, 0xCu);
             }
 
             goto LABEL_51;
@@ -4473,150 +4386,149 @@ LABEL_29:
         {
           if (CurrentLoggingLevel >= 4)
           {
-            v44 = SKGLogInit();
-            if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+            v45 = SKGLogInit();
+            if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136315138;
-              v93 = v39;
-              _os_log_impl(&dword_231B25000, v44, OS_LOG_TYPE_DEFAULT, "### purge journal file: %s", buf, 0xCu);
+              v94 = v40;
+              _os_log_impl(&dword_231B25000, v45, OS_LOG_TYPE_DEFAULT, "### purge journal file: %s", buf, 0xCu);
             }
           }
 
-          v43 = +[SKGActivityJournal sharedJournal];
-          v87[0] = &unk_2846E77A0;
-          v45 = [v37 filePath];
-          v87[1] = &unk_2846E77B8;
-          v88[0] = v45;
-          v72 = v32;
-          v73 = v34;
-          v46 = v29;
-          v47 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v37, "fileSize")}];
-          v88[1] = v47;
-          [MEMORY[0x277CBEAC0] dictionaryWithObjects:v88 forKeys:v87 count:2];
-          v48 = v40;
-          v49 = v33;
-          v51 = v50 = a2;
-          [v43 addEventWithType:42 params:v51];
+          v44 = +[SKGActivityJournal sharedJournal];
+          v88[0] = &unk_2846E77A0;
+          v46 = [v38 filePath];
+          v88[1] = &unk_2846E77B8;
+          v89[0] = v46;
+          v73 = v33;
+          v74 = v35;
+          v47 = v30;
+          v48 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v38, "fileSize")}];
+          v89[1] = v48;
+          [MEMORY[0x277CBEAC0] dictionaryWithObjects:v89 forKeys:v88 count:2];
+          v49 = v41;
+          v50 = v34;
+          v52 = v51 = a2;
+          [v44 addEventWithType:42 params:v52];
 
-          a2 = v50;
-          v33 = v49;
-          v40 = v48;
+          a2 = v51;
+          v34 = v50;
+          v41 = v49;
 
-          v29 = v46;
-          v32 = v72;
-          v34 = v73;
+          v30 = v47;
+          v33 = v73;
+          v35 = v74;
 
 LABEL_51:
         }
 
-        v52 = unlink(v76);
-        v53 = SKGLogGetCurrentLoggingLevel();
-        if (v52)
+        v53 = unlink(v77);
+        v54 = SKGLogGetCurrentLoggingLevel();
+        if (v53)
         {
-          if (v53 >= 2)
+          if (v54 >= 2)
           {
-            v54 = SKGLogInit();
-            if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+            v55 = SKGLogInit();
+            if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315138;
-              v93 = v76;
-              _os_log_error_impl(&dword_231B25000, v54, OS_LOG_TYPE_ERROR, "### purge(failed) toc file: %s", buf, 0xCu);
+              v94 = v77;
+              _os_log_error_impl(&dword_231B25000, v55, OS_LOG_TYPE_ERROR, "### purge(failed) toc file: %s", buf, 0xCu);
             }
 
             goto LABEL_59;
           }
         }
 
-        else if (v53 >= 4)
+        else if (v54 >= 4)
         {
-          v54 = SKGLogInit();
-          if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
+          v55 = SKGLogInit();
+          if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315138;
-            v93 = v76;
-            _os_log_impl(&dword_231B25000, v54, OS_LOG_TYPE_DEFAULT, "### purge toc file: %s", buf, 0xCu);
+            v94 = v77;
+            _os_log_impl(&dword_231B25000, v55, OS_LOG_TYPE_DEFAULT, "### purge toc file: %s", buf, 0xCu);
           }
 
 LABEL_59:
         }
 
-        v55 = v40;
-        v56 = unlink(v40);
-        v57 = SKGLogGetCurrentLoggingLevel();
-        if (v56)
+        v56 = v41;
+        v57 = unlink(v41);
+        v58 = SKGLogGetCurrentLoggingLevel();
+        if (v57)
         {
-          v35 = v74;
-          if (v57 >= 2)
+          v36 = v75;
+          if (v58 >= 2)
           {
-            v58 = SKGLogInit();
-            if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+            v59 = SKGLogInit();
+            if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315138;
-              v93 = v55;
-              _os_log_error_impl(&dword_231B25000, v58, OS_LOG_TYPE_ERROR, "### purge(failed) processed file: %s", buf, 0xCu);
+              v94 = v56;
+              _os_log_error_impl(&dword_231B25000, v59, OS_LOG_TYPE_ERROR, "### purge(failed) processed file: %s", buf, 0xCu);
             }
           }
         }
 
         else
         {
-          v35 = v74;
-          if (v57 >= 4)
+          v36 = v75;
+          if (v58 >= 4)
           {
-            v59 = SKGLogInit();
-            if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
+            v60 = SKGLogInit();
+            if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136315138;
-              v93 = v55;
-              _os_log_impl(&dword_231B25000, v59, OS_LOG_TYPE_DEFAULT, "### purge processed file: %s", buf, 0xCu);
+              v94 = v56;
+              _os_log_impl(&dword_231B25000, v60, OS_LOG_TYPE_DEFAULT, "### purge processed file: %s", buf, 0xCu);
             }
           }
 
-          ++v33;
-          v32 += [v37 fileSize];
+          ++v34;
+          v33 += [v38 fileSize];
         }
 
-        v31 = v75;
+        v32 = v76;
       }
 
-      ++v36;
+      ++v37;
     }
 
-    while (v31 != v36);
-    v31 = [v29 countByEnumeratingWithState:&v77 objects:v89 count:16];
+    while (v32 != v37);
+    v32 = [v30 countByEnumeratingWithState:&v78 objects:v90 count:16];
   }
 
-  while (v31);
+  while (v32);
 LABEL_75:
 
-  v60 = calculateDirectorySize(v71);
+  v62 = calculateDirectorySize(v72, v61);
   if (SKGLogGetCurrentLoggingLevel() >= 4)
   {
-    v61 = SKGLogInit();
-    if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
+    v63 = SKGLogInit();
+    if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v93 = v60;
-      _os_log_impl(&dword_231B25000, v61, OS_LOG_TYPE_DEFAULT, "### purge final directory size: %llu bytes\n", buf, 0xCu);
+      v94 = v62;
+      _os_log_impl(&dword_231B25000, v63, OS_LOG_TYPE_DEFAULT, "### purge final directory size: %llu bytes\n", buf, 0xCu);
     }
   }
 
-  if (v33)
+  if (v34)
   {
-    v85[0] = @"PurgeCount";
-    v62 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v33];
-    v85[1] = @"PurgedBytes";
-    v86[0] = v62;
-    v63 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v32];
-    v86[1] = v63;
-    v64 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v86 forKeys:v85 count:2];
+    v86[0] = @"PurgeCount";
+    v64 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v34];
+    v86[1] = @"PurgedBytes";
+    v87[0] = v64;
+    v65 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v33];
+    v87[1] = v65;
+    v66 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v87 forKeys:v86 count:2];
 
-    v65 = v64;
+    v67 = v66;
     AnalyticsSendEventLazy();
   }
 
   objc_autoreleasePoolPop(contexta);
-  v66 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __purgeFilesInOrderUntilThresholdReached_block_invoke(uint64_t a1, void *a2, void *a3)
@@ -4638,7 +4550,7 @@ uint64_t __purgeFilesInOrderUntilThresholdReached_block_invoke(uint64_t a1, void
   return v7;
 }
 
-void purgeOldJournalFilesAtRootPath(const char *a1, char *a2, void *a3)
+void purgeOldJournalFilesAtRootPath(char *a1, char *a2, void *a3)
 {
   v5 = a3;
   if (SKGLogGetCurrentLoggingLevel() >= 4)
@@ -4964,13 +4876,13 @@ id embeddingCacheParentFolderPath(unsigned int a1)
 
 void setDirstatsTrackingOnEventsPath()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v0 = eventsPath();
   v1 = [v0 UTF8String];
 
-  memset(v4, 0, sizeof(v4));
-  LODWORD(v4[0]) = 3;
-  if (fsctl(v1, 0xC1104A71uLL, v4, 0) == -1 && SKGLogGetCurrentLoggingLevel() >= 2)
+  memset(v3, 0, sizeof(v3));
+  LODWORD(v3[0]) = 3;
+  if (fsctl(v1, 0xC1104A71uLL, v3, 0) == -1 && SKGLogGetCurrentLoggingLevel() >= 2)
   {
     v2 = SKGLogInit();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
@@ -4978,20 +4890,18 @@ void setDirstatsTrackingOnEventsPath()
       setDirstatsTrackingOnEventsPath_cold_1();
     }
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t calculateDirectorySize(const char *a1)
+uint64_t calculateDirectorySize(const char *a1, uint64_t a2)
 {
   v28 = *MEMORY[0x277D85DE8];
   if (SKGLogGetCurrentLoggingLevel() >= 4)
   {
-    v2 = SKGLogInit();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = SKGLogInit();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_231B25000, v2, OS_LOG_TYPE_DEFAULT, "### calculateDirectorySize begin", buf, 2u);
+      _os_log_impl(&dword_231B25000, v3, OS_LOG_TYPE_DEFAULT, "### calculateDirectorySize begin", buf, 2u);
     }
   }
 
@@ -5013,64 +4923,59 @@ uint64_t calculateDirectorySize(const char *a1)
   v13 = 0u;
   *buf = 0u;
   *buf = 3;
-  v3 = fsctl(a1, 0xC1104A71uLL, buf, 0);
+  v4 = fsctl(a1, 0xC1104A71uLL, buf, 0);
   CurrentLoggingLevel = SKGLogGetCurrentLoggingLevel();
-  if (v3 == -1)
+  if (v4 == -1)
   {
     if (CurrentLoggingLevel >= 2)
     {
-      v7 = SKGLogInit();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = SKGLogInit();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         calculateDirectorySize_cold_1();
       }
     }
 
-    result = 0;
+    return 0;
   }
 
   else
   {
     if (CurrentLoggingLevel >= 4)
     {
-      v5 = SKGLogInit();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = SKGLogInit();
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         v9 = 134217984;
         v10 = v15;
-        _os_log_impl(&dword_231B25000, v5, OS_LOG_TYPE_DEFAULT, "### calculateDirectorySize end %llu", &v9, 0xCu);
+        _os_log_impl(&dword_231B25000, v6, OS_LOG_TYPE_DEFAULT, "### calculateDirectorySize end %llu", &v9, 0xCu);
       }
     }
 
-    result = v15;
+    return v15;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 BOOL isDirectoryWithinLimit(const char *a1, unint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v3 = calculateDirectorySize(a1);
+  v11 = *MEMORY[0x277D85DE8];
+  v3 = calculateDirectorySize(a1, a2);
   if (SKGLogGetCurrentLoggingLevel() >= 4)
   {
     v4 = SKGLogInit();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v7[0] = 67109632;
-      v7[1] = v3 < a2;
-      v8 = 2048;
-      v9 = v3;
-      v10 = 2048;
-      v11 = a2;
-      _os_log_impl(&dword_231B25000, v4, OS_LOG_TYPE_DEFAULT, "### isDirectoryWithinLimit ret=%{BOOL}d currentSize=%llu limit=%llu", v7, 0x1Cu);
+      v6[0] = 67109632;
+      v6[1] = v3 < a2;
+      v7 = 2048;
+      v8 = v3;
+      v9 = 2048;
+      v10 = a2;
+      _os_log_impl(&dword_231B25000, v4, OS_LOG_TYPE_DEFAULT, "### isDirectoryWithinLimit ret=%{BOOL}d currentSize=%llu limit=%llu", v6, 0x1Cu);
     }
   }
 
-  result = v3 < a2;
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return v3 < a2;
 }
 
 id getIndexEventsPathForBasePath(void *a1, id a2)
@@ -5084,20 +4989,18 @@ id getIndexEventsPathForBasePath(void *a1, id a2)
 
 id getAllCSManagedIndexPath()
 {
-  v7[5] = *MEMORY[0x277D85DE8];
+  v6[5] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEBC0];
   v1 = NSHomeDirectory();
-  v7[0] = v1;
-  v7[1] = @"Library";
-  v7[2] = @"Containers";
-  v7[3] = @"com.apple.managedcorespotlightd";
-  v7[4] = @"EnabledIndexes";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:5];
+  v6[0] = v1;
+  v6[1] = @"Library";
+  v6[2] = @"Containers";
+  v6[3] = @"com.apple.managedcorespotlightd";
+  v6[4] = @"EnabledIndexes";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:5];
   v3 = [v0 fileURLWithPathComponents:v2];
 
   v4 = getAllCSManagedIndexPathsFromConfig(v3);
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -5208,27 +5111,27 @@ LABEL_17:
 
 id getCSBasePathForId(int a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   getAllCSManagedIndexPath();
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v2 = v14 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v2 = v13 = 0u;
+  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * i);
+        v7 = *(*(&v10 + 1) + 8 * i);
         if (getHashForBasePath(v7) == a1)
         {
           v8 = v7;
@@ -5236,7 +5139,7 @@ id getCSBasePathForId(int a1)
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v4)
       {
         continue;
@@ -5249,15 +5152,14 @@ id getCSBasePathForId(int a1)
   v8 = 0;
 LABEL_11:
 
-  v9 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
-void OUTLINED_FUNCTION_0_6(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_6(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 8u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 8u);
 }
 
 void sub_231B58FD4(_Unwind_Exception *a1)
@@ -5281,24 +5183,24 @@ uint64_t __Block_byref_object_copy__4(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_231B5C80C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_231B5C80C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v13 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v20 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v11 - 112), 8);
+  _Block_object_dispose((v18 - 112), 8);
   _Unwind_Resume(a1);
 }
 
 void sub_231B5DECC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  _Block_object_dispose(&a69, 8);
-  _Block_object_dispose((v69 - 176), 8);
+  _Block_object_dispose(&a65, 8);
+  _Block_object_dispose((v65 - 176), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5309,11 +5211,12 @@ uint64_t __Block_byref_object_copy__5(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_231B5FBF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, char a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, char a60)
+void sub_231B5FBF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, ...)
 {
+  va_start(va, a59);
   _Block_object_dispose(&a54, 8);
-  _Block_object_dispose(&a60, 8);
-  _Block_object_dispose((v60 - 176), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v59 - 176), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5324,17 +5227,18 @@ uint64_t __Block_byref_object_copy__6(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_231B60870(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_231B60870(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_1_7(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_7(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x16u);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
 id OUTLINED_FUNCTION_3_0()
@@ -5343,17 +5247,18 @@ id OUTLINED_FUNCTION_3_0()
   return v0;
 }
 
-void sub_231B60C9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_231B60C9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_231B61D78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41)
+void sub_231B61D78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, ...)
 {
-  _Block_object_dispose(&a41, 8);
-  _Block_object_dispose((v41 - 176), 8);
+  va_start(va, a40);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v40 - 176), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5364,9 +5269,16 @@ uint64_t __Block_byref_object_copy__7(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_231B62A9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_231B62A9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_231B63958(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5393,10 +5305,11 @@ uint64_t __Block_byref_object_copy__8(uint64_t result, uint64_t a2)
   return result;
 }
 
-void OUTLINED_FUNCTION_1_9(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_9(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 uint64_t _CFGetTypeID_MutableNetworkWrapper(void)
@@ -5473,9 +5386,9 @@ uint64_t SI::MutableNetwork::addVertex(SI::Network **this, char *a2)
       __p[1] = 0;
       v24 = 0;
       __p[0] = 0;
-      v15 = 24 * v9 + 24;
+      v15 = (24 * v9 + 24);
       v16 = this[3];
-      v17 = this[4] - v16;
+      v17 = (this[4] - v16);
       v18 = (24 * v9 - v17);
       memcpy((v13 - v17), v16, v17);
       v19 = this[3];
@@ -5544,7 +5457,7 @@ void SINetworkSetEdgeBetweenIdentifiers(uint64_t a1, unsigned int a2, unsigned i
   }
 }
 
-void SI::MutableNetwork::setEdge(SI::MutableNetwork *this, unsigned int a2, unsigned int a3, char *__s, double a5)
+void SI::MutableNetwork::setEdge(SI::Network **this, unsigned int a2, unsigned int a3, char *__s, double a5)
 {
   __p = 0uLL;
   v11 = 0;
@@ -5556,7 +5469,7 @@ void SI::MutableNetwork::setEdge(SI::MutableNetwork *this, unsigned int a2, unsi
     v9 = SI::MutableNetwork::indexOfEdge(this, &__p);
   }
 
-  SI::Network::setEdge(*(this + 12), a2, a3, v9, a5);
+  SI::Network::setEdge(this[12], a2, a3, v9, a5);
   if (SHIBYTE(v11) < 0)
   {
     operator delete(__p);
@@ -5582,7 +5495,7 @@ void SINetworkAddEdgeBetweenIdentifiers(uint64_t a1, unsigned int a2, unsigned i
   }
 }
 
-void SI::MutableNetwork::addEdge(SI::MutableNetwork *this, unsigned int a2, unsigned int a3, char *__s, double a5)
+void SI::MutableNetwork::addEdge(SI::Network **this, unsigned int a2, unsigned int a3, char *__s, double a5)
 {
   __p = 0uLL;
   v11 = 0;
@@ -5594,7 +5507,7 @@ void SI::MutableNetwork::addEdge(SI::MutableNetwork *this, unsigned int a2, unsi
     v9 = SI::MutableNetwork::indexOfEdge(this, &__p);
   }
 
-  SI::Network::addEdge(*(this + 12), a2, a3, v9, a5);
+  SI::Network::addEdge(this[12], a2, a3, v9, a5);
   if (SHIBYTE(v11) < 0)
   {
     operator delete(__p);
@@ -5766,11 +5679,11 @@ void SI::MutableNetwork::clear(SI::Network **this)
   v1 = this;
   SI::Network::clear(this[12]);
   std::vector<std::string>::clear[abi:ne200100](v1);
-  v2 = *(v1 + 10);
-  v1 = (v1 + 80);
-  std::__tree<std::__value_type<unsigned int,double>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,double>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,double>>>::destroy(v1 - 8, v2);
+  v2 = v1[10];
+  v1 += 10;
+  std::__tree<std::__value_type<unsigned int,double>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,double>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,double>>>::destroy((v1 - 1), v2);
   *v1 = 0;
-  *(v1 + 1) = 0;
+  v1[1] = 0;
   *(v1 - 1) = v1;
   *(v1 - 3) = *(v1 - 4);
 }
@@ -5825,7 +5738,7 @@ void sub_231B6A5C4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<unsigned int>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
+void std::vector<unsigned int>::push_back[abi:ne200100](const void **a1, int *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -6094,8 +6007,8 @@ void std::vector<std::map<unsigned int,std::vector<double>>>::__destroy_vector::
     {
       do
       {
-        v6 = v4 - 24;
-        std::__tree<std::__value_type<unsigned int,std::vector<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::vector<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::vector<double>>>>::destroy((v4 - 24), *(v4 - 2));
+        v6 = v4 - 3;
+        std::__tree<std::__value_type<unsigned int,std::vector<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::vector<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::vector<double>>>>::destroy((v4 - 3), *(v4 - 2));
         v4 = v6;
       }
 
@@ -6126,7 +6039,7 @@ void std::__tree<std::__value_type<unsigned int,std::vector<double>>,std::__map_
   }
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -6140,13 +6053,13 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -6356,7 +6269,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<double>>(uint64_t a1,
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::vector<std::map<unsigned int,std::vector<unsigned int>>>::__emplace_back_slow_path<std::map<unsigned int,std::vector<unsigned int>>>(uint64_t *a1, uint64_t *a2)
+uint64_t std::vector<std::map<unsigned int,std::vector<unsigned int>>>::__emplace_back_slow_path<std::map<unsigned int,std::vector<unsigned int>>>(void *a1, uint64_t **a2)
 {
   v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
@@ -6392,7 +6305,7 @@ uint64_t std::vector<std::map<unsigned int,std::vector<unsigned int>>>::__emplac
   v8 = *a2;
   *&v21 = 0;
   *v7 = v8;
-  v9 = a2 + 1;
+  v9 = (a2 + 1);
   v10 = a2[1];
   *(&v21 + 1) = 0;
   *(24 * v2 + 8) = v10;
@@ -6429,9 +6342,9 @@ uint64_t std::vector<std::map<unsigned int,std::vector<unsigned int>>>::__emplac
   return v18;
 }
 
-void sub_231B6B358(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_231B6B358(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<std::map<unsigned int,std::vector<unsigned int>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -6550,7 +6463,7 @@ void std::__split_buffer<std::map<unsigned int,std::vector<unsigned int>>>::clea
   }
 }
 
-uint64_t std::vector<std::map<unsigned int,std::vector<double>>>::__emplace_back_slow_path<std::map<unsigned int,std::vector<double>>>(uint64_t *a1, uint64_t *a2)
+uint64_t std::vector<std::map<unsigned int,std::vector<double>>>::__emplace_back_slow_path<std::map<unsigned int,std::vector<double>>>(void *a1, uint64_t **a2)
 {
   v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
@@ -6586,7 +6499,7 @@ uint64_t std::vector<std::map<unsigned int,std::vector<double>>>::__emplace_back
   v8 = *a2;
   *&v21 = 0;
   *v7 = v8;
-  v9 = a2 + 1;
+  v9 = (a2 + 1);
   v10 = a2[1];
   *(&v21 + 1) = 0;
   *(24 * v2 + 8) = v10;
@@ -6623,9 +6536,9 @@ uint64_t std::vector<std::map<unsigned int,std::vector<double>>>::__emplace_back
   return v18;
 }
 
-void sub_231B6B6E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_231B6B6E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<std::map<unsigned int,std::vector<unsigned int>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -6826,15 +6739,15 @@ std::__split_buffer<std::string>::pointer std::vector<std::string>::push_back[ab
   return result;
 }
 
-void SI::Network::setEdge(SI::Network *this, unsigned int a2, unsigned int a3, unsigned int a4, double a5)
+void SI::Network::setEdge(void *this, unsigned int a2, unsigned int a3, unsigned int a4, double a5)
 {
-  v34 = a3;
-  v5 = (*(this + 5) - *(this + 4)) >> 3;
+  v31 = a3;
+  v5 = (this[5] - this[4]) >> 3;
   if (v5 > a2 && v5 > a3)
   {
     v9 = a2;
-    v33 = a5;
-    v10 = *(this + 7) + 24 * a2;
+    v30 = a5;
+    v10 = this[7] + 24 * a2;
     v11 = *(v10 + 8);
     if (!v11)
     {
@@ -6859,22 +6772,20 @@ void SI::Network::setEdge(SI::Network *this, unsigned int a2, unsigned int a3, u
     if (v12 == v10 + 8 || *(v12 + 32) > a4)
     {
 LABEL_14:
-      LODWORD(v29) = a4;
-      v31 = 0;
-      v32 = 0;
-      __p = 0;
-      std::__tree<std::__value_type<unsigned int,std::vector<unsigned int>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::vector<unsigned int>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::vector<unsigned int>>>>::__emplace_unique_impl<std::pair<int,std::vector<unsigned int>>>();
+      LODWORD(v29[0]) = a4;
+      memset(&v29[1], 0, 24);
+      std::__tree<std::__value_type<unsigned int,std::vector<unsigned int>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::vector<unsigned int>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::vector<unsigned int>>>>::__emplace_unique_impl<std::pair<int,std::vector<unsigned int>>>(v10, v29);
     }
 
     v17 = 3 * a2;
-    v18 = *(this + 10) + 24 * a2;
+    v18 = this[10] + 24 * a2;
     v28 = a4;
-    v29 = &v28;
-    v19 = std::__tree<std::__value_type<unsigned int,std::vector<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::vector<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::vector<double>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(v18, &v28)[5];
-    v20 = *(this + 10) + 24 * v9;
+    v29[0] = &v28;
+    v19 = std::__tree<std::__value_type<unsigned int,std::vector<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::vector<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::vector<double>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(v18, &v28, &std::piecewise_construct, v29)[5];
+    v20 = this[10] + 24 * v9;
     v28 = a4;
-    v29 = &v28;
-    if (v19 == std::__tree<std::__value_type<unsigned int,std::vector<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::vector<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::vector<double>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(v20, &v28)[6])
+    v29[0] = &v28;
+    if (v19 == std::__tree<std::__value_type<unsigned int,std::vector<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::vector<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::vector<double>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(v20, &v28, &std::piecewise_construct, v29)[6])
     {
       v21 = 2.22507386e-308;
     }
@@ -6891,26 +6802,26 @@ LABEL_14:
           v21 = v23;
         }
 
-        v24 = *(this + 10) + 24 * v9;
+        v24 = this[10] + 24 * v9;
         v28 = a4;
-        v29 = &v28;
+        v29[0] = &v28;
       }
 
-      while (v19 != std::__tree<std::__value_type<unsigned int,std::vector<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::vector<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::vector<double>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(v24, &v28)[6]);
+      while (v19 != std::__tree<std::__value_type<unsigned int,std::vector<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::vector<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::vector<double>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(v24, &v28, &std::piecewise_construct, v29)[6]);
     }
 
-    if (v33 > v21)
+    if (v30 > v21)
     {
-      v25 = *(this + 10) + 24 * v9;
+      v25 = this[10] + 24 * v9;
       v28 = a4;
-      v29 = &v28;
-      v26 = std::__tree<std::__value_type<unsigned int,std::vector<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::vector<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::vector<double>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(v25, &v28);
+      v29[0] = &v28;
+      v26 = std::__tree<std::__value_type<unsigned int,std::vector<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::vector<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::vector<double>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(v25, &v28, &std::piecewise_construct, v29);
       v26[6] = v26[5];
-      v27 = *(this + 10) + 8 * v17;
+      v27 = this[10] + 8 * v17;
       v28 = a4;
-      v29 = &v28;
-      v16 = std::__tree<std::__value_type<unsigned int,std::vector<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::vector<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::vector<double>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(v27, &v28);
-      std::vector<double>::push_back[abi:ne200100](v16 + 5, &v33);
+      v29[0] = &v28;
+      v16 = std::__tree<std::__value_type<unsigned int,std::vector<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::vector<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::vector<double>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(v27, &v28, &std::piecewise_construct, v29);
+      std::vector<double>::push_back[abi:ne200100](v16 + 5, &v30);
     }
   }
 }
@@ -7030,7 +6941,7 @@ void std::string::__init_copy_ctor_external(std::string *this, const std::string
   memmove(this, __s, v3);
 }
 
-void std::vector<double>::push_back[abi:ne200100](const void **a1, void *a2)
+void std::vector<double>::push_back[abi:ne200100](const void **a1, uint64_t *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -7079,13 +6990,13 @@ void std::vector<double>::push_back[abi:ne200100](const void **a1, void *a2)
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 8;
   }
 
   a1[1] = v6;
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned int,std::vector<unsigned int>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::vector<unsigned int>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::vector<unsigned int>>>>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<std::__value_type<unsigned int,std::vector<unsigned int>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::vector<unsigned int>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::vector<unsigned int>>>>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -7111,12 +7022,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -7130,22 +7041,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -7179,13 +7090,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -7247,82 +7158,82 @@ void std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_ty
   operator delete(__p);
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned int,std::vector<unsigned int>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::vector<unsigned int>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::vector<unsigned int>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(uint64_t a1, unsigned int *a2)
+uint64_t *std::__tree<std::__value_type<unsigned int,std::vector<unsigned int>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::vector<unsigned int>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::vector<unsigned int>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(uint64_t a1, unsigned int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 32);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned int,std::vector<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::vector<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::vector<double>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(uint64_t a1, unsigned int *a2)
+uint64_t *std::__tree<std::__value_type<unsigned int,std::vector<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::vector<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::vector<double>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(uint64_t a1, unsigned int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 32);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -7331,8 +7242,8 @@ LABEL_8:
 
 void SI::Network::addEdge(SI::Network *this, unsigned int a2, unsigned int a3, unsigned int a4, double a5)
 {
-  v28 = a3;
-  v27 = a5;
+  v25 = a3;
+  v24 = a5;
   v5 = (*(this + 5) - *(this + 4)) >> 3;
   if (v5 > a2 && v5 > a3)
   {
@@ -7365,22 +7276,20 @@ void SI::Network::addEdge(SI::Network *this, unsigned int a2, unsigned int a3, u
     if (v15 == v12 || *(v15 + 32) > a4)
     {
 LABEL_14:
-      LODWORD(v23) = a4;
-      v25 = 0;
-      v26 = 0;
-      __p = 0;
-      std::__tree<std::__value_type<unsigned int,std::vector<unsigned int>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::vector<unsigned int>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::vector<unsigned int>>>>::__emplace_unique_impl<std::pair<int,std::vector<unsigned int>>>();
+      LODWORD(v23[0]) = a4;
+      memset(&v23[1], 0, 24);
+      std::__tree<std::__value_type<unsigned int,std::vector<unsigned int>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::vector<unsigned int>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::vector<unsigned int>>>>::__emplace_unique_impl<std::pair<int,std::vector<unsigned int>>>(v10 + 24 * a2, v23);
     }
 
     v22 = a4;
-    v23 = &v22;
-    v19 = std::__tree<std::__value_type<unsigned int,std::vector<unsigned int>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::vector<unsigned int>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::vector<unsigned int>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(v10 + 24 * a2, &v22);
-    std::vector<unsigned int>::push_back[abi:ne200100](v19 + 5, &v28);
+    v23[0] = &v22;
+    v19 = std::__tree<std::__value_type<unsigned int,std::vector<unsigned int>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::vector<unsigned int>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::vector<unsigned int>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(v10 + 24 * a2, &v22, &std::piecewise_construct, v23);
+    std::vector<unsigned int>::push_back[abi:ne200100](v19 + 5, &v25);
     v20 = *(this + 10) + 24 * v9;
     v22 = a4;
-    v23 = &v22;
-    v21 = std::__tree<std::__value_type<unsigned int,std::vector<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::vector<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::vector<double>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(v20, &v22);
-    std::vector<double>::push_back[abi:ne200100](v21 + 5, &v27);
+    v23[0] = &v22;
+    v21 = std::__tree<std::__value_type<unsigned int,std::vector<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::vector<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::vector<double>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(v20, &v22, &std::piecewise_construct, v23);
+    std::vector<double>::push_back[abi:ne200100](v21 + 5, &v24);
     ++*this;
   }
 }
@@ -7395,17 +7304,17 @@ void sub_231B6C764(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t SI::Network::updateKPathScores(void *a1, unsigned int a2, uint64_t a3, double a4)
+uint64_t SI::Network::updateKPathScores(int *a1, unsigned int a2, uint64_t a3, double a4)
 {
-  v112 = *MEMORY[0x277D85DE8];
+  v110 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&dword_231B25000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "SINework - running k-path", buf, 2u);
   }
 
-  v8 = a1[4];
-  v9 = a1[5] - v8;
+  v8 = *(a1 + 4);
+  v9 = *(a1 + 5) - v8;
   v10 = v9 >> 3;
   v11 = *a1;
   v12 = (v9 >> 3) < 2 || v11 == 0;
@@ -7431,204 +7340,204 @@ uint64_t SI::Network::updateKPathScores(void *a1, unsigned int a2, uint64_t a3, 
       }
     }
 
-    v107 = 0;
-    v106 = 0u;
-    memset(v105, 0, sizeof(v105));
-    v103 = 0;
-    v104 = 0;
-    v100 = 0;
+    v105 = 0;
+    v104 = 0u;
+    memset(v103, 0, sizeof(v103));
     v101 = 0;
     v102 = 0;
-    *buf = 0;
-    v93 = buf;
-    v94 = 0x4002000000;
-    v95 = __Block_byref_object_copy__9;
-    v96 = __Block_byref_object_dispose__9;
-    __p = 0;
     v98 = 0;
     v99 = 0;
-    v88 = 0;
-    v89 = &v88;
-    v90 = 0x2000000000;
-    v91 = 0;
-    v84 = 0;
-    v85 = &v84;
-    v86 = 0x2000000000;
-    v87 = 0;
-    v80 = 0;
-    v81 = &v80;
-    v82 = 0x2000000000;
-    v83 = 0;
-    time(&v104);
+    v100 = 0;
+    *buf = 0;
+    v91 = buf;
+    v92 = 0x4002000000;
+    v93 = __Block_byref_object_copy__9;
+    v94 = __Block_byref_object_dispose__9;
+    __p = 0;
+    v96 = 0;
+    v97 = 0;
+    v86 = 0;
+    v87 = &v86;
+    v88 = 0x2000000000;
+    v89 = 0;
+    v82 = 0;
+    v83 = &v82;
+    v84 = 0x2000000000;
+    v85 = 0;
+    v78 = 0;
+    v79 = &v78;
+    v80 = 0x2000000000;
+    v81 = 0;
+    time(&v102);
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      LODWORD(v110) = 134217984;
-      *(&v110 + 4) = v104;
-      _os_log_impl(&dword_231B25000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "SINework - starting k-path: %ld", &v110, 0xCu);
+      LODWORD(v108) = 134217984;
+      *(&v108 + 4) = v102;
+      _os_log_impl(&dword_231B25000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "SINework - starting k-path: %ld", &v108, 0xCu);
     }
 
     v24 = pow(v10, v22 * -2.0 + 1.0) * (2 * a2 * a2);
-    v76 = (log(v10) * v24);
-    v107 = 0;
+    v74 = (log(v10) * v24);
+    v105 = 0;
     do
     {
-      LODWORD(v110) = 0;
-      std::vector<unsigned int>::push_back[abi:ne200100](v93 + 5, &v110);
-      *(a1[4] + 8 * v107) = 0;
-      std::vector<unsigned int>::push_back[abi:ne200100](&v100, &v107);
-      ++v107;
+      LODWORD(v108) = 0;
+      std::vector<unsigned int>::push_back[abi:ne200100](v91 + 5, &v108);
+      *(*(a1 + 4) + 8 * v105) = 0;
+      std::vector<unsigned int>::push_back[abi:ne200100](&v98, &v105);
+      ++v105;
     }
 
-    while (v107 < v10);
-    (*(a3 + 16))(a3, v81 + 3);
-    if ((v81[3] & 1) == 0)
+    while (v105 < v10);
+    (*(a3 + 16))(a3, v79 + 3);
+    if ((v79[3] & 1) == 0)
     {
-      SI::shuffle(&v100, 0.0);
-      v74 = v9;
-      v75 = a2;
-      if (v76 == -1)
+      SI::shuffle(&v98, 0.0);
+      v72 = v9;
+      v73 = a2;
+      if (v74 == -1)
       {
 LABEL_59:
-        time(&v103);
+        time(&v101);
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-          LODWORD(v110) = 134217984;
-          *(&v110 + 4) = v103;
-          _os_log_impl(&dword_231B25000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "SINework - ending k-path: %ld", &v110, 0xCu);
+          LODWORD(v108) = 134217984;
+          *(&v108 + 4) = v101;
+          _os_log_impl(&dword_231B25000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "SINework - ending k-path: %ld", &v108, 0xCu);
         }
 
-        v40 = 0;
-        v41 = (v74 >> 3);
-        v42 = 1.79769313e308;
-        v43 = 2.22507386e-308;
+        v38 = 0;
+        v39 = (v72 >> 3);
+        v40 = 1.79769313e308;
+        v41 = 2.22507386e-308;
         do
         {
-          v44 = a1[4];
-          v45 = *(v44 + 8 * v40) * v75 * v10 / (v76 + 1);
-          *(v44 + 8 * v40) = v45;
-          *(a1[1] + 4 * v40) = v40;
-          (*(a3 + 16))(a3, v81 + 3);
-          if (v45 < v43 || v43 == 2.22507386e-308)
+          v42 = *(a1 + 4);
+          v43 = *(v42 + 8 * v38) * v73 * v10 / (v74 + 1);
+          *(v42 + 8 * v38) = v43;
+          *(*(a1 + 1) + 4 * v38) = v38;
+          (*(a3 + 16))(a3, v79 + 3);
+          if (v43 < v41 || v41 == 2.22507386e-308)
           {
-            v43 = v45;
+            v41 = v43;
           }
 
-          if (v45 > v42 || v42 == 1.79769313e308)
+          if (v43 > v40 || v40 == 1.79769313e308)
           {
-            v42 = v45;
+            v40 = v43;
           }
 
-          if (v81[3])
+          if (v79[3])
           {
             break;
           }
 
-          v12 = v41 - 1 == v40++;
+          v12 = v39 - 1 == v38++;
         }
 
         while (!v12);
-        v48 = 0;
-        v110 = 0u;
-        v111 = 0u;
+        v46 = 0;
+        v108 = 0u;
+        v109 = 0u;
         do
         {
-          v49 = a1[4];
-          v50 = *(v49 + 8 * v48);
-          if (v50 != 0.0)
+          v47 = *(a1 + 4);
+          v48 = *(v47 + 8 * v46);
+          if (v48 != 0.0)
           {
-            v50 = (v50 - v43) / (v42 - v43);
-            *(v49 + 8 * v48) = v50;
+            v48 = (v48 - v41) / (v40 - v41);
+            *(v47 + 8 * v46) = v48;
           }
 
-          v51 = *(&v110 + 1);
-          if (*(&v110 + 1) >= v111)
+          v49 = *(&v108 + 1);
+          if (*(&v108 + 1) >= v109)
           {
-            v53 = (*(&v110 + 1) - v110) >> 4;
-            v54 = v53 + 1;
-            if ((v53 + 1) >> 60)
+            v51 = (*(&v108 + 1) - v108) >> 4;
+            v52 = v51 + 1;
+            if ((v51 + 1) >> 60)
             {
               std::vector<unsigned int>::__throw_length_error[abi:ne200100]();
             }
 
-            v55 = v111 - v110;
-            if ((v111 - v110) >> 3 > v54)
+            v53 = v109 - v108;
+            if ((v109 - v108) >> 3 > v52)
             {
-              v54 = v55 >> 3;
+              v52 = v53 >> 3;
             }
 
-            if (v55 >= 0x7FFFFFFFFFFFFFF0)
+            if (v53 >= 0x7FFFFFFFFFFFFFF0)
             {
-              v56 = 0xFFFFFFFFFFFFFFFLL;
+              v54 = 0xFFFFFFFFFFFFFFFLL;
             }
 
             else
             {
-              v56 = v54;
+              v54 = v52;
             }
 
-            if (v56)
+            if (v54)
             {
-              std::__allocate_at_least[abi:ne200100]<std::allocator<SI::Node>>(&v110, v56);
+              std::__allocate_at_least[abi:ne200100]<std::allocator<SI::Node>>(&v108, v54);
             }
 
-            v57 = 16 * v53;
-            *v57 = v48;
-            *(v57 + 4) = 0;
-            *(v57 + 8) = v50;
-            v59 = *(&v110 + 1);
-            v58 = v110;
-            v60 = 16 * v53 + v110 - *(&v110 + 1);
-            if (v110 != *(&v110 + 1))
+            v55 = 16 * v51;
+            *v55 = v46;
+            *(v55 + 4) = 0;
+            *(v55 + 8) = v48;
+            v57 = *(&v108 + 1);
+            v56 = v108;
+            v58 = 16 * v51 + v108 - *(&v108 + 1);
+            if (v108 != *(&v108 + 1))
             {
-              v61 = (v57 + v110 - *(&v110 + 1));
+              v59 = (v55 + v108 - *(&v108 + 1));
               do
               {
-                v62 = *v58++;
-                *v61++ = v62;
+                v60 = *v56++;
+                *v59++ = v60;
               }
 
-              while (v58 != v59);
-              v58 = v110;
+              while (v56 != v57);
+              v56 = v108;
             }
 
-            v52 = v57 + 16;
-            *&v110 = v60;
-            *(&v110 + 1) = v57 + 16;
-            *&v111 = 0;
-            if (v58)
+            v50 = v55 + 16;
+            *&v108 = v58;
+            *(&v108 + 1) = v55 + 16;
+            *&v109 = 0;
+            if (v56)
             {
-              operator delete(v58);
+              operator delete(v56);
             }
           }
 
           else
           {
-            **(&v110 + 1) = v48;
-            *(v51 + 4) = 0;
-            v52 = v51 + 16;
-            *(v51 + 8) = v50;
+            **(&v108 + 1) = v46;
+            *(v49 + 4) = 0;
+            v50 = v49 + 16;
+            *(v49 + 8) = v48;
           }
 
-          *(&v110 + 1) = v52;
-          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,SI::Network::updateKPathScores(double,unsigned int,void({block_pointer})(BOOL *))::{lambda(SI::Node,SI::Node)#1} &,std::__wrap_iter<SI::Node*>>(v110, v52, &v109, (v52 - v110) >> 4);
-          (*(a3 + 16))(a3, v81 + 3);
-          v63 = *(v81 + 24);
-          if (v63)
+          *(&v108 + 1) = v50;
+          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,SI::Network::updateKPathScores(double,unsigned int,void({block_pointer})(BOOL *))::{lambda(SI::Node,SI::Node)#1} &,std::__wrap_iter<SI::Node*>>(v108, v50, &v107, (v50 - v108) >> 4);
+          (*(a3 + 16))(a3, v79 + 3);
+          v61 = *(v79 + 24);
+          if (v61)
           {
             break;
           }
 
-          ++v48;
+          ++v46;
         }
 
-        while (v48 != v41);
-        v65 = *(&v110 + 1);
-        v64 = v110;
-        if (v110 == *(&v110 + 1))
+        while (v46 != v39);
+        v63 = *(&v108 + 1);
+        v62 = v108;
+        if (v108 == *(&v108 + 1))
         {
 LABEL_110:
-          v21 = v63 ^ 1u;
-          if (!v64)
+          v21 = v61 ^ 1u;
+          if (!v62)
           {
             goto LABEL_30;
           }
@@ -7636,213 +7545,212 @@ LABEL_110:
 
         else
         {
-          v66 = 0;
+          v64 = 0;
           while (1)
           {
-            *(a1[1] + 4 * *v64) = v66;
-            v67 = (v65 - v64) >> 4;
-            if (v67 >= 2)
+            *(*(a1 + 1) + 4 * *v62) = v64;
+            v65 = (v63 - v62) >> 4;
+            if (v65 >= 2)
             {
-              v68 = 0;
-              v109 = *v64;
-              v69 = v64;
+              v66 = 0;
+              v107 = *v62;
+              v67 = v62;
               do
               {
-                v70 = v69;
-                v69 += 16 * v68 + 16;
-                v71 = 2 * v68;
-                v68 = (2 * v68) | 1;
-                v72 = v71 + 2;
-                if (v72 < v67 && *(v69 + 1) < *(v69 + 3))
+                v68 = v67;
+                v67 += 16 * v66 + 16;
+                v69 = 2 * v66;
+                v66 = (2 * v66) | 1;
+                v70 = v69 + 2;
+                if (v70 < v65 && *(v67 + 1) < *(v67 + 3))
                 {
-                  v69 += 16;
-                  v68 = v72;
+                  v67 += 16;
+                  v66 = v70;
                 }
 
-                *v70 = *v69;
+                *v68 = *v67;
               }
 
-              while (v68 <= ((v67 - 2) >> 1));
-              v73 = (v65 - 16);
-              if (v69 == v73)
+              while (v66 <= ((v65 - 2) >> 1));
+              v71 = (v63 - 16);
+              if (v67 == v71)
               {
-                *v69 = v109;
+                *v67 = v107;
               }
 
               else
               {
-                *v69 = *v73;
-                *v73 = v109;
-                std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,SI::Network::updateKPathScores(double,unsigned int,void({block_pointer})(BOOL *))::{lambda(SI::Node,SI::Node)#1} &,std::__wrap_iter<SI::Node*>>(v64, (v69 + 16), &v108, (v69 + 16 - v64) >> 4);
+                *v67 = *v71;
+                *v71 = v107;
+                std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,SI::Network::updateKPathScores(double,unsigned int,void({block_pointer})(BOOL *))::{lambda(SI::Node,SI::Node)#1} &,std::__wrap_iter<SI::Node*>>(v62, (v67 + 16), &v106, (v67 + 16 - v62) >> 4);
               }
 
-              v65 = *(&v110 + 1);
+              v63 = *(&v108 + 1);
             }
 
-            *(&v110 + 1) = v65 - 16;
-            (*(a3 + 16))(a3, v81 + 3);
-            v63 = *(v81 + 24);
-            v64 = v110;
-            if (v63)
+            *(&v108 + 1) = v63 - 16;
+            (*(a3 + 16))(a3, v79 + 3);
+            v61 = *(v79 + 24);
+            v62 = v108;
+            if (v61)
             {
               break;
             }
 
-            ++v66;
-            v65 = *(&v110 + 1);
-            if (v110 == *(&v110 + 1))
+            ++v64;
+            v63 = *(&v108 + 1);
+            if (v108 == *(&v108 + 1))
             {
               goto LABEL_110;
             }
           }
 
           v21 = 0;
-          if (!v110)
+          if (!v108)
           {
             goto LABEL_30;
           }
         }
 
-        *(&v110 + 1) = v64;
-        operator delete(v64);
+        *(&v108 + 1) = v62;
+        operator delete(v62);
 LABEL_30:
-        _Block_object_dispose(&v80, 8);
-        _Block_object_dispose(&v84, 8);
-        _Block_object_dispose(&v88, 8);
+        _Block_object_dispose(&v78, 8);
+        _Block_object_dispose(&v82, 8);
+        _Block_object_dispose(&v86, 8);
         _Block_object_dispose(buf, 8);
         if (__p)
         {
-          v98 = __p;
+          v96 = __p;
           operator delete(__p);
         }
 
-        if (v100)
+        if (v98)
         {
-          v101 = v100;
-          operator delete(v100);
+          v99 = v98;
+          operator delete(v98);
         }
 
-        std::deque<double>::~deque[abi:ne200100](v105);
-        goto LABEL_35;
+        std::deque<double>::~deque[abi:ne200100](v103);
+        return v21;
       }
 
-      v27 = 0;
-      v77 = 0;
-      v28 = a2;
+      v26 = 0;
+      v75 = 0;
+      v27 = a2;
       while (1)
       {
         do
         {
-          LODWORD(v30) = *(v100 + v27);
-          v29 = a1[7];
-          v31 = *(v29 + 24 * v30 + 16);
-          ++v27;
+          LODWORD(v29) = *(v98 + v26);
+          v28 = *(a1 + 7);
+          ++v26;
         }
 
-        while (v27 < v10 && !*(v29 + 24 * v30 + 16));
-        if (v27 >= v10 || !*(v29 + 24 * v30 + 16))
+        while (v26 < v10 && !*(v28 + 24 * v29 + 16));
+        if (v26 >= v10 || !*(v28 + 24 * v29 + 16))
         {
-          SI::shuffle(&v100, 0.0);
-          v27 = 0;
+          SI::shuffle(&v98, 0.0);
+          v26 = 0;
         }
 
-        *(*(v93 + 5) + 4 * v30) = 1;
-        *&v110 = v30;
-        std::deque<double>::push_back(v105, &v110);
-        v32 = (vcvtd_n_f64_s32(rand(), 0x1FuLL) * v28);
-        v107 = 0;
-        v33 = v32 + 1;
-        if (v32 != -1)
+        *(*(v91 + 5) + 4 * v29) = 1;
+        *&v108 = v29;
+        std::deque<double>::push_back(v103, &v108);
+        v30 = (vcvtd_n_f64_s32(rand(), 0x1FuLL) * v27);
+        v105 = 0;
+        v31 = v30 + 1;
+        if (v30 != -1)
         {
           break;
         }
 
 LABEL_44:
-        while (*(&v106 + 1))
+        while (*(&v104 + 1))
         {
-          v34 = *(&v106 + 1) - 1;
-          v35 = *(*(v105[1] + (((v106 + v34) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((v106 + v34) & 0x1FF));
-          *(*(v93 + 5) + 4 * v35) = 0;
-          *(&v106 + 1) = v34;
-          std::deque<double>::__maybe_remove_back_spare[abi:ne200100](v105, 1);
-          if (v107 < v33)
+          v32 = *(&v104 + 1) - 1;
+          v33 = *(*(v103[1] + (((v104 + v32) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((v104 + v32) & 0x1FF));
+          *(*(v91 + 5) + 4 * v33) = 0;
+          *(&v104 + 1) = v32;
+          std::deque<double>::__maybe_remove_back_spare[abi:ne200100](v103, 1);
+          if (v105 < v31)
           {
-            *(a1[4] + 8 * v35) = *(a1[4] + 8 * v35) + -1.0;
+            *(*(a1 + 4) + 8 * v33) = *(*(a1 + 4) + 8 * v33) + -1.0;
           }
 
-          (*(a3 + 16))(a3, v81 + 3);
-          v36 = v81;
-          if (*(v81 + 24) == 1)
+          (*(a3 + 16))(a3, v79 + 3);
+          v34 = v79;
+          if (*(v79 + 24) == 1)
           {
             goto LABEL_56;
           }
         }
 
-        v36 = v81;
+        v34 = v79;
 LABEL_56:
-        (*(a3 + 16))(a3, v36 + 3);
-        if (v81[3])
+        (*(a3 + 16))(a3, v34 + 3);
+        if (v79[3])
         {
           goto LABEL_29;
         }
 
-        v12 = v77++ == v76;
+        v12 = v75++ == v74;
         if (v12)
         {
           goto LABEL_59;
         }
       }
 
-      v37 = MEMORY[0x277D85DD0];
+      v35 = MEMORY[0x277D85DD0];
       while (1)
       {
-        v89[3] = 0.0;
-        v79[0] = v37;
-        v79[1] = 0x40000000;
-        v79[2] = ___ZN2SI7Network17updateKPathScoresEdjU13block_pointerFvPbE_block_invoke;
-        v79[3] = &unk_27893DAF8;
-        v79[6] = buf;
-        v79[7] = &v88;
-        v79[4] = a3;
-        v79[5] = &v84;
-        v79[8] = &v80;
-        SI::Network::enumerateTargetAtIndexUsingBlock(a1, v30, v79);
-        if (v89[3] == 0.0)
+        v87[3] = 0.0;
+        v77[0] = v35;
+        v77[1] = 0x40000000;
+        v77[2] = ___ZN2SI7Network17updateKPathScoresEdjU13block_pointerFvPbE_block_invoke;
+        v77[3] = &unk_27893DAF8;
+        v77[6] = buf;
+        v77[7] = &v86;
+        v77[4] = a3;
+        v77[5] = &v82;
+        v77[8] = &v78;
+        SI::Network::enumerateTargetAtIndexUsingBlock(a1, v29, v77);
+        if (v87[3] == 0.0)
         {
           goto LABEL_44;
         }
 
-        (*(a3 + 16))(a3, v81 + 3);
-        if (v81[3])
+        (*(a3 + 16))(a3, v79 + 3);
+        if (v79[3])
         {
           break;
         }
 
-        v38 = vcvtd_n_f64_s32(rand(), 0x1FuLL) * v89[3];
-        v89[3] = 0.0;
-        v78[0] = MEMORY[0x277D85DD0];
-        v78[1] = 0x40000000;
-        v78[2] = ___ZN2SI7Network17updateKPathScoresEdjU13block_pointerFvPbE_block_invoke_2;
-        v78[3] = &unk_27893DB20;
-        v78[6] = buf;
-        v78[7] = &v88;
-        *&v78[9] = v38;
-        v78[4] = a3;
-        v78[5] = &v84;
-        v78[8] = &v80;
-        SI::Network::enumerateTargetAtIndexUsingBlock(a1, v30, v78);
-        v30 = *(v85 + 6);
-        *(*(v93 + 5) + 4 * v30) = 1;
-        *(a1[4] + 8 * v30) = *(a1[4] + 8 * v30) + 1.0;
-        *&v110 = v30;
-        v39 = std::deque<double>::push_back(v105, &v110);
-        (*(a3 + 16))(a3, v81 + 3, v39);
-        if (v81[3])
+        v36 = vcvtd_n_f64_s32(rand(), 0x1FuLL) * v87[3];
+        v87[3] = 0.0;
+        v76[0] = MEMORY[0x277D85DD0];
+        v76[1] = 0x40000000;
+        v76[2] = ___ZN2SI7Network17updateKPathScoresEdjU13block_pointerFvPbE_block_invoke_2;
+        v76[3] = &unk_27893DB20;
+        v76[6] = buf;
+        v76[7] = &v86;
+        *&v76[9] = v36;
+        v76[4] = a3;
+        v76[5] = &v82;
+        v76[8] = &v78;
+        SI::Network::enumerateTargetAtIndexUsingBlock(a1, v29, v76);
+        v29 = *(v83 + 6);
+        *(*(v91 + 5) + 4 * v29) = 1;
+        *(*(a1 + 4) + 8 * v29) = *(*(a1 + 4) + 8 * v29) + 1.0;
+        *&v108 = v29;
+        v37 = std::deque<double>::push_back(v103, &v108);
+        (*(a3 + 16))(a3, v79 + 3, v37);
+        if (v79[3])
         {
           break;
         }
 
-        if (++v107 >= v33)
+        if (++v105 >= v31)
         {
           goto LABEL_44;
         }
@@ -7889,14 +7797,12 @@ LABEL_29:
     while (v15);
   }
 
-  v21 = 1;
-LABEL_35:
-  v25 = *MEMORY[0x277D85DE8];
-  return v21;
+  return 1;
 }
 
-void sub_231B6D1D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, char a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, void *__p, uint64_t a53, uint64_t a54, uint64_t a55, void *a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61)
+void sub_231B6D1D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, void *__p, uint64_t a53, uint64_t a54, uint64_t a55, void *a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, ...)
 {
+  va_start(va, a60);
   _Block_object_dispose(&a35, 8);
   _Block_object_dispose(&a39, 8);
   _Block_object_dispose(&a43, 8);
@@ -7913,7 +7819,7 @@ void sub_231B6D1D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(a56);
   }
 
-  std::deque<double>::~deque[abi:ne200100](&a61);
+  std::deque<double>::~deque[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
@@ -7951,7 +7857,7 @@ uint64_t *___ZN2SI14MutableNetwork5scoreEU13block_pointerFvPbE_block_invoke(uint
   v7.__i_ = &begin[a2];
   std::vector<int>::insert(v5, v7, &__x);
   v11 = &v10;
-  result = std::__tree<std::__value_type<unsigned int,double>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,double>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,double>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v5[1], &v10);
+  result = std::__tree<std::__value_type<unsigned int,double>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,double>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,double>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v5[1], &v10, &std::piecewise_construct, &v11);
   *(result + 5) = a4;
   return result;
 }
@@ -8238,8 +8144,6 @@ uint64_t ___ZN2SI7Network17updateKPathScoresEdjU13block_pointerFvPbE_block_invok
     *(*(a1[7] + 8) + 24) = 1.0 / a4 + *(*(a1[7] + 8) + 24);
   }
 
-  v6 = a1[4];
-  v7 = *(a1[8] + 8);
   result = (*(a1[4] + 16))();
   if (*(*(a1[8] + 8) + 24) == 1)
   {
@@ -8261,8 +8165,6 @@ uint64_t ___ZN2SI7Network17updateKPathScoresEdjU13block_pointerFvPbE_block_invok
     }
   }
 
-  v6 = *(a1 + 32);
-  v7 = *(*(a1 + 64) + 8);
   result = (*(*(a1 + 32) + 16))();
   if (*(*(*(a1 + 64) + 8) + 24) == 1)
   {
@@ -8272,50 +8174,49 @@ uint64_t ___ZN2SI7Network17updateKPathScoresEdjU13block_pointerFvPbE_block_invok
   return result;
 }
 
-double std::deque<double>::push_back(uint64_t a1, double *a2)
+double std::deque<double>::push_back(unint64_t *a1, double *a2)
 {
-  v4 = *(a1 + 8);
-  v5 = *(a1 + 16);
-  v6 = *(a1 + 8);
-  if (v5 == v6)
+  v4 = a1[2];
+  v5 = a1[1];
+  if (v4 == v5)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v7 = ((v5 - v6) << 6) - 1;
+    v6 = ((v4 - v5) << 6) - 1;
   }
 
-  v8 = *(a1 + 40);
-  v9 = v8 + *(a1 + 32);
-  if (v7 == v9)
+  v7 = a1[5];
+  v8 = v7 + a1[4];
+  if (v6 == v8)
   {
     std::deque<double>::__add_back_capacity(a1);
-    v6 = *(a1 + 8);
-    v8 = *(a1 + 40);
-    v9 = *(a1 + 32) + v8;
+    v5 = a1[1];
+    v7 = a1[5];
+    v8 = a1[4] + v7;
   }
 
   result = *a2;
-  *(*(v6 + ((v9 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v9 & 0x1FF)) = *a2;
-  *(a1 + 40) = v8 + 1;
+  *(*(v5 + ((v8 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v8 & 0x1FF)) = *a2;
+  a1[5] = v7 + 1;
   return result;
 }
 
-void *std::deque<double>::__add_back_capacity(void *a1)
+void std::deque<double>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x200;
   v3 = v1 - 512;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -8323,25 +8224,25 @@ void *std::deque<double>::__add_back_capacity(void *a1)
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<double *>>(a1, v9);
+    v10 = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<double *>>(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<double *>::emplace_back<double *&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<double *>::emplace_back<double *&>(a1, &v9);
 }
 
 void sub_231B6DAFC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -8355,27 +8256,26 @@ void sub_231B6DAFC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::__split_buffer<double *>::emplace_back<double *&>(void *result, void *a2)
+void std::__split_buffer<double *>::emplace_back<double *&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<double *>>(result, v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<double *>>(a1, v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -8384,28 +8284,26 @@ void *std::__split_buffer<double *>::emplace_back<double *&>(void *result, void 
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **std::__split_buffer<double *>::emplace_front<double *>(const void **result, void *a2)
+void std::__split_buffer<double *>::emplace_front<double *>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -8418,52 +8316,50 @@ const void **std::__split_buffer<double *>::emplace_front<double *>(const void *
         v9 = (v7 - v4) >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<double *>>(result, v9);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<double *>>(a1, v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
-void *std::__split_buffer<double *>::emplace_back<double *>(void *result, void *a2)
+void std::__split_buffer<double *>::emplace_back<double *>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<double *>>(result[4], v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<double *>>(a1[4], v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -8472,28 +8368,26 @@ void *std::__split_buffer<double *>::emplace_back<double *>(void *result, void *
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **std::__split_buffer<double *>::emplace_front<double *&>(const void **result, void *a2)
+void std::__split_buffer<double *>::emplace_front<double *&>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -8506,29 +8400,28 @@ const void **std::__split_buffer<double *>::emplace_front<double *&>(const void 
         v9 = (v7 - v4) >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<double *>>(result[4], v9);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<double *>>(a1[4], v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
 void std::__allocate_at_least[abi:ne200100]<std::allocator<double *>>(uint64_t a1, unint64_t a2)
@@ -8689,27 +8582,26 @@ uint64_t std::__split_buffer<double *>::~__split_buffer(uint64_t a1)
   return a1;
 }
 
-void *std::__split_buffer<int>::emplace_back<int const&>(void *result, _DWORD *a2)
+void std::__split_buffer<int>::emplace_back<int const&>(unint64_t *a1, _DWORD *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 1;
+        v11 = &v4[-*a1] >> 1;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned int>>(result[4], v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned int>>(a1[4], v11);
     }
 
     v7 = ((v6 >> 2) + 1) / -2;
@@ -8718,54 +8610,53 @@ void *std::__split_buffer<int>::emplace_back<int const&>(void *result, _DWORD *a
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-4 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-4 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[4 * v7];
+    a1[1] = &v5[4 * v7];
   }
 
   *v4 = *a2;
-  v3[2] = v4 + 4;
-  return result;
+  a1[2] = (v4 + 4);
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned int,double>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,double>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,double>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t a1, unsigned int *a2)
+uint64_t *std::__tree<std::__value_type<unsigned int,double>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,double>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,double>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t a1, unsigned int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 32);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -8882,7 +8773,7 @@ void sub_231B6F210(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_231B704B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_231B704B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -8896,12 +8787,12 @@ uint64_t __Block_byref_object_copy__10(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_231B707C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_231B707C8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = SKGGraph;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -9108,9 +8999,9 @@ void sub_231B7A958(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_231B7AEB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_231B7AEB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9122,28 +9013,28 @@ uint64_t __Block_byref_object_copy__11(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_231B7B1F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_231B7B1F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_231B7B4A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_231B7B4A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_231B7F530(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_231B7F530(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va1, a12);
-  va_start(va, a12);
-  v13 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a19);
+  va_start(va, a19);
+  v20 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -9157,24 +9048,25 @@ void sub_231B807C4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_231B82A4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36)
+void sub_231B82A4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, ...)
 {
-  _Block_object_dispose(&a36, 8);
-  _Block_object_dispose((v36 - 168), 8);
-  _Block_object_dispose((v36 - 136), 8);
+  va_start(va, a35);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v35 - 168), 8);
+  _Block_object_dispose((v35 - 136), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_231B83ED4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_231B83ED4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 id configureKeyphraseDescriptor(void *a1)
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [SKDPipelineSetDescription alloc];
   v3 = [v1 versionForPipeline:@"Keyphrase"];
@@ -9182,39 +9074,37 @@ id configureKeyphraseDescriptor(void *a1)
   v4 = [(SKDPipelineSetDescription *)v2 initWithName:@"Keyphrase" version:v3];
   [(SKDPipelineSetDescription *)v4 setExcludedBundles:&unk_2846E8070];
   v5 = *MEMORY[0x277CC2DD0];
-  v13[0] = *MEMORY[0x277CC31A0];
-  v13[1] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
+  v12[0] = *MEMORY[0x277CC31A0];
+  v12[1] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
   [(SKDPipelineSetDescription *)v4 setRequiredAttributes:v6];
 
   v7 = *MEMORY[0x277CC2AD8];
-  v12[0] = *MEMORY[0x277CC2A90];
-  v12[1] = v7;
-  v12[2] = @"kMDItemKeyphraseLabels";
-  v12[3] = @"kMDItemKeyphraseConfidences";
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:4];
+  v11[0] = *MEMORY[0x277CC2A90];
+  v11[1] = v7;
+  v11[2] = @"kMDItemKeyphraseLabels";
+  v11[3] = @"kMDItemKeyphraseConfidences";
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:4];
   [(SKDPipelineSetDescription *)v4 setProcessedAttributes:v8];
 
   [(SKDPipelineSetDescription *)v4 setEnabled:1];
   v9 = [SKDPipelineDescriptor descriptorFromSetDescription:v4 processorNames:&unk_2846E8088];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 id configureMockDescriptor(uint64_t a1, int a2)
 {
-  v11[4] = *MEMORY[0x277D85DE8];
+  v10[4] = *MEMORY[0x277D85DE8];
   v3 = [[SKDPipelineSetDescription alloc] initWithName:@"MockTest" version:&unk_2846E7998];
   [(SKDPipelineSetDescription *)v3 setExcludedBundles:&unk_2846E80A0];
   v4 = *MEMORY[0x277CC31A0];
-  v11[0] = *MEMORY[0x277CC31F0];
-  v11[1] = v4;
+  v10[0] = *MEMORY[0x277CC31F0];
+  v10[1] = v4;
   v5 = *MEMORY[0x277CC3118];
-  v11[2] = *MEMORY[0x277CC2760];
-  v11[3] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:4];
+  v10[2] = *MEMORY[0x277CC2760];
+  v10[3] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:4];
   [(SKDPipelineSetDescription *)v3 setRequiredAttributes:v6];
 
   [(SKDPipelineSetDescription *)v3 setEnabled:1];
@@ -9229,8 +9119,6 @@ id configureMockDescriptor(uint64_t a1, int a2)
   }
 
   v8 = [SKDPipelineDescriptor descriptorFromSetDescription:v3 processorNames:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -9257,74 +9145,70 @@ id getSystemDefinedDescriptors(void *a1)
 
 void __getAnalyticsAliases_block_invoke()
 {
-  v4[5] = *MEMORY[0x277D85DE8];
+  v3[5] = *MEMORY[0x277D85DE8];
+  v2[0] = @"pipeline";
+  v2[1] = @"bundleID";
   v3[0] = @"pipeline";
   v3[1] = @"bundleID";
-  v4[0] = @"pipeline";
-  v4[1] = @"bundleID";
+  v2[2] = @"protectionClass";
+  v2[3] = @"textContentLanguage";
   v3[2] = @"protectionClass";
-  v3[3] = @"textContentLanguage";
-  v4[2] = @"protectionClass";
-  v4[3] = @"language";
-  v3[4] = @"textContentLength";
-  v4[4] = @"textSize";
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:5];
+  v3[3] = @"language";
+  v2[4] = @"textContentLength";
+  v3[4] = @"textSize";
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:5];
   v1 = getAnalyticsAliases_sAnalyticsAliases;
   getAnalyticsAliases_sAnalyticsAliases = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void __getAnalyticsKeys_block_invoke()
 {
-  v4[14] = *MEMORY[0x277D85DE8];
-  v3[0] = @"event";
+  v3[14] = *MEMORY[0x277D85DE8];
+  v2[0] = @"event";
   objc_opt_class();
-  v4[0] = objc_opt_class();
-  v3[1] = @"domain";
+  v3[0] = objc_opt_class();
+  v2[1] = @"domain";
   objc_opt_class();
-  v4[1] = objc_opt_class();
-  v3[2] = @"bundleID";
+  v3[1] = objc_opt_class();
+  v2[2] = @"bundleID";
   objc_opt_class();
-  v4[2] = objc_opt_class();
-  v3[3] = @"protectionClass";
+  v3[2] = objc_opt_class();
+  v2[3] = @"protectionClass";
   objc_opt_class();
-  v4[3] = objc_opt_class();
-  v3[4] = @"pipeline";
+  v3[3] = objc_opt_class();
+  v2[4] = @"pipeline";
   objc_opt_class();
-  v4[4] = objc_opt_class();
-  v3[5] = @"textSize";
+  v3[4] = objc_opt_class();
+  v2[5] = @"textSize";
   objc_opt_class();
-  v4[5] = objc_opt_class();
-  v3[6] = @"language";
+  v3[5] = objc_opt_class();
+  v2[6] = @"language";
   objc_opt_class();
-  v4[6] = objc_opt_class();
-  v3[7] = @"batchCount";
+  v3[6] = objc_opt_class();
+  v2[7] = @"batchCount";
   objc_opt_class();
-  v4[7] = objc_opt_class();
-  v3[8] = @"processedCount";
+  v3[7] = objc_opt_class();
+  v2[8] = @"processedCount";
   objc_opt_class();
-  v4[8] = objc_opt_class();
-  v3[9] = @"ignoredCount";
+  v3[8] = objc_opt_class();
+  v2[9] = @"ignoredCount";
   objc_opt_class();
-  v4[9] = objc_opt_class();
-  v3[10] = @"erroredCount";
+  v3[9] = objc_opt_class();
+  v2[10] = @"erroredCount";
   objc_opt_class();
-  v4[10] = objc_opt_class();
-  v3[11] = @"duration";
+  v3[10] = objc_opt_class();
+  v2[11] = @"duration";
   objc_opt_class();
-  v4[11] = objc_opt_class();
-  v3[12] = @"errorDomain";
+  v3[11] = objc_opt_class();
+  v2[12] = @"errorDomain";
   objc_opt_class();
-  v4[12] = objc_opt_class();
-  v3[13] = @"errorCode";
+  v3[12] = objc_opt_class();
+  v2[13] = @"errorCode";
   objc_opt_class();
-  v4[13] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:14];
+  v3[13] = objc_opt_class();
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:14];
   v1 = getAnalyticsKeys_sAnalyticsKeys;
   getAnalyticsKeys_sAnalyticsKeys = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 __CFString *messageForEventType(unsigned int a1)
@@ -9360,7 +9244,7 @@ __CFString *messageForEventStatus(unsigned int a1)
 void sub_231B8DCA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   _Block_object_dispose(&a65, 8);
-  _Block_object_dispose(&a69, 8);
+  _Block_object_dispose(&a66, 8);
   _Block_object_dispose(&STACK[0x210], 8);
   _Unwind_Resume(a1);
 }
@@ -9375,10 +9259,10 @@ uint64_t __Block_byref_object_copy__12(uint64_t result, uint64_t a2)
 void __enumerateKeyphraseInfo_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, int a6, _BYTE *a7)
 {
   v13 = objc_autoreleasePoolPush();
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x2020000000;
-  v36 = 0;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x2020000000;
+  v32 = 0;
   if (*(a1 + 40))
   {
     v14 = *(*(a1 + 72) + 8);
@@ -9397,64 +9281,121 @@ void __enumerateKeyphraseInfo_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3
     if (a6)
     {
 LABEL_6:
-      v15 = *(*(a1 + 72) + 8);
-      v16 = *(v15 + 32);
-      v17 = *(v15 + 40);
       (*(*(a1 + 40) + 16))();
       *(*(*(a1 + 72) + 8) + 32) = xmmword_231C220E0;
     }
   }
 
 LABEL_7:
-  if (*(a1 + 48) && (v34[3] & 1) == 0 && a4[5])
+  if (*(a1 + 48) && (v30[3] & 1) == 0 && a4[5])
   {
-    v18 = 0;
-    v19 = 0;
+    v15 = 0;
+    v16 = 0;
     do
     {
-      v20 = *(a4[4] + 8 * v19);
-      v21 = [MEMORY[0x277CCACA8] stringWithCharacters:a4[2] + 2 * *(a4[3] + v18) length:*(a4[3] + v18 + 8)];
+      v17 = [MEMORY[0x277CCACA8] stringWithCharacters:a4[2] + 2 * *(a4[3] + v15) length:*(a4[3] + v15 + 8)];
       (*(*(a1 + 48) + 16))();
 
-      ++v19;
-      v18 += 16;
+      ++v16;
+      v15 += 16;
     }
 
-    while (v19 < a4[5]);
+    while (v16 < a4[5]);
   }
 
-  if (*(a1 + 56) && (v34[3] & 1) == 0)
+  if (*(a1 + 56) && (v30[3] & 1) == 0)
   {
-    v22 = *(a1 + 88);
-    v23 = *(a1 + 32);
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __enumerateKeyphraseInfo_block_invoke_2;
-    v25[3] = &unk_27893E388;
-    v32 = *(a1 + 96);
-    v31 = a4;
-    v26 = v23;
-    v27 = *(a1 + 56);
-    v29 = &v33;
-    v30 = *(a1 + 80);
-    v28 = *(a1 + 64);
-    *(*(*(a1 + 80) + 8) + 24) = MEMORY[0x2383771F0](v22, v26, a4, v25);
+    v18 = *(a1 + 88);
+    v19 = *(a1 + 32);
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __enumerateKeyphraseInfo_block_invoke_2;
+    v21[3] = &unk_27893E388;
+    v28 = *(a1 + 96);
+    v27 = a4;
+    v22 = v19;
+    v23 = *(a1 + 56);
+    v25 = &v29;
+    v26 = *(a1 + 80);
+    v24 = *(a1 + 64);
+    *(*(*(a1 + 80) + 8) + 24) = MEMORY[0x2383771F0](v18, v22, a4, v21);
   }
 
-  v24 = *(*(a1 + 80) + 8);
-  if (!*(v24 + 24) || (v34[3] & 1) != 0)
+  v20 = *(*(a1 + 80) + 8);
+  if (!*(v20 + 24) || (v30[3] & 1) != 0)
   {
     goto LABEL_19;
   }
 
   if ((*(*(a1 + 64) + 16))())
   {
-    v24 = *(*(a1 + 80) + 8);
+    v20 = *(*(a1 + 80) + 8);
 LABEL_19:
-    *(v24 + 24) = 0;
+    *(v20 + 24) = 0;
     *a7 = 1;
   }
 
-  _Block_object_dispose(&v33, 8);
+  _Block_object_dispose(&v29, 8);
   objc_autoreleasePoolPop(v13);
+}
+
+void sub_231B8FC28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void __enumerateKeyphraseInfo_block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, int a4, _BYTE *a5, __n128 a6)
+{
+  v19[1] = *MEMORY[0x277D85DE8];
+  if (a4 == 3)
+  {
+    v8 = a6.n128_f64[0];
+    v11 = objc_autoreleasePoolPush();
+    if (*(a1 + 80) == 1)
+    {
+      if (a3 < 2)
+      {
+        goto LABEL_10;
+      }
+
+      v12 = *(a1 + 72);
+      if (a2 + a3 == v12[5])
+      {
+        goto LABEL_10;
+      }
+    }
+
+    else
+    {
+      if (a3 < 2)
+      {
+LABEL_10:
+        objc_autoreleasePoolPop(v11);
+        goto LABEL_11;
+      }
+
+      v12 = *(a1 + 72);
+    }
+
+    v13 = (v12[3] + 16 * a2);
+    v14 = [MEMORY[0x277CCACA8] stringWithCharacters:v12[2] + 2 * *v13 length:v13[2 * a3 - 2] - *v13 + v13[2 * a3 - 1]];
+    v15 = [v14 lowercaseStringWithLocale:*(a1 + 32)];
+    v16 = [SKGKeyphrase alloc];
+    v19[0] = v15;
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+    v18 = [(SKGKeyphrase *)v16 initWithKeyphrase:v14 components:v17 tokenCount:a3 score:v8];
+
+    (*(*(a1 + 40) + 16))();
+    goto LABEL_10;
+  }
+
+  *(*(*(a1 + 64) + 8) + 24) = 0;
+LABEL_11:
+  if ((*(*(*(a1 + 56) + 8) + 24) & 1) != 0 || !*(*(*(a1 + 64) + 8) + 24) || (*(*(a1 + 48) + 16))(a6))
+  {
+    *(*(*(a1 + 64) + 8) + 24) = 0;
+    *a5 = 1;
+  }
 }

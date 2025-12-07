@@ -29,6 +29,8 @@
 - (void)setHeadphoneLevelLimitValue:(id)value forSpecifier:(id)specifier;
 - (void)setHeadphoneNotificationsEnabled:(id)enabled forSpecifier:(id)specifier;
 - (void)updateMonthlyNotificationCounts:(id)counts withNames:(id)names forDates:(id)dates;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation SHSHeadphoneHearingProtectionController
@@ -110,6 +112,39 @@
 
     self->_weeklyNotificationCount = 0;
   }
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v8.receiver = self;
+  v8.super_class = SHSHeadphoneHearingProtectionController;
+  [(SHSHeadphoneHearingProtectionController *)&v8 viewWillAppear:appear];
+  startDate = [(SHSHeadphoneHearingProtectionController *)self startDate];
+  endDate = [(SHSHeadphoneHearingProtectionController *)self endDate];
+  [(SHSHeadphoneHearingProtectionController *)self queryNotificationCountsFromDate:startDate toDate:endDate];
+
+  audioSettingsManager = [(SHSHeadphoneHearingProtectionController *)self audioSettingsManager];
+  v7 = [audioSettingsManager getPreferenceFor:*MEMORY[0x277CEFB28]];
+  [(SHSHeadphoneHearingProtectionController *)self setLevelLimitThreshold:v7];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v13[1] = *MEMORY[0x277D85DE8];
+  v12.receiver = self;
+  v12.super_class = SHSHeadphoneHearingProtectionController;
+  [(SHSHeadphoneHearingProtectionController *)&v12 viewDidAppear:appear];
+  v4 = [MEMORY[0x277CBEBC0] URLWithString:@"settings-navigation://com.apple.Settings.Sounds/HEADPHONE_LEVEL_LIMIT_SETTING"];
+  v5 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
+  v7 = SHS_BundleForSoundsAndHapticsSettingsFramework(currentLocale);
+  bundleURL = [v7 bundleURL];
+  v9 = [v5 initWithKey:@"HEADPHONE_HEARING_PROTECTION" table:@"Sounds" locale:currentLocale bundleURL:bundleURL];
+
+  shs_rootPaneComponent = [MEMORY[0x277CCAEB8] shs_rootPaneComponent];
+  v13[0] = shs_rootPaneComponent;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  [(SHSHeadphoneHearingProtectionController *)self pe_emitNavigationEventForSystemSettingsWithGraphicIconIdentifier:@"com.apple.graphic-icon.sound" title:v9 localizedNavigationComponents:v11 deepLink:v4];
 }
 
 - (id)specifiers
@@ -478,7 +513,7 @@ LABEL_18:
 
 - (void)openAboutHeadphoneNotifications
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(SHSHeadphoneNotificationsController);
   v4 = objc_alloc_init(MEMORY[0x277D757A8]);
   v5 = [objc_alloc(MEMORY[0x277D751E0]) initWithBarButtonSystemItem:0 target:self action:sel_dismiss];
@@ -492,8 +527,8 @@ LABEL_18:
   [navigationBar frame];
   v12 = [v6 initWithFrame:{0.0, 0.0, v9}];
 
-  v17[0] = v4;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+  v16[0] = v4;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
   [v12 setItems:v13];
 
   systemBackgroundColor = [MEMORY[0x277D75348] systemBackgroundColor];
@@ -505,7 +540,6 @@ LABEL_18:
   [view2 addSubview:v12];
 
   [(SHSHeadphoneHearingProtectionController *)self presentViewController:v3 animated:1 completion:0];
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)openHealthArticleSafeListening
@@ -527,15 +561,15 @@ LABEL_18:
 
 - (void)setHeadphoneLevelLimitEnabled:(id)enabled forSpecifier:(id)specifier
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   enabledCopy = enabled;
   if ([enabledCopy BOOLValue])
   {
     headphoneLevelLimitDescriptionSpecifier = [(SHSHeadphoneHearingProtectionController *)self headphoneLevelLimitDescriptionSpecifier];
-    v12[0] = headphoneLevelLimitDescriptionSpecifier;
+    v11[0] = headphoneLevelLimitDescriptionSpecifier;
     headphoneLevelLimitSliderSpecifier = [(SHSHeadphoneHearingProtectionController *)self headphoneLevelLimitSliderSpecifier];
-    v12[1] = headphoneLevelLimitSliderSpecifier;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
+    v11[1] = headphoneLevelLimitSliderSpecifier;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
     [(SHSHeadphoneHearingProtectionController *)self insertContiguousSpecifiers:v8 afterSpecifierID:@"SHSHeadphoneLevelLimitSwitchKey" animated:1];
   }
 
@@ -547,8 +581,6 @@ LABEL_18:
 
   audioSettingsManager = [(SHSHeadphoneHearingProtectionController *)self audioSettingsManager];
   v10 = [audioSettingsManager setPreferenceFor:*MEMORY[0x277CEFB20] value:enabledCopy];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getHeadphoneLevelLimitEnabled
@@ -633,37 +665,37 @@ LABEL_18:
 
 - (void)updateMonthlyNotificationCounts:(id)counts withNames:(id)names forDates:(id)dates
 {
-  v28[4] = *MEMORY[0x277D85DE8];
+  v27[4] = *MEMORY[0x277D85DE8];
   countsCopy = counts;
   namesCopy = names;
   datesCopy = dates;
-  v23 = objc_alloc_init(MEMORY[0x277CCA968]);
-  [v23 setDateFormat:@"M"];
-  v25 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v22 = objc_alloc_init(MEMORY[0x277CCA968]);
+  [v22 setDateFormat:@"M"];
+  v24 = objc_alloc_init(MEMORY[0x277CBEB18]);
   if ([namesCopy count])
   {
     v10 = 0;
     do
     {
-      v27[0] = @"month";
-      v26 = [namesCopy objectAtIndexedSubscript:v10];
-      v28[0] = v26;
-      v27[1] = @"date";
+      v26[0] = @"month";
+      v25 = [namesCopy objectAtIndexedSubscript:v10];
+      v27[0] = v25;
+      v26[1] = @"date";
       v11 = [datesCopy objectAtIndexedSubscript:v10];
-      v28[1] = v11;
-      v27[2] = @"count";
+      v27[1] = v11;
+      v26[2] = @"count";
       v12 = [countsCopy objectAtIndexedSubscript:v10];
-      v28[2] = v12;
-      v27[3] = @"desc";
+      v27[2] = v12;
+      v26[3] = @"desc";
       v13 = MEMORY[0x277CCACA8];
       v14 = SHS_LocalizedStringForSounds(@"HEADPHONE_LEVEL_NOTIFICATIONS_VOICE_OVER_DESCRIPTION");
       [countsCopy objectAtIndexedSubscript:v10];
       v15 = countsCopy;
       v17 = v16 = datesCopy;
       v18 = [v13 stringWithFormat:v14, objc_msgSend(v17, "integerValue")];
-      v28[3] = v18;
-      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:4];
-      [(NSArray *)v25 setObject:v19 atIndexedSubscript:v10];
+      v27[3] = v18;
+      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:4];
+      [(NSArray *)v24 setObject:v19 atIndexedSubscript:v10];
 
       datesCopy = v16;
       countsCopy = v15;
@@ -675,12 +707,10 @@ LABEL_18:
   }
 
   weeklyNotificationData = self->_weeklyNotificationData;
-  self->_weeklyNotificationData = v25;
+  self->_weeklyNotificationData = v24;
 
   v21 = [countsCopy valueForKeyPath:@"@sum.self"];
   -[SHSHeadphoneHearingProtectionController setWeeklyNotificationCount:](self, "setWeeklyNotificationCount:", [v21 intValue]);
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (id)startDate
@@ -698,7 +728,7 @@ LABEL_18:
 
 - (void)queryNotificationCountsFromDate:(id)date toDate:(id)toDate
 {
-  v37[1] = *MEMORY[0x277D85DE8];
+  v36[1] = *MEMORY[0x277D85DE8];
   dateCopy = date;
   toDateCopy = toDate;
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
@@ -721,63 +751,62 @@ LABEL_18:
     [v6 addObject:&unk_287730830];
   }
 
-  v25 = [MEMORY[0x277CCD720] categoryTypeForIdentifier:*MEMORY[0x277CCB9A0]];
-  v24 = [MEMORY[0x277CCD838] predicateForSamplesWithStartDate:dateCopy endDate:toDateCopy options:0];
+  v24 = [MEMORY[0x277CCD720] categoryTypeForIdentifier:*MEMORY[0x277CCB9A0]];
+  v23 = [MEMORY[0x277CCD838] predicateForSamplesWithStartDate:dateCopy endDate:toDateCopy options:0];
   v15 = objc_alloc(MEMORY[0x277CCAC98]);
-  v26 = [v15 initWithKey:*MEMORY[0x277CCCD38] ascending:0];
+  v25 = [v15 initWithKey:*MEMORY[0x277CCCD38] ascending:0];
   objc_initWeak(&location, self);
   v16 = objc_alloc(MEMORY[0x277CCD8D0]);
-  v37[0] = v26;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:1];
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __82__SHSHeadphoneHearingProtectionController_queryNotificationCountsFromDate_toDate___block_invoke;
-  v30[3] = &unk_279BA6770;
+  v36[0] = v25;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:1];
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __82__SHSHeadphoneHearingProtectionController_queryNotificationCountsFromDate_toDate___block_invoke;
+  v29[3] = &unk_279BA6770;
   v18 = v5;
-  v31 = v18;
+  v30 = v18;
   v19 = v9;
-  v32 = v19;
+  v31 = v19;
   v20 = v6;
-  v33 = v20;
-  objc_copyWeak(&v35, &location);
+  v32 = v20;
+  objc_copyWeak(&v34, &location);
   v21 = v7;
-  v34 = v21;
-  v22 = [v16 initWithSampleType:v25 predicate:v24 limit:0 sortDescriptors:v17 resultsHandler:v30];
+  v33 = v21;
+  v22 = [v16 initWithSampleType:v24 predicate:v23 limit:0 sortDescriptors:v17 resultsHandler:v29];
 
   [(HKHealthStore *)self->_healthStore executeQuery:v22];
-  objc_destroyWeak(&v35);
+  objc_destroyWeak(&v34);
 
   objc_destroyWeak(&location);
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __82__SHSHeadphoneHearingProtectionController_queryNotificationCountsFromDate_toDate___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if ([v4 count])
   {
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
-    v21 = v4;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
+    v20 = v4;
     v5 = v4;
-    v6 = [v5 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v25;
+      v8 = *v24;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v25 != v8)
+          if (*v24 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v24 + 1) + 8 * i);
+          v10 = *(*(&v23 + 1) + 8 * i);
           v11 = *(a1 + 32);
           v12 = *(a1 + 40);
           v13 = [v10 endDate];
@@ -793,7 +822,7 @@ void __82__SHSHeadphoneHearingProtectionController_queryNotificationCountsFromDa
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v7);
@@ -806,13 +835,11 @@ void __82__SHSHeadphoneHearingProtectionController_queryNotificationCountsFromDa
     block[1] = 3221225472;
     block[2] = __82__SHSHeadphoneHearingProtectionController_queryNotificationCountsFromDate_toDate___block_invoke_2;
     block[3] = &unk_279BA66F8;
-    objc_copyWeak(&v23, (a1 + 64));
+    objc_copyWeak(&v22, (a1 + 64));
     dispatch_async(MEMORY[0x277D85CD0], block);
-    objc_destroyWeak(&v23);
-    v4 = v21;
+    objc_destroyWeak(&v22);
+    v4 = v20;
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __82__SHSHeadphoneHearingProtectionController_queryNotificationCountsFromDate_toDate___block_invoke_2(uint64_t a1)

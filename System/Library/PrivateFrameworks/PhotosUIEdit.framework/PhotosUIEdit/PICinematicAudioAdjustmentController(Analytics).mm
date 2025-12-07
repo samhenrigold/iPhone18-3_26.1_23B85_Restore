@@ -11,9 +11,9 @@
   {
     v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
     renderingStyle = [self renderingStyle];
-    v7 = [renderingStyle isEqualToString:*MEMORY[0x277D3A9F0]];
+    isEqualToString = objc_msgSend_isEqualToString_(renderingStyle);
 
-    if (v7)
+    if (isEqualToString)
     {
       v8 = @"Original";
     }
@@ -21,7 +21,7 @@
     else
     {
       renderingStyle2 = [self renderingStyle];
-      v10 = [renderingStyle2 isEqualToString:*MEMORY[0x277D3AA00]];
+      v10 = objc_msgSend_isEqualToString_(renderingStyle2);
 
       if (v10)
       {
@@ -31,7 +31,7 @@
       else
       {
         renderingStyle3 = [self renderingStyle];
-        v12 = [renderingStyle3 isEqualToString:*MEMORY[0x277D3A9F8]];
+        v12 = objc_msgSend_isEqualToString_(renderingStyle3);
 
         if (v12)
         {
@@ -41,7 +41,7 @@
         else
         {
           renderingStyle4 = [self renderingStyle];
-          v14 = [renderingStyle4 isEqualToString:*MEMORY[0x277D3A9E8]];
+          v14 = objc_msgSend_isEqualToString_(renderingStyle4);
 
           if (v14)
           {

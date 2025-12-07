@@ -2,6 +2,7 @@
 - (void)_dismiss;
 - (void)configureWithContext:(id)context completion:(id)completion;
 - (void)didAcceptEnteredPIN:(id)n;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -26,6 +27,41 @@
   v3 = +[UIColor clearColor];
   view = [(ServicePINEntryViewController *)self view];
   [view setBackgroundColor:v3];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v8.receiver = self;
+  v8.super_class = ServicePINEntryViewController;
+  [(ServicePINEntryViewController *)&v8 viewDidAppear:appear];
+  if (![(ServicePINEntryViewController *)self pinControllerShown])
+  {
+    v4 = objc_alloc_init(DevicePINController);
+    v5 = [[UINavigationController alloc] initWithRootViewController:v4];
+    v6 = objc_alloc_init(PSSpecifier);
+    [v6 setEditPaneClass:objc_opt_class()];
+    [v6 setProperty:&off_100054FD0 forKey:@"mode"];
+    [v4 setSpecifier:v6];
+    [v4 setPinDelegate:self];
+    if ([(ServicePINEntryViewController *)self _usesModalPresentation])
+    {
+      [v5 setModalPresentationStyle:7];
+      popoverPresentationController = [v5 popoverPresentationController];
+      [popoverPresentationController setDelegate:self];
+      [popoverPresentationController setPermittedArrowDirections:0];
+      [popoverPresentationController setSourceView:0];
+      [popoverPresentationController _setCentersPopoverIfSourceViewNotSet:1];
+    }
+
+    else
+    {
+      [v5 setModalPresentationStyle:0];
+    }
+
+    [(ServicePINEntryViewController *)self setPinController:v4];
+    [(ServicePINEntryViewController *)self presentViewController:v5 animated:1 completion:0];
+    [(ServicePINEntryViewController *)self setPinControllerShown:1];
+  }
 }
 
 - (void)didAcceptEnteredPIN:(id)n

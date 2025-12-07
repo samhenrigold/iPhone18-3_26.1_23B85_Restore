@@ -3,6 +3,7 @@
 - (BOOL)isEqual:(id)equal;
 - (HKUserDomainConceptBasicProperty)init;
 - (HKUserDomainConceptBasicProperty)initWithCoder:(id)coder;
+- (HKUserDomainConceptBasicProperty)initWithType:(int64_t)type version:(int64_t)version BOOLValue:(BOOL)value;
 - (HKUserDomainConceptBasicProperty)initWithType:(int64_t)type version:(int64_t)version doubleValue:(double)value;
 - (HKUserDomainConceptBasicProperty)initWithType:(int64_t)type version:(int64_t)version integerValue:(int64_t)value;
 - (HKUserDomainConceptBasicProperty)initWithType:(int64_t)type version:(int64_t)version timestamp:(double)timestamp deleted:(BOOL)deleted;
@@ -133,6 +134,16 @@
   Current = CFAbsoluteTimeGetCurrent();
   v10 = [MEMORY[0x1E696AD98] numberWithDouble:value];
   v11 = [(HKUserDomainConceptBasicProperty *)self initWithType:type version:version timestamp:2 valueType:v10 value:Current];
+
+  return v11;
+}
+
+- (HKUserDomainConceptBasicProperty)initWithType:(int64_t)type version:(int64_t)version BOOLValue:(BOOL)value
+{
+  valueCopy = value;
+  Current = CFAbsoluteTimeGetCurrent();
+  v10 = [MEMORY[0x1E696AD98] numberWithBool:valueCopy];
+  v11 = [(HKUserDomainConceptBasicProperty *)self initWithType:type version:version timestamp:4 valueType:v10 value:Current];
 
   return v11;
 }

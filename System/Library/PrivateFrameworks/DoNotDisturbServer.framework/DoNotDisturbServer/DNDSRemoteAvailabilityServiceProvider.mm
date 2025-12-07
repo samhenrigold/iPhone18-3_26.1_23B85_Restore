@@ -64,28 +64,28 @@ void __71__DNDSRemoteAvailabilityServiceProvider_initWithClientDetailsProvider__
 
 - (void)listener:(id)listener didReceiveConnection:(id)connection withContext:(id)context
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   connectionCopy = connection;
   contextCopy = context;
   objc_initWeak(&location, self);
   if (self->_requestListener == listenerCopy)
   {
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __83__DNDSRemoteAvailabilityServiceProvider_listener_didReceiveConnection_withContext___block_invoke;
-    v13[3] = &unk_278F8A348;
-    v13[4] = self;
-    objc_copyWeak(&v14, &location);
-    [connectionCopy configureConnection:v13];
-    objc_destroyWeak(&v14);
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __83__DNDSRemoteAvailabilityServiceProvider_listener_didReceiveConnection_withContext___block_invoke;
+    v12[3] = &unk_278F8A348;
+    v12[4] = self;
+    objc_copyWeak(&v13, &location);
+    [connectionCopy configureConnection:v12];
+    objc_destroyWeak(&v13);
     [(DNDSRemoteAvailabilityServiceProvider *)self _addConnection:connectionCopy];
     [connectionCopy activate];
     v11 = DNDSLogAvailabilityProvider;
     if (os_log_type_enabled(DNDSLogAvailabilityProvider, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v17 = connectionCopy;
+      v16 = connectionCopy;
       _os_log_impl(&dword_24912E000, v11, OS_LOG_TYPE_DEFAULT, "XPC connection successfully accepted: connection=%{public}@", buf, 0xCu);
     }
   }
@@ -96,8 +96,6 @@ void __71__DNDSRemoteAvailabilityServiceProvider_initWithClientDetailsProvider__
   }
 
   objc_destroyWeak(&location);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __83__DNDSRemoteAvailabilityServiceProvider_listener_didReceiveConnection_withContext___block_invoke(uint64_t a1, void *a2)
@@ -142,7 +140,7 @@ void __83__DNDSRemoteAvailabilityServiceProvider_listener_didReceiveConnection_w
 
 - (void)getIsLocalUserAvailableWithRequestDetails:(id)details completionHandler:(id)handler
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   detailsCopy = details;
   handlerCopy = handler;
   v8 = MEMORY[0x277CCACA8];
@@ -152,43 +150,42 @@ void __83__DNDSRemoteAvailabilityServiceProvider_listener_didReceiveConnection_w
   v11 = os_transaction_create();
 
   currentContext = [MEMORY[0x277CF3280] currentContext];
-  v56 = 0u;
-  v57 = 0u;
+  v54 = 0u;
+  v55 = 0u;
   remoteProcess = [currentContext remoteProcess];
   auditToken = [remoteProcess auditToken];
   v15 = auditToken;
-  v52 = v11;
-  v53 = detailsCopy;
+  v50 = v11;
+  v51 = detailsCopy;
   if (auditToken)
   {
-    [auditToken realToken];
+    objc_msgSend_realToken(auditToken);
   }
 
   else
   {
-    v56 = 0u;
-    v57 = 0u;
+    v54 = 0u;
+    v55 = 0u;
   }
 
-  v16 = *MEMORY[0x277D6C180];
-  *buf = v56;
-  *&buf[16] = v57;
-  v17 = TCCAccessCheckAuditToken();
+  *buf = v54;
+  *&buf[16] = v55;
+  v16 = TCCAccessCheckAuditToken();
   dnds_hasUserNotificationsCommunicationEntitlement = [currentContext dnds_hasUserNotificationsCommunicationEntitlement];
   remoteProcess2 = [currentContext remoteProcess];
   bundleIdentifier = [remoteProcess2 bundleIdentifier];
 
-  v21 = [objc_alloc(MEMORY[0x277D058C8]) initWithBundleID:bundleIdentifier];
-  *buf = v56;
-  *&buf[16] = v57;
-  v22 = [MEMORY[0x277CC1E90] bundleRecordForAuditToken:buf error:0];
+  v20 = [objc_alloc(MEMORY[0x277D058C8]) initWithBundleID:bundleIdentifier];
+  *buf = v54;
+  *&buf[16] = v55;
+  v21 = [MEMORY[0x277CC1E90] bundleRecordForAuditToken:buf error:0];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    containingBundleRecord = [v22 containingBundleRecord];
+    containingBundleRecord = [v21 containingBundleRecord];
     bundleIdentifier2 = [containingBundleRecord bundleIdentifier];
 
-    v25 = [objc_alloc(MEMORY[0x277D058C8]) initWithBundleID:bundleIdentifier2];
+    v24 = [objc_alloc(MEMORY[0x277D058C8]) initWithBundleID:bundleIdentifier2];
     if (dnds_hasUserNotificationsCommunicationEntitlement)
     {
       dnds_hasUserNotificationsCommunicationEntitlement = 1;
@@ -197,26 +194,26 @@ void __83__DNDSRemoteAvailabilityServiceProvider_listener_didReceiveConnection_w
     else
     {
       entitlements = [containingBundleRecord entitlements];
-      v27 = [entitlements objectForKey:@"com.apple.developer.usernotifications.communication" ofClass:objc_opt_class()];
-      dnds_hasUserNotificationsCommunicationEntitlement = [v27 BOOLValue];
+      v26 = [entitlements objectForKey:@"com.apple.developer.usernotifications.communication" ofClass:objc_opt_class()];
+      dnds_hasUserNotificationsCommunicationEntitlement = [v26 BOOLValue];
     }
 
-    v21 = v25;
+    v20 = v24;
     bundleIdentifier = bundleIdentifier2;
   }
 
   else
   {
-    containingBundleRecord = v22;
+    containingBundleRecord = v21;
   }
 
-  v28 = DNDGrantedUserNotificationsAuthorizationForBundleIdentifier(bundleIdentifier);
-  if (!v17 || !dnds_hasUserNotificationsCommunicationEntitlement || !v28)
+  v27 = DNDGrantedUserNotificationsAuthorizationForBundleIdentifier(bundleIdentifier);
+  if (!v16 || !dnds_hasUserNotificationsCommunicationEntitlement || !v27)
   {
-    v37 = MEMORY[0x277D05840];
-    if (v28)
+    v36 = MEMORY[0x277D05840];
+    if (v27)
     {
-      v31 = 0;
+      v30 = 0;
     }
 
     else
@@ -226,18 +223,18 @@ void __83__DNDSRemoteAvailabilityServiceProvider_listener_didReceiveConnection_w
         [DNDSRemoteAvailabilityServiceProvider getIsLocalUserAvailableWithRequestDetails:completionHandler:];
       }
 
-      v38 = MEMORY[0x277CCA9B8];
-      v39 = *v37;
-      v62 = *MEMORY[0x277CCA450];
-      v63 = @"User Notifications are disabled for this App.";
-      v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v63 forKeys:&v62 count:1];
-      v31 = [v38 errorWithDomain:v39 code:1004 userInfo:v40];
+      v37 = MEMORY[0x277CCA9B8];
+      v38 = *v36;
+      v60 = *MEMORY[0x277CCA450];
+      v61 = @"User Notifications are disabled for this App.";
+      v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v61 forKeys:&v60 count:1];
+      v30 = [v37 errorWithDomain:v38 code:1004 userInfo:v39];
     }
 
-    v36 = handlerCopy;
-    if (v17)
+    v35 = handlerCopy;
+    if (v16)
     {
-      v35 = v53;
+      v34 = v51;
       if (dnds_hasUserNotificationsCommunicationEntitlement)
       {
         goto LABEL_24;
@@ -246,26 +243,26 @@ void __83__DNDSRemoteAvailabilityServiceProvider_listener_didReceiveConnection_w
 
     else
     {
-      v35 = v53;
+      v34 = v51;
       if (os_log_type_enabled(DNDSLogAvailabilityProvider, OS_LOG_TYPE_ERROR))
       {
         [DNDSRemoteAvailabilityServiceProvider getIsLocalUserAvailableWithRequestDetails:completionHandler:];
       }
 
-      v41 = MEMORY[0x277CCA9B8];
-      v42 = *MEMORY[0x277D05840];
-      v60 = *MEMORY[0x277CCA450];
-      v61 = @"Focus Status is not shared with this App.";
-      v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v61 forKeys:&v60 count:1];
-      v44 = [v41 errorWithDomain:v42 code:1004 userInfo:v43];
+      v40 = MEMORY[0x277CCA9B8];
+      v41 = *MEMORY[0x277D05840];
+      v58 = *MEMORY[0x277CCA450];
+      v59 = @"Focus Status is not shared with this App.";
+      v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
+      v43 = [v40 errorWithDomain:v41 code:1004 userInfo:v42];
 
-      v31 = v44;
-      v36 = handlerCopy;
+      v30 = v43;
+      v35 = handlerCopy;
       if (dnds_hasUserNotificationsCommunicationEntitlement)
       {
 LABEL_24:
-        v34 = v52;
-        if (!v36)
+        v33 = v50;
+        if (!v35)
         {
           goto LABEL_33;
         }
@@ -279,117 +276,111 @@ LABEL_24:
       [DNDSRemoteAvailabilityServiceProvider getIsLocalUserAvailableWithRequestDetails:completionHandler:];
     }
 
-    v45 = MEMORY[0x277CCA9B8];
-    v46 = *MEMORY[0x277D05840];
-    v58 = *MEMORY[0x277CCA450];
-    v59 = @"App is missing Communication Notifications entitlement.";
-    v47 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
-    v48 = [v45 errorWithDomain:v46 code:1004 userInfo:v47];
+    v44 = MEMORY[0x277CCA9B8];
+    v45 = *MEMORY[0x277D05840];
+    v56 = *MEMORY[0x277CCA450];
+    v57 = @"App is missing Communication Notifications entitlement.";
+    v46 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
+    v47 = [v44 errorWithDomain:v45 code:1004 userInfo:v46];
 
-    v31 = v48;
-    v34 = v52;
-    v36 = handlerCopy;
+    v30 = v47;
+    v33 = v50;
+    v35 = handlerCopy;
     if (!handlerCopy)
     {
       goto LABEL_33;
     }
 
 LABEL_32:
-    (v36)[2](v36, MEMORY[0x277CBEC38], v31);
+    (v35)[2](v35, MEMORY[0x277CBEC38], v30);
 LABEL_33:
     [currentContext invalidate];
     goto LABEL_39;
   }
 
   delegate = [(DNDSRemoteAvailabilityServiceProvider *)self delegate];
-  v55 = 0;
-  v30 = [delegate remoteAvailabilityServiceProvider:self isLocalUserAvailableForApplicationIdentifier:v21 withError:&v55];
-  v31 = v55;
+  v53 = 0;
+  v29 = [delegate remoteAvailabilityServiceProvider:self isLocalUserAvailableForApplicationIdentifier:v20 withError:&v53];
+  v30 = v53;
 
-  v32 = DNDSLogAvailabilityProvider;
-  v33 = os_log_type_enabled(DNDSLogAvailabilityProvider, OS_LOG_TYPE_DEFAULT);
-  if (v31)
+  v31 = DNDSLogAvailabilityProvider;
+  v32 = os_log_type_enabled(DNDSLogAvailabilityProvider, OS_LOG_TYPE_DEFAULT);
+  if (v30)
   {
-    v34 = v52;
-    v35 = v53;
-    if (v33)
+    v33 = v50;
+    v34 = v51;
+    if (v32)
     {
       *buf = 138543874;
-      *&buf[4] = v53;
+      *&buf[4] = v51;
       *&buf[12] = 2114;
-      *&buf[14] = v31;
+      *&buf[14] = v30;
       *&buf[22] = 2114;
       *&buf[24] = currentContext;
-      _os_log_impl(&dword_24912E000, v32, OS_LOG_TYPE_DEFAULT, "[%{public}@] Error determining Focus Status; will report YES for available: error=%{public}@ connection=%{public}@", buf, 0x20u);
+      _os_log_impl(&dword_24912E000, v31, OS_LOG_TYPE_DEFAULT, "[%{public}@] Error determining Focus Status; will report YES for available: error=%{public}@ connection=%{public}@", buf, 0x20u);
     }
 
-    v36 = handlerCopy;
-    (*(handlerCopy + 2))(handlerCopy, MEMORY[0x277CBEC38], v31);
+    v35 = handlerCopy;
+    (*(handlerCopy + 2))(handlerCopy, MEMORY[0x277CBEC38], v30);
   }
 
   else
   {
-    v34 = v52;
-    v35 = v53;
-    if (v33)
+    v33 = v50;
+    v34 = v51;
+    if (v32)
     {
-      v49 = @"NO";
+      v48 = @"NO";
       *buf = 138543874;
-      *&buf[4] = v53;
+      *&buf[4] = v51;
       *&buf[12] = 2114;
-      if (v30)
+      if (v29)
       {
-        v49 = @"YES";
+        v48 = @"YES";
       }
 
-      *&buf[14] = v49;
+      *&buf[14] = v48;
       *&buf[22] = 2114;
       *&buf[24] = currentContext;
-      _os_log_impl(&dword_24912E000, v32, OS_LOG_TYPE_DEFAULT, "[%{public}@] Determinined Focus Status: available=%{public}@ connection=%{public}@", buf, 0x20u);
+      _os_log_impl(&dword_24912E000, v31, OS_LOG_TYPE_DEFAULT, "[%{public}@] Determinined Focus Status: available=%{public}@ connection=%{public}@", buf, 0x20u);
     }
 
-    v50 = [MEMORY[0x277CCABB0] numberWithBool:v30];
-    v36 = handlerCopy;
-    (*(handlerCopy + 2))(handlerCopy, v50, 0);
+    v49 = [MEMORY[0x277CCABB0] numberWithBool:v29];
+    v35 = handlerCopy;
+    (*(handlerCopy + 2))(handlerCopy, v49, 0);
   }
 
 LABEL_39:
-
-  v51 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleClientConnectionInterrupted:(id)interrupted
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   interruptedCopy = interrupted;
   v5 = DNDSLogAvailabilityProvider;
   if (os_log_type_enabled(DNDSLogAvailabilityProvider, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
-    v8 = interruptedCopy;
-    _os_log_impl(&dword_24912E000, v5, OS_LOG_TYPE_DEFAULT, "Client XPC connection was interrupted: connection=%{public}@", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = interruptedCopy;
+    _os_log_impl(&dword_24912E000, v5, OS_LOG_TYPE_DEFAULT, "Client XPC connection was interrupted: connection=%{public}@", &v6, 0xCu);
   }
 
   [(DNDSRemoteAvailabilityServiceProvider *)self _removeConnection:interruptedCopy];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleClientConnectionInvalidated:(id)invalidated
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   invalidatedCopy = invalidated;
   v5 = DNDSLogAvailabilityProvider;
   if (os_log_type_enabled(DNDSLogAvailabilityProvider, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
-    v8 = invalidatedCopy;
-    _os_log_impl(&dword_24912E000, v5, OS_LOG_TYPE_DEFAULT, "Client XPC connection was invalidated: connection=%{public}@", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = invalidatedCopy;
+    _os_log_impl(&dword_24912E000, v5, OS_LOG_TYPE_DEFAULT, "Client XPC connection was invalidated: connection=%{public}@", &v6, 0xCu);
   }
 
   [(DNDSRemoteAvailabilityServiceProvider *)self _removeConnection:invalidatedCopy];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addConnection:(id)connection
@@ -417,30 +408,6 @@ LABEL_39:
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
 
   return WeakRetained;
-}
-
-- (void)getIsLocalUserAvailableWithRequestDetails:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "[%{public}@] XPC connection without User Notifications authorization tried to get Focus Status, will invalidate: connection=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)getIsLocalUserAvailableWithRequestDetails:completionHandler:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "[%{public}@] XPC connection without sharing authorization tried to get Focus Status, will invalidate: connection=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)getIsLocalUserAvailableWithRequestDetails:completionHandler:.cold.3()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "[%{public}@] XPC connection without Communication Notifications entitlement tried to get Focus Status, will invalidate: connection=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

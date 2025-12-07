@@ -323,7 +323,7 @@ void __68__LPApplePhotosMetadataProviderSpecialization_completeWithMetadata___bl
 
 void __61__LPApplePhotosMetadataProviderSpecialization_didFetchAsset___block_invoke(uint64_t a1, void *a2, void *a3, uint64_t a4, void *a5)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v8 = a2;
   v9 = a3;
   v10 = a5;
@@ -333,21 +333,21 @@ void __61__LPApplePhotosMetadataProviderSpecialization_didFetchAsset___block_inv
     *(v11 + 28) = 0;
     if (v8)
     {
-      v12 = [LPMIMETypeRegistry MIMETypeForUTI:v9];
-      if (v12)
+      v13 = [LPMIMETypeRegistry MIMETypeForUTI:v9];
+      if (v13)
       {
-        v13 = [[LPImage alloc] initWithData:v8 MIMEType:v12];
-        [*(*(a1 + 32) + 56) setKeyPhoto:v13];
+        v14 = [[LPImage alloc] initWithData:v8 MIMEType:v13];
+        [*(*(a1 + 32) + 56) setKeyPhoto:v14];
       }
 
       else
       {
-        v14 = LPLogChannelFetching();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v15 = LPLogChannelFetching(0, v12);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
-          v15 = 138412290;
-          v16 = v9;
-          _os_log_impl(&dword_1AE886000, v14, OS_LOG_TYPE_DEFAULT, "Failed to determine MIME type for image with type %@", &v15, 0xCu);
+          v16 = 138412290;
+          v17 = v9;
+          _os_log_impl(&dword_1AE886000, v15, OS_LOG_TYPE_DEFAULT, "Failed to determine MIME type for image with type %@", &v16, 0xCu);
         }
       }
     }

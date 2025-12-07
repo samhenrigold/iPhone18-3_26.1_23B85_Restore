@@ -91,15 +91,15 @@ void __74__WFRemoteExecutionAskEachTimeRequestResponse_writeMessageToWriter_erro
 
 - (BOOL)readMessageFromData:(id)data error:(id *)error
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v6 = MEMORY[0x1E69C65B8];
   dataCopy = data;
   v8 = [[v6 alloc] initWithData:dataCopy];
 
   v9 = objc_alloc_init(WFREPBAskWhenRunRequestResponse);
-  v32 = 0;
-  v10 = [(PBCodable *)v9 readFrom:v8 error:&v32];
-  v11 = v32;
+  v31 = 0;
+  v10 = [(PBCodable *)v9 readFrom:v8 error:&v31];
+  v11 = v31;
   if (v10)
   {
     originatingRequestIdentifier = [(WFREPBAskWhenRunRequestResponse *)v9 originatingRequestIdentifier];
@@ -146,9 +146,9 @@ void __74__WFRemoteExecutionAskEachTimeRequestResponse_writeMessageToWriter_erro
     if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315394;
-      v34 = "[WFRemoteExecutionAskEachTimeRequestResponse readMessageFromData:error:]";
-      v35 = 2114;
-      v36 = v11;
+      v33 = "[WFRemoteExecutionAskEachTimeRequestResponse readMessageFromData:error:]";
+      v34 = 2114;
+      v35 = v11;
       _os_log_impl(&dword_1CA256000, v28, OS_LOG_TYPE_FAULT, "%s Failed to read ask each time request response protobuf, %{public}@", buf, 0x16u);
     }
 
@@ -159,35 +159,34 @@ void __74__WFRemoteExecutionAskEachTimeRequestResponse_writeMessageToWriter_erro
     }
   }
 
-  v30 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (void)inflateInputtedStatesWithAction:(id)action
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   actionCopy = action;
   v5 = objc_opt_new();
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   obj = [(WFRemoteExecutionAskEachTimeRequestResponse *)self inputtedStatesData];
-  v6 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v6 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v22;
+    v8 = *v21;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v22 != v8)
+        if (*v21 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v21 + 1) + 8 * i);
+        v10 = *(*(&v20 + 1) + 8 * i);
         v11 = MEMORY[0x1E696AE40];
         value = [v10 value];
         v13 = [v11 propertyListWithData:value options:0 format:0 error:0];
@@ -203,7 +202,7 @@ void __74__WFRemoteExecutionAskEachTimeRequestResponse_writeMessageToWriter_erro
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v7 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v7);
@@ -213,7 +212,6 @@ void __74__WFRemoteExecutionAskEachTimeRequestResponse_writeMessageToWriter_erro
   self->_inputtedStates = v5;
 
   [(WFRemoteExecutionAskEachTimeRequestResponse *)self setInputtedStatesData:0];
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (WFRemoteExecutionAskEachTimeRequestResponse)initWithOriginatingRequestIdentifier:(id)identifier inputtedStates:(id)states error:(id)error

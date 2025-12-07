@@ -1,6 +1,6 @@
 @interface NSNumber(SFExtras)
-- (uint64_t)sf_asRowAlignment;
 - (uint64_t)sf_asTopHit;
+- (unint64_t)sf_asRowAlignment;
 @end
 
 @implementation NSNumber(SFExtras)
@@ -19,10 +19,10 @@
   }
 }
 
-- (uint64_t)sf_asRowAlignment
+- (unint64_t)sf_asRowAlignment
 {
   result = [self integerValue];
-  if ((result + 1) >= 3)
+  if (result + 1 >= 3)
   {
     return 0;
   }

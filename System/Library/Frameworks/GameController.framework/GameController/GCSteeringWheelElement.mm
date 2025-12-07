@@ -18,20 +18,20 @@
 - (float)delta;
 - (float)maximumDegreesOfRotation;
 - (float)value;
+- (id)_deltaDidChangeHandler;
+- (id)_rotationValueField;
+- (id)_setDelta:(id *)result;
+- (id)_setDeltaDidChangeHandler:(id *)result;
+- (id)_setLastTimestamp:(id *)result;
+- (id)_setMaximumDegreesOfRotation:(id *)result;
+- (id)_setRotationValueField:(id *)result;
+- (id)_setSources:(id *)result;
+- (id)_setValue:(id *)result;
+- (id)_setValueDidChangeHandler:(id *)result;
+- (id)_sources;
+- (id)_valueDidChangeHandler;
 - (id)deltaDidChangeHandler;
 - (id)valueDidChangeHandler;
-- (uint64_t)_deltaDidChangeHandler;
-- (uint64_t)_rotationValueField;
-- (uint64_t)_setDelta:(uint64_t)result;
-- (uint64_t)_setDeltaDidChangeHandler:(uint64_t)result;
-- (uint64_t)_setLastTimestamp:(uint64_t)result;
-- (uint64_t)_setMaximumDegreesOfRotation:(uint64_t)result;
-- (uint64_t)_setRotationValueField:(uint64_t)result;
-- (uint64_t)_setSources:(uint64_t)result;
-- (uint64_t)_setValue:(uint64_t)result;
-- (uint64_t)_setValueDidChangeHandler:(uint64_t)result;
-- (uint64_t)_sources;
-- (uint64_t)_valueDidChangeHandler;
 - (void)postCommit:(const void *)commit sender:(id)sender;
 - (void)preCommit:(const void *)commit sender:(id)sender;
 @end
@@ -94,7 +94,7 @@ LABEL_3:
   }
 
   _sources = [(GCSteeringWheelElement *)with _sources];
-  v24 = [(GCSteeringWheelElement *)self _setSources:_sources];
+  v24 = [(GCSteeringWheelElement *)&self->super.super.super.isa _setSources:_sources];
   *(update + v10) = *(update + v10) & 0xFE | v24;
 
   if (with)
@@ -119,7 +119,7 @@ LABEL_50:
   }
 
 LABEL_26:
-  v27 = [(_GCDevicePhysicalInputView *)self _testAndSetPrimitiveValue:&self->_maximumDegreesOfRotationSlot forSlot:?];
+  v27 = [(_GCDevicePhysicalInputView *)&self->super.super.super.isa _testAndSetPrimitiveValue:&self->_maximumDegreesOfRotationSlot forSlot:?];
   if (v27)
   {
     v28 = 2;
@@ -153,7 +153,7 @@ LABEL_52:
   }
 
 LABEL_31:
-  v30 = [(_GCDevicePhysicalInputView *)self _testAndSetPrimitiveValue:v29 forSlot:&self->_rotationValueFieldSlot];
+  v30 = [(_GCDevicePhysicalInputView *)&self->super.super.super.isa _testAndSetPrimitiveValue:v29 forSlot:&self->_rotationValueFieldSlot];
   if (v30)
   {
     v31 = 4;
@@ -192,7 +192,7 @@ LABEL_5:
       if (self)
       {
 LABEL_7:
-        v13 = [(_GCDevicePhysicalInputView *)self _testAndSetPrimitiveValue:&self->_valueSlot forSlot:?];
+        v13 = [(_GCDevicePhysicalInputView *)&self->super.super.super.isa _testAndSetPrimitiveValue:&self->_valueSlot forSlot:?];
         if (v13)
         {
           v14 = 32;
@@ -221,7 +221,7 @@ LABEL_10:
           if (self)
           {
 LABEL_12:
-            v17 = [(_GCDevicePhysicalInputView *)self _testAndSetPrimitiveValue:&self->_deltaSlot forSlot:?];
+            v17 = [(_GCDevicePhysicalInputView *)&self->super.super.super.isa _testAndSetPrimitiveValue:&self->_deltaSlot forSlot:?];
             if (v17)
             {
               v18 = 64;
@@ -246,7 +246,7 @@ LABEL_15:
 
             if (self)
             {
-              v20 = [(_GCDevicePhysicalInputView *)self _testAndSetPrimitiveValue:v19 forSlot:&self->_timestampSlot];
+              v20 = [(_GCDevicePhysicalInputView *)&self->super.super.super.isa _testAndSetPrimitiveValue:v19 forSlot:&self->_timestampSlot];
               if (v20)
               {
                 v21 = 0x80;
@@ -283,7 +283,7 @@ LABEL_15:
 
 LABEL_35:
   _valueDidChangeHandler = [(GCSteeringWheelElement *)with _valueDidChangeHandler];
-  v33 = [(GCSteeringWheelElement *)self _setValueDidChangeHandler:_valueDidChangeHandler];
+  v33 = [(GCSteeringWheelElement *)&self->super.super.super.isa _setValueDidChangeHandler:_valueDidChangeHandler];
   if (v33)
   {
     v34 = 8;
@@ -297,7 +297,7 @@ LABEL_35:
   *(update + v10) = *(update + v10) & 0xF7 | v34;
 
   _deltaDidChangeHandler = [(GCSteeringWheelElement *)with _deltaDidChangeHandler];
-  v36 = [(GCSteeringWheelElement *)self _setDeltaDidChangeHandler:_deltaDidChangeHandler];
+  v36 = [(GCSteeringWheelElement *)&self->super.super.super.isa _setDeltaDidChangeHandler:_deltaDidChangeHandler];
   if (v36)
   {
     v37 = 16;
@@ -545,7 +545,7 @@ LABEL_21:
   }
 
 LABEL_20:
-  [(GCSteeringWheelElement *)self postCommit:v7 sender:&v10];
+  [(GCSteeringWheelElement *)&self->super.super.super.isa postCommit:v7 sender:&v10];
   if ((v10 & 0x40) != 0)
   {
     goto LABEL_21;
@@ -559,7 +559,7 @@ LABEL_20:
   v7.super_class = GCSteeringWheelElement;
   if ([(_GCDevicePhysicalInputElement *)&v7 isEqualToElement:elementCopy])
   {
-    [(GCSteeringWheelElement *)self isEqualToElement:elementCopy, &v8];
+    [(GCSteeringWheelElement *)&self->super.super.super.isa isEqualToElement:elementCopy, &v8];
     v5 = v8;
   }
 
@@ -612,18 +612,18 @@ LABEL_9:
   }
 
 LABEL_3:
-  v11 = [(_GCDevicePhysicalInputView *)self _primitiveValueForSlot:?];
+  v11 = [(_GCDevicePhysicalInputView *)&self->super.super.super.isa _primitiveValueForSlot:?];
   if (v11 != -1)
   {
     v12 = v11;
-    v13 = COERCE_DOUBLE([(_GCDevicePhysicalInputView *)self _primitiveValueForSlot:?]);
+    v13 = COERCE_DOUBLE([(_GCDevicePhysicalInputView *)&self->super.super.super.isa _primitiveValueForSlot:?]);
     [event floatValueForElement:v12];
     if (v14 != v13)
     {
       v15 = v14 - v13;
-      [(_GCDevicePhysicalInputView *)self _testAndSetPrimitiveValue:&self->_valueSlot forSlot:?];
-      [(_GCDevicePhysicalInputView *)self _testAndSetPrimitiveValue:&self->_deltaSlot forSlot:?];
-      [(_GCDevicePhysicalInputView *)self _testAndSetPrimitiveValue:&self->_timestampSlot forSlot:?];
+      [(_GCDevicePhysicalInputView *)&self->super.super.super.isa _testAndSetPrimitiveValue:&self->_valueSlot forSlot:?];
+      [(_GCDevicePhysicalInputView *)&self->super.super.super.isa _testAndSetPrimitiveValue:&self->_deltaSlot forSlot:?];
+      [(_GCDevicePhysicalInputView *)&self->super.super.super.isa _testAndSetPrimitiveValue:&self->_timestampSlot forSlot:?];
 LABEL_6:
       *(update + v10) |= 0xE0u;
       return 1;
@@ -640,7 +640,7 @@ LABEL_6:
   v10.super_class = GCSteeringWheelElement;
   v5 = [(_GCDevicePhysicalInputElement *)&v10 initWithParameters:parametersCopy];
   sources = [(_GCSteeringWheelElementParameters *)parametersCopy sources];
-  [(GCSteeringWheelElement *)v5 _setSources:sources];
+  [(GCSteeringWheelElement *)&v5->super.super.super.isa _setSources:sources];
 
   if (parametersCopy)
   {
@@ -657,7 +657,7 @@ LABEL_6:
   if (v5)
   {
 LABEL_3:
-    [(_GCDevicePhysicalInputView *)v5 _testAndSetPrimitiveValue:&v5->_maximumDegreesOfRotationSlot forSlot:?];
+    [(_GCDevicePhysicalInputView *)&v5->super.super.super.isa _testAndSetPrimitiveValue:&v5->_maximumDegreesOfRotationSlot forSlot:?];
   }
 
 LABEL_4:
@@ -676,7 +676,7 @@ LABEL_4:
   if (v5)
   {
 LABEL_6:
-    [(_GCDevicePhysicalInputView *)v5 _testAndSetPrimitiveValue:v8 forSlot:&v5->_rotationValueFieldSlot];
+    [(_GCDevicePhysicalInputView *)&v5->super.super.super.isa _testAndSetPrimitiveValue:v8 forSlot:&v5->_rotationValueFieldSlot];
   }
 
 LABEL_7:
@@ -684,7 +684,7 @@ LABEL_7:
   return v5;
 }
 
-- (uint64_t)_setSources:(uint64_t)result
+- (id)_setSources:(id *)result
 {
   if (result)
   {
@@ -695,13 +695,13 @@ LABEL_7:
       [currentHandler handleFailureInMethod:sel__setSources_ object:v3 file:@"GCSteeringWheelElement.m" lineNumber:217 description:{@"Invalid parameter not satisfying: %s", "newValue != nil"}];
     }
 
-    return [(_GCDevicePhysicalInputView *)v3 _testAndSetObjectValue:a2 forSlot:v3 + 56 policy:771];
+    return [(_GCDevicePhysicalInputView *)v3 _testAndSetObjectValue:a2 forSlot:(v3 + 7) policy:771];
   }
 
   return result;
 }
 
-- (uint64_t)_setMaximumDegreesOfRotation:(uint64_t)result
+- (id)_setMaximumDegreesOfRotation:(id *)result
 {
   if (result)
   {
@@ -711,7 +711,7 @@ LABEL_7:
   return result;
 }
 
-- (uint64_t)_setRotationValueField:(uint64_t)result
+- (id)_setRotationValueField:(id *)result
 {
   if (result)
   {
@@ -721,7 +721,7 @@ LABEL_7:
   return result;
 }
 
-- (uint64_t)_sources
+- (id)_sources
 {
   if (result)
   {
@@ -744,7 +744,7 @@ LABEL_7:
   return result;
 }
 
-- (uint64_t)_rotationValueField
+- (id)_rotationValueField
 {
   if (result)
   {
@@ -754,7 +754,7 @@ LABEL_7:
   return result;
 }
 
-- (uint64_t)_valueDidChangeHandler
+- (id)_valueDidChangeHandler
 {
   if (result)
   {
@@ -765,7 +765,7 @@ LABEL_7:
   return result;
 }
 
-- (uint64_t)_setValueDidChangeHandler:(uint64_t)result
+- (id)_setValueDidChangeHandler:(id *)result
 {
   if (result)
   {
@@ -778,7 +778,7 @@ LABEL_7:
   return result;
 }
 
-- (uint64_t)_deltaDidChangeHandler
+- (id)_deltaDidChangeHandler
 {
   if (result)
   {
@@ -789,7 +789,7 @@ LABEL_7:
   return result;
 }
 
-- (uint64_t)_setDeltaDidChangeHandler:(uint64_t)result
+- (id)_setDeltaDidChangeHandler:(id *)result
 {
   if (result)
   {
@@ -814,7 +814,7 @@ LABEL_7:
   return result;
 }
 
-- (uint64_t)_setValue:(uint64_t)result
+- (id)_setValue:(id *)result
 {
   if (result)
   {
@@ -836,7 +836,7 @@ LABEL_7:
   return result;
 }
 
-- (uint64_t)_setDelta:(uint64_t)result
+- (id)_setDelta:(id *)result
 {
   if (result)
   {
@@ -859,7 +859,7 @@ LABEL_7:
   }
 }
 
-- (uint64_t)_setLastTimestamp:(uint64_t)result
+- (id)_setLastTimestamp:(id *)result
 {
   if (result)
   {
@@ -877,7 +877,7 @@ LABEL_7:
   sfSymbolsName = [(_GCDevicePhysicalInputElement *)self sfSymbolsName];
   if (self)
   {
-    v7 = [(_GCDevicePhysicalInputView *)self _primitiveValueForSlot:?];
+    v7 = [(_GCDevicePhysicalInputView *)&self->super.super.super.isa _primitiveValueForSlot:?];
   }
 
   else
@@ -900,13 +900,13 @@ LABEL_7:
     return 0.0;
   }
 
-  v2 = [(_GCDevicePhysicalInputView *)self _primitiveValueForSlot:?];
+  v2 = [(_GCDevicePhysicalInputView *)&self->super.super.super.isa _primitiveValueForSlot:?];
   return OUTLINED_FUNCTION_3_3(v2);
 }
 
 - (id)valueDidChangeHandler
 {
-  _valueDidChangeHandler = [(GCSteeringWheelElement *)self _valueDidChangeHandler];
+  _valueDidChangeHandler = [(GCSteeringWheelElement *)&self->super.super.super.isa _valueDidChangeHandler];
 
   return _valueDidChangeHandler;
 }
@@ -918,7 +918,7 @@ LABEL_7:
     return 0.0;
   }
 
-  v2 = [(_GCDevicePhysicalInputView *)self _primitiveValueForSlot:?];
+  v2 = [(_GCDevicePhysicalInputView *)&self->super.super.super.isa _primitiveValueForSlot:?];
   return OUTLINED_FUNCTION_3_3(v2);
 }
 
@@ -926,7 +926,7 @@ LABEL_7:
 {
   if (self)
   {
-    return COERCE_DOUBLE([(_GCDevicePhysicalInputView *)self _primitiveValueForSlot:?]);
+    return COERCE_DOUBLE([(_GCDevicePhysicalInputView *)&self->super.super.super.isa _primitiveValueForSlot:?]);
   }
 
   else
@@ -944,7 +944,7 @@ LABEL_7:
 
   if (self)
   {
-    v3 = COERCE_DOUBLE([(_GCDevicePhysicalInputView *)self _primitiveValueForSlot:?]);
+    v3 = COERCE_DOUBLE([(_GCDevicePhysicalInputView *)&self->super.super.super.isa _primitiveValueForSlot:?]);
   }
 
   else
@@ -957,14 +957,14 @@ LABEL_7:
 
 - (NSSet)sources
 {
-  _sources = [(GCSteeringWheelElement *)self _sources];
+  _sources = [(GCSteeringWheelElement *)&self->super.super.super.isa _sources];
 
   return _sources;
 }
 
 - (id)deltaDidChangeHandler
 {
-  _deltaDidChangeHandler = [(GCSteeringWheelElement *)self _deltaDidChangeHandler];
+  _deltaDidChangeHandler = [(GCSteeringWheelElement *)&self->super.super.super.isa _deltaDidChangeHandler];
 
   return _deltaDidChangeHandler;
 }
@@ -976,7 +976,7 @@ LABEL_7:
     return 0.0;
   }
 
-  v2 = [(_GCDevicePhysicalInputView *)self _primitiveValueForSlot:?];
+  v2 = [(_GCDevicePhysicalInputView *)&self->super.super.super.isa _primitiveValueForSlot:?];
   return OUTLINED_FUNCTION_3_3(v2);
 }
 
@@ -984,7 +984,7 @@ LABEL_7:
 {
   if (self)
   {
-    return COERCE_DOUBLE([(_GCDevicePhysicalInputView *)self _primitiveValueForSlot:?]);
+    return COERCE_DOUBLE([(_GCDevicePhysicalInputView *)&self->super.super.super.isa _primitiveValueForSlot:?]);
   }
 
   else
@@ -993,7 +993,7 @@ LABEL_7:
   }
 }
 
-- (void)postCommit:(_BYTE *)a3 sender:.cold.1(uint64_t a1, _BYTE *a2, _BYTE *a3)
+- (void)postCommit:(_BYTE *)a3 sender:.cold.1(id *a1, _BYTE *a2, _BYTE *a3)
 {
   v6 = [(GCSteeringWheelElement *)a1 _valueDidChangeHandler];
   if (v6)
@@ -1009,13 +1009,13 @@ LABEL_7:
       v7.n128_u64[0] = 0;
     }
 
-    v6[2](v6, a1, a1, v7);
+    (v6[2])(v6, a1, a1, v7);
   }
 
   *a3 = *a2;
 }
 
-- (void)postCommit:(uint64_t)a1 sender:.cold.2(uint64_t a1)
+- (void)postCommit:(id *)a1 sender:.cold.2(id *a1)
 {
   v2 = [(GCSteeringWheelElement *)a1 _deltaDidChangeHandler];
   if (v2)
@@ -1031,11 +1031,11 @@ LABEL_7:
       v3.n128_u64[0] = 0;
     }
 
-    v2[2](v2, a1, a1, v3);
+    (v2[2])(v2, a1, a1, v3);
   }
 }
 
-- (void)isEqualToElement:(BOOL *)a3 .cold.1(uint64_t a1, void *a2, BOOL *a3)
+- (void)isEqualToElement:(BOOL *)a3 .cold.1(id *a1, id *a2, BOOL *a3)
 {
   v7 = a1;
   v8 = [(GCSteeringWheelElement *)a1 _sources];

@@ -1,6 +1,7 @@
 @interface BrowserToolbarAccessibility
 + (void)_accessibilityPerformValidations:(id)validations;
 - (BOOL)accessibilityElementsHidden;
+- (BrowserToolbarAccessibility)initWithPlacement:(int64_t)placement hideBackground:(BOOL)background;
 - (void)_accessibilityLoadAccessibilityInformation;
 @end
 
@@ -39,6 +40,15 @@
   v13 = [v12 safeValueForKey:@"_newTabItem"];
   v14 = accessibilityLocalizedString(@"new.tab.button");
   [v13 setAccessibilityLabel:v14];
+}
+
+- (BrowserToolbarAccessibility)initWithPlacement:(int64_t)placement hideBackground:(BOOL)background
+{
+  v6.receiver = self;
+  v6.super_class = BrowserToolbarAccessibility;
+  v4 = [(BrowserToolbarAccessibility *)&v6 initWithPlacement:placement hideBackground:background];
+  [(BrowserToolbarAccessibility *)v4 _accessibilityLoadAccessibilityInformation];
+  return v4;
 }
 
 - (BOOL)accessibilityElementsHidden

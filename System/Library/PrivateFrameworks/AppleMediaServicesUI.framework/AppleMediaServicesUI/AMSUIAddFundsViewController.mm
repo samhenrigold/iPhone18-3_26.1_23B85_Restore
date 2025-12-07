@@ -12,6 +12,7 @@
 - (void)setBag:(id)bag;
 - (void)setClientInfo:(id)info;
 - (void)setMetricsOverlay:(id)overlay;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)viewWillLayoutSubviews;
 @end
 
@@ -113,6 +114,17 @@
   [(AMSUICommonViewController *)&v4 loadView];
   webViewController = [(AMSUIAddFundsViewController *)self webViewController];
   [(AMSUICommonViewController *)self setChildViewController:webViewController];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v8.receiver = self;
+  v8.super_class = AMSUIAddFundsViewController;
+  [(AMSUIAddFundsViewController *)&v8 viewWillAppear:appear];
+  webViewController = [(AMSUIAddFundsViewController *)self webViewController];
+  v5 = [(AMSUIAddFundsViewController *)self bag];
+  v6 = [v5 URLForKey:@"AddFundsUrl"];
+  v7 = [webViewController loadBagValue:v6];
 }
 
 - (void)viewWillLayoutSubviews

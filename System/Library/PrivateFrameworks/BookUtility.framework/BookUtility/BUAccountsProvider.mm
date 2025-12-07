@@ -171,35 +171,35 @@
 
 - (id)l_primaryAppleAccount
 {
-  v19 = *MEMORY[0x277D85DE8];
-  objc_msgSend__registerNotificationForAccountTypeIfNeeded_(self, a2, 2);
-  if (!self->_primaryAppleAccount || (objc_msgSend_hasCloudKitEntitlement(self, v3, v4) & 1) == 0)
+  v21 = *MEMORY[0x277D85DE8];
+  hasCloudKitEntitlement = objc_msgSend__registerNotificationForAccountTypeIfNeeded_(self, a2, 2);
+  if (!self->_primaryAppleAccount || (hasCloudKitEntitlement = objc_msgSend_hasCloudKitEntitlement(self, v4, v5), (hasCloudKitEntitlement & 1) == 0))
   {
-    v5 = BookUtilityLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = BookUtilityLog(hasCloudKitEntitlement);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v17) = 0;
-      _os_log_impl(&dword_241DA6000, v5, OS_LOG_TYPE_DEFAULT, "[PrimaryAppleAccount] No account available. Calling ams_activeiCloudAccount", &v17, 2u);
+      LOWORD(v19) = 0;
+      _os_log_impl(&dword_241DA6000, v6, OS_LOG_TYPE_DEFAULT, "[PrimaryAppleAccount] No account available. Calling ams_activeiCloudAccount", &v19, 2u);
     }
 
-    v8 = objc_msgSend_bu_sharedAccountStore(MEMORY[0x277CB8F48], v6, v7);
-    v11 = objc_msgSend_ams_activeiCloudAccount(v8, v9, v10);
+    v9 = objc_msgSend_bu_sharedAccountStore(MEMORY[0x277CB8F48], v7, v8);
+    v12 = objc_msgSend_ams_activeiCloudAccount(v9, v10, v11);
     primaryAppleAccount = self->_primaryAppleAccount;
-    self->_primaryAppleAccount = v11;
+    self->_primaryAppleAccount = v12;
 
-    v13 = BookUtilityLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v15 = BookUtilityLog(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = self->_primaryAppleAccount;
-      v17 = 138412290;
-      v18 = v14;
-      _os_log_impl(&dword_241DA6000, v13, OS_LOG_TYPE_DEFAULT, "[PrimaryAppleAccount] primaryAppleAccount: %@", &v17, 0xCu);
+      v16 = self->_primaryAppleAccount;
+      v19 = 138412290;
+      v20 = v16;
+      _os_log_impl(&dword_241DA6000, v15, OS_LOG_TYPE_DEFAULT, "[PrimaryAppleAccount] primaryAppleAccount: %@", &v19, 0xCu);
     }
   }
 
-  v15 = self->_primaryAppleAccount;
+  v17 = self->_primaryAppleAccount;
 
-  return v15;
+  return v17;
 }
 
 - (BOOL)hasCloudKitEntitlement
@@ -273,7 +273,7 @@
 
     else
     {
-      v12 = BookUtilityLog();
+      v12 = BookUtilityLog(0);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         sub_241DD0E18();
@@ -285,8 +285,9 @@
 
   if (v11)
   {
-    v8 = objc_msgSend_ams_storefront(v11, v13, v14);
-    if (objc_msgSend_length(v8, v15, v16))
+    v8 = objc_msgSend_ams_storefront(v11, v14, v15);
+    v13 = objc_msgSend_length(v8, v16, v17);
+    if (v13)
     {
       if (v8)
       {
@@ -299,8 +300,8 @@
     }
   }
 
-  v17 = BookUtilityLog();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+  v18 = BookUtilityLog(v13);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
   {
     sub_241DD0E54();
   }
@@ -545,61 +546,62 @@ LABEL_16:
   v8 = self->_notifyQueue;
   if ((typesCopy & 1) != 0 && objc_msgSend__addObserver_forAccountType_(self, v7, observerCopy, 1) == 1)
   {
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v30 = sub_241DC468C;
-    v31 = &unk_278D1D148;
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v31 = sub_241DC468C;
+    v32 = &unk_278D1D148;
     selfCopy = self;
-    v9 = v29;
+    v9 = v30;
     os_unfair_lock_lock_with_options();
-    (v30)(v9);
+    (v31)(v9);
     os_unfair_lock_unlock(&self->_storeAccountCacheLock);
 
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = sub_241DC4698;
     block[3] = &unk_278D1DA38;
-    objc_copyWeak(&v28, &location);
+    objc_copyWeak(&v29, &location);
     dispatch_async(v8, block);
-    objc_destroyWeak(&v28);
+    objc_destroyWeak(&v29);
   }
 
   if ((typesCopy & 2) != 0)
   {
     v10 = objc_msgSend__addObserver_forAccountType_(self, v7, observerCopy, 2);
-    if (objc_msgSend_hasCloudKitEntitlement(self, v11, v12))
+    hasCloudKitEntitlement = objc_msgSend_hasCloudKitEntitlement(self, v11, v12);
+    if (hasCloudKitEntitlement)
     {
       if (v10 == 1)
       {
-        v23[0] = MEMORY[0x277D85DD0];
-        v23[1] = 3221225472;
-        v24 = sub_241DC471C;
-        v25 = &unk_278D1D148;
+        v24[0] = MEMORY[0x277D85DD0];
+        v24[1] = 3221225472;
+        v25 = sub_241DC471C;
+        v26 = &unk_278D1D148;
         selfCopy2 = self;
-        v13 = v23;
+        v14 = v24;
         os_unfair_lock_lock_with_options();
-        (v24)(v13);
+        (v25)(v14);
         os_unfair_lock_unlock(&self->_appleAccountCacheLock);
 
         sub_241DB73FC();
-        v14 = objc_opt_class();
-        v17 = objc_msgSend_defaultContainer(v14, v15, v16);
-        v20[0] = MEMORY[0x277D85DD0];
-        v20[1] = 3221225472;
-        v20[2] = sub_241DC4728;
-        v20[3] = &unk_278D1DA88;
-        v21 = v8;
-        objc_copyWeak(&v22, &location);
-        objc_msgSend_fetchUserRecordIDWithCompletionHandler_(v17, v18, v20);
+        v15 = objc_opt_class();
+        v18 = objc_msgSend_defaultContainer(v15, v16, v17);
+        v21[0] = MEMORY[0x277D85DD0];
+        v21[1] = 3221225472;
+        v21[2] = sub_241DC4728;
+        v21[3] = &unk_278D1DA88;
+        v22 = v8;
+        objc_copyWeak(&v23, &location);
+        objc_msgSend_fetchUserRecordIDWithCompletionHandler_(v18, v19, v21);
 
-        objc_destroyWeak(&v22);
+        objc_destroyWeak(&v23);
       }
     }
 
     else
     {
-      v19 = BookUtilityLog();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
+      v20 = BookUtilityLog(hasCloudKitEntitlement);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
       {
         sub_241DD0E90();
       }
@@ -653,22 +655,23 @@ LABEL_7:
 
 - (void)observeTCCAccessChangeNotificationIfNeeded
 {
-  if (objc_msgSend_hasCloudKitEntitlement(self, a2, v2))
+  hasCloudKitEntitlement = objc_msgSend_hasCloudKitEntitlement(self, a2, v2);
+  if (hasCloudKitEntitlement)
   {
-    v5[0] = MEMORY[0x277D85DD0];
-    v5[1] = 3221225472;
-    v5[2] = sub_241DC4B64;
-    v5[3] = &unk_278D1D148;
-    v5[4] = self;
+    v6[0] = MEMORY[0x277D85DD0];
+    v6[1] = 3221225472;
+    v6[2] = sub_241DC4B64;
+    v6[3] = &unk_278D1D148;
+    v6[4] = self;
     os_unfair_lock_lock(&self->_tccObserverLock);
-    sub_241DC4B64(v5);
+    sub_241DC4B64(v6);
     os_unfair_lock_unlock(&self->_tccObserverLock);
   }
 
   else
   {
-    v4 = BookUtilityLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = BookUtilityLog(hasCloudKitEntitlement);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       sub_241DD0F40();
     }
@@ -1111,7 +1114,7 @@ LABEL_8:
 
 - (unint64_t)_singleAccountTypeForNotification:(id)notification
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   v6 = objc_msgSend_name(notificationCopy, v4, v5);
   if (objc_msgSend_isEqualToString_(v6, v7, *MEMORY[0x277CB8B78]))
@@ -1119,42 +1122,42 @@ LABEL_8:
     v10 = objc_msgSend_userInfo(notificationCopy, v8, v9);
     v12 = objc_msgSend_objectForKeyedSubscript_(v10, v11, *MEMORY[0x277CB8C90]);
 
-    if (v12 && !objc_msgSend_isEqualToString_(v12, v13, *MEMORY[0x277CB8D58]))
+    if (v12 && (isEqualToString = objc_msgSend_isEqualToString_(v12, v14, *MEMORY[0x277CB8D58]), !isEqualToString))
     {
-      v15 = 0;
+      v16 = 0;
     }
 
     else
     {
-      v14 = BookUtilityLog();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+      v15 = BookUtilityLog(isEqualToString);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
-        v20 = 138412290;
-        v21 = v12;
-        _os_log_impl(&dword_241DA6000, v14, OS_LOG_TYPE_INFO, "ACAccountStoreDidChangeNotification account type identifier is '%@', treat it as if there was an iTunes account change", &v20, 0xCu);
+        v21 = 138412290;
+        v22 = v12;
+        _os_log_impl(&dword_241DA6000, v15, OS_LOG_TYPE_INFO, "ACAccountStoreDidChangeNotification account type identifier is '%@', treat it as if there was an iTunes account change", &v21, 0xCu);
       }
 
-      v15 = 1;
+      v16 = 1;
     }
   }
 
   else
   {
-    v16 = sub_241DA8788();
-    isEqualToString = objc_msgSend_isEqualToString_(v6, v17, v16);
+    v17 = sub_241DA8788();
+    v19 = objc_msgSend_isEqualToString_(v6, v18, v17);
 
-    if (isEqualToString)
+    if (v19)
     {
-      v15 = 2;
+      v16 = 2;
     }
 
     else
     {
-      v15 = 0;
+      v16 = 0;
     }
   }
 
-  return v15;
+  return v16;
 }
 
 @end

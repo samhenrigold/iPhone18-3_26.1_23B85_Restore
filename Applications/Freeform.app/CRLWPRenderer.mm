@@ -92,7 +92,7 @@
   var1 = state->var1;
   if (var1)
   {
-    [var1 transformFromWP];
+    objc_msgSend_transformFromWP(var1);
   }
 
   else
@@ -1075,26 +1075,26 @@
   {
     CGContextSaveGState(self->_context);
     [(CRLWPRenderer *)self p_clipToInteriorClippingPath];
-    v58 = objc_opt_new();
+    v60 = objc_opt_new();
+    v67 = 0u;
+    v68 = 0u;
     v65 = 0u;
     v66 = 0u;
-    v63 = 0u;
-    v64 = 0u;
     v9 = rectsCopy;
-    v10 = [v9 countByEnumeratingWithState:&v63 objects:v78 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v65 objects:v80 count:16];
     if (v10)
     {
-      v11 = *v64;
+      v11 = *v66;
       do
       {
         for (i = 0; i != v10; i = i + 1)
         {
-          if (*v64 != v11)
+          if (*v66 != v11)
           {
             objc_enumerationMutation(v9);
           }
 
-          v13 = *(*(&v63 + 1) + 8 * i);
+          v13 = *(*(&v65 + 1) + 8 * i);
           [v13 rect];
           v15 = v14;
           v17 = v16;
@@ -1129,11 +1129,11 @@
                 {
                   Mutable = CGPathCreateMutable();
                   CGPathMoveToPoint(Mutable, 0, v15, v17);
-                  v79.origin.x = v15;
-                  v79.origin.y = v17;
-                  v79.size.width = v19;
-                  v79.size.height = v21;
-                  MaxX = CGRectGetMaxX(v79);
+                  v81.origin.x = v15;
+                  v81.origin.y = v17;
+                  v81.size.width = v19;
+                  v81.size.height = v21;
+                  MaxX = CGRectGetMaxX(v81);
                   CGPathAddLineToPoint(Mutable, 0, MaxX, v17);
                   stroke2 = [v13 stroke];
                   [stroke2 paintPath:Mutable inContext:self->_context];
@@ -1159,102 +1159,102 @@
 
               if (v32)
               {
-                [v58 addObject:v13];
+                [v60 addObject:v13];
               }
             }
           }
         }
 
-        v10 = [v9 countByEnumeratingWithState:&v63 objects:v78 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v65 objects:v80 count:16];
       }
 
       while (v10);
     }
 
     CGContextRestoreGState(self->_context);
-    if ([v58 count])
+    if ([v60 count])
     {
       CGContextSaveGState(self->_context);
       CGContextSetShouldAntialias(self->_context, 1);
+      v63 = 0u;
+      v64 = 0u;
       v61 = 0u;
       v62 = 0u;
-      v59 = 0u;
-      v60 = 0u;
-      v33 = v58;
-      v34 = [v33 countByEnumeratingWithState:&v59 objects:v77 count:16];
+      v33 = v60;
+      v34 = [v33 countByEnumeratingWithState:&v61 objects:v79 count:16];
       if (v34)
       {
-        v35 = *v60;
+        v35 = *v62;
         do
         {
           v36 = 0;
           do
           {
-            if (*v60 != v35)
+            if (*v62 != v35)
             {
               objc_enumerationMutation(v33);
             }
 
-            v37 = *(*(&v59 + 1) + 8 * v36);
+            v37 = *(*(&v61 + 1) + 8 * v36);
             [v37 rect];
-            x = v80.origin.x;
-            y = v80.origin.y;
-            width = v80.size.width;
-            height = v80.size.height;
-            MinX = CGRectGetMinX(v80);
-            v43 = sub_100122128(MinX, self->_viewScale);
-            v81.origin.x = x;
-            v81.origin.y = y;
-            v81.size.width = width;
-            v81.size.height = height;
-            v44 = CGRectGetWidth(v81);
-            v45 = sub_100122128(v44, self->_viewScale);
-            v82.origin.x = x;
-            v82.origin.y = y;
-            v82.size.width = width;
-            v82.size.height = height;
-            MinY = CGRectGetMinY(v82);
+            x = v82.origin.x;
+            y = v82.origin.y;
+            width = v82.size.width;
+            height = v82.size.height;
+            MinX = CGRectGetMinX(v82);
+            v44 = sub_100122128(v43, MinX, self->_viewScale);
             v83.origin.x = x;
             v83.origin.y = y;
             v83.size.width = width;
             v83.size.height = height;
-            v47 = CGRectGetHeight(v83);
-            v48 = objc_opt_class();
+            v45 = CGRectGetWidth(v83);
+            v47 = sub_100122128(v46, v45, self->_viewScale);
+            v84.origin.x = x;
+            v84.origin.y = y;
+            v84.size.width = width;
+            v84.size.height = height;
+            MinY = CGRectGetMinY(v84);
+            v85.origin.x = x;
+            v85.origin.y = y;
+            v85.size.width = width;
+            v85.size.height = height;
+            v49 = CGRectGetHeight(v85);
+            v50 = objc_opt_class();
             fill4 = [v37 fill];
-            v50 = sub_100014370(v48, fill4);
+            v52 = sub_100014370(v50, fill4);
 
-            if (v50)
+            if (v52)
             {
-              CGContextSetFillColorWithColor(self->_context, [v50 CGColor]);
-              v84.origin.x = v43;
-              v84.origin.y = MinY;
-              v84.size.width = v45;
-              v84.size.height = v47;
-              CGContextFillRect(self->_context, v84);
+              CGContextSetFillColorWithColor(self->_context, [v52 CGColor]);
+              v86.origin.x = v44;
+              v86.origin.y = MinY;
+              v86.size.width = v47;
+              v86.size.height = v49;
+              CGContextFillRect(self->_context, v86);
             }
 
             else
             {
-              v51 = +[CRLAssertionHandler _atomicIncrementAssertCount];
+              v53 = +[CRLAssertionHandler _atomicIncrementAssertCount];
               if (qword_101AD5A10 != -1)
               {
                 sub_101310E98();
               }
 
-              v52 = off_1019EDA68;
+              v54 = off_1019EDA68;
               if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
               {
                 *buf = 67110146;
-                v68 = v51;
-                v69 = 2082;
-                v70 = "[CRLWPRenderer drawAdornmentRects:forColumn:foreground:drawingState:]";
+                v70 = v53;
                 v71 = 2082;
-                v72 = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLWP/CRLWPRenderer.mm";
-                v73 = 1024;
-                v74 = 774;
-                v75 = 2082;
-                v76 = "colorFill";
-                _os_log_error_impl(&_mh_execute_header, v52, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", buf, 0x2Cu);
+                v72 = "[CRLWPRenderer drawAdornmentRects:forColumn:foreground:drawingState:]";
+                v73 = 2082;
+                v74 = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLWP/CRLWPRenderer.mm";
+                v75 = 1024;
+                v76 = 774;
+                v77 = 2082;
+                v78 = "colorFill";
+                _os_log_error_impl(&_mh_execute_header, v54, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", buf, 0x2Cu);
               }
 
               if (qword_101AD5A10 != -1)
@@ -1262,27 +1262,27 @@
                 sub_101310EC0();
               }
 
-              v53 = off_1019EDA68;
-              if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+              v55 = off_1019EDA68;
+              if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
               {
-                v56 = +[CRLAssertionHandler packedBacktraceString];
+                v58 = +[CRLAssertionHandler packedBacktraceString];
                 *buf = 67109378;
-                v68 = v51;
-                v69 = 2114;
-                v70 = v56;
-                _os_log_error_impl(&_mh_execute_header, v53, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", buf, 0x12u);
+                v70 = v53;
+                v71 = 2114;
+                v72 = v58;
+                _os_log_error_impl(&_mh_execute_header, v55, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", buf, 0x12u);
               }
 
-              v54 = [NSString stringWithUTF8String:"[CRLWPRenderer drawAdornmentRects:forColumn:foreground:drawingState:]"];
-              v55 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLWP/CRLWPRenderer.mm"];
-              [CRLAssertionHandler handleFailureInFunction:v54 file:v55 lineNumber:774 isFatal:0 description:"invalid nil value for '%{public}s'", "colorFill"];
+              v56 = [NSString stringWithUTF8String:"[CRLWPRenderer drawAdornmentRects:forColumn:foreground:drawingState:]"];
+              v57 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLWP/CRLWPRenderer.mm"];
+              [CRLAssertionHandler handleFailureInFunction:v56 file:v57 lineNumber:774 isFatal:0 description:"invalid nil value for '%{public}s'", "colorFill"];
             }
 
             v36 = v36 + 1;
           }
 
           while (v34 != v36);
-          v34 = [v33 countByEnumeratingWithState:&v59 objects:v77 count:16];
+          v34 = [v33 countByEnumeratingWithState:&v61 objects:v79 count:16];
         }
 
         while (v34);

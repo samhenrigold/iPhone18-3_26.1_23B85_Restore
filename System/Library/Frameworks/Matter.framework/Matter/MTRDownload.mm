@@ -25,30 +25,30 @@
   completionCopy = completion;
   doneCopy = done;
   sub_23947632C("/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/MTRDiagnosticLogsDownloader.mm", 188);
-  v48.receiver = self;
-  v48.super_class = MTRDownload;
-  v22 = [(MTRDownload *)&v48 init];
+  v47.receiver = self;
+  v47.super_class = MTRDownload;
+  v22 = [(MTRDownload *)&v47 init];
   v23 = v22;
   if (!v22)
   {
     goto LABEL_17;
   }
 
-  v38 = indexCopy;
+  v37 = indexCopy;
   obj = [(MTRDownload *)v22 _toFileDesignatorString:type nodeID:dCopy];
   v24 = [(MTRDownload *)v23 _toFileURL:type nodeID:dCopy];
   objc_initWeak(&location, v23);
-  v41[0] = MEMORY[0x277D85DD0];
-  v41[1] = 3221225472;
-  v41[2] = sub_238EAB6BC;
-  v41[3] = &unk_278A72B38;
-  objc_copyWeak(&v46, &location);
-  v42 = queueCopy;
-  v44 = completionCopy;
+  v40[0] = MEMORY[0x277D85DD0];
+  v40[1] = 3221225472;
+  v40[2] = sub_238EAB6BC;
+  v40[3] = &unk_278A72B38;
+  objc_copyWeak(&v45, &location);
+  v41 = queueCopy;
+  v43 = completionCopy;
   v25 = v24;
-  v43 = v25;
-  v45 = doneCopy;
-  v26 = MEMORY[0x23EE78590](v41);
+  v42 = v25;
+  v44 = doneCopy;
+  v26 = MEMORY[0x23EE78590](v40);
   objc_storeStrong(&v23->_fileDesignator, obj);
   objc_storeStrong(&v23->_fabricIndex, index);
   objc_storeStrong(&v23->_nodeID, d);
@@ -73,63 +73,62 @@
     if (timeout <= 0.0)
     {
 LABEL_15:
-      v35 = 1;
+      v34 = 1;
       goto LABEL_16;
     }
   }
 
   else
   {
-    v32 = sub_2393D9044(0);
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+    v31 = sub_2393D9044(0);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_238DAE000, v32, OS_LOG_TYPE_DEFAULT, "Warning: timeout is too large. It will be truncated to UINT16_MAX.", buf, 2u);
+      _os_log_impl(&dword_238DAE000, v31, OS_LOG_TYPE_DEFAULT, "Warning: timeout is too large. It will be truncated to UINT16_MAX.", buf, 2u);
     }
 
-    v30 = sub_2393D5398(2u);
-    if (v30)
+    if (sub_2393D5398(2u))
     {
-      v30 = sub_2393D5320(0, 2);
+      sub_2393D5320(0, 2, "Warning: timeout is too large. It will be truncated to UINT16_MAX.");
     }
   }
 
-  v33 = sub_239476328(v30);
-  if (!(*(*v33 + 40))(v33, 1000 * timeoutCopy, sub_238EAB884, v23))
+  v32 = sub_239476328();
+  if (!(*(*v32 + 40))(v32, 1000 * timeoutCopy, sub_238EAB884, v23))
   {
     goto LABEL_15;
   }
 
-  v34 = sub_2393D9044(0);
-  if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+  v33 = sub_2393D9044(0);
+  if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
-    _os_log_impl(&dword_238DAE000, v34, OS_LOG_TYPE_ERROR, "Failed to start timer for diagnostic log download timeout", buf, 2u);
+    _os_log_impl(&dword_238DAE000, v33, OS_LOG_TYPE_ERROR, "Failed to start timer for diagnostic log download timeout", buf, 2u);
   }
 
   if (sub_2393D5398(1u))
   {
-    sub_2393D5320(0, 1);
+    sub_2393D5320(0, 1, "Failed to start timer for diagnostic log download timeout");
   }
 
-  v35 = 0;
+  v34 = 0;
 LABEL_16:
 
-  objc_destroyWeak(&v46);
+  objc_destroyWeak(&v45);
   objc_destroyWeak(&location);
 
-  indexCopy = v38;
-  if ((v35 & 1) == 0)
+  indexCopy = v37;
+  if ((v34 & 1) == 0)
   {
-    v36 = 0;
+    v35 = 0;
     goto LABEL_19;
   }
 
 LABEL_17:
-  v36 = v23;
+  v35 = v23;
 LABEL_19:
 
-  return v36;
+  return v35;
 }
 
 - (void)checkInteractionModelResponse:(id)response error:(id)error
@@ -219,14 +218,14 @@ LABEL_11:
 
 - (void)deleteFile
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (self->_fileHandle)
   {
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
     path = [(NSURL *)self->_fileURL path];
-    v10 = 0;
-    [defaultManager removeItemAtPath:path error:&v10];
-    v5 = v10;
+    v8 = 0;
+    [defaultManager removeItemAtPath:path error:&v8];
+    v5 = v8;
 
     if (v5)
     {
@@ -235,21 +234,18 @@ LABEL_11:
       {
         fileURL = self->_fileURL;
         *buf = 138412546;
-        v12 = fileURL;
-        v13 = 2112;
-        v14 = v5;
+        v10 = fileURL;
+        v11 = 2112;
+        v12 = v5;
         _os_log_impl(&dword_238DAE000, v6, OS_LOG_TYPE_ERROR, "Error trying to delete the log file: %@. Error: %@", buf, 0x16u);
       }
 
       if (sub_2393D5398(1u))
       {
-        v9 = self->_fileURL;
-        sub_2393D5320(0, 1);
+        sub_2393D5320(0, 1, "Error trying to delete the log file: %@. Error: %@", self->_fileURL, v5);
       }
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)writeToFile:(id)file error:(id *)error
@@ -287,36 +283,32 @@ LABEL_11:
 
 - (void)failure:(id)failure
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   failureCopy = failure;
   v5 = sub_2393D9044(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
     selfCopy = self;
-    v11 = 2112;
-    v12 = failureCopy;
+    v8 = 2112;
+    v9 = failureCopy;
     _os_log_impl(&dword_238DAE000, v5, OS_LOG_TYPE_DEFAULT, "%@ Diagnostic log transfer failure: %@", buf, 0x16u);
   }
 
   if (sub_2393D5398(2u))
   {
-    selfCopy2 = self;
-    v8 = failureCopy;
-    sub_2393D5320(0, 2);
+    sub_2393D5320(0, 2, "%@ Diagnostic log transfer failure: %@", self, failureCopy);
   }
 
-  [(MTRDownload *)self _callFinalize:failureCopy, selfCopy2, v8];
-
-  v6 = *MEMORY[0x277D85DE8];
+  [(MTRDownload *)self _callFinalize:failureCopy];
 }
 
 - (void)cancelTimeoutTimer
 {
-  v2 = sub_23947632C("/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/MTRDiagnosticLogsDownloader.mm", 350);
-  v3 = *(*sub_239476328(v2) + 72);
+  sub_23947632C("/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/MTRDiagnosticLogsDownloader.mm", 350);
+  v2 = *(*sub_239476328() + 72);
 
-  v3();
+  v2();
 }
 
 - (void)abort:(id)abort

@@ -33,13 +33,13 @@
     v6 = [_remoteObjectRegistry remoteObjectProxyWithInterface:v5];
     [(BEThemePreviewWKWebView *)self setWebProcessPluginProxy:v6];
 
-    if (!v5 || ([(BEThemePreviewWKWebView *)self webProcessPluginProxy], v7 = objc_claimAutoreleasedReturnValue(), v7, !v7))
+    if (!v5 || ([(BEThemePreviewWKWebView *)self webProcessPluginProxy], v8 = objc_claimAutoreleasedReturnValue(), v8, !v8))
     {
-      v8 = _BookEPUBLog();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = _BookEPUBLog(v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        *v11 = 0;
-        _os_log_impl(&dword_0, v8, OS_LOG_TYPE_ERROR, "Failed to get process plugin/proxy!", v11, 2u);
+        *v12 = 0;
+        _os_log_impl(&dword_0, v9, OS_LOG_TYPE_ERROR, "Failed to get process plugin/proxy!", v12, 2u);
       }
     }
   }
@@ -70,49 +70,49 @@
             registeredFonts2 = [(BEThemePreviewWKWebView *)self registeredFonts];
             [registeredFonts2 addObject:familyCopy];
 
-            v12 = _BookEPUBLog();
-            if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
-            {
-              *buf = 138543362;
-              v24 = familyCopy;
-              _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "Attempting ThemePreview #fontReg of #fontFamily '%{public}@'", buf, 0xCu);
-            }
-
-            objc_initWeak(&location, self);
-            v13 = _BookEPUBLog();
+            v13 = _BookEPUBLog(v12);
             if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
             {
-              *buf = 138412290;
-              v24 = familyCopy;
-              _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "Posting font activate notification for font %@", buf, 0xCu);
+              *buf = 138543362;
+              v26 = familyCopy;
+              _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "Attempting ThemePreview #fontReg of #fontFamily '%{public}@'", buf, 0xCu);
             }
 
-            v14 = +[NSNotificationCenter defaultCenter];
-            v21 = @"FontActivateNotificationFontFamilyKey";
-            v22 = familyCopy;
-            v15 = [NSDictionary dictionaryWithObjects:&v22 forKeys:&v21 count:1];
-            [v14 postNotificationName:@"FontActivateNotification" object:0 userInfo:v15];
+            inited = objc_initWeak(&location, self);
+            v15 = _BookEPUBLog(inited);
+            if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+            {
+              *buf = 138412290;
+              v26 = familyCopy;
+              _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "Posting font activate notification for font %@", buf, 0xCu);
+            }
 
-            v17[0] = _NSConcreteStackBlock;
-            v17[1] = 3221225472;
-            v17[2] = sub_BAD0;
-            v17[3] = &unk_3283D0;
-            objc_copyWeak(&v19, &location);
-            v18 = familyCopy;
-            [_processPluginProxy registerFontFamily:v18 completion:v17];
+            v16 = +[NSNotificationCenter defaultCenter];
+            v23 = @"FontActivateNotificationFontFamilyKey";
+            v24 = familyCopy;
+            v17 = [NSDictionary dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+            [v16 postNotificationName:@"FontActivateNotification" object:0 userInfo:v17];
 
-            objc_destroyWeak(&v19);
+            v19[0] = _NSConcreteStackBlock;
+            v19[1] = 3221225472;
+            v19[2] = sub_BAD0;
+            v19[3] = &unk_3283D0;
+            objc_copyWeak(&v21, &location);
+            v20 = familyCopy;
+            [_processPluginProxy registerFontFamily:v20 completion:v19];
+
+            objc_destroyWeak(&v21);
             objc_destroyWeak(&location);
           }
 
           else
           {
-            v16 = _BookEPUBLog();
-            if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+            v18 = _BookEPUBLog(0);
+            if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543362;
-              v24 = familyCopy;
-              _os_log_impl(&dword_0, v16, OS_LOG_TYPE_ERROR, "Failed to get ThemePreview process plugin/proxy! Unable to #fontReg fontFamily:%{public}@", buf, 0xCu);
+              v26 = familyCopy;
+              _os_log_impl(&dword_0, v18, OS_LOG_TYPE_ERROR, "Failed to get ThemePreview process plugin/proxy! Unable to #fontReg fontFamily:%{public}@", buf, 0xCu);
             }
           }
         }

@@ -11,7 +11,7 @@ void ___SetupGSXPCConn_block_invoke(uint64_t a1)
 
 void ___SetupGSXPCConn_block_invoke_2(uint64_t a1)
 {
-  v2 = gs_default_log();
+  v2 = gs_default_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     ___SetupGSXPCConn_block_invoke_2_cold_1(v2);

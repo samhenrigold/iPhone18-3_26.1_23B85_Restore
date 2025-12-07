@@ -2,7 +2,6 @@
 - (_GCDeviceRegistry)deviceRegistry;
 - (_GCLogitechRacingWheelDeviceManager)init;
 - (void)dealloc;
-- (void)init;
 @end
 
 @implementation _GCLogitechRacingWheelDeviceManager
@@ -206,14 +205,6 @@
   WeakRetained = objc_loadWeakRetained(&self->_deviceRegistry);
 
   return WeakRetained;
-}
-
-- (void)init
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_0_12(&dword_1D2C3B000, v0, v1, "Failed to setup IOHIDDevice service matching: %{mach.errno}d.  Racing wheel discovery may be impacted.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

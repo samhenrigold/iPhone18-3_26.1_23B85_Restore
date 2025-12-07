@@ -28,30 +28,29 @@
 
 - (BOOL)isNaturalLightingSupportedForProfile:(id)profile
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   v5 = HFLogForCategory(0x3DuLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     actionSet = [(HFActionSetValueSource *)self actionSet];
     name = [actionSet name];
-    v12 = 138412546;
-    v13 = name;
-    v14 = 2112;
-    v15 = profileCopy;
-    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Checking if natural light is supported for action set: '%@'  profile:%@", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = name;
+    v13 = 2112;
+    v14 = profileCopy;
+    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Checking if natural light is supported for action set: '%@'  profile:%@", &v11, 0x16u);
   }
 
   settings = [profileCopy settings];
   supportedFeatures = [settings supportedFeatures];
 
-  v10 = *MEMORY[0x277D85DE8];
   return supportedFeatures & 1;
 }
 
 - (BOOL)isNaturalLightingEnabledForProfile:(id)profile
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   v5 = [(HFActionSetValueSource *)self _existingActionBuilderForLightProfile:profileCopy];
   v6 = HFLogForCategory(0x3DuLL);
@@ -59,17 +58,16 @@
   {
     actionSet = [(HFActionSetValueSource *)self actionSet];
     name = [actionSet name];
-    v12 = 138412802;
-    v13 = name;
-    v14 = 2112;
-    v15 = profileCopy;
-    v16 = 1024;
+    v11 = 138412802;
+    v12 = name;
+    v13 = 2112;
+    v14 = profileCopy;
+    v15 = 1024;
     naturalLightEnabled = [v5 naturalLightEnabled];
-    _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "Checking if natural light is enabled for action set: '%@'  profile:%@ actionBuilder: %{BOOL}d", &v12, 0x1Cu);
+    _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "Checking if natural light is enabled for action set: '%@'  profile:%@ actionBuilder: %{BOOL}d", &v11, 0x1Cu);
   }
 
   naturalLightEnabled2 = [v5 naturalLightEnabled];
-  v10 = *MEMORY[0x277D85DE8];
   return naturalLightEnabled2;
 }
 
@@ -92,7 +90,7 @@
 
 void __94__HFActionSetValueSource_HFLightProfileValueSource__writeNaturalLightEnabledState_forProfile___block_invoke(uint64_t a1, void *a2)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   v4 = *(a1 + 40);
   v5 = a2;
@@ -110,7 +108,7 @@ void __94__HFActionSetValueSource_HFLightProfileValueSource__writeNaturalLightEn
   {
     v10 = [HFNaturalLightingActionBuilder alloc];
     v11 = [*(a1 + 32) actionSetBuilder];
-    v12 = [v11 home];
+    v12 = objc_msgSend_home(v11);
     v9 = [(HFItemBuilder *)v10 initWithHome:v12];
 
     [(HFNaturalLightingActionBuilder *)v9 setLightProfile:*(a1 + 40)];
@@ -128,28 +126,27 @@ void __94__HFActionSetValueSource_HFLightProfileValueSource__writeNaturalLightEn
     v17 = *(a1 + 48);
     v18 = *(a1 + 40);
     *buf = 138413314;
-    v24 = v16;
-    v25 = 1024;
-    v26 = v17;
-    v27 = 2112;
-    v28 = v18;
-    v29 = 2112;
-    v30 = v9;
-    v31 = 1024;
-    v32 = v14;
+    v23 = v16;
+    v24 = 1024;
+    v25 = v17;
+    v26 = 2112;
+    v27 = v18;
+    v28 = 2112;
+    v29 = v9;
+    v30 = 1024;
+    v31 = v14;
     _os_log_impl(&dword_20D9BF000, v13, OS_LOG_TYPE_DEFAULT, "Updating natural light state for action set '%@' to %{BOOL}d for profile: %@ actionBuilder: %@ newAction: %{BOOL}d", buf, 0x2Cu);
   }
 
   v19 = +[HFHomeKitDispatcher sharedDispatcher];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __94__HFActionSetValueSource_HFLightProfileValueSource__writeNaturalLightEnabledState_forProfile___block_invoke_76;
-  v21[3] = &unk_277DF4970;
-  v22 = *(a1 + 40);
-  [v19 dispatchLightObserverMessage:v21 sender:0];
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __94__HFActionSetValueSource_HFLightProfileValueSource__writeNaturalLightEnabledState_forProfile___block_invoke_76;
+  v20[3] = &unk_277DF4970;
+  v21 = *(a1 + 40);
+  [v19 dispatchLightObserverMessage:v20 sender:0];
 
   [v5 finishWithNoResult];
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __94__HFActionSetValueSource_HFLightProfileValueSource__writeNaturalLightEnabledState_forProfile___block_invoke_76(uint64_t a1, void *a2)
@@ -313,7 +310,7 @@ HFCharacteristicReadResponse *__70__HFActionSetValueSource_readValuesForCharacte
 
 - (id)writeValuesForCharacteristics:(id)characteristics
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   characteristicsCopy = characteristics;
   actionSetBuilder = [(HFActionSetValueSource *)self actionSetBuilder];
 
@@ -327,41 +324,41 @@ HFCharacteristicReadResponse *__70__HFActionSetValueSource_readValuesForCharacte
   if (actionSetBuilder2)
   {
     v7 = +[HFHomeKitDispatcher sharedDispatcher];
-    v69[0] = MEMORY[0x277D85DD0];
-    v69[1] = 3221225472;
-    v69[2] = __56__HFActionSetValueSource_writeValuesForCharacteristics___block_invoke;
-    v69[3] = &unk_277DF3810;
-    v69[4] = self;
-    v48 = characteristicsCopy;
+    v68[0] = MEMORY[0x277D85DD0];
+    v68[1] = 3221225472;
+    v68[2] = __56__HFActionSetValueSource_writeValuesForCharacteristics___block_invoke;
+    v68[3] = &unk_277DF3810;
+    v68[4] = self;
+    v47 = characteristicsCopy;
     v8 = characteristicsCopy;
-    v70 = v8;
-    [v7 dispatchHomeObserverMessage:v69 sender:0];
+    v69 = v8;
+    [v7 dispatchHomeObserverMessage:v68 sender:0];
 
     v9 = [MEMORY[0x277CBEB58] set];
+    v64 = 0u;
     v65 = 0u;
     v66 = 0u;
     v67 = 0u;
-    v68 = 0u;
-    v54 = v8;
+    v53 = v8;
     allCharacteristics = [v8 allCharacteristics];
-    v11 = [allCharacteristics countByEnumeratingWithState:&v65 objects:v73 count:16];
+    v11 = [allCharacteristics countByEnumeratingWithState:&v64 objects:v72 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v66;
+      v13 = *v65;
       do
       {
         v14 = 0;
-        v52 = v12;
+        v51 = v12;
         do
         {
-          if (*v66 != v13)
+          if (*v65 != v13)
           {
             objc_enumerationMutation(allCharacteristics);
           }
 
-          v15 = *(*(&v65 + 1) + 8 * v14);
-          v16 = [v54 valueForCharacteristic:v15];
+          v15 = *(*(&v64 + 1) + 8 * v14);
+          v16 = [v53 valueForCharacteristic:v15];
           if (v16)
           {
             v17 = [(HFActionSetValueSource *)self _existingActionBuilderForCharacteristic:v15];
@@ -376,14 +373,14 @@ HFCharacteristicReadResponse *__70__HFActionSetValueSource_readValuesForCharacte
             {
               v20 = [HFCharacteristicWriteActionBuilder alloc];
               actionSetBuilder4 = [(HFActionSetValueSource *)self actionSetBuilder];
-              [actionSetBuilder4 home];
+              objc_msgSend_home(actionSetBuilder4);
               v22 = v13;
               v24 = v23 = allCharacteristics;
               hf_prettyDescription = [(HFItemBuilder *)v20 initWithHome:v24];
 
               allCharacteristics = v23;
               v13 = v22;
-              v12 = v52;
+              v12 = v51;
 
               [(HFCharacteristicWriteActionBuilder *)hf_prettyDescription setCharacteristic:v15];
               actionSetBuilder3 = [(HFActionSetValueSource *)self actionSetBuilder];
@@ -404,38 +401,38 @@ HFCharacteristicReadResponse *__70__HFActionSetValueSource_readValuesForCharacte
         }
 
         while (v12 != v14);
-        v12 = [allCharacteristics countByEnumeratingWithState:&v65 objects:v73 count:16];
+        v12 = [allCharacteristics countByEnumeratingWithState:&v64 objects:v72 count:16];
       }
 
       while (v12);
     }
 
-    v63 = 0u;
-    v64 = 0u;
-    v61 = 0u;
     v62 = 0u;
-    allCharacteristics2 = [v54 allCharacteristics];
-    v51 = [allCharacteristics2 countByEnumeratingWithState:&v61 objects:v72 count:16];
-    if (v51)
+    v63 = 0u;
+    v60 = 0u;
+    v61 = 0u;
+    allCharacteristics2 = [v53 allCharacteristics];
+    v50 = [allCharacteristics2 countByEnumeratingWithState:&v60 objects:v71 count:16];
+    if (v50)
     {
-      v26 = *v62;
+      v26 = *v61;
       v27 = 0x277CD1000uLL;
-      v49 = *v62;
-      v50 = allCharacteristics2;
+      v48 = *v61;
+      v49 = allCharacteristics2;
       do
       {
-        for (i = 0; i != v51; ++i)
+        for (i = 0; i != v50; ++i)
         {
-          if (*v62 != v26)
+          if (*v61 != v26)
           {
             objc_enumerationMutation(allCharacteristics2);
           }
 
-          v29 = *(*(&v61 + 1) + 8 * i);
-          v30 = [v54 valueForCharacteristic:v29];
+          v29 = *(*(&v60 + 1) + 8 * i);
+          v30 = [v53 valueForCharacteristic:v29];
           hf_powerStateCharacteristicTypes = [*(v27 + 2416) hf_powerStateCharacteristicTypes];
           characteristicType = [v29 characteristicType];
-          v53 = v30;
+          v52 = v30;
           if ([hf_powerStateCharacteristicTypes containsObject:characteristicType])
           {
             v33 = [v30 isEqual:MEMORY[0x277CBEC28]];
@@ -445,28 +442,28 @@ HFCharacteristicReadResponse *__70__HFActionSetValueSource_readValuesForCharacte
               goto LABEL_38;
             }
 
-            v59 = 0u;
-            v60 = 0u;
-            v57 = 0u;
             v58 = 0u;
-            service = [v29 service];
-            hf_powerStateCharacteristicTypes = [service characteristics];
+            v59 = 0u;
+            v56 = 0u;
+            v57 = 0u;
+            v34 = objc_msgSend_service(v29);
+            hf_powerStateCharacteristicTypes = [v34 characteristics];
 
-            v35 = [hf_powerStateCharacteristicTypes countByEnumeratingWithState:&v57 objects:v71 count:16];
+            v35 = [hf_powerStateCharacteristicTypes countByEnumeratingWithState:&v56 objects:v70 count:16];
             if (v35)
             {
               v36 = v35;
-              v37 = *v58;
+              v37 = *v57;
               do
               {
                 for (j = 0; j != v36; ++j)
                 {
-                  if (*v58 != v37)
+                  if (*v57 != v37)
                   {
                     objc_enumerationMutation(hf_powerStateCharacteristicTypes);
                   }
 
-                  if (*(*(&v57 + 1) + 8 * j) != v29)
+                  if (*(*(&v56 + 1) + 8 * j) != v29)
                   {
                     v39 = [(HFActionSetValueSource *)self _existingActionBuilderForCharacteristic:?];
                     if (v39)
@@ -479,12 +476,12 @@ HFCharacteristicReadResponse *__70__HFActionSetValueSource_readValuesForCharacte
                   }
                 }
 
-                v36 = [hf_powerStateCharacteristicTypes countByEnumeratingWithState:&v57 objects:v71 count:16];
+                v36 = [hf_powerStateCharacteristicTypes countByEnumeratingWithState:&v56 objects:v70 count:16];
               }
 
               while (v36);
-              v26 = v49;
-              allCharacteristics2 = v50;
+              v26 = v48;
+              allCharacteristics2 = v49;
               v27 = 0x277CD1000;
             }
           }
@@ -496,20 +493,20 @@ HFCharacteristicReadResponse *__70__HFActionSetValueSource_readValuesForCharacte
 LABEL_38:
         }
 
-        v51 = [allCharacteristics2 countByEnumeratingWithState:&v61 objects:v72 count:16];
+        v50 = [allCharacteristics2 countByEnumeratingWithState:&v60 objects:v71 count:16];
       }
 
-      while (v51);
+      while (v50);
     }
 
     v41 = +[HFHomeKitDispatcher sharedDispatcher];
-    v55[0] = MEMORY[0x277D85DD0];
-    v55[1] = 3221225472;
-    v55[2] = __56__HFActionSetValueSource_writeValuesForCharacteristics___block_invoke_2;
-    v55[3] = &unk_277DF3810;
-    v55[4] = self;
-    v56 = v54;
-    [v41 dispatchHomeObserverMessage:v55 sender:0];
+    v54[0] = MEMORY[0x277D85DD0];
+    v54[1] = 3221225472;
+    v54[2] = __56__HFActionSetValueSource_writeValuesForCharacteristics___block_invoke_2;
+    v54[3] = &unk_277DF3810;
+    v54[4] = self;
+    v55 = v53;
+    [v41 dispatchHomeObserverMessage:v54 sender:0];
 
     if ([v9 count])
     {
@@ -525,15 +522,13 @@ LABEL_38:
 
     futureWithNoResult = [MEMORY[0x277D2C900] futureWithNoResult];
 
-    characteristicsCopy = v48;
+    characteristicsCopy = v47;
   }
 
   else
   {
     futureWithNoResult = [MEMORY[0x277D2C900] futureWithNoResult];
   }
-
-  v46 = *MEMORY[0x277D85DE8];
 
   return futureWithNoResult;
 }
@@ -544,7 +539,7 @@ void __56__HFActionSetValueSource_writeValuesForCharacteristics___block_invoke(u
   if (objc_opt_respondsToSelector())
   {
     v3 = [*(a1 + 32) actionSetBuilder];
-    v4 = [v3 home];
+    v4 = objc_msgSend_home(v3);
     v5 = [*(a1 + 40) allCharacteristics];
     [v6 home:v4 willWriteValuesForCharacteristics:v5];
   }
@@ -556,7 +551,7 @@ void __56__HFActionSetValueSource_writeValuesForCharacteristics___block_invoke_2
   if (objc_opt_respondsToSelector())
   {
     v3 = [*(a1 + 32) actionSetBuilder];
-    v4 = [v3 home];
+    v4 = objc_msgSend_home(v3);
     v5 = [*(a1 + 40) allCharacteristics];
     v6 = [MEMORY[0x277CBEB98] set];
     [v7 home:v4 didWriteValuesForCharacteristics:v5 failedCharacteristics:v6];
@@ -812,7 +807,7 @@ uint64_t __51__HFActionSetValueSource__actionForCharacteristic___block_invoke(ui
 
 - (id)_targetValueForCharacteristic:(id)characteristic
 {
-  v28[2] = *MEMORY[0x277D85DE8];
+  v27[2] = *MEMORY[0x277D85DE8];
   characteristicCopy = characteristic;
   v5 = [(HFActionSetValueSource *)self _existingActionBuilderForCharacteristic:characteristicCopy];
   v6 = v5;
@@ -832,27 +827,27 @@ uint64_t __51__HFActionSetValueSource__actionForCharacteristic___block_invoke(ui
   }
 
   v10 = *MEMORY[0x277CCF850];
-  v28[0] = *MEMORY[0x277CCF868];
-  v28[1] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:2];
+  v27[0] = *MEMORY[0x277CCF868];
+  v27[1] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
   if (!targetValue)
   {
     characteristicType = [characteristicCopy characteristicType];
-    v15 = [v11 containsObject:characteristicType];
+    v14 = [v11 containsObject:characteristicType];
 
-    if (!v15)
+    if (!v14)
     {
       goto LABEL_15;
     }
 
-    service = [characteristicCopy service];
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __56__HFActionSetValueSource__targetValueForCharacteristic___block_invoke;
-    v25[3] = &unk_277DFD250;
-    v26 = v11;
+    v15 = objc_msgSend_service(characteristicCopy);
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __56__HFActionSetValueSource__targetValueForCharacteristic___block_invoke;
+    v24[3] = &unk_277DFD250;
+    v25 = v11;
     selfCopy = self;
-    targetValue = [HFTargetRangeUtilities targetValueForService:service valueProvider:v25];
+    targetValue = [HFTargetRangeUtilities targetValueForService:v15 valueProvider:v24];
 
     if (!targetValue)
     {
@@ -862,11 +857,11 @@ uint64_t __51__HFActionSetValueSource__actionForCharacteristic___block_invoke(ui
     if (!targetValue)
     {
 LABEL_15:
-      v17 = MEMORY[0x277CD1970];
+      v16 = MEMORY[0x277CD1970];
       characteristicType2 = [characteristicCopy characteristicType];
-      v19 = [v17 hf_targetStateCharacteristicTypeForCurrentStateCharacteristicType:characteristicType2];
+      v18 = [v16 hf_targetStateCharacteristicTypeForCurrentStateCharacteristicType:characteristicType2];
 
-      if (!v19 || ([characteristicCopy service], v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v20, "hf_characteristicOfType:", v19), v21 = objc_claimAutoreleasedReturnValue(), v20, !v21))
+      if (!v18 || (objc_msgSend_service(characteristicCopy), v19 = objc_claimAutoreleasedReturnValue(), [v19 hf_characteristicOfType:v18], v20 = objc_claimAutoreleasedReturnValue(), v19, !v20))
       {
 
 LABEL_21:
@@ -889,7 +884,7 @@ LABEL_21:
         goto LABEL_8;
       }
 
-      targetValue = [(HFActionSetValueSource *)self _targetValueForCharacteristic:v21];
+      targetValue = [(HFActionSetValueSource *)self _targetValueForCharacteristic:v20];
       characteristicType3 = [characteristicCopy characteristicType];
       if ([characteristicType3 isEqualToString:*MEMORY[0x277CCF818]])
       {
@@ -916,8 +911,6 @@ LABEL_21:
 
 LABEL_8:
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return targetValue;
 }
 
@@ -943,26 +936,25 @@ id __56__HFActionSetValueSource__targetValueForCharacteristic___block_invoke(uin
 
 - (BOOL)_isCurrentStateCharacteristic:(id)characteristic
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CCF810];
-  v10 = *MEMORY[0x277CCF7F8];
-  v11 = v3;
-  v12 = *MEMORY[0x277CCF828];
+  v9 = *MEMORY[0x277CCF7F8];
+  v10 = v3;
+  v11 = *MEMORY[0x277CCF828];
   v4 = MEMORY[0x277CBEA60];
   characteristicCopy = characteristic;
-  v6 = [v4 arrayWithObjects:&v10 count:3];
+  v6 = [v4 arrayWithObjects:&v9 count:3];
   characteristicType = [characteristicCopy characteristicType];
 
   LOBYTE(v4) = [v6 containsObject:characteristicType];
-  v8 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 - (id)_valueForCurrentStateCharacteristic:(id)characteristic
 {
   characteristicCopy = characteristic;
-  service = [characteristicCopy service];
-  v6 = [service hf_characteristicOfType:*MEMORY[0x277CCF748]];
+  v5 = objc_msgSend_service(characteristicCopy);
+  v6 = [v5 hf_characteristicOfType:*MEMORY[0x277CCF748]];
   if (v6)
   {
     objc_opt_class();
@@ -1023,7 +1015,7 @@ id __56__HFActionSetValueSource__targetValueForCharacteristic___block_invoke(uin
       v16 = MEMORY[0x277CCFB30];
     }
 
-    v19 = [service hf_characteristicOfType:*v16];
+    v19 = [v5 hf_characteristicOfType:*v16];
     objc_opt_class();
     v20 = [(HFActionSetValueSource *)self _targetValueForCharacteristic:v19];
     if (objc_opt_isKindOfClass())

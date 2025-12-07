@@ -16,7 +16,7 @@
   if (v9)
   {
     objc_storeStrong(&v9->_deviceContext, context);
-    v11 = [entriesCopy copy];
+    v11 = objc_msgSend_copy(entriesCopy);
     storageEntries = v10->_storageEntries;
     v10->_storageEntries = v11;
   }

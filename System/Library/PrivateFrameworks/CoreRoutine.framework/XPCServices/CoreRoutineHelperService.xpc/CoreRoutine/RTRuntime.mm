@@ -1,6 +1,7 @@
 @interface RTRuntime
 + (double)footprint;
 + (id)classesFromImages:(id)images;
++ (id)directSubclassesOfClass:(Class)class images:(id)images includeParentClass:(BOOL)parentClass;
 + (id)objToDictionary:(id)dictionary filterProperties:(id)properties;
 + (id)objToString:(id)string filterProperties:(id)properties;
 + (id)routineClassStrings;
@@ -39,6 +40,45 @@
   v11 = [v10 filteredArrayUsingPredicate:v9];
 
   return v11;
+}
+
++ (id)directSubclassesOfClass:(Class)class images:(id)images includeParentClass:(BOOL)parentClass
+{
+  v6 = [self subclassesOfClass:class images:images includeParentClass:parentClass];
+  v7 = objc_opt_new();
+  v15 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v8 = v6;
+  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  if (v9)
+  {
+    v10 = v9;
+    v11 = *v16;
+    do
+    {
+      for (i = 0; i != v10; i = i + 1)
+      {
+        if (*v16 != v11)
+        {
+          objc_enumerationMutation(v8);
+        }
+
+        v13 = *(*(&v15 + 1) + 8 * i);
+        if (class_getSuperclass(v13) == class)
+        {
+          [v7 addObject:{v13, v15}];
+        }
+      }
+
+      v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    }
+
+    while (v10);
+  }
+
+  return v7;
 }
 
 + (id)classesFromImages:(id)images

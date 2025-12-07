@@ -121,11 +121,11 @@
   else
   {
 LABEL_6:
-    v15 = VSDefaultLogObject();
+    v15 = VSDefaultLogObject(bundleId2);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      *v36 = 0;
-      _os_log_impl(&dword_23AB8E000, v15, OS_LOG_TYPE_DEFAULT, "JS User Account with no bundle ID, setting source type to VSUserAccountSourceTypeProvider", v36, 2u);
+      *v37 = 0;
+      _os_log_impl(&dword_23AB8E000, v15, OS_LOG_TYPE_DEFAULT, "JS User Account with no bundle ID, setting source type to VSUserAccountSourceTypeProvider", v37, 2u);
     }
 
     v16 = dCopy;
@@ -153,47 +153,47 @@ LABEL_6:
 
   if (!updateURL)
   {
-    updateURL = VSErrorLogObject();
+    updateURL = VSErrorLogObject(v21);
     if (os_log_type_enabled(updateURL, OS_LOG_TYPE_ERROR))
     {
       [VSApplicationUserAccount userAccountForProviderID:updateURL allowedBundleIDs:?];
     }
 
-    v21 = 0;
+    v22 = 0;
   }
 
   else
   {
 LABEL_13:
-    v21 = [[VSUserAccount alloc] initWithAccountType:[(VSApplicationUserAccount *)self accountType] updateURL:updateURL sourceType:v14 sourceIdentifier:bundleId];
+    v22 = [[VSUserAccount alloc] initWithAccountType:[(VSApplicationUserAccount *)self accountType] updateURL:updateURL sourceType:v14 sourceIdentifier:bundleId];
     identifier = [(VSApplicationUserAccount *)self identifier];
-    v23 = [identifier copy];
-    [(VSUserAccount *)v21 setIdentifier:v23];
+    v24 = [identifier copy];
+    [(VSUserAccount *)v22 setIdentifier:v24];
 
-    [(VSUserAccount *)v21 setSignedOut:[(VSApplicationUserAccount *)self isSignedOut]];
+    [(VSUserAccount *)v22 setSignedOut:[(VSApplicationUserAccount *)self isSignedOut]];
     subscriptionBillingCycleEndDate = [(VSApplicationUserAccount *)self subscriptionBillingCycleEndDate];
-    v25 = [subscriptionBillingCycleEndDate copy];
-    [(VSUserAccount *)v21 setSubscriptionBillingCycleEndDate:v25];
+    v26 = [subscriptionBillingCycleEndDate copy];
+    [(VSUserAccount *)v22 setSubscriptionBillingCycleEndDate:v26];
 
     tierIdentifiers = [(VSApplicationUserAccount *)self tierIdentifiers];
-    v27 = [tierIdentifiers copy];
-    [(VSUserAccount *)v21 setTierIdentifiers:v27];
+    v28 = [tierIdentifiers copy];
+    [(VSUserAccount *)v22 setTierIdentifiers:v28];
 
     billingIdentifier = [(VSApplicationUserAccount *)self billingIdentifier];
-    v29 = [billingIdentifier copy];
-    [(VSUserAccount *)v21 setBillingIdentifier:v29];
+    v30 = [billingIdentifier copy];
+    [(VSUserAccount *)v22 setBillingIdentifier:v30];
 
     authenticationData = [(VSApplicationUserAccount *)self authenticationData];
-    v31 = [authenticationData copy];
-    [(VSUserAccount *)v21 setAuthenticationData:v31];
+    v32 = [authenticationData copy];
+    [(VSUserAccount *)v22 setAuthenticationData:v32];
 
     appleSubscription = [(VSApplicationUserAccount *)self appleSubscription];
-    v32AppleSubscription = [appleSubscription appleSubscription];
-    v34 = [v32AppleSubscription copy];
-    [(VSUserAccount *)v21 setAppleSubscription:v34];
+    v33AppleSubscription = [appleSubscription appleSubscription];
+    v35 = [v33AppleSubscription copy];
+    [(VSUserAccount *)v22 setAppleSubscription:v35];
   }
 
-  return v21;
+  return v22;
 }
 
 + (id)userAccountsFromApplicationUserAccounts:(id)accounts ForProviderID:(id)d allowedBundleIDs:(id)ds

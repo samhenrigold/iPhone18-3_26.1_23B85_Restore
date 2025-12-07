@@ -6,36 +6,35 @@
 
 - (BOOL)validate:(id)validate error:(id *)error
 {
-  v67 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   validateCopy = validate;
   objc_opt_class();
   errorCopy = error;
   if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
   {
-    v57 = 0u;
-    v58 = 0u;
+    v54 = 0u;
     v55 = 0u;
-    v56 = 0u;
+    v52 = 0u;
+    v53 = 0u;
     v6 = validateCopy;
-    v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v55, v66, 16);
+    v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v52, v63, 16);
     if (v8)
     {
       v9 = v8;
-      v49 = validateCopy;
+      v46 = validateCopy;
       v10 = 0;
-      v11 = *v56;
+      v11 = *v53;
       v12 = *MEMORY[0x1E696A578];
       v13 = 1;
       while (1)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v56 != v11)
+          if (*v53 != v11)
           {
             objc_enumerationMutation(v6);
           }
 
-          v15 = *(*(&v55 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
           {
@@ -46,18 +45,18 @@
             }
 
 LABEL_14:
-            v18 = MEMORY[0x1E696ABC0];
-            v64[0] = v12;
-            v19 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v16, @"Nested collection classes are not allowed: %@", v6);
-            v64[1] = @"ck_isComparisonError";
-            v65[0] = v19;
-            v65[1] = MEMORY[0x1E695E110];
-            v21 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v20, v65, v64, 2);
-            v23 = objc_msgSend_errorWithDomain_code_userInfo_(v18, v22, @"CKErrorDomain", 12, v21);
+            v17 = MEMORY[0x1E696ABC0];
+            v61[0] = v12;
+            v18 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v15, @"Nested collection classes are not allowed: %@", v6);
+            v61[1] = @"ck_isComparisonError";
+            v62[0] = v18;
+            v62[1] = MEMORY[0x1E695E110];
+            v20 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v19, v62, v61, 2);
+            v22 = objc_msgSend_errorWithDomain_code_userInfo_(v17, v21, @"CKErrorDomain", 12, v20);
 
             error = errorCopy;
             v13 = 0;
-            v10 = v23;
+            v10 = v22;
             continue;
           }
 
@@ -70,7 +69,7 @@ LABEL_14:
           }
         }
 
-        v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v16, &v55, v66, 16);
+        v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v15, &v52, v63, 16);
         if (!v9)
         {
           goto LABEL_17;
@@ -91,43 +90,42 @@ LABEL_14:
       goto LABEL_37;
     }
 
-    v44 = MEMORY[0x1E696ABC0];
-    v59[0] = *MEMORY[0x1E696A578];
-    v45 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v24, @"<%@> is not a collection class", validateCopy);
-    v59[1] = @"ck_isComparisonError";
-    v60[0] = v45;
-    v60[1] = MEMORY[0x1E695E110];
-    v47 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v46, v60, v59, 2);
-    v10 = objc_msgSend_errorWithDomain_code_userInfo_(v44, v48, @"CKErrorDomain", 12, v47);
+    v41 = MEMORY[0x1E696ABC0];
+    v56[0] = *MEMORY[0x1E696A578];
+    v42 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v23, @"<%@> is not a collection class", validateCopy);
+    v56[1] = @"ck_isComparisonError";
+    v57[0] = v42;
+    v57[1] = MEMORY[0x1E695E110];
+    v44 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v43, v57, v56, 2);
+    v10 = objc_msgSend_errorWithDomain_code_userInfo_(v41, v45, @"CKErrorDomain", 12, v44);
 
     v13 = 0;
     goto LABEL_36;
   }
 
-  v53 = 0u;
-  v54 = 0u;
+  v50 = 0u;
   v51 = 0u;
-  v52 = 0u;
-  v6 = objc_msgSend_allValues(validateCopy, v24, v25);
-  v27 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v26, &v51, v63, 16);
-  if (v27)
+  v48 = 0u;
+  v49 = 0u;
+  v6 = objc_msgSend_allValues(validateCopy, v23, v24);
+  v26 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v25, &v48, v60, 16);
+  if (v26)
   {
-    v28 = v27;
-    v49 = validateCopy;
+    v27 = v26;
+    v46 = validateCopy;
     v10 = 0;
-    v29 = *v52;
-    v30 = *MEMORY[0x1E696A578];
+    v28 = *v49;
+    v29 = *MEMORY[0x1E696A578];
     v13 = 1;
     while (1)
     {
-      for (j = 0; j != v28; ++j)
+      for (j = 0; j != v27; ++j)
       {
-        if (*v52 != v29)
+        if (*v49 != v28)
         {
           objc_enumerationMutation(v6);
         }
 
-        v32 = *(*(&v51 + 1) + 8 * j);
         objc_opt_class();
         if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
         {
@@ -138,35 +136,35 @@ LABEL_14:
           }
 
 LABEL_30:
-          v35 = MEMORY[0x1E696ABC0];
-          v61[0] = v30;
-          v36 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v33, @"Nested collection classes are not allowed: %@", v49);
-          v61[1] = @"ck_isComparisonError";
-          v62[0] = v36;
-          v62[1] = MEMORY[0x1E695E110];
-          v38 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v37, v62, v61, 2);
-          v40 = objc_msgSend_errorWithDomain_code_userInfo_(v35, v39, @"CKErrorDomain", 12, v38);
+          v33 = MEMORY[0x1E696ABC0];
+          v58[0] = v29;
+          v34 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v31, @"Nested collection classes are not allowed: %@", v46);
+          v58[1] = @"ck_isComparisonError";
+          v59[0] = v34;
+          v59[1] = MEMORY[0x1E695E110];
+          v36 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v35, v59, v58, 2);
+          v38 = objc_msgSend_errorWithDomain_code_userInfo_(v33, v37, @"CKErrorDomain", 12, v36);
 
           error = errorCopy;
           v13 = 0;
-          v10 = v40;
+          v10 = v38;
           continue;
         }
 
         objc_opt_class();
-        v34 = objc_opt_isKindOfClass();
-        v13 &= v34 ^ 1;
-        if (error && (v34 & 1) != 0)
+        v32 = objc_opt_isKindOfClass();
+        v13 &= v32 ^ 1;
+        if (error && (v32 & 1) != 0)
         {
           goto LABEL_30;
         }
       }
 
-      v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v33, &v51, v63, 16);
-      if (!v28)
+      v27 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v31, &v48, v60, 16);
+      if (!v27)
       {
 LABEL_17:
-        validateCopy = v49;
+        validateCopy = v46;
         goto LABEL_35;
       }
     }
@@ -180,13 +178,12 @@ LABEL_35:
   if (error)
   {
 LABEL_36:
-    v41 = v10;
+    v39 = v10;
     *error = v10;
   }
 
 LABEL_37:
 
-  v42 = *MEMORY[0x1E69E9840];
   return v13 & 1;
 }
 

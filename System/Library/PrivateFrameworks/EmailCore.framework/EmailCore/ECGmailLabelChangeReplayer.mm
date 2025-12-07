@@ -6,7 +6,7 @@
 
 - (id)replayAction
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   action = [(ECLocalActionReplayer *)self action];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -18,52 +18,52 @@
   remoteIDs = [action remoteIDs];
   messages = [action messages];
   v5 = objc_opt_new();
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
   v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   v6 = remoteIDs;
-  v7 = [v6 countByEnumeratingWithState:&v40 objects:v45 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v39 objects:v44 count:16];
   if (v7)
   {
-    v8 = *v41;
+    v8 = *v40;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v41 != v8)
+        if (*v40 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        [v5 addIndex:{objc_msgSend(*(*(&v40 + 1) + 8 * i), "integerValue")}];
+        [v5 addIndex:{objc_msgSend(*(*(&v39 + 1) + 8 * i), "integerValue")}];
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v40 objects:v45 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v39 objects:v44 count:16];
     }
 
     while (v7);
   }
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   v10 = messages;
-  v11 = [v10 countByEnumeratingWithState:&v36 objects:v44 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v35 objects:v43 count:16];
   if (v11)
   {
-    v12 = *v37;
+    v12 = *v36;
     do
     {
       for (j = 0; j != v11; ++j)
       {
-        if (*v37 != v12)
+        if (*v36 != v12)
         {
           objc_enumerationMutation(v10);
         }
 
-        remoteID = [*(*(&v36 + 1) + 8 * j) remoteID];
+        remoteID = [*(*(&v35 + 1) + 8 * j) remoteID];
         integerValue = [remoteID integerValue];
 
         if (integerValue)
@@ -72,7 +72,7 @@
         }
       }
 
-      v11 = [v10 countByEnumeratingWithState:&v36 objects:v44 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v35 objects:v43 count:16];
     }
 
     while (v11);
@@ -86,22 +86,10 @@
   v19 = [labelsToRemove valueForKey:@"labelName"];
   allObjects2 = [v19 allObjects];
 
-  if ([allObjects count])
+  if ([allObjects count] && (-[ECGmailLabelChangeReplayer serverInterface](self, "serverInterface"), v21 = objc_claimAutoreleasedReturnValue(), v22 = objc_msgSend(v21, "storeGmailLabels:state:forUIDs:", allObjects, 1, v5), v21, !v22) || objc_msgSend(allObjects2, "count") && (-[ECGmailLabelChangeReplayer serverInterface](self, "serverInterface"), v23 = objc_claimAutoreleasedReturnValue(), v24 = objc_msgSend(v23, "storeGmailLabels:state:forUIDs:", allObjects2, 0, v5), v23, !v24))
   {
     serverInterface = [(ECGmailLabelChangeReplayer *)self serverInterface];
-    v22 = [serverInterface storeGmailLabels:allObjects state:1 forUIDs:v5];
-
-    if (!v22)
-    {
-      goto LABEL_24;
-    }
-  }
-
-  if ([allObjects2 count] && (-[ECGmailLabelChangeReplayer serverInterface](self, "serverInterface"), v23 = objc_claimAutoreleasedReturnValue(), v24 = objc_msgSend(v23, "storeGmailLabels:state:forUIDs:", allObjects2, 0, v5), v23, !v24))
-  {
-LABEL_24:
-    serverInterface2 = [(ECGmailLabelChangeReplayer *)self serverInterface];
-    hasValidConnection = [serverInterface2 hasValidConnection];
+    hasValidConnection = [serverInterface hasValidConnection];
 
     if (hasValidConnection)
     {
@@ -120,8 +108,6 @@ LABEL_24:
   {
     v25 = [[ECLocalMessageActionResults alloc] initWithError:0];
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 
   return v25;
 }

@@ -196,32 +196,32 @@ void __41___DKKnowledgeStorage_saveObjects_error___block_invoke(void *a1)
 
 void __42___DKKnowledgeStorage__saveObjects_error___block_invoke(uint64_t a1)
 {
-  v63 = *MEMORY[0x1E69E9840];
-  v47 = objc_alloc_init(_DKObjectMOConverter);
+  v61 = *MEMORY[0x1E69E9840];
+  v45 = objc_alloc_init(_DKObjectMOConverter);
+  v50 = 0u;
+  v51 = 0u;
   v52 = 0u;
   v53 = 0u;
-  v54 = 0u;
-  v55 = 0u;
-  v50 = a1;
+  v48 = a1;
   obj = *(a1 + 32);
-  v2 = [obj countByEnumeratingWithState:&v52 objects:v62 count:16];
+  v2 = [obj countByEnumeratingWithState:&v50 objects:v60 count:16];
   if (v2)
   {
-    v43 = 0;
-    v46 = 0;
-    v49 = *v53;
-    v45 = *MEMORY[0x1E696A578];
-    v42 = *MEMORY[0x1E696A388];
+    v41 = 0;
+    v44 = 0;
+    v47 = *v51;
+    v43 = *MEMORY[0x1E696A578];
+    v40 = *MEMORY[0x1E696A388];
     do
     {
       for (i = 0; i != v2; ++i)
       {
-        if (*v53 != v49)
+        if (*v51 != v47)
         {
           objc_enumerationMutation(obj);
         }
 
-        v4 = *(*(&v52 + 1) + 8 * i);
+        v4 = *(*(&v50 + 1) + 8 * i);
         v5 = [v4 stream];
         v6 = [v5 name];
 
@@ -230,10 +230,10 @@ void __42___DKKnowledgeStorage__saveObjects_error___block_invoke(uint64_t a1)
         v8 = [_DKBiomeQuery canShimDuetStreamNamed:v6];
         if ((v8 & v5 & 1) == 0)
         {
-          v9 = [(_DKObjectMOConverter *)v47 insertObject:v4 inManagedObjectContext:*(v50 + 40)];
+          v9 = [(_DKObjectMOConverter *)v45 insertObject:v4 inManagedObjectContext:*(v48 + 40)];
           if (v9)
           {
-            [*(v50 + 40) refreshObject:v9 mergeChanges:1];
+            [*(v48 + 40) refreshObject:v9 mergeChanges:1];
           }
 
           else
@@ -242,22 +242,22 @@ void __42___DKKnowledgeStorage__saveObjects_error___block_invoke(uint64_t a1)
             if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
             {
               *buf = 138412290;
-              v61 = v4;
+              v59 = v4;
               _os_log_fault_impl(&dword_191750000, v10, OS_LOG_TYPE_FAULT, "Unable to convert to MO for saving: %@", buf, 0xCu);
             }
 
             v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unable to convert _DKObject to MO for saving: %@", v4];
             v12 = MEMORY[0x1E696ABC0];
-            v58 = v45;
-            v59 = v11;
-            v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
+            v56 = v43;
+            v57 = v11;
+            v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
             v14 = [v12 errorWithDomain:@"com.apple.coreduet.knowledge" code:3 userInfo:v13];
-            v15 = *(*(v50 + 56) + 8);
+            v15 = *(*(v48 + 56) + 8);
             v16 = *(v15 + 40);
             *(v15 + 40) = v14;
 
-            *(*(*(v50 + 64) + 8) + 24) = 0;
-            ++v46;
+            *(*(*(v48 + 64) + 8) + 24) = 0;
+            ++v44;
           }
         }
 
@@ -296,7 +296,7 @@ void __42___DKKnowledgeStorage__saveObjects_error___block_invoke(uint64_t a1)
 
               if (!v28)
               {
-                v29 = [objc_alloc(getBMDKEventStreamClass()) initWithDKStreamIdentifier:v25 contentProtection:v42];
+                v29 = [objc_alloc(getBMDKEventStreamClass()) initWithDKStreamIdentifier:v25 contentProtection:v40];
                 v28 = [v29 source];
                 if (v29)
                 {
@@ -309,15 +309,15 @@ void __42___DKKnowledgeStorage__saveObjects_error___block_invoke(uint64_t a1)
                   if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 138412290;
-                    v61 = v25;
+                    v59 = v25;
                     _os_log_error_impl(&dword_191750000, v30, OS_LOG_TYPE_ERROR, "nil BMDKEventStream for DK stream %@", buf, 0xCu);
                   }
                 }
 
                 if (AnalyticsIsEventUsed())
                 {
-                  v31 = v43;
-                  if (!v43)
+                  v31 = v41;
+                  if (!v41)
                   {
                     v32 = _CDCurrentOrXPCProcessName();
                     v33 = v32;
@@ -327,17 +327,17 @@ void __42___DKKnowledgeStorage__saveObjects_error___block_invoke(uint64_t a1)
                       v34 = v32;
                     }
 
-                    v44 = v34;
+                    v42 = v34;
 
-                    v31 = v44;
+                    v31 = v42;
                   }
 
-                  v56[0] = @"client";
-                  v56[1] = @"stream";
-                  v43 = v31;
-                  v57[0] = v31;
-                  v57[1] = v25;
-                  v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v57 forKeys:v56 count:2];
+                  v54[0] = @"client";
+                  v54[1] = @"stream";
+                  v41 = v31;
+                  v55[0] = v31;
+                  v55[1] = v25;
+                  v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v55 forKeys:v54 count:2];
                   AnalyticsSendEvent();
                 }
               }
@@ -357,7 +357,7 @@ void __42___DKKnowledgeStorage__saveObjects_error___block_invoke(uint64_t a1)
         }
       }
 
-      v2 = [obj countByEnumeratingWithState:&v52 objects:v62 count:16];
+      v2 = [obj countByEnumeratingWithState:&v50 objects:v60 count:16];
     }
 
     while (v2);
@@ -365,29 +365,26 @@ void __42___DKKnowledgeStorage__saveObjects_error___block_invoke(uint64_t a1)
 
   else
   {
-    v43 = 0;
+    v41 = 0;
   }
 
-  if ([*(v50 + 40) hasChanges])
+  if ([*(v48 + 40) hasChanges])
   {
-    v37 = *(v50 + 40);
-    v38 = *(*(v50 + 56) + 8);
-    v51 = *(v38 + 40);
-    v39 = [v37 save:&v51];
-    objc_storeStrong((v38 + 40), v51);
-    *(*(*(v50 + 64) + 8) + 24) = v39;
+    v37 = *(v48 + 40);
+    v38 = *(*(v48 + 56) + 8);
+    v49 = *(v38 + 40);
+    v39 = [v37 save:&v49];
+    objc_storeStrong((v38 + 40), v49);
+    *(*(*(v48 + 64) + 8) + 24) = v39;
   }
 
-  _cdknowledge_signpost_save_end([*(*(*(v50 + 56) + 8) + 40) code]);
-  v40 = *(*(*(v50 + 64) + 8) + 24);
-  [*(*(*(v50 + 56) + 8) + 40) code];
+  _cdknowledge_signpost_save_end([*(*(*(v48 + 56) + 8) + 40) code]);
+  [*(*(*(v48 + 56) + 8) + 40) code];
   kdebug_trace();
-  if (*(*(*(v50 + 64) + 8) + 24) == 1)
+  if (*(*(*(v48 + 64) + 8) + 24) == 1)
   {
-    [(_DKKnowledgeStorage *)*(v50 + 48) _sendInsertEventsNotificationWithObjects:?];
+    [(_DKKnowledgeStorage *)*(v48 + 48) _sendInsertEventsNotificationWithObjects:?];
   }
-
-  v41 = *MEMORY[0x1E69E9840];
 }
 
 void __66___DKKnowledgeStorage_deleteObjects_responseQueue_withCompletion___block_invoke(void *a1)
@@ -583,7 +580,7 @@ void __42___DKKnowledgeStorage_executeQuery_error___block_invoke(void *a1)
 
 void __43___DKKnowledgeStorage__executeQuery_error___block_invoke(uint64_t a1)
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   v2 = [_CDMemoryUsageInterval alloc];
   v3 = [*(a1 + 32) clientName];
   v4 = v3;
@@ -613,9 +610,9 @@ void __43___DKKnowledgeStorage__executeQuery_error___block_invoke(uint64_t a1)
     v10 = [*(a1 + 32) clientName];
     v11 = *(a1 + 32);
     *buf = 138543618;
-    v45 = v10;
-    v46 = 2112;
-    *v47 = v11;
+    v39 = v10;
+    v40 = 2112;
+    *v41 = v11;
     _os_log_impl(&dword_191750000, v8, OS_LOG_TYPE_DEFAULT, "[Storage] Starting executeQuery for '%{public}@' with query %@.", buf, 0x16u);
   }
 
@@ -627,124 +624,117 @@ void __43___DKKnowledgeStorage__executeQuery_error___block_invoke(uint64_t a1)
     }
 
     v10 = [*(a1 + 32) clientName];
-    v12 = *(a1 + 32);
-    v13 = objc_opt_class();
-    v14 = *(a1 + 32);
-    v15 = objc_opt_respondsToSelector();
-    if (v15)
+    v12 = objc_opt_class();
+    v13 = objc_opt_respondsToSelector();
+    if (v13)
     {
-      v16 = [*(a1 + 32) explicitEventStreamsOrEventStreamsInPredicate];
+      v14 = [*(a1 + 32) explicitEventStreamsOrEventStreamsInPredicate];
     }
 
     else
     {
-      v16 = @"n/a";
+      v14 = @"n/a";
     }
 
     *buf = 138543874;
-    v45 = v10;
-    v46 = 2114;
-    *v47 = v13;
-    *&v47[8] = 2114;
-    *&v47[10] = v16;
+    v39 = v10;
+    v40 = 2114;
+    *v41 = v12;
+    *&v41[8] = 2114;
+    *&v41[10] = v14;
     _os_log_impl(&dword_191750000, v8, OS_LOG_TYPE_DEFAULT, "[Storage] Starting executeQuery for '%{public}@' with query type %{public}@ over streams %{public}@.", buf, 0x20u);
-    if (v15)
+    if (v13)
     {
     }
   }
 
 LABEL_14:
-  v17 = clock_gettime_nsec_np(_CLOCK_MONOTONIC);
-  v18 = *(a1 + 40);
-  v19 = *(*(a1 + 48) + 96);
-  v43 = 0;
-  v20 = [v18 executeUsingCoreDataStorage:v19 error:&v43];
-  v21 = v43;
-  v22 = v43;
-  v23 = [*(a1 + 40) handleResults:v20 error:v22];
-  v24 = *(*(a1 + 56) + 8);
-  v25 = *(v24 + 40);
-  *(v24 + 40) = v23;
+  v15 = clock_gettime_nsec_np(_CLOCK_MONOTONIC);
+  v16 = *(a1 + 40);
+  v17 = *(*(a1 + 48) + 96);
+  v37 = 0;
+  v18 = [v16 executeUsingCoreDataStorage:v17 error:&v37];
+  v19 = v37;
+  v20 = v37;
+  v21 = [*(a1 + 40) handleResults:v18 error:v20];
+  v22 = *(*(a1 + 56) + 8);
+  v23 = *(v22 + 40);
+  *(v22 + 40) = v21;
 
-  objc_storeStrong((*(*(a1 + 64) + 8) + 40), v21);
-  v26 = clock_gettime_nsec_np(_CLOCK_MONOTONIC);
+  objc_storeStrong((*(*(a1 + 64) + 8) + 40), v19);
+  v24 = clock_gettime_nsec_np(_CLOCK_MONOTONIC);
   if (*(a1 + 72))
   {
     **(a1 + 72) = *(*(*(a1 + 64) + 8) + 40);
   }
 
   [(_CDMemoryUsageInterval *)v6 end];
-  v27 = (v26 - v17) / 1000000000.0;
-  v28 = *(*(*(a1 + 56) + 8) + 40);
+  v25 = (v24 - v15) / 1000000000.0;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v29 = *(*(*(a1 + 56) + 8) + 40);
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v30 = *(*(*(a1 + 56) + 8) + 40);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v31 = +[_CDLogging knowledgeChannel];
-        if (!os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+        v26 = +[_CDLogging knowledgeChannel];
+        if (!os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_22;
         }
 
-        v32 = [*(a1 + 32) clientName];
-        v41 = *(*(*(a1 + 56) + 8) + 40) != 0;
-        v42 = *(*(*(a1 + 64) + 8) + 40);
+        v27 = [*(a1 + 32) clientName];
+        v35 = *(*(*(a1 + 56) + 8) + 40) != 0;
+        v36 = *(*(*(a1 + 64) + 8) + 40);
         *buf = 138544130;
-        v45 = v32;
-        v46 = 1024;
-        *v47 = v41;
-        *&v47[4] = 2112;
-        *&v47[6] = v42;
-        *&v47[14] = 2048;
-        *&v47[16] = v27;
-        v37 = "[Storage] Completed executeQuery for '%{public}@' with success=%d. Error: %@. Elapsed: %.3fs.";
-        v38 = v31;
-        v39 = 38;
+        v39 = v27;
+        v40 = 1024;
+        *v41 = v35;
+        *&v41[4] = 2112;
+        *&v41[6] = v36;
+        *&v41[14] = 2048;
+        *&v41[16] = v25;
+        v32 = "[Storage] Completed executeQuery for '%{public}@' with success=%d. Error: %@. Elapsed: %.3fs.";
+        v33 = v26;
+        v34 = 38;
         goto LABEL_21;
       }
     }
   }
 
-  v31 = +[_CDLogging knowledgeChannel];
-  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+  v26 = +[_CDLogging knowledgeChannel];
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
   {
-    v32 = [*(a1 + 32) clientName];
-    v33 = *(*(*(a1 + 56) + 8) + 40);
-    v34 = v33 != 0;
-    v35 = [v33 count];
-    v36 = *(*(*(a1 + 64) + 8) + 40);
+    v27 = [*(a1 + 32) clientName];
+    v28 = *(*(*(a1 + 56) + 8) + 40);
+    v29 = v28 != 0;
+    v30 = [v28 count];
+    v31 = *(*(*(a1 + 64) + 8) + 40);
     *buf = 138544386;
-    v45 = v32;
-    v46 = 1024;
-    *v47 = v34;
-    *&v47[4] = 2048;
-    *&v47[6] = v35;
-    *&v47[14] = 2112;
-    *&v47[16] = v36;
-    v48 = 2048;
-    v49 = v27;
-    v37 = "[Storage] Completed executeQuery for '%{public}@' with success=%d, count=%lu. Error: %@. Elapsed: %.3fs.";
-    v38 = v31;
-    v39 = 48;
+    v39 = v27;
+    v40 = 1024;
+    *v41 = v29;
+    *&v41[4] = 2048;
+    *&v41[6] = v30;
+    *&v41[14] = 2112;
+    *&v41[16] = v31;
+    v42 = 2048;
+    v43 = v25;
+    v32 = "[Storage] Completed executeQuery for '%{public}@' with success=%d, count=%lu. Error: %@. Elapsed: %.3fs.";
+    v33 = v26;
+    v34 = 48;
 LABEL_21:
-    _os_log_impl(&dword_191750000, v38, OS_LOG_TYPE_DEFAULT, v37, buf, v39);
+    _os_log_impl(&dword_191750000, v33, OS_LOG_TYPE_DEFAULT, v32, buf, v34);
   }
 
 LABEL_22:
-
-  v40 = *MEMORY[0x1E69E9840];
 }
 
 void __46___DKKnowledgeStorage_eventCountPerStreamName__block_invoke(uint64_t a1)
 {
-  v45[1] = *MEMORY[0x1E69E9840];
+  v44[1] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(MEMORY[0x1E695D5E0]);
   v3 = MEMORY[0x1E695D5B8];
   v4 = +[_DKEvent entityName];
@@ -758,26 +748,26 @@ void __46___DKKnowledgeStorage_eventCountPerStreamName__block_invoke(uint64_t a1
   [v6 setName:@"eventCount"];
   v7 = MEMORY[0x1E696ABC8];
   v8 = [MEMORY[0x1E696ABC8] expressionForEvaluatedObject];
-  v45[0] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:1];
+  v44[0] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v44 count:1];
   v10 = [v7 expressionForFunction:@"count:" arguments:v9];
   [v6 setExpression:v10];
 
   [v6 setExpressionResultType:200];
-  v44[0] = @"streamName";
-  v44[1] = v6;
-  v36 = v6;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v44 count:2];
+  v43[0] = @"streamName";
+  v43[1] = v6;
+  v35 = v6;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:2];
   [v2 setPropertiesToFetch:v11];
 
-  v43 = @"streamName";
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v43 count:1];
+  v42 = @"streamName";
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v42 count:1];
   [v2 setPropertiesToGroupBy:v12];
 
   v13 = *(a1 + 32);
-  v41 = 0;
-  v14 = [v13 executeFetchRequest:v2 error:&v41];
-  v15 = v41;
+  v40 = 0;
+  v14 = [v13 executeFetchRequest:v2 error:&v40];
+  v15 = v40;
   if (v15)
   {
     obj = +[_CDLogging knowledgeChannel];
@@ -794,29 +784,29 @@ void __46___DKKnowledgeStorage_eventCountPerStreamName__block_invoke(uint64_t a1
     v18 = *(v17 + 40);
     *(v17 + 40) = v16;
 
-    v39 = 0u;
-    v40 = 0u;
-    v37 = 0u;
     v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
     obj = v14;
-    v19 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
+    v19 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
     if (v19)
     {
       v20 = v19;
-      v34 = v14;
+      v33 = v14;
       v21 = a1;
-      v22 = *v38;
+      v22 = *v37;
       do
       {
         for (i = 0; i != v20; ++i)
         {
-          if (*v38 != v22)
+          if (*v37 != v22)
           {
             objc_enumerationMutation(obj);
           }
 
-          v24 = *(*(&v37 + 1) + 8 * i);
-          v25 = [v36 name];
+          v24 = *(*(&v36 + 1) + 8 * i);
+          v25 = [v35 name];
           v26 = [v24 objectForKeyedSubscript:v25];
           v27 = v26;
           if (v26)
@@ -845,16 +835,14 @@ void __46___DKKnowledgeStorage_eventCountPerStreamName__block_invoke(uint64_t a1
           [v29 setObject:v28 forKeyedSubscript:v32];
         }
 
-        v20 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
+        v20 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
       }
 
       while (v20);
-      v14 = v34;
+      v14 = v33;
       v15 = 0;
     }
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __47___DKKnowledgeStorage_migrationStreamsWithMOC___block_invoke(uint64_t a1)
@@ -1028,14 +1016,14 @@ uint64_t __56___DKKnowledgeStorage_fetchLocalChangesSinceDate_error___block_invo
 
 void __56___DKKnowledgeStorage_fetchLocalChangesSinceDate_error___block_invoke_733(uint64_t a1)
 {
-  v117 = *MEMORY[0x1E69E9840];
+  v116 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) begin];
   v2 = [MEMORY[0x1E695DF00] date];
   v3 = *(a1 + 40);
   v4 = *(a1 + 48);
-  v106 = 0;
-  v5 = [v3 executeRequest:v4 error:&v106];
-  v6 = v106;
+  v105 = 0;
+  v5 = [v3 executeRequest:v4 error:&v105];
+  v6 = v105;
   if (v6)
   {
     v7 = v6;
@@ -1070,7 +1058,7 @@ void __56___DKKnowledgeStorage_fetchLocalChangesSinceDate_error___block_invoke_7
       {
         v18 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v15, "count")}];
         *buf = 138412290;
-        v108 = v18;
+        v107 = v18;
         _os_log_impl(&dword_191750000, v17, OS_LOG_TYPE_INFO, "Processing %@ persistent history change transactions", buf, 0xCu);
       }
 
@@ -1083,55 +1071,55 @@ void __56___DKKnowledgeStorage_fetchLocalChangesSinceDate_error___block_invoke_7
         }
       }
 
-      v87 = v2;
-      v88 = v14;
-      v84 = a1;
-      v86 = v5;
-      v95 = objc_opt_new();
+      v86 = v2;
+      v87 = v14;
+      v83 = a1;
+      v85 = v5;
       v94 = objc_opt_new();
+      v93 = objc_opt_new();
+      v101 = 0u;
       v102 = 0u;
       v103 = 0u;
       v104 = 0u;
-      v105 = 0u;
-      v85 = v15;
+      v84 = v15;
       obj = v15;
-      v91 = [obj countByEnumeratingWithState:&v102 objects:v116 count:16];
-      if (v91)
+      v90 = [obj countByEnumeratingWithState:&v101 objects:v115 count:16];
+      if (v90)
       {
-        v90 = *v103;
+        v89 = *v102;
         do
         {
           v20 = 0;
           do
           {
-            if (*v103 != v90)
+            if (*v102 != v89)
             {
               objc_enumerationMutation(obj);
             }
 
-            v93 = v20;
-            v21 = *(*(&v102 + 1) + 8 * v20);
+            v92 = v20;
+            v21 = *(*(&v101 + 1) + 8 * v20);
             context = objc_autoreleasePoolPush();
+            v97 = 0u;
             v98 = 0u;
             v99 = 0u;
             v100 = 0u;
-            v101 = 0u;
-            v96 = [v21 changes];
-            v22 = [v96 countByEnumeratingWithState:&v98 objects:v115 count:16];
+            v95 = [v21 changes];
+            v22 = [v95 countByEnumeratingWithState:&v97 objects:v114 count:16];
             if (v22)
             {
               v23 = v22;
-              v24 = *v99;
+              v24 = *v98;
               do
               {
                 for (i = 0; i != v23; ++i)
                 {
-                  if (*v99 != v24)
+                  if (*v98 != v24)
                   {
-                    objc_enumerationMutation(v96);
+                    objc_enumerationMutation(v95);
                   }
 
-                  v26 = *(*(&v98 + 1) + 8 * i);
+                  v26 = *(*(&v97 + 1) + 8 * i);
                   v27 = objc_autoreleasePoolPush();
                   v28 = [v26 changedObjectID];
                   v29 = [v28 URIRepresentation];
@@ -1152,14 +1140,14 @@ void __56___DKKnowledgeStorage_fetchLocalChangesSinceDate_error___block_invoke_7
                       if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
                       {
                         *buf = 138412546;
-                        v108 = v30;
-                        v109 = 2112;
-                        v110 = v26;
+                        v107 = v30;
+                        v108 = 2112;
+                        v109 = v26;
                         _os_log_debug_impl(&dword_191750000, v39, OS_LOG_TYPE_DEBUG, "May fetch insertion change %@: %@", buf, 0x16u);
                       }
 
                       v34 = [v26 changedObjectID];
-                      [v95 addObject:v34];
+                      [v94 addObject:v34];
 LABEL_39:
                     }
 
@@ -1192,13 +1180,13 @@ LABEL_39:
                         if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
                         {
                           *buf = 138412546;
-                          v108 = v30;
-                          v109 = 2112;
-                          v110 = v26;
+                          v107 = v30;
+                          v108 = 2112;
+                          v109 = v26;
                           _os_log_debug_impl(&dword_191750000, v42, OS_LOG_TYPE_DEBUG, "Fetched tombstone %@: %@", buf, 0x16u);
                         }
 
-                        [v94 addObject:v32];
+                        [v93 addObject:v32];
                       }
 
                       goto LABEL_39;
@@ -1210,133 +1198,133 @@ LABEL_41:
                   objc_autoreleasePoolPop(v27);
                 }
 
-                v23 = [v96 countByEnumeratingWithState:&v98 objects:v115 count:16];
+                v23 = [v95 countByEnumeratingWithState:&v97 objects:v114 count:16];
               }
 
               while (v23);
             }
 
             objc_autoreleasePoolPop(context);
-            v20 = v93 + 1;
+            v20 = v92 + 1;
           }
 
-          while (v93 + 1 != v91);
-          v91 = [obj countByEnumeratingWithState:&v102 objects:v116 count:16];
+          while (v92 + 1 != v90);
+          v90 = [obj countByEnumeratingWithState:&v101 objects:v115 count:16];
         }
 
-        while (v91);
+        while (v90);
       }
 
-      v43 = v95;
-      if ([v95 count] || objc_msgSend(v94, "count"))
+      v43 = v94;
+      if ([v94 count] || objc_msgSend(v93, "count"))
       {
-        v50 = v84[7];
-        if (v50)
+        v49 = v83[7];
+        if (v49)
         {
-          v51 = v50;
+          v50 = v49;
         }
 
         else
         {
-          v51 = [MEMORY[0x1E695DF00] distantPast];
+          v50 = [MEMORY[0x1E695DF00] distantPast];
         }
 
-        if ([v95 count])
+        if ([v94 count])
         {
-          v53 = objc_alloc_init(MEMORY[0x1E695D5E0]);
-          v54 = MEMORY[0x1E695D5B8];
-          v55 = +[_DKEvent entityName];
-          v56 = [v54 entityForName:v55 inManagedObjectContext:v84[5]];
-          [v53 setEntity:v56];
+          v52 = objc_alloc_init(MEMORY[0x1E695D5E0]);
+          v53 = MEMORY[0x1E695D5B8];
+          v54 = +[_DKEvent entityName];
+          v55 = [v53 entityForName:v54 inManagedObjectContext:v83[5]];
+          [v52 setEntity:v55];
 
-          v57 = [MEMORY[0x1E696AE18] predicateWithFormat:@"SELF IN %@ AND shouldSync == YES", v95];
-          [v53 setPredicate:v57];
+          v56 = [MEMORY[0x1E696AE18] predicateWithFormat:@"SELF IN %@ AND shouldSync == YES", v94];
+          [v52 setPredicate:v56];
 
-          v58 = [MEMORY[0x1E695DF00] date];
-          v59 = v84[5];
-          v97 = 0;
-          v60 = [v59 executeFetchRequest:v53 error:&v97];
-          v61 = v97;
-          v11 = v61;
-          if (!v60 || v61)
+          v57 = [MEMORY[0x1E695DF00] date];
+          v58 = v83[5];
+          v96 = 0;
+          v59 = [v58 executeFetchRequest:v52 error:&v96];
+          v60 = v96;
+          v11 = v60;
+          if (!v59 || v60)
           {
-            v65 = +[_CDLogging syncChannel];
-            if (os_log_type_enabled(v65, OS_LOG_TYPE_DEBUG))
+            v64 = +[_CDLogging syncChannel];
+            if (os_log_type_enabled(v64, OS_LOG_TYPE_DEBUG))
             {
               __56___DKKnowledgeStorage_fetchLocalChangesSinceDate_error___block_invoke_733_cold_5();
             }
 
-            v52 = 0;
+            v51 = 0;
           }
 
           else
           {
-            v62 = fetchLocalChangesSinceDate_error__executeFetchRequestTimerCounter;
-            v63 = [MEMORY[0x1E695DF00] date];
-            [(_DKEventStatsTimerCounter *)v62 addTimingWithStartDate:v58 endDate:v63];
+            v61 = fetchLocalChangesSinceDate_error__executeFetchRequestTimerCounter;
+            v62 = [MEMORY[0x1E695DF00] date];
+            [(_DKEventStatsTimerCounter *)v61 addTimingWithStartDate:v57 endDate:v62];
 
-            v64 = +[_CDLogging syncChannel];
-            if (os_log_type_enabled(v64, OS_LOG_TYPE_DEBUG))
+            v63 = +[_CDLogging syncChannel];
+            if (os_log_type_enabled(v63, OS_LOG_TYPE_DEBUG))
             {
-              __56___DKKnowledgeStorage_fetchLocalChangesSinceDate_error___block_invoke_733_cold_4(v60, v95);
+              __56___DKKnowledgeStorage_fetchLocalChangesSinceDate_error___block_invoke_733_cold_4(v59, v94);
             }
 
-            v65 = [MEMORY[0x1E695DF00] date];
-            v66 = objc_alloc_init(_DKObjectMOConverter);
-            v52 = [(_DKObjectMOConverter *)v66 objectsFromManagedObjects:v60];
+            v64 = [MEMORY[0x1E695DF00] date];
+            v65 = objc_alloc_init(_DKObjectMOConverter);
+            v51 = [(_DKObjectMOConverter *)v65 objectsFromManagedObjects:v59];
 
-            v67 = fetchLocalChangesSinceDate_error__objectsFromManagedObjectsTimerCounter;
-            v68 = [MEMORY[0x1E695DF00] date];
-            [(_DKEventStatsTimerCounter *)v67 addTimingWithStartDate:v65 endDate:v68];
+            v66 = fetchLocalChangesSinceDate_error__objectsFromManagedObjectsTimerCounter;
+            v67 = [MEMORY[0x1E695DF00] date];
+            [(_DKEventStatsTimerCounter *)v66 addTimingWithStartDate:v64 endDate:v67];
 
-            v69 = +[_CDLogging syncChannel];
-            if (os_log_type_enabled(v69, OS_LOG_TYPE_INFO))
+            v68 = +[_CDLogging syncChannel];
+            if (os_log_type_enabled(v68, OS_LOG_TYPE_INFO))
             {
-              v70 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v52, "count")}];
-              v71 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v60, "count")}];
+              v69 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v51, "count")}];
+              v70 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v59, "count")}];
               *buf = 138412546;
-              v108 = v70;
-              v109 = 2112;
-              v110 = v71;
-              _os_log_impl(&dword_191750000, v69, OS_LOG_TYPE_INFO, "Converted %@ of %@ insertion changes", buf, 0x16u);
+              v107 = v69;
+              v108 = 2112;
+              v109 = v70;
+              _os_log_impl(&dword_191750000, v68, OS_LOG_TYPE_INFO, "Converted %@ of %@ insertion changes", buf, 0x16u);
             }
           }
         }
 
         else
         {
-          v52 = 0;
+          v51 = 0;
           v11 = 0;
         }
 
-        v72 = [_DKLocalChanges initWithInsertedObjects:v52 tombstones:? startDate:? endDate:?];
-        v73 = *(v84[9] + 8);
-        v74 = *(v73 + 40);
-        *(v73 + 40) = v72;
+        v71 = [_DKLocalChanges initWithInsertedObjects:v51 tombstones:? startDate:? endDate:?];
+        v72 = *(v83[9] + 8);
+        v73 = *(v72 + 40);
+        *(v72 + 40) = v71;
 
-        v75 = +[_CDLogging syncChannel];
-        if (os_log_type_enabled(v75, OS_LOG_TYPE_INFO))
+        v74 = +[_CDLogging syncChannel];
+        if (os_log_type_enabled(v74, OS_LOG_TYPE_INFO))
         {
-          v76 = MEMORY[0x1E696AD98];
-          v77 = [*(*(v84[9] + 8) + 40) insertedObjects];
-          v78 = [v76 numberWithUnsignedInteger:{objc_msgSend(v77, "count")}];
-          v79 = MEMORY[0x1E696AD98];
-          v80 = [*(*(v84[9] + 8) + 40) tombstones];
-          v81 = [v79 numberWithUnsignedInteger:{objc_msgSend(v80, "count")}];
-          v82 = [*(*(v84[9] + 8) + 40) startDate];
-          v83 = [*(*(v84[9] + 8) + 40) endDate];
+          v75 = MEMORY[0x1E696AD98];
+          v76 = [*(*(v83[9] + 8) + 40) insertedObjects];
+          v77 = [v75 numberWithUnsignedInteger:{objc_msgSend(v76, "count")}];
+          v78 = MEMORY[0x1E696AD98];
+          v79 = [*(*(v83[9] + 8) + 40) tombstones];
+          v80 = [v78 numberWithUnsignedInteger:{objc_msgSend(v79, "count")}];
+          v81 = [*(*(v83[9] + 8) + 40) startDate];
+          v82 = [*(*(v83[9] + 8) + 40) endDate];
           *buf = 138413058;
-          v108 = v78;
-          v109 = 2112;
-          v110 = v81;
-          v111 = 2112;
-          v112 = v82;
-          v113 = 2112;
-          v114 = v83;
-          _os_log_impl(&dword_191750000, v75, OS_LOG_TYPE_INFO, "Created local changes object with %@ inserted objects, %@ tombstones for period %@ to %@", buf, 0x2Au);
+          v107 = v77;
+          v108 = 2112;
+          v109 = v80;
+          v110 = 2112;
+          v111 = v81;
+          v112 = 2112;
+          v113 = v82;
+          _os_log_impl(&dword_191750000, v74, OS_LOG_TYPE_INFO, "Created local changes object with %@ inserted objects, %@ tombstones for period %@ to %@", buf, 0x2Au);
         }
 
-        v43 = v95;
+        v43 = v94;
       }
 
       else
@@ -1344,10 +1332,10 @@ LABEL_41:
         v11 = 0;
       }
 
-      v5 = v86;
-      v2 = v87;
-      v14 = v88;
-      v15 = v85;
+      v5 = v85;
+      v2 = v86;
+      v14 = v87;
+      v15 = v84;
     }
 
     else
@@ -1378,8 +1366,6 @@ LABEL_41:
   v11 = *(v46 + 40);
   *(v46 + 40) = v45;
 LABEL_56:
-
-  v49 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __55___DKKnowledgeStorage_fetchSyncChangesSinceDate_error___block_invoke()
@@ -1405,14 +1391,14 @@ uint64_t __55___DKKnowledgeStorage_fetchSyncChangesSinceDate_error___block_invok
 
 void __55___DKKnowledgeStorage_fetchSyncChangesSinceDate_error___block_invoke_758(uint64_t a1)
 {
-  v166 = *MEMORY[0x1E69E9840];
+  v165 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) begin];
   v2 = [MEMORY[0x1E695DF00] date];
   v3 = *(a1 + 40);
   v4 = *(a1 + 48);
-  v151 = 0;
-  v5 = [v3 executeRequest:v4 error:&v151];
-  v6 = v151;
+  v150 = 0;
+  v5 = [v3 executeRequest:v4 error:&v150];
+  v6 = v150;
   if (v5)
   {
     v7 = v6 == 0;
@@ -1449,63 +1435,63 @@ void __55___DKKnowledgeStorage_fetchSyncChangesSinceDate_error___block_invoke_75
       goto LABEL_66;
     }
 
-    v118 = a1;
-    v114 = v12;
-    v115 = v5;
-    v116 = v2;
+    v117 = a1;
+    v113 = v12;
+    v114 = v5;
+    v115 = v2;
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       v18 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v15, "count")}];
       *buf = 138412290;
-      v153 = v18;
+      v152 = v18;
       _os_log_impl(&dword_191750000, v17, OS_LOG_TYPE_INFO, "Processing %@ sync change transactions", buf, 0xCu);
     }
 
-    v130 = objc_opt_new();
-    v126 = objc_opt_new();
+    v129 = objc_opt_new();
+    v125 = objc_opt_new();
+    v146 = 0u;
     v147 = 0u;
     v148 = 0u;
     v149 = 0u;
-    v150 = 0u;
-    v113 = v15;
+    v112 = v15;
     obj = v15;
-    v125 = [obj countByEnumeratingWithState:&v147 objects:v165 count:16];
-    if (v125)
+    v124 = [obj countByEnumeratingWithState:&v146 objects:v164 count:16];
+    if (v124)
     {
-      v123 = *v148;
+      v122 = *v147;
       do
       {
         v19 = 0;
         do
         {
-          if (*v148 != v123)
+          if (*v147 != v122)
           {
             objc_enumerationMutation(obj);
           }
 
-          v127 = v19;
-          v20 = *(*(&v147 + 1) + 8 * v19);
+          v126 = v19;
+          v20 = *(*(&v146 + 1) + 8 * v19);
+          v142 = 0u;
           v143 = 0u;
           v144 = 0u;
           v145 = 0u;
-          v146 = 0u;
-          v131 = [v20 changes];
-          v21 = [v131 countByEnumeratingWithState:&v143 objects:v164 count:16];
+          v130 = [v20 changes];
+          v21 = [v130 countByEnumeratingWithState:&v142 objects:v163 count:16];
           if (v21)
           {
             v22 = v21;
-            v23 = *v144;
+            v23 = *v143;
             do
             {
               v24 = 0;
               do
               {
-                if (*v144 != v23)
+                if (*v143 != v23)
                 {
-                  objc_enumerationMutation(v131);
+                  objc_enumerationMutation(v130);
                 }
 
-                v25 = *(*(&v143 + 1) + 8 * v24);
+                v25 = *(*(&v142 + 1) + 8 * v24);
                 v26 = objc_autoreleasePoolPush();
                 v27 = [v25 changedObjectID];
                 v28 = [v27 URIRepresentation];
@@ -1530,13 +1516,13 @@ void __55___DKKnowledgeStorage_fetchSyncChangesSinceDate_error___block_invoke_75
                   if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
                   {
                     *buf = 138412546;
-                    v153 = v29;
-                    v154 = 2112;
-                    v155 = v25;
+                    v152 = v29;
+                    v153 = 2112;
+                    v154 = v25;
                     _os_log_debug_impl(&dword_191750000, v34, OS_LOG_TYPE_DEBUG, "May fetch inserted addition change set %@: %@", buf, 0x16u);
                   }
 
-                  v35 = v130;
+                  v35 = v129;
 LABEL_31:
 
                   v38 = [v25 changedObjectID];
@@ -1554,13 +1540,13 @@ LABEL_31:
                   if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
                   {
                     *buf = 138412546;
-                    v153 = v29;
-                    v154 = 2112;
-                    v155 = v25;
+                    v152 = v29;
+                    v153 = 2112;
+                    v154 = v25;
                     _os_log_debug_impl(&dword_191750000, v34, OS_LOG_TYPE_DEBUG, "May fetch inserted deletion change set %@: %@", buf, 0x16u);
                   }
 
-                  v35 = v126;
+                  v35 = v125;
                   goto LABEL_31;
                 }
 
@@ -1572,7 +1558,7 @@ LABEL_33:
               }
 
               while (v22 != v24);
-              v22 = [v131 countByEnumeratingWithState:&v143 objects:v164 count:16];
+              v22 = [v130 countByEnumeratingWithState:&v142 objects:v163 count:16];
             }
 
             while (v22);
@@ -1581,70 +1567,70 @@ LABEL_33:
           ++v19;
         }
 
-        while (v127 + 1 != v125);
-        v125 = [obj countByEnumeratingWithState:&v147 objects:v165 count:16];
+        while (v126 + 1 != v124);
+        v124 = [obj countByEnumeratingWithState:&v146 objects:v164 count:16];
       }
 
-      while (v125);
+      while (v124);
     }
 
-    v39 = v130;
-    if (![v130 count] && !objc_msgSend(v126, "count"))
+    v39 = v129;
+    if (![v129 count] && !objc_msgSend(v125, "count"))
     {
       v8 = 0;
-      v5 = v115;
-      v2 = v116;
-      v15 = v113;
-      v12 = v114;
-      v65 = v126;
+      v5 = v114;
+      v2 = v115;
+      v15 = v112;
+      v12 = v113;
+      v65 = v125;
 LABEL_65:
 
 LABEL_66:
       goto LABEL_67;
     }
 
-    v40 = v118;
-    v41 = *(v118 + 56);
-    v15 = v113;
-    v12 = v114;
+    v40 = v117;
+    v41 = *(v117 + 56);
+    v15 = v112;
+    v12 = v113;
     if (v41)
     {
-      v112 = v41;
+      v111 = v41;
       v42 = 0x1E695D000;
     }
 
     else
     {
       v42 = 0x1E695D000uLL;
-      v112 = [MEMORY[0x1E695DF00] distantPast];
+      v111 = [MEMORY[0x1E695DF00] distantPast];
     }
 
-    v117 = [*(v42 + 3840) date];
-    if ([v130 count])
+    v116 = [*(v42 + 3840) date];
+    if ([v129 count])
     {
       v45 = objc_alloc_init(MEMORY[0x1E695D5E0]);
       v46 = MEMORY[0x1E695D5B8];
       v47 = +[_DKChangeSet additionChangeSetEntityName];
-      v48 = [v46 entityForName:v47 inManagedObjectContext:*(v118 + 40)];
+      v48 = [v46 entityForName:v47 inManagedObjectContext:*(v117 + 40)];
       [v45 setEntity:v48];
 
       v49 = MEMORY[0x1E696AE18];
-      v50 = [*(v118 + 64) deviceUUID];
+      v50 = [*(v117 + 64) deviceUUID];
       v51 = [v50 UUIDString];
-      v52 = [v49 predicateWithFormat:@"SELF IN %@ AND deviceIdentifier != %@", v130, v51];
+      v52 = [v49 predicateWithFormat:@"SELF IN %@ AND deviceIdentifier != %@", v129, v51];
       [v45 setPredicate:v52];
 
-      v40 = v118;
-      v53 = *(v118 + 40);
-      v142 = 0;
-      v54 = [v53 executeFetchRequest:v45 error:&v142];
-      v8 = v142;
+      v40 = v117;
+      v53 = *(v117 + 40);
+      v141 = 0;
+      v54 = [v53 executeFetchRequest:v45 error:&v141];
+      v8 = v141;
 
       if (v8)
       {
-        v132 = 0;
-        v5 = v115;
-        v2 = v116;
+        v131 = 0;
+        v5 = v114;
+        v2 = v115;
         goto LABEL_52;
       }
     }
@@ -1654,9 +1640,9 @@ LABEL_66:
       v54 = 0;
     }
 
-    if ([v126 count])
+    if ([v125 count])
     {
-      v110 = v54;
+      v109 = v54;
       v55 = objc_alloc_init(MEMORY[0x1E695D5E0]);
       v56 = MEMORY[0x1E695D5B8];
       v57 = +[_DKChangeSet deletionChangeSetEntityName];
@@ -1666,22 +1652,22 @@ LABEL_66:
       v59 = MEMORY[0x1E696AE18];
       v60 = [*(v40 + 64) deviceUUID];
       v61 = [v60 UUIDString];
-      v62 = [v59 predicateWithFormat:@"SELF IN %@ AND deviceIdentifier != %@", v126, v61];
+      v62 = [v59 predicateWithFormat:@"SELF IN %@ AND deviceIdentifier != %@", v125, v61];
       [v55 setPredicate:v62];
 
-      v63 = *(v118 + 40);
-      v141 = 0;
-      v132 = [v63 executeFetchRequest:v55 error:&v141];
-      v8 = v141;
+      v63 = *(v117 + 40);
+      v140 = 0;
+      v131 = [v63 executeFetchRequest:v55 error:&v140];
+      v8 = v140;
 
       if (v8)
       {
-        v5 = v115;
-        v2 = v116;
-        v54 = v110;
+        v5 = v114;
+        v2 = v115;
+        v54 = v109;
 LABEL_52:
         v64 = +[_CDLogging syncChannel];
-        v65 = v126;
+        v65 = v125;
         if (os_log_type_enabled(v64, OS_LOG_TYPE_DEBUG))
         {
           __56___DKKnowledgeStorage_fetchLocalChangesSinceDate_error___block_invoke_733_cold_5();
@@ -1692,235 +1678,235 @@ LABEL_64:
         goto LABEL_65;
       }
 
-      v5 = v115;
-      v2 = v116;
-      v54 = v110;
+      v5 = v114;
+      v2 = v115;
+      v54 = v109;
     }
 
     else
     {
-      v132 = 0;
-      v5 = v115;
-      v2 = v116;
+      v131 = 0;
+      v5 = v114;
+      v2 = v115;
     }
 
     v66 = fetchSyncChangesSinceDate_error__executeFetchRequestTimerCounter;
     v67 = [MEMORY[0x1E695DF00] date];
-    [(_DKEventStatsTimerCounter *)v66 addTimingWithStartDate:v117 endDate:v67];
+    [(_DKEventStatsTimerCounter *)v66 addTimingWithStartDate:v116 endDate:v67];
 
     v68 = +[_CDLogging syncChannel];
     if (os_log_type_enabled(v68, OS_LOG_TYPE_INFO))
     {
       v69 = v54;
-      v70 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v132, "count") + objc_msgSend(v54, "count")}];
-      v71 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v126, "count") + objc_msgSend(v130, "count")}];
+      v70 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v131, "count") + objc_msgSend(v54, "count")}];
+      v71 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v125, "count") + objc_msgSend(v129, "count")}];
       *buf = 138412546;
-      v153 = v70;
-      v154 = 2112;
-      v155 = v71;
+      v152 = v70;
+      v153 = 2112;
+      v154 = v71;
       _os_log_impl(&dword_191750000, v68, OS_LOG_TYPE_INFO, "Fetched %@ of %@ insertion changes", buf, 0x16u);
 
       v54 = v69;
     }
 
-    if ([v54 count] || objc_msgSend(v132, "count"))
+    if ([v54 count] || objc_msgSend(v131, "count"))
     {
-      v73 = [MEMORY[0x1E695DF70] array];
-      v129 = [MEMORY[0x1E695DF70] array];
-      v74 = objc_opt_new();
+      v72 = [MEMORY[0x1E695DF70] array];
+      v128 = [MEMORY[0x1E695DF70] array];
+      v73 = objc_opt_new();
       if ([v54 count])
       {
-        [v74 addObject:v54];
+        [v73 addObject:v54];
       }
 
-      v128 = v73;
-      v111 = v54;
-      v75 = 0x1E7366000uLL;
-      if ([v132 count])
+      v127 = v72;
+      v110 = v54;
+      v74 = 0x1E7366000uLL;
+      if ([v131 count])
       {
-        [v74 addObject:v132];
+        [v73 addObject:v131];
       }
 
-      v139 = 0u;
-      v140 = 0u;
-      v137 = 0u;
       v138 = 0u;
-      v119 = v74;
-      obja = [v119 countByEnumeratingWithState:&v137 objects:v163 count:16];
+      v139 = 0u;
+      v136 = 0u;
+      v137 = 0u;
+      v118 = v73;
+      obja = [v118 countByEnumeratingWithState:&v136 objects:v162 count:16];
       if (obja)
       {
-        v120 = *v138;
+        v119 = *v137;
         do
         {
-          v76 = 0;
+          v75 = 0;
           do
           {
-            if (*v138 != v120)
+            if (*v137 != v119)
             {
-              objc_enumerationMutation(v119);
+              objc_enumerationMutation(v118);
             }
 
-            v124 = v76;
-            v77 = *(*(&v137 + 1) + 8 * v76);
+            v123 = v75;
+            v76 = *(*(&v136 + 1) + 8 * v75);
+            v132 = 0u;
             v133 = 0u;
             v134 = 0u;
             v135 = 0u;
-            v136 = 0u;
-            v78 = v77;
-            v79 = [v78 countByEnumeratingWithState:&v133 objects:v162 count:16];
-            if (v79)
+            v77 = v76;
+            v78 = [v77 countByEnumeratingWithState:&v132 objects:v161 count:16];
+            if (v78)
             {
-              v80 = v79;
-              v81 = *v134;
+              v79 = v78;
+              v80 = *v133;
               do
               {
-                v82 = 0;
+                v81 = 0;
                 do
                 {
-                  if (*v134 != v81)
+                  if (*v133 != v80)
                   {
-                    objc_enumerationMutation(v78);
+                    objc_enumerationMutation(v77);
                   }
 
-                  v83 = *(*(&v133 + 1) + 8 * v82);
-                  v84 = [MEMORY[0x1E695DF00] date];
-                  v85 = [objc_alloc(*(v75 + 1376)) initWithManagedObject:v83];
-                  if (v85)
+                  v82 = *(*(&v132 + 1) + 8 * v81);
+                  v83 = [MEMORY[0x1E695DF00] date];
+                  v84 = [objc_alloc(*(v74 + 1376)) initWithManagedObject:v82];
+                  if (v84)
                   {
-                    v86 = fetchSyncChangesSinceDate_error__objectsFromManagedObjectsTimerCounter;
-                    v87 = [MEMORY[0x1E695DF00] date];
-                    [(_DKEventStatsTimerCounter *)v86 addTimingWithStartDate:v84 endDate:v87];
+                    v85 = fetchSyncChangesSinceDate_error__objectsFromManagedObjectsTimerCounter;
+                    v86 = [MEMORY[0x1E695DF00] date];
+                    [(_DKEventStatsTimerCounter *)v85 addTimingWithStartDate:v83 endDate:v86];
 
-                    v88 = +[_CDLogging syncChannel];
-                    v89 = os_log_type_enabled(v88, OS_LOG_TYPE_DEBUG);
-                    if (v77 == v132)
+                    v87 = +[_CDLogging syncChannel];
+                    v88 = os_log_type_enabled(v87, OS_LOG_TYPE_DEBUG);
+                    if (v76 == v131)
                     {
-                      if (v89)
+                      if (v88)
                       {
-                        v94 = [v83 objectID];
+                        v93 = [v82 objectID];
                         *buf = 138412546;
-                        v153 = v94;
-                        v154 = 2112;
-                        v155 = v85;
-                        _os_log_debug_impl(&dword_191750000, v88, OS_LOG_TYPE_DEBUG, "Fetched inserted deletion change set %@: %@", buf, 0x16u);
+                        v152 = v93;
+                        v153 = 2112;
+                        v154 = v84;
+                        _os_log_debug_impl(&dword_191750000, v87, OS_LOG_TYPE_DEBUG, "Fetched inserted deletion change set %@: %@", buf, 0x16u);
                       }
 
-                      v90 = v128;
+                      v89 = v127;
                     }
 
                     else
                     {
-                      if (v89)
+                      if (v88)
                       {
-                        v93 = [v83 objectID];
+                        v92 = [v82 objectID];
                         *buf = 138412546;
-                        v153 = v93;
-                        v154 = 2112;
-                        v155 = v85;
-                        _os_log_debug_impl(&dword_191750000, v88, OS_LOG_TYPE_DEBUG, "Fetched inserted addition change set %@: %@", buf, 0x16u);
+                        v152 = v92;
+                        v153 = 2112;
+                        v154 = v84;
+                        _os_log_debug_impl(&dword_191750000, v87, OS_LOG_TYPE_DEBUG, "Fetched inserted addition change set %@: %@", buf, 0x16u);
                       }
 
-                      v90 = v129;
+                      v89 = v128;
                     }
 
-                    [v90 addObject:v85];
+                    [v89 addObject:v84];
                   }
 
                   else
                   {
-                    v91 = +[_CDLogging syncChannel];
-                    v92 = os_log_type_enabled(v91, OS_LOG_TYPE_ERROR);
-                    if (v77 == v132)
+                    v90 = +[_CDLogging syncChannel];
+                    v91 = os_log_type_enabled(v90, OS_LOG_TYPE_ERROR);
+                    if (v76 == v131)
                     {
-                      if (v92)
+                      if (v91)
                       {
-                        __55___DKKnowledgeStorage_fetchSyncChangesSinceDate_error___block_invoke_758_cold_4(v161, v83);
+                        __55___DKKnowledgeStorage_fetchSyncChangesSinceDate_error___block_invoke_758_cold_4(v160, v82);
                       }
                     }
 
-                    else if (v92)
+                    else if (v91)
                     {
-                      __55___DKKnowledgeStorage_fetchSyncChangesSinceDate_error___block_invoke_758_cold_3(v160, v83);
+                      __55___DKKnowledgeStorage_fetchSyncChangesSinceDate_error___block_invoke_758_cold_3(v159, v82);
                     }
                   }
 
-                  ++v82;
-                  v75 = 0x1E7366000;
+                  ++v81;
+                  v74 = 0x1E7366000;
                 }
 
-                while (v80 != v82);
-                v80 = [v78 countByEnumeratingWithState:&v133 objects:v162 count:16];
+                while (v79 != v81);
+                v79 = [v77 countByEnumeratingWithState:&v132 objects:v161 count:16];
               }
 
-              while (v80);
+              while (v79);
             }
 
-            v76 = v124 + 1;
+            v75 = v123 + 1;
           }
 
-          while ((v124 + 1) != obja);
-          obja = [v119 countByEnumeratingWithState:&v137 objects:v163 count:16];
+          while ((v123 + 1) != obja);
+          obja = [v118 countByEnumeratingWithState:&v136 objects:v162 count:16];
         }
 
         while (obja);
       }
 
-      v95 = +[_CDLogging syncChannel];
-      if (os_log_type_enabled(v95, OS_LOG_TYPE_INFO))
+      v94 = +[_CDLogging syncChannel];
+      if (os_log_type_enabled(v94, OS_LOG_TYPE_INFO))
       {
-        v96 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[NSObject count](v128, "count") + -[NSObject count](v129, "count")}];
-        v97 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v132, "count") + objc_msgSend(v111, "count")}];
+        v95 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[NSObject count](v127, "count") + -[NSObject count](v128, "count")}];
+        v96 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v131, "count") + objc_msgSend(v110, "count")}];
         *buf = 138412546;
-        v153 = v96;
-        v154 = 2112;
-        v155 = v97;
-        _os_log_impl(&dword_191750000, v95, OS_LOG_TYPE_INFO, "Converted %@ of %@ inserted change sets", buf, 0x16u);
+        v152 = v95;
+        v153 = 2112;
+        v154 = v96;
+        _os_log_impl(&dword_191750000, v94, OS_LOG_TYPE_INFO, "Converted %@ of %@ inserted change sets", buf, 0x16u);
       }
 
-      v64 = v128;
-      v12 = v114;
-      v98 = [_DKSyncChanges initWithAdditionChangeSets:v129 deletionChangeSets:? startDate:? endDate:?];
-      v99 = *(*(v118 + 80) + 8);
-      v100 = *(v99 + 40);
-      *(v99 + 40) = v98;
+      v64 = v127;
+      v12 = v113;
+      v97 = [_DKSyncChanges initWithAdditionChangeSets:v128 deletionChangeSets:? startDate:? endDate:?];
+      v98 = *(*(v117 + 80) + 8);
+      v99 = *(v98 + 40);
+      *(v98 + 40) = v97;
 
-      v101 = +[_CDLogging syncChannel];
-      v15 = v113;
-      v39 = v130;
-      if (os_log_type_enabled(v101, OS_LOG_TYPE_INFO))
+      v100 = +[_CDLogging syncChannel];
+      v15 = v112;
+      v39 = v129;
+      if (os_log_type_enabled(v100, OS_LOG_TYPE_INFO))
       {
-        v102 = MEMORY[0x1E696AD98];
-        v103 = [*(*(*(v118 + 80) + 8) + 40) additionChangeSets];
-        v104 = [v102 numberWithUnsignedInteger:{objc_msgSend(v103, "count")}];
-        v105 = MEMORY[0x1E696AD98];
-        v106 = [*(*(*(v118 + 80) + 8) + 40) deletionChangeSets];
-        v107 = [v105 numberWithUnsignedInteger:{objc_msgSend(v106, "count")}];
-        v108 = [*(*(*(v118 + 80) + 8) + 40) startDate];
-        v109 = [*(*(*(v118 + 80) + 8) + 40) endDate];
+        v101 = MEMORY[0x1E696AD98];
+        v102 = [*(*(*(v117 + 80) + 8) + 40) additionChangeSets];
+        v103 = [v101 numberWithUnsignedInteger:{objc_msgSend(v102, "count")}];
+        v104 = MEMORY[0x1E696AD98];
+        v105 = [*(*(*(v117 + 80) + 8) + 40) deletionChangeSets];
+        v106 = [v104 numberWithUnsignedInteger:{objc_msgSend(v105, "count")}];
+        v107 = [*(*(*(v117 + 80) + 8) + 40) startDate];
+        v108 = [*(*(*(v117 + 80) + 8) + 40) endDate];
         *buf = 138413058;
-        v153 = v104;
-        v154 = 2112;
-        v155 = v107;
-        v156 = 2112;
-        v157 = v108;
-        v158 = 2112;
-        v159 = v109;
-        _os_log_impl(&dword_191750000, v101, OS_LOG_TYPE_INFO, "Created sync changes object with %@ addition change sets, and %@ deletion change sets for period %@ to %@", buf, 0x2Au);
+        v152 = v103;
+        v153 = 2112;
+        v154 = v106;
+        v155 = 2112;
+        v156 = v107;
+        v157 = 2112;
+        v158 = v108;
+        _os_log_impl(&dword_191750000, v100, OS_LOG_TYPE_INFO, "Created sync changes object with %@ addition change sets, and %@ deletion change sets for period %@ to %@", buf, 0x2Au);
 
-        v64 = v128;
+        v64 = v127;
       }
 
       v8 = 0;
-      v5 = v115;
-      v2 = v116;
-      v65 = v126;
-      v54 = v111;
+      v5 = v114;
+      v2 = v115;
+      v65 = v125;
+      v54 = v110;
     }
 
     else
     {
       v64 = +[_CDLogging syncChannel];
-      v65 = v126;
+      v65 = v125;
       if (os_log_type_enabled(v64, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
@@ -1945,33 +1931,31 @@ LABEL_64:
   v12 = *(v11 + 40);
   *(v11 + 40) = v10;
 LABEL_67:
-
-  v72 = *MEMORY[0x1E69E9840];
 }
 
 void __51___DKKnowledgeStorage_saveChangeSetsForSync_error___block_invoke_2(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v3)
   {
-    v4 = *v16;
+    v4 = *v15;
     while (2)
     {
       v5 = 0;
       do
       {
-        if (*v16 != v4)
+        if (*v15 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = [*(*(&v15 + 1) + 8 * v5) insertInManagedObjectContext:*(a1 + 40)];
+        v6 = [*(*(&v14 + 1) + 8 * v5) insertInManagedObjectContext:*(a1 + 40)];
         v7 = v6 == 0;
 
         if (v7)
@@ -1981,14 +1965,14 @@ void __51___DKKnowledgeStorage_saveChangeSetsForSync_error___block_invoke_2(uint
           v12 = *(v11 + 40);
           *(v11 + 40) = v10;
 
-          goto LABEL_12;
+          return;
         }
 
         ++v5;
       }
 
       while (v3 != v5);
-      v3 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v3)
       {
         continue;
@@ -2006,9 +1990,6 @@ void __51___DKKnowledgeStorage_saveChangeSetsForSync_error___block_invoke_2(uint
     [v8 save:&obj];
     objc_storeStrong((v9 + 40), obj);
   }
-
-LABEL_12:
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __74___DKKnowledgeStorage_lastSequenceNumberForChangeSetWithEntityName_error___block_invoke_2(void *a1)
@@ -2252,7 +2233,7 @@ uint64_t __56___DKKnowledgeStorage__databaseChangedWithNotification___block_invo
 
 void __56___DKKnowledgeStorage__databaseChangedWithNotification___block_invoke_2(uint64_t a1)
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) userInfo];
   v3 = [v2 valueForKey:*MEMORY[0x1E695D328]];
   v4 = [v2 valueForKey:*MEMORY[0x1E695D2F8]];
@@ -2275,7 +2256,7 @@ void __56___DKKnowledgeStorage__databaseChangedWithNotification___block_invoke_2
 
       v11 = objc_opt_new();
       v12 = [MEMORY[0x1E695DF00] date];
-      v38 = v11;
+      v37 = v11;
       v13 = [v11 objectsFromManagedObjects:v9];
       v14 = *(*(a1 + 56) + 8);
       v15 = *(v14 + 40);
@@ -2291,9 +2272,9 @@ void __56___DKKnowledgeStorage__databaseChangedWithNotification___block_invoke_2
         v19 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(*(*(*(a1 + 56) + 8) + 40), "count")}];
         v20 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v9, "count")}];
         *buf = 138412546;
-        v40 = v19;
-        v41 = 2112;
-        v42 = v20;
+        v39 = v19;
+        v40 = 2112;
+        v41 = v20;
         _os_log_impl(&dword_191750000, v18, OS_LOG_TYPE_INFO, "Converted %@ of %@ inserted synced event objects", buf, 0x16u);
       }
     }
@@ -2333,63 +2314,61 @@ void __56___DKKnowledgeStorage__databaseChangedWithNotification___block_invoke_2
         v35 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(*(*(*(a1 + 64) + 8) + 40), "count")}];
         v36 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v25, "count")}];
         *buf = 138412546;
-        v40 = v35;
-        v41 = 2112;
-        v42 = v36;
+        v39 = v35;
+        v40 = 2112;
+        v41 = v36;
         _os_log_impl(&dword_191750000, v34, OS_LOG_TYPE_INFO, "Converted %@ of %@ deleted synced event objects", buf, 0x16u);
       }
     }
   }
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 void __56___DKKnowledgeStorage__databaseChangedWithNotification___block_invoke_799(uint64_t a1)
 {
-  v63 = *MEMORY[0x1E69E9840];
-  v33 = *(*(a1 + 32) + 56);
-  objc_sync_enter(v33);
+  v62 = *MEMORY[0x1E69E9840];
+  v32 = *(*(a1 + 32) + 56);
+  objc_sync_enter(v32);
+  v49 = 0u;
   v50 = 0u;
   v51 = 0u;
   v52 = 0u;
-  v53 = 0u;
   obj = *(*(a1 + 32) + 56);
-  v2 = [obj countByEnumeratingWithState:&v50 objects:v62 count:16];
+  v2 = [obj countByEnumeratingWithState:&v49 objects:v61 count:16];
   if (v2)
   {
-    v3 = *v51;
-    v34 = v49;
+    v3 = *v50;
+    v33 = v48;
     do
     {
       v4 = 0;
       do
       {
-        if (*v51 != v3)
+        if (*v50 != v3)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v50 + 1) + 8 * v4);
+        v5 = *(*(&v49 + 1) + 8 * v4);
         if (objc_opt_respondsToSelector())
         {
           v6 = *(a1 + 32);
           v7 = *(v6 + 32);
-          v48[0] = MEMORY[0x1E69E9820];
-          v48[1] = 3221225472;
-          v49[0] = __56___DKKnowledgeStorage__databaseChangedWithNotification___block_invoke_2_802;
-          v49[1] = &unk_1E73693D8;
-          v49[2] = v5;
-          v49[3] = v6;
-          v49[4] = *(a1 + 72);
-          v8 = v48;
+          v47[0] = MEMORY[0x1E69E9820];
+          v47[1] = 3221225472;
+          v48[0] = __56___DKKnowledgeStorage__databaseChangedWithNotification___block_invoke_2_802;
+          v48[1] = &unk_1E73693D8;
+          v48[2] = v5;
+          v48[3] = v6;
+          v48[4] = *(a1 + 72);
+          v8 = v47;
           v9 = v7;
           v10 = os_transaction_create();
           block = MEMORY[0x1E69E9820];
-          v55 = 3221225472;
-          v56 = __cd_dispatch_async_capture_tx_block_invoke_5;
-          v57 = &unk_1E7367818;
-          v58 = v10;
-          v59 = v8;
+          v54 = 3221225472;
+          v55 = __cd_dispatch_async_capture_tx_block_invoke_5;
+          v56 = &unk_1E7367818;
+          v57 = v10;
+          v58 = v8;
           v11 = v10;
           dispatch_async(v9, &block);
         }
@@ -2398,53 +2377,53 @@ void __56___DKKnowledgeStorage__databaseChangedWithNotification___block_invoke_7
       }
 
       while (v2 != v4);
-      v2 = [obj countByEnumeratingWithState:&v50 objects:v62 count:16];
+      v2 = [obj countByEnumeratingWithState:&v49 objects:v61 count:16];
     }
 
     while (v2);
   }
 
-  objc_sync_exit(v33);
+  objc_sync_exit(v32);
   if ([*(a1 + 40) count] && objc_msgSend(*(*(*(a1 + 56) + 8) + 40), "count"))
   {
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
     v45 = 0u;
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
     obja = *(a1 + 40);
-    v12 = [obja countByEnumeratingWithState:&v44 objects:v61 count:16];
+    v12 = [obja countByEnumeratingWithState:&v43 objects:v60 count:16];
     if (v12)
     {
-      v13 = *v45;
+      v13 = *v44;
       do
       {
         v14 = 0;
         do
         {
-          if (*v45 != v13)
+          if (*v44 != v13)
           {
             objc_enumerationMutation(obja);
           }
 
-          v15 = *(*(&v44 + 1) + 8 * v14);
+          v15 = *(*(&v43 + 1) + 8 * v14);
           v16 = *(a1 + 32);
           v17 = *(v16 + 32);
-          v43[0] = MEMORY[0x1E69E9820];
-          v43[1] = 3221225472;
-          v43[2] = __56___DKKnowledgeStorage__databaseChangedWithNotification___block_invoke_3;
-          v43[3] = &unk_1E7368808;
-          v43[4] = v15;
-          v43[5] = v16;
-          v43[6] = *(a1 + 56);
-          v18 = v43;
+          v42[0] = MEMORY[0x1E69E9820];
+          v42[1] = 3221225472;
+          v42[2] = __56___DKKnowledgeStorage__databaseChangedWithNotification___block_invoke_3;
+          v42[3] = &unk_1E7368808;
+          v42[4] = v15;
+          v42[5] = v16;
+          v42[6] = *(a1 + 56);
+          v18 = v42;
           v19 = v17;
           v20 = os_transaction_create();
           block = MEMORY[0x1E69E9820];
-          v55 = 3221225472;
-          v56 = __cd_dispatch_async_capture_tx_block_invoke_5;
-          v57 = &unk_1E7367818;
-          v58 = v20;
-          v59 = v18;
+          v54 = 3221225472;
+          v55 = __cd_dispatch_async_capture_tx_block_invoke_5;
+          v56 = &unk_1E7367818;
+          v57 = v20;
+          v58 = v18;
           v21 = v20;
           dispatch_async(v19, &block);
 
@@ -2452,7 +2431,7 @@ void __56___DKKnowledgeStorage__databaseChangedWithNotification___block_invoke_7
         }
 
         while (v12 != v14);
-        v12 = [obja countByEnumeratingWithState:&v44 objects:v61 count:16];
+        v12 = [obja countByEnumeratingWithState:&v43 objects:v60 count:16];
       }
 
       while (v12);
@@ -2461,44 +2440,44 @@ void __56___DKKnowledgeStorage__databaseChangedWithNotification___block_invoke_7
 
   if ([*(a1 + 48) count] && objc_msgSend(*(*(*(a1 + 64) + 8) + 40), "count"))
   {
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
     v40 = 0u;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
     objb = *(a1 + 48);
-    v22 = [objb countByEnumeratingWithState:&v39 objects:v60 count:16];
+    v22 = [objb countByEnumeratingWithState:&v38 objects:v59 count:16];
     if (v22)
     {
-      v23 = *v40;
+      v23 = *v39;
       do
       {
         v24 = 0;
         do
         {
-          if (*v40 != v23)
+          if (*v39 != v23)
           {
             objc_enumerationMutation(objb);
           }
 
-          v25 = *(*(&v39 + 1) + 8 * v24);
+          v25 = *(*(&v38 + 1) + 8 * v24);
           v26 = *(a1 + 32);
           v27 = *(v26 + 32);
-          v38[0] = MEMORY[0x1E69E9820];
-          v38[1] = 3221225472;
-          v38[2] = __56___DKKnowledgeStorage__databaseChangedWithNotification___block_invoke_4;
-          v38[3] = &unk_1E7368808;
-          v38[4] = v25;
-          v38[5] = v26;
-          v38[6] = *(a1 + 64);
-          v28 = v38;
+          v37[0] = MEMORY[0x1E69E9820];
+          v37[1] = 3221225472;
+          v37[2] = __56___DKKnowledgeStorage__databaseChangedWithNotification___block_invoke_4;
+          v37[3] = &unk_1E7368808;
+          v37[4] = v25;
+          v37[5] = v26;
+          v37[6] = *(a1 + 64);
+          v28 = v37;
           v29 = v27;
           v30 = os_transaction_create();
           block = MEMORY[0x1E69E9820];
-          v55 = 3221225472;
-          v56 = __cd_dispatch_async_capture_tx_block_invoke_5;
-          v57 = &unk_1E7367818;
-          v58 = v30;
-          v59 = v28;
+          v54 = 3221225472;
+          v55 = __cd_dispatch_async_capture_tx_block_invoke_5;
+          v56 = &unk_1E7367818;
+          v57 = v30;
+          v58 = v28;
           v31 = v30;
           dispatch_async(v29, &block);
 
@@ -2506,14 +2485,12 @@ void __56___DKKnowledgeStorage__databaseChangedWithNotification___block_invoke_7
         }
 
         while (v22 != v24);
-        v22 = [objb countByEnumeratingWithState:&v39 objects:v60 count:16];
+        v22 = [objb countByEnumeratingWithState:&v38 objects:v59 count:16];
       }
 
       while (v22);
     }
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 void __62___DKKnowledgeStorage_incrementInsertsAndDeletesObserverCount__block_invoke(uint64_t a1)
@@ -2579,12 +2556,12 @@ void __55___DKKnowledgeStorage__DKSyncPeer__syncPeersWithError___block_invoke(ui
 
 void __55___DKKnowledgeStorage__DKSyncPeer__syncPeersWithError___block_invoke_2(void *a1)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v2 = a1[4];
   v3 = a1[5];
-  v32 = 0;
-  v4 = [v2 executeFetchRequest:v3 error:&v32];
-  v5 = v32;
+  v31 = 0;
+  v4 = [v2 executeFetchRequest:v3 error:&v31];
+  v5 = v31;
   if ([v4 count])
   {
     v6 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v4, "count")}];
@@ -2592,27 +2569,27 @@ void __55___DKKnowledgeStorage__DKSyncPeer__syncPeersWithError___block_invoke_2(
     v8 = *(v7 + 40);
     *(v7 + 40) = v6;
 
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     v9 = v4;
-    v10 = [v9 countByEnumeratingWithState:&v28 objects:v33 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v27 objects:v32 count:16];
     if (v10)
     {
       v11 = v10;
-      v27 = v5;
-      v12 = *v29;
+      v26 = v5;
+      v12 = *v28;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v29 != v12)
+          if (*v28 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v28 + 1) + 8 * i);
+          v14 = *(*(&v27 + 1) + 8 * i);
           v15 = objc_opt_new();
           v16 = [v14 cloudID];
           [v15 setZoneName:v16];
@@ -2638,11 +2615,11 @@ void __55___DKKnowledgeStorage__DKSyncPeer__syncPeersWithError___block_invoke_2(
           [*(*(a1[6] + 8) + 40) addObject:v15];
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v28 objects:v33 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v27 objects:v32 count:16];
       }
 
       while (v11);
-      v5 = v27;
+      v5 = v26;
     }
 
 LABEL_14:
@@ -2666,8 +2643,6 @@ LABEL_14:
   }
 
 LABEL_15:
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __55___DKKnowledgeStorage__DKSyncPeer__saveSyncPeer_error___block_invoke(uint64_t a1)
@@ -2702,7 +2677,7 @@ void __55___DKKnowledgeStorage__DKSyncPeer__saveSyncPeer_error___block_invoke(ui
     v6 = +[_CDLogging knowledgeChannel];
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __55___DKKnowledgeStorage__DKSyncPeer__saveSyncPeer_error___block_invoke_cold_1(a1, a1 + 48);
+      __55___DKKnowledgeStorage__DKSyncPeer__saveSyncPeer_error___block_invoke_cold_1(a1);
     }
   }
 }
@@ -2805,7 +2780,7 @@ void __69___DKKnowledgeStorage__DKKeyValueStore__keyValueObjectForKey_domain___b
     v9 = +[_CDLogging knowledgeChannel];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __69___DKKnowledgeStorage__DKKeyValueStore__keyValueObjectForKey_domain___block_invoke_cold_1(a1);
+      __69___DKKnowledgeStorage__DKKeyValueStore__keyValueObjectForKey_domain___block_invoke_cold_1();
     }
   }
 }
@@ -2834,7 +2809,7 @@ LABEL_6:
     v6 = +[_CDLogging knowledgeChannel];
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __69___DKKnowledgeStorage__DKKeyValueStore__keyValueObjectForKey_domain___block_invoke_2_cold_1(a1);
+      __69___DKKnowledgeStorage__DKKeyValueStore__keyValueObjectForKey_domain___block_invoke_2_cold_1();
     }
 
     goto LABEL_6;
@@ -2873,14 +2848,14 @@ void __73___DKKnowledgeStorage__DKKeyValueStore__setKeyValueObject_forKey_domain
     v8 = +[_CDLogging knowledgeChannel];
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __73___DKKnowledgeStorage__DKKeyValueStore__setKeyValueObject_forKey_domain___block_invoke_cold_1(a1);
+      __73___DKKnowledgeStorage__DKKeyValueStore__setKeyValueObject_forKey_domain___block_invoke_cold_1();
     }
   }
 }
 
 void __73___DKKnowledgeStorage__DKKeyValueStore__setKeyValueObject_forKey_domain___block_invoke_2(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E695D5B8] insertNewObjectForEntityForName:@"KeyValue" inManagedObjectContext:*(a1 + 32)];
   [v2 setDomain:*(a1 + 40)];
   [v2 setKey:*(a1 + 48)];
@@ -2888,28 +2863,26 @@ void __73___DKKnowledgeStorage__DKKeyValueStore__setKeyValueObject_forKey_domain
   if ([*(a1 + 32) hasChanges])
   {
     v3 = *(a1 + 32);
-    v9 = 0;
-    [v3 save:&v9];
-    v4 = v9;
+    v8 = 0;
+    [v3 save:&v8];
+    v4 = v8;
     if (v4)
     {
       v5 = +[_CDLogging knowledgeChannel];
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        v8 = *(a1 + 40);
-        v7 = *(a1 + 48);
+        v7 = *(a1 + 40);
+        v6 = *(a1 + 48);
         *buf = 138412802;
-        v11 = v7;
-        v12 = 2112;
-        v13 = v8;
-        v14 = 2112;
-        v15 = v4;
+        v10 = v6;
+        v11 = 2112;
+        v12 = v7;
+        v13 = 2112;
+        v14 = v4;
         _os_log_error_impl(&dword_191750000, v5, OS_LOG_TYPE_ERROR, "Failed to save '%@' in domain '%@': %@", buf, 0x20u);
       }
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __75___DKKnowledgeStorage__DKKeyValueStore__removeKeyValueObjectForKey_domain___block_invoke(uint64_t a1)
@@ -2928,61 +2901,59 @@ void __75___DKKnowledgeStorage__DKKeyValueStore__removeKeyValueObjectForKey_doma
     v4 = +[_CDLogging knowledgeChannel];
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __75___DKKnowledgeStorage__DKKeyValueStore__removeKeyValueObjectForKey_domain___block_invoke_cold_1(a1);
+      __75___DKKnowledgeStorage__DKKeyValueStore__removeKeyValueObjectForKey_domain___block_invoke_cold_1();
     }
   }
 }
 
 void __60___DKKnowledgeStorage_DataMigration__updateToFinalMetadata___block_invoke()
 {
-  v17[10] = *MEMORY[0x1E69E9840];
-  v16[0] = @"serializedInteraction";
-  v14 = +[_DKIntentMetadataKey serializedInteraction];
-  v17[0] = v14;
-  v16[1] = @"decayRate";
+  v16[10] = *MEMORY[0x1E69E9840];
+  v15[0] = @"serializedInteraction";
+  v13 = +[_DKIntentMetadataKey serializedInteraction];
+  v16[0] = v13;
+  v15[1] = @"decayRate";
   v0 = +[_CDPortraitMetadataKey decayRate];
-  v17[1] = v0;
-  v16[2] = @"algorithm";
+  v16[1] = v0;
+  v15[2] = @"algorithm";
   v1 = +[_CDPortraitMetadataKey algorithm];
-  v17[2] = v1;
-  v16[3] = @"score";
+  v16[2] = v1;
+  v15[3] = @"score";
   v2 = +[_CDPortraitMetadataKey score];
-  v17[3] = v2;
-  v16[4] = @"sentimentScore";
+  v16[3] = v2;
+  v15[4] = @"sentimentScore";
   v3 = +[_CDPortraitMetadataKey sentimentScore];
-  v17[4] = v3;
-  v16[5] = @"osBuild";
+  v16[4] = v3;
+  v15[5] = @"osBuild";
   v4 = +[_CDPortraitMetadataKey osBuild];
-  v17[5] = v4;
-  v16[6] = @"assetVersion";
+  v16[5] = v4;
+  v15[6] = @"assetVersion";
   v5 = +[_CDPortraitMetadataKey assetVersion];
-  v17[6] = v5;
-  v16[7] = @"compatibilityVersion";
+  v16[6] = v5;
+  v15[7] = @"compatibilityVersion";
   v6 = +[_CDPortraitMetadataKey compatibilityVersion];
-  v17[7] = v6;
-  v16[8] = @"name";
+  v16[7] = v6;
+  v15[8] = @"name";
   v7 = +[_CDEntityMetadataKey name];
-  v17[8] = v7;
-  v16[9] = @"bestLanguage";
+  v16[8] = v7;
+  v15[9] = @"bestLanguage";
   v8 = +[_CDEntityMetadataKey bestLanguage];
-  v17[9] = v8;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:10];
+  v16[9] = v8;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:10];
   v10 = _MergedGlobals_4;
   _MergedGlobals_4 = v9;
 
-  v15[0] = @"_DKGlanceLaunchMetadataKey-deviceIdentifier";
-  v15[1] = @"_DKSunriseSunsetMetadataKey__previousSunset";
-  v15[2] = @"_DKSunriseSunsetMetadataKey__previousSunrise";
-  v15[3] = @"_DKSunriseSunsetMetadataKey__currentSunset";
-  v15[4] = @"_DKSunriseSunsetMetadataKey__currentSunrise";
-  v15[5] = @"_DKSunriseSunsetMetadataKey__nextSunset";
-  v15[6] = @"_DKSunriseSunsetMetadataKey__nextSunrise";
-  v15[7] = @"_DKSunriseSunsetMetadataKey__isDaylight";
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:8];
+  v14[0] = @"_DKGlanceLaunchMetadataKey-deviceIdentifier";
+  v14[1] = @"_DKSunriseSunsetMetadataKey__previousSunset";
+  v14[2] = @"_DKSunriseSunsetMetadataKey__previousSunrise";
+  v14[3] = @"_DKSunriseSunsetMetadataKey__currentSunset";
+  v14[4] = @"_DKSunriseSunsetMetadataKey__currentSunrise";
+  v14[5] = @"_DKSunriseSunsetMetadataKey__nextSunset";
+  v14[6] = @"_DKSunriseSunsetMetadataKey__nextSunrise";
+  v14[7] = @"_DKSunriseSunsetMetadataKey__isDaylight";
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:8];
   v12 = qword_1EADBD618;
   qword_1EADBD618 = v11;
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 id __98___DKKnowledgeStorage_DataMigration__updateDataBeforeAutoMigrationFromVersion_inStoreAtURL_error___block_invoke(void *a1)
@@ -3104,7 +3075,7 @@ LABEL_3:
   return v4;
 }
 
-void __43___DKKnowledgeStorage_deleteObjects_error___block_invoke(void *a1)
+void __43___DKKnowledgeStorage_deleteObjects_error___block_invoke(uint64_t a1)
 {
   v3 = OUTLINED_FUNCTION_9_4(a1);
   v6 = [(_DKKnowledgeStorage *)v3 _deleteObjects:v4 error:v5];
@@ -3112,7 +3083,7 @@ void __43___DKKnowledgeStorage_deleteObjects_error___block_invoke(void *a1)
   *(*(*(v1 + 48) + 8) + 24) = v6;
 }
 
-void __62___DKKnowledgeStorage_deleteAllEventsMatchingPredicate_error___block_invoke(void *a1)
+void __62___DKKnowledgeStorage_deleteAllEventsMatchingPredicate_error___block_invoke(uint64_t a1)
 {
   v3 = OUTLINED_FUNCTION_9_4(a1);
   v6 = [(_DKKnowledgeStorage *)v3 _deleteAllEventsMatchingPredicate:v4 error:v5];
@@ -3185,7 +3156,7 @@ void __78___DKKnowledgeStorage_startSyncDownFromCloudWithResponseQueue_withCompl
 
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    block = 0;
+    LOWORD(block) = 0;
     OUTLINED_FUNCTION_20_3();
     _os_log_impl(v6, v7, OS_LOG_TYPE_INFO, v8, v9, 2u);
   }
@@ -3252,7 +3223,7 @@ void __74___DKKnowledgeStorage_startSyncUpToCloudWithResponseQueue_withCompletio
 
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    block = 0;
+    LOWORD(block) = 0;
     OUTLINED_FUNCTION_20_3();
     _os_log_impl(v6, v7, OS_LOG_TYPE_INFO, v8, v9, 2u);
   }
@@ -3319,14 +3290,6 @@ void __57___DKKnowledgeStorage_lastChangeSetWithEntityName_error___block_invoke(
   }
 }
 
-void __42___DKKnowledgeStorage__saveObjects_error___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_9(&dword_191750000, v0, v1, "saveObjects caught %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 void __42___DKKnowledgeStorage__saveObjects_error___block_invoke_cold_2(uint64_t a1, uint64_t *a2, uint64_t a3, void *a4)
 {
   OUTLINED_FUNCTION_17_4(a1, *a2);
@@ -3337,28 +3300,16 @@ void __42___DKKnowledgeStorage__saveObjects_error___block_invoke_cold_2(uint64_t
 
 void __46___DKKnowledgeStorage_eventCountPerStreamName__block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __66___DKKnowledgeStorage_saveHistogram_responseQueue_withCompletion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_9(&dword_191750000, v0, v1, "saveHistogram caught %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __56___DKKnowledgeStorage_fetchLocalChangesSinceDate_error___block_invoke_733_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_8();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __56___DKKnowledgeStorage_fetchLocalChangesSinceDate_error___block_invoke_733_cold_2()
@@ -3370,32 +3321,25 @@ void __56___DKKnowledgeStorage_fetchLocalChangesSinceDate_error___block_invoke_7
 
 void __56___DKKnowledgeStorage_fetchLocalChangesSinceDate_error___block_invoke_733_cold_3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_8();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __56___DKKnowledgeStorage_fetchLocalChangesSinceDate_error___block_invoke_733_cold_4(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(a1, "count")}];
   v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(a2, "count")}];
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_5();
   _os_log_debug_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __56___DKKnowledgeStorage_fetchLocalChangesSinceDate_error___block_invoke_733_cold_5()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_8();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __56___DKKnowledgeStorage_fetchLocalChangesSinceDate_error___block_invoke_733_cold_6()
@@ -3435,174 +3379,107 @@ void __55___DKKnowledgeStorage_fetchSyncChangesSinceDate_error___block_invoke_75
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __51___DKKnowledgeStorage_saveChangeSetsForSync_error___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_9(&dword_191750000, v0, v1, "saveChangesForSync caught %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 void __74___DKKnowledgeStorage_lastSequenceNumberForChangeSetWithEntityName_error___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __78___DKKnowledgeStorage_startSyncDownFromCloudWithResponseQueue_withCompletion___block_invoke_3_cold_1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = [a1 error];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_10(&dword_191750000, a2, v4, "Failed to sync down from the cloud: %@", v6);
-
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_10(&dword_191750000, a2, v4, "Failed to sync down from the cloud: %@", v5);
 }
 
 void __74___DKKnowledgeStorage_startSyncUpToCloudWithResponseQueue_withCompletion___block_invoke_3_cold_1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = [a1 error];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_10(&dword_191750000, a2, v4, "Failed to sync up to the cloud: %@", v6);
-
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_10(&dword_191750000, a2, v4, "Failed to sync up to the cloud: %@", v5);
 }
 
 void __56___DKKnowledgeStorage__databaseChangedWithNotification___block_invoke_2_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(a1, "count")}];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_5();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __56___DKKnowledgeStorage__databaseChangedWithNotification___block_invoke_2_cold_2(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(a1, "count")}];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_5();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __55___DKKnowledgeStorage__DKSyncPeer__syncPeersWithError___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *(*(*a1 + 8) + 40);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_191750000, a2, OS_LOG_TYPE_ERROR, "Failed to fetch sync peers: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_191750000, a2, OS_LOG_TYPE_ERROR, "Failed to fetch sync peers: %@", &v3, 0xCu);
 }
 
 void __55___DKKnowledgeStorage__DKSyncPeer__syncPeersWithError___block_invoke_2_cold_1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_191750000, v0, OS_LOG_TYPE_ERROR, "Failed to fetch sync peers: %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_191750000, v0, OS_LOG_TYPE_ERROR, "Failed to fetch sync peers: %@", v1, 0xCu);
 }
 
-void __55___DKKnowledgeStorage__DKSyncPeer__saveSyncPeer_error___block_invoke_cold_1(uint64_t a1, uint64_t a2)
+void __55___DKKnowledgeStorage__DKSyncPeer__saveSyncPeer_error___block_invoke_cold_1(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v3 = [*(a1 + 40) identifier];
-  v4 = *(*(*a2 + 8) + 40);
+  v1 = [*(a1 + 40) identifier];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 void __55___DKKnowledgeStorage__DKSyncPeer__saveSyncPeer_error___block_invoke_2_cold_1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  _os_log_fault_impl(&dword_191750000, v0, OS_LOG_TYPE_FAULT, "saveSyncPeer caught %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_191750000, v0, OS_LOG_TYPE_FAULT, "saveSyncPeer caught %@", v1, 0xCu);
 }
 
 void __55___DKKnowledgeStorage__DKSyncPeer__saveSyncPeer_error___block_invoke_2_cold_2(id *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [*a1 identifier];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __51___DKKnowledgeStorage__DKSyncPeer__removeSyncPeer___block_invoke_cold_1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [*(a1 + 48) identifier];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
-void __69___DKKnowledgeStorage__DKKeyValueStore__keyValueObjectForKey_domain___block_invoke_cold_1(uint64_t a1)
+void __69___DKKnowledgeStorage__DKKeyValueStore__keyValueObjectForKey_domain___block_invoke_2_cold_1()
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 48);
-  v2 = *(a1 + 56);
-  OUTLINED_FUNCTION_0_30();
-  OUTLINED_FUNCTION_1_24(&dword_191750000, v3, v4, "Failed to fetch '%@' in domain '%@' due to unavailable store", v5, v6, v7, v8, v10);
-  v9 = *MEMORY[0x1E69E9840];
-}
-
-void __69___DKKnowledgeStorage__DKKeyValueStore__keyValueObjectForKey_domain___block_invoke_2_cold_1(uint64_t a1)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 48);
-  v2 = *(a1 + 56);
-  OUTLINED_FUNCTION_0_30();
-  v8 = v3;
-  v9 = v4;
-  _os_log_error_impl(&dword_191750000, v5, OS_LOG_TYPE_ERROR, "Failed to fetch '%@' in domain '%@': %@", v7, 0x20u);
   v6 = *MEMORY[0x1E69E9840];
-}
-
-void __73___DKKnowledgeStorage__DKKeyValueStore__setKeyValueObject_forKey_domain___block_invoke_cold_1(uint64_t a1)
-{
-  v11 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 40);
-  v1 = *(a1 + 48);
   OUTLINED_FUNCTION_0_30();
-  OUTLINED_FUNCTION_1_24(&dword_191750000, v3, v4, "Failed to save '%@' in domain '%@' due to unavailable store", v5, v6, v7, v8, v10);
-  v9 = *MEMORY[0x1E69E9840];
+  v4 = v0;
+  v5 = v1;
+  _os_log_error_impl(&dword_191750000, v2, OS_LOG_TYPE_ERROR, "Failed to fetch '%@' in domain '%@': %@", v3, 0x20u);
 }
 
 void __73___DKKnowledgeStorage__DKKeyValueStore__setKeyValueObject_forKey_domain___block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_191750000, a2, OS_LOG_TYPE_FAULT, "setKeyValueObject caught %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-void __75___DKKnowledgeStorage__DKKeyValueStore__removeKeyValueObjectForKey_domain___block_invoke_cold_1(uint64_t a1)
-{
-  v11 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 48);
-  v2 = *(a1 + 56);
-  OUTLINED_FUNCTION_0_30();
-  OUTLINED_FUNCTION_1_24(&dword_191750000, v3, v4, "Failed to remove '%@' in domain '%@' due to unavailable store", v5, v6, v7, v8, v10);
-  v9 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_191750000, a2, OS_LOG_TYPE_FAULT, "setKeyValueObject caught %@", &v2, 0xCu);
 }
 
 void __100___DKKnowledgeStorage_DataMigration__updateDataAfterAutoMigrationToVersion_inPersistentStore_error___block_invoke_cold_1(void *a1, void *a2, _BYTE *a3)
@@ -3615,14 +3492,6 @@ void __100___DKKnowledgeStorage_DataMigration__updateDataAfterAutoMigrationToVer
   v8 = [v9 mutableCopy];
   [(_DKKnowledgeStorage *)a1[6] updateToFinalMetadata:v8];
   *a3 = [objc_opt_class() copyMetadata:v8 toManagedObject:a2];
-}
-
-void __100___DKKnowledgeStorage_DataMigration__updateDataAfterAutoMigrationToVersion_inPersistentStore_error___block_invoke_cold_2()
-{
-  v7 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_2(&dword_191750000, MEMORY[0x1E69E9C10], v0, "Error unarchiving object %@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __100___DKKnowledgeStorage_DataMigration__updateDataAfterAutoMigrationToVersion_inPersistentStore_error___block_invoke_cold_3(void *a1, uint64_t a2, uint64_t a3, _BYTE *a4)

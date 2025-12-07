@@ -179,7 +179,7 @@
 
   if (!v3)
   {
-    v4 = _EXDefaultLog();
+    v4 = _EXDefaultLog(v2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *v6 = 0;

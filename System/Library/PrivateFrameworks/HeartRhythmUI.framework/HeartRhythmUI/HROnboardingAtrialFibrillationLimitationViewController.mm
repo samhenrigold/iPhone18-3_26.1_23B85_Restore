@@ -35,43 +35,43 @@
 
 + (id)makeSpeedBumpItem
 {
-  v25[4] = *MEMORY[0x277D85DE8];
-  v2 = HRHeartRhythmUIFrameworkBundle();
-  v22 = [v2 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETECTION_ONBOARDING_SHOULD_KNOW_TITLE" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
+  v29[4] = *MEMORY[0x277D85DE8];
+  v2 = HRHeartRhythmUIFrameworkBundle(self);
+  v26 = [v2 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETECTION_ONBOARDING_SHOULD_KNOW_TITLE" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
 
-  v3 = HRHeartRhythmUIFrameworkBundle();
-  v24 = [v3 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETECTION_ONBOARDING_SHOULD_KNOW_BULLET_1_TITLE" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
+  v4 = HRHeartRhythmUIFrameworkBundle(v3);
+  v28 = [v4 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETECTION_ONBOARDING_SHOULD_KNOW_BULLET_1_TITLE" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
 
-  v4 = HRHeartRhythmUIFrameworkBundle();
-  v23 = [v4 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETECTION_ONBOARDING_SHOULD_KNOW_BULLET_1_BODY" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
+  v6 = HRHeartRhythmUIFrameworkBundle(v5);
+  v27 = [v6 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETECTION_ONBOARDING_SHOULD_KNOW_BULLET_1_BODY" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
 
-  v5 = [[HRSpeedBumpBubble alloc] initWithTitle:v24 description:v23];
-  v6 = HRHeartRhythmUIFrameworkBundle();
-  v21 = [v6 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETECTION_ONBOARDING_SHOULD_KNOW_BULLET_2_TITLE" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
+  v7 = [[HRSpeedBumpBubble alloc] initWithTitle:v28 description:v27];
+  v8 = HRHeartRhythmUIFrameworkBundle(v7);
+  v25 = [v8 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETECTION_ONBOARDING_SHOULD_KNOW_BULLET_2_TITLE" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
 
-  v7 = HRHeartRhythmUIFrameworkBundle();
-  v20 = [v7 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETECTION_ONBOARDING_SHOULD_KNOW_BULLET_2_BODY" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
+  v10 = HRHeartRhythmUIFrameworkBundle(v9);
+  v24 = [v10 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETECTION_ONBOARDING_SHOULD_KNOW_BULLET_2_BODY" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
 
-  v8 = [[HRSpeedBumpBubble alloc] initWithTitle:v21 description:v20];
-  v9 = HRHeartRhythmUIFrameworkBundle();
-  v10 = [v9 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETECTION_ONBOARDING_SHOULD_KNOW_BULLET_3_TITLE" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
+  v11 = [[HRSpeedBumpBubble alloc] initWithTitle:v25 description:v24];
+  v12 = HRHeartRhythmUIFrameworkBundle(v11);
+  v13 = [v12 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETECTION_ONBOARDING_SHOULD_KNOW_BULLET_3_TITLE" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
 
-  v11 = HRHeartRhythmUIFrameworkBundle();
-  v12 = [v11 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETECTION_ONBOARDING_SHOULD_KNOW_BULLET_3_BODY" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
+  v15 = HRHeartRhythmUIFrameworkBundle(v14);
+  v16 = [v15 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETECTION_ONBOARDING_SHOULD_KNOW_BULLET_3_BODY" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
 
-  v13 = [[HRSpeedBumpBubble alloc] initWithTitle:v10 description:v12];
-  v14 = HRHeartRhythmUIFrameworkBundle();
-  v15 = [v14 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETECTION_ONBOARDING_SHOULD_KNOW_BULLET_4_TITLE" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
+  v17 = [[HRSpeedBumpBubble alloc] initWithTitle:v13 description:v16];
+  v18 = HRHeartRhythmUIFrameworkBundle(v17);
+  v19 = [v18 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETECTION_ONBOARDING_SHOULD_KNOW_BULLET_4_TITLE" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
 
-  v16 = [[HRSpeedBumpBubble alloc] initWithTitle:v15 description:0];
-  v25[0] = v5;
-  v25[1] = v8;
-  v25[2] = v13;
-  v25[3] = v16;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:4];
-  v18 = [[HRSpeedBumpItem alloc] initWithTitle:v22 body:0 bubbles:v17 category:2];
+  v20 = [[HRSpeedBumpBubble alloc] initWithTitle:v19 description:0];
+  v29[0] = v7;
+  v29[1] = v11;
+  v29[2] = v17;
+  v29[3] = v20;
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:4];
+  v22 = [[HRSpeedBumpItem alloc] initWithTitle:v26 body:0 bubbles:v21 category:2];
 
-  return v18;
+  return v22;
 }
 
 - (void)viewControllerWillEnterAdaptiveModal

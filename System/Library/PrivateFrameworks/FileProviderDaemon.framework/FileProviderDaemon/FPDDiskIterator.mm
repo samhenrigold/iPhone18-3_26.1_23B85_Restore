@@ -9,16 +9,16 @@
 - (FPDDiskIterator)initWithURL:(id)l isDirectory:(BOOL)directory
 {
   directoryCopy = directory;
-  v19[2] = *MEMORY[0x1E69E9840];
+  v18[2] = *MEMORY[0x1E69E9840];
   lCopy = l;
   if (!lCopy)
   {
     [FPDDiskIterator initWithURL:a2 isDirectory:self];
   }
 
-  v18.receiver = self;
-  v18.super_class = FPDDiskIterator;
-  v9 = [(FPDDiskIterator *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = FPDDiskIterator;
+  v9 = [(FPDDiskIterator *)&v17 init];
   v10 = v9;
   if (v9)
   {
@@ -27,10 +27,10 @@
     if (directoryCopy)
     {
       path = [lCopy path];
-      v19[0] = [path fileSystemRepresentation];
-      v19[1] = 0;
+      v18[0] = [path fileSystemRepresentation];
+      v18[1] = 0;
 
-      v12 = fts_open(v19, 16, 0);
+      v12 = fts_open(v18, 16, 0);
       v10->_fts = v12;
       if (!v12)
       {
@@ -56,7 +56,6 @@
     [FPDDiskIterator initWithURL:v10 isDirectory:v15];
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -271,7 +270,7 @@ LABEL_55:
 
 - (void)initWithURL:(uint64_t)a1 isDirectory:(NSObject *)a2 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 24);
   v3 = @"no";
   v4 = *(a1 + 40);
@@ -280,34 +279,31 @@ LABEL_55:
     v3 = @"yes";
   }
 
-  v6 = 138412802;
-  v7 = v2;
-  v8 = 2112;
-  v9 = v3;
-  v10 = 2112;
-  v11 = v4;
-  _os_log_debug_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] FPDDiskIterator: creating iterator for url %@ isFile %@ error %@", &v6, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138412802;
+  v6 = v2;
+  v7 = 2112;
+  v8 = v3;
+  v9 = 2112;
+  v10 = v4;
+  _os_log_debug_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] FPDDiskIterator: creating iterator for url %@ isFile %@ error %@", &v5, 0x20u);
 }
 
 - (void)nextWithError:(uint64_t *)a1 .cold.1(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] FPDDiskIterator: pre-read error %@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] FPDDiskIterator: pre-read error %@", &v3, 0xCu);
 }
 
 - (void)nextWithError:(uint64_t *)a1 .cold.2(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] FPDDiskIterator: post-read error %@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] FPDDiskIterator: post-read error %@", &v3, 0xCu);
 }
 
 - (void)nextWithError:(uint64_t)a1 .cold.3(uint64_t a1, uint64_t a2)

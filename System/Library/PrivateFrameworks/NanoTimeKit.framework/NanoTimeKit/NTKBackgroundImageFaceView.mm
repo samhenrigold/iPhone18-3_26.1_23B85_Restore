@@ -458,10 +458,10 @@ LABEL_13:
     v35.f64[0] = 0.0;
     v36.f64[0] = 0.0;
     v37.f64[0] = 1.0;
-    v46 = NTKFindCubicBezierPoint(fraction, v35, 0.0, v36, 0.0, v37, 0.0, v34, v38, v39, v40, v41, v42, v43, v44, v45);
+    v46 = NTKFindCubicBezierPoint(fraction, v35, 0.0, v36, 0.0, v37, 0.0, v34, v38, v39, v40, v41, v42, v43, v44, v45, 0x3FF0000000000000uLL);
     v47 = self->_transitionViewTo;
     CGAffineTransformMakeScale(&v50, (1.0 - v46) * -0.1 + 1.0, (1.0 - v46) * -0.1 + 1.0);
-    [(UIView *)v47 setTransform:&v50, 0x3FF0000000000000, 0];
+    [(UIView *)v47 setTransform:&v50];
   }
 
 LABEL_14:

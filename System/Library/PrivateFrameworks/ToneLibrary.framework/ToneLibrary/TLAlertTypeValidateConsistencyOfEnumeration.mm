@@ -5,27 +5,27 @@
 
 void ___TLAlertTypeValidateConsistencyOfEnumeration_block_invoke()
 {
-  v41 = *MEMORY[0x1E69E9840];
-  v31 = 0;
-  v32[0] = &v31;
-  v32[1] = 0x2020000000;
-  v32[2] = 0x7FFFFFFFFFFFFFFFLL;
-  v29 = 0;
-  v30[0] = &v29;
-  v30[1] = 0x2020000000;
-  v30[2] = 0;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x2020000000;
-  v28 = 0;
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = ___TLAlertTypeValidateConsistencyOfEnumeration_block_invoke_2;
-  v24[3] = &unk_1E8579270;
-  v24[4] = &v25;
-  v24[5] = &v31;
-  v24[6] = &v29;
-  v0 = MEMORY[0x1DA730160](v24);
+  v61 = *MEMORY[0x1E69E9840];
+  v49 = 0;
+  v50 = &v49;
+  v51 = 0x2020000000;
+  v52 = 0x7FFFFFFFFFFFFFFFLL;
+  v45 = 0;
+  v46 = &v45;
+  v47 = 0x2020000000;
+  v48 = 0;
+  v41 = 0;
+  v42 = &v41;
+  v43 = 0x2020000000;
+  v44 = 0;
+  v40[0] = MEMORY[0x1E69E9820];
+  v40[1] = 3221225472;
+  v40[2] = ___TLAlertTypeValidateConsistencyOfEnumeration_block_invoke_2;
+  v40[3] = &unk_1E8579270;
+  v40[4] = &v41;
+  v40[5] = &v49;
+  v40[6] = &v45;
+  v0 = MEMORY[0x1DA730160](v40);
   v0[2](v0, 0);
   v0[2](v0, 1);
   v0[2](v0, 2);
@@ -55,141 +55,140 @@ void ___TLAlertTypeValidateConsistencyOfEnumeration_block_invoke()
   v0[2](v0, 26);
   v0[2](v0, 27);
   v0[2](v0, 28);
-  v0[2](v0, 29);
-  if (*(v32[0] + 24))
+  v1 = (v0[2])(v0, 29);
+  if (v50[3])
   {
-    v1 = TLLogGeneral();
-    v2 = os_log_type_enabled(v1, OS_LOG_TYPE_INFO);
+    v3 = TLLogGeneral(v1, v2);
+    v4 = os_log_type_enabled(v3, OS_LOG_TYPE_INFO);
 
-    if (v2)
+    if (v4)
     {
-      v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/ToneLibrary/Library/Playback/TLAlertType.m"];
-      v4 = TLLogGeneral();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/ToneLibrary/Library/Playback/TLAlertType.m"];
+      v9 = TLLogGeneral(v7, v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v5 = [v3 lastPathComponent];
-        v6 = [MEMORY[0x1E696AF00] callStackSymbols];
+        v10 = [v7 lastPathComponent];
+        v11 = [MEMORY[0x1E696AF00] callStackSymbols];
         *buf = 136381443;
-        v34 = "void _TLAlertTypeValidateConsistencyOfEnumeration(void)_block_invoke";
-        v35 = 2113;
-        v36 = v5;
-        v37 = 2049;
-        v38 = 229;
-        v39 = 2113;
-        v40 = v6;
-        _os_log_impl(&dword_1D9356000, v4, OS_LOG_TYPE_DEFAULT, "*** Assertion failure in %{private}s, %{private}@:%{private}lu.\n%{private}@", buf, 0x2Au);
+        v54 = "void _TLAlertTypeValidateConsistencyOfEnumeration(void)_block_invoke";
+        v55 = 2113;
+        v56 = v10;
+        v57 = 2049;
+        v58 = 229;
+        v59 = 2113;
+        v60 = v11;
+        _os_log_impl(&dword_1D9356000, v9, OS_LOG_TYPE_DEFAULT, "*** Assertion failure in %{private}s, %{private}@:%{private}lu.\n%{private}@", buf, 0x2Au);
       }
     }
 
     else
     {
-      v3 = TLLogGeneral();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+      v7 = TLLogGeneral(v5, v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         ___TLAlertTypeValidateConsistencyOfEnumeration_block_invoke_cold_1();
       }
     }
 
-    v7 = TLLogGeneral();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v14 = TLLogGeneral(v12, v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      ___TLAlertTypeValidateConsistencyOfEnumeration_block_invoke_cold_2(v32);
+      ___TLAlertTypeValidateConsistencyOfEnumeration_block_invoke_cold_2();
     }
   }
 
-  if (*(v30[0] + 24) == 29)
+  if (v46[3] == 29)
   {
-    v8 = 30;
+    v15 = 30;
   }
 
   else
   {
-    v9 = TLLogGeneral();
-    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_INFO);
-
-    if (v10)
-    {
-      v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/ToneLibrary/Library/Playback/TLAlertType.m"];
-      v12 = TLLogGeneral();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
-      {
-        v13 = [v11 lastPathComponent];
-        v14 = [MEMORY[0x1E696AF00] callStackSymbols];
-        *buf = 136381443;
-        v34 = "void _TLAlertTypeValidateConsistencyOfEnumeration(void)_block_invoke";
-        v35 = 2113;
-        v36 = v13;
-        v37 = 2049;
-        v38 = 232;
-        v39 = 2113;
-        v40 = v14;
-        _os_log_impl(&dword_1D9356000, v12, OS_LOG_TYPE_DEFAULT, "*** Assertion failure in %{private}s, %{private}@:%{private}lu.\n%{private}@", buf, 0x2Au);
-      }
-    }
-
-    else
-    {
-      v11 = TLLogGeneral();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-      {
-        ___TLAlertTypeValidateConsistencyOfEnumeration_block_invoke_cold_1();
-      }
-    }
-
-    v15 = TLLogGeneral();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
-    {
-      ___TLAlertTypeValidateConsistencyOfEnumeration_block_invoke_cold_4(v30);
-    }
-
-    v8 = *(v30[0] + 24) + 1;
-  }
-
-  if (v8 != v26[3])
-  {
-    v16 = TLLogGeneral();
+    v16 = TLLogGeneral(v1, v2);
     v17 = os_log_type_enabled(v16, OS_LOG_TYPE_INFO);
 
     if (v17)
     {
-      v18 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/ToneLibrary/Library/Playback/TLAlertType.m"];
-      v19 = TLLogGeneral();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v20 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/ToneLibrary/Library/Playback/TLAlertType.m"];
+      v22 = TLLogGeneral(v20, v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
-        v20 = [v18 lastPathComponent];
-        v21 = [MEMORY[0x1E696AF00] callStackSymbols];
+        v23 = [v20 lastPathComponent];
+        v24 = [MEMORY[0x1E696AF00] callStackSymbols];
         *buf = 136381443;
-        v34 = "void _TLAlertTypeValidateConsistencyOfEnumeration(void)_block_invoke";
-        v35 = 2113;
-        v36 = v20;
-        v37 = 2049;
-        v38 = 233;
-        v39 = 2113;
-        v40 = v21;
-        _os_log_impl(&dword_1D9356000, v19, OS_LOG_TYPE_DEFAULT, "*** Assertion failure in %{private}s, %{private}@:%{private}lu.\n%{private}@", buf, 0x2Au);
+        v54 = "void _TLAlertTypeValidateConsistencyOfEnumeration(void)_block_invoke";
+        v55 = 2113;
+        v56 = v23;
+        v57 = 2049;
+        v58 = 232;
+        v59 = 2113;
+        v60 = v24;
+        _os_log_impl(&dword_1D9356000, v22, OS_LOG_TYPE_DEFAULT, "*** Assertion failure in %{private}s, %{private}@:%{private}lu.\n%{private}@", buf, 0x2Au);
       }
     }
 
     else
     {
-      v18 = TLLogGeneral();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v20 = TLLogGeneral(v18, v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         ___TLAlertTypeValidateConsistencyOfEnumeration_block_invoke_cold_1();
       }
     }
 
-    v22 = TLLogGeneral();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v27 = TLLogGeneral(v25, v26);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    {
+      ___TLAlertTypeValidateConsistencyOfEnumeration_block_invoke_cold_4();
+    }
+
+    v15 = v46[3] + 1;
+  }
+
+  if (v15 != v42[3])
+  {
+    v28 = TLLogGeneral(v1, v2);
+    v29 = os_log_type_enabled(v28, OS_LOG_TYPE_INFO);
+
+    if (v29)
+    {
+      v32 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/ToneLibrary/Library/Playback/TLAlertType.m"];
+      v34 = TLLogGeneral(v32, v33);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+      {
+        v35 = [v32 lastPathComponent];
+        v36 = [MEMORY[0x1E696AF00] callStackSymbols];
+        *buf = 136381443;
+        v54 = "void _TLAlertTypeValidateConsistencyOfEnumeration(void)_block_invoke";
+        v55 = 2113;
+        v56 = v35;
+        v57 = 2049;
+        v58 = 233;
+        v59 = 2113;
+        v60 = v36;
+        _os_log_impl(&dword_1D9356000, v34, OS_LOG_TYPE_DEFAULT, "*** Assertion failure in %{private}s, %{private}@:%{private}lu.\n%{private}@", buf, 0x2Au);
+      }
+    }
+
+    else
+    {
+      v32 = TLLogGeneral(v30, v31);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      {
+        ___TLAlertTypeValidateConsistencyOfEnumeration_block_invoke_cold_1();
+      }
+    }
+
+    v39 = TLLogGeneral(v37, v38);
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
     {
       ___TLAlertTypeValidateConsistencyOfEnumeration_block_invoke_cold_6();
     }
   }
 
-  _Block_object_dispose(&v25, 8);
-  _Block_object_dispose(&v29, 8);
-  _Block_object_dispose(&v31, 8);
-  v23 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v41, 8);
+  _Block_object_dispose(&v45, 8);
+  _Block_object_dispose(&v49, 8);
 }
 
 void *___TLAlertTypeValidateConsistencyOfEnumeration_block_invoke_2(void *result, uint64_t a2)
@@ -219,24 +218,6 @@ void ___TLAlertTypeValidateConsistencyOfEnumeration_block_invoke_cold_1()
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-void ___TLAlertTypeValidateConsistencyOfEnumeration_block_invoke_cold_2(uint64_t a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *(*a1 + 24);
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void ___TLAlertTypeValidateConsistencyOfEnumeration_block_invoke_cold_4(uint64_t a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *(*a1 + 24);
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void ___TLAlertTypeValidateConsistencyOfEnumeration_block_invoke_cold_6()

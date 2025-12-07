@@ -23,10 +23,10 @@
 
 - (SRAcousticSettings)initWithEnvironmentalSoundMeasurementsEnabled:(BOOL)enabled audioExposureSampleLifetime:(int64_t)lifetime headphoneSafetyAudioLevel:(id)level musicEQSettings:(id)settings accessibilitySettings:(id)accessibilitySettings
 {
-  v24 = *MEMORY[0x1E69E9840];
-  v19.receiver = self;
-  v19.super_class = SRAcousticSettings;
-  v12 = [(SRAcousticSettings *)&v19 init];
+  v23 = *MEMORY[0x1E69E9840];
+  v18.receiver = self;
+  v18.super_class = SRAcousticSettings;
+  v12 = [(SRAcousticSettings *)&v18 init];
   if (v12)
   {
     [level doubleValue];
@@ -46,68 +46,60 @@
       {
         [level doubleValue];
         *buf = 138412546;
-        v21 = @"accessibilityBackgroundSoundsRelativeVolume";
-        v22 = 2048;
-        v23 = v18;
+        v20 = @"accessibilityBackgroundSoundsRelativeVolume";
+        v21 = 2048;
+        v22 = v17;
         _os_log_fault_impl(&dword_1C914D000, v15, OS_LOG_TYPE_FAULT, "Failed to construct SRAcousticSettings object. %@: %f and is out of range of expected input.", buf, 0x16u);
       }
 
-      v12 = 0;
+      return 0;
     }
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 - (SRAcousticSettings)initWithBinarySampleRepresentation:(id)representation metadata:(id)metadata timestamp:(double)timestamp
 {
-  v16 = *MEMORY[0x1E69E9840];
-  if (![representation length])
+  v15 = *MEMORY[0x1E69E9840];
+  if ([representation length])
   {
-    goto LABEL_7;
-  }
+    v12.receiver = self;
+    v12.super_class = SRAcousticSettings;
+    result = [(SRAcousticSettings *)&v12 init];
+    if (!result)
+    {
+      return result;
+    }
 
-  v13.receiver = self;
-  v13.super_class = SRAcousticSettings;
-  result = [(SRAcousticSettings *)&v13 init];
-  if (result)
-  {
     self = result;
-    v12 = 0;
-    v8 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:representation error:&v12];
+    v11 = 0;
+    v8 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:representation error:&v11];
     if (v8)
     {
       v9 = v8;
 
-      result = v9;
-      goto LABEL_8;
+      return v9;
     }
 
     v10 = SRLogAcousticSettings;
     if (os_log_type_enabled(SRLogAcousticSettings, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v15 = v12;
+      v14 = v11;
       _os_log_error_impl(&dword_1C914D000, v10, OS_LOG_TYPE_ERROR, "Failed to unarchive data because %{public}@", buf, 0xCu);
     }
-
-LABEL_7:
-
-    result = 0;
   }
 
-LABEL_8:
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 - (id)binarySampleRepresentation
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v8 = 0;
-  v2 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v8];
-  v3 = v8;
+  v10 = *MEMORY[0x1E69E9840];
+  v7 = 0;
+  v2 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v7];
+  v3 = v7;
   if (v2)
   {
     v4 = 1;
@@ -115,7 +107,7 @@ LABEL_8:
 
   else
   {
-    v4 = v8 == 0;
+    v4 = v7 == 0;
   }
 
   if (!v4)
@@ -124,12 +116,11 @@ LABEL_8:
     if (os_log_type_enabled(SRLogAcousticSettings, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v10 = v3;
+      v9 = v3;
       _os_log_error_impl(&dword_1C914D000, v5, OS_LOG_TYPE_ERROR, "Failed to archive data because %{public}@", buf, 0xCu);
     }
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -209,7 +200,7 @@ LABEL_8:
 
 - (SRAcousticSettings)initWithCoder:(id)coder
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if (([coder allowsKeyedCoding] & 1) == 0)
   {
     [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
@@ -225,11 +216,11 @@ LABEL_8:
     v16 = SRLogAcousticSettings;
     if (!os_log_type_enabled(SRLogAcousticSettings, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_11;
+      return 0;
     }
 
     *buf = 138412290;
-    v22 = 0;
+    v20 = 0;
     v13 = "Failed to decode the object musicEQSettings: %@";
 LABEL_16:
     v14 = v16;
@@ -243,11 +234,11 @@ LABEL_16:
     v16 = SRLogAcousticSettings;
     if (!os_log_type_enabled(SRLogAcousticSettings, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_11;
+      return 0;
     }
 
     *buf = 138412290;
-    v22 = 0;
+    v20 = 0;
     v13 = "Failed to decode the object. accessibilitySettings: %@";
     goto LABEL_16;
   }
@@ -258,9 +249,9 @@ LABEL_16:
     if (os_log_type_enabled(SRLogAcousticSettings, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v22 = @"audioExposureSampleLifetime";
-      v23 = 2048;
-      v24 = v7;
+      v20 = @"audioExposureSampleLifetime";
+      v21 = 2048;
+      v22 = v7;
       v13 = "Failed to decode the object. %@: %ld";
       v14 = v12;
       v15 = 22;
@@ -268,15 +259,12 @@ LABEL_17:
       _os_log_error_impl(&dword_1C914D000, v14, OS_LOG_TYPE_ERROR, v13, buf, v15);
     }
 
-LABEL_11:
-    v17 = *MEMORY[0x1E69E9840];
     return 0;
   }
 
-  v19 = [SRAcousticSettings alloc];
-  v20 = *MEMORY[0x1E69E9840];
+  v18 = [SRAcousticSettings alloc];
 
-  return [(SRAcousticSettings *)v19 initWithEnvironmentalSoundMeasurementsEnabled:v6 audioExposureSampleLifetime:v7 headphoneSafetyAudioLevel:v8 musicEQSettings:v9 accessibilitySettings:v11];
+  return [(SRAcousticSettings *)v18 initWithEnvironmentalSoundMeasurementsEnabled:v6 audioExposureSampleLifetime:v7 headphoneSafetyAudioLevel:v8 musicEQSettings:v9 accessibilitySettings:v11];
 }
 
 @end

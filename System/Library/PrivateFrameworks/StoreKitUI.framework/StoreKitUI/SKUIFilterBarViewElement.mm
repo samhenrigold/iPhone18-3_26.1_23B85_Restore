@@ -2,7 +2,9 @@
 - (SKUIDividerViewElement)bottomDivider;
 - (id)childViewElementsForAlignment:(unint64_t)alignment;
 - (int64_t)pageComponentType;
+- (void)bottomDivider;
 - (void)enumerateChildrenUsingBlock:(id)block;
+- (void)pageComponentType;
 @end
 
 @implementation SKUIFilterBarViewElement
@@ -247,6 +249,30 @@ void __56__SKUIFilterBarViewElement_enumerateChildrenUsingBlock___block_invoke(u
   }
 
   return 24;
+}
+
+- (void)bottomDivider
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIFilterBarViewElement bottomDivider]";
+}
+
+- (void)childViewElementsForAlignment:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIFilterBarViewElement childViewElementsForAlignment:]";
+}
+
+- (void)enumerateChildrenUsingBlock:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIFilterBarViewElement enumerateChildrenUsingBlock:]";
+}
+
+- (void)pageComponentType
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIFilterBarViewElement pageComponentType]";
 }
 
 @end

@@ -57,9 +57,9 @@
 
 - (void)layoutSubviews
 {
-  v24.receiver = self;
-  v24.super_class = MRURoutingHeaderView;
-  [(MRURoutingHeaderView *)&v24 layoutSubviews];
+  v26.receiver = self;
+  v26.super_class = MRURoutingHeaderView;
+  [(MRURoutingHeaderView *)&v26 layoutSubviews];
   contentView = [(MRURoutingHeaderView *)self contentView];
   [contentView bounds];
   top = self->_contentEdgeInsets.top;
@@ -72,21 +72,21 @@
   traitCollection = [(MRURoutingHeaderView *)self traitCollection];
   [traitCollection displayScale];
 
-  v25.origin.x = v7;
-  v25.origin.y = v9;
-  v25.size.width = v11;
-  v25.size.height = v13;
-  CGRectGetMinX(v25);
-  v26.origin.x = v7;
-  v26.origin.y = v9;
-  v26.size.width = v11;
-  v26.size.height = v13;
-  CGRectGetMaxY(v26);
   v27.origin.x = v7;
   v27.origin.y = v9;
   v27.size.width = v11;
   v27.size.height = v13;
-  CGRectGetWidth(v27);
+  CGRectGetMinX(v27);
+  v28.origin.x = v7;
+  v28.origin.y = v9;
+  v28.size.width = v11;
+  v28.size.height = v13;
+  CGRectGetMaxY(v28);
+  v29.origin.x = v7;
+  v29.origin.y = v9;
+  v29.size.width = v11;
+  v29.size.height = v13;
+  CGRectGetWidth(v29);
   [(MRURoutingHeaderView *)self bounds];
   MPRectByApplyingUserInterfaceLayoutDirectionInRect();
   [(UIView *)self->_separatorView setFrame:?];
@@ -100,22 +100,22 @@
   UIRoundToViewScale();
 
   [(UILabel *)self->_titleLabel sizeThatFits:v20, v22];
-  MRUSizeCeilToViewScale(self);
-  v28.origin.x = v16;
-  v28.origin.y = v18;
-  v28.size.width = v20;
-  v28.size.height = v22;
-  CGRectGetMinX(v28);
-  v29.origin.x = v16;
-  v29.origin.y = v18;
-  v29.size.width = v20;
-  v29.size.height = v22;
-  CGRectGetMaxY(v29);
+  MRUSizeCeilToViewScale(self, v24, v25);
   v30.origin.x = v16;
   v30.origin.y = v18;
   v30.size.width = v20;
   v30.size.height = v22;
-  CGRectGetWidth(v30);
+  CGRectGetMinX(v30);
+  v31.origin.x = v16;
+  v31.origin.y = v18;
+  v31.size.width = v20;
+  v31.size.height = v22;
+  CGRectGetMaxY(v31);
+  v32.origin.x = v16;
+  v32.origin.y = v18;
+  v32.size.width = v20;
+  v32.size.height = v22;
+  CGRectGetWidth(v32);
   [(MRURoutingHeaderView *)self bounds];
   MPRectByApplyingUserInterfaceLayoutDirectionInRect();
   [(UILabel *)self->_titleLabel setFrame:?];
@@ -133,11 +133,11 @@
   v10 = v9;
 
   [(UILabel *)self->_titleLabel sizeThatFits:v6, v7];
-  MRUSizeCeilToViewScale(self);
-  v12 = v5 + v10 + v11;
-  v13 = width;
-  result.height = v12;
-  result.width = v13;
+  MRUSizeCeilToViewScale(self, v11, v12);
+  v14 = v5 + v10 + v13;
+  v15 = width;
+  result.height = v14;
+  result.width = v15;
   return result;
 }
 

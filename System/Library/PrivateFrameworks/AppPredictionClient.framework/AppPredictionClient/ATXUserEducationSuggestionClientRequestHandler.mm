@@ -24,7 +24,7 @@
 {
   v11 = *MEMORY[0x1E69E9840];
   eventCopy = event;
-  v5 = __atxlog_handle_context_user_education_suggestions();
+  v5 = __atxlog_handle_context_user_education_suggestions(eventCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 136315394;

@@ -240,7 +240,7 @@
 
 - (void)fetchNextBatchWithReply:(id)reply
 {
-  v83 = *MEMORY[0x1E69E9840];
+  v84 = *MEMORY[0x1E69E9840];
   statement = [(ABBufferQuery *)self->_query statement];
   if (statement)
   {
@@ -249,8 +249,8 @@
     {
       if (statement->var0 && statement->var0->var1)
       {
-        v61 = kABPersonWallpaperMetadataProperty;
-        v62 = __PAIR64__(kABPersonWallpaperProperty, kABPersonWatchWallpaperImageDataProperty);
+        v62 = kABPersonWallpaperMetadataProperty;
+        v63 = __PAIR64__(kABPersonWallpaperProperty, kABPersonWatchWallpaperImageDataProperty);
         replyCopy = reply;
         while (1)
         {
@@ -275,10 +275,10 @@
                 else
                 {
                   v57 = [MEMORY[0x1E696ABC0] errorWithDomain:@"ABSQLiteErrorDomain" code:sqlite3_errcode(*(*v6 + 1)) userInfo:0];
-                  v58 = ABOSLogGeneral();
-                  if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+                  v59 = ABOSLogGeneral(v57, v58);
+                  if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
                   {
-                    [(ABBufferQueryCursor *)v6 fetchNextBatchWithReply:v58];
+                    [(ABBufferQueryCursor *)v6 fetchNextBatchWithReply:v59];
                   }
 
                   (*(reply + 2))(reply, 0, 0, v57);
@@ -288,10 +288,10 @@
               }
             }
 
-            v68[0] = MEMORY[0x1E69E9820];
-            v68[1] = 3221225472;
-            v69 = __ABAddressBookPersonBufferRowHandler_block_invoke;
-            v70 = &unk_1E7CCD4E8;
+            v69[0] = MEMORY[0x1E69E9820];
+            v69[1] = 3221225472;
+            v70 = __ABAddressBookPersonBufferRowHandler_block_invoke;
+            v71 = &unk_1E7CCD4E8;
             selfCopy = self;
             replyCopy2 = reply;
           }
@@ -338,8 +338,8 @@ LABEL_54:
           v40 = sqlite3_column_bytes(v6[1], [(ABBufferQueryCursor *)self multivalueUUIDColumn]);
           v41 = sqlite3_column_blob(v6[1], [(ABBufferQueryCursor *)self multivalueUUIDColumn]);
           v42 = sqlite3_column_bytes(v6[1], [(ABBufferQueryCursor *)self multivalueLabelColumn]);
-          *v73 = 0;
-          v74 = 0;
+          *v74 = 0;
+          v75 = 0;
           ppBlob = 0;
           v43 = ABPersonGetTypeOfProperty([(ABBufferQueryCursor *)self currentPropertyID]);
           if (v43 == 261)
@@ -350,9 +350,9 @@ LABEL_54:
 
           else
           {
-            GetBytePointerAndLengthForTypeAtColumn(v6, v43, [(ABBufferQueryCursor *)self multivalueValueColumn], v73, &ppBlob, &v74);
+            GetBytePointerAndLengthForTypeAtColumn(v6, v43, [(ABBufferQueryCursor *)self multivalueValueColumn], v74, &ppBlob, &v75);
             v45 = ppBlob;
-            v44 = *v73;
+            v44 = *v74;
           }
 
           buf[0] = 4;
@@ -394,14 +394,14 @@ LABEL_66:
         }
 
         [(ABBufferQueryCursor *)self setCurrentRecordID:v8];
-        v66[0] = MEMORY[0x1E69E9820];
-        v66[1] = 3221225472;
-        v66[2] = __ABAddressBookPersonBufferRowHandler_block_invoke_524;
-        v66[3] = &unk_1E7CCD510;
-        v66[4] = self;
-        v66[5] = v6;
-        v67 = v8;
-        if (v69(v68, v66))
+        v67[0] = MEMORY[0x1E69E9820];
+        v67[1] = 3221225472;
+        v67[2] = __ABAddressBookPersonBufferRowHandler_block_invoke_524;
+        v67[3] = &unk_1E7CCD510;
+        v67[4] = self;
+        v67[5] = v6;
+        v68 = v8;
+        if (v70(v69, v67))
         {
           return;
         }
@@ -414,30 +414,30 @@ LABEL_30:
           {
             if ([[(ABBufferQueryCursor *)self query] requestedWallpaperData])
             {
-              AppendPropertyBlobData(v8, SHIDWORD(v62), self);
+              AppendPropertyBlobData(v8, SHIDWORD(v63), self);
             }
 
             if ([[(ABBufferQueryCursor *)self query] requestedWatchWallpaperImageData])
             {
-              AppendPropertyBlobData(v8, v62, self);
+              AppendPropertyBlobData(v8, v63, self);
             }
 
             if ([[(ABBufferQueryCursor *)self query] requestedWallpaperMetadata])
             {
-              AppendPropertyBlobData(v8, v61, self);
+              AppendPropertyBlobData(v8, v62, self);
             }
           }
 
           if ([(ABBufferQueryCursor *)self resumeToken]|| ![[(ABBufferQueryCursor *)self query] requestedAvatarRecipeData]|| (v21 = kABCPersonAvatarRecipeDataProperty, v22 = ABCAvatarRecipeDataProperty, ABCAddressBookGetImageStore([[(ABBufferQueryCursor *)self query] addressBook]), CPRecordStoreGetDatabase(), v23 = CPSqliteDatabaseConnectionForReading(), (v24 = CPSqliteConnectionStatementForSQL()) == 0) || (v25 = v24, (v26 = *(v24 + 8)) == 0))
           {
 LABEL_53:
-            v64[0] = MEMORY[0x1E69E9820];
-            v64[1] = 3221225472;
-            v64[2] = __ABAddressBookPersonBufferRowHandler_block_invoke_2;
-            v64[3] = &unk_1E7CCD538;
-            v65 = v8;
-            v64[4] = self;
-            if (v69(v68, v64))
+            v65[0] = MEMORY[0x1E69E9820];
+            v65[1] = 3221225472;
+            v65[2] = __ABAddressBookPersonBufferRowHandler_block_invoke_2;
+            v65[3] = &unk_1E7CCD538;
+            v66 = v8;
+            v65[4] = self;
+            if (v70(v69, v65))
             {
               return;
             }
@@ -482,13 +482,13 @@ LABEL_52:
               goto LABEL_53;
             }
 
-            v73[0] = 2;
-            *&v73[1] = v21;
-            *&v73[5] = v32;
-            [(NSMutableData *)[(ABBufferQueryCursor *)self mutableData] appendBytes:v73 length:13];
-            v60 = [(NSMutableData *)[(ABBufferQueryCursor *)self mutableData] length];
-            v33 = *&v73[5];
-            [(NSMutableData *)[(ABBufferQueryCursor *)self mutableData] increaseLengthBy:*&v73[5]];
+            v74[0] = 2;
+            *&v74[1] = v21;
+            *&v74[5] = v32;
+            [(NSMutableData *)[(ABBufferQueryCursor *)self mutableData] appendBytes:v74 length:13];
+            v61 = [(NSMutableData *)[(ABBufferQueryCursor *)self mutableData] length];
+            v33 = *&v74[5];
+            [(NSMutableData *)[(ABBufferQueryCursor *)self mutableData] increaseLengthBy:*&v74[5]];
             mutableBytes = [(NSMutableData *)[(ABBufferQueryCursor *)self mutableData] mutableBytes];
             v34 = [(NSMutableData *)[(ABBufferQueryCursor *)self mutableData] length];
             v35 = ABOSLogImageMetadata();
@@ -503,16 +503,16 @@ LABEL_52:
               *&buf[24] = v8;
               *&buf[28] = 2048;
               *&buf[30] = mutableData;
-              v77 = 2048;
-              v78 = v60;
-              v79 = 2048;
-              v80 = v33;
-              v81 = 2048;
-              v82 = v34;
+              v78 = 2048;
+              v79 = v61;
+              v80 = 2048;
+              v81 = v33;
+              v82 = 2048;
+              v83 = v34;
               _os_log_impl(&dword_1B7EFB000, v35, OS_LOG_TYPE_DEFAULT, "ABBufferQueryCursor (%p) AppendPropertyBlobData, reading %s from recordID %d into buffer (%p), [%lu + %lu = %lu]", buf, 0x44u);
             }
 
-            sqlite3_blob_read(ppBlob, &mutableBytes[v60], v33, 0);
+            sqlite3_blob_read(ppBlob, &mutableBytes[v61], v33, 0);
             sqlite3_blob_close(ppBlob);
             reply = replyCopy3;
           }
@@ -528,13 +528,13 @@ LABEL_27:
           requestedPropertyIdentifiers2 = [[(ABBufferQueryCursor *)self query] requestedPropertyIdentifiers];
           if ([(NSIndexSet *)requestedPropertyIdentifiers2 containsIndex:kABCPersonIsPreferredImageProperty]&& sqlite3_column_type(v6[1], [(ABBufferQueryCursor *)self contactPreferredForImageColumn]) != 5)
           {
-            *v73 = sqlite3_column_int(v6[1], [(ABBufferQueryCursor *)self contactPreferredForImageColumn]);
+            *v74 = sqlite3_column_int(v6[1], [(ABBufferQueryCursor *)self contactPreferredForImageColumn]);
             buf[0] = 2;
             *&buf[1] = kABCPersonIsPreferredImageProperty;
             *&buf[5] = 4;
             [(NSMutableData *)[(ABBufferQueryCursor *)self mutableData] appendBytes:buf length:13];
             mutableData2 = [(ABBufferQueryCursor *)self mutableData];
-            [(NSMutableData *)mutableData2 appendBytes:v73 length:*&buf[5]];
+            [(NSMutableData *)mutableData2 appendBytes:v74 length:*&buf[5]];
           }
 
           goto LABEL_30;

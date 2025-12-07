@@ -493,27 +493,27 @@ LABEL_6:
   return v39;
 }
 
-uint64_t __44__EDLensView__colorAtCenterForHeadroomMode___block_invoke(uint64_t a1, void *a2)
+uint64_t __44__EDLensView__colorAtCenterForHeadroomMode___block_invoke(uint64_t a1, void *a2, double a3, double a4)
 {
-  v3 = *MEMORY[0x277D776F8];
-  v4 = a2;
-  v5 = [v4 objectForKeyedSubscript:v3];
-  v6 = [v5 BOOLValue];
+  v5 = *MEMORY[0x277D776F8];
+  v6 = a2;
+  v7 = [v6 objectForKeyedSubscript:v5];
+  v8 = [v7 BOOLValue];
 
-  if (v6)
+  if (v8)
   {
     *(*(*(a1 + 32) + 8) + 24) = 1;
-    v7 = _UIRenderingMultiBufferCreate();
+    v9 = _UIRenderingMultiBufferCreate();
   }
 
   else
   {
-    v7 = _UIRenderingBufferCreate();
+    v9 = _UIRenderingBufferCreate();
   }
 
-  v8 = v7;
+  v10 = v9;
 
-  return v8;
+  return v10;
 }
 
 - (void)_displayLinkFired

@@ -141,11 +141,11 @@ LABEL_8:
 
 - (id)addAccentKeyAction:(id)action
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   actionCopy = action;
   mainScreen = [MEMORY[0x277D759A0] mainScreen];
   [mainScreen _referenceBounds];
-  if (CGRectGetHeight(v24) <= 1194.0)
+  if (CGRectGetHeight(v23) <= 1194.0)
   {
   }
 
@@ -153,7 +153,7 @@ LABEL_8:
   {
     mainScreen2 = [MEMORY[0x277D759A0] mainScreen];
     [mainScreen2 _referenceBounds];
-    if (CGRectGetHeight(v25) <= 1194.0)
+    if (CGRectGetHeight(v24) <= 1194.0)
     {
 
 LABEL_15:
@@ -178,9 +178,9 @@ LABEL_15:
     if (acuteDiacriticKey)
     {
       acuteDiacriticKey2 = [(TypistKeyboardCzech *)self acuteDiacriticKey];
-      v22[0] = acuteDiacriticKey2;
+      v21[0] = acuteDiacriticKey2;
       v13 = MEMORY[0x277CBEA60];
-      v14 = v22;
+      v14 = v21;
 LABEL_14:
       v18 = [v13 arrayWithObjects:v14 count:1];
 
@@ -205,17 +205,15 @@ LABEL_14:
   if (caronDiacriticKey)
   {
     acuteDiacriticKey2 = [(TypistKeyboardCzech *)self caronDiacriticKey];
-    v21 = acuteDiacriticKey2;
+    v20 = acuteDiacriticKey2;
     v13 = MEMORY[0x277CBEA60];
-    v14 = &v21;
+    v14 = &v20;
     goto LABEL_14;
   }
 
 LABEL_16:
   v18 = 0;
 LABEL_17:
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }

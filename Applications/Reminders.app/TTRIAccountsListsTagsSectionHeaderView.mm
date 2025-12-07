@@ -24,7 +24,7 @@
 - (_TtC9Reminders38TTRIAccountsListsTagsSectionHeaderView)initWithCoder:(id)coder
 {
   v4 = OBJC_IVAR____TtC9Reminders38TTRIAccountsListsTagsSectionHeaderView_menu;
-  v5 = sub_100058000(&qword_10076BDC8);
+  v5 = sub_100058000(&qword_10076BDC8, &unk_100649EF0);
   (*(*(v5 - 8) + 56))(self + v4, 1, 1, v5);
   *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC9Reminders38TTRIAccountsListsTagsSectionHeaderView____lazy_storage___menuButton) = 0;
   result = _assertionFailure(_:_:file:line:flags:)();

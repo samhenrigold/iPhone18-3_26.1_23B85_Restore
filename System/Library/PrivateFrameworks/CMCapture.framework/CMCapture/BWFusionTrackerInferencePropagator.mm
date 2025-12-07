@@ -39,51 +39,51 @@
     goto LABEL_30;
   }
 
-  v11 = v10;
+  v12 = v10;
   if ([v10 completed])
   {
     goto LABEL_30;
   }
 
-  v12 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v13 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v80 = 0u;
   v81 = 0u;
   v82 = 0u;
   v83 = 0u;
-  v84 = 0u;
   outputTensorRequirements = self->_outputTensorRequirements;
-  v21 = OUTLINED_FUNCTION_3_43(v12, v14, v15, v16, v17, v18, v19, v20, v50, dictionary, v11, obj, v58, v59, v60, v61, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, *(&v74 + 1), v75, *(&v75 + 1), v76, *(&v76 + 1), v77, *(&v77 + 1), *__dst, *&__dst[8], *&__dst[16], *&__dst[24], *&__dst[32], *&__dst[40], *&__dst[48], *&__dst[56], *&__dst[64], *&__dst[72], *&__dst[80], *&__dst[88], *&__dst[96], *&__dst[104], *&__dst[112], *&__dst[120], *&__dst[128], *&__dst[136], *&__dst[144], *&__dst[152], *&__dst[160], v79, v80);
-  if (v21)
+  v22 = OUTLINED_FUNCTION_3_43(v13, v15, v16, v17, v18, v19, v20, v21, v50, dictionary, v12, obj, v58, v59, v60, v61, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, *(&v74 + 1), v75, *(&v75 + 1), v76, *(&v76 + 1), v77, *(&v77 + 1), *__dst, *&__dst[8], *&__dst[16], *&__dst[24], *&__dst[32], *&__dst[40], *&__dst[48], *&__dst[56], *&__dst[64], *&__dst[72], *&__dst[80], *&__dst[88], *&__dst[96], *&__dst[104], *&__dst[112], *&__dst[120], *&__dst[128], *&__dst[136], *&__dst[144], *&__dst[152], *&__dst[160], v79);
+  if (v22)
   {
-    v22 = v21;
-    v23 = *v82;
+    v23 = v22;
+    v24 = *v81;
     do
     {
-      for (i = 0; i != v22; ++i)
+      for (i = 0; i != v23; ++i)
       {
-        if (*v82 != v23)
+        if (*v81 != v24)
         {
           objc_enumerationMutation(outputTensorRequirements);
         }
 
-        v25 = *(*(&v81 + 1) + 8 * i);
-        v26 = [storage tensorForRequirement:{-[NSMutableDictionary objectForKeyedSubscript:](self->_outputTensorRequirements, "objectForKeyedSubscript:", v25)}];
+        v26 = *(*(&v80 + 1) + 8 * i);
+        v27 = [storage tensorForRequirement:{-[NSMutableDictionary objectForKeyedSubscript:](self->_outputTensorRequirements, "objectForKeyedSubscript:", v26)}];
         FTEspressoBufferClass = getFTEspressoBufferClass();
-        memcpy(__dst, v26, sizeof(__dst));
-        v28 = [v12 setObject:objc_msgSend(FTEspressoBufferClass forKeyedSubscript:{"bufferWithEspressoBuffer:", __dst), v25}];
+        memcpy(__dst, v27, sizeof(__dst));
+        v29 = [v13 setObject:objc_msgSend(FTEspressoBufferClass forKeyedSubscript:{"bufferWithEspressoBuffer:", __dst), v26}];
       }
 
-      v22 = OUTLINED_FUNCTION_3_43(v28, v29, v30, v31, v32, v33, v34, v35, v51, v53, v54, obja, v58, v59, v60, v61, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, *(&v74 + 1), v75, *(&v75 + 1), v76, *(&v76 + 1), v77, *(&v77 + 1), *__dst, *&__dst[8], *&__dst[16], *&__dst[24], *&__dst[32], *&__dst[40], *&__dst[48], *&__dst[56], *&__dst[64], *&__dst[72], *&__dst[80], *&__dst[88], *&__dst[96], *&__dst[104], *&__dst[112], *&__dst[120], *&__dst[128], *&__dst[136], *&__dst[144], *&__dst[152], *&__dst[160], v79, v80);
+      v23 = OUTLINED_FUNCTION_3_43(v29, v30, v31, v32, v33, v34, v35, v36, v51, v53, v54, obja, v58, v59, v60, v61, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, *(&v74 + 1), v75, *(&v75 + 1), v76, *(&v76 + 1), v77, *(&v77 + 1), *__dst, *&__dst[8], *&__dst[16], *&__dst[24], *&__dst[32], *&__dst[40], *&__dst[48], *&__dst[56], *&__dst[64], *&__dst[72], *&__dst[80], *&__dst[88], *&__dst[96], *&__dst[104], *&__dst[112], *&__dst[120], *&__dst[128], *&__dst[136], *&__dst[144], *&__dst[152], *&__dst[160], v79);
     }
 
-    while (v22);
+    while (v23);
   }
 
   operation = self->_operation;
   if (operation == 1)
   {
     targetRectForSampleBuffer(obja);
-    v37 = v54;
-    if (![v54 postProcessExemplarOutputs:v12 forTargetRect:?])
+    v38 = v54;
+    if (![v54 postProcessExemplarOutputs:v13 forTargetRect:?])
     {
       goto LABEL_28;
     }
@@ -126,10 +126,10 @@
 
   else
   {
-    v37 = v54;
+    v38 = v54;
     if (operation == 2)
     {
-      if ([v54 postProcessInstanceOutputs:v12])
+      if ([v54 postProcessInstanceOutputs:v13])
       {
         goto LABEL_30;
       }
@@ -142,12 +142,12 @@
       goto LABEL_30;
     }
 
-    v38 = [storage tensorForRequirement:{objc_msgSend(-[NSMutableDictionary allValues](self->_outputTensorRequirements, "allValues"), "firstObject")}];
+    [storage tensorForRequirement:{objc_msgSend(-[NSMutableDictionary allValues](self->_outputTensorRequirements, "allValues"), "firstObject")}];
     memset(__dst, 0, 40);
     FTTapToBoxClass = getFTTapToBoxClass();
     if (FTTapToBoxClass)
     {
-      [FTTapToBoxClass postProcessNetworkOutput:v38];
+      objc_msgSend_postProcessNetworkOutput_(FTTapToBoxClass);
       v40 = *&__dst[32];
     }
 
@@ -161,7 +161,7 @@
     if (v40 < v48)
     {
 LABEL_28:
-      [v37 abort];
+      [v38 abort];
       goto LABEL_30;
     }
 
@@ -173,7 +173,7 @@ LABEL_28:
 LABEL_30:
   if (*MEMORY[0x1E695FF58] == 1)
   {
-    OUTLINED_FUNCTION_2_50();
+    OUTLINED_FUNCTION_2_50(0x48Eu, v11, self->_operation);
   }
 }
 

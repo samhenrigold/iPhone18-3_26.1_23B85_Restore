@@ -18,7 +18,7 @@
   return v3;
 }
 
-uint64_t __32__FeaturesDaemon_sharedInstance__block_invoke()
+uint64_t __32__FeaturesDaemon_sharedInstance__block_invoke(uint64_t a1, uint64_t a2)
 {
   sharedInstance_sharedInstance = objc_opt_new();
 

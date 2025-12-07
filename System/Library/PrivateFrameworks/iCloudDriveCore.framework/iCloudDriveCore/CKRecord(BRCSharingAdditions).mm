@@ -17,7 +17,7 @@
 
 - (id)brc_sharedRootExtension
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   br_pathExtension = [self objectForKeyedSubscript:*MEMORY[0x277CBC0A0]];
   if ([br_pathExtension isEqualToString:*MEMORY[0x277CFAD00]])
   {
@@ -33,11 +33,11 @@
       v6 = brc_default_log();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = 138412546;
-        v10 = v4;
-        v11 = 2112;
-        v12 = v5;
-        _os_log_impl(&dword_223E7A000, v6, OS_LOG_TYPE_DEFAULT, "[WARNING] share has no CKShareTypeKey, using extension from CKShareTitleKey (%@)%@", &v9, 0x16u);
+        v8 = 138412546;
+        v9 = v4;
+        v10 = 2112;
+        v11 = v5;
+        _os_log_impl(&dword_223E7A000, v6, OS_LOG_TYPE_DEFAULT, "[WARNING] share has no CKShareTypeKey, using extension from CKShareTitleKey (%@)%@", &v8, 0x16u);
       }
 
       br_pathExtension = [v4 br_pathExtension];
@@ -47,14 +47,12 @@
     v3 = br_pathExtension;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-
   return v3;
 }
 
 - (id)brc_sharedRootDisplayName
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = [self objectForKeyedSubscript:*MEMORY[0x277CBC098]];
   v3 = [self objectForKeyedSubscript:*MEMORY[0x277CBC0A0]];
 
@@ -95,13 +93,13 @@ LABEL_6:
     {
       share = [self share];
       recordID = [share recordID];
-      v17 = 138412802;
-      v18 = recordID;
-      v19 = 2112;
-      v20 = v4;
-      v21 = 2112;
-      v22 = v8;
-      _os_log_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEFAULT, "[WARNING] can't find document name for share %@ and can't extract it from URL; using '%@' as default%@", &v17, 0x20u);
+      v16 = 138412802;
+      v17 = recordID;
+      v18 = 2112;
+      v19 = v4;
+      v20 = 2112;
+      v21 = v8;
+      _os_log_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEFAULT, "[WARNING] can't find document name for share %@ and can't extract it from URL; using '%@' as default%@", &v16, 0x20u);
     }
   }
 
@@ -117,8 +115,6 @@ LABEL_6:
   }
 
   v14 = v13;
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

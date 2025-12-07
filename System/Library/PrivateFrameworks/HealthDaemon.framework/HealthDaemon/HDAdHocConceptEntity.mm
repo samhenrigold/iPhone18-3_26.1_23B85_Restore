@@ -51,59 +51,58 @@
 
 BOOL __72__HDAdHocConceptEntity_adHocConceptForIdentifier_options_profile_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v6 = *(a1 + 48);
-  v7 = *(a1 + 56);
-  v8 = *(a1 + 32);
-  v9 = a2;
-  v10 = objc_opt_self();
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x3032000000;
-  v25 = __Block_byref_object_copy__154;
-  v26 = __Block_byref_object_dispose__154;
-  v27 = 0;
-  v11 = [v9 protectedDatabase];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __77__HDAdHocConceptEntity__adHocConceptForIdentifier_options_transaction_error___block_invoke;
-  v21[3] = &__block_descriptor_40_e15___NSString_8__0l;
-  v21[4] = v10;
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __77__HDAdHocConceptEntity__adHocConceptForIdentifier_options_transaction_error___block_invoke_2;
-  v19[3] = &unk_278614860;
-  v12 = v8;
-  v20 = v12;
+  v6 = *(a1 + 56);
+  v7 = *(a1 + 32);
+  v8 = a2;
+  v9 = objc_opt_self();
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = __Block_byref_object_copy__154;
+  v25 = __Block_byref_object_dispose__154;
+  v26 = 0;
+  v10 = [v8 protectedDatabase];
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __77__HDAdHocConceptEntity__adHocConceptForIdentifier_options_transaction_error___block_invoke;
+  v20[3] = &__block_descriptor_40_e15___NSString_8__0l;
+  v20[4] = v9;
   v18[0] = MEMORY[0x277D85DD0];
   v18[1] = 3221225472;
-  v18[2] = __77__HDAdHocConceptEntity__adHocConceptForIdentifier_options_transaction_error___block_invoke_3;
-  v18[3] = &unk_278627EC8;
-  v18[4] = &v22;
-  v18[5] = v10;
-  v18[6] = v7;
-  LOBYTE(v10) = [v11 executeCachedStatementForKey:&_adHocConceptForIdentifier_options_transaction_error__statementKey error:a3 SQLGenerator:v21 bindingHandler:v19 enumerationHandler:v18];
+  v18[2] = __77__HDAdHocConceptEntity__adHocConceptForIdentifier_options_transaction_error___block_invoke_2;
+  v18[3] = &unk_278614860;
+  v11 = v7;
+  v19 = v11;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __77__HDAdHocConceptEntity__adHocConceptForIdentifier_options_transaction_error___block_invoke_3;
+  v17[3] = &unk_278627EC8;
+  v17[4] = &v21;
+  v17[5] = v9;
+  v17[6] = v6;
+  LOBYTE(v9) = [v10 executeCachedStatementForKey:&_adHocConceptForIdentifier_options_transaction_error__statementKey error:a3 SQLGenerator:v20 bindingHandler:v18 enumerationHandler:v17];
 
-  if (v10)
+  if (v9)
   {
-    v13 = v23[5];
-    if (!v13)
+    v12 = v22[5];
+    if (!v12)
     {
-      [MEMORY[0x277CCA9B8] hk_assignError:a3 code:118 format:{@"No adHoc concept found for identifier %@", v12}];
-      v13 = v23[5];
+      [MEMORY[0x277CCA9B8] hk_assignError:a3 code:118 format:{@"No adHoc concept found for identifier %@", v11}];
+      v12 = v22[5];
     }
 
-    v14 = v13;
+    v13 = v12;
   }
 
   else
   {
-    v14 = 0;
+    v13 = 0;
   }
 
-  _Block_object_dispose(&v22, 8);
-  v15 = *(*(a1 + 40) + 8);
-  v16 = *(v15 + 40);
-  *(v15 + 40) = v14;
+  _Block_object_dispose(&v21, 8);
+  v14 = *(*(a1 + 40) + 8);
+  v15 = *(v14 + 40);
+  *(v14 + 40) = v13;
 
   return *(*(*(a1 + 40) + 8) + 40) != 0;
 }
@@ -147,14 +146,14 @@ BOOL __72__HDAdHocConceptEntity_adHocConceptForIdentifier_options_profile_error_
   return v15;
 }
 
-BOOL __78__HDAdHocConceptEntity_adHocConceptForCodingCollection_options_profile_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+BOOL __78__HDAdHocConceptEntity_adHocConceptForCodingCollection_options_profile_error___block_invoke(void *a1, void *a2, uint64_t a3)
 {
-  v4 = [(HDAdHocConceptEntity *)*(a1 + 48) _adHocConceptForCodingCollection:*(a1 + 56) options:a2 transaction:a3 error:?];
-  v5 = *(*(a1 + 40) + 8);
+  v4 = [(HDAdHocConceptEntity *)a1[6] _adHocConceptForCodingCollection:a1[7] options:a2 transaction:a3 error:?];
+  v5 = *(a1[5] + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v4;
 
-  return *(*(*(a1 + 40) + 8) + 40) != 0;
+  return *(*(a1[5] + 8) + 40) != 0;
 }
 
 + (id)_adHocConceptForCodingCollection:(uint64_t)collection options:(void *)options transaction:(uint64_t)transaction error:
@@ -255,42 +254,41 @@ BOOL __78__HDAdHocConceptEntity_adHocConceptForCodingCollection_options_profile_
 
 BOOL __86__HDAdHocConceptEntity_generateAdHocConceptForCodingCollection_options_profile_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v7 = *(a1 + 48);
   v6 = *(a1 + 56);
-  v8 = *(a1 + 32);
-  v9 = a2;
-  v10 = objc_opt_self();
-  v11 = MEMORY[0x277CCD1F8];
-  v12 = [MEMORY[0x277CCD1D0] inMemoryConceptIdentifier];
-  v13 = [v11 synthesizeConceptWithIdentifier:v12 forCodingCollection:v8];
+  v7 = *(a1 + 32);
+  v8 = a2;
+  v9 = objc_opt_self();
+  v10 = MEMORY[0x277CCD1F8];
+  v11 = [MEMORY[0x277CCD1D0] inMemoryConceptIdentifier];
+  v12 = [v10 synthesizeConceptWithIdentifier:v11 forCodingCollection:v7];
 
-  v14 = v13;
-  v15 = v9;
-  v16 = objc_opt_self();
-  v17 = [v15 protectedDatabase];
+  v13 = v12;
+  v14 = v8;
+  v15 = objc_opt_self();
+  v16 = [v14 protectedDatabase];
 
-  v24 = v14;
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __62__HDAdHocConceptEntity__insertAdHocConcept_transaction_error___block_invoke;
-  v25[3] = &__block_descriptor_40_e15___NSString_8__0l;
-  v25[4] = v16;
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __62__HDAdHocConceptEntity__insertAdHocConcept_transaction_error___block_invoke_2;
-  v23[3] = &unk_278614860;
-  v18 = v14;
-  LODWORD(v16) = [v17 executeCachedStatementForKey:&_insertAdHocConcept_transaction_error__statementKey error:a3 SQLGenerator:v25 bindingHandler:v23 enumerationHandler:0];
+  v23 = v13;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __62__HDAdHocConceptEntity__insertAdHocConcept_transaction_error___block_invoke;
+  v24[3] = &__block_descriptor_40_e15___NSString_8__0l;
+  v24[4] = v15;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __62__HDAdHocConceptEntity__insertAdHocConcept_transaction_error___block_invoke_2;
+  v22[3] = &unk_278614860;
+  v17 = v13;
+  LODWORD(v15) = [v16 executeCachedStatementForKey:&_insertAdHocConcept_transaction_error__statementKey error:a3 SQLGenerator:v24 bindingHandler:v22 enumerationHandler:0];
 
-  v19 = 0;
-  if (v16)
+  v18 = 0;
+  if (v15)
   {
-    v19 = [(HDAdHocConceptEntity *)v10 _adHocConceptForCodingCollection:v8 options:v6 transaction:v15 error:a3];
+    v18 = [(HDAdHocConceptEntity *)v9 _adHocConceptForCodingCollection:v7 options:v6 transaction:v14 error:a3];
   }
 
-  v20 = *(*(a1 + 40) + 8);
-  v21 = *(v20 + 40);
-  *(v20 + 40) = v19;
+  v19 = *(*(a1 + 40) + 8);
+  v20 = *(v19 + 40);
+  *(v19 + 40) = v18;
 
   return *(*(*(a1 + 40) + 8) + 40) != 0;
 }

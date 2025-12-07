@@ -186,7 +186,7 @@
     animatedCopy = animated;
     self->_previousState = micState;
     self->_micState = state;
-    v7 = ContinuitySingLog();
+    v7 = ContinuitySingLog(self);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136316162;
@@ -336,19 +336,20 @@ void __44__CSMicControl_setMicControlState_animated___block_invoke_3(uint64_t a1
 
 - (void)_handleDidTap:(id)tap
 {
-  v4 = ContinuitySingLog();
+  v4 = ContinuitySingLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136315650;
-    v10 = "[CSMicControl _handleDidTap:]";
-    v11 = 2080;
-    v12 = "[CSMicControl _handleDidTap:]";
-    v13 = 2048;
+    v10 = 136315650;
+    v11 = "[CSMicControl _handleDidTap:]";
+    v12 = 2080;
+    v13 = "[CSMicControl _handleDidTap:]";
+    v14 = 2048;
     micState = [(CSMicControl *)self micState];
-    _os_log_impl(&dword_2441FB000, v4, OS_LOG_TYPE_DEFAULT, "%s: %s currentState: %zu", &v9, 0x20u);
+    _os_log_impl(&dword_2441FB000, v4, OS_LOG_TYPE_DEFAULT, "%s: %s currentState: %zu", &v10, 0x20u);
   }
 
-  if ([(CSMicControl *)self _isRespondingToGestures])
+  _isRespondingToGestures = [(CSMicControl *)self _isRespondingToGestures];
+  if (_isRespondingToGestures)
   {
     micState2 = [(CSMicControl *)self micState];
     if (micState2)
@@ -371,20 +372,20 @@ void __44__CSMicControl_setMicControlState_animated___block_invoke_3(uint64_t a1
 
   else
   {
-    WeakRetained = ContinuitySingLog();
+    WeakRetained = ContinuitySingLog(_isRespondingToGestures);
     if (os_log_type_enabled(WeakRetained, OS_LOG_TYPE_DEFAULT))
     {
       micState3 = [(CSMicControl *)self micState];
       isAnimating = [(CSMicControl *)self isAnimating];
-      v9 = 136315906;
-      v10 = "[CSMicControl _handleDidTap:]";
-      v11 = 2080;
-      v12 = "[CSMicControl _handleDidTap:]";
-      v13 = 2048;
+      v10 = 136315906;
+      v11 = "[CSMicControl _handleDidTap:]";
+      v12 = 2080;
+      v13 = "[CSMicControl _handleDidTap:]";
+      v14 = 2048;
       micState = micState3;
-      v15 = 1024;
-      v16 = isAnimating;
-      _os_log_impl(&dword_2441FB000, WeakRetained, OS_LOG_TYPE_DEFAULT, "%s: %s not responding to gestures, micState: %zu isAnimating: %d", &v9, 0x26u);
+      v16 = 1024;
+      v17 = isAnimating;
+      _os_log_impl(&dword_2441FB000, WeakRetained, OS_LOG_TYPE_DEFAULT, "%s: %s not responding to gestures, micState: %zu isAnimating: %d", &v10, 0x26u);
     }
   }
 }
@@ -399,16 +400,16 @@ void __44__CSMicControl_setMicControlState_animated___block_invoke_3(uint64_t a1
 
   if ([gestureCopy state] == 1)
   {
-    v5 = ContinuitySingLog();
+    v5 = ContinuitySingLog(1);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v31 = 136315650;
-      v32 = "[CSMicControl _handlePanGesture:]";
-      v33 = 2080;
-      v34 = "[CSMicControl _handlePanGesture:]";
-      v35 = 2048;
+      v32 = 136315650;
+      v33 = "[CSMicControl _handlePanGesture:]";
+      v34 = 2080;
+      v35 = "[CSMicControl _handlePanGesture:]";
+      v36 = 2048;
       micState = [(CSMicControl *)self micState];
-      _os_log_impl(&dword_2441FB000, v5, OS_LOG_TYPE_DEFAULT, "%s: %s starting in state: %zu", &v31, 0x20u);
+      _os_log_impl(&dword_2441FB000, v5, OS_LOG_TYPE_DEFAULT, "%s: %s starting in state: %zu", &v32, 0x20u);
     }
 
     [(CSMicControl *)self setMicControlState:2 animated:0];
@@ -428,59 +429,44 @@ void __44__CSMicControl_setMicControlState_animated___block_invoke_3(uint64_t a1
       goto LABEL_28;
     }
 
-    [gestureCopy velocityInView:self];
-    if (v15 <= 300.0)
+    v15 = [gestureCopy velocityInView:self];
+    if (v16 <= 300.0)
     {
-      if (v15 < -300.0)
+      if (v16 < -300.0 || ([gestureCopy view], v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v20, "superview"), v21 = objc_claimAutoreleasedReturnValue(), objc_msgSend(gestureCopy, "translationInView:", v21), v23 = v22, v21, v20, -[CSMicControl _topMicCenter](self, "_topMicCenter"), v25 = v24, v15 = -[CSMicControl _bottomMicCenter](self, "_bottomMicCenter"), v27 = *&_handlePanGesture__originalProgress - v23 / (v26 - v25), v27 > 1.0))
       {
-        goto LABEL_20;
-      }
-
-      view = [gestureCopy view];
-      superview = [view superview];
-      [gestureCopy translationInView:superview];
-      v22 = v21;
-
-      [(CSMicControl *)self _topMicCenter];
-      v24 = v23;
-      [(CSMicControl *)self _bottomMicCenter];
-      v26 = *&_handlePanGesture__originalProgress - v22 / (v25 - v24);
-      if (v26 > 1.0)
-      {
-LABEL_20:
-        v17 = 0;
-        v16 = 1;
+        v18 = 0;
+        v17 = 1;
         goto LABEL_21;
       }
 
-      if (v26 >= 0.0)
+      if (v27 >= 0.0)
       {
+        v18 = 0;
         v17 = 0;
-        v16 = 0;
         goto LABEL_21;
       }
     }
 
-    v16 = 0;
-    v17 = 1;
+    v17 = 0;
+    v18 = 1;
 LABEL_21:
-    v27 = ContinuitySingLog();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    v28 = ContinuitySingLog(v15);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
-      v28 = [MEMORY[0x277CCABB0] numberWithBool:v16];
       v29 = [MEMORY[0x277CCABB0] numberWithBool:v17];
-      v31 = 136315906;
-      v32 = "[CSMicControl _handlePanGesture:]";
-      v33 = 2080;
-      v34 = "[CSMicControl _handlePanGesture:]";
-      v35 = 2112;
-      micState = v28;
-      v37 = 2112;
-      v38 = v29;
-      _os_log_impl(&dword_2441FB000, v27, OS_LOG_TYPE_DEFAULT, "%s: %s ending. Requesting turning on: %@; turning off: %@", &v31, 0x2Au);
+      v30 = [MEMORY[0x277CCABB0] numberWithBool:v18];
+      v32 = 136315906;
+      v33 = "[CSMicControl _handlePanGesture:]";
+      v34 = 2080;
+      v35 = "[CSMicControl _handlePanGesture:]";
+      v36 = 2112;
+      micState = v29;
+      v38 = 2112;
+      v39 = v30;
+      _os_log_impl(&dword_2441FB000, v28, OS_LOG_TYPE_DEFAULT, "%s: %s ending. Requesting turning on: %@; turning off: %@", &v32, 0x2Au);
     }
 
-    if (v16)
+    if (v17)
     {
       WeakRetained = objc_loadWeakRetained(&self->_delegate);
       [WeakRetained micControl:self didRequestToTurnOnFromState:{-[CSMicControl micState](self, "micState")}];
@@ -489,7 +475,7 @@ LABEL_27:
       goto LABEL_29;
     }
 
-    if (v17)
+    if (v18)
     {
       WeakRetained = objc_loadWeakRetained(&self->_delegate);
       [WeakRetained micControl:self didRequestToTurnOffFromState:{-[CSMicControl micState](self, "micState")}];
@@ -501,9 +487,9 @@ LABEL_28:
     goto LABEL_29;
   }
 
-  view2 = [gestureCopy view];
-  superview2 = [view2 superview];
-  [gestureCopy translationInView:superview2];
+  view = [gestureCopy view];
+  superview = [view superview];
+  [gestureCopy translationInView:superview];
   v9 = v8;
 
   [(CSMicControl *)self _topMicCenter];
@@ -514,8 +500,8 @@ LABEL_28:
   {
     if (v13 < 0.0)
     {
-      v18 = v13 / 0.06 * 0.2;
-      v13 = (1.0 - expf(v18)) * -0.06;
+      v19 = v13 / 0.06 * 0.2;
+      v13 = (1.0 - expf(v19)) * -0.06;
     }
   }
 

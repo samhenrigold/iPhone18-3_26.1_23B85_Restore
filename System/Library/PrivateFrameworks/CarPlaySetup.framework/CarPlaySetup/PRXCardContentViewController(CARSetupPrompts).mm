@@ -26,7 +26,7 @@
 
 - (void)carSetup_addMainContentCenteredView:()CARSetupPrompts size:
 {
-  v32[3] = *MEMORY[0x277D85DE8];
+  v31[3] = *MEMORY[0x277D85DE8];
   v8 = a5;
   [v8 setTranslatesAutoresizingMaskIntoConstraints:0];
   contentView = [self contentView];
@@ -35,37 +35,35 @@
   contentView2 = [self contentView];
   mainContentGuide = [contentView2 mainContentGuide];
 
-  v28 = MEMORY[0x277CCAAD0];
+  v27 = MEMORY[0x277CCAAD0];
   topAnchor = [v8 topAnchor];
   topAnchor2 = [mainContentGuide topAnchor];
   v13 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v32[0] = v13;
+  v31[0] = v13;
   bottomAnchor = [v8 bottomAnchor];
   bottomAnchor2 = [mainContentGuide bottomAnchor];
   v16 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v32[1] = v16;
+  v31[1] = v16;
   centerXAnchor = [v8 centerXAnchor];
-  v30 = mainContentGuide;
+  v29 = mainContentGuide;
   centerXAnchor2 = [mainContentGuide centerXAnchor];
   v19 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-  v32[2] = v19;
-  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:3];
-  [v28 activateConstraints:v20];
+  v31[2] = v19;
+  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:3];
+  [v27 activateConstraints:v20];
 
   if (a2 != *MEMORY[0x277CBF3A8] || a3 != *(MEMORY[0x277CBF3A8] + 8))
   {
     v21 = MEMORY[0x277CCAAD0];
     widthAnchor = [v8 widthAnchor];
     v23 = [widthAnchor constraintEqualToConstant:a2];
-    v31[0] = v23;
+    v30[0] = v23;
     heightAnchor = [v8 heightAnchor];
     v25 = [heightAnchor constraintEqualToConstant:a3];
-    v31[1] = v25;
-    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:2];
+    v30[1] = v25;
+    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:2];
     [v21 activateConstraints:v26];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 @end

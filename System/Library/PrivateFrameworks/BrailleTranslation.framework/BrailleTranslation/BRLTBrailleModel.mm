@@ -10,6 +10,7 @@
 - (void)setAlert:(id)alert;
 - (void)setScript:(id)script;
 - (void)setTerminalOutput:(id)output;
+- (void)setUIBraille:(id)braille truncateAtPanBoundary:(BOOL)boundary;
 @end
 
 @implementation BRLTBrailleModel
@@ -127,6 +128,14 @@
   underlyingObject = self->_underlyingObject;
   underlyingObject = [output underlyingObject];
   [(BRLTBrailleModelInternal *)underlyingObject setTerminalOutput:underlyingObject];
+}
+
+- (void)setUIBraille:(id)braille truncateAtPanBoundary:(BOOL)boundary
+{
+  boundaryCopy = boundary;
+  underlyingObject = self->_underlyingObject;
+  underlyingObject = [braille underlyingObject];
+  [(BRLTBrailleModelInternal *)underlyingObject setUIBraille:underlyingObject truncateAtPanBoundary:boundaryCopy];
 }
 
 @end

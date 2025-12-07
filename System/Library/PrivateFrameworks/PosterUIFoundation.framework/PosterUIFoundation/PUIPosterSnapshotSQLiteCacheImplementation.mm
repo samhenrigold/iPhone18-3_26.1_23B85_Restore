@@ -6,36 +6,37 @@
 void __69___PUIPosterSnapshotSQLiteCacheImplementation_prepareCacheWithError___block_invoke(uint64_t a1, void *a2)
 {
   v4 = a2;
+  v5 = v4;
   if (v4)
   {
-    v6 = a1 + 32;
-    v5 = *(a1 + 32);
-    v7 = *(v5 + 56);
-    *(v5 + 56) = 0;
+    v7 = a1 + 32;
+    v6 = *(a1 + 32);
+    v8 = *(v6 + 56);
+    *(v6 + 56) = 0;
 
-    v8 = *(*(a1 + 32) + 64);
+    v9 = *(*(a1 + 32) + 64);
     *(*(a1 + 32) + 64) = 0;
 
-    v9 = PUILogSnapshotCache();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v11 = PUILogSnapshotCache(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      __69___PUIPosterSnapshotSQLiteCacheImplementation_prepareCacheWithError___block_invoke_cold_1(a1 + 32, v4);
+      __69___PUIPosterSnapshotSQLiteCacheImplementation_prepareCacheWithError___block_invoke_cold_1((a1 + 32), v5);
     }
 
-    [*(*v6 + 48) invalidate];
-    v10 = *(*v6 + 48);
-    *(*v6 + 48) = 0;
+    [*(*v7 + 48) invalidate];
+    v12 = *(*v7 + 48);
+    *(*v7 + 48) = 0;
 
-    objc_storeStrong((*v6 + 40), a2);
+    objc_storeStrong((*v7 + 40), a2);
   }
 
-  v11 = PUILogSnapshotCache();
-  v12 = v11;
-  v13 = *(a1 + 40);
-  if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
+  v13 = PUILogSnapshotCache(v4);
+  v14 = v13;
+  v15 = *(a1 + 40);
+  if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
   {
-    *v14 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1A8C85000, v12, OS_SIGNPOST_INTERVAL_END, v13, "SnapshotCachePrepare", &unk_1A8D256D3, v14, 2u);
+    *v16 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1A8C85000, v14, OS_SIGNPOST_INTERVAL_END, v15, "SnapshotCachePrepare", &unk_1A8D256D3, v16, 2u);
   }
 }
 
@@ -79,7 +80,7 @@ id __90___PUIPosterSnapshotSQLiteCacheImplementation_discardSnapshotBundlesMatch
 
 BOOL __90___PUIPosterSnapshotSQLiteCacheImplementation_discardSnapshotBundlesMatchingSQLPredicate___block_invoke_2(uint64_t a1, void *a2)
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_opt_self();
   v5 = [v3 unarchiveObjectsOfClass:v4 predicate:*(a1 + 32) error:0];
@@ -87,86 +88,87 @@ BOOL __90___PUIPosterSnapshotSQLiteCacheImplementation_discardSnapshotBundlesMat
   v6 = [v5 count];
   if (v6)
   {
-    v27 = v6;
-    v28 = v5;
-    v37 = 0u;
+    v28 = v6;
+    v29 = v5;
     v38 = 0u;
-    v35 = 0u;
+    v39 = 0u;
     v36 = 0u;
+    v37 = 0u;
     obj = v5;
-    v7 = [obj countByEnumeratingWithState:&v35 objects:v43 count:16];
+    v7 = [obj countByEnumeratingWithState:&v36 objects:v44 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v36;
-      v29 = v3;
-      v30 = *v36;
+      v9 = *v37;
+      v30 = v3;
+      v31 = *v37;
       do
       {
         v10 = 0;
-        v31 = v8;
+        v32 = v8;
         do
         {
-          if (*v36 != v9)
+          if (*v37 != v9)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v35 + 1) + 8 * v10);
-          v34 = 0;
-          v12 = [v3 deleteObject:v11 error:&v34];
-          v13 = v34;
+          v11 = *(*(&v36 + 1) + 8 * v10);
+          v35 = 0;
+          v12 = [v3 deleteObject:v11 error:&v35];
+          v13 = v35;
+          v14 = v13;
           if (v12)
           {
-            v14 = [v11 snapshotBundleURLRelativeToURL:*(a1 + 48)];
-            v15 = [v14 URLByDeletingLastPathComponent];
-            v16 = *(a1 + 56);
-            v33 = 0;
-            v17 = [v16 removeItemAtURL:v15 error:&v33];
-            v18 = v33;
-            v19 = PUILogSnapshotCache();
-            v20 = v19;
-            if (v17)
+            v15 = [v11 snapshotBundleURLRelativeToURL:*(a1 + 48)];
+            v16 = [v15 URLByDeletingLastPathComponent];
+            v17 = *(a1 + 56);
+            v34 = 0;
+            v18 = [v17 removeItemAtURL:v16 error:&v34];
+            v19 = v34;
+            v20 = PUILogSnapshotCache(v19);
+            v21 = v20;
+            if (v18)
             {
-              if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+              if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
               {
-                v21 = *(a1 + 40);
-                v22 = [v15 lastPathComponent];
+                v22 = *(a1 + 40);
+                v23 = [v16 lastPathComponent];
                 *buf = 138543618;
-                v40 = v21;
-                v3 = v29;
-                v41 = 2114;
-                v42 = v22;
-                _os_log_impl(&dword_1A8C85000, v20, OS_LOG_TYPE_INFO, "<%{public}@> Deleted snapshot bundle: %{public}@", buf, 0x16u);
+                v41 = v22;
+                v3 = v30;
+                v42 = 2114;
+                v43 = v23;
+                _os_log_impl(&dword_1A8C85000, v21, OS_LOG_TYPE_INFO, "<%{public}@> Deleted snapshot bundle: %{public}@", buf, 0x16u);
               }
             }
 
-            else if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+            else if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
             {
-              v24 = *(a1 + 40);
+              v25 = *(a1 + 40);
               *buf = 138543618;
-              v40 = v24;
-              v41 = 2114;
-              v42 = v18;
-              _os_log_error_impl(&dword_1A8C85000, v20, OS_LOG_TYPE_ERROR, "<%{public}@> Failed to remove snapshot bundle: %{public}@", buf, 0x16u);
+              v41 = v25;
+              v42 = 2114;
+              v43 = v19;
+              _os_log_error_impl(&dword_1A8C85000, v21, OS_LOG_TYPE_ERROR, "<%{public}@> Failed to remove snapshot bundle: %{public}@", buf, 0x16u);
             }
 
             [*(a1 + 64) addObject:v11];
-            v9 = v30;
-            v8 = v31;
+            v9 = v31;
+            v8 = v32;
           }
 
           else
           {
-            v14 = PUILogSnapshotCache();
-            if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+            v15 = PUILogSnapshotCache(v13);
+            if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
             {
-              v23 = *(a1 + 40);
+              v24 = *(a1 + 40);
               *buf = 138543618;
-              v40 = v23;
-              v41 = 2114;
-              v42 = v13;
-              _os_log_error_impl(&dword_1A8C85000, v14, OS_LOG_TYPE_ERROR, "<%{public}@> Failed to delete snapshot bundle record with error: %{public}@", buf, 0x16u);
+              v41 = v24;
+              v42 = 2114;
+              v43 = v14;
+              _os_log_error_impl(&dword_1A8C85000, v15, OS_LOG_TYPE_ERROR, "<%{public}@> Failed to delete snapshot bundle record with error: %{public}@", buf, 0x16u);
             }
           }
 
@@ -174,26 +176,26 @@ BOOL __90___PUIPosterSnapshotSQLiteCacheImplementation_discardSnapshotBundlesMat
         }
 
         while (v8 != v10);
-        v8 = [obj countByEnumeratingWithState:&v35 objects:v43 count:16];
+        v8 = [obj countByEnumeratingWithState:&v36 objects:v44 count:16];
       }
 
       while (v8);
     }
 
-    v6 = v27;
-    v5 = v28;
+    v6 = v28;
+    v5 = v29;
   }
 
-  v25 = v6 != 0;
+  v26 = v6 != 0;
 
-  return v25;
+  return v26;
 }
 
 void __90___PUIPosterSnapshotSQLiteCacheImplementation_discardSnapshotBundlesMatchingSQLPredicate___block_invoke_571(uint64_t a1, void *a2)
 {
   v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = PUILogSnapshotCache();
+  v4 = PUILogSnapshotCache(v3);
   v5 = v4;
   v6 = *(a1 + 40);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
@@ -211,7 +213,7 @@ void __90___PUIPosterSnapshotSQLiteCacheImplementation_discardSnapshotBundlesMat
 {
   v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = PUILogSnapshotCache();
+  v4 = PUILogSnapshotCache(v3);
   v5 = v4;
   v6 = *(a1 + 40);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
@@ -288,7 +290,7 @@ void __99___PUIPosterSnapshotSQLiteCacheImplementation_snapshotBundlesMatchingSQ
   {
     v12 = v11;
     *a3 = v11;
-    v13 = PUILogSnapshotCache();
+    v13 = PUILogSnapshotCache(v12);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       __99___PUIPosterSnapshotSQLiteCacheImplementation_snapshotBundlesMatchingSQLPredicate_orderedBy_limit___block_invoke_2_cold_1();
@@ -319,7 +321,7 @@ void __99___PUIPosterSnapshotSQLiteCacheImplementation_snapshotBundlesMatchingSQ
 
           v18 = [*(*(&v23 + 1) + 8 * i) snapshotBundleURLRelativeToURL:*(a1 + 72)];
           v19 = [[PUIPosterSnapshotBundle alloc] initWithURL:v18];
-          v20 = PUILogSnapshotCache();
+          v20 = PUILogSnapshotCache(v19);
           if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
           {
             v21 = *(a1 + 64);
@@ -347,7 +349,7 @@ void __99___PUIPosterSnapshotSQLiteCacheImplementation_snapshotBundlesMatchingSQ
 {
   v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = PUILogSnapshotCache();
+  v4 = PUILogSnapshotCache(v3);
   v5 = v4;
   v6 = *(a1 + 40);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
@@ -365,7 +367,7 @@ void __99___PUIPosterSnapshotSQLiteCacheImplementation_snapshotBundlesMatchingSQ
 {
   v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = PUILogSnapshotCache();
+  v4 = PUILogSnapshotCache(v3);
   v5 = v4;
   v6 = *(a1 + 40);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
@@ -633,7 +635,7 @@ void __75___PUIPosterSnapshotSQLiteCacheImplementation_cacheSnapshotBundle_optio
 {
   v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = PUILogSnapshotCache();
+  v4 = PUILogSnapshotCache(v3);
   v5 = v4;
   v6 = *(a1 + 40);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
@@ -651,7 +653,7 @@ void __75___PUIPosterSnapshotSQLiteCacheImplementation_cacheSnapshotBundle_optio
 {
   v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = PUILogSnapshotCache();
+  v4 = PUILogSnapshotCache(v3);
   v5 = v4;
   v6 = *(a1 + 40);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
@@ -665,11 +667,14 @@ void __75___PUIPosterSnapshotSQLiteCacheImplementation_cacheSnapshotBundle_optio
   }
 }
 
-void __69___PUIPosterSnapshotSQLiteCacheImplementation_prepareCacheWithError___block_invoke_cold_1(uint64_t a1, void *a2)
+void __69___PUIPosterSnapshotSQLiteCacheImplementation_prepareCacheWithError___block_invoke_cold_1(uint64_t *a1, void *a2)
 {
-  v2 = [a2 localizedDescription];
+  v2 = *a1;
+  v3 = [a2 localizedDescription];
+  LODWORD(v10) = 134218242;
+  *(&v10 + 4) = v2;
   OUTLINED_FUNCTION_10();
-  OUTLINED_FUNCTION_9(&dword_1A8C85000, v3, v4, "<%p> invalidating the database connection because of a fatal error: %@", v5, v6, v7, v8, 2u);
+  OUTLINED_FUNCTION_9(&dword_1A8C85000, v4, v5, "<%p> invalidating the database connection because of a fatal error: %@", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
 @end

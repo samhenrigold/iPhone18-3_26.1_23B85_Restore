@@ -239,7 +239,6 @@ LABEL_44:
             NSStringFromClass(v39);
             errorCopy = error;
             v42 = v41 = dataCopy;
-            v43 = *&v7[*v10];
             v11 = CCSkipFieldErrorForMessage();
 
             dataCopy = v41;
@@ -314,22 +313,21 @@ LABEL_48:
 LABEL_54:
   if (!*&v7[*v10])
   {
-    v47 = 1;
+    v45 = 1;
     goto LABEL_58;
   }
 
 LABEL_55:
-  v44 = objc_opt_class();
-  v11 = NSStringFromClass(v44);
-  v45 = *&v7[*v10];
-  v46 = CCInvalidBufferErrorForMessage();
+  v43 = objc_opt_class();
+  v11 = NSStringFromClass(v43);
+  v44 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
 LABEL_56:
-  v47 = 0;
+  v45 = 0;
 LABEL_58:
 
-  return v47;
+  return v45;
 }
 
 - (CCHomeServiceArea)initWithName:(id)name areaIdentifier:(id)identifier associatedMapIdentifier:(id)mapIdentifier error:(id *)error

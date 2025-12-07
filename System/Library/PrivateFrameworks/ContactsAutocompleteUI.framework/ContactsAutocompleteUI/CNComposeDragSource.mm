@@ -148,7 +148,7 @@ id __64__CNComposeDragSource_dragInteraction_itemsForBeginningSession___block_in
       v23 = v22;
       if (v16)
       {
-        [v16 transform];
+        objc_msgSend_transform(v16);
       }
 
       else

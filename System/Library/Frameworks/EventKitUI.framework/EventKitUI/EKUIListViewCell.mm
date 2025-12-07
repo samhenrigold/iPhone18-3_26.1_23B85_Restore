@@ -80,15 +80,15 @@
     v39 = v3;
 
     [(EKUIListViewCell *)self _updateVisualEffectBackground];
-    contentView = [(EKUIListViewCell *)self contentView];
-    [contentView addSubview:self->_effectView];
+    v9 = objc_msgSend_contentView(self);
+    [v9 addSubview:self->_effectView];
 
     clearColor = [MEMORY[0x1E69DC888] clearColor];
     [(EKUIListViewCell *)self setBackgroundColor:clearColor];
 
     clearColor2 = [MEMORY[0x1E69DC888] clearColor];
-    contentView2 = [(EKUIListViewCell *)self contentView];
-    [contentView2 setBackgroundColor:clearColor2];
+    v12 = objc_msgSend_contentView(self);
+    [v12 setBackgroundColor:clearColor2];
 
     [(EKUIListViewCell *)self carplayBackgroundViewInsets];
     v14 = v13;
@@ -97,23 +97,23 @@
     v20 = v19;
     v31 = MEMORY[0x1E696ACD8];
     leadingAnchor = [(UIVisualEffectView *)self->_effectView leadingAnchor];
-    contentView3 = [(EKUIListViewCell *)self contentView];
-    leadingAnchor2 = [contentView3 leadingAnchor];
+    v38 = objc_msgSend_contentView(self);
+    leadingAnchor2 = [v38 leadingAnchor];
     v35 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:v16];
     v40[0] = v35;
     trailingAnchor = [(UIVisualEffectView *)self->_effectView trailingAnchor];
-    contentView4 = [(EKUIListViewCell *)self contentView];
-    trailingAnchor2 = [contentView4 trailingAnchor];
+    v34 = objc_msgSend_contentView(self);
+    trailingAnchor2 = [v34 trailingAnchor];
     v21 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:-v20];
     v40[1] = v21;
     topAnchor = [(UIVisualEffectView *)self->_effectView topAnchor];
-    contentView5 = [(EKUIListViewCell *)self contentView];
-    topAnchor2 = [contentView5 topAnchor];
+    v23 = objc_msgSend_contentView(self);
+    topAnchor2 = [v23 topAnchor];
     v25 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:v14];
     v40[2] = v25;
     bottomAnchor = [(UIVisualEffectView *)self->_effectView bottomAnchor];
-    contentView6 = [(EKUIListViewCell *)self contentView];
-    bottomAnchor2 = [contentView6 bottomAnchor];
+    v27 = objc_msgSend_contentView(self);
+    bottomAnchor2 = [v27 bottomAnchor];
     v29 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2 constant:-v18];
     v40[3] = v29;
     v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:4];
@@ -142,57 +142,57 @@
     defaultBackgroundConfiguration = [(EKUIListViewCell *)self defaultBackgroundConfiguration];
     clearConfiguration = [defaultBackgroundConfiguration updatedConfigurationForState:stateCopy];
 
-    LODWORD(defaultBackgroundConfiguration) = CalInterfaceIsLeftToRight();
-    [(EKUIListViewCell *)self safeAreaInsets];
+    LODWORD(defaultBackgroundConfiguration) = CalInterfaceIsLeftToRight(v7, v8);
+    safeAreaInsets = [(EKUIListViewCell *)self safeAreaInsets];
     if (defaultBackgroundConfiguration)
-    {
-      v9 = v7;
-    }
-
-    else
-    {
-      v9 = v8;
-    }
-
-    IsLeftToRight = CalInterfaceIsLeftToRight();
-    [(EKUIListViewCell *)self safeAreaInsets];
-    if (IsLeftToRight)
-    {
-      v13 = v12;
-    }
-
-    else
     {
       v13 = v11;
     }
 
-    v14 = CalInterfaceIsLeftToRight();
-    [(EKUIListViewCell *)self layoutMargins];
-    if (v14)
+    else
     {
-      v17 = v15;
+      v13 = v12;
+    }
+
+    IsLeftToRight = CalInterfaceIsLeftToRight(safeAreaInsets, v10);
+    safeAreaInsets2 = [(EKUIListViewCell *)self safeAreaInsets];
+    if (IsLeftToRight)
+    {
+      v19 = v18;
     }
 
     else
     {
-      v17 = v16;
+      v19 = v17;
     }
 
-    v18 = CalInterfaceIsLeftToRight();
-    [(EKUIListViewCell *)self layoutMargins];
-    if (v18)
+    v20 = CalInterfaceIsLeftToRight(safeAreaInsets2, v16);
+    layoutMargins = [(EKUIListViewCell *)self layoutMargins];
+    if (v20)
     {
-      v21 = v20;
+      v25 = v23;
     }
 
     else
     {
-      v21 = v19;
+      v25 = v24;
     }
 
-    v22 = v21 + -8.0;
+    v26 = CalInterfaceIsLeftToRight(layoutMargins, v22);
+    [(EKUIListViewCell *)self layoutMargins];
+    if (v26)
+    {
+      v29 = v28;
+    }
+
+    else
+    {
+      v29 = v27;
+    }
+
+    v30 = v29 + -8.0;
     [clearConfiguration setCornerRadius:6.0];
-    [clearConfiguration setBackgroundInsets:{4.0, v9 - (v17 + -8.0), 4.0, v13 - v22}];
+    [clearConfiguration setBackgroundInsets:{4.0, v13 - (v25 + -8.0), 4.0, v19 - v30}];
     [clearConfiguration setEdgesAddingLayoutMarginsToBackgroundInsets:10];
     [(EKUIListViewCell *)self setBackgroundConfiguration:clearConfiguration];
   }
@@ -231,8 +231,8 @@
       [(EKUIListViewCell *)self carplayBackgroundViewInsets];
       v5 = v4;
       v7 = v6;
-      contentView = [(EKUIListViewCell *)self contentView];
-      [contentView bounds];
+      v8 = objc_msgSend_contentView(self);
+      [v8 bounds];
       v9 = CGRectGetHeight(v12) - v5 - v7;
 
       v3 = v9 * 0.5;
@@ -248,15 +248,15 @@
   if ([(EKUIListViewCell *)self _usesVisualEffectBackground])
   {
     effectView = [(EKUIListViewCell *)self effectView];
-    contentView = [effectView contentView];
+    v4 = objc_msgSend_contentView(effectView);
   }
 
   else
   {
-    contentView = [(EKUIListViewCell *)self contentView];
+    v4 = objc_msgSend_contentView(self);
   }
 
-  return contentView;
+  return v4;
 }
 
 - (void)_updateVisualEffectBackground

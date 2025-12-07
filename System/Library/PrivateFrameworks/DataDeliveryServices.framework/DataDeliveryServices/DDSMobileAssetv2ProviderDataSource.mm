@@ -17,17 +17,15 @@
 
 void __73__DDSMobileAssetv2ProviderDataSource_linguisticAssetCompatabilityVersion__block_invoke()
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   linguisticAssetCompatabilityVersion_supportedCompatibilityVersion_0 = DDSReadCompatabilityVersionFromFile(@"Info.plist");
-  v0 = DefaultLog();
+  v0 = DefaultLog(linguisticAssetCompatabilityVersion_supportedCompatibilityVersion_0);
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
-    v2 = 134217984;
-    v3 = linguisticAssetCompatabilityVersion_supportedCompatibilityVersion_0;
-    _os_log_impl(&dword_1DF7C6000, v0, OS_LOG_TYPE_DEFAULT, "Supported compatibility version for LinguisticData assets = %ld", &v2, 0xCu);
+    v1 = 134217984;
+    v2 = linguisticAssetCompatabilityVersion_supportedCompatibilityVersion_0;
+    _os_log_impl(&dword_1DF7C6000, v0, OS_LOG_TYPE_DEFAULT, "Supported compatibility version for LinguisticData assets = %ld", &v1, 0xCu);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 - (int64_t)mecabraDictionaryRapidUpdatesAssetCompatabilityVersion
@@ -42,17 +40,15 @@ void __73__DDSMobileAssetv2ProviderDataSource_linguisticAssetCompatabilityVersio
 
 void __92__DDSMobileAssetv2ProviderDataSource_mecabraDictionaryRapidUpdatesAssetCompatabilityVersion__block_invoke()
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   mecabraDictionaryRapidUpdatesAssetCompatabilityVersion_mecabraAssetsCompatibilityVersion = DDSReadCompatabilityVersionFromFile(@"MecabraDictionaryRapidUpdates_Info.plist");
-  v0 = DefaultLog();
+  v0 = DefaultLog(mecabraDictionaryRapidUpdatesAssetCompatabilityVersion_mecabraAssetsCompatibilityVersion);
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
-    v2 = 134217984;
-    v3 = mecabraDictionaryRapidUpdatesAssetCompatabilityVersion_mecabraAssetsCompatibilityVersion;
-    _os_log_impl(&dword_1DF7C6000, v0, OS_LOG_TYPE_DEFAULT, "Supported compatibility version for MecabraDictionaryRapidUpdates assets = %ld", &v2, 0xCu);
+    v1 = 134217984;
+    v2 = mecabraDictionaryRapidUpdatesAssetCompatabilityVersion_mecabraAssetsCompatibilityVersion;
+    _os_log_impl(&dword_1DF7C6000, v0, OS_LOG_TYPE_DEFAULT, "Supported compatibility version for MecabraDictionaryRapidUpdates assets = %ld", &v1, 0xCu);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 @end

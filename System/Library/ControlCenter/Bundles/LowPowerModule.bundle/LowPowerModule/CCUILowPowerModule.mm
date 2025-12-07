@@ -7,7 +7,7 @@
 - (id)contentViewControllerForContext:(id)context
 {
   v4 = objc_alloc_init(CCUILowPowerModuleViewController);
-  [(CCUIMenuModuleViewController *)v4 setContentModuleContext:self->_contentModuleContext];
+  objc_msgSend_setContentModuleContext_(v4, v5, self->_contentModuleContext);
 
   return v4;
 }

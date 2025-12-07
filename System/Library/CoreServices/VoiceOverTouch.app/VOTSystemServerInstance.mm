@@ -434,78 +434,77 @@ LABEL_6:
   intValue = [v5 intValue];
 
   v7 = [objc_allocWithZone(AXIndexMap) init];
-  LOBYTE(v50) = 1;
-  _AXLogWithFacility();
+  _AXLogWithFacility(3, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Got command %d");
   x = CGPointZero.x;
   y = CGPointZero.y;
   switch(intValue)
   {
-    case 1:
-    case 48:
+    case 1u:
+    case 0x30u:
       v10 = &kVOTEventCommandToggleMute;
       goto LABEL_71;
-    case 2:
+    case 2u:
       v10 = &kVOTEventCommandToggleScreenCurtain;
       goto LABEL_71;
-    case 3:
+    case 3u:
       v10 = &kVOTEventCommandScrollUpPage;
       goto LABEL_71;
-    case 4:
+    case 4u:
       v10 = &kVOTEventCommandScrollDownPage;
       goto LABEL_71;
-    case 5:
+    case 5u:
       v10 = &kVOTEventCommandScrollLeftPage;
       goto LABEL_71;
-    case 6:
+    case 6u:
       v10 = &kVOTEventCommandScrollRightPage;
       goto LABEL_71;
-    case 7:
+    case 7u:
       v10 = &kVOTEventCommandOutputElementSummary;
       goto LABEL_71;
-    case 8:
+    case 8u:
       v10 = &kVOTEventCommandPreviousElement;
       goto LABEL_71;
-    case 9:
+    case 9u:
       v10 = &kVOTEventCommandNextElement;
       goto LABEL_71;
-    case 10:
+    case 0xAu:
       v10 = &kVOTEventCommandFirstElement;
       goto LABEL_71;
-    case 11:
+    case 0xBu:
       v10 = &kVOTEventCommandLastElement;
       goto LABEL_71;
-    case 12:
+    case 0xCu:
       v10 = &kVOTEventCommandMoveToStatusBar;
       goto LABEL_71;
-    case 13:
+    case 0xDu:
       v10 = &kVOTEventCommandEscape;
       goto LABEL_71;
-    case 14:
+    case 0xEu:
       v10 = &kVOTEventCommandSearchRotorRight;
       goto LABEL_71;
-    case 15:
+    case 0xFu:
       v10 = &kVOTEventCommandSearchRotorLeft;
       goto LABEL_71;
-    case 16:
+    case 0x10u:
       v10 = &kVOTEventCommandSearchRotorUp;
       goto LABEL_71;
-    case 17:
+    case 0x11u:
       v10 = &kVOTEventCommandSearchRotorDown;
       goto LABEL_71;
-    case 18:
+    case 0x12u:
       v10 = &kVOTEventCommandItemChooser;
       goto LABEL_71;
-    case 19:
+    case 0x13u:
       v10 = &kVOTEventCommandSimpleTap;
       goto LABEL_71;
-    case 20:
+    case 0x14u:
       v10 = &kVOTEventCommandPauseSpeaking;
       goto LABEL_71;
-    case 21:
+    case 0x15u:
       v10 = &kVOTEventCommandToggleCrownNaviation;
       goto LABEL_71;
-    case 22:
-      v36 = [VOTKeyboardManager keyboardManager:v50];
+    case 0x16u:
+      v36 = +[VOTKeyboardManager keyboardManager];
       isQuickNavOn = [v36 isQuickNavOn];
 
       if (!isQuickNavOn)
@@ -514,8 +513,8 @@ LABEL_6:
       }
 
       goto LABEL_57;
-    case 23:
-      v38 = [VOTKeyboardManager keyboardManager:v50];
+    case 0x17u:
+      v38 = +[VOTKeyboardManager keyboardManager];
       isQuickNavOn2 = [v38 isQuickNavOn];
 
       if (isQuickNavOn2)
@@ -526,7 +525,7 @@ LABEL_6:
 LABEL_57:
       v10 = &kVOTEventCommandToggleQuickNav;
       goto LABEL_71;
-    case 24:
+    case 0x18u:
       payload2 = [triggeredCopy payload];
       v22 = [payload2 objectForKey:@"argument"];
 
@@ -543,7 +542,7 @@ LABEL_57:
       v26 = [v22 objectAtIndexedSubscript:1];
       v27 = &kVOTEventCommandTouchDown;
       goto LABEL_64;
-    case 25:
+    case 0x19u:
       payload3 = [triggeredCopy payload];
       v22 = [payload3 objectForKey:@"argument"];
 
@@ -560,7 +559,7 @@ LABEL_57:
       v26 = [v22 objectAtIndexedSubscript:1];
       v27 = &kVOTEventCommandTouchMove;
       goto LABEL_64;
-    case 26:
+    case 0x1Au:
       payload4 = [triggeredCopy payload];
       v22 = [payload4 objectForKey:@"argument"];
 
@@ -587,19 +586,19 @@ LABEL_67:
       v26 = 0;
       v19 = 0;
       goto LABEL_77;
-    case 27:
+    case 0x1Bu:
       v11 = &kVOTEventCommandTouchCancel;
       goto LABEL_59;
-    case 28:
+    case 0x1Cu:
       v11 = &kVOTEventCommandStartStopToggle;
 LABEL_59:
       v19 = *v11;
       v26 = 0;
       goto LABEL_65;
-    case 29:
+    case 0x1Du:
       v10 = &kVOTEventCommandCopySpeechToClipboard;
       goto LABEL_71;
-    case 30:
+    case 0x1Eu:
       payload5 = [triggeredCopy payload];
       v16 = [payload5 objectForKey:@"argument"];
 
@@ -615,15 +614,15 @@ LABEL_59:
       }
 
       goto LABEL_75;
-    case 31:
+    case 0x1Fu:
       payload6 = [triggeredCopy payload];
       v33 = [payload6 objectForKey:@"argument"];
       bOOLValue = [v33 BOOLValue];
 
       [VOTSharedWorkspace setInPerformanceTestMode:bOOLValue];
       goto LABEL_35;
-    case 32:
-      [VOTSharedWorkspace setInPerformanceTestMode:{1, v50, @"Got command %d", intValue}];
+    case 0x20u:
+      [VOTSharedWorkspace setInPerformanceTestMode:1];
       v19 = kVOTEventCommandAnnouncement;
       [v7 setObject:@"A reasonably long piece of text to announce!" forIndex:116];
       if (!v19)
@@ -632,7 +631,7 @@ LABEL_59:
       }
 
       goto LABEL_72;
-    case 33:
+    case 0x21u:
       payload7 = [triggeredCopy payload];
       v16 = [payload7 objectForKey:@"argument"];
 
@@ -655,7 +654,7 @@ LABEL_75:
       }
 
       goto LABEL_72;
-    case 34:
+    case 0x22u:
       payload8 = [triggeredCopy payload];
       v13 = [payload8 objectForKey:@"argument"];
 
@@ -666,68 +665,68 @@ LABEL_75:
       }
 
       goto LABEL_67;
-    case 35:
+    case 0x23u:
       [VOTSharedWorkspace _testFetchWebElementRects];
 LABEL_35:
       v26 = 0;
       v19 = 0;
       goto LABEL_73;
-    case 36:
+    case 0x24u:
       v10 = &kVOTEventCommandNextElementCommunity;
       goto LABEL_71;
-    case 37:
+    case 0x25u:
       v10 = &kVOTEventCommandPreviousElementCommunity;
       goto LABEL_71;
-    case 38:
+    case 0x26u:
       v10 = &kVOTEventCommandReadAll;
       goto LABEL_71;
-    case 39:
+    case 0x27u:
       v10 = &kVOTEventCommandShowEditingHUD;
       goto LABEL_71;
-    case 40:
+    case 0x28u:
       v10 = &kVOTEventCommandCopy;
       goto LABEL_71;
-    case 41:
+    case 0x29u:
       v10 = &kVOTEventCommandPaste;
       goto LABEL_71;
-    case 42:
+    case 0x2Au:
       v10 = &kVOTEventCommandUndo;
       goto LABEL_71;
-    case 43:
+    case 0x2Bu:
       v10 = &kVOTEventCommandRedo;
       goto LABEL_71;
-    case 44:
+    case 0x2Cu:
       v10 = &kVOTEventCommandSystemSwitchToNextApp;
       goto LABEL_71;
-    case 45:
+    case 0x2Du:
       v10 = &kVOTEventCommandSystemSwitchToPreviousApp;
       goto LABEL_71;
-    case 46:
+    case 0x2Eu:
       v10 = &kVOTEventCommandToggleSettingsHUD;
       goto LABEL_71;
-    case 47:
+    case 0x2Fu:
       v10 = &kVOTEventCommandStartHelp;
       goto LABEL_71;
-    case 49:
+    case 0x31u:
       v10 = &kVOTEventCommandDescribeCameraScene;
       goto LABEL_71;
-    case 50:
+    case 0x32u:
       v10 = &kVOTEventCommandShowDetectionUIWithMagnifierService;
       goto LABEL_71;
-    case 51:
+    case 0x33u:
       v10 = &kVOTEventCommandHideDetectionUIWithMagnifierService;
       goto LABEL_71;
-    case 52:
+    case 0x34u:
       v10 = &kVOTEventCommandActivateBrailleScreenInput;
       goto LABEL_71;
-    case 53:
+    case 0x35u:
       v10 = &kVOTEventCommandBSIExit;
 LABEL_71:
       v19 = *v10;
       if (v19)
       {
 LABEL_72:
-        v43 = [VOTEvent systemServerEventWithCommand:v19 info:v7, v50];
+        v43 = [VOTEvent systemServerEventWithCommand:v19 info:v7];
         [VOTSharedWorkspace dispatchCommand:v43];
 
         v26 = 0;
@@ -744,10 +743,10 @@ LABEL_77:
       }
 
       v45 = [AXIPCMessage alloc];
-      v51 = @"result";
+      v50 = @"result";
       v46 = [NSNumber numberWithBool:v44];
-      v52 = v46;
-      v47 = [NSDictionary dictionaryWithObjects:&v52 forKeys:&v51 count:1];
+      v51 = v46;
+      v47 = [NSDictionary dictionaryWithObjects:&v51 forKeys:&v50 count:1];
       v48 = [v45 initWithKey:7000 payload:v47];
 
       return v48;

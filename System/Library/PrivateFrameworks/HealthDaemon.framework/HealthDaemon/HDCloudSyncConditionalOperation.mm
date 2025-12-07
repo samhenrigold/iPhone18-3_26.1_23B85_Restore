@@ -1,4 +1,5 @@
 @interface HDCloudSyncConditionalOperation
+- (BOOL)finishWithSuccess:(BOOL)success error:(id)error;
 - (HDCloudSyncConditionalOperation)initWithConfiguration:(id)configuration cloudState:(id)state;
 - (HDCloudSyncConditionalOperation)initWithConfiguration:(id)configuration cloudState:(id)state operation:(id)operation shouldRunHandler:(id)handler;
 - (id)description;
@@ -37,7 +38,7 @@
 
 - (void)main
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   shouldRunHandler = [(HDCloudSyncConditionalOperation *)self shouldRunHandler];
   [(HDCloudSyncConditionalOperation *)self setShouldRunHandler:0];
   if (shouldRunHandler && ((shouldRunHandler)[2](shouldRunHandler, self) & 1) != 0)
@@ -71,8 +72,6 @@
 
     [(HDCloudSyncConditionalOperation *)self finishWithSuccess:1 error:0];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)skip
@@ -84,6 +83,18 @@
   [operation skip];
 
   [(HDCloudSyncConditionalOperation *)self setShouldRunHandler:0];
+}
+
+- (BOOL)finishWithSuccess:(BOOL)success error:(id)error
+{
+  successCopy = success;
+  errorCopy = error;
+  [(HDCloudSyncConditionalOperation *)self setShouldRunHandler:0];
+  v8.receiver = self;
+  v8.super_class = HDCloudSyncConditionalOperation;
+  LOBYTE(successCopy) = [(HDCloudSyncOperation *)&v8 finishWithSuccess:successCopy error:errorCopy];
+
+  return successCopy;
 }
 
 - (id)description

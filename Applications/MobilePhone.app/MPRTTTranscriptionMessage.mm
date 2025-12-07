@@ -30,39 +30,39 @@
 - (void)fetchRTTConversationForCallUUID:(id)d
 {
   dCopy = d;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(dCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Starting fetchRTTConversationForCallUUID", buf, 2u);
   }
 
-  v6 = RTTUIUtilitiesClass();
-  if (v6)
+  v7 = RTTUIUtilitiesClass(v6);
+  if (v7)
   {
-    v7 = v6;
+    v8 = v7;
     objc_initWeak(buf, self);
     rttConversationsQueue = self->_rttConversationsQueue;
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = __61__MPRTTTranscriptionMessage_fetchRTTConversationForCallUUID___block_invoke;
     block[3] = &unk_1002867B8;
-    objc_copyWeak(v12, buf);
-    v12[1] = v7;
-    v11 = dCopy;
+    objc_copyWeak(v13, buf);
+    v13[1] = v8;
+    v12 = dCopy;
     dispatch_async(rttConversationsQueue, block);
 
-    objc_destroyWeak(v12);
+    objc_destroyWeak(v13);
     objc_destroyWeak(buf);
   }
 
   else
   {
-    v9 = PHDefaultLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = PHDefaultLog(0);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Stopped fetchRTTConversationForCallUUID because we could not find RTTUIUtilities", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Stopped fetchRTTConversationForCallUUID because we could not find RTTUIUtilities", buf, 2u);
     }
   }
 }
@@ -74,33 +74,33 @@ void __61__MPRTTTranscriptionMessage_fetchRTTConversationForCallUUID___block_inv
 
   if (v2)
   {
-    v3 = [a1[6] sharedUtilityProvider];
-    v4 = [a1[4] UUIDString];
-    v5 = [v3 conversationForCallUID:v4];
+    v4 = [a1[6] sharedUtilityProvider];
+    v5 = [a1[4] UUIDString];
+    v6 = [v4 conversationForCallUID:v5];
 
-    if (v5)
+    if (v6)
     {
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = __61__MPRTTTranscriptionMessage_fetchRTTConversationForCallUUID___block_invoke_59;
       block[3] = &unk_100285C30;
-      objc_copyWeak(&v9, a1 + 5);
-      v5 = v5;
-      v7 = v5;
-      v8 = a1[4];
+      objc_copyWeak(&v10, a1 + 5);
+      v6 = v6;
+      v8 = v6;
+      v9 = a1[4];
       dispatch_async(&_dispatch_main_q, block);
 
-      objc_destroyWeak(&v9);
+      objc_destroyWeak(&v10);
     }
   }
 
   else
   {
-    v5 = PHDefaultLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = PHDefaultLog(v3);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Stopped fetchRTTConversationForCallUUID because MPRTTTranscriptionMessage was deallocated before starting", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Stopped fetchRTTConversationForCallUUID because MPRTTTranscriptionMessage was deallocated before starting", buf, 2u);
     }
   }
 
@@ -113,8 +113,7 @@ void __61__MPRTTTranscriptionMessage_fetchRTTConversationForCallUUID___block_inv
   v3 = WeakRetained;
   if (WeakRetained)
   {
-    [WeakRetained setConversation:*(a1 + 32)];
-    v4 = PHDefaultLog();
+    v4 = PHDefaultLog([WeakRetained setConversation:*(a1 + 32)]);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *v8 = 0;
@@ -131,7 +130,7 @@ void __61__MPRTTTranscriptionMessage_fetchRTTConversationForCallUUID___block_inv
 
   else
   {
-    v5 = PHDefaultLog();
+    v5 = PHDefaultLog(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *v8 = 0;

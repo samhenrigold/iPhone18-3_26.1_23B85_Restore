@@ -56,7 +56,7 @@
 
 - (void)setShouldDisplayCloseButton:(BOOL)button
 {
-  v28[2] = *MEMORY[0x277D85DE8];
+  v27[2] = *MEMORY[0x277D85DE8];
   if (self->_shouldDisplayCloseButton != button)
   {
     self->_shouldDisplayCloseButton = button;
@@ -74,28 +74,30 @@
       topAnchor = [closeButton3 topAnchor];
       view2 = [(IAMModalWebMessageViewController *)self view];
       topAnchor2 = [view2 topAnchor];
-      v25 = topAnchor;
+      v24 = topAnchor;
       v11 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:16.0];
-      v27[0] = v11;
+      v26[0] = v11;
       closeButton4 = [(IAMModalWebMessageViewController *)self closeButton];
       rightAnchor = [closeButton4 rightAnchor];
       view3 = [(IAMModalWebMessageViewController *)self view];
       rightAnchor2 = [view3 rightAnchor];
       v16 = [rightAnchor constraintEqualToAnchor:rightAnchor2 constant:-16.0];
-      v27[1] = v16;
-      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
+      v26[1] = v16;
+      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
       [v7 activateConstraints:v17];
-LABEL_6:
-
-      goto LABEL_7;
     }
 
-    closeButton5 = [(IAMModalWebMessageViewController *)self closeButton];
-    view4 = [(IAMModalWebMessageViewController *)self view];
-    v20 = [closeButton5 isDescendantOfView:view4];
-
-    if (v20)
+    else
     {
+      closeButton5 = [(IAMModalWebMessageViewController *)self closeButton];
+      view4 = [(IAMModalWebMessageViewController *)self view];
+      v20 = [closeButton5 isDescendantOfView:view4];
+
+      if (!v20)
+      {
+        return;
+      }
+
       closeButton6 = [(IAMModalWebMessageViewController *)self closeButton];
       [closeButton6 removeFromSuperview];
 
@@ -104,23 +106,19 @@ LABEL_6:
       topAnchor3 = [closeButton3 topAnchor];
       view2 = [(IAMModalWebMessageViewController *)self view];
       topAnchor2 = [view2 topAnchor];
-      v25 = topAnchor3;
+      v24 = topAnchor3;
       v11 = [topAnchor3 constraintEqualToAnchor:topAnchor2 constant:16.0];
-      v28[0] = v11;
+      v27[0] = v11;
       closeButton4 = [(IAMModalWebMessageViewController *)self closeButton];
       rightAnchor = [closeButton4 rightAnchor];
       view3 = [(IAMModalWebMessageViewController *)self view];
       rightAnchor2 = [view3 rightAnchor];
       v16 = [rightAnchor constraintEqualToAnchor:rightAnchor2 constant:-16.0];
-      v28[1] = v16;
-      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:2];
+      v27[1] = v16;
+      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
       [v22 deactivateConstraints:v17];
-      goto LABEL_6;
     }
   }
-
-LABEL_7:
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleCloseButtonTap:(id)tap

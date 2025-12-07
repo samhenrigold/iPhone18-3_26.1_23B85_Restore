@@ -65,6 +65,7 @@
 - (void)setNotificationCoalescingValue:(id)value specifier:(id)specifier;
 - (void)setUpWatchAppAvailabilityForAppBundleID:(id)d device:(id)device;
 - (void)traitCollectionDidChange:(id)change;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)watchAppAvailability:(id)availability appInstallStateDidChange:(int64_t)change;
 @end
 
@@ -319,6 +320,48 @@
   v2 = objc_opt_class();
 
   return [NSBundle bundleForClass:v2];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v24.receiver = self;
+  v24.super_class = HPRFHeartRateSettingsController;
+  [(HPRFHeartRateSettingsController *)&v24 viewWillAppear:appear];
+  v4 = [NSBundle bundleForClass:objc_opt_class()];
+  v5 = [_NSLocalizedStringResource alloc];
+  v6 = +[NSLocale currentLocale];
+  v7 = HKHRHeartHealthBundle();
+  bundleURL = [v7 bundleURL];
+  v23 = [v5 initWithKey:@"PANE_TITLE" table:@"HeartRateSettings" locale:v6 bundleURL:bundleURL];
+
+  bundleIdentifier = [v4 bundleIdentifier];
+  bundleIdentifier2 = [v4 bundleIdentifier];
+  v11 = [NSString stringWithFormat:@"bridge:root=%@", bundleIdentifier2];
+  v12 = [NSURL URLWithString:v11];
+  [BPSWatchSettingsNavigationDonation emitNavigationEventForApplicationSettingWithIconSpecifierIdentifier:bundleIdentifier title:v23 localizedNavigationComponents:&__NSArray0__struct deepLink:v12];
+
+  v13 = [(HPRFHeartRateSettingsController *)self specifierForID:@"HEART_NOTIFICATION_TACHYCARDIA_GROUP_ID"];
+  footerText = [objc_opt_class() footerText];
+  v15 = PSFooterTextGroupKey;
+  [v13 setObject:footerText forKeyedSubscript:PSFooterTextGroupKey];
+
+  [(HPRFHeartRateSettingsController *)self reloadSpecifier:v13];
+  v16 = [(HPRFHeartRateSettingsController *)self specifierForID:@"HEART_NOTIFICATION_TACHYCARDIA_ID"];
+  v17 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", +[_HKHeartSettingsUtilities isBackgroundHeartRateEnabled]);
+  v18 = PSEnabledKey;
+  [v16 setObject:v17 forKeyedSubscript:PSEnabledKey];
+
+  [(HPRFHeartRateSettingsController *)self reloadSpecifier:v16];
+  v19 = [(HPRFHeartRateSettingsController *)self specifierForID:@"HEART_NOTIFICATION_BRADYCARDIA_GROUP_ID"];
+  footerText2 = [objc_opt_class() footerText];
+  [v19 setObject:footerText2 forKeyedSubscript:v15];
+
+  [(HPRFHeartRateSettingsController *)self reloadSpecifier:v19];
+  v21 = [(HPRFHeartRateSettingsController *)self specifierForID:@"HEART_NOTIFICATION_BRADYCARDIA_ID"];
+  v22 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", +[_HKHeartSettingsUtilities isBackgroundHeartRateEnabled]);
+  [v21 setObject:v22 forKeyedSubscript:v18];
+
+  [(HPRFHeartRateSettingsController *)self reloadSpecifier:v21];
 }
 
 - (int64_t)_atrialFibrillationDetectionRescindedStatus
@@ -1077,7 +1120,7 @@ LABEL_104:
     v6 = HKLogHeartRateCategory();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      sub_C244();
+      sub_C244(self);
     }
   }
 }
@@ -1267,7 +1310,7 @@ LABEL_104:
     v4 = HKLogHeartRateCategory();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
-      sub_C2CC();
+      sub_C2CC(self);
     }
   }
 }
@@ -1480,7 +1523,7 @@ LABEL_104:
     v6 = HKHRAFibBurdenLogForCategory();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      sub_C468();
+      sub_C468(self);
     }
   }
 }
@@ -1625,7 +1668,7 @@ LABEL_104:
     v6 = HKLogHeartRateCategory();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      sub_C620();
+      sub_C620(self);
     }
   }
 }
@@ -1759,7 +1802,7 @@ LABEL_104:
     v6 = HKLogHeartRateCategory();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      sub_C7D8();
+      sub_C7D8(self);
     }
   }
 }

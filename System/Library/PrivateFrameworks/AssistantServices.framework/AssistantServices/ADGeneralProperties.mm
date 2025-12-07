@@ -95,7 +95,7 @@
 - (id)_getSystemLocale
 {
   v2 = +[NSLocale currentLocale];
-  v3 = [v2 objectForKey:NSLocaleIdentifier];
+  v3 = objc_msgSend_objectForKey_(v2);
 
   uppercaseString = [v3 uppercaseString];
   v5 = [uppercaseString stringByReplacingOccurrencesOfString:@"-" withString:@"_"];

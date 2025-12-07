@@ -106,10 +106,10 @@ void __53__PEPlaybackRateAction_applyToLoadResult_completion___block_invoke_484(
   [v3 setRate:*(a1 + 40)];
   if (v3)
   {
-    [v3 startTime];
+    objc_msgSend_startTime(v3);
     if ((v11 & 0x100000000) != 0)
     {
-      [v3 endTime];
+      objc_msgSend_endTime(v3);
       if (v9)
       {
         goto LABEL_9;
@@ -129,7 +129,7 @@ void __53__PEPlaybackRateAction_applyToLoadResult_completion___block_invoke_484(
   memset(&v8, 0, sizeof(v8));
   if (v4)
   {
-    [v4 slowMotionTimeRange];
+    objc_msgSend_slowMotionTimeRange(v4);
   }
 
   *&v6.start.value = *&v8.start.value;

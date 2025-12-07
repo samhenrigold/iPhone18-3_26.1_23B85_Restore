@@ -10,7 +10,7 @@
 
 - (void)receivedNotificationResponse:(id)response
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   responseCopy = response;
   notification = [responseCopy notification];
   request = [notification request];
@@ -28,15 +28,13 @@
     v10 = AFSiriLogContextUtility;
     if (os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_ERROR))
     {
-      v12 = 136315394;
-      v13 = "[AFUserNotificationProvider receivedNotificationResponse:]";
-      v14 = 2112;
-      v15 = responseCopy;
-      _os_log_error_impl(&dword_1912FE000, v10, OS_LOG_TYPE_ERROR, "%s No response handler for %@", &v12, 0x16u);
+      v11 = 136315394;
+      v12 = "[AFUserNotificationProvider receivedNotificationResponse:]";
+      v13 = 2112;
+      v14 = responseCopy;
+      _os_log_error_impl(&dword_1912FE000, v10, OS_LOG_TYPE_ERROR, "%s No response handler for %@", &v11, 0x16u);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_connection
@@ -85,38 +83,34 @@
 
 void __41__AFUserNotificationProvider__connection__block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextUtility;
   if (os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_ERROR))
   {
-    v6 = 136315138;
-    v7 = "[AFUserNotificationProvider _connection]_block_invoke";
-    _os_log_error_impl(&dword_1912FE000, v2, OS_LOG_TYPE_ERROR, "%s Connection to assistantd for notification interrupted", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[AFUserNotificationProvider _connection]_block_invoke";
+    _os_log_error_impl(&dword_1912FE000, v2, OS_LOG_TYPE_ERROR, "%s Connection to assistantd for notification interrupted", &v5, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v4 = WeakRetained[1];
   WeakRetained[1] = 0;
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __41__AFUserNotificationProvider__connection__block_invoke_15(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextUtility;
   if (os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_ERROR))
   {
-    v6 = 136315138;
-    v7 = "[AFUserNotificationProvider _connection]_block_invoke";
-    _os_log_error_impl(&dword_1912FE000, v2, OS_LOG_TYPE_ERROR, "%s Connection to assistantd for notification invalidated", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[AFUserNotificationProvider _connection]_block_invoke";
+    _os_log_error_impl(&dword_1912FE000, v2, OS_LOG_TYPE_ERROR, "%s Connection to assistantd for notification invalidated", &v5, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v4 = WeakRetained[1];
   WeakRetained[1] = 0;
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)withdrawNotificationRequestWithIdentifier:(id)identifier
@@ -134,43 +128,41 @@ void __41__AFUserNotificationProvider__connection__block_invoke_15(uint64_t a1)
 
 void __72__AFUserNotificationProvider_withdrawNotificationRequestWithIdentifier___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = AFSiriLogContextUtility;
   if (os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_ERROR))
   {
-    v8 = 136315394;
-    v9 = "[AFUserNotificationProvider withdrawNotificationRequestWithIdentifier:]_block_invoke";
-    v10 = 2112;
-    v11 = v3;
-    _os_log_error_impl(&dword_1912FE000, v4, OS_LOG_TYPE_ERROR, "%s Error connecting to assistantd for notification service: %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[AFUserNotificationProvider withdrawNotificationRequestWithIdentifier:]_block_invoke";
+    v9 = 2112;
+    v10 = v3;
+    _os_log_error_impl(&dword_1912FE000, v4, OS_LOG_TYPE_ERROR, "%s Error connecting to assistantd for notification service: %@", &v7, 0x16u);
   }
 
   v5 = *(a1 + 32);
   v6 = *(v5 + 8);
   *(v5 + 8) = 0;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)postNotificationRequest:(id)request responseHandler:(id)handler
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   handlerCopy = handler;
   identifier = [requestCopy identifier];
   if (identifier)
   {
     queue = self->_queue;
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __70__AFUserNotificationProvider_postNotificationRequest_responseHandler___block_invoke;
-    v12[3] = &unk_1E73479F0;
-    v15 = handlerCopy;
-    v12[4] = self;
-    v13 = identifier;
-    v14 = requestCopy;
-    dispatch_async(queue, v12);
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __70__AFUserNotificationProvider_postNotificationRequest_responseHandler___block_invoke;
+    v11[3] = &unk_1E73479F0;
+    v14 = handlerCopy;
+    v11[4] = self;
+    v12 = identifier;
+    v13 = requestCopy;
+    dispatch_async(queue, v11);
   }
 
   else
@@ -179,16 +171,14 @@ void __72__AFUserNotificationProvider_withdrawNotificationRequestWithIdentifier_
     if (os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v17 = "[AFUserNotificationProvider postNotificationRequest:responseHandler:]";
-      v18 = 2112;
-      v19 = requestCopy;
+      v16 = "[AFUserNotificationProvider postNotificationRequest:responseHandler:]";
+      v17 = 2112;
+      v18 = requestCopy;
       _os_log_error_impl(&dword_1912FE000, v10, OS_LOG_TYPE_ERROR, "%s No identifier specified for %@", buf, 0x16u);
     }
 
     (*(handlerCopy + 2))(handlerCopy, 0);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __70__AFUserNotificationProvider_postNotificationRequest_responseHandler___block_invoke(uint64_t a1)
@@ -246,23 +236,21 @@ void __70__AFUserNotificationProvider_postNotificationRequest_responseHandler___
 
 void __70__AFUserNotificationProvider_postNotificationRequest_responseHandler___block_invoke_4(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = AFSiriLogContextUtility;
   if (os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_ERROR))
   {
-    v8 = 136315394;
-    v9 = "[AFUserNotificationProvider postNotificationRequest:responseHandler:]_block_invoke_4";
-    v10 = 2112;
-    v11 = v3;
-    _os_log_error_impl(&dword_1912FE000, v4, OS_LOG_TYPE_ERROR, "%s Error connecting to assistantd for notification service: %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[AFUserNotificationProvider postNotificationRequest:responseHandler:]_block_invoke_4";
+    v9 = 2112;
+    v10 = v3;
+    _os_log_error_impl(&dword_1912FE000, v4, OS_LOG_TYPE_ERROR, "%s Error connecting to assistantd for notification service: %@", &v7, 0x16u);
   }
 
   v5 = *(a1 + 32);
   v6 = *(v5 + 8);
   *(v5 + 8) = 0;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (AFUserNotificationProvider)init

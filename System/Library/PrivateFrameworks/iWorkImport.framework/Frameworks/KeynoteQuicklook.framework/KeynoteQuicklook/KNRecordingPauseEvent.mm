@@ -25,70 +25,70 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v4 = objc_msgSend_allocWithZone_(KNRecordingPauseEvent, a2, zone);
-  objc_msgSend_startTime(self, v5, v6);
-  v9 = objc_msgSend_pauseEventType(self, v7, v8);
+  v4 = [KNRecordingPauseEvent allocWithZone:zone];
+  [(KNRecordingEvent *)self startTime];
+  [(KNRecordingPauseEvent *)self pauseEventType];
 
-  return MEMORY[0x2821F9670](v4, sel_initWithStartTime_pauseEventType_, v9);
+  return MEMORY[0x2821F9670](v4, sel_initWithStartTime_pauseEventType_);
 }
 
 - (id)description
 {
-  v4 = objc_msgSend_pauseEventType(self, a2, v2);
-  if (v4 > 3)
+  pauseEventType = [(KNRecordingPauseEvent *)self pauseEventType];
+  if (pauseEventType > 3)
   {
-    v5 = 0;
+    v4 = 0;
   }
 
   else
   {
-    v5 = off_27A698888[v4];
+    v4 = off_27A698888[pauseEventType];
   }
 
-  v6 = MEMORY[0x277CCACA8];
-  v7 = objc_opt_class();
-  v8 = NSStringFromClass(v7);
-  objc_msgSend_startTime(self, v9, v10);
-  v13 = objc_msgSend_stringWithFormat_(v6, v11, @"<%@ %p time=%f pauseEventType=%@>", v8, self, v12, v5);
+  v5 = MEMORY[0x277CCACA8];
+  v6 = objc_opt_class();
+  v7 = NSStringFromClass(v6);
+  [(KNRecordingEvent *)self startTime];
+  v9 = [v5 stringWithFormat:@"<%@ %p time=%f pauseEventType=%@>", v7, self, v8, v4];
 
-  return v13;
+  return v9;
 }
 
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
-  v13.receiver = self;
-  v13.super_class = KNRecordingPauseEvent;
-  if ([(KNRecordingEvent *)&v13 isEqual:equalCopy])
+  v9.receiver = self;
+  v9.super_class = KNRecordingPauseEvent;
+  if ([(KNRecordingEvent *)&v9 isEqual:equalCopy])
   {
     objc_opt_class();
-    v7 = TSUDynamicCast();
-    if (v7)
+    v5 = TSUDynamicCast();
+    if (v5)
     {
-      v8 = objc_msgSend_pauseEventType(self, v5, v6);
-      v11 = v8 == objc_msgSend_pauseEventType(v7, v9, v10);
+      pauseEventType = [(KNRecordingPauseEvent *)self pauseEventType];
+      v7 = pauseEventType == [v5 pauseEventType];
     }
 
     else
     {
-      v11 = 0;
+      v7 = 0;
     }
   }
 
   else
   {
-    v11 = 0;
+    v7 = 0;
   }
 
-  return v11;
+  return v7;
 }
 
 - (unint64_t)hash
 {
-  v7.receiver = self;
-  v7.super_class = KNRecordingPauseEvent;
-  v3 = [(KNRecordingEvent *)&v7 hash];
-  return objc_msgSend_pauseEventType(self, v4, v5) ^ v3;
+  v5.receiver = self;
+  v5.super_class = KNRecordingPauseEvent;
+  v3 = [(KNRecordingEvent *)&v5 hash];
+  return [(KNRecordingPauseEvent *)self pauseEventType]^ v3;
 }
 
 - (void)loadFromMessage:(const void *)message unarchiver:(id)unarchiver parentEventTrack:(id)track
@@ -119,36 +119,36 @@
 - (void)saveToMessage:(void *)message archiver:(id)archiver
 {
   archiverCopy = archiver;
-  v13.receiver = self;
-  v13.super_class = KNRecordingPauseEvent;
-  [(KNRecordingEvent *)&v13 saveToMessage:message archiver:archiverCopy];
+  v11.receiver = self;
+  v11.super_class = KNRecordingPauseEvent;
+  [(KNRecordingEvent *)&v11 saveToMessage:message archiver:archiverCopy];
   *(message + 4) |= 4u;
-  v9 = *(message + 5);
-  if (!v9)
+  v7 = *(message + 5);
+  if (!v7)
   {
-    v10 = *(message + 1);
-    if (v10)
+    v8 = *(message + 1);
+    if (v8)
     {
-      v10 = *(v10 & 0xFFFFFFFFFFFFFFFELL);
+      v8 = *(v8 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v9 = sub_275E20FFC(v10);
-    *(message + 5) = v9;
+    v7 = sub_275E20FFC(v8);
+    *(message + 5) = v7;
   }
 
-  v11 = objc_msgSend_pauseEventType(self, v7, v8);
-  if ((v11 - 1) < 3)
+  pauseEventType = [(KNRecordingPauseEvent *)self pauseEventType];
+  if ((pauseEventType - 1) < 3)
   {
-    v12 = v11;
+    v10 = pauseEventType;
   }
 
   else
   {
-    v12 = 0;
+    v10 = 0;
   }
 
-  *(v9 + 16) |= 1u;
-  *(v9 + 24) = v12;
+  *(v7 + 16) |= 1u;
+  *(v7 + 24) = v10;
 }
 
 @end

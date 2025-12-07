@@ -201,7 +201,7 @@
 - (void)handleErrorOccured:(id)occured
 {
   object = [occured object];
-  v5 = CACLogAssetDownload();
+  v5 = CACLogAssetDownload(object);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     [(CACLanguageSelectionViewController *)object handleErrorOccured:v5];
@@ -219,7 +219,7 @@
 {
   v7 = *MEMORY[0x277D85DE8];
   downloadCopy = download;
-  v4 = CACLogAssetDownload();
+  v4 = CACLogAssetDownload(downloadCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 138412290;
@@ -232,7 +232,7 @@
 {
   v7 = *MEMORY[0x277D85DE8];
   downloadCopy = download;
-  v4 = CACLogAssetDownload();
+  v4 = CACLogAssetDownload(downloadCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 138412290;

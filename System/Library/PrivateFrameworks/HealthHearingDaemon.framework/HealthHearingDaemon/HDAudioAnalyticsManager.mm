@@ -46,11 +46,11 @@
 
 - (void)reportDailyAnalyticsWithCoordinator:(id)coordinator completion:(id)completion
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v17 = 0;
-  v6 = [(HDAudioAnalyticsManager *)self capturePhoneAnalyticsWithError:&v17];
-  v7 = v17;
+  v16 = 0;
+  v6 = [(HDAudioAnalyticsManager *)self capturePhoneAnalyticsWithError:&v16];
+  v7 = v16;
   switch(v6)
   {
     case 2:
@@ -76,8 +76,8 @@
         localizedDescription = [v7 localizedDescription];
         *buf = 138543618;
         selfCopy3 = self;
-        v20 = 2114;
-        v21 = localizedDescription;
+        v19 = 2114;
+        v20 = localizedDescription;
         _os_log_impl(&dword_251764000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@: HDAudioAnalyticsManager HDAudioAnalyticsStatusRetry %{public}@", buf, 0x16u);
       }
 
@@ -100,8 +100,6 @@ LABEL_13:
       v9(v10, 0, v11, 0);
       break;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_successfulCalculationAt:(id)at
@@ -291,7 +289,7 @@ LABEL_13:
 
 id __58__HDAudioAnalyticsManager_capturePhoneAnalyticsWithError___block_invoke(uint64_t a1)
 {
-  v122[2] = *MEMORY[0x277D85DE8];
+  v121[2] = *MEMORY[0x277D85DE8];
   v2 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:35];
   v3 = [*(a1 + 32) localDevice];
   v4 = [v3 haeRetention];
@@ -339,13 +337,13 @@ id __58__HDAudioAnalyticsManager_capturePhoneAnalyticsWithError___block_invoke(u
     [v2 setObject:v19 forKeyedSubscript:@"dataRetentionHAENWatch"];
   }
 
-  v121[0] = @"hasEligibleWatchPaired";
+  v120[0] = @"hasEligibleWatchPaired";
   v20 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(*(a1 + 48), "hasWatchPairedWithNoiseApp")}];
-  v121[1] = @"hasEnvironmentalNoiseEnabled";
-  v122[0] = v20;
+  v120[1] = @"hasEnvironmentalNoiseEnabled";
+  v121[0] = v20;
   v21 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(*(a1 + 48), "hasNoiseEnabled")}];
-  v122[1] = v21;
-  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v122 forKeys:v121 count:2];
+  v121[1] = v21;
+  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v121 forKeys:v120 count:2];
   [v2 addEntriesFromDictionary:v22];
 
   v23 = [*(a1 + 32) localDevice];
@@ -457,15 +455,15 @@ id __58__HDAudioAnalyticsManager_capturePhoneAnalyticsWithError___block_invoke(u
   }
 
   v65 = *(a1 + 56);
-  v117[0] = @"countPairediPhone";
-  v117[1] = @"countPairedWatch";
-  v119 = *(a1 + 64);
-  v117[2] = @"countPairediPad";
-  v117[3] = @"countPairedVisionPro";
+  v116[0] = @"countPairediPhone";
+  v116[1] = @"countPairedWatch";
+  v118 = *(a1 + 64);
+  v116[2] = @"countPairediPad";
+  v116[3] = @"countPairedVisionPro";
   v66 = *(a1 + 80);
-  v118 = v65;
-  v120 = v66;
-  v67 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v118 forKeys:v117 count:4];
+  v117 = v65;
+  v119 = v66;
+  v67 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v117 forKeys:v116 count:4];
   [v2 addEntriesFromDictionary:v67];
 
   v68 = HKImproveHealthAndActivityAnalyticsAllowed();
@@ -474,36 +472,36 @@ id __58__HDAudioAnalyticsManager_capturePhoneAnalyticsWithError___block_invoke(u
 
   if (v68)
   {
-    v107[0] = @"actualDosePercentAtNotification";
-    v107[1] = @"countHAENotificationsLast24Hours";
+    v106[0] = @"actualDosePercentAtNotification";
+    v106[1] = @"countHAENotificationsLast24Hours";
     v70 = *(a1 + 96);
-    v108[0] = *(a1 + 88);
-    v108[1] = v70;
-    v109 = *(a1 + 104);
-    v107[2] = @"countHAENotificationsLast30Days";
-    v107[3] = @"countEAENotificationsLast24Hours";
+    v107[0] = *(a1 + 88);
+    v107[1] = v70;
+    v108 = *(a1 + 104);
+    v106[2] = @"countHAENotificationsLast30Days";
+    v106[3] = @"countEAENotificationsLast24Hours";
     v71 = *(a1 + 128);
-    v110 = *(a1 + 120);
-    v107[4] = @"countEAENotificationsLast30Days";
-    v107[5] = @"EAE7DayDosePercentage";
+    v109 = *(a1 + 120);
+    v106[4] = @"countEAENotificationsLast30Days";
+    v106[5] = @"EAE7DayDosePercentage";
     v72 = [v71 audioExposureDose];
-    v111 = v72;
-    v107[6] = @"EAE7DayDuration";
+    v110 = v72;
+    v106[6] = @"EAE7DayDuration";
     v73 = [*(a1 + 128) audioExposureDuration];
-    v112 = v73;
-    v107[7] = @"EAE7DayLEQ";
+    v111 = v73;
+    v106[7] = @"EAE7DayLEQ";
     v74 = [*(a1 + 128) audioExposureLEQ];
-    v113 = v74;
-    v107[8] = @"hAE7DayDosePercentage";
+    v112 = v74;
+    v106[8] = @"hAE7DayDosePercentage";
     v75 = [*(a1 + 136) audioExposureDose];
-    v114 = v75;
-    v107[9] = @"hAE7DayDuration";
+    v113 = v75;
+    v106[9] = @"hAE7DayDuration";
     v76 = [*(a1 + 136) audioExposureDuration];
-    v115 = v76;
-    v107[10] = @"hAE7DayLEQ";
+    v114 = v76;
+    v106[10] = @"hAE7DayLEQ";
     v77 = [*(a1 + 136) audioExposureLEQ];
-    v116 = v77;
-    v78 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v108 forKeys:v107 count:11];
+    v115 = v77;
+    v78 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v107 forKeys:v106 count:11];
     [v2 addEntriesFromDictionary:v78];
 
     v79 = [*(a1 + 144) audioExposureDuration];
@@ -541,29 +539,29 @@ id __58__HDAudioAnalyticsManager_capturePhoneAnalyticsWithError___block_invoke(u
     }
 
     v93 = [*(a1 + 152) audioExposureDose];
-    v106[0] = v93;
-    v105[1] = @"EAE7DayDurationWithEnvironmentalSoundReduction";
+    v105[0] = v93;
+    v104[1] = @"EAE7DayDurationWithEnvironmentalSoundReduction";
     v94 = [*(a1 + 152) audioExposureDuration];
-    v106[1] = v94;
-    v105[2] = @"EAE7DayLEQWithEnvironmentalSoundReduction";
+    v105[1] = v94;
+    v104[2] = @"EAE7DayLEQWithEnvironmentalSoundReduction";
     v95 = [*(a1 + 152) audioExposureLEQ];
-    v106[2] = v95;
-    v105[3] = @"soundReduction7DayDuration";
+    v105[2] = v95;
+    v104[3] = @"soundReduction7DayDuration";
     v96 = [*(a1 + 144) audioExposureDuration];
-    v106[3] = v96;
-    v105[4] = @"soundReduction7DayLEQ";
+    v105[3] = v96;
+    v104[4] = @"soundReduction7DayLEQ";
     v97 = [*(a1 + 144) audioExposureLEQ];
     v98 = *(a1 + 160);
     v99 = *(a1 + 168);
-    v106[4] = v97;
-    v106[5] = v98;
-    v105[5] = @"countEAENotificationsWithSoundReductionLast24Hours";
-    v105[6] = @"countEAENotificationsWithSoundReductionLast30Days";
-    v106[6] = v99;
-    v105[7] = @"noiseThresholdSetting";
+    v105[4] = v97;
+    v105[5] = v98;
+    v104[5] = @"countEAENotificationsWithSoundReductionLast24Hours";
+    v104[6] = @"countEAENotificationsWithSoundReductionLast30Days";
+    v105[6] = v99;
+    v104[7] = @"noiseThresholdSetting";
     v100 = [*(a1 + 48) noiseThreshold];
-    v106[7] = v100;
-    v101 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v106 forKeys:v105 count:8];
+    v105[7] = v100;
+    v101 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v105 forKeys:v104 count:8];
     [v2 addEntriesFromDictionary:v101];
 
     v102 = [v2 copy];
@@ -573,8 +571,6 @@ id __58__HDAudioAnalyticsManager_capturePhoneAnalyticsWithError___block_invoke(u
   {
     v102 = [v2 copy];
   }
-
-  v103 = *MEMORY[0x277D85DE8];
 
   return v102;
 }

@@ -41,8 +41,7 @@
 
   [(UITextView *)self->_descriptionTextView setTextContainerInset:*MEMORY[0x277D768C8], *(MEMORY[0x277D768C8] + 8), *(MEMORY[0x277D768C8] + 16), *(MEMORY[0x277D768C8] + 24)];
   [(UITextView *)self->_descriptionTextView setScrollEnabled:0];
-  [(UITextView *)self->_descriptionTextView setTranslatesAutoresizingMaskIntoConstraints:0];
-  v7 = HRHeartRhythmUIFrameworkBundle();
+  v7 = HRHeartRhythmUIFrameworkBundle([(UITextView *)self->_descriptionTextView setTranslatesAutoresizingMaskIntoConstraints:0]);
   v8 = [v7 localizedStringForKey:@"ATRIAL_FIBRILLATION_DATA_TYPE_DESCRIPTION_AHA" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
   [(UITextView *)self->_descriptionTextView setText:v8];
 
@@ -65,8 +64,7 @@
   [textContainer2 setLineFragmentPadding:0.0];
 
   [(UITextView *)self->_settingsDescriptionTextView setScrollEnabled:0];
-  [(UITextView *)self->_settingsDescriptionTextView setTranslatesAutoresizingMaskIntoConstraints:0];
-  v15 = HRHeartRhythmUIFrameworkBundle();
+  v15 = HRHeartRhythmUIFrameworkBundle([(UITextView *)self->_settingsDescriptionTextView setTranslatesAutoresizingMaskIntoConstraints:0]);
   v16 = [v15 localizedStringForKey:@"ATRIAL_FIBRILLATION_DATA_TYPE_DESCRIPTION_WATCH" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
   [(UITextView *)self->_settingsDescriptionTextView setText:v16];
 
@@ -82,7 +80,7 @@
   [contentView2 addSubview:self->_settingsDescriptionTextView];
 
   v20 = objc_alloc(MEMORY[0x277CCA898]);
-  v21 = HRHeartRhythmUIFrameworkBundle();
+  v21 = HRHeartRhythmUIFrameworkBundle(v20);
   v22 = [v21 localizedStringForKey:@"ATRIAL_FIBRILLATION_WATCH_SETTINGS_LINK" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
   v95[0] = *MEMORY[0x277D740C0];
   v23 = HKHealthKeyColor();

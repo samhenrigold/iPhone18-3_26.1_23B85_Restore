@@ -44,21 +44,21 @@
 
 - (void)finishProcessingMessage:(id)message completion:(id)completion
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   messageCopy = message;
   completionCopy = completion;
   if ([(IMDIncomingMessageTranslator *)self translating])
   {
-    v17[0] = messageCopy;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+    v16[0] = messageCopy;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
     chat = [(IMDIncomingMessageTranslator *)self chat];
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = sub_22B4E14A4;
-    v15[3] = &unk_2787028B0;
-    v15[4] = self;
-    v16 = completionCopy;
-    [IMDMessageTranslator translateMessageItems:v8 forChat:chat incoming:1 completion:v15];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = sub_22B4E14A4;
+    v14[3] = &unk_2787028B0;
+    v14[4] = self;
+    v15 = completionCopy;
+    [IMDMessageTranslator translateMessageItems:v8 forChat:chat incoming:1 completion:v14];
   }
 
   else
@@ -79,8 +79,6 @@
       dispatch_group_leave(group2);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processedAllMessagesWithCompletion:(id)completion

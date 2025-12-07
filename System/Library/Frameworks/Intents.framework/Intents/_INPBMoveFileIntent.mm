@@ -2,7 +2,10 @@
 - (BOOL)isEqual:(id)equal;
 - (_INPBMoveFileIntent)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)destinationTypeAsString:(int)string;
 - (id)dictionaryRepresentation;
+- (id)entityTypesAsString:(int)string;
+- (id)sourceTypeAsString:(int)string;
 - (int)StringAsDestinationType:(id)type;
 - (int)StringAsEntityTypes:(id)types;
 - (int)StringAsSourceType:(id)type;
@@ -24,7 +27,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   destinationName = [(_INPBMoveFileIntent *)self destinationName];
   dictionaryRepresentation = [destinationName dictionaryRepresentation];
@@ -49,30 +52,30 @@
   if ([(NSArray *)self->_entityNames count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v37 = 0u;
     v38 = 0u;
     v39 = 0u;
     v40 = 0u;
-    v41 = 0u;
     v9 = self->_entityNames;
-    v10 = [(NSArray *)v9 countByEnumeratingWithState:&v38 objects:v43 count:16];
+    v10 = [(NSArray *)v9 countByEnumeratingWithState:&v37 objects:v42 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v39;
+      v12 = *v38;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v39 != v12)
+          if (*v38 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          dictionaryRepresentation2 = [*(*(&v38 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v37 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation2];
         }
 
-        v11 = [(NSArray *)v9 countByEnumeratingWithState:&v38 objects:v43 count:16];
+        v11 = [(NSArray *)v9 countByEnumeratingWithState:&v37 objects:v42 count:16];
       }
 
       while (v11);
@@ -118,30 +121,30 @@
   if ([(NSArray *)self->_properties count])
   {
     array2 = [MEMORY[0x1E695DF70] array];
+    v33 = 0u;
     v34 = 0u;
     v35 = 0u;
     v36 = 0u;
-    v37 = 0u;
     v22 = self->_properties;
-    v23 = [(NSArray *)v22 countByEnumeratingWithState:&v34 objects:v42 count:16];
+    v23 = [(NSArray *)v22 countByEnumeratingWithState:&v33 objects:v41 count:16];
     if (v23)
     {
       v24 = v23;
-      v25 = *v35;
+      v25 = *v34;
       do
       {
         for (j = 0; j != v24; ++j)
         {
-          if (*v35 != v25)
+          if (*v34 != v25)
           {
             objc_enumerationMutation(v22);
           }
 
-          dictionaryRepresentation4 = [*(*(&v34 + 1) + 8 * j) dictionaryRepresentation];
+          dictionaryRepresentation4 = [*(*(&v33 + 1) + 8 * j) dictionaryRepresentation];
           [array2 addObject:dictionaryRepresentation4];
         }
 
-        v24 = [(NSArray *)v22 countByEnumeratingWithState:&v34 objects:v42 count:16];
+        v24 = [(NSArray *)v22 countByEnumeratingWithState:&v33 objects:v41 count:16];
       }
 
       while (v24);
@@ -169,8 +172,6 @@
 
     [dictionary setObject:v31 forKeyedSubscript:@"sourceType"];
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -447,7 +448,7 @@ LABEL_33:
 
 - (void)writeTo:(id)to
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   toCopy = to;
   destinationName = [(_INPBMoveFileIntent *)self destinationName];
 
@@ -459,50 +460,50 @@ LABEL_33:
 
   if ([(_INPBMoveFileIntent *)self hasDestinationType])
   {
-    destinationType = self->_destinationType;
     PBDataWriterWriteInt32Field();
   }
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
-  v33 = 0u;
-  v8 = self->_entityNames;
-  v9 = [(NSArray *)v8 countByEnumeratingWithState:&v32 objects:v37 count:16];
-  if (v9)
+  v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v7 = self->_entityNames;
+  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v26 objects:v31 count:16];
+  if (v8)
   {
-    v10 = v9;
-    v11 = *v33;
+    v9 = v8;
+    v10 = *v27;
     do
     {
-      for (i = 0; i != v10; ++i)
+      v11 = 0;
+      do
       {
-        if (*v33 != v11)
+        if (*v27 != v10)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v7);
         }
 
-        v13 = *(*(&v32 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
+        ++v11;
       }
 
-      v10 = [(NSArray *)v8 countByEnumeratingWithState:&v32 objects:v37 count:16];
+      while (v9 != v11);
+      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v26 objects:v31 count:16];
     }
 
-    while (v10);
+    while (v9);
   }
 
   if (self->_entityTypes.count)
   {
-    v14 = 0;
+    v12 = 0;
     do
     {
-      v15 = self->_entityTypes.list[v14];
       PBDataWriterWriteInt32Field();
-      ++v14;
+      ++v12;
     }
 
-    while (v14 < self->_entityTypes.count);
+    while (v12 < self->_entityTypes.count);
   }
 
   intentMetadata = [(_INPBMoveFileIntent *)self intentMetadata];
@@ -513,33 +514,35 @@ LABEL_33:
     PBDataWriterWriteSubmessage();
   }
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
-  v29 = 0u;
-  v18 = self->_properties;
-  v19 = [(NSArray *)v18 countByEnumeratingWithState:&v28 objects:v36 count:16];
-  if (v19)
+  v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v15 = self->_properties;
+  v16 = [(NSArray *)v15 countByEnumeratingWithState:&v22 objects:v30 count:16];
+  if (v16)
   {
-    v20 = v19;
-    v21 = *v29;
+    v17 = v16;
+    v18 = *v23;
     do
     {
-      for (j = 0; j != v20; ++j)
+      v19 = 0;
+      do
       {
-        if (*v29 != v21)
+        if (*v23 != v18)
         {
-          objc_enumerationMutation(v18);
+          objc_enumerationMutation(v15);
         }
 
-        v23 = *(*(&v28 + 1) + 8 * j);
         PBDataWriterWriteSubmessage();
+        ++v19;
       }
 
-      v20 = [(NSArray *)v18 countByEnumeratingWithState:&v28 objects:v36 count:16];
+      while (v17 != v19);
+      v17 = [(NSArray *)v15 countByEnumeratingWithState:&v22 objects:v30 count:16];
     }
 
-    while (v20);
+    while (v17);
   }
 
   sourceName = [(_INPBMoveFileIntent *)self sourceName];
@@ -552,11 +555,8 @@ LABEL_33:
 
   if ([(_INPBMoveFileIntent *)self hasSourceType])
   {
-    sourceType = self->_sourceType;
     PBDataWriterWriteInt32Field();
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (int)StringAsSourceType:(id)type
@@ -585,6 +585,21 @@ LABEL_33:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)sourceTypeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E727FDB0[string];
   }
 
   return v4;
@@ -678,6 +693,21 @@ LABEL_33:
   return v4;
 }
 
+- (id)entityTypesAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E727FDB0[string];
+  }
+
+  return v4;
+}
+
 - (void)addEntityType:(int)type
 {
   if (type != 0x7FFFFFFF)
@@ -739,6 +769,21 @@ LABEL_33:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)destinationTypeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E727FDB0[string];
   }
 
   return v4;

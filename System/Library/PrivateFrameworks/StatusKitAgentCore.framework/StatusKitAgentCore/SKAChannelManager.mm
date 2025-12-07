@@ -17,6 +17,7 @@
 - (void)disableActivityTracking;
 - (void)enableActivityTracking;
 - (void)pollActiveParticipantsForChannel:(id)channel membershipKey:(id)key serverKey:(id)serverKey withChannelToken:(id)token serviceIdentifier:(id)identifier completion:(id)completion;
+- (void)publishData:(id)data onChannel:(id)channel withChannelToken:(id)token publishInitiateTime:(id)time isPendingPublish:(BOOL)publish isScheduledPublish:(BOOL)scheduledPublish retryCount:(unint64_t)count completion:(id)self0;
 - (void)publishProvisionPayloads:(id)payloads onChannel:(id)channel withChannelToken:(id)token publishInitiateTime:(id)time retryCount:(unint64_t)count completion:(id)completion;
 - (void)pushManager:(id)manager didReceiveData:(id)data onChannel:(id)channel identifier:(unint64_t)identifier dateReceived:(id)received dateExpired:(id)expired;
 - (void)pushManager:(id)manager failedToSubscribeToChannel:(id)channel withError:(id)error;
@@ -100,7 +101,7 @@
 
 void __49__SKAChannelManager_createChannelWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = +[SKAChannelManager logger];
@@ -139,7 +140,7 @@ void __49__SKAChannelManager_createChannelWithCompletion___block_invoke(uint64_t
         if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v24 = v9;
+          v23 = v9;
           _os_log_impl(&dword_220099000, v13, OS_LOG_TYPE_DEFAULT, "Channel create success response received: %@", buf, 0xCu);
         }
 
@@ -209,7 +210,7 @@ LABEL_29:
             {
               v21 = [(SharedChannelCreateResponse *)v9 retryIntervalSeconds];
               *buf = 134217984;
-              v24 = v21;
+              v23 = v21;
               _os_log_impl(&dword_220099000, v20, OS_LOG_TYPE_DEFAULT, "Retry interval specified: %ld", buf, 0xCu);
             }
           }
@@ -233,8 +234,6 @@ LABEL_39:
 
   (*(*(a1 + 32) + 16))();
 LABEL_40:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)createPresenceChannelWithMembershipKey:(id)key serverKey:(id)serverKey serviceIdentifier:(id)identifier completion:(id)completion
@@ -308,7 +307,7 @@ LABEL_40:
 
 void __99__SKAChannelManager_createPresenceChannelWithMembershipKey_serverKey_serviceIdentifier_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = +[SKAChannelManager logger];
@@ -347,7 +346,7 @@ void __99__SKAChannelManager_createPresenceChannelWithMembershipKey_serverKey_se
         if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v24 = v9;
+          v23 = v9;
           _os_log_impl(&dword_220099000, v13, OS_LOG_TYPE_DEFAULT, "Presence channel create success response received: %@", buf, 0xCu);
         }
 
@@ -417,7 +416,7 @@ LABEL_29:
             {
               v21 = [(SharedChannelCreateResponse *)v9 retryIntervalSeconds];
               *buf = 134217984;
-              v24 = v21;
+              v23 = v21;
               _os_log_impl(&dword_220099000, v20, OS_LOG_TYPE_DEFAULT, "Retry interval specified: %ld", buf, 0xCu);
             }
           }
@@ -441,13 +440,11 @@ LABEL_39:
 
   (*(*(a1 + 32) + 16))();
 LABEL_40:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)publishProvisionPayloads:(id)payloads onChannel:(id)channel withChannelToken:(id)token publishInitiateTime:(id)time retryCount:(unint64_t)count completion:(id)completion
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   payloadsCopy = payloads;
   channelCopy = channel;
   tokenCopy = token;
@@ -456,7 +453,7 @@ LABEL_40:
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v65 = channelCopy;
+    v64 = channelCopy;
     _os_log_impl(&dword_220099000, v16, OS_LOG_TYPE_DEFAULT, "Received request to provision payloads on channel %@", buf, 0xCu);
   }
 
@@ -464,46 +461,46 @@ LABEL_40:
   if (_getStatusJWTToken)
   {
     selfCopy = self;
-    v49 = completionCopy;
-    v46 = objc_alloc_init(AuthCredential);
-    v48 = _getStatusJWTToken;
-    [(AuthCredential *)v46 setSimpleJwt:_getStatusJWTToken];
+    v48 = completionCopy;
+    v45 = objc_alloc_init(AuthCredential);
+    v47 = _getStatusJWTToken;
+    [(AuthCredential *)v45 setSimpleJwt:_getStatusJWTToken];
     v18 = objc_alloc_init(ChannelIdentity);
-    v50 = tokenCopy;
+    v49 = tokenCopy;
     [(ChannelIdentity *)v18 setChannelToken:tokenCopy];
-    v51 = channelCopy;
+    v50 = channelCopy;
     v19 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:channelCopy options:0];
     [(ChannelIdentity *)v18 setChannelId:v19];
 
     [(ChannelIdentity *)v18 setChannelOwnershipType:0];
     [(ChannelIdentity *)v18 setChannelTopic:@"com.apple.icloud.presence.mode.status"];
     v20 = objc_alloc_init(ChannelDeferredPublishInfo);
-    v45 = v18;
+    v44 = v18;
     [(ChannelDeferredPublishInfo *)v20 setChannelIdentity:v18];
     [(ChannelDeferredPublishInfo *)v20 setPushPriority:1];
     [(ChannelDeferredPublishInfo *)v20 setRetryCount:0];
-    v55 = v20;
+    v54 = v20;
     [(ChannelDeferredPublishInfo *)v20 setAdopter:@"CarrierPigeon"];
-    v61 = 0u;
-    v62 = 0u;
-    v59 = 0u;
     v60 = 0u;
-    v52 = payloadsCopy;
+    v61 = 0u;
+    v58 = 0u;
+    v59 = 0u;
+    v51 = payloadsCopy;
     obj = payloadsCopy;
-    v56 = [obj countByEnumeratingWithState:&v59 objects:v63 count:16];
-    if (v56)
+    v55 = [obj countByEnumeratingWithState:&v58 objects:v62 count:16];
+    if (v55)
     {
-      v54 = *v60;
+      v53 = *v59;
       do
       {
-        for (i = 0; i != v56; ++i)
+        for (i = 0; i != v55; ++i)
         {
-          if (*v60 != v54)
+          if (*v59 != v53)
           {
             objc_enumerationMutation(obj);
           }
 
-          v22 = *(*(&v59 + 1) + 8 * i);
+          v22 = *(*(&v58 + 1) + 8 * i);
           v23 = objc_alloc_init(SharedChannelProvisionOffGridPacketInfo);
           v24 = MEMORY[0x277CBEA90];
           decryptionKey = [v22 decryptionKey];
@@ -539,19 +536,19 @@ LABEL_40:
           initializationVector = [v22 initializationVector];
           [(SharedChannelProvisionOffGridPacketInfo *)v23 setInitializationVector:initializationVector];
 
-          [(ChannelDeferredPublishInfo *)v55 addChannelProvisionOffGridPacketInfo:v23];
+          [(ChannelDeferredPublishInfo *)v54 addChannelProvisionOffGridPacketInfo:v23];
         }
 
-        v56 = [obj countByEnumeratingWithState:&v59 objects:v63 count:16];
+        v55 = [obj countByEnumeratingWithState:&v58 objects:v62 count:16];
       }
 
-      while (v56);
+      while (v55);
     }
 
     v38 = objc_alloc_init(SharedChannelProvisionOffGridPayloadRequest);
-    v39 = v46;
-    [(SharedChannelProvisionOffGridPayloadRequest *)v38 setAuthCredential:v46];
-    [(SharedChannelProvisionOffGridPayloadRequest *)v38 setChannelDeferredPublishInfo:v55];
+    v39 = v45;
+    [(SharedChannelProvisionOffGridPayloadRequest *)v38 setAuthCredential:v45];
+    [(SharedChannelProvisionOffGridPayloadRequest *)v38 setChannelDeferredPublishInfo:v54];
     v40 = +[SKAChannelManager logger];
     if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
     {
@@ -561,18 +558,18 @@ LABEL_40:
 
     pushManager = [(SKAChannelManager *)selfCopy pushManager];
     data = [(SharedChannelProvisionOffGridPayloadRequest *)v38 data];
-    v57[0] = MEMORY[0x277D85DD0];
-    v57[1] = 3221225472;
-    v57[2] = __115__SKAChannelManager_publishProvisionPayloads_onChannel_withChannelToken_publishInitiateTime_retryCount_completion___block_invoke;
-    v57[3] = &unk_27843E1F8;
-    completionCopy = v49;
-    v58 = v49;
-    [pushManager provisionPayload:data completion:v57];
+    v56[0] = MEMORY[0x277D85DD0];
+    v56[1] = 3221225472;
+    v56[2] = __115__SKAChannelManager_publishProvisionPayloads_onChannel_withChannelToken_publishInitiateTime_retryCount_completion___block_invoke;
+    v56[3] = &unk_27843E1F8;
+    completionCopy = v48;
+    v57 = v48;
+    [pushManager provisionPayload:data completion:v56];
 
-    channelCopy = v51;
-    payloadsCopy = v52;
-    tokenCopy = v50;
-    _getStatusJWTToken = v48;
+    channelCopy = v50;
+    payloadsCopy = v51;
+    tokenCopy = v49;
+    _getStatusJWTToken = v47;
   }
 
   else
@@ -586,13 +583,11 @@ LABEL_40:
     v39 = [SKAError errorWithCode:700];
     (*(completionCopy + 2))(completionCopy, v39);
   }
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 void __115__SKAChannelManager_publishProvisionPayloads_onChannel_withChannelToken_publishInitiateTime_retryCount_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (!v6)
@@ -603,8 +598,8 @@ void __115__SKAChannelManager_publishProvisionPayloads_onChannel_withChannelToke
     {
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v19) = 0;
-        _os_log_impl(&dword_220099000, v9, OS_LOG_TYPE_DEFAULT, "Handling protobuf response data for completed provision request", &v19, 2u);
+        LOWORD(v18) = 0;
+        _os_log_impl(&dword_220099000, v9, OS_LOG_TYPE_DEFAULT, "Handling protobuf response data for completed provision request", &v18, 2u);
       }
 
       v10 = [[SharedChannelProvisionOffGridPayloadResponse alloc] initWithData:v5];
@@ -624,9 +619,9 @@ void __115__SKAChannelManager_publishProvisionPayloads_onChannel_withChannelToke
           if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
           {
             v15 = [(SharedChannelProvisionOffGridPayloadResponse *)v10 retryIntervalSeconds];
-            v19 = 134217984;
-            v20 = v15;
-            _os_log_impl(&dword_220099000, v14, OS_LOG_TYPE_DEFAULT, "Retry interval specified: %ld", &v19, 0xCu);
+            v18 = 134217984;
+            v19 = v15;
+            _os_log_impl(&dword_220099000, v14, OS_LOG_TYPE_DEFAULT, "Retry interval specified: %ld", &v18, 0xCu);
           }
         }
 
@@ -638,8 +633,8 @@ void __115__SKAChannelManager_publishProvisionPayloads_onChannel_withChannelToke
 
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v19) = 0;
-        _os_log_impl(&dword_220099000, v13, OS_LOG_TYPE_DEFAULT, "Provision request completed with success", &v19, 2u);
+        LOWORD(v18) = 0;
+        _os_log_impl(&dword_220099000, v13, OS_LOG_TYPE_DEFAULT, "Provision request completed with success", &v18, 2u);
       }
 
       v17 = *(*(a1 + 32) + 16);
@@ -670,13 +665,92 @@ LABEL_24:
 
   (*(*(a1 + 32) + 16))();
 LABEL_25:
+}
 
-  v18 = *MEMORY[0x277D85DE8];
+- (void)publishData:(id)data onChannel:(id)channel withChannelToken:(id)token publishInitiateTime:(id)time isPendingPublish:(BOOL)publish isScheduledPublish:(BOOL)scheduledPublish retryCount:(unint64_t)count completion:(id)self0
+{
+  scheduledPublishCopy = scheduledPublish;
+  publishCopy = publish;
+  v41 = *MEMORY[0x277D85DE8];
+  channelCopy = channel;
+  completionCopy = completion;
+  timeCopy = time;
+  tokenCopy = token;
+  dataCopy = data;
+  v19 = +[SKAChannelManager logger];
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412290;
+    v40 = channelCopy;
+    _os_log_impl(&dword_220099000, v19, OS_LOG_TYPE_DEFAULT, "Received request to publish data on channel %@", buf, 0xCu);
+  }
+
+  v20 = objc_alloc_init(ChannelIdentity);
+  [(ChannelIdentity *)v20 setChannelToken:tokenCopy];
+
+  v36 = channelCopy;
+  v21 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:channelCopy options:0];
+  [(ChannelIdentity *)v20 setChannelId:v21];
+
+  [(ChannelIdentity *)v20 setChannelOwnershipType:0];
+  [(ChannelIdentity *)v20 setChannelTopic:@"com.apple.icloud.presence.mode.status"];
+  v22 = objc_alloc_init(ChannelPublishPayload);
+  [timeCopy timeIntervalSince1970];
+  v24 = v23;
+
+  [(ChannelPublishPayload *)v22 setPublishInitiateTimestampMillis:1000 * v24];
+  [(ChannelPublishPayload *)v22 setPendingPublishHint:publishCopy];
+  [(ChannelPublishPayload *)v22 setScheduledPublishHint:scheduledPublishCopy];
+  [(ChannelPublishPayload *)v22 setRetryCount:count];
+  [(ChannelPublishPayload *)v22 setChannelIdentity:v20];
+  [(ChannelPublishPayload *)v22 setPublishPayloadExpiryTtlMillis:604800000];
+  v25 = [(SKAChannelManager *)self _createPayloadDataFromData:dataCopy];
+
+  [(ChannelPublishPayload *)v22 setPublishPayload:v25];
+  [(ChannelPublishPayload *)v22 setPushPriority:1];
+  v26 = objc_alloc_init(AuthCredential);
+  _getStatusJWTToken = [(SKAChannelManager *)self _getStatusJWTToken];
+  if (_getStatusJWTToken)
+  {
+    [(AuthCredential *)v26 setSimpleJwt:_getStatusJWTToken];
+    v28 = objc_alloc_init(SharedChannelPublishRequest);
+    [(SharedChannelPublishRequest *)v28 setAuthCredential:v26];
+    [(SharedChannelPublishRequest *)v28 setChannelPublishPayload:v22];
+    data = [(SharedChannelPublishRequest *)v28 data];
+    v30 = +[SKAChannelManager logger];
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_220099000, v30, OS_LOG_TYPE_DEFAULT, "Sending publish request to push manager", buf, 2u);
+    }
+
+    pushManager = [(SKAChannelManager *)self pushManager];
+    v37[0] = MEMORY[0x277D85DD0];
+    v37[1] = 3221225472;
+    v37[2] = __138__SKAChannelManager_publishData_onChannel_withChannelToken_publishInitiateTime_isPendingPublish_isScheduledPublish_retryCount_completion___block_invoke;
+    v37[3] = &unk_27843E1F8;
+    v32 = completionCopy;
+    v38 = completionCopy;
+    [pushManager publishStatus:data completion:v37];
+  }
+
+  else
+  {
+    v33 = +[SKAChannelManager logger];
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+    {
+      [SKAChannelManager publishData:onChannel:withChannelToken:publishInitiateTime:isPendingPublish:isScheduledPublish:retryCount:completion:];
+    }
+
+    v28 = [SKAError errorWithCode:700];
+    v32 = completionCopy;
+    (*(completionCopy + 2))(completionCopy, v28);
+  }
 }
 
 void __138__SKAChannelManager_publishData_onChannel_withChannelToken_publishInitiateTime_isPendingPublish_isScheduledPublish_retryCount_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (!v6)
@@ -687,8 +761,8 @@ void __138__SKAChannelManager_publishData_onChannel_withChannelToken_publishInit
     {
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v20) = 0;
-        _os_log_impl(&dword_220099000, v9, OS_LOG_TYPE_DEFAULT, "Handling protobuf response data for completed status publish request", &v20, 2u);
+        LOWORD(v19) = 0;
+        _os_log_impl(&dword_220099000, v9, OS_LOG_TYPE_DEFAULT, "Handling protobuf response data for completed status publish request", &v19, 2u);
       }
 
       v10 = [[SharedChannelPublishResponse alloc] initWithData:v5];
@@ -708,9 +782,9 @@ void __138__SKAChannelManager_publishData_onChannel_withChannelToken_publishInit
           if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
           {
             v15 = [(SharedChannelPublishResponse *)v10 retryIntervalSeconds];
-            v20 = 134217984;
-            v21 = v15;
-            _os_log_impl(&dword_220099000, v14, OS_LOG_TYPE_DEFAULT, "Retry interval specified: %ld", &v20, 0xCu);
+            v19 = 134217984;
+            v20 = v15;
+            _os_log_impl(&dword_220099000, v14, OS_LOG_TYPE_DEFAULT, "Retry interval specified: %ld", &v19, 0xCu);
           }
 
           v16 = [SKAError errorWithResponseStatus:[(SharedChannelPublishResponse *)v10 status] retryInterval:[(SharedChannelPublishResponse *)v10 retryIntervalSeconds]];
@@ -729,8 +803,8 @@ void __138__SKAChannelManager_publishData_onChannel_withChannelToken_publishInit
 
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v20) = 0;
-        _os_log_impl(&dword_220099000, v13, OS_LOG_TYPE_DEFAULT, "Publish status request completed with success", &v20, 2u);
+        LOWORD(v19) = 0;
+        _os_log_impl(&dword_220099000, v13, OS_LOG_TYPE_DEFAULT, "Publish status request completed with success", &v19, 2u);
       }
 
       v17 = *(*(a1 + 32) + 16);
@@ -761,13 +835,11 @@ LABEL_25:
 
   (*(*(a1 + 32) + 16))();
 LABEL_26:
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)assertPresence:(id)presence withPriority:(int64_t)priority onChannel:(id)channel membershipKey:(id)key serverKey:(id)serverKey timestamp:(id)timestamp withChannelToken:(id)token serviceIdentifier:(id)self0 isRefresh:(BOOL)self1 completion:(id)self2
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   presenceCopy = presence;
   channelCopy = channel;
   keyCopy = key;
@@ -790,7 +862,7 @@ LABEL_26:
   v22 = objc_alloc_init(ChannelIdentity);
   [(ChannelIdentity *)v22 setChannelToken:tokenCopy];
 
-  v48 = channelCopy;
+  v47 = channelCopy;
   v23 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:channelCopy options:0];
   [(ChannelIdentity *)v22 setChannelId:v23];
 
@@ -817,7 +889,7 @@ LABEL_26:
 
     [(AuthCredential *)v27 setSharedOwnershipAuth:v25];
     v32 = objc_alloc_init(ChannelActivityActivationRequest);
-    v45 = v27;
+    v44 = v27;
     [(ChannelActivityActivationRequest *)v32 setAuthCredential:v27];
     [(ChannelActivityActivationRequest *)v32 setChannelIdentity:v22];
     [(ChannelActivityActivationRequest *)v32 setRequestFlag:refresh];
@@ -844,23 +916,23 @@ LABEL_14:
         v41 = +[SKAChannelManager logger];
         if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
         {
-          *v57 = 138412290;
-          v58 = uUID;
-          _os_log_impl(&dword_220099000, v41, OS_LOG_TYPE_DEFAULT, "Sending presence activation request %@ to push manager", v57, 0xCu);
+          *v56 = 138412290;
+          v57 = uUID;
+          _os_log_impl(&dword_220099000, v41, OS_LOG_TYPE_DEFAULT, "Sending presence activation request %@ to push manager", v56, 0xCu);
         }
 
         pushManager = [(SKAChannelManager *)selfCopy pushManager];
-        v54[0] = MEMORY[0x277D85DD0];
-        v54[1] = 3221225472;
-        v54[2] = __149__SKAChannelManager_assertPresence_withPriority_onChannel_membershipKey_serverKey_timestamp_withChannelToken_serviceIdentifier_isRefresh_completion___block_invoke;
-        v54[3] = &unk_27843E220;
-        v55 = uUID;
+        v53[0] = MEMORY[0x277D85DD0];
+        v53[1] = 3221225472;
+        v53[2] = __149__SKAChannelManager_assertPresence_withPriority_onChannel_membershipKey_serverKey_timestamp_withChannelToken_serviceIdentifier_isRefresh_completion___block_invoke;
+        v53[3] = &unk_27843E220;
+        v54 = uUID;
         v38 = completionCopy;
-        v56 = completionCopy;
+        v55 = completionCopy;
         v43 = uUID;
-        [pushManager sendPresenceMessage:v40 completion:v54];
+        [pushManager sendPresenceMessage:v40 completion:v53];
 
-        v24 = v45;
+        v24 = v44;
         goto LABEL_17;
       }
 
@@ -885,13 +957,11 @@ LABEL_14:
   v38 = completionCopy;
   (*(completionCopy + 2))(completionCopy, _getNonce, 0, MEMORY[0x277CBEBF8], 1.79769313e308);
 LABEL_17:
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 void __149__SKAChannelManager_assertPresence_withPriority_onChannel_membershipKey_serverKey_timestamp_withChannelToken_serviceIdentifier_isRefresh_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -899,7 +969,7 @@ void __149__SKAChannelManager_assertPresence_withPriority_onChannel_membershipKe
     v7 = +[SKAChannelManager logger];
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __149__SKAChannelManager_assertPresence_withPriority_onChannel_membershipKey_serverKey_timestamp_withChannelToken_serviceIdentifier_isRefresh_completion___block_invoke_cold_1(a1);
+      __149__SKAChannelManager_assertPresence_withPriority_onChannel_membershipKey_serverKey_timestamp_withChannelToken_serviceIdentifier_isRefresh_completion___block_invoke_cold_1();
     }
 
     (*(*(a1 + 40) + 16))(1.79769313e308);
@@ -912,36 +982,36 @@ void __149__SKAChannelManager_assertPresence_withPriority_onChannel_membershipKe
     {
       v9 = *(a1 + 32);
       *buf = 138412290;
-      v39 = v9;
+      v38 = v9;
       _os_log_impl(&dword_220099000, v8, OS_LOG_TYPE_DEFAULT, "Handling protobuf response data for completed presence assertion request %@", buf, 0xCu);
     }
 
-    v31 = 0;
+    v30 = 0;
 
     v10 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v33 = 0u;
     v34 = 0u;
     v35 = 0u;
     v36 = 0u;
-    v37 = 0u;
-    v32 = v5;
+    v31 = v5;
     obj = v5;
-    v11 = [obj countByEnumeratingWithState:&v34 objects:v42 count:16];
+    v11 = [obj countByEnumeratingWithState:&v33 objects:v41 count:16];
     if (v11)
     {
       v12 = v11;
       v13 = 0;
-      v14 = *v35;
+      v14 = *v34;
       v15 = 0.0;
       while (2)
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v35 != v14)
+          if (*v34 != v14)
           {
             objc_enumerationMutation(obj);
           }
 
-          v17 = [*(*(&v34 + 1) + 8 * i) activationResponse];
+          v17 = [*(*(&v33 + 1) + 8 * i) activationResponse];
           v18 = v17;
           if (v15 < 2.22044605e-16)
           {
@@ -960,7 +1030,7 @@ void __149__SKAChannelManager_assertPresence_withPriority_onChannel_membershipKe
           {
             if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
             {
-              __149__SKAChannelManager_assertPresence_withPriority_onChannel_membershipKey_serverKey_timestamp_withChannelToken_serviceIdentifier_isRefresh_completion___block_invoke_cold_2((a1 + 32), v18);
+              __149__SKAChannelManager_assertPresence_withPriority_onChannel_membershipKey_serverKey_timestamp_withChannelToken_serviceIdentifier_isRefresh_completion___block_invoke_cold_2(a1 + 32, v18);
             }
 
             v27 = +[SKAError errorWithResponseStatus:](SKAError, "errorWithResponseStatus:", [v18 status]);
@@ -974,9 +1044,9 @@ void __149__SKAChannelManager_assertPresence_withPriority_onChannel_membershipKe
             v22 = *(a1 + 32);
             v23 = [v18 participantPayloads];
             *buf = 138412546;
-            v39 = v22;
-            v40 = 2112;
-            v41 = v23;
+            v38 = v22;
+            v39 = 2112;
+            v40 = v23;
             _os_log_impl(&dword_220099000, v21, OS_LOG_TYPE_DEFAULT, "Found payloads for request %@: %@", buf, 0x16u);
           }
 
@@ -984,7 +1054,7 @@ void __149__SKAChannelManager_assertPresence_withPriority_onChannel_membershipKe
           [v10 addObjectsFromArray:v24];
         }
 
-        v12 = [obj countByEnumeratingWithState:&v34 objects:v42 count:16];
+        v12 = [obj countByEnumeratingWithState:&v33 objects:v41 count:16];
         if (v12)
         {
           continue;
@@ -1004,15 +1074,15 @@ void __149__SKAChannelManager_assertPresence_withPriority_onChannel_membershipKe
     {
       v29 = *(a1 + 32);
       *buf = 138412290;
-      v39 = v29;
+      v38 = v29;
       _os_log_impl(&dword_220099000, v28, OS_LOG_TYPE_DEFAULT, "Presence assertion request %@ completed with success", buf, 0xCu);
     }
 
     (*(*(a1 + 40) + 16))(v15);
 LABEL_34:
 
-    v6 = v31;
-    v5 = v32;
+    v6 = v30;
+    v5 = v31;
   }
 
   else
@@ -1020,19 +1090,17 @@ LABEL_34:
     v25 = +[SKAChannelManager logger];
     if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      __149__SKAChannelManager_assertPresence_withPriority_onChannel_membershipKey_serverKey_timestamp_withChannelToken_serviceIdentifier_isRefresh_completion___block_invoke_cold_3(a1);
+      __149__SKAChannelManager_assertPresence_withPriority_onChannel_membershipKey_serverKey_timestamp_withChannelToken_serviceIdentifier_isRefresh_completion___block_invoke_cold_3();
     }
 
     v26 = [SKAError errorWithCode:808];
     (*(*(a1 + 40) + 16))(1.79769313e308);
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)releasePresenceOnChannel:(id)channel membershipKey:(id)key serverKey:(id)serverKey timestamp:(id)timestamp withChannelToken:(id)token serviceIdentifier:(id)identifier completion:(id)completion
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   channelCopy = channel;
   keyCopy = key;
   serverKeyCopy = serverKey;
@@ -1051,7 +1119,7 @@ LABEL_34:
   v20 = objc_alloc_init(ChannelIdentity);
   [(ChannelIdentity *)v20 setChannelToken:tokenCopy];
 
-  v43 = channelCopy;
+  v42 = channelCopy;
   v21 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:channelCopy options:0];
   [(ChannelIdentity *)v20 setChannelId:v21];
 
@@ -1060,7 +1128,7 @@ LABEL_34:
   v22 = objc_alloc_init(AuthCredential);
   v23 = objc_alloc_init(SharedOwnershipAuth);
   _getPresenceJWTToken = [(SKAChannelManager *)self _getPresenceJWTToken];
-  v42 = serverKeyCopy;
+  v41 = serverKeyCopy;
   if (_getPresenceJWTToken)
   {
     [(SharedOwnershipAuth *)v23 setSimpleJwt:_getPresenceJWTToken];
@@ -1072,7 +1140,7 @@ LABEL_34:
 
     _getNonce = [(SKAChannelManager *)self _getNonce];
     [(SharedOwnershipAuth *)v23 setNonce:_getNonce];
-    v40 = keyCopy;
+    v39 = keyCopy;
     v28 = [keyCopy signPayload:_getNonce];
     [(SharedOwnershipAuth *)v23 setSignNonce:v28];
 
@@ -1095,23 +1163,23 @@ LABEL_34:
     v34 = +[SKAChannelManager logger];
     if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
-      *v49 = 138412290;
-      v50 = v31;
-      _os_log_impl(&dword_220099000, v34, OS_LOG_TYPE_DEFAULT, "Sending presence deactivation request %@ to push manager", v49, 0xCu);
+      *v48 = 138412290;
+      v49 = v31;
+      _os_log_impl(&dword_220099000, v34, OS_LOG_TYPE_DEFAULT, "Sending presence deactivation request %@ to push manager", v48, 0xCu);
     }
 
     pushManager = [(SKAChannelManager *)self pushManager];
-    v46[0] = MEMORY[0x277D85DD0];
-    v46[1] = 3221225472;
-    v46[2] = __126__SKAChannelManager_releasePresenceOnChannel_membershipKey_serverKey_timestamp_withChannelToken_serviceIdentifier_completion___block_invoke;
-    v46[3] = &unk_27843E220;
-    v47 = v31;
+    v45[0] = MEMORY[0x277D85DD0];
+    v45[1] = 3221225472;
+    v45[2] = __126__SKAChannelManager_releasePresenceOnChannel_membershipKey_serverKey_timestamp_withChannelToken_serviceIdentifier_completion___block_invoke;
+    v45[3] = &unk_27843E220;
+    v46 = v31;
     v36 = completionCopy;
-    v48 = completionCopy;
+    v47 = completionCopy;
     v37 = v31;
-    [pushManager sendPresenceMessage:v33 completion:v46];
+    [pushManager sendPresenceMessage:v33 completion:v45];
 
-    keyCopy = v40;
+    keyCopy = v39;
   }
 
   else
@@ -1126,13 +1194,11 @@ LABEL_34:
     v36 = completionCopy;
     (*(completionCopy + 2))(completionCopy, _getNonce);
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 void __126__SKAChannelManager_releasePresenceOnChannel_membershipKey_serverKey_timestamp_withChannelToken_serviceIdentifier_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (!v6)
@@ -1143,9 +1209,9 @@ void __126__SKAChannelManager_releasePresenceOnChannel_membershipKey_serverKey_t
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         v9 = *(a1 + 32);
-        v20 = 138412290;
-        v21 = v9;
-        _os_log_impl(&dword_220099000, v8, OS_LOG_TYPE_DEFAULT, "Handling protobuf response data for completed presence assertion release request %@", &v20, 0xCu);
+        v19 = 138412290;
+        v20 = v9;
+        _os_log_impl(&dword_220099000, v8, OS_LOG_TYPE_DEFAULT, "Handling protobuf response data for completed presence assertion release request %@", &v19, 0xCu);
       }
 
       v10 = [v5 firstObject];
@@ -1169,10 +1235,10 @@ void __126__SKAChannelManager_releasePresenceOnChannel_membershipKey_serverKey_t
 
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = *(a1 + 32);
-        v20 = 138412290;
-        v21 = v19;
-        _os_log_impl(&dword_220099000, v14, OS_LOG_TYPE_DEFAULT, "Presence assertion release request %@ completed with success", &v20, 0xCu);
+        v18 = *(a1 + 32);
+        v19 = 138412290;
+        v20 = v18;
+        _os_log_impl(&dword_220099000, v14, OS_LOG_TYPE_DEFAULT, "Presence assertion release request %@ completed with success", &v19, 0xCu);
       }
 
       v17 = *(*(a1 + 40) + 16);
@@ -1183,7 +1249,7 @@ void __126__SKAChannelManager_releasePresenceOnChannel_membershipKey_serverKey_t
       v16 = +[SKAChannelManager logger];
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        __126__SKAChannelManager_releasePresenceOnChannel_membershipKey_serverKey_timestamp_withChannelToken_serviceIdentifier_completion___block_invoke_cold_3(a1);
+        __126__SKAChannelManager_releasePresenceOnChannel_membershipKey_serverKey_timestamp_withChannelToken_serviceIdentifier_completion___block_invoke_cold_3();
       }
 
       v11 = [SKAError errorWithCode:808];
@@ -1199,18 +1265,16 @@ LABEL_17:
   v7 = +[SKAChannelManager logger];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    __126__SKAChannelManager_releasePresenceOnChannel_membershipKey_serverKey_timestamp_withChannelToken_serviceIdentifier_completion___block_invoke_cold_1(a1);
+    __126__SKAChannelManager_releasePresenceOnChannel_membershipKey_serverKey_timestamp_withChannelToken_serviceIdentifier_completion___block_invoke_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
 LABEL_18:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pollActiveParticipantsForChannel:(id)channel membershipKey:(id)key serverKey:(id)serverKey withChannelToken:(id)token serviceIdentifier:(id)identifier completion:(id)completion
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   channelCopy = channel;
   keyCopy = key;
   serverKeyCopy = serverKey;
@@ -1228,7 +1292,7 @@ LABEL_18:
   v19 = objc_alloc_init(ChannelIdentity);
   [(ChannelIdentity *)v19 setChannelToken:tokenCopy];
 
-  v44 = channelCopy;
+  v43 = channelCopy;
   v20 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:channelCopy options:0];
   [(ChannelIdentity *)v19 setChannelId:v20];
 
@@ -1244,20 +1308,20 @@ LABEL_18:
     publicKeyMaterial = [keyCopy publicKeyMaterial];
     [(SharedOwnershipAuth *)v22 setChannelPublicKey:publicKeyMaterial];
 
-    v41 = serverKeyCopy;
+    v40 = serverKeyCopy;
     keyMaterial = [serverKeyCopy keyMaterial];
     [(SharedOwnershipAuth *)v22 setServerEncryptionKey:keyMaterial];
 
-    v40 = v23;
+    v39 = v23;
     _getNonce = [(SKAChannelManager *)v23 _getNonce];
     [(SharedOwnershipAuth *)v22 setNonce:_getNonce];
-    v42 = keyCopy;
+    v41 = keyCopy;
     v28 = [keyCopy signPayload:_getNonce];
     [(SharedOwnershipAuth *)v22 setSignNonce:v28];
 
     [(AuthCredential *)v21 setSharedOwnershipAuth:v22];
     v29 = objc_alloc_init(ChannelActivityPollingRequest);
-    v39 = v21;
+    v38 = v21;
     [(ChannelActivityPollingRequest *)v29 setAuthCredential:v21];
     [(ChannelActivityPollingRequest *)v29 setChannelIdentity:v19];
     [(ChannelActivityPollingRequest *)v29 setRequestFlag:2];
@@ -1273,25 +1337,25 @@ LABEL_18:
     v33 = +[SKAChannelManager logger];
     if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
-      *v49 = 138412290;
-      v50 = uUID;
-      _os_log_impl(&dword_220099000, v33, OS_LOG_TYPE_DEFAULT, "Sending polling request %@ to push manager", v49, 0xCu);
+      *v48 = 138412290;
+      v49 = uUID;
+      _os_log_impl(&dword_220099000, v33, OS_LOG_TYPE_DEFAULT, "Sending polling request %@ to push manager", v48, 0xCu);
     }
 
-    pushManager = [(SKAChannelManager *)v40 pushManager];
-    v46[0] = MEMORY[0x277D85DD0];
-    v46[1] = 3221225472;
-    v46[2] = __124__SKAChannelManager_pollActiveParticipantsForChannel_membershipKey_serverKey_withChannelToken_serviceIdentifier_completion___block_invoke;
-    v46[3] = &unk_27843E220;
-    v47 = uUID;
+    pushManager = [(SKAChannelManager *)v39 pushManager];
+    v45[0] = MEMORY[0x277D85DD0];
+    v45[1] = 3221225472;
+    v45[2] = __124__SKAChannelManager_pollActiveParticipantsForChannel_membershipKey_serverKey_withChannelToken_serviceIdentifier_completion___block_invoke;
+    v45[3] = &unk_27843E220;
+    v46 = uUID;
     v35 = completionCopy;
-    v48 = completionCopy;
+    v47 = completionCopy;
     v36 = uUID;
-    [pushManager sendPresenceMessage:v32 completion:v46];
+    [pushManager sendPresenceMessage:v32 completion:v45];
 
-    serverKeyCopy = v41;
-    keyCopy = v42;
-    v21 = v39;
+    serverKeyCopy = v40;
+    keyCopy = v41;
+    v21 = v38;
   }
 
   else
@@ -1306,13 +1370,11 @@ LABEL_18:
     v35 = completionCopy;
     (*(completionCopy + 2))(completionCopy, _getNonce, 0, MEMORY[0x277CBEBF8]);
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 void __124__SKAChannelManager_pollActiveParticipantsForChannel_membershipKey_serverKey_withChannelToken_serviceIdentifier_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -1320,7 +1382,7 @@ void __124__SKAChannelManager_pollActiveParticipantsForChannel_membershipKey_ser
     v7 = +[SKAChannelManager logger];
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __124__SKAChannelManager_pollActiveParticipantsForChannel_membershipKey_serverKey_withChannelToken_serviceIdentifier_completion___block_invoke_cold_1(a1);
+      __124__SKAChannelManager_pollActiveParticipantsForChannel_membershipKey_serverKey_withChannelToken_serviceIdentifier_completion___block_invoke_cold_1();
     }
 
     (*(*(a1 + 40) + 16))();
@@ -1334,36 +1396,36 @@ void __124__SKAChannelManager_pollActiveParticipantsForChannel_membershipKey_ser
     {
       v10 = *(a1 + 32);
       *buf = 138412290;
-      v41 = v10;
+      v40 = v10;
       _os_log_impl(&dword_220099000, v9, OS_LOG_TYPE_DEFAULT, "Handling protobuf response data for completed polling request %@", buf, 0xCu);
     }
 
-    v34 = a1;
-    v32 = 0;
+    v33 = a1;
+    v31 = 0;
 
     v11 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v35 = 0u;
     v36 = 0u;
     v37 = 0u;
     v38 = 0u;
-    v39 = 0u;
-    v33 = v5;
+    v32 = v5;
     obj = v5;
-    v12 = [obj countByEnumeratingWithState:&v36 objects:v44 count:16];
+    v12 = [obj countByEnumeratingWithState:&v35 objects:v43 count:16];
     if (v12)
     {
       v13 = v12;
       v14 = 0;
-      v15 = *v37;
+      v15 = *v36;
       while (2)
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v37 != v15)
+          if (*v36 != v15)
           {
             objc_enumerationMutation(obj);
           }
 
-          v17 = [*(*(&v36 + 1) + 8 * i) pollingResponse];
+          v17 = [*(*(&v35 + 1) + 8 * i) pollingResponse];
           v18 = v17;
           if (!v14)
           {
@@ -1377,11 +1439,11 @@ void __124__SKAChannelManager_pollActiveParticipantsForChannel_membershipKey_ser
           {
             if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
             {
-              __124__SKAChannelManager_pollActiveParticipantsForChannel_membershipKey_serverKey_withChannelToken_serviceIdentifier_completion___block_invoke_cold_2((v34 + 32), v18);
+              __124__SKAChannelManager_pollActiveParticipantsForChannel_membershipKey_serverKey_withChannelToken_serviceIdentifier_completion___block_invoke_cold_2(v33 + 32, v18);
             }
 
             v28 = +[SKAError errorWithResponseStatus:](SKAError, "errorWithResponseStatus:", [v18 status]);
-            (*(*(v34 + 40) + 16))();
+            (*(*(v33 + 40) + 16))();
 
             goto LABEL_31;
           }
@@ -1389,13 +1451,13 @@ void __124__SKAChannelManager_pollActiveParticipantsForChannel_membershipKey_ser
           if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
           {
             v22 = v8;
-            v23 = *(v34 + 32);
+            v23 = *(v33 + 32);
             v24 = [v18 participantPayloads];
             *buf = 138412546;
-            v41 = v23;
+            v40 = v23;
             v8 = v22;
-            v42 = 2112;
-            v43 = v24;
+            v41 = 2112;
+            v42 = v24;
             _os_log_impl(&dword_220099000, v21, OS_LOG_TYPE_DEFAULT, "Found payloads for request %@: %@", buf, 0x16u);
           }
 
@@ -1403,7 +1465,7 @@ void __124__SKAChannelManager_pollActiveParticipantsForChannel_membershipKey_ser
           [v11 addObjectsFromArray:v25];
         }
 
-        v13 = [obj countByEnumeratingWithState:&v36 objects:v44 count:16];
+        v13 = [obj countByEnumeratingWithState:&v35 objects:v43 count:16];
         if (v13)
         {
           continue;
@@ -1416,17 +1478,17 @@ void __124__SKAChannelManager_pollActiveParticipantsForChannel_membershipKey_ser
     v29 = [*(v8 + 896) logger];
     if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
-      v30 = *(v34 + 32);
+      v30 = *(v33 + 32);
       *buf = 138412290;
-      v41 = v30;
+      v40 = v30;
       _os_log_impl(&dword_220099000, v29, OS_LOG_TYPE_DEFAULT, "Polling request %@ completed with success", buf, 0xCu);
     }
 
-    (*(*(v34 + 40) + 16))();
+    (*(*(v33 + 40) + 16))();
 LABEL_31:
 
-    v6 = v32;
-    v5 = v33;
+    v6 = v31;
+    v5 = v32;
   }
 
   else
@@ -1434,14 +1496,12 @@ LABEL_31:
     v26 = +[SKAChannelManager logger];
     if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
-      __124__SKAChannelManager_pollActiveParticipantsForChannel_membershipKey_serverKey_withChannelToken_serviceIdentifier_completion___block_invoke_cold_3(a1);
+      __124__SKAChannelManager_pollActiveParticipantsForChannel_membershipKey_serverKey_withChannelToken_serviceIdentifier_completion___block_invoke_cold_3();
     }
 
     v27 = [SKAError errorWithCode:808];
     (*(*(a1 + 40) + 16))();
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)activeStatusChannelSubscriptionsWithCompletion:(id)completion
@@ -1466,52 +1526,49 @@ LABEL_31:
 
 void __68__SKAChannelManager_activeStatusChannelSubscriptionsWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = +[SKAChannelManager logger];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 134218242;
-    v7 = [v3 count];
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_220099000, v4, OS_LOG_TYPE_DEFAULT, "Received %ld subscribed Status channels: %@", &v6, 0x16u);
+    v5 = 134218242;
+    v6 = [v3 count];
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_220099000, v4, OS_LOG_TYPE_DEFAULT, "Received %ld subscribed Status channels: %@", &v5, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)subscribeToStatusChannels:(id)channels
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   channelsCopy = channels;
   v5 = +[SKAChannelManager logger];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = channelsCopy;
-    _os_log_impl(&dword_220099000, v5, OS_LOG_TYPE_DEFAULT, "Subscribing to Status channels: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = channelsCopy;
+    _os_log_impl(&dword_220099000, v5, OS_LOG_TYPE_DEFAULT, "Subscribing to Status channels: %@", &v6, 0xCu);
   }
 
   [(SKAPushManaging *)self->_pushManager subscribeToStatusChannels:channelsCopy];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unsubscribeFromStatusChannels:(id)channels
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   channelsCopy = channels;
   v5 = +[SKAChannelManager logger];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = channelsCopy;
-    _os_log_impl(&dword_220099000, v5, OS_LOG_TYPE_DEFAULT, "Unsubscribing from Status channels: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = channelsCopy;
+    _os_log_impl(&dword_220099000, v5, OS_LOG_TYPE_DEFAULT, "Unsubscribing from Status channels: %@", &v6, 0xCu);
   }
 
   [(SKAPushManaging *)self->_pushManager unsubscribeFromStatusChannels:channelsCopy];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)activePresenceChannelSubscriptionsWithCompletion:(id)completion
@@ -1536,52 +1593,49 @@ void __68__SKAChannelManager_activeStatusChannelSubscriptionsWithCompletion___bl
 
 void __70__SKAChannelManager_activePresenceChannelSubscriptionsWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = +[SKAChannelManager logger];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 134218242;
-    v7 = [v3 count];
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_220099000, v4, OS_LOG_TYPE_DEFAULT, "Received %ld subscribed Presence channels: %@", &v6, 0x16u);
+    v5 = 134218242;
+    v6 = [v3 count];
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_220099000, v4, OS_LOG_TYPE_DEFAULT, "Received %ld subscribed Presence channels: %@", &v5, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)subscribeToPresenceChannels:(id)channels
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   channelsCopy = channels;
   v5 = +[SKAChannelManager logger];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = channelsCopy;
-    _os_log_impl(&dword_220099000, v5, OS_LOG_TYPE_DEFAULT, "Subscribing to Presence channels: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = channelsCopy;
+    _os_log_impl(&dword_220099000, v5, OS_LOG_TYPE_DEFAULT, "Subscribing to Presence channels: %@", &v6, 0xCu);
   }
 
   [(SKAPushManaging *)self->_pushManager subscribeToPresenceChannels:channelsCopy];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unsubscribeFromPresenceChannels:(id)channels
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   channelsCopy = channels;
   v5 = +[SKAChannelManager logger];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = channelsCopy;
-    _os_log_impl(&dword_220099000, v5, OS_LOG_TYPE_DEFAULT, "Unsubscribing from Presence channels: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = channelsCopy;
+    _os_log_impl(&dword_220099000, v5, OS_LOG_TYPE_DEFAULT, "Unsubscribing from Presence channels: %@", &v6, 0xCu);
   }
 
   [(SKAPushManaging *)self->_pushManager unsubscribeFromPresenceChannels:channelsCopy];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enableActivityTracking
@@ -1610,15 +1664,13 @@ void __70__SKAChannelManager_activePresenceChannelSubscriptionsWithCompletion___
 
 - (id)_createPayloadDataFromData:(id)data
 {
-  v9[1] = *MEMORY[0x277D85DE8];
-  v8 = @"StatusKitDataKey";
+  v8[1] = *MEMORY[0x277D85DE8];
+  v7 = @"StatusKitDataKey";
   v3 = [data base64EncodedStringWithOptions:0];
-  v9[0] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v8[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
 
   v5 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v4 options:0 error:0];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -1685,25 +1737,24 @@ void __70__SKAChannelManager_activePresenceChannelSubscriptionsWithCompletion___
 
 - (id)_getNonce
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   pushManager = [(SKAChannelManager *)self pushManager];
   serverTime = [pushManager serverTime];
   [serverTime timeIntervalSince1970];
   v5 = v4;
 
   v6 = 1000 * v5;
-  v10 = 0;
-  v11 = (0xE800000000000000 * v5) | HIBYTE(v6) | (256000 * v5) & 0xFF00000000 | (0x3E8000000 * v5) & 0xFF0000000000 | (0x3E80000000000 * v5) & 0xFF000000000000 | (v6 >> 40) & 0xFF00 | (v6 >> 24) & 0xFF0000 | (v6 >> 8) & 0xFF000000;
-  arc4random_buf(v12, 8uLL);
-  v7 = [MEMORY[0x277CBEA90] dataWithBytes:&v10 length:17];
-  v8 = *MEMORY[0x277D85DE8];
+  v9 = 0;
+  v10 = (0xE800000000000000 * v5) | HIBYTE(v6) | (256000 * v5) & 0xFF00000000 | (0x3E8000000 * v5) & 0xFF0000000000 | (0x3E80000000000 * v5) & 0xFF000000000000 | (v6 >> 40) & 0xFF00 | (v6 >> 24) & 0xFF0000 | (v6 >> 8) & 0xFF000000;
+  arc4random_buf(v11, 8uLL);
+  v7 = [MEMORY[0x277CBEA90] dataWithBytes:&v9 length:17];
 
   return v7;
 }
 
 - (void)pushManager:(id)manager didReceiveData:(id)data onChannel:(id)channel identifier:(unint64_t)identifier dateReceived:(id)received dateExpired:(id)expired
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   channelCopy = channel;
   expiredCopy = expired;
   receivedCopy = received;
@@ -1711,17 +1762,15 @@ void __70__SKAChannelManager_activePresenceChannelSubscriptionsWithCompletion___
   v17 = +[SKAChannelManager logger];
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    v20 = 138412546;
-    v21 = channelCopy;
-    v22 = 2048;
+    v19 = 138412546;
+    v20 = channelCopy;
+    v21 = 2048;
     identifierCopy = identifier;
-    _os_log_impl(&dword_220099000, v17, OS_LOG_TYPE_DEFAULT, "Received data on channel: %@ with identifier %lu", &v20, 0x16u);
+    _os_log_impl(&dword_220099000, v17, OS_LOG_TYPE_DEFAULT, "Received data on channel: %@ with identifier %lu", &v19, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained channelManager:self didReceiveData:dataCopy onChannel:channelCopy identifier:identifier dateReceived:receivedCopy dateExpired:expiredCopy];
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pushManager:(id)manager failedToSubscribeToChannel:(id)channel withError:(id)error
@@ -1740,7 +1789,7 @@ void __70__SKAChannelManager_activePresenceChannelSubscriptionsWithCompletion___
 
 - (BOOL)shouldRetryRequestForResponse:(id)response withRetryInterval:(unsigned int *)interval currentRetry:(unint64_t)retry
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   if (!interval)
   {
@@ -1823,14 +1872,14 @@ LABEL_40:
     goto LABEL_38;
   }
 
-  v36 = v8;
+  v35 = v8;
   v9 = responseCopy;
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   responses = [v9 responses];
-  v11 = [responses countByEnumeratingWithState:&v37 objects:v47 count:16];
+  v11 = [responses countByEnumeratingWithState:&v36 objects:v46 count:16];
   if (!v11)
   {
     retryIntervalSeconds = 0;
@@ -1841,17 +1890,17 @@ LABEL_40:
   v12 = v11;
   retryIntervalSeconds = 0;
   status = 0;
-  v15 = *v38;
+  v15 = *v37;
   do
   {
     for (i = 0; i != v12; ++i)
     {
-      if (*v38 != v15)
+      if (*v37 != v15)
       {
         objc_enumerationMutation(responses);
       }
 
-      v17 = *(*(&v37 + 1) + 8 * i);
+      v17 = *(*(&v36 + 1) + 8 * i);
       if ([v17 hasActivationResponse])
       {
         activationResponse = [v17 activationResponse];
@@ -1891,13 +1940,13 @@ LABEL_14:
 LABEL_18:
     }
 
-    v12 = [responses countByEnumeratingWithState:&v37 objects:v47 count:16];
+    v12 = [responses countByEnumeratingWithState:&v36 objects:v46 count:16];
   }
 
   while (v12);
 LABEL_32:
 
-  v8 = v36;
+  v8 = v35;
 LABEL_41:
   v29 = [MEMORY[0x277CCABB0] numberWithInt:status];
   v30 = [v8 containsObject:v29];
@@ -1909,7 +1958,7 @@ LABEL_41:
     if (v32)
     {
       *buf = 138412290;
-      v42 = responseCopy;
+      v41 = responseCopy;
       _os_log_impl(&dword_220099000, v31, OS_LOG_TYPE_DEFAULT, "No retry requested for message: %@", buf, 0xCu);
     }
 
@@ -1931,11 +1980,11 @@ LABEL_49:
     }
 
     *buf = 138412802;
-    v42 = responseCopy;
-    v43 = 2112;
-    v44 = v33;
-    v45 = 1024;
-    v46 = retryIntervalSeconds;
+    v41 = responseCopy;
+    v42 = 2112;
+    v43 = v33;
+    v44 = 1024;
+    v45 = retryIntervalSeconds;
     _os_log_impl(&dword_220099000, v31, OS_LOG_TYPE_DEFAULT, "Retrying message: %@ with status %@ after %u seconds", buf, 0x1Cu);
   }
 
@@ -1944,7 +1993,6 @@ LABEL_49:
 LABEL_53:
 
 LABEL_54:
-  v34 = *MEMORY[0x277D85DE8];
   return interval;
 }
 
@@ -1983,36 +2031,16 @@ uint64_t __27__SKAChannelManager_logger__block_invoke()
 
 void __49__SKAChannelManager_createChannelWithCompletion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __49__SKAChannelManager_createChannelWithCompletion___block_invoke_cold_2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_4(&dword_220099000, v0, v1, "Create channel response contains non success status: %ld - %@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void __99__SKAChannelManager_createPresenceChannelWithMembershipKey_serverKey_serviceIdentifier_completion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __99__SKAChannelManager_createPresenceChannelWithMembershipKey_serverKey_serviceIdentifier_completion___block_invoke_cold_2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_4(&dword_220099000, v0, v1, "Create presence channel response contains non success status: %ld - %@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)publishProvisionPayloads:onChannel:withChannelToken:publishInitiateTime:retryCount:completion:.cold.1()
@@ -2024,21 +2052,17 @@ void __99__SKAChannelManager_createPresenceChannelWithMembershipKey_serverKey_se
 
 void __115__SKAChannelManager_publishProvisionPayloads_onChannel_withChannelToken_publishInitiateTime_retryCount_completion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __115__SKAChannelManager_publishProvisionPayloads_onChannel_withChannelToken_publishInitiateTime_retryCount_completion___block_invoke_cold_2(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 status];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_4_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __115__SKAChannelManager_publishProvisionPayloads_onChannel_withChannelToken_publishInitiateTime_retryCount_completion___block_invoke_cold_3()
@@ -2057,21 +2081,17 @@ void __115__SKAChannelManager_publishProvisionPayloads_onChannel_withChannelToke
 
 void __138__SKAChannelManager_publishData_onChannel_withChannelToken_publishInitiateTime_isPendingPublish_isScheduledPublish_retryCount_completion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __138__SKAChannelManager_publishData_onChannel_withChannelToken_publishInitiateTime_isPendingPublish_isScheduledPublish_retryCount_completion___block_invoke_cold_2(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 status];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_4_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __138__SKAChannelManager_publishData_onChannel_withChannelToken_publishInitiateTime_isPendingPublish_isScheduledPublish_retryCount_completion___block_invoke_cold_3()
@@ -2083,121 +2103,92 @@ void __138__SKAChannelManager_publishData_onChannel_withChannelToken_publishInit
 
 - (void)assertPresence:withPriority:onChannel:membershipKey:serverKey:timestamp:withChannelToken:serviceIdentifier:isRefresh:completion:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void __149__SKAChannelManager_assertPresence_withPriority_onChannel_membershipKey_serverKey_timestamp_withChannelToken_serviceIdentifier_isRefresh_completion___block_invoke_cold_1(uint64_t a1)
+void __149__SKAChannelManager_assertPresence_withPriority_onChannel_membershipKey_serverKey_timestamp_withChannelToken_serviceIdentifier_isRefresh_completion___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_8(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_4(&dword_220099000, v1, v2, "Presence assertion request %@ received response with error: %@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_220099000, v0, v1, "Presence assertion request %@ received response with error: %@");
 }
 
-void __149__SKAChannelManager_assertPresence_withPriority_onChannel_membershipKey_serverKey_timestamp_withChannelToken_serviceIdentifier_isRefresh_completion___block_invoke_cold_2(uint64_t *a1, void *a2)
+void __149__SKAChannelManager_assertPresence_withPriority_onChannel_membershipKey_serverKey_timestamp_withChannelToken_serviceIdentifier_isRefresh_completion___block_invoke_cold_2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
   [a2 status];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_4_0();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
-void __149__SKAChannelManager_assertPresence_withPriority_onChannel_membershipKey_serverKey_timestamp_withChannelToken_serviceIdentifier_isRefresh_completion___block_invoke_cold_3(uint64_t a1)
+void __149__SKAChannelManager_assertPresence_withPriority_onChannel_membershipKey_serverKey_timestamp_withChannelToken_serviceIdentifier_isRefresh_completion___block_invoke_cold_3()
 {
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_8(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void __126__SKAChannelManager_releasePresenceOnChannel_membershipKey_serverKey_timestamp_withChannelToken_serviceIdentifier_completion___block_invoke_cold_1(uint64_t a1)
+void __126__SKAChannelManager_releasePresenceOnChannel_membershipKey_serverKey_timestamp_withChannelToken_serviceIdentifier_completion___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_8(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_4(&dword_220099000, v1, v2, "Presence assertion release %@ received response with error: %@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_220099000, v0, v1, "Presence assertion release %@ received response with error: %@");
 }
 
 void __126__SKAChannelManager_releasePresenceOnChannel_membershipKey_serverKey_timestamp_withChannelToken_serviceIdentifier_completion___block_invoke_cold_2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
   [a2 status];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_4_0();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
-void __126__SKAChannelManager_releasePresenceOnChannel_membershipKey_serverKey_timestamp_withChannelToken_serviceIdentifier_completion___block_invoke_cold_3(uint64_t a1)
+void __126__SKAChannelManager_releasePresenceOnChannel_membershipKey_serverKey_timestamp_withChannelToken_serviceIdentifier_completion___block_invoke_cold_3()
 {
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_8(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void __124__SKAChannelManager_pollActiveParticipantsForChannel_membershipKey_serverKey_withChannelToken_serviceIdentifier_completion___block_invoke_cold_1(uint64_t a1)
+void __124__SKAChannelManager_pollActiveParticipantsForChannel_membershipKey_serverKey_withChannelToken_serviceIdentifier_completion___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_8(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_4(&dword_220099000, v1, v2, "Polling request %@ response contains error: %@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_220099000, v0, v1, "Polling request %@ response contains error: %@");
 }
 
-void __124__SKAChannelManager_pollActiveParticipantsForChannel_membershipKey_serverKey_withChannelToken_serviceIdentifier_completion___block_invoke_cold_2(uint64_t *a1, void *a2)
+void __124__SKAChannelManager_pollActiveParticipantsForChannel_membershipKey_serverKey_withChannelToken_serviceIdentifier_completion___block_invoke_cold_2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
   [a2 status];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_4_0();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
-void __124__SKAChannelManager_pollActiveParticipantsForChannel_membershipKey_serverKey_withChannelToken_serviceIdentifier_completion___block_invoke_cold_3(uint64_t a1)
+void __124__SKAChannelManager_pollActiveParticipantsForChannel_membershipKey_serverKey_withChannelToken_serviceIdentifier_completion___block_invoke_cold_3()
 {
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_8(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 - (void)_getPresenceJWTToken
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)pushManager:failedToSubscribeToChannel:withError:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_4(&dword_220099000, v0, v1, "Failed to subscribe to channel: %@ Error: %@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)shouldRetryRequestForResponse:withRetryInterval:currentRetry:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

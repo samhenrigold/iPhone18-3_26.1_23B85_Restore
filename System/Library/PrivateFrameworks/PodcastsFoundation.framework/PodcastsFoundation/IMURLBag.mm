@@ -438,14 +438,14 @@ void __35__IMURLBag_updateBagOnCurrentQueue__block_invoke(uint64_t a1, void *a2,
 
 void __35__IMURLBag_updateBagOnCurrentQueue__block_invoke_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (*(a1 + 32) && !*(a1 + 40))
   {
     v7 = _MTLogCategoryBag();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v9) = 0;
-      _os_log_impl(&dword_1D8CEC000, v7, OS_LOG_TYPE_DEFAULT, "Successfully updated bag snapshot.", &v9, 2u);
+      LOWORD(v8) = 0;
+      _os_log_impl(&dword_1D8CEC000, v7, OS_LOG_TYPE_DEFAULT, "Successfully updated bag snapshot.", &v8, 2u);
     }
 
     [*(a1 + 48) updateWithNewBag:*(a1 + 32)];
@@ -460,19 +460,17 @@ void __35__IMURLBag_updateBagOnCurrentQueue__block_invoke_2(uint64_t a1)
     {
       v3 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(*(a1 + 48), "failedUpdateAttempts")}];
       v4 = *(a1 + 40);
-      v9 = 138412546;
-      v10 = v3;
-      v11 = 2112;
-      v12 = v4;
-      _os_log_impl(&dword_1D8CEC000, v2, OS_LOG_TYPE_ERROR, "%@ failure to create snapshot bag with error %@", &v9, 0x16u);
+      v8 = 138412546;
+      v9 = v3;
+      v10 = 2112;
+      v11 = v4;
+      _os_log_impl(&dword_1D8CEC000, v2, OS_LOG_TYPE_ERROR, "%@ failure to create snapshot bag with error %@", &v8, 0x16u);
     }
 
     v5 = *(a1 + 48);
     v6 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceNow:300.0];
     [v5 scheduleBagUpdateOnDate:v6];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isExpired
@@ -956,7 +954,7 @@ void __44__IMURLBag_reportAConcernURLWithCompletion___block_invoke_2(void *a1)
 
 - (id)syncValueForKey:(id)key
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   valueTypeMap = [(IMMutableBagKeySet *)self->_keySet valueTypeMap];
   v6 = [valueTypeMap objectForKeyedSubscript:keyCopy];
@@ -1016,7 +1014,7 @@ LABEL_15:
   if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
   {
     *buf = 138412290;
-    v42 = keyCopy;
+    v41 = keyCopy;
     _os_signpost_emit_with_name_impl(&dword_1D8CEC000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v12, "IMURLBag.syncValue", "Key: %@", buf, 0xCu);
   }
 
@@ -1035,9 +1033,9 @@ LABEL_15:
 
   v20 = 0;
   v21 = 0;
-  if (![v8 isLoaded] || (isExpired & 1) != 0 || (objc_msgSend(v8, "asyncValuePromise"), v22 = objc_claimAutoreleasedReturnValue(), v40 = 0, objc_msgSend(v22, "resultWithTimeout:error:", &v40, 0.15), v21 = objc_claimAutoreleasedReturnValue(), v20 = v40, v22, !v21) || v20)
+  if (![v8 isLoaded] || (isExpired & 1) != 0 || (objc_msgSend(v8, "asyncValuePromise"), v22 = objc_claimAutoreleasedReturnValue(), v39 = 0, objc_msgSend(v22, "resultWithTimeout:error:", &v39, 0.15), v21 = objc_claimAutoreleasedReturnValue(), v20 = v39, v22, !v21) || v20)
   {
-    v39 = keyCopy;
+    v38 = keyCopy;
     v25 = _MTLogCategoryBag();
     if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
@@ -1050,18 +1048,18 @@ LABEL_15:
       v32 = isLoaded;
       isExpired2 = [(IMURLBag *)self isExpired];
       *buf = 138413058;
-      v42 = v39;
-      v43 = 1024;
-      v44 = v32;
+      v41 = v38;
+      v42 = 1024;
+      v43 = v32;
       v12 = v31;
       v16 = v30;
       v8 = v29;
       v6 = v28;
       v15 = v27;
-      v45 = 1024;
-      v46 = isExpired2;
-      v47 = 2112;
-      v48 = v20;
+      v44 = 1024;
+      v45 = isExpired2;
+      v46 = 2112;
+      v47 = v20;
       _os_log_impl(&dword_1D8CEC000, v25, OS_LOG_TYPE_ERROR, "Failed synchronous bag key request: %@ isLoaded %d, isExpired %d. Error: %@", buf, 0x22u);
     }
 
@@ -1070,13 +1068,13 @@ LABEL_15:
     if (v15 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v34))
     {
       *buf = 138412290;
-      v42 = v20;
+      v41 = v20;
       _os_signpost_emit_with_name_impl(&dword_1D8CEC000, v35, OS_SIGNPOST_INTERVAL_END, v12, "IMURLBag.syncValue", "Error: %@", buf, 0xCu);
     }
 
     defaultValueMap = [(IMMutableBagKeySet *)self->_keySet defaultValueMap];
-    keyCopy = v39;
-    v10 = [defaultValueMap objectForKeyedSubscript:v39];
+    keyCopy = v38;
+    v10 = [defaultValueMap objectForKeyedSubscript:v38];
   }
 
   else
@@ -1095,7 +1093,6 @@ LABEL_15:
   }
 
 LABEL_36:
-  v37 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

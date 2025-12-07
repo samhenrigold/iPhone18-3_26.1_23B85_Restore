@@ -38,7 +38,7 @@
 
 - (void)dealloc
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
     v3 = VRTraceErrorLogLevelToCSTR();
@@ -47,15 +47,15 @@
     {
       pid = self->_pid;
       *buf = 136316162;
-      v9 = v3;
-      v10 = 2080;
-      v11 = "[GKPeerInternal dealloc]";
-      v12 = 1024;
-      v13 = 4530;
-      v14 = 2048;
+      v8 = v3;
+      v9 = 2080;
+      v10 = "[GKPeerInternal dealloc]";
+      v11 = 1024;
+      v12 = 4530;
+      v13 = 2048;
       selfCopy = self;
-      v16 = 1024;
-      v17 = pid;
+      v15 = 1024;
+      v16 = pid;
       _os_log_impl(&dword_24E50C000, v4, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d * GKPeer[%p] %d dealloc", buf, 0x2Cu);
     }
   }
@@ -63,15 +63,14 @@
   [(GKPeerInternal *)self stopResolving];
 
   [GKPeerInternal freeLookupList:self->_lookupServiceList andAddrList:self->_addrList andInterfaceList:self->_interfaceList count:self->_lookupServiceCount];
-  v7.receiver = self;
-  v7.super_class = GKPeerInternal;
-  [(GKPeerInternal *)&v7 dealloc];
-  v6 = *MEMORY[0x277D85DE8];
+  v6.receiver = self;
+  v6.super_class = GKPeerInternal;
+  [(GKPeerInternal *)&v6 dealloc];
 }
 
 - (void)setServiceCount:(int)count
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
     v5 = VRTraceErrorLogLevelToCSTR();
@@ -80,26 +79,25 @@
     {
       pid = self->_pid;
       serviceCount = self->_serviceCount;
-      v10 = 136316674;
-      v11 = v5;
-      v12 = 2080;
-      v13 = "[GKPeerInternal setServiceCount:]";
-      v14 = 1024;
-      v15 = 4540;
-      v16 = 2048;
+      v9 = 136316674;
+      v10 = v5;
+      v11 = 2080;
+      v12 = "[GKPeerInternal setServiceCount:]";
+      v13 = 1024;
+      v14 = 4540;
+      v15 = 2048;
       selfCopy = self;
-      v18 = 1024;
-      v19 = pid;
-      v20 = 1024;
-      v21 = serviceCount;
-      v22 = 1024;
+      v17 = 1024;
+      v18 = pid;
+      v19 = 1024;
+      v20 = serviceCount;
+      v21 = 1024;
       countCopy = count;
-      _os_log_impl(&dword_24E50C000, v6, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d GKPeer[%p] %d service count old=%d new=%d", &v10, 0x38u);
+      _os_log_impl(&dword_24E50C000, v6, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d GKPeer[%p] %d service count old=%d new=%d", &v9, 0x38u);
     }
   }
 
   self->_serviceCount = count;
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)tryDetruncateDisplayName:(id)name
@@ -262,7 +260,7 @@ LABEL_14:
 
 - (BOOL)containsLookupService:(_DNSServiceRef_t *)service
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
     v5 = VRTraceErrorLogLevelToCSTR();
@@ -277,56 +275,57 @@ LABEL_14:
         v8 = "no";
       }
 
-      v17 = 136316418;
-      v18 = v5;
-      v19 = 2080;
-      v20 = "[GKPeerInternal containsLookupService:]";
-      v21 = 1024;
-      v22 = 4657;
-      v23 = 1024;
-      v24 = pid;
-      v25 = 2080;
-      v26 = v8;
-      v27 = 1024;
-      v28 = lookupServiceCount;
-      _os_log_impl(&dword_24E50C000, v6, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d peer %d checking lookup service (%s) containing %d", &v17, 0x32u);
+      v16 = 136316418;
+      v17 = v5;
+      v18 = 2080;
+      v19 = "[GKPeerInternal containsLookupService:]";
+      v20 = 1024;
+      v21 = 4657;
+      v22 = 1024;
+      v23 = pid;
+      v24 = 2080;
+      v25 = v8;
+      v26 = 1024;
+      v27 = lookupServiceCount;
+      _os_log_impl(&dword_24E50C000, v6, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d peer %d checking lookup service (%s) containing %d", &v16, 0x32u);
     }
   }
 
   lookupServiceList = self->_lookupServiceList;
-  if (lookupServiceList && (v11 = self->_lookupServiceCount, v11 >= 1))
+  if (!lookupServiceList)
   {
-    v12 = v11 - 1;
-    do
-    {
-      v13 = *lookupServiceList++;
-      result = v13 == service;
-    }
-
-    while (v13 != service && v12-- != 0);
+    return 0;
   }
 
-  else
+  v11 = self->_lookupServiceCount;
+  if (v11 < 1)
   {
-    result = 0;
+    return 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
+  v12 = v11 - 1;
+  do
+  {
+    v13 = *lookupServiceList++;
+    result = v13 == service;
+  }
+
+  while (v13 != service && v12-- != 0);
   return result;
 }
 
 - (void)setAddr:(const sockaddr_in *)addr interface:(unsigned int)interface forLookupService:(_DNSServiceRef_t *)service
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   if (!self->_lookupServiceList)
   {
-    goto LABEL_36;
+    return;
   }
 
   lookupServiceCount = self->_lookupServiceCount;
   if (lookupServiceCount < 1)
   {
-    goto LABEL_36;
+    return;
   }
 
   v7 = 0;
@@ -335,12 +334,12 @@ LABEL_14:
 LABEL_26:
     if (++v7 >= lookupServiceCount)
     {
-      goto LABEL_36;
+      return;
     }
   }
 
-  v66 = *addr;
-  v66.sin_port = bswap32(LOWORD(self->_servicePort)) >> 16;
+  v65 = *addr;
+  v65.sin_port = bswap32(LOWORD(self->_servicePort)) >> 16;
   if (lookupServiceCount < 1)
   {
 LABEL_23:
@@ -349,7 +348,7 @@ LABEL_23:
     {
     }
 
-    self->_addrList[v7] = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:&v66 length:16];
+    self->_addrList[v7] = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:&v65 length:16];
     self->_interfaceList[v7] = interface;
     lookupServiceCount = self->_lookupServiceCount;
     goto LABEL_26;
@@ -363,7 +362,7 @@ LABEL_23:
     {
       v11 = 0;
       v14 = 0;
-      v12 = bswap32(v66.sin_addr.s_addr);
+      v12 = bswap32(v65.sin_addr.s_addr);
 LABEL_12:
       v13 = 1;
       goto LABEL_13;
@@ -371,7 +370,7 @@ LABEL_12:
 
     bytes = [v9 bytes];
     v11 = bytes;
-    v12 = bswap32(v66.sin_addr.s_addr);
+    v12 = bswap32(v65.sin_addr.s_addr);
     if (!bytes)
     {
       v14 = 0;
@@ -400,42 +399,42 @@ LABEL_13:
         pid = self->_pid;
         v19 = self->_lookupServiceList[v7];
         *buf = 136318978;
-        v35 = v15;
-        v36 = 2080;
-        v37 = "[GKPeerInternal setAddr:interface:forLookupService:]";
-        v38 = 1024;
-        v39 = 4684;
-        v40 = 1024;
-        v41 = pid;
-        v42 = 1024;
-        v43 = HIBYTE(v12);
-        v44 = 1024;
-        v45 = BYTE2(v12);
-        v46 = 1024;
-        v47 = BYTE1(v12);
-        v48 = 1024;
-        v49 = v12;
-        v50 = 1024;
-        v51 = bswap32(v66.sin_port) >> 16;
-        v52 = 1024;
+        v34 = v15;
+        v35 = 2080;
+        v36 = "[GKPeerInternal setAddr:interface:forLookupService:]";
+        v37 = 1024;
+        v38 = 4684;
+        v39 = 1024;
+        v40 = pid;
+        v41 = 1024;
+        v42 = HIBYTE(v12);
+        v43 = 1024;
+        v44 = BYTE2(v12);
+        v45 = 1024;
+        v46 = BYTE1(v12);
+        v47 = 1024;
+        v48 = v12;
+        v49 = 1024;
+        v50 = bswap32(v65.sin_port) >> 16;
+        v51 = 1024;
         serviceCopy = service;
-        v54 = 1024;
-        v55 = HIBYTE(v14);
-        v56 = 1024;
-        v57 = BYTE2(v14);
-        v58 = 1024;
-        v59 = BYTE1(v14);
-        v60 = 1024;
-        v61 = v14;
-        v62 = 1024;
-        v63 = v17;
-        v64 = 1024;
-        v65 = v19;
+        v53 = 1024;
+        v54 = HIBYTE(v14);
+        v55 = 1024;
+        v56 = BYTE2(v14);
+        v57 = 1024;
+        v58 = BYTE1(v14);
+        v59 = 1024;
+        v60 = v14;
+        v61 = 1024;
+        v62 = v17;
+        v63 = 1024;
+        v64 = v19;
         _os_log_impl(&dword_24E50C000, v16, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d peer %d setAddr %u.%u.%u.%u:%u for service %08X compared to %u.%u.%u.%u:%u of service %08X", buf, 0x6Au);
       }
     }
 
-    if ((v13 & 1) == 0 && *(v11 + 2) == v66.sin_port && *(v11 + 4) == v66.sin_addr.s_addr)
+    if ((v13 & 1) == 0 && *(v11 + 2) == v65.sin_port && *(v11 + 4) == v65.sin_addr.s_addr)
     {
       break;
     }
@@ -456,11 +455,11 @@ LABEL_13:
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v35 = v22;
-        v36 = 2080;
-        v37 = "[GKPeerInternal setAddr:interface:forLookupService:]";
-        v38 = 1024;
-        v39 = 4690;
+        v34 = v22;
+        v35 = 2080;
+        v36 = "[GKPeerInternal setAddr:interface:forLookupService:]";
+        v37 = 1024;
+        v38 = 4690;
         v24 = " [%s] %s:%d  - already set to same IP";
         v25 = v23;
         v26 = 28;
@@ -477,13 +476,13 @@ LABEL_13:
     {
       v29 = self->_lookupServiceList[v8];
       *buf = 136315906;
-      v35 = v27;
-      v36 = 2080;
-      v37 = "[GKPeerInternal setAddr:interface:forLookupService:]";
-      v38 = 1024;
-      v39 = 4692;
-      v40 = 1024;
-      v41 = v29;
+      v34 = v27;
+      v35 = 2080;
+      v36 = "[GKPeerInternal setAddr:interface:forLookupService:]";
+      v37 = 1024;
+      v38 = 4692;
+      v39 = 1024;
+      v40 = v29;
       v24 = " [%s] %s:%d  - was set in a previous GetAddrInfo service: %08X (double resolve?)";
       v25 = v28;
       v26 = 34;
@@ -491,9 +490,6 @@ LABEL_35:
       _os_log_impl(&dword_24E50C000, v25, OS_LOG_TYPE_DEFAULT, v24, buf, v26);
     }
   }
-
-LABEL_36:
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyLookupList:(_DNSServiceRef_t *)list count:(int *)count
@@ -546,7 +542,7 @@ LABEL_36:
 
 - (void)stopResolving
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   [(GKSessionInternal *)self->_session lock];
   if (![(GKSessionInternal *)self->_session isShuttingDown])
   {
@@ -563,7 +559,7 @@ LABEL_36:
         v8 = 0;
         v9 = MEMORY[0x277CE5818];
         *&v3 = 136316418;
-        v31 = v3;
+        v30 = v3;
         do
         {
           if (VRTraceGetErrorLogLevelForModule() >= 7)
@@ -574,18 +570,18 @@ LABEL_36:
             {
               pid = self->_pid;
               v13 = self->_lookupServiceList[v8];
-              *buf = v31;
+              *buf = v30;
               *&buf[4] = v10;
               *&buf[12] = 2080;
               *&buf[14] = "[GKPeerInternal stopResolving]";
               *&buf[22] = 1024;
-              LODWORD(v33) = 4744;
-              WORD2(v33) = 2048;
-              *(&v33 + 6) = self;
-              HIWORD(v33) = 1024;
-              LODWORD(v34) = pid;
-              WORD2(v34) = 1024;
-              *(&v34 + 6) = v13;
+              LODWORD(v32) = 4744;
+              WORD2(v32) = 2048;
+              *(&v32 + 6) = self;
+              HIWORD(v32) = 1024;
+              LODWORD(v33) = pid;
+              WORD2(v33) = 1024;
+              *(&v33 + 6) = v13;
               _os_log_impl(&dword_24E50C000, v11, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d GKPeer[%p] %d dealloc lookupService: %08X", buf, 0x32u);
             }
           }
@@ -634,13 +630,13 @@ LABEL_24:
         *&buf[12] = 2080;
         *&buf[14] = "[GKPeerInternal stopResolving]";
         *&buf[22] = 1024;
-        LODWORD(v33) = 4761;
-        WORD2(v33) = 2048;
-        *(&v33 + 6) = self;
-        HIWORD(v33) = 1024;
-        LODWORD(v34) = v23;
-        WORD2(v34) = 1024;
-        *(&v34 + 6) = v8;
+        LODWORD(v32) = 4761;
+        WORD2(v32) = 2048;
+        *(&v32 + 6) = self;
+        HIWORD(v32) = 1024;
+        LODWORD(v33) = v23;
+        WORD2(v33) = 1024;
+        *(&v33 + 6) = v8;
         v24 = " [%s] %s:%d * GKPeer[%p] %d Stopped resolving: %d";
         v25 = v22;
         v26 = 50;
@@ -668,13 +664,13 @@ LABEL_20:
             *&buf[12] = 2080;
             *&buf[14] = "[GKPeerInternal stopResolving]";
             *&buf[22] = 1024;
-            LODWORD(v33) = 4755;
-            WORD2(v33) = 2048;
-            *(&v33 + 6) = self;
-            HIWORD(v33) = 1024;
-            LODWORD(v34) = v19;
-            WORD2(v34) = 1024;
-            *(&v34 + 6) = v20;
+            LODWORD(v32) = 4755;
+            WORD2(v32) = 2048;
+            *(&v32 + 6) = self;
+            HIWORD(v32) = 1024;
+            LODWORD(v33) = v19;
+            WORD2(v33) = 1024;
+            *(&v33 + 6) = v20;
             _os_log_impl(&dword_24E50C000, v18, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d GKPeer[%p] %d dealloc resolveService: %08X", buf, 0x32u);
           }
         }
@@ -704,11 +700,11 @@ LABEL_20:
     *&buf[12] = 2080;
     *&buf[14] = "[GKPeerInternal stopResolving]";
     *&buf[22] = 1024;
-    LODWORD(v33) = 4763;
-    WORD2(v33) = 2048;
-    *(&v33 + 6) = self;
-    HIWORD(v33) = 1024;
-    LODWORD(v34) = v29;
+    LODWORD(v32) = 4763;
+    WORD2(v32) = 2048;
+    *(&v32 + 6) = self;
+    HIWORD(v32) = 1024;
+    LODWORD(v33) = v29;
     v24 = " [%s] %s:%d * GKPeer[%p] %d Nothing to stop resolving";
     v25 = v28;
     v26 = 44;
@@ -729,19 +725,18 @@ LABEL_31:
       *&buf[12] = 2080;
       *&buf[14] = "[GKPeerInternal stopResolving]";
       *&buf[22] = 1024;
-      LODWORD(v33) = 4734;
-      WORD2(v33) = 2048;
-      *(&v33 + 6) = self;
-      HIWORD(v33) = 1024;
-      LODWORD(v34) = v6;
+      LODWORD(v32) = 4734;
+      WORD2(v32) = 2048;
+      *(&v32 + 6) = self;
+      HIWORD(v32) = 1024;
+      LODWORD(v33) = v6;
       _os_log_impl(&dword_24E50C000, v5, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d GKPeer[%p] %d avoiding overrelease", buf, 0x2Cu);
     }
   }
 
   [(GKPeerInternal *)self clearResolving];
 LABEL_32:
-  [(GKSessionInternal *)self->_session unlock:v31];
-  v30 = *MEMORY[0x277D85DE8];
+  [(GKSessionInternal *)self->_session unlock:v30];
 }
 
 - (void)clearResolving
@@ -762,7 +757,7 @@ LABEL_32:
 
 - (void)stopTXTRecordMonitoring
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   [(GKSessionInternal *)self->_session lock];
   if (![(GKSessionInternal *)self->_session isShuttingDown])
   {
@@ -774,19 +769,19 @@ LABEL_32:
       {
         pid = self->_pid;
         txtRecordService = self->_txtRecordService;
-        v8 = 136316418;
-        v9 = v3;
-        v10 = 2080;
-        v11 = "[GKPeerInternal stopTXTRecordMonitoring]";
-        v12 = 1024;
-        v13 = 4783;
-        v14 = 2048;
+        v7 = 136316418;
+        v8 = v3;
+        v9 = 2080;
+        v10 = "[GKPeerInternal stopTXTRecordMonitoring]";
+        v11 = 1024;
+        v12 = 4783;
+        v13 = 2048;
         selfCopy = self;
-        v16 = 1024;
-        v17 = pid;
-        v18 = 1024;
-        v19 = txtRecordService;
-        _os_log_impl(&dword_24E50C000, v4, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d GKPeer[%p] %d => calling DNSServiceRefDeallocate(_txtRecordService) (%08X)", &v8, 0x32u);
+        v15 = 1024;
+        v16 = pid;
+        v17 = 1024;
+        v18 = txtRecordService;
+        _os_log_impl(&dword_24E50C000, v4, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d GKPeer[%p] %d => calling DNSServiceRefDeallocate(_txtRecordService) (%08X)", &v7, 0x32u);
       }
     }
 
@@ -795,12 +790,11 @@ LABEL_32:
   }
 
   [(GKSessionInternal *)self->_session unlock];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cleanupForGKTable:(id)table
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
     v5 = VRTraceErrorLogLevelToCSTR();
@@ -808,19 +802,19 @@ LABEL_32:
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
       pid = self->_pid;
-      v12 = 136316418;
-      v13 = v5;
-      v14 = 2080;
-      v15 = "[GKPeerInternal cleanupForGKTable:]";
-      v16 = 1024;
-      v17 = 4791;
-      v18 = 2048;
+      v11 = 136316418;
+      v12 = v5;
+      v13 = 2080;
+      v14 = "[GKPeerInternal cleanupForGKTable:]";
+      v15 = 1024;
+      v16 = 4791;
+      v17 = 2048;
       selfCopy = self;
-      v20 = 1024;
-      v21 = pid;
-      v22 = 2048;
+      v19 = 1024;
+      v20 = pid;
+      v21 = 2048;
       tableCopy = table;
-      _os_log_impl(&dword_24E50C000, v6, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d GKPeer[%p] %d cleanup for table[%p]", &v12, 0x36u);
+      _os_log_impl(&dword_24E50C000, v6, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d GKPeer[%p] %d cleanup for table[%p]", &v11, 0x36u);
     }
   }
 
@@ -835,15 +829,15 @@ LABEL_32:
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
       {
         txtRecordService = self->_txtRecordService;
-        v12 = 136315906;
-        v13 = v8;
-        v14 = 2080;
-        v15 = "[GKPeerInternal cleanupForGKTable:]";
-        v16 = 1024;
-        v17 = 4795;
-        v18 = 1024;
+        v11 = 136315906;
+        v12 = v8;
+        v13 = 2080;
+        v14 = "[GKPeerInternal cleanupForGKTable:]";
+        v15 = 1024;
+        v16 = 4795;
+        v17 = 1024;
         LODWORD(selfCopy) = txtRecordService;
-        _os_log_impl(&dword_24E50C000, v9, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d => calling DNSServiceRefDeallocate(_txtRecordService) (%08X)", &v12, 0x22u);
+        _os_log_impl(&dword_24E50C000, v9, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d => calling DNSServiceRefDeallocate(_txtRecordService) (%08X)", &v11, 0x22u);
       }
     }
 
@@ -852,7 +846,6 @@ LABEL_32:
   }
 
   [(GKSessionInternal *)self->_session unlock];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

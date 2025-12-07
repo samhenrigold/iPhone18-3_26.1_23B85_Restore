@@ -89,7 +89,7 @@ LABEL_9:
   {
     v8 = -[_DASProgressReportingMonitor trackersForPID:](self->_progressReportingMonitor, "trackersForPID:", [activityCopy pid]);
     v9 = [(_DASProgressReportingMonitor *)self->_progressReportingMonitor trackerForActivity:v7];
-    if (v8 && [v8 count])
+    if (v8 && objc_msgSend_count(v8))
     {
       v21 = 0u;
       v22 = 0u;

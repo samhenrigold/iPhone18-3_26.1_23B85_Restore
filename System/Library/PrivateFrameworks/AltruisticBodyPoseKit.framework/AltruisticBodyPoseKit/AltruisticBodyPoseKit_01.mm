@@ -1,14 +1,14 @@
-void *std::vector<std::pair<cva::Matrix<double,3u,1u,false>,cva::Matrix<double,2u,1u,false>>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<std::pair<cva::Matrix<double,3u,1u,false>,cva::Matrix<double,2u,1u,false>>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<std::pair<cva::Matrix<double,3u,1u,false>,cva::Matrix<double,2u,1u,false>>>::__vallocate[abi:ne200100](result, a2);
+    std::vector<std::pair<cva::Matrix<double,3u,1u,false>,cva::Matrix<double,2u,1u,false>>>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_23EDFB428(_Unwind_Exception *exception_object)
@@ -23,7 +23,7 @@ void sub_23EDFB428(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<std::pair<cva::Matrix<double,3u,1u,false>,cva::Matrix<double,2u,1u,false>>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::pair<cva::Matrix<double,3u,1u,false>,cva::Matrix<double,2u,1u,false>>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x666666666666667)
   {
@@ -43,43 +43,43 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<cva::Matrix
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void std::vector<double>::resize(void *a1, unint64_t a2)
+void std::vector<double>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<double>::__append(a1, a2 - v2);
+    std::vector<double>::__append(result, a2 - v2);
   }
 }
 
-void std::vector<cva::PoseRefiner<double>::projData,std::allocator<cva::PoseRefiner<double>::projData>>::resize(void *a1, unint64_t a2)
+void std::vector<cva::PoseRefiner<double>::projData,std::allocator<cva::PoseRefiner<double>::projData>>::resize(void *result, unint64_t a2)
 {
-  v2 = 0xCCCCCCCCCCCCCCCDLL * ((a1[1] - *a1) >> 4);
+  v2 = 0xCCCCCCCCCCCCCCCDLL * ((result[1] - *result) >> 4);
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    std::vector<cva::PoseRefiner<double>::projData,std::allocator<cva::PoseRefiner<double>::projData>>::__append(a1, v4);
+    std::vector<cva::PoseRefiner<double>::projData,std::allocator<cva::PoseRefiner<double>::projData>>::__append(result, v4);
   }
 
   else if (!v3)
   {
-    a1[1] = *a1 + 80 * a2;
+    result[1] = *result + 80 * a2;
   }
 }
 
-void cva::PoseRefiner<double>::computeError(uint64_t a1, uint64_t *a2, uint64_t a3)
+void cva::PoseRefiner<double>::computeError(uint64_t result, uint64_t *a2, uint64_t a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
-  *(a1 + 392) = 0;
+  v28 = *MEMORY[0x277D85DE8];
+  *(result + 392) = 0;
   v3 = *a2;
   if (a2[1] != *a2)
   {
@@ -87,30 +87,30 @@ void cva::PoseRefiner<double>::computeError(uint64_t a1, uint64_t *a2, uint64_t 
     v8 = a3 + 96;
     do
     {
-      v9 = *(a1 + 32);
+      v9 = *(result + 32);
       v10 = (v3 + 40 * v7);
-      v26[0] = a3;
-      v26[1] = 4;
-      v27[0] = v26;
-      v27[1] = v10;
-      memset(v28, 0, 24);
-      cva::assign<false,false,cva::Matrix<double,3u,1u,false>,cva::MatrixRef<double const,3u,3u,false>,cva::Matrix<double,3u,1u,false>>(v28, v27);
+      v25[0] = a3;
+      v25[1] = 4;
+      v26[0] = v25;
+      v26[1] = v10;
+      memset(v27, 0, 24);
+      cva::assign<false,false,cva::Matrix<double,3u,1u,false>,cva::MatrixRef<double const,3u,3u,false>,cva::Matrix<double,3u,1u,false>>(v27, v26);
       v11 = 0;
-      v24 = 0uLL;
-      v25 = 0;
+      v23 = 0uLL;
+      v24 = 0;
       do
       {
-        *(&v24 + v11 * 8) = *&v27[v11 + 3] + *(v8 + v11 * 8);
+        *(&v23 + v11 * 8) = *&v26[v11 + 3] + *(v8 + v11 * 8);
         ++v11;
       }
 
       while (v11 != 3);
       v12 = 0;
       v13 = v9 + 80 * v7;
-      *(v13 + 24) = v25;
+      *(v13 + 24) = v24;
       v14 = *(v13 + 24);
       v15 = dbl_23EE28760[v14 >= 0.0];
-      *(v13 + 8) = v24;
+      *(v13 + 8) = v23;
       if (fabs(v14) < 1.0e-15)
       {
         v14 = v15;
@@ -139,9 +139,9 @@ void cva::PoseRefiner<double>::computeError(uint64_t a1, uint64_t *a2, uint64_t 
         v21 = v18 + v20;
         *(v13 + 64) = v19;
         *(v13 + 72) = v21;
-        v22 = *(a1 + 392);
-        *(*(a1 + 400) + 8 * v22) = v21;
-        *(a1 + 392) = v22 + 1;
+        v22 = *(result + 392);
+        *(*(result + 400) + 8 * v22) = v21;
+        *(result + 392) = v22 + 1;
         v12 = 1;
       }
 
@@ -152,8 +152,6 @@ void cva::PoseRefiner<double>::computeError(uint64_t a1, uint64_t *a2, uint64_t 
 
     while (v7 < 0xCCCCCCCCCCCCCCCDLL * ((a2[1] - *a2) >> 3));
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t cva::PoseRefiner<double>::accumuateJacobian(uint64_t result, double *a2, double a3)
@@ -350,36 +348,35 @@ uint64_t cva::PoseRefiner<double>::accumuateJacobian(uint64_t result, double *a2
   return result;
 }
 
-BOOL cva::ldlt<double,6u,1u>()
+BOOL cva::ldlt<double,6u,1u>(uint64_t a1, uint64_t a2)
 {
-  v8[0] = 0;
-  v8[1] = 0;
-  cva::MatrixData<int,0ul,0ul,false>::allocate(v8, 6);
-  v9 = 6;
-  v7 = 0;
-  v6 = 0;
+  v10[0] = 0;
+  v10[1] = 0;
+  cva::MatrixData<int,0ul,0ul,false>::allocate(v10, 6);
+  v11 = 6;
+  v9 = 0;
+  v8 = 0.0;
   cva::vecLib::sysv<double>();
-  v4[0] = 0;
-  v4[1] = 0;
-  cva::MatrixData<double,0ul,0ul,false>::allocate(v4, 0.0);
-  v5 = 0.0;
-  v0 = cva::vecLib::sysv<double>();
-  if (v7 < 0)
+  v6[0] = 0;
+  v6[1] = 0;
+  cva::MatrixData<double,0ul,0ul,false>::allocate(v6, 0.0);
+  v7 = 0.0;
+  v2 = cva::vecLib::sysv<double>();
+  if (v9 < 0)
   {
     __assert_rtn("ldlt", "linearalgebra.h", 2235, "(0 <= info) || cva::detail::assertMessage(sysv() Linear system failed to be solved!)");
   }
 
-  if (v7)
+  if (v9)
   {
-    cva::Logger::instance(v0);
-    v1 = *MEMORY[0x277CFD380];
-    cva::Logger::logInCategory();
+    v3 = cva::Logger::instance(v2);
+    cva::Logger::logInCategory(v3, 2, *MEMORY[0x277CFD380], "%s\n", "sysv() DBDSDC did not converge!");
   }
 
-  free(v4[0]);
-  v2 = v7 == 0;
-  free(v8[0]);
-  return v2;
+  free(v6[0]);
+  v4 = v9 == 0;
+  free(v10[0]);
+  return v4;
 }
 
 void std::vector<double>::__append(uint64_t a1, unint64_t a2)
@@ -576,7 +573,7 @@ double cva::assign<false,false,cva::Matrix<double,3u,1u,false>,cva::MatrixRef<do
   {
     v11 = 0uLL;
     v12 = 0;
-    cva::assign<false,false,cva::Matrix<double,3u,1u,false>,cva::MatrixRef<double const,3u,3u,false>,cva::Matrix<double,3u,1u,false>>(&v11);
+    cva::assign<false,false,cva::Matrix<double,3u,1u,false>,cva::MatrixRef<double const,3u,3u,false>,cva::Matrix<double,3u,1u,false>>(&v11, a2);
     result = *&v11;
     *a1 = v11;
     *(a1 + 16) = v12;
@@ -618,11 +615,11 @@ double cva::assign<false,false,cva::Matrix<double,3u,1u,false>,cva::MatrixRef<do
   return result;
 }
 
-void std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<double *>>(double *a1, double *a2, double *a3, double a4)
+void std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<double *>>(double *result, double *a2, double *a3, double a4)
 {
   while (a3 != a2)
   {
-    v4 = a3 - a1;
+    v4 = a3 - result;
     if (v4 < 2)
     {
       break;
@@ -630,11 +627,11 @@ void std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,vo
 
     if (v4 == 3)
     {
-      v37 = a1[1];
+      v37 = result[1];
       v38 = *(a3 - 1);
       if (v37 < v38)
       {
-        v39 = *(a1 + 1);
+        v39 = *(result + 1);
       }
 
       else
@@ -648,46 +645,46 @@ void std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,vo
       }
 
       *(a3 - 1) = v37;
-      *(a1 + 1) = v39;
+      *(result + 1) = v39;
       v40 = *(a3 - 1);
-      if (v40 < *a1)
+      if (v40 < *result)
       {
         v41 = *(a3 - 1);
       }
 
       else
       {
-        v41 = *a1;
+        v41 = *result;
       }
 
-      if (v40 < *a1)
+      if (v40 < *result)
       {
-        v40 = *a1;
+        v40 = *result;
       }
 
       *(a3 - 1) = v40;
-      v42 = a1[1];
+      v42 = result[1];
       if (v41 < v42)
       {
-        v41 = a1[1];
+        v41 = result[1];
       }
 
       else
       {
-        *a1 = v42;
+        *result = v42;
       }
 
-      a1[1] = v41;
+      result[1] = v41;
       return;
     }
 
     if (v4 == 2)
     {
       v43 = *(a3 - 1);
-      v44 = *a1;
-      if (v43 < *a1)
+      v44 = *result;
+      if (v43 < *result)
       {
-        *a1 = v43;
+        *result = v43;
         *(a3 - 1) = v44;
       }
 
@@ -696,11 +693,11 @@ void std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,vo
 
     if (v4 <= 7)
     {
-      std::__selection_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<double *>>(a1, a3, a4);
+      std::__selection_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<double *>>(result, a3, a4);
       return;
     }
 
-    v5 = &a1[(a3 - a1) >> 4];
+    v5 = &result[(a3 - result) >> 4];
     v6 = a3 - 1;
     v7 = *(a3 - 1);
     v8 = *v5;
@@ -727,20 +724,20 @@ void std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,vo
     *v6 = v10;
     *v5 = v9;
     v11 = *v6;
-    v12 = *a1;
-    if (*v6 < *a1)
+    v12 = *result;
+    if (*v6 < *result)
     {
       v13 = *v6;
     }
 
     else
     {
-      v13 = *a1;
+      v13 = *result;
     }
 
-    if (*v6 < *a1)
+    if (*v6 < *result)
     {
-      v14 = *a1;
+      v14 = *result;
     }
 
     else
@@ -753,7 +750,7 @@ void std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,vo
     v16 = *v5;
     if (v13 >= *v5)
     {
-      *a1 = v15;
+      *result = v15;
       v16 = v13;
     }
 
@@ -769,15 +766,15 @@ void std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,vo
       v17 = 1;
     }
 
-    a4 = *a1;
-    if (*a1 >= v16)
+    a4 = *result;
+    if (*result >= v16)
     {
       v18 = a3 - 1;
-      while (--v18 != a1)
+      while (--v18 != result)
       {
         if (*v18 < v16)
         {
-          *a1 = *v18;
+          *result = *v18;
           *v18 = a4;
           if (v17)
           {
@@ -793,7 +790,7 @@ void std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,vo
         }
       }
 
-      v28 = a1 + 1;
+      v28 = result + 1;
       if (a4 >= *v6)
       {
         while (v28 != v6)
@@ -820,7 +817,7 @@ LABEL_65:
 
       while (1)
       {
-        v32 = *a1;
+        v32 = *result;
         do
         {
           v33 = *v28++;
@@ -845,7 +842,7 @@ LABEL_65:
         *v6 = a4;
       }
 
-      a1 = v28 - 1;
+      result = v28 - 1;
       if (v34 > a2)
       {
         return;
@@ -856,15 +853,15 @@ LABEL_65:
     {
       v18 = a3 - 1;
 LABEL_33:
-      v19 = a1 + 1;
-      if (a1 + 1 >= v18)
+      v19 = result + 1;
+      if (result + 1 >= v18)
       {
-        v23 = a1 + 1;
+        v23 = result + 1;
       }
 
       else
       {
-        v20 = a1 + 1;
+        v20 = result + 1;
         while (1)
         {
           v21 = *v5;
@@ -950,7 +947,7 @@ LABEL_33:
 LABEL_49:
       if (v23 <= a2)
       {
-        a1 = v23 + 1;
+        result = v23 + 1;
       }
 
       else
@@ -1157,7 +1154,7 @@ float64_t cva::assign<false,false,cva::Matrix<double,4u,4u,false>,cva::Matrix<do
     v20 = 0u;
     v17 = 0u;
     v18 = 0u;
-    cva::assign<false,false,cva::Matrix<double,4u,4u,false>,cva::Matrix<double,4u,4u,false>,cva::Matrix<double,4u,4u,false>>(&v17);
+    cva::assign<false,false,cva::Matrix<double,4u,4u,false>,cva::Matrix<double,4u,4u,false>,cva::Matrix<double,4u,4u,false>>(&v17, a2);
     v12 = v22;
     a1[4] = v21;
     a1[5] = v12;
@@ -1199,26 +1196,26 @@ float64_t cva::assign<false,false,cva::Matrix<double,4u,4u,false>,cva::Matrix<do
   return v7.f64[0];
 }
 
-void cva::SE3GroupStorage<double,cva::Matrix<double,4u,4u,false>>::log(uint64_t a1@<X0>, uint64_t a2@<X8>)
+void cva::SE3GroupStorage<double,cva::Matrix<double,4u,4u,false>>::log(uint64_t **a1@<X0>, __int128 *a2@<X8>)
 {
-  v46 = *MEMORY[0x277D85DE8];
-  *(a2 + 16) = 0u;
-  *(a2 + 32) = 0u;
+  v45 = *MEMORY[0x277D85DE8];
+  a2[1] = 0u;
+  a2[2] = 0u;
   *a2 = 0u;
-  v39 = a1;
-  v40 = 4;
-  v32 = a2;
-  v33 = 6;
-  cva::computeLogarithmVector<cva::MatrixRef<double const,3u,3u,false>,cva::MatrixRef<double,3u,1u,false>>(&v39, &v32);
+  v38 = a1;
+  v39 = 4;
+  v31 = a2;
+  v32 = 6;
+  cva::computeLogarithmVector<cva::MatrixRef<double const,3u,3u,false>,cva::MatrixRef<double,3u,1u,false>>(&v38, &v31);
   v4 = vmulq_f64(*(a2 + 8), *(a2 + 8));
   v5 = *a2 * *a2 + v4.f64[0] + v4.f64[1];
-  cva::ExponentialCoefficients<double,3>::ExponentialCoefficients(&v26, v5);
+  cva::ExponentialCoefficients<double,3>::ExponentialCoefficients(&v25, v5);
   if (v5 >= 2.775e-15)
   {
-    v6 = (v27 + v26.f64[1] * -0.5) / (v5 * v27);
+    v6 = (v26 + v25.f64[1] * -0.5) / (v5 * v26);
     if (v5 <= 9.0)
     {
-      v6 = -(v28 - v27 * 0.5) / v26.f64[1];
+      v6 = -(v27 - v26 * 0.5) / v25.f64[1];
     }
   }
 
@@ -1227,88 +1224,87 @@ void cva::SE3GroupStorage<double,cva::Matrix<double,4u,4u,false>>::log(uint64_t 
     v6 = v5 * 0.00138888889 + 0.0833333333 + v5 * 0.0000330687831;
   }
 
-  v24 = 0uLL;
-  v25 = 0;
-  if (&v24 == a2 || &v24 == a1)
+  v23 = 0uLL;
+  v24 = 0;
+  if (&v23 == a2 || &v23 == a1)
   {
     v13 = 0;
-    v30 = 0uLL;
-    v31 = 0;
+    v29 = 0uLL;
+    v30 = 0;
     v14 = *a2;
-    v15 = *(a2 + 16);
-    v16 = *(a1 + 96);
-    v17 = *(a1 + 104);
-    v18 = *(a1 + 112);
-    v40 = *(a2 + 8);
-    v41 = v15;
-    v42 = v14;
-    v43 = v18;
-    v44 = v16;
-    v45 = v17;
-    v33 = v15;
-    v34 = v14;
-    v35 = v40;
-    v36 = v17;
-    v37 = v18;
-    v38 = v16;
+    v15 = *(a2 + 2);
+    v16 = a1[12];
+    v17 = a1[13];
+    v18 = a1[14];
+    v39 = *(a2 + 1);
+    v40 = v15;
+    v41 = v14;
+    v42 = v18;
+    v43 = v16;
+    v44 = v17;
+    v32 = v15;
+    v33 = v14;
+    v34 = v39;
+    v35 = v17;
+    v36 = v18;
+    v37 = v16;
     do
     {
-      *(&v30 + v13 * 8) = *&(&v39)[v13 + 1] * *(&v43 + v13 * 8) - *&(&v32)[v13 + 1] * *(&v36 + v13 * 8);
+      *(&v29 + v13 * 8) = *&(&v38)[v13 + 1] * *&(&v42)[v13] - *&(&v31)[v13 + 1] * *&(&v35)[v13];
       ++v13;
     }
 
     while (v13 != 3);
+    v23 = v29;
     v24 = v30;
-    v25 = v31;
   }
 
   else
   {
     v7 = 0;
     v8 = *a2;
-    v9 = *(a2 + 16);
-    v10 = *(a1 + 96);
-    v11 = *(a1 + 104);
-    v12 = *(a1 + 112);
-    v40 = *(a2 + 8);
-    v41 = v9;
-    v42 = v8;
-    v43 = v12;
-    v44 = v10;
-    v45 = v11;
-    v33 = v9;
-    v34 = v8;
-    v35 = v40;
-    v36 = v11;
-    v37 = v12;
-    v38 = v10;
+    v9 = *(a2 + 2);
+    v10 = a1[12];
+    v11 = a1[13];
+    v12 = a1[14];
+    v39 = *(a2 + 1);
+    v40 = v9;
+    v41 = v8;
+    v42 = v12;
+    v43 = v10;
+    v44 = v11;
+    v32 = v9;
+    v33 = v8;
+    v34 = v39;
+    v35 = v11;
+    v36 = v12;
+    v37 = v10;
     do
     {
-      *(&v24 + v7 * 8) = *&(&v39)[v7 + 1] * *(&v43 + v7 * 8) - *&(&v32)[v7 + 1] * *(&v36 + v7 * 8);
+      *(&v23 + v7 * 8) = *&(&v38)[v7 + 1] * *&(&v42)[v7] - *&(&v31)[v7 + 1] * *&(&v35)[v7];
       ++v7;
     }
 
     while (v7 != 3);
   }
 
-  v23[0] = a1 + 96;
-  v23[1] = 0xC00000004;
-  *&v30 = &v24;
-  *(&v30 + 1) = 0x3FE0000000000000;
-  v32 = v23;
-  v33 = &v30;
-  v21[0] = a2;
-  v21[1] = 6;
-  v22[0] = v21;
-  v22[1] = &v24;
-  v29[0] = v22;
-  *&v29[1] = v6;
-  v39 = &v32;
-  v40 = v29;
-  v20[0] = a2 + 24;
-  v20[1] = 0x300000006;
-  cva::MatrixRef<double,3u,1u,false>::operator=<cva::MatrixBinaryExpr<cva::MatrixBinaryExpr<cva::MatrixRef<double const,3u,1u,false>,cva::MatrixScalarExpr<cva::Matrix<double,3u,1u,false>,cva::detail::MulOp>,cva::detail::SubOp>,cva::MatrixScalarExpr<cva::MatrixCrossProdExpr<cva::MatrixRef<double,3u,1u,false>,cva::Matrix<double,3u,1u,false>>,cva::detail::MulOp>,cva::detail::AddOp>>(v20, &v39);
-  v19 = *MEMORY[0x277D85DE8];
+  v22[0] = a1 + 12;
+  v22[1] = 0xC00000004;
+  *&v29 = &v23;
+  *(&v29 + 1) = 0x3FE0000000000000;
+  v31 = v22;
+  v32 = &v29;
+  v20[0] = a2;
+  v20[1] = 6;
+  v21[0] = v20;
+  v21[1] = &v23;
+  v28[0] = v21;
+  *&v28[1] = v6;
+  v38 = &v31;
+  v39 = v28;
+  v19[0] = a2 + 24;
+  v19[1] = 0x300000006;
+  cva::MatrixRef<double,3u,1u,false>::operator=<cva::MatrixBinaryExpr<cva::MatrixBinaryExpr<cva::MatrixRef<double const,3u,1u,false>,cva::MatrixScalarExpr<cva::Matrix<double,3u,1u,false>,cva::detail::MulOp>,cva::detail::SubOp>,cva::MatrixScalarExpr<cva::MatrixCrossProdExpr<cva::MatrixRef<double,3u,1u,false>,cva::Matrix<double,3u,1u,false>>,cva::detail::MulOp>,cva::detail::AddOp>>(v19, &v38);
 }
 
 void cva::computeLogarithmVector<cva::MatrixRef<double const,3u,3u,false>,cva::MatrixRef<double,3u,1u,false>>(uint64_t a1, double **a2)
@@ -1446,7 +1442,7 @@ double cva::MatrixRef<double,3u,1u,false>::operator=<cva::MatrixBinaryExpr<cva::
   v9 = *v4;
   v10 = **v4;
   v11 = *v10;
-  if (v8 == v3 || v11 - 8 * *(v10 + 3) == v3 || (v12 = v9[1], v12 == v3))
+  if (v8 == v3 || v11 - 8 * *(v10 + 12) == v3 || (v12 = v9[1], v12 == v3))
   {
     v20 = 0;
     v29 = 0uLL;
@@ -1455,7 +1451,7 @@ double cva::MatrixRef<double,3u,1u,false>::operator=<cva::MatrixBinaryExpr<cva::
     v22 = *v21;
     v23 = v9[1];
     v24 = v21[1];
-    v25 = v4[1];
+    v25 = *(v4 + 1);
     v26 = 1;
     v27 = 2;
     do
@@ -1470,7 +1466,7 @@ double cva::MatrixRef<double,3u,1u,false>::operator=<cva::MatrixBinaryExpr<cva::
         v28 = v26;
       }
 
-      *(&v29 + v20) = *(v7 + v20) - *(*&v22 + v20) * v24 + v25 * (*(v11 + 8 * v28) * *&v23[v20 / 8 + 2 + -3 * (v27 / 3)] - *(v11 + 16 - 24 * (v27 / 3) + v20) * *&v23[v28]);
+      *(&v29 + v20) = *(v7 + v20) - *(*&v22 + v20) * v24 + v25 * (*(v11 + 8 * v28) * *(v23 + 16 - 24 * (v27 / 3) + v20) - *(v11 + 16 - 24 * (v27 / 3) + v20) * *(v23 + 8 * v28));
       v20 += 8;
       ++v27;
       ++v26;
@@ -1501,7 +1497,7 @@ double cva::MatrixRef<double,3u,1u,false>::operator=<cva::MatrixBinaryExpr<cva::
         v18 = v16;
       }
 
-      result = *(v7 + v13) - *(*&v15 + v13) * v14[1] + v4[1] * (*(v11 + 8 * v18) * *&v12[v13 / 8 + 2 + -3 * (v17 / 3)] - *(v11 + 16 - 24 * (v17 / 3) + v13) * *&v12[v18]);
+      result = *(v7 + v13) - *(*&v15 + v13) * v14[1] + *(v4 + 1) * (*(v11 + 8 * v18) * *(v12 + 16 - 24 * (v17 / 3) + v13) - *(v11 + 16 - 24 * (v17 / 3) + v13) * *(v12 + 8 * v18));
       *(v2 + v13) = result;
       v13 += 8;
       ++v17;
@@ -1514,7 +1510,7 @@ double cva::MatrixRef<double,3u,1u,false>::operator=<cva::MatrixBinaryExpr<cva::
   return result;
 }
 
-void cva::computeExponentialMatrix<double,cva::Matrix<double,6u,1u,false>,cva::Matrix<double,4u,4u,false>>(double *a1, double *a2, void *a3)
+double cva::computeExponentialMatrix<double,cva::Matrix<double,6u,1u,false>,cva::Matrix<double,4u,4u,false>>(double *a1, double *a2, void *a3)
 {
   v38 = *MEMORY[0x277D85DE8];
   v6 = *a2;
@@ -1598,8 +1594,7 @@ void cva::computeExponentialMatrix<double,cva::Matrix<double,6u,1u,false>,cva::M
   *&v34 = v25;
   v19[0] = (a3 + 12);
   v19[1] = 0xC00000004;
-  cva::MatrixRef<double,3u,1u,false>::operator=<cva::MatrixBinaryExpr<cva::MatrixBinaryExpr<cva::MatrixRef<double const,3u,1u,false>,cva::MatrixScalarExpr<cva::Matrix<double,3u,1u,false>,cva::detail::MulOp>,cva::detail::AddOp>,cva::MatrixScalarExpr<cva::MatrixCrossProdExpr<cva::MatrixRef<double const,3u,1u,false>,cva::Matrix<double,3u,1u,false>>,cva::detail::MulOp>,cva::detail::AddOp>>(v19, &v33);
-  v18 = *MEMORY[0x277D85DE8];
+  return cva::MatrixRef<double,3u,1u,false>::operator=<cva::MatrixBinaryExpr<cva::MatrixBinaryExpr<cva::MatrixRef<double const,3u,1u,false>,cva::MatrixScalarExpr<cva::Matrix<double,3u,1u,false>,cva::detail::MulOp>,cva::detail::AddOp>,cva::MatrixScalarExpr<cva::MatrixCrossProdExpr<cva::MatrixRef<double const,3u,1u,false>,cva::Matrix<double,3u,1u,false>>,cva::detail::MulOp>,cva::detail::AddOp>>(v19, &v33);
 }
 
 double cva::computeExponentialMatrix<double,cva::MatrixRef<double const,3u,1u,false>,cva::MatrixRef<double,3u,3u,false>>(double **a1, uint64_t a2, double a3, double a4, double a5)
@@ -1645,7 +1640,7 @@ double cva::MatrixRef<double,3u,1u,false>::operator=<cva::MatrixBinaryExpr<cva::
   v9 = *v4;
   v10 = **v4;
   v11 = *v10;
-  if (v8 == v3 || v11 - 8 * *(v10 + 3) == v3 || (v12 = v9[1], v12 == v3))
+  if (v8 == v3 || v11 - 8 * *(v10 + 12) == v3 || (v12 = v9[1], v12 == v3))
   {
     v20 = 0;
     v29 = 0uLL;
@@ -1654,7 +1649,7 @@ double cva::MatrixRef<double,3u,1u,false>::operator=<cva::MatrixBinaryExpr<cva::
     v22 = *v21;
     v23 = v9[1];
     v24 = v21[1];
-    v25 = v4[1];
+    v25 = *(v4 + 1);
     v26 = 1;
     v27 = 2;
     do
@@ -1669,7 +1664,7 @@ double cva::MatrixRef<double,3u,1u,false>::operator=<cva::MatrixBinaryExpr<cva::
         v28 = v26;
       }
 
-      *(&v29 + v20) = *(v7 + v20) + *(*&v22 + v20) * v24 + v25 * (*(v11 + 8 * v28) * *&v23[v20 / 8 + 2 + -3 * (v27 / 3)] - *(v11 + 16 - 24 * (v27 / 3) + v20) * *&v23[v28]);
+      *(&v29 + v20) = *(v7 + v20) + *(*&v22 + v20) * v24 + v25 * (*(v11 + 8 * v28) * *(v23 + 16 - 24 * (v27 / 3) + v20) - *(v11 + 16 - 24 * (v27 / 3) + v20) * *(v23 + 8 * v28));
       v20 += 8;
       ++v27;
       ++v26;
@@ -1700,7 +1695,7 @@ double cva::MatrixRef<double,3u,1u,false>::operator=<cva::MatrixBinaryExpr<cva::
         v18 = v16;
       }
 
-      result = *(v7 + v13) + *(*&v15 + v13) * v14[1] + v4[1] * (*(v11 + 8 * v18) * *&v12[v13 / 8 + 2 + -3 * (v17 / 3)] - *(v11 + 16 - 24 * (v17 / 3) + v13) * *&v12[v18]);
+      result = *(v7 + v13) + *(*&v15 + v13) * v14[1] + *(v4 + 1) * (*(v11 + 8 * v18) * *(v12 + 16 - 24 * (v17 / 3) + v13) - *(v11 + 16 - 24 * (v17 / 3) + v13) * *(v12 + 8 * v18));
       *(v2 + v13) = result;
       v13 += 8;
       ++v17;
@@ -1732,7 +1727,7 @@ void *cva::PoseRefiner<double>::~PoseRefiner(void *a1)
   return a1;
 }
 
-char *std::vector<cva::Matrix<double,2u,1u,false>>::__assign_with_size[abi:ne200100]<cva::Matrix<double,2u,1u,false>*,cva::Matrix<double,2u,1u,false>*>(char **a1, char *a2, char *a3, unint64_t a4)
+char *std::vector<cva::Matrix<double,2u,1u,false>>::__assign_with_size[abi:ne200100]<cva::Matrix<double,2u,1u,false>*,cva::Matrix<double,2u,1u,false>*>(uint64_t *a1, char *a2, char *a3, unint64_t a4)
 {
   v5 = a2;
   v7 = a1[2];
@@ -1819,7 +1814,8 @@ char *std::vector<cva::Matrix<double,2u,1u,false>>::__assign_with_size[abi:ne200
       v15 = v11;
       do
       {
-        v16 = *v13++;
+        v16 = *v13;
+        v13 += 16;
         *v15 = v16;
         v15 += 16;
         v14 += 16;
@@ -1834,7 +1830,7 @@ char *std::vector<cva::Matrix<double,2u,1u,false>>::__assign_with_size[abi:ne200
   return result;
 }
 
-char *std::vector<cva::Matrix<double,3u,1u,false>>::__assign_with_size[abi:ne200100]<cva::Matrix<double,3u,1u,false>*,cva::Matrix<double,3u,1u,false>*>(char **a1, char *a2, char *a3, unint64_t a4)
+char *std::vector<cva::Matrix<double,3u,1u,false>>::__assign_with_size[abi:ne200100]<cva::Matrix<double,3u,1u,false>*,cva::Matrix<double,3u,1u,false>*>(uint64_t *a1, char *a2, char *a3, unint64_t a4)
 {
   v5 = a2;
   v7 = a1[2];
@@ -1943,7 +1939,7 @@ char *std::vector<cva::Matrix<double,3u,1u,false>>::__assign_with_size[abi:ne200
   return result;
 }
 
-void std::vector<cva::Matrix<double,3u,1u,false>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<cva::Matrix<double,3u,1u,false>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -1970,17 +1966,17 @@ void btr::BodyRegistrationInfo::~BodyRegistrationInfo(btr::BodyRegistrationInfo 
   }
 }
 
-void *std::vector<cva::Matrix<double,2u,1u,false>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<cva::Matrix<double,2u,1u,false>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    _ZNSt3__16vectorIDv3_iNS_9allocatorIS1_EEE11__vallocateB8ne200100Em(result, a2);
+    _ZNSt3__16vectorIDv3_iNS_9allocatorIS1_EEE11__vallocateB8ne200100Em(a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_23EDFD838(_Unwind_Exception *exception_object)
@@ -2002,7 +1998,7 @@ double cva::assign<false,false,cva::Matrix<double,3u,1u,false>,cva::Matrix<doubl
   {
     v10 = 0uLL;
     v11 = 0;
-    cva::assign<false,false,cva::Matrix<double,3u,1u,false>,cva::Matrix<double,3u,3u,false>,cva::Matrix<double,3u,1u,false>>(&v10);
+    cva::assign<false,false,cva::Matrix<double,3u,1u,false>,cva::Matrix<double,3u,3u,false>,cva::Matrix<double,3u,1u,false>>(&v10, a2);
     result = *&v10;
     *a1 = v10;
     *(a1 + 16) = v11;
@@ -2044,7 +2040,7 @@ uint64_t GetDimensionForIndexBackwards(uint64_t a1, unint64_t a2, int a3)
   }
 }
 
-uint64_t GetStrideForIndexBackwards(uint64_t a1, unint64_t a2, int a3)
+uint64_t GetStrideForIndexBackwards(unint64_t a1, unint64_t a2, int a3)
 {
   if (a3 >= a2)
   {
@@ -2109,7 +2105,7 @@ double getImageDimensionsFromFile(uint64_t a1)
 
   else
   {
-    v7 = __ABPKLogSharedInstance();
+    v7 = __ABPKLogSharedInstance(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *v9 = 0;
@@ -2129,13 +2125,13 @@ void readImage(uint64_t a1, CVPixelBufferRef *a2)
   v5 = v4;
   if (!v4)
   {
-    v16 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = __ABPKLogSharedInstance(0);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v18.a) = 0;
-      v17 = " CGImageSourceCreateWithURL error: Couldn't create cgimagesource with URL ";
+      LOWORD(v19.a) = 0;
+      v18 = " CGImageSourceCreateWithURL error: Couldn't create cgimagesource with URL ";
 LABEL_8:
-      _os_log_impl(&dword_23EDDC000, v16, OS_LOG_TYPE_ERROR, v17, &v18, 2u);
+      _os_log_impl(&dword_23EDDC000, v17, OS_LOG_TYPE_ERROR, v18, &v19, 2u);
     }
 
 LABEL_9:
@@ -2147,11 +2143,11 @@ LABEL_9:
   CFRelease(v5);
   if (!ImageAtIndex)
   {
-    v16 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = __ABPKLogSharedInstance(v7);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v18.a) = 0;
-      v17 = " CGImageSourceCreateImageAtIndex error: Couldn't create image. ";
+      LOWORD(v19.a) = 0;
+      v18 = " CGImageSourceCreateImageAtIndex error: Couldn't create image. ";
       goto LABEL_8;
     }
 
@@ -2165,18 +2161,18 @@ LABEL_9:
   DeviceRGB = CGColorSpaceCreateDeviceRGB();
   Width = CGImageGetWidth(ImageAtIndex);
   Height = CGImageGetHeight(ImageAtIndex);
-  v13 = CGBitmapContextCreate(BaseAddress, Width, Height, BitsPerComponent, BytesPerRow, DeviceRGB, 6u);
-  CGAffineTransformMakeRotation(&v18, 0.0);
-  CGContextConcatCTM(v13, &v18);
-  v14 = CGImageGetWidth(ImageAtIndex);
-  v15 = CGImageGetHeight(ImageAtIndex);
-  v19.size.width = v14;
-  v19.size.height = v15;
-  v19.origin.x = 0.0;
-  v19.origin.y = 0.0;
-  CGContextDrawImage(v13, v19, ImageAtIndex);
+  v14 = CGBitmapContextCreate(BaseAddress, Width, Height, BitsPerComponent, BytesPerRow, DeviceRGB, 6u);
+  CGAffineTransformMakeRotation(&v19, 0.0);
+  CGContextConcatCTM(v14, &v19);
+  v15 = CGImageGetWidth(ImageAtIndex);
+  v16 = CGImageGetHeight(ImageAtIndex);
+  v20.size.width = v15;
+  v20.size.height = v16;
+  v20.origin.x = 0.0;
+  v20.origin.y = 0.0;
+  CGContextDrawImage(v14, v20, ImageAtIndex);
   CGColorSpaceRelease(DeviceRGB);
-  CGContextRelease(v13);
+  CGContextRelease(v14);
   CGImageRelease(ImageAtIndex);
   CVPixelBufferUnlockBaseAddress(*a2, 0);
 LABEL_10:
@@ -2189,18 +2185,18 @@ uint64_t readGrayScaleImage(uint64_t a1, CVPixelBufferRef *a2)
   v5 = v4;
   if (!v4)
   {
-    v18 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v19 = __ABPKLogSharedInstance(0);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v21.a) = 0;
-      v19 = " CGImageSourceCreateWithURL error: Couldn't create cgimagesource with URL ";
+      LOWORD(v22.a) = 0;
+      v20 = " CGImageSourceCreateWithURL error: Couldn't create cgimagesource with URL ";
 LABEL_8:
-      _os_log_impl(&dword_23EDDC000, v18, OS_LOG_TYPE_ERROR, v19, &v21, 2u);
+      _os_log_impl(&dword_23EDDC000, v19, OS_LOG_TYPE_ERROR, v20, &v22, 2u);
     }
 
 LABEL_9:
 
-    v17 = 4294960636;
+    v18 = 4294960636;
     goto LABEL_10;
   }
 
@@ -2208,11 +2204,11 @@ LABEL_9:
   CFRelease(v5);
   if (!ImageAtIndex)
   {
-    v18 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v19 = __ABPKLogSharedInstance(v7);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v21.a) = 0;
-      v19 = " CGImageSourceCreateImageAtIndex error: Couldn't create image. ";
+      LOWORD(v22.a) = 0;
+      v20 = " CGImageSourceCreateImageAtIndex error: Couldn't create image. ";
       goto LABEL_8;
     }
 
@@ -2227,41 +2223,43 @@ LABEL_9:
   Width = CGImageGetWidth(ImageAtIndex);
   Height = CGImageGetHeight(ImageAtIndex);
   BitmapInfo = CGImageGetBitmapInfo(ImageAtIndex);
-  v14 = CGBitmapContextCreate(BaseAddress, Width, Height, BitsPerComponent, BytesPerRow, ColorSpace, BitmapInfo);
-  CGAffineTransformMakeRotation(&v21, 0.0);
-  CGContextConcatCTM(v14, &v21);
-  v15 = CGImageGetWidth(ImageAtIndex);
-  v16 = CGImageGetHeight(ImageAtIndex);
-  v22.size.width = v15;
-  v22.size.height = v16;
-  v22.origin.x = 0.0;
-  v22.origin.y = 0.0;
-  CGContextDrawImage(v14, v22, ImageAtIndex);
+  v15 = CGBitmapContextCreate(BaseAddress, Width, Height, BitsPerComponent, BytesPerRow, ColorSpace, BitmapInfo);
+  CGAffineTransformMakeRotation(&v22, 0.0);
+  CGContextConcatCTM(v15, &v22);
+  v16 = CGImageGetWidth(ImageAtIndex);
+  v17 = CGImageGetHeight(ImageAtIndex);
+  v23.size.width = v16;
+  v23.size.height = v17;
+  v23.origin.x = 0.0;
+  v23.origin.y = 0.0;
+  CGContextDrawImage(v15, v23, ImageAtIndex);
   CGImageRelease(ImageAtIndex);
-  CGContextRelease(v14);
+  CGContextRelease(v15);
   CVPixelBufferUnlockBaseAddress(*a2, 0);
-  v17 = 0;
+  v18 = 0;
 LABEL_10:
 
-  return v17;
+  return v18;
 }
 
 uint64_t readImageAndConvertToYCbCr(void *a1, CVPixelBufferRef *a2)
 {
   v3 = a1;
-  if ((CVPixelBufferGetPixelFormatType(*a2) & 0xFFFFFFEF) == 0x34323066)
+  PixelFormatType = CVPixelBufferGetPixelFormatType(*a2);
+  if ((PixelFormatType & 0xFFFFFFEF) == 0x34323066)
   {
     Width = CVPixelBufferGetWidth(*a2);
     Height = CVPixelBufferGetHeight(*a2);
     pixelBufferOut[0] = 0;
-    v6 = CVPixelBufferCreate(*MEMORY[0x277CBECE8], Width, Height, 0x20u, 0, pixelBufferOut);
-    if (v6)
+    v7 = CVPixelBufferCreate(*MEMORY[0x277CBECE8], Width, Height, 0x20u, 0, pixelBufferOut);
+    v8 = v7;
+    if (v7)
     {
-      v7 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v9 = __ABPKLogSharedInstance(v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        *v14 = 0;
-        _os_log_impl(&dword_23EDDC000, v7, OS_LOG_TYPE_ERROR, " Could not create imageARGB buffer of type kCVPixelFormatType_32ARGB ", v14, 2u);
+        *v19 = 0;
+        _os_log_impl(&dword_23EDDC000, v9, OS_LOG_TYPE_ERROR, " Could not create imageARGB buffer of type kCVPixelFormatType_32ARGB ", v19, 2u);
       }
 
       goto LABEL_26;
@@ -2270,81 +2268,84 @@ uint64_t readImageAndConvertToYCbCr(void *a1, CVPixelBufferRef *a2)
     readImage(v3, pixelBufferOut);
     if (pixelBufferOut[0])
     {
-      if (CVPixelBufferGetPixelFormatType(pixelBufferOut[0]) == 32)
+      v11 = CVPixelBufferGetPixelFormatType(pixelBufferOut[0]);
+      if (v11 == 32)
       {
-        if (convertFormatARGBToYCbCr(pixelBufferOut[0], a2))
+        v12 = convertFormatARGBToYCbCr(pixelBufferOut[0], a2);
+        if (v12)
         {
-          v9 = __ABPKLogSharedInstance();
-          if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+          v13 = __ABPKLogSharedInstance(v12);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
           {
-            *v14 = 0;
-            v10 = " Could not convert pixelBuffer from ARGB->YCbCr ";
+            *v19 = 0;
+            v14 = " Could not convert pixelBuffer from ARGB->YCbCr ";
 LABEL_24:
-            _os_log_impl(&dword_23EDDC000, v9, OS_LOG_TYPE_ERROR, v10, v14, 2u);
+            _os_log_impl(&dword_23EDDC000, v13, OS_LOG_TYPE_ERROR, v14, v19, 2u);
             goto LABEL_25;
           }
 
           goto LABEL_25;
         }
 
-        if (CVPixelBufferGetPixelFormatType(*a2) != 875704438)
+        v17 = CVPixelBufferGetPixelFormatType(*a2);
+        if (v17 != 875704438)
         {
-          v9 = __ABPKLogSharedInstance();
-          if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+          v13 = __ABPKLogSharedInstance(v17);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
           {
-            *v14 = 0;
-            v10 = " Invalid pixel buffer format for imageYCbCr ";
+            *v19 = 0;
+            v14 = " Invalid pixel buffer format for imageYCbCr ";
             goto LABEL_24;
           }
 
 LABEL_25:
 
           CVPixelBufferRelease(pixelBufferOut[0]);
-          v6 = 1;
+          v8 = 1;
           goto LABEL_26;
         }
 
 LABEL_20:
         CVPixelBufferRelease(pixelBufferOut[0]);
-        v6 = 0;
+        v8 = 0;
         goto LABEL_26;
       }
 
-      v11 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v15 = __ABPKLogSharedInstance(v11);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        *v14 = 0;
-        v12 = " Invalid pixel buffer format for imageARGB ";
+        *v19 = 0;
+        v16 = " Invalid pixel buffer format for imageARGB ";
         goto LABEL_18;
       }
     }
 
     else
     {
-      v11 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v15 = __ABPKLogSharedInstance(0);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        *v14 = 0;
-        v12 = " Failed to read imageARGB from the specified path ";
+        *v19 = 0;
+        v16 = " Failed to read imageARGB from the specified path ";
 LABEL_18:
-        _os_log_impl(&dword_23EDDC000, v11, OS_LOG_TYPE_ERROR, v12, v14, 2u);
+        _os_log_impl(&dword_23EDDC000, v15, OS_LOG_TYPE_ERROR, v16, v19, 2u);
       }
     }
 
     goto LABEL_20;
   }
 
-  v8 = __ABPKLogSharedInstance();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  v10 = __ABPKLogSharedInstance(PixelFormatType);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     LOWORD(pixelBufferOut[0]) = 0;
-    _os_log_impl(&dword_23EDDC000, v8, OS_LOG_TYPE_ERROR, " Supported formats are kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange, kCVPixelFormatType_420YpCbCr8BiPlanarFullRange ", pixelBufferOut, 2u);
+    _os_log_impl(&dword_23EDDC000, v10, OS_LOG_TYPE_ERROR, " Supported formats are kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange, kCVPixelFormatType_420YpCbCr8BiPlanarFullRange ", pixelBufferOut, 2u);
   }
 
-  v6 = 4294960616;
+  v8 = 4294960616;
 LABEL_26:
 
-  return v6;
+  return v8;
 }
 
 vImage_Error convertFormatARGBToYCbCr(__CVBuffer *a1, CVPixelBufferRef *a2)
@@ -2381,39 +2382,37 @@ vImage_Error convertFormatARGBToYCbCr(__CVBuffer *a1, CVPixelBufferRef *a2)
   *&pixelRange.YpMax = v8;
   pixelRange.CbCrMax = v9;
   pixelRange.CbCrMin = 16 * (PixelFormatType != 875704422);
-  if (vImageConvert_ARGBToYpCbCr_GenerateConversion(v5, &pixelRange, &outInfo, kvImageARGB8888, kvImage420Yp8_CbCr8, 0))
+  v10 = vImageConvert_ARGBToYpCbCr_GenerateConversion(v5, &pixelRange, &outInfo, kvImageARGB8888, kvImage420Yp8_CbCr8, 0);
+  if (v10)
   {
-    v10 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = __ABPKLogSharedInstance(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *v14 = 0;
-      v11 = " Could not generate the conversion format ";
+      v12 = " Could not generate the conversion format ";
 LABEL_10:
-      _os_log_impl(&dword_23EDDC000, v10, OS_LOG_TYPE_ERROR, v11, v14, 2u);
-      goto LABEL_11;
+      _os_log_impl(&dword_23EDDC000, v11, OS_LOG_TYPE_ERROR, v12, v14, 2u);
     }
-
-    goto LABEL_11;
   }
 
-  result = vImageConvert_ARGB8888To420Yp8_CbCr8(&src, &destYp, &destCbCr, &outInfo, permuteMap, 0);
-  if (result)
+  else
   {
-    v10 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    result = vImageConvert_ARGB8888To420Yp8_CbCr8(&src, &destYp, &destCbCr, &outInfo, permuteMap, 0);
+    if (!result)
+    {
+      return result;
+    }
+
+    v11 = __ABPKLogSharedInstance(result);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *v14 = 0;
-      v11 = " Could not generate the convert image ";
+      v12 = " Could not generate the convert image ";
       goto LABEL_10;
     }
-
-LABEL_11:
-
-    result = 4294960636;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return 4294960636;
 }
 
 uint64_t writeImage(__CVBuffer *a1, void *a2)
@@ -2443,14 +2442,14 @@ uint64_t writeImage(__CVBuffer *a1, void *a2)
 
   if (PixelFormatType != v6)
   {
-    v13 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = __ABPKLogSharedInstance(PixelFormatType);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       LOWORD(buf.data) = 0;
-      _os_log_impl(&dword_23EDDC000, v13, OS_LOG_TYPE_ERROR, " Supported formats are kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange, kCVPixelFormatType_420YpCbCr8BiPlanarFullRange, kCVPixelFormatType_OneComponent8 or kCVPixelFormatType_32ARGB or kCVPixelFormatType_32BGRA ", &buf, 2u);
+      _os_log_impl(&dword_23EDDC000, v15, OS_LOG_TYPE_ERROR, " Supported formats are kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange, kCVPixelFormatType_420YpCbCr8BiPlanarFullRange, kCVPixelFormatType_OneComponent8 or kCVPixelFormatType_32ARGB or kCVPixelFormatType_32BGRA ", &buf, 2u);
     }
 
-    v10 = 4294960616;
+    v11 = 4294960616;
     goto LABEL_42;
   }
 
@@ -2462,29 +2461,31 @@ LABEL_8:
   {
     v9 = *MEMORY[0x277CBECE8];
     v10 = CVPixelBufferCreate(*MEMORY[0x277CBECE8], WidthOfPlane, HeightOfPlane, 0x20u, 0, &pixelBufferOut);
+    v11 = v10;
     if (v10)
     {
-      v11 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = __ABPKLogSharedInstance(v10);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         LOWORD(buf.data) = 0;
-        v12 = " Could not create image buffer of type kCVPixelFormatType_32ARGB ";
+        v13 = " Could not create image buffer of type kCVPixelFormatType_32ARGB ";
 LABEL_23:
-        _os_log_impl(&dword_23EDDC000, v11, OS_LOG_TYPE_ERROR, v12, &buf, 2u);
+        _os_log_impl(&dword_23EDDC000, v12, OS_LOG_TYPE_ERROR, v13, &buf, 2u);
         goto LABEL_24;
       }
 
       goto LABEL_24;
     }
 
-    v10 = convertFormatYCbCrToARGB(a1, &pixelBufferOut);
-    if (v10)
+    v16 = convertFormatYCbCrToARGB(a1, &pixelBufferOut);
+    v11 = v16;
+    if (v16)
     {
-      v11 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = __ABPKLogSharedInstance(v16);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         LOWORD(buf.data) = 0;
-        v12 = " Could not convert pixel formats ";
+        v13 = " Could not convert pixel formats ";
         goto LABEL_23;
       }
 
@@ -2495,14 +2496,15 @@ LABEL_23:
   else if (v5 == 1111970369)
   {
     v9 = *MEMORY[0x277CBECE8];
-    v10 = CVPixelBufferCreate(*MEMORY[0x277CBECE8], WidthOfPlane, HeightOfPlane, 0x20u, 0, &pixelBufferOut);
-    if (v10)
+    v14 = CVPixelBufferCreate(*MEMORY[0x277CBECE8], WidthOfPlane, HeightOfPlane, 0x20u, 0, &pixelBufferOut);
+    v11 = v14;
+    if (v14)
     {
-      v11 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = __ABPKLogSharedInstance(v14);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         LOWORD(buf.data) = 0;
-        v12 = " Could not create image buffer of type kCVPixelFormatType_32ARGB ";
+        v13 = " Could not create image buffer of type kCVPixelFormatType_32ARGB ";
         goto LABEL_23;
       }
 
@@ -2511,13 +2513,14 @@ LABEL_24:
       goto LABEL_42;
     }
 
-    if (changeChannelsARGB(a1, &pixelBufferOut))
+    v17 = changeChannelsARGB(a1, &pixelBufferOut);
+    if (v17)
     {
-      v14 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v18 = __ABPKLogSharedInstance(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         LOWORD(buf.data) = 0;
-        _os_log_impl(&dword_23EDDC000, v14, OS_LOG_TYPE_ERROR, " Conversion failed BGRA->ARGB ", &buf, 2u);
+        _os_log_impl(&dword_23EDDC000, v18, OS_LOG_TYPE_ERROR, " Conversion failed BGRA->ARGB ", &buf, 2u);
       }
     }
   }
@@ -2529,15 +2532,16 @@ LABEL_24:
     v9 = *MEMORY[0x277CBECE8];
   }
 
-  v28 = 0;
-  v10 = CVPixelBufferCreate(v9, WidthOfPlane, HeightOfPlane, 0x18u, 0, &v28);
-  if (v10)
+  v35 = 0;
+  v19 = CVPixelBufferCreate(v9, WidthOfPlane, HeightOfPlane, 0x18u, 0, &v35);
+  v11 = v19;
+  if (v19)
   {
-    v15 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v20 = __ABPKLogSharedInstance(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       LOWORD(buf.data) = 0;
-      _os_log_impl(&dword_23EDDC000, v15, OS_LOG_TYPE_ERROR, " Could not convert image buffer to kCVPixelFormatType_24RGB ", &buf, 2u);
+      _os_log_impl(&dword_23EDDC000, v20, OS_LOG_TYPE_ERROR, " Could not convert image buffer to kCVPixelFormatType_24RGB ", &buf, 2u);
     }
 
     CVPixelBufferRelease(pixelBufferOut);
@@ -2545,74 +2549,74 @@ LABEL_24:
 
   else
   {
-    CVPixelBufferLockBaseAddress(v28, 0);
+    CVPixelBufferLockBaseAddress(v35, 0);
     CVPixelBufferLockBaseAddress(pixelBufferOut, 0);
     memset(&buf, 0, sizeof(buf));
     buf.data = CVPixelBufferGetBaseAddress(pixelBufferOut);
     buf.height = CVPixelBufferGetHeight(pixelBufferOut);
     buf.width = CVPixelBufferGetWidth(pixelBufferOut);
     buf.rowBytes = CVPixelBufferGetBytesPerRow(pixelBufferOut);
-    v26.data = CVPixelBufferGetBaseAddress(v28);
-    v26.height = CVPixelBufferGetHeight(v28);
-    v26.width = CVPixelBufferGetWidth(v28);
-    v26.rowBytes = CVPixelBufferGetBytesPerRow(v28);
-    v16 = vImageConvert_ARGB8888toRGB888(&buf, &v26, 0x10u);
+    v33.data = CVPixelBufferGetBaseAddress(v35);
+    v33.height = CVPixelBufferGetHeight(v35);
+    v33.width = CVPixelBufferGetWidth(v35);
+    v33.rowBytes = CVPixelBufferGetBytesPerRow(v35);
+    v21 = vImageConvert_ARGB8888toRGB888(&buf, &v33, 0x10u);
     CVPixelBufferUnlockBaseAddress(pixelBufferOut, 0);
-    CVPixelBufferUnlockBaseAddress(v28, 0);
-    if (v16)
+    v22 = CVPixelBufferUnlockBaseAddress(v35, 0);
+    if (v21)
     {
-      v17 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v23 = __ABPKLogSharedInstance(v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
-        *v22 = 0;
-        _os_log_impl(&dword_23EDDC000, v17, OS_LOG_TYPE_ERROR, " Could not convert ARGB to RGB ", v22, 2u);
+        *v29 = 0;
+        _os_log_impl(&dword_23EDDC000, v23, OS_LOG_TYPE_ERROR, " Could not convert ARGB to RGB ", v29, 2u);
       }
 
       CVPixelBufferRelease(pixelBufferOut);
-      CVPixelBufferRelease(v28);
-      v10 = 4294960633;
+      CVPixelBufferRelease(v35);
+      v11 = 4294960633;
     }
 
     else
     {
-      CVPixelBufferLockBaseAddress(v28, 0);
-      Width = CVPixelBufferGetWidth(v28);
-      *v22 = 0;
-      v23 = Width | (CVPixelBufferGetHeight(v28) << 32);
-      v24 = (CVPixelBufferGetBytesPerRowOfPlane(v28, 0) << 32) | 3;
-      BaseAddressOfPlane = CVPixelBufferGetBaseAddressOfPlane(v28, 0);
+      CVPixelBufferLockBaseAddress(v35, 0);
+      Width = CVPixelBufferGetWidth(v35);
+      *v29 = 0;
+      v30 = Width | (CVPixelBufferGetHeight(v35) << 32);
+      v31 = (CVPixelBufferGetBytesPerRowOfPlane(v35, 0) << 32) | 3;
+      BaseAddressOfPlane = CVPixelBufferGetBaseAddressOfPlane(v35, 0);
       [v3 UTF8String];
       LOBYTE(Width) = cva::imwrite<cva::Matrix<unsigned char,3u,1u,false>>();
-      CVPixelBufferUnlockBaseAddress(v28, 0);
-      CVPixelBufferRelease(v28);
+      CVPixelBufferUnlockBaseAddress(v35, 0);
+      CVPixelBufferRelease(v35);
       CVPixelBufferRelease(pixelBufferOut);
       if (Width)
       {
-        v10 = 0;
+        v11 = 0;
       }
 
       else
       {
-        v19 = __ABPKLogSharedInstance();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        v26 = __ABPKLogSharedInstance(v25);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
         {
-          *v21 = 0;
-          _os_log_impl(&dword_23EDDC000, v19, OS_LOG_TYPE_ERROR, " Could not save image to file ", v21, 2u);
+          *v28 = 0;
+          _os_log_impl(&dword_23EDDC000, v26, OS_LOG_TYPE_ERROR, " Could not save image to file ", v28, 2u);
         }
 
-        v10 = 4294960636;
+        v11 = 4294960636;
       }
     }
   }
 
 LABEL_42:
 
-  return v10;
+  return v11;
 }
 
 uint64_t convertFormatYCbCrToARGB(__CVBuffer *a1, CVPixelBufferRef *a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   PixelFormatType = CVPixelBufferGetPixelFormatType(a1);
   Width = CVPixelBufferGetWidth(a1);
   Height = CVPixelBufferGetHeight(a1);
@@ -2652,86 +2656,85 @@ uint64_t convertFormatYCbCrToARGB(__CVBuffer *a1, CVPixelBufferRef *a2)
           *&pixelRange.YpMax = v14;
           pixelRange.CbCrMax = v15;
           pixelRange.CbCrMin = 16 * (PixelFormatType != 875704422);
-          if (vImageConvert_YpCbCrToARGB_GenerateConversion(v13, &pixelRange, &outInfo, kvImage420Yp8_CbCr8, kvImageARGB8888, 0))
+          v16 = vImageConvert_YpCbCrToARGB_GenerateConversion(v13, &pixelRange, &outInfo, kvImage420Yp8_CbCr8, kvImageARGB8888, 0);
+          if (v16)
           {
-            v16 = __ABPKLogSharedInstance();
-            if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+            v17 = __ABPKLogSharedInstance(v16);
+            if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
             {
               LOWORD(buf.data) = 0;
-              _os_log_impl(&dword_23EDDC000, v16, OS_LOG_TYPE_ERROR, " Could not generate the conversion format ", &buf, 2u);
+              _os_log_impl(&dword_23EDDC000, v17, OS_LOG_TYPE_ERROR, " Could not generate the conversion format ", &buf, 2u);
             }
           }
 
           memset(&buf, 0, sizeof(buf));
-          __convertFormatYCbCrToARGB_block_invoke(a1, 0, &buf.data);
+          __convertFormatYCbCrToARGB_block_invoke(&buf.data, a1, 0);
           memset(&srcCbCr, 0, sizeof(srcCbCr));
-          __convertFormatYCbCrToARGB_block_invoke(a1, 1uLL, &srcCbCr.data);
+          __convertFormatYCbCrToARGB_block_invoke(&srcCbCr.data, a1, 1uLL);
           memset(&dest, 0, sizeof(dest));
-          __convertFormatYCbCrToARGB_block_invoke(*a2, 0, &dest.data);
-          if (!vImageConvert_420Yp8_CbCr8ToARGB8888(&buf, &srcCbCr, &dest, &outInfo, permuteMap, 0xFFu, 0))
+          __convertFormatYCbCrToARGB_block_invoke(&dest.data, *a2, 0);
+          v18 = vImageConvert_420Yp8_CbCr8ToARGB8888(&buf, &srcCbCr, &dest, &outInfo, permuteMap, 0xFFu, 0);
+          if (!v18)
           {
-            v19 = 0;
+            v21 = 0;
             goto LABEL_32;
           }
 
-          v17 = __ABPKLogSharedInstance();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+          v19 = __ABPKLogSharedInstance(v18);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
           {
-            *v23 = 0;
-            _os_log_impl(&dword_23EDDC000, v17, OS_LOG_TYPE_ERROR, " Could not convert color formats ", v23, 2u);
+            *v24 = 0;
+            _os_log_impl(&dword_23EDDC000, v19, OS_LOG_TYPE_ERROR, " Could not convert color formats ", v24, 2u);
           }
         }
 
         else
         {
-          v22 = __ABPKLogSharedInstance();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+          v23 = __ABPKLogSharedInstance(v13);
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
           {
             *outInfo.opaque = 0;
-            _os_log_impl(&dword_23EDDC000, v22, OS_LOG_TYPE_ERROR, " Pixel format not supported ", outInfo.opaque, 2u);
+            _os_log_impl(&dword_23EDDC000, v23, OS_LOG_TYPE_ERROR, " Pixel format not supported ", outInfo.opaque, 2u);
           }
         }
 
-        v19 = 4294960636;
+        v21 = 4294960636;
 LABEL_32:
         CVPixelBufferUnlockBaseAddress(*a2, 0);
         CVPixelBufferUnlockBaseAddress(a1, 0);
-        goto LABEL_26;
+        return v21;
       }
 
-      v18 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v20 = __ABPKLogSharedInstance(v10);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         *outInfo.opaque = 0;
-        _os_log_impl(&dword_23EDDC000, v18, OS_LOG_TYPE_ERROR, " Output pixel buffer must have same dimensions as input pixel buffer ", outInfo.opaque, 2u);
+        _os_log_impl(&dword_23EDDC000, v20, OS_LOG_TYPE_ERROR, " Output pixel buffer must have same dimensions as input pixel buffer ", outInfo.opaque, 2u);
       }
     }
 
     else
     {
-      v18 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v20 = __ABPKLogSharedInstance(v10);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         *outInfo.opaque = 0;
-        _os_log_impl(&dword_23EDDC000, v18, OS_LOG_TYPE_ERROR, " Output pixel buffer must have format kCVPixelFormatType_32ARGB ", outInfo.opaque, 2u);
+        _os_log_impl(&dword_23EDDC000, v20, OS_LOG_TYPE_ERROR, " Output pixel buffer must have format kCVPixelFormatType_32ARGB ", outInfo.opaque, 2u);
       }
     }
   }
 
   else
   {
-    v18 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v20 = __ABPKLogSharedInstance(Height);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       *outInfo.opaque = 0;
-      _os_log_impl(&dword_23EDDC000, v18, OS_LOG_TYPE_ERROR, " Input buffer cannot be null ", outInfo.opaque, 2u);
+      _os_log_impl(&dword_23EDDC000, v20, OS_LOG_TYPE_ERROR, " Input buffer cannot be null ", outInfo.opaque, 2u);
     }
   }
 
-  v19 = 0;
-LABEL_26:
-  v20 = *MEMORY[0x277D85DE8];
-  return v19;
+  return 0;
 }
 
 uint64_t changeChannelsARGB(__CVBuffer *a1, CVPixelBufferRef *a2)
@@ -2745,17 +2748,17 @@ uint64_t changeChannelsARGB(__CVBuffer *a1, CVPixelBufferRef *a2)
   *permuteMap = 66051;
   v4 = vImagePermuteChannels_ARGB8888(&src, &dest, permuteMap, 0);
   CVPixelBufferUnlockBaseAddress(*a2, 0);
-  CVPixelBufferUnlockBaseAddress(a1, 0);
+  v5 = CVPixelBufferUnlockBaseAddress(a1, 0);
   if (!v4)
   {
     return 0;
   }
 
-  v5 = __ABPKLogSharedInstance();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v6 = __ABPKLogSharedInstance(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    *v7 = 0;
-    _os_log_impl(&dword_23EDDC000, v5, OS_LOG_TYPE_ERROR, " Could not convert ARGB to RGB ", v7, 2u);
+    *v8 = 0;
+    _os_log_impl(&dword_23EDDC000, v6, OS_LOG_TYPE_ERROR, " Could not convert ARGB to RGB ", v8, 2u);
   }
 
   return 4294960633;
@@ -2856,19 +2859,19 @@ LABEL_28:
   return 0;
 }
 
-size_t __convertFormatYCbCrToARGB_block_invoke@<X0>(CVPixelBufferRef pixelBuffer@<X1>, size_t planeIndex@<X2>, void **a3@<X8>)
+uint64_t *__convertFormatYCbCrToARGB_block_invoke@<X0>(void **__return_ptr a1@<X8>, CVPixelBufferRef pixelBuffer@<X1>, size_t planeIndex@<X2>)
 {
-  *a3 = CVPixelBufferGetBaseAddressOfPlane(pixelBuffer, planeIndex);
-  a3[1] = CVPixelBufferGetHeightOfPlane(pixelBuffer, planeIndex);
-  a3[2] = CVPixelBufferGetWidthOfPlane(pixelBuffer, planeIndex);
+  *a1 = CVPixelBufferGetBaseAddressOfPlane(pixelBuffer, planeIndex);
+  a1[1] = CVPixelBufferGetHeightOfPlane(pixelBuffer, planeIndex);
+  a1[2] = CVPixelBufferGetWidthOfPlane(pixelBuffer, planeIndex);
   result = CVPixelBufferGetBytesPerRowOfPlane(pixelBuffer, planeIndex);
-  a3[3] = result;
+  a1[3] = result;
   return result;
 }
 
 uint64_t convertFormatYCbCrToBGRA(__CVBuffer *a1, CVPixelBufferRef *a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   PixelFormatType = CVPixelBufferGetPixelFormatType(a1);
   Width = CVPixelBufferGetWidth(a1);
   Height = CVPixelBufferGetHeight(a1);
@@ -2908,161 +2911,160 @@ uint64_t convertFormatYCbCrToBGRA(__CVBuffer *a1, CVPixelBufferRef *a2)
           *&pixelRange.YpMax = v14;
           pixelRange.CbCrMax = v15;
           pixelRange.CbCrMin = 16 * (PixelFormatType != 875704422);
-          if (vImageConvert_YpCbCrToARGB_GenerateConversion(v13, &pixelRange, &outInfo, kvImage420Yp8_CbCr8, kvImageARGB8888, 0))
+          v16 = vImageConvert_YpCbCrToARGB_GenerateConversion(v13, &pixelRange, &outInfo, kvImage420Yp8_CbCr8, kvImageARGB8888, 0);
+          if (v16)
           {
-            v16 = __ABPKLogSharedInstance();
-            if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+            v17 = __ABPKLogSharedInstance(v16);
+            if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
             {
               LOWORD(buf.data) = 0;
-              _os_log_impl(&dword_23EDDC000, v16, OS_LOG_TYPE_ERROR, " Could not generate the conversion format ", &buf, 2u);
+              _os_log_impl(&dword_23EDDC000, v17, OS_LOG_TYPE_ERROR, " Could not generate the conversion format ", &buf, 2u);
             }
           }
 
           memset(&buf, 0, sizeof(buf));
-          __convertFormatYCbCrToARGB_block_invoke(a1, 0, &buf.data);
+          __convertFormatYCbCrToARGB_block_invoke(&buf.data, a1, 0);
           memset(&srcCbCr, 0, sizeof(srcCbCr));
-          __convertFormatYCbCrToARGB_block_invoke(a1, 1uLL, &srcCbCr.data);
+          __convertFormatYCbCrToARGB_block_invoke(&srcCbCr.data, a1, 1uLL);
           memset(&dest, 0, sizeof(dest));
-          __convertFormatYCbCrToARGB_block_invoke(*a2, 0, &dest.data);
-          if (!vImageConvert_420Yp8_CbCr8ToARGB8888(&buf, &srcCbCr, &dest, &outInfo, permuteMap, 0xFFu, 0))
+          __convertFormatYCbCrToARGB_block_invoke(&dest.data, *a2, 0);
+          v18 = vImageConvert_420Yp8_CbCr8ToARGB8888(&buf, &srcCbCr, &dest, &outInfo, permuteMap, 0xFFu, 0);
+          if (!v18)
           {
-            v19 = 0;
+            v21 = 0;
             goto LABEL_32;
           }
 
-          v17 = __ABPKLogSharedInstance();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+          v19 = __ABPKLogSharedInstance(v18);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
           {
-            *v23 = 0;
-            _os_log_impl(&dword_23EDDC000, v17, OS_LOG_TYPE_ERROR, " Could not convert color formats ", v23, 2u);
+            *v24 = 0;
+            _os_log_impl(&dword_23EDDC000, v19, OS_LOG_TYPE_ERROR, " Could not convert color formats ", v24, 2u);
           }
         }
 
         else
         {
-          v22 = __ABPKLogSharedInstance();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+          v23 = __ABPKLogSharedInstance(v13);
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
           {
             *outInfo.opaque = 0;
-            _os_log_impl(&dword_23EDDC000, v22, OS_LOG_TYPE_ERROR, " Pixel format not supported ", outInfo.opaque, 2u);
+            _os_log_impl(&dword_23EDDC000, v23, OS_LOG_TYPE_ERROR, " Pixel format not supported ", outInfo.opaque, 2u);
           }
         }
 
-        v19 = 4294960636;
+        v21 = 4294960636;
 LABEL_32:
         CVPixelBufferUnlockBaseAddress(*a2, 0);
         CVPixelBufferUnlockBaseAddress(a1, 0);
-        goto LABEL_26;
+        return v21;
       }
 
-      v18 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v20 = __ABPKLogSharedInstance(v10);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         *outInfo.opaque = 0;
-        _os_log_impl(&dword_23EDDC000, v18, OS_LOG_TYPE_ERROR, " Output pixel buffer must have same dimensions as input pixel buffer ", outInfo.opaque, 2u);
+        _os_log_impl(&dword_23EDDC000, v20, OS_LOG_TYPE_ERROR, " Output pixel buffer must have same dimensions as input pixel buffer ", outInfo.opaque, 2u);
       }
     }
 
     else
     {
-      v18 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v20 = __ABPKLogSharedInstance(v10);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         *outInfo.opaque = 0;
-        _os_log_impl(&dword_23EDDC000, v18, OS_LOG_TYPE_ERROR, " Output pixel buffer must have format kCVPixelFormatType_32BGRA ", outInfo.opaque, 2u);
+        _os_log_impl(&dword_23EDDC000, v20, OS_LOG_TYPE_ERROR, " Output pixel buffer must have format kCVPixelFormatType_32BGRA ", outInfo.opaque, 2u);
       }
     }
   }
 
   else
   {
-    v18 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v20 = __ABPKLogSharedInstance(Height);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       *outInfo.opaque = 0;
-      _os_log_impl(&dword_23EDDC000, v18, OS_LOG_TYPE_ERROR, " Input buffer cannot be null ", outInfo.opaque, 2u);
+      _os_log_impl(&dword_23EDDC000, v20, OS_LOG_TYPE_ERROR, " Input buffer cannot be null ", outInfo.opaque, 2u);
     }
   }
 
-  v19 = 0;
-LABEL_26:
-  v20 = *MEMORY[0x277D85DE8];
-  return v19;
+  return 0;
 }
 
 uint64_t convertFormatGrayscaleToYCbCr(__CVBuffer *a1, CVPixelBufferRef *a2)
 {
-  v16[1] = *MEMORY[0x277D85DE8];
-  if (CVPixelBufferGetPixelFormatType(a1) == 1278226488)
+  v19[1] = *MEMORY[0x277D85DE8];
+  PixelFormatType = CVPixelBufferGetPixelFormatType(a1);
+  if (PixelFormatType == 1278226488)
   {
-    if (CVPixelBufferGetPixelFormatType(*a2) == 875704422 || CVPixelBufferGetPixelFormatType(*a2) == 875704438)
+    if (CVPixelBufferGetPixelFormatType(*a2) == 875704422 || (v5 = CVPixelBufferGetPixelFormatType(*a2), v5 == 875704438))
     {
       pixelBufferOut = 0;
       Width = CVPixelBufferGetWidth(a1);
       Height = CVPixelBufferGetHeight(a1);
-      v15 = *MEMORY[0x277CC4DE8];
-      v16[0] = MEMORY[0x277CBEC10];
-      v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
-      if (CVPixelBufferCreate(*MEMORY[0x277CBECE8], Width, Height, 0x20u, v6, &pixelBufferOut))
+      v18 = *MEMORY[0x277CC4DE8];
+      v19[0] = MEMORY[0x277CBEC10];
+      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+      v9 = CVPixelBufferCreate(*MEMORY[0x277CBECE8], Width, Height, 0x20u, v8, &pixelBufferOut);
+      if (v9)
       {
-        v7 = __ABPKLogSharedInstance();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+        v10 = __ABPKLogSharedInstance(v9);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
-          *v13 = 0;
-          v8 = " Could not create pixelBuffer for kCVPixelFormatType_32ARGB. ";
+          *v16 = 0;
+          v11 = " Could not create pixelBuffer for kCVPixelFormatType_32ARGB. ";
 LABEL_13:
-          _os_log_impl(&dword_23EDDC000, v7, OS_LOG_TYPE_ERROR, v8, v13, 2u);
+          _os_log_impl(&dword_23EDDC000, v10, OS_LOG_TYPE_ERROR, v11, v16, 2u);
         }
       }
 
       else
       {
         convertFormatGrayScaleToARGB_BGRA(a1, &pixelBufferOut);
-        if (!convertFormatARGBToYCbCr(pixelBufferOut, a2))
+        v14 = convertFormatARGBToYCbCr(pixelBufferOut, a2);
+        if (!v14)
         {
           CVPixelBufferRelease(pixelBufferOut);
-          v10 = 0;
+          v13 = 0;
           goto LABEL_15;
         }
 
-        v7 = __ABPKLogSharedInstance();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+        v10 = __ABPKLogSharedInstance(v14);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
-          *v13 = 0;
-          v8 = " Could not convert pixelBuffer from ARGB->YCbCr ";
+          *v16 = 0;
+          v11 = " Could not convert pixelBuffer from ARGB->YCbCr ";
           goto LABEL_13;
         }
       }
 
       CVPixelBufferRelease(pixelBufferOut);
-      v10 = 4294960636;
+      v13 = 4294960636;
 LABEL_15:
 
-      goto LABEL_16;
+      return v13;
     }
 
-    v9 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v12 = __ABPKLogSharedInstance(v5);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       LOWORD(pixelBufferOut) = 0;
-      _os_log_impl(&dword_23EDDC000, v9, OS_LOG_TYPE_ERROR, " Output pixel buffer must have format kCVPixelFormatType_420YpCbCr8BiPlanarFullRange or kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange ", &pixelBufferOut, 2u);
+      _os_log_impl(&dword_23EDDC000, v12, OS_LOG_TYPE_ERROR, " Output pixel buffer must have format kCVPixelFormatType_420YpCbCr8BiPlanarFullRange or kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange ", &pixelBufferOut, 2u);
     }
   }
 
   else
   {
-    v9 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v12 = __ABPKLogSharedInstance(PixelFormatType);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       LOWORD(pixelBufferOut) = 0;
-      _os_log_impl(&dword_23EDDC000, v9, OS_LOG_TYPE_ERROR, " Input pixel buffer must have format kCVPixelFormatType_OneComponent8 ", &pixelBufferOut, 2u);
+      _os_log_impl(&dword_23EDDC000, v12, OS_LOG_TYPE_ERROR, " Input pixel buffer must have format kCVPixelFormatType_OneComponent8 ", &pixelBufferOut, 2u);
     }
   }
 
-  v10 = 4294960635;
-LABEL_16:
-  v11 = *MEMORY[0x277D85DE8];
-  return v10;
+  return 4294960635;
 }
 
 uint64_t convertFormatGrayScaleToARGB_BGRA(__CVBuffer *a1, CVPixelBufferRef *a2)
@@ -3103,17 +3105,17 @@ uint64_t cropImage(__CVBuffer *a1, CVPixelBufferRef *a2, unsigned int *a3)
   wrapCVPixelBufferVImage(*a2, &dest.data);
   v10 = vImageScale_ARGB8888(&src, &dest, 0, 0);
   CVPixelBufferUnlockBaseAddress(a1, 0);
-  CVPixelBufferUnlockBaseAddress(*a2, 0);
+  v11 = CVPixelBufferUnlockBaseAddress(*a2, 0);
   if (!v10)
   {
     return 0;
   }
 
-  v11 = __ABPKLogSharedInstance();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  v12 = __ABPKLogSharedInstance(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
-    *v13 = 0;
-    _os_log_impl(&dword_23EDDC000, v11, OS_LOG_TYPE_ERROR, " Could not crop image ", v13, 2u);
+    *v14 = 0;
+    _os_log_impl(&dword_23EDDC000, v12, OS_LOG_TYPE_ERROR, " Could not crop image ", v14, 2u);
   }
 
   return 4294960633;
@@ -3129,17 +3131,17 @@ uint64_t flipImage(__CVBuffer *a1, CVPixelBufferRef *a2)
   wrapCVPixelBufferVImage(*a2, &dest.data);
   v4 = vImageVerticalReflect_ARGB8888(&src, &dest, 0x10u);
   CVPixelBufferUnlockBaseAddress(*a2, 0);
-  CVPixelBufferUnlockBaseAddress(a1, 0);
+  v5 = CVPixelBufferUnlockBaseAddress(a1, 0);
   if (!v4)
   {
     return 0;
   }
 
-  v5 = __ABPKLogSharedInstance();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v6 = __ABPKLogSharedInstance(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    *v7 = 0;
-    _os_log_impl(&dword_23EDDC000, v5, OS_LOG_TYPE_ERROR, " Could not flip image ", v7, 2u);
+    *v8 = 0;
+    _os_log_impl(&dword_23EDDC000, v6, OS_LOG_TYPE_ERROR, " Could not flip image ", v8, 2u);
   }
 
   return 4294960633;
@@ -3152,8 +3154,8 @@ uint64_t rotateImage90(__CVBuffer *a1, int a2, CVPixelBufferRef *a3)
   memset(&src, 0, sizeof(src));
   wrapCVPixelBufferVImage(a1, &src.data);
   memset(&dest, 0, sizeof(dest));
-  wrapCVPixelBufferVImage(*a3, &dest.data);
-  v6 = 0;
+  v6 = wrapCVPixelBufferVImage(*a3, &dest.data);
+  v7 = 0;
   if (a2 > 89)
   {
     if (a2 <= 269)
@@ -3166,7 +3168,7 @@ uint64_t rotateImage90(__CVBuffer *a1, int a2, CVPixelBufferRef *a3)
         }
 
 LABEL_9:
-        v6 = 2;
+        v7 = 2;
         goto LABEL_19;
       }
 
@@ -3184,7 +3186,7 @@ LABEL_9:
     }
 
 LABEL_18:
-    v6 = 1;
+    v7 = 1;
     goto LABEL_19;
   }
 
@@ -3201,7 +3203,7 @@ LABEL_18:
     }
 
 LABEL_17:
-    v6 = 3;
+    v7 = 3;
     goto LABEL_19;
   }
 
@@ -3213,13 +3215,13 @@ LABEL_17:
   if (a2)
   {
 LABEL_15:
-    v7 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = __ABPKLogSharedInstance(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      *v11 = 0;
-      v8 = " Invalid rotation angle specified ";
+      *v13 = 0;
+      v9 = " Invalid rotation angle specified ";
 LABEL_22:
-      _os_log_impl(&dword_23EDDC000, v7, OS_LOG_TYPE_ERROR, v8, v11, 2u);
+      _os_log_impl(&dword_23EDDC000, v8, OS_LOG_TYPE_ERROR, v9, v13, 2u);
       goto LABEL_23;
     }
 
@@ -3227,16 +3229,16 @@ LABEL_22:
   }
 
 LABEL_19:
-  v9 = vImageRotate90_ARGB8888(&src, &dest, v6, rotateImage90::bgColor, 0x10u);
+  v10 = vImageRotate90_ARGB8888(&src, &dest, v7, rotateImage90::bgColor, 0x10u);
   CVPixelBufferUnlockBaseAddress(*a3, 0);
-  CVPixelBufferUnlockBaseAddress(a1, 0);
-  if (v9)
+  v11 = CVPixelBufferUnlockBaseAddress(a1, 0);
+  if (v10)
   {
-    v7 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = __ABPKLogSharedInstance(v11);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      *v11 = 0;
-      v8 = " Could not rotate image ";
+      *v13 = 0;
+      v9 = " Could not rotate image ";
       goto LABEL_22;
     }
 
@@ -3258,17 +3260,17 @@ uint64_t scaleImage(__CVBuffer *a1, CVPixelBufferRef *a2)
   wrapCVPixelBufferVImage(*a2, &dest.data);
   v4 = vImageScale_ARGB8888(&src, &dest, 0, 0);
   CVPixelBufferUnlockBaseAddress(*a2, 0);
-  CVPixelBufferUnlockBaseAddress(a1, 0);
+  v5 = CVPixelBufferUnlockBaseAddress(a1, 0);
   if (!v4)
   {
     return 0;
   }
 
-  v5 = __ABPKLogSharedInstance();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v6 = __ABPKLogSharedInstance(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    *v7 = 0;
-    _os_log_impl(&dword_23EDDC000, v5, OS_LOG_TYPE_ERROR, " Could not scale image ", v7, 2u);
+    *v8 = 0;
+    _os_log_impl(&dword_23EDDC000, v6, OS_LOG_TYPE_ERROR, " Could not scale image ", v8, 2u);
   }
 
   return 4294960633;
@@ -3305,30 +3307,30 @@ uint64_t padImage(__CVBuffer *a1, CVPixelBufferRef *a2, uint64_t a3, uint64_t a4
 
 void reprojectOnImage(uint64_t a1, uint64_t a2, void *a3, float a4, double a5, double a6, float32x4_t a7, float32x4_t a8, float32x4_t a9, float32x4_t a10)
 {
-  v35 = HIDWORD(a5);
-  v37[2] = *MEMORY[0x277D85DE8];
+  v34 = HIDWORD(a5);
+  v36[2] = *MEMORY[0x277D85DE8];
   v12 = a3;
   if (a2)
   {
     v13 = 0;
-    _S8 = v35;
+    _S8 = v34;
     do
     {
       *v15.i64 = transform_point(a7, a8, a9, a10, *(a1 + 16 * v13));
       v16 = v15;
       v17 = v15.f32[2];
       v15.i32[1] = HIDWORD(a6);
-      v36 = v16.i32[1];
+      v35 = v16.i32[1];
       v15.f32[0] = (vmuls_lane_f32(*&a6, v16, 2) + (a4 * v16.f32[0])) / v15.f32[2];
       v18 = [MEMORY[0x277CCABB0] numberWithFloat:*v15.i64];
-      _V1.S[1] = v36;
+      _V1.S[1] = v35;
       __asm { FMLA            S0, S8, V1.S[1] }
 
       *&v25 = _S0 / v17;
-      v37[0] = v18;
+      v36[0] = v18;
       v26 = [MEMORY[0x277CCABB0] numberWithFloat:v25];
-      v37[1] = v26;
-      v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:2];
+      v36[1] = v26;
+      v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:2];
       [v12 setObject:v27 atIndexedSubscript:v13];
 
       ++v13;
@@ -3336,17 +3338,15 @@ void reprojectOnImage(uint64_t a1, uint64_t a2, void *a3, float a4, double a5, d
 
     while (a2 != v13);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 id normalize2dKeypoints(NSMutableArray *a1, CGSize a2)
 {
   height = a2.height;
   width = a2.width;
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   v4 = a1;
-  v19 = [MEMORY[0x277CBEB18] arrayWithCapacity:{-[NSMutableArray count](v4, "count")}];
+  v18 = [MEMORY[0x277CBEB18] arrayWithCapacity:{-[NSMutableArray count](v4, "count")}];
   for (i = 0; [(NSMutableArray *)v4 count]> i; ++i)
   {
     v6 = MEMORY[0x277CCABB0];
@@ -3354,20 +3354,18 @@ id normalize2dKeypoints(NSMutableArray *a1, CGSize a2)
     v8 = [v7 objectAtIndexedSubscript:0];
     [v8 floatValue];
     v10 = [v6 numberWithDouble:v9 / width];
-    v20[0] = v10;
+    v19[0] = v10;
     v11 = MEMORY[0x277CCABB0];
     v12 = [(NSMutableArray *)v4 objectAtIndexedSubscript:i];
     v13 = [v12 objectAtIndexedSubscript:1];
     [v13 floatValue];
     v15 = [v11 numberWithDouble:v14 / height];
-    v20[1] = v15;
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
-    [v19 setObject:v16 atIndexedSubscript:i];
+    v19[1] = v15;
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
+    [v18 setObject:v16 atIndexedSubscript:i];
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
-  return v19;
+  return v18;
 }
 
 uint64_t overlay2dSkeleton(uint64_t a1, void *a2, void *a3, void *a4, uint64_t a5, double a6)
@@ -3394,35 +3392,39 @@ uint64_t overlay2dFace(uint64_t a1, void *a2, void *a3, uint64_t a4, __n128 a5)
   v8 = a2;
   v9 = a3;
   v10 = objc_opt_new();
-  if (*[v9 visibility] == 1 && *(objc_msgSend(v9, "visibility") + 56) == 1 && *(objc_msgSend(v9, "visibility") + 60) == 1 && *(objc_msgSend(v9, "visibility") + 68) == 1 && *(objc_msgSend(v9, "visibility") + 72) == 1)
+  if (*[v9 visibility] == 1 && *(objc_msgSend(v9, "visibility") + 56) == 1 && *(objc_msgSend(v9, "visibility") + 60) == 1 && *(objc_msgSend(v9, "visibility") + 68) == 1)
   {
-    v11 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v11 = [v9 visibility];
+    if (*(v11 + 72) == 1)
     {
-      *buf = 0;
-      _os_log_impl(&dword_23EDDC000, v11, OS_LOG_TYPE_INFO, " Not all 5 face joints are visible. This person is probably not facing the camera at this frame. ", buf, 2u);
-    }
+      v12 = __ABPKLogSharedInstance(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_23EDDC000, v12, OS_LOG_TYPE_INFO, " Not all 5 face joints are visible. This person is probably not facing the camera at this frame. ", buf, 2u);
+      }
 
-    v12 = [v9 skeletonDefinition];
-    [v10 drawFaceBbox:a1 detectedBodies2d:v8 skeletonDefinition:v12 overlayImage:a4 color:a5.n128_f64[0]];
+      v13 = [v9 skeletonDefinition];
+      [v10 drawFaceBbox:a1 detectedBodies2d:v8 skeletonDefinition:v13 overlayImage:a4 color:a5.n128_f64[0]];
+    }
   }
 
-  v13 = [v9 skeletonDefinition];
-  v14 = [v10 generateStickFigureImageFrom:a1 detectedBodies2d:v8 confidences:0 skeletonDefinition:v13 overlayImage:a4 color:1 faceOnly:v17];
+  v14 = [v9 skeletonDefinition];
+  v15 = [v10 generateStickFigureImageFrom:a1 detectedBodies2d:v8 confidences:0 skeletonDefinition:v14 overlayImage:a4 color:1 faceOnly:v18];
 
-  return v14;
+  return v15;
 }
 
 uint64_t overlay2dResultOnImage(void *a1, uint64_t a2, uint64_t a3, double a4)
 {
-  v39[2] = *MEMORY[0x277D85DE8];
+  v38[2] = *MEMORY[0x277D85DE8];
   v6 = a1;
   v7 = [v6 skeletonDefinition];
   v8 = [v7 jointCount];
 
   v9 = [MEMORY[0x277CBEB18] arrayWithCapacity:v8];
   v10 = [MEMORY[0x277CBEB18] arrayWithCapacity:v8];
-  v37 = a3;
+  v36 = a3;
   [v6 imageRes];
   v12 = v11;
   [v6 imageRes];
@@ -3431,10 +3433,10 @@ uint64_t overlay2dResultOnImage(void *a1, uint64_t a2, uint64_t a3, double a4)
     v14 = 0;
     v15 = v12;
     v16 = v13;
-    v35 = v8 - 1;
+    v34 = v8 - 1;
     v17 = 1;
 LABEL_3:
-    v36 = v17;
+    v35 = v17;
     v18 = (8 * v14) | 4;
     do
     {
@@ -3442,12 +3444,12 @@ LABEL_3:
       v20 = *([v6 keypoints2d] + 8 * v14);
       *&v20 = *&v20 / v15;
       v21 = [v19 numberWithFloat:v20];
-      v39[0] = v21;
+      v38[0] = v21;
       v22 = MEMORY[0x277CCABB0];
       *&v23 = *([v6 keypoints2d] + v18) / v16;
       v24 = [v22 numberWithFloat:v23];
-      v39[1] = v24;
-      v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:2];
+      v38[1] = v24;
+      v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:2];
       [v9 setObject:v25 atIndexedSubscript:v14];
 
       v26 = MEMORY[0x277CCABB0];
@@ -3458,7 +3460,7 @@ LABEL_3:
       if (*([v6 confidences] + 4 * v14) != 0.5 && *(objc_msgSend(v6, "confidences") + 4 * v14) != 0.0)
       {
         v17 = 0;
-        if (v35 != v14++)
+        if (v34 != v14++)
         {
           goto LABEL_3;
         }
@@ -3471,26 +3473,25 @@ LABEL_3:
     }
 
     while (v8 != v14);
-    if (v36)
+    if (v35)
     {
       goto LABEL_12;
     }
 
 LABEL_13:
     v30 = [v6 skeletonDefinition];
-    v31 = overlay2dSkeleton(a2, v9, v10, v30, v37, a4);
+    v31 = overlay2dSkeleton(a2, v9, v10, v30, v36, a4);
   }
 
   else
   {
 LABEL_12:
     v30 = [v6 skeletonDefinition];
-    v31 = overlay2dSkeleton(a2, v9, 0, v30, v37, a4);
+    v31 = overlay2dSkeleton(a2, v9, 0, v30, v36, a4);
   }
 
   v32 = v31;
 
-  v33 = *MEMORY[0x277D85DE8];
   return v32;
 }
 
@@ -3550,7 +3551,7 @@ void sub_23EE022D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t drawFullyVisibleFace(void *a1, uint64_t a2, uint64_t a3, __n128 a4)
 {
-  v27[2] = *MEMORY[0x277D85DE8];
+  v26[2] = *MEMORY[0x277D85DE8];
   v6 = a1;
   v7 = [v6 skeletonDefinition];
   v8 = [v7 jointCount];
@@ -3570,12 +3571,12 @@ uint64_t drawFullyVisibleFace(void *a1, uint64_t a2, uint64_t a3, __n128 a4)
       v17 = *([v6 keypoints2d] + 8 * v13);
       *&v17 = *&v17 / v14;
       v18 = [v16 numberWithFloat:v17];
-      v27[0] = v18;
+      v26[0] = v18;
       v19 = MEMORY[0x277CCABB0];
       *&v20 = *([v6 keypoints2d] + 8 * v13 + 4) / v15;
       v21 = [v19 numberWithFloat:v20];
-      v27[1] = v21;
-      v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
+      v26[1] = v21;
+      v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
       [v9 setObject:v22 atIndexedSubscript:v13];
 
       ++v13;
@@ -3586,7 +3587,6 @@ uint64_t drawFullyVisibleFace(void *a1, uint64_t a2, uint64_t a3, __n128 a4)
 
   v23 = overlay2dFace(a2, v9, v6, a3, a4);
 
-  v24 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
@@ -3595,13 +3595,14 @@ BOOL transferCVPixelBuffer(__CVBuffer *a1, __CVBuffer *a2)
   pixelTransferSessionOut = 0;
   VTPixelTransferSessionCreate(*MEMORY[0x277CBECE8], &pixelTransferSessionOut);
   v4 = VTPixelTransferSessionTransferImage(pixelTransferSessionOut, a1, a2);
+  v5 = v4;
   if (v4)
   {
-    v5 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = __ABPKLogSharedInstance(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_23EDDC000, v5, OS_LOG_TYPE_ERROR, " Could not transfer image. ", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_23EDDC000, v6, OS_LOG_TYPE_ERROR, " Could not transfer image. ", v8, 2u);
     }
   }
 
@@ -3610,7 +3611,7 @@ BOOL transferCVPixelBuffer(__CVBuffer *a1, __CVBuffer *a2)
     VTPixelTransferSessionInvalidate(pixelTransferSessionOut);
   }
 
-  return v4 == 0;
+  return v5 == 0;
 }
 
 uint64_t convert16BitDepthToFloat32Depth(__CVBuffer *a1, __CVBuffer *a2)
@@ -3652,7 +3653,7 @@ uint64_t convert16BitDepthToFloat32Depth(__CVBuffer *a1, __CVBuffer *a2)
 
   else
   {
-    v19 = __ABPKLogSharedInstance();
+    v19 = __ABPKLogSharedInstance(v5);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       *v22 = 0;
@@ -3669,7 +3670,7 @@ uint64_t unWrapOneComponent16BufferDepth32BitsBuffer(__CVBuffer *a1, __CVBuffer 
   v5 = CVPixelBufferGetPixelFormatType(a2);
   if (PixelFormatType != 1278226742 || v5 != 1717855600)
   {
-    v16 = __ABPKLogSharedInstance();
+    v16 = __ABPKLogSharedInstance(v5);
     if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_17;
@@ -3691,7 +3692,7 @@ LABEL_16:
   v11 = CVPixelBufferGetWidth(a2);
   if (Height != v10)
   {
-    v16 = __ABPKLogSharedInstance();
+    v16 = __ABPKLogSharedInstance(v11);
     if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_17;
@@ -3706,7 +3707,7 @@ LABEL_16:
   v12 = v11;
   if (Width != 2 * v11)
   {
-    v16 = __ABPKLogSharedInstance();
+    v16 = __ABPKLogSharedInstance(v11);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       v23 = 0;
@@ -3875,15 +3876,16 @@ void *cva::Array<unsigned short,2u,16u>::allocate(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void printErrorCode(int a1)
+void printErrorCode(uint64_t a1)
 {
-  v2 = __ABPKLogSharedInstance();
+  v1 = a1;
+  v2 = __ABPKLogSharedInstance(a1);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG);
-  if (a1 > -6663)
+  if (v1 > -6663)
   {
-    if (a1 <= -6661)
+    if (v1 <= -6661)
     {
-      if (a1 == -6662)
+      if (v1 == -6662)
       {
         if (v3)
         {
@@ -3905,7 +3907,7 @@ LABEL_25:
       goto LABEL_26;
     }
 
-    if (a1 == -6660)
+    if (v1 == -6660)
     {
       if (v3)
       {
@@ -3917,7 +3919,7 @@ LABEL_25:
       goto LABEL_26;
     }
 
-    if (!a1)
+    if (!v1)
     {
       if (v3)
       {
@@ -3940,7 +3942,7 @@ LABEL_17:
     goto LABEL_26;
   }
 
-  if (a1 == -6666)
+  if (v1 == -6666)
   {
     if (v3)
     {
@@ -3952,7 +3954,7 @@ LABEL_17:
     goto LABEL_26;
   }
 
-  if (a1 == -6665)
+  if (v1 == -6665)
   {
     if (v3)
     {
@@ -3964,7 +3966,7 @@ LABEL_17:
     goto LABEL_26;
   }
 
-  if (a1 != -6664)
+  if (v1 != -6664)
   {
     goto LABEL_17;
   }
@@ -3979,34 +3981,33 @@ LABEL_17:
 LABEL_26:
 }
 
-float std::deque<float>::push_back(uint64_t a1, float *a2)
+float std::deque<float>::push_back(unint64_t *a1, float *a2)
 {
-  v4 = *(a1 + 8);
-  v5 = *(a1 + 16);
-  v6 = *(a1 + 8);
-  if (v5 == v6)
+  v4 = a1[2];
+  v5 = a1[1];
+  if (v4 == v5)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v7 = ((v5 - v6) << 7) - 1;
+    v6 = ((v4 - v5) << 7) - 1;
   }
 
-  v8 = *(a1 + 40);
-  v9 = v8 + *(a1 + 32);
-  if (v7 == v9)
+  v7 = a1[5];
+  v8 = v7 + a1[4];
+  if (v6 == v8)
   {
     std::deque<float>::__add_back_capacity(a1);
-    v6 = *(a1 + 8);
-    v8 = *(a1 + 40);
-    v9 = *(a1 + 32) + v8;
+    v5 = a1[1];
+    v7 = a1[5];
+    v8 = a1[4] + v7;
   }
 
   result = *a2;
-  *(*(v6 + ((v9 >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * (v9 & 0x3FF)) = *a2;
-  *(a1 + 40) = v8 + 1;
+  *(*(v5 + ((v8 >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * (v8 & 0x3FF)) = *a2;
+  a1[5] = v7 + 1;
   return result;
 }
 
@@ -4019,22 +4020,22 @@ void sub_23EE03EB4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void cva::SVD<cva::Matrix<float,0u,0u,false>,true>::inverse(_DWORD *a1@<X0>, int *a2@<X1>, uint64_t a3@<X8>)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v16 = a1 + 6;
-  v6 = cva::SVD<cva::Matrix<float,0u,0u,false>,true>::S(a1);
-  v13[0] = v6;
-  v13[1] = v7;
+  v21 = *MEMORY[0x277D85DE8];
+  v15 = a1 + 6;
+  v6 = cva::SVD<cva::Matrix<float,0u,0u,false>,true>::S(a1, a2);
+  v12[0] = v6;
+  v12[1] = v7;
   v8 = *a2;
-  v14 = v13;
-  v15 = v8;
+  v13 = v12;
+  v14 = v8;
   if (a1[10] != HIDWORD(v6))
   {
     cva::SVD<cva::Matrix<float,0u,0u,false>,true>::inverse();
   }
 
-  v17[0] = &v16;
-  v17[1] = &v14;
-  v12 = a1;
+  v16[0] = &v15;
+  v16[1] = &v13;
+  v11 = a1;
   if (a1[5] != v6)
   {
     cva::SVD<cva::Matrix<float,0u,0u,false>,true>::inverse();
@@ -4045,18 +4046,17 @@ void cva::SVD<cva::Matrix<float,0u,0u,false>,true>::inverse(_DWORD *a1@<X0>, int
   *(a3 + 8) = 0;
   cva::MatrixData<int,0ul,0ul,false>::allocate(a3, v9);
   v10 = a1[4];
-  *(a3 + 16) = v16[5];
+  *(a3 + 16) = v15[5];
   *(a3 + 20) = v10;
-  v19 = v17;
-  v20 = &v12;
-  if (*v14 != a1[5])
+  v18 = v16;
+  v19 = &v11;
+  if (*v13 != a1[5])
   {
     __assert_rtn("MatrixMultExpr", "matrixmultexpr.h", 100, "((lhs.ref().columns() == rhs.ref().rows())) || cva::detail::assertMessage(Matrix sizes are not compatible!)");
   }
 
-  v21 = 1065353216;
-  cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixMultExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>>(a3, v18);
-  v11 = *MEMORY[0x277D85DE8];
+  v20 = 1065353216;
+  cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixMultExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>>(a3, v17);
 }
 
 void **cva::SVD<cva::Matrix<float,0u,0u,false>,true>::~SVD(void **a1)
@@ -4088,19 +4088,19 @@ void cva::MatrixData<float,0ul,0ul,false>::reserve(uint64_t a1, unint64_t a2)
   }
 }
 
-void *std::deque<float>::__add_back_capacity(void *a1)
+void std::deque<float>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x400;
   v3 = v1 - 1024;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -4108,25 +4108,25 @@ void *std::deque<float>::__add_back_capacity(void *a1)
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<float *>>(a1, v9);
+    v10 = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<float *>>(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<float *>::emplace_back<float *&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<float *>::emplace_back<float *&>(a1, &v9);
 }
 
 void sub_23EE04454(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -4140,27 +4140,26 @@ void sub_23EE04454(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::__split_buffer<float *>::emplace_back<float *&>(void *result, void *a2)
+void std::__split_buffer<float *>::emplace_back<float *&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<float *>>(result, v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<float *>>(a1, v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -4169,28 +4168,26 @@ void *std::__split_buffer<float *>::emplace_back<float *&>(void *result, void *a
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **std::__split_buffer<float *>::emplace_front<float *>(const void **result, void *a2)
+void std::__split_buffer<float *>::emplace_front<float *>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -4203,52 +4200,50 @@ const void **std::__split_buffer<float *>::emplace_front<float *>(const void **r
         v9 = (v7 - v4) >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<float *>>(result, v9);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<float *>>(a1, v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
-void *std::__split_buffer<float *>::emplace_back<float *>(void *result, void *a2)
+void std::__split_buffer<float *>::emplace_back<float *>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<float *>>(result[4], v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<float *>>(a1[4], v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -4257,28 +4252,26 @@ void *std::__split_buffer<float *>::emplace_back<float *>(void *result, void *a2
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **std::__split_buffer<float *>::emplace_front<float *&>(const void **result, void *a2)
+void std::__split_buffer<float *>::emplace_front<float *&>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -4291,29 +4284,28 @@ const void **std::__split_buffer<float *>::emplace_front<float *&>(const void **
         v9 = (v7 - v4) >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<float *>>(result[4], v9);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<float *>>(a1[4], v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
 void std::__allocate_at_least[abi:ne200100]<std::allocator<float *>>(uint64_t a1, unint64_t a2)
@@ -4354,7 +4346,7 @@ uint64_t std::deque<float>::__maybe_remove_front_spare[abi:ne200100](uint64_t a1
   return v4 ^ 1u;
 }
 
-uint64_t cva::SVD<cva::Matrix<float,0u,0u,false>,true>::SVD<cva::Matrix<float,0u,0u,false>>(uint64_t a1, _DWORD *a2, char a3, int a4)
+uint64_t cva::SVD<cva::Matrix<float,0u,0u,false>,true>::SVD<cva::Matrix<float,0u,0u,false>>(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
 {
   *(a1 + 64) = 0;
   *(a1 + 32) = 0u;
@@ -4375,10 +4367,10 @@ void sub_23EE049B0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void cva::SVD<cva::Matrix<float,0u,0u,false>,true>::decompose<cva::Matrix<float,0u,0u,false> const&>(uint64_t a1, _DWORD *a2, char a3, int a4)
+void cva::SVD<cva::Matrix<float,0u,0u,false>,true>::decompose<cva::Matrix<float,0u,0u,false> const&>(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
 {
-  v5 = a2[4];
-  v6 = a2[5];
+  v5 = *(a2 + 16);
+  v6 = *(a2 + 20);
   *(a1 + 72) = v5;
   *(a1 + 76) = v6;
   if (!(v5 | v6))
@@ -4420,8 +4412,9 @@ LABEL_8:
   }
 }
 
-void cva::SVD<cva::Matrix<float,0u,0u,false>,true>::decomposeDirect<cva::Matrix<float,0u,0u,false>>(uint64_t a1, uint64_t a2, char a3)
+void cva::SVD<cva::Matrix<float,0u,0u,false>,true>::decomposeDirect<cva::Matrix<float,0u,0u,false>>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
   v6 = (*(a2 + 20) * *(a2 + 16));
   __dst[0] = 0;
   __dst[1] = 0;
@@ -4432,92 +4425,92 @@ void cva::SVD<cva::Matrix<float,0u,0u,false>,true>::decomposeDirect<cva::Matrix<
   }
 
   __dst[2] = *(a2 + 16);
-  cva::SVD<cva::Matrix<float,0u,0u,false>,true>::decomposeDirect<0u,0u>(a1, __dst, a3);
+  cva::SVD<cva::Matrix<float,0u,0u,false>,true>::decomposeDirect<0u,0u>(a1, __dst, v3);
   free(__dst[0]);
 }
 
-void cva::SVD<cva::Matrix<float,0u,0u,false>,true>::decomposeRectangular<cva::Matrix<float,0u,0u,false>>(uint64_t a1, _DWORD *a2, int a3)
+void cva::SVD<cva::Matrix<float,0u,0u,false>,true>::decomposeRectangular<cva::Matrix<float,0u,0u,false>>(uint64_t *a1, void **a2, int a3)
 {
   v3 = a3;
-  v48 = *MEMORY[0x277D85DE8];
-  if (a2[5] >= a2[4])
+  v49 = *MEMORY[0x277D85DE8];
+  if (*(a2 + 5) >= *(a2 + 4))
   {
-    v41 = a2;
-    v44 = a2;
-    v45 = &v41;
-    cva::SVD<cva::Matrix<float,0u,0u,false>,true>::decomposeDirect<cva::MatrixMultExpr<cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>>>(a1, &v44, a3 != 0);
+    v42 = a2;
+    v45 = a2;
+    v46 = &v42;
+    cva::SVD<cva::Matrix<float,0u,0u,false>,true>::decomposeDirect<cva::MatrixMultExpr<cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>>>(a1, &v45, a3 != 0);
     if (*(a1 + 80) != 1)
     {
-      goto LABEL_37;
+      return;
     }
 
-    v12 = *(a1 + 64);
-    if (v12)
+    v14 = *(a1 + 16);
+    if (v14)
     {
-      v13 = *(a1 + 48);
-      v14 = 4 * v12;
+      v15 = a1[6];
+      v16 = 4 * v14;
       do
       {
-        *v13 = sqrtf(*v13);
-        ++v13;
-        v14 -= 4;
+        *v15 = sqrtf(*v15);
+        ++v15;
+        v16 -= 4;
       }
 
-      while (v14);
+      while (v16);
     }
 
     if ((v3 & 2) == 0)
     {
-      goto LABEL_37;
+      return;
     }
 
-    v34 = cva::SVD<cva::Matrix<float,0u,0u,false>,true>::S(a1);
-    v35 = v15;
-    v36 = &v34;
-    v37 = 925353388;
-    v38 = a1;
-    if (*(a1 + 20) != v34)
+    v35 = cva::SVD<cva::Matrix<float,0u,0u,false>,true>::S(a1, v13);
+    v36 = v17;
+    v37 = &v35;
+    v38 = 925353388;
+    v39 = a1;
+    if (*(a1 + 5) != v35)
     {
       cva::SVD<cva::Matrix<float,0u,0u,false>,true>::inverse();
     }
 
-    v39 = &v36;
-    v40 = &v38;
-    if (*(a1 + 16) != a2[4])
+    v40 = &v37;
+    v41 = &v39;
+    if (*(a1 + 4) != *(a2 + 4))
     {
       cva::SVD<cva::Matrix<float,0u,0u,false>,true>::inverse();
     }
 
-    v16 = HIDWORD(v34);
-    if (__PAIR64__(a2[5], HIDWORD(v34)) == *(a1 + 40))
+    v18 = HIDWORD(v35);
+    if (__PAIR64__(*(a2 + 5), HIDWORD(v35)) == a1[5])
     {
-      v45 = &v39;
-      v46 = a2;
+      v46 = &v40;
+      v47 = a2;
 LABEL_30:
-      v47 = 1065353216;
-      cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixMultExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>>>,cva::Matrix<float,0u,0u,false>>((a1 + 24), &v44);
-      goto LABEL_37;
+      v48 = 1065353216;
+      cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixMultExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>>>,cva::Matrix<float,0u,0u,false>>((a1 + 3), &v45);
+      return;
     }
 
-    v20 = *(a1 + 24);
-    if (*v15 == v20)
+    v22 = a1[3];
+    if (*v17 == v22)
     {
-      v21 = a2[5];
+      v23 = *(a2 + 5);
     }
 
     else
     {
-      v21 = a2[5];
-      if (*a1 != v20 && *a2 != v20)
+      v23 = *(a2 + 5);
+      if (*a1 != v22 && *a2 != v22)
       {
-        *(a1 + 40) = HIDWORD(v34);
-        *(a1 + 44) = v21;
-        cva::MatrixData<float,0ul,0ul,false>::reserve(a1 + 24, (v21 * v16));
-        v22 = a2[4];
-        v23 = *(*v40 + 4);
-        v45 = &v39;
-        v46 = a2;
-        if (v23 != v22)
+        *(a1 + 10) = HIDWORD(v35);
+        *(a1 + 11) = v23;
+        cva::MatrixData<float,0ul,0ul,false>::reserve((a1 + 3), (v23 * v18));
+        v24 = *(a2 + 4);
+        v25 = *(*v41 + 16);
+        v46 = &v40;
+        v47 = a2;
+        if (v25 != v24)
         {
           cva::SVD<cva::Matrix<float,0u,0u,false>,true>::inverse();
         }
@@ -4526,96 +4519,99 @@ LABEL_30:
       }
     }
 
-    v41 = 0;
     v42 = 0;
-    cva::MatrixData<int,0ul,0ul,false>::allocate(&v41, (v21 * HIDWORD(v34)));
-    v30 = a2[4];
-    v29 = a2[5];
-    LODWORD(v43) = *(*v39 + 1);
-    HIDWORD(v43) = v29;
-    v45 = &v39;
-    v46 = a2;
-    if (*(*v40 + 4) != v30)
+    v43 = 0;
+    cva::MatrixData<int,0ul,0ul,false>::allocate(&v42, (v23 * HIDWORD(v35)));
+    v32 = *(a2 + 4);
+    v31 = *(a2 + 5);
+    LODWORD(v44) = *(*v40 + 4);
+    HIDWORD(v44) = v31;
+    v46 = &v40;
+    v47 = a2;
+    if (*(*v41 + 16) != v32)
     {
       __assert_rtn("MatrixMultExpr", "matrixmultexpr.h", 100, "((lhs.ref().columns() == rhs.ref().rows())) || cva::detail::assertMessage(Matrix sizes are not compatible!)");
     }
 
-    v47 = 1065353216;
-    cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixMultExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>>>,cva::Matrix<float,0u,0u,false>>(&v41, &v44);
-    v26 = *(a1 + 24);
-    v31 = *(a1 + 32);
-    v32 = v42;
-    *(a1 + 24) = v41;
-    *(a1 + 32) = v32;
-    v41 = v26;
-    v42 = v31;
-    *(a1 + 40) = v43;
-    goto LABEL_36;
+    v48 = 1065353216;
+    cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixMultExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>>>,cva::Matrix<float,0u,0u,false>>(&v42, &v45);
+    v28 = a1[3];
+    v33 = a1[4];
+    v34 = v43;
+    a1[3] = v42;
+    a1[4] = v34;
+    v42 = v28;
+    v43 = v33;
+    a1[5] = v44;
+LABEL_36:
+    v44 = 0;
+    free(v28);
+    return;
   }
 
-  v41 = a2;
-  v44 = &v41;
-  v45 = a2;
-  cva::SVD<cva::Matrix<float,0u,0u,false>,true>::decomposeDirect<cva::MatrixMultExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>,cva::Matrix<float,0u,0u,false>>>(a1, &v44, 2 * (a3 != 0));
+  v42 = a2;
+  v45 = &v42;
+  v46 = a2;
+  cva::SVD<cva::Matrix<float,0u,0u,false>,true>::decomposeDirect<cva::MatrixMultExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>,cva::Matrix<float,0u,0u,false>>>(a1, &v45, 2 * (a3 != 0));
   if (*(a1 + 80) == 1)
   {
-    v6 = *(a1 + 64);
-    if (v6)
+    v7 = *(a1 + 16);
+    if (v7)
     {
-      v7 = *(a1 + 48);
-      v8 = 4 * v6;
+      v8 = a1[6];
+      v9 = 4 * v7;
       do
       {
-        *v7 = sqrtf(*v7);
-        ++v7;
-        v8 -= 4;
+        *v8 = sqrtf(*v8);
+        ++v8;
+        v9 -= 4;
       }
 
-      while (v8);
+      while (v9);
     }
 
     if (v3)
     {
-      v38 = a1 + 24;
-      v9 = cva::SVD<cva::Matrix<float,0u,0u,false>,true>::S(a1);
-      v34 = v9;
+      v39 = (a1 + 3);
+      v10 = cva::SVD<cva::Matrix<float,0u,0u,false>,true>::S(a1, v6);
       v35 = v10;
-      v36 = &v34;
-      v37 = 925353388;
-      if (*(a1 + 40) != HIDWORD(v9))
+      v36 = v11;
+      v37 = &v35;
+      v38 = 925353388;
+      if (*(a1 + 10) != HIDWORD(v10))
       {
         cva::SVD<cva::Matrix<float,0u,0u,false>,true>::inverse();
       }
 
-      v39 = &v38;
-      v40 = &v36;
-      if (a2[5] != *(a1 + 44))
+      v40 = &v39;
+      v41 = &v37;
+      if (*(a2 + 5) != *(a1 + 11))
       {
         cva::SVD<cva::Matrix<float,0u,0u,false>,true>::inverse();
       }
 
-      v11 = a2[4];
-      if (v11 == *(a1 + 16) && *(a1 + 20) == v9)
+      v12 = *(a2 + 4);
+      if (v12 == *(a1 + 4) && *(a1 + 5) == v10)
       {
-        v45 = a2;
-        v46 = &v39;
+        v46 = a2;
+        v47 = &v40;
 LABEL_25:
-        v47 = 1065353216;
-        cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::Matrix<float,0u,0u,false>,cva::MatrixMultExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>>>(a1, &v44);
-        goto LABEL_37;
+        v48 = 1065353216;
+        cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::Matrix<float,0u,0u,false>,cva::MatrixMultExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>>>(a1, &v45);
+        return;
       }
 
-      v17 = *a1;
-      if (*a2 != *a1 && *(a1 + 24) != v17 && *v10 != v17)
+      v19 = *a1;
+      if (*a2 != *a1 && a1[3] != v19 && *v11 != v19)
       {
-        *(a1 + 16) = v11;
-        *(a1 + 20) = v9;
-        cva::MatrixData<float,0ul,0ul,false>::reserve(a1, (v11 * v9));
-        v18 = a2[5];
-        v19 = *(*v39 + 5);
-        v45 = a2;
-        v46 = &v39;
-        if (v18 != v19)
+        *(a1 + 4) = v12;
+        *(a1 + 5) = v10;
+        cva::MatrixData<float,0ul,0ul,false>::reserve(a1, (v12 * v10));
+        v20 = *(a2 + 5);
+        v21 = *(*v40 + 20);
+        v46 = a2;
+        v47 = &v40;
+        if (v20 != v21)
         {
           cva::SVD<cva::Matrix<float,0u,0u,false>,true>::inverse();
         }
@@ -4623,61 +4619,56 @@ LABEL_25:
         goto LABEL_25;
       }
 
-      v41 = 0;
       v42 = 0;
-      cva::MatrixData<int,0ul,0ul,false>::allocate(&v41, (v11 * v9));
-      v24 = **v40;
-      v25 = a2[5];
-      LODWORD(v43) = a2[4];
-      HIDWORD(v43) = v24;
-      v45 = a2;
-      v46 = &v39;
-      if (v25 != *(*v39 + 5))
+      v43 = 0;
+      cva::MatrixData<int,0ul,0ul,false>::allocate(&v42, (v12 * v10));
+      v26 = **v41;
+      v27 = *(a2 + 5);
+      LODWORD(v44) = *(a2 + 4);
+      HIDWORD(v44) = v26;
+      v46 = a2;
+      v47 = &v40;
+      if (v27 != *(*v40 + 20))
       {
         __assert_rtn("MatrixMultExpr", "matrixmultexpr.h", 100, "((lhs.ref().columns() == rhs.ref().rows())) || cva::detail::assertMessage(Matrix sizes are not compatible!)");
       }
 
-      v47 = 1065353216;
-      cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::Matrix<float,0u,0u,false>,cva::MatrixMultExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>>>(&v41, &v44);
-      v26 = *a1;
-      v27 = *(a1 + 8);
-      v28 = v42;
-      *a1 = v41;
-      *(a1 + 8) = v28;
-      v41 = v26;
-      v42 = v27;
-      *(a1 + 16) = v43;
-LABEL_36:
-      v43 = 0;
-      free(v26);
+      v48 = 1065353216;
+      cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::Matrix<float,0u,0u,false>,cva::MatrixMultExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>>>(&v42, &v45);
+      v28 = *a1;
+      v29 = a1[1];
+      v30 = v43;
+      *a1 = v42;
+      a1[1] = v30;
+      v42 = v28;
+      v43 = v29;
+      a1[2] = v44;
+      goto LABEL_36;
     }
   }
-
-LABEL_37:
-  v33 = *MEMORY[0x277D85DE8];
 }
 
-void cva::SVD<cva::Matrix<float,0u,0u,false>,true>::decomposeDirect<0u,0u>(uint64_t a1, uint64_t *a2, char a3)
+void cva::SVD<cva::Matrix<float,0u,0u,false>,true>::decomposeDirect<0u,0u>(uint64_t a1, void *a2, char a3)
 {
-  v6 = *(a2 + 4);
-  v7 = *(a2 + 5);
-  if (v7 >= v6)
+  v5 = *(a2 + 4);
+  v6 = *(a2 + 5);
+  if (v6 >= v5)
   {
-    v8 = v6;
+    v7 = v5;
   }
 
   else
   {
-    v8 = v7;
+    v7 = v6;
   }
 
-  *(a1 + 64) = v8;
-  cva::MatrixData<float,0ul,0ul,false>::reserve(a1 + 48, v8);
+  *(a1 + 64) = v7;
+  cva::MatrixData<float,0ul,0ul,false>::reserve(a1 + 48, v7);
   if (a3)
   {
-    *(a1 + 16) = v6;
-    *(a1 + 20) = v8;
-    cva::MatrixData<float,0ul,0ul,false>::reserve(a1, v8 * v6);
+    *(a1 + 16) = v5;
+    *(a1 + 20) = v7;
+    cva::MatrixData<float,0ul,0ul,false>::reserve(a1, v7 * v5);
     if ((a3 & 2) != 0)
     {
       goto LABEL_6;
@@ -4686,716 +4677,625 @@ void cva::SVD<cva::Matrix<float,0u,0u,false>,true>::decomposeDirect<0u,0u>(uint6
 
   else
   {
-    v9 = *a1;
+    v8 = *a1;
     *(a1 + 8) = 0;
     *(a1 + 16) = 0;
     *a1 = 0;
-    free(v9);
+    free(v8);
     if ((a3 & 2) != 0)
     {
 LABEL_6:
-      *(a1 + 40) = v8;
-      *(a1 + 44) = v7;
-      cva::MatrixData<float,0ul,0ul,false>::reserve(a1 + 24, v8 * v7);
+      *(a1 + 40) = v7;
+      *(a1 + 44) = v6;
+      cva::MatrixData<float,0ul,0ul,false>::reserve(a1 + 24, v7 * v6);
       goto LABEL_9;
     }
   }
 
-  v10 = *(a1 + 24);
+  v9 = *(a1 + 24);
   *(a1 + 32) = 0;
   *(a1 + 40) = 0;
   *(a1 + 24) = 0;
-  free(v10);
+  free(v9);
 LABEL_9:
-  if (a3)
-  {
-    v14 = *a1;
-    if ((a3 & 2) != 0)
-    {
-LABEL_11:
-      v11 = *(a1 + 24);
-      if (a3)
-      {
-        goto LABEL_12;
-      }
-
-      goto LABEL_16;
-    }
-  }
-
-  else if ((a3 & 2) != 0)
-  {
-    goto LABEL_11;
-  }
-
-  if (a3)
-  {
-LABEL_12:
-    v12 = *(a1 + 16);
-    if ((a3 & 2) == 0)
-    {
-      goto LABEL_17;
-    }
-
-    goto LABEL_13;
-  }
-
-LABEL_16:
-  if ((a3 & 2) != 0)
-  {
-LABEL_13:
-    v13 = *(a1 + 40);
-  }
-
-LABEL_17:
-  v15 = *(a2 + 4);
-  v25 = 0;
-  v24 = 0;
-  v16 = *a2;
-  v17 = *(a1 + 48);
+  v15 = 0;
+  v14 = 0;
   cva::vecLib::gesvd<float>();
-  v22[0] = 0;
-  v22[1] = 0;
-  cva::MatrixData<int,0ul,0ul,false>::allocate(v22, 0.0);
-  v23 = 0.0;
-  v18 = *a2;
-  v19 = *(a1 + 48);
-  v20 = cva::vecLib::gesvd<float>();
-  if (v24 < 0)
+  v12[0] = 0;
+  v12[1] = 0;
+  cva::MatrixData<int,0ul,0ul,false>::allocate(v12, 0.0);
+  v13 = 0.0;
+  v10 = cva::vecLib::gesvd<float>();
+  if (v14 < 0)
   {
     __assert_rtn("decomposeDirect", "matrixsvd.h", 439, "(info >= 0) || cva::detail::assertMessage(gesvd() compute SVD failed!)");
   }
 
-  if (v24)
+  if (v14)
   {
-    cva::Logger::instance(v20);
-    v21 = *MEMORY[0x277CFD380];
-    cva::Logger::logInCategory();
+    v11 = cva::Logger::instance(v10);
+    cva::Logger::logInCategory(v11, 2, *MEMORY[0x277CFD380], "%s\n", "gesvd() DBDSQR did not converge!");
   }
 
-  free(v22[0]);
-  *(a1 + 80) = v24 == 0;
+  free(v12[0]);
+  *(a1 + 80) = v14 == 0;
 }
 
 void cva::SVD<cva::Matrix<float,0u,0u,false>,true>::decomposeDirect<cva::MatrixMultExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>,cva::Matrix<float,0u,0u,false>>>(uint64_t a1, uint64_t **a2, char a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v6 = (a2 + 1);
+  v19 = *MEMORY[0x277D85DE8];
+  v6 = a2 + 1;
   v7 = (*(a2[1] + 5) * *(**a2 + 20));
-  v13[0] = 0;
-  v13[1] = 0;
-  cva::MatrixData<int,0ul,0ul,false>::allocate(v13, v7);
+  v12[0] = 0;
+  v12[1] = 0;
+  cva::MatrixData<int,0ul,0ul,false>::allocate(v12, v7);
   v8 = *a2;
   v9 = **a2;
   v10 = *v6;
-  v14 = *(v9 + 20);
-  v11 = *(v10 + 16);
-  v15 = *(v10 + 20);
-  v17 = v8;
-  v18 = v10;
+  v13 = *(v9 + 20);
+  v11 = *(v10 + 4);
+  v14 = *(v10 + 5);
+  v16 = v8;
+  v17 = v10;
   if (*(v9 + 16) != v11)
   {
     __assert_rtn("MatrixMultExpr", "matrixmultexpr.h", 100, "((lhs.ref().columns() == rhs.ref().rows())) || cva::detail::assertMessage(Matrix sizes are not compatible!)");
   }
 
-  v19 = 1065353216;
-  cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>,cva::Matrix<float,0u,0u,false>>(v13, v16);
-  cva::SVD<cva::Matrix<float,0u,0u,false>,true>::decomposeDirect<0u,0u>(a1, v13, a3);
-  free(v13[0]);
-  v12 = *MEMORY[0x277D85DE8];
+  v18 = 1065353216;
+  cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>,cva::Matrix<float,0u,0u,false>>(v12, v15);
+  cva::SVD<cva::Matrix<float,0u,0u,false>,true>::decomposeDirect<0u,0u>(a1, v12, a3);
+  free(v12[0]);
 }
 
-uint64_t cva::SVD<cva::Matrix<float,0u,0u,false>,true>::S(_DWORD *a1)
+uint64_t cva::SVD<cva::Matrix<float,0u,0u,false>,true>::S(_DWORD *a1, uint64_t a2)
 {
-  v2 = a1[18];
-  LODWORD(v1) = a1[19];
-  if (v1 >= v2)
+  v3 = a1[18];
+  LODWORD(v2) = a1[19];
+  if (v2 >= v3)
   {
-    v1 = v2;
+    v2 = v3;
   }
 
   else
   {
-    v1 = v1;
+    v2 = v2;
   }
 
-  if (v1 > a1[16])
+  if (v2 > a1[16])
   {
     cva::SVD<cva::Matrix<float,0u,0u,false>,true>::S();
   }
 
-  return v1 | (v1 << 32);
+  return v2 | (v2 << 32);
 }
 
 void cva::SVD<cva::Matrix<float,0u,0u,false>,true>::decomposeDirect<cva::MatrixMultExpr<cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>>>(uint64_t a1, void **a2, char a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v6 = a2 + 1;
   v7 = (*(*a2[1] + 16) * *(*a2 + 4));
-  v13[0] = 0;
-  v13[1] = 0;
-  cva::MatrixData<int,0ul,0ul,false>::allocate(v13, v7);
+  v12[0] = 0;
+  v12[1] = 0;
+  cva::MatrixData<int,0ul,0ul,false>::allocate(v12, v7);
   v8 = *a2;
   v9 = *v6;
   v10 = **v6;
-  v15 = *(v10 + 16);
+  v14 = *(v10 + 16);
   v11 = v8[5];
-  v14 = v8[4];
-  v17 = v8;
-  v18 = v9;
+  v13 = v8[4];
+  v16 = v8;
+  v17 = v9;
   if (v11 != *(v10 + 20))
   {
     __assert_rtn("MatrixMultExpr", "matrixmultexpr.h", 100, "((lhs.ref().columns() == rhs.ref().rows())) || cva::detail::assertMessage(Matrix sizes are not compatible!)");
   }
 
-  v19 = 1065353216;
-  cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>>(v13, v16);
-  cva::SVD<cva::Matrix<float,0u,0u,false>,true>::decomposeDirect<0u,0u>(a1, v13, a3);
-  free(v13[0]);
-  v12 = *MEMORY[0x277D85DE8];
+  v18 = 1065353216;
+  cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>>(v12, v15);
+  cva::SVD<cva::Matrix<float,0u,0u,false>,true>::decomposeDirect<0u,0u>(a1, v12, a3);
+  free(v12[0]);
 }
 
-void cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>,cva::Matrix<float,0u,0u,false>>(uint64_t *a1, uint64_t a2)
+void cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>,cva::Matrix<float,0u,0u,false>>(uint64_t a1, uint64_t a2)
 {
   v4 = *(a2 + 16);
   v5 = **(a2 + 8);
   if (*v5 == *a1 || *v4 == *a1)
   {
-    v12 = (*(v4 + 5) * *(v5 + 5));
-    v24 = 0;
-    v25 = 0;
-    cva::MatrixData<int,0ul,0ul,false>::allocate(&v24, v12);
-    v13 = *(*(a2 + 16) + 20);
-    LODWORD(v26) = *(**(a2 + 8) + 20);
-    HIDWORD(v26) = v13;
-    cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>,cva::Matrix<float,0u,0u,false>>(&v24, a2);
-    v14 = *a1;
-    v15 = a1[1];
-    v16 = v25;
-    *a1 = v24;
-    a1[1] = v16;
-    v24 = v14;
-    v25 = v15;
-    a1[2] = v26;
-    v26 = 0;
-    free(v14);
+    v9 = (*(v4 + 20) * *(v5 + 20));
+    v15 = 0;
+    v16 = 0;
+    cva::MatrixData<int,0ul,0ul,false>::allocate(&v15, v9);
+    v10 = *(*(a2 + 16) + 20);
+    LODWORD(v17) = *(**(a2 + 8) + 20);
+    HIDWORD(v17) = v10;
+    cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>,cva::Matrix<float,0u,0u,false>>(&v15, a2);
+    v11 = *a1;
+    v12 = *(a1 + 8);
+    v13 = v16;
+    *a1 = v15;
+    *(a1 + 8) = v13;
+    v15 = v11;
+    v16 = v12;
+    *(a1 + 16) = v17;
+    v17 = 0;
+    free(v11);
   }
 
   else
   {
-    v6 = *(a1 + 4);
-    if (v6 != *(v5 + 5) || (v7 = *(a1 + 5), v7 != *(v4 + 5)))
+    v6 = *(a1 + 16);
+    if (v6 != *(v5 + 20) || (v7 = *(a1 + 20), v7 != *(v4 + 20)))
     {
-      cva::Logger::instance(a1);
-      v8 = *MEMORY[0x277CFD380];
-      v22 = *(**(a2 + 8) + 20);
-      v23 = *(*(a2 + 16) + 20);
-      v18 = *(a1 + 4);
-      v20 = *(a1 + 5);
-      cva::Logger::logInCategory();
-      v6 = *(a1 + 4);
+      v8 = cva::Logger::instance(a1);
+      cva::Logger::logInCategory(v8, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *(a1 + 16), *(a1 + 20), *(**(a2 + 8) + 20), *(*(a2 + 16) + 20));
+      v6 = *(a1 + 16);
       v5 = **(a2 + 8);
-      if (v6 != *(v5 + 5) || (v4 = *(a2 + 16), v7 = *(v4 + 5), *(a1 + 5) != v7))
+      if (v6 != *(v5 + 20) || (v4 = *(a2 + 16), v7 = *(v4 + 20), *(a1 + 20) != v7))
       {
         cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>,cva::Matrix<float,0u,0u,false>>();
       }
     }
 
-    if (*(v5 + 4) * v6 && v7 * *(v4 + 4))
+    if (*(v5 + 16) * v6 && v7 * *(v4 + 16))
     {
-      v9 = *(a2 + 24);
-      v10 = *v5;
-      v11 = *v4;
-      v21 = *a1;
-      v19 = *(v4 + 4);
       cva::VecLib<float>::gemm();
     }
 
     if (v6 * v7)
     {
-      v17 = *a1;
+      v14 = *a1;
 
-      bzero(v17, 4 * (v6 * v7));
+      bzero(v14, 4 * (v6 * v7));
     }
   }
 }
 
-void cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::Matrix<float,0u,0u,false>,cva::MatrixMultExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>>>(uint64_t *a1, uint64_t a2)
+void cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::Matrix<float,0u,0u,false>,cva::MatrixMultExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>>>(uint64_t a1, uint64_t a2)
 {
   v4 = *(a2 + 8);
   if (*v4 == *a1)
   {
-    v20 = (***(*(a2 + 16) + 8) * *(v4 + 4));
-    v31 = 0;
-    v32 = 0;
-    cva::MatrixData<int,0ul,0ul,false>::allocate(&v31, v20);
-    v21 = ***(*(a2 + 16) + 8);
-    LODWORD(v33) = *(*(a2 + 8) + 16);
-    HIDWORD(v33) = v21;
-    cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::Matrix<float,0u,0u,false>,cva::MatrixMultExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>>>(&v31, a2);
-    v22 = *a1;
-    v23 = a1[1];
-    v24 = v32;
-    *a1 = v31;
-    a1[1] = v24;
-    v31 = v22;
-    v32 = v23;
-    a1[2] = v33;
-    v33 = 0;
-    free(v22);
+    v14 = (***(*(a2 + 16) + 8) * *(v4 + 16));
+    v19 = 0;
+    v20 = 0;
+    cva::MatrixData<int,0ul,0ul,false>::allocate(&v19, v14);
+    v15 = ***(*(a2 + 16) + 8);
+    LODWORD(v21) = *(*(a2 + 8) + 16);
+    HIDWORD(v21) = v15;
+    cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::Matrix<float,0u,0u,false>,cva::MatrixMultExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>>>(&v19, a2);
+    v16 = *a1;
+    v17 = *(a1 + 8);
+    v18 = v20;
+    *a1 = v19;
+    *(a1 + 8) = v18;
+    v19 = v16;
+    v20 = v17;
+    *(a1 + 16) = v21;
+    v21 = 0;
+    free(v16);
   }
 
   else
   {
-    v5 = *(a1 + 4);
-    if (v5 != *(v4 + 4) || (v6 = *(a1 + 5), v7 = *(a2 + 16), v6 != **v7[1]))
+    v5 = *(a1 + 16);
+    if (v5 != *(v4 + 16) || (v6 = *(a1 + 20), v7 = *(a2 + 16), v6 != **v7[1]))
     {
-      cva::Logger::instance(a1);
-      v8 = *MEMORY[0x277CFD380];
-      v28 = *(*(a2 + 8) + 16);
-      v30 = ***(*(a2 + 16) + 8);
-      v25 = *(a1 + 4);
-      v26 = *(a1 + 5);
-      cva::Logger::logInCategory();
-      v5 = *(a1 + 4);
+      v8 = cva::Logger::instance(a1);
+      cva::Logger::logInCategory(v8, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *(a1 + 16), *(a1 + 20), *(*(a2 + 8) + 16), ***(*(a2 + 16) + 8));
+      v5 = *(a1 + 16);
       v4 = *(a2 + 8);
-      if (v5 != *(v4 + 4) || (v7 = *(a2 + 16), v6 = **v7[1], *(a1 + 5) != v6))
+      if (v5 != *(v4 + 16) || (v7 = *(a2 + 16), v6 = **v7[1], *(a1 + 20) != v6))
       {
         cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>,cva::Matrix<float,0u,0u,false>>();
       }
     }
 
-    if (*(v4 + 5) * v5)
+    if (*(v4 + 20) * v5)
     {
-      v9 = v6 * (**v7)[5];
+      v9 = (v6 * *(**v7 + 20));
       if (v9)
       {
-        v31 = 0;
-        v32 = 0;
-        cva::MatrixData<int,0ul,0ul,false>::allocate(&v31, v9);
+        v19 = 0;
+        v20 = 0;
+        cva::MatrixData<int,0ul,0ul,false>::allocate(&v19, v9);
         v10 = **v7[1];
-        LODWORD(v33) = (**v7)[5];
-        HIDWORD(v33) = v10;
-        cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>>(&v31, v7);
-        v11 = *(a2 + 8);
-        v12 = ***(*(a2 + 16) + 8);
-        v13 = *(v11 + 16);
-        v14 = *(v11 + 20);
-        v15 = *(a2 + 24);
-        v16 = *v4;
-        v17 = *(v4 + 4);
-        v29 = *(a1 + 4);
-        v27 = *a1;
+        LODWORD(v21) = *(**v7 + 20);
+        HIDWORD(v21) = v10;
+        cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>>(&v19, v7, v11);
         cva::VecLib<float>::gemm();
       }
     }
 
-    v18 = v5 * v6;
-    if (v18)
+    v12 = v5 * v6;
+    if (v12)
     {
-      v19 = *a1;
+      v13 = *a1;
 
-      bzero(v19, 4 * v18);
+      bzero(v13, 4 * v12);
     }
   }
 }
 
-void cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>>(cva::Logger *a1, unsigned int ***a2)
+void cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>>(cva::Logger *a1, uint64_t **a2, __n128 a3)
 {
-  v38[3] = *MEMORY[0x277D85DE8];
-  v4 = *(a1 + 4);
-  v5 = *a2;
-  v6 = **a2;
-  if (v4 != v6[5] || (v7 = *(a1 + 5), v8 = a2[1], v9 = *v8, v7 != **v8))
+  v34[3] = *MEMORY[0x277D85DE8];
+  v5 = *(a1 + 4);
+  v6 = *a2;
+  v7 = **a2;
+  if (v5 != *(v7 + 20) || (v8 = *(a1 + 5), v9 = a2[1], v10 = *v9, v8 != **v9))
   {
-    cva::Logger::instance(a1);
-    v10 = *MEMORY[0x277CFD380];
-    v23 = (**a2)[5];
-    v24 = **a2[1];
-    v21 = *(a1 + 4);
-    v22 = *(a1 + 5);
-    cva::Logger::logInCategory();
-    v4 = *(a1 + 4);
-    v5 = *a2;
-    v6 = **a2;
-    if (v4 != v6[5] || (v8 = a2[1], v9 = *v8, v7 = **v8, *(a1 + 5) != v7))
+    v11 = cva::Logger::instance(a1);
+    cva::Logger::logInCategory(v11, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *(a1 + 4), *(a1 + 5), *(**a2 + 20), **a2[1]);
+    v5 = *(a1 + 4);
+    v6 = *a2;
+    v7 = **a2;
+    if (v5 != *(v7 + 20) || (v9 = a2[1], v10 = *v9, v8 = **v9, *(a1 + 5) != v8))
     {
       cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>,cva::Matrix<float,0u,0u,false>>();
     }
   }
 
-  v37 = v8;
-  if (v7 >= v9[1])
+  v33 = v9;
+  if (v8 >= v10[1])
   {
-    v7 = v9[1];
+    v8 = v10[1];
   }
 
-  if (v7 > v6[4])
+  if (v8 > *(v7 + 16))
   {
     cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>>();
   }
 
-  v34[0] = v4;
-  v34[1] = v7;
-  v35 = v5;
-  v36 = 0;
-  v29 = &v37;
-  v33 = &v29;
-  v38[0] = v34;
-  v38[1] = &v30;
-  v11 = *a1;
-  v31 = v4;
-  v32 = v7;
-  v25[0] = v4;
-  v25[1] = v7;
-  v26 = v11;
-  v27 = v4;
-  v28 = 0;
-  cva::MatrixRef<float,0u,0u,false>::operator=<cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>(v25, v38);
-  v12 = (*v5)[4];
-  v13 = *(a1 + 5) - v12;
-  if (*(a1 + 5) > v12)
+  v30[0] = v5;
+  v30[1] = v8;
+  v31 = v6;
+  v32 = 0;
+  v25 = &v33;
+  v29 = &v25;
+  v34[0] = v30;
+  v34[1] = &v26;
+  v12 = *a1;
+  v27 = v5;
+  v28 = v8;
+  v21[0] = v5;
+  v21[1] = v8;
+  v22 = v12;
+  v23 = v5;
+  v24 = 0;
+  cva::MatrixRef<float,0u,0u,false>::operator=<cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>(v21, v34, a3);
+  v13 = *(*v6 + 16);
+  v14 = *(a1 + 5) - v13;
+  if (*(a1 + 5) > v13)
   {
-    v14 = *(a1 + 4);
-    v15 = *a1 + 4 * v14 * v12;
-    v16 = v14 * v13;
-    v17 = v16 == 0;
-    if (v16)
+    v15 = *(a1 + 4);
+    v16 = *a1 + 4 * v15 * v13;
+    v17 = v15 * v14;
+    v18 = v17 == 0;
+    if (v17)
     {
-      v18 = v15;
+      v19 = v16;
     }
 
     else
     {
-      v18 = 0;
-    }
-
-    v19 = (v15 + 4 * v16);
-    if (v17)
-    {
       v19 = 0;
     }
 
-    if (v18 != v19)
+    v20 = (v16 + 4 * v17);
+    if (v18)
     {
-      bzero(v18, ((v19 - v18 - 4) & 0xFFFFFFFFFFFFFFFCLL) + 4);
+      v20 = 0;
+    }
+
+    if (v19 != v20)
+    {
+      bzero(v19, ((v20 - v19 - 4) & 0xFFFFFFFFFFFFFFFCLL) + 4);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
-unsigned int *cva::MatrixRef<float,0u,0u,false>::operator=<cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>(unsigned int *a1, uint64_t a2)
+int *cva::MatrixRef<float,0u,0u,false>::operator=<cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>(int *a1, void *a2, __n128 a3)
 {
-  v4 = *(a1 + 1) - 4 * a1[5];
-  if (***(*a2 + 8) == v4 || **(****(*(a2 + 8) + 16) + 8) == v4)
+  v5 = *(a1 + 1) - 4 * a1[5];
+  if (***(*a2 + 8) == v5 || **(****(a2[1] + 16) + 8) == v5)
   {
-    v5 = *a1;
-    v6 = a1[1];
+    v6 = *a1;
+    v7 = a1[1];
     v24[0] = 0;
     v24[1] = 0;
-    cva::MatrixData<int,0ul,0ul,false>::allocate(v24, v6 * v5);
-    v25 = v5;
-    v26 = v6;
-    cva::detail::assignNoAlias<cva::Matrix<float,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>(v24, a2);
-    v8 = *a1;
-    if (*a1 != v25 || (v9 = a1[1], v9 != v26))
+    cva::MatrixData<int,0ul,0ul,false>::allocate(v24, (v7 * v6));
+    v25 = v6;
+    v26 = v7;
+    cva::detail::assignNoAlias<cva::Matrix<float,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>(v24, a2, v8);
+    v10 = *a1;
+    if (*a1 != v25 || (v11 = a1[1], v11 != v26))
     {
-      cva::Logger::instance(v7);
-      v10 = *MEMORY[0x277CFD380];
-      v22 = *a1;
-      v23 = a1[1];
-      cva::Logger::logInCategory();
-      v8 = *a1;
-      if (*a1 != v25 || (v9 = a1[1], v9 != v26))
+      v12 = cva::Logger::instance(v9);
+      cva::Logger::logInCategory(v12, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *a1, a1[1], v25, v26);
+      v10 = *a1;
+      if (*a1 != v25 || (v11 = a1[1], v11 != v26))
       {
         __assert_rtn("assert_equal_size", "matrixfun.h", 163, "(lhs.rows() == rhs.rows() && lhs.columns() == rhs.columns()) || cva::detail::assertMessage(Matrix sizes are not compatible!)");
       }
     }
 
-    v11 = a1[4];
-    v12 = v8 * v9 == 0;
-    if (v8 * v9)
+    v13 = a1[4];
+    v14 = v10 * v11 == 0;
+    if (v10 * v11)
     {
-      v13 = *(a1 + 1);
+      v15 = *(a1 + 1);
     }
 
     else
     {
-      v13 = 0;
+      v15 = 0;
     }
 
-    v14 = *(a1 + 1) + 4 * v11 * v9;
-    if (v12)
-    {
-      v14 = 0;
-    }
-
-    v15 = v24[0];
-    if (v13 != v14)
+    v16 = *(a1 + 1) + 4 * (v13 * v11);
+    if (v14)
     {
       v16 = 0;
-      v17 = v11 - v8;
-      v18 = v24[0];
+    }
+
+    v17 = v24[0];
+    if (v15 != v16)
+    {
+      v18 = 0;
+      v19 = v13 - v10;
+      v20 = v24[0];
       do
       {
-        v19 = *v18++;
-        *v13 = v19;
-        if (v16 + 1 >= v8)
+        v21 = *v20++;
+        *v15 = v21;
+        if (v18 + 1 >= v10)
         {
-          v20 = v17;
+          v22 = v19;
         }
 
         else
         {
-          v20 = 0;
+          v22 = 0;
         }
 
-        v13 += v20 + 1;
-        if (v16 + 1 < v8)
+        v15 += v22 + 1;
+        if (v18 + 1 < v10)
         {
-          ++v16;
+          ++v18;
         }
 
         else
         {
-          v16 = 0;
+          v18 = 0;
         }
       }
 
-      while (v13 != v14);
+      while (v15 != v16);
     }
 
-    free(v15);
+    free(v17);
   }
 
   else
   {
-    cva::detail::assignNoAlias<cva::MatrixRef<float,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>(a1, a2);
+    cva::detail::assignNoAlias<cva::MatrixRef<float,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>(a1, a2, a3);
   }
 
   return a1;
 }
 
-void cva::detail::assignNoAlias<cva::Matrix<float,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>(cva::Logger *a1, unsigned int **a2)
+void cva::detail::assignNoAlias<cva::Matrix<float,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>(cva::Logger *a1, uint64_t a2, __n128 a3)
 {
-  v4 = *(a1 + 4);
-  v5 = *a2;
-  if (v4 != **a2 || (v6 = *(a1 + 5), v6 != *(v5 + 4)))
+  v5 = *(a1 + 4);
+  v6 = *a2;
+  if (v5 != **a2 || (v7 = *(a1 + 5), v7 != v6[1]))
   {
-    cva::Logger::instance(a1);
-    v7 = *MEMORY[0x277CFD380];
-    v23 = **a2;
-    v24 = (*a2)[1];
-    v21 = *(a1 + 4);
-    v22 = *(a1 + 5);
-    cva::Logger::logInCategory();
-    v4 = *(a1 + 4);
-    v5 = *a2;
-    if (v4 != **a2 || (v6 = *(a1 + 5), v6 != *(v5 + 4)))
+    v8 = cva::Logger::instance(a1);
+    cva::Logger::logInCategory(v8, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *(a1 + 4), *(a1 + 5), **a2, *(*a2 + 4));
+    v5 = *(a1 + 4);
+    v6 = *a2;
+    if (v5 != **a2 || (v7 = *(a1 + 5), v7 != v6[1]))
     {
       cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>,cva::Matrix<float,0u,0u,false>>();
     }
   }
 
-  v8 = v6 * v4;
-  if (v8)
+  v9 = v7 * v5;
+  if (v9)
   {
-    v9 = 0;
     v10 = 0;
-    v11 = a2[1];
-    v12 = *a1;
-    v13 = 4 * v8;
+    v11 = 0;
+    v12 = *(a2 + 8);
+    v13 = *a1;
+    v14 = 4 * v9;
     do
     {
-      if (v4 <= v10 || *(v5 + 4) <= HIDWORD(v10))
+      if (v5 <= v11 || v6[1] <= HIDWORD(v11))
       {
         cva::detail::assignNoAlias<cva::Matrix<float,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>();
       }
 
-      v14 = *(v5 + 20) + HIDWORD(v10);
-      v15 = **(v5 + 8);
-      v16 = *(v15 + 16);
-      if (v16 <= v14 || (v17 = *(v5 + 16) + v10, v17 >= *(v15 + 20)))
+      v15 = v6[5] + HIDWORD(v11);
+      v16 = **(v6 + 1);
+      v17 = *(v16 + 16);
+      if (v17 <= v15 || (v18 = v6[4] + v11, v18 >= *(v16 + 20)))
       {
         [PolyNomialExtrapolation predict];
       }
 
-      v18 = *(*v15 + 4 * (v14 + v16 * v17));
-      *v12++ = v18 * cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>::operator()(v11, v9, HIDWORD(v9));
-      v19 = (v10 + 1);
-      v4 = *v5;
-      if (*v5 <= v19)
+      v19 = *(*v16 + 4 * (v15 + v17 * v18));
+      a3.n128_f32[0] = v19 * cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>::operator()(v12, v10, HIDWORD(v10), a3);
+      *v13++ = a3.n128_u32[0];
+      v20 = (v11 + 1);
+      v5 = *v6;
+      if (*v6 <= v20)
+      {
+        v11 = (v11 & 0xFFFFFFFF00000000) + 0x100000000;
+      }
+
+      else
+      {
+        v11 = v11 & 0xFFFFFFFF00000000 | v20;
+      }
+
+      v21 = (v10 + 1);
+      if (*(v12 + 4) <= v21)
       {
         v10 = (v10 & 0xFFFFFFFF00000000) + 0x100000000;
       }
 
       else
       {
-        v10 = v10 & 0xFFFFFFFF00000000 | v19;
+        v10 = v10 & 0xFFFFFFFF00000000 | v21;
       }
 
-      v20 = (v9 + 1);
-      if (*(v11 + 4) <= v20)
-      {
-        v9 = (v9 & 0xFFFFFFFF00000000) + 0x100000000;
-      }
-
-      else
-      {
-        v9 = v9 & 0xFFFFFFFF00000000 | v20;
-      }
-
-      v13 -= 4;
+      v14 -= 4;
     }
 
-    while (v13);
+    while (v14);
   }
 }
 
-void cva::detail::assignNoAlias<cva::MatrixRef<float,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>(float **a1, unsigned int **a2)
+void cva::detail::assignNoAlias<cva::MatrixRef<float,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>(cva::Logger *a1, uint64_t a2, __n128 a3)
 {
-  v4 = *a1;
-  v5 = *a2;
-  if (*a1 != **a2 || (v6 = *(a1 + 1), v6 != *(v5 + 4)))
+  v5 = *a1;
+  v6 = *a2;
+  if (*a1 != **a2 || (v7 = *(a1 + 1), v7 != v6[1]))
   {
-    cva::Logger::instance(a1);
-    v7 = *MEMORY[0x277CFD380];
-    v29 = **a2;
-    v30 = (*a2)[1];
-    v27 = *a1;
-    v28 = *(a1 + 1);
-    cva::Logger::logInCategory();
-    v4 = *a1;
-    v5 = *a2;
-    if (*a1 != **a2 || (v6 = *(a1 + 1), v6 != *(v5 + 4)))
+    v8 = cva::Logger::instance(a1);
+    cva::Logger::logInCategory(v8, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *a1, *(a1 + 1), **a2, *(*a2 + 4));
+    v5 = *a1;
+    v6 = *a2;
+    if (*a1 != **a2 || (v7 = *(a1 + 1), v7 != v6[1]))
     {
       cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>,cva::Matrix<float,0u,0u,false>>();
     }
   }
 
-  v8 = v6 * v4;
-  v9 = *(a1 + 4);
-  if (v6 * v4)
+  v9 = v7 * v5;
+  v10 = *(a1 + 4);
+  if (v7 * v5)
   {
-    v10 = a1[1];
+    v11 = *(a1 + 1);
   }
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
-  v11 = &a1[1][v9 * v6];
-  if (v8)
+  v12 = *(a1 + 1) + 4 * (v10 * v7);
+  if (v9)
   {
-    v12 = v11;
+    v13 = v12;
   }
 
   else
-  {
-    v12 = 0;
-  }
-
-  if (v10 != v12)
   {
     v13 = 0;
+  }
+
+  if (v11 != v13)
+  {
     v14 = 0;
     v15 = 0;
-    v16 = a2[1];
-    v17 = v9 - v4;
-    v18 = v4;
+    v16 = 0;
+    v17 = *(a2 + 8);
+    v18 = v10 - v5;
+    v19 = v5;
     do
     {
-      if (v18 <= v14 || *(v5 + 4) <= HIDWORD(v14))
+      if (v19 <= v15 || v6[1] <= HIDWORD(v15))
       {
         cva::detail::assignNoAlias<cva::Matrix<float,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>();
       }
 
-      v19 = *(v5 + 20) + HIDWORD(v14);
-      v20 = **(v5 + 8);
-      v21 = *(v20 + 16);
-      if (v21 <= v19 || (v22 = *(v5 + 16) + v14, v22 >= *(v20 + 20)))
+      v20 = v6[5] + HIDWORD(v15);
+      v21 = **(v6 + 1);
+      v22 = *(v21 + 16);
+      if (v22 <= v20 || (v23 = v6[4] + v15, v23 >= *(v21 + 20)))
       {
         [PolyNomialExtrapolation predict];
       }
 
-      v23 = *(*v20 + 4 * (v19 + v21 * v22));
-      *v10 = v23 * cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>::operator()(v16, v13, HIDWORD(v13));
-      v24 = (v14 + 1);
-      v18 = *v5;
-      if (*v5 <= v24)
+      v24 = *(*v21 + 4 * (v20 + v22 * v23));
+      a3.n128_f32[0] = v24 * cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>::operator()(v17, v14, HIDWORD(v14), a3);
+      *v11 = a3.n128_u32[0];
+      v25 = (v15 + 1);
+      v19 = *v6;
+      if (*v6 <= v25)
+      {
+        v15 = (v15 & 0xFFFFFFFF00000000) + 0x100000000;
+      }
+
+      else
+      {
+        v15 = v15 & 0xFFFFFFFF00000000 | v25;
+      }
+
+      v26 = (v14 + 1);
+      if (*(v17 + 4) <= v26)
       {
         v14 = (v14 & 0xFFFFFFFF00000000) + 0x100000000;
       }
 
       else
       {
-        v14 = v14 & 0xFFFFFFFF00000000 | v24;
+        v14 = v14 & 0xFFFFFFFF00000000 | v26;
       }
 
-      v25 = (v13 + 1);
-      if (*(v16 + 4) <= v25)
+      if (v16 + 1 >= v5)
       {
-        v13 = (v13 & 0xFFFFFFFF00000000) + 0x100000000;
-      }
-
-      else
-      {
-        v13 = v13 & 0xFFFFFFFF00000000 | v25;
-      }
-
-      if (v15 + 1 >= v4)
-      {
-        v26 = v17;
+        v27 = v18;
       }
 
       else
       {
-        v26 = 0;
+        v27 = 0;
       }
 
-      v10 += v26 + 1;
-      if (v15 + 1 < v4)
+      v11 += v27 + 1;
+      if (v16 + 1 < v5)
       {
-        ++v15;
+        ++v16;
       }
 
       else
       {
-        v15 = 0;
+        v16 = 0;
       }
     }
 
-    while (v10 != v12);
+    while (v11 != v13);
   }
 }
 
-float cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>::operator()(uint64_t a1, unsigned int a2, unsigned int a3)
+float cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>::operator()(uint64_t a1, unsigned int a2, unsigned int a3, __n128 a4)
 {
   if (*(a1 + 4) <= a2 || *(a1 + 8) <= a3)
   {
     [PolyNomialExtrapolation predict];
   }
 
-  v3 = ***(a1 + 16);
-  v4 = *(*v3 + 4);
-  if (**v3 < v4)
+  v4 = ***(a1 + 16);
+  v5 = *(*v4 + 4);
+  if (**v4 < v5)
   {
-    v4 = **v3;
+    v5 = **v4;
   }
 
-  v5 = a3 % v4;
-  v6 = *(*v3 + 8);
-  if (*(v6 + 16) <= v5)
+  v6 = a3 % v5;
+  v7 = *(*v4 + 8);
+  if (*(v7 + 16) <= v6)
   {
     [PolyNomialExtrapolation predict];
   }
 
-  v7 = *(*v6 + 4 * v5);
-  v8 = fabsf(v7);
-  result = 1.0 / v7;
-  if (v8 < v3[2])
+  v8 = *(*v7 + 4 * v6);
+  v9 = fabsf(v8);
+  result = 1.0 / v8;
+  if (v9 < v4[2])
   {
     return 0.0;
   }
@@ -5403,111 +5303,97 @@ float cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva
   return result;
 }
 
-void cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>>(uint64_t *a1, uint64_t a2)
+void cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>>(uint64_t a1, uint64_t a2)
 {
   v4 = *(a2 + 8);
   v5 = **(a2 + 16);
   if (*v4 == *a1 || *v5 == *a1)
   {
-    v12 = (*(v5 + 4) * *(v4 + 4));
-    v23 = 0;
-    v24 = 0;
-    cva::MatrixData<int,0ul,0ul,false>::allocate(&v23, v12);
-    v13 = *(**(a2 + 16) + 16);
-    LODWORD(v25) = *(*(a2 + 8) + 16);
-    HIDWORD(v25) = v13;
-    cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>>(&v23, a2);
-    v14 = *a1;
-    v15 = a1[1];
-    v16 = v24;
-    *a1 = v23;
-    a1[1] = v16;
-    v23 = v14;
-    v24 = v15;
-    a1[2] = v25;
-    v25 = 0;
-    free(v14);
+    v9 = (*(v5 + 16) * *(v4 + 16));
+    v15 = 0;
+    v16 = 0;
+    cva::MatrixData<int,0ul,0ul,false>::allocate(&v15, v9);
+    v10 = *(**(a2 + 16) + 16);
+    LODWORD(v17) = *(*(a2 + 8) + 16);
+    HIDWORD(v17) = v10;
+    cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>>(&v15, a2);
+    v11 = *a1;
+    v12 = *(a1 + 8);
+    v13 = v16;
+    *a1 = v15;
+    *(a1 + 8) = v13;
+    v15 = v11;
+    v16 = v12;
+    *(a1 + 16) = v17;
+    v17 = 0;
+    free(v11);
   }
 
   else
   {
-    v6 = *(a1 + 4);
-    if (v6 != *(v4 + 4) || (v7 = *(a1 + 5), v7 != *(v5 + 4)))
+    v6 = *(a1 + 16);
+    if (v6 != *(v4 + 16) || (v7 = *(a1 + 20), v7 != *(v5 + 16)))
     {
-      cva::Logger::instance(a1);
-      v8 = *MEMORY[0x277CFD380];
-      v21 = *(*(a2 + 8) + 16);
-      v22 = *(**(a2 + 16) + 16);
-      v18 = *(a1 + 4);
-      v19 = *(a1 + 5);
-      cva::Logger::logInCategory();
-      v6 = *(a1 + 4);
+      v8 = cva::Logger::instance(a1);
+      cva::Logger::logInCategory(v8, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *(a1 + 16), *(a1 + 20), *(*(a2 + 8) + 16), *(**(a2 + 16) + 16));
+      v6 = *(a1 + 16);
       v4 = *(a2 + 8);
-      if (v6 != *(v4 + 4) || (v5 = **(a2 + 16), v7 = *(v5 + 4), *(a1 + 5) != v7))
+      if (v6 != *(v4 + 16) || (v5 = **(a2 + 16), v7 = *(v5 + 16), *(a1 + 20) != v7))
       {
         cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>,cva::Matrix<float,0u,0u,false>>();
       }
     }
 
-    if (*(v4 + 5) * v6 && v7 * *(v5 + 5))
+    if (*(v4 + 20) * v6 && v7 * *(v5 + 20))
     {
-      v9 = *(a2 + 24);
-      v10 = *v4;
-      v11 = *v5;
-      v20 = *a1;
       cva::VecLib<float>::gemm();
     }
 
     if (v6 * v7)
     {
-      v17 = *a1;
+      v14 = *a1;
 
-      bzero(v17, 4 * (v6 * v7));
+      bzero(v14, 4 * (v6 * v7));
     }
   }
 }
 
-void cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixMultExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>>>,cva::Matrix<float,0u,0u,false>>(uint64_t *a1, uint64_t a2)
+void cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixMultExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>>>,cva::Matrix<float,0u,0u,false>>(uint64_t a1, uint64_t a2)
 {
   v4 = *(a2 + 16);
   if (*v4 == *a1)
   {
-    v20 = (*(v4 + 20) * *(***(a2 + 8) + 4));
-    v32 = 0;
-    v33 = 0;
-    cva::MatrixData<int,0ul,0ul,false>::allocate(&v32, v20);
-    v21 = *(*(a2 + 16) + 20);
-    LODWORD(v34) = *(***(a2 + 8) + 4);
-    HIDWORD(v34) = v21;
-    cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixMultExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>>>,cva::Matrix<float,0u,0u,false>>(&v32, a2);
-    v22 = *a1;
-    v23 = a1[1];
-    v24 = v33;
-    *a1 = v32;
-    a1[1] = v24;
-    v32 = v22;
-    v33 = v23;
-    a1[2] = v34;
-    v34 = 0;
-    free(v22);
+    v14 = (*(v4 + 20) * *(***(a2 + 8) + 4));
+    v19 = 0;
+    v20 = 0;
+    cva::MatrixData<int,0ul,0ul,false>::allocate(&v19, v14);
+    v15 = *(*(a2 + 16) + 20);
+    LODWORD(v21) = *(***(a2 + 8) + 4);
+    HIDWORD(v21) = v15;
+    cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixMultExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>>>,cva::Matrix<float,0u,0u,false>>(&v19, a2);
+    v16 = *a1;
+    v17 = *(a1 + 8);
+    v18 = v20;
+    *a1 = v19;
+    *(a1 + 8) = v18;
+    v19 = v16;
+    v20 = v17;
+    *(a1 + 16) = v21;
+    v21 = 0;
+    free(v16);
   }
 
   else
   {
-    v5 = *(a1 + 4);
+    v5 = *(a1 + 16);
     v6 = *(a2 + 8);
-    if (v5 != (**v6)[1] || (v7 = *(a1 + 5), v7 != *(v4 + 20)))
+    if (v5 != (**v6)[1] || (v7 = *(a1 + 20), v7 != *(v4 + 20)))
     {
-      cva::Logger::instance(a1);
-      v8 = *MEMORY[0x277CFD380];
-      v29 = *(***(a2 + 8) + 4);
-      v31 = *(*(a2 + 16) + 20);
-      v25 = *(a1 + 4);
-      v27 = *(a1 + 5);
-      cva::Logger::logInCategory();
-      v5 = *(a1 + 4);
+      v8 = cva::Logger::instance(a1);
+      cva::Logger::logInCategory(v8, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *(a1 + 16), *(a1 + 20), *(***(a2 + 8) + 4), *(*(a2 + 16) + 20));
+      v5 = *(a1 + 16);
       v6 = *(a2 + 8);
-      if (v5 != (**v6)[1] || (v4 = *(a2 + 16), v7 = *(v4 + 20), *(a1 + 5) != v7))
+      if (v5 != (**v6)[1] || (v4 = *(a2 + 16), v7 = *(v4 + 20), *(a1 + 20) != v7))
       {
         cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>,cva::Matrix<float,0u,0u,false>>();
       }
@@ -5516,459 +5402,432 @@ void cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixMultExpr<
     v9 = (*v6[1])[4] * v5;
     if (v9 && v7 * *(v4 + 16))
     {
-      v32 = 0;
-      v33 = 0;
-      cva::MatrixData<int,0ul,0ul,false>::allocate(&v32, v9);
+      v19 = 0;
+      v20 = 0;
+      cva::MatrixData<int,0ul,0ul,false>::allocate(&v19, v9);
       v10 = (*v6[1])[4];
-      LODWORD(v34) = (**v6)[1];
-      HIDWORD(v34) = v10;
-      cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>>>(&v32, v6);
-      v12 = *(a2 + 8);
-      v11 = *(a2 + 16);
-      v13 = *(**v12 + 4);
-      v14 = *(*v12[1] + 16);
-      v15 = *(a2 + 24);
-      v16 = *v11;
-      v17 = *(v11 + 5);
-      v30 = *(a1 + 4);
-      v28 = *a1;
-      v26 = *(v11 + 4);
+      LODWORD(v21) = (**v6)[1];
+      HIDWORD(v21) = v10;
+      cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>>>(&v19, v6, v11);
       cva::VecLib<float>::gemm();
     }
 
-    v18 = v5 * v7;
-    if (v18)
+    v12 = v5 * v7;
+    if (v12)
     {
-      v19 = *a1;
+      v13 = *a1;
 
-      bzero(v19, 4 * v18);
+      bzero(v13, 4 * v12);
     }
   }
 }
 
-unsigned int *cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>>>(cva::Logger *a1, unsigned int ***a2)
+int *cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>>>(cva::Logger *a1, unsigned int ***a2, __n128 a3)
 {
-  v41[3] = *MEMORY[0x277D85DE8];
-  v4 = *(a1 + 4);
-  v5 = *a2;
-  v6 = **a2;
-  if (v4 != v6[1] || (v7 = *(a1 + 5), v8 = a2[1], v9 = *v8, v7 != (*v8)[4]))
+  v37[3] = *MEMORY[0x277D85DE8];
+  v5 = *(a1 + 4);
+  v6 = *a2;
+  v7 = **a2;
+  if (v5 != v7[1] || (v8 = *(a1 + 5), v9 = a2[1], v10 = *v9, v8 != (*v9)[4]))
   {
-    cva::Logger::instance(a1);
-    v10 = *MEMORY[0x277CFD380];
-    v27 = (**a2)[1];
-    v28 = (*a2[1])[4];
-    v25 = *(a1 + 4);
-    v26 = *(a1 + 5);
-    cva::Logger::logInCategory();
-    v4 = *(a1 + 4);
-    v5 = *a2;
-    v6 = **a2;
-    if (v4 != v6[1] || (v8 = a2[1], v9 = *v8, v7 = (*v8)[4], *(a1 + 5) != v7))
+    v11 = cva::Logger::instance(a1);
+    cva::Logger::logInCategory(v11, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *(a1 + 4), *(a1 + 5), (**a2)[1], (*a2[1])[4]);
+    v5 = *(a1 + 4);
+    v6 = *a2;
+    v7 = **a2;
+    if (v5 != v7[1] || (v9 = a2[1], v10 = *v9, v8 = (*v9)[4], *(a1 + 5) != v8))
     {
       cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>,cva::Matrix<float,0u,0u,false>>();
     }
   }
 
-  v40 = v5;
-  v11 = *v6;
-  if (*v6 >= v4)
+  v36 = v6;
+  v12 = *v7;
+  if (*v7 >= v5)
   {
-    v11 = v4;
+    v12 = v5;
   }
 
-  if (v11 > v9[5])
+  if (v12 > v10[5])
   {
     cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>>();
   }
 
-  v37[0] = v11;
-  v37[1] = v7;
-  v38 = v8;
-  v39 = 0;
-  v34 = v11;
-  v35 = v7;
-  v36 = &v40;
-  v41[0] = v37;
-  v41[1] = &v33;
-  v12 = *a1;
-  v29[0] = v11;
-  v29[1] = v7;
+  v33[0] = v12;
+  v33[1] = v8;
+  v34 = v9;
+  v35 = 0;
   v30 = v12;
-  v31 = v4;
-  v32 = 0;
-  result = cva::MatrixRef<float,0u,0u,false>::operator=<cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const>,1u,0u>,cva::detail::MulOp>>(v29, v41);
-  v14 = (*v8)[5];
-  v15 = *(a1 + 4);
-  if (v15 > v14)
+  v31 = v8;
+  v32 = &v36;
+  v37[0] = v33;
+  v37[1] = &v29;
+  v13 = *a1;
+  v25[0] = v12;
+  v25[1] = v8;
+  v26 = v13;
+  v27 = v5;
+  v28 = 0;
+  result = cva::MatrixRef<float,0u,0u,false>::operator=<cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const>,1u,0u>,cva::detail::MulOp>>(v25, v37, a3);
+  v15 = (*v9)[5];
+  v16 = *(a1 + 4);
+  if (v16 > v15)
   {
-    v16 = v15 - v14;
-    v17 = *(a1 + 5);
-    v18 = v17 * (v15 - v14);
-    v19 = v18 == 0;
-    if (v18)
+    v17 = v16 - v15;
+    v18 = *(a1 + 5);
+    v19 = v18 * (v16 - v15);
+    v20 = v19 == 0;
+    if (v19)
     {
-      v20 = (*a1 + 4 * v14);
+      v21 = (*a1 + 4 * v15);
     }
 
     else
     {
-      v20 = 0;
-    }
-
-    v21 = *a1 + 4 * v14 + 4 * v17 * v15;
-    if (v19)
-    {
       v21 = 0;
     }
 
-    if (v20 != v21)
+    v22 = *a1 + 4 * v15 + 4 * v18 * v16;
+    if (v20)
     {
       v22 = 0;
+    }
+
+    if (v21 != v22)
+    {
+      v23 = 0;
       do
       {
-        *v20 = 0;
-        if (v22 + 1 >= v16)
+        *v21 = 0;
+        if (v23 + 1 >= v17)
         {
-          v23 = v14;
+          v24 = v15;
+        }
+
+        else
+        {
+          v24 = 0;
+        }
+
+        v21 += v24 + 1;
+        if (v23 + 1 < v17)
+        {
+          ++v23;
         }
 
         else
         {
           v23 = 0;
         }
+      }
 
-        v20 += v23 + 1;
-        if (v22 + 1 < v16)
+      while (v21 != v22);
+    }
+  }
+
+  return result;
+}
+
+int *cva::MatrixRef<float,0u,0u,false>::operator=<cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const>,1u,0u>,cva::detail::MulOp>>(int *a1, void *a2, __n128 a3)
+{
+  v5 = *(a1 + 1) - 4 * a1[5];
+  if (***(*a2 + 8) == v5 || **(***(a2[1] + 16) + 8) == v5)
+  {
+    v6 = *a1;
+    v7 = a1[1];
+    v24[0] = 0;
+    v24[1] = 0;
+    cva::MatrixData<int,0ul,0ul,false>::allocate(v24, (v7 * v6));
+    v25 = v6;
+    v26 = v7;
+    cva::detail::assignNoAlias<cva::Matrix<float,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const>,1u,0u>,cva::detail::MulOp>>(v24, a2, v8);
+    v10 = *a1;
+    if (*a1 != v25 || (v11 = a1[1], v11 != v26))
+    {
+      v12 = cva::Logger::instance(v9);
+      cva::Logger::logInCategory(v12, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *a1, a1[1], v25, v26);
+      v10 = *a1;
+      if (*a1 != v25 || (v11 = a1[1], v11 != v26))
+      {
+        __assert_rtn("assert_equal_size", "matrixfun.h", 163, "(lhs.rows() == rhs.rows() && lhs.columns() == rhs.columns()) || cva::detail::assertMessage(Matrix sizes are not compatible!)");
+      }
+    }
+
+    v13 = a1[4];
+    v14 = v10 * v11 == 0;
+    if (v10 * v11)
+    {
+      v15 = *(a1 + 1);
+    }
+
+    else
+    {
+      v15 = 0;
+    }
+
+    v16 = *(a1 + 1) + 4 * (v13 * v11);
+    if (v14)
+    {
+      v16 = 0;
+    }
+
+    v17 = v24[0];
+    if (v15 != v16)
+    {
+      v18 = 0;
+      v19 = v13 - v10;
+      v20 = v24[0];
+      do
+      {
+        v21 = *v20++;
+        *v15 = v21;
+        if (v18 + 1 >= v10)
         {
-          ++v22;
+          v22 = v19;
         }
 
         else
         {
           v22 = 0;
         }
-      }
 
-      while (v20 != v21);
-    }
-  }
-
-  v24 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-unsigned int *cva::MatrixRef<float,0u,0u,false>::operator=<cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const>,1u,0u>,cva::detail::MulOp>>(unsigned int *a1, uint64_t a2)
-{
-  v4 = *(a1 + 1) - 4 * a1[5];
-  if (***(*a2 + 8) == v4 || **(***(*(a2 + 8) + 16) + 8) == v4)
-  {
-    v5 = *a1;
-    v6 = a1[1];
-    v24[0] = 0;
-    v24[1] = 0;
-    cva::MatrixData<int,0ul,0ul,false>::allocate(v24, v6 * v5);
-    v25 = v5;
-    v26 = v6;
-    cva::detail::assignNoAlias<cva::Matrix<float,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const>,1u,0u>,cva::detail::MulOp>>(v24, a2);
-    v8 = *a1;
-    if (*a1 != v25 || (v9 = a1[1], v9 != v26))
-    {
-      cva::Logger::instance(v7);
-      v10 = *MEMORY[0x277CFD380];
-      v22 = *a1;
-      v23 = a1[1];
-      cva::Logger::logInCategory();
-      v8 = *a1;
-      if (*a1 != v25 || (v9 = a1[1], v9 != v26))
-      {
-        __assert_rtn("assert_equal_size", "matrixfun.h", 163, "(lhs.rows() == rhs.rows() && lhs.columns() == rhs.columns()) || cva::detail::assertMessage(Matrix sizes are not compatible!)");
-      }
-    }
-
-    v11 = a1[4];
-    v12 = v8 * v9 == 0;
-    if (v8 * v9)
-    {
-      v13 = *(a1 + 1);
-    }
-
-    else
-    {
-      v13 = 0;
-    }
-
-    v14 = *(a1 + 1) + 4 * v11 * v9;
-    if (v12)
-    {
-      v14 = 0;
-    }
-
-    v15 = v24[0];
-    if (v13 != v14)
-    {
-      v16 = 0;
-      v17 = v11 - v8;
-      v18 = v24[0];
-      do
-      {
-        v19 = *v18++;
-        *v13 = v19;
-        if (v16 + 1 >= v8)
+        v15 += v22 + 1;
+        if (v18 + 1 < v10)
         {
-          v20 = v17;
+          ++v18;
         }
 
         else
         {
-          v20 = 0;
-        }
-
-        v13 += v20 + 1;
-        if (v16 + 1 < v8)
-        {
-          ++v16;
-        }
-
-        else
-        {
-          v16 = 0;
+          v18 = 0;
         }
       }
 
-      while (v13 != v14);
+      while (v15 != v16);
     }
 
-    free(v15);
+    free(v17);
   }
 
   else
   {
-    cva::detail::assignNoAlias<cva::MatrixRef<float,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const>,1u,0u>,cva::detail::MulOp>>(a1, a2);
+    cva::detail::assignNoAlias<cva::MatrixRef<float,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const>,1u,0u>,cva::detail::MulOp>>(a1, a2, a3);
   }
 
   return a1;
 }
 
-void cva::detail::assignNoAlias<cva::Matrix<float,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const>,1u,0u>,cva::detail::MulOp>>(cva::Logger *a1, unsigned int **a2)
+void cva::detail::assignNoAlias<cva::Matrix<float,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const>,1u,0u>,cva::detail::MulOp>>(cva::Logger *a1, uint64_t a2, __n128 a3)
 {
-  v4 = *(a1 + 4);
-  v5 = *a2;
-  if (v4 != **a2 || (v6 = *(a1 + 5), v6 != *(v5 + 4)))
+  v5 = *(a1 + 4);
+  v6 = *a2;
+  if (v5 != **a2 || (v7 = *(a1 + 5), v7 != v6[1]))
   {
-    cva::Logger::instance(a1);
-    v7 = *MEMORY[0x277CFD380];
-    v23 = **a2;
-    v24 = (*a2)[1];
-    v21 = *(a1 + 4);
-    v22 = *(a1 + 5);
-    cva::Logger::logInCategory();
-    v4 = *(a1 + 4);
-    v5 = *a2;
-    if (v4 != **a2 || (v6 = *(a1 + 5), v6 != *(v5 + 4)))
+    v8 = cva::Logger::instance(a1);
+    cva::Logger::logInCategory(v8, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *(a1 + 4), *(a1 + 5), **a2, *(*a2 + 4));
+    v5 = *(a1 + 4);
+    v6 = *a2;
+    if (v5 != **a2 || (v7 = *(a1 + 5), v7 != v6[1]))
     {
       cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>,cva::Matrix<float,0u,0u,false>>();
     }
   }
 
-  v8 = v6 * v4;
-  if (v8)
+  v9 = v7 * v5;
+  if (v9)
   {
-    v9 = 0;
     v10 = 0;
-    v11 = a2[1];
-    v12 = *a1;
-    v13 = 4 * v8;
+    v11 = 0;
+    v12 = *(a2 + 8);
+    v13 = *a1;
+    v14 = 4 * v9;
     do
     {
-      if (v4 <= v10 || *(v5 + 4) <= HIDWORD(v10))
+      if (v5 <= v11 || v6[1] <= HIDWORD(v11))
       {
         cva::detail::assignNoAlias<cva::Matrix<float,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>();
       }
 
-      v14 = *(v5 + 20) + HIDWORD(v10);
-      v15 = **(v5 + 8);
-      v16 = *(v15 + 16);
-      if (v16 <= v14 || (v17 = *(v5 + 16) + v10, v17 >= *(v15 + 20)))
+      v15 = v6[5] + HIDWORD(v11);
+      v16 = **(v6 + 1);
+      v17 = *(v16 + 16);
+      if (v17 <= v15 || (v18 = v6[4] + v11, v18 >= *(v16 + 20)))
       {
         [PolyNomialExtrapolation predict];
       }
 
-      v18 = *(*v15 + 4 * (v14 + v16 * v17));
-      *v12++ = v18 * cva::MatrixRepeatExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const>,1u,0u>::operator()(v11, v9, HIDWORD(v9));
-      v19 = (v10 + 1);
-      v4 = *v5;
-      if (*v5 <= v19)
+      v19 = *(*v16 + 4 * (v15 + v17 * v18));
+      a3.n128_f32[0] = v19 * cva::MatrixRepeatExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const>,1u,0u>::operator()(v12, v10, HIDWORD(v10), a3);
+      *v13++ = a3.n128_u32[0];
+      v20 = (v11 + 1);
+      v5 = *v6;
+      if (*v6 <= v20)
+      {
+        v11 = (v11 & 0xFFFFFFFF00000000) + 0x100000000;
+      }
+
+      else
+      {
+        v11 = v11 & 0xFFFFFFFF00000000 | v20;
+      }
+
+      v21 = (v10 + 1);
+      if (*(v12 + 4) <= v21)
       {
         v10 = (v10 & 0xFFFFFFFF00000000) + 0x100000000;
       }
 
       else
       {
-        v10 = v10 & 0xFFFFFFFF00000000 | v19;
+        v10 = v10 & 0xFFFFFFFF00000000 | v21;
       }
 
-      v20 = (v9 + 1);
-      if (*(v11 + 4) <= v20)
-      {
-        v9 = (v9 & 0xFFFFFFFF00000000) + 0x100000000;
-      }
-
-      else
-      {
-        v9 = v9 & 0xFFFFFFFF00000000 | v20;
-      }
-
-      v13 -= 4;
+      v14 -= 4;
     }
 
-    while (v13);
+    while (v14);
   }
 }
 
-void cva::detail::assignNoAlias<cva::MatrixRef<float,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const>,1u,0u>,cva::detail::MulOp>>(float **a1, unsigned int **a2)
+void cva::detail::assignNoAlias<cva::MatrixRef<float,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const>,1u,0u>,cva::detail::MulOp>>(cva::Logger *a1, uint64_t a2, __n128 a3)
 {
-  v4 = *a1;
-  v5 = *a2;
-  if (*a1 != **a2 || (v6 = *(a1 + 1), v6 != *(v5 + 4)))
+  v5 = *a1;
+  v6 = *a2;
+  if (*a1 != **a2 || (v7 = *(a1 + 1), v7 != v6[1]))
   {
-    cva::Logger::instance(a1);
-    v7 = *MEMORY[0x277CFD380];
-    v29 = **a2;
-    v30 = (*a2)[1];
-    v27 = *a1;
-    v28 = *(a1 + 1);
-    cva::Logger::logInCategory();
-    v4 = *a1;
-    v5 = *a2;
-    if (*a1 != **a2 || (v6 = *(a1 + 1), v6 != *(v5 + 4)))
+    v8 = cva::Logger::instance(a1);
+    cva::Logger::logInCategory(v8, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *a1, *(a1 + 1), **a2, *(*a2 + 4));
+    v5 = *a1;
+    v6 = *a2;
+    if (*a1 != **a2 || (v7 = *(a1 + 1), v7 != v6[1]))
     {
       cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>,cva::Matrix<float,0u,0u,false>>();
     }
   }
 
-  v8 = v6 * v4;
-  v9 = *(a1 + 4);
-  if (v6 * v4)
+  v9 = v7 * v5;
+  v10 = *(a1 + 4);
+  if (v7 * v5)
   {
-    v10 = a1[1];
+    v11 = *(a1 + 1);
   }
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
-  v11 = &a1[1][v9 * v6];
-  if (v8)
+  v12 = *(a1 + 1) + 4 * (v10 * v7);
+  if (v9)
   {
-    v12 = v11;
+    v13 = v12;
   }
 
   else
-  {
-    v12 = 0;
-  }
-
-  if (v10 != v12)
   {
     v13 = 0;
+  }
+
+  if (v11 != v13)
+  {
     v14 = 0;
     v15 = 0;
-    v16 = a2[1];
-    v17 = v9 - v4;
-    v18 = v4;
+    v16 = 0;
+    v17 = *(a2 + 8);
+    v18 = v10 - v5;
+    v19 = v5;
     do
     {
-      if (v18 <= v14 || *(v5 + 4) <= HIDWORD(v14))
+      if (v19 <= v15 || v6[1] <= HIDWORD(v15))
       {
         cva::detail::assignNoAlias<cva::Matrix<float,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>();
       }
 
-      v19 = *(v5 + 20) + HIDWORD(v14);
-      v20 = **(v5 + 8);
-      v21 = *(v20 + 16);
-      if (v21 <= v19 || (v22 = *(v5 + 16) + v14, v22 >= *(v20 + 20)))
+      v20 = v6[5] + HIDWORD(v15);
+      v21 = **(v6 + 1);
+      v22 = *(v21 + 16);
+      if (v22 <= v20 || (v23 = v6[4] + v15, v23 >= *(v21 + 20)))
       {
         [PolyNomialExtrapolation predict];
       }
 
-      v23 = *(*v20 + 4 * (v19 + v21 * v22));
-      *v10 = v23 * cva::MatrixRepeatExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const>,1u,0u>::operator()(v16, v13, HIDWORD(v13));
-      v24 = (v14 + 1);
-      v18 = *v5;
-      if (*v5 <= v24)
+      v24 = *(*v21 + 4 * (v20 + v22 * v23));
+      a3.n128_f32[0] = v24 * cva::MatrixRepeatExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const>,1u,0u>::operator()(v17, v14, HIDWORD(v14), a3);
+      *v11 = a3.n128_u32[0];
+      v25 = (v15 + 1);
+      v19 = *v6;
+      if (*v6 <= v25)
+      {
+        v15 = (v15 & 0xFFFFFFFF00000000) + 0x100000000;
+      }
+
+      else
+      {
+        v15 = v15 & 0xFFFFFFFF00000000 | v25;
+      }
+
+      v26 = (v14 + 1);
+      if (*(v17 + 4) <= v26)
       {
         v14 = (v14 & 0xFFFFFFFF00000000) + 0x100000000;
       }
 
       else
       {
-        v14 = v14 & 0xFFFFFFFF00000000 | v24;
+        v14 = v14 & 0xFFFFFFFF00000000 | v26;
       }
 
-      v25 = (v13 + 1);
-      if (*(v16 + 4) <= v25)
+      if (v16 + 1 >= v5)
       {
-        v13 = (v13 & 0xFFFFFFFF00000000) + 0x100000000;
-      }
-
-      else
-      {
-        v13 = v13 & 0xFFFFFFFF00000000 | v25;
-      }
-
-      if (v15 + 1 >= v4)
-      {
-        v26 = v17;
+        v27 = v18;
       }
 
       else
       {
-        v26 = 0;
+        v27 = 0;
       }
 
-      v10 += v26 + 1;
-      if (v15 + 1 < v4)
+      v11 += v27 + 1;
+      if (v16 + 1 < v5)
       {
-        ++v15;
+        ++v16;
       }
 
       else
       {
-        v15 = 0;
+        v16 = 0;
       }
     }
 
-    while (v10 != v12);
+    while (v11 != v13);
   }
 }
 
-float cva::MatrixRepeatExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const>,1u,0u>::operator()(uint64_t a1, unsigned int a2, unsigned int a3)
+float cva::MatrixRepeatExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const>,1u,0u>::operator()(uint64_t a1, unsigned int a2, unsigned int a3, __n128 a4)
 {
   if (*(a1 + 4) <= a2 || *(a1 + 8) <= a3)
   {
     [PolyNomialExtrapolation predict];
   }
 
-  v3 = **(a1 + 16);
-  v4 = *(*v3 + 4);
-  if (**v3 < v4)
+  v4 = **(a1 + 16);
+  v5 = *(*v4 + 4);
+  if (**v4 < v5)
   {
-    v4 = **v3;
+    v5 = **v4;
   }
 
-  v5 = a2 % v4;
-  v6 = *(*v3 + 8);
-  if (*(v6 + 16) <= v5)
+  v6 = a2 % v5;
+  v7 = *(*v4 + 8);
+  if (*(v7 + 16) <= v6)
   {
     [PolyNomialExtrapolation predict];
   }
 
-  v7 = *(*v6 + 4 * v5);
-  v8 = fabsf(v7);
-  result = 1.0 / v7;
-  if (v8 < v3[2])
+  v8 = *(*v7 + 4 * v6);
+  v9 = fabsf(v8);
+  result = 1.0 / v8;
+  if (v9 < v4[2])
   {
     return 0.0;
   }
@@ -5976,321 +5835,286 @@ float cva::MatrixRepeatExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseEx
   return result;
 }
 
-void cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixMultExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>>(uint64_t *a1, uint64_t a2)
+void cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixMultExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>>(uint64_t a1, uint64_t a2)
 {
   v4 = **(a2 + 16);
   if (*v4 == *a1)
   {
-    v19 = (*(v4 + 16) * *(***(a2 + 8) + 20));
-    v31 = 0;
-    v32 = 0;
-    cva::MatrixData<int,0ul,0ul,false>::allocate(&v31, v19);
-    v20 = *(**(a2 + 16) + 16);
-    LODWORD(v33) = *(***(a2 + 8) + 20);
-    HIDWORD(v33) = v20;
-    cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixMultExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>>(&v31, a2);
-    v21 = *a1;
-    v22 = a1[1];
-    v23 = v32;
-    *a1 = v31;
-    a1[1] = v23;
-    v31 = v21;
-    v32 = v22;
-    a1[2] = v33;
-    v33 = 0;
-    free(v21);
+    v14 = (*(v4 + 16) * *(***(a2 + 8) + 20));
+    v19 = 0;
+    v20 = 0;
+    cva::MatrixData<int,0ul,0ul,false>::allocate(&v19, v14);
+    v15 = *(**(a2 + 16) + 16);
+    LODWORD(v21) = *(***(a2 + 8) + 20);
+    HIDWORD(v21) = v15;
+    cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixMultExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>>(&v19, a2);
+    v16 = *a1;
+    v17 = *(a1 + 8);
+    v18 = v20;
+    *a1 = v19;
+    *(a1 + 8) = v18;
+    v19 = v16;
+    v20 = v17;
+    *(a1 + 16) = v21;
+    v21 = 0;
+    free(v16);
   }
 
   else
   {
-    v5 = *(a1 + 4);
+    v5 = *(a1 + 16);
     v6 = *(a2 + 8);
-    if (v5 != (**v6)[5] || (v7 = *(a1 + 5), v7 != *(v4 + 16)))
+    if (v5 != *(**v6 + 20) || (v7 = *(a1 + 20), v7 != *(v4 + 16)))
     {
-      cva::Logger::instance(a1);
-      v8 = *MEMORY[0x277CFD380];
-      v28 = *(***(a2 + 8) + 20);
-      v30 = *(**(a2 + 16) + 16);
-      v24 = *(a1 + 4);
-      v26 = *(a1 + 5);
-      cva::Logger::logInCategory();
-      v5 = *(a1 + 4);
+      v8 = cva::Logger::instance(a1);
+      cva::Logger::logInCategory(v8, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *(a1 + 16), *(a1 + 20), *(***(a2 + 8) + 20), *(**(a2 + 16) + 16));
+      v5 = *(a1 + 16);
       v6 = *(a2 + 8);
-      if (v5 != (**v6)[5] || (v4 = **(a2 + 16), v7 = *(v4 + 16), *(a1 + 5) != v7))
+      if (v5 != *(**v6 + 20) || (v4 = **(a2 + 16), v7 = *(v4 + 16), *(a1 + 20) != v7))
       {
         cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>,cva::Matrix<float,0u,0u,false>>();
       }
     }
 
-    v9 = **v6[1] * v5;
+    v9 = (**v6[1] * v5);
     if (v9 && v7 * *(v4 + 20))
     {
-      v31 = 0;
-      v32 = 0;
-      cva::MatrixData<int,0ul,0ul,false>::allocate(&v31, v9);
+      v19 = 0;
+      v20 = 0;
+      cva::MatrixData<int,0ul,0ul,false>::allocate(&v19, v9);
       v10 = **v6[1];
-      LODWORD(v33) = (**v6)[5];
-      HIDWORD(v33) = v10;
-      cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>>(&v31, v6);
-      v11 = *(a2 + 8);
-      v12 = **(a2 + 16);
-      v13 = (**v11)[5];
-      v14 = **v11[1];
-      v15 = *(a2 + 24);
-      v16 = *v12;
-      v29 = *(a1 + 4);
-      v27 = *a1;
-      v25 = *(v12 + 4);
+      LODWORD(v21) = *(**v6 + 20);
+      HIDWORD(v21) = v10;
+      cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>>(&v19, v6, v11);
       cva::VecLib<float>::gemm();
     }
 
-    v17 = v5 * v7;
-    if (v17)
+    v12 = v5 * v7;
+    if (v12)
     {
-      v18 = *a1;
+      v13 = *a1;
 
-      bzero(v18, 4 * v17);
+      bzero(v13, 4 * v12);
     }
   }
 }
 
-void cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>>(cva::Logger *a1, unsigned int ***a2)
+void cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>>(cva::Logger *a1, uint64_t **a2, __n128 a3)
 {
-  v38[3] = *MEMORY[0x277D85DE8];
-  v4 = *(a1 + 4);
-  v5 = *a2;
-  v6 = **a2;
-  if (v4 != v6[5] || (v7 = *(a1 + 5), v8 = a2[1], v9 = *v8, v7 != **v8))
+  v34[3] = *MEMORY[0x277D85DE8];
+  v5 = *(a1 + 4);
+  v6 = *a2;
+  v7 = **a2;
+  if (v5 != *(v7 + 20) || (v8 = *(a1 + 5), v9 = a2[1], v10 = *v9, v8 != **v9))
   {
-    cva::Logger::instance(a1);
-    v10 = *MEMORY[0x277CFD380];
-    v23 = (**a2)[5];
-    v24 = **a2[1];
-    v21 = *(a1 + 4);
-    v22 = *(a1 + 5);
-    cva::Logger::logInCategory();
-    v4 = *(a1 + 4);
-    v5 = *a2;
-    v6 = **a2;
-    if (v4 != v6[5] || (v8 = a2[1], v9 = *v8, v7 = **v8, *(a1 + 5) != v7))
+    v11 = cva::Logger::instance(a1);
+    cva::Logger::logInCategory(v11, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *(a1 + 4), *(a1 + 5), *(**a2 + 20), **a2[1]);
+    v5 = *(a1 + 4);
+    v6 = *a2;
+    v7 = **a2;
+    if (v5 != *(v7 + 20) || (v9 = a2[1], v10 = *v9, v8 = **v9, *(a1 + 5) != v8))
     {
       cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>,cva::Matrix<float,0u,0u,false>>();
     }
   }
 
-  v37 = v8;
-  if (v7 >= v9[1])
+  v33 = v9;
+  if (v8 >= v10[1])
   {
-    v7 = v9[1];
+    v8 = v10[1];
   }
 
-  if (v7 > v6[4])
+  if (v8 > *(v7 + 16))
   {
     cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>>();
   }
 
-  v34[0] = v4;
-  v34[1] = v7;
-  v35 = v5;
-  v36 = 0;
-  v29 = &v37;
-  v33 = &v29;
-  v38[0] = v34;
-  v38[1] = &v30;
-  v11 = *a1;
-  v31 = v4;
-  v32 = v7;
-  v25[0] = v4;
-  v25[1] = v7;
-  v26 = v11;
-  v27 = v4;
-  v28 = 0;
-  cva::MatrixRef<float,0u,0u,false>::operator=<cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>(v25, v38);
-  v12 = (*v5)[4];
-  v13 = *(a1 + 5) - v12;
-  if (*(a1 + 5) > v12)
+  v30[0] = v5;
+  v30[1] = v8;
+  v31 = v6;
+  v32 = 0;
+  v25 = &v33;
+  v29 = &v25;
+  v34[0] = v30;
+  v34[1] = &v26;
+  v12 = *a1;
+  v27 = v5;
+  v28 = v8;
+  v21[0] = v5;
+  v21[1] = v8;
+  v22 = v12;
+  v23 = v5;
+  v24 = 0;
+  cva::MatrixRef<float,0u,0u,false>::operator=<cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>(v21, v34, a3);
+  v13 = *(*v6 + 16);
+  v14 = *(a1 + 5) - v13;
+  if (*(a1 + 5) > v13)
   {
-    v14 = *(a1 + 4);
-    v15 = *a1 + 4 * v14 * v12;
-    v16 = v14 * v13;
-    v17 = v16 == 0;
-    if (v16)
+    v15 = *(a1 + 4);
+    v16 = *a1 + 4 * v15 * v13;
+    v17 = v15 * v14;
+    v18 = v17 == 0;
+    if (v17)
     {
-      v18 = v15;
+      v19 = v16;
     }
 
     else
     {
-      v18 = 0;
-    }
-
-    v19 = (v15 + 4 * v16);
-    if (v17)
-    {
       v19 = 0;
     }
 
-    if (v18 != v19)
+    v20 = (v16 + 4 * v17);
+    if (v18)
     {
-      bzero(v18, ((v19 - v18 - 4) & 0xFFFFFFFFFFFFFFFCLL) + 4);
+      v20 = 0;
+    }
+
+    if (v19 != v20)
+    {
+      bzero(v19, ((v20 - v19 - 4) & 0xFFFFFFFFFFFFFFFCLL) + 4);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
-unsigned int *cva::MatrixRef<float,0u,0u,false>::operator=<cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>(unsigned int *a1, uint64_t a2)
+cva::Logger *cva::MatrixRef<float,0u,0u,false>::operator=<cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>(cva::Logger *a1, void *a2, __n128 a3)
 {
-  v4 = *(a1 + 1) - 4 * a1[5];
-  if (***(*a2 + 8) == v4 || **(****(*(a2 + 8) + 16) + 8) == v4)
+  v5 = *(a1 + 1) - 4 * *(a1 + 5);
+  if (***(*a2 + 8) == v5 || **(****(a2[1] + 16) + 8) == v5)
   {
-    v5 = *a1;
-    v6 = a1[1];
+    v6 = *a1;
+    v7 = *(a1 + 1);
     v24[0] = 0;
     v24[1] = 0;
-    cva::MatrixData<int,0ul,0ul,false>::allocate(v24, v6 * v5);
-    v25 = v5;
-    v26 = v6;
-    cva::detail::assignNoAlias<cva::Matrix<float,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>(v24, a2);
-    v8 = *a1;
-    if (*a1 != v25 || (v9 = a1[1], v9 != v26))
+    cva::MatrixData<int,0ul,0ul,false>::allocate(v24, (v7 * v6));
+    v25 = v6;
+    v26 = v7;
+    cva::detail::assignNoAlias<cva::Matrix<float,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>(v24, a2, v8);
+    v10 = *a1;
+    if (*a1 != v25 || (v11 = *(a1 + 1), v11 != v26))
     {
-      cva::Logger::instance(v7);
-      v10 = *MEMORY[0x277CFD380];
-      v22 = *a1;
-      v23 = a1[1];
-      cva::Logger::logInCategory();
-      v8 = *a1;
-      if (*a1 != v25 || (v9 = a1[1], v9 != v26))
+      v12 = cva::Logger::instance(v9);
+      cva::Logger::logInCategory(v12, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *a1, *(a1 + 1), v25, v26);
+      v10 = *a1;
+      if (*a1 != v25 || (v11 = *(a1 + 1), v11 != v26))
       {
         __assert_rtn("assert_equal_size", "matrixfun.h", 163, "(lhs.rows() == rhs.rows() && lhs.columns() == rhs.columns()) || cva::detail::assertMessage(Matrix sizes are not compatible!)");
       }
     }
 
-    v11 = a1[4];
-    v12 = v8 * v9 == 0;
-    if (v8 * v9)
+    v13 = *(a1 + 4);
+    v14 = v10 * v11 == 0;
+    if (v10 * v11)
     {
-      v13 = *(a1 + 1);
+      v15 = *(a1 + 1);
     }
 
     else
     {
-      v13 = 0;
+      v15 = 0;
     }
 
-    v14 = *(a1 + 1) + 4 * v11 * v9;
-    if (v12)
-    {
-      v14 = 0;
-    }
-
-    v15 = v24[0];
-    if (v13 != v14)
+    v16 = *(a1 + 1) + 4 * (v13 * v11);
+    if (v14)
     {
       v16 = 0;
-      v17 = v11 - v8;
-      v18 = v24[0];
+    }
+
+    v17 = v24[0];
+    if (v15 != v16)
+    {
+      v18 = 0;
+      v19 = v13 - v10;
+      v20 = v24[0];
       do
       {
-        v19 = *v18++;
-        *v13 = v19;
-        if (v16 + 1 >= v8)
+        v21 = *v20++;
+        *v15 = v21;
+        if (v18 + 1 >= v10)
         {
-          v20 = v17;
+          v22 = v19;
         }
 
         else
         {
-          v20 = 0;
+          v22 = 0;
         }
 
-        v13 += v20 + 1;
-        if (v16 + 1 < v8)
+        v15 += v22 + 1;
+        if (v18 + 1 < v10)
         {
-          ++v16;
+          ++v18;
         }
 
         else
         {
-          v16 = 0;
+          v18 = 0;
         }
       }
 
-      while (v13 != v14);
+      while (v15 != v16);
     }
 
-    free(v15);
+    free(v17);
   }
 
   else
   {
-    cva::detail::assignNoAlias<cva::MatrixRef<float,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>(a1, a2);
+    cva::detail::assignNoAlias<cva::MatrixRef<float,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>(a1, a2, a3);
   }
 
   return a1;
 }
 
-void cva::assign<false,false,cva::Matrix<float,0u,1u,false>,cva::Matrix<float,0u,0u,false>,cva::Matrix<float,0u,1u,false>>(uint64_t *a1, uint64_t a2)
+void cva::assign<false,false,cva::Matrix<float,0u,1u,false>,cva::Matrix<float,0u,0u,false>,cva::Matrix<float,0u,1u,false>>(uint64_t a1, uint64_t a2)
 {
   v4 = *(a2 + 8);
   if (*v4 == *a1 || **(a2 + 16) == *a1)
   {
-    v12 = *(v4 + 4);
-    v20 = 0;
-    v21 = 0;
-    cva::MatrixData<int,0ul,0ul,false>::allocate(&v20, v12);
-    v22 = *(*(a2 + 8) + 16);
-    cva::assign<false,false,cva::Matrix<float,0u,1u,false>,cva::Matrix<float,0u,0u,false>,cva::Matrix<float,0u,1u,false>>(&v20, a2);
-    v13 = *a1;
-    v14 = a1[1];
-    v15 = v21;
-    *a1 = v20;
-    a1[1] = v15;
-    v20 = v13;
-    v21 = v14;
-    *(a1 + 4) = v22;
-    v22 = 0;
-    free(v13);
+    v7 = *(v4 + 16);
+    v13 = 0;
+    v14 = 0;
+    cva::MatrixData<int,0ul,0ul,false>::allocate(&v13, v7);
+    v15 = *(*(a2 + 8) + 16);
+    cva::assign<false,false,cva::Matrix<float,0u,1u,false>,cva::Matrix<float,0u,0u,false>,cva::Matrix<float,0u,1u,false>>(&v13, a2);
+    v8 = *a1;
+    v9 = *(a1 + 8);
+    v10 = v14;
+    *a1 = v13;
+    *(a1 + 8) = v10;
+    v13 = v8;
+    v14 = v9;
+    *(a1 + 16) = v15;
+    v15 = 0;
+    free(v8);
   }
 
   else
   {
-    v5 = *(a1 + 4);
-    if (v5 != *(v4 + 4))
+    v5 = *(a1 + 16);
+    if (v5 != *(v4 + 16))
     {
-      cva::Logger::instance(a1);
-      v6 = *MEMORY[0x277CFD380];
-      v19 = *(*(a2 + 8) + 16);
-      v18 = *(a1 + 4);
-      cva::Logger::logInCategory();
-      v5 = *(a1 + 4);
+      v6 = cva::Logger::instance(a1);
+      cva::Logger::logInCategory(v6, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *(a1 + 16), 1, *(*(a2 + 8) + 16), 1);
+      v5 = *(a1 + 16);
       v4 = *(a2 + 8);
-      if (v5 != *(v4 + 4))
+      if (v5 != *(v4 + 16))
       {
         cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>,cva::Matrix<float,0u,0u,false>>();
       }
     }
 
-    if (*(v4 + 5) * v5)
+    if (*(v4 + 20) * v5 && *(*(a2 + 16) + 16))
     {
-      v7 = *(a2 + 16);
-      if (*(v7 + 4))
-      {
-        v8 = *(a2 + 24);
-        v9 = *v4;
-        v10 = *v7;
-        v11 = *a1;
-        cva::VecLib<float>::gemv();
-      }
+      cva::VecLib<float>::gemv();
     }
 
     if (v5)
     {
-      v16 = *a1;
-      v17 = 4 * v5;
+      v11 = *a1;
+      v12 = 4 * v5;
 
-      bzero(v16, v17);
+      bzero(v11, v12);
     }
   }
 }
@@ -6362,7 +6186,7 @@ void sub_23EE08354(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int const*,unsigned int const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int const*,unsigned int const*>(uint64_t *result, int *a2, int *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -6384,7 +6208,7 @@ void sub_23EE08B54(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *_ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE18__assign_with_sizeB8ne200100IPS1_S6_EEvT_T0_l(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *_ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE18__assign_with_sizeB8ne200100IPS1_S6_EEvT_T0_l(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -6459,166 +6283,166 @@ void *_ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE18__assign_with_sizeB8ne200100IP
   return result;
 }
 
-double cva::assign<false,false,cva::Matrix<float,4u,4u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,4u,false> const>,cva::Matrix<float,0u,4u,false>>(_OWORD *a1, uint64_t **a2)
+double cva::assign<false,false,cva::Matrix<float,4u,4u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,4u,false> const>,cva::Matrix<float,0u,4u,false>>(_OWORD *a1, uint64_t **a2, __n128 a3)
 {
-  v3 = a2[1];
-  v4 = *v3;
-  if (*v3 == a1)
+  v4 = a2[1];
+  v5 = *v4;
+  if (*v4 == a1)
   {
-    v28 = 0u;
     v29 = 0u;
-    v26 = 0u;
+    v30 = 0u;
     v27 = 0u;
-    cva::assign<false,false,cva::Matrix<float,4u,4u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,4u,false> const>,cva::Matrix<float,0u,4u,false>>(&v26);
-    v24 = v27;
-    *a1 = v26;
-    a1[1] = v24;
-    result = *&v28;
-    v25 = v29;
-    a1[2] = v28;
-    a1[3] = v25;
+    v28 = 0u;
+    cva::assign<false,false,cva::Matrix<float,4u,4u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,4u,false> const>,cva::Matrix<float,0u,4u,false>>(&v27, a2, 0);
+    v25 = v28;
+    *a1 = v27;
+    a1[1] = v25;
+    result = *&v29;
+    v26 = v30;
+    a1[2] = v29;
+    a1[3] = v26;
   }
 
   else
   {
-    v5 = 0;
     v6 = 0;
-    v7 = **a2;
-    v8 = *(v3 + 4);
-    v9 = v8 & 0xFFFFFFFC;
-    v10 = v8 & 0xFFFFFFFE;
+    v7 = 0;
+    v8 = **a2;
+    v9 = *(v4 + 4);
+    v10 = v9 & 0xFFFFFFFC;
+    v11 = v9 & 0xFFFFFFFE;
     do
     {
       for (i = 0; i != 4; ++i)
       {
-        if (v9)
+        if (v10)
         {
-          v12 = 0;
-          v13 = *(v7 + 16);
+          v13 = 0;
+          v14 = *(v8 + 16);
           result = 0.0;
           do
           {
-            if (v12 >= v13)
+            if (v13 >= v14)
             {
               [PolyNomialExtrapolation predict];
             }
 
-            v15 = &v4[(v5 + v12)];
-            v16 = (*v7 + 4 * (v13 * i + v12));
-            *&result = *&result + ((((v16[1] * v15[1]) + (*v16 * *v15)) + (v16[2] * v15[2])) + (v16[3] * v15[3]));
-            v12 += 4;
+            v16 = &v5[(v6 + v13)];
+            v17 = (*v8 + 4 * (v14 * i + v13));
+            *&result = *&result + ((((v17[1] * v16[1]) + (*v17 * *v16)) + (v17[2] * v16[2])) + (v17[3] * v16[3]));
+            v13 += 4;
           }
 
-          while (v12 < v9);
+          while (v13 < v10);
         }
 
         else
         {
-          LODWORD(v12) = 0;
+          LODWORD(v13) = 0;
           result = 0.0;
         }
 
-        if (v12 < v10)
+        if (v13 < v11)
         {
-          v17 = *(v7 + 16);
-          v12 = v12;
+          v18 = *(v8 + 16);
+          v13 = v13;
           do
           {
-            if (v12 >= v17)
+            if (v13 >= v18)
             {
               [PolyNomialExtrapolation predict];
             }
 
-            v18 = (*v7 + 4 * (v17 * i + v12));
-            *&result = *&result + ((v18[1] * v4[(v5 + v12) + 1]) + (*v18 * v4[(v5 + v12)]));
-            v12 += 2;
+            v19 = (*v8 + 4 * (v18 * i + v13));
+            *&result = *&result + ((v19[1] * v5[(v6 + v13) + 1]) + (*v19 * v5[(v6 + v13)]));
+            v13 += 2;
           }
 
-          while (v12 < v10);
+          while (v13 < v11);
         }
 
-        if (v12 < v8)
+        if (v13 < v9)
         {
-          v19 = *(v7 + 16);
-          v20 = v19 - v12;
-          if (v19 < v12)
+          v20 = *(v8 + 16);
+          v21 = v20 - v13;
+          if (v20 < v13)
           {
-            v20 = 0;
+            v21 = 0;
           }
 
-          if (v20 <= v8 + ~v12)
+          if (v21 <= v9 + ~v13)
           {
             [PolyNomialExtrapolation predict];
           }
 
-          v21 = v5 + v12;
-          v22 = v12 + v19 * i;
-          v23 = v8 - v12;
+          v22 = v6 + v13;
+          v23 = v13 + v20 * i;
+          v24 = v9 - v13;
           do
           {
-            *&result = *&result + (*(*v7 + 4 * v22++) * v4[v21++]);
-            --v23;
+            *&result = *&result + (*(*v8 + 4 * v23++) * v5[v22++]);
+            --v24;
           }
 
-          while (v23);
+          while (v24);
         }
 
-        *(&a1[v6] + i) = LODWORD(result);
+        *(&a1[v7] + i) = LODWORD(result);
       }
 
-      ++v6;
-      v5 += v8;
+      ++v7;
+      v6 += v9;
     }
 
-    while (v6 != 4);
+    while (v7 != 4);
   }
 
   return result;
 }
 
-void cva::assign<false,false,cva::Matrix<float,4u,1u,false>,cva::MatrixMultExpr<cva::Matrix<float,4u,4u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,4u,false> const>>,cva::Matrix<float,0u,1u,false>>(float32x4_t *a1, uint64_t a2)
+void cva::assign<false,false,cva::Matrix<float,4u,1u,false>,cva::MatrixMultExpr<cva::Matrix<float,4u,4u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,4u,false> const>>,cva::Matrix<float,0u,1u,false>>(float32x4_t *a1, uint64_t **a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
-  if (**(a2 + 8) == a1)
+  v22 = *MEMORY[0x277D85DE8];
+  if (*a2[1] == a1)
   {
-    v20 = 0uLL;
-    cva::assign<false,false,cva::Matrix<float,4u,1u,false>,cva::MatrixMultExpr<cva::Matrix<float,4u,4u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,4u,false> const>>,cva::Matrix<float,0u,1u,false>>(&v20, a2);
-    *a1 = v20;
+    v19 = 0uLL;
+    cva::assign<false,false,cva::Matrix<float,4u,1u,false>,cva::MatrixMultExpr<cva::Matrix<float,4u,4u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,4u,false> const>>,cva::Matrix<float,0u,1u,false>>(&v19, a2);
+    *a1 = v19;
   }
 
   else
   {
     v4 = *a2;
-    v5 = *a2 + 8;
+    v5 = (*a2 + 1);
     v6 = (4 * *(**v5 + 16));
-    v18[0] = 0;
-    v18[1] = 0;
-    cva::MatrixData<int,0ul,0ul,false>::allocate(v18, v6);
+    v17[0] = 0;
+    v17[1] = 0;
+    cva::MatrixData<int,0ul,0ul,false>::allocate(v17, v6);
     v7 = *v5;
-    v19 = *(**v5 + 16);
-    v20.i64[1] = *v4;
-    v21 = v7;
-    v22 = 1065353216;
-    cva::assign<false,false,cva::Matrix<float,4u,0u,false>,cva::Matrix<float,4u,4u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,4u,false> const>>(v18, &v20);
-    v8 = *(a2 + 8);
-    if (!*(v8 + 16))
+    v18 = *(**v5 + 16);
+    v19.i64[1] = *v4;
+    v20 = v7;
+    v21 = 1065353216;
+    cva::assign<false,false,cva::Matrix<float,4u,0u,false>,cva::Matrix<float,4u,4u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,4u,false> const>>(v17, &v19);
+    v8 = a2[1];
+    if (!*(v8 + 4))
     {
       __assert_rtn("assert_in_bounds", "matrixmixin.h", 2269, "((row < mixed().rows()) && (col < mixed().columns())) || cva::detail::assertMessage(Index out of bounds!)");
     }
 
-    if (!v19)
+    if (!v18)
     {
       __assert_rtn("assert_in_bounds", "matrixmixin.h", 2269, "((row < mixed().rows()) && (col < mixed().columns())) || cva::detail::assertMessage(Index out of bounds!)");
     }
 
-    v9 = (4 * v19);
-    v10 = v18[0];
+    v9 = (4 * v18);
+    v10 = v17[0];
     if (v9)
     {
       v11 = *v8;
       v12 = 4 * v9;
       v13 = 0uLL;
-      v14 = v18[0];
+      v14 = v17[0];
       do
       {
         v15 = *v14++;
@@ -6639,46 +6463,40 @@ void cva::assign<false,false,cva::Matrix<float,4u,1u,false>,cva::MatrixMultExpr<
     *a1 = v13;
     free(v10);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
-void cva::assign<false,false,cva::Matrix<float,4u,0u,false>,cva::Matrix<float,4u,4u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,4u,false> const>>(uint64_t *a1, uint64_t a2)
+void cva::assign<false,false,cva::Matrix<float,4u,0u,false>,cva::Matrix<float,4u,4u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,4u,false> const>>(uint64_t a1, uint64_t a2)
 {
   v4 = **(a2 + 16);
   if (*(a2 + 8) == *a1 || *v4 == *a1)
   {
-    v10 = (4 * *(v4 + 4));
-    v17 = 0;
-    v18 = 0;
-    cva::MatrixData<int,0ul,0ul,false>::allocate(&v17, v10);
-    v19 = *(**(a2 + 16) + 16);
-    cva::assign<false,false,cva::Matrix<float,4u,0u,false>,cva::Matrix<float,4u,4u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,4u,false> const>>(&v17, a2);
-    v11 = *a1;
-    v12 = a1[1];
-    v13 = v18;
-    *a1 = v17;
-    a1[1] = v13;
-    v17 = v11;
-    v18 = v12;
-    *(a1 + 4) = v19;
-    v19 = 0;
-    free(v11);
+    v7 = (4 * *(v4 + 16));
+    v11 = 0;
+    v12 = 0;
+    cva::MatrixData<int,0ul,0ul,false>::allocate(&v11, v7);
+    v13 = *(**(a2 + 16) + 16);
+    cva::assign<false,false,cva::Matrix<float,4u,0u,false>,cva::Matrix<float,4u,4u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,4u,false> const>>(&v11, a2);
+    v8 = *a1;
+    v9 = *(a1 + 8);
+    v10 = v12;
+    *a1 = v11;
+    *(a1 + 8) = v10;
+    v11 = v8;
+    v12 = v9;
+    *(a1 + 16) = v13;
+    v13 = 0;
+    free(v8);
   }
 
   else
   {
-    v5 = *(a1 + 4);
-    if (v5 != *(v4 + 4))
+    v5 = *(a1 + 16);
+    if (v5 != *(v4 + 16))
     {
-      cva::Logger::instance(a1);
-      v6 = *MEMORY[0x277CFD380];
-      v16 = *(**(a2 + 16) + 16);
-      v14 = *(a1 + 4);
-      cva::Logger::logInCategory();
-      v5 = *(a1 + 4);
-      v4 = **(a2 + 16);
-      if (v5 != *(v4 + 4))
+      v6 = cva::Logger::instance(a1);
+      cva::Logger::logInCategory(v6, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", 4, *(a1 + 16), 4, *(**(a2 + 16) + 16));
+      v5 = *(a1 + 16);
+      if (v5 != *(**(a2 + 16) + 16))
       {
         cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>,cva::Matrix<float,0u,0u,false>>();
       }
@@ -6686,10 +6504,6 @@ void cva::assign<false,false,cva::Matrix<float,4u,0u,false>,cva::Matrix<float,4u
 
     if ((v5 & 0x3FFFFFFF) != 0)
     {
-      v7 = *(a2 + 8);
-      v8 = *(a2 + 24);
-      v9 = *v4;
-      v15 = *a1;
       cva::VecLib<float>::gemm();
     }
   }
@@ -6834,66 +6648,64 @@ id simdFloat3ToNSArray(__n128 a1)
   return v1;
 }
 
-void printSimd4x4Matrix(__n128 a1, __n128 a2, __n128 a3, __n128 a4)
+void printSimd4x4Matrix(uint64_t a1, __n128 a2, __n128 a3, __n128 a4, __n128 a5)
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v4 = __ABPKLogSharedInstance();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
-  {
-    *buf = 134218752;
-    v14 = a1.n128_f32[0];
-    v15 = 2048;
-    v16 = a2.n128_f32[0];
-    v17 = 2048;
-    v18 = a3.n128_f32[0];
-    v19 = 2048;
-    v20 = a4.n128_f32[0];
-    _os_log_impl(&dword_23EDDC000, v4, OS_LOG_TYPE_DEBUG, " %f, %f, %f, %f ", buf, 0x2Au);
-  }
-
-  v5 = __ABPKLogSharedInstance();
+  v24 = *MEMORY[0x277D85DE8];
+  v5 = __ABPKLogSharedInstance(a1);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218752;
-    v14 = a1.n128_f32[1];
-    v15 = 2048;
-    v16 = a2.n128_f32[1];
-    v17 = 2048;
-    v18 = a3.n128_f32[1];
-    v19 = 2048;
-    v20 = a4.n128_f32[1];
+    v17 = a2.n128_f32[0];
+    v18 = 2048;
+    v19 = a3.n128_f32[0];
+    v20 = 2048;
+    v21 = a4.n128_f32[0];
+    v22 = 2048;
+    v23 = a5.n128_f32[0];
     _os_log_impl(&dword_23EDDC000, v5, OS_LOG_TYPE_DEBUG, " %f, %f, %f, %f ", buf, 0x2Au);
   }
 
-  v6 = __ABPKLogSharedInstance();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
-  {
-    *buf = 134218752;
-    v14 = a1.n128_f32[2];
-    v15 = 2048;
-    v16 = a2.n128_f32[2];
-    v17 = 2048;
-    v18 = a3.n128_f32[2];
-    v19 = 2048;
-    v20 = a4.n128_f32[2];
-    _os_log_impl(&dword_23EDDC000, v6, OS_LOG_TYPE_DEBUG, " %f, %f, %f, %f ", buf, 0x2Au);
-  }
-
-  v7 = __ABPKLogSharedInstance();
+  v7 = __ABPKLogSharedInstance(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218752;
-    v14 = a1.n128_f32[3];
-    v15 = 2048;
-    v16 = a2.n128_f32[3];
-    v17 = 2048;
-    v18 = a3.n128_f32[3];
-    v19 = 2048;
-    v20 = a4.n128_f32[3];
+    v17 = a2.n128_f32[1];
+    v18 = 2048;
+    v19 = a3.n128_f32[1];
+    v20 = 2048;
+    v21 = a4.n128_f32[1];
+    v22 = 2048;
+    v23 = a5.n128_f32[1];
     _os_log_impl(&dword_23EDDC000, v7, OS_LOG_TYPE_DEBUG, " %f, %f, %f, %f ", buf, 0x2Au);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
+  v9 = __ABPKLogSharedInstance(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 134218752;
+    v17 = a2.n128_f32[2];
+    v18 = 2048;
+    v19 = a3.n128_f32[2];
+    v20 = 2048;
+    v21 = a4.n128_f32[2];
+    v22 = 2048;
+    v23 = a5.n128_f32[2];
+    _os_log_impl(&dword_23EDDC000, v9, OS_LOG_TYPE_DEBUG, " %f, %f, %f, %f ", buf, 0x2Au);
+  }
+
+  v11 = __ABPKLogSharedInstance(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 134218752;
+    v17 = a2.n128_f32[3];
+    v18 = 2048;
+    v19 = a3.n128_f32[3];
+    v20 = 2048;
+    v21 = a4.n128_f32[3];
+    v22 = 2048;
+    v23 = a5.n128_f32[3];
+    _os_log_impl(&dword_23EDDC000, v11, OS_LOG_TYPE_DEBUG, " %f, %f, %f, %f ", buf, 0x2Au);
+  }
 }
 
 __n128 convertNSArrayToSimd3x3(void *a1)
@@ -7126,128 +6938,122 @@ __n128 convertNSArrayToSimd4(void *a1)
   return v15;
 }
 
-void printSimd3x3(__n128 a1, __n128 a2, __n128 a3)
+void printSimd3x3(uint64_t a1, __n128 a2, __n128 a3, __n128 a4)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v3 = __ABPKLogSharedInstance();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  v18 = *MEMORY[0x277D85DE8];
+  v4 = __ABPKLogSharedInstance(a1);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218496;
-    v11 = a1.n128_f32[0];
-    v12 = 2048;
     v13 = a2.n128_f32[0];
     v14 = 2048;
     v15 = a3.n128_f32[0];
-    _os_log_impl(&dword_23EDDC000, v3, OS_LOG_TYPE_DEBUG, " %f, %f, %f ", buf, 0x20u);
-  }
-
-  v4 = __ABPKLogSharedInstance();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
-  {
-    *buf = 134218496;
-    v11 = a1.n128_f32[1];
-    v12 = 2048;
-    v13 = a2.n128_f32[1];
-    v14 = 2048;
-    v15 = a3.n128_f32[1];
+    v16 = 2048;
+    v17 = a4.n128_f32[0];
     _os_log_impl(&dword_23EDDC000, v4, OS_LOG_TYPE_DEBUG, " %f, %f, %f ", buf, 0x20u);
   }
 
-  v5 = __ABPKLogSharedInstance();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v6 = __ABPKLogSharedInstance(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218496;
-    v11 = a1.n128_f32[2];
-    v12 = 2048;
+    v13 = a2.n128_f32[1];
+    v14 = 2048;
+    v15 = a3.n128_f32[1];
+    v16 = 2048;
+    v17 = a4.n128_f32[1];
+    _os_log_impl(&dword_23EDDC000, v6, OS_LOG_TYPE_DEBUG, " %f, %f, %f ", buf, 0x20u);
+  }
+
+  v8 = __ABPKLogSharedInstance(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 134218496;
     v13 = a2.n128_f32[2];
     v14 = 2048;
     v15 = a3.n128_f32[2];
-    _os_log_impl(&dword_23EDDC000, v5, OS_LOG_TYPE_DEBUG, " %f, %f, %f ", buf, 0x20u);
+    v16 = 2048;
+    v17 = a4.n128_f32[2];
+    _os_log_impl(&dword_23EDDC000, v8, OS_LOG_TYPE_DEBUG, " %f, %f, %f ", buf, 0x20u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
-void printSimd4x4(__n128 a1, __n128 a2, __n128 a3, __n128 a4)
+void printSimd4x4(uint64_t a1, __n128 a2, __n128 a3, __n128 a4, __n128 a5)
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v4 = __ABPKLogSharedInstance();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
-  {
-    *buf = 134218752;
-    v14 = a1.n128_f32[0];
-    v15 = 2048;
-    v16 = a2.n128_f32[0];
-    v17 = 2048;
-    v18 = a3.n128_f32[0];
-    v19 = 2048;
-    v20 = a4.n128_f32[0];
-    _os_log_impl(&dword_23EDDC000, v4, OS_LOG_TYPE_DEBUG, " %f, %f, %f, %f ", buf, 0x2Au);
-  }
-
-  v5 = __ABPKLogSharedInstance();
+  v24 = *MEMORY[0x277D85DE8];
+  v5 = __ABPKLogSharedInstance(a1);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218752;
-    v14 = a1.n128_f32[1];
-    v15 = 2048;
-    v16 = a2.n128_f32[1];
-    v17 = 2048;
-    v18 = a3.n128_f32[1];
-    v19 = 2048;
-    v20 = a4.n128_f32[1];
+    v17 = a2.n128_f32[0];
+    v18 = 2048;
+    v19 = a3.n128_f32[0];
+    v20 = 2048;
+    v21 = a4.n128_f32[0];
+    v22 = 2048;
+    v23 = a5.n128_f32[0];
     _os_log_impl(&dword_23EDDC000, v5, OS_LOG_TYPE_DEBUG, " %f, %f, %f, %f ", buf, 0x2Au);
   }
 
-  v6 = __ABPKLogSharedInstance();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
-  {
-    *buf = 134218752;
-    v14 = a1.n128_f32[2];
-    v15 = 2048;
-    v16 = a2.n128_f32[2];
-    v17 = 2048;
-    v18 = a3.n128_f32[2];
-    v19 = 2048;
-    v20 = a4.n128_f32[2];
-    _os_log_impl(&dword_23EDDC000, v6, OS_LOG_TYPE_DEBUG, " %f, %f, %f, %f ", buf, 0x2Au);
-  }
-
-  v7 = __ABPKLogSharedInstance();
+  v7 = __ABPKLogSharedInstance(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218752;
-    v14 = a1.n128_f32[3];
-    v15 = 2048;
-    v16 = a2.n128_f32[3];
-    v17 = 2048;
-    v18 = a3.n128_f32[3];
-    v19 = 2048;
-    v20 = a4.n128_f32[3];
+    v17 = a2.n128_f32[1];
+    v18 = 2048;
+    v19 = a3.n128_f32[1];
+    v20 = 2048;
+    v21 = a4.n128_f32[1];
+    v22 = 2048;
+    v23 = a5.n128_f32[1];
     _os_log_impl(&dword_23EDDC000, v7, OS_LOG_TYPE_DEBUG, " %f, %f, %f, %f ", buf, 0x2Au);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-void printSimd4(__n128 a1)
-{
-  v12 = *MEMORY[0x277D85DE8];
-  v1 = __ABPKLogSharedInstance();
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
+  v9 = __ABPKLogSharedInstance(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218752;
-    v5 = a1.n128_f32[0];
-    v6 = 2048;
-    v7 = a1.n128_f32[1];
-    v8 = 2048;
-    v9 = a1.n128_f32[2];
-    v10 = 2048;
-    v11 = a1.n128_f32[3];
-    _os_log_impl(&dword_23EDDC000, v1, OS_LOG_TYPE_DEBUG, " %f, %f, %f, %f ", buf, 0x2Au);
+    v17 = a2.n128_f32[2];
+    v18 = 2048;
+    v19 = a3.n128_f32[2];
+    v20 = 2048;
+    v21 = a4.n128_f32[2];
+    v22 = 2048;
+    v23 = a5.n128_f32[2];
+    _os_log_impl(&dword_23EDDC000, v9, OS_LOG_TYPE_DEBUG, " %f, %f, %f, %f ", buf, 0x2Au);
   }
 
-  v2 = *MEMORY[0x277D85DE8];
+  v11 = __ABPKLogSharedInstance(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 134218752;
+    v17 = a2.n128_f32[3];
+    v18 = 2048;
+    v19 = a3.n128_f32[3];
+    v20 = 2048;
+    v21 = a4.n128_f32[3];
+    v22 = 2048;
+    v23 = a5.n128_f32[3];
+    _os_log_impl(&dword_23EDDC000, v11, OS_LOG_TYPE_DEBUG, " %f, %f, %f, %f ", buf, 0x2Au);
+  }
+}
+
+void printSimd4(uint64_t a1, __n128 a2)
+{
+  v12 = *MEMORY[0x277D85DE8];
+  v2 = __ABPKLogSharedInstance(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 134218752;
+    v5 = a2.n128_f32[0];
+    v6 = 2048;
+    v7 = a2.n128_f32[1];
+    v8 = 2048;
+    v9 = a2.n128_f32[2];
+    v10 = 2048;
+    v11 = a2.n128_f32[3];
+    _os_log_impl(&dword_23EDDC000, v2, OS_LOG_TYPE_DEBUG, " %f, %f, %f, %f ", buf, 0x2Au);
+  }
 }
 
 __n128 simdFloat3FromArray(void *a1)
@@ -7419,19 +7225,6 @@ uint64_t simdEqualTransforms(float32x4_t a1, float32x4_t a2, float32x4_t a3, flo
   return vminvq_u32(vandq_s8(vandq_s8(vcgeq_f32(v9, v8), vcgeq_f32(v9, vabdq_f32(a2, a6))), vandq_s8(vcgeq_f32(v9, vabdq_f32(a3, a7)), vcgeq_f32(v9, vabdq_f32(a4, a8))))) >> 31;
 }
 
-float32x2_t Matrix4x4MakeColumnMajorTransform(uint64_t a1, float64x2_t *a2)
-{
-  result = vcvt_f32_f64(*a1);
-  v3 = *(a1 + 16);
-  v4 = vcvt_f32_f64(*(a1 + 24));
-  v5 = *(a1 + 40);
-  v6 = vcvt_f32_f64(*(a1 + 48));
-  v7 = *(a1 + 64);
-  v8 = vcvt_f32_f64(*a2);
-  v9 = a2[1].f64[0];
-  return result;
-}
-
 float computeAngleBetweenVectors(double a1, double a2)
 {
   v2 = atan2f((-*(&a1 + 1) * *&a2) + (*&a1 * *(&a2 + 1)), vaddv_f32(vmul_f32(*&a1, *&a2))) * 0.318309886 * 180.0;
@@ -7461,12 +7254,12 @@ BOOL detectRaisingHand(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
       LODWORD(v16) = HIDWORD(*(a1 + 8 * v10));
       if (COERCE_FLOAT(*(a1 + 8 * v10)) == -1.0 || v16 == -1.0)
       {
-        v35 = __ABPKLogSharedInstance();
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+        v36 = __ABPKLogSharedInstance(a1);
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
         {
           LODWORD(__p[0]) = 67109120;
           HIDWORD(__p[0]) = v10;
-          _os_log_impl(&dword_23EDDC000, v35, OS_LOG_TYPE_DEBUG, " Raising Hand: Wrist not detected in frame: %d ", __p, 8u);
+          _os_log_impl(&dword_23EDDC000, v36, OS_LOG_TYPE_DEBUG, " Raising Hand: Wrist not detected in frame: %d ", __p, 8u);
         }
 
         goto LABEL_44;
@@ -7474,18 +7267,17 @@ BOOL detectRaisingHand(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 
       if (v16 > *v14 || v16 > *v12 || v16 > *v15)
       {
-        v35 = __ABPKLogSharedInstance();
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+        v36 = __ABPKLogSharedInstance(a1);
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
         {
           LODWORD(__p[0]) = 67109120;
           HIDWORD(__p[0]) = v10;
-          _os_log_impl(&dword_23EDDC000, v35, OS_LOG_TYPE_DEBUG, " Raising Hand: Hand too low in frame: %d ", __p, 8u);
+          _os_log_impl(&dword_23EDDC000, v36, OS_LOG_TYPE_DEBUG, " Raising Hand: Hand too low in frame: %d ", __p, 8u);
         }
 
 LABEL_44:
 
-        v19 = 0;
-        goto LABEL_45;
+        return 0;
       }
 
       ++v10;
@@ -7504,17 +7296,17 @@ LABEL_44:
       v21 = *(a2 + 8 * v18);
       v22 = vsub_f32(*(a1 + 8 * v18), v21);
       v23 = vsub_f32(*(a3 + 8 * v18), v21);
-      v24 = atan2f((-v22.f32[1] * v23.f32[0]) + (v22.f32[0] * v23.f32[1]), vaddv_f32(vmul_f32(v22, v23))) * 0.318309886 * 180.0;
-      v25 = v24 % 360;
-      if (v25 < 0)
+      v25 = atan2f((-v22.f32[1] * v23.f32[0]) + (v22.f32[0] * v23.f32[1]), vaddv_f32(vmul_f32(v22, v23))) * 0.318309886 * 180.0;
+      v26 = v25 % 360;
+      if (v26 < 0)
       {
-        v25 = -v25;
+        v26 = -v26;
       }
 
-      v20[v18] = v25;
-      if (v25 <= 0x3B)
+      v20[v18] = v26;
+      if (v26 <= 0x3B)
       {
-        v39 = __ABPKLogSharedInstance();
+        v39 = __ABPKLogSharedInstance(v24);
         if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
         {
           v38 = *(__p[0] + v18);
@@ -7532,47 +7324,47 @@ LABEL_44:
     }
 
     while (v6 != v18);
-    v26 = 0;
+    v27 = 0;
     do
     {
       while (1)
       {
-        v27 = *(v11 + 8 * v26);
-        if (*(a1 + 4 + 8 * v26) < v27 && v27 < *(v13 + 8 * v26))
+        v28 = *(v11 + 8 * v27);
+        if (*(a1 + 4 + 8 * v27) < v28 && v28 < *(v13 + 8 * v27))
         {
           break;
         }
 
-        if (++v26 == v6)
+        if (++v27 == v6)
         {
-          v28 = __p[0];
-          v29 = 1000.0;
-          v30 = -1000.0;
+          v29 = __p[0];
+          v30 = 1000.0;
+          v31 = -1000.0;
           do
           {
-            v31 = *v28++;
-            v32 = v31;
-            if (v31 < v29)
+            v32 = *v29++;
+            v33 = v32;
+            if (v32 < v30)
             {
-              v29 = v32;
+              v30 = v33;
             }
 
-            if (v32 > v30)
+            if (v33 > v31)
             {
-              v30 = v32;
+              v31 = v33;
             }
 
             --v6;
           }
 
           while (v6);
-          if ((v30 - v29) > 10000.0)
+          if ((v31 - v30) > 10000.0)
           {
-            v33 = __ABPKLogSharedInstance();
-            if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+            v34 = __ABPKLogSharedInstance(v24);
+            if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
             {
               LOWORD(v41) = 0;
-              _os_log_impl(&dword_23EDDC000, v33, OS_LOG_TYPE_DEBUG, " Raising Hand: Angles changing too much ", &v41, 2u);
+              _os_log_impl(&dword_23EDDC000, v34, OS_LOG_TYPE_DEBUG, " Raising Hand: Angles changing too much ", &v41, 2u);
             }
           }
 
@@ -7580,30 +7372,30 @@ LABEL_44:
         }
       }
 
-      ++v26;
+      ++v27;
     }
 
-    while (v26 != v6);
-    v39 = __ABPKLogSharedInstance();
+    while (v27 != v6);
+    v39 = __ABPKLogSharedInstance(v24);
     if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
     {
       LOWORD(v41) = 0;
-      v34 = " Raising Hand: Gesture detected - Wrist is above elbow and elbow is above the shoulder ";
+      v35 = " Raising Hand: Gesture detected - Wrist is above elbow and elbow is above the shoulder ";
       goto LABEL_35;
     }
   }
 
   else
   {
-    std::vector<float>::vector[abi:ne200100](__p, 0);
+    v24 = std::vector<float>::vector[abi:ne200100](__p, 0);
 LABEL_33:
-    v39 = __ABPKLogSharedInstance();
+    v39 = __ABPKLogSharedInstance(v24);
     if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
     {
       LOWORD(v41) = 0;
-      v34 = " Raising Hand: Gesture detected ";
+      v35 = " Raising Hand: Gesture detected ";
 LABEL_35:
-      _os_log_impl(&dword_23EDDC000, v39, OS_LOG_TYPE_DEBUG, v34, &v41, 2u);
+      _os_log_impl(&dword_23EDDC000, v39, OS_LOG_TYPE_DEBUG, v35, &v41, 2u);
     }
   }
 
@@ -7616,8 +7408,6 @@ LABEL_37:
     operator delete(__p[0]);
   }
 
-LABEL_45:
-  v36 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -7944,10 +7734,10 @@ void sub_23EE0BAF8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 BOOL detectWavingHand(float32x2_t *a1, float32x2_t *a2, float32x2_t *a3, uint64_t a4, uint64_t a5, unint64_t a6, unsigned int a7, unsigned int a8)
 {
-  v76 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   if (!a6)
   {
-    std::vector<float>::vector[abi:ne200100](v74, 0);
+    v29 = std::vector<float>::vector[abi:ne200100](v75, 0);
     goto LABEL_17;
   }
 
@@ -7968,11 +7758,11 @@ BOOL detectWavingHand(float32x2_t *a1, float32x2_t *a2, float32x2_t *a3, uint64_
 
     if (v18 > *v15 || v18 > *v16 || v18 > *v17)
     {
-      v55 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v55, OS_LOG_TYPE_DEBUG))
+      v57 = __ABPKLogSharedInstance(a1);
+      if (os_log_type_enabled(v57, OS_LOG_TYPE_DEBUG))
       {
-        *v74 = 0;
-        _os_log_impl(&dword_23EDDC000, v55, OS_LOG_TYPE_DEBUG, " Waving Hand: Hand too low ", v74, 2u);
+        *v75 = 0;
+        _os_log_impl(&dword_23EDDC000, v57, OS_LOG_TYPE_DEBUG, " Waving Hand: Hand too low ", v75, 2u);
       }
 
       goto LABEL_64;
@@ -7984,8 +7774,8 @@ BOOL detectWavingHand(float32x2_t *a1, float32x2_t *a2, float32x2_t *a3, uint64_
     v15 += 2;
     if (a6 == v14)
     {
-      std::vector<float>::vector[abi:ne200100](v74, a6);
-      v20 = *v74;
+      std::vector<float>::vector[abi:ne200100](v75, a6);
+      v20 = *v75;
       v21 = a6;
       do
       {
@@ -7996,14 +7786,14 @@ BOOL detectWavingHand(float32x2_t *a1, float32x2_t *a2, float32x2_t *a3, uint64_
         v26 = vsub_f32(v23, v24);
         v27 = *v11++;
         v28 = vsub_f32(v27, v25);
-        v29 = atan2f((-v26.f32[1] * v28.f32[0]) + (v26.f32[0] * v28.f32[1]), vaddv_f32(vmul_f32(v26, v28))) * 0.318309886 * 180.0;
-        v30 = v29 % 360;
-        if (v30 < 0)
+        v30 = atan2f((-v26.f32[1] * v28.f32[0]) + (v26.f32[0] * v28.f32[1]), vaddv_f32(vmul_f32(v26, v28))) * 0.318309886 * 180.0;
+        v31 = v30 % 360;
+        if (v31 < 0)
         {
-          v30 = -v30;
+          v31 = -v31;
         }
 
-        *v20++ = v30;
+        *v20++ = v31;
         --v21;
       }
 
@@ -8014,81 +7804,81 @@ LABEL_17:
         goto LABEL_26;
       }
 
-      v31 = -a7;
-      v33 = -1000.0;
-      v34 = 1000.0;
+      v32 = -a7;
+      v34 = -1000.0;
+      v35 = 1000.0;
       do
       {
-        v32 = *v74 + 4 * a6;
-        v35 = *(v32 + 4 * v31);
-        if (v35 < v34)
+        v33 = *v75 + 4 * a6;
+        v36 = *(v33 + 4 * v32);
+        if (v36 < v35)
         {
-          v34 = *(v32 + 4 * v31);
+          v35 = *(v33 + 4 * v32);
         }
 
-        if (v35 > v33)
+        if (v36 > v34)
         {
-          v33 = *(v32 + 4 * v31);
+          v34 = *(v33 + 4 * v32);
         }
 
-        v36 = __CFADD__(v31++, 1);
+        v37 = __CFADD__(v32++, 1);
       }
 
-      while (!v36);
-      if ((v33 - v34) < 20.0)
+      while (!v37);
+      if ((v34 - v35) < 20.0)
       {
 LABEL_26:
-        v37 = __ABPKLogSharedInstance();
-        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+        v38 = __ABPKLogSharedInstance(v29);
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
         {
           *buf = 0;
-          _os_log_impl(&dword_23EDDC000, v37, OS_LOG_TYPE_DEBUG, " Waving Hand: Angles not changing enough for waving ", buf, 2u);
+          _os_log_impl(&dword_23EDDC000, v38, OS_LOG_TYPE_DEBUG, " Waving Hand: Angles not changing enough for waving ", buf, 2u);
         }
       }
 
-      std::vector<std::vector<float>>::vector[abi:ne200100](buf, a6);
+      v39 = std::vector<std::vector<float>>::vector[abi:ne200100](buf, a6);
       if (a6)
       {
-        v38 = 0;
+        v40 = 0;
         do
         {
           std::vector<float>::vector[abi:ne200100](__p, a6);
-          v39 = 0;
-          v40 = *v74;
-          v41 = __p[0];
+          v41 = 0;
+          v42 = *v75;
+          v43 = __p[0];
           do
           {
-            v41[v39] = vabds_f32(v40[v39], v40[v38]);
-            ++v39;
+            v43[v41] = vabds_f32(v42[v41], v42[v40]);
+            ++v41;
           }
 
-          while (a6 != v39);
-          v42 = (*buf + 24 * v38);
-          if (v42 == __p || (std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(v42, v41, __p[1], (__p[1] - v41) >> 2), (v41 = __p[0]) != 0))
+          while (a6 != v41);
+          v44 = (*buf + 24 * v40);
+          if (v44 == __p || (std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(v44, v43, __p[1], (__p[1] - v43) >> 2), (v43 = __p[0]) != 0))
           {
-            __p[1] = v41;
-            operator delete(v41);
+            __p[1] = v43;
+            operator delete(v43);
           }
 
-          ++v38;
+          ++v40;
         }
 
-        while (v38 != a6);
-        v43 = 0;
-        v44 = 0;
+        while (v40 != a6);
+        v45 = 0;
+        v46 = 0;
         while (1)
         {
           memset(__p, 0, 24);
-          std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(__p, *(*buf + 24 * v43), *(*buf + 24 * v43 + 8), (*(*buf + 24 * v43 + 8) - *(*buf + 24 * v43)) >> 2);
-          v69 = 0;
+          std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(__p, *(*buf + 24 * v45), *(*buf + 24 * v45 + 8), (*(*buf + 24 * v45 + 8) - *(*buf + 24 * v45)) >> 2);
           v70 = 0;
           v71 = 0;
-          std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v69, __p[0], __p[1], (__p[1] - __p[0]) >> 2);
-          v45 = v70 - v69;
-          if (v70 == v69)
+          v72 = 0;
+          std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v70, __p[0], __p[1], (__p[1] - __p[0]) >> 2);
+          v47 = v71 - v70;
+          if (v71 == v70)
           {
-            v50 = 0.0 / v45;
-            if (!v70)
+            v52 = 0.0 / v47;
+            if (!v71)
             {
               goto LABEL_47;
             }
@@ -8096,138 +7886,136 @@ LABEL_26:
 
           else
           {
-            if (v45 <= 1)
+            if (v47 <= 1)
             {
-              v46 = 1;
+              v48 = 1;
             }
 
             else
             {
-              v46 = v70 - v69;
+              v48 = v71 - v70;
             }
 
-            v47 = 0.0;
-            v48 = v69;
+            v49 = 0.0;
+            v50 = v70;
             do
             {
-              v49 = *v48++;
-              v47 = v47 + v49;
-              --v46;
+              v51 = *v50++;
+              v49 = v49 + v51;
+              --v48;
             }
 
-            while (v46);
-            v50 = v47 / v45;
+            while (v48);
+            v52 = v49 / v47;
           }
 
-          v70 = v69;
-          operator delete(v69);
+          v71 = v70;
+          operator delete(v70);
 LABEL_47:
-          std::vector<float>::vector[abi:ne200100](&v67, a6);
-          v51 = 0;
-          v52 = __p[0];
-          v53 = v67;
+          std::vector<float>::vector[abi:ne200100](&v68, a6);
+          v53 = 0;
+          v54 = __p[0];
+          v55 = v68;
           do
           {
-            v53[v51] = v52[v51] - v50;
-            ++v51;
+            v55[v53] = v54[v53] - v52;
+            ++v53;
           }
 
-          while (a6 != v51);
-          v64 = 0;
+          while (a6 != v53);
           v65 = 0;
           v66 = 0;
-          std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v64, v53, v68, (v68 - v53) >> 2);
-          FrequencyOfZeroCrossing = getFrequencyOfZeroCrossing(&v64, 1.0);
-          if (v64)
+          v67 = 0;
+          std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v65, v55, v69, (v69 - v55) >> 2);
+          FrequencyOfZeroCrossing = getFrequencyOfZeroCrossing(&v65, 1.0);
+          if (v65)
           {
-            v65 = v64;
-            operator delete(v64);
+            v66 = v65;
+            operator delete(v65);
           }
 
           if (FrequencyOfZeroCrossing != 0.0)
           {
-            ++v44;
+            ++v46;
           }
 
-          if (v67)
+          if (v68)
           {
-            v68 = v67;
-            operator delete(v67);
+            v69 = v68;
+            operator delete(v68);
           }
 
+          v39 = __p[0];
           if (__p[0])
           {
             __p[1] = __p[0];
             operator delete(__p[0]);
           }
 
-          if (++v43 == a6)
+          if (++v45 == a6)
           {
             goto LABEL_66;
           }
         }
       }
 
-      v44 = 0;
+      v46 = 0;
 LABEL_66:
-      v36 = v44 >= a8;
-      v56 = v36;
-      if (v36)
+      v37 = v46 >= a8;
+      v58 = v37;
+      if (v37)
       {
-        v60 = __ABPKLogSharedInstance();
-        if (os_log_type_enabled(v60, OS_LOG_TYPE_DEBUG))
+        v62 = __ABPKLogSharedInstance(v39);
+        if (os_log_type_enabled(v62, OS_LOG_TYPE_DEBUG))
         {
           LOWORD(__p[0]) = 0;
-          v57 = " Waving Hand: Gesture detected ";
-          v58 = v60;
-          v59 = 2;
+          v59 = " Waving Hand: Gesture detected ";
+          v60 = v62;
+          v61 = 2;
           goto LABEL_72;
         }
       }
 
       else
       {
-        v60 = __ABPKLogSharedInstance();
-        if (os_log_type_enabled(v60, OS_LOG_TYPE_DEBUG))
+        v62 = __ABPKLogSharedInstance(v39);
+        if (os_log_type_enabled(v62, OS_LOG_TYPE_DEBUG))
         {
           LODWORD(__p[0]) = 134218240;
-          *(__p + 4) = v44;
+          *(__p + 4) = v46;
           WORD2(__p[1]) = 2048;
           *(&__p[1] + 6) = a6;
-          v57 = " Waving Hand: No periodic motion detected (%lu/%lu periodic frames) ";
-          v58 = v60;
-          v59 = 22;
+          v59 = " Waving Hand: No periodic motion detected (%lu/%lu periodic frames) ";
+          v60 = v62;
+          v61 = 22;
 LABEL_72:
-          _os_log_impl(&dword_23EDDC000, v58, OS_LOG_TYPE_DEBUG, v57, __p, v59);
+          _os_log_impl(&dword_23EDDC000, v60, OS_LOG_TYPE_DEBUG, v59, __p, v61);
         }
       }
 
       __p[0] = buf;
       std::vector<std::vector<float>>::__destroy_vector::operator()[abi:ne200100](__p);
-      if (*v74)
+      if (*v75)
       {
-        v75 = *v74;
-        operator delete(*v74);
+        v76 = *v75;
+        operator delete(*v75);
       }
 
-      goto LABEL_75;
+      return v58;
     }
   }
 
-  v55 = __ABPKLogSharedInstance();
-  if (os_log_type_enabled(v55, OS_LOG_TYPE_DEBUG))
+  v57 = __ABPKLogSharedInstance(a1);
+  if (os_log_type_enabled(v57, OS_LOG_TYPE_DEBUG))
   {
-    *v74 = 67109120;
-    *&v74[4] = v14;
-    _os_log_impl(&dword_23EDDC000, v55, OS_LOG_TYPE_DEBUG, " Waving Hand: Wrist not detected in frame: %d ", v74, 8u);
+    *v75 = 67109120;
+    *&v75[4] = v14;
+    _os_log_impl(&dword_23EDDC000, v57, OS_LOG_TYPE_DEBUG, " Waving Hand: Wrist not detected in frame: %d ", v75, 8u);
   }
 
 LABEL_64:
 
-  v56 = 0;
-LABEL_75:
-  v62 = *MEMORY[0x277D85DE8];
-  return v56;
+  return 0;
 }
 
 void sub_23EE0C0E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, char *a23, uint64_t a24, uint64_t a25, uint64_t a26, void *__p, uint64_t a28)
@@ -8243,10 +8031,10 @@ void sub_23EE0C0E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-BOOL detectFaceVisible(int a1, int a2, int a3, int a4, int a5)
+BOOL detectFaceVisible(uint64_t a1, int a2, int a3, int a4, int a5)
 {
   v9 = a1 == 1 && a2 == 1 && a3 == 1 && a4 == 1 && a5 == 1;
-  v10 = __ABPKLogSharedInstance();
+  v10 = __ABPKLogSharedInstance(a1);
   v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG);
   if (v9)
   {
@@ -8271,20 +8059,20 @@ LABEL_21:
   return v9;
 }
 
-void *std::vector<std::vector<float>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<std::vector<float>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<std::vector<float>>::__vallocate[abi:ne200100](result, a2);
+    std::vector<std::vector<float>>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<std::vector<float>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::vector<float>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -8294,7 +8082,7 @@ void std::vector<std::vector<float>>::__vallocate[abi:ne200100](uint64_t a1, uni
   std::vector<std::array<float,3ul>>::__throw_length_error[abi:ne200100]();
 }
 
-void *std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -8369,78 +8157,76 @@ void *std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(void
   return result;
 }
 
-void printCGRect(double a1, double a2, double a3, double a4)
+void printCGRect(uint64_t a1, double a2, double a3, double a4, double a5)
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v8 = __ABPKLogSharedInstance();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
-  {
-    v11 = 134218752;
-    v12 = a1;
-    v13 = 2048;
-    v14 = a2;
-    v15 = 2048;
-    v16 = a3;
-    v17 = 2048;
-    v18 = a4;
-    _os_log_impl(&dword_23EDDC000, v8, OS_LOG_TYPE_DEBUG, " \t\t Start, Size: (%f,%f,%f,%f) ", &v11, 0x2Au);
-  }
-
-  v9 = __ABPKLogSharedInstance();
+  v20 = *MEMORY[0x277D85DE8];
+  v9 = __ABPKLogSharedInstance(a1);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    v11 = 134218752;
-    v12 = a1;
-    v13 = 2048;
-    v14 = a2;
-    v15 = 2048;
-    v16 = a1 + a3;
-    v17 = 2048;
-    v18 = a2 + a4;
-    _os_log_impl(&dword_23EDDC000, v9, OS_LOG_TYPE_DEBUG, " \t\t Start, End: (%f,%f,%f,%f) ", &v11, 0x2Au);
+    v12 = 134218752;
+    v13 = a2;
+    v14 = 2048;
+    v15 = a3;
+    v16 = 2048;
+    v17 = a4;
+    v18 = 2048;
+    v19 = a5;
+    _os_log_impl(&dword_23EDDC000, v9, OS_LOG_TYPE_DEBUG, " \t\t Start, Size: (%f,%f,%f,%f) ", &v12, 0x2Au);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = __ABPKLogSharedInstance(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  {
+    v12 = 134218752;
+    v13 = a2;
+    v14 = 2048;
+    v15 = a3;
+    v16 = 2048;
+    v17 = a2 + a4;
+    v18 = 2048;
+    v19 = a3 + a5;
+    _os_log_impl(&dword_23EDDC000, v11, OS_LOG_TYPE_DEBUG, " \t\t Start, End: (%f,%f,%f,%f) ", &v12, 0x2Au);
+  }
 }
 
 float computeIOUbetweenRects(double a1, double a2, double a3, double a4, double a5, double a6, double a7, double a8)
 {
-  v45[1] = *MEMORY[0x277D85DE8];
+  v44[1] = *MEMORY[0x277D85DE8];
   *&v12 = a1;
   *&v13 = a2;
   __p = __PAIR64__(v13, v12);
   v14 = a3;
   v15 = *&v12 + v14;
   v16 = a4;
-  *&v44 = v15;
-  *(&v44 + 1) = *&v13 + v16;
-  v37 = 0;
-  v38 = 0;
+  *&v43 = v15;
+  *(&v43 + 1) = *&v13 + v16;
   v36 = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(&v36, &__p, v45, 4uLL);
+  v37 = 0;
+  v35 = 0;
+  std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(&v35, &__p, v44, 4uLL);
   v17 = a5;
   v18 = a6;
   *buf = v17;
-  v40 = v18;
+  v39 = v18;
   v19 = a7;
   v20 = v17 + v19;
   v21 = a8;
-  v41 = v20;
-  v42 = v18 + v21;
-  v44 = 0;
-  v45[0] = 0;
+  v40 = v20;
+  v41 = v18 + v21;
+  v43 = 0;
+  v44[0] = 0;
   __p = 0;
   std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(&__p, buf, &__p, 4uLL);
-  v22 = *v36;
+  v22 = *v35;
   v23 = __p;
   v24 = *__p;
-  if (*v36 <= *__p)
+  if (*v35 <= *__p)
   {
     v25 = 0.0;
-    if (v24 > *(v36 + 2))
+    if (v24 > *(v35 + 2))
     {
 LABEL_11:
-      v44 = v23;
+      v43 = v23;
       operator delete(v23);
       goto LABEL_12;
     }
@@ -8455,7 +8241,7 @@ LABEL_11:
     }
   }
 
-  v26 = *(v36 + 1);
+  v26 = *(v35 + 1);
   v27 = *(__p + 3);
   if (v26 > v27)
   {
@@ -8463,13 +8249,13 @@ LABEL_11:
   }
 
   v28 = *(__p + 1);
-  v29 = *(v36 + 3);
+  v29 = *(v35 + 3);
   if (v28 > v29)
   {
     goto LABEL_11;
   }
 
-  v30 = *(v36 + 2);
+  v30 = *(v35 + 2);
   v31 = *(__p + 2);
   v32 = (fminf(v30, v31) - fmaxf(v22, v24)) * (fminf(v29, v27) - fmaxf(v26, v28));
   v25 = v32 / ((((v27 - v28) * (v31 - v24)) + ((v30 - v22) * (v29 - v26))) - v32);
@@ -8478,7 +8264,7 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  v33 = __ABPKLogSharedInstance();
+  v33 = __ABPKLogSharedInstance(__p);
   if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
@@ -8492,13 +8278,12 @@ LABEL_11:
   }
 
 LABEL_12:
-  if (v36)
+  if (v35)
   {
-    v37 = v36;
-    operator delete(v36);
+    v36 = v35;
+    operator delete(v35);
   }
 
-  v34 = *MEMORY[0x277D85DE8];
   return v25;
 }
 
@@ -8517,7 +8302,7 @@ void sub_23EE0C7E8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(uint64_t *result, int *a2, int *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8572,14 +8357,14 @@ __CFString *convertABPKDeviceOrientationEnumToString(uint64_t a1)
   }
 }
 
-void sub_23EE0EF5C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_23EE0EF5C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = ABPKPoseEstimationPipeline;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<simd_float4x4>::__init_with_size[abi:ne200100]<simd_float4x4 const*,simd_float4x4 const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<simd_float4x4>::__init_with_size[abi:ne200100]<simd_float4x4 const*,simd_float4x4 const*>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8601,7 +8386,7 @@ void sub_23EE111F0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-const float *DepthAndConfidenceInNeighborood(const float *result, int a2, const float *a3, const float *a4, int a5, int a6, int a7, int a8)
+const float *DepthAndConfidenceInNeighborood(const float *result, unsigned int a2, const float *a3, const float *a4, int a5, int a6, int a7, int a8)
 {
   if (a2 <= 1)
   {
@@ -8614,9 +8399,9 @@ const float *DepthAndConfidenceInNeighborood(const float *result, int a2, const 
   }
 
   LODWORD(v9) = a6 - 1;
-  if (a2 + 1 < a6 - 1)
+  if ((a2 + 1) < a6 - 1)
   {
-    v9 = (a2 + 1);
+    v9 = a2 + 1;
   }
 
   else
@@ -8659,7 +8444,6 @@ const float *DepthAndConfidenceInNeighborood(const float *result, int a2, const 
         {
           if (*v19 > 0.0 && *v19 < v17)
           {
-            v21 = *result;
             v17 = *v19;
           }
 
@@ -8771,20 +8555,17 @@ void sub_23EE11494(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *_ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE7reserveEm(void *result, unint64_t a2)
+void _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE7reserveEm(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 4)
+  if (a2 > (a1[2] - *a1) >> 4)
   {
     if (!(a2 >> 60))
     {
-      v2 = result[1] - *result;
-      _ZNSt3__119__allocate_at_leastB8ne200100INS_9allocatorIDv3_iEEEENS_19__allocation_resultINS_16allocator_traitsIT_E7pointerEEERS6_m(result, a2);
+      _ZNSt3__119__allocate_at_leastB8ne200100INS_9allocatorIDv3_iEEEENS_19__allocation_resultINS_16allocator_traitsIT_E7pointerEEERS6_m(a1, a2);
     }
 
     std::vector<std::array<float,3ul>>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 float32_t DepthOfClosestJasperPoint(float32x2_t *a1, float32x2_t **a2)
@@ -8846,7 +8627,7 @@ float ABPKAdjustIntrinsicsForViewportSize(simd_float3x3 a1, CGSize a2, CGSize a3
   return a1.columns[0].f32[0];
 }
 
-unsigned int *cva::MatrixRef<float,0u,1u,false>::operator=<cva::MatrixBinaryExpr<cva::MatrixRef<float,0u,1u,false>,cva::MatrixRef<float,0u,1u,false>,cva::detail::MulOp>>(unsigned int *a1, unsigned int **a2)
+unsigned int *cva::MatrixRef<float,0u,1u,false>::operator=<cva::MatrixBinaryExpr<cva::MatrixRef<float,0u,1u,false>,cva::MatrixRef<float,0u,1u,false>,cva::detail::MulOp>>(unsigned int *a1, _DWORD **a2)
 {
   v4 = *(a1 + 1);
   v5 = &v4[-a1[5]];
@@ -8856,11 +8637,8 @@ unsigned int *cva::MatrixRef<float,0u,1u,false>::operator=<cva::MatrixBinaryExpr
     v7 = *a1;
     if (*a1 != *v6)
     {
-      cva::Logger::instance(a1);
-      v8 = *MEMORY[0x277CFD380];
-      v36 = **a2;
-      v34 = *a1;
-      cva::Logger::logInCategory();
+      v8 = cva::Logger::instance(a1);
+      cva::Logger::logInCategory(v8, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *a1, 1, **a2, 1);
       v7 = *a1;
       v6 = *a2;
       if (*a1 != **a2)
@@ -8893,32 +8671,30 @@ unsigned int *cva::MatrixRef<float,0u,1u,false>::operator=<cva::MatrixBinaryExpr
   }
 
   v16 = *a1;
-  v38[0] = 0;
-  v38[1] = 0;
-  v17 = cva::MatrixData<int,0ul,0ul,false>::allocate(v38, v16);
-  v39 = v16;
+  v34[0] = 0;
+  v34[1] = 0;
+  v17 = cva::MatrixData<int,0ul,0ul,false>::allocate(v34, v16);
+  v35 = v16;
   v18 = *a2;
   if (v16 != **a2)
   {
-    cva::Logger::instance(v17);
-    v19 = *MEMORY[0x277CFD380];
-    v37 = **a2;
-    cva::Logger::logInCategory();
-    v16 = v39;
+    v19 = cva::Logger::instance(v17);
+    cva::Logger::logInCategory(v19, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", v35, 1, **a2, 1);
+    v16 = v35;
     v18 = *a2;
-    if (v39 != **a2)
+    if (v35 != **a2)
     {
       goto LABEL_23;
     }
   }
 
-  v20 = v38[0];
+  v20 = v34[0];
   if (v16)
   {
     v21 = *(a2[1] + 1);
     v22 = *(v18 + 1);
     v23 = 4 * v16;
-    v24 = v38[0];
+    v24 = v34[0];
     do
     {
       v25 = *v22++;
@@ -8936,18 +8712,16 @@ unsigned int *cva::MatrixRef<float,0u,1u,false>::operator=<cva::MatrixBinaryExpr
     goto LABEL_18;
   }
 
-  cva::Logger::instance(v20);
-  v28 = *MEMORY[0x277CFD380];
-  v35 = *a1;
-  cva::Logger::logInCategory();
+  v28 = cva::Logger::instance(v20);
+  cva::Logger::logInCategory(v28, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *a1, 1, v35, 1);
   v16 = *a1;
-  if (v16 != v39)
+  if (v16 != v35)
   {
 LABEL_23:
     __assert_rtn("assert_equal_size", "matrixfun.h", 163, "(lhs.rows() == rhs.rows() && lhs.columns() == rhs.columns()) || cva::detail::assertMessage(Matrix sizes are not compatible!)");
   }
 
-  v20 = v38[0];
+  v20 = v34[0];
 LABEL_18:
   if (v16)
   {
@@ -8995,110 +8769,110 @@ void sub_23EE12408(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-float *cva::assign<false,false,cva::Matrix<float,1u,1u,false>,cva::MatrixTransposeExpr<cva::MatrixRef<float,0u,1u,false>>,cva::MatrixRef<float,0u,1u,false>>(float *result, unsigned int ***a2)
+unsigned int *cva::assign<false,false,cva::Matrix<float,1u,1u,false>,cva::MatrixTransposeExpr<cva::MatrixRef<float,0u,1u,false>>,cva::MatrixRef<float,0u,1u,false>>(unsigned int *result, unsigned int ***a2, __n128 a3)
 {
-  v2 = result;
-  v3 = a2[1];
-  v4 = v3[1];
-  if (&v4[-*(v3 + 5)] == result)
+  v3 = result;
+  v4 = a2[1];
+  v5 = v4[1];
+  if (&v5[-*(v4 + 5)] == result)
   {
-    v30 = 0;
-    result = cva::assign<false,false,cva::Matrix<float,1u,1u,false>,cva::MatrixTransposeExpr<cva::MatrixRef<float,0u,1u,false>>,cva::MatrixRef<float,0u,1u,false>>(&v30);
-    *v2 = v30;
+    v31 = 0;
+    result = cva::assign<false,false,cva::Matrix<float,1u,1u,false>,cva::MatrixTransposeExpr<cva::MatrixRef<float,0u,1u,false>>,cva::MatrixRef<float,0u,1u,false>>(&v31, a2, a3);
+    *v3 = v31;
   }
 
   else
   {
-    v5 = **a2;
-    v6 = *v5;
-    v7 = *(v5 + 1);
-    v8 = *v3;
-    if ((v8 & 0xFFFFFFFC) != 0)
+    v6 = **a2;
+    v7 = *v6;
+    v8 = *(v6 + 1);
+    v9 = *v4;
+    if ((v9 & 0xFFFFFFFC) != 0)
     {
-      v9 = 0;
-      v10 = (v4 + 2);
-      v11 = (v7 + 8);
-      v12 = 0.0;
+      v10 = 0;
+      v11 = (v5 + 2);
+      v12 = (v8 + 8);
+      v13 = 0.0;
       do
       {
-        if (v9 >= v6)
+        if (v10 >= v7)
         {
           [PolyNomialExtrapolation predict];
         }
 
-        v13 = (*(v11 - 1) * *(v10 - 1)) + (*(v11 - 2) * *(v10 - 2));
-        v14 = *v11;
-        v15 = v11[1];
+        v14 = (*(v12 - 1) * *(v11 - 1)) + (*(v12 - 2) * *(v11 - 2));
+        v15 = *v12;
+        v16 = v12[1];
+        v12 += 4;
+        v17 = *v11;
+        v18 = v11[1];
         v11 += 4;
-        v16 = *v10;
-        v17 = v10[1];
+        v13 = v13 + ((v14 + (v15 * v17)) + (v16 * v18));
         v10 += 4;
-        v12 = v12 + ((v13 + (v14 * v16)) + (v15 * v17));
-        v9 += 4;
       }
 
-      while (v9 < (v8 & 0xFFFFFFFC));
+      while (v10 < (v9 & 0xFFFFFFFC));
     }
 
     else
     {
-      LODWORD(v9) = 0;
-      v12 = 0.0;
+      LODWORD(v10) = 0;
+      v13 = 0.0;
     }
 
-    if (v9 < (v8 & 0xFFFFFFFE))
+    if (v10 < (v9 & 0xFFFFFFFE))
     {
-      v18 = v9;
-      v19 = 4 * v9 + 4;
-      v20 = (v7 + v19);
-      v21 = (v4 + v19);
+      v19 = v10;
+      v20 = 4 * v10 + 4;
+      v21 = (v8 + v20);
+      v22 = (v5 + v20);
       do
       {
-        if (v18 >= v6)
+        if (v19 >= v7)
         {
           [PolyNomialExtrapolation predict];
         }
 
-        v12 = v12 + ((*v20 * *v21) + (*(v20 - 1) * *(v21 - 1)));
-        v18 += 2;
-        v20 += 2;
+        v13 = v13 + ((*v21 * *v22) + (*(v21 - 1) * *(v22 - 1)));
+        v19 += 2;
         v21 += 2;
+        v22 += 2;
       }
 
-      while (v18 < (v8 & 0xFFFFFFFE));
-      LODWORD(v9) = v18;
+      while (v19 < (v9 & 0xFFFFFFFE));
+      LODWORD(v10) = v19;
     }
 
-    if (v9 < v8)
+    if (v10 < v9)
     {
-      v22 = v6 >= v9;
-      v23 = v6 - v9;
-      if (!v22)
+      v23 = v7 >= v10;
+      v24 = v7 - v10;
+      if (!v23)
       {
-        v23 = 0;
+        v24 = 0;
       }
 
-      if (v23 <= v8 + ~v9)
+      if (v24 <= v9 + ~v10)
       {
         [PolyNomialExtrapolation predict];
       }
 
-      v24 = (v7 + 4 * v9);
-      v25 = &v4[v9];
-      v26 = v8 - v9;
+      v25 = (v8 + 4 * v10);
+      v26 = &v5[v10];
+      v27 = v9 - v10;
       do
       {
-        v27 = *v24++;
-        v28 = v27;
-        v29 = *v25++;
-        v12 = v12 + (v28 * v29);
-        --v26;
+        v28 = *v25++;
+        v29 = v28;
+        v30 = *v26++;
+        v13 = v13 + (v29 * v30);
+        --v27;
       }
 
-      while (v26);
+      while (v27);
     }
 
-    *result = v12;
+    *result = v13;
   }
 
   return result;
@@ -9121,9 +8895,9 @@ void sub_23EE134E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_23EE13CC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_23EE13CC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::vector<abpk::Human>::__destroy_vector::operator()[abi:ne200100](va);
 
   _Unwind_Resume(a1);
@@ -9264,15 +9038,15 @@ uint64_t *abpk::SkeletonJointFilter<float>::applyTimeConstraint(uint64_t *result
   return result;
 }
 
-void printCGRect(CGRect a1, float a2, float a3)
+void printCGRect(CGRect a1, float a2, float a3, uint64_t a4)
 {
   height = a1.size.height;
   width = a1.size.width;
   y = a1.origin.y;
   x = a1.origin.x;
   v19 = *MEMORY[0x277D85DE8];
-  v9 = __ABPKLogSharedInstance();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v10 = __ABPKLogSharedInstance(a4);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     v11 = 134218752;
     v12 = x * a2;
@@ -9282,10 +9056,8 @@ void printCGRect(CGRect a1, float a2, float a3)
     v16 = width * a2 + v12;
     v17 = 2048;
     v18 = height * a3 + v14;
-    _os_log_impl(&dword_23EDDC000, v9, OS_LOG_TYPE_DEBUG, " \t\t (%f,%f,%f,%f) ", &v11, 0x2Au);
+    _os_log_impl(&dword_23EDDC000, v10, OS_LOG_TYPE_DEBUG, " \t\t (%f,%f,%f,%f) ", &v11, 0x2Au);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23EE15850(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, void *a14, uint64_t a15)
@@ -9329,8 +9101,7 @@ __n128 _ZNSt3__123__optional_storage_baseINS_6vectorIDv2_fNS_9allocatorIS2_EEEEL
     result = *a2;
     *a1 = *a2;
     *(a1 + 16) = a2[1].n128_u64[0];
-    a2->n128_u64[0] = 0;
-    a2->n128_u64[1] = 0;
+    *a2 = 0uLL;
     a2[1].n128_u64[0] = 0;
     *(a1 + 24) = 1;
   }
@@ -9338,14 +9109,14 @@ __n128 _ZNSt3__123__optional_storage_baseINS_6vectorIDv2_fNS_9allocatorIS2_EEEEL
   return result;
 }
 
-void _ZNSt3__123__optional_storage_baseINS_6vectorIDv2_fNS_9allocatorIS2_EEEELb0EE13__assign_fromB8ne200100IRKNS_27__optional_copy_assign_baseIS5_Lb0EEEEEvOT_(uint64_t a1, uint64_t a2)
+void _ZNSt3__123__optional_storage_baseINS_6vectorIDv2_fNS_9allocatorIS2_EEEELb0EE13__assign_fromB8ne200100IRKNS_27__optional_copy_assign_baseIS5_Lb0EEEEEvOT_(uint64_t a1, char **a2)
 {
   if (*(a1 + 24) == *(a2 + 24))
   {
     if (a1 != a2 && *(a1 + 24))
     {
-      v3 = *(a2 + 8);
-      v4 = &v3[-*a2] >> 3;
+      v3 = a2[1];
+      v4 = (v3 - *a2) >> 3;
       v5 = *a2;
 
       _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE18__assign_with_sizeB8ne200100IPS1_S6_EEvT_T0_l(a1, v5, v3, v4);
@@ -9369,12 +9140,12 @@ void _ZNSt3__123__optional_storage_baseINS_6vectorIDv2_fNS_9allocatorIS2_EEEELb0
     *a1 = 0;
     *(a1 + 8) = 0;
     *(a1 + 16) = 0;
-    _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(a1, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 3);
+    _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(a1, *a2, a2[1], (a2[1] - *a2) >> 3);
     *(a1 + 24) = 1;
   }
 }
 
-uint64_t _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *_ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -9405,12 +9176,12 @@ abpk::Human *abpk::Human::Human(abpk::Human *this, const abpk::Human *a2)
   *(this + 3) = 0;
   *(this + 4) = 0;
   *(this + 5) = 0;
-  std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(this + 24, *(a2 + 3), *(a2 + 4), (*(a2 + 4) - *(a2 + 3)) >> 2);
+  std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(this + 3, *(a2 + 3), *(a2 + 4), (*(a2 + 4) - *(a2 + 3)) >> 2);
   *(this + 6) = 0;
   *(this + 7) = 0;
   *(this + 8) = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(this + 48, *(a2 + 6), *(a2 + 7), (*(a2 + 7) - *(a2 + 6)) >> 2);
-  _ZNSt3__120__optional_copy_baseINS_6vectorIDv2_fNS_9allocatorIS2_EEEELb0EEC2B8ne200100ERKS6_(this + 72, a2 + 72);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(this + 6, *(a2 + 6), *(a2 + 7), (*(a2 + 7) - *(a2 + 6)) >> 2);
+  _ZNSt3__120__optional_copy_baseINS_6vectorIDv2_fNS_9allocatorIS2_EEEELb0EEC2B8ne200100ERKS6_(this + 9, a2 + 72);
   v4 = *(a2 + 13);
   *(this + 109) = *(a2 + 109);
   *(this + 13) = v4;
@@ -9443,7 +9214,7 @@ void sub_23EE15D74(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t _ZNSt3__120__optional_copy_baseINS_6vectorIDv2_fNS_9allocatorIS2_EEEELb0EEC2B8ne200100ERKS6_(uint64_t a1, uint64_t a2)
+uint64_t *_ZNSt3__120__optional_copy_baseINS_6vectorIDv2_fNS_9allocatorIS2_EEEELb0EEC2B8ne200100ERKS6_(uint64_t *a1, uint64_t a2)
 {
   *a1 = 0;
   *(a1 + 24) = 0;
@@ -9461,7 +9232,7 @@ void sub_23EE15DF0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *_ZNSt3__123__optional_storage_baseINS_6vectorIDv2_fNS_9allocatorIS2_EEEELb0EE16__construct_fromB8ne200100IRKNS_20__optional_copy_baseIS5_Lb0EEEEEvOT_(void *result, uint64_t a2)
+uint64_t *_ZNSt3__123__optional_storage_baseINS_6vectorIDv2_fNS_9allocatorIS2_EEEELb0EE16__construct_fromB8ne200100IRKNS_20__optional_copy_baseIS5_Lb0EEEEEvOT_(uint64_t *result, uint64_t a2)
 {
   if (*(a2 + 24) == 1)
   {
@@ -9476,7 +9247,7 @@ void *_ZNSt3__123__optional_storage_baseINS_6vectorIDv2_fNS_9allocatorIS2_EEEELb
   return result;
 }
 
-uint64_t std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -9524,7 +9295,7 @@ uint64_t abpk::SkeletonJointFilter<float>::~SkeletonJointFilter(uint64_t a1)
   return a1;
 }
 
-uint64_t std::vector<abpk::Human>::__init_with_size[abi:ne200100]<abpk::Human*,abpk::Human*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<abpk::Human>::__init_with_size[abi:ne200100]<abpk::Human*,abpk::Human*>(uint64_t *result, abpk::Human *a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -9541,7 +9312,7 @@ void sub_23EE15F9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<abpk::Human>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<abpk::Human>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x222222222222223)
   {
@@ -9579,19 +9350,279 @@ abpk::Human *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocat
   return v4;
 }
 
-void std::vector<float>::resize(void *a1, unint64_t a2, __int32 *a3, int16x4_t a4)
+void std::vector<float>::resize(void *result, unint64_t a2, __int32 *a3, int16x4_t a4)
 {
-  v4 = (a1[1] - *a1) >> 2;
+  v4 = (result[1] - *result) >> 2;
   if (a2 <= v4)
   {
     if (a2 < v4)
     {
-      a1[1] = *a1 + 4 * a2;
+      result[1] = *result + 4 * a2;
     }
   }
 
   else
   {
-    std::vector<float>::__append(a1, a2 - v4, a3, a4);
+    std::vector<float>::__append(result, a2 - v4, a3, a4);
+  }
+}
+
+void std::vector<double>::resize(void *result, unint64_t a2, uint64_t *a3)
+{
+  v3 = (result[1] - *result) >> 3;
+  if (a2 <= v3)
+  {
+    if (a2 < v3)
+    {
+      result[1] = *result + 8 * a2;
+    }
+  }
+
+  else
+  {
+    std::vector<double>::__append(result, a2 - v3, a3);
+  }
+}
+
+void std::vector<float>::__append(uint64_t a1, unint64_t a2, __int32 *a3, int16x4_t a4)
+{
+  v7 = *(a1 + 8);
+  v6 = *(a1 + 16);
+  if (a2 <= (v6 - v7) >> 2)
+  {
+    if (a2)
+    {
+      v13 = 0;
+      a4.i32[0] = *a3;
+      v14 = (a2 + 0x3FFFFFFFFFFFFFFFLL) & 0x3FFFFFFFFFFFFFFFLL;
+      v15 = vdupq_n_s64(v14);
+      v16 = v7 + 4 * a2;
+      v17 = v14 - ((a2 + 0x3FFFFFFFFFFFFFFFLL) & 3) + 4;
+      v18 = (v7 + 8);
+      do
+      {
+        v19 = vdupq_n_s64(v13);
+        v20 = vmovn_s64(vcgeq_u64(v15, vorrq_s8(v19, xmmword_23EE284E0)));
+        if (vuzp1_s16(v20, a4).u8[0])
+        {
+          *(v18 - 2) = a4.i32[0];
+        }
+
+        if (vuzp1_s16(v20, a4).i8[2])
+        {
+          *(v18 - 1) = a4.i32[0];
+        }
+
+        if (vuzp1_s16(a4, vmovn_s64(vcgeq_u64(v15, vorrq_s8(v19, xmmword_23EE284D0)))).i32[1])
+        {
+          *v18 = a4.i32[0];
+          v18[1] = a4.i32[0];
+        }
+
+        v13 += 4;
+        v18 += 4;
+      }
+
+      while (v17 != v13);
+    }
+
+    else
+    {
+      v16 = *(a1 + 8);
+    }
+
+    *(a1 + 8) = v16;
+  }
+
+  else
+  {
+    v8 = v7 - *a1;
+    v9 = a2 + (v8 >> 2);
+    if (v9 >> 62)
+    {
+      std::vector<std::array<float,3ul>>::__throw_length_error[abi:ne200100]();
+    }
+
+    v10 = v8 >> 2;
+    v11 = v6 - *a1;
+    if (v11 >> 1 > v9)
+    {
+      v9 = v11 >> 1;
+    }
+
+    if (v11 >= 0x7FFFFFFFFFFFFFFCLL)
+    {
+      v12 = 0x3FFFFFFFFFFFFFFFLL;
+    }
+
+    else
+    {
+      v12 = v9;
+    }
+
+    if (v12)
+    {
+      std::__allocate_at_least[abi:ne200100]<std::allocator<float>>(a1, v12);
+    }
+
+    v21 = 0;
+    v22 = 4 * v10;
+    a4.i32[0] = *a3;
+    v23 = 4 * v10 + 4 * a2;
+    v24 = (a2 + 0x3FFFFFFFFFFFFFFFLL) & 0x3FFFFFFFFFFFFFFFLL;
+    v25 = vdupq_n_s64(v24);
+    v26 = v24 - ((a2 + 0x3FFFFFFFFFFFFFFFLL) & 3) + 4;
+    v27 = (4 * v10 + 8);
+    do
+    {
+      v28 = vdupq_n_s64(v21);
+      v29 = vmovn_s64(vcgeq_u64(v25, vorrq_s8(v28, xmmword_23EE284E0)));
+      if (vuzp1_s16(v29, a4).u8[0])
+      {
+        *(v27 - 2) = a4.i32[0];
+      }
+
+      if (vuzp1_s16(v29, a4).i8[2])
+      {
+        *(v27 - 1) = a4.i32[0];
+      }
+
+      if (vuzp1_s16(a4, vmovn_s64(vcgeq_u64(v25, vorrq_s8(v28, xmmword_23EE284D0)))).i32[1])
+      {
+        *v27 = a4.i32[0];
+        v27[1] = a4.i32[0];
+      }
+
+      v21 += 4;
+      v27 += 4;
+    }
+
+    while (v26 != v21);
+    v30 = *(a1 + 8) - *a1;
+    v31 = v22 - v30;
+    memcpy((v22 - v30), *a1, v30);
+    v32 = *a1;
+    *a1 = v31;
+    *(a1 + 8) = v23;
+    *(a1 + 16) = 0;
+    if (v32)
+    {
+
+      operator delete(v32);
+    }
+  }
+}
+
+void std::vector<double>::__append(uint64_t a1, unint64_t a2, uint64_t *a3)
+{
+  v6 = *(a1 + 8);
+  v5 = *(a1 + 16);
+  if (a2 <= (v5 - v6) >> 3)
+  {
+    if (a2)
+    {
+      v12 = 0;
+      v13 = v6 + 8 * a2;
+      v14 = *a3;
+      v15 = (a2 + 0x1FFFFFFFFFFFFFFFLL) & 0x1FFFFFFFFFFFFFFFLL;
+      v16 = vdupq_n_s64(v15);
+      v17 = (v6 + 8);
+      do
+      {
+        v18 = vmovn_s64(vcgeq_u64(v16, vorrq_s8(vdupq_n_s64(v12), xmmword_23EE284E0)));
+        if (v18.i8[0])
+        {
+          *(v17 - 1) = v14;
+        }
+
+        if (v18.i8[4])
+        {
+          *v17 = v14;
+        }
+
+        v12 += 2;
+        v17 += 2;
+      }
+
+      while (v15 - ((a2 + 0x1FFFFFFFFFFFFFFFLL) & 1) + 2 != v12);
+    }
+
+    else
+    {
+      v13 = *(a1 + 8);
+    }
+
+    *(a1 + 8) = v13;
+  }
+
+  else
+  {
+    v7 = v6 - *a1;
+    v8 = a2 + (v7 >> 3);
+    if (v8 >> 61)
+    {
+      std::vector<std::array<float,3ul>>::__throw_length_error[abi:ne200100]();
+    }
+
+    v9 = v7 >> 3;
+    v10 = v5 - *a1;
+    if (v10 >> 2 > v8)
+    {
+      v8 = v10 >> 2;
+    }
+
+    if (v10 >= 0x7FFFFFFFFFFFFFF8)
+    {
+      v11 = 0x1FFFFFFFFFFFFFFFLL;
+    }
+
+    else
+    {
+      v11 = v8;
+    }
+
+    if (v11)
+    {
+      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long>>(a1, v11);
+    }
+
+    v19 = 0;
+    v20 = 8 * v9;
+    v21 = 8 * v9 + 8 * a2;
+    v22 = *a3;
+    v23 = (a2 + 0x1FFFFFFFFFFFFFFFLL) & 0x1FFFFFFFFFFFFFFFLL;
+    v24 = v23 - ((a2 + 0x1FFFFFFFFFFFFFFFLL) & 1) + 2;
+    v25 = vdupq_n_s64(v23);
+    v26 = (v20 + 8);
+    do
+    {
+      v27 = vmovn_s64(vcgeq_u64(v25, vorrq_s8(vdupq_n_s64(v19), xmmword_23EE284E0)));
+      if (v27.i8[0])
+      {
+        *(v26 - 1) = v22;
+      }
+
+      if (v27.i8[4])
+      {
+        *v26 = v22;
+      }
+
+      v19 += 2;
+      v26 += 2;
+    }
+
+    while (v24 != v19);
+    v28 = *(a1 + 8) - *a1;
+    v29 = v20 - v28;
+    memcpy((v20 - v28), *a1, v28);
+    v30 = *a1;
+    *a1 = v29;
+    *(a1 + 8) = v21;
+    *(a1 + 16) = 0;
+    if (v30)
+    {
+
+      operator delete(v30);
+    }
   }
 }

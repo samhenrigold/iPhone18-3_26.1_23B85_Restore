@@ -21,7 +21,7 @@
   playerControlsView = [(VMPlayerViewController *)self playerControlsView];
   [playerControlsView setDelegate:self];
   [playerControlsView setEnabled:0];
-  [playerController duration];
+  objc_msgSend_duration(playerController);
   v8 = v7;
   timelineSlider = [playerControlsView timelineSlider];
   [timelineSlider setDuration:v8];

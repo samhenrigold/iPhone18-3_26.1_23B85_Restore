@@ -2,6 +2,7 @@
 + (id)coalesceMixParamsA:(id)a withMixParamsB:(id)b;
 - (FMSongRendition)initWithSong:(id)song andOptions:(id)options;
 - (double)_maxPeakAndLoudness:(double *)loudness missingPeakValueCount:(int *)count missingLoudnessCount:(int *)loudnessCount;
+- (id)avCompositionWithAudioMix:(id *)mix includeShortenedOutroFadeOut:(BOOL)out;
 - (id)description;
 - (id)timedMetadataItemsWithIdentifier:(id)identifier;
 @end
@@ -44,7 +45,7 @@
 
 + (id)coalesceMixParamsA:(id)a withMixParamsB:(id)b
 {
-  v221 = *MEMORY[0x277D85DE8];
+  v220 = *MEMORY[0x277D85DE8];
   aCopy = a;
   bCopy = b;
   v11 = bCopy;
@@ -101,175 +102,425 @@ LABEL_9:
   }
 
   v59 = objc_opt_new();
+  v212 = 0u;
   v213 = 0u;
   v214 = 0u;
   v215 = 0u;
-  v216 = 0u;
-  v66 = objc_msgSend_volumeKeyFrames(aCopy, v62, v63, v64, v65);
-  v68 = objc_msgSend_countByEnumeratingWithState_objects_count_(v66, v67, &v213, v220, 16);
-  if (v68)
+  v65 = objc_msgSend_volumeKeyFrames(aCopy, v61, v62, v63, v64);
+  v67 = objc_msgSend_countByEnumeratingWithState_objects_count_(v65, v66, &v212, v219, 16);
+  if (v67)
   {
-    v69 = v68;
-    v70 = *v214;
+    v68 = v67;
+    v69 = *v213;
     do
     {
-      for (i = 0; i != v69; ++i)
+      for (i = 0; i != v68; ++i)
       {
-        if (*v214 != v70)
+        if (*v213 != v69)
         {
-          objc_enumerationMutation(v66);
+          objc_enumerationMutation(v65);
         }
 
-        v72 = *(*(&v213 + 1) + 8 * i);
-        v73 = [FMKeyFrame alloc];
-        v78 = objc_msgSend_sampleTime(v72, v74, v75, v76, v77);
-        v82 = objc_msgSend_initWithValue_atTime_(v73, v79, v78, v80, v81, 0.0);
-        objc_msgSend_appendVolumeKeyframe_(v59, v83, v82, v84, v85);
+        v71 = *(*(&v212 + 1) + 8 * i);
+        v72 = [FMKeyFrame alloc];
+        v77 = objc_msgSend_sampleTime(v71, v73, v74, v75, v76);
+        v81 = objc_msgSend_initWithValue_atTime_(v72, v78, v77, v79, v80, 0.0);
+        objc_msgSend_appendVolumeKeyframe_(v59, v82, v81, v83, v84);
       }
 
-      v69 = objc_msgSend_countByEnumeratingWithState_objects_count_(v66, v86, &v213, v220, 16);
+      v68 = objc_msgSend_countByEnumeratingWithState_objects_count_(v65, v85, &v212, v219, 16);
     }
 
-    while (v69);
+    while (v68);
   }
 
-  v211 = 0u;
-  v212 = 0u;
-  v209 = 0u;
   v210 = 0u;
-  v91 = objc_msgSend_volumeKeyFrames(v11, v87, v88, v89, v90);
-  v93 = objc_msgSend_countByEnumeratingWithState_objects_count_(v91, v92, &v209, v219, 16);
-  if (v93)
-  {
-    v94 = v93;
-    v95 = *v210;
-    do
-    {
-      for (j = 0; j != v94; ++j)
-      {
-        if (*v210 != v95)
-        {
-          objc_enumerationMutation(v91);
-        }
-
-        v97 = *(*(&v209 + 1) + 8 * j);
-        v98 = [FMKeyFrame alloc];
-        v103 = objc_msgSend_sampleTime(v97, v99, v100, v101, v102);
-        v107 = objc_msgSend_initWithValue_atTime_(v98, v104, v103, v105, v106, 0.0);
-        objc_msgSend_insertVolumeKeyframe_(v59, v108, v107, v109, v110);
-      }
-
-      v94 = objc_msgSend_countByEnumeratingWithState_objects_count_(v91, v111, &v209, v219, 16);
-    }
-
-    while (v94);
-  }
-
-  v112 = objc_opt_new();
-  v117 = objc_msgSend_volumeKeyFrames(v59, v113, v114, v115, v116);
-  if (objc_msgSend_count(v117, v118, v119, v120, v121) != 1)
-  {
-    v125 = 0;
-    do
-    {
-      v126 = objc_msgSend_objectAtIndexedSubscript_(v117, v122, v125, v123, v124);
-      v131 = objc_msgSend_sampleTime(v126, v127, v128, v129, v130);
-
-      v135 = objc_msgSend_objectAtIndexedSubscript_(v117, v132, ++v125, v133, v134);
-      v140 = objc_msgSend_sampleTime(v135, v136, v137, v138, v139);
-
-      v141 = [FMKeyFrame alloc];
-      v145 = objc_msgSend_initWithValue_atTime_(v141, v142, (v140 + v131) / 2, v143, v144, 0.0);
-      objc_msgSend_addObject_(v112, v146, v145, v147, v148);
-    }
-
-    while (v125 < objc_msgSend_count(v117, v149, v150, v151, v152) - 1);
-  }
-
-  v207 = 0u;
+  v211 = 0u;
   v208 = 0u;
-  v205 = 0u;
-  v206 = 0u;
-  v153 = v112;
-  v155 = objc_msgSend_countByEnumeratingWithState_objects_count_(v153, v154, &v205, v218, 16);
-  if (v155)
+  v209 = 0u;
+  v90 = objc_msgSend_volumeKeyFrames(v11, v86, v87, v88, v89);
+  v92 = objc_msgSend_countByEnumeratingWithState_objects_count_(v90, v91, &v208, v218, 16);
+  if (v92)
   {
-    v159 = v155;
-    v160 = *v206;
+    v93 = v92;
+    v94 = *v209;
     do
     {
-      for (k = 0; k != v159; ++k)
+      for (j = 0; j != v93; ++j)
       {
-        if (*v206 != v160)
+        if (*v209 != v94)
         {
-          objc_enumerationMutation(v153);
+          objc_enumerationMutation(v90);
         }
 
-        objc_msgSend_insertVolumeKeyframe_(v59, v156, *(*(&v205 + 1) + 8 * k), v157, v158);
+        v96 = *(*(&v208 + 1) + 8 * j);
+        v97 = [FMKeyFrame alloc];
+        v102 = objc_msgSend_sampleTime(v96, v98, v99, v100, v101);
+        v106 = objc_msgSend_initWithValue_atTime_(v97, v103, v102, v104, v105, 0.0);
+        objc_msgSend_insertVolumeKeyframe_(v59, v107, v106, v108, v109);
       }
 
-      v159 = objc_msgSend_countByEnumeratingWithState_objects_count_(v153, v156, &v205, v218, 16);
+      v93 = objc_msgSend_countByEnumeratingWithState_objects_count_(v90, v110, &v208, v218, 16);
     }
 
-    while (v159);
+    while (v93);
   }
 
-  v203 = 0u;
-  v204 = 0u;
-  v201 = 0u;
-  v202 = 0u;
-  v166 = objc_msgSend_volumeKeyFrames(v59, v162, v163, v164, v165, 0);
-  v168 = objc_msgSend_countByEnumeratingWithState_objects_count_(v166, v167, &v201, v217, 16);
-  if (v168)
+  v111 = objc_opt_new();
+  v116 = objc_msgSend_volumeKeyFrames(v59, v112, v113, v114, v115);
+  if (objc_msgSend_count(v116, v117, v118, v119, v120) != 1)
   {
-    v173 = v168;
-    v174 = *v202;
+    v124 = 0;
     do
     {
-      for (m = 0; m != v173; ++m)
+      v125 = objc_msgSend_objectAtIndexedSubscript_(v116, v121, v124, v122, v123);
+      v130 = objc_msgSend_sampleTime(v125, v126, v127, v128, v129);
+
+      v134 = objc_msgSend_objectAtIndexedSubscript_(v116, v131, ++v124, v132, v133);
+      v139 = objc_msgSend_sampleTime(v134, v135, v136, v137, v138);
+
+      v140 = [FMKeyFrame alloc];
+      v144 = objc_msgSend_initWithValue_atTime_(v140, v141, (v139 + v130) / 2, v142, v143, 0.0);
+      objc_msgSend_addObject_(v111, v145, v144, v146, v147);
+    }
+
+    while (v124 < objc_msgSend_count(v116, v148, v149, v150, v151) - 1);
+  }
+
+  v206 = 0u;
+  v207 = 0u;
+  v204 = 0u;
+  v205 = 0u;
+  v152 = v111;
+  v154 = objc_msgSend_countByEnumeratingWithState_objects_count_(v152, v153, &v204, v217, 16);
+  if (v154)
+  {
+    v158 = v154;
+    v159 = *v205;
+    do
+    {
+      for (k = 0; k != v158; ++k)
       {
-        if (*v202 != v174)
+        if (*v205 != v159)
         {
-          objc_enumerationMutation(v166);
+          objc_enumerationMutation(v152);
         }
 
-        v176 = *(*(&v201 + 1) + 8 * m);
-        v177 = objc_msgSend_sampleTime(v176, v169, v170, v171, v172);
-        objc_msgSend_volumeValueAtTime_(aCopy, v178, v177, v179, v180);
-        v182 = v181;
-        v187 = objc_msgSend_sampleTime(v176, v183, v184, v185, v186);
-        objc_msgSend_volumeValueAtTime_(v11, v188, v187, v189, v190);
-        if (fabsf(v182) == INFINITY)
+        objc_msgSend_insertVolumeKeyframe_(v59, v155, *(*(&v204 + 1) + 8 * k), v156, v157);
+      }
+
+      v158 = objc_msgSend_countByEnumeratingWithState_objects_count_(v152, v155, &v204, v217, 16);
+    }
+
+    while (v158);
+  }
+
+  v202 = 0u;
+  v203 = 0u;
+  v200 = 0u;
+  v201 = 0u;
+  v165 = objc_msgSend_volumeKeyFrames(v59, v161, v162, v163, v164, 0);
+  v167 = objc_msgSend_countByEnumeratingWithState_objects_count_(v165, v166, &v200, v216, 16);
+  if (v167)
+  {
+    v172 = v167;
+    v173 = *v201;
+    do
+    {
+      for (m = 0; m != v172; ++m)
+      {
+        if (*v201 != v173)
         {
-          v196 = 1.0;
+          objc_enumerationMutation(v165);
+        }
+
+        v175 = *(*(&v200 + 1) + 8 * m);
+        v176 = objc_msgSend_sampleTime(v175, v168, v169, v170, v171);
+        objc_msgSend_volumeValueAtTime_(aCopy, v177, v176, v178, v179);
+        v181 = v180;
+        v186 = objc_msgSend_sampleTime(v175, v182, v183, v184, v185);
+        objc_msgSend_volumeValueAtTime_(v11, v187, v186, v188, v189);
+        if (fabsf(v181) == INFINITY)
+        {
+          v195 = 1.0;
         }
 
         else
         {
-          v196 = v182;
+          v195 = v181;
         }
 
-        if (fabsf(*&v195) == INFINITY)
+        if (fabsf(*&v194) == INFINITY)
         {
-          *&v195 = 1.0;
+          *&v194 = 1.0;
         }
 
-        *&v195 = v196 * *&v195;
-        objc_msgSend_setValue_(v176, v191, v192, v193, v194, v195);
+        *&v194 = v195 * *&v194;
+        objc_msgSend_setValue_(v175, v190, v191, v192, v193, v194);
       }
 
-      v173 = objc_msgSend_countByEnumeratingWithState_objects_count_(v166, v169, &v201, v217, 16);
+      v172 = objc_msgSend_countByEnumeratingWithState_objects_count_(v165, v168, &v200, v216, 16);
     }
 
-    while (v173);
+    while (v172);
   }
 
-  objc_msgSend_removeRedundantVolumeKeyFrames(v59, v197, v198, v199, v200);
+  objc_msgSend_removeRedundantVolumeKeyFrames(v59, v196, v197, v198, v199);
 LABEL_11:
 
-  v60 = *MEMORY[0x277D85DE8];
-
   return v59;
+}
+
+- (id)avCompositionWithAudioMix:(id *)mix includeShortenedOutroFadeOut:(BOOL)out
+{
+  outCopy = out;
+  v235 = *MEMORY[0x277D85DE8];
+  v212 = objc_msgSend_composition(MEMORY[0x277CE6548], a2, mix, out, v4);
+  v11 = objc_msgSend_song(self, v7, v8, v9, v10);
+  timescale = objc_msgSend_sampleRate(v11, v12, v13, v14, v15);
+
+  if (outCopy && (objc_msgSend_options(self, v16, v17, v18, v19), v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend_objectForKey_(v20, v21, @"OutroCanBeShortened", v22, v23), v24 = objc_claimAutoreleasedReturnValue(), v29 = objc_msgSend_BOOLValue(v24, v25, v26, v27, v28), v24, v20, v29))
+  {
+    v211 = objc_msgSend__buildOutroFadeoutMixParams(self, v16, v17, v18, v19);
+  }
+
+  else
+  {
+    v211 = 0;
+  }
+
+  v214 = 0;
+  v30 = *MEMORY[0x277CE5E48];
+  v222 = *MEMORY[0x277CE6240];
+  v31 = 1;
+  selfCopy = self;
+  v220 = *MEMORY[0x277CE5E48];
+  do
+  {
+    v32 = v31;
+    if (v31)
+    {
+      objc_msgSend_trackA(self, v16, v17, v18, v19);
+    }
+
+    else
+    {
+      objc_msgSend_trackB(self, v16, v17, v18, v19);
+    }
+    v35 = ;
+    if (v35)
+    {
+      v216 = v32;
+      v218 = objc_msgSend_addMutableTrackWithMediaType_preferredTrackID_(v212, v33, v30, 0, v34);
+      v227 = 0u;
+      v228 = 0u;
+      v229 = 0u;
+      v230 = 0u;
+      v215 = v35;
+      obj = objc_msgSend_clips(v35, v36, v37, v38, v39);
+      v41 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v40, &v227, v234, 16);
+      if (v41)
+      {
+        v42 = v41;
+        v43 = *v228;
+        do
+        {
+          for (i = 0; i != v42; ++i)
+          {
+            if (*v228 != v43)
+            {
+              objc_enumerationMutation(obj);
+            }
+
+            v45 = *(*(&v227 + 1) + 8 * i);
+            v46 = objc_autoreleasePoolPush();
+            v51 = objc_msgSend_url(v45, v47, v48, v49, v50);
+
+            if (v51)
+            {
+              v56 = MEMORY[0x277CE6650];
+              v57 = objc_msgSend_url(v45, v52, v53, v54, v55);
+              v232 = v222;
+              v233 = MEMORY[0x277CBEC38];
+              v59 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v58, &v233, &v232, 1);
+              v62 = objc_msgSend_URLAssetWithURL_options_(v56, v60, v57, v59, v61);
+
+              v63 = dispatch_semaphore_create(0);
+              v225[0] = MEMORY[0x277D85DD0];
+              v225[1] = 3221225472;
+              v225[2] = sub_24B7EA354;
+              v225[3] = &unk_27900E970;
+              v64 = v63;
+              v226 = v64;
+              objc_msgSend_loadValuesAsynchronouslyForKeys_completionHandler_(v62, v65, &unk_285EA8730, v225, v66);
+              v67 = dispatch_time(0, 20000000000);
+              if (dispatch_semaphore_wait(v64, v67))
+              {
+                v71 = FlexLogForCategory(0);
+                if (os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT))
+                {
+                  v76 = objc_msgSend_url(v45, v72, v73, v74, v75);
+                  LODWORD(buf.start.value) = 138412290;
+                  *(&buf.start.value + 4) = v76;
+                  _os_log_impl(&dword_24B7E5000, v71, OS_LOG_TYPE_DEFAULT, "Timed out waiting for tracks to load for asset: %@", &buf, 0xCu);
+                }
+              }
+
+              else
+              {
+                v71 = objc_msgSend_tracksWithMediaType_(v62, v68, v220, v69, v70);
+                if (objc_msgSend_count(v71, v77, v78, v79, v80))
+                {
+                  v84 = objc_msgSend_tracksWithMediaType_(v62, v81, v220, v82, v83);
+                  v88 = objc_msgSend_objectAtIndex_(v84, v85, 0, v86, v87);
+
+                  v93 = objc_msgSend_offset(v45, v89, v90, v91, v92);
+                  CMTimeMake(&start.start, v93, timescale);
+                  v98 = objc_msgSend_duration(v45, v94, v95, v96, v97);
+                  CMTimeMake(&duration, v98, timescale);
+                  CMTimeRangeMake(&buf, &start.start, &duration);
+                  v103 = objc_msgSend_position(v45, v99, v100, v101, v102);
+                  CMTimeMake(&start.start, v103, timescale);
+                  objc_msgSend_insertTimeRange_ofTrack_atTime_error_(v218, v104, &buf, v88, &start, 0);
+                }
+
+                else
+                {
+                  v88 = FlexLogForCategory(0);
+                  if (os_log_type_enabled(v88, OS_LOG_TYPE_DEFAULT))
+                  {
+                    v109 = objc_msgSend_url(v45, v105, v106, v107, v108);
+                    LODWORD(buf.start.value) = 138412290;
+                    *(&buf.start.value + 4) = v109;
+                    _os_log_impl(&dword_24B7E5000, v88, OS_LOG_TYPE_DEFAULT, "0 audio tracks found in asset: %@", &buf, 0xCu);
+                  }
+                }
+              }
+            }
+
+            objc_autoreleasePoolPop(v46);
+          }
+
+          v42 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v110, &v227, v234, 16);
+        }
+
+        while (v42);
+      }
+
+      if (mix)
+      {
+        v35 = v215;
+        v115 = objc_msgSend_mixParameters(v215, v111, v112, v113, v114);
+
+        v32 = v216;
+        if (!v115)
+        {
+LABEL_42:
+
+          self = selfCopy;
+          v30 = v220;
+          goto LABEL_43;
+        }
+
+        v120 = v214;
+        if (!v214)
+        {
+          v120 = objc_msgSend_array(MEMORY[0x277CBEB18], v116, v117, v118, v119);
+        }
+
+        v214 = v120;
+        v121 = objc_msgSend_audioMixInputParametersWithTrack_(MEMORY[0x277CE6540], v116, v218, v118, v119, v211);
+        v126 = objc_msgSend_mixParameters(v215, v122, v123, v124, v125);
+        v129 = objc_msgSend_coalesceMixParamsA_withMixParamsB_(FMSongRendition, v127, v126, v211, v128);
+
+        v134 = objc_msgSend_volumeKeyFrames(v129, v130, v131, v132, v133);
+        v139 = objc_msgSend_count(v134, v135, v136, v137, v138);
+        v143 = v139 - 1;
+        if (v139 >= 1)
+        {
+          v144 = v139;
+          v145 = 0;
+          do
+          {
+            v150 = objc_msgSend_objectAtIndexedSubscript_(v134, v140, v145, v141, v142);
+            if (v145 < v143 && (objc_msgSend_objectAtIndexedSubscript_(v134, v146, v145 + 1, v148, v149), (v151 = objc_claimAutoreleasedReturnValue()) != 0))
+            {
+              v152 = v151;
+              memset(&buf, 0, sizeof(buf));
+              v153 = objc_msgSend_sampleTime(v150, v146, v147, v148, v149);
+              CMTimeMake(&start.start, v153, timescale);
+              v158 = objc_msgSend_sampleTime(v152, v154, v155, v156, v157);
+              v163 = objc_msgSend_sampleTime(v150, v159, v160, v161, v162);
+              CMTimeMake(&duration, v158 - v163, timescale);
+              CMTimeRangeMake(&buf, &start.start, &duration);
+              objc_msgSend_value(v150, v164, v165, v166, v167);
+              v169 = v168;
+              objc_msgSend_value(v152, v170, v171, v172, v173);
+              LODWORD(v175) = v174;
+              start = buf;
+              objc_msgSend_setVolumeRampFromStartVolume_toEndVolume_timeRange_(v121, v176, &start, v177, v178, COERCE_DOUBLE(__PAIR64__(buf.duration.flags, v169)), v175);
+
+              ++v145;
+            }
+
+            else
+            {
+              memset(&buf, 0, sizeof(buf));
+              v179 = objc_msgSend_sampleTime(v150, v146, v147, v148, v149);
+              CMTimeMake(&start.start, v179, timescale);
+              v184 = objc_msgSend_duration(selfCopy, v180, v181, v182, v183);
+              v189 = objc_msgSend_sampleTime(v150, v185, v186, v187, v188);
+              CMTimeMake(&duration, v184 - v189, timescale);
+              CMTimeRangeMake(&buf, &start.start, &duration);
+              if (buf.duration.value >= 1)
+              {
+                objc_msgSend_value(v150, v190, v191, v192, v193);
+                v195 = v194;
+                objc_msgSend_value(v150, v196, v197, v198, v199);
+                LODWORD(v201) = v200;
+                start = buf;
+                objc_msgSend_setVolumeRampFromStartVolume_toEndVolume_timeRange_(v121, v202, &start, v203, v204, COERCE_DOUBLE(__PAIR64__(buf.duration.flags, v195)), v201);
+              }
+
+              ++v145;
+            }
+          }
+
+          while (v145 != v144);
+        }
+
+        objc_msgSend_addObject_(v214, v140, v121, v141, v142);
+      }
+
+      v32 = v216;
+      v35 = v215;
+      goto LABEL_42;
+    }
+
+LABEL_43:
+
+    v31 = 0;
+  }
+
+  while ((v32 & 1) != 0);
+  if (mix)
+  {
+    if (v214)
+    {
+      v205 = objc_msgSend_audioMix(MEMORY[0x277CE6538], v16, v17, v18, v19);
+      objc_msgSend_setInputParameters_(v205, v206, v214, v207, v208);
+    }
+
+    else
+    {
+      v205 = 0;
+    }
+
+    v209 = v205;
+    *mix = v205;
+  }
+
+  return v212;
 }
 
 - (id)timedMetadataItemsWithIdentifier:(id)identifier

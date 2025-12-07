@@ -119,7 +119,7 @@
   if (!self->_tintColor || !v19)
   {
     bundleIdentifier = [bundleCopy bundleIdentifier];
-    v21 = PDUGetBundle();
+    v21 = PDUGetBundle(bundleIdentifier);
     v22 = v21;
     if (v21)
     {

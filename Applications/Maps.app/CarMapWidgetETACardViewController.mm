@@ -397,7 +397,7 @@ LABEL_6:
   v44 = [v31 initWithArray:v24];
 
   v25 = objc_opt_new();
-  [(CarMapWidgetETACardViewController *)self cornerMaskForCarCardLayout:v25];
+  objc_msgSend_cornerMaskForCarCardLayout_(self);
 
   if (self->_presentationType)
   {

@@ -256,7 +256,7 @@ void __75__PKDrawingOverlayCache_overlayDrawingForDrawingUUID_tintColor_completi
           v18 = [v13 _strokeData];
           if (v13)
           {
-            [v13 transform];
+            objc_msgSend_transform(v13);
           }
 
           else

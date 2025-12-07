@@ -4,8 +4,10 @@
 - (BOOL)isEqual:(id)equal;
 - (HMFOrderedDictionary)initWithCoder:(id)coder;
 - (HMFOrderedDictionary)initWithObject:(id)object forKey:(id)key;
+- (HMFOrderedDictionary)initWithObjects:(id)objects forKeys:(id)keys copyObjects:(BOOL)copyObjects copyKeys:(BOOL)copyKeys;
 - (HMFOrderedDictionary)initWithObjects:(id)objects orderedKeySet:(id)set;
 - (id)_valueForKey:(id *)key;
+- (id)initBySortingDictionary:(id)dictionary copyItems:(BOOL)items keyComparator:(id)comparator;
 - (id)mutableCopyWithZone:(_NSZone *)zone;
 - (id)mutableUnorderedCopy;
 - (id)objectsForKeys:(id)keys notFoundMarker:(id)marker;
@@ -62,20 +64,80 @@
   return v12;
 }
 
+- (HMFOrderedDictionary)initWithObjects:(id)objects forKeys:(id)keys copyObjects:(BOOL)copyObjects copyKeys:(BOOL)copyKeys
+{
+  copyKeysCopy = copyKeys;
+  copyObjectsCopy = copyObjects;
+  objectsCopy = objects;
+  if (objectsCopy && copyObjectsCopy)
+  {
+    v11 = MEMORY[0x277CBEA60];
+    keysCopy = keys;
+    v13 = [[v11 alloc] initWithArray:objectsCopy copyItems:1];
+  }
+
+  else
+  {
+    keysCopy2 = keys;
+    v13 = [objectsCopy copy];
+  }
+
+  v15 = v13;
+
+  v16 = MEMORY[0x277CBEBF8];
+  if (v15)
+  {
+    v17 = v15;
+  }
+
+  else
+  {
+    v17 = MEMORY[0x277CBEBF8];
+  }
+
+  v18 = objc_alloc(MEMORY[0x277CBEB70]);
+  if (keys)
+  {
+    keysCopy3 = keys;
+  }
+
+  else
+  {
+    keysCopy3 = v16;
+  }
+
+  v20 = [v18 initWithArray:keysCopy3 copyItems:copyKeysCopy];
+
+  v21 = [(HMFOrderedDictionary *)self initWithObjects:v17 orderedKeySet:v20];
+  return v21;
+}
+
 - (HMFOrderedDictionary)initWithObject:(id)object forKey:(id)key
 {
-  v15[1] = *MEMORY[0x277D85DE8];
-  v15[0] = object;
+  v14[1] = *MEMORY[0x277D85DE8];
+  v14[0] = object;
   v6 = MEMORY[0x277CBEA60];
   keyCopy = key;
   objectCopy = object;
-  v9 = [v6 arrayWithObjects:v15 count:1];
-  v14 = keyCopy;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
+  v9 = [v6 arrayWithObjects:v14 count:1];
+  v13 = keyCopy;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
 
   v11 = [(HMFOrderedDictionary *)self initWithObjects:v9 forKeys:v10 copyObjects:0 copyKeys:1];
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
+}
+
+- (id)initBySortingDictionary:(id)dictionary copyItems:(BOOL)items keyComparator:(id)comparator
+{
+  itemsCopy = items;
+  v11 = 0;
+  v12 = 0;
+  sortKeysAndValuesOfDictionary(dictionary, comparator, &v12, &v11);
+  v7 = v11;
+  v8 = v12;
+  v9 = [(HMFOrderedDictionary *)self initWithObjects:v11 forKeys:v12 copyObjects:itemsCopy copyKeys:0];
+
+  return v9;
 }
 
 - (id)_valueForKey:(id *)key
@@ -100,7 +162,7 @@
 
 - (id)objectsForKeys:(id)keys notFoundMarker:(id)marker
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   keysCopy = keys;
   markerCopy = marker;
   if (!markerCopy)
@@ -110,21 +172,21 @@
 
   v8 = markerCopy;
   v9 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(keysCopy, "count")}];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v10 = keysCopy;
-  v11 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v22;
+    v13 = *v21;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v22 != v13)
+        if (*v21 != v13)
         {
           objc_enumerationMutation(v10);
         }
@@ -141,17 +203,16 @@
           v17 = v8;
         }
 
-        [v9 addObject:{v17, v21}];
+        [v9 addObject:{v17, v20}];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v12);
   }
 
   v18 = [v9 copy];
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -215,7 +276,7 @@ void __70__HMFOrderedDictionary_enumerateKeysAndObjectsWithOptions_usingBlock___
 
 - (HMFOrderedDictionary)initWithCoder:(id)coder
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMF.keys"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMF.objects"];
@@ -236,9 +297,9 @@ void __70__HMFOrderedDictionary_enumerateKeysAndObjectsWithOptions_usingBlock___
     v12 = LABEL_10:;
     v13 = MEMORY[0x277CCA9B8];
     v14 = *MEMORY[0x277CCA050];
-    v19 = *MEMORY[0x277CCA450];
-    v20[0] = v12;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+    v18 = *MEMORY[0x277CCA450];
+    v19[0] = v12;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
     v16 = [v13 errorWithDomain:v14 code:4864 userInfo:v15];
     [coderCopy failWithError:v16];
 
@@ -258,7 +319,6 @@ void __70__HMFOrderedDictionary_enumerateKeysAndObjectsWithOptions_usingBlock___
   selfCopy = self;
 LABEL_11:
 
-  v17 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

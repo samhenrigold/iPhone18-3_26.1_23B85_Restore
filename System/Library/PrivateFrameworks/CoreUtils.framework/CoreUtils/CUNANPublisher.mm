@@ -380,17 +380,17 @@ void __79__CUNANPublisher_publisher_receivedMessage_fromSubscriberID_subscriberA
   dispatch_async(dispatchQueue, v5);
 }
 
-uint64_t __49__CUNANPublisher_publisher_terminatedWithReason___block_invoke(uint64_t result)
+void *__49__CUNANPublisher_publisher_terminatedWithReason___block_invoke(void *result)
 {
   v13 = *MEMORY[0x1E69E9840];
-  if (*(*(result + 32) + 24))
+  if (*(result[4] + 24))
   {
     v1 = result;
     v2 = logger_4859();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = *(*(v1 + 32) + 104);
-      v4 = *(v1 + 40) + 1;
+      v3 = *(v1[4] + 104);
+      v4 = v1[5] + 1;
       if (v4 > 4)
       {
         v5 = "?";
@@ -408,13 +408,13 @@ uint64_t __49__CUNANPublisher_publisher_terminatedWithReason___block_invoke(uint
       _os_log_impl(&dword_191EAF000, v2, OS_LOG_TYPE_DEFAULT, "WFAPublisher terminated: '%@', %s", &v9, 0x16u);
     }
 
-    v6 = *(v1 + 32);
-    if (*(v1 + 40) == 2 || *(v6 + 8) == 1)
+    v6 = v1[4];
+    if (v1[5] == 2 || *(v6 + 8) == 1)
     {
       v7 = *(v6 + 24);
       *(v6 + 24) = 0;
 
-      return [*(v1 + 32) _invalidated];
+      return [v1[4] _invalidated];
     }
 
     else
@@ -423,7 +423,7 @@ uint64_t __49__CUNANPublisher_publisher_terminatedWithReason___block_invoke(uint
       if (v8)
       {
         (*(v8 + 16))(*(v6 + 120));
-        v6 = *(v1 + 32);
+        v6 = v1[4];
       }
 
       return [v6 scheduleRetry];
@@ -445,17 +445,17 @@ uint64_t __49__CUNANPublisher_publisher_terminatedWithReason___block_invoke(uint
   dispatch_async(dispatchQueue, v5);
 }
 
-uint64_t __51__CUNANPublisher_publisher_failedToStartWithError___block_invoke(uint64_t result)
+void *__51__CUNANPublisher_publisher_failedToStartWithError___block_invoke(void *result)
 {
   v17 = *MEMORY[0x1E69E9840];
-  if (*(*(result + 32) + 24))
+  if (*(result[4] + 24))
   {
     v1 = result;
-    v2 = *(result + 40);
+    v2 = result[5];
     v3 = logger_4859();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v11 = *(*(v1 + 32) + 104);
+      v11 = *(v1[4] + 104);
       v12 = NSPrintF("%#m", v4, v5, v6, v7, v8, v9, v10, (v2 + 313300));
       *buf = 138412546;
       v14 = v11;
@@ -464,7 +464,7 @@ uint64_t __51__CUNANPublisher_publisher_failedToStartWithError___block_invoke(ui
       _os_log_error_impl(&dword_191EAF000, v3, OS_LOG_TYPE_ERROR, "### WFAPublisher start failed: '%@', %@", buf, 0x16u);
     }
 
-    return [*(v1 + 32) scheduleRetry];
+    return [v1[4] scheduleRetry];
   }
 
   return result;
@@ -515,7 +515,7 @@ void __35__CUNANPublisher_publisherStarted___block_invoke(uint64_t a1)
     _os_log_impl(&dword_191EAF000, v3, OS_LOG_TYPE_DEFAULT, "Update SSI: name=%@, customData=%@, textInfo=%@", buf, 0x20u);
   }
 
-  v14 = objc_alloc_init(getWiFiAwarePublishServiceSpecificInfoClass[0]());
+  v14 = objc_alloc_init(getWiFiAwarePublishServiceSpecificInfoClass());
   [v14 setInstanceName:self->_name];
   if (self->_customData)
   {
@@ -673,84 +673,84 @@ void __31__CUNANPublisher_scheduleRetry__block_invoke(uint64_t a1)
 
 void __61__CUNANPublisher_sendMessageData_endpoint_completionHandler___block_invoke(uint64_t a1)
 {
-  v47 = *MEMORY[0x1E69E9840];
-  v37 = 0;
-  v38 = &v37;
-  v39 = 0x3032000000;
-  v40 = __Block_byref_object_copy__4884;
-  v41 = __Block_byref_object_dispose__4885;
-  v42 = 0;
+  v36 = *MEMORY[0x1E69E9840];
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x3032000000;
+  v29 = __Block_byref_object_copy__4884;
+  v30 = __Block_byref_object_dispose__4885;
+  v31 = 0;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __61__CUNANPublisher_sendMessageData_endpoint_completionHandler___block_invoke_52;
   aBlock[3] = &unk_1E73A3960;
-  v36 = &v37;
-  v35 = *(a1 + 56);
+  v25 = &v26;
+  v24 = *(a1 + 56);
   v2 = _Block_copy(aBlock);
-  v8 = *(*(a1 + 32) + 24);
-  if (v8)
+  v3 = *(*(a1 + 32) + 24);
+  if (v3)
   {
-    v9 = [*(a1 + 40) discoveryResult];
-    v10 = v9;
-    if (v9)
+    v4 = [*(a1 + 40) discoveryResult];
+    v5 = v4;
+    if (v4)
     {
-      v11 = [v9 publishID];
-      [v10 publisherAddress];
+      v6 = [v4 publishID];
+      [v5 publisherAddress];
     }
 
     else
     {
-      v11 = [*(a1 + 40) instanceID];
+      v6 = [*(a1 + 40) instanceID];
       [*(a1 + 40) macAddress];
     }
-    v17 = ;
-    if (v17)
+    v7 = ;
+    if (v7)
     {
-      v18 = logger_4859();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v8 = logger_4859();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = *(a1 + 40);
-        v20 = CUPrintNSDataHex(*(a1 + 48), 12, 1);
+        v9 = *(a1 + 40);
+        v10 = CUPrintNSDataHex(*(a1 + 48), 12, 1);
         *buf = 138412546;
-        v44 = v19;
-        v45 = 2112;
-        v46 = v20;
-        _os_log_impl(&dword_191EAF000, v18, OS_LOG_TYPE_DEFAULT, "SendMessage start: EP %@, Data %@", buf, 0x16u);
+        v33 = v9;
+        v34 = 2112;
+        v35 = v10;
+        _os_log_impl(&dword_191EAF000, v8, OS_LOG_TYPE_DEFAULT, "SendMessage start: EP %@, Data %@", buf, 0x16u);
       }
 
-      v21 = *(a1 + 48);
-      v31[0] = MEMORY[0x1E69E9820];
-      v31[1] = 3221225472;
-      v31[2] = __61__CUNANPublisher_sendMessageData_endpoint_completionHandler___block_invoke_55;
-      v31[3] = &unk_1E73A37B0;
-      v30 = *(a1 + 32);
-      v22 = *(&v30 + 1);
-      v23 = *(a1 + 48);
-      v24 = *(a1 + 56);
-      *&v25 = v23;
-      *(&v25 + 1) = v24;
-      v32 = v30;
-      v33 = v25;
-      [v8 sendMessage:v21 toPeerAddress:v17 withInstanceID:v11 completionHandler:v31];
+      v11 = *(a1 + 48);
+      v20[0] = MEMORY[0x1E69E9820];
+      v20[1] = 3221225472;
+      v20[2] = __61__CUNANPublisher_sendMessageData_endpoint_completionHandler___block_invoke_55;
+      v20[3] = &unk_1E73A37B0;
+      v19 = *(a1 + 32);
+      v12 = *(&v19 + 1);
+      v13 = *(a1 + 48);
+      v14 = *(a1 + 56);
+      *&v15 = v13;
+      *(&v15 + 1) = v14;
+      v21 = v19;
+      v22 = v15;
+      [v3 sendMessage:v11 toPeerAddress:v7 withInstanceID:v6 completionHandler:v20];
     }
 
     else
     {
-      v27 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960591, "No peer address", v12, v13, v14, v15, v16, v29);
-      v28 = v38[5];
-      v38[5] = v27;
+      v17 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960591, "No peer address");
+      v18 = v27[5];
+      v27[5] = v17;
     }
   }
 
   else
   {
-    v26 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960551, "Publisher not activated", v3, v4, v5, v6, v7, v29);
-    v17 = v38[5];
-    v38[5] = v26;
+    v16 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960551, "Publisher not activated");
+    v7 = v27[5];
+    v27[5] = v16;
   }
 
   v2[2](v2);
-  _Block_object_dispose(&v37, 8);
+  _Block_object_dispose(&v26, 8);
 }
 
 uint64_t __61__CUNANPublisher_sendMessageData_endpoint_completionHandler___block_invoke_52(uint64_t result)
@@ -788,26 +788,26 @@ void __61__CUNANPublisher_sendMessageData_endpoint_completionHandler___block_inv
   dispatch_async(v3, v4);
 }
 
-void __61__CUNANPublisher_sendMessageData_endpoint_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void __61__CUNANPublisher_sendMessageData_endpoint_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v32 = *MEMORY[0x1E69E9840];
-  v9 = *(a1 + 56);
-  if (v9)
+  v24 = *MEMORY[0x1E69E9840];
+  v2 = *(a1 + 56);
+  if (v2)
   {
-    v10 = NSErrorF_safe(*MEMORY[0x1E696A768], (v9 + 313300), "SendMessage failed", a4, a5, a6, a7, a8, v25);
-    v11 = logger_4859();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v3 = NSErrorF_safe(*MEMORY[0x1E696A768], (v2 + 313300), "SendMessage failed");
+    v4 = logger_4859();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v15 = *(a1 + 32);
-      v16 = CUPrintNSDataHex(*(a1 + 40), 12, 1);
-      v24 = NSPrintF("%{error}", v17, v18, v19, v20, v21, v22, v23, v10);
+      v8 = *(a1 + 32);
+      v9 = CUPrintNSDataHex(*(a1 + 40), 12, 1);
+      v17 = NSPrintF("%{error}", v10, v11, v12, v13, v14, v15, v16, v3);
       *buf = 138412802;
-      v27 = v15;
-      v28 = 2112;
-      v29 = v16;
-      v30 = 2112;
-      v31 = v24;
-      _os_log_error_impl(&dword_191EAF000, v11, OS_LOG_TYPE_ERROR, "### SendMessage failed: EP %@, Data %@, %@", buf, 0x20u);
+      v19 = v8;
+      v20 = 2112;
+      v21 = v9;
+      v22 = 2112;
+      v23 = v17;
+      _os_log_error_impl(&dword_191EAF000, v4, OS_LOG_TYPE_ERROR, "### SendMessage failed: EP %@, Data %@, %@", buf, 0x20u);
     }
 
     (*(*(a1 + 48) + 16))();
@@ -815,16 +815,16 @@ void __61__CUNANPublisher_sendMessageData_endpoint_completionHandler___block_inv
 
   else
   {
-    v12 = logger_4859();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v5 = logger_4859();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = *(a1 + 32);
-      v14 = CUPrintNSDataHex(*(a1 + 40), 12, 1);
+      v6 = *(a1 + 32);
+      v7 = CUPrintNSDataHex(*(a1 + 40), 12, 1);
       *buf = 138412546;
-      v27 = v13;
-      v28 = 2112;
-      v29 = v14;
-      _os_log_impl(&dword_191EAF000, v12, OS_LOG_TYPE_DEFAULT, "SendMessage completed: EP %@, Data %@", buf, 0x16u);
+      v19 = v6;
+      v20 = 2112;
+      v21 = v7;
+      _os_log_impl(&dword_191EAF000, v5, OS_LOG_TYPE_DEFAULT, "SendMessage completed: EP %@, Data %@", buf, 0x16u);
     }
 
     (*(*(a1 + 48) + 16))();
@@ -901,31 +901,31 @@ void __64__CUNANPublisher_generateStatisticsReportWithCompletionHandler___block_
 
   if (v4)
   {
-    v13 = v7 == 0;
+    v8 = v7 == 0;
   }
 
   else
   {
-    v13 = 1;
+    v8 = 1;
   }
 
-  if (v13)
+  if (v8)
   {
-    v14 = *(a1 + 40);
-    v15 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960596, "No underlying data session", v8, v9, v10, v11, v12, v17[0]);
-    (*(v14 + 16))(v14, 0, v15);
+    v9 = *(a1 + 40);
+    v10 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960596, "No underlying data session");
+    (*(v9 + 16))(v9, 0, v10);
   }
 
   else
   {
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __64__CUNANPublisher_generateStatisticsReportWithCompletionHandler___block_invoke_2;
-    v17[3] = &unk_1E73A36C8;
-    v16 = *(a1 + 40);
-    v17[4] = *(a1 + 32);
-    v18 = v16;
-    [v4 generateStatisticsReportForDataSession:v7 completionHandler:v17];
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __64__CUNANPublisher_generateStatisticsReportWithCompletionHandler___block_invoke_2;
+    v12[3] = &unk_1E73A36C8;
+    v11 = *(a1 + 40);
+    v12[4] = *(a1 + 32);
+    v13 = v11;
+    [v4 generateStatisticsReportForDataSession:v7 completionHandler:v12];
   }
 }
 
@@ -945,23 +945,23 @@ void __64__CUNANPublisher_generateStatisticsReportWithCompletionHandler___block_
   dispatch_async(v6, block);
 }
 
-void __64__CUNANPublisher_generateStatisticsReportWithCompletionHandler___block_invoke_3(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void __64__CUNANPublisher_generateStatisticsReportWithCompletionHandler___block_invoke_3(void *a1)
 {
-  v9 = a1[4];
-  v8 = a1[5];
-  v10 = a1[6];
-  if (v10)
+  v2 = a1[4];
+  v1 = a1[5];
+  v3 = a1[6];
+  if (v3)
   {
-    v14 = NSErrorF_safe(*MEMORY[0x1E696A768], (v10 + 313300), "Generate report failed", a4, v8 + 16, a6, a7, a8, v13);
-    (*(v8 + 16))(v8, v9, v14);
+    v6 = NSErrorF_safe(*MEMORY[0x1E696A768], (v3 + 313300), "Generate report failed");
+    (*(v1 + 16))(v1, v2, v6);
   }
 
   else
   {
-    v11 = *(v8 + 16);
-    v12 = a1[5];
+    v4 = *(v1 + 16);
+    v5 = a1[5];
 
-    v11(v12, v9, 0);
+    v4(v5, v2, 0);
   }
 }
 
@@ -1046,7 +1046,7 @@ void __64__CUNANPublisher_generateStatisticsReportWithCompletionHandler___block_
 
 - (void)_activateWithCompletion:(id)completion
 {
-  v137 = *MEMORY[0x1E69E9840];
+  v138 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v5 = logger_4859();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -1070,7 +1070,7 @@ void __64__CUNANPublisher_generateStatisticsReportWithCompletionHandler___block_
     v20 = v19;
     pairingShowHandler = self->_pairingShowHandler;
     *buf = 138413826;
-    v124 = serviceType;
+    v125 = serviceType;
     if (pairingShowHandler)
     {
       v22 = "yes";
@@ -1081,18 +1081,18 @@ void __64__CUNANPublisher_generateStatisticsReportWithCompletionHandler___block_
       v22 = "no";
     }
 
-    v125 = 2112;
-    v126 = name;
-    v127 = 1024;
-    v128 = port;
-    v129 = 2112;
-    v130 = v9;
-    v131 = 2112;
-    v132 = customData;
-    v133 = 2112;
-    v134 = v19;
-    v135 = 2080;
-    v136 = v22;
+    v126 = 2112;
+    v127 = name;
+    v128 = 1024;
+    v129 = port;
+    v130 = 2112;
+    v131 = v9;
+    v132 = 2112;
+    v133 = customData;
+    v134 = 2112;
+    v135 = v19;
+    v136 = 2080;
+    v137 = v22;
     _os_log_impl(&dword_191EAF000, v5, OS_LOG_TYPE_DEFAULT, "Activate: serviceType=%@, name='%@', port=%d, trafficFlags=%@, customData=%@, textInfo=%@, pair=%s", buf, 0x44u);
   }
 
@@ -1144,29 +1144,29 @@ void __64__CUNANPublisher_generateStatisticsReportWithCompletionHandler___block_
       mockEndpoint = [(CUNANPublisher *)selfCopy mockEndpoint];
       if (mockEndpoint)
       {
-        v121 = 0u;
         v122 = 0u;
-        v119 = 0u;
+        v123 = 0u;
         v120 = 0u;
+        v121 = 0u;
         v42 = [gCUNANMockSubscribers objectForKeyedSubscript:v35];
-        v43 = [v42 countByEnumeratingWithState:&v119 objects:buf count:16];
+        v43 = [v42 countByEnumeratingWithState:&v120 objects:buf count:16];
         if (v43)
         {
           v44 = v43;
-          v45 = *v120;
+          v45 = *v121;
           do
           {
             for (i = 0; i != v44; ++i)
             {
-              if (*v120 != v45)
+              if (*v121 != v45)
               {
                 objc_enumerationMutation(v42);
               }
 
-              [*(*(&v119 + 1) + 8 * i) reportMockEndpointFound:mockEndpoint];
+              [*(*(&v120 + 1) + 8 * i) reportMockEndpointFound:mockEndpoint];
             }
 
-            v44 = [v42 countByEnumeratingWithState:&v119 objects:buf count:16];
+            v44 = [v42 countByEnumeratingWithState:&v120 objects:buf count:16];
           }
 
           while (v44);
@@ -1183,7 +1183,7 @@ void __64__CUNANPublisher_generateStatisticsReportWithCompletionHandler___block_
       goto LABEL_76;
     }
 
-    v55 = [objc_alloc(getWiFiAwarePublishConfigurationClass[0]()) initWithServiceName:v23];
+    v55 = [objc_alloc(getWiFiAwarePublishConfigurationClass()) initWithServiceName:v23];
     v56 = v55;
     controlFlags = self->_controlFlags;
     if (controlFlags)
@@ -1194,7 +1194,7 @@ void __64__CUNANPublisher_generateStatisticsReportWithCompletionHandler___block_
 
     if ((controlFlags & 2) != 0)
     {
-      automaticallyRequestInternetFromInitiators = [getWiFiAwareInternetSharingConfigurationClass_4908[0]() automaticallyRequestInternetFromInitiators];
+      automaticallyRequestInternetFromInitiators = [(objc_class *)getWiFiAwareInternetSharingConfigurationClass_4908() automaticallyRequestInternetFromInitiators];
       if (automaticallyRequestInternetFromInitiators)
       {
         [v56 setInternetSharingConfiguration:automaticallyRequestInternetFromInitiators];
@@ -1210,12 +1210,12 @@ void __64__CUNANPublisher_generateStatisticsReportWithCompletionHandler___block_
         }
 
         *buf = 136315138;
-        v124 = v60;
+        v125 = v60;
         _os_log_impl(&dword_191EAF000, v59, OS_LOG_TYPE_DEFAULT, "AutomaticInfraRelay: %s", buf, 0xCu);
       }
     }
 
-    v61 = objc_alloc_init(getWiFiAwarePublishServiceSpecificInfoClass[0]());
+    v61 = objc_alloc_init(getWiFiAwarePublishServiceSpecificInfoClass());
     [v61 setInstanceName:self->_name];
     v62 = self->_customData;
     if (v62)
@@ -1227,24 +1227,24 @@ void __64__CUNANPublisher_generateStatisticsReportWithCompletionHandler___block_
     v65 = v63;
     if (v63)
     {
-      v118 = 0;
-      v66 = CUTXTDataCreateWithDictionary(v63, v64, &v118);
-      v67 = v118;
+      v119 = 0;
+      v66 = CUTXTDataCreateWithDictionary(v63, v64, &v119);
+      v67 = v119;
       v74 = v67;
       if (!v66)
       {
         if (!v67)
         {
-          v74 = NSErrorWithOSStatusF(4294960596, "Encode TXT failed", v68, v69, v70, v71, v72, v73, v116);
+          v74 = NSErrorWithOSStatusF(4294960596, "Encode TXT failed", v68, v69, v70, v71, v72, v73, v117);
         }
 
-        v84 = logger_4859();
-        if (os_log_type_enabled(v84, OS_LOG_TYPE_ERROR))
+        v85 = logger_4859();
+        if (os_log_type_enabled(v85, OS_LOG_TYPE_ERROR))
         {
-          v115 = NSPrintF("%{error}", v85, v86, v87, v88, v89, v90, v91, v74);
+          v116 = NSPrintF("%{error}", v86, v87, v88, v89, v90, v91, v92, v74);
           *buf = 138412290;
-          v124 = v115;
-          _os_log_error_impl(&dword_191EAF000, v84, OS_LOG_TYPE_ERROR, "### Activate failed: %@", buf, 0xCu);
+          v125 = v116;
+          _os_log_error_impl(&dword_191EAF000, v85, OS_LOG_TYPE_ERROR, "### Activate failed: %@", buf, 0xCu);
         }
 
         if (completionCopy)
@@ -1258,25 +1258,25 @@ void __64__CUNANPublisher_generateStatisticsReportWithCompletionHandler___block_
       [v61 setTxtRecordData:v66];
     }
 
-    [v56 setServiceSpecificInfo:v61];
+    v75 = [v56 setServiceSpecificInfo:v61];
     if (self->_dataPathEnabled)
     {
       trafficFlags = self->_trafficFlags;
       if ((trafficFlags & 0x800) != 0)
       {
-        v76 = 2;
+        v77 = 2;
       }
 
       else
       {
-        v76 = (trafficFlags & 0x63300) != 0;
+        v77 = (trafficFlags & 0x63300) != 0;
       }
 
       if (self->_pairingShowHandler)
       {
-        v77 = [objc_alloc(getWiFiAwarePairingConfigurationClass[0]()) initWithSupportedPairSetupMethods:&unk_1F06A31A8 pairingCachingEnabled:1];
-        v117 = [objc_alloc(getWiFiAwarePublishDatapathSecurityConfigurationClass[0]()) initWithPairingConfiguration:v77 usingPairingDelegate:self];
-        v78 = objc_alloc(getWiFiAwarePairingMetadataClass_4914[0]());
+        v78 = [objc_alloc(getWiFiAwarePairingConfigurationClass(v75)) initWithSupportedPairSetupMethods:&unk_1F06A31A8 pairingCachingEnabled:1];
+        v118 = [objc_alloc(getWiFiAwarePublishDatapathSecurityConfigurationClass()) initWithPairingConfiguration:v78 usingPairingDelegate:self];
+        v79 = objc_alloc(getWiFiAwarePairingMetadataClass_4914());
         if (self->_pairingBundleID)
         {
           pairingBundleID = self->_pairingBundleID;
@@ -1287,41 +1287,41 @@ void __64__CUNANPublisher_generateStatisticsReportWithCompletionHandler___block_
           pairingBundleID = @"com.apple.Setup";
         }
 
-        v80 = v62;
-        v81 = v76;
-        v82 = [v78 initWithBundleID:pairingBundleID selfPairingName:@"Device" peerDeviceName:0 storageClass:1 lifetime:1 pairingClient:0.0];
-        [v56 setPairingMetadata:v82];
+        v81 = v62;
+        v82 = v77;
+        v83 = [v79 initWithBundleID:pairingBundleID selfPairingName:@"Device" peerDeviceName:0 storageClass:1 lifetime:1 pairingClient:0.0];
+        [v56 setPairingMetadata:v83];
 
-        v76 = v81;
-        v62 = v80;
-        v83 = v117;
+        v77 = v82;
+        v62 = v81;
+        v84 = v118;
       }
 
       else
       {
-        v83 = 0;
+        v84 = 0;
       }
 
-      v92 = [objc_alloc(getWiFiAwarePublishDatapathConfigurationClass[0]()) initWithServiceType:v76 securityConfiguration:v83];
-      v93 = v92;
+      v93 = [objc_alloc(getWiFiAwarePublishDatapathConfigurationClass()) initWithServiceType:v77 securityConfiguration:v84];
+      v94 = v93;
       if (self->_pairingShowHandler)
       {
-        [v92 setConnectionMode:2];
+        [v93 setConnectionMode:2];
       }
 
-      v94 = [objc_alloc(getWiFiAwarePublishDatapathServiceSpecificInfoClass[0]()) initWithProtocolType:0 servicePort:LOWORD(self->_port)];
-      [v93 setServiceSpecificInfo:v94];
-      [v56 setDatapathConfiguration:v93];
+      v95 = [objc_alloc(getWiFiAwarePublishDatapathServiceSpecificInfoClass()) initWithProtocolType:0 servicePort:LOWORD(self->_port)];
+      [v94 setServiceSpecificInfo:v95];
+      [v56 setDatapathConfiguration:v94];
     }
 
-    v95 = [objc_alloc(getWiFiAwarePublisherClass[0]()) initWithConfiguration:v56];
+    v96 = [objc_alloc(getWiFiAwarePublisherClass()) initWithConfiguration:v56];
     wfaPublisher = self->_wfaPublisher;
-    self->_wfaPublisher = v95;
+    self->_wfaPublisher = v96;
 
-    v103 = self->_wfaPublisher;
-    if (v103)
+    v104 = self->_wfaPublisher;
+    if (v104)
     {
-      [(WiFiAwarePublisher *)v103 setDelegate:self];
+      [(WiFiAwarePublisher *)v104 setDelegate:self];
       [(WiFiAwarePublisher *)self->_wfaPublisher start];
       if (completionCopy)
       {
@@ -1331,19 +1331,19 @@ void __64__CUNANPublisher_generateStatisticsReportWithCompletionHandler___block_
 
     else
     {
-      v104 = NSErrorWithOSStatusF(4294960596, "Create WFAPublisher failed", v97, v98, v99, v100, v101, v102, v116);
-      v105 = logger_4859();
-      if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
+      v105 = NSErrorWithOSStatusF(4294960596, "Create WFAPublisher failed", v98, v99, v100, v101, v102, v103, v117);
+      v106 = logger_4859();
+      if (os_log_type_enabled(v106, OS_LOG_TYPE_ERROR))
       {
-        v114 = NSPrintF("%{error}", v106, v107, v108, v109, v110, v111, v112, v104);
+        v115 = NSPrintF("%{error}", v107, v108, v109, v110, v111, v112, v113, v105);
         *buf = 138412290;
-        v124 = v114;
-        _os_log_error_impl(&dword_191EAF000, v105, OS_LOG_TYPE_ERROR, "### Activate failed: %@", buf, 0xCu);
+        v125 = v115;
+        _os_log_error_impl(&dword_191EAF000, v106, OS_LOG_TYPE_ERROR, "### Activate failed: %@", buf, 0xCu);
       }
 
       if (completionCopy)
       {
-        (completionCopy)[2](completionCopy, v104);
+        (completionCopy)[2](completionCopy, v105);
       }
     }
 
@@ -1353,13 +1353,13 @@ LABEL_75:
     goto LABEL_76;
   }
 
-  v35 = NSErrorWithOSStatusF(4294960591, "No service type", v24, v25, v26, v27, v28, v29, v116);
+  v35 = NSErrorWithOSStatusF(4294960591, "No service type", v24, v25, v26, v27, v28, v29, v117);
   v47 = logger_4859();
   if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
   {
-    v113 = NSPrintF("%{error}", v48, v49, v50, v51, v52, v53, v54, v35);
+    v114 = NSPrintF("%{error}", v48, v49, v50, v51, v52, v53, v54, v35);
     *buf = 138412290;
-    v124 = v113;
+    v125 = v114;
     _os_log_error_impl(&dword_191EAF000, v47, OS_LOG_TYPE_ERROR, "### Activate failed: %@", buf, 0xCu);
   }
 

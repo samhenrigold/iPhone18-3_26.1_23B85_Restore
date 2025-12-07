@@ -11,18 +11,16 @@
 
 + (id)sublibraries
 {
-  v10[4] = *MEMORY[0x1E69E9840];
+  v9[4] = *MEMORY[0x1E69E9840];
   communicationSafety = [self CommunicationSafety];
-  v10[0] = communicationSafety;
+  v9[0] = communicationSafety;
   media = [self Media];
-  v10[1] = media;
+  v9[1] = media;
   search = [self Search];
-  v10[2] = search;
+  v9[2] = search;
   sharedWithYou = [self SharedWithYou];
-  v10[3] = sharedWithYou;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:4];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9[3] = sharedWithYou;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:4];
 
   return v7;
 }
@@ -76,22 +74,20 @@
 
 + (id)Read
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForRead = [self configurationForRead];
   v3 = +[BMMessagesRead columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"Messages.Read" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"Messages.Read" schema:v9 configuration:configurationForRead];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

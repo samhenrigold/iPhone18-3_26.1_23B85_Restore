@@ -78,7 +78,7 @@
 
 void __45__AXRemoteReceiver_initWithEventID_delegate___block_invoke(uint64_t a1)
 {
-  v2 = ax_remote_connection_log();
+  v2 = ax_remote_connection_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *v6 = 0;
@@ -93,29 +93,27 @@ void __45__AXRemoteReceiver_initWithEventID_delegate___block_invoke(uint64_t a1)
 
 void __45__AXRemoteReceiver_initWithEventID_delegate___block_invoke_3(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = ax_remote_connection_log();
+  v4 = ax_remote_connection_log(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v9 = 138412290;
-    v10 = v3;
-    _os_log_impl(&dword_22952F000, v4, OS_LOG_TYPE_INFO, "Activating companion link client with error: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v3;
+    _os_log_impl(&dword_22952F000, v4, OS_LOG_TYPE_INFO, "Activating companion link client with error: %@", &v8, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v6 = [WeakRetained delegate];
   v7 = objc_loadWeakRetained((a1 + 32));
   [v6 remoteReceiver:v7 didActivateWithError:v3];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __45__AXRemoteReceiver_initWithEventID_delegate___block_invoke_5(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v7 = ax_remote_connection_log();
+  v7 = ax_remote_connection_log(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     __45__AXRemoteReceiver_initWithEventID_delegate___block_invoke_5_cold_1();
@@ -132,7 +130,7 @@ void __45__AXRemoteReceiver_initWithEventID_delegate___block_invoke_7(uint64_t a
   v7 = a2;
   v8 = a3;
   v9 = a4;
-  v10 = ax_remote_connection_log();
+  v10 = ax_remote_connection_log(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     __45__AXRemoteReceiver_initWithEventID_delegate___block_invoke_7_cold_1();
@@ -156,22 +154,6 @@ void __45__AXRemoteReceiver_initWithEventID_delegate___block_invoke_7(uint64_t a
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
 
   return WeakRetained;
-}
-
-void __45__AXRemoteReceiver_initWithEventID_delegate___block_invoke_5_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_22952F000, v0, v1, "Handling inEvent: %@, inOptions: %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void __45__AXRemoteReceiver_initWithEventID_delegate___block_invoke_7_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_22952F000, v0, v1, "Handling request: %@, inOptions: %@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

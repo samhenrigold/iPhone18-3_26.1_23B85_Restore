@@ -26,7 +26,7 @@
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
   v6 = [(CMContinuityCaptureCenterStageStateRestorationData *)self debugDescription];
-  v7 = [v3 stringWithFormat:@"<%@: %p %@>", v5, self, v6];
+  v7 = [v3 stringWithFormat:v5, self, v6];
 
   return v7;
 }

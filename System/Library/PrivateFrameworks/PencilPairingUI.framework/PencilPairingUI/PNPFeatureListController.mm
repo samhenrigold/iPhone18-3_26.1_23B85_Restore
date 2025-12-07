@@ -21,27 +21,27 @@
 + (id)_controllerWithType:(int64_t)type buttonType:(int64_t)buttonType deviceType:(int64_t)deviceType delegate:(id)delegate
 {
   delegateCopy = delegate;
-  v10 = PencilPairingUIBundle();
+  v10 = PencilPairingUIBundle(delegateCopy);
   v11 = [v10 localizedStringForKey:@"WELCOME_TITLE" value:&stru_286FDFDB8 table:0];
 
   v12 = [PNPFeatureListController alloc];
-  v13 = PencilPairingUIBundle();
+  v13 = PencilPairingUIBundle(v12);
   v14 = [v13 localizedStringForKey:@"WELCOME_DETAIL_TEXT" value:&stru_286FDFDB8 table:0];
   v15 = [(PNPWelcomeController *)v12 initWithTitle:v11 detailText:v14 icon:0];
 
   if (deviceType == 4)
   {
-    v16 = PencilPairingUIBundle();
+    v17 = PencilPairingUIBundle(v16);
     buttonTypeCopy = buttonType;
-    v17 = [v16 localizedStringForKey:@"WELCOME_TITLE_PRO" value:&stru_286FDFDB8 table:@"PencilPairingSqueeze-B532"];
+    v18 = [v17 localizedStringForKey:@"WELCOME_TITLE_PRO" value:&stru_286FDFDB8 table:@"PencilPairingSqueeze-B532"];
 
-    v18 = [PNPFeatureListController alloc];
-    v19 = PencilPairingUIBundle();
-    v20 = [v19 localizedStringForKey:@"WELCOME_DETAIL_TEXT_PRO" value:&stru_286FDFDB8 table:@"PencilPairingSqueeze-B532"];
-    v21 = [(PNPWelcomeController *)v18 initWithTitle:v17 detailText:v20 icon:0];
+    v19 = [PNPFeatureListController alloc];
+    v20 = PencilPairingUIBundle(v19);
+    v21 = [v20 localizedStringForKey:@"WELCOME_DETAIL_TEXT_PRO" value:&stru_286FDFDB8 table:@"PencilPairingSqueeze-B532"];
+    v22 = [(PNPWelcomeController *)v19 initWithTitle:v18 detailText:v21 icon:0];
 
-    v11 = v17;
-    v15 = v21;
+    v11 = v18;
+    v15 = v22;
     buttonType = buttonTypeCopy;
   }
 
@@ -122,10 +122,9 @@
 
 - (void)addHoverBullet
 {
-  [(PNPFeatureListController *)self setBulletCount:[(PNPFeatureListController *)self bulletCount]+ 1];
-  v7 = PencilPairingUIBundle();
+  v7 = PencilPairingUIBundle([(PNPFeatureListController *)self setBulletCount:[(PNPFeatureListController *)self bulletCount]+ 1]);
   v3 = [v7 localizedStringForKey:@"PENCIL_HOVER_PREVIEW_TITLE" value:&stru_286FDFDB8 table:0];
-  v4 = PencilPairingUIBundle();
+  v4 = PencilPairingUIBundle(v3);
   v5 = [v4 localizedStringForKey:@"PENCIL_HOVER_PREVIEW_DESCRIPTION" value:&stru_286FDFDB8 table:0];
   v6 = [(PNPWelcomeController *)self bundleImageNamed:@"Preview"];
   [(PNPFeatureListController *)self addBulletedListItemWithTitle:v3 description:v5 image:v6];
@@ -133,25 +132,25 @@
 
 - (void)addQuickNoteBullet
 {
-  [(PNPFeatureListController *)self setBulletCount:[(PNPFeatureListController *)self bulletCount]+ 1];
-  v10 = PencilPairingUIBundle();
-  v3 = [v10 localizedStringForKey:@"WELCOME_NOTES_TITLE" value:&stru_286FDFDB8 table:0];
+  v11 = PencilPairingUIBundle([(PNPFeatureListController *)self setBulletCount:[(PNPFeatureListController *)self bulletCount]+ 1]);
+  v3 = [v11 localizedStringForKey:@"WELCOME_NOTES_TITLE" value:&stru_286FDFDB8 table:0];
   isRTL = [(PNPWelcomeController *)self isRTL];
-  v5 = PencilPairingUIBundle();
-  v6 = v5;
-  if (isRTL)
+  v5 = isRTL;
+  v6 = PencilPairingUIBundle(isRTL);
+  v7 = v6;
+  if (v5)
   {
-    v7 = @"WELCOME_NOTES_DESCRIPTION_RTOL";
+    v8 = @"WELCOME_NOTES_DESCRIPTION_RTOL";
   }
 
   else
   {
-    v7 = @"WELCOME_NOTES_DESCRIPTION";
+    v8 = @"WELCOME_NOTES_DESCRIPTION";
   }
 
-  v8 = [v5 localizedStringForKey:v7 value:&stru_286FDFDB8 table:0];
-  v9 = [(PNPWelcomeController *)self bundleImageNamed:@"Notes"];
-  [(PNPFeatureListController *)self addBulletedListItemWithTitle:v3 description:v8 image:v9];
+  v9 = [v6 localizedStringForKey:v8 value:&stru_286FDFDB8 table:0];
+  v10 = [(PNPWelcomeController *)self bundleImageNamed:@"Notes"];
+  [(PNPFeatureListController *)self addBulletedListItemWithTitle:v3 description:v9 image:v10];
 }
 
 - (BOOL)addScribbleBulletIfNecessary
@@ -161,10 +160,9 @@
 
   if (supportedKeyboardLocaleExists)
   {
-    [(PNPFeatureListController *)self setBulletCount:[(PNPFeatureListController *)self bulletCount]+ 1];
-    v5 = PencilPairingUIBundle();
+    v5 = PencilPairingUIBundle([(PNPFeatureListController *)self setBulletCount:[(PNPFeatureListController *)self bulletCount]+ 1]);
     v6 = [v5 localizedStringForKey:@"WELCOME_SCRIBBLE_TITLE" value:&stru_286FDFDB8 table:0];
-    v7 = PencilPairingUIBundle();
+    v7 = PencilPairingUIBundle(v6);
     v8 = [v7 localizedStringForKey:@"WELCOME_SCRIBBLE_DESCRIPTION" value:&stru_286FDFDB8 table:0];
     v9 = [(PNPWelcomeController *)self bundleImageNamed:@"welcome_scribble"];
     [(PNPFeatureListController *)self addBulletedListItemWithTitle:v6 description:v8 image:v9];
@@ -175,10 +173,9 @@
 
 - (void)addDoubleTapBullet
 {
-  [(PNPFeatureListController *)self setBulletCount:[(PNPFeatureListController *)self bulletCount]+ 1];
-  v7 = PencilPairingUIBundle();
+  v7 = PencilPairingUIBundle([(PNPFeatureListController *)self setBulletCount:[(PNPFeatureListController *)self bulletCount]+ 1]);
   v3 = [v7 localizedStringForKey:@"WELCOME_SWITCH_TOOLS_TITLE" value:&stru_286FDFDB8 table:0];
-  v4 = PencilPairingUIBundle();
+  v4 = PencilPairingUIBundle(v3);
   v5 = [v4 localizedStringForKey:@"WELCOME_SWITCH_TOOLS_DESCRIPTION" value:&stru_286FDFDB8 table:0];
   v6 = [(PNPWelcomeController *)self bundleImageNamed:@"welcome_double_tap"];
   [(PNPFeatureListController *)self addBulletedListItemWithTitle:v3 description:v5 image:v6];
@@ -186,33 +183,32 @@
 
 - (void)addScreenshotsBullet
 {
-  [(PNPFeatureListController *)self setBulletCount:[(PNPFeatureListController *)self bulletCount]+ 1];
-  v10 = PencilPairingUIBundle();
-  v3 = [v10 localizedStringForKey:@"WELCOME_SCREENSHOT_TITLE" value:&stru_286FDFDB8 table:0];
+  v11 = PencilPairingUIBundle([(PNPFeatureListController *)self setBulletCount:[(PNPFeatureListController *)self bulletCount]+ 1]);
+  v3 = [v11 localizedStringForKey:@"WELCOME_SCREENSHOT_TITLE" value:&stru_286FDFDB8 table:0];
   isRTL = [(PNPWelcomeController *)self isRTL];
-  v5 = PencilPairingUIBundle();
-  v6 = v5;
-  if (isRTL)
+  v5 = isRTL;
+  v6 = PencilPairingUIBundle(isRTL);
+  v7 = v6;
+  if (v5)
   {
-    v7 = @"WELCOME_SCREENSHOT_DESCRIPTION_RTOL";
+    v8 = @"WELCOME_SCREENSHOT_DESCRIPTION_RTOL";
   }
 
   else
   {
-    v7 = @"WELCOME_SCREENSHOT_DESCRIPTION";
+    v8 = @"WELCOME_SCREENSHOT_DESCRIPTION";
   }
 
-  v8 = [v5 localizedStringForKey:v7 value:&stru_286FDFDB8 table:0];
-  v9 = [(PNPWelcomeController *)self bundleImageNamed:@"welcome_swipe"];
-  [(PNPFeatureListController *)self addBulletedListItemWithTitle:v3 description:v8 image:v9];
+  v9 = [v6 localizedStringForKey:v8 value:&stru_286FDFDB8 table:0];
+  v10 = [(PNPWelcomeController *)self bundleImageNamed:@"welcome_swipe"];
+  [(PNPFeatureListController *)self addBulletedListItemWithTitle:v3 description:v9 image:v10];
 }
 
 - (void)addSqueezeBullet
 {
-  [(PNPFeatureListController *)self setBulletCount:[(PNPFeatureListController *)self bulletCount]+ 1];
-  v7 = PencilPairingUIBundle();
+  v7 = PencilPairingUIBundle([(PNPFeatureListController *)self setBulletCount:[(PNPFeatureListController *)self bulletCount]+ 1]);
   v3 = [v7 localizedStringForKey:@"WELCOME_SQUEEZE_TITLE" value:&stru_286FDFDB8 table:@"PencilPairingSqueeze-B532"];
-  v4 = PencilPairingUIBundle();
+  v4 = PencilPairingUIBundle(v3);
   v5 = [v4 localizedStringForKey:@"WELCOME_SQUEEZE_DESCRIPTION" value:&stru_286FDFDB8 table:@"PencilPairingSqueeze-B532"];
   v6 = [(PNPWelcomeController *)self bundleImageNamed:@"welcome_squeeze"];
   [(PNPFeatureListController *)self addBulletedListItemWithTitle:v3 description:v5 image:v6];
@@ -220,10 +216,9 @@
 
 - (void)addDoubleTapBulletForPro
 {
-  [(PNPFeatureListController *)self setBulletCount:[(PNPFeatureListController *)self bulletCount]+ 1];
-  v7 = PencilPairingUIBundle();
+  v7 = PencilPairingUIBundle([(PNPFeatureListController *)self setBulletCount:[(PNPFeatureListController *)self bulletCount]+ 1]);
   v3 = [v7 localizedStringForKey:@"WELCOME_SWITCH_TOOLS_TITLE" value:&stru_286FDFDB8 table:0];
-  v4 = PencilPairingUIBundle();
+  v4 = PencilPairingUIBundle(v3);
   v5 = [v4 localizedStringForKey:@"WELCOME_SWITCH_TOOLS_DESCRIPTION_PRO" value:&stru_286FDFDB8 table:@"PencilPairingSqueeze-B532"];
   v6 = [(PNPWelcomeController *)self bundleImageNamed:@"welcome_double_tap"];
   [(PNPFeatureListController *)self addBulletedListItemWithTitle:v3 description:v5 image:v6];
@@ -231,25 +226,25 @@
 
 - (void)addScreenshotsBulletForPro
 {
-  [(PNPFeatureListController *)self setBulletCount:[(PNPFeatureListController *)self bulletCount]+ 1];
-  v10 = PencilPairingUIBundle();
-  v3 = [v10 localizedStringForKey:@"WELCOME_SCREENSHOT_TITLE" value:&stru_286FDFDB8 table:0];
+  v11 = PencilPairingUIBundle([(PNPFeatureListController *)self setBulletCount:[(PNPFeatureListController *)self bulletCount]+ 1]);
+  v3 = [v11 localizedStringForKey:@"WELCOME_SCREENSHOT_TITLE" value:&stru_286FDFDB8 table:0];
   isRTL = [(PNPWelcomeController *)self isRTL];
-  v5 = PencilPairingUIBundle();
-  v6 = v5;
-  if (isRTL)
+  v5 = isRTL;
+  v6 = PencilPairingUIBundle(isRTL);
+  v7 = v6;
+  if (v5)
   {
-    v7 = @"WELCOME_SCREENSHOT_DESCRIPTION_RTOL_PRO";
+    v8 = @"WELCOME_SCREENSHOT_DESCRIPTION_RTOL_PRO";
   }
 
   else
   {
-    v7 = @"WELCOME_SCREENSHOT_DESCRIPTION_PRO";
+    v8 = @"WELCOME_SCREENSHOT_DESCRIPTION_PRO";
   }
 
-  v8 = [v5 localizedStringForKey:v7 value:&stru_286FDFDB8 table:@"PencilPairingSqueeze-B532"];
-  v9 = [(PNPWelcomeController *)self bundleImageNamed:@"welcome_swipe"];
-  [(PNPFeatureListController *)self addBulletedListItemWithTitle:v3 description:v8 image:v9];
+  v9 = [v6 localizedStringForKey:v8 value:&stru_286FDFDB8 table:@"PencilPairingSqueeze-B532"];
+  v10 = [(PNPWelcomeController *)self bundleImageNamed:@"welcome_swipe"];
+  [(PNPFeatureListController *)self addBulletedListItemWithTitle:v3 description:v9 image:v10];
 }
 
 - (void)tempDoTheNormalThing

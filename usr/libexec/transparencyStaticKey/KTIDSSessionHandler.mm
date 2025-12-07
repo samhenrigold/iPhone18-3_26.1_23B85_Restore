@@ -26,6 +26,10 @@
 - (void)resetSession:(id)session;
 - (void)runIfHaveContact:(id)contact complete:(id)complete;
 - (void)sasTTR:(id)r toHandle:(id)handle pushToken:(id)token;
+- (void)sendMessage:(unsigned __int16)message data:(id)data mailbox:(id)mailbox fromID:(id)d;
+- (void)sendMessage:(unsigned __int16)message data:(id)data targets:(id)targets fromHandle:(id)handle;
+- (void)sendMessage:(unsigned __int16)message data:(id)data toID:(id)d sourceID:(id)iD;
+- (void)setMessagedAction:(SEL)action forIncomingRequestsOfType:(unsigned __int16)type;
 - (void)setupTransport;
 - (void)startMessageDelegate:(id)delegate onQueue:(id)queue;
 - (void)tearDown:(id)down toID:(id)d fromID:(id)iD;
@@ -41,27 +45,8 @@
   v24.receiver = self;
   v24.super_class = KTIDSSessionHandler;
   v11 = [(KTIDSSessionHandler *)&v24 init];
-  if (!v11)
+  if (v11 && ((v12 = transportCopy) != 0 || (v13 = [IDSService alloc], v14 = [v13 initWithService:off_1000AD370], -[KTIDSSessionHandler setService:](v11, "setService:", v14), v14, -[KTIDSSessionHandler service](v11, "service"), v15 = objc_claimAutoreleasedReturnValue(), v15, v12 = v11, v15)))
   {
-    goto LABEL_9;
-  }
-
-  v12 = transportCopy;
-  if (transportCopy)
-  {
-    goto LABEL_4;
-  }
-
-  v13 = [IDSService alloc];
-  v14 = [v13 initWithService:off_1000AD370];
-  [(KTIDSSessionHandler *)v11 setService:v14];
-
-  service = [(KTIDSSessionHandler *)v11 service];
-
-  v12 = v11;
-  if (service)
-  {
-LABEL_4:
     [(KTIDSSessionHandler *)v11 setTransport:v12];
     if (transparencydCopy)
     {
@@ -102,7 +87,6 @@ LABEL_4:
 
   else
   {
-LABEL_9:
     v20 = 0;
   }
 
@@ -140,12 +124,66 @@ LABEL_9:
   [transport9 startMessageDelegate:self onQueue:queue];
 }
 
+- (void)setMessagedAction:(SEL)action forIncomingRequestsOfType:(unsigned __int16)type
+{
+  typeCopy = type;
+  service = [(KTIDSSessionHandler *)self service];
+  [service setProtobufAction:action forIncomingRequestsOfType:typeCopy];
+}
+
 - (void)startMessageDelegate:(id)delegate onQueue:(id)queue
 {
   queueCopy = queue;
   delegateCopy = delegate;
   service = [(KTIDSSessionHandler *)self service];
   [service addDelegate:delegateCopy withDelegateProperties:0 queue:queueCopy];
+}
+
+- (void)sendMessage:(unsigned __int16)message data:(id)data targets:(id)targets fromHandle:(id)handle
+{
+  messageCopy = message;
+  targetsCopy = targets;
+  handleCopy = handle;
+  dataCopy = data;
+  v13 = +[NSMutableDictionary dictionary];
+  v14 = v13;
+  if (handleCopy)
+  {
+    [v13 setObject:handleCopy forKeyedSubscript:IDSSendMessageOptionFromIDKey];
+  }
+
+  v15 = [[IDSProtobuf alloc] initWithProtobufData:dataCopy type:messageCopy isResponse:0];
+
+  service = [(KTIDSSessionHandler *)self service];
+  v22 = 0;
+  v17 = [service sendProtobuf:v15 toDestinations:targetsCopy priority:300 options:v14 identifier:0 error:&v22];
+  v18 = v22;
+
+  if ((v17 & 1) == 0)
+  {
+    allObjects = [targetsCopy allObjects];
+    v20 = [allObjects componentsJoinedByString:{@", "}];
+
+    oslog = [(KTIDSSessionHandler *)self oslog];
+    if (os_log_type_enabled(oslog, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 67110658;
+      v24 = messageCopy;
+      v25 = 2160;
+      v26 = 1752392040;
+      v27 = 2112;
+      v28 = v20;
+      v29 = 2160;
+      v30 = 1752392040;
+      v31 = 2112;
+      v32 = handleCopy;
+      v33 = 2160;
+      v34 = 1752392040;
+      v35 = 2112;
+      v36 = v18;
+      _os_log_error_impl(&_mh_execute_header, oslog, OS_LOG_TYPE_ERROR, "%d send sendProtobuf to %{mask.hash}@ from %{mask.hash}@ failed with: %{mask.hash}@", buf, 0x44u);
+    }
+  }
 }
 
 - (void)sasTTR:(id)r toHandle:(id)handle pushToken:(id)token
@@ -307,6 +345,94 @@ LABEL_9:
   }
 
   return v9 & 1;
+}
+
+- (void)sendMessage:(unsigned __int16)message data:(id)data mailbox:(id)mailbox fromID:(id)d
+{
+  messageCopy = message;
+  dataCopy = data;
+  mailboxCopy = mailbox;
+  dCopy = d;
+  queue = [(KTIDSSessionHandler *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  peer = [mailboxCopy peer];
+
+  if (peer)
+  {
+    if (!dCopy)
+    {
+      peer2 = [mailboxCopy peer];
+      dCopy = [peer2 peer];
+    }
+
+    peer3 = [mailboxCopy peer];
+    lastUsedAddressOfMe = [peer3 lastUsedAddressOfMe];
+    [(KTIDSSessionHandler *)self sendMessage:messageCopy data:dataCopy toID:dCopy sourceID:lastUsedAddressOfMe];
+  }
+
+  else
+  {
+    oslog = [(KTIDSSessionHandler *)self oslog];
+    if (os_log_type_enabled(oslog, OS_LOG_TYPE_ERROR))
+    {
+      sub_10006D920();
+    }
+  }
+}
+
+- (void)sendMessage:(unsigned __int16)message data:(id)data toID:(id)d sourceID:(id)iD
+{
+  messageCopy = message;
+  dataCopy = data;
+  dCopy = d;
+  iDCopy = iD;
+  v13 = IDSCopyBestGuessIDForID();
+  if (v13)
+  {
+    if (iDCopy)
+    {
+      oslog2 = IDSCopyBestGuessIDForID();
+    }
+
+    else
+    {
+      oslog2 = 0;
+    }
+
+    oslog = [(KTIDSSessionHandler *)self oslog];
+    if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
+    {
+      v18[0] = 67110658;
+      v18[1] = messageCopy;
+      v19 = 2160;
+      v20 = 1752392040;
+      v21 = 2112;
+      v22 = v13;
+      v23 = 2160;
+      v24 = 1752392040;
+      v25 = 2112;
+      v26 = oslog2;
+      v27 = 2160;
+      v28 = 1752392040;
+      v29 = 2112;
+      v30 = iDCopy;
+      _os_log_impl(&_mh_execute_header, oslog, OS_LOG_TYPE_DEFAULT, "sending message %d to: %{mask.hash}@ from: %{mask.hash}@[%{mask.hash}@]", v18, 0x44u);
+    }
+
+    transport = [(KTIDSSessionHandler *)self transport];
+    v17 = [NSSet setWithObject:v13];
+    [transport sendMessage:messageCopy data:dataCopy targets:v17 fromHandle:oslog2];
+  }
+
+  else
+  {
+    oslog2 = [(KTIDSSessionHandler *)self oslog];
+    if (os_log_type_enabled(oslog2, OS_LOG_TYPE_ERROR))
+    {
+      sub_10006D998(messageCopy, dCopy, oslog2);
+    }
+  }
 }
 
 - (id)setupMailbox:(id)mailbox publicInfo:(id)info

@@ -7,6 +7,10 @@
 + (void)emitEvent:(id)event;
 + (void)emitEventMilAssetAcquisition:(id)acquisition milAssetAcquisitionContextBuilder:(id)builder;
 + (void)emitEventMilAssetAcquisitionWithMetadata:(id)metadata milAssetAcquisitionContextBuilder:(id)builder;
++ (void)logMilCompilationEnded:(id)ended acquisitionType:(int)type;
++ (void)logMilCompilationEndedWithMetadata:(id)metadata contextId:(id)id acquisitionType:(int)type;
++ (void)logMilCompilationFailed:(id)failed acquisitionType:(int)type errorCode:(int)code errorMessage:(id)message;
++ (void)logMilCompilationFailedWithMetadata:(id)metadata contextId:(id)id acquisitionType:(int)type errorCode:(int)code errorMessage:(id)message;
 @end
 
 @implementation E5MLModuleSELFLoggingUtils
@@ -120,12 +124,52 @@ void __93__E5MLModuleSELFLoggingUtils_emitEventMilAssetAcquisition_milAssetAcqui
   return v5;
 }
 
++ (void)logMilCompilationFailed:(id)failed acquisitionType:(int)type errorCode:(int)code errorMessage:(id)message
+{
+  v7 = *&code;
+  v8 = *&type;
+  failedCopy = failed;
+  v11 = MEMORY[0x277D590D0];
+  messageCopy = message;
+  v13 = objc_alloc_init(v11);
+  [v13 setAcquisitionType:v8];
+  [v13 setErrorCode:v7];
+  [v13 setErrorMessage:messageCopy];
+
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __93__E5MLModuleSELFLoggingUtils_logMilCompilationFailed_acquisitionType_errorCode_errorMessage___block_invoke;
+  v16[3] = &unk_2784B6E70;
+  v17 = v13;
+  v18 = failedCopy;
+  v14 = failedCopy;
+  v15 = v13;
+  [self emitEventMilAssetAcquisition:v14 milAssetAcquisitionContextBuilder:v16];
+}
+
 void __93__E5MLModuleSELFLoggingUtils_logMilCompilationFailed_acquisitionType_errorCode_errorMessage___block_invoke(uint64_t a1, void *a2)
 {
   v3 = *(a1 + 32);
   v4 = a2;
   [v4 setFailed:v3];
   [v4 setContextId:*(a1 + 40)];
+}
+
++ (void)logMilCompilationEnded:(id)ended acquisitionType:(int)type
+{
+  v4 = *&type;
+  endedCopy = ended;
+  v7 = objc_alloc_init(MEMORY[0x277D590C8]);
+  [v7 setAcquisitionType:v4];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __69__E5MLModuleSELFLoggingUtils_logMilCompilationEnded_acquisitionType___block_invoke;
+  v10[3] = &unk_2784B6E70;
+  v11 = v7;
+  v12 = endedCopy;
+  v8 = endedCopy;
+  v9 = v7;
+  [self emitEventMilAssetAcquisition:v8 milAssetAcquisitionContextBuilder:v10];
 }
 
 void __69__E5MLModuleSELFLoggingUtils_logMilCompilationEnded_acquisitionType___block_invoke(uint64_t a1, void *a2)
@@ -164,12 +208,55 @@ void __54__E5MLModuleSELFLoggingUtils_logMilCompilationStarted__block_invoke(uin
   [v4 setContextId:*(a1 + 40)];
 }
 
++ (void)logMilCompilationFailedWithMetadata:(id)metadata contextId:(id)id acquisitionType:(int)type errorCode:(int)code errorMessage:(id)message
+{
+  v8 = *&code;
+  v9 = *&type;
+  idCopy = id;
+  v13 = MEMORY[0x277D590D0];
+  messageCopy = message;
+  metadataCopy = metadata;
+  v16 = objc_alloc_init(v13);
+  [v16 setAcquisitionType:v9];
+  [v16 setErrorCode:v8];
+  [v16 setErrorMessage:messageCopy];
+
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __115__E5MLModuleSELFLoggingUtils_logMilCompilationFailedWithMetadata_contextId_acquisitionType_errorCode_errorMessage___block_invoke;
+  v19[3] = &unk_2784B6E70;
+  v20 = v16;
+  v21 = idCopy;
+  v17 = idCopy;
+  v18 = v16;
+  [self emitEventMilAssetAcquisitionWithMetadata:metadataCopy milAssetAcquisitionContextBuilder:v19];
+}
+
 void __115__E5MLModuleSELFLoggingUtils_logMilCompilationFailedWithMetadata_contextId_acquisitionType_errorCode_errorMessage___block_invoke(uint64_t a1, void *a2)
 {
   v3 = *(a1 + 32);
   v4 = a2;
   [v4 setFailed:v3];
   [v4 setContextId:*(a1 + 40)];
+}
+
++ (void)logMilCompilationEndedWithMetadata:(id)metadata contextId:(id)id acquisitionType:(int)type
+{
+  v5 = *&type;
+  idCopy = id;
+  v9 = MEMORY[0x277D590C8];
+  metadataCopy = metadata;
+  v11 = objc_alloc_init(v9);
+  [v11 setAcquisitionType:v5];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __91__E5MLModuleSELFLoggingUtils_logMilCompilationEndedWithMetadata_contextId_acquisitionType___block_invoke;
+  v14[3] = &unk_2784B6E70;
+  v15 = v11;
+  v16 = idCopy;
+  v12 = idCopy;
+  v13 = v11;
+  [self emitEventMilAssetAcquisitionWithMetadata:metadataCopy milAssetAcquisitionContextBuilder:v14];
 }
 
 void __91__E5MLModuleSELFLoggingUtils_logMilCompilationEndedWithMetadata_contextId_acquisitionType___block_invoke(uint64_t a1, void *a2)

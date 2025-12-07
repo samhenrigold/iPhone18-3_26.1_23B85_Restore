@@ -7,6 +7,7 @@
 + (id)lowRuntimeNotificationContent;
 + (id)lowRuntimeNotificationRequest;
 + (id)obcEngagedContentWithDeadline:(id)deadline toppingOff:(BOOL)off;
++ (id)obcEngagedRequestWithDeadline:(id)deadline isToppingOff:(BOOL)off;
 + (id)pausedNotificationContentFromDate:(id)date bundle:(id)bundle;
 + (id)sharedInstance;
 - (BOOL)internalCECNotificationsDisabled;
@@ -43,10 +44,10 @@
 
 - (PowerUINotificationManager)init
 {
-  v26 = *MEMORY[0x277D85DE8];
-  v23.receiver = self;
-  v23.super_class = PowerUINotificationManager;
-  v2 = [(PowerUINotificationManager *)&v23 init];
+  v25 = *MEMORY[0x277D85DE8];
+  v22.receiver = self;
+  v22.super_class = PowerUINotificationManager;
+  v2 = [(PowerUINotificationManager *)&v22 init];
   if (v2)
   {
     v3 = os_log_create("com.apple.powerui.smartcharging", "NotificationManager");
@@ -72,7 +73,7 @@
       {
         immediateCharge = v2->_immediateCharge;
         *buf = 67109120;
-        v25 = immediateCharge;
+        v24 = immediateCharge;
         _os_log_impl(&dword_21B766000, v12, OS_LOG_TYPE_DEFAULT, "Setting immediateCharge to %d", buf, 8u);
       }
     }
@@ -82,7 +83,7 @@
     {
       v15 = v2->_immediateCharge;
       *buf = 67109120;
-      v25 = v15;
+      v24 = v15;
       _os_log_impl(&dword_21B766000, v14, OS_LOG_TYPE_DEFAULT, "ImmediateCharge %d", buf, 8u);
     }
 
@@ -93,42 +94,41 @@
     [(UNUserNotificationCenter *)v2->_unCenter setDelegate:v2];
     [(UNUserNotificationCenter *)v2->_unCenter setWantsNotificationResponsesDelivered];
     v18 = v2->_unCenter;
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __34__PowerUINotificationManager_init__block_invoke;
-    v21[3] = &unk_2782D4050;
-    v22 = v2;
-    [(UNUserNotificationCenter *)v18 getDeliveredNotificationsWithCompletionHandler:v21];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __34__PowerUINotificationManager_init__block_invoke;
+    v20[3] = &unk_2782D4050;
+    v21 = v2;
+    [(UNUserNotificationCenter *)v18 getDeliveredNotificationsWithCompletionHandler:v20];
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 void __34__PowerUINotificationManager_init__block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v19;
+    v6 = *v18;
     do
     {
       v7 = 0;
       do
       {
-        if (*v19 != v6)
+        if (*v18 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [*(*(&v18 + 1) + 8 * v7) request];
+        v8 = [*(*(&v17 + 1) + 8 * v7) request];
         v9 = [v8 content];
         v10 = [v9 categoryIdentifier];
         v11 = [v10 isEqual:@"fullChargeCategory"];
@@ -151,13 +151,11 @@ void __34__PowerUINotificationManager_init__block_invoke(uint64_t a1, void *a2)
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v5);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)currentOBCEngagedNotification
@@ -202,28 +200,28 @@ void __34__PowerUINotificationManager_init__block_invoke(uint64_t a1, void *a2)
 
 void __59__PowerUINotificationManager_currentOBCEngagedNotification__block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v3 = a2;
-  v4 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v16;
-    v14 = a1;
+    v6 = *v15;
+    v13 = a1;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v15 + 1) + 8 * i);
+        v8 = *(*(&v14 + 1) + 8 * i);
         v9 = [v8 request];
         v10 = [v9 content];
         v11 = [v10 categoryIdentifier];
@@ -231,15 +229,15 @@ void __59__PowerUINotificationManager_currentOBCEngagedNotification__block_invok
 
         if (v12)
         {
-          a1 = v14;
-          objc_storeStrong((*(*(v14 + 40) + 8) + 40), v8);
+          a1 = v13;
+          objc_storeStrong((*(*(v13 + 40) + 8) + 40), v8);
 
           goto LABEL_11;
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
-      a1 = v14;
+      v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      a1 = v13;
       if (v5)
       {
         continue;
@@ -252,7 +250,6 @@ void __59__PowerUINotificationManager_currentOBCEngagedNotification__block_invok
 LABEL_11:
 
   dispatch_semaphore_signal(*(a1 + 32));
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 + (id)sharedInstance
@@ -428,22 +425,22 @@ void __55__PowerUINotificationManager_getDeliveredNotifications__block_invoke(ui
 
 void __52__PowerUINotificationManager_removeAllNotifications__block_invoke(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v14 objects:v20 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v13 objects:v19 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(v3);
         }
@@ -451,23 +448,21 @@ void __52__PowerUINotificationManager_removeAllNotifications__block_invoke(uint6
         v8 = *(*(a1 + 32) + 16);
         if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
-          v9 = *(*(&v14 + 1) + 8 * i);
+          v9 = *(*(&v13 + 1) + 8 * i);
           v10 = v8;
           v11 = [v9 request];
           v12 = [v11 identifier];
           *buf = 138412290;
-          v19 = v12;
+          v18 = v12;
           _os_log_impl(&dword_21B766000, v10, OS_LOG_TYPE_DEFAULT, "Removing notification %@", buf, 0xCu);
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v14 objects:v20 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v13 objects:v19 count:16];
     }
 
     while (v5);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 + (id)pausedNotificationContentFromDate:(id)date bundle:(id)bundle
@@ -562,6 +557,27 @@ LABEL_10:
   }
 
   return v14;
+}
+
++ (id)obcEngagedRequestWithDeadline:(id)deadline isToppingOff:(BOOL)off
+{
+  v4 = [PowerUINotificationManager obcEngagedContentWithDeadline:deadline toppingOff:off];
+  if (v4)
+  {
+    v5 = MEMORY[0x277CCACA8];
+    date = [MEMORY[0x277CBEAA8] date];
+    v7 = [v5 stringWithFormat:@"chargingRequest-%@", date];
+
+    v8 = [MEMORY[0x277CE1FC0] requestWithIdentifier:v7 content:v4 trigger:0];
+    [v8 setDestinations:2];
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  return v8;
 }
 
 - (void)resetAll
@@ -858,29 +874,29 @@ LABEL_10:
 
 void __57__PowerUINotificationManager_removeCECPausedNotification__block_invoke(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   obj = a2;
-  v3 = [obj countByEnumeratingWithState:&v23 objects:v29 count:16];
+  v3 = [obj countByEnumeratingWithState:&v22 objects:v28 count:16];
   if (v3)
   {
     v5 = v3;
-    v6 = *v24;
+    v6 = *v23;
     *&v4 = 138412290;
-    v21 = v4;
+    v20 = v4;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v24 != v6)
+        if (*v23 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v23 + 1) + 8 * i);
+        v8 = *(*(&v22 + 1) + 8 * i);
         v9 = [v8 request];
         v10 = [v9 content];
         v11 = [v10 categoryIdentifier];
@@ -894,8 +910,8 @@ void __57__PowerUINotificationManager_removeCECPausedNotification__block_invoke(
             v14 = v13;
             v15 = [v8 request];
             v16 = [v15 identifier];
-            *buf = v21;
-            v28 = v16;
+            *buf = v20;
+            v27 = v16;
             _os_log_impl(&dword_21B766000, v14, OS_LOG_TYPE_DEFAULT, "Removing notification %@", buf, 0xCu);
           }
 
@@ -906,15 +922,13 @@ void __57__PowerUINotificationManager_removeCECPausedNotification__block_invoke(
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v23 objects:v29 count:16];
+      v5 = [obj countByEnumeratingWithState:&v22 objects:v28 count:16];
     }
 
     while (v5);
   }
 
   dispatch_semaphore_signal(*(a1 + 48));
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeCECNotifications
@@ -950,31 +964,31 @@ void __57__PowerUINotificationManager_removeCECPausedNotification__block_invoke(
 
 void __52__PowerUINotificationManager_removeCECNotifications__block_invoke(uint64_t a1, void *a2)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   obj = a2;
-  v28 = [obj countByEnumeratingWithState:&v29 objects:v35 count:16];
-  if (v28)
+  v27 = [obj countByEnumeratingWithState:&v28 objects:v34 count:16];
+  if (v27)
   {
-    v4 = *v30;
+    v4 = *v29;
     v5 = @"cecEngagedCategory";
     *&v3 = 138412290;
-    v24 = v3;
-    v25 = *v30;
-    v26 = a1;
+    v23 = v3;
+    v24 = *v29;
+    v25 = a1;
     do
     {
-      for (i = 0; i != v28; ++i)
+      for (i = 0; i != v27; ++i)
       {
-        if (*v30 != v4)
+        if (*v29 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v29 + 1) + 8 * i);
+        v7 = *(*(&v28 + 1) + 8 * i);
         v8 = [v7 request];
         v9 = [v8 content];
         v10 = [v9 categoryIdentifier];
@@ -991,8 +1005,8 @@ void __52__PowerUINotificationManager_removeCECNotifications__block_invoke(uint6
           v15 = [v14 isEqual:@"cecFirstTimeCategory"];
 
           v5 = v12;
-          v4 = v25;
-          a1 = v26;
+          v4 = v24;
+          a1 = v25;
 
           if (!v15)
           {
@@ -1006,8 +1020,8 @@ void __52__PowerUINotificationManager_removeCECNotifications__block_invoke(uint6
           v17 = v16;
           v18 = [v7 request];
           v19 = [v18 identifier];
-          *buf = v24;
-          v34 = v19;
+          *buf = v23;
+          v33 = v19;
           _os_log_impl(&dword_21B766000, v17, OS_LOG_TYPE_DEFAULT, "Removing notification %@", buf, 0xCu);
         }
 
@@ -1017,20 +1031,18 @@ void __52__PowerUINotificationManager_removeCECNotifications__block_invoke(uint6
         [v20 addObject:v22];
       }
 
-      v28 = [obj countByEnumeratingWithState:&v29 objects:v35 count:16];
+      v27 = [obj countByEnumeratingWithState:&v28 objects:v34 count:16];
     }
 
-    while (v28);
+    while (v27);
   }
 
   dispatch_semaphore_signal(*(a1 + 48));
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)userNotificationCenter:(id)center didReceiveNotificationResponse:(id)response withCompletionHandler:(id)handler
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   centerCopy = center;
   responseCopy = response;
   handlerCopy = handler;
@@ -1039,9 +1051,9 @@ void __52__PowerUINotificationManager_removeCECNotifications__block_invoke(uint6
   {
     v12 = log;
     actionIdentifier = [responseCopy actionIdentifier];
-    v22 = 138412290;
-    v23 = actionIdentifier;
-    _os_log_impl(&dword_21B766000, v12, OS_LOG_TYPE_INFO, "notification request coming in: %@", &v22, 0xCu);
+    v21 = 138412290;
+    v22 = actionIdentifier;
+    _os_log_impl(&dword_21B766000, v12, OS_LOG_TYPE_INFO, "notification request coming in: %@", &v21, 0xCu);
   }
 
   actionIdentifier2 = [responseCopy actionIdentifier];
@@ -1052,17 +1064,17 @@ void __52__PowerUINotificationManager_removeCECNotifications__block_invoke(uint6
     v16 = self->_log;
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v22) = 0;
-      _os_log_impl(&dword_21B766000, v16, OS_LOG_TYPE_DEFAULT, "User requested immediate charge.", &v22, 2u);
+      LOWORD(v21) = 0;
+      _os_log_impl(&dword_21B766000, v16, OS_LOG_TYPE_DEFAULT, "User requested immediate charge.", &v21, 2u);
     }
 
     v17 = self->_log;
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       immediateCharge = self->_immediateCharge;
-      v22 = 67109120;
-      LODWORD(v23) = immediateCharge;
-      _os_log_impl(&dword_21B766000, v17, OS_LOG_TYPE_DEFAULT, "ImmediateCharge %d", &v22, 8u);
+      v21 = 67109120;
+      LODWORD(v22) = immediateCharge;
+      _os_log_impl(&dword_21B766000, v17, OS_LOG_TYPE_DEFAULT, "ImmediateCharge %d", &v21, 8u);
     }
 
     self->_immediateCharge = 1;
@@ -1077,7 +1089,6 @@ void __52__PowerUINotificationManager_removeCECNotifications__block_invoke(uint6
   [v20 handleNotificationResponse:responseCopy];
 
   handlerCopy[2](handlerCopy);
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)internalCECNotificationsDisabled
@@ -1100,44 +1111,44 @@ void __52__PowerUINotificationManager_removeCECNotifications__block_invoke(uint6
 
 - (void)postInternalCECNotificationForChargingDates:(id)dates
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   datesCopy = dates;
   if (!-[PowerUINotificationManager internalCECNotificationsDisabled](self, "internalCECNotificationsDisabled") && [datesCopy count])
   {
     selfCopy = self;
     v5 = objc_alloc_init(MEMORY[0x277CE1F60]);
     v6 = [MEMORY[0x277CCACA8] localizedUserNotificationStringForKey:@"[CEC INTERNAL]" arguments:0];
-    v30 = v5;
+    v29 = v5;
     [v5 setTitle:v6];
 
     v7 = [datesCopy objectAtIndexedSubscript:0];
     v8 = [datesCopy objectAtIndexedSubscript:0];
+    v36 = 0u;
     v37 = 0u;
     v38 = 0u;
     v39 = 0u;
-    v40 = 0u;
-    v32 = datesCopy;
+    v31 = datesCopy;
     obj = datesCopy;
-    v36 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
-    if (v36)
+    v35 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
+    if (v35)
     {
       v9 = 0;
-      v34 = *v38;
+      v33 = *v37;
       v10 = @"Cleaner Electricity windows: ";
       do
       {
         v11 = 0;
-        v33 = v9;
+        v32 = v9;
         v12 = v9 + 1;
         v13 = v8;
         do
         {
-          if (*v38 != v34)
+          if (*v37 != v33)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = *(*(&v37 + 1) + 8 * v11);
+          v14 = *(*(&v36 + 1) + 8 * v11);
           [v14 timeIntervalSinceDate:v13];
           if (v15 > 900.0 || v12 == [obj count])
           {
@@ -1162,12 +1173,12 @@ void __52__PowerUINotificationManager_removeCECNotifications__block_invoke(uint6
           v13 = v8;
         }
 
-        while (v36 != v11);
-        v9 = v36 + v33;
-        v36 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
+        while (v35 != v11);
+        v9 = v35 + v32;
+        v35 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
       }
 
-      while (v36);
+      while (v35);
     }
 
     else
@@ -1175,22 +1186,20 @@ void __52__PowerUINotificationManager_removeCECNotifications__block_invoke(uint6
       v10 = @"Cleaner Electricity windows: ";
     }
 
-    [v30 setBody:v10];
+    [v29 setBody:v10];
     v24 = MEMORY[0x277CE1FB0];
     v25 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v26 = [v25 pathForResource:@"leaf.circle@2x" ofType:@"png"];
     v27 = [v24 iconAtPath:v26];
-    [v30 setIcon:v27];
+    [v29 setIcon:v27];
 
-    [v30 setShouldIgnoreDoNotDisturb:1];
-    [v30 setCategoryIdentifier:@"cecEngagedCategory"];
-    v28 = [MEMORY[0x277CE1FC0] requestWithIdentifier:@"emissionChargingDates" content:v30 trigger:0];
+    [v29 setShouldIgnoreDoNotDisturb:1];
+    [v29 setCategoryIdentifier:@"cecEngagedCategory"];
+    v28 = [MEMORY[0x277CE1FC0] requestWithIdentifier:@"emissionChargingDates" content:v29 trigger:0];
     [(UNUserNotificationCenter *)selfCopy->_unCenter addNotificationRequest:v28 withCompletionHandler:0];
 
-    datesCopy = v32;
+    datesCopy = v31;
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)postInternalNotificationAtDate:(id)date withTitle:(id)title withTextContent:(id)content icon:(id)icon url:(id)url expirationDate:(id)expirationDate
@@ -1308,7 +1317,7 @@ void __52__PowerUINotificationManager_removeCECNotifications__block_invoke(uint6
 
 - (id)contentForInternalDurationPredictionWithDuration:(double)duration withConfidence:(double)confidence
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v7 = objc_alloc_init(MEMORY[0x277CE1F60]);
   v8 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:duration];
   v9 = [MEMORY[0x277CCA968] localizedStringFromDate:v8 dateStyle:1 timeStyle:1];
@@ -1318,7 +1327,7 @@ void __52__PowerUINotificationManager_removeCECNotifications__block_invoke(uint6
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v28 = v11;
+    v27 = v11;
     _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Histogram at plugin: %@", buf, 0xCu);
   }
 
@@ -1373,8 +1382,6 @@ LABEL_8:
   [v7 setExpirationDate:v8];
   v24 = [MEMORY[0x277CE1FB0] iconForSystemImageNamed:@"bolt.fill"];
   [v7 setIcon:v24];
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -1432,7 +1439,7 @@ LABEL_8:
 
 - (void)handleLocationFailures:(id)failures
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   failuresCopy = failures;
   notification = [failuresCopy notification];
   request = [notification request];
@@ -1462,15 +1469,15 @@ LABEL_5:
       }
 
       *buf = 138412290;
-      v24 = v15;
+      v23 = v15;
       _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_INFO, "User has%@ charged here before.", buf, 0xCu);
     }
 
-    v21[5] = MEMORY[0x277D85DD0];
-    v21[6] = 3221225472;
-    v21[7] = __53__PowerUINotificationManager_handleLocationFailures___block_invoke;
-    v21[8] = &__block_descriptor_33_e19___NSDictionary_8__0l;
-    v22 = v13;
+    v20[5] = MEMORY[0x277D85DD0];
+    v20[6] = 3221225472;
+    v20[7] = __53__PowerUINotificationManager_handleLocationFailures___block_invoke;
+    v20[8] = &__block_descriptor_33_e19___NSDictionary_8__0l;
+    v21 = v13;
     AnalyticsSendEventLazy();
     goto LABEL_10;
   }
@@ -1484,34 +1491,30 @@ LABEL_5:
   }
 
   actionIdentifier4 = [failuresCopy actionIdentifier];
-  v18 = [actionIdentifier4 isEqualToString:@"poweruiTTR"];
+  v17 = [actionIdentifier4 isEqualToString:@"poweruiTTR"];
 
-  if (v18)
+  if (v17)
   {
     defaultWorkspace = [MEMORY[0x277CC1E80] defaultWorkspace];
     ttrURLforLocationFailure = [(PowerUINotificationManager *)self ttrURLforLocationFailure];
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __53__PowerUINotificationManager_handleLocationFailures___block_invoke_2;
-    v21[3] = &unk_2782D4110;
-    v21[4] = self;
-    [defaultWorkspace openURL:ttrURLforLocationFailure configuration:0 completionHandler:v21];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __53__PowerUINotificationManager_handleLocationFailures___block_invoke_2;
+    v20[3] = &unk_2782D4110;
+    v20[4] = self;
+    [defaultWorkspace openURL:ttrURLforLocationFailure configuration:0 completionHandler:v20];
   }
 
 LABEL_10:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 id __53__PowerUINotificationManager_handleLocationFailures___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v5 = @"Correct";
+  v5[1] = *MEMORY[0x277D85DE8];
+  v4 = @"Correct";
   v1 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x277D85DE8];
+  v5[0] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -1532,7 +1535,7 @@ void __53__PowerUINotificationManager_handleLocationFailures___block_invoke_2(ui
 
 - (id)ttrURLforLocationFailure
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"tap-to-radar://new?Title=OBC Location Error&Classification=Serious Bug&ComponentID=971083&ComponentName=PowerUI&ComponentVersion=all&Reproducible=Sometimes&Description=If you have charged here in the past, could you describe how recently and general frequency of charge sessions that are at least one hour long?"];
   uRLQueryAllowedCharacterSet = [MEMORY[0x277CCA900] URLQueryAllowedCharacterSet];
   v5 = [v3 stringByAddingPercentEncodingWithAllowedCharacters:uRLQueryAllowedCharacterSet];
@@ -1541,12 +1544,10 @@ void __53__PowerUINotificationManager_handleLocationFailures___block_invoke_2(ui
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
-    v11 = v6;
-    _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "TTR URL is %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v6;
+    _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "TTR URL is %@", &v9, 0xCu);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -1573,29 +1574,26 @@ void __53__PowerUINotificationManager_handleLocationFailures___block_invoke_2(ui
 
 - (void)cancelNotificationRequestWithIdentifier:(id)identifier
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   unCenter = self->_unCenter;
-  v12[0] = identifier;
+  v11[0] = identifier;
   v5 = MEMORY[0x277CBEA60];
   identifierCopy = identifier;
-  v7 = [v5 arrayWithObjects:v12 count:1];
+  v7 = [v5 arrayWithObjects:v11 count:1];
   [(UNUserNotificationCenter *)unCenter removeDeliveredNotificationsWithIdentifiers:v7];
 
   v8 = self->_unCenter;
-  v11 = identifierCopy;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:1];
+  v10 = identifierCopy;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:1];
   [(UNUserNotificationCenter *)v8 removePendingNotificationRequestsWithIdentifiers:v9];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __53__PowerUINotificationManager_handleLocationFailures___block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_21B766000, a2, OS_LOG_TYPE_ERROR, "Error when opening TTR URL: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_21B766000, a2, OS_LOG_TYPE_ERROR, "Error when opening TTR URL: %@", &v2, 0xCu);
 }
 
 @end

@@ -56,7 +56,7 @@
 
 - (box<glm::detail::tvec3<float>>)boundsFromObjectBoundsOfType:(SEL)type
 {
-  v8 = objc_msgSend_bounds(self, type, v4, v5, v6, *&a4);
+  v8 = objc_msgSend_bounds(self, v4, v5, v6, type, *&a4);
   *retstr = v8[1];
 
   return sub_276166138(retstr, &v8[2]);
@@ -123,10 +123,10 @@
 - (void)calculateLayoutBoundsSkippingLayoutSceneBounds:(BOOL)bounds
 {
   v8 = objc_msgSend_clone(self->super.super._scene, a2, v3, v4, v5);
-  v108 = objc_msgSend_nonNilAccessorWithScene_(TSCH3DChartScenePropertyAccessor, v9, v10, v11, v12, v8);
+  v90 = objc_msgSend_nonNilAccessorWithScene_(TSCH3DChartScenePropertyAccessor, v9, v10, v11, v12, v8);
   *&__p._min.var0.var0 = 0;
   __p._min.var2.var0 = 0.0;
-  objc_msgSend_setRotation_(v108, v13, v14, v15, v16, &__p);
+  objc_msgSend_setRotation_(v90, v13, v14, v15, v16, &__p);
   v21 = objc_msgSend_drawingBoundsSceneObjectClasses(self, v17, v18, v19, v20);
   v26 = objc_msgSend_extractObjectsNotOfClasses_(v8, v22, v23, v24, v25, v21);
 
@@ -137,78 +137,78 @@
   v46 = objc_msgSend_extractObjectsOfClasses_(v26, v42, v43, v44, v45, v41);
 
   v51 = objc_msgSend_clone(v46, v47, v48, v49, v50);
-  v56 = objc_msgSend_p_depthBoundsTypes(self, v52, v53, v54, v55);
-  objc_msgSend_getBoundsFromObjectBoundsForScene_boundsType_(self, v57, v58, v59, v60, v51, v56);
+  objc_msgSend_p_depthBoundsTypes(self, v52, v53, v54, v55);
+  objc_msgSend_getBoundsFromObjectBoundsForScene_boundsType_(self, v56, v57, v58);
   *&self->_constantDepthBodyLayoutBounds._min.var0.var0 = *&__p._min.var0.var0;
-  v61 = *&__p._max.var1.var0;
+  v59 = *&__p._max.var1.var0;
   *&self->_constantDepthBodyLayoutBounds._max.var1.var0 = *&__p._max.var1.var0;
-  objc_msgSend_resetBounds(self, v62, v61, v63, v64);
-  objc_msgSend_getBoundsFromObjectBoundsForScene_boundsType_(self, v65, v66, v67, v68, v46, 0);
+  objc_msgSend_resetBounds(self, v60, v59, v61, v62);
+  objc_msgSend_getBoundsFromObjectBoundsForScene_boundsType_(self, v63, v64, v65);
   self->_bodyLayoutBounds = __p;
   *&self->_layoutBounds._min.var0.var0 = xmmword_2764D5F00;
-  v72 = 2.84809454e-306;
+  v68 = 2.84809454e-306;
   *&self->_layoutBounds._max.var1.var0 = 0x80000000800000;
   if (!bounds)
   {
-    objc_msgSend_getBoundsFromObjectBoundsForScene_boundsType_(self, v69, 2.84809454e-306, v70, v71, v26, 0);
+    objc_msgSend_getBoundsFromObjectBoundsForScene_boundsType_(self, 2.84809454e-306, v66, v67);
     *&self->_layoutBounds._min.var0.var0 = *&__p._min.var0.var0;
-    v72 = *&__p._max.var1.var0;
+    v68 = *&__p._max.var1.var0;
     *&self->_layoutBounds._max.var1.var0 = *&__p._max.var1.var0;
   }
 
-  objc_msgSend_getBoundsFromObjectBoundsForScene_boundsType_(self, v69, v72, v70, v71, v8, 0);
+  objc_msgSend_getBoundsFromObjectBoundsForScene_boundsType_(self, v68, v66, v67);
   *&self->_shadowsLayoutBounds._min.var0.var0 = *&__p._min.var0.var0;
-  v76 = *&__p._max.var1.var0;
+  v72 = *&__p._max.var1.var0;
   *&self->_shadowsLayoutBounds._max.var1.var0 = *&__p._max.var1.var0;
   if (byte_280A46430 == 1)
   {
-    v77 = objc_opt_class();
-    v78 = NSStringFromSelector(a2);
-    NSLog(&cfstr_PLayoutScene.isa, v77, self, v78, v26);
+    v73 = objc_opt_class();
+    v74 = NSStringFromSelector(a2);
+    NSLog(&cfstr_PLayoutScene.isa, v73, self, v74, v26);
 
     if (byte_280A46430)
     {
-      v105 = objc_opt_class();
+      v87 = objc_opt_class();
       aSelectora = NSStringFromSelector(a2);
-      v79 = MEMORY[0x277CCACA8];
-      sub_276166580(&self->_bodyLayoutBounds._min.var0.var0, v80, v81, v82, v83, v84, v85, v86);
+      v75 = MEMORY[0x277CCACA8];
+      sub_276166580(&self->_bodyLayoutBounds._min.var0.var0, &__p);
       if (__p._max.var2.var2 >= 0.0)
       {
-        objc_msgSend_stringWithUTF8String_(v79, v87, v88, v89, v90, &__p);
+        objc_msgSend_stringWithUTF8String_(v75, v76, v77, v78, v79, &__p);
       }
 
       else
       {
-        objc_msgSend_stringWithUTF8String_(v79, v87, v88, v89, v90, *&__p._min.var0.var0);
+        objc_msgSend_stringWithUTF8String_(v75, v76, v77, v78, v79, *&__p._min.var0.var0);
       }
-      v98 = ;
+      v80 = ;
       if (SHIBYTE(__p._max.var2.var2) < 0)
       {
         operator delete(*&__p._min.var0.var0);
       }
 
-      v99 = MEMORY[0x277CCACA8];
-      sub_276166580(&self->_shadowsLayoutBounds._min.var0.var0, v91, v92, v93, v94, v95, v96, v97);
+      v81 = MEMORY[0x277CCACA8];
+      sub_276166580(&self->_shadowsLayoutBounds._min.var0.var0, &__p);
       if (__p._max.var2.var2 >= 0.0)
       {
-        objc_msgSend_stringWithUTF8String_(v99, v100, v101, v102, v103, &__p);
+        objc_msgSend_stringWithUTF8String_(v81, v82, v83, v84, v85, &__p);
       }
 
       else
       {
-        objc_msgSend_stringWithUTF8String_(v99, v100, v101, v102, v103, *&__p._min.var0.var0);
+        objc_msgSend_stringWithUTF8String_(v81, v82, v83, v84, v85, *&__p._min.var0.var0);
       }
-      v104 = ;
+      v86 = ;
       if (SHIBYTE(__p._max.var2.var2) < 0)
       {
         operator delete(*&__p._min.var0.var0);
       }
 
-      NSLog(&cfstr_PBodyShadows.isa, v105, self, aSelectora, v98, v104);
+      NSLog(&cfstr_PBodyShadows.isa, v87, self, aSelectora, v80, v86);
     }
   }
 
-  objc_msgSend_resetBounds(self, v73, v76, v74, v75);
+  objc_msgSend_resetBounds(self, v69, v72, v70, v71);
 }
 
 - (void)calculateLayoutLabelsBounds
@@ -218,28 +218,28 @@
   v16 = objc_msgSend_extractObjectsOfClasses_(v6, v12, v13, v14, v15, v11);
 
   v21 = objc_msgSend_nonNilAccessorWithScene_(TSCH3DChartScenePropertyAccessor, v17, v18, v19, v20, v16);
-  *&v39 = 0;
-  DWORD2(v39) = 0;
-  objc_msgSend_setRotation_(v21, v22, v23, v24, v25, &v39);
+  *&v38 = 0;
+  DWORD2(v38) = 0;
+  objc_msgSend_setRotation_(v21, v22, v23, v24, v25, &v38);
   if (v21)
   {
-    objc_msgSend_originalInfoChartScale(v21, v26, v27, v28, v29);
-    v30 = v41;
+    objc_msgSend_originalInfoChartScale(v21, v27, v28, v29);
+    v30 = v40;
   }
 
   else
   {
-    v41 = 0uLL;
+    v40 = 0uLL;
     v30 = 0uLL;
   }
 
-  v39 = v30;
-  objc_msgSend_setInfoChartScale_(v21, v26, *&v30, v28, v29, &v39);
-  objc_msgSend_getBoundsFromObjectBoundsForScene_boundsType_(self, v31, v32, v33, v34, v16, 0);
-  *&self->_labelsLayoutBounds._min.var0.var0 = v39;
-  v35 = v40;
-  *&self->_labelsLayoutBounds._max.var1.var0 = v40;
-  objc_msgSend_resetBounds(self, v36, v35, v37, v38);
+  v38 = v30;
+  objc_msgSend_setInfoChartScale_(v21, v26, *&v30, v28, v29, &v38);
+  objc_msgSend_getBoundsFromObjectBoundsForScene_boundsType_(self, v31, v32, v33);
+  *&self->_labelsLayoutBounds._min.var0.var0 = v38;
+  v34 = v39;
+  *&self->_labelsLayoutBounds._max.var1.var0 = v39;
+  objc_msgSend_resetBounds(self, v35, v34, v36, v37);
 }
 
 - (void)updateLayoutBounds
@@ -260,23 +260,23 @@
     v22 = objc_opt_class();
     v23 = NSStringFromSelector(a2);
     v24 = MEMORY[0x277CCACA8];
-    sub_276166580(&self->_layoutBounds._min.var0.var0, v25, v26, v27, v28, v29, v30, v31);
-    if (v38 >= 0)
+    sub_276166580(&self->_layoutBounds._min.var0.var0, __p);
+    if (v31 >= 0)
     {
-      objc_msgSend_stringWithUTF8String_(v24, v32, v33, v34, v35, &__p);
+      objc_msgSend_stringWithUTF8String_(v24, v25, v26, v27, v28, __p);
     }
 
     else
     {
-      objc_msgSend_stringWithUTF8String_(v24, v32, v33, v34, v35, __p);
+      objc_msgSend_stringWithUTF8String_(v24, v25, v26, v27, v28, __p[0]);
     }
-    v36 = ;
-    if (v38 < 0)
+    v29 = ;
+    if (v31 < 0)
     {
-      operator delete(__p);
+      operator delete(__p[0]);
     }
 
-    NSLog(&cfstr_PEndLayoutBoun.isa, v22, self, v23, v36);
+    NSLog(&cfstr_PEndLayoutBoun.isa, v22, self, v23, v29);
   }
 }
 
@@ -300,13 +300,13 @@
   v46 = v41;
   if (v41)
   {
-    objc_msgSend_originalInfoChartScale(v41, v42, v43, v44, v45);
-    v47 = v73;
+    objc_msgSend_originalInfoChartScale(v41, v43, v44, v45);
+    v47 = v65;
   }
 
   else
   {
-    v73 = 0uLL;
+    v65 = 0uLL;
     v47 = 0uLL;
   }
 
@@ -314,164 +314,164 @@
   objc_msgSend_setInfoChartScale_(v46, v42, *&v47, v44, v45, __p);
   if (byte_280A46430 == 1)
   {
-    v52 = objc_opt_class();
-    v53 = NSStringFromSelector(a2);
-    NSLog(&cfstr_PBeginLabelsBo.isa, v52, self, v53);
+    v51 = objc_opt_class();
+    v52 = NSStringFromSelector(a2);
+    NSLog(&cfstr_PBeginLabelsBo.isa, v51, self, v52);
   }
 
-  objc_msgSend_getBoundsFromObjectBoundsForScene_boundsType_(self, v48, v49, v50, v51, v36, 0);
+  objc_msgSend_getBoundsFromObjectBoundsForScene_boundsType_(self, v48, v49, v50);
   *&self->_labelsBounds._min.var0.var0 = *__p;
-  v57 = v75;
-  *&self->_labelsBounds._max.var1.var0 = v75;
+  v56 = v67;
+  *&self->_labelsBounds._max.var1.var0 = v67;
   if (byte_280A46430 == 1)
   {
-    v58 = objc_opt_class();
-    v59 = NSStringFromSelector(a2);
-    v60 = MEMORY[0x277CCACA8];
-    sub_276166580(&self->_labelsBounds._min.var0.var0, v61, v62, v63, v64, v65, v66, v67);
-    if (v75 >= 0.0)
+    v57 = objc_opt_class();
+    v58 = NSStringFromSelector(a2);
+    v59 = MEMORY[0x277CCACA8];
+    sub_276166580(&self->_labelsBounds._min.var0.var0, __p);
+    if (v67 >= 0.0)
     {
-      objc_msgSend_stringWithUTF8String_(v60, v68, v69, v70, v71, __p);
+      objc_msgSend_stringWithUTF8String_(v59, v60, v61, v62, v63, __p);
     }
 
     else
     {
-      objc_msgSend_stringWithUTF8String_(v60, v68, v69, v70, v71, __p[0]);
+      objc_msgSend_stringWithUTF8String_(v59, v60, v61, v62, v63, __p[0]);
     }
-    v72 = ;
-    if (SHIBYTE(v75) < 0)
+    v64 = ;
+    if (SHIBYTE(v67) < 0)
     {
       operator delete(__p[0]);
     }
 
-    NSLog(&cfstr_PEndLabelsBoun.isa, v58, self, v59, v72, v73);
+    NSLog(&cfstr_PEndLabelsBoun.isa, v57, self, v58, v64, v65);
   }
 
-  objc_msgSend_resetBounds(self, v54, v57, v55, v56);
+  objc_msgSend_resetBounds(self, v53, v56, v54, v55);
 }
 
 - (void)calculateBounds
 {
   v7 = objc_msgSend_clone(self->super.super._scene, a2, v2, v3, v4);
   v12 = objc_msgSend_labelsSceneObjectClasses(self, v8, v9, v10, v11);
-  v106 = objc_msgSend_extractObjectsNotOfClasses_(v7, v13, v14, v15, v16, v12);
+  v82 = objc_msgSend_extractObjectsNotOfClasses_(v7, v13, v14, v15, v16, v12);
 
   v21 = objc_msgSend_drawingBoundsSceneObjectClasses(self, v17, v18, v19, v20);
-  v26 = objc_msgSend_extractObjectsNotOfClasses_(v106, v22, v23, v24, v25, v21);
+  v26 = objc_msgSend_extractObjectsNotOfClasses_(v82, v22, v23, v24, v25, v21);
 
   v31 = objc_msgSend_chartSceneObjectClasses(self, v27, v28, v29, v30);
   v36 = objc_msgSend_extractObjectsOfClasses_(v26, v32, v33, v34, v35, v31);
 
   if (byte_280A46430 == 1)
   {
-    v41 = objc_opt_class();
-    v42 = NSStringFromSelector(a2);
-    NSLog(&cfstr_PBeginChartBou.isa, v41, self, v42);
+    v40 = objc_opt_class();
+    v41 = NSStringFromSelector(a2);
+    NSLog(&cfstr_PBeginChartBou.isa, v40, self, v41);
   }
 
-  objc_msgSend_getBoundsFromObjectBoundsForScene_boundsType_(self, v37, v38, v39, v40, v36, 0);
+  objc_msgSend_getBoundsFromObjectBoundsForScene_boundsType_(self, v37, v38, v39);
   *&self->_chartBounds._min.var0.var0 = *__p;
-  v46 = v108;
-  *&self->_chartBounds._max.var1.var0 = v108;
+  v44 = v84;
+  *&self->_chartBounds._max.var1.var0 = v84;
   if (byte_280A46430 == 1)
   {
-    v47 = objc_opt_class();
-    v48 = NSStringFromSelector(a2);
-    v49 = v36;
-    v50 = MEMORY[0x277CCACA8];
-    sub_276166580(&self->_chartBounds._min.var0.var0, v51, v52, v53, v54, v55, v56, v57);
-    if (v108 >= 0.0)
+    v45 = objc_opt_class();
+    v46 = NSStringFromSelector(a2);
+    v47 = v36;
+    v48 = MEMORY[0x277CCACA8];
+    sub_276166580(&self->_chartBounds._min.var0.var0, __p);
+    if (v84 >= 0.0)
     {
-      objc_msgSend_stringWithUTF8String_(v50, v58, v59, v60, v61, __p);
+      objc_msgSend_stringWithUTF8String_(v48, v49, v50, v51, v52, __p);
     }
 
     else
     {
-      objc_msgSend_stringWithUTF8String_(v50, v58, v59, v60, v61, __p[0]);
+      objc_msgSend_stringWithUTF8String_(v48, v49, v50, v51, v52, __p[0]);
     }
-    v62 = ;
-    v36 = v49;
-    if (SHIBYTE(v108) < 0)
+    v53 = ;
+    v36 = v47;
+    if (SHIBYTE(v84) < 0)
     {
       operator delete(__p[0]);
     }
 
-    NSLog(&cfstr_PEndChartBound.isa, v47, self, v48, v62);
+    NSLog(&cfstr_PEndChartBound.isa, v45, self, v46, v53);
 
     if (byte_280A46430)
     {
-      v63 = objc_opt_class();
-      v64 = NSStringFromSelector(a2);
-      NSLog(&cfstr_PBeginOrientBo.isa, v63, self, v64);
+      v54 = objc_opt_class();
+      v55 = NSStringFromSelector(a2);
+      NSLog(&cfstr_PBeginOrientBo.isa, v54, self, v55);
     }
   }
 
-  objc_msgSend_getBoundsFromObjectBoundsForScene_boundsType_(self, v43, v46, v44, v45, v26, 0);
+  objc_msgSend_getBoundsFromObjectBoundsForScene_boundsType_(self, v44, v42, v43);
   *&self->_orientBounds._min.var0.var0 = *__p;
-  v68 = v108;
-  *&self->_orientBounds._max.var1.var0 = v108;
+  v58 = v84;
+  *&self->_orientBounds._max.var1.var0 = v84;
   if (byte_280A46430 == 1)
   {
-    v69 = objc_opt_class();
-    v70 = NSStringFromSelector(a2);
-    v71 = v36;
-    v72 = MEMORY[0x277CCACA8];
-    sub_276166580(&self->_orientBounds._min.var0.var0, v73, v74, v75, v76, v77, v78, v79);
-    if (v108 >= 0.0)
+    v59 = objc_opt_class();
+    v60 = NSStringFromSelector(a2);
+    v61 = v36;
+    v62 = MEMORY[0x277CCACA8];
+    sub_276166580(&self->_orientBounds._min.var0.var0, __p);
+    if (v84 >= 0.0)
     {
-      objc_msgSend_stringWithUTF8String_(v72, v80, v81, v82, v83, __p);
+      objc_msgSend_stringWithUTF8String_(v62, v63, v64, v65, v66, __p);
     }
 
     else
     {
-      objc_msgSend_stringWithUTF8String_(v72, v80, v81, v82, v83, __p[0]);
+      objc_msgSend_stringWithUTF8String_(v62, v63, v64, v65, v66, __p[0]);
     }
-    v84 = ;
-    v36 = v71;
-    if (SHIBYTE(v108) < 0)
+    v67 = ;
+    v36 = v61;
+    if (SHIBYTE(v84) < 0)
     {
       operator delete(__p[0]);
     }
 
-    NSLog(&cfstr_PEndOrientBoun.isa, v69, self, v70, v84);
+    NSLog(&cfstr_PEndOrientBoun.isa, v59, self, v60, v67);
 
     if (byte_280A46430)
     {
-      v85 = objc_opt_class();
-      v86 = NSStringFromSelector(a2);
-      NSLog(&cfstr_PBeginDrawingB.isa, v85, self, v86);
+      v68 = objc_opt_class();
+      v69 = NSStringFromSelector(a2);
+      NSLog(&cfstr_PBeginDrawingB.isa, v68, self, v69);
     }
   }
 
-  objc_msgSend_getBoundsFromObjectBoundsForScene_boundsType_(self, v65, v68, v66, v67, v106, 0);
+  objc_msgSend_getBoundsFromObjectBoundsForScene_boundsType_(self, v58, v56, v57);
   *&self->_drawingBounds._min.var0.var0 = *__p;
-  v90 = v108;
-  *&self->_drawingBounds._max.var1.var0 = v108;
+  v73 = v84;
+  *&self->_drawingBounds._max.var1.var0 = v84;
   if (byte_280A46430 == 1)
   {
-    v91 = objc_opt_class();
-    v92 = NSStringFromSelector(a2);
-    v93 = MEMORY[0x277CCACA8];
-    sub_276166580(&self->_drawingBounds._min.var0.var0, v94, v95, v96, v97, v98, v99, v100);
-    if (v108 >= 0.0)
+    v74 = objc_opt_class();
+    v75 = NSStringFromSelector(a2);
+    v76 = MEMORY[0x277CCACA8];
+    sub_276166580(&self->_drawingBounds._min.var0.var0, __p);
+    if (v84 >= 0.0)
     {
-      objc_msgSend_stringWithUTF8String_(v93, v101, v102, v103, v104, __p);
+      objc_msgSend_stringWithUTF8String_(v76, v77, v78, v79, v80, __p);
     }
 
     else
     {
-      objc_msgSend_stringWithUTF8String_(v93, v101, v102, v103, v104, __p[0]);
+      objc_msgSend_stringWithUTF8String_(v76, v77, v78, v79, v80, __p[0]);
     }
-    v105 = ;
-    if (SHIBYTE(v108) < 0)
+    v81 = ;
+    if (SHIBYTE(v84) < 0)
     {
       operator delete(__p[0]);
     }
 
-    NSLog(&cfstr_PEndDrawingBou.isa, v91, self, v92, v105);
+    NSLog(&cfstr_PEndDrawingBou.isa, v74, self, v75, v81);
   }
 
-  objc_msgSend_resetBounds(self, v87, v90, v88, v89);
+  objc_msgSend_resetBounds(self, v70, v73, v71, v72);
 }
 
 - (void)calculateLabelsBoundsIfNecssary
@@ -577,29 +577,29 @@
 
   objc_msgSend_updateLayoutBoundsIfNecessary(self, a2, v2, v3, v4);
   objc_msgSend_updateRenderBounds(self, v55, v56, v57, v58);
-  v73 = *&self->_chartBounds._min.var0.var0;
-  v72 = *&self->_chartBounds._max.var0.var0;
-  objc_msgSend_p_extendLabelsBoundsToBounds_(self, v59, v72, v60, v61, &self->_orientBounds);
-  objc_msgSend_p_extendLabelsBoundsToBounds_(self, v62, v77, v76, v63, &self->_drawingBounds);
-  v65._min = v73;
-  v64._min = v74;
-  v66._min = *&self->_layoutBounds._min.var0.var0;
-  v67._min = *&self->_constantDepthBodyLayoutBounds._min.var0.var0;
-  *&v65._max = v72;
-  *&v68._min = v76;
-  *&v68._max = v77;
-  v64._max = v75;
-  v66._max = *&self->_layoutBounds._max.var0.var0;
-  v69 = *p_layoutInPage;
-  v67._max = *&self->_constantDepthBodyLayoutBounds._max.var0.var0;
+  v71 = *&self->_chartBounds._min.var0.var0;
+  v70 = *&self->_chartBounds._max.var0.var0;
+  objc_msgSend_p_extendLabelsBoundsToBounds_(self, v70, v59, v60);
+  objc_msgSend_p_extendLabelsBoundsToBounds_(self, v75, v74, v61);
+  v63._min = v71;
+  v62._min = v72;
+  v64._min = *&self->_layoutBounds._min.var0.var0;
+  v65._min = *&self->_constantDepthBodyLayoutBounds._min.var0.var0;
+  *&v63._max = v70;
+  *&v66._min = v74;
+  *&v66._max = v75;
+  v62._max = v73;
+  v64._max = *&self->_layoutBounds._max.var0.var0;
+  v67 = *p_layoutInPage;
+  v65._max = *&self->_constantDepthBodyLayoutBounds._max.var0.var0;
   bodyLayoutInPage = self->_bodyLayoutInPage;
   containingViewport = self->_containingViewport;
-  self->_spaces._chart = v65;
-  self->_spaces._orient = v68;
-  self->_spaces._drawing = v64;
-  self->_spaces._layout = v66;
-  self->_spaces._layoutInPage = v69;
-  self->_spaces._bodyLayout = v67;
+  self->_spaces._chart = v63;
+  self->_spaces._orient = v66;
+  self->_spaces._drawing = v62;
+  self->_spaces._layout = v64;
+  self->_spaces._layoutInPage = v67;
+  self->_spaces._bodyLayout = v65;
   self->_spaces._bodyLayoutInPage = bodyLayoutInPage;
   self->_spaces._containingViewport = containingViewport;
 }

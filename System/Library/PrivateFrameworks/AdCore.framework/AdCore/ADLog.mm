@@ -5,7 +5,7 @@
 
 void ___ADLog_block_invoke_2(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = [_ADLog_logHandles objectForKey:*(a1 + 32)];
   if (!v2)
   {
@@ -17,12 +17,10 @@ void ___ADLog_block_invoke_2(uint64_t a1)
   if (os_log_type_enabled(v2, v3))
   {
     v4 = *(a1 + 40);
-    v6 = 138543362;
-    v7 = v4;
-    _os_log_impl(&dword_23E6D4000, v2, v3, "%{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v4;
+    _os_log_impl(&dword_23E6D4000, v2, v3, "%{public}@", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t ___ADLog_block_invoke()

@@ -63,7 +63,6 @@
       if (!+[DDCreateReminderAction isAvailable])
       {
 LABEL_14:
-        v6 = off_278290100;
         if (!+[DDEventsAction isAvailable])
         {
           goto LABEL_6;
@@ -79,14 +78,12 @@ LABEL_14:
     }
 
     [v3 addObject:objc_opt_class()];
-    v6 = off_278290100;
     if (!+[DDEventsAction isAvailable])
     {
       goto LABEL_6;
     }
 
 LABEL_5:
-    v9 = *v6;
     [v3 addObject:objc_opt_class()];
     goto LABEL_6;
   }
@@ -100,11 +97,10 @@ LABEL_5:
     [v3 addObject:objc_opt_class()];
   }
 
-  v6 = off_2782900F8;
-  v7 = [(NSDictionary *)self->super.super.super._context objectForKeyedSubscript:@"CachedEvent"];
-  v8 = [(DDOpenMapsAction *)DDDirectionsAction actionAvailableForCachedEvent:v7];
+  v6 = [(NSDictionary *)self->super.super.super._context objectForKeyedSubscript:@"CachedEvent"];
+  v7 = [(DDOpenMapsAction *)DDDirectionsAction actionAvailableForCachedEvent:v6];
 
-  if (v8)
+  if (v7)
   {
     goto LABEL_5;
   }
@@ -119,39 +115,37 @@ LABEL_6:
 
 - (id)menuActionClasses
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   previewActions = [(DDTimeLineAction *)self previewActions];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v5 = [previewActions countByEnumeratingWithState:&v12 objects:v17 count:16];
+  v5 = [previewActions countByEnumeratingWithState:&v11 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(previewActions);
         }
 
-        v16 = *(*(&v12 + 1) + 8 * i);
-        v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
+        v15 = *(*(&v11 + 1) + 8 * i);
+        v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
         [array addObject:v9];
       }
 
-      v6 = [previewActions countByEnumeratingWithState:&v12 objects:v17 count:16];
+      v6 = [previewActions countByEnumeratingWithState:&v11 objects:v16 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return array;
 }

@@ -7,65 +7,65 @@
 
 - (KNAnimationUtilsDefaultsTracker)init
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v20.receiver = self;
-  v20.super_class = KNAnimationUtilsDefaultsTracker;
-  v3 = [(KNAnimationUtilsDefaultsTracker *)&v20 init];
-  if (v3)
+  v18 = *MEMORY[0x277D85DE8];
+  v15.receiver = self;
+  v15.super_class = KNAnimationUtilsDefaultsTracker;
+  v2 = [(KNAnimationUtilsDefaultsTracker *)&v15 init];
+  if (v2)
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
-    v17 = 0u;
-    v21[0] = @"EnableFPSLogging";
-    v21[1] = @"EnableDisplayLogging";
-    v21[2] = @"ForceDisplayPreferredMode";
-    v21[3] = @"KNAnimationMotionBlurEnabled";
-    v21[4] = @"ForceMotionBlurOn";
-    v21[5] = @"ForceMotionBlurOff";
-    v21[6] = @"EnableMotionBlurLogging";
-    v21[7] = @"DisableTexturePrecaching";
-    v21[8] = @"DisableMetal";
-    v21[9] = @"BadgeMetalRendering";
-    v21[10] = @"EnableLocalRendering";
-    v21[11] = @"DisableDiscreteGPUAquisition";
-    v21[12] = @"DisableViewScaling";
-    v21[13] = @"EnableAnimationPluginDevelopment";
-    v21[14] = @"EnableResponsivenessLogging";
-    v21[15] = @"RandomNumberSeedAlwaysRandom";
-    v21[16] = @"RandomNumberSeedAlwaysZero";
-    v4 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v2, v21, 17, 0);
-    v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v5, &v16, v22, 16);
-    if (v6)
+    v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
+    v16[0] = @"EnableFPSLogging";
+    v16[1] = @"EnableDisplayLogging";
+    v16[2] = @"ForceDisplayPreferredMode";
+    v16[3] = @"KNAnimationMotionBlurEnabled";
+    v16[4] = @"ForceMotionBlurOn";
+    v16[5] = @"ForceMotionBlurOff";
+    v16[6] = @"EnableMotionBlurLogging";
+    v16[7] = @"DisableTexturePrecaching";
+    v16[8] = @"DisableMetal";
+    v16[9] = @"BadgeMetalRendering";
+    v16[10] = @"EnableLocalRendering";
+    v16[11] = @"DisableDiscreteGPUAquisition";
+    v16[12] = @"DisableViewScaling";
+    v16[13] = @"EnableAnimationPluginDevelopment";
+    v16[14] = @"EnableResponsivenessLogging";
+    v16[15] = @"RandomNumberSeedAlwaysRandom";
+    v16[16] = @"RandomNumberSeedAlwaysZero";
+    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:{17, 0}];
+    v4 = [v3 countByEnumeratingWithState:&v11 objects:v17 count:16];
+    if (v4)
     {
-      v9 = v6;
-      v10 = *v17;
+      v5 = v4;
+      v6 = *v12;
       do
       {
-        v11 = 0;
+        v7 = 0;
         do
         {
-          if (*v17 != v10)
+          if (*v12 != v6)
           {
-            objc_enumerationMutation(v4);
+            objc_enumerationMutation(v3);
           }
 
-          v12 = *(*(&v16 + 1) + 8 * v11);
-          v13 = objc_msgSend_standardUserDefaults(MEMORY[0x277CBEBD0], v7, v8);
-          objc_msgSend_addObserver_forKeyPath_options_context_(v13, v14, v3, v12, 0, qword_280A3B1F8);
+          v8 = *(*(&v11 + 1) + 8 * v7);
+          standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
+          [standardUserDefaults addObserver:v2 forKeyPath:v8 options:0 context:qword_280A3B1F8];
 
-          ++v11;
+          ++v7;
         }
 
-        while (v9 != v11);
-        v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v7, &v16, v22, 16);
+        while (v5 != v7);
+        v5 = [v3 countByEnumeratingWithState:&v11 objects:v17 count:16];
       }
 
-      while (v9);
+      while (v5);
     }
   }
 
-  return v3;
+  return v2;
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
@@ -73,7 +73,7 @@
   if (qword_280A3B1F8 == context)
   {
 
-    objc_msgSend_updateDefaultsValues(KNAnimationUtils, a2, path, object, change);
+    [KNAnimationUtils updateDefaultsValues:path];
   }
 
   else

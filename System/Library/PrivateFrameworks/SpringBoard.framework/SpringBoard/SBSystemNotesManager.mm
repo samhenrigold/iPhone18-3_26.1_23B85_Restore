@@ -47,7 +47,7 @@
   arbiterManagerCopy = arbiterManager;
   arbiterManagerCopy2 = arbiterManager;
   sceneManagerCopy = sceneManager;
-  v62 = arbiterManagerCopy2;
+  v64 = arbiterManagerCopy2;
   sceneManagerCopy2 = sceneManager;
   deactivationManagerCopy = deactivationManager;
   suppressionManagerCopy = suppressionManager;
@@ -57,21 +57,21 @@
   interactionManagerCopy = interactionManager;
   timerCoordinatorCopy = timerCoordinator;
   connectionCopy = connection;
-  v73.receiver = self;
-  v73.super_class = SBSystemNotesManager;
-  v26 = [(SBSystemNotesManager *)&v73 init];
+  v75.receiver = self;
+  v75.super_class = SBSystemNotesManager;
+  v26 = [(SBSystemNotesManager *)&v75 init];
   if (v26)
   {
     v27 = objc_alloc_init(SBSystemNotesPresentationRequestServer);
     systemNotesRequestServer = v26->_systemNotesRequestServer;
     v26->_systemNotesRequestServer = v27;
 
-    [(SBSystemNotesPresentationRequestServer *)v26->_systemNotesRequestServer setDelegate:v26];
-    if (SBIsSystemNotesSupported())
+    v29 = [(SBSystemNotesPresentationRequestServer *)v26->_systemNotesRequestServer setDelegate:v26];
+    if (SBIsSystemNotesSupported(v29, v30))
     {
-      v29 = +[SBSystemNotesSettingsDomain rootSettings];
+      v31 = +[SBSystemNotesSettingsDomain rootSettings];
       pipSettings = v26->_pipSettings;
-      v26->_pipSettings = v29;
+      v26->_pipSettings = v31;
 
       [(PTSettings *)v26->_pipSettings addKeyPathObserver:v26];
       [(SBSystemNotesManager *)v26 _reloadLaunchBundleID];
@@ -89,56 +89,56 @@
       objc_storeStrong(&v26->_sceneDeactivationManager, deactivationManager);
       objc_storeStrong(&v26->_keyboardSuppressionManager, suppressionManager);
       objc_storeStrong(&v26->_keyboardDismissalManager, dismissalManager);
-      v33 = interactionManagerCopy;
-      v34 = [SBPIPSceneContentAdapter alloc];
+      v35 = interactionManagerCopy;
+      v36 = [SBPIPSceneContentAdapter alloc];
       [SBApp windowSceneManager];
-      v36 = v35 = timerCoordinatorCopy;
+      v38 = v37 = timerCoordinatorCopy;
       [managerCopy displayIdentity];
-      v38 = v37 = gestureManagerCopy;
-      v39 = [v36 windowSceneForDisplayIdentity:v38];
-      v40 = [(SBPIPSceneContentAdapter *)v34 initWithPIPContentType:1 windowScene:v39];
+      v40 = v39 = gestureManagerCopy;
+      v41 = [v38 windowSceneForDisplayIdentity:v40];
+      v42 = [(SBPIPSceneContentAdapter *)v36 initWithPIPContentType:1 windowScene:v41];
       sceneContentAdapter = v26->_sceneContentAdapter;
-      v26->_sceneContentAdapter = v40;
+      v26->_sceneContentAdapter = v42;
 
-      v42 = [SBPIPController alloc];
-      v43 = *MEMORY[0x277D772B0] + 5.0 + 10.0;
+      v44 = [SBPIPController alloc];
+      v45 = *MEMORY[0x277D772B0] + 5.0 + 10.0;
       interactionSettings = [(SBSystemNotesSettings *)v26->_pipSettings interactionSettings];
-      v45 = [(SBPIPController *)v42 initWithIdleTimerCoordinator:v35 windowLevel:interactionSettings interactionSettings:v26->_sceneContentAdapter adapter:v43];
+      v47 = [(SBPIPController *)v44 initWithIdleTimerCoordinator:v37 windowLevel:interactionSettings interactionSettings:v26->_sceneContentAdapter adapter:v45];
       pipController = v26->_pipController;
-      v26->_pipController = v45;
+      v26->_pipController = v47;
 
       [coordinatorCopy registerController:v26->_pipController forType:1];
-      v47 = [[SBSystemNotesInteractionManager alloc] initWithWorkspace:workspaceCopy2 systemGestureManager:v37 systemPointerInteractionManager:v33 dataSource:v26 delegate:v26];
+      v49 = [[SBSystemNotesInteractionManager alloc] initWithWorkspace:workspaceCopy2 systemGestureManager:v39 systemPointerInteractionManager:v35 dataSource:v26 delegate:v26];
       interactionManager = v26->_interactionManager;
-      v26->_interactionManager = v47;
+      v26->_interactionManager = v49;
 
       [(SBSystemNotesPresentationRequestServer *)v26->_systemNotesRequestServer activate];
       objc_initWeak(&location, v26);
-      v49 = MEMORY[0x277D431C8];
+      v51 = MEMORY[0x277D431C8];
+      v71[0] = MEMORY[0x277D85DD0];
+      v71[1] = 3221225472;
+      v71[2] = __313__SBSystemNotesManager_initWithControllerCoordinator_workspace_sceneManager_keyboardArbiterManager_fbSceneManager_sceneDeactivationManager_keyboardSuppressionManager_keyboardDismissalManager_applicationController_systemGestureManager_systemPointerInteractionManager_idleTimerCoordinator_managedProfileConnection___block_invoke;
+      v71[3] = &unk_2783A9CE8;
+      objc_copyWeak(&v73, &location);
+      v52 = v26;
+      v72 = v52;
       v69[0] = MEMORY[0x277D85DD0];
       v69[1] = 3221225472;
-      v69[2] = __313__SBSystemNotesManager_initWithControllerCoordinator_workspace_sceneManager_keyboardArbiterManager_fbSceneManager_sceneDeactivationManager_keyboardSuppressionManager_keyboardDismissalManager_applicationController_systemGestureManager_systemPointerInteractionManager_idleTimerCoordinator_managedProfileConnection___block_invoke;
-      v69[3] = &unk_2783A9CE8;
-      objc_copyWeak(&v71, &location);
-      v50 = v26;
-      v70 = v50;
-      v67[0] = MEMORY[0x277D85DD0];
-      v67[1] = 3221225472;
-      v67[2] = __313__SBSystemNotesManager_initWithControllerCoordinator_workspace_sceneManager_keyboardArbiterManager_fbSceneManager_sceneDeactivationManager_keyboardSuppressionManager_keyboardDismissalManager_applicationController_systemGestureManager_systemPointerInteractionManager_idleTimerCoordinator_managedProfileConnection___block_invoke_2;
-      v67[3] = &unk_2783A8C68;
-      objc_copyWeak(&v68, &location);
-      v51 = [v49 recipeWithTitle:@"Trigger System Notes UI" increaseAction:v69 decreaseAction:v67];
-      systemNotesTestRecipe = v50->_systemNotesTestRecipe;
-      v50->_systemNotesTestRecipe = v51;
+      v69[2] = __313__SBSystemNotesManager_initWithControllerCoordinator_workspace_sceneManager_keyboardArbiterManager_fbSceneManager_sceneDeactivationManager_keyboardSuppressionManager_keyboardDismissalManager_applicationController_systemGestureManager_systemPointerInteractionManager_idleTimerCoordinator_managedProfileConnection___block_invoke_2;
+      v69[3] = &unk_2783A8C68;
+      objc_copyWeak(&v70, &location);
+      v53 = [v51 recipeWithTitle:@"Trigger System Notes UI" increaseAction:v71 decreaseAction:v69];
+      systemNotesTestRecipe = v52->_systemNotesTestRecipe;
+      v52->_systemNotesTestRecipe = v53;
 
-      [(PTDomain *)SBSystemNotesSettingsDomain registerTestRecipe:v50->_systemNotesTestRecipe];
-      objc_destroyWeak(&v68);
+      [(PTDomain *)SBSystemNotesSettingsDomain registerTestRecipe:v52->_systemNotesTestRecipe];
+      objc_destroyWeak(&v70);
 
-      objc_destroyWeak(&v71);
+      objc_destroyWeak(&v73);
       objc_destroyWeak(&location);
-      gestureManagerCopy = v37;
-      interactionManagerCopy = v33;
-      timerCoordinatorCopy = v35;
+      gestureManagerCopy = v39;
+      interactionManagerCopy = v35;
+      timerCoordinatorCopy = v37;
     }
 
     v26->_lock._os_unfair_lock_opaque = 0;
@@ -258,7 +258,7 @@ void __313__SBSystemNotesManager_initWithControllerCoordinator_workspace_sceneMa
   BSDispatchMain();
 }
 
-uint64_t __55__SBSystemNotesManager_server_connectionDidInvalidate___block_invoke(uint64_t a1)
+void *__55__SBSystemNotesManager_server_connectionDidInvalidate___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isEqual:*(*(a1 + 40) + 144)];
   if (result)
@@ -410,7 +410,7 @@ void __60__SBSystemNotesManager_presentWithConfiguration_completion___block_invo
 
 - (BOOL)_handleCreateNoteRequestWithPresentationContext:(id)context error:(id *)error
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   requestedConfiguration = [contextCopy requestedConfiguration];
   source = [contextCopy source];
@@ -419,13 +419,13 @@ void __60__SBSystemNotesManager_presentWithConfiguration_completion___block_invo
   _presentedContainerViewController = [(SBSystemNotesManager *)self _presentedContainerViewController];
   isStashed = [_presentedContainerViewController isStashed];
 
-  v12 = source & 0xFFFFFFFFFFFFFFFELL;
+  v13 = source & 0xFFFFFFFFFFFFFFFELL;
   if (preferredPresentationMode >= 2)
   {
-    [SBSystemNotesManager _handleCreateNoteRequestWithPresentationContext:error:];
+    [SBSystemNotesManager _handleCreateNoteRequestWithPresentationContext:preferredPresentationMode error:?];
   }
 
-  if (v12 == 4)
+  if (v13 == 4)
   {
     userActivity = [requestedConfiguration userActivity];
 
@@ -435,20 +435,20 @@ void __60__SBSystemNotesManager_presentWithConfiguration_completion___block_invo
     }
   }
 
-  v42 = requestedConfiguration;
-  v45 = 0;
-  v14 = SBIsSystemNotesEnabled(&v45);
-  v15 = v45;
-  if (v14)
+  v43 = requestedConfiguration;
+  v46 = 0;
+  v15 = SBIsSystemNotesEnabled(&v46, v12);
+  v16 = v46;
+  if (v15)
   {
     interactionManager = self->_interactionManager;
-    v44 = v15;
-    v17 = [(SBSystemNotesInteractionManager *)interactionManager canHandlePresentationRequests:&v44];
-    v18 = v44;
+    v45 = v16;
+    v18 = [(SBSystemNotesInteractionManager *)interactionManager canHandlePresentationRequests:&v45];
+    v19 = v45;
 
-    if (v17)
+    if (v18)
     {
-      v40 = _currentPresentationMode == -1;
+      v41 = _currentPresentationMode == -1;
       if (_currentPresentationMode != -1)
       {
         if (!_currentPresentationMode && preferredPresentationMode == 1)
@@ -465,11 +465,11 @@ void __60__SBSystemNotesManager_presentWithConfiguration_completion___block_invo
         }
 
         _presentedNotesContentViewController = [(SBSystemNotesManager *)self _presentedNotesContentViewController];
-        v33 = [_presentedNotesContentViewController updateConfiguration:v42 sendCreateActionIfNecessary:isStashed ^ 1u];
+        v34 = [_presentedNotesContentViewController updateConfiguration:v43 sendCreateActionIfNecessary:isStashed ^ 1u];
 
-        v34 = v33 == 1;
+        v35 = v34 == 1;
         errorCopy4 = error;
-        if (!v34)
+        if (!v35)
         {
           goto LABEL_38;
         }
@@ -477,8 +477,8 @@ void __60__SBSystemNotesManager_presentWithConfiguration_completion___block_invo
         if (source == 5)
         {
           [MEMORY[0x277D6B7F0] logActivationEvent:*MEMORY[0x277D6B848]];
-          v35 = SBLogSystemNotes();
-          if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+          v36 = SBLogSystemNotes();
+          if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
           {
             [SBSystemNotesManager _handleCreateNoteRequestWithPresentationContext:error:];
           }
@@ -492,8 +492,8 @@ void __60__SBSystemNotesManager_presentWithConfiguration_completion___block_invo
           }
 
           [MEMORY[0x277D6B7F0] logActivationEvent:*MEMORY[0x277D6B850]];
-          v35 = SBLogSystemNotes();
-          if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+          v36 = SBLogSystemNotes();
+          if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
           {
             [SBSystemNotesManager _handleCreateNoteRequestWithPresentationContext:error:];
           }
@@ -505,18 +505,18 @@ LABEL_38:
           [(SBSystemNotesInteractionManager *)self->_interactionManager expandAnimated:1];
         }
 
-        v36 = isStashed ^ 1;
+        v37 = isStashed ^ 1;
         if (preferredPresentationMode)
         {
-          v36 = 1;
+          v37 = 1;
         }
 
-        if (v36)
+        if (v37)
         {
-          v21 = 0;
+          v22 = 0;
 LABEL_46:
-          v15 = v18;
-          if (!v18)
+          v16 = v19;
+          if (!v19)
           {
             goto LABEL_51;
           }
@@ -527,44 +527,44 @@ LABEL_46:
         _presentedContainerViewController2 = [(SBSystemNotesManager *)self _presentedContainerViewController];
         [_presentedContainerViewController2 setStashed:0];
 LABEL_45:
-        v21 = v40;
+        v22 = v41;
 
         goto LABEL_46;
       }
 
-      v22 = SBLogSystemNotes();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v23 = SBLogSystemNotes();
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
-        v23 = "gesture-originated";
-        if (v12 != 4)
+        v24 = "gesture-originated";
+        if (v13 != 4)
         {
-          v23 = "non-gesture-originated";
+          v24 = "non-gesture-originated";
         }
 
         *buf = 136315138;
-        v47 = v23;
-        _os_log_impl(&dword_21ED4E000, v22, OS_LOG_TYPE_DEFAULT, "presenting new PIP thumbnail for %s SBSSystemNotesPresentationConfiguration", buf, 0xCu);
+        v48 = v24;
+        _os_log_impl(&dword_21ED4E000, v23, OS_LOG_TYPE_DEFAULT, "presenting new PIP thumbnail for %s SBSSystemNotesPresentationConfiguration", buf, 0xCu);
       }
 
-      v43 = v18;
-      _presentedContainerViewController2 = [(SBSystemNotesManager *)self _createContentViewControllerForPresentationContext:contextCopy error:&v43];
-      v24 = v43;
+      v44 = v19;
+      _presentedContainerViewController2 = [(SBSystemNotesManager *)self _createContentViewControllerForPresentationContext:contextCopy error:&v44];
+      v25 = v44;
 
-      v25 = objc_alloc_init(MEMORY[0x277D66008]);
-      [v25 setLastKnownSize:@"SystemNotes-Thumbnail" contentType:0.0];
+      v26 = objc_alloc_init(MEMORY[0x277D66008]);
+      [v26 setLastKnownSize:@"SystemNotes-Thumbnail" contentType:0.0];
 
-      v26 = [SBPIPContentViewLayoutSettings alloc];
+      v27 = [SBPIPContentViewLayoutSettings alloc];
       requestedConfiguration2 = [contextCopy requestedConfiguration];
-      v28 = +[SBPIPContentViewLayoutMetrics systemNotesMetricsForPresentationMode:](SBPIPContentViewLayoutMetrics, "systemNotesMetricsForPresentationMode:", [requestedConfiguration2 preferredPresentationMode]);
-      v29 = [(SBPIPContentViewLayoutSettings *)v26 initWithPlatformMetrics:v28 contentSize:*MEMORY[0x277CBF3A8], *(MEMORY[0x277CBF3A8] + 8)];
+      v29 = +[SBPIPContentViewLayoutMetrics systemNotesMetricsForPresentationMode:](SBPIPContentViewLayoutMetrics, "systemNotesMetricsForPresentationMode:", [requestedConfiguration2 preferredPresentationMode]);
+      v30 = [(SBPIPContentViewLayoutSettings *)v27 initWithPlatformMetrics:v29 contentSize:*MEMORY[0x277CBF3A8], *(MEMORY[0x277CBF3A8] + 8)];
 
       positionConfiguration = [contextCopy positionConfiguration];
-      v31 = positionConfiguration;
+      v32 = positionConfiguration;
       if (positionConfiguration)
       {
-        -[SBPIPContentViewLayoutSettings setContentViewPosition:](v29, "setContentViewPosition:", [positionConfiguration position]);
-        [(SBSystemNotesManager *)self _addContentViewControllerToPIPHierarchy:_presentedContainerViewController2 contentViewLayoutSettings:v29 animated:v12 != 4];
-        if (v12 == 4)
+        -[SBPIPContentViewLayoutSettings setContentViewPosition:](v30, "setContentViewPosition:", [positionConfiguration position]);
+        [(SBSystemNotesManager *)self _addContentViewControllerToPIPHierarchy:_presentedContainerViewController2 contentViewLayoutSettings:v30 animated:v13 != 4];
+        if (v13 == 4)
         {
           goto LABEL_34;
         }
@@ -572,55 +572,55 @@ LABEL_45:
 
       else
       {
-        if (v12 == 4)
+        if (v13 == 4)
         {
-          [(SBSystemNotesManager *)self _addContentViewControllerToPIPHierarchy:_presentedContainerViewController2 contentViewLayoutSettings:v29 animated:0];
+          [(SBSystemNotesManager *)self _addContentViewControllerToPIPHierarchy:_presentedContainerViewController2 contentViewLayoutSettings:v30 animated:0];
           goto LABEL_34;
         }
 
-        [(SBPIPContentViewLayoutSettings *)v29 setContentViewPosition:[(SBSystemNotesInteractionManager *)self->_interactionManager startingPositionForExternalPresentationRequest]];
-        [(SBSystemNotesManager *)self _addContentViewControllerToPIPHierarchy:_presentedContainerViewController2 contentViewLayoutSettings:v29 animated:1];
+        [(SBPIPContentViewLayoutSettings *)v30 setContentViewPosition:[(SBSystemNotesInteractionManager *)self->_interactionManager startingPositionForExternalPresentationRequest]];
+        [(SBSystemNotesManager *)self _addContentViewControllerToPIPHierarchy:_presentedContainerViewController2 contentViewLayoutSettings:v30 animated:1];
       }
 
       [(SBSystemNotesInteractionManager *)self->_interactionManager peepAnimated:1];
 LABEL_34:
 
-      v18 = v24;
+      v19 = v25;
       errorCopy4 = error;
       goto LABEL_45;
     }
 
-    v21 = 0;
-    v15 = v18;
+    v22 = 0;
+    v16 = v19;
   }
 
   else
   {
-    v21 = 0;
+    v22 = 0;
   }
 
   errorCopy4 = error;
-  if (!v15)
+  if (!v16)
   {
     goto LABEL_51;
   }
 
 LABEL_47:
-  v37 = SBLogSystemNotes();
-  if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+  v38 = SBLogSystemNotes();
+  if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
   {
-    [SBSystemNotesManager _handleCreateNoteRequestWithPresentationContext:v15 error:v37];
+    [SBSystemNotesManager _handleCreateNoteRequestWithPresentationContext:v16 error:v38];
   }
 
   if (errorCopy4)
   {
-    v38 = v15;
-    *errorCopy4 = v15;
+    v39 = v16;
+    *errorCopy4 = v16;
   }
 
 LABEL_51:
 
-  return v21;
+  return v22;
 }
 
 - (void)contentViewControllerDidReceiveTapToExpand:(id)expand
@@ -810,7 +810,7 @@ uint64_t __96__SBSystemNotesManager_contentViewController_didReceiveScreenshotRe
   return (*(*(a1 + 72) + 16))();
 }
 
-uint64_t __96__SBSystemNotesManager_contentViewController_didReceiveScreenshotRequestForDisplays_completion___block_invoke_2(void *a1)
+void *__96__SBSystemNotesManager_contentViewController_didReceiveScreenshotRequestForDisplays_completion___block_invoke_2(void *a1)
 {
   [*(a1[4] + 200) removeObject:a1[5]];
   result = [*(a1[4] + 200) countForObject:a1[5]];
@@ -1444,12 +1444,12 @@ void __75__SBSystemNotesManager_interactionManager_requestsPresentationWithConte
   return v9;
 }
 
-- (void)_handleCreateNoteRequestWithPresentationContext:error:.cold.1()
+- (void)_handleCreateNoteRequestWithPresentationContext:(uint64_t)a1 error:.cold.1(uint64_t a1)
 {
-  v2 = [MEMORY[0x277CCA890] currentHandler];
-  v0 = SBSSystemNotesPresentationModeDescription();
+  v3 = [MEMORY[0x277CCA890] currentHandler];
+  v1 = SBSSystemNotesPresentationModeDescription();
   OUTLINED_FUNCTION_0_3();
-  [v1 handleFailureInMethod:v0 object:? file:? lineNumber:? description:?];
+  [v2 handleFailureInMethod:v1 object:? file:? lineNumber:? description:?];
 }
 
 - (void)_handleCreateNoteRequestWithPresentationContext:error:.cold.2()

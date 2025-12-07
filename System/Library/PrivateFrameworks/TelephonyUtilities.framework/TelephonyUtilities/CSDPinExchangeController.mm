@@ -10,6 +10,7 @@
 - (void)displayMismatchedAccountsNotification;
 - (void)displayPinErrorNotification;
 - (void)displaySlotsFullNotification;
+- (void)handlePINCodeEnteredSuccessfully:(BOOL)successfully canceled:(BOOL)canceled fromDevice:(id)device isPrimaryDevice:(BOOL)primaryDevice;
 - (void)removeErrorNotifications;
 - (void)requestPinFromDevice:(id)device;
 - (void)sendApprovalResponseToDevice:(id)device enteredCorrectly:(BOOL)correctly wasCancelled:(BOOL)cancelled;
@@ -23,56 +24,58 @@
 - (CSDPinExchangeController)initWithDelegate:(id)delegate
 {
   delegateCopy = delegate;
-  v11.receiver = self;
-  v11.super_class = CSDPinExchangeController;
-  v6 = [(CSDPinExchangeController *)&v11 init];
+  v12.receiver = self;
+  v12.super_class = CSDPinExchangeController;
+  v6 = [(CSDPinExchangeController *)&v12 init];
+  v7 = v6;
   if (v6)
   {
-    v7 = sub_100004778();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100004778(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 0;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Setting up Pin Exchange controller", v10, 2u);
+      *v11 = 0;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Setting up Pin Exchange controller", v11, 2u);
     }
 
-    objc_storeStrong(&v6->_pinExchangeDelegate, delegate);
-    v8 = +[CSDThumperIDSService sharedInstance];
-    [v8 addServiceDelegate:v6 queue:&_dispatch_main_q];
+    objc_storeStrong(&v7->_pinExchangeDelegate, delegate);
+    v9 = +[CSDThumperIDSService sharedInstance];
+    [v9 addServiceDelegate:v7 queue:&_dispatch_main_q];
   }
 
-  return v6;
+  return v7;
 }
 
 - (void)requestPinFromDevice:(id)device
 {
   deviceCopy = device;
-  v5 = sub_100004778();
+  v5 = sub_100004778(deviceCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v11 = deviceCopy;
+    v12 = deviceCopy;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Requesting PIN from device %@", buf, 0xCu);
   }
 
-  if ((+[TUCallCapabilities accountsSupportSecondaryCalling]& 1) != 0)
+  v6 = +[TUCallCapabilities accountsSupportSecondaryCalling];
+  if (v6)
   {
     pinExchangeDelegate = [(CSDPinExchangeController *)self pinExchangeDelegate];
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_100143768;
-    v8[3] = &unk_10061C5C0;
-    v8[4] = self;
-    v9 = deviceCopy;
-    [pinExchangeDelegate displayServiceConfirmationWithCompletionHandler:v8];
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_100143768;
+    v9[3] = &unk_10061C5C0;
+    v9[4] = self;
+    v10 = deviceCopy;
+    [pinExchangeDelegate displayServiceConfirmationWithCompletionHandler:v9];
   }
 
   else
   {
-    v7 = sub_100004778();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100004778(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "[WARN] accountsSupportSecondaryCalling=NO. Displaying mismatched accounts notification", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[WARN] accountsSupportSecondaryCalling=NO. Displaying mismatched accounts notification", buf, 2u);
     }
 
     [(CSDPinExchangeController *)self displayMismatchedAccountsNotification];
@@ -81,7 +84,7 @@
 
 - (void)cancelPinRequests
 {
-  v3 = sub_100004778();
+  v3 = sub_100004778(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -218,21 +221,22 @@ LABEL_11:
 
   if (v9)
   {
-    if ([(CSDPinExchangeController *)self sendApprovalDisplayPinToDevice:v9])
+    v11 = [(CSDPinExchangeController *)self sendApprovalDisplayPinToDevice:v9];
+    if (v11)
     {
       [(CSDPinExchangeController *)self removeErrorNotifications];
       objc_initWeak(location, self);
       pinExchangeDelegate = [(CSDPinExchangeController *)self pinExchangeDelegate];
-      v14[0] = _NSConcreteStackBlock;
-      v14[1] = 3221225472;
-      v14[2] = sub_100143DB4;
-      v14[3] = &unk_10061C5E8;
-      objc_copyWeak(&v17, location);
-      v15 = v9;
-      v16 = dCopy;
-      [pinExchangeDelegate displayPinMessageForDevice:v15 completionHandler:v14];
+      v16[0] = _NSConcreteStackBlock;
+      v16[1] = 3221225472;
+      v16[2] = sub_100143DB4;
+      v16[3] = &unk_10061C5E8;
+      objc_copyWeak(&v19, location);
+      v17 = v9;
+      v18 = dCopy;
+      [pinExchangeDelegate displayPinMessageForDevice:v17 completionHandler:v16];
 
-      objc_destroyWeak(&v17);
+      objc_destroyWeak(&v19);
       objc_destroyWeak(location);
       goto LABEL_10;
     }
@@ -240,20 +244,20 @@ LABEL_11:
 
   else
   {
-    v11 = sub_100004778();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = sub_100004778(v10);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       uniqueID2 = [deviceCopy uniqueID];
       LODWORD(location[0]) = 138412290;
       *(location + 4) = uniqueID2;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "[WARN] Could not find device for unique ID %@", location, 0xCu);
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "[WARN] Could not find device for unique ID %@", location, 0xCu);
     }
   }
 
-  v13 = sub_100004778();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+  v15 = sub_100004778(v11);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
-    sub_10047610C(v13);
+    sub_10047610C(v15);
   }
 
 LABEL_10:
@@ -268,16 +272,16 @@ LABEL_10:
 
   if (v7)
   {
-    v8 = sub_100004778();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100004778(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       uniqueID2 = [deviceCopy uniqueID];
-      v19 = 138412290;
-      v20 = uniqueID2;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[WARN] Ignoring request to send PIN code because we already have one pending for device with unique ID %@", &v19, 0xCu);
+      v21 = 138412290;
+      v22 = uniqueID2;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "[WARN] Ignoring request to send PIN code because we already have one pending for device with unique ID %@", &v21, 0xCu);
     }
 
-    v10 = 0;
+    v11 = 0;
   }
 
   else
@@ -285,28 +289,28 @@ LABEL_10:
     randomSixDigitCode = [(CSDPinExchangeController *)self randomSixDigitCode];
     if (!self->_pendingCodesToDevicesForApproval)
     {
-      v12 = +[NSMutableDictionary dictionary];
+      v13 = +[NSMutableDictionary dictionary];
       pendingCodesToDevicesForApproval = self->_pendingCodesToDevicesForApproval;
-      self->_pendingCodesToDevicesForApproval = v12;
+      self->_pendingCodesToDevicesForApproval = v13;
     }
 
-    v14 = [NSNumber numberWithUnsignedInteger:randomSixDigitCode];
-    v15 = self->_pendingCodesToDevicesForApproval;
+    v15 = [NSNumber numberWithUnsignedInteger:randomSixDigitCode];
+    v16 = self->_pendingCodesToDevicesForApproval;
     uniqueID3 = [deviceCopy uniqueID];
-    [(NSMutableDictionary *)v15 setObject:v14 forKeyedSubscript:uniqueID3];
+    [(NSMutableDictionary *)v16 setObject:v15 forKeyedSubscript:uniqueID3];
 
-    v17 = sub_100004778();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v19 = sub_100004778(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 138412290;
-      v20 = deviceCopy;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Sending a PIN code to device %@ to display to enroll them into Thumper", &v19, 0xCu);
+      v21 = 138412290;
+      v22 = deviceCopy;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Sending a PIN code to device %@ to display to enroll them into Thumper", &v21, 0xCu);
     }
 
-    v10 = [(CSDPinExchangeController *)self sendIDSAction:@"CSDPinExchangeActionSendPIN" toDevice:deviceCopy];
+    v11 = [(CSDPinExchangeController *)self sendIDSAction:@"CSDPinExchangeActionSendPIN" toDevice:deviceCopy];
   }
 
-  return v10;
+  return v11;
 }
 
 - (void)sendApprovalResponseToDevice:(id)device enteredCorrectly:(BOOL)correctly wasCancelled:(BOOL)cancelled
@@ -344,28 +348,28 @@ LABEL_10:
 - (BOOL)sendIDSAction:(id)action toDevices:(id)devices
 {
   actionCopy = action;
-  v47 = 0u;
-  v48 = 0u;
   v49 = 0u;
   v50 = 0u;
+  v51 = 0u;
+  v52 = 0u;
   obj = devices;
-  v37 = [obj countByEnumeratingWithState:&v47 objects:v61 count:16];
-  if (v37)
+  v39 = [obj countByEnumeratingWithState:&v49 objects:v63 count:16];
+  if (v39)
   {
     v6 = 1;
-    v35 = IDSSendMessageOptionTimeoutKey;
-    v36 = *v48;
+    v37 = IDSSendMessageOptionTimeoutKey;
+    v38 = *v50;
     p_cache = &OBJC_METACLASS___CSDInterventionProvider.cache;
     do
     {
-      for (i = 0; i != v37; i = i + 1)
+      for (i = 0; i != v39; i = i + 1)
       {
-        if (*v48 != v36)
+        if (*v50 != v38)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v47 + 1) + 8 * i);
+        v9 = *(*(&v49 + 1) + 8 * i);
         v10 = IDSCopyIDForDevice();
         v11 = +[NSMutableDictionary dictionary];
         [v11 setObject:actionCopy forKeyedSubscript:@"CSDPinExchangeActionKey"];
@@ -379,104 +383,109 @@ LABEL_10:
 
         else
         {
-          v14 = sub_100004778();
+          v14 = sub_100004778(0);
           if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
           {
-            sub_100476150(v59, &v60, v14);
+            sub_100476150(v61, &v62, v14);
           }
         }
 
-        if ([(__CFString *)actionCopy isEqualToString:@"CSDPinExchangeActionSendPIN"])
+        v15 = [(__CFString *)actionCopy isEqualToString:@"CSDPinExchangeActionSendPIN"];
+        if (v15)
         {
           pendingCodesToDevicesForApproval = self->_pendingCodesToDevicesForApproval;
           uniqueID = [v9 uniqueID];
-          v17 = [(NSMutableDictionary *)pendingCodesToDevicesForApproval objectForKey:uniqueID];
+          v18 = [(NSMutableDictionary *)pendingCodesToDevicesForApproval objectForKey:uniqueID];
 
-          if (v17)
+          if (v18)
           {
-            [v11 setObject:v17 forKeyedSubscript:@"CSDPinExchangePinKey"];
+            [v11 setObject:v18 forKeyedSubscript:@"CSDPinExchangePinKey"];
           }
         }
 
-        v43 = callerID;
-        v18 = sub_100004778();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+        v45 = callerID;
+        v19 = sub_100004778(v15);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412802;
-          v54 = actionCopy;
-          v55 = 2112;
-          v56 = v9;
+          v56 = actionCopy;
           v57 = 2112;
-          v58 = v11;
-          _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Sending IDS action %@ to device %@ with message %@", buf, 0x20u);
+          v58 = v9;
+          v59 = 2112;
+          v60 = v11;
+          _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Sending IDS action %@ to device %@ with message %@", buf, 0x20u);
         }
 
-        v44 = v11;
-        v19 = JWEncodeDictionary();
-        _FTCopyGzippedData = [v19 _FTCopyGzippedData];
-        v20 = [NSDictionary dictionaryWithObject:"dictionaryWithObject:forKey:" forKey:?];
-        v51 = v35;
-        v52 = &off_10063ECD8;
-        v21 = [NSDictionary dictionaryWithObjects:&v52 forKeys:&v51 count:1];
-        if (v20)
+        v46 = v11;
+        v20 = JWEncodeDictionary();
+        _FTCopyGzippedData = [v20 _FTCopyGzippedData];
+        v21 = [NSDictionary dictionaryWithObject:"dictionaryWithObject:forKey:" forKey:?];
+        v53 = v37;
+        v54 = &off_10063ECD8;
+        v22 = [NSDictionary dictionaryWithObjects:&v54 forKeys:&v53 count:1];
+        if (v21)
         {
-          v39 = v19;
-          v41 = v6;
+          v41 = v20;
+          v43 = v6;
           sharedInstance2 = [p_cache + 293 sharedInstance];
           service = [sharedInstance2 service];
-          v40 = v10;
-          v24 = IMSingleObjectArray();
-          [v24 __imSetFromArray];
-          v26 = v25 = actionCopy;
-          v45 = 0;
-          v46 = 0;
-          v38 = v21;
-          v27 = [service sendMessage:v20 fromAccount:0 toDestinations:v26 priority:300 options:v21 identifier:&v46 error:&v45];
-          v28 = v46;
-          v29 = v45;
+          v42 = v10;
+          v25 = IMSingleObjectArray();
+          [v25 __imSetFromArray];
+          v27 = v26 = actionCopy;
+          v47 = 0;
+          v48 = 0;
+          v40 = v22;
+          v28 = [service sendMessage:v21 fromAccount:0 toDestinations:v27 priority:300 options:v22 identifier:&v48 error:&v47];
+          v29 = v48;
+          v30 = v47;
 
-          actionCopy = v25;
-          if (v27 && [(__CFString *)v25 isEqualToString:@"CSDPinExchangeActionRequestPIN"])
+          actionCopy = v26;
+          if (v28)
           {
-            [(CSDPinExchangeController *)self setOutgoingPinRequestIdentifier:v28];
+            v31 = [(__CFString *)v26 isEqualToString:@"CSDPinExchangeActionRequestPIN"];
+            if (v31)
+            {
+              v31 = [(CSDPinExchangeController *)self setOutgoingPinRequestIdentifier:v29];
+            }
           }
 
-          v30 = sub_100004778();
-          if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+          v32 = sub_100004778(v31);
+          if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412802;
-            v31 = @"NO";
-            if (v27)
+            v33 = @"NO";
+            if (v28)
             {
-              v31 = @"YES";
+              v33 = @"YES";
             }
 
-            v54 = v31;
-            v55 = 2112;
-            v56 = v29;
+            v56 = v33;
             v57 = 2112;
-            v58 = v28;
-            _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Thumper IDS action sent to device with success: %@ error: %@ identifier: %@", buf, 0x20u);
+            v58 = v30;
+            v59 = 2112;
+            v60 = v29;
+            _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "Thumper IDS action sent to device with success: %@ error: %@ identifier: %@", buf, 0x20u);
           }
 
-          v10 = v40;
-          v6 = v41 & v27;
+          v10 = v42;
+          v6 = v43 & v28;
           p_cache = (&OBJC_METACLASS___CSDInterventionProvider + 16);
-          v21 = v38;
-          v19 = v39;
+          v22 = v40;
+          v20 = v41;
         }
 
         else
         {
-          v28 = 0;
           v29 = 0;
+          v30 = 0;
         }
       }
 
-      v37 = [obj countByEnumeratingWithState:&v47 objects:v61 count:16];
+      v39 = [obj countByEnumeratingWithState:&v49 objects:v63 count:16];
     }
 
-    while (v37);
+    while (v39);
   }
 
   else
@@ -513,7 +522,7 @@ LABEL_10:
 
 - (void)displayPinErrorNotification
 {
-  v3 = sub_100004778();
+  v3 = sub_100004778(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -527,7 +536,7 @@ LABEL_10:
 
 - (void)displayMismatchedAccountsNotification
 {
-  v3 = sub_100004778();
+  v3 = sub_100004778(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v8 = 0;
@@ -544,7 +553,7 @@ LABEL_10:
 
 - (void)displaySlotsFullNotification
 {
-  v3 = sub_100004778();
+  v3 = sub_100004778(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -554,6 +563,31 @@ LABEL_10:
   v4 = TUBundle();
   v5 = [v4 localizedStringForKey:@"MAX_SLOTS_FILLED" value:&stru_100631E68 table:@"TelephonyUtilities"];
   [(CSDPinExchangeController *)self displayErrorNotificationWithMessage:v5];
+}
+
+- (void)handlePINCodeEnteredSuccessfully:(BOOL)successfully canceled:(BOOL)canceled fromDevice:(id)device isPrimaryDevice:(BOOL)primaryDevice
+{
+  primaryDeviceCopy = primaryDevice;
+  canceledCopy = canceled;
+  successfullyCopy = successfully;
+  deviceCopy = device;
+  pendingCodesToDevicesForApproval = [(CSDPinExchangeController *)self pendingCodesToDevicesForApproval];
+  uniqueID = [deviceCopy uniqueID];
+  [pendingCodesToDevicesForApproval setObject:0 forKeyedSubscript:uniqueID];
+
+  pinExchangeDelegate = [(CSDPinExchangeController *)self pinExchangeDelegate];
+  v15 = pinExchangeDelegate;
+  if (primaryDeviceCopy)
+  {
+    v14 = deviceCopy;
+  }
+
+  else
+  {
+    v14 = 0;
+  }
+
+  [pinExchangeDelegate pinCodeEnteredSuccessfully:successfullyCopy cancelled:canceledCopy onPrimaryDevice:v14];
 }
 
 - (void)service:(id)service account:(id)account incomingMessage:(id)message fromID:(id)d context:(id)context
@@ -567,43 +601,43 @@ LABEL_10:
   v15 = +[CSDThumperIDSService sharedInstance];
   v16 = [v15 deviceForFromID:dCopy];
 
-  v17 = sub_100004778();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v18 = sub_100004778(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138413058;
-    v65 = serviceCopy;
-    v66 = 2112;
-    v67 = v16;
-    v68 = 1024;
+    v71 = serviceCopy;
+    v72 = 2112;
+    v73 = v16;
+    v74 = 1024;
     isHSATrusted = [v16 isHSATrusted];
-    v70 = 2112;
-    v71 = v14;
-    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Received message for service %@ from device %@ (isHSATrusted=%d): %@", buf, 0x26u);
+    v76 = 2112;
+    v77 = v14;
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Received message for service %@ from device %@ (isHSATrusted=%d): %@", buf, 0x26u);
   }
 
-  v18 = [v14 objectForKeyedSubscript:@"CSDPinExchangeActionKey"];
-  v19 = [v14 objectForKeyedSubscript:@"CSDPinExchangeCallerIDKey"];
-  if ([v18 isEqualToString:@"CSDPinExchangeActionRequestPIN"])
+  v19 = [v14 objectForKeyedSubscript:@"CSDPinExchangeActionKey"];
+  v20 = [v14 objectForKeyedSubscript:@"CSDPinExchangeCallerIDKey"];
+  if ([v19 isEqualToString:@"CSDPinExchangeActionRequestPIN"])
   {
     outgoingPinRequestIdentifier = [(CSDPinExchangeController *)self outgoingPinRequestIdentifier];
 
     if (outgoingPinRequestIdentifier)
     {
-      v21 = sub_100004778();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v23 = sub_100004778(v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Ignoring pin request: There is already a pending pin request that has not yet completed.", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Ignoring pin request: There is already a pending pin request that has not yet completed.", buf, 2u);
       }
 
       goto LABEL_9;
     }
 
-    v56 = objc_alloc_init(TUCallProviderManager);
-    faceTimeProvider = [v56 faceTimeProvider];
+    v62 = objc_alloc_init(TUCallProviderManager);
+    faceTimeProvider = [v62 faceTimeProvider];
     prioritizedSenderIdentities = [faceTimeProvider prioritizedSenderIdentities];
 
-    v57 = prioritizedSenderIdentities;
+    v63 = prioritizedSenderIdentities;
     if ([prioritizedSenderIdentities count])
     {
       selfCopy = self;
@@ -612,86 +646,86 @@ LABEL_10:
         firstObject = [prioritizedSenderIdentities firstObject];
         uUID = [firstObject UUID];
 
-        v27 = sub_100004778();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+        v30 = sub_100004778(v29);
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v65 = uUID;
-          _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "One sender identity exists; continuing Thumper registration using UUID %@", buf, 0xCu);
+          v71 = uUID;
+          _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "One sender identity exists; continuing Thumper registration using UUID %@", buf, 0xCu);
         }
 
         goto LABEL_48;
       }
 
-      v34 = [v19 length];
-      v30 = sub_100004778();
-      v35 = os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT);
-      if (v34)
+      v38 = [v20 length];
+      v33 = sub_100004778(v38);
+      v39 = os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT);
+      if (v38)
       {
-        if (v35)
+        if (v39)
         {
           *buf = 138412546;
-          v65 = v19;
-          v66 = 2112;
-          v67 = v57;
-          _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Multiple sender identities exist; checking whether caller ID %@ matches a sender identity in %@", buf, 0x16u);
+          v71 = v20;
+          v72 = 2112;
+          v73 = v63;
+          _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "Multiple sender identities exist; checking whether caller ID %@ matches a sender identity in %@", buf, 0x16u);
         }
 
-        v61 = 0u;
-        v62 = 0u;
-        v59 = 0u;
-        v60 = 0u;
-        v27 = v57;
-        uUID = [v27 countByEnumeratingWithState:&v59 objects:v63 count:16];
+        v67 = 0u;
+        v68 = 0u;
+        v65 = 0u;
+        v66 = 0u;
+        v30 = v63;
+        uUID = [v30 countByEnumeratingWithState:&v65 objects:v69 count:16];
         if (uUID)
         {
-          v50 = v14;
-          v51 = v18;
-          v52 = _FTDecompressData;
-          v53 = dCopy;
-          v54 = serviceCopy;
-          v36 = *v60;
+          v56 = v14;
+          v57 = v19;
+          v58 = _FTDecompressData;
+          v59 = dCopy;
+          v60 = serviceCopy;
+          v40 = *v66;
           while (2)
           {
             for (i = 0; i != uUID; i = (i + 1))
             {
-              if (*v60 != v36)
+              if (*v66 != v40)
               {
-                objc_enumerationMutation(v27);
+                objc_enumerationMutation(v30);
               }
 
-              v38 = v27;
-              v39 = *(*(&v59 + 1) + 8 * i);
-              handle = [v39 handle];
+              v42 = v30;
+              v43 = *(*(&v65 + 1) + 8 * i);
+              handle = [v43 handle];
               isoCountryCode = [handle isoCountryCode];
-              v42 = [TUHandle normalizedPhoneNumberHandleForValue:v19 isoCountryCode:isoCountryCode];
+              v46 = [TUHandle normalizedPhoneNumberHandleForValue:v20 isoCountryCode:isoCountryCode];
 
               if (handle)
               {
-                v43 = v42 == 0;
+                v47 = v46 == 0;
               }
 
               else
               {
-                v43 = 1;
+                v47 = 1;
               }
 
-              if (!v43 && [v42 isEqualToHandle:handle])
+              if (!v47 && [v46 isEqualToHandle:handle])
               {
-                uUID = [v39 UUID];
+                uUID = [v43 UUID];
 
-                dCopy = v53;
-                serviceCopy = v54;
-                _FTDecompressData = v52;
-                v18 = v51;
-                v27 = v38;
+                dCopy = v59;
+                serviceCopy = v60;
+                _FTDecompressData = v58;
+                v19 = v57;
+                v30 = v42;
                 goto LABEL_47;
               }
 
-              v27 = v38;
+              v30 = v42;
             }
 
-            uUID = [v38 countByEnumeratingWithState:&v59 objects:v63 count:16];
+            uUID = [v42 countByEnumeratingWithState:&v65 objects:v69 count:16];
             if (uUID)
             {
               continue;
@@ -700,36 +734,37 @@ LABEL_10:
             break;
           }
 
-          dCopy = v53;
-          serviceCopy = v54;
-          _FTDecompressData = v52;
-          v18 = v51;
+          dCopy = v59;
+          serviceCopy = v60;
+          _FTDecompressData = v58;
+          v19 = v57;
 LABEL_47:
-          v14 = v50;
+          v14 = v56;
         }
 
 LABEL_48:
 
         if (uUID)
         {
-          if ([v16 isHSATrusted]&& ([v16 uniqueID], v44 = objc_claimAutoreleasedReturnValue(), v45 = [TUCallCapabilities isRelayCallingEnabledForDeviceWithID:v44], v44, v45))
+          isHSATrusted2 = [v16 isHSATrusted];
+          if (isHSATrusted2 && ([v16 uniqueID], v49 = objc_claimAutoreleasedReturnValue(), v50 = [TUCallCapabilities isRelayCallingEnabledForDeviceWithID:v49], v49, v50))
           {
-            v46 = sub_100004778();
-            if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+            v51 = sub_100004778(isHSATrusted2);
+            if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEFAULT, "Device requesting PIN is HSA trusted. Forgoing PIN exchange and enrolling the device immediately", buf, 2u);
+              _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_DEFAULT, "Device requesting PIN is HSA trusted. Forgoing PIN exchange and enrolling the device immediately", buf, 2u);
             }
 
             pinExchangeDelegate = [(CSDPinExchangeController *)selfCopy pinExchangeDelegate];
             [pinExchangeDelegate enrollDevice:v16 forSenderIdentityUUID:uUID];
 
-            v48 = sub_100004778();
-            if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+            v54 = sub_100004778(v53);
+            if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v65 = v16;
-              _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEFAULT, "Activated Thumper for requesting device %@", buf, 0xCu);
+              v71 = v16;
+              _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_DEFAULT, "Activated Thumper for requesting device %@", buf, 0xCu);
             }
 
             [(CSDPinExchangeController *)selfCopy sendIDSAction:@"CSDPinExchangeActionApproved" toDevice:v16];
@@ -737,14 +772,14 @@ LABEL_48:
 
           else
           {
-            v49 = sub_100004778();
-            if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+            v55 = sub_100004778(isHSATrusted2);
+            if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412546;
-              v65 = v16;
-              v66 = 2112;
-              v67 = uUID;
-              _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEFAULT, "Received request to enroll device %@ in Thumper for sender identity with UUID %@", buf, 0x16u);
+              v71 = v16;
+              v72 = 2112;
+              v73 = uUID;
+              _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_DEFAULT, "Received request to enroll device %@ in Thumper for sender identity with UUID %@", buf, 0x16u);
             }
 
             [(CSDPinExchangeController *)selfCopy sendPinCodeAndPromptForResponseToDevice:v16 forSenderIdentityUUID:uUID];
@@ -756,7 +791,7 @@ LABEL_61:
         }
 
 LABEL_56:
-        uUID = sub_100004778();
+        uUID = sub_100004778(v34);
         if (os_log_type_enabled(uUID, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
@@ -766,85 +801,85 @@ LABEL_56:
         goto LABEL_61;
       }
 
-      if (v35)
+      if (v39)
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "[WARN] Aborting Thumper registration; multiple sender identities exist but caller ID not supplied", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "[WARN] Aborting Thumper registration; multiple sender identities exist but caller ID not supplied", buf, 2u);
       }
     }
 
     else
     {
-      v30 = sub_100004778();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      v33 = sub_100004778(0);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
-        sub_1004761CC(v56, v30);
+        sub_1004761CC(v62, v33);
       }
     }
 
     goto LABEL_56;
   }
 
-  if (![v18 isEqualToString:@"CSDPinExchangeActionSendPIN"])
+  if (![v19 isEqualToString:@"CSDPinExchangeActionSendPIN"])
   {
-    if ([v18 isEqualToString:@"CSDPinExchangeActionOneTimeReminder"])
+    if ([v19 isEqualToString:@"CSDPinExchangeActionOneTimeReminder"])
     {
       [(CSDPinExchangeDelegate *)self->_pinExchangeDelegate resetOneTimeMessage];
       goto LABEL_62;
     }
 
-    if ([v18 isEqualToString:@"CSDPinExchangeActionApproved"])
+    if ([v19 isEqualToString:@"CSDPinExchangeActionApproved"])
     {
       selfCopy5 = self;
-      v29 = 1;
+      v32 = 1;
     }
 
     else
     {
-      if (![v18 isEqualToString:@"CSDPinExchangeActionUnapproved"])
+      if (![v19 isEqualToString:@"CSDPinExchangeActionUnapproved"])
       {
-        if (![v18 isEqualToString:@"CSDPinExchangeActionCancelledPrimary"])
+        if (![v19 isEqualToString:@"CSDPinExchangeActionCancelledPrimary"])
         {
-          if (![v18 isEqualToString:@"CSDPinExchangeActionCancelledSecondary"])
+          if (![v19 isEqualToString:@"CSDPinExchangeActionCancelledSecondary"])
           {
             goto LABEL_62;
           }
 
           selfCopy5 = self;
-          v29 = 0;
-          v31 = 1;
-          v32 = v16;
-          v33 = 0;
+          v32 = 0;
+          v35 = 1;
+          v36 = v16;
+          v37 = 0;
           goto LABEL_25;
         }
 
         selfCopy5 = self;
-        v29 = 0;
-        v31 = 1;
+        v32 = 0;
+        v35 = 1;
 LABEL_24:
-        v32 = v16;
-        v33 = 1;
+        v36 = v16;
+        v37 = 1;
 LABEL_25:
-        [(CSDPinExchangeController *)selfCopy5 handlePINCodeEnteredSuccessfully:v29 canceled:v31 fromDevice:v32 isPrimaryDevice:v33];
+        [(CSDPinExchangeController *)selfCopy5 handlePINCodeEnteredSuccessfully:v32 canceled:v35 fromDevice:v36 isPrimaryDevice:v37];
         goto LABEL_62;
       }
 
       selfCopy5 = self;
-      v29 = 0;
+      v32 = 0;
     }
 
-    v31 = 0;
+    v35 = 0;
     goto LABEL_24;
   }
 
-  v21 = [v14 objectForKey:@"CSDPinExchangePinKey"];
+  v23 = [v14 objectForKey:@"CSDPinExchangePinKey"];
   pinExchangeDelegate = self->_pinExchangeDelegate;
-  v58[0] = _NSConcreteStackBlock;
-  v58[1] = 3221225472;
-  v58[2] = sub_1001455F8;
-  v58[3] = &unk_10061A650;
-  v58[4] = self;
-  [(CSDPinExchangeDelegate *)pinExchangeDelegate displayIncomingPinCode:v21 fromID:dCopy completionHandler:v58];
+  v64[0] = _NSConcreteStackBlock;
+  v64[1] = 3221225472;
+  v64[2] = sub_1001455F8;
+  v64[3] = &unk_10061A650;
+  v64[4] = self;
+  [(CSDPinExchangeDelegate *)pinExchangeDelegate displayIncomingPinCode:v23 fromID:dCopy completionHandler:v64];
 LABEL_9:
 
 LABEL_62:
@@ -857,7 +892,7 @@ LABEL_62:
   accountCopy = account;
   identifierCopy = identifier;
   errorCopy = error;
-  v16 = sub_100004778();
+  v16 = sub_100004778(errorCopy);
   v17 = v16;
   if (successCopy)
   {

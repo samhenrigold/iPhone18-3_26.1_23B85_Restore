@@ -78,7 +78,7 @@
 
 - (void)commonInit
 {
-  EKUILogInitIfNeeded();
+  EKUILogInitIfNeeded(self, a2);
   [(EKEventViewController *)self setCalendarPreviewIsInlineDayView:1];
   [(EKEventViewController *)self setInlineDayViewRespectsSelectedCalendarsFilter:1];
   [(EKEventViewController *)self setAllowsSubitems:1];

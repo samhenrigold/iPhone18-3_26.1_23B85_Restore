@@ -1,14 +1,14 @@
 @interface NSDate(HKSleepDayIndex)
 + (id)hk_sleepMonthStartForMorningIndex:()HKSleepDayIndex calendar:;
 + (id)hk_sleepWeekStartForMorningIndex:()HKSleepDayIndex calendar:;
+- (char)hk_morningIndexWithCalendar:()HKSleepDayIndex;
 - (id)hk_sleepDayMidnightWithCalendar:()HKSleepDayIndex;
 - (id)hk_sleepDayStartWithCalendar:()HKSleepDayIndex;
-- (uint64_t)hk_morningIndexWithCalendar:()HKSleepDayIndex;
 @end
 
 @implementation NSDate(HKSleepDayIndex)
 
-- (uint64_t)hk_morningIndexWithCalendar:()HKSleepDayIndex
+- (char)hk_morningIndexWithCalendar:()HKSleepDayIndex
 {
   v5 = a3;
   calendarIdentifier = [v5 calendarIdentifier];

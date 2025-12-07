@@ -22,13 +22,13 @@
 
 + (id)resourceFromTrial:(id)trial
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   trialCopy = trial;
   v4 = objc_alloc_init(objc_opt_class());
   [v4 setStorage:3];
   language = [trialCopy language];
-  v14[0] = language;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+  v13[0] = language;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
   [v4 setLanguages:v6];
 
   path = [trialCopy path];
@@ -47,18 +47,16 @@
   [v4 setCompatibilityVersion:&unk_2881E0DE8];
   [v4 setIsPurgeable:1];
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 - (id)defaultVoice
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v3 = VSGetLogDefault();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    *v9 = 0;
+    *v8 = 0;
   }
 
   _defaultVoices = [(VSVoiceResourceAsset *)self _defaultVoices];
@@ -67,17 +65,15 @@
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v10 = @"Gender";
-    v11[0] = v5;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v9 = @"Gender";
+    v10[0] = v5;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   }
 
   else
   {
     v6 = 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -210,16 +206,16 @@ LABEL_10:
 
 - (NSDictionary)voiceConfig
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   voiceConfig = self->_voiceConfig;
   if (!voiceConfig)
   {
     searchPathURL = [(VSVoiceResourceAsset *)self searchPathURL];
     v5 = [searchPathURL URLByAppendingPathComponent:@"voice_configs.plist"];
 
-    v12 = 0;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfURL:v5 error:&v12];
-    v7 = v12;
+    v11 = 0;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfURL:v5 error:&v11];
+    v7 = v11;
     v8 = self->_voiceConfig;
     self->_voiceConfig = v6;
 
@@ -229,17 +225,15 @@ LABEL_10:
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543618;
-        v14 = v5;
-        v15 = 2114;
-        v16 = v7;
+        v13 = v5;
+        v14 = 2114;
+        v15 = v7;
         _os_log_error_impl(&dword_272850000, v9, OS_LOG_TYPE_ERROR, "Unable to load plist at '%{public}@', error: %{public}@", buf, 0x16u);
       }
     }
 
     voiceConfig = self->_voiceConfig;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return voiceConfig;
 }
@@ -327,17 +321,17 @@ LABEL_10:
 
 - (VSVoiceResourceAsset)initWithCoder:(id)coder
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v15.receiver = self;
-  v15.super_class = VSVoiceResourceAsset;
-  v5 = [(VSAssetBase *)&v15 initWithCoder:coderCopy];
+  v14.receiver = self;
+  v14.super_class = VSVoiceResourceAsset;
+  v5 = [(VSAssetBase *)&v14 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = MEMORY[0x277CBEB98];
-    v16[0] = objc_opt_class();
-    v16[1] = objc_opt_class();
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
+    v15[0] = objc_opt_class();
+    v15[1] = objc_opt_class();
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
     v8 = [v6 setWithArray:v7];
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"_languages"];
     languages = v5->_languages;
@@ -348,7 +342,6 @@ LABEL_10:
     v5->_searchPathURL = v11;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

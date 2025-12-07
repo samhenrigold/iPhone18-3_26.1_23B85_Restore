@@ -203,7 +203,7 @@ LABEL_20:
                     if (v52)
                     {
                       v53 = v52;
-                      v15->super.mErrorType = sub_2770952E8(v50, v63);
+                      v15->super.mErrorType = sub_2770952E8(v50, v63, mappingsCopy, v52);
                       free(v53);
                     }
 

@@ -66,7 +66,7 @@
 
 - (BOOL)_applyChanges:(id)changes error:(id *)error
 {
-  v92 = *MEMORY[0x1E69E9840];
+  v91 = *MEMORY[0x1E69E9840];
   changesCopy = changes;
   if ([(EKChangeSet *)self->super._changeSet hasUnsavedChangeForKey:@"unlocalizedTitle"])
   {
@@ -194,56 +194,56 @@ LABEL_13:
     multiValueRemovals = [(EKChangeSet *)self->super._changeSet multiValueRemovals];
     v27 = [multiValueRemovals objectForKeyedSubscript:@"allAlarmsSet"];
 
-    v85 = 0u;
-    v86 = 0u;
-    v83 = 0u;
     v84 = 0u;
+    v85 = 0u;
+    v82 = 0u;
+    v83 = 0u;
     v28 = v27;
-    v29 = [v28 countByEnumeratingWithState:&v83 objects:v91 count:16];
+    v29 = [v28 countByEnumeratingWithState:&v82 objects:v90 count:16];
     if (v29)
     {
       v30 = v29;
-      v31 = *v84;
+      v31 = *v83;
       do
       {
         for (i = 0; i != v30; ++i)
         {
-          if (*v84 != v31)
+          if (*v83 != v31)
           {
             objc_enumerationMutation(v28);
           }
 
-          v33 = *(*(&v83 + 1) + 8 * i);
+          v33 = *(*(&v82 + 1) + 8 * i);
+          v78 = 0u;
           v79 = 0u;
           v80 = 0u;
           v81 = 0u;
-          v82 = 0u;
           alarms = [v33 alarms];
-          v35 = [alarms countByEnumeratingWithState:&v79 objects:v90 count:16];
+          v35 = [alarms countByEnumeratingWithState:&v78 objects:v89 count:16];
           if (v35)
           {
             v36 = v35;
-            v37 = *v80;
+            v37 = *v79;
             do
             {
               for (j = 0; j != v36; ++j)
               {
-                if (*v80 != v37)
+                if (*v79 != v37)
                 {
                   objc_enumerationMutation(alarms);
                 }
 
-                [changesCopy removeAlarm:*(*(&v79 + 1) + 8 * j)];
+                [changesCopy removeAlarm:*(*(&v78 + 1) + 8 * j)];
               }
 
-              v36 = [alarms countByEnumeratingWithState:&v79 objects:v90 count:16];
+              v36 = [alarms countByEnumeratingWithState:&v78 objects:v89 count:16];
             }
 
             while (v36);
           }
         }
 
-        v30 = [v28 countByEnumeratingWithState:&v83 objects:v91 count:16];
+        v30 = [v28 countByEnumeratingWithState:&v82 objects:v90 count:16];
       }
 
       while (v30);
@@ -261,8 +261,8 @@ LABEL_13:
     if ([v40 count])
     {
       remObjectID = [(EKFrozenReminderReminder *)self remObjectID];
-      v89 = remObjectID;
-      v42 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v89 count:1];
+      v88 = remObjectID;
+      v42 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v88 count:1];
     }
 
     else
@@ -270,26 +270,26 @@ LABEL_13:
       v42 = 0;
     }
 
-    v77 = 0u;
-    v78 = 0u;
-    v75 = 0u;
     v76 = 0u;
+    v77 = 0u;
+    v74 = 0u;
+    v75 = 0u;
     obja = v40;
-    v43 = [obja countByEnumeratingWithState:&v75 objects:v88 count:16];
+    v43 = [obja countByEnumeratingWithState:&v74 objects:v87 count:16];
     if (v43)
     {
       v44 = v43;
-      v45 = *v76;
+      v45 = *v75;
       do
       {
         for (k = 0; k != v44; ++k)
         {
-          if (*v76 != v45)
+          if (*v75 != v45)
           {
             objc_enumerationMutation(obja);
           }
 
-          v47 = *(*(&v75 + 1) + 8 * k);
+          v47 = *(*(&v74 + 1) + 8 * k);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
@@ -306,7 +306,7 @@ LABEL_13:
           [v47 _applyChanges:changesCopy error:error];
         }
 
-        v44 = [obja countByEnumeratingWithState:&v75 objects:v88 count:16];
+        v44 = [obja countByEnumeratingWithState:&v74 objects:v87 count:16];
       }
 
       while (v44);
@@ -318,29 +318,29 @@ LABEL_13:
   if ([(EKChangeSet *)self->super._changeSet hasUnsavedChangeForKey:@"recurrenceRulesSet"])
   {
     [changesCopy removeAllRecurrenceRules];
-    v73 = 0u;
-    v74 = 0u;
-    v71 = 0u;
     v72 = 0u;
+    v73 = 0u;
+    v70 = 0u;
+    v71 = 0u;
     recurrenceRulesSet = [(EKFrozenReminderReminder *)self recurrenceRulesSet];
-    v53 = [recurrenceRulesSet countByEnumeratingWithState:&v71 objects:v87 count:16];
+    v53 = [recurrenceRulesSet countByEnumeratingWithState:&v70 objects:v86 count:16];
     if (v53)
     {
       v54 = v53;
-      v55 = *v72;
+      v55 = *v71;
       do
       {
         for (m = 0; m != v54; ++m)
         {
-          if (*v72 != v55)
+          if (*v71 != v55)
           {
             objc_enumerationMutation(recurrenceRulesSet);
           }
 
-          v57 = [*(*(&v71 + 1) + 8 * m) addUpdatedRecurrenceRule:changesCopy];
+          v57 = [*(*(&v70 + 1) + 8 * m) addUpdatedRecurrenceRule:changesCopy];
         }
 
-        v54 = [recurrenceRulesSet countByEnumeratingWithState:&v71 objects:v87 count:16];
+        v54 = [recurrenceRulesSet countByEnumeratingWithState:&v70 objects:v86 count:16];
       }
 
       while (v54);
@@ -367,7 +367,6 @@ LABEL_13:
   v64 = 1;
 LABEL_78:
 
-  v65 = *MEMORY[0x1E69E9840];
   return v64;
 }
 
@@ -460,32 +459,32 @@ LABEL_8:
 
 - (void)_fixAlarmUUIDsForClone:(id)clone from:(id)from
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   cloneCopy = clone;
   alarms = [from alarms];
-  v39 = cloneCopy;
+  v38 = cloneCopy;
   alarms2 = [cloneCopy alarms];
   v8 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(alarms, "count")}];
+  v53 = 0u;
   v54 = 0u;
   v55 = 0u;
   v56 = 0u;
-  v57 = 0u;
   obj = alarms;
-  v9 = [obj countByEnumeratingWithState:&v54 objects:v62 count:16];
+  v9 = [obj countByEnumeratingWithState:&v53 objects:v61 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v55;
+    v11 = *v54;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v55 != v11)
+        if (*v54 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v54 + 1) + 8 * i);
+        v13 = *(*(&v53 + 1) + 8 * i);
         v14 = [EKFrozenReminderAlarm semanticIdentifierFromREMAlarm:v13];
         v15 = [v8 objectForKeyedSubscript:v14];
         if (!v15)
@@ -498,40 +497,40 @@ LABEL_8:
         [v15 addObject:alarmUID];
       }
 
-      v10 = [obj countByEnumeratingWithState:&v54 objects:v62 count:16];
+      v10 = [obj countByEnumeratingWithState:&v53 objects:v61 count:16];
     }
 
     while (v10);
   }
 
-  v42 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(alarms2, "count")}];
+  v41 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(alarms2, "count")}];
+  v49 = 0u;
   v50 = 0u;
   v51 = 0u;
   v52 = 0u;
-  v53 = 0u;
-  v40 = alarms2;
-  v17 = [v40 countByEnumeratingWithState:&v50 objects:v61 count:16];
+  v39 = alarms2;
+  v17 = [v39 countByEnumeratingWithState:&v49 objects:v60 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v51;
+    v19 = *v50;
     do
     {
       for (j = 0; j != v18; ++j)
       {
-        if (*v51 != v19)
+        if (*v50 != v19)
         {
-          objc_enumerationMutation(v40);
+          objc_enumerationMutation(v39);
         }
 
-        v21 = *(*(&v50 + 1) + 8 * j);
+        v21 = *(*(&v49 + 1) + 8 * j);
         v22 = [EKFrozenReminderAlarm semanticIdentifierFromREMAlarm:v21];
         v23 = [v8 objectForKeyedSubscript:v22];
         alarmUID2 = [v21 alarmUID];
         firstObject = [v23 firstObject];
         if (firstObject)
         {
-          [v42 setObject:firstObject forKeyedSubscript:alarmUID2];
+          [v41 setObject:firstObject forKeyedSubscript:alarmUID2];
           if ([v23 count] >= 2)
           {
             [v23 removeObjectAtIndex:0];
@@ -544,13 +543,13 @@ LABEL_8:
           if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v60 = v22;
+            v59 = v22;
             _os_log_error_impl(&dword_1A805E000, v26, OS_LOG_TYPE_ERROR, "Couldn't find old alarm matching semantic ID %@; if it existed it will be disconnected from any extant EKObject instances", buf, 0xCu);
           }
         }
       }
 
-      v18 = [v40 countByEnumeratingWithState:&v50 objects:v61 count:16];
+      v18 = [v39 countByEnumeratingWithState:&v49 objects:v60 count:16];
     }
 
     while (v18);
@@ -560,29 +559,29 @@ LABEL_8:
   aBlock[1] = 3221225472;
   aBlock[2] = __56__EKFrozenReminderReminder__fixAlarmUUIDsForClone_from___block_invoke;
   aBlock[3] = &unk_1E77FD048;
-  v43 = v42;
-  v49 = v43;
+  v42 = v41;
+  v48 = v42;
   v27 = _Block_copy(aBlock);
+  v43 = 0u;
   v44 = 0u;
   v45 = 0u;
   v46 = 0u;
-  v47 = 0u;
-  v28 = v40;
-  v29 = [v28 countByEnumeratingWithState:&v44 objects:v58 count:16];
+  v28 = v39;
+  v29 = [v28 countByEnumeratingWithState:&v43 objects:v57 count:16];
   if (v29)
   {
     v30 = v29;
-    v31 = *v45;
+    v31 = *v44;
     do
     {
       for (k = 0; k != v30; ++k)
       {
-        if (*v45 != v31)
+        if (*v44 != v31)
         {
           objc_enumerationMutation(v28);
         }
 
-        v33 = *(*(&v44 + 1) + 8 * k);
+        v33 = *(*(&v43 + 1) + 8 * k);
         alarmUID3 = [v33 alarmUID];
         v35 = v27[2](v27, alarmUID3);
         [v33 setAlarmUID:v35];
@@ -592,13 +591,11 @@ LABEL_8:
         [v33 setOriginalAlarmUID:v37];
       }
 
-      v30 = [v28 countByEnumeratingWithState:&v44 objects:v58 count:16];
+      v30 = [v28 countByEnumeratingWithState:&v43 objects:v57 count:16];
     }
 
     while (v30);
   }
-
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 id __56__EKFrozenReminderReminder__fixAlarmUUIDsForClone_from___block_invoke(uint64_t a1, void *a2)
@@ -789,31 +786,31 @@ id __40__EKFrozenReminderReminder_creationDate__block_invoke(uint64_t a1)
 
 - (id)alarms
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   _reminder = [(EKFrozenReminderReminder *)self _reminder];
   alarms = [_reminder alarms];
 
   v5 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(alarms, "count")}];
+  v54 = 0u;
   v55 = 0u;
   v56 = 0u;
   v57 = 0u;
-  v58 = 0u;
   obj = alarms;
-  v6 = [obj countByEnumeratingWithState:&v55 objects:v62 count:16];
+  v6 = [obj countByEnumeratingWithState:&v54 objects:v61 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v56;
+    v8 = *v55;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v56 != v8)
+        if (*v55 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v55 + 1) + 8 * i);
+        v10 = *(*(&v54 + 1) + 8 * i);
         alarmUID = [v10 alarmUID];
         if (alarmUID)
         {
@@ -837,7 +834,7 @@ id __40__EKFrozenReminderReminder_creationDate__block_invoke(uint64_t a1)
         [v14 addObject:v10];
       }
 
-      v7 = [obj countByEnumeratingWithState:&v55 objects:v62 count:16];
+      v7 = [obj countByEnumeratingWithState:&v54 objects:v61 count:16];
     }
 
     while (v7);
@@ -847,8 +844,8 @@ id __40__EKFrozenReminderReminder_creationDate__block_invoke(uint64_t a1)
   if ([obj count])
   {
     remObjectID = [(EKFrozenReminderReminder *)self remObjectID];
-    v61 = remObjectID;
-    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v61 count:1];
+    v60 = remObjectID;
+    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v60 count:1];
   }
 
   else
@@ -856,30 +853,30 @@ id __40__EKFrozenReminderReminder_creationDate__block_invoke(uint64_t a1)
     v17 = 0;
   }
 
-  v53 = 0u;
-  v54 = 0u;
-  v51 = 0u;
   v52 = 0u;
+  v53 = 0u;
+  v50 = 0u;
+  v51 = 0u;
   v18 = v5;
-  v19 = [v18 countByEnumeratingWithState:&v51 objects:v60 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v50 objects:v59 count:16];
   if (v19)
   {
     v20 = v19;
-    v46 = *v52;
-    v41 = v18;
+    v45 = *v51;
+    v40 = v18;
     do
     {
       v21 = 0;
-      v42 = v20;
+      v41 = v20;
       do
       {
-        if (*v52 != v46)
+        if (*v51 != v45)
         {
           objc_enumerationMutation(v18);
         }
 
-        v22 = *(*(&v51 + 1) + 8 * v21);
-        v23 = [v18 objectForKeyedSubscript:{v22, v41}];
+        v22 = *(*(&v50 + 1) + 8 * v21);
+        v23 = [v18 objectForKeyedSubscript:{v22, v40}];
         if ([v22 length])
         {
           WeakRetained = objc_loadWeakRetained(&self->super._reminderStore);
@@ -898,28 +895,28 @@ id __40__EKFrozenReminderReminder_creationDate__block_invoke(uint64_t a1)
 
         else
         {
-          v49 = 0u;
-          v50 = 0u;
-          v47 = 0u;
           v48 = 0u;
-          v45 = v23;
+          v49 = 0u;
+          v46 = 0u;
+          v47 = 0u;
+          v44 = v23;
           v28 = v23;
-          v29 = [v28 countByEnumeratingWithState:&v47 objects:v59 count:16];
+          v29 = [v28 countByEnumeratingWithState:&v46 objects:v58 count:16];
           if (v29)
           {
             v30 = v29;
-            v43 = v21;
-            v31 = *v48;
+            v42 = v21;
+            v31 = *v47;
             do
             {
               for (j = 0; j != v30; ++j)
               {
-                if (*v48 != v31)
+                if (*v47 != v31)
                 {
                   objc_enumerationMutation(v28);
                 }
 
-                v33 = *(*(&v47 + 1) + 8 * j);
+                v33 = *(*(&v46 + 1) + 8 * j);
                 v34 = objc_loadWeakRetained(&self->super._reminderStore);
                 v35 = [v34 frozenObjectForReminderObject:v33];
 
@@ -931,23 +928,23 @@ id __40__EKFrozenReminderReminder_creationDate__block_invoke(uint64_t a1)
                 [v15 addObject:v35];
               }
 
-              v30 = [v28 countByEnumeratingWithState:&v47 objects:v59 count:16];
+              v30 = [v28 countByEnumeratingWithState:&v46 objects:v58 count:16];
             }
 
             while (v30);
-            v18 = v41;
-            v20 = v42;
-            v21 = v43;
+            v18 = v40;
+            v20 = v41;
+            v21 = v42;
           }
 
-          v27 = v45;
+          v27 = v44;
         }
 
         ++v21;
       }
 
       while (v21 != v20);
-      v20 = [v18 countByEnumeratingWithState:&v51 objects:v60 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v50 objects:v59 count:16];
     }
 
     while (v20);
@@ -965,8 +962,6 @@ id __40__EKFrozenReminderReminder_creationDate__block_invoke(uint64_t a1)
   }
 
   v38 = v37;
-
-  v39 = *MEMORY[0x1E69E9840];
 
   return v38;
 }
@@ -1136,31 +1131,31 @@ id __40__EKFrozenReminderReminder_actionString__block_invoke(uint64_t a1)
 
 - (id)recurrenceRulesSet
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   _reminder = [(EKFrozenReminderReminder *)self _reminder];
   recurrenceRules = [_reminder recurrenceRules];
 
   v5 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(recurrenceRules, "count")}];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   obj = recurrenceRules;
-  v6 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v6 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v21;
+    v8 = *v20;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v21 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v20 + 1) + 8 * i);
+        v10 = *(*(&v19 + 1) + 8 * i);
         v11 = [EKFrozenReminderRecurrenceRule alloc];
         WeakRetained = objc_loadWeakRetained(&self->super._reminderStore);
         v13 = [(EKFrozenReminderRecurrenceRule *)v11 initWithREMObject:v10 inStore:WeakRetained];
@@ -1168,7 +1163,7 @@ id __40__EKFrozenReminderReminder_actionString__block_invoke(uint64_t a1)
         [v5 addObject:v13];
       }
 
-      v7 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v7 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v7);
@@ -1186,8 +1181,6 @@ id __40__EKFrozenReminderReminder_actionString__block_invoke(uint64_t a1)
   }
 
   v16 = v15;
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }

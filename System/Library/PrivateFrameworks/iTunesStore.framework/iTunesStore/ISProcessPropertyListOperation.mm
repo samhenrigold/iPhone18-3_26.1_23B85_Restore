@@ -8,7 +8,7 @@
 
 - (ISProcessPropertyListOperation)initWithPropertyList:(id)list
 {
-  __ISRecordSPIClassUsage(self);
+  __ISRecordSPIClassUsage(self, "/Library/Caches/com.apple.xbs/Sources/iTunesStore/src/ISProcessPropertyListOperation.m", 21, a2);
   v5 = [(ISOperation *)self init];
   if (v5)
   {

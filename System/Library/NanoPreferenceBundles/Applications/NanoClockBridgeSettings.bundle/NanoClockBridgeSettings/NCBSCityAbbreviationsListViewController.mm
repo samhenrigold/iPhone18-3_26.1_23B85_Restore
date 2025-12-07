@@ -3,6 +3,7 @@
 - (id)_getCityAbbrev:(id)abbrev;
 - (id)specifiers;
 - (void)dealloc;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation NCBSCityAbbreviationsListViewController
@@ -29,6 +30,14 @@
   v4.receiver = self;
   v4.super_class = NCBSCityAbbreviationsListViewController;
   [(NCBSCityAbbreviationsListViewController *)&v4 dealloc];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v3.receiver = self;
+  v3.super_class = NCBSCityAbbreviationsListViewController;
+  [(NCBSCityAbbreviationsListViewController *)&v3 viewWillAppear:appear];
+  +[NCBSClockSettingsNavigationDonation donateUserVisitForCityAbbreviationsSettings];
 }
 
 - (id)specifiers

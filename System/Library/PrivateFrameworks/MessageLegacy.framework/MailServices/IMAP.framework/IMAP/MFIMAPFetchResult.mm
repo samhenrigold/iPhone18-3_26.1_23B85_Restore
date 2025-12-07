@@ -367,66 +367,59 @@ LABEL_8:
 
 - (unsigned)encoding
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   flagsArray = [(MFIMAPFetchResult *)self flagsArray];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v3 = [flagsArray countByEnumeratingWithState:&v13 objects:v17 count:16];
-  if (v3)
+  v3 = [flagsArray countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (!v3)
   {
-    v4 = v3;
-    v5 = *v14;
-LABEL_3:
-    v6 = 0;
-    while (1)
-    {
-      if (*v14 != v5)
-      {
-        objc_enumerationMutation(flagsArray);
-      }
+    return -1;
+  }
 
-      v7 = *(*(&v13 + 1) + 8 * v6);
-      if (v7)
+  v4 = v3;
+  v5 = *v13;
+LABEL_3:
+  v6 = 0;
+  while (1)
+  {
+    if (*v13 != v5)
+    {
+      objc_enumerationMutation(flagsArray);
+    }
+
+    v7 = *(*(&v12 + 1) + 8 * v6);
+    if (v7)
+    {
+      v8 = [*(*(&v12 + 1) + 8 * v6) rangeOfString:0x2869E4EA0 options:9];
+      if (v9)
       {
-        v8 = [*(*(&v13 + 1) + 8 * v6) rangeOfString:0x2869E4EA0 options:9];
-        if (v9)
+        v10 = v8 + v9;
+        if (v8 + v9 < [v7 length])
         {
-          v10 = v8 + v9;
-          if (v8 + v9 < [v7 length])
+          [v7 substringFromIndex:v10];
+          result = MFEncodingForCharset();
+          if (result != -1)
           {
-            [v7 substringFromIndex:v10];
-            result = MFEncodingForCharset();
-            if (result != -1)
-            {
-              break;
-            }
+            return result;
           }
         }
       }
+    }
 
-      if (v4 == ++v6)
+    if (v4 == ++v6)
+    {
+      v4 = [flagsArray countByEnumeratingWithState:&v12 objects:v16 count:16];
+      if (v4)
       {
-        v4 = [flagsArray countByEnumeratingWithState:&v13 objects:v17 count:16];
-        if (v4)
-        {
-          goto LABEL_3;
-        }
-
-        goto LABEL_12;
+        goto LABEL_3;
       }
+
+      return -1;
     }
   }
-
-  else
-  {
-LABEL_12:
-    result = -1;
-  }
-
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 - (id)description

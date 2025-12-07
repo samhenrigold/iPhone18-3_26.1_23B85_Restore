@@ -54,7 +54,7 @@
     v10 = +[IDSLogging _IDSService];
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      sub_195B26A7C();
+      sub_195B26A7C(self, v10);
     }
 
     selfCopy = 0;
@@ -110,7 +110,7 @@
     v11 = +[IDSLogging _IDSService];
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      sub_195B26A7C();
+      sub_195B26A7C(self, v11);
     }
 
     selfCopy = 0;
@@ -166,7 +166,7 @@
     v13 = +[IDSLogging _IDSService];
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      sub_195B26A7C();
+      sub_195B26A7C(self, v13);
     }
 
     selfCopy = 0;
@@ -367,7 +367,7 @@
 
 - (void)sendInvitationWithOptions:(id)options
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   v5 = [optionsCopy objectForKey:@"direction"];
   if (v5 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -376,7 +376,7 @@
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v14 = optionsCopy;
+      v13 = optionsCopy;
       _os_log_impl(&dword_1959FF000, v6, OS_LOG_TYPE_INFO, "Received invalid options %@, bailing", buf, 0xCu);
     }
   }
@@ -386,17 +386,15 @@
     v6 = [objc_alloc(MEMORY[0x1E696AD98]) initWithBool:{objc_msgSend(v5, "BOOLValue")}];
     v7 = [objc_alloc(MEMORY[0x1E695DF20]) initWithObjectsAndKeys:{v6, @"direction", 0}];
     v8 = +[IDSInternalQueueController sharedInstance];
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = sub_195A48688;
-    v11[3] = &unk_1E743EA30;
-    v11[4] = self;
-    v12 = v7;
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = sub_195A48688;
+    v10[3] = &unk_1E743EA30;
+    v10[4] = self;
+    v11 = v7;
     v9 = v7;
-    [v8 performBlock:v11];
+    [v8 performBlock:v10];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendInvitationWithData:(id)data declineOnError:(BOOL)error

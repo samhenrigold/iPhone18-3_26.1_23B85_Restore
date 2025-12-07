@@ -40,26 +40,26 @@
     [(UILabel *)v7 setTextColor:labelColor];
 
     [(UILabel *)v7 setText:self->_buttonTitle];
-    contentView = [(UITableViewCell *)self->_cell contentView];
-    [contentView addSubview:v7];
+    v9 = objc_msgSend_contentView(self->_cell);
+    [v9 addSubview:v7];
 
     v10 = objc_alloc_init(MEMORY[0x1E69DC638]);
     spinner = self->_spinner;
     self->_spinner = v10;
 
     [(UIActivityIndicatorView *)self->_spinner setTranslatesAutoresizingMaskIntoConstraints:0];
-    contentView2 = [(UITableViewCell *)self->_cell contentView];
-    [contentView2 addSubview:self->_spinner];
+    v12 = objc_msgSend_contentView(self->_cell);
+    [v12 addSubview:self->_spinner];
 
     v24 = MEMORY[0x1E696ACD8];
     centerXAnchor = [(UILabel *)v7 centerXAnchor];
-    contentView3 = [(UITableViewCell *)self->_cell contentView];
-    centerXAnchor2 = [contentView3 centerXAnchor];
+    v30 = objc_msgSend_contentView(self->_cell);
+    centerXAnchor2 = [v30 centerXAnchor];
     v27 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
     v31[0] = v27;
     centerYAnchor = [(UILabel *)v7 centerYAnchor];
-    contentView4 = [(UITableViewCell *)self->_cell contentView];
-    centerYAnchor2 = [contentView4 centerYAnchor];
+    v26 = objc_msgSend_contentView(self->_cell);
+    centerYAnchor2 = [v26 centerYAnchor];
     v22 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
     v31[1] = v22;
     centerYAnchor3 = [(UIActivityIndicatorView *)self->_spinner centerYAnchor];

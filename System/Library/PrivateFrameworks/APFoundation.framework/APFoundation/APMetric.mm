@@ -48,29 +48,29 @@
 
 - (id)_properties
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v4 = objc_msgSend_properties(self, a2, v2, v3);
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   obj = objc_msgSend_allKeys(v4, v5, v6, v7);
-  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v8, &v32, v36, 16);
+  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v8, &v31, v35, 16);
   if (v9)
   {
     v12 = v9;
     v13 = 0;
-    v14 = *v33;
+    v14 = *v32;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v33 != v14)
+        if (*v32 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v32 + 1) + 8 * i);
+        v16 = *(*(&v31 + 1) + 8 * i);
         v17 = objc_msgSend_objectForKeyedSubscript_(v4, v10, v16, v11);
         v18 = MEMORY[0x1E696AEC0];
         v22 = objc_msgSend_description(v17, v19, v20, v21);
@@ -88,7 +88,7 @@
         }
       }
 
-      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v10, &v32, v36, 16);
+      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v10, &v31, v35, 16);
     }
 
     while (v12);
@@ -111,35 +111,34 @@
 
   v28 = v27;
 
-  v29 = *MEMORY[0x1E69E9840];
   return v27;
 }
 
 - (id)_internalProperties
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v4 = objc_msgSend_internalProperties(self, a2, v2, v3);
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   obj = objc_msgSend_allKeys(v4, v5, v6, v7);
-  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v8, &v32, v36, 16);
+  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v8, &v31, v35, 16);
   if (v9)
   {
     v12 = v9;
     v13 = 0;
-    v14 = *v33;
+    v14 = *v32;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v33 != v14)
+        if (*v32 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v32 + 1) + 8 * i);
+        v16 = *(*(&v31 + 1) + 8 * i);
         v17 = objc_msgSend_objectForKeyedSubscript_(v4, v10, v16, v11);
         v18 = MEMORY[0x1E696AEC0];
         v22 = objc_msgSend_description(v17, v19, v20, v21);
@@ -157,7 +156,7 @@
         }
       }
 
-      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v10, &v32, v36, 16);
+      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v10, &v31, v35, 16);
     }
 
     while (v12);
@@ -180,35 +179,34 @@
 
   v28 = v27;
 
-  v29 = *MEMORY[0x1E69E9840];
   return v27;
 }
 
 - (id)_relayData
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v4 = objc_msgSend_relayData(self, a2, v2, v3);
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   obj = objc_msgSend_allKeys(v4, v5, v6, v7);
-  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v8, &v32, v36, 16);
+  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v8, &v31, v35, 16);
   if (v9)
   {
     v12 = v9;
     v13 = 0;
-    v14 = *v33;
+    v14 = *v32;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v33 != v14)
+        if (*v32 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v32 + 1) + 8 * i);
+        v16 = *(*(&v31 + 1) + 8 * i);
         v17 = objc_msgSend_objectForKeyedSubscript_(v4, v10, v16, v11);
         v18 = MEMORY[0x1E696AEC0];
         v22 = objc_msgSend_description(v17, v19, v20, v21);
@@ -226,7 +224,7 @@
         }
       }
 
-      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v10, &v32, v36, 16);
+      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v10, &v31, v35, 16);
     }
 
     while (v12);
@@ -249,7 +247,6 @@
 
   v28 = v27;
 
-  v29 = *MEMORY[0x1E69E9840];
   return v27;
 }
 
@@ -289,87 +286,97 @@
   v78.receiver = self;
   v78.super_class = APMetric;
   v5 = [(APMetric *)&v78 init];
-  if (!v5)
+  if (!v5
+    || (context = objc_autoreleasePoolPush(),
+        v6 = MEMORY[0x1E695DFD8],
+        v7 = objc_opt_class(),
+        v8 = objc_opt_class(),
+        v9 = objc_opt_class(),
+        v10 = objc_opt_class(),
+        v11 = objc_opt_class(),
+        v12 = objc_opt_class(),
+        v13 = objc_opt_class(),
+        v14 = objc_opt_class(),
+        objc_msgSend_setWithObjects_(v6, v15, v7, v16, v8, v9, v10, v11, v12, v13, v14, 0),
+        v17 = objc_claimAutoreleasedReturnValue(),
+        v5->_purpose = objc_msgSend_decodeInt32ForKey_(coderCopy, v18, @"purpose", v19),
+        v5->_metric = objc_msgSend_decodeInt32ForKey_(coderCopy, v20, @"metric", v21),
+        v22 = objc_opt_class(),
+        objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v23, v22, @"timestamp"),
+        v24 = objc_claimAutoreleasedReturnValue(),
+        timestamp = v5->_timestamp,
+        v5->_timestamp = v24,
+        timestamp,
+        v26 = objc_opt_class(),
+        objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v27, v26, @"content_identifier"),
+        v28 = objc_claimAutoreleasedReturnValue(),
+        contentIdentifier = v5->_contentIdentifier,
+        v5->_contentIdentifier = v28,
+        contentIdentifier,
+        v30 = objc_opt_class(),
+        objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v31, v30, @"context_identifier"),
+        v32 = objc_claimAutoreleasedReturnValue(),
+        contextIdentifier = v5->_contextIdentifier,
+        v5->_contextIdentifier = v32,
+        contextIdentifier,
+        objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v34, v17, @"properties"),
+        v35 = objc_claimAutoreleasedReturnValue(),
+        properties = v5->_properties,
+        v5->_properties = v35,
+        properties,
+        objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v37, v17, @"internal_properties"),
+        v38 = objc_claimAutoreleasedReturnValue(),
+        internalProperties = v5->_internalProperties,
+        v5->_internalProperties = v38,
+        internalProperties,
+        v5->_options = objc_msgSend_decodeInt32ForKey_(coderCopy, v40, @"options", v41),
+        v5->_order = objc_msgSend_decodeInt32ForKey_(coderCopy, v42, @"order", v43),
+        v44 = objc_opt_class(),
+        objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v45, v44, @"trace"),
+        v46 = objc_claimAutoreleasedReturnValue(),
+        trace = v5->_trace,
+        v5->_trace = v46,
+        trace,
+        objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v48, v17, @"branch"),
+        v49 = objc_claimAutoreleasedReturnValue(),
+        branch = v5->_branch,
+        v5->_branch = v49,
+        branch,
+        objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v51, v17, @"relay"),
+        v52 = objc_claimAutoreleasedReturnValue(),
+        relayData = v5->_relayData,
+        v5->_relayData = v52,
+        relayData,
+        v54 = objc_opt_class(),
+        objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v55, v54, @"handle"),
+        v56 = objc_claimAutoreleasedReturnValue(),
+        handle = v5->_handle,
+        v5->_handle = v56,
+        handle,
+        v58 = MEMORY[0x1E695DFD8],
+        v59 = objc_opt_class(),
+        v60 = objc_opt_class(),
+        objc_msgSend_setWithObjects_(v58, v61, v59, v62, v60, 0),
+        v63 = objc_claimAutoreleasedReturnValue(),
+        objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v64, v63, @"environment"),
+        v65 = objc_claimAutoreleasedReturnValue(),
+        environment = v5->_environment,
+        v5->_environment = v65,
+        environment,
+        v5->_source = objc_msgSend_decodeInt32ForKey_(coderCopy, v67, @"source", v68),
+        v69 = objc_opt_class(),
+        objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v70, v69, @"secondaryHandle"),
+        v71 = objc_claimAutoreleasedReturnValue(),
+        secondaryHandle = v5->_secondaryHandle,
+        v5->_secondaryHandle = v71,
+        secondaryHandle,
+        LODWORD(v59) = objc_msgSend_validateMetricAndSetupIdentifiers_(v5, v73, coderCopy, v74),
+        v63,
+        v17,
+        objc_autoreleasePoolPop(context),
+        v75 = 0,
+        v59))
   {
-    goto LABEL_3;
-  }
-
-  context = objc_autoreleasePoolPush();
-  v6 = MEMORY[0x1E695DFD8];
-  v7 = objc_opt_class();
-  v8 = objc_opt_class();
-  v9 = objc_opt_class();
-  v10 = objc_opt_class();
-  v11 = objc_opt_class();
-  v12 = objc_opt_class();
-  v13 = objc_opt_class();
-  v14 = objc_opt_class();
-  v17 = objc_msgSend_setWithObjects_(v6, v15, v7, v16, v8, v9, v10, v11, v12, v13, v14, 0);
-  v5->_purpose = objc_msgSend_decodeInt32ForKey_(coderCopy, v18, @"purpose", v19);
-  v5->_metric = objc_msgSend_decodeInt32ForKey_(coderCopy, v20, @"metric", v21);
-  v22 = objc_opt_class();
-  v24 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v23, v22, @"timestamp");
-  timestamp = v5->_timestamp;
-  v5->_timestamp = v24;
-
-  v26 = objc_opt_class();
-  v28 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v27, v26, @"content_identifier");
-  contentIdentifier = v5->_contentIdentifier;
-  v5->_contentIdentifier = v28;
-
-  v30 = objc_opt_class();
-  v32 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v31, v30, @"context_identifier");
-  contextIdentifier = v5->_contextIdentifier;
-  v5->_contextIdentifier = v32;
-
-  v35 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v34, v17, @"properties");
-  properties = v5->_properties;
-  v5->_properties = v35;
-
-  v38 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v37, v17, @"internal_properties");
-  internalProperties = v5->_internalProperties;
-  v5->_internalProperties = v38;
-
-  v5->_options = objc_msgSend_decodeInt32ForKey_(coderCopy, v40, @"options", v41);
-  v5->_order = objc_msgSend_decodeInt32ForKey_(coderCopy, v42, @"order", v43);
-  v44 = objc_opt_class();
-  v46 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v45, v44, @"trace");
-  trace = v5->_trace;
-  v5->_trace = v46;
-
-  v49 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v48, v17, @"branch");
-  branch = v5->_branch;
-  v5->_branch = v49;
-
-  v52 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v51, v17, @"relay");
-  relayData = v5->_relayData;
-  v5->_relayData = v52;
-
-  v54 = objc_opt_class();
-  v56 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v55, v54, @"handle");
-  handle = v5->_handle;
-  v5->_handle = v56;
-
-  v58 = MEMORY[0x1E695DFD8];
-  v59 = objc_opt_class();
-  v60 = objc_opt_class();
-  v63 = objc_msgSend_setWithObjects_(v58, v61, v59, v62, v60, 0);
-  v65 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v64, v63, @"environment");
-  environment = v5->_environment;
-  v5->_environment = v65;
-
-  v5->_source = objc_msgSend_decodeInt32ForKey_(coderCopy, v67, @"source", v68);
-  v69 = objc_opt_class();
-  v71 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v70, v69, @"secondaryHandle");
-  secondaryHandle = v5->_secondaryHandle;
-  v5->_secondaryHandle = v71;
-
-  LODWORD(v59) = objc_msgSend_validateMetricAndSetupIdentifiers_(v5, v73, coderCopy, v74);
-  objc_autoreleasePoolPop(context);
-  v75 = 0;
-  if (v59)
-  {
-LABEL_3:
     v75 = v5;
   }
 
@@ -401,7 +408,7 @@ LABEL_3:
 
 - (APMetric)initWithPurpose:(int64_t)purpose metric:(int64_t)metric contentIdentifier:(id)identifier contextIdentifier:(id)contextIdentifier handle:(id)handle secondaryHandle:(id)secondaryHandle branch:(id)branch properties:(id)self0 internalProperties:(id)self1 relayData:(id)self2 environment:(id)self3 order:(int64_t)self4 options:(int64_t)self5
 {
-  v81 = *MEMORY[0x1E69E9840];
+  v80 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   contextIdentifierCopy = contextIdentifier;
   handleCopy = handle;
@@ -421,7 +428,7 @@ LABEL_3:
     {
       *buf = 67109376;
       metricCopy = metric;
-      v79 = 1024;
+      v78 = 1024;
       purposeCopy = purpose;
       _os_log_impl(&dword_1BADC1000, v29, OS_LOG_TYPE_DEFAULT, "Metric (%d) for purpose (%d) has a property that is a container!", buf, 0xEu);
     }
@@ -429,9 +436,9 @@ LABEL_3:
     secondaryHandleCopy = v28;
   }
 
-  v76.receiver = self;
-  v76.super_class = APMetric;
-  v30 = [(APMetric *)&v76 init];
+  v75.receiver = self;
+  v75.super_class = APMetric;
+  v30 = [(APMetric *)&v75 init];
   v31 = v30;
   if (!v30)
   {
@@ -482,13 +489,12 @@ LABEL_10:
     v62 = v31;
   }
 
-  v63 = *MEMORY[0x1E69E9840];
   return v62;
 }
 
 - (void)addInternalPropertyValue:(id)value forKey:(id)key
 {
-  v27[1] = *MEMORY[0x1E69E9840];
+  v26[1] = *MEMORY[0x1E69E9840];
   valueCopy = value;
   keyCopy = key;
   v11 = keyCopy;
@@ -507,25 +513,23 @@ LABEL_10:
 
     else
     {
-      v26 = keyCopy;
-      v27[0] = valueCopy;
-      v23 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v8, v27, &v26, 1);
+      v25 = keyCopy;
+      v26[0] = valueCopy;
+      v23 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v8, v26, &v25, 1);
       v24 = self->_internalProperties;
       self->_internalProperties = v23;
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  v23 = 0;
-  v5 = objc_msgSend_archivedDataWithRootObject_requiringSecureCoding_error_(MEMORY[0x1E696ACC8], v4, selfCopy, 1, &v23);
-  v6 = v23;
+  v22 = 0;
+  v5 = objc_msgSend_archivedDataWithRootObject_requiringSecureCoding_error_(MEMORY[0x1E696ACC8], v4, selfCopy, 1, &v22);
+  v6 = v22;
   objc_sync_exit(selfCopy);
 
   if (v6)
@@ -534,9 +538,9 @@ LABEL_10:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v25 = selfCopy;
-      v26 = 2112;
-      v27 = v6;
+      v24 = selfCopy;
+      v25 = 2112;
+      v26 = v6;
       _os_log_impl(&dword_1BADC1000, v7, OS_LOG_TYPE_ERROR, "Error archiving metric %@! error: %@", buf, 0x16u);
     }
 
@@ -546,9 +550,9 @@ LABEL_10:
 
   v11 = MEMORY[0x1E696ACD0];
   v12 = objc_opt_class();
-  v22 = v6;
-  v14 = objc_msgSend_unarchivedObjectOfClass_fromData_error_(v11, v13, v12, v5, &v22);
-  v15 = v22;
+  v21 = v6;
+  v14 = objc_msgSend_unarchivedObjectOfClass_fromData_error_(v11, v13, v12, v5, &v21);
+  v15 = v21;
 
   if (v15)
   {
@@ -556,9 +560,9 @@ LABEL_10:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v25 = selfCopy;
-      v26 = 2112;
-      v27 = v15;
+      v24 = selfCopy;
+      v25 = 2112;
+      v26 = v15;
       _os_log_impl(&dword_1BADC1000, v16, OS_LOG_TYPE_ERROR, "Error unarchiving metric %@! error: %@", buf, 0x16u);
     }
 
@@ -566,22 +570,21 @@ LABEL_10:
     APSimulateCrash(5, v19, 0);
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 - (id)_descriptionWithFormat:(id)format
 {
-  v111 = *MEMORY[0x1E69E9840];
+  v110 = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E696AC80];
   formatCopy = format;
   v8 = objc_msgSend_apLocalSharedFormatter(v4, v5, v6, v7);
   v12 = objc_msgSend_timestamp(self, v9, v10, v11);
-  v102 = v8;
-  v103 = objc_msgSend_stringFromDate_(v8, v13, v12, v14);
+  v101 = v8;
+  v102 = objc_msgSend_stringFromDate_(v8, v13, v12, v14);
 
-  v100 = objc_msgSend_purpose(self, v15, v16, v17);
-  v99 = objc_msgSend_metric(self, v18, v19, v20);
+  v99 = objc_msgSend_purpose(self, v15, v16, v17);
+  v98 = objc_msgSend_metric(self, v18, v19, v20);
   v24 = objc_msgSend_handle(self, v21, v22, v23);
   v25 = v24;
   if (v24)
@@ -637,11 +640,11 @@ LABEL_10:
     v51 = @"none";
   }
 
-  v107 = v51;
+  v106 = v51;
 
-  v106 = objc_msgSend__properties(self, v52, v53, v54);
-  v105 = objc_msgSend__internalProperties(self, v55, v56, v57);
-  v104 = objc_msgSend__relayData(self, v58, v59, v60);
+  v105 = objc_msgSend__properties(self, v52, v53, v54);
+  v104 = objc_msgSend__internalProperties(self, v55, v56, v57);
+  v103 = objc_msgSend__relayData(self, v58, v59, v60);
   v64 = objc_msgSend_order(self, v61, v62, v63);
   v71 = objc_msgSend_environment(self, v65, v66, v67);
   if (v71)
@@ -676,10 +679,10 @@ LABEL_10:
 
   v85 = v84;
 
-  v108 = 0;
-  v87 = objc_msgSend_stringWithValidatedFormat_validFormatSpecifiers_error_(MEMORY[0x1E696AEC0], v86, formatCopy, @"%@%ld%ld%@%@%@%@%@%@%@%@%@%ld%@", &v108, v103, v100, v99, v27, v85, v31, v38, v45, v107, v106, v105, v104, v64, v78);
+  v107 = 0;
+  v87 = objc_msgSend_stringWithValidatedFormat_validFormatSpecifiers_error_(MEMORY[0x1E696AEC0], v86, formatCopy, @"%@%ld%ld%@%@%@%@%@%@%@%@%@%ld%@", &v107, v102, v99, v98, v27, v85, v31, v38, v45, v106, v105, v104, v103, v64, v78);
 
-  v88 = v108;
+  v88 = v107;
   if (v88)
   {
     v89 = v87;
@@ -690,7 +693,7 @@ LABEL_10:
     {
       v96 = objc_msgSend_localizedDescription(v88, v93, v94, v95);
       *buf = 138412290;
-      v110 = v96;
+      v109 = v96;
       _os_log_impl(&dword_1BADC1000, v92, OS_LOG_TYPE_ERROR, "Error retrieving description for metric: %@", buf, 0xCu);
     }
 
@@ -699,14 +702,12 @@ LABEL_10:
     v87 = v89;
   }
 
-  v97 = *MEMORY[0x1E69E9840];
-
   return v87;
 }
 
 - (NSString)description
 {
-  v137[14] = *MEMORY[0x1E69E9840];
+  v136[14] = *MEMORY[0x1E69E9840];
   if (objc_msgSend_isAppleInternalInstall(APSystemInternal, a2, v2, v3))
   {
     v7 = objc_alloc(MEMORY[0x1E695E000]);
@@ -731,26 +732,26 @@ LABEL_10:
         v40 = objc_msgSend_null(MEMORY[0x1E695DFB0], v36, v37, v38);
       }
 
-      v135 = v40;
+      v134 = v40;
 
-      v134 = objc_msgSend__optionsArray(self, v42, v43, v44);
-      v133 = objc_msgSend_contentIdentifier(self, v45, v46, v47);
+      v133 = objc_msgSend__optionsArray(self, v42, v43, v44);
+      v132 = objc_msgSend_contentIdentifier(self, v45, v46, v47);
       v51 = objc_msgSend_bundleIdentifier(self, v48, v49, v50);
       v55 = v51;
       if (v51)
       {
-        v131 = v51;
+        v130 = v51;
       }
 
       else
       {
         v56 = objc_msgSend_mainBundle(MEMORY[0x1E696AAE8], v52, v53, v54);
-        v131 = objc_msgSend_bundleIdentifier(v56, v57, v58, v59);
+        v130 = objc_msgSend_bundleIdentifier(v56, v57, v58, v59);
       }
 
-      v132 = objc_msgSend_contextIdentifier(self, v60, v61, v62);
+      v131 = objc_msgSend_contextIdentifier(self, v60, v61, v62);
       v66 = objc_msgSend_properties(self, v63, v64, v65);
-      v130 = objc_msgSend__addOptionsToProperties_(self, v67, v66, v68);
+      v129 = objc_msgSend__addOptionsToProperties_(self, v67, v66, v68);
 
       v72 = objc_msgSend_internalProperties(self, v69, v70, v71);
       v76 = v72;
@@ -764,7 +765,7 @@ LABEL_10:
         v77 = objc_msgSend_dictionary(MEMORY[0x1E695DF20], v73, v74, v75);
       }
 
-      v129 = v77;
+      v128 = v77;
 
       v81 = objc_msgSend_relayData(self, v78, v79, v80);
       v85 = v81;
@@ -778,19 +779,19 @@ LABEL_10:
         v86 = objc_msgSend_dictionary(MEMORY[0x1E695DF20], v82, v83, v84);
       }
 
-      v128 = v86;
+      v127 = v86;
 
       v90 = objc_msgSend_order(self, v87, v88, v89);
       v97 = objc_msgSend_environment(self, v91, v92, v93);
       if (v97)
       {
         v98 = objc_msgSend_environment(self, v94, v95, v96);
-        v127 = objc_msgSend_componentsJoinedByString_(v98, v99, @",", v100);
+        v126 = objc_msgSend_componentsJoinedByString_(v98, v99, @",", v100);
       }
 
       else
       {
-        v127 = &stru_1F38FD5F0;
+        v126 = &stru_1F38FD5F0;
       }
 
       v104 = objc_msgSend_secondaryHandle(self, v101, v102, v103);
@@ -807,39 +808,39 @@ LABEL_10:
 
       v110 = v109;
 
-      v137[0] = v23;
-      v136[0] = @"TS";
-      v136[1] = @"R";
-      v126 = v23;
+      v136[0] = v23;
+      v135[0] = @"TS";
+      v135[1] = @"R";
+      v125 = v23;
       v113 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v111, v27, v112);
-      v137[1] = v113;
-      v136[2] = @"M";
+      v136[1] = v113;
+      v135[2] = @"M";
       v116 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v114, v31, v115);
-      v137[2] = v116;
-      v137[3] = v135;
-      v136[3] = @"H";
-      v136[4] = @"SH";
-      v137[4] = v110;
-      v137[5] = v134;
-      v136[5] = @"O";
-      v136[6] = @"CI";
-      v137[6] = v133;
-      v137[7] = v132;
-      v136[7] = @"CX";
-      v136[8] = @"BID";
-      v137[8] = v131;
-      v137[9] = v130;
-      v136[9] = @"P";
-      v136[10] = @"IP";
-      v137[10] = v129;
-      v136[11] = @"ORD";
+      v136[2] = v116;
+      v136[3] = v134;
+      v135[3] = @"H";
+      v135[4] = @"SH";
+      v136[4] = v110;
+      v136[5] = v133;
+      v135[5] = @"O";
+      v135[6] = @"CI";
+      v136[6] = v132;
+      v136[7] = v131;
+      v135[7] = @"CX";
+      v135[8] = @"BID";
+      v136[8] = v130;
+      v136[9] = v129;
+      v135[9] = @"P";
+      v135[10] = @"IP";
+      v136[10] = v128;
+      v135[11] = @"ORD";
       v119 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v117, v90, v118);
-      v137[11] = v119;
-      v137[12] = v128;
-      v136[12] = @"REL";
-      v136[13] = @"ENV";
-      v137[13] = v127;
-      v121 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v120, v137, v136, 14);
+      v136[11] = v119;
+      v136[12] = v127;
+      v135[12] = @"REL";
+      v135[13] = @"ENV";
+      v136[13] = v126;
+      v121 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v120, v136, v135, 14);
 
       v41 = objc_msgSend_jsonStringWithOptions_(v121, v122, 1, v123);
     }
@@ -854,8 +855,6 @@ LABEL_10:
   {
     v41 = objc_msgSend__descriptionWithFormat_(self, v5, @"%@ R: %ld M: %ld H: %@ SH: %@ O: %@, CI: %@ CX: %@ BID: %@ P: %@ IP: %@ REL: %@, ORD: %ld ENV: %@", v6);
   }
-
-  v124 = *MEMORY[0x1E69E9840];
 
   return v41;
 }

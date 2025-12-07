@@ -130,7 +130,7 @@
 
 - (MLModel)lowUsageEngageModel
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   if (!self->_lowUsageEngageModel)
   {
@@ -140,9 +140,9 @@
 
     v6 = MEMORY[0x277CBFF20];
     v7 = [MEMORY[0x277CBEBC0] fileURLWithPath:v5];
-    v16 = 0;
-    v8 = [v6 modelWithContentsOfURL:v7 error:&v16];
-    v9 = v16;
+    v15 = 0;
+    v8 = [v6 modelWithContentsOfURL:v7 error:&v15];
+    v9 = v15;
     lowUsageEngageModel = self->_lowUsageEngageModel;
     self->_lowUsageEngageModel = v8;
 
@@ -152,7 +152,7 @@
       if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v18 = v9;
+        v17 = v9;
         _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Error loading low usage engagement model: %@", buf, 0xCu);
       }
     }
@@ -167,14 +167,13 @@
 
   os_unfair_lock_unlock(&self->_lock);
   v13 = self->_lowUsageEngageModel;
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
 
 - (MLModel)lowUsageRegressionModel
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   if (!self->_lowUsageRegressionModel)
   {
@@ -184,9 +183,9 @@
 
     v6 = MEMORY[0x277CBFF20];
     v7 = [MEMORY[0x277CBEBC0] fileURLWithPath:v5];
-    v16 = 0;
-    v8 = [v6 modelWithContentsOfURL:v7 error:&v16];
-    v9 = v16;
+    v15 = 0;
+    v8 = [v6 modelWithContentsOfURL:v7 error:&v15];
+    v9 = v15;
     lowUsageRegressionModel = self->_lowUsageRegressionModel;
     self->_lowUsageRegressionModel = v8;
 
@@ -196,7 +195,7 @@
       if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v18 = v9;
+        v17 = v9;
         _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Error loading low usage regression model: %@", buf, 0xCu);
       }
     }
@@ -211,21 +210,20 @@
 
   os_unfair_lock_unlock(&self->_lock);
   v13 = self->_lowUsageRegressionModel;
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
 
 - (id)chargingDecisionForDate:(id)date forAudioAccessory:(id)accessory
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   accessoryCopy = accessory;
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v72 = *&dateCopy;
+    v71 = *&dateCopy;
     _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "chargingDecisionForDate %@ was called", buf, 0xCu);
   }
 
@@ -240,7 +238,7 @@
     v14 = v12;
     v15 = [v13 numberWithUnsignedInteger:{objc_msgSend(v11, "count")}];
     *buf = 138412290;
-    v72 = *&v15;
+    v71 = *&v15;
     _os_log_impl(&dword_21B766000, v14, OS_LOG_TYPE_DEFAULT, "Found %@ events for featurization", buf, 0xCu);
   }
 
@@ -257,13 +255,13 @@
     if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218240;
-      v72 = v21;
-      v73 = 2048;
-      v74 = v23;
+      v71 = v21;
+      v72 = 2048;
+      v73 = v23;
       _os_log_impl(&dword_21B766000, v24, OS_LOG_TYPE_DEFAULT, "meanEventDuration: %f - medianTimeBetweenEvents: %f", buf, 0x16u);
     }
 
-    v66 = v9;
+    v65 = v9;
     if (v21 >= 1400.0)
     {
       highUsageEngageModel = [(PowerUIMLAudioAccessoryModelPredictor *)self highUsageEngageModel];
@@ -311,19 +309,19 @@
       v34 = [v32 numberWithDouble:v26];
       v35 = [MEMORY[0x277CCABB0] numberWithDouble:9.375];
       *buf = 138412802;
-      v72 = *&v34;
-      v73 = 2112;
-      v74 = *&v35;
-      v75 = 2112;
-      v76 = stringValue;
+      v71 = *&v34;
+      v72 = 2112;
+      v73 = *&v35;
+      v74 = 2112;
+      v75 = stringValue;
       _os_log_impl(&dword_21B766000, v33, OS_LOG_TYPE_DEFAULT, "threshold: %@ - leeway: %@ - model version: %@", buf, 0x20u);
     }
 
     v36 = [(PowerUIMLAudioAccessoryModelPredictor *)self getInputFeaturesForDate:dateCopy withEventsInDescendingOrder:allObjects withLog:self->_log];
-    v70 = 0;
-    v65 = highUsageEngageModel;
-    v37 = [highUsageEngageModel predictionFromFeatures:v36 error:&v70];
-    v38 = v70;
+    v69 = 0;
+    v64 = highUsageEngageModel;
+    v37 = [highUsageEngageModel predictionFromFeatures:v36 error:&v69];
+    v38 = v69;
     if (v38 && os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
     {
       [PowerUIMLAudioAccessoryModelPredictor chargingDecisionForDate:forAudioAccessory:];
@@ -338,7 +336,7 @@
       v42 = v41;
       v43 = [dictionaryValue description];
       *buf = 138412290;
-      v72 = *&v43;
+      v71 = *&v43;
       _os_log_impl(&dword_21B766000, v42, OS_LOG_TYPE_DEFAULT, "Engagement model raw output %@", buf, 0xCu);
     }
 
@@ -346,9 +344,9 @@
     [v44 doubleValue];
     v46 = v45;
 
-    v69 = v38;
-    v47 = [lowUsageRegressionModel predictionFromFeatures:v36 error:&v69];
-    v48 = v69;
+    v68 = v38;
+    v47 = [lowUsageRegressionModel predictionFromFeatures:v36 error:&v68];
+    v48 = v68;
 
     if (v48)
     {
@@ -360,74 +358,74 @@
 
     else if (!v38)
     {
-      v57 = [v47 featureValueForName:@"duration_pred"];
-      [v57 doubleValue];
-      v59 = v58;
+      v56 = [v47 featureValueForName:@"duration_pred"];
+      [v56 doubleValue];
+      v58 = v57;
 
-      v60 = self->_log;
-      if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
+      v59 = self->_log;
+      if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v72 = v59;
-        _os_log_impl(&dword_21B766000, v60, OS_LOG_TYPE_DEFAULT, "Unadjusted regression model output %lf", buf, 0xCu);
+        v71 = v58;
+        _os_log_impl(&dword_21B766000, v59, OS_LOG_TYPE_DEFAULT, "Unadjusted regression model output %lf", buf, 0xCu);
       }
 
-      v61 = v59 + -9.375;
-      v62 = self->_log;
-      v63 = os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT);
+      v60 = v58 + -9.375;
+      v61 = self->_log;
+      v62 = os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT);
       if (v46 > v26)
       {
-        if (v63)
+        if (v62)
         {
           *buf = 134218240;
-          v72 = v46;
-          v73 = 2048;
-          v74 = v26;
-          _os_log_impl(&dword_21B766000, v62, OS_LOG_TYPE_DEFAULT, "Engagement model says YES (Prob %lf > Threshold %lf)", buf, 0x16u);
+          v71 = v46;
+          v72 = 2048;
+          v73 = v26;
+          _os_log_impl(&dword_21B766000, v61, OS_LOG_TYPE_DEFAULT, "Engagement model says YES (Prob %lf > Threshold %lf)", buf, 0x16u);
         }
 
-        if (v61 > 0.0 && v61 <= 4320.0)
+        if (v60 > 0.0 && v60 <= 4320.0)
         {
           v53 = stringValue;
-          v54 = [[PowerUIModelPredictionContainer alloc] initWithEngagementConfidence:stringValue withSmartChargeDuration:v46 withModelVersion:v61];
+          v54 = [[PowerUIModelPredictionContainer alloc] initWithEngagementConfidence:stringValue withSmartChargeDuration:v46 withModelVersion:v60];
           goto LABEL_32;
         }
 
-        v64 = self->_log;
+        v63 = self->_log;
         v53 = stringValue;
-        if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134217984;
-          v72 = v61;
-          _os_log_impl(&dword_21B766000, v64, OS_LOG_TYPE_DEFAULT, "... but smartChargeDuration out of bound (%lf)", buf, 0xCu);
+          v71 = v60;
+          _os_log_impl(&dword_21B766000, v63, OS_LOG_TYPE_DEFAULT, "... but smartChargeDuration out of bound (%lf)", buf, 0xCu);
         }
 
         v49 = [PowerUIModelPredictionContainer alloc];
         v52 = 3;
         v50 = v46;
-        v51 = v61;
+        v51 = v60;
 LABEL_31:
         v54 = [(PowerUIModelPredictionContainer *)v49 initInvalidEntry:v52 withEngagementConfidence:v53 withSmartChargeDuration:v50 withModelVersion:v51];
 LABEL_32:
         v17 = v54;
 
-        v9 = v66;
+        v9 = v65;
         goto LABEL_33;
       }
 
-      if (v63)
+      if (v62)
       {
         *buf = 134218240;
-        v72 = v46;
-        v73 = 2048;
-        v74 = v26;
-        _os_log_impl(&dword_21B766000, v62, OS_LOG_TYPE_DEFAULT, "... but engagement model says NO (Prob %lf < Threshold %lf)", buf, 0x16u);
+        v71 = v46;
+        v72 = 2048;
+        v73 = v26;
+        _os_log_impl(&dword_21B766000, v61, OS_LOG_TYPE_DEFAULT, "... but engagement model says NO (Prob %lf < Threshold %lf)", buf, 0x16u);
       }
 
       v49 = [PowerUIModelPredictionContainer alloc];
       v52 = 2;
       v50 = v46;
-      v51 = v61;
+      v51 = v60;
 LABEL_30:
       v53 = stringValue;
       goto LABEL_31;
@@ -450,14 +448,12 @@ LABEL_30:
   allObjects = v11;
 LABEL_33:
 
-  v55 = *MEMORY[0x277D85DE8];
-
   return v17;
 }
 
 - (id)getInputFeaturesForDate:(id)date withEventsInDescendingOrder:(id)order withLog:(id)log
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   orderCopy = order;
   logCopy = log;
@@ -488,23 +484,23 @@ LABEL_33:
   [PowerUIPredictorHelper medianOf:v18];
   v25 = v24;
   [PowerUIPredictorHelper medianOf:v19];
-  v60 = v26;
+  v59 = v26;
   [PowerUIPredictorHelper standardDeviationOf:v16];
-  v61 = v27;
-  v68 = v17;
+  v60 = v27;
+  v67 = v17;
   [PowerUIPredictorHelper standardDeviationOf:v17];
-  v62 = v28;
-  v67 = v18;
+  v61 = v28;
+  v66 = v18;
   [PowerUIPredictorHelper standardDeviationOf:v18];
-  v63 = v29;
-  v66 = v19;
+  v62 = v29;
+  v65 = v19;
   [PowerUIPredictorHelper standardDeviationOf:v19];
-  v65 = v30;
-  v70 = logCopy;
+  v64 = v30;
+  v69 = logCopy;
   v31 = [PowerUIPredictorHelper getUsageBucketsForEvents:orderCopy forDate:dateCopy withLog:logCopy];
-  v69 = v11;
+  v68 = v11;
   +[PowerUIPredictorHelper hoursUntilUseFromBucketedUsage:withCurrentHour:withComponentsMinutes:](PowerUIPredictorHelper, "hoursUntilUseFromBucketedUsage:withCurrentHour:withComponentsMinutes:", v31, hour, [v11 minute]);
-  v64 = v32;
+  v63 = v32;
   [(PowerUIMLAudioAccessoryModelPredictor *)self historicalMeaningfulUnderchargeRate:orderCopy];
   v34 = v33;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
@@ -526,22 +522,22 @@ LABEL_33:
   v41 = [MEMORY[0x277CCABB0] numberWithDouble:v25];
   [dictionary setObject:v41 forKeyedSubscript:@"classic_time_between_uses_med_dur_4"];
 
-  v42 = [MEMORY[0x277CCABB0] numberWithDouble:v60];
+  v42 = [MEMORY[0x277CCABB0] numberWithDouble:v59];
   [dictionary setObject:v42 forKeyedSubscript:@"classic_time_between_uses_med_dur_24"];
 
-  v43 = [MEMORY[0x277CCABB0] numberWithDouble:v61];
+  v43 = [MEMORY[0x277CCABB0] numberWithDouble:v60];
   [dictionary setObject:v43 forKeyedSubscript:@"classic_time_between_uses_std_dur_1"];
 
-  v44 = [MEMORY[0x277CCABB0] numberWithDouble:v62];
+  v44 = [MEMORY[0x277CCABB0] numberWithDouble:v61];
   [dictionary setObject:v44 forKeyedSubscript:@"classic_time_between_uses_std_dur_2"];
 
-  v45 = [MEMORY[0x277CCABB0] numberWithDouble:v63];
+  v45 = [MEMORY[0x277CCABB0] numberWithDouble:v62];
   [dictionary setObject:v45 forKeyedSubscript:@"classic_time_between_uses_std_dur_4"];
 
-  v46 = [MEMORY[0x277CCABB0] numberWithDouble:v65];
+  v46 = [MEMORY[0x277CCABB0] numberWithDouble:v64];
   [dictionary setObject:v46 forKeyedSubscript:@"classic_time_between_uses_std_dur_24"];
 
-  v47 = [MEMORY[0x277CCABB0] numberWithDouble:v64];
+  v47 = [MEMORY[0x277CCABB0] numberWithDouble:v63];
   [dictionary setObject:v47 forKeyedSubscript:@"hours_until_use"];
 
   v48 = 0;
@@ -569,32 +565,30 @@ LABEL_33:
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v74 = dictionary;
+    v73 = dictionary;
     _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "ml input dict: %@", buf, 0xCu);
   }
 
-  v72 = 0;
-  v55 = [objc_alloc(MEMORY[0x277CBFED0]) initWithDictionary:dictionary error:&v72];
-  v56 = v72;
+  v71 = 0;
+  v55 = [objc_alloc(MEMORY[0x277CBFED0]) initWithDictionary:dictionary error:&v71];
+  v56 = v71;
   if (v56)
   {
     v57 = self->_log;
     if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v74 = v56;
+      v73 = v56;
       _os_log_impl(&dword_21B766000, v57, OS_LOG_TYPE_DEFAULT, "Error creating input features: %@", buf, 0xCu);
     }
   }
-
-  v58 = *MEMORY[0x277D85DE8];
 
   return v55;
 }
 
 - (BOOL)isSufficientDataAvailableForEngagementForDevice:(id)device
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   if (self->_minimumNumberOfPreviousConnections > 0)
   {
@@ -622,11 +616,11 @@ LABEL_33:
           v26 = [MEMORY[0x277CCABB0] numberWithDouble:v21 / 86400.0];
           v27 = [MEMORY[0x277CCABB0] numberWithInt:self->_minimumDaysOfHistory];
           *buf = 136315650;
-          v33 = uTF8String;
-          v34 = 2112;
-          v35 = v26;
-          v36 = 2112;
-          v37 = v27;
+          v32 = uTF8String;
+          v33 = 2112;
+          v34 = v26;
+          v35 = 2112;
+          v36 = v27;
           _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Oldest connection event (%s) younger than %@ < %@ days. Disengage.", buf, 0x20u);
         }
 
@@ -647,9 +641,9 @@ LABEL_33:
         v11 = [v9 numberWithUnsignedInteger:{objc_msgSend(v6, "count")}];
         v12 = [MEMORY[0x277CCABB0] numberWithInt:self->_minimumNumberOfPreviousConnections];
         *buf = 138412546;
-        v33 = v11;
-        v34 = 2112;
-        v35 = v12;
+        v32 = v11;
+        v33 = 2112;
+        v34 = v12;
         _os_log_impl(&dword_21B766000, v10, OS_LOG_TYPE_DEFAULT, "Not enough connection events: %@ < %@. Disengage.", buf, 0x16u);
 
 LABEL_12:
@@ -668,14 +662,13 @@ LABEL_12:
     v16 = v13;
     v17 = [v14 numberWithInt:minimumNumberOfPreviousConnections];
     *buf = 138412290;
-    v33 = v17;
+    v32 = v17;
     _os_log_impl(&dword_21B766000, v16, OS_LOG_TYPE_DEFAULT, "Minimum number of required connections is %@ < 1. Proceed.", buf, 0xCu);
   }
 
   v8 = 1;
 LABEL_14:
 
-  v28 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -893,29 +886,29 @@ LABEL_18:
 
 - (BOOL)deviceHasAtLeastOneLongConnection:(id)connection forReferenceDate:(id)date
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   v7 = [MEMORY[0x277CBEAA8] dateWithTimeInterval:date sinceDate:-2592000.0];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   v8 = connectionCopy;
-  v9 = [v8 countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v28;
+    v11 = *v27;
 LABEL_3:
     v12 = 0;
     while (1)
     {
-      if (*v28 != v11)
+      if (*v27 != v11)
       {
         objc_enumerationMutation(v8);
       }
 
-      v13 = *(*(&v27 + 1) + 8 * v12);
+      v13 = *(*(&v26 + 1) + 8 * v12);
       startDate = [v13 startDate];
       v15 = [v7 earlierDate:startDate];
       startDate2 = [v13 startDate];
@@ -935,8 +928,8 @@ LABEL_3:
         log = self->_log;
         if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
         {
-          *v26 = 0;
-          _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "At least one long engagement was found.", v26, 2u);
+          *v25 = 0;
+          _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "At least one long engagement was found.", v25, 2u);
         }
 
         v22 = 1;
@@ -945,7 +938,7 @@ LABEL_3:
 
       if (v10 == ++v12)
       {
-        v10 = [v8 countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v26 objects:v30 count:16];
         if (v10)
         {
           goto LABEL_3;
@@ -960,14 +953,13 @@ LABEL_3:
   v22 = 0;
   if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
-    *v26 = 0;
-    _os_log_impl(&dword_21B766000, v21, OS_LOG_TYPE_DEFAULT, "No long engagements were found.", v26, 2u);
+    *v25 = 0;
+    _os_log_impl(&dword_21B766000, v21, OS_LOG_TYPE_DEFAULT, "No long engagements were found.", v25, 2u);
     v22 = 0;
   }
 
 LABEL_15:
 
-  v24 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
@@ -1056,48 +1048,42 @@ LABEL_15:
 
 - (void)chargingDecisionForDate:forAudioAccessory:.cold.1()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_0(&dword_21B766000, v0, v1, "Error getting engagement model predictions: %@", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_21B766000, v0, v1, "Error getting engagement model predictions: %@", v2);
 }
 
 - (void)chargingDecisionForDate:forAudioAccessory:.cold.2()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_0(&dword_21B766000, v0, v1, "Error getting regression model predictions: %@", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_21B766000, v0, v1, "Error getting regression model predictions: %@", v2);
 }
 
 - (void)chargingDecisionForDate:(void *)a1 forAudioAccessory:(void *)a2 .cold.3(void *a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCABB0];
   v4 = a1;
   v5 = [v3 numberWithUnsignedInteger:{objc_msgSend(a2, "count")}];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_0(&dword_21B766000, v4, v6, "Only %@ events were found, charging decision should not have been queried for device.", v8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_21B766000, v4, v6, "Only %@ events were found, charging decision should not have been queried for device.", v7);
 }
 
 void __107__PowerUIMLAudioAccessoryModelPredictor_getBTConnectionEventsUpTo_withMinimumDuration_withLimit_forDevice___block_invoke_3_cold_1(void *a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 error];
   v5 = [v4 description];
   [v5 UTF8String];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_0(&dword_21B766000, v3, v6, "Error getting bluetooth biome events: %s", v8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_21B766000, v3, v6, "Error getting bluetooth biome events: %s", v7);
 }
 
 void __107__PowerUIMLAudioAccessoryModelPredictor_getBTConnectionEventsUpTo_withMinimumDuration_withLimit_forDevice___block_invoke_179_cold_1(void *a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEAA8];
   v4 = a1;
   [a2 timestamp];
@@ -1105,13 +1091,11 @@ void __107__PowerUIMLAudioAccessoryModelPredictor_getBTConnectionEventsUpTo_with
   v6 = MEMORY[0x277CCABB0];
   v7 = [a2 eventBody];
   v8 = [v6 numberWithBool:{objc_msgSend(v7, "starting")}];
-  v10 = 138412546;
-  v11 = v5;
-  v12 = 2112;
-  v13 = v8;
-  _os_log_debug_impl(&dword_21B766000, v4, OS_LOG_TYPE_DEBUG, "bluetooth event: %@ - starting :%@", &v10, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9 = 138412546;
+  v10 = v5;
+  v11 = 2112;
+  v12 = v8;
+  _os_log_debug_impl(&dword_21B766000, v4, OS_LOG_TYPE_DEBUG, "bluetooth event: %@ - starting :%@", &v9, 0x16u);
 }
 
 @end

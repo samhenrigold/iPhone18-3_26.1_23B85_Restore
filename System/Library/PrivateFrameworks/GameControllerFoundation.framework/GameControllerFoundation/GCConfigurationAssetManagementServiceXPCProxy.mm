@@ -1,7 +1,9 @@
 @interface GCConfigurationAssetManagementServiceXPCProxy
 - (GCConfigurationAssetManagementServiceXPCProxy)init;
 - (GCConfigurationAssetManagementServiceXPCProxy)initWithService:(id)service;
+- (id)checkForNewAssets:(BOOL)assets forceCatalogRefresh:(BOOL)refresh reply:(id)reply;
 - (void)assetsWithReply:(id)reply;
+- (void)currentAsset:(BOOL)asset withReply:(id)reply;
 - (void)lastUpdateDateWithReply:(id)reply;
 @end
 
@@ -56,6 +58,37 @@ GCConfigurationAssetXPCProxy *__65__GCConfigurationAssetManagementServiceXPCProx
   return v3;
 }
 
+- (void)currentAsset:(BOOL)asset withReply:(id)reply
+{
+  assetCopy = asset;
+  replyCopy = reply;
+  v7 = _os_activity_create(&dword_1D2C3B000, "[Config Service/XPC/AssetManagementService] Current Asset", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+  state.opaque[0] = 0;
+  state.opaque[1] = 0;
+  os_activity_scope_enter(v7, &state);
+  v8 = [(GCConfigurationAssetManagementService *)self->_service currentAsset:assetCopy];
+  v13 = 0;
+  v14 = 0;
+  [v8 waitForResult:&v14 error:&v13];
+  v9 = v14;
+  v10 = v13;
+
+  if ([v9 conformsToProtocol:&unk_1F4E3ADA0])
+  {
+    null = [[GCConfigurationAssetXPCProxy alloc] initWithAsset:v9];
+  }
+
+  else
+  {
+    null = [MEMORY[0x1E695DFB0] null];
+  }
+
+  v12 = null;
+  replyCopy[2](replyCopy, null, v10);
+
+  os_activity_scope_leave(&state);
+}
+
 - (void)lastUpdateDateWithReply:(id)reply
 {
   service = self->_service;
@@ -69,6 +102,21 @@ GCConfigurationAssetXPCProxy *__65__GCConfigurationAssetManagementServiceXPCProx
   v8 = v6;
 
   replyCopy[2](replyCopy, v8, v7);
+}
+
+- (id)checkForNewAssets:(BOOL)assets forceCatalogRefresh:(BOOL)refresh reply:(id)reply
+{
+  refreshCopy = refresh;
+  assetsCopy = assets;
+  replyCopy = reply;
+  v9 = _os_activity_create(&dword_1D2C3B000, "[Config Service/XPC/AssetManagementService] Check For New Assets", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+  v12.opaque[0] = 0;
+  v12.opaque[1] = 0;
+  os_activity_scope_enter(v9, &v12);
+  v10 = [(GCConfigurationAssetManagementService *)self->_service checkForNewAssets:assetsCopy forceCatalogRefresh:refreshCopy completion:replyCopy];
+  os_activity_scope_leave(&v12);
+
+  return v10;
 }
 
 - (void)initWithService:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)

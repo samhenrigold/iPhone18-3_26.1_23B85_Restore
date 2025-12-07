@@ -5,6 +5,7 @@
 - (void)addLanguage:(id)language;
 - (void)reloadKeyboardSpecifiers;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation TIAddMultilingualLanguageListController
@@ -17,6 +18,17 @@
   v3 = OBJC_IVAR___PSListController__table;
   [*&self->PSListController_opaque[OBJC_IVAR___PSListController__table] setEstimatedSectionHeaderHeight:0.0];
   [*&self->PSListController_opaque[v3] setEstimatedSectionFooterHeight:0.0];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = TIAddMultilingualLanguageListController;
+  [(TIAddMultilingualLanguageListController *)&v7 viewWillAppear:appear];
+  v4 = [NSBundle bundleForClass:objc_opt_class()];
+  v5 = [v4 localizedStringForKey:@"MULTILINGUAL_DETAIL_ADD_LANGUAGE_TITLE" value:&stru_49C80 table:@"Keyboard"];
+  navigationItem = [(TIAddMultilingualLanguageListController *)self navigationItem];
+  [navigationItem setTitle:v5];
 }
 
 - (id)specifiers

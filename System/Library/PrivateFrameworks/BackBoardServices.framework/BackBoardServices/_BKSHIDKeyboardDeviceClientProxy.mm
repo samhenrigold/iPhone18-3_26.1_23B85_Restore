@@ -9,11 +9,11 @@
 
 - (NSString)debugDescription
 {
-  v3 = MEMORY[0x1E698E688];
+  v2 = MEMORY[0x1E698E688];
   debugStyle = [MEMORY[0x1E698E690] debugStyle];
-  v5 = [v3 descriptionForRootObject:self withStyle:debugStyle];
+  v4 = [v2 descriptionForRootObject:? withStyle:?];
 
-  return v5;
+  return v4;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -43,7 +43,7 @@
 
   if (v8)
   {
-    v9 = [(BKSHIDKeyboardDevice *)self->_device isEqual:v8[1]];
+    v9 = [(BKSHIDKeyboardDevice *)self->_device isEqual:?];
   }
 
   else
@@ -64,44 +64,44 @@
 
 - (_BKSHIDKeyboardDeviceClientProxy)initWithDevice:(id)device lifetimeAssertion:(id)assertion
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   deviceCopy = device;
   assertionCopy = assertion;
-  v35.receiver = self;
-  v35.super_class = _BKSHIDKeyboardDeviceClientProxy;
-  v10 = [(_BKSHIDKeyboardDeviceClientProxy *)&v35 init];
+  v34.receiver = self;
+  v34.super_class = _BKSHIDKeyboardDeviceClientProxy;
+  v10 = [(_BKSHIDKeyboardDeviceClientProxy *)&v34 init];
   if (v10)
   {
     v11 = deviceCopy;
     if (!v11)
     {
-      v15 = MEMORY[0x1E696AEC0];
+      v14 = MEMORY[0x1E696AEC0];
       objc_opt_class();
-      v16 = objc_opt_class();
-      v17 = NSStringFromClass(v16);
-      v18 = [v15 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"device", v17];
+      v15 = objc_opt_class();
+      v16 = NSStringFromClass(v15);
+      v17 = [v14 stringWithFormat:@"device", v16];
 
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v19 = NSStringFromSelector(a2);
-        v20 = objc_opt_class();
-        v21 = NSStringFromClass(v20);
+        v18 = NSStringFromSelector(a2);
+        v19 = objc_opt_class();
+        v20 = NSStringFromClass(v19);
         *buf = 138544642;
-        v37 = v19;
-        v38 = 2114;
-        v39 = v21;
-        v40 = 2048;
-        v41 = v10;
-        v42 = 2114;
-        v43 = @"BKSHIDKeyboardService.m";
-        v44 = 1024;
-        v45 = 51;
-        v46 = 2114;
-        v47 = v18;
+        v36 = v18;
+        v37 = 2114;
+        v38 = v20;
+        v39 = 2048;
+        v40 = v10;
+        v41 = 2114;
+        v42 = @"BKSHIDKeyboardService.m";
+        v43 = 1024;
+        v44 = 51;
+        v45 = 2114;
+        v46 = v17;
         _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      [v18 UTF8String];
+      [v17 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x1863543C4);
@@ -112,40 +112,40 @@
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v22 = MEMORY[0x1E696AEC0];
+      v21 = MEMORY[0x1E696AEC0];
       classForCoder = [v12 classForCoder];
       if (!classForCoder)
       {
         classForCoder = objc_opt_class();
       }
 
-      v24 = NSStringFromClass(classForCoder);
+      v23 = NSStringFromClass(classForCoder);
       objc_opt_class();
-      v25 = objc_opt_class();
-      v26 = NSStringFromClass(v25);
-      v27 = [v22 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"device", v24, v26];
+      v24 = objc_opt_class();
+      v25 = NSStringFromClass(v24);
+      v26 = [v21 stringWithFormat:@"device", v23, v25];
 
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v28 = NSStringFromSelector(a2);
-        v29 = objc_opt_class();
-        v30 = NSStringFromClass(v29);
+        v27 = NSStringFromSelector(a2);
+        v28 = objc_opt_class();
+        v29 = NSStringFromClass(v28);
         *buf = 138544642;
-        v37 = v28;
-        v38 = 2114;
-        v39 = v30;
-        v40 = 2048;
-        v41 = v10;
-        v42 = 2114;
-        v43 = @"BKSHIDKeyboardService.m";
-        v44 = 1024;
-        v45 = 51;
-        v46 = 2114;
-        v47 = v27;
+        v36 = v27;
+        v37 = 2114;
+        v38 = v29;
+        v39 = 2048;
+        v40 = v10;
+        v41 = 2114;
+        v42 = @"BKSHIDKeyboardService.m";
+        v43 = 1024;
+        v44 = 51;
+        v45 = 2114;
+        v46 = v26;
         _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      [v27 UTF8String];
+      [v26 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x186354504);
@@ -153,28 +153,28 @@
 
     if (!assertionCopy)
     {
-      v31 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"assertion != ((void *)0)"];
+      v30 = [MEMORY[0x1E696AEC0] stringWithFormat:@"assertion != ((void *)0)"];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v32 = NSStringFromSelector(a2);
-        v33 = objc_opt_class();
-        v34 = NSStringFromClass(v33);
+        v31 = NSStringFromSelector(a2);
+        v32 = objc_opt_class();
+        v33 = NSStringFromClass(v32);
         *buf = 138544642;
-        v37 = v32;
-        v38 = 2114;
-        v39 = v34;
-        v40 = 2048;
-        v41 = v10;
-        v42 = 2114;
-        v43 = @"BKSHIDKeyboardService.m";
-        v44 = 1024;
-        v45 = 52;
-        v46 = 2114;
-        v47 = v31;
+        v36 = v31;
+        v37 = 2114;
+        v38 = v33;
+        v39 = 2048;
+        v40 = v10;
+        v41 = 2114;
+        v42 = @"BKSHIDKeyboardService.m";
+        v43 = 1024;
+        v44 = 52;
+        v45 = 2114;
+        v46 = v30;
         _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      [v31 UTF8String];
+      [v30 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x1863545FCLL);
@@ -184,7 +184,6 @@
     objc_storeStrong(&v10->_lifetimeAssertion, assertion);
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

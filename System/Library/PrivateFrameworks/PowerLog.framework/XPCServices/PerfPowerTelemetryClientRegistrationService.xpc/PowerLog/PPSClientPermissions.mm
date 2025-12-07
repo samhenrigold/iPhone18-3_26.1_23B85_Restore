@@ -20,31 +20,32 @@
   {
     if (+[PPSClientPermissions hasWriteEntitlements])
     {
-      if ([PPSClientPermissions overridePermissionForSubsystem:subsystemCopy category:v7])
+      v9 = [PPSClientPermissions overridePermissionForSubsystem:subsystemCopy category:v7];
+      if (v9)
       {
-        v9 = sub_10000117C();
+        v10 = sub_10000117C(v9);
         v8 = 1;
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
-          v15 = 138412546;
-          v16 = subsystemCopy;
-          v17 = 2112;
-          v18 = v7;
-          _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "overridePermissionForSubsystem %@ category %@", &v15, 0x16u);
+          v17 = 138412546;
+          v18 = subsystemCopy;
+          v19 = 2112;
+          v20 = v7;
+          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "overridePermissionForSubsystem %@ category %@", &v17, 0x16u);
         }
 
         goto LABEL_17;
       }
 
-      v9 = +[PPSClientPermissions getClientPermissions];
-      v10 = [v9 objectForKeyedSubscript:subsystemCopy];
+      v10 = +[PPSClientPermissions getClientPermissions];
+      v11 = [v10 objectForKeyedSubscript:subsystemCopy];
 
-      if (v10)
+      if (v11)
       {
-        v11 = [PPSClientInterface getMetadataForSubsystem:subsystemCopy category:v7];
-        v12 = [v11 count];
-        v8 = v12 != 0;
-        if (v12)
+        v13 = [PPSClientInterface getMetadataForSubsystem:subsystemCopy category:v7];
+        v14 = [v13 count];
+        v8 = v14 != 0;
+        if (v14)
         {
 LABEL_16:
 
@@ -52,27 +53,27 @@ LABEL_17:
           goto LABEL_18;
         }
 
-        v13 = sub_10000117C();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+        v15 = sub_10000117C(0);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
         {
-          v15 = 138412546;
-          v16 = subsystemCopy;
-          v17 = 2112;
-          v18 = v7;
-          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Missing metric definition for subsystem: %@ category: %@", &v15, 0x16u);
+          v17 = 138412546;
+          v18 = subsystemCopy;
+          v19 = 2112;
+          v20 = v7;
+          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "Missing metric definition for subsystem: %@ category: %@", &v17, 0x16u);
         }
       }
 
       else
       {
-        v11 = sub_10000117C();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+        v13 = sub_10000117C(v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
         {
-          v15 = 138412546;
-          v16 = subsystemCopy;
-          v17 = 2112;
-          v18 = v7;
-          _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "Subsystem/Category: %@::%@ is not registered", &v15, 0x16u);
+          v17 = 138412546;
+          v18 = subsystemCopy;
+          v19 = 2112;
+          v20 = v7;
+          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Subsystem/Category: %@::%@ is not registered", &v17, 0x16u);
         }
       }
 
@@ -93,23 +94,23 @@ LABEL_18:
   v2 = +[NSXPCConnection currentConnection];
   v3 = [v2 valueForEntitlement:@"com.apple.PerfPowerServices.data-donation"];
   v4 = [v2 valueForEntitlement:@"com.apple.PerfPowerTelemetry.data-donation"];
-  if (objc_opt_respondsToSelector() & 1) != 0 && ([v3 BOOLValue] & 1) != 0 || (objc_opt_respondsToSelector() & 1) != 0 && (objc_msgSend(v4, "BOOLValue"))
+  if (objc_opt_respondsToSelector() & 1) != 0 && ([v3 BOOLValue] & 1) != 0 || (v5 = objc_opt_respondsToSelector(), (v5) && (v5 = objc_msgSend(v4, "BOOLValue"), (v5))
   {
-    v5 = 1;
+    v6 = 1;
   }
 
   else
   {
-    v6 = sub_10000117C();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = sub_10000117C(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_10000180C(v2, v6);
+      sub_10000180C(v2, v7);
     }
 
-    v5 = 0;
+    v6 = 0;
   }
 
-  return v5;
+  return v6;
 }
 
 + (id)userDefaults
@@ -136,7 +137,7 @@ LABEL_18:
     if (v9)
     {
       categoryCopy = [NSString stringWithFormat:@"%@::%@", subsystemCopy, categoryCopy];
-      v11 = sub_10000117C();
+      v11 = sub_10000117C(categoryCopy);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         sub_1000018AC(categoryCopy, v9, v11);
@@ -211,7 +212,7 @@ LABEL_18:
     v19 = 0;
     v13 = [[NSDictionary alloc] initWithContentsOfURL:v12 error:&v19];
     v14 = v19;
-    v15 = sub_10000117C();
+    v15 = sub_10000117C(v14);
     v16 = v15;
     if (v14)
     {

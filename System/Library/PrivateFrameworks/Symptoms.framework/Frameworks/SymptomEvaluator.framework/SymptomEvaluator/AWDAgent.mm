@@ -37,20 +37,20 @@ void *__36__AWDAgent_overridePostMetricConfig__block_invoke()
 
 void __36__AWDAgent_overridePostMetricConfig__block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a3;
   v4 = v3;
   if (v3 && MEMORY[0x238389170](v3) == MEMORY[0x277D86448])
   {
     value = xpc_BOOL_get_value(v4);
-    v8 = otherLogHandle;
+    v7 = otherLogHandle;
     if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEBUG))
     {
-      v9[0] = 67109376;
-      v9[1] = value;
-      v10 = 1024;
-      v11 = overridePostMetricConfig_overridePostMetricConfig;
-      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEBUG, "AWDAgent: Overriding post metric config policies to %d (%d)", v9, 0xEu);
+      v8[0] = 67109376;
+      v8[1] = value;
+      v9 = 1024;
+      v10 = overridePostMetricConfig_overridePostMetricConfig;
+      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "AWDAgent: Overriding post metric config policies to %d (%d)", v8, 0xEu);
     }
   }
 
@@ -59,16 +59,14 @@ void __36__AWDAgent_overridePostMetricConfig__block_invoke_2(uint64_t a1, uint64
     v5 = otherLogHandle;
     if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v9[0]) = 0;
-      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEBUG, "AWDAgent: prefs_store for overiding post metric policies not found. Using default AWD policies.", v9, 2u);
+      LOWORD(v8[0]) = 0;
+      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEBUG, "AWDAgent: prefs_store for overiding post metric policies not found. Using default AWD policies.", v8, 2u);
     }
 
     LOBYTE(value) = 0;
   }
 
   overridePostMetricConfig_overridePostMetricConfig = value;
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

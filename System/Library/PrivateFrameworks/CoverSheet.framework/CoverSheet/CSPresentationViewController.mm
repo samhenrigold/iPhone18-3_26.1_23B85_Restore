@@ -432,21 +432,21 @@ LABEL_14:
 {
   animatedCopy = animated;
   completionCopy = completion;
-  v7 = SBLogDashBoard();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = SBLogDashBoard();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    [CSPresentationViewController dismissPresentationAnimated:completion:];
+    [CSPresentationViewController dismissPresentationAnimated:a2 completion:?];
   }
 
   [(NSMutableArray *)self->_contentViewControllers removeAllObjects];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __71__CSPresentationViewController_dismissPresentationAnimated_completion___block_invoke;
-  v9[3] = &unk_27838BA98;
-  v9[4] = self;
-  v10 = completionCopy;
-  v8 = completionCopy;
-  [(CSPresentationViewController *)self _updateContentViewControllersAnimated:animatedCopy completion:v9];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __71__CSPresentationViewController_dismissPresentationAnimated_completion___block_invoke;
+  v10[3] = &unk_27838BA98;
+  v10[4] = self;
+  v11 = completionCopy;
+  v9 = completionCopy;
+  [(CSPresentationViewController *)self _updateContentViewControllersAnimated:animatedCopy completion:v10];
 }
 
 uint64_t __71__CSPresentationViewController_dismissPresentationAnimated_completion___block_invoke(uint64_t a1)
@@ -685,7 +685,7 @@ uint64_t __71__CSPresentationViewController_dismissPresentationAnimated_completi
       v9 = SBLogDashBoard();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
-        [CSPresentationViewController handleAppearanceUpdateFromController:animationSettings:];
+        [CSPresentationViewController handleAppearanceUpdateFromController:v7 animationSettings:?];
       }
 
       areAnimationsEnabled = [MEMORY[0x277D75D18] areAnimationsEnabled];
@@ -1527,7 +1527,7 @@ void __81__CSPresentationViewController__updateContentViewControllersAnimated_co
     v10 = SBLogDashBoard();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      __81__CSPresentationViewController__updateContentViewControllersAnimated_completion___block_invoke_cold_1();
+      __81__CSPresentationViewController__updateContentViewControllersAnimated_completion___block_invoke_cold_1(a1);
     }
 
     [*(a1 + 32) removeObject:v9];
@@ -2019,29 +2019,29 @@ LABEL_19:
   return WeakRetained;
 }
 
-- (void)dismissPresentationAnimated:completion:.cold.1()
+- (void)dismissPresentationAnimated:(uint64_t)a1 completion:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v5 = _SBFLoggingMethodProem();
+  v7 = _SBFLoggingMethodProem();
   OUTLINED_FUNCTION_0_5();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
-- (void)handleAppearanceUpdateFromController:animationSettings:.cold.1()
+- (void)handleAppearanceUpdateFromController:(uint64_t)a1 animationSettings:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
   v2 = objc_opt_class();
-  v8 = NSStringFromClass(v2);
+  v3 = NSStringFromClass(v2);
+  v4 = objc_opt_class();
+  v10 = NSStringFromClass(v4);
   OUTLINED_FUNCTION_0_5();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
+  _os_log_debug_impl(v5, v6, v7, v8, v9, 0x16u);
 }
 
-void __81__CSPresentationViewController__updateContentViewControllersAnimated_completion___block_invoke_cold_1()
+void __81__CSPresentationViewController__updateContentViewControllersAnimated_completion___block_invoke_cold_1(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v6 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v7 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_0_5();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 - (void)_updatePresentationForViewController:(uint64_t)a1 presentation:(uint64_t)a2 animated:animationSettings:.cold.1(uint64_t a1, uint64_t a2)

@@ -29,6 +29,7 @@
 - (void)setUserHintsForNextStepSuggestionsEnabled:(id)enabled specifier:(id)specifier;
 - (void)showAboutDonation;
 - (void)showDonationModalView;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation CACSettingsController
@@ -501,6 +502,14 @@ LABEL_75:
   }
 
   return v3;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = CACSettingsController;
+  [(CACSettingsController *)&v4 viewWillAppear:appear];
+  [(CACSettingsController *)self reloadSpecifiers];
 }
 
 - (void)setCommandAndControlEnabled:(id)enabled specifier:(id)specifier

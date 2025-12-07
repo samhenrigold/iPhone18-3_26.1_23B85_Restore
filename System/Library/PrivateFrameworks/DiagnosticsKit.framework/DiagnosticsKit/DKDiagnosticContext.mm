@@ -16,12 +16,15 @@
 - (void)completeWithDiagnosticResult:(id)result completion:(id)completion;
 - (void)dismissRemoteDiagnosticViewControllerWithCompletion:(id)completion;
 - (void)displayAlertWithHeader:(id)header message:(id)message buttonStrings:(id)strings completion:(id)completion;
+- (void)displayInstructions:(id)instructions style:(int)style imageLocators:(id)locators title:(id)title subtitle:(id)subtitle iconLocator:(id)locator options:(id)options navigationBarActions:(id)self0 completion:(id)self1;
+- (void)enableVolumeHUD:(BOOL)d;
 - (void)getAsset:(id)asset completion:(id)completion;
 - (void)hideStatusBar;
 - (void)requestPluginReloadOnFinishWithCompletion:(id)completion;
 - (void)requestSessionAccessoryIdentifierWithCompletion:(id)completion;
 - (void)setNeedsUpdateResponder;
 - (void)setRemoteDiagnosticNotAllowListedWithContactMessage:(id)message;
+- (void)setScreenToBrightness:(float)brightness animate:(BOOL)animate;
 - (void)setStatusBarStyle:(int64_t)style;
 - (void)showStatusBar;
 - (void)showUI:(id)i completion:(id)completion;
@@ -59,7 +62,7 @@
   if (_helperConnnection)
   {
     v6 = _helperConnnection;
-    [_helperConnnection auditToken];
+    objc_msgSend_auditToken(_helperConnnection);
     _helperConnnection = v6;
   }
 
@@ -182,158 +185,157 @@ void __54__DKDiagnosticContext__extensionAuxiliaryHostProtocol__block_invoke()
   [_getRemoteProxyAndSetUpHandlers remoteHostUpdateProgress:progressCopy forTest:testCopy];
 }
 
+- (void)enableVolumeHUD:(BOOL)d
+{
+  dCopy = d;
+  _getRemoteProxyAndSetUpHandlers = [(DKDiagnosticContext *)self _getRemoteProxyAndSetUpHandlers];
+  [_getRemoteProxyAndSetUpHandlers remoteHostEnableVolumeHUD:dCopy];
+}
+
+- (void)setScreenToBrightness:(float)brightness animate:(BOOL)animate
+{
+  animateCopy = animate;
+  _getRemoteProxyAndSetUpHandlers = [(DKDiagnosticContext *)self _getRemoteProxyAndSetUpHandlers];
+  *&v6 = brightness;
+  [_getRemoteProxyAndSetUpHandlers remoteHostSetScreenToBrightness:animateCopy animate:v6];
+}
+
 - (void)getAsset:(id)asset completion:(id)completion
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   assetCopy = asset;
   completionCopy = completion;
   v8 = DiagnosticsKitLogHandleForCategory(4);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 136315394;
-    v12 = "[DKDiagnosticContext getAsset:completion:]";
-    v13 = 2112;
-    v14 = assetCopy;
-    _os_log_impl(&dword_248B9D000, v8, OS_LOG_TYPE_DEFAULT, "%s: %@", &v11, 0x16u);
+    v10 = 136315394;
+    v11 = "[DKDiagnosticContext getAsset:completion:]";
+    v12 = 2112;
+    v13 = assetCopy;
+    _os_log_impl(&dword_248B9D000, v8, OS_LOG_TYPE_DEFAULT, "%s: %@", &v10, 0x16u);
   }
 
   _getRemoteProxyAndSetUpHandlers = [(DKDiagnosticContext *)self _getRemoteProxyAndSetUpHandlers];
   [_getRemoteProxyAndSetUpHandlers remoteHostGetAsset:assetCopy completion:completionCopy];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)uploadAssets:(id)assets completion:(id)completion
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   assetsCopy = assets;
   completionCopy = completion;
   v8 = DiagnosticsKitLogHandleForCategory(4);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 136315394;
-    v12 = "[DKDiagnosticContext uploadAssets:completion:]";
-    v13 = 2112;
-    v14 = assetsCopy;
-    _os_log_impl(&dword_248B9D000, v8, OS_LOG_TYPE_DEFAULT, "%s: %@", &v11, 0x16u);
+    v10 = 136315394;
+    v11 = "[DKDiagnosticContext uploadAssets:completion:]";
+    v12 = 2112;
+    v13 = assetsCopy;
+    _os_log_impl(&dword_248B9D000, v8, OS_LOG_TYPE_DEFAULT, "%s: %@", &v10, 0x16u);
   }
 
   _getRemoteProxyAndSetUpHandlers = [(DKDiagnosticContext *)self _getRemoteProxyAndSetUpHandlers];
   [_getRemoteProxyAndSetUpHandlers remoteHostUploadAssets:assetsCopy completion:completionCopy];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)showUI:(id)i completion:(id)completion
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   iCopy = i;
   v8 = DiagnosticsKitLogHandleForCategory(4);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 136315138;
-    v12 = "[DKDiagnosticContext showUI:completion:]";
-    _os_log_impl(&dword_248B9D000, v8, OS_LOG_TYPE_DEFAULT, "%s", &v11, 0xCu);
+    v10 = 136315138;
+    v11 = "[DKDiagnosticContext showUI:completion:]";
+    _os_log_impl(&dword_248B9D000, v8, OS_LOG_TYPE_DEFAULT, "%s", &v10, 0xCu);
   }
 
   _getRemoteProxyAndSetUpHandlers = [(DKDiagnosticContext *)self _getRemoteProxyAndSetUpHandlers];
   [_getRemoteProxyAndSetUpHandlers remoteHostShowUI:iCopy completion:completionCopy];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestSessionAccessoryIdentifierWithCompletion:(id)completion
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = DiagnosticsKitLogHandleForCategory(4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315138;
-    v9 = "[DKDiagnosticContext requestSessionAccessoryIdentifierWithCompletion:]";
-    _os_log_impl(&dword_248B9D000, v5, OS_LOG_TYPE_DEFAULT, "%s", &v8, 0xCu);
+    v7 = 136315138;
+    v8 = "[DKDiagnosticContext requestSessionAccessoryIdentifierWithCompletion:]";
+    _os_log_impl(&dword_248B9D000, v5, OS_LOG_TYPE_DEFAULT, "%s", &v7, 0xCu);
   }
 
   _getRemoteProxyAndSetUpHandlers = [(DKDiagnosticContext *)self _getRemoteProxyAndSetUpHandlers];
   [_getRemoteProxyAndSetUpHandlers remoteHostRequestSessionAccessoryIdentifierWithCompletion:completionCopy];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unpairSessionAccessoryOnTestCompletion
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = DiagnosticsKitLogHandleForCategory(4);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "[DKDiagnosticContext unpairSessionAccessoryOnTestCompletion]";
-    _os_log_impl(&dword_248B9D000, v3, OS_LOG_TYPE_DEFAULT, "%s", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[DKDiagnosticContext unpairSessionAccessoryOnTestCompletion]";
+    _os_log_impl(&dword_248B9D000, v3, OS_LOG_TYPE_DEFAULT, "%s", &v5, 0xCu);
   }
 
   _getRemoteProxyAndSetUpHandlers = [(DKDiagnosticContext *)self _getRemoteProxyAndSetUpHandlers];
   [_getRemoteProxyAndSetUpHandlers remoteHostUnpairSessionAccessoryOnTestCompletion];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)allowSessionAccessoryDisconnectForDuration:(id)duration
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   durationCopy = duration;
   v5 = DiagnosticsKitLogHandleForCategory(4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315138;
-    v9 = "[DKDiagnosticContext allowSessionAccessoryDisconnectForDuration:]";
-    _os_log_impl(&dword_248B9D000, v5, OS_LOG_TYPE_DEFAULT, "%s", &v8, 0xCu);
+    v7 = 136315138;
+    v8 = "[DKDiagnosticContext allowSessionAccessoryDisconnectForDuration:]";
+    _os_log_impl(&dword_248B9D000, v5, OS_LOG_TYPE_DEFAULT, "%s", &v7, 0xCu);
   }
 
   _getRemoteProxyAndSetUpHandlers = [(DKDiagnosticContext *)self _getRemoteProxyAndSetUpHandlers];
   [_getRemoteProxyAndSetUpHandlers remoteHostAllowSessionAccessoryDisconnectForDuration:durationCopy];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearAllowSessionAccessoryDisconnect
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = DiagnosticsKitLogHandleForCategory(4);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "[DKDiagnosticContext clearAllowSessionAccessoryDisconnect]";
-    _os_log_impl(&dword_248B9D000, v3, OS_LOG_TYPE_DEFAULT, "%s", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[DKDiagnosticContext clearAllowSessionAccessoryDisconnect]";
+    _os_log_impl(&dword_248B9D000, v3, OS_LOG_TYPE_DEFAULT, "%s", &v5, 0xCu);
   }
 
   _getRemoteProxyAndSetUpHandlers = [(DKDiagnosticContext *)self _getRemoteProxyAndSetUpHandlers];
   [_getRemoteProxyAndSetUpHandlers remoteHostClearAllowSessionAccessoryDisconnect];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestPluginReloadOnFinishWithCompletion:(id)completion
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = DiagnosticsKitLogHandleForCategory(4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315138;
-    v9 = "[DKDiagnosticContext requestPluginReloadOnFinishWithCompletion:]";
-    _os_log_impl(&dword_248B9D000, v5, OS_LOG_TYPE_DEFAULT, "%s", &v8, 0xCu);
+    v7 = 136315138;
+    v8 = "[DKDiagnosticContext requestPluginReloadOnFinishWithCompletion:]";
+    _os_log_impl(&dword_248B9D000, v5, OS_LOG_TYPE_DEFAULT, "%s", &v7, 0xCu);
   }
 
   _getRemoteProxyAndSetUpHandlers = [(DKDiagnosticContext *)self _getRemoteProxyAndSetUpHandlers];
   [_getRemoteProxyAndSetUpHandlers remoteHostRequestPluginReloadOnFinishWithCompletion:completionCopy];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)displayAlertWithHeader:(id)header message:(id)message buttonStrings:(id)strings completion:(id)completion
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   headerCopy = header;
   messageCopy = message;
   stringsCopy = strings;
@@ -342,7 +344,7 @@ void __54__DKDiagnosticContext__extensionAuxiliaryHostProtocol__block_invoke()
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v23 = "[DKDiagnosticContext displayAlertWithHeader:message:buttonStrings:completion:]";
+    v22 = "[DKDiagnosticContext displayAlertWithHeader:message:buttonStrings:completion:]";
     _os_log_impl(&dword_248B9D000, v14, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
@@ -356,9 +358,9 @@ void __54__DKDiagnosticContext__extensionAuxiliaryHostProtocol__block_invoke()
     }
 
     v16 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v20 = *MEMORY[0x277CCA450];
-    v21 = @"This DiagnosticsKit extension is already presenting a view controller";
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+    v19 = *MEMORY[0x277CCA450];
+    v20 = @"This DiagnosticsKit extension is already presenting a view controller";
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
     _getRemoteProxyAndSetUpHandlers = [v16 initWithDomain:@"com.apple.DiagnosticsKit" code:-1 userInfo:v17];
 
     completionCopy[2](completionCopy, &unk_285B928A0, _getRemoteProxyAndSetUpHandlers);
@@ -369,71 +371,110 @@ void __54__DKDiagnosticContext__extensionAuxiliaryHostProtocol__block_invoke()
     _getRemoteProxyAndSetUpHandlers = [(DKDiagnosticContext *)self _getRemoteProxyAndSetUpHandlers];
     [_getRemoteProxyAndSetUpHandlers remoteHostDisplayAlertWithHeader:headerCopy message:messageCopy buttonStrings:stringsCopy completion:completionCopy];
   }
+}
 
-  v19 = *MEMORY[0x277D85DE8];
+- (void)displayInstructions:(id)instructions style:(int)style imageLocators:(id)locators title:(id)title subtitle:(id)subtitle iconLocator:(id)locator options:(id)options navigationBarActions:(id)self0 completion:(id)self1
+{
+  v15 = *&style;
+  v35 = *MEMORY[0x277D85DE8];
+  instructionsCopy = instructions;
+  locatorsCopy = locators;
+  titleCopy = title;
+  subtitleCopy = subtitle;
+  locatorCopy = locator;
+  optionsCopy = options;
+  actionsCopy = actions;
+  completionCopy = completion;
+  v24 = DiagnosticsKitLogHandleForCategory(4);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315138;
+    v34 = "[DKDiagnosticContext displayInstructions:style:imageLocators:title:subtitle:iconLocator:options:navigationBarActions:completion:]";
+    _os_log_impl(&dword_248B9D000, v24, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
+  }
+
+  if ([(DKDiagnosticContext *)self isPresentingView])
+  {
+    v25 = DiagnosticsKitLogHandleForCategory(4);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_248B9D000, v25, OS_LOG_TYPE_DEFAULT, "Not calling displayInstructions: because DK is currently presenting a view controller", buf, 2u);
+    }
+
+    v26 = objc_alloc(MEMORY[0x277CCA9B8]);
+    v31 = *MEMORY[0x277CCA450];
+    v32 = @"This DiagnosticsKit extension is already presenting a view controller";
+    v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+    _getRemoteProxyAndSetUpHandlers = [v26 initWithDomain:@"com.apple.DiagnosticsKit" code:-1 userInfo:v27];
+
+    completionCopy[2](completionCopy, &stru_285B8CB68, _getRemoteProxyAndSetUpHandlers);
+    v29 = instructionsCopy;
+  }
+
+  else
+  {
+    _getRemoteProxyAndSetUpHandlers = [(DKDiagnosticContext *)self _getRemoteProxyAndSetUpHandlers];
+    v29 = instructionsCopy;
+    [_getRemoteProxyAndSetUpHandlers remoteHostDisplayInstructions:instructionsCopy style:v15 imageLocators:locatorsCopy title:titleCopy subtitle:subtitleCopy iconLocator:locatorCopy options:optionsCopy navigationBarActions:actionsCopy completion:completionCopy];
+  }
 }
 
 - (void)showStatusBar
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = DiagnosticsKitLogHandleForCategory(4);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "[DKDiagnosticContext showStatusBar]";
-    _os_log_impl(&dword_248B9D000, v3, OS_LOG_TYPE_DEFAULT, "%s", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[DKDiagnosticContext showStatusBar]";
+    _os_log_impl(&dword_248B9D000, v3, OS_LOG_TYPE_DEFAULT, "%s", &v5, 0xCu);
   }
 
   _getRemoteProxyAndSetUpHandlers = [(DKDiagnosticContext *)self _getRemoteProxyAndSetUpHandlers];
   [_getRemoteProxyAndSetUpHandlers remoteHostShowStatusBar];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)hideStatusBar
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = DiagnosticsKitLogHandleForCategory(4);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "[DKDiagnosticContext hideStatusBar]";
-    _os_log_impl(&dword_248B9D000, v3, OS_LOG_TYPE_DEFAULT, "%s", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[DKDiagnosticContext hideStatusBar]";
+    _os_log_impl(&dword_248B9D000, v3, OS_LOG_TYPE_DEFAULT, "%s", &v5, 0xCu);
   }
 
   _getRemoteProxyAndSetUpHandlers = [(DKDiagnosticContext *)self _getRemoteProxyAndSetUpHandlers];
   [_getRemoteProxyAndSetUpHandlers remoteHostHideStatusBar];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setStatusBarStyle:(int64_t)style
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v5 = DiagnosticsKitLogHandleForCategory(4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315138;
-    v9 = "[DKDiagnosticContext setStatusBarStyle:]";
-    _os_log_impl(&dword_248B9D000, v5, OS_LOG_TYPE_DEFAULT, "%s", &v8, 0xCu);
+    v7 = 136315138;
+    v8 = "[DKDiagnosticContext setStatusBarStyle:]";
+    _os_log_impl(&dword_248B9D000, v5, OS_LOG_TYPE_DEFAULT, "%s", &v7, 0xCu);
   }
 
   _getRemoteProxyAndSetUpHandlers = [(DKDiagnosticContext *)self _getRemoteProxyAndSetUpHandlers];
   [_getRemoteProxyAndSetUpHandlers remoteHostSetStatusBarStyle:style];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startRemoteDiagnosticWithDiagnosticParameters:(id)parameters completion:(id)completion
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   parametersCopy = parameters;
   completionCopy = completion;
   v8 = DiagnosticsKitLogHandleForCategory(4);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v26 = "[DKDiagnosticContext startRemoteDiagnosticWithDiagnosticParameters:completion:]";
+    v25 = "[DKDiagnosticContext startRemoteDiagnosticWithDiagnosticParameters:completion:]";
     _os_log_impl(&dword_248B9D000, v8, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
@@ -442,7 +483,7 @@ void __54__DKDiagnosticContext__extensionAuxiliaryHostProtocol__block_invoke()
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v26 = _helperPrincipalObject;
+    v25 = _helperPrincipalObject;
     _os_log_impl(&dword_248B9D000, v10, OS_LOG_TYPE_DEFAULT, "Diagnostic: %@", buf, 0xCu);
   }
 
@@ -459,18 +500,18 @@ void __54__DKDiagnosticContext__extensionAuxiliaryHostProtocol__block_invoke()
     v14 = MEMORY[0x277D85CD0];
   }
 
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __80__DKDiagnosticContext_startRemoteDiagnosticWithDiagnosticParameters_completion___block_invoke;
-  v20[3] = &unk_278F6C0E0;
-  v21 = _helperPrincipalObject;
-  v22 = parametersCopy;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __80__DKDiagnosticContext_startRemoteDiagnosticWithDiagnosticParameters_completion___block_invoke;
+  v19[3] = &unk_278F6C0E0;
+  v20 = _helperPrincipalObject;
+  v21 = parametersCopy;
   selfCopy = self;
-  v24 = completionCopy;
+  v23 = completionCopy;
   v15 = completionCopy;
   v16 = parametersCopy;
   v17 = _helperPrincipalObject;
-  dispatch_async(v13, v20);
+  dispatch_async(v13, v19);
   if (isXPC)
   {
     v18 = v13;
@@ -480,8 +521,6 @@ void __54__DKDiagnosticContext__extensionAuxiliaryHostProtocol__block_invoke()
   {
     v18 = v12;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __80__DKDiagnosticContext_startRemoteDiagnosticWithDiagnosticParameters_completion___block_invoke(uint64_t a1)
@@ -501,7 +540,6 @@ void __80__DKDiagnosticContext_startRemoteDiagnosticWithDiagnosticParameters_com
   v7 = [*(a1 + 32) result];
   [v7 setStatusCode:&unk_285B928B8];
 
-  v8 = *(a1 + 32);
   if (objc_opt_respondsToSelector())
   {
     [*(a1 + 32) setupWithInputs:v6 responder:*(a1 + 48)];
@@ -510,44 +548,44 @@ void __80__DKDiagnosticContext_startRemoteDiagnosticWithDiagnosticParameters_com
   if ([*(a1 + 32) isFinished])
   {
 LABEL_5:
-    v9 = 0;
+    v8 = 0;
   }
 
   else if ([*(a1 + 48) isXPC])
   {
-    v11 = dispatch_get_global_queue(21, 0);
+    v10 = dispatch_get_global_queue(21, 0);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __80__DKDiagnosticContext_startRemoteDiagnosticWithDiagnosticParameters_completion___block_invoke_131;
     block[3] = &unk_278F6C050;
-    v13 = *(a1 + 32);
-    dispatch_async(v11, block);
+    v12 = *(a1 + 32);
+    dispatch_async(v10, block);
 
-    v9 = 1;
+    v8 = 1;
   }
 
   else
   {
     [*(a1 + 32) start];
-    v9 = [*(a1 + 32) isFinished] ^ 1;
+    v8 = [*(a1 + 32) isFinished] ^ 1;
   }
 
-  v10 = *(a1 + 56);
-  if (v10)
+  v9 = *(a1 + 56);
+  if (v9)
   {
-    (*(v10 + 16))(v10, v9);
+    (*(v9 + 16))(v9, v8);
   }
 }
 
 - (void)cancelRemoteDiagnosticWithCompletion:(id)completion
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = DiagnosticsKitLogHandleForCategory(4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v18 = "[DKDiagnosticContext cancelRemoteDiagnosticWithCompletion:]";
+    v17 = "[DKDiagnosticContext cancelRemoteDiagnosticWithCompletion:]";
     _os_log_impl(&dword_248B9D000, v5, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
@@ -557,17 +595,15 @@ LABEL_5:
   v9 = [bundleIdentifier stringByAppendingString:@".cancelQueue"];
 
   v10 = dispatch_queue_create([v9 UTF8String], 0);
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __60__DKDiagnosticContext_cancelRemoteDiagnosticWithCompletion___block_invoke;
-  v14[3] = &unk_278F6C108;
-  v15 = _helperPrincipalObject;
-  v16 = completionCopy;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __60__DKDiagnosticContext_cancelRemoteDiagnosticWithCompletion___block_invoke;
+  v13[3] = &unk_278F6C108;
+  v14 = _helperPrincipalObject;
+  v15 = completionCopy;
   v11 = completionCopy;
   v12 = _helperPrincipalObject;
-  dispatch_async(v10, v14);
-
-  v13 = *MEMORY[0x277D85DE8];
+  dispatch_async(v10, v13);
 }
 
 uint64_t __60__DKDiagnosticContext_cancelRemoteDiagnosticWithCompletion___block_invoke(uint64_t a1)
@@ -579,7 +615,6 @@ uint64_t __60__DKDiagnosticContext_cancelRemoteDiagnosticWithCompletion___block_
   v3 = [*(a1 + 32) progress];
   [v3 cancel];
 
-  v4 = *(a1 + 32);
   if (objc_opt_respondsToSelector())
   {
     [*(a1 + 32) cancel];
@@ -589,9 +624,9 @@ uint64_t __60__DKDiagnosticContext_cancelRemoteDiagnosticWithCompletion___block_
   result = *(a1 + 40);
   if (result)
   {
-    v6 = *(result + 16);
+    v5 = *(result + 16);
 
-    return v6();
+    return v5();
   }
 
   return result;
@@ -612,7 +647,7 @@ uint64_t __60__DKDiagnosticContext_cancelRemoteDiagnosticWithCompletion___block_
   [_getRemoteProxyAndSetUpHandlers remoteHostCompleteWithResult:resultCopy completion:v10];
 }
 
-uint64_t __63__DKDiagnosticContext_completeWithDiagnosticResult_completion___block_invoke(uint64_t a1)
+void *__63__DKDiagnosticContext_completeWithDiagnosticResult_completion___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 40);
   if (v2)
@@ -655,15 +690,14 @@ uint64_t __63__DKDiagnosticContext_completeWithDiagnosticResult_completion___blo
   dispatch_async(v9, v12);
 }
 
-uint64_t __69__DKDiagnosticContext_checkShouldShowRemoteDiagnosticViewController___block_invoke(uint64_t a1)
+void *__69__DKDiagnosticContext_checkShouldShowRemoteDiagnosticViewController___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   if (objc_opt_respondsToSelector())
   {
-    v3 = *(a1 + 32);
-    v4 = *(a1 + 40);
+    v2 = *(a1 + 32);
+    v3 = *(a1 + 40);
 
-    return [v3 shouldShowViewControllerInHostApp:v4];
+    return [v2 shouldShowViewControllerInHostApp:v3];
   }
 
   else
@@ -671,9 +705,9 @@ uint64_t __69__DKDiagnosticContext_checkShouldShowRemoteDiagnosticViewController
     result = *(a1 + 40);
     if (result)
     {
-      v6 = *(result + 16);
+      v5 = result[2];
 
-      return v6();
+      return v5();
     }
   }
 
@@ -746,27 +780,24 @@ void __54__DKDiagnosticContext__getRemoteProxyAndSetUpHandlers__block_invoke_2()
 
 - (void)setRemoteDiagnosticNotAllowListedWithContactMessage:(NSObject *)a3 .cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v6 = [a1 testID];
   v7 = [a1 _testName];
-  v9 = 138412802;
-  v10 = v6;
-  v11 = 2112;
-  v12 = v7;
-  v13 = 2112;
-  v14 = a2;
-  _os_log_fault_impl(&dword_248B9D000, a3, OS_LOG_TYPE_FAULT, "This DiagnosticsKit extension (%@ - %@) is not allow listed with the DK host application. %@", &v9, 0x20u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = 138412802;
+  v9 = v6;
+  v10 = 2112;
+  v11 = v7;
+  v12 = 2112;
+  v13 = a2;
+  _os_log_fault_impl(&dword_248B9D000, a3, OS_LOG_TYPE_FAULT, "This DiagnosticsKit extension (%@ - %@) is not allow listed with the DK host application. %@", &v8, 0x20u);
 }
 
 void __54__DKDiagnosticContext__getRemoteProxyAndSetUpHandlers__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_248B9D000, a2, OS_LOG_TYPE_ERROR, "Failed to retrieve remote object proxy: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_248B9D000, a2, OS_LOG_TYPE_ERROR, "Failed to retrieve remote object proxy: %@", &v2, 0xCu);
 }
 
 @end

@@ -21,9 +21,8 @@
 
 - (void)requestDismiss
 {
-  v2 = *&self->OBTableWelcomeController_opaque[OBJC_IVAR____TtC21MediaSetupViewService32MultiHomeCustomizeViewController_mainController];
   selfCopy = self;
-  sub_100011B3C(1u);
+  sub_100011B3C(1);
 }
 
 - (void)selectContinue
@@ -71,33 +70,30 @@
 {
   v6 = sub_1000257AC();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_10002578C();
   viewCopy = view;
   selfCopy = self;
-  v13 = sub_10001E2D0(viewCopy);
+  v12 = sub_10001E2D0(viewCopy);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 
-  return v13;
+  return v12;
 }
 
 - (int64_t)tableView:(id)view numberOfRowsInSection:(int64_t)section
 {
   v4 = *&self->OBTableWelcomeController_opaque[OBJC_IVAR____TtC21MediaSetupViewService32MultiHomeCustomizeViewController_viewModel];
-  if (!(v4 >> 62))
+  if (v4 >> 62)
+  {
+    return sub_100025C3C();
+  }
+
+  else
   {
     return *((v4 & 0xFFFFFFFFFFFFFF8) + 0x10);
   }
-
-  if (v4 < 0)
-  {
-    v6 = *&self->OBTableWelcomeController_opaque[OBJC_IVAR____TtC21MediaSetupViewService32MultiHomeCustomizeViewController_viewModel];
-  }
-
-  return sub_100025C3C();
 }
 
 @end

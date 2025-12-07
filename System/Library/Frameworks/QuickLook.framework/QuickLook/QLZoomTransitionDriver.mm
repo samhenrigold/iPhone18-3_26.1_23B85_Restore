@@ -61,7 +61,7 @@
       [(UIView *)self->_uncroppedView setCenter:?];
       [(QLTransitionDriver *)self sourceViewBounds];
       [(UIView *)self->_uncroppedView setBounds:?];
-      [(QLTransitionDriver *)self sourceViewTransform];
+      objc_msgSend_sourceViewTransform(self);
       v23 = self->_uncroppedView;
       v218 = v216;
       [(UIView *)v23 setTransform:&v218];
@@ -138,7 +138,7 @@
 
       [(QLTransitionDriver *)self sourceViewCenter];
       [(UIView *)self->_uncroppedView setCenter:?];
-      [(QLTransitionDriver *)self sourceViewTransform];
+      objc_msgSend_sourceViewTransform(self);
       v63 = self->_uncroppedView;
       v218 = v217;
       [(UIView *)v63 setTransform:&v218];
@@ -266,7 +266,7 @@
     v125 = v124;
     v127 = v126;
     memset(&v218, 0, sizeof(v218));
-    [v112 trackedTransform];
+    objc_msgSend_trackedTransform(v112);
     sourceView12 = [(QLTransitionDriver *)self sourceView];
     layer = [sourceView12 layer];
     [layer anchorPoint];
@@ -303,7 +303,7 @@
   CGAffineTransformScale(&v218, &v215, v104, v104);
   if (v112)
   {
-    [v112 trackedTransform];
+    objc_msgSend_trackedTransform(v112);
     t1 = v218;
     CGAffineTransformConcat(&v215, &t1, &t2);
     v218 = v215;
@@ -312,7 +312,7 @@
   memset(&v215, 0, sizeof(v215));
   if ([(QLTransitionDriver *)self isSourceViewTransformed])
   {
-    [(QLTransitionDriver *)self sourceViewTransform];
+    objc_msgSend_sourceViewTransform(self);
   }
 
   else
@@ -331,7 +331,7 @@
     v142 = gestureTracker3;
     if (gestureTracker3)
     {
-      [gestureTracker3 trackedTransform];
+      objc_msgSend_trackedTransform(gestureTracker3);
     }
 
     else
@@ -395,7 +395,7 @@
     v155 = CGRectGetMidY(v229);
     if ([(QLTransitionDriver *)self isSourceViewTransformed])
     {
-      [(QLTransitionDriver *)self sourceViewTransform];
+      objc_msgSend_sourceViewTransform(self);
     }
 
     else
@@ -457,7 +457,7 @@
     v219[1] = v218;
     if ([(QLTransitionDriver *)self isSourceViewTransformed])
     {
-      [(QLTransitionDriver *)self sourceViewTransform];
+      objc_msgSend_sourceViewTransform(self);
     }
 
     else
@@ -505,7 +505,7 @@
   destinationView3 = [(QLTransitionDriver *)self destinationView];
   [destinationView3 setCenter:{v136, MidY}];
 
-  [(QLTransitionDriver *)self duration];
+  objc_msgSend_duration(self);
   v165 = v164;
   v166 = MEMORY[0x277D75D18];
   presenting = [(QLTransitionDriver *)self presenting];
@@ -610,6 +610,30 @@ void __48__QLZoomTransitionDriver__performZoomTransition__block_invoke_2(uint64_
   [v2 setAlpha:v1];
 }
 
+uint64_t __48__QLZoomTransitionDriver__performZoomTransition__block_invoke_3(uint64_t a1)
+{
+  v2 = MEMORY[0x277D75D18];
+  v17 = CAFrameRateRangeMake(80.0, 120.0, 120.0);
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __48__QLZoomTransitionDriver__performZoomTransition__block_invoke_4;
+  v8[3] = &unk_278B585E8;
+  v8[4] = *(a1 + 32);
+  v3 = *(a1 + 56);
+  v9 = *(a1 + 40);
+  v10 = v3;
+  v4 = *(a1 + 88);
+  v11 = *(a1 + 72);
+  v12 = v4;
+  v5 = *(a1 + 104);
+  v16 = *(a1 + 152);
+  v15 = *(a1 + 136);
+  v6 = *(a1 + 120);
+  v13 = v5;
+  v14 = v6;
+  return [v2 _modifyAnimationsWithPreferredFrameRateRange:2097154 updateReason:v8 animations:{*&v17.minimum, *&v17.maximum, *&v17.preferred}];
+}
+
 uint64_t __48__QLZoomTransitionDriver__performZoomTransition__block_invoke_4(uint64_t a1)
 {
   v2 = *(a1 + 40);
@@ -627,6 +651,30 @@ uint64_t __48__QLZoomTransitionDriver__performZoomTransition__block_invoke_4(uin
   v9[1] = v7;
   v9[2] = *(a1 + 152);
   return [v6 setTransform:v9];
+}
+
+uint64_t __48__QLZoomTransitionDriver__performZoomTransition__block_invoke_5(uint64_t a1)
+{
+  v2 = MEMORY[0x277D75D18];
+  v17 = CAFrameRateRangeMake(80.0, 120.0, 120.0);
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __48__QLZoomTransitionDriver__performZoomTransition__block_invoke_6;
+  v8[3] = &unk_278B585E8;
+  v8[4] = *(a1 + 32);
+  v3 = *(a1 + 56);
+  v9 = *(a1 + 40);
+  v10 = v3;
+  v4 = *(a1 + 88);
+  v11 = *(a1 + 72);
+  v12 = v4;
+  v5 = *(a1 + 104);
+  v16 = *(a1 + 152);
+  v15 = *(a1 + 136);
+  v6 = *(a1 + 120);
+  v13 = v5;
+  v14 = v6;
+  return [v2 _modifyAnimationsWithPreferredFrameRateRange:2097154 updateReason:v8 animations:{*&v17.minimum, *&v17.maximum, *&v17.preferred}];
 }
 
 uint64_t __48__QLZoomTransitionDriver__performZoomTransition__block_invoke_6(uint64_t a1)

@@ -21,6 +21,7 @@
 - (id)makeUserActivityHomeAwayStateDetector;
 - (id)makeUserActivityReportCoordinator;
 - (id)makeUserActivityVacationStateDetector;
+- (id)timerWithTimeInterval:(double)interval options:(unsigned int)options;
 @end
 
 @implementation HMDHomeActivityStateManagerDataSource
@@ -145,6 +146,13 @@ uint64_t __79__HMDHomeActivityStateManagerDataSource_supportsAdaptiveTemperature
   v3 = [v2 BOOLValue];
 
   return v3;
+}
+
+- (id)timerWithTimeInterval:(double)interval options:(unsigned int)options
+{
+  v4 = [objc_alloc(MEMORY[0x277D0F920]) initWithTimeInterval:*&options options:interval];
+
+  return v4;
 }
 
 - (HMDUser)currentUser

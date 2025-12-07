@@ -130,7 +130,7 @@
     v12 = HKLogHealthRecords;
     if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_ERROR))
     {
-      sub_9F778(v12, &self->super.super.super.super.isa);
+      sub_9F778(v12, &self->super.super.super.super.isa, errorCopy);
     }
 
     objc_storeStrong(&self->_fetchError, error);

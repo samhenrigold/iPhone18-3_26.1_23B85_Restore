@@ -50,7 +50,6 @@
   objc_storeStrong(&v10, 0);
   objc_storeStrong(location, 0);
   objc_storeStrong(&selfCopy, 0);
-  *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -136,7 +135,6 @@
   objc_storeStrong(&v29, 0);
   objc_storeStrong(location, 0);
   objc_storeStrong(&selfCopy, 0);
-  *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -217,7 +215,6 @@
   }
 
   MEMORY[0x277D82BD8](obj);
-  *MEMORY[0x277D85DE8];
 }
 
 - (double)preferredHeightForWidth:(double)width
@@ -266,7 +263,6 @@
   [(ACUITextWithLinkButtonFooterView *)selfCopy _heightForEmptyLineConstrainedToWidth:v19];
   v9 = v5;
   v6 = [(NSArray *)selfCopy->_linkButtons count];
-  *MEMORY[0x277D85DE8];
   return v8 + v9 * v6 + v18 + 10.0;
 }
 
@@ -285,7 +281,6 @@
   v12 = v5;
   MEMORY[0x277D82BD8](v8);
   MEMORY[0x277D82BD8](v9);
-  *MEMORY[0x277D85DE8];
   return ceil(v12);
 }
 
@@ -310,7 +305,6 @@
   MEMORY[0x277D82BD8](v9);
   MEMORY[0x277D82BD8](acui_titleString);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   return ceil(v13);
 }
 
@@ -328,7 +322,6 @@
   v11 = v5;
   MEMORY[0x277D82BD8](v7);
   MEMORY[0x277D82BD8](v8);
-  *MEMORY[0x277D85DE8];
   return ceil(v11);
 }
 

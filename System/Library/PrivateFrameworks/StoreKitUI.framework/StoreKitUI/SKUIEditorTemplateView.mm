@@ -15,6 +15,7 @@
 - (void)reloadWithViewElement:(id)element width:(double)width context:(id)context;
 - (void)setBottomInset:(double)inset;
 - (void)setDisabled:(BOOL)disabled;
+- (void)text;
 - (void)textViewDidChange:(id)change;
 @end
 
@@ -125,17 +126,17 @@
   [(UITextView *)textView setText:v16];
 
   style = [elementCopy style];
-  v18 = SKUIViewElementFontWithStyle(style);
-  v19 = self->_textView;
-  if (v18)
+  v19 = SKUIViewElementFontWithStyle(style);
+  v20 = self->_textView;
+  if (v19)
   {
-    [(UITextView *)self->_textView setFont:v18];
+    [(UITextView *)self->_textView setFont:v19];
   }
 
   else
   {
-    v20 = SKUIFontPreferredFontForTextStyle(1);
-    [(UITextView *)v19 setFont:v20];
+    v21 = SKUIFontPreferredFontForTextStyle(1, v18);
+    [(UITextView *)v20 setFont:v21];
   }
 
   ikColor = [style ikColor];
@@ -152,42 +153,42 @@
   }
 
   [(UITextView *)self->_textView setTextColor:self->_textColor];
-  v36 = 0;
+  v37 = 0;
   style2 = [elementCopy style];
-  v25 = SKUIViewElementPaddingForStyle(style2, &v36);
-  v27 = v26;
-  v29 = v28;
-  v31 = v30;
+  v26 = SKUIViewElementPaddingForStyle(style2, &v37);
+  v28 = v27;
+  v30 = v29;
+  v32 = v31;
 
-  v32 = 15.0;
-  v33 = 18.0;
-  if (v36)
+  v33 = 15.0;
+  v34 = 18.0;
+  if (v37)
   {
-    v34 = v25;
+    v35 = v26;
   }
 
   else
   {
-    v34 = 18.0;
+    v35 = 18.0;
   }
 
-  if (v36)
+  if (v37)
   {
-    v35 = v27;
+    v36 = v28;
   }
 
   else
   {
-    v35 = 15.0;
+    v36 = 15.0;
   }
 
-  if (v36)
+  if (v37)
   {
-    v33 = v29;
-    v32 = v31;
+    v34 = v30;
+    v33 = v32;
   }
 
-  [(UITextView *)self->_textView setTextContainerInset:v34, v35, v33, v32];
+  [(UITextView *)self->_textView setTextContainerInset:v35, v36, v34, v33];
   [(UITextView *)self->_textView setContentOffset:*MEMORY[0x277CBF348], *(MEMORY[0x277CBF348] + 8)];
 }
 
@@ -268,36 +269,8 @@
 
 - (void)layoutSubviews
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUIEditorTemplateView *)v3 layoutSubviews:v4];
-      }
-    }
-  }
-
-  v13.receiver = self;
-  v13.super_class = SKUIEditorTemplateView;
-  [(SKUIEditorTemplateView *)&v13 layoutSubviews];
-  textView = self->_textView;
-  [(SKUIEditorTemplateView *)self bounds];
-  [(UITextView *)textView setFrame:?];
-  if (self->_disabled)
-  {
-    v12 = [(UIColor *)self->_textColor colorWithAlphaComponent:0.2];
-    [(UITextView *)self->_textView setTextColor:v12];
-    [(UITextView *)self->_textView setEditable:0];
-  }
-
-  else
-  {
-    [(UITextView *)self->_textView setTextColor:self->_textColor];
-    [(UITextView *)self->_textView setEditable:1];
-  }
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIEditorTemplateView layoutSubviews]";
 }
 
 - (void)setBottomInset:(double)inset
@@ -406,6 +379,72 @@ void __47__SKUIEditorTemplateView__textFromViewElement___block_invoke(uint64_t a
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
 
   return WeakRetained;
+}
+
++ (void)prefetchResourcesForViewElement:(uint64_t)a3 reason:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIEditorTemplateView prefetchResourcesForViewElement:reason:context:]";
+}
+
++ (void)preferredSizeForViewElement:(uint64_t)a3 context:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIEditorTemplateView preferredSizeForViewElement:context:]";
+}
+
++ (void)requestLayoutForViewElement:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIEditorTemplateView requestLayoutForViewElement:width:context:]";
+}
+
++ (void)sizeThatFitsWidth:(uint64_t)a3 viewElement:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIEditorTemplateView sizeThatFitsWidth:viewElement:context:]";
+}
+
+- (void)reloadWithViewElement:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIEditorTemplateView reloadWithViewElement:width:context:]";
+}
+
+- (void)setImage:(uint64_t)a3 forArtworkRequest:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIEditorTemplateView setImage:forArtworkRequest:context:]";
+}
+
+- (void)updateWithItemState:(uint64_t)a3 context:(uint64_t)a4 animated:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIEditorTemplateView updateWithItemState:context:animated:]";
+}
+
+- (void)viewForElementIdentifier:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIEditorTemplateView viewForElementIdentifier:]";
+}
+
+- (void)textViewDidChange:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIEditorTemplateView textViewDidChange:]";
+}
+
+- (void)setBottomInset:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIEditorTemplateView setBottomInset:]";
+}
+
+- (void)text
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIEditorTemplateView text]";
 }
 
 @end

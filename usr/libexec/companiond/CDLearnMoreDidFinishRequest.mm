@@ -47,9 +47,8 @@
 - (NSString)description
 {
   v3 = [BSDescriptionBuilder builderWithObject:self];
-  deviceFlags = self->_deviceFlags;
-  v5 = CUPrintFlags64();
-  [v3 appendString:v5 withName:@"deviceFlags"];
+  v4 = CUPrintFlags64();
+  [v3 appendString:v4 withName:@"deviceFlags"];
 
   [v3 appendString:self->_deviceModel withName:@"deviceModel" skipIfEmpty:1];
   [v3 appendString:self->_deviceName withName:@"deviceName" skipIfEmpty:1];

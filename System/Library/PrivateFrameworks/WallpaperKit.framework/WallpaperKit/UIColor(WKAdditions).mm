@@ -8,7 +8,7 @@
 
 + (id)wk_colorWithHexString:()WKAdditions
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = a3;
   if ([v3 hasPrefix:@"#"] && objc_msgSend(v3, "length") >= 2)
   {
@@ -55,7 +55,7 @@
 
   v8 = 0;
   v9 = 0;
-  v23 = 1.0;
+  v22 = 1.0;
   v10 = 8 * v6;
   v11 = 1;
   do
@@ -71,10 +71,10 @@
     }
 
     v16 = [MEMORY[0x1E696AE88] scannerWithString:v14];
-    v21 = 0;
-    v11 &= [v16 scanHexInt:&v21];
-    LODWORD(v17) = v21;
-    v22[v9 / 8] = v17 / 255.0;
+    v20 = 0;
+    v11 &= [v16 scanHexInt:&v20];
+    LODWORD(v17) = v20;
+    v21[v9 / 8] = v17 / 255.0;
 
     v9 += 8;
     v8 += v7;
@@ -84,15 +84,13 @@
   while (v10 != v9);
   if (v11)
   {
-    v18 = [MEMORY[0x1E69DC888] colorWithRed:v22[0] green:v22[1] blue:v22[2] alpha:v23];
+    v18 = [MEMORY[0x1E69DC888] colorWithRed:v21[0] green:v21[1] blue:v21[2] alpha:v22];
     goto LABEL_20;
   }
 
 LABEL_19:
   v18 = 0;
 LABEL_20:
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v18;
 }

@@ -28,14 +28,12 @@
 
 + (id)tasks
 {
-  v7[2] = *MEMORY[0x277D85DE8];
+  v6[2] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(SCSharingReminderMaintenanceTask);
-  v7[0] = v2;
+  v6[0] = v2;
   v3 = objc_alloc_init(SCSharingReminderDeliveryTask);
-  v7[1] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v6[1] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
 
   return v4;
 }
@@ -91,11 +89,11 @@
   interestedEvents = [(SCSharingReminderServiceProvider *)self interestedEvents];
   v6 = [interestedEvents containsObject:nameCopy];
 
-  v7 = SCLogger();
-  sharingReminderManager = v7;
+  v8 = SCLogger(v7);
+  sharingReminderManager = v8;
   if (v6)
   {
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v10 = 138412290;
       v11 = nameCopy;
@@ -106,21 +104,18 @@
     [sharingReminderManager handleNotificationEventWithName:nameCopy];
   }
 
-  else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     [(SCSharingReminderServiceProvider *)nameCopy handleXPCEventWithName:sharingReminderManager];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleXPCEventWithName:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_262556000, a2, OS_LOG_TYPE_ERROR, "Unrecognized Darwin notification: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_262556000, a2, OS_LOG_TYPE_ERROR, "Unrecognized Darwin notification: %@", &v2, 0xCu);
 }
 
 @end

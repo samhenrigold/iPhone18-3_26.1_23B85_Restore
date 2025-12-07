@@ -337,8 +337,8 @@ LABEL_6:
   }
 
   routeAnnotationsController = [(RoutePlanningMapController *)self routeAnnotationsController];
-  configuration = [routeAnnotationsController configuration];
-  alternateRoutesEnabled = [configuration alternateRoutesEnabled];
+  v11 = objc_msgSend_configuration(routeAnnotationsController);
+  alternateRoutesEnabled = [v11 alternateRoutesEnabled];
 
   if (alternateRoutesEnabled)
   {

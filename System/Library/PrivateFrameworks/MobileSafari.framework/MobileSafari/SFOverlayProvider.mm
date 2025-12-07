@@ -184,16 +184,17 @@ void __41__SFOverlayProvider_hideOverlayAnimated___block_invoke(uint64_t a1)
 {
   settingsCopy = settings;
   disappearCopy = disappear;
+  v10 = disappearCopy;
   if (self->_cardViewController == disappearCopy)
   {
     self->_available = 0;
     if (settingsCopy && !open)
     {
-      v10 = WBS_LOG_CHANNEL_PREFIXBanners();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+      v12 = WBS_LOG_CHANNEL_PREFIXBanners(disappearCopy, v9);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
-        *v11 = 0;
-        _os_log_impl(&dword_18B7AC000, v10, OS_LOG_TYPE_INFO, "User cancelled app clip card by tapping the close button", v11, 2u);
+        *v13 = 0;
+        _os_log_impl(&dword_18B7AC000, v12, OS_LOG_TYPE_INFO, "User cancelled app clip card by tapping the close button", v13, 2u);
       }
 
       if (objc_opt_respondsToSelector())
@@ -207,10 +208,10 @@ void __41__SFOverlayProvider_hideOverlayAnimated___block_invoke(uint64_t a1)
 
   else
   {
-    v9 = WBS_LOG_CHANNEL_PREFIXBanners();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = WBS_LOG_CHANNEL_PREFIXBanners(disappearCopy, v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [SFOverlayProvider cardViewControllerDidDisappear:v9 clipDidOpen:? persistUserSettings:?];
+      [SFOverlayProvider cardViewControllerDidDisappear:v11 clipDidOpen:? persistUserSettings:?];
     }
   }
 }

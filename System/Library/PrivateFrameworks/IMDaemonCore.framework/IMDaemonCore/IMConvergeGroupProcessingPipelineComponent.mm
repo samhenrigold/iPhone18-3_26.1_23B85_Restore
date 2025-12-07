@@ -22,7 +22,7 @@
 
 - (id)runIndividuallyWithInput:(id)input
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   inputCopy = input;
   chat = [inputCopy chat];
   if (IMOSLoggingEnabled())
@@ -31,7 +31,7 @@
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v28 = chat;
+      v27 = chat;
       _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "<IMConvergeGroupProcessingPipelineComponent> Started processing for chat: %@", buf, 0xCu);
     }
   }
@@ -51,7 +51,7 @@
 
       v9 = +[IMDServiceController sharedController];
       replicationSourceServiceName = [inputCopy replicationSourceServiceName];
-      v26 = [v9 serviceWithName:replicationSourceServiceName];
+      v25 = [v9 serviceWithName:replicationSourceServiceName];
 
       if (v8)
       {
@@ -78,7 +78,7 @@
         groupProtocolVersion = [inputCopy groupProtocolVersion];
         timestamp = [inputCopy timestamp];
         groupPhotoCreationTime = [inputCopy groupPhotoCreationTime];
-        [chat _convergeGroupChatIfNeededWithServiceSession:serviceSession account:account replicationService:v26 groupID:groupID incomingParticipants:participantIdentifiers fromIdentifier:fromIdentifier toIdentifier:toIdentifier receivedGroupParticipantVersion:groupParticipantVersion receivedGroupProtocolVersion:groupProtocolVersion messageTimeStamp:timestamp groupPhotoCreationTime:groupPhotoCreationTime];
+        [chat _convergeGroupChatIfNeededWithServiceSession:serviceSession account:account replicationService:v25 groupID:groupID incomingParticipants:participantIdentifiers fromIdentifier:fromIdentifier toIdentifier:toIdentifier receivedGroupParticipantVersion:groupParticipantVersion receivedGroupProtocolVersion:groupProtocolVersion messageTimeStamp:timestamp groupPhotoCreationTime:groupPhotoCreationTime];
       }
     }
 
@@ -110,8 +110,6 @@
 
 LABEL_24:
   v19 = [objc_alloc(MEMORY[0x277D18E08]) initWithValue:inputCopy];
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }

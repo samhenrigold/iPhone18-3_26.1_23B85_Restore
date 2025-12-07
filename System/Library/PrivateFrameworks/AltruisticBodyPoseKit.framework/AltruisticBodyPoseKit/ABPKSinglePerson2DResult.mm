@@ -33,8 +33,8 @@
 
 - (int)overlayResultOnImage:(__CVBuffer *)image withResult:(__CVBuffer *)result withColor:
 {
-  v13 = v4;
-  v8 = __ABPKLogSharedInstance();
+  v14 = v4;
+  v8 = __ABPKLogSharedInstance(self);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     *buf = 0;
@@ -43,11 +43,11 @@
 
   if (!result)
   {
-    v9 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = __ABPKLogSharedInstance(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      *v15 = 0;
-      _os_log_impl(&dword_23EDDC000, v9, OS_LOG_TYPE_ERROR, " Overlay image not initialized ", v15, 2u);
+      *v16 = 0;
+      _os_log_impl(&dword_23EDDC000, v10, OS_LOG_TYPE_ERROR, " Overlay image not initialized ", v16, 2u);
     }
   }
 
@@ -55,16 +55,16 @@
   if (skeleton2D)
   {
     [(ABPK2dSkeleton *)skeleton2D printData];
-    return [(ABPK2dSkeleton *)self->_skeleton2D overlaySkeletonOnImage:image withResult:result withColor:v13];
+    return [(ABPK2dSkeleton *)self->_skeleton2D overlaySkeletonOnImage:image withResult:result withColor:v14];
   }
 
   else
   {
-    v12 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = __ABPKLogSharedInstance(0);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      *v14 = 0;
-      _os_log_impl(&dword_23EDDC000, v12, OS_LOG_TYPE_ERROR, " _skeleton2D is nil ", v14, 2u);
+      *v15 = 0;
+      _os_log_impl(&dword_23EDDC000, v13, OS_LOG_TYPE_ERROR, " _skeleton2D is nil ", v15, 2u);
     }
 
     return -6661;

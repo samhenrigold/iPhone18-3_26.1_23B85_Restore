@@ -106,7 +106,7 @@ LABEL_13:
   if (ispStripParams->var0)
   {
     v7 = 0;
-    result = 0;
+    v8 = 0;
     p_var0 = &ispStripParams->var3[0].var0;
     y = transforms.origin.y;
     v11 = transforms.origin.y + transforms.size.height + -1.0;
@@ -129,7 +129,7 @@ LABEL_42:
       p_var0 += 10;
       if (++v7 >= var0)
       {
-        return result;
+        return v8;
       }
     }
 
@@ -144,16 +144,16 @@ LABEL_42:
     {
       if (y >= v11)
       {
-        [VISISPStripGeneratorV2 _limitMultipleStripsTransforms:transforms3x3:];
+        [VISISPStripGeneratorV2 _limitMultipleStripsTransforms:v8 transforms3x3:a2];
 LABEL_40:
         v13 = 21.0;
-        result = -12780;
+        v8 = 4294954516;
         goto LABEL_36;
       }
 
       if (v21 >= v22)
       {
-        [VISISPStripGeneratorV2 _limitMultipleStripsTransforms:transforms3x3:];
+        [VISISPStripGeneratorV2 _limitMultipleStripsTransforms:v8 transforms3x3:a2];
         goto LABEL_40;
       }
 
@@ -175,11 +175,11 @@ LABEL_40:
       v33 = fabsf(v32);
       if (fabsf(v31) <= 0.00000011921 || v33 <= 0.00000011921)
       {
-        [VISISPStripGeneratorV2 _limitMultipleStripsTransforms:transforms3x3:];
+        [VISISPStripGeneratorV2 _limitMultipleStripsTransforms:v8 transforms3x3:a2];
 LABEL_34:
         v13 = 21.0;
 LABEL_35:
-        result = 0;
+        v8 = 0;
         goto LABEL_36;
       }
 
@@ -197,7 +197,7 @@ LABEL_35:
       v41 = (v31 * (v22 - v25)) - (v32 * (v21 - v25));
       if (fabsf(v41) <= 0.00000011921)
       {
-        [VISISPStripGeneratorV2 _limitMultipleStripsTransforms:transforms3x3:];
+        [VISISPStripGeneratorV2 _limitMultipleStripsTransforms:v8 transforms3x3:a2];
         goto LABEL_34;
       }
 
@@ -223,13 +223,13 @@ LABEL_35:
             goto LABEL_35;
           }
 
-          result = 0;
+          v8 = 0;
           v48 = -(v43 * v23);
           v49 = v11 + -0.5;
           goto LABEL_31;
         }
 
-        result = 0;
+        v8 = 0;
         v50 = -(v43 * v24);
         v51 = y + 0.5;
       }
@@ -238,7 +238,7 @@ LABEL_35:
       {
         if (v46 < y)
         {
-          result = 0;
+          v8 = 0;
           v48 = -(v43 * v23);
           v49 = y + 0.5;
 LABEL_31:
@@ -251,7 +251,7 @@ LABEL_31:
           goto LABEL_35;
         }
 
-        result = 0;
+        v8 = 0;
         v50 = -(v43 * v24);
         v51 = v11 + -0.5;
       }
@@ -271,7 +271,8 @@ LABEL_36:
     }
   }
 
-  return 0;
+  LODWORD(v8) = 0;
+  return v8;
 }
 
 - (__n128)inputSize
@@ -316,117 +317,118 @@ LABEL_36:
 
 - (int)setup
 {
-  v2 = *self->_inputSize;
-  if (v2 <= *self->_outputSize)
+  v3 = *self->_inputSize;
+  if (v3 <= *self->_outputSize)
   {
     return -12780;
   }
 
-  v4 = *&self->_inputSize[2];
-  if (v4 <= *&self->_outputSize[2] || !*&self->_gridSize[2])
+  v5 = *&self->_inputSize[2];
+  if (v5 <= *&self->_outputSize[2] || !*&self->_gridSize[2])
   {
     return -12780;
   }
 
-  LODWORD(v5) = (v2 - *self->_outputSize) / 2;
-  HIDWORD(v5) = (v4 - *&self->_outputSize[2]) / 2;
-  *self->_overscanSize = v5;
-  *&self->_ispStripOffset[7] = v5;
+  LODWORD(v6) = (v3 - *self->_outputSize) / 2;
+  HIDWORD(v6) = (v5 - *&self->_outputSize[2]) / 2;
+  *self->_overscanSize = v6;
+  *&self->_ispStripOffset[7] = v6;
   result = [(VISISPStripGeneratorV2 *)self _configureISPStripTileCount];
   if (result)
   {
     return result;
   }
 
-  v7 = *self->_tileCount;
-  v8 = HIDWORD(*self->_tileCount);
-  if (v7 < 1)
+  *&v8 = *self->_tileCount;
+  v9 = DWORD1(v8);
+  v10 = v8;
+  if (v8 < 1 || SDWORD1(v8) < 1)
   {
     return -12780;
   }
 
-  v9 = &__src[2];
-  v27 = *self->_tileCount;
-  bzero(&__src[2], 0x1FCuLL);
-  v10 = v27;
-  v11 = 0;
-  v12 = 0;
-  v13 = 0;
-  v14 = ((v7 + *self->_outputSize - 1) / v7) & 0xFFFFFFFE;
-  v15 = (v8 + *&self->_outputSize[2] - 1) / v8;
+  v12 = &v33[8];
+  v31 = v8;
+  bzero(&v33[8], 0x1FCuLL);
+  v13 = v31;
+  v14 = 0;
+  v15 = 0;
+  v16 = 0;
+  v17 = ((v10 + *self->_outputSize - 1) / v10) & 0xFFFFFFFE;
+  v18 = (v9 + *&self->_outputSize[2] - 1) / v9;
   while (1)
   {
-    v16 = v15;
-    if (v11 >= v8 - 1)
+    v19 = v18;
+    if (v14 >= v9 - 1)
     {
-      v16 = self->_extendedOutputRowsToFill - v15 * (v8 - 1) + *&self->_outputSize[2];
+      v19 = self->_extendedOutputRowsToFill - v18 * (v9 - 1) + *&self->_outputSize[2];
     }
 
-    v17 = *&self->_gridSize[2];
-    v18 = (v16 + v17 - 1) / v17;
-    if (v18 > 48)
+    v20 = *&self->_gridSize[2];
+    v21 = (v19 + v20 - 1) / v20;
+    if (v21 > 48)
     {
       break;
     }
 
-    if (v10.i32[0])
+    if (v13.i32[0])
     {
-      v19 = 0;
-      v20 = 0;
+      v22 = 0;
+      v23 = 0;
       do
       {
-        v9[4] = v20;
-        v9[5] = v13;
-        v9[7] = v16;
-        v9[9] = v17;
-        v9[8] = v18;
-        v21 = *self->_tileCount - 1;
-        v22 = v14;
-        if (v19 >= v21)
+        v12[4] = v23;
+        v12[5] = v16;
+        v12[7] = v19;
+        v12[9] = v20;
+        v12[8] = v21;
+        v24 = *self->_tileCount - 1;
+        v25 = v17;
+        if (v22 >= v24)
         {
-          v22 = *self->_outputSize - v21 * v14;
+          v25 = *self->_outputSize - v24 * v17;
         }
 
-        v12 += v18;
-        v9[6] = v22;
-        v9 += 10;
-        v20 += v14;
-        ++v19;
-        v10 = *self->_tileCount;
+        v15 += v21;
+        v12[6] = v25;
+        v12 += 10;
+        v23 += v17;
+        ++v22;
+        v13 = *self->_tileCount;
       }
 
-      while (v19 < v10.i32[0]);
+      while (v22 < v13.i32[0]);
     }
 
-    v8 = v10.i32[1];
-    v13 += v15;
-    if (++v11 >= v10.i32[1])
+    v9 = v13.i32[1];
+    v16 += v18;
+    if (++v14 >= v13.i32[1])
     {
-      __src[0] = vmul_lane_s32(v10, v10, 1).u16[0];
-      v23 = (36 * v12 + 644);
-      __src[1] = 0;
-      self->_ispStripParamsSize = v23;
-      v24 = malloc_type_malloc(v23, 0x84E4F449uLL);
-      self->_ispStripParams = v24;
-      if (!v24)
+      *&v33[4] = vmul_lane_s32(v13, v13, 1).u16[0];
+      v26 = (36 * v15 + 644);
+      *&v33[6] = 0;
+      self->_ispStripParamsSize = v26;
+      v27 = malloc_type_malloc(v26, 0x84E4F449uLL);
+      self->_ispStripParams = v27;
+      if (!v27)
       {
         return -12786;
       }
 
-      memcpy(v24, __src, sizeof($8A3E7D8EF1F699152D7DD6CAB8793FE0));
-      v25 = [NSData dataWithBytesNoCopy:self->_ispStripParams length:self->_ispStripParamsSize freeWhenDone:0];
+      memcpy(v27, &v33[4], sizeof($8A3E7D8EF1F699152D7DD6CAB8793FE0));
+      v28 = [NSData dataWithBytesNoCopy:self->_ispStripParams length:self->_ispStripParamsSize freeWhenDone:0];
       ISPStripParams = self->_ISPStripParams;
-      self->_ISPStripParams = v25;
+      self->_ISPStripParams = v28;
 
       return 0;
     }
   }
 
   fig_log_get_emitter();
-  FigDebugAssert3();
-  fig_log_get_emitter();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v2, v31, *(&v31 + 1), v32, *v33, *&v33[8], *&v33[16]);
+  emitter = fig_log_get_emitter();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954514, "<<<< VISISPStripGeneratorV2 >>>>", 121);
 }
 
 - (int)_generateSingleStripWithTransforms:(VISISPStripGeneratorV2 *)self transforms3x3:(SEL)transforms3x3 validBufferRect:(float *)(a3
@@ -594,50 +596,24 @@ LABEL_36:
         fig_log_get_emitter();
         OUTLINED_FUNCTION_1_0();
         v5 = -12782;
-        goto LABEL_28;
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", -12782);
       }
 
-LABEL_25:
-      v5 = [(VISISPStripGeneratorV2 *)self _limitMultipleStripsTransforms:a3 transforms3x3:y, width, height, v8];
-      if (v5)
+      else
       {
-        fig_log_get_emitter();
-        OUTLINED_FUNCTION_1_0();
-LABEL_28:
-        FigDebugAssert3();
+LABEL_25:
+        v5 = [(VISISPStripGeneratorV2 *)self _limitMultipleStripsTransforms:a3 transforms3x3:y, width, height, v8];
+        if (v5)
+        {
+          fig_log_get_emitter();
+          OUTLINED_FUNCTION_1_0();
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v5);
+        }
       }
     }
   }
 
   return v5;
-}
-
-- (uint64_t)_limitMultipleStripsTransforms:transforms3x3:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_limitMultipleStripsTransforms:transforms3x3:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_limitMultipleStripsTransforms:transforms3x3:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_limitMultipleStripsTransforms:transforms3x3:.cold.4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
 }
 
 @end

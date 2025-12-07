@@ -232,7 +232,7 @@
   CFRetain(*(*(self + 12) + 160));
   [(GGLImageCanvas *)self sizeInPixels];
   v4 = 0;
-  std::allocate_shared[abi:nn200100]<ggl::SamplerState,std::allocator<ggl::SamplerState>,ggl::Filter,ggl::Filter,0>();
+  std::allocate_shared[abi:nn200100]<ggl::SamplerState,std::allocator<ggl::SamplerState>,ggl::Filter,ggl::Filter,0>(&v5, &v4 + 1, &v4);
 }
 
 - (void)setContentScale:(double)scale

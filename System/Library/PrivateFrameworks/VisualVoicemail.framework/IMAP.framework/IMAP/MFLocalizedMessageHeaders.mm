@@ -127,27 +127,27 @@ LABEL_21:
 
 - (id)markupString
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   [MEMORY[0x277D24F40] basicHeaders];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
-  obj = v27 = 0u;
-  v18 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
+  obj = v26 = 0u;
+  v17 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
   v3 = 0;
-  if (v18)
+  if (v17)
   {
-    v17 = *v25;
+    v16 = *v24;
     do
     {
-      for (i = 0; i != v18; ++i)
+      for (i = 0; i != v17; ++i)
       {
-        if (*v25 != v17)
+        if (*v24 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v24 + 1) + 8 * i);
+        v5 = *(*(&v23 + 1) + 8 * i);
         v6 = [(MFMessageHeaders *)self headersForKey:v5];
         if (v6)
         {
@@ -157,50 +157,48 @@ LABEL_21:
             v3 = objc_alloc_init(MEMORY[0x277CCAB68]);
           }
 
-          v22 = 0u;
-          v23 = 0u;
-          v20 = 0u;
           v21 = 0u;
-          v19 = v6;
+          v22 = 0u;
+          v19 = 0u;
+          v20 = 0u;
+          v18 = v6;
           v8 = v6;
-          v9 = [v8 countByEnumeratingWithState:&v20 objects:v28 count:16];
+          v9 = [v8 countByEnumeratingWithState:&v19 objects:v27 count:16];
           if (v9)
           {
             v10 = v9;
-            v11 = *v21;
+            v11 = *v20;
             do
             {
               for (j = 0; j != v10; ++j)
               {
-                if (*v21 != v11)
+                if (*v20 != v11)
                 {
                   objc_enumerationMutation(v8);
                 }
 
-                v13 = *(*(&v20 + 1) + 8 * j);
+                v13 = *(*(&v19 + 1) + 8 * j);
                 if (([v13 isEqualToString:&stru_288159858] & 1) == 0)
                 {
                   [(MFLocalizedMessageHeaders *)self appendHeaderMarkupForKey:v7 value:v13 toString:v3];
                 }
               }
 
-              v10 = [v8 countByEnumeratingWithState:&v20 objects:v28 count:16];
+              v10 = [v8 countByEnumeratingWithState:&v19 objects:v27 count:16];
             }
 
             while (v10);
           }
 
-          v6 = v19;
+          v6 = v18;
         }
       }
 
-      v18 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v17 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
-    while (v18);
+    while (v17);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -222,29 +220,29 @@ LABEL_21:
 
 + (id)localizedHeadersFromEnglishHeaders:(id)headers
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   headersCopy = headers;
   v4 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(headersCopy, "count")}];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v5 = headersCopy;
-  v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v17;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
+        v10 = *(*(&v16 + 1) + 8 * i);
         v11 = +[MFLocalizedMessageHeaders localizedHeaders];
         v12 = [v11 objectForKey:v10];
 
@@ -263,46 +261,44 @@ LABEL_21:
         [v13 addObject:v14];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v7);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 + (id)englishHeadersFromLocalizedHeaders:(id)headers
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   headersCopy = headers;
   v4 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(headersCopy, "count")}];
   v5 = +[MFLocalizedMessageHeaders localizedHeaders];
   allValues = [v5 allValues];
   allKeys = [v5 allKeys];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v8 = headersCopy;
-  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v19;
+    v11 = *v18;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v19 != v11)
+        if (*v18 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v18 + 1) + 8 * i);
-        v14 = [allValues indexOfObject:{v13, v18}];
+        v13 = *(*(&v17 + 1) + 8 * i);
+        v14 = [allValues indexOfObject:{v13, v17}];
         if (v14 == 0x7FFFFFFFFFFFFFFFLL)
         {
           [v4 addObject:v13];
@@ -315,13 +311,11 @@ LABEL_21:
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v10);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

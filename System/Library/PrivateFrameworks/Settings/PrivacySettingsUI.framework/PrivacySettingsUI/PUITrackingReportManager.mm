@@ -29,92 +29,93 @@
 - (void)reloadDataWithCompletion:(id)completion;
 - (void)reloadEnabledWithCompletion:(id)completion;
 - (void)reloadWithCompletion:(id)completion;
+- (void)setTrackingReportEnabled:(BOOL)enabled;
 @end
 
 @implementation PUITrackingReportManager
 
 + (BOOL)queryWithOptions:(id)options reply:(id)reply
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   replyCopy = reply;
   v7 = objc_alloc(MEMORY[0x277D6B500]);
   v8 = [v7 initWorkspaceWithService:*MEMORY[0x277D6B6A0]];
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x3032000000;
-  v34 = __Block_byref_object_copy__3;
-  v35 = __Block_byref_object_dispose__3;
-  v36 = [objc_alloc(MEMORY[0x277D6B700]) initWithWorkspace:v8];
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x3032000000;
+  v35 = __Block_byref_object_copy__3;
+  v36 = __Block_byref_object_dispose__3;
+  v37 = [objc_alloc(MEMORY[0x277D6B700]) initWithWorkspace:v8];
   v9 = *MEMORY[0x277D6B668];
   integerValue = [optionsCopy objectForKeyedSubscript:*MEMORY[0x277D6B668]];
 
   if (integerValue)
   {
-    v11 = [optionsCopy objectForKeyedSubscript:v9];
-    integerValue = [v11 integerValue];
+    v12 = [optionsCopy objectForKeyedSubscript:v9];
+    integerValue = [v12 integerValue];
   }
 
-  v12 = _PUILoggingFacility();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = _PUILoggingFacility(v11);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v38 = "+[PUITrackingReportManager queryWithOptions:reply:]";
-    v39 = 2048;
-    v40 = integerValue;
-    _os_log_impl(&dword_2657FE000, v12, OS_LOG_TYPE_DEFAULT, "%s: Starting query for NetworkDomainQueryType %ld data", buf, 0x16u);
+    v39 = "+[PUITrackingReportManager queryWithOptions:reply:]";
+    v40 = 2048;
+    v41 = integerValue;
+    _os_log_impl(&dword_2657FE000, v13, OS_LOG_TYPE_DEFAULT, "%s: Starting query for NetworkDomainQueryType %ld data", buf, 0x16u);
   }
 
-  v13 = PUILogForCategory(1uLL);
-  v14 = os_signpost_id_make_with_pointer(v13, "PUIReportAppListController.queryWithOptions");
+  v14 = PUILogForCategory(1uLL);
+  v15 = os_signpost_id_make_with_pointer(v14, "PUIReportAppListController.queryWithOptions");
 
-  v15 = PUILogForCategory(1uLL);
-  v16 = v15;
-  if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
+  v16 = PUILogForCategory(1uLL);
+  v17 = v16;
+  if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_2657FE000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v14, "PUIReportAppListController.queryWithOptions", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_2657FE000, v17, OS_SIGNPOST_INTERVAL_BEGIN, v15, "PUIReportAppListController.queryWithOptions", "", buf, 2u);
   }
 
-  v17 = v32[5];
-  v18 = *MEMORY[0x277D6B758];
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __51__PUITrackingReportManager_queryWithOptions_reply___block_invoke;
-  v26[3] = &unk_279BA23B8;
-  v29 = integerValue;
-  v30 = v14;
-  v19 = replyCopy;
-  v27 = v19;
-  v28 = &v31;
-  v20 = [v17 networkDomainsToDateWithOptionsFor:0 nameKind:v18 domainType:1 startTime:0 options:optionsCopy reply:v26];
-  if ((v20 & 1) == 0)
+  v18 = v33[5];
+  v19 = *MEMORY[0x277D6B758];
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __51__PUITrackingReportManager_queryWithOptions_reply___block_invoke;
+  v27[3] = &unk_279BA23B8;
+  v30 = integerValue;
+  v31 = v15;
+  v20 = replyCopy;
+  v28 = v20;
+  v29 = &v32;
+  v21 = [v18 networkDomainsToDateWithOptionsFor:0 nameKind:v19 domainType:1 startTime:0 options:optionsCopy reply:v27];
+  v22 = v21;
+  if ((v21 & 1) == 0)
   {
-    if (v19)
+    if (v20)
     {
-      (*(v19 + 2))(v19, 0, 0);
+      v21 = (*(v20 + 2))(v20, 0, 0);
     }
 
-    v21 = _PUILoggingFacility();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v23 = _PUILoggingFacility(v21);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v38 = "+[PUITrackingReportManager queryWithOptions:reply:]";
-      _os_log_impl(&dword_2657FE000, v21, OS_LOG_TYPE_DEFAULT, "%s: failed to get analytics data", buf, 0xCu);
+      v39 = "+[PUITrackingReportManager queryWithOptions:reply:]";
+      _os_log_impl(&dword_2657FE000, v23, OS_LOG_TYPE_DEFAULT, "%s: failed to get analytics data", buf, 0xCu);
     }
 
-    v22 = PUILogForCategory(1uLL);
-    v23 = v22;
-    if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
+    v24 = PUILogForCategory(1uLL);
+    v25 = v24;
+    if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_2657FE000, v23, OS_SIGNPOST_INTERVAL_END, v14, "PUIReportAppListController.queryWithOptions", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_2657FE000, v25, OS_SIGNPOST_INTERVAL_END, v15, "PUIReportAppListController.queryWithOptions", "", buf, 2u);
     }
   }
 
-  _Block_object_dispose(&v31, 8);
-  v24 = *MEMORY[0x277D85DE8];
-  return v20;
+  _Block_object_dispose(&v32, 8);
+  return v22;
 }
 
 void __51__PUITrackingReportManager_queryWithOptions_reply___block_invoke(void *a1, void *a2, void *a3)
@@ -124,54 +125,52 @@ void __51__PUITrackingReportManager_queryWithOptions_reply___block_invoke(void *
   v6 = a3;
   v7 = [v5 objectForKeyedSubscript:@"result_count"];
 
-  v8 = _PUILoggingFacility();
-  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+  v9 = _PUILoggingFacility(v8);
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
   if (v7)
   {
-    if (v9)
+    if (v10)
     {
-      v10 = a1[6];
-      v11 = [v5 objectForKeyedSubscript:@"result_count"];
+      v11 = a1[6];
+      v12 = [v5 objectForKeyedSubscript:@"result_count"];
       v20 = 136315650;
       v21 = "+[PUITrackingReportManager queryWithOptions:reply:]_block_invoke";
       v22 = 2048;
-      v23 = v10;
+      v23 = v11;
       v24 = 2048;
-      v25 = [v11 integerValue];
-      _os_log_impl(&dword_2657FE000, v8, OS_LOG_TYPE_DEFAULT, "%s: Finished query for NetworkDomainQueryType %ld data. result_count = %ld", &v20, 0x20u);
+      v25 = [v12 integerValue];
+      _os_log_impl(&dword_2657FE000, v9, OS_LOG_TYPE_DEFAULT, "%s: Finished query for NetworkDomainQueryType %ld data. result_count = %ld", &v20, 0x20u);
     }
   }
 
-  else if (v9)
+  else if (v10)
   {
-    v12 = a1[6];
+    v13 = a1[6];
     v20 = 136315394;
     v21 = "+[PUITrackingReportManager queryWithOptions:reply:]_block_invoke";
     v22 = 2048;
-    v23 = v12;
-    _os_log_impl(&dword_2657FE000, v8, OS_LOG_TYPE_DEFAULT, "%s: Finished query for NetworkDomainQueryType %ld data", &v20, 0x16u);
+    v23 = v13;
+    _os_log_impl(&dword_2657FE000, v9, OS_LOG_TYPE_DEFAULT, "%s: Finished query for NetworkDomainQueryType %ld data", &v20, 0x16u);
   }
 
-  v13 = PUILogForCategory(1uLL);
-  v14 = v13;
-  v15 = a1[7];
-  if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  v14 = PUILogForCategory(1uLL);
+  v15 = v14;
+  v16 = a1[7];
+  if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
   {
     LOWORD(v20) = 0;
-    _os_signpost_emit_with_name_impl(&dword_2657FE000, v14, OS_SIGNPOST_INTERVAL_END, v15, "PUIReportAppListController.queryWithOptions", "", &v20, 2u);
+    _os_signpost_emit_with_name_impl(&dword_2657FE000, v15, OS_SIGNPOST_INTERVAL_END, v16, "PUIReportAppListController.queryWithOptions", "", &v20, 2u);
   }
 
-  v16 = a1[4];
-  if (v16)
+  v17 = a1[4];
+  if (v17)
   {
-    (*(v16 + 16))(v16, v5, v6);
+    (*(v17 + 16))(v17, v5, v6);
   }
 
-  v17 = *(a1[5] + 8);
-  v18 = *(v17 + 40);
-  *(v17 + 40) = 0;
-
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *(a1[5] + 8);
+  v19 = *(v18 + 40);
+  *(v18 + 40) = 0;
 }
 
 - (PUITrackingReportManager)init
@@ -228,12 +227,12 @@ void __51__PUITrackingReportManager_queryWithOptions_reply___block_invoke(void *
 
   if ((v8 & 1) == 0)
   {
-    v9 = _PUILoggingFacility();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = _PUILoggingFacility(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
       v20 = "[PUITrackingReportManager reloadEnabledWithCompletion:]";
-      _os_log_impl(&dword_2657FE000, v9, OS_LOG_TYPE_DEFAULT, "%s: failed to refresh analytics value", buf, 0xCu);
+      _os_log_impl(&dword_2657FE000, v10, OS_LOG_TYPE_DEFAULT, "%s: failed to refresh analytics value", buf, 0xCu);
     }
 
     [(PUITrackingReportManager *)self dataDidChange:v11];
@@ -245,8 +244,6 @@ void __51__PUITrackingReportManager_queryWithOptions_reply___block_invoke(void *
 
   objc_destroyWeak(&v17);
   objc_destroyWeak(&location);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __56__PUITrackingReportManager_reloadEnabledWithCompletion___block_invoke(uint64_t a1, void *a2)
@@ -269,16 +266,16 @@ void __56__PUITrackingReportManager_reloadEnabledWithCompletion___block_invoke(u
 
 uint64_t __56__PUITrackingReportManager_reloadEnabledWithCompletion___block_invoke_2(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v2 = _PUILoggingFacility();
+  v17 = *MEMORY[0x277D85DE8];
+  v2 = _PUILoggingFacility(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v14 = 136315394;
-    v15 = "[PUITrackingReportManager reloadEnabledWithCompletion:]_block_invoke_2";
-    v16 = 2112;
-    v17 = v3;
-    _os_log_impl(&dword_2657FE000, v2, OS_LOG_TYPE_DEFAULT, "%s: reply: %@", &v14, 0x16u);
+    v13 = 136315394;
+    v14 = "[PUITrackingReportManager reloadEnabledWithCompletion:]_block_invoke_2";
+    v15 = 2112;
+    v16 = v3;
+    _os_log_impl(&dword_2657FE000, v2, OS_LOG_TYPE_DEFAULT, "%s: reply: %@", &v13, 0x16u);
   }
 
   v4 = *MEMORY[0x277D6B680];
@@ -298,88 +295,88 @@ uint64_t __56__PUITrackingReportManager_reloadEnabledWithCompletion___block_invo
   result = *(a1 + 48);
   if (result)
   {
-    result = (*(result + 16))();
+    return (*(result + 16))();
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (void)reloadDataWithCompletion:(id)completion
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  if ([(PUITrackingReportManager *)self trackingReportEnabled])
+  trackingReportEnabled = [(PUITrackingReportManager *)self trackingReportEnabled];
+  if (trackingReportEnabled)
   {
-    objc_initWeak(&location, self);
-    v5 = _PUILoggingFacility();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    inited = objc_initWeak(&location, self);
+    v7 = _PUILoggingFacility(inited);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v23 = "[PUITrackingReportManager reloadDataWithCompletion:]";
-      _os_log_impl(&dword_2657FE000, v5, OS_LOG_TYPE_DEFAULT, "%s: Starting query for SFNetworkDomainTracker data", buf, 0xCu);
+      v25 = "[PUITrackingReportManager reloadDataWithCompletion:]";
+      _os_log_impl(&dword_2657FE000, v7, OS_LOG_TYPE_DEFAULT, "%s: Starting query for SFNetworkDomainTracker data", buf, 0xCu);
     }
 
-    v6 = PUILogForCategory(1uLL);
-    v7 = os_signpost_id_make_with_pointer(v6, "PUITrackingReportManager.reloadDataWithCompletion");
-
     v8 = PUILogForCategory(1uLL);
-    v9 = v8;
-    if ((v7 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
+    v9 = os_signpost_id_make_with_pointer(v8, "PUITrackingReportManager.reloadDataWithCompletion");
+
+    v10 = PUILogForCategory(1uLL);
+    v11 = v10;
+    if ((v9 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_2657FE000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v7, "PUITrackingReportManager.reloadDataWithCompletion", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_2657FE000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v9, "PUITrackingReportManager.reloadDataWithCompletion", "", buf, 2u);
     }
 
     feed = [(PUITrackingReportManager *)self feed];
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __53__PUITrackingReportManager_reloadDataWithCompletion___block_invoke;
-    v18[3] = &unk_279BA2458;
-    objc_copyWeak(v20, &location);
-    v11 = *MEMORY[0x277D6B758];
-    v18[4] = self;
-    v12 = completionCopy;
-    v19 = v12;
-    v20[1] = v7;
-    LOBYTE(v11) = [feed networkDomainsToDateWithOptionsFor:0 nameKind:v11 domainType:1 startTime:0 options:0 reply:v18];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __53__PUITrackingReportManager_reloadDataWithCompletion___block_invoke;
+    v20[3] = &unk_279BA2458;
+    objc_copyWeak(v22, &location);
+    v13 = *MEMORY[0x277D6B758];
+    v20[4] = self;
+    v14 = completionCopy;
+    v21 = v14;
+    v22[1] = v9;
+    LOBYTE(v13) = [feed networkDomainsToDateWithOptionsFor:0 nameKind:v13 domainType:1 startTime:0 options:0 reply:v20];
 
-    if ((v11 & 1) == 0)
+    if ((v13 & 1) == 0)
     {
-      if (v12)
+      if (v14)
       {
-        v12[2](v12);
+        v15 = (v14[2])(v14);
       }
 
-      v13 = _PUILoggingFacility();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v16 = _PUILoggingFacility(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v23 = "[PUITrackingReportManager reloadDataWithCompletion:]";
-        _os_log_impl(&dword_2657FE000, v13, OS_LOG_TYPE_DEFAULT, "%s: failed to get analytics data", buf, 0xCu);
+        v25 = "[PUITrackingReportManager reloadDataWithCompletion:]";
+        _os_log_impl(&dword_2657FE000, v16, OS_LOG_TYPE_DEFAULT, "%s: failed to get analytics data", buf, 0xCu);
       }
 
-      v14 = PUILogForCategory(1uLL);
-      v15 = v14;
-      if ((v7 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
+      v17 = PUILogForCategory(1uLL);
+      v18 = v17;
+      if ((v9 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_2657FE000, v15, OS_SIGNPOST_INTERVAL_END, v7, "PUITrackingReportManager.reloadDataWithCompletion", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_2657FE000, v18, OS_SIGNPOST_INTERVAL_END, v9, "PUITrackingReportManager.reloadDataWithCompletion", "", buf, 2u);
       }
     }
 
-    objc_destroyWeak(v20);
+    objc_destroyWeak(v22);
     objc_destroyWeak(&location);
   }
 
   else
   {
-    v16 = _PUILoggingFacility();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v19 = _PUILoggingFacility(trackingReportEnabled);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v23 = "[PUITrackingReportManager reloadDataWithCompletion:]";
-      _os_log_impl(&dword_2657FE000, v16, OS_LOG_TYPE_DEFAULT, "%s: did not query, tracker analytics is off.", buf, 0xCu);
+      v25 = "[PUITrackingReportManager reloadDataWithCompletion:]";
+      _os_log_impl(&dword_2657FE000, v19, OS_LOG_TYPE_DEFAULT, "%s: did not query, tracker analytics is off.", buf, 0xCu);
     }
 
     if (completionCopy)
@@ -387,8 +384,6 @@ uint64_t __56__PUITrackingReportManager_reloadEnabledWithCompletion___block_invo
       completionCopy[2](completionCopy);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __53__PUITrackingReportManager_reloadDataWithCompletion___block_invoke(uint64_t a1, void *a2)
@@ -453,7 +448,7 @@ void __53__PUITrackingReportManager_reloadDataWithCompletion___block_invoke(uint
 
 void __53__PUITrackingReportManager_reloadDataWithCompletion___block_invoke_2(uint64_t a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   WeakRetained = objc_loadWeakRetained((a1 + 104));
   [WeakRetained setAppsToTrackers:v2];
@@ -498,15 +493,15 @@ void __53__PUITrackingReportManager_reloadDataWithCompletion___block_invoke_2(ui
   v21 = *(a1 + 96);
   if (v21)
   {
-    (*(v21 + 16))();
+    v21 = (*(v21 + 16))();
   }
 
-  v22 = _PUILoggingFacility();
+  v22 = _PUILoggingFacility(v21);
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
-    v27 = 136315138;
-    v28 = "[PUITrackingReportManager reloadDataWithCompletion:]_block_invoke_2";
-    _os_log_impl(&dword_2657FE000, v22, OS_LOG_TYPE_DEFAULT, "%s: Finished query for SFNetworkDomainTracker data", &v27, 0xCu);
+    v26 = 136315138;
+    v27 = "[PUITrackingReportManager reloadDataWithCompletion:]_block_invoke_2";
+    _os_log_impl(&dword_2657FE000, v22, OS_LOG_TYPE_DEFAULT, "%s: Finished query for SFNetworkDomainTracker data", &v26, 0xCu);
   }
 
   v23 = PUILogForCategory(1uLL);
@@ -514,11 +509,9 @@ void __53__PUITrackingReportManager_reloadDataWithCompletion___block_invoke_2(ui
   v25 = *(a1 + 112);
   if (v25 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
   {
-    LOWORD(v27) = 0;
-    _os_signpost_emit_with_name_impl(&dword_2657FE000, v24, OS_SIGNPOST_INTERVAL_END, v25, "PUITrackingReportManager.reloadDataWithCompletion", "", &v27, 2u);
+    LOWORD(v26) = 0;
+    _os_signpost_emit_with_name_impl(&dword_2657FE000, v24, OS_SIGNPOST_INTERVAL_END, v25, "PUITrackingReportManager.reloadDataWithCompletion", "", &v26, 2u);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dataDidChange
@@ -541,109 +534,106 @@ void __53__PUITrackingReportManager_reloadDataWithCompletion___block_invoke_2(ui
 
 - (id)appsToTrackersWithoutHiddenApps:(id)apps
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   appsCopy = apps;
   v5 = objc_opt_new();
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v6 = appsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * i);
-        if ([(PUITrackingReportManager *)self shouldIncludeBundleID:v11, v15])
+        v11 = *(*(&v14 + 1) + 8 * i);
+        if ([(PUITrackingReportManager *)self shouldIncludeBundleID:v11, v14])
         {
           v12 = [v6 objectForKeyedSubscript:v11];
           [v5 setObject:v12 forKeyedSubscript:v11];
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (id)allEntriesFromAppsToTrackers:(id)trackers
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   trackersCopy = trackers;
   v4 = objc_opt_new();
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v5 = trackersCopy;
-  v6 = [v5 countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v22 objects:v27 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v24;
+    v8 = *v23;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v24 != v8)
+        if (*v23 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v23 + 1) + 8 * i);
+        v10 = *(*(&v22 + 1) + 8 * i);
+        v18 = 0u;
         v19 = 0u;
         v20 = 0u;
         v21 = 0u;
-        v22 = 0u;
         v11 = [v5 objectForKeyedSubscript:{v10, 0}];
-        v12 = [v11 countByEnumeratingWithState:&v19 objects:v27 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v18 objects:v26 count:16];
         if (v12)
         {
           v13 = v12;
-          v14 = *v20;
+          v14 = *v19;
           do
           {
             for (j = 0; j != v13; ++j)
             {
-              if (*v20 != v14)
+              if (*v19 != v14)
               {
                 objc_enumerationMutation(v11);
               }
 
-              [v4 addObject:*(*(&v19 + 1) + 8 * j)];
+              [v4 addObject:*(*(&v18 + 1) + 8 * j)];
             }
 
-            v13 = [v11 countByEnumeratingWithState:&v19 objects:v27 count:16];
+            v13 = [v11 countByEnumeratingWithState:&v18 objects:v26 count:16];
           }
 
           while (v13);
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
     while (v7);
   }
 
   v16 = [v4 copy];
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -659,39 +649,39 @@ void __53__PUITrackingReportManager_reloadDataWithCompletion___block_invoke_2(ui
 
 - (id)entries:(id)entries filtered:(id)filtered
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   entriesCopy = entries;
   filteredCopy = filtered;
   if (filteredCopy)
   {
     v7 = objc_opt_new();
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v8 = entriesCopy;
-    v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v18;
+      v11 = *v17;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v18 != v11)
+          if (*v17 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v17 + 1) + 8 * i);
+          v13 = *(*(&v16 + 1) + 8 * i);
           if (filteredCopy[2](filteredCopy, v13))
           {
-            [v7 addObject:{v13, v17}];
+            [v7 addObject:{v13, v16}];
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v10);
@@ -705,38 +695,36 @@ void __53__PUITrackingReportManager_reloadDataWithCompletion___block_invoke_2(ui
     v14 = entriesCopy;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
 - (id)valuesAndCountsForKey:(id)key entries:(id)entries
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   entriesCopy = entries;
   v7 = objc_opt_new();
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   obj = entriesCopy;
-  v8 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v8 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v8)
   {
     v9 = v8;
-    v26 = *v28;
-    v25 = *MEMORY[0x277D6B630];
+    v25 = *v27;
+    v24 = *MEMORY[0x277D6B630];
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v28 != v26)
+        if (*v27 != v25)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v27 + 1) + 8 * i);
+        v11 = *(*(&v26 + 1) + 8 * i);
         v12 = [v11 objectForKeyedSubscript:keyCopy];
         v13 = [v7 objectForKeyedSubscript:v12];
 
@@ -746,7 +734,7 @@ void __53__PUITrackingReportManager_reloadDataWithCompletion___block_invoke_2(ui
           v15 = [v11 objectForKeyedSubscript:keyCopy];
           v16 = [v7 objectForKeyedSubscript:v15];
           integerValue = [v16 integerValue];
-          v18 = [v11 objectForKeyedSubscript:v25];
+          v18 = [v11 objectForKeyedSubscript:v24];
           v19 = [v14 numberWithInteger:{objc_msgSend(v18, "integerValue") + integerValue}];
           v20 = [v11 objectForKeyedSubscript:keyCopy];
           [v7 setObject:v19 forKeyedSubscript:v20];
@@ -754,51 +742,50 @@ void __53__PUITrackingReportManager_reloadDataWithCompletion___block_invoke_2(ui
 
         else
         {
-          v15 = [v11 objectForKeyedSubscript:v25];
+          v15 = [v11 objectForKeyedSubscript:v24];
           v16 = [v11 objectForKeyedSubscript:keyCopy];
           [v7 setObject:v15 forKeyedSubscript:v16];
         }
       }
 
-      v9 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v9 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v9);
   }
 
   v21 = [v7 copy];
-  v22 = *MEMORY[0x277D85DE8];
 
   return v21;
 }
 
 - (id)valuesForKey:(id)key withLargestValueForKey:(id)forKey entries:(id)entries
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   forKeyCopy = forKey;
   entriesCopy = entries;
   v10 = objc_opt_new();
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   obj = entriesCopy;
-  v11 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+  v11 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v36;
+    v13 = *v35;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v36 != v13)
+        if (*v35 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v35 + 1) + 8 * i);
+        v15 = *(*(&v34 + 1) + 8 * i);
         v16 = [v15 objectForKeyedSubscript:forKeyCopy];
         v17 = objc_opt_respondsToSelector();
 
@@ -807,30 +794,8 @@ void __53__PUITrackingReportManager_reloadDataWithCompletion___block_invoke_2(ui
           v18 = [v15 objectForKeyedSubscript:keyCopy];
           v19 = [v10 objectForKeyedSubscript:v18];
 
-          if (!v19)
+          if (!v19 || ([v15 objectForKeyedSubscript:keyCopy], v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "objectForKeyedSubscript:", v20), v21 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v15, "objectForKeyedSubscript:", forKeyCopy), v22 = forKeyCopy, v23 = v12, v24 = v13, v25 = v10, v26 = keyCopy, v27 = objc_claimAutoreleasedReturnValue(), v33 = objc_msgSend(v21, "compare:", v27), v27, keyCopy = v26, v10 = v25, v13 = v24, v12 = v23, forKeyCopy = v22, v21, v20, v33 == 1))
           {
-            goto LABEL_9;
-          }
-
-          v20 = [v15 objectForKeyedSubscript:keyCopy];
-          v21 = [v10 objectForKeyedSubscript:v20];
-          [v15 objectForKeyedSubscript:forKeyCopy];
-          v22 = forKeyCopy;
-          v23 = v12;
-          v24 = v13;
-          v25 = v10;
-          v27 = v26 = keyCopy;
-          v34 = [v21 compare:v27];
-
-          keyCopy = v26;
-          v10 = v25;
-          v13 = v24;
-          v12 = v23;
-          forKeyCopy = v22;
-
-          if (v34 == 1)
-          {
-LABEL_9:
             v28 = [v15 objectForKeyedSubscript:forKeyCopy];
             v29 = [v15 objectForKeyedSubscript:keyCopy];
             [v10 setObject:v28 forKeyedSubscript:v29];
@@ -838,119 +803,32 @@ LABEL_9:
         }
       }
 
-      v12 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+      v12 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
     }
 
     while (v12);
   }
 
   v30 = [v10 copy];
-  v31 = *MEMORY[0x277D85DE8];
 
   return v30;
 }
 
 - (id)appsToTrackersInAppOnlyFromAppsToTrackers:(id)trackers
 {
-  v35 = *MEMORY[0x277D85DE8];
-  trackersCopy = trackers;
-  v4 = objc_opt_new();
-  v29 = 0u;
-  v30 = 0u;
-  v31 = 0u;
-  v32 = 0u;
-  obj = trackersCopy;
-  v22 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
-  if (v22)
-  {
-    v21 = *v30;
-    v5 = *MEMORY[0x277D6B638];
-    do
-    {
-      v6 = 0;
-      do
-      {
-        if (*v30 != v21)
-        {
-          objc_enumerationMutation(obj);
-        }
-
-        v24 = v6;
-        v7 = *(*(&v29 + 1) + 8 * v6);
-        v25 = 0u;
-        v26 = 0u;
-        v27 = 0u;
-        v28 = 0u;
-        v8 = [obj objectForKeyedSubscript:{v7, v21}];
-        v9 = [v8 countByEnumeratingWithState:&v25 objects:v33 count:16];
-        if (v9)
-        {
-          v10 = v9;
-          v11 = *v26;
-          do
-          {
-            for (i = 0; i != v10; ++i)
-            {
-              if (*v26 != v11)
-              {
-                objc_enumerationMutation(v8);
-              }
-
-              v13 = *(*(&v25 + 1) + 8 * i);
-              v14 = [v13 objectForKeyedSubscript:v5];
-              v15 = [v14 isEqualToString:@"AppInitiated"];
-
-              if (v15)
-              {
-                v16 = [v4 objectForKeyedSubscript:v7];
-
-                if (!v16)
-                {
-                  v17 = objc_opt_new();
-                  [v4 setObject:v17 forKeyedSubscript:v7];
-                }
-
-                v18 = [v4 objectForKeyedSubscript:v7];
-                [v18 addObject:v13];
-              }
-            }
-
-            v10 = [v8 countByEnumeratingWithState:&v25 objects:v33 count:16];
-          }
-
-          while (v10);
-        }
-
-        v6 = v24 + 1;
-      }
-
-      while (v24 + 1 != v22);
-      v22 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
-    }
-
-    while (v22);
-  }
-
-  v19 = *MEMORY[0x277D85DE8];
-
-  return v4;
-}
-
-- (id)trackersToAppsDictFromAppsToTrackersDict:(id)dict
-{
   v34 = *MEMORY[0x277D85DE8];
-  dictCopy = dict;
+  trackersCopy = trackers;
   v4 = objc_opt_new();
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  obj = dictCopy;
+  obj = trackersCopy;
   v21 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
   if (v21)
   {
     v20 = *v29;
-    v5 = *MEMORY[0x277D6B628];
+    v5 = *MEMORY[0x277D6B638];
     do
     {
       v6 = 0;
@@ -984,16 +862,21 @@ LABEL_9:
 
               v13 = *(*(&v24 + 1) + 8 * i);
               v14 = [v13 objectForKeyedSubscript:v5];
-              v15 = [v4 objectForKeyedSubscript:v14];
+              v15 = [v14 isEqualToString:@"AppInitiated"];
 
-              if (!v15)
+              if (v15)
               {
-                v16 = objc_opt_new();
-                [v4 setObject:v16 forKeyedSubscript:v14];
-              }
+                v16 = [v4 objectForKeyedSubscript:v7];
 
-              v17 = [v4 objectForKeyedSubscript:v14];
-              [v17 addObject:v13];
+                if (!v16)
+                {
+                  v17 = objc_opt_new();
+                  [v4 setObject:v17 forKeyedSubscript:v7];
+                }
+
+                v18 = [v4 objectForKeyedSubscript:v7];
+                [v18 addObject:v13];
+              }
             }
 
             v10 = [v8 countByEnumeratingWithState:&v24 objects:v32 count:16];
@@ -1012,63 +895,140 @@ LABEL_9:
     while (v21);
   }
 
-  v18 = *MEMORY[0x277D85DE8];
+  return v4;
+}
+
+- (id)trackersToAppsDictFromAppsToTrackersDict:(id)dict
+{
+  v33 = *MEMORY[0x277D85DE8];
+  dictCopy = dict;
+  v4 = objc_opt_new();
+  v27 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  obj = dictCopy;
+  v20 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
+  if (v20)
+  {
+    v19 = *v28;
+    v5 = *MEMORY[0x277D6B628];
+    do
+    {
+      v6 = 0;
+      do
+      {
+        if (*v28 != v19)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v22 = v6;
+        v7 = *(*(&v27 + 1) + 8 * v6);
+        v23 = 0u;
+        v24 = 0u;
+        v25 = 0u;
+        v26 = 0u;
+        v8 = [obj objectForKeyedSubscript:{v7, v19}];
+        v9 = [v8 countByEnumeratingWithState:&v23 objects:v31 count:16];
+        if (v9)
+        {
+          v10 = v9;
+          v11 = *v24;
+          do
+          {
+            for (i = 0; i != v10; ++i)
+            {
+              if (*v24 != v11)
+              {
+                objc_enumerationMutation(v8);
+              }
+
+              v13 = *(*(&v23 + 1) + 8 * i);
+              v14 = [v13 objectForKeyedSubscript:v5];
+              v15 = [v4 objectForKeyedSubscript:v14];
+
+              if (!v15)
+              {
+                v16 = objc_opt_new();
+                [v4 setObject:v16 forKeyedSubscript:v14];
+              }
+
+              v17 = [v4 objectForKeyedSubscript:v14];
+              [v17 addObject:v13];
+            }
+
+            v10 = [v8 countByEnumeratingWithState:&v23 objects:v31 count:16];
+          }
+
+          while (v10);
+        }
+
+        v6 = v22 + 1;
+      }
+
+      while (v22 + 1 != v20);
+      v20 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
+    }
+
+    while (v20);
+  }
 
   return v4;
 }
 
 - (id)appsToWebsitesDictFromAppsToTrackersDict:(id)dict
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   dictCopy = dict;
   v4 = objc_opt_new();
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
   obj = dictCopy;
-  v27 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
-  if (v27)
+  v26 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
+  if (v26)
   {
-    v26 = *v37;
+    v25 = *v36;
     v5 = *MEMORY[0x277D6B620];
-    v31 = *MEMORY[0x277D6B638];
+    v30 = *MEMORY[0x277D6B638];
     do
     {
       v6 = 0;
       do
       {
-        if (*v37 != v26)
+        if (*v36 != v25)
         {
           objc_enumerationMutation(obj);
         }
 
-        v29 = v6;
-        v7 = *(*(&v36 + 1) + 8 * v6);
+        v28 = v6;
+        v7 = *(*(&v35 + 1) + 8 * v6);
+        v31 = 0u;
         v32 = 0u;
         v33 = 0u;
         v34 = 0u;
-        v35 = 0u;
-        v30 = [obj objectForKeyedSubscript:{v7, v26}];
-        v8 = [v30 countByEnumeratingWithState:&v32 objects:v40 count:16];
+        v29 = [obj objectForKeyedSubscript:{v7, v25}];
+        v8 = [v29 countByEnumeratingWithState:&v31 objects:v39 count:16];
         if (v8)
         {
           v9 = v8;
-          v10 = *v33;
+          v10 = *v32;
           do
           {
             for (i = 0; i != v9; ++i)
             {
-              if (*v33 != v10)
+              if (*v32 != v10)
               {
-                objc_enumerationMutation(v30);
+                objc_enumerationMutation(v29);
               }
 
-              v12 = *(*(&v32 + 1) + 8 * i);
+              v12 = *(*(&v31 + 1) + 8 * i);
               v13 = [v12 objectForKeyedSubscript:v5];
               if ([v13 length])
               {
-                v14 = [v12 objectForKeyedSubscript:v31];
+                v14 = [v12 objectForKeyedSubscript:v30];
                 v15 = [v14 isEqualToString:@"NonAppInitiated"];
 
                 if (v15)
@@ -1098,81 +1058,79 @@ LABEL_9:
               }
             }
 
-            v9 = [v30 countByEnumeratingWithState:&v32 objects:v40 count:16];
+            v9 = [v29 countByEnumeratingWithState:&v31 objects:v39 count:16];
           }
 
           while (v9);
         }
 
-        v6 = v29 + 1;
+        v6 = v28 + 1;
       }
 
-      while (v29 + 1 != v27);
-      v27 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
+      while (v28 + 1 != v26);
+      v26 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
     }
 
-    while (v27);
+    while (v26);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (id)trackersToWebsitesDictFromAppsToTrackersDict:(id)dict
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   dictCopy = dict;
   v4 = objc_opt_new();
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
   obj = dictCopy;
-  v28 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
-  if (v28)
+  v27 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
+  if (v27)
   {
-    v27 = *v39;
-    v33 = *MEMORY[0x277D6B620];
+    v26 = *v38;
+    v32 = *MEMORY[0x277D6B620];
     v5 = *MEMORY[0x277D6B628];
-    v32 = *MEMORY[0x277D6B638];
+    v31 = *MEMORY[0x277D6B638];
     do
     {
       v6 = 0;
       do
       {
-        if (*v39 != v27)
+        if (*v38 != v26)
         {
           objc_enumerationMutation(obj);
         }
 
-        v30 = v6;
-        v7 = *(*(&v38 + 1) + 8 * v6);
+        v29 = v6;
+        v7 = *(*(&v37 + 1) + 8 * v6);
+        v33 = 0u;
         v34 = 0u;
         v35 = 0u;
         v36 = 0u;
-        v37 = 0u;
-        v31 = [obj objectForKeyedSubscript:v7];
-        v8 = [v31 countByEnumeratingWithState:&v34 objects:v42 count:16];
+        v30 = [obj objectForKeyedSubscript:v7];
+        v8 = [v30 countByEnumeratingWithState:&v33 objects:v41 count:16];
         if (v8)
         {
           v9 = v8;
-          v10 = *v35;
+          v10 = *v34;
           do
           {
             for (i = 0; i != v9; ++i)
             {
-              if (*v35 != v10)
+              if (*v34 != v10)
               {
-                objc_enumerationMutation(v31);
+                objc_enumerationMutation(v30);
               }
 
-              v12 = *(*(&v34 + 1) + 8 * i);
-              v13 = [v12 objectForKeyedSubscript:v33];
+              v12 = *(*(&v33 + 1) + 8 * i);
+              v13 = [v12 objectForKeyedSubscript:v32];
               v14 = [v12 objectForKeyedSubscript:v5];
               if ([v13 length])
               {
-                v15 = [v12 objectForKeyedSubscript:v32];
+                v15 = [v12 objectForKeyedSubscript:v31];
                 v16 = [v15 isEqualToString:@"NonAppInitiated"];
 
                 if (v16)
@@ -1202,23 +1160,21 @@ LABEL_9:
               }
             }
 
-            v9 = [v31 countByEnumeratingWithState:&v34 objects:v42 count:16];
+            v9 = [v30 countByEnumeratingWithState:&v33 objects:v41 count:16];
           }
 
           while (v9);
         }
 
-        v6 = v30 + 1;
+        v6 = v29 + 1;
       }
 
-      while (v30 + 1 != v28);
-      v28 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
+      while (v29 + 1 != v27);
+      v27 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
     }
 
-    while (v28);
+    while (v27);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -1239,6 +1195,47 @@ LABEL_9:
   return v3;
 }
 
+- (void)setTrackingReportEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v19[1] = *MEMORY[0x277D85DE8];
+  if (!enabled)
+  {
+    standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
+    [standardUserDefaults setBool:0 forKey:@"PSUITrackerHasDataKey"];
+  }
+
+  standardUserDefaults2 = [MEMORY[0x277CBEBD0] standardUserDefaults];
+  [standardUserDefaults2 setBool:enabledCopy forKey:@"PSUITrackerAnalyticsEnabledKey"];
+
+  objc_initWeak(&location, self);
+  feed = [(PUITrackingReportManager *)self feed];
+  v18 = *MEMORY[0x277D6B678];
+  v8 = [MEMORY[0x277CCABB0] numberWithBool:enabledCopy];
+  v19[0] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __53__PUITrackingReportManager_setTrackingReportEnabled___block_invoke;
+  v13[3] = &unk_279BA24A8;
+  objc_copyWeak(&v14, &location);
+  v10 = [feed setNetworkDomainsOptions:v9 reply:v13];
+
+  if ((v10 & 1) == 0)
+  {
+    v12 = _PUILoggingFacility(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136315138;
+      v17 = "[PUITrackingReportManager setTrackingReportEnabled:]";
+      _os_log_impl(&dword_2657FE000, v12, OS_LOG_TYPE_DEFAULT, "%s: failed to set analytics value", buf, 0xCu);
+    }
+  }
+
+  objc_destroyWeak(&v14);
+  objc_destroyWeak(&location);
+}
+
 void __53__PUITrackingReportManager_setTrackingReportEnabled___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
@@ -1255,22 +1252,20 @@ void __53__PUITrackingReportManager_setTrackingReportEnabled___block_invoke(uint
 
 void __53__PUITrackingReportManager_setTrackingReportEnabled___block_invoke_2(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = _PUILoggingFacility();
+  v9 = *MEMORY[0x277D85DE8];
+  v2 = _PUILoggingFacility(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 136315394;
-    v7 = "[PUITrackingReportManager setTrackingReportEnabled:]_block_invoke_2";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_2657FE000, v2, OS_LOG_TYPE_DEFAULT, "%s: reply: %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[PUITrackingReportManager setTrackingReportEnabled:]_block_invoke_2";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_2657FE000, v2, OS_LOG_TYPE_DEFAULT, "%s: reply: %@", &v5, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   [WeakRetained dataDidChange];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)exportToStream:(id)stream error:(id *)error
@@ -1347,8 +1342,8 @@ void __53__PUITrackingReportManager_setTrackingReportEnabled___block_invoke_2(ui
               v5 = v38;
               if (!v25)
               {
-                v26 = _PUILoggingFacility();
-                if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+                v27 = _PUILoggingFacility(v26);
+                if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 136315650;
                   v48 = "[PUITrackingReportManager exportToStream:error:]";
@@ -1356,10 +1351,10 @@ void __53__PUITrackingReportManager_setTrackingReportEnabled___block_invoke_2(ui
                   v50 = v5;
                   v51 = 2112;
                   v52 = v12;
-                  _os_log_error_impl(&dword_2657FE000, v26, OS_LOG_TYPE_ERROR, "%s: Error writing to stream: %@, for object %@", buf, 0x20u);
+                  _os_log_error_impl(&dword_2657FE000, v27, OS_LOG_TYPE_ERROR, "%s: Error writing to stream: %@, for object %@", buf, 0x20u);
                 }
 
-                v27 = v5;
+                v28 = v5;
                 *error = v5;
               }
 
@@ -1384,13 +1379,11 @@ void __53__PUITrackingReportManager_setTrackingReportEnabled___block_invoke_2(ui
 
     while (v30);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)highestNumberOfTrackerDataPerAppInAppOnly:(BOOL)only
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (only)
   {
     [(PUITrackingReportManager *)self appsToTrackersInAppOnly];
@@ -1401,26 +1394,26 @@ void __53__PUITrackingReportManager_setTrackingReportEnabled___block_invoke_2(ui
     [(PUITrackingReportManager *)self appsToTrackers];
   }
 
+  v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
-  v3 = v14 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v12 = 0u;
+  v3 = v13 = 0u;
+  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = [v3 objectForKeyedSubscript:{*(*(&v13 + 1) + 8 * i), v13}];
+        v9 = [v3 objectForKeyedSubscript:{*(*(&v12 + 1) + 8 * i), v12}];
         v10 = [v9 count];
 
         if (v10 > v6)
@@ -1429,7 +1422,7 @@ void __53__PUITrackingReportManager_setTrackingReportEnabled___block_invoke_2(ui
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v5);
@@ -1440,13 +1433,12 @@ void __53__PUITrackingReportManager_setTrackingReportEnabled___block_invoke_2(ui
     v6 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (int64_t)highestNumberOfTrackerDataPerTrackerInAppOnly:(BOOL)only
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (only)
   {
     [(PUITrackingReportManager *)self trackersToAppsInAppOnly];
@@ -1457,26 +1449,26 @@ void __53__PUITrackingReportManager_setTrackingReportEnabled___block_invoke_2(ui
     [(PUITrackingReportManager *)self trackersToApps];
   }
 
+  v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
-  v3 = v14 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v12 = 0u;
+  v3 = v13 = 0u;
+  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = [v3 objectForKeyedSubscript:{*(*(&v13 + 1) + 8 * i), v13}];
+        v9 = [v3 objectForKeyedSubscript:{*(*(&v12 + 1) + 8 * i), v12}];
         v10 = [v9 count];
 
         if (v10 > v6)
@@ -1485,7 +1477,7 @@ void __53__PUITrackingReportManager_setTrackingReportEnabled___block_invoke_2(ui
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v5);
@@ -1496,7 +1488,6 @@ void __53__PUITrackingReportManager_setTrackingReportEnabled___block_invoke_2(ui
     v6 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

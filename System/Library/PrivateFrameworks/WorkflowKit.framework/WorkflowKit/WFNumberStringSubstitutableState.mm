@@ -56,7 +56,7 @@
       decimalNumber = legacyNumber2;
       if (legacyNumber2)
       {
-        [legacyNumber2 decimalValue];
+        objc_msgSend_decimalValue(legacyNumber2);
       }
 
       else

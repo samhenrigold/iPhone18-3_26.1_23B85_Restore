@@ -18,6 +18,10 @@
   *(v11 + 16) = v7;
   selfCopy = self;
   sub_100010914(v8, v10, options, sub_1000110E8, v11);
+
+  v10, v13, v14, v15, v16, v17, v18, v19;
+
+  options, v20, v21, v22, v23, v24, v25, v26;
 }
 
 @end

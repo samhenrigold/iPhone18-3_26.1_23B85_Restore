@@ -15,15 +15,21 @@
 - (int)enableWebAccessWithArguments:(id)arguments timeout:(double)timeout;
 - (int)escrowCheck:(id)check json:(BOOL)json;
 - (int)fetchAccountSettingsWithArguments:(id)arguments json:(BOOL)json;
+- (int)fetchAccountWideSettingsWithArguments:(id)arguments useDefault:(BOOL)default forceFetch:(BOOL)fetch json:(BOOL)json;
 - (int)fetchAllBottles:(id)bottles control:(id)control overrideEscrowCache:(BOOL)cache;
+- (int)fetchAllEscrowRecords:(id)records json:(BOOL)json overrideEscrowCache:(BOOL)cache;
+- (int)fetchEscrowRecords:(id)records json:(BOOL)json overrideEscrowCache:(BOOL)cache;
 - (int)fetchTotalTrustedPeersWithArguments:(id)arguments json:(BOOL)json;
 - (int)fetchTrustedFullPeersWithArguments:(id)arguments json:(BOOL)json;
 - (int)fetchUserControllableViewsSyncStatus:(id)status;
 - (int)generateInheritanceKeyWithArguments:(id)arguments json:(BOOL)json timeout:(double)timeout;
+- (int)healthCheck:(id)check skipRateLimitingCheck:(BOOL)limitingCheck repair:(BOOL)repair danglingPeerCleanup:(BOOL)cleanup caesarPeerCleanup:(BOOL)peerCleanup updateIdMS:(BOOL)s json:(BOOL)json;
 - (int)icscRepairResetWithArguments:(id)arguments json:(BOOL)json;
 - (int)joinWithCustodianRecoveryKeyWithArguments:(id)arguments wrappingKey:(id)key wrappedKey:(id)wrappedKey uuidString:(id)string timeout:(double)timeout;
 - (int)joinWithInheritanceKeyWithArguments:(id)arguments wrappingKey:(id)key wrappedKey:(id)wrappedKey uuidString:(id)string timeout:(double)timeout;
 - (int)joinWithRecoveryKeyWithArguments:(id)arguments recoveryKey:(id)key;
+- (int)performCKServerUnreadableDataRemoval:(id)removal appleID:(id)d isGuitarfish:(BOOL)guitarfish dsid:(id)dsid;
+- (int)performEscrowRecovery:(id)recovery recordID:(id)d appleID:(id)iD secret:(id)secret overrideForAccountScript:(BOOL)script overrideEscrowCache:(BOOL)cache;
 - (int)performSilentEscrowRecovery:(id)recovery appleID:(id)d secret:(id)secret;
 - (int)preflightJoinWithCustodianRecoveryKeyWithArguments:(id)arguments wrappingKey:(id)key wrappedKey:(id)wrappedKey uuidString:(id)string timeout:(double)timeout;
 - (int)preflightJoinWithInheritanceKeyWithArguments:(id)arguments wrappingKey:(id)key wrappedKey:(id)wrappedKey uuidString:(id)string timeout:(double)timeout;
@@ -36,9 +42,13 @@
 - (int)removeInheritanceKeyWithArguments:(id)arguments uuidString:(id)string timeout:(double)timeout;
 - (int)removeRecoveryKeyWithArguments:(id)arguments;
 - (int)rerollWithArguments:(id)arguments json:(BOOL)json;
+- (int)reset:(id)reset appleID:(id)d isGuitarfish:(BOOL)guitarfish dsid:(id)dsid;
+- (int)resetAccountCDPContentsWithArguments:(id)arguments idmsTargetContext:(id)context idmsCuttlefishPassword:(id)password notifyIdMS:(BOOL)s;
 - (int)resetOctagon:(id)octagon idmsTargetContext:(id)context idmsCuttlefishPassword:(id)password notifyIdMS:(BOOL)s isDBRv2:(BOOL)rv2 timeout:(double)timeout;
+- (int)resetProtectedData:(id)data appleID:(id)d dsid:(id)dsid idmsTargetContext:(id)context idmsCuttlefishPassword:(id)password isGuitarfish:(BOOL)guitarfish notifyIdMS:(BOOL)s;
 - (int)setMachineIDOverride:(id)override machineID:(id)d json:(BOOL)json;
 - (int)setRecoveryKeyWithArguments:(id)arguments;
+- (int)setUserControllableViewsSyncStatus:(id)status enabled:(BOOL)enabled;
 - (int)signIn:(id)in;
 - (int)signOut:(id)out;
 - (int)simulateReceivePush:(id)push json:(BOOL)json;
@@ -54,6 +64,94 @@
 @end
 
 @implementation OTControlCLI
+
+- (int)performCKServerUnreadableDataRemoval:(id)removal appleID:(id)d isGuitarfish:(BOOL)guitarfish dsid:(id)dsid
+{
+  guitarfishCopy = guitarfish;
+  dsidCopy = dsid;
+  dCopy = d;
+  removalCopy = removal;
+  v12 = objc_alloc_init(OTConfigurationContext);
+  v13 = sub_100004E60(dCopy, dsidCopy);
+
+  [v12 setPasswordEquivalentToken:v13];
+  [v12 setAuthenticationAppleID:dCopy];
+
+  altDSID = [removalCopy altDSID];
+  [v12 setAltDSID:altDSID];
+
+  contextID = [removalCopy contextID];
+  [v12 setContext:contextID];
+
+  containerName = [removalCopy containerName];
+
+  [v12 setContainerName:containerName];
+  [v12 setIsGuitarfish:guitarfishCopy];
+  v24 = 0;
+  v17 = [OTClique performCKServerUnreadableDataRemoval:v12 error:&v24];
+  v18 = v24;
+  v19 = v18;
+  if (v18 || (v17 & 1) == 0)
+  {
+    v21 = __stderrp;
+    v22 = [v18 description];
+    fprintf(v21, "Failed to remove unreadable CK data: %s\n", [v22 UTF8String]);
+
+    v20 = 1;
+  }
+
+  else
+  {
+    puts("Removed unreadable CK data.");
+    v20 = 0;
+  }
+
+  return v20;
+}
+
+- (int)reset:(id)reset appleID:(id)d isGuitarfish:(BOOL)guitarfish dsid:(id)dsid
+{
+  guitarfishCopy = guitarfish;
+  dsidCopy = dsid;
+  dCopy = d;
+  resetCopy = reset;
+  v12 = objc_alloc_init(OTConfigurationContext);
+  v13 = sub_100004E60(dCopy, dsidCopy);
+
+  [v12 setPasswordEquivalentToken:v13];
+  [v12 setAuthenticationAppleID:dCopy];
+
+  altDSID = [resetCopy altDSID];
+  [v12 setAltDSID:altDSID];
+
+  contextID = [resetCopy contextID];
+  [v12 setContext:contextID];
+
+  containerName = [resetCopy containerName];
+
+  [v12 setContainerName:containerName];
+  [v12 setIsGuitarfish:guitarfishCopy];
+  v24 = 0;
+  v17 = [OTClique clearCliqueFromAccount:v12 error:&v24];
+  v18 = v24;
+  v19 = v18;
+  if (v18 || (v17 & 1) == 0)
+  {
+    v21 = __stderrp;
+    v22 = [v18 description];
+    fprintf(v21, "Failed to wipe account data: %s\n", [v22 UTF8String]);
+
+    v20 = 1;
+  }
+
+  else
+  {
+    puts("Account data wiped.");
+    v20 = 0;
+  }
+
+  return v20;
+}
 
 - (int)fetchTrustedFullPeersWithArguments:(id)arguments json:(BOOL)json
 {
@@ -178,6 +276,104 @@
   _Block_object_dispose(&v15, 8);
 
   return v11;
+}
+
+- (int)fetchAccountWideSettingsWithArguments:(id)arguments useDefault:(BOOL)default forceFetch:(BOOL)fetch json:(BOOL)json
+{
+  jsonCopy = json;
+  fetchCopy = fetch;
+  defaultCopy = default;
+  argumentsCopy = arguments;
+  makeConfigurationContext = [argumentsCopy makeConfigurationContext];
+  if (defaultCopy)
+  {
+    v28 = 0;
+    v11 = &v28;
+    v12 = [OTClique fetchAccountWideSettingsDefaultWithForceFetch:fetchCopy configuration:makeConfigurationContext error:&v28];
+  }
+
+  else
+  {
+    v27 = 0;
+    v11 = &v27;
+    v12 = [OTClique fetchAccountWideSettingsWithForceFetch:fetchCopy configuration:makeConfigurationContext error:&v27];
+  }
+
+  v13 = v12;
+  v14 = *v11;
+
+  if (v14)
+  {
+    if (jsonCopy)
+    {
+      v31 = @"error";
+      webAccess2 = [v14 description];
+      v32 = webAccess2;
+      v16 = 1;
+      v17 = [NSDictionary dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+      sub_1000054EC(v17);
+    }
+
+    else
+    {
+      v22 = __stderrp;
+      webAccess2 = [v14 description];
+      fprintf(v22, "Failed to fetch account wide settings: %s\n", [webAccess2 UTF8String]);
+      v16 = 1;
+    }
+  }
+
+  else
+  {
+    if (jsonCopy)
+    {
+      v29[0] = @"walrus";
+      walrus = [v13 walrus];
+      v19 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [walrus enabled]);
+      v29[1] = @"webAccess";
+      v30[0] = v19;
+      webAccess = [v13 webAccess];
+      v21 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [webAccess enabled]);
+      v30[1] = v21;
+      webAccess2 = [NSDictionary dictionaryWithObjects:v30 forKeys:v29 count:2];
+
+      sub_1000054EC(webAccess2);
+    }
+
+    else
+    {
+      puts("successfully fetched account wide settings!");
+      walrus2 = [v13 walrus];
+      if ([walrus2 enabled])
+      {
+        v24 = @"YES";
+      }
+
+      else
+      {
+        v24 = @"NO";
+      }
+
+      printf("walrus enabled? %s\n", [(__CFString *)v24 UTF8String]);
+
+      webAccess2 = [v13 webAccess];
+      if ([webAccess2 enabled])
+      {
+        v25 = @"YES";
+      }
+
+      else
+      {
+        v25 = @"NO";
+      }
+
+      printf("web access enabled? %s\n", [(__CFString *)v25 UTF8String]);
+    }
+
+    v16 = 0;
+  }
+
+  return v16;
 }
 
 - (int)fetchAccountSettingsWithArguments:(id)arguments json:(BOOL)json
@@ -1520,6 +1716,44 @@ LABEL_8:
   return v12;
 }
 
+- (int)resetAccountCDPContentsWithArguments:(id)arguments idmsTargetContext:(id)context idmsCuttlefishPassword:(id)password notifyIdMS:(BOOL)s
+{
+  sCopy = s;
+  argumentsCopy = arguments;
+  contextCopy = context;
+  passwordCopy = password;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x2020000000;
+  v25 = 1;
+  v13 = dispatch_semaphore_create(0);
+  control = [(OTControlCLI *)self control];
+  v19[0] = _NSConcreteStackBlock;
+  v19[1] = 3221225472;
+  v19[2] = sub_10000B494;
+  v19[3] = &unk_100024700;
+  v21 = &v22;
+  v15 = v13;
+  v20 = v15;
+  [control resetAccountCDPContents:argumentsCopy idmsTargetContext:contextCopy idmsCuttlefishPassword:passwordCopy notifyIdMS:sCopy reply:v19];
+
+  v16 = dispatch_time(0, 60000000000);
+  if (dispatch_semaphore_wait(v15, v16))
+  {
+    v17 = 1;
+    fwrite("timed out waiting for restore/recover\n", 0x26uLL, 1uLL, __stderrp);
+    *(v23 + 6) = 1;
+  }
+
+  else
+  {
+    v17 = *(v23 + 6);
+  }
+
+  _Block_object_dispose(&v22, 8);
+  return v17;
+}
+
 - (int)fetchUserControllableViewsSyncStatus:(id)status
 {
   statusCopy = status;
@@ -1539,6 +1773,28 @@ LABEL_8:
   _Block_object_dispose(&v8, 8);
 
   return control;
+}
+
+- (int)setUserControllableViewsSyncStatus:(id)status enabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  statusCopy = status;
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x2020000000;
+  v13 = 1;
+  control = [(OTControlCLI *)self control];
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_10000B7E4;
+  v9[3] = &unk_100024688;
+  v9[4] = &v10;
+  [control setUserControllableViewsSyncStatus:statusCopy enabled:enabledCopy reply:v9];
+
+  LODWORD(enabledCopy) = *(v11 + 6);
+  _Block_object_dispose(&v10, 8);
+
+  return enabledCopy;
 }
 
 - (int)tapToRadar:(id)radar description:(id)description radar:(id)a5
@@ -1649,6 +1905,33 @@ LABEL_8:
   _Block_object_dispose(&v12, 8);
 
   return v8;
+}
+
+- (int)healthCheck:(id)check skipRateLimitingCheck:(BOOL)limitingCheck repair:(BOOL)repair danglingPeerCleanup:(BOOL)cleanup caesarPeerCleanup:(BOOL)peerCleanup updateIdMS:(BOOL)s json:(BOOL)json
+{
+  sCopy = s;
+  peerCleanupCopy = peerCleanup;
+  cleanupCopy = cleanup;
+  repairCopy = repair;
+  limitingCheckCopy = limitingCheck;
+  checkCopy = check;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x2020000000;
+  v23 = 1;
+  control = [(OTControlCLI *)self control];
+  v18[0] = _NSConcreteStackBlock;
+  v18[1] = 3221225472;
+  v18[2] = sub_10000C408;
+  v18[3] = &unk_100024610;
+  jsonCopy = json;
+  v18[4] = &v20;
+  [control healthCheck:checkCopy skipRateLimitingCheck:limitingCheckCopy repair:repairCopy danglingPeerCleanup:cleanupCopy caesarPeerCleanup:peerCleanupCopy updateIdMS:sCopy reply:v18];
+
+  LODWORD(sCopy) = *(v21 + 6);
+  _Block_object_dispose(&v20, 8);
+
+  return sCopy;
 }
 
 - (int)fetchAllBottles:(id)bottles control:(id)control overrideEscrowCache:(BOOL)cache
@@ -2028,6 +2311,218 @@ LABEL_9:
   return v25;
 }
 
+- (int)performEscrowRecovery:(id)recovery recordID:(id)d appleID:(id)iD secret:(id)secret overrideForAccountScript:(BOOL)script overrideEscrowCache:(BOOL)cache
+{
+  cacheCopy = cache;
+  scriptCopy = script;
+  recoveryCopy = recovery;
+  dCopy = d;
+  iDCopy = iD;
+  secretCopy = secret;
+  v17 = objc_alloc_init(OTICDPRecordContext);
+  v18 = objc_alloc_init(OTCDPRecoveryInformation);
+  [v17 setCdpInfo:v18];
+
+  cdpInfo = [v17 cdpInfo];
+  [cdpInfo setRecoverySecret:secretCopy];
+
+  cdpInfo2 = [v17 cdpInfo];
+  [cdpInfo2 setContainsIcdpData:1];
+
+  cdpInfo3 = [v17 cdpInfo];
+  [cdpInfo3 setUsesMultipleIcsc:1];
+
+  v22 = objc_alloc_init(OTEscrowAuthenticationInformation);
+  [v17 setAuthInfo:v22];
+
+  authInfo = [v17 authInfo];
+  [authInfo setAuthenticationAppleid:iDCopy];
+
+  v24 = sub_100004E60(iDCopy, 0);
+  authInfo2 = [v17 authInfo];
+  [authInfo2 setAuthenticationPassword:v24];
+
+  makeConfigurationContext = [recoveryCopy makeConfigurationContext];
+  v27 = makeConfigurationContext;
+  if (cacheCopy)
+  {
+    v28 = 2;
+  }
+
+  else
+  {
+    v28 = 0;
+  }
+
+  [makeConfigurationContext setEscrowFetchSource:v28];
+  [v27 setOverrideForSetupAccountScript:scriptCopy];
+  v60 = 0;
+  v29 = [OTClique fetchEscrowRecords:v27 error:&v60];
+  v30 = v60;
+  v31 = v30;
+  if (!v29 || v30)
+  {
+    v40 = __stderrp;
+    v41 = [v30 description];
+    fprintf(v40, "Failed to fetch escrow records: %s\n", [v41 UTF8String]);
+
+    v42 = 1;
+  }
+
+  else
+  {
+    v52 = secretCopy;
+    v53 = iDCopy;
+    v54 = recoveryCopy;
+    v58 = 0u;
+    v59 = 0u;
+    v56 = 0u;
+    v57 = 0u;
+    v51 = v29;
+    v32 = v29;
+    v33 = [v32 countByEnumeratingWithState:&v56 objects:v61 count:16];
+    if (v33)
+    {
+      v34 = v33;
+      v35 = *v57;
+LABEL_8:
+      v36 = 0;
+      while (1)
+      {
+        if (*v57 != v35)
+        {
+          objc_enumerationMutation(v32);
+        }
+
+        v37 = *(*(&v56 + 1) + 8 * v36);
+        recordId = [v37 recordId];
+        v39 = [recordId isEqualToString:dCopy];
+
+        if (v39)
+        {
+          break;
+        }
+
+        if (v34 == ++v36)
+        {
+          v34 = [v32 countByEnumeratingWithState:&v56 objects:v61 count:16];
+          if (v34)
+          {
+            goto LABEL_8;
+          }
+
+          goto LABEL_14;
+        }
+      }
+
+      v43 = v37;
+
+      if (!v43)
+      {
+        goto LABEL_22;
+      }
+
+      makeConfigurationContext2 = [v54 makeConfigurationContext];
+      [makeConfigurationContext2 setEscrowFetchSource:2];
+      v55 = 0;
+      v45 = [OTClique performEscrowRecovery:makeConfigurationContext2 cdpContext:v17 escrowRecord:v43 error:&v55];
+      v46 = v55;
+      v31 = v46;
+      if (v45)
+      {
+        v47 = v46 == 0;
+      }
+
+      else
+      {
+        v47 = 0;
+      }
+
+      iDCopy = v53;
+      v29 = v51;
+      if (v47)
+      {
+        puts("Successfully performed escrow recovery.");
+        v42 = 0;
+      }
+
+      else
+      {
+        v50 = __stderrp;
+        v48 = [v46 description];
+        fprintf(v50, "Escrow recovery failed: %s\n", [v48 UTF8String]);
+
+        v42 = 1;
+      }
+
+      recoveryCopy = v54;
+      secretCopy = v52;
+    }
+
+    else
+    {
+LABEL_14:
+
+LABEL_22:
+      v42 = 1;
+      fwrite("Failed to find escrow record to restore.\n", 0x29uLL, 1uLL, __stderrp);
+      v31 = 0;
+      iDCopy = v53;
+      recoveryCopy = v54;
+      v29 = v51;
+      secretCopy = v52;
+    }
+  }
+
+  return v42;
+}
+
+- (int)fetchAllEscrowRecords:(id)records json:(BOOL)json overrideEscrowCache:(BOOL)cache
+{
+  jsonCopy = json;
+  if (cache)
+  {
+    v7 = 2;
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  makeConfigurationContext = [records makeConfigurationContext];
+  [makeConfigurationContext setEscrowFetchSource:v7];
+  v13 = 0;
+  v9 = [OTClique fetchAllEscrowRecords:makeConfigurationContext error:&v13];
+  v10 = v13;
+  v11 = [(OTControlCLI *)self checkAndPrintEscrowRecords:v9 error:v10 json:jsonCopy];
+
+  return v11;
+}
+
+- (int)fetchEscrowRecords:(id)records json:(BOOL)json overrideEscrowCache:(BOOL)cache
+{
+  jsonCopy = json;
+  if (cache)
+  {
+    v7 = 2;
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  makeConfigurationContext = [records makeConfigurationContext];
+  [makeConfigurationContext setEscrowFetchSource:v7];
+  v13 = 0;
+  v9 = [OTClique fetchEscrowRecords:makeConfigurationContext error:&v13];
+  v10 = v13;
+  v11 = [(OTControlCLI *)self checkAndPrintEscrowRecords:v9 error:v10 json:jsonCopy];
+
+  return v11;
+}
+
 - (int)checkAndPrintEscrowRecords:(id)records error:(id)error json:(BOOL)json
 {
   jsonCopy = json;
@@ -2326,6 +2821,53 @@ LABEL_19:
   }
 
   printf("%s%s hw:'%s' name:'%s' serial: '%s' os:'%s' epoch:%d\n", uTF8String, [v6 UTF8String], objc_msgSend(v8, "UTF8String"), objc_msgSend(v11, "UTF8String"), objc_msgSend(v13, "UTF8String"), objc_msgSend(v15, "UTF8String"), objc_msgSend(v17, "intValue"));
+}
+
+- (int)resetProtectedData:(id)data appleID:(id)d dsid:(id)dsid idmsTargetContext:(id)context idmsCuttlefishPassword:(id)password isGuitarfish:(BOOL)guitarfish notifyIdMS:(BOOL)s
+{
+  guitarfishCopy = guitarfish;
+  passwordCopy = password;
+  contextCopy = context;
+  dsidCopy = dsid;
+  dCopy = d;
+  dataCopy = data;
+  v19 = objc_alloc_init(OTConfigurationContext);
+  v20 = sub_100004E60(dCopy, dsidCopy);
+
+  [v19 setPasswordEquivalentToken:v20];
+  [v19 setAuthenticationAppleID:dCopy];
+
+  altDSID = [dataCopy altDSID];
+  [v19 setAltDSID:altDSID];
+
+  contextID = [dataCopy contextID];
+  [v19 setContext:contextID];
+
+  containerName = [dataCopy containerName];
+
+  [v19 setContainerName:containerName];
+  [v19 setIsGuitarfish:guitarfishCopy];
+  v31 = 0;
+  v24 = [OTClique resetProtectedData:v19 idmsTargetContext:contextCopy idmsCuttlefishPassword:passwordCopy notifyIdMS:s error:&v31];
+
+  v25 = v31;
+  v26 = v25;
+  if (!v24 || v25)
+  {
+    v28 = __stderrp;
+    v29 = [v25 description];
+    fprintf(v28, "resetProtectedData failed: %s\n", [v29 UTF8String]);
+
+    v27 = 1;
+  }
+
+  else
+  {
+    puts("resetProtectedData succeeded");
+    v27 = 0;
+  }
+
+  return v27;
 }
 
 - (int)resetOctagon:(id)octagon idmsTargetContext:(id)context idmsCuttlefishPassword:(id)password notifyIdMS:(BOOL)s isDBRv2:(BOOL)rv2 timeout:(double)timeout

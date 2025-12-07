@@ -4,6 +4,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (int)packet_count;
 - (void)setFeatures_at_endpoint:(id)features_at_endpoint;
+- (void)setPacket_count:(int)packet_count;
 - (void)setServer_feature_latency_distribution:(id)server_feature_latency_distribution;
 - (void)setTotal_audio_recorded_seconds:(float)total_audio_recorded_seconds;
 @end
@@ -37,6 +38,12 @@
   v4 = v3;
 
   return v4;
+}
+
+- (void)setPacket_count:(int)packet_count
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&packet_count];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 - (int)packet_count

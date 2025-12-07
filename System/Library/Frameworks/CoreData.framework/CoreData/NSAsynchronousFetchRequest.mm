@@ -52,11 +52,13 @@
 - (id)description
 {
   v3 = objc_autoreleasePoolPush();
-  v6.receiver = self;
-  v6.super_class = NSAsynchronousFetchRequest;
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ with fetch request %@", -[NSAsynchronousFetchRequest description](&v6, sel_description), self->_fetchRequest];
+  v4 = MEMORY[0x1E696AEC0];
+  v8.receiver = self;
+  v8.super_class = NSAsynchronousFetchRequest;
+  v5 = [(NSAsynchronousFetchRequest *)&v8 description];
+  v6 = objc_msgSend_stringWithFormat_(v4, v5, self->_fetchRequest);
   objc_autoreleasePoolPop(v3);
-  return v4;
+  return v6;
 }
 
 @end

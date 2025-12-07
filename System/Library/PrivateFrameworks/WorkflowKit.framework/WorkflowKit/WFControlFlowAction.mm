@@ -42,13 +42,12 @@
 
 BOOL __49__WFControlFlowAction_groupedIntermediaryActions__block_invoke(uint64_t a1, void *a2)
 {
-  v2 = *(a1 + 32);
-  v3 = a2;
-  v4 = objc_opt_class();
-  v5 = WFEnforceClass_1501(v3, v4);
+  v2 = a2;
+  v3 = objc_opt_class();
+  v4 = WFEnforceClass_1501(v2, v3);
 
-  v6 = [v5 mode] == 1;
-  return v6;
+  v5 = [v4 mode] == 1;
+  return v5;
 }
 
 - (id)groupedCloseAction
@@ -86,32 +85,29 @@ BOOL __41__WFControlFlowAction_groupedCloseAction__block_invoke(uint64_t a1, voi
 
 BOOL __40__WFControlFlowAction_groupedOpenAction__block_invoke(uint64_t a1, void *a2)
 {
-  v2 = *(a1 + 32);
-  v3 = a2;
-  v4 = objc_opt_class();
-  v5 = WFEnforceClass_1501(v3, v4);
+  v2 = a2;
+  v3 = objc_opt_class();
+  v4 = WFEnforceClass_1501(v2, v3);
 
-  v6 = [v5 mode] == 0;
-  return v6;
+  v5 = [v4 mode] == 0;
+  return v5;
 }
 
 - (id)outputContentClasses
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   if ([(WFControlFlowAction *)self mode]== 2)
   {
-    v7[0] = objc_opt_class();
-    outputContentClasses = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
+    v6[0] = objc_opt_class();
+    outputContentClasses = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
   }
 
   else
   {
-    v6.receiver = self;
-    v6.super_class = WFControlFlowAction;
-    outputContentClasses = [(WFAction *)&v6 outputContentClasses];
+    v5.receiver = self;
+    v5.super_class = WFControlFlowAction;
+    outputContentClasses = [(WFAction *)&v5 outputContentClasses];
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return outputContentClasses;
 }
@@ -171,20 +167,18 @@ BOOL __40__WFControlFlowAction_groupedOpenAction__block_invoke(uint64_t a1, void
 
 - (id)createAccompanyingActionWithMode:(int64_t)mode
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   [(WFControlFlowAction *)self generateGroupingIdentifierIfNecessary];
-  v12 = @"WFControlFlowMode";
+  v11 = @"WFControlFlowMode";
   v5 = [MEMORY[0x1E696AD98] numberWithInteger:mode];
-  v13[0] = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
-  v11.receiver = self;
-  v11.super_class = WFControlFlowAction;
-  v7 = [(WFAction *)&v11 copyWithSerializedParameters:v6];
+  v12[0] = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v10.receiver = self;
+  v10.super_class = WFControlFlowAction;
+  v7 = [(WFAction *)&v10 copyWithSerializedParameters:v6];
 
   groupingIdentifier = [(WFAction *)self groupingIdentifier];
   [v7 setGroupingIdentifier:groupingIdentifier];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

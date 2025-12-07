@@ -1,10 +1,10 @@
 @interface CATransformLayer(TSUEdgeAntialiasingUtility)
-- (uint64_t)tsu_recursivelySetAllowsEdgeAntialiasing:()TSUEdgeAntialiasingUtility;
+- (void)tsu_recursivelySetAllowsEdgeAntialiasing:()TSUEdgeAntialiasingUtility;
 @end
 
 @implementation CATransformLayer(TSUEdgeAntialiasingUtility)
 
-- (uint64_t)tsu_recursivelySetAllowsEdgeAntialiasing:()TSUEdgeAntialiasingUtility
+- (void)tsu_recursivelySetAllowsEdgeAntialiasing:()TSUEdgeAntialiasingUtility
 {
   v14 = *MEMORY[0x277D85DE8];
   v9 = 0u;
@@ -27,7 +27,8 @@
           objc_enumerationMutation(sublayers);
         }
 
-        [*(*(&v9 + 1) + 8 * v8++) tsu_recursivelySetAllowsEdgeAntialiasing:a3];
+        [*(*(&v9 + 1) + 8 * v8) tsu_recursivelySetAllowsEdgeAntialiasing:a3];
+        v8 = v8 + 1;
       }
 
       while (v6 != v8);

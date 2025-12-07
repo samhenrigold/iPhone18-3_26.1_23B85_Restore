@@ -28,7 +28,7 @@
 - (NSString)reuseIdentifier
 {
   swift_getObjectType();
-  sub_10015DA04(&unk_1006C5D80);
+  sub_10015DA04(&unk_1006C5D80, &qword_100546208);
   String.init<A>(describing:)();
   v2 = String._bridgeToObjectiveC()();
 
@@ -37,7 +37,7 @@
 
 - (void)_bridgedUpdateConfigurationUsingState:(id)state
 {
-  v4 = sub_10015DA04(&qword_1006C5030);
+  v4 = sub_10015DA04(&qword_1006C5030, &unk_10053FDA0);
   __chkstk_darwin(v4 - 8);
   v6 = &v16 - v5;
   v7 = type metadata accessor for UIBackgroundConfiguration();
@@ -64,7 +64,7 @@
 
 - (NSArray)objectIds
 {
-  sub_1000054A4(0, &qword_1006BFEC0);
+  sub_1000054A4(0, &qword_1006BFEC0, NSManagedObjectID_ptr);
 
   v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
@@ -73,7 +73,7 @@
 
 - (void)setObjectIds:(id)ids
 {
-  sub_1000054A4(0, &qword_1006BFEC0);
+  sub_1000054A4(0, &qword_1006BFEC0, NSManagedObjectID_ptr);
   *(self + OBJC_IVAR___ICMoveHeaderView_objectIds) = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
 

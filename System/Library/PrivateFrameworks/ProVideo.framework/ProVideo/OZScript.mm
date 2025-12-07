@@ -79,7 +79,7 @@ void __16__OZScript_init__block_invoke_1(uint64_t a1, uint64_t a2)
   dispatch_async(MEMORY[0x277D85CD0], v3);
 }
 
-uint64_t __21__OZScript_dispatch___block_invoke(uint64_t a1)
+void *__21__OZScript_dispatch___block_invoke(uint64_t a1)
 {
   v1 = [*(*(a1 + 32) + 24) objectForKeyedSubscript:*(a1 + 40)];
   result = [v1 isUndefined];

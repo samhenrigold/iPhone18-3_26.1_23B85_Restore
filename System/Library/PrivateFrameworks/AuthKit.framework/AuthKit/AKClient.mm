@@ -163,7 +163,7 @@
   connection = self->_connection;
   if (connection)
   {
-    [(NSXPCConnection *)connection auditToken];
+    objc_msgSend_auditToken(connection);
   }
 
   else
@@ -208,7 +208,7 @@
   connection = self->_connection;
   if (connection)
   {
-    [(NSXPCConnection *)connection auditToken];
+    objc_msgSend_auditToken(connection);
   }
 
   else
@@ -486,7 +486,7 @@
     auditToken = selfCopy->_auditToken;
     if (auditToken)
     {
-      [(BSAuditToken *)auditToken realToken];
+      objc_msgSend_realToken(auditToken);
     }
 
     else
@@ -505,7 +505,7 @@
     v7 = 0u;
     if (location)
     {
-      [location realToken];
+      objc_msgSend_realToken(location);
     }
 
     else

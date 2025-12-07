@@ -1,753 +1,3 @@
-void sub_213C2B8B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  llvm::IRBuilder<llvm::ConstantFolder,llvm::IRBuilderDefaultInserter>::~IRBuilder(va);
-  _Unwind_Resume(a1);
-}
-
-void *std::__tree<std::__value_type<llvm::Function *,llvm::Value *>,std::__map_value_compare<llvm::Function *,std::__value_type<llvm::Function *,llvm::Value *>,std::less<llvm::Function *>,true>,std::allocator<std::__value_type<llvm::Function *,llvm::Value *>>>::__emplace_unique_key_args<llvm::Function *,std::piecewise_construct_t const&,std::tuple<llvm::Function * const&>,std::tuple<>>(uint64_t a1, unint64_t *a2)
-{
-  v2 = *(a1 + 8);
-  if (!v2)
-  {
-LABEL_8:
-    operator new();
-  }
-
-  v3 = *a2;
-  while (1)
-  {
-    while (1)
-    {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
-      {
-        break;
-      }
-
-      v2 = *v4;
-      if (!*v4)
-      {
-        goto LABEL_8;
-      }
-    }
-
-    if (v5 >= v3)
-    {
-      return v4;
-    }
-
-    v2 = v4[1];
-    if (!v2)
-    {
-      goto LABEL_8;
-    }
-  }
-}
-
-void MTLMemoryCheckPass::~MTLMemoryCheckPass(MTLMemoryCheckPass *this)
-{
-  *this = &unk_282633520;
-  v1 = this + 136;
-  llvm::DenseMap<llvm::Function *,llvm::MDTuple *,llvm::DenseMapInfo<llvm::Function *,void>,llvm::detail::DenseMapPair<llvm::Function *,llvm::MDTuple *>>::~DenseMap(this + 160);
-  llvm::DenseMap<llvm::Function *,llvm::MDTuple *,llvm::DenseMapInfo<llvm::Function *,void>,llvm::detail::DenseMapPair<llvm::Function *,llvm::MDTuple *>>::~DenseMap(v1);
-
-  JUMPOUT(0x21604B480);
-}
-
-{
-  *this = &unk_282633520;
-  v2 = this + 136;
-  llvm::DenseMap<llvm::Function *,llvm::MDTuple *,llvm::DenseMapInfo<llvm::Function *,void>,llvm::detail::DenseMapPair<llvm::Function *,llvm::MDTuple *>>::~DenseMap(this + 160);
-  llvm::DenseMap<llvm::Function *,llvm::MDTuple *,llvm::DenseMapInfo<llvm::Function *,void>,llvm::detail::DenseMapPair<llvm::Function *,llvm::MDTuple *>>::~DenseMap(v2);
-  MEMORY[0x21604B480](this);
-
-  JUMPOUT(0x21604C990);
-}
-
-uint64_t MTLMemoryCheckPass::runOnModule(MTLMemoryCheckPass *this, llvm::Module *a2)
-{
-  MetalModulePass::runOnModule(this, a2);
-  for (i = *(a2 + 4); i != (a2 + 24); i = i[1])
-  {
-    if (i)
-    {
-      v5 = (i - 7);
-    }
-
-    else
-    {
-      v5 = 0;
-    }
-
-    if ((*(v5 + 8) & 0xF) != 1 && (llvm::GlobalValue::isDeclaration(v5) & 1) == 0 && !llvm::Value::getMetadata())
-    {
-      MTLMemoryCheckPass::runOnFunction(this, v5);
-    }
-  }
-
-  return 1;
-}
-
-uint64_t MTLMemoryCheckPass::runOnFunction(MTLMemoryCheckPass *this, llvm::Function *a2)
-{
-  v31[12] = *MEMORY[0x277D85DE8];
-  v2 = a2 + 72;
-  v3 = *(a2 + 10);
-  if (v3 != a2 + 72)
-  {
-    do
-    {
-      v5 = v3 - 24;
-      if (!v3)
-      {
-        v5 = 0;
-      }
-
-      v6 = *(v5 + 6);
-      v7 = (v6 - 24);
-      if (v6)
-      {
-        v8 = v6 - 24;
-      }
-
-      else
-      {
-        v8 = 0;
-      }
-
-      v28 = v31;
-      v30 = 4;
-      if (*(v8 + 16) - 29 >= 0xB)
-      {
-        do
-        {
-          v29 = 0;
-          MTLBoundsCheck::gatherMemoryOperands(v7, &v28);
-          if (!v29)
-          {
-            goto LABEL_30;
-          }
-
-          v9 = v28;
-          v10 = 24 * v29;
-          while (1)
-          {
-            v11 = *v9;
-            v12 = **v9;
-            v13 = *(v12 + 8);
-            if ((v13 & 0xFE) == 0x12)
-            {
-              v13 = *(**(v12 + 16) + 8);
-            }
-
-            if (*(v11 + 16) == 3 && (v11[10] & 2) != 0)
-            {
-              llvm::DenseMapBase<llvm::DenseMap<llvm::CallInst *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::CallInst *,void>,llvm::detail::DenseSetPair<llvm::CallInst *>>,llvm::CallInst *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::CallInst *,void>,llvm::detail::DenseSetPair<llvm::CallInst *>>::try_emplace<llvm::detail::DenseSetEmpty&>(*(this + 8) + 88, v9, v26);
-            }
-
-            if ((v13 >> 8) - 1 <= 1 && *(v9 + 4) != 0)
-            {
-              break;
-            }
-
-            v9 += 3;
-            v10 -= 24;
-            if (!v10)
-            {
-              goto LABEL_30;
-            }
-          }
-
-          if (!v29)
-          {
-            goto LABEL_30;
-          }
-
-          v15 = v28;
-          v16 = 24 * v29;
-          while (1)
-          {
-            v17 = *(this + 8);
-            v26[0] = *v15;
-            v27 = 0;
-            if ((llvm::DenseMapBase<llvm::DenseMap<llvm::CallInst *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::CallInst *,void>,llvm::detail::DenseSetPair<llvm::CallInst *>>,llvm::CallInst *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::CallInst *,void>,llvm::detail::DenseSetPair<llvm::CallInst *>>::LookupBucketFor<llvm::CallInst *>((v17 + 88), v26, &v27) & 1) == 0)
-            {
-              break;
-            }
-
-            v15 += 3;
-            v16 -= 24;
-            if (!v16)
-            {
-              goto LABEL_30;
-            }
-          }
-
-          if (v29 && (v18 = MTLMemoryCheckPass::createCheckedInstructionCall(this, v7), (v20 = v18) != 0))
-          {
-            *(v18 + 9) &= 0xFFFCu;
-            llvm::ReplaceInstWithInst(v7, v18, v19);
-          }
-
-          else
-          {
-LABEL_30:
-            v20 = v7;
-          }
-
-          v21 = *(v20 + 4);
-          v7 = (v21 - 24);
-          if (v21)
-          {
-            v22 = v21 == *(v20 + 5) + 40;
-          }
-
-          else
-          {
-            v22 = 1;
-          }
-
-          if (v22)
-          {
-            v23 = 0;
-          }
-
-          else
-          {
-            v23 = v21 - 24;
-          }
-        }
-
-        while (*(v23 + 16) - 29 > 0xA);
-        if (v28 != v31)
-        {
-          free(v28);
-        }
-      }
-
-      v3 = *(v3 + 1);
-    }
-
-    while (v3 != v2);
-  }
-
-  v24 = *MEMORY[0x277D85DE8];
-  return 1;
-}
-
-void sub_213C2BE04(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14)
-{
-  if (a14 != v14)
-  {
-    free(a14);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t MTLMemoryCheckPass::createCheckedInstructionCall(uint64_t a1, uint64_t a2)
-{
-  if ((*(a2 + 48) || (*(a2 + 23) & 0x20) != 0) && llvm::Instruction::getMetadataImpl())
-  {
-    return 0;
-  }
-
-  v5 = *(a2 + 16);
-  switch(v5)
-  {
-    case 'T':
-
-      return MTLMemoryCheckPass::createCheckedFunction(a1, a2);
-    case '=':
-
-      return MTLMemoryCheckPass::createCheckedStoreCall(a1, a2);
-    case '<':
-
-      return MTLMemoryCheckPass::createCheckedLoadCall(a1, a2);
-    default:
-      return 0;
-  }
-}
-
-uint64_t MTLMemoryCheckPass::createCheckedLoadCall(uint64_t a1, uint64_t a2)
-{
-  v23 = *MEMORY[0x277D85DE8];
-  v18 = **(a2 - 32);
-  if (!a2 || (v4 = a2, *(a2 + 16) != 60))
-  {
-    v4 = *(a2 - 64);
-  }
-
-  v5 = *v4;
-  v6 = *(a2 + 18);
-  v7 = *(a1 + 48);
-  v16[0] = "mtl.checked_load.";
-  v16[2] = (1 << (v6 >> 1));
-  v17 = 2307;
-  v21[0] = v16;
-  v21[2] = ".";
-  v22 = 770;
-  v19[0] = v21;
-  v19[2] = (v6 & 1);
-  v20 = 2306;
-  v8 = getMangledFunction<llvm::Type *&,llvm::Type *&>(v7, v19, *a2, &v18, (a1 + 80));
-  if (llvm::GlobalValue::isDeclaration(v8))
-  {
-    *(v8 + 32) = *(v8 + 32) & 0xFFFFBFC0 | 0x4007;
-    llvm::Function::addFnAttr();
-    llvm::Function::addFnAttr();
-    v9 = *(a1 + 40);
-    llvm::MDTuple::getImpl();
-    llvm::Value::setMetadata();
-    llvm::Function::addFnAttr();
-    v10 = *(a1 + 40);
-    v19[0] = "entry";
-    v20 = 259;
-    llvm::BasicBlock::Create(v10, v19, v8, 0, v11);
-  }
-
-  if (v8)
-  {
-    v12 = *(v8 + 24);
-  }
-
-  else
-  {
-    v12 = 0;
-  }
-
-  v21[0] = *(a2 - 32);
-  v13 = *(a1 + 80);
-  MTLBoundsCheck::SharedPassData::indexForInstruction(*(a1 + 64), a2);
-  v21[1] = llvm::ConstantInt::get();
-  v20 = 257;
-  result = llvm::CallInst::Create(v12, v8, v21, 2, 0, 0);
-  v15 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void sub_213C2C5B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
-{
-  va_start(va, a15);
-  llvm::IRBuilder<llvm::ConstantFolder,llvm::IRBuilderDefaultInserter>::~IRBuilder(va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t MTLMemoryCheckPass::createCheckedStoreCall(uint64_t a1, uint64_t a2)
-{
-  v27 = *MEMORY[0x277D85DE8];
-  v21 = **(a2 - 32);
-  if (!a2 || (v4 = a2, *(a2 + 16) != 60))
-  {
-    v4 = *(a2 - 64);
-  }
-
-  v5 = *v4;
-  v6 = *(a2 + 18);
-  v19 = 1 << (v6 >> 1);
-  v20 = v5;
-  v7 = *(a1 + 48);
-  v17[0] = "mtl.checked_store.";
-  v17[2] = &v19;
-  v18 = 3075;
-  v24[0] = v17;
-  v25 = ".";
-  v26 = 770;
-  v22[0] = v24;
-  v22[2] = (v6 & 1);
-  v23 = 2306;
-  v8 = getMangledFunction<llvm::Type *&,llvm::Type *&,llvm::Type *&>(v7, v22, *a2, &v21, &v20, (a1 + 80));
-  if (llvm::GlobalValue::isDeclaration(v8))
-  {
-    *(v8 + 32) = *(v8 + 32) & 0xFFFFBFC0 | 0x4007;
-    llvm::Function::addFnAttr();
-    llvm::Function::addFnAttr();
-    v9 = *(a1 + 40);
-    llvm::MDTuple::getImpl();
-    llvm::Value::setMetadata();
-    v10 = *(a1 + 40);
-    v22[0] = "entry";
-    v23 = 259;
-    llvm::BasicBlock::Create(v10, v22, v8, 0, v11);
-  }
-
-  if (v8)
-  {
-    v12 = *(v8 + 24);
-  }
-
-  else
-  {
-    v12 = 0;
-  }
-
-  v13 = *(a2 - 64);
-  v24[0] = *(a2 - 32);
-  v24[1] = v13;
-  v14 = *(a1 + 80);
-  MTLBoundsCheck::SharedPassData::indexForInstruction(*(a1 + 64), a2);
-  v25 = llvm::ConstantInt::get();
-  v23 = 257;
-  result = llvm::CallInst::Create(v12, v8, v24, 3, 0, 0);
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void sub_213C2CCA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
-{
-  va_start(va, a15);
-  llvm::IRBuilder<llvm::ConstantFolder,llvm::IRBuilderDefaultInserter>::~IRBuilder(va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t MTLMemoryCheckPass::createCheckedFunction(uint64_t a1, uint64_t a2)
-{
-  v76[12] = *MEMORY[0x277D85DE8];
-  v2 = *(a2 - 32);
-  if (!v2 || *(v2 + 16) || (v4 = *(a2 + 72), *(v2 + 24) != v4) || !llvm::GlobalValue::isDeclaration(*(a2 - 32)) || llvm::Value::getMetadata() || (Name = llvm::Value::getName(v2), v60 = Name, v61 = v7, v7 < 4) || *Name != 779250017 && (v7 == 4 || (*Name == 1836477548 ? (v8 = Name[4] == 46) : (v8 = 0), !v8)))
-  {
-    v9 = 0;
-    goto LABEL_14;
-  }
-
-  v74 = v76;
-  v75 = 0x400000000;
-  MTLBoundsCheck::gatherMemoryArguments(v2, &v74);
-  v12 = v74;
-  if (v75)
-  {
-    v13 = 0;
-    while (1)
-    {
-      v14 = *v74[v13];
-      v15 = *(v14 + 8);
-      if ((v15 & 0xFE) == 0x12)
-      {
-        v15 = *(**(v14 + 16) + 8);
-      }
-
-      if ((v15 >> 8) - 1 < 2)
-      {
-        break;
-      }
-
-      v13 += 3;
-      if (3 * v75 == v13)
-      {
-        goto LABEL_21;
-      }
-    }
-
-    v16 = *(v4 + 12);
-    v62[0] = 0;
-    llvm::SmallVector<unsigned long,6u>::SmallVector(&v72, (v16 + 62) >> 6, v62);
-    v17 = v16 - 1;
-    v73[12] = v16 - 1;
-    v70[0] = v71;
-    v70[1] = 0x400000000;
-    v67 = v69;
-    v68 = xmmword_213C7D3E0;
-    llvm::raw_svector_ostream::raw_svector_ostream(v58, &v67);
-    llvm::raw_ostream::operator<<(v58, "mtl.checked.", 0xCuLL);
-    llvm::raw_ostream::operator<<(v58, v60, v61);
-    if (v61 < 0xB)
-    {
-      goto LABEL_65;
-    }
-
-    if ((*v60 != 0x6D656D2E6D766C6CLL || *(v60 + 3) != 0x7970636D656D2E6DLL) && (*v60 != 0x6D656D2E6D766C6CLL || *(v60 + 3) != 0x7465736D656D2E6DLL))
-    {
-      if (v61 == 11)
-      {
-LABEL_65:
-        v37 = *(a1 + 48);
-        v38 = *v59;
-        v39 = v59[1];
-        Function = llvm::Module::getFunction();
-        if (!Function)
-        {
-          llvm::DenseMap<llvm::ValueMapCallbackVH<llvm::Value const*,llvm::WeakTrackingVH,llvm::ValueMapConfig<llvm::Value const*,llvm::sys::SmartMutex<false>>>,llvm::WeakTrackingVH,llvm::DenseMapInfo<llvm::ValueMapCallbackVH<llvm::Value const*,llvm::WeakTrackingVH,llvm::ValueMapConfig<llvm::Value const*,llvm::sys::SmartMutex<false>>>,void>,llvm::detail::DenseMapPair<llvm::ValueMapCallbackVH<llvm::Value const*,llvm::WeakTrackingVH,llvm::ValueMapConfig<llvm::Value const*,llvm::sys::SmartMutex<false>>>,llvm::WeakTrackingVH>>::init(v66, 64);
-          v66[24] = 0;
-          v66[48] = 0;
-          v64[0] = &v65;
-          v64[1] = 0x400000000;
-          v45 = *(v4 + 12);
-          if (v45 != 1)
-          {
-            v46 = 0;
-            do
-            {
-              if (((*(v72 + ((v46 >> 3) & 0x1FFFFFFFFFFFFFF8)) >> v46) & 1) == 0)
-              {
-                v62[0] = *(*(v4 + 16) + 8 * (v46 + 1));
-                llvm::SmallVectorImpl<llvm::Type *>::emplace_back<llvm::Type *&>(v64, v62);
-                v62[0] = *(a2 - 32 * (*(a2 + 20) & 0x7FFFFFF) + 32 * v46);
-                llvm::SmallVectorImpl<llvm::Type *>::emplace_back<llvm::Type *&>(v70, v62);
-                v45 = *(v4 + 12);
-              }
-
-              ++v46;
-            }
-
-            while (v46 < (v45 - 1));
-          }
-
-          llvm::SmallVectorImpl<llvm::Type *>::emplace_back<llvm::Type *&>(v64, (a1 + 80));
-          v47 = *(a1 + 80);
-          MTLBoundsCheck::SharedPassData::indexForInstruction(*(a1 + 64), a2);
-          v62[0] = llvm::ConstantInt::get();
-          llvm::SmallVectorImpl<llvm::Type *>::emplace_back<llvm::Type *&>(v70, v62);
-          v48 = **(v4 + 16);
-          v49 = llvm::FunctionType::get();
-          v51 = *v59;
-          v50 = v59[1];
-          v63 = 261;
-          v62[0] = v51;
-          v62[1] = v50;
-          v52 = llvm::Function::Create(v49, 7, v62, *(a1 + 48));
-          *(v52 + 9) = *(v52 + 9) & 0xC00F | *(v2 + 18) & 0x3FF0;
-          v53 = *(a1 + 40);
-          llvm::MDTuple::getImpl();
-          llvm::Value::setMetadata();
-          llvm::Function::addFnAttr();
-          llvm::Function::addFnAttr();
-          v54 = *(a1 + 40);
-          v62[0] = "entry";
-          v63 = 259;
-          llvm::BasicBlock::Create(v54, v62, v52, 0, v55);
-        }
-
-        v41 = *(v4 + 12);
-        if (v41 != 1)
-        {
-          v42 = 0;
-          v43 = a2;
-          do
-          {
-            if (((*(v72 + ((v42 >> 3) & 0x1FFFFFFFFFFFFFF8)) >> v42) & 1) == 0)
-            {
-              v62[0] = *(v43 - 32 * (*(a2 + 20) & 0x7FFFFFF));
-              llvm::SmallVectorImpl<llvm::Type *>::emplace_back<llvm::Type *&>(v70, v62);
-              v41 = *(v4 + 12);
-            }
-
-            ++v42;
-            v43 += 32;
-          }
-
-          while (v42 < (v41 - 1));
-        }
-
-        v44 = *(a1 + 80);
-        MTLBoundsCheck::SharedPassData::indexForInstruction(*(a1 + 64), a2);
-        v62[0] = llvm::ConstantInt::get();
-        llvm::SmallVectorImpl<llvm::Type *>::emplace_back<llvm::Type *&>(v70, v62);
-        llvm::raw_ostream::~raw_ostream(v58);
-        if (v67 != v69)
-        {
-          free(v67);
-        }
-
-        v56 = *(Function + 24);
-        v63 = 257;
-        v9 = llvm::CallInst::Create(v56);
-        v57 = *(v9 + 18) & 0xFFFC | *(a2 + 18) & 3;
-        *(v9 + 18) = v57;
-        *(v9 + 18) = v57 & 0xF003 | *(a2 + 18) & 0xFFC;
-        if (v70[0] != v71)
-        {
-          free(v70[0]);
-        }
-
-        if (v72 != v73)
-        {
-          free(v72);
-        }
-
-        v12 = v74;
-        goto LABEL_85;
-      }
-
-      if (*v60 != 0x6D656D2E6D766C6CLL || *(v60 + 2) != 1702260589)
-      {
-        if (v61 >= 0x11)
-        {
-          v21 = *v60 == 0x6D6F74612E726961 && *(v60 + 1) == 0x61626F6C672E6369;
-          if (v21 && v60[16] == 108)
-          {
-            v23 = llvm::StringRef::find() == -1 ? -3 : -4;
-            v24 = v23 + v17;
-            if (__CFADD__(v23, v17))
-            {
-              v25 = a2 + 32 * v24;
-              do
-              {
-                *(v72 + (v24 >> 6)) |= 1 << v24;
-                v26 = *(v25 - 32 * (*(a2 + 20) & 0x7FFFFFF));
-                v27 = (v26 + 24);
-                if (*(v26 + 32) >= 0x41u)
-                {
-                  v27 = *v27;
-                }
-
-                v28 = *v27;
-                llvm::raw_ostream::operator<<(v58, ".", 1uLL);
-                llvm::raw_ostream::operator<<();
-                LODWORD(v24) = v24 + 1;
-                v25 += 32;
-              }
-
-              while (!__CFADD__(v23++, 1));
-            }
-          }
-        }
-
-        goto LABEL_65;
-      }
-    }
-
-    if (v17 >= 4)
-    {
-      v30 = 3;
-      if (v16 == 6)
-      {
-        v30 = 4;
-      }
-
-      *v72 |= 1 << v30;
-      v31 = *(a2 - 32 * (*(a2 + 20) & 0x7FFFFFF) + 32 * v30);
-      v32 = (v31 + 24);
-      if (*(v31 + 32) >= 0x41u)
-      {
-        v32 = *v32;
-      }
-
-      v33 = *v32;
-      llvm::raw_ostream::operator<<(v58, ".", 1uLL);
-      llvm::raw_ostream::operator<<();
-      if (v17 == 5)
-      {
-        *v72 |= 8uLL;
-        v34 = *(a2 - 32 * (*(a2 + 20) & 0x7FFFFFF) + 96);
-        v35 = (v34 + 24);
-        if (*(v34 + 32) >= 0x41u)
-        {
-          v35 = *v35;
-        }
-
-        v36 = *v35;
-        llvm::raw_ostream::operator<<(v58, ".", 1uLL);
-        llvm::raw_ostream::operator<<();
-      }
-    }
-
-    goto LABEL_65;
-  }
-
-LABEL_21:
-  v9 = 0;
-LABEL_85:
-  if (v12 != v76)
-  {
-    free(v12);
-  }
-
-LABEL_14:
-  v10 = *MEMORY[0x277D85DE8];
-  return v9;
-}
-
-void sub_213C2DB8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35)
-{
-  llvm::raw_ostream::~raw_ostream(&a35);
-  if (STACK[0x280] != a17)
-  {
-    free(STACK[0x280]);
-  }
-
-  if (STACK[0x2D8] != a18)
-  {
-    free(STACK[0x2D8]);
-  }
-
-  if (STACK[0x308] != &STACK[0x318])
-  {
-    free(STACK[0x308]);
-  }
-
-  v37 = *(v35 - 224);
-  if (v37 != a19)
-  {
-    free(v37);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t MTLMemoryCheckPass::createQueryMemoryUsageCall(void *a1, MTLBoundsCheck *a2, int a3)
-{
-  v19[1] = *MEMORY[0x277D85DE8];
-  if ((*(*a2 + 8) & 0xFE) == 0x12)
-  {
-    v5 = *(**(*a2 + 16) + 8);
-  }
-
-  v6 = a3 - 1;
-  if ((a3 - 1) <= 2)
-  {
-    v7 = qword_213C7D408[v6];
-    v8 = off_278171720[v6];
-    v9 = a1[6];
-    v18 = 261;
-    v17[0] = v8;
-    v17[1] = v7;
-    v10 = a1[12];
-    v19[0] = llvm::PointerType::get();
-    v11 = getMangledFunction<llvm::PointerType *>(v9, v17, v10, v19);
-    if (!llvm::Value::getMetadata())
-    {
-      v12 = a1[5];
-      llvm::MDTuple::getImpl();
-      llvm::Value::setMetadata();
-    }
-
-    if (llvm::Value::getMetadata())
-    {
-      if (v11)
-      {
-LABEL_8:
-        v13 = *(v11 + 24);
-LABEL_12:
-        v19[0] = a2;
-        v18 = 257;
-        result = llvm::CallInst::Create(v13, v11, v19, 1, 0, 0);
-        goto LABEL_13;
-      }
-    }
-
-    else
-    {
-      v15 = a1[5];
-      llvm::MDTuple::getImpl();
-      llvm::Value::setMetadata();
-      if (v11)
-      {
-        goto LABEL_8;
-      }
-    }
-
-    v13 = 0;
-    goto LABEL_12;
-  }
-
-  result = 0;
-LABEL_13:
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
 uint64_t llvm::IRBuilderBase::CreateBr(unsigned int **this, llvm::BasicBlock *a2, llvm::Instruction *a3)
 {
   v4 = llvm::BranchInst::Create(a2, 0, a3);
@@ -755,54 +5,48 @@ uint64_t llvm::IRBuilderBase::CreateBr(unsigned int **this, llvm::BasicBlock *a2
   return llvm::IRBuilderBase::Insert<llvm::CastInst>(this, v4, v6);
 }
 
-uint64_t MTLMemoryCheckPass::getActualResourceUsageForPtr(MTLMemoryCheckPass *this, unsigned int **a2, llvm::Value *a3)
+uint64_t MTLMemoryCheckPass::getActualResourceUsageForPtr(llvm::ConstantInt **this, unsigned int **a2, llvm::ConstantInt **a3, BOOL a4)
 {
-  v6 = *(this + 12);
   result = llvm::ConstantInt::get();
-  if ((*(*(*(this + 8) + 72) + 24) & 2) != 0)
+  if ((*(*(this[8] + 9) + 24) & 2) != 0)
   {
-    v39[0] = "index";
-    v40 = 259;
-    v8 = *a3;
-    v9 = llvm::ConstantInt::get();
-    LShr = llvm::IRBuilderBase::CreateLShr(a2, a3, v9, v39, 0);
-    v39[0] = "byteIndex";
-    v40 = 259;
-    v11 = *LShr;
+    v34[0] = "index";
+    v35 = 259;
+    v8 = llvm::ConstantInt::get();
+    LShr = llvm::IRBuilderBase::CreateLShr(a2, a3, v8, v34, 0);
+    v34[0] = "byteIndex";
+    v35 = 259;
+    v10 = llvm::ConstantInt::get();
+    v11 = llvm::IRBuilderBase::CreateLShr(a2, LShr, v10, v34, 0);
+    v35 = 257;
     v12 = llvm::ConstantInt::get();
-    v13 = llvm::IRBuilderBase::CreateLShr(a2, LShr, v12, v39, 0);
-    v40 = 257;
-    v14 = *LShr;
-    v15 = llvm::ConstantInt::get();
-    v16 = llvm::IRBuilderBase::CreateAnd(a2, LShr, v15, v39);
-    v38 = 257;
-    v17 = *v16;
-    v18 = llvm::ConstantInt::get();
-    Shl = llvm::IRBuilderBase::CreateShl(a2, v16, v18, v37, 0, 0);
-    v20 = *(this + 12);
-    v35 = "bitIndex";
-    v36 = 259;
-    Cast = llvm::IRBuilderBase::CreateCast(a2, 38, Shl, v20, &v35);
-    inserted = MTLBoundsCheck::SharedPassData::getOrInsertBufferUsageTableGV(*(this + 8));
-    v23 = *(inserted + 3);
-    v40 = 257;
-    AlignedLoad = llvm::IRBuilderBase::CreateAlignedLoad(a2, v23, inserted, 0, 0, v39);
-    v25 = *(this + 8);
+    v13 = llvm::IRBuilderBase::CreateAnd(a2, LShr, v12, v34);
+    v33 = 257;
+    v14 = llvm::ConstantInt::get();
+    Shl = llvm::IRBuilderBase::CreateShl(a2, v13, v14, v32, 0, 0);
+    v16 = this[12];
+    v30 = "bitIndex";
+    v31 = 259;
+    Cast = llvm::IRBuilderBase::CreateCast(a2, 38, Shl, v16, &v30);
+    inserted = MTLBoundsCheck::SharedPassData::getOrInsertBufferUsageTableGV(this[8]);
+    v19 = *(inserted + 3);
+    v35 = 257;
+    AlignedLoad = llvm::IRBuilderBase::CreateAlignedLoad(a2, v19, inserted, 0, 0, v34);
+    v21 = this[8];
     Name = llvm::Value::getName(inserted);
-    GVBaseType = MTLBoundsCheck::SharedPassData::getGVBaseType(v25, Name, v27);
-    v40 = 257;
-    GEP = llvm::IRBuilderBase::CreateGEP(a2, GVBaseType, AlignedLoad, v13, v39);
-    v30 = *(GEP + 72);
-    v39[0] = "bufferUsageByteEntry";
-    v40 = 259;
-    v31 = llvm::IRBuilderBase::CreateAlignedLoad(a2, v30, GEP, 0, 0, v39);
-    v40 = 257;
-    v32 = llvm::IRBuilderBase::CreateLShr(a2, v31, Cast, v39, 0);
-    v37[0] = "actualResourceUsage";
-    v38 = 259;
-    v33 = *v32;
-    v34 = llvm::ConstantInt::get();
-    return llvm::IRBuilderBase::CreateAnd(a2, v32, v34, v37);
+    GVBaseType = MTLBoundsCheck::SharedPassData::getGVBaseType(v21, Name, v23);
+    v35 = 257;
+    GEP = llvm::IRBuilderBase::CreateGEP(a2, GVBaseType, AlignedLoad, v11, v34);
+    v26 = *(GEP + 72);
+    v34[0] = "bufferUsageByteEntry";
+    v35 = 259;
+    v27 = llvm::IRBuilderBase::CreateAlignedLoad(a2, v26, GEP, 0, 0, v34);
+    v35 = 257;
+    v28 = llvm::IRBuilderBase::CreateLShr(a2, v27, Cast, v34, 0);
+    v32[0] = "actualResourceUsage";
+    v33 = 259;
+    v29 = llvm::ConstantInt::get();
+    return llvm::IRBuilderBase::CreateAnd(a2, v28, v29, v32);
   }
 
   return result;
@@ -863,7 +107,7 @@ uint64_t llvm::BranchInst::Create(llvm::BranchInst *this, llvm::BasicBlock *a2, 
   return v5;
 }
 
-void *llvm::SmallVector<unsigned long,6u>::SmallVector(void *a1, unint64_t a2, uint64_t *a3)
+void *llvm::SmallVector<unsigned long,6u>::SmallVector(void *a1, uint64_t a2, uint64_t *a3)
 {
   *a1 = a1 + 2;
   a1[1] = 0x600000000;
@@ -882,15 +126,15 @@ void sub_213C2E328(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t llvm::SmallVectorImpl<unsigned long>::assign(uint64_t a1, unint64_t a2, uint64_t a3)
+_DWORD *llvm::SmallVectorImpl<unsigned long>::assign(_DWORD *a1, uint64_t a2, uint64_t a3)
 {
-  if (*(a1 + 12) < a2)
+  if (a1[3] < a2)
   {
-    llvm::SmallVectorTemplateBase<llvm::Instruction *,true>::growAndAssign(a1);
+    llvm::SmallVectorTemplateBase<llvm::Instruction *,true>::growAndAssign(a1, a2, a3);
   }
 
   v3 = *a1;
-  v4 = *(a1 + 8);
+  v4 = a1[2];
   if (v4 >= a2)
   {
     v5 = a2;
@@ -898,7 +142,7 @@ uint64_t llvm::SmallVectorImpl<unsigned long>::assign(uint64_t a1, unint64_t a2,
 
   else
   {
-    v5 = *(a1 + 8);
+    v5 = a1[2];
   }
 
   if (v5)
@@ -953,7 +197,7 @@ uint64_t llvm::SmallVectorImpl<unsigned long>::assign(uint64_t a1, unint64_t a2,
     while (((v11 + 1) & 0xFFFFFFFFFFFFFFFELL) != v12);
   }
 
-  *(a1 + 8) = a2;
+  a1[2] = a2;
   return a1;
 }
 
@@ -1003,21 +247,21 @@ void llvm::DenseMap<llvm::ValueMapCallbackVH<llvm::Value const*,llvm::WeakTracki
   }
 }
 
-void LowerOSLogStructPass::~LowerOSLogStructPass(LowerOSLogStructPass *this)
+void LowerOSLogStructPass::~LowerOSLogStructPass(LowerOSLogStructPass *this, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   *this = &unk_282633520;
-  v1 = this + 136;
-  llvm::DenseMap<llvm::Function *,llvm::MDTuple *,llvm::DenseMapInfo<llvm::Function *,void>,llvm::detail::DenseMapPair<llvm::Function *,llvm::MDTuple *>>::~DenseMap(this + 160);
-  llvm::DenseMap<llvm::Function *,llvm::MDTuple *,llvm::DenseMapInfo<llvm::Function *,void>,llvm::detail::DenseMapPair<llvm::Function *,llvm::MDTuple *>>::~DenseMap(v1);
+  v4 = this + 136;
+  llvm::DenseMap<llvm::Function *,llvm::MDTuple *,llvm::DenseMapInfo<llvm::Function *,void>,llvm::detail::DenseMapPair<llvm::Function *,llvm::MDTuple *>>::~DenseMap(this + 160, a2, a3, a4);
+  llvm::DenseMap<llvm::Function *,llvm::MDTuple *,llvm::DenseMapInfo<llvm::Function *,void>,llvm::detail::DenseMapPair<llvm::Function *,llvm::MDTuple *>>::~DenseMap(v4, v5, v6, v7);
 
   JUMPOUT(0x21604B480);
 }
 
 {
   *this = &unk_282633520;
-  v2 = this + 136;
-  llvm::DenseMap<llvm::Function *,llvm::MDTuple *,llvm::DenseMapInfo<llvm::Function *,void>,llvm::detail::DenseMapPair<llvm::Function *,llvm::MDTuple *>>::~DenseMap(this + 160);
-  llvm::DenseMap<llvm::Function *,llvm::MDTuple *,llvm::DenseMapInfo<llvm::Function *,void>,llvm::detail::DenseMapPair<llvm::Function *,llvm::MDTuple *>>::~DenseMap(v2);
+  v5 = this + 136;
+  llvm::DenseMap<llvm::Function *,llvm::MDTuple *,llvm::DenseMapInfo<llvm::Function *,void>,llvm::detail::DenseMapPair<llvm::Function *,llvm::MDTuple *>>::~DenseMap(this + 160, a2, a3, a4);
+  llvm::DenseMap<llvm::Function *,llvm::MDTuple *,llvm::DenseMapInfo<llvm::Function *,void>,llvm::detail::DenseMapPair<llvm::Function *,llvm::MDTuple *>>::~DenseMap(v5, v6, v7, v8);
   MEMORY[0x21604B480](this);
 
   JUMPOUT(0x21604C990);
@@ -1025,18 +269,18 @@ void LowerOSLogStructPass::~LowerOSLogStructPass(LowerOSLogStructPass *this)
 
 BOOL LowerOSLogStructPass::runOnModule(LowerOSLogStructPass *this, llvm::Module *a2)
 {
-  v87[4] = *MEMORY[0x277D85DE8];
+  v83[4] = *MEMORY[0x277D85DE8];
   MetalModulePass::runOnModule(this, a2);
   Function = llvm::Module::getFunction();
   if (Function)
   {
-    v72 = 0u;
-    v73 = 0u;
-    v74 = 1065353216;
+    v68 = 0u;
     v69 = 0u;
-    v70 = 0u;
-    v71 = 1065353216;
-    v62 = Function;
+    v70 = 1065353216;
+    v65 = 0u;
+    v66 = 0u;
+    v67 = 1065353216;
+    v58 = Function;
     v3 = *(Function + 8);
     if (v3)
     {
@@ -1045,18 +289,18 @@ BOOL LowerOSLogStructPass::runOnModule(LowerOSLogStructPass *this, llvm::Module 
         v4 = *(v3 + 24);
         if (v4 && *(v4 + 16) == 84)
         {
-          v75 = llvm::Instruction::getFunction(v4);
-          std::__hash_table<llvm::Function *,std::hash<llvm::Function *>,std::equal_to<llvm::Function *>,std::allocator<llvm::Function *>>::__emplace_unique_key_args<llvm::Function *,llvm::Function *>(&v69, &v75);
+          v71 = llvm::Instruction::getFunction(v4);
+          std::__hash_table<llvm::Function *,std::hash<llvm::Function *>,std::equal_to<llvm::Function *>,std::allocator<llvm::Function *>>::__emplace_unique_key_args<llvm::Function *,llvm::Function *>(&v65, &v71, &v71);
         }
 
         v3 = *(v3 + 8);
       }
 
       while (v3);
-      for (i = v70; i; i = *i)
+      for (i = v66; i; i = *i)
       {
         v6 = i[2];
-        v68 = v6;
+        v64 = v6;
         v7 = *(v6 + 8);
         if (!v7)
         {
@@ -1066,18 +310,18 @@ LABEL_11:
             llvm::Function::BuildLazyArguments(v6);
           }
 
-          v75 = *(*(v6 + 88) + 8);
-          v76 = 0;
-          llvm::SmallVector<llvm::User *,4u>::SmallVector<llvm::Value::user_iterator_impl<llvm::User>>(&v85, &v75);
-          v82 = v84;
-          v83 = 0x400000000;
-          v8 = v86;
-          if (v86)
+          v71 = *(*(v6 + 88) + 8);
+          v72 = 0;
+          llvm::SmallVector<llvm::User *,4u>::SmallVector<llvm::Value::user_iterator_impl<llvm::User>>(&v81, &v71);
+          v78 = v80;
+          v79 = 0x400000000;
+          v8 = v82;
+          if (v82)
           {
             do
             {
-              v9 = v85[v8 - 1];
-              LODWORD(v86) = v8 - 1;
+              v9 = v81[v8 - 1];
+              LODWORD(v82) = v8 - 1;
               if (*(v9 + 16) <= 0x1Bu)
               {
                 v10 = 0;
@@ -1090,83 +334,80 @@ LABEL_11:
 
               if (*(v10 + 16) != 84 || v10 == 0)
               {
-                llvm::SmallVectorTemplateBase<llvm::Type *,true>::push_back(&v82, v10);
-                llvm::SmallVectorImpl<llvm::User *>::append<llvm::Value::user_iterator_impl<llvm::User>,void>(&v85, *(v9 + 8), 0);
+                llvm::SmallVectorTemplateBase<llvm::Type *,true>::push_back(&v78, v10);
+                llvm::SmallVectorImpl<llvm::User *>::append<llvm::Value::user_iterator_impl<llvm::User>,void>(&v81, *(v9 + 8), 0);
               }
 
               else
               {
-                v12 = **(v10 - 32 * (*(v10 + 20) & 0x7FFFFFF));
-                v13 = llvm::UndefValue::get();
-                llvm::CallBase::setArgOperand(v10, 0, v13);
-                llvm::CallBase::setArgOperand(v10, 1u, v13);
+                v12 = llvm::UndefValue::get();
+                llvm::CallBase::setArgOperand(v10, 0, v12);
+                llvm::CallBase::setArgOperand(v10, 1u, v12);
               }
 
-              v8 = v86;
+              v8 = v82;
             }
 
-            while (v86);
-            v14 = v82;
-            v15 = v83;
+            while (v82);
+            v13 = v78;
+            v14 = v79;
           }
 
           else
           {
-            v15 = 0;
-            v14 = v84;
+            v14 = 0;
+            v13 = v80;
           }
 
-          v16 = v14 - 4;
-          for (j = 4 * v15; j * 2; j -= 4)
+          v15 = v13 - 4;
+          for (j = 4 * v14; j * 2; j -= 4)
           {
-            v18 = *&v16[j];
-            llvm::Instruction::eraseFromParent(v18);
+            v17 = *&v15[j];
+            llvm::Instruction::eraseFromParent(v17);
           }
 
-          v19 = *(v68 + 3);
-          v20 = 24;
-          if (*(v68 + 12) == 3)
+          v18 = *(v64 + 3);
+          v19 = 24;
+          if (*(v64 + 12) == 3)
           {
-            v20 = 16;
+            v19 = 16;
           }
 
-          v21 = *(*(v19 + 16) + v20);
-          v80[0] = &v81;
-          v80[1] = 0x400000000;
-          llvm::SmallVectorTemplateBase<llvm::Type *,true>::push_back(v80, v21);
-          llvm::SmallVectorTemplateBase<llvm::Type *,true>::push_back(v80, v21);
-          v75 = &v77;
-          v76 = 0x800000000;
-          v22 = *(v68 + 14);
-          v66 = 0;
-          v67 = v22;
-          llvm::Function::getContext(v68);
+          v20 = *(*(v18 + 16) + v19);
+          v76[0] = &v77;
+          v76[1] = 0x400000000;
+          llvm::SmallVectorTemplateBase<llvm::Type *,true>::push_back(v76, v20);
+          llvm::SmallVectorTemplateBase<llvm::Type *,true>::push_back(v76, v20);
+          v71 = &v73;
+          v72 = 0x800000000;
+          v21 = *(v64 + 14);
+          v62 = 0;
+          v63 = v21;
+          llvm::Function::getContext(v64);
+          v22 = llvm::AttributeSet::addAttribute();
+          llvm::SmallVectorTemplateBase<llvm::Type *,true>::push_back(&v71, v22);
+          llvm::Function::getContext(v64);
           v23 = llvm::AttributeSet::addAttribute();
-          llvm::SmallVectorTemplateBase<llvm::Type *,true>::push_back(&v75, v23);
-          llvm::Function::getContext(v68);
-          v24 = llvm::AttributeSet::addAttribute();
-          llvm::SmallVectorTemplateBase<llvm::Type *,true>::push_back(&v75, v24);
-          if ((*(v19 + 12) - 3) <= 0xFFFFFFFD)
+          llvm::SmallVectorTemplateBase<llvm::Type *,true>::push_back(&v71, v23);
+          if ((*(v18 + 12) - 3) <= 0xFFFFFFFD)
           {
-            v25 = 2;
+            v24 = 2;
             do
             {
-              llvm::SmallVectorTemplateBase<llvm::Type *,true>::push_back(v80, *(*(v19 + 16) + 8 * v25));
-              ParamAttrs = llvm::AttributeList::getParamAttrs(&v67);
-              llvm::SmallVectorTemplateBase<llvm::Type *,true>::push_back(&v75, ParamAttrs);
+              llvm::SmallVectorTemplateBase<llvm::Type *,true>::push_back(v76, *(*(v18 + 16) + 8 * v24));
+              ParamAttrs = llvm::AttributeList::getParamAttrs(&v63);
+              llvm::SmallVectorTemplateBase<llvm::Type *,true>::push_back(&v71, ParamAttrs);
             }
 
-            while (v25++ < (*(v19 + 12) - 1));
+            while (v24++ < (*(v18 + 12) - 1));
           }
 
-          v28 = **(v19 + 16);
-          v29 = *(v19 + 8);
-          v30 = llvm::FunctionType::get();
-          v31 = *(v68 + 8);
-          v64 = 261;
-          v63[0] = llvm::Value::getName(v68);
-          v63[1] = v32;
-          v65 = llvm::Function::Create(v30, v31 & 0xF, v63, 0);
+          v27 = llvm::FunctionType::get();
+          v28 = *(v64 + 8);
+          v60 = 261;
+          v59[0] = llvm::Value::getName(v64);
+          v59[1] = v29;
+          v61 = llvm::Function::Create(v27, v28 & 0xF, v59, 0);
           llvm::SymbolTableListTraits<llvm::Function>::addNodeToList();
         }
 
@@ -1181,227 +422,225 @@ LABEL_11:
       }
     }
 
-    v33 = v79;
-    v75 = v79;
-    v76 = v79;
-    v77 = 4;
-    v78 = 0;
-    v34 = v73;
-    if (v73)
+    v30 = v75;
+    v71 = v75;
+    v72 = v75;
+    v73 = 4;
+    v74 = 0;
+    v31 = v69;
+    if (v69)
     {
       do
       {
-        v35 = v34[2];
-        v36 = *(v35 + 1);
-        if (v36)
+        v32 = v31[2];
+        v33 = *(v32 + 1);
+        if (v33)
         {
-          v37 = v34[3];
+          v34 = v31[3];
           do
           {
-            v38 = *(v36 + 24);
-            v36 = *(v36 + 8);
-            v39 = *(v38 - 32 * (*(v38 + 20) & 0x7FFFFFF));
-            if (v39)
+            v35 = *(v33 + 24);
+            v33 = *(v33 + 8);
+            v36 = *(v35 - 32 * (*(v35 + 20) & 0x7FFFFFF));
+            if (v36)
             {
-              v40 = *(v39 + 16) == 3;
+              v37 = *(v36 + 16) == 3;
             }
 
             else
             {
-              v40 = 0;
+              v37 = 0;
             }
 
-            if (v40)
+            if (v37)
             {
-              llvm::SmallPtrSetImpl<llvm::Instruction *>::insert(&v75, *(v38 - 32 * (*(v38 + 20) & 0x7FFFFFF)), &v85);
-              v85 = v87;
-              v86 = 0x400000000;
-              v41 = *(v39 - 32);
-              v42 = *(v41 + 16) != 9 || v41 == 0;
-              if (!v42 && *(*v41 + 12))
+              llvm::SmallPtrSetImpl<llvm::Instruction *>::insert(&v71, *(v35 - 32 * (*(v35 + 20) & 0x7FFFFFF)), &v81);
+              v81 = v83;
+              v82 = 0x400000000;
+              v38 = *(v36 - 32);
+              v39 = *(v38 + 16) != 9 || v38 == 0;
+              if (!v39 && *(*v38 + 12))
               {
-                v43 = 0;
+                v40 = 0;
                 do
                 {
-                  AggregateElement = llvm::Constant::getAggregateElement(v41);
-                  llvm::SmallVectorTemplateBase<llvm::Type *,true>::push_back(&v85, AggregateElement);
-                  ++v43;
+                  AggregateElement = llvm::Constant::getAggregateElement(v38);
+                  llvm::SmallVectorTemplateBase<llvm::Type *,true>::push_back(&v81, AggregateElement);
+                  ++v40;
                 }
 
-                while (v43 < *(*v41 + 12));
+                while (v40 < *(*v38 + 12));
               }
 
-              v45 = v38 + 32;
+              v42 = v35 + 32;
               for (k = 1; ; ++k)
               {
-                v47 = llvm::CallBase::arg_end(v38);
-                v48 = *(v38 + 20) & 0x7FFFFFF;
-                if (k >= ((v47 - (v38 + 32 * -v48)) >> 5))
+                v44 = llvm::CallBase::arg_end(v35);
+                v45 = *(v35 + 20) & 0x7FFFFFF;
+                if (k >= ((v44 - (v35 + 32 * -v45)) >> 5))
                 {
                   break;
                 }
 
-                llvm::SmallVectorTemplateBase<llvm::Type *,true>::push_back(&v85, *(v45 - 32 * v48));
-                v45 += 32;
+                llvm::SmallVectorTemplateBase<llvm::Type *,true>::push_back(&v81, *(v42 - 32 * v45));
+                v42 += 32;
               }
 
-              v49 = *(v37 + 24);
-              v84[8] = 257;
-              v50 = llvm::CallInst::Create(v49);
-              v51 = *(v50 + 18) & 0xFFFC;
-              if ((*(v38 + 18) & 3u) - 1 < 2)
+              v46 = *(v34 + 24);
+              v80[8] = 257;
+              v47 = llvm::CallInst::Create(v46, v34, v81, v82, &v78, v35);
+              v48 = *(v47 + 18) & 0xFFFC;
+              if ((*(v35 + 18) & 3u) - 1 < 2)
               {
-                ++v51;
+                ++v48;
               }
 
-              *(v50 + 18) = v51;
-              *(v50 + 64) = *(v37 + 112);
+              *(v47 + 18) = v48;
+              *(v47 + 64) = *(v34 + 112);
               llvm::Value::replaceAllUsesWith();
               llvm::Instruction::copyMetadata();
-              llvm::Instruction::eraseFromParent(v38);
-              if (v85 != v87)
+              llvm::Instruction::eraseFromParent(v35);
+              if (v81 != v83)
               {
-                free(v85);
+                free(v81);
               }
             }
 
             else
             {
-              llvm::Instruction::eraseFromParent(v38);
+              llvm::Instruction::eraseFromParent(v35);
             }
           }
 
-          while (v36);
+          while (v33);
         }
 
-        llvm::Function::eraseFromParent(v35);
-        v34 = *v34;
+        llvm::Function::eraseFromParent(v32);
+        v31 = *v31;
       }
 
-      while (v34);
-      v33 = v75;
-      v52 = v76;
-      v54 = v77;
-      LODWORD(v53) = HIDWORD(v77);
+      while (v31);
+      v30 = v71;
+      v49 = v72;
+      v51 = v73;
+      LODWORD(v50) = HIDWORD(v73);
     }
 
     else
     {
-      LODWORD(v53) = 0;
-      v54 = 4;
-      v52 = v79;
+      LODWORD(v50) = 0;
+      v51 = 4;
+      v49 = v75;
     }
 
-    if (v52 == v33)
+    if (v49 == v30)
     {
-      v53 = v53;
+      v50 = v50;
     }
 
     else
     {
-      v53 = v54;
+      v50 = v51;
     }
 
-    v55 = v52;
-    if (v53)
+    v52 = v49;
+    if (v50)
     {
-      v56 = 8 * v53;
-      v55 = v52;
-      while (*v55 >= 0xFFFFFFFFFFFFFFFELL)
+      v53 = 8 * v50;
+      v52 = v49;
+      while (*v52 >= 0xFFFFFFFFFFFFFFFELL)
       {
-        ++v55;
-        v56 -= 8;
-        if (!v56)
+        ++v52;
+        v53 -= 8;
+        if (!v53)
         {
           goto LABEL_80;
         }
       }
     }
 
-    v57 = &v52[v53];
-    if (v55 != v57)
+    v54 = &v49[v50];
+    if (v52 != v54)
     {
       do
       {
-        v58 = *v55;
-        if ((llvm::GlobalValue::isDeclaration(*v55) & 1) == 0)
+        v55 = *v52;
+        if ((llvm::GlobalValue::isDeclaration(*v52) & 1) == 0)
         {
-          v59 = *(v58 - 4);
+          v56 = *(v55 - 4);
           llvm::GlobalVariable::setInitializer();
           if (llvm::isSafeToDestroyConstant())
           {
-            llvm::Constant::destroyConstant(v59);
+            llvm::Constant::destroyConstant(v56);
           }
         }
 
-        llvm::Constant::removeDeadConstantUsers(v58);
-        llvm::GlobalVariable::dropAllReferences(v58);
-        llvm::GlobalVariable::eraseFromParent(v58);
+        llvm::Constant::removeDeadConstantUsers(v55);
+        llvm::GlobalVariable::dropAllReferences(v55);
+        llvm::GlobalVariable::eraseFromParent(v55);
         do
         {
-          ++v55;
+          ++v52;
         }
 
-        while (v55 != v57 && *v55 >= 0xFFFFFFFFFFFFFFFELL);
+        while (v52 != v54 && *v52 >= 0xFFFFFFFFFFFFFFFELL);
       }
 
-      while (v55 != v57);
-      v33 = v75;
-      v52 = v76;
+      while (v52 != v54);
+      v30 = v71;
+      v49 = v72;
     }
 
 LABEL_80:
-    if (v52 != v33)
+    if (v49 != v30)
     {
-      free(v52);
+      free(v49);
     }
 
-    std::__hash_table<std::__hash_value_type<llvm::DISubprogram *,unsigned int>,std::__unordered_map_hasher<llvm::DISubprogram *,std::__hash_value_type<llvm::DISubprogram *,unsigned int>,std::hash<llvm::DISubprogram *>,std::equal_to<llvm::DISubprogram *>,true>,std::__unordered_map_equal<llvm::DISubprogram *,std::__hash_value_type<llvm::DISubprogram *,unsigned int>,std::equal_to<llvm::DISubprogram *>,std::hash<llvm::DISubprogram *>,true>,std::allocator<std::__hash_value_type<llvm::DISubprogram *,unsigned int>>>::~__hash_table(&v69);
-    std::__hash_table<std::__hash_value_type<llvm::DISubprogram *,unsigned int>,std::__unordered_map_hasher<llvm::DISubprogram *,std::__hash_value_type<llvm::DISubprogram *,unsigned int>,std::hash<llvm::DISubprogram *>,std::equal_to<llvm::DISubprogram *>,true>,std::__unordered_map_equal<llvm::DISubprogram *,std::__hash_value_type<llvm::DISubprogram *,unsigned int>,std::equal_to<llvm::DISubprogram *>,std::hash<llvm::DISubprogram *>,true>,std::allocator<std::__hash_value_type<llvm::DISubprogram *,unsigned int>>>::~__hash_table(&v72);
-    Function = v62;
+    std::__hash_table<std::__hash_value_type<llvm::DISubprogram *,unsigned int>,std::__unordered_map_hasher<llvm::DISubprogram *,std::__hash_value_type<llvm::DISubprogram *,unsigned int>,std::hash<llvm::DISubprogram *>,std::equal_to<llvm::DISubprogram *>,true>,std::__unordered_map_equal<llvm::DISubprogram *,std::__hash_value_type<llvm::DISubprogram *,unsigned int>,std::equal_to<llvm::DISubprogram *>,std::hash<llvm::DISubprogram *>,true>,std::allocator<std::__hash_value_type<llvm::DISubprogram *,unsigned int>>>::~__hash_table(&v65);
+    std::__hash_table<std::__hash_value_type<llvm::DISubprogram *,unsigned int>,std::__unordered_map_hasher<llvm::DISubprogram *,std::__hash_value_type<llvm::DISubprogram *,unsigned int>,std::hash<llvm::DISubprogram *>,std::equal_to<llvm::DISubprogram *>,true>,std::__unordered_map_equal<llvm::DISubprogram *,std::__hash_value_type<llvm::DISubprogram *,unsigned int>,std::equal_to<llvm::DISubprogram *>,std::hash<llvm::DISubprogram *>,true>,std::allocator<std::__hash_value_type<llvm::DISubprogram *,unsigned int>>>::~__hash_table(&v68);
+    Function = v58;
   }
 
-  result = Function != 0;
-  v61 = *MEMORY[0x277D85DE8];
-  return result;
+  return Function != 0;
 }
 
-void sub_213C2F0AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, void *a35, uint64_t a36)
+void sub_213C2F0AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, void *a35, uint64_t a36)
 {
   std::__hash_table<std::__hash_value_type<llvm::DISubprogram *,unsigned int>,std::__unordered_map_hasher<llvm::DISubprogram *,std::__hash_value_type<llvm::DISubprogram *,unsigned int>,std::hash<llvm::DISubprogram *>,std::equal_to<llvm::DISubprogram *>,true>,std::__unordered_map_equal<llvm::DISubprogram *,std::__hash_value_type<llvm::DISubprogram *,unsigned int>,std::equal_to<llvm::DISubprogram *>,std::hash<llvm::DISubprogram *>,true>,std::allocator<std::__hash_value_type<llvm::DISubprogram *,unsigned int>>>::~__hash_table(&a23);
   std::__hash_table<std::__hash_value_type<llvm::DISubprogram *,unsigned int>,std::__unordered_map_hasher<llvm::DISubprogram *,std::__hash_value_type<llvm::DISubprogram *,unsigned int>,std::hash<llvm::DISubprogram *>,std::equal_to<llvm::DISubprogram *>,true>,std::__unordered_map_equal<llvm::DISubprogram *,std::__hash_value_type<llvm::DISubprogram *,unsigned int>,std::equal_to<llvm::DISubprogram *>,std::hash<llvm::DISubprogram *>,true>,std::allocator<std::__hash_value_type<llvm::DISubprogram *,unsigned int>>>::~__hash_table(&a29);
   _Unwind_Resume(a1);
 }
 
-void *std::__hash_table<llvm::Function *,std::hash<llvm::Function *>,std::equal_to<llvm::Function *>,std::allocator<llvm::Function *>>::__emplace_unique_key_args<llvm::Function *,llvm::Function *>(void *a1, void *a2)
+void *std::__hash_table<llvm::Function *,std::hash<llvm::Function *>,std::equal_to<llvm::Function *>,std::allocator<llvm::Function *>>::__emplace_unique_key_args<llvm::Function *,llvm::Function *>(void *a1, void *a2, void *a3)
 {
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = a1[1];
-  if (!*&v5)
+  v3 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
+  v4 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v3 >> 47) ^ v3);
+  v5 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+  v6 = a1[1];
+  if (!*&v6)
   {
     goto LABEL_18;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v7 = vcnt_s8(v6);
+  v7.i16[0] = vaddlv_u8(v7);
+  if (v7.u32[0] > 1uLL)
   {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-    if (v4 >= *&v5)
+    v8 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+    if (v5 >= *&v6)
     {
-      v7 = v4 % *&v5;
+      v8 = v5 % *&v6;
     }
   }
 
   else
   {
-    v7 = v4 & (*&v5 - 1);
+    v8 = v5 & (*&v6 - 1);
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v9 = *(*a1 + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
   {
 LABEL_18:
     operator new();
@@ -1409,75 +648,75 @@ LABEL_18:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v11 = v10[1];
+    if (v11 == v5)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v7.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v11 >= *&v6)
       {
-        v10 %= *&v5;
+        v11 %= *&v6;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v11 &= *&v6 - 1;
     }
 
-    if (v10 != v7)
+    if (v11 != v8)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v9 = *v9;
-    if (!v9)
+    v10 = *v10;
+    if (!v10)
     {
       goto LABEL_18;
     }
   }
 
-  if (v9[2] != *a2)
+  if (v10[2] != *a2)
   {
     goto LABEL_17;
   }
 
-  return v9;
+  return v10;
 }
 
-void *std::__hash_table<std::__hash_value_type<llvm::Function *,llvm::Function *>,std::__unordered_map_hasher<llvm::Function *,std::__hash_value_type<llvm::Function *,llvm::Function *>,std::hash<llvm::Function *>,std::equal_to<llvm::Function *>,true>,std::__unordered_map_equal<llvm::Function *,std::__hash_value_type<llvm::Function *,llvm::Function *>,std::equal_to<llvm::Function *>,std::hash<llvm::Function *>,true>,std::allocator<std::__hash_value_type<llvm::Function *,llvm::Function *>>>::__emplace_unique_key_args<llvm::Function *,llvm::Function *&,llvm::Function *&>(void *a1, void *a2)
+void *std::__hash_table<std::__hash_value_type<llvm::Function *,llvm::Function *>,std::__unordered_map_hasher<llvm::Function *,std::__hash_value_type<llvm::Function *,llvm::Function *>,std::hash<llvm::Function *>,std::equal_to<llvm::Function *>,true>,std::__unordered_map_equal<llvm::Function *,std::__hash_value_type<llvm::Function *,llvm::Function *>,std::equal_to<llvm::Function *>,std::hash<llvm::Function *>,true>,std::allocator<std::__hash_value_type<llvm::Function *,llvm::Function *>>>::__emplace_unique_key_args<llvm::Function *,llvm::Function *&,llvm::Function *&>(void *a1, void *a2, void *a3, uint64_t *a4)
 {
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = a1[1];
-  if (!*&v5)
+  v4 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
+  v5 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v4 >> 47) ^ v4);
+  v6 = 0x9DDFEA08EB382D69 * (v5 ^ (v5 >> 47));
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  if (v8.u32[0] > 1uLL)
   {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-    if (v4 >= *&v5)
+    v9 = 0x9DDFEA08EB382D69 * (v5 ^ (v5 >> 47));
+    if (v6 >= *&v7)
     {
-      v7 = v4 % *&v5;
+      v9 = v6 % *&v7;
     }
   }
 
   else
   {
-    v7 = v4 & (*&v5 - 1);
+    v9 = v6 & (*&v7 - 1);
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v10 = *(*a1 + 8 * v9);
+  if (!v10 || (v11 = *v10) == 0)
   {
 LABEL_18:
     operator new();
@@ -1485,68 +724,68 @@ LABEL_18:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v12 = v11[1];
+    if (v12 == v6)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v8.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v12 >= *&v7)
       {
-        v10 %= *&v5;
+        v12 %= *&v7;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v12 &= *&v7 - 1;
     }
 
-    if (v10 != v7)
+    if (v12 != v9)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v9 = *v9;
-    if (!v9)
+    v11 = *v11;
+    if (!v11)
     {
       goto LABEL_18;
     }
   }
 
-  if (v9[2] != *a2)
+  if (v11[2] != *a2)
   {
     goto LABEL_17;
   }
 
-  return v9;
+  return v11;
 }
 
-uint64_t **deserializeCompilerOutputData(uint64_t **result, uint64_t a2, uint64_t *a3, void *a4, void *a5)
+char *deserializeCompilerOutputData(char *result, uint64_t a2, uint64_t *a3, void *a4, void *a5)
 {
   v5 = *a3 + 8;
-  v6 = *(result + *a3);
+  v6 = *&result[*a3];
   *a3 = v5;
   if (v6)
   {
     v10 = result;
     do
     {
-      v11 = *(v10 + v5);
+      v11 = *&v10[v5];
       *a3 = v5 + 8;
-      v13 = v11;
-      v12 = *(v10 + v5 + 8);
+      v14 = v11;
+      v12 = *&v10[v5 + 8];
       *a3 = v5 + 16;
-      result = std::__hash_table<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>>>::find<CompilerOutputType>(a4, &v13);
-      if (!result || !result[3])
+      result = std::__hash_table<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>>>::find<CompilerOutputType>(a4, &v14);
+      if (!result || !*(result + 3))
       {
         if (v12)
         {
-          dispatch_data_create(v10 + *a3, v12, 0, 0);
-          result = std::__hash_table<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<CompilerOutputType,CompilerOutputType&,NSObject  {objcproto16OS_dispatch_data}*>(a5, &v13);
+          v13 = dispatch_data_create(&v10[*a3], v12, 0, 0);
+          result = std::__hash_table<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<CompilerOutputType,CompilerOutputType&,NSObject  {objcproto16OS_dispatch_data}*>(a5, &v14, &v14, &v13);
         }
       }
 
@@ -1561,7 +800,7 @@ uint64_t **deserializeCompilerOutputData(uint64_t **result, uint64_t a2, uint64_
   return result;
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>>>::find<CompilerOutputType>(void *a1, char *a2)
+uint64_t ***std::__hash_table<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>>>::find<CompilerOutputType>(void *a1, char *a2)
 {
   v2 = a1[1];
   if (!*&v2)
@@ -1628,33 +867,33 @@ uint64_t **std::__hash_table<std::__hash_value_type<CompilerOutputType,NSObject 
   return result;
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<CompilerOutputType,CompilerOutputType&,NSObject  {objcproto16OS_dispatch_data}*>(void *a1, char *a2)
+uint64_t **std::__hash_table<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<CompilerOutputType,CompilerOutputType&,NSObject  {objcproto16OS_dispatch_data}*>(void *a1, char *a2, _BYTE *a3, void *a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -1662,61 +901,61 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 16) != v2)
+  if (*(v9 + 16) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void ConstantGlobalToArgPass::~ConstantGlobalToArgPass(ConstantGlobalToArgPass *this)
+void ConstantGlobalToArgPass::~ConstantGlobalToArgPass(ConstantGlobalToArgPass *this, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   *this = &unk_282633520;
-  v1 = this + 136;
-  llvm::DenseMap<llvm::Function *,llvm::MDTuple *,llvm::DenseMapInfo<llvm::Function *,void>,llvm::detail::DenseMapPair<llvm::Function *,llvm::MDTuple *>>::~DenseMap(this + 160);
-  llvm::DenseMap<llvm::Function *,llvm::MDTuple *,llvm::DenseMapInfo<llvm::Function *,void>,llvm::detail::DenseMapPair<llvm::Function *,llvm::MDTuple *>>::~DenseMap(v1);
+  v4 = this + 136;
+  llvm::DenseMap<llvm::Function *,llvm::MDTuple *,llvm::DenseMapInfo<llvm::Function *,void>,llvm::detail::DenseMapPair<llvm::Function *,llvm::MDTuple *>>::~DenseMap(this + 160, a2, a3, a4);
+  llvm::DenseMap<llvm::Function *,llvm::MDTuple *,llvm::DenseMapInfo<llvm::Function *,void>,llvm::detail::DenseMapPair<llvm::Function *,llvm::MDTuple *>>::~DenseMap(v4, v5, v6, v7);
 
   JUMPOUT(0x21604B480);
 }
 
 {
   *this = &unk_282633520;
-  v2 = this + 136;
-  llvm::DenseMap<llvm::Function *,llvm::MDTuple *,llvm::DenseMapInfo<llvm::Function *,void>,llvm::detail::DenseMapPair<llvm::Function *,llvm::MDTuple *>>::~DenseMap(this + 160);
-  llvm::DenseMap<llvm::Function *,llvm::MDTuple *,llvm::DenseMapInfo<llvm::Function *,void>,llvm::detail::DenseMapPair<llvm::Function *,llvm::MDTuple *>>::~DenseMap(v2);
+  v5 = this + 136;
+  llvm::DenseMap<llvm::Function *,llvm::MDTuple *,llvm::DenseMapInfo<llvm::Function *,void>,llvm::detail::DenseMapPair<llvm::Function *,llvm::MDTuple *>>::~DenseMap(this + 160, a2, a3, a4);
+  llvm::DenseMap<llvm::Function *,llvm::MDTuple *,llvm::DenseMapInfo<llvm::Function *,void>,llvm::detail::DenseMapPair<llvm::Function *,llvm::MDTuple *>>::~DenseMap(v5, v6, v7, v8);
   MEMORY[0x21604B480](this);
 
   JUMPOUT(0x21604C990);
@@ -1724,16 +963,16 @@ void ConstantGlobalToArgPass::~ConstantGlobalToArgPass(ConstantGlobalToArgPass *
 
 uint64_t ConstantGlobalToArgPass::runOnModule(llvm::DataLayout **this, llvm::Module *a2)
 {
-  v121[8] = *MEMORY[0x277D85DE8];
+  v123[8] = *MEMORY[0x277D85DE8];
   MetalModulePass::runOnModule(this, a2);
-  v102[0] = 0;
-  v102[1] = 0;
-  v103 = 0;
+  v103[0] = 0;
+  v103[1] = 0;
+  v104 = 0;
   v4 = this[6];
-  v108[0] = "air.global_bindings";
-  v109[8] = 259;
-  NamedMetadata = llvm::Module::getNamedMetadata(v4, v108);
-  v6 = NamedMetadata;
+  v109[0] = "air.global_bindings";
+  v110[8] = 259;
+  NamedMetadata = llvm::Module::getNamedMetadata(v4, v109);
+  v9 = NamedMetadata;
   if (NamedMetadata)
   {
     NumOperands = llvm::NamedMDNode::getNumOperands(NamedMetadata);
@@ -1741,11 +980,11 @@ uint64_t ConstantGlobalToArgPass::runOnModule(llvm::DataLayout **this, llvm::Mod
     {
       for (i = 0; i != NumOperands; ++i)
       {
-        Operand = llvm::NamedMDNode::getOperand(v6);
-        v10 = Operand - 8 * *(Operand + 8);
-        v11 = *(*(v10 + 8) + 128);
-        String = llvm::MDString::getString(*(*(v10 + 16) - 8 * *(*(v10 + 16) + 8) + 8));
-        if (v13 == 11)
+        Operand = llvm::NamedMDNode::getOperand(v9);
+        v13 = Operand - 8 * *(Operand + 8);
+        v14 = *(*(v13 + 8) + 128);
+        String = llvm::MDString::getString(*(*(v13 + 16) - 8 * *(*(v13 + 16) + 8) + 8));
+        if (v6 == 11)
         {
           if (*String == 0x747865742E726961 && *(String + 3) == 0x657275747865742ELL)
           {
@@ -1758,495 +997,494 @@ uint64_t ConstantGlobalToArgPass::runOnModule(llvm::DataLayout **this, llvm::Mod
           }
         }
 
-        *&v120 = llvm::Value::getName(v11);
-        *(&v120 + 1) = v16;
-        llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseSetPair<llvm::StringRef>>,llvm::StringRef,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseSetPair<llvm::StringRef>>::try_emplace<llvm::detail::DenseSetEmpty&>(v102, &v120, v108);
+        Name = llvm::Value::getName(v14);
+        v122 = v18;
+        llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseSetPair<llvm::StringRef>>,llvm::StringRef,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseSetPair<llvm::StringRef>>::try_emplace<llvm::detail::DenseSetEmpty&>(v103, &Name, v109);
       }
     }
   }
 
-  *&v120 = v121;
-  *(&v120 + 1) = 0x800000000;
-  v17 = a2 + 8;
-  v18 = *(a2 + 2);
-  if (v18 == a2 + 8)
+  Name = v123;
+  v122 = 0x800000000;
+  v19 = a2 + 8;
+  v20 = *(a2 + 2);
+  if (v20 == a2 + 8)
   {
-    v30 = 0;
+    v32 = 0;
     goto LABEL_140;
   }
 
   do
   {
-    if (v18)
+    if (v20)
     {
-      v19 = v18 - 56;
+      v21 = v20 - 56;
     }
 
     else
     {
-      v19 = 0;
+      v21 = 0;
     }
 
-    if (ConstantGlobalToArgPass::shouldConvertGlobal(this, v19))
+    if (ConstantGlobalToArgPass::shouldConvertGlobal(this, v21))
     {
-      v108[0] = v19;
-      llvm::SmallVectorImpl<llvm::Type *>::emplace_back<llvm::Type *&>(&v120, v108);
+      v109[0] = v21;
+      llvm::SmallVectorImpl<llvm::Type *>::emplace_back<llvm::Type *&>(&Name, v109);
     }
 
-    else if (*(*v19 + 8) == 15 && MTLBoundsCheck::checkAddressSpace(v19))
+    else if (*(*v21 + 8) == 15 && MTLBoundsCheck::checkAddressSpace(v21))
     {
-      v108[0] = llvm::Value::getName(v19);
-      v108[1] = v20;
-      v115 = 0;
-      if ((llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseSetPair<llvm::StringRef>>,llvm::StringRef,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseSetPair<llvm::StringRef>>::LookupBucketFor<llvm::StringRef>(v102, v108, &v115) & 1) == 0)
+      v109[0] = llvm::Value::getName(v21);
+      v109[1] = v22;
+      v116 = 0;
+      if ((llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseSetPair<llvm::StringRef>>,llvm::StringRef,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseSetPair<llvm::StringRef>>::LookupBucketFor<llvm::StringRef>(v103, v109, &v116) & 1) == 0)
       {
-        MTLBoundsCheck::SharedPassData::skipIndirectionDeep(this[8], v19);
+        MTLBoundsCheck::SharedPassData::skipIndirectionDeep(this[8], v21);
       }
     }
 
-    v18 = *(v18 + 1);
+    v20 = *(v20 + 1);
   }
 
-  while (v18 != v17);
-  if (!DWORD2(v120))
+  while (v20 != v19);
+  if (!v122)
   {
-    v30 = 0;
+    v32 = 0;
     goto LABEL_140;
   }
 
   inserted = MTLBoundsCheck::SharedPassData::getOrInsertGlobalConstantsTableGV(this[8]);
-  v117 = 128;
-  v115 = MEMORY[0x21604BA70](6144, 8);
-  llvm::DenseMapBase<llvm::DenseMap<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,unsigned int,llvm::DenseMapInfo<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,void>,llvm::detail::DenseMapPair<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,unsigned int>>,llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,unsigned int,llvm::DenseMapInfo<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,void>,llvm::detail::DenseMapPair<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,unsigned int>>::initEmpty(&v115);
-  LOBYTE(v118[0]) = 0;
-  v119 = 0;
-  if (DWORD2(v120))
+  v118 = 128;
+  v116 = MEMORY[0x21604BA70](6144, 8);
+  llvm::DenseMapBase<llvm::DenseMap<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,unsigned int,llvm::DenseMapInfo<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,void>,llvm::detail::DenseMapPair<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,unsigned int>>,llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,unsigned int,llvm::DenseMapInfo<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,void>,llvm::detail::DenseMapPair<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,unsigned int>>::initEmpty(&v116);
+  v119[0] = 0;
+  v120 = 0;
+  if (v122)
   {
-    LODWORD(v22) = 0;
-    v23 = v120;
-    v24 = 8 * DWORD2(v120);
+    LODWORD(v24) = 0;
+    v25 = Name;
+    v26 = 8 * v122;
     do
     {
-      v112 = *v23;
-      v25 = *(v112 + 3);
-      PrefTypeAlignment = llvm::DataLayout::getPrefTypeAlignment(this[7], v25);
-      v108[0] = llvm::DataLayout::getTypeAllocSize(this[7], v25);
-      LODWORD(v108[1]) = v27;
-      v28 = llvm::TypeSize::operator unsigned long long();
-      LODWORD(v104) = (v22 + PrefTypeAlignment - 1) / PrefTypeAlignment * PrefTypeAlignment;
-      HIDWORD(v104) = v28 - v22 + v104;
-      llvm::SmallVectorImpl<MTLBoundsCheck::ConstantDataHeader>::emplace_back<MTLBoundsCheck::ConstantDataHeader&>(*(this[8] + 8) + 592, &v104);
-      v29 = v104;
-      *llvm::ValueMap<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>::operator[](&v115, &v112) = v29;
-      v22 = (HIDWORD(v104) + v22);
-      ++v23;
-      v24 -= 8;
+      v113 = *v25;
+      v27 = *(v113 + 3);
+      PrefTypeAlignment = llvm::DataLayout::getPrefTypeAlignment(this[7], v27);
+      v109[0] = llvm::DataLayout::getTypeAllocSize(this[7], v27);
+      LODWORD(v109[1]) = v29;
+      v30 = llvm::TypeSize::operator unsigned long long();
+      LODWORD(v105) = (v24 + PrefTypeAlignment - 1) / PrefTypeAlignment * PrefTypeAlignment;
+      HIDWORD(v105) = v30 - v24 + v105;
+      llvm::SmallVectorImpl<MTLBoundsCheck::ConstantDataHeader>::emplace_back<MTLBoundsCheck::ConstantDataHeader&>(*(this[8] + 8) + 592, &v105);
+      v31 = v105;
+      *llvm::ValueMap<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>::operator[](&v116, &v113) = v31;
+      v24 = (HIDWORD(v105) + v24);
+      ++v25;
+      v26 -= 8;
     }
 
-    while (v24);
+    while (v26);
   }
 
   else
   {
-    v22 = 0;
+    v24 = 0;
   }
 
-  llvm::SmallVectorImpl<unsigned char>::resizeImpl<false>((*(this[8] + 8) + 608), v22);
-  v31 = v115;
-  v32 = v117;
-  if (v116)
+  llvm::SmallVectorImpl<unsigned char>::resizeImpl<false>((*(this[8] + 8) + 608), v24);
+  v33 = v116;
+  v34 = v118;
+  if (v117)
   {
-    v108[0] = v115;
-    v108[1] = &v115[48 * v117];
-    llvm::DenseMapIterator<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,unsigned int,llvm::DenseMapInfo<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,void>,llvm::detail::DenseMapPair<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,unsigned int>,false>::AdvancePastEmptyBuckets(v108);
-    v33 = *v108;
-    v31 = v115;
-    v32 = v117;
+    v109[0] = v116;
+    v109[1] = &v116[6 * v118];
+    llvm::DenseMapIterator<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,unsigned int,llvm::DenseMapInfo<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,void>,llvm::detail::DenseMapPair<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,unsigned int>,false>::AdvancePastEmptyBuckets(v109);
+    v35 = *v109;
+    v33 = v116;
+    v34 = v118;
   }
 
   else
   {
-    v33 = vdupq_n_s64(&v115[48 * v117]);
+    v35 = vdupq_n_s64(&v116[6 * v118]);
   }
 
-  v101 = v33;
-  v96 = &v31[48 * v32];
+  v102 = v35;
+  v97 = &v33[6 * v34];
 LABEL_38:
-  if (v101.i64[0] != v96)
+  if (v102.i64[0] != v97)
   {
-    v34 = *(v101.i64[0] + 24);
-    v97 = *(v101.i64[0] + 40);
-    ConstantGlobalToArgPass::serializeConstantValue(this, *(v34 - 4), v97);
-    v108[0] = v34[1];
-    v108[1] = 0;
-    llvm::SmallVector<llvm::User *,4u>::SmallVector<llvm::Value::user_iterator_impl<llvm::User>>(&v112, v108);
+    v36 = *(v102.i64[0] + 24);
+    v98 = *(v102.i64[0] + 40);
+    ConstantGlobalToArgPass::serializeConstantValue(this, *(v36 - 4), v98);
+    v109[0] = v36[1];
+    v109[1] = 0;
+    llvm::SmallVector<llvm::User *,4u>::SmallVector<llvm::Value::user_iterator_impl<llvm::User>>(&v113, v109);
     while (1)
     {
       while (1)
       {
-        if (!v113)
+        if (!v114)
         {
-          llvm::GlobalVariable::dropAllReferences(v34);
-          llvm::GlobalVariable::eraseFromParent(v34);
-          if (v112 != &v114)
+          llvm::GlobalVariable::dropAllReferences(v36);
+          llvm::GlobalVariable::eraseFromParent(v36);
+          if (v113 != &v115)
           {
-            free(v112);
+            free(v113);
           }
 
-          v101.i64[0] += 48;
-          llvm::DenseMapIterator<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,unsigned int,llvm::DenseMapInfo<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,void>,llvm::detail::DenseMapPair<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,unsigned int>,false>::AdvancePastEmptyBuckets(v101.i64);
+          v102.i64[0] += 48;
+          llvm::DenseMapIterator<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,unsigned int,llvm::DenseMapInfo<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,void>,llvm::detail::DenseMapPair<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,unsigned int>,false>::AdvancePastEmptyBuckets(v102.i64);
           goto LABEL_38;
         }
 
-        v35 = *(v112 + --v113);
-        v36 = v35[16];
-        v37 = v36 <= 0x1B ? 0 : v35;
-        v100 = v37;
-        if (!v37)
+        v37 = *(v113 + --v114);
+        v38 = v37[16];
+        v39 = v38 <= 0x1B ? 0 : v37;
+        v101 = v39;
+        if (!v39)
         {
           break;
         }
 
-        MTLIRBuilder::MTLIRBuilder<llvm::Instruction *&>(v108, &v100);
-        if (*(v100 + 16) == 83 && v100 != 0)
+        MTLIRBuilder::MTLIRBuilder<llvm::Instruction *&>(v109, &v101);
+        if (*(v101 + 16) == 83 && v101 != 0)
         {
-          v39 = *(v100 + 5);
-          v40 = v39 & 0x7FFFFFF;
-          if ((v39 & 0x7FFFFFF) != 0)
+          v41 = *(v101 + 5);
+          v42 = v41 & 0x7FFFFFF;
+          if ((v41 & 0x7FFFFFF) != 0)
           {
-            v41 = 0;
+            v43 = 0;
             while (1)
             {
-              v42 = v100 - 32 * v40;
-              if ((v39 & 0x40000000) != 0)
+              v44 = v101 - 32 * v42;
+              if ((v41 & 0x40000000) != 0)
               {
-                v42 = *(v100 - 1);
+                v44 = *(v101 - 1);
               }
 
-              if (*&v42[32 * v41] == v34)
+              if (*&v44[32 * v43] == v36)
               {
                 break;
               }
 
-              if (++v41 == v40)
+              if (++v43 == v42)
               {
                 goto LABEL_132;
               }
             }
 
-            v80 = *&v42[32 * *(v100 + 15) + 8 * v41];
-            v81 = *(v80 + 40);
-            if (v81 == v80 + 40)
+            v82 = *&v44[32 * *(v101 + 15) + 8 * v43];
+            v83 = *(v82 + 40);
+            if (v83 == v82 + 40)
             {
-              v84 = 0;
+              v86 = 0;
             }
 
             else
             {
-              v82 = (v81 - 24);
-              if (v81)
+              v84 = (v83 - 24);
+              if (v83)
               {
-                v83 = v81 - 24;
+                v85 = v83 - 24;
               }
 
               else
               {
-                v83 = 0;
+                v85 = 0;
               }
 
-              if (*(v83 + 16) - 29 >= 0xB)
+              if (*(v85 + 16) - 29 >= 0xB)
               {
-                v84 = 0;
+                v86 = 0;
               }
 
               else
               {
-                v84 = v82;
+                v86 = v84;
               }
             }
 
-            llvm::IRBuilderBase::SetInsertPoint(v108, v84);
+            llvm::IRBuilderBase::SetInsertPoint(v109, v86);
           }
         }
 
 LABEL_132:
-        v86 = *(inserted + 3);
-        v107 = 257;
-        AlignedLoad = llvm::IRBuilderBase::CreateAlignedLoad(v108, v86, inserted, 0, 0, &v104);
-        v88 = this[8];
-        Name = llvm::Value::getName(inserted);
-        GVBaseType = MTLBoundsCheck::SharedPassData::getGVBaseType(v88, Name, v90);
-        v107 = 257;
-        ConstGEP1_32 = llvm::IRBuilderBase::CreateConstGEP1_32(v108, GVBaseType, AlignedLoad, v97, &v104);
-        v93 = *v34;
-        v107 = 257;
-        llvm::IRBuilderBase::CreateCast(v108, 49, ConstGEP1_32, v93, &v104);
+        v88 = *(inserted + 3);
+        v108 = 257;
+        AlignedLoad = llvm::IRBuilderBase::CreateAlignedLoad(v109, v88, inserted, 0, 0, &v105);
+        v90 = this[8];
+        v91 = llvm::Value::getName(inserted);
+        GVBaseType = MTLBoundsCheck::SharedPassData::getGVBaseType(v90, v91, v92);
+        v108 = 257;
+        ConstGEP1_32 = llvm::IRBuilderBase::CreateConstGEP1_32(v109, GVBaseType, AlignedLoad, v98, &v105);
+        v95 = *v36;
+        v108 = 257;
+        llvm::IRBuilderBase::CreateCast(v109, 49, ConstGEP1_32, v95, &v105);
         llvm::User::replaceUsesOfWith();
-        llvm::IRBuilderDefaultInserter::~IRBuilderDefaultInserter(&v111);
-        llvm::IRBuilderFolder::~IRBuilderFolder(&v110);
-        v85 = v108[0];
-        if (v108[0] != v109)
+        llvm::IRBuilderDefaultInserter::~IRBuilderDefaultInserter(&v112);
+        llvm::IRBuilderFolder::~IRBuilderFolder(&v111);
+        v87 = v109[0];
+        if (v109[0] != v110)
         {
 LABEL_133:
-          free(v85);
+          free(v87);
         }
       }
 
-      if (v36 == 5)
+      if (v38 == 5)
       {
-        v43 = v35;
+        v45 = v37;
       }
 
       else
       {
-        v43 = 0;
+        v45 = 0;
       }
 
-      v99 = v43;
-      if (v43)
+      v100 = v45;
+      if (v45)
       {
-        v108[0] = v109;
-        v108[1] = 0x400000000;
-        llvm::SmallVectorImpl<llvm::Type *>::emplace_back<llvm::Type *&>(v108, &v99);
-        v44 = LODWORD(v108[1]);
-        if (LODWORD(v108[1]))
+        v109[0] = v110;
+        v109[1] = 0x400000000;
+        llvm::SmallVectorImpl<llvm::Type *>::emplace_back<llvm::Type *&>(v109, &v100);
+        v46 = LODWORD(v109[1]);
+        if (LODWORD(v109[1]))
         {
-          v45 = 0;
+          v47 = 0;
           do
           {
-            v46 = *(*(v108[0] + v45) + 8);
-            if (v46)
+            v48 = *(*(v109[0] + v47) + 8);
+            if (v48)
             {
               do
               {
-                v47 = *(v46 + 24);
-                if (v47[16] != 5)
+                v49 = *(v48 + 24);
+                if (v49[16] != 5)
                 {
-                  v47 = 0;
+                  v49 = 0;
                 }
 
-                v104 = v47;
-                if (v47)
+                v105 = v49;
+                if (v49)
                 {
-                  llvm::SmallVectorImpl<llvm::Type *>::emplace_back<llvm::Type *&>(v108, &v104);
+                  llvm::SmallVectorImpl<llvm::Type *>::emplace_back<llvm::Type *&>(v109, &v105);
                 }
 
-                v46 = *(v46 + 8);
+                v48 = *(v48 + 8);
               }
 
-              while (v46);
-              v44 = LODWORD(v108[1]);
+              while (v48);
+              v46 = LODWORD(v109[1]);
             }
 
-            ++v45;
+            ++v47;
           }
 
-          while (v44 > v45);
-          v48 = v108[0];
-          if (v44)
+          while (v46 > v47);
+          v50 = v109[0];
+          if (v46)
           {
-            v49 = v108[0] + 8 * v44;
+            v51 = v109[0] + 8 * v46;
             do
             {
-              v51 = *(v49 - 1);
-              v49 -= 8;
-              v50 = v51;
-              v98[0] = *(v51 + 1);
-              v98[1] = 0;
-              llvm::SmallVector<llvm::User *,4u>::SmallVector<llvm::Value::user_iterator_impl<llvm::User>>(&v104, v98);
-              v52 = v104;
-              if (v105)
+              v53 = *(v51 - 1);
+              v51 -= 8;
+              v52 = v53;
+              v99[0] = *(v53 + 1);
+              v99[1] = 0;
+              llvm::SmallVector<llvm::User *,4u>::SmallVector<llvm::Value::user_iterator_impl<llvm::User>>(&v105, v99);
+              v54 = v105;
+              if (v106)
               {
-                v53 = v104 + 8 * v105;
+                v55 = v105 + 8 * v106;
                 do
                 {
-                  v54 = *v52;
-                  AsInstruction = llvm::ConstantExpr::getAsInstruction(v99, 0);
-                  v98[0] = AsInstruction;
-                  v56 = *(v54 + 16);
-                  if (v56 != 83 || v54 == 0)
+                  v56 = *v54;
+                  AsInstruction = llvm::ConstantExpr::getAsInstruction(v100, 0);
+                  v99[0] = AsInstruction;
+                  v58 = *(v56 + 16);
+                  if (v58 != 83 || v56 == 0)
                   {
-                    if (v56 < 0x1C || v54 == 0)
+                    if (v58 < 0x1C || v56 == 0)
                     {
-                      llvm::Value::dump(v50);
-                      llvm::Value::dump(v54);
+                      llvm::Value::dump(v52);
+                      llvm::Value::dump(v56);
                     }
 
                     else
                     {
-                      llvm::Instruction::insertBefore(AsInstruction, v54);
+                      llvm::Instruction::insertBefore(AsInstruction, v56);
                     }
                   }
 
                   else
                   {
-                    v59 = *(v54 + 20);
-                    v60 = v59 & 0x7FFFFFF;
-                    if ((v59 & 0x7FFFFFF) != 0)
+                    v61 = *(v56 + 20);
+                    v62 = v61 & 0x7FFFFFF;
+                    if ((v61 & 0x7FFFFFF) != 0)
                     {
-                      v61 = 0;
-                      v62 = 0;
-                      v63 = 32 * v60;
-                      v64 = v54 - 32 * v60;
+                      v63 = 0;
+                      v64 = 0;
+                      v65 = 32 * v62;
+                      v66 = v56 - 32 * v62;
                       while (1)
                       {
-                        v65 = v64;
-                        if ((v59 & 0x40000000) != 0)
+                        v67 = v66;
+                        if ((v61 & 0x40000000) != 0)
                         {
-                          v65 = *(v54 - 8);
+                          v67 = *(v56 - 8);
                         }
 
-                        if (*(v65 + v62) == v50)
+                        if (*(v67 + v64) == v52)
                         {
                           break;
                         }
 
-                        v62 += 32;
-                        v61 += 8;
-                        if (v63 == v62)
+                        v64 += 32;
+                        v63 += 8;
+                        if (v65 == v64)
                         {
                           goto LABEL_110;
                         }
                       }
 
-                      v66 = *(v65 + 32 * *(v54 + 60) + v61);
-                      v67 = *(v66 + 40);
-                      if (v67 == v66 + 40)
+                      v68 = *(v67 + 32 * *(v56 + 60) + v63);
+                      v69 = *(v68 + 40);
+                      if (v69 == v68 + 40)
                       {
-                        v70 = 0;
+                        v72 = 0;
                       }
 
                       else
                       {
-                        v68 = (v67 - 24);
-                        if (v67)
+                        v70 = (v69 - 24);
+                        if (v69)
                         {
-                          v69 = v67 - 24;
+                          v71 = v69 - 24;
                         }
 
                         else
                         {
-                          v69 = 0;
+                          v71 = 0;
                         }
 
-                        if (*(v69 + 16) - 29 >= 0xB)
+                        if (*(v71 + 16) - 29 >= 0xB)
                         {
-                          v70 = 0;
+                          v72 = 0;
                         }
 
                         else
                         {
-                          v70 = v68;
+                          v72 = v70;
                         }
                       }
 
-                      llvm::Instruction::insertBefore(AsInstruction, v70);
-                      v71 = *(v54 + 20);
-                      if ((v71 & 0x40000000) != 0)
+                      llvm::Instruction::insertBefore(AsInstruction, v72);
+                      v73 = *(v56 + 20);
+                      if ((v73 & 0x40000000) != 0)
                       {
-                        v72 = *(v54 - 8);
+                        v74 = *(v56 - 8);
                       }
 
                       else
                       {
-                        v72 = v54 - 32 * (v71 & 0x7FFFFFF);
+                        v74 = v56 - 32 * (v73 & 0x7FFFFFF);
                       }
 
-                      v73 = v98[0];
-                      v74 = v72 + v62;
-                      if (*(v72 + v62))
+                      v75 = v99[0];
+                      v76 = v74 + v64;
+                      if (*(v74 + v64))
                       {
-                        v75 = *(v74 + 8);
-                        **(v74 + 16) = v75;
-                        if (v75)
+                        v77 = *(v76 + 8);
+                        **(v76 + 16) = v77;
+                        if (v77)
                         {
-                          *(v75 + 16) = *(v74 + 16);
+                          *(v77 + 16) = *(v76 + 16);
                         }
                       }
 
-                      *v74 = v73;
-                      if (v73)
+                      *v76 = v75;
+                      if (v75)
                       {
-                        v78 = *(v73 + 8);
-                        v76 = (v73 + 8);
-                        v77 = v78;
-                        v79 = v72 + v62;
-                        *(v79 + 8) = v78;
-                        if (v78)
+                        v80 = *(v75 + 8);
+                        v78 = (v75 + 8);
+                        v79 = v80;
+                        v81 = v74 + v64;
+                        *(v81 + 8) = v80;
+                        if (v80)
                         {
-                          *(v77 + 16) = v79 + 8;
+                          *(v79 + 16) = v81 + 8;
                         }
 
-                        *(v79 + 16) = v76;
-                        *v76 = v74;
+                        *(v81 + 16) = v78;
+                        *v78 = v76;
                       }
                     }
                   }
 
 LABEL_110:
                   llvm::User::replaceUsesOfWith();
-                  if (v50 == v99)
+                  if (v52 == v100)
                   {
-                    llvm::SmallVectorImpl<llvm::Type *>::emplace_back<llvm::Type *&>(&v112, v98);
+                    llvm::SmallVectorImpl<llvm::Type *>::emplace_back<llvm::Type *&>(&v113, v99);
                   }
 
-                  v52 += 8;
+                  v54 += 8;
                 }
 
-                while (v52 != v53);
-                v52 = v104;
+                while (v54 != v55);
+                v54 = v105;
               }
 
-              if (v52 != &v106)
+              if (v54 != &v107)
               {
-                free(v52);
+                free(v54);
               }
             }
 
-            while (v49 != v48);
-            v48 = v108[0];
+            while (v51 != v50);
+            v50 = v109[0];
           }
         }
 
         else
         {
-          v48 = v108[0];
+          v50 = v109[0];
         }
 
-        if (v48 != v109)
+        if (v50 != v110)
         {
-          v85 = v48;
+          v87 = v50;
           goto LABEL_133;
         }
       }
 
       else
       {
-        llvm::Value::dump(v35);
+        llvm::Value::dump(v37);
       }
     }
   }
 
-  if (v119 == 1)
+  if (v120 == 1)
   {
-    llvm::DenseMap<llvm::Metadata const*,llvm::TrackingMDRef,llvm::DenseMapInfo<llvm::Metadata const*,void>,llvm::detail::DenseMapPair<llvm::Metadata const*,llvm::TrackingMDRef>>::~DenseMap(v118);
-    v119 = 0;
+    llvm::DenseMap<llvm::Metadata const*,llvm::TrackingMDRef,llvm::DenseMapInfo<llvm::Metadata const*,void>,llvm::detail::DenseMapPair<llvm::Metadata const*,llvm::TrackingMDRef>>::~DenseMap(v119);
+    v120 = 0;
   }
 
-  llvm::DenseMap<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,unsigned int,llvm::DenseMapInfo<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,void>,llvm::detail::DenseMapPair<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,unsigned int>>::~DenseMap(&v115);
-  v30 = 1;
+  llvm::DenseMap<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,unsigned int,llvm::DenseMapInfo<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,void>,llvm::detail::DenseMapPair<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,unsigned int>>::~DenseMap(&v116);
+  v32 = 1;
 LABEL_140:
-  if (v120 != v121)
+  if (Name != v123)
   {
-    free(v120);
+    free(Name);
   }
 
-  llvm::DenseMap<llvm::StringRef,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseSetPair<llvm::StringRef>>::~DenseMap(v102);
-  v94 = *MEMORY[0x277D85DE8];
-  return v30;
+  llvm::DenseMap<llvm::StringRef,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseSetPair<llvm::StringRef>>::~DenseMap(v103, v6, v7, v8);
+  return v32;
 }
 
-void sub_213C30450(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, void *a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, void *a55)
+void sub_213C30450(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, void *a55)
 {
   if (*(v55 - 208) == 1)
   {
@@ -2255,13 +1493,13 @@ void sub_213C30450(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   }
 
   llvm::DenseMap<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,unsigned int,llvm::DenseMapInfo<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,void>,llvm::detail::DenseMapPair<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,unsigned int>>::~DenseMap((v55 - 256));
-  v57 = *(v55 - 192);
-  if (v57 != a9)
+  v60 = *(v55 - 192);
+  if (v60 != a9)
   {
-    free(v57);
+    free(v60);
   }
 
-  llvm::DenseMap<llvm::StringRef,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseSetPair<llvm::StringRef>>::~DenseMap(&a22);
+  llvm::DenseMap<llvm::StringRef,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseSetPair<llvm::StringRef>>::~DenseMap(&a22, v57, v58, v59);
   _Unwind_Resume(a1);
 }
 
@@ -2383,7 +1621,7 @@ void *llvm::ValueMap<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<ll
 uint64_t ConstantGlobalToArgPass::serializeConstantValue(llvm::DataLayout **this, llvm::Type **a2, unint64_t a3)
 {
   TypeAllocSize = llvm::DataLayout::getTypeAllocSize(this[7], *a2);
-  v42 = v6;
+  v41 = v6;
   v7 = llvm::TypeSize::operator unsigned long long();
   v8 = *(a2 + 16);
   if ((v8 & 0xFE) == 0xE)
@@ -2401,12 +1639,12 @@ LABEL_10:
   if (v8 == 17)
   {
     TypeAllocSize = (llvm::DataLayout::getTypeSizeInBits(this[7], *a2) + 7) >> 3;
-    v42 = v17 == 1;
-    llvm::APFloat::bitcastToAPInt(&v38, (a2 + 3));
-    LimitedValue = llvm::APInt::getLimitedValue(&v38, 0xFFFFFFFFFFFFFFFFLL);
-    if (v39 >= 0x41 && v38)
+    v41 = v17 == 1;
+    llvm::APFloat::bitcastToAPInt((a2 + 3));
+    LimitedValue = llvm::APInt::getLimitedValue(&v37, 0xFFFFFFFFFFFFFFFFLL);
+    if (v38 >= 0x41 && v37)
     {
-      MEMORY[0x21604C970](v38, 0x1000C8000313F17);
+      MEMORY[0x21604C970](v37, 0x1000C8000313F17);
     }
 
     __src = LimitedValue;
@@ -2420,19 +1658,19 @@ LABEL_10:
   if (v8 == 16)
   {
     TypeAllocSize = (llvm::DataLayout::getTypeSizeInBits(this[7], *a2) + 7) >> 3;
-    v42 = v15 == 1;
-    v38 = llvm::APInt::getLimitedValue(a2 + 3, 0xFFFFFFFFFFFFFFFFLL);
+    v41 = v15 == 1;
+    v37 = llvm::APInt::getLimitedValue(a2 + 3, 0xFFFFFFFFFFFFFFFFLL);
     v16 = *(*(this[8] + 8) + 608);
     v14 = llvm::TypeSize::operator unsigned long long();
     v12 = (v16 + a3);
-    p_src = &v38;
+    p_src = &v37;
     goto LABEL_10;
   }
 
   if ((v8 - 11) <= 2)
   {
     TypeAllocSize = (llvm::DataLayout::getTypeSizeInBits(this[7], *a2) + 7) >> 3;
-    v42 = v21 == 1;
+    v41 = v21 == 1;
     v22 = *(*(this[8] + 8) + 608);
     v23 = llvm::TypeSize::operator unsigned long long();
     bzero((v22 + a3), v23);
@@ -2447,20 +1685,20 @@ LABEL_10:
       return v7;
     }
 
-    v32 = *a2;
-    v33 = *(*a2 + 8);
-    if (v33 == 16)
+    v31 = *a2;
+    v32 = *(*a2 + 8);
+    if (v32 == 16)
     {
-      v34 = *(v32 + 3);
+      v33 = *(v31 + 3);
     }
 
     else
     {
-      if (v33 != 17 && v33 != 18)
+      if (v32 != 17 && v32 != 18)
       {
-        v35 = 1;
+        v34 = 1;
 LABEL_29:
-        for (i = 0; i != v35; ++i)
+        for (i = 0; i != v34; ++i)
         {
           AggregateElement = llvm::Constant::getAggregateElement(a2);
           a3 += ConstantGlobalToArgPass::serializeConstantValue(this, AggregateElement, a3);
@@ -2469,43 +1707,42 @@ LABEL_29:
         return v7;
       }
 
-      v34 = *(v32 + 8);
+      v33 = *(v31 + 8);
     }
 
-    if (!v34)
+    if (!v33)
     {
       return v7;
     }
 
-    v35 = v34;
+    v34 = v33;
     goto LABEL_29;
   }
 
   v24 = *a2;
-  v25 = this[7];
   StructLayout = llvm::DataLayout::getStructLayout();
-  v27 = *(v24 + 3);
-  if (v27)
+  v26 = *(v24 + 3);
+  if (v26)
   {
-    v28 = 0;
-    v29 = StructLayout + 16;
+    v27 = 0;
+    v28 = StructLayout + 16;
     do
     {
-      v30 = *(v29 + 8 * v28);
-      v31 = llvm::Constant::getAggregateElement(a2);
-      ConstantGlobalToArgPass::serializeConstantValue(this, v31, v30 + a3);
-      ++v28;
+      v29 = *(v28 + 8 * v27);
+      v30 = llvm::Constant::getAggregateElement(a2);
+      ConstantGlobalToArgPass::serializeConstantValue(this, v30, v29 + a3);
+      ++v27;
     }
 
-    while (v27 != v28);
+    while (v26 != v27);
   }
 
   return v7;
 }
 
-void sub_213C30AD8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, unsigned int a11)
+void sub_213C30AD8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, unsigned int a12)
 {
-  if (a11 >= 0x41)
+  if (a12 >= 0x41)
   {
     ConstantGlobalToArgPass::serializeConstantValue(&a10);
   }
@@ -2516,18 +1753,19 @@ void sub_213C30AD8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 uint64_t llvm::IRBuilderBase::CreateConstGEP1_32(llvm::Type **this, llvm::Type *a2, llvm::Value *a3, unsigned int a4, const llvm::Twine *a5)
 {
   llvm::Type::getInt32Ty(this[8], a2);
-  v11 = llvm::ConstantInt::get();
-  result = (*(*this[9] + 48))(this[9], a2, a3, &v11, 1, 0);
+  v12 = llvm::ConstantInt::get();
+  result = (*(*this[9] + 48))(this[9], a2, a3, &v12, 1, 0);
   if (!result)
   {
-    v10 = llvm::GetElementPtrInst::Create(a2, a3, &v11, 1);
+    v11[16] = 257;
+    v10 = llvm::GetElementPtrInst::Create(a2, a3, &v12, 1, v11, 0);
     return llvm::IRBuilderBase::Insert<llvm::CastInst>(this, v10, a5);
   }
 
   return result;
 }
 
-uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseSetPair<llvm::StringRef>>,llvm::StringRef,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseSetPair<llvm::StringRef>>::try_emplace<llvm::detail::DenseSetEmpty&>@<X0>(uint64_t a1@<X0>, _OWORD *a2@<X1>, uint64_t a3@<X8>)
+uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseSetPair<llvm::StringRef>>,llvm::StringRef,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseSetPair<llvm::StringRef>>::try_emplace<llvm::detail::DenseSetEmpty&>@<X0>(uint64_t a1@<X0>, char **a2@<X1>, uint64_t a3@<X8>)
 {
   v10 = 0;
   result = llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseSetPair<llvm::StringRef>>,llvm::StringRef,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseSetPair<llvm::StringRef>>::LookupBucketFor<llvm::StringRef>(a1, a2, &v10);
@@ -2552,78 +1790,76 @@ uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,llvm::detail::DenseSe
   return result;
 }
 
-uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseSetPair<llvm::StringRef>>,llvm::StringRef,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseSetPair<llvm::StringRef>>::LookupBucketFor<llvm::StringRef>(uint64_t *a1, uint64_t a2, void *a3)
+uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseSetPair<llvm::StringRef>>,llvm::StringRef,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseSetPair<llvm::StringRef>>::LookupBucketFor<llvm::StringRef>(uint64_t *a1, char **a2, void ***a3)
 {
   v4 = *(a1 + 4);
   if (v4)
   {
     v6 = *a1;
-    v7 = *a2;
-    v8 = *(a2 + 8);
-    v9 = v4 - 1;
-    v10 = llvm::DenseMapInfo<llvm::StringRef,void>::getHashValue() & (v4 - 1);
-    v11 = v6 + 16 * v10;
-    if (llvm::DenseMapInfo<llvm::StringRef,void>::isEqual(*a2, *(a2 + 8), *v11, *(v11 + 8)))
+    v7 = v4 - 1;
+    v8 = llvm::DenseMapInfo<llvm::StringRef,void>::getHashValue() & (v4 - 1);
+    v9 = v6 + 16 * v8;
+    if (llvm::DenseMapInfo<llvm::StringRef,void>::isEqual(*a2, a2[1], *v9, *(v9 + 8)))
     {
       result = 1;
     }
 
     else
     {
-      v13 = 0;
-      v14 = 1;
-      while (*v11 != -1)
+      v11 = 0;
+      v12 = 1;
+      while (*v9 != -1)
       {
-        if (v13)
+        if (v11)
         {
-          v15 = 0;
+          v13 = 0;
         }
 
         else
         {
-          v15 = *v11 == -2;
+          v13 = *v9 == -2;
         }
 
-        if (v15)
+        if (v13)
         {
-          v13 = v11;
+          v11 = v9;
         }
 
-        v19 = v13;
-        v16 = v14 + 1;
-        v10 = (v10 + v14) & v9;
-        v11 = v6 + 16 * v10;
-        isEqual = llvm::DenseMapInfo<llvm::StringRef,void>::isEqual(*a2, *(a2 + 8), *v11, *(v11 + 8));
-        v13 = v19;
-        v18 = isEqual;
+        v17 = v11;
+        v14 = v12 + 1;
+        v8 = (v8 + v12) & v7;
+        v9 = v6 + 16 * v8;
+        isEqual = llvm::DenseMapInfo<llvm::StringRef,void>::isEqual(*a2, a2[1], *v9, *(v9 + 8));
+        v11 = v17;
+        v16 = isEqual;
         result = 1;
-        v14 = v16;
-        if (v18)
+        v12 = v14;
+        if (v16)
         {
           goto LABEL_5;
         }
       }
 
       result = 0;
-      if (v13)
+      if (v11)
       {
-        v11 = v13;
+        v9 = v11;
       }
     }
   }
 
   else
   {
-    v11 = 0;
+    v9 = 0;
     result = 0;
   }
 
 LABEL_5:
-  *a3 = v11;
+  *a3 = v9;
   return result;
 }
 
-BOOL llvm::DenseMapInfo<llvm::StringRef,void>::isEqual(char *a1, size_t __n, void *__s2, uint64_t a4)
+uint64_t llvm::DenseMapInfo<llvm::StringRef,void>::isEqual(char *a1, size_t __n, void *__s2, uint64_t a4)
 {
   if (__s2 == -2)
   {
@@ -2648,7 +1884,7 @@ BOOL llvm::DenseMapInfo<llvm::StringRef,void>::isEqual(char *a1, size_t __n, voi
   return 1;
 }
 
-void *llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseSetPair<llvm::StringRef>>,llvm::StringRef,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseSetPair<llvm::StringRef>>::InsertIntoBucketImpl<llvm::StringRef>(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void **llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseSetPair<llvm::StringRef>>,llvm::StringRef,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseSetPair<llvm::StringRef>>::InsertIntoBucketImpl<llvm::StringRef>(uint64_t a1, uint64_t a2, char **a3, void **a4)
 {
   v6 = *(a1 + 8);
   v7 = *(a1 + 16);
@@ -2698,7 +1934,7 @@ _OWORD *llvm::DenseMap<llvm::StringRef,llvm::detail::DenseSetEmpty,llvm::DenseMa
   *a1 = result;
   if (v4)
   {
-    llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseSetPair<llvm::StringRef>>,llvm::StringRef,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseSetPair<llvm::StringRef>>::moveFromOldBuckets(a1, v4, v4 + v3);
+    llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseSetPair<llvm::StringRef>>,llvm::StringRef,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseSetPair<llvm::StringRef>>::moveFromOldBuckets(a1, v4, &v4[2 * v3]);
 
     return llvm::deallocate_buffer(v4, (16 * v3));
   }
@@ -2723,7 +1959,7 @@ _OWORD *llvm::DenseMap<llvm::StringRef,llvm::detail::DenseSetEmpty,llvm::DenseMa
   return result;
 }
 
-uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseSetPair<llvm::StringRef>>,llvm::StringRef,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseSetPair<llvm::StringRef>>::moveFromOldBuckets(uint64_t result, _OWORD *a2, _OWORD *a3)
+uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseSetPair<llvm::StringRef>>,llvm::StringRef,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseSetPair<llvm::StringRef>>::moveFromOldBuckets(uint64_t result, char **a2, char **a3)
 {
   v5 = result;
   *(result + 8) = 0;
@@ -2751,7 +1987,7 @@ uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,llvm::detail::DenseSe
       ++*(v5 + 8);
     }
 
-    ++a2;
+    a2 += 2;
   }
 
   return result;
@@ -2868,36 +2104,34 @@ void llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMap
 void llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>::allUsesReplacedWith(uint64_t a1, uint64_t a2)
 {
   v3 = a1 + 8;
-  llvm::ValueHandleBase::ValueHandleBase(v13, (*(a1 + 8) >> 1) & 3, (a1 + 8));
+  llvm::ValueHandleBase::ValueHandleBase(v11, (*(a1 + 8) >> 1) & 3, (a1 + 8));
   v4 = *(v3 + 24);
-  v12 = &unk_282634628;
-  v14 = v4;
-  v9[0] = 0;
-  v5 = llvm::DenseMapBase<llvm::DenseMap<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,unsigned int,llvm::DenseMapInfo<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,void>,llvm::detail::DenseMapPair<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,unsigned int>>,llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,unsigned int,llvm::DenseMapInfo<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,void>,llvm::detail::DenseMapPair<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,unsigned int>>::LookupBucketFor<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>>(v4, &v12, v9);
-  v6 = *v4;
-  if (v5)
+  v10 = &unk_282634628;
+  v12 = v4;
+  v7[0] = 0;
+  if (llvm::DenseMapBase<llvm::DenseMap<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,unsigned int,llvm::DenseMapInfo<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,void>,llvm::detail::DenseMapPair<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,unsigned int>>,llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,unsigned int,llvm::DenseMapInfo<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,void>,llvm::detail::DenseMapPair<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,unsigned int>>::LookupBucketFor<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>>(v4, &v10, v7))
   {
-    v7 = v9[0];
+    v5 = v7[0];
   }
 
   else
   {
-    v7 = *v4 + 48 * v4[2].u32[0];
+    v5 = *v4 + 48 * v4[2].u32[0];
   }
 
-  if (*v14 + 48 * v14[2].u32[0] != v7)
+  if (*v12 + 48 * v12[2].u32[0] != v5)
   {
-    v8 = *(v7 + 40);
-    llvm::DenseMapBase<llvm::DenseMap<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,unsigned int,llvm::DenseMapInfo<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,void>,llvm::detail::DenseMapPair<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,unsigned int>>,llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,unsigned int,llvm::DenseMapInfo<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,void>,llvm::detail::DenseMapPair<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,unsigned int>>::erase(v14, v7);
-    v10 = a2;
-    v11 = v8;
-    llvm::ValueMap<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>::insert(v14, &v10, v9);
+    v6 = *(v5 + 40);
+    llvm::DenseMapBase<llvm::DenseMap<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,unsigned int,llvm::DenseMapInfo<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,void>,llvm::detail::DenseMapPair<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,unsigned int>>,llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,unsigned int,llvm::DenseMapInfo<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,void>,llvm::detail::DenseMapPair<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,unsigned int>>::erase(v12, v5);
+    v8 = a2;
+    v9 = v6;
+    llvm::ValueMap<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>::insert(v12, &v8, v7);
   }
 
-  llvm::ValueHandleBase::~ValueHandleBase(v13);
+  llvm::ValueHandleBase::~ValueHandleBase(v11);
 }
 
-uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,unsigned int,llvm::DenseMapInfo<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,void>,llvm::detail::DenseMapPair<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,unsigned int>>,llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,unsigned int,llvm::DenseMapInfo<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,void>,llvm::detail::DenseMapPair<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,unsigned int>>::erase(uint64_t a1, uint64_t a2)
+uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,unsigned int,llvm::DenseMapInfo<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,void>,llvm::detail::DenseMapPair<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,unsigned int>>,llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,unsigned int,llvm::DenseMapInfo<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,void>,llvm::detail::DenseMapPair<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,unsigned int>>::erase(int32x2_t *a1, uint64_t a2)
 {
   v6 = 0;
   v3 = llvm::DenseMapBase<llvm::DenseMap<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,unsigned int,llvm::DenseMapInfo<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,void>,llvm::detail::DenseMapPair<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,unsigned int>>,llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,unsigned int,llvm::DenseMapInfo<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,void>,llvm::detail::DenseMapPair<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>,unsigned int>>::LookupBucketFor<llvm::ValueMapCallbackVH<llvm::GlobalVariable *,unsigned int,llvm::ValueMapConfig<llvm::GlobalVariable *,llvm::sys::SmartMutex<false>>>>(a1, a2, &v6);
@@ -2912,7 +2146,7 @@ uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::ValueMapCallbackVH<llvm::Global
     llvm::ValueHandleBase::operator=((v4 + 1), v7);
     v4[4] = v8;
     llvm::ValueHandleBase::~ValueHandleBase(v7);
-    *(a1 + 8) = vadd_s32(*(a1 + 8), 0x1FFFFFFFFLL);
+    a1[1] = vadd_s32(a1[1], 0x1FFFFFFFFLL);
   }
 
   return v3;
@@ -3231,7 +2465,7 @@ void llvm::SmallVectorImpl<unsigned char>::resizeImpl<false>(void *a1, unint64_t
   }
 }
 
-uint64_t llvm::APFloat::bitcastToAPInt(llvm::APFloat *this)
+uint64_t *llvm::APFloat::bitcastToAPInt(llvm::APFloat *this)
 {
   v1 = this + 8;
   v2 = *(this + 1);
@@ -9717,6 +8951,742 @@ uint64_t AirReflection::Node::node_as_ThreadIndexInSimdgroupArg(AirReflection::N
 uint64_t AirReflection::ThreadIndexInSimdgroupArg::HashImpl(int *a1, CC_SHA256_CTX *c)
 {
   CC_SHA256_Update(c, "AirReflection.ThreadIndexInSimdgroupArg", 0x27u);
+  v4 = (a1 - *a1);
+  if (*v4 < 5u)
+  {
+    LOBYTE(v5) = 0;
+  }
+
+  else
+  {
+    v5 = v4[2];
+    if (v5)
+    {
+      LOBYTE(v5) = *(a1 + v5) != 0;
+    }
+  }
+
+  data = v5;
+  CC_SHA256_Update(c, &data, 1u);
+  v6 = (a1 - *a1);
+  if (*v6 >= 7u && (v7 = v6[3]) != 0)
+  {
+    v8 = (a1 + v7);
+    v9 = *v8;
+    v10 = (v8 + v9 + 4);
+    v11 = *(v8 + v9);
+    v12 = c;
+  }
+
+  else
+  {
+    v24 = 0;
+    v10 = &v24;
+    v12 = c;
+    v11 = 4;
+  }
+
+  CC_SHA256_Update(v12, v10, v11);
+  v13 = (a1 - *a1);
+  if (*v13 >= 9u && (v14 = v13[4]) != 0)
+  {
+    v15 = (a1 + v14);
+    v16 = *v15;
+    v17 = (v15 + v16 + 4);
+    v18 = *(v15 + v16);
+    v19 = c;
+  }
+
+  else
+  {
+    v25 = 0;
+    v17 = &v25;
+    v19 = c;
+    v18 = 4;
+  }
+
+  CC_SHA256_Update(v19, v17, v18);
+  v20 = (a1 - *a1);
+  if (*v20 < 0xBu)
+  {
+    LOBYTE(v21) = 0;
+  }
+
+  else
+  {
+    v21 = v20[5];
+    if (v21)
+    {
+      LOBYTE(v21) = *(a1 + v21) != 0;
+    }
+  }
+
+  v26 = v21;
+  return CC_SHA256_Update(c, &v26, 1u);
+}
+
+uint64_t AirReflection::Node::node_as_ThreadsPerSimdgroupArg(AirReflection::Node *this)
+{
+  v1 = (this - *this);
+  v2 = *v1;
+  if (v2 >= 5 && v1[2] && (v2 >= 7 ? (v3 = *(this + v1[2]) == 266253) : (v3 = 0), v3 && (v4 = v1[3]) != 0))
+  {
+    return this + v4 + *(this + v4);
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t AirReflection::ThreadsPerSimdgroupArg::HashImpl(int *a1, CC_SHA256_CTX *c)
+{
+  CC_SHA256_Update(c, "AirReflection.ThreadsPerSimdgroupArg", 0x24u);
+  v4 = (a1 - *a1);
+  if (*v4 < 5u)
+  {
+    LOBYTE(v5) = 0;
+  }
+
+  else
+  {
+    v5 = v4[2];
+    if (v5)
+    {
+      LOBYTE(v5) = *(a1 + v5) != 0;
+    }
+  }
+
+  data = v5;
+  CC_SHA256_Update(c, &data, 1u);
+  v6 = (a1 - *a1);
+  if (*v6 >= 7u && (v7 = v6[3]) != 0)
+  {
+    v8 = (a1 + v7);
+    v9 = *v8;
+    v10 = (v8 + v9 + 4);
+    v11 = *(v8 + v9);
+    v12 = c;
+  }
+
+  else
+  {
+    v24 = 0;
+    v10 = &v24;
+    v12 = c;
+    v11 = 4;
+  }
+
+  CC_SHA256_Update(v12, v10, v11);
+  v13 = (a1 - *a1);
+  if (*v13 >= 9u && (v14 = v13[4]) != 0)
+  {
+    v15 = (a1 + v14);
+    v16 = *v15;
+    v17 = (v15 + v16 + 4);
+    v18 = *(v15 + v16);
+    v19 = c;
+  }
+
+  else
+  {
+    v25 = 0;
+    v17 = &v25;
+    v19 = c;
+    v18 = 4;
+  }
+
+  CC_SHA256_Update(v19, v17, v18);
+  v20 = (a1 - *a1);
+  if (*v20 < 0xBu)
+  {
+    LOBYTE(v21) = 0;
+  }
+
+  else
+  {
+    v21 = v20[5];
+    if (v21)
+    {
+      LOBYTE(v21) = *(a1 + v21) != 0;
+    }
+  }
+
+  v26 = v21;
+  return CC_SHA256_Update(c, &v26, 1u);
+}
+
+uint64_t AirReflection::Node::node_as_SimdgroupIndexInThreadgroupArg(AirReflection::Node *this)
+{
+  v1 = (this - *this);
+  v2 = *v1;
+  if (v2 >= 5 && v1[2] && (v2 >= 7 ? (v3 = *(this + v1[2]) == 266254) : (v3 = 0), v3 && (v4 = v1[3]) != 0))
+  {
+    return this + v4 + *(this + v4);
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t AirReflection::SimdgroupIndexInThreadgroupArg::HashImpl(int *a1, CC_SHA256_CTX *c)
+{
+  CC_SHA256_Update(c, "AirReflection.SimdgroupIndexInThreadgroupArg", 0x2Cu);
+  v4 = (a1 - *a1);
+  if (*v4 < 5u)
+  {
+    LOBYTE(v5) = 0;
+  }
+
+  else
+  {
+    v5 = v4[2];
+    if (v5)
+    {
+      LOBYTE(v5) = *(a1 + v5) != 0;
+    }
+  }
+
+  data = v5;
+  CC_SHA256_Update(c, &data, 1u);
+  v6 = (a1 - *a1);
+  if (*v6 >= 7u && (v7 = v6[3]) != 0)
+  {
+    v8 = (a1 + v7);
+    v9 = *v8;
+    v10 = (v8 + v9 + 4);
+    v11 = *(v8 + v9);
+    v12 = c;
+  }
+
+  else
+  {
+    v24 = 0;
+    v10 = &v24;
+    v12 = c;
+    v11 = 4;
+  }
+
+  CC_SHA256_Update(v12, v10, v11);
+  v13 = (a1 - *a1);
+  if (*v13 >= 9u && (v14 = v13[4]) != 0)
+  {
+    v15 = (a1 + v14);
+    v16 = *v15;
+    v17 = (v15 + v16 + 4);
+    v18 = *(v15 + v16);
+    v19 = c;
+  }
+
+  else
+  {
+    v25 = 0;
+    v17 = &v25;
+    v19 = c;
+    v18 = 4;
+  }
+
+  CC_SHA256_Update(v19, v17, v18);
+  v20 = (a1 - *a1);
+  if (*v20 < 0xBu)
+  {
+    LOBYTE(v21) = 0;
+  }
+
+  else
+  {
+    v21 = v20[5];
+    if (v21)
+    {
+      LOBYTE(v21) = *(a1 + v21) != 0;
+    }
+  }
+
+  v26 = v21;
+  return CC_SHA256_Update(c, &v26, 1u);
+}
+
+uint64_t AirReflection::Node::node_as_SimdgroupsPerThreadgroupArg(AirReflection::Node *this)
+{
+  v1 = (this - *this);
+  v2 = *v1;
+  if (v2 >= 5 && v1[2] && (v2 >= 7 ? (v3 = *(this + v1[2]) == 266255) : (v3 = 0), v3 && (v4 = v1[3]) != 0))
+  {
+    return this + v4 + *(this + v4);
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t AirReflection::SimdgroupsPerThreadgroupArg::HashImpl(int *a1, CC_SHA256_CTX *c)
+{
+  CC_SHA256_Update(c, "AirReflection.SimdgroupsPerThreadgroupArg", 0x29u);
+  v4 = (a1 - *a1);
+  if (*v4 < 5u)
+  {
+    LOBYTE(v5) = 0;
+  }
+
+  else
+  {
+    v5 = v4[2];
+    if (v5)
+    {
+      LOBYTE(v5) = *(a1 + v5) != 0;
+    }
+  }
+
+  data = v5;
+  CC_SHA256_Update(c, &data, 1u);
+  v6 = (a1 - *a1);
+  if (*v6 >= 7u && (v7 = v6[3]) != 0)
+  {
+    v8 = (a1 + v7);
+    v9 = *v8;
+    v10 = (v8 + v9 + 4);
+    v11 = *(v8 + v9);
+    v12 = c;
+  }
+
+  else
+  {
+    v24 = 0;
+    v10 = &v24;
+    v12 = c;
+    v11 = 4;
+  }
+
+  CC_SHA256_Update(v12, v10, v11);
+  v13 = (a1 - *a1);
+  if (*v13 >= 9u && (v14 = v13[4]) != 0)
+  {
+    v15 = (a1 + v14);
+    v16 = *v15;
+    v17 = (v15 + v16 + 4);
+    v18 = *(v15 + v16);
+    v19 = c;
+  }
+
+  else
+  {
+    v25 = 0;
+    v17 = &v25;
+    v19 = c;
+    v18 = 4;
+  }
+
+  CC_SHA256_Update(v19, v17, v18);
+  v20 = (a1 - *a1);
+  if (*v20 < 0xBu)
+  {
+    LOBYTE(v21) = 0;
+  }
+
+  else
+  {
+    v21 = v20[5];
+    if (v21)
+    {
+      LOBYTE(v21) = *(a1 + v21) != 0;
+    }
+  }
+
+  v26 = v21;
+  return CC_SHA256_Update(c, &v26, 1u);
+}
+
+uint64_t AirReflection::Node::node_as_DispatchSimdgroupsPerThreadgroupArg(AirReflection::Node *this)
+{
+  v1 = (this - *this);
+  v2 = *v1;
+  if (v2 >= 5 && v1[2] && (v2 >= 7 ? (v3 = *(this + v1[2]) == 266256) : (v3 = 0), v3 && (v4 = v1[3]) != 0))
+  {
+    return this + v4 + *(this + v4);
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t AirReflection::DispatchSimdgroupsPerThreadgroupArg::HashImpl(int *a1, CC_SHA256_CTX *c)
+{
+  CC_SHA256_Update(c, "AirReflection.DispatchSimdgroupsPerThreadgroupArg", 0x31u);
+  v4 = (a1 - *a1);
+  if (*v4 < 5u)
+  {
+    LOBYTE(v5) = 0;
+  }
+
+  else
+  {
+    v5 = v4[2];
+    if (v5)
+    {
+      LOBYTE(v5) = *(a1 + v5) != 0;
+    }
+  }
+
+  data = v5;
+  CC_SHA256_Update(c, &data, 1u);
+  v6 = (a1 - *a1);
+  if (*v6 >= 7u && (v7 = v6[3]) != 0)
+  {
+    v8 = (a1 + v7);
+    v9 = *v8;
+    v10 = (v8 + v9 + 4);
+    v11 = *(v8 + v9);
+    v12 = c;
+  }
+
+  else
+  {
+    v24 = 0;
+    v10 = &v24;
+    v12 = c;
+    v11 = 4;
+  }
+
+  CC_SHA256_Update(v12, v10, v11);
+  v13 = (a1 - *a1);
+  if (*v13 >= 9u && (v14 = v13[4]) != 0)
+  {
+    v15 = (a1 + v14);
+    v16 = *v15;
+    v17 = (v15 + v16 + 4);
+    v18 = *(v15 + v16);
+    v19 = c;
+  }
+
+  else
+  {
+    v25 = 0;
+    v17 = &v25;
+    v19 = c;
+    v18 = 4;
+  }
+
+  CC_SHA256_Update(v19, v17, v18);
+  v20 = (a1 - *a1);
+  if (*v20 < 0xBu)
+  {
+    LOBYTE(v21) = 0;
+  }
+
+  else
+  {
+    v21 = v20[5];
+    if (v21)
+    {
+      LOBYTE(v21) = *(a1 + v21) != 0;
+    }
+  }
+
+  v26 = v21;
+  return CC_SHA256_Update(c, &v26, 1u);
+}
+
+uint64_t AirReflection::Node::node_as_ThreadIndexInQuadgroupArg(AirReflection::Node *this)
+{
+  v1 = (this - *this);
+  v2 = *v1;
+  if (v2 >= 5 && v1[2] && (v2 >= 7 ? (v3 = *(this + v1[2]) == 266257) : (v3 = 0), v3 && (v4 = v1[3]) != 0))
+  {
+    return this + v4 + *(this + v4);
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t AirReflection::ThreadIndexInQuadgroupArg::HashImpl(int *a1, CC_SHA256_CTX *c)
+{
+  CC_SHA256_Update(c, "AirReflection.ThreadIndexInQuadgroupArg", 0x27u);
+  v4 = (a1 - *a1);
+  if (*v4 < 5u)
+  {
+    LOBYTE(v5) = 0;
+  }
+
+  else
+  {
+    v5 = v4[2];
+    if (v5)
+    {
+      LOBYTE(v5) = *(a1 + v5) != 0;
+    }
+  }
+
+  data = v5;
+  CC_SHA256_Update(c, &data, 1u);
+  v6 = (a1 - *a1);
+  if (*v6 >= 7u && (v7 = v6[3]) != 0)
+  {
+    v8 = (a1 + v7);
+    v9 = *v8;
+    v10 = (v8 + v9 + 4);
+    v11 = *(v8 + v9);
+    v12 = c;
+  }
+
+  else
+  {
+    v24 = 0;
+    v10 = &v24;
+    v12 = c;
+    v11 = 4;
+  }
+
+  CC_SHA256_Update(v12, v10, v11);
+  v13 = (a1 - *a1);
+  if (*v13 >= 9u && (v14 = v13[4]) != 0)
+  {
+    v15 = (a1 + v14);
+    v16 = *v15;
+    v17 = (v15 + v16 + 4);
+    v18 = *(v15 + v16);
+    v19 = c;
+  }
+
+  else
+  {
+    v25 = 0;
+    v17 = &v25;
+    v19 = c;
+    v18 = 4;
+  }
+
+  CC_SHA256_Update(v19, v17, v18);
+  v20 = (a1 - *a1);
+  if (*v20 < 0xBu)
+  {
+    LOBYTE(v21) = 0;
+  }
+
+  else
+  {
+    v21 = v20[5];
+    if (v21)
+    {
+      LOBYTE(v21) = *(a1 + v21) != 0;
+    }
+  }
+
+  v26 = v21;
+  return CC_SHA256_Update(c, &v26, 1u);
+}
+
+uint64_t AirReflection::Node::node_as_QuadgroupIndexInThreadgroupArg(AirReflection::Node *this)
+{
+  v1 = (this - *this);
+  v2 = *v1;
+  if (v2 >= 5 && v1[2] && (v2 >= 7 ? (v3 = *(this + v1[2]) == 266258) : (v3 = 0), v3 && (v4 = v1[3]) != 0))
+  {
+    return this + v4 + *(this + v4);
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t AirReflection::QuadgroupIndexInThreadgroupArg::HashImpl(int *a1, CC_SHA256_CTX *c)
+{
+  CC_SHA256_Update(c, "AirReflection.QuadgroupIndexInThreadgroupArg", 0x2Cu);
+  v4 = (a1 - *a1);
+  if (*v4 < 5u)
+  {
+    LOBYTE(v5) = 0;
+  }
+
+  else
+  {
+    v5 = v4[2];
+    if (v5)
+    {
+      LOBYTE(v5) = *(a1 + v5) != 0;
+    }
+  }
+
+  data = v5;
+  CC_SHA256_Update(c, &data, 1u);
+  v6 = (a1 - *a1);
+  if (*v6 >= 7u && (v7 = v6[3]) != 0)
+  {
+    v8 = (a1 + v7);
+    v9 = *v8;
+    v10 = (v8 + v9 + 4);
+    v11 = *(v8 + v9);
+    v12 = c;
+  }
+
+  else
+  {
+    v24 = 0;
+    v10 = &v24;
+    v12 = c;
+    v11 = 4;
+  }
+
+  CC_SHA256_Update(v12, v10, v11);
+  v13 = (a1 - *a1);
+  if (*v13 >= 9u && (v14 = v13[4]) != 0)
+  {
+    v15 = (a1 + v14);
+    v16 = *v15;
+    v17 = (v15 + v16 + 4);
+    v18 = *(v15 + v16);
+    v19 = c;
+  }
+
+  else
+  {
+    v25 = 0;
+    v17 = &v25;
+    v19 = c;
+    v18 = 4;
+  }
+
+  CC_SHA256_Update(v19, v17, v18);
+  v20 = (a1 - *a1);
+  if (*v20 < 0xBu)
+  {
+    LOBYTE(v21) = 0;
+  }
+
+  else
+  {
+    v21 = v20[5];
+    if (v21)
+    {
+      LOBYTE(v21) = *(a1 + v21) != 0;
+    }
+  }
+
+  v26 = v21;
+  return CC_SHA256_Update(c, &v26, 1u);
+}
+
+uint64_t AirReflection::Node::node_as_QuadgroupsPerThreadgroupArg(AirReflection::Node *this)
+{
+  v1 = (this - *this);
+  v2 = *v1;
+  if (v2 >= 5 && v1[2] && (v2 >= 7 ? (v3 = *(this + v1[2]) == 266259) : (v3 = 0), v3 && (v4 = v1[3]) != 0))
+  {
+    return this + v4 + *(this + v4);
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t AirReflection::QuadgroupsPerThreadgroupArg::HashImpl(int *a1, CC_SHA256_CTX *c)
+{
+  CC_SHA256_Update(c, "AirReflection.QuadgroupsPerThreadgroupArg", 0x29u);
+  v4 = (a1 - *a1);
+  if (*v4 < 5u)
+  {
+    LOBYTE(v5) = 0;
+  }
+
+  else
+  {
+    v5 = v4[2];
+    if (v5)
+    {
+      LOBYTE(v5) = *(a1 + v5) != 0;
+    }
+  }
+
+  data = v5;
+  CC_SHA256_Update(c, &data, 1u);
+  v6 = (a1 - *a1);
+  if (*v6 >= 7u && (v7 = v6[3]) != 0)
+  {
+    v8 = (a1 + v7);
+    v9 = *v8;
+    v10 = (v8 + v9 + 4);
+    v11 = *(v8 + v9);
+    v12 = c;
+  }
+
+  else
+  {
+    v24 = 0;
+    v10 = &v24;
+    v12 = c;
+    v11 = 4;
+  }
+
+  CC_SHA256_Update(v12, v10, v11);
+  v13 = (a1 - *a1);
+  if (*v13 >= 9u && (v14 = v13[4]) != 0)
+  {
+    v15 = (a1 + v14);
+    v16 = *v15;
+    v17 = (v15 + v16 + 4);
+    v18 = *(v15 + v16);
+    v19 = c;
+  }
+
+  else
+  {
+    v25 = 0;
+    v17 = &v25;
+    v19 = c;
+    v18 = 4;
+  }
+
+  CC_SHA256_Update(v19, v17, v18);
+  v20 = (a1 - *a1);
+  if (*v20 < 0xBu)
+  {
+    LOBYTE(v21) = 0;
+  }
+
+  else
+  {
+    v21 = v20[5];
+    if (v21)
+    {
+      LOBYTE(v21) = *(a1 + v21) != 0;
+    }
+  }
+
+  v26 = v21;
+  return CC_SHA256_Update(c, &v26, 1u);
+}
+
+uint64_t AirReflection::Node::node_as_DispatchQuadgroupsPerThreadgroupArg(AirReflection::Node *this)
+{
+  v1 = (this - *this);
+  v2 = *v1;
+  if (v2 >= 5 && v1[2] && (v2 >= 7 ? (v3 = *(this + v1[2]) == 266260) : (v3 = 0), v3 && (v4 = v1[3]) != 0))
+  {
+    return this + v4 + *(this + v4);
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t AirReflection::DispatchQuadgroupsPerThreadgroupArg::HashImpl(int *a1, CC_SHA256_CTX *c)
+{
+  CC_SHA256_Update(c, "AirReflection.DispatchQuadgroupsPerThreadgroupArg", 0x31u);
   v4 = (a1 - *a1);
   if (*v4 < 5u)
   {

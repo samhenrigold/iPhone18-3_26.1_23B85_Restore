@@ -468,89 +468,88 @@
 
 - (void)printWithTitle:(id)title logFile:(void *)file
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ (size=%lu):", title, objc_msgSend(-[VCMediaNegotiationBlobV2 data](self, "data"), "length")];
-  uTF8String = [v6 UTF8String];
-  VRLogfilePrintWithTimestamp(file, "Media Blob (v2) - %s\n", v8, v9, v10, v11, v12, v13, uTF8String);
+  VRLogfilePrintWithTimestamp(file, "Media Blob (v2) - %s\n", [v6 UTF8String]);
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
-    v14 = VRTraceErrorLogLevelToCSTR();
-    v15 = *MEMORY[0x1E6986650];
+    v7 = VRTraceErrorLogLevelToCSTR();
+    v8 = *MEMORY[0x1E6986650];
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315906;
-      v29 = v14;
-      v30 = 2080;
-      v31 = "[VCMediaNegotiationBlobV2(Utils) printWithTitle:logFile:]";
-      v32 = 1024;
-      v33 = 22;
-      v34 = 2080;
-      uTF8String2 = [v6 UTF8String];
-      _os_log_impl(&dword_1DB56E000, v15, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Media Blob (v2) - %s", buf, 0x26u);
+      v22 = v7;
+      v23 = 2080;
+      v24 = "[VCMediaNegotiationBlobV2(Utils) printWithTitle:logFile:]";
+      v25 = 1024;
+      v26 = 22;
+      v27 = 2080;
+      uTF8String = [v6 UTF8String];
+      _os_log_impl(&dword_1DB56E000, v8, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Media Blob (v2) - %s", buf, 0x26u);
     }
   }
 
-  v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s  ", "Media Blob (v2) - "];
+  v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s  ", "Media Blob (v2) - "];
   if ([(VCMediaNegotiationBlobV2 *)self hasGeneralInfo])
   {
-    [(VCMediaNegotiationBlobV2GeneralInfo *)self->_generalInfo printWithLogFile:file prefix:v16];
+    [(VCMediaNegotiationBlobV2GeneralInfo *)self->_generalInfo printWithLogFile:file prefix:v9];
   }
 
   if ([(VCMediaNegotiationBlobV2 *)self hasBandwidthSettings])
   {
-    [(VCMediaNegotiationBlobV2BandwidthSettings *)self->_bandwidthSettings printWithLogFile:file prefix:v16];
+    [(VCMediaNegotiationBlobV2BandwidthSettings *)self->_bandwidthSettings printWithLogFile:file prefix:v9];
   }
 
   if ([(VCMediaNegotiationBlobV2 *)self hasCodecSupport])
   {
-    [(VCMediaNegotiationBlobV2CodecFeatures *)self->_codecSupport printWithLogFile:file prefix:v16];
+    [(VCMediaNegotiationBlobV2CodecFeatures *)self->_codecSupport printWithLogFile:file prefix:v9];
   }
 
   if ([(VCMediaNegotiationBlobV2 *)self hasMicrophoneU1])
   {
-    [(VCMediaNegotiationBlobV2MicrophoneSettingsU1 *)self->_microphoneU1 printWithLogFile:file prefix:v16];
+    [(VCMediaNegotiationBlobV2MicrophoneSettingsU1 *)self->_microphoneU1 printWithLogFile:file prefix:v9];
   }
 
   if ([(VCMediaNegotiationBlobV2 *)self hasCameraU1])
   {
     cameraU1 = self->_cameraU1;
     [(VCMediaNegotiationBlobV2GeneralInfo *)self->_generalInfo screenResolution];
-    [(VCMediaNegotiationBlobV2CameraSettingsU1 *)cameraU1 printWithLogFile:file prefix:v16 screenSize:?];
+    [(VCMediaNegotiationBlobV2CameraSettingsU1 *)cameraU1 printWithLogFile:file prefix:v9 screenSize:?];
   }
 
   if ([(VCMediaNegotiationBlobV2 *)self hasMomentsSettings])
   {
-    [(VCMediaNegotiationBlobV2MomentsSettings *)self->_momentsSettings printWithLogFile:file prefix:v16];
+    [(VCMediaNegotiationBlobV2MomentsSettings *)self->_momentsSettings printWithLogFile:file prefix:v9];
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
-  v25 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   streamGroups = [(VCMediaNegotiationBlobV2 *)self streamGroups];
-  v19 = [(NSMutableArray *)streamGroups countByEnumeratingWithState:&v24 objects:v23 count:16];
-  if (v19)
+  v12 = [(NSMutableArray *)streamGroups countByEnumeratingWithState:&v17 objects:v16 count:16];
+  if (v12)
   {
-    v20 = v19;
-    v21 = *v25;
+    v13 = v12;
+    v14 = *v18;
     do
     {
-      v22 = 0;
+      v15 = 0;
       do
       {
-        if (*v25 != v21)
+        if (*v18 != v14)
         {
           objc_enumerationMutation(streamGroups);
         }
 
-        [*(*(&v24 + 1) + 8 * v22++) printWithLogFile:file prefix:v16];
+        [*(*(&v17 + 1) + 8 * v15++) printWithLogFile:file prefix:v9];
       }
 
-      while (v20 != v22);
-      v20 = [(NSMutableArray *)streamGroups countByEnumeratingWithState:&v24 objects:v23 count:16];
+      while (v13 != v15);
+      v13 = [(NSMutableArray *)streamGroups countByEnumeratingWithState:&v17 objects:v16 count:16];
     }
 
-    while (v20);
+    while (v13);
   }
 }
 
@@ -558,26 +557,27 @@
 {
   enabledCopy = enabled;
   v5 = *&suites;
-  v23 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v6 = +[VCMediaNegotiationBlobV2SettingsU1 appendCipherSuiteFlags:toDescription:](VCMediaNegotiationBlobV2SettingsU1, "appendCipherSuiteFlags:toDescription:", *&suites, [MEMORY[0x1E696AD60] string]);
-  if (!enabledCopy || (VCFeatureFlagManager_U1AuthTagEnabled() & 1) == 0)
+  v8 = v6;
+  if (!enabledCopy || (VCFeatureFlagManager_U1AuthTagEnabled(v6, v7) & 1) == 0)
   {
     v5 = v5 & 0xFFFFFFF9;
     if (VRTraceGetErrorLogLevelForModule() >= 7)
     {
-      v7 = VRTraceErrorLogLevelToCSTR();
-      v8 = *MEMORY[0x1E6986650];
+      v9 = VRTraceErrorLogLevelToCSTR();
+      v10 = *MEMORY[0x1E6986650];
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
-        v15 = 136315906;
-        v16 = v7;
-        v17 = 2080;
-        v18 = "+[VCMediaNegotiationBlobV2(Utils) pruneDisabledCipherSuites:u1AuthTagEnabled:]";
-        v19 = 1024;
-        v20 = 53;
-        v21 = 2112;
-        v22 = v6;
-        _os_log_impl(&dword_1DB56E000, v8, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Pruning AES128 RCCM2 ciphers from cipherSuites=%@", &v15, 0x26u);
+        v17 = 136315906;
+        v18 = v9;
+        v19 = 2080;
+        v20 = "+[VCMediaNegotiationBlobV2(Utils) pruneDisabledCipherSuites:u1AuthTagEnabled:]";
+        v21 = 1024;
+        v22 = 53;
+        v23 = 2112;
+        v24 = v8;
+        _os_log_impl(&dword_1DB56E000, v10, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Pruning AES128 RCCM2 ciphers from cipherSuites=%@", &v17, 0x26u);
       }
     }
   }
@@ -587,39 +587,39 @@
     v5 = v5 & 0xFFFFFFE7;
     if (VRTraceGetErrorLogLevelForModule() >= 7)
     {
-      v9 = VRTraceErrorLogLevelToCSTR();
-      v10 = *MEMORY[0x1E6986650];
+      v11 = VRTraceErrorLogLevelToCSTR();
+      v12 = *MEMORY[0x1E6986650];
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
-        v15 = 136315906;
-        v16 = v9;
-        v17 = 2080;
-        v18 = "+[VCMediaNegotiationBlobV2(Utils) pruneDisabledCipherSuites:u1AuthTagEnabled:]";
-        v19 = 1024;
-        v20 = 59;
-        v21 = 2112;
-        v22 = v6;
-        _os_log_impl(&dword_1DB56E000, v10, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Pruning AES256 RCCM2 ciphers from cipherSuites=%@", &v15, 0x26u);
+        v17 = 136315906;
+        v18 = v11;
+        v19 = 2080;
+        v20 = "+[VCMediaNegotiationBlobV2(Utils) pruneDisabledCipherSuites:u1AuthTagEnabled:]";
+        v21 = 1024;
+        v22 = 59;
+        v23 = 2112;
+        v24 = v8;
+        _os_log_impl(&dword_1DB56E000, v12, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Pruning AES256 RCCM2 ciphers from cipherSuites=%@", &v17, 0x26u);
       }
     }
   }
 
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
-    v11 = VRTraceErrorLogLevelToCSTR();
-    v12 = *MEMORY[0x1E6986650];
+    v13 = VRTraceErrorLogLevelToCSTR();
+    v14 = *MEMORY[0x1E6986650];
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
-      v13 = +[VCMediaNegotiationBlobV2SettingsU1 appendCipherSuiteFlags:toDescription:](VCMediaNegotiationBlobV2SettingsU1, "appendCipherSuiteFlags:toDescription:", v5, [MEMORY[0x1E696AD60] string]);
-      v15 = 136315906;
-      v16 = v11;
-      v17 = 2080;
-      v18 = "+[VCMediaNegotiationBlobV2(Utils) pruneDisabledCipherSuites:u1AuthTagEnabled:]";
-      v19 = 1024;
-      v20 = 61;
-      v21 = 2112;
-      v22 = v13;
-      _os_log_impl(&dword_1DB56E000, v12, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Resulting cipherSuites=%@", &v15, 0x26u);
+      v15 = +[VCMediaNegotiationBlobV2SettingsU1 appendCipherSuiteFlags:toDescription:](VCMediaNegotiationBlobV2SettingsU1, "appendCipherSuiteFlags:toDescription:", v5, [MEMORY[0x1E696AD60] string]);
+      v17 = 136315906;
+      v18 = v13;
+      v19 = 2080;
+      v20 = "+[VCMediaNegotiationBlobV2(Utils) pruneDisabledCipherSuites:u1AuthTagEnabled:]";
+      v21 = 1024;
+      v22 = 61;
+      v23 = 2112;
+      v24 = v15;
+      _os_log_impl(&dword_1DB56E000, v14, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Resulting cipherSuites=%@", &v17, 0x26u);
     }
   }
 

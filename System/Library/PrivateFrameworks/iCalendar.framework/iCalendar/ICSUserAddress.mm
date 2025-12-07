@@ -547,7 +547,7 @@
 
 - (id)sanitizeAddressString:(id)string
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   if (sanitizeAddressString__onceToken != -1)
   {
@@ -556,28 +556,28 @@
 
   v5 = stringCopy;
   lowercaseString = [v5 lowercaseString];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v7 = sanitizeAddressString__invalidIndexPrefixes;
-  v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
   v9 = v5;
   if (v8)
   {
     v10 = v8;
-    v11 = *v18;
+    v11 = *v17;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(v7);
         }
 
-        v13 = *(*(&v17 + 1) + 8 * i);
-        if ([lowercaseString hasPrefix:{v13, v17}])
+        v13 = *(*(&v16 + 1) + 8 * i);
+        if ([lowercaseString hasPrefix:{v13, v16}])
         {
           v14 = [v5 substringFromIndex:{objc_msgSend(v13, "length") >> 1}];
 
@@ -587,7 +587,7 @@
         }
       }
 
-      v10 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v10)
       {
         continue;
@@ -600,8 +600,6 @@
   }
 
 LABEL_13:
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -910,7 +908,7 @@ LABEL_6:
 - (NSString)cn
 {
   v2 = [(ICSProperty *)self parameterValueForName:@"CN"];
-  if ([v2 rangeOfString:@"\\""] != 0x7FFFFFFFFFFFFFFFLL)
+  if ([v2 rangeOfString:@"\"] != 0x7FFFFFFFFFFFFFFFLL)
   {
     v3 = [v2 stringByReplacingOccurrencesOfString:@"\ withString:@" options:2 range:{0, objc_msgSend(v2, "length")}];
 

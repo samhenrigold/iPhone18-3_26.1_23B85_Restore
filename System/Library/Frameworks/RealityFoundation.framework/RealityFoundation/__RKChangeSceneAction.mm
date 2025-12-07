@@ -8,21 +8,16 @@
 {
   v4 = type metadata accessor for UUID();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x1EEE9AC00](v4);
-  v8 = &v17 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = OBJC_IVAR____TtC10RealityKit21__RKChangeSceneAction_rootEntity;
+  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   swift_beginAccess();
-  v10 = *(&self->super.super.isa + v9);
-  (*(v5 + 16))(v8, self + OBJC_IVAR____TtC10RealityKit21__RKChangeSceneAction_targetSceneIdentifier, v4);
-  v11 = type metadata accessor for __RKChangeSceneAction();
-  v12 = *(v11 + 48);
-  v13 = *(v11 + 52);
+  (*(v5 + 16))(v7, self + OBJC_IVAR____TtC10RealityKit21__RKChangeSceneAction_targetSceneIdentifier, v4);
+  type metadata accessor for __RKChangeSceneAction(0);
   swift_allocObject();
 
-  v15 = specialized __RKChangeSceneAction.init(rootEntity:targetSceneIdentifier:)(v14, v8);
+  v9 = specialized __RKChangeSceneAction.init(rootEntity:targetSceneIdentifier:)(v8, v7);
 
-  return v15;
+  return v9;
 }
 
 @end

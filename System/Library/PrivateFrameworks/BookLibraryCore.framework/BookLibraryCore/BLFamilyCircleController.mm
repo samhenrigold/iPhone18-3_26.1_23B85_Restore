@@ -61,30 +61,30 @@
   if (activeStoreAccount)
   {
     defaultBag = [MEMORY[0x277CF3300] defaultBag];
-    v8 = [objc_alloc(MEMORY[0x277CEE4E0]) initWithAccount:activeStoreAccount bag:defaultBag];
-    performFamilyInfoLookup = [v8 performFamilyInfoLookup];
+    v9 = [objc_alloc(MEMORY[0x277CEE4E0]) initWithAccount:activeStoreAccount bag:defaultBag];
+    performFamilyInfoLookup = [v9 performFamilyInfoLookup];
     objc_initWeak(location, self);
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = sub_241D72AEC;
-    v13[3] = &unk_278D18AB8;
-    v13[4] = self;
-    objc_copyWeak(&v15, location);
-    v14 = completionCopy;
-    [performFamilyInfoLookup addFinishBlock:v13];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = sub_241D72AEC;
+    v14[3] = &unk_278D18AB8;
+    v14[4] = self;
+    objc_copyWeak(&v16, location);
+    v15 = completionCopy;
+    [performFamilyInfoLookup addFinishBlock:v14];
 
-    objc_destroyWeak(&v15);
+    objc_destroyWeak(&v16);
     objc_destroyWeak(location);
 LABEL_7:
 
     goto LABEL_8;
   }
 
-  v10 = BLFamilyLog();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = BLFamilyLog(v7);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(location[0]) = 0;
-    _os_log_impl(&dword_241D1F000, v10, OS_LOG_TYPE_DEFAULT, "Attempted to look up family circle without a logged in account", location, 2u);
+    _os_log_impl(&dword_241D1F000, v11, OS_LOG_TYPE_DEFAULT, "Attempted to look up family circle without a logged in account", location, 2u);
   }
 
   ignoredDSIDs = [(BLFamilyCircleController *)self ignoredDSIDs];
@@ -93,10 +93,10 @@ LABEL_7:
   defaultBag = MEMORY[0x245CFF560](completionCopy);
   if (defaultBag)
   {
-    v8 = objc_opt_new();
+    v9 = objc_opt_new();
     performFamilyInfoLookup = objc_opt_new();
-    v12 = objc_opt_new();
-    (defaultBag)[2](defaultBag, v8, performFamilyInfoLookup, v12);
+    v13 = objc_opt_new();
+    (defaultBag)[2](defaultBag, v9, performFamilyInfoLookup, v13);
 
     goto LABEL_7;
   }
@@ -249,35 +249,33 @@ LABEL_24:
   v41 = [v11 mutableCopy];
   [(BLFamilyCircleController *)self setCachedDSIDs:v41];
 
-  v42 = BLFamilyLog();
-  if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+  v43 = BLFamilyLog(v42);
+  if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
   {
-    v43 = [v37 count];
-    v44 = [v34 count];
-    v45 = [v40 count];
+    v44 = [v37 count];
+    v45 = [v34 count];
+    v46 = [v40 count];
     *buf = 138413570;
     v58 = v37;
     v59 = 2048;
-    v60 = v43;
+    v60 = v44;
     v61 = 2112;
     v62 = v34;
     v63 = 2048;
-    v64 = v44;
+    v64 = v45;
     v65 = 2112;
     v66 = v40;
     v67 = 2048;
-    v68 = v45;
-    _os_log_impl(&dword_241D1F000, v42, OS_LOG_TYPE_DEFAULT, "Processed Family:  Added: %@ (%lu) | Removed: %@ (%lu) | Unchanged: %@ (%lu)", buf, 0x3Eu);
+    v68 = v46;
+    _os_log_impl(&dword_241D1F000, v43, OS_LOG_TYPE_DEFAULT, "Processed Family:  Added: %@ (%lu) | Removed: %@ (%lu) | Unchanged: %@ (%lu)", buf, 0x3Eu);
   }
 
-  v46 = MEMORY[0x245CFF560](completionCopy);
-  v47 = v46;
-  if (v46)
+  v47 = MEMORY[0x245CFF560](completionCopy);
+  v48 = v47;
+  if (v47)
   {
-    (*(v46 + 16))(v46, v37, v34, v40);
+    (*(v47 + 16))(v47, v37, v34, v40);
   }
-
-  v48 = *MEMORY[0x277D85DE8];
 }
 
 @end

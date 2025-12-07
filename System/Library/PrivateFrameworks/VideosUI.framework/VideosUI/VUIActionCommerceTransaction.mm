@@ -52,11 +52,11 @@
 
   if (v10)
   {
-    v11 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = VUIDefaultLogObject(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      *v12 = 0;
-      _os_log_impl(&dword_1E323F000, v11, OS_LOG_TYPE_DEFAULT, "PurchaseAction - performWithTargetResponder: ending early because purchase with buyParams already exists", v12, 2u);
+      *v13 = 0;
+      _os_log_impl(&dword_1E323F000, v12, OS_LOG_TYPE_DEFAULT, "PurchaseAction - performWithTargetResponder: ending early because purchase with buyParams already exists", v13, 2u);
     }
 
     if (handlerCopy)
@@ -134,122 +134,124 @@ LABEL_7:
 
 - (void)_startTransactionOfOffer:(id)offer withAppContext:(id)context andCompletionHandler:(id)handler
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   offerCopy = offer;
   contextCopy = context;
   handlerCopy = handler;
   v11 = [VUIPurchaseRequest getPurchaseTypeFromActionRef:self->_commerceActionRef];
   v12 = [VUIPurchaseRequest shouldPlayWhenDoneForActionRef:self->_commerceActionRef];
   initiateFamilySetup = [offerCopy initiateFamilySetup];
-  v14 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v14 = initiateFamilySetup;
+  v15 = VUIDefaultLogObject(initiateFamilySetup);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     commerceActionRef = self->_commerceActionRef;
     *buf = 138412802;
-    v32 = commerceActionRef;
-    v33 = 2048;
-    v34 = v11;
-    v35 = 1024;
-    v36 = v12;
-    _os_log_impl(&dword_1E323F000, v14, OS_LOG_TYPE_DEFAULT, "PurchaseAction - _amsStartPurchaseFlowForOffer: [%@], type: %ld, shouldPlayWhenDone: %d", buf, 0x1Cu);
+    v33 = commerceActionRef;
+    v34 = 2048;
+    v35 = v11;
+    v36 = 1024;
+    v37 = v12;
+    _os_log_impl(&dword_1E323F000, v15, OS_LOG_TYPE_DEFAULT, "PurchaseAction - _amsStartPurchaseFlowForOffer: [%@], type: %ld, shouldPlayWhenDone: %d", buf, 0x1Cu);
   }
 
   buyParams = [offerCopy buyParams];
-  v17 = +[VUIPurchaser sharedInstance];
-  [v17 rememberPurchasing:buyParams];
+  v18 = +[VUIPurchaser sharedInstance];
+  [v18 rememberPurchasing:buyParams];
 
-  v18 = [(VUIActionCommerceTransaction *)self _preflightManagerForTransactionOffer:offerCopy purchaseType:v11];
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __93__VUIActionCommerceTransaction__startTransactionOfOffer_withAppContext_andCompletionHandler___block_invoke;
-  v23[3] = &unk_1E8737378;
-  v23[4] = self;
-  v24 = offerCopy;
-  v27 = handlerCopy;
-  v28 = v11;
-  v25 = buyParams;
-  v26 = contextCopy;
-  v29 = initiateFamilySetup;
-  v30 = v12;
-  v19 = contextCopy;
-  v20 = handlerCopy;
-  v21 = buyParams;
-  v22 = offerCopy;
-  [v18 preflightWithOptions:1 completion:v23];
+  v19 = [(VUIActionCommerceTransaction *)self _preflightManagerForTransactionOffer:offerCopy purchaseType:v11];
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __93__VUIActionCommerceTransaction__startTransactionOfOffer_withAppContext_andCompletionHandler___block_invoke;
+  v24[3] = &unk_1E8737378;
+  v24[4] = self;
+  v25 = offerCopy;
+  v28 = handlerCopy;
+  v29 = v11;
+  v26 = buyParams;
+  v27 = contextCopy;
+  v30 = v14;
+  v31 = v12;
+  v20 = contextCopy;
+  v21 = handlerCopy;
+  v22 = buyParams;
+  v23 = offerCopy;
+  [v19 preflightWithOptions:1 completion:v24];
 }
 
 void __93__VUIActionCommerceTransaction__startTransactionOfOffer_withAppContext_andCompletionHandler___block_invoke(uint64_t a1, char a2)
 {
-  [*(a1 + 32) _notifyDidStartPurchaseType:*(a1 + 72) transactionOffer:*(a1 + 40)];
+  v4 = [*(a1 + 32) _notifyDidStartPurchaseType:*(a1 + 72) transactionOffer:*(a1 + 40)];
   if (a2)
   {
-    v4 = [[VUIPurchaseRequest alloc] initWithBuyParams:*(a1 + 48) ofPurchaseType:*(a1 + 72)];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __93__VUIActionCommerceTransaction__startTransactionOfOffer_withAppContext_andCompletionHandler___block_invoke_116;
-    v14[3] = &unk_1E8737350;
-    v5 = *(a1 + 48);
-    v6 = *(a1 + 40);
-    v7 = *(a1 + 64);
-    v8 = *(a1 + 72);
-    v17 = v7;
+    v5 = [[VUIPurchaseRequest alloc] initWithBuyParams:*(a1 + 48) ofPurchaseType:*(a1 + 72)];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __93__VUIActionCommerceTransaction__startTransactionOfOffer_withAppContext_andCompletionHandler___block_invoke_116;
+    v15[3] = &unk_1E8737350;
+    v6 = *(a1 + 48);
+    v7 = *(a1 + 40);
+    v8 = *(a1 + 64);
+    v9 = *(a1 + 72);
     v18 = v8;
-    v13 = *(a1 + 32);
-    v9 = *(a1 + 56);
-    *&v10 = v13;
-    *(&v10 + 1) = v9;
-    *&v11 = v5;
-    *(&v11 + 1) = v6;
-    v15 = v11;
-    v16 = v10;
-    v19 = *(a1 + 80);
-    [(VUIPurchaseRequest *)v4 enqueueWithCompletion:v14];
+    v19 = v9;
+    v14 = *(a1 + 32);
+    v10 = *(a1 + 56);
+    *&v11 = v14;
+    *(&v11 + 1) = v10;
+    *&v12 = v6;
+    *(&v12 + 1) = v7;
+    v16 = v12;
+    v17 = v11;
+    v20 = *(a1 + 80);
+    [(VUIPurchaseRequest *)v5 enqueueWithCompletion:v15];
   }
 
   else
   {
-    v12 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = VUIDefaultLogObject(v4);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1E323F000, v12, OS_LOG_TYPE_DEFAULT, "PurchaseAction - Purchase restricted", buf, 2u);
+      _os_log_impl(&dword_1E323F000, v13, OS_LOG_TYPE_DEFAULT, "PurchaseAction - Purchase restricted", buf, 2u);
     }
 
-    v4 = [MEMORY[0x1E696ABC0] errorWithDomain:@"TRANSACTION_RESTRICTED_CONTENT" code:0 userInfo:0];
-    [*(a1 + 32) _notifyDidEndPurchaseType:*(a1 + 72) transactionOffer:*(a1 + 40) withError:v4];
+    v5 = [MEMORY[0x1E696ABC0] errorWithDomain:@"TRANSACTION_RESTRICTED_CONTENT" code:0 userInfo:0];
+    [*(a1 + 32) _notifyDidEndPurchaseType:*(a1 + 72) transactionOffer:*(a1 + 40) withError:v5];
   }
 }
 
 void __93__VUIActionCommerceTransaction__startTransactionOfOffer_withAppContext_andCompletionHandler___block_invoke_116(uint64_t a1, void *a2, void *a3)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = +[VUIPurchaser sharedInstance];
   [v7 forgetPurchasing:*(a1 + 32)];
 
-  v8 = VUIDefaultLogObject();
-  v9 = v8;
+  v9 = VUIDefaultLogObject(v8);
+  v10 = v9;
   if (!v5 || v6)
   {
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __93__VUIActionCommerceTransaction__startTransactionOfOffer_withAppContext_andCompletionHandler___block_invoke_116_cold_1(v6, v9);
+      __93__VUIActionCommerceTransaction__startTransactionOfOffer_withAppContext_andCompletionHandler___block_invoke_116_cold_1(v6, v10);
     }
 
-    v14 = [*(a1 + 40) videosPlayables];
-    v15 = [v14 firstObject];
-    v16 = [v15 sharedWatchId];
+    v15 = [*(a1 + 40) videosPlayables];
+    v16 = [v15 firstObject];
+    v17 = [v16 sharedWatchId];
 
-    LODWORD(v15) = [VUIGroupActivitiesManagerObjC isSharedWatchIdValidForCurrentSession:v16];
-    v17 = VUIDefaultLogObject();
-    v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
-    if (v15)
+    v18 = [VUIGroupActivitiesManagerObjC isSharedWatchIdValidForCurrentSession:v17];
+    LODWORD(v16) = v18;
+    v19 = VUIDefaultLogObject(v18);
+    v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
+    if (v16)
     {
-      if (v18)
+      if (v20)
       {
         *buf = 0;
-        _os_log_impl(&dword_1E323F000, v17, OS_LOG_TYPE_DEFAULT, "PurchaseAction - Leaving session due to failed purchase flow", buf, 2u);
+        _os_log_impl(&dword_1E323F000, v19, OS_LOG_TYPE_DEFAULT, "PurchaseAction - Leaving session due to failed purchase flow", buf, 2u);
       }
 
       +[VUIGroupActivitiesManagerObjC leaveSession];
@@ -257,29 +259,29 @@ void __93__VUIActionCommerceTransaction__startTransactionOfOffer_withAppContext_
 
     else
     {
-      if (v18)
+      if (v20)
       {
         *buf = 0;
-        _os_log_impl(&dword_1E323F000, v17, OS_LOG_TYPE_DEFAULT, "PurchaseAction - Not leaving session because the active session is different than the upsell session", buf, 2u);
+        _os_log_impl(&dword_1E323F000, v19, OS_LOG_TYPE_DEFAULT, "PurchaseAction - Not leaving session because the active session is different than the upsell session", buf, 2u);
       }
     }
 
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
-    v24 = __93__VUIActionCommerceTransaction__startTransactionOfOffer_withAppContext_andCompletionHandler___block_invoke_118;
-    v25 = &unk_1E8737328;
-    v19 = *(a1 + 64);
-    v20 = *(a1 + 72);
-    v28 = v19;
-    v29 = v20;
-    v22 = *(a1 + 40);
-    v21 = v22.i64[0];
-    v26 = vextq_s8(v22, v22, 8uLL);
-    v27 = v6;
-    v30 = 0;
+    v26 = __93__VUIActionCommerceTransaction__startTransactionOfOffer_withAppContext_andCompletionHandler___block_invoke_118;
+    v27 = &unk_1E8737328;
+    v21 = *(a1 + 64);
+    v22 = *(a1 + 72);
+    v30 = v21;
+    v31 = v22;
+    v24 = *(a1 + 40);
+    v23 = v24.i64[0];
+    v28 = vextq_s8(v24, v24, 8uLL);
+    v29 = v6;
+    v32 = 0;
     if ([MEMORY[0x1E696AF00] isMainThread])
     {
-      v24(block);
+      v26(block);
     }
 
     else
@@ -290,25 +292,25 @@ void __93__VUIActionCommerceTransaction__startTransactionOfOffer_withAppContext_
 
   else
   {
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v32 = v5;
-      _os_log_impl(&dword_1E323F000, v9, OS_LOG_TYPE_DEFAULT, "PurchaseAction - Purchase server response [%@]", buf, 0xCu);
+      v34 = v5;
+      _os_log_impl(&dword_1E323F000, v10, OS_LOG_TYPE_DEFAULT, "PurchaseAction - Purchase server response [%@]", buf, 0xCu);
     }
 
-    v10 = *(a1 + 64);
-    v12 = *(a1 + 40);
-    v11 = *(a1 + 48);
-    v13 = *(a1 + 56);
+    v11 = *(a1 + 64);
+    v13 = *(a1 + 40);
+    v12 = *(a1 + 48);
+    v14 = *(a1 + 56);
     if (*(a1 + 72) == 1)
     {
-      [v11 _handleSubscriptionCompletionForOffer:v12 appContext:v13 shouldInitiateFamilySetup:*(a1 + 80) serverResponse:v5 completionHandler:v10];
+      [v12 _handleSubscriptionCompletionForOffer:v13 appContext:v14 shouldInitiateFamilySetup:*(a1 + 80) serverResponse:v5 completionHandler:v11];
     }
 
     else
     {
-      [v11 _handleBuyCompletionForOffer:v12 appContext:v13 shouldPlayWhenDone:*(a1 + 81) serverResponse:v5 completionHandler:v10];
+      [v12 _handleBuyCompletionForOffer:v13 appContext:v14 shouldPlayWhenDone:*(a1 + 81) serverResponse:v5 completionHandler:v11];
     }
   }
 }
@@ -424,7 +426,7 @@ void __124__VUIActionCommerceTransaction__handleBuyCompletionForOffer_appContext
 
   else
   {
-    v3 = VUIDefaultLogObject();
+    v3 = VUIDefaultLogObject(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *v5 = 0;
@@ -494,7 +496,7 @@ void __140__VUIActionCommerceTransaction__handleSubscriptionCompletionForOffer_a
 {
   v9 = *MEMORY[0x1E69E9840];
   v4 = a3;
-  v5 = VUIDefaultLogObject();
+  v5 = VUIDefaultLogObject(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138412290;
@@ -510,7 +512,7 @@ void __140__VUIActionCommerceTransaction__handleSubscriptionCompletionForOffer_a
 {
   v9 = *MEMORY[0x1E69E9840];
   v4 = a3;
-  v5 = VUIDefaultLogObject();
+  v5 = VUIDefaultLogObject(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138412290;
@@ -526,7 +528,7 @@ void __140__VUIActionCommerceTransaction__handleSubscriptionCompletionForOffer_a
 {
   v12 = *MEMORY[0x1E69E9840];
   v4 = a3;
-  v5 = VUIDefaultLogObject();
+  v5 = VUIDefaultLogObject(v4);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
   if (a2)
   {
@@ -627,7 +629,7 @@ void __123__VUIActionCommerceTransaction__handleSuccessfulSubscriptionHelper_app
 
 uint64_t __123__VUIActionCommerceTransaction__handleSuccessfulSubscriptionHelper_appContext_shouldInitiateFamilySetup_completionHandler___block_invoke_3(uint64_t a1)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v2 = +[VUIPlaybackManager sharedInstance];
   v3 = [v2 isPostPlayActive];
 
@@ -647,7 +649,7 @@ uint64_t __123__VUIActionCommerceTransaction__handleSuccessfulSubscriptionHelper
 
   else
   {
-    v5 = VUIDefaultLogObject();
+    v5 = VUIDefaultLogObject(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -659,43 +661,43 @@ uint64_t __123__VUIActionCommerceTransaction__handleSuccessfulSubscriptionHelper
 
   if (!v7 && ((v3 ^ 1) & 1) == 0)
   {
-    v8 = [*(a1 + 32) videosPlayables];
-    v9 = [v8 count];
+    v9 = [*(a1 + 32) videosPlayables];
+    v10 = [v9 count];
 
-    if (v9)
+    if (v10)
     {
-      v10 = [*(a1 + 32) videosPlayables];
-      v11 = [v10 firstObject];
+      v11 = [*(a1 + 32) videosPlayables];
+      v12 = [v11 firstObject];
 
-      v12 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v14 = VUIDefaultLogObject(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = [v11 canonicalID];
+        v15 = [v12 canonicalID];
         *buf = 138412290;
-        v28 = v13;
-        _os_log_impl(&dword_1E323F000, v12, OS_LOG_TYPE_DEFAULT, "PurchaseAction - Resolving playable for id %@", buf, 0xCu);
+        v30 = v15;
+        _os_log_impl(&dword_1E323F000, v14, OS_LOG_TYPE_DEFAULT, "PurchaseAction - Resolving playable for id %@", buf, 0xCu);
       }
 
-      v14 = [v11 canonicalID];
-      v15 = [v11 showCanonicalID];
-      v16 = [v11 mediaType];
-      v23[0] = MEMORY[0x1E69E9820];
-      v23[1] = 3221225472;
-      v23[2] = __123__VUIActionCommerceTransaction__handleSuccessfulSubscriptionHelper_appContext_shouldInitiateFamilySetup_completionHandler___block_invoke_137;
-      v23[3] = &unk_1E87373F0;
-      v17 = *(a1 + 40);
-      v18 = *(a1 + 48);
-      v24 = v17;
-      v25 = v18;
-      v26 = v11;
-      v19 = v11;
-      [VUIPlayableResolver playableForCanonicalID:v14 showID:v15 mediaType:v16 completion:v23];
+      v16 = [v12 canonicalID];
+      v17 = [v12 showCanonicalID];
+      v18 = [v12 mediaType];
+      v25[0] = MEMORY[0x1E69E9820];
+      v25[1] = 3221225472;
+      v25[2] = __123__VUIActionCommerceTransaction__handleSuccessfulSubscriptionHelper_appContext_shouldInitiateFamilySetup_completionHandler___block_invoke_137;
+      v25[3] = &unk_1E87373F0;
+      v19 = *(a1 + 40);
+      v20 = *(a1 + 48);
+      v26 = v19;
+      v27 = v20;
+      v28 = v12;
+      v21 = v12;
+      [VUIPlayableResolver playableForCanonicalID:v16 showID:v17 mediaType:v18 completion:v25];
     }
 
     else
     {
-      v19 = +[VUIPlaybackManager sharedInstance];
-      [(VUIFamilyInviteManager *)v19 dismissPlaybackAnimated:1 leaveGroupActivitySession:1 completion:0];
+      v21 = +[VUIPlaybackManager sharedInstance];
+      [(VUIFamilyInviteManager *)v21 dismissPlaybackAnimated:1 leaveGroupActivitySession:1 completion:0];
     }
 
 LABEL_19:
@@ -705,16 +707,16 @@ LABEL_19:
 
   if (*(a1 + 64) == 1)
   {
-    v20 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v22 = VUIDefaultLogObject(v8);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1E323F000, v20, OS_LOG_TYPE_DEFAULT, "PurchaseAction - SubscriptionFlow showing family invite manager", buf, 2u);
+      _os_log_impl(&dword_1E323F000, v22, OS_LOG_TYPE_DEFAULT, "PurchaseAction - SubscriptionFlow showing family invite manager", buf, 2u);
     }
 
-    v19 = objc_alloc_init(VUIFamilyInviteManager);
-    v21 = [*(a1 + 32) buyParams];
-    [(VUIFamilyInviteManager *)v19 presentFamilySetupScreenWithBuyParams:v21];
+    v21 = objc_alloc_init(VUIFamilyInviteManager);
+    v23 = [*(a1 + 32) buyParams];
+    [(VUIFamilyInviteManager *)v21 presentFamilySetupScreenWithBuyParams:v23];
 
     goto LABEL_19;
   }
@@ -727,7 +729,7 @@ void __123__VUIActionCommerceTransaction__handleSuccessfulSubscriptionHelper_app
   v21 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = VUIDefaultLogObject();
+  v7 = VUIDefaultLogObject(v6);
   v8 = v7;
   if (v5)
   {
@@ -818,7 +820,7 @@ uint64_t __80__VUIActionCommerceTransaction__showUIConfirmationForSubTransaction
 {
   v15 = *MEMORY[0x1E69E9840];
   offerCopy = offer;
-  v6 = VUIDefaultLogObject();
+  v6 = VUIDefaultLogObject(offerCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
@@ -842,7 +844,7 @@ uint64_t __80__VUIActionCommerceTransaction__showUIConfirmationForSubTransaction
   v28 = *MEMORY[0x1E69E9840];
   offerCopy = offer;
   errorCopy = error;
-  v9 = VUIDefaultLogObject();
+  v9 = VUIDefaultLogObject(errorCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;

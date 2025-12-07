@@ -5,6 +5,7 @@
 - (void)_disableButtons;
 - (void)_enableButtons;
 - (void)_okButtonPressed;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation ESDiagnosticsNotesController
@@ -96,6 +97,15 @@
   }
 
   return v3;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = ESDiagnosticsNotesController;
+  [(ESDiagnosticsNotesController *)&v5 viewWillAppear:appear];
+  pane = [(ESDiagnosticsNotesController *)self pane];
+  [pane becomeFirstResponder];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(int64_t)orientation

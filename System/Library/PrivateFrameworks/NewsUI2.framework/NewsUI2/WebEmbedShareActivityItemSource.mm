@@ -11,21 +11,21 @@
 - (id)activityViewControllerPlaceholderItem:(id)item
 {
   v4 = sub_219BDB954();
-  MEMORY[0x28223BE20](v4);
-  (*(v6 + 16))(&v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0), self + OBJC_IVAR____TtC7NewsUI231WebEmbedShareActivityItemSource_shareURL, v4);
-  v7 = sub_219BF7984();
+  v5 = MEMORY[0x28223BE20](v4);
+  (*(v7 + 16))(&v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0), self + OBJC_IVAR____TtC7NewsUI231WebEmbedShareActivityItemSource_shareURL, v4, v5);
+  v8 = sub_219BF7984();
 
-  return v7;
+  return v8;
 }
 
 - (id)activityViewController:(id)controller itemForActivityType:(id)type
 {
   v5 = sub_219BDB954();
-  MEMORY[0x28223BE20](v5);
-  (*(v7 + 16))(&v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0), self + OBJC_IVAR____TtC7NewsUI231WebEmbedShareActivityItemSource_shareURL, v5);
-  v8 = sub_219BF7984();
+  v6 = MEMORY[0x28223BE20](v5);
+  (*(v8 + 16))(&v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0), self + OBJC_IVAR____TtC7NewsUI231WebEmbedShareActivityItemSource_shareURL, v5, v6);
+  v9 = sub_219BF7984();
 
-  return v8;
+  return v9;
 }
 
 - (id)activityViewController:(id)controller subjectForActivityType:(id)type

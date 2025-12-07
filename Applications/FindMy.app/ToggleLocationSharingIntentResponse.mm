@@ -47,15 +47,15 @@
 {
   if (name)
   {
-    v3 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
+    v4 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
   else
   {
-    v3 = 0;
+    v4 = 0;
   }
 
-  return ToggleLocationSharingIntentResponse.init(propertiesByName:)(v3);
+  return ToggleLocationSharingIntentResponse.init(propertiesByName:)(v4, v3);
 }
 
 @end

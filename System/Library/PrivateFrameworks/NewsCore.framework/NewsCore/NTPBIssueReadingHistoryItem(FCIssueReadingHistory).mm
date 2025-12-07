@@ -18,19 +18,19 @@
 
 + (id)issueReadingHistoryItemWithCKRecord:()FCIssueReadingHistory
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v3 = a3;
   if (!v3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "record != nil"];
+    v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "record != nil"];
     *buf = 136315906;
-    v19 = "+[NTPBIssueReadingHistoryItem(FCIssueReadingHistory) issueReadingHistoryItemWithCKRecord:]";
-    v20 = 2080;
-    v21 = "NTPBIssueReadingHistoryItem+FCIssueReadingHistory.m";
-    v22 = 1024;
-    v23 = 18;
-    v24 = 2114;
-    v25 = v17;
+    v18 = "+[NTPBIssueReadingHistoryItem(FCIssueReadingHistory) issueReadingHistoryItemWithCKRecord:]";
+    v19 = 2080;
+    v20 = "NTPBIssueReadingHistoryItem+FCIssueReadingHistory.m";
+    v21 = 1024;
+    v22 = 18;
+    v23 = 2114;
+    v24 = v16;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -62,8 +62,6 @@
 
   v14 = [v3 objectForKeyedSubscript:@"lastVisitedPageID"];
   [v4 setLastVisitedPageID:v14];
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

@@ -96,10 +96,10 @@
         v16 = [_UIAlertControllerGradientView alloc];
         v17 = [(UIView *)v16 initWithFrame:*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
         [(UIView *)v17 setTranslatesAutoresizingMaskIntoConstraints:0];
-        v18 = +[UIColor blackColor];
+        v18 = objc_msgSend_blackColor(UIColor);
         v19 = [v18 colorWithAlphaComponent:0.0];
         v33[0] = v19;
-        v20 = +[UIColor blackColor];
+        v20 = objc_msgSend_blackColor(UIColor);
         v21 = [v20 colorWithAlphaComponent:0.045];
         v33[1] = v21;
         v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:2];

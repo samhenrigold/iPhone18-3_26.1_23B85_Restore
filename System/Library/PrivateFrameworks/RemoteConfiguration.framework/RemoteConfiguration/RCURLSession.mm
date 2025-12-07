@@ -166,74 +166,73 @@ void __100__RCURLSession_backgroundSessionWithIdentifier_sharedContainerIdentifi
 
 + (void)cancelAllTasksOnBackgroundSessionWithFetchConfig:(id)config completion:(id)completion
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   configCopy = config;
   completionCopy = completion;
-  v7 = RCSharedLog();
+  v7 = RCSharedLog(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     sessionIdentifier = [configCopy sessionIdentifier];
     *buf = 138543362;
-    v17 = sessionIdentifier;
+    v16 = sessionIdentifier;
     _os_log_impl(&dword_2179FC000, v7, OS_LOG_TYPE_DEFAULT, "Will cancel all tasks on background URLSession: %{public}@", buf, 0xCu);
   }
 
   v9 = [RCURLSession backgroundSessionForFetchConfig:configCopy delegateReference:0];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __76__RCURLSession_cancelAllTasksOnBackgroundSessionWithFetchConfig_completion___block_invoke;
-  v13[3] = &unk_27822FC48;
-  v14 = configCopy;
-  v15 = completionCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __76__RCURLSession_cancelAllTasksOnBackgroundSessionWithFetchConfig_completion___block_invoke;
+  v12[3] = &unk_27822FC48;
+  v13 = configCopy;
+  v14 = completionCopy;
   v10 = completionCopy;
   v11 = configCopy;
-  [v9 getAllTasksWithCompletionHandler:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [v9 getAllTasksWithCompletionHandler:v12];
 }
 
 void __76__RCURLSession_cancelAllTasksOnBackgroundSessionWithFetchConfig_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v13 objects:v21 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v12 objects:v20 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v13;
     do
     {
       v7 = 0;
       do
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v13 + 1) + 8 * v7++) cancel];
+        [*(*(&v12 + 1) + 8 * v7++) cancel];
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v13 objects:v21 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v12 objects:v20 count:16];
+      v5 = v4;
     }
 
-    while (v5);
+    while (v4);
   }
 
-  v8 = RCSharedLog();
+  v8 = RCSharedLog(v4);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = [v3 count];
     v10 = [*(a1 + 32) sessionIdentifier];
     *buf = 134218242;
-    v18 = v9;
-    v19 = 2114;
-    v20 = v10;
+    v17 = v9;
+    v18 = 2114;
+    v19 = v10;
     _os_log_impl(&dword_2179FC000, v8, OS_LOG_TYPE_DEFAULT, "Did cancel all tasks (%lu) on background URLSession: %{public}@", buf, 0x16u);
   }
 
@@ -242,8 +241,6 @@ void __76__RCURLSession_cancelAllTasksOnBackgroundSessionWithFetchConfig_complet
   {
     (*(v11 + 16))();
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (id)backgroundSessionsLock
@@ -277,32 +274,28 @@ void __76__RCURLSession_cancelAllTasksOnBackgroundSessionWithFetchConfig_complet
 
 + (void)backgroundSessionWithIdentifier:sharedContainerIdentifier:timeout:delegateReference:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"expected equality between %s and %s", "urlSession.configuration.sharedContainerIdentifier", "sharedContainerIdentifier"];
   *buf = 136315906;
-  v3 = "+[RCURLSession backgroundSessionWithIdentifier:sharedContainerIdentifier:timeout:delegateReference:]";
-  v4 = 2080;
-  v5 = "/Library/Caches/com.apple.xbs/Sources/RemoteConfiguration/RemoteConfiguration/BackgroundURLSessionSupport/RCURLSession.m";
-  v6 = 1024;
+  v2 = "+[RCURLSession backgroundSessionWithIdentifier:sharedContainerIdentifier:timeout:delegateReference:]";
+  v3 = 2080;
+  v4 = "/Library/Caches/com.apple.xbs/Sources/RemoteConfiguration/RemoteConfiguration/BackgroundURLSessionSupport/RCURLSession.m";
+  v5 = 1024;
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(&dword_2179FC000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure: %s %s:%d %{public}@", buf, 0x26u);
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 + (void)backgroundSessionWithIdentifier:sharedContainerIdentifier:timeout:delegateReference:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"invalid nil value for '%s'", "urlSession.delegate"];
   *buf = 136315906;
-  v3 = "+[RCURLSession backgroundSessionWithIdentifier:sharedContainerIdentifier:timeout:delegateReference:]";
-  v4 = 2080;
-  v5 = "/Library/Caches/com.apple.xbs/Sources/RemoteConfiguration/RemoteConfiguration/BackgroundURLSessionSupport/RCURLSession.m";
-  v6 = 1024;
+  v2 = "+[RCURLSession backgroundSessionWithIdentifier:sharedContainerIdentifier:timeout:delegateReference:]";
+  v3 = 2080;
+  v4 = "/Library/Caches/com.apple.xbs/Sources/RemoteConfiguration/RemoteConfiguration/BackgroundURLSessionSupport/RCURLSession.m";
+  v5 = 1024;
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(&dword_2179FC000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure: %s %s:%d %{public}@", buf, 0x26u);
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 @end

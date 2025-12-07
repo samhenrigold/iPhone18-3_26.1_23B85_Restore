@@ -44,13 +44,12 @@ uint64_t __42__DCAppAttestWebAuthService_sharedService__block_invoke()
 
 - (BOOL)isSupported
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if ([(DCAppAttestWebAuthService *)self hasEntitlement])
   {
     appAttestController = [(DCAppAttestWebAuthService *)self appAttestController];
     isSupported = [appAttestController isSupported];
 
-    v5 = *MEMORY[0x277D85DE8];
     return isSupported;
   }
 
@@ -61,53 +60,52 @@ uint64_t __42__DCAppAttestWebAuthService_sharedService__block_invoke()
       [DCAppAttestWebAuthService isSupported];
     }
 
-    v7 = DCLogSystem_log_3;
+    v6 = DCLogSystem_log_3;
     if (os_log_type_enabled(DCLogSystem_log_3, OS_LOG_TYPE_DEFAULT))
     {
+      v7 = 0;
       v8 = 0;
-      v9 = 0;
-      v10 = 47;
+      v9 = 47;
       do
       {
-        v11 = &aLibraryCachesC_3[v8];
-        if (v10 == 47)
+        v10 = &aLibraryCachesC_3[v7];
+        if (v9 == 47)
         {
-          v9 = &aLibraryCachesC_3[v8];
+          v8 = &aLibraryCachesC_3[v7];
         }
 
-        v10 = v11[1];
-        if (!v11[1])
+        v9 = v10[1];
+        if (!v10[1])
         {
           break;
         }
       }
 
-      while (v8++ < 0xFFF);
-      if (v9)
+      while (v7++ < 0xFFF);
+      if (v8)
       {
-        v13 = v9 + 1;
+        v12 = v8 + 1;
       }
 
       else
       {
-        v13 = "/Library/Caches/com.apple.xbs/Sources/TwoBit/DeviceCheck/Source/Interfaces/Private/DCAppAttestWebAuthService.m";
+        v12 = "/Library/Caches/com.apple.xbs/Sources/TwoBit/DeviceCheck/Source/Interfaces/Private/DCAppAttestWebAuthService.m";
       }
 
-      v15 = 136315394;
-      v16 = v13;
-      v17 = 1024;
-      v18 = 60;
-      _os_log_impl(&dword_238044000, v7, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Client is missing WebAuth API entitlement.", &v15, 0x12u);
+      v13 = 136315394;
+      v14 = v12;
+      v15 = 1024;
+      v16 = 60;
+      _os_log_impl(&dword_238044000, v6, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Client is missing WebAuth API entitlement.", &v13, 0x12u);
     }
 
-    v14 = *MEMORY[0x277D85DE8];
     return 0;
   }
 }
 
 - (void)attestKey:(__SecKey *)key clientDataHash:(id)hash authData:(id)data completionHandler:(id)handler
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   hashCopy = hash;
   dataCopy = data;
   handlerCopy = handler;
@@ -116,9 +114,9 @@ uint64_t __42__DCAppAttestWebAuthService_sharedService__block_invoke()
     uUID = [MEMORY[0x277CCAD78] UUID];
     uUIDString = [uUID UUIDString];
 
-    v34 = 0;
-    v15 = store_keychain_item(key, @"appattest-webauthn", uUIDString, &v34);
-    v16 = v34;
+    v33 = 0;
+    v15 = store_keychain_item(key, @"appattest-webauthn", uUIDString, &v33);
+    v16 = v33;
     if (v15)
     {
       v17 = SecKeyCopyAttributes(key);
@@ -169,11 +167,11 @@ uint64_t __42__DCAppAttestWebAuthService_sharedService__block_invoke()
 
         localizedDescription = [v16 localizedDescription];
         *buf = 136315650;
-        v36 = v31;
-        v37 = 1024;
-        v38 = 83;
-        v39 = 2112;
-        v40 = localizedDescription;
+        v35 = v31;
+        v36 = 1024;
+        v37 = 83;
+        v38 = 2112;
+        v39 = localizedDescription;
         _os_log_impl(&dword_238044000, v26, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to save key to keychain. { error=%@ }", buf, 0x1Cu);
       }
 
@@ -224,40 +222,38 @@ uint64_t __42__DCAppAttestWebAuthService_sharedService__block_invoke()
       }
 
       *buf = 136315394;
-      v36 = v25;
-      v37 = 1024;
-      v38 = 74;
+      v35 = v25;
+      v36 = 1024;
+      v37 = 74;
       _os_log_impl(&dword_238044000, v19, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Client not supported, cannot attest key.", buf, 0x12u);
     }
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)hasEntitlement
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v2 = SecTaskCreateFromSelf(*MEMORY[0x277CBECE8]);
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __43__DCAppAttestWebAuthService_hasEntitlement__block_invoke;
-  v22[3] = &__block_descriptor_40_e5_v8__0l;
-  v22[4] = v2;
-  v3 = MEMORY[0x2383E6220](v22);
-  v20[4] = 0;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __43__DCAppAttestWebAuthService_hasEntitlement__block_invoke;
+  v21[3] = &__block_descriptor_40_e5_v8__0l;
+  v21[4] = v2;
+  v3 = MEMORY[0x2383E6220](v21);
+  v19[4] = 0;
   error = 0;
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __43__DCAppAttestWebAuthService_hasEntitlement__block_invoke_2;
-  v20[3] = &__block_descriptor_40_e5_v8__0l;
-  v4 = MEMORY[0x2383E6220](v20);
-  v5 = SecTaskCopyValueForEntitlement(v2, @"com.apple.devicecheck.private.webauth", &error);
   v19[0] = MEMORY[0x277D85DD0];
   v19[1] = 3221225472;
-  v19[2] = __43__DCAppAttestWebAuthService_hasEntitlement__block_invoke_3;
+  v19[2] = __43__DCAppAttestWebAuthService_hasEntitlement__block_invoke_2;
   v19[3] = &__block_descriptor_40_e5_v8__0l;
-  v19[4] = v5;
-  v6 = MEMORY[0x2383E6220](v19);
+  v4 = MEMORY[0x2383E6220](v19);
+  v5 = SecTaskCopyValueForEntitlement(v2, @"com.apple.devicecheck.private.webauth", &error);
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __43__DCAppAttestWebAuthService_hasEntitlement__block_invoke_3;
+  v18[3] = &__block_descriptor_40_e5_v8__0l;
+  v18[4] = v5;
+  v6 = MEMORY[0x2383E6220](v18);
   if (error)
   {
     if (DCLogSystem_onceToken_3 != -1)
@@ -299,11 +295,11 @@ uint64_t __42__DCAppAttestWebAuthService_sharedService__block_invoke()
       }
 
       *buf = 136315650;
-      v24 = v14;
-      v25 = 1024;
-      v26 = 108;
-      v27 = 2112;
-      v28 = v13;
+      v23 = v14;
+      v24 = 1024;
+      v25 = 108;
+      v26 = 2112;
+      v27 = v13;
       v15 = v13;
       _os_log_impl(&dword_238044000, v7, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to fetch entitlement. { error=%@ }", buf, 0x1Cu);
     }
@@ -321,7 +317,6 @@ uint64_t __42__DCAppAttestWebAuthService_sharedService__block_invoke()
   v4[2](v4);
   v3[2](v3);
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 

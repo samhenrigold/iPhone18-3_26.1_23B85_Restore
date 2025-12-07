@@ -257,7 +257,7 @@ void __33__CFXMediaSettings_setFrameSize___block_invoke_cold_1(uint64_t a1)
   v5 = [v4 numberWithDouble:v3];
   v6 = [*(v1 + 2992) numberWithDouble:*(a1 + 48)];
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_1_2(&dword_242A3B000, v7, v8, "size: {%@, %@}", v9, v10, v11, v12, v13);
+  OUTLINED_FUNCTION_1_2(&dword_242A3B000, v7, v8, "size: {%@, %@}", v9, v10, v11, v12);
 }
 
 @end

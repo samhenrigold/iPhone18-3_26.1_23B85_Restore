@@ -1,4 +1,5 @@
 @interface CloudArtworkImporter
+- (CGSize)_sizeForArtworkWithMediaType:(unsigned int)type artworkType:(int64_t)artworkType;
 - (CloudArtworkImporter)initWithConfiguration:(id)configuration sourceType:(int64_t)type;
 - (id)_artworkColorAnalysisOperationForArtworkAsset:(id)asset library:(id)library artwork:(id)artwork;
 - (void)_adjustOperationQueueStatusForMediaDownloads;
@@ -6,11 +7,38 @@
 - (void)dealloc;
 - (void)decreasePriorityForAllOperations;
 - (void)deprioritizeImportArtworkForCloudID:(unint64_t)d artworkType:(int64_t)type;
+- (void)importArtworkForCloudID:(unint64_t)d artworkType:(int64_t)type token:(id)token mediaType:(unsigned int)mediaType variantType:(int64_t)variantType allowsCellularData:(BOOL)data clientIdentity:(id)identity completionHandler:(id)self0;
 - (void)importCloudArtworkForRequests:(id)requests;
 - (void)increasePriorityForAllOperations;
 @end
 
 @implementation CloudArtworkImporter
+
+- (CGSize)_sizeForArtworkWithMediaType:(unsigned int)type artworkType:(int64_t)artworkType
+{
+  v5 = *&type;
+  v6 = +[ML3ArtworkConfiguration systemConfiguration];
+  v7 = [v6 sizesToAutogenerateForMediaType:v5 artworkType:artworkType];
+
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2020000000;
+  v15 = -8388609;
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_10010A140;
+  v11[3] = &unk_1001DE6F0;
+  v11[4] = &v12;
+  [v7 enumerateObjectsUsingBlock:v11];
+  v8 = v13[6];
+  _Block_object_dispose(&v12, 8);
+
+  v9 = v8;
+  v10 = v8;
+  result.height = v10;
+  result.width = v9;
+  return result;
+}
 
 - (id)_artworkColorAnalysisOperationForArtworkAsset:(id)asset library:(id)library artwork:(id)artwork
 {
@@ -174,6 +202,29 @@
   v10 = requestsCopy;
   v8 = requestsCopy;
   dispatch_async(artworkDownloadAccessQueue, block);
+}
+
+- (void)importArtworkForCloudID:(unint64_t)d artworkType:(int64_t)type token:(id)token mediaType:(unsigned int)mediaType variantType:(int64_t)variantType allowsCellularData:(BOOL)data clientIdentity:(id)identity completionHandler:(id)self0
+{
+  dataCopy = data;
+  v12 = *&mediaType;
+  handlerCopy = handler;
+  identityCopy = identity;
+  tokenCopy = token;
+  v19 = [[CloudArtworkImportRequest alloc] initWithClientIdentity:identityCopy];
+
+  [(CloudArtworkImportRequest *)v19 setCloudID:d];
+  [(CloudArtworkImportRequest *)v19 setToken:tokenCopy];
+
+  [(CloudArtworkImportRequest *)v19 setMediaType:v12];
+  [(CloudArtworkImportRequest *)v19 setArtworkType:type];
+  [(CloudArtworkImportRequest *)v19 setArtworkVariantType:variantType];
+  [(CloudArtworkImportRequest *)v19 setAllowsCellularData:dataCopy];
+  [(CloudArtworkImportRequest *)v19 setCompletionHandler:handlerCopy];
+
+  v22 = v19;
+  v20 = [NSArray arrayWithObjects:&v22 count:1];
+  [(CloudArtworkImporter *)self importCloudArtworkForRequests:v20];
 }
 
 - (void)dealloc

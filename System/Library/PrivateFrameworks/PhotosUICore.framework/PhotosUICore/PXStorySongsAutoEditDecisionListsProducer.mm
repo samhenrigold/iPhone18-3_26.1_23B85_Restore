@@ -348,7 +348,7 @@ void __88__PXStorySongsAutoEditDecisionListsProducer__diagnosticTextForAutoEditH
   v6 = v5;
   if (v5)
   {
-    [v5 overallDurationInfo];
+    objc_msgSend_overallDurationInfo(v5);
   }
 
   v7 = *(a1 + 32);
@@ -495,7 +495,7 @@ void __87__PXStorySongsAutoEditDecisionListsProducer_collectTapToRadarDiagnostic
     if (audioLCutStrategy == 3)
     {
       LODWORD(audioLCutStrategy) = [v11 hasVoice];
-      [nextClipCopy audioInfo];
+      objc_msgSend_audioInfo(nextClipCopy);
       hasVoice = [v14 hasVoice];
       hasFace = [v14 hasFace];
       if (audioLCutStrategy && v21 >= 2)
@@ -507,7 +507,7 @@ void __87__PXStorySongsAutoEditDecisionListsProducer_collectTapToRadarDiagnostic
     else if (audioLCutStrategy == 2)
     {
       LODWORD(audioLCutStrategy) = [v11 hasVoice];
-      [nextClipCopy audioInfo];
+      objc_msgSend_audioInfo(nextClipCopy);
       hasVoice2 = [v14 hasVoice];
       if (audioLCutStrategy)
       {
@@ -551,7 +551,7 @@ void __87__PXStorySongsAutoEditDecisionListsProducer_collectTapToRadarDiagnostic
     if (audioJCutStrategy == 3)
     {
       LODWORD(audioJCutStrategy) = [v11 hasVoice];
-      [previousClipCopy audioInfo];
+      objc_msgSend_audioInfo(previousClipCopy);
       hasVoice = [v14 hasVoice];
       hasFace = [v14 hasFace];
       if (audioJCutStrategy && v21 >= 2)
@@ -563,7 +563,7 @@ void __87__PXStorySongsAutoEditDecisionListsProducer_collectTapToRadarDiagnostic
     else if (audioJCutStrategy == 2)
     {
       LODWORD(audioJCutStrategy) = [v11 hasVoice];
-      [previousClipCopy audioInfo];
+      objc_msgSend_audioInfo(previousClipCopy);
       hasVoice2 = [v14 hasVoice];
       if (audioJCutStrategy)
       {
@@ -597,7 +597,7 @@ void __87__PXStorySongsAutoEditDecisionListsProducer_collectTapToRadarDiagnostic
       goto LABEL_13;
     }
 
-    [toClipCopy audioInfo];
+    objc_msgSend_audioInfo(toClipCopy);
     v13 = v14;
 LABEL_10:
     if (v13 > 1)
@@ -613,7 +613,7 @@ LABEL_13:
     goto LABEL_14;
   }
 
-  [clipCopy audioInfo];
+  objc_msgSend_audioInfo(clipCopy);
   if (!v12)
   {
     if (v15 >= 2)
@@ -624,7 +624,7 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  [v12 audioInfo];
+  objc_msgSend_audioInfo(v12);
   v13 = v14;
   if (v15 < 2)
   {
@@ -683,7 +683,7 @@ LABEL_15:
 
 - ($34B6A3E4F6D84C42DF3A29A209E596E5)_durationInfoForClip:(SEL)clip durationMultiplier:(id)multiplier songPace:(double)pace transitionIn:(int64_t)in transitionOut:(double *)out
 {
-  v73 = *MEMORY[0x1E69E9840];
+  v74 = *MEMORY[0x1E69E9840];
   multiplierCopy = multiplier;
   if (!in)
   {
@@ -700,7 +700,7 @@ LABEL_15:
   configuration = self->_configuration;
   if (configuration)
   {
-    [(PFStoryAutoEditConfiguration *)configuration durationInfoForPlaybackStyle:playbackStyle songPace:in];
+    objc_msgSend_durationInfoForPlaybackStyle_songPace_(configuration);
   }
 
   displayAssets = [multiplierCopy displayAssets];
@@ -756,8 +756,8 @@ LABEL_15:
 
   v20 = *&retstr->var2.var0;
   *&time_16[16] = *&retstr->var1.var1;
-  *&v70.value = v20;
-  v70.epoch = retstr->var2.var3;
+  *&v71.value = v20;
+  v71.epoch = retstr->var2.var3;
   v21 = *&retstr->var0.var3;
   time = *&retstr->var0.var0;
   *time_16 = v21;
@@ -766,54 +766,54 @@ LABEL_15:
   time1[0] = retstr->var1;
   CMTimeMultiplyByRatio(&lhs, time1, v22, 600);
   memset(&time2, 0, sizeof(time2));
-  memset(&v65, 0, sizeof(v65));
+  memset(&v66, 0, sizeof(v66));
   if (pace < 1.0)
   {
     *&time1[0].value = time;
     time1[0].epoch = *time_16;
     CMTimeMultiplyByRatio(&time2, time1, v22, 600);
-    time1[0] = v70;
-    CMTimeMultiplyByRatio(&v65, time1, v22, 600);
+    time1[0] = v71;
+    CMTimeMultiplyByRatio(&v66, time1, v22, 600);
   }
 
   else
   {
     memset(time1, 0, 24);
-    v72 = lhs;
+    v73 = lhs;
     rhs = *&time_16[8];
-    CMTimeSubtract(time1, &v72, &rhs);
+    CMTimeSubtract(time1, &v73, &rhs);
     *&rhs.value = time;
     rhs.epoch = *time_16;
-    v63 = time1[0];
-    CMTimeAdd(&v72, &rhs, &v63);
-    time2 = v72;
-    rhs = v70;
-    v63 = time1[0];
-    CMTimeAdd(&v72, &rhs, &v63);
-    v65 = v72;
+    v64 = time1[0];
+    CMTimeAdd(&v73, &rhs, &v64);
+    time2 = v73;
+    rhs = v71;
+    v64 = time1[0];
+    CMTimeAdd(&v73, &rhs, &v64);
+    v66 = v73;
   }
 
   v23 = *&time2.value;
   time1[0] = time2;
   time1[1] = lhs;
-  v24 = *&v65.value;
-  time1[2] = v65;
-  v25 = v65.epoch;
+  v24 = *&v66.value;
+  time1[2] = v66;
+  v25 = v66.epoch;
   v26 = *&time1[0].epoch;
   *&retstr->var1.var1 = *&lhs.timescale;
   *&retstr->var2.var0 = v24;
   retstr->var2.var3 = v25;
   *&retstr->var0.var0 = v23;
   *&retstr->var0.var3 = v26;
-  v72.timescale = 0;
-  v72.value = 0;
+  v73.timescale = 0;
+  v73.value = 0;
   if ((playbackStyle - 3) > 1)
   {
     v31 = 0;
     value = 0;
-    v60 = 0;
-    flags = 0;
     v61 = 0;
+    flags = 0;
+    v62 = 0;
   }
 
   else
@@ -822,14 +822,14 @@ LABEL_15:
     v28 = v27;
     if (v27)
     {
-      [v27 timeRange];
-      v72.value = time1[0].value;
+      objc_msgSend_timeRange(v27);
+      v73.value = time1[0].value;
       flags = time1[0].flags;
-      v72.timescale = time1[0].timescale;
+      v73.timescale = time1[0].timescale;
       value = time1[1].value;
-      v60 = time1[0].epoch;
+      v61 = time1[0].epoch;
       v31 = time1[1].epoch;
-      v61 = *&time1[1].timescale;
+      v62 = *&time1[1].timescale;
       if (playbackStyle == 4)
       {
         memset(time1, 0, 48);
@@ -841,17 +841,18 @@ LABEL_15:
         v33 = CMTimeGetSeconds(&time);
         time = *&retstr->var2.var0;
         *time_16 = retstr->var2.var3;
-        [v28 bestTimeRangeForPreferredDuration:Seconds min:v33 max:CMTimeGetSeconds(&time)];
-        v34 = PLStoryGetLog();
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+        v34 = CMTimeGetSeconds(&time);
+        objc_msgSend_bestTimeRangeForPreferredDuration_min_max_(v28, Seconds, v33, v34);
+        v35 = PLStoryGetLog();
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
         {
           time = *&time1[0].value;
           *time_16 = *&time1[0].epoch;
           *&time_16[16] = *&time1[1].timescale;
-          v35 = PXStoryTimeRangeDescription(&time);
+          v36 = PXStoryTimeRangeDescription(&time);
           LODWORD(time) = 138412290;
-          *(&time + 4) = v35;
-          _os_log_impl(&dword_1A3C1C000, v34, OS_LOG_TYPE_DEBUG, "Best video clip playback range: %@", &time, 0xCu);
+          *(&time + 4) = v36;
+          _os_log_impl(&dword_1A3C1C000, v35, OS_LOG_TYPE_DEBUG, "Best video clip playback range: %@", &time, 0xCu);
         }
 
         if ((time1[0].flags & 1) != 0 && (time1[1].flags & 1) != 0 && !time1[1].epoch && (time1[1].value & 0x8000000000000000) == 0)
@@ -875,56 +876,56 @@ LABEL_15:
     {
       v31 = 0;
       value = 0;
-      v60 = 0;
-      flags = 0;
       v61 = 0;
+      flags = 0;
+      v62 = 0;
     }
   }
 
-  v36 = PLStoryGetLog();
-  if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
+  v37 = PLStoryGetLog();
+  if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
   {
     time1[0] = retstr->var0;
-    v37 = PXStoryTimeDescription(time1);
-    time1[0] = retstr->var1;
     v38 = PXStoryTimeDescription(time1);
+    time1[0] = retstr->var1;
+    v39 = PXStoryTimeDescription(time1);
     time1[0] = retstr->var2;
     PXStoryTimeDescription(time1);
-    v39 = v59 = firstObject;
-    time1[0].value = v72.value;
-    time1[0].timescale = v72.timescale;
+    v40 = v60 = firstObject;
+    time1[0].value = v73.value;
+    time1[0].timescale = v73.timescale;
     time1[0].flags = flags;
-    time1[0].epoch = v60;
+    time1[0].epoch = v61;
     time1[1].value = value;
-    *&time1[1].timescale = v61;
+    *&time1[1].timescale = v62;
     time1[1].epoch = v31;
     PXStoryTimeRangeDescription(time1);
-    v58 = v31;
-    v40 = flags;
-    v41 = value;
-    v43 = v42 = out;
+    v59 = v31;
+    v41 = flags;
+    v42 = value;
+    v44 = v43 = out;
     LODWORD(time1[0].value) = 138413058;
-    *(&time1[0].value + 4) = v37;
+    *(&time1[0].value + 4) = v38;
     LOWORD(time1[0].flags) = 2112;
-    *(&time1[0].flags + 2) = v38;
+    *(&time1[0].flags + 2) = v39;
     HIWORD(time1[0].epoch) = 2112;
-    time1[1].value = v39;
+    time1[1].value = v40;
     LOWORD(time1[1].timescale) = 2112;
-    *(&time1[1].timescale + 2) = v43;
-    _os_log_impl(&dword_1A3C1C000, v36, OS_LOG_TYPE_DEBUG, "video clip duration min: %@, pref: %@, max: %@, playback range: %@", time1, 0x2Au);
+    *(&time1[1].timescale + 2) = v44;
+    _os_log_impl(&dword_1A3C1C000, v37, OS_LOG_TYPE_DEBUG, "video clip duration min: %@, pref: %@, max: %@, playback range: %@", time1, 0x2Au);
 
-    out = v42;
-    value = v41;
-    flags = v40;
-    v31 = v58;
+    out = v43;
+    value = v42;
+    flags = v41;
+    v31 = v59;
 
-    firstObject = v59;
+    firstObject = v60;
   }
 
-  if ((flags & 1) != 0 && (v61 & 0x100000000) != 0 && !v31 && (value & 0x8000000000000000) == 0)
+  if ((flags & 1) != 0 && (v62 & 0x100000000) != 0 && !v31 && (value & 0x8000000000000000) == 0)
   {
     time1[0].value = value;
-    *&time1[0].timescale = v61;
+    *&time1[0].timescale = v62;
     time1[0].epoch = 0;
     time = *MEMORY[0x1E6960CC0];
     *time_16 = *(MEMORY[0x1E6960CC0] + 16);
@@ -933,7 +934,7 @@ LABEL_15:
       memset(&lhs, 0, sizeof(lhs));
       CMTimeMakeWithSeconds(&time2, *out + *a8, 600);
       time1[0].value = value;
-      *&time1[0].timescale = v61;
+      *&time1[0].timescale = v62;
       time1[0].epoch = 0;
       time = *&time2.value;
       *time_16 = time2.epoch;
@@ -943,47 +944,47 @@ LABEL_15:
       *time_16 = retstr->var0.var3;
       if (CMTimeCompare(time1, &time) < 0)
       {
-        v44 = PLStoryGetLog();
-        if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
+        v45 = PLStoryGetLog();
+        if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
         {
-          time1[0].value = v72.value;
-          time1[0].timescale = v72.timescale;
+          time1[0].value = v73.value;
+          time1[0].timescale = v73.timescale;
           time1[0].flags = flags;
-          time1[0].epoch = v60;
+          time1[0].epoch = v61;
           time1[1].value = value;
-          *&time1[1].timescale = v61;
-          v45 = PXStoryTimeRangeDescription(time1);
-          v46 = *out;
-          v47 = *a8;
+          *&time1[1].timescale = v62;
+          v46 = PXStoryTimeRangeDescription(time1);
+          v47 = *out;
+          v48 = *a8;
           LODWORD(time1[0].value) = 138543874;
-          *(&time1[0].value + 4) = v45;
+          *(&time1[0].value + 4) = v46;
           LOWORD(time1[0].flags) = 2048;
-          *(&time1[0].flags + 2) = v46;
+          *(&time1[0].flags + 2) = v47;
           HIWORD(time1[0].epoch) = 2048;
-          time1[1].value = v47;
-          _os_log_impl(&dword_1A3C1C000, v44, OS_LOG_TYPE_DEBUG, "Playback range %{public}@ too small for transitions %0.1fs/%0.1fs", time1, 0x20u);
+          time1[1].value = v48;
+          _os_log_impl(&dword_1A3C1C000, v45, OS_LOG_TYPE_DEBUG, "Playback range %{public}@ too small for transitions %0.1fs/%0.1fs", time1, 0x20u);
         }
 
         if (*a8 >= *out)
         {
           *a8 = 0.0;
-          v49 = *out;
-          v48 = 0.0;
+          v50 = *out;
+          v49 = 0.0;
         }
 
         else
         {
           *out = 0.0;
-          v48 = *a8;
-          v49 = 0.0;
+          v49 = *a8;
+          v50 = 0.0;
         }
 
-        CMTimeMakeWithSeconds(&v65, v49 + v48, 600);
+        CMTimeMakeWithSeconds(&v66, v50 + v49, 600);
         time1[0].value = value;
-        *&time1[0].timescale = v61;
+        *&time1[0].timescale = v62;
         time1[0].epoch = 0;
-        time = *&v65.value;
-        *time_16 = v65.epoch;
+        time = *&v66.value;
+        *time_16 = v66.epoch;
         CMTimeSubtract(&time2, time1, &time);
         lhs = time2;
         time1[0] = time2;
@@ -994,7 +995,7 @@ LABEL_15:
           *a8 = 0.0;
           *out = 0.0;
           lhs.value = value;
-          *&lhs.timescale = v61;
+          *&lhs.timescale = v62;
           lhs.epoch = 0;
         }
       }
@@ -1035,28 +1036,28 @@ LABEL_15:
   *time_16 = time2.epoch;
   CMTimeAdd(&lhs, time1, &time);
   retstr->var2 = lhs;
-  v50 = PLStoryGetLog();
-  if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
+  v51 = PLStoryGetLog();
+  if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
   {
-    v51 = *out;
-    v52 = *a8;
+    v52 = *out;
+    v53 = *a8;
     time1[0] = retstr->var0;
-    v53 = PXStoryTimeDescription(time1);
-    time1[0] = retstr->var1;
     v54 = PXStoryTimeDescription(time1);
-    time1[0] = retstr->var2;
+    time1[0] = retstr->var1;
     v55 = PXStoryTimeDescription(time1);
+    time1[0] = retstr->var2;
+    v56 = PXStoryTimeDescription(time1);
     LODWORD(time1[0].value) = 134219010;
-    *(&time1[0].value + 4) = v51;
+    *(&time1[0].value + 4) = v52;
     LOWORD(time1[0].flags) = 2048;
-    *(&time1[0].flags + 2) = v52;
+    *(&time1[0].flags + 2) = v53;
     HIWORD(time1[0].epoch) = 2112;
-    time1[1].value = v53;
+    time1[1].value = v54;
     LOWORD(time1[1].timescale) = 2112;
-    *(&time1[1].timescale + 2) = v54;
+    *(&time1[1].timescale + 2) = v55;
     WORD1(time1[1].epoch) = 2112;
-    *(&time1[1].epoch + 4) = v55;
-    _os_log_impl(&dword_1A3C1C000, v50, OS_LOG_TYPE_DEBUG, "video clip duration with transition %0.1fs/%0.1fs => min: %@, pref: %@, max: %@", time1, 0x34u);
+    *(&time1[1].epoch + 4) = v56;
+    _os_log_impl(&dword_1A3C1C000, v51, OS_LOG_TYPE_DEBUG, "video clip duration with transition %0.1fs/%0.1fs => min: %@, pref: %@, max: %@", time1, 0x34u);
   }
 
   time1[0] = retstr->var0;
@@ -1180,27 +1181,27 @@ LABEL_18:
   {
     if (playbackStyle == 2)
     {
-      v8 = 2;
+      v7 = 2;
     }
 
     else
     {
-      v8 = 0;
+      v7 = 0;
     }
 
     if (playbackStyle == 1)
     {
-      v8 = 1;
+      v7 = 1;
     }
 
     if (playbackStyle)
     {
-      v9 = v8;
+      v8 = v7;
     }
 
     else
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     goto LABEL_33;
@@ -1210,94 +1211,94 @@ LABEL_18:
   {
     if (playbackStyle == 5)
     {
-      v10 = 5;
+      v9 = 5;
     }
 
     else
     {
-      v10 = 0;
+      v9 = 0;
     }
 
     if (playbackStyle == 4)
     {
-      v9 = 4;
+      v8 = 4;
     }
 
     else
     {
-      v9 = v10;
+      v8 = v9;
     }
 
     goto LABEL_33;
   }
 
-  v11 = +[PXStorySettings sharedInstance];
-  if ([v11 forceLivePhotoVideo])
+  v10 = +[PXStorySettings sharedInstance];
+  if ([v10 forceLivePhotoVideo])
   {
 
 LABEL_22:
-    v9 = 3;
+    v8 = 3;
     goto LABEL_33;
   }
 
   storyConfiguration = [(PXStorySongsAutoEditDecisionListsProducer *)self storyConfiguration];
-  options = [storyConfiguration options];
+  v12 = objc_msgSend_options(storyConfiguration);
 
-  if ((options & 0x10000) != 0)
+  if ((v12 & 0x10000) != 0)
   {
     goto LABEL_22;
   }
 
   movieHighlights = [(PXStorySongsAutoEditDecisionListsProducer *)self movieHighlights];
-  v15 = [movieHighlights movieHighlightsForDisplayAsset:assetCopy];
+  v14 = [movieHighlights movieHighlightsForDisplayAsset:assetCopy];
 
-  *&v31.value = PXStoryTimeZero;
-  v31.epoch = 0;
-  livePhoto = [v15 livePhoto];
-  v17 = livePhoto;
+  *&v30.value = PXStoryTimeZero;
+  v30.epoch = 0;
+  livePhoto = [v14 livePhoto];
+  v16 = livePhoto;
   if (livePhoto)
   {
-    [livePhoto timeRange];
-    v31 = v30;
+    objc_msgSend_timeRange(livePhoto);
+    v30 = v29;
   }
 
   else if ([assetCopy isEligibleForAutoPlayback])
   {
-    defaultHighlight = [v15 defaultHighlight];
-    v19 = defaultHighlight;
+    defaultHighlight = [v14 defaultHighlight];
+    v18 = defaultHighlight;
     if (defaultHighlight)
     {
-      [defaultHighlight timeRange];
-      v31 = v29;
+      objc_msgSend_timeRange(defaultHighlight);
+      v30 = v28;
     }
   }
 
-  v28 = 0;
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
+  v27 = 0;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   configuration = self->_configuration;
   if (configuration)
   {
-    [(PFStoryAutoEditConfiguration *)configuration durationInfoForPlaybackStyle:3 songPace:pace];
+    objc_msgSend_durationInfoForPlaybackStyle_songPace_(configuration);
   }
 
-  time1 = v31;
-  *&v22.value = v24;
-  v22.epoch = v25;
-  if (CMTimeCompare(&time1, &v22) < 0)
+  time1 = v30;
+  *&v21.value = v23;
+  v21.epoch = v24;
+  if (CMTimeCompare(&time1, &v21) < 0)
   {
-    v9 = 1;
+    v8 = 1;
   }
 
   else
   {
-    v9 = 3;
+    v8 = 3;
   }
 
 LABEL_33:
-  return v9;
+  return v8;
 }
 
 - ($A35046FF140701A0BC97C4369CFAD28C)_optimizeOverallDurationOfClips:(SEL)clips forSong:(id)song
@@ -1421,7 +1422,7 @@ LABEL_83:
           configuration = self->_configuration;
           if (configuration)
           {
-            [(PFStoryAutoEditConfiguration *)configuration longOverallDuration];
+            objc_msgSend_longOverallDuration(configuration);
           }
 
           else
@@ -1451,7 +1452,7 @@ LABEL_83:
         memset(buf, 0, sizeof(buf));
         if (v69)
         {
-          [v69 constrainedOverallDurationInfo];
+          objc_msgSend_constrainedOverallDurationInfo(v69);
         }
 
         *time2 = *(v108 + 8);
@@ -1509,7 +1510,7 @@ LABEL_79:
         v27 = self->_configuration;
         if (v27)
         {
-          [(PFStoryAutoEditConfiguration *)v27 shortOverallDuration];
+          objc_msgSend_shortOverallDuration(v27);
         }
 
         else
@@ -1544,7 +1545,7 @@ LABEL_51:
             memset(buf, 0, sizeof(buf));
             if (v69)
             {
-              [v69 constrainedDurationInfoAtIndex:v43];
+              objc_msgSend_constrainedDurationInfoAtIndex_(v69);
             }
 
             *time2 = buf[0];
@@ -1597,7 +1598,7 @@ LABEL_51:
 
         if (v69)
         {
-          [v69 constrainedOverallDurationInfo];
+          objc_msgSend_constrainedOverallDurationInfo(v69);
         }
 
         else
@@ -1622,7 +1623,7 @@ LABEL_51:
       v29 = self->_configuration;
       if (v29)
       {
-        [(PFStoryAutoEditConfiguration *)v29 mediumOverallDuration];
+        objc_msgSend_mediumOverallDuration(v29);
       }
 
       else
@@ -1649,7 +1650,7 @@ LABEL_51:
       memset(buf, 0, sizeof(buf));
       if (v69)
       {
-        [v69 constrainedOverallDurationInfo];
+        objc_msgSend_constrainedOverallDurationInfo(v69);
       }
 
       v38 = PLStoryGetLog();
@@ -1677,7 +1678,7 @@ LABEL_51:
       v42 = self->_configuration;
       if (v42)
       {
-        [(PFStoryAutoEditConfiguration *)v42 longOverallDuration];
+        objc_msgSend_longOverallDuration(v42);
       }
 
       else
@@ -1705,7 +1706,7 @@ LABEL_51:
 
       if (v69)
       {
-        [v69 constrainedOverallDurationInfo];
+        objc_msgSend_constrainedOverallDurationInfo(v69);
       }
 
       else
@@ -1753,7 +1754,7 @@ LABEL_78:
     v28 = self->_configuration;
     if (v28)
     {
-      [(PFStoryAutoEditConfiguration *)v28 longOverallDuration];
+      objc_msgSend_longOverallDuration(v28);
     }
 
     else
@@ -1782,7 +1783,7 @@ LABEL_78:
     memset(buf, 0, sizeof(buf));
     if (v69)
     {
-      [v69 constrainedOverallDurationInfo];
+      objc_msgSend_constrainedOverallDurationInfo(v69);
     }
 
     *time2 = *(v108 + 8);
@@ -1828,7 +1829,7 @@ uint64_t __85__PXStorySongsAutoEditDecisionListsProducer__optimizeOverallDuratio
   v2 = *(a1 + 32);
   if (a2)
   {
-    [a2 durationInfo];
+    objc_msgSend_durationInfo(a2);
   }
 
   else
@@ -1910,7 +1911,7 @@ void __76__PXStorySongsAutoEditDecisionListsProducer__adjustAudioTransitionForCl
   v39 = 0u;
   if (v5)
   {
-    [v5 audioInfo];
+    objc_msgSend_audioInfo(v5);
     v7 = 0uLL;
   }
 
@@ -1920,7 +1921,7 @@ void __76__PXStorySongsAutoEditDecisionListsProducer__adjustAudioTransitionForCl
   v35 = v7;
   if (v6)
   {
-    [v6 audioInfo];
+    objc_msgSend_audioInfo(v6);
   }
 
   v8 = 0.0;
@@ -1930,7 +1931,7 @@ void __76__PXStorySongsAutoEditDecisionListsProducer__adjustAudioTransitionForCl
     v10 = *(a1 + 40);
     if (v5)
     {
-      [v5 durationInfo];
+      objc_msgSend_durationInfo(v5);
     }
 
     else
@@ -1953,7 +1954,7 @@ void __76__PXStorySongsAutoEditDecisionListsProducer__adjustAudioTransitionForCl
     v11 = *(a1 + 48);
     if (v6)
     {
-      [v6 durationInfo];
+      objc_msgSend_durationInfo(v6);
     }
 
     else
@@ -1980,7 +1981,7 @@ void __76__PXStorySongsAutoEditDecisionListsProducer__adjustAudioTransitionForCl
     {
       if (v5)
       {
-        [v5 transitionInfo];
+        objc_msgSend_transitionInfo(v5);
         v15 = *(&v23 + 1);
         LOBYTE(v12) = *(a1 + 73);
       }
@@ -2006,7 +2007,7 @@ void __76__PXStorySongsAutoEditDecisionListsProducer__adjustAudioTransitionForCl
   {
     if (v5)
     {
-      [v5 transitionInfo];
+      objc_msgSend_transitionInfo(v5);
       v16 = *(&v21 + 1);
     }
 
@@ -2216,7 +2217,7 @@ void __80__PXStorySongsAutoEditDecisionListsProducer__adjustDurationOfClips_forS
   {
     if (v5)
     {
-      [v5 transitionInfo];
+      objc_msgSend_transitionInfo(v5);
       v7 = *(&v35 + 1);
     }
 
@@ -2228,13 +2229,13 @@ void __80__PXStorySongsAutoEditDecisionListsProducer__adjustDurationOfClips_forS
     }
 
     v37 = v7;
-    [v6 transitionInfo];
+    objc_msgSend_transitionInfo(v6);
     v34 = v33;
     [v6 durationMultiplier];
     v8 = *(a1 + 32);
     if (v8)
     {
-      [v8 _durationInfoForClip:v6 durationMultiplier:*(a1 + 40) songPace:&v37 transitionIn:&v34 transitionOut:?];
+      objc_msgSend__durationInfoForClip_durationMultiplier_songPace_transitionIn_transitionOut_(v8);
     }
 
     else
@@ -2251,12 +2252,12 @@ void __80__PXStorySongsAutoEditDecisionListsProducer__adjustDurationOfClips_forS
     v26 = v30;
     [v6 setDurationInfo:&v25];
     v9 = v34;
-    [v6 transitionInfo];
+    objc_msgSend_transitionInfo(v6);
     if (v9 < v24)
     {
       v25 = 0u;
       v26 = 0u;
-      [v6 transitionInfo];
+      objc_msgSend_transitionInfo(v6);
       if (v34 == 0.0)
       {
         *&v25 = 1;
@@ -2271,7 +2272,7 @@ void __80__PXStorySongsAutoEditDecisionListsProducer__adjustDurationOfClips_forS
     v10 = v37;
     if (v5)
     {
-      [v5 transitionInfo];
+      objc_msgSend_transitionInfo(v5);
       if (v10 >= *(&v22 + 1))
       {
         goto LABEL_25;
@@ -2279,7 +2280,7 @@ void __80__PXStorySongsAutoEditDecisionListsProducer__adjustDurationOfClips_forS
 
       v20 = 0u;
       v21 = 0u;
-      [v5 transitionInfo];
+      objc_msgSend_transitionInfo(v5);
       v10 = v37;
     }
 
@@ -2304,7 +2305,7 @@ void __80__PXStorySongsAutoEditDecisionListsProducer__adjustDurationOfClips_forS
     memset(&v19, 0, sizeof(v19));
     if (v5)
     {
-      [v5 transitionInfo];
+      objc_msgSend_transitionInfo(v5);
       v11 = *(&v17 + 1);
       v10 = v37;
     }
@@ -2323,7 +2324,7 @@ void __80__PXStorySongsAutoEditDecisionListsProducer__adjustDurationOfClips_forS
     v26 = 0u;
     if (v5)
     {
-      [v5 durationInfo];
+      objc_msgSend_durationInfo(v5);
     }
 
     v12 = *&v28.value;
@@ -2405,7 +2406,7 @@ void __92__PXStorySongsAutoEditDecisionListsProducer__adjustTransitionsInClips_f
     v17 = 0u;
     if (v5)
     {
-      [v5 transitionInfo];
+      objc_msgSend_transitionInfo(v5);
     }
 
     v9 = *(a1 + 40);
@@ -2858,7 +2859,7 @@ void __106__PXStorySongsAutoEditDecisionListsProducer__populateMomentRecipesInCl
   [v5 updateClipAtIndex:v4 usingBlock:v7];
 }
 
-uint64_t __106__PXStorySongsAutoEditDecisionListsProducer__populateMomentRecipesInClips_forSongPace_colorGradeCategory___block_invoke_2(uint64_t a1, __int128 *a2, __int128 *a3, uint64_t a4, uint64_t a5)
+void *__106__PXStorySongsAutoEditDecisionListsProducer__populateMomentRecipesInClips_forSongPace_colorGradeCategory___block_invoke_2(uint64_t a1, __int128 *a2, __int128 *a3, uint64_t a4, uint64_t a5)
 {
   v8 = *(a1 + 32);
   v18[0] = MEMORY[0x1E69E9820];
@@ -3224,7 +3225,7 @@ LABEL_9:
 
 - (void)_composeClips:(id)clips forSongPace:(int64_t)pace
 {
-  v131 = *MEMORY[0x1E69E9840];
+  v130 = *MEMORY[0x1E69E9840];
   clipsCopy = clips;
   v5 = os_signpost_id_make_with_pointer(self->_log, self);
   v6 = self->_log;
@@ -3264,12 +3265,12 @@ LABEL_9:
         {
           v17 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v13];
           v18 = [v12 count];
-          v128[0] = v14;
-          v128[1] = 3221225472;
-          v128[2] = __71__PXStorySongsAutoEditDecisionListsProducer__composeClips_forSongPace___block_invoke;
-          v128[3] = &unk_1E7741830;
-          v128[4] = self;
-          v19 = [v12 indexOfObject:v17 inSortedRange:0 options:v18 usingComparator:{1024, v128}];
+          v127[0] = v14;
+          v127[1] = 3221225472;
+          v127[2] = __71__PXStorySongsAutoEditDecisionListsProducer__composeClips_forSongPace___block_invoke;
+          v127[3] = &unk_1E7741830;
+          v127[4] = self;
+          v19 = [v12 indexOfObject:v17 inSortedRange:0 options:v18 usingComparator:{1024, v127}];
 
           v20 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v13];
           [v12 insertObject:v20 atIndex:v19];
@@ -3285,88 +3286,88 @@ LABEL_9:
   configuration = self->_configuration;
   if (configuration)
   {
-    [(PFStoryAutoEditConfiguration *)configuration durationInfoForPlaybackStyle:1 songPace:pace];
+    objc_msgSend_durationInfoForPlaybackStyle_songPace_(configuration);
   }
 
   else
   {
-    v127 = 0;
-    v126 = 0u;
-    v124 = 0u;
-    memset(v125, 0, sizeof(v125));
+    v126 = 0;
+    v125 = 0u;
+    v123 = 0u;
+    memset(v124, 0, sizeof(v124));
   }
 
-  *buf = *&v125[1];
-  *&buf[16] = v125[3];
+  *buf = *&v124[1];
+  *&buf[16] = v124[3];
   Seconds = CMTimeGetSeconds(buf);
   v23 = self->_configuration;
   if (v23)
   {
-    [(PFStoryAutoEditConfiguration *)v23 durationInfoForPlaybackStyle:4 songPace:pace];
+    objc_msgSend_durationInfoForPlaybackStyle_songPace_(v23);
   }
 
   else
   {
-    v123 = 0;
-    v122 = 0u;
-    v120 = 0u;
-    memset(v121, 0, sizeof(v121));
+    v122 = 0;
+    v121 = 0u;
+    v119 = 0u;
+    memset(v120, 0, sizeof(v120));
   }
 
-  *buf = *&v121[1];
-  *&buf[16] = v121[3];
+  *buf = *&v120[1];
+  *&buf[16] = v120[3];
   v24 = CMTimeGetSeconds(buf);
   v25 = self->_configuration;
   if (v25)
   {
-    [(PFStoryAutoEditConfiguration *)v25 durationInfoForPlaybackStyle:3 songPace:pace];
+    objc_msgSend_durationInfoForPlaybackStyle_songPace_(v25);
   }
 
   else
   {
-    v119 = 0;
-    v118 = 0u;
-    v116 = 0u;
-    memset(v117, 0, sizeof(v117));
+    v118 = 0;
+    v117 = 0u;
+    v115 = 0u;
+    memset(v116, 0, sizeof(v116));
   }
 
-  *buf = *&v117[1];
-  *&buf[16] = v117[3];
+  *buf = *&v116[1];
+  *&buf[16] = v116[3];
   v26 = CMTimeGetSeconds(buf);
   v27 = self->_configuration;
   if (v27)
   {
-    [(PFStoryAutoEditConfiguration *)v27 longOverallDuration];
+    objc_msgSend_longOverallDuration(v27);
   }
 
   else
   {
-    v115 = 0;
-    v114 = 0u;
-    v112 = 0u;
-    memset(v113, 0, sizeof(v113));
+    v114 = 0;
+    v113 = 0u;
+    v111 = 0u;
+    memset(v112, 0, sizeof(v112));
   }
 
-  *buf = *&v113[1];
-  *&buf[16] = v113[3];
+  *buf = *&v112[1];
+  *&buf[16] = v112[3];
   v28 = CMTimeGetSeconds(buf);
   v29 = self->_configuration;
   if (v29)
   {
-    [(PFStoryAutoEditConfiguration *)v29 longOverallDuration];
+    objc_msgSend_longOverallDuration(v29);
   }
 
   else
   {
-    v111 = 0;
-    v109 = 0u;
-    v110 = 0u;
-    v107 = 0u;
+    v110 = 0;
     v108 = 0u;
+    v109 = 0u;
+    v106 = 0u;
+    v107 = 0u;
   }
 
-  *buf = v107;
-  *&buf[16] = v108;
+  *buf = v106;
+  *&buf[16] = v107;
   *&v30 = CMTimeGetSeconds(buf);
   kind = self->_targetOverallDurationInfo.kind;
   switch(kind)
@@ -3375,37 +3376,37 @@ LABEL_9:
       v36 = self->_configuration;
       if (v36)
       {
-        [(PFStoryAutoEditConfiguration *)v36 mediumOverallDuration];
+        objc_msgSend_mediumOverallDuration(v36, *&v30);
       }
 
       else
       {
-        v97 = 0;
-        v96 = 0u;
-        v94 = 0u;
-        memset(v95, 0, sizeof(v95));
+        v96 = 0;
+        v95 = 0u;
+        v93 = 0u;
+        memset(v94, 0, sizeof(v94));
       }
 
-      *buf = *&v95[1];
-      *&buf[16] = v95[3];
+      *buf = *&v94[1];
+      *&buf[16] = v94[3];
       v28 = CMTimeGetSeconds(buf);
       v38 = self->_configuration;
       if (v38)
       {
-        [(PFStoryAutoEditConfiguration *)v38 mediumOverallDuration];
+        objc_msgSend_mediumOverallDuration(v38);
       }
 
       else
       {
-        v93 = 0;
-        v91 = 0u;
-        v92 = 0u;
-        v89 = 0u;
+        v92 = 0;
         v90 = 0u;
+        v91 = 0u;
+        v88 = 0u;
+        v89 = 0u;
       }
 
-      *buf = v89;
-      *&buf[16] = v90;
+      *buf = v88;
+      *&buf[16] = v89;
       *&v30 = CMTimeGetSeconds(buf);
       break;
     case 3:
@@ -3416,7 +3417,7 @@ LABEL_9:
       *buf = v30;
       *&buf[16] = v32;
       flags = self->_targetOverallDurationInfo.specificDurationInfo.preferredDuration.flags;
-      v130[0] = self->_targetOverallDurationInfo.specificDurationInfo.preferredDuration.timescale;
+      v129[0] = self->_targetOverallDurationInfo.specificDurationInfo.preferredDuration.timescale;
       if ((flags & 0x1D) == 1)
       {
         epoch = self->_targetOverallDurationInfo.specificDurationInfo.preferredDuration.epoch;
@@ -3434,37 +3435,37 @@ LABEL_32:
       v35 = self->_configuration;
       if (v35)
       {
-        [(PFStoryAutoEditConfiguration *)v35 shortOverallDuration];
+        objc_msgSend_shortOverallDuration(v35, *&v30);
       }
 
       else
       {
-        v106 = 0;
-        v105 = 0u;
-        v103 = 0u;
-        memset(v104, 0, sizeof(v104));
+        v105 = 0;
+        v104 = 0u;
+        v102 = 0u;
+        memset(v103, 0, sizeof(v103));
       }
 
-      *buf = *&v104[1];
-      *&buf[16] = v104[3];
+      *buf = *&v103[1];
+      *&buf[16] = v103[3];
       v28 = CMTimeGetSeconds(buf);
       v37 = self->_configuration;
       if (v37)
       {
-        [(PFStoryAutoEditConfiguration *)v37 shortOverallDuration];
+        objc_msgSend_shortOverallDuration(v37);
       }
 
       else
       {
-        v102 = 0;
-        v100 = 0u;
-        v101 = 0u;
-        v98 = 0u;
+        v101 = 0;
         v99 = 0u;
+        v100 = 0u;
+        v97 = 0u;
+        v98 = 0u;
       }
 
-      *buf = v98;
-      *&buf[16] = v99;
+      *buf = v97;
+      *&buf[16] = v98;
       *&v30 = CMTimeGetSeconds(buf);
       break;
   }
@@ -3482,26 +3483,26 @@ LABEL_32:
   time.value = 0;
   *&time.timescale = &time;
   time.epoch = 0x2020000000;
-  v88 = 0;
-  v83 = 0;
-  v84 = &v83;
-  v85 = 0x2020000000;
-  v86 = 0;
-  v79 = 0;
-  v80 = &v79;
-  v81 = 0x2020000000;
+  v87 = 0;
   v82 = 0;
-  v78[0] = MEMORY[0x1E69E9820];
-  v78[1] = 3221225472;
-  v78[2] = __71__PXStorySongsAutoEditDecisionListsProducer__composeClips_forSongPace___block_invoke_2;
-  v78[3] = &unk_1E7741858;
-  v78[4] = &time;
-  v78[5] = &v83;
-  v78[6] = &v79;
-  [clipsCopy enumerateClipsUsingBlock:{v78, spid}];
+  v83 = &v82;
+  v84 = 0x2020000000;
+  v85 = 0;
+  v78 = 0;
+  v79 = &v78;
+  v80 = 0x2020000000;
+  v81 = 0;
+  v77[0] = MEMORY[0x1E69E9820];
+  v77[1] = 3221225472;
+  v77[2] = __71__PXStorySongsAutoEditDecisionListsProducer__composeClips_forSongPace___block_invoke_2;
+  v77[3] = &unk_1E7741858;
+  v77[4] = &time;
+  v77[5] = &v82;
+  v77[6] = &v78;
+  [clipsCopy enumerateClipsUsingBlock:{v77, spid}];
   v40 = *(*&time.timescale + 24);
-  v41 = *(v84 + 6);
-  v42 = *(v80 + 6);
+  v41 = *(v83 + 6);
+  v42 = *(v79 + 6);
   [(PFStoryAutoEditConfiguration *)self->_configuration diptychDurationMultiplier];
   v44 = v43;
   [(PFStoryAutoEditConfiguration *)self->_configuration triptychDurationMultiplier];
@@ -3599,8 +3600,8 @@ LABEL_71:
       *&buf[14] = v50;
       *&buf[22] = 2048;
       *&buf[24] = v56;
-      LOWORD(v130[0]) = 2048;
-      *(v130 + 2) = v70;
+      LOWORD(v129[0]) = 2048;
+      *(v129 + 2) = v70;
       _os_log_impl(&dword_1A3C1C000, v69, OS_LOG_TYPE_DEBUG, "Target duration: %0.2f, current duration: %0.2f, composed clips: %lu, remaining composable clips: %lu", buf, 0x2Au);
     }
   }
@@ -3613,8 +3614,8 @@ LABEL_71:
     _os_signpost_emit_with_name_impl(&dword_1A3C1C000, v72, OS_SIGNPOST_INTERVAL_END, spida, "PXStoryAutoEditDecisionList.NUps", "", buf, 2u);
   }
 
-  _Block_object_dispose(&v79, 8);
-  _Block_object_dispose(&v83, 8);
+  _Block_object_dispose(&v78, 8);
+  _Block_object_dispose(&v82, 8);
   _Block_object_dispose(&time, 8);
 }
 
@@ -3656,12 +3657,12 @@ uint64_t __71__PXStorySongsAutoEditDecisionListsProducer__composeClips_forSongPa
   }
 }
 
-uint64_t __71__PXStorySongsAutoEditDecisionListsProducer__composeClips_forSongPace___block_invoke_2(uint64_t a1, void *a2)
+char *__71__PXStorySongsAutoEditDecisionListsProducer__composeClips_forSongPace___block_invoke_2(uint64_t a1, void *a2)
 {
   result = [a2 playbackStyle];
   if ((result - 1) <= 4)
   {
-    v4 = *(*(a1 + qword_1A53829D0[result - 1]) + 8);
+    v4 = *(*(a1 + qword_1A53829D0[(result - 1)]) + 8);
     ++*(v4 + 24);
   }
 
@@ -3765,7 +3766,7 @@ uint64_t __71__PXStorySongsAutoEditDecisionListsProducer__composeClips_forSongPa
   v21 = 0u;
   v22 = 0u;
   v20 = 0u;
-  [(PXStorySongsAutoEditDecisionListsProducer *)self _optimizeOverallDurationOfClips:v11 forSong:songCopy];
+  objc_msgSend__optimizeOverallDurationOfClips_forSong_(self);
   [(PXStorySongsAutoEditDecisionListsProducer *)self _adjustAudioPlaybackForClips:v11];
   [(PXStorySongsAutoEditDecisionListsProducer *)self _adjustAudioTransitionForClips:v11];
   memset(&v19, 0, sizeof(v19));

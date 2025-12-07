@@ -6,8 +6,8 @@
 
 - (BOOL)accessibilityElementsHidden
 {
-  v31 = *MEMORY[0x29EDCA608];
-  v29 = 0;
+  v30 = *MEMORY[0x29EDCA608];
+  v28 = 0;
   objc_opt_class();
   v2 = __UIAccessibilityCastAsClass();
   v3 = [v2 _accessibilityAncestorIsKindOf:objc_opt_class()];
@@ -21,39 +21,39 @@
   v11 = v10;
   v13 = v12;
   v15 = v14;
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   indexPathsForVisibleItems = [v3 indexPathsForVisibleItems];
-  v17 = [indexPathsForVisibleItems countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v17 = [indexPathsForVisibleItems countByEnumeratingWithState:&v24 objects:v29 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v26;
+    v19 = *v25;
     while (2)
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v26 != v19)
+        if (*v25 != v19)
         {
           objc_enumerationMutation(indexPathsForVisibleItems);
         }
 
-        v21 = [v3 cellForItemAtIndexPath:*(*(&v25 + 1) + 8 * i)];
+        v21 = [v3 cellForItemAtIndexPath:*(*(&v24 + 1) + 8 * i)];
         [v21 bounds];
         [v3 convertRect:v21 fromView:?];
-        v32.x = v5;
-        v32.y = v7;
-        if (CGRectContainsPoint(v34, v32))
+        v31.x = v5;
+        v31.y = v7;
+        if (CGRectContainsPoint(v33, v31))
         {
-          v35.origin.x = v9;
-          v35.origin.y = v11;
-          v35.size.width = v13;
-          v35.size.height = v15;
-          v33.x = v5;
-          v33.y = v7;
-          if (CGRectContainsPoint(v35, v33))
+          v34.origin.x = v9;
+          v34.origin.y = v11;
+          v34.size.width = v13;
+          v34.size.height = v15;
+          v32.x = v5;
+          v32.y = v7;
+          if (CGRectContainsPoint(v34, v32))
           {
 
             v22 = 0;
@@ -62,7 +62,7 @@
         }
       }
 
-      v18 = [indexPathsForVisibleItems countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v18 = [indexPathsForVisibleItems countByEnumeratingWithState:&v24 objects:v29 count:16];
       if (v18)
       {
         continue;
@@ -75,7 +75,6 @@
   v22 = 1;
 LABEL_12:
 
-  v23 = *MEMORY[0x29EDCA608];
   return v22;
 }
 

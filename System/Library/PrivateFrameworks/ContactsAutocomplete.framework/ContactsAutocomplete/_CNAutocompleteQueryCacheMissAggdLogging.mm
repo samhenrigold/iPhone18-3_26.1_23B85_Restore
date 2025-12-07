@@ -9,16 +9,15 @@
 
 - (_CNAutocompleteQueryCacheMissAggdLogging)init
 {
-  v10[2] = *MEMORY[0x277D85DE8];
-  v10[0] = @"com.apple.contacts.autocomplete";
-  v10[1] = @"performance";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
+  v9[2] = *MEMORY[0x277D85DE8];
+  v9[0] = @"com.apple.contacts.autocomplete";
+  v9[1] = @"performance";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
   v5 = CNAutocompleteProbeBuildKey(v3, v4);
 
   v6 = [[CNAutocompleteAggdProbe alloc] initWithKeyPrefix:v5];
   v7 = [(_CNAutocompleteQueryCacheMissAggdLogging *)self initWithProbe:v6];
 
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

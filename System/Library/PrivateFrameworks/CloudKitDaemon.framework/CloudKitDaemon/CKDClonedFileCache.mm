@@ -32,88 +32,85 @@
 
 - (id)cacheEntries
 {
-  v60[1] = *MEMORY[0x277D85DE8];
+  v58[1] = *MEMORY[0x277D85DE8];
   v4 = objc_msgSend_defaultManager(MEMORY[0x277CCAA00], a2, v2);
-  cacheDirectory = self->_cacheDirectory;
   CKCreateDirectoryAtURL();
-  v6 = self->_cacheDirectory;
-  v7 = *MEMORY[0x277CBE7C0];
-  v60[0] = *MEMORY[0x277CBE7C0];
-  v9 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v8, v60, 1);
-  v49 = v4;
-  v11 = objc_msgSend_enumeratorAtURL_includingPropertiesForKeys_options_errorHandler_(v4, v10, v6, v9, 3, 0);
+  cacheDirectory = self->_cacheDirectory;
+  v6 = *MEMORY[0x277CBE7C0];
+  v58[0] = *MEMORY[0x277CBE7C0];
+  v8 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v7, v58, 1);
+  v47 = v4;
+  v10 = objc_msgSend_enumeratorAtURL_includingPropertiesForKeys_options_errorHandler_(v4, v9, cacheDirectory, v8, 3, 0);
 
-  v12 = objc_alloc(MEMORY[0x277CBEB18]);
+  v11 = objc_alloc(MEMORY[0x277CBEB18]);
   selfCopy = self;
-  v51 = objc_msgSend_initWithCapacity_(v12, v13, self->_entryLimit);
+  v49 = objc_msgSend_initWithCapacity_(v11, v12, self->_entryLimit);
+  v52 = 0u;
+  v53 = 0u;
   v54 = 0u;
   v55 = 0u;
-  v56 = 0u;
-  v57 = 0u;
-  v14 = v11;
-  v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v15, &v54, v59, 16);
-  if (v16)
+  v13 = v10;
+  v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v14, &v52, v57, 16);
+  if (v15)
   {
-    v18 = v16;
-    v19 = *v55;
-    v20 = *MEMORY[0x277CBE8E8];
+    v17 = v15;
+    v18 = *v53;
+    v19 = *MEMORY[0x277CBE8E8];
     do
     {
-      for (i = 0; i != v18; ++i)
+      for (i = 0; i != v17; ++i)
       {
-        if (*v55 != v19)
+        if (*v53 != v18)
         {
-          objc_enumerationMutation(v14);
+          objc_enumerationMutation(v13);
         }
 
-        v22 = *(*(&v54 + 1) + 8 * i);
-        v53 = 0;
-        ResourceValue_forKey_error = objc_msgSend_getResourceValue_forKey_error_(v22, v17, &v53, v20, 0);
-        v25 = v53;
-        v26 = 0;
+        v21 = *(*(&v52 + 1) + 8 * i);
+        v51 = 0;
+        ResourceValue_forKey_error = objc_msgSend_getResourceValue_forKey_error_(v21, v16, &v51, v19, 0);
+        v24 = v51;
+        v25 = 0;
         if (ResourceValue_forKey_error)
         {
-          v52 = 0;
-          v27 = objc_msgSend_getResourceValue_forKey_error_(v22, v24, &v52, v7, 0);
-          v28 = v52;
-          v26 = v28;
-          if (v27)
+          v50 = 0;
+          v26 = objc_msgSend_getResourceValue_forKey_error_(v21, v23, &v50, v6, 0);
+          v27 = v50;
+          v25 = v27;
+          if (v26)
           {
-            v58[0] = v28;
-            v58[1] = v25;
-            v30 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v29, v58, 2);
-            objc_msgSend_addObject_(v51, v31, v30);
+            v56[0] = v27;
+            v56[1] = v24;
+            v29 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v28, v56, 2);
+            objc_msgSend_addObject_(v49, v30, v29);
           }
         }
       }
 
-      v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v17, &v54, v59, 16);
+      v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v16, &v52, v57, 16);
     }
 
-    while (v18);
+    while (v17);
   }
 
-  objc_msgSend_sortUsingComparator_(v51, v32, &unk_28385CB60);
-  v35 = objc_msgSend_count(v51, v33, v34);
-  if (v35)
+  objc_msgSend_sortUsingComparator_(v49, v31, &unk_28385CB60);
+  v34 = objc_msgSend_count(v49, v32, v33);
+  if (v34)
   {
-    v36 = v35;
-    for (j = 0; j != v36; ++j)
+    v35 = v34;
+    for (j = 0; j != v35; ++j)
     {
-      v38 = objc_autoreleasePoolPush();
-      v40 = objc_msgSend_objectAtIndex_(v51, v39, j);
-      v42 = objc_msgSend_objectAtIndex_(v40, v41, 1);
-      objc_msgSend_replaceObjectAtIndex_withObject_(v51, v43, j, v42);
-      v45 = objc_msgSend_URLByAppendingPathComponent_(selfCopy->_cacheDirectory, v44, v42);
-      objc_msgSend_CKMarkFilePurgeable_(v45, v46, 0);
+      v37 = objc_autoreleasePoolPush();
+      v39 = objc_msgSend_objectAtIndex_(v49, v38, j);
+      v41 = objc_msgSend_objectAtIndex_(v39, v40, 1);
+      objc_msgSend_replaceObjectAtIndex_withObject_(v49, v42, j, v41);
+      v44 = objc_msgSend_URLByAppendingPathComponent_(selfCopy->_cacheDirectory, v43, v41);
+      objc_msgSend_CKMarkFilePurgeable_(v44, v45, 0);
 
-      objc_autoreleasePoolPop(v38);
+      objc_autoreleasePoolPop(v37);
     }
   }
 
-  v47 = *MEMORY[0x277D85DE8];
-
-  return v51;
+  return v49;
 }
 
 - (void)prune

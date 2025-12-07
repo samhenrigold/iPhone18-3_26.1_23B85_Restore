@@ -70,7 +70,7 @@ void __41__PKHoverController_hoverDebugLayerColor__block_invoke()
   v6 = lastObject;
   if (lastObject)
   {
-    [lastObject currentFilteredPoint];
+    objc_msgSend_currentFilteredPoint(lastObject);
   }
 
   else
@@ -128,7 +128,7 @@ void __41__PKHoverController_hoverDebugLayerColor__block_invoke()
         [v9 addInputPoint:&var0];
         if (v9)
         {
-          [v9 currentFilteredPoint];
+          objc_msgSend_currentFilteredPoint(v9);
         }
 
         else
@@ -508,7 +508,7 @@ void __41__PKHoverController_hoverDebugLayerColor__block_invoke()
       if ((LOBYTE(self->_timestampForLatestGestureUpdate) & 1) == 0 && LOBYTE(self->_waitingForHoverHoldTimestamp) == 1)
       {
         [(PKHoverController *)self _setupPredictorForNewPoint:0];
-        [(PKHoverController *)self currentInputPoint];
+        objc_msgSend_currentInputPoint(self);
         [(PKHoverController *)self _sendDidUpdate:v6];
       }
 
@@ -527,7 +527,7 @@ void __41__PKHoverController_hoverDebugLayerColor__block_invoke()
         {
           LOBYTE(self->_timestampForLatestGestureUpdate) = 0;
           [(PKHoverController *)self _setupPredictorForNewPoint:0];
-          [(PKHoverController *)self currentInputPoint];
+          objc_msgSend_currentInputPoint(self);
           [(PKHoverController *)self _sendDidUpdate:v6];
         }
       }
@@ -1717,7 +1717,7 @@ LABEL_51:
 
     else
     {
-      [(PKHoverController *)self currentInputPoint];
+      objc_msgSend_currentInputPoint(self);
       [(PKHoverController *)self _sendDidUpdate:&var0];
     }
   }
@@ -1854,9 +1854,9 @@ LABEL_51:
     pk_hoverLabelFont = [MEMORY[0x1E69DD250] pk_hoverLabelFont];
     WeakRetained = objc_loadWeakRetained((self + 24));
     traitCollection = [WeakRetained traitCollection];
-    v11 = [(PKFloatingLabelView *)label floatingLabelViewWithAttributedString:location font:PKFloatingLabelView location:v14 traitCollection:pk_hoverLabelFont, traitCollection];
+    location = [PKFloatingLabelView floatingLabelViewWithAttributedString:v14 font:pk_hoverLabelFont location:traitCollection traitCollection:label, location];
     v12 = *(self + 256);
-    *(self + 256) = v11;
+    *(self + 256) = location;
 
     v13 = objc_loadWeakRetained((self + 24));
     [v13 addSubview:*(self + 256)];

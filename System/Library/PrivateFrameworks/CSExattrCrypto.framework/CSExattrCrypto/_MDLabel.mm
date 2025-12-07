@@ -124,9 +124,9 @@
 
 - (void)updateAttrs:(__CFDictionary *)attrs
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   Count = CFDictionaryGetCount(attrs);
-  v6 = (v12 - ((8 * Count + 15) & 0xFFFFFFFFFFFFFFF0));
+  v6 = (v11 - ((8 * Count + 15) & 0xFFFFFFFFFFFFFFF0));
   bzero(v6, 8 * Count);
   v7 = v6;
   bzero(v6, 8 * Count);
@@ -146,18 +146,16 @@
   }
 
   [(_MDLabel *)self cleanAttrs];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithUUID:(uint64_t)a1 attributes:forUserUUID:.cold.1(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = 136315394;
-  v3 = "[_MDLabel initWithUUID:attributes:forUserUUID:]";
-  v4 = 2112;
-  v5 = a1;
-  _os_log_error_impl(&dword_242636000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s: can't extract attributeBits from label attributes %@", &v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v1 = 136315394;
+  v2 = "[_MDLabel initWithUUID:attributes:forUserUUID:]";
+  v3 = 2112;
+  v4 = a1;
+  _os_log_error_impl(&dword_242636000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s: can't extract attributeBits from label attributes %@", &v1, 0x16u);
 }
 
 @end

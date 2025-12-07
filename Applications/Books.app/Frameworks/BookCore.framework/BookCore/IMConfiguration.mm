@@ -58,27 +58,27 @@
   if (!value)
   {
     v10 = +[NSMutableArray array];
-    v23 = keyCopy;
+    v24 = keyCopy;
     v11 = [(IMConfiguration *)self _predicateValuePairsForKey:keyCopy];
-    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v12 = [v11 countByEnumeratingWithState:&v24 objects:v34 count:16];
+    v28 = 0u;
+    v12 = [v11 countByEnumeratingWithState:&v25 objects:v35 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v25;
+      v14 = *v26;
       do
       {
         for (i = 0; i != v13; i = i + 1)
         {
-          if (*v25 != v14)
+          if (*v26 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v24 + 1) + 8 * i);
+          v16 = *(*(&v25 + 1) + 8 * i);
           predicate = [v16 predicate];
           v18 = [predicate evaluateWithContext:contextCopy];
 
@@ -88,7 +88,7 @@
           }
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v24 objects:v34 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v25 objects:v35 count:16];
       }
 
       while (v13);
@@ -105,41 +105,41 @@
       {
         [(IMConfiguration *)self _selectTopScoringPairInArray:v10];
       }
-      v20 = ;
-      keyCopy = v23;
-      value = [v20 value];
+      v21 = ;
+      keyCopy = v24;
+      value = [v21 value];
       if (value)
       {
         cache2 = [(IMConfiguration *)self cache];
-        [cache2 setObject:value forKeyedSubscript:v23];
+        [cache2 setObject:value forKeyedSubscript:v24];
       }
     }
 
     else
     {
-      v19 = BCIMLog();
+      v19 = BCIMLog(0);
       if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
         *buf = 136315650;
-        v29 = "[IMConfiguration valueForKey:context:]";
-        v30 = 2080;
-        v31 = "/Library/Caches/com.apple.xbs/Sources/Alder/frameworks/BookCore/BookCore/ViewControllers/Configuration/IMConfiguration.m";
-        v32 = 1024;
-        LODWORD(v33) = 114;
+        v30 = "[IMConfiguration valueForKey:context:]";
+        v31 = 2080;
+        v32 = "/Library/Caches/com.apple.xbs/Sources/Alder/frameworks/BookCore/BookCore/ViewControllers/Configuration/IMConfiguration.m";
+        v33 = 1024;
+        LODWORD(v34) = 114;
         _os_log_impl(&dword_0, v19, OS_LOG_TYPE_INFO, "%s %s:%d", buf, 0x1Cu);
       }
 
-      v20 = BCIMLog();
-      keyCopy = v23;
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+      v21 = BCIMLog(v20);
+      keyCopy = v24;
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
       {
         *buf = 138412802;
-        v29 = v23;
-        v30 = 2112;
-        v31 = v11;
-        v32 = 2112;
-        v33 = contextCopy;
-        _os_log_impl(&dword_0, v20, OS_LOG_TYPE_INFO, "@Failed to match for {%@} in {%@} ctx {%@}", buf, 0x20u);
+        v30 = v24;
+        v31 = 2112;
+        v32 = v11;
+        v33 = 2112;
+        v34 = contextCopy;
+        _os_log_impl(&dword_0, v21, OS_LOG_TYPE_INFO, "@Failed to match for {%@} in {%@} ctx {%@}", buf, 0x20u);
       }
 
       value = 0;

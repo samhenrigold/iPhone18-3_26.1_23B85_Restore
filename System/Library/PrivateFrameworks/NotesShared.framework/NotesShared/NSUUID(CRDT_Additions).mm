@@ -19,9 +19,9 @@
     +[NSUUID(CRDT_Additions) CR_unserialized];
   }
 
-  v1 = CR_unserialized_unserialized;
+  v2 = CR_unserialized_unserialized;
 
-  return v1;
+  return v2;
 }
 
 - (void)mergeWith:()CRDT_Additions
@@ -51,9 +51,9 @@
     +[NSUUID(CRDT_Additions) CR_zero];
   }
 
-  v1 = CR_zero_zero;
+  v2 = CR_zero_zero;
 
-  return v1;
+  return v2;
 }
 
 + (id)CR_unknown
@@ -63,9 +63,9 @@
     +[NSUUID(CRDT_Additions) CR_unknown];
   }
 
-  v1 = CR_unknown_unserialized;
+  v2 = CR_unknown_unserialized;
 
-  return v1;
+  return v2;
 }
 
 - (uint64_t)CR_compare:()CRDT_Additions

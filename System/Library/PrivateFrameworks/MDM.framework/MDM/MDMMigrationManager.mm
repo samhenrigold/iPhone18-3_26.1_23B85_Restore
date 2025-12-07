@@ -21,10 +21,10 @@
 
 - (MDMMigrationManager)init
 {
-  v14[1] = *MEMORY[0x277D85DE8];
-  v12.receiver = self;
-  v12.super_class = MDMMigrationManager;
-  v2 = [(MDMMigrationManager *)&v12 init];
+  v13[1] = *MEMORY[0x277D85DE8];
+  v11.receiver = self;
+  v11.super_class = MDMMigrationManager;
+  v2 = [(MDMMigrationManager *)&v11 init];
   if (v2)
   {
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
@@ -34,9 +34,9 @@
     if ((v5 & 1) == 0)
     {
       v6 = MDMMigrationDirectory();
-      v13 = *MEMORY[0x277CCA180];
-      v14[0] = &unk_2868503C8;
-      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+      v12 = *MEMORY[0x277CCA180];
+      v13[0] = &unk_2868503C8;
+      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
       [defaultManager createDirectoryAtPath:v6 withIntermediateDirectories:1 attributes:v7 error:0];
     }
 
@@ -45,7 +45,6 @@
     v2->_bootUUID = v8;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -244,7 +243,7 @@ LABEL_11:
 
 void __98__MDMMigrationManager__retrieveAndStorePendingCloudConfigurationWithRetryCount_completionHandler___block_invoke_13(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = *(DMCLogObjects() + 8);
@@ -253,7 +252,7 @@ void __98__MDMMigrationManager__retrieveAndStorePendingCloudConfigurationWithRet
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v14 = v5;
+      v13 = v5;
       _os_log_impl(&dword_2561F5000, v7, OS_LOG_TYPE_ERROR, "MDMMigrationManager: Failed to retrieve cloud config with error: %{public}@", buf, 0xCu);
     }
 
@@ -269,37 +268,32 @@ void __98__MDMMigrationManager__retrieveAndStorePendingCloudConfigurationWithRet
     }
 
     v8 = [MEMORY[0x277D262A0] sharedConnection];
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __98__MDMMigrationManager__retrieveAndStorePendingCloudConfigurationWithRetryCount_completionHandler___block_invoke_14;
-    v10[3] = &unk_27982BF78;
-    v12 = *(a1 + 32);
-    v11 = v6;
-    [v8 storePendingCloudConfigurationDetailsForMigration:v11 completionHandler:v10];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __98__MDMMigrationManager__retrieveAndStorePendingCloudConfigurationWithRetryCount_completionHandler___block_invoke_14;
+    v9[3] = &unk_27982BF78;
+    v11 = *(a1 + 32);
+    v10 = v6;
+    [v8 storePendingCloudConfigurationDetailsForMigration:v10 completionHandler:v9];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __98__MDMMigrationManager__retrieveAndStorePendingCloudConfigurationWithRetryCount_completionHandler___block_invoke_14(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
     v4 = *(DMCLogObjects() + 8);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v7 = 138543362;
-      v8 = v3;
-      _os_log_impl(&dword_2561F5000, v4, OS_LOG_TYPE_ERROR, "MDMMigrationManager: Failed to store cloud config with error: %{public}@", &v7, 0xCu);
+      v5 = 138543362;
+      v6 = v3;
+      _os_log_impl(&dword_2561F5000, v4, OS_LOG_TYPE_ERROR, "MDMMigrationManager: Failed to store cloud config with error: %{public}@", &v5, 0xCu);
     }
   }
 
-  v5 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_depPushReceived
@@ -459,35 +453,33 @@ LABEL_15:
 
 void __61__MDMMigrationManager__cancelMDMMigrationWithNewCloudConfig___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = *(DMCLogObjects() + 8);
   if (v2)
   {
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138543362;
-      v10 = v2;
+      v8 = 138543362;
+      v9 = v2;
       v4 = "MDMMigrationManager: Failed to clean up pending cloud config with error: %{public}@";
       v5 = v3;
       v6 = OS_LOG_TYPE_ERROR;
       v7 = 12;
 LABEL_6:
-      _os_log_impl(&dword_2561F5000, v5, v6, v4, &v9, v7);
+      _os_log_impl(&dword_2561F5000, v5, v6, v4, &v8, v7);
     }
   }
 
   else if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v9) = 0;
+    LOWORD(v8) = 0;
     v4 = "MDMMigrationManager: Pending cloud config cleared.";
     v5 = v3;
     v6 = OS_LOG_TYPE_DEFAULT;
     v7 = 2;
     goto LABEL_6;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_scheduleMDMMigrationWithNewCloudConfigDetails:(id)details
@@ -503,13 +495,13 @@ LABEL_6:
   dispatch_async(MEMORY[0x277D85CD0], v6);
 }
 
-uint64_t __70__MDMMigrationManager__scheduleMDMMigrationWithNewCloudConfigDetails___block_invoke(uint64_t a1)
+uint64_t __70__MDMMigrationManager__scheduleMDMMigrationWithNewCloudConfigDetails___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = *(DMCLogObjects() + 8);
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = *(DMCLogObjects() + 8);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_2561F5000, v2, OS_LOG_TYPE_DEFAULT, "MDMMigrationManager: Scheduling nag with new cloud config.", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_2561F5000, v3, OS_LOG_TYPE_DEFAULT, "MDMMigrationManager: Scheduling nag with new cloud config.", v5, 2u);
   }
 
   return [*(a1 + 32) nagWithCloudConfigDetails:*(a1 + 40)];
@@ -575,32 +567,32 @@ uint64_t __70__MDMMigrationManager__scheduleMDMMigrationWithNewCloudConfigDetail
 
 - (BOOL)handleDeadlineActionForNagItem:(id)item
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   if ([itemCopy isMigrationNag] && (objc_msgSend(itemCopy, "deadline"), v4 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x277CBEAA8], "date"), v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v4, "compare:", v5), v5, v4, v6 == -1))
   {
-    v10 = *(DMCLogObjects() + 8);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v9 = *(DMCLogObjects() + 8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138543362;
-      v16 = itemCopy;
-      _os_log_impl(&dword_2561F5000, v10, OS_LOG_TYPE_DEFAULT, "MDMMigrationManager: Launching post-deadline system migration action for nag: %{public}@", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = itemCopy;
+      _os_log_impl(&dword_2561F5000, v9, OS_LOG_TYPE_DEFAULT, "MDMMigrationManager: Launching post-deadline system migration action for nag: %{public}@", &v14, 0xCu);
     }
 
-    v11 = objc_opt_new();
-    v12 = DMCLocalizedString();
-    [v11 setTitle:v12];
+    v10 = objc_opt_new();
+    v11 = DMCLocalizedString();
+    [v10 setTitle:v11];
 
-    v13 = DMCLocalizedStringByDevice();
-    [v11 setMessage:v13];
+    v12 = DMCLocalizedStringByDevice();
+    [v10 setMessage:v12];
 
-    v14 = DMCLocalizedString();
-    [v11 setDefaultButtonText:v14];
+    v13 = DMCLocalizedString();
+    [v10 setDefaultButtonText:v13];
 
     v7 = 1;
-    [v11 setDisplayOnLockScreen:1];
-    [v11 setCompletionBlock:&__block_literal_global_35];
-    [MEMORY[0x277D032E0] displayAlert:v11];
+    [v10 setDisplayOnLockScreen:1];
+    [v10 setCompletionBlock:&__block_literal_global_35];
+    [MEMORY[0x277D032E0] displayAlert:v10];
   }
 
   else
@@ -608,13 +600,12 @@ uint64_t __70__MDMMigrationManager__scheduleMDMMigrationWithNewCloudConfigDetail
     v7 = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (id)appliedGracePeriodToNagItem:(id)item
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   if (![(MDMMigrationManager *)self _isFirstBoot])
   {
@@ -623,9 +614,9 @@ uint64_t __70__MDMMigrationManager__scheduleMDMMigrationWithNewCloudConfigDetail
     {
       v12 = v11;
       bootUUID = [(MDMMigrationManager *)self bootUUID];
-      v19 = 138543362;
-      v20 = *&bootUUID;
-      _os_log_impl(&dword_2561F5000, v12, OS_LOG_TYPE_DEFAULT, "MDMMigrationManager: Ignoring grace period because we already checked this boot: %{public}@", &v19, 0xCu);
+      v18 = 138543362;
+      v19 = *&bootUUID;
+      _os_log_impl(&dword_2561F5000, v12, OS_LOG_TYPE_DEFAULT, "MDMMigrationManager: Ignoring grace period because we already checked this boot: %{public}@", &v18, 0xCu);
     }
 
     goto LABEL_8;
@@ -649,9 +640,9 @@ LABEL_8:
     v10 = *(DMCLogObjects() + 8);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 138543362;
-      v20 = *&itemCopy;
-      _os_log_impl(&dword_2561F5000, v10, OS_LOG_TYPE_DEFAULT, "MDMMigrationManager: Ignoring grace period for far out MDM migration nag: %{public}@", &v19, 0xCu);
+      v18 = 138543362;
+      v19 = *&itemCopy;
+      _os_log_impl(&dword_2561F5000, v10, OS_LOG_TYPE_DEFAULT, "MDMMigrationManager: Ignoring grace period for far out MDM migration nag: %{public}@", &v18, 0xCu);
     }
 
     goto LABEL_8;
@@ -660,38 +651,34 @@ LABEL_8:
   date = [MEMORY[0x277CBEAA8] date];
   v14 = [date dateByAddingTimeInterval:v6];
 
-  v18 = *(DMCLogObjects() + 8);
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v17 = *(DMCLogObjects() + 8);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 134349570;
-    v20 = v6;
-    v21 = 2114;
-    v22 = v14;
-    v23 = 2114;
-    v24 = itemCopy;
-    _os_log_impl(&dword_2561F5000, v18, OS_LOG_TYPE_DEFAULT, "MDMMigrationManager: Applying %{public}f grace period (%{public}@) to MDM migration nag: %{public}@", &v19, 0x20u);
+    v18 = 134349570;
+    v19 = v6;
+    v20 = 2114;
+    v21 = v14;
+    v22 = 2114;
+    v23 = itemCopy;
+    _os_log_impl(&dword_2561F5000, v17, OS_LOG_TYPE_DEFAULT, "MDMMigrationManager: Applying %{public}f grace period (%{public}@) to MDM migration nag: %{public}@", &v18, 0x20u);
   }
 
 LABEL_9:
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
 
 + (id)_bootUUID
 {
-  v8 = *MEMORY[0x277D85DE8];
-  memset(v7, 0, sizeof(v7));
-  v6 = 37;
-  v2 = sysctlbyname("kern.bootsessionuuid", v7, &v6, 0, 0);
+  v7 = *MEMORY[0x277D85DE8];
+  memset(v6, 0, sizeof(v6));
+  v5 = 37;
+  v2 = sysctlbyname("kern.bootsessionuuid", v6, &v5, 0, 0);
   v3 = 0;
   if (!v2)
   {
-    v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:v7];
+    v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:v6];
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

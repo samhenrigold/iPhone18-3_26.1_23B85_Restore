@@ -158,14 +158,14 @@
   firstCoreDataContainerSetupUnderlyingErrorDomain_HH2 = [(HMDHomePodSetupLatencyLogEvent *)self firstCoreDataContainerSetupUnderlyingErrorDomain_HH2];
   [v3 setObject:firstCoreDataContainerSetupUnderlyingErrorDomain_HH2 forKeyedSubscript:@"firstCoreDataContainerSetupUnderlyingErrorDomain_HH2"];
 
-  v53 = [v3 copy];
+  v53 = objc_msgSend_copy(v3);
 
   return v53;
 }
 
 - (HMDHomePodSetupLatencyLogEvent)initWithSessionSetupOpenMS_HH1:(int64_t)h1 controllerKeyExchangeMS_HH1:(int64_t)hH1 newAccessoryTransferMS_HH1:(int64_t)s_HH1 sessionSetupCloseMS_HH1:(int64_t)mS_HH1 sentinelZoneFetchMS_HH1:(int64_t)fetchMS_HH1 totalDurationMS_HH1:(int64_t)durationMS_HH1 accountSettleWaitMS_HH2:(int64_t)h2 currentDeviceIDSWaitMS_HH2:(int64_t)self0 homeManagerReadyMS_HH2:(int64_t)self1 firstCoreDataImportMS_HH2:(int64_t)self2 accessoryAddMS_HH2:(int64_t)self3 settingsCreationMS_HH2:(int64_t)self4 pairingIdentityCreationMS_HH2:(int64_t)self5 siriReadyMS_HH2:(int64_t)self6 eventRouterServerConnectionMS_HH2:(int64_t)self7 primaryResidentElectionMS_HH2:(int64_t)self8 eventRouterFirstEventPushMS_HH2:(int64_t)self9 totalDurationMS_HH2:(int64_t)durationMS_HH2 iCloudAvailable_INT:(BOOL)t IDSAvailable_INT:(BOOL)nT manateeAvailable_INT:(BOOL)iNT networkAvailable_INT:(BOOL)available_INT controllerInHH2_INT:(BOOL)h2_INT controllerHasSentinelZone_INT:(BOOL)zone_INT errorCode:(int64_t)code errorDomain:(id)domain underlyingErrorCode:(int64_t)errorCode underlyingErrorDomain:(id)h10 errorStage_String:(id)h11 setupSessionIdentifier:(id)h12 numberOfTimesPrimaryResidentChanged_HH2:(unsigned int)h13 lastPrimaryClientConnectedTime_HH2:(int64_t)h14 numberOfTimesPrimaryClientConnected_HH2:(unsigned int)h15 numberOfTimesPrimaryClientDisconnected_HH2:(unsigned int)h16 numberOfTimesPrimaryClientConnectMessageFailed_HH2:(unsigned int)h17 currentDeviceConfirmedPrimaryResident_INT:(BOOL)h18 lastPrimaryClientConnectMessageFailErrorCode_HH2:(int64_t)h19 lastPrimaryClientConnectMessageFailErrorDomain_HH2:(id)hH10 lastPrimaryClientConnectMessageFailUnderlyingErrorCode_HH2:(int64_t)hH11 lastPrimaryClientConnectMessageFailUnderlyingErrorDomain_HH2:(id)hH12 primaryResidentElectionPeerDeviceFutureResolvedMS_HH2:(int64_t)hH13 primaryResidentElectionFirstCloudKitImportFutureResolvedMS_HH2:(int64_t)hH14 primaryResidentElectionModernTransportStartedFutureResolvedMS_HH2:(int64_t)hH15 primaryResidentSelectionConnectedToStatusKitFutureResolvedMS_HH2:(int64_t)hH16 primaryResidentElectionJoinMeshMS_HH2:(int64_t)hH17 firstCoreDataContainerSetupDurationMS_HH2:(int64_t)hH18 firstCoreDataContainerSetupErrorCode_HH2:(int64_t)hH19 firstCoreDataContainerSetupErrorDomain_HH2:(id)s_HH10 firstCoreDataContainerSetupUnderlyingErrorCode_HH2:(int64_t)s_HH11 firstCoreDataContainerSetupUnderlyingErrorDomain_HH2:(id)s_HH12 savedEventState:(unint64_t)s_HH13
 {
-  v77[1] = *MEMORY[0x277D85DE8];
+  v76[1] = *MEMORY[0x277D85DE8];
   domainCopy = domain;
   errorDomainCopy = errorDomain;
   stringCopy = string;
@@ -174,9 +174,9 @@
   errorDomain_HH2Copy = errorDomain_HH2;
   setupErrorDomain_HH2Copy = setupErrorDomain_HH2;
   underlyingErrorDomain_HH2Copy = underlyingErrorDomain_HH2;
-  v75.receiver = self;
-  v75.super_class = HMDHomePodSetupLatencyLogEvent;
-  v56 = [(HMMLogEvent *)&v75 init];
+  v74.receiver = self;
+  v74.super_class = HMDHomePodSetupLatencyLogEvent;
+  v56 = [(HMMLogEvent *)&v74 init];
   v57 = v56;
   if (v56)
   {
@@ -232,9 +232,9 @@
       if (errorDomainCopy)
       {
         v58 = [MEMORY[0x277CCA9B8] errorWithDomain:errorDomainCopy code:errorCode userInfo:0];
-        v76 = *MEMORY[0x277CCA7E8];
-        v77[0] = v58;
-        v59 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v77 forKeys:&v76 count:1];
+        v75 = *MEMORY[0x277CCA7E8];
+        v76[0] = v58;
+        v59 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v76 forKeys:&v75 count:1];
       }
 
       else
@@ -247,7 +247,6 @@
     }
   }
 
-  v61 = *MEMORY[0x277D85DE8];
   return v57;
 }
 

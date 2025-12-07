@@ -22,8 +22,8 @@
 + (void)setTipsPresentationDelegate:(id)delegate
 {
   swift_getObjCClassMetadata();
-  swift_unknownObjectRetain();
-  sub_1A40A6980();
+  v3 = swift_unknownObjectRetain();
+  sub_1A40A6980(v3);
 }
 
 + (void)setTip:(id)tip isPresentable:(BOOL)presentable

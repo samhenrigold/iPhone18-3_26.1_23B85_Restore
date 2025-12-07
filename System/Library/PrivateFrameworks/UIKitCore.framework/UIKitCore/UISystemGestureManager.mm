@@ -200,7 +200,7 @@ uint64_t __113____UISystemGestureManager_exclusiveTouchGestureRecognizer_achieve
   return [v2 _handleTooMuchMovementWithLastTouchTimestamp:v3];
 }
 
-uint64_t __62____UISystemGestureManager__externalGestureRecognizerChanged___block_invoke(uint64_t a1)
+void *__62____UISystemGestureManager__externalGestureRecognizerChanged___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) state];
   if (!result)

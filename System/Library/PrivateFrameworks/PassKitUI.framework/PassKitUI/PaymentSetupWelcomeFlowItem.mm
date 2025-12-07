@@ -19,7 +19,7 @@
 {
   fileCopy = file;
   selfCopy = self;
-  sub_1BD5521A0();
+  sub_1BD5521A0(selfCopy);
 }
 
 - (void)welcomeViewControllerDidSelectManualEntry:(id)entry
@@ -34,7 +34,7 @@
   productsCopy = products;
   if (products)
   {
-    sub_1BD0E5E8C(0, &qword_1EBD38568);
+    sub_1BD0E5E8C(0, &qword_1EBD38568, 0x1E69B8E48);
     productsCopy = sub_1BE052744();
   }
 
@@ -42,6 +42,8 @@
   categoryCopy = category;
   selfCopy = self;
   sub_1BD552458(categoryCopy, productsCopy);
+
+  productsCopy, v12, v13, v14, v15, v16, v17, v18;
 }
 
 - (void)welcomeViewControllerDidTerminate:(id)terminate

@@ -16,14 +16,14 @@
 
 - (id)_lookupValueForKey:()TVPlaybackAdditions expectedClass:
 {
-  v1 = [self objectForKey:?];
-  if (v1 && (objc_opt_isKindOfClass() & 1) == 0)
+  v4 = [self objectForKey:a3];
+  if (v4 && (objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v1 = 0;
+    v4 = 0;
   }
 
-  return v1;
+  return v4;
 }
 
 - (id)tvp_numberForKey:()TVPlaybackAdditions
@@ -52,7 +52,7 @@
 
 - (uint64_t)tvp_BOOLForKey:()TVPlaybackAdditions defaultValue:
 {
-  v5 = [self tvp_numberForKey:?];
+  v5 = [self tvp_numberForKey:a3];
   v6 = v5;
   if (v5)
   {

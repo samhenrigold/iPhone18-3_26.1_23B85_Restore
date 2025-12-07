@@ -164,11 +164,11 @@ LABEL_19:
   bundle = [existingBundleContainer bundle];
 
   supportedDevices = [bundle supportedDevices];
-  objc_opt_class();
-  if ((sub_100010AB8(supportedDevices) & 1) == 0)
+  v8 = objc_opt_class();
+  if ((sub_100010AB8(supportedDevices, v8) & 1) == 0)
   {
-    v11 = sub_100010734("[MIInstallable _applyDeltaPatchWithError:]", 146, MIInstallerErrorDomain, 87, 0, &off_10009C308, @"Existing app's SupportedDevices Info.plist key does not contain only string values.", v8, v32);
-    v9 = 0;
+    v12 = sub_100010734("[MIInstallable _applyDeltaPatchWithError:]", 146, MIInstallerErrorDomain, 87, 0, &off_10009C308, @"Existing app's SupportedDevices Info.plist key does not contain only string values.", v9, v33);
+    v10 = 0;
     if (!error)
     {
       goto LABEL_10;
@@ -177,31 +177,31 @@ LABEL_19:
     goto LABEL_8;
   }
 
-  v47 = 0;
-  v9 = [bundle infoPlistHashWithError:&v47];
-  v11 = v47;
-  if (!v9)
+  v48 = 0;
+  v10 = [bundle infoPlistHashWithError:&v48];
+  v12 = v48;
+  if (!v10)
   {
-    v21 = sub_100010734("[MIInstallable _applyDeltaPatchWithError:]", 152, MIInstallerErrorDomain, 8, v11, &off_10009C330, @"Failed to get Info.plist hash for %@", v10, 0);
+    v22 = sub_100010734("[MIInstallable _applyDeltaPatchWithError:]", 152, MIInstallerErrorDomain, 8, v12, &off_10009C330, @"Failed to get Info.plist hash for %@", v11, 0);
 
-    v11 = v21;
+    v12 = v22;
     if (!error)
     {
 LABEL_10:
-      v20 = 0;
+      v21 = 0;
       goto LABEL_11;
     }
 
 LABEL_8:
-    v22 = v11;
-    v20 = 0;
-    *error = v11;
+    v23 = v12;
+    v21 = 0;
+    *error = v12;
     goto LABEL_11;
   }
 
   errorCopy = error;
   MIAssertHighResourceUsage();
-  v46 = 0;
+  v47 = 0;
   bundleURL = [bundle bundleURL];
   fileSystemRepresentation = [bundleURL fileSystemRepresentation];
   bundle2 = [(MIInstallable *)self bundle];
@@ -213,19 +213,19 @@ LABEL_8:
   uTF8String = [existingBundleVersion UTF8String];
   existingBundleShortVersion = [(MIInstallable *)self existingBundleShortVersion];
   uTF8String2 = [existingBundleShortVersion UTF8String];
-  v45 = supportedDevices;
-  uTF8String3 = [v9 UTF8String];
+  v46 = supportedDevices;
+  uTF8String3 = [v10 UTF8String];
   executableURL = [bundle executableURL];
   fileSystemRepresentation4 = [executableURL fileSystemRepresentation];
-  v19 = uTF8String3;
-  supportedDevices = v45;
-  LOBYTE(uTF8String2) = sub_100001ECC(fileSystemRepresentation, fileSystemRepresentation2, fileSystemRepresentation3, uTF8String, uTF8String2, v19, fileSystemRepresentation4, v45, 0, &v46);
+  v20 = uTF8String3;
+  supportedDevices = v46;
+  LOBYTE(uTF8String2) = sub_100001ECC(fileSystemRepresentation, fileSystemRepresentation2, fileSystemRepresentation3, uTF8String, uTF8String2, v20, fileSystemRepresentation4, v46, 0, &v47);
 
   MIClearResourceAssertion();
   if ((uTF8String2 & 1) == 0)
   {
-    v23 = v46;
-    v42 = MIInstallerErrorDomain;
+    v24 = v47;
+    v43 = MIInstallerErrorDomain;
     bundleURL3 = [bundle bundleURL];
     path = [bundleURL3 path];
     bundle3 = [(MIInstallable *)self bundle];
@@ -233,11 +233,11 @@ LABEL_8:
     path2 = [bundleURL4 path];
     manifestURL2 = [(MIInstallable *)self manifestURL];
     path3 = [manifestURL2 path];
-    v28 = v23;
-    v30 = sub_100010734("[MIInstallable _applyDeltaPatchWithError:]", 172, v42, 8, v23, &off_10009C358, @"Could not hardlink copy %@ to %@ with manifest %@", v29, path);
+    v29 = v24;
+    v31 = sub_100010734("[MIInstallable _applyDeltaPatchWithError:]", 172, v43, 8, v24, &off_10009C358, @"Could not hardlink copy %@ to %@ with manifest %@", v30, path);
 
-    supportedDevices = v45;
-    v11 = v30;
+    supportedDevices = v46;
+    v12 = v31;
     error = errorCopy;
     if (!errorCopy)
     {
@@ -247,10 +247,10 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  v20 = 1;
+  v21 = 1;
 LABEL_11:
 
-  return v20;
+  return v21;
 }
 
 - (BOOL)_applyParallelPatchProcessingArchiveSection:(BOOL)section withError:(id *)error

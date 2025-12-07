@@ -19,14 +19,14 @@
   ratioCopy = ratio;
   cancelCopy = cancel;
   v16 = objc_opt_class();
-  if (uCopy || (v17 = v16, (DeviceHasANE() & 1) == 0))
+  if (uCopy || (v18 = v16, (DeviceHasANE(v16, v17) & 1) == 0))
   {
-    v17 = objc_opt_class();
+    v18 = objc_opt_class();
   }
 
-  v18 = [[v17 alloc] initWithLightweightOption:optionCopy aspectRatio:ratioCopy computationAccuracy:v12 forceCPU:uCopy sharedModel:modelCopy flushModel:flushModelCopy cancel:cancelCopy];
+  v19 = [[v18 alloc] initWithLightweightOption:optionCopy aspectRatio:ratioCopy computationAccuracy:v12 forceCPU:uCopy sharedModel:modelCopy flushModel:flushModelCopy cancel:cancelCopy];
 
-  return v18;
+  return v19;
 }
 
 - (VCPImageMotionFlowAnalyzer)initWithLightweightOption:(BOOL)option aspectRatio:(id)ratio computationAccuracy:(unsigned int)accuracy forceCPU:(BOOL)u sharedModel:(BOOL)model flushModel:(BOOL)flushModel cancel:(id)cancel
@@ -37,17 +37,17 @@
   optionCopy = option;
   ratioCopy = ratio;
   cancelCopy = cancel;
-  v34.receiver = self;
-  v34.super_class = VCPImageMotionFlowAnalyzer;
-  v17 = [(VCPImageMotionFlowAnalyzer *)&v34 init];
-  if (!v17 || ((v18 = MTLCreateSystemDefaultDevice(), device = v17->_device, v17->_device = v18, device, v20 = -[MTLDeviceSPI newCommandQueue](v17->_device, "newCommandQueue"), commandQueue = v17->_commandQueue, v17->_commandQueue = v20, commandQueue, v17->_computationAccuracy = accuracy, uCopy) || (DeviceHasANE() & 1) == 0 ? (v22 = -[VCPImageMotionFlowAnalyzer prepareWithLightweightOption:aspectRatio:forceCPU:sharedModel:flushModel:](v17, "prepareWithLightweightOption:aspectRatio:forceCPU:sharedModel:flushModel:", optionCopy, ratioCopy, uCopy, modelCopy, flushModelCopy)) : (v22 = -[VCPImageMotionFlowAnalyzer prepareWithLightweightOption:aspectRatio:numLevels:startLevel:cancel:](v17, "prepareWithLightweightOption:aspectRatio:numLevels:startLevel:cancel:", optionCopy, ratioCopy, 7, 2, cancelCopy)), v22 || (v26 = [objc_alloc(MEMORY[0x1E6974578]) initWithDevice:v17->_device], bilinearScale = v17->_bilinearScale, v17->_bilinearScale = v26, bilinearScale, !v17->_bilinearScale) || (LOBYTE(v33) = 1, LODWORD(v28) = 953267991, objc_msgSend(MEMORY[0x1E6974620], "filterDescriptorWithWidth:height:arrayLength:kernelSpatialDiameter:kernelTemporalDiameter:epsilon:sourceChannels:guideChannels:preallocateIntermediates:", v17->_cnnInputWidth, (v17->_cnnInputHeight + (v17->_cnnInputHeight < 0 ? 3 : 0)) >> 2, 1, 3, 1, 2, v28, 3, v33), v29 = objc_claimAutoreleasedReturnValue(), v30 = objc_msgSend(objc_alloc(MEMORY[0x1E6974618]), "initWithDevice:filterDescriptor:", v17->_device, v29), guidedFilter = v17->_guidedFilter, v17->_guidedFilter = v30, guidedFilter, v32 = v17->_guidedFilter, v29, v23 = v17, !v32)))
+  v36.receiver = self;
+  v36.super_class = VCPImageMotionFlowAnalyzer;
+  v17 = [(VCPImageMotionFlowAnalyzer *)&v36 init];
+  if (!v17 || ((v18 = MTLCreateSystemDefaultDevice(), device = v17->_device, v17->_device = v18, device, v20 = -[MTLDeviceSPI newCommandQueue](v17->_device, "newCommandQueue"), commandQueue = v17->_commandQueue, v17->_commandQueue = v20, commandQueue, v17->_computationAccuracy = accuracy, uCopy) || (DeviceHasANE(v22, v23) & 1) == 0 ? (v24 = -[VCPImageMotionFlowAnalyzer prepareWithLightweightOption:aspectRatio:forceCPU:sharedModel:flushModel:](v17, "prepareWithLightweightOption:aspectRatio:forceCPU:sharedModel:flushModel:", optionCopy, ratioCopy, uCopy, modelCopy, flushModelCopy)) : (v24 = -[VCPImageMotionFlowAnalyzer prepareWithLightweightOption:aspectRatio:numLevels:startLevel:cancel:](v17, "prepareWithLightweightOption:aspectRatio:numLevels:startLevel:cancel:", optionCopy, ratioCopy, 7, 2, cancelCopy)), v24 || (v28 = [objc_alloc(MEMORY[0x1E6974578]) initWithDevice:v17->_device], bilinearScale = v17->_bilinearScale, v17->_bilinearScale = v28, bilinearScale, !v17->_bilinearScale) || (LOBYTE(v35) = 1, LODWORD(v30) = 953267991, objc_msgSend(MEMORY[0x1E6974620], "filterDescriptorWithWidth:height:arrayLength:kernelSpatialDiameter:kernelTemporalDiameter:epsilon:sourceChannels:guideChannels:preallocateIntermediates:", v17->_cnnInputWidth, (v17->_cnnInputHeight + (v17->_cnnInputHeight < 0 ? 3 : 0)) >> 2, 1, 3, 1, 2, v30, 3, v35), v31 = objc_claimAutoreleasedReturnValue(), v32 = objc_msgSend(objc_alloc(MEMORY[0x1E6974618]), "initWithDevice:filterDescriptor:", v17->_device, v31), guidedFilter = v17->_guidedFilter, v17->_guidedFilter = v32, guidedFilter, v34 = v17->_guidedFilter, v31, v25 = v17, !v34)))
   {
-    v23 = 0;
+    v25 = 0;
   }
 
-  v24 = v23;
+  v26 = v25;
 
-  return v24;
+  return v26;
 }
 
 - (int)scaleFlowTo:(__CVBuffer *)to
@@ -137,6 +137,7 @@
         {
           *v27 = 0;
           *(v28 + 4) = to;
+          *(&v28[1] + 4) = 0;
           if (to)
           {
             v15 = CVPixelBufferLockBaseAddress(to, 0);

@@ -46,7 +46,7 @@
 
 - (WFPencilSqueezeWorkflowRunnerClient)initWithSystemAction:(id)action preciseTimeStamp:(id)stamp
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   actionCopy = action;
   stampCopy = stamp;
   v9 = stampCopy;
@@ -77,17 +77,17 @@ LABEL_3:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v24 = "[WFPencilSqueezeWorkflowRunnerClient initWithSystemAction:preciseTimeStamp:]";
-    v25 = 2048;
-    v26 = v9;
-    v27 = 2112;
-    v28 = actionCopy;
+    v23 = "[WFPencilSqueezeWorkflowRunnerClient initWithSystemAction:preciseTimeStamp:]";
+    v24 = 2048;
+    v25 = v9;
+    v26 = 2112;
+    v27 = actionCopy;
     _os_log_impl(&dword_1B1DE3000, v10, OS_LOG_TYPE_DEFAULT, "%s Initializing B532 runner - preciseTimestamp: %p, action: %@", buf, 0x20u);
   }
 
-  v22.receiver = self;
-  v22.super_class = WFPencilSqueezeWorkflowRunnerClient;
-  v11 = [(WFSystemActionRunnerClient *)&v22 initWithSystemAction:actionCopy];
+  v21.receiver = self;
+  v21.super_class = WFPencilSqueezeWorkflowRunnerClient;
+  v11 = [(WFSystemActionRunnerClient *)&v21 initWithSystemAction:actionCopy];
   runRequest = [(WFWorkflowRunnerClient *)v11 runRequest];
   [runRequest setRunSource:@"pencil-squeeze"];
 
@@ -101,7 +101,6 @@ LABEL_3:
   descriptor = [(WFWorkflowRunnerClient *)v11 descriptor];
   v17 = [(WFWorkflowRunnerClient *)v11 createRunningContextFromRequestIfNecessary:runRequest2 descriptor:descriptor];
 
-  v18 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

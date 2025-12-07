@@ -212,13 +212,13 @@ LABEL_13:
     v5 = objc_alloc_init(SBSlideOverAppsInFullScreenSwitcherSwitcherModifier);
     v6 = [(SBAddModifierSwitcherEventResponse *)v4 initWithModifier:v5 level:3];
 
-    v7 = SBAppendSwitcherModifierResponse(v6, transitionDidEnd);
+    v7 = SBAppendSwitcherModifierResponse();
 
     transitionDidEnd = v7;
   }
 
   v8 = objc_alloc_init(SBInvalidateAdjustedAppLayoutsSwitcherEventResponse);
-  v9 = SBAppendSwitcherModifierResponse(v8, transitionDidEnd);
+  v9 = SBAppendSwitcherModifierResponse();
 
   return v9;
 }
@@ -232,7 +232,7 @@ LABEL_13:
   appLayout = [eventCopy appLayout];
 
   v7 = [appLayout itemForLayoutRole:1];
-  if ([(NSMutableSet *)self->_waitingForSceneUpdateForDisplayItems containsObject:v7])
+  if (objc_msgSend_containsObject_(self->_waitingForSceneUpdateForDisplayItems))
   {
     if ([(SBMedusaWindowDragTransitionSwitcherModifier *)self isLayoutRoleContentReady:1 inAppLayout:appLayout])
     {
@@ -240,7 +240,7 @@ LABEL_13:
       if (![(NSMutableSet *)self->_waitingForSceneUpdateForDisplayItems count])
       {
         v8 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:64 updateMode:2];
-        v9 = SBAppendSwitcherModifierResponse(v8, v5);
+        v9 = SBAppendSwitcherModifierResponse();
 
         v5 = v9;
       }
@@ -265,7 +265,7 @@ LABEL_13:
 - (BOOL)isLayoutRoleBlurred:(int64_t)blurred inAppLayout:(id)layout
 {
   v5 = [layout itemForLayoutRole:blurred];
-  v6 = [(NSMutableSet *)self->_waitingForSceneUpdateForDisplayItems count]&& [(NSSet *)self->_initiallyBlurredDisplayItems containsObject:v5];
+  v6 = [(NSMutableSet *)self->_waitingForSceneUpdateForDisplayItems count]&& (objc_msgSend_containsObject_(self->_initiallyBlurredDisplayItems) & 1) != 0;
 
   return v6;
 }

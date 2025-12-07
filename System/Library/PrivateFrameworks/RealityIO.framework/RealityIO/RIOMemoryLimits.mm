@@ -8,7 +8,7 @@
 
 + (unint64_t)processMemory
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   processInfo = [MEMORY[0x277CCAC38] processInfo];
   processIdentifier = [processInfo processIdentifier];
 
@@ -20,58 +20,44 @@
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109376;
-      v10 = processIdentifier;
-      v11 = 1024;
-      v12 = v5;
+      v9 = processIdentifier;
+      v10 = 1024;
+      v11 = v5;
       _os_log_impl(&dword_26187B000, v6, OS_LOG_TYPE_DEFAULT, "Warning: Failed to get memory limit info for pid %d. Errorno: %d, Limits will appear as 0MB and not fatal.\n", buf, 0xEu);
     }
   }
 
-  result = 0;
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 + (unint64_t)viewerMemoryAvailableForTexturesOnThisDevice
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   processMemory = [self processMemory];
   v3 = memoryConstraintLogObject();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 134217984;
-    v7 = processMemory;
-    _os_log_impl(&dword_26187B000, v3, OS_LOG_TYPE_DEFAULT, "processMemory for textures is %lu", &v6, 0xCu);
+    v5 = 134217984;
+    v6 = processMemory;
+    _os_log_impl(&dword_26187B000, v3, OS_LOG_TYPE_DEFAULT, "processMemory for textures is %lu", &v5, 0xCu);
   }
 
-  if (processMemory >= 0x1F5)
+  if (processMemory < 0x1F5)
   {
-    if (processMemory >= 0x2BD)
-    {
-      if (processMemory >= 0x465)
-      {
-        result = +[RIOMemoryLimits viewerMemoryAvailableForTexturesOnHighMemoryDevices];
-      }
-
-      else
-      {
-        result = 503316480;
-      }
-    }
-
-    else
-    {
-      result = 157286400;
-    }
+    return 52428800;
   }
 
-  else
+  if (processMemory < 0x2BD)
   {
-    result = 52428800;
+    return 157286400;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  if (processMemory >= 0x465)
+  {
+    return +[RIOMemoryLimits viewerMemoryAvailableForTexturesOnHighMemoryDevices];
+  }
+
+  return 503316480;
 }
 
 + (unint64_t)currentMemoryFootprint

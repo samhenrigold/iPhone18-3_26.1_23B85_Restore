@@ -1,16 +1,16 @@
 @interface ARGeoTrackingConsensusAndAverageFilter
+- (ARGeoTrackingConsensusAndAverageFilter)initWithENUFromECEF:(uint64_t)f maxHistory:(_OWORD *)history minInlierScore:(int)score;
 - (BOOL)getCurrentENUFromVIO:(double)o ENUFromVIO:(id *)iO;
-- (uint64_t)initWithENUFromECEF:(void *)f maxHistory:minInlierScore:;
 - (void)dealloc;
 @end
 
 @implementation ARGeoTrackingConsensusAndAverageFilter
 
-- (uint64_t)initWithENUFromECEF:(void *)f maxHistory:minInlierScore:
+- (ARGeoTrackingConsensusAndAverageFilter)initWithENUFromECEF:(uint64_t)f maxHistory:(_OWORD *)history minInlierScore:(int)score
 {
-  v2.receiver = f;
-  v2.super_class = ARGeoTrackingConsensusAndAverageFilter;
-  if ([(ARGeoTrackingConsensusAndAverageFilter *)&v2 init])
+  v6.receiver = self;
+  v6.super_class = ARGeoTrackingConsensusAndAverageFilter;
+  if ([(ARGeoTrackingConsensusAndAverageFilter *)&v6 init])
   {
     operator new();
   }

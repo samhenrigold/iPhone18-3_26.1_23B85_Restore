@@ -11,10 +11,10 @@
   if (!lazy cache variable for type metadata for [String : String]?)
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSDyS2SGMd, &_sSDyS2SGMR);
-    v0 = type metadata accessor for Optional();
-    if (!v1)
+    v1 = type metadata accessor for Optional();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for [String : String]?);
+      atomic_store(v1, &lazy cache variable for type metadata for [String : String]?);
     }
   }
 }

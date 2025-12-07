@@ -23,11 +23,11 @@
 
 - (int64_t)bucketedAgeWithError:(id *)error
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   healthStore = self->_healthStore;
-  v14 = 0;
-  v6 = [(HKHealthStore *)healthStore dateOfBirthComponentsWithError:&v14];
-  v7 = v14;
+  v13 = 0;
+  v6 = [(HKHealthStore *)healthStore dateOfBirthComponentsWithError:&v13];
+  v7 = v13;
   if (v7)
   {
     _HKInitializeLogging();
@@ -70,17 +70,16 @@ LABEL_12:
   v10 = [(HKHRCardioFitnessAnalyticsSignalSource *)self bucketedAgeForDateOfBirthComponents:v6];
 LABEL_13:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (id)biologicalSexStringWithError:(id *)error
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   healthStore = self->_healthStore;
-  v15 = 0;
-  v6 = [(HKHealthStore *)healthStore biologicalSexWithError:&v15];
-  v7 = v15;
+  v14 = 0;
+  v6 = [(HKHealthStore *)healthStore biologicalSexWithError:&v14];
+  v7 = v14;
   if (v7)
   {
     _HKInitializeLogging();
@@ -123,25 +122,7 @@ LABEL_13:
 LABEL_13:
   v12 = [(HKHRCardioFitnessAnalyticsSignalSource *)self biologicalSexStringForBiologicalSex:biologicalSex];
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v12;
-}
-
-- (void)bucketedAgeWithError:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_0(&dword_228942000, v0, v1, "[%{public}@]: Error when retrieving date of birth components: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)biologicalSexStringWithError:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_0(&dword_228942000, v0, v1, "[%{public}@]: Error when retrieving biological sex, returning not set: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

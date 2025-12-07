@@ -12,13 +12,12 @@
 
 + (id)cliOptions
 {
-  v5[4] = *MEMORY[0x1E69E9840];
-  v5[0] = kPRSDataStoreArchiveConfigurationKeyStripScreenshots;
-  v5[1] = kPRSDataStoreArchiveConfigurationKeyStripDescriptors;
-  v5[2] = kPRSDataStoreArchiveConfigurationKeyStripContentsOfConfigurations;
-  v5[3] = kPRSDataStoreArchiveConfigurationKeyReapNonLatestEntries;
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:4];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[4] = *MEMORY[0x1E69E9840];
+  v4[0] = kPRSDataStoreArchiveConfigurationKeyStripScreenshots;
+  v4[1] = kPRSDataStoreArchiveConfigurationKeyStripDescriptors;
+  v4[2] = kPRSDataStoreArchiveConfigurationKeyStripContentsOfConfigurations;
+  v4[3] = kPRSDataStoreArchiveConfigurationKeyReapNonLatestEntries;
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:4];
 
   return v2;
 }

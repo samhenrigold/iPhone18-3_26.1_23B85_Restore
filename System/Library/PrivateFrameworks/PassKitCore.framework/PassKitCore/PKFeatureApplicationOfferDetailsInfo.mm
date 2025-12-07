@@ -62,12 +62,12 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  v22 = [@"table" isEqualToString:v20];
+  isEqualToString = objc_msgSend_isEqualToString_(@"table");
 
-  if ((v22 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     v24 = v21;
-    if (v24 == @"text" || (v25 = v24, v26 = [@"text" isEqualToString:v24], v25, v26))
+    if (v24 == @"text" || (v25 = v24, v26 = objc_msgSend_isEqualToString_(@"text"), v25, v26))
     {
       v23 = 2;
       goto LABEL_10;

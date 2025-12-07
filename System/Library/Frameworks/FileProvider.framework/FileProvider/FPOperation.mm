@@ -20,18 +20,18 @@
 
 - (FPOperation)init
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   memset(out, 0, 37);
-  v16.receiver = self;
-  v16.super_class = FPOperation;
-  v2 = [(FPOperation *)&v16 init];
+  v15.receiver = self;
+  v15.super_class = FPOperation;
+  v2 = [(FPOperation *)&v15 init];
   if (v2)
   {
     v3 = fp_current_or_default_log();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v18 = v2;
+      v17 = v2;
       _os_log_impl(&dword_1AAAE1000, v3, OS_LOG_TYPE_INFO, "[INFO] creating %@", buf, 0xCu);
     }
 
@@ -52,7 +52,6 @@
     v2->_queue = v12;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -68,26 +67,25 @@
   dispatch_async(queue, block);
 }
 
-uint64_t __20__FPOperation_start__block_invoke(uint64_t a1)
+void *__20__FPOperation_start__block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = fp_current_or_default_log();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1AAAE1000, v2, OS_LOG_TYPE_INFO, "[INFO] Starting %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1AAAE1000, v2, OS_LOG_TYPE_INFO, "[INFO] Starting %@", &v5, 0xCu);
   }
 
   [*(a1 + 32) _setExecuting:1];
   result = [*(a1 + 32) _finishIfCancelled];
   if ((result & 1) == 0)
   {
-    result = [*(a1 + 32) main];
+    return [*(a1 + 32) main];
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -234,11 +232,10 @@ uint64_t __20__FPOperation_start__block_invoke(uint64_t a1)
 
 - (void)cancel
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_debug_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] cancelling %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] cancelling %@", &v2, 0xCu);
 }
 
 uint64_t __21__FPOperation_cancel__block_invoke(uint64_t a1)
@@ -266,9 +263,9 @@ uint64_t __21__FPOperation_cancel__block_invoke(uint64_t a1)
   dispatch_async(queue, block);
 }
 
-uint64_t __41__FPOperation_completedWithResult_error___block_invoke(uint64_t a1)
+void *__41__FPOperation_completedWithResult_error___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   result = [*(a1 + 32) _finishIfCancelled];
   if ((result & 1) == 0)
   {
@@ -276,15 +273,14 @@ uint64_t __41__FPOperation_completedWithResult_error___block_invoke(uint64_t a1)
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       v4 = *(a1 + 32);
-      v6 = 138412290;
-      v7 = v4;
-      _os_log_impl(&dword_1AAAE1000, v3, OS_LOG_TYPE_INFO, "[INFO] finishing %@", &v6, 0xCu);
+      v5 = 138412290;
+      v6 = v4;
+      _os_log_impl(&dword_1AAAE1000, v3, OS_LOG_TYPE_INFO, "[INFO] finishing %@", &v5, 0xCu);
     }
 
-    result = [*(a1 + 32) finishWithResult:*(a1 + 40) error:*(a1 + 48)];
+    return [*(a1 + 32) finishWithResult:*(a1 + 40) error:*(a1 + 48)];
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -309,7 +305,7 @@ uint64_t __41__FPOperation_completedWithResult_error___block_invoke(uint64_t a1)
 {
   remoteOperation = self->_remoteOperation;
   self->_remoteOperation = 0;
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](self, remoteOperation);
 }
 
 - (void)_setRemoteCancellationHandler:(id)handler

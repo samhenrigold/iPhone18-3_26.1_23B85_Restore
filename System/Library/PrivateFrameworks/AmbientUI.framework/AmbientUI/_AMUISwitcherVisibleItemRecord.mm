@@ -1,6 +1,7 @@
 @interface _AMUISwitcherVisibleItemRecord
 + (id)recordWithItem:(uint64_t)item index:(void *)index forSwitcher:;
 - (_AMUISwitcherVisibleItemRecord)initWithItem:(id)item index:(int64_t)index forSwitcher:(id)switcher;
+- (_BYTE)setUnsettled:(_BYTE *)result;
 - (double)presentationProgress;
 - (id)item;
 - (id)itemView;
@@ -12,9 +13,8 @@
 - (uint64_t)itemIndex;
 - (void)_updateAppearState;
 - (void)sendCallbackForState:(id *)state animated:(uint64_t)animated;
-- (void)setAppearState:(void *)state;
+- (void)setAppearState:(void *)result;
 - (void)setPresentationProgress:(uint64_t)progress;
-- (void)setUnsettled:(void *)unsettled;
 @end
 
 @implementation _AMUISwitcherVisibleItemRecord
@@ -130,15 +130,15 @@ LABEL_8:
   return WeakRetained;
 }
 
-- (void)setUnsettled:(void *)unsettled
+- (_BYTE)setUnsettled:(_BYTE *)result
 {
-  if (unsettled)
+  if (result)
   {
-    *(unsettled + 16) = a2;
-    return [unsettled _updateAppearState];
+    result[16] = a2;
+    return [result _updateAppearState];
   }
 
-  return unsettled;
+  return result;
 }
 
 - (void)setPresentationProgress:(uint64_t)progress
@@ -148,11 +148,10 @@ LABEL_8:
     return;
   }
 
-  v4 = *(progress + 24);
   *(progress + 24) = a2;
   if (BSFloatIsZero())
   {
-    v5 = 0;
+    v4 = 0;
   }
 
   else
@@ -172,7 +171,7 @@ LABEL_8:
           if (BSFloatGreaterThanFloat())
           {
 LABEL_18:
-            v5 = 2;
+            v4 = 2;
             goto LABEL_6;
           }
 
@@ -181,7 +180,7 @@ LABEL_18:
         case 3:
           if (BSFloatLessThanFloat())
           {
-            v5 = 1;
+            v4 = 1;
             goto LABEL_6;
           }
 
@@ -193,18 +192,18 @@ LABEL_18:
       goto LABEL_7;
     }
 
-    v5 = 3;
+    v4 = 3;
   }
 
 LABEL_6:
-  *(progress + 8) = v5;
+  *(progress + 8) = v4;
   [progress _updateAppearState];
 LABEL_7:
   WeakRetained = objc_loadWeakRetained((progress + 48));
   if (objc_opt_respondsToSelector())
   {
-    v6 = objc_loadWeakRetained((progress + 40));
-    [OUTLINED_FUNCTION_1(v6 v7];
+    v5 = objc_loadWeakRetained((progress + 40));
+    [OUTLINED_FUNCTION_1(v5 v6];
   }
 }
 
@@ -300,15 +299,15 @@ LABEL_14:
   }
 }
 
-- (void)setAppearState:(void *)state
+- (void)setAppearState:(void *)result
 {
-  if (state)
+  if (result)
   {
-    *(state + 1) = a2;
-    return [state _updateAppearState];
+    result[1] = a2;
+    return [result _updateAppearState];
   }
 
-  return state;
+  return result;
 }
 
 - (id)switcher

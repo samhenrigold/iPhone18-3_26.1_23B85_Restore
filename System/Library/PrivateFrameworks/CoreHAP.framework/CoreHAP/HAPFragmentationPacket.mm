@@ -110,7 +110,7 @@
 
 - (HAPFragmentationPacket)initWithFragmentedPacketData:(id)data
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v5 = dataCopy;
   if (!dataCopy)
@@ -121,7 +121,7 @@
     {
       v8 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v36 = v8;
+      v35 = v8;
       v9 = "%{public}@[HAPFragmentationPacket] Invalid parameter 'data'";
       v10 = v7;
       v11 = 12;
@@ -143,9 +143,9 @@ LABEL_8:
     {
       v8 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v36 = v8;
-      v37 = 2048;
-      v38 = 12;
+      v35 = v8;
+      v36 = 2048;
+      v37 = 12;
       v9 = "%{public}@[HAPFragmentationPacket] Fragmented data must have a length of at least %lu bytes";
       v10 = v7;
       v11 = 22;
@@ -159,7 +159,7 @@ LABEL_7:
   }
 
   v13 = v5;
-  memset(v32, 0, 12);
+  memset(v31, 0, 12);
   if ([v13 length] <= 0xB)
   {
     v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid serialized data length %tu", objc_msgSend(v13, "length")];
@@ -169,17 +169,17 @@ LABEL_7:
     {
       v22 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v36 = v22;
-      v37 = 2112;
-      v38 = v19;
+      v35 = v22;
+      v36 = 2112;
+      v37 = v19;
       _os_log_impl(&dword_22AADC000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@[HAPFragmentationPacket] %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v20);
     v23 = MEMORY[0x277CCA9B8];
-    v33 = *MEMORY[0x277CCA450];
-    v34 = v19;
-    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
+    v32 = *MEMORY[0x277CCA450];
+    v33 = v19;
+    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
     v25 = [v23 errorWithDomain:@"HAPErrorDomain" code:-6743 userInfo:v24];
     v26 = v25;
 
@@ -190,9 +190,9 @@ LABEL_7:
     {
       v29 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v36 = v29;
-      v37 = 2112;
-      v38 = v18;
+      v35 = v29;
+      v36 = 2112;
+      v37 = v18;
       _os_log_impl(&dword_22AADC000, v28, OS_LOG_TYPE_ERROR, "%{public}@[HAPFragmentationPacket] Failed to deserialize packet header with error: %@", buf, 0x16u);
     }
 
@@ -202,10 +202,10 @@ LABEL_7:
 
   else
   {
-    [v13 getBytes:v32 length:12];
-    v14 = LOWORD(v32[0]);
-    v15 = *(v32 + 2);
-    v16 = *(v32 + 6);
+    [v13 getBytes:v31 length:12];
+    v14 = LOWORD(v31[0]);
+    v15 = *(v31 + 2);
+    v16 = *(v31 + 6);
 
     v17 = [v13 subdataWithRange:{12, objc_msgSend(v13, "length") - 12}];
     self = [(HAPFragmentationPacket *)self initWithData:v17 transactionIdentifier:v14 length:v15 offset:v16];
@@ -215,7 +215,6 @@ LABEL_7:
   }
 
 LABEL_17:
-  v30 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

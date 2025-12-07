@@ -29,107 +29,107 @@
 
 - (NSDictionary)statistics
 {
-  v43[8] = *MEMORY[0x277D85DE8];
-  v37[0] = 0;
-  v37[1] = v37;
-  v37[2] = 0x2020000000;
-  v37[3] = 0;
-  v35[0] = 0;
-  v35[1] = v35;
-  v35[2] = 0x2020000000;
-  v36 = 0;
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x6010000000;
-  v33 = &unk_22E08C481;
-  memset(&v34, 0, sizeof(v34));
-  rb_tree_init(&v34, &statistics_ops);
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __30__OSLogPersistence_statistics__block_invoke;
-  v29[3] = &unk_2787AE1B0;
-  v29[4] = v37;
-  v29[5] = v35;
+  v42[8] = *MEMORY[0x277D85DE8];
+  v36[0] = 0;
+  v36[1] = v36;
+  v36[2] = 0x2020000000;
+  v36[3] = 0;
+  v34[0] = 0;
+  v34[1] = v34;
+  v34[2] = 0x2020000000;
+  v35 = 0;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x6010000000;
+  v32 = &unk_22E08C481;
+  memset(&v33, 0, sizeof(v33));
+  rb_tree_init(&v33, &statistics_ops);
   v28[0] = MEMORY[0x277D85DD0];
   v28[1] = 3221225472;
-  v28[2] = __30__OSLogPersistence_statistics__block_invoke_2;
-  v28[3] = &unk_2787AE1D8;
-  v28[4] = &v30;
-  v28[5] = v35;
-  v28[6] = v37;
-  [(OSLogPersistence *)self streamChunks:v29 andEntries:v28 flags:0];
-  if (rb_tree_count((v31 + 4)))
+  v28[2] = __30__OSLogPersistence_statistics__block_invoke;
+  v28[3] = &unk_2787AE1B0;
+  v28[4] = v36;
+  v28[5] = v34;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __30__OSLogPersistence_statistics__block_invoke_2;
+  v27[3] = &unk_2787AE1D8;
+  v27[4] = &v29;
+  v27[5] = v34;
+  v27[6] = v36;
+  [(OSLogPersistence *)self streamChunks:v28 andEntries:v27 flags:0];
+  if (rb_tree_count((v30 + 4)))
   {
-    v25 = [MEMORY[0x277CBEB18] arrayWithCapacity:rb_tree_count((v31 + 4))];
-    v26 = [MEMORY[0x277CBEB18] arrayWithCapacity:rb_tree_count((v31 + 4))];
-    for (i = rb_tree_iterate((v31 + 4), 0, 1u); i; i = rb_tree_iterate((v31 + 4), i, 1u))
+    v24 = [MEMORY[0x277CBEB18] arrayWithCapacity:rb_tree_count((v30 + 4))];
+    v25 = [MEMORY[0x277CBEB18] arrayWithCapacity:rb_tree_count((v30 + 4))];
+    for (i = rb_tree_iterate((v30 + 4), 0, 1u); i; i = rb_tree_iterate((v30 + 4), i, 1u))
     {
       if (*(i + 133))
       {
-        v42[0] = @"uuid";
+        v41[0] = @"uuid";
         v4 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:i + 24];
-        v43[0] = v4;
-        v42[1] = @"path";
+        v42[0] = v4;
+        v41[1] = @"path";
         v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:i + 40];
-        v43[1] = v5;
-        v42[2] = @"activityCreationCount";
+        v42[1] = v5;
+        v41[2] = @"activityCreationCount";
         v6 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:**(i + 133)];
-        v43[2] = v6;
-        v42[3] = @"userActionCount";
+        v42[2] = v6;
+        v41[3] = @"userActionCount";
         v7 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*(*(i + 133) + 24)];
-        v43[3] = v7;
-        v42[4] = @"logMessageCount";
+        v42[3] = v7;
+        v41[4] = @"logMessageCount";
         v8 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*(*(i + 133) + 16)];
-        v43[4] = v8;
-        v42[5] = @"traceMessageCount";
+        v42[4] = v8;
+        v41[5] = @"traceMessageCount";
         v9 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*(*(i + 133) + 8)];
-        v43[5] = v9;
-        v42[6] = @"totalProcessPublicSize";
+        v42[5] = v9;
+        v41[6] = @"totalProcessPublicSize";
         v10 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*(*(i + 133) + 56)];
-        v43[6] = v10;
-        v42[7] = @"totalProcessPrivateSize";
+        v42[6] = v10;
+        v41[7] = @"totalProcessPrivateSize";
         v11 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*(*(i + 133) + 64)];
-        v43[7] = v11;
-        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:v42 count:8];
-        [v25 addObject:v12];
+        v42[7] = v11;
+        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:v41 count:8];
+        [v24 addObject:v12];
       }
 
-      v40[0] = @"uuid";
-      v27 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:i + 24];
-      v41[0] = v27;
-      v40[1] = @"path";
+      v39[0] = @"uuid";
+      v26 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:i + 24];
+      v40[0] = v26;
+      v39[1] = @"path";
       v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:i + 40];
-      v41[1] = v13;
-      v40[2] = @"activityCreationCount";
+      v40[1] = v13;
+      v39[2] = @"activityCreationCount";
       v14 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*(i + 134)];
-      v41[2] = v14;
-      v40[3] = @"userActionCount";
+      v40[2] = v14;
+      v39[3] = @"userActionCount";
       v15 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*(i + 137)];
-      v41[3] = v15;
-      v40[4] = @"logMessageCount";
+      v40[3] = v15;
+      v39[4] = @"logMessageCount";
       v16 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*(i + 136)];
-      v41[4] = v16;
-      v40[5] = @"traceMessageCount";
+      v40[4] = v16;
+      v39[5] = @"traceMessageCount";
       v17 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*(i + 135)];
-      v41[5] = v17;
-      v40[6] = @"tracePublicSize";
+      v40[5] = v17;
+      v39[6] = @"tracePublicSize";
       v18 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*(i + 138)];
-      v41[6] = v18;
-      v40[7] = @"logPublicSize";
+      v40[6] = v18;
+      v39[7] = @"logPublicSize";
       v19 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*(i + 139)];
-      v41[7] = v19;
-      v40[8] = @"logPrivateSize";
+      v40[7] = v19;
+      v39[8] = @"logPrivateSize";
       v20 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*(i + 140)];
-      v41[8] = v20;
-      v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:v40 count:9];
-      [v26 addObject:v21];
+      v40[8] = v20;
+      v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:9];
+      [v25 addObject:v21];
     }
 
-    v38[0] = @"perProcessStatistics";
-    v38[1] = @"perSenderStatistics";
-    v39[0] = v25;
-    v39[1] = v26;
-    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:2];
+    v37[0] = @"perProcessStatistics";
+    v37[1] = @"perSenderStatistics";
+    v38[0] = v24;
+    v38[1] = v25;
+    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:2];
   }
 
   else
@@ -137,10 +137,9 @@
     v22 = 0;
   }
 
-  _Block_object_dispose(&v30, 8);
-  _Block_object_dispose(v35, 8);
-  _Block_object_dispose(v37, 8);
-  v23 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v29, 8);
+  _Block_object_dispose(v34, 8);
+  _Block_object_dispose(v36, 8);
 
   return v22;
 }
@@ -201,7 +200,6 @@ uint64_t __30__OSLogPersistence_statistics__block_invoke_2(void *a1, uint64_t a2
       if (!v5)
       {
         v5 = _os_trace_calloc_typed();
-        v9 = *(a2 + 84);
         __strlcpy_chk();
         if (!*(v5 + 40))
         {
@@ -214,27 +212,27 @@ uint64_t __30__OSLogPersistence_statistics__block_invoke_2(void *a1, uint64_t a2
     }
   }
 
-  v10 = *a2;
+  v9 = *a2;
   if (*a2 > 767)
   {
-    if (v10 == 768)
+    if (v9 == 768)
     {
       ++*(v5 + 1080);
       *(v5 + 1104) += *(a2 + 156);
       ++v6[1];
-      v12 = *(a2 + 156);
+      v11 = *(a2 + 156);
       v6 += 4;
       goto LABEL_25;
     }
 
-    if (v10 == 1024)
+    if (v9 == 1024)
     {
       *(v5 + 1112) += *(a2 + 156);
       *(v5 + 1120) += *(a2 + 172);
       ++*(v5 + 1088);
-      v11 = v6[6];
+      v10 = v6[6];
       v6[5] += *(a2 + 156);
-      v6[6] = v11 + *(a2 + 172);
+      v6[6] = v10 + *(a2 + 172);
       v6 += 2;
       goto LABEL_23;
     }
@@ -242,20 +240,20 @@ uint64_t __30__OSLogPersistence_statistics__block_invoke_2(void *a1, uint64_t a2
 
   else
   {
-    if (v10 == 513)
+    if (v9 == 513)
     {
       ++*(v5 + 1072);
       goto LABEL_23;
     }
 
-    if (v10 == 515)
+    if (v9 == 515)
     {
       ++*(v5 + 1096);
       v6 += 3;
 LABEL_23:
-      v12 = 1;
+      v11 = 1;
 LABEL_25:
-      *v6 += v12;
+      *v6 += v11;
     }
   }
 
@@ -300,7 +298,6 @@ uint64_t __49__OSLogPersistence_fetchFromStartDate_toEndDate___block_invoke(uint
   [*(*(*(a1 + 48) + 8) + 40) addObject:a2];
   if ([*(*(*(a1 + 48) + 8) + 40) count] >= *(*(a1 + 32) + 72))
   {
-    v3 = *(*(*(a1 + 48) + 8) + 40);
     result = [*(a1 + 40) persistence:? results:? error:?];
     if (!result)
     {

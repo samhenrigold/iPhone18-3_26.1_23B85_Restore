@@ -1185,7 +1185,7 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  *ssrc = [objc_msgSend(config mediaConfigurationForMediaType:{VCMediaNegotiatorMediaType_MediaTypeFromStreamGroupID(group)), "ssrc"}];
+  *ssrc = [objc_msgSend(config mediaConfigurationForMediaType:{VCMediaNegotiatorMediaType_MediaTypeFromStreamGroupID(*&group)), "ssrc"}];
   return 1;
 }
 
@@ -1255,7 +1255,7 @@ LABEL_8:
     {
       OUTLINED_FUNCTION_10();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_13_8(&dword_1DB56E000, v3, v4, " [%s] %s:%d Failed to allocate videoParameterSet array", v5, v6, v7, v8, v9);
+      OUTLINED_FUNCTION_13_8(&dword_1DB56E000, v3, v4, " [%s] %s:%d Failed to allocate videoParameterSet array", v5, v6, v7, v8);
     }
   }
 
@@ -1272,7 +1272,7 @@ LABEL_8:
     {
       OUTLINED_FUNCTION_10();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_13_8(&dword_1DB56E000, v3, v4, " [%s] %s:%d Failed to allocate videoPayloads array", v5, v6, v7, v8, v9);
+      OUTLINED_FUNCTION_13_8(&dword_1DB56E000, v3, v4, " [%s] %s:%d Failed to allocate videoPayloads array", v5, v6, v7, v8);
     }
   }
 

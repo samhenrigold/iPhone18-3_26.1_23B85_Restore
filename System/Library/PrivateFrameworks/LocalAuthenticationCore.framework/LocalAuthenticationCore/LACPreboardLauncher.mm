@@ -78,8 +78,7 @@ void __52__LACPreboardLauncher_launchPreboardWithCompletion___block_invoke(uint6
         *(v10 + 8) = v9;
 
         [v4 setDelegate:v3];
-        [v4 activate];
-        v6 = LACLogPreboard();
+        v6 = LACLogPreboard([v4 activate]);
         if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
         {
           *v12 = 0;
@@ -99,7 +98,7 @@ void __52__LACPreboardLauncher_launchPreboardWithCompletion___block_invoke(uint6
 
 - (void)alternateSystemAppDidLaunch:(id)launch
 {
-  v4 = LACLogPreboard();
+  v4 = LACLogPreboard(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -112,7 +111,7 @@ void __52__LACPreboardLauncher_launchPreboardWithCompletion___block_invoke(uint6
 - (void)alternateSystemApp:(id)app didFailToLaunchWithError:(id)error
 {
   errorCopy = error;
-  v6 = LACLogPreboard();
+  v6 = LACLogPreboard(errorCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     [LACPreboardLauncher alternateSystemApp:errorCopy didFailToLaunchWithError:v6];
@@ -123,34 +122,32 @@ void __52__LACPreboardLauncher_launchPreboardWithCompletion___block_invoke(uint6
 
 - (void)alternateSystemApp:(id)app didTerminateWithSignal:(int)signal
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   appCopy = app;
-  v7 = LACLogPreboard();
+  v7 = LACLogPreboard(appCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v9[0] = 67109120;
-    v9[1] = signal;
-    _os_log_impl(&dword_1B0233000, v7, OS_LOG_TYPE_DEFAULT, "Preboard terminated with signal: %d", v9, 8u);
+    v8[0] = 67109120;
+    v8[1] = signal;
+    _os_log_impl(&dword_1B0233000, v7, OS_LOG_TYPE_DEFAULT, "Preboard terminated with signal: %d", v8, 8u);
   }
 
   [(LACPreboardLauncher *)self _terminateApp:appCopy];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)alternateSystemApp:(id)app didExitWithStatus:(int)status
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   appCopy = app;
-  v7 = LACLogPreboard();
+  v7 = LACLogPreboard(appCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v9[0] = 67109120;
-    v9[1] = status;
-    _os_log_impl(&dword_1B0233000, v7, OS_LOG_TYPE_DEFAULT, "Preboard exited with code: %d", v9, 8u);
+    v8[0] = 67109120;
+    v8[1] = status;
+    _os_log_impl(&dword_1B0233000, v7, OS_LOG_TYPE_DEFAULT, "Preboard exited with code: %d", v8, 8u);
   }
 
   [(LACPreboardLauncher *)self _terminateApp:appCopy];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_alternateSystemApp
@@ -162,7 +159,7 @@ void __52__LACPreboardLauncher_launchPreboardWithCompletion___block_invoke(uint6
 
   else
   {
-    v3 = LACLogPreboard();
+    v3 = LACLogPreboard(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       [(LACPreboardLauncher *)v3 _alternateSystemApp];
@@ -187,16 +184,16 @@ void __52__LACPreboardLauncher_launchPreboardWithCompletion___block_invoke(uint6
     block[1] = 3221225472;
     block[2] = __37__LACPreboardLauncher__terminateApp___block_invoke_2;
     block[3] = &unk_1E7A955B0;
-    v10 = appCopy;
+    v11 = appCopy;
     dispatch_async(workQueue, block);
   }
 
   else
   {
-    v8 = LACLogPreboard();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = LACLogPreboard(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [LACPreboardLauncher _terminateApp:v8];
+      [LACPreboardLauncher _terminateApp:v9];
     }
 
     [(LACDeviceLifecycleManaging *)self->_lifecycleManager rebootDeviceWithReason:@"Boot mode not completed" forced:1 completion:&__block_literal_global];
@@ -225,18 +222,19 @@ void __52__LACPreboardLauncher_launchPreboardWithCompletion___block_invoke(uint6
     }
 
     v6[2](v6, v8);
+
+    errorCopy = v9;
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](launchCompletion, errorCopy);
 }
 
 - (void)alternateSystemApp:(uint64_t)a1 didFailToLaunchWithError:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B0233000, a2, OS_LOG_TYPE_ERROR, "Preboard did not launch with error: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B0233000, a2, OS_LOG_TYPE_ERROR, "Preboard did not launch with error: %{public}@", &v2, 0xCu);
 }
 
 @end

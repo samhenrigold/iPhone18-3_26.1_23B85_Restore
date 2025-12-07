@@ -88,8 +88,8 @@
 
   v75 = MEMORY[0x1E696ACD8];
   leadingAnchor2 = [(EKUIListViewCellBackground *)self->_backgroundView leadingAnchor];
-  contentView = [(EKUIListViewAllDayEventCell *)self contentView];
-  leadingAnchor3 = [contentView leadingAnchor];
+  v83 = objc_msgSend_contentView(self);
+  leadingAnchor3 = [v83 leadingAnchor];
   carplayMode2 = [(EKUIListViewCell *)self carplayMode];
   v33 = 12.0;
   v34 = 12.0;
@@ -102,8 +102,8 @@
   v81 = [leadingAnchor2 constraintEqualToAnchor:leadingAnchor3 constant:v34];
   v88[0] = v81;
   trailingAnchor2 = [(EKUIListViewCellBackground *)self->_backgroundView trailingAnchor];
-  contentView2 = [(EKUIListViewAllDayEventCell *)self contentView];
-  trailingAnchor3 = [contentView2 trailingAnchor];
+  v79 = objc_msgSend_contentView(self);
+  trailingAnchor3 = [v79 trailingAnchor];
   if ([(EKUIListViewCell *)self carplayMode])
   {
     [(EKUIListViewCell *)self carplayBackgroundViewInsets];
@@ -113,8 +113,8 @@
   v77 = [trailingAnchor2 constraintEqualToAnchor:trailingAnchor3 constant:-v33];
   v88[1] = v77;
   topAnchor = [(EKUIListViewCellBackground *)self->_backgroundView topAnchor];
-  contentView3 = [(EKUIListViewAllDayEventCell *)self contentView];
-  topAnchor2 = [contentView3 topAnchor];
+  v76 = objc_msgSend_contentView(self);
+  topAnchor2 = [v76 topAnchor];
   carplayMode3 = [(EKUIListViewCell *)self carplayMode];
   v40 = 4.0;
   v41 = 4.0;
@@ -130,8 +130,8 @@
   v74 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:v41];
   v88[2] = v74;
   bottomAnchor = [(EKUIListViewCellBackground *)self->_backgroundView bottomAnchor];
-  contentView4 = [(EKUIListViewAllDayEventCell *)self contentView];
-  bottomAnchor2 = [contentView4 bottomAnchor];
+  v73 = objc_msgSend_contentView(self);
+  bottomAnchor2 = [v73 bottomAnchor];
   if ([(EKUIListViewCell *)self carplayMode])
   {
     [(EKUIListViewCell *)self carplayBackgroundViewInsets];
@@ -219,8 +219,8 @@
 
 - (void)_adjustNumberOfLines
 {
-  contentView = [(EKUIListViewAllDayEventCell *)self contentView];
-  traitCollection = [contentView traitCollection];
+  v3 = objc_msgSend_contentView(self, a2);
+  traitCollection = [v3 traitCollection];
   v5 = EKUIUsesLargeTextLayout(traitCollection);
 
   [(UIImageView *)self->_imageView setHidden:v5];
@@ -476,7 +476,7 @@ LABEL_11:
 
 - (void)_updateAppEntityAnnotationIfNeeded
 {
-  if (CalendarLinkLibraryCore())
+  if (CalendarLinkLibraryCore(0))
   {
     event = [(EKUIListViewAllDayEventCell *)self event];
     if ([event isNew])

@@ -28,24 +28,29 @@
 
 - (BOOL)isHidden
 {
-  v7.receiver = self;
-  v7.super_class = TPSCallWaitingBundleController;
-  if (![(TPSCallWaitingBundleController *)&v7 isHidden]&& (+[UIApplication isRunningInStoreDemoMode]& 1) == 0)
+  v9.receiver = self;
+  v9.super_class = TPSCallWaitingBundleController;
+  isHidden = [(TPSCallWaitingBundleController *)&v9 isHidden];
+  if ((isHidden & 1) == 0)
   {
-    v2 = +[UIDevice currentDevice];
-    userInterfaceIdiom = [v2 userInterfaceIdiom];
-
-    if (userInterfaceIdiom != &dword_0 + 1)
+    isHidden = +[UIApplication isRunningInStoreDemoMode];
+    if ((isHidden & 1) == 0)
     {
-      return 0;
+      v4 = +[UIDevice currentDevice];
+      userInterfaceIdiom = [v4 userInterfaceIdiom];
+
+      if (userInterfaceIdiom != &dword_0 + 1)
+      {
+        return 0;
+      }
     }
   }
 
-  v4 = TPSCallWaitingLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v6 = TPSCallWaitingLog(isHidden, v3);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    *v6 = 0;
-    _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "Hiding TPSCallWaiting settings row from view", v6, 2u);
+    *v8 = 0;
+    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Hiding TPSCallWaiting settings row from view", v8, 2u);
   }
 
   return 1;

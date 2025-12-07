@@ -14,70 +14,68 @@
 
 - (void)_removeOldLogs
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E695DEE8] calendarWithIdentifier:*MEMORY[0x1E695D850]];
   v4 = -self->_maximumLogAgeInDays;
   date = [MEMORY[0x1E695DF00] date];
-  v25 = [v3 dateByAddingUnit:16 value:v4 toDate:date options:0];
+  v24 = [v3 dateByAddingUnit:16 value:v4 toDate:date options:0];
 
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   v7 = objc_alloc_init(MEMORY[0x1E696AB78]);
-  v26 = v3;
+  v25 = v3;
   [v7 setCalendar:v3];
-  v30 = v7;
+  v29 = v7;
   [v7 setDateFormat:@"_yyyy-MM-dd"];
   v8 = [(NSString *)self->_logName length];
   v9 = [@"_yyyy-MM-dd" length];
   v10 = [@".log" length];
-  v29 = [(NSString *)self->_logName length];
-  v28 = [@"_yyyy-MM-dd" length];
-  v24 = defaultManager;
+  v28 = [(NSString *)self->_logName length];
+  v27 = [@"_yyyy-MM-dd" length];
+  v23 = defaultManager;
   v11 = [defaultManager contentsOfDirectoryAtURL:self->_directoryURL includingPropertiesForKeys:0 options:0 error:0];
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
-  v12 = [v11 countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v30 objects:v34 count:16];
   if (v12)
   {
     v13 = v12;
     v14 = v9 + v10 + v8;
-    v15 = *v32;
+    v15 = *v31;
     v16 = @".log";
-    v27 = v11;
+    v26 = v11;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v32 != v15)
+        if (*v31 != v15)
         {
           objc_enumerationMutation(v11);
         }
 
-        v18 = *(*(&v31 + 1) + 8 * i);
+        v18 = *(*(&v30 + 1) + 8 * i);
         lastPathComponent = [v18 lastPathComponent];
         if ([lastPathComponent length] == v14 && objc_msgSend(lastPathComponent, "hasPrefix:", self->_logName) && objc_msgSend(lastPathComponent, "hasSuffix:", v16))
         {
           v20 = v16;
-          v21 = [lastPathComponent substringWithRange:{v29, v28}];
-          v22 = [v30 dateFromString:v21];
-          if (v22 && [v26 compareDate:v22 toDate:v25 toUnitGranularity:16] == -1)
+          v21 = [lastPathComponent substringWithRange:{v28, v27}];
+          v22 = [v29 dateFromString:v21];
+          if (v22 && [v25 compareDate:v22 toDate:v24 toUnitGranularity:16] == -1)
           {
-            [v24 removeItemAtURL:v18 error:0];
+            [v23 removeItemAtURL:v18 error:0];
           }
 
           v16 = v20;
-          v11 = v27;
+          v11 = v26;
         }
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v30 objects:v34 count:16];
     }
 
     while (v13);
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (WBSFileLogger)initWithDirectoryURL:(id)l logName:(id)name maximumLogAge:(unint64_t)age
@@ -276,7 +274,7 @@ void __34__WBSFileLogger__logMessage_date___block_invoke(uint64_t a1)
 
 + (BOOL)collectLogsInDirectory:(id)directory withName:(id)name intoFile:(id)file error:(id *)error
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   directoryCopy = directory;
   nameCopy = name;
   fileCopy = file;
@@ -287,55 +285,55 @@ void __34__WBSFileLogger__logMessage_date___block_invoke(uint64_t a1)
     v14 = [nameCopy length];
     v15 = [@"_yyyy-MM-dd" length] + v14;
     v16 = [@".log" length];
-    v35[0] = MEMORY[0x1E69E9820];
-    v35[1] = 3221225472;
-    v35[2] = __64__WBSFileLogger_collectLogsInDirectory_withName_intoFile_error___block_invoke;
-    v35[3] = &unk_1E7CF2358;
-    v37 = v15 + v16;
-    v36 = nameCopy;
-    v17 = [v13 safari_filterObjectsUsingBlock:v35];
+    v34[0] = MEMORY[0x1E69E9820];
+    v34[1] = 3221225472;
+    v34[2] = __64__WBSFileLogger_collectLogsInDirectory_withName_intoFile_error___block_invoke;
+    v34[3] = &unk_1E7CF2358;
+    v36 = v15 + v16;
+    v35 = nameCopy;
+    v17 = [v13 safari_filterObjectsUsingBlock:v34];
     v18 = [v17 count];
     v19 = v18 != 0;
     if (v18)
     {
-      v29 = defaultManager;
-      v30 = directoryCopy;
+      v28 = defaultManager;
+      v29 = directoryCopy;
       v20 = [v17 sortedArrayUsingComparator:&__block_literal_global_16];
 
       v21 = [MEMORY[0x1E695DFC0] outputStreamWithURL:fileCopy append:1];
       [v21 open];
-      v33 = 0u;
-      v34 = 0u;
-      v31 = 0u;
       v32 = 0u;
+      v33 = 0u;
+      v30 = 0u;
+      v31 = 0u;
       v17 = v20;
-      v22 = [v17 countByEnumeratingWithState:&v31 objects:v38 count:16];
+      v22 = [v17 countByEnumeratingWithState:&v30 objects:v37 count:16];
       if (v22)
       {
         v23 = v22;
-        v24 = *v32;
+        v24 = *v31;
         do
         {
           for (i = 0; i != v23; ++i)
           {
-            if (*v32 != v24)
+            if (*v31 != v24)
             {
               objc_enumerationMutation(v17);
             }
 
-            v26 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:*(*(&v31 + 1) + 8 * i)];
+            v26 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:*(*(&v30 + 1) + 8 * i)];
             [v21 write:objc_msgSend(v26 maxLength:{"bytes"), objc_msgSend(v26, "length")}];
           }
 
-          v23 = [v17 countByEnumeratingWithState:&v31 objects:v38 count:16];
+          v23 = [v17 countByEnumeratingWithState:&v30 objects:v37 count:16];
         }
 
         while (v23);
       }
 
       [v21 close];
-      directoryCopy = v30;
-      defaultManager = v29;
+      directoryCopy = v29;
+      defaultManager = v28;
     }
 
     else if (error)
@@ -349,7 +347,6 @@ void __34__WBSFileLogger__logMessage_date___block_invoke(uint64_t a1)
     v19 = 0;
   }
 
-  v27 = *MEMORY[0x1E69E9840];
   return v19;
 }
 

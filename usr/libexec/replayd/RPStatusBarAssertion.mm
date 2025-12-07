@@ -1,15 +1,81 @@
 @interface RPStatusBarAssertion
 - (id)rpLocalizedStatusStringForPaused:(BOOL)paused;
 - (id)stringWithTimeInterval:(double)interval;
+- (void)acquireAssertionWithPid:(int)pid;
+- (void)acquireAssertionWithPidWaitForCompletion:(int)completion;
 - (void)invalidateStatusBar;
 - (void)pauseSession;
 - (void)resumeSession;
+- (void)showStatusBarWithPid:(int)pid;
 - (void)startRepeatingTimer;
 - (void)statusBarCoordinator:(id)coordinator invalidatedRegistrationWithError:(id)error;
 - (void)updateDelegateRecordingTimer:(id)timer;
 @end
 
 @implementation RPStatusBarAssertion
+
+- (void)acquireAssertionWithPidWaitForCompletion:(int)completion
+{
+  v3 = *&completion;
+  v5 = dispatch_group_create();
+  dispatch_group_enter(v5);
+  v6 = [[SBSStatusBarStyleOverridesAssertion alloc] initWithStatusBarStyleOverrides:0x100000 forPID:v3 exclusive:1 showsWhenForeground:0];
+  assertion = self->_assertion;
+  self->_assertion = v6;
+
+  v14[0] = 0;
+  v14[1] = v14;
+  v14[2] = 0x3032000000;
+  v14[3] = sub_10001D460;
+  v14[4] = sub_10001D470;
+  selfCopy = self;
+  v8 = self->_assertion;
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_10001D478;
+  v11[3] = &unk_1000A1A68;
+  v13 = v14;
+  v9 = v5;
+  v12 = v9;
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = sub_10001D538;
+  v10[3] = &unk_1000A1A90;
+  v10[4] = v14;
+  [(SBSStatusBarStyleOverridesAssertion *)v8 acquireWithHandler:v11 invalidationHandler:v10];
+  dispatch_group_wait(v9, 0xFFFFFFFFFFFFFFFFLL);
+
+  _Block_object_dispose(v14, 8);
+}
+
+- (void)acquireAssertionWithPid:(int)pid
+{
+  v3 = *&pid;
+  [(RPStatusBarAssertion *)self acquireAssertionWithPidWaitForCompletion:?];
+  if (!self->_assertion)
+  {
+
+    [(RPStatusBarAssertion *)self acquireAssertionWithPidWaitForCompletion:v3];
+  }
+}
+
+- (void)showStatusBarWithPid:(int)pid
+{
+  [(RPStatusBarAssertion *)self acquireAssertionWithPid:*&pid];
+  if (self->_assertion)
+  {
+    v4 = objc_alloc_init(SBSStatusBarStyleOverridesCoordinator);
+    coordinator = self->_coordinator;
+    self->_coordinator = v4;
+
+    delegate = [(RPStatusBarAssertion *)self delegate];
+    [(SBSStatusBarStyleOverridesCoordinator *)self->_coordinator setDelegate:delegate];
+
+    [(SBSStatusBarStyleOverridesCoordinator *)self->_coordinator setRegisteredStyleOverrides:0x100000 reply:&stru_1000A1AB0];
+
+    [(RPStatusBarAssertion *)self startRepeatingTimer];
+  }
+}
 
 - (void)startRepeatingTimer
 {
@@ -131,9 +197,7 @@
 
 - (void)pauseSession
 {
-  v3 = +[NSDate date];
-  timerPauseDate = self->_timerPauseDate;
-  self->_timerPauseDate = v3;
+  self->_timerPauseDate = +[NSDate date];
 
   _objc_release_x1();
 }

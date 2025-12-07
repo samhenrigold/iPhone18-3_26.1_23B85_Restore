@@ -590,7 +590,7 @@ void __56__CNMeCardSharingAvatarViewController_reloadPosterImage__block_invoke_5
   dispatch_async(MEMORY[0x1E69E96A0], v6);
 }
 
-uint64_t __56__CNMeCardSharingAvatarViewController_reloadPosterImage__block_invoke_6(uint64_t a1)
+void *__56__CNMeCardSharingAvatarViewController_reloadPosterImage__block_invoke_6(uint64_t a1)
 {
   [*(a1 + 32) setIsWaitingForPosterPreviews:0];
   result = [*(a1 + 32) posterPreviewsGenerationTimedOut];

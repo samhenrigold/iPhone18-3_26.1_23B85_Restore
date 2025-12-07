@@ -65,32 +65,32 @@
 
 - (id)transportData
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(FCCGoalProgressContentProtobuf);
   [(FCCGoalProgressContentProtobuf *)v3 setEventIdentifier:self->_eventIdentifier];
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v4 = self->_goalTypesToDisplay;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        -[FCCGoalProgressContentProtobuf addGoalTypesToDisplay:](v3, "addGoalTypesToDisplay:", [*(*(&v12 + 1) + 8 * i) unsignedIntValue]);
+        -[FCCGoalProgressContentProtobuf addGoalTypesToDisplay:](v3, "addGoalTypesToDisplay:", [*(*(&v11 + 1) + 8 * i) unsignedIntValue]);
       }
 
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
@@ -99,8 +99,6 @@
   [(FCCGoalProgressContentProtobuf *)v3 setGoalTypeToHighlight:LODWORD(self->_goalTypeToHighlight)];
   [(FCCGoalProgressContentProtobuf *)v3 setExpectedGoalValue:self->_expectedGoalValue];
   data = [(FCCGoalProgressContentProtobuf *)v3 data];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return data;
 }

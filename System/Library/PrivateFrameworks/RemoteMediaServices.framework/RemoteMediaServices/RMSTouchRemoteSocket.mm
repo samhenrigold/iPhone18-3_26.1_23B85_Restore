@@ -38,7 +38,7 @@
 
 - (void)disconnect
 {
-  v3 = RMSLogger();
+  v3 = RMSLogger(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
@@ -90,7 +90,7 @@
   v15 = v14;
   if (v14 < 0x15)
   {
-    v18 = 4 * v14 + 20;
+    v18 = (4 * v14 + 20);
     v34[0] = v18 << 24;
     v34[1] = 256;
     v34[2] = bswap32(codeCopy);
@@ -136,7 +136,7 @@
 
   else
   {
-    v16 = RMSLogger();
+    v16 = RMSLogger(v14);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [RMSTouchRemoteSocket sendTouchCode:v15 timeInMilliseconds:v16 location:?];
@@ -154,7 +154,7 @@
   v7 = streamCopy;
   if (event == 8)
   {
-    v10 = RMSLogger();
+    v10 = RMSLogger(streamCopy);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [RMSTouchRemoteSocket stream:v7 handleEvent:v10];
@@ -166,7 +166,7 @@
 
   if (event == 1)
   {
-    v8 = RMSLogger();
+    v8 = RMSLogger(streamCopy);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -180,7 +180,7 @@
 
   if ([streamCopy streamStatus] == 6)
   {
-    v11 = RMSLogger();
+    v11 = RMSLogger(6);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *v12 = 0;

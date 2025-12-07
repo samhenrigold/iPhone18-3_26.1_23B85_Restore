@@ -115,31 +115,31 @@ LABEL_18:
 
 - (id)_stringArrayFromUserDefaults:(id)defaults key:(id)key
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = [defaults objectForKey:key];
   if (v4 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
     v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v6 = v4;
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
-    v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v16;
+      v9 = *v15;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v16 != v9)
+          if (*v15 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v15 + 1) + 8 * i);
+          v11 = *(*(&v14 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -147,7 +147,7 @@ LABEL_18:
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v8);
@@ -160,8 +160,6 @@ LABEL_18:
   {
     v12 = MEMORY[0x277CBEBF8];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -183,7 +181,7 @@ LABEL_18:
 - (void)setHiddenInSendMenuByUserPreference:(BOOL)preference
 {
   preferenceCopy = preference;
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = self->_extensionBundleID;
   _hiddenExtensionBundleIdentifiers = [(CKSettingsiMessageApp *)self _hiddenExtensionBundleIdentifiers];
   v7 = [_hiddenExtensionBundleIdentifiers containsObject:v5];
@@ -208,20 +206,18 @@ LABEL_7:
 
   if (IMOSLoggingEnabled())
   {
-    v11 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v10 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v12 = 138412546;
-      v13 = v5;
-      v14 = 1024;
-      v15 = preferenceCopy;
-      _os_log_impl(&dword_258D24000, v11, OS_LOG_TYPE_INFO, "Extension %@ was already hidden=%{BOOL}d", &v12, 0x12u);
+      v11 = 138412546;
+      v12 = v5;
+      v13 = 1024;
+      v14 = preferenceCopy;
+      _os_log_impl(&dword_258D24000, v10, OS_LOG_TYPE_INFO, "Extension %@ was already hidden=%{BOOL}d", &v11, 0x12u);
     }
   }
 
 LABEL_8:
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

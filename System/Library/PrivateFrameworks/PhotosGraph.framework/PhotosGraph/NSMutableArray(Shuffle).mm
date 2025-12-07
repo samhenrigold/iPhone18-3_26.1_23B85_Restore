@@ -1,10 +1,10 @@
 @interface NSMutableArray(Shuffle)
-- (unint64_t)pha_shuffle;
+- (char)pha_shuffle;
 @end
 
 @implementation NSMutableArray(Shuffle)
 
-- (unint64_t)pha_shuffle
+- (char)pha_shuffle
 {
   result = [self count];
   if (result >= 2)

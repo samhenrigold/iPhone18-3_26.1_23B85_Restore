@@ -110,7 +110,7 @@ double *glClearDepthx_PackThread(uint64_t a1, unsigned int a2)
   return result;
 }
 
-void *glClearStencil_Comp(uint64_t a1, int a2)
+_DWORD *glClearStencil_Comp(uint64_t a1, int a2)
 {
   result = gleAddCommand(a1, glClearStencil_ListExec, 4);
   *result = a2;
@@ -130,29 +130,29 @@ uint64_t glClearStencil_ListExec(uint64_t a1, unsigned __int8 *a2)
   return 4;
 }
 
-uint64_t glClipPlane_Exec(uint64_t result, int a2, float64x2_t *a3)
+float32x4_t *glClipPlane_Exec(float32x4_t *result, int a2, float64x2_t *a3)
 {
-  v3 = (result + 28652);
+  v3 = &result[1790].i32[3];
   v4 = (a2 - 12288);
   if (v4 >= 6)
   {
-    if (!*(result + 29832))
+    if (!result[1864].i16[4])
     {
-      *(result + 29832) = 1280;
+      result[1864].i16[4] = 1280;
     }
   }
 
   else
   {
     v5 = result;
-    v6 = (result + 16 * v4);
+    v6 = &result[v4];
     v7 = &v6[2197];
     v8 = a3[1];
     v9 = vcvt_f32_f64(*a3);
     v6[2197] = v9;
     v10 = vcvt_f32_f64(v8);
     v6[2198] = v10;
-    if ((*(result + 1544) & 0x10) != 0)
+    if ((result[96].i8[8] & 0x10) != 0)
     {
       result = gleModelMatInvert(result);
       v9.f32[0] = *v7;
@@ -208,7 +208,7 @@ uint64_t glClipPlane_Exec(uint64_t result, int a2, float64x2_t *a3)
   return result;
 }
 
-uint64_t glClipPlanef_Exec(uint64_t a1, int a2, float32x2_t *a3)
+float32x4_t *glClipPlanef_Exec(float32x4_t *a1, int a2, float32x2_t *a3)
 {
   v6 = *MEMORY[0x277D85DE8];
   v3 = vcvtq_f64_f32(a3[1]);
@@ -217,7 +217,7 @@ uint64_t glClipPlanef_Exec(uint64_t a1, int a2, float32x2_t *a3)
   return glClipPlane_Exec(a1, a2, v5);
 }
 
-uint64_t glClipPlanex_Exec(uint64_t a1, int a2, int32x2_t *a3)
+float32x4_t *glClipPlanex_Exec(float32x4_t *a1, int a2, int32x2_t *a3)
 {
   v7 = *MEMORY[0x277D85DE8];
   v3 = vdup_n_s32(0x37800000u);
@@ -390,14 +390,14 @@ float glColor4ub_Exec(uint64_t a1, unsigned int a2, unsigned int a3, unsigned in
   return result;
 }
 
-void *glCullFace_Comp(uint64_t a1, int a2)
+_DWORD *glCullFace_Comp(uint64_t a1, int a2)
 {
   result = gleAddCommand(a1, glCullFace_ListExec, 4);
   *result = a2;
   return result;
 }
 
-void glLabelObjectEXT_Exec(uint64_t a1, int a2, int a3, int a4, char *a5)
+void glLabelObjectEXT_Exec(uint64_t result, int a2, int a3, int a4, char *a5)
 {
   if (a2 > 36159)
   {
@@ -432,18 +432,18 @@ void glLabelObjectEXT_Exec(uint64_t a1, int a2, int a3, int a4, char *a5)
     if (a2 == v5)
     {
 LABEL_21:
-      gleLabelObject(a1, a2, a3, a4, a5);
+      gleLabelObject(result, a2, a3, a4, a5);
       return;
     }
   }
 
-  if (!*(a1 + 29832))
+  if (!*(result + 29832))
   {
-    *(a1 + 29832) = 1280;
+    *(result + 29832) = 1280;
   }
 }
 
-void glGetObjectLabelEXT_Exec(uint64_t a1, int a2, int a3, int a4, _DWORD *a5, _BYTE *a6)
+void glGetObjectLabelEXT_Exec(size_t result, uint64_t a2, int a3, uint64_t a4, _DWORD *a5, _BYTE *a6)
 {
   if (a2 > 36159)
   {
@@ -478,14 +478,14 @@ void glGetObjectLabelEXT_Exec(uint64_t a1, int a2, int a3, int a4, _DWORD *a5, _
     if (a2 == v6)
     {
 LABEL_21:
-      gleGetObjectLabel(a1, a2, a3, a4, a5, a6);
+      gleGetObjectLabel(result, a2, a3, a4, a5, a6);
       return;
     }
   }
 
-  if (!*(a1 + 29832))
+  if (!*(result + 29832))
   {
-    *(a1 + 29832) = 1280;
+    *(result + 29832) = 1280;
   }
 }
 
@@ -496,14 +496,14 @@ void glLabelObjectEXT_ExecThread(uint64_t a1, int a2, int a3, int a4, char *a5)
   glLabelObjectEXT_Exec(a1, a2, a3, a4, a5);
 }
 
-void glGetObjectLabelEXT_ExecThread(uint64_t a1, int a2, int a3, int a4, _DWORD *a5, _BYTE *a6)
+void glGetObjectLabelEXT_ExecThread(size_t a1, uint64_t a2, int a3, uint64_t a4, _DWORD *a5, _BYTE *a6)
 {
   (*(a1 + 27752))();
 
   glGetObjectLabelEXT_Exec(a1, a2, a3, a4, a5, a6);
 }
 
-void glLabelObjectWithResponsibleProcessAPPLE_Exec(uint64_t a1, int a2, int a3, int a4)
+void glLabelObjectWithResponsibleProcessAPPLE_Exec(uint64_t result, int a2, int a3, int a4)
 {
   if (a2 > 36159)
   {
@@ -538,14 +538,14 @@ void glLabelObjectWithResponsibleProcessAPPLE_Exec(uint64_t a1, int a2, int a3, 
     if (a2 == v4)
     {
 LABEL_21:
-      gleLabelObjectWithResponsibleProcess(a1, a2, a3, a4);
+      gleLabelObjectWithResponsibleProcess(result, a2, a3, a4);
       return;
     }
   }
 
-  if (!*(a1 + 29832))
+  if (!*(result + 29832))
   {
-    *(a1 + 29832) = 1280;
+    *(result + 29832) = 1280;
   }
 }
 
@@ -556,7 +556,7 @@ void glLabelObjectWithResponsibleProcessAPPLE_ExecThread(uint64_t a1, int a2, in
   glLabelObjectWithResponsibleProcessAPPLE_Exec(a1, a2, a3, a4);
 }
 
-void *glDepthFunc_Comp(uint64_t a1, int a2)
+_DWORD *glDepthFunc_Comp(uint64_t a1, int a2)
 {
   result = gleAddCommand(a1, glDepthFunc_ListExec, 4);
   *result = a2;
@@ -567,7 +567,7 @@ uint64_t glDepthRange_ListExec(uint64_t a1, __int128 *a2)
 {
   v4 = *MEMORY[0x277D85DE8];
   v3 = *a2;
-  glDepthRangeArrayv_Core(a1, 0, 1, &v3);
+  glDepthRangeArrayv_Core(a1, 0, 1u, &v3);
   return 16;
 }
 
@@ -576,7 +576,7 @@ uint64_t glDepthRangef_Exec(uint64_t a1, float a2, float a3)
   v4[2] = *MEMORY[0x277D85DE8];
   v4[0] = a2;
   v4[1] = a3;
-  return glDepthRangeArrayv_Core(a1, 0, 1, v4);
+  return glDepthRangeArrayv_Core(a1, 0, 1u, v4);
 }
 
 double *glDepthRangef_PackThread(uint64_t a1, float a2, float a3)
@@ -593,7 +593,7 @@ uint64_t glDepthRangex_Exec(uint64_t a1, unsigned int a2, unsigned int a3)
 {
   v5 = *MEMORY[0x277D85DE8];
   v4 = vcvtq_f64_f32(vmul_f32(vcvt_f32_s32(__PAIR64__(a3, a2)), vdup_n_s32(0x37800000u)));
-  return glDepthRangeArrayv_Core(a1, 0, 1, &v4);
+  return glDepthRangeArrayv_Core(a1, 0, 1u, &v4);
 }
 
 double *glDepthRangex_PackThread(uint64_t a1, unsigned int a2, unsigned int a3)
@@ -606,10 +606,10 @@ double *glDepthRangex_PackThread(uint64_t a1, unsigned int a2, unsigned int a3)
   return result;
 }
 
-uint64_t glDepthRangeArrayv_Core(uint64_t result, int a2, int a3, uint64_t a4)
+uint64_t glDepthRangeArrayv_Core(uint64_t result, int a2, unsigned int a3, uint64_t a4)
 {
   v7 = result;
-  if ((a3 + a2) >= 2 && !*(result + 15580))
+  if (a3 + a2 >= 2 && !*(result + 15580))
   {
     result = gleSwitchToMultiViewportMode(result);
   }
@@ -732,7 +732,7 @@ LABEL_24:
   return result;
 }
 
-void *glDrawBuffersARB_Comp(uint64_t a1, unsigned int a2, int *a3)
+unsigned int *glDrawBuffersARB_Comp(uint64_t a1, unsigned int a2, unsigned int *a3)
 {
   if (*(*(a1 + 29480) + 21) < a2)
   {
@@ -944,10 +944,10 @@ uint64_t glDrawTexxvOES_Exec(uint64_t result, int *a2, __n128 a3, __n128 a4, __n
   return result;
 }
 
-uint64_t glDrawTexfvOES_Exec(uint64_t result, unsigned __int32 *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6, __n128 a7)
+uint64_t glDrawTexfvOES_Exec(uint64_t result, float *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6, __n128 a7)
 {
-  a6.n128_u32[0] = a2[3];
-  if (a6.n128_f32[0] < 0.0 || (a7.n128_u32[0] = a2[4], a7.n128_f32[0] < 0.0))
+  a6.n128_f32[0] = a2[3];
+  if (a6.n128_f32[0] < 0.0 || (a7.n128_f32[0] = a2[4], a7.n128_f32[0] < 0.0))
   {
     if (!*(result + 29832))
     {
@@ -957,9 +957,9 @@ uint64_t glDrawTexfvOES_Exec(uint64_t result, unsigned __int32 *a2, __n128 a3, _
 
   else
   {
-    a4.n128_u32[0] = a2[1];
-    a5.n128_u32[0] = a2[2];
-    a3.n128_u32[0] = *a2;
+    a4.n128_f32[0] = a2[1];
+    a5.n128_f32[0] = a2[2];
+    a3.n128_f32[0] = *a2;
     return gleDrawTexture(result, a3, a4, a5, a6, a7);
   }
 
@@ -991,14 +991,14 @@ uint64_t glDrawTexfOES_ExecThread(uint64_t a1, float a2, float a3, float a4, flo
   return result;
 }
 
-void *glEnable_Comp(uint64_t a1, int a2)
+_DWORD *glEnable_Comp(uint64_t a1, int a2)
 {
   result = gleAddCommand(a1, glEnable_ListExec, 4);
   *result = a2;
   return result;
 }
 
-void *glDisable_Comp(uint64_t a1, int a2)
+_DWORD *glDisable_Comp(uint64_t a1, int a2)
 {
   result = gleAddCommand(a1, glDisable_ListExec, 4);
   *result = a2;
@@ -1162,14 +1162,14 @@ uint64_t glGenFencesAPPLE_Exec(uint64_t result, unsigned int a2, uint64_t a3)
   return result;
 }
 
-uint64_t glDeleteFencesAPPLE_Exec(uint64_t result, unsigned int a2, unsigned int *a3)
+uint64_t *glDeleteFencesAPPLE_Exec(uint64_t *result, unsigned int a2, unsigned int *a3)
 {
   v3 = result;
   if ((a2 & 0x80000000) != 0)
   {
-    if (!*(result + 29832))
+    if (!*(result + 14916))
     {
-      *(result + 29832) = 1281;
+      *(result + 14916) = 1281;
     }
   }
 
@@ -1244,10 +1244,12 @@ uint64_t *glFinishObjectAPPLE_Exec(uint64_t *result, int a2, int a3)
   return result;
 }
 
-uint64_t glFenceSync_Exec(uint64_t a1, int a2, int a3)
+uint64_t glFenceSync_Exec(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
+  v4 = a2;
   os_unfair_lock_lock((*(a1 + 19296) + 324));
-  v6 = gleFenceSync(a1, 0, a2, a3);
+  v6 = gleFenceSync(a1, 0, v4, v3);
   os_unfair_lock_unlock((*(a1 + 19296) + 324));
   return v6;
 }
@@ -1260,7 +1262,7 @@ BOOL glIsSync_Exec(uint64_t a1, int a2)
   return v4 != 0;
 }
 
-void glDeleteSync_Exec(uint64_t a1, unsigned int a2)
+void glDeleteSync_Exec(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
@@ -1286,15 +1288,15 @@ void glDeleteSync_Exec(uint64_t a1, unsigned int a2)
   }
 }
 
-uint64_t glClientWaitSync_Exec(uint64_t a1, int a2, unsigned int a3, unint64_t a4)
+uint64_t glClientWaitSync_Exec(uint64_t a1, int a2, uint64_t a3, unint64_t a4)
 {
-  if (a2 && (os_unfair_lock_lock((*(a1 + 19296) + 324)), v8 = gleLookupHashObject(*(a1 + 19296) + 200, a2), os_unfair_lock_unlock((*(a1 + 19296) + 324)), v8) && a3 < 2)
+  if (a2 && (v7 = a3, os_unfair_lock_lock((*(a1 + 19296) + 324)), v8 = gleLookupHashObject(*(a1 + 19296) + 200, a2), os_unfair_lock_unlock((*(a1 + 19296) + 324)), v8) && v7 < 2)
   {
     if (a4)
     {
       if (a4 == -1 && !*(v8 + 34))
       {
-        if (gleTestSync(a1, a3, v8))
+        if (gleTestSync(a1, v7, v8))
         {
           return 37146;
         }
@@ -1332,7 +1334,7 @@ uint64_t glClientWaitSync_Exec(uint64_t a1, int a2, unsigned int a3, unint64_t a
       {
         v9 = mach_absolute_time();
         v10 = *(a1 + 432);
-        if (gleTestSync(a1, a3, v8))
+        if (gleTestSync(a1, v7, v8))
         {
           return 37146;
         }
@@ -1343,7 +1345,7 @@ uint64_t glClientWaitSync_Exec(uint64_t a1, int a2, unsigned int a3, unint64_t a
           return 37147;
         }
 
-        if (!gleTestSync(a1, a3, v8))
+        if (!gleTestSync(a1, v7, v8))
         {
           v16 = 0;
           v17 = 0;
@@ -1367,7 +1369,7 @@ uint64_t glClientWaitSync_Exec(uint64_t a1, int a2, unsigned int a3, unint64_t a
               v17 += v16;
             }
 
-            v19 = gleTestSync(a1, a3, v8);
+            v19 = gleTestSync(a1, v7, v8);
             result = 37148;
             if (v19)
             {
@@ -1382,7 +1384,7 @@ uint64_t glClientWaitSync_Exec(uint64_t a1, int a2, unsigned int a3, unint64_t a
       return 37148;
     }
 
-    else if (gleTestSync(a1, a3, v8))
+    else if (gleTestSync(a1, v7, v8))
     {
       return 37146;
     }
@@ -1556,12 +1558,13 @@ uint64_t glFenceSyncObject_UnpackThread(uint64_t a1, uint64_t *a2)
   return 8;
 }
 
-void glDeleteSync_ExecThread(uint64_t a1, unsigned int a2)
+void glDeleteSync_ExecThread(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   if (a2)
   {
     os_unfair_lock_lock((*(a1 + 19296) + 324));
-    v4 = gleDeleteHashNameAndObject_NoDecrement(*(a1 + 19296) + 200, a2);
+    v4 = gleDeleteHashNameAndObject_NoDecrement(*(a1 + 19296) + 200, v2);
     os_unfair_lock_unlock((*(a1 + 19296) + 324));
     if (v4)
     {
@@ -1629,9 +1632,9 @@ uint64_t glClientWaitSync_ExecThread(intptr_t a1, int a2, unsigned int a3, unint
   }
 }
 
-uint64_t glClientWaitSync_CallbackThread(uint64_t a1, uint64_t a2)
+uint64_t glClientWaitSync_CallbackThread(uint64_t a1, void *a2)
 {
-  if (*(a1 + 28660) == -1 && *(*a2 + 40) && gleTestSync(a1, *(a2 + 24), *a2))
+  if (*(a1 + 28660) == -1 && *(*a2 + 40) && gleTestSync(a1, *(a2 + 6), *a2))
   {
     if (*(a2 + 32))
     {
@@ -1643,14 +1646,14 @@ uint64_t glClientWaitSync_CallbackThread(uint64_t a1, uint64_t a2)
       v5 = 37148;
     }
 
-    *(a2 + 28) = v5;
+    *(a2 + 7) = v5;
   }
 
-  if (!*(a2 + 28))
+  if (!*(a2 + 7))
   {
-    if (*(a2 + 8) && mach_absolute_time() - *(a2 + 16) <= *(a2 + 8))
+    if (a2[1] && mach_absolute_time() - a2[2] <= a2[1])
     {
-      v6 = *(a2 + 28);
+      v6 = *(a2 + 7);
       *(a2 + 32) = 0;
       if (!v6)
       {
@@ -1660,7 +1663,7 @@ uint64_t glClientWaitSync_CallbackThread(uint64_t a1, uint64_t a2)
       goto LABEL_7;
     }
 
-    *(a2 + 28) = 37147;
+    *(a2 + 7) = 37147;
   }
 
   *(a2 + 32) = 0;
@@ -1692,20 +1695,21 @@ uint64_t glGenFencesAPPLE_ExecThread(uint64_t a1, unsigned int a2, uint64_t a3)
   return glGenFencesAPPLE_Exec(a1, a2, a3);
 }
 
-uint64_t glDeleteFencesAPPLE_ExecThread(uint64_t a1, unsigned int a2, unsigned int *a3)
+uint64_t *glDeleteFencesAPPLE_ExecThread(uint64_t a1, unsigned int a2, unsigned int *a3)
 {
   (*(a1 + 27752))();
 
   return glDeleteFencesAPPLE_Exec(a1, a2, a3);
 }
 
-void *glSetFenceAPPLE_PackThread(os_unfair_lock_s *a1, int a2)
+_DWORD *glSetFenceAPPLE_PackThread(os_unfair_lock_s *a1, uint64_t a2)
 {
+  v2 = a2;
   os_unfair_lock_lock(a1 + 6946);
-  v4 = gleLookupHashObject(&a1[6468], a2);
+  v4 = gleLookupHashObject(&a1[6468], v2);
   if (!v4)
   {
-    gleCreateFenceObject(a2);
+    gleCreateFenceObject(v2);
     v4 = v5;
     gleAddHashNameAndObject(a1, &a1[6468], v5);
   }
@@ -1713,11 +1717,11 @@ void *glSetFenceAPPLE_PackThread(os_unfair_lock_s *a1, int a2)
   atomic_fetch_add_explicit(v4 + 35, 1u, memory_order_relaxed);
   os_unfair_lock_unlock(a1 + 6946);
   result = gleAddCommand(a1, glSetFenceAPPLE_UnpackThread, 4);
-  *result = a2;
+  *result = v2;
   return result;
 }
 
-uint64_t glSetFenceAPPLE_UnpackThread(uint64_t a1, int *a2)
+uint64_t glSetFenceAPPLE_UnpackThread(uint64_t a1, unsigned int *a2)
 {
   v3 = *a2;
   os_unfair_lock_lock((a1 + 27784));
@@ -1773,7 +1777,7 @@ uint64_t glTestFenceAPPLE_CallbackThread(uint64_t a1, uint64_t a2)
   return 16;
 }
 
-uint64_t glTestObjectAPPLE_ExecThread(intptr_t a1, int a2, int a3)
+uint64_t glTestObjectAPPLE_ExecThread(intptr_t a1, int a2, uint64_t a3)
 {
   if (a2 == 35339)
   {
@@ -1789,7 +1793,7 @@ uint64_t glTestObjectAPPLE_ExecThread(intptr_t a1, int a2, int a3)
   }
 }
 
-void glFinishFenceAPPLE_ExecThread(intptr_t a1, unsigned int a2)
+void glFinishFenceAPPLE_ExecThread(intptr_t a1, int a2)
 {
   os_unfair_lock_lock((a1 + 27784));
   v4 = gleLookupHashObject(a1 + 25872, a2);
@@ -1815,7 +1819,7 @@ void glFinishFenceAPPLE_ExecThread(intptr_t a1, unsigned int a2)
   }
 }
 
-uint64_t glFinishFenceAPPLE_CallbackThread(uint64_t a1, int *a2)
+uint64_t glFinishFenceAPPLE_CallbackThread(uint64_t a1, unsigned int *a2)
 {
   if (*(a1 + 28660) == -1 && !*(*a2 + 140))
   {
@@ -1826,7 +1830,7 @@ uint64_t glFinishFenceAPPLE_CallbackThread(uint64_t a1, int *a2)
   return 16;
 }
 
-void glFinishObjectAPPLE_ExecThread(intptr_t a1, int a2, unsigned int a3)
+void glFinishObjectAPPLE_ExecThread(intptr_t a1, int a2, int a3)
 {
   if (a2 == 35339)
   {
@@ -2094,12 +2098,13 @@ LABEL_42:
   }
 }
 
-void glBindRenderbuffer_Exec(uint64_t a1, int a2, int a3)
+void glBindRenderbuffer_Exec(uint64_t a1, int a2, uint64_t a3)
 {
   if (a2 == 36161)
   {
+    v4 = a3;
     os_unfair_lock_lock((*(a1 + 19296) + 324));
-    gleBindRenderbuffer(a1, a3);
+    gleBindRenderbuffer(a1, v4);
     v5 = (*(a1 + 19296) + 324);
 
     os_unfair_lock_unlock(v5);
@@ -2111,15 +2116,19 @@ void glBindRenderbuffer_Exec(uint64_t a1, int a2, int a3)
   }
 }
 
-uint64_t glRenderbufferStorageInline(uint64_t a1, int a2, signed int a3, int a4, unsigned int a5, unsigned int a6)
+uint64_t glRenderbufferStorageInline(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
+  v6 = a6;
+  v7 = a5;
+  v8 = a4;
+  v9 = a3;
   result = gleCheckRenderbufferStorageArgs(a1, a2, a3, a4, a5, a6);
   if (!result)
   {
     return result;
   }
 
-  v12 = a6 ? a5 : 0;
+  v12 = v6 ? v7 : 0;
   v13 = *(a1 + 28952);
   if (!v13)
   {
@@ -2139,11 +2148,11 @@ uint64_t glRenderbufferStorageInline(uint64_t a1, int a2, signed int a3, int a4,
 LABEL_10:
     if (!*(v13 + 800) && (v14 & 0x800) == 0)
     {
-      if (a3 >= 1 && !*(*(a1 + 29032) + 616))
+      if (v9 >= 1 && !*(*(a1 + 29032) + 616))
       {
-        if (a4 <= 34835)
+        if (v8 <= 34835)
         {
-          if (((a4 - 33321) > 0xF || ((1 << (a4 - 41)) & 0xC3F5) == 0) && ((a4 - 32848) > 9 || ((1 << (a4 - 80)) & 0x3C3) == 0) && (a4 - 6407) >= 2)
+          if (((v8 - 33321) > 0xF || ((1 << (v8 - 41)) & 0xC3F5) == 0) && ((v8 - 32848) > 9 || ((1 << (v8 - 80)) & 0x3C3) == 0) && (v8 - 6407) >= 2)
           {
             goto LABEL_34;
           }
@@ -2151,9 +2160,9 @@ LABEL_10:
           goto LABEL_33;
         }
 
-        if (a4 > 36193)
+        if (v8 > 36193)
         {
-          if ((a4 - 36194) <= 0x2D && ((1 << (a4 - 98)) & 0x30000C000001) != 0)
+          if ((v8 - 36194) <= 0x2D && ((1 << (v8 - 98)) & 0x30000C000001) != 0)
           {
             goto LABEL_33;
           }
@@ -2163,7 +2172,7 @@ LABEL_10:
 
         else
         {
-          if ((a4 - 34836) <= 7 && ((1 << (a4 - 20)) & 0xC3) != 0 || a4 == 35898)
+          if ((v8 - 34836) <= 7 && ((1 << (v8 - 20)) & 0xC3) != 0 || v8 == 35898)
           {
             goto LABEL_33;
           }
@@ -2171,7 +2180,7 @@ LABEL_10:
           v15 = 35907;
         }
 
-        if (a4 == v15)
+        if (v8 == v15)
         {
 LABEL_33:
           *(v13 + 832) |= 1u;
@@ -2179,9 +2188,9 @@ LABEL_33:
       }
 
 LABEL_34:
-      BYTE1(v16) = 1;
-      LOBYTE(v16) = a3;
-      gleEvaluateTextureImageChange(a1, v13 + 40, v13 + 1072, 0, 0, v12, a6, 1, 0, a4, 0x1908u, 0x1401u, v16, 0);
+      HIBYTE(v16) = 1;
+      LOBYTE(v16) = v9;
+      gleEvaluateTextureImageChange(a1, v13 + 40, v13 + 1072, 0, 0, v12, v6, 1, 0, v8, 0x1908u, 0x1401u, v16, 0);
       *(v13 + 1008) = 65541;
 
       return gleDirtyRenderbufferCurrentBindPointsGeom(a1, v13 + 40);
@@ -2511,12 +2520,14 @@ LABEL_23:
   }
 }
 
-void glBindFramebuffer_Exec(int8x16_t *a1, int a2, int a3)
+void glBindFramebuffer_Exec(int8x16_t *a1, uint64_t a2, uint64_t a3)
 {
   if ((a2 - 36008) < 2 || a2 == 36160)
   {
+    v5 = a3;
+    v6 = a2;
     os_unfair_lock_lock((a1[1206].i64[0] + 324));
-    gleBindFramebuffer(a1, a2, a3);
+    gleBindFramebuffer(a1, v6, v5);
     v7 = (a1[1206].i64[0] + 324);
 
     os_unfair_lock_unlock(v7);
@@ -2528,8 +2539,9 @@ void glBindFramebuffer_Exec(int8x16_t *a1, int a2, int a3)
   }
 }
 
-void glFramebufferTexture2DEXT_Exec(uint64_t a1, int a2, int a3, int a4, int a5, unsigned int a6)
+void glFramebufferTexture2DEXT_Exec(uint64_t a1, int a2, int a3, int a4, int a5, uint64_t a6)
 {
+  v6 = a6;
   v10 = 28960;
   if (a2 != 36160 && a2 != 36009)
   {
@@ -2693,10 +2705,10 @@ LABEL_23:
 
   v21 = (a1 + 19296);
 LABEL_27:
-  gleFramebufferTexture(a1, v11 + 40, v13, v17, v20, v18, a6, 0, 0);
+  gleFramebufferTexture(a1, v11 + 40, v13, v17, v20, v18, v6, 0, 0);
   if (a3 == 33306)
   {
-    gleFramebufferTexture(a1, v11 + 40, 9u, v17, v20, v18, a6, 0, 0);
+    gleFramebufferTexture(a1, v11 + 40, 9u, v17, v20, v18, v6, 0, 0);
   }
 
   v22 = *v21 + 81;
@@ -3463,7 +3475,7 @@ LABEL_84:
   return gleGetAttachmentInfo(result, v8, v9, v17, a5);
 }
 
-void glGenerateMipmapEXT_Exec(uint64_t a1, int a2)
+void glGenerateMipmapEXT_Exec(uint64_t a1, uint64_t a2)
 {
   v4 = a1 + 28672;
   os_unfair_lock_lock((*(a1 + 19296) + 324));
@@ -3656,8 +3668,10 @@ LABEL_28:
   os_unfair_lock_unlock(v12);
 }
 
-void glFramebufferTextureLayerEXT_Exec(uint64_t a1, int a2, int a3, int a4, unsigned int a5, int a6)
+void glFramebufferTextureLayerEXT_Exec(uint64_t a1, int a2, int a3, int a4, uint64_t a5, uint64_t a6)
 {
+  v6 = a6;
+  v7 = a5;
   v11 = 28960;
   if (a2 != 36160 && a2 != 36009)
   {
@@ -3746,7 +3760,7 @@ LABEL_45:
       }
 
       while ((v20 & 0x80000000) == 0);
-      if (32 - v19 < a5)
+      if (32 - v19 < v7)
       {
         goto LABEL_51;
       }
@@ -3769,7 +3783,7 @@ LABEL_45:
       }
 
       while ((v27 & 0x80000000) == 0);
-      if (32 - v26 < a5)
+      if (32 - v26 < v7)
       {
         goto LABEL_51;
       }
@@ -3798,7 +3812,7 @@ LABEL_45:
       }
 
       while ((v24 & 0x80000000) == 0);
-      if (32 - v23 < a5)
+      if (32 - v23 < v7)
       {
         goto LABEL_51;
       }
@@ -3810,7 +3824,7 @@ LABEL_45:
     goto LABEL_45;
   }
 
-  if (a5)
+  if (v7)
   {
 LABEL_51:
     os_unfair_lock_unlock((*(a1 + 19296) + 324));
@@ -3828,10 +3842,10 @@ LABEL_48:
 
   LOWORD(v17) = 9;
 LABEL_27:
-  gleFramebufferTexture(a1, v12 + 40, v14, v17, v16, 0, a5, a6, 0);
+  gleFramebufferTexture(a1, v12 + 40, v14, v17, v16, 0, v7, v6, 0);
   if (a3 == 33306)
   {
-    gleFramebufferTexture(a1, v12 + 40, 9u, v17, v16, 0, a5, a6, 0);
+    gleFramebufferTexture(a1, v12 + 40, 9u, v17, v16, 0, v7, v6, 0);
   }
 
   v21 = (*(a1 + 19296) + 324);
@@ -3950,7 +3964,7 @@ uint64_t glGetFramebufferAttachmentParameterivEXT_ExecThread(uint64_t a1, int a2
   return glGetFramebufferAttachmentParameterivEXT_Exec(a1, a2, a3, a4, a5);
 }
 
-void *glGenerateMipmapEXT_PackThread(uint64_t a1, int a2)
+_DWORD *glGenerateMipmapEXT_PackThread(uint64_t a1, int a2)
 {
   result = gleAddCommand(a1, glGenerateMipmapEXT_UnpackThread, 4);
   *result = a2;
@@ -3983,10 +3997,10 @@ void *glBlitFramebufferEXT_Comp(uint64_t a1, int a2, int a3, int a4, int a5, int
   return result;
 }
 
-uint64_t glBlitFramebufferEXT_Exec(uint64_t result, signed int a2, signed int a3, signed int a4, signed int a5, int a6, int a7, int a8, double a9, double a10, double a11, int a12, unsigned int a13, unsigned int a14)
+uint64_t glBlitFramebufferEXT_Exec(uint64_t result, signed int a2, int a3, signed int a4, int a5, int a6, int a7, int a8, double d0_0, double d1_0, double d2_0, int a9, unsigned int a10, unsigned int a11)
 {
   v14 = result + 29732;
-  if ((a13 & 0xFFFFBAFF) != 0)
+  if ((a10 & 0xFFFFBAFF) != 0)
   {
     if (*(result + 29832))
     {
@@ -4000,14 +4014,14 @@ LABEL_56:
   }
 
   v20 = result;
-  if (a14 != 9728)
+  if (a11 != 9728)
   {
-    if (a14 - 37050 >= 2)
+    if (a11 - 37050 >= 2)
     {
-      if (a14 == 9729)
+      if (a11 == 9729)
       {
 LABEL_154:
-        if ((a13 & 0x500) != 0)
+        if ((a10 & 0x500) != 0)
         {
 LABEL_54:
           LOWORD(v27) = 1282;
@@ -4031,7 +4045,7 @@ LABEL_3:
   v21 = (result + 15176);
   if ((*(result + 1540) & 4) != 0)
   {
-    result = gleGenerateMatrixIdentifier(result, result + 9488, a9, a10, a11);
+    result = gleGenerateMatrixIdentifier(result, result + 9488, d0_0, d1_0, d2_0);
     *(v20 + 19152) = *(v20 + 19152) & 0xFFFFFEFF | ((result != -1074791426) << 8);
     *v14 = result;
   }
@@ -4047,14 +4061,14 @@ LABEL_3:
 
   if ((*(v20 + 1540) & 4) != 0)
   {
-    result = gleGenerateMatrixIdentifier(v20, v20 + 9488, a9, a10, a11);
+    result = gleGenerateMatrixIdentifier(v20, v20 + 9488, d0_0, d1_0, d2_0);
     *(v20 + 19152) = *(v20 + 19152) & 0xFFFFFEFF | ((result != -1074791426) << 8);
     *v14 = result;
   }
 
   if ((*(v14 + 68) & 0x743C0478) != 0)
   {
-    result = gleUpdateDrawFramebufferState(v20, a9, a10, a11);
+    result = gleUpdateDrawFramebufferState(v20, d0_0, d1_0, d2_0);
     if (result)
     {
 LABEL_11:
@@ -4072,13 +4086,13 @@ LABEL_11:
   v22 = *(v20 + 28968);
   v23 = *(v20 + 28960);
   v24 = v22 + 40;
-  if (a13 < 0x4000 || (v25 = *(v22 + 472) - 36064, v25 > 7))
+  if (a10 < 0x4000 || (v25 = *(v22 + 472) - 36064, v25 > 7))
   {
     v27 = 0;
-    if ((a13 & 0x100) == 0)
+    if ((a10 & 0x100) == 0)
     {
 LABEL_34:
-      v40 = a14;
+      v40 = a11;
       goto LABEL_48;
     }
   }
@@ -4113,14 +4127,14 @@ LABEL_34:
     }
 
     while (v26 != 16);
-    if ((a13 & 0x100) == 0)
+    if ((a10 & 0x100) == 0)
     {
       goto LABEL_34;
     }
   }
 
   v41 = *(v22 + 168);
-  v40 = a14;
+  v40 = a11;
   if (v41)
   {
     v42 = *(v22 + 436) == *(v23 + 436) && *(v22 + 432) == *(v23 + 432);
@@ -4132,7 +4146,7 @@ LABEL_34:
   }
 
 LABEL_48:
-  if ((a13 & 0x400) != 0)
+  if ((a10 & 0x400) != 0)
   {
     v45 = *(v22 + 184);
     if (v45)
@@ -4190,7 +4204,7 @@ LABEL_160:
   }
 
   v99 = a6;
-  v48 = a12;
+  v48 = a9;
   result = *v46;
   if (v40 >> 1 == 18525)
   {
@@ -4200,17 +4214,17 @@ LABEL_160:
     }
   }
 
-  else if (*v46 && (v100 != a12 || a3 != a7 || a2 != v99 || v101 != a8))
+  else if (*v46 && (v100 != a9 || a3 != a7 || a2 != v99 || v101 != a8))
   {
     goto LABEL_160;
   }
 
-  v49 = a13 & 0x500;
+  v49 = a10 & 0x500;
   if (v22)
   {
     if (*(v22 + 472))
     {
-      v49 = a13;
+      v49 = a10;
     }
 
     if (!*(v22 + 168))
@@ -4226,7 +4240,7 @@ LABEL_160:
   {
     if (*v21)
     {
-      v49 = a13;
+      v49 = a10;
     }
 
     v52 = *(v20 + 29480);
@@ -4375,7 +4389,7 @@ LABEL_113:
       (*(*(v20 + 29496) + 376))(*(v20 + 29464), *(v71 + 8 * *(v14 + 2768) + 40), *(v23 + 428), *(v23 + 432), 4099, &v104);
       result = v92;
       v24 = v22 + 40;
-      v40 = a14;
+      v40 = a11;
       v72 = v104;
       v70 = v105;
     }
@@ -4408,7 +4422,7 @@ LABEL_113:
       (*(*(v20 + 29496) + 376))(*(v20 + 29464), *(v76 + 8 * *(v14 + 2768) + 40), *(v23 + 444), *(v23 + 448), 4099, &v104);
       result = v93;
       v24 = v95;
-      v40 = a14;
+      v40 = a11;
       v77 = v104;
       v75 = v105;
     }
@@ -4504,9 +4518,9 @@ LABEL_144:
   }
 
 LABEL_145:
-  v40 = a14;
+  v40 = a11;
   v57 = v91;
-  v48 = a12;
+  v48 = a9;
 LABEL_146:
   if (a2 != v101 && a3 != v100 && v99 != v98 && v97 != v48)
   {
@@ -4743,7 +4757,7 @@ void *glDiscardFramebufferEXT_PackThread(void *result, int a2, unsigned int a3, 
   return result;
 }
 
-uint64_t glInvalidateSubFramebuffer_Exec(uint64_t result, int a2, unsigned int a3, unsigned int *a4, double a5, double a6, double a7, int a8, int a9, int a10, int a11)
+uint64_t glInvalidateSubFramebuffer_Exec(uint64_t result, int a2, unsigned int a3, unsigned int *a4, int a5, int a6, int a7, int a8, double a9, double a10, double a11)
 {
   v11 = 28960;
   if (a2 != 36160 && a2 != 36009)
@@ -4762,7 +4776,7 @@ uint64_t glInvalidateSubFramebuffer_Exec(uint64_t result, int a2, unsigned int a
     v11 = 28968;
   }
 
-  if ((a11 | a10) < 0)
+  if ((a8 | a7) < 0)
   {
     if (*(result + 29832))
     {
@@ -4775,14 +4789,14 @@ LABEL_15:
     return result;
   }
 
-  if (a8 <= 0)
+  if (a5 <= 0)
   {
     v12 = *(result + v11);
     if (v12)
     {
-      if (a9 <= 0 && a10 + a8 >= *(v12 + 474) && a11 + a9 >= *(v12 + 476))
+      if (a6 <= 0 && a7 + a5 >= *(v12 + 474) && a8 + a6 >= *(v12 + 476))
       {
-        return glDiscardFramebufferEXT_Exec(result, a2, a3, a4, a5, a6, a7);
+        return glDiscardFramebufferEXT_Exec(result, a2, a3, a4, a9, a10, a11);
       }
     }
   }
@@ -4884,9 +4898,9 @@ LABEL_9:
   return result;
 }
 
-void glGetInternalformativ_Exec(uint64_t a1, int a2, unsigned int a3, int a4, int a5, _DWORD *a6)
+void glGetInternalformativ_Exec(uint64_t result, int a2, unsigned int a3, int a4, int a5, _DWORD *a6)
 {
-  v6 = a1 + 28672;
+  v6 = result + 28672;
   if (a2 != 36161)
   {
     goto LABEL_34;
@@ -4895,7 +4909,7 @@ void glGetInternalformativ_Exec(uint64_t a1, int a2, unsigned int a3, int a4, in
   v7 = a5;
   if (a5 < 0)
   {
-    if (*(a1 + 29832))
+    if (*(result + 29832))
     {
       return;
     }
@@ -4906,7 +4920,7 @@ LABEL_11:
     return;
   }
 
-  if (!gleCheckRenderableFormatArgs(a1, 36161, 0, a3))
+  if (!gleCheckRenderableFormatArgs(result, 36161, 0, a3))
   {
     return;
   }
@@ -4926,7 +4940,7 @@ LABEL_34:
   if (v7)
   {
     v25 = 0;
-    v12 = *(a1 + 29480);
+    v12 = *(result + 29480);
     if (a3 - 36208 < 0x24 || a3 == 36975 || a3 - 33341 >= 0xFFFFFFF4)
     {
       v13 = (v12 + 173);
@@ -4939,7 +4953,7 @@ LABEL_34:
 
     v24 = a6;
     v15 = *v13;
-    TextureObject = gleCreateTextureObject(*(a1 + 19296), 8194, 0);
+    TextureObject = gleCreateTextureObject(*(result + 19296), 8194, 0);
     v17 = TextureObject;
     if (v15 < 2)
     {
@@ -4953,11 +4967,11 @@ LABEL_34:
       v20 = TextureObject + 10;
       do
       {
-        BYTE1(v23) = 1;
+        HIBYTE(v23) = 1;
         LOBYTE(v23) = v15;
-        gleEvaluateTextureImageChange(a1, v17 + 40, v17 + 1072, 0, 0, 1, 1, 1, 0, a3, 0x1908u, 0x1401u, v23, 0);
+        gleEvaluateTextureImageChange(result, v17 + 40, v17 + 1072, 0, 0, 1u, 1u, 1, 0, a3, 0x1908u, 0x1401u, v23, 0);
         *(v17 + 1008) = 65541;
-        (*(*(a1 + 29496) + 376))(*(a1 + 29464), *&v20[2 * *(v6 + 3828)], 0, 0, 36011, &v25);
+        (*(*(result + 29496) + 376))(*(result + 29464), *&v20[2 * *(v6 + 3828)], 0, 0, 36011, &v25);
         v21 = v25;
         if (v25 != v18)
         {
@@ -4986,7 +5000,7 @@ LABEL_34:
       *v24 = v19;
     }
 
-    gleFreeTextureObject(*(a1 + 19296), v17);
+    gleFreeTextureObject(*(result + 19296), v17);
   }
 }
 
@@ -5005,7 +5019,7 @@ float *glFogf_Comp(uint64_t a1, int a2, float a3)
   return result;
 }
 
-void glFogx_Exec(uint64_t a1, int a2, int a3)
+void glFogx_Exec(uint64_t a1, uint64_t a2, int a3)
 {
   v3 = a3;
   if (a2 != 2917)
@@ -5016,7 +5030,7 @@ void glFogx_Exec(uint64_t a1, int a2, int a3)
   glFogf_Exec(a1, a2, v3);
 }
 
-float *glFogx_PackThread(uint64_t a1, int a2, signed int a3)
+float *glFogx_PackThread(uint64_t a1, int a2, unsigned int a3)
 {
   v4 = vcvts_n_f32_s32(a3, 0x10uLL);
   if (a2 == 2917)
@@ -5122,7 +5136,7 @@ uint64_t OUTLINED_FUNCTION_5@<X0>(uint64_t result@<X0>, _DWORD *a2@<X8>)
   return result;
 }
 
-void *glFrontFace_Comp(uint64_t a1, int a2)
+_DWORD *glFrontFace_Comp(uint64_t a1, int a2)
 {
   result = gleAddCommand(a1, glFrontFace_ListExec, 4);
   *result = a2;
@@ -5535,11 +5549,13 @@ LABEL_5:
   return glLightfv_Comp(a1, a2, a3, &v7);
 }
 
-uint64_t glGetLightfv_ExecThread(uint64_t a1, int a2, int a3, _DWORD *a4)
+uint64_t glGetLightfv_ExecThread(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4)
 {
+  v5 = a3;
+  v6 = a2;
   (*(a1 + 27752))();
 
-  return glGetLightfv_Exec(a1, a2, a3, a4);
+  return glGetLightfv_Exec(a1, v6, v5, a4);
 }
 
 uint64_t glGetLightfv_Exec(uint64_t result, int a2, int a3, _DWORD *a4)
@@ -5792,7 +5808,7 @@ float *glLightModelx_PackThread(uint64_t a1, int a2, unsigned int a3)
   return result;
 }
 
-float glLightModelfv_Comp(uint64_t a1, int a2, _DWORD *a3)
+float glLightModelfv_Comp(uint64_t a1, int a2, int *a3)
 {
   v5 = gleAddCommand(a1, glLightModelfv_ListExec, 20);
   *v5 = a2;
@@ -5871,7 +5887,7 @@ float *glLineWidthx_PackThread(uint64_t a1, unsigned int a2)
   return result;
 }
 
-void *glLogicOp_Comp(uint64_t a1, int a2)
+_DWORD *glLogicOp_Comp(uint64_t a1, int a2)
 {
   result = gleAddCommand(a1, glLogicOp_ListExec, 4);
   *result = a2;
@@ -5924,14 +5940,14 @@ _BYTE *glColorMask_Comp(uint64_t a1, char a2, char a3, char a4, char a5)
   return result;
 }
 
-void *glDepthMask_Comp(uint64_t a1, char a2)
+_BYTE *glDepthMask_Comp(uint64_t a1, char a2)
 {
   result = gleAddCommand(a1, glDepthMask_ListExec, 4);
   *result = a2;
   return result;
 }
 
-void *glStencilMask_Comp(uint64_t a1, int a2)
+_DWORD *glStencilMask_Comp(uint64_t a1, int a2)
 {
   result = gleAddCommand(a1, glStencilMask_ListExec, 4);
   *result = a2;
@@ -6096,11 +6112,13 @@ LABEL_8:
   return glMaterialfv_Comp(a1, a2, a3, &v5);
 }
 
-uint64_t glGetMaterialfv_ExecThread(uint64_t a1, int a2, int a3, _DWORD *a4)
+uint64_t glGetMaterialfv_ExecThread(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4)
 {
+  v5 = a3;
+  v6 = a2;
   (*(a1 + 27752))();
 
-  return glGetMaterialfv_Exec(a1, a2, a3, a4);
+  return glGetMaterialfv_Exec(a1, v6, v5, a4);
 }
 
 uint64_t glGetMaterialfv_Exec(uint64_t result, int a2, int a3, _DWORD *a4)
@@ -6347,7 +6365,7 @@ uint64_t glLoadPaletteFromModelViewMatrixOES_Exec(uint64_t a1)
   return gleUpdateMatrixMode(a1);
 }
 
-void *glCurrentPaletteMatrixOES_PackThread(uint64_t a1, int a2)
+_DWORD *glCurrentPaletteMatrixOES_PackThread(uint64_t a1, int a2)
 {
   result = gleAddCommand(a1, glCurrentPaletteMatrixOES_UnpackThread, 4);
   *result = a2;
@@ -6490,13 +6508,13 @@ uint64_t glGenQueries_Exec(uint64_t result, unsigned int a2, uint64_t a3)
   return result;
 }
 
-uint64_t glDeleteQueries_Exec(uint64_t result, unsigned int a2, unsigned int *a3)
+uint64_t *glDeleteQueries_Exec(uint64_t *result, unsigned int a2, unsigned int *a3)
 {
   if ((a2 & 0x80000000) != 0)
   {
-    if (!*(result + 29832))
+    if (!*(result + 14916))
     {
-      *(result + 29832) = 1281;
+      *(result + 14916) = 1281;
     }
   }
 
@@ -6504,7 +6522,7 @@ uint64_t glDeleteQueries_Exec(uint64_t result, unsigned int a2, unsigned int *a3
   {
     v3 = a3;
     v4 = result;
-    v5 = *(result + 25952);
+    v5 = result[3244];
     if (v5)
     {
       v6 = a2 == 0;
@@ -6526,7 +6544,7 @@ LABEL_9:
       goto LABEL_19;
     }
 
-    v7 = (result + 33696);
+    v7 = result + 4212;
     v8 = a2;
     v9 = a3;
     while (1)
@@ -6544,7 +6562,7 @@ LABEL_9:
     }
 
     *(v5 + 254) = 0;
-    *(result + 25952) = 0;
+    result[3244] = 0;
     v11 = *(result + 32496);
     if (*(result + 32496))
     {
@@ -6573,8 +6591,8 @@ LABEL_9:
       while (v12);
     }
 
-    *(result + 28652) = 0;
-    *(result + 1524) |= 0x800000u;
+    *(result + 7163) = 0;
+    *(result + 381) |= 0x800000u;
     if (a2)
     {
 LABEL_19:
@@ -6593,7 +6611,7 @@ LABEL_19:
   return result;
 }
 
-void glBeginQuery_Exec(uint64_t a1, int a2, unsigned int a3)
+void glBeginQuery_Exec(uint64_t a1, int a2, uint64_t a3)
 {
   v3 = a1 + 25976;
   if (!a3)
@@ -6601,6 +6619,7 @@ void glBeginQuery_Exec(uint64_t a1, int a2, unsigned int a3)
     goto LABEL_49;
   }
 
+  v4 = a3;
   v5 = a2;
   if (a2 > 35974)
   {
@@ -6690,12 +6709,12 @@ LABEL_15:
     os_unfair_lock_lock((a1 + 27780));
   }
 
-  v14 = gleLookupHashObject(a1 + 25904, a3);
+  v14 = gleLookupHashObject(a1 + 25904, v4);
   if (!v14)
   {
-    if (gleIsHashName(a1 + 25904, a3))
+    if (gleIsHashName(a1 + 25904, v4))
     {
-      QueryObject = gleCreateQueryObject(a1, a3);
+      QueryObject = gleCreateQueryObject(a1, v4);
       gleAddHashNameAndObject(a1, a1 + 25904, QueryObject);
       goto LABEL_26;
     }
@@ -6798,8 +6817,9 @@ LABEL_46:
   }
 }
 
-void glBeginQuery_PackThread(uint64_t a1, int a2, unsigned int a3)
+void glBeginQuery_PackThread(uint64_t a1, int a2, uint64_t a3)
 {
+  v3 = a3;
   v6 = 26536;
   if (a2 > 35974)
   {
@@ -6860,7 +6880,7 @@ LABEL_14:
   }
 
   os_unfair_lock_lock((a1 + 27780));
-  v9 = gleLookupHashObject(a1 + 25904, a3);
+  v9 = gleLookupHashObject(a1 + 25904, v3);
   if (v9)
   {
     QueryObject = v9;
@@ -6915,7 +6935,7 @@ LABEL_41:
       v13 = gleAddCommand(a1, glBeginQueryIndexed_FullUnpackThread, 12);
       *v13 = a2;
       v13[1] = 0;
-      v13[2] = a3;
+      v13[2] = v3;
       return;
     }
 
@@ -6924,9 +6944,9 @@ LABEL_37:
     goto LABEL_41;
   }
 
-  if (gleIsHashName(a1 + 25904, a3))
+  if (gleIsHashName(a1 + 25904, v3))
   {
-    QueryObject = gleCreateQueryObject(a1, a3);
+    QueryObject = gleCreateQueryObject(a1, v3);
     gleAddHashNameAndObject(a1, a1 + 25904, QueryObject);
     v11 = *(QueryObject + 1);
     goto LABEL_24;
@@ -6941,27 +6961,27 @@ LABEL_28:
   os_unfair_lock_unlock((a1 + 27780));
 }
 
-void glEndQuery_Exec(uint64_t a1, int a2)
+void glEndQuery_Exec(uint64_t result, int a2)
 {
   if (a2 > 35974)
   {
     if (a2 == 35975)
     {
       v8 = 0;
-      v7 = (a1 + 25960);
-      *(a1 + 28652) = 0;
-      *(a1 + 1548) |= 0x8000u;
+      v7 = (result + 25960);
+      *(result + 28652) = 0;
+      *(result + 1548) |= 0x8000u;
       v4 = 1;
       v6 = 2;
-      v5 = (a1 + 25976);
+      v5 = (result + 25976);
       goto LABEL_16;
     }
 
     if (a2 == 35976)
     {
       v8 = 0;
-      v7 = (a1 + 25968);
-      v5 = (a1 + 25980);
+      v7 = (result + 25968);
+      v5 = (result + 25980);
       v4 = 1;
       v6 = 6;
       goto LABEL_16;
@@ -6974,7 +6994,7 @@ void glEndQuery_Exec(uint64_t a1, int a2)
   if (a2 == 35007)
   {
     v5 = 0;
-    v7 = (a1 + 25944);
+    v7 = (result + 25944);
     v8 = 1;
     v4 = 1;
     v6 = 1;
@@ -6987,7 +7007,7 @@ void glEndQuery_Exec(uint64_t a1, int a2)
 LABEL_8:
     if (a2 != v3)
     {
-      if (*(a1 + 29832))
+      if (*(result + 29832))
       {
         return;
       }
@@ -7000,30 +7020,30 @@ LABEL_8:
   v4 = 0;
   v5 = 0;
   v6 = 0;
-  v7 = (a1 + 25936);
+  v7 = (result + 25936);
   v8 = 1;
 LABEL_16:
   v10 = *v7;
   if (!*v7 || *(v10 + 252) != a2)
   {
-    if (*(a1 + 29832))
+    if (*(result + 29832))
     {
       return;
     }
 
     v9 = 1282;
 LABEL_14:
-    *(a1 + 29832) = v9;
+    *(result + 29832) = v9;
     return;
   }
 
   *v7 = 0;
-  v11 = *(a1 + 32496);
-  if (*(a1 + 32496))
+  v11 = *(result + 32496);
+  if (*(result + 32496))
   {
     v12 = (v11 + 1) & 0x1FE;
     v13 = vdupq_n_s64(v11 - 1);
-    v14 = (a1 + 8 * v6 + 33608);
+    v14 = (result + 8 * v6 + 33608);
     v15 = xmmword_23A102AE0;
     v16 = vdupq_n_s64(2uLL);
     do
@@ -7052,32 +7072,32 @@ LABEL_14:
   {
     if ((v4 & 1) == 0)
     {
-      *(a1 + 17710) = 0;
+      *(result + 17710) = 0;
     }
 
 LABEL_30:
-    *(a1 + 28652) = 0;
-    *(a1 + 1524) |= 0x800000u;
+    *(result + 28652) = 0;
+    *(result + 1524) |= 0x800000u;
     goto LABEL_32;
   }
 
-  if (!*(a1 + 32481))
+  if (!*(result + 32481))
   {
     *(v10 + 240) = *v5;
     *v5 = 0;
     goto LABEL_32;
   }
 
-  if (*(*(a1 + 29032) + 107))
+  if (*(*(result + 29032) + 107))
   {
     goto LABEL_30;
   }
 
 LABEL_32:
-  if (*(a1 + 32496))
+  if (*(result + 32496))
   {
     v18 = 0;
-    v19 = (a1 + 32512);
+    v19 = (result + 32512);
     v20 = (v10 + 136);
     do
     {
@@ -7088,7 +7108,7 @@ LABEL_32:
       v19 += 209;
     }
 
-    while (v18 < *(a1 + 32496));
+    while (v18 < *(result + 32496));
   }
 
   v22 = *(v10 + 20) - 1;
@@ -7096,7 +7116,7 @@ LABEL_32:
   if (!v22)
   {
 
-    gleFreeQueryObject(a1, v10);
+    gleFreeQueryObject(result, v10);
   }
 }
 
@@ -7404,7 +7424,7 @@ LABEL_34:
   return result;
 }
 
-uint64_t glGetQueryObjectiv_Exec(uint64_t a1, int a2, int a3, _DWORD *a4)
+uint64_t glGetQueryObjectiv_Exec(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4)
 {
   v7[1] = *MEMORY[0x277D85DE8];
   v7[0] = 0;
@@ -7554,7 +7574,7 @@ uint64_t glGenQueries_ExecThread(uint64_t a1, unsigned int a2, uint64_t a3)
   return glGenQueries_Exec(a1, a2, a3);
 }
 
-uint64_t glDeleteQueries_ExecThread(uint64_t a1, unsigned int a2, unsigned int *a3)
+uint64_t *glDeleteQueries_ExecThread(uint64_t a1, unsigned int a2, unsigned int *a3)
 {
   (*(a1 + 27752))();
 
@@ -7568,7 +7588,7 @@ uint64_t glGetQueryiv_ExecThread(uint64_t a1, int a2, int a3, int *a4)
   return glGetQueryiv_Exec(a1, a2, a3, a4);
 }
 
-uint64_t glGetQueryObjectiv_ExecThread(intptr_t a1, int a2, int a3, _DWORD *a4)
+uint64_t glGetQueryObjectiv_ExecThread(intptr_t a1, uint64_t a2, uint64_t a3, _DWORD *a4)
 {
   v7[1] = *MEMORY[0x277D85DE8];
   v7[0] = 0;
@@ -8613,19 +8633,20 @@ void glProgramBinary_ExecThread(uint64_t a1, int a2)
   glProgramBinary_Exec(a1, a2);
 }
 
-void glUseProgramStages_Exec(uint64_t *a1, unsigned int a2, int a3, int a4)
+void glUseProgramStages_Exec(uint64_t *a1, uint64_t a2, int a3, int a4)
 {
+  v6 = a2;
   v8 = a1 + 3584;
   os_unfair_lock_lock((a1[2412] + 324));
-  ProgramPipelineHashObject = gleLookupHashObject(a1[2412] + 136, a2);
-  if (!ProgramPipelineHashObject && (!gleIsHashName(a1[2412] + 136, a2) || (ProgramPipelineHashObject = gleCreateProgramPipelineHashObject(a1, a2)) == 0))
+  ProgramPipelineHashObject = gleLookupHashObject(a1[2412] + 136, v6);
+  if (!ProgramPipelineHashObject && (!gleIsHashName(a1[2412] + 136, v6) || (ProgramPipelineHashObject = gleCreateProgramPipelineHashObject(a1, v6, v15, v16)) == 0))
   {
 LABEL_13:
     if (!*(v8 + 580))
     {
-      v15 = 1282;
+      v17 = 1282;
 LABEL_17:
-      *(v8 + 580) = v15;
+      *(v8 + 580) = v17;
       goto LABEL_37;
     }
 
@@ -8661,17 +8682,17 @@ LABEL_17:
 
         v14 = v12 + 5;
 LABEL_19:
-        v16 = 0;
-        v17 = v10 + 40;
+        v18 = 0;
+        v19 = v10 + 40;
         *(v10 + 104) |= 1u;
         do
         {
-          v18 = (&unk_23A102B70 + 8 * v16);
-          if ((*v18 & a3) != 0)
+          v20 = (&unk_23A102B70 + 8 * v18);
+          if ((*v20 & a3) != 0)
           {
-            v19 = v18[1];
-            v20 = *(v17 + 8 * v19);
-            *(v17 + 8 * v19) = v13;
+            v21 = v20[1];
+            v22 = *(v19 + 8 * v21);
+            *(v19 + 8 * v21) = v13;
             if (v13)
             {
               ++*(v13 + 5);
@@ -8679,48 +8700,48 @@ LABEL_19:
 
             if (v10 == a1[3097] && !a1[3096])
             {
-              v21 = *(v8 + 3824);
+              v23 = *(v8 + 3824);
               if (*(v8 + 3824))
               {
-                v22 = &a1[v19 + 4188];
-                v23 = v14;
+                v24 = &a1[v21 + 4188];
+                v25 = v14;
                 do
                 {
                   if (v14)
                   {
-                    v24 = *v23;
+                    v26 = *v25;
                   }
 
                   else
                   {
-                    v24 = 0;
+                    v26 = 0;
                   }
 
-                  *v22 = v24;
-                  ++v23;
-                  v22 += 209;
-                  --v21;
+                  *v24 = v26;
+                  ++v25;
+                  v24 += 209;
+                  --v23;
                 }
 
-                while (v21);
+                while (v23);
               }
             }
 
-            if (v20)
+            if (v22)
             {
-              v25 = *(v20 + 20) - 1;
-              *(v20 + 20) = v25;
-              if (v25 == 1)
+              v27 = *(v22 + 20) - 1;
+              *(v22 + 20) = v27;
+              if (v27 == 1)
               {
-                gleDeleteHashNameAndObject(a1[2412], (a1[2412] + 168), *(v20 + 16));
+                gleDeleteHashNameAndObject(a1[2412], (a1[2412] + 168), *(v22 + 16));
               }
             }
           }
 
-          ++v16;
+          ++v18;
         }
 
-        while (v16 != 5);
+        while (v18 != 5);
         if (v10 == a1[3097])
         {
           gleBindProgramPipelineObject(a1, v10);
@@ -8733,14 +8754,14 @@ LABEL_19:
 LABEL_15:
     if (!*(v8 + 580))
     {
-      v15 = 1281;
+      v17 = 1281;
       goto LABEL_17;
     }
 
 LABEL_37:
-    v26 = (a1[2412] + 324);
+    v28 = (a1[2412] + 324);
 
-    os_unfair_lock_unlock(v26);
+    os_unfair_lock_unlock(v28);
     return;
   }
 
@@ -8751,11 +8772,12 @@ LABEL_37:
   }
 }
 
-void glActiveShaderProgram_Exec(uint64_t a1, unsigned int a2, int a3)
+void glActiveShaderProgram_Exec(uint64_t a1, uint64_t a2, int a3)
 {
+  v4 = a2;
   os_unfair_lock_lock((*(a1 + 19296) + 324));
-  ProgramPipelineHashObject = gleLookupHashObject(*(a1 + 19296) + 136, a2);
-  if (!ProgramPipelineHashObject && (!gleIsHashName(*(a1 + 19296) + 136, a2) || (ProgramPipelineHashObject = gleCreateProgramPipelineHashObject(a1, a2)) == 0))
+  ProgramPipelineHashObject = gleLookupHashObject(*(a1 + 19296) + 136, v4);
+  if (!ProgramPipelineHashObject && (!gleIsHashName(*(a1 + 19296) + 136, v4) || (ProgramPipelineHashObject = gleCreateProgramPipelineHashObject(a1, v4, v10, v11)) == 0))
   {
 LABEL_8:
     if (!*(a1 + 29832))
@@ -8787,22 +8809,23 @@ LABEL_8:
   v7[10] = v9;
   if (v8)
   {
-    v10 = *(v8 + 20) - 1;
-    *(v8 + 20) = v10;
-    if (v10 == 1)
+    v12 = *(v8 + 20) - 1;
+    *(v8 + 20) = v12;
+    if (v12 == 1)
     {
       gleDeleteHashNameAndObject(*(a1 + 19296), (*(a1 + 19296) + 168), *(v8 + 16));
     }
   }
 
 LABEL_14:
-  v11 = (*(a1 + 19296) + 324);
+  v13 = (*(a1 + 19296) + 324);
 
-  os_unfair_lock_unlock(v11);
+  os_unfair_lock_unlock(v13);
 }
 
-uint64_t glCreateShaderProgramv_Exec(size_t a1, int a2, int a3, const void **a4)
+uint64_t glCreateShaderProgramv_Exec(size_t a1, uint64_t a2, uint64_t a3, const char **a4)
 {
+  v5 = a3;
   ShaderObjectARB_Exec = glCreateShaderObjectARB_Exec(a1, a2);
   if (!ShaderObjectARB_Exec)
   {
@@ -8810,7 +8833,7 @@ uint64_t glCreateShaderProgramv_Exec(size_t a1, int a2, int a3, const void **a4)
   }
 
   v8 = ShaderObjectARB_Exec;
-  glShaderSourceARB_Exec(a1, ShaderObjectARB_Exec, a3, a4, 0);
+  glShaderSourceARB_Exec(a1, ShaderObjectARB_Exec, v5, a4, 0);
   glCompileShaderARB_Exec(a1, v8);
   ProgramObjectARB_Exec = glCreateProgramObjectARB_Exec(a1);
   if (ProgramObjectARB_Exec)
@@ -8840,13 +8863,14 @@ uint64_t glCreateShaderProgramv_Exec(size_t a1, int a2, int a3, const void **a4)
   return ProgramObjectARB_Exec;
 }
 
-void glBindProgramPipeline_Exec(uint64_t a1, unsigned int a2)
+void glBindProgramPipeline_Exec(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   os_unfair_lock_lock((*(a1 + 19296) + 324));
-  if (a2)
+  if (v2)
   {
-    ProgramPipelineHashObject = gleLookupHashObject(*(a1 + 19296) + 136, a2);
-    if (!ProgramPipelineHashObject && (!gleIsHashName(*(a1 + 19296) + 136, a2) || (ProgramPipelineHashObject = gleCreateProgramPipelineHashObject(a1, a2)) == 0) || (v5 = ProgramPipelineHashObject, ProgramPipelineHashObject[6] != 6) || (v6 = *(a1 + 26432), *(v6 + 42) != -1) && !*(v6 + 41))
+    ProgramPipelineHashObject = gleLookupHashObject(*(a1 + 19296) + 136, v2);
+    if (!ProgramPipelineHashObject && (!gleIsHashName(*(a1 + 19296) + 136, v2) || (ProgramPipelineHashObject = gleCreateProgramPipelineHashObject(a1, v2, v8, v9)) == 0) || (v5 = ProgramPipelineHashObject, ProgramPipelineHashObject[6] != 6) || (v6 = *(a1 + 26432), *(v6 + 42) != -1) && !*(v6 + 41))
     {
       os_unfair_lock_unlock((*(a1 + 19296) + 324));
       if (!*(a1 + 29832))
@@ -8869,19 +8893,21 @@ void glBindProgramPipeline_Exec(uint64_t a1, unsigned int a2)
   os_unfair_lock_unlock(v7);
 }
 
-void glDeleteProgramPipelines_Exec(uint64_t a1, unsigned int a2, int *a3)
+void glDeleteProgramPipelines_Exec(uint64_t a1, uint64_t a2, int *a3)
 {
+  v4 = a2;
   os_unfair_lock_lock((*(a1 + 19296) + 324));
-  gleDeleteProgramPipelines(a1, a2, a3);
+  gleDeleteProgramPipelines(a1, v4, a3);
   v6 = (*(a1 + 19296) + 324);
 
   os_unfair_lock_unlock(v6);
 }
 
-void glGenProgramPipelines_Exec(uint64_t a1, unsigned int a2, uint64_t a3)
+void glGenProgramPipelines_Exec(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v4 = a2;
   os_unfair_lock_lock((*(a1 + 19296) + 324));
-  gleGenProgramPipelines(a1, a2, a3);
+  gleGenProgramPipelines(a1, v4, a3);
   v6 = (*(a1 + 19296) + 324);
 
   os_unfair_lock_unlock(v6);
@@ -8895,18 +8921,19 @@ BOOL glIsProgramPipeline_Exec(uint64_t a1, int a2)
   return v4 != 0;
 }
 
-void glGetProgramPipelineiv_Exec(uint64_t a1, unsigned int a2, int a3, _DWORD *a4)
+void glGetProgramPipelineiv_Exec(uint64_t a1, uint64_t a2, int a3, _DWORD *a4)
 {
+  v6 = a2;
   os_unfair_lock_lock((*(a1 + 19296) + 324));
-  ProgramPipelineHashObject = gleLookupHashObject(*(a1 + 19296) + 136, a2);
-  if (!ProgramPipelineHashObject && (!gleIsHashName(*(a1 + 19296) + 136, a2) || (ProgramPipelineHashObject = gleCreateProgramPipelineHashObject(a1, a2)) == 0))
+  ProgramPipelineHashObject = gleLookupHashObject(*(a1 + 19296) + 136, v6);
+  if (!ProgramPipelineHashObject && (!gleIsHashName(*(a1 + 19296) + 136, v6) || (ProgramPipelineHashObject = gleCreateProgramPipelineHashObject(a1, v6, v10, v11)) == 0))
   {
     if (*(a1 + 29832))
     {
       goto LABEL_21;
     }
 
-    v10 = 1282;
+    v12 = 1282;
     goto LABEL_26;
   }
 
@@ -8966,21 +8993,22 @@ LABEL_24:
     goto LABEL_21;
   }
 
-  v10 = 1280;
+  v12 = 1280;
 LABEL_26:
-  *(a1 + 29832) = v10;
+  *(a1 + 29832) = v12;
 LABEL_21:
-  v11 = (*(a1 + 19296) + 324);
+  v13 = (*(a1 + 19296) + 324);
 
-  os_unfair_lock_unlock(v11);
+  os_unfair_lock_unlock(v13);
 }
 
-void glValidateProgramPipeline_Exec(unint64_t a1, unsigned int a2)
+void glValidateProgramPipeline_Exec(unint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v4 = a1 + 28652;
   os_unfair_lock_lock((*(a1 + 19296) + 324));
-  ProgramPipelineHashObject = gleLookupHashObject(*(a1 + 19296) + 136, a2);
-  if (!ProgramPipelineHashObject && (!gleIsHashName(*(a1 + 19296) + 136, a2) || (ProgramPipelineHashObject = gleCreateProgramPipelineHashObject(a1, a2)) == 0))
+  ProgramPipelineHashObject = gleLookupHashObject(*(a1 + 19296) + 136, v2);
+  if (!ProgramPipelineHashObject && (!gleIsHashName(*(a1 + 19296) + 136, v2) || (ProgramPipelineHashObject = gleCreateProgramPipelineHashObject(a1, v2, v14, v15)) == 0))
   {
     if (!*(v4 + 1180))
     {
@@ -9013,7 +9041,7 @@ void glValidateProgramPipeline_Exec(unint64_t a1, unsigned int a2)
   v12 = *(v4 + 3849);
   if ((*(v4 + 3) & 8) != 0 && *(v4 + 29) < 0 && *(v4 + 31) < 0)
   {
-    v14 = 0;
+    v16 = 0;
   }
 
   else
@@ -9022,27 +9050,27 @@ void glValidateProgramPipeline_Exec(unint64_t a1, unsigned int a2)
     {
       if (v12 == 1)
       {
-        v13 = gleDoSelectiveDispatchNoErrorCoreGL3(a1, 0x8000000u, 0x80u, 0x80u, 0xF8000000, v6.n128_f64[0], v7, v8);
+        v13 = gleDoSelectiveDispatchNoErrorCoreGL3(a1, 0x8000000u, 0x80u, 0x80u, 4160749568, v6.n128_f64[0], v7, v8);
       }
 
       else
       {
-        v13 = gleDoSelectiveDispatchNoErrorCore(a1, 0x8000000u, 0x80u, 0x80u, 0xF8000000, v6, v7, v8);
+        v13 = gleDoSelectiveDispatchNoErrorCore(a1, 0x8000000u, 0x80u, 0x80u, 4160749568, v6, v7, v8);
       }
     }
 
     else
     {
-      v13 = gleDoSelectiveDispatchNoErrorCoreES2(a1, 0x8000000u, 0x80u, 0x80u, 0xF8000000, v6.n128_f64[0], v7, v8);
+      v13 = gleDoSelectiveDispatchNoErrorCoreES2(a1, 0x8000000u, 0x80u, 0x80u, 4160749568, v6.n128_f64[0], v7, v8);
     }
 
-    v14 = v13;
+    v16 = v13;
   }
 
-  v15 = *(v9 + 88);
-  if (v15)
+  v17 = *(v9 + 88);
+  if (v17)
   {
-    free(v15);
+    free(v17);
   }
 
   *(v9 + 96) = 0;
@@ -9062,13 +9090,13 @@ void glValidateProgramPipeline_Exec(unint64_t a1, unsigned int a2)
   if (!*(v4 + 3834) || !*(a1 + 29008) && !*(a1 + 28960))
   {
     *(v9 + 100) = 0;
-    v16 = "Validation Failed: Current draw framebuffer is invalid.\n";
+    v18 = "Validation Failed: Current draw framebuffer is invalid.\n";
 LABEL_35:
-    gleAppendStringToInfoLog(v16, (v9 + 88), (v9 + 96));
+    gleAppendStringToInfoLog(v18, (v9 + 88), (v9 + 96));
     goto LABEL_36;
   }
 
-  if (*(v4 + 3832) && !v14)
+  if (*(v4 + 3832) && !v16)
   {
     *(v9 + 100) = 1;
     goto LABEL_36;
@@ -9077,27 +9105,27 @@ LABEL_35:
   *(v9 + 100) = 0;
   if (!*(v9 + 101))
   {
-    v16 = "Validation Failed: Sampler error:\n  Samplers of different types use the same texture image unit.\n   - or -\n  A sampler's texture unit is out of range (greater than max allowed or negative).\n";
+    v18 = "Validation Failed: Sampler error:\n  Samplers of different types use the same texture image unit.\n   - or -\n  A sampler's texture unit is out of range (greater than max allowed or negative).\n";
     goto LABEL_35;
   }
 
-  v18 = *(v9 + 40);
-  if (!v18 || (*(v18 + 3720) & 1) == 0)
+  v20 = *(v9 + 40);
+  if (!v20 || (*(v20 + 3720) & 1) == 0)
   {
-    v16 = "Validation Failed: Program does not contain vertex shader. Results will be undefined.\n";
+    v18 = "Validation Failed: Program does not contain vertex shader. Results will be undefined.\n";
     goto LABEL_35;
   }
 
-  v19 = *(v9 + 72);
-  if ((!v19 || (*(v19 + 3720) & 2) == 0) && !*(a1 + 17984))
+  v21 = *(v9 + 72);
+  if ((!v21 || (*(v21 + 3720) & 2) == 0) && !*(a1 + 17984))
   {
-    v16 = "Validation Failed: Program does not contain fragment shader. Results will be undefined.\n";
+    v18 = "Validation Failed: Program does not contain fragment shader. Results will be undefined.\n";
     goto LABEL_35;
   }
 
-  if (v14)
+  if (v16)
   {
-    v16 = "Validation Failed\n";
+    v18 = "Validation Failed\n";
     goto LABEL_35;
   }
 
@@ -9118,12 +9146,12 @@ LABEL_36:
   }
 
 LABEL_41:
-  v17 = (*(a1 + 19296) + 324);
+  v19 = (*(a1 + 19296) + 324);
 
-  os_unfair_lock_unlock(v17);
+  os_unfair_lock_unlock(v19);
 }
 
-void glGetProgramPipelineInfoLog_Exec(uint64_t a1, unsigned int a2, int a3, _DWORD *a4, void *a5)
+void glGetProgramPipelineInfoLog_Exec(uint64_t a1, uint64_t a2, int a3, _DWORD *a4, void *a5)
 {
   if (a3 < 0)
   {
@@ -9135,9 +9163,10 @@ void glGetProgramPipelineInfoLog_Exec(uint64_t a1, unsigned int a2, int a3, _DWO
 
   else
   {
+    v9 = a2;
     os_unfair_lock_lock((*(a1 + 19296) + 324));
-    ProgramPipelineHashObject = gleLookupHashObject(*(a1 + 19296) + 136, a2);
-    if (ProgramPipelineHashObject || gleIsHashName(*(a1 + 19296) + 136, a2) && (ProgramPipelineHashObject = gleCreateProgramPipelineHashObject(a1, a2)) != 0)
+    ProgramPipelineHashObject = gleLookupHashObject(*(a1 + 19296) + 136, v9);
+    if (ProgramPipelineHashObject || gleIsHashName(*(a1 + 19296) + 136, v9) && (ProgramPipelineHashObject = gleCreateProgramPipelineHashObject(a1, v9, v12, v13)) != 0)
     {
       gleGetString(*(ProgramPipelineHashObject + 11), *(ProgramPipelineHashObject + 24), a3, a4, a5);
     }
@@ -9170,28 +9199,28 @@ _DWORD *glActiveShaderProgram_PackThread(uint64_t a1, int a2, int a3)
   return result;
 }
 
-uint64_t glCreateShaderProgramv_ExecThread(size_t a1, int a2, int a3, const void **a4)
+uint64_t glCreateShaderProgramv_ExecThread(size_t a1, uint64_t a2, uint64_t a3, const char **a4)
 {
   (*(a1 + 27752))();
 
   return glCreateShaderProgramv_Exec(a1, a2, a3, a4);
 }
 
-void *glBindProgramPipeline_PackThread(uint64_t a1, int a2)
+_DWORD *glBindProgramPipeline_PackThread(uint64_t a1, int a2)
 {
   result = gleAddCommand(a1, glBindProgramPipeline_UnpackThread, 4);
   *result = a2;
   return result;
 }
 
-void glDeleteProgramPipelines_ExecThread(uint64_t a1, unsigned int a2, int *a3)
+void glDeleteProgramPipelines_ExecThread(uint64_t a1, uint64_t a2, int *a3)
 {
   (*(a1 + 27752))();
 
   glDeleteProgramPipelines_Exec(a1, a2, a3);
 }
 
-void glGenProgramPipelines_ExecThread(uint64_t a1, unsigned int a2, uint64_t a3)
+void glGenProgramPipelines_ExecThread(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   (*(a1 + 27752))();
 
@@ -9205,28 +9234,28 @@ BOOL glIsProgramPipeline_ExecThread(uint64_t a1, int a2)
   return glIsProgramPipeline_Exec(a1, a2);
 }
 
-void glGetProgramPipelineiv_ExecThread(uint64_t a1, unsigned int a2, int a3, _DWORD *a4)
+void glGetProgramPipelineiv_ExecThread(uint64_t a1, uint64_t a2, int a3, _DWORD *a4)
 {
   (*(a1 + 27752))();
 
   glGetProgramPipelineiv_Exec(a1, a2, a3, a4);
 }
 
-void *glValidateProgramPipeline_PackThread(uint64_t a1, int a2)
+_DWORD *glValidateProgramPipeline_PackThread(uint64_t a1, int a2)
 {
   result = gleAddCommand(a1, glValidateProgramPipeline_UnpackThread, 4);
   *result = a2;
   return result;
 }
 
-void glGetProgramPipelineInfoLog_ExecThread(uint64_t a1, unsigned int a2, int a3, _DWORD *a4, void *a5)
+void glGetProgramPipelineInfoLog_ExecThread(uint64_t a1, uint64_t a2, int a3, _DWORD *a4, void *a5)
 {
   (*(a1 + 27752))();
 
   glGetProgramPipelineInfoLog_Exec(a1, a2, a3, a4, a5);
 }
 
-void *glReadBuffer_Comp(uint64_t a1, int a2)
+_DWORD *glReadBuffer_Comp(uint64_t a1, int a2)
 {
   result = gleAddCommand(a1, glReadBuffer_ListExec, 4);
   *result = a2;
@@ -9281,7 +9310,7 @@ uint64_t gleInternalFormatIsSigned(int a1)
   }
 }
 
-void *glReadPixels_PackThread(unint64_t a1, unsigned int a2, unsigned int a3, unsigned int a4, unsigned int a5, unsigned int a6, int a7, uint64_t a8)
+void *glReadPixels_PackThread(unint64_t a1, unsigned int a2, unsigned int a3, unsigned int a4, unsigned int a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (*(a1 + 26480))
   {
@@ -9531,11 +9560,12 @@ uint64_t OUTLINED_FUNCTION_0_5(uint64_t result)
   return result;
 }
 
-void glGenSamplers_ExecThread(uint64_t a1, int a2, int *a3)
+void glGenSamplers_ExecThread(uint64_t a1, uint64_t a2, int *a3)
 {
+  v4 = a2;
   (*(a1 + 27752))();
 
-  glGenSamplers_Exec(a1, a2, a3);
+  glGenSamplers_Exec(a1, v4, a3);
 }
 
 void glGenSamplers_Exec(uint64_t a1, int a2, int *a3)
@@ -9585,11 +9615,12 @@ void glGenSamplers_Exec(uint64_t a1, int a2, int *a3)
   }
 }
 
-void glDeleteSamplers_ExecThread(uint64_t a1, unsigned int a2, uint64_t a3)
+void glDeleteSamplers_ExecThread(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v4 = a2;
   (*(a1 + 27752))();
 
-  glDeleteSamplers_Exec(a1, a2, a3);
+  glDeleteSamplers_Exec(a1, v4, a3);
 }
 
 void glDeleteSamplers_Exec(uint64_t a1, unsigned int a2, uint64_t a3)
@@ -9638,11 +9669,12 @@ void glDeleteSamplers_Exec(uint64_t a1, unsigned int a2, uint64_t a3)
   }
 }
 
-BOOL glIsSampler_ExecThread(uint64_t a1, int a2)
+BOOL glIsSampler_ExecThread(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   (*(a1 + 27752))();
 
-  return glIsSampler_Exec(a1, a2);
+  return glIsSampler_Exec(a1, v2);
 }
 
 BOOL glIsSampler_Exec(uint64_t a1, int a2)
@@ -9661,7 +9693,7 @@ _DWORD *glBindSampler_PackThread(uint64_t a1, int a2, int a3)
   return result;
 }
 
-void glBindSampler_Exec(uint64_t a1, unsigned int a2, int a3)
+void glBindSampler_Exec(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (*(*(a1 + 29480) + 154) <= a2)
   {
@@ -9673,44 +9705,52 @@ void glBindSampler_Exec(uint64_t a1, unsigned int a2, int a3)
 
   else
   {
+    v4 = a3;
+    v5 = a2;
     os_unfair_lock_lock((*(a1 + 19296) + 324));
-    gleBindSamplerObject(a1, a2, a3);
+    gleBindSamplerObject(a1, v5, v4);
     v6 = (*(a1 + 19296) + 324);
 
     os_unfair_lock_unlock(v6);
   }
 }
 
-void glSamplerParameteri_Exec(uint64_t a1, int a2, int a3, int a4)
+void glSamplerParameteri_Exec(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
 {
+  v4 = a3;
+  v5 = a2;
   v8 = a4;
   os_unfair_lock_lock((*(a1 + 19296) + 324));
-  glSamplerParameterI_Exec(a1, a2, a3, &v8);
+  glSamplerParameterI_Exec(a1, v5, v4, &v8);
   v7 = (*(a1 + 19296) + 324);
 
   os_unfair_lock_unlock(v7);
 }
 
-void glSamplerParameterf_Exec(uint64_t a1, int a2, int a3, float a4)
+void glSamplerParameterf_Exec(uint64_t a1, uint64_t a2, uint64_t a3, float a4)
 {
+  v4 = a3;
+  v5 = a2;
   v8 = a4;
   os_unfair_lock_lock((*(a1 + 19296) + 324));
-  glSamplerParameterF_Exec(a1, a2, a3, &v8);
+  glSamplerParameterF_Exec(a1, v5, v4, &v8);
   v7 = (*(a1 + 19296) + 324);
 
   os_unfair_lock_unlock(v7);
 }
 
-void glGetSamplerParameteriv_Exec(uint64_t a1, int a2, int a3, int *a4)
+void glGetSamplerParameteriv_Exec(uint64_t a1, uint64_t a2, uint64_t a3, int *a4)
 {
+  v5 = a3;
+  v6 = a2;
   os_unfair_lock_lock((*(a1 + 19296) + 324));
-  glGetSamplerParameterIv_Exec(a1, a2, a3, a4);
+  glGetSamplerParameterIv_Exec(a1, v6, v5, a4);
   v8 = (*(a1 + 19296) + 324);
 
   os_unfair_lock_unlock(v8);
 }
 
-uint64_t *glGetSamplerParameterIv_Exec(uint64_t a1, int a2, int a3, int *a4)
+float *glGetSamplerParameterIv_Exec(uint64_t a1, int a2, int a3, int *a4)
 {
   result = gleLookupHashObject(*(a1 + 19296) + 232, a2);
   if (result)
@@ -9776,13 +9816,13 @@ LABEL_33:
     switch(a3)
     {
       case 33082:
-        v9 = *(result + 51);
+        v9 = result[51];
         break;
       case 33083:
-        v9 = *(result + 52);
+        v9 = result[52];
         break;
       case 34046:
-        v9 = *(result + 50);
+        v9 = result[50];
         break;
       default:
 LABEL_21:

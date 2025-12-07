@@ -20,42 +20,41 @@
 
 - (void)setMaximumTransmissionUnit:(unint64_t)unit
 {
-  unitCopy = unit;
   self->_maximumTransmissionUnit = unit;
   virtualInterface = [(NENexus *)self virtualInterface];
 
-  NEVirtualInterfaceSetMTU(virtualInterface, unitCopy);
+  NEVirtualInterfaceSetMTU(virtualInterface, unit);
 }
 
 - (void)setDnsServerAddresses:(id)addresses
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   addressesCopy = addresses;
   objc_storeStrong(&self->_dnsServerAddresses, addresses);
   if ([addressesCopy count])
   {
     v6 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     v7 = addressesCopy;
-    v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v17;
+      v10 = *v16;
       do
       {
         v11 = 0;
         do
         {
-          if (*v17 != v10)
+          if (*v16 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v16 + 1) + 8 * v11);
+          v12 = *(*(&v15 + 1) + 8 * v11);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -67,7 +66,7 @@
         }
 
         while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v9);
@@ -82,13 +81,11 @@
   virtualInterface = [(NENexus *)self virtualInterface];
   NEVirtualInterfaceSetDNSServers(virtualInterface, v6);
   NEVirtualInterfaceUpdateAdHocServiceReturnChanges(virtualInterface, 0, 1);
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setLocalAddresses:(id)addresses
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   addressesCopy = addresses;
   v6 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithArray:addressesCopy];
   v7 = [MEMORY[0x1E695DFD8] setWithArray:self->_localAddresses];
@@ -102,27 +99,27 @@
   virtualInterface = [(NENexus *)self virtualInterface];
   if ([v8 count])
   {
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     v11 = v8;
-    v12 = [v11 countByEnumeratingWithState:&v35 objects:v40 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v34 objects:v39 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v36;
+      v14 = *v35;
       do
       {
         v15 = 0;
         do
         {
-          if (*v36 != v14)
+          if (*v35 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v35 + 1) + 8 * v15);
+          v16 = *(*(&v34 + 1) + 8 * v15);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -134,7 +131,7 @@
         }
 
         while (v13 != v15);
-        v13 = [v11 countByEnumeratingWithState:&v35 objects:v40 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v34 objects:v39 count:16];
       }
 
       while (v13);
@@ -143,30 +140,30 @@
 
   if ([v6 count])
   {
-    v28 = v8;
-    v29 = v6;
-    v30 = addressesCopy;
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
+    v27 = v8;
+    v28 = v6;
+    v29 = addressesCopy;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     v18 = v6;
-    v19 = [v18 countByEnumeratingWithState:&v31 objects:v39 count:16];
+    v19 = [v18 countByEnumeratingWithState:&v30 objects:v38 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v32;
+      v21 = *v31;
       do
       {
         v22 = 0;
         do
         {
-          if (*v32 != v21)
+          if (*v31 != v21)
           {
             objc_enumerationMutation(v18);
           }
 
-          v23 = *(*(&v31 + 1) + 8 * v22);
+          v23 = *(*(&v30 + 1) + 8 * v22);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -183,20 +180,18 @@
         }
 
         while (v20 != v22);
-        v20 = [v18 countByEnumeratingWithState:&v31 objects:v39 count:16];
+        v20 = [v18 countByEnumeratingWithState:&v30 objects:v38 count:16];
       }
 
       while (v20);
     }
 
-    v6 = v29;
-    addressesCopy = v30;
-    v8 = v28;
+    v6 = v28;
+    addressesCopy = v29;
+    v8 = v27;
   }
 
   NEVirtualInterfaceUpdateAdHocServiceReturnChanges(virtualInterface, 0, 1);
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleUnassertFromClient:(id)client
@@ -357,7 +352,7 @@
 
 - (void)handleStartFromClient:(id)client
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   clientCopy = client;
   v5 = [MEMORY[0x1E6977E48] pathForClientID:clientCopy];
   v6 = v5;
@@ -386,8 +381,8 @@
       v10 = ne_log_obj();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v12) = 0;
-        _os_log_error_impl(&dword_1BA83C000, v10, OS_LOG_TYPE_ERROR, "Client has no pid, cannot assign nexus", &v12, 2u);
+        LOWORD(v11) = 0;
+        _os_log_error_impl(&dword_1BA83C000, v10, OS_LOG_TYPE_ERROR, "Client has no pid, cannot assign nexus", &v11, 2u);
       }
     }
   }
@@ -397,13 +392,11 @@
     parameters = ne_log_obj();
     if (os_log_type_enabled(parameters, OS_LOG_TYPE_ERROR))
     {
-      v12 = 138412290;
-      v13 = clientCopy;
-      _os_log_error_impl(&dword_1BA83C000, parameters, OS_LOG_TYPE_ERROR, "Failed to get path for client %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = clientCopy;
+      _os_log_error_impl(&dword_1BA83C000, parameters, OS_LOG_TYPE_ERROR, "Failed to get path for client %@", &v11, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setAvailability:(unint64_t)availability
@@ -452,7 +445,7 @@
 
 - (void)closeFlowWithClientIdentifier:(id)identifier
 {
-  v77 = *MEMORY[0x1E69E9840];
+  v76 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   if (identifierCopy)
   {
@@ -504,7 +497,7 @@
 
       else
       {
-        v57 = v15;
+        v56 = v15;
         if (self)
         {
           [objc_getProperty(self v17];
@@ -526,21 +519,21 @@
         v22 = [v19 objectForKeyedSubscript:v11];
 
         v23 = nw_context_copy_implicit_context();
-        v67 = MEMORY[0x1E69E9820];
-        v68 = 3221225472;
-        v69 = __41__NENexus_closeFlowWithClientIdentifier___block_invoke;
-        v70 = &unk_1E7F0A0E8;
-        v71 = v22;
-        v72 = v9;
+        v66 = MEMORY[0x1E69E9820];
+        v67 = 3221225472;
+        v68 = __41__NENexus_closeFlowWithClientIdentifier___block_invoke;
+        v69 = &unk_1E7F0A0E8;
+        v70 = v22;
+        v71 = v9;
         nw_queue_context_async();
 
         array = [MEMORY[0x1E695DF70] array];
+        v62 = 0u;
         v63 = 0u;
         v64 = 0u;
         v65 = 0u;
-        v66 = 0u;
-        v58 = v9;
-        v56 = v71;
+        v57 = v9;
+        v55 = v70;
         if (self)
         {
           v26 = objc_getProperty(self, v24, 72, 1);
@@ -552,22 +545,22 @@
         }
 
         v27 = v26;
-        v28 = [v27 countByEnumeratingWithState:&v63 objects:v74 count:16];
+        v28 = [v27 countByEnumeratingWithState:&v62 objects:v73 count:16];
         if (v28)
         {
           v30 = v28;
-          v31 = *v64;
+          v31 = *v63;
           do
           {
             v32 = 0;
             do
             {
-              if (*v64 != v31)
+              if (*v63 != v31)
               {
                 objc_enumerationMutation(v27);
               }
 
-              v33 = *(*(&v63 + 1) + 8 * v32);
+              v33 = *(*(&v62 + 1) + 8 * v32);
               if (self)
               {
                 v34 = objc_getProperty(self, v29, 72, 1);
@@ -589,34 +582,34 @@
             }
 
             while (v30 != v32);
-            v36 = [v27 countByEnumeratingWithState:&v63 objects:v74 count:16];
+            v36 = [v27 countByEnumeratingWithState:&v62 objects:v73 count:16];
             v30 = v36;
           }
 
           while (v36);
         }
 
-        v61 = 0u;
-        v62 = 0u;
-        v59 = 0u;
         v60 = 0u;
+        v61 = 0u;
+        v58 = 0u;
+        v59 = 0u;
         v37 = array;
-        v38 = [v37 countByEnumeratingWithState:&v59 objects:v73 count:16];
+        v38 = [v37 countByEnumeratingWithState:&v58 objects:v72 count:16];
         if (v38)
         {
           v40 = v38;
-          v41 = *v60;
+          v41 = *v59;
           do
           {
             v42 = 0;
             do
             {
-              if (*v60 != v41)
+              if (*v59 != v41)
               {
                 objc_enumerationMutation(v37);
               }
 
-              v43 = *(*(&v59 + 1) + 8 * v42);
+              v43 = *(*(&v58 + 1) + 8 * v42);
               if (self)
               {
                 v44 = objc_getProperty(self, v39, 72, 1);
@@ -632,7 +625,7 @@
             }
 
             while (v40 != v42);
-            v45 = [v37 countByEnumeratingWithState:&v59 objects:v73 count:16];
+            v45 = [v37 countByEnumeratingWithState:&v58 objects:v72 count:16];
             v40 = v45;
           }
 
@@ -641,7 +634,7 @@
 
         if (self)
         {
-          v48 = v56;
+          v48 = v55;
           if (objc_getProperty(self, v46, 64, 1))
           {
             objc_getProperty(self, v47, 64, 1);
@@ -650,7 +643,7 @@
 
           v49 = objc_getProperty(self, v47, 112, 1);
           v51 = v49;
-          v9 = v58;
+          v9 = v57;
           if (v49)
           {
             v49 = objc_getProperty(v49, v50, 32, 1);
@@ -661,14 +654,14 @@
         {
           v51 = 0;
           v49 = 0;
-          v9 = v58;
-          v48 = v56;
+          v9 = v57;
+          v48 = v55;
         }
 
         [v49 setObject:0 forKeyedSubscript:v11];
 
         [(NENexus *)self rejectFlowWithClientIdentifier:identifierCopy];
-        v15 = v57;
+        v15 = v56;
       }
     }
 
@@ -684,21 +677,19 @@
     if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v76 = "[NENexus closeFlowWithClientIdentifier:]";
+      v75 = "[NENexus closeFlowWithClientIdentifier:]";
       _os_log_fault_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_FAULT, "%s called with null clientUUID", buf, 0xCu);
     }
   }
-
-  v55 = *MEMORY[0x1E69E9840];
 }
 
 - (void)rejectFlowWithClientIdentifier:(void *)identifier
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (identifier)
   {
-    v16 = 0;
+    v15 = 0;
     memset(uu, 0, sizeof(uu));
     uuid_clear(uu);
     assign_message = nw_path_create_assign_message();
@@ -707,8 +698,8 @@
       v13 = ne_log_obj();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
       {
-        *v15 = 0;
-        _os_log_fault_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_FAULT, "nw_path_create_assign_message failed", v15, 2u);
+        *v14 = 0;
+        _os_log_fault_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_FAULT, "nw_path_create_assign_message failed", v14, 2u);
       }
 
       goto LABEL_10;
@@ -723,7 +714,7 @@
 
     v9 = MEMORY[0x1E695DEF0];
     v10 = Property;
-    v11 = [v9 dataWithBytes:v6 length:v16];
+    v11 = [v9 dataWithBytes:v6 length:v15];
     v12 = [v10 assignNexusData:v11 toClient:v3];
 
     free(v6);
@@ -732,37 +723,34 @@
       v13 = ne_log_obj();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
-        *v15 = 0;
-        _os_log_debug_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_DEBUG, "assignNexusData:toClient: failed", v15, 2u);
+        *v14 = 0;
+        _os_log_debug_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_DEBUG, "assignNexusData:toClient: failed", v14, 2u);
       }
 
 LABEL_10:
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __41__NENexus_closeFlowWithClientIdentifier___block_invoke(uint64_t a1)
+void *__41__NENexus_closeFlowWithClientIdentifier___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   protocol_handler = nw_channel_get_protocol_handler();
   result = [*(a1 + 40) protocol];
   if (protocol_handler)
   {
-    v5 = result == 0;
+    v4 = result == 0;
   }
 
   else
   {
-    v5 = 1;
+    v4 = 1;
   }
 
-  if (!v5)
+  if (!v4)
   {
-    v6 = *(*(protocol_handler + 24) + 8);
+    v5 = *(*(protocol_handler + 24) + 8);
 
-    return v6(protocol_handler, result, 1);
+    return v5(protocol_handler, result, 1);
   }
 
   return result;
@@ -770,7 +758,7 @@ uint64_t __41__NENexus_closeFlowWithClientIdentifier___block_invoke(uint64_t a1)
 
 - (BOOL)handleRequestNexusFromClient:(id)client
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   clientCopy = client;
   v5 = [MEMORY[0x1E6977E48] pathForClientID:clientCopy];
   v6 = v5;
@@ -779,8 +767,8 @@ uint64_t __41__NENexus_closeFlowWithClientIdentifier___block_invoke(uint64_t a1)
     parameters = [v5 parameters];
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v25 = 0x2020000000;
-    v26 = [parameters pid];
+    v24 = 0x2020000000;
+    v25 = [parameters pid];
     v8 = *(*(&buf + 1) + 24);
     v9 = v8 != 0;
     if (!v8)
@@ -788,8 +776,8 @@ uint64_t __41__NENexus_closeFlowWithClientIdentifier___block_invoke(uint64_t a1)
       v14 = ne_log_obj();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        *v23 = 0;
-        _os_log_error_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_ERROR, "Client has no pid, cannot assign nexus", v23, 2u);
+        *v22 = 0;
+        _os_log_error_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_ERROR, "Client has no pid, cannot assign nexus", v22, 2u);
       }
 
       goto LABEL_14;
@@ -813,17 +801,17 @@ LABEL_6:
           WeakRetained = 0;
         }
 
-        v17[0] = MEMORY[0x1E69E9820];
-        v17[1] = 3221225472;
-        v17[2] = __40__NENexus_handleRequestNexusFromClient___block_invoke;
-        v17[3] = &unk_1E7F097F8;
+        v16[0] = MEMORY[0x1E69E9820];
+        v16[1] = 3221225472;
+        v16[2] = __40__NENexus_handleRequestNexusFromClient___block_invoke;
+        v16[3] = &unk_1E7F097F8;
         v14 = v10;
-        v18 = v14;
+        v17 = v14;
         selfCopy = self;
         p_buf = &buf;
-        v20 = clientCopy;
-        v21 = parameters;
-        [WeakRetained acceptNewFlow:v14 fromNexus:self completionHandler:v17];
+        v19 = clientCopy;
+        v20 = parameters;
+        [WeakRetained acceptNewFlow:v14 fromNexus:self completionHandler:v16];
 
 LABEL_14:
         _Block_object_dispose(&buf, 8);
@@ -855,13 +843,12 @@ LABEL_14:
   v9 = 0;
 LABEL_15:
 
-  v15 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 void __40__NENexus_handleRequestNexusFromClient___block_invoke(uint64_t a1, void *a2)
 {
-  v98 = *MEMORY[0x1E69E9840];
+  v94 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
   if (!v3)
@@ -870,7 +857,7 @@ void __40__NENexus_handleRequestNexusFromClient___block_invoke(uint64_t a1, void
   }
 
   [v4 setState:2];
-  v93 = 0;
+  v89 = 0;
   Property = *(a1 + 40);
   if (Property)
   {
@@ -903,51 +890,51 @@ void __40__NENexus_handleRequestNexusFromClient___block_invoke(uint64_t a1, void
       v17 = &unk_1F38BA5E0;
     }
 
-    v27 = *(a1 + 40);
-    if (v27)
+    v26 = *(a1 + 40);
+    if (v26)
     {
-      v27 = objc_getProperty(v27, v15, 80, 1);
+      v26 = objc_getProperty(v26, v15, 80, 1);
     }
 
-    [v27 setObject:v17 forKeyedSubscript:v11];
-    v29 = *(a1 + 40);
-    if (v29)
+    [v26 setObject:v17 forKeyedSubscript:v11];
+    v28 = *(a1 + 40);
+    if (v28)
     {
-      v29 = objc_getProperty(v29, v28, 112, 1);
-      v31 = v29;
-      if (v29)
+      v28 = objc_getProperty(v28, v27, 112, 1);
+      v30 = v28;
+      if (v28)
       {
-        v29 = objc_getProperty(v29, v30, 32, 1);
+        v28 = objc_getProperty(v28, v29, 32, 1);
       }
     }
 
     else
     {
-      v31 = 0;
+      v30 = 0;
     }
 
-    v32 = [v29 objectForKeyedSubscript:v11];
+    v31 = [v28 objectForKeyedSubscript:v11];
 
-    if (v32)
+    if (v31)
     {
       nw_channel_get_key();
     }
 
-    v33 = nw_context_copy_implicit_context();
-    v85 = MEMORY[0x1E69E9820];
-    v86 = 3221225472;
-    v87 = __40__NENexus_handleRequestNexusFromClient___block_invoke_200;
-    v88 = &unk_1E7F097D0;
-    v34 = *(a1 + 40);
-    v35 = *(a1 + 48);
-    v89 = v32;
-    v90 = v34;
-    v91 = v35;
-    v92 = *(a1 + 32);
-    v20 = v32;
+    v32 = nw_context_copy_implicit_context();
+    v81 = MEMORY[0x1E69E9820];
+    v82 = 3221225472;
+    v83 = __40__NENexus_handleRequestNexusFromClient___block_invoke_200;
+    v84 = &unk_1E7F097D0;
+    v33 = *(a1 + 40);
+    v34 = *(a1 + 48);
+    v85 = v31;
+    v86 = v33;
+    v87 = v34;
+    v88 = *(a1 + 32);
+    v20 = v31;
     nw_queue_context_async();
 
-    v36 = v89;
+    v35 = v85;
     goto LABEL_27;
   }
 
@@ -962,25 +949,25 @@ void __40__NENexus_handleRequestNexusFromClient___block_invoke(uint64_t a1, void
     v19 = ne_log_obj();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
     {
-      *v96 = 0;
-      _os_log_fault_impl(&dword_1BA83C000, v19, OS_LOG_TYPE_FAULT, "nw_nexus_create_channel_to_new_instance failed", v96, 2u);
+      *v92 = 0;
+      _os_log_fault_impl(&dword_1BA83C000, v19, OS_LOG_TYPE_FAULT, "nw_nexus_create_channel_to_new_instance failed", v92, 2u);
     }
 
     goto LABEL_72;
   }
 
   v19 = channel_to_new_instance;
-  *v96 = 0;
-  v97 = 0;
-  [0 getUUIDBytes:v96];
+  *v92 = 0;
+  v93 = 0;
+  [0 getUUIDBytes:v92];
   *buf = 0;
   if ((nw_channel_get_nexus_instance() & 1) == 0)
   {
-    v58 = ne_log_obj();
-    if (os_log_type_enabled(v58, OS_LOG_TYPE_FAULT))
+    v57 = ne_log_obj();
+    if (os_log_type_enabled(v57, OS_LOG_TYPE_FAULT))
     {
-      *v94 = 0;
-      _os_log_fault_impl(&dword_1BA83C000, v58, OS_LOG_TYPE_FAULT, "nw_channel_get_nexus_instance failed", v94, 2u);
+      *v90 = 0;
+      _os_log_fault_impl(&dword_1BA83C000, v57, OS_LOG_TYPE_FAULT, "nw_channel_get_nexus_instance failed", v90, 2u);
     }
 
     goto LABEL_72;
@@ -995,60 +982,56 @@ void __40__NENexus_handleRequestNexusFromClient___block_invoke(uint64_t a1, void
   {
     if (v20)
     {
-      *v94 = 0;
-      v95 = 0;
-      [v20 getUUIDBytes:v94];
+      *v90 = 0;
+      v91 = 0;
+      [v20 getUUIDBytes:v90];
       v25 = *(a1 + 40);
       if (v25)
       {
         objc_getProperty(v25, v24, 64, 1);
       }
-
-      v26 = *(*(a1 + 64) + 8) + 24;
     }
 
     else
     {
-      v61 = *(a1 + 40);
-      if (v61)
+      v60 = *(a1 + 40);
+      if (v60)
       {
-        objc_getProperty(v61, v23, 64, 1);
+        objc_getProperty(v60, v23, 64, 1);
       }
-
-      v62 = *(*(a1 + 64) + 8) + 24;
     }
   }
 
   else if (v20)
   {
-    *v94 = 0;
-    v95 = 0;
-    [v20 getUUIDBytes:v94];
-    v60 = *(a1 + 40);
-    if (v60)
+    *v90 = 0;
+    v91 = 0;
+    [v20 getUUIDBytes:v90];
+    v59 = *(a1 + 40);
+    if (v59)
     {
-      objc_getProperty(v60, v59, 64, 1);
+      objc_getProperty(v59, v58, 64, 1);
     }
   }
 
   else
   {
-    v63 = *(a1 + 40);
-    if (v63)
+    v61 = *(a1 + 40);
+    if (v61)
     {
-      objc_getProperty(v63, v23, 64, 1);
+      objc_getProperty(v61, v23, 64, 1);
     }
   }
 
   if ((nw_nexus_bind_client_port() & 1) == 0)
   {
-    v77 = ne_log_obj();
-    if (os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
+    v75 = ne_log_obj();
+    if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
     {
-      v79 = *(*(*(a1 + 64) + 8) + 24);
-      *v94 = 67109120;
-      *&v94[4] = v79;
-      _os_log_error_impl(&dword_1BA83C000, v77, OS_LOG_TYPE_ERROR, "Failed to bind nexus port for %d", v94, 8u);
+      v76 = *(*(*(a1 + 64) + 8) + 24);
+      *v90 = 67109120;
+      *&v90[4] = v76;
+      _os_log_error_impl(&dword_1BA83C000, v75, OS_LOG_TYPE_ERROR, "Failed to bind nexus port for %d", v90, 8u);
     }
 
 LABEL_72:
@@ -1058,135 +1041,134 @@ LABEL_73:
     goto LABEL_74;
   }
 
-  v64 = nw_context_copy_implicit_context();
-  v80 = MEMORY[0x1E69E9820];
+  v62 = nw_context_copy_implicit_context();
+  v77 = MEMORY[0x1E69E9820];
   v17 = v19;
-  v81 = *(a1 + 40);
-  v82 = *(a1 + 48);
-  v83 = *(a1 + 32);
+  v78 = *(a1 + 48);
+  v79 = *(a1 + 32);
   nw_queue_context_async();
 
-  v11 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:{v96, v80, 3221225472, __40__NENexus_handleRequestNexusFromClient___block_invoke_201, &unk_1E7F097D0}];
-  v66 = *(a1 + 40);
-  if (v66)
+  v11 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:{v92, v77, 3221225472, __40__NENexus_handleRequestNexusFromClient___block_invoke_201, &unk_1E7F097D0}];
+  v64 = *(a1 + 40);
+  if (v64)
   {
-    v66 = objc_getProperty(v66, v65, 112, 1);
-    v68 = v66;
-    if (v66)
+    v64 = objc_getProperty(v64, v63, 112, 1);
+    v66 = v64;
+    if (v64)
     {
-      v66 = objc_getProperty(v66, v67, 32, 1);
+      v64 = objc_getProperty(v64, v65, 32, 1);
     }
   }
 
   else
   {
-    v68 = 0;
+    v66 = 0;
   }
 
-  [v66 setObject:v17 forKeyedSubscript:v11];
+  [v64 setObject:v17 forKeyedSubscript:v11];
 
-  v70 = *(a1 + 40);
-  if (v70)
+  v68 = *(a1 + 40);
+  if (v68)
   {
-    v70 = objc_getProperty(v70, v69, 72, 1);
+    v68 = objc_getProperty(v68, v67, 72, 1);
   }
 
-  v71 = MEMORY[0x1E696AD98];
-  v72 = *(*(*(a1 + 64) + 8) + 24);
-  v73 = v70;
-  v74 = [v71 numberWithInt:v72];
-  [v73 setObject:v11 forKeyedSubscript:v74];
+  v69 = MEMORY[0x1E696AD98];
+  v70 = *(*(*(a1 + 64) + 8) + 24);
+  v71 = v68;
+  v72 = [v69 numberWithInt:v70];
+  [v71 setObject:v11 forKeyedSubscript:v72];
 
-  v76 = *(a1 + 40);
-  if (v76)
+  v74 = *(a1 + 40);
+  if (v74)
   {
-    v76 = objc_getProperty(v76, v75, 80, 1);
+    v74 = objc_getProperty(v74, v73, 80, 1);
   }
 
-  [v76 setObject:&unk_1F38BA5E0 forKeyedSubscript:v11];
+  [v74 setObject:&unk_1F38BA5E0 forKeyedSubscript:v11];
 
-  v36 = v17;
+  v35 = v17;
 LABEL_27:
 
-  v38 = *(a1 + 32);
-  if (v38)
+  v37 = *(a1 + 32);
+  if (v37)
   {
-    objc_setProperty_atomic(v38, v37, v11, 24);
+    objc_setProperty_atomic(v37, v36, v11, 24);
   }
 
-  v39 = [v3 localEndpoint];
-  v40 = v39;
-  if (v39)
+  v38 = [v3 localEndpoint];
+  v39 = v38;
+  if (v38)
   {
-    v41 = [v39 copyCEndpoint];
+    v40 = [v38 copyCEndpoint];
   }
 
   else
   {
-    v42 = [*(a1 + 40) localAddresses];
-    v43 = [v42 firstObject];
-    v41 = [v43 copyCEndpoint];
+    v41 = [*(a1 + 40) localAddresses];
+    v42 = [v41 firstObject];
+    v40 = [v42 copyCEndpoint];
   }
 
-  *v94 = 0;
-  *v96 = 0;
-  v97 = 0;
-  [v11 getUUIDBytes:v96];
+  *v90 = 0;
+  *v92 = 0;
+  v93 = 0;
+  [v11 getUUIDBytes:v92];
   assign_message = nw_path_create_assign_message();
   if (assign_message)
   {
-    v46 = assign_message;
-    v47 = *(a1 + 40);
-    if (v47)
+    v45 = assign_message;
+    v46 = *(a1 + 40);
+    if (v46)
     {
-      v47 = objc_getProperty(v47, v45, 128, 1);
-      v49 = v47;
-      if (v47)
+      v46 = objc_getProperty(v46, v44, 128, 1);
+      v48 = v46;
+      if (v46)
       {
-        v47 = objc_getProperty(v47, v48, 32, 1);
+        v46 = objc_getProperty(v46, v47, 32, 1);
       }
     }
 
     else
     {
-      v49 = 0;
+      v48 = 0;
     }
 
-    v50 = MEMORY[0x1E695DEF0];
-    v51 = *v94;
-    v52 = v47;
-    v53 = [v50 dataWithBytes:v46 length:v51];
-    LOBYTE(v51) = [v52 assignNexusData:v53 toClient:*(a1 + 48)];
+    v49 = MEMORY[0x1E695DEF0];
+    v50 = *v90;
+    v51 = v46;
+    v52 = [v49 dataWithBytes:v45 length:v50];
+    LOBYTE(v50) = [v51 assignNexusData:v52 toClient:*(a1 + 48)];
 
-    free(v46);
-    if (v51)
+    free(v45);
+    if (v50)
     {
-      v56 = *(a1 + 32);
-      v55 = *(a1 + 40);
-      if (v55)
+      v55 = *(a1 + 32);
+      v54 = *(a1 + 40);
+      if (v54)
       {
-        v55 = objc_getProperty(v55, v54, 88, 1);
+        v54 = objc_getProperty(v54, v53, 88, 1);
       }
 
-      [v55 setObject:v56 forKeyedSubscript:*(a1 + 48)];
+      [v54 setObject:v55 forKeyedSubscript:*(a1 + 48)];
       goto LABEL_45;
     }
 
-    v57 = ne_log_obj();
-    if (os_log_type_enabled(v57, OS_LOG_TYPE_DEBUG))
+    v56 = ne_log_obj();
+    if (os_log_type_enabled(v56, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_debug_impl(&dword_1BA83C000, v57, OS_LOG_TYPE_DEBUG, "assignNexusData:toClient: failed", buf, 2u);
+      _os_log_debug_impl(&dword_1BA83C000, v56, OS_LOG_TYPE_DEBUG, "assignNexusData:toClient: failed", buf, 2u);
     }
   }
 
   else
   {
-    v57 = ne_log_obj();
-    if (os_log_type_enabled(v57, OS_LOG_TYPE_FAULT))
+    v56 = ne_log_obj();
+    if (os_log_type_enabled(v56, OS_LOG_TYPE_FAULT))
     {
       *buf = 0;
-      _os_log_fault_impl(&dword_1BA83C000, v57, OS_LOG_TYPE_FAULT, "nw_path_create_assign_message failed", buf, 2u);
+      _os_log_fault_impl(&dword_1BA83C000, v56, OS_LOG_TYPE_FAULT, "nw_path_create_assign_message failed", buf, 2u);
     }
   }
 
@@ -1194,12 +1176,10 @@ LABEL_27:
 LABEL_45:
 
 LABEL_74:
-  v78 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __40__NENexus_handleRequestNexusFromClient___block_invoke_200(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   protocol_handler = nw_channel_get_protocol_handler();
   if (protocol_handler)
   {
@@ -1209,25 +1189,25 @@ uint64_t __40__NENexus_handleRequestNexusFromClient___block_invoke_200(uint64_t 
       return result;
     }
 
-    v5 = ne_log_obj();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v4 = ne_log_obj();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v8 = 0;
-      v6 = "Failed to attach network protocol to user channel";
-      v7 = &v8;
+      v7 = 0;
+      v5 = "Failed to attach network protocol to user channel";
+      v6 = &v7;
 LABEL_9:
-      _os_log_error_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_ERROR, v6, v7, 2u);
+      _os_log_error_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_ERROR, v5, v6, 2u);
     }
   }
 
   else
   {
-    v5 = ne_log_obj();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v4 = ne_log_obj();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      v6 = "Could not get channel protocol";
-      v7 = buf;
+      v5 = "Could not get channel protocol";
+      v6 = buf;
       goto LABEL_9;
     }
   }
@@ -1237,7 +1217,6 @@ LABEL_9:
 
 uint64_t __40__NENexus_handleRequestNexusFromClient___block_invoke_201(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   protocol_handler = nw_channel_get_protocol_handler();
   if (protocol_handler)
   {
@@ -1247,25 +1226,25 @@ uint64_t __40__NENexus_handleRequestNexusFromClient___block_invoke_201(uint64_t 
       return result;
     }
 
-    v5 = ne_log_obj();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v4 = ne_log_obj();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v8 = 0;
-      v6 = "Failed to attach network protocol to user channel";
-      v7 = &v8;
+      v7 = 0;
+      v5 = "Failed to attach network protocol to user channel";
+      v6 = &v7;
 LABEL_9:
-      _os_log_error_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_ERROR, v6, v7, 2u);
+      _os_log_error_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_ERROR, v5, v6, 2u);
     }
   }
 
   else
   {
-    v5 = ne_log_obj();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v4 = ne_log_obj();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      v6 = "Could not get channel protocol";
-      v7 = buf;
+      v5 = "Could not get channel protocol";
+      v6 = buf;
       goto LABEL_9;
     }
   }
@@ -1322,35 +1301,35 @@ LABEL_9:
 - (void)cancel
 {
   selfCopy = self;
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   if (self)
   {
     self = objc_getProperty(self, a2, 88, 1);
   }
 
   selfCopy2 = self;
-  v4 = [(NENexus *)selfCopy2 countByEnumeratingWithState:&v34 objects:v38 count:16];
+  v4 = [(NENexus *)selfCopy2 countByEnumeratingWithState:&v33 objects:v37 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v35;
+    v6 = *v34;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v35 != v6)
+        if (*v34 != v6)
         {
           objc_enumerationMutation(selfCopy2);
         }
 
-        [(NENexus *)selfCopy closeFlowWithClientIdentifier:*(*(&v34 + 1) + 8 * i)];
+        [(NENexus *)selfCopy closeFlowWithClientIdentifier:*(*(&v33 + 1) + 8 * i)];
       }
 
-      v5 = [(NENexus *)selfCopy2 countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v5 = [(NENexus *)selfCopy2 countByEnumeratingWithState:&v33 objects:v37 count:16];
     }
 
     while (v5);
@@ -1385,8 +1364,8 @@ LABEL_9:
     v19 = v16;
 
     v20 = nw_context_copy_implicit_context();
-    v32 = v19;
-    v33 = v14;
+    v31 = v19;
+    v32 = v14;
     v11 = v14;
     v21 = v19;
     nw_queue_context_async_if_needed();
@@ -1422,28 +1401,23 @@ LABEL_23:
   {
     NEVirtualInterfaceInvalidate([(NENexus *)selfCopy virtualInterface]);
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 void __17__NENexus_cancel__block_invoke(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v2 = a1[4];
+  v9 = *MEMORY[0x1E69E9840];
   nw_channel_close();
-  v3 = ne_log_obj();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v2 = ne_log_obj();
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = a1[5];
-    v5 = a1[6];
-    v7 = 138412546;
+    v3 = a1[5];
+    v4 = a1[6];
+    v5 = 138412546;
+    v6 = v3;
+    v7 = 2112;
     v8 = v4;
-    v9 = 2112;
-    v10 = v5;
-    _os_log_impl(&dword_1BA83C000, v3, OS_LOG_TYPE_DEFAULT, "Closed channel for nexus %@ flow manager %@", &v7, 0x16u);
+    _os_log_impl(&dword_1BA83C000, v2, OS_LOG_TYPE_DEFAULT, "Closed channel for nexus %@ flow manager %@", &v5, 0x16u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (NENexus)initWithName:(id)name delegate:(id)delegate
@@ -1464,7 +1438,7 @@ void __17__NENexus_cancel__block_invoke(void *a1)
 
 - (NENexus)initWithLevel:(unint64_t)level name:(id)name virtualInterfaceType:(int64_t)type delegate:(id)delegate channelCount:(unsigned int)count netifRingSize:(unsigned int)size kernelPipeTxRingSize:(unsigned int)ringSize kernelPipeRxRingSize:(unsigned int)self0 execUUID:(id)self1
 {
-  v89 = *MEMORY[0x1E69E9840];
+  v88 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   delegateCopy = delegate;
   dCopy = d;
@@ -1478,7 +1452,7 @@ void __17__NENexus_cancel__block_invoke(void *a1)
 
     *uu = 136315138;
     *&uu[4] = "[NENexus initWithLevel:name:virtualInterfaceType:delegate:channelCount:netifRingSize:kernelPipeTxRingSize:kernelPipeRxRingSize:execUUID:]";
-    v79 = "%s called with null name";
+    v78 = "%s called with null name";
     goto LABEL_78;
   }
 
@@ -1492,17 +1466,17 @@ void __17__NENexus_cancel__block_invoke(void *a1)
 
     *uu = 136315138;
     *&uu[4] = "[NENexus initWithLevel:name:virtualInterfaceType:delegate:channelCount:netifRingSize:kernelPipeTxRingSize:kernelPipeRxRingSize:execUUID:]";
-    v79 = "%s called with null delegate";
+    v78 = "%s called with null delegate";
 LABEL_78:
-    v82 = uu;
-    v83 = v73;
-    v84 = 12;
+    v81 = uu;
+    v82 = v73;
+    v83 = 12;
     goto LABEL_66;
   }
 
-  v87.receiver = self;
-  v87.super_class = NENexus;
-  v21 = [(NENexus *)&v87 init];
+  v86.receiver = self;
+  v86.super_class = NENexus;
+  v21 = [(NENexus *)&v86 init];
   if (!v21)
   {
     self = ne_log_obj();
@@ -1559,7 +1533,7 @@ LABEL_47:
     if (os_log_type_enabled(v73, OS_LOG_TYPE_FAULT))
     {
       *uu = 0;
-      v79 = "setupFlowManager failed";
+      v78 = "setupFlowManager failed";
       goto LABEL_64;
     }
 
@@ -1567,7 +1541,7 @@ LABEL_47:
   }
 
   v24 = v23;
-  v85 = dCopy;
+  v84 = dCopy;
   if (setupFlowManager_onceToken != -1)
   {
     dispatch_once(&setupFlowManager_onceToken, &__block_literal_global_18138);
@@ -1581,7 +1555,7 @@ LABEL_47:
   if (!objc_getProperty(self, v27, 112, 1))
   {
     v75 = ne_log_obj();
-    dCopy = v85;
+    dCopy = v84;
     if (os_log_type_enabled(v75, OS_LOG_TYPE_FAULT))
     {
       *uu = 0;
@@ -1604,12 +1578,12 @@ LABEL_47:
 
   if (!objc_getProperty(self, v33, 120, 1))
   {
-    v78 = ne_log_obj();
-    dCopy = v85;
-    if (os_log_type_enabled(v78, OS_LOG_TYPE_FAULT))
+    v77 = ne_log_obj();
+    dCopy = v84;
+    if (os_log_type_enabled(v77, OS_LOG_TYPE_FAULT))
     {
       *uu = 0;
-      _os_log_fault_impl(&dword_1BA83C000, v78, OS_LOG_TYPE_FAULT, "[NEPolicySession init] failed", uu, 2u);
+      _os_log_fault_impl(&dword_1BA83C000, v77, OS_LOG_TYPE_FAULT, "[NEPolicySession init] failed", uu, 2u);
     }
 
     v73 = ne_log_obj();
@@ -1619,7 +1593,7 @@ LABEL_47:
     }
 
     *uu = 0;
-    v79 = "setupPolicySession failed";
+    v78 = "setupPolicySession failed";
     goto LABEL_64;
   }
 
@@ -1632,18 +1606,18 @@ LABEL_47:
 
     if (!self->_userNexus)
     {
-      v80 = ne_log_obj();
-      if (os_log_type_enabled(v80, OS_LOG_TYPE_FAULT))
+      v79 = ne_log_obj();
+      if (os_log_type_enabled(v79, OS_LOG_TYPE_FAULT))
       {
         *uu = 0;
-        v81 = "nw_nexus_create failed";
+        v80 = "nw_nexus_create failed";
         goto LABEL_73;
       }
 
 LABEL_60:
 
       selfCopy = 0;
-      dCopy = v85;
+      dCopy = v84;
       goto LABEL_50;
     }
   }
@@ -1682,13 +1656,13 @@ LABEL_60:
   v51 = self->_agent;
   if (!v51)
   {
-    v80 = ne_log_obj();
-    if (os_log_type_enabled(v80, OS_LOG_TYPE_FAULT))
+    v79 = ne_log_obj();
+    if (os_log_type_enabled(v79, OS_LOG_TYPE_FAULT))
     {
       *uu = 0;
-      v81 = "[NENexusAgent init] failed";
+      v80 = "[NENexusAgent init] failed";
 LABEL_73:
-      _os_log_fault_impl(&dword_1BA83C000, v80, OS_LOG_TYPE_FAULT, v81, uu, 2u);
+      _os_log_fault_impl(&dword_1BA83C000, v79, OS_LOG_TYPE_FAULT, v80, uu, 2u);
       goto LABEL_60;
     }
 
@@ -1721,21 +1695,21 @@ LABEL_73:
   }
 
   v60 = self->_agent;
-  dCopy = v85;
+  dCopy = v84;
   if (!v60 || !objc_getProperty(v60, v59, 32, 1))
   {
     v73 = ne_log_obj();
     if (os_log_type_enabled(v73, OS_LOG_TYPE_FAULT))
     {
       *uu = 0;
-      v79 = "[NWNetworkAgentRegistration initWithNetworkAgentClass] failed";
+      v78 = "[NWNetworkAgentRegistration initWithNetworkAgentClass] failed";
 LABEL_64:
-      v82 = uu;
+      v81 = uu;
 LABEL_65:
-      v83 = v73;
-      v84 = 2;
+      v82 = v73;
+      v83 = 2;
 LABEL_66:
-      _os_log_fault_impl(&dword_1BA83C000, v83, OS_LOG_TYPE_FAULT, v79, v82, v84);
+      _os_log_fault_impl(&dword_1BA83C000, v82, OS_LOG_TYPE_FAULT, v78, v81, v83);
     }
 
 LABEL_48:
@@ -1763,7 +1737,7 @@ LABEL_49:
     if (os_log_type_enabled(v73, OS_LOG_TYPE_FAULT))
     {
       *uu = 0;
-      v79 = "[NWNetworkAgentRegistration registerNetworkAgent] failed";
+      v78 = "[NWNetworkAgentRegistration registerNetworkAgent] failed";
       goto LABEL_64;
     }
 
@@ -1772,9 +1746,9 @@ LABEL_49:
 
   memset(uu, 0, sizeof(uu));
   uuid_clear(uu);
-  if (v85)
+  if (v84)
   {
-    [v85 getUUIDBytes:uu];
+    [v84 getUUIDBytes:uu];
   }
 
   v64 = *MEMORY[0x1E695E480];
@@ -1783,20 +1757,20 @@ LABEL_49:
   if (!NexusExtendedWithOptions)
   {
     v73 = ne_log_obj();
-    dCopy = v85;
+    dCopy = v84;
     if (!os_log_type_enabled(v73, OS_LOG_TYPE_FAULT))
     {
       goto LABEL_48;
     }
 
-    v86 = 0;
-    v79 = "NEVirtualInterfaceCreateNexus failed";
+    v85 = 0;
+    v78 = "NEVirtualInterfaceCreateNexus failed";
     goto LABEL_71;
   }
 
   virtualInterface = NexusExtendedWithOptions;
   v68 = self->_agent;
-  dCopy = v85;
+  dCopy = v84;
   if (v68)
   {
     v69 = objc_getProperty(v68, v66, 32, 1);
@@ -1825,17 +1799,16 @@ LABEL_37:
       goto LABEL_48;
     }
 
-    v86 = 0;
-    v79 = "[NWNetworkAgentRegistration addNetworkAgentToInterfaceNamed] failed";
+    v85 = 0;
+    v78 = "[NWNetworkAgentRegistration addNetworkAgentToInterfaceNamed] failed";
 LABEL_71:
-    v82 = &v86;
+    v81 = &v85;
     goto LABEL_65;
   }
 
   selfCopy = self;
 LABEL_50:
 
-  v76 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

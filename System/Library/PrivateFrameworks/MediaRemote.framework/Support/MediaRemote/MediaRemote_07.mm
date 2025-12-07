@@ -1,3 +1,329 @@
+void sub_100160DF4(uint64_t a1, void *a2, void *a3)
+{
+  v5 = a3;
+  v6 = [a2 copy];
+  v7 = +[MRDMediaRemoteServer server];
+  v8 = [v7 nowPlayingServer];
+  v9 = [v6 origin];
+  v10 = [v8 originClientForOrigin:v9];
+  v11 = [v10 deviceInfo];
+
+  v12 = [v11 routingContextID];
+
+  if (v12)
+  {
+    if (!v5)
+    {
+LABEL_5:
+      v14 = +[MRUserSettings currentSettings];
+      v15 = [v14 forceNowPlayingSessionFailure];
+
+      if (v15)
+      {
+        v5 = [[NSError alloc] initWithMRError:6];
+        if (v5)
+        {
+          goto LABEL_7;
+        }
+      }
+
+      else
+      {
+        v5 = 0;
+      }
+
+      v19 = 1;
+      goto LABEL_10;
+    }
+  }
+
+  else
+  {
+    v13 = [[NSError alloc] initWithMRError:32];
+
+    v5 = v13;
+    if (!v13)
+    {
+      goto LABEL_5;
+    }
+  }
+
+LABEL_7:
+  v16 = [MRPlayerPath alloc];
+  v17 = +[MROrigin localOrigin];
+  v18 = [v16 initWithOrigin:v17 client:0 player:0];
+
+  v19 = 0;
+  v6 = v18;
+LABEL_10:
+  [*(a1 + 32) setNowPlayingAirPlaySession:v6];
+  v20 = *(a1 + 40);
+  v28 = _NSConcreteStackBlock;
+  v29 = 3221225472;
+  v30 = sub_100161104;
+  v31 = &unk_1004B7508;
+  v21 = v5;
+  v32 = v21;
+  v22 = v11;
+  v33 = v22;
+  v23 = v6;
+  v34 = v23;
+  sub_100008278(v20, &v28);
+  if ((v19 & 1) == 0)
+  {
+    v24 = +[MRUserSettings currentSettings];
+    v25 = [v24 startNowPlayingSessionABC];
+
+    if (v25)
+    {
+      v26 = [*(*(a1 + 48) + 120) description];
+      v35 = v26;
+      v27 = [NSArray arrayWithObjects:&v35 count:1];
+      [MSVAutoBugCapture snapshotWithDomain:@"MediaRemote" type:&stru_1004D2058 subType:@"Routing" context:@"StartNowPlayingSession" triggerThresholdValues:0 events:v27 completion:&stru_1004BF688, v28, v29, v30, v31, v32, v33];
+    }
+  }
+}
+
+void sub_100161104(uint64_t a1, void *a2)
+{
+  v2 = a2;
+  MRAddClientErrorToXPCMessage();
+  MRAddDeviceInfoToXPCMessage();
+  MRAddPlayerPathToXPCMessage();
+}
+
+uint64_t sub_10016123C(uint64_t a1)
+{
+  [*(a1 + 32) setDeclaringAirplayActive:0];
+  [*(a1 + 32) setNowPlayingAirPlaySession:0];
+  [*(*(a1 + 40) + 120) stopNowPlayingSesion];
+  v2 = *(a1 + 48);
+
+  return sub_100008278(v2, 0);
+}
+
+uint64_t sub_100161390(uint64_t a1)
+{
+  [*(a1 + 32) setDeclaringAirplayActive:1];
+  [*(a1 + 32) setNowPlayingAirPlaySession:*(a1 + 40)];
+  [*(*(a1 + 48) + 120) resumeNowPlayingSesion];
+  v2 = *(a1 + 56);
+
+  return sub_100008278(v2, 0);
+}
+
+void sub_1001614A4(id a1)
+{
+  v3 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+  v1 = dispatch_queue_create("com.apple.mediaremote.routingServer.getDeviceUID", v3);
+  v2 = qword_100529570;
+  qword_100529570 = v1;
+}
+
+void sub_100161508(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  v4 = +[MRDAVOutputContextManager sharedManager];
+  v5 = [v4 outputContextForOutputDeviceUID:v3];
+
+  v6 = [v5 contextID];
+  v7 = *(a1 + 32);
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_1001615EC;
+  v9[3] = &unk_1004B6E08;
+  v10 = v6;
+  v8 = v6;
+  sub_100008278(v7, v9);
+}
+
+void sub_10016169C(uint64_t a1)
+{
+  v2 = MRCreateDataFromXPCMessage();
+  v3 = MSVPropertyListDataClasses();
+  v4 = MSVUnarchivedObjectOfClasses();
+
+  v5 = [v4 mr_map:&stru_1004BF6F0];
+  v6 = MRCreateStringFromXPCMessage();
+  if (v6)
+  {
+    v7 = [*(*(a1 + 40) + 160) hostedRoutingController];
+    v8 = [v7 availableEndpoints];
+    v23[0] = _NSConcreteStackBlock;
+    v23[1] = 3221225472;
+    v23[2] = sub_1001619C8;
+    v23[3] = &unk_1004B9698;
+    v18 = &v24;
+    v24 = v6;
+    v9 = [v8 mr_first:v23];
+  }
+
+  else
+  {
+    v9 = MRAVEndpointGetLocalEndpoint();
+  }
+
+  v10 = [MRPlaybackSessionMigrateRequest alloc];
+  v11 = MRCreateDataFromXPCMessage();
+  v12 = [v10 initWithData:v11];
+  v13 = [v12 copy];
+
+  v19[0] = _NSConcreteStackBlock;
+  v19[1] = 3221225472;
+  v19[2] = sub_100161A0C;
+  v19[3] = &unk_1004B8690;
+  v14 = v9;
+  v20 = v14;
+  v21 = *(a1 + 32);
+  v15 = v13;
+  v22 = v15;
+  v16 = objc_retainBlock(v19);
+  if (v14 && [v5 count])
+  {
+    [v14 performMigrationToOutputDevices:v5 request:v15 initiator:&stru_1004D2058 queue:&_dispatch_main_q completion:v16];
+  }
+
+  else
+  {
+    Error = MRMediaRemoteCreateError();
+    (v16[2])(v16, Error);
+  }
+
+  if (v6)
+  {
+  }
+}
+
+id sub_100161944(id a1, NSData *a2)
+{
+  v2 = a2;
+  v3 = [MRAVDistantOutputDevice alloc];
+  v4 = [[_MRAVOutputDeviceDescriptorProtobuf alloc] initWithData:v2];
+
+  v5 = [v3 initWithDescriptor:v4];
+
+  return v5;
+}
+
+id sub_1001619C8(uint64_t a1, void *a2)
+{
+  v3 = [a2 uniqueIdentifier];
+  v4 = [v3 isEqualToString:*(a1 + 32)];
+
+  return v4;
+}
+
+void sub_100161A0C(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  v5 = *(a1 + 32);
+  v4 = *(a1 + 40);
+  v8[0] = _NSConcreteStackBlock;
+  v8[1] = 3221225472;
+  v8[2] = sub_100161ACC;
+  v8[3] = &unk_1004B6E30;
+  v9 = *(a1 + 48);
+  v10 = v3;
+  v6 = v3;
+  v7 = v5;
+  sub_100008278(v4, v8);
+}
+
+void sub_100161ACC(uint64_t a1, void *a2)
+{
+  v4 = a2;
+  v3 = [*(a1 + 32) protobufData];
+  MRAddDataToXPCMessage();
+
+  if (*(a1 + 40))
+  {
+    MRAddClientErrorToXPCMessage();
+  }
+}
+
+void sub_100161BE0(uint64_t a1)
+{
+  v3 = MRCreateStringFromXPCMessage();
+  v4 = MRCreateStringFromXPCMessage();
+  if (!v3)
+  {
+    v7 = MRAVEndpointGetLocalEndpoint();
+    if (v4)
+    {
+      goto LABEL_3;
+    }
+
+LABEL_5:
+    v10 = MRAVEndpointGetLocalEndpoint();
+    goto LABEL_6;
+  }
+
+  v5 = [*(*(a1 + 40) + 160) hostedRoutingController];
+  v6 = [v5 availableEndpoints];
+  v25[0] = _NSConcreteStackBlock;
+  v25[1] = 3221225472;
+  v25[2] = sub_100161F0C;
+  v25[3] = &unk_1004B9698;
+  v19 = &v26;
+  v26 = v3;
+  v7 = [v6 mr_first:v25];
+
+  if (!v4)
+  {
+    goto LABEL_5;
+  }
+
+LABEL_3:
+  v8 = [*(*(a1 + 40) + 160) hostedRoutingController];
+  v9 = [v8 availableEndpoints];
+  v23[0] = _NSConcreteStackBlock;
+  v23[1] = 3221225472;
+  v23[2] = sub_100161F50;
+  v23[3] = &unk_1004B9698;
+  v1 = &v24;
+  v24 = v4;
+  v10 = [v9 mr_first:v23];
+
+LABEL_6:
+  v11 = [MRPlaybackSessionMigrateRequest alloc];
+  v12 = MRCreateDataFromXPCMessage();
+  v13 = [v11 initWithData:v12];
+  v14 = [v13 copy];
+
+  v20[0] = _NSConcreteStackBlock;
+  v20[1] = 3221225472;
+  v20[2] = sub_100161F94;
+  v20[3] = &unk_1004B9C80;
+  v21 = *(a1 + 32);
+  v15 = v14;
+  v22 = v15;
+  v16 = objc_retainBlock(v20);
+  if (v7 && v10)
+  {
+    [v7 performMigrationToEndpoint:v10 request:v15 queue:&_dispatch_main_q completion:v16];
+  }
+
+  else
+  {
+    v17 = _MRLogForCategory();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    {
+      sub_1003AB248();
+    }
+
+    Error = MRMediaRemoteCreateError();
+    (v16[2])(v16, Error);
+  }
+
+  if (v4)
+  {
+  }
+
+  if (v3)
+  {
+  }
+}
+
 id sub_100161F0C(uint64_t a1, void *a2)
 {
   v3 = [a2 uniqueIdentifier];
@@ -42,28 +368,26 @@ void sub_100162044(uint64_t a1, void *a2)
 
 void sub_100162190(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = MRCreatePropertyListFromXPCMessage();
-  v4 = *(a1 + 32);
-  v5 = MRCreateRequestDetailsFromXPCMessage();
-  if (!v5)
+  v2 = MRCreatePropertyListFromXPCMessage();
+  v3 = MRCreateRequestDetailsFromXPCMessage();
+  if (!v3)
   {
-    v6 = [MRRequestDetails alloc];
-    v7 = MRRequestDetailsInitiatorInfer;
-    v8 = [*(a1 + 40) bundleIdentifier];
-    v5 = [v6 initWithInitiator:v7 requestID:0 reason:@"RoutingServer.handleCreateDirectEndpointForDevices" userInitiated:0 originatingBundleID:v8];
+    v4 = [MRRequestDetails alloc];
+    v5 = MRRequestDetailsInitiatorInfer;
+    v6 = [*(a1 + 40) bundleIdentifier];
+    v3 = [v4 initWithInitiator:v5 requestID:0 reason:@"RoutingServer.handleCreateDirectEndpointForDevices" userInitiated:0 originatingBundleID:v6];
   }
 
+  v7 = *(a1 + 48);
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = sub_1001622C0;
+  v10[3] = &unk_1004BF718;
+  v8 = *(a1 + 32);
   v9 = *(a1 + 48);
-  v12[0] = _NSConcreteStackBlock;
-  v12[1] = 3221225472;
-  v12[2] = sub_1001622C0;
-  v12[3] = &unk_1004BF718;
-  v10 = *(a1 + 32);
-  v11 = *(a1 + 48);
-  v13 = v10;
-  v14 = v11;
-  [v9 createEndpointForOutputDeviceIDs:v3 details:v5 completion:v12];
+  v11 = v8;
+  v12 = v9;
+  [v7 createEndpointForOutputDeviceIDs:v2 details:v3 completion:v10];
 }
 
 void sub_1001622C0(uint64_t a1, void *a2, int a3)
@@ -108,33 +432,32 @@ void sub_100162368(uint64_t a1, void *a2)
 
 void sub_10016253C(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = MRCreatePropertyListFromXPCMessage();
-  v4 = *(a1 + 32);
-  v5 = MRCreateRequestDetailsFromXPCMessage();
-  if (!v5)
+  v2 = MRCreatePropertyListFromXPCMessage();
+  v3 = MRCreateRequestDetailsFromXPCMessage();
+  if (!v3)
   {
-    v6 = [MRRequestDetails alloc];
-    v7 = MRRequestDetailsInitiatorInfer;
-    v8 = [*(a1 + 40) bundleIdentifier];
-    v5 = [v6 initWithInitiator:v7 requestID:0 reason:@"RoutingServer.handleGroupDevicesAndSendCommand" userInitiated:0 originatingBundleID:v8];
+    v4 = [MRRequestDetails alloc];
+    v5 = MRRequestDetailsInitiatorInfer;
+    v6 = [*(a1 + 40) bundleIdentifier];
+    v3 = [v4 initWithInitiator:v5 requestID:0 reason:@"RoutingServer.handleGroupDevicesAndSendCommand" userInitiated:0 originatingBundleID:v6];
   }
 
-  v9 = *(a1 + 48);
-  v10[0] = _NSConcreteStackBlock;
-  v10[1] = 3221225472;
-  v10[2] = sub_100162668;
-  v10[3] = &unk_1004BF790;
-  v11 = *(a1 + 32);
-  [v9 createEndpointForOutputDeviceIDs:v3 details:v5 completion:v10];
+  v7 = *(a1 + 48);
+  v8[0] = _NSConcreteStackBlock;
+  v8[1] = 3221225472;
+  v8[2] = sub_100162668;
+  v8[3] = &unk_1004BF790;
+  v9 = *(a1 + 32);
+  [v7 createEndpointForOutputDeviceIDs:v2 details:v3 completion:v8];
 }
 
-void sub_100162668(uint64_t a1, void *a2, unsigned int a3)
+void sub_100162668(uint64_t a1, void *a2, uint64_t a3)
 {
+  v3 = a3;
   v5 = a2;
-  if (a3 && !MRMediaRemoteErrorCodeIsInformational())
+  if (v3 && !MRMediaRemoteErrorCodeIsInformational())
   {
-    sub_10000F9E4(*(a1 + 32), a3);
+    sub_10000F9E4(*(a1 + 32), v3);
   }
 
   else
@@ -148,7 +471,7 @@ void sub_100162668(uint64_t a1, void *a2, unsigned int a3)
     v7[3] = &unk_1004BF768;
     v8 = *(a1 + 32);
     v9 = v5;
-    v10 = a3;
+    v10 = v3;
     [v9 connectToExternalDeviceWithUserInfo:v6 completion:v7];
   }
 }
@@ -160,42 +483,38 @@ void sub_1001627AC(uint64_t a1, void *a2)
   v5 = *(a1 + 32);
   if (v3)
   {
-    v23[0] = _NSConcreteStackBlock;
-    v23[1] = 3221225472;
-    v23[2] = sub_100162A18;
-    v23[3] = &unk_1004B6E08;
-    v24 = v3;
-    sub_100008278(v5, v23);
-    v6 = v24;
+    v19[0] = _NSConcreteStackBlock;
+    v19[1] = 3221225472;
+    v19[2] = sub_100162A18;
+    v19[3] = &unk_1004B6E08;
+    v20 = v3;
+    sub_100008278(v5, v19);
+    v6 = v20;
   }
 
   else
   {
     xpc_dictionary_get_uint64(*(a1 + 32), "MRXPC_COMMAND_KEY");
-    v7 = *(a1 + 32);
     v6 = MRCreatePlayerPathFromXPCMessage();
-    v8 = *(a1 + 32);
-    v9 = MRCreatePropertyListFromXPCMessage();
-    v10 = *(a1 + 40);
+    v7 = MRCreatePropertyListFromXPCMessage();
     MRAVEndpointGetExternalDevice();
-    v11 = MRExternalDeviceCopyCustomOrigin();
-    [v6 setOrigin:v11];
-    v12 = +[MRDMediaRemoteServer server];
-    v13 = [v12 nowPlayingServer];
-    v14 = [v13 queryExistingPlayerPath:v6];
+    v8 = MRExternalDeviceCopyCustomOrigin();
+    [v6 setOrigin:v8];
+    v9 = +[MRDMediaRemoteServer server];
+    v10 = [v9 nowPlayingServer];
+    v11 = [v10 queryExistingPlayerPath:v6];
 
-    v15 = [v6 client];
-    v16 = [v14 originClient];
-    v17 = [v16 deviceInfo];
-    [v15 resolvePlaceholdersForDeviceInfo:v17];
+    v12 = [v6 client];
+    v13 = [v11 originClient];
+    v14 = [v13 deviceInfo];
+    [v12 resolvePlaceholdersForDeviceInfo:v14];
 
-    v18 = [v9 objectForKeyedSubscript:kMRMediaRemoteOptionSendOptionsNumber];
-    [v18 intValue];
+    v15 = [v7 objectForKeyedSubscript:kMRMediaRemoteOptionSendOptionsNumber];
+    [v15 intValue];
 
-    v19 = dispatch_get_global_queue(0, 0);
-    v20 = *(a1 + 40);
-    v21 = *(a1 + 32);
-    v22 = *(a1 + 48);
+    v16 = dispatch_get_global_queue(0, 0);
+    v17 = *(a1 + 40);
+    v18 = *(a1 + 32);
     MRMediaRemoteSendCommandToPlayerWithResult();
   }
 }
@@ -206,45 +525,43 @@ void sub_100162A28(uint64_t a1, void *a2)
   if ([v3 sendError])
   {
     v4 = *(a1 + 40);
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = sub_100162C20;
-    v10[3] = &unk_1004B6E08;
-    v5 = &v11;
-    v11 = v3;
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_100162C20;
+    v9[3] = &unk_1004B6E08;
+    v5 = &v10;
+    v10 = v3;
     v6 = v3;
-    sub_100008278(v4, v10);
+    sub_100008278(v4, v9);
   }
 
   else
   {
-    v7 = *(a1 + 32);
     MRAVEndpointUpdateActiveSystemEndpointWithReason();
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = sub_100162B6C;
-    v12[3] = &unk_1004B7558;
-    v5 = &v13;
-    v13 = v3;
-    v8 = *(a1 + 40);
-    v14 = *(a1 + 32);
-    v15 = *(a1 + 48);
-    v9 = v3;
-    sub_100008278(v8, v12);
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_100162B6C;
+    v11[3] = &unk_1004B7558;
+    v5 = &v12;
+    v12 = v3;
+    v7 = *(a1 + 40);
+    v13 = *(a1 + 32);
+    v14 = *(a1 + 48);
+    v8 = v3;
+    sub_100008278(v7, v11);
   }
 }
 
 void sub_100162B6C(uint64_t a1, void *a2)
 {
-  v7 = a2;
-  v3 = *(a1 + 32);
+  v6 = a2;
   MRAddCommandResultToXPCMessage();
-  v4 = [*(a1 + 40) designatedGroupLeader];
-  v5 = [v4 uid];
+  v3 = [*(a1 + 40) designatedGroupLeader];
+  v4 = [v3 uid];
   MRAddPropertyListToXPCMessage();
 
-  v6 = [*(a1 + 32) error];
-  if (v6)
+  v5 = [*(a1 + 32) error];
+  if (v5)
   {
   }
 
@@ -256,36 +573,34 @@ void sub_100162B6C(uint64_t a1, void *a2)
 
 void sub_100162CF4(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = MRCreatePropertyListFromXPCMessage();
-  v17[0] = _NSConcreteStackBlock;
-  v17[1] = 3221225472;
-  v17[2] = sub_100162EA4;
-  v17[3] = &unk_1004BCEA0;
-  v4 = *(a1 + 32);
-  v5 = *(a1 + 40);
-  v18 = v4;
-  v19 = v5;
-  v6 = objc_retainBlock(v17);
-  v7 = *(a1 + 32);
-  v8 = MRCreateRequestDetailsFromXPCMessage();
-  if (!v8)
+  v2 = MRCreatePropertyListFromXPCMessage();
+  v15[0] = _NSConcreteStackBlock;
+  v15[1] = 3221225472;
+  v15[2] = sub_100162EA4;
+  v15[3] = &unk_1004BCEA0;
+  v3 = *(a1 + 32);
+  v4 = *(a1 + 40);
+  v16 = v3;
+  v17 = v4;
+  v5 = objc_retainBlock(v15);
+  v6 = MRCreateRequestDetailsFromXPCMessage();
+  if (!v6)
   {
-    v9 = [MRRequestDetails alloc];
-    v10 = MRRequestDetailsInitiatorInfer;
-    v11 = [*(a1 + 48) bundleIdentifier];
-    v8 = [v9 initWithInitiator:v10 requestID:0 reason:@"RoutingServer.handleCreateHostedEndpointForDevices" userInitiated:0 originatingBundleID:v11];
+    v7 = [MRRequestDetails alloc];
+    v8 = MRRequestDetailsInitiatorInfer;
+    v9 = [*(a1 + 48) bundleIdentifier];
+    v6 = [v7 initWithInitiator:v8 requestID:0 reason:@"RoutingServer.handleCreateHostedEndpointForDevices" userInitiated:0 originatingBundleID:v9];
   }
 
-  v14[0] = _NSConcreteStackBlock;
-  v14[1] = 3221225472;
-  v14[2] = sub_100163080;
-  v14[3] = &unk_1004BF7B8;
-  v15 = v8;
-  v16 = v6;
-  v12 = v8;
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = sub_100163080;
+  v12[3] = &unk_1004BF7B8;
   v13 = v6;
-  [MRDCreateHostedEndpointRequest createHostedEndpointWithOutputDeviceUIDs:v3 timeout:v12 details:v14 completion:0.0];
+  v14 = v5;
+  v10 = v6;
+  v11 = v5;
+  [MRDCreateHostedEndpointRequest createHostedEndpointWithOutputDeviceUIDs:v2 timeout:v10 details:v12 completion:0.0];
 }
 
 void sub_100162EA4(uint64_t a1, void *a2, void *a3)
@@ -375,27 +690,25 @@ uint64_t sub_1001631E4(uint64_t a1, uint64_t a2)
 
 void sub_1001632D4(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = MRCreatePropertyListFromXPCMessage();
-  v4 = *(a1 + 32);
-  v5 = MRCreateRequestDetailsFromXPCMessage();
-  if (!v5)
+  v2 = MRCreatePropertyListFromXPCMessage();
+  v3 = MRCreateRequestDetailsFromXPCMessage();
+  if (!v3)
   {
-    v6 = [MRRequestDetails alloc];
-    v7 = MRRequestDetailsInitiatorInfer;
-    v8 = [*(a1 + 40) bundleIdentifier];
-    v5 = [v6 initWithInitiator:v7 requestID:0 reason:@"RoutingServer.handlePredictGroupLeader" userInitiated:0 originatingBundleID:v8];
+    v4 = [MRRequestDetails alloc];
+    v5 = MRRequestDetailsInitiatorInfer;
+    v6 = [*(a1 + 40) bundleIdentifier];
+    v3 = [v4 initWithInitiator:v5 requestID:0 reason:@"RoutingServer.handlePredictGroupLeader" userInitiated:0 originatingBundleID:v6];
   }
 
-  v9 = [*(a1 + 48) _predictGroupLeaderForOutputDeviceIDs:v3 options:0 details:v5];
-  v10 = *(a1 + 32);
-  v12[0] = _NSConcreteStackBlock;
-  v12[1] = 3221225472;
-  v12[2] = sub_100163414;
-  v12[3] = &unk_1004B6E08;
-  v13 = v9;
-  v11 = v9;
-  sub_100008278(v10, v12);
+  v7 = [*(a1 + 48) _predictGroupLeaderForOutputDeviceIDs:v2 options:0 details:v3];
+  v8 = *(a1 + 32);
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = sub_100163414;
+  v10[3] = &unk_1004B6E08;
+  v11 = v7;
+  v9 = v7;
+  sub_100008278(v8, v10);
 }
 
 void sub_100163414(uint64_t a1, void *a2)
@@ -429,92 +742,88 @@ void sub_100163764(id a1)
 
 void sub_1001637D4(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = MRCreateStringFromXPCMessage();
-  v4 = [*(*(a1 + 40) + 160) hostedRoutingController];
-  v5 = [v4 externalDeviceForEndpoint:v3];
+  v2 = MRCreateStringFromXPCMessage();
+  v3 = [*(*(a1 + 40) + 160) hostedRoutingController];
+  v4 = [v3 externalDeviceForEndpoint:v2];
 
-  if (v5)
+  if (v4)
   {
-    v6 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v6 = [[NSError alloc] initWithMRError:127];
+    v5 = [[NSError alloc] initWithMRError:127];
   }
 
-  v7 = [v5 externalDeviceListenerEndpoint];
-  v8 = *(a1 + 32);
-  v11[0] = _NSConcreteStackBlock;
-  v11[1] = 3221225472;
-  v11[2] = sub_100163904;
-  v11[3] = &unk_1004B6E30;
+  v6 = [v4 externalDeviceListenerEndpoint];
+  v7 = *(a1 + 32);
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = sub_100163904;
+  v10[3] = &unk_1004B6E30;
+  v11 = v5;
   v12 = v6;
-  v13 = v7;
-  v9 = v7;
-  v10 = v6;
-  sub_100008278(v8, v11);
+  v8 = v6;
+  v9 = v5;
+  sub_100008278(v7, v10);
 }
 
 void sub_100163904(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v4 = a2;
+  v3 = a2;
   MRAddClientErrorToXPCMessage();
-  v5 = [*(a1 + 40) _endpoint];
-  xpc_dictionary_set_value(v4, "MRXPC_EXTERNAL_DEVICE_LISTENER_KEY", v5);
+  v4 = [*(a1 + 40) _endpoint];
+  xpc_dictionary_set_value(v3, "MRXPC_EXTERNAL_DEVICE_LISTENER_KEY", v4);
 }
 
 void sub_100163A1C(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = MRCreateDataFromXPCMessage();
-  v4 = [[MRGroupTopologyModificationRequest alloc] initWithData:v3];
-  v5 = *(a1 + 32);
-  v6 = MRCreateStringFromXPCMessage();
-  v18[0] = _NSConcreteStackBlock;
-  v18[1] = 3221225472;
-  v18[2] = sub_100163C74;
-  v18[3] = &unk_1004B6FC0;
-  v19 = *(a1 + 32);
-  v7 = objc_retainBlock(v18);
-  v8 = +[MRUserSettings currentSettings];
-  v9 = [v8 supportMultiplayerHost];
+  v2 = MRCreateDataFromXPCMessage();
+  v3 = [[MRGroupTopologyModificationRequest alloc] initWithData:v2];
+  v4 = MRCreateStringFromXPCMessage();
+  v16[0] = _NSConcreteStackBlock;
+  v16[1] = 3221225472;
+  v16[2] = sub_100163C74;
+  v16[3] = &unk_1004B6FC0;
+  v17 = *(a1 + 32);
+  v5 = objc_retainBlock(v16);
+  v6 = +[MRUserSettings currentSettings];
+  v7 = [v6 supportMultiplayerHost];
 
-  if (!v9)
+  if (!v7)
   {
-    v12 = [MRAVConcreteOutputContext createOutputContextWithUniqueIdentifier:v6];
-    if (v12)
+    v10 = [MRAVConcreteOutputContext createOutputContextWithUniqueIdentifier:v4];
+    if (v10)
     {
       goto LABEL_3;
     }
 
 LABEL_5:
-    v13 = [[NSError alloc] initWithMRError:32 format:{@"Failed to create output context with UID=%@", v6}];
-    (v7[2])(v7, v13);
+    v11 = [[NSError alloc] initWithMRError:32 format:{@"Failed to create output context with UID=%@", v4}];
+    (v5[2])(v5, v11);
     goto LABEL_6;
   }
 
-  v10 = +[MRDAVOutputContextManager sharedManager];
-  v11 = [v10 outputContexts];
-  v16[0] = _NSConcreteStackBlock;
-  v16[1] = 3221225472;
-  v16[2] = sub_100163D1C;
-  v16[3] = &unk_1004B9290;
-  v17 = v6;
-  v12 = [v11 msv_firstWhere:v16];
+  v8 = +[MRDAVOutputContextManager sharedManager];
+  v9 = [v8 outputContexts];
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = sub_100163D1C;
+  v14[3] = &unk_1004B9290;
+  v15 = v4;
+  v10 = [v9 msv_firstWhere:v14];
 
-  if (!v12)
+  if (!v10)
   {
     goto LABEL_5;
   }
 
 LABEL_3:
-  v13 = [[MRDOutputContextModification alloc] initWithRequest:v4];
-  v14 = qos_class_self();
-  v15 = dispatch_get_global_queue(v14, 0);
-  [(MRDOutputContextModification *)v13 modifyWithOutputContext:v12 queue:v15 completion:v7];
+  v11 = [[MRDOutputContextModification alloc] initWithRequest:v3];
+  v12 = qos_class_self();
+  v13 = dispatch_get_global_queue(v12, 0);
+  [(MRDOutputContextModification *)v11 modifyWithOutputContext:v10 queue:v13 completion:v5];
 
 LABEL_6:
 }
@@ -553,45 +862,42 @@ void sub_100163DF8(uint64_t a1)
 
 void sub_100163E74(uint64_t a1, void *a2)
 {
-  v2 = *(a1 + 32);
-  v3 = a2;
-  v5 = MRCreatePropertyListFromXPCMessage();
-  v4 = +[MRDStreamCapacityManager sharedManager];
-  xpc_dictionary_set_BOOL(v3, "MRXPC_BOOL_RESULT_KEY", [v4 willStartingPlaybackToOutputDevicesInterrupt:v5]);
+  v2 = a2;
+  v4 = MRCreatePropertyListFromXPCMessage();
+  v3 = +[MRDStreamCapacityManager sharedManager];
+  xpc_dictionary_set_BOOL(v2, "MRXPC_BOOL_RESULT_KEY", [v3 willStartingPlaybackToOutputDevicesInterrupt:v4]);
 }
 
 void sub_10016403C(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v9 = MRCreateStringFromXPCMessage();
-  v3 = *(a1 + 32);
-  v4 = MRCreateStringFromXPCMessage();
-  v5 = [v4 isEqualToString:@"auto"];
-  v6 = [v4 isEqualToString:@"cta"];
-  if ([v4 isEqualToString:@"carplay"])
+  v7 = MRCreateStringFromXPCMessage();
+  v2 = MRCreateStringFromXPCMessage();
+  v3 = [v2 isEqualToString:@"auto"];
+  v4 = [v2 isEqualToString:@"cta"];
+  if ([v2 isEqualToString:@"carplay"])
   {
     [*(*(a1 + 40) + 184) displayCarPlayVideoConnectedBannerWithCompletion:0];
   }
 
   else
   {
-    v7 = 2;
-    if (!v6)
+    v5 = 2;
+    if (!v4)
     {
-      v7 = 3;
+      v5 = 3;
     }
 
-    if (v5)
+    if (v3)
     {
-      v8 = 4;
+      v6 = 4;
     }
 
     else
     {
-      v8 = v7;
+      v6 = v5;
     }
 
-    [*(*(a1 + 40) + 176) ingestMockedRecommendation:v9 classification:v8 isCallToAction:v6];
+    [*(*(a1 + 40) + 176) ingestMockedRecommendation:v7 classification:v6 isCallToAction:v4];
   }
 }
 
@@ -610,20 +916,18 @@ void sub_1001643B4(uint64_t a1, void *a2)
 
 void sub_1001644F4(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = MRCreateStringFromXPCMessage();
-  v4 = xpc_dictionary_get_double(*(a1 + 32), "timeout");
-  v5 = *(a1 + 32);
-  v6 = MRCreateRequestDetailsFromXPCMessage();
-  v10[0] = _NSConcreteStackBlock;
-  v10[1] = 3221225472;
-  v10[2] = sub_100164604;
-  v10[3] = &unk_1004BCEA0;
-  v9 = *(a1 + 32);
-  v7 = v9.i64[0];
-  v11 = vextq_s8(v9, v9, 8uLL);
-  v8 = objc_retainBlock(v10);
-  [*(a1 + 40) searchEndpointsForOutputDeviceUID:v3 timeout:v6 details:*(*(a1 + 40) + 64) queue:v8 completion:v4];
+  v2 = MRCreateStringFromXPCMessage();
+  v3 = xpc_dictionary_get_double(*(a1 + 32), "timeout");
+  v4 = MRCreateRequestDetailsFromXPCMessage();
+  v8[0] = _NSConcreteStackBlock;
+  v8[1] = 3221225472;
+  v8[2] = sub_100164604;
+  v8[3] = &unk_1004BCEA0;
+  v7 = *(a1 + 32);
+  v5 = v7.i64[0];
+  v9 = vextq_s8(v7, v7, 8uLL);
+  v6 = objc_retainBlock(v8);
+  [*(a1 + 40) searchEndpointsForOutputDeviceUID:v2 timeout:v4 details:*(*(a1 + 40) + 64) queue:v6 completion:v3];
 }
 
 void sub_100164604(uint64_t a1, void *a2, void *a3)
@@ -663,10 +967,8 @@ id sub_100164768(uint64_t a1, void *a2)
 
 void sub_1001647CC(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v5 = a2;
+  v2 = a2;
   MRAddDistantEndpointToXPCMessage();
-  v4 = *(a1 + 40);
   MRAddClientErrorToXPCMessage();
 }
 
@@ -932,22 +1234,20 @@ void sub_1001655C4(uint64_t a1, uint64_t a2)
 void sub_100165744(uint64_t a1)
 {
   uint64 = xpc_dictionary_get_uint64(*(a1 + 32), "command");
-  v3 = *(a1 + 32);
+  v3 = MRCreatePropertyListFromXPCMessage();
   v4 = MRCreatePropertyListFromXPCMessage();
-  v5 = *(a1 + 32);
-  v6 = MRCreatePropertyListFromXPCMessage();
-  v7 = xpc_dictionary_get_double(*(a1 + 32), "timeout");
-  v8 = [MRRequestDetails alloc];
-  v9 = [v4 objectForKeyedSubscript:kMRMediaRemoteOptionCommandID];
-  v10 = [v4 objectForKeyedSubscript:kMRMediaRemoteOptionRemoteControlInterfaceIdentifier];
-  v11 = [v8 initWithName:@"RoutingServer.sendCommandToEachEndpointContainingOutputDeviceUIDs" requestID:v9 reason:v10];
+  v5 = xpc_dictionary_get_double(*(a1 + 32), "timeout");
+  v6 = [MRRequestDetails alloc];
+  v7 = [v3 objectForKeyedSubscript:kMRMediaRemoteOptionCommandID];
+  v8 = [v3 objectForKeyedSubscript:kMRMediaRemoteOptionRemoteControlInterfaceIdentifier];
+  v9 = [v6 initWithName:@"RoutingServer.sendCommandToEachEndpointContainingOutputDeviceUIDs" requestID:v7 reason:v8];
 
-  v12[0] = _NSConcreteStackBlock;
-  v12[1] = 3221225472;
-  v12[2] = sub_1001658D4;
-  v12[3] = &unk_1004BF8B0;
-  v13 = *(a1 + 32);
-  [MRDSendCommandToOutputDevicesRequest sendCommand:uint64 withOptions:v4 toEachEndpointContainingOutputDeviceUIDs:v6 timeout:v11 details:v12 completion:v7];
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = sub_1001658D4;
+  v10[3] = &unk_1004BF8B0;
+  v11 = *(a1 + 32);
+  [MRDSendCommandToOutputDevicesRequest sendCommand:uint64 withOptions:v3 toEachEndpointContainingOutputDeviceUIDs:v4 timeout:v9 details:v10 completion:v5];
 }
 
 void sub_1001658D4(uint64_t a1, void *a2, void *a3)
@@ -968,36 +1268,31 @@ void sub_1001658D4(uint64_t a1, void *a2, void *a3)
 
 void sub_100165994(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v5 = a2;
+  v2 = a2;
   MRAddArrayToXPCMessage();
-  v4 = *(a1 + 40);
   MRAddClientErrorToXPCMessage();
 }
 
 void sub_100165AA0(uint64_t a1)
 {
   uint64 = xpc_dictionary_get_uint64(*(a1 + 32), "command");
-  v3 = *(a1 + 32);
+  v3 = MRCreatePropertyListFromXPCMessage();
   v4 = MRCreatePropertyListFromXPCMessage();
-  v5 = *(a1 + 32);
-  v6 = MRCreatePropertyListFromXPCMessage();
-  v7 = *(a1 + 32);
-  v8 = MRCreatePlayerPathFromXPCMessage();
-  v9 = xpc_dictionary_get_double(*(a1 + 32), "timeout");
-  v10 = [MRRequestDetails alloc];
-  v11 = [v4 objectForKeyedSubscript:kMRMediaRemoteOptionCommandID];
-  v12 = [v4 objectForKeyedSubscript:kMRMediaRemoteOptionRemoteControlInterfaceIdentifier];
-  v13 = [v10 initWithName:@"RoutingServer.sendCommandToNewGroupContainingOutputDeviceUIDs" requestID:v11 reason:v12];
+  v5 = MRCreatePlayerPathFromXPCMessage();
+  v6 = xpc_dictionary_get_double(*(a1 + 32), "timeout");
+  v7 = [MRRequestDetails alloc];
+  v8 = [v3 objectForKeyedSubscript:kMRMediaRemoteOptionCommandID];
+  v9 = [v3 objectForKeyedSubscript:kMRMediaRemoteOptionRemoteControlInterfaceIdentifier];
+  v10 = [v7 initWithName:@"RoutingServer.sendCommandToNewGroupContainingOutputDeviceUIDs" requestID:v8 reason:v9];
 
-  v16[0] = _NSConcreteStackBlock;
-  v16[1] = 3221225472;
-  v16[2] = sub_100165C58;
-  v16[3] = &unk_1004BF8D8;
-  v15 = *(a1 + 32);
-  v14 = v15.i64[0];
-  v17 = vextq_s8(v15, v15, 8uLL);
-  [MRDSendCommandToOutputDevicesRequest sendCommand:uint64 withOptions:v4 toNewEndpointContainingOutputDeviceUIDs:v6 playerPath:v8 timeout:v13 details:v16 completion:v9];
+  v13[0] = _NSConcreteStackBlock;
+  v13[1] = 3221225472;
+  v13[2] = sub_100165C58;
+  v13[3] = &unk_1004BF8D8;
+  v12 = *(a1 + 32);
+  v11 = v12.i64[0];
+  v14 = vextq_s8(v12, v12, 8uLL);
+  [MRDSendCommandToOutputDevicesRequest sendCommand:uint64 withOptions:v3 toNewEndpointContainingOutputDeviceUIDs:v4 playerPath:v5 timeout:v10 details:v13 completion:v6];
 }
 
 void sub_100165C58(uint64_t a1, void *a2, void *a3)
@@ -1038,27 +1333,23 @@ id sub_100165DD0(uint64_t a1, void *a2)
 
 void sub_100165E34(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v5 = a2;
+  v2 = a2;
   MRAddCommandResultToXPCMessage();
-  v4 = *(a1 + 40);
   MRAddDistantEndpointToXPCMessage();
 }
 
 void sub_100165F28(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = MRCreateStringFromXPCMessage();
-  v4 = xpc_dictionary_get_double(*(a1 + 32), "timeout");
-  v5 = *(a1 + 32);
-  v6 = MRCreateRequestDetailsFromXPCMessage();
-  v8[0] = _NSConcreteStackBlock;
-  v8[1] = 3221225472;
-  v8[2] = sub_100166014;
-  v8[3] = &unk_1004BD478;
-  v7 = *(a1 + 40);
-  v9 = *(a1 + 32);
-  [v7 searchEndpointsForRoutingContextUID:v3 timeout:v6 details:v8 completion:v4];
+  v2 = MRCreateStringFromXPCMessage();
+  v3 = xpc_dictionary_get_double(*(a1 + 32), "timeout");
+  v4 = MRCreateRequestDetailsFromXPCMessage();
+  v6[0] = _NSConcreteStackBlock;
+  v6[1] = 3221225472;
+  v6[2] = sub_100166014;
+  v6[3] = &unk_1004BD478;
+  v5 = *(a1 + 40);
+  v7 = *(a1 + 32);
+  [v5 searchEndpointsForRoutingContextUID:v2 timeout:v4 details:v6 completion:v3];
 }
 
 void sub_100166014(uint64_t a1, void *a2, void *a3)
@@ -1079,31 +1370,26 @@ void sub_100166014(uint64_t a1, void *a2, void *a3)
 
 void sub_1001660D4(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v5 = a2;
+  v2 = a2;
   MRAddDistantEndpointToXPCMessage();
-  v4 = *(a1 + 40);
   MRAddClientErrorToXPCMessage();
 }
 
 void sub_1001661C8(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = MRCreatePropertyListFromXPCMessage();
-  v4 = *(a1 + 32);
-  v5 = MRCreatePlayerPathFromXPCMessage();
-  v6 = xpc_dictionary_get_double(*(a1 + 32), "timeout");
-  v7 = *(a1 + 32);
-  v8 = MRCreateRequestDetailsFromXPCMessage();
-  v9 = [v5 client];
-  v12[0] = _NSConcreteStackBlock;
-  v12[1] = 3221225472;
-  v12[2] = sub_1001662FC;
-  v12[3] = &unk_1004BCEA0;
-  v11 = *(a1 + 32);
-  v10 = v11.i64[0];
-  v13 = vextq_s8(v11, v11, 8uLL);
-  [MRDPrepareGroupForPlaybackRequest prepareGroupForPlaybackWithOutputDeviceUIDs:v3 nowPlayingClient:v9 timeout:v8 details:v12 completion:v6];
+  v2 = MRCreatePropertyListFromXPCMessage();
+  v3 = MRCreatePlayerPathFromXPCMessage();
+  v4 = xpc_dictionary_get_double(*(a1 + 32), "timeout");
+  v5 = MRCreateRequestDetailsFromXPCMessage();
+  v6 = [v3 client];
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_1001662FC;
+  v9[3] = &unk_1004BCEA0;
+  v8 = *(a1 + 32);
+  v7 = v8.i64[0];
+  v10 = vextq_s8(v8, v8, 8uLL);
+  [MRDPrepareGroupForPlaybackRequest prepareGroupForPlaybackWithOutputDeviceUIDs:v2 nowPlayingClient:v6 timeout:v5 details:v9 completion:v4];
 }
 
 void sub_1001662FC(uint64_t a1, void *a2, void *a3)
@@ -1144,10 +1430,8 @@ id sub_100166474(uint64_t a1, void *a2)
 
 void sub_1001664D8(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v5 = a2;
+  v2 = a2;
   MRAddClientErrorToXPCMessage();
-  v4 = *(a1 + 40);
   MRAddDistantEndpointToXPCMessage();
 }
 
@@ -1599,7 +1883,7 @@ uint64_t sub_10016A440()
   v1 = v3[0];
   if (!qword_100529590)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
@@ -1751,7 +2035,6 @@ LABEL_11:
 
 uint64_t sub_10016B92C(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100529590 = result;
   return result;
@@ -2100,9 +2383,9 @@ id sub_100170638(uint64_t a1)
   return [v2 _reloadCachedNowPlayingItem];
 }
 
-void sub_100170948(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100170948(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2216,9 +2499,9 @@ void sub_100170FA0(uint64_t a1)
   }
 }
 
-void sub_100171368(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_100171368(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2703,11 +2986,11 @@ void sub_100175E38(uint64_t a1)
   objc_sync_exit(obj);
 }
 
-void sub_10017605C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10017605C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  objc_sync_exit(v7);
+  objc_sync_exit(v13);
   _Unwind_Resume(a1);
 }
 
@@ -2906,9 +3189,9 @@ void sub_100176D58(uint64_t a1)
   }
 }
 
-void sub_100177410(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_100177410(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3048,41 +3331,39 @@ void sub_100179C70(uint64_t a1)
 
 void sub_100179E68(uint64_t a1)
 {
-  v21 = [NSString alloc];
+  v19 = [NSString alloc];
+  v18 = objc_opt_class();
   v2 = *(a1 + 32);
-  v20 = objc_opt_class();
+  v20 = MRMediaRemoteVolumeControlCapabilitiesDescription();
   v3 = *(a1 + 32);
-  v4 = *(v3 + 44);
-  v22 = MRMediaRemoteVolumeControlCapabilitiesDescription();
-  v5 = *(a1 + 32);
-  v6 = *(v5 + 36);
-  v7 = *(v5 + 40);
-  v8 = [v5 _mediaServerController];
-  v9 = [v8 currentRouteHasVolumeControl];
+  v4 = *(v3 + 36);
+  v5 = *(v3 + 40);
+  v6 = [v3 _mediaServerController];
+  v7 = [v6 currentRouteHasVolumeControl];
   [*(a1 + 32) pbsVolumeControlCapabilities];
-  v10 = MRMediaRemoteVolumeControlCapabilitiesDescription();
-  v11 = +[MRUserSettings currentSettings];
-  v12 = [v11 hasSystemVolumeCapabilitiesOverride];
-  if (v12)
+  v8 = MRMediaRemoteVolumeControlCapabilitiesDescription();
+  v9 = +[MRUserSettings currentSettings];
+  v10 = [v9 hasSystemVolumeCapabilitiesOverride];
+  if (v10)
   {
-    v19 = +[MRUserSettings currentSettings];
-    [v19 systemVolumeCapabilitiesOverride];
-    v13 = MRMediaRemoteVolumeControlCapabilitiesDescription();
+    v17 = +[MRUserSettings currentSettings];
+    [v17 systemVolumeCapabilitiesOverride];
+    v11 = MRMediaRemoteVolumeControlCapabilitiesDescription();
   }
 
   else
   {
-    v13 = @"-1";
+    v11 = @"-1";
   }
 
-  v14 = +[MRUserSettings currentSettings];
-  [v14 systemVolumeOverride];
-  v16 = [v21 initWithFormat:@"<%@:%p = {\n  capabilities=%@\n  volume=%lf\n  muted=%u\n  AVSC.currentRouteHasVolumeControl=%u\n  PBS.capabilities=%@\n  volumeCapabilitiesOverride=%@  volumeOverride=%lf\n}>", v20, v3, v22, *&v6, v7, v9, v10, v13, v15];
-  v17 = *(*(a1 + 40) + 8);
-  v18 = *(v17 + 40);
-  *(v17 + 40) = v16;
+  v12 = +[MRUserSettings currentSettings];
+  [v12 systemVolumeOverride];
+  v14 = [v19 initWithFormat:@"<%@:%p = {\n  capabilities=%@\n  volume=%lf\n  muted=%u\n  AVSC.currentRouteHasVolumeControl=%u\n  PBS.capabilities=%@\n  volumeCapabilitiesOverride=%@  volumeOverride=%lf\n}>", v18, v2, v20, *&v4, v5, v7, v8, v11, v13];
+  v15 = *(*(a1 + 40) + 8);
+  v16 = *(v15 + 40);
+  *(v15 + 40) = v14;
 
-  if (v12)
+  if (v10)
   {
   }
 }
@@ -3475,34 +3756,28 @@ void sub_10017DFDC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 id sub_10017E03C(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = [NSString alloc];
-  v5 = *(a1 + 32);
-  v6 = [v4 initWithFormat:@"com.apple.mediaremote.%@.%@.%@-%d", objc_opt_class(), v3, v5[6], objc_msgSend(v5, "pid")];
+  v4 = [[NSString alloc] initWithFormat:@"com.apple.mediaremote.%@.%@.%@-%d", objc_opt_class(), v3, *(*(a1 + 32) + 48), objc_msgSend(*(a1 + 32), "pid")];
 
-  v7 = [v6 UTF8String];
-  return v7;
+  v5 = [v4 UTF8String];
+  return v5;
 }
 
 void sub_10017E0D8(uint64_t a1)
 {
-  v2 = [NSString alloc];
-  v3 = *(a1 + 32);
-  v4 = [v2 initWithFormat:@"com.apple.mediaremote.%@.xpcTargetQueue", objc_opt_class()];
-  v5 = [v4 UTF8String];
-  v6 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v7 = dispatch_queue_create(v5, v6);
-  v8 = qword_1005295E0;
-  qword_1005295E0 = v7;
+  v1 = [[NSString alloc] initWithFormat:@"com.apple.mediaremote.%@.xpcTargetQueue", objc_opt_class()];
+  v2 = [v1 UTF8String];
+  v3 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+  v4 = dispatch_queue_create(v2, v3);
+  v5 = qword_1005295E0;
+  qword_1005295E0 = v4;
 
-  v9 = [NSString alloc];
-  v10 = *(a1 + 32);
-  v16 = [v9 initWithFormat:@"com.apple.mediaremote.%@.workerQueue", objc_opt_class()];
-  v11 = v16;
-  v12 = [v16 UTF8String];
-  v13 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v14 = dispatch_queue_create(v12, v13);
-  v15 = qword_1005295D8;
-  qword_1005295D8 = v14;
+  v11 = [[NSString alloc] initWithFormat:@"com.apple.mediaremote.%@.workerQueue", objc_opt_class()];
+  v6 = v11;
+  v7 = [v11 UTF8String];
+  v8 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+  v9 = dispatch_queue_create(v7, v8);
+  v10 = qword_1005295D8;
+  qword_1005295D8 = v9;
 }
 
 void sub_10017E208(uint64_t a1, void *a2)
@@ -3585,9 +3860,9 @@ void sub_10017EF38(uint64_t a1)
   }
 }
 
-void sub_10017F1C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_10017F1C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3639,9 +3914,9 @@ void sub_10017F4A8(id *a1, int a2)
   }
 }
 
-void sub_10017F5A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10017F5A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4301,27 +4576,25 @@ void sub_100182C80(uint64_t a1)
   v2 = +[MRDMediaRemoteServer server];
   v3 = [v2 routingServer];
   v4 = [v3 hostedRoutingService];
-  v19 = [v4 hostedRoutingController];
+  v17 = [v4 hostedRoutingController];
 
-  v5 = [v19 discoverySession];
+  v5 = [v17 discoverySession];
   v6 = [v5 localEndpointConnection];
 
   if (v6)
   {
-    v7 = [v19 nativeEndpoint];
+    v7 = [v17 nativeEndpoint];
 
     if (v7)
     {
-      v8 = *(a1 + 40);
       [*(a1 + 32) commandType];
-      v9 = [*(a1 + 32) options];
-      v10 = *(a1 + 48);
+      v8 = [*(a1 + 32) options];
       MRServiceClientRemoteCommandCallback();
       goto LABEL_12;
     }
 
-    v9 = [[NSError alloc] initWithMRError:138];
-    v18 = [[MRCommandResult alloc] initWithError:v9];
+    v8 = [[NSError alloc] initWithMRError:138];
+    v16 = [[MRCommandResult alloc] initWithError:v8];
     (*(*(a1 + 48) + 16))();
     if (qword_100529600 != -1)
     {
@@ -4331,23 +4604,23 @@ void sub_100182C80(uint64_t a1)
 
   else
   {
-    v9 = [[NSError alloc] initWithMRError:131];
-    v11 = +[NSProcessInfo processInfo];
-    [v11 systemUptime];
-    v13 = v12;
+    v8 = [[NSError alloc] initWithMRError:131];
+    v9 = +[NSProcessInfo processInfo];
+    [v9 systemUptime];
+    v11 = v10;
 
-    v14 = +[MRDSettings currentSettings];
-    [v14 recentlyRebootedInterval];
-    v16 = v15;
+    v12 = +[MRDSettings currentSettings];
+    [v12 recentlyRebootedInterval];
+    v14 = v13;
 
-    if (v13 > v16)
+    if (v11 > v14)
     {
-      v17 = [[NSError alloc] initWithMRError:140];
+      v15 = [[NSError alloc] initWithMRError:140];
 
-      v9 = v17;
+      v8 = v15;
     }
 
-    v18 = [[MRCommandResult alloc] initWithError:v9];
+    v16 = [[MRCommandResult alloc] initWithError:v8];
     (*(*(a1 + 48) + 16))();
     if ([*(a1 + 32) shouldReportNoLocalEndpointConnectionABCFailures] && qword_1005295F8 != -1)
     {
@@ -4398,14 +4671,14 @@ void sub_1001834F8(uint64_t a1)
   }
 }
 
-void sub_100183D0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100183D0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
+  v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -4418,7 +4691,7 @@ void sub_100183D34(uint64_t a1, void *a2, void *a3, _BYTE *a4)
   v9 = v8;
   if (v8)
   {
-    [v8 MRHIDTouchEventValue];
+    objc_msgSend_MRHIDTouchEventValue(v8);
   }
 
   v10 = *(*(*(a1 + 40) + 8) + 24);
@@ -4654,7 +4927,7 @@ id sub_100185FEC(uint64_t a1, void *a2, double a3)
 {
   if (!a2)
   {
-    return (*(*(a1 + 56) + 16))();
+    return (*(*(a1 + 56) + 16))(a3);
   }
 
   LODWORD(a3) = *(a1 + 64);
@@ -4666,121 +4939,118 @@ void sub_1001862E4(uint64_t a1, void *a2)
   v3 = a2;
   if (!v3)
   {
-    v12 = *(a1 + 80);
-    v13 = MRMediaRemoteVolumeControlAdjustmentDescription();
+    v12 = MRMediaRemoteVolumeControlAdjustmentDescription();
 
-    v14 = *(a1 + 32);
+    v13 = *(a1 + 32);
     v5 = _MRLogForCategory();
-    v15 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
-    if (!v13)
+    v14 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+    if (!v12)
     {
-      if (v14)
+      if (v13)
       {
-        if (!v15)
+        if (!v14)
         {
           goto LABEL_21;
         }
 
-        v26 = *(a1 + 40);
+        v24 = *(a1 + 40);
         v8 = [*(a1 + 48) requestID];
-        v27 = *(a1 + 32);
+        v25 = *(a1 + 32);
         v10 = +[NSDate date];
         [v10 timeIntervalSinceDate:*(a1 + 56)];
         *buf = 138544130;
-        v44 = v26;
-        v45 = 2114;
-        v46 = v8;
-        v47 = 2114;
-        v48 = v27;
-        v49 = 2048;
-        v50 = v28;
-        v29 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
-        v30 = v5;
-        v31 = 42;
+        v41 = v24;
+        v42 = 2114;
+        v43 = v8;
+        v44 = 2114;
+        v45 = v25;
+        v46 = 2048;
+        v47 = v26;
+        v27 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
+        v28 = v5;
+        v29 = 42;
       }
 
       else
       {
-        if (!v15)
+        if (!v14)
         {
           goto LABEL_21;
         }
 
-        v35 = *(a1 + 40);
+        v32 = *(a1 + 40);
         v8 = [*(a1 + 48) requestID];
         v10 = +[NSDate date];
         [v10 timeIntervalSinceDate:*(a1 + 56)];
         *buf = 138543874;
-        v44 = v35;
-        v45 = 2114;
-        v46 = v8;
-        v47 = 2048;
-        v48 = v36;
-        v29 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
-        v30 = v5;
-        v31 = 32;
+        v41 = v32;
+        v42 = 2114;
+        v43 = v8;
+        v44 = 2048;
+        v45 = v33;
+        v27 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
+        v28 = v5;
+        v29 = 32;
       }
 
-      _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, v29, buf, v31);
+      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, v27, buf, v29);
       goto LABEL_20;
     }
 
-    if (v14)
+    if (v13)
     {
-      if (!v15)
+      if (!v14)
       {
         goto LABEL_21;
       }
 
-      v16 = *(a1 + 40);
-      v17 = [*(a1 + 48) requestID];
-      v18 = *(a1 + 80);
-      v19 = MRMediaRemoteVolumeControlAdjustmentDescription();
-      v20 = *(a1 + 32);
-      v21 = +[NSDate date];
-      [v21 timeIntervalSinceDate:*(a1 + 56)];
+      v15 = *(a1 + 40);
+      v16 = [*(a1 + 48) requestID];
+      v17 = MRMediaRemoteVolumeControlAdjustmentDescription();
+      v18 = *(a1 + 32);
+      v19 = +[NSDate date];
+      [v19 timeIntervalSinceDate:*(a1 + 56)];
       *buf = 138544386;
-      v44 = v16;
-      v45 = 2114;
-      v46 = v17;
-      v47 = 2112;
-      v48 = v19;
-      v49 = 2114;
-      v50 = v20;
-      v51 = 2048;
-      v52 = v22;
-      v23 = "Response: %{public}@<%{public}@> returned <%@> for %{public}@ in %.4lf seconds";
-      v24 = v5;
-      v25 = 52;
+      v41 = v15;
+      v42 = 2114;
+      v43 = v16;
+      v44 = 2112;
+      v45 = v17;
+      v46 = 2114;
+      v47 = v18;
+      v48 = 2048;
+      v49 = v20;
+      v21 = "Response: %{public}@<%{public}@> returned <%@> for %{public}@ in %.4lf seconds";
+      v22 = v5;
+      v23 = 52;
     }
 
     else
     {
-      if (!v15)
+      if (!v14)
       {
         goto LABEL_21;
       }
 
-      v32 = *(a1 + 40);
-      v17 = [*(a1 + 48) requestID];
-      v33 = *(a1 + 80);
-      v19 = MRMediaRemoteVolumeControlAdjustmentDescription();
-      v21 = +[NSDate date];
-      [v21 timeIntervalSinceDate:*(a1 + 56)];
+      v30 = *(a1 + 40);
+      v16 = [*(a1 + 48) requestID];
+      v17 = MRMediaRemoteVolumeControlAdjustmentDescription();
+      v19 = +[NSDate date];
+      [v19 timeIntervalSinceDate:*(a1 + 56)];
       *buf = 138544130;
-      v44 = v32;
-      v45 = 2114;
-      v46 = v17;
-      v47 = 2112;
-      v48 = v19;
-      v49 = 2048;
-      v50 = v34;
-      v23 = "Response: %{public}@<%{public}@> returned <%@> in %.4lf seconds";
-      v24 = v5;
-      v25 = 42;
+      v41 = v30;
+      v42 = 2114;
+      v43 = v16;
+      v44 = 2112;
+      v45 = v17;
+      v46 = 2048;
+      v47 = v31;
+      v21 = "Response: %{public}@<%{public}@> returned <%@> in %.4lf seconds";
+      v22 = v5;
+      v23 = 42;
     }
 
-    _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, v23, buf, v25);
+    _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, v21, buf, v23);
 
     goto LABEL_21;
   }
@@ -4798,15 +5068,15 @@ void sub_1001862E4(uint64_t a1, void *a2)
       v10 = +[NSDate date];
       [v10 timeIntervalSinceDate:*(a1 + 56)];
       *buf = 138544386;
-      v44 = v7;
-      v45 = 2114;
-      v46 = v8;
-      v47 = 2114;
-      v48 = v3;
-      v49 = 2114;
-      v50 = v9;
-      v51 = 2048;
-      v52 = v11;
+      v41 = v7;
+      v42 = 2114;
+      v43 = v8;
+      v44 = 2114;
+      v45 = v3;
+      v46 = 2114;
+      v47 = v9;
+      v48 = 2048;
+      v49 = v11;
       _os_log_error_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", buf, 0x34u);
 LABEL_20:
     }
@@ -4819,16 +5089,16 @@ LABEL_20:
 
 LABEL_21:
 
-  v40[0] = _NSConcreteStackBlock;
-  v40[1] = 3221225472;
-  v40[2] = sub_100186738;
-  v40[3] = &unk_1004B8B50;
-  v37 = *(a1 + 64);
-  v38 = *(a1 + 72);
-  v41 = v3;
-  v42 = v38;
-  v39 = v3;
-  dispatch_async(v37, v40);
+  v37[0] = _NSConcreteStackBlock;
+  v37[1] = 3221225472;
+  v37[2] = sub_100186738;
+  v37[3] = &unk_1004B8B50;
+  v34 = *(a1 + 64);
+  v35 = *(a1 + 72);
+  v38 = v3;
+  v39 = v35;
+  v36 = v3;
+  dispatch_async(v34, v37);
 }
 
 id sub_10018674C(void *a1, void *a2)
@@ -5975,13 +6245,13 @@ LABEL_18:
   }
 }
 
-void sub_10018FA40(uint64_t a1, void *a2)
+void sub_10018FA40(void *a1, void *a2)
 {
-  v3 = *(a1 + 48);
+  v3 = a1[6];
   v4 = *(v3 + 16);
   v5 = a2;
   v4(v3, v5);
-  sub_1003ACB7C(*(a1 + 32), *(a1 + 40), *(a1 + 56), v5);
+  sub_1003ACB7C(a1[4], a1[5], a1[7], v5);
 }
 
 void sub_100190128(uint64_t a1)
@@ -6077,13 +6347,13 @@ BOOL sub_1001904A8(id a1, MRAVConcreteOutputDevice *a2)
   return v3;
 }
 
-void sub_1001904F8(uint64_t a1, void *a2)
+void sub_1001904F8(void *a1, void *a2)
 {
-  v3 = *(a1 + 32);
+  v3 = a1[4];
   v4 = a2;
   [v3 setDiscoveryMode:0];
-  (*(*(a1 + 56) + 16))();
-  sub_1003AD364(*(a1 + 40), *(a1 + 48), v4);
+  (*(a1[7] + 16))();
+  sub_1003AD364(a1[5], a1[6], v4);
 }
 
 void sub_10019056C(uint64_t a1, void *a2)
@@ -7520,26 +7790,25 @@ void sub_1001945E8(uint64_t a1)
 {
   if ([*(a1 + 32) disarm])
   {
-    v2 = *(*(*(a1 + 64) + 8) + 40);
-    v3 = *(*(a1 + 56) + 16);
+    v2 = *(*(a1 + 56) + 16);
 
-    v3();
+    v2();
   }
 
   else
   {
-    v4 = _MRLogForCategory();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v3 = _MRLogForCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(a1 + 40);
-      v6 = *(a1 + 48);
-      v7 = 138543874;
-      v8 = v5;
-      v9 = 2114;
-      v10 = v6;
-      v11 = 2112;
-      v12 = @"Completion after timeout";
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Update: %{public}@<%{public}@> %@", &v7, 0x20u);
+      v4 = *(a1 + 40);
+      v5 = *(a1 + 48);
+      v6 = 138543874;
+      v7 = v4;
+      v8 = 2114;
+      v9 = v5;
+      v10 = 2112;
+      v11 = @"Completion after timeout";
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Update: %{public}@<%{public}@> %@", &v6, 0x20u);
     }
   }
 }
@@ -7889,26 +8158,25 @@ void sub_100195C8C(uint64_t a1)
 {
   if ([*(a1 + 32) disarm])
   {
-    v2 = *(*(*(a1 + 64) + 8) + 40);
-    v3 = *(*(a1 + 56) + 16);
+    v2 = *(*(a1 + 56) + 16);
 
-    v3();
+    v2();
   }
 
   else
   {
-    v4 = _MRLogForCategory();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v3 = _MRLogForCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(a1 + 40);
-      v6 = *(a1 + 48);
-      v7 = 138543874;
-      v8 = v5;
-      v9 = 2114;
-      v10 = v6;
-      v11 = 2112;
-      v12 = @"Completion after timeout";
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Update: %{public}@<%{public}@> %@", &v7, 0x20u);
+      v4 = *(a1 + 40);
+      v5 = *(a1 + 48);
+      v6 = 138543874;
+      v7 = v4;
+      v8 = 2114;
+      v9 = v5;
+      v10 = 2112;
+      v11 = @"Completion after timeout";
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Update: %{public}@<%{public}@> %@", &v6, 0x20u);
     }
   }
 }
@@ -8110,10 +8378,11 @@ void sub_100196918(void *a1, uint64_t a2, uint64_t a3, const char *a4)
   _os_log_impl(a1, v4, OS_LOG_TYPE_DEFAULT, a4, (v5 - 160), 0x20u);
 }
 
-void sub_100196990(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100196990(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_DEFAULT, a4, &a9, 0x16u);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_DEFAULT, a4, va, 0x16u);
 }
 
 void sub_1001969B0(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5, const char *a6)
@@ -8122,10 +8391,11 @@ void sub_1001969B0(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *
   _os_signpost_emit_with_name_impl(a1, v7, OS_SIGNPOST_INTERVAL_BEGIN, v6, a5, a6, (v8 - 160), 2u);
 }
 
-void sub_1001969E0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1001969E0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_DEFAULT, a4, &a9, 0x16u);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_DEFAULT, a4, va, 0x16u);
 }
 
 id sub_100196A24()
@@ -8143,19 +8413,19 @@ id sub_100196A58(void *a1, const char *a2, uint64_t a3)
 id sub_100196A70(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10)
 {
 
-  return [a10 setObject:v10 forKeyedSubscript:?];
+  return [a10 setObject:v10 forKeyedSubscript:{a4, a5, a6, a7, a8}];
 }
 
 id sub_100196AB0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10)
 {
 
-  return [a10 setObject:v10 forKeyedSubscript:?];
+  return [a10 setObject:v10 forKeyedSubscript:{a4, a5, a6, a7, a8}];
 }
 
 id sub_100196AC8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
 {
 
-  return [v20 setObject:a20 forKeyedSubscript:?];
+  return [v20 setObject:a20 forKeyedSubscript:{a4, a5, a6, a7, a8}];
 }
 
 BOOL sub_100196AE0(NSObject *a1)
@@ -8655,262 +8925,4 @@ void sub_100199664(uint64_t a1, void *a2, void *a3)
   [v9 finishWithError:v8];
 
 LABEL_6:
-}
-
-void sub_10019978C(uint64_t a1, uint64_t a2)
-{
-  if ([*(a1 + 32) isCancelled])
-  {
-    v4 = *(a1 + 32);
-    v5 = [[NSError alloc] initWithMRError:25];
-    v8 = v5;
-    v6 = v4;
-LABEL_5:
-    [v6 finishWithError:v5];
-
-    return;
-  }
-
-  if (a2)
-  {
-    v5 = [*(a1 + 48) mr_errorByEnvelopingWithMRError:100];
-    v8 = v5;
-    v6 = *(a1 + 32);
-    goto LABEL_5;
-  }
-
-  [*(a1 + 32) setEndpoint:*(a1 + 40)];
-  v7 = *(a1 + 32);
-
-  [v7 finish];
-}
-
-void sub_10019A00C(uint64_t a1, uint64_t a2, void *a3)
-{
-  v4 = a3;
-  if ([*(a1 + 32) isCancelled])
-  {
-    v5 = *(a1 + 32);
-    v6 = [[NSError alloc] initWithMRError:25];
-    [v5 finishWithError:v6];
-  }
-
-  else
-  {
-    if (v4)
-    {
-      v7 = [v4 mr_errorByEnvelopingWithMRError:47];
-      [*(a1 + 32) finishWithError:v7];
-    }
-
-    else
-    {
-      v8 = +[MRDMediaRemoteServer server];
-      v9 = [v8 routingServer];
-      v7 = [v9 createTransientEndpointForOutputDeviceUID:*(*(a1 + 32) + 16) details:*(*(a1 + 32) + 8)];
-
-      if (v7)
-      {
-        v10 = *(a1 + 32);
-        v11 = *(v10 + 8);
-        v13[0] = _NSConcreteStackBlock;
-        v13[1] = 3221225472;
-        v13[2] = sub_10019A1AC;
-        v13[3] = &unk_1004B8690;
-        v13[4] = v10;
-        v14 = v7;
-        v15 = 0;
-        [v14 connectToExternalDeviceWithOptions:0 details:v11 completion:v13];
-      }
-
-      else
-      {
-        v12 = [0 mr_errorByEnvelopingWithMRError:39];
-        [*(a1 + 32) finishWithError:v12];
-      }
-    }
-  }
-}
-
-void sub_10019A1AC(uint64_t a1, uint64_t a2)
-{
-  if ([*(a1 + 32) isCancelled])
-  {
-    v4 = *(a1 + 32);
-    v5 = [[NSError alloc] initWithMRError:25];
-    v8 = v5;
-    v6 = v4;
-LABEL_5:
-    [v6 finishWithError:v5];
-
-    return;
-  }
-
-  if (a2)
-  {
-    v5 = [*(a1 + 48) mr_errorByEnvelopingWithMRError:100];
-    v8 = v5;
-    v6 = *(a1 + 32);
-    goto LABEL_5;
-  }
-
-  [*(a1 + 32) setEndpoint:*(a1 + 40)];
-  v7 = *(a1 + 32);
-
-  [v7 finish];
-}
-
-void sub_10019A7DC(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
-{
-
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x2Au);
-}
-
-void sub_10019B01C(uint64_t a1)
-{
-  v2 = [*(a1 + 32) delegate];
-  [v2 route:*(a1 + 40) endpoint:*(a1 + 48) bundleIdentifier:*(a1 + 56) emittedEvent:*(a1 + 64)];
-}
-
-id sub_10019B64C(uint64_t a1)
-{
-  v2 = _MRLogForCategory();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-  {
-    v4 = *(a1 + 32);
-    v3 = *(a1 + 40);
-    v5 = [v3 destination];
-    v6 = *(a1 + 48);
-    v8 = 138413058;
-    v9 = v4;
-    v10 = 2112;
-    v11 = v3;
-    v12 = 2112;
-    v13 = v5;
-    v14 = 2112;
-    v15 = v6;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "[MRDRRC].NPM %@ - endpoint was nil, trying again - %@ (%@), response: %@", &v8, 0x2Au);
-  }
-
-  return [*(a1 + 32) onQueue_controller:*(a1 + 40) didLoadResponse:*(a1 + 48) retry:0];
-}
-
-void sub_10019B8B4(uint64_t a1)
-{
-  v2 = [*(a1 + 32) destination];
-  v6 = [v2 endpoint];
-
-  v3 = [*(a1 + 32) destination];
-  v4 = [v3 client];
-  v5 = [v4 representedBundleID];
-
-  [*(a1 + 40) onQueue_setLastPlaybackState:*(a1 + 48) bundleIdentifier:v5 forEndpoint:v6];
-}
-
-void sub_10019C7B0(void *a1, void *a2)
-{
-  v3 = a2;
-  v11 = MREndpointConnectionReasonUserInfoKey;
-  v12 = @"activeSystemEndpointDidChange";
-  v4 = [NSDictionary dictionaryWithObjects:&v12 forKeys:&v11 count:1];
-  v7[0] = _NSConcreteStackBlock;
-  v7[1] = 3221225472;
-  v7[2] = sub_10019C8D4;
-  v7[3] = &unk_1004BE9B8;
-  v5 = a1[5];
-  v7[4] = a1[4];
-  v8 = v5;
-  v9 = v3;
-  v10 = a1[6];
-  v6 = v3;
-  [v6 connectToExternalDeviceWithUserInfo:v4 completion:v7];
-}
-
-void sub_10019C8D4(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  v4 = *(a1 + 32);
-  objc_sync_enter(v4);
-  v5 = [*(a1 + 32) activeSystemEndpointOutputDeviceUID];
-  v6 = *(a1 + 40);
-  v7 = v5;
-  v8 = v6;
-  v9 = v8;
-  if (v7 == v8)
-  {
-  }
-
-  else
-  {
-    v10 = [v7 isEqual:v8];
-
-    if (!v10)
-    {
-      v11 = _MRLogForCategory();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
-      {
-        v12 = *(a1 + 40);
-        v13 = [*(a1 + 32) activeSystemEndpointOutputDeviceUID];
-        v22 = 138412546;
-        v23 = v12;
-        v24 = 2112;
-        v25 = v13;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "[MRDProactiveRecommendedPlayerController] Ignoring activeSystemEndpointDidChange for %@ because a new change for %@ was received", &v22, 0x16u);
-      }
-
-      goto LABEL_12;
-    }
-  }
-
-  if (v3)
-  {
-    v14 = _MRLogForCategory();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
-    {
-      v15 = *(a1 + 40);
-      v22 = 138412546;
-      v23 = v15;
-      v24 = 2112;
-      v25 = v3;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "[MRDProactiveRecommendedPlayerController] Failed to connect to proactive endpoint %@ with error %@. Reset to local.", &v22, 0x16u);
-    }
-
-    v16 = &_dispatch_main_q;
-    MRAVEndpointUpdateActiveSystemEndpointWithReason();
-  }
-
-  else
-  {
-    v17 = [*(a1 + 48) origin];
-    v18 = *(a1 + 32);
-    v19 = +[MRDMediaRemoteServer server];
-    v20 = [v19 nowPlayingServer];
-    v21 = [v20 originClientForOrigin:v17];
-    [v18 setOriginClient:v21 withChangeType:*(a1 + 56)];
-  }
-
-LABEL_12:
-  objc_sync_exit(v4);
-}
-
-__CFString *sub_10019CF04(unint64_t a1)
-{
-  if (a1 > 5)
-  {
-    return 0;
-  }
-
-  else
-  {
-    return off_1004C0B30[a1];
-  }
-}
-
-id sub_10019CF24(void *a1)
-{
-  v1 = a1[5];
-  v2 = a1[7];
-  v3 = a1[8];
-  v4 = a1[6];
-  return [*(a1[4] + 96) proactiveRecommendedPlayerController:? proactiveRecommendedPlayerDidChange:? change:? event:? reason:?];
 }

@@ -110,7 +110,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v4 = [MEMORY[0x277CCABB0] numberWithBool:{-[TBNetworkMO moving](self, "moving")}];
   [dictionary setObject:v4 forKey:@"moving"];
@@ -177,30 +177,30 @@
   if (accessPoints)
   {
     array = [MEMORY[0x277CBEB18] array];
+    v35 = 0u;
     v36 = 0u;
     v37 = 0u;
     v38 = 0u;
-    v39 = 0u;
     accessPoints2 = [(TBNetworkMO *)self accessPoints];
-    v27 = [accessPoints2 countByEnumeratingWithState:&v36 objects:v40 count:16];
+    v27 = [accessPoints2 countByEnumeratingWithState:&v35 objects:v39 count:16];
     if (v27)
     {
       v28 = v27;
-      v29 = *v37;
+      v29 = *v36;
       do
       {
         for (i = 0; i != v28; ++i)
         {
-          if (*v37 != v29)
+          if (*v36 != v29)
           {
             objc_enumerationMutation(accessPoints2);
           }
 
-          dictionaryRepresentation = [*(*(&v36 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v35 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation];
         }
 
-        v28 = [accessPoints2 countByEnumeratingWithState:&v36 objects:v40 count:16];
+        v28 = [accessPoints2 countByEnumeratingWithState:&v35 objects:v39 count:16];
       }
 
       while (v28);
@@ -216,8 +216,6 @@
     ownerIdentifiers2 = [(TBNetworkMO *)self ownerIdentifiers];
     [dictionary setObject:ownerIdentifiers2 forKey:@"ownerIdentifiers"];
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }

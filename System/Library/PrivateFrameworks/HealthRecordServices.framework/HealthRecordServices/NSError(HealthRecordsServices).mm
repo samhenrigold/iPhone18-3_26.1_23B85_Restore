@@ -4,12 +4,12 @@
 + (id)hrs_cocoaErrorWithCode:()HealthRecordsServices;
 + (id)hrs_errorWithAccumulatedErrors:()HealthRecordsServices;
 + (id)hrs_resourceParsingErrorWithUnderlyingError:()HealthRecordsServices;
+- (BOOL)hrs_hasAuthorizationFailure;
 - (BOOL)hrs_hasResourceFetchErrorsIndicatingRateLimitation;
 - (BOOL)hrs_hasResourceFetchFailure;
 - (id)_hrs_accumulatedErrorsForUserInfoKey:()HealthRecordsServices;
 - (id)hrs_completeDescriptionRedactingSensitiveItemsIfNecessary:()HealthRecordsServices;
 - (id)hrs_userInfoValueForKey:()HealthRecordsServices prefixedWith:redactIfNecessary:;
-- (uint64_t)hrs_hasAuthorizationFailure;
 - (uint64_t)hrs_isReloginRequiredError;
 @end
 
@@ -96,7 +96,7 @@ LABEL_9:
   return v12;
 }
 
-- (uint64_t)hrs_hasAuthorizationFailure
+- (BOOL)hrs_hasAuthorizationFailure
 {
   if ([self hk_OAuth2_isOAuth2Error])
   {
@@ -283,14 +283,14 @@ LABEL_9:
 
 + (id)hrs_resourceParsingErrorWithUnderlyingError:()HealthRecordsServices
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v3 = a3;
   v4 = v3;
   if (v3)
   {
-    v9 = *MEMORY[0x277CCA7E8];
-    v10[0] = v3;
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+    v8 = *MEMORY[0x277CCA7E8];
+    v9[0] = v3;
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   }
 
   else
@@ -300,14 +300,12 @@ LABEL_9:
 
   v6 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.healthkit.healthrecords.private" code:2 userInfo:v5];
 
-  v7 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 + (id)hrs_authorizationOrResourceFetchErrorFromError:()HealthRecordsServices
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (!v5)
   {
@@ -328,8 +326,8 @@ LABEL_9:
     v10 = MEMORY[0x277CCA9B8];
     if (hk_OAuth2_isOAuth2Error)
     {
-      v18[0] = v5;
-      v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+      v17[0] = v5;
+      v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
       v12 = v10;
       v13 = v11;
       v14 = 0;
@@ -337,8 +335,8 @@ LABEL_9:
 
     else
     {
-      v17 = v5;
-      v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
+      v16 = v5;
+      v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
       v12 = v10;
       v13 = 0;
       v14 = v11;
@@ -347,39 +345,37 @@ LABEL_9:
     v8 = [v12 hrs_accumulatedErrorWithAuthorizationFailures:v13 resourceFetchFailures:v14 otherErrors:0];
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 + (id)hrs_errorWithAccumulatedErrors:()HealthRecordsServices
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v3 = a3;
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v33 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v32 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v31 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v34 objects:v42 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v33 objects:v41 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v35;
+    v8 = *v34;
     v9 = MEMORY[0x277CBEBF8];
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v35 != v8)
+        if (*v34 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v34 + 1) + 8 * i);
+        v11 = *(*(&v33 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -414,7 +410,7 @@ LABEL_9:
               v19 = v9;
             }
 
-            [v33 addObjectsFromArray:v19];
+            [v32 addObjectsFromArray:v19];
 
             hrs_accumulatedOtherErrors = [v11 hrs_accumulatedOtherErrors];
             v21 = hrs_accumulatedOtherErrors;
@@ -428,7 +424,7 @@ LABEL_9:
               v22 = v9;
             }
 
-            [v32 addObjectsFromArray:v22];
+            [v31 addObjectsFromArray:v22];
           }
 
           else
@@ -440,12 +436,12 @@ LABEL_9:
 
             else if ([v11 hrs_hasResourceFetchFailure])
             {
-              v26 = v33;
+              v26 = v32;
             }
 
             else
             {
-              v26 = v32;
+              v26 = v31;
             }
 
             [v26 addObject:v11];
@@ -461,23 +457,21 @@ LABEL_9:
             v24 = v23;
             v25 = NSStringFromSelector(a2);
             *buf = 138543618;
-            v39 = v25;
-            v40 = 2114;
-            v41 = v11;
+            v38 = v25;
+            v39 = 2114;
+            v40 = v11;
             _os_log_error_impl(&dword_2519FE000, v24, OS_LOG_TYPE_ERROR, "%{public}@ only expecting NSError entries in the array but got %{public}@", buf, 0x16u);
           }
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v34 objects:v42 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v33 objects:v41 count:16];
     }
 
     while (v7);
   }
 
-  v27 = [self hrs_accumulatedErrorWithAuthorizationFailures:v4 resourceFetchFailures:v33 otherErrors:v32];
-
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = [self hrs_accumulatedErrorWithAuthorizationFailures:v4 resourceFetchFailures:v32 otherErrors:v31];
 
   return v27;
 }

@@ -74,97 +74,93 @@
     {
       CFRunLoopGetCurrent();
       IOHIDEventSystemClientScheduleWithRunLoop();
-      v58[0] = @"DeviceUsagePage";
-      v58[1] = @"DeviceUsage";
-      v59[0] = &off_4D8F8;
-      v59[1] = &off_4D910;
-      v4 = [NSDictionary dictionaryWithObjects:v59 forKeys:v58 count:2];
-      eventSystemClient = self->_eventSystemClient;
+      v54[0] = @"DeviceUsagePage";
+      v54[1] = @"DeviceUsage";
+      v55[0] = &off_4D8F8;
+      v55[1] = &off_4D910;
+      v4 = [NSDictionary dictionaryWithObjects:v55 forKeys:v54 count:2];
       IOHIDEventSystemClientSetMatching();
-      v6 = self->_eventSystemClient;
-      v50 = _NSConcreteStackBlock;
-      v51 = 3221225472;
-      v52 = sub_CD04;
-      v53 = &unk_49278;
-      objc_copyWeak(&v54, &location);
+      v46 = _NSConcreteStackBlock;
+      v47 = 3221225472;
+      v48 = sub_CD04;
+      v49 = &unk_49278;
+      objc_copyWeak(&v50, &location);
       IOHIDEventSystemClientRegisterDeviceMatchingBlock();
-      objc_destroyWeak(&v54);
+      objc_destroyWeak(&v50);
     }
   }
 
-  v35 = +[NSMutableArray array];
+  v31 = +[NSMutableArray array];
   selfCopy = self;
-  v7 = IOHIDEventSystemClientCopyServices(self->_eventSystemClient);
-  v46 = 0u;
-  v47 = 0u;
-  v48 = 0u;
-  v49 = 0u;
-  obj = v7;
-  v8 = [(__CFArray *)obj countByEnumeratingWithState:&v46 objects:v57 count:16];
-  if (v8)
+  v5 = IOHIDEventSystemClientCopyServices(self->_eventSystemClient);
+  v42 = 0u;
+  v43 = 0u;
+  v44 = 0u;
+  v45 = 0u;
+  obj = v5;
+  v6 = [(__CFArray *)obj countByEnumeratingWithState:&v42 objects:v53 count:16];
+  if (v6)
   {
-    v9 = v8;
-    v10 = *v47;
-    v11 = &TUIDictationTitle_ptr;
-    v36 = *v47;
+    v7 = v6;
+    v8 = *v43;
+    v32 = *v43;
     do
     {
-      v12 = 0;
-      v37 = v9;
+      v9 = 0;
+      v33 = v7;
       do
       {
-        if (*v47 != v10)
+        if (*v43 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v46 + 1) + 8 * v12);
-        v14 = IOHIDServiceClientCopyProperty(v13, @"DeviceUsagePairs");
-        v15 = v11[415];
+        v10 = *(*(&v42 + 1) + 8 * v9);
+        v11 = IOHIDServiceClientCopyProperty(v10, @"DeviceUsagePairs");
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v39 = v13;
-          v40 = v14;
-          v44 = 0u;
-          v45 = 0u;
-          v42 = 0u;
-          v43 = 0u;
-          v16 = v14;
-          v17 = [v16 countByEnumeratingWithState:&v42 objects:v56 count:16];
-          if (v17)
+          v35 = v10;
+          v36 = v11;
+          v40 = 0u;
+          v41 = 0u;
+          v38 = 0u;
+          v39 = 0u;
+          v12 = v11;
+          v13 = [v12 countByEnumeratingWithState:&v38 objects:v52 count:16];
+          if (v13)
           {
-            v18 = v17;
-            v19 = *v43;
+            v14 = v13;
+            v15 = *v39;
             while (2)
             {
-              for (i = 0; i != v18; i = i + 1)
+              for (i = 0; i != v14; i = i + 1)
               {
-                if (*v43 != v19)
+                if (*v39 != v15)
                 {
-                  objc_enumerationMutation(v16);
+                  objc_enumerationMutation(v12);
                 }
 
-                v21 = *(*(&v42 + 1) + 8 * i);
+                v17 = *(*(&v38 + 1) + 8 * i);
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  v22 = [v21 objectForKey:@"DeviceUsagePage"];
-                  v23 = [v21 objectForKey:@"DeviceUsage"];
-                  if ([v22 isEqual:&off_4D8F8] && objc_msgSend(v23, "isEqual:", &off_4D910))
+                  v18 = [v17 objectForKey:@"DeviceUsagePage"];
+                  v19 = [v17 objectForKey:@"DeviceUsage"];
+                  if ([v18 isEqual:&off_4D8F8] && objc_msgSend(v19, "isEqual:", &off_4D910))
                   {
-                    [(NSMutableArray *)v35 addObject:v39];
-                    objc_copyWeak(&v41, &location);
+                    [(NSMutableArray *)v31 addObject:v35];
+                    objc_copyWeak(&v37, &location);
                     IOHIDServiceClientRegisterRemovalBlock();
-                    objc_destroyWeak(&v41);
+                    objc_destroyWeak(&v37);
 
                     goto LABEL_23;
                   }
                 }
               }
 
-              v18 = [v16 countByEnumeratingWithState:&v42 objects:v56 count:16];
-              if (v18)
+              v14 = [v12 countByEnumeratingWithState:&v38 objects:v52 count:16];
+              if (v14)
               {
                 continue;
               }
@@ -175,28 +171,27 @@
 
 LABEL_23:
 
-          v10 = v36;
-          v9 = v37;
-          v11 = &TUIDictationTitle_ptr;
-          v14 = v40;
+          v8 = v32;
+          v7 = v33;
+          v11 = v36;
         }
 
-        v12 = v12 + 1;
+        v9 = v9 + 1;
       }
 
-      while (v12 != v9);
-      v9 = [(__CFArray *)obj countByEnumeratingWithState:&v46 objects:v57 count:16];
+      while (v9 != v7);
+      v7 = [(__CFArray *)obj countByEnumeratingWithState:&v42 objects:v53 count:16];
     }
 
-    while (v9);
+    while (v7);
   }
 
-  if ([(NSMutableArray *)v35 count])
+  if ([(NSMutableArray *)v31 count])
   {
-    v24 = selfCopy;
-    if (!selfCopy->_currentKeyboard || ([(NSMutableArray *)v35 containsObject:?]& 1) == 0)
+    v20 = selfCopy;
+    if (!selfCopy->_currentKeyboard || ([(NSMutableArray *)v31 containsObject:?]& 1) == 0)
     {
-      firstObject = [(NSMutableArray *)v35 firstObject];
+      firstObject = [(NSMutableArray *)v31 firstObject];
       selfCopy->_currentKeyboard = firstObject;
 LABEL_33:
     }
@@ -204,27 +199,27 @@ LABEL_33:
 
   else
   {
-    v24 = selfCopy;
+    v20 = selfCopy;
     selfCopy->_currentKeyboard = 0;
     navigationController = [(TIHardwareKeyboardModifierRemapController *)selfCopy navigationController];
     viewControllers = [navigationController viewControllers];
-    v28 = [viewControllers indexOfObject:selfCopy];
+    v24 = [viewControllers indexOfObject:selfCopy];
 
-    if (v28 && v28 != 0x7FFFFFFFFFFFFFFFLL)
+    if (v24 && v24 != 0x7FFFFFFFFFFFFFFFLL)
     {
       navigationController2 = [(TIHardwareKeyboardModifierRemapController *)selfCopy navigationController];
       viewControllers2 = [navigationController2 viewControllers];
-      firstObject = [viewControllers2 objectAtIndex:v28 - 1];
+      firstObject = [viewControllers2 objectAtIndex:v24 - 1];
 
       navigationController3 = [(TIHardwareKeyboardModifierRemapController *)selfCopy navigationController];
-      v32 = [navigationController3 popToViewController:firstObject animated:1];
+      v28 = [navigationController3 popToViewController:firstObject animated:1];
 
       goto LABEL_33;
     }
   }
 
-  keyboards = v24->_keyboards;
-  v24->_keyboards = v35;
+  keyboards = v20->_keyboards;
+  v20->_keyboards = v31;
 
   objc_destroyWeak(&location);
 }
@@ -690,7 +685,7 @@ LABEL_33:
 
 - (id)keysSectionSpecifiers
 {
-  v39 = objc_alloc_init(NSMutableArray);
+  v38 = objc_alloc_init(NSMutableArray);
   if (self->_currentKeyboard)
   {
     v3 = [PSSpecifier groupSpecifierWithID:@"Keys"];
@@ -698,8 +693,8 @@ LABEL_33:
     v5 = [v4 localizedStringForKey:@"MODIFIER_KEYS_FOOTER_TEXT" value:&stru_49C80 table:@"Keyboard"];
     [v3 setProperty:v5 forKey:PSFooterTextGroupKey];
 
-    v37 = v3;
-    [v39 addObject:v3];
+    v36 = v3;
+    [v38 addObject:v3];
     currentKeyboard = self->_currentKeyboard;
     v7 = +[NSMutableSet set];
     if (currentKeyboard)
@@ -713,109 +708,108 @@ LABEL_33:
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v35 = v10;
-          v36 = v8;
-          v46 = 0u;
-          v47 = 0u;
-          v44 = 0u;
+          v34 = v10;
+          v35 = v8;
           v45 = 0u;
+          v46 = 0u;
+          v43 = 0u;
+          v44 = 0u;
           v11 = v10;
-          v12 = [v11 countByEnumeratingWithState:&v44 objects:v49 count:16];
+          v12 = [v11 countByEnumeratingWithState:&v43 objects:v48 count:16];
           if (v12)
           {
             v13 = v12;
-            v14 = *v45;
-            v38 = v11;
+            v14 = *v44;
+            v37 = v11;
             do
             {
               for (i = 0; i != v13; i = i + 1)
               {
-                if (*v45 != v14)
+                if (*v44 != v14)
                 {
                   objc_enumerationMutation(v11);
                 }
 
-                v16 = *(*(&v44 + 1) + 8 * i);
-                v17 = v9[416];
+                v16 = *(*(&v43 + 1) + 8 * i);
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  v18 = [v16 objectForKeyedSubscript:@"Usage"];
-                  v19 = [v16 objectForKeyedSubscript:@"UsagePage"];
+                  v17 = [v16 objectForKeyedSubscript:@"Usage"];
+                  v18 = [v16 objectForKeyedSubscript:@"UsagePage"];
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
                     objc_opt_class();
                     if (objc_opt_isKindOfClass())
                     {
-                      v20 = v9;
-                      unsignedLongLongValue = [v18 unsignedLongLongValue];
-                      v22 = unsignedLongLongValue | ([v19 unsignedLongLongValue] << 32);
-                      v23 = qword_56958;
-                      v24 = [NSNumber numberWithUnsignedLongLong:v22];
-                      v25 = [v23 objectForKeyedSubscript:v24];
+                      v19 = v9;
+                      unsignedLongLongValue = [v17 unsignedLongLongValue];
+                      v21 = unsignedLongLongValue | ([v18 unsignedLongLongValue] << 32);
+                      v22 = qword_56958;
+                      v23 = [NSNumber numberWithUnsignedLongLong:v21];
+                      v24 = [v22 objectForKeyedSubscript:v23];
 
-                      if (v25)
+                      if (v24)
                       {
-                        [v7 addObject:v25];
+                        [v7 addObject:v24];
                       }
 
-                      v9 = v20;
-                      v11 = v38;
+                      v9 = v19;
+                      v11 = v37;
                     }
                   }
                 }
               }
 
-              v13 = [v11 countByEnumeratingWithState:&v44 objects:v49 count:16];
+              v13 = [v11 countByEnumeratingWithState:&v43 objects:v48 count:16];
             }
 
             while (v13);
           }
 
-          v10 = v35;
-          v8 = v36;
+          v10 = v34;
+          v8 = v35;
         }
       }
     }
 
+    v39 = 0u;
     v40 = 0u;
     v41 = 0u;
     v42 = 0u;
-    v43 = 0u;
-    v26 = qword_56968;
-    v27 = [v26 countByEnumeratingWithState:&v40 objects:v48 count:16];
-    if (v27)
+    v25 = qword_56968;
+    v26 = [v25 countByEnumeratingWithState:&v39 objects:v47 count:16];
+    if (v26)
     {
-      v28 = v27;
-      v29 = *v41;
-      v30 = PSIDKey;
+      v27 = v26;
+      v28 = *v40;
+      v29 = PSIDKey;
       do
       {
-        for (j = 0; j != v28; j = j + 1)
+        for (j = 0; j != v27; j = j + 1)
         {
-          if (*v41 != v29)
+          if (*v40 != v28)
           {
-            objc_enumerationMutation(v26);
+            objc_enumerationMutation(v25);
           }
 
-          v32 = *(*(&v40 + 1) + 8 * j);
-          if ([v7 containsObject:v32])
+          v31 = *(*(&v39 + 1) + 8 * j);
+          if ([v7 containsObject:v31])
           {
-            v33 = [PSSpecifier preferenceSpecifierNamed:0 target:self set:0 get:0 detail:objc_opt_class() cell:2 edit:0];
-            [v33 setProperty:v32 forKey:v30];
-            [v39 addObject:v33];
+            v32 = [PSSpecifier preferenceSpecifierNamed:0 target:self set:0 get:0 detail:objc_opt_class() cell:2 edit:0];
+            [v32 setProperty:v31 forKey:v29];
+            [v38 addObject:v32];
           }
         }
 
-        v28 = [v26 countByEnumeratingWithState:&v40 objects:v48 count:16];
+        v27 = [v25 countByEnumeratingWithState:&v39 objects:v47 count:16];
       }
 
-      while (v28);
+      while (v27);
     }
   }
 
-  return v39;
+  return v38;
 }
 
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path

@@ -1,5 +1,6 @@
 @interface HMDFileManager
 - (BOOL)copyItemAtURL:(id)l toURL:(id)rL error:(id *)error;
+- (BOOL)createDirectoryAtURL:(id)l withIntermediateDirectories:(BOOL)directories attributes:(id)attributes error:(id *)error;
 - (BOOL)createFileAtPath:(id)path contents:(id)contents attributes:(id)attributes;
 - (BOOL)fileExistsAtPath:(id)path;
 - (BOOL)fileExistsAtPath:(id)path isDirectory:(BOOL *)directory;
@@ -67,44 +68,42 @@
 
 - (void)enumerateItemsAtURL:(id)l includingPropertiesForKeys:(id)keys usingBlock:(id)block
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   lCopy = l;
   keysCopy = keys;
   blockCopy = block;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v11 = [defaultManager enumeratorAtURL:lCopy includingPropertiesForKeys:keysCopy options:0 errorHandler:0];
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v12 = v11;
-  v13 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v19;
+    v15 = *v18;
     do
     {
       v16 = 0;
       do
       {
-        if (*v19 != v15)
+        if (*v18 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        blockCopy[2](blockCopy, *(*(&v18 + 1) + 8 * v16++));
+        blockCopy[2](blockCopy, *(*(&v17 + 1) + 8 * v16++));
       }
 
       while (v14 != v16);
-      v14 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v14);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isDeletableFileAtPath:(id)path
@@ -183,16 +182,16 @@
 
 - (BOOL)zipItemAtURL:(id)l toURL:(id)rL error:(id *)error
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   lCopy = l;
   path = [rL path];
   v9 = fopen([path fileSystemRepresentation], "w+");
 
   if (v9)
   {
-    v15 = *MEMORY[0x277D6A788];
-    v16[0] = *MEMORY[0x277D6A780];
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:{1, 0, 0, 0, 0, 0, v9, 0, 0, 0, 0, 0, 0, 0}];
+    v14 = *MEMORY[0x277D6A788];
+    v15[0] = *MEMORY[0x277D6A780];
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:{1, 0, 0, 0, 0, 0, v9, 0, 0, 0, 0, 0, 0, 0}];
     path2 = [lCopy path];
     [path2 fileSystemRepresentation];
     StreamableZip = SZArchiverCreateStreamableZip();
@@ -211,22 +210,21 @@
     StreamableZip = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return StreamableZip;
 }
 
 - (BOOL)unzipItemAtURL:(id)l toURL:(id)rL error:(id *)error
 {
-  v24[3] = *MEMORY[0x277D85DE8];
+  v23[3] = *MEMORY[0x277D85DE8];
   lCopy = l;
   rLCopy = rL;
-  v23[0] = @"extractPKZip";
-  v23[1] = @"sequesterResources";
-  v24[0] = MEMORY[0x277CBEC38];
-  v24[1] = MEMORY[0x277CBEC38];
-  v23[2] = @"copyResources";
-  v24[2] = MEMORY[0x277CBEC38];
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:3];
+  v22[0] = @"extractPKZip";
+  v22[1] = @"sequesterResources";
+  v23[0] = MEMORY[0x277CBEC38];
+  v23[1] = MEMORY[0x277CBEC38];
+  v22[2] = @"copyResources";
+  v23[2] = MEMORY[0x277CBEC38];
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:3];
   uRLByDeletingLastPathComponent = [lCopy URLByDeletingLastPathComponent];
   v12 = [uRLByDeletingLastPathComponent URLByAppendingPathComponent:@"temp"];
 
@@ -246,12 +244,12 @@
     goto LABEL_3;
   }
 
-  v22 = 0;
-  [(HMDFileManager *)self removeItemAtURL:lCopy error:&v22];
-  v20 = v22;
-  v21 = v20;
-  [(HMDFileManager *)self moveItemAtURL:v12 toURL:rLCopy error:&v21];
-  v14 = v21;
+  v21 = 0;
+  [(HMDFileManager *)self removeItemAtURL:lCopy error:&v21];
+  v19 = v21;
+  v20 = v19;
+  [(HMDFileManager *)self moveItemAtURL:v12 toURL:rLCopy error:&v20];
+  v14 = v20;
 
   if (error)
   {
@@ -273,7 +271,6 @@ LABEL_4:
 
   v17 = v16;
 
-  v18 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -325,6 +322,18 @@ LABEL_4:
   lCopy = l;
   defaultManager = [v7 defaultManager];
   LOBYTE(error) = [defaultManager copyItemAtURL:lCopy toURL:rLCopy error:error];
+
+  return error;
+}
+
+- (BOOL)createDirectoryAtURL:(id)l withIntermediateDirectories:(BOOL)directories attributes:(id)attributes error:(id *)error
+{
+  directoriesCopy = directories;
+  v9 = MEMORY[0x277CCAA00];
+  attributesCopy = attributes;
+  lCopy = l;
+  defaultManager = [v9 defaultManager];
+  LOBYTE(error) = [defaultManager createDirectoryAtURL:lCopy withIntermediateDirectories:directoriesCopy attributes:attributesCopy error:error];
 
   return error;
 }

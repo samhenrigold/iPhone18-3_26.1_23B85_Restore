@@ -45,7 +45,7 @@
   return v10;
 }
 
-uint64_t __77__SKUIContentUnavailableView_prefetchResourcesForViewElement_reason_context___block_invoke(uint64_t a1, uint64_t a2)
+void *__77__SKUIContentUnavailableView_prefetchResourcesForViewElement_reason_context___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) prefetchResourcesForViewElement:a2 reason:*(a1 + 48)];
   if (result)
@@ -450,18 +450,18 @@ void __44__SKUIContentUnavailableView_layoutSubviews__block_invoke(uint64_t a1, 
   v14 = SKUIViewElementAlignmentForStyle(v10);
   if (v14)
   {
-    v15 = SKUIViewElementNSTextAlignmentForIKElementAlignment(v14);
+    v16 = SKUIViewElementNSTextAlignmentForIKElementAlignment(v14, v15);
   }
 
   else
   {
-    v15 = 1;
+    v16 = 1;
   }
 
   buttonText = [buttonCopy buttonText];
-  v17 = [buttonText attributedStringWithDefaultFont:v11 foregroundColor:v13 textAlignment:v15 style:v10];
+  v18 = [buttonText attributedStringWithDefaultFont:v11 foregroundColor:v13 textAlignment:v16 style:v10];
 
-  return v17;
+  return v18;
 }
 
 + (id)_attributedStringWithMessageLabel:(id)label context:(id)context
@@ -486,18 +486,18 @@ void __44__SKUIContentUnavailableView_layoutSubviews__block_invoke(uint64_t a1, 
   v11 = SKUIViewElementAlignmentForStyle(style);
   if (v11)
   {
-    v12 = SKUIViewElementNSTextAlignmentForIKElementAlignment(v11);
+    v13 = SKUIViewElementNSTextAlignmentForIKElementAlignment(v11, v12);
   }
 
   else
   {
-    v12 = 1;
+    v13 = 1;
   }
 
   text = [labelCopy text];
-  v14 = [text attributedStringWithDefaultFont:v8 foregroundColor:secondaryLabelColor textAlignment:v12 style:style];
+  v15 = [text attributedStringWithDefaultFont:v8 foregroundColor:secondaryLabelColor textAlignment:v13 style:style];
 
-  return v14;
+  return v15;
 }
 
 + (id)_attributedStringWithTitleLabel:(id)label context:(id)context
@@ -522,18 +522,18 @@ void __44__SKUIContentUnavailableView_layoutSubviews__block_invoke(uint64_t a1, 
   v11 = SKUIViewElementAlignmentForStyle(style);
   if (v11)
   {
-    v12 = SKUIViewElementNSTextAlignmentForIKElementAlignment(v11);
+    v13 = SKUIViewElementNSTextAlignmentForIKElementAlignment(v11, v12);
   }
 
   else
   {
-    v12 = 1;
+    v13 = 1;
   }
 
   text = [labelCopy text];
-  v14 = [text attributedStringWithDefaultFont:v8 foregroundColor:secondaryLabelColor textAlignment:v12 style:style];
+  v15 = [text attributedStringWithDefaultFont:v8 foregroundColor:secondaryLabelColor textAlignment:v13 style:style];
 
-  return v14;
+  return v15;
 }
 
 - (double)_baselineOffsetForView:(id)view

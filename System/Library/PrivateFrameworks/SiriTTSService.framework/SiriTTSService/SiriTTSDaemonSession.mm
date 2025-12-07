@@ -9,6 +9,7 @@
 - (void)didStartSpeakingWithRequestId:(unint64_t)id;
 - (void)forwardWithStreamObject:(id)object;
 - (void)killDaemon;
+- (void)setKeepActive:(BOOL)active;
 - (void)signalWithInlineStreaming:(id)streaming;
 - (void)subscribeWithVoices:(id)voices reply:(id)reply;
 @end
@@ -43,10 +44,15 @@
   DaemonSession.didGenerateWordTimings(requestId:wordTimingInfo:)(id, v6);
 }
 
+- (void)setKeepActive:(BOOL)active
+{
+  selfCopy = self;
+  sub_1B1BEB768(active);
+}
+
 - (SiriTTSDaemonSession)initWithAccessoryId:(id)id
 {
   v3 = sub_1B1C2C478();
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x1EEE9AC00](v3 - 8);
   sub_1B1C2C458();
   DaemonSession.init(accessoryId:)();

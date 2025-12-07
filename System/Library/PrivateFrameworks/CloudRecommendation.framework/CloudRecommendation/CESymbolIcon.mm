@@ -11,98 +11,103 @@
 - (CESymbolIcon)initWithDictionary:(id)dictionary
 {
   dictionaryCopy = dictionary;
-  v22.receiver = self;
-  v22.super_class = CESymbolIcon;
-  v5 = [(CEIcon *)&v22 initWithDictionary:dictionaryCopy];
+  v27.receiver = self;
+  v27.super_class = CESymbolIcon;
+  v5 = [(CEIcon *)&v27 initWithDictionary:dictionaryCopy];
   if (v5)
   {
     v6 = [dictionaryCopy objectForKeyedSubscript:@"id"];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v7 = v6;
+      v8 = v6;
       identifier = v5->_identifier;
-      v5->_identifier = v7;
+      v5->_identifier = v8;
     }
 
     else
     {
-      identifier = _CELogSystem();
+      identifier = _CELogSystem(isKindOfClass);
       if (os_log_type_enabled(identifier, OS_LOG_TYPE_DEBUG))
       {
-        [CESymbolIcon initWithDictionary:];
+        [CESymbolIcon initWithDictionary:v5];
       }
     }
 
-    v9 = [dictionaryCopy objectForKeyedSubscript:@"path"];
+    v10 = [dictionaryCopy objectForKeyedSubscript:@"path"];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    v11 = objc_opt_isKindOfClass();
+    if (v11)
     {
-      v10 = v9;
+      v12 = v10;
       path = v5->_path;
-      v5->_path = v10;
+      v5->_path = v12;
     }
 
     else
     {
-      path = _CELogSystem();
+      path = _CELogSystem(v11);
       if (os_log_type_enabled(path, OS_LOG_TYPE_DEBUG))
       {
-        [CESymbolIcon initWithDictionary:];
+        [CESymbolIcon initWithDictionary:v5];
       }
     }
 
-    v12 = [dictionaryCopy objectForKeyedSubscript:@"color"];
+    v14 = [dictionaryCopy objectForKeyedSubscript:@"color"];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    v15 = objc_opt_isKindOfClass();
+    if (v15)
     {
-      v13 = v12;
+      v16 = v14;
       systemColorName = v5->_systemColorName;
-      v5->_systemColorName = v13;
+      v5->_systemColorName = v16;
     }
 
     else
     {
-      systemColorName = _CELogSystem();
+      systemColorName = _CELogSystem(v15);
       if (os_log_type_enabled(systemColorName, OS_LOG_TYPE_DEBUG))
       {
-        [CESymbolIcon initWithDictionary:];
+        [CESymbolIcon initWithDictionary:v5];
       }
     }
 
-    v15 = [dictionaryCopy objectForKeyedSubscript:@"foregroundColor"];
+    v18 = [dictionaryCopy objectForKeyedSubscript:@"foregroundColor"];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    v19 = objc_opt_isKindOfClass();
+    if (v19)
     {
-      v16 = v15;
+      v20 = v18;
       foregroundSystemColorName = v5->_foregroundSystemColorName;
-      v5->_foregroundSystemColorName = v16;
+      v5->_foregroundSystemColorName = v20;
     }
 
     else
     {
-      foregroundSystemColorName = _CELogSystem();
+      foregroundSystemColorName = _CELogSystem(v19);
       if (os_log_type_enabled(foregroundSystemColorName, OS_LOG_TYPE_DEBUG))
       {
-        [CESymbolIcon initWithDictionary:];
+        [CESymbolIcon initWithDictionary:v5];
       }
     }
 
-    v18 = [dictionaryCopy objectForKeyedSubscript:@"backgroundColor"];
+    v22 = [dictionaryCopy objectForKeyedSubscript:@"backgroundColor"];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    v23 = objc_opt_isKindOfClass();
+    if (v23)
     {
-      v19 = v18;
+      v24 = v22;
       backgroundSystemColorName = v5->_backgroundSystemColorName;
-      v5->_backgroundSystemColorName = v19;
+      v5->_backgroundSystemColorName = v24;
     }
 
     else
     {
-      backgroundSystemColorName = _CELogSystem();
+      backgroundSystemColorName = _CELogSystem(v23);
       if (os_log_type_enabled(backgroundSystemColorName, OS_LOG_TYPE_DEBUG))
       {
-        [CESymbolIcon initWithDictionary:];
+        [CESymbolIcon initWithDictionary:v5];
       }
     }
   }
@@ -170,63 +175,47 @@
 
 - (id)description
 {
-  v7.receiver = self;
-  v7.super_class = CESymbolIcon;
-  v3 = [(CEIcon *)&v7 description];
-  foregroundSystemColorName = self->_foregroundSystemColorName;
-  v5 = [v3 stringByAppendingFormat:@" id: %@, path: %@, systemColorName: %@, foregroundSystemColorName: %@, backgroundSystemColorName: %@", self->_identifier, self->_path, self->_systemColorName, foregroundSystemColorName, self->_backgroundSystemColorName];
+  v6.receiver = self;
+  v6.super_class = CESymbolIcon;
+  v3 = [(CEIcon *)&v6 description];
+  v4 = [v3 stringByAppendingFormat:@" id: %@, path: %@, systemColorName: %@, foregroundSystemColorName: %@, backgroundSystemColorName: %@", self->_identifier, self->_path, self->_systemColorName, self->_foregroundSystemColorName, self->_backgroundSystemColorName];
 
-  return v5;
+  return v4;
 }
 
-- (void)initWithDictionary:.cold.1()
+- (void)initWithDictionary:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_1(v0);
-  OUTLINED_FUNCTION_0(&dword_2439E1000, v2, v3, "%@ Unable to parse identifier from dictionary", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v1 = objc_opt_class();
+  v2 = OUTLINED_FUNCTION_1(v1);
+  OUTLINED_FUNCTION_0(&dword_2439E1000, v3, v4, "%@ Unable to parse identifier from dictionary", v5, v6, v7, v8);
 }
 
-- (void)initWithDictionary:.cold.2()
+- (void)initWithDictionary:(uint64_t)a1 .cold.2(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_1(v0);
-  OUTLINED_FUNCTION_0(&dword_2439E1000, v2, v3, "%@ Unable to parse path from dictionary", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v1 = objc_opt_class();
+  v2 = OUTLINED_FUNCTION_1(v1);
+  OUTLINED_FUNCTION_0(&dword_2439E1000, v3, v4, "%@ Unable to parse path from dictionary", v5, v6, v7, v8);
 }
 
-- (void)initWithDictionary:.cold.3()
+- (void)initWithDictionary:(uint64_t)a1 .cold.3(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_1(v0);
-  OUTLINED_FUNCTION_0(&dword_2439E1000, v2, v3, "%@ Unable to parse color from dictionary", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v1 = objc_opt_class();
+  v2 = OUTLINED_FUNCTION_1(v1);
+  OUTLINED_FUNCTION_0(&dword_2439E1000, v3, v4, "%@ Unable to parse color from dictionary", v5, v6, v7, v8);
 }
 
-- (void)initWithDictionary:.cold.4()
+- (void)initWithDictionary:(uint64_t)a1 .cold.4(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_1(v0);
-  OUTLINED_FUNCTION_0(&dword_2439E1000, v2, v3, "%@ Unable to parse foreground color from dictionary", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v1 = objc_opt_class();
+  v2 = OUTLINED_FUNCTION_1(v1);
+  OUTLINED_FUNCTION_0(&dword_2439E1000, v3, v4, "%@ Unable to parse foreground color from dictionary", v5, v6, v7, v8);
 }
 
-- (void)initWithDictionary:.cold.5()
+- (void)initWithDictionary:(uint64_t)a1 .cold.5(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_1(v0);
-  OUTLINED_FUNCTION_0(&dword_2439E1000, v2, v3, "%@ Unable to parse background color from dictionary", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v1 = objc_opt_class();
+  v2 = OUTLINED_FUNCTION_1(v1);
+  OUTLINED_FUNCTION_0(&dword_2439E1000, v3, v4, "%@ Unable to parse background color from dictionary", v5, v6, v7, v8);
 }
 
 @end

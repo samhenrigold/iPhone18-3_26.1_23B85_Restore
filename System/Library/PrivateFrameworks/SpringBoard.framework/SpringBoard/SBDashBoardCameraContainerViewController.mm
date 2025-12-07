@@ -393,7 +393,7 @@ void __55__SBDashBoardCameraContainerViewController_viewDidLoad__block_invoke_2(
 
   view = [(SBTraitsOrientedContentViewController *)self->_orientedContentViewController view];
   settings = [scene settings];
-  [settings frame];
+  objc_msgSend_frame(settings);
   [view setContentViewBoundsInReferenceSpace:?];
 
   [(SBDashBoardCameraContainerViewController *)self _updateZStackPolicyAssistants];

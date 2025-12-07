@@ -25,7 +25,7 @@
 
   else
   {
-    v9 = sub_100002620();
+    v9 = sub_100002620(self);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       sub_10000BF64();

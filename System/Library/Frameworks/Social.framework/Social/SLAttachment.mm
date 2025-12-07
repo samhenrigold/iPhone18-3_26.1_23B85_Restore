@@ -160,24 +160,24 @@
   {
     itemProvider = [(SLAttachment *)self itemProvider];
     userInfo = [itemProvider userInfo];
-    v9 = [userInfo objectForKeyedSubscript:@"SLItemProviderHasPreview"];
+    v15 = [userInfo objectForKeyedSubscript:@"SLItemProviderHasPreview"];
 
-    if (v9)
+    if (v15)
     {
-      _SLLog(v3, 7, @"SLAttachment assigned itemProvider with SLItemProviderHasPreview %@");
-      bOOLValue = [v9 BOOLValue];
-      v8 = 1;
+      _SLLog(v3, 7, @"SLAttachment assigned itemProvider with SLItemProviderHasPreview %@", v7, v8, v9, v10, v11, v15);
+      bOOLValue = [v15 BOOLValue];
+      v13 = 1;
       if (!bOOLValue)
       {
-        v8 = 2;
+        v13 = 2;
       }
 
-      self->_itemProviderPreviewType = v8;
+      self->_itemProviderPreviewType = v13;
     }
 
     else
     {
-      _SLLog(v3, 7, @"SLAttachment assigned itemProvider with no SLItemProviderHasPreview.");
+      _SLLog(v3, 7, @"SLAttachment assigned itemProvider with no SLItemProviderHasPreview.", v7, v8, v9, v10, v11, v14);
     }
   }
 }

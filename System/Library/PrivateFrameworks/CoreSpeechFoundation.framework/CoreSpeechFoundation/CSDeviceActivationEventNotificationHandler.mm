@@ -39,30 +39,26 @@
 
 - (void)_stopMonitoring
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = 136315138;
-    v5 = "[CSDeviceActivationEventNotificationHandler _stopMonitoring]";
-    _os_log_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_DEFAULT, "%s Stop monitoring : AOP First Pass trigger", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = "[CSDeviceActivationEventNotificationHandler _stopMonitoring]";
+    _os_log_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_DEFAULT, "%s Stop monitoring : AOP First Pass trigger", &v3, 0xCu);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_startMonitoring
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = 136315138;
-    v5 = "[CSDeviceActivationEventNotificationHandler _startMonitoring]";
-    _os_log_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_DEFAULT, "%s Start monitoring : AOP First Pass trigger", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = "[CSDeviceActivationEventNotificationHandler _startMonitoring]";
+    _os_log_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_DEFAULT, "%s Start monitoring : AOP First Pass trigger", &v3, 0xCu);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_isVoiceTriggerEvent:(id)event
@@ -111,7 +107,7 @@
 
 - (void)_notifyActivationEvent:(id)event completion:(id)completion
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   completionCopy = completion;
   if ([(CSDeviceActivationEventNotificationHandler *)self _isVoiceTriggerEvent:eventCopy])
@@ -131,9 +127,9 @@
           v14 = v13;
           localizedDescription = [(CSDeviceActivationEvent *)pendingActivationEvent localizedDescription];
           *buf = 136315394;
-          v34 = "[CSDeviceActivationEventNotificationHandler _notifyActivationEvent:completion:]";
-          v35 = 2114;
-          v36 = localizedDescription;
+          v33 = "[CSDeviceActivationEventNotificationHandler _notifyActivationEvent:completion:]";
+          v34 = 2114;
+          v35 = localizedDescription;
           _os_log_impl(&dword_1DDA4B000, v14, OS_LOG_TYPE_DEFAULT, "%s Returning error for already existing pending activation event : %{public}@", buf, 0x16u);
         }
 
@@ -152,7 +148,7 @@
       if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v34 = "[CSDeviceActivationEventNotificationHandler _notifyActivationEvent:completion:]";
+        v33 = "[CSDeviceActivationEventNotificationHandler _notifyActivationEvent:completion:]";
         _os_log_impl(&dword_1DDA4B000, v19, OS_LOG_TYPE_DEFAULT, "%s No delegate registered : Postpone activation event handling until we have delegate registered", buf, 0xCu);
       }
 
@@ -164,14 +160,14 @@
       uUID = [(CSDeviceActivationEvent *)self->_pendingActivationEvent UUID];
       v23 = dispatch_time(0, 5000000000);
       queue = self->_queue;
-      v31[0] = MEMORY[0x1E69E9820];
-      v31[1] = 3221225472;
-      v31[2] = __80__CSDeviceActivationEventNotificationHandler__notifyActivationEvent_completion___block_invoke;
-      v31[3] = &unk_1E865C970;
-      v31[4] = self;
-      v32 = uUID;
+      v30[0] = MEMORY[0x1E69E9820];
+      v30[1] = 3221225472;
+      v30[2] = __80__CSDeviceActivationEventNotificationHandler__notifyActivationEvent_completion___block_invoke;
+      v30[3] = &unk_1E865C970;
+      v30[4] = self;
+      v31 = uUID;
       v25 = uUID;
-      dispatch_after(v23, queue, v31);
+      dispatch_after(v23, queue, v30);
 
       goto LABEL_14;
     }
@@ -194,12 +190,12 @@ LABEL_14:
 
   if ([eventCopy type] == 7)
   {
-    v29 = CSLogContextFacilityCoreSpeech;
+    v28 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v34 = "[CSDeviceActivationEventNotificationHandler _notifyActivationEvent:completion:]";
-      _os_log_impl(&dword_1DDA4B000, v29, OS_LOG_TYPE_DEFAULT, "%s corespeechd received mediaserverd launched event", buf, 0xCu);
+      v33 = "[CSDeviceActivationEventNotificationHandler _notifyActivationEvent:completion:]";
+      _os_log_impl(&dword_1DDA4B000, v28, OS_LOG_TYPE_DEFAULT, "%s corespeechd received mediaserverd launched event", buf, 0xCu);
     }
 
     if (completionCopy)
@@ -210,18 +206,16 @@ LABEL_14:
 
   else if (completionCopy)
   {
-    v30 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.corespeech" code:114 userInfo:0];
-    (completionCopy)[2](completionCopy, 0, v30);
+    v29 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.corespeech" code:114 userInfo:0];
+    (completionCopy)[2](completionCopy, 0, v29);
   }
 
 LABEL_15:
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void __80__CSDeviceActivationEventNotificationHandler__notifyActivationEvent_completion___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = [*(*(a1 + 32) + 24) UUID];
   v3 = [v2 isEqualToString:*(a1 + 40)];
 
@@ -232,11 +226,11 @@ void __80__CSDeviceActivationEventNotificationHandler__notifyActivationEvent_com
     if (v5)
     {
       v6 = *(a1 + 40);
-      v14 = 136315394;
-      v15 = "[CSDeviceActivationEventNotificationHandler _notifyActivationEvent:completion:]_block_invoke";
-      v16 = 2114;
-      v17 = v6;
-      _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s Pending Timeout fired for %{public}@ returning error for timeout", &v14, 0x16u);
+      v13 = 136315394;
+      v14 = "[CSDeviceActivationEventNotificationHandler _notifyActivationEvent:completion:]_block_invoke";
+      v15 = 2114;
+      v16 = v6;
+      _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s Pending Timeout fired for %{public}@ returning error for timeout", &v13, 0x16u);
     }
 
     v7 = *(a1 + 32);
@@ -259,12 +253,10 @@ void __80__CSDeviceActivationEventNotificationHandler__notifyActivationEvent_com
 
   else if (v5)
   {
-    v14 = 136315138;
-    v15 = "[CSDeviceActivationEventNotificationHandler _notifyActivationEvent:completion:]_block_invoke";
-    _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s There is no pending activation event to timeout", &v14, 0xCu);
+    v13 = 136315138;
+    v14 = "[CSDeviceActivationEventNotificationHandler _notifyActivationEvent:completion:]_block_invoke";
+    _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s There is no pending activation event to timeout", &v13, 0xCu);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyActivationEvent:(id)event completion:(id)completion
@@ -286,23 +278,21 @@ void __80__CSDeviceActivationEventNotificationHandler__notifyActivationEvent_com
 
 uint64_t __79__CSDeviceActivationEventNotificationHandler_notifyActivationEvent_completion___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = v2;
     v5 = [v3 localizedDescription];
-    v8 = 136315394;
-    v9 = "[CSDeviceActivationEventNotificationHandler notifyActivationEvent:completion:]_block_invoke";
-    v10 = 2114;
-    v11 = v5;
-    _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s Received Activation Event in CoreSpeechDaemon: %{public}@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[CSDeviceActivationEventNotificationHandler notifyActivationEvent:completion:]_block_invoke";
+    v9 = 2114;
+    v10 = v5;
+    _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s Received Activation Event in CoreSpeechDaemon: %{public}@", &v7, 0x16u);
   }
 
-  result = [*(a1 + 40) _notifyActivationEvent:*(a1 + 32) completion:*(a1 + 48)];
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 40) _notifyActivationEvent:*(a1 + 32) completion:*(a1 + 48)];
 }
 
 - (void)setDelegate:(id)delegate forType:(unint64_t)type
@@ -322,7 +312,7 @@ uint64_t __79__CSDeviceActivationEventNotificationHandler_notifyActivationEvent_
 
 void __66__CSDeviceActivationEventNotificationHandler_setDelegate_forType___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 40);
   v3 = *(*(a1 + 32) + 16);
   v4 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*(a1 + 48)];
@@ -336,11 +326,11 @@ void __66__CSDeviceActivationEventNotificationHandler_setDelegate_forType___bloc
       v6 = *(*(a1 + 32) + 24);
       v7 = v5;
       v8 = [v6 localizedDescription];
-      v14 = 136315394;
-      v15 = "[CSDeviceActivationEventNotificationHandler setDelegate:forType:]_block_invoke";
-      v16 = 2114;
-      v17 = v8;
-      _os_log_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_DEFAULT, "%s Found pending activation : %{public}@, handle pending activation immediately", &v14, 0x16u);
+      v13 = 136315394;
+      v14 = "[CSDeviceActivationEventNotificationHandler setDelegate:forType:]_block_invoke";
+      v15 = 2114;
+      v16 = v8;
+      _os_log_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_DEFAULT, "%s Found pending activation : %{public}@, handle pending activation immediately", &v13, 0x16u);
     }
 
     [*(a1 + 40) activationEventNotificationHandler:*(a1 + 32) event:*(*(a1 + 32) + 24) completion:*(*(a1 + 32) + 32)];
@@ -352,8 +342,6 @@ void __66__CSDeviceActivationEventNotificationHandler_setDelegate_forType___bloc
     v12 = *(v11 + 32);
     *(v11 + 32) = 0;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stop
@@ -441,9 +429,11 @@ void __66__CSDeviceActivationEventNotificationHandler_setDelegate_forType___bloc
 
 uint64_t __60__CSDeviceActivationEventNotificationHandler_sharedInstance__block_invoke()
 {
-  sharedInstance_sharedInstance_459 = objc_alloc_init(CSDeviceActivationEventNotificationHandler);
+  v0 = objc_alloc_init(CSDeviceActivationEventNotificationHandler);
+  v1 = sharedInstance_sharedInstance_459;
+  sharedInstance_sharedInstance_459 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

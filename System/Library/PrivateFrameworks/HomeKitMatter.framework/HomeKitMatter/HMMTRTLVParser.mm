@@ -21,17 +21,16 @@
 
 uint64_t __29__HMMTRTLVParser_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v3_10061;
-  logCategory__hmf_once_v3_10061 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v3_10061;
+  logCategory__hmf_once_v3_10061 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)keyPairDataFromTLV:(id)v
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   vCopy = v;
   bytes = [vCopy bytes];
   v6 = [vCopy length];
@@ -41,24 +40,24 @@ uint64_t __29__HMMTRTLVParser_logCategory__block_invoke()
   }
 
   v7 = 0;
-  v28 = v6 - 1;
-  v29 = bytes + 1;
+  v27 = v6 - 1;
+  v28 = bytes + 1;
   v8 = 1;
   while (1)
   {
     v9 = v8;
-    v26 = 0;
-    v27 = 0;
     v25 = 0;
-    v10 = ReadIntegerWithContextSpecificTag(&v29, &v28, &v25);
-    v11 = v25;
+    v26 = 0;
+    v24 = 0;
+    v10 = ReadIntegerWithContextSpecificTag(&v28, &v27, &v24);
+    v11 = v24;
     v12 = v11;
     if (v10)
     {
       break;
     }
 
-    if (!ReadOctetStringWithContextSpecificTag(&v29, &v28, &v27, &v26))
+    if (!ReadOctetStringWithContextSpecificTag(&v28, &v27, &v26, &v25))
     {
       v19 = objc_autoreleasePoolPush();
       selfCopy = self;
@@ -70,14 +69,14 @@ uint64_t __29__HMMTRTLVParser_logCategory__block_invoke()
 
       v15 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v31 = v15;
+      v30 = v15;
       v16 = "%{public}@Unknown field in the key pair TLV struct";
       v17 = v21;
       v18 = 12;
       goto LABEL_15;
     }
 
-    v13 = [MEMORY[0x277CBEA90] dataWithBytes:v27 length:v26];
+    v13 = [MEMORY[0x277CBEA90] dataWithBytes:v26 length:v25];
 
     v7 = v13;
 LABEL_9:
@@ -101,9 +100,9 @@ LABEL_9:
   {
     v15 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v31 = v15;
-    v32 = 2112;
-    v33 = v12;
+    v30 = v15;
+    v31 = 2112;
+    v32 = v12;
     v16 = "%{public}@Unexpected key pair data version: %@";
     v17 = v21;
     v18 = 22;
@@ -118,128 +117,126 @@ LABEL_17:
   v7 = 0;
 LABEL_18:
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 + (id)fabricIndicesFromTLV:(id)v
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   vCopy = v;
   bytes = [vCopy bytes];
   v5 = [vCopy length];
   if (v5 && *bytes == 21)
   {
     v6 = v5 - 1;
-    v34 = v5 - 1;
-    v35 = bytes + 1;
+    v33 = v5 - 1;
+    v34 = bytes + 1;
     for (i = 1; ; i = 0)
     {
       v8 = v6 - 2;
       if (v6 >= 2)
       {
-        v9 = v35;
-        if ((*v35 & 0xE0) == 0x20 && (*v35 & 0x1F) == 0x16 && v35[1] == 1)
+        v9 = v34;
+        if ((*v34 & 0xE0) == 0x20 && (*v34 & 0x1F) == 0x16 && v34[1] == 1)
         {
           break;
         }
       }
 
-      if ((ReadIntegerWithContextSpecificTag(&v35, &v34, &v29) & i & 1) == 0)
+      if ((ReadIntegerWithContextSpecificTag(&v34, &v33, &v28) & i & 1) == 0)
       {
         goto LABEL_12;
       }
 
-      v6 = v34;
+      v6 = v33;
     }
 
     array = [MEMORY[0x277CBEB18] array];
     if (v8 >= 1)
     {
-      v15 = 0;
-      v16 = v9 + 2;
-      v17 = v8;
+      v14 = 0;
+      v15 = v9 + 2;
+      v16 = v8;
       while (1)
       {
-        v18 = v16[v15];
-        if (v18 > 0x1F)
+        v17 = v15[v14];
+        if (v17 > 0x1F)
         {
           break;
         }
 
-        if (v16[v15] <= 3u)
+        if (v15[v14] <= 3u)
         {
-          if (v16[v15] > 1u)
+          if (v15[v14] > 1u)
           {
-            if (v18 != 2)
+            if (v17 != 2)
             {
-              v19 = 1;
+              v18 = 1;
 LABEL_32:
-              v20 = 8;
+              v19 = 8;
               goto LABEL_38;
             }
 
-            v19 = 1;
+            v18 = 1;
             goto LABEL_37;
           }
 
-          if (v16[v15])
+          if (v15[v14])
           {
-            v19 = 1;
+            v18 = 1;
 LABEL_29:
-            v20 = 2;
+            v19 = 2;
             goto LABEL_38;
           }
 
-          v20 = 1;
           v19 = 1;
+          v18 = 1;
         }
 
         else
         {
-          if (v16[v15] > 5u)
+          if (v15[v14] > 5u)
           {
-            if (v18 != 6)
+            if (v17 != 6)
             {
-              if (v18 != 7)
+              if (v17 != 7)
               {
-                if (v18 != 24)
+                if (v17 != 24)
                 {
                   break;
                 }
 
-                v23 = array;
+                v22 = array;
 
-                v24 = array;
+                v23 = array;
+                v29 = 0u;
                 v30 = 0u;
                 v31 = 0u;
                 v32 = 0u;
-                v33 = 0u;
-                v22 = v24;
-                v25 = [v22 countByEnumeratingWithState:&v30 objects:v36 count:16];
-                if (v25)
+                v21 = v23;
+                v24 = [v21 countByEnumeratingWithState:&v29 objects:v35 count:16];
+                if (v24)
                 {
-                  v26 = v25;
-                  v27 = *v31;
+                  v25 = v24;
+                  v26 = *v30;
                   while (2)
                   {
-                    for (j = 0; j != v26; ++j)
+                    for (j = 0; j != v25; ++j)
                     {
-                      if (*v31 != v27)
+                      if (*v30 != v26)
                       {
-                        objc_enumerationMutation(v22);
+                        objc_enumerationMutation(v21);
                       }
 
-                      if (([*(*(&v30 + 1) + 8 * j) longLongValue] - 1) > 0xFD)
+                      if (([*(*(&v29 + 1) + 8 * j) longLongValue] - 1) > 0xFD)
                       {
 
                         goto LABEL_41;
                       }
                     }
 
-                    v26 = [v22 countByEnumeratingWithState:&v30 objects:v36 count:16];
-                    if (v26)
+                    v25 = [v21 countByEnumeratingWithState:&v29 objects:v35 count:16];
+                    if (v25)
                     {
                       continue;
                     }
@@ -248,40 +245,40 @@ LABEL_29:
                   }
                 }
 
-                v22 = v22;
-                v11 = v22;
+                v21 = v21;
+                v11 = v21;
                 goto LABEL_42;
               }
 
-              v19 = 0;
+              v18 = 0;
               goto LABEL_32;
             }
 
-            v19 = 0;
+            v18 = 0;
 LABEL_37:
-            v20 = 4;
+            v19 = 4;
             goto LABEL_38;
           }
 
-          if (v18 != 4)
+          if (v17 != 4)
           {
-            v19 = 0;
+            v18 = 0;
             goto LABEL_29;
           }
 
-          v19 = 0;
-          v20 = 1;
+          v18 = 0;
+          v19 = 1;
         }
 
 LABEL_38:
-        if (v17 > v20)
+        if (v16 > v19)
         {
-          v21 = LittleEndianNumberFromBytes(&v16[v15 + 1], v20, v19);
-          [array addObject:v21];
+          v20 = LittleEndianNumberFromBytes(&v15[v14 + 1], v19, v18);
+          [array addObject:v20];
 
-          v15 += v20 + 1;
-          v17 = v8 - v15;
-          if (v8 > v15)
+          v14 += v19 + 1;
+          v16 = v8 - v14;
+          if (v8 > v14)
           {
             continue;
           }
@@ -291,7 +288,7 @@ LABEL_38:
       }
     }
 
-    v22 = 0;
+    v21 = 0;
 LABEL_41:
     v11 = 0;
 LABEL_42:
@@ -302,8 +299,6 @@ LABEL_42:
 LABEL_12:
     v11 = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

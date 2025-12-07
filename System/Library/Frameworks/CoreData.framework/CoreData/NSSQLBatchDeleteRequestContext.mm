@@ -1,7 +1,7 @@
 @interface NSSQLBatchDeleteRequestContext
 - (BOOL)executeRequestCore:(id *)core;
 - (NSBatchDeleteRequest)request;
-- (uint64_t)_createFetchRequestContextForObjectsToDelete;
+- (NSSQLFetchRequestContext)_createFetchRequestContextForObjectsToDelete;
 - (uint64_t)fetchRequestForObjectsToDelete;
 - (void)_createDeleteStatements;
 - (void)clearSQLiteStatements;
@@ -86,75 +86,73 @@
 
 - (void)clearSQLiteStatements
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   deleteStatements = self->_deleteStatements;
-  v3 = [(NSArray *)deleteStatements countByEnumeratingWithState:&v17 objects:v22 count:16];
+  v3 = [(NSArray *)deleteStatements countByEnumeratingWithState:&v16 objects:v21 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v18;
+    v5 = *v17;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v18 != v5)
+        if (*v17 != v5)
         {
           objc_enumerationMutation(deleteStatements);
         }
 
-        v7 = *(*(&v17 + 1) + 8 * i);
+        v7 = *(*(&v16 + 1) + 8 * i);
+        v12 = 0u;
         v13 = 0u;
         v14 = 0u;
         v15 = 0u;
-        v16 = 0u;
-        v8 = [v7 countByEnumeratingWithState:&v13 objects:v21 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v12 objects:v20 count:16];
         if (v8)
         {
           v9 = v8;
-          v10 = *v14;
+          v10 = *v13;
           do
           {
             for (j = 0; j != v9; ++j)
             {
-              if (*v14 != v10)
+              if (*v13 != v10)
               {
                 objc_enumerationMutation(v7);
               }
 
-              [(NSSQLiteStatement *)*(*(&v13 + 1) + 8 * j) clearCaches:?];
+              [(NSSQLiteStatement *)*(*(&v12 + 1) + 8 * j) clearCaches:?];
             }
 
-            v9 = [v7 countByEnumeratingWithState:&v13 objects:v21 count:16];
+            v9 = [v7 countByEnumeratingWithState:&v12 objects:v20 count:16];
           }
 
           while (v9);
         }
       }
 
-      v4 = [(NSArray *)deleteStatements countByEnumeratingWithState:&v17 objects:v22 count:16];
+      v4 = [(NSArray *)deleteStatements countByEnumeratingWithState:&v16 objects:v21 count:16];
     }
 
     while (v4);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
-- (uint64_t)_createFetchRequestContextForObjectsToDelete
+- (NSSQLFetchRequestContext)_createFetchRequestContextForObjectsToDelete
 {
   if (result)
   {
     v1 = result;
     fetchRequestForObjectsToDelete = [(NSSQLBatchDeleteRequestContext *)result fetchRequestForObjectsToDelete];
     v3 = [NSSQLFetchRequestContext alloc];
-    v4 = *(v1 + 32);
-    v5 = *(v1 + 8);
+    context = v1->super._context;
+    sqlCore = v1->super._sqlCore;
 
-    return [(NSSQLFetchRequestContext *)v3 initWithRequest:fetchRequestForObjectsToDelete context:v4 sqlCore:v5];
+    return [(NSSQLFetchRequestContext *)v3 initWithRequest:fetchRequestForObjectsToDelete context:context sqlCore:sqlCore];
   }
 
   return result;

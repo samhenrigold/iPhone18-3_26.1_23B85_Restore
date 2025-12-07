@@ -1,5 +1,6 @@
 @interface CoreDAVPrincipalPropertySearchTask
 - (CoreDAVPrincipalPropertySearchTask)initWithPropertiesToFind:(id)find atURL:(id)l;
+- (CoreDAVPrincipalPropertySearchTask)initWithPropertySearches:(id)searches propertiesToFind:(id)find atURL:(id)l applyToPrincipalCollectionSet:(BOOL)set extraAttributes:(id)attributes;
 - (id)requestBody;
 - (void)finishCoreDAVTaskWithError:(id)error;
 @end
@@ -19,9 +20,26 @@
   return result;
 }
 
+- (CoreDAVPrincipalPropertySearchTask)initWithPropertySearches:(id)searches propertiesToFind:(id)find atURL:(id)l applyToPrincipalCollectionSet:(BOOL)set extraAttributes:(id)attributes
+{
+  setCopy = set;
+  searchesCopy = searches;
+  attributesCopy = attributes;
+  v14 = [(CoreDAVPrincipalPropertySearchTask *)self initWithPropertiesToFind:find atURL:l];
+  v15 = v14;
+  if (v14)
+  {
+    [(CoreDAVPrincipalPropertySearchTask *)v14 setSearchItems:searchesCopy];
+    [(CoreDAVPrincipalPropertySearchTask *)v15 setApplyToPrincipalCollectionSet:setCopy];
+    [(CoreDAVPrincipalPropertySearchTask *)v15 setExtraAttributes:attributesCopy];
+  }
+
+  return v15;
+}
+
 - (id)requestBody
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   propertiesToFind = [(CoreDAVPropertyFindBaseTask *)self propertiesToFind];
   data = [propertiesToFind count];
 
@@ -31,61 +49,61 @@
     extraAttributes = [(CoreDAVPrincipalPropertySearchTask *)self extraAttributes];
     [(CoreDAVXMLData *)v5 startElement:@"principal-property-search" inNamespace:@"DAV:" withAttributes:extraAttributes];
 
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     searchItems = [(CoreDAVPrincipalPropertySearchTask *)self searchItems];
-    v8 = [searchItems countByEnumeratingWithState:&v26 objects:v31 count:16];
+    v8 = [searchItems countByEnumeratingWithState:&v25 objects:v30 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v27;
+      v10 = *v26;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v27 != v10)
+          if (*v26 != v10)
           {
             objc_enumerationMutation(searchItems);
           }
 
-          [*(*(&v26 + 1) + 8 * i) write:v5];
+          [*(*(&v25 + 1) + 8 * i) write:v5];
         }
 
-        v9 = [searchItems countByEnumeratingWithState:&v26 objects:v31 count:16];
+        v9 = [searchItems countByEnumeratingWithState:&v25 objects:v30 count:16];
       }
 
       while (v9);
     }
 
     [(CoreDAVXMLData *)v5 startElement:@"prop" inNamespace:@"DAV:" withAttributeNamesAndValues:0];
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     propertiesToFind2 = [(CoreDAVPropertyFindBaseTask *)self propertiesToFind];
-    v13 = [propertiesToFind2 countByEnumeratingWithState:&v22 objects:v30 count:16];
+    v13 = [propertiesToFind2 countByEnumeratingWithState:&v21 objects:v29 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v23;
+      v15 = *v22;
       do
       {
         for (j = 0; j != v14; ++j)
         {
-          if (*v23 != v15)
+          if (*v22 != v15)
           {
             objc_enumerationMutation(propertiesToFind2);
           }
 
-          v17 = *(*(&v22 + 1) + 8 * j);
+          v17 = *(*(&v21 + 1) + 8 * j);
           name = [v17 name];
           nameSpace = [v17 nameSpace];
           [(CoreDAVXMLData *)v5 appendElement:name inNamespace:nameSpace withStringContent:0 withAttributeNamesAndValues:0];
         }
 
-        v14 = [propertiesToFind2 countByEnumeratingWithState:&v22 objects:v30 count:16];
+        v14 = [propertiesToFind2 countByEnumeratingWithState:&v21 objects:v29 count:16];
       }
 
       while (v14);
@@ -95,8 +113,6 @@
     [(CoreDAVXMLData *)v5 endElement:@"principal-property-search" inNamespace:@"DAV:"];
     data = [(CoreDAVXMLData *)v5 data];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return data;
 }

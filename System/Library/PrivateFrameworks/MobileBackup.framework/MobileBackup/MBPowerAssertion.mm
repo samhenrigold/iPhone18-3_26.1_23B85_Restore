@@ -66,17 +66,15 @@
         name = self->_name;
         v8 = self->_assertionID;
         *buf = 138413058;
-        v16 = @"NoIdleSleepAssertion";
-        v17 = 2112;
-        v18 = name;
-        v19 = 1024;
-        v20 = v8;
-        v21 = 1024;
-        v22 = v4;
+        v12 = @"NoIdleSleepAssertion";
+        v13 = 2112;
+        v14 = name;
+        v15 = 1024;
+        v16 = v8;
+        v17 = 1024;
+        v18 = v4;
         _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "Failed to drop %@, n:%@, id:%i - IOPMAssertionRelease() returned %#x", buf, 0x22u);
-        v13 = self->_assertionID;
-        v11 = self->_name;
-        _MBLog();
+        _MBLog(@"E ", "Failed to drop %@, n:%@, id:%i - IOPMAssertionRelease() returned %#x", @"NoIdleSleepAssertion", self->_name, self->_assertionID, v4);
       }
     }
 
@@ -87,15 +85,13 @@
         v9 = self->_name;
         v10 = self->_assertionID;
         *buf = 138412802;
-        v16 = @"NoIdleSleepAssertion";
-        v17 = 2112;
-        v18 = v9;
-        v19 = 1024;
-        v20 = v10;
+        v12 = @"NoIdleSleepAssertion";
+        v13 = 2112;
+        v14 = v9;
+        v15 = 1024;
+        v16 = v10;
         _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Dropped %@, n:%@, id:%i", buf, 0x1Cu);
-        v12 = self->_name;
-        v14 = self->_assertionID;
-        _MBLog();
+        _MBLog(@"I ", "Dropped %@, n:%@, id:%i", @"NoIdleSleepAssertion", self->_name, self->_assertionID);
       }
 
       self->_assertionID = 0;

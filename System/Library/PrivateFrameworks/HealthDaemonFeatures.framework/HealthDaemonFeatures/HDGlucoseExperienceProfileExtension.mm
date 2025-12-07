@@ -33,15 +33,15 @@
 
 - (void)_initWithProfile:(void *)profile featureIdentifier:(void *)identifier loggingCategory:
 {
-  v35[1] = *MEMORY[0x277D85DE8];
+  v34[1] = *MEMORY[0x277D85DE8];
   v7 = a2;
   profileCopy = profile;
   identifierCopy = identifier;
   if (self)
   {
-    v32.receiver = self;
-    v32.super_class = HDGlucoseExperienceProfileExtension;
-    v10 = objc_msgSendSuper2(&v32, sel_init);
+    v31.receiver = self;
+    v31.super_class = HDGlucoseExperienceProfileExtension;
+    v10 = objc_msgSendSuper2(&v31, sel_init);
     self = v10;
     if (v10)
     {
@@ -62,12 +62,12 @@
         v20 = [v17 initWithFeatureIdentifier:profileCopy defaultCountrySet:localAvailabilityForGlucoseEnhancedCharting healthDaemon:daemon3];
 
         v21 = objc_alloc(MEMORY[0x277CCD420]);
-        v34 = *MEMORY[0x277CCBE00];
+        v33 = *MEMORY[0x277CCBE00];
         v22 = [MEMORY[0x277CCD428] defaultOnboardingEligibilityRequirementsForFeatureIdentifier:profileCopy];
-        v33 = v22;
-        v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v33 count:1];
-        v35[0] = v23;
-        v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:&v34 count:1];
+        v32 = v22;
+        v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v32 count:1];
+        v34[0] = v23;
+        v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:&v33 count:1];
         v25 = [v21 initWithRequirementsByContext:v24];
 
         v26 = [objc_alloc(MEMORY[0x277D106D8]) initWithProfile:v7 featureIdentifier:profileCopy availabilityRequirements:v25 currentOnboardingVersion:1 pairedDeviceCapability:0 regionAvailabilityProvider:v20 disableAndExpiryProvider:v16 loggingCategory:identifierCopy];
@@ -81,7 +81,6 @@
     }
   }
 
-  v30 = *MEMORY[0x277D85DE8];
   return self;
 }
 

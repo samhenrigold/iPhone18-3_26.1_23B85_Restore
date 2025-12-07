@@ -9,10 +9,13 @@
 - (id)msv_userInfo;
 - (void)_encodeNumber:(id)number forKey:(id)key;
 - (void)beginEncodingPartialTopLevelObject:(id)object;
+- (void)encodeBool:(BOOL)bool forKey:(id)key;
 - (void)encodeBytes:(const char *)bytes length:(unint64_t)length forKey:(id)key;
 - (void)encodeDouble:(double)double forKey:(id)key;
 - (void)encodeFloat:(float)float forKey:(id)key;
+- (void)encodeInt32:(int)int32 forKey:(id)key;
 - (void)encodeInt64:(int64_t)int64 forKey:(id)key;
+- (void)encodeInt:(int)int forKey:(id)key;
 - (void)encodeObject:(id)object forKey:(id)key;
 - (void)msv_setUserInfo:(id)info;
 @end
@@ -21,36 +24,36 @@
 
 - (id)_convertObject:(id)object
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   if (_NSIsNSArray())
   {
     v6 = objectCopy;
     v7 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v6, "count")}];
+    v48 = 0u;
     v49 = 0u;
     v50 = 0u;
     v51 = 0u;
-    v52 = 0u;
     currentHandler3 = v6;
-    v9 = [currentHandler3 countByEnumeratingWithState:&v49 objects:v62 count:16];
+    v9 = [currentHandler3 countByEnumeratingWithState:&v48 objects:v61 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v50;
+      v11 = *v49;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v50 != v11)
+          if (*v49 != v11)
           {
             objc_enumerationMutation(currentHandler3);
           }
 
-          v13 = [(MSVOPACKEncoder *)self _convertObject:*(*(&v49 + 1) + 8 * i)];
+          v13 = [(MSVOPACKEncoder *)self _convertObject:*(*(&v48 + 1) + 8 * i)];
           [v7 addObject:v13];
         }
 
-        v10 = [currentHandler3 countByEnumeratingWithState:&v49 objects:v62 count:16];
+        v10 = [currentHandler3 countByEnumeratingWithState:&v48 objects:v61 count:16];
       }
 
       while (v10);
@@ -59,9 +62,9 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v60 = &unk_1F215CBA8;
-      v61 = v7;
-      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v61 forKeys:&v60 count:1];
+      v59 = &unk_1F215CBA8;
+      v60 = v7;
+      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v60 forKeys:&v59 count:1];
     }
 
     else
@@ -81,14 +84,14 @@ LABEL_19:
     v15 = MEMORY[0x1E695DF90];
     v16 = objectCopy;
     v17 = [v15 dictionaryWithCapacity:{objc_msgSend(v16, "count")}];
-    v47[0] = MEMORY[0x1E69E9820];
-    v47[1] = 3221225472;
-    v47[2] = __34__MSVOPACKEncoder__convertObject___block_invoke;
-    v47[3] = &unk_1E79820D0;
-    v47[4] = self;
-    v48 = v17;
+    v46[0] = MEMORY[0x1E69E9820];
+    v46[1] = 3221225472;
+    v46[2] = __34__MSVOPACKEncoder__convertObject___block_invoke;
+    v46[3] = &unk_1E79820D0;
+    v46[4] = self;
+    v47 = v17;
     v18 = v17;
-    [v16 enumerateKeysAndObjectsUsingBlock:v47];
+    [v16 enumerateKeysAndObjectsUsingBlock:v46];
     objc_opt_class();
     LOBYTE(v15) = objc_opt_isKindOfClass();
 
@@ -103,61 +106,61 @@ LABEL_19:
     }
 
     v20 = [MEMORY[0x1E696AD98] numberWithInteger:v19];
-    v58 = v20;
-    v59 = v18;
-    0x80000000 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
+    v57 = v20;
+    v58 = v18;
+    0x80000000 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v58 forKeys:&v57 count:1];
 
     goto LABEL_20;
   }
 
   if (_NSIsNSSet())
   {
-    v24 = objectCopy;
-    v7 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v24, "count")}];
+    v23 = objectCopy;
+    v7 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v23, "count")}];
+    v42 = 0u;
     v43 = 0u;
     v44 = 0u;
     v45 = 0u;
-    v46 = 0u;
-    currentHandler3 = v24;
-    v25 = [currentHandler3 countByEnumeratingWithState:&v43 objects:v57 count:16];
-    if (v25)
+    currentHandler3 = v23;
+    v24 = [currentHandler3 countByEnumeratingWithState:&v42 objects:v56 count:16];
+    if (v24)
     {
-      v26 = v25;
-      v27 = *v44;
+      v25 = v24;
+      v26 = *v43;
       do
       {
-        for (j = 0; j != v26; ++j)
+        for (j = 0; j != v25; ++j)
         {
-          if (*v44 != v27)
+          if (*v43 != v26)
           {
             objc_enumerationMutation(currentHandler3);
           }
 
-          v29 = [(MSVOPACKEncoder *)self _convertObject:*(*(&v43 + 1) + 8 * j)];
-          [v7 addObject:v29];
+          v28 = [(MSVOPACKEncoder *)self _convertObject:*(*(&v42 + 1) + 8 * j)];
+          [v7 addObject:v28];
         }
 
-        v26 = [currentHandler3 countByEnumeratingWithState:&v43 objects:v57 count:16];
+        v25 = [currentHandler3 countByEnumeratingWithState:&v42 objects:v56 count:16];
       }
 
-      while (v26);
+      while (v25);
     }
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v30 = 8;
+      v29 = 8;
     }
 
     else
     {
-      v30 = 7;
+      v29 = 7;
     }
 
-    v31 = [MEMORY[0x1E696AD98] numberWithInteger:v30];
-    v55 = v31;
-    v56 = v7;
-    0x80000000 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
+    v30 = [MEMORY[0x1E696AD98] numberWithInteger:v29];
+    v54 = v30;
+    v55 = v7;
+    0x80000000 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v55 forKeys:&v54 count:1];
 
     goto LABEL_18;
   }
@@ -166,27 +169,27 @@ LABEL_19:
   {
     if (_NSIsNSNumber())
     {
-      v32 = [(MSVOPACKEncoder *)self _convertNumber:objectCopy];
+      v31 = [(MSVOPACKEncoder *)self _convertNumber:objectCopy];
     }
 
     else
     {
-      v32 = objectCopy;
+      v31 = objectCopy;
     }
 
-    0x80000000 = v32;
+    0x80000000 = v31;
     goto LABEL_20;
   }
 
-  v33 = NSMapGet(self->_objectLookupTable, objectCopy);
-  if (v33)
+  v32 = NSMapGet(self->_objectLookupTable, objectCopy);
+  if (v32)
   {
-    v34 = v33 - 1;
+    v33 = v32 - 1;
   }
 
   else
   {
-    v35 = [MEMORY[0x1E695DF70] arrayWithCapacity:10];
+    v34 = [MEMORY[0x1E695DF70] arrayWithCapacity:10];
     classForCoder = [objectCopy classForCoder];
     do
     {
@@ -200,43 +203,43 @@ LABEL_19:
         break;
       }
 
-      v37 = NSStringFromClass(classForCoder);
-      [v35 addObject:v37];
+      v36 = NSStringFromClass(classForCoder);
+      [v34 addObject:v36];
 
       classForCoder = [classForCoder superclass];
     }
 
     while (classForCoder);
-    v53[0] = &unk_1F215CB60;
-    v53[1] = &unk_1F215CB48;
-    v54[0] = v35;
+    v52[0] = &unk_1F215CB60;
+    v52[1] = &unk_1F215CB48;
+    v53[0] = v34;
     dictionary = [MEMORY[0x1E695DF90] dictionary];
-    v54[1] = dictionary;
-    v39 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v54 forKeys:v53 count:2];
+    v53[1] = dictionary;
+    v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v53 forKeys:v52 count:2];
 
-    v34 = [(NSMutableArray *)self->_objects count];
-    NSMapInsert(self->_objectLookupTable, objectCopy, (v34 + 1));
-    [(NSMutableArray *)self->_objects addObject:v39];
+    v33 = [(NSMutableArray *)self->_objects count];
+    NSMapInsert(self->_objectLookupTable, objectCopy, (v33 + 1));
+    [(NSMutableArray *)self->_objects addObject:v38];
     if (![objectCopy conformsToProtocol:&unk_1F215D990] || (objc_msgSend(objc_msgSend(objectCopy, "classForCoder"), "supportsSecureCoding") & 1) == 0)
     {
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
       [currentHandler handleFailureInMethod:a2 object:self file:@"MSVOPACKEncoder.m" lineNumber:275 description:{@"Objects must support secure coding: %@", objc_msgSend(objectCopy, "classForCoder")}];
     }
 
-    [(NSMutableArray *)self->_wrapperStack addObject:v39];
+    [(NSMutableArray *)self->_wrapperStack addObject:v38];
     [objectCopy encodeWithCoder:self];
     [(NSMutableArray *)self->_wrapperStack removeLastObject];
   }
 
-  if (v34 >= [(NSMutableArray *)self->_objects count])
+  if (v33 >= [(NSMutableArray *)self->_objects count])
   {
     currentHandler2 = [MEMORY[0x1E696AAA8] currentHandler];
     [currentHandler2 handleFailureInMethod:a2 object:self file:@"MSVOPACKEncoder.m" lineNumber:280 description:@"index out of bounds"];
   }
 
-  0x80000000 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v34 | 0x80000000];
-  v40 = [0x80000000 unsignedLongValue] ^ 0x80000000;
-  if (v40 >= [(NSMutableArray *)self->_objects count])
+  0x80000000 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v33 | 0x80000000];
+  v39 = [0x80000000 unsignedLongValue] ^ 0x80000000;
+  if (v39 >= [(NSMutableArray *)self->_objects count])
   {
     currentHandler3 = [MEMORY[0x1E696AAA8] currentHandler];
     [currentHandler3 handleFailureInMethod:a2 object:self file:@"MSVOPACKEncoder.m" lineNumber:282 description:@"index out of bounds"];
@@ -244,8 +247,6 @@ LABEL_19:
   }
 
 LABEL_20:
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return 0x80000000;
 }
@@ -262,13 +263,13 @@ void __34__MSVOPACKEncoder__convertObject___block_invoke(uint64_t a1, uint64_t a
 
 - (id)_convertNumber:(id)number
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   numberCopy = number;
   if (([numberCopy unsignedLongValue] & 0x80000000) != 0)
   {
-    v8 = &unk_1F215CB90;
-    v9[0] = numberCopy;
-    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+    v7 = &unk_1F215CB90;
+    v8[0] = numberCopy;
+    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   }
 
   else
@@ -278,23 +279,21 @@ void __34__MSVOPACKEncoder__convertObject___block_invoke(uint64_t a1, uint64_t a
 
   v5 = v4;
 
-  v6 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 - (void)_encodeNumber:(id)number forKey:(id)key
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   numberCopy = number;
   keyCopy = key;
   if (([numberCopy unsignedLongValue] & 0x80000000) != 0)
   {
     lastObject = [(NSMutableArray *)self->_wrapperStack lastObject];
     v9 = [lastObject objectForKeyedSubscript:&unk_1F215CB48];
-    v12 = &unk_1F215CB90;
-    v13[0] = numberCopy;
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v11 = &unk_1F215CB90;
+    v12[0] = numberCopy;
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
     [v9 setObject:v10 forKeyedSubscript:keyCopy];
   }
 
@@ -302,15 +301,11 @@ void __34__MSVOPACKEncoder__convertObject___block_invoke(uint64_t a1, uint64_t a
   {
     [(MSVOPACKEncoder *)self encodeObject:numberCopy forKey:keyCopy];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)msv_setUserInfo:(id)info
 {
-  v4 = [info copy];
-  userInfo = self->_userInfo;
-  self->_userInfo = v4;
+  self->_userInfo = [info copy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -330,7 +325,7 @@ void __34__MSVOPACKEncoder__convertObject___block_invoke(uint64_t a1, uint64_t a
 
 - (void)beginEncodingPartialTopLevelObject:(id)object
 {
-  v12[3] = *MEMORY[0x1E69E9840];
+  v11[3] = *MEMORY[0x1E69E9840];
   objectCopy = object;
   v5 = [MEMORY[0x1E695DF70] arrayWithCapacity:10];
   classForCoder = [objectCopy classForCoder];
@@ -353,19 +348,17 @@ void __34__MSVOPACKEncoder__convertObject___block_invoke(uint64_t a1, uint64_t a
   }
 
   while (classForCoder);
-  v12[0] = v5;
-  v11[0] = &unk_1F215CB60;
-  v11[1] = &unk_1F215CB48;
+  v11[0] = v5;
+  v10[0] = &unk_1F215CB60;
+  v10[1] = &unk_1F215CB48;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
-  v11[2] = &unk_1F215CB78;
-  v12[1] = dictionary;
-  v12[2] = MEMORY[0x1E695E118];
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:3];
+  v10[2] = &unk_1F215CB78;
+  v11[1] = dictionary;
+  v11[2] = MEMORY[0x1E695E118];
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:3];
 
   [(NSMutableArray *)self->_wrapperStack addObject:v9];
   [(NSMutableArray *)self->_objects addObject:v9];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)hasTopLevelData
@@ -408,6 +401,33 @@ void __34__MSVOPACKEncoder__convertObject___block_invoke(uint64_t a1, uint64_t a
   keyCopy = key;
   v8 = [v6 numberWithLongLong:int64];
   [(MSVOPACKEncoder *)self _encodeNumber:v8 forKey:keyCopy];
+}
+
+- (void)encodeInt32:(int)int32 forKey:(id)key
+{
+  v4 = *&int32;
+  v6 = MEMORY[0x1E696AD98];
+  keyCopy = key;
+  v8 = [v6 numberWithInt:v4];
+  [(MSVOPACKEncoder *)self _encodeNumber:v8 forKey:keyCopy];
+}
+
+- (void)encodeInt:(int)int forKey:(id)key
+{
+  v4 = *&int;
+  v6 = MEMORY[0x1E696AD98];
+  keyCopy = key;
+  v8 = [v6 numberWithInt:v4];
+  [(MSVOPACKEncoder *)self _encodeNumber:v8 forKey:keyCopy];
+}
+
+- (void)encodeBool:(BOOL)bool forKey:(id)key
+{
+  boolCopy = bool;
+  v6 = MEMORY[0x1E696AD98];
+  keyCopy = key;
+  v8 = [v6 numberWithBool:boolCopy];
+  [(MSVOPACKEncoder *)self encodeObject:v8 forKey:keyCopy];
 }
 
 - (void)encodeObject:(id)object forKey:(id)key

@@ -8,7 +8,6 @@
 - (CGSize)resizableSliceSize;
 - (TDNamedAssetImportInfo)init;
 - (__n128)setTransformation:(__n128)transformation;
-- (__n128)transformation;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (int64_t)renditionSubtype;
@@ -298,15 +297,6 @@
   height = self->_physicalSizeInMeters.height;
   result.height = height;
   result.width = width;
-  return result;
-}
-
-- (__n128)transformation
-{
-  result = *(self + 592);
-  v2 = *(self + 608);
-  v3 = *(self + 624);
-  v4 = *(self + 640);
   return result;
 }
 

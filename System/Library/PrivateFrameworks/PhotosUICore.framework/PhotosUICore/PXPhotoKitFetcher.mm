@@ -16,7 +16,7 @@
 - (_TtC12PhotosUICore17PXPhotoKitFetcher)init
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for PXPhotoKitFetcher();
+  v3.super_class = type metadata accessor for PXPhotoKitFetcher(self, a2);
   return [(PXPhotoKitFetcher *)&v3 init];
 }
 

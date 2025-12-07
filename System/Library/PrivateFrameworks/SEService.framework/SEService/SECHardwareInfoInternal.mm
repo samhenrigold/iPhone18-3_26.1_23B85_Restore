@@ -9,12 +9,10 @@
 
 - (NSString)hardwareReleaseVersionString
 {
-  v2 = *(self + OBJC_IVAR____TtC9SEService23SECHardwareInfoInternal_hardwareReleaseVersionString);
-  v3 = *(self + OBJC_IVAR____TtC9SEService23SECHardwareInfoInternal_hardwareReleaseVersionString + 8);
 
-  v4 = sub_1C7C7D2E4();
+  v2 = sub_1C7C7D2E4();
 
-  return v4;
+  return v2;
 }
 
 - (NSData)casdCertificate

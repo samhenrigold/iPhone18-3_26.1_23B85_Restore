@@ -526,10 +526,10 @@ BOOL ContainsLatinAlphabets(const __CFString *a1)
 {
   Length = CFStringGetLength(a1);
   __chkstk_darwin();
-  v4 = (&v10 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v11.location = 0;
-  v11.length = Length;
-  CFStringGetCharacters(a1, v11, v4);
+  v4 = (&v9 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v10.location = 0;
+  v10.length = Length;
+  CFStringGetCharacters(a1, v10, v4);
   if (Length < 1)
   {
     return 0;
@@ -550,7 +550,6 @@ BOOL ContainsLatinAlphabets(const __CFString *a1)
     }
 
     v8 = (v4[v6++] & 0xFFDF) - 65;
-    v9 = (v4[v7] & 0xFFDF) - 90 < 0;
   }
 
   while (v8 > 0x19);
@@ -565,27 +564,27 @@ void DistanceBetweenWords(CFStringRef theString, const __CFString *a2)
   CFStringNormalize(v4, kCFStringNormalizationFormD);
   Length = CFStringGetLength(MutableCopy);
   __chkstk_darwin();
-  v46 = MutableCopy;
-  v52.location = 0;
-  v52.length = Length;
-  v49 = &v43 - v6;
-  CFStringGetCharacters(MutableCopy, v52, (&v43 - v6));
+  v44 = MutableCopy;
+  v50.location = 0;
+  v50.length = Length;
+  v47 = v42 - v6;
+  CFStringGetCharacters(MutableCopy, v50, (v42 - v6));
   v7 = CFStringGetLength(v4);
   __chkstk_darwin();
-  v45 = v4;
-  v53.location = 0;
-  v53.length = v7;
-  v48 = &v43 - v8;
-  CFStringGetCharacters(v4, v53, (&v43 - v8));
-  v51 = v7;
-  v44 = Length + 1 + (Length + 1) * v7;
+  v43 = v4;
+  v51.location = 0;
+  v51.length = v7;
+  v46 = v42 - v8;
+  CFStringGetCharacters(v4, v51, (v42 - v8));
+  v49 = v7;
+  v42[1] = Length + 1 + (Length + 1) * v7;
   __chkstk_darwin();
-  v10 = (&v43 - v9);
-  v50 = Length;
+  v10 = (v42 - v9);
+  v48 = Length;
   if ((Length & 0x8000000000000000) == 0)
   {
-    v11 = vdupq_n_s64(v50);
-    v12 = (v50 & 0x7FFFFFFFFFFFFFFELL) + 2;
+    v11 = vdupq_n_s64(v48);
+    v12 = (v48 & 0x7FFFFFFFFFFFFFFELL) + 2;
     v13 = xmmword_100004390;
     v14 = v10 + 1;
     v15 = 1;
@@ -612,14 +611,14 @@ void DistanceBetweenWords(CFStringRef theString, const __CFString *a2)
     while (v12);
   }
 
-  v18 = v50;
-  if ((v51 & 0x8000000000000000) == 0)
+  v18 = v48;
+  if ((v49 & 0x8000000000000000) == 0)
   {
     v19 = 0;
-    v20 = vdupq_n_s64(v51);
-    v21 = (v51 & 0x7FFFFFFFFFFFFFFELL) + 2;
+    v20 = vdupq_n_s64(v49);
+    v21 = (v49 & 0x7FFFFFFFFFFFFFFELL) + 2;
     v22 = xmmword_100004390;
-    v23 = 16 * v50 + 16;
+    v23 = 16 * v48 + 16;
     v24 = vdupq_n_s64(2uLL);
     v25 = v10;
     do
@@ -643,16 +642,16 @@ void DistanceBetweenWords(CFStringRef theString, const __CFString *a2)
     while (v21 != v19);
   }
 
-  v47 = v10;
-  if (v50 >= 1)
+  v45 = v10;
+  if (v48 >= 1)
   {
-    v27 = v47 + 1;
+    v27 = v45 + 1;
     v28 = 1;
     do
     {
-      if (v51 >= 1)
+      if (v49 >= 1)
       {
-        v29 = *&v49[2 * v28 - 2];
+        v29 = *&v47[2 * v28 - 2];
         v30 = sub_100001AEC(v29);
         if (v30)
         {
@@ -664,9 +663,9 @@ void DistanceBetweenWords(CFStringRef theString, const __CFString *a2)
           v31 = 1.0;
         }
 
-        v32 = v48;
+        v32 = v46;
         v33 = v27;
-        v34 = v51;
+        v34 = v49;
         do
         {
           v36 = *v32++;
@@ -717,12 +716,11 @@ void DistanceBetweenWords(CFStringRef theString, const __CFString *a2)
       ++v27;
     }
 
-    while (v28++ != v50);
+    while (v28++ != v48);
   }
 
-  CFRelease(v46);
-  CFRelease(v45);
-  v42 = v47[v44 - 1];
+  CFRelease(v44);
+  CFRelease(v43);
 }
 
 BOOL sub_100001AEC(int a1)
@@ -737,7 +735,7 @@ BOOL sub_100001AEC(int a1)
   return result;
 }
 
-uint64_t IsWorkingInDictionaryApp()
+uint64_t IsWorkingInDictionaryApp(uint64_t a1, uint64_t a2)
 {
   if (qword_10000C060 != -1)
   {
@@ -1006,10 +1004,10 @@ uint64_t DownloadDictionaryAssets(void *a1)
   if (v2)
   {
     v3 = v2;
-    v4 = xpc_dictionary_get_BOOL(a1, "userInitiatedDownload");
-    DCSMAForceTransparentDownload(v4);
-    DCSMADownloadDictionaryAsset(v3, 0);
-    DCSMAForceTransparentDownload(0);
+    xpc_dictionary_get_BOOL(a1, "userInitiatedDownload");
+    DCSMAForceTransparentDownload();
+    DCSMADownloadDictionaryAsset();
+    DCSMAForceTransparentDownload();
     CFRelease(v3);
   }
 
@@ -1108,71 +1106,50 @@ uint64_t GetStateDictionaryAssets(void *a1, void *a2)
 uint64_t PrepareDefaultAssets(void *a1)
 {
   value = xpc_dictionary_get_value(a1, "dictionaryIDs");
-  v3 = value;
   if (value)
   {
-    v4 = value;
+    v3 = value;
   }
 
   else
   {
-    v5 = xpc_dictionary_get_value(a1, "languageIDs");
-    if (!v5)
+    v4 = xpc_dictionary_get_value(a1, "languageIDs");
+    if (!v4)
     {
       return 0;
     }
 
-    v4 = v5;
+    v3 = v4;
   }
 
-  count = xpc_array_get_count(v4);
+  count = xpc_array_get_count(v3);
   if (count)
   {
-    v7 = count;
+    v6 = count;
     Mutable = 0;
-    for (i = 0; i != v7; ++i)
+    for (i = 0; i != v6; ++i)
     {
-      string = xpc_array_get_string(v4, i);
+      string = xpc_array_get_string(v3, i);
       if (string)
       {
-        v11 = CFStringCreateWithCString(0, string, 0x8000100u);
-        if (v11)
+        v10 = CFStringCreateWithCString(0, string, 0x8000100u);
+        if (v10)
         {
-          v12 = v11;
+          v11 = v10;
           if (!Mutable)
           {
             Mutable = CFArrayCreateMutable(0, 0, &kCFTypeArrayCallBacks);
           }
 
-          CFArrayAppendValue(Mutable, v12);
-          CFRelease(v12);
+          CFArrayAppendValue(Mutable, v11);
+          CFRelease(v11);
         }
       }
     }
 
     if (Mutable)
     {
-      if (v3)
-      {
-        v13 = 0;
-      }
-
-      else
-      {
-        v13 = Mutable;
-      }
-
-      if (v3)
-      {
-        v14 = Mutable;
-      }
-
-      else
-      {
-        v14 = 0;
-      }
-
-      DCSMAPrepareDefaultDictionaryAssets(v14, v13);
+      DCSMAPrepareDefaultDictionaryAssets();
     }
   }
 
@@ -1642,18 +1619,18 @@ const __CFDictionary *DCSMAGetAssetObj(const __CFDictionary *result)
   return result;
 }
 
-void DCSMAUpdateLinguisticData(uint64_t a1, const __CFArray *a2, int a3)
+void DCSMAUpdateLinguisticData(uint64_t result, const __CFArray *a2, int a3)
 {
-  if (a1 && a2)
+  if (result && a2)
   {
     if (a3)
     {
-      AddLinguisticDataAssetion(a1, a2);
+      AddLinguisticDataAssetion(result, a2);
     }
 
     else
     {
-      RemoveLinguisticDataAssetion(a1, a2);
+      RemoveLinguisticDataAssetion(result, a2);
     }
   }
 }
@@ -1767,7 +1744,7 @@ BOOL IsManagedConfigProfanityFilterForced()
   return v2 == 1;
 }
 
-void SetManagedConfigChangedCallback(uint64_t a1)
+void SetManagedConfigChangedCallback(id result)
 {
   if (qword_10000C118 != -1)
   {
@@ -1788,7 +1765,7 @@ void SetManagedConfigChangedCallback(uint64_t a1)
 
     if (qword_10000C100)
     {
-      [qword_10000C100 setCallbackBlock:a1];
+      [qword_10000C100 setCallbackBlock:result];
     }
   }
 }

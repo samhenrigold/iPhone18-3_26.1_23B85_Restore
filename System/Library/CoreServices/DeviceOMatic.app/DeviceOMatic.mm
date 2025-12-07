@@ -46,9 +46,9 @@ void sub_100000D28(id a1, OS_xpc_object *a2)
   }
 }
 
-void sub_1000015E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000015E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -291,6 +291,13 @@ void sub_100003A28(uint64_t a1, void *a2)
   }
 }
 
+void sub_100004258(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, ...)
+{
+  va_start(va, a35);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t sub_1000042A4(uint64_t result, uint64_t a2)
 {
   *(result + 40) = *(a2 + 40);
@@ -314,7 +321,7 @@ void sub_1000042BC(uint64_t a1)
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      sub_100008420((a1 + 40));
+      sub_100008420();
     }
   }
 
@@ -324,7 +331,7 @@ void sub_1000042BC(uint64_t a1)
     {
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        sub_1000084A0((a1 + 40));
+        sub_1000084A0();
       }
     }
 
@@ -539,7 +546,7 @@ LABEL_21:
   return v13;
 }
 
-uint64_t sub_100006494()
+uint64_t sub_100006494(uint64_t a1, uint64_t a2)
 {
   if (qword_100015010 != -1)
   {
@@ -1269,7 +1276,7 @@ void sub_1000079B8(uint64_t a1)
   }
 }
 
-void sub_100007AD4(uint64_t a1, uint64_t a2, void *a3)
+void sub_100007AD4(uint64_t a1, void *a2, void *a3)
 {
   v9 = a3;
   v5 = sub_100006580(a2, (*(a1 + 40) + 1), *(a1 + 32));
@@ -1389,20 +1396,6 @@ void sub_1000083D4(uint64_t a1, uint8_t *buf)
   _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "IORegistryEntryGetChildIterator failed: %s", buf, 0xCu);
 }
 
-void sub_100008420(int *a1)
-{
-  v6 = *a1;
-  sub_100004E74();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-}
-
-void sub_1000084A0(int *a1)
-{
-  v6 = *a1;
-  sub_100004E74();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-}
-
 void sub_1000085A4()
 {
   v0 = __error();
@@ -1468,13 +1461,6 @@ void sub_100008984(_BYTE *a1)
   }
 
   *a1 = 0;
-}
-
-void sub_100008A34(uint64_t a1)
-{
-  v6 = *(a1 + 24);
-  sub_100004E74();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
 void sub_100008AC8(uint64_t a1, uint8_t *buf)

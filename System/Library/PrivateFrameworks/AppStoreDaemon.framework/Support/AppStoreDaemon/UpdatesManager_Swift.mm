@@ -38,7 +38,7 @@
 
 - (void)autoUpdateEnabled:(id)enabled
 {
-  v5 = sub_100085D40(&qword_10059C3E0);
+  v5 = sub_100085D40(&qword_10059C3E0, &qword_1004344C0);
   __chkstk_darwin(v5 - 8);
   v7 = &v13 - v6;
   v8 = _Block_copy(enabled);
@@ -63,7 +63,7 @@
 
 - (void)confirmAgentRequestedUpdateAll:(id)all
 {
-  v5 = sub_100085D40(&qword_10059C3E0);
+  v5 = sub_100085D40(&qword_10059C3E0, &qword_1004344C0);
   __chkstk_darwin(v5 - 8);
   v7 = &v13 - v6;
   v8 = _Block_copy(all);
@@ -88,7 +88,7 @@
 
 - (void)dropAllUpdatesIncludingVPP:(BOOL)p completionHandler:(id)handler
 {
-  v7 = sub_100085D40(&qword_10059C3E0);
+  v7 = sub_100085D40(&qword_10059C3E0, &qword_1004344C0);
   __chkstk_darwin(v7 - 8);
   v9 = &v15 - v8;
   v10 = _Block_copy(handler);
@@ -114,7 +114,7 @@
 
 - (void)isTVProviderApp:(unint64_t)app withReplyHandler:(id)handler
 {
-  v7 = sub_100085D40(&qword_10059C3E0);
+  v7 = sub_100085D40(&qword_10059C3E0, &qword_1004344C0);
   __chkstk_darwin(v7 - 8);
   v9 = &v15 - v8;
   v10 = _Block_copy(handler);
@@ -140,7 +140,7 @@
 
 - (void)getManagedUpdatesWithRequestToken:(XPCRequestToken *)token replyHandler:(id)handler
 {
-  v7 = sub_100085D40(&qword_10059C3E0);
+  v7 = sub_100085D40(&qword_10059C3E0, &qword_1004344C0);
   __chkstk_darwin(v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(handler);
@@ -176,7 +176,7 @@
 
 - (void)refreshUpdateCountWithRequestToken:(XPCRequestToken *)token replyHandler:(id)handler
 {
-  v7 = sub_100085D40(&qword_10059C3E0);
+  v7 = sub_100085D40(&qword_10059C3E0, &qword_1004344C0);
   __chkstk_darwin(v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(handler);
@@ -203,7 +203,7 @@
 
 - (void)refreshUpdateForApp:(int64_t)app token:(XPCRequestToken *)token replyHandler:(id)handler
 {
-  v9 = sub_100085D40(&qword_10059C3E0);
+  v9 = sub_100085D40(&qword_10059C3E0, &qword_1004344C0);
   __chkstk_darwin(v9 - 8);
   v11 = &v18 - v10;
   v12 = _Block_copy(handler);
@@ -231,7 +231,7 @@
 
 - (void)reloadApplicationBadgeWithReason:(id)reason
 {
-  v4 = sub_100085D40(&qword_10059C3E0);
+  v4 = sub_100085D40(&qword_10059C3E0, &qword_1004344C0);
   __chkstk_darwin(v4 - 8);
   v6 = &v12 - v5;
   v7 = static String._unconditionallyBridgeFromObjectiveC(_:)();
@@ -250,7 +250,7 @@
 
 - (void)reloadFromServerWithRequestToken:(XPCRequestToken *)token replyHandler:(id)handler
 {
-  v7 = sub_100085D40(&qword_10059C3E0);
+  v7 = sub_100085D40(&qword_10059C3E0, &qword_1004344C0);
   __chkstk_darwin(v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(handler);
@@ -277,7 +277,7 @@
 
 - (void)reloadFromServerInBackgroundWithToken:(XPCRequestToken *)token completionBlock:(id)block
 {
-  v7 = sub_100085D40(&qword_10059C3E0);
+  v7 = sub_100085D40(&qword_10059C3E0, &qword_1004344C0);
   __chkstk_darwin(v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(block);
@@ -304,7 +304,7 @@
 
 - (void)reloadManagedUpdatesWithRequestToken:(XPCRequestToken *)token replyHandler:(id)handler
 {
-  v7 = sub_100085D40(&qword_10059C3E0);
+  v7 = sub_100085D40(&qword_10059C3E0, &qword_1004344C0);
   __chkstk_darwin(v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(handler);
@@ -331,7 +331,7 @@
 
 - (void)setAutoUpdateEnabled:(BOOL)enabled withReplyHandler:(id)handler
 {
-  v7 = sub_100085D40(&qword_10059C3E0);
+  v7 = sub_100085D40(&qword_10059C3E0, &qword_1004344C0);
   __chkstk_darwin(v7 - 8);
   v9 = &v15 - v8;
   v10 = _Block_copy(handler);
@@ -370,7 +370,7 @@
 
 - (void)updateAllWithOrder:(NSArray *)order requestToken:(XPCRequestToken *)token replyHandler:(id)handler
 {
-  v9 = sub_100085D40(&qword_10059C3E0);
+  v9 = sub_100085D40(&qword_10059C3E0, &qword_1004344C0);
   __chkstk_darwin(v9 - 8);
   v11 = &v19 - v10;
   v12 = _Block_copy(handler);
@@ -399,7 +399,7 @@
 
 - (void)getUpdateMetadataForBundleID:(NSString *)d replyHandler:(id)handler
 {
-  v7 = sub_100085D40(&qword_10059C3E0);
+  v7 = sub_100085D40(&qword_10059C3E0, &qword_1004344C0);
   __chkstk_darwin(v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(handler);
@@ -426,7 +426,7 @@
 
 - (void)getUpdatesWithRequestToken:(XPCRequestToken *)token replyHandler:(id)handler
 {
-  v7 = sub_100085D40(&qword_10059C3E0);
+  v7 = sub_100085D40(&qword_10059C3E0, &qword_1004344C0);
   __chkstk_darwin(v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(handler);
@@ -453,7 +453,7 @@
 
 - (void)verifyAllPendingUpdatesWithCompletionHandler:(id)handler
 {
-  v5 = sub_100085D40(&qword_10059C3E0);
+  v5 = sub_100085D40(&qword_10059C3E0, &qword_1004344C0);
   __chkstk_darwin(v5 - 8);
   v7 = &v13 - v6;
   v8 = _Block_copy(handler);
@@ -486,7 +486,7 @@
 
 - (void)verifyUpdatesFollowingExternalAppInstall:(id)install
 {
-  v4 = sub_100085D40(&qword_10059C3E0);
+  v4 = sub_100085D40(&qword_10059C3E0, &qword_1004344C0);
   __chkstk_darwin(v4 - 8);
   v6 = &v10 - v5;
   v7 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
@@ -503,7 +503,7 @@
 
 - (void)handleAccountChangeNotification
 {
-  v3 = sub_100085D40(&qword_10059C3E0);
+  v3 = sub_100085D40(&qword_10059C3E0, &qword_1004344C0);
   __chkstk_darwin(v3 - 8);
   v5 = &v8 - v4;
   v6 = type metadata accessor for TaskPriority();
@@ -515,7 +515,7 @@
   swift_retain_n();
   sub_100139A4C(0, 0, v5, 0, 0, &unk_100437438, v7);
 
-  sub_100005518(v5, &qword_10059C3E0);
+  sub_100005518(v5, &qword_10059C3E0, &qword_1004344C0);
 }
 
 @end

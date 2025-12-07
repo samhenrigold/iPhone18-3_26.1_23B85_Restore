@@ -461,10 +461,10 @@ LABEL_10:
 
     if (v5)
     {
-      v6 = cdui_default_log();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      v7 = cdui_default_log(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
-        [_UIDocumentListController itemsOrSelectionDidChange:v6];
+        [_UIDocumentListController itemsOrSelectionDidChange:v7];
       }
 
       delegate2 = [(_UIDocumentListController *)self delegate];
@@ -474,8 +474,8 @@ LABEL_10:
 
   [(_UIDocumentListController *)self updateTitle];
   model = [(_UIDocumentListController *)self model];
-  v9 = [model url];
-  if (v9)
+  v10 = [model url];
+  if (v10)
   {
 
 LABEL_12:
@@ -483,14 +483,14 @@ LABEL_12:
   }
 
   delegate3 = [(_UIDocumentListController *)self delegate];
-  v11 = objc_opt_respondsToSelector();
+  v12 = objc_opt_respondsToSelector();
 
-  if (v11)
+  if (v12)
   {
-    v12 = cdui_default_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v14 = cdui_default_log(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      [_UIDocumentListController itemsOrSelectionDidChange:v12];
+      [_UIDocumentListController itemsOrSelectionDidChange:v14];
     }
 
     model = [(_UIDocumentListController *)self delegate];

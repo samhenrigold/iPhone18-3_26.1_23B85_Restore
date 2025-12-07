@@ -186,10 +186,10 @@
 
 - (id)runAction
 {
-  v35 = *MEMORY[0x1E69E9840];
-  v28.receiver = self;
-  v28.super_class = AMSUIWebFlowAction;
-  runAction = [(AMSUIWebAction *)&v28 runAction];
+  v34 = *MEMORY[0x1E69E9840];
+  v27.receiver = self;
+  v27.super_class = AMSUIWebFlowAction;
+  runAction = [(AMSUIWebAction *)&v27 runAction];
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedWebUIConfig];
   if (!mEMORY[0x1E698C968])
   {
@@ -203,11 +203,11 @@
     v7 = AMSLogKey();
     presentationType = [(AMSUIWebFlowAction *)self presentationType];
     *buf = 138543874;
-    v30 = v6;
-    v31 = 2114;
-    v32 = v7;
-    v33 = 2048;
-    v34 = presentationType;
+    v29 = v6;
+    v30 = 2114;
+    v31 = v7;
+    v32 = 2048;
+    v33 = presentationType;
     _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Running flow action with type: %ld", buf, 0x20u);
   }
 
@@ -237,12 +237,12 @@ LABEL_8:
     block[2] = __31__AMSUIWebFlowAction_runAction__block_invoke;
     block[3] = &unk_1E7F24590;
     v16 = v15;
-    v25 = v16;
+    v24 = v16;
     selfCopy = self;
-    v27 = v10;
+    v26 = v10;
     v17 = v10;
     dispatch_async(MEMORY[0x1E69E96A0], block);
-    v18 = v27;
+    v18 = v26;
     v19 = v16;
 
     goto LABEL_9;
@@ -255,12 +255,10 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  v23 = MEMORY[0x1E698CAD0];
+  v22 = MEMORY[0x1E698CAD0];
   v17 = AMSError();
-  v19 = [v23 promiseWithError:v17];
+  v19 = [v22 promiseWithError:v17];
 LABEL_9:
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v19;
 }

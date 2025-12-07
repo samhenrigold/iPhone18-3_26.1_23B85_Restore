@@ -711,7 +711,7 @@
     memset(&v14, 0, sizeof(v14));
     if (self)
     {
-      [(TSWPShapeLayout *)self autosizedTransform];
+      objc_msgSend_autosizedTransform(self);
     }
 
     [-[TSDShapeLayout layoutInfoGeometry](self "layoutInfoGeometry")];
@@ -741,7 +741,7 @@
   if (self)
   {
 
-    return [(TSWPShapeLayout *)self autosizedTransformForInfoGeometry:result];
+    return objc_msgSend_autosizedTransformForInfoGeometry_(self);
   }
 
   else
@@ -761,7 +761,7 @@
   if (info)
   {
 
-    return [(TSDInfo *)info autosizedTransformForInfoGeometry:a4 size:v9, v10];
+    return objc_msgSend_autosizedTransformForInfoGeometry_size_(info, v8, v9);
   }
 
   else
@@ -791,7 +791,7 @@
   v23 = 0u;
   if (self)
   {
-    [(TSWPShapeLayout *)self autosizedTransform];
+    objc_msgSend_autosizedTransform(self, a2);
   }
 
   [(TSDShapeLayout *)self pathBoundsWithoutStroke];
@@ -819,7 +819,7 @@
   v20 = 0u;
   if (self)
   {
-    [(TSWPShapeLayout *)self autosizedTransformForInfoGeometry:v11, 0, 0, 0, 0, 0, 0];
+    objc_msgSend_autosizedTransformForInfoGeometry_(self, 0, 0, 0, 0, 0, 0);
   }
 
   v16 = *(MEMORY[0x277CBF348] + 8);

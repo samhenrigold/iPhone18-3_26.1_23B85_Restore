@@ -16,7 +16,7 @@
 {
   ObjectType = swift_getObjectType();
   type metadata accessor for ImageInitializationOption(0);
-  sub_1BA4515D8(&qword_1EBBE90B8, type metadata accessor for ImageInitializationOption);
+  sub_1BA4515D8(&qword_1EBBE90B8, type metadata accessor for ImageInitializationOption, &unk_1BA4B43C4);
   sub_1BA4A6628();
   imageCopy = image;
   v8 = sub_1BA4A6618();

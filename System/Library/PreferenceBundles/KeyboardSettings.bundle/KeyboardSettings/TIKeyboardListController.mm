@@ -24,12 +24,16 @@
 - (void)manager:(id)manager didUpdateStatus:(int64_t)status forInputMode:(id)mode;
 - (void)reloadSpecifiers;
 - (void)removeInputModeWithIdentifier:(id)identifier;
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated;
 - (void)tableView:(id)view commitEditingStyle:(int64_t)style forRowAtIndexPath:(id)path;
 - (void)tableView:(id)view didEndEditingRowAtIndexPath:(id)path;
 - (void)tableView:(id)view moveRowAtIndexPath:(id)path toIndexPath:(id)indexPath;
 - (void)tableView:(id)view willDisplayFooterView:(id)footerView forSection:(int64_t)section;
 - (void)updateEditButtonState;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation TIKeyboardListController
@@ -92,6 +96,52 @@
   }
 }
 
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  editingCopy = editing;
+  v15.receiver = self;
+  v15.super_class = TIKeyboardListController;
+  [TIKeyboardListController setEditing:"setEditing:animated:" animated:?];
+  if (!self->deletingRow)
+  {
+    [-[TIKeyboardListController navigationItem](self "navigationItem")];
+  }
+
+  deletingRow = self->deletingRow;
+  if (editingCopy)
+  {
+    v8 = OBJC_IVAR___PSListController__table;
+    if (!self->deletingRow)
+    {
+      v9 = *&self->PSListController_opaque[OBJC_IVAR___PSListController__table];
+      v14[0] = _NSConcreteStackBlock;
+      v14[1] = 3221225472;
+      v14[2] = sub_12078;
+      v14[3] = &unk_490C0;
+      v14[4] = self;
+      [v9 addEditingChangeHandler:v14];
+    }
+
+    v10 = &self->PSListController_opaque[v8];
+  }
+
+  else
+  {
+    v10 = &self->PSListController_opaque[OBJC_IVAR___PSListController__table];
+    v11 = *v10;
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_120E8;
+    v12[3] = &unk_49318;
+    v12[4] = self;
+    v13 = deletingRow;
+    [v11 addEditingChangeHandler:v12];
+  }
+
+  [*v10 setEditing:editingCopy animated:animatedCopy];
+}
+
 - (int64_t)tableView:(id)view editingStyleForRowAtIndexPath:(id)path
 {
   if ([path section])
@@ -144,7 +194,7 @@
 - (id)specifierForInputMode:(id)mode
 {
   v5 = objc_opt_class();
-  if ([objc_msgSend(v5 availableSoftwareLayoutsForBaseInputMode:{UIKeyboardInputModeGetNormalizedIdentifier()), "count"}] || (TIInputModeIsChineseShuangpin() & 1) != 0 || TIInputModeIsChineseWubi())
+  if ([objc_msgSend(v5 availableSoftwareLayoutsForBaseInputMode:{UIKeyboardInputModeGetNormalizedIdentifier()), "count"}] || (TIInputModeIsChineseShuangpin(mode) & 1) != 0 || TIInputModeIsChineseWubi(mode))
   {
     v6 = [PSSpecifier preferenceSpecifierNamed:0 target:self set:0 get:0 detail:objc_opt_class() cell:2 edit:0];
   }
@@ -585,9 +635,37 @@ LABEL_30:
   }
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = TIKeyboardListController;
+  [(TIKeyboardListController *)&v5 viewWillAppear:appear];
+  [(TIKeyboardListController *)self reloadSpecifiers];
+  v4 = +[TIInputModeAssetStatusManager sharedManager];
+  [v4 addListener:self];
+  [v4 startMonitoringAssetUpdateStatusForInputModes:UIKeyboardGetActiveInputModes()];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = TIKeyboardListController;
+  [(TIKeyboardListController *)&v4 viewDidAppear:appear];
+  [(TIKeyboardListController *)self emitNavigationEventForKeyboardListController];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  [+[TIInputModeAssetStatusManager sharedManager](TIInputModeAssetStatusManager "sharedManager")];
+  v5.receiver = self;
+  v5.super_class = TIKeyboardListController;
+  [(TIKeyboardListController *)&v5 viewWillDisappear:disappearCopy];
+}
+
 - (void)manager:(id)manager didUpdateStatus:(int64_t)status forInputMode:(id)mode
 {
-  v9 = KeyboardSettingsLog();
+  v9 = KeyboardSettingsLog(self, a2);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = 138413058;
@@ -667,7 +745,7 @@ LABEL_30:
     return SupportedSoftwareKeyboardsForInputMode;
   }
 
-  if (!TIInputModeIsChineseShuangpin())
+  if (!TIInputModeIsChineseShuangpin(mode))
   {
     return SupportedSoftwareKeyboardsForInputMode;
   }
@@ -804,45 +882,43 @@ LABEL_30:
 + (id)availableSoftwareLayoutsForBaseInputMode:(id)mode
 {
   v4 = [UIKeyboardGetSupportedSoftwareKeyboardsForInputMode() mutableCopy];
-  if (TIInputModeIsChineseShuangpin())
+  if (TIInputModeIsChineseShuangpin(mode))
   {
     v4 = [(NSMutableArray *)TIFilteredLayoutsByCurrentShuangpinType(v4) mutableCopy];
   }
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
-  v5 = +[TIKeyboardListController inputModes];
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v15 = 0u;
+  v13 = 0u;
+  v5 = [TIKeyboardListController inputModes:0];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     while (2)
     {
-      for (i = 0; i != v7; i = i + 1)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * i);
         if ([mode isEqualToString:UIKeyboardInputModeGetNormalizedIdentifier()])
         {
-          v11 = [UIKeyboardInputModeGetComponentsFromIdentifier() objectForKey:@"sw"];
-          if ([mode hasPrefix:@"ja_JP"] && (objc_msgSend(v11, "_containsSubstring:", @"Kana") & 1) != 0)
+          v10 = [UIKeyboardInputModeGetComponentsFromIdentifier() objectForKey:@"sw"];
+          if ([mode hasPrefix:@"ja_JP"] && (objc_msgSend(v10, "_containsSubstring:", @"Kana") & 1) != 0)
           {
             [v4 removeAllObjects];
             return v4;
           }
 
-          [v4 removeObject:v11];
+          [v4 removeObject:v10];
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v7)
       {
         continue;

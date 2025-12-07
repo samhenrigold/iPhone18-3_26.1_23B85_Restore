@@ -46,14 +46,14 @@
 
 - (void)_updateAssetMetadata
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   logHandle = self->_logHandle;
   if (os_log_type_enabled(logHandle, OS_LOG_TYPE_INFO))
   {
     v4 = logHandle;
     _assetDescription = [(_PASAsset2 *)self _assetDescription];
     *buf = 138412290;
-    v21 = _assetDescription;
+    v20 = _assetDescription;
     _os_log_impl(&dword_1A7F47000, v4, OS_LOG_TYPE_INFO, "Updating MobileAsset version information for %@", buf, 0xCu);
   }
 
@@ -61,25 +61,25 @@
   [v6 returnTypes:2];
   [v6 setDoNotBlockOnNetworkStatus:1];
   requiredMobileAssetProperties = self->_requiredMobileAssetProperties;
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __34___PASAsset2__updateAssetMetadata__block_invoke;
-  v18[3] = &unk_1E77F2BF8;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __34___PASAsset2__updateAssetMetadata__block_invoke;
+  v17[3] = &unk_1E77F2BF8;
   v8 = v6;
-  v19 = v8;
-  [(NSDictionary *)requiredMobileAssetProperties enumerateKeysAndObjectsUsingBlock:v18];
+  v18 = v8;
+  [(NSDictionary *)requiredMobileAssetProperties enumerateKeysAndObjectsUsingBlock:v17];
   queryMetaDataSync = [v8 queryMetaDataSync];
   results = [v8 results];
   v11 = self->_logHandle;
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    v16 = v11;
-    v17 = [results count];
+    v15 = v11;
+    v16 = [results count];
     *buf = 134218240;
-    v21 = queryMetaDataSync;
-    v22 = 2048;
-    v23 = v17;
-    _os_log_debug_impl(&dword_1A7F47000, v16, OS_LOG_TYPE_DEBUG, "MobileAsset query completed with status code %ld; number of results: %lu", buf, 0x16u);
+    v20 = queryMetaDataSync;
+    v21 = 2048;
+    v22 = v16;
+    _os_log_debug_impl(&dword_1A7F47000, v15, OS_LOG_TYPE_DEBUG, "MobileAsset query completed with status code %ld; number of results: %lu", buf, 0x16u);
   }
 
   if ([results count])
@@ -99,7 +99,7 @@ LABEL_7:
       results2 = v13;
       _assetDescription2 = [(_PASAsset2 *)self _assetDescription];
       *buf = 138412290;
-      v21 = _assetDescription2;
+      v20 = _assetDescription2;
       _os_log_impl(&dword_1A7F47000, results2, OS_LOG_TYPE_DEFAULT, "Warning: MobileAsset metadata query for %@ completed successfully, but nil or empty results returned.", buf, 0xCu);
 
       goto LABEL_7;
@@ -107,8 +107,6 @@ LABEL_7:
   }
 
 LABEL_11:
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)callAssetUpdateHandlers
@@ -223,73 +221,71 @@ LABEL_3:
 
 - (void)_issueUpdateNotificationsWithCallback:(id)callback
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   callbackCopy = callback;
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x2020000000;
-  v14 = 0;
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x2020000000;
+  v13 = 0;
   lock = self->_lock;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __52___PASAsset2__issueUpdateNotificationsWithCallback___block_invoke;
-  v10[3] = &unk_1E77F2B80;
-  v10[4] = &v11;
-  [(_PASLock *)lock runWithLockAcquired:v10];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __52___PASAsset2__issueUpdateNotificationsWithCallback___block_invoke;
+  v9[3] = &unk_1E77F2B80;
+  v9[4] = &v10;
+  [(_PASLock *)lock runWithLockAcquired:v9];
   v6 = self->_logHandle;
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = v12[3];
+    v7 = v11[3];
     _assetDescription = [(_PASAsset2 *)self _assetDescription];
     *buf = 134218242;
-    v16 = v7;
-    v17 = 2112;
-    v18 = _assetDescription;
+    v15 = v7;
+    v16 = 2112;
+    v17 = _assetDescription;
     _os_log_impl(&dword_1A7F47000, v6, OS_LOG_TYPE_DEFAULT, "MAAsset version %lu for %@ is now installed. Issuing notification.", buf, 0x16u);
   }
 
   [(_PASNotificationTracker *)self->_updateNotificationTracker issueNotificationAsyncWithContext:self callback:callbackCopy];
-  _Block_object_dispose(&v11, 8);
-
-  v9 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v10, 8);
 }
 
 - (void)_purgeObsoleteInstalledAssetsFromCandidates:(id)candidates guardedData:(id)data
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   candidatesCopy = candidates;
   dataCopy = data;
   if (dataCopy[3] != 0x7FFFFFFFFFFFFFFFLL)
   {
-    v33[0] = MEMORY[0x1E69E9820];
-    v33[1] = 3221225472;
-    v33[2] = __70___PASAsset2__purgeObsoleteInstalledAssetsFromCandidates_guardedData___block_invoke;
-    v33[3] = &unk_1E77F2D08;
-    v33[4] = self;
-    v8 = MEMORY[0x1AC566DD0](v33);
+    v32[0] = MEMORY[0x1E69E9820];
+    v32[1] = 3221225472;
+    v32[2] = __70___PASAsset2__purgeObsoleteInstalledAssetsFromCandidates_guardedData___block_invoke;
+    v32[3] = &unk_1E77F2D08;
+    v32[4] = self;
+    v8 = MEMORY[0x1AC566DD0](v32);
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
-    v24 = candidatesCopy;
+    v23 = candidatesCopy;
     obj = candidatesCopy;
-    v9 = [obj countByEnumeratingWithState:&v29 objects:v38 count:16];
+    v9 = [obj countByEnumeratingWithState:&v28 objects:v37 count:16];
     if (v9)
     {
       v10 = v9;
       selfCopy = self;
-      v12 = *v30;
-      v25 = v8;
+      v12 = *v29;
+      v24 = v8;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v30 != v12)
+          if (*v29 != v12)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = *(*(&v29 + 1) + 8 * i);
+          v14 = *(*(&v28 + 1) + 8 * i);
           v15 = objc_autoreleasePoolPush();
           attributes = [v14 attributes];
           v17 = [attributes objectForKeyedSubscript:@"_ContentVersion"];
@@ -304,38 +300,36 @@ LABEL_3:
               v20 = dataCopy;
               v22 = v21 = selfCopy;
               *buf = 138412546;
-              v35 = v22;
-              v36 = 2112;
-              v37 = v17;
+              v34 = v22;
+              v35 = 2112;
+              v36 = v17;
               _os_log_impl(&dword_1A7F47000, v19, OS_LOG_TYPE_DEFAULT, "Requesting purge of installed MAAsset %@ with obsolete version %@.", buf, 0x16u);
 
               selfCopy = v21;
               dataCopy = v20;
-              v8 = v25;
+              v8 = v24;
             }
 
-            v27[0] = MEMORY[0x1E69E9820];
-            v27[1] = 3221225472;
-            v27[2] = __70___PASAsset2__purgeObsoleteInstalledAssetsFromCandidates_guardedData___block_invoke_394;
-            v27[3] = &unk_1E77F2D30;
-            v27[4] = selfCopy;
-            v28 = v17;
-            [v14 purge:v27];
+            v26[0] = MEMORY[0x1E69E9820];
+            v26[1] = 3221225472;
+            v26[2] = __70___PASAsset2__purgeObsoleteInstalledAssetsFromCandidates_guardedData___block_invoke_394;
+            v26[3] = &unk_1E77F2D30;
+            v26[4] = selfCopy;
+            v27 = v17;
+            [v14 purge:v26];
           }
 
           objc_autoreleasePoolPop(v15);
         }
 
-        v10 = [obj countByEnumeratingWithState:&v29 objects:v38 count:16];
+        v10 = [obj countByEnumeratingWithState:&v28 objects:v37 count:16];
       }
 
       while (v10);
     }
 
-    candidatesCopy = v24;
+    candidatesCopy = v23;
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)updateAssetMetadataUsingQueryResults:(id)results
@@ -389,7 +383,7 @@ LABEL_3:
 
 - (id)filesystemPathForAssetDataRelativePath:(id)path assetVersion:(unint64_t *)version
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   pathCopy = path;
   if (!pathCopy)
   {
@@ -397,13 +391,11 @@ LABEL_3:
     [currentHandler handleFailureInMethod:a2 object:self file:@"_PASAsset2.m" lineNumber:557 description:{@"Invalid parameter not satisfying: %@", @"relativePath"}];
   }
 
-  v14[0] = pathCopy;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+  v13[0] = pathCopy;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
   v9 = [(_PASAsset2 *)self filesystemPathsForAssetDataRelativePaths:v8 assetVersion:version];
 
   v10 = [v9 objectForKeyedSubscript:pathCopy];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -455,7 +447,7 @@ LABEL_3:
 
 - (id)_defaultBundleFilesystemPathsForAssetDataRelativePaths:(id)paths guardedData:(id)data assetVersion:(unint64_t *)version
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   pathsCopy = paths;
   dataCopy = data;
   v10 = dataCopy;
@@ -467,46 +459,46 @@ LABEL_3:
   v11 = dataCopy[1];
   if (v11)
   {
-    v28 = v10;
-    v33 = [v11 stringByAppendingPathComponent:@"AssetData"];
-    v30 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(pathsCopy, "count")}];
+    v27 = v10;
+    v32 = [v11 stringByAppendingPathComponent:@"AssetData"];
+    v29 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(pathsCopy, "count")}];
+    v35 = 0u;
     v36 = 0u;
     v37 = 0u;
     v38 = 0u;
-    v39 = 0u;
-    v29 = pathsCopy;
+    v28 = pathsCopy;
     obj = pathsCopy;
-    v12 = [obj countByEnumeratingWithState:&v36 objects:v46 count:16];
+    v12 = [obj countByEnumeratingWithState:&v35 objects:v45 count:16];
     if (v12)
     {
       v13 = v12;
-      v32 = *v37;
+      v31 = *v36;
       v14 = *MEMORY[0x1E695DBB0];
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v37 != v32)
+          if (*v36 != v31)
           {
             objc_enumerationMutation(obj);
           }
 
-          v16 = *(*(&v36 + 1) + 8 * i);
-          v17 = [v33 stringByAppendingPathComponent:v16];
+          v16 = *(*(&v35 + 1) + 8 * i);
+          v17 = [v32 stringByAppendingPathComponent:v16];
           logHandle = self->_logHandle;
           if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v41 = v17;
+            v40 = v17;
             _os_log_debug_impl(&dword_1A7F47000, logHandle, OS_LOG_TYPE_DEBUG, "Checking for readable default bundle asset file at path: %@", buf, 0xCu);
           }
 
           v19 = [objc_alloc(MEMORY[0x1E695DFF8]) initFileURLWithPath:v17];
+          v33 = 0;
           v34 = 0;
-          v35 = 0;
-          [v19 getResourceValue:&v35 forKey:v14 error:&v34];
-          v20 = v35;
-          v21 = v34;
+          [v19 getResourceValue:&v34 forKey:v14 error:&v33];
+          v20 = v34;
+          v21 = v33;
           bOOLValue = [v20 BOOLValue];
           v23 = self->_logHandle;
           if (bOOLValue)
@@ -514,11 +506,11 @@ LABEL_3:
             if (os_log_type_enabled(self->_logHandle, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v41 = v17;
+              v40 = v17;
               _os_log_debug_impl(&dword_1A7F47000, v23, OS_LOG_TYPE_DEBUG, "Verified that default bundle asset path was readable: %@", buf, 0xCu);
             }
 
-            [v30 setObject:v17 forKeyedSubscript:v16];
+            [v29 setObject:v17 forKeyedSubscript:v16];
           }
 
           else if (os_log_type_enabled(self->_logHandle, OS_LOG_TYPE_DEFAULT))
@@ -526,38 +518,36 @@ LABEL_3:
             v24 = v23;
             _assetDescription = [(_PASAsset2 *)self _assetDescription];
             *buf = 138412802;
-            v41 = _assetDescription;
-            v42 = 2112;
-            v43 = v17;
-            v44 = 2112;
-            v45 = v21;
+            v40 = _assetDescription;
+            v41 = 2112;
+            v42 = v17;
+            v43 = 2112;
+            v44 = v21;
             _os_log_impl(&dword_1A7F47000, v24, OS_LOG_TYPE_DEFAULT, "Default bundle asset for %@ has missing or unreadable file at path: %@. Error: %@", buf, 0x20u);
           }
         }
 
-        v13 = [obj countByEnumeratingWithState:&v36 objects:v46 count:16];
+        v13 = [obj countByEnumeratingWithState:&v35 objects:v45 count:16];
       }
 
       while (v13);
     }
 
-    v10 = v28;
-    pathsCopy = v29;
+    v10 = v27;
+    pathsCopy = v28;
   }
 
   else
   {
-    v30 = 0;
+    v29 = 0;
   }
 
-  v26 = *MEMORY[0x1E69E9840];
-
-  return v30;
+  return v29;
 }
 
 - (id)_maFilesystemPathsForAssetDataRelativePaths:(id)paths guardedData:(id)data isMissingData:(BOOL *)missingData assetVersion:(unint64_t *)version
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   pathsCopy = paths;
   dataCopy = data;
   v12 = dataCopy;
@@ -575,59 +565,59 @@ LABEL_3:
     path = [getLocalUrl path];
 
     logHandle = self->_logHandle;
-    v43 = path;
+    v42 = path;
     if (path)
     {
-      v37 = v12;
+      v36 = v12;
       if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEBUG))
       {
-        v33 = logHandle;
+        v32 = logHandle;
         _assetDescription = [(_PASAsset2 *)self _assetDescription];
         *buf = 138412546;
-        v51 = _assetDescription;
-        v52 = 2112;
-        v53 = v43;
-        _os_log_debug_impl(&dword_1A7F47000, v33, OS_LOG_TYPE_DEBUG, "Attempting to use installed MAAsset for %@ at path: %@", buf, 0x16u);
+        v50 = _assetDescription;
+        v51 = 2112;
+        v52 = v42;
+        _os_log_debug_impl(&dword_1A7F47000, v32, OS_LOG_TYPE_DEBUG, "Attempting to use installed MAAsset for %@ at path: %@", buf, 0x16u);
       }
 
-      v40 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(pathsCopy, "count")}];
+      v39 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(pathsCopy, "count")}];
+      v45 = 0u;
       v46 = 0u;
       v47 = 0u;
       v48 = 0u;
-      v49 = 0u;
-      v38 = pathsCopy;
+      v37 = pathsCopy;
       obj = pathsCopy;
-      v17 = [obj countByEnumeratingWithState:&v46 objects:v56 count:16];
+      v17 = [obj countByEnumeratingWithState:&v45 objects:v55 count:16];
       if (v17)
       {
         v18 = v17;
-        v42 = *v47;
+        v41 = *v46;
         v19 = *MEMORY[0x1E695DBB0];
         do
         {
           for (i = 0; i != v18; ++i)
           {
-            if (*v47 != v42)
+            if (*v46 != v41)
             {
               objc_enumerationMutation(obj);
             }
 
-            v21 = *(*(&v46 + 1) + 8 * i);
-            v22 = [v43 stringByAppendingPathComponent:{v21, v37}];
+            v21 = *(*(&v45 + 1) + 8 * i);
+            v22 = [v42 stringByAppendingPathComponent:{v21, v36}];
             v23 = self->_logHandle;
             if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v51 = v22;
+              v50 = v22;
               _os_log_debug_impl(&dword_1A7F47000, v23, OS_LOG_TYPE_DEBUG, "Checking for readable MAAsset file at path: %@", buf, 0xCu);
             }
 
             v24 = [objc_alloc(MEMORY[0x1E695DFF8]) initFileURLWithPath:v22];
+            v43 = 0;
             v44 = 0;
-            v45 = 0;
-            [v24 getResourceValue:&v45 forKey:v19 error:&v44];
-            v25 = v45;
-            v26 = v44;
+            [v24 getResourceValue:&v44 forKey:v19 error:&v43];
+            v25 = v44;
+            v26 = v43;
             bOOLValue = [v25 BOOLValue];
             v28 = self->_logHandle;
             if (bOOLValue)
@@ -635,11 +625,11 @@ LABEL_3:
               if (os_log_type_enabled(self->_logHandle, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412290;
-                v51 = v22;
+                v50 = v22;
                 _os_log_debug_impl(&dword_1A7F47000, v28, OS_LOG_TYPE_DEBUG, "Verified that MAAsset path was readable: %@", buf, 0xCu);
               }
 
-              [v40 setObject:v22 forKeyedSubscript:v21];
+              [v39 setObject:v22 forKeyedSubscript:v21];
             }
 
             else
@@ -649,11 +639,11 @@ LABEL_3:
                 v29 = v28;
                 _assetDescription2 = [(_PASAsset2 *)self _assetDescription];
                 *buf = 138412802;
-                v51 = _assetDescription2;
-                v52 = 2112;
-                v53 = v22;
-                v54 = 2112;
-                v55 = v26;
+                v50 = _assetDescription2;
+                v51 = 2112;
+                v52 = v22;
+                v53 = 2112;
+                v54 = v26;
                 _os_log_impl(&dword_1A7F47000, v29, OS_LOG_TYPE_DEFAULT, "MAAsset for %@ has missing or unreadable file at path: %@. Error: %@", buf, 0x20u);
               }
 
@@ -661,39 +651,37 @@ LABEL_3:
             }
           }
 
-          v18 = [obj countByEnumeratingWithState:&v46 objects:v56 count:16];
+          v18 = [obj countByEnumeratingWithState:&v45 objects:v55 count:16];
         }
 
         while (v18);
       }
 
-      v12 = v37;
-      pathsCopy = v38;
+      v12 = v36;
+      pathsCopy = v37;
     }
 
     else
     {
       if (os_log_type_enabled(logHandle, OS_LOG_TYPE_ERROR))
       {
-        v35 = logHandle;
+        v34 = logHandle;
         _assetDescription3 = [(_PASAsset2 *)self _assetDescription];
         *buf = 138412290;
-        v51 = _assetDescription3;
-        _os_log_error_impl(&dword_1A7F47000, v35, OS_LOG_TYPE_ERROR, "MobileAsset reports asset available for %@ but local URL is nil.", buf, 0xCu);
+        v50 = _assetDescription3;
+        _os_log_error_impl(&dword_1A7F47000, v34, OS_LOG_TYPE_ERROR, "MobileAsset reports asset available for %@ but local URL is nil.", buf, 0xCu);
       }
 
-      v40 = 0;
+      v39 = 0;
     }
   }
 
   else
   {
-    v40 = 0;
+    v39 = 0;
   }
 
-  v31 = *MEMORY[0x1E69E9840];
-
-  return v40;
+  return v39;
 }
 
 - (id)registerUpdateHandler:(id)handler
@@ -712,7 +700,7 @@ LABEL_3:
 
 - (BOOL)_loadDefaultBundleVersionWithGuardedData:(id)data
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   dataCopy[2] = 0x7FFFFFFFFFFFFFFFLL;
   v5 = dataCopy[1];
@@ -730,9 +718,9 @@ LABEL_3:
     {
       v28 = dataCopy[1];
       *buf = 138412546;
-      v48 = @"Info.plist";
-      v49 = 2112;
-      v50 = v28;
+      v47 = @"Info.plist";
+      v48 = 2112;
+      v49 = v28;
       _os_log_fault_impl(&dword_1A7F47000, logHandle, OS_LOG_TYPE_FAULT, "Unable to load %@ for default bundle at %@.", buf, 0x16u);
     }
 
@@ -756,11 +744,11 @@ LABEL_24:
       v26 = dataCopy[1];
       assetTypeIdentifier = self->_assetTypeIdentifier;
       *buf = 138412802;
-      v48 = v26;
-      v49 = 2112;
-      v50 = assetTypeIdentifier;
-      v51 = 2112;
-      v52 = v9;
+      v47 = v26;
+      v48 = 2112;
+      v49 = assetTypeIdentifier;
+      v50 = 2112;
+      v51 = v9;
       _os_log_fault_impl(&dword_1A7F47000, v22, OS_LOG_TYPE_FAULT, "Default bundle at %@ has incorrect bundle identifier (expected %@, actual %@)", buf, 0x20u);
     }
 
@@ -780,7 +768,7 @@ LABEL_24:
     {
       v31 = dataCopy[1];
       *buf = 138412290;
-      v48 = v31;
+      v47 = v31;
       _os_log_fault_impl(&dword_1A7F47000, v25, OS_LOG_TYPE_FAULT, "Default bundle at %@ has missing or ill-formatted MobileAssetProperties property.", buf, 0xCu);
     }
 
@@ -803,7 +791,7 @@ LABEL_24:
 
     v34 = dataCopy[1];
     *buf = 138412290;
-    v48 = v34;
+    v47 = v34;
     v33 = "Default bundle at %@ has missing or ill-formatted _ContentVersion property.";
     goto LABEL_41;
   }
@@ -818,7 +806,7 @@ LABEL_24:
 
     v32 = dataCopy[1];
     *buf = 138412290;
-    v48 = v32;
+    v47 = v32;
     v33 = "Default bundle at %@ has invalid _ContentVersion property.";
 LABEL_41:
     _os_log_fault_impl(&dword_1A7F47000, v29, OS_LOG_TYPE_FAULT, v33, buf, 0xCu);
@@ -842,9 +830,9 @@ LABEL_20:
     v30 = self->_logHandle;
     if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
     {
-      v43 = dataCopy[1];
+      v42 = dataCopy[1];
       *buf = 138412290;
-      v48 = v43;
+      v47 = v42;
       _os_log_fault_impl(&dword_1A7F47000, v30, OS_LOG_TYPE_FAULT, "Default bundle at %@ has missing or ill-formatted _CompatibilityVersion property.", buf, 0xCu);
     }
 
@@ -861,11 +849,11 @@ LABEL_20:
       unsignedIntegerValue = [v12 unsignedIntegerValue];
       compatibilityVersion = self->_compatibilityVersion;
       *buf = 138412802;
-      v48 = v36;
-      v49 = 2048;
-      v50 = unsignedIntegerValue;
-      v51 = 2048;
-      v52 = compatibilityVersion;
+      v47 = v36;
+      v48 = 2048;
+      v49 = unsignedIntegerValue;
+      v50 = 2048;
+      v51 = compatibilityVersion;
       _os_log_fault_impl(&dword_1A7F47000, v37, OS_LOG_TYPE_FAULT, "Default bundle at %@ declares unexpected compatibility version %lu (expected %lu)", buf, 0x20u);
     }
 
@@ -879,11 +867,11 @@ LABEL_36:
   }
 
   v13 = [dataCopy[1] stringByAppendingPathComponent:@"AssetData"];
-  v46 = 0;
+  v45 = 0;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v45 = v13;
-  v15 = [defaultManager fileExistsAtPath:v13 isDirectory:&v46];
-  v16 = (v15 & v46);
+  v44 = v13;
+  v15 = [defaultManager fileExistsAtPath:v13 isDirectory:&v45];
+  v16 = (v15 & v45);
 
   if (v16)
   {
@@ -896,11 +884,11 @@ LABEL_36:
       v21 = dataCopy[1];
       v20 = dataCopy[2];
       *buf = 138412802;
-      v48 = _assetDescription;
-      v49 = 2048;
-      v50 = v20;
-      v51 = 2112;
-      v52 = v21;
+      v47 = _assetDescription;
+      v48 = 2048;
+      v49 = v20;
+      v50 = 2112;
+      v51 = v21;
       _os_log_impl(&dword_1A7F47000, v18, OS_LOG_TYPE_DEFAULT, "Loaded default bundle for %@ with version %tu from path: %@", buf, 0x20u);
     }
 
@@ -910,9 +898,9 @@ LABEL_36:
   v40 = self->_logHandle;
   if (os_log_type_enabled(v40, OS_LOG_TYPE_FAULT))
   {
-    v44 = dataCopy[1];
+    v43 = dataCopy[1];
     *buf = 138412290;
-    v48 = v44;
+    v47 = v43;
     _os_log_fault_impl(&dword_1A7F47000, v40, OS_LOG_TYPE_FAULT, "Default bundle at %@ is missing the AssetData subdirectory.", buf, 0xCu);
   }
 
@@ -935,7 +923,6 @@ LABEL_25:
   v24 = 0;
 LABEL_49:
 
-  v41 = *MEMORY[0x1E69E9840];
   return v24;
 }
 
@@ -1061,7 +1048,7 @@ LABEL_6:
 
 - (id)_initWithAssetTypeIdentifier:(id)identifier defaultBundlePath:(id)path compatibilityVersion:(unint64_t)version matchingKeysAndValues:(id)values notificationQueue:(id)queue logHandle:(id)handle enableAssetUpdates:(BOOL)updates purgeObsoleteInstalledAssets:(BOOL)self0
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   pathCopy = path;
   valuesCopy = values;
@@ -1069,14 +1056,14 @@ LABEL_6:
   handleCopy = handle;
   if (!identifierCopy)
   {
-    v51 = queueCopy;
+    v50 = queueCopy;
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
     [currentHandler handleFailureInMethod:a2 object:self file:@"_PASAsset2.m" lineNumber:185 description:{@"Invalid parameter not satisfying: %@", @"assetTypeIdentifier"}];
 
-    queueCopy = v51;
+    queueCopy = v50;
   }
 
-  v55 = queueCopy;
+  v54 = queueCopy;
   if (queueCopy)
   {
     if (handleCopy)
@@ -1100,9 +1087,9 @@ LABEL_6:
   [currentHandler3 handleFailureInMethod:a2 object:self file:@"_PASAsset2.m" lineNumber:187 description:{@"Invalid parameter not satisfying: %@", @"logHandle"}];
 
 LABEL_5:
-  v65.receiver = self;
-  v65.super_class = _PASAsset2;
-  v20 = [(_PASAsset2 *)&v65 init];
+  v64.receiver = self;
+  v64.super_class = _PASAsset2;
+  v20 = [(_PASAsset2 *)&v64 init];
   if (v20)
   {
     v21 = objc_opt_new();
@@ -1141,13 +1128,13 @@ LABEL_5:
     v20->_lock = v30;
 
     v32 = v20->_lock;
-    v63[0] = MEMORY[0x1E69E9820];
-    v63[1] = 3221225472;
-    v63[2] = __180___PASAsset2__initWithAssetTypeIdentifier_defaultBundlePath_compatibilityVersion_matchingKeysAndValues_notificationQueue_logHandle_enableAssetUpdates_purgeObsoleteInstalledAssets___block_invoke;
-    v63[3] = &unk_1E77F2B08;
+    v62[0] = MEMORY[0x1E69E9820];
+    v62[1] = 3221225472;
+    v62[2] = __180___PASAsset2__initWithAssetTypeIdentifier_defaultBundlePath_compatibilityVersion_matchingKeysAndValues_notificationQueue_logHandle_enableAssetUpdates_purgeObsoleteInstalledAssets___block_invoke;
+    v62[3] = &unk_1E77F2B08;
     v33 = v20;
-    v64 = v33;
-    [(_PASLock *)v32 runWithLockAcquired:v63];
+    v63 = v33;
+    [(_PASLock *)v32 runWithLockAcquired:v62];
     if (updates)
     {
       v34 = [(NSString *)v20->_assetTypeIdentifier stringByAppendingString:@".ma.new-asset-installed"];
@@ -1159,7 +1146,7 @@ LABEL_5:
       handler[1] = 3221225472;
       handler[2] = __180___PASAsset2__initWithAssetTypeIdentifier_defaultBundlePath_compatibilityVersion_matchingKeysAndValues_notificationQueue_logHandle_enableAssetUpdates_purgeObsoleteInstalledAssets___block_invoke_2;
       handler[3] = &unk_1E77F2B30;
-      objc_copyWeak(&v61, &location);
+      objc_copyWeak(&v60, &location);
       v38 = notify_register_dispatch(uTF8String, v33 + 12, notificationQueue, handler);
       if (v38)
       {
@@ -1168,7 +1155,7 @@ LABEL_5:
         if (os_log_type_enabled(logHandle, OS_LOG_TYPE_ERROR))
         {
           *buf = 134217984;
-          v67 = v38;
+          v66 = v38;
           _os_log_error_impl(&dword_1A7F47000, logHandle, OS_LOG_TYPE_ERROR, "notify_register_dispatch error: %lu", buf, 0xCu);
         }
       }
@@ -1177,12 +1164,12 @@ LABEL_5:
       v41 = v40;
       uTF8String2 = [v40 UTF8String];
       v43 = v20->_notificationQueue;
-      v58[0] = MEMORY[0x1E69E9820];
-      v58[1] = 3221225472;
-      v58[2] = __180___PASAsset2__initWithAssetTypeIdentifier_defaultBundlePath_compatibilityVersion_matchingKeysAndValues_notificationQueue_logHandle_enableAssetUpdates_purgeObsoleteInstalledAssets___block_invoke_354;
-      v58[3] = &unk_1E77F2B30;
-      objc_copyWeak(&v59, &location);
-      v44 = notify_register_dispatch(uTF8String2, v33 + 13, v43, v58);
+      v57[0] = MEMORY[0x1E69E9820];
+      v57[1] = 3221225472;
+      v57[2] = __180___PASAsset2__initWithAssetTypeIdentifier_defaultBundlePath_compatibilityVersion_matchingKeysAndValues_notificationQueue_logHandle_enableAssetUpdates_purgeObsoleteInstalledAssets___block_invoke_354;
+      v57[3] = &unk_1E77F2B30;
+      objc_copyWeak(&v58, &location);
+      v44 = notify_register_dispatch(uTF8String2, v33 + 13, v43, v57);
       if (v44)
       {
         v33[13] = -1;
@@ -1190,15 +1177,15 @@ LABEL_5:
         if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
         {
           *buf = 134217984;
-          v67 = v44;
+          v66 = v44;
           _os_log_error_impl(&dword_1A7F47000, v45, OS_LOG_TYPE_ERROR, "notify_register_dispatch error: %lu", buf, 0xCu);
         }
       }
 
       [v33 _updateAssetMetadata];
-      objc_destroyWeak(&v59);
+      objc_destroyWeak(&v58);
 
-      objc_destroyWeak(&v61);
+      objc_destroyWeak(&v60);
       objc_destroyWeak(&location);
     }
 
@@ -1210,19 +1197,18 @@ LABEL_5:
         v47 = v46;
         _assetDescription = [v33 _assetDescription];
         *buf = 138412290;
-        v67 = _assetDescription;
+        v66 = _assetDescription;
         _os_log_impl(&dword_1A7F47000, v47, OS_LOG_TYPE_DEFAULT, "Via unit testing override, MobileAsset asset loading has been disabled: %@", buf, 0xCu);
       }
     }
   }
 
-  v49 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
 - (_PASAsset2)initWithAssetTypeDescriptorPath:(id)path defaultBundlePath:(id)bundlePath matchingKeysAndValues:(id)values notificationQueue:(id)queue logHandle:(id)handle enableAssetUpdates:(BOOL)updates purgeObsoleteInstalledAssets:(BOOL)assets
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   bundlePathCopy = bundlePath;
   valuesCopy = values;
@@ -1259,34 +1245,34 @@ LABEL_3:
 
   v22 = v21;
 
-  v56 = 0;
-  v23 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:pathCopy options:0 error:&v56];
-  v24 = v56;
-  v49[0] = MEMORY[0x1E69E9820];
-  v49[1] = 3221225472;
-  v49[2] = __162___PASAsset2_initWithAssetTypeDescriptorPath_defaultBundlePath_matchingKeysAndValues_notificationQueue_logHandle_enableAssetUpdates_purgeObsoleteInstalledAssets___block_invoke;
-  v49[3] = &unk_1E77F2AE0;
+  v55 = 0;
+  v23 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:pathCopy options:0 error:&v55];
+  v24 = v55;
+  v48[0] = MEMORY[0x1E69E9820];
+  v48[1] = 3221225472;
+  v48[2] = __162___PASAsset2_initWithAssetTypeDescriptorPath_defaultBundlePath_matchingKeysAndValues_notificationQueue_logHandle_enableAssetUpdates_purgeObsoleteInstalledAssets___block_invoke;
+  v48[3] = &unk_1E77F2AE0;
   selfCopy = self;
-  v50 = selfCopy;
-  v46 = bundlePathCopy;
-  v51 = v46;
+  v49 = selfCopy;
+  v45 = bundlePathCopy;
+  v50 = v45;
   v26 = valuesCopy;
-  v52 = v26;
+  v51 = v26;
   v27 = queueCopy;
-  v53 = v27;
+  v52 = v27;
   v28 = v22;
-  v54 = v28;
+  v53 = v28;
   assetsCopy = assets;
-  v29 = MEMORY[0x1AC566DD0](v49);
-  v47 = selfCopy;
+  v29 = MEMORY[0x1AC566DD0](v48);
+  v46 = selfCopy;
   if (!v23)
   {
     if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
     {
       *buf = 138412546;
-      v58 = pathCopy;
-      v59 = 2112;
-      v60 = v24;
+      v57 = pathCopy;
+      v58 = 2112;
+      v59 = v24;
       _os_log_fault_impl(&dword_1A7F47000, v28, OS_LOG_TYPE_FAULT, "Could not read asset type descriptor %@: %@", buf, 0x16u);
     }
 
@@ -1301,9 +1287,9 @@ LABEL_3:
   }
 
   updatesCopy = updates;
-  v48 = 0;
-  v30 = [MEMORY[0x1E696AE40] propertyListWithData:v23 options:0 format:0 error:&v48];
-  v31 = v48;
+  v47 = 0;
+  v30 = [MEMORY[0x1E696AE40] propertyListWithData:v23 options:0 format:0 error:&v47];
+  v31 = v47;
 
   if (!v31)
   {
@@ -1319,25 +1305,25 @@ LABEL_3:
           if ([v32 length])
           {
             v33 = [v30 objectForKeyedSubscript:@"Supported Compatibility Version"];
-            v44 = v33;
+            v43 = v33;
             if (v33 && (v34 = v33, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && ([v34 integerValue] & 0x8000000000000000) == 0)
             {
-              v43 = v30;
+              v42 = v30;
               v35 = [v30 objectForKeyedSubscript:@"Uniquely Identifying Keys"];
               v36 = [v35 count];
 
               if ([v26 count] && !v36 && os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
-                v58 = pathCopy;
+                v57 = pathCopy;
                 _os_log_impl(&dword_1A7F47000, v28, OS_LOG_TYPE_DEFAULT, "Warning: asset type descriptor %@ has no Uniquely Identifying Keys, but usage suggests that it should.", buf, 0xCu);
               }
 
-              BYTE1(v42) = assets;
-              LOBYTE(v42) = updatesCopy;
-              v37 = -[_PASAsset2 _initWithAssetTypeIdentifier:defaultBundlePath:compatibilityVersion:matchingKeysAndValues:notificationQueue:logHandle:enableAssetUpdates:purgeObsoleteInstalledAssets:](v47, "_initWithAssetTypeIdentifier:defaultBundlePath:compatibilityVersion:matchingKeysAndValues:notificationQueue:logHandle:enableAssetUpdates:purgeObsoleteInstalledAssets:", v32, v46, [v44 unsignedIntegerValue], v26, v27, v28, v42);
-              v47 = v37;
-              v30 = v43;
+              BYTE1(v41) = assets;
+              LOBYTE(v41) = updatesCopy;
+              v37 = -[_PASAsset2 _initWithAssetTypeIdentifier:defaultBundlePath:compatibilityVersion:matchingKeysAndValues:notificationQueue:logHandle:enableAssetUpdates:purgeObsoleteInstalledAssets:](v46, "_initWithAssetTypeIdentifier:defaultBundlePath:compatibilityVersion:matchingKeysAndValues:notificationQueue:logHandle:enableAssetUpdates:purgeObsoleteInstalledAssets:", v32, v45, [v43 unsignedIntegerValue], v26, v27, v28, v41);
+              v46 = v37;
+              v30 = v42;
             }
 
             else
@@ -1345,9 +1331,9 @@ LABEL_3:
               if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412546;
-                v58 = @"Supported Compatibility Version";
-                v59 = 2112;
-                v60 = pathCopy;
+                v57 = @"Supported Compatibility Version";
+                v58 = 2112;
+                v59 = pathCopy;
                 _os_log_error_impl(&dword_1A7F47000, v28, OS_LOG_TYPE_ERROR, "Missing or ill-formatted property %@ in asset type descriptor %@", buf, 0x16u);
               }
 
@@ -1362,9 +1348,9 @@ LABEL_3:
       if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
       {
         *buf = 138412546;
-        v58 = @"Asset Type";
-        v59 = 2112;
-        v60 = pathCopy;
+        v57 = @"Asset Type";
+        v58 = 2112;
+        v59 = pathCopy;
         _os_log_fault_impl(&dword_1A7F47000, v28, OS_LOG_TYPE_FAULT, "Missing or ill-formatted property %@ in asset type descriptor %@", buf, 0x16u);
       }
 
@@ -1384,9 +1370,9 @@ LABEL_40:
   if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
   {
     *buf = 138412546;
-    v58 = pathCopy;
-    v59 = 2112;
-    v60 = v31;
+    v57 = pathCopy;
+    v58 = 2112;
+    v59 = v31;
     _os_log_fault_impl(&dword_1A7F47000, v28, OS_LOG_TYPE_FAULT, "Could not decode asset type descriptor at %@: %@", buf, 0x16u);
   }
 
@@ -1399,7 +1385,6 @@ LABEL_40:
 LABEL_23:
 
 LABEL_28:
-  v38 = *MEMORY[0x1E69E9840];
   return v37;
 }
 

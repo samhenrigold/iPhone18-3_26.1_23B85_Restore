@@ -188,25 +188,25 @@
 
     if (!v5)
     {
-      v14 = objc_alloc_init(MEMORY[0x277D76180]);
-      [v14 setAccessibilityIdentifier:{@"jindo-curtain-view:client-identifier:com.apple.springboard, element-identifier:SBRecordingIndicatorSystemApertureElement"}];
-      [v14 setSourceView:viewCopy];
+      v15 = objc_alloc_init(MEMORY[0x277D76180]);
+      [v15 setAccessibilityIdentifier:{@"jindo-curtain-view:client-identifier:com.apple.springboard, element-identifier:SBRecordingIndicatorSystemApertureElement"}];
+      [v15 setSourceView:viewCopy];
       view = [(SBSystemApertureCurtainViewController *)self view];
-      [view addSubview:v14];
+      [view addSubview:v15];
 
-      [v14 setMatchesAlpha:1];
-      [v14 setMatchesTransform:1];
+      [v15 setMatchesAlpha:1];
+      [v15 setMatchesTransform:1];
       WeakRetained = objc_loadWeakRetained(&self->_delegate);
-      [v14 setHidesSourceView:{objc_msgSend(WeakRetained, "indicatorPortalViewHidesSourceView")}];
-      [v14 setMatchesPosition:{objc_msgSend(WeakRetained, "indicatorPortalViewMatchesPosition")}];
-      [(NSMapTable *)self->_indicatorSourceViewsToPortalViews setObject:v14 forKey:viewCopy];
+      [v15 setHidesSourceView:{objc_msgSend(WeakRetained, "indicatorPortalViewHidesSourceView")}];
+      [v15 setMatchesPosition:{objc_msgSend(WeakRetained, "indicatorPortalViewMatchesPosition")}];
+      [(NSMapTable *)self->_indicatorSourceViewsToPortalViews setObject:v15 forKey:viewCopy];
       [(SBSystemApertureCurtainViewController *)self setIndicatorPortalViewFrameChangedForIndicatorSourceView:viewCopy];
 
       goto LABEL_9;
     }
 
-    v6 = SBLogSystemAperturePreferencesStackIndicator();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = SBLogSystemAperturePreferencesStackIndicator(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SBSystemApertureCurtainViewController addPortalForIndicatorSourceView:viewCopy];
     }
@@ -214,10 +214,10 @@
 
   else
   {
-    v6 = SBLogSystemAperturePreferencesStackIndicator();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = SBLogSystemAperturePreferencesStackIndicator(0);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(SBSystemApertureCurtainViewController *)v6 addPortalForIndicatorSourceView:v7, v8, v9, v10, v11, v12, v13];
+      [(SBSystemApertureCurtainViewController *)v7 addPortalForIndicatorSourceView:v8, v9, v10, v11, v12, v13, v14];
     }
   }
 
@@ -233,7 +233,7 @@ LABEL_9:
 
   else
   {
-    v4 = SBLogSystemAperturePreferencesStackIndicator();
+    v4 = SBLogSystemAperturePreferencesStackIndicator(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       [(SBSystemApertureCurtainViewController *)v4 portalViewForIndicatorSourceView:v5, v6, v7, v8, v9, v10, v11];
@@ -259,7 +259,7 @@ LABEL_9:
 
     else
     {
-      v13 = SBLogSystemAperturePreferencesStackIndicator();
+      v13 = SBLogSystemAperturePreferencesStackIndicator(0);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         [SBSystemApertureCurtainViewController addPortalForIndicatorSourceView:viewCopy];
@@ -269,7 +269,7 @@ LABEL_9:
 
   else
   {
-    v5 = SBLogSystemAperturePreferencesStackIndicator();
+    v5 = SBLogSystemAperturePreferencesStackIndicator(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [(SBSystemApertureCurtainViewController *)v5 removePortalForIndicatorSourceView:v6, v7, v8, v9, v10, v11, v12];
@@ -364,7 +364,9 @@ LABEL_9:
 - (void)addPortalForIndicatorSourceView:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 description];
-  OUTLINED_FUNCTION_7(&dword_21ED4E000, v2, v3, "There is no portal registered for source view: %{public}@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_7(&dword_21ED4E000, v2, v3, "There is no portal registered for source view: %{public}@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

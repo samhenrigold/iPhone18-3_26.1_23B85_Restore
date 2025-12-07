@@ -3,20 +3,20 @@ id managedConfigurationFeatureForPreferenceKey(void *a1)
   v1 = a1;
   if (([v1 isEqualToString:@"KeyboardAutocorrection"] & 1) != 0 || objc_msgSend(v1, "isEqualToString:", @"HWKeyboardAutocorrection"))
   {
-    v9 = 0;
-    v10 = &v9;
-    v11 = 0x2020000000;
+    v10 = 0;
+    v11 = &v10;
+    v12 = 0x2020000000;
     v2 = getMCFeatureAutoCorrectionAllowedSymbolLoc_ptr;
-    v12 = getMCFeatureAutoCorrectionAllowedSymbolLoc_ptr;
+    v13 = getMCFeatureAutoCorrectionAllowedSymbolLoc_ptr;
     if (getMCFeatureAutoCorrectionAllowedSymbolLoc_ptr)
     {
 LABEL_6:
-      _Block_object_dispose(&v9, 8);
+      _Block_object_dispose(&v10, 8);
       if (!v2)
       {
-        dlerror();
-        v8 = abort_report_np();
-        return isManagedPreferenceKey(v8);
+        v8 = dlerror();
+        v9 = abort_report_np("%s", v8);
+        return isManagedPreferenceKey(v9);
       }
 
       v4 = *v2;
@@ -24,10 +24,10 @@ LABEL_6:
     }
 
     v3 = ManagedConfigurationLibrary();
-    v10[3] = dlsym(v3, "MCFeatureAutoCorrectionAllowed");
-    getMCFeatureAutoCorrectionAllowedSymbolLoc_ptr = v10[3];
+    v11[3] = dlsym(v3, "MCFeatureAutoCorrectionAllowed");
+    getMCFeatureAutoCorrectionAllowedSymbolLoc_ptr = v11[3];
 LABEL_5:
-    v2 = v10[3];
+    v2 = v11[3];
     goto LABEL_6;
   }
 
@@ -40,19 +40,19 @@ LABEL_5:
   {
     if ([v1 isEqualToString:@"KeyboardMathExpressionCompletion"])
     {
-      v9 = 0;
-      v10 = &v9;
-      v11 = 0x2020000000;
+      v10 = 0;
+      v11 = &v10;
+      v12 = 0x2020000000;
       v2 = getMCFeatureKeyboardMathSolvingAllowedSymbolLoc_ptr;
-      v12 = getMCFeatureKeyboardMathSolvingAllowedSymbolLoc_ptr;
+      v13 = getMCFeatureKeyboardMathSolvingAllowedSymbolLoc_ptr;
       if (getMCFeatureKeyboardMathSolvingAllowedSymbolLoc_ptr)
       {
         goto LABEL_6;
       }
 
       v7 = ManagedConfigurationLibrary();
-      v10[3] = dlsym(v7, "MCFeatureKeyboardMathSolvingAllowed");
-      getMCFeatureKeyboardMathSolvingAllowedSymbolLoc_ptr = v10[3];
+      v11[3] = dlsym(v7, "MCFeatureKeyboardMathSolvingAllowed");
+      getMCFeatureKeyboardMathSolvingAllowedSymbolLoc_ptr = v11[3];
       goto LABEL_5;
     }
 
@@ -95,16 +95,47 @@ BOOL isManagedPreferenceKey(void *a1)
 
 id getMCFeatureSmartPunctuationAllowed()
 {
-  v6 = 0;
-  v7 = &v6;
-  v8 = 0x2020000000;
+  v7 = 0;
+  v8 = &v7;
+  v9 = 0x2020000000;
   v0 = getMCFeatureSmartPunctuationAllowedSymbolLoc_ptr;
-  v9 = getMCFeatureSmartPunctuationAllowedSymbolLoc_ptr;
+  v10 = getMCFeatureSmartPunctuationAllowedSymbolLoc_ptr;
   if (!getMCFeatureSmartPunctuationAllowedSymbolLoc_ptr)
   {
     v1 = ManagedConfigurationLibrary();
-    v7[3] = dlsym(v1, "MCFeatureSmartPunctuationAllowed");
-    getMCFeatureSmartPunctuationAllowedSymbolLoc_ptr = v7[3];
+    v8[3] = dlsym(v1, "MCFeatureSmartPunctuationAllowed");
+    getMCFeatureSmartPunctuationAllowedSymbolLoc_ptr = v8[3];
+    v0 = v8[3];
+  }
+
+  _Block_object_dispose(&v7, 8);
+  if (v0)
+  {
+    v2 = *v0;
+
+    return v2;
+  }
+
+  else
+  {
+    v4 = dlerror();
+    v5 = abort_report_np("%s", v4);
+    return [(TISmartPunctuationController *)v5 autoQuoteType];
+  }
+}
+
+id getMCFeatureSpellCheckAllowed()
+{
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
+  v0 = getMCFeatureSpellCheckAllowedSymbolLoc_ptr;
+  v9 = getMCFeatureSpellCheckAllowedSymbolLoc_ptr;
+  if (!getMCFeatureSpellCheckAllowedSymbolLoc_ptr)
+  {
+    v1 = ManagedConfigurationLibrary();
+    v7[3] = dlsym(v1, "MCFeatureSpellCheckAllowed");
+    getMCFeatureSpellCheckAllowedSymbolLoc_ptr = v7[3];
     v0 = v7[3];
   }
 
@@ -118,40 +149,9 @@ id getMCFeatureSmartPunctuationAllowed()
 
   else
   {
-    dlerror();
-    v4 = abort_report_np();
-    return [(TISmartPunctuationController *)v4 autoQuoteType];
-  }
-}
-
-id getMCFeatureSpellCheckAllowed()
-{
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v0 = getMCFeatureSpellCheckAllowedSymbolLoc_ptr;
-  v8 = getMCFeatureSpellCheckAllowedSymbolLoc_ptr;
-  if (!getMCFeatureSpellCheckAllowedSymbolLoc_ptr)
-  {
-    v1 = ManagedConfigurationLibrary();
-    v6[3] = dlsym(v1, "MCFeatureSpellCheckAllowed");
-    getMCFeatureSpellCheckAllowedSymbolLoc_ptr = v6[3];
-    v0 = v6[3];
-  }
-
-  _Block_object_dispose(&v5, 8);
-  if (v0)
-  {
-    v2 = *v0;
-
-    return v2;
-  }
-
-  else
-  {
-    dlerror();
-    v4 = abort_report_np();
-    return TIInputModeGetLanguage(v4);
+    v4 = dlerror();
+    v5 = abort_report_np("%s", v4);
+    return TIInputModeGetLanguage(v5);
   }
 }
 
@@ -342,20 +342,20 @@ id TIInputModeGetComponentsFromIdentifier(void *a1)
 
 NSString *getMCFeaturePredictiveKeyboardAllowed()
 {
-  v6 = 0;
-  v7 = &v6;
-  v8 = 0x2020000000;
+  v7 = 0;
+  v8 = &v7;
+  v9 = 0x2020000000;
   v0 = getMCFeaturePredictiveKeyboardAllowedSymbolLoc_ptr;
-  v9 = getMCFeaturePredictiveKeyboardAllowedSymbolLoc_ptr;
+  v10 = getMCFeaturePredictiveKeyboardAllowedSymbolLoc_ptr;
   if (!getMCFeaturePredictiveKeyboardAllowedSymbolLoc_ptr)
   {
     v1 = ManagedConfigurationLibrary();
-    v7[3] = dlsym(v1, "MCFeaturePredictiveKeyboardAllowed");
-    getMCFeaturePredictiveKeyboardAllowedSymbolLoc_ptr = v7[3];
-    v0 = v7[3];
+    v8[3] = dlsym(v1, "MCFeaturePredictiveKeyboardAllowed");
+    getMCFeaturePredictiveKeyboardAllowedSymbolLoc_ptr = v8[3];
+    v0 = v8[3];
   }
 
-  _Block_object_dispose(&v6, 8);
+  _Block_object_dispose(&v7, 8);
   if (v0)
   {
     v2 = *v0;
@@ -365,9 +365,9 @@ NSString *getMCFeaturePredictiveKeyboardAllowed()
 
   else
   {
-    dlerror();
-    v4 = abort_report_np();
-    return [(TIKeyboardState *)v4 inputMode];
+    v4 = dlerror();
+    v5 = abort_report_np("%s", v4);
+    return [(TIKeyboardState *)v5 inputMode];
   }
 }
 
@@ -556,9 +556,11 @@ id kac_get_log()
 
 uint64_t __kac_get_log_block_invoke()
 {
-  kac_get_log_log = os_log_create("com.apple.TextInput", "KeyboardSignposts");
+  v0 = os_log_create("com.apple.TextInput", "KeyboardSignposts");
+  v1 = kac_get_log_log;
+  kac_get_log_log = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 uint64_t ManagedConfigurationLibrary()
@@ -587,7 +589,7 @@ uint64_t ManagedConfigurationLibrary()
 
     else
     {
-      v1 = abort_report_np();
+      v1 = abort_report_np("%s", v3[0]);
     }
 
     free(v1);
@@ -618,20 +620,20 @@ void __IsLargeIPad_block_invoke()
 void ___tiShouldSkipMCObservation_block_invoke()
 {
   SecurityLibrary();
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x2020000000;
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x2020000000;
   v0 = getSecTaskCreateFromSelfSymbolLoc_ptr;
-  v12 = getSecTaskCreateFromSelfSymbolLoc_ptr;
+  v13 = getSecTaskCreateFromSelfSymbolLoc_ptr;
   if (!getSecTaskCreateFromSelfSymbolLoc_ptr)
   {
     v1 = SecurityLibrary();
-    v10[3] = dlsym(v1, "SecTaskCreateFromSelf");
-    getSecTaskCreateFromSelfSymbolLoc_ptr = v10[3];
-    v0 = v10[3];
+    v11[3] = dlsym(v1, "SecTaskCreateFromSelf");
+    getSecTaskCreateFromSelfSymbolLoc_ptr = v11[3];
+    v0 = v11[3];
   }
 
-  _Block_object_dispose(&v9, 8);
+  _Block_object_dispose(&v10, 8);
   if (!v0)
   {
     goto LABEL_12;
@@ -644,26 +646,26 @@ void ___tiShouldSkipMCObservation_block_invoke()
   }
 
   v3 = v2;
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x2020000000;
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x2020000000;
   v4 = getSecTaskCopySigningIdentifierSymbolLoc_ptr;
-  v12 = getSecTaskCopySigningIdentifierSymbolLoc_ptr;
+  v13 = getSecTaskCopySigningIdentifierSymbolLoc_ptr;
   if (!getSecTaskCopySigningIdentifierSymbolLoc_ptr)
   {
     v5 = SecurityLibrary();
-    v10[3] = dlsym(v5, "SecTaskCopySigningIdentifier");
-    getSecTaskCopySigningIdentifierSymbolLoc_ptr = v10[3];
-    v4 = v10[3];
+    v11[3] = dlsym(v5, "SecTaskCopySigningIdentifier");
+    getSecTaskCopySigningIdentifierSymbolLoc_ptr = v11[3];
+    v4 = v11[3];
   }
 
-  _Block_object_dispose(&v9, 8);
+  _Block_object_dispose(&v10, 8);
   if (!v4)
   {
 LABEL_12:
-    dlerror();
-    v7 = abort_report_np();
-    [(_TIPreferenceDomain *)v7 notification];
+    v7 = dlerror();
+    v8 = abort_report_np("%s", v7);
+    [(_TIPreferenceDomain *)v8 notification];
     return;
   }
 
@@ -714,7 +716,7 @@ uint64_t SecurityLibrary()
 
     else
     {
-      v1 = abort_report_np();
+      v1 = abort_report_np("%s", v3[0]);
     }
 
     free(v1);
@@ -726,9 +728,11 @@ uint64_t SecurityLibrary()
 
 uint64_t __TIInputModeGetNormalizedVariant_block_invoke()
 {
-  TIInputModeGetNormalizedVariant___variantsToKeepCapitalized = [MEMORY[0x1E695DFD8] setWithArray:&unk_1EF7CB230];
+  v0 = [MEMORY[0x1E695DFD8] setWithArray:&unk_1EF7CB230];
+  v1 = TIInputModeGetNormalizedVariant___variantsToKeepCapitalized;
+  TIInputModeGetNormalizedVariant___variantsToKeepCapitalized = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 __CFString *preferenceKeyForEnumKey(int a1)
@@ -1011,9 +1015,11 @@ id TIInputModeGetLanguageWithRegion(void *a1)
 
 uint64_t __TIGetInputModeProperties_block_invoke()
 {
-  __inputModeProperties = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v0 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v1 = __inputModeProperties;
+  __inputModeProperties = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id _UIKeyboardBundleInfoWithKey(void *a1, void *a2)
@@ -1457,9 +1463,11 @@ id TIGetDefaultDictationLanguagesForKeyboardLanguage(void *a1)
 
 uint64_t __TIGetDefaultDictationLanguagesForKeyboardLanguage_block_invoke()
 {
-  TIGetDefaultDictationLanguagesForKeyboardLanguage___defaultDictationLanguageProperties = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v0 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v1 = TIGetDefaultDictationLanguagesForKeyboardLanguage___defaultDictationLanguageProperties;
+  TIGetDefaultDictationLanguagesForKeyboardLanguage___defaultDictationLanguageProperties = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id TIInputModeGetBaseLanguage(void *a1)
@@ -1494,8 +1502,8 @@ Class __getMCProfileConnectionClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = abort_report_np();
-    return getMCProfileConnectionClass(v3);
+    abort_report_np("Unable to find class %s", "MCProfileConnection");
+    return getMCProfileConnectionClass();
   }
 
   return result;
@@ -1579,9 +1587,9 @@ void __is_kbd_block_invoke()
   if (!v4)
   {
 LABEL_12:
-    dlerror();
-    v7 = abort_report_np();
-    TIImageCacheImagesPath(v7);
+    v7 = dlerror();
+    abort_report_np("%s", v7);
+    TIImageCacheImagesPath();
     return;
   }
 
@@ -1782,9 +1790,11 @@ id kace_get_log()
 
 uint64_t __kace_get_log_block_invoke()
 {
-  kace_get_log_log = os_log_create("com.apple.TextInput", "KeyboardSignpostsEphemeral");
+  v0 = os_log_create("com.apple.TextInput", "KeyboardSignpostsEphemeral");
+  v1 = kace_get_log_log;
+  kace_get_log_log = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id TIStatisticGetKey(void *a1)
@@ -1985,9 +1995,11 @@ void release_munmap(unsigned int *a1, uint64_t a2, uint64_t a3)
 
 uint64_t __IXADefaultLogFacility_block_invoke()
 {
-  IXADefaultLogFacility_logFacility = os_log_create("com.apple.TextInput", "IXADefault");
+  v0 = os_log_create("com.apple.TextInput", "IXADefault");
+  v1 = IXADefaultLogFacility_logFacility;
+  IXADefaultLogFacility_logFacility = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id TIInputModeGetNormalizedLevelsFromComponents(void *a1)
@@ -2568,20 +2580,20 @@ LABEL_21:
 
 void TI_DEVICE_UNLOCKED_SINCE_BOOT()
 {
-  v4 = 0;
-  v5 = &v4;
-  v6 = 0x2020000000;
+  v5 = 0;
+  v6 = &v5;
+  v7 = 0x2020000000;
   v0 = getMKBDeviceUnlockedSinceBootSymbolLoc_ptr;
-  v7 = getMKBDeviceUnlockedSinceBootSymbolLoc_ptr;
+  v8 = getMKBDeviceUnlockedSinceBootSymbolLoc_ptr;
   if (!getMKBDeviceUnlockedSinceBootSymbolLoc_ptr)
   {
     v1 = MobileKeyBagLibrary();
-    v5[3] = dlsym(v1, "MKBDeviceUnlockedSinceBoot");
-    getMKBDeviceUnlockedSinceBootSymbolLoc_ptr = v5[3];
-    v0 = v5[3];
+    v6[3] = dlsym(v1, "MKBDeviceUnlockedSinceBoot");
+    getMKBDeviceUnlockedSinceBootSymbolLoc_ptr = v6[3];
+    v0 = v6[3];
   }
 
-  _Block_object_dispose(&v4, 8);
+  _Block_object_dispose(&v5, 8);
   if (v0)
   {
     v0();
@@ -2589,9 +2601,9 @@ void TI_DEVICE_UNLOCKED_SINCE_BOOT()
 
   else
   {
-    dlerror();
-    v2 = abort_report_np();
-    [(TITypologyStatisticComposite *)v2 .cxx_destruct];
+    v2 = dlerror();
+    v3 = abort_report_np("%s", v2);
+    [(TITypologyStatisticComposite *)v3 .cxx_destruct];
   }
 }
 
@@ -2605,20 +2617,20 @@ id TIInputModeGetSWLayout(void *a1)
 
 unint64_t TI_DEVICE_UNLOCKED()
 {
-  v7 = 0;
-  v8 = &v7;
-  v9 = 0x2020000000;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
   v0 = getMKBGetDeviceLockStateSymbolLoc_ptr;
-  v10 = getMKBGetDeviceLockStateSymbolLoc_ptr;
+  v11 = getMKBGetDeviceLockStateSymbolLoc_ptr;
   if (!getMKBGetDeviceLockStateSymbolLoc_ptr)
   {
     v1 = MobileKeyBagLibrary();
-    v8[3] = dlsym(v1, "MKBGetDeviceLockState");
-    getMKBGetDeviceLockStateSymbolLoc_ptr = v8[3];
-    v0 = v8[3];
+    v9[3] = dlsym(v1, "MKBGetDeviceLockState");
+    getMKBGetDeviceLockStateSymbolLoc_ptr = v9[3];
+    v0 = v9[3];
   }
 
-  _Block_object_dispose(&v7, 8);
+  _Block_object_dispose(&v8, 8);
   if (v0)
   {
     v2 = v0(0);
@@ -2627,9 +2639,9 @@ unint64_t TI_DEVICE_UNLOCKED()
 
   else
   {
-    dlerror();
-    v5 = abort_report_np();
-    return [(TITextInputTraits *)v5 keyboardType];
+    v5 = dlerror();
+    v6 = abort_report_np("%s", v5);
+    return [(TITextInputTraits *)v6 keyboardType];
   }
 }
 
@@ -2848,7 +2860,7 @@ LABEL_26:
   return result;
 }
 
-uint64_t **std::__tree<NSHolder<TIInputContextEntry>>::__insert_node_at(uint64_t **result, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t ***std::__tree<NSHolder<TIInputContextEntry>>::__insert_node_at(uint64_t ***result, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -2868,12 +2880,12 @@ uint64_t **std::__tree<NSHolder<TIInputContextEntry>>::__insert_node_at(uint64_t
     do
     {
       v6 = a4[2];
-      if (v6[3])
+      if (*(v6 + 24))
       {
         break;
       }
 
-      v7 = v6[2];
+      v7 = *(v6 + 16);
       v8 = *v7;
       if (*v7 == v6)
       {
@@ -2887,22 +2899,22 @@ uint64_t **std::__tree<NSHolder<TIInputContextEntry>>::__insert_node_at(uint64_t
 
           else
           {
-            v15 = v6[1];
+            v15 = *(v6 + 8);
             v16 = *v15;
-            v6[1] = *v15;
+            *(v6 + 8) = *v15;
             v17 = v6;
             if (v16)
             {
-              v16[2] = v6;
-              v7 = v6[2];
+              *(v16 + 16) = v6;
+              v7 = *(v6 + 16);
               v17 = *v7;
             }
 
-            v15[2] = v7;
+            *(v15 + 16) = v7;
             v7[v17 != v6] = v15;
             *v15 = v6;
-            v6[2] = v15;
-            v7 = v15[2];
+            *(v6 + 16) = v15;
+            v7 = *(v15 + 16);
             v8 = *v7;
           }
 
@@ -2936,13 +2948,13 @@ uint64_t **std::__tree<NSHolder<TIInputContextEntry>>::__insert_node_at(uint64_t
             if (v18)
             {
               *(v18 + 16) = v6;
-              v7 = v6[2];
+              v7 = *(v6 + 16);
             }
 
             v14[2] = v7;
             v7[*v7 != v6] = v14;
             v14[1] = v6;
-            v6[2] = v14;
+            *(v6 + 16) = v14;
             v7 = v14[2];
           }
 
@@ -3384,13 +3396,13 @@ LABEL_34:
   return v5;
 }
 
-void setFromArray<TIInputContextEntry>(void *a1, void *a2)
+void setFromArray<TIInputContextEntry>(uint64_t **a1, void *a2)
 {
   v15 = *MEMORY[0x1E69E9840];
   v3 = a2;
   a1[2] = 0;
   a1[1] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
@@ -3412,7 +3424,7 @@ void setFromArray<TIInputContextEntry>(void *a1, void *a2)
 
         v9 = *(*(&v10 + 1) + 8 * v7);
         v8 = v9;
-        std::__tree<NSHolder<TIInputContextEntry>>::__emplace_unique_key_args<NSHolder<TIInputContextEntry>,NSHolder<TIInputContextEntry>>(a1, &v9);
+        std::__tree<NSHolder<TIInputContextEntry>>::__emplace_unique_key_args<NSHolder<TIInputContextEntry>,NSHolder<TIInputContextEntry>>(a1, &v9, &v9);
 
         ++v7;
       }
@@ -3425,9 +3437,9 @@ void setFromArray<TIInputContextEntry>(void *a1, void *a2)
   }
 }
 
-void *std::__tree<NSHolder<TIInputContextEntry>>::__emplace_unique_key_args<NSHolder<TIInputContextEntry>,NSHolder<TIInputContextEntry>>(uint64_t a1, void **a2)
+uint64_t **std::__tree<NSHolder<TIInputContextEntry>>::__emplace_unique_key_args<NSHolder<TIInputContextEntry>,NSHolder<TIInputContextEntry>>(uint64_t **a1, void **a2, uint64_t *a3)
 {
-  result = std::__tree<NSHolder<TIInputContextEntry>>::__find_equal<NSHolder<TIInputContextEntry>>(a1, &v3, a2);
+  result = std::__tree<NSHolder<TIInputContextEntry>>::__find_equal<NSHolder<TIInputContextEntry>>(a1, &v4, a2);
   if (!*result)
   {
     operator new();
@@ -3644,7 +3656,7 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t __EmojiFoundationLibraryCore_block_invoke()
+uint64_t __EmojiFoundationLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   EmojiFoundationLibraryCore_frameworkLibrary = result;
@@ -3762,7 +3774,7 @@ uint64_t ContactsLibrary()
 
     else
     {
-      v1 = abort_report_np();
+      v1 = abort_report_np("%s", v3[0]);
     }
 
     free(v1);
@@ -3853,7 +3865,7 @@ void *__getCNContactNicknameKeySymbolLoc_block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __ContactsLibraryCore_block_invoke()
+uint64_t __ContactsLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   ContactsLibraryCore_frameworkLibrary = result;
@@ -3897,7 +3909,7 @@ Class __getSTKStickerUsageManagerClass_block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __StickersLibraryCore_block_invoke()
+uint64_t __StickersLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   StickersLibraryCore_frameworkLibrary = result;
@@ -3948,9 +3960,11 @@ id IXASessionEventsLogFacility()
 
 uint64_t __IXASessionEventsLogFacility_block_invoke()
 {
-  IXASessionEventsLogFacility_logFacility = os_log_create("com.apple.TextInput", "IXASessionEvents");
+  v0 = os_log_create("com.apple.TextInput", "IXASessionEvents");
+  v1 = IXASessionEventsLogFacility_logFacility;
+  IXASessionEventsLogFacility_logFacility = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id IXASessionDetailsLogFacility()
@@ -3967,9 +3981,11 @@ id IXASessionDetailsLogFacility()
 
 uint64_t __IXASessionDetailsLogFacility_block_invoke()
 {
-  IXASessionDetailsLogFacility_logFacility = os_log_create("com.apple.TextInput", "IXASessionDetails");
+  v0 = os_log_create("com.apple.TextInput", "IXASessionDetails");
+  v1 = IXASessionDetailsLogFacility_logFacility;
+  IXASessionDetailsLogFacility_logFacility = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id IXASessionAlignmentLogFacility()
@@ -3986,9 +4002,11 @@ id IXASessionAlignmentLogFacility()
 
 uint64_t __IXASessionAlignmentLogFacility_block_invoke()
 {
-  IXASessionAlignmentLogFacility_logFacility = os_log_create("com.apple.TextInput", "IXASessionAlignment");
+  v0 = os_log_create("com.apple.TextInput", "IXASessionAlignment");
+  v1 = IXASessionAlignmentLogFacility_logFacility;
+  IXASessionAlignmentLogFacility_logFacility = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id IXARevisionRateLogFacility()
@@ -4005,9 +4023,11 @@ id IXARevisionRateLogFacility()
 
 uint64_t __IXARevisionRateLogFacility_block_invoke()
 {
-  IXARevisionRateLogFacility_logFacility = os_log_create("com.apple.TextInput", "IXARevisionRate");
+  v0 = os_log_create("com.apple.TextInput", "IXARevisionRate");
+  v1 = IXARevisionRateLogFacility_logFacility;
+  IXARevisionRateLogFacility_logFacility = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id IXATypingEffortLogFacility()
@@ -4024,9 +4044,11 @@ id IXATypingEffortLogFacility()
 
 uint64_t __IXATypingEffortLogFacility_block_invoke()
 {
-  IXATypingEffortLogFacility_logFacility = os_log_create("com.apple.TextInput", "IXATypingEffort");
+  v0 = os_log_create("com.apple.TextInput", "IXATypingEffort");
+  v1 = IXATypingEffortLogFacility_logFacility;
+  IXATypingEffortLogFacility_logFacility = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id IXAFeedbackLogFacility()
@@ -4043,9 +4065,11 @@ id IXAFeedbackLogFacility()
 
 uint64_t __IXAFeedbackLogFacility_block_invoke()
 {
-  IXAFeedbackLogFacility_logFacility = os_log_create("com.apple.TextInput", "IXAFeedback");
+  v0 = os_log_create("com.apple.TextInput", "IXAFeedback");
+  v1 = IXAFeedbackLogFacility_logFacility;
+  IXAFeedbackLogFacility_logFacility = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id IXAAdhocTestingLogFacility()
@@ -4062,9 +4086,11 @@ id IXAAdhocTestingLogFacility()
 
 uint64_t __IXAAdhocTestingLogFacility_block_invoke()
 {
-  IXAAdhocTestingLogFacility_logFacility = os_log_create("com.apple.TextInput", "IXAAdhocTesting");
+  v0 = os_log_create("com.apple.TextInput", "IXAAdhocTesting");
+  v1 = IXAAdhocTestingLogFacility_logFacility;
+  IXAAdhocTestingLogFacility_logFacility = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 uint64_t acute_accent_form(int a1)
@@ -6038,21 +6064,21 @@ uint64_t std::__split_buffer<std::vector<TIHandwritingPoint>>::~__split_buffer(u
   return a1;
 }
 
-void *std::vector<TIHandwritingPoint>::vector[abi:nn200100](void *result, void *a2)
+uint64_t *std::vector<TIHandwritingPoint>::vector[abi:nn200100](uint64_t *a1, void *a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   v2 = a2[1];
   if (v2 != *a2)
   {
-    std::vector<TIHandwritingPoint>::__vallocate[abi:nn200100](result, (v2 - *a2) >> 4);
+    std::vector<TIHandwritingPoint>::__vallocate[abi:nn200100](a1, (v2 - *a2) >> 4);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<TIHandwritingPoint>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<TIHandwritingPoint>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -6062,7 +6088,7 @@ void std::vector<TIHandwritingPoint>::__vallocate[abi:nn200100](uint64_t a1, uni
   std::vector<TIHandwritingPoint>::__throw_length_error[abi:nn200100]();
 }
 
-uint64_t std::__copy_impl::operator()[abi:nn200100]<std::vector<TIHandwritingPoint> *,std::vector<TIHandwritingPoint> *,std::vector<TIHandwritingPoint> *>(char **a1, char **a2, uint64_t a3)
+uint64_t *std::__copy_impl::operator()[abi:nn200100]<std::vector<TIHandwritingPoint> *,std::vector<TIHandwritingPoint> *,std::vector<TIHandwritingPoint> *>(char **a1, char **a2, uint64_t *a3)
 {
   if (a1 != a2)
   {
@@ -6074,18 +6100,18 @@ uint64_t std::__copy_impl::operator()[abi:nn200100]<std::vector<TIHandwritingPoi
         v6 = *v5;
         v7 = v5[1];
         v8 = v7 - *v5;
-        v9 = *(a3 + 16);
+        v9 = a3[2];
         v10 = *a3;
         if (v9 - *a3 < v8)
         {
           if (v10)
           {
-            *(a3 + 8) = v10;
+            a3[1] = v10;
             operator delete(v10);
             v9 = 0;
             *a3 = 0;
-            *(a3 + 8) = 0;
-            *(a3 + 16) = 0;
+            a3[1] = 0;
+            a3[2] = 0;
           }
 
           v11 = v8 >> 4;
@@ -6112,7 +6138,7 @@ uint64_t std::__copy_impl::operator()[abi:nn200100]<std::vector<TIHandwritingPoi
           std::vector<TIHandwritingPoint>::__throw_length_error[abi:nn200100]();
         }
 
-        v13 = *(a3 + 8);
+        v13 = a3[1];
         v14 = v13 - v10;
         if (v13 - v10 >= v8)
         {
@@ -6129,7 +6155,7 @@ uint64_t std::__copy_impl::operator()[abi:nn200100]<std::vector<TIHandwritingPoi
           if (v13 != v10)
           {
             memmove(*a3, *v5, v13 - v10);
-            v13 = *(a3 + 8);
+            v13 = a3[1];
           }
 
           v15 = &v6[v14];
@@ -6142,11 +6168,11 @@ uint64_t std::__copy_impl::operator()[abi:nn200100]<std::vector<TIHandwritingPoi
           v17 = &v13[v16];
         }
 
-        *(a3 + 8) = v17;
+        a3[1] = v17;
       }
 
       v5 += 3;
-      a3 += 24;
+      a3 += 3;
     }
 
     while (v5 != a2);
@@ -6253,7 +6279,7 @@ Class __getAFPreferencesClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -6264,14 +6290,14 @@ LABEL_4:
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "AFPreferences");
   }
 
   getAFPreferencesClass_softClass = *(*(*(a1 + 32) + 8) + 24);
   return result;
 }
 
-uint64_t __AssistantServicesLibraryCore_block_invoke()
+uint64_t __AssistantServicesLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   AssistantServicesLibraryCore_frameworkLibrary = result;
@@ -6302,9 +6328,11 @@ id TIGetSuggestedInputModesByLocaleForLanguage(void *a1)
 
 uint64_t __TIGetSuggestedInputModesByLocaleForLanguage_block_invoke()
 {
-  TIGetSuggestedInputModesByLocaleForLanguage___suggestedLanguageInputModes = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:1];
+  v0 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:1];
+  v1 = TIGetSuggestedInputModesByLocaleForLanguage___suggestedLanguageInputModes;
+  TIGetSuggestedInputModesByLocaleForLanguage___suggestedLanguageInputModes = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id TIGetSuggestedDefaultInputModesByLocaleForLanguage(void *a1)
@@ -6331,9 +6359,11 @@ id TIGetSuggestedDefaultInputModesByLocaleForLanguage(void *a1)
 
 uint64_t __TIGetSuggestedDefaultInputModesByLocaleForLanguage_block_invoke()
 {
-  TIGetSuggestedDefaultInputModesByLocaleForLanguage___suggestedDefaultLanguageInputModes = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:1];
+  v0 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:1];
+  v1 = TIGetSuggestedDefaultInputModesByLocaleForLanguage___suggestedDefaultLanguageInputModes;
+  TIGetSuggestedDefaultInputModesByLocaleForLanguage___suggestedDefaultLanguageInputModes = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id TIGetSuggestedDefaultInputModesForPadByLocaleForLanguage(void *a1)
@@ -6360,9 +6390,11 @@ id TIGetSuggestedDefaultInputModesForPadByLocaleForLanguage(void *a1)
 
 uint64_t __TIGetSuggestedDefaultInputModesForPadByLocaleForLanguage_block_invoke()
 {
-  TIGetSuggestedDefaultInputModesForPadByLocaleForLanguage___suggestedDefaultLanguageInputModesForPad = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:1];
+  v0 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:1];
+  v1 = TIGetSuggestedDefaultInputModesForPadByLocaleForLanguage___suggestedDefaultLanguageInputModesForPad;
+  TIGetSuggestedDefaultInputModesForPadByLocaleForLanguage___suggestedDefaultLanguageInputModesForPad = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id TIGetSuggestedDefaultInputModesForFudgeByLocaleForLanguage(void *a1)
@@ -6389,9 +6421,11 @@ id TIGetSuggestedDefaultInputModesForFudgeByLocaleForLanguage(void *a1)
 
 uint64_t __TIGetSuggestedDefaultInputModesForFudgeByLocaleForLanguage_block_invoke()
 {
-  TIGetSuggestedDefaultInputModesForFudgeByLocaleForLanguage___suggestedDefaultLanguageInputModesForFudge = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:1];
+  v0 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:1];
+  v1 = TIGetSuggestedDefaultInputModesForFudgeByLocaleForLanguage___suggestedDefaultLanguageInputModesForFudge;
+  TIGetSuggestedDefaultInputModesForFudgeByLocaleForLanguage___suggestedDefaultLanguageInputModesForFudge = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 uint64_t TIGetAddKeyboardUsesPickerForInputMode(void *a1)
@@ -6544,9 +6578,11 @@ LABEL_14:
 
 uint64_t __TIGetSuggestedDictationLanguagesForDeviceLanguage_block_invoke()
 {
-  TIGetSuggestedDictationLanguagesForDeviceLanguage___suggestedDictationLanguageProperties = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v0 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v1 = TIGetSuggestedDictationLanguagesForDeviceLanguage___suggestedDictationLanguageProperties;
+  TIGetSuggestedDictationLanguagesForDeviceLanguage___suggestedDictationLanguageProperties = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id TIGetHardwareKeyboardSupport()
@@ -6701,9 +6737,11 @@ id TIGetDictionaryData(void *a1)
 
 uint64_t __TIGetDictionaryData_block_invoke()
 {
-  TIGetDictionaryData___dictionaryData = [MEMORY[0x1E695DF90] dictionary];
+  v0 = [MEMORY[0x1E695DF90] dictionary];
+  v1 = TIGetDictionaryData___dictionaryData;
+  TIGetDictionaryData___dictionaryData = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id TIGetLanguageSupportForHardwareKeyboard(void *a1, void *a2)
@@ -7395,9 +7433,11 @@ LABEL_27:
 
 uint64_t __TIGetKeyboardShortcutOverridesForKeyboardLayout_block_invoke()
 {
-  TIGetKeyboardShortcutOverridesForKeyboardLayout___keyboardShortcutOverridesCache = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v0 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v1 = TIGetKeyboardShortcutOverridesForKeyboardLayout___keyboardShortcutOverridesCache;
+  TIGetKeyboardShortcutOverridesForKeyboardLayout___keyboardShortcutOverridesCache = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 void __TIGetNormalizedKeyboardLayoutForShortcutTranslation_block_invoke()
@@ -7637,7 +7677,7 @@ void *__getCPSharedResourcesDirectorySymbolLoc_block_invoke(uint64_t a1)
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -7652,7 +7692,7 @@ LABEL_5:
   return result;
 }
 
-uint64_t __AppSupportLibraryCore_block_invoke()
+uint64_t __AppSupportLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   AppSupportLibraryCore_frameworkLibrary = result;
@@ -7711,7 +7751,7 @@ uint64_t MobileKeyBagLibrary()
 
     else
     {
-      v1 = abort_report_np();
+      v1 = abort_report_np("%s", v3[0]);
     }
 
     free(v1);
@@ -7721,7 +7761,7 @@ uint64_t MobileKeyBagLibrary()
   return MobileKeyBagLibraryCore_frameworkLibrary;
 }
 
-uint64_t __MobileKeyBagLibraryCore_block_invoke()
+uint64_t __MobileKeyBagLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   MobileKeyBagLibraryCore_frameworkLibrary = result;
@@ -8964,7 +9004,7 @@ id TIFeatureUsageAllowedValues()
   return v0;
 }
 
-uint64_t __InputAnalyticsLibraryCore_block_invoke()
+uint64_t __InputAnalyticsLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   InputAnalyticsLibraryCore_frameworkLibrary = result;
@@ -9086,7 +9126,7 @@ void *std::__tree<NSHolder<TIInputContextEntry>>::_DetachedTreeCache::__detach_n
   return result;
 }
 
-uint64_t __ManagedConfigurationLibraryCore_block_invoke()
+uint64_t __ManagedConfigurationLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   ManagedConfigurationLibraryCore_frameworkLibrary = result;
@@ -9113,20 +9153,20 @@ void *__getMCFeatureKeyboardMathSolvingAllowedSymbolLoc_block_invoke(uint64_t a1
 
 id getMCFeatureContinuousPathKeyboardAllowed()
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
   v0 = getMCFeatureContinuousPathKeyboardAllowedSymbolLoc_ptr;
-  v8 = getMCFeatureContinuousPathKeyboardAllowedSymbolLoc_ptr;
+  v9 = getMCFeatureContinuousPathKeyboardAllowedSymbolLoc_ptr;
   if (!getMCFeatureContinuousPathKeyboardAllowedSymbolLoc_ptr)
   {
     v1 = ManagedConfigurationLibrary();
-    v6[3] = dlsym(v1, "MCFeatureContinuousPathKeyboardAllowed");
-    getMCFeatureContinuousPathKeyboardAllowedSymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v7[3] = dlsym(v1, "MCFeatureContinuousPathKeyboardAllowed");
+    getMCFeatureContinuousPathKeyboardAllowedSymbolLoc_ptr = v7[3];
+    v0 = v7[3];
   }
 
-  _Block_object_dispose(&v5, 8);
+  _Block_object_dispose(&v6, 8);
   if (v0)
   {
     v2 = *v0;
@@ -9136,9 +9176,9 @@ id getMCFeatureContinuousPathKeyboardAllowed()
 
   else
   {
-    dlerror();
-    v4 = abort_report_np();
-    return __getMCFeatureContinuousPathKeyboardAllowedSymbolLoc_block_invoke(v4);
+    v4 = dlerror();
+    v5 = abort_report_np("%s", v4);
+    return __getMCFeatureContinuousPathKeyboardAllowedSymbolLoc_block_invoke(v5);
   }
 }
 
@@ -9203,7 +9243,7 @@ Class __getCloudSettingsManagerClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -9214,52 +9254,9 @@ LABEL_4:
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "CloudSettingsManager");
   }
 
   getCloudSettingsManagerClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  return result;
-}
-
-Class __getNPSManagerClass_block_invoke(uint64_t a1)
-{
-  v7 = *MEMORY[0x1E69E9840];
-  v4[0] = 0;
-  if (!NanoPreferencesSyncLibraryCore_frameworkLibrary)
-  {
-    v4[1] = MEMORY[0x1E69E9820];
-    v4[2] = 3221225472;
-    v4[3] = __NanoPreferencesSyncLibraryCore_block_invoke;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_1E6F4D528;
-    v6 = 0;
-    NanoPreferencesSyncLibraryCore_frameworkLibrary = _sl_dlopen();
-    v2 = v4[0];
-    if (NanoPreferencesSyncLibraryCore_frameworkLibrary)
-    {
-      if (!v4[0])
-      {
-        goto LABEL_4;
-      }
-    }
-
-    else
-    {
-      v2 = abort_report_np();
-    }
-
-    free(v2);
-  }
-
-LABEL_4:
-  result = objc_getClass("NPSManager");
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  if (!*(*(*(a1 + 32) + 8) + 24))
-  {
-    abort_report_np();
-  }
-
-  getNPSManagerClass_softClass = *(*(*(a1 + 32) + 8) + 24);
   return result;
 }

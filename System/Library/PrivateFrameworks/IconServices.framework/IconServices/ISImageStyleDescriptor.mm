@@ -64,23 +64,21 @@ uint64_t __48__ISImageStyleDescriptor_defaultStyleDescriptor__block_invoke()
 
 - (NSUUID)digest
 {
-  v12[2] = *MEMORY[0x1E69E9840];
-  v11 = *&self->_templateVariant;
-  v3 = [MEMORY[0x1E696AFB0] _IF_UUIDWithBytes:&v11 size:2];
+  v11[2] = *MEMORY[0x1E69E9840];
+  v10 = *&self->_templateVariant;
+  v3 = [MEMORY[0x1E696AFB0] _IF_UUIDWithBytes:&v10 size:2];
   tintColor = self->_tintColor;
   if (tintColor)
   {
     v5 = MEMORY[0x1E696AFB0];
     digest = [(IFColor *)tintColor digest];
-    v12[0] = digest;
-    v12[1] = v3;
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
+    v11[0] = digest;
+    v11[1] = v3;
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
     v8 = [v5 _IF_UUIDByXORingUUIDs:v7];
 
     v3 = v8;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

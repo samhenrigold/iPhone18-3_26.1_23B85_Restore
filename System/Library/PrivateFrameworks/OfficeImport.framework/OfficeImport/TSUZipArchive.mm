@@ -70,7 +70,7 @@
   return v2;
 }
 
-uint64_t __35__TSUZipArchive_hasNonEmptyEntries__block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
+void *__35__TSUZipArchive_hasNonEmptyEntries__block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
   result = [a3 size];
   if (result)

@@ -1,4 +1,5 @@
 @interface AXSSVoiceTagger
++ (id)_createVoiceTagWithDialect:(id)dialect range:(_NSRange)range content:(id)content createdFromNewline:(BOOL)newline;
 + (id)_currentLineContentForTag:(id)tag inTags:(id)tags;
 + (id)_primaryDialectForTag:(id)tag inTags:(id)tags;
 + (id)markupVoiceTagForAttributedString:(id)string preferredLangauge:(id)langauge;
@@ -148,50 +149,128 @@ LABEL_28:
   return v41;
 }
 
++ (id)_createVoiceTagWithDialect:(id)dialect range:(_NSRange)range content:(id)content createdFromNewline:(BOOL)newline
+{
+  newlineCopy = newline;
+  length = range.length;
+  location = range.location;
+  dialectCopy = dialect;
+  contentCopy = content;
+  v12 = +[AXSSLanguageManager shared];
+  systemLanguageID = [v12 systemLanguageID];
+  v14 = [systemLanguageID hasPrefix:@"en"];
+
+  v15 = [contentCopy substringWithRange:{location, length}];
+  whitespaceAndNewlineCharacterSet = [MEMORY[0x1E696AB08] whitespaceAndNewlineCharacterSet];
+  v17 = [v15 stringByTrimmingCharactersInSet:whitespaceAndNewlineCharacterSet];
+
+  specificLanguageID = [dialectCopy specificLanguageID];
+  if (![specificLanguageID hasPrefix:@"el"])
+  {
+    goto LABEL_11;
+  }
+
+  v19 = [v17 length];
+
+  if (v19 < 0xA)
+  {
+    v20 = v14;
+  }
+
+  else
+  {
+    v20 = 0;
+  }
+
+  if (v20 != 1)
+  {
+    goto LABEL_12;
+  }
+
+  v30 = length;
+  if (![v17 length])
+  {
+    goto LABEL_10;
+  }
+
+  v29 = newlineCopy;
+  v21 = 0;
+  v22 = 1;
+  do
+  {
+    v23 = [v17 characterAtIndex:0];
+    v24 = +[AXSSLanguageManager shared];
+    dialectForSystemLanguage = [v24 dialectForSystemLanguage];
+    v22 &= [dialectForSystemLanguage canSpeakCharacter:v23];
+
+    ++v21;
+  }
+
+  while (v21 < [v17 length]);
+  newlineCopy = v29;
+  if (v22)
+  {
+LABEL_10:
+    specificLanguageID = +[AXSSLanguageManager shared];
+    dialectForSystemLanguage2 = [specificLanguageID dialectForSystemLanguage];
+
+    dialectCopy = dialectForSystemLanguage2;
+    length = v30;
+LABEL_11:
+
+    goto LABEL_12;
+  }
+
+  length = v30;
+LABEL_12:
+  newlineCopy = [[AXSSLanguageTag alloc] initWithDialect:dialectCopy range:location content:length createdFromNewline:contentCopy, newlineCopy];
+
+  return newlineCopy;
+}
+
 + (id)markupVoiceTagForAttributedString:(id)string preferredLangauge:(id)langauge
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   langaugeCopy = langauge;
   v8 = [objc_alloc(MEMORY[0x1E696AD40]) initWithAttributedString:stringCopy];
   string = [stringCopy string];
-  v24 = langaugeCopy;
+  v23 = langaugeCopy;
   v10 = [self voiceTagsForContent:string preferredLangauge:langaugeCopy];
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v11 = v10;
-  v12 = [v11 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v26;
+    v14 = *v25;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v26 != v14)
+        if (*v25 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v25 + 1) + 8 * i);
+        v16 = *(*(&v24 + 1) + 8 * i);
         dialect = [v16 dialect];
         voiceIdentifier = [dialect voiceIdentifier];
         taggedRange = [v16 taggedRange];
         [v8 addAttribute:@"AXVoiceIdentifier" value:voiceIdentifier range:{taggedRange, v20}];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v13);
   }
 
   v21 = [v8 copy];
-  v22 = *MEMORY[0x1E69E9840];
 
   return v21;
 }

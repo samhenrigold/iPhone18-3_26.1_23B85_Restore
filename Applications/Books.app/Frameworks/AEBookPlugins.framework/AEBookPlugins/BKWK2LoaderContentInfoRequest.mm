@@ -117,7 +117,7 @@
 
 - (void)setState:(unint64_t)state
 {
-  v5 = _AERePaginationLog();
+  v5 = _AERePaginationLog(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = NSStringFromBKWK2LoaderContentInfoRequestState(self->_state);

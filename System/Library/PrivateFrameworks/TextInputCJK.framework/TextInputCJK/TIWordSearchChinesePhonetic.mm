@@ -3,6 +3,7 @@
 - (id)candidatesCacheKeyForOperation:(id)operation;
 - (id)uncachedCandidatesForOperation:(id)operation;
 - (int)mecabraInputMethodType;
+- (unint64_t)mecabraAnalysisOptionsWithAutocorrectionEnabled:(BOOL)enabled firstSyllableLocked:(BOOL)locked reanalysisMode:(BOOL)mode hardwareKeyboardMode:(BOOL)keyboardMode predictionEnabled:(BOOL)predictionEnabled;
 - (unsigned)nameReadingPairGenerationMode;
 - (void)clearCacheForInputString:(id)string keyboardInput:(id)input unambiguousSyllableCount:(unint64_t)count selectedDisambiguationCandidateIndex:(unint64_t)index;
 - (void)dealloc;
@@ -16,7 +17,7 @@
 
 - (id)uncachedCandidatesForOperation:(id)operation
 {
-  v150 = *MEMORY[0x277D85DE8];
+  v149 = *MEMORY[0x277D85DE8];
   operationCopy = operation;
   v5 = objc_alloc_init(MEMORY[0x277D6FF00]);
   v6 = operationCopy;
@@ -24,15 +25,15 @@
   segmentBreakIndex = [v6 segmentBreakIndex];
   target = [v6 target];
   geometryModelData = [v6 geometryModelData];
-  v132 = v6;
+  v131 = v6;
   unambiguousSyllableCount = [v6 unambiguousSyllableCount];
   context = objc_autoreleasePoolPush();
   pinyinCharacterSetWithTones = [objc_opt_class() pinyinCharacterSetWithTones];
   v11 = [inputString rangeOfCharacterFromSet:pinyinCharacterSetWithTones];
 
   obj = arc4random();
-  v128 = v11;
-  if ([inputString length] || (objc_msgSend(v132, "keyboardInput"), v12 = objc_claimAutoreleasedReturnValue(), v12, v12))
+  v127 = v11;
+  if ([inputString length] || (objc_msgSend(v131, "keyboardInput"), v12 = objc_claimAutoreleasedReturnValue(), v12, v12))
   {
     if (segmentBreakIndex == 0x7FFFFFFFFFFFFFFFLL)
     {
@@ -47,7 +48,7 @@
       inputString = v14;
     }
 
-    v125 = v13;
+    v124 = v13;
     selfCopy2 = self;
     v16 = [(TIWordSearch *)self addFacemarkCandidatesToResultSet:v5 forInput:inputString];
     v17 = target;
@@ -60,7 +61,7 @@ LABEL_13:
       v21 = inputString;
       v22 = 0;
       v23 = 1;
-      v127 = v21;
+      v126 = v21;
 LABEL_14:
       target = v17;
 LABEL_15:
@@ -91,11 +92,11 @@ LABEL_12:
       goto LABEL_13;
     }
 
-    v40 = -[TIWordSearchChinesePhonetic mecabraAnalysisOptionsWithAutocorrectionEnabled:firstSyllableLocked:reanalysisMode:hardwareKeyboardMode:predictionEnabled:](selfCopy2, "mecabraAnalysisOptionsWithAutocorrectionEnabled:firstSyllableLocked:reanalysisMode:hardwareKeyboardMode:predictionEnabled:", 0, unambiguousSyllableCount != 0, [v132 reanalysisMode], objc_msgSend(v132, "hardwareKeyboardMode"), objc_msgSend(v132, "predictionEnabled"));
-    logger = [v132 logger];
+    v40 = -[TIWordSearchChinesePhonetic mecabraAnalysisOptionsWithAutocorrectionEnabled:firstSyllableLocked:reanalysisMode:hardwareKeyboardMode:predictionEnabled:](selfCopy2, "mecabraAnalysisOptionsWithAutocorrectionEnabled:firstSyllableLocked:reanalysisMode:hardwareKeyboardMode:predictionEnabled:", 0, unambiguousSyllableCount != 0, [v131 reanalysisMode], objc_msgSend(v131, "hardwareKeyboardMode"), objc_msgSend(v131, "predictionEnabled"));
+    logger = [v131 logger];
     [logger markTime:2];
 
-    keyboardInput = [v132 keyboardInput];
+    keyboardInput = [v131 keyboardInput];
 
     if (keyboardInput)
     {
@@ -112,11 +113,11 @@ LABEL_12:
         }
       }
 
-      keyboardInput2 = [v132 keyboardInput];
+      keyboardInput2 = [v131 keyboardInput];
       asSearchString = [keyboardInput2 asSearchString];
 
       mecabraEnvironment = [(TIWordSearch *)selfCopy2 mecabraEnvironment];
-      keyboardInput3 = [v132 keyboardInput];
+      keyboardInput3 = [v131 keyboardInput];
       v50 = [mecabraEnvironment analyzeInput:keyboardInput3 options:v40];
 
       v51 = asSearchString;
@@ -139,11 +140,11 @@ LABEL_12:
       v16 = 0;
       v22 = 0;
       v23 = 1;
-      v127 = v51;
+      v126 = v51;
       goto LABEL_14;
     }
 
-    v36 = v125;
+    v36 = v124;
   }
 
   else
@@ -153,11 +154,11 @@ LABEL_12:
     v36 = 0;
     if (v11 != 0x7FFFFFFFFFFFFFFFLL)
     {
-      v125 = 0;
+      v124 = 0;
       v16 = 0;
       v22 = 0;
       v23 = 1;
-      v127 = v35;
+      v126 = v35;
       goto LABEL_16;
     }
 
@@ -165,12 +166,12 @@ LABEL_12:
     v17 = target;
   }
 
-  v125 = v36;
+  v124 = v36;
   v22 = 0;
-  if (([v132 isCancelled] & 1) == 0)
+  if (([v131 isCancelled] & 1) == 0)
   {
     v52 = 0;
-    v127 = v21;
+    v126 = v21;
     while (1)
     {
       while (1)
@@ -189,7 +190,7 @@ LABEL_12:
         }
 
         [v5 addMecabraProactiveCandidate:v54 triggerSourceType:0];
-        if ([v132 isCancelled])
+        if ([v131 isCancelled])
         {
           goto LABEL_45;
         }
@@ -222,7 +223,7 @@ LABEL_12:
             v61 = v59;
           }
 
-          v127 = v61;
+          v126 = v61;
 
 LABEL_62:
           v52 = 1;
@@ -235,12 +236,12 @@ LABEL_62:
         }
 
         v52 = 1;
-        v127 = v56;
+        v126 = v56;
         if (!v22)
         {
 LABEL_70:
           candidate = [v55 candidate];
-          v22 = [candidate compare:v127] == 0;
+          v22 = [candidate compare:v126] == 0;
 
           goto LABEL_71;
         }
@@ -259,14 +260,14 @@ LABEL_63:
       v22 = 1;
 LABEL_71:
 
-      if ([v132 isCancelled])
+      if ([v131 isCancelled])
       {
         goto LABEL_45;
       }
     }
   }
 
-  v127 = v21;
+  v126 = v21;
 LABEL_45:
   proactiveTriggers = [v5 proactiveTriggers];
   v38 = [proactiveTriggers count];
@@ -285,11 +286,11 @@ LABEL_45:
     self = selfCopy2;
     if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
     {
-      v115 = MEMORY[0x277CCACA8];
+      v114 = MEMORY[0x277CCACA8];
       proactiveTriggers2 = [v5 proactiveTriggers];
-      v116 = [v115 stringWithFormat:@"%s ProactiveQuickType:TI: Mecabra found conversion proactive triggers: %@", "-[TIWordSearchChinesePhonetic uncachedCandidatesForOperation:]", proactiveTriggers2];
+      v115 = [v114 stringWithFormat:@"%s ProactiveQuickType:TI: Mecabra found conversion proactive triggers: %@", "-[TIWordSearchChinesePhonetic uncachedCandidatesForOperation:]", proactiveTriggers2];
       *buf = 138412290;
-      v149 = v116;
+      v148 = v115;
       _os_log_debug_impl(&dword_26D460000, v39, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
 
@@ -306,7 +307,7 @@ LABEL_45:
   }
 
 LABEL_16:
-  keyboardInput4 = [v132 keyboardInput];
+  keyboardInput4 = [v131 keyboardInput];
 
   if (keyboardInput4)
   {
@@ -324,8 +325,8 @@ LABEL_16:
     }
   }
 
-  v28 = v132;
-  logger2 = [v132 logger];
+  v28 = v131;
+  logger2 = [v131 logger];
   [logger2 markTime:3];
 
   candidates = [v5 candidates];
@@ -334,10 +335,10 @@ LABEL_16:
   {
     v31 = +[TIKeyboardInputManagerChinesePhonetic stringFallBackForTenKeyInput:range:](TIKeyboardInputManagerChinesePhonetic, "stringFallBackForTenKeyInput:range:", v21, 0, [v21 length]);
 
-    v127 = v31;
+    v126 = v31;
   }
 
-  if (([v132 isCancelled] & 1) == 0)
+  if (([v131 isCancelled] & 1) == 0)
   {
     if (!v22)
     {
@@ -379,24 +380,24 @@ LABEL_16:
           }
         }
 
-        [v5 insertSyntheticMecabraCandidateWithSurface:v127 input:v127 atIndex:v32];
+        [v5 insertSyntheticMecabraCandidateWithSurface:v126 input:v126 atIndex:v32];
 
-        v28 = v132;
+        v28 = v131;
       }
 
-      else if ([v127 length])
+      else if ([v126 length])
       {
-        [v5 addSyntheticMecabraCandidateWithSurface:v127 input:v127];
+        [v5 addSyntheticMecabraCandidateWithSurface:v126 input:v126];
       }
     }
 
-    v63 = v128 != 0x7FFFFFFFFFFFFFFFLL || v16;
+    v63 = v127 != 0x7FFFFFFFFFFFFFFFLL || v16;
     if ((v63 & 1) == 0)
     {
-      _stringByConvertingFromHalfWidthToFullWidth = [v127 _stringByConvertingFromHalfWidthToFullWidth];
+      _stringByConvertingFromHalfWidthToFullWidth = [v126 _stringByConvertingFromHalfWidthToFullWidth];
       if (([v21 isEqualToString:_stringByConvertingFromHalfWidthToFullWidth] & 1) == 0)
       {
-        [v5 addSyntheticMecabraCandidateWithSurface:_stringByConvertingFromHalfWidthToFullWidth input:v127 isExtension:1];
+        [v5 addSyntheticMecabraCandidateWithSurface:_stringByConvertingFromHalfWidthToFullWidth input:v126 isExtension:1];
       }
     }
   }
@@ -405,35 +406,35 @@ LABEL_16:
   {
     if (([v28 regenerateDisambiguationCandidates] & 1) != 0 || (objc_msgSend(v28, "disambiguationCandidates"), v65 = objc_claimAutoreleasedReturnValue(), v66 = objc_msgSend(v65, "count"), v65, !v66))
     {
-      v121 = v21;
+      v120 = v21;
       if (unambiguousSyllableCount)
       {
-        v118 = target;
-        v119 = v5;
+        v117 = target;
+        v118 = v5;
         selfCopy3 = self;
         [(TIWordSearch *)self mecabra];
         SyllableSequences = MecabraCreateSyllableSequences();
-        v129 = [MEMORY[0x277CBEB58] set];
+        v128 = [MEMORY[0x277CBEB58] set];
+        v136 = 0u;
         v137 = 0u;
         v138 = 0u;
         v139 = 0u;
-        v140 = 0u;
         obja = SyllableSequences;
-        v69 = [obja countByEnumeratingWithState:&v137 objects:v146 count:16];
+        v69 = [obja countByEnumeratingWithState:&v136 objects:v145 count:16];
         if (v69)
         {
           v70 = v69;
-          v71 = *v138;
+          v71 = *v137;
           do
           {
             for (i = 0; i != v70; ++i)
             {
-              if (*v138 != v71)
+              if (*v137 != v71)
               {
                 objc_enumerationMutation(obja);
               }
 
-              v73 = [*(*(&v137 + 1) + 8 * i) componentsSeparatedByString:@"' "];
+              v73 = [*(*(&v136 + 1) + 8 * i) componentsSeparatedByString:@"' "];
               v74 = [v73 count];
               if (v74 > [v28 unambiguousSyllableCount])
               {
@@ -459,49 +460,49 @@ LABEL_16:
 
                 if (firstObject2 && ([firstObject2 isEqualToString:@"Mixed"] & 1) == 0)
                 {
-                  [v129 addObject:firstObject2];
+                  [v128 addObject:firstObject2];
                 }
 
-                v28 = v132;
+                v28 = v131;
               }
             }
 
-            v70 = [obja countByEnumeratingWithState:&v137 objects:v146 count:16];
+            v70 = [obja countByEnumeratingWithState:&v136 objects:v145 count:16];
           }
 
           while (v70);
         }
 
-        allObjects = [v129 allObjects];
+        allObjects = [v128 allObjects];
         v83 = [allObjects sortedArrayUsingComparator:&__block_literal_global_67];
 
         v84 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v83, "count")}];
+        v132 = 0u;
         v133 = 0u;
         v134 = 0u;
         v135 = 0u;
-        v136 = 0u;
         v85 = v83;
-        v86 = [v85 countByEnumeratingWithState:&v133 objects:v145 count:16];
-        target = v118;
-        v21 = v121;
+        v86 = [v85 countByEnumeratingWithState:&v132 objects:v144 count:16];
+        target = v117;
+        v21 = v120;
         if (v86)
         {
           v87 = v86;
-          v88 = *v134;
+          v88 = *v133;
           do
           {
             for (j = 0; j != v87; ++j)
             {
-              if (*v134 != v88)
+              if (*v133 != v88)
               {
                 objc_enumerationMutation(v85);
               }
 
-              v90 = [MEMORY[0x277D6F468] candidateWithPinyinSyllable:*(*(&v133 + 1) + 8 * j)];
+              v90 = [MEMORY[0x277D6F468] candidateWithPinyinSyllable:*(*(&v132 + 1) + 8 * j)];
               [v84 addObject:v90];
             }
 
-            v87 = [v85 countByEnumeratingWithState:&v133 objects:v145 count:16];
+            v87 = [v85 countByEnumeratingWithState:&v132 objects:v144 count:16];
           }
 
           while (v87);
@@ -509,22 +510,22 @@ LABEL_16:
 
         if ([v84 count])
         {
-          v5 = v119;
-          [v119 setDisambiguationCandidates:v84];
+          v5 = v118;
+          [v118 setDisambiguationCandidates:v84];
         }
 
         else
         {
-          disambiguationCandidates = [v132 disambiguationCandidates];
-          v5 = v119;
-          [v119 setDisambiguationCandidates:disambiguationCandidates];
+          disambiguationCandidates = [v131 disambiguationCandidates];
+          v5 = v118;
+          [v118 setDisambiguationCandidates:disambiguationCandidates];
 
-          [v119 setSelectedDisambiguationCandidateIndex:{objc_msgSend(v132, "selectedDisambiguationCandidateIndex")}];
+          [v118 setSelectedDisambiguationCandidateIndex:{objc_msgSend(v131, "selectedDisambiguationCandidateIndex")}];
         }
 
         self = selfCopy3;
 
-        v28 = v132;
+        v28 = v131;
       }
 
       else
@@ -534,30 +535,30 @@ LABEL_16:
         array = [MEMORY[0x277CBEB18] array];
         v94 = selfCopy4;
         [(TIWordSearch *)selfCopy4 mecabra];
+        v140 = 0u;
         v141 = 0u;
         v142 = 0u;
         v143 = 0u;
-        v144 = 0u;
         v95 = MecabraCreatePinyinSyllableArray();
-        v96 = [v95 countByEnumeratingWithState:&v141 objects:v147 count:16];
+        v96 = [v95 countByEnumeratingWithState:&v140 objects:v146 count:16];
         if (v96)
         {
           v97 = v96;
-          v98 = *v142;
+          v98 = *v141;
           do
           {
             for (k = 0; k != v97; ++k)
             {
-              if (*v142 != v98)
+              if (*v141 != v98)
               {
                 objc_enumerationMutation(v95);
               }
 
-              v100 = [MEMORY[0x277D6F468] candidateWithPinyinSyllable:*(*(&v141 + 1) + 8 * k)];
+              v100 = [MEMORY[0x277D6F468] candidateWithPinyinSyllable:*(*(&v140 + 1) + 8 * k)];
               [array addObject:v100];
             }
 
-            v97 = [v95 countByEnumeratingWithState:&v141 objects:v147 count:16];
+            v97 = [v95 countByEnumeratingWithState:&v140 objects:v146 count:16];
           }
 
           while (v97);
@@ -566,9 +567,9 @@ LABEL_16:
         v5 = v92;
         [v92 setDisambiguationCandidates:array];
 
-        v28 = v132;
+        v28 = v131;
         self = v94;
-        v21 = v121;
+        v21 = v120;
       }
     }
 
@@ -581,14 +582,14 @@ LABEL_16:
     }
   }
 
-  if ([v125 length])
+  if ([v124 length])
   {
     v102 = -[TIWordSearchChinesePhonetic mecabraAnalysisOptionsWithAutocorrectionEnabled:firstSyllableLocked:reanalysisMode:hardwareKeyboardMode:predictionEnabled:](self, "mecabraAnalysisOptionsWithAutocorrectionEnabled:firstSyllableLocked:reanalysisMode:hardwareKeyboardMode:predictionEnabled:", 0, unambiguousSyllableCount != 0, [v28 reanalysisMode], objc_msgSend(v28, "hardwareKeyboardMode"), 0);
     logger3 = [v28 logger];
     [logger3 markTime:2];
 
     mecabraEnvironment4 = [(TIWordSearch *)self mecabraEnvironment];
-    LODWORD(v102) = [mecabraEnvironment4 analyzeString:v125 options:v102];
+    LODWORD(v102) = [mecabraEnvironment4 analyzeString:v124 options:v102];
 
     if (v102)
     {
@@ -611,7 +612,7 @@ LABEL_16:
           mecabraCandidatePointerValue = [v107 mecabraCandidatePointerValue];
           [candidateRefsDictionary setObject:v106 forKey:mecabraCandidatePointerValue];
 
-          v28 = v132;
+          v28 = v131;
           break;
         }
       }
@@ -622,7 +623,6 @@ LABEL_16:
   }
 
   objc_autoreleasePoolPop(context);
-  v111 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -680,6 +680,83 @@ uint64_t __62__TIWordSearchChinesePhonetic_uncachedCandidatesForOperation___bloc
   v12 = GetCacheKey(stringCopy, inputCopy, v9, count, 0, 0, 0x7FFFFFFFFFFFFFFFLL);
 
   [candidatesCache removeObjectForKey:v12];
+}
+
+- (unint64_t)mecabraAnalysisOptionsWithAutocorrectionEnabled:(BOOL)enabled firstSyllableLocked:(BOOL)locked reanalysisMode:(BOOL)mode hardwareKeyboardMode:(BOOL)keyboardMode predictionEnabled:(BOOL)predictionEnabled
+{
+  predictionEnabledCopy = predictionEnabled;
+  modeCopy = mode;
+  lockedCopy = locked;
+  [(TIWordSearchChinesePhonetic *)self updateFuzzyPinyinSettings:enabled];
+  [(TIWordSearchChinesePhonetic *)self updateShuangpinTypeWithReanalysisMode:modeCopy];
+  if (TI_IS_INTERNAL_INSTALL() && TI_IS_USING_CUSTOM_DIALECT_LM())
+  {
+    [(TIWordSearchChinesePhonetic *)self setCustomDialectLanguageModel:TI_DIALECT_LM_PATH()];
+  }
+
+  if ([(TIWordSearchChinesePhonetic *)self fuzzyPinyinEnabled])
+  {
+    v11 = 16;
+  }
+
+  else
+  {
+    v11 = 0;
+  }
+
+  mecabraInputMethodType = [(TIWordSearchChinesePhonetic *)self mecabraInputMethodType];
+  v13 = v11 | 2;
+  if (predictionEnabledCopy)
+  {
+    v13 = v11 | 0x800000;
+  }
+
+  if (mecabraInputMethodType == 5)
+  {
+    v14 = v13;
+  }
+
+  else
+  {
+    v14 = v11;
+  }
+
+  if ([(TIWordSearch *)self autoCorrects])
+  {
+    v14 |= 0x40uLL;
+  }
+
+  tenKeyPinyinEnabled = [(TIWordSearchChinesePhonetic *)self tenKeyPinyinEnabled];
+  v16 = 0x2000;
+  if (lockedCopy)
+  {
+    v16 = 40960;
+  }
+
+  if (!tenKeyPinyinEnabled)
+  {
+    v16 = 0;
+  }
+
+  v17 = v16 | v14;
+  if (modeCopy)
+  {
+    v18 = v17 | 0x4000;
+  }
+
+  else
+  {
+    v18 = v17;
+  }
+
+  shouldLearnAcceptedCandidate = [(TIWordSearch *)self shouldLearnAcceptedCandidate];
+  v20 = v18 | 0x80;
+  if (shouldLearnAcceptedCandidate)
+  {
+    v20 = v18;
+  }
+
+  return v20 | 0x80000;
 }
 
 - (unsigned)nameReadingPairGenerationMode

@@ -30,6 +30,7 @@
 - (void)setHighlightBackgroundColor:(id)color;
 - (void)setMaximumNumberOfLines:(unint64_t)lines;
 - (void)setPadding:(UIEdgeInsets)padding;
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated withAnimationCoordinator:(id)coordinator;
 - (void)setTrackHorizontal:(BOOL)horizontal;
 - (void)tintColorDidChange;
 @end
@@ -322,10 +323,10 @@ LABEL_7:
 
 - (void)layoutSubviews
 {
-  v34[1] = *MEMORY[0x277D85DE8];
-  v33.receiver = self;
-  v33.super_class = _TVFocusableTextView;
-  [(_TVFocusableTextView *)&v33 layoutSubviews];
+  v33[1] = *MEMORY[0x277D85DE8];
+  v32.receiver = self;
+  v32.super_class = _TVFocusableTextView;
+  [(_TVFocusableTextView *)&v32 layoutSubviews];
   [(_TVFocusableTextView *)self bounds];
   if (v3 == 0.0 || (v5 = v4, v4 == 0.0))
   {
@@ -345,16 +346,16 @@ LABEL_7:
     moreHighlightPadding = self->_moreHighlightPadding;
     [(UITextView *)self->_descriptionTextView setFrame:moreHighlightPadding, moreHighlightPadding + -6.0];
     v8 = -self->_moreHighlightPadding;
+    v34.origin.x = moreHighlightPadding;
+    v34.origin.y = moreHighlightPadding + -6.0;
+    v34.size.width = v6;
+    v34.size.height = v5;
+    v9 = CGRectGetWidth(v34) + self->_moreHighlightPadding * 2.0;
     v35.origin.x = moreHighlightPadding;
     v35.origin.y = moreHighlightPadding + -6.0;
     v35.size.width = v6;
     v35.size.height = v5;
-    v9 = CGRectGetWidth(v35) + self->_moreHighlightPadding * 2.0;
-    v36.origin.x = moreHighlightPadding;
-    v36.origin.y = moreHighlightPadding + -6.0;
-    v36.size.width = v6;
-    v36.size.height = v5;
-    v10 = moreHighlightPadding + -6.0 + moreHighlightPadding + -3.0 + CGRectGetHeight(v36);
+    v10 = moreHighlightPadding + -6.0 + moreHighlightPadding + -3.0 + CGRectGetHeight(v35);
     [(_UIFloatingContentView *)self->_floatingView setFrame:v8, -(moreHighlightPadding + -6.0), v9, v10];
     [(UIVisualEffectView *)self->_backgroundView setFrame:*MEMORY[0x277CBF348], *(MEMORY[0x277CBF348] + 8), v9, v10];
     [(UITextView *)self->_descriptionTextView setTextAlignment:self->_descriptionTextAlignment];
@@ -375,16 +376,16 @@ LABEL_7:
       v25 = v24;
       [(UITextView *)self->_descriptionTextView textContainerInset];
       v27 = v19 + v26;
-      v37.origin.y = v21 + v28;
+      v36.origin.y = v21 + v28;
       v29 = MEMORY[0x277D75208];
-      v37.origin.x = v27;
-      v37.size.width = v23;
-      v37.size.height = v25;
-      v38 = CGRectIntegral(v37);
-      textContainer2 = [v29 bezierPathWithRect:{v38.origin.x, v38.origin.y, v38.size.width, v38.size.height}];
+      v36.origin.x = v27;
+      v36.size.width = v23;
+      v36.size.height = v25;
+      v37 = CGRectIntegral(v36);
+      textContainer2 = [v29 bezierPathWithRect:{v37.origin.x, v37.origin.y, v37.size.width, v37.size.height}];
       textContainer = [(UITextView *)self->_descriptionTextView textContainer];
-      v34[0] = textContainer2;
-      v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:1];
+      v33[0] = textContainer2;
+      v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:1];
       [textContainer setExclusionPaths:v31];
     }
 
@@ -399,8 +400,27 @@ LABEL_7:
     [(_TVFocusableTextView *)self _updateTextColorsIfNeeded];
     [(_TVFocusableTextView *)self _updateBackgroundColors];
   }
+}
 
-  v32 = *MEMORY[0x277D85DE8];
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated withAnimationCoordinator:(id)coordinator
+{
+  if (coordinator)
+  {
+    v6[0] = MEMORY[0x277D85DD0];
+    v6[1] = 3221225472;
+    v6[2] = __70___TVFocusableTextView_setSelected_animated_withAnimationCoordinator___block_invoke;
+    v6[3] = &unk_279D91A18;
+    v6[4] = self;
+    selectedCopy = selected;
+    animatedCopy = animated;
+    [coordinator addCoordinatedAnimations:v6 completion:0];
+  }
+
+  else
+  {
+
+    [(_TVFocusableTextView *)self setSelected:selected animated:animated];
+  }
 }
 
 - (void)didUpdateFocusInContext:(id)context withAnimationCoordinator:(id)coordinator
@@ -658,7 +678,7 @@ LABEL_7:
   v13 = v12;
   v15 = v14;
   v17 = v16;
-  v56 = v18;
+  v55 = v18;
   [(UILabel *)self->_moreLabel sizeThatFits:*MEMORY[0x277CBF3A8], *(MEMORY[0x277CBF3A8] + 8)];
   v20 = v19;
   v22 = v21;
@@ -666,16 +686,16 @@ LABEL_7:
   {
     if (_isNaturallyRTL)
     {
-      v58.origin.x = v6;
-      v58.origin.y = rect;
-      v58.size.width = v9;
-      v58.size.height = v11;
-      MaxX = CGRectGetMaxX(v58);
-      v59.origin.x = 0.0;
-      v59.origin.y = 0.0;
-      v59.size.width = v20;
-      v59.size.height = v22;
-      moreHighlightPadding = MaxX - CGRectGetWidth(v59) - self->_moreHighlightPadding;
+      v57.origin.x = v6;
+      v57.origin.y = rect;
+      v57.size.width = v9;
+      v57.size.height = v11;
+      MaxX = CGRectGetMaxX(v57);
+      v58.origin.x = 0.0;
+      v58.origin.y = 0.0;
+      v58.size.width = v20;
+      v58.size.height = v22;
+      moreHighlightPadding = MaxX - CGRectGetWidth(v58) - self->_moreHighlightPadding;
     }
 
     else
@@ -689,46 +709,46 @@ LABEL_7:
     moreHighlightPadding = 10.0;
     if ((_isNaturallyRTL & 1) == 0)
     {
-      v60.origin.x = v13;
-      v60.origin.y = v15;
-      v60.size.width = v17;
-      v60.size.height = v56;
-      v25 = CGRectGetMaxX(v60);
-      v61.origin.x = 0.0;
-      v61.origin.y = 0.0;
-      v61.size.width = v20;
-      v61.size.height = v22;
-      moreHighlightPadding = v25 - CGRectGetWidth(v61) + -10.0;
+      v59.origin.x = v13;
+      v59.origin.y = v15;
+      v59.size.width = v17;
+      v59.size.height = v55;
+      v25 = CGRectGetMaxX(v59);
+      v60.origin.x = 0.0;
+      v60.origin.y = 0.0;
+      v60.size.width = v20;
+      v60.size.height = v22;
+      moreHighlightPadding = v25 - CGRectGetWidth(v60) + -10.0;
     }
 
-    v62.origin.y = 0.0;
-    v62.origin.x = moreHighlightPadding;
-    v62.size.width = v20;
-    v62.size.height = v22;
-    Width = CGRectGetWidth(v62);
+    v61.origin.y = 0.0;
+    v61.origin.x = moreHighlightPadding;
+    v61.size.width = v20;
+    v61.size.height = v22;
+    Width = CGRectGetWidth(v61);
     v20 = v20 + 10.0;
     if (_isNaturallyRTL)
     {
       v27 = Width;
-      v63.origin.y = 0.0;
-      v63.origin.x = moreHighlightPadding;
-      v63.size.width = v20;
-      v63.size.height = v22;
-      moreHighlightPadding = moreHighlightPadding + v27 - CGRectGetWidth(v63);
+      v62.origin.y = 0.0;
+      v62.origin.x = moreHighlightPadding;
+      v62.size.width = v20;
+      v62.size.height = v22;
+      moreHighlightPadding = moreHighlightPadding + v27 - CGRectGetWidth(v62);
     }
   }
 
   attributedText = [(UITextView *)self->_descriptionTextView attributedText];
-  v64.origin.x = v13;
-  v64.origin.y = v15;
-  v64.size.width = v17;
-  v64.size.height = v56;
-  MaxY = CGRectGetMaxY(v64);
+  v63.origin.x = v13;
+  v63.origin.y = v15;
+  v63.size.width = v17;
+  v63.size.height = v55;
+  MaxY = CGRectGetMaxY(v63);
   if ([attributedText length])
   {
-    v57[0] = 0;
-    v57[1] = [attributedText length];
-    v30 = [attributedText attributesAtIndex:0 effectiveRange:v57];
+    v56[0] = 0;
+    v56[1] = [attributedText length];
+    v30 = [attributedText attributesAtIndex:0 effectiveRange:v56];
     v31 = [v30 objectForKeyedSubscript:*MEMORY[0x277D740A8]];
     [v31 descender];
     v33 = v32;
@@ -745,12 +765,11 @@ LABEL_7:
     MaxY = MaxY + v42;
   }
 
-  v65.origin.y = 0.0;
-  v65.origin.x = moreHighlightPadding;
-  v65.size.width = v20;
-  v65.size.height = v22;
-  Height = CGRectGetHeight(v65);
-  moreLabelOnNewLine = self->_moreLabelOnNewLine;
+  v64.origin.y = 0.0;
+  v64.origin.x = moreHighlightPadding;
+  v64.size.width = v20;
+  v64.size.height = v22;
+  Height = CGRectGetHeight(v64);
   if (_isNaturallyRTL)
   {
     if (self->_moreLabelOnNewLine)
@@ -763,7 +782,7 @@ LABEL_7:
       left = self->_padding.left;
     }
 
-    v47 = moreHighlightPadding + left;
+    v46 = moreHighlightPadding + left;
   }
 
   else
@@ -778,26 +797,26 @@ LABEL_7:
       right = self->_padding.right;
     }
 
-    v47 = moreHighlightPadding - right;
+    v46 = moreHighlightPadding - right;
   }
 
-  v48 = MaxY - Height;
-  v49 = floorf(v48);
+  v47 = MaxY - Height;
+  v48 = floorf(v47);
   if (self->_moreLabelOnNewLine)
   {
-    v49 = v49 + -3.0;
+    v48 = v48 + -3.0;
   }
 
-  v50 = v49 - self->_padding.bottom;
+  v49 = v48 - self->_padding.bottom;
 
-  v51 = v47;
-  v52 = v50;
-  v53 = v20;
-  v54 = v22;
-  result.size.height = v54;
-  result.size.width = v53;
-  result.origin.y = v52;
-  result.origin.x = v51;
+  v50 = v46;
+  v51 = v49;
+  v52 = v20;
+  v53 = v22;
+  result.size.height = v53;
+  result.size.width = v52;
+  result.origin.y = v51;
+  result.origin.x = v50;
   return result;
 }
 
@@ -864,7 +883,6 @@ LABEL_7:
     v6 = 1.0;
   }
 
-  backgroundView = self->_backgroundView;
   if (!self->_alwaysShowBackground)
   {
     v5 = v6;

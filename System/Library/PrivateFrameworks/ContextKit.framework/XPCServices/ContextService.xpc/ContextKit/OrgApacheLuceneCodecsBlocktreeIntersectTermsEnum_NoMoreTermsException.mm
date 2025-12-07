@@ -9,7 +9,7 @@
   if (objc_opt_class() == self)
   {
     v2 = [OrgApacheLuceneCodecsBlocktreeIntersectTermsEnum_NoMoreTermsException alloc];
-    JavaLangRuntimeException_init(v2, v3);
+    JavaLangRuntimeException_init(v2);
     JreStrongAssignAndConsume(&qword_100554838, v2);
     atomic_store(1u, &OrgApacheLuceneCodecsBlocktreeIntersectTermsEnum_NoMoreTermsException__initialized);
   }

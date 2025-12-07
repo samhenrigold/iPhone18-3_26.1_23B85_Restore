@@ -243,7 +243,7 @@ LABEL_16:
   v13 = v12;
   if (v12)
   {
-    [v12 auditToken];
+    objc_msgSend_auditToken(v12);
   }
 
   else

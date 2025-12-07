@@ -704,6 +704,7 @@ LABEL_108:
 {
   if (val)
   {
+    v3 = a2;
     v6 = val[54];
     if (!v6)
     {
@@ -724,7 +725,7 @@ LABEL_108:
     v7[2] = __62___UIDocumentCarouselView__updatePagingFraction_withTracking___block_invoke_2;
     v7[3] = &unk_1E7105398;
     objc_copyWeak(&v8, &location);
-    _UIDocumentCarouselViewAnimateWithTracking(a2, v9, v7);
+    _UIDocumentCarouselViewAnimateWithTracking(v3, v9, v7);
     objc_destroyWeak(&v8);
     objc_destroyWeak(&location);
   }
@@ -1065,7 +1066,7 @@ LABEL_108:
 
 - (void)setItems:(id)items
 {
-  if (([(NSArray *)self->_items isEqual:?]& 1) == 0)
+  if ((objc_msgSend_isEqual_(self->_items, a2) & 1) == 0)
   {
     v5 = [items copy];
     items = self->_items;

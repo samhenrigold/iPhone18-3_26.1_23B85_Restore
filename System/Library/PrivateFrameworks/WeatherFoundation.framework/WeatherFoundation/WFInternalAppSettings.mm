@@ -23,7 +23,7 @@
 
 - (NSString)apiVersion
 {
-  v2 = WeatherFoundationInternalUserDefaults();
+  v2 = WeatherFoundationInternalUserDefaults(self);
   v3 = [v2 stringForKey:@"apiVersion"];
   v4 = v3;
   if (v3)
@@ -43,37 +43,37 @@
 
 - (NSSet)aqiEnabledCountryCodes
 {
-  v2 = WeatherFoundationInternalUserDefaults();
+  v2 = WeatherFoundationInternalUserDefaults(self);
   v3 = [v2 BOOLForKey:@"aqiEnabled"];
 
   if (v3)
   {
-    v4 = WeatherFoundationInternalUserDefaults();
-    v5 = [v4 arrayForKey:@"aqiEnabledCountries"];
+    v5 = WeatherFoundationInternalUserDefaults(v4);
+    v6 = [v5 arrayForKey:@"aqiEnabledCountries"];
 
-    if (v5)
+    if (v6)
     {
-      [MEMORY[0x277CBEB98] setWithArray:v5];
+      [MEMORY[0x277CBEB98] setWithArray:v6];
     }
 
     else
     {
       [MEMORY[0x277CBEB98] setWithObjects:{@"CN", @"US", @"DE", @"IN", @"MX", @"GB", 0}];
     }
-    v6 = ;
+    v7 = ;
   }
 
   else
   {
-    v6 = objc_opt_new();
+    v7 = objc_opt_new();
   }
 
-  return v6;
+  return v7;
 }
 
 - (NSString)apiVersionFallback
 {
-  v2 = WeatherFoundationInternalUserDefaults();
+  v2 = WeatherFoundationInternalUserDefaults(self);
   v3 = [v2 stringForKey:@"apiVersionFallback"];
   v4 = v3;
   if (v3)
@@ -93,7 +93,7 @@
 
 - (unint64_t)networkFailedAttemptsLimit
 {
-  v2 = WeatherFoundationInternalUserDefaults();
+  v2 = WeatherFoundationInternalUserDefaults(self);
   v3 = [v2 objectForKey:@"networkFailedAttemptsLimit"];
 
   if (v3)
@@ -111,7 +111,7 @@
 
 - (unint64_t)networkSwitchExpirationTimeInSeconds
 {
-  v2 = WeatherFoundationInternalUserDefaults();
+  v2 = WeatherFoundationInternalUserDefaults(self);
   v3 = [v2 objectForKey:@"networkSwitchExpirationTime"];
 
   if (v3)
@@ -129,7 +129,7 @@
 
 - (unint64_t)locationNumDecimalsOfPrecision
 {
-  v2 = WeatherFoundationInternalUserDefaults();
+  v2 = WeatherFoundationInternalUserDefaults(self);
   v3 = [v2 objectForKey:@"locationDecimalPrecision"];
 
   if (v3)

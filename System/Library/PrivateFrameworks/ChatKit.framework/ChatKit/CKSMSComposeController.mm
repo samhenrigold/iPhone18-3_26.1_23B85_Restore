@@ -738,8 +738,8 @@ LABEL_12:
     }
   }
 
-  remoteViewControllerProxy = [(CKSMSComposeController *)self remoteViewControllerProxy];
-  [remoteViewControllerProxy insertCKShareForCollaboration:collaborationCopy containerSetupInfo:infoCopy collaborationShareOptions:optionsCopy isCollaboration:isCollaborationCopy completionHandler:handlerCopy];
+  v18 = [(CKSMSComposeController *)self remoteViewControllerProxy:*v20];
+  [v18 insertCKShareForCollaboration:collaborationCopy containerSetupInfo:infoCopy collaborationShareOptions:optionsCopy isCollaboration:isCollaborationCopy completionHandler:handlerCopy];
 
   return 1;
 }

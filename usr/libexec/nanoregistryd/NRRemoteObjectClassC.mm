@@ -14,6 +14,7 @@
 - (void)idsHandlePropertiesChanged:(id)changed;
 - (void)idsHandlePropertyRequest:(id)request;
 - (void)registerProtobufHandlers;
+- (void)sendPropertyChanges:(id)changes isAllProperties:(BOOL)properties toIDSBTUUID:(id)d withSentBlock:(id)block;
 - (void)sendPropertyRequestWithTimeout:(id)timeout toIDSBTUUID:(id)d withResponseBlock:(id)block;
 - (void)sendPropertyResponseWithTimeout:(id)timeout withProperties:(id)properties withRequestIdentifier:(id)identifier withSentBlock:(id)block;
 @end
@@ -130,6 +131,48 @@
   v7 = requestCopy;
   v8 = delegate;
   dispatch_async(clientQueue, block);
+}
+
+- (void)sendPropertyChanges:(id)changes isAllProperties:(BOOL)properties toIDSBTUUID:(id)d withSentBlock:(id)block
+{
+  propertiesCopy = properties;
+  dCopy = d;
+  blockCopy = block;
+  v12 = [(NRRemoteObjectClassC *)self packProperties:changes thisIsAllOfThem:propertiesCopy];
+  if (v12)
+  {
+    if (propertiesCopy)
+    {
+      v13 = @"all-properties";
+    }
+
+    else
+    {
+      v13 = 0;
+    }
+
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = sub_1000F0F1C;
+    v20[3] = &unk_100175C68;
+    v14 = &v21;
+    v21 = blockCopy;
+    v15 = blockCopy;
+    [(NRRemoteObject *)self sendRequest:v12 type:2 withTimeout:0 withResponseTimeout:0 withDescription:@"Property Update" onlyOneFor:v13 priority:300 toIDSBTUUID:dCopy didSend:v20 andResponse:0];
+  }
+
+  else
+  {
+    clientQueue = [(NRRemoteObject *)self clientQueue];
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_1000F0F3C;
+    block[3] = &unk_100175D58;
+    v14 = &v19;
+    v19 = blockCopy;
+    v17 = blockCopy;
+    dispatch_async(clientQueue, block);
+  }
 }
 
 - (id)_packPropertyValue:(id)value

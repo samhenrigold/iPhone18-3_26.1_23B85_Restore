@@ -1,23 +1,1498 @@
-float C3DCylinderGetBoundingBox(uint64_t a1, uint64_t a2, uint64_t a3)
+void C3DParametricGeometryMaterialDidChange(uint64_t result)
 {
-  Radius = C3DParametricGeometryGetRadius(a1);
-  result = C3DParametricGeometryGetHeight(a1);
-  if (a2)
+  if (*(result + 312) == C3DBoxCreateMesh)
   {
-    v7 = a3 == 0;
+    __Invalidate(result);
+    *(result + 308) = -1;
+  }
+}
+
+void __Invalidate(uint64_t a1)
+{
+  if (*(a1 + 64))
+  {
+    os_unfair_lock_lock(&_C3DParametricGeometryCacheLock);
+    _C3DParametricGeometryReleaseCachedMesh_not_thread_safe(a1);
+    os_unfair_lock_unlock(&_C3DParametricGeometryCacheLock);
+  }
+
+  C3DGeometrySetMesh(a1, 0);
+}
+
+uint64_t C3DParametricGeometryGetType(uint64_t a1, uint64_t a2)
+{
+  memset(v5, 0, sizeof(v5));
+  C3DParametricGeometryGetCallbacks(a1, a2, v5);
+  if (!memcmp(v5, kC3DBoxCallBacks, 0x30uLL))
+  {
+    return 1;
+  }
+
+  if (!memcmp(v5, kC3DPyramidCallBacks, 0x30uLL))
+  {
+    return 2;
+  }
+
+  if (!memcmp(v5, kC3DCylinderCallBacks, 0x30uLL))
+  {
+    return 4;
+  }
+
+  if (!memcmp(v5, kC3DConeCallBacks, 0x30uLL))
+  {
+    return 5;
+  }
+
+  if (!memcmp(v5, kC3DTubeCallBacks, 0x30uLL))
+  {
+    return 6;
+  }
+
+  if (!memcmp(v5, kC3DCapsuleCallBacks, 0x30uLL))
+  {
+    return 7;
+  }
+
+  if (!memcmp(v5, kC3DTorusCallBacks, 0x30uLL))
+  {
+    return 8;
+  }
+
+  if (!memcmp(v5, kC3DSphereCallBacks, 0x30uLL))
+  {
+    return 3;
+  }
+
+  result = memcmp(v5, kC3DPlaneCallBacks, 0x30uLL);
+  if (result)
+  {
+    v4 = scn_default_log(result, v3);
+    result = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
+    if (result)
+    {
+      C3DParametricGeometryGetType_cold_1(v4);
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+__n128 C3DParametricGeometryGetCallbacks@<Q0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+{
+  if (!a1)
+  {
+    v5 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    {
+      C3DGeometryGetName_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
+    }
+  }
+
+  v13 = *(a1 + 328);
+  *a3 = *(a1 + 312);
+  *(a3 + 16) = v13;
+  result = *(a1 + 344);
+  *(a3 + 32) = result;
+  return result;
+}
+
+uint64_t C3DParametricGeometryGetTypeID(uint64_t a1, uint64_t a2)
+{
+  if (C3DParametricGeometryGetTypeID_onceToken != -1)
+  {
+    C3DParametricGeometryGetTypeID_cold_1();
+  }
+
+  return C3DParametricGeometryGetTypeID_typeID;
+}
+
+double __C3DParametricGeometryGetTypeID_block_invoke()
+{
+  v0 = _CFRuntimeRegisterClass();
+  C3DParametricGeometryGetTypeID_typeID = v0;
+  TypeID = C3DGeometryGetTypeID(v0, v1);
+  C3DModelPathResolverRegisterClassBegin(v0, TypeID);
+  C3DModelPathResolverRegisterProperty(@"chamferRadius", 228, 1, 0);
+  C3DModelPathResolverRegisterProperty(@"chamferSegmentCount", 276, 2, 0);
+  C3DModelPathResolverRegisterProperty(@"height", 220, 1, 0);
+  C3DModelPathResolverRegisterProperty(@"heightSegmentCount", 268, 2, 0);
+  C3DModelPathResolverRegisterProperty(@"length", 224, 1, 0);
+  C3DModelPathResolverRegisterProperty(@"lengthSegmentCount", 272, 2, 0);
+  C3DModelPathResolverRegisterProperty(@"width", 216, 1, 0);
+  C3DModelPathResolverRegisterProperty(@"widthSegmentCount", 264, 2, 0);
+  C3DModelPathResolverRegisterClassEnd();
+  v5 = C3DGeometryGetTypeID(v3, v4);
+  C3DModelPathResolverRegisterClassBegin(v0, v5);
+  C3DModelPathResolverRegisterProperty(@"capRadius", 232, 1, 0);
+  C3DModelPathResolverRegisterProperty(@"capSegmentCount", 288, 2, 0);
+  C3DModelPathResolverRegisterProperty(@"radialSegmentCount", 284, 2, 0);
+  C3DModelPathResolverRegisterClassEnd();
+  v8 = C3DGeometryGetTypeID(v6, v7);
+  C3DModelPathResolverRegisterClassBegin(v0, v8);
+  C3DModelPathResolverRegisterProperty(@"bottomRadius", 240, 1, 0);
+  C3DModelPathResolverRegisterProperty(@"topRadius", 236, 1, 0);
+  C3DModelPathResolverRegisterClassEnd();
+  v11 = C3DGeometryGetTypeID(v9, v10);
+  C3DModelPathResolverRegisterClassBegin(v0, v11);
+  C3DModelPathResolverRegisterProperty(@"radialSpan", 260, 1, 0);
+  C3DModelPathResolverRegisterProperty(@"radius", 232, 1, 0);
+  C3DModelPathResolverRegisterClassEnd();
+  v14 = C3DGeometryGetTypeID(v12, v13);
+  C3DModelPathResolverRegisterClassBegin(v0, v14);
+  C3DModelPathResolverRegisterProperty(@"cornerRadius", 228, 1, 0);
+  C3DModelPathResolverRegisterProperty(@"cornerSegmentCount", 276, 2, 0);
+  C3DModelPathResolverRegisterClassEnd();
+  v17 = C3DGeometryGetTypeID(v15, v16);
+  C3DModelPathResolverRegisterClassBegin(v0, v17);
+  C3DModelPathResolverRegisterClassEnd();
+  v20 = C3DGeometryGetTypeID(v18, v19);
+  C3DModelPathResolverRegisterClassBegin(v0, v20);
+  C3DModelPathResolverRegisterProperty(@"segmentCount", 280, 2, 0);
+  C3DModelPathResolverRegisterClassEnd();
+  v23 = C3DGeometryGetTypeID(v21, v22);
+  C3DModelPathResolverRegisterClassBegin(v0, v23);
+  C3DModelPathResolverRegisterProperty(@"pipeRadius", 256, 1, 0);
+  C3DModelPathResolverRegisterProperty(@"pipeSegmentCount", 296, 2, 0);
+  C3DModelPathResolverRegisterProperty(@"ringRadius", 252, 1, 0);
+  C3DModelPathResolverRegisterProperty(@"ringSegmentCount", 292, 2, 0);
+  C3DModelPathResolverRegisterClassEnd();
+  v26 = C3DGeometryGetTypeID(v24, v25);
+  C3DModelPathResolverRegisterClassBegin(v0, v26);
+  C3DModelPathResolverRegisterProperty(@"innerRadius", 244, 1, 0);
+  C3DModelPathResolverRegisterProperty(@"outerRadius", 248, 1, 0);
+  C3DModelPathResolverRegisterClassEnd();
+  unk_281740800 = kC3DC3DParametricGeometryContextClassSerializable;
+  unk_281740810 = *&off_282DC6AD8;
+  unk_2817407C0 = kC3DC3DParametricGeometryContextClassBoundingVolumes;
+  xmmword_2817407A8 = kC3DC3DParametricGeometryContextClassAnimatable;
+  result = *&kC3DC3DParametricGeometryContextClassSceneLink;
+  unk_2817407D0 = kC3DC3DParametricGeometryContextClassSceneLink;
+  unk_2817407E0 = unk_282DC6B18;
+  qword_2817407F0 = qword_282DC6B28;
+  qword_281740820 = _C3DParametricGeometryCreateCopy;
+  return result;
+}
+
+float64_t C3DPlaneGetBoundingBoxForPlaneParameters(float32x2_t *a1, uint64_t a2, float64x2_t a3, float64_t a4)
+{
+  if (a1)
+  {
+    _ZF = a2 == 0;
   }
 
   else
   {
-    v7 = 1;
+    _ZF = 1;
   }
 
-  if (!v7)
+  if (!_ZF)
   {
-    *&v8 = -Radius;
+    a3.f64[1] = a4;
+    __asm { FMOV            V1.2D, #-0.5 }
+
+    a1[1].i32[0] = 0;
+    *a1 = vcvt_f32_f64(vmulq_f64(a3, _Q1));
+    __asm { FMOV            V1.2D, #0.5 }
+
+    *&a3.f64[0] = vcvt_f32_f64(vmulq_f64(a3, _Q1));
+    *(a2 + 8) = 0;
+    *a2 = a3.f64[0];
+  }
+
+  return a3.f64[0];
+}
+
+float32x2_t C3DPlaneGetBoundingBox(float32x2_t *a1, float32x2_t *a2, float32x2_t *a3)
+{
+  if (a2)
+  {
+    v3 = a3 == 0;
+  }
+
+  else
+  {
+    v3 = 1;
+  }
+
+  if (!v3)
+  {
+    v4 = a1[27];
+    a2[1].i32[0] = 0;
+    *a2 = vmul_f32(v4, 0xBF000000BF000000);
+    result = vmul_f32(v4, 0x3F0000003F000000);
+    a3[1].i32[0] = 0;
+    *a3 = result;
+  }
+
+  return result;
+}
+
+double C3DParametricGeometryGetFloatValue(uint64_t a1, int a2)
+{
+  v2 = _C3DParametricGeometryFloatPtr(a1, a2);
+  if (v2)
+  {
+    return *v2;
+  }
+
+  else
+  {
+    return 0.0;
+  }
+}
+
+BOOL C3DPlaneGetBoundingSphereForPlaneParameters(_OWORD *a1, double a2, double a3)
+{
+  if (a1)
+  {
+    v3 = sqrt(a3 * a3 + a2 * a2) * 0.5;
+    *&v4 = 0;
+    DWORD2(v4) = 0;
+    *(&v4 + 3) = v3;
+    *a1 = v4;
+  }
+
+  return a1 != 0;
+}
+
+BOOL C3DPlaneGetBoundingSphere(uint64_t a1, _OWORD *a2)
+{
+  if (a2)
+  {
+    v2 = sqrt(*(a1 + 220) * *(a1 + 220) + *(a1 + 216) * *(a1 + 216)) * 0.5;
+    *&v3 = 0;
+    DWORD2(v3) = 0;
+    *(&v3 + 3) = v2;
+    *a2 = v3;
+  }
+
+  return a2 != 0;
+}
+
+void C3DPlaneGeneratePointsCallBack(void *a1, uint64_t a2, unsigned int *a3, float64x2_t *a4, _OWORD *a5, unsigned int a6)
+{
+  v10 = a2;
+  v12 = a1[27];
+  ChamferRadius = C3DParametricGeometryGetChamferRadius(a1, a2);
+  if (a6 >= 2)
+  {
+    if (a6 == 2)
+    {
+
+      C3DGeometryGeneratePoints(a1, v10, a3, a4, a5, 2);
+    }
+  }
+
+  else
+  {
+    v14 = vcvtq_f64_f32(v12);
+    __asm { FMOV            V2.2D, #0.5 }
+
+    v20 = vmulq_f64(v14, _Q2);
+    if (ChamferRadius <= 0.0)
+    {
+      if (v10 >= 1)
+      {
+        v32 = vnegq_f64(v20);
+        v33 = vdupq_n_s64(0x3EF0001000100010uLL);
+        v34 = a5;
+        do
+        {
+          v35 = 214013 * *a3 + 2531011;
+          *a3 = 214013 * v35 + 2531011;
+          v36.i32[0] = v35;
+          v36.i32[1] = 214013 * v35 + 2531011;
+          v37 = vshr_n_u32(v36, 0x10uLL);
+          v38.i64[0] = v37.u32[0];
+          v38.i64[1] = v37.u32[1];
+          v39 = vmulq_f64(vcvtq_f64_u64(v38), v33);
+          *&v39.f64[0] = vcvt_f32_f64(vmlaq_f64(v32, v14, v39));
+          *a4 = v39;
+          if (a5)
+          {
+            *v34 = xmmword_21C27F600;
+          }
+
+          ++v34;
+          ++a4;
+          --v10;
+        }
+
+        while (v10);
+      }
+    }
+
+    else
+    {
+      v21 = ChamferRadius;
+      if (v20.f64[0] >= v20.f64[1])
+      {
+        v22 = v20.f64[1];
+      }
+
+      else
+      {
+        v22 = v20.f64[0];
+      }
+
+      if (v22 <= v21)
+      {
+        v23 = v22;
+      }
+
+      else
+      {
+        v23 = v21;
+      }
+
+      if (v10 >= 1)
+      {
+        v24 = 0;
+        v25 = -v20.f64[0];
+        v20.f64[0] = v23 - v20.f64[0];
+        do
+        {
+          v26 = *a3;
+          do
+          {
+            v27 = 214013 * v26 + 2531011;
+            v28 = v25 + HIWORD(v27) * 0.0000152590219 * v14.f64[0];
+            v26 = 214013 * v27 + 2531011;
+            v29 = HIWORD(v26) * 0.0000152590219 * v14.f64[1] - v20.f64[1];
+            v30 = v20.f64[0] + fabsf(v28);
+            if (v30 <= 0.0)
+            {
+              break;
+            }
+
+            v31 = v23 - v20.f64[1] + fabsf(v29);
+            if (v31 <= 0.0)
+            {
+              break;
+            }
+          }
+
+          while (v31 * v31 + v30 * v30 > v23 * v23);
+          *a3 = v26;
+          a4[v24] = __PAIR64__(LODWORD(v29), LODWORD(v28));
+          if (a5)
+          {
+            a5[v24] = xmmword_21C27F600;
+          }
+
+          ++v24;
+        }
+
+        while (v24 != v10);
+      }
+    }
+  }
+}
+
+float C3DParametricGeometryGetChamferRadius(uint64_t a1, uint64_t a2)
+{
+  if (!a1)
+  {
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    {
+      C3DParametricGeometryGetChamferRadius_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
+    }
+  }
+
+  return *(a1 + 228);
+}
+
+uint64_t C3DPlaneSetupDefaultParameters(uint64_t a1)
+{
+  C3DParametricGeometrySetFloatValue(a1, 0, 1.0);
+  C3DParametricGeometrySetFloatValue(a1, 1, 1.0);
+  C3DParametricGeometrySetFloatValue(a1, 3, 0.0);
+  C3DParametricGeometrySetIntValue(a1, 11, 1);
+  C3DParametricGeometrySetIntValue(a1, 12, 1);
+
+  return C3DParametricGeometrySetIntValue(a1, 14, 10);
+}
+
+uint64_t C3DPlaneHashParameters(_DWORD *a1, _DWORD *a2)
+{
+  *a2 = 0;
+  a2[1] = a1[75];
+  a2[2] = a1[54];
+  a2[3] = a1[55];
+  a2[4] = a1[57];
+  a2[5] = a1[66];
+  a2[6] = a1[67];
+  a2[7] = a1[69];
+  a2[8] = a1[77];
+  return 36;
+}
+
+float64_t C3DBoxGetBoundingBoxForBoxParameters(float32x2_t *a1, uint64_t a2, float64x2_t a3, float64_t a4, double a5)
+{
+  if (a1)
+  {
+    _ZF = a2 == 0;
+  }
+
+  else
+  {
+    _ZF = 1;
+  }
+
+  if (!_ZF)
+  {
+    a3.f64[1] = a4;
+    __asm { FMOV            V1.2D, #-0.5 }
+
+    v10 = a5 * -0.5;
+    a1[1].f32[0] = v10;
+    *a1 = vcvt_f32_f64(vmulq_f64(a3, _Q1));
+    __asm { FMOV            V1.2D, #0.5 }
+
+    *&a3.f64[0] = vcvt_f32_f64(vmulq_f64(a3, _Q1));
+    *_Q1.f64 = a5 * 0.5;
+    *(a2 + 8) = LODWORD(_Q1.f64[0]);
+    *a2 = a3.f64[0];
+  }
+
+  return a3.f64[0];
+}
+
+float32_t C3DBoxGetBoundingBox(float32x2_t *a1, float32x2_t *a2, float32x2_t *a3)
+{
+  if (a2)
+  {
+    v3 = a3 == 0;
+  }
+
+  else
+  {
+    v3 = 1;
+  }
+
+  if (!v3)
+  {
+    v4 = a1[28].f32[0];
+    v5 = a1[27];
+    a2[1].f32[0] = v4 * -0.5;
+    *a2 = vmul_f32(v5, 0xBF000000BF000000);
+    result = v4 * 0.5;
+    a3[1].f32[0] = result;
+    *a3 = vmul_f32(v5, 0x3F0000003F000000);
+  }
+
+  return result;
+}
+
+BOOL C3DBoxGetBoundingSphereForBoxParameters(_OWORD *a1, double a2, double a3, double a4)
+{
+  if (a1)
+  {
+    v4 = sqrt(a3 * a3 + a2 * a2 + a4 * a4) * 0.5;
+    *&v5 = 0;
+    DWORD2(v5) = 0;
+    *(&v5 + 3) = v4;
+    *a1 = v5;
+  }
+
+  return a1 != 0;
+}
+
+BOOL C3DBoxGetBoundingSphere(float *a1, _OWORD *a2)
+{
+  if (a2)
+  {
+    v2 = sqrt(a1[55] * a1[55] + a1[54] * a1[54] + a1[56] * a1[56]) * 0.5;
+    *&v3 = 0;
+    DWORD2(v3) = 0;
+    *(&v3 + 3) = v2;
+    *a2 = v3;
+  }
+
+  return a2 != 0;
+}
+
+void C3DBoxGeneratePointsCallBack(const void *a1, uint64_t a2, unsigned int *a3, float32x4_t *a4, float32x4_t *a5, int a6)
+{
+  v10 = a2;
+  Width = C3DParametricGeometryGetWidth(a1, a2);
+  Height = C3DParametricGeometryGetHeight(a1, v13);
+  Length = C3DParametricGeometryGetLength(a1, v15);
+  ChamferRadius = C3DParametricGeometryGetChamferRadius(a1, v17);
+  v23.f32[0] = Width * 0.5;
+  v24 = Height * 0.5;
+  v25.f32[0] = Length * 0.5;
+  if ((Width * 0.5) >= (Height * 0.5))
+  {
+    v26 = Height * 0.5;
+  }
+
+  else
+  {
+    v26 = Width * 0.5;
+  }
+
+  if (v26 >= v25.f32[0])
+  {
+    v26 = Length * 0.5;
+  }
+
+  if (ChamferRadius >= v26)
+  {
+    *v19.i32 = v26;
+  }
+
+  else
+  {
+    *v19.i32 = ChamferRadius;
+  }
+
+  if (a6 == 2)
+  {
+
+    C3DGeometryGeneratePoints(a1, v10, a3, a4, a5, 2);
+  }
+
+  else
+  {
+    v27 = v23;
+    v27.f32[1] = Height * 0.5;
+    v27.f32[2] = Length * 0.5;
+    v28 = *v19.i32;
+    v29 = v28 * v28;
+    v30 = vsubq_f32(v27, vdupq_lane_s32(v19, 0));
+    if (a6 == 1)
+    {
+      v70 = Width;
+      v71 = Height;
+      v72 = Length;
+      if (*v19.i32 <= 0.0)
+      {
+        if (v10 >= 1)
+        {
+          v87 = -v23.f32[0];
+          v88 = -v25.f32[0];
+          v89 = a5;
+          do
+          {
+            v90 = 214013 * *a3 + 2531011;
+            *v25.i64 = HIWORD(v90) * 0.0000152590219;
+            v91 = 214013 * v90 + 2531011;
+            v92 = HIWORD(v91) * 0.0000152590219 * v71 - v24;
+            v93 = 214013 * v91 + 2531011;
+            *a3 = v93;
+            v25.f32[0] = v87 + *v25.i64 * v70;
+            *&v92 = v92;
+            v94 = v88 + HIWORD(v93) * 0.0000152590219 * v72;
+            v25.i32[1] = LODWORD(v92);
+            v25.f32[2] = v94;
+            *a4 = v25;
+            if (a5)
+            {
+              v95 = vmulq_f32(v25, v25);
+              *&v96 = v95.f32[2] + vaddv_f32(*v95.f32);
+              *v95.f32 = vrsqrte_f32(v96);
+              *v95.f32 = vmul_f32(*v95.f32, vrsqrts_f32(v96, vmul_f32(*v95.f32, *v95.f32)));
+              v25 = vmulq_n_f32(v25, vmul_f32(*v95.f32, vrsqrts_f32(v96, vmul_f32(*v95.f32, *v95.f32))).f32[0]);
+              *v89 = v25;
+            }
+
+            ++v89;
+            ++a4;
+            --v10;
+          }
+
+          while (v10);
+        }
+      }
+
+      else if (v10 >= 1)
+      {
+        v73 = 0;
+        v74 = -v24;
+        v75 = -v25.f32[0];
+        do
+        {
+          v76 = *a3;
+          do
+          {
+            v77 = 214013 * v76 + 2531011;
+            v21.f32[0] = HIWORD(v77) * 0.0000152590219 * v70 - v23.f32[0];
+            v78 = 214013 * v77 + 2531011;
+            v79 = v74 + HIWORD(v78) * 0.0000152590219 * v71;
+            v76 = 214013 * v78 + 2531011;
+            v80 = v75 + HIWORD(v76) * 0.0000152590219 * v72;
+            v21.f32[1] = v79;
+            v21.f32[2] = v80;
+            v81 = vsubq_f32(vabsq_f32(v21), v30);
+            v82 = v81.f32[1];
+            v83 = v81.f32[1] > 0.0;
+            if (v81.f32[0] > 0.0)
+            {
+              ++v83;
+            }
+
+            if (v81.f32[2] > 0.0)
+            {
+              ++v83;
+            }
+
+            if (v83 == 2)
+            {
+              if (v81.f32[0] <= v81.f32[1])
+              {
+                v81.f32[0] = v81.f32[1];
+              }
+
+              if (v81.f32[1] <= v81.f32[2])
+              {
+                v82 = v81.f32[2];
+              }
+
+              v84 = (v82 * v82) + (v81.f32[0] * v81.f32[0]);
+            }
+
+            else
+            {
+              if (v83 != 3)
+              {
+                break;
+              }
+
+              v84 = ((v81.f32[1] * v81.f32[1]) + (v81.f32[0] * v81.f32[0])) + (v81.f32[2] * v81.f32[2]);
+            }
+          }
+
+          while (v29 < v84);
+          *a3 = v76;
+          a4[v73] = v21;
+          if (a5)
+          {
+            v85 = vmulq_f32(v21, v21);
+            *&v86 = v85.f32[2] + vaddv_f32(*v85.f32);
+            *v85.f32 = vrsqrte_f32(v86);
+            *v85.f32 = vmul_f32(*v85.f32, vrsqrts_f32(v86, vmul_f32(*v85.f32, *v85.f32)));
+            v21 = vmulq_n_f32(v21, vmul_f32(*v85.f32, vrsqrts_f32(v86, vmul_f32(*v85.f32, *v85.f32))).f32[0]);
+            a5[v73] = v21;
+          }
+
+          ++v73;
+        }
+
+        while (v73 != v10);
+      }
+    }
+
+    else if (!a6 && v10 >= 1)
+    {
+      v20.f32[0] = v24 * v25.f32[0];
+      v31 = v20;
+      v31.f32[1] = v23.f32[0] * v25.f32[0];
+      v31.f32[2] = v23.f32[0] * v24;
+      v32 = vmulq_n_f32(v31, 1.0 / ((v23.f32[0] * v24) + ((v24 * v25.f32[0]) + (v23.f32[0] * v25.f32[0]))));
+      v33 = v32.f32[0];
+      v34 = v33 + v33;
+      v35 = v33 + v33 + v32.f32[1] * 2.0;
+      v36.i64[0] = 0x8000000080000000;
+      v36.i64[1] = 0x8000000080000000;
+      v37 = a5;
+      do
+      {
+        v38 = 214013 * *a3 + 2531011;
+        v39 = 214013 * v38 + 2531011;
+        v40 = 214013 * v39 + 2531011;
+        *a3 = v40;
+        v41 = HIWORD(v40) * 0.0000152590219 + HIWORD(v40) * 0.0000152590219;
+        if (v41 >= v34)
+        {
+          if (v41 >= v35)
+          {
+            v43 = v41 - v35 < v32.f32[2] || v32.f32[2] == 1.0;
+            v42 = 2;
+          }
+
+          else
+          {
+            v43 = v41 - v34 < v32.f32[1] || v32.f32[1] == 1.0;
+            v42 = 1;
+          }
+
+          v44 = -1;
+        }
+
+        else
+        {
+          v42 = 0;
+          v43 = v32.f32[0] == 1.0;
+          if (v41 < v33)
+          {
+            v43 = 1;
+          }
+
+          v44 = 2;
+        }
+
+        v45 = HIWORD(v38) * 0.0000152590219 * 2.0 + -1.0;
+        v46 = HIWORD(v39) * 0.0000152590219 * 2.0 + -1.0;
+        if (v42 == 2)
+        {
+          v47 = 0;
+        }
+
+        else
+        {
+          v47 = v42 + 1;
+        }
+
+        v48 = v42 + v44;
+        v102 = v27;
+        v49 = *(&v102 | (4 * v42));
+        if (!v43)
+        {
+          v49 = -v49;
+        }
+
+        v103 = 0uLL;
+        *(&v103 & 0xFFFFFFFFFFFFFFF3 | (4 * (v42 & 3))) = v49;
+        v50 = v45 * *(&v102 & 0xFFFFFFFFFFFFFFF3 | (4 * (v47 & 3)));
+        v104 = v103;
+        *(&v104 & 0xFFFFFFFFFFFFFFF3 | (4 * (v47 & 3))) = v50;
+        v51 = v46 * *(&v102 & 0xFFFFFFFFFFFFFFF3 | (4 * (v48 & 3)));
+        v105 = v104;
+        *(&v105 & 0xFFFFFFFFFFFFFFF3 | (4 * (v48 & 3))) = v51;
+        v52 = v105;
+        v53 = v105;
+        v53.i32[3] = v22;
+        if (*v19.i32 <= 0.0)
+        {
+          goto LABEL_54;
+        }
+
+        v54 = vsubq_f32(vabsq_f32(v105), v30);
+        v55 = v54.f32[1] > 0.0;
+        if (v54.f32[0] > 0.0)
+        {
+          ++v55;
+        }
+
+        if (v54.f32[2] > 0.0)
+        {
+          ++v55;
+        }
+
+        if (v55 == 3)
+        {
+          v57 = vmulq_f32(v54, v54);
+          v58 = v57.f32[2] + vaddv_f32(*v57.f32);
+          if (v29 < v58)
+          {
+            v59 = vmlaq_n_f32(v30, v54, *v19.i32 / sqrtf(v58));
+            *v53.f32 = vbsl_s8(0x8000000080000000, *v59.f32, *v105.i8);
+            v54.i32[0] = v59.i32[2];
+            v52.i32[0] = v105.i32[2];
+            v53.i32[2] = vbslq_s8(v36, v54, v52).u32[0];
+LABEL_53:
+            v53.i32[3] = v22;
+          }
+        }
+
+        else if (v55 == 2)
+        {
+          if (v42 == 2)
+          {
+            v56 = v54.f32[1] <= 0.0;
+          }
+
+          else if (v42 == 1)
+          {
+            v56 = 2 * (v54.f32[0] > 0.0);
+          }
+
+          else if (v54.f32[1] <= 0.0)
+          {
+            v56 = 1;
+          }
+
+          else
+          {
+            v56 = 2;
+          }
+
+          if (v56 == 2)
+          {
+            v60 = 0;
+          }
+
+          else
+          {
+            v60 = v56 + 1;
+          }
+
+          v61 = (v56 + 2) % 3u;
+          v97 = v54;
+          *(&v97 & 0xFFFFFFFFFFFFFFF3 | (4 * (v56 & 3))) = 0;
+          v62 = v97;
+          v63 = vmulq_f32(v62, v62);
+          *v63.i64 = v28 / sqrtf(v63.f32[2] + vaddv_f32(*v63.f32));
+          v64 = (&v100 & 0xFFFFFFFFFFFFFFF3 | (4 * (v60 & 3)));
+          v98 = v30;
+          v65 = *(&v98 & 0xFFFFFFFFFFFFFFF3 | (4 * (v60 & 3)));
+          v99 = v97;
+          *v62.i64 = v65 + *(&v99 & 0xFFFFFFFFFFFFFFF3 | (4 * (v60 & 3))) * *v63.i64;
+          v62.f32[0] = *v62.i64;
+          v100 = v52;
+          v52.i32[0] = *v64;
+          *v64 = vbslq_s8(v36, v62, v52).u32[0];
+          v66 = v100;
+          v67 = (&v101 & 0xFFFFFFFFFFFFFFF3 | (4 * (v61 & 3)));
+          *v62.i64 = *(&v98 & 0xFFFFFFFFFFFFFFF3 | (4 * (v61 & 3))) + *(&v99 & 0xFFFFFFFFFFFFFFF3 | (4 * (v61 & 3))) * *v63.i64;
+          v62.f32[0] = *v62.i64;
+          v101 = v100;
+          v66.i32[0] = *v67;
+          *v67 = vbslq_s8(v36, v62, v66).u32[0];
+          v53 = v101;
+          goto LABEL_53;
+        }
+
+LABEL_54:
+        *a4 = v53;
+        if (a5)
+        {
+          v68 = vmulq_f32(v53, v53);
+          *&v69 = v68.f32[2] + vaddv_f32(*v68.f32);
+          *v68.f32 = vrsqrte_f32(v69);
+          *v68.f32 = vmul_f32(*v68.f32, vrsqrts_f32(v69, vmul_f32(*v68.f32, *v68.f32)));
+          *v37 = vmulq_n_f32(v53, vmul_f32(*v68.f32, vrsqrts_f32(v69, vmul_f32(*v68.f32, *v68.f32))).f32[0]);
+        }
+
+        ++v37;
+        ++a4;
+        v22 = v53.i32[3];
+        --v10;
+      }
+
+      while (v10);
+    }
+  }
+}
+
+float C3DParametricGeometryGetWidth(uint64_t a1, uint64_t a2)
+{
+  if (!a1)
+  {
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    {
+      C3DParametricGeometryGetChamferRadius_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
+    }
+  }
+
+  return *(a1 + 216);
+}
+
+float C3DParametricGeometryGetHeight(uint64_t a1, uint64_t a2)
+{
+  if (!a1)
+  {
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    {
+      C3DParametricGeometryGetChamferRadius_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
+    }
+  }
+
+  return *(a1 + 220);
+}
+
+float C3DParametricGeometryGetLength(uint64_t a1, uint64_t a2)
+{
+  if (!a1)
+  {
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    {
+      C3DParametricGeometryGetChamferRadius_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
+    }
+  }
+
+  return *(a1 + 224);
+}
+
+uint64_t C3DBoxSetupDefaultParameters(uint64_t a1)
+{
+  C3DParametricGeometrySetFloatValue(a1, 0, 1.0);
+  C3DParametricGeometrySetFloatValue(a1, 1, 1.0);
+  C3DParametricGeometrySetFloatValue(a1, 2, 1.0);
+  C3DParametricGeometrySetFloatValue(a1, 3, 0.0);
+  C3DParametricGeometrySetIntValue(a1, 11, 1);
+  C3DParametricGeometrySetIntValue(a1, 12, 1);
+  C3DParametricGeometrySetIntValue(a1, 13, 1);
+
+  return C3DParametricGeometrySetIntValue(a1, 14, 5);
+}
+
+uint64_t C3DBoxHashParameters(_DWORD *a1, _DWORD *a2)
+{
+  *a2 = 1;
+  a2[1] = a1[75];
+  a2[2] = a1[54];
+  a2[3] = a1[55];
+  a2[4] = a1[56];
+  a2[5] = a1[57];
+  a2[6] = a1[66];
+  a2[7] = a1[67];
+  a2[8] = a1[68];
+  a2[9] = a1[69];
+  a2[10] = a1[77];
+  return 44;
+}
+
+double C3DPyramidGetBoundingBoxForPyramidParameters(uint64_t a1, uint64_t a2, int32x4_t a3, double a4, float64_t a5)
+{
+  if (a1)
+  {
+    _ZF = a2 == 0;
+  }
+
+  else
+  {
+    _ZF = 1;
+  }
+
+  if (!_ZF)
+  {
+    *&v6.f64[0] = a3.i64[0];
+    v6.f64[1] = a5;
+    __asm { FMOV            V4.2D, #-0.5 }
+
+    v11 = vmulq_f64(v6, _Q4);
+    *&v11.f64[0] = vcvt_f32_f64(v11);
+    LODWORD(_Q4.f64[0]) = vzip1q_s32(v11, a3).u32[0];
+    *(a1 + 8) = HIDWORD(v11.f64[0]);
+    v12 = *a3.i64 * 0.5;
+    *&a3.i64[1] = a4;
+    *a1 = LODWORD(_Q4.f64[0]);
+    *a3.i8 = vcvt_f32_f64(a3);
+    v13 = a5 * 0.5;
+    *(a2 + 8) = v13;
+    *a2 = a3.i64[0];
+  }
+
+  return *a3.i64;
+}
+
+float C3DPyramidGetBoundingBox(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  *v6.i32 = C3DParametricGeometryGetWidth(a1, a2);
+  v15 = v6;
+  Height = C3DParametricGeometryGetHeight(a1, v7);
+  *v9.i32 = C3DParametricGeometryGetLength(a1, v8);
+  if (a2)
+  {
+    v10 = a3 == 0;
+  }
+
+  else
+  {
+    v10 = 1;
+  }
+
+  if (!v10)
+  {
+    v11 = v15;
+    v11.i32[1] = v9.i32[0];
+    *v11.i8 = vmul_f32(*v11.i8, 0xBF000000BF000000);
+    *(a2 + 8) = v11.i32[1];
+    *a2 = vzip1q_s32(v11, v9).u32[0];
+    *&v12 = *v15.i32 * 0.5;
+    *(&v12 + 1) = Height;
+    *v9.i32 = *v9.i32 * 0.5;
+    *(a3 + 8) = v9.i32[0];
+    *a3 = v12;
+  }
+
+  return *v9.i32;
+}
+
+BOOL C3DPyramidGetBoundingSphereForPyramidParameters(int32x4_t *a1, double a2, float64x2_t a3, double a4)
+{
+  if (a1)
+  {
+    a3.f64[1] = sqrt(a3.f64[0] * a3.f64[0] + a2 * a2 + a4 * a4);
+    __asm { FMOV            V0.2D, #0.5 }
+
+    v9 = vmulq_f64(a3, _Q0);
+    *&v9.f64[0] = vcvt_f32_f64(v9);
+    *a1 = vtrn1q_s32(0, vzip1q_s32(v9, v9));
+  }
+
+  return a1 != 0;
+}
+
+BOOL C3DPyramidGetBoundingSphere(uint64_t a1, _OWORD *a2)
+{
+  Width = C3DParametricGeometryGetWidth(a1, a2);
+  Height = C3DParametricGeometryGetHeight(a1, v5);
+  Length = C3DParametricGeometryGetLength(a1, v7);
+  if (a2)
+  {
+    v9 = sqrt(Height * Height + Width * Width + Length * Length) * 0.5;
+    LODWORD(v10) = 0;
+    DWORD2(v10) = 0;
+    *(&v10 + 1) = Height * 0.5;
+    *(&v10 + 3) = v9;
+    *a2 = v10;
+  }
+
+  return a2 != 0;
+}
+
+void C3DPyramidGeneratePointsCallBack(const void *a1, uint64_t a2, unsigned int *a3, float32x4_t *a4, float32x4_t *a5, int a6)
+{
+  v10 = a2;
+  v80 = *MEMORY[0x277D85DE8];
+  Width = C3DParametricGeometryGetWidth(a1, a2);
+  Height = C3DParametricGeometryGetHeight(a1, v13);
+  Length = C3DParametricGeometryGetLength(a1, v14);
+  v20.f32[0] = Width * 0.5;
+  v21.f32[0] = Length * 0.5;
+  if (a6)
+  {
+    if (a6 == 2)
+    {
+
+      C3DGeometryGeneratePoints(a1, v10, a3, a4, a5, 2);
+    }
+
+    else if (a6 == 1 && v10 >= 1)
+    {
+      v22 = Height;
+      v23 = v21.f32[0];
+      v24 = a5;
+      do
+      {
+        v25 = 214013 * *a3 + 2531011;
+        v26 = HIWORD(v25) * 0.0000152590219 * v22;
+        *v21.i64 = v22 - v26;
+        v27 = *v21.i64 * v23 / v22;
+        v28 = 214013 * v25 + 2531011;
+        v21.f32[0] = (HIWORD(v28) * 0.0000152590219 * 2.0 + -1.0) * (*v21.i64 * v20.f32[0] / v22);
+        v29 = 214013 * v28 + 2531011;
+        *a3 = v29;
+        v30 = (HIWORD(v29) * 0.0000152590219 * 2.0 + -1.0) * v27;
+        v21.f32[1] = v26;
+        v21.f32[2] = v30;
+        *a4 = v21;
+        if (a5)
+        {
+          v31 = vmulq_f32(v21, v21);
+          *&v32 = v31.f32[2] + vaddv_f32(*v31.f32);
+          *v31.f32 = vrsqrte_f32(v32);
+          *v31.f32 = vmul_f32(*v31.f32, vrsqrts_f32(v32, vmul_f32(*v31.f32, *v31.f32)));
+          v21 = vmulq_n_f32(v21, vmul_f32(*v31.f32, vrsqrts_f32(v32, vmul_f32(*v31.f32, *v31.f32))).f32[0]);
+          *v24 = v21;
+        }
+
+        ++v24;
+        ++a4;
+        --v10;
+      }
+
+      while (v10);
+    }
+  }
+
+  else if (v10 >= 1)
+  {
+    v33 = 0;
+    v36.i32[1] = 0;
+    v36.i32[3] = 0;
+    v37.i32[3] = 0;
+    v37.i64[0] = v20.u32[0];
+    v20 = v20.u32[0];
+    v20.f32[2] = Length * 0.5;
+    v34.i32[0] = 0;
+    v34.i64[1] = 0;
+    v34.f32[1] = Height;
+    v36.f32[0] = -(Width * 0.5);
+    v35 = v36.u32[0];
+    v35.f32[2] = Length * 0.5;
+    v36.f32[2] = -(Length * 0.5);
+    v37.f32[2] = v36.f32[2];
+    v38 = vsubq_f32(v20, v35);
+    v39 = vsubq_f32(v37, v20);
+    v40 = vsubq_f32(v36, v37);
+    v41 = vsubq_f32(v35, v36);
+    v42 = vsubq_f32(v34.u64[0], v35);
+    v43 = vsubq_f32(v34.u64[0], v37);
+    v44 = vextq_s8(vuzp1q_s32(v43, v43), v43, 0xCuLL);
+    v45 = vmlaq_f32(vmulq_f32(v44, vnegq_f32(v39)), v43, vextq_s8(vuzp1q_s32(v39, v39), v39, 0xCuLL));
+    v46 = vextq_s8(vuzp1q_s32(v45, v45), v45, 0xCuLL);
+    v47 = vextq_s8(vuzp1q_s32(v41, v41), v41, 0xCuLL);
+    v48 = vextq_s8(vuzp1q_s32(v42, v42), v42, 0xCuLL);
+    v49 = vnegq_f32(v41);
+    v50 = vmlaq_f32(vmulq_f32(v48, v49), v42, v47);
+    v51 = vextq_s8(vuzp1q_s32(v50, v50), v50, 0xCuLL);
+    v52 = vmlaq_f32(vmulq_f32(v44, vnegq_f32(v40)), v43, vextq_s8(vuzp1q_s32(v40, v40), v40, 0xCuLL));
+    v53 = vextq_s8(vuzp1q_s32(v52, v52), v52, 0xCuLL);
+    v54 = vmlaq_f32(vmulq_f32(v48, vnegq_f32(v38)), v42, vextq_s8(vuzp1q_s32(v38, v38), v38, 0xCuLL));
+    v55 = vextq_s8(vuzp1q_s32(v54, v54), v54, 0xCuLL);
+    do
+    {
+      v56 = v16;
+      v57 = v17;
+      v58 = v19;
+      v59 = v18.i32[3];
+      v79 = 0.16667;
+      v78 = xmmword_21C2A2798;
+      v60 = 4;
+      v61 = 0.33333;
+      do
+      {
+        v61 = v61 + *(&v78 + v60);
+        *(&v78 + v60) = v61;
+        v60 += 4;
+      }
+
+      while (v60 != 20);
+      v62 = 214013 * *a3 + 2531011;
+      v63 = HIWORD(v62) * 0.0000152590219;
+      v16 = v35;
+      v17 = v49;
+      v19 = v38;
+      v18 = xmmword_21C27F9A0;
+      if (v63 >= 0.33333)
+      {
+        v16 = v34;
+        v17 = v20;
+        v19 = v35;
+        v18 = v55;
+        if (*(&v78 + 1) <= v63)
+        {
+          v16 = v34;
+          v17 = v36;
+          v19 = v37;
+          v18 = v53;
+          if (*(&v78 + 2) <= v63)
+          {
+            v16 = v36;
+            v17 = v34;
+            v19 = v35;
+            v18 = v51;
+            if (*(&v78 + 3) <= v63)
+            {
+              if (v79 <= v63)
+              {
+                v18.i64[0] = 0;
+                v18.i32[2] = 0;
+                v18.i32[3] = v59;
+                v16 = v56;
+                v17 = v57;
+                v19 = v58;
+              }
+
+              else
+              {
+                v16 = v37;
+                v17 = v20;
+                v19 = v34;
+                v18 = v46;
+              }
+            }
+          }
+        }
+      }
+
+      v64 = 214013 * v62 + 2531011;
+      v65 = HIWORD(v64) * 0.0000152590219;
+      v66 = 214013 * v64 + 2531011;
+      *a3 = v66;
+      v67 = HIWORD(v66) * 0.0000152590219;
+      if (v63 >= 0.33333)
+      {
+        v69 = 214013 * v66 + 2531011;
+        *a3 = v69;
+        v70 = HIWORD(v69) * 0.0000152590219;
+        v71 = 1.0 / ((v65 + v67) + v70);
+        v72 = v71 * v65;
+        v73 = v71 * v67;
+        v74 = v71 * v70;
+        v68 = vmlaq_n_f32(vmlaq_n_f32(vmulq_n_f32(v17, v73), v19, v72), v16, v74);
+      }
+
+      else
+      {
+        v68 = vaddq_f32(v16, vmlaq_n_f32(vmulq_n_f32(v17, v67), v19, v65));
+      }
+
+      a4[v33] = v68;
+      if (a5)
+      {
+        v75 = vmulq_f32(v18, v18);
+        *&v76 = v75.f32[2] + vaddv_f32(*v75.f32);
+        *v75.f32 = vrsqrte_f32(v76);
+        *v75.f32 = vmul_f32(*v75.f32, vrsqrts_f32(v76, vmul_f32(*v75.f32, *v75.f32)));
+        a5[v33] = vmulq_n_f32(v18, vmul_f32(*v75.f32, vrsqrts_f32(v76, vmul_f32(*v75.f32, *v75.f32))).f32[0]);
+      }
+
+      ++v33;
+    }
+
+    while (v33 != v10);
+  }
+}
+
+uint64_t C3DPyramidSetupDefaultParameters(uint64_t a1)
+{
+  C3DParametricGeometrySetFloatValue(a1, 0, 1.0);
+  C3DParametricGeometrySetFloatValue(a1, 1, 1.0);
+  C3DParametricGeometrySetFloatValue(a1, 2, 1.0);
+  C3DParametricGeometrySetIntValue(a1, 11, 1);
+  C3DParametricGeometrySetIntValue(a1, 12, 1);
+
+  return C3DParametricGeometrySetIntValue(a1, 13, 1);
+}
+
+uint64_t C3DPyramidHashParameters(_DWORD *a1, _DWORD *a2)
+{
+  *a2 = 2;
+  a2[1] = a1[75];
+  a2[2] = a1[54];
+  a2[3] = a1[55];
+  a2[4] = a1[56];
+  a2[5] = a1[66];
+  a2[6] = a1[67];
+  a2[7] = a1[68];
+  a2[8] = a1[77];
+  return 36;
+}
+
+float C3DSphereGetBoundingBoxForSphereParameters(uint64_t a1, uint64_t a2, double a3, double a4)
+{
+  if (a1)
+  {
+    v4 = a2 == 0;
+  }
+
+  else
+  {
+    v4 = 1;
+  }
+
+  if (!v4)
+  {
+    *&a3 = a3;
+    *&a4 = -*&a3;
+    *(a1 + 8) = -*&a3;
+    *a1 = vdupq_lane_s32(*&a4, 0).u64[0];
+    *(a2 + 8) = LODWORD(a3);
+    *a2 = vdupq_lane_s32(*&a3, 0).u64[0];
+  }
+
+  return *&a3;
+}
+
+float C3DSphereGetBoundingBox(uint64_t a1, uint64_t a2, uint64_t a3, double a4, double a5)
+{
+  if (a2)
+  {
+    v5 = a3 == 0;
+  }
+
+  else
+  {
+    v5 = 1;
+  }
+
+  if (!v5)
+  {
+    LODWORD(a4) = *(a1 + 232);
+    *&a5 = -*&a4;
+    *(a2 + 8) = -*&a4;
+    *a2 = vdupq_lane_s32(*&a5, 0).u64[0];
+    *(a3 + 8) = LODWORD(a4);
+    *a3 = vdupq_lane_s32(*&a4, 0).u64[0];
+  }
+
+  return *&a4;
+}
+
+BOOL C3DSphereGetBoundingSphereForSphereParameters(_OWORD *a1, double a2)
+{
+  if (a1)
+  {
+    v2 = a2;
+    *&v3 = 0;
+    DWORD2(v3) = 0;
+    *(&v3 + 3) = v2;
+    *a1 = v3;
+  }
+
+  return a1 != 0;
+}
+
+BOOL C3DSphereGetBoundingSphere(uint64_t a1, _OWORD *a2)
+{
+  if (a2)
+  {
+    *&v2 = 0;
+    DWORD2(v2) = 0;
+    HIDWORD(v2) = *(a1 + 232);
+    *a2 = v2;
+  }
+
+  return a2 != 0;
+}
+
+void C3DSphereGeneratePointsCallBack(_DWORD *a1, uint64_t a2, unsigned int *a3, float32x4_t *a4, float32x4_t *a5, uint64_t a6, double a7)
+{
+  v9 = a4;
+  v11 = a2;
+  LODWORD(a7) = a1[58];
+  if (a6)
+  {
+    if (a6 == 2)
+    {
+
+      C3DGeometryGeneratePoints(a1, a2, a3, a4, a5, a6);
+    }
+
+    else if (a6 == 1 && a2 >= 1)
+    {
+      v12 = 0;
+      v13 = vdup_n_s32(0x37800080u);
+      __asm { FMOV            V3.2S, #-1.0 }
+
+      do
+      {
+        v19 = *a3;
+        do
+        {
+          v20 = 214013 * v19 + 2531011;
+          v7.i32[0] = v20;
+          v7.i32[1] = 214013 * v20 + 2531011;
+          *v7.f32 = vmla_f32(_D3, 0x4000000040000000, vmul_f32(vcvt_f32_u32(vshr_n_u32(*v7.f32, 0x10uLL)), v13));
+          v19 = 214013 * (214013 * v20 + 2531011) + 2531011;
+          v7.f32[2] = ((HIWORD(v19) * 0.000015259) * 2.0) + -1.0;
+          v21 = vmulq_f32(v7, v7);
+          v21.f32[0] = sqrtf(v21.f32[2] + vaddv_f32(*v21.f32));
+        }
+
+        while (v21.f32[0] > 1.0);
+        *a3 = v19;
+        if (a5)
+        {
+          a5[v12] = vdivq_f32(v7, vdupq_lane_s32(*v21.f32, 0));
+        }
+
+        v7 = vaddq_f32(vmulq_n_f32(v7, *&a7), 0);
+        a4[v12++] = v7;
+      }
+
+      while (v12 != a2);
+    }
+  }
+
+  else if (a2 >= 1)
+  {
+    v28 = vdupq_lane_s32(*&a7, 0);
+    v22 = a5;
+    do
+    {
+      v23 = 214013 * *a3 + 2531011;
+      v29 = ((HIWORD(v23) * 0.000015259) * 2.0) + -1.0;
+      v24 = 214013 * v23 + 2531011;
+      *a3 = v24;
+      v25 = ((HIWORD(v24) * 0.000015259) + (HIWORD(v24) * 0.000015259)) * 3.14159265;
+      v26 = __sincosf_stret(v25);
+      *v27.f32 = vmul_n_f32(__PAIR64__(LODWORD(v26.__sinval), LODWORD(v26.__cosval)), sqrtf(1.0 - (v29 * v29)));
+      v27.f32[2] = v29;
+      *v9 = vmlaq_f32(0, v28, v27);
+      if (a5)
+      {
+        *v22 = v27;
+      }
+
+      ++v22;
+      ++v9;
+      --v11;
+    }
+
+    while (v11);
+  }
+}
+
+uint64_t C3DSphereSetupDefaultParameters(uint64_t a1)
+{
+  C3DParametricGeometrySetIntValue(a1, 22, 3);
+  C3DParametricGeometrySetFloatValue(a1, 4, 0.5);
+  C3DParametricGeometrySetIntValue(a1, 23, 24);
+
+  return C3DParametricGeometrySetFloatValue(a1, 21, 1.0);
+}
+
+uint64_t C3DSphereHashParameters(_DWORD *a1, _DWORD *a2)
+{
+  *a2 = 3;
+  a2[1] = a1[75];
+  a2[2] = a1[76];
+  a2[3] = a1[58];
+  a2[4] = a1[70];
+  a2[5] = a1[65];
+  a2[6] = a1[77];
+  return 28;
+}
+
+float64_t C3DCylinderGetBoundingBoxForCylinderParameters(uint64_t a1, uint64_t a2, float64x2_t a3, double a4)
+{
+  if (a1)
+  {
+    v4 = a2 == 0;
+  }
+
+  else
+  {
+    v4 = 1;
+  }
+
+  if (!v4)
+  {
+    v5 = a4 * -0.5;
+    a3.f64[1] = a4 * 0.5;
+    *&a3.f64[0] = vcvt_f32_f64(a3);
+    *&v6 = -*a3.f64;
+    *(a1 + 8) = -*a3.f64;
+    *(&v6 + 1) = v5;
+    *a1 = v6;
+    *(a2 + 8) = LODWORD(a3.f64[0]);
+    *a2 = a3.f64[0];
+  }
+
+  return a3.f64[0];
+}
+
+float C3DCylinderGetBoundingBox(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  Radius = C3DParametricGeometryGetRadius(a1, a2);
+  result = C3DParametricGeometryGetHeight(a1, v6);
+  if (a2)
+  {
+    v8 = a3 == 0;
+  }
+
+  else
+  {
+    v8 = 1;
+  }
+
+  if (!v8)
+  {
+    *&v9 = -Radius;
     *(a2 + 8) = -Radius;
-    *(&v8 + 1) = result * -0.5;
-    *a2 = v8;
+    *(&v9 + 1) = result * -0.5;
+    *a2 = v9;
     result = result * 0.5;
     *(a3 + 8) = Radius;
     *a3 = __PAIR64__(LODWORD(result), LODWORD(Radius));
@@ -26,14 +1501,14 @@ float C3DCylinderGetBoundingBox(uint64_t a1, uint64_t a2, uint64_t a3)
   return result;
 }
 
-float C3DParametricGeometryGetRadius(uint64_t a1)
+float C3DParametricGeometryGetRadius(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DParametricGeometryGetChamferRadius_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DParametricGeometryGetChamferRadius_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
@@ -56,15 +1531,15 @@ BOOL C3DCylinderGetBoundingSphereForCylinderParameters(_OWORD *a1, double a2, do
 
 BOOL C3DCylinderGetBoundingSphere(uint64_t a1, _OWORD *a2)
 {
-  Radius = C3DParametricGeometryGetRadius(a1);
-  Height = C3DParametricGeometryGetHeight(a1);
+  Radius = C3DParametricGeometryGetRadius(a1, a2);
+  Height = C3DParametricGeometryGetHeight(a1, v5);
   if (a2)
   {
-    v6 = sqrt(Height * 0.25 * Height + Radius * Radius);
-    *&v7 = 0;
-    DWORD2(v7) = 0;
-    *(&v7 + 3) = v6;
-    *a2 = v7;
+    v7 = sqrt(Height * 0.25 * Height + Radius * Radius);
+    *&v8 = 0;
+    DWORD2(v8) = 0;
+    *(&v8 + 3) = v7;
+    *a2 = v8;
   }
 
   return a2 != 0;
@@ -72,83 +1547,84 @@ BOOL C3DCylinderGetBoundingSphere(uint64_t a1, _OWORD *a2)
 
 void C3DCylinderGeneratePointsCallBack(const void *a1, uint64_t a2, unsigned int *a3, _OWORD *a4, _OWORD *a5, int a6)
 {
-  Radius = C3DParametricGeometryGetRadius(a1);
-  Height = C3DParametricGeometryGetHeight(a1);
+  v10 = a2;
+  Radius = C3DParametricGeometryGetRadius(a1, a2);
+  Height = C3DParametricGeometryGetHeight(a1, v13);
   if (a6)
   {
     if (a6 == 2)
     {
 
-      C3DGeometryGeneratePoints(a1, a2, a3, a4, a5, 2);
+      C3DGeometryGeneratePoints(a1, v10, a3, a4, a5, 2);
     }
 
-    else if (a6 == 1 && a2 >= 1)
+    else if (a6 == 1 && v10 >= 1)
     {
-      v14 = Radius;
-      v15 = a5;
+      v15 = Radius;
+      v16 = a5;
       do
       {
-        v16 = 214013 * *a3 + 2531011;
-        v17 = HIWORD(v16) * 0.0000152590219 + HIWORD(v16) * 0.0000152590219;
-        v18 = __sincos_stret(v17 * 3.14159265);
-        sinval = v18.__sinval;
-        cosval = v18.__cosval;
-        v21 = 214013 * v16 + 2531011;
-        v22 = HIWORD(v21) * 0.0000152590219 * v14;
-        v23.f64[0] = v22 * cosval;
-        v24 = 214013 * v21 + 2531011;
-        v23.f64[1] = Height * -0.5 + HIWORD(v24) * 0.0000152590219 * Height;
-        *a3 = v24;
-        *&v23.f64[0] = vcvt_f32_f64(v23);
-        *&v22 = v22 * sinval;
-        LODWORD(v23.f64[1]) = LODWORD(v22);
-        *a4 = v23;
+        v17 = 214013 * *a3 + 2531011;
+        v18 = HIWORD(v17) * 0.0000152590219 + HIWORD(v17) * 0.0000152590219;
+        v19 = __sincos_stret(v18 * 3.14159265);
+        sinval = v19.__sinval;
+        cosval = v19.__cosval;
+        v22 = 214013 * v17 + 2531011;
+        v23 = HIWORD(v22) * 0.0000152590219 * v15;
+        v24.f64[0] = v23 * cosval;
+        v25 = 214013 * v22 + 2531011;
+        v24.f64[1] = Height * -0.5 + HIWORD(v25) * 0.0000152590219 * Height;
+        *a3 = v25;
+        *&v24.f64[0] = vcvt_f32_f64(v24);
+        *&v23 = v23 * sinval;
+        LODWORD(v24.f64[1]) = LODWORD(v23);
+        *a4 = v24;
         if (a5)
         {
-          *&v25 = LODWORD(cosval);
-          *(&v25 + 1) = LODWORD(sinval);
-          *v15 = v25;
+          *&v26 = LODWORD(cosval);
+          *(&v26 + 1) = LODWORD(sinval);
+          *v16 = v26;
         }
 
-        ++v15;
+        ++v16;
         ++a4;
-        --a2;
+        --v10;
       }
 
-      while (a2);
+      while (v10);
     }
   }
 
-  else if (a2 >= 1)
+  else if (v10 >= 1)
   {
-    v26 = a5;
+    v27 = a5;
     do
     {
-      v27 = 214013 * *a3 + 2531011;
-      v28 = HIWORD(v27) * 0.0000152590219 + HIWORD(v27) * 0.0000152590219;
-      v29 = __sincos_stret(v28 * 3.14159265);
-      v30 = v29.__sinval;
-      v31 = v29.__cosval;
-      v32 = 214013 * v27 + 2531011;
-      *a3 = v32;
-      *&v33 = Radius * v31;
-      v34 = Height * -0.5 + HIWORD(v32) * 0.0000152590219 * Height;
-      *(&v33 + 1) = v34;
-      *(&v33 + 2) = Radius * v30;
-      *a4 = v33;
+      v28 = 214013 * *a3 + 2531011;
+      v29 = HIWORD(v28) * 0.0000152590219 + HIWORD(v28) * 0.0000152590219;
+      v30 = __sincos_stret(v29 * 3.14159265);
+      v31 = v30.__sinval;
+      v32 = v30.__cosval;
+      v33 = 214013 * v28 + 2531011;
+      *a3 = v33;
+      *&v34 = Radius * v32;
+      v35 = Height * -0.5 + HIWORD(v33) * 0.0000152590219 * Height;
+      *(&v34 + 1) = v35;
+      *(&v34 + 2) = Radius * v31;
+      *a4 = v34;
       if (a5)
       {
-        *&v35 = LODWORD(v31);
-        *(&v35 + 1) = LODWORD(v30);
-        *v26 = v35;
+        *&v36 = LODWORD(v32);
+        *(&v36 + 1) = LODWORD(v31);
+        *v27 = v36;
       }
 
-      ++v26;
+      ++v27;
       ++a4;
-      --a2;
+      --v10;
     }
 
-    while (a2);
+    while (v10);
   }
 }
 
@@ -208,68 +1684,68 @@ float64_t C3DConeGetBoundingBoxForConeParameters(uint64_t a1, uint64_t a2, float
   return a3.f64[0];
 }
 
-uint64_t C3DConeGetBoundingBox(uint64_t a1, uint64_t a2, uint64_t a3)
+BOOL C3DConeGetBoundingBox(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  TopRadius = C3DParametricGeometryGetTopRadius(a1);
-  BottomRadius = C3DParametricGeometryGetBottomRadius(a1);
-  Height = C3DParametricGeometryGetHeight(a1);
+  TopRadius = C3DParametricGeometryGetTopRadius(a1, a2);
+  BottomRadius = C3DParametricGeometryGetBottomRadius(a1, v7);
+  Height = C3DParametricGeometryGetHeight(a1, v9);
   if (a2)
   {
-    v9 = a3 == 0;
+    v11 = a3 == 0;
   }
 
   else
   {
-    v9 = 1;
+    v11 = 1;
   }
 
-  result = !v9;
-  if (!v9)
+  result = !v11;
+  if (!v11)
   {
     if (TopRadius <= BottomRadius)
     {
-      *&v11 = BottomRadius;
+      *&v13 = BottomRadius;
     }
 
     else
     {
-      *&v11 = TopRadius;
+      *&v13 = TopRadius;
     }
 
-    *&v12 = -*&v11;
-    *(a2 + 8) = -*&v11;
-    *(&v12 + 1) = Height * -0.5;
-    *a2 = v12;
-    *(a3 + 8) = v11;
-    *(&v11 + 1) = Height * 0.5;
-    *a3 = v11;
+    *&v14 = -*&v13;
+    *(a2 + 8) = -*&v13;
+    *(&v14 + 1) = Height * -0.5;
+    *a2 = v14;
+    *(a3 + 8) = v13;
+    *(&v13 + 1) = Height * 0.5;
+    *a3 = v13;
   }
 
   return result;
 }
 
-float C3DParametricGeometryGetTopRadius(uint64_t a1)
+float C3DParametricGeometryGetTopRadius(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DParametricGeometryGetChamferRadius_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DParametricGeometryGetChamferRadius_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 236);
 }
 
-float C3DParametricGeometryGetBottomRadius(uint64_t a1)
+float C3DParametricGeometryGetBottomRadius(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DParametricGeometryGetChamferRadius_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DParametricGeometryGetChamferRadius_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
@@ -297,27 +1773,27 @@ BOOL C3DConeGetBoundingSphereForConeParameters(_OWORD *a1, double a2, double a3,
 
 BOOL C3DConeGetBoundingSphere(uint64_t a1, _OWORD *a2)
 {
-  TopRadius = C3DParametricGeometryGetTopRadius(a1);
-  BottomRadius = C3DParametricGeometryGetBottomRadius(a1);
-  Height = C3DParametricGeometryGetHeight(a1);
+  TopRadius = C3DParametricGeometryGetTopRadius(a1, a2);
+  BottomRadius = C3DParametricGeometryGetBottomRadius(a1, v5);
+  Height = C3DParametricGeometryGetHeight(a1, v7);
   if (a2)
   {
-    v7 = Height;
+    v9 = Height;
     if (TopRadius <= BottomRadius)
     {
-      v8 = BottomRadius;
+      v10 = BottomRadius;
     }
 
     else
     {
-      v8 = TopRadius;
+      v10 = TopRadius;
     }
 
-    v9 = sqrt(v8 * v8 + v7 * 0.25 * v7);
-    *&v10 = 0;
-    DWORD2(v10) = 0;
-    *(&v10 + 3) = v9;
-    *a2 = v10;
+    v11 = sqrt(v10 * v10 + v9 * 0.25 * v9);
+    *&v12 = 0;
+    DWORD2(v12) = 0;
+    *(&v12 + 3) = v11;
+    *a2 = v12;
   }
 
   return a2 != 0;
@@ -325,91 +1801,92 @@ BOOL C3DConeGetBoundingSphere(uint64_t a1, _OWORD *a2)
 
 void C3DConeGeneratePointsCallBack(const void *a1, uint64_t a2, unsigned int *a3, _OWORD *a4, _OWORD *a5, int a6)
 {
-  TopRadius = C3DParametricGeometryGetTopRadius(a1);
-  BottomRadius = C3DParametricGeometryGetBottomRadius(a1);
-  Height = C3DParametricGeometryGetHeight(a1);
+  v10 = a2;
+  TopRadius = C3DParametricGeometryGetTopRadius(a1, a2);
+  BottomRadius = C3DParametricGeometryGetBottomRadius(a1, v13);
+  Height = C3DParametricGeometryGetHeight(a1, v15);
   if (a6)
   {
     if (a6 == 2)
     {
 
-      C3DGeometryGeneratePoints(a1, a2, a3, a4, a5, 2);
+      C3DGeometryGeneratePoints(a1, v10, a3, a4, a5, 2);
     }
 
-    else if (a6 == 1 && a2 >= 1)
+    else if (a6 == 1 && v10 >= 1)
     {
-      v15 = TopRadius - BottomRadius;
-      v16 = a5;
+      v17 = TopRadius - BottomRadius;
+      v18 = a5;
       do
       {
-        v17 = 214013 * *a3 + 2531011;
-        v18 = HIWORD(v17) * 0.0000152590219 + HIWORD(v17) * 0.0000152590219;
-        v19 = __sincos_stret(v18 * 3.14159265);
-        sinval = v19.__sinval;
-        cosval = v19.__cosval;
-        v22 = 214013 * v17 + 2531011;
-        v23 = HIWORD(v22) * 0.0000152590219;
-        v24 = 214013 * v22 + 2531011;
-        *a3 = v24;
-        v25 = (BottomRadius + v23 * v15) * (HIWORD(v24) * 0.0000152590219);
-        v26.f64[0] = v25 * cosval;
-        v26.f64[1] = Height * -0.5 + v23 * Height;
-        v27 = v25 * sinval;
-        *&v28 = vcvt_f32_f64(v26);
-        *&v27 = v27;
-        DWORD2(v28) = LODWORD(v27);
-        *a4 = v28;
+        v19 = 214013 * *a3 + 2531011;
+        v20 = HIWORD(v19) * 0.0000152590219 + HIWORD(v19) * 0.0000152590219;
+        v21 = __sincos_stret(v20 * 3.14159265);
+        sinval = v21.__sinval;
+        cosval = v21.__cosval;
+        v24 = 214013 * v19 + 2531011;
+        v25 = HIWORD(v24) * 0.0000152590219;
+        v26 = 214013 * v24 + 2531011;
+        *a3 = v26;
+        v27 = (BottomRadius + v25 * v17) * (HIWORD(v26) * 0.0000152590219);
+        v28.f64[0] = v27 * cosval;
+        v28.f64[1] = Height * -0.5 + v25 * Height;
+        v29 = v27 * sinval;
+        *&v30 = vcvt_f32_f64(v28);
+        *&v29 = v29;
+        DWORD2(v30) = LODWORD(v29);
+        *a4 = v30;
         if (a5)
         {
-          *&v29 = LODWORD(cosval);
-          *(&v29 + 1) = LODWORD(sinval);
-          *v16 = v29;
+          *&v31 = LODWORD(cosval);
+          *(&v31 + 1) = LODWORD(sinval);
+          *v18 = v31;
         }
 
-        ++v16;
+        ++v18;
         ++a4;
-        --a2;
+        --v10;
       }
 
-      while (a2);
+      while (v10);
     }
   }
 
-  else if (a2 >= 1)
+  else if (v10 >= 1)
   {
-    v30 = TopRadius - BottomRadius;
-    v31 = a5;
+    v32 = TopRadius - BottomRadius;
+    v33 = a5;
     do
     {
-      v32 = 214013 * *a3 + 2531011;
-      v33 = HIWORD(v32) * 0.0000152590219 + HIWORD(v32) * 0.0000152590219;
-      v34 = __sincos_stret(v33 * 3.14159265);
-      v35 = v34.__sinval;
-      v36 = v34.__cosval;
-      v37 = 214013 * v32 + 2531011;
-      *a3 = v37;
-      v38 = HIWORD(v37) * 0.0000152590219;
-      v39 = BottomRadius + v38 * v30;
-      v40.f64[0] = v39 * v36;
-      v40.f64[1] = Height * -0.5 + v38 * Height;
-      v41 = v39 * v35;
-      *&v42 = vcvt_f32_f64(v40);
-      *&v41 = v41;
-      DWORD2(v42) = LODWORD(v41);
-      *a4 = v42;
+      v34 = 214013 * *a3 + 2531011;
+      v35 = HIWORD(v34) * 0.0000152590219 + HIWORD(v34) * 0.0000152590219;
+      v36 = __sincos_stret(v35 * 3.14159265);
+      v37 = v36.__sinval;
+      v38 = v36.__cosval;
+      v39 = 214013 * v34 + 2531011;
+      *a3 = v39;
+      v40 = HIWORD(v39) * 0.0000152590219;
+      v41 = BottomRadius + v40 * v32;
+      v42.f64[0] = v41 * v38;
+      v42.f64[1] = Height * -0.5 + v40 * Height;
+      v43 = v41 * v37;
+      *&v44 = vcvt_f32_f64(v42);
+      *&v43 = v43;
+      DWORD2(v44) = LODWORD(v43);
+      *a4 = v44;
       if (a5)
       {
-        *&v43 = LODWORD(v36);
-        *(&v43 + 1) = LODWORD(v35);
-        *v31 = v43;
+        *&v45 = LODWORD(v38);
+        *(&v45 + 1) = LODWORD(v37);
+        *v33 = v45;
       }
 
-      ++v31;
+      ++v33;
       ++a4;
-      --a2;
+      --v10;
     }
 
-    while (a2);
+    while (v10);
   }
 }
 
@@ -481,135 +1958,136 @@ BOOL C3DTubeGetBoundingSphere(uint64_t a1, _OWORD *a2)
 
 void C3DTubeGeneratePointsCallBack(const void *a1, uint64_t a2, unsigned int *a3, _OWORD *a4, _OWORD *a5, int a6)
 {
-  OuterRadius = C3DParametricGeometryGetOuterRadius(a1);
-  InnerRadius = C3DParametricGeometryGetInnerRadius(a1);
-  Height = C3DParametricGeometryGetHeight(a1);
+  v10 = a2;
+  OuterRadius = C3DParametricGeometryGetOuterRadius(a1, a2);
+  InnerRadius = C3DParametricGeometryGetInnerRadius(a1, v13);
+  Height = C3DParametricGeometryGetHeight(a1, v15);
   if (a6)
   {
     if (a6 == 2)
     {
 
-      C3DGeometryGeneratePoints(a1, a2, a3, a4, a5, 2);
+      C3DGeometryGeneratePoints(a1, v10, a3, a4, a5, 2);
     }
 
-    else if (a6 == 1 && a2 >= 1)
+    else if (a6 == 1 && v10 >= 1)
     {
-      v15 = OuterRadius - InnerRadius;
-      v16 = a5;
+      v17 = OuterRadius - InnerRadius;
+      v18 = a5;
       do
       {
-        v17 = 214013 * *a3 + 2531011;
-        v18 = HIWORD(v17) * 0.0000152590219 + HIWORD(v17) * 0.0000152590219;
-        v19 = __sincos_stret(v18 * 3.14159265);
-        sinval = v19.__sinval;
-        cosval = v19.__cosval;
-        v22 = 214013 * v17 + 2531011;
-        v23 = HIWORD(v22) * 0.0000152590219;
-        v24 = InnerRadius + v15 * v23;
-        v25.f64[0] = v24 * cosval;
-        v26 = 214013 * v22 + 2531011;
-        v25.f64[1] = Height * -0.5 + HIWORD(v26) * 0.0000152590219 * Height;
-        *a3 = v26;
-        *&v25.f64[0] = vcvt_f32_f64(v25);
-        *&v24 = v24 * sinval;
-        LODWORD(v25.f64[1]) = LODWORD(v24);
-        *a4 = v25;
+        v19 = 214013 * *a3 + 2531011;
+        v20 = HIWORD(v19) * 0.0000152590219 + HIWORD(v19) * 0.0000152590219;
+        v21 = __sincos_stret(v20 * 3.14159265);
+        sinval = v21.__sinval;
+        cosval = v21.__cosval;
+        v24 = 214013 * v19 + 2531011;
+        v25 = HIWORD(v24) * 0.0000152590219;
+        v26 = InnerRadius + v17 * v25;
+        v27.f64[0] = v26 * cosval;
+        v28 = 214013 * v24 + 2531011;
+        v27.f64[1] = Height * -0.5 + HIWORD(v28) * 0.0000152590219 * Height;
+        *a3 = v28;
+        *&v27.f64[0] = vcvt_f32_f64(v27);
+        *&v26 = v26 * sinval;
+        LODWORD(v27.f64[1]) = LODWORD(v26);
+        *a4 = v27;
         if (a5)
         {
-          if (v23 > 0.5)
+          if (v25 > 0.5)
           {
             cosval = -cosval;
             sinval = -sinval;
           }
 
-          *&v27 = LODWORD(cosval);
-          *(&v27 + 1) = LODWORD(sinval);
-          *v16 = v27;
+          *&v29 = LODWORD(cosval);
+          *(&v29 + 1) = LODWORD(sinval);
+          *v18 = v29;
         }
 
-        ++v16;
+        ++v18;
         ++a4;
-        --a2;
+        --v10;
       }
 
-      while (a2);
+      while (v10);
     }
   }
 
-  else if (a2 >= 1)
+  else if (v10 >= 1)
   {
-    v28 = a5;
+    v30 = a5;
     do
     {
-      v29 = 214013 * *a3 + 2531011;
-      v30 = HIWORD(v29) * 0.0000152590219 + HIWORD(v29) * 0.0000152590219;
-      v31 = __sincos_stret(v30 * 3.14159265);
-      v32 = v31.__sinval;
-      v33 = v31.__cosval;
-      v34 = 214013 * v29 + 2531011;
-      v35 = HIWORD(v34) * 0.0000152590219;
-      if (v35 <= 0.5)
+      v31 = 214013 * *a3 + 2531011;
+      v32 = HIWORD(v31) * 0.0000152590219 + HIWORD(v31) * 0.0000152590219;
+      v33 = __sincos_stret(v32 * 3.14159265);
+      v34 = v33.__sinval;
+      v35 = v33.__cosval;
+      v36 = 214013 * v31 + 2531011;
+      v37 = HIWORD(v36) * 0.0000152590219;
+      if (v37 <= 0.5)
       {
-        v36 = OuterRadius;
+        v38 = OuterRadius;
       }
 
       else
       {
-        v36 = InnerRadius;
+        v38 = InnerRadius;
       }
 
-      v37.f64[0] = v36 * v33;
-      v38 = 214013 * v34 + 2531011;
-      v37.f64[1] = Height * -0.5 + HIWORD(v38) * 0.0000152590219 * Height;
-      *a3 = v38;
-      *&v37.f64[0] = vcvt_f32_f64(v37);
-      v39 = v36 * v32;
-      *&v37.f64[1] = v39;
-      *a4 = v37;
+      v39.f64[0] = v38 * v35;
+      v40 = 214013 * v36 + 2531011;
+      v39.f64[1] = Height * -0.5 + HIWORD(v40) * 0.0000152590219 * Height;
+      *a3 = v40;
+      *&v39.f64[0] = vcvt_f32_f64(v39);
+      v41 = v38 * v34;
+      *&v39.f64[1] = v41;
+      *a4 = v39;
       if (a5)
       {
-        if (v35 > 0.5)
+        if (v37 > 0.5)
         {
-          v33 = -v33;
-          v32 = -v32;
+          v35 = -v35;
+          v34 = -v34;
         }
 
-        *&v40 = LODWORD(v33);
-        *(&v40 + 1) = LODWORD(v32);
-        *v28 = v40;
+        *&v42 = LODWORD(v35);
+        *(&v42 + 1) = LODWORD(v34);
+        *v30 = v42;
       }
 
-      ++v28;
+      ++v30;
       ++a4;
-      --a2;
+      --v10;
     }
 
-    while (a2);
+    while (v10);
   }
 }
 
-float C3DParametricGeometryGetOuterRadius(uint64_t a1)
+float C3DParametricGeometryGetOuterRadius(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DParametricGeometryGetChamferRadius_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DParametricGeometryGetChamferRadius_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 248);
 }
 
-float C3DParametricGeometryGetInnerRadius(uint64_t a1)
+float C3DParametricGeometryGetInnerRadius(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DParametricGeometryGetChamferRadius_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DParametricGeometryGetChamferRadius_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
@@ -643,24 +2121,24 @@ uint64_t C3DTubeHashParameters(_DWORD *a1, _DWORD *a2)
 
 float C3DCapsuleGetBoundingBox(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  Radius = C3DParametricGeometryGetRadius(a1);
-  result = C3DParametricGeometryGetHeight(a1);
+  Radius = C3DParametricGeometryGetRadius(a1, a2);
+  result = C3DParametricGeometryGetHeight(a1, v6);
   if (a2)
   {
-    v7 = a3 == 0;
+    v8 = a3 == 0;
   }
 
   else
   {
-    v7 = 1;
+    v8 = 1;
   }
 
-  if (!v7)
+  if (!v8)
   {
-    *&v8 = -Radius;
+    *&v9 = -Radius;
     *(a2 + 8) = -Radius;
-    *(&v8 + 1) = result * -0.5;
-    *a2 = v8;
+    *(&v9 + 1) = result * -0.5;
+    *a2 = v9;
     result = result * 0.5;
     *(a3 + 8) = Radius;
     *a3 = __PAIR64__(LODWORD(result), LODWORD(Radius));
@@ -685,14 +2163,14 @@ BOOL C3DCapsuleGetBoundingSphereForCapsuleParameters(_OWORD *a1, double a2, doub
 
 BOOL C3DCapsuleGetBoundingSphere(uint64_t a1, _OWORD *a2)
 {
-  C3DParametricGeometryGetRadius(a1);
-  Height = C3DParametricGeometryGetHeight(a1);
+  C3DParametricGeometryGetRadius(a1, a2);
+  Height = C3DParametricGeometryGetHeight(a1, v4);
   if (a2)
   {
-    *&v5 = 0;
-    DWORD2(v5) = 0;
-    *(&v5 + 3) = Height * 0.5;
-    *a2 = v5;
+    *&v6 = 0;
+    DWORD2(v6) = 0;
+    *(&v6 + 3) = Height * 0.5;
+    *a2 = v6;
   }
 
   return a2 != 0;
@@ -700,136 +2178,137 @@ BOOL C3DCapsuleGetBoundingSphere(uint64_t a1, _OWORD *a2)
 
 void C3DCapsuleGeneratePointsCallBack(const void *a1, uint64_t a2, unsigned int *a3, float64x2_t *a4, float64x2_t *a5, int a6)
 {
-  Radius = C3DParametricGeometryGetRadius(a1);
+  v10 = a2;
+  Radius = C3DParametricGeometryGetRadius(a1, a2);
   v13 = Radius;
-  Height = C3DParametricGeometryGetHeight(a1);
-  *v15.i64 = Height * 0.5;
-  v16 = Height * 0.5 - Radius;
+  Height = C3DParametricGeometryGetHeight(a1, v14);
+  *v16.i64 = Height * 0.5;
+  v17 = Height * 0.5 - Radius;
   if (a6)
   {
     if (a6 == 2)
     {
 
-      C3DGeometryGeneratePoints(a1, a2, a3, a4, a5, 2);
+      C3DGeometryGeneratePoints(a1, v10, a3, a4, a5, 2);
     }
 
-    else if (a6 == 1 && a2 >= 1)
+    else if (a6 == 1 && v10 >= 1)
     {
-      v17 = -*v15.i64;
-      *v15.i32 = v16;
-      v50 = v15;
-      v18 = a5;
+      v18 = -*v16.i64;
+      *v16.i32 = v17;
+      v51 = v16;
+      v19 = a5;
       do
       {
-        v19 = 214013 * *a3 + 2531011;
-        v20 = HIWORD(v19) * 0.0000152590219 + HIWORD(v19) * 0.0000152590219;
-        v21 = __sincos_stret(v20 * 3.14159265);
-        sinval = v21.__sinval;
-        *v23.f64 = v21.__cosval;
-        v24 = 214013 * v19 + 2531011;
-        *v25.i32 = v17 + HIWORD(v24) * 0.0000152590219 * Height;
-        v26 = 214013 * v24 + 2531011;
-        *a3 = v26;
-        v27 = HIWORD(v26) * 0.0000152590219 * v13;
-        *v28.i64 = fabsf(*v25.i32) - v16;
-        if (*v28.i64 <= 0.0)
+        v20 = 214013 * *a3 + 2531011;
+        v21 = HIWORD(v20) * 0.0000152590219 + HIWORD(v20) * 0.0000152590219;
+        v22 = __sincos_stret(v21 * 3.14159265);
+        sinval = v22.__sinval;
+        *v24.f64 = v22.__cosval;
+        v25 = 214013 * v20 + 2531011;
+        *v26.i32 = v18 + HIWORD(v25) * 0.0000152590219 * Height;
+        v27 = 214013 * v25 + 2531011;
+        *a3 = v27;
+        v28 = HIWORD(v27) * 0.0000152590219 * v13;
+        *v29.i64 = fabsf(*v26.i32) - v17;
+        if (*v29.i64 <= 0.0)
         {
-          *&v32.f64[0] = LODWORD(v23.f64[0]);
-          *&v32.f64[1] = LODWORD(sinval);
-          *v23.f64 = v27 * *v23.f64;
-          HIDWORD(v23.f64[0]) = v25.i32[0];
+          *&v33.f64[0] = LODWORD(v24.f64[0]);
+          *&v33.f64[1] = LODWORD(sinval);
+          *v24.f64 = v28 * *v24.f64;
+          HIDWORD(v24.f64[0]) = v26.i32[0];
         }
 
         else
         {
-          *v28.i64 = *v28.i64 / v13;
-          *v28.i32 = *v28.i64;
-          v29.i64[0] = 0x8000000080000000;
-          v29.i64[1] = 0x8000000080000000;
-          v30 = *vbslq_s8(v29, v28, v25).i32;
-          v31 = sqrtf(1.0 - (v30 * v30));
-          *v23.f64 = v31 * *v23.f64;
-          sinval = v31 * sinval;
-          v32 = v23;
-          *(v32.f64 + 1) = v30;
-          *&v32.f64[1] = sinval;
-          v33 = v27 * *v23.f64;
-          v23.f64[1] = *vbslq_s8(v29, v50, v25).i32 + v30 * v27;
-          *&v23.f64[0] = vcvt_f32_f64(v23);
+          *v29.i64 = *v29.i64 / v13;
+          *v29.i32 = *v29.i64;
+          v30.i64[0] = 0x8000000080000000;
+          v30.i64[1] = 0x8000000080000000;
+          v31 = *vbslq_s8(v30, v29, v26).i32;
+          v32 = sqrtf(1.0 - (v31 * v31));
+          *v24.f64 = v32 * *v24.f64;
+          sinval = v32 * sinval;
+          v33 = v24;
+          *(v33.f64 + 1) = v31;
+          *&v33.f64[1] = sinval;
+          v34 = v28 * *v24.f64;
+          v24.f64[1] = *vbslq_s8(v30, v51, v26).i32 + v31 * v28;
+          *&v24.f64[0] = vcvt_f32_f64(v24);
         }
 
-        v34 = v27 * sinval;
-        *&v23.f64[1] = v34;
-        *a4 = v23;
+        v35 = v28 * sinval;
+        *&v24.f64[1] = v35;
+        *a4 = v24;
         if (a5)
         {
-          *v18 = v32;
+          *v19 = v33;
         }
 
-        ++v18;
+        ++v19;
         ++a4;
-        --a2;
+        --v10;
       }
 
-      while (a2);
+      while (v10);
     }
   }
 
-  else if (a2 >= 1)
+  else if (v10 >= 1)
   {
-    v35 = -*v15.i64;
-    *v15.i32 = v16;
-    v51 = v15;
-    v36 = a5;
+    v36 = -*v16.i64;
+    *v16.i32 = v17;
+    v52 = v16;
+    v37 = a5;
     do
     {
-      v37 = 214013 * *a3 + 2531011;
-      v38 = HIWORD(v37) * 0.0000152590219 + HIWORD(v37) * 0.0000152590219;
-      v40 = __sincos_stret(v38 * 3.14159265);
-      v41 = v40.__sinval;
-      *v42.f64 = v40.__cosval;
-      v43 = 214013 * v37 + 2531011;
-      *a3 = v43;
-      *v44.i32 = v35 + HIWORD(v43) * 0.0000152590219 * Height;
-      *v45.i64 = fabsf(*v44.i32) - v16;
-      if (*v45.i64 <= 0.0)
+      v38 = 214013 * *a3 + 2531011;
+      v39 = HIWORD(v38) * 0.0000152590219 + HIWORD(v38) * 0.0000152590219;
+      v41 = __sincos_stret(v39 * 3.14159265);
+      v42 = v41.__sinval;
+      *v43.f64 = v41.__cosval;
+      v44 = 214013 * v38 + 2531011;
+      *a3 = v44;
+      *v45.i32 = v36 + HIWORD(v44) * 0.0000152590219 * Height;
+      *v46.i64 = fabsf(*v45.i32) - v17;
+      if (*v46.i64 <= 0.0)
       {
-        *&v49.__sinval = LODWORD(v42.f64[0]);
-        *&v49.__cosval = LODWORD(v41);
-        *v42.f64 = Radius * *v42.f64;
+        *&v50.__sinval = LODWORD(v43.f64[0]);
+        *&v50.__cosval = LODWORD(v42);
+        *v43.f64 = Radius * *v43.f64;
       }
 
       else
       {
-        *v45.i64 = *v45.i64 / v13;
-        *v45.i32 = *v45.i64;
-        v46.i64[0] = 0x8000000080000000;
-        v46.i64[1] = 0x8000000080000000;
-        v47 = *vbslq_s8(v46, v45, v44).i32;
-        v48 = sqrtf(1.0 - (v47 * v47));
-        *&v39.__sinval = v48 * *v42.f64;
-        v41 = v48 * v41;
-        *v42.f64 = Radius * (v48 * *v42.f64);
-        v49 = v39;
-        *(&v49.__sinval + 1) = v47;
-        *&v49.__cosval = v41;
-        *v44.i32 = *vbslq_s8(v46, v51, v44).i32 + v47 * v13;
+        *v46.i64 = *v46.i64 / v13;
+        *v46.i32 = *v46.i64;
+        v47.i64[0] = 0x8000000080000000;
+        v47.i64[1] = 0x8000000080000000;
+        v48 = *vbslq_s8(v47, v46, v45).i32;
+        v49 = sqrtf(1.0 - (v48 * v48));
+        *&v40.__sinval = v49 * *v43.f64;
+        v42 = v49 * v42;
+        *v43.f64 = Radius * (v49 * *v43.f64);
+        v50 = v40;
+        *(&v50.__sinval + 1) = v48;
+        *&v50.__cosval = v42;
+        *v45.i32 = *vbslq_s8(v47, v52, v45).i32 + v48 * v13;
       }
 
-      HIDWORD(v42.f64[0]) = v44.i32[0];
-      *&v42.f64[1] = Radius * v41;
-      *a4 = v42;
+      HIDWORD(v43.f64[0]) = v45.i32[0];
+      *&v43.f64[1] = Radius * v42;
+      *a4 = v43;
       if (a5)
       {
-        *v36 = v49;
+        *v37 = v50;
       }
 
-      ++v36;
+      ++v37;
       ++a4;
-      --a2;
+      --v10;
     }
 
-    while (a2);
+    while (v10);
   }
 }
 
@@ -942,128 +2421,129 @@ BOOL C3DTorusGetBoundingSphere(uint64_t a1, _OWORD *a2)
 
 void C3DTorusGeneratePointsCallBack(const void *a1, uint64_t a2, unsigned int *a3, _OWORD *a4, _OWORD *a5, int a6)
 {
-  RingRadius = C3DParametricGeometryGetRingRadius(a1);
-  PipeRadius = C3DParametricGeometryGetPipeRadius(a1);
-  v14 = PipeRadius;
+  v10 = a2;
+  RingRadius = C3DParametricGeometryGetRingRadius(a1, a2);
+  PipeRadius = C3DParametricGeometryGetPipeRadius(a1, v13);
+  v15 = PipeRadius;
   if (a6)
   {
     if (a6 == 2)
     {
 
-      C3DGeometryGeneratePoints(a1, a2, a3, a4, a5, 2);
+      C3DGeometryGeneratePoints(a1, v10, a3, a4, a5, 2);
     }
 
-    else if (a6 == 1 && a2 >= 1)
+    else if (a6 == 1 && v10 >= 1)
     {
-      v15 = a5;
+      v16 = a5;
       do
       {
-        v16 = 214013 * *a3 + 2531011;
-        v17 = HIWORD(v16) * 0.0000152590219 + HIWORD(v16) * 0.0000152590219;
-        v18 = __sincos_stret(v17 * 3.14159265);
-        sinval = v18.__sinval;
-        cosval = v18.__cosval;
-        v21 = 214013 * v16 + 2531011;
-        v22 = sqrt(HIWORD(v21) * 0.0000152590219) * v14;
-        v23 = RingRadius + cosval * v22;
-        *&v22 = v22 * sinval;
-        v43 = sinval;
-        v44 = LODWORD(v22);
-        v24 = 214013 * v21 + 2531011;
-        *a3 = v24;
-        *&v22 = HIWORD(v24) * 0.0000152590219 + HIWORD(v24) * 0.0000152590219;
-        v25 = __sincos_stret(*&v22 * 3.14159265);
-        v26 = v25.__sinval;
-        *&v27 = v25.__cosval;
-        *&v28 = v23 * *&v27;
-        DWORD1(v28) = v44;
-        *(&v28 + 2) = v23 * v26;
-        *a4 = v28;
+        v17 = 214013 * *a3 + 2531011;
+        v18 = HIWORD(v17) * 0.0000152590219 + HIWORD(v17) * 0.0000152590219;
+        v19 = __sincos_stret(v18 * 3.14159265);
+        sinval = v19.__sinval;
+        cosval = v19.__cosval;
+        v22 = 214013 * v17 + 2531011;
+        v23 = sqrt(HIWORD(v22) * 0.0000152590219) * v15;
+        v24 = RingRadius + cosval * v23;
+        *&v23 = v23 * sinval;
+        v44 = sinval;
+        v45 = LODWORD(v23);
+        v25 = 214013 * v22 + 2531011;
+        *a3 = v25;
+        *&v23 = HIWORD(v25) * 0.0000152590219 + HIWORD(v25) * 0.0000152590219;
+        v26 = __sincos_stret(*&v23 * 3.14159265);
+        v27 = v26.__sinval;
+        *&v28 = v26.__cosval;
+        *&v29 = v24 * *&v28;
+        DWORD1(v29) = v45;
+        *(&v29 + 2) = v24 * v27;
+        *a4 = v29;
         if (a5)
         {
-          *&v27 = cosval * *&v27;
-          *(&v27 + 1) = v43;
-          *(&v27 + 2) = cosval * v26;
-          *v15 = v27;
+          *&v28 = cosval * *&v28;
+          *(&v28 + 1) = v44;
+          *(&v28 + 2) = cosval * v27;
+          *v16 = v28;
         }
 
-        ++v15;
+        ++v16;
         ++a4;
-        --a2;
+        --v10;
       }
 
-      while (a2);
+      while (v10);
     }
   }
 
   else
   {
-    v42 = PipeRadius;
-    if (a2 >= 1)
+    v43 = PipeRadius;
+    if (v10 >= 1)
     {
-      v29 = a5;
+      v30 = a5;
       do
       {
-        v30 = 214013 * *a3 + 2531011;
-        v31 = HIWORD(v30) * 0.0000152590219 + HIWORD(v30) * 0.0000152590219;
-        v33 = __sincos_stret(v31 * 3.14159265);
-        *&v32 = v33.__sinval;
-        v45 = v32;
-        v34 = v33.__cosval;
-        v35 = 214013 * v30 + 2531011;
-        *a3 = v35;
-        *&v32 = HIWORD(v35) * 0.0000152590219 + HIWORD(v35) * 0.0000152590219;
-        v36 = __sincos_stret(*&v32 * 3.14159265);
-        v37 = v36.__sinval;
-        *&v38 = v36.__cosval;
-        v39.f64[0] = RingRadius + v34 * v14;
-        HIDWORD(v40) = HIDWORD(v45);
-        *&v39.f64[1] = v45;
-        *&v40 = vcvt_f32_f64(v39);
-        v41 = v38;
-        *(&v41 + 1) = v42;
-        *&v41 = vmul_f32(*&v41, *&v40);
-        *(&v41 + 2) = v37 * *&v40;
-        *a4 = v41;
+        v31 = 214013 * *a3 + 2531011;
+        v32 = HIWORD(v31) * 0.0000152590219 + HIWORD(v31) * 0.0000152590219;
+        v34 = __sincos_stret(v32 * 3.14159265);
+        *&v33 = v34.__sinval;
+        v46 = v33;
+        v35 = v34.__cosval;
+        v36 = 214013 * v31 + 2531011;
+        *a3 = v36;
+        *&v33 = HIWORD(v36) * 0.0000152590219 + HIWORD(v36) * 0.0000152590219;
+        v37 = __sincos_stret(*&v33 * 3.14159265);
+        v38 = v37.__sinval;
+        *&v39 = v37.__cosval;
+        v40.f64[0] = RingRadius + v35 * v15;
+        HIDWORD(v41) = HIDWORD(v46);
+        *&v40.f64[1] = v46;
+        *&v41 = vcvt_f32_f64(v40);
+        v42 = v39;
+        *(&v42 + 1) = v43;
+        *&v42 = vmul_f32(*&v42, *&v41);
+        *(&v42 + 2) = v38 * *&v41;
+        *a4 = v42;
         if (a5)
         {
-          *&v40 = v34 * *&v38;
-          *(&v40 + 2) = v34 * v37;
-          *v29 = v40;
+          *&v41 = v35 * *&v39;
+          *(&v41 + 2) = v35 * v38;
+          *v30 = v41;
         }
 
-        ++v29;
+        ++v30;
         ++a4;
-        --a2;
+        --v10;
       }
 
-      while (a2);
+      while (v10);
     }
   }
 }
 
-float C3DParametricGeometryGetRingRadius(uint64_t a1)
+float C3DParametricGeometryGetRingRadius(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DParametricGeometryGetChamferRadius_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DParametricGeometryGetChamferRadius_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 252);
 }
 
-float C3DParametricGeometryGetPipeRadius(uint64_t a1)
+float C3DParametricGeometryGetPipeRadius(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DParametricGeometryGetChamferRadius_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DParametricGeometryGetChamferRadius_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
@@ -1101,23 +2581,23 @@ uint64_t _C3DParametricGeometryCreate(__int128 *a1, __int128 *a2, int a3)
   }
 
   Instance = C3DTypeCreateInstance_(C3DParametricGeometryGetTypeID_typeID, 352);
-  v7 = C3DGeometryInit(Instance);
+  C3DGeometryInit(Instance);
   if (a3)
   {
-    Default = C3DMaterialCreateDefault(v7);
+    Default = C3DMaterialCreateDefault(v7, v8);
     C3DGeometryAppendMaterial(Instance, Default);
     CFRelease(Default);
   }
 
   *(Instance + 120) = kC3DParametricGeometryValidationCallBacks;
-  v9 = (Instance + 312);
+  v10 = (Instance + 312);
   if (a2)
   {
-    v10 = *a2;
-    v11 = a2[2];
+    v11 = *a2;
+    v12 = a2[2];
     *(Instance + 328) = a2[1];
-    *(Instance + 344) = v11;
-    *v9 = v10;
+    *(Instance + 344) = v12;
+    *v10 = v11;
     C3DParametricGeometrySetIntValue(Instance, 20, 0);
     if (!a1)
     {
@@ -1131,30 +2611,30 @@ LABEL_12:
   {
     *(Instance + 328) = 0u;
     *(Instance + 344) = 0u;
-    *v9 = 0u;
-    C3DParametricGeometrySetIntValue(Instance, 20, 0);
+    *v10 = 0u;
+    v13 = C3DParametricGeometrySetIntValue(Instance, 20, 0);
     if (!a1)
     {
-      v16 = scn_default_log();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+      v19 = scn_default_log(v13, v14);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
       {
-        _C3DParametricGeometryCreate_cold_2(v16, v17, v18, v19, v20, v21, v22, v23);
+        _C3DParametricGeometryCreate_cold_2(v19, v20, v21, v22, v23, v24, v25, v26);
       }
 
       goto LABEL_12;
     }
   }
 
-  v12 = *a1;
+  v15 = *a1;
   *(Instance + 232) = a1[1];
-  *(Instance + 216) = v12;
-  v13 = a1[2];
-  v14 = a1[3];
-  v15 = a1[5];
+  *(Instance + 216) = v15;
+  v16 = a1[2];
+  v17 = a1[3];
+  v18 = a1[5];
   *(Instance + 280) = a1[4];
-  *(Instance + 296) = v15;
-  *(Instance + 264) = v14;
-  *(Instance + 248) = v13;
+  *(Instance + 296) = v18;
+  *(Instance + 264) = v17;
+  *(Instance + 248) = v16;
   return Instance;
 }
 
@@ -1181,15 +2661,15 @@ void C3DParametricGeometryCopy(uint64_t a1, uint64_t a2)
   *(a2 + 264) = v8;
   *(a2 + 248) = v7;
   os_unfair_lock_lock(&_C3DParametricGeometryCacheLock);
-  v10 = *(a1 + 64);
-  v11 = *(a1 + 360);
-  if ((v10 != 0) == (v11 == 0))
+  v12 = *(a1 + 64);
+  v13 = *(a1 + 360);
+  if ((v12 != 0) == (v13 == 0))
   {
-    v12 = scn_default_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+    v14 = scn_default_log(v10, v11);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
-      C3DParametricGeometryCopy_cold_1(v12, v13, v14, v15, v16, v17, v18, v19);
-      if (!v10)
+      C3DParametricGeometryCopy_cold_1(v14, v15, v16, v17, v18, v19, v20, v21);
+      if (!v12)
       {
         goto LABEL_7;
       }
@@ -1198,13 +2678,13 @@ void C3DParametricGeometryCopy(uint64_t a1, uint64_t a2)
     }
   }
 
-  if (v10)
+  if (v12)
   {
 LABEL_6:
-    C3DGeometrySetMesh(a2, v10);
-    v20 = CFRetain(v11);
-    *(a2 + 360) = v20;
-    _C3DParametricGeometryCacheIncrRetainCountForHash_not_thread_safe(v20);
+    C3DGeometrySetMesh(a2, v12);
+    v22 = CFRetain(v13);
+    *(a2 + 360) = v22;
+    _C3DParametricGeometryCacheIncrRetainCountForHash_not_thread_safe(v22);
   }
 
 LABEL_7:
@@ -1216,10 +2696,10 @@ void _C3DParametricGeometryCacheIncrRetainCountForHash_not_thread_safe(void *key
   Value = CFDictionaryGetValue(_C3DParametricGeometryCacheRetainCounts, key);
   if (!Value)
   {
-    v3 = scn_default_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    v4 = scn_default_log(0, v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
-      _C3DParametricGeometryCacheIncrRetainCountForHash_not_thread_safe_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
+      _C3DParametricGeometryCacheIncrRetainCountForHash_not_thread_safe_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
     }
   }
 
@@ -1466,28 +2946,28 @@ uint64_t C3DParametricGeometrySetIntValue(uint64_t a1, int a2, uint64_t a3)
   return result;
 }
 
-BOOL C3DParametricGeometryIsHemispheric(uint64_t a1)
+BOOL C3DParametricGeometryIsHemispheric(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DParametricGeometryIsHemispheric_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DParametricGeometryIsHemispheric_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 304) == 2;
 }
 
-void C3DParametricGeometrySetHemispheric(uint64_t a1)
+void C3DParametricGeometrySetHemispheric(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DParametricGeometryIsHemispheric_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DParametricGeometryIsHemispheric_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
@@ -1495,311 +2975,318 @@ void C3DParametricGeometrySetHemispheric(uint64_t a1)
   __Invalidate(a1);
 }
 
-BOOL C3DParametricGeometryIsGeodesic(uint64_t a1)
+BOOL C3DParametricGeometryIsGeodesic(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DParametricGeometryIsHemispheric_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DParametricGeometryIsHemispheric_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 304) == 1;
 }
 
-void C3DParametricGeometrySetGeodesic(uint64_t a1, int a2)
+void C3DParametricGeometrySetGeodesic(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   if (!a1)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(0, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       C3DParametricGeometryIsHemispheric_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
     }
   }
 
-  *(a1 + 304) = a2;
+  *(a1 + 304) = v2;
   __Invalidate(a1);
 }
 
-void C3DParametricGeometrySetChamferRadius(uint64_t a1, float a2)
+void C3DParametricGeometrySetChamferRadius(uint64_t a1, uint64_t a2, float a3)
 {
   if (!a1)
   {
-    v4 = scn_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      C3DParametricGeometryGetChamferRadius_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
+      C3DParametricGeometryGetChamferRadius_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
     }
   }
 
-  if (*(a1 + 228) != a2)
+  if (*(a1 + 228) != a3)
   {
-    *(a1 + 228) = a2;
+    *(a1 + 228) = a3;
     __Invalidate(a1);
   }
 }
 
-uint64_t C3DParametricGeometryGetChamferSegmentCount(uint64_t a1)
+uint64_t C3DParametricGeometryGetChamferSegmentCount(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DParametricGeometryGetChamferRadius_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DParametricGeometryGetChamferRadius_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 276);
 }
 
-void C3DParametricGeometrySetChamferSegmentCount(uint64_t a1, int a2)
+void C3DParametricGeometrySetChamferSegmentCount(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   if (!a1)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(0, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       C3DParametricGeometryGetChamferRadius_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
     }
   }
 
-  if (*(a1 + 276) != a2)
+  if (*(a1 + 276) != v2)
   {
-    *(a1 + 276) = a2;
+    *(a1 + 276) = v2;
     __Invalidate(a1);
   }
 }
 
-void C3DParametricGeometrySetHeight(uint64_t a1, float a2)
+void C3DParametricGeometrySetHeight(uint64_t a1, uint64_t a2, float a3)
 {
   if (!a1)
   {
-    v4 = scn_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      C3DParametricGeometryGetChamferRadius_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
+      C3DParametricGeometryGetChamferRadius_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
     }
   }
 
-  if (*(a1 + 220) != a2)
+  if (*(a1 + 220) != a3)
   {
-    *(a1 + 220) = a2;
+    *(a1 + 220) = a3;
     __Invalidate(a1);
   }
 }
 
-uint64_t C3DParametricGeometryGetHeightSegmentCount(uint64_t a1)
+uint64_t C3DParametricGeometryGetHeightSegmentCount(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DParametricGeometryGetChamferRadius_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DParametricGeometryGetChamferRadius_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 268);
 }
 
-void C3DParametricGeometrySetHeightSegmentCount(uint64_t a1, int a2)
+void C3DParametricGeometrySetHeightSegmentCount(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   if (!a1)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(0, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       C3DParametricGeometryGetChamferRadius_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
     }
   }
 
-  if (*(a1 + 268) != a2)
+  if (*(a1 + 268) != v2)
   {
-    *(a1 + 268) = a2;
+    *(a1 + 268) = v2;
     __Invalidate(a1);
   }
 }
 
-void C3DParametricGeometrySetLength(uint64_t a1, float a2)
+void C3DParametricGeometrySetLength(uint64_t a1, uint64_t a2, float a3)
 {
   if (!a1)
   {
-    v4 = scn_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      C3DParametricGeometryGetChamferRadius_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
+      C3DParametricGeometryGetChamferRadius_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
     }
   }
 
-  if (*(a1 + 224) != a2)
+  if (*(a1 + 224) != a3)
   {
-    *(a1 + 224) = a2;
+    *(a1 + 224) = a3;
     __Invalidate(a1);
   }
 }
 
-uint64_t C3DParametricGeometryGetLengthSegmentCount(uint64_t a1)
+uint64_t C3DParametricGeometryGetLengthSegmentCount(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DParametricGeometryGetChamferRadius_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DParametricGeometryGetChamferRadius_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 272);
 }
 
-void C3DParametricGeometrySetLengthSegmentCount(uint64_t a1, int a2)
+void C3DParametricGeometrySetLengthSegmentCount(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   if (!a1)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(0, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       C3DParametricGeometryGetChamferRadius_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
     }
   }
 
-  if (*(a1 + 272) != a2)
+  if (*(a1 + 272) != v2)
   {
-    *(a1 + 272) = a2;
+    *(a1 + 272) = v2;
     __Invalidate(a1);
   }
 }
 
-uint64_t C3DParametricGeometryGetPrimitiveType(uint64_t a1)
+uint64_t C3DParametricGeometryGetPrimitiveType(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DParametricGeometryGetChamferRadius_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DParametricGeometryGetChamferRadius_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 300);
 }
 
-void C3DParametricGeometrySetPrimitiveType(uint64_t a1, int a2)
+void C3DParametricGeometrySetPrimitiveType(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   if (!a1)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(0, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       C3DParametricGeometryGetChamferRadius_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
     }
   }
 
-  if (*(a1 + 300) != a2)
+  if (*(a1 + 300) != v2)
   {
-    *(a1 + 300) = a2;
+    *(a1 + 300) = v2;
     __Invalidate(a1);
   }
 }
 
-void C3DParametricGeometrySetWidth(uint64_t a1, float a2)
+void C3DParametricGeometrySetWidth(uint64_t a1, uint64_t a2, float a3)
 {
   if (!a1)
   {
-    v4 = scn_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      C3DParametricGeometryGetChamferRadius_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
+      C3DParametricGeometryGetChamferRadius_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
     }
   }
 
-  if (*(a1 + 216) != a2)
+  if (*(a1 + 216) != a3)
   {
-    *(a1 + 216) = a2;
+    *(a1 + 216) = a3;
     __Invalidate(a1);
   }
 }
 
-uint64_t C3DParametricGeometryGetWidthSegmentCount(uint64_t a1)
+uint64_t C3DParametricGeometryGetWidthSegmentCount(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DParametricGeometryGetChamferRadius_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DParametricGeometryGetChamferRadius_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 264);
 }
 
-void C3DParametricGeometrySetWidthSegmentCount(uint64_t a1, int a2)
+void C3DParametricGeometrySetWidthSegmentCount(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   if (!a1)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(0, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       C3DParametricGeometryGetChamferRadius_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
     }
   }
 
-  if (*(a1 + 264) != a2)
+  if (*(a1 + 264) != v2)
   {
-    *(a1 + 264) = a2;
+    *(a1 + 264) = v2;
     __Invalidate(a1);
   }
 }
 
-void C3DParametricGeometrySetCapRadius(uint64_t a1, float a2)
+void C3DParametricGeometrySetCapRadius(uint64_t a1, uint64_t a2, float a3)
 {
   if (!a1)
   {
-    v4 = scn_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      C3DParametricGeometryGetChamferRadius_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
+      C3DParametricGeometryGetChamferRadius_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
     }
   }
 
-  if (*(a1 + 232) != a2)
+  if (*(a1 + 232) != a3)
   {
-    *(a1 + 232) = a2;
+    *(a1 + 232) = a3;
     __Invalidate(a1);
   }
 }
 
-uint64_t C3DParametricGeometryGetCapSegmentCount(uint64_t a1)
+uint64_t C3DParametricGeometryGetCapSegmentCount(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DParametricGeometryGetChamferRadius_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DParametricGeometryGetChamferRadius_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 288);
 }
 
-void C3DParametricGeometrySetCapSegmentCount(uint64_t a1, int a2)
+void C3DParametricGeometrySetCapSegmentCount(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   if (!a1)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(0, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       C3DParametricGeometryGetChamferRadius_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
     }
   }
 
-  v12 = a2 & ~(a2 >> 31);
+  v12 = v2 & ~(v2 >> 31);
   if (v12 != *(a1 + 288))
   {
     *(a1 + 288) = v12;
@@ -1807,270 +3294,274 @@ void C3DParametricGeometrySetCapSegmentCount(uint64_t a1, int a2)
   }
 }
 
-uint64_t C3DParametricGeometryGetRadialSegmentCount(uint64_t a1)
+uint64_t C3DParametricGeometryGetRadialSegmentCount(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DParametricGeometryGetChamferRadius_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DParametricGeometryGetChamferRadius_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 284);
 }
 
-void C3DParametricGeometrySetRadialSegmentCount(uint64_t a1, int a2)
+void C3DParametricGeometrySetRadialSegmentCount(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   if (!a1)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(0, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       C3DParametricGeometryGetChamferRadius_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
     }
   }
 
-  if (*(a1 + 284) != a2)
+  if (*(a1 + 284) != v2)
   {
-    *(a1 + 284) = a2;
+    *(a1 + 284) = v2;
     __Invalidate(a1);
   }
 }
 
-void C3DParametricGeometrySetBottomRadius(uint64_t a1, float a2)
+void C3DParametricGeometrySetBottomRadius(uint64_t a1, uint64_t a2, float a3)
 {
   if (!a1)
   {
-    v4 = scn_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      C3DParametricGeometryGetChamferRadius_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
+      C3DParametricGeometryGetChamferRadius_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
     }
   }
 
-  if (*(a1 + 240) != a2)
+  if (*(a1 + 240) != a3)
   {
-    *(a1 + 240) = a2;
+    *(a1 + 240) = a3;
     __Invalidate(a1);
   }
 }
 
-void C3DParametricGeometrySetTopRadius(uint64_t a1, float a2)
+void C3DParametricGeometrySetTopRadius(uint64_t a1, uint64_t a2, float a3)
 {
   if (!a1)
   {
-    v4 = scn_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      C3DParametricGeometryGetChamferRadius_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
+      C3DParametricGeometryGetChamferRadius_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
     }
   }
 
-  if (*(a1 + 236) != a2)
+  if (*(a1 + 236) != a3)
   {
-    *(a1 + 236) = a2;
+    *(a1 + 236) = a3;
     __Invalidate(a1);
   }
 }
 
-float C3DParametricGeometryGetRadialSpan(uint64_t a1)
+float C3DParametricGeometryGetRadialSpan(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DParametricGeometryGetChamferRadius_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DParametricGeometryGetChamferRadius_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 260);
 }
 
-void C3DParametricGeometrySetRadialSpan(uint64_t a1, float a2)
+void C3DParametricGeometrySetRadialSpan(uint64_t a1, uint64_t a2, float a3)
 {
   if (!a1)
   {
-    v4 = scn_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      C3DParametricGeometryGetChamferRadius_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
+      C3DParametricGeometryGetChamferRadius_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
     }
   }
 
-  if (*(a1 + 260) != a2)
+  if (*(a1 + 260) != a3)
   {
-    *(a1 + 260) = a2;
+    *(a1 + 260) = a3;
     __Invalidate(a1);
   }
 }
 
-uint64_t C3DParametricGeometryGetSegmentCount(uint64_t a1)
+uint64_t C3DParametricGeometryGetSegmentCount(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DParametricGeometryGetChamferRadius_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DParametricGeometryGetChamferRadius_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 280);
 }
 
-void C3DParametricGeometrySetSegmentCount(uint64_t a1, int a2)
+void C3DParametricGeometrySetSegmentCount(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   if (!a1)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(0, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       C3DParametricGeometryGetChamferRadius_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
     }
   }
 
-  if (*(a1 + 280) != a2)
+  if (*(a1 + 280) != v2)
   {
-    *(a1 + 280) = a2;
+    *(a1 + 280) = v2;
     __Invalidate(a1);
   }
 }
 
-void C3DParametricGeometrySetPipeRadius(uint64_t a1, float a2)
+void C3DParametricGeometrySetPipeRadius(uint64_t a1, uint64_t a2, float a3)
 {
   if (!a1)
   {
-    v4 = scn_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      C3DParametricGeometryGetChamferRadius_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
+      C3DParametricGeometryGetChamferRadius_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
     }
   }
 
-  if (*(a1 + 256) != a2)
+  if (*(a1 + 256) != a3)
   {
-    *(a1 + 256) = a2;
+    *(a1 + 256) = a3;
     __Invalidate(a1);
   }
 }
 
-uint64_t C3DParametricGeometryGetPipeSegmentCount(uint64_t a1)
+uint64_t C3DParametricGeometryGetPipeSegmentCount(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DParametricGeometryGetChamferRadius_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DParametricGeometryGetChamferRadius_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 296);
 }
 
-void C3DParametricGeometrySetPipeSegmentCount(uint64_t a1, int a2)
+void C3DParametricGeometrySetPipeSegmentCount(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   if (!a1)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(0, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       C3DParametricGeometryGetChamferRadius_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
     }
   }
 
-  if (*(a1 + 296) != a2)
+  if (*(a1 + 296) != v2)
   {
-    *(a1 + 296) = a2;
+    *(a1 + 296) = v2;
     __Invalidate(a1);
   }
 }
 
-void C3DParametricGeometrySetRingRadius(uint64_t a1, float a2)
+void C3DParametricGeometrySetRingRadius(uint64_t a1, uint64_t a2, float a3)
 {
   if (!a1)
   {
-    v4 = scn_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      C3DParametricGeometryGetChamferRadius_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
+      C3DParametricGeometryGetChamferRadius_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
     }
   }
 
-  if (*(a1 + 252) != a2)
+  if (*(a1 + 252) != a3)
   {
-    *(a1 + 252) = a2;
+    *(a1 + 252) = a3;
     __Invalidate(a1);
   }
 }
 
-uint64_t C3DParametricGeometryGetRingSegmentCount(uint64_t a1)
+uint64_t C3DParametricGeometryGetRingSegmentCount(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DParametricGeometryGetChamferRadius_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DParametricGeometryGetChamferRadius_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 292);
 }
 
-void C3DParametricGeometrySetRingSegmentCount(uint64_t a1, int a2)
+void C3DParametricGeometrySetRingSegmentCount(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   if (!a1)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(0, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       C3DParametricGeometryGetChamferRadius_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
     }
   }
 
-  if (*(a1 + 292) != a2)
+  if (*(a1 + 292) != v2)
   {
-    *(a1 + 292) = a2;
+    *(a1 + 292) = v2;
     __Invalidate(a1);
   }
 }
 
-void C3DParametricGeometrySetInnerRadius(uint64_t a1, float a2)
+void C3DParametricGeometrySetInnerRadius(uint64_t a1, uint64_t a2, float a3)
 {
   if (!a1)
   {
-    v4 = scn_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      C3DParametricGeometryGetChamferRadius_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
+      C3DParametricGeometryGetChamferRadius_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
     }
   }
 
-  if (*(a1 + 244) != a2)
+  if (*(a1 + 244) != a3)
   {
-    *(a1 + 244) = a2;
+    *(a1 + 244) = a3;
     __Invalidate(a1);
   }
 }
 
-void C3DParametricGeometrySetOuterRadius(uint64_t a1, float a2)
+void C3DParametricGeometrySetOuterRadius(uint64_t a1, uint64_t a2, float a3)
 {
   if (!a1)
   {
-    v4 = scn_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      C3DParametricGeometryGetChamferRadius_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
+      C3DParametricGeometryGetChamferRadius_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
     }
   }
 
-  if (*(a1 + 248) != a2)
+  if (*(a1 + 248) != a3)
   {
-    *(a1 + 248) = a2;
+    *(a1 + 248) = a3;
     __Invalidate(a1);
   }
 }
@@ -2093,7 +3584,7 @@ void _C3DParametricGeometryReleaseCachedMesh_not_thread_safe(uint64_t a1)
   if (v2)
   {
     Value = CFDictionaryGetValue(_C3DParametricGeometryCacheRetainCounts, *(a1 + 360));
-    v4 = Value;
+    v5 = Value;
     if (Value)
     {
       if (Value == 1)
@@ -2109,19 +3600,19 @@ LABEL_8:
 
     else
     {
-      v5 = scn_default_log();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+      v6 = scn_default_log(0, v4);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
       {
-        _C3DParametricGeometryReleaseCachedMesh_not_thread_safe_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
+        _C3DParametricGeometryReleaseCachedMesh_not_thread_safe_cold_1(v6, v7, v8, v9, v10, v11, v12, v13);
       }
     }
 
-    CFDictionarySetValue(_C3DParametricGeometryCacheRetainCounts, v2, v4 - 1);
+    CFDictionarySetValue(_C3DParametricGeometryCacheRetainCounts, v2, v5 - 1);
     goto LABEL_8;
   }
 }
 
-id _C3DParametricGeometryCFFinalize(__C3DGeometry *a1)
+id _C3DParametricGeometryCFFinalize(__C3DGeometry *a1, uint64_t a2)
 {
   if (a1[1].var10.var3)
   {
@@ -2130,84 +3621,84 @@ id _C3DParametricGeometryCFFinalize(__C3DGeometry *a1)
     os_unfair_lock_unlock(&_C3DParametricGeometryCacheLock);
   }
 
-  return _C3DGeometryCFFinalize(a1);
+  return _C3DGeometryCFFinalize(a1, a2);
 }
 
-__CFString *_C3DParametricGeometryCFCopyDebugDescription(const void *a1)
+__CFString *_C3DParametricGeometryCFCopyDebugDescription(const void *a1, uint64_t a2)
 {
   memset(__s1, 0, sizeof(__s1));
-  C3DParametricGeometryGetCallbacks(a1, __s1);
+  C3DParametricGeometryGetCallbacks(a1, a2, __s1);
   if (!memcmp(__s1, kC3DBoxCallBacks, 0x30uLL))
   {
-    v2 = @"Box";
+    v3 = @"Box";
   }
 
   else if (!memcmp(__s1, kC3DPyramidCallBacks, 0x30uLL))
   {
-    v2 = @"Pyramid";
+    v3 = @"Pyramid";
   }
 
   else if (!memcmp(__s1, kC3DCylinderCallBacks, 0x30uLL))
   {
-    v2 = @"Cylinder";
+    v3 = @"Cylinder";
   }
 
   else if (!memcmp(__s1, kC3DConeCallBacks, 0x30uLL))
   {
-    v2 = @"Cone";
+    v3 = @"Cone";
   }
 
   else if (!memcmp(__s1, kC3DTubeCallBacks, 0x30uLL))
   {
-    v2 = @"Tube";
+    v3 = @"Tube";
   }
 
   else if (!memcmp(__s1, kC3DCapsuleCallBacks, 0x30uLL))
   {
-    v2 = @"Capsule";
+    v3 = @"Capsule";
   }
 
   else if (!memcmp(__s1, kC3DTorusCallBacks, 0x30uLL))
   {
-    v2 = @"Torus";
+    v3 = @"Torus";
   }
 
   else if (!memcmp(__s1, kC3DSphereCallBacks, 0x30uLL))
   {
-    v2 = @"Sphere";
+    v3 = @"Sphere";
   }
 
   else if (!memcmp(__s1, kC3DPlaneCallBacks, 0x30uLL))
   {
-    v2 = @"Plane";
+    v3 = @"Plane";
   }
 
   else
   {
-    v2 = @"Unknown";
+    v3 = @"Unknown";
   }
 
-  v3 = CFGetTypeID(a1);
-  v4 = CFCopyTypeIDDescription(v3);
+  v4 = CFGetTypeID(a1);
+  v5 = CFCopyTypeIDDescription(v4);
   Mutable = CFStringCreateMutable(*MEMORY[0x277CBECE8], 0);
-  Name = C3DGeometryGetName(a1);
-  CFStringAppendFormat(Mutable, 0, @"<%@<%@>:%p %@\n", v4, v2, a1, Name);
-  Mesh = C3DGeometryGetMesh(a1);
+  Name = C3DGeometryGetName(a1, v7);
+  CFStringAppendFormat(Mutable, 0, @"<%@<%@>:%p %@\n", v5, v3, a1, Name);
+  Mesh = C3DGeometryGetMesh(a1, v9);
   CFStringAppendFormat(Mutable, 0, @"  mesh: %@\n", Mesh);
-  if (C3DGeometryGetMaterialsCount(a1) >= 1)
+  if (C3DGeometryGetMaterialsCount(a1, v11) >= 1)
   {
-    v8 = 0;
+    v12 = 0;
     do
     {
-      MaterialAtIndex = C3DGeometryGetMaterialAtIndex(a1, v8);
-      CFStringAppendFormat(Mutable, 0, @"  mat%d: %@\n", v8++, MaterialAtIndex);
+      MaterialAtIndex = C3DGeometryGetMaterialAtIndex(a1, v12);
+      CFStringAppendFormat(Mutable, 0, @"  mat%d: %@\n", v12++, MaterialAtIndex);
     }
 
-    while (v8 < C3DGeometryGetMaterialsCount(a1));
+    while (v12 < C3DGeometryGetMaterialsCount(a1, v14));
   }
 
   CFStringAppend(Mutable, @">");
-  CFRelease(v4);
+  CFRelease(v5);
   return Mutable;
 }
 
@@ -2257,65 +3748,67 @@ void _C3DParametricGeometrySetValue(uint64_t a1, void *__dst, void *__src, size_
   __Invalidate(a1);
 }
 
-uint64_t _C3DParametricGeometryCreateCopy(uint64_t a1)
+uint64_t _C3DParametricGeometryCreateCopy(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryCopy_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DGeometryCopy_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
-  v10 = _C3DParametricGeometryCreate((a1 + 216), 0, 0);
-  C3DParametricGeometryCopy(a1, v10);
-  return v10;
+  v11 = _C3DParametricGeometryCreate((a1 + 216), 0, 0);
+  C3DParametricGeometryCopy(a1, v11);
+  return v11;
 }
 
 uint64_t C3DGLSLProfileBindPassInputs(float32x4_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
 {
-  v101 = *MEMORY[0x277D85DE8];
+  v106 = *MEMORY[0x277D85DE8];
   RendererElementState = C3DEngineContextGetRendererElementState(a1);
   x = C3DRendererElementStateGetActiveTextureUnit(RendererElementState);
   if (*(a3 + 520) >= 1)
   {
-    v92 = a4;
-    v9 = 0;
+    v97 = a4;
+    v10 = 0;
     __asm { FMOV            V8.2S, #1.0 }
 
-    v95 = a5;
-    v15 = a2;
+    v100 = a5;
+    v16 = a2;
     while (1)
     {
-      v16 = *(*(a3 + 512) + 8 * v9);
-      RendererContextGL = C3DEngineContextGetRendererContextGL(a1);
-      if (C3DSubdivisionGetPathTypeSupportsSingleCrease(*(v16 + 32)))
+      v17 = *(*(a3 + 512) + 8 * v10);
+      RendererContextGL = C3DEngineContextGetRendererContextGL(a1, v9);
+      if (C3DSubdivisionGetPathTypeSupportsSingleCrease(*(v17 + 32)))
       {
         goto LABEL_103;
       }
 
-      UniformIndex = *(v16 + 40);
-      if (UniformIndex == -2)
+      v19 = *(v17 + 40);
+      if (v19 == -2)
       {
         goto LABEL_103;
       }
 
-      if (UniformIndex == -1)
+      if (v19 == -1)
       {
-        v19 = *(v16 + 48);
-        if (!v19)
+        v9 = *(v17 + 48);
+        if (!v9)
         {
           goto LABEL_68;
         }
 
-        UniformLocationOfSymbolNamed = C3DFXGLSLProgramObjectGetUniformLocationOfSymbolNamed(v15, v19);
-        UniformIndex = C3DFXGLSLProgramObjectGetUniformIndex(v15, UniformLocationOfSymbolNamed);
+        UniformLocationOfSymbolNamed = C3DFXGLSLProgramObjectGetUniformLocationOfSymbolNamed(v16, v9);
+        UniformIndex = C3DFXGLSLProgramObjectGetUniformIndex(v16, UniformLocationOfSymbolNamed);
+        v19 = UniformIndex;
       }
 
       else
       {
-        UniformLocationOfSymbolNamed = C3DFXGLSLProgramObjectGetUniformLocation(v15, *(v16 + 40));
+        UniformIndex = C3DFXGLSLProgramObjectGetUniformLocation(v16, *(v17 + 40));
+        UniformLocationOfSymbolNamed = UniformIndex;
       }
 
       if (UniformLocationOfSymbolNamed == -1)
@@ -2325,73 +3818,74 @@ uint64_t C3DGLSLProfileBindPassInputs(float32x4_t *a1, uint64_t a2, uint64_t a3,
 
       if (a5)
       {
-        v21 = *(v16 + 48);
-        if (v21)
+        v9 = *(v17 + 48);
+        if (v9)
         {
-          if (*(v16 + 40) != -1)
+          if (*(v17 + 40) != -1)
           {
-            v22 = C3DFXGLSLProgramObjectGetUniformLocationOfSymbolNamed(v15, v21);
-            if (v22 != UniformLocationOfSymbolNamed)
+            UniformIndex = C3DFXGLSLProgramObjectGetUniformLocationOfSymbolNamed(v16, v9);
+            if (UniformIndex != UniformLocationOfSymbolNamed)
             {
-              if (v22 == -1)
+              if (UniformIndex == -1)
               {
-                v60 = scn_default_log();
-                if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
+                v63 = scn_default_log(-1, v9);
+                if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
                 {
-                  v89 = *(v16 + 48);
+                  v94 = *(v17 + 48);
                   buf.columns[0].i32[0] = 138412290;
-                  *(buf.columns[0].i64 + 4) = v89;
-                  _os_log_error_impl(&dword_21BEF7000, v60, OS_LOG_TYPE_ERROR, "Error: wrong location returned for input named %@", &buf, 0xCu);
+                  *(buf.columns[0].i64 + 4) = v94;
+                  _os_log_error_impl(&dword_21BEF7000, v63, OS_LOG_TYPE_ERROR, "Error: wrong location returned for input named %@", &buf, 0xCu);
                 }
 
 LABEL_68:
-                *(v16 + 40) = -2;
+                *(v17 + 40) = -2;
                 goto LABEL_103;
               }
 
-              v33 = C3DFXGLSLProgramObjectGetUniformIndex(v15, UniformLocationOfSymbolNamed);
-              *(v16 + 40) = v33;
-              v34 = scn_default_log();
-              v35 = v34;
-              if (v33 == -1)
+              v31 = C3DFXGLSLProgramObjectGetUniformIndex(v16, UniformLocationOfSymbolNamed);
+              *(v17 + 40) = v31;
+              v33 = scn_default_log(v31, v32);
+              v34 = v33;
+              if (v31 == -1)
               {
-                if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+                if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
                 {
-                  v64 = *(v16 + 48);
+                  v67 = *(v17 + 48);
                   buf.columns[0].i32[0] = 138412290;
-                  *(buf.columns[0].i64 + 4) = v64;
-                  v41 = v35;
-                  v42 = "Error: can't find input named %@";
+                  *(buf.columns[0].i64 + 4) = v67;
+                  v42 = v34;
+                  v43 = "Error: can't find input named %@";
 LABEL_45:
-                  _os_log_error_impl(&dword_21BEF7000, v41, OS_LOG_TYPE_ERROR, v42, &buf, 0xCu);
+                  _os_log_error_impl(&dword_21BEF7000, v42, OS_LOG_TYPE_ERROR, v43, &buf, 0xCu);
                 }
 
 LABEL_102:
-                v15 = a2;
+                v16 = a2;
                 goto LABEL_103;
               }
 
-              v15 = a2;
-              if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+              UniformIndex = os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT);
+              v16 = a2;
+              if (UniformIndex)
               {
                 buf.columns[0].i16[0] = 0;
-                _os_log_impl(&dword_21BEF7000, v35, OS_LOG_TYPE_DEFAULT, "Warning: the same program is shared by two passes but indexed in a different manner", &buf, 2u);
+                _os_log_impl(&dword_21BEF7000, v34, OS_LOG_TYPE_DEFAULT, "Warning: the same program is shared by two passes but indexed in a different manner", &buf, 2u);
               }
             }
           }
         }
       }
 
-      v23 = *(v16 + 16);
-      if (*(v16 + 32))
+      v22 = *(v17 + 16);
+      if (*(v17 + 32))
       {
         break;
       }
 
-      if (v23 == 3)
+      if (v22 == 3)
       {
-        UserInfo = C3DEngineContextGetUserInfo(a1);
-        RootNode = C3DFXPassGetRootNode(a3);
+        UserInfo = C3DEngineContextGetUserInfo(a1, v9);
+        RootNode = C3DFXPassGetRootNode(a3, v59);
         if (RootNode)
         {
           ObjCWrapper = C3DEntityGetObjCWrapper(RootNode);
@@ -2402,32 +3896,32 @@ LABEL_102:
           ObjCWrapper = 0;
         }
 
-        v61 = *(v16 + 96);
-        ProgramID = C3DFXGLSLProgramObjectGetProgramID(a2);
-        v63 = ObjCWrapper;
-        v15 = a2;
-        (*(v61 + 16))(v61, ProgramID, UniformLocationOfSymbolNamed, v63, UserInfo);
+        v64 = *(v17 + 96);
+        ProgramID = C3DFXGLSLProgramObjectGetProgramID(a2, v61);
+        v66 = ObjCWrapper;
+        v16 = a2;
+        (*(v64 + 16))(v64, ProgramID, UniformLocationOfSymbolNamed, v66, UserInfo);
 LABEL_71:
-        a5 = v95;
+        a5 = v100;
         goto LABEL_103;
       }
 
-      v24 = &C3DSubdivisionOsdGPUGetPerPatchTypeSources_Gregory(void)::kSources;
-      if (v23 == 2)
+      v23 = &C3DSubdivisionOsdGPUGetPerPatchTypeSources_Gregory(void)::kSources;
+      if (v22 == 2)
       {
         if (a5)
         {
-          v43 = C3DFXGLSLProgramObjectGetProgramID(a2);
-          v44 = C3DGLSLGetUniformType(RendererContextGL, v43, UniformLocationOfSymbolNamed);
-          v45 = *(v16 + 20);
-          if (v44 == 13)
+          v44 = C3DFXGLSLProgramObjectGetProgramID(a2, v9);
+          UniformIndex = C3DGLSLGetUniformType(RendererContextGL, v44, UniformLocationOfSymbolNamed);
+          v45 = *(v17 + 20);
+          if (UniformIndex == 13)
           {
             v46 = 10;
           }
 
           else
           {
-            v46 = v44;
+            v46 = UniformIndex;
           }
 
           if (v45 == 13)
@@ -2437,31 +3931,32 @@ LABEL_71:
 
           if (v45 != v46)
           {
-            v47 = scn_default_log();
-            if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+            v47 = scn_default_log(UniformIndex, v9);
+            UniformIndex = os_log_type_enabled(v47, OS_LOG_TYPE_ERROR);
+            if (UniformIndex)
             {
-              v90 = *(v16 + 56);
+              v95 = *(v17 + 56);
               buf.columns[0].i32[0] = 138412290;
-              *(buf.columns[0].i64 + 4) = v90;
+              *(buf.columns[0].i64 + 4) = v95;
               _os_log_error_impl(&dword_21BEF7000, v47, OS_LOG_TYPE_ERROR, "Error: declared type doesn't match the uniform named %@", &buf, 0xCu);
             }
           }
         }
 
-        v48 = **(v92 + 96);
+        v48 = **(v97 + 96);
         if (v48)
         {
-          v49 = *(v16 + 20);
-          v50 = *(v16 + 88);
+          v49 = *(v17 + 20);
+          v50 = *(v17 + 88);
           if (v49 == 5)
           {
             v51 = *(v48 + v50);
-            if (!v51 || (TextureSampler = C3DFXSamplerGetTextureSampler(*(v48 + v50))) == 0)
+            if (!v51 || (UniformIndex = C3DFXSamplerGetTextureSampler(*(v48 + v50), v9), (v52 = UniformIndex) == 0))
             {
-              TextureSampler = *(v16 + 72);
-              if (!TextureSampler)
+              v52 = *(v17 + 72);
+              if (!v52)
               {
-                TextureSampler = C3DTextureSamplerBilinearNoAnisotropy();
+                v52 = C3DTextureSamplerBilinearNoAnisotropy(UniformIndex, v9);
               }
 
               if (!v51)
@@ -2470,12 +3965,12 @@ LABEL_71:
               }
             }
 
-            Image = C3DFXSamplerGetImage(v51);
+            Image = C3DFXSamplerGetImage(v51, v9);
             if (Image)
             {
-              v54 = Image;
-              ResourceManager = C3DEngineContextGetResourceManager(a1);
-              ImageResident = C3DResourceManagerMakeImageResident(ResourceManager, v54, TextureSampler, RendererContextGL);
+              v55 = Image;
+              ResourceManager = C3DEngineContextGetResourceManager(a1, v54);
+              ImageResident = C3DResourceManagerMakeImageResident(ResourceManager, v55, v52, RendererContextGL);
             }
 
             else
@@ -2484,67 +3979,67 @@ LABEL_100:
               ImageResident = 0;
             }
 
-            a5 = v95;
-            C3DRendererContextBindTexture(RendererContextGL, ImageResident, TextureSampler, 0, x);
+            a5 = v100;
+            C3DRendererContextBindTexture(RendererContextGL, ImageResident, v52, 0, x);
             C3DRendererContextSetIntUniformAtLocation(RendererContextGL, UniformLocationOfSymbolNamed, x++);
           }
 
           else
           {
-            C3DRendererContextSetTypedBytesUniformAtLocation(RendererContextGL, UniformLocationOfSymbolNamed, v49, (v48 + v50), *(v16 + 24));
+            C3DRendererContextSetTypedBytesUniformAtLocation(RendererContextGL, UniformLocationOfSymbolNamed, v49, (v48 + v50), *(v17 + 24));
           }
         }
 
         goto LABEL_102;
       }
 
-      if (v23 == 1)
+      if (v22 == 1)
       {
         goto LABEL_21;
       }
 
 LABEL_103:
-      if (++v9 >= *(a3 + 520))
+      if (++v10 >= *(a3 + 520))
       {
         return C3DRendererElementStateSetActiveTextureUnit(RendererElementState, x);
       }
     }
 
-    v24 = &C3DSubdivisionOsdGPUGetPerPatchTypeSources_Gregory(void)::kSources;
-    if (v23 != 1)
+    v23 = &C3DSubdivisionOsdGPUGetPerPatchTypeSources_Gregory(void)::kSources;
+    if (v22 != 1)
     {
       memset(&buf, 0, sizeof(buf));
-      memset(&v99, 0, sizeof(v99));
-      v25 = C3DEngineContextGetRendererContextGL(a1);
-      switch(*(v16 + 32))
+      memset(&v104, 0, sizeof(v104));
+      v24 = C3DEngineContextGetRendererContextGL(a1, v9);
+      switch(*(v17 + 32))
       {
         case 6:
           memset(&value, 0, sizeof(value));
           Matrix4x4 = C3DEngineContextGetMatrix4x4(a1, 1);
-          v27 = C3DEngineContextGetMatrix4x4(a1, 2);
-          C3DMatrix4x4Mult(v27, Matrix4x4, &buf);
-          v28 = C3DEngineContextGetMatrix4x4(a1, 0);
-          C3DMatrix4x4Mult(&buf, v28, &value);
+          v26 = C3DEngineContextGetMatrix4x4(a1, 2);
+          C3DMatrix4x4Mult(v26, Matrix4x4, &buf);
+          v27 = C3DEngineContextGetMatrix4x4(a1, 0);
+          C3DMatrix4x4Mult(&buf, v27, &value);
           goto LABEL_94;
         case 7:
-          v76 = C3DEngineContextGetMatrix4x4(a1, 1);
-          v77 = C3DEngineContextGetMatrix4x4(a1, 2);
-          C3DMatrix4x4Mult(v77, v76, &buf);
+          v81 = C3DEngineContextGetMatrix4x4(a1, 1);
+          v82 = C3DEngineContextGetMatrix4x4(a1, 2);
+          C3DMatrix4x4Mult(v82, v81, &buf);
           goto LABEL_87;
         case 8:
-          v65 = a1;
-          v66 = 2;
+          v68 = a1;
+          v69 = 2;
           goto LABEL_84;
         case 9:
-          v65 = a1;
-          v66 = 1;
+          v68 = a1;
+          v69 = 1;
           goto LABEL_84;
         case 0xA:
-          v65 = a1;
-          v66 = 0;
+          v68 = a1;
+          v69 = 0;
 LABEL_84:
-          v72 = C3DEngineContextGetMatrix4x4(v65, v66);
-          v73 = *(v16 + 24);
+          v77 = C3DEngineContextGetMatrix4x4(v68, v69);
+          v78 = *(v17 + 24);
           goto LABEL_99;
         case 0xB:
           memset(&value, 0, sizeof(value));
@@ -2552,83 +4047,83 @@ LABEL_84:
           goto LABEL_89;
         case 0xC:
           memset(&value, 0, sizeof(value));
-          v83 = C3DEngineContextGetMatrix4x4(a1, 1);
-          v84 = C3DEngineContextGetMatrix4x4(a1, 2);
-          C3DMatrix4x4Mult(v84, v83, &buf);
-          v85 = C3DEngineContextGetMatrix4x4(a1, 0);
-          C3DMatrix4x4Mult(&buf, v85, &value);
+          v88 = C3DEngineContextGetMatrix4x4(a1, 1);
+          v89 = C3DEngineContextGetMatrix4x4(a1, 2);
+          C3DMatrix4x4Mult(v89, v88, &buf);
+          v90 = C3DEngineContextGetMatrix4x4(a1, 0);
+          C3DMatrix4x4Mult(&buf, v90, &value);
           C3DMatrix4x4Invert(&value, &value);
 LABEL_94:
-          v78 = *(v16 + 24);
+          v83 = *(v17 + 24);
           p_value = &value;
           goto LABEL_95;
         case 0xD:
-          v74 = C3DEngineContextGetMatrix4x4(a1, 1);
-          v75 = C3DEngineContextGetMatrix4x4(a1, 2);
-          C3DMatrix4x4Mult(v75, v74, &buf);
+          v79 = C3DEngineContextGetMatrix4x4(a1, 1);
+          v80 = C3DEngineContextGetMatrix4x4(a1, 2);
+          C3DMatrix4x4Mult(v80, v79, &buf);
           C3DMatrix4x4Invert(&buf, &buf);
 LABEL_87:
-          v78 = *(v16 + 24);
+          v83 = *(v17 + 24);
           p_value = &buf;
 LABEL_95:
-          C3DRendererContextSetMatrix4x4UniformAtLocation(v25, UniformLocationOfSymbolNamed, p_value, v78);
+          C3DRendererContextSetMatrix4x4UniformAtLocation(v24, UniformLocationOfSymbolNamed, p_value, v83);
           goto LABEL_102;
         case 0xE:
-          v70 = a1;
-          v71 = 2;
+          v75 = a1;
+          v76 = 2;
           goto LABEL_98;
         case 0xF:
-          v70 = a1;
-          v71 = 1;
+          v75 = a1;
+          v76 = 1;
           goto LABEL_98;
         case 0x10:
-          v70 = a1;
-          v71 = 0;
+          v75 = a1;
+          v76 = 0;
 LABEL_98:
-          v86 = C3DEngineContextGetMatrix4x4(v70, v71);
-          C3DMatrix4x4Invert(v86, &v99);
-          v73 = *(v16 + 24);
-          v72 = &v99;
+          v91 = C3DEngineContextGetMatrix4x4(v75, v76);
+          C3DMatrix4x4Invert(v91, &v104);
+          v78 = *(v17 + 24);
+          v77 = &v104;
           goto LABEL_99;
         case 0x11:
           memset(&value, 0, sizeof(value));
           C3DEngineContextComputeNormalMatrix(a1, &value);
           C3DMatrix4x4Invert(&value, &value);
 LABEL_89:
-          v73 = *(v16 + 24);
-          v72 = &value;
+          v78 = *(v17 + 24);
+          v77 = &value;
 LABEL_99:
-          C3DRendererContextSetMatrix4x4UniformAtLocation(v25, UniformLocationOfSymbolNamed, v72, v73);
+          C3DRendererContextSetMatrix4x4UniformAtLocation(v24, UniformLocationOfSymbolNamed, v77, v78);
           break;
         case 0x12:
-          FXContext = C3DEngineContextGetFXContext(a1);
-          OutputFramebuffer = C3DFXContextGetOutputFramebuffer(FXContext);
+          FXContext = C3DEngineContextGetFXContext(a1, v9);
+          OutputFramebuffer = C3DFXContextGetOutputFramebuffer(FXContext, v71);
           if (OutputFramebuffer)
           {
-            *&v69 = C3DFramebufferGetSize(OutputFramebuffer);
+            *&v74 = C3DFramebufferGetSize(OutputFramebuffer, v73);
           }
 
           else
           {
             Viewport = C3DEngineContextGetViewport(a1);
-            v69 = vextq_s8(Viewport, Viewport, 8uLL).u64[0];
+            v74 = vextq_s8(Viewport, Viewport, 8uLL).u64[0];
           }
 
-          *value.columns[0].f32 = vdiv_f32(_D8, vmaxnm_f32(v69, _D8));
-          C3DRendererContextSetVector2UniformAtLocation(v25, UniformLocationOfSymbolNamed, &value, *(v16 + 24));
+          *value.columns[0].f32 = vdiv_f32(_D8, vmaxnm_f32(v74, _D8));
+          C3DRendererContextSetVector2UniformAtLocation(v24, UniformLocationOfSymbolNamed, &value, *(v17 + 24));
           break;
         case 0x13:
           SystemTime = C3DEngineContextGetSystemTime(a1);
-          v81 = *&_bindSemanticUniform_t0;
+          v86 = *&_bindSemanticUniform_t0;
           if (*&_bindSemanticUniform_t0 == 0.0)
           {
             _bindSemanticUniform_t0 = *&SystemTime;
-            v81 = SystemTime;
+            v86 = SystemTime;
           }
 
-          v82 = SystemTime - v81;
-          value.columns[0].f32[0] = v82;
-          C3DRendererContextSetFloatUniformAtLocation(v25, UniformLocationOfSymbolNamed, &value, *(v16 + 24));
+          v87 = SystemTime - v86;
+          value.columns[0].f32[0] = v87;
+          C3DRendererContextSetFloatUniformAtLocation(v24, UniformLocationOfSymbolNamed, &value, *(v17 + 24));
           break;
         default:
           goto LABEL_103;
@@ -2638,11 +4133,11 @@ LABEL_99:
     }
 
 LABEL_21:
-    v29 = C3DEngineContextGetFXContext(a1);
-    if (*(v16 + 80))
+    OutputDepthTexture = C3DEngineContextGetFXContext(a1, v9);
+    if (*(v17 + 80))
     {
-      v32 = v29[16];
-      if (v32)
+      v30 = OutputDepthTexture[16];
+      if (v30)
       {
         goto LABEL_33;
       }
@@ -2650,82 +4145,83 @@ LABEL_21:
 
     else
     {
-      if ((*(v16 + 80) & 2) == 0)
+      if ((*(v17 + 80) & 2) == 0)
       {
-        v30 = *(v16 + 32);
-        if (v30 == 28)
+        v29 = *(v17 + 32);
+        if (v29 == 28)
         {
-          OutputDepthTexture = C3DFXContextGetOutputDepthTexture(v29, a1);
+          OutputDepthTexture = C3DFXContextGetOutputDepthTexture(OutputDepthTexture, a1);
         }
 
-        else if (v30 == 20)
+        else if (v29 == 20)
         {
-          OutputDepthTexture = C3DFXContextGetOutputColorTexture(v29, a1);
+          OutputDepthTexture = C3DFXContextGetOutputColorTexture(OutputDepthTexture, a1);
         }
 
         else
         {
-          OutputDepthTexture = C3DFramebufferRegistryGetTextureWithName(v29[30], *(v16 + 56));
+          OutputDepthTexture = C3DFramebufferRegistryGetTextureWithName(OutputDepthTexture[30], *(v17 + 56));
         }
 
 LABEL_34:
         if (OutputDepthTexture)
         {
-          v93 = OutputDepthTexture;
-          v36 = *(v16 + 72);
-          if (!v36)
+          v98 = OutputDepthTexture;
+          v35 = *(v17 + 72);
+          if (!v35)
           {
-            v36 = C3DTextureSamplerBilinearNoAnisotropy();
-            *(v16 + 72) = CFRetain(v36);
+            v35 = C3DTextureSamplerBilinearNoAnisotropy(OutputDepthTexture, v9);
+            *(v17 + 72) = CFRetain(v35);
           }
 
-          if (v95)
+          if (v100)
           {
-            v37 = C3DFXGLSLProgramObjectGetProgramID(a2);
-            if (C3DGLSLGetUniformType(RendererContextGL, v37, UniformLocationOfSymbolNamed) != 5)
+            v36 = C3DFXGLSLProgramObjectGetProgramID(a2, v9);
+            v37 = C3DGLSLGetUniformType(RendererContextGL, v36, UniformLocationOfSymbolNamed);
+            if (v37 != 5)
             {
-              v38 = scn_default_log();
-              if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+              v39 = scn_default_log(v37, v38);
+              if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
               {
-                v88 = *(v16 + 56);
+                v93 = *(v17 + 56);
                 buf.columns[0].i32[0] = 138412290;
-                *(buf.columns[0].i64 + 4) = v88;
-                _os_log_error_impl(&dword_21BEF7000, v38, OS_LOG_TYPE_ERROR, "Error: declared type doesn't match the uniform named %@", &buf, 0xCu);
+                *(buf.columns[0].i64 + 4) = v93;
+                _os_log_error_impl(&dword_21BEF7000, v39, OS_LOG_TYPE_ERROR, "Error: declared type doesn't match the uniform named %@", &buf, 0xCu);
               }
             }
           }
 
           C3DRendererContextSetIntUniformAtLocation(RendererContextGL, UniformLocationOfSymbolNamed, x);
-          C3DFXGLSLProgramObjectSetUniformValueAtIndex(a2, UniformIndex, x);
-          C3DRendererContextBindTexture(RendererContextGL, v93, v36, 0, x++);
-          v15 = a2;
+          C3DFXGLSLProgramObjectSetUniformValueAtIndex(a2, v19, x);
+          C3DRendererContextBindTexture(RendererContextGL, v98, v35, 0, x++);
+          v16 = a2;
           goto LABEL_71;
         }
 
         goto LABEL_42;
       }
 
-      v32 = v29[17];
-      if (v32)
+      v30 = OutputDepthTexture[17];
+      if (v30)
       {
 LABEL_33:
-        OutputDepthTexture = *(v32 + 24);
+        OutputDepthTexture = *(v30 + 24);
         goto LABEL_34;
       }
     }
 
 LABEL_42:
-    if ((*(v24 + 345) & 1) == 0)
+    if ((*(v23 + 345) & 1) == 0)
     {
-      *(v24 + 345) = 1;
-      v39 = scn_default_log();
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+      *(v23 + 345) = 1;
+      v40 = scn_default_log(OutputDepthTexture, v9);
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
       {
-        v40 = *(v16 + 56);
+        v41 = *(v17 + 56);
         buf.columns[0].i32[0] = 138412290;
-        *(buf.columns[0].i64 + 4) = v40;
-        v41 = v39;
-        v42 = "Error: failed to find texture target named %@";
+        *(buf.columns[0].i64 + 4) = v41;
+        v42 = v40;
+        v43 = "Error: failed to find texture target named %@";
         goto LABEL_45;
       }
 
@@ -2738,18 +4234,18 @@ LABEL_42:
   return C3DRendererElementStateSetActiveTextureUnit(RendererElementState, x);
 }
 
-void C3DGLSLProfileBindProfileInputs(float32x4_t *a1, uint64_t a2, uint64_t a3)
+void C3DGLSLProfileBindProfileInputs(float32x4_t *result, uint64_t a2, uint64_t a3)
 {
   if (a3)
   {
-    PassCount = C3DFXTechniqueGetPassCount(a3);
+    PassCount = C3DFXTechniqueGetPassCount(a3, a2);
     if (PassCount >= 1)
     {
       v7 = PassCount;
       for (i = 0; i != v7; ++i)
       {
         PassAtIndex = C3DFXTechniqueGetPassAtIndex(a3, i);
-        C3DGLSLProfileBindPassInputs(a1, a2, PassAtIndex, a3, 0);
+        C3DGLSLProfileBindPassInputs(result, a2, PassAtIndex, a3, 0);
       }
     }
   }
@@ -2757,7 +4253,7 @@ void C3DGLSLProfileBindProfileInputs(float32x4_t *a1, uint64_t a2, uint64_t a3)
   else if ((C3DGLSLProfileBindProfileInputs_done & 1) == 0)
   {
     C3DGLSLProfileBindProfileInputs_done = 1;
-    v10 = scn_default_log();
+    v10 = scn_default_log(result, a2);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       C3DGLSLProfileBindProfileInputs_cold_1(v10);
@@ -2765,7 +4261,7 @@ void C3DGLSLProfileBindProfileInputs(float32x4_t *a1, uint64_t a2, uint64_t a3)
   }
 }
 
-uint64_t C3DValueGetTypeID()
+uint64_t C3DValueGetTypeID(uint64_t a1, uint64_t a2)
 {
   if (C3DValueGetTypeID_onceToken != -1)
   {
@@ -2783,11 +4279,20 @@ uint64_t __C3DValueGetTypeID_block_invoke()
   return result;
 }
 
-uint64_t C3DValueCreate(int a1, uint64_t a2)
+uint64_t C3DValueCreate(uint64_t a1, uint64_t a2)
 {
-  if (!a2 || a1 && !C3DSizeOfBaseType(a1))
+  if (!a2)
   {
     return 0;
+  }
+
+  v3 = a1;
+  if (a1)
+  {
+    if (!C3DSizeOfBaseType(a1, a2))
+    {
+      return 0;
+    }
   }
 
   if (C3DValueGetTypeID_onceToken != -1)
@@ -2796,82 +4301,83 @@ uint64_t C3DValueCreate(int a1, uint64_t a2)
   }
 
   Instance = C3DTypeCreateInstance_(C3DValueGetTypeID_typeID, 24);
-  v5 = Instance;
+  v6 = Instance;
   *(Instance + 18) = 0;
-  *(Instance + 16) = a1;
+  *(Instance + 16) = v3;
   *(Instance + 32) = a2;
-  if (a1)
+  if (v3)
   {
-    Length = C3DValueGetLength(Instance);
-    *(v5 + 24) = malloc_type_calloc(Length, 1uLL, 0xD6FAB170uLL);
+    Length = C3DValueGetLength(Instance, v5);
+    *(v6 + 24) = malloc_type_calloc(Length, 1uLL, 0xD6FAB170uLL);
   }
 
-  return v5;
+  return v6;
 }
 
-uint64_t C3DValueGetLength(uint64_t a1)
+uint64_t C3DValueGetLength(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      __RemoveVRAMResourceFromDic_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      __RemoveVRAMResourceFromDic_cold_1(v3, a2, v4, v5, v6, v7, v8, v9);
     }
   }
 
-  return *(a1 + 32) * C3DSizeOfBaseType(*(a1 + 16));
+  return *(a1 + 32) * C3DSizeOfBaseType(*(a1 + 16), a2);
 }
 
-uint64_t C3DValueCreateDefault(int a1)
+uint64_t C3DValueCreateDefault(uint64_t a1)
 {
+  v1 = a1;
   v2 = C3DValueCreate(a1, 1);
-  v3 = v2;
-  if (a1 == 11)
+  v4 = v2;
+  if (v1 == 11)
   {
-    Bytes = C3DValueGetBytes(v2);
+    Bytes = C3DValueGetBytes(v2, v3);
     C3DMatrix4x4MakeIdentity(Bytes);
   }
 
-  return v3;
+  return v4;
 }
 
-uint64_t C3DValueGetBytes(uint64_t a1)
+uint64_t C3DValueGetBytes(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      __RemoveVRAMResourceFromDic_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      __RemoveVRAMResourceFromDic_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 24);
 }
 
-uint64_t C3DValueGetType(uint64_t a1)
+uint64_t C3DValueGetType(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      __RemoveVRAMResourceFromDic_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      __RemoveVRAMResourceFromDic_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 16);
 }
 
-uint64_t C3DValueGetTypeSemantic(uint64_t a1)
+uint64_t C3DValueGetTypeSemantic(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      __RemoveVRAMResourceFromDic_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      __RemoveVRAMResourceFromDic_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
@@ -2880,9 +4386,9 @@ uint64_t C3DValueGetTypeSemantic(uint64_t a1)
 
 CFTypeRef C3DValueInitFrom(uint64_t a1, const void *a2)
 {
-  if (C3DValueGetTypeSemantic(a1) == 1)
+  if (C3DValueGetTypeSemantic(a1, a2) == 1)
   {
-    Bytes = C3DValueGetBytes(a1);
+    Bytes = C3DValueGetBytes(a1, v4);
     if (*Bytes)
     {
       CFRelease(*Bytes);
@@ -2904,10 +4410,10 @@ CFTypeRef C3DValueInitFrom(uint64_t a1, const void *a2)
 
   else
   {
-    Length = C3DValueGetLength(a1);
-    v7 = C3DValueGetBytes(a1);
+    Length = C3DValueGetLength(a1, v4);
+    v9 = C3DValueGetBytes(a1, v8);
 
-    return memcpy(v7, a2, Length);
+    return memcpy(v9, a2, Length);
   }
 
   return result;
@@ -2915,13 +4421,13 @@ CFTypeRef C3DValueInitFrom(uint64_t a1, const void *a2)
 
 size_t C3DValueCopyTo(uint64_t a1, void *a2)
 {
-  Length = C3DValueGetLength(a1);
-  Bytes = C3DValueGetBytes(a1);
+  Length = C3DValueGetLength(a1, a2);
+  Bytes = C3DValueGetBytes(a1, v5);
   memcpy(a2, Bytes, Length);
   return Length;
 }
 
-void CFStringScanFloats(const char *a1, int *a2, int a3)
+void CFStringScanFloats(char *a1, int *a2, unsigned int a3)
 {
   if (a3)
   {
@@ -3013,7 +4519,7 @@ void CFStringScanFloats(const char *a1, int *a2, int a3)
   }
 }
 
-char *CFStringScanCGFloats(char *result, uint64_t a2, int a3)
+char *CFStringScanCGFloats(char *result, uint64_t a2, unsigned int a3)
 {
   if (!a3)
   {
@@ -3092,61 +4598,62 @@ CFStringRef C3DStringCreateSubstringAfterPrefix(const __CFString *a1, const __CF
 
 BOOL C3DValueSetValueFromString(uint64_t a1, const __CFString *a2)
 {
-  Bytes = C3DValueGetBytes(a1);
-  v5 = *(a1 + 16);
-  if (v5 > 7)
+  Bytes = C3DValueGetBytes(a1, a2);
+  v6 = Bytes;
+  v7 = *(a1 + 16);
+  if (v7 > 7)
   {
-    switch(v5)
+    switch(v7)
     {
       case 8u:
-        v10 = 0;
-        *&v24 = 0;
+        v12 = 0;
+        *&v26 = 0;
         SubstringAfterPrefix = C3DStringCreateSubstringAfterPrefix(a2, @"vec2(");
         if (SubstringAfterPrefix)
         {
-          v12 = SubstringAfterPrefix;
-          CFStringScanFloats(SubstringAfterPrefix, &v24, 2);
-          CFRelease(v12);
-          v10 = v24;
+          v14 = SubstringAfterPrefix;
+          CFStringScanFloats(SubstringAfterPrefix, &v26, 2u);
+          CFRelease(v14);
+          v12 = v26;
         }
 
-        *Bytes = v10;
+        *v6 = v12;
         return 1;
       case 9u:
-        v24 = 0uLL;
-        v22 = C3DStringCreateSubstringAfterPrefix(a2, @"vec3(");
-        if (v22)
+        v26 = 0uLL;
+        v24 = C3DStringCreateSubstringAfterPrefix(a2, @"vec3(");
+        if (v24)
         {
-          v23 = v22;
-          CFStringScanFloats(v22, &v24, 3);
-          CFRelease(v23);
+          v25 = v24;
+          CFStringScanFloats(v24, &v26, 3u);
+          CFRelease(v25);
         }
 
-        *Bytes = v24;
-        *(Bytes + 8) = DWORD2(v24);
+        *v6 = v26;
+        v6[2] = DWORD2(v26);
         return 1;
       case 0xAu:
-        v24 = 0uLL;
-        v7 = C3DStringCreateSubstringAfterPrefix(a2, @"vec4(");
-        if (v7)
+        v26 = 0uLL;
+        v9 = C3DStringCreateSubstringAfterPrefix(a2, @"vec4(");
+        if (v9)
         {
-          v8 = v7;
-          CFStringScanFloats(v7, &v24, 4);
-          CFRelease(v8);
+          v10 = v9;
+          CFStringScanFloats(v9, &v26, 4u);
+          CFRelease(v10);
         }
 
-        *Bytes = v24;
+        *v6 = v26;
         return 1;
     }
 
     goto LABEL_17;
   }
 
-  switch(v5)
+  switch(v7)
   {
     case 1u:
       DoubleValue = CFStringGetDoubleValue(a2);
-      *Bytes = DoubleValue;
+      *v6 = DoubleValue;
       return 1;
     case 2u:
       *Bytes = CFStringGetIntValue(a2);
@@ -3154,40 +4661,41 @@ BOOL C3DValueSetValueFromString(uint64_t a1, const __CFString *a2)
     case 3u:
       if (CFStringCompare(a2, @"true", 0))
       {
-        v6 = 1;
+        v8 = 1;
       }
 
       else if (CFStringCompare(a2, @"false", 0))
       {
-        v6 = 0;
+        v8 = 0;
       }
 
       else
       {
-        v6 = CFStringGetIntValue(a2) != 0;
+        v8 = CFStringGetIntValue(a2) != 0;
       }
 
-      *Bytes = v6;
+      *v6 = v8;
       return 1;
   }
 
 LABEL_17:
-  v13 = scn_default_log();
-  result = os_log_type_enabled(v13, OS_LOG_TYPE_FAULT);
+  v15 = scn_default_log(Bytes, v5);
+  result = os_log_type_enabled(v15, OS_LOG_TYPE_FAULT);
   if (result)
   {
-    C3DValueSetValueFromString_cold_1(v13, v15, v16, v17, v18, v19, v20, v21);
+    C3DValueSetValueFromString_cold_1(v15, v17, v18, v19, v20, v21, v22, v23);
     return 0;
   }
 
   return result;
 }
 
-float32_t C3DValueConcat(uint64_t a1, uint64_t a2, uint64_t a3)
+float32_t C3DValueConcat(_BOOL8 a1, uint64_t a2, uint64_t a3)
 {
-  if (!a1 && (v6 = scn_default_log(), os_log_type_enabled(v6, OS_LOG_TYPE_FAULT)))
+  v5 = a1;
+  if (!a1 && (v6 = scn_default_log(0, a2), a1 = os_log_type_enabled(v6, OS_LOG_TYPE_FAULT)))
   {
-    C3DValueConcat_cold_1(v6, v7, v8, v9, v10, v11, v12, v13);
+    C3DValueConcat_cold_1(v6, a2, v7, v8, v9, v10, v11, v12);
     if (a2)
     {
       goto LABEL_6;
@@ -3199,52 +4707,55 @@ float32_t C3DValueConcat(uint64_t a1, uint64_t a2, uint64_t a3)
     goto LABEL_6;
   }
 
-  v14 = scn_default_log();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+  v13 = scn_default_log(a1, a2);
+  a1 = os_log_type_enabled(v13, OS_LOG_TYPE_FAULT);
+  if (a1)
   {
-    C3DValueConcat_cold_2(v14, v15, v16, v17, v18, v19, v20, v21);
+    C3DValueConcat_cold_2(v13, a2, v14, v15, v16, v17, v18, v19);
   }
 
 LABEL_6:
   if (!a3)
   {
-    v22 = scn_default_log();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
+    v20 = scn_default_log(a1, a2);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
     {
-      C3DValueConcat_cold_3(v22, v23, v24, v25, v26, v27, v28, v29);
+      C3DValueConcat_cold_3(v20, a2, v21, v22, v23, v24, v25, v26);
     }
   }
 
-  Type = C3DValueGetType(a1);
-  if (Type != C3DValueGetType(a2))
+  Type = C3DValueGetType(v5, a2);
+  v29 = C3DValueGetType(a2, v28);
+  if (Type != v29)
   {
-    v31 = scn_default_log();
+    v31 = scn_default_log(v29, v30);
     if (os_log_type_enabled(v31, OS_LOG_TYPE_FAULT))
     {
-      C3DValueConcat_cold_4(v31, v32, v33, v34, v35, v36, v37, v38);
+      C3DValueConcat_cold_4(v31, v30, v32, v33, v34, v35, v36, v37);
     }
   }
 
-  if (Type != C3DValueGetType(a3))
+  v38 = C3DValueGetType(a3, v30);
+  if (Type != v38)
   {
-    v39 = scn_default_log();
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_FAULT))
+    v40 = scn_default_log(v38, v39);
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_FAULT))
     {
-      C3DValueConcat_cold_5(v39, v40, v41, v42, v43, v44, v45, v46);
+      C3DValueConcat_cold_5(v40, v39, v41, v42, v43, v44, v45, v46);
     }
   }
 
-  Bytes = C3DValueGetBytes(a1);
-  v48 = C3DValueGetBytes(a2);
-  v49 = C3DValueGetBytes(a3);
-  return C3DConcatBaseType(Type, Bytes, v48, v49, v50);
+  Bytes = C3DValueGetBytes(v5, v39);
+  v49 = C3DValueGetBytes(a2, v48);
+  v51 = C3DValueGetBytes(a3, v50);
+  return C3DConcatBaseType(Type, Bytes, v49, v51, v52);
 }
 
 CFStringRef _C3DValueCFCopyDebugDescription(uint64_t a1)
 {
   v2 = CFGetAllocator(a1);
-  v3 = C3DBaseTypeStringDescription(*(a1 + 16));
-  return CFStringCreateWithFormat(v2, 0, @"<C3DValue %p - %@ ptr:%p >", a1, v3, *(a1 + 24));
+  v4 = C3DBaseTypeStringDescription(*(a1 + 16), v3);
+  return CFStringCreateWithFormat(v2, 0, @"<C3DValue %p - %@ ptr:%p >", a1, v4, *(a1 + 24));
 }
 
 __CFArray *_C3DValueCopyInstanceVariables(uint64_t a1)
@@ -3334,23 +4845,23 @@ uint64_t __C3DFXSamplerGetTypeID_block_invoke()
   return result;
 }
 
-uint64_t C3DFXSamplerCreate()
+uint64_t C3DFXSamplerCreate(uint64_t a1)
 {
   if (C3DFXSamplerGetTypeID_onceToken != -1)
   {
     C3DFXSamplerCreate_cold_1();
   }
 
-  v1 = C3DFXSamplerGetTypeID_typeID;
+  v2 = C3DFXSamplerGetTypeID_typeID;
 
-  return C3DTypeCreateInstance_(v1, 24);
+  return C3DTypeCreateInstance_(v2, 24);
 }
 
 CFTypeRef C3DFXSamplerSetTextureSampler(uint64_t a1, CFTypeRef cf)
 {
   if (!a1)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(0, cf);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       C3DFXSamplerSetTextureSampler_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
@@ -3382,14 +4893,14 @@ CFTypeRef C3DFXSamplerSetTextureSampler(uint64_t a1, CFTypeRef cf)
   return result;
 }
 
-uint64_t C3DFXSamplerGetTextureSampler(uint64_t a1)
+uint64_t C3DFXSamplerGetTextureSampler(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DFXSamplerSetTextureSampler_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DFXSamplerSetTextureSampler_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
@@ -3400,7 +4911,7 @@ CFTypeRef C3DFXSamplerSetImage(uint64_t a1, CFTypeRef cf)
 {
   if (!a1)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(0, cf);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       C3DFXSamplerSetTextureSampler_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
@@ -3432,14 +4943,14 @@ CFTypeRef C3DFXSamplerSetImage(uint64_t a1, CFTypeRef cf)
   return result;
 }
 
-uint64_t C3DFXSamplerGetImage(uint64_t a1)
+uint64_t C3DFXSamplerGetImage(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DFXSamplerSetTextureSampler_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DFXSamplerSetTextureSampler_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
@@ -3450,7 +4961,7 @@ CFTypeRef C3DFXSamplerSetTexture(uint64_t a1, CFTypeRef cf)
 {
   if (!a1)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(0, cf);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       C3DFXSamplerSetTextureSampler_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
@@ -3482,14 +4993,14 @@ CFTypeRef C3DFXSamplerSetTexture(uint64_t a1, CFTypeRef cf)
   return result;
 }
 
-uint64_t C3DFXSamplerGetTexture(uint64_t a1)
+uint64_t C3DFXSamplerGetTexture(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DFXSamplerSetTextureSampler_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DFXSamplerSetTextureSampler_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
@@ -3566,8 +5077,8 @@ BOOL C3DNodeNeedsSpecialUpAxisConversion(uint64_t a1)
   result = 1;
   if ((C3DNodeHasCamera(a1) & 1) == 0)
   {
-    Light = C3DNodeGetLight(a1);
-    if (!Light || (C3DLightGetType(Light) & 0xFFFFFFFD) != 1)
+    Light = C3DNodeGetLight(a1, v2);
+    if (!Light || (C3DLightGetType(Light, v4) & 0xFFFFFFFD) != 1)
     {
       return 0;
     }
@@ -3609,13 +5120,13 @@ LABEL_7:
 
   if (v11)
   {
-    v19.n128_u32[2] = 0;
-    v19.n128_u64[0] = 0;
-    C3DSceneGetUpAxis(a1, &v19);
-    v12 = v19.n128_f32[1] <= 0.0001;
-    if (a3 && v19.n128_f32[1] <= 0.0001)
+    v20.n128_u32[2] = 0;
+    v20.n128_u64[0] = 0;
+    C3DSceneGetUpAxis(a1, &v20);
+    v12 = v20.n128_f32[1] <= 0.0001;
+    if (a3 && v20.n128_f32[1] <= 0.0001)
     {
-      if (v19.n128_f32[0] <= 0.0001)
+      if (v20.n128_f32[0] <= 0.0001)
       {
         v13 = 1;
       }
@@ -3635,26 +5146,26 @@ LABEL_7:
     v12 = 0;
   }
 
-  v19.n128_u32[0] = 0;
+  v20.n128_u32[0] = 0;
   if (theDict)
   {
     v14 = CFDictionaryGetValue(theDict, @"kSceneSourceConvertToUnit");
     if (v14)
     {
-      CFNumberGetValue(v14, kCFNumberFloatType, &v19);
-      if (v19.n128_f32[0] != 0.0)
+      CFNumberGetValue(v14, kCFNumberFloatType, &v20);
+      if (v20.n128_f32[0] != 0.0)
       {
         if (a5)
         {
-          *a5 = v19.n128_u32[0];
+          *a5 = v20.n128_u32[0];
         }
 
-        Unit = C3DSceneGetUnit(a1);
-        if (Unit != 0.0 && v19.n128_f32[0] != 0.0)
+        Unit = C3DSceneGetUnit(a1, v15);
+        if (Unit != 0.0 && v20.n128_f32[0] != 0.0)
         {
-          v16 = Unit / v19.n128_f32[0];
-          v17 = fabs(v16 + -1.0);
-          if (v17 > 0.0001)
+          v17 = Unit / v20.n128_f32[0];
+          v18 = fabs(v17 + -1.0);
+          if (v18 > 0.0001)
           {
             v12 = 1;
           }
@@ -3664,9 +5175,9 @@ LABEL_7:
             v12 = v12;
           }
 
-          if (a4 && v17 > 0.0001)
+          if (a4 && v18 > 0.0001)
           {
-            *a4 = v16;
+            *a4 = v17;
             return 1;
           }
         }
@@ -3677,16 +5188,16 @@ LABEL_7:
   return v12;
 }
 
-void C3DIOFinalizeLoadScene(uint64_t a1, const void *a2, const __CFDictionary *a3, uint64_t a4, uint64_t a5)
+void C3DIOFinalizeLoadScene(__n128 *a1, const void *a2, const __CFDictionary *a3, uint64_t a4, uint64_t a5)
 {
-  v263 = *MEMORY[0x277D85DE8];
+  v346 = *MEMORY[0x277D85DE8];
   if (!a1)
   {
     return;
   }
 
   v6 = a1;
-  RootNode = C3DSceneGetRootNode(a1);
+  RootNode = C3DSceneGetRootNode(a1, a2);
   if (RootNode)
   {
     C3DNodeApplyHierarchy(RootNode, &__block_literal_global_95);
@@ -3700,274 +5211,275 @@ void C3DIOFinalizeLoadScene(uint64_t a1, const void *a2, const __CFDictionary *a
     {
       if (CFEqual(*v8, Value))
       {
-        v10 = C3DSceneGetRootNode(v6);
-        if (v10)
+        v11 = C3DSceneGetRootNode(v6, v10);
+        if (v11)
         {
-          v11 = C3DNodeCopyNodesWithAttribute(v10, @"kMeshKey", 0);
-          if (v11)
+          v12 = C3DNodeCopyNodesWithAttribute(v11, @"kMeshKey", 0);
+          if (v12)
           {
-            v12 = v11;
-            Count = CFArrayGetCount(v11);
+            v13 = v12;
+            Count = CFArrayGetCount(v12);
             if (Count >= 1)
             {
-              v14 = Count;
-              for (i = 0; i != v14; ++i)
+              v15 = Count;
+              for (i = 0; i != v15; ++i)
               {
-                ValueAtIndex = CFArrayGetValueAtIndex(v12, i);
-                Geometry = C3DNodeGetGeometry(ValueAtIndex);
-                Mesh = C3DGeometryGetMesh(Geometry);
+                ValueAtIndex = CFArrayGetValueAtIndex(v13, i);
+                Geometry = C3DNodeGetGeometry(ValueAtIndex, v18);
+                Mesh = C3DGeometryGetMesh(Geometry, v20);
                 C3DMeshRemoveSourcesWithSemantic(Mesh, 2);
               }
             }
 
-            CFRelease(v12);
+            CFRelease(v13);
           }
         }
       }
     }
 
-    v19 = CFDictionaryGetValue(a3, @"kSceneSourceRemoveAllLights");
-    if (v19)
+    v22 = CFDictionaryGetValue(a3, @"kSceneSourceRemoveAllLights");
+    if (v22)
     {
-      if (CFEqual(*v8, v19))
+      if (CFEqual(*v8, v22))
       {
-        v20 = C3DSceneGetRootNode(v6);
-        if (v20)
+        v24 = C3DSceneGetRootNode(v6, v23);
+        if (v24)
         {
-          v21 = C3DNodeCopyNodesWithAttribute(v20, @"kLightKey", 0);
-          if (v21)
+          v25 = C3DNodeCopyNodesWithAttribute(v24, @"kLightKey", 0);
+          if (v25)
           {
-            v22 = v21;
-            v23 = CFArrayGetCount(v21);
-            if (v23 >= 1)
+            v26 = v25;
+            v27 = CFArrayGetCount(v25);
+            if (v27 >= 1)
             {
-              v24 = v23;
-              for (j = 0; j != v24; ++j)
+              v28 = v27;
+              for (j = 0; j != v28; ++j)
               {
-                v26 = CFArrayGetValueAtIndex(v22, j);
-                C3DNodeRemoveFromParentNode(v26);
+                v30 = CFArrayGetValueAtIndex(v26, j);
+                C3DNodeRemoveFromParentNode(v30, v31);
               }
             }
 
-            CFRelease(v22);
+            CFRelease(v26);
           }
         }
       }
     }
 
-    v27 = CFDictionaryGetValue(a3, @"kSceneSourceCleanupMeshes");
-    if (v27)
+    v32 = CFDictionaryGetValue(a3, @"kSceneSourceCleanupMeshes");
+    if (v32)
     {
-      if (CFEqual(*v8, v27))
+      if (CFEqual(*v8, v32))
       {
-        v28 = C3DSceneGetRootNode(v6);
-        if (v28)
+        v34 = C3DSceneGetRootNode(v6, v33);
+        if (v34)
         {
-          v29 = C3DNodeCopyNodesWithAttribute(v28, @"kMeshKey", 0);
-          if (v29)
+          v35 = C3DNodeCopyNodesWithAttribute(v34, @"kMeshKey", 0);
+          if (v35)
           {
-            v30 = v29;
-            v220 = CFArrayGetCount(v29);
-            if (v220 <= 0)
+            v36 = v35;
+            v303 = CFArrayGetCount(v35);
+            if (v303 <= 0)
             {
-              CFRelease(v30);
+              CFRelease(v36);
             }
 
             else
             {
-              v215 = a3;
-              v216 = v6;
-              v31 = 0;
+              v298 = a3;
+              v299 = v6;
+              v37 = 0;
               allocator = *MEMORY[0x277CBECE8];
-              cf = v30;
+              cf = v36;
               do
               {
-                v221 = v31;
-                v32 = CFArrayGetValueAtIndex(v30, v31);
-                v33 = C3DNodeGetGeometry(v32);
-                LightmapInfo = C3DNodeGetLightmapInfo(v32);
-                Skinner = C3DNodeGetSkinner(v32);
-                v36 = C3DGeometryGetMesh(v33);
-                v37 = MEMORY[0x277CBF158];
+                v304 = v37;
+                v38 = CFArrayGetValueAtIndex(v36, v37);
+                v40 = C3DNodeGetGeometry(v38, v39);
+                LightmapInfo = C3DNodeGetLightmapInfo(v38, v41);
+                Skinner = C3DNodeGetSkinner(v38, v43);
+                v46 = C3DGeometryGetMesh(v40, v45);
+                v47 = MEMORY[0x277CBF158];
                 theSet = CFSetCreateMutable(0, 0, MEMORY[0x277CBF158]);
-                Mutable = CFSetCreateMutable(0, 0, v37);
+                Mutable = CFSetCreateMutable(0, 0, v47);
                 valuePtr.columns[0].i32[0] = 0;
                 if (LightmapInfo)
                 {
-                  v38 = CFDictionaryGetValue(LightmapInfo, @"uv_set");
-                  if (v38)
+                  v49 = CFDictionaryGetValue(LightmapInfo, @"uv_set");
+                  if (v49)
                   {
-                    CFNumberGetValue(v38, kCFNumberIntType, &valuePtr);
-                    v39 = valuePtr.columns[0].i32[0];
+                    CFNumberGetValue(v49, kCFNumberIntType, &valuePtr);
+                    v50 = valuePtr.columns[0].i32[0];
                   }
 
                   else
                   {
-                    v39 = 1;
+                    v50 = 1;
                     valuePtr.columns[0].i32[0] = 1;
                   }
 
-                  if (v39 >= C3DMeshGetSourcesCountForSemantic(v36, 3))
+                  SourcesCountForSemantic = C3DMeshGetSourcesCountForSemantic(v46, 3);
+                  if (v50 >= SourcesCountForSemantic)
                   {
-                    v41 = scn_default_log();
-                    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+                    v54 = scn_default_log(SourcesCountForSemantic, v52);
+                    if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
                     {
                       buf.columns[0].i32[0] = 67109120;
                       buf.columns[0].i32[1] = valuePtr.columns[0].i32[0];
-                      _os_log_impl(&dword_21BEF7000, v41, OS_LOG_TYPE_DEFAULT, "Warning: light_map uv_set:%d is pointing to an invalid uv_set(no corresponding source) and was reset to 1", &buf, 8u);
+                      _os_log_impl(&dword_21BEF7000, v54, OS_LOG_TYPE_DEFAULT, "Warning: light_map uv_set:%d is pointing to an invalid uv_set(no corresponding source) and was reset to 1", &buf, 8u);
                     }
 
                     valuePtr.columns[0].i32[0] = 1;
-                    v40 = 1;
+                    v53 = 1;
                   }
 
                   else
                   {
-                    v40 = valuePtr.columns[0].u32[0];
+                    v53 = valuePtr.columns[0].u32[0];
                   }
 
-                  SourceWithSemanticAtIndex = C3DMeshGetSourceWithSemanticAtIndex(v36, 3, v40, 0);
+                  SourceWithSemanticAtIndex = C3DMeshGetSourceWithSemanticAtIndex(v46, 3, v53, 0);
                   if (SourceWithSemanticAtIndex)
                   {
                     CFSetSetValue(theSet, SourceWithSemanticAtIndex);
                   }
                 }
 
-                MaterialsCount = C3DGeometryGetMaterialsCount(v33);
+                MaterialsCount = C3DGeometryGetMaterialsCount(v40, v48);
                 if (MaterialsCount >= 1)
                 {
-                  v44 = MaterialsCount;
-                  for (k = 0; k != v44; ++k)
+                  v57 = MaterialsCount;
+                  for (k = 0; k != v57; ++k)
                   {
-                    MaterialAtIndex = C3DGeometryGetMaterialAtIndex(v33, k);
-                    CommonProfile = C3DMaterialGetCommonProfile(MaterialAtIndex);
+                    MaterialAtIndex = C3DGeometryGetMaterialAtIndex(v40, k);
+                    CommonProfile = C3DMaterialGetCommonProfile(MaterialAtIndex, v60);
                     if (CommonProfile)
                     {
-                      v48 = CommonProfile;
+                      v62 = CommonProfile;
                       UVSet = C3DEffectCommonProfileGetUVSet(CommonProfile, 0);
-                      __FillSetWithUVSet(v36, theSet, UVSet);
-                      v50 = C3DEffectCommonProfileGetUVSet(v48, 1);
-                      __FillSetWithUVSet(v36, theSet, v50);
-                      v51 = C3DEffectCommonProfileGetUVSet(v48, 2);
-                      __FillSetWithUVSet(v36, theSet, v51);
-                      v52 = C3DEffectCommonProfileGetUVSet(v48, 3);
-                      __FillSetWithUVSet(v36, theSet, v52);
-                      v53 = C3DEffectCommonProfileGetUVSet(v48, 5);
-                      __FillSetWithUVSet(v36, theSet, v53);
-                      v54 = C3DEffectCommonProfileGetUVSet(v48, 7);
-                      __FillSetWithUVSet(v36, theSet, v54);
-                      v55 = C3DEffectCommonProfileGetUVSet(v48, 8);
-                      __FillSetWithUVSet(v36, theSet, v55);
-                      v56 = C3DEffectCommonProfileGetUVSet(v48, 9);
-                      __FillSetWithUVSet(v36, theSet, v56);
-                      v57 = C3DEffectCommonProfileGetUVSet(v48, 10);
-                      __FillSetWithUVSet(v36, theSet, v57);
-                      v58 = C3DEffectCommonProfileGetUVSet(v48, 11);
-                      __FillSetWithUVSet(v36, theSet, v58);
-                      v59 = C3DEffectCommonProfileGetUVSet(v48, 12);
-                      __FillSetWithUVSet(v36, theSet, v59);
-                      v60 = C3DEffectCommonProfileGetUVSet(v48, 13);
-                      __FillSetWithUVSet(v36, theSet, v60);
-                      v61 = C3DEffectCommonProfileGetUVSet(v48, 14);
-                      __FillSetWithUVSet(v36, theSet, v61);
-                      v62 = C3DEffectCommonProfileGetUVSet(v48, 15);
-                      __FillSetWithUVSet(v36, theSet, v62);
-                      v63 = C3DEffectCommonProfileGetUVSet(v48, 16);
-                      __FillSetWithUVSet(v36, theSet, v63);
+                      __FillSetWithUVSet(v46, theSet, UVSet);
+                      v64 = C3DEffectCommonProfileGetUVSet(v62, 1);
+                      __FillSetWithUVSet(v46, theSet, v64);
+                      v65 = C3DEffectCommonProfileGetUVSet(v62, 2);
+                      __FillSetWithUVSet(v46, theSet, v65);
+                      v66 = C3DEffectCommonProfileGetUVSet(v62, 3);
+                      __FillSetWithUVSet(v46, theSet, v66);
+                      v67 = C3DEffectCommonProfileGetUVSet(v62, 5);
+                      __FillSetWithUVSet(v46, theSet, v67);
+                      v68 = C3DEffectCommonProfileGetUVSet(v62, 7);
+                      __FillSetWithUVSet(v46, theSet, v68);
+                      v69 = C3DEffectCommonProfileGetUVSet(v62, 8);
+                      __FillSetWithUVSet(v46, theSet, v69);
+                      v70 = C3DEffectCommonProfileGetUVSet(v62, 9);
+                      __FillSetWithUVSet(v46, theSet, v70);
+                      v71 = C3DEffectCommonProfileGetUVSet(v62, 10);
+                      __FillSetWithUVSet(v46, theSet, v71);
+                      v72 = C3DEffectCommonProfileGetUVSet(v62, 11);
+                      __FillSetWithUVSet(v46, theSet, v72);
+                      v73 = C3DEffectCommonProfileGetUVSet(v62, 12);
+                      __FillSetWithUVSet(v46, theSet, v73);
+                      v74 = C3DEffectCommonProfileGetUVSet(v62, 13);
+                      __FillSetWithUVSet(v46, theSet, v74);
+                      v75 = C3DEffectCommonProfileGetUVSet(v62, 14);
+                      __FillSetWithUVSet(v46, theSet, v75);
+                      v76 = C3DEffectCommonProfileGetUVSet(v62, 15);
+                      __FillSetWithUVSet(v46, theSet, v76);
+                      v77 = C3DEffectCommonProfileGetUVSet(v62, 16);
+                      __FillSetWithUVSet(v46, theSet, v77);
                     }
                   }
                 }
 
-                SourcesCountForSemantic = C3DMeshGetSourcesCountForSemantic(v36, 3);
-                if (SourcesCountForSemantic >= 1)
+                v78 = C3DMeshGetSourcesCountForSemantic(v46, 3);
+                if (v78 >= 1)
                 {
-                  v65 = SourcesCountForSemantic;
-                  for (m = 0; m != v65; ++m)
+                  v79 = v78;
+                  for (m = 0; m != v79; ++m)
                   {
-                    v67 = C3DMeshGetSourceWithSemanticAtIndex(v36, 3, m, 0);
-                    if (v67)
+                    v81 = C3DMeshGetSourceWithSemanticAtIndex(v46, 3, m, 0);
+                    if (v81)
                     {
-                      v68 = v67;
-                      if (!CFSetContainsValue(theSet, v67))
+                      v82 = v81;
+                      if (!CFSetContainsValue(theSet, v81))
                       {
-                        CFSetSetValue(Mutable, v68);
+                        CFSetSetValue(Mutable, v82);
                       }
                     }
                   }
                 }
 
-                v69 = Mutable;
-                CFSetApplyFunction(Mutable, __RemoveSources, v36);
-                v70 = C3DGeometryGetMesh(v33);
+                v83 = Mutable;
+                CFSetApplyFunction(Mutable, __RemoveSources, v46);
+                v85 = C3DGeometryGetMesh(v40, v84);
                 if (!Skinner)
                 {
-                  v71 = v70;
-                  PositionSource = C3DMeshGetPositionSource(v70, 1);
-                  v73 = C3DMeshCopyAllSources(v71, 1);
-                  v74 = C3DMeshSourceGetCount(PositionSource);
-                  v75 = malloc_type_malloc(8 * v74, 0x100004000313F17uLL);
-                  v224 = malloc_type_malloc(8 * v74, 0x100004000313F17uLL);
-                  v225 = v71;
-                  v229 = v75;
-                  if (v74 < 1)
+                  v86 = v85;
+                  PositionSource = C3DMeshGetPositionSource(v85, 1);
+                  v88 = C3DMeshCopyAllSources(v86, 1);
+                  v90 = C3DMeshSourceGetCount(PositionSource, v89);
+                  v91 = malloc_type_malloc(8 * v90, 0x100004000313F17uLL);
+                  v307 = malloc_type_malloc(8 * v90, 0x100004000313F17uLL);
+                  v308 = v86;
+                  v312 = v91;
+                  if (v90 < 1)
                   {
-                    v77 = 0;
+                    v93 = 0;
                   }
 
                   else
                   {
-                    memset(v75, 255, 8 * v74);
-                    v76 = 0;
-                    v77 = 0;
-                    v227 = v74;
+                    memset(v91, 255, 8 * v90);
+                    v92 = 0;
+                    v93 = 0;
+                    v310 = v90;
                     do
                     {
-                      if (v74 <= v76 + 1)
+                      if (v90 <= v92 + 1)
                       {
-                        v78 = v76 + 1;
+                        v94 = v92 + 1;
                       }
 
                       else
                       {
-                        v78 = v74;
+                        v94 = v90;
                       }
 
-                      while (*(v75 + v76) != -1)
+                      while (*(v91 + v92) != -1)
                       {
-                        if (v78 == ++v76)
+                        if (v94 == ++v92)
                         {
-                          v76 = v78 + 1;
+                          v92 = v94 + 1;
                           goto LABEL_69;
                         }
                       }
 
-                      *(v75 + v76) = v77;
-                      v79 = v76 + 1;
-                      for (n = v77; v79 < v74; ++v79)
+                      *(v91 + v92) = v93;
+                      v95 = v92 + 1;
+                      for (n = v93; v95 < v90; ++v95)
                       {
-                        if (*(v75 + v79) == -1)
+                        if (*(v91 + v95) == -1)
                         {
-                          v80 = CFArrayGetCount(v73);
-                          if (v80 < 1)
+                          v96 = CFArrayGetCount(v88);
+                          if (v96 < 1)
                           {
                             goto LABEL_66;
                           }
 
-                          v81 = v80;
-                          v82 = 0;
-                          for (ii = 0; ii != v81; v82 = ii >= v81)
+                          v97 = v96;
+                          v98 = 0;
+                          for (ii = 0; ii != v97; v98 = ii >= v97)
                           {
-                            v84 = CFArrayGetValueAtIndex(v73, ii);
-                            Accessor = C3DMeshSourceGetAccessor(v84);
+                            v100 = CFArrayGetValueAtIndex(v88, ii);
+                            Accessor = C3DMeshSourceGetAccessor(v100, v101, v102, v103, v104, v105, v106, v107);
                             if (Accessor)
                             {
-                              v86 = Accessor;
+                              v109 = Accessor;
                               ComponentsValueType = C3DSourceAccessorGetComponentsValueType(Accessor);
-                              v88 = C3DSizeOfBaseType(ComponentsValueType);
-                              ValuePtrAtIndex = C3DSourceAccessorGetValuePtrAtIndex(v86, v76);
-                              v90 = C3DSourceAccessorGetValuePtrAtIndex(v86, v79);
-                              ComponentsCountPerValue = C3DSourceAccessorGetComponentsCountPerValue(v86);
-                              if (memcmp(ValuePtrAtIndex, v90, ComponentsCountPerValue * v88))
+                              v112 = C3DSizeOfBaseType(ComponentsValueType, v111);
+                              ValuePtrAtIndex = C3DSourceAccessorGetValuePtrAtIndex(v109, v92);
+                              v114 = C3DSourceAccessorGetValuePtrAtIndex(v109, v95);
+                              ComponentsCountPerValue = C3DSourceAccessorGetComponentsCountPerValue(v109);
+                              if (memcmp(ValuePtrAtIndex, v114, ComponentsCountPerValue * v112))
                               {
                                 break;
                               }
@@ -3976,533 +5488,537 @@ void C3DIOFinalizeLoadScene(uint64_t a1, const void *a2, const __CFDictionary *a
                             ++ii;
                           }
 
-                          v74 = v227;
-                          v75 = v229;
-                          v77 = n;
-                          if (v82)
+                          v90 = v310;
+                          v91 = v312;
+                          v93 = n;
+                          if (v98)
                           {
 LABEL_66:
-                            *(v75 + v79) = v77;
+                            *(v91 + v95) = v93;
                           }
                         }
                       }
 
-                      v71 = v225;
-                      v224[v77++] = v76++;
+                      v86 = v308;
+                      v307[v93++] = v92++;
 LABEL_69:
                       ;
                     }
 
-                    while (v76 < v74);
+                    while (v92 < v90);
                   }
 
-                  if (CFArrayGetCount(v73) >= 1)
+                  if (CFArrayGetCount(v88) >= 1)
                   {
-                    v92 = 0;
-                    v232 = v77;
+                    v117 = 0;
+                    v315 = v93;
                     do
                     {
-                      v93 = CFArrayGetValueAtIndex(v73, v92);
-                      InputSetForSource = C3DMeshGetInputSetForSource(v71, v93, 1);
-                      v94 = C3DMeshSourceGetAccessor(v93);
-                      v226 = C3DSourceAccessorGetComponentsValueType(v94);
-                      v95 = C3DSizeOfBaseType(v226);
-                      v96 = C3DSourceAccessorGetComponentsCountPerValue(v94);
-                      v97 = v96 * v95;
-                      v98 = v96 * v95 * v77;
-                      if (v98)
+                      v118 = CFArrayGetValueAtIndex(v88, v117);
+                      InputSetForSource = C3DMeshGetInputSetForSource(v86, v118, 1);
+                      v126 = C3DMeshSourceGetAccessor(v118, v119, v120, v121, v122, v123, v124, v125);
+                      v127 = C3DSourceAccessorGetComponentsValueType(v126);
+                      v309 = v127;
+                      v129 = C3DSizeOfBaseType(v127, v128);
+                      v130 = C3DSourceAccessorGetComponentsCountPerValue(v126);
+                      v131 = v130 * v129;
+                      v132 = v130 * v129 * v93;
+                      if (v132)
                       {
-                        v99 = malloc_type_malloc(v96 * v95 * v77, 0x100004077774924uLL);
+                        v133 = malloc_type_malloc(v130 * v129 * v93, 0x100004077774924uLL);
                       }
 
                       else
                       {
-                        v99 = 0;
+                        v133 = 0;
                       }
 
-                      if (v77 >= 1)
+                      if (v93 >= 1)
                       {
-                        v100 = v224;
-                        v101 = v99;
-                        v102 = v232;
+                        v134 = v307;
+                        v135 = v133;
+                        v136 = v315;
                         do
                         {
-                          v103 = *v100++;
-                          v104 = C3DSourceAccessorGetValuePtrAtIndex(v94, v103);
-                          memcpy(v101, v104, v97);
-                          v101 += v97;
-                          --v102;
+                          v137 = *v134++;
+                          v138 = C3DSourceAccessorGetValuePtrAtIndex(v126, v137);
+                          memcpy(v135, v138, v131);
+                          v135 += v131;
+                          --v136;
                         }
 
-                        while (v102);
+                        while (v136);
                       }
 
-                      v105 = CFDataCreate(allocator, v99, v98);
-                      Semantic = C3DMeshSourceGetSemantic(v93);
-                      v107 = C3DSourceAccessorGetComponentsCountPerValue(v94);
-                      Library = C3DSceneSourceGetLibrary(v94);
-                      Offset = C3DSourceAccessorGetOffset(v94);
-                      v77 = v232;
-                      v110 = C3DMeshSourceCreateWithData(Semantic, v105, v226, v107, v232, Library, Offset);
-                      CFRelease(v105);
-                      free(v99);
-                      v71 = v225;
-                      __C3DMeshSetRenderableSourceWithInputSetAndPositionChannel(v225, v110, InputSetForSource);
-                      CFRelease(v110);
-                      ++v92;
+                      v139 = CFDataCreate(allocator, v133, v132);
+                      Semantic = C3DMeshSourceGetSemantic(v118, v140);
+                      v142 = C3DSourceAccessorGetComponentsCountPerValue(v126);
+                      Library = C3DSceneSourceGetLibrary(v126);
+                      Offset = C3DSourceAccessorGetOffset(v126, v144);
+                      v93 = v315;
+                      v146 = C3DMeshSourceCreateWithData(Semantic, v139, v309, v142, v315, Library, Offset);
+                      CFRelease(v139);
+                      free(v133);
+                      v86 = v308;
+                      __C3DMeshSetRenderableSourceWithInputSetAndPositionChannel(v308, v146, InputSetForSource);
+                      CFRelease(v146);
+                      ++v117;
                     }
 
-                    while (v92 < CFArrayGetCount(v73));
+                    while (v117 < CFArrayGetCount(v88));
                   }
 
-                  ElementsCount = C3DMeshGetElementsCount(v71);
+                  ElementsCount = C3DMeshGetElementsCount(v86, v116);
                   v8 = MEMORY[0x277CBED28];
                   if (ElementsCount >= 1)
                   {
-                    v112 = 0;
+                    v148 = 0;
                     do
                     {
-                      ElementAtIndex = C3DMeshGetElementAtIndex(v71, v112, 1);
+                      ElementAtIndex = C3DMeshGetElementAtIndex(v86, v148, 1);
                       buf.columns[0].i32[0] = 0;
                       Indexes = C3DMeshElementGetIndexes(ElementAtIndex, &buf);
                       PrimitiveCount = C3DMeshElementGetPrimitiveCount(ElementAtIndex);
-                      v116 = C3DMeshElementGetIndexCountPerPrimitive(ElementAtIndex) * PrimitiveCount;
+                      IndexCountPerPrimitive = C3DMeshElementGetIndexCountPerPrimitive(ElementAtIndex, v152);
+                      v155 = IndexCountPerPrimitive * PrimitiveCount;
                       switch(buf.columns[0].i32[0])
                       {
                         case 4:
                           BytePtr = CFDataGetBytePtr(Indexes);
-                          if (v116 >= 1)
+                          if (v155 >= 1)
                           {
                             do
                             {
-                              *BytePtr = *(v229 + *BytePtr);
+                              *BytePtr = *(v312 + *BytePtr);
                               BytePtr += 4;
-                              --v116;
+                              --v155;
                             }
 
-                            while (v116);
+                            while (v155);
                           }
 
                           break;
                         case 2:
-                          v118 = CFDataGetBytePtr(Indexes);
-                          if (v116 >= 1)
+                          v158 = CFDataGetBytePtr(Indexes);
+                          if (v155 >= 1)
                           {
                             do
                             {
-                              *v118 = *(v229 + *v118);
-                              v118 += 2;
-                              --v116;
+                              *v158 = *(v312 + *v158);
+                              v158 += 2;
+                              --v155;
                             }
 
-                            while (v116);
+                            while (v155);
                           }
 
                           break;
                         case 1:
-                          v117 = CFDataGetBytePtr(Indexes);
-                          if (v116 >= 1)
+                          v156 = CFDataGetBytePtr(Indexes);
+                          if (v155 >= 1)
                           {
                             do
                             {
-                              *v117 = *(v229 + *v117);
-                              ++v117;
-                              --v116;
+                              *v156 = *(v312 + *v156);
+                              ++v156;
+                              --v155;
                             }
 
-                            while (v116);
+                            while (v155);
                           }
 
                           break;
                         default:
-                          v120 = scn_default_log();
-                          if (os_log_type_enabled(v120, OS_LOG_TYPE_ERROR))
+                          v160 = scn_default_log(IndexCountPerPrimitive, v154);
+                          if (os_log_type_enabled(v160, OS_LOG_TYPE_ERROR))
                           {
-                            C3DIOFinalizeLoadScene_cold_1(&v235, v236, v120);
+                            C3DIOFinalizeLoadScene_cold_1(&v318, v319, v160);
                           }
 
                           break;
                       }
 
-                      ++v112;
+                      ++v148;
                     }
 
-                    while (v112 < C3DMeshGetElementsCount(v71));
+                    while (v148 < C3DMeshGetElementsCount(v86, v157));
                   }
 
-                  CFRelease(v73);
-                  free(v229);
-                  free(v224);
-                  v69 = Mutable;
+                  CFRelease(v88);
+                  free(v312);
+                  free(v307);
+                  v83 = Mutable;
                 }
 
-                CFRelease(v69);
+                CFRelease(v83);
                 CFRelease(theSet);
-                v31 = v221 + 1;
-                v30 = cf;
+                v37 = v304 + 1;
+                v36 = cf;
               }
 
-              while (v221 + 1 != v220);
+              while (v304 + 1 != v303);
               CFRelease(cf);
-              a3 = v215;
-              v6 = v216;
+              a3 = v298;
+              v6 = v299;
             }
           }
         }
       }
     }
 
-    v121 = CFDictionaryGetValue(a3, @"kSceneSourceCreateCameraIfAbsent");
-    if (v121)
+    v161 = CFDictionaryGetValue(a3, @"kSceneSourceCreateCameraIfAbsent");
+    if (v161)
     {
-      if (CFEqual(*v8, v121))
+      if (CFEqual(*v8, v161))
       {
-        v122 = C3DSceneGetRootNode(v6);
-        if (v122)
+        v163 = C3DSceneGetRootNode(v6, v162);
+        if (v163)
         {
-          v123 = C3DNodeCopyNodesWithAttribute(v122, @"kCameraKey", 1);
-          if (!v123 || (v124 = v123, v125 = CFArrayGetCount(v123), CFRelease(v124), v125 <= 0))
+          v164 = C3DNodeCopyNodesWithAttribute(v163, @"kCameraKey", 1);
+          if (!v164 || (v165 = v164, v166 = CFArrayGetCount(v164), CFRelease(v165), v166 <= 0))
           {
-            v126 = C3DCreateDefaultCameraNode(v6, 1);
-            if (v126)
+            v167 = C3DCreateDefaultCameraNode(v6, 1);
+            if (v167)
             {
-              v127 = v126;
-              v128 = C3DSceneGetRootNode(v6);
-              C3DNodeAddChildNode(v128, v127);
-              CFRelease(v127);
+              v169 = v167;
+              v170 = C3DSceneGetRootNode(v6, v168);
+              C3DNodeAddChildNode(v170, v169);
+              CFRelease(v169);
             }
           }
         }
       }
     }
 
-    v129 = CFDictionaryGetValue(a3, @"kSceneSourceCreateLightIfAbsent");
-    if (v129 && CFBooleanGetValue(v129))
+    v171 = CFDictionaryGetValue(a3, @"kSceneSourceCreateLightIfAbsent");
+    if (v171 && CFBooleanGetValue(v171))
     {
-      v130 = C3DSceneGetRootNode(v6);
-      if (v130)
+      v173 = C3DSceneGetRootNode(v6, v172);
+      if (v173)
       {
-        v131 = C3DNodeCopyNodesWithAttribute(v130, @"kLightKey", 0);
-        if (v131)
+        v174 = C3DNodeCopyNodesWithAttribute(v173, @"kLightKey", 0);
+        if (v174)
         {
-          v132 = v131;
-          v133 = CFArrayGetCount(v131);
-          if (v133 >= 1)
+          v175 = v174;
+          v176 = CFArrayGetCount(v174);
+          if (v176 >= 1)
           {
-            v134 = v133;
-            v135 = 1;
+            v177 = v176;
+            v178 = 1;
             do
             {
-              v136 = CFArrayGetValueAtIndex(v132, v135 - 1);
-              Light = C3DNodeGetLight(v136);
-              Type = C3DLightGetType(Light);
-              if (v135 >= v134)
+              v179 = CFArrayGetValueAtIndex(v175, v178 - 1);
+              Light = C3DNodeGetLight(v179, v180);
+              Type = C3DLightGetType(Light, v182);
+              if (v178 >= v177)
               {
                 break;
               }
 
-              ++v135;
+              ++v178;
             }
 
             while (!Type);
             if (!Type)
             {
-              for (jj = 0; jj != v134; ++jj)
+              for (jj = 0; jj != v177; ++jj)
               {
-                v140 = CFArrayGetValueAtIndex(v132, jj);
-                v141 = C3DNodeGetLight(v140);
-                Color = C3DLightGetColor(v141);
+                v185 = CFArrayGetValueAtIndex(v175, jj);
+                v187 = C3DNodeGetLight(v185, v186);
+                Color = C3DLightGetColor(v187, v188);
                 if (((*Color + Color[1]) + Color[2]) >= 1.5)
                 {
                   buf.columns[0] = 0uLL;
                   C3DColor4Make(&buf, 0.0, 0.0, 0.0, 0.0);
-                  C3DLightSetColor(v141, &buf);
+                  C3DLightSetColor(v187, &buf);
                 }
               }
             }
           }
 
-          CFRelease(v132);
+          CFRelease(v175);
         }
       }
 
       C3DSceneSetAttribute(v6, @"defaultLight", *v8);
     }
 
-    v143 = CFDictionaryGetValue(a3, @"kSceneSourceCreateNormalsIfAbsent");
-    if (v143)
+    v190 = CFDictionaryGetValue(a3, @"kSceneSourceCreateNormalsIfAbsent");
+    if (v190)
     {
-      if (CFEqual(*v8, v143))
+      if (CFEqual(*v8, v190))
       {
-        v144 = C3DSceneGetRootNode(v6);
-        if (v144)
+        v192 = C3DSceneGetRootNode(v6, v191);
+        if (v192)
         {
-          C3DNodeApplyHierarchy(v144, &__block_literal_global_15);
+          C3DNodeApplyHierarchy(v192, &__block_literal_global_15);
         }
       }
     }
 
-    v145 = CFDictionaryGetValue(a3, @"kSceneSourceAdjustInvalidClippingPlanes");
-    if (v145)
+    v193 = CFDictionaryGetValue(a3, @"kSceneSourceAdjustInvalidClippingPlanes");
+    if (v193)
     {
-      if (CFEqual(*v8, v145))
+      if (CFEqual(*v8, v193))
       {
-        v146 = C3DSceneGetRootNode(v6);
-        if (v146)
+        v195 = C3DSceneGetRootNode(v6, v194);
+        if (v195)
         {
-          v147 = v146;
-          v148 = C3DNodeCopyNodesWithAttribute(v146, @"kCameraKey", 0);
-          if (v148)
+          v196 = v195;
+          v197 = C3DNodeCopyNodesWithAttribute(v195, @"kCameraKey", 0);
+          if (v197)
           {
-            v149 = v148;
-            v150 = CFArrayGetCount(v148);
-            if (v150 > 0)
+            v198 = v197;
+            v199 = CFArrayGetCount(v197);
+            if (v199 > 0)
             {
-              v151 = v150;
-              v152 = a3;
-              v153 = 0;
-              v154 = 0;
+              v200 = v199;
+              v201 = a3;
+              v202 = 0;
+              v203 = 0;
               while (1)
               {
-                v256 = 0u;
-                v257 = 0u;
-                v254 = 0u;
-                v255 = 0u;
-                v252 = 0u;
-                v253 = 0u;
-                v250 = 0u;
-                v251 = 0u;
-                v248 = 0u;
-                v249 = 0u;
+                v339 = 0u;
+                v340 = 0u;
+                v337 = 0u;
+                v338 = 0u;
+                v335 = 0u;
+                v336 = 0u;
+                v333 = 0u;
+                v334 = 0u;
+                v331 = 0u;
+                v332 = 0u;
                 memset(&buf, 0, sizeof(buf));
-                v155 = CFArrayGetValueAtIndex(v149, v153);
-                if (!v155)
+                v204 = CFArrayGetValueAtIndex(v198, v202);
+                if (!v204)
                 {
                   goto LABEL_149;
                 }
 
-                v156 = v155;
-                if (!C3DNodeGetProjectionInfos(v155, &buf))
+                v205 = v204;
+                if (!C3DNodeGetProjectionInfos(v204, &buf))
                 {
                   goto LABEL_149;
                 }
 
-                ZFar = C3DProjectionInfosGetZFar(&buf);
-                if (ZFar <= C3DProjectionInfosGetZNear(&buf))
+                ZFar = C3DProjectionInfosGetZFar(&buf, v206);
+                if (ZFar <= C3DProjectionInfosGetZNear(&buf, v208))
                 {
                   break;
                 }
 
-                if ((v154 & 1) == 0 && !C3DGetBoundingBox(v147, 1, &v258, &v259))
+                if ((v203 & 1) == 0 && !C3DGetBoundingBox(v196, 1, &v341, &v342))
                 {
                   goto LABEL_148;
                 }
 
-                v241 = 0u;
-                v242 = 0u;
+                v324 = 0u;
+                v325 = 0u;
                 memset(&valuePtr, 0, sizeof(valuePtr));
-                C3DComputeFrustumPlanesFromNode(v156, &valuePtr, xmmword_21C27FDD0);
-                v158.i64[0] = 0x3F0000003F000000;
-                v158.i64[1] = 0x3F0000003F000000;
-                v159 = vmulq_f32(vaddq_f32(v258, v259), v158);
-                v160 = vmulq_f32(vsubq_f32(v259, v258), v158);
-                v159.i32[3] = 1.0;
-                v160.i32[3] = 0;
-                v237 = valuePtr;
-                v238 = v241;
-                v239 = v242;
-                if (scn_frustum_classify_aabb(&v237, v159, v160) == 1)
+                C3DComputeFrustumPlanesFromNode(v205, &valuePtr, xmmword_21C27FDD0);
+                v210.i64[0] = 0x3F0000003F000000;
+                v210.i64[1] = 0x3F0000003F000000;
+                v211 = vmulq_f32(vaddq_f32(v341, v342), v210);
+                v212 = vmulq_f32(vsubq_f32(v342, v341), v210);
+                v211.i32[3] = 1.0;
+                v212.i32[3] = 0;
+                v320 = valuePtr;
+                v321 = v324;
+                v322 = v325;
+                v213 = scn_frustum_classify_aabb(&v320, v211, v212);
+                if (v213 == 1)
                 {
-                  v161 = scn_default_log();
-                  if (os_log_type_enabled(v161, OS_LOG_TYPE_DEFAULT))
+                  v215 = scn_default_log(v213, v214);
+                  if (os_log_type_enabled(v215, OS_LOG_TYPE_DEFAULT))
                   {
-                    v237.columns[0].i16[0] = 0;
-                    _os_log_impl(&dword_21BEF7000, v161, OS_LOG_TYPE_DEFAULT, "Warning: invalid zRange detected (whole scene clipped)", &v237, 2u);
+                    v320.columns[0].i16[0] = 0;
+                    _os_log_impl(&dword_21BEF7000, v215, OS_LOG_TYPE_DEFAULT, "Warning: invalid zRange detected (whole scene clipped)", &v320, 2u);
                   }
 
 LABEL_144:
-                  Camera = C3DNodeGetCamera(v156);
+                  Camera = C3DNodeGetCamera(v205, v209);
                   if (Camera)
                   {
-                    ProjectionInfosPtr = C3DCameraGetProjectionInfosPtr(Camera);
+                    ProjectionInfosPtr = C3DCameraGetProjectionInfosPtr(Camera, v217);
                     if (ProjectionInfosPtr)
                     {
-                      v164 = ProjectionInfosPtr;
+                      v219 = ProjectionInfosPtr;
                       valuePtr.columns[0].i32[2] = 0;
                       valuePtr.columns[0].i64[0] = 0;
-                      C3DNodeGetWorldPosition(v156, &valuePtr);
-                      *v165.i64 = C3DVector3MidVector(v258, v259);
-                      v166 = vsubq_f32(v258, v259);
-                      v167 = vmulq_f32(v166, v166);
-                      v168 = vsubq_f32(valuePtr.columns[0], v165);
-                      v169 = vmulq_f32(v168, v168);
-                      v170 = vaddv_f32(vsqrt_f32(vadd_f32(vzip1_s32(*&vextq_s8(v167, v167, 8uLL), *&vextq_s8(v169, v169, 8uLL)), vadd_f32(vzip1_s32(*v167.i8, *v169.i8), vzip2_s32(*v167.i8, *v169.i8)))));
-                      C3DProjectionInfosSetZFar(v164, v170);
-                      C3DProjectionInfosSetZNear(v164, v170 / 250.0);
+                      C3DNodeGetWorldPosition(v205, &valuePtr);
+                      *v220.i64 = C3DVector3MidVector(v341, v342);
+                      v221 = vsubq_f32(v341, v342);
+                      v222 = vmulq_f32(v221, v221);
+                      v223 = vsubq_f32(valuePtr.columns[0], v220);
+                      v224 = vmulq_f32(v223, v223);
+                      v225 = vaddv_f32(vsqrt_f32(vadd_f32(vzip1_s32(*&vextq_s8(v222, v222, 8uLL), *&vextq_s8(v224, v224, 8uLL)), vadd_f32(vzip1_s32(*v222.i8, *v224.i8), vzip2_s32(*v222.i8, *v224.i8)))));
+                      C3DProjectionInfosSetZFar(v219, v226, v225);
+                      C3DProjectionInfosSetZNear(v219, v227, v225 / 250.0);
                     }
                   }
                 }
 
-                v154 = 1;
+                v203 = 1;
 LABEL_149:
-                if (v151 == ++v153)
+                if (v200 == ++v202)
                 {
-                  CFRelease(v149);
-                  a3 = v152;
+                  CFRelease(v198);
+                  a3 = v201;
                   v8 = MEMORY[0x277CBED28];
                   goto LABEL_152;
                 }
               }
 
-              if ((v154 & 1) == 0 && !C3DGetBoundingBox(v147, 1, &v258, &v259))
+              if ((v203 & 1) == 0 && !C3DGetBoundingBox(v196, 1, &v341, &v342))
               {
 LABEL_148:
-                v154 = 0;
+                v203 = 0;
                 goto LABEL_149;
               }
 
               goto LABEL_144;
             }
 
-            CFRelease(v149);
+            CFRelease(v198);
           }
         }
       }
     }
 
 LABEL_152:
-    v171 = CFDictionaryGetValue(a3, @"kSceneSourceMakeSourcesCheaper");
-    if (v171)
+    v228 = CFDictionaryGetValue(a3, @"kSceneSourceMakeSourcesCheaper");
+    if (v228)
     {
-      if (CFBooleanGetValue(v171))
+      if (CFBooleanGetValue(v228))
       {
-        v172 = C3DSceneGetRootNode(v6);
-        if (v172)
+        v230 = C3DSceneGetRootNode(v6, v229);
+        if (v230)
         {
-          v173 = C3DNodeCopyNodesWithAttribute(v172, @"kMeshKey", 0);
-          if (v173)
+          v231 = C3DNodeCopyNodesWithAttribute(v230, @"kMeshKey", 0);
+          if (v231)
           {
-            v174 = v173;
-            v175 = a3;
-            v176 = CFArrayGetCount(v173);
-            if (v176 >= 1)
+            v232 = v231;
+            v233 = a3;
+            v234 = CFArrayGetCount(v231);
+            if (v234 >= 1)
             {
-              v177 = v176;
-              for (kk = 0; kk != v177; ++kk)
+              v235 = v234;
+              for (kk = 0; kk != v235; ++kk)
               {
-                v179 = CFArrayGetValueAtIndex(v174, kk);
-                v180 = C3DNodeGetGeometry(v179);
-                C3DNodeGetLightmapInfo(v179);
-                C3DGeometryMakeSourcesCheaperWhenRelevant(v180);
+                v237 = CFArrayGetValueAtIndex(v232, kk);
+                v239 = C3DNodeGetGeometry(v237, v238);
+                v241 = C3DNodeGetLightmapInfo(v237, v240);
+                C3DGeometryMakeSourcesCheaperWhenRelevant(v239, v241);
               }
             }
 
-            CFRelease(v174);
-            a3 = v175;
+            CFRelease(v232);
+            a3 = v233;
           }
         }
       }
     }
   }
 
-  v234 = 0;
-  v233 = 0.0;
-  if (C3DIONeedsUnitOrUpAxisConversion(v6, a3, &v234 + 1, &v234, &v233))
+  v317 = 0;
+  v316 = 0.0;
+  v242 = C3DIONeedsUnitOrUpAxisConversion(v6, a3, &v317 + 1, &v317, &v316);
+  if (v242)
   {
-    v181 = HIDWORD(v234);
-    v182 = v234;
-    if (HIDWORD(v234) || *&v234 != 1.0)
+    v244 = HIDWORD(v317);
+    v245 = v317;
+    if (HIDWORD(v317) || *&v317 != 1.0)
     {
       if (a5 == 1)
       {
-        v183 = scn_default_log();
-        if (os_log_type_enabled(v183, OS_LOG_TYPE_INFO))
+        v246 = scn_default_log(v242, v243);
+        if (os_log_type_enabled(v246, OS_LOG_TYPE_INFO))
         {
           buf.columns[0].i16[0] = 0;
-          _os_log_impl(&dword_21BEF7000, v183, OS_LOG_TYPE_INFO, "Info: SCNSceneSourceConvertUnitsToMetersKey and SCNSceneSourceConvertToYUpKey have no effect on compressed assets. Use Xcode's compression options instead", &buf, 2u);
+          _os_log_impl(&dword_21BEF7000, v246, OS_LOG_TYPE_INFO, "Info: SCNSceneSourceConvertUnitsToMetersKey and SCNSceneSourceConvertToYUpKey have no effect on compressed assets. Use Xcode's compression options instead", &buf, 2u);
         }
       }
 
       else
       {
-        v184 = v233;
-        v185 = a2;
+        v247 = v316;
+        v248 = a2;
         if (a2)
         {
-          CFRetain(a2);
+          v249 = CFRetain(a2);
         }
 
         else
         {
-          v185 = C3DLibraryCreate();
-          C3DLibraryFillWithContentOfScene(v185, v6, 0);
+          v248 = C3DLibraryCreate();
+          v249 = C3DLibraryFillWithContentOfScene(v248, v6, 0);
         }
 
-        TypeID = C3DMeshGetTypeID();
-        v237.columns[0].i64[0] = MEMORY[0x277D85DD0];
-        v237.columns[0].i64[1] = 0x40000000;
-        v237.columns[1].i64[0] = ___convertUnitsAndUpAxis_block_invoke;
-        v237.columns[1].i64[1] = &__block_descriptor_tmp_17;
-        v237.columns[2].i64[0] = __PAIR64__(v182, v181);
-        v237.columns[2].i8[8] = 0;
-        C3DLibraryApplyEntriesWithType(v185, TypeID, &v237);
-        v187 = C3DNodeGetTypeID();
-        v244[0] = MEMORY[0x277D85DD0];
-        v244[1] = 0x40000000;
-        v244[2] = ___convertUnitsAndUpAxis_block_invoke_2;
-        v244[3] = &__block_descriptor_tmp_18_2;
-        v245 = v181;
-        v246 = v182;
-        C3DLibraryApplyEntriesWithType(v185, v187, v244);
-        v188 = C3DSkinGetTypeID();
-        v258.i64[0] = MEMORY[0x277D85DD0];
-        v258.i64[1] = 0x40000000;
-        v259.i64[0] = ___convertUnitsAndUpAxis_block_invoke_3;
-        v259.i64[1] = &__block_descriptor_tmp_19;
-        v260 = v181;
-        v261 = v182;
-        v262 = 0;
-        C3DLibraryApplyEntriesWithType(v185, v188, &v258);
-        if (v181 == 1)
+        TypeID = C3DMeshGetTypeID(v249, v250);
+        v320.columns[0].i64[0] = MEMORY[0x277D85DD0];
+        v320.columns[0].i64[1] = 0x40000000;
+        v320.columns[1].i64[0] = ___convertUnitsAndUpAxis_block_invoke;
+        v320.columns[1].i64[1] = &__block_descriptor_tmp_17;
+        v320.columns[2].i64[0] = __PAIR64__(v245, v244);
+        v320.columns[2].i8[8] = 0;
+        C3DLibraryApplyEntriesWithType(v248, TypeID, &v320);
+        v254 = C3DNodeGetTypeID(v252, v253);
+        v327[0] = MEMORY[0x277D85DD0];
+        v327[1] = 0x40000000;
+        v327[2] = ___convertUnitsAndUpAxis_block_invoke_2;
+        v327[3] = &__block_descriptor_tmp_18_2;
+        v328 = v244;
+        v329 = v245;
+        C3DLibraryApplyEntriesWithType(v248, v254, v327);
+        v257 = C3DSkinGetTypeID(v255, v256);
+        v341.i64[0] = MEMORY[0x277D85DD0];
+        v341.i64[1] = 0x40000000;
+        v342.i64[0] = ___convertUnitsAndUpAxis_block_invoke_3;
+        v342.i64[1] = &__block_descriptor_tmp_19;
+        v343 = v244;
+        v344 = v245;
+        v345 = 0;
+        C3DLibraryApplyEntriesWithType(v248, v257, &v341);
+        if (v244 == 1)
         {
           memset(&buf, 0, sizeof(buf));
           memset(&valuePtr, 0, sizeof(valuePtr));
-          v243 = xmmword_21C27F910;
-          C3DMatrix4x4MakeAxisAngleRotation(&valuePtr, &v243, 1.57079633);
+          v326 = xmmword_21C27F910;
+          C3DMatrix4x4MakeAxisAngleRotation(&valuePtr, &v326, 1.57079633);
           C3DMatrix4x4Invert(&valuePtr, &buf);
-          v189 = C3DSceneGetRootNode(v6);
-          _convertDirectionalNodes(v189, &valuePtr, &buf);
+          v261 = C3DSceneGetRootNode(v6, v260);
+          v258 = _convertDirectionalNodes(v261, &valuePtr, &buf);
         }
 
-        if (*&v182 != 1.0)
+        if (*&v245 != 1.0)
         {
-          v190 = C3DLightGetTypeID();
+          v262 = C3DLightGetTypeID(v258, v259);
           buf.columns[0].i64[0] = MEMORY[0x277D85DD0];
           buf.columns[0].i64[1] = 0x40000000;
           buf.columns[1].i64[0] = ___convertUnitsAndUpAxis_block_invoke_4;
           buf.columns[1].i64[1] = &__block_descriptor_tmp_20_6;
-          buf.columns[2].i32[0] = v182;
-          C3DLibraryApplyEntriesWithType(v185, v190, &buf);
-          v191 = C3DCameraGetTypeID();
+          buf.columns[2].i32[0] = v245;
+          C3DLibraryApplyEntriesWithType(v248, v262, &buf);
+          v265 = C3DCameraGetTypeID(v263, v264);
           valuePtr.columns[0].i64[0] = MEMORY[0x277D85DD0];
           valuePtr.columns[0].i64[1] = 0x40000000;
           valuePtr.columns[1].i64[0] = ___convertUnitsAndUpAxis_block_invoke_5;
           valuePtr.columns[1].i64[1] = &__block_descriptor_tmp_21;
-          valuePtr.columns[2].i32[0] = v182;
-          C3DLibraryApplyEntriesWithType(v185, v191, &valuePtr);
-          if (v184 != 0.0)
+          valuePtr.columns[2].i32[0] = v245;
+          C3DLibraryApplyEntriesWithType(v248, v265, &valuePtr);
+          if (v247 != 0.0)
           {
-            C3DSceneSetUnit(v6, v184);
+            C3DSceneSetUnit(v6, v266, v247);
           }
         }
 
-        if (v181)
+        if (v244)
         {
-          v243 = xmmword_21C27F8C0;
-          C3DSceneSetUpAxis(v6, &v243);
+          v326 = xmmword_21C27F8C0;
+          C3DSceneSetUpAxis(v6, &v326);
         }
 
-        CFRelease(v185);
+        CFRelease(v248);
       }
     }
   }
@@ -4517,70 +6033,70 @@ LABEL_152:
     goto LABEL_194;
   }
 
-  v192 = CFDictionaryGetValue(a3, @"kSceneSourceFlattenScene");
-  if (v192)
+  v267 = CFDictionaryGetValue(a3, @"kSceneSourceFlattenScene");
+  if (v267)
   {
-    if (CFEqual(*v8, v192))
+    if (CFEqual(*v8, v267))
     {
-      AnimationManager = C3DSceneGetAnimationManager(v6);
-      if (!AnimationManager || C3DAnimationManagerIsEmpty(AnimationManager))
+      AnimationManager = C3DSceneGetAnimationManager(v6, v268);
+      if (!AnimationManager || C3DAnimationManagerIsEmpty(AnimationManager, v270))
       {
-        v194 = C3DSceneGetRootNode(v6);
-        v195 = C3DNodeCopyChildNodesPassingTest(v194, &__block_literal_global_27_0, 1);
-        v196 = CFArrayGetCount(v195);
-        CFRelease(v195);
-        if (v196 <= 0)
+        v271 = C3DSceneGetRootNode(v6, v270);
+        v272 = C3DNodeCopyChildNodesPassingTest(v271, &__block_literal_global_27_0, 1);
+        v273 = CFArrayGetCount(v272);
+        CFRelease(v272);
+        if (v273 <= 0)
         {
-          v197 = a3;
-          v198 = v6;
-          v199 = _C3DCreateFlattenedGeometryFromNodeHierarchy(v194, 1, 1, 0);
-          v200 = C3DNodeCreate();
-          v201 = C3DNodeCopyChildNodesPassingTest(v194, &__block_literal_global_30_0, 1);
+          v274 = a3;
+          v275 = v6;
+          v276 = _C3DCreateFlattenedGeometryFromNodeHierarchy(v271, 1, 1, 0);
+          v278 = C3DNodeCreate(v276, v277);
+          v279 = C3DNodeCopyChildNodesPassingTest(v271, &__block_literal_global_30_0, 1);
           memset(&buf, 0, sizeof(buf));
-          v202 = CFArrayGetCount(v201);
-          if (v202 >= 1)
+          v280 = CFArrayGetCount(v279);
+          if (v280 >= 1)
           {
-            v203 = v202;
-            for (mm = 0; mm != v203; ++mm)
+            v282 = v280;
+            for (mm = 0; mm != v282; ++mm)
             {
-              v205 = CFArrayGetValueAtIndex(v201, mm);
-              C3DNodeComputeWorldMatrix(v205, &buf);
-              C3DNodeSetMatrix(v205, &buf);
-              Copy = C3DNodeCreateCopy(v205, 0);
-              C3DNodeAddChildNode(v200, Copy);
+              v284 = CFArrayGetValueAtIndex(v279, mm);
+              C3DNodeComputeWorldMatrix(v284, &buf);
+              C3DNodeSetMatrix(v284, &buf);
+              Copy = C3DNodeCreateCopy(v284, 0);
+              C3DNodeAddChildNode(v278, Copy);
               CFRelease(Copy);
             }
           }
 
-          v207 = C3DNodeCreate();
-          C3DNodeSetGeometry(v207, v199);
-          CFRelease(v199);
-          C3DNodeSetName(v207, @"nodeFromflattenedMesh");
-          C3DNodeAddChildNode(v200, v207);
-          CFRelease(v207);
-          v208 = C3DSceneCreate();
-          C3DSceneSetRootNode(v208, v200);
-          CFRelease(v200);
-          CFRelease(v201);
-          v6 = v198;
-          a3 = v197;
-          if (v208)
+          v286 = C3DNodeCreate(v280, v281);
+          C3DNodeSetGeometry(v286, v276);
+          CFRelease(v276);
+          C3DNodeSetName(v286, @"nodeFromflattenedMesh");
+          C3DNodeAddChildNode(v278, v286);
+          CFRelease(v286);
+          v289 = C3DSceneCreate(v287, v288);
+          C3DSceneSetRootNode(v289, v278);
+          CFRelease(v278);
+          CFRelease(v279);
+          v6 = v275;
+          a3 = v274;
+          if (v289)
           {
-            v209 = C3DSceneGetRootNode(v208);
-            CFRetain(v209);
-            C3DSceneSetRootNode(v208, 0);
-            C3DSceneSetRootNode(v198, v209);
-            CFRelease(v209);
-            CFRelease(v208);
+            v291 = C3DSceneGetRootNode(v289, v290);
+            CFRetain(v291);
+            C3DSceneSetRootNode(v289, 0);
+            C3DSceneSetRootNode(v275, v291);
+            CFRelease(v291);
+            CFRelease(v289);
           }
         }
       }
     }
   }
 
-  v210 = CFDictionaryGetValue(a3, @"kSceneSourceSplitMeshesForGLES");
+  v292 = CFDictionaryGetValue(a3, @"kSceneSourceSplitMeshesForGLES");
   IsSupported = C3DMetalIsSupported();
-  if (!v210)
+  if (!v292)
   {
     if (IsSupported)
     {
@@ -4588,8 +6104,8 @@ LABEL_152:
     }
 
 LABEL_194:
-    v212 = C3DSceneGetRootNode(v6);
-    C3DSplitMeshesIfNeededInNodeTree(v212, 0xFFFFLL);
+    v295 = C3DSceneGetRootNode(v6, v294);
+    C3DSplitMeshesIfNeededInNodeTree(v295, 0xFFFFLL);
     if (!a3)
     {
       return;
@@ -4598,22 +6114,22 @@ LABEL_194:
     goto LABEL_195;
   }
 
-  if (CFEqual(*v8, v210))
+  if (CFEqual(*v8, v292))
   {
     goto LABEL_194;
   }
 
 LABEL_195:
-  v213 = CFDictionaryGetValue(a3, @"kSceneSourceInterleaveSources");
-  if (v213 && CFBooleanGetValue(v213))
+  v296 = CFDictionaryGetValue(a3, @"kSceneSourceInterleaveSources");
+  if (v296 && CFBooleanGetValue(v296))
   {
     _C3DIOApplyFunctionToMeshes(v6, __InterleaveSources);
   }
 
-  v214 = CFDictionaryGetValue(a3, @"kSceneSourceDeinterleaveSources");
-  if (v214)
+  v297 = CFDictionaryGetValue(a3, @"kSceneSourceDeinterleaveSources");
+  if (v297)
   {
-    if (CFBooleanGetValue(v214))
+    if (CFBooleanGetValue(v297))
     {
       _C3DIOApplyFunctionToMeshes(v6, __DeinterleaveSources);
     }
@@ -4622,7 +6138,7 @@ LABEL_195:
 
 void _C3DIOApplyFunctionToMeshes(uint64_t a1, void (*a2)(uint64_t))
 {
-  RootNode = C3DSceneGetRootNode(a1);
+  RootNode = C3DSceneGetRootNode(a1, a2);
   if (RootNode)
   {
     v4 = C3DNodeCopyNodesWithAttribute(RootNode, @"kMeshKey", 0);
@@ -4636,7 +6152,7 @@ void _C3DIOApplyFunctionToMeshes(uint64_t a1, void (*a2)(uint64_t))
         for (i = 0; i != v7; ++i)
         {
           ValueAtIndex = CFArrayGetValueAtIndex(v5, i);
-          Geometry = C3DNodeGetGeometry(ValueAtIndex);
+          Geometry = C3DNodeGetGeometry(ValueAtIndex, v10);
           a2(Geometry);
         }
       }
@@ -4646,38 +6162,38 @@ void _C3DIOApplyFunctionToMeshes(uint64_t a1, void (*a2)(uint64_t))
   }
 }
 
-void __InterleaveSources(uint64_t a1)
+void __InterleaveSources(uint64_t a1, uint64_t a2)
 {
-  Mesh = C3DGeometryGetMesh(a1);
+  Mesh = C3DGeometryGetMesh(a1, a2);
   CopyWithInterleavedSources = C3DMeshCreateCopyWithInterleavedSources(Mesh);
   if (CopyWithInterleavedSources)
   {
-    v4 = CopyWithInterleavedSources;
+    v5 = CopyWithInterleavedSources;
     C3DGeometrySetMesh(a1, CopyWithInterleavedSources);
 
-    CFRelease(v4);
+    CFRelease(v5);
   }
 }
 
-void __DeinterleaveSources(uint64_t a1)
+void __DeinterleaveSources(uint64_t a1, uint64_t a2)
 {
-  Mesh = C3DGeometryGetMesh(a1);
+  Mesh = C3DGeometryGetMesh(a1, a2);
   if (C3DMeshIsInterleaved(Mesh))
   {
-    CopyWithDeinterleavedSources = C3DMeshCreateCopyWithDeinterleavedSources(Mesh);
+    CopyWithDeinterleavedSources = C3DMeshCreateCopyWithDeinterleavedSources(Mesh, v4);
     if (CopyWithDeinterleavedSources)
     {
-      v4 = CopyWithDeinterleavedSources;
+      v6 = CopyWithDeinterleavedSources;
       C3DGeometrySetMesh(a1, CopyWithDeinterleavedSources);
 
-      CFRelease(v4);
+      CFRelease(v6);
     }
   }
 }
 
 const __CFURL *C3DIOCopyResolvedImageURL(const __CFURL *a1, CFDictionaryRef theDict)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (theDict)
   {
     Value = CFDictionaryGetValue(theDict, @"preferredExtensions");
@@ -4695,14 +6211,15 @@ const __CFURL *C3DIOCopyResolvedImageURL(const __CFURL *a1, CFDictionaryRef theD
     if (v6)
     {
       v7 = v6;
-      if (CFStringCompare(v6, @"file", 0))
+      v8 = CFStringCompare(v6, @"file", 0);
+      if (v8)
       {
-        v8 = scn_default_log();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+        v10 = scn_default_log(v8, v9);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
-          v15 = 138412290;
-          v16 = a1;
-          _os_log_impl(&dword_21BEF7000, v8, OS_LOG_TYPE_DEFAULT, "Warning: Safe mode enabled, denying the download of a network URL %@", &v15, 0xCu);
+          v17 = 138412290;
+          v18 = a1;
+          _os_log_impl(&dword_21BEF7000, v10, OS_LOG_TYPE_DEFAULT, "Warning: Safe mode enabled, denying the download of a network URL %@", &v17, 0xCu);
         }
 
         CFRelease(v7);
@@ -4712,44 +6229,44 @@ const __CFURL *C3DIOCopyResolvedImageURL(const __CFURL *a1, CFDictionaryRef theD
       CFRelease(v7);
     }
 
-    v10 = CFCopySearchPathForDirectoriesInDomains();
+    v12 = CFCopySearchPathForDirectoriesInDomains();
   }
 
   else
   {
-    v10 = 0;
+    v12 = 0;
   }
 
-  v11 = CFDictionaryGetValue(theDict, @"kSceneSourceOverrideAssetURLs");
-  if (v11)
+  v13 = CFDictionaryGetValue(theDict, @"kSceneSourceOverrideAssetURLs");
+  if (v13)
   {
-    v12 = CFBooleanGetValue(v11) != 0;
+    v14 = CFBooleanGetValue(v13) != 0;
     if (theDict)
     {
 LABEL_16:
-      v13 = CFDictionaryGetValue(theDict, @"kSceneSourceAssetDirectoryURLs");
+      v15 = CFDictionaryGetValue(theDict, @"kSceneSourceAssetDirectoryURLs");
       goto LABEL_19;
     }
   }
 
   else
   {
-    v12 = 0;
+    v14 = 0;
     if (theDict)
     {
       goto LABEL_16;
     }
   }
 
-  v13 = 0;
+  v15 = 0;
 LABEL_19:
-  v9 = C3DIOCopyURLForInitialURL(a1, v13, Value, 0, v10, v12);
-  if (v10)
+  v11 = C3DIOCopyURLForInitialURL(a1, v15, Value, 0, v12, v14);
+  if (v12)
   {
-    CFRelease(v10);
+    CFRelease(v12);
   }
 
-  return v9;
+  return v11;
 }
 
 uint64_t C3DIOShouldActivateSecurityChecks(const __CFURL *a1, CFDictionaryRef theDict)
@@ -4780,21 +6297,21 @@ void ___convertUnitsAndUpAxis_block_invoke(uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 32);
   v4 = *(a1 + 36);
-  v5[0] = MEMORY[0x277D85DD0];
-  v5[1] = 0x40000000;
-  v5[2] = ___meshConvertUnitAndUpAxis_block_invoke;
-  v5[3] = &__block_descriptor_tmp_23_1;
-  v6 = v3;
-  v7 = v4;
-  C3DMeshApplySources(a2, 0, v5);
-  C3DMeshResetBoundingVolumes(a2);
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 0x40000000;
+  v6[2] = ___meshConvertUnitAndUpAxis_block_invoke;
+  v6[3] = &__block_descriptor_tmp_23_1;
+  v7 = v3;
+  v8 = v4;
+  C3DMeshApplySources(a2, 0, v6);
+  C3DMeshResetBoundingVolumes(a2, v5);
 }
 
 void ___convertUnitsAndUpAxis_block_invoke_2(uint64_t a1, __n128 *a2, float32x4_t a3)
 {
   v4 = *(a1 + 32);
   a3.i32[0] = *(a1 + 36);
-  v14 = a3;
+  v20 = a3;
   *v5.i64 = C3DNodeGetPosition(a2);
   if (v4 == 1)
   {
@@ -4818,48 +6335,48 @@ void ___convertUnitsAndUpAxis_block_invoke_2(uint64_t a1, __n128 *a2, float32x4_
   v5 = v6;
 LABEL_6:
   v6.i32[0] = 1.0;
-  C3DNodeSetPosition(a2, vbslq_s8(vdupq_lane_s32(*&vmvnq_s8(vceqq_f32(v14, v6)), 0), vmulq_n_f32(v5, v14.f32[0]), v5));
+  C3DNodeSetPosition(a2, vbslq_s8(vdupq_lane_s32(*&vmvnq_s8(vceqq_f32(v20, v6)), 0), vmulq_n_f32(v5, v20.f32[0]), v5));
   if (!v4)
   {
     goto LABEL_14;
   }
 
-  C3DNodeGetAxisAngle(a2);
+  C3DNodeGetAxisAngle(a2, v7);
   if (v4 == 1)
   {
-    v12 = v7.n128_f32[1];
-    v7.n128_u32[1] = v7.n128_u32[2];
-    v7.n128_f32[2] = -v12;
-    C3DNodeSetAxisAngle(a2, v7);
-    *v13.i64 = C3DNodeGetScale(a2);
-    v10 = v13.i32[3];
-    v11 = vuzp1q_s32(v13, vrev64q_s32(v13));
+    v16 = v9.n128_f32[1];
+    v9.n128_u32[1] = v9.n128_u32[2];
+    v9.n128_f32[2] = -v16;
+    C3DNodeSetAxisAngle(a2, v8, v9);
+    *v18.i64 = C3DNodeGetScale(a2, v17);
+    v14 = v18.i32[3];
+    v15 = vuzp1q_s32(v18, vrev64q_s32(v18));
   }
 
   else
   {
     if (v4 != 2)
     {
-      C3DNodeSetAxisAngle(a2, v7);
-      v11.n128_f64[0] = C3DNodeGetScale(a2);
+      C3DNodeSetAxisAngle(a2, v8, v9);
+      v15.n128_f64[0] = C3DNodeGetScale(a2, v19);
       goto LABEL_13;
     }
 
-    v8.n128_u64[1] = v7.n128_u64[1];
-    v8.n128_f32[0] = -v7.n128_f32[1];
-    v8.n128_u32[1] = v7.n128_u32[0];
-    C3DNodeSetAxisAngle(a2, v8);
-    *v9.i64 = C3DNodeGetScale(a2);
-    v10 = v9.i32[3];
-    v11 = vzip1q_s32(vextq_s8(v9, v9, 4uLL), v9);
+    v10.n128_u64[1] = v9.n128_u64[1];
+    v10.n128_f32[0] = -v9.n128_f32[1];
+    v10.n128_u32[1] = v9.n128_u32[0];
+    C3DNodeSetAxisAngle(a2, v8, v10);
+    *v13.i64 = C3DNodeGetScale(a2, v11);
+    v14 = v13.i32[3];
+    v15 = vzip1q_s32(vextq_s8(v13, v13, 4uLL), v13);
   }
 
-  v11.n128_u32[3] = v10;
+  v15.n128_u32[3] = v14;
 LABEL_13:
-  C3DNodeSetScale(a2, v11);
+  C3DNodeSetScale(a2, v12, v15);
 LABEL_14:
 
-  C3DNodeGeometryDidUpdate(a2);
+  C3DNodeGeometryDidUpdate(a2, v7);
 }
 
 uint64_t ___convertUnitsAndUpAxis_block_invoke_3(uint64_t a1, uint64_t a2)
@@ -4904,49 +6421,49 @@ uint64_t _convertDirectionalNodes(uint64_t result, uint64_t a2, uint64_t a3)
     v5 = result;
     if (C3DNodeNeedsSpecialUpAxisConversion(result))
     {
-      memset(v18, 0, sizeof(v18));
+      memset(v20, 0, sizeof(v20));
+      v18 = 0u;
+      v19 = 0u;
       v16 = 0u;
       v17 = 0u;
-      v14 = 0u;
-      v15 = 0u;
-      C3DNodeGetMatrix(v5, &v14);
-      C3DMatrix4x4Mult(a2, &v14, v18);
-      C3DNodeSetMatrix(v5, v18);
+      C3DNodeGetMatrix(v5, v6, &v16);
+      C3DMatrix4x4Mult(a2, &v16, v20);
+      C3DNodeSetMatrix(v5, v20);
       ChildNodesCount = C3DNodeGetChildNodesCount(v5);
       if (ChildNodesCount)
       {
-        v7 = 0;
-        v8 = ChildNodesCount;
+        v8 = 0;
+        v9 = ChildNodesCount;
         do
         {
-          ChildNodeAtIndex = C3DNodeGetChildNodeAtIndex(v5, v7);
-          C3DNodeGetMatrix(ChildNodeAtIndex, v13);
-          v14 = v13[0];
-          v15 = v13[1];
-          v16 = v13[2];
-          v17 = v13[3];
-          C3DMatrix4x4Mult(a3, &v14, v18);
-          C3DNodeSetMatrix(ChildNodeAtIndex, v18);
-          ++v7;
+          ChildNodeAtIndex = C3DNodeGetChildNodeAtIndex(v5, v8);
+          C3DNodeGetMatrix(ChildNodeAtIndex, v11, v15);
+          v16 = v15[0];
+          v17 = v15[1];
+          v18 = v15[2];
+          v19 = v15[3];
+          C3DMatrix4x4Mult(a3, &v16, v20);
+          C3DNodeSetMatrix(ChildNodeAtIndex, v20);
+          ++v8;
         }
 
-        while (v8 != v7);
+        while (v9 != v8);
       }
     }
 
     result = C3DNodeGetChildNodesCount(v5);
     if (result)
     {
-      v10 = 0;
-      v11 = result;
+      v12 = 0;
+      v13 = result;
       do
       {
-        v12 = C3DNodeGetChildNodeAtIndex(v5, v10);
-        result = _convertDirectionalNodes(v12, a2, a3);
-        ++v10;
+        v14 = C3DNodeGetChildNodeAtIndex(v5, v12);
+        result = _convertDirectionalNodes(v14, a2, a3);
+        ++v12;
       }
 
-      while (v11 != v10);
+      while (v13 != v12);
     }
   }
 
@@ -4962,11 +6479,11 @@ float64x2_t ___convertUnitsAndUpAxis_block_invoke_5(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void ___meshConvertUnitAndUpAxis_block_invoke(uint64_t a1, uint64_t a2, int a3, float32x4_t a4)
+void ___meshConvertUnitAndUpAxis_block_invoke(uint64_t result, uint64_t a2, uint64_t a3, float32x4_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   if (a3 == 4 || a3 == 1)
   {
-    v4 = *(a1 + 32);
+    v9 = *(result + 32);
     a4.i32[0] = 1.0;
   }
 
@@ -4977,53 +6494,54 @@ void ___meshConvertUnitAndUpAxis_block_invoke(uint64_t a1, uint64_t a2, int a3, 
       return;
     }
 
-    v4 = *(a1 + 32);
-    a4.i32[0] = *(a1 + 36);
+    v9 = *(result + 32);
+    a4.i32[0] = *(result + 36);
   }
 
-  _sourceConvert(a2, v4, a4);
+  _sourceConvert(a2, v9, a3, a5, a6, a7, a8, a9, a4);
 }
 
-void _sourceConvert(uint64_t a1, int a2, float32x4_t a3)
+void _sourceConvert(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, float32x4_t a9)
 {
-  v14 = 0u;
-  v15 = 0u;
-  C3DMeshSourceGetContent(a1, &v14);
-  if (v15)
+  v9 = a2;
+  v20 = 0u;
+  v21 = 0u;
+  C3DMeshSourceGetContent(a1, a2, &v20);
+  if (v21)
   {
-    v6 = 0;
-    v4.i32[0] = 1.0;
-    v7 = a3.f32[0];
-    v8 = vdupq_lane_s32(*&vmvnq_s8(vceqq_f32(a3, v4)), 0);
-    v12 = v8;
+    v12 = 0;
+    v10.i32[0] = 1.0;
+    v13 = a9.f32[0];
+    v14 = vdupq_lane_s32(*&vmvnq_s8(vceqq_f32(a9, v10)), 0);
+    v18 = v14;
     do
     {
-      *v9.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v15), (v14 + v6 * BYTE6(v15)), v8, v7, v5);
-      if (a2 == 1)
+      *v15.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v21), (v20 + v12 * BYTE6(v21)), v14, v13, v11);
+      if (v9 == 1)
       {
-        v10 = v9;
-        v10.i32[1] = v9.i32[2];
-        v10.f32[2] = -v9.f32[1];
+        v16 = v15;
+        v16.i32[1] = v15.i32[2];
+        v16.f32[2] = -v15.f32[1];
       }
 
       else
       {
-        v10 = v9;
-        if (a2 == 2)
+        v16 = v15;
+        if (v9 == 2)
         {
-          v10.f32[0] = -v9.f32[1];
-          v10.i32[1] = v9.i32[0];
-          v10.i32[2] = v9.i32[2];
+          v16.f32[0] = -v15.f32[1];
+          v16.i32[1] = v15.i32[0];
+          v16.i32[2] = v15.i32[2];
         }
       }
 
-      v11 = vbslq_s8(v12, vmulq_n_f32(v10, a3.f32[0]), v10);
-      v11.i32[3] = v9.i32[3];
-      C3DConvertFloatingTypeFromFloat4(BYTE4(v15), v14 + v6 * BYTE6(v15), v11);
-      ++v6;
+      v17 = vbslq_s8(v18, vmulq_n_f32(v16, a9.f32[0]), v16);
+      v17.i32[3] = v15.i32[3];
+      C3DConvertFloatingTypeFromFloat4(BYTE4(v21), v20 + v12 * BYTE6(v21), v17);
+      ++v12;
     }
 
-    while (v6 < v15);
+    while (v12 < v21);
   }
 }
 
@@ -5135,14 +6653,14 @@ void C3D::CIFilterPass::CIFilterPass(C3D::CIFilterPass *this, C3D::RenderGraph *
   v5[21] = 0;
 }
 
-void C3D::CIFilterPass::setup(void **this)
+void C3D::CIFilterPass::setup(__C3DNode **this)
 {
   C3D::Pass::setInputCount(this, 1u);
   C3D::Pass::setOutputCount(this, 1u);
   v2 = C3D::PassDescriptor::inputAtIndex((this + 4), 0);
   *(v2 + 8) = "COLOR";
   *(v2 + 65) = 0;
-  C3D::Pass::parentColorDesc(this, &v7);
+  C3D::Pass::parentColorDesc(&v7, this);
   *(v2 + 16) = v7;
   *(v2 + 32) = v8;
   *(v2 + 28) = 115;
@@ -5152,7 +6670,7 @@ void C3D::CIFilterPass::setup(void **this)
   v4 = C3D::CIFilterEffectColorPrefix(v3);
   *(v3 + 8) = C3D::Pass::nameWithPrefixAndPointer(this, v4, this[20]);
   *(v3 + 65) = 0;
-  C3D::Pass::parentColorDesc(this, &v7);
+  C3D::Pass::parentColorDesc(&v7, this);
   *(v3 + 16) = v7;
   *(v3 + 32) = v8;
   *(v3 + 26) = 2;
@@ -5209,20 +6727,20 @@ void **C3D::SmartPtr<CIContext *,C3D::detail::NSRetainFct,C3D::detail::NSRelease
 
 void C3D::CIFilterPass::execute(float32x4_t *a1, uint64_t a2)
 {
-  v67 = *MEMORY[0x277D85DE8];
-  Stats = C3DEngineContextGetStats(a1[1].i64[0]);
+  v72 = *MEMORY[0x277D85DE8];
+  Stats = C3DEngineContextGetStats(a1[1].i64[0], a2);
   v5 = CACurrentMediaTime();
   v6 = C3D::PassDescriptor::outputAtIndex(&a1[2], 0);
   v7 = *(v6 + 16);
   v8 = *(v6 + 18);
-  v9 = C3D::CIFilterPass::_computeProjectedBox(a1, *(a2 + 8));
-  if (*&v9.i32[2] <= *v9.i32 || *&v9.i32[3] <= *&v9.i32[1])
+  v11 = C3D::CIFilterPass::_computeProjectedBox(a1, *(a2 + 8));
+  if (*&v11.i32[2] <= *v11.i32 || *&v11.i32[3] <= *&v11.i32[1])
   {
-    v11 = scn_default_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = scn_default_log(v9, v10);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_21BEF7000, v11, OS_LOG_TYPE_DEFAULT, "Warning: CIFilter should have been clipped by the culling", buf, 2u);
+      _os_log_impl(&dword_21BEF7000, v13, OS_LOG_TYPE_DEFAULT, "Warning: CIFilter should have been clipped by the culling", buf, 2u);
     }
 
 LABEL_7:
@@ -5230,139 +6748,139 @@ LABEL_7:
     return;
   }
 
-  if (*&v9.i32[3] < 0.0 || *v9.i32 >= v7 || *&v9.i32[1] >= v8)
+  if (*&v11.i32[3] < 0.0 || *v11.i32 >= v7 || *&v11.i32[1] >= v8)
   {
-    v14 = scn_default_log();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16 = scn_default_log(v9, v10);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_21BEF7000, v14, OS_LOG_TYPE_DEFAULT, "Warning: CIFilter should have been clipped by the culling (2)", buf, 2u);
+      _os_log_impl(&dword_21BEF7000, v16, OS_LOG_TYPE_DEFAULT, "Warning: CIFilter should have been clipped by the culling (2)", buf, 2u);
     }
 
     goto LABEL_7;
   }
 
-  v59 = v7;
-  v58 = a2;
-  v15 = *v9.i32;
-  v16 = *&v9.i32[1];
-  v17 = (*&v9.i32[2] - *v9.i32);
-  v18 = (*&v9.i32[3] - *&v9.i32[1]);
-  v19 = [MEMORY[0x277CBF750] filterWithName:@"CICrop"];
-  [v19 setDefaults];
-  v20 = v8;
-  v21 = v8 - (v16 + v18);
-  [v19 setValue:objc_msgSend(MEMORY[0x277CBF788] forKey:{"vectorWithX:Y:Z:W:", v15, v21, v17, v18), @"inputRectangle"}];
-  v22 = [objc_alloc(MEMORY[0x277CBF758]) initWithMTLTexture:C3D::Pass::inputTextureAtIndex(a1 options:{0), 0}];
-  v23 = *MEMORY[0x277CBFAF0];
-  v56 = v22;
-  [v19 setValue:? forKey:?];
-  v24 = *MEMORY[0x277CBFB50];
-  v25 = [v19 valueForKey:*MEMORY[0x277CBFB50]];
-  v57 = C3D::SmartPtr<SCNMTLRenderPipeline *,C3D::detail::NSRetainFct,C3D::detail::NSReleaseFct>::operator SCNMTLRenderPipeline *(a1[10].i64[1] + 16);
-  Filters = C3DNodeGetFilters(a1[10].i64[0]);
-  v61 = 0u;
-  v62 = 0u;
-  v63 = 0u;
-  v64 = 0u;
-  v27 = [(__CFDictionary *)Filters countByEnumeratingWithState:&v61 objects:v66 count:16];
-  if (v27)
+  v64 = v7;
+  v63 = a2;
+  v17 = *v11.i32;
+  v18 = *&v11.i32[1];
+  v19 = (*&v11.i32[2] - *v11.i32);
+  v20 = (*&v11.i32[3] - *&v11.i32[1]);
+  v21 = [MEMORY[0x277CBF750] filterWithName:@"CICrop"];
+  [v21 setDefaults];
+  v22 = v8;
+  v23 = v8 - (v18 + v20);
+  [v21 setValue:objc_msgSend(MEMORY[0x277CBF788] forKey:{"vectorWithX:Y:Z:W:", v17, v23, v19, v20), @"inputRectangle"}];
+  v24 = [objc_alloc(MEMORY[0x277CBF758]) initWithMTLTexture:C3D::Pass::inputTextureAtIndex(a1 options:{0), 0}];
+  v25 = *MEMORY[0x277CBFAF0];
+  v61 = v24;
+  [v21 setValue:? forKey:?];
+  v26 = *MEMORY[0x277CBFB50];
+  v27 = [v21 valueForKey:*MEMORY[0x277CBFB50]];
+  v62 = C3D::SmartPtr<SCNMTLRenderPipeline *,C3D::detail::NSRetainFct,C3D::detail::NSReleaseFct>::operator SCNMTLRenderPipeline *(a1[10].i64[1] + 16, v28);
+  Filters = C3DNodeGetFilters(a1[10].i64[0], v29);
+  v66 = 0u;
+  v67 = 0u;
+  v68 = 0u;
+  v69 = 0u;
+  v31 = [(__CFDictionary *)Filters countByEnumeratingWithState:&v66 objects:v71 count:16];
+  if (v31)
   {
-    v28 = *v62;
+    v32 = *v67;
     do
     {
-      for (i = 0; i != v27; ++i)
+      for (i = 0; i != v31; ++i)
       {
-        if (*v62 != v28)
+        if (*v67 != v32)
         {
           objc_enumerationMutation(Filters);
         }
 
-        v30 = *(*(&v61 + 1) + 8 * i);
-        [v30 setValue:v25 forKey:v23];
-        v25 = [v30 valueForKey:v24];
+        v34 = *(*(&v66 + 1) + 8 * i);
+        [v34 setValue:v27 forKey:v25];
+        v27 = [v34 valueForKey:v26];
       }
 
-      v27 = [(__CFDictionary *)Filters countByEnumeratingWithState:&v61 objects:v66 count:16];
+      v31 = [(__CFDictionary *)Filters countByEnumeratingWithState:&v66 objects:v71 count:16];
     }
 
-    while (v27);
+    while (v31);
   }
 
-  [v25 extent];
-  v35 = v20 - (v34 + v33);
-  if (v31 < 0.0)
+  [v27 extent];
+  v39 = v22 - (v38 + v37);
+  if (v35 < 0.0)
   {
-    v32 = v32 + v31;
+    v36 = v36 + v35;
   }
 
-  v36 = 0.0;
-  if (v31 >= 0.0)
-  {
-    v37 = v31;
-  }
-
-  else
-  {
-    v37 = 0.0;
-  }
-
+  v40 = 0.0;
   if (v35 >= 0.0)
   {
-    v38 = v33;
+    v41 = v35;
   }
 
   else
   {
-    v38 = v33 + v35;
+    v41 = 0.0;
   }
 
-  v39 = v59;
-  if (v35 >= 0.0)
+  if (v39 >= 0.0)
   {
-    v36 = v35;
-  }
-
-  if (v37 + v32 <= v39)
-  {
-    v40 = v32;
+    v42 = v37;
   }
 
   else
   {
-    v40 = v39 - v37;
+    v42 = v37 + v39;
   }
 
-  if (v36 + v38 <= v20)
+  v43 = v64;
+  if (v39 >= 0.0)
   {
-    v41 = v38;
+    v40 = v39;
+  }
+
+  if (v41 + v36 <= v43)
+  {
+    v44 = v36;
   }
 
   else
   {
-    v41 = v20 - v36;
+    v44 = v43 - v41;
   }
 
-  v54 = v41;
-  v55 = v40;
-  v42.f64[0] = v40;
-  v42.f64[1] = v41;
-  v60 = v37;
-  v43.f64[0] = v37;
-  v53 = v36;
-  v43.f64[1] = v36;
-  a1[9] = vcvt_hight_f32_f64(vcvt_f32_f64(v43), v42);
-  v44 = C3D::Pass::outputTextureAtIndex(a1, 0);
-  if (!v44)
+  if (v40 + v42 <= v22)
   {
-    v45 = scn_default_log();
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_FAULT))
+    v45 = v42;
+  }
+
+  else
+  {
+    v45 = v22 - v40;
+  }
+
+  v59 = v45;
+  v60 = v44;
+  v46.f64[0] = v44;
+  v46.f64[1] = v45;
+  v65 = v41;
+  v47.f64[0] = v41;
+  v58 = v40;
+  v47.f64[1] = v40;
+  a1[9] = vcvt_hight_f32_f64(vcvt_f32_f64(v47), v46);
+  v49 = C3D::Pass::outputTextureAtIndex(a1, 0);
+  if (!v49)
+  {
+    v50 = scn_default_log(0, v48);
+    if (os_log_type_enabled(v50, OS_LOG_TYPE_FAULT))
     {
-      C3D::CIFilterPass::execute(v45, v46, v47, v48, v49, v50, v51, v52);
+      C3D::CIFilterPass::execute(v50, v51, v52, v53, v54, v55, v56, v57);
     }
   }
 
-  [v57 render:v25 toMTLTexture:v44 commandBuffer:*v58 bounds:C3DColorSpaceLinearSRGB() colorSpace:{v60, v20 - (v53 + v54), v55}];
+  [v62 render:v27 toMTLTexture:v49 commandBuffer:*v63 bounds:C3DColorSpaceLinearSRGB() colorSpace:{v65, v22 - (v58 + v59), v60}];
   *(Stats + 160) = *(Stats + 160) + CACurrentMediaTime() - v5;
 }
 
@@ -5374,42 +6892,42 @@ int8x16_t C3D::CIFilterPass::_computeProjectedBox(C3D::CIFilterPass *this, unsig
   v6.i32[1] = *(v4 + 18);
   *v7.f32 = vcvt_f32_u32(v6);
   v7.i64[1] = v7.i64[0];
-  v18 = v7;
-  WorldMatrix = C3DNodeGetWorldMatrix(*(this + 20));
+  v19 = v7;
+  WorldMatrix = C3DNodeGetWorldMatrix(*(this + 20), v8);
   CullingContext = C3D::DrawNodesPass::getCullingContext(*(this + 16));
-  C3DMatrix4x4Mult(WorldMatrix, (CullingContext + (v5 << 6) + 3856), v29);
-  v26 = 0uLL;
-  v10 = C3DNodeComputeHierarchicalBoundingBox(*(this + 20), 1, &v27);
-  C3D::CIFilterPass::computeBoundingRectangle(v10, &v27, &v28, v29, &v26, &v25);
-  v19 = vmulq_f32(v26, v18);
-  v11 = *(this + 3);
-  v12 = (**this)(this);
-  v20[1] = 0;
-  v20[2] = 0;
-  v20[0] = v12;
-  v21 = 0;
-  v22 = this;
-  v23 = 1;
+  C3DMatrix4x4Mult(WorldMatrix, (CullingContext + (v5 << 6) + 3856), v30);
+  v27 = 0uLL;
+  v11 = C3DNodeComputeHierarchicalBoundingBox(*(this + 20), 1, &v28);
+  C3D::CIFilterPass::computeBoundingRectangle(v11, &v28, &v29, v30, &v27, &v26);
+  v20 = vmulq_f32(v27, v19);
+  v12 = *(this + 3);
+  v13 = (**this)(this);
+  v21[1] = 0;
+  v21[2] = 0;
+  v21[0] = v13;
+  v22 = 0;
+  v23 = this;
   v24 = 1;
-  v13 = C3D::RenderGraph::search(v11, v20);
-  if (!v13)
+  v25 = 1;
+  v14 = C3D::RenderGraph::search(v12, v21);
+  if (!v14)
   {
-    return v19;
+    return v20;
   }
 
-  v14 = *(v13 + 9);
-  if ((vminvq_u32(vceqzq_f32(v14)) & 0x80000000) != 0)
+  v15 = *(v14 + 9);
+  if ((vminvq_u32(vceqzq_f32(v15)) & 0x80000000) != 0)
   {
-    return v19;
+    return v20;
   }
 
   else
   {
-    v15 = v19.i64[0];
-    v16.i64[0] = *(v13 + 18);
-    v16.i64[1] = v19.i64[1];
-    result.i64[1] = *(v13 + 19);
-    result.i64[0] = vbslq_s8(vcgtq_f32(v19, v14), v16, result).u64[0];
+    v16 = v20.i64[0];
+    v17.i64[0] = *(v14 + 18);
+    v17.i64[1] = v20.i64[1];
+    result.i64[1] = *(v14 + 19);
+    result.i64[0] = vbslq_s8(vcgtq_f32(v20, v15), v17, result).u64[0];
   }
 
   return result;
@@ -5568,62 +7086,66 @@ uint64_t C3D::CIFilterDrawNodesPass::setup(C3D::CIFilterDrawNodesPass *this)
   v3 = C3D::PassDescriptor::outputAtIndex((this + 32), 0);
   *(v3 + 8) = "COLOR";
   *(v3 + 65) = 0;
-  C3D::Pass::parentColorDesc(this, v19);
-  *(v3 + 16) = *v19;
-  *(v3 + 32) = v20;
+  C3D::Pass::parentColorDesc(v23, this);
+  *(v3 + 16) = *v23;
+  *(v3 + 32) = v24;
   *(v3 + 28) = 115;
   *(v3 + 48) = 0;
   *(v3 + 56) = 0;
   *(v3 + 66) = *(v3 + 66) & 0xFFBC | 0x42;
-  v4 = C3D::PassDescriptor::outputAtIndex((this + 32), 1u);
+  v4 = C3D::PassDescriptor::outputAtIndex((this + 32), 1);
   v5 = C3D::CIFilterEffectDepthPrefix(v4);
   *(v4 + 8) = C3D::Pass::nameWithPrefixAndPointer(this, v5, *(this + 671));
   *(v4 + 64) = 2;
-  C3D::Pass::parentDepthDesc(this, v19);
-  *(v4 + 16) = *v19;
-  *(v4 + 32) = v20;
+  C3D::Pass::parentDepthDesc(v23, this);
+  *(v4 + 16) = *v23;
+  *(v4 + 32) = v24;
   *(v4 + 66) = *(v4 + 66) & 0xFFFC | 2;
   *(this + 296) = 1;
-  StackAllocator = C3DEngineContextGetStackAllocator(*(this + 2));
-  C3DStackAllocatorPushFrame(StackAllocator);
-  C3D::Array<C3D::PassIODescriptor,0u,C3D::StackAllocator>::Array(v19, StackAllocator);
-  *(this + 672) = v19;
-  v7 = *(*(this + 3) + 16);
-  Aligned = C3DScratchAllocatorAllocateAligned(v7, 24, 8, 0);
-  C3D::Array<unsigned short,0u,C3D::ScratchAllocator>::Array(Aligned, v7);
-  v9 = *(this + 671);
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = ___ZN3C3D21CIFilterDrawNodesPass5setupEv_block_invoke;
-  v18[3] = &__block_descriptor_48_e315_q16__0____C3DNode____C3DEntity____CFRuntimeBase_QAQ__v____CFString_____CFString_____CFDictionary_____C3DScene_q_____C3DNode_____C3DNode_____C3DNode_i____C3DMatrix4x4__16f__4_____4__________C3DMatrix4x4_BfQib1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b3b1______SS_I_________C3DGeometry_____C3DDeformerStack_f_____8l;
-  v18[4] = this;
-  v18[5] = Aligned;
-  C3DNodeApplyHierarchy(v9, v18);
+  StackAllocator = C3DEngineContextGetStackAllocator(*(this + 2), v6);
+  C3DStackAllocatorPushFrame(StackAllocator, v8);
+  C3D::Array<C3D::PassIODescriptor,0u,C3D::StackAllocator>::Array(v23, StackAllocator);
+  *(this + 672) = v23;
+  v9 = *(*(this + 3) + 16);
+  Aligned = C3DScratchAllocatorAllocateAligned(v9, 24, 8, 0);
+  C3D::Array<unsigned short,0u,C3D::ScratchAllocator>::Array(Aligned, v9);
+  v11 = *(this + 671);
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = ___ZN3C3D21CIFilterDrawNodesPass5setupEv_block_invoke;
+  v22[3] = &__block_descriptor_48_e315_q16__0____C3DNode____C3DEntity____CFRuntimeBase_QAQ__v____CFString_____CFString_____CFDictionary_____C3DScene_q_____C3DNode_____C3DNode_____C3DNode_i____C3DMatrix4x4__16f__4_____4__________C3DMatrix4x4_BfQib1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b3b1______SS_I_________C3DGeometry_____C3DDeformerStack_f_____8l;
+  v22[4] = this;
+  v22[5] = Aligned;
+  C3DNodeApplyHierarchy(v11, v22);
   *(this + 34) = Aligned;
-  C3D::DrawNodesPass::setup(this);
-  v10 = LOWORD(v19[2]);
-  C3D::Pass::setInputCount(this, LOWORD(v19[2]));
-  if (v10)
+  C3D::DrawNodesPass::setup(this, v12);
+  v13 = LOWORD(v23[2]);
+  C3D::Pass::setInputCount(this, LOWORD(v23[2]));
+  if (v13)
   {
-    for (i = 0; i != v10; ++i)
+    v15 = 0;
+    do
     {
-      v12 = C3D::Array<C3D::PassIODescriptor,0u,C3D::StackAllocator>::operator[](v19, i);
-      v13 = C3D::PassDescriptor::inputAtIndex((this + 32), i);
-      *v13 = *v12;
-      v14 = v12[4];
-      v16 = v12[1];
-      v15 = v12[2];
-      v13[3] = v12[3];
-      v13[4] = v14;
-      v13[1] = v16;
-      v13[2] = v15;
+      v16 = C3D::Array<C3D::PassIODescriptor,0u,C3D::StackAllocator>::operator[](v23, v15);
+      v17 = C3D::PassDescriptor::inputAtIndex((this + 32), v15);
+      *v17 = *v16;
+      v18 = v16[4];
+      v20 = v16[1];
+      v19 = v16[2];
+      v17[3] = v16[3];
+      v17[4] = v18;
+      v17[1] = v20;
+      v17[2] = v19;
+      v15 = (v15 + 1);
     }
+
+    while (v13 != v15);
   }
 
-  return C3DStackAllocatorPopFrame(StackAllocator);
+  return C3DStackAllocatorPopFrame(StackAllocator, v14);
 }
 
-void C3D::CIFilterDrawNodesPass::_setupPointOfViewMatrices(uint64_t a1, float32x4_t *a2, float32x4_t *a3)
+void C3D::CIFilterDrawNodesPass::_setupPointOfViewMatrices(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   C3D::DrawNodesPass::_setupPointOfViewMatrices(a1, a2, a3);
   v4 = *(a1 + 5360);
@@ -5636,44 +7158,44 @@ void C3D::CIFilterDrawNodesPass::_setupPointOfViewMatrices(uint64_t a1, float32x
 
 uint64_t C3D::CIFilterDrawNodesPass::_shouldPushNodeToVisible(C3D::CIFilterDrawNodesPass *this, __C3DNode *a2, int a3)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   if (*(this + 671) != a2 && (*(a2 + 221) & 0x40) != 0)
   {
     v5 = *(a2 + 114);
     v6 = *(a2 + 113);
     v7 = *(a2 + 112);
     v8 = this + 16 * a3;
-    C3D::PassIODescriptor::PassIODescriptor(v30, 2);
-    C3D::Pass::parentColorDesc(this, &v26);
-    v32 = v26;
-    v33 = v27;
-    WORD6(v32) = 115;
+    C3D::PassIODescriptor::PassIODescriptor(v32, 2);
+    C3D::Pass::parentColorDesc(&v28, this);
+    v34 = v28;
+    v35 = v29;
+    WORD6(v34) = 115;
     v10 = C3D::CIFilterEffectColorPrefix(v9);
-    v31 = C3D::Pass::nameWithPrefixAndPointer(this, v10, a2);
-    C3D::Array<C3D::PassIODescriptor,0u,C3D::StackAllocator>::push_back<C3D::PassIODescriptor&>(*(this + 672), v30);
-    C3D::PassIODescriptor::PassIODescriptor(&v26, 2);
-    C3D::Pass::parentDepthDesc(this, &v24);
-    v27 = v24;
-    v28 = v25;
-    v29 = 2;
-    BYTE10(v27) = 7;
+    v33 = C3D::Pass::nameWithPrefixAndPointer(this, v10, a2);
+    C3D::Array<C3D::PassIODescriptor,0u,C3D::StackAllocator>::push_back<C3D::PassIODescriptor&>(*(this + 672), v32);
+    C3D::PassIODescriptor::PassIODescriptor(&v28, 2);
+    C3D::Pass::parentDepthDesc(&v26, this);
+    v29 = v26;
+    v30 = v27;
+    v31 = 2;
+    BYTE10(v29) = 7;
     v12 = C3D::CIFilterEffectDepthPrefix(v11);
-    *(&v26 + 1) = C3D::Pass::nameWithPrefixAndPointer(this, v12, a2);
-    C3D::Array<C3D::PassIODescriptor,0u,C3D::StackAllocator>::push_back<C3D::PassIODescriptor&>(*(this + 672), &v26);
+    *(&v28 + 1) = C3D::Pass::nameWithPrefixAndPointer(this, v12, a2);
+    C3D::Array<C3D::PassIODescriptor,0u,C3D::StackAllocator>::push_back<C3D::PassIODescriptor&>(*(this + 672), &v28);
     if ((*(v8 + 1310) + 1) > *(v8 + 1311))
     {
-      v13 = scn_default_log();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+      v15 = scn_default_log(v13, v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
       {
-        C3D::ScenePass::_shouldPushNodeToVisible(v13, v14, v15, v16, v17, v18, v19, v20);
+        C3D::ScenePass::_shouldPushNodeToVisible(v15, v16, v17, v18, v19, v20, v21, v22);
       }
     }
 
-    v21 = *(v8 + 1310);
-    v22 = (*(v8 + 654) + 4 * v21);
-    *v22 = v7;
-    v22[1] = v5 + v6 - 1;
-    *(v8 + 1310) = v21 + 1;
+    v23 = *(v8 + 1310);
+    v24 = (*(v8 + 654) + 4 * v23);
+    *v24 = v7;
+    v24[1] = v5 + v6 - 1;
+    *(v8 + 1310) = v23 + 1;
   }
 
   return 1;
@@ -5812,13 +7334,13 @@ uint64_t C3D::ComputeRadiancePass::setup(C3D::ComputeRadiancePass *this)
   return result;
 }
 
-uint64_t C3D::ComputeRadiancePass::compile(C3D::ComputeRadiancePass *this)
+void *C3D::ComputeRadiancePass::compile(C3D::ComputeRadiancePass *this, uint64_t a2)
 {
-  RenderContext = C3DEngineContextGetRenderContext(*(this + 2));
+  RenderContext = C3DEngineContextGetRenderContext(*(this + 2), a2);
   [(SCNMTLRenderContext *)RenderContext resourceManager];
   C3DEngineContextHasFeatures(*(this + 2), 512);
-  v3 = 0xC6A4A7935BD1E995 * ((0xC6A4A7935BD1E995 * ((*(*this + 64))(this) ^ 0x4FB7DAE84DD6F2FCLL ^ (0xC6A4A7935BD1E995 * ((0xC6A4A7935BD1E995 * *(this + 108)) ^ ((0xC6A4A7935BD1E995 * *(this + 108)) >> 47))))) ^ *(this + 29));
-  result = C3D::RenderGraphResourceManager::get(*(*(this + 3) + 128), (0xC6A4A7935BD1E995 * (v3 ^ (v3 >> 47))) ^ ((0xC6A4A7935BD1E995 * (v3 ^ (v3 >> 47))) >> 47));
+  v4 = 0xC6A4A7935BD1E995 * ((0xC6A4A7935BD1E995 * ((*(*this + 64))(this) ^ 0x4FB7DAE84DD6F2FCLL ^ (0xC6A4A7935BD1E995 * ((0xC6A4A7935BD1E995 * *(this + 108)) ^ ((0xC6A4A7935BD1E995 * *(this + 108)) >> 47))))) ^ *(this + 29));
+  result = C3D::RenderGraphResourceManager::get(*(*(this + 3) + 128), (0xC6A4A7935BD1E995 * (v4 ^ (v4 >> 47))) ^ ((0xC6A4A7935BD1E995 * (v4 ^ (v4 >> 47))) >> 47));
   *(this + 15) = result;
   if (!result)
   {
@@ -6026,275 +7548,275 @@ void C3D::ComputeRadiancePass::Resource::~Resource(C3D::ComputeRadiancePass::Res
   JUMPOUT(0x21CF07610);
 }
 
-uint64_t _createConstraintFromDefinition(uint64_t a1)
+uint64_t _createConstraintFromDefinition(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 72);
-  v3 = *a1;
-  if (v2)
+  v3 = *(a1 + 72);
+  v4 = *a1;
+  if (v3)
   {
-    v4 = [v3 _handle];
-    v5 = *(a1 + 12);
-    v6 = *(a1 + 16);
-    v7 = *(a1 + 24);
-    v8 = *(a1 + 28);
-    v9 = *(a1 + 32);
-    v10 = *(a1 + 40);
-    v11 = *(a1 + 44);
-    v12 = *(a1 + 48);
-    v13 = *(a1 + 64);
-    v39.var0.var0[0].var0.var0[0] = *(a1 + 8);
-    v39.var0.var0[0].var0.var0[1] = v7;
-    *&v39.var0.var0[0].var0.var0[2] = v10;
-    *v39.var0.var0[1].var0.var0 = __PAIR64__(v8, v5);
-    *&v39.var0.var0[1].var0.var0[2] = v11;
-    *v39.var0.var0[2].var0.var0 = __PAIR64__(v9, v6);
-    *&v39.var0.var0[2].var0.var0[2] = v12;
-    *v39.var1.var0.var0 = *(a1 + 56);
-    *&v39.var1.var0.var0[2] = v13;
-    v14 = [*(a1 + 72) _handle];
-    v15 = *(a1 + 84);
-    v16 = *(a1 + 88);
-    v17 = *(a1 + 96);
-    v18 = *(a1 + 100);
-    v19 = *(a1 + 104);
-    v20 = *(a1 + 112);
-    v21 = *(a1 + 116);
-    v22 = *(a1 + 120);
-    v23 = *(a1 + 136);
-    v38.var0.var0[0].var0.var0[0] = *(a1 + 80);
-    *&v38.var0.var0[0].var0.var0[1] = __PAIR64__(v20, v17);
-    v38.var0.var0[0].var0.var0[3] = 0.0;
-    *v38.var0.var0[1].var0.var0 = __PAIR64__(v18, v15);
-    *&v38.var0.var0[1].var0.var0[2] = v21;
-    *v38.var0.var0[2].var0.var0 = __PAIR64__(v19, v16);
-    *&v38.var0.var0[2].var0.var0[2] = v22;
-    *v38.var1.var0.var0 = *(a1 + 128);
-    *&v38.var1.var0.var0[2] = v23;
-    v24 = btAlignedAllocInternal(704, 16);
-    btConeTwistConstraint::btConeTwistConstraint(v24, v4, v14, &v39, &v38);
-    v25 = *(a1 + 160);
-    *(v24 + 512) = vcvt_f32_f64(*(a1 + 144));
-    *(v24 + 520) = v25;
-    *(v24 + 496) = 0x3E99999A3F000000;
-    *(v24 + 504) = 1065353216;
-    *(v24 + 592) = 1;
+    v5 = [v4 _handle];
+    v6 = *(a1 + 12);
+    v7 = *(a1 + 16);
+    v8 = *(a1 + 24);
+    v9 = *(a1 + 28);
+    v10 = *(a1 + 32);
+    v11 = *(a1 + 40);
+    v12 = *(a1 + 44);
+    v13 = *(a1 + 48);
+    v14 = *(a1 + 64);
+    v40.var0.var0[0].var0.var0[0] = *(a1 + 8);
+    v40.var0.var0[0].var0.var0[1] = v8;
+    *&v40.var0.var0[0].var0.var0[2] = v11;
+    *v40.var0.var0[1].var0.var0 = __PAIR64__(v9, v6);
+    *&v40.var0.var0[1].var0.var0[2] = v12;
+    *v40.var0.var0[2].var0.var0 = __PAIR64__(v10, v7);
+    *&v40.var0.var0[2].var0.var0[2] = v13;
+    *v40.var1.var0.var0 = *(a1 + 56);
+    *&v40.var1.var0.var0[2] = v14;
+    v15 = [*(a1 + 72) _handle];
+    v16 = *(a1 + 84);
+    v17 = *(a1 + 88);
+    v18 = *(a1 + 96);
+    v19 = *(a1 + 100);
+    v20 = *(a1 + 104);
+    v21 = *(a1 + 112);
+    v22 = *(a1 + 116);
+    v23 = *(a1 + 120);
+    v24 = *(a1 + 136);
+    v39.var0.var0[0].var0.var0[0] = *(a1 + 80);
+    *&v39.var0.var0[0].var0.var0[1] = __PAIR64__(v21, v18);
+    v39.var0.var0[0].var0.var0[3] = 0.0;
+    *v39.var0.var0[1].var0.var0 = __PAIR64__(v19, v16);
+    *&v39.var0.var0[1].var0.var0[2] = v22;
+    *v39.var0.var0[2].var0.var0 = __PAIR64__(v20, v17);
+    *&v39.var0.var0[2].var0.var0[2] = v23;
+    *v39.var1.var0.var0 = *(a1 + 128);
+    *&v39.var1.var0.var0[2] = v24;
+    v25 = btAlignedAllocInternal(704, 16);
+    btConeTwistConstraint::btConeTwistConstraint(v25, v5, v15, &v40, &v39);
+    v26 = *(a1 + 160);
+    *(v25 + 512) = vcvt_f32_f64(*(a1 + 144));
+    *(v25 + 520) = v26;
+    *(v25 + 496) = 0x3E99999A3F000000;
+    *(v25 + 504) = 1065353216;
+    *(v25 + 592) = 1;
   }
 
   else
   {
-    if (!v3)
+    if (!v4)
     {
-      v26 = scn_default_log();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
+      v27 = scn_default_log(0, a2);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
       {
-        _createConstraintFromDefinition(v26);
+        _createConstraintFromDefinition(v27);
       }
     }
 
-    v27 = [*a1 _handle];
-    v28 = *(a1 + 12);
-    v29 = *(a1 + 16);
-    v30 = *(a1 + 24);
-    v31 = *(a1 + 28);
-    v32 = *(a1 + 32);
-    v33 = *(a1 + 40);
-    v34 = *(a1 + 44);
-    v35 = *(a1 + 48);
-    v36 = *(a1 + 64);
-    v39.var0.var0[0].var0.var0[0] = *(a1 + 8);
-    v39.var0.var0[0].var0.var0[1] = v30;
-    *&v39.var0.var0[0].var0.var0[2] = v33;
-    *v39.var0.var0[1].var0.var0 = __PAIR64__(v31, v28);
-    *&v39.var0.var0[1].var0.var0[2] = v34;
-    *v39.var0.var0[2].var0.var0 = __PAIR64__(v32, v29);
-    *&v39.var0.var0[2].var0.var0[2] = v35;
-    *v39.var1.var0.var0 = *(a1 + 56);
-    *&v39.var1.var0.var0[2] = v36;
-    v24 = btAlignedAllocInternal(704, 16);
-    btConeTwistConstraint::btConeTwistConstraint(v24, v27, &v39);
+    v28 = [*a1 _handle];
+    v29 = *(a1 + 12);
+    v30 = *(a1 + 16);
+    v31 = *(a1 + 24);
+    v32 = *(a1 + 28);
+    v33 = *(a1 + 32);
+    v34 = *(a1 + 40);
+    v35 = *(a1 + 44);
+    v36 = *(a1 + 48);
+    v37 = *(a1 + 64);
+    v40.var0.var0[0].var0.var0[0] = *(a1 + 8);
+    v40.var0.var0[0].var0.var0[1] = v31;
+    *&v40.var0.var0[0].var0.var0[2] = v34;
+    *v40.var0.var0[1].var0.var0 = __PAIR64__(v32, v29);
+    *&v40.var0.var0[1].var0.var0[2] = v35;
+    *v40.var0.var0[2].var0.var0 = __PAIR64__(v33, v30);
+    *&v40.var0.var0[2].var0.var0[2] = v36;
+    *v40.var1.var0.var0 = *(a1 + 56);
+    *&v40.var1.var0.var0[2] = v37;
+    v25 = btAlignedAllocInternal(704, 16);
+    btConeTwistConstraint::btConeTwistConstraint(v25, v28, &v40);
   }
 
-  return v24;
+  return v25;
 }
 
 {
-  *v2.var0.var0 = *(a1 + 28);
-  *&v2.var0.var0[2] = *(a1 + 36);
-  v56.var1 = v2;
-  v4 = *(a1 + 16);
-  v3 = *(a1 + 20);
-  v5 = *(a1 + 24);
-  if (fabsf(v5) <= 0.70711)
+  *v3.var0.var0 = *(a1 + 28);
+  *&v3.var0.var0[2] = *(a1 + 36);
+  v57.var1 = v3;
+  v5 = *(a1 + 16);
+  v4 = *(a1 + 20);
+  v6 = *(a1 + 24);
+  if (fabsf(v6) <= 0.70711)
   {
-    v14 = (v3 * v3) + (v4 * v4);
-    v15 = 1.0 / sqrtf(v14);
-    v13 = -(v3 * v15);
-    v8 = v4 * v15;
-    v10 = -(v5 * (v4 * v15));
-    v11 = v5 * v13;
-    v12 = v14 * v15;
-    v9 = 0.0;
+    v15 = (v4 * v4) + (v5 * v5);
+    v16 = 1.0 / sqrtf(v15);
+    v14 = -(v4 * v16);
+    v9 = v5 * v16;
+    v11 = -(v6 * (v5 * v16));
+    v12 = v6 * v14;
+    v13 = v15 * v16;
+    v10 = 0.0;
   }
 
   else
   {
-    v6 = (v5 * v5) + (v3 * v3);
-    v7 = 1.0 / sqrtf(v6);
-    v8 = -(v5 * v7);
-    v9 = v3 * v7;
-    v10 = v6 * v7;
-    v11 = -(v4 * (v3 * v7));
-    v12 = v4 * v8;
-    v13 = 0.0;
+    v7 = (v6 * v6) + (v4 * v4);
+    v8 = 1.0 / sqrtf(v7);
+    v9 = -(v6 * v8);
+    v10 = v4 * v8;
+    v11 = v7 * v8;
+    v12 = -(v5 * (v4 * v8));
+    v13 = v5 * v9;
+    v14 = 0.0;
   }
 
-  v56.var0.var0[0].var0.var0[0] = *(a1 + 16);
-  v56.var0.var0[0].var0.var0[1] = v13;
-  *&v56.var0.var0[0].var0.var0[2] = LODWORD(v10);
-  *v56.var0.var0[1].var0.var0 = __PAIR64__(LODWORD(v8), LODWORD(v3));
-  *&v56.var0.var0[1].var0.var0[2] = LODWORD(v11);
-  *v56.var0.var0[2].var0.var0 = __PAIR64__(LODWORD(v9), LODWORD(v5));
-  *&v56.var0.var0[2].var0.var0[2] = LODWORD(v12);
-  *v16.var0.var0 = *(a1 + 52);
-  *&v16.var0.var0[2] = *(a1 + 60);
-  v55.var1 = v16;
-  v17 = *(a1 + 40);
-  v18 = *(a1 + 44);
-  v19 = *(a1 + 48);
-  v20 = fabsf(v19) <= 0.70711;
-  v21 = (v18 * v18) + (v17 * v17);
-  v22 = 1.0 / sqrtf(v21);
-  v23 = -(v18 * v22);
-  v24 = v17 * v22;
-  v25 = -(v19 * (v17 * v22));
-  v26 = v19 * v23;
-  v27 = v21 * v22;
-  v28 = 0.0;
-  v29 = (v19 * v19) + (v18 * v18);
-  v30 = 1.0 / sqrtf(v29);
-  v31 = -(v19 * v30);
-  v32 = v18 * v30;
-  v33 = v29 * v30;
-  v34 = -(v17 * v32);
-  if (v20)
+  v57.var0.var0[0].var0.var0[0] = *(a1 + 16);
+  v57.var0.var0[0].var0.var0[1] = v14;
+  *&v57.var0.var0[0].var0.var0[2] = LODWORD(v11);
+  *v57.var0.var0[1].var0.var0 = __PAIR64__(LODWORD(v9), LODWORD(v4));
+  *&v57.var0.var0[1].var0.var0[2] = LODWORD(v12);
+  *v57.var0.var0[2].var0.var0 = __PAIR64__(LODWORD(v10), LODWORD(v6));
+  *&v57.var0.var0[2].var0.var0[2] = LODWORD(v13);
+  *v17.var0.var0 = *(a1 + 52);
+  *&v17.var0.var0[2] = *(a1 + 60);
+  v56.var1 = v17;
+  v18 = *(a1 + 40);
+  v19 = *(a1 + 44);
+  v20 = *(a1 + 48);
+  v21 = fabsf(v20) <= 0.70711;
+  v22 = (v19 * v19) + (v18 * v18);
+  v23 = 1.0 / sqrtf(v22);
+  v24 = -(v19 * v23);
+  v25 = v18 * v23;
+  v26 = -(v20 * (v18 * v23));
+  v27 = v20 * v24;
+  v28 = v22 * v23;
+  v29 = 0.0;
+  v30 = (v20 * v20) + (v19 * v19);
+  v31 = 1.0 / sqrtf(v30);
+  v32 = -(v20 * v31);
+  v33 = v19 * v31;
+  v34 = v30 * v31;
+  v35 = -(v18 * v33);
+  if (v21)
   {
-    v33 = v25;
+    v34 = v26;
   }
 
   else
   {
-    v23 = 0.0;
+    v24 = 0.0;
   }
 
-  v55.var0.var0[0].var0.var0[0] = *(a1 + 40);
-  *&v55.var0.var0[0].var0.var0[1] = __PAIR64__(LODWORD(v33), LODWORD(v23));
-  v55.var0.var0[0].var0.var0[3] = 0.0;
-  v35 = v17 * v31;
-  if (v20)
+  v56.var0.var0[0].var0.var0[0] = *(a1 + 40);
+  *&v56.var0.var0[0].var0.var0[1] = __PAIR64__(LODWORD(v34), LODWORD(v24));
+  v56.var0.var0[0].var0.var0[3] = 0.0;
+  v36 = v18 * v32;
+  if (v21)
   {
-    v36 = v24;
+    v37 = v25;
   }
 
   else
   {
-    v36 = v31;
+    v37 = v32;
   }
 
-  if (v20)
+  if (v21)
   {
-    v37 = v26;
+    v38 = v27;
   }
 
   else
   {
-    v28 = v32;
-    v27 = v35;
-    v37 = v34;
+    v29 = v33;
+    v28 = v36;
+    v38 = v35;
   }
 
-  *v55.var0.var0[1].var0.var0 = __PAIR64__(LODWORD(v36), LODWORD(v18));
-  *&v55.var0.var0[1].var0.var0[2] = LODWORD(v37);
-  *v55.var0.var0[2].var0.var0 = __PAIR64__(LODWORD(v28), LODWORD(v19));
-  *&v55.var0.var0[2].var0.var0[2] = LODWORD(v27);
-  v38 = *a1;
+  *v56.var0.var0[1].var0.var0 = __PAIR64__(LODWORD(v37), LODWORD(v19));
+  *&v56.var0.var0[1].var0.var0[2] = LODWORD(v38);
+  *v56.var0.var0[2].var0.var0 = __PAIR64__(LODWORD(v29), LODWORD(v20));
+  *&v56.var0.var0[2].var0.var0[2] = LODWORD(v28);
+  v39 = *a1;
   if (*(a1 + 8))
   {
-    v39 = [v38 _handle];
-    v40 = [*(a1 + 8) _handle];
-    v41 = btAlignedAllocInternal(1248, 16);
-    btSliderConstraint::btSliderConstraint(v41, v39, v40, &v56, &v55, 1);
+    v40 = [v39 _handle];
+    v41 = [*(a1 + 8) _handle];
+    v42 = btAlignedAllocInternal(1248, 16);
+    btSliderConstraint::btSliderConstraint(v42, v40, v41, &v57, &v56, 1);
   }
 
   else
   {
-    if (!v38)
+    if (!v39)
     {
-      v42 = scn_default_log();
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_FAULT))
+      v43 = scn_default_log(0, a2);
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_FAULT))
       {
-        _createConstraintFromDefinition(v42);
+        _createConstraintFromDefinition(v43);
       }
     }
 
-    v43 = [*a1 _handle];
-    v41 = btAlignedAllocInternal(1248, 16);
-    btSliderConstraint::btSliderConstraint(v41, v43, &v56, 1);
+    v44 = [*a1 _handle];
+    v42 = btAlignedAllocInternal(1248, 16);
+    btSliderConstraint::btSliderConstraint(v42, v44, &v57, 1);
   }
 
-  *(v41 + 212) = vcvt_f32_f64(*(a1 + 64));
-  v44 = *(a1 + 80);
-  v45 = fmodf(v44, 6.2832);
-  if (v45 >= -3.1416)
+  *(v42 + 212) = vcvt_f32_f64(*(a1 + 64));
+  v45 = *(a1 + 80);
+  v46 = fmodf(v45, 6.2832);
+  if (v46 >= -3.1416)
   {
-    if (v45 > 3.1416)
+    if (v46 > 3.1416)
     {
-      v45 = v45 + -6.2832;
+      v46 = v46 + -6.2832;
     }
   }
 
   else
   {
-    v45 = v45 + 6.2832;
+    v46 = v46 + 6.2832;
   }
 
-  *(v41 + 220) = v45;
-  v46 = *(a1 + 88);
-  v47 = fmodf(v46, 6.2832);
-  if (v47 >= -3.1416)
+  *(v42 + 220) = v46;
+  v47 = *(a1 + 88);
+  v48 = fmodf(v47, 6.2832);
+  if (v48 >= -3.1416)
   {
-    if (v47 > 3.1416)
+    if (v48 > 3.1416)
     {
-      v47 = v47 + -6.2832;
+      v48 = v48 + -6.2832;
     }
   }
 
   else
   {
-    v47 = v47 + 6.2832;
+    v48 = v48 + 6.2832;
   }
 
-  *(v41 + 224) = v47;
-  v48 = *(a1 + 96);
-  if (v48 != 0.0)
+  *(v42 + 224) = v48;
+  v49 = *(a1 + 96);
+  if (v49 != 0.0)
   {
-    *(v41 + 1216) = 1;
-    v49 = v48;
-    *(v41 + 1220) = v49;
-    v50 = *(a1 + 104);
-    *(v41 + 1224) = v50;
+    *(v42 + 1216) = 1;
+    v50 = v49;
+    *(v42 + 1220) = v50;
+    v51 = *(a1 + 104);
+    *(v42 + 1224) = v51;
   }
 
-  v51 = *(a1 + 112);
-  if (v51 != 0.0)
+  v52 = *(a1 + 112);
+  if (v52 != 0.0)
   {
-    *(v41 + 1232) = 1;
-    v52 = v51;
-    *(v41 + 1236) = v52;
-    v53 = *(a1 + 120);
-    *(v41 + 1240) = v53;
+    *(v42 + 1232) = 1;
+    v53 = v52;
+    *(v42 + 1236) = v53;
+    v54 = *(a1 + 120);
+    *(v42 + 1240) = v54;
   }
 
-  return v41;
+  return v42;
 }
 
 __n128 *C3DIOCreateSceneWithData(const __CFData *a1, uint64_t a2, const void *a3, CFDictionaryRef theDict, uint64_t a5)
@@ -6318,14 +7840,14 @@ __n128 *C3DIOCreateSceneWithData(const __CFData *a1, uint64_t a2, const void *a3
 
 __n128 *_C3DIOCreateSceneWithData(CFDataRef data, uint64_t a2, const void *a3, __CFDictionary *a4, uint64_t a5)
 {
-  v76 = *MEMORY[0x277D85DE8];
+  v103 = *MEMORY[0x277D85DE8];
   valuePtr = 0.0;
   error = 0;
-  v72 = 0;
+  v99 = 0;
   if (a5)
   {
-    (*(a5 + 16))(a5, 4, 0, &v72, 0.0);
-    if (v72)
+    (*(a5 + 16))(a5, 4, 0, &v99, 0.0);
+    if (v99)
     {
       return 0;
     }
@@ -6335,34 +7857,34 @@ __n128 *_C3DIOCreateSceneWithData(CFDataRef data, uint64_t a2, const void *a3, _
   v10 = CFPropertyListCreateWithData(0, data, 0, &format, 0);
   if (!v10 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
-    v16 = 0;
+    v19 = 0;
     goto LABEL_8;
   }
 
   Value = CFDictionaryGetValue(v10, @"version");
   v12 = CFDictionaryGetValue(v10, @"readerMinimumRequiredVersion");
-  valuePtr = C3DParseVersionNumber(Value);
-  v13 = C3DParseVersionNumber(@"0.12");
-  v14 = v13;
+  valuePtr = C3DParseVersionNumber(Value, v13);
+  v16 = C3DParseVersionNumber(@"0.12", v14);
+  v17 = v16;
   if (v12)
   {
-    v15 = C3DParseVersionNumber(v12);
+    v18 = C3DParseVersionNumber(v12, v15);
   }
 
   else
   {
-    v15 = v13;
+    v18 = v16;
   }
 
-  v17 = C3DParseVersionNumber(@"0.10");
-  v18 = C3DParseVersionNumber(@"0.9");
-  v19 = CFNumberCreate(0, kCFNumberDoubleType, &valuePtr);
-  CFDictionarySetValue(a4, @"versionNumber", v19);
-  CFRelease(v19);
-  if (valuePtr < v17)
+  v20 = C3DParseVersionNumber(@"0.10", v15);
+  v22 = C3DParseVersionNumber(@"0.9", v21);
+  v23 = CFNumberCreate(0, kCFNumberDoubleType, &valuePtr);
+  CFDictionarySetValue(a4, @"versionNumber", v23);
+  CFRelease(v23);
+  if (valuePtr < v20)
   {
-    v20 = scn_default_log();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v26 = scn_default_log(v24, v25);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       _C3DIOCreateSceneWithData_cold_9();
       if (!a5)
@@ -6376,10 +7898,10 @@ __n128 *_C3DIOCreateSceneWithData(CFDataRef data, uint64_t a2, const void *a3, _
     goto LABEL_23;
   }
 
-  if (v15 > v14)
+  if (v18 > v17)
   {
-    v21 = scn_default_log();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v27 = scn_default_log(v24, v25);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       _C3DIOCreateSceneWithData_cold_8();
       if (!a5)
@@ -6399,35 +7921,35 @@ LABEL_25:
     }
 
 LABEL_24:
-    v22 = CFErrorCreate(0, @"SCNKitErrorDomain", 1, 0);
-    (*(a5 + 16))(a5, 0xFFFFFFFFLL, v22, &v72, 0.0);
-    CFRelease(v22);
+    v28 = CFErrorCreate(0, @"SCNKitErrorDomain", 1, 0);
+    (*(a5 + 16))(a5, 0xFFFFFFFFLL, v28, &v99, 0.0);
+    CFRelease(v28);
     goto LABEL_25;
   }
 
-  if (valuePtr >= v18)
+  if (valuePtr >= v22)
   {
-    v24 = CFDictionaryGetValue(v10, @"zipped");
-    if (v24)
+    v30 = CFDictionaryGetValue(v10, @"zipped");
+    if (v30)
     {
-      if (CFBooleanGetValue(v24))
+      if (CFBooleanGetValue(v30))
       {
-        v25 = CFDictionaryGetValue(v10, @"zippedData");
-        if (v25)
+        v31 = CFDictionaryGetValue(v10, @"zippedData");
+        if (v31)
         {
-          v26 = C3DIOCreateUnzippedData(v25);
-          if (v26)
+          v33 = C3DIOCreateUnzippedData(v31);
+          if (v33)
           {
-            v27 = v26;
+            v35 = v33;
             CFRelease(v10);
-            v10 = CFPropertyListCreateWithData(0, v27, 0, &format, &error);
-            CFRelease(v27);
+            v10 = CFPropertyListCreateWithData(0, v35, 0, &format, &error);
+            CFRelease(v35);
             if (!v10)
             {
-              v49 = scn_default_log();
-              if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+              v74 = scn_default_log(v36, v37);
+              if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
               {
-                _C3DIOCreateSceneWithData_cold_1(&error, v49);
+                _C3DIOCreateSceneWithData_cold_1(&error, v74);
               }
 
               if (error)
@@ -6436,7 +7958,7 @@ LABEL_24:
                 error = 0;
               }
 
-              __EmitMalformedDocumentErrorIfNeeded(a5, &v72);
+              __EmitMalformedDocumentErrorIfNeeded(a5, &v99);
               return 0;
             }
 
@@ -6449,8 +7971,8 @@ LABEL_24:
             goto LABEL_36;
           }
 
-          v47 = scn_default_log();
-          if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+          v72 = scn_default_log(0, v34);
+          if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
           {
             _C3DIOCreateSceneWithData_cold_2();
           }
@@ -6458,14 +7980,14 @@ LABEL_24:
 
         else
         {
-          v46 = scn_default_log();
-          if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+          v71 = scn_default_log(0, v32);
+          if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
           {
             _C3DIOCreateSceneWithData_cold_3();
           }
         }
 
-        __EmitMalformedDocumentErrorIfNeeded(a5, &v72);
+        __EmitMalformedDocumentErrorIfNeeded(a5, &v99);
         goto LABEL_25;
       }
     }
@@ -6474,29 +7996,29 @@ LABEL_24:
 LABEL_36:
   if (a5)
   {
-    (*(a5 + 16))(a5, 12, 0, &v72, 0.2);
-    if (v72)
+    (*(a5 + 16))(a5, 12, 0, &v99, 0.2);
+    if (v99)
     {
       goto LABEL_25;
     }
   }
 
   cf = 0;
-  v28 = CFDictionaryGetValue(v10, @"library");
-  if (!v28)
+  v38 = CFDictionaryGetValue(v10, @"library");
+  if (!v38)
   {
-    v33 = scn_default_log();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+    v49 = scn_default_log(0, v39);
+    if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
     {
       _C3DIOCreateSceneWithData_cold_7();
     }
 
-    __EmitMalformedDocumentErrorIfNeeded(a5, &v72);
-    v16 = 0;
+    __EmitMalformedDocumentErrorIfNeeded(a5, &v99);
+    v19 = 0;
 LABEL_10:
-    if (v16)
+    if (v19)
     {
-      CFRelease(v16);
+      CFRelease(v19);
     }
 
     if (!v10)
@@ -6507,10 +8029,11 @@ LABEL_10:
     goto LABEL_25;
   }
 
-  if ((C3DInitWithPropertyList(a3, v28, a4, &cf) & 1) == 0)
+  v40 = C3DInitWithPropertyList(a3, v38, a4, &cf);
+  if ((v40 & 1) == 0)
   {
-    v29 = scn_default_log();
-    if (!os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    v42 = scn_default_log(v40, v41);
+    if (!os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
     {
       if (!a5)
       {
@@ -6524,7 +8047,7 @@ LABEL_10:
     if (a5)
     {
 LABEL_42:
-      (*(a5 + 16))(a5, 0xFFFFFFFFLL, cf, &v72, 1.0);
+      (*(a5 + 16))(a5, 0xFFFFFFFFLL, cf, &v99, 1.0);
     }
   }
 
@@ -6537,27 +8060,28 @@ LABEL_43:
 
   if (a5)
   {
-    (*(a5 + 16))(a5, 12, 0, &v72, 0.4);
-    v16 = 0;
-    if (v72)
+    (*(a5 + 16))(a5, 12, 0, &v99, 0.4);
+    v19 = 0;
+    if (v99)
     {
       goto LABEL_10;
     }
   }
 
-  v30 = CFDictionaryGetValue(v10, @"scene");
-  if (!v30)
+  v43 = CFDictionaryGetValue(v10, @"scene");
+  if (!v43)
   {
-    v16 = 0;
+    v19 = 0;
     goto LABEL_58;
   }
 
-  v31 = v30;
-  v16 = C3DSceneCreate();
-  if ((C3DInitWithPropertyList(v16, v31, a4, &cf) & 1) == 0)
+  v45 = v43;
+  v19 = C3DSceneCreate(v43, v44);
+  v46 = C3DInitWithPropertyList(v19, v45, a4, &cf);
+  if ((v46 & 1) == 0)
   {
-    v32 = scn_default_log();
-    if (!os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+    v48 = scn_default_log(v46, v47);
+    if (!os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
     {
       if (!a5)
       {
@@ -6571,7 +8095,7 @@ LABEL_43:
     if (a5)
     {
 LABEL_51:
-      (*(a5 + 16))(a5, 0xFFFFFFFFLL, cf, &v72, 1.0);
+      (*(a5 + 16))(a5, 0xFFFFFFFFLL, cf, &v99, 1.0);
     }
   }
 
@@ -6585,17 +8109,18 @@ LABEL_52:
 LABEL_58:
   if (a5)
   {
-    (*(a5 + 16))(a5, 12, 0, &v72, 0.5);
-    if (v72)
+    (*(a5 + 16))(a5, 12, 0, &v99, 0.5);
+    if (v99)
     {
       goto LABEL_10;
     }
   }
 
-  v34 = CFDictionaryGetValue(v10, @"scene");
-  if (v34)
+  v50 = CFDictionaryGetValue(v10, @"scene");
+  if (v50)
   {
-    if (C3DFinalizeDeserialization(v16, a3, v34, &cf))
+    v51 = C3DFinalizeDeserialization(v19, a3, v50, &cf);
+    if (v51)
     {
       if (cf)
       {
@@ -6606,8 +8131,8 @@ LABEL_58:
       goto LABEL_64;
     }
 
-    v48 = scn_default_log();
-    if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+    v73 = scn_default_log(v51, v52);
+    if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
     {
       _C3DIOCreateSceneWithData_cold_6();
       if (!a5)
@@ -6627,30 +8152,31 @@ LABEL_92:
       goto LABEL_92;
     }
 
-    (*(a5 + 16))(a5, 0xFFFFFFFFLL, cf, &v72, 1.0);
+    (*(a5 + 16))(a5, 0xFFFFFFFFLL, cf, &v99, 1.0);
     goto LABEL_92;
   }
 
 LABEL_64:
   if (a5)
   {
-    (*(a5 + 16))(a5, 12, 0, &v72, 0.6);
-    if (v72)
+    (*(a5 + 16))(a5, 12, 0, &v99, 0.6);
+    if (v99)
     {
       goto LABEL_10;
     }
   }
 
-  v35 = CFDictionaryGetValue(v10, @"library");
-  if (v35)
+  v53 = CFDictionaryGetValue(v10, @"library");
+  if (v53)
   {
-    if (!C3DFinalizeDeserialization(a3, a3, v35, &cf))
+    v54 = C3DFinalizeDeserialization(a3, a3, v53, &cf);
+    if (!v54)
     {
-      v36 = scn_default_log();
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+      v56 = scn_default_log(v54, v55);
+      if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_21BEF7000, v36, OS_LOG_TYPE_DEFAULT, "Warning: cannot finalize library deserialization", buf, 2u);
+        _os_log_impl(&dword_21BEF7000, v56, OS_LOG_TYPE_DEFAULT, "Warning: cannot finalize library deserialization", buf, 2u);
       }
     }
 
@@ -6663,134 +8189,135 @@ LABEL_64:
 
   if (a5)
   {
-    (*(a5 + 16))(a5, 12, 0, &v72, 0.9);
-    if (v72)
+    (*(a5 + 16))(a5, 12, 0, &v99, 0.9);
+    if (v99)
     {
       goto LABEL_10;
     }
   }
 
-  v37 = CFDictionaryGetValue(v10, @"created");
-  if (v37)
+  v57 = CFDictionaryGetValue(v10, @"created");
+  if (v57)
   {
-    v38 = v37;
-    C3DSceneSourceSetProperty(a2, @"created", v37);
-    C3DSceneSourceSetProperty(a2, @"modified", v38);
+    v58 = v57;
+    C3DSceneSourceSetProperty(a2, @"created", v57);
+    C3DSceneSourceSetProperty(a2, @"modified", v58);
   }
 
-  v69.n128_u32[2] = 0;
-  v69.n128_u64[0] = 0;
-  C3DSceneGetUpAxis(v16, &v69);
-  snprintf(buf, 0x10uLL, "%.1f %.1f %.1f", v69.n128_f32[0], v69.n128_f32[1], v69.n128_f32[2]);
-  v39 = C3DIOCreateCFStringFromCString(buf);
-  C3DSceneSourceSetProperty(a2, @"up_axis", v39);
-  CFRelease(v39);
-  Unit = C3DSceneGetUnit(v16);
-  v40 = CFNumberCreate(0, kCFNumberFloatType, &Unit);
+  v96.n128_u32[2] = 0;
+  v96.n128_u64[0] = 0;
+  C3DSceneGetUpAxis(v19, &v96);
+  snprintf(buf, 0x10uLL, "%.1f %.1f %.1f", v96.n128_f32[0], v96.n128_f32[1], v96.n128_f32[2]);
+  v59 = C3DIOCreateCFStringFromCString(buf);
+  C3DSceneSourceSetProperty(a2, @"up_axis", v59);
+  CFRelease(v59);
+  Unit = C3DSceneGetUnit(v19, v60);
+  v61 = CFNumberCreate(0, kCFNumberFloatType, &Unit);
   Mutable = CFDictionaryCreateMutable(0, 2, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   CFDictionarySetValue(Mutable, @"unitName", @"meter");
-  CFDictionarySetValue(Mutable, @"unitMeter", v40);
+  CFDictionarySetValue(Mutable, @"unitMeter", v61);
   C3DSceneSourceSetProperty(a2, @"unit", Mutable);
-  CFRelease(v40);
+  CFRelease(v61);
   CFRelease(Mutable);
-  v42 = CFDictionaryGetValue(v10, @"contributors");
-  if (v42)
+  v63 = CFDictionaryGetValue(v10, @"contributors");
+  if (v63)
   {
-    C3DSceneSourceSetProperty(a2, @"contributors", v42);
+    C3DSceneSourceSetProperty(a2, @"contributors", v63);
   }
 
-  v67 = 0;
-  TypeID = C3DAnimationGroupGetTypeID();
-  v44 = C3DLibraryCopyEntriesWithKind(a3, TypeID, &v67);
-  AnimationManager = C3DSceneGetAnimationManager(v16);
-  if (!a4 || (cf1 = CFDictionaryGetValue(a4, @"kSceneSourceAnimationLoadingMode")) == 0)
+  v94 = 0;
+  TypeID = C3DAnimationGroupGetTypeID(v63, v64);
+  v66 = C3DLibraryCopyEntriesWithKind(a3, TypeID, &v94);
+  AnimationManager = C3DSceneGetAnimationManager(v19, v67);
+  v92 = AnimationManager;
+  if (!a4 || (AnimationManager = CFDictionaryGetValue(a4, @"kSceneSourceAnimationLoadingMode"), (cf1 = AnimationManager) == 0))
   {
-    if (C3DWasLinkedBeforeMajorOSYear2014())
+    if (C3DWasLinkedBeforeMajorOSYear2014(AnimationManager, v69))
     {
-      v45 = kC3DIOSceneSourceAnimationLoadingModePlayUsingSceneTime;
+      v70 = kC3DIOSceneSourceAnimationLoadingModePlayUsingSceneTime;
     }
 
     else
     {
-      v45 = kC3DIOSceneSourceAnimationLoadingModePlayRepeatedly;
+      v70 = kC3DIOSceneSourceAnimationLoadingModePlayRepeatedly;
     }
 
-    cf1 = *v45;
+    cf1 = *v70;
   }
 
-  if (v44 && cf1 != @"keepSeparate")
+  if (v66 && cf1 != @"keepSeparate")
   {
-    if (v67 >= 1)
+    if (v94 >= 1)
     {
-      for (i = 0; i < v67; ++i)
+      for (i = 0; i < v94; ++i)
       {
-        v51 = v44[i];
-        AnimationCount = C3DAnimationGroupGetAnimationCount(v51);
+        v76 = v66[i];
+        AnimationCount = C3DAnimationGroupGetAnimationCount(v76, v69);
         if (AnimationCount >= 1)
         {
-          v53 = AnimationCount;
-          for (j = 0; j != v53; ++j)
+          v78 = AnimationCount;
+          for (j = 0; j != v78; ++j)
           {
-            AnimationAtIndex = C3DAnimationGroupGetAnimationAtIndex(v51, j);
+            AnimationAtIndex = C3DAnimationGroupGetAnimationAtIndex(v76, j);
             if (C3DAnimationIsGroup(AnimationAtIndex))
             {
-              _flagChildAnimationGroup(AnimationAtIndex);
+              _flagChildAnimationGroup(AnimationAtIndex, v69);
             }
           }
         }
 
-        v56 = v67;
+        v81 = v94;
       }
 
-      if (v67 >= 1)
+      if (v94 >= 1)
       {
-        v57 = 0;
+        v82 = 0;
         do
         {
-          v58 = v44[v57];
-          if ((v58[42] & 0x1000) == 0)
+          v83 = v66[v82];
+          if ((v83[42] & 0x1000) == 0)
           {
-            Name = C3DAnimationGetName(v44[v57]);
+            Name = C3DAnimationGetName(v66[v82], v69);
             if (!Name)
             {
-              Name = CFStringCreateWithFormat(0, 0, @"unnamed animation #%d", v57);
-              C3DAnimationSetName(v58, Name);
+              Name = CFStringCreateWithFormat(0, 0, @"unnamed animation #%d", v82);
+              C3DAnimationSetName(v83, Name);
               CFRelease(Name);
             }
 
-            Copy = C3DAnimationCreateCopy(v58);
-            v61 = CFEqual(cf1, @"playUsingSceneTime") != 0;
-            C3DAnimationSetIsSceneTimeBased(Copy, v61);
-            v62 = CFEqual(cf1, @"playUsingSceneTime") == 0;
-            C3DAnimationSetRemoveOnCompletion(Copy, v62);
-            v63 = CFEqual(cf1, @"playRepeatedly");
-            v64 = INFINITY;
-            if (!v63)
+            Copy = C3DAnimationCreateCopy(v83, v84);
+            v87 = CFEqual(cf1, @"playUsingSceneTime") != 0;
+            C3DAnimationSetIsSceneTimeBased(Copy, v87);
+            v88 = CFEqual(cf1, @"playUsingSceneTime") == 0;
+            C3DAnimationSetRemoveOnCompletion(Copy, v88);
+            v89 = CFEqual(cf1, @"playRepeatedly");
+            v91 = INFINITY;
+            if (!v89)
             {
-              v64 = 0.0;
+              v91 = 0.0;
             }
 
-            C3DAnimationSetRepeatCount(Copy, v64);
-            C3DAnimationManagerAddAnimationToSceneForKey(AnimationManager, Copy, v16, a3, Name);
+            C3DAnimationSetRepeatCount(Copy, v90, v91);
+            C3DAnimationManagerAddAnimationToSceneForKey(v92, Copy, v19, a3, Name);
             CFRelease(Copy);
-            v56 = v67;
+            v81 = v94;
           }
 
-          ++v57;
+          ++v82;
         }
 
-        while (v57 < v56);
+        while (v82 < v81);
       }
     }
 
-    free(v44);
+    free(v66);
   }
 
 LABEL_8:
   if (a5)
   {
-    (*(a5 + 16))(a5, 16, 0, &v72, 1.0);
-    if (v72)
+    (*(a5 + 16))(a5, 16, 0, &v99, 1.0);
+    if (v99)
     {
       goto LABEL_10;
     }
@@ -6801,7 +8328,7 @@ LABEL_8:
     CFRelease(v10);
   }
 
-  return v16;
+  return v19;
 }
 
 __n128 *C3DIOCreateSceneAtURL(const __CFURL *a1, uint64_t a2, const void *a3, CFDictionaryRef theDict, uint64_t a5)
@@ -6834,7 +8361,7 @@ LABEL_3:
 
 __CFDictionary *_C3DCreatePropertyListFromScene(const void *a1, const void *a2, const __CFDictionary *a3, uint64_t a4, uint64_t a5)
 {
-  v40 = 0;
+  v46 = 0;
   Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   CFDictionarySetValue(Mutable, @"version", @"0.12");
   CFDictionarySetValue(Mutable, @"readerMinimumRequiredVersion", @"0.11");
@@ -6858,15 +8385,15 @@ __CFDictionary *_C3DCreatePropertyListFromScene(const void *a1, const void *a2, 
     }
   }
 
-  v39 = 0;
-  (*(a5 + 16))(a5, 0, &v39, 0.1);
-  if (v39)
+  v45 = 0;
+  (*(a5 + 16))(a5, 0, &v45, 0.1);
+  if (v45)
   {
     goto LABEL_39;
   }
 
 LABEL_8:
-  v13 = C3DCopyPropertyList(a2, a2, a3, &v40);
+  v13 = C3DCopyPropertyList(a2, a2, a3, &v46);
   if (v13)
   {
     v14 = v13;
@@ -6876,15 +8403,15 @@ LABEL_8:
 
   if (a5)
   {
-    v38 = 0;
-    (*(a5 + 16))(a5, v40, &v38, 0.5);
-    if (v38)
+    v44 = 0;
+    (*(a5 + 16))(a5, v46, &v44, 0.5);
+    if (v44)
     {
       goto LABEL_39;
     }
   }
 
-  v15 = C3DCopyPropertyList(a1, a2, a3, &v40);
+  v15 = C3DCopyPropertyList(a1, a2, a3, &v46);
   if (v15)
   {
     v16 = v15;
@@ -6894,9 +8421,9 @@ LABEL_8:
 
   if (a5)
   {
-    v37 = 0;
-    (*(a5 + 16))(a5, v40, &v37, 0.75);
-    if (v37)
+    v43 = 0;
+    (*(a5 + 16))(a5, v46, &v43, 0.75);
+    if (v43)
     {
       goto LABEL_39;
     }
@@ -6915,9 +8442,9 @@ LABEL_8:
   CFRelease(v17);
   if (a5)
   {
-    v36 = 0;
-    (*(a5 + 16))(a5, v40, &v36, 0.77);
-    if (v36)
+    v42 = 0;
+    (*(a5 + 16))(a5, v46, &v42, 0.77);
+    if (v42)
     {
       goto LABEL_39;
     }
@@ -6925,7 +8452,7 @@ LABEL_8:
 
   if (!v12)
   {
-    v25 = MEMORY[0x277CBED10];
+    v27 = MEMORY[0x277CBED10];
     goto LABEL_26;
   }
 
@@ -6937,15 +8464,15 @@ LABEL_8:
   CFRelease(v22);
   if (!v23)
   {
-    v26 = scn_default_log();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    v28 = scn_default_log(v24, v25);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
-      _C3DCreatePropertyListFromScene_cold_2(v11, v26);
+      _C3DCreatePropertyListFromScene_cold_2(v11, v28);
     }
 
     CFRelease(v11);
-    v27 = scn_default_log();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v31 = scn_default_log(v29, v30);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
       _C3DCreatePropertyListFromScene_cold_3();
       if (!a5)
@@ -6959,20 +8486,20 @@ LABEL_8:
       goto LABEL_39;
     }
 
-    v35 = 1;
-    v28 = C3DErrorCreate(0, @"Could not get the data for the serialized property list", 0);
-    v29.n128_u32[0] = 1061997773;
-    (*(a5 + 16))(a5, v40, &v35, v29);
+    v41 = 1;
+    v32 = C3DErrorCreate(0, @"Could not get the data for the serialized property list", 0);
+    v33.n128_u32[0] = 1061997773;
+    (*(a5 + 16))(a5, v46, &v41, v33);
     goto LABEL_37;
   }
 
-  v24 = C3DIOCreateZippedData(v23);
+  v26 = C3DIOCreateZippedData(v23);
   CFRelease(v23);
-  if (!v24)
+  if (!v26)
   {
     CFRelease(v11);
-    v30 = scn_default_log();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    v36 = scn_default_log(v34, v35);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
       _C3DCreatePropertyListFromScene_cold_1();
       if (a5)
@@ -6984,14 +8511,14 @@ LABEL_8:
     else if (a5)
     {
 LABEL_36:
-      v34 = 1;
-      v28 = C3DErrorCreate(0, @"Could not zip the serialized property list", 0);
-      v31.n128_u32[0] = 1062836634;
-      (*(a5 + 16))(a5, v40, &v34, v31);
+      v40 = 1;
+      v32 = C3DErrorCreate(0, @"Could not zip the serialized property list", 0);
+      v37.n128_u32[0] = 1062836634;
+      (*(a5 + 16))(a5, v46, &v40, v37);
 LABEL_37:
-      if (v28)
+      if (v32)
       {
-        CFRelease(v28);
+        CFRelease(v32);
       }
     }
 
@@ -7000,17 +8527,17 @@ LABEL_39:
     return 0;
   }
 
-  CFDictionaryAddValue(Mutable, @"zippedData", v24);
-  CFRelease(v24);
-  v25 = MEMORY[0x277CBED28];
+  CFDictionaryAddValue(Mutable, @"zippedData", v26);
+  CFRelease(v26);
+  v27 = MEMORY[0x277CBED28];
 LABEL_26:
-  CFDictionaryAddValue(Mutable, @"zipped", *v25);
+  CFDictionaryAddValue(Mutable, @"zipped", *v27);
   CFRelease(v11);
   if (a5)
   {
-    v33 = 0;
-    (*(a5 + 16))(a5, v40, &v33, 1.0);
-    if (v33 == 1)
+    v39 = 0;
+    (*(a5 + 16))(a5, v46, &v39, 1.0);
+    if (v39 == 1)
     {
       goto LABEL_39;
     }
@@ -7028,52 +8555,53 @@ BOOL C3DIOWriteSceneToURL(const __CFURL *a1, const void *a2, const __CFDictionar
     Value = CFDictionaryGetValue(a3, @"kSceneSourceInputLibrary");
     if (Value)
     {
-      v12 = Value;
-      v13 = C3DLibraryCopyKinds(Value);
-      if (v13)
+      v13 = Value;
+      v14 = C3DLibraryCopyKinds(Value, v12);
+      if (v14)
       {
-        v14 = v13;
-        v35 = a4;
-        v36 = a2;
-        v37 = a5;
-        v38 = a1;
-        Count = CFArrayGetCount(v13);
+        v15 = v14;
+        v42 = a4;
+        v43 = a2;
+        v44 = a5;
+        v45 = a1;
+        Count = CFArrayGetCount(v14);
         if (Count >= 1)
         {
-          v16 = Count;
-          for (i = 0; i != v16; ++i)
+          v17 = Count;
+          for (i = 0; i != v17; ++i)
           {
-            ValueAtIndex = CFArrayGetValueAtIndex(v14, i);
+            ValueAtIndex = CFArrayGetValueAtIndex(v15, i);
             valuePtr = 0;
-            CFNumberGetValue(ValueAtIndex, kCFNumberLongType, &valuePtr);
-            v19 = valuePtr;
-            if (v19 != C3DKeyframedAnimationGetTypeID() && v19 != C3DMeshSourceGetTypeID())
+            v20 = CFNumberGetValue(ValueAtIndex, kCFNumberLongType, &valuePtr);
+            v21 = valuePtr;
+            TypeID = C3DKeyframedAnimationGetTypeID(v20, v22);
+            if (v21 != TypeID && v21 != C3DMeshSourceGetTypeID(TypeID, v24))
             {
-              v39 = 0;
-              v20 = C3DLibraryCopyEntriesWithKind(v12, v19, &v39);
-              if (v39 >= 1)
+              v46 = 0;
+              v26 = C3DLibraryCopyEntriesWithKind(v13, v21, &v46);
+              if (v46 >= 1)
               {
-                for (j = 0; j < v39; ++j)
+                for (j = 0; j < v46; ++j)
                 {
-                  v22 = v20[j];
-                  ID = C3DEntityGetID(v22);
-                  if (ID && !C3DLibraryGetEntryWithDocumentID(v10, ID) && (v19 != C3DAnimationGroupGetTypeID() || C3DAnimationGroupIsAnimationClip(v22)))
+                  v28 = v26[j];
+                  ID = C3DEntityGetID(v28, v25);
+                  if (ID && !C3DLibraryGetEntryWithDocumentID(v10, ID) && (v21 != C3DAnimationGroupGetTypeID(0, v25) || C3DAnimationGroupIsAnimationClip(v28, v30)))
                   {
-                    C3DLibraryAddEntry(v10, v22);
+                    C3DLibraryAddEntry(v10, v28);
                   }
                 }
               }
 
-              free(v20);
+              free(v26);
             }
           }
         }
 
-        CFRelease(v14);
-        a5 = v37;
-        a1 = v38;
-        a4 = v35;
-        a2 = v36;
+        CFRelease(v15);
+        a5 = v44;
+        a1 = v45;
+        a4 = v42;
+        a2 = v43;
       }
     }
 
@@ -7085,70 +8613,70 @@ BOOL C3DIOWriteSceneToURL(const __CFURL *a1, const void *a2, const __CFDictionar
     MutableCopy = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   }
 
-  v25 = MutableCopy;
-  v26 = CFDictionaryGetValue(MutableCopy, @"SCNSceneExportDestinationURL");
-  if (!v26)
+  v32 = MutableCopy;
+  v33 = CFDictionaryGetValue(MutableCopy, @"SCNSceneExportDestinationURL");
+  if (!v33)
   {
-    v26 = C3DCopyResolvedURLFromFileURL(a1);
-    CFDictionarySetValue(v25, @"SCNSceneExportDestinationURL", v26);
-    CFRelease(v26);
+    v33 = C3DCopyResolvedURLFromFileURL(a1);
+    CFDictionarySetValue(v32, @"SCNSceneExportDestinationURL", v33);
+    CFRelease(v33);
   }
 
-  if (CFURLHasDirectoryPath(v26))
+  if (CFURLHasDirectoryPath(v33))
   {
-    PathComponent = CFURLCopyAbsoluteURL(v26);
+    PathComponent = CFURLCopyAbsoluteURL(v33);
   }
 
   else
   {
-    PathComponent = CFURLCreateCopyDeletingLastPathComponent(0, v26);
+    PathComponent = CFURLCreateCopyDeletingLastPathComponent(0, v33);
   }
 
-  v28 = PathComponent;
-  CFDictionarySetValue(v25, @"kEnclosingFolderURL", PathComponent);
-  CFRelease(v28);
+  v35 = PathComponent;
+  CFDictionarySetValue(v32, @"kEnclosingFolderURL", PathComponent);
+  CFRelease(v35);
   if (a4)
   {
-    CFDictionarySetValue(v25, @"kC3DIOSerializationExportDelegate", a4);
+    CFDictionarySetValue(v32, @"kC3DIOSerializationExportDelegate", a4);
   }
 
-  v30 = _C3DCreatePropertyListFromScene(a2, v10, v25, v29, a5);
-  CFRelease(v25);
-  if (v30)
+  v37 = _C3DCreatePropertyListFromScene(a2, v10, v32, v36, a5);
+  CFRelease(v32);
+  if (v37)
   {
-    v31 = CFWriteStreamCreateWithFile(0, a1);
-    if (v31)
+    v38 = CFWriteStreamCreateWithFile(0, a1);
+    if (v38)
     {
-      v32 = v31;
-      if (CFWriteStreamOpen(v31))
+      v39 = v38;
+      if (CFWriteStreamOpen(v38))
       {
-        v33 = CFPropertyListWrite(v30, v32, kCFPropertyListBinaryFormat_v1_0, 0, 0) != 0;
-        CFWriteStreamClose(v32);
+        v40 = CFPropertyListWrite(v37, v39, kCFPropertyListBinaryFormat_v1_0, 0, 0) != 0;
+        CFWriteStreamClose(v39);
       }
 
       else
       {
-        v33 = 0;
+        v40 = 0;
       }
 
-      CFRelease(v32);
+      CFRelease(v39);
     }
 
     else
     {
-      v33 = 0;
+      v40 = 0;
     }
 
-    CFRelease(v30);
+    CFRelease(v37);
   }
 
   else
   {
-    v33 = 0;
+    v40 = 0;
   }
 
   CFRelease(v10);
-  return v33;
+  return v40;
 }
 
 void __EmitMalformedDocumentErrorIfNeeded(uint64_t a1, uint64_t a2)
@@ -7162,20 +8690,20 @@ void __EmitMalformedDocumentErrorIfNeeded(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t _flagChildAnimationGroup(uint64_t a1)
+uint64_t _flagChildAnimationGroup(uint64_t a1, uint64_t a2)
 {
   *(a1 + 84) |= 0x1000u;
-  result = C3DAnimationGroupGetAnimationCount(a1);
+  result = C3DAnimationGroupGetAnimationCount(a1, a2);
   if (result >= 1)
   {
-    v3 = result;
-    for (i = 0; i != v3; ++i)
+    v4 = result;
+    for (i = 0; i != v4; ++i)
     {
       AnimationAtIndex = C3DAnimationGroupGetAnimationAtIndex(a1, i);
       result = C3DAnimationIsGroup(AnimationAtIndex);
       if (result)
       {
-        result = _flagChildAnimationGroup(AnimationAtIndex);
+        result = _flagChildAnimationGroup(AnimationAtIndex, v7);
       }
     }
   }
@@ -7201,21 +8729,21 @@ double C3D::SSRRaytracePass::setup(C3D::SSRRaytracePass *this)
   C3D::Pass::setInputCount(this, 3u);
   C3D::Pass::setOutputCount(this, 2u);
   *(C3D::PassDescriptor::inputAtIndex((this + 32), 0) + 8) = "ColorDownSampled";
-  *(C3D::PassDescriptor::inputAtIndex((this + 32), 1u) + 8) = "Normals";
-  *(C3D::PassDescriptor::inputAtIndex((this + 32), 2u) + 8) = "DepthDownSampled";
+  *(C3D::PassDescriptor::inputAtIndex((this + 32), 1) + 8) = "Normals";
+  *(C3D::PassDescriptor::inputAtIndex((this + 32), 2) + 8) = "DepthDownSampled";
   v2 = C3D::PassDescriptor::outputAtIndex((this + 32), 0);
   *(v2 + 8) = "SSR";
   *(v2 + 65) = 0;
-  C3D::Pass::parentColorDesc(this, &v5);
+  C3D::Pass::parentColorDesc(&v5, this);
   *(v2 + 16) = v5;
   *(v2 + 32) = v6;
   *(v2 + 16) = **(this + 31);
   *(v2 + 18) = *(*(this + 31) + 2);
   *(v2 + 66) &= 0xFFFCu;
-  v3 = C3D::PassDescriptor::outputAtIndex((this + 32), 1u);
+  v3 = C3D::PassDescriptor::outputAtIndex((this + 32), 1);
   *(v3 + 8) = "lobeFootprint";
   *(v3 + 65) = 1;
-  C3D::Pass::parentColorDesc(this, &v5);
+  C3D::Pass::parentColorDesc(&v5, this);
   result = *&v5;
   *(v3 + 16) = v5;
   *(v3 + 32) = v6;
@@ -7226,27 +8754,27 @@ double C3D::SSRRaytracePass::setup(C3D::SSRRaytracePass *this)
   return result;
 }
 
-uint64_t C3D::SSRRaytracePass::compile(C3D::SSRRaytracePass *this)
+void *C3D::SSRRaytracePass::compile(C3D::SSRRaytracePass *this, uint64_t a2)
 {
-  RenderContext = C3DEngineContextGetRenderContext(*(this + 2));
+  RenderContext = C3DEngineContextGetRenderContext(*(this + 2), a2);
   [(SCNMTLRenderContext *)RenderContext resourceManager];
-  Scene = C3DEngineContextGetScene(*(this + 2));
+  Scene = C3DEngineContextGetScene(*(this + 2), v4);
   if (Scene)
   {
-    v4 = C3DSceneGetFogEndDistance(Scene) > 0.0;
+    v7 = C3DSceneGetFogEndDistance(Scene, v6) > 0.0;
   }
 
   else
   {
-    v4 = 0;
+    v7 = 0;
   }
 
-  *(this + 392) = v4;
-  v5 = [(SCNMTLRenderContext *)RenderContext reverseZ];
-  v9 = v5;
-  v6 = ((2 * *(C3D::PassDescriptor::outputAtIndex((this + 32), 0) + 28)) << (4 * *(this + 392))) | v5;
-  v7 = 0xC6A4A7935BD1E995 * ((*(*this + 64))(this) ^ 0x35253C9ADE8F4CA8 ^ (0xC6A4A7935BD1E995 * ((0xC6A4A7935BD1E995 * v6) ^ ((0xC6A4A7935BD1E995 * v6) >> 47))));
-  result = C3D::RenderGraphResourceManager::get(*(*(this + 3) + 128), (0xC6A4A7935BD1E995 * (v7 ^ (v7 >> 47))) ^ ((0xC6A4A7935BD1E995 * (v7 ^ (v7 >> 47))) >> 47));
+  *(this + 392) = v7;
+  v8 = [(SCNMTLRenderContext *)RenderContext reverseZ];
+  v12 = v8;
+  v9 = ((2 * *(C3D::PassDescriptor::outputAtIndex((this + 32), 0) + 28)) << (4 * *(this + 392))) | v8;
+  v10 = 0xC6A4A7935BD1E995 * ((*(*this + 64))(this) ^ 0x35253C9ADE8F4CA8 ^ (0xC6A4A7935BD1E995 * ((0xC6A4A7935BD1E995 * v9) ^ ((0xC6A4A7935BD1E995 * v9) >> 47))));
+  result = C3D::RenderGraphResourceManager::get(*(*(this + 3) + 128), (0xC6A4A7935BD1E995 * (v10 ^ (v10 >> 47))) ^ ((0xC6A4A7935BD1E995 * (v10 ^ (v10 >> 47))) >> 47));
   *(this + 30) = result;
   if (!result)
   {
@@ -7259,52 +8787,52 @@ uint64_t C3D::SSRRaytracePass::compile(C3D::SSRRaytracePass *this)
 _OWORD *C3D::SSRRaytracePass::execute(uint64_t a1, uint64_t *a2)
 {
   v4 = *(*(a1 + 24) + 128);
-  Scene = C3DEngineContextGetScene(*(a1 + 16));
-  result = C3DEngineContextGetPointOfView(*(a1 + 16));
+  Scene = C3DEngineContextGetScene(*(a1 + 16), a2);
+  result = C3DEngineContextGetPointOfView(*(a1 + 16), v6);
   if (result)
   {
-    result = C3DNodeGetCamera(result);
+    result = C3DNodeGetCamera(result, v8);
     if (result)
     {
-      v7 = *a2;
+      v9 = *a2;
       CullingContext = C3D::DrawNodesPass::getCullingContext(*(a1 + 8));
-      v9 = CullingContext[218];
-      v10 = CullingContext[219];
-      v11 = CullingContext[220];
+      v11 = CullingContext[218];
+      v12 = CullingContext[219];
+      v13 = CullingContext[220];
       *(a1 + 256) = CullingContext[217];
-      *(a1 + 272) = v9;
-      *(a1 + 288) = v10;
-      *(a1 + 304) = v11;
-      *(a1 + 336) = C3DSceneGetSSRSampleCount(Scene);
-      *(a1 + 332) = fmaxf(C3DSceneGetSSRMaxRayDistance(Scene), 0.0);
-      *(a1 + 328) = fmaxf(C3DSceneGetSSRStride(Scene), 1.0);
+      *(a1 + 272) = v11;
+      *(a1 + 288) = v12;
+      *(a1 + 304) = v13;
+      *(a1 + 336) = C3DSceneGetSSRSampleCount(Scene, v14);
+      *(a1 + 332) = fmaxf(C3DSceneGetSSRMaxRayDistance(Scene, v15), 0.0);
+      *(a1 + 328) = fmaxf(C3DSceneGetSSRStride(Scene, v16), 1.0);
       *(a1 + 320) = *(*(a1 + 248) + 8);
-      PointOfViewScale = C3DEngineContextGetPointOfViewScale(*(a1 + 16));
-      *&v13 = C3DSceneComputeFogParameters(Scene, PointOfViewScale);
-      *(a1 + 352) = v13;
-      result = C3DSceneGetFogColor(Scene);
+      PointOfViewScale = C3DEngineContextGetPointOfViewScale(*(a1 + 16), v17);
+      *&v20 = C3DSceneComputeFogParameters(Scene, v19, PointOfViewScale);
+      *(a1 + 352) = v20;
+      result = C3DSceneGetFogColor(Scene, v21);
       *(a1 + 368) = *result;
       if (*(a1 + 336) >= 1)
       {
         *(a1 + 384) = C3D::getBlueNoise32(0, 0, v4);
-        v14 = [C3D::SmartPtr<SCNMTLRenderPipeline * C3D:C3D::detail::NSReleaseFct>::operator SCNMTLRenderPipeline *(*(a1 + 240) + 16) :"state" detail:? :?NSRetainFct];
-        if (*(v7 + 3376) != v14)
+        v23 = [C3D::SmartPtr<SCNMTLRenderPipeline * C3D:C3D::detail::NSReleaseFct>::operator SCNMTLRenderPipeline *(*(a1 + 240) + 16 :v22) detail:"state" :?NSRetainFct];
+        if (*(v9 + 3376) != v23)
         {
-          *(v7 + 3376) = v14;
-          [*(v7 + 3392) setRenderPipelineState:v14];
+          *(v9 + 3376) = v23;
+          [*(v9 + 3392) setRenderPipelineState:v23];
         }
 
-        v18 = __invert_f4(*(a1 + 256));
-        SCNMTLRenderCommandEncoder::setVertexBytes(v7, &v18, 0x40uLL, 0);
-        v15 = C3D::Pass::inputTextureAtIndex(a1, 0);
-        SCNMTLRenderCommandEncoder::setFragmentTexture(v7, v15, 0);
-        v16 = C3D::Pass::inputTextureAtIndex(a1, 1u);
-        SCNMTLRenderCommandEncoder::setFragmentTexture(v7, v16, 1uLL);
-        v17 = C3D::Pass::inputTextureAtIndex(a1, 2u);
-        SCNMTLRenderCommandEncoder::setFragmentTexture(v7, v17, 2uLL);
-        SCNMTLRenderCommandEncoder::setFragmentTexture(v7, *(a1 + 384), 3uLL);
-        SCNMTLRenderCommandEncoder::setFragmentBytes(v7, (a1 + 256), 0x80uLL, 0);
-        return SCNMTLRenderCommandEncoder::drawFullScreenQuad(v7);
+        v28 = __invert_f4(*(a1 + 256));
+        SCNMTLRenderCommandEncoder::setVertexBytes(v9, &v28, 0x40uLL, 0);
+        v24 = C3D::Pass::inputTextureAtIndex(a1, 0);
+        SCNMTLRenderCommandEncoder::setFragmentTexture(v9, v24, 0);
+        v25 = C3D::Pass::inputTextureAtIndex(a1, 1);
+        SCNMTLRenderCommandEncoder::setFragmentTexture(v9, v25, 1uLL);
+        v26 = C3D::Pass::inputTextureAtIndex(a1, 2);
+        SCNMTLRenderCommandEncoder::setFragmentTexture(v9, v26, 2uLL);
+        SCNMTLRenderCommandEncoder::setFragmentTexture(v9, *(a1 + 384), 3uLL);
+        SCNMTLRenderCommandEncoder::setFragmentBytes(v9, (a1 + 256), 0x80uLL, 0);
+        return SCNMTLRenderCommandEncoder::drawFullScreenQuad(v9, v27);
       }
     }
   }
@@ -7402,36 +8930,36 @@ void Mesh::AllocateVertices(Mesh *this, unsigned int a2)
   _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE6resizeEm(this + 3, v4);
 }
 
-void std::vector<SCNVector3>::resize(void *a1, unint64_t a2)
+void std::vector<SCNVector3>::resize(void *result, unint64_t a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 2);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((result[1] - *result) >> 2);
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    std::vector<SCNVector3>::__append(a1, v4);
+    std::vector<SCNVector3>::__append(result, v4);
   }
 
   else if (!v3)
   {
-    a1[1] = *a1 + 12 * a2;
+    result[1] = *result + 12 * a2;
   }
 }
 
-void std::vector<unsigned short>::resize(void *a1, unint64_t a2)
+void std::vector<unsigned short>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 1;
+  v2 = (result[1] - *result) >> 1;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 2 * a2;
+      result[1] = *result + 2 * a2;
     }
   }
 
   else
   {
-    std::vector<unsigned short>::__append(a1, a2 - v2);
+    std::vector<unsigned short>::__append(result, a2 - v2);
   }
 }
 
@@ -7520,13 +9048,13 @@ SCNGeometry *Mesh::CreateCameraGeometry(Mesh *this)
   v5.z = -0.5;
   *&v4.x = 0;
   v4.z = 0.0;
-  Mesh::AppendWireframePyramid(v9, &v4, &v8, &v7, &v6, &v5, C3DAuthoringEnvironmentColorWhite);
+  Mesh::AppendWireframePyramid(v9, &v4, &v8, &v7, &v6, &v5, &C3DAuthoringEnvironmentColorWhite);
   v4.x = 0.0;
   *&v4.y = 0x3FA000003F800000;
-  Mesh::AppendWireframeXCylinder(v9, &v4, 0.5, 0.5, C3DAuthoringEnvironmentColorWhite);
+  Mesh::AppendWireframeXCylinder(v9, &v4, 0.5, 0.5, &C3DAuthoringEnvironmentColorWhite);
   v3.x = 0.0;
   *&v3.y = 0x3E8000003F800000;
-  Mesh::AppendWireframeXCylinder(v9, &v3, 0.5, 0.5, C3DAuthoringEnvironmentColorWhite);
+  Mesh::AppendWireframeXCylinder(v9, &v3, 0.5, 0.5, &C3DAuthoringEnvironmentColorWhite);
   LineGeometry = Mesh::CreateLineGeometry(v9);
   if (v12)
   {
@@ -7549,9 +9077,9 @@ SCNGeometry *Mesh::CreateCameraGeometry(Mesh *this)
   return LineGeometry;
 }
 
-void sub_21C113518(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_21C113518(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   vmesh::StaticAdjacencyInformation<Pair>::~StaticAdjacencyInformation(va);
   _Unwind_Resume(a1);
 }
@@ -7707,7 +9235,7 @@ SCNGeometry *Mesh::CreateCameraFrustumGeometry(Mesh *this)
   *v4 = 0u;
   v5 = 0u;
   *v3 = 0u;
-  Mesh::AppendWireframeCameraFrustum(v3, C3DAuthoringEnvironmentColorWhite);
+  Mesh::AppendWireframeCameraFrustum(v3, &C3DAuthoringEnvironmentColorWhite);
   LineGeometry = Mesh::CreateLineGeometry(v3);
   if (__p[0])
   {
@@ -7766,7 +9294,7 @@ SCNGeometry *Mesh::CreateOrthographicCameraFrustumGeometry(Mesh *this)
   v9.x = 1.0;
   v9.y = 1.0;
   v9.z = 1.0;
-  Mesh::AppendWireframeBox(v4, &v3, v9, C3DAuthoringEnvironmentColorWhite);
+  Mesh::AppendWireframeBox(v4, &v3, v9, &C3DAuthoringEnvironmentColorWhite);
   LineGeometry = Mesh::CreateLineGeometry(v4);
   if (__p[0])
   {
@@ -7789,9 +9317,9 @@ SCNGeometry *Mesh::CreateOrthographicCameraFrustumGeometry(Mesh *this)
   return LineGeometry;
 }
 
-void sub_21C113BD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_21C113BD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   vmesh::StaticAdjacencyInformation<Pair>::~StaticAdjacencyInformation(va);
   _Unwind_Resume(a1);
 }
@@ -7803,7 +9331,7 @@ SCNGeometry *Mesh::CreateCameraNearPlaneGeometry(Mesh *this)
   *v4 = 0u;
   v5 = 0u;
   *v3 = 0u;
-  Mesh::AppendWireframeCameraNearPlane(v3, C3DAuthoringEnvironmentColorWhite);
+  Mesh::AppendWireframeCameraNearPlane(v3, &C3DAuthoringEnvironmentColorWhite);
   LineGeometry = Mesh::CreateLineGeometry(v3);
   if (__p[0])
   {
@@ -7853,22 +9381,22 @@ SCNGeometry *Mesh::CreatePhysicsFieldGeometry(Mesh *this)
   *v4 = 0u;
   v3.z = 0.0;
   *&v3.x = 1065353216;
-  Mesh::AppendCone(v4, &SCNVector3Zero, &v3, 0.2, 0.1, C3DAuthoringEnvironmentColorWhite);
+  Mesh::AppendCone(v4, &SCNVector3Zero, &v3, 0.2, 0.1, &C3DAuthoringEnvironmentColorWhite);
   v3.z = 0.0;
   *&v3.x = 3212836864;
-  Mesh::AppendCone(v4, &SCNVector3Zero, &v3, 0.2, 0.1, C3DAuthoringEnvironmentColorWhite);
+  Mesh::AppendCone(v4, &SCNVector3Zero, &v3, 0.2, 0.1, &C3DAuthoringEnvironmentColorWhite);
   *&v3.x = 0x3F80000000000000;
   v3.z = 0.0;
-  Mesh::AppendCone(v4, &SCNVector3Zero, &v3, 0.2, 0.1, C3DAuthoringEnvironmentColorWhite);
+  Mesh::AppendCone(v4, &SCNVector3Zero, &v3, 0.2, 0.1, &C3DAuthoringEnvironmentColorWhite);
   *&v3.x = 0xBF80000000000000;
   v3.z = 0.0;
-  Mesh::AppendCone(v4, &SCNVector3Zero, &v3, 0.2, 0.1, C3DAuthoringEnvironmentColorWhite);
+  Mesh::AppendCone(v4, &SCNVector3Zero, &v3, 0.2, 0.1, &C3DAuthoringEnvironmentColorWhite);
   *&v3.x = 0;
   v3.z = 1.0;
-  Mesh::AppendCone(v4, &SCNVector3Zero, &v3, 0.2, 0.1, C3DAuthoringEnvironmentColorWhite);
+  Mesh::AppendCone(v4, &SCNVector3Zero, &v3, 0.2, 0.1, &C3DAuthoringEnvironmentColorWhite);
   *&v3.x = 0;
   v3.z = -1.0;
-  Mesh::AppendCone(v4, &SCNVector3Zero, &v3, 0.2, 0.1, C3DAuthoringEnvironmentColorWhite);
+  Mesh::AppendCone(v4, &SCNVector3Zero, &v3, 0.2, 0.1, &C3DAuthoringEnvironmentColorWhite);
   LineGeometry = Mesh::CreateLineGeometry(v4);
   if (__p[0])
   {
@@ -7891,9 +9419,9 @@ SCNGeometry *Mesh::CreatePhysicsFieldGeometry(Mesh *this)
   return LineGeometry;
 }
 
-void sub_21C113E9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_21C113E9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   vmesh::StaticAdjacencyInformation<Pair>::~StaticAdjacencyInformation(va);
   _Unwind_Resume(a1);
 }
@@ -8045,9 +9573,9 @@ void Mesh::AppendWireframeEllispoid(uint64_t a1, float32x2_t *a2, unsigned int a
     *&v70 = (a3 + 1);
     v63 = 2 * a3;
     v19 = a2->f32[0];
-    v18 = a2->f32[1];
+    v18 = a2->i32[1];
     v66 = *(&v14 + 1);
-    v67 = v18;
+    v67 = *&v18;
     v69 = v14;
     v20 = *(&v14 + 2);
     v21 = v9 + 37;
@@ -8184,1515 +9712,4 @@ void Mesh::AppendWireframeEllispoid(uint64_t a1, float32x2_t *a2, unsigned int a
   v61 = (*(v5 + 56) - *(v5 + 48)) >> 1;
   *(v5 + 72) = -1431655765 * ((*(v5 + 8) - *v5) >> 2);
   *(v5 + 76) = v61;
-}
-
-void Mesh::AppendSegment(Mesh *this, SCNVector3 *a2, SCNVector3 *a3, C3DColor4 *a4, C3DColor4 *a5)
-{
-  v9 = (*(this + 7) - *(this + 6)) >> 1;
-  *(this + 18) = -1431655765 * ((*(this + 1) - *this) >> 2);
-  *(this + 19) = v9;
-  std::vector<vmesh::Triangle>::push_back[abi:nn200100](this, a2);
-  std::vector<vmesh::Triangle>::push_back[abi:nn200100](this, a3);
-  std::vector<CFRange>::push_back[abi:nn200100](this + 24, a4);
-  std::vector<CFRange>::push_back[abi:nn200100](this + 24, a5);
-  Mesh::AddIndex(this, 0);
-  Mesh::AddIndex(this, 1);
-  v10 = (*(this + 7) - *(this + 6)) >> 1;
-  *(this + 18) = -1431655765 * ((*(this + 1) - *this) >> 2);
-  *(this + 19) = v10;
-}
-
-void Mesh::AppendQuad(Mesh *this, SCNVector3 *a2, SCNVector3 *a3, SCNVector3 *a4, SCNVector3 *a5, C3DColor4 *a6)
-{
-  v12 = (*(this + 7) - *(this + 6)) >> 1;
-  *(this + 18) = -1431655765 * ((*(this + 1) - *this) >> 2);
-  *(this + 19) = v12;
-  Mesh::AppendSegment(this, a2, a3, a6, a6);
-  Mesh::AppendSegment(this, a3, a4, a6, a6);
-  Mesh::AppendSegment(this, a4, a5, a6, a6);
-  Mesh::AppendSegment(this, a5, a2, a6, a6);
-  v13 = (*(this + 7) - *(this + 6)) >> 1;
-  *(this + 18) = -1431655765 * ((*(this + 1) - *this) >> 2);
-  *(this + 19) = v13;
-}
-
-void Mesh::AppendSphericalCap(Mesh *this, float a2, float a3, const C3DColor4 *a4)
-{
-  v8 = (this + 48);
-  v9 = (*(this + 7) - *(this + 6)) >> 1;
-  *(this + 18) = -1431655765 * ((*(this + 1) - *this) >> 2);
-  *(this + 19) = v9;
-  Mesh::AllocateVertices(this, 0x1Au);
-  v10 = *this + 12 * *(this + 18);
-  *(v10 + 8) = 0;
-  *v10 = 0;
-  *(*(this + 3) + 16 * *(this + 18)) = *a4;
-  LODWORD(v10) = *(this + 18) + 1;
-  v11 = *this + 12 * v10;
-  *v11 = 0;
-  *(v11 + 8) = -a2;
-  *(*(this + 3) + 16 * v10) = *a4;
-  v12 = __sincosf_stret(a3);
-  v13 = -(a2 * v12.__cosval);
-  v14 = v12.__sinval * a2;
-  v15 = 0.0;
-  for (i = 2; i != 26; ++i)
-  {
-    v17 = v15 * 6.28318531 / 24.0;
-    v18 = __sincosf_stret(v17);
-    v19 = i + *(this + 18);
-    v20 = (*this + 12 * v19);
-    *v20 = v14 * v18.__cosval;
-    v20[1] = v14 * v18.__sinval;
-    v20[2] = v13;
-    *(*(this + 3) + 16 * v19) = *a4;
-    v15 = v15 + 1.0;
-  }
-
-  std::vector<unsigned short>::resize(v8, ((*(this + 7) - *(this + 6)) >> 1) + 76);
-  v21 = *(this + 18);
-  v22 = *(this + 19);
-  v23 = *(this + 6);
-  v24 = v21 + 2;
-  v25 = 6;
-  v26 = v22;
-  do
-  {
-    *(v23 + 2 * v26) = v21 + 1;
-    *(v23 + 2 * (v26 + 1)) = v24;
-    v26 += 2;
-    v24 += 4;
-    --v25;
-  }
-
-  while (v25);
-  v27 = v22 + 13;
-  for (j = 3; j != 27; ++j)
-  {
-    *(v23 + 2 * (v27 - 1)) = v21 + j - 1;
-    if (j == 26)
-    {
-      v29 = 2;
-    }
-
-    else
-    {
-      v29 = j;
-    }
-
-    *(v23 + 2 * v27) = v21 + v29;
-    v27 += 2;
-  }
-
-  v30 = v22 + 61;
-  v31 = v21 + 2;
-  v32 = 4;
-  do
-  {
-    *(v23 + 2 * (v30 - 1)) = v21;
-    *(v23 + 2 * v30) = v31;
-    v30 += 2;
-    v31 += 6;
-    --v32;
-  }
-
-  while (v32);
-  v33 = (*(this + 7) - v23) >> 1;
-  *(this + 18) = -1431655765 * ((*(this + 1) - *this) >> 2);
-  *(this + 19) = v33;
-}
-
-void Mesh::AppendZUpArrow(Mesh *this, const C3DColor4 *a2)
-{
-  v4 = (this + 48);
-  v5 = (*(this + 7) - *(this + 6)) >> 1;
-  *(this + 18) = -1431655765 * ((*(this + 1) - *this) >> 2);
-  *(this + 19) = v5;
-  Mesh::AllocateVertices(this, 0x25u);
-  std::vector<unsigned short>::resize(v4, ((*(this + 7) - *v4) >> 1) + 180);
-  v6 = 0;
-  v7 = *(this + 18);
-  v8 = *v4;
-  v9 = *this;
-  v10 = *(this + 19) + 11;
-  v37 = vdupq_n_s64(0x3F847AE140000000uLL);
-  __asm { FMOV            V10.2S, #5.0 }
-
-  do
-  {
-    v16 = v6;
-    v18 = __sincos_stret((2 * (v6 & 0x7FFFu)) * 3.14159265 / 12.0);
-    v17.f64[0] = v18.__cosval;
-    *(v8 + 2 * (v10 - 11)) = v7;
-    *(v8 + 2 * (v10 - 9)) = v7 + 1;
-    *(v8 + 2 * (v10 - 5)) = v7 + 1;
-    *(v8 + 2 * (v10 - 3)) = v7 + 2;
-    *(v8 + 2 * (v10 - 2)) = v7 + 1;
-    v19 = (v9 + 12 * v7);
-    v19[1].i32[0] = 0;
-    v20 = (v9 + 12 * (v7 + 1));
-    v20[1].i32[0] = 1061158912;
-    v21 = (v9 + 12 * (v7 + 2));
-    v17.f64[1] = v18.__sinval;
-    v22 = vcvt_f32_f64(vmulq_f64(v17, v37));
-    *v19 = v22;
-    *v20 = v22;
-    *v21 = vmul_f32(v22, _D10);
-    v21[1].i32[0] = 1061158912;
-    ++v6;
-    if (v16 == 11)
-    {
-      v23 = -36;
-    }
-
-    else
-    {
-      v23 = 0;
-    }
-
-    v24 = v23 + v7;
-    v25 = v24 + 4;
-    *(v8 + 2 * (v10 - 10)) = v24 + 4;
-    *(v8 + 2 * (v10 - 8)) = v7;
-    *(v8 + 2 * (v10 - 7)) = v24 + 3;
-    *(v8 + 2 * (v10 - 6)) = v24 + 4;
-    v24 += 5;
-    *(v8 + 2 * (v10 - 4)) = v24;
-    *(v8 + 2 * (v10 - 1)) = v25;
-    *(v8 + 2 * v10) = v24;
-    v7 += 3;
-    v10 += 12;
-  }
-
-  while (v16 < 0xB);
-  v26 = 0;
-  v28 = *(this + 18);
-  v27 = *(this + 19);
-  v29 = v28 + 36;
-  v30 = *(this + 6);
-  v31 = v28 + 32;
-  do
-  {
-    v32 = v27 + v26;
-    *(v30 + 2 * (v27 + v26 + 144)) = v29;
-    if (v26 == 33)
-    {
-      v33 = 36;
-    }
-
-    else
-    {
-      v33 = 0;
-    }
-
-    *(v30 + 2 * (v32 + 145)) = v33 + v31;
-    *(v30 + 2 * (v32 + 146)) = v31 + 3;
-    v26 += 3;
-    v31 -= 3;
-  }
-
-  while (v26 != 36);
-  v34 = 0;
-  v35 = *this + 12 * v29;
-  *v35 = 0;
-  *(v35 + 8) = 1065353216;
-  do
-  {
-    *(*(this + 3) + 16 * (v34 + *(this + 18))) = *a2;
-    ++v34;
-  }
-
-  while (v34 != 37);
-  v36 = (*(this + 7) - *(this + 6)) >> 1;
-  *(this + 18) = -1431655765 * ((*(this + 1) - *this) >> 2);
-  *(this + 19) = v36;
-}
-
-void std::vector<SCNVector3>::__append(uint64_t a1, unint64_t a2)
-{
-  v5 = *(a1 + 8);
-  v4 = *(a1 + 16);
-  if (0xAAAAAAAAAAAAAAABLL * ((v4 - v5) >> 2) >= a2)
-  {
-    if (a2)
-    {
-      v10 = 12 * ((12 * a2 - 12) / 0xC) + 12;
-      bzero(*(a1 + 8), v10);
-      v5 += v10;
-    }
-
-    *(a1 + 8) = v5;
-  }
-
-  else
-  {
-    v6 = 0xAAAAAAAAAAAAAAABLL * ((v5 - *a1) >> 2);
-    v7 = v6 + a2;
-    if (v6 + a2 > 0x1555555555555555)
-    {
-      std::string::__throw_length_error[abi:nn200100]();
-    }
-
-    v8 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *a1) >> 2);
-    if (2 * v8 > v7)
-    {
-      v7 = 2 * v8;
-    }
-
-    if (v8 >= 0xAAAAAAAAAAAAAAALL)
-    {
-      v9 = 0x1555555555555555;
-    }
-
-    else
-    {
-      v9 = v7;
-    }
-
-    if (v9)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<vmesh::Triangle>>(a1, v9);
-    }
-
-    v11 = 12 * v6;
-    v12 = 12 * ((12 * a2 - 12) / 0xC) + 12;
-    bzero(v11, v12);
-    v13 = v11 + v12;
-    v14 = *(a1 + 8) - *a1;
-    v15 = v11 - v14;
-    memcpy((v11 - v14), *a1, v14);
-    v16 = *a1;
-    *a1 = v15;
-    *(a1 + 8) = v13;
-    *(a1 + 16) = 0;
-    if (v16)
-    {
-
-      operator delete(v16);
-    }
-  }
-}
-
-void std::vector<unsigned short>::__append(uint64_t a1, unint64_t a2)
-{
-  v5 = *(a1 + 8);
-  v4 = *(a1 + 16);
-  if (a2 <= (v4 - v5) >> 1)
-  {
-    if (a2)
-    {
-      bzero(*(a1 + 8), 2 * a2);
-      v5 += 2 * a2;
-    }
-
-    *(a1 + 8) = v5;
-  }
-
-  else
-  {
-    v6 = *a1;
-    v7 = v5 - *a1;
-    v8 = a2 + (v7 >> 1);
-    if (v8 < 0)
-    {
-      std::string::__throw_length_error[abi:nn200100]();
-    }
-
-    v9 = v4 - v6;
-    if (v9 > v8)
-    {
-      v8 = v9;
-    }
-
-    if (v9 >= 0x7FFFFFFFFFFFFFFELL)
-    {
-      v10 = 0x7FFFFFFFFFFFFFFFLL;
-    }
-
-    else
-    {
-      v10 = v8;
-    }
-
-    if (v10)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<unsigned short>>(a1, v10);
-    }
-
-    v11 = (2 * (v7 >> 1));
-    bzero(v11, 2 * a2);
-    memcpy(0, v6, v7);
-    v12 = *a1;
-    *a1 = 0;
-    *(a1 + 8) = &v11[2 * a2];
-    *(a1 + 16) = 0;
-    if (v12)
-    {
-
-      operator delete(v12);
-    }
-  }
-}
-
-id C3DEntityCFFinalize(uint64_t a1)
-{
-  C3DEntityRemoveAllAnimations(a1);
-  v2 = *(a1 + 40);
-  if (v2)
-  {
-    CFRelease(v2);
-    *(a1 + 40) = 0;
-  }
-
-  v3 = *(a1 + 24);
-  if (v3)
-  {
-    CFRelease(v3);
-    *(a1 + 24) = 0;
-  }
-
-  v4 = *(a1 + 32);
-  if (v4)
-  {
-    CFRelease(v4);
-    *(a1 + 32) = 0;
-  }
-
-  return objc_storeWeak((a1 + 16), 0);
-}
-
-void C3DEntityRemoveAllAnimations(void *a1)
-{
-  if (!a1)
-  {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
-    {
-      C3DEntityRemoveAllAnimations_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
-    }
-  }
-
-  v10 = C3DGetSceneRef(a1);
-  v11 = v10;
-  if (v10)
-  {
-    AnimationManager = C3DSceneGetAnimationManager(v10);
-    if (AnimationManager)
-    {
-      C3DAnimationManagerRemoveAllAnimationsForObject(AnimationManager, a1);
-    }
-  }
-
-  SubAttributeOrderedDictionary = _C3DEntityGetSubAttributeOrderedDictionary(a1, @"kAnimationsKey", 0);
-  if (SubAttributeOrderedDictionary)
-  {
-    C3DOrderedDictionaryApplyFunction(SubAttributeOrderedDictionary, _removeAnimationPlayerSceneRef, v11);
-    _C3DEntitySetAttribute(a1, @"kAnimationsKey", 0, 1);
-  }
-}
-
-void _C3DEntityCFInit()
-{
-  v0 = scn_default_log();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
-  {
-    _C3DEntityCFInit_cold_1(v0);
-  }
-}
-
-void _C3DEntityCFFinalize()
-{
-  v0 = scn_default_log();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
-  {
-    _C3DEntityCFFinalize_cold_1(v0);
-  }
-}
-
-uint64_t C3DEntityGetTypeID()
-{
-  if (C3DEntityGetTypeID_onceToken != -1)
-  {
-    C3DEntityGetTypeID_cold_1();
-  }
-
-  return C3DEntityGetTypeID_typeID;
-}
-
-double __C3DEntityGetTypeID_block_invoke()
-{
-  C3DEntityGetTypeID_typeID = _CFRuntimeRegisterClass();
-  result = *&kC3DC3DEntityContextClassSceneLink;
-  unk_281741908 = kC3DC3DEntityContextClassSceneLink;
-  unk_281741918 = *off_282DC6E80;
-  qword_281741928 = qword_282DC6E90;
-  return result;
-}
-
-uint64_t C3DEntityGetName(uint64_t a1)
-{
-  if (!a1)
-  {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
-    {
-      C3DEntityRemoveAllAnimations_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
-    }
-  }
-
-  return *(a1 + 32);
-}
-
-CFStringRef C3DEntitySetName(uint64_t a1, CFStringRef theString)
-{
-  if (!a1)
-  {
-    v4 = scn_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
-    {
-      C3DEntityRemoveAllAnimations_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
-    }
-  }
-
-  result = *(a1 + 32);
-  if (result != theString)
-  {
-    if (result)
-    {
-      CFRelease(result);
-      *(a1 + 32) = 0;
-    }
-
-    if (theString)
-    {
-      result = CFStringCreateCopy(*MEMORY[0x277CBECE8], theString);
-    }
-
-    else
-    {
-      result = 0;
-    }
-
-    *(a1 + 32) = result;
-  }
-
-  return result;
-}
-
-uint64_t C3DEntityGetID(uint64_t a1)
-{
-  if (!a1)
-  {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
-    {
-      C3DEntityRemoveAllAnimations_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
-    }
-  }
-
-  return *(a1 + 24);
-}
-
-CFTypeRef C3DEntitySetID(uint64_t a1, CFTypeRef cf)
-{
-  if (!a1)
-  {
-    v4 = scn_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
-    {
-      C3DEntityRemoveAllAnimations_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
-    }
-  }
-
-  result = *(a1 + 24);
-  if (result != cf)
-  {
-    if (result)
-    {
-      CFRelease(result);
-      *(a1 + 24) = 0;
-    }
-
-    if (cf)
-    {
-      result = CFRetain(cf);
-    }
-
-    else
-    {
-      result = 0;
-    }
-
-    *(a1 + 24) = result;
-  }
-
-  return result;
-}
-
-id *C3DEntityGetObjCWrapper(id *result)
-{
-  if (result)
-  {
-    return objc_loadWeak(result + 2);
-  }
-
-  return result;
-}
-
-id C3DEntitySetObjCWrapper(uint64_t a1, id obj)
-{
-  if (!a1)
-  {
-    v4 = scn_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
-    {
-      C3DEntityRemoveAllAnimations_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
-    }
-  }
-
-  return objc_storeWeak((a1 + 16), obj);
-}
-
-uint64_t C3DEntityGetAttributes(uint64_t a1)
-{
-  if (!a1)
-  {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
-    {
-      C3DEntityRemoveAllAnimations_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
-    }
-  }
-
-  return *(a1 + 40);
-}
-
-const __CFDictionary *C3DEntityGetAttribute(uint64_t a1, void *key)
-{
-  if (!a1 && (v4 = scn_default_log(), os_log_type_enabled(v4, OS_LOG_TYPE_FAULT)))
-  {
-    C3DEntityRemoveAllAnimations_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
-    if (key)
-    {
-      goto LABEL_6;
-    }
-  }
-
-  else if (key)
-  {
-    goto LABEL_6;
-  }
-
-  v12 = scn_default_log();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
-  {
-    C3DEntityGetAttribute_cold_2(v12, v13, v14, v15, v16, v17, v18, v19);
-  }
-
-LABEL_6:
-  result = *(a1 + 40);
-  if (result)
-  {
-    return CFDictionaryGetValue(result, key);
-  }
-
-  return result;
-}
-
-void _C3DEntitySetAttribute(CFTypeRef *a1, void *key, const __CFDictionary *a3, int a4)
-{
-  if (!a1 && (v8 = scn_default_log(), os_log_type_enabled(v8, OS_LOG_TYPE_FAULT)))
-  {
-    C3DEntityRemoveAllAnimations_cold_1(v8, v9, v10, v11, v12, v13, v14, v15);
-    if (key)
-    {
-      goto LABEL_6;
-    }
-  }
-
-  else if (key)
-  {
-    goto LABEL_6;
-  }
-
-  v16 = scn_default_log();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
-  {
-    C3DEntityGetAttribute_cold_2(v16, v17, v18, v19, v20, v21, v22, v23);
-  }
-
-LABEL_6:
-  if (C3DEntityGetAttribute(a1, key) != a3)
-  {
-    Mutable = a1[5];
-    if (!Mutable)
-    {
-      Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-      a1[5] = Mutable;
-    }
-
-    if (a3)
-    {
-      CFDictionarySetValue(Mutable, key, a3);
-    }
-
-    else
-    {
-      CFDictionaryRemoveValue(Mutable, key);
-      if (!CFDictionaryGetCount(a1[5]))
-      {
-        CFRelease(a1[5]);
-        a1[5] = 0;
-      }
-    }
-
-    if (a4)
-    {
-      SharedInstance = C3DNotificationCenterGetSharedInstance();
-      C3DNotificationCenterPostNotification(SharedInstance, @"kC3DNotificationEntityAttributeDidChange", a1, key, 1u);
-    }
-  }
-}
-
-const __CFDictionary *C3DEntityHasAttribute(uint64_t a1, void *key)
-{
-  if (!a1 && (v4 = scn_default_log(), os_log_type_enabled(v4, OS_LOG_TYPE_FAULT)))
-  {
-    C3DEntityRemoveAllAnimations_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
-    if (key)
-    {
-      goto LABEL_6;
-    }
-  }
-
-  else if (key)
-  {
-    goto LABEL_6;
-  }
-
-  v12 = scn_default_log();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
-  {
-    C3DEntityGetAttribute_cold_2(v12, v13, v14, v15, v16, v17, v18, v19);
-  }
-
-LABEL_6:
-  result = *(a1 + 40);
-  if (result)
-  {
-    return (CFDictionaryContainsKey(result, key) != 0);
-  }
-
-  return result;
-}
-
-void _C3DEntitySetAttributes(uint64_t a1, CFDictionaryRef theDict)
-{
-  if (!a1)
-  {
-    v4 = scn_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
-    {
-      C3DEntityRemoveAllAnimations_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
-    }
-  }
-
-  v12 = *(a1 + 40);
-  if (v12)
-  {
-    CFRelease(v12);
-    *(a1 + 40) = 0;
-  }
-
-  if (theDict)
-  {
-    if (CFDictionaryGetCount(theDict))
-    {
-      *(a1 + 40) = CFDictionaryCreateMutableCopy(0, 0, theDict);
-    }
-  }
-}
-
-void C3DEntitySetAttributes(uint64_t a1, CFDictionaryRef theDict)
-{
-  MutableCopy = CFDictionaryCreateMutableCopy(0, 0, theDict);
-  Value = CFDictionaryGetValue(MutableCopy, @"kIDKey");
-  v5 = CFDictionaryGetValue(MutableCopy, @"kNameKey");
-  if (Value)
-  {
-    C3DEntitySetID(a1, Value);
-    CFDictionaryRemoveValue(MutableCopy, @"kIDKey");
-  }
-
-  if (v5)
-  {
-    C3DEntitySetName(a1, v5);
-    CFDictionaryRemoveValue(MutableCopy, @"kNameKey");
-  }
-
-  _C3DEntitySetAttributes(a1, MutableCopy);
-
-  CFRelease(MutableCopy);
-}
-
-uint64_t C3DEntityInitWithPropertyList(uint64_t a1, const __CFDictionary *a2)
-{
-  IsDictionary = C3DCFTypeIsDictionary();
-  if (IsDictionary)
-  {
-    Value = CFDictionaryGetValue(a2, @"entity-name");
-    v6 = CFDictionaryGetValue(a2, @"attributes");
-    if (v6)
-    {
-      v7 = v6;
-      v8 = CFDictionaryGetValue(v6, @"kSkinnerKey");
-      v9 = CFDictionaryGetValue(v7, @"kMorpherKey");
-      if (!(v8 | v9))
-      {
-        C3DEntitySetAttributes(a1, v7);
-        if (Value)
-        {
-          goto LABEL_10;
-        }
-
-LABEL_15:
-        v16 = CFDictionaryGetValue(a2, @"id");
-        if (v16)
-        {
-          C3DEntitySetID(a1, v16);
-        }
-
-        v17 = CFDictionaryGetValue(a2, @"name");
-        if (v17)
-        {
-          C3DEntitySetName(a1, v17);
-        }
-
-        return IsDictionary;
-      }
-
-      v10 = v9;
-      MutableCopy = CFDictionaryCreateMutableCopy(*MEMORY[0x277CBECE8], 0, v7);
-      v12 = MutableCopy;
-      if (v8)
-      {
-        CFDictionaryRemoveValue(MutableCopy, @"kSkinnerKey");
-      }
-
-      if (v10)
-      {
-        CFDictionaryRemoveValue(v12, @"kMorpherKey");
-      }
-
-      C3DEntitySetAttributes(a1, v12);
-      CFRelease(v12);
-    }
-
-    if (Value)
-    {
-LABEL_10:
-      v13 = CFDictionaryGetValue(a2, @"entity-ID");
-      C3DEntitySetName(a1, Value);
-      C3DEntitySetID(a1, v13);
-      return IsDictionary;
-    }
-
-    goto LABEL_15;
-  }
-
-  v14 = scn_default_log();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
-  {
-    C3DEntityInitWithPropertyList_cold_1(v14);
-  }
-
-  return IsDictionary;
-}
-
-__CFDictionary *C3DEntityCopyPropertyList(void *a1, uint64_t a2, uint64_t a3)
-{
-  v6 = CFGetAllocator(a1);
-  Mutable = CFDictionaryCreateMutable(v6, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-  Attributes = C3DEntityGetAttributes(a1);
-  if (Attributes)
-  {
-    v9 = Attributes;
-    CFRetain(Attributes);
-  }
-
-  else
-  {
-    v9 = CFDictionaryCreateMutable(0, 1, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-  }
-
-  v10 = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-  _temporaryRemoveAttribute(v9, @"kCameraKey", v10);
-  _temporaryRemoveAttribute(v9, @"kLightKey", v10);
-  _temporaryRemoveAttribute(v9, @"kLightmapInfoKey", v10);
-  _temporaryRemoveAttribute(v9, @"kConstraints", v10);
-  _temporaryRemoveAttribute(v9, @"kAnimationsKey", v10);
-  _temporaryRemoveAttribute(v9, @"kActionsKey", v10);
-  _temporaryRemoveAttribute(v9, @"kShaderModifiers", v10);
-  v11 = C3DCreatePropertyListFromDictionary(v9, a3, a2);
-  CFDictionaryApplyFunction(v10, __restoreTemporaryRemovedAttributes, v9);
-  CFRelease(v10);
-  v12 = a1[3];
-  if (v12)
-  {
-    CFDictionaryAddValue(v11, @"kIDKey", v12);
-  }
-
-  v13 = a1[4];
-  if (v13)
-  {
-    CFDictionaryAddValue(v11, @"kNameKey", v13);
-  }
-
-  CFDictionarySetValue(Mutable, @"attributes", v11);
-  CFRelease(v11);
-  CFRelease(v9);
-  v14 = a1[3];
-  if (v14)
-  {
-    CFDictionarySetValue(Mutable, @"id", v14);
-  }
-
-  v15 = a1[4];
-  if (v15)
-  {
-    CFDictionarySetValue(Mutable, @"name", v15);
-  }
-
-  return Mutable;
-}
-
-void _temporaryRemoveAttribute(const __CFDictionary *a1, const void *a2, __CFDictionary *a3)
-{
-  if (a1)
-  {
-    Value = CFDictionaryGetValue(a1, a2);
-    if (Value)
-    {
-      CFDictionaryAddValue(a3, a2, Value);
-
-      CFDictionaryRemoveValue(a1, a2);
-    }
-  }
-}
-
-void C3DEntityCopyTo(uint64_t a1, CFTypeRef *a2)
-{
-  if (!a1 && (v4 = scn_default_log(), os_log_type_enabled(v4, OS_LOG_TYPE_FAULT)))
-  {
-    C3DGeometryCopy_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
-    if (a2)
-    {
-      goto LABEL_6;
-    }
-  }
-
-  else if (a2)
-  {
-    goto LABEL_6;
-  }
-
-  v12 = scn_default_log();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
-  {
-    C3DGeometryCopy_cold_2(v12, v13, v14, v15, v16, v17, v18, v19);
-  }
-
-LABEL_6:
-  ID = C3DEntityGetID(a1);
-  C3DEntitySetID(a2, ID);
-  Name = C3DEntityGetName(a1);
-  C3DEntitySetName(a2, Name);
-  Attributes = C3DEntityGetAttributes(a1);
-  _C3DEntitySetAttributes(a2, Attributes);
-  _C3DEntitySetAttribute(a2, @"_kvc", 0, 1);
-  _C3DEntitySetAttribute(a2, @"kAnimationsKey", 0, 1);
-}
-
-CFDictionaryRef __CFTypeIsC3DEntity_block_invoke()
-{
-  keys[40] = *MEMORY[0x277D85DE8];
-  if (CFTypeIsC3DEntity__cfTypeRegistry)
-  {
-    v0 = scn_default_log();
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
-    {
-      __CFTypeIsC3DEntity_block_invoke_cold_1(v0, v1, v2, v3, v4, v5, v6, v7);
-    }
-  }
-
-  keys[0] = C3DGeometryGetTypeID();
-  keys[1] = C3DMeshGetTypeID();
-  keys[2] = C3DAnimationPlayerGetTypeID();
-  keys[3] = C3DAnimationGroupGetTypeID();
-  keys[4] = C3DAnimationClusterGetTypeID();
-  keys[5] = C3DKeyframedAnimationGetTypeID();
-  keys[6] = C3DMaterialGetTypeID();
-  keys[7] = C3DImageGetTypeID();
-  keys[8] = C3DMeshElementGetTypeID();
-  keys[9] = C3DNodeGetTypeID();
-  keys[10] = C3DCameraGetTypeID();
-  keys[11] = C3DLightGetTypeID();
-  keys[12] = C3DSkinGetTypeID();
-  keys[13] = C3DSkinnerGetTypeID();
-  keys[14] = C3DGenericSourceGetTypeID();
-  keys[15] = C3DMeshSourceGetTypeID();
-  keys[16] = C3DMorphGetTypeID();
-  keys[17] = C3DMorpherGetTypeID();
-  keys[18] = C3DSceneGetTypeID();
-  keys[19] = C3DParametricGeometryGetTypeID();
-  keys[20] = C3DShapeGeometryGetTypeID();
-  keys[21] = C3DTextGeometryGetTypeID();
-  keys[22] = C3DBezierCurveGeometryGetTypeID();
-  keys[23] = C3DFloorGetTypeID();
-  keys[24] = C3DFXTechniqueGetTypeID();
-  keys[25] = C3DFXMetalProgramGetTypeID();
-  keys[26] = C3DFXGLSLProgramGetTypeID();
-  keys[27] = C3DLODGetTypeID();
-  keys[28] = C3DParticleSystemGetTypeID();
-  keys[29] = C3DConstraintIKGetTypeID();
-  keys[30] = C3DConstraintLookAtGetTypeID();
-  keys[31] = C3DConstraintBillboardGetTypeID();
-  keys[32] = C3DConstraintProceduralGetTypeID();
-  keys[33] = C3DConstraintConstantScaleGetTypeID();
-  keys[34] = C3DConstraintDistanceGetTypeID();
-  keys[35] = C3DConstraintAccelerationGetTypeID();
-  keys[36] = C3DConstraintSliderGetTypeID();
-  keys[37] = C3DConstraintReplicatorGetTypeID();
-  keys[38] = C3DConstraintAvoidOccluderGetTypeID();
-  TypeID = C3DKeyValueStoreGetTypeID();
-  v9 = 0;
-  keys[39] = TypeID;
-  memset(v12, 0, sizeof(v12));
-  v10 = vdupq_n_s64(1uLL);
-  do
-  {
-    v12[v9++] = v10;
-  }
-
-  while (v9 != 20);
-  result = CFDictionaryCreate(0, keys, v12, 40, 0, 0);
-  CFTypeIsC3DEntity__cfTypeRegistry = result;
-  return result;
-}
-
-BOOL C3DEntityIsTypeSupportingShaderModifiers(CFTypeRef cf)
-{
-  if (!cf)
-  {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
-    {
-      C3DEntityRemoveAllAnimations_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
-    }
-  }
-
-  v10 = CFGetTypeID(cf);
-  return CFTypeIsC3DGeometry(v10) || v10 == C3DMaterialGetTypeID();
-}
-
-const __CFDictionary *C3DEntityGetAnimations(uint64_t a1)
-{
-  if (!a1)
-  {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
-    {
-      C3DEntityRemoveAllAnimations_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
-    }
-  }
-
-  return _C3DEntityGetSubAttributeOrderedDictionary(a1, @"kAnimationsKey", 0);
-}
-
-const __CFDictionary *_C3DEntityGetSubAttributeOrderedDictionary(uint64_t a1, void *key, int a3)
-{
-  if (!a1)
-  {
-    v6 = scn_default_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
-    {
-      C3DEntityRemoveAllAnimations_cold_1(v6, v7, v8, v9, v10, v11, v12, v13);
-    }
-  }
-
-  v14 = *(a1 + 40);
-  if (v14)
-  {
-    Value = CFDictionaryGetValue(v14, key);
-    if (Value)
-    {
-      return Value;
-    }
-  }
-
-  else
-  {
-    Value = 0;
-  }
-
-  if (a3)
-  {
-    Value = C3DOrderedDictionaryCreate();
-    _C3DEntitySetAttribute(a1, key, Value, 1);
-    if (CFGetRetainCount(Value) <= 1)
-    {
-      v16 = scn_default_log();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
-      {
-        _C3DEntityGetSubAttributeOrderedDictionary_cold_2(v16, v17, v18, v19, v20, v21, v22, v23);
-      }
-    }
-
-    CFRelease(Value);
-  }
-
-  return Value;
-}
-
-void C3DEntityAddAnimationForKey(float32x4_t *a1, uint64_t *a2, const void *a3)
-{
-  if (!a1 && (v6 = scn_default_log(), os_log_type_enabled(v6, OS_LOG_TYPE_FAULT)))
-  {
-    C3DEntityRemoveAllAnimations_cold_1(v6, v7, v8, v9, v10, v11, v12, v13);
-    if (a2)
-    {
-      goto LABEL_6;
-    }
-  }
-
-  else if (a2)
-  {
-    goto LABEL_6;
-  }
-
-  v14 = scn_default_log();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
-  {
-    _C3DAnimationManagerAddAnimationForKey_cold_2(v14, v15, v16, v17, v18, v19, v20, v21);
-  }
-
-LABEL_6:
-  if (!a3)
-  {
-    v22 = scn_default_log();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
-    {
-      _C3DAnimationManagerGetAnimationNodeForKey_cold_3(v22, v23, v24, v25, v26, v27, v28, v29);
-    }
-  }
-
-  C3DEntityRemoveAnimationForKey(a1, a3, 1);
-  SubAttributeOrderedDictionary = _C3DEntityGetSubAttributeOrderedDictionary(a1, @"kAnimationsKey", 1);
-  C3DOrderedDictionarySetValue(SubAttributeOrderedDictionary, a3, a2);
-  v31 = C3DGetScene(a1);
-  if (v31)
-  {
-    v32 = v31;
-    AnimationManager = C3DSceneGetAnimationManager(v31);
-    C3DAddSceneRef(a2, v32);
-    C3DAnimationManagerAddAnimationPlayerForKey(AnimationManager, a2, a1, a3);
-  }
-}
-
-void C3DEntityRemoveAnimationForKey(void *a1, const void *a2, int a3)
-{
-  if (!a1 && (v6 = scn_default_log(), os_log_type_enabled(v6, OS_LOG_TYPE_FAULT)))
-  {
-    C3DEntityRemoveAllAnimations_cold_1(v6, v7, v8, v9, v10, v11, v12, v13);
-    if (a2)
-    {
-      goto LABEL_6;
-    }
-  }
-
-  else if (a2)
-  {
-    goto LABEL_6;
-  }
-
-  v14 = scn_default_log();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
-  {
-    _C3DAnimationManagerGetAnimationNodeForKey_cold_3(v14, v15, v16, v17, v18, v19, v20, v21);
-  }
-
-LABEL_6:
-  SubAttributeOrderedDictionary = _C3DEntityGetSubAttributeOrderedDictionary(a1, @"kAnimationsKey", 0);
-  if (SubAttributeOrderedDictionary)
-  {
-    v23 = SubAttributeOrderedDictionary;
-    CFRetain(SubAttributeOrderedDictionary);
-    v24 = C3DGetScene(a1);
-    v25 = v24;
-    if (v24)
-    {
-      AnimationManager = C3DSceneGetAnimationManager(v24);
-      if (a3)
-      {
-        C3DAnimationManagerExecRemoveAnimation(AnimationManager, a1, a2);
-      }
-
-      else
-      {
-        C3DAnimationManagerRemoveAnimationForKey(AnimationManager, a1);
-      }
-    }
-
-    Value = C3DOrderedDictionaryGetValue(v23, a2);
-    if (Value)
-    {
-      C3DRemoveSceneRef(Value, v25);
-      C3DOrderedDictionaryRemoveValue(v23, a2);
-      if ((a3 & 1) == 0 && !C3DOrderedDictionaryGetCount(v23))
-      {
-        _C3DEntitySetAttribute(a1, @"kAnimationsKey", 0, 1);
-      }
-    }
-
-    CFRelease(v23);
-  }
-}
-
-void C3DEntityFadeAndRemoveAllAnimations(void *a1, double a2)
-{
-  if (!a1)
-  {
-    v4 = scn_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
-    {
-      C3DEntityRemoveAllAnimations_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
-    }
-  }
-
-  v12 = C3DGetSceneRef(a1);
-  v13 = v12;
-  if (v12)
-  {
-    AnimationManager = C3DSceneGetAnimationManager(v12);
-    if (AnimationManager)
-    {
-      C3DAnimationManagerFadeAndRemoveAllAnimationsForObject(AnimationManager, a1, a2);
-    }
-  }
-
-  SubAttributeOrderedDictionary = _C3DEntityGetSubAttributeOrderedDictionary(a1, @"kAnimationsKey", 0);
-  if (SubAttributeOrderedDictionary)
-  {
-    C3DOrderedDictionaryApplyFunction(SubAttributeOrderedDictionary, _removeAnimationPlayerSceneRef, v13);
-    _C3DEntitySetAttribute(a1, @"kAnimationsKey", 0, 1);
-  }
-}
-
-void C3DEntityFadeAndRemoveAnimationForKey(void *a1, const void *a2, double a3)
-{
-  if (!a1 && (v6 = scn_default_log(), os_log_type_enabled(v6, OS_LOG_TYPE_FAULT)))
-  {
-    C3DEntityRemoveAllAnimations_cold_1(v6, v7, v8, v9, v10, v11, v12, v13);
-    if (a2)
-    {
-      goto LABEL_6;
-    }
-  }
-
-  else if (a2)
-  {
-    goto LABEL_6;
-  }
-
-  v14 = scn_default_log();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
-  {
-    _C3DAnimationManagerGetAnimationNodeForKey_cold_3(v14, v15, v16, v17, v18, v19, v20, v21);
-  }
-
-LABEL_6:
-  SubAttributeOrderedDictionary = _C3DEntityGetSubAttributeOrderedDictionary(a1, @"kAnimationsKey", 0);
-  if (SubAttributeOrderedDictionary)
-  {
-    v23 = SubAttributeOrderedDictionary;
-    CFRetain(SubAttributeOrderedDictionary);
-    v24 = C3DGetScene(a1);
-    v25 = v24;
-    if (v24)
-    {
-      AnimationManager = C3DSceneGetAnimationManager(v24);
-      C3DAnimationManagerFadeAndRemoveAnimationForKey(AnimationManager, a1, a2, a3);
-    }
-
-    Value = C3DOrderedDictionaryGetValue(v23, a2);
-    if (Value)
-    {
-      C3DRemoveSceneRef(Value, v25);
-      C3DOrderedDictionaryRemoveValue(v23, a2);
-      if (!C3DOrderedDictionaryGetCount(v23))
-      {
-        _C3DEntitySetAttribute(a1, @"kAnimationsKey", 0, 1);
-      }
-    }
-
-    CFRelease(v23);
-  }
-}
-
-uint64_t C3DEntityAddBinding(float32x4_t *a1, void *a2)
-{
-  if (!a1 && (v4 = scn_default_log(), os_log_type_enabled(v4, OS_LOG_TYPE_FAULT)))
-  {
-    C3DEntityRemoveAllAnimations_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
-    if (a2)
-    {
-      goto LABEL_6;
-    }
-  }
-
-  else if (a2)
-  {
-    goto LABEL_6;
-  }
-
-  v12 = scn_default_log();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
-  {
-    C3DValueConcat_cold_2(v12, v13, v14, v15, v16, v17, v18, v19);
-  }
-
-LABEL_6:
-  SubAttributeArray = _C3DEntityGetSubAttributeArray(a1, @"kBindingsKey", 1);
-  CFArrayAppendValue(SubAttributeArray, a2);
-  result = C3DGetScene(a1);
-  if (result)
-  {
-    AnimationManager = C3DSceneGetAnimationManager(result);
-    return C3DAnimationManagerAddBinding(AnimationManager, a1, [a2 keyPathDst], objc_msgSend(a2, "sourceObject"), objc_msgSend(a2, "keyPathSrc"), objc_msgSend(a2, "options"));
-  }
-
-  return result;
-}
-
-const __CFDictionary *_C3DEntityGetSubAttributeArray(uint64_t a1, void *key, int a3)
-{
-  if (!a1)
-  {
-    v6 = scn_default_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
-    {
-      C3DEntityRemoveAllAnimations_cold_1(v6, v7, v8, v9, v10, v11, v12, v13);
-    }
-  }
-
-  v14 = *(a1 + 40);
-  if (v14)
-  {
-    Value = CFDictionaryGetValue(v14, key);
-    if (Value)
-    {
-      return Value;
-    }
-  }
-
-  else
-  {
-    Value = 0;
-  }
-
-  if (a3)
-  {
-    Value = CFArrayCreateMutable(0, 0, MEMORY[0x277CBF128]);
-    _C3DEntitySetAttribute(a1, key, Value, 1);
-    CFRelease(Value);
-  }
-
-  return Value;
-}
-
-void C3DEntityRemoveAllBindings(CFTypeRef *a1)
-{
-  if (!a1)
-  {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
-    {
-      C3DEntityRemoveAllAnimations_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
-    }
-  }
-
-  v10 = C3DGetScene(a1);
-  if (v10)
-  {
-    AnimationManager = C3DSceneGetAnimationManager(v10);
-    if (AnimationManager)
-    {
-      C3DAnimationManagerRemoveAllBindings(AnimationManager, a1);
-    }
-  }
-
-  _C3DEntitySetAttribute(a1, @"kBindingsKey", 0, 1);
-}
-
-void C3DEntityRemoveBindingWithKeyPath(float32x4_t *a1, const __CFString *a2)
-{
-  v36 = *MEMORY[0x277D85DE8];
-  if (!a1 && (v4 = scn_default_log(), os_log_type_enabled(v4, OS_LOG_TYPE_FAULT)))
-  {
-    C3DEntityRemoveAllAnimations_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
-    if (a2)
-    {
-      goto LABEL_6;
-    }
-  }
-
-  else if (a2)
-  {
-    goto LABEL_6;
-  }
-
-  v12 = scn_default_log();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
-  {
-    C3DEntityRemoveBindingWithKeyPath_cold_2(v12, v13, v14, v15, v16, v17, v18, v19);
-  }
-
-LABEL_6:
-  SubAttributeArray = _C3DEntityGetSubAttributeArray(a1, @"kBindingsKey", 0);
-  if (SubAttributeArray)
-  {
-    v21 = SubAttributeArray;
-    v22 = SubAttributeArray;
-    v23 = C3DGetScene(a1);
-    if (v23)
-    {
-      AnimationManager = C3DSceneGetAnimationManager(v23);
-      C3DAnimationManagerRemoveBinding(AnimationManager, a1, a2);
-    }
-
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
-    v32 = 0u;
-    v25 = [(__CFDictionary *)v21 copy];
-    v26 = [v25 countByEnumeratingWithState:&v31 objects:v35 count:16];
-    if (v26)
-    {
-      v27 = v26;
-      v28 = *v32;
-      do
-      {
-        for (i = 0; i != v27; ++i)
-        {
-          if (*v32 != v28)
-          {
-            objc_enumerationMutation(v25);
-          }
-
-          v30 = *(*(&v31 + 1) + 8 * i);
-          if ([objc_msgSend(v30 "keyPathDst")])
-          {
-            [(__CFDictionary *)v21 removeObject:v30];
-          }
-        }
-
-        v27 = [v25 countByEnumeratingWithState:&v31 objects:v35 count:16];
-      }
-
-      while (v27);
-    }
-
-    if (![(__CFDictionary *)v21 count])
-    {
-      _C3DEntitySetAttribute(a1, @"kBindingsKey", 0, 1);
-    }
-  }
-}
-
-void C3DEntityAddAction(void *a1, const void *a2, void *a3)
-{
-  if (!a1 && (v6 = scn_default_log(), os_log_type_enabled(v6, OS_LOG_TYPE_FAULT)))
-  {
-    C3DEntityRemoveAllAnimations_cold_1(v6, v7, v8, v9, v10, v11, v12, v13);
-    if (a2)
-    {
-      goto LABEL_6;
-    }
-  }
-
-  else if (a2)
-  {
-    goto LABEL_6;
-  }
-
-  v14 = scn_default_log();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
-  {
-    C3DEntityAddAction_cold_2(v14, v15, v16, v17, v18, v19, v20, v21);
-  }
-
-LABEL_6:
-  if (!a3)
-  {
-    v22 = scn_default_log();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
-    {
-      _C3DAnimationManagerGetAnimationNodeForKey_cold_3(v22, v23, v24, v25, v26, v27, v28, v29);
-    }
-  }
-
-  C3DEntityRemoveActionForKey(a1, a3);
-  SubAttributeOrderedDictionary = _C3DEntityGetSubAttributeOrderedDictionary(a1, @"kActionsKey", 1);
-  C3DOrderedDictionarySetValue(SubAttributeOrderedDictionary, a3, a2);
-  v31 = C3DGetScene(a1);
-  if (v31)
-  {
-    AnimationManager = C3DSceneGetAnimationManager(v31);
-    C3DAnimationManagerAddAction(AnimationManager, a1, a2);
-  }
-}
-
-void C3DEntityRemoveActionForKey(void *a1, void *a2)
-{
-  if (!a1 && (v4 = scn_default_log(), os_log_type_enabled(v4, OS_LOG_TYPE_FAULT)))
-  {
-    C3DEntityRemoveAllAnimations_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
-    if (a2)
-    {
-      goto LABEL_6;
-    }
-  }
-
-  else if (a2)
-  {
-    goto LABEL_6;
-  }
-
-  v12 = scn_default_log();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
-  {
-    _C3DAnimationManagerGetAnimationNodeForKey_cold_3(v12, v13, v14, v15, v16, v17, v18, v19);
-  }
-
-LABEL_6:
-  SubAttributeOrderedDictionary = _C3DEntityGetSubAttributeOrderedDictionary(a1, @"kActionsKey", 0);
-  if (SubAttributeOrderedDictionary)
-  {
-    v21 = SubAttributeOrderedDictionary;
-    CFRetain(SubAttributeOrderedDictionary);
-    v22 = C3DGetScene(a1);
-    if (v22)
-    {
-      AnimationManager = C3DSceneGetAnimationManager(v22);
-      C3DAnimationManagerRemoveActionWithKey(AnimationManager, a1, a2);
-    }
-
-    C3DOrderedDictionaryRemoveValue(v21, a2);
-    if (!C3DOrderedDictionaryGetCount(v21))
-    {
-      _C3DEntitySetAttribute(a1, @"kActionsKey", 0, 1);
-    }
-
-    CFRelease(v21);
-  }
 }

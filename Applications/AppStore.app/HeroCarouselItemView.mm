@@ -13,11 +13,11 @@
   {
     selfCopy = self;
     preferredFocusEnvironments = [v2 preferredFocusEnvironments];
-    sub_10002849C(&unk_100982E50);
+    sub_10002849C(&unk_100982E50, &qword_1007CA7F0);
     static Array._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
-  sub_10002849C(&unk_100982E50);
+  sub_10002849C(&unk_100982E50, &qword_1007CA7F0);
   v5.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v5.super.isa;

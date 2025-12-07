@@ -244,49 +244,40 @@ LABEL_16:
 
 - (void)initWithUnitInteger:count:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  _os_log_fault_impl(&dword_19A0DB000, v0, OS_LOG_TYPE_FAULT, "[REMDueDateDeltaInterval initWithUnitInteger:count:] failed: either [super init] failed or {unit: %ld} is invalid", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_19A0DB000, v0, OS_LOG_TYPE_FAULT, "[REMDueDateDeltaInterval initWithUnitInteger:count:] failed: either [super init] failed or {unit: %ld} is invalid", v1, 0xCu);
 }
 
 - (void)addedTo:(void *)a1 .cold.1(void *a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
   [a1 unit];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_2();
   _os_log_fault_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addedTo:(void *)a1 .cold.2(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v3 = [a1 description];
-  v10 = [a2 description];
+  v9 = [a2 description];
   OUTLINED_FUNCTION_0_2();
   _os_log_fault_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)description
 {
-  v7 = *MEMORY[0x1E69E9840];
   [self unit];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_2();
   _os_log_fault_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initWithCoder:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  _os_log_fault_impl(&dword_19A0DB000, v0, OS_LOG_TYPE_FAULT, "[REMDueDateDeltaInterval initWithCoder:] failed due to invalid unit: %ld", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_19A0DB000, v0, OS_LOG_TYPE_FAULT, "[REMDueDateDeltaInterval initWithCoder:] failed due to invalid unit: %ld", v1, 0xCu);
 }
 
 @end

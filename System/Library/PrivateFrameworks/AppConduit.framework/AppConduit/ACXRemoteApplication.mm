@@ -77,47 +77,8 @@ LABEL_15:
   v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"applicationMode"];
   v6->_applicationMode = [v8 unsignedIntegerValue];
 
-  if (![coderCopy containsValueForKey:@"companionAppBundleID"])
+  if (![coderCopy containsValueForKey:@"companionAppBundleID"] || (objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", objc_opt_class(), @"companionAppBundleID"), v9 = objc_claimAutoreleasedReturnValue(), companionAppBundleID = v6->_companionAppBundleID, v6->_companionAppBundleID = v9, companionAppBundleID, (objc_msgSend(coderCopy, "containsValueForKey:", @"watchKitVersion") & 1) == 0) || (objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", objc_opt_class(), @"watchKitVersion"), v11 = objc_claimAutoreleasedReturnValue(), watchKitVersion = v6->_watchKitVersion, v6->_watchKitVersion = v11, watchKitVersion, (objc_msgSend(coderCopy, "containsValueForKey:", @"teamID") & 1) == 0) || (objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", objc_opt_class(), @"teamID"), v13 = objc_claimAutoreleasedReturnValue(), teamID = v6->_teamID, v6->_teamID = v13, teamID, objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", objc_opt_class(), @"complicationPrincipalClass"), v15 = objc_claimAutoreleasedReturnValue(), complicationPrincipalClass = v6->_complicationPrincipalClass, v6->_complicationPrincipalClass = v15, complicationPrincipalClass, v17 = MEMORY[0x277CBEB98], v18 = objc_opt_class(), objc_msgSend(v17, "setWithObjects:", v18, objc_opt_class(), 0), v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(coderCopy, "decodeObjectOfClasses:forKey:", v19, @"supportedComplicationFamilies"), v20 = objc_claimAutoreleasedReturnValue(), supportedComplicationFamilies = v6->_supportedComplicationFamilies, v6->_supportedComplicationFamilies = v20, supportedComplicationFamilies, v19, (objc_msgSend(coderCopy, "containsValueForKey:", @"watchKitAppExtensionBundleID") & 1) == 0))
   {
-    goto LABEL_10;
-  }
-
-  v9 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"companionAppBundleID"];
-  companionAppBundleID = v6->_companionAppBundleID;
-  v6->_companionAppBundleID = v9;
-
-  if (([coderCopy containsValueForKey:@"watchKitVersion"] & 1) == 0)
-  {
-    goto LABEL_10;
-  }
-
-  v11 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"watchKitVersion"];
-  watchKitVersion = v6->_watchKitVersion;
-  v6->_watchKitVersion = v11;
-
-  if (([coderCopy containsValueForKey:@"teamID"] & 1) == 0)
-  {
-    goto LABEL_10;
-  }
-
-  v13 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"teamID"];
-  teamID = v6->_teamID;
-  v6->_teamID = v13;
-
-  v15 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"complicationPrincipalClass"];
-  complicationPrincipalClass = v6->_complicationPrincipalClass;
-  v6->_complicationPrincipalClass = v15;
-
-  v17 = MEMORY[0x277CBEB98];
-  v18 = objc_opt_class();
-  v19 = [v17 setWithObjects:{v18, objc_opt_class(), 0}];
-  v20 = [coderCopy decodeObjectOfClasses:v19 forKey:@"supportedComplicationFamilies"];
-  supportedComplicationFamilies = v6->_supportedComplicationFamilies;
-  v6->_supportedComplicationFamilies = v20;
-
-  if (([coderCopy containsValueForKey:@"watchKitAppExtensionBundleID"] & 1) == 0)
-  {
-LABEL_10:
     if (gLogHandle && *(gLogHandle + 44) < 3)
     {
       goto LABEL_15;
@@ -985,11 +946,11 @@ LABEL_125:
 
 - (id)counterpartIdentifiers
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   companionAppBundleID = [(ACXRemoteApplication *)self companionAppBundleID];
-  v13.receiver = self;
-  v13.super_class = ACXRemoteApplication;
-  counterpartIdentifiers = [(ACXSyncedApplication *)&v13 counterpartIdentifiers];
+  v12.receiver = self;
+  v12.super_class = ACXRemoteApplication;
+  counterpartIdentifiers = [(ACXSyncedApplication *)&v12 counterpartIdentifiers];
   v5 = counterpartIdentifiers;
   if (counterpartIdentifiers)
   {
@@ -1015,8 +976,8 @@ LABEL_125:
 
     if (!v7)
     {
-      v14[0] = companionAppBundleID;
-      v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+      v13[0] = companionAppBundleID;
+      v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
       goto LABEL_14;
     }
 
@@ -1034,8 +995,6 @@ LABEL_12:
   v8 = [v5 arrayByAddingObject:companionAppBundleID];
 LABEL_14:
   v10 = v8;
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -1061,7 +1020,7 @@ LABEL_14:
 
 - (BOOL)isCompatibleWithDevice:(id)device
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   architectureSlices = [(ACXRemoteApplication *)self architectureSlices];
   v6 = 1;
@@ -1074,7 +1033,7 @@ LABEL_14:
     v11 = v10;
     if (runnableArchNames)
     {
-      v36 = deviceCopy;
+      v35 = deviceCopy;
       [v10 addObjectsFromArray:runnableArchNames];
     }
 
@@ -1092,45 +1051,45 @@ LABEL_14:
         goto LABEL_24;
       }
 
-      v36 = deviceCopy;
+      v35 = deviceCopy;
       v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:v12];
       [v11 addObject:v13];
     }
 
-    v34 = v11;
+    v33 = v11;
     if (gLogHandle && *(gLogHandle + 44) >= 7)
     {
       [(ACXSyncedApplication *)self bundleIdentifier];
-      v32 = cpuSubtype;
-      v30 = v33 = runnableArchNames;
-      v31 = cpuType;
+      v31 = cpuSubtype;
+      v29 = v32 = runnableArchNames;
+      v30 = cpuType;
       MOLogWrite();
     }
 
     v14 = objc_opt_new();
+    v36 = 0u;
     v37 = 0u;
     v38 = 0u;
     v39 = 0u;
-    v40 = 0u;
-    v35 = architectureSlices;
+    v34 = architectureSlices;
     v15 = architectureSlices;
-    v16 = [v15 countByEnumeratingWithState:&v37 objects:v41 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v36 objects:v40 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v38;
+      v18 = *v37;
       do
       {
         v19 = 0;
         do
         {
-          if (*v38 != v18)
+          if (*v37 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          v20 = *(*(&v37 + 1) + 8 * v19);
-          v21 = [v20 objectAtIndexedSubscript:{0, v30, v31, v32, v33}];
+          v20 = *(*(&v36 + 1) + 8 * v19);
+          v21 = [v20 objectAtIndexedSubscript:{0, v29, v30, v31, v32}];
           intValue = [v21 intValue];
 
           v23 = [v20 objectAtIndexedSubscript:1];
@@ -1145,8 +1104,8 @@ LABEL_14:
 
           else if (gLogHandle && *(gLogHandle + 44) >= 7)
           {
-            v30 = intValue;
-            v31 = unsignedIntValue;
+            v29 = intValue;
+            v30 = unsignedIntValue;
             MOLogWrite();
           }
 
@@ -1154,22 +1113,21 @@ LABEL_14:
         }
 
         while (v17 != v19);
-        v27 = [v15 countByEnumeratingWithState:&v37 objects:v41 count:16];
+        v27 = [v15 countByEnumeratingWithState:&v36 objects:v40 count:16];
         v17 = v27;
       }
 
       while (v27);
     }
 
-    v11 = v34;
-    v6 = [v34 intersectsSet:v14];
+    v11 = v33;
+    v6 = [v33 intersectsSet:v14];
 
-    architectureSlices = v35;
-    deviceCopy = v36;
+    architectureSlices = v34;
+    deviceCopy = v35;
 LABEL_24:
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

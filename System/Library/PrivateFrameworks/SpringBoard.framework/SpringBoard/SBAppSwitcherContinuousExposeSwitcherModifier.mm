@@ -176,7 +176,7 @@
     }
 
     v18 = [[SBPerformTransitionSwitcherEventResponse alloc] initWithTransitionRequest:v7 gestureInitiated:0];
-    v19 = SBAppendSwitcherModifierResponse(v18, v5);
+    v19 = SBAppendSwitcherModifierResponse();
 
     [eventCopy handleWithReason:@"App Switcher Continuous Expose"];
     v5 = v19;
@@ -297,7 +297,7 @@
       }
 
       v14 = v12;
-      v15 = SBAppendSwitcherModifierResponse(v12, v7);
+      v15 = SBAppendSwitcherModifierResponse();
 
       v7 = v15;
     }
@@ -567,7 +567,7 @@ uint64_t __68__SBAppSwitcherContinuousExposeSwitcherModifier_handleRemovalEvent_
     v24.receiver = self;
     v24.super_class = SBAppSwitcherContinuousExposeSwitcherModifier;
     appLayoutOnStage = [(SBAppSwitcherContinuousExposeSwitcherModifier *)&v24 appLayoutOnStage];
-    if (appLayoutOnStage && ([layoutsCopy containsObject:appLayoutOnStage] & 1) != 0)
+    if (appLayoutOnStage && (objc_msgSend_containsObject_(layoutsCopy) & 1) != 0)
     {
       v18 = layoutsCopy;
       v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
@@ -1647,7 +1647,7 @@ LABEL_18:
       v36 = v49;
     }
 
-    else if ([v8 containsObject:continuousExposeIdentifier2])
+    else if (objc_msgSend_containsObject_(v8))
     {
       v64 = v36;
       v37 = [MEMORY[0x277CBEB18] arrayWithCapacity:v24];
@@ -1825,7 +1825,7 @@ LABEL_5:
   if (continuousExposeIdentifier)
   {
     v17 = [(SBAppSwitcherContinuousExposeSwitcherModifier *)self appLayoutsForContinuousExposeIdentifier:continuousExposeIdentifier];
-    if (([v6 containsObject:continuousExposeIdentifier] & 1) != 0 || !objc_msgSend(v17, "count"))
+    if ((objc_msgSend_containsObject_(v6) & 1) != 0 || ![v17 count])
     {
       goto LABEL_26;
     }
@@ -2057,7 +2057,7 @@ LABEL_66:
             }
 
             v61 = *(*(&v88 + 1) + 8 * v60);
-            if ([v5 containsObject:v61])
+            if (objc_msgSend_containsObject_(v5))
             {
               v86 = 0u;
               v87 = 0u;
@@ -2079,7 +2079,7 @@ LABEL_76:
                   }
 
                   v67 = *(*(&v84 + 1) + 8 * v66);
-                  if ((BSEqualStrings() & 1) == 0 && ([v82 containsObject:v67] & 1) == 0 && !objc_msgSend(v56, "containsObject:", v67))
+                  if ((BSEqualStrings() & 1) == 0 && (objc_msgSend_containsObject_(v82) & 1) == 0 && !objc_msgSend_containsObject_(v56))
                   {
                     break;
                   }
@@ -2733,7 +2733,7 @@ LABEL_13:
           }
 
           v84 = [v79 objectForKey:*(*(&v137 + 1) + 8 * i)];
-          [v84 frame];
+          objc_msgSend_frame(v84);
           [v84 setFrame:v78 + v85];
         }
 

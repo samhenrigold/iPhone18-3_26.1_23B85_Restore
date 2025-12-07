@@ -71,8 +71,8 @@ void __39__ATXUserFocusInferredMode_currentMode__block_invoke(uint64_t a1, void 
 
   if (v3)
   {
-    v4 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = __atxlog_handle_modes(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __39__ATXUserFocusInferredMode_currentMode__block_invoke_cold_1(v2);
     }
@@ -126,8 +126,8 @@ void __44__ATXUserFocusInferredMode_currentModeEvent__block_invoke(uint64_t a1, 
 
   if (v3)
   {
-    v4 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = __atxlog_handle_modes(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __39__ATXUserFocusInferredMode_currentMode__block_invoke_cold_1(v2);
     }
@@ -178,10 +178,10 @@ void __44__ATXUserFocusInferredMode_currentModeEvent__block_invoke_16(uint64_t a
 
 void __45__ATXUserFocusInferredMode_previousModeEvent__block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 state];
-  v5 = __atxlog_handle_modes();
+  v5 = __atxlog_handle_modes(v4);
   v6 = v5;
   if (v4)
   {
@@ -196,14 +196,12 @@ void __45__ATXUserFocusInferredMode_previousModeEvent__block_invoke(uint64_t a1,
     v7 = [*(*(*(a1 + 32) + 8) + 40) eventBody];
     v8 = [v7 modeIdentifier];
     v9 = [*(*(*(a1 + 32) + 8) + 40) eventBody];
-    v11 = 138412546;
-    v12 = v8;
-    v13 = 2048;
-    v14 = [v9 modeType];
-    _os_log_impl(&dword_260C9F000, v6, OS_LOG_TYPE_DEFAULT, "BMInferredModeStream: done fetching last mode event. previousBMInferredModeEvent modeUUID:%@, modeType: %lu", &v11, 0x16u);
+    v10 = 138412546;
+    v11 = v8;
+    v12 = 2048;
+    v13 = [v9 modeType];
+    _os_log_impl(&dword_260C9F000, v6, OS_LOG_TYPE_DEFAULT, "BMInferredModeStream: done fetching last mode event. previousBMInferredModeEvent modeUUID:%@, modeType: %lu", &v10, 0x16u);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __45__ATXUserFocusInferredMode_previousModeEvent__block_invoke_17(uint64_t a1, void *a2)
@@ -240,7 +238,7 @@ void __53__ATXUserFocusInferredMode_lastTwoInferredModeEvents__block_invoke(uint
 {
   v2 = a2;
   v3 = [v2 state];
-  v4 = __atxlog_handle_modes();
+  v4 = __atxlog_handle_modes(v3);
   v5 = v4;
   if (v3)
   {
@@ -293,10 +291,10 @@ void __53__ATXUserFocusInferredMode_lastTwoInferredModeEvents__block_invoke(uint
 
 void __64__ATXUserFocusInferredMode_inferredModeEventWithSuggestionUUID___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 state];
-  v5 = __atxlog_handle_modes();
+  v5 = __atxlog_handle_modes(v4);
   v6 = v5;
   if (v4)
   {
@@ -311,16 +309,14 @@ void __64__ATXUserFocusInferredMode_inferredModeEventWithSuggestionUUID___block_
     v7 = *(a1 + 32);
     v8 = [*(*(*(a1 + 40) + 8) + 40) modeIdentifier];
     v9 = [*(*(*(a1 + 40) + 8) + 40) modeType];
-    v11 = 138543874;
-    v12 = v7;
-    v13 = 2114;
-    v14 = v8;
-    v15 = 2048;
-    v16 = v9;
-    _os_log_impl(&dword_260C9F000, v6, OS_LOG_TYPE_DEFAULT, "BMInferredModeStream: done fetching mode event with suggestion UUID %{public}@, modeUUID:%{public}@, modeType:%lu", &v11, 0x20u);
+    v10 = 138543874;
+    v11 = v7;
+    v12 = 2114;
+    v13 = v8;
+    v14 = 2048;
+    v15 = v9;
+    _os_log_impl(&dword_260C9F000, v6, OS_LOG_TYPE_DEFAULT, "BMInferredModeStream: done fetching mode event with suggestion UUID %{public}@, modeUUID:%{public}@, modeType:%lu", &v10, 0x20u);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __64__ATXUserFocusInferredMode_inferredModeEventWithSuggestionUUID___block_invoke_23(uint64_t a1, void *a2)
@@ -382,8 +378,8 @@ void __56__ATXUserFocusInferredMode_currentModeEventAtGivenTime___block_invoke(u
 
   if (v3)
   {
-    v4 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = __atxlog_handle_modes(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __39__ATXUserFocusInferredMode_currentMode__block_invoke_cold_1(v2);
     }
@@ -399,24 +395,23 @@ uint64_t __56__ATXUserFocusInferredMode_currentModeEventAtGivenTime___block_invo
 
   if (v6)
   {
-    v7 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = __atxlog_handle_modes(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 32);
-      v9 = [v4 eventBody];
+      v9 = *(a1 + 32);
+      v10 = [v4 eventBody];
       v12 = 136315650;
       v13 = "[ATXUserFocusInferredMode currentModeEventAtGivenTime:]_block_invoke";
       v14 = 2112;
-      v15 = v8;
+      v15 = v9;
       v16 = 1024;
-      v17 = [v9 modeType];
-      _os_log_impl(&dword_260C9F000, v7, OS_LOG_TYPE_DEFAULT, "%s: Active inferred mode at time %@ is %d", &v12, 0x1Cu);
+      v17 = [v10 modeType];
+      _os_log_impl(&dword_260C9F000, v8, OS_LOG_TYPE_DEFAULT, "%s: Active inferred mode at time %@ is %d", &v12, 0x1Cu);
     }
 
     objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -456,46 +451,33 @@ uint64_t __56__ATXUserFocusInferredMode_currentModeEventAtGivenTime___block_invo
 
 void __39__ATXUserFocusInferredMode_currentMode__block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 error];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_0_6();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __45__ATXUserFocusInferredMode_previousModeEvent__block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 error];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_0_6();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __53__ATXUserFocusInferredMode_lastTwoInferredModeEvents__block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 error];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_0_6();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __64__ATXUserFocusInferredMode_inferredModeEventWithSuggestionUUID___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
-  v9 = [a2 error];
+  v7 = [a2 error];
   OUTLINED_FUNCTION_0_6();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 @end

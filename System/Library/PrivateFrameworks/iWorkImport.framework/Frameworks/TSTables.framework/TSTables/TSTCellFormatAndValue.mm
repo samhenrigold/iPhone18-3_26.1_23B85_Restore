@@ -27,12 +27,12 @@
 {
   if (*(self + 8) != 3)
   {
-    v5 = MEMORY[0x277D81150];
-    v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTCellFormatAndValue stringValue]", v2, v3);
-    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTCellFormatAndValue.mm", v8, v9);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v5, v11, v6, v10, 96, 0, "Getting a non-string value as string from a TSTCellFormatAndValue.");
+    v4 = MEMORY[0x277D81150];
+    v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTCellFormatAndValue stringValue]", v2);
+    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTCellFormatAndValue.mm", v7);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v4, v9, v5, v8, 96, 0, "Getting a non-string value as string from a TSTCellFormatAndValue.");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v12, v13, v14, v15);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v10, v11, v12);
   }
 
   objValue = self->_objValue;
@@ -44,12 +44,12 @@
 {
   if ((*(self + 8) & 0xFE) != 8)
   {
-    v5 = MEMORY[0x277D81150];
-    v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTCellFormatAndValue richTextOrErrorTextStorageValue]", v2, v3);
-    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTCellFormatAndValue.mm", v8, v9);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v5, v11, v6, v10, 102, 0, "Getting a non-rich-text/non-formula-error value as rich text from a TSTCellFormatAndValue.");
+    v4 = MEMORY[0x277D81150];
+    v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTCellFormatAndValue richTextOrErrorTextStorageValue]", v2);
+    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTCellFormatAndValue.mm", v7);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v4, v9, v5, v8, 102, 0, "Getting a non-rich-text/non-formula-error value as rich text from a TSTCellFormatAndValue.");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v12, v13, v14, v15);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v10, v11, v12);
   }
 
   objValue = self->_objValue;
@@ -62,9 +62,9 @@
   formatsCopy = formats;
   cellCopy = cell;
   v6 = objc_alloc(objc_opt_class());
-  v9 = objc_msgSend_initFromCell_useAllSpareFormats_(v6, v7, cellCopy, formatsCopy, v8);
+  v8 = objc_msgSend_initFromCell_useAllSpareFormats_(v6, v7, cellCopy, formatsCopy);
 
-  return v9;
+  return v8;
 }
 
 + (id)formatAndValueFromCell:(id)cell useAllSpareFormats:(BOOL)formats forceNoContent:(BOOL)content
@@ -93,27 +93,27 @@
 {
   cellCopy = cell;
   blockCopy = block;
-  if (objc_msgSend_valueType(cellCopy, v7, v8, v9, v10) != 9)
+  if (objc_msgSend_valueType(cellCopy, v7, v8, v9) != 9)
   {
-    v15 = MEMORY[0x277D81150];
-    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "+[TSTCellFormatAndValue formatAndValueFromRichTextCell:updatingStorageWithBlock:]", v13, v14);
-    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTCellFormatAndValue.mm", v18, v19);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v15, v21, v16, v20, 121, 0, "expected rich text cell when creating format and value");
+    v13 = MEMORY[0x277D81150];
+    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "+[TSTCellFormatAndValue formatAndValueFromRichTextCell:updatingStorageWithBlock:]", v12);
+    v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTCellFormatAndValue.mm", v16);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v13, v18, v14, v17, 121, 0, "expected rich text cell when creating format and value");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v22, v23, v24, v25);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v19, v20, v21);
   }
 
-  v26 = objc_msgSend_copy(cellCopy, v11, v12, v13, v14);
-  v31 = objc_msgSend_richTextValue(v26, v27, v28, v29, v30);
-  v36 = objc_msgSend_context(v31, v32, v33, v34, v35);
-  v40 = objc_msgSend_copyWithContext_(v31, v37, v36, v38, v39);
+  v22 = objc_msgSend_copy(cellCopy, v10, v11, v12);
+  v26 = objc_msgSend_richTextValue(v22, v23, v24, v25);
+  v30 = objc_msgSend_context(v26, v27, v28, v29);
+  v33 = objc_msgSend_copyWithContext_(v26, v31, v30, v32);
 
-  blockCopy[2](blockCopy, v40);
-  objc_msgSend_setParentInfo_(v40, v41, 0, v42, v43);
-  objc_msgSend_setRichTextValue_(v26, v44, v40, v45, v46);
-  v49 = objc_msgSend_formatAndValueFromCell_useAllSpareFormats_(TSTCellFormatAndValue, v47, v26, 0, v48);
+  blockCopy[2](blockCopy, v33);
+  objc_msgSend_setParentInfo_(v33, v34, 0, v35);
+  objc_msgSend_setRichTextValue_(v22, v36, v33, v37);
+  v39 = objc_msgSend_formatAndValueFromCell_useAllSpareFormats_(TSTCellFormatAndValue, v38, v22, 0);
 
-  return v49;
+  return v39;
 }
 
 + (id)formatAndValueFromCell:(id)cell applySpareFormatOnly:(unsigned int)only
@@ -132,11 +132,11 @@
   contentCopy = content;
   formatsCopy = formats;
   cellCopy = cell;
-  v100.receiver = self;
-  v100.super_class = TSTCellFormatAndValue;
-  v13 = [(TSTCellFormatAndValue *)&v100 init];
+  v86.receiver = self;
+  v86.super_class = TSTCellFormatAndValue;
+  v13 = [(TSTCellFormatAndValue *)&v86 init];
+  v17 = v13;
   v18 = v13;
-  v19 = v13;
   if (v13)
   {
     v13->_suppressApplyValue = valueCopy;
@@ -145,12 +145,12 @@
     {
       if (formatsCopy)
       {
-        v20 = MEMORY[0x277D81150];
-        v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, "[TSTCellFormatAndValue initFromCell:useAllSpareFormats:forceNoContent:suppressApplyValue:applySpareFormatOnly:]", v16, v17);
-        v25 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTCellFormatAndValue.mm", v23, v24);
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v20, v26, v21, v25, 157, 0, "useAllSpareFormats and spareFormatOnly are mutually exclusive!");
+        v19 = MEMORY[0x277D81150];
+        v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, "[TSTCellFormatAndValue initFromCell:useAllSpareFormats:forceNoContent:suppressApplyValue:applySpareFormatOnly:]", v16);
+        v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTCellFormatAndValue.mm", v22);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v19, v24, v20, v23, 157, 0, "useAllSpareFormats and spareFormatOnly are mutually exclusive!");
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v27, v28, v29, v30);
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v25, v26, v27);
       }
 
       else
@@ -160,144 +160,144 @@
       }
     }
 
-    if (v19->_applySpareFormatOnly || contentCopy || valueCopy)
+    if (v18->_applySpareFormatOnly || contentCopy || valueCopy)
     {
-      *(v19 + 8) = 0;
+      *(v18 + 8) = 0;
       goto LABEL_33;
     }
 
-    v31 = objc_msgSend_valueType(cellCopy, v14, v15, v16, v17);
-    *(v19 + 8) = v31;
-    if (v31 <= 5)
+    v28 = objc_msgSend_valueType(cellCopy, v14, v15, v16);
+    *(v18 + 8) = v28;
+    if (v28 <= 5)
     {
-      if (v31 > 3)
+      if (v28 > 3)
       {
-        if (v31 == 4)
+        if (v28 == 4)
         {
-          v34 = MEMORY[0x277D81150];
-          v35 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, "[TSTCellFormatAndValue initFromCell:useAllSpareFormats:forceNoContent:suppressApplyValue:applySpareFormatOnly:]", v16, v17);
-          v39 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v36, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTCellFormatAndValue.mm", v37, v38);
-          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v34, v40, v35, v39, 185, 0, "deprecated cell value type found");
+          v31 = MEMORY[0x277D81150];
+          v32 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, "[TSTCellFormatAndValue initFromCell:useAllSpareFormats:forceNoContent:suppressApplyValue:applySpareFormatOnly:]", v16);
+          v35 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v33, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTCellFormatAndValue.mm", v34);
+          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v31, v36, v32, v35, 185, 0, "deprecated cell value type found");
 
-          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v41, v42, v43, v44);
+          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v37, v38, v39);
           goto LABEL_33;
         }
 
-        v33 = objc_msgSend_dateValue(cellCopy, v14, v15, v16, v17);
+        v30 = objc_msgSend_dateValue(cellCopy, v14, v15, v16);
       }
 
       else
       {
-        if (v31 == 2)
+        if (v28 == 2)
         {
-          v32 = objc_msgSend_numberDecimalValue(cellCopy, v14, v15, v16, v17);
+          v29 = objc_msgSend_numberDecimalValue(cellCopy, v14, v15, v16);
 LABEL_25:
-          v19->_decimalValue._decimal.w[0] = v32;
-          v19->_decimalValue._decimal.w[1] = v14;
+          v18->_decimalValue._decimal.w[0] = v29;
+          v18->_decimalValue._decimal.w[1] = v14;
           goto LABEL_33;
         }
 
-        if (v31 != 3)
+        if (v28 != 3)
         {
           goto LABEL_33;
         }
 
-        v33 = objc_msgSend_stringValue(cellCopy, v14, v15, v16, v17);
+        v30 = objc_msgSend_stringValue(cellCopy, v14, v15, v16);
       }
     }
 
     else
     {
-      if (v31 <= 7)
+      if (v28 <= 7)
       {
-        if (v31 == 6)
+        if (v28 == 6)
         {
-          v19->_BOOLValue = objc_msgSend_BOOLValue(cellCopy, v14, v15, v16, v17);
+          v18->_BOOLValue = objc_msgSend_BOOLValue(cellCopy, v14, v15, v16);
         }
 
         else
         {
-          objc_msgSend_durationTimeIntervalValue(cellCopy, v14, v15, v16, v17);
+          objc_msgSend_durationTimeIntervalValue(cellCopy, v14, v15, v16);
           TSUDecimal::operator=();
         }
 
         goto LABEL_33;
       }
 
-      if (v31 != 8)
+      if (v28 != 8)
       {
-        if (v31 != 9)
+        if (v28 != 9)
         {
-          if (v31 != 10)
+          if (v28 != 10)
           {
             goto LABEL_33;
           }
 
-          v32 = objc_msgSend_currencyDecimalValue(cellCopy, v14, v15, v16, v17);
+          v29 = objc_msgSend_currencyDecimalValue(cellCopy, v14, v15, v16);
           goto LABEL_25;
         }
 
-        v46 = objc_msgSend_richTextValue(cellCopy, v14, v15, v16, v17);
-        v50 = objc_msgSend_p_copyStorage_(v19, v47, v46, v48, v49);
-        objc_msgSend_setParentInfo_(v50, v51, 0, v52, v53);
-        objc_storeStrong(&v18->_objValue, v50);
-        v58 = objc_msgSend_richTextStorageForLayout(cellCopy, v54, v55, v56, v57);
-        if (v58 != v46)
+        v41 = objc_msgSend_richTextValue(cellCopy, v14, v15, v16);
+        v44 = objc_msgSend_p_copyStorage_(v18, v42, v41, v43);
+        objc_msgSend_setParentInfo_(v44, v45, 0, v46);
+        objc_storeStrong(&v17->_objValue, v44);
+        v50 = objc_msgSend_richTextStorageForLayout(cellCopy, v47, v48, v49);
+        if (v50 != v41)
         {
-          objc_storeStrong(&v18->_formattedRichTextStorage, v58);
+          objc_storeStrong(&v17->_formattedRichTextStorage, v50);
         }
 
 LABEL_33:
-        if (*(v19 + 8))
+        if (*(v18 + 8))
         {
-          v59 = objc_msgSend_formattedValue(cellCopy, v14, v15, v16, v17);
-          formattedValue = v19->_formattedValue;
-          v19->_formattedValue = v59;
+          v51 = objc_msgSend_formattedValue(cellCopy, v14, v15, v16);
+          formattedValue = v18->_formattedValue;
+          v18->_formattedValue = v51;
         }
 
-        v19->_useAllSpareFormats = formatsCopy;
-        v19->_explicitFlags = objc_msgSend_explicitFormatFlags(cellCopy, v14, v15, v16, v17);
-        if (v19->_applySpareFormatOnly)
+        v18->_useAllSpareFormats = formatsCopy;
+        v18->_explicitFlags = objc_msgSend_explicitFormatFlags(cellCopy, v14, v15, v16);
+        if (v18->_applySpareFormatOnly)
         {
           IsExplicit = 0;
         }
 
-        else if (!contentCopy || (IsExplicit = objc_msgSend_currentFormatIsExplicit(cellCopy, v61, v62, v63, v64)) != 0)
+        else if (!contentCopy || (IsExplicit = objc_msgSend_currentFormatIsExplicit(cellCopy, v53, v54, v55)) != 0)
         {
-          IsExplicit = objc_msgSend_cellFormatKind(cellCopy, v61, v62, v63, v64);
+          IsExplicit = objc_msgSend_cellFormatKind(cellCopy, v53, v54, v55);
         }
 
-        v19->_cellFormatKind = IsExplicit;
-        if (v19->_useAllSpareFormats)
+        v18->_cellFormatKind = IsExplicit;
+        if (v18->_useAllSpareFormats)
         {
-          v66 = objc_msgSend_numberFormat(cellCopy, v61, v62, v63, v64);
-          numberFormat = v19->_numberFormat;
-          v19->_numberFormat = v66;
+          v57 = objc_msgSend_numberFormat(cellCopy, v53, v54, v55);
+          numberFormat = v18->_numberFormat;
+          v18->_numberFormat = v57;
 
-          v72 = objc_msgSend_currencyFormat(cellCopy, v68, v69, v70, v71);
-          currencyFormat = v19->_currencyFormat;
-          v19->_currencyFormat = v72;
+          v62 = objc_msgSend_currencyFormat(cellCopy, v59, v60, v61);
+          currencyFormat = v18->_currencyFormat;
+          v18->_currencyFormat = v62;
 
-          v78 = objc_msgSend_dateFormat(cellCopy, v74, v75, v76, v77);
-          dateFormat = v19->_dateFormat;
-          v19->_dateFormat = v78;
+          v67 = objc_msgSend_dateFormat(cellCopy, v64, v65, v66);
+          dateFormat = v18->_dateFormat;
+          v18->_dateFormat = v67;
 
-          v84 = objc_msgSend_durationFormat(cellCopy, v80, v81, v82, v83);
-          durationFormat = v19->_durationFormat;
-          v19->_durationFormat = v84;
+          v72 = objc_msgSend_durationFormat(cellCopy, v69, v70, v71);
+          durationFormat = v18->_durationFormat;
+          v18->_durationFormat = v72;
 
-          v90 = objc_msgSend_textFormat(cellCopy, v86, v87, v88, v89);
-          textFormat = v19->_textFormat;
-          v19->_textFormat = v90;
+          v77 = objc_msgSend_textFormat(cellCopy, v74, v75, v76);
+          textFormat = v18->_textFormat;
+          v18->_textFormat = v77;
 
-          v96 = objc_msgSend_BOOLeanFormat(cellCopy, v92, v93, v94, v95);
+          v82 = objc_msgSend_BOOLeanFormat(cellCopy, v79, v80, v81);
         }
 
         else
         {
-          if (v19->_applySpareFormatOnly)
+          if (v18->_applySpareFormatOnly)
           {
-            IsExplicit = sub_22121E75C(v19->_spareFormatType);
+            IsExplicit = sub_22121E75C(v18->_spareFormatType);
           }
 
           if (IsExplicit <= 3)
@@ -305,16 +305,16 @@ LABEL_33:
             switch(IsExplicit)
             {
               case 1:
-                v96 = objc_msgSend_numberFormat(cellCopy, v61, v62, v63, v64);
-                v97 = 80;
+                v82 = objc_msgSend_numberFormat(cellCopy, v53, v54, v55);
+                v83 = 80;
                 break;
               case 2:
-                v96 = objc_msgSend_currencyFormat(cellCopy, v61, v62, v63, v64);
-                v97 = 88;
+                v82 = objc_msgSend_currencyFormat(cellCopy, v53, v54, v55);
+                v83 = 88;
                 break;
               case 3:
-                v96 = objc_msgSend_dateFormat(cellCopy, v61, v62, v63, v64);
-                v97 = 96;
+                v82 = objc_msgSend_dateFormat(cellCopy, v53, v54, v55);
+                v83 = 96;
                 break;
               default:
                 goto LABEL_44;
@@ -325,15 +325,15 @@ LABEL_33:
 
           if (IsExplicit == 4)
           {
-            v96 = objc_msgSend_durationFormat(cellCopy, v61, v62, v63, v64);
-            v97 = 104;
+            v82 = objc_msgSend_durationFormat(cellCopy, v53, v54, v55);
+            v83 = 104;
             goto LABEL_43;
           }
 
           if (IsExplicit == 5)
           {
-            v96 = objc_msgSend_textFormat(cellCopy, v61, v62, v63, v64);
-            v97 = 120;
+            v82 = objc_msgSend_textFormat(cellCopy, v53, v54, v55);
+            v83 = 120;
             goto LABEL_43;
           }
 
@@ -342,77 +342,77 @@ LABEL_33:
             goto LABEL_44;
           }
 
-          v96 = objc_msgSend_BOOLeanFormat(cellCopy, v61, v62, v63, v64);
+          v82 = objc_msgSend_BOOLeanFormat(cellCopy, v53, v54, v55);
         }
 
-        v97 = 112;
+        v83 = 112;
 LABEL_43:
-        v98 = *(&v19->super.isa + v97);
-        *(&v19->super.isa + v97) = v96;
+        v84 = *(&v18->super.isa + v83);
+        *(&v18->super.isa + v83) = v82;
 
         goto LABEL_44;
       }
 
-      v33 = objc_msgSend_formulaSyntaxError(cellCopy, v14, v15, v16, v17);
+      v30 = objc_msgSend_formulaSyntaxError(cellCopy, v14, v15, v16);
     }
 
-    objValue = v19->_objValue;
-    v19->_objValue = v33;
+    objValue = v18->_objValue;
+    v18->_objValue = v30;
 
     goto LABEL_33;
   }
 
 LABEL_44:
 
-  return v19;
+  return v18;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc_init(TSTCellFormatAndValue);
-  v9 = v4;
+  v8 = v4;
   *(v4 + 8) = *(self + 8);
   v4->_useAllSpareFormats = self->_useAllSpareFormats;
   v4->_suppressApplyValue = self->_suppressApplyValue;
   v4->_spareFormatType = self->_spareFormatType;
   v4->_applySpareFormatOnly = self->_applySpareFormatOnly;
-  v10 = *(self + 8);
-  if (v10 <= 5)
+  v9 = *(self + 8);
+  if (v9 <= 5)
   {
     if (*(self + 8) > 3u)
     {
-      if (v10 == 4)
+      if (v9 == 4)
       {
-        v21 = MEMORY[0x277D81150];
-        v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v5, "[TSTCellFormatAndValue copyWithZone:]", v7, v8);
-        v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v23, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTCellFormatAndValue.mm", v24, v25);
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v21, v27, v22, v26, 297, 0, "deprecated cell value type found");
+        v18 = MEMORY[0x277D81150];
+        v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v5, "[TSTCellFormatAndValue copyWithZone:]", v7);
+        v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v20, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTCellFormatAndValue.mm", v21);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v18, v23, v19, v22, 297, 0, "deprecated cell value type found");
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v28, v29, v30, v31);
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v24, v25, v26);
         goto LABEL_23;
       }
 
-      if (v10 == 5)
+      if (v9 == 5)
       {
-        v11 = objc_msgSend_dateValue(self, v5, v6, v7, v8);
-        v16 = objc_msgSend_copy(v11, v17, v18, v19, v20);
+        v10 = objc_msgSend_dateValue(self, v5, v6, v7);
+        v14 = objc_msgSend_copy(v10, v15, v16, v17);
         goto LABEL_21;
       }
     }
 
     else
     {
-      if (v10 == 2)
+      if (v9 == 2)
       {
 LABEL_16:
         v4->_decimalValue = self->_decimalValue;
         goto LABEL_23;
       }
 
-      if (v10 == 3)
+      if (v9 == 3)
       {
-        v11 = objc_msgSend_stringValue(self, v5, v6, v7, v8);
-        v16 = objc_msgSend_copy(v11, v12, v13, v14, v15);
+        v10 = objc_msgSend_stringValue(self, v5, v6, v7);
+        v14 = objc_msgSend_copy(v10, v11, v12, v13);
         goto LABEL_21;
       }
     }
@@ -422,22 +422,22 @@ LABEL_16:
   {
     if (*(self + 8) > 7u)
     {
-      if (v10 == 8)
+      if (v9 == 8)
       {
-        v11 = objc_msgSend_richTextOrErrorTextStorageValue(self, v5, v6, v7, v8);
-        v36 = objc_msgSend_richTextOrErrorTextStorageValue(self, v32, v33, v34, v35);
-        v41 = objc_msgSend_context(v36, v37, v38, v39, v40);
-        v45 = objc_msgSend_copyWithContext_(v11, v42, v41, v43, v44);
-        objValue = v9->_objValue;
-        v9->_objValue = v45;
+        v10 = objc_msgSend_richTextOrErrorTextStorageValue(self, v5, v6, v7);
+        v30 = objc_msgSend_richTextOrErrorTextStorageValue(self, v27, v28, v29);
+        v34 = objc_msgSend_context(v30, v31, v32, v33);
+        v37 = objc_msgSend_copyWithContext_(v10, v35, v34, v36);
+        objValue = v8->_objValue;
+        v8->_objValue = v37;
 
 LABEL_22:
         goto LABEL_23;
       }
 
-      if (v10 != 9)
+      if (v9 != 9)
       {
-        if (v10 != 10)
+        if (v9 != 10)
         {
           goto LABEL_23;
         }
@@ -445,65 +445,65 @@ LABEL_22:
         goto LABEL_16;
       }
 
-      v11 = objc_msgSend_richTextOrErrorTextStorageValue(self, v5, v6, v7, v8);
-      v16 = objc_msgSend_p_copyStorage_(v9, v47, v11, v48, v49);
+      v10 = objc_msgSend_richTextOrErrorTextStorageValue(self, v5, v6, v7);
+      v14 = objc_msgSend_p_copyStorage_(v8, v39, v10, v40);
 LABEL_21:
-      v50 = v9->_objValue;
-      v9->_objValue = v16;
+      v41 = v8->_objValue;
+      v8->_objValue = v14;
 
       goto LABEL_22;
     }
 
-    if (v10 == 6)
+    if (v9 == 6)
     {
       v4->_BOOLValue = self->_BOOLValue;
       goto LABEL_23;
     }
 
-    if (v10 == 7)
+    if (v9 == 7)
     {
       goto LABEL_16;
     }
   }
 
 LABEL_23:
-  v51 = objc_msgSend_copy(self->_formattedValue, v5, v6, v7, v8);
-  formattedValue = v9->_formattedValue;
-  v9->_formattedValue = v51;
+  v42 = objc_msgSend_copy(self->_formattedValue, v5, v6, v7);
+  formattedValue = v8->_formattedValue;
+  v8->_formattedValue = v42;
 
   formattedRichTextStorage = self->_formattedRichTextStorage;
-  v58 = objc_msgSend_context(formattedRichTextStorage, v54, v55, v56, v57);
-  v62 = objc_msgSend_copyWithContext_(formattedRichTextStorage, v59, v58, v60, v61);
-  v63 = v9->_formattedRichTextStorage;
-  v9->_formattedRichTextStorage = v62;
+  v48 = objc_msgSend_context(formattedRichTextStorage, v45, v46, v47);
+  v51 = objc_msgSend_copyWithContext_(formattedRichTextStorage, v49, v48, v50);
+  v52 = v8->_formattedRichTextStorage;
+  v8->_formattedRichTextStorage = v51;
 
-  v9->_explicitFlags = self->_explicitFlags;
-  v9->_cellFormatKind = self->_cellFormatKind;
-  v68 = objc_msgSend_copy(self->_numberFormat, v64, v65, v66, v67);
-  numberFormat = v9->_numberFormat;
-  v9->_numberFormat = v68;
+  v8->_explicitFlags = self->_explicitFlags;
+  v8->_cellFormatKind = self->_cellFormatKind;
+  v56 = objc_msgSend_copy(self->_numberFormat, v53, v54, v55);
+  numberFormat = v8->_numberFormat;
+  v8->_numberFormat = v56;
 
-  v74 = objc_msgSend_copy(self->_currencyFormat, v70, v71, v72, v73);
-  currencyFormat = v9->_currencyFormat;
-  v9->_currencyFormat = v74;
+  v61 = objc_msgSend_copy(self->_currencyFormat, v58, v59, v60);
+  currencyFormat = v8->_currencyFormat;
+  v8->_currencyFormat = v61;
 
-  v80 = objc_msgSend_copy(self->_dateFormat, v76, v77, v78, v79);
-  dateFormat = v9->_dateFormat;
-  v9->_dateFormat = v80;
+  v66 = objc_msgSend_copy(self->_dateFormat, v63, v64, v65);
+  dateFormat = v8->_dateFormat;
+  v8->_dateFormat = v66;
 
-  v86 = objc_msgSend_copy(self->_durationFormat, v82, v83, v84, v85);
-  durationFormat = v9->_durationFormat;
-  v9->_durationFormat = v86;
+  v71 = objc_msgSend_copy(self->_durationFormat, v68, v69, v70);
+  durationFormat = v8->_durationFormat;
+  v8->_durationFormat = v71;
 
-  v92 = objc_msgSend_copy(self->_BOOLeanFormat, v88, v89, v90, v91);
-  BOOLeanFormat = v9->_BOOLeanFormat;
-  v9->_BOOLeanFormat = v92;
+  v76 = objc_msgSend_copy(self->_BOOLeanFormat, v73, v74, v75);
+  BOOLeanFormat = v8->_BOOLeanFormat;
+  v8->_BOOLeanFormat = v76;
 
-  v98 = objc_msgSend_copy(self->_textFormat, v94, v95, v96, v97);
-  textFormat = v9->_textFormat;
-  v9->_textFormat = v98;
+  v81 = objc_msgSend_copy(self->_textFormat, v78, v79, v80);
+  textFormat = v8->_textFormat;
+  v8->_textFormat = v81;
 
-  return v9;
+  return v8;
 }
 
 - (id)copyForApplyingNoContentWithSuppressApplyValue:(BOOL)value
@@ -559,288 +559,288 @@ LABEL_23:
 - (id)p_copyStorage:(id)storage
 {
   storageCopy = storage;
-  v8 = objc_msgSend_context(storageCopy, v4, v5, v6, v7);
-  v12 = objc_msgSend_copyWithContext_(storageCopy, v9, v8, v10, v11);
+  v7 = objc_msgSend_context(storageCopy, v4, v5, v6);
+  v10 = objc_msgSend_copyWithContext_(storageCopy, v8, v7, v9);
 
-  v17 = objc_msgSend_parentInfo(storageCopy, v13, v14, v15, v16);
-  objc_msgSend_setParentInfo_(v12, v18, v17, v19, v20);
+  v14 = objc_msgSend_parentInfo(storageCopy, v11, v12, v13);
+  objc_msgSend_setParentInfo_(v10, v15, v14, v16);
 
-  return v12;
+  return v10;
 }
 
 - (TSUDecimal)numberOrCurrencyDecimalValue
 {
   if ((*(self + 8) | 8) != 0xA)
   {
-    v5 = MEMORY[0x277D81150];
-    v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTCellFormatAndValue numberOrCurrencyDecimalValue]", v2, v3);
-    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTCellFormatAndValue.mm", v8, v9);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v5, v11, v6, v10, 384, 0, "Getting a non-double value as double from a TSTCellFormatAndValue.");
+    v4 = MEMORY[0x277D81150];
+    v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTCellFormatAndValue numberOrCurrencyDecimalValue]", v2);
+    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTCellFormatAndValue.mm", v7);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v4, v9, v5, v8, 384, 0, "Getting a non-double value as double from a TSTCellFormatAndValue.");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v12, v13, v14, v15);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v10, v11, v12);
   }
 
-  v16 = self->_decimalValue._decimal.w[0];
-  v17 = self->_decimalValue._decimal.w[1];
-  result._decimal.w[1] = v17;
-  result._decimal.w[0] = v16;
+  v13 = self->_decimalValue._decimal.w[0];
+  v14 = self->_decimalValue._decimal.w[1];
+  result._decimal.w[1] = v14;
+  result._decimal.w[0] = v13;
   return result;
 }
 
 - (BOOL)hasStringContentMatchingCell:(id)cell
 {
   cellCopy = cell;
-  v9 = *(self + 8);
-  if (v9 == 3)
+  v8 = *(self + 8);
+  if (v8 == 3)
   {
-    v15 = objc_msgSend_stringValue(self, v4, v5, v6, v7);
+    v13 = objc_msgSend_stringValue(self, v4, v5, v6);
   }
 
-  else if (v9 == 9)
+  else if (v8 == 9)
   {
-    v10 = objc_msgSend_richTextOrErrorTextStorageValue(self, v4, v5, v6, v7);
-    v15 = objc_msgSend_stringValue(v10, v11, v12, v13, v14);
+    v9 = objc_msgSend_richTextOrErrorTextStorageValue(self, v4, v5, v6);
+    v13 = objc_msgSend_stringValue(v9, v10, v11, v12);
   }
 
   else
   {
-    v20 = MEMORY[0x277D81150];
-    v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "[TSTCellFormatAndValue hasStringContentMatchingCell:]", v6, v7);
-    v25 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTCellFormatAndValue.mm", v23, v24);
-    v29 = objc_msgSend_stringForCellValueType_(TSTCell, v26, *(self + 8), v27, v28);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v20, v30, v21, v25, 410, 0, "no string content comparison implemented for value type %@", v29);
+    v17 = MEMORY[0x277D81150];
+    v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "[TSTCellFormatAndValue hasStringContentMatchingCell:]", v6);
+    v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTCellFormatAndValue.mm", v20);
+    v24 = objc_msgSend_stringForCellValueType_(TSTCell, v22, *(self + 8), v23);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v17, v25, v18, v21, 410, 0, "no string content comparison implemented for value type %@", v24);
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v31, v32, v33, v34);
-    v15 = 0;
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v26, v27, v28);
+    v13 = 0;
   }
 
-  v35 = objc_msgSend_valueType(cellCopy, v16, v17, v18, v19);
-  if (objc_msgSend_hasFormula(cellCopy, v36, v37, v38, v39))
+  v29 = objc_msgSend_valueType(cellCopy, v14, v15, v16);
+  if (objc_msgSend_hasFormula(cellCopy, v30, v31, v32))
   {
     goto LABEL_11;
   }
 
-  if (v35 == 9)
+  if (v29 == 9)
   {
-    v50 = objc_msgSend_richTextValue(cellCopy, v40, v41, v42, v43);
-    v47 = objc_msgSend_string(v50, v51, v52, v53, v54);
+    v41 = objc_msgSend_richTextValue(cellCopy, v33, v34, v35);
+    v38 = objc_msgSend_string(v41, v42, v43, v44);
 
-    if (v15)
+    if (v13)
     {
       goto LABEL_10;
     }
 
 LABEL_15:
-    v48 = 0;
+    v39 = 0;
     goto LABEL_13;
   }
 
-  if (v35 != 3)
+  if (v29 != 3)
   {
 LABEL_11:
-    v47 = 0;
-    v48 = 0;
+    v38 = 0;
+    v39 = 0;
     goto LABEL_12;
   }
 
-  v47 = objc_msgSend_stringValue(cellCopy, v40, v41, v42, v43);
-  if (!v15)
+  v38 = objc_msgSend_stringValue(cellCopy, v33, v34, v35);
+  if (!v13)
   {
     goto LABEL_15;
   }
 
 LABEL_10:
-  v48 = objc_msgSend_compare_(v15, v44, v47, v45, v46) == 0;
+  v39 = objc_msgSend_compare_(v13, v36, v38, v37) == 0;
 LABEL_12:
 
 LABEL_13:
-  return v48;
+  return v39;
 }
 
 - (id)cellValueWithLocale:(id)locale
 {
   localeCopy = locale;
-  v9 = objc_msgSend_getCurrentFormat(self, v5, v6, v7, v8);
-  TSCEFormat::TSCEFormat(&v81, v9, 0);
-  v14 = objc_msgSend_valueType(self, v10, v11, v12, v13);
-  v19 = 0;
-  if (v14 > 5)
+  v8 = objc_msgSend_getCurrentFormat(self, v5, v6, v7);
+  TSCEFormat::TSCEFormat(&v63, v8, 0);
+  v12 = objc_msgSend_valueType(self, v9, v10, v11);
+  v16 = 0;
+  if (v12 > 5)
   {
-    if (v14 <= 7)
+    if (v12 <= 7)
     {
-      if (v14 != 6)
+      if (v12 != 6)
       {
-        v46 = objc_msgSend_asDurationFormat(v9, v15, v16, v17, v18);
+        v37 = objc_msgSend_asDurationFormat(v8, v13, v14, v15);
         TSUDecimal::doubleValue(&self->_decimalValue);
-        v51 = objc_msgSend_durationUnitLargestWithTimeInterval_(v46, v47, v48, v49, v50);
-        v52 = sub_221387C78(v51);
+        v41 = objc_msgSend_durationUnitLargestWithTimeInterval_(v37, v38, v39, v40);
+        v42 = sub_221387C78(v41);
 
-        v23 = objc_msgSend_numberWithDecimal_format_baseUnit_(TSCENumberValue, v53, &self->_decimalValue, &v81, v52);
-        v54 = [TSCENumberCellValue alloc];
-        v27 = objc_msgSend_initWithNumberValue_locale_(v54, v55, v23, localeCopy, v56);
+        v19 = objc_msgSend_numberWithDecimal_format_baseUnit_(TSCENumberValue, v43, &self->_decimalValue, &v63, v42);
+        v44 = [TSCENumberCellValue alloc];
+        v22 = objc_msgSend_initWithNumberValue_locale_(v44, v45, v19, localeCopy);
         goto LABEL_24;
       }
 
-      v57 = [TSCEBooleanCellValue alloc];
-      v45 = objc_msgSend_initWithBoolean_locale_(v57, v58, self->_BOOLValue, localeCopy, v59);
+      v46 = [TSCEBooleanCellValue alloc];
+      v36 = objc_msgSend_initWithBoolean_locale_(v46, v47, self->_BOOLValue, localeCopy);
 LABEL_19:
-      v19 = v45;
+      v16 = v36;
       goto LABEL_25;
     }
 
-    if (v14 != 8)
+    if (v12 != 8)
     {
-      if (v14 == 9)
+      if (v12 == 9)
       {
-        v66 = objc_msgSend_richTextOrErrorTextStorageValue(self, v15, v16, v17, v18);
-        v71 = objc_msgSend_stringValue(v66, v67, v68, v69, v70);
-        v23 = objc_msgSend_stringValue_format_(TSCEStringValue, v72, v71, &v81, v73);
+        v52 = objc_msgSend_richTextOrErrorTextStorageValue(self, v13, v14, v15);
+        v56 = objc_msgSend_stringValue(v52, v53, v54, v55);
+        v19 = objc_msgSend_stringValue_format_(TSCEStringValue, v57, v56, &v63);
 
-        v74 = [TSCEStringCellValue alloc];
-        v27 = objc_msgSend_initWithStringValue_locale_(v74, v75, v23, localeCopy, v76);
+        v58 = [TSCEStringCellValue alloc];
+        v22 = objc_msgSend_initWithStringValue_locale_(v58, v59, v19, localeCopy);
       }
 
       else
       {
-        if (v14 != 10)
+        if (v12 != 10)
         {
           goto LABEL_25;
         }
 
-        if (v81._formatType == 257)
+        if (v63._formatType == 257)
         {
-          v28 = objc_msgSend_asCurrencyFormat(v9, v15, v16, v17, v18);
-          v33 = objc_msgSend_currencyCode(v28, v29, v30, v31, v32);
+          v23 = objc_msgSend_asCurrencyFormat(v8, v13, v14, v15);
+          v27 = objc_msgSend_currencyCode(v23, v24, v25, v26);
 
-          v37 = objc_msgSend_unitForCurrencyCode_(TSCEUnitRegistry, v34, v33, v35, v36);
+          v30 = objc_msgSend_unitForCurrencyCode_(TSCEUnitRegistry, v28, v27, v29);
         }
 
         else
         {
-          v37 = 0;
+          v30 = 0;
         }
 
-        v23 = objc_msgSend_numberWithDecimal_format_baseUnit_(TSCENumberValue, v15, &self->_decimalValue, &v81, v37);
-        v77 = [TSCENumberCellValue alloc];
-        v27 = objc_msgSend_initWithNumberValue_locale_(v77, v78, v23, localeCopy, v79);
+        v19 = objc_msgSend_numberWithDecimal_format_baseUnit_(TSCENumberValue, v13, &self->_decimalValue, &v63, v30);
+        v60 = [TSCENumberCellValue alloc];
+        v22 = objc_msgSend_initWithNumberValue_locale_(v60, v61, v19, localeCopy);
       }
 
       goto LABEL_24;
     }
 
 LABEL_15:
-    v41 = [TSCENilCellValue alloc];
-    v45 = objc_msgSend_initWithLocale_(v41, v42, localeCopy, v43, v44);
+    v33 = [TSCENilCellValue alloc];
+    v36 = objc_msgSend_initWithLocale_(v33, v34, localeCopy, v35);
     goto LABEL_19;
   }
 
-  if (v14 <= 2)
+  if (v12 <= 2)
   {
-    if (v14)
+    if (v12)
     {
-      if (v14 != 2)
+      if (v12 != 2)
       {
         goto LABEL_25;
       }
 
-      v23 = objc_msgSend_numberWithDecimal_format_(TSCENumberValue, v15, &self->_decimalValue, &v81, v18);
-      v38 = [TSCENumberCellValue alloc];
-      v27 = objc_msgSend_initWithNumberValue_locale_(v38, v39, v23, localeCopy, v40);
+      v19 = objc_msgSend_numberWithDecimal_format_(TSCENumberValue, v13, &self->_decimalValue, &v63);
+      v31 = [TSCENumberCellValue alloc];
+      v22 = objc_msgSend_initWithNumberValue_locale_(v31, v32, v19, localeCopy);
       goto LABEL_24;
     }
 
     goto LABEL_15;
   }
 
-  if (v14 == 3)
+  if (v12 == 3)
   {
-    v60 = objc_msgSend_stringValue(self, v15, v16, v17, v18);
-    v23 = objc_msgSend_stringValue_format_(TSCEStringValue, v61, v60, &v81, v62);
+    v48 = objc_msgSend_stringValue(self, v13, v14, v15);
+    v19 = objc_msgSend_stringValue_format_(TSCEStringValue, v49, v48, &v63);
 
-    v63 = [TSCEStringCellValue alloc];
-    v27 = objc_msgSend_initWithStringValue_locale_(v63, v64, v23, localeCopy, v65);
+    v50 = [TSCEStringCellValue alloc];
+    v22 = objc_msgSend_initWithStringValue_locale_(v50, v51, v19, localeCopy);
     goto LABEL_24;
   }
 
-  if (v14 == 4)
+  if (v12 == 4)
   {
     goto LABEL_15;
   }
 
-  v20 = objc_msgSend_dateValue(self, v15, v16, v17, v18);
-  v23 = objc_msgSend_dateValue_format_(TSCEDateValue, v21, v20, &v81, v22);
+  v17 = objc_msgSend_dateValue(self, v13, v14, v15);
+  v19 = objc_msgSend_dateValue_format_(TSCEDateValue, v18, v17, &v63);
 
-  v24 = [TSCEDateCellValue alloc];
-  v27 = objc_msgSend_initWithDateValue_locale_(v24, v25, v23, localeCopy, v26);
+  v20 = [TSCEDateCellValue alloc];
+  v22 = objc_msgSend_initWithDateValue_locale_(v20, v21, v19, localeCopy);
 LABEL_24:
-  v19 = v27;
+  v16 = v22;
 
 LABEL_25:
 
-  return v19;
+  return v16;
 }
 
 - (void)applyToCell:(id)cell
 {
   cellCopy = cell;
-  v116 = cellCopy;
+  v87 = cellCopy;
   if (self->_applySpareFormatOnly)
   {
-    v9 = objc_msgSend_formatType(cellCopy, v5, v6, v7, v8);
-    if (objc_msgSend_formatType_isSameCellFormatKindAs_(TSTCell, v10, self->_spareFormatType, v9, v11))
+    v8 = objc_msgSend_formatType(cellCopy, v5, v6, v7);
+    if (objc_msgSend_formatType_isSameCellFormatKindAs_(TSTCell, v9, self->_spareFormatType, v8))
     {
       goto LABEL_58;
     }
 
-    v12 = sub_22121E75C(self->_spareFormatType);
-    v16 = objc_msgSend_p_formatForFormatType_(self, v13, v12, v14, v15);
-    objc_msgSend_setFormat_isExplicit_(v116, v17, v16, 1, v18);
+    v10 = sub_22121E75C(self->_spareFormatType);
+    v13 = objc_msgSend_p_formatForFormatType_(self, v11, v10, v12);
+    objc_msgSend_setFormat_isExplicit_(v87, v14, v13, 1);
     goto LABEL_57;
   }
 
   if (!self->_suppressApplyValue)
   {
-    objc_msgSend_clearValue(cellCopy, v5, v6, v7, v8);
-    v19 = *(self + 8);
-    if (v19 <= 5)
+    objc_msgSend_clearValue(cellCopy, v5, v6, v7);
+    v15 = *(self + 8);
+    if (v15 <= 5)
     {
       if (*(self + 8) > 3u)
       {
-        if (v19 == 4)
+        if (v15 == 4)
         {
-          v31 = MEMORY[0x277D81150];
-          v32 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v5, "[TSTCellFormatAndValue applyToCell:]", v7, v8);
-          v36 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v33, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTCellFormatAndValue.mm", v34, v35);
-          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v31, v37, v32, v36, 525, 0, "deprecated cell value type found");
+          v24 = MEMORY[0x277D81150];
+          v25 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v5, "[TSTCellFormatAndValue applyToCell:]", v7);
+          v28 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v26, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTCellFormatAndValue.mm", v27);
+          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v24, v29, v25, v28, 525, 0, "deprecated cell value type found");
 
-          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v38, v39, v40, v41);
+          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v30, v31, v32);
           goto LABEL_28;
         }
 
-        if (v19 != 5)
+        if (v15 != 5)
         {
           goto LABEL_28;
         }
 
-        v20 = objc_msgSend_dateValue(self, v5, v6, v7, v8);
-        objc_msgSend_setDateValue_(v116, v24, v20, v25, v26);
+        v16 = objc_msgSend_dateValue(self, v5, v6, v7);
+        objc_msgSend_setDateValue_(v87, v19, v16, v20);
       }
 
       else
       {
-        if (v19 == 2)
+        if (v15 == 2)
         {
-          objc_msgSend_setNumberDecimalValue_(v116, v5, self->_decimalValue._decimal.w[0], self->_decimalValue._decimal.w[1], v8);
+          objc_msgSend_setNumberDecimalValue_(v87, v5, self->_decimalValue._decimal.w[0], self->_decimalValue._decimal.w[1]);
           goto LABEL_28;
         }
 
-        if (v19 != 3)
+        if (v15 != 3)
         {
           goto LABEL_28;
         }
 
-        v20 = objc_msgSend_stringValue(self, v5, v6, v7, v8);
-        objc_msgSend_setStringValue_(v116, v21, v20, v22, v23);
+        v16 = objc_msgSend_stringValue(self, v5, v6, v7);
+        objc_msgSend_setStringValue_(v87, v17, v16, v18);
       }
 
       goto LABEL_27;
@@ -848,33 +848,33 @@ LABEL_25:
 
     if (*(self + 8) > 7u)
     {
-      if (v19 == 8)
+      if (v15 == 8)
       {
         if (!self->_objValue)
         {
           goto LABEL_28;
         }
 
-        v20 = objc_msgSend_richTextOrErrorTextStorageValue(self, v5, v6, v7, v8);
-        objc_msgSend_setFormulaSyntaxError_(v116, v42, v20, v43, v44);
+        v16 = objc_msgSend_richTextOrErrorTextStorageValue(self, v5, v6, v7);
+        objc_msgSend_setFormulaSyntaxError_(v87, v33, v16, v34);
       }
 
       else
       {
-        if (v19 != 9)
+        if (v15 != 9)
         {
-          if (v19 == 10)
+          if (v15 == 10)
           {
-            objc_msgSend_setCurrencyDecimalValue_(v116, v5, self->_decimalValue._decimal.w[0], self->_decimalValue._decimal.w[1], v8);
+            objc_msgSend_setCurrencyDecimalValue_(v87, v5, self->_decimalValue._decimal.w[0], self->_decimalValue._decimal.w[1]);
           }
 
           goto LABEL_28;
         }
 
-        v45 = objc_msgSend_richTextOrErrorTextStorageValue(self, v5, v6, v7, v8);
-        v20 = objc_msgSend_p_copyStorage_(self, v46, v45, v47, v48);
+        v35 = objc_msgSend_richTextOrErrorTextStorageValue(self, v5, v6, v7);
+        v16 = objc_msgSend_p_copyStorage_(self, v36, v35, v37);
 
-        objc_msgSend_setRichTextValue_(v116, v49, v20, v50, v51);
+        objc_msgSend_setRichTextValue_(v87, v38, v16, v39);
       }
 
 LABEL_27:
@@ -882,132 +882,132 @@ LABEL_27:
       goto LABEL_28;
     }
 
-    if (v19 == 6)
+    if (v15 == 6)
     {
-      objc_msgSend_setBoolValue_(v116, v5, self->_BOOLValue, v7, v8);
+      objc_msgSend_setBoolValue_(v87, v5, self->_BOOLValue, v7);
     }
 
-    else if (v19 == 7)
+    else if (v15 == 7)
     {
       TSUDecimal::doubleValue(&self->_decimalValue);
-      objc_msgSend_setDurationTimeIntervalValue_(v116, v27, v28, v29, v30);
+      objc_msgSend_setDurationTimeIntervalValue_(v87, v21, v22, v23);
     }
   }
 
 LABEL_28:
-  v16 = objc_msgSend_currentFormat(v116, v5, v6, v7, v8);
+  v13 = objc_msgSend_currentFormat(v87, v5, v6, v7);
   if (self->_useAllSpareFormats)
   {
     numberFormat = self->_numberFormat;
     if (numberFormat)
     {
-      objc_msgSend_setFormat_isExplicit_(v116, v52, numberFormat, 0, v54);
+      objc_msgSend_setFormat_isExplicit_(v87, v40, numberFormat, 0);
     }
 
     else
     {
-      objc_msgSend_clearFormatOfType_(v116, v52, 256, v53, v54);
+      objc_msgSend_clearFormatOfType_(v87, v40, 256, v41);
     }
 
     currencyFormat = self->_currencyFormat;
     if (currencyFormat)
     {
-      objc_msgSend_setFormat_isExplicit_(v116, v56, currencyFormat, 0, v58);
+      objc_msgSend_setFormat_isExplicit_(v87, v43, currencyFormat, 0);
     }
 
     else
     {
-      objc_msgSend_clearFormatOfType_(v116, v56, 257, v57, v58);
+      objc_msgSend_clearFormatOfType_(v87, v43, 257, v44);
     }
 
     dateFormat = self->_dateFormat;
     if (dateFormat)
     {
-      objc_msgSend_setFormat_isExplicit_(v116, v67, dateFormat, 0, v69);
+      objc_msgSend_setFormat_isExplicit_(v87, v51, dateFormat, 0);
     }
 
     else
     {
-      objc_msgSend_clearFormatOfType_(v116, v67, 261, v68, v69);
+      objc_msgSend_clearFormatOfType_(v87, v51, 261, v52);
     }
 
     durationFormat = self->_durationFormat;
     if (durationFormat)
     {
-      objc_msgSend_setFormat_isExplicit_(v116, v71, durationFormat, 0, v73);
+      objc_msgSend_setFormat_isExplicit_(v87, v54, durationFormat, 0);
     }
 
     else
     {
-      objc_msgSend_clearFormatOfType_(v116, v71, 268, v72, v73);
+      objc_msgSend_clearFormatOfType_(v87, v54, 268, v55);
     }
 
     textFormat = self->_textFormat;
     if (textFormat)
     {
-      objc_msgSend_setFormat_isExplicit_(v116, v75, textFormat, 0, v77);
+      objc_msgSend_setFormat_isExplicit_(v87, v57, textFormat, 0);
     }
 
     else
     {
-      objc_msgSend_clearFormatOfType_(v116, v75, 260, v76, v77);
+      objc_msgSend_clearFormatOfType_(v87, v57, 260, v58);
     }
 
     BOOLeanFormat = self->_BOOLeanFormat;
     if (BOOLeanFormat)
     {
-      objc_msgSend_setFormat_isExplicit_(v116, v79, BOOLeanFormat, 0, v81);
+      objc_msgSend_setFormat_isExplicit_(v87, v60, BOOLeanFormat, 0);
     }
 
     else
     {
-      objc_msgSend_clearFormatOfType_(v116, v79, 1, v80, v81);
+      objc_msgSend_clearFormatOfType_(v87, v60, 1, v61);
     }
 
-    objc_msgSend_suggestCellFormatKind_(v116, v83, self->_cellFormatKind, v84, v85);
-    objc_msgSend_setExplicitFormatFlags_(v116, v86, self->_explicitFlags, v87, v88);
+    objc_msgSend_suggestCellFormatKind_(v87, v63, self->_cellFormatKind, v64);
+    objc_msgSend_setExplicitFormatFlags_(v87, v65, self->_explicitFlags, v66);
   }
 
   else
   {
-    v59 = objc_msgSend_p_formatForFormatType_(self, v52, self->_cellFormatKind, v53, v54);
-    objc_msgSend_setCurrentFormat_flags_(v116, v60, v59, self->_explicitFlags, v61);
+    v45 = objc_msgSend_p_formatForFormatType_(self, v40, self->_cellFormatKind, v41);
+    objc_msgSend_setCurrentFormat_flags_(v87, v46, v45, self->_explicitFlags);
   }
 
   if (self->_suppressApplyValue)
   {
-    v89 = objc_msgSend_valueType(v116, v62, v63, v64, v65);
-    v93 = objc_msgSend_cellFormatKindForValueType_(TSTCell, v90, v89, v91, v92);
+    v67 = objc_msgSend_valueType(v87, v47, v48, v49);
+    v70 = objc_msgSend_cellFormatKindForValueType_(TSTCell, v68, v67, v69);
     cellFormatKind = self->_cellFormatKind;
-    if (v93 == 1 && cellFormatKind == 2)
+    if (v70 == 1 && cellFormatKind == 2)
     {
-      v98 = objc_msgSend_numberDecimalValue(v116, v94, v93, v95, v96);
-      objc_msgSend_setCurrencyDecimalValue_roundToDoublePrecision_(v116, v99, v98, v99, 0);
-      v103 = objc_msgSend_p_formatForFormatType_(self, v100, self->_cellFormatKind, v101, v102);
-      objc_msgSend_setCurrentFormat_flags_(v116, v104, v103, self->_explicitFlags, v105);
+      v74 = objc_msgSend_numberDecimalValue(v87, v71, v70, v72);
+      objc_msgSend_setCurrencyDecimalValue_roundToDoublePrecision_(v87, v75, v74, v75, 0);
+      v78 = objc_msgSend_p_formatForFormatType_(self, v76, self->_cellFormatKind, v77);
+      objc_msgSend_setCurrentFormat_flags_(v87, v79, v78, self->_explicitFlags);
     }
 
     else
     {
-      if (v93 != 2 || cellFormatKind != 1)
+      if (v70 != 2 || cellFormatKind != 1)
       {
-        if (v93)
+        if (v70)
         {
-          v113 = objc_msgSend_formatOfCellFormatKind_isExplicit_(v116, v94, v93, 0, v96);
+          v85 = objc_msgSend_formatOfCellFormatKind_isExplicit_(v87, v71, v70, 0);
 
-          if (!v113)
+          if (!v85)
           {
-            objc_msgSend_setCurrentFormat_isExplicit_(v116, v114, v16, 0, v115);
+            objc_msgSend_setCurrentFormat_isExplicit_(v87, v86, v13, 0);
           }
         }
 
         goto LABEL_57;
       }
 
-      v106 = objc_msgSend_currencyDecimalValue(v116, v94, v93, v95, v96);
-      objc_msgSend_setNumberDecimalValue_roundToDoublePrecision_(v116, v107, v106, v107, 0);
-      v103 = objc_msgSend_p_formatForFormatType_(self, v108, self->_cellFormatKind, v109, v110);
-      objc_msgSend_setCurrentFormat_flags_(v116, v111, v103, self->_explicitFlags, v112);
+      v80 = objc_msgSend_currencyDecimalValue(v87, v71, v70, v72);
+      objc_msgSend_setNumberDecimalValue_roundToDoublePrecision_(v87, v81, v80, v81, 0);
+      v78 = objc_msgSend_p_formatForFormatType_(self, v82, self->_cellFormatKind, v83);
+      objc_msgSend_setCurrentFormat_flags_(v87, v84, v78, self->_explicitFlags);
     }
   }
 
@@ -1032,36 +1032,36 @@ LABEL_58:
 {
   inMapCopy = inMap;
   setPropertyMapCopy = setPropertyMap;
-  v17 = objc_msgSend_objectForProperty_(map, v11, 907, v12, v13);
-  if (v17)
+  v15 = objc_msgSend_objectForProperty_(map, v11, 907, v12);
+  if (v15)
   {
-    v18 = MEMORY[0x277D81150];
-    v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, "[TSTCellFormatAndValue objectByRemovingPropertiesInMap:addingPropertiesInMap:updateInverseResetPropertyMap:updateInverseSetPropertyMap:]", v15, v16);
-    v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v20, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTCellFormatAndValue.mm", v21, v22);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v18, v24, v19, v23, 633, 0, "shouldn't remove the value and format from a cell");
+    v16 = MEMORY[0x277D81150];
+    v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "[TSTCellFormatAndValue objectByRemovingPropertiesInMap:addingPropertiesInMap:updateInverseResetPropertyMap:updateInverseSetPropertyMap:]", v14);
+    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTCellFormatAndValue.mm", v19);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v16, v21, v17, v20, 633, 0, "shouldn't remove the value and format from a cell");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v25, v26, v27, v28);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v22, v23, v24);
   }
 
-  objc_msgSend_setObject_forProperty_(setPropertyMapCopy, v14, self, 907, v16);
-  v32 = objc_msgSend_objectForProperty_(inMapCopy, v29, 907, v30, v31);
+  objc_msgSend_setObject_forProperty_(setPropertyMapCopy, v13, self, 907);
+  v27 = objc_msgSend_objectForProperty_(inMapCopy, v25, 907, v26);
 
-  return v32;
+  return v27;
 }
 
 - (id)initFromPropertyCommandMessage:(const Message *)message unarchiver:(id)unarchiver
 {
   unarchiverCopy = unarchiver;
-  v65.receiver = self;
-  v65.super_class = TSTCellFormatAndValue;
-  v7 = [(TSTCellFormatAndValue *)&v65 init];
-  v12 = v7;
+  v62.receiver = self;
+  v62.super_class = TSTCellFormatAndValue;
+  v7 = [(TSTCellFormatAndValue *)&v62 init];
+  v11 = v7;
   if (!v7)
   {
     goto LABEL_45;
   }
 
-  v13 = 0;
+  v12 = 0;
   var0 = message[7].var0;
   if (var0 <= 4)
   {
@@ -1070,34 +1070,34 @@ LABEL_58:
       if (var0 != 3)
       {
         *(v7 + 8) = 5;
-        v16 = objc_msgSend_dateWithTimeIntervalSinceReferenceDate_(MEMORY[0x277CBEAA8], v8, v9, v10, v11, *&message[6].var1.var0);
+        v15 = objc_msgSend_dateWithTimeIntervalSinceReferenceDate_(MEMORY[0x277CBEAA8], v8, v9, v10, *&message[6].var1.var0);
         goto LABEL_14;
       }
 
-      v13 = 4;
+      v12 = 4;
     }
 
     else
     {
       if (var0 == 1)
       {
-        v15 = 2;
+        v14 = 2;
         goto LABEL_19;
       }
 
       if (var0 == 2)
       {
         *(v7 + 8) = 3;
-        v16 = objc_msgSend_tsp_stringWithProtobufString_(MEMORY[0x277CCACA8], v8, message[1].var1.var0 & 0xFFFFFFFFFFFFFFFELL, v10, v11);
+        v15 = objc_msgSend_tsp_stringWithProtobufString_(MEMORY[0x277CCACA8], v8, message[1].var1.var0 & 0xFFFFFFFFFFFFFFFELL, v10);
 LABEL_14:
-        v17 = v12[3]._decimal.w[0];
-        v12[3]._decimal.w[0] = v16;
+        v16 = v11[3]._decimal.w[0];
+        v11[3]._decimal.w[0] = v15;
         goto LABEL_15;
       }
     }
 
 LABEL_23:
-    *(v7 + 8) = v13;
+    *(v7 + 8) = v12;
     goto LABEL_29;
   }
 
@@ -1110,19 +1110,19 @@ LABEL_23:
       goto LABEL_29;
     }
 
-    v15 = 7;
+    v14 = 7;
 LABEL_19:
-    *(v7 + 8) = v15;
+    *(v7 + 8) = v14;
     if ((BYTE2(message[1].var0) & 4) != 0)
     {
-      TSUDecimal::TSUDecimal(&v64);
-      v12[2] = v64;
+      TSUDecimal::TSUDecimal(&v61);
+      v11[2] = v61;
     }
 
     else
     {
       TSUDecimal::operator=();
-      TSUDecimal::reinterpretDoubleAsDecimal(v12 + 2);
+      TSUDecimal::reinterpretDoubleAsDecimal(v11 + 2);
     }
 
     goto LABEL_29;
@@ -1137,45 +1137,45 @@ LABEL_19:
         goto LABEL_29;
       }
 
-      v18 = message[2].var1.var0;
-      v62[0] = MEMORY[0x277D85DD0];
-      v62[1] = 3221225472;
-      v62[2] = sub_22130FEA0;
-      v62[3] = &unk_27845E090;
-      v63 = v7;
-      v19 = unarchiverCopy;
-      v20 = objc_opt_class();
-      objc_msgSend_readReferenceMessage_class_protocol_completion_(v19, v21, v18, v20, 0, v62);
+      v17 = message[2].var1.var0;
+      v59[0] = MEMORY[0x277D85DD0];
+      v59[1] = 3221225472;
+      v59[2] = sub_22130FEA0;
+      v59[3] = &unk_27845E090;
+      v60 = v7;
+      v18 = unarchiverCopy;
+      v19 = objc_opt_class();
+      objc_msgSend_readReferenceMessage_class_protocol_completion_(v18, v20, v17, v19, 0, v59);
 
-      v17 = v63;
+      v16 = v60;
       break;
     case 8:
       *(v7 + 8) = 9;
       if ((message[1].var0 & 4) == 0)
       {
-        v22 = MEMORY[0x277D81150];
-        v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "[TSTCellFormatAndValue initFromPropertyCommandMessage:unarchiver:]", v10, v11);
-        v27 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v24, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTCellFormatAndValue.mm", v25, v26);
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v22, v28, v23, v27, 691, 0, "rich text cells should have a rich text payload");
+        v21 = MEMORY[0x277D81150];
+        v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "[TSTCellFormatAndValue initFromPropertyCommandMessage:unarchiver:]", v10);
+        v25 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v23, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTCellFormatAndValue.mm", v24);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v21, v26, v22, v25, 691, 0, "rich text cells should have a rich text payload");
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v29, v30, v31, v32);
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v27, v28, v29);
         goto LABEL_29;
       }
 
-      v54 = message[2].var1.var0;
-      v60[0] = MEMORY[0x277D85DD0];
-      v60[1] = 3221225472;
-      v60[2] = sub_22130FEAC;
-      v60[3] = &unk_27845E090;
-      v61 = v7;
-      v55 = unarchiverCopy;
-      v56 = objc_opt_class();
-      objc_msgSend_readReferenceMessage_class_protocol_completion_(v55, v57, v54, v56, 0, v60);
+      v51 = message[2].var1.var0;
+      v57[0] = MEMORY[0x277D85DD0];
+      v57[1] = 3221225472;
+      v57[2] = sub_22130FEAC;
+      v57[3] = &unk_27845E090;
+      v58 = v7;
+      v52 = unarchiverCopy;
+      v53 = objc_opt_class();
+      objc_msgSend_readReferenceMessage_class_protocol_completion_(v52, v54, v51, v53, 0, v57);
 
-      v17 = v61;
+      v16 = v58;
       break;
     case 9:
-      v15 = 10;
+      v14 = 10;
       goto LABEL_19;
     default:
       goto LABEL_23;
@@ -1184,93 +1184,93 @@ LABEL_19:
 LABEL_15:
 
 LABEL_29:
-  v33 = message[1].var0;
-  if ((v33 & 2) != 0)
+  v30 = message[1].var0;
+  if ((v30 & 2) != 0)
   {
-    v34 = objc_msgSend_tsp_stringWithProtobufString_(MEMORY[0x277CCACA8], v8, message[2].var0 & 0xFFFFFFFFFFFFFFFELL, v10, v11);
-    v35 = v12[3]._decimal.w[1];
-    v12[3]._decimal.w[1] = v34;
+    v31 = objc_msgSend_tsp_stringWithProtobufString_(MEMORY[0x277CCACA8], v8, message[2].var0 & 0xFFFFFFFFFFFFFFFELL, v10);
+    v32 = v11[3]._decimal.w[1];
+    v11[3]._decimal.w[1] = v31;
 
-    v33 = message[1].var0;
+    v30 = message[1].var0;
   }
 
-  if ((v33 & 0x200) != 0)
+  if ((v30 & 0x200) != 0)
   {
-    v36 = message[6].var0;
-    v58[0] = MEMORY[0x277D85DD0];
-    v58[1] = 3221225472;
-    v58[2] = sub_22130FEB8;
-    v58[3] = &unk_27845E090;
-    v59 = v12;
-    v37 = unarchiverCopy;
-    v38 = objc_opt_class();
-    objc_msgSend_readReferenceMessage_class_protocol_completion_(v37, v39, v36, v38, 0, v58);
+    v33 = message[6].var0;
+    v55[0] = MEMORY[0x277D85DD0];
+    v55[1] = 3221225472;
+    v55[2] = sub_22130FEB8;
+    v55[3] = &unk_27845E090;
+    v56 = v11;
+    v34 = unarchiverCopy;
+    v35 = objc_opt_class();
+    objc_msgSend_readReferenceMessage_class_protocol_completion_(v34, v36, v33, v35, 0, v55);
 
-    v33 = message[1].var0;
+    v30 = message[1].var0;
   }
 
-  v40 = message[7].var1.var0;
-  LOWORD(v12[4]._decimal.w[1]) = HIDWORD(message[7].var0);
-  BYTE1(v12->_decimal.w[1]) = BYTE5(message[7].var1.var0);
-  BYTE2(v12[4]._decimal.w[1]) = v40;
-  BYTE3(v12->_decimal.w[1]) = BYTE6(message[7].var1.var0);
-  HIDWORD(v12->_decimal.w[1]) = HIBYTE(message[7].var1.var0);
-  BYTE2(v12->_decimal.w[1]) = message[9].var0;
-  if ((v33 & 8) != 0)
+  v37 = message[7].var1.var0;
+  LOWORD(v11[4]._decimal.w[1]) = HIDWORD(message[7].var0);
+  BYTE1(v11->_decimal.w[1]) = BYTE5(message[7].var1.var0);
+  BYTE2(v11[4]._decimal.w[1]) = v37;
+  BYTE3(v11->_decimal.w[1]) = BYTE6(message[7].var1.var0);
+  HIDWORD(v11->_decimal.w[1]) = HIBYTE(message[7].var1.var0);
+  BYTE2(v11->_decimal.w[1]) = message[9].var0;
+  if ((v30 & 8) != 0)
   {
-    v41 = objc_msgSend_formatFromArchive_(MEMORY[0x277D80680], v8, message[3].var0, v10, v11);
-    v42 = v12[5]._decimal.w[0];
-    v12[5]._decimal.w[0] = v41;
+    v38 = objc_msgSend_formatFromArchive_(MEMORY[0x277D80680], v8, message[3].var0, v10);
+    v39 = v11[5]._decimal.w[0];
+    v11[5]._decimal.w[0] = v38;
 
-    v33 = message[1].var0;
+    v30 = message[1].var0;
   }
 
-  if ((v33 & 0x10) != 0)
+  if ((v30 & 0x10) != 0)
   {
-    v43 = objc_msgSend_formatFromArchive_(MEMORY[0x277D80680], v8, message[3].var1.var0, v10, v11);
-    v44 = v12[5]._decimal.w[1];
-    v12[5]._decimal.w[1] = v43;
+    v40 = objc_msgSend_formatFromArchive_(MEMORY[0x277D80680], v8, message[3].var1.var0, v10);
+    v41 = v11[5]._decimal.w[1];
+    v11[5]._decimal.w[1] = v40;
 
-    v33 = message[1].var0;
+    v30 = message[1].var0;
   }
 
-  if ((v33 & 0x20) != 0)
+  if ((v30 & 0x20) != 0)
   {
-    v45 = objc_msgSend_formatFromArchive_(MEMORY[0x277D80680], v8, message[4].var0, v10, v11);
-    v46 = v12[6]._decimal.w[0];
-    v12[6]._decimal.w[0] = v45;
+    v42 = objc_msgSend_formatFromArchive_(MEMORY[0x277D80680], v8, message[4].var0, v10);
+    v43 = v11[6]._decimal.w[0];
+    v11[6]._decimal.w[0] = v42;
 
-    v33 = message[1].var0;
+    v30 = message[1].var0;
   }
 
-  if ((v33 & 0x40) != 0)
+  if ((v30 & 0x40) != 0)
   {
-    v47 = objc_msgSend_formatFromArchive_(MEMORY[0x277D80680], v8, message[4].var1.var0, v10, v11);
-    v48 = v12[6]._decimal.w[1];
-    v12[6]._decimal.w[1] = v47;
+    v44 = objc_msgSend_formatFromArchive_(MEMORY[0x277D80680], v8, message[4].var1.var0, v10);
+    v45 = v11[6]._decimal.w[1];
+    v11[6]._decimal.w[1] = v44;
 
-    v33 = message[1].var0;
+    v30 = message[1].var0;
   }
 
-  if ((v33 & 0x80) != 0)
+  if ((v30 & 0x80) != 0)
   {
-    v49 = objc_msgSend_formatFromArchive_(MEMORY[0x277D80680], v8, message[5].var0, v10, v11);
-    v50 = v12[7]._decimal.w[1];
-    v12[7]._decimal.w[1] = v49;
+    v46 = objc_msgSend_formatFromArchive_(MEMORY[0x277D80680], v8, message[5].var0, v10);
+    v47 = v11[7]._decimal.w[1];
+    v11[7]._decimal.w[1] = v46;
 
-    v33 = message[1].var0;
+    v30 = message[1].var0;
   }
 
-  if ((v33 & 0x100) != 0)
+  if ((v30 & 0x100) != 0)
   {
-    v51 = objc_msgSend_formatFromArchive_(MEMORY[0x277D80680], v8, message[5].var1.var0, v10, v11);
-    v52 = v12[7]._decimal.w[0];
-    v12[7]._decimal.w[0] = v51;
+    v48 = objc_msgSend_formatFromArchive_(MEMORY[0x277D80680], v8, message[5].var1.var0, v10);
+    v49 = v11[7]._decimal.w[0];
+    v11[7]._decimal.w[0] = v48;
   }
 
 LABEL_45:
 
-  return v12;
+  return v11;
 }
 
 - (void)saveToPropertyCommandMessage:(Message *)message archiver:(id)archiver
@@ -1278,23 +1278,23 @@ LABEL_45:
   archiverCopy = archiver;
   if (*(self + 8) - 2 < 9)
   {
-    v11 = (*(self + 8) - 2) + 1;
+    v10 = (*(self + 8) - 2) + 1;
   }
 
   else
   {
-    v11 = 0;
+    v10 = 0;
   }
 
   var0 = message[1].var0;
   LODWORD(message[1].var0) = var0 | 0x800;
-  LODWORD(message[7].var0) = v11;
-  v13 = *(self + 8);
-  if (v13 > 6)
+  LODWORD(message[7].var0) = v10;
+  v12 = *(self + 8);
+  if (v12 > 6)
   {
-    if (v13 - 8 >= 2)
+    if (v12 - 8 >= 2)
     {
-      if (v13 != 7 && v13 != 10)
+      if (v12 != 7 && v12 != 10)
       {
         goto LABEL_29;
       }
@@ -1307,22 +1307,22 @@ LABEL_45:
       goto LABEL_29;
     }
 
-    v27 = objc_msgSend_richTextOrErrorTextStorageValue(self, v6, v7, v8, v9);
+    v24 = objc_msgSend_richTextOrErrorTextStorageValue(self, v6, v7, v8);
     LODWORD(message[1].var0) |= 4u;
-    v28 = message[2].var1.var0;
-    if (!v28)
+    v25 = message[2].var1.var0;
+    if (!v25)
     {
-      v29 = message->var1.var0;
-      if (v29)
+      v26 = message->var1.var0;
+      if (v26)
       {
-        v29 = *(v29 & 0xFFFFFFFFFFFFFFFELL);
+        v26 = *(v26 & 0xFFFFFFFFFFFFFFFELL);
       }
 
-      v28 = MEMORY[0x223DA0390](v29);
-      message[2].var1.var0 = v28;
+      v25 = MEMORY[0x223DA0390](v26);
+      message[2].var1.var0 = v25;
     }
 
-    objc_msgSend_setStrongReference_message_(archiverCopy, v25, v27, v28, v26);
+    objc_msgSend_setStrongReference_message_(archiverCopy, v23, v24, v25);
 LABEL_28:
 
     goto LABEL_29;
@@ -1330,19 +1330,19 @@ LABEL_28:
 
   if (*(self + 8) <= 4u)
   {
-    if (v13 != 2)
+    if (v12 != 2)
     {
-      if (v13 == 3)
+      if (v12 == 3)
       {
-        v14 = objc_msgSend_stringValue(self, v6, v7, v8, v9);
-        v19 = objc_msgSend_tsp_protobufString(v14, v15, v16, v17, v18);
+        v13 = objc_msgSend_stringValue(self, v6, v7, v8);
+        v17 = objc_msgSend_tsp_protobufString(v13, v14, v15, v16);
 
-        if (v19)
+        if (v17)
         {
           LODWORD(message[1].var0) |= 1u;
-          sub_22108CCD0(__p, v19);
+          sub_22108CCD0(__p, v17);
           google::protobuf::internal::ArenaStringPtr::Set();
-          if (v72 < 0)
+          if (v66 < 0)
           {
             operator delete(__p[0]);
           }
@@ -1350,12 +1350,12 @@ LABEL_28:
 
         else if (self->_objValue)
         {
-          v60 = MEMORY[0x277D81150];
-          v61 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "[TSTCellFormatAndValue saveToPropertyCommandMessage:archiver:]", v8, v9);
-          v65 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v62, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTCellFormatAndValue.mm", v63, v64);
-          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v60, v66, v61, v65, 757, 0, "Non-nil string resulted in NULL protobufString: '%@'", self->_objValue);
+          v56 = MEMORY[0x277D81150];
+          v57 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "[TSTCellFormatAndValue saveToPropertyCommandMessage:archiver:]", v8);
+          v60 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v58, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTCellFormatAndValue.mm", v59);
+          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v56, v61, v57, v60, 757, 0, "Non-nil string resulted in NULL protobufString: '%@'", self->_objValue);
 
-          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v67, v68, v69, v70);
+          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v62, v63, v64);
         }
       }
 
@@ -1363,28 +1363,28 @@ LABEL_28:
     }
 
 LABEL_17:
-    v21 = TSUDecimal::low(&self->_decimalValue);
+    v19 = TSUDecimal::low(&self->_decimalValue);
     LODWORD(message[1].var0) |= 0x40000u;
-    message[8].var0 = v21;
-    v22 = TSUDecimal::high(&self->_decimalValue);
+    message[8].var0 = v19;
+    v20 = TSUDecimal::high(&self->_decimalValue);
     LODWORD(message[1].var0) |= 0x80000u;
-    message[8].var1.var0 = v22;
+    message[8].var1.var0 = v20;
     TSUDecimal::doubleValue(&self->_decimalValue);
     LODWORD(message[1].var0) |= 0x400u;
-    message[6].var1.var0 = v23;
+    message[6].var1.var0 = v21;
     goto LABEL_29;
   }
 
-  if (v13 == 5)
+  if (v12 == 5)
   {
-    v27 = objc_msgSend_dateValue(self, v6, v7, v8, v9);
-    objc_msgSend_timeIntervalSinceReferenceDate(v27, v30, v31, v32, v33);
+    v24 = objc_msgSend_dateValue(self, v6, v7, v8);
+    objc_msgSend_timeIntervalSinceReferenceDate(v24, v27, v28, v29);
     LODWORD(message[1].var0) |= 0x400u;
-    message[6].var1.var0 = v34;
+    message[6].var1.var0 = v30;
     goto LABEL_28;
   }
 
-  if (v13 == 6)
+  if (v12 == 6)
   {
     BOOLValue = self->_BOOLValue;
     LODWORD(message[1].var0) = var0 | 0x4800;
@@ -1395,36 +1395,36 @@ LABEL_29:
   formattedValue = self->_formattedValue;
   if (formattedValue)
   {
-    v36 = objc_msgSend_tsp_protobufString(formattedValue, v6, v7, v8, v9);
+    v32 = objc_msgSend_tsp_protobufString(formattedValue, v6, v7, v8);
     LODWORD(message[1].var0) |= 2u;
-    sub_22108CCD0(__p, v36);
+    sub_22108CCD0(__p, v32);
     google::protobuf::internal::ArenaStringPtr::Set();
-    if (v72 < 0)
+    if (v66 < 0)
     {
       operator delete(__p[0]);
     }
   }
 
   formattedRichTextStorage = self->_formattedRichTextStorage;
-  v38 = message[1].var0;
+  v34 = message[1].var0;
   if (formattedRichTextStorage)
   {
-    LODWORD(message[1].var0) = v38 | 0x200;
-    v39 = message[6].var0;
-    if (!v39)
+    LODWORD(message[1].var0) = v34 | 0x200;
+    v35 = message[6].var0;
+    if (!v35)
     {
-      v40 = message->var1.var0;
-      if (v40)
+      v36 = message->var1.var0;
+      if (v36)
       {
-        v40 = *(v40 & 0xFFFFFFFFFFFFFFFELL);
+        v36 = *(v36 & 0xFFFFFFFFFFFFFFFELL);
       }
 
-      v39 = MEMORY[0x223DA0390](v40);
-      message[6].var0 = v39;
+      v35 = MEMORY[0x223DA0390](v36);
+      message[6].var0 = v35;
     }
 
-    objc_msgSend_setStrongReference_message_(archiverCopy, v6, formattedRichTextStorage, v39, v9);
-    v38 = message[1].var0;
+    objc_msgSend_setStrongReference_message_(archiverCopy, v6, formattedRichTextStorage, v35);
+    v34 = message[1].var0;
   }
 
   BYTE5(message[7].var1.var0) = self->_useAllSpareFormats;
@@ -1433,126 +1433,126 @@ LABEL_29:
   BYTE6(message[7].var1.var0) = self->_applySpareFormatOnly;
   HIBYTE(message[7].var1.var0) = self->_spareFormatType != 0;
   suppressApplyValue = self->_suppressApplyValue;
-  LODWORD(message[1].var0) = v38 | 0x13B000;
+  LODWORD(message[1].var0) = v34 | 0x13B000;
   LOBYTE(message[9].var0) = suppressApplyValue;
   numberFormat = self->_numberFormat;
   if (numberFormat)
   {
-    LODWORD(message[1].var0) = v38 | 0x13B008;
-    v43 = message[3].var0;
-    if (!v43)
+    LODWORD(message[1].var0) = v34 | 0x13B008;
+    v39 = message[3].var0;
+    if (!v39)
     {
-      v44 = message->var1.var0;
-      if (v44)
+      v40 = message->var1.var0;
+      if (v40)
       {
-        v44 = *(v44 & 0xFFFFFFFFFFFFFFFELL);
+        v40 = *(v40 & 0xFFFFFFFFFFFFFFFELL);
       }
 
-      v43 = MEMORY[0x223DA02D0](v44);
-      message[3].var0 = v43;
+      v39 = MEMORY[0x223DA02D0](v40);
+      message[3].var0 = v39;
     }
 
-    objc_msgSend_encodeToArchive_archivingCustomFormats_(numberFormat, v6, v43, 1, v9);
+    objc_msgSend_encodeToArchive_archivingCustomFormats_(numberFormat, v6, v39, 1);
   }
 
   currencyFormat = self->_currencyFormat;
   if (currencyFormat)
   {
     LODWORD(message[1].var0) |= 0x10u;
-    v46 = message[3].var1.var0;
-    if (!v46)
+    v42 = message[3].var1.var0;
+    if (!v42)
     {
-      v47 = message->var1.var0;
-      if (v47)
+      v43 = message->var1.var0;
+      if (v43)
       {
-        v47 = *(v47 & 0xFFFFFFFFFFFFFFFELL);
+        v43 = *(v43 & 0xFFFFFFFFFFFFFFFELL);
       }
 
-      v46 = MEMORY[0x223DA02D0](v47);
-      message[3].var1.var0 = v46;
+      v42 = MEMORY[0x223DA02D0](v43);
+      message[3].var1.var0 = v42;
     }
 
-    objc_msgSend_encodeToArchive_archivingCustomFormats_(currencyFormat, v6, v46, 1, v9);
+    objc_msgSend_encodeToArchive_archivingCustomFormats_(currencyFormat, v6, v42, 1);
   }
 
   dateFormat = self->_dateFormat;
   if (dateFormat)
   {
     LODWORD(message[1].var0) |= 0x20u;
-    v49 = message[4].var0;
-    if (!v49)
+    v45 = message[4].var0;
+    if (!v45)
     {
-      v50 = message->var1.var0;
-      if (v50)
+      v46 = message->var1.var0;
+      if (v46)
       {
-        v50 = *(v50 & 0xFFFFFFFFFFFFFFFELL);
+        v46 = *(v46 & 0xFFFFFFFFFFFFFFFELL);
       }
 
-      v49 = MEMORY[0x223DA02D0](v50);
-      message[4].var0 = v49;
+      v45 = MEMORY[0x223DA02D0](v46);
+      message[4].var0 = v45;
     }
 
-    objc_msgSend_encodeToArchive_archivingCustomFormats_(dateFormat, v6, v49, 1, v9);
+    objc_msgSend_encodeToArchive_archivingCustomFormats_(dateFormat, v6, v45, 1);
   }
 
   durationFormat = self->_durationFormat;
   if (durationFormat)
   {
     LODWORD(message[1].var0) |= 0x40u;
-    v52 = message[4].var1.var0;
-    if (!v52)
+    v48 = message[4].var1.var0;
+    if (!v48)
     {
-      v53 = message->var1.var0;
-      if (v53)
+      v49 = message->var1.var0;
+      if (v49)
       {
-        v53 = *(v53 & 0xFFFFFFFFFFFFFFFELL);
+        v49 = *(v49 & 0xFFFFFFFFFFFFFFFELL);
       }
 
-      v52 = MEMORY[0x223DA02D0](v53);
-      message[4].var1.var0 = v52;
+      v48 = MEMORY[0x223DA02D0](v49);
+      message[4].var1.var0 = v48;
     }
 
-    objc_msgSend_encodeToArchive_archivingCustomFormats_(durationFormat, v6, v52, 1, v9);
+    objc_msgSend_encodeToArchive_archivingCustomFormats_(durationFormat, v6, v48, 1);
   }
 
   BOOLeanFormat = self->_BOOLeanFormat;
   if (BOOLeanFormat)
   {
     LODWORD(message[1].var0) |= 0x100u;
-    v55 = message[5].var1.var0;
-    if (!v55)
+    v51 = message[5].var1.var0;
+    if (!v51)
     {
-      v56 = message->var1.var0;
-      if (v56)
+      v52 = message->var1.var0;
+      if (v52)
       {
-        v56 = *(v56 & 0xFFFFFFFFFFFFFFFELL);
+        v52 = *(v52 & 0xFFFFFFFFFFFFFFFELL);
       }
 
-      v55 = MEMORY[0x223DA02D0](v56);
-      message[5].var1.var0 = v55;
+      v51 = MEMORY[0x223DA02D0](v52);
+      message[5].var1.var0 = v51;
     }
 
-    objc_msgSend_encodeToArchive_archivingCustomFormats_(BOOLeanFormat, v6, v55, 1, v9);
+    objc_msgSend_encodeToArchive_archivingCustomFormats_(BOOLeanFormat, v6, v51, 1);
   }
 
   textFormat = self->_textFormat;
   if (textFormat)
   {
     LODWORD(message[1].var0) |= 0x80u;
-    v58 = message[5].var0;
-    if (!v58)
+    v54 = message[5].var0;
+    if (!v54)
     {
-      v59 = message->var1.var0;
-      if (v59)
+      v55 = message->var1.var0;
+      if (v55)
       {
-        v59 = *(v59 & 0xFFFFFFFFFFFFFFFELL);
+        v55 = *(v55 & 0xFFFFFFFFFFFFFFFELL);
       }
 
-      v58 = MEMORY[0x223DA02D0](v59);
-      message[5].var0 = v58;
+      v54 = MEMORY[0x223DA02D0](v55);
+      message[5].var0 = v54;
     }
 
-    objc_msgSend_encodeToArchive_archivingCustomFormats_(textFormat, v6, v58, 1, v9);
+    objc_msgSend_encodeToArchive_archivingCustomFormats_(textFormat, v6, v54, 1);
   }
 }
 

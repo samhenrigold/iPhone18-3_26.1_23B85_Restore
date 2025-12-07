@@ -42,19 +42,22 @@
 - (void)cleanupContexts
 {
   accessory = [(FMDCommandContext *)self accessory];
+  v3 = accessory;
   if (accessory)
   {
-    v7 = accessory;
-    v3 = +[FMDProtectedContextManager sharedManager];
-    v4 = [objc_opt_class() intentContextKeyForAccessory:v7];
-    [v3 cleanupAllContextsForKey:v4];
+    v8 = accessory;
+    v4 = +[FMDProtectedContextManager sharedManager];
+    v5 = [objc_opt_class() intentContextKeyForAccessory:v8];
+    [v4 cleanupAllContextsForKey:v5];
 
-    v5 = +[FMDProtectedContextManager sharedManager];
-    v6 = [objc_opt_class() pendingActionKeyForAccessory:v7];
-    [v5 cleanupAllContextsForKey:v6];
+    v6 = +[FMDProtectedContextManager sharedManager];
+    v7 = [objc_opt_class() pendingActionKeyForAccessory:v8];
+    [v6 cleanupAllContextsForKey:v7];
+
+    v3 = v8;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(accessory, v3);
 }
 
 - (void)setObject:(id)object forKey:(id)key

@@ -165,16 +165,16 @@ uint64_t __93__ICPasswordUtilities_showChangePasswordDialogueFromDisplayWindow_a
   }
 }
 
-void __88__ICPasswordUtilities_showPasswordSetUpSheetForAccount_displayWindow_completionHandler___block_invoke(uint64_t a1)
+void __88__ICPasswordUtilities_showPasswordSetUpSheetForAccount_displayWindow_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = os_log_create("com.apple.notes", "Crypto");
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = os_log_create("com.apple.notes", "Crypto");
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     __88__ICPasswordUtilities_showPasswordSetUpSheetForAccount_displayWindow_completionHandler___block_invoke_cold_1(a1);
   }
 
   [*(a1 + 40) setDisplayedSheet:0];
-  v3 = *(a1 + 48);
+  v4 = *(a1 + 48);
   dispatchMainAfterDelay();
 }
 
@@ -284,13 +284,17 @@ void __102__ICPasswordUtilities_showUpdateDivergedPasswordForAccountPassword_old
 - (void)showPasswordSetUpSheetForAccount:(void *)a1 displayWindow:completionHandler:.cold.1(void *a1)
 {
   v1 = [a1 shortLoggingDescription];
-  OUTLINED_FUNCTION_0_2(&dword_1D4171000, v2, v3, "Sheet hasn't displayed, displaying it for account %@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_2(&dword_1D4171000, v2, v3, "Sheet hasn't displayed, displaying it for account %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void __88__ICPasswordUtilities_showPasswordSetUpSheetForAccount_displayWindow_completionHandler___block_invoke_cold_1(uint64_t a1)
 {
   v1 = [*(a1 + 32) shortLoggingDescription];
-  OUTLINED_FUNCTION_0_2(&dword_1D4171000, v2, v3, "Completion handler for passwordSetupViewController is triggered for account %@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_2(&dword_1D4171000, v2, v3, "Completion handler for passwordSetupViewController is triggered for account %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

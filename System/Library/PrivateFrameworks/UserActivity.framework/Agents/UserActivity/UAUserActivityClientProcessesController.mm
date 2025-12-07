@@ -3,6 +3,7 @@
 - (BOOL)clientIsActive:(id)active;
 - (BOOL)ifLockScreenIsActive:(id)active visibleBundleIdentifiers:(id)identifiers;
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection;
+- (BOOL)registerAsProxyApplication:(id)application forPid:(int)pid;
 - (BOOL)removeAdditionalUserActivityAdvertisableItems:(id)items;
 - (BOOL)resume;
 - (BOOL)suspend;
@@ -211,30 +212,20 @@
   }
 
   carPlayScreenBundleIdentifiersInOrder = [(UAUserActivityClientProcessesController *)self carPlayScreenBundleIdentifiersInOrder];
-  if (!carPlayScreenBundleIdentifiersInOrder)
+  if (!carPlayScreenBundleIdentifiersInOrder || (-[UAUserActivityClientProcessesController carPlayScreenBundleIdentifiersInOrder](self, "carPlayScreenBundleIdentifiersInOrder"), v38 = objc_claimAutoreleasedReturnValue(), [v38 firstObject], v39 = objc_claimAutoreleasedReturnValue(), v40 = v39 == 0, v39, v38, carPlayScreenBundleIdentifiersInOrder, v40))
   {
-    goto LABEL_54;
-  }
-
-  carPlayScreenBundleIdentifiersInOrder2 = [(UAUserActivityClientProcessesController *)self carPlayScreenBundleIdentifiersInOrder];
-  firstObject = [carPlayScreenBundleIdentifiersInOrder2 firstObject];
-  v40 = firstObject == 0;
-
-  if (v40)
-  {
-LABEL_54:
     mainScreenBundleIdentifiersInOrder = [(UAUserActivityClientProcessesController *)self mainScreenBundleIdentifiersInOrder];
-    firstObject2 = [mainScreenBundleIdentifiersInOrder firstObject];
+    firstObject = [mainScreenBundleIdentifiersInOrder firstObject];
 
-    if (!firstObject2)
+    if (!firstObject)
     {
       goto LABEL_74;
     }
 
     mainScreenBundleIdentifiersInOrder2 = [(UAUserActivityClientProcessesController *)self mainScreenBundleIdentifiersInOrder];
-    firstObject3 = [mainScreenBundleIdentifiersInOrder2 firstObject];
+    firstObject2 = [mainScreenBundleIdentifiersInOrder2 firstObject];
 
-    v81 = [(UAUserActivityClientProcessesController *)self userActivityClientForBundleIdentifier:firstObject3];
+    v81 = [(UAUserActivityClientProcessesController *)self userActivityClientForBundleIdentifier:firstObject2];
     currentAdvertisableActivity4 = [v81 currentAdvertisableActivity];
     v50 = currentAdvertisableActivity4;
     if (v81 && currentAdvertisableActivity4 && [currentAdvertisableActivity4 eligibleToAdvertise])
@@ -270,7 +261,7 @@ LABEL_54:
               if ([currentAdvertisableActivity5 eligibleToAdvertise])
               {
                 proxiedBundleIdentifier3 = [currentAdvertisableActivity5 proxiedBundleIdentifier];
-                v57 = [proxiedBundleIdentifier3 isEqual:firstObject3];
+                v57 = [proxiedBundleIdentifier3 isEqual:firstObject2];
 
                 if (v57)
                 {
@@ -291,14 +282,14 @@ LABEL_54:
     goto LABEL_72;
   }
 
-  carPlayScreenBundleIdentifiersInOrder3 = [(UAUserActivityClientProcessesController *)self carPlayScreenBundleIdentifiersInOrder];
-  firstObject4 = [carPlayScreenBundleIdentifiersInOrder3 firstObject];
-  firstObject3 = [(UAUserActivityClientProcessesController *)self userActivityClientForBundleIdentifier:firstObject4];
+  carPlayScreenBundleIdentifiersInOrder2 = [(UAUserActivityClientProcessesController *)self carPlayScreenBundleIdentifiersInOrder];
+  firstObject3 = [carPlayScreenBundleIdentifiersInOrder2 firstObject];
+  firstObject2 = [(UAUserActivityClientProcessesController *)self userActivityClientForBundleIdentifier:firstObject3];
 
-  v43 = firstObject3;
-  if (firstObject3)
+  v43 = firstObject2;
+  if (firstObject2)
   {
-    currentAdvertisableActivity6 = [firstObject3 currentAdvertisableActivity];
+    currentAdvertisableActivity6 = [firstObject2 currentAdvertisableActivity];
     v45 = currentAdvertisableActivity6;
     if (currentAdvertisableActivity6)
     {
@@ -312,7 +303,7 @@ LABEL_54:
 
 LABEL_72:
 
-    v43 = firstObject3;
+    v43 = firstObject2;
   }
 
 LABEL_74:
@@ -1244,8 +1235,8 @@ LABEL_43:
   v5 = clientCopy;
   if (clientCopy)
   {
-    auditToken = [clientCopy auditToken];
-    v7 = [auditToken pid];
+    v6 = objc_msgSend_auditToken(clientCopy);
+    v7 = [v6 pid];
 
     if (v7 >= 1)
     {
@@ -1254,20 +1245,20 @@ LABEL_43:
       v9 = sub_100001A30(0);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
-        auditToken2 = [v5 auditToken];
+        v10 = objc_msgSend_auditToken(v5);
         bundleIdentifier = [v5 bundleIdentifier];
         v19 = 138478339;
         v20 = v5;
         v21 = 2114;
-        v22 = auditToken2;
+        v22 = v10;
         v23 = 2113;
         v24 = bundleIdentifier;
         _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Adding client %{private}@, %{public}@, bundleID=%{private}@ to known userActivityClients.", &v19, 0x20u);
       }
 
       userActivityClientsByPID = selfCopy->_userActivityClientsByPID;
-      auditToken3 = [v5 auditToken];
-      v14 = +[NSNumber numberWithLong:](NSNumber, "numberWithLong:", [auditToken3 pid]);
+      v13 = objc_msgSend_auditToken(v5);
+      v14 = +[NSNumber numberWithLong:](NSNumber, "numberWithLong:", [v13 pid]);
       [(NSMutableDictionary *)userActivityClientsByPID setObject:v5 forKey:v14];
 
       bundleIdentifier2 = [v5 bundleIdentifier];
@@ -1645,11 +1636,11 @@ LABEL_12:
   v5 = sub_100001A30(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    auditToken = [clientCopy auditToken];
+    v6 = objc_msgSend_auditToken(clientCopy);
     v38 = 138478083;
     v39 = clientCopy;
     v40 = 2114;
-    v41 = auditToken;
+    v41 = v6;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Removing client %{private}@, application %{public}@, from known userActivityClients.", &v38, 0x16u);
   }
 
@@ -1672,13 +1663,13 @@ LABEL_12:
         uuid = [currentAdvertisableActivity3 uuid];
         uUIDString = [uuid UUIDString];
         currentAdvertisableActivity4 = [clientCopy currentAdvertisableActivity];
-        auditToken2 = [clientCopy auditToken];
+        v18 = objc_msgSend_auditToken(clientCopy);
         v38 = 138543875;
         v39 = uUIDString;
         v40 = 2113;
         v41 = currentAdvertisableActivity4;
         v42 = 2114;
-        v43 = auditToken2;
+        v43 = v18;
         _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Moving 'LSLivePastProcessExit' activity %{public}@/%{private}@ from process %{public}@ into additionalUserActivityAdvertisableItems", &v38, 0x20u);
       }
 
@@ -1687,23 +1678,23 @@ LABEL_12:
     }
   }
 
-  auditToken3 = [clientCopy auditToken];
-  v21 = [auditToken3 pid] > 0;
+  v20 = objc_msgSend_auditToken(clientCopy);
+  v21 = [v20 pid] > 0;
 
   if (v21)
   {
     v22 = sub_100001A30(0);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
     {
-      auditToken4 = [clientCopy auditToken];
+      v23 = objc_msgSend_auditToken(clientCopy);
       v38 = 138543362;
-      v39 = auditToken4;
+      v39 = v23;
       _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEBUG, "Removing client %{public}@ from _userActivityClientsByPID", &v38, 0xCu);
     }
 
     userActivityClientsByPID = selfCopy->_userActivityClientsByPID;
-    auditToken5 = [clientCopy auditToken];
-    v26 = +[NSNumber numberWithLong:](NSNumber, "numberWithLong:", [auditToken5 pid]);
+    v25 = objc_msgSend_auditToken(clientCopy);
+    v26 = +[NSNumber numberWithLong:](NSNumber, "numberWithLong:", [v25 pid]);
     [(NSMutableDictionary *)userActivityClientsByPID removeObjectForKey:v26];
   }
 
@@ -1793,8 +1784,8 @@ LABEL_12:
           if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
           {
             bundleIdentifier2 = [v13 bundleIdentifier];
-            auditToken = [v13 auditToken];
-            v20 = auditToken;
+            v19 = objc_msgSend_auditToken(v13);
+            v20 = v19;
             v21 = " and possibly change advertisement.";
             *buf = 138543874;
             v56 = bundleIdentifier2;
@@ -1804,7 +1795,7 @@ LABEL_12:
             }
 
             v57 = 2114;
-            v58 = auditToken;
+            v58 = v19;
             v59 = 2080;
             v60 = v21;
             _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "MAKEFRONT: %{public}@/%{public}@ %s", buf, 0x20u);
@@ -2009,6 +2000,75 @@ LABEL_53:
   }
 
   return currentAdvertisableActivity;
+}
+
+- (BOOL)registerAsProxyApplication:(id)application forPid:(int)pid
+{
+  v4 = *&pid;
+  applicationCopy = application;
+  v7 = sub_100001A30(0);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  {
+    v20 = 67240450;
+    LODWORD(v21[0]) = v4;
+    WORD2(v21[0]) = 2114;
+    *(v21 + 6) = self;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "registerAsProxyApplication, pid=%{public}d controller=%{public}@", &v20, 0x12u);
+  }
+
+  proxiedClients = [(UAUserActivityClientProcessesController *)self proxiedClients];
+  v9 = proxiedClients;
+  if (v4 >= 1)
+  {
+
+    if (!v9)
+    {
+      v10 = +[NSMutableDictionary dictionary];
+      proxiedClients = self->_proxiedClients;
+      self->_proxiedClients = v10;
+    }
+
+    v12 = [NSNumber numberWithInt:v4];
+    proxiedClients2 = [(UAUserActivityClientProcessesController *)self proxiedClients];
+    uuid = [applicationCopy uuid];
+    [proxiedClients2 setObject:v12 forKeyedSubscript:uuid];
+
+    proxiedClients5 = sub_100001A30(0);
+    if (!os_log_type_enabled(proxiedClients5, OS_LOG_TYPE_INFO))
+    {
+      goto LABEL_13;
+    }
+
+    proxiedClients3 = [(UAUserActivityClientProcessesController *)self proxiedClients];
+    v20 = 138543362;
+    v21[0] = proxiedClients3;
+    _os_log_impl(&_mh_execute_header, proxiedClients5, OS_LOG_TYPE_INFO, "registerAsProxyApplication, added, proxiedClients=%{public}@", &v20, 0xCu);
+LABEL_12:
+
+LABEL_13:
+    goto LABEL_14;
+  }
+
+  if (v9)
+  {
+    v17 = sub_100001A30(0);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+    {
+      proxiedClients4 = [(UAUserActivityClientProcessesController *)self proxiedClients];
+      v20 = 138543362;
+      v21[0] = proxiedClients4;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "registerAsProxyApplication, removed, proxiedClients=%{public}@", &v20, 0xCu);
+    }
+
+    proxiedClients5 = [(UAUserActivityClientProcessesController *)self proxiedClients];
+    proxiedClients3 = [applicationCopy uuid];
+    [proxiedClients5 removeObjectForKey:proxiedClients3];
+    goto LABEL_12;
+  }
+
+LABEL_14:
+
+  return 1;
 }
 
 - (id)recentEligibleItemsInOrder:(double)order

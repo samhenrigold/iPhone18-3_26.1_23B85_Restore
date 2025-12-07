@@ -125,13 +125,11 @@ void __46__SYIncomingTransactionSession__sendCancelled__block_invoke(uint64_t a1
 {
   v7 = *MEMORY[0x1E69E9840];
   selfCopy = self;
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
   v5 = 138543362;
-  v6 = v3;
+  v6 = v4;
   _os_log_error_impl(&dword_1DF835000, selfCopy, OS_LOG_TYPE_ERROR, "Unable to create an _SYLazyChangeArray object for %{public}@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __44__SYIncomingTransactionSession__sendChanges__block_invoke(uint64_t a1)
@@ -150,17 +148,17 @@ void __44__SYIncomingTransactionSession__sendChanges__block_invoke(uint64_t a1)
 
   v3 = [*(a1 + 32) delegate];
   v4 = *(a1 + 32);
-  v5 = *(a1 + 40);
-  v6 = MEMORY[0x1E69E9820];
-  v7 = 3221225472;
-  v8 = __44__SYIncomingTransactionSession__sendChanges__block_invoke_2;
-  v9 = &unk_1E86C9E68;
-  v10 = v4;
+  v5 = MEMORY[0x1E69E9820];
+  v6 = 3221225472;
+  v7 = __44__SYIncomingTransactionSession__sendChanges__block_invoke_2;
+  v8 = &unk_1E86C9E68;
+  v9 = v4;
   [v3 syncSession:? applyChanges:? completion:?];
 }
 
-void __44__SYIncomingTransactionSession__sendChanges__block_invoke_2(uint64_t a1, char a2, void *a3)
+void __44__SYIncomingTransactionSession__sendChanges__block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
+  v3 = a2;
   v5 = a3;
   state.opaque[0] = 0;
   state.opaque[1] = 0;
@@ -173,7 +171,7 @@ void __44__SYIncomingTransactionSession__sendChanges__block_invoke_2(uint64_t a1
   v6 = qword_1EDE73420;
   if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_DEBUG))
   {
-    __44__SYIncomingTransactionSession__sendChanges__block_invoke_2_cold_2(a2, v6);
+    __44__SYIncomingTransactionSession__sendChanges__block_invoke_2_cold_2(v3, v6);
   }
 
   v7 = [*(a1 + 32) queue];
@@ -182,7 +180,7 @@ void __44__SYIncomingTransactionSession__sendChanges__block_invoke_2(uint64_t a1
   block[2] = __44__SYIncomingTransactionSession__sendChanges__block_invoke_5;
   block[3] = &unk_1E86C9E40;
   v8 = *(a1 + 32);
-  v12 = a2;
+  v12 = v3;
   block[4] = v8;
   v11 = v5;
   v9 = v5;
@@ -193,10 +191,10 @@ void __44__SYIncomingTransactionSession__sendChanges__block_invoke_2(uint64_t a1
 
 void __44__SYIncomingTransactionSession__sendChanges__block_invoke_5(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v13.opaque[0] = 0;
-  v13.opaque[1] = 0;
-  os_activity_scope_enter(*(*(a1 + 32) + 208), &v13);
+  v15 = *MEMORY[0x1E69E9840];
+  v12.opaque[0] = 0;
+  v12.opaque[1] = 0;
+  os_activity_scope_enter(*(*(a1 + 32) + 208), &v12);
   if ((*(a1 + 48) & 1) == 0)
   {
     if (_sync_log_facilities_pred != -1)
@@ -209,7 +207,7 @@ void __44__SYIncomingTransactionSession__sendChanges__block_invoke_5(uint64_t a1
     {
       v11 = _SYObfuscate(*(a1 + 40));
       *buf = 138543362;
-      v15 = v11;
+      v14 = v11;
       _os_log_impl(&dword_1DF835000, v10, OS_LOG_TYPE_DEFAULT, "Client failed to process incoming SYChangeMessage, returning error: %{public}@", buf, 0xCu);
     }
 
@@ -234,7 +232,7 @@ void __44__SYIncomingTransactionSession__sendChanges__block_invoke_5(uint64_t a1
     v3 = [*(a1 + 32) error];
     v4 = _SYObfuscate(v3);
     *buf = 138543362;
-    v15 = v4;
+    v14 = v4;
     _os_log_impl(&dword_1DF835000, v2, OS_LOG_TYPE_DEFAULT, "An error occurred while client was processing: %{public}@", buf, 0xCu);
   }
 
@@ -260,8 +258,7 @@ LABEL_15:
 LABEL_17:
   [*(a1 + 32) setState:v9];
   [*(a1 + 32) _sendComplete];
-  os_activity_scope_leave(&v13);
-  v12 = *MEMORY[0x1E69E9840];
+  os_activity_scope_leave(&v12);
 }
 
 - (void)start:(id)start
@@ -286,7 +283,7 @@ LABEL_17:
 
 void __38__SYIncomingTransactionSession_start___block_invoke(uint64_t a1)
 {
-  v33[2] = *MEMORY[0x1E69E9840];
+  v30[2] = *MEMORY[0x1E69E9840];
   [*(a1 + 32) didStartSession];
   v2 = *(a1 + 32);
   if (v2[27] && v2[28])
@@ -298,31 +295,29 @@ void __38__SYIncomingTransactionSession_start___block_invoke(uint64_t a1)
 
     else
     {
-      v5 = [*(a1 + 32) serializer];
-      v6 = objc_opt_respondsToSelector();
+      v4 = [*(a1 + 32) serializer];
+      v5 = objc_opt_respondsToSelector();
 
-      if ((v6 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        v17 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v32[0] = @"SYDelegateProtocolName";
-        v18 = NSStringFromProtocol(&unk_1F5AE3E50);
-        v33[0] = v18;
-        v32[1] = @"SYDelegateMethodNames";
-        v19 = NSStringFromSelector(sel_decodeChangeData_fromProtocolVersion_ofType_);
-        v31[0] = v19;
-        v20 = NSStringFromSelector(sel_SYObjectWithData_);
-        v31[1] = v20;
-        v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:2];
-        v33[1] = v21;
-        v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:v32 count:2];
-        v23 = [v17 initWithSYError:2020 userInfo:v22];
+        v15 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v29[0] = @"SYDelegateProtocolName";
+        v16 = NSStringFromProtocol(&unk_1F5AE3E50);
+        v30[0] = v16;
+        v29[1] = @"SYDelegateMethodNames";
+        v17 = NSStringFromSelector(sel_decodeChangeData_fromProtocolVersion_ofType_);
+        v28[0] = v17;
+        v18 = NSStringFromSelector(sel_SYObjectWithData_);
+        v28[1] = v18;
+        v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:2];
+        v30[1] = v19;
+        v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:2];
+        v21 = [v15 initWithSYError:2020 userInfo:v20];
 
         (*(*(a1 + 40) + 16))();
-        [*(a1 + 32) setError:v23];
+        [*(a1 + 32) setError:v21];
         [*(a1 + 32) _sendComplete];
 
-LABEL_15:
-        v24 = *MEMORY[0x1E69E9840];
         return;
       }
     }
@@ -332,43 +327,42 @@ LABEL_15:
       [SYIncomingSyncAllObjectsSession _continueProcessing];
     }
 
-    v7 = qword_1EDE73420;
+    v6 = qword_1EDE73420;
     if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 32);
-      v9 = v7;
-      v10 = objc_opt_class();
-      v11 = NSStringFromClass(v10);
-      v12 = [*(a1 + 32) identifier];
+      v7 = v6;
+      v8 = objc_opt_class();
+      v9 = NSStringFromClass(v8);
+      v10 = [*(a1 + 32) identifier];
       *buf = 138543618;
-      v28 = v11;
-      v29 = 2114;
-      v30 = v12;
-      _os_log_impl(&dword_1DF835000, v9, OS_LOG_TYPE_DEFAULT, "Starting %{public}@ with identifier %{public}@", buf, 0x16u);
+      v25 = v9;
+      v26 = 2114;
+      v27 = v10;
+      _os_log_impl(&dword_1DF835000, v7, OS_LOG_TYPE_DEFAULT, "Starting %{public}@ with identifier %{public}@", buf, 0x16u);
     }
 
-    v13 = _os_activity_create(&dword_1DF835000, "SYSession (v1 Delta Sync, Incoming)", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DETACHED);
-    v14 = *(a1 + 32);
-    v15 = *(v14 + 208);
-    *(v14 + 208) = v13;
+    v11 = _os_activity_create(&dword_1DF835000, "SYSession (v1 Delta Sync, Incoming)", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DETACHED);
+    v12 = *(a1 + 32);
+    v13 = *(v12 + 208);
+    *(v12 + 208) = v11;
 
     (*(*(a1 + 40) + 16))();
-    v16 = [*(a1 + 32) queue];
+    v14 = [*(a1 + 32) queue];
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __38__SYIncomingTransactionSession_start___block_invoke_71;
     block[3] = &unk_1E86C9FB0;
     block[4] = *(a1 + 32);
-    dispatch_async(v16, block);
-
-    goto LABEL_15;
+    dispatch_async(v14, block);
   }
 
-  v25 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithSYError:2013 userInfo:0];
-  (*(*(a1 + 40) + 16))();
-  [*(a1 + 32) setError:v25];
-  [*(a1 + 32) _sendComplete];
-  v4 = *MEMORY[0x1E69E9840];
+  else
+  {
+    v22 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithSYError:2013 userInfo:0];
+    (*(*(a1 + 40) + 16))();
+    [*(a1 + 32) setError:v22];
+    [*(a1 + 32) _sendComplete];
+  }
 }
 
 - (void)cancelWithError:(id)error
@@ -443,17 +437,16 @@ LABEL_9:
 
 void __44__SYIncomingTransactionSession__sendChanges__block_invoke_2_cold_2(char a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = "NO";
   if (a1)
   {
     v2 = "YES";
   }
 
-  v4 = 136315138;
-  v5 = v2;
-  _os_log_debug_impl(&dword_1DF835000, a2, OS_LOG_TYPE_DEBUG, "Delegate callout complete: -syncSession:applyChanges:completion:, v1 transaction, success = %s", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 136315138;
+  v4 = v2;
+  _os_log_debug_impl(&dword_1DF835000, a2, OS_LOG_TYPE_DEBUG, "Delegate callout complete: -syncSession:applyChanges:completion:, v1 transaction, success = %s", &v3, 0xCu);
 }
 
 @end

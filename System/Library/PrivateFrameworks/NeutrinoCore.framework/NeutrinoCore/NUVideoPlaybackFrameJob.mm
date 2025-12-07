@@ -116,12 +116,12 @@ LABEL_27:
     v19 = NUScaleDivide(renderScale, v16, renderScale2, v18);
     v21 = v20;
     memset(v65, 0, sizeof(v65));
-    [v11 cleanAperture];
+    objc_msgSend_cleanAperture(v11);
     NUPixelRectScaleRational(&buf, v19, v21, 1, v65);
     NUCVImageBufferSetCleanRect(v9, v65[0].i64);
     [colorSpace applyAttachmentsToCVPixelBuffer:v9];
     outputImage = [(NURenderJob *)self outputImage];
-    [outputImage extent];
+    objc_msgSend_extent(outputImage);
     buf.origin.x = v23;
     buf.origin.y = v24;
     buf.size.width = v25;
@@ -248,7 +248,7 @@ LABEL_30:
     v7 = frameRequest;
     if (frameRequest)
     {
-      [frameRequest evaluationTime];
+      objc_msgSend_evaluationTime(frameRequest);
     }
 
     else

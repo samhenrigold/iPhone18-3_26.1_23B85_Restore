@@ -3,8 +3,11 @@
 - (void)_updateMarquee;
 - (void)_updateTimer;
 - (void)dealloc;
+- (void)setMarqueeEnabled:(BOOL)enabled;
 - (void)setMarqueeInterval:(double)interval;
+- (void)setMarqueeRunning:(BOOL)running;
 - (void)setNumberOfLines:(int64_t)lines;
+- (void)setTruncated:(BOOL)truncated;
 @end
 
 @implementation MUFadingMarqueeLabel
@@ -78,6 +81,42 @@ void __36__MUFadingMarqueeLabel__updateTimer__block_invoke(uint64_t a1)
   if (self->_marqueeInterval != interval)
   {
     self->_marqueeInterval = interval;
+    [(MUFadingMarqueeLabel *)self _updateMarquee];
+  }
+}
+
+- (void)setMarqueeRunning:(BOOL)running
+{
+  runningCopy = running;
+  if ([(MUFadingMarqueeLabel *)self marqueeRunning]!= running)
+  {
+    v5.receiver = self;
+    v5.super_class = MUFadingMarqueeLabel;
+    [(MUFadingMarqueeLabel *)&v5 setMarqueeRunning:runningCopy];
+  }
+}
+
+- (void)setMarqueeEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  if ([(MUFadingMarqueeLabel *)self marqueeEnabled]!= enabled)
+  {
+    v5.receiver = self;
+    v5.super_class = MUFadingMarqueeLabel;
+    [(MUFadingMarqueeLabel *)&v5 setMarqueeEnabled:enabledCopy];
+    [(MUFadingMarqueeLabel *)self _updateTimer];
+  }
+}
+
+- (void)setTruncated:(BOOL)truncated
+{
+  truncatedCopy = truncated;
+  isTruncated = [(MUFadingLabel *)self isTruncated];
+  v6.receiver = self;
+  v6.super_class = MUFadingMarqueeLabel;
+  [(MUFadingLabel *)&v6 setTruncated:truncatedCopy];
+  if (isTruncated != [(MUFadingLabel *)self isTruncated])
+  {
     [(MUFadingMarqueeLabel *)self _updateMarquee];
   }
 }

@@ -848,41 +848,42 @@ LABEL_5:
 
 - (id)_pageComponentsWithViewElements:(id)elements
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   elementsCopy = elements;
   array = [MEMORY[0x277CBEB18] array];
-  v14 = 0u;
-  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v5 = elementsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v17;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
-        v11 = SKUIPageComponentClassForComponentType([v10 pageComponentType]);
-        if (v11)
+        v10 = *(*(&v16 + 1) + 8 * i);
+        pageComponentType = [v10 pageComponentType];
+        v13 = SKUIPageComponentClassForComponentType(pageComponentType, v12);
+        if (v13)
         {
-          v12 = [[v11 alloc] initWithViewElement:v10];
-          if (v12)
+          v14 = [[v13 alloc] initWithViewElement:v10];
+          if (v14)
           {
-            [array addObject:v12];
+            [array addObject:v14];
           }
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v7);

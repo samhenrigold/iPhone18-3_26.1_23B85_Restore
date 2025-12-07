@@ -12,13 +12,13 @@
 - (id)safeSummary;
 - (uint64_t)safeBooleanForKey:()SUCoreDictionary defaultValue:;
 - (uint64_t)safeIntegerForKey:()SUCoreDictionary;
-- (uint64_t)safeIntegerForKey:()SUCoreDictionary defaultValue:;
-- (uint64_t)safeLLForKey:()SUCoreDictionary defaultValue:;
-- (uint64_t)safeULForKey:()SUCoreDictionary defaultValue:;
-- (uint64_t)safeULLForKey:()SUCoreDictionary defaultValue:;
 - (unint64_t)safeTriStateForKey:()SUCoreDictionary defaultValue:;
 - (void)_logReturningDefault:()SUCoreDictionary forKey:valueType:defaultValueName:;
 - (void)_logReturningNil:()SUCoreDictionary forKey:valueType:fromBase:withKeyDescription:;
+- (void)safeIntegerForKey:()SUCoreDictionary defaultValue:;
+- (void)safeLLForKey:()SUCoreDictionary defaultValue:;
+- (void)safeULForKey:()SUCoreDictionary defaultValue:;
+- (void)safeULLForKey:()SUCoreDictionary defaultValue:;
 @end
 
 @implementation NSDictionary(SUCoreDictionary)
@@ -80,7 +80,7 @@
   return a4;
 }
 
-- (uint64_t)safeLLForKey:()SUCoreDictionary defaultValue:
+- (void)safeLLForKey:()SUCoreDictionary defaultValue:
 {
   v6 = a3;
   v7 = [self objectForKey:v6];
@@ -98,7 +98,7 @@
   return a4;
 }
 
-- (uint64_t)safeULForKey:()SUCoreDictionary defaultValue:
+- (void)safeULForKey:()SUCoreDictionary defaultValue:
 {
   v6 = a3;
   v7 = [self objectForKey:v6];
@@ -116,7 +116,7 @@
   return a4;
 }
 
-- (uint64_t)safeULLForKey:()SUCoreDictionary defaultValue:
+- (void)safeULLForKey:()SUCoreDictionary defaultValue:
 {
   v6 = a3;
   v7 = [self objectForKey:v6];
@@ -142,7 +142,7 @@
   return v5;
 }
 
-- (uint64_t)safeIntegerForKey:()SUCoreDictionary defaultValue:
+- (void)safeIntegerForKey:()SUCoreDictionary defaultValue:
 {
   v6 = a3;
   v7 = [self objectForKey:v6];
@@ -684,7 +684,7 @@ LABEL_37:
 
 - (void)_logReturningDefault:()SUCoreDictionary forKey:valueType:defaultValueName:
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v9 = a4;
   v10 = a5;
   v11 = a6;
@@ -695,22 +695,20 @@ LABEL_37:
 
     if (os_log_type_enabled(oslog, OS_LOG_TYPE_ERROR))
     {
-      v15 = 138543874;
-      v16 = v9;
-      v17 = 2114;
-      v18 = v10;
-      v19 = 2114;
-      v20 = v11;
-      _os_log_error_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_ERROR, "[SUCoreDictionary] key '%{public}@' is the incorrect class, returning %{public}@ default value: %{public}@", &v15, 0x20u);
+      v14 = 138543874;
+      v15 = v9;
+      v16 = 2114;
+      v17 = v10;
+      v18 = 2114;
+      v19 = v11;
+      _os_log_error_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_ERROR, "[SUCoreDictionary] key '%{public}@' is the incorrect class, returning %{public}@ default value: %{public}@", &v14, 0x20u);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_logReturningNil:()SUCoreDictionary forKey:valueType:fromBase:withKeyDescription:
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v11 = a3;
   v12 = a4;
   v13 = a5;
@@ -730,21 +728,21 @@ LABEL_37:
         {
           v19 = objc_opt_class();
           v20 = NSStringFromClass(v19);
-          v28 = 138544386;
-          v29 = v14;
-          v30 = 2114;
-          v31 = v12;
-          v32 = 2114;
-          v33 = v15;
-          v34 = 2114;
-          v35 = v20;
-          v36 = 2114;
-          v37 = v13;
+          v27 = 138544386;
+          v28 = v14;
+          v29 = 2114;
+          v30 = v12;
+          v31 = 2114;
+          v32 = v15;
+          v33 = 2114;
+          v34 = v20;
+          v35 = 2114;
+          v36 = v13;
           v21 = "[SUCoreDictionary] [%{public}@] key '%{public}@' (%{public}@) references value of the incorrect class (%{public}@), returning %{public}@ value: nil";
           v22 = oslog;
           v23 = 52;
 LABEL_14:
-          _os_log_error_impl(&dword_1E0F71000, v22, OS_LOG_TYPE_ERROR, v21, &v28, v23);
+          _os_log_error_impl(&dword_1E0F71000, v22, OS_LOG_TYPE_ERROR, v21, &v27, v23);
         }
 
 LABEL_15:
@@ -759,14 +757,14 @@ LABEL_15:
 
       v25 = objc_opt_class();
       v20 = NSStringFromClass(v25);
-      v28 = 138544130;
-      v29 = v14;
-      v30 = 2114;
-      v31 = v12;
-      v32 = 2114;
-      v33 = v20;
-      v34 = 2114;
-      v35 = v13;
+      v27 = 138544130;
+      v28 = v14;
+      v29 = 2114;
+      v30 = v12;
+      v31 = 2114;
+      v32 = v20;
+      v33 = 2114;
+      v34 = v13;
       v21 = "[SUCoreDictionary] [%{public}@] key '%{public}@' references value of the incorrect class (%{public}@), returning %{public}@ value: nil";
     }
 
@@ -778,12 +776,12 @@ LABEL_15:
         {
           v26 = objc_opt_class();
           v20 = NSStringFromClass(v26);
-          v28 = 138543874;
-          v29 = v12;
-          v30 = 2114;
-          v31 = v20;
-          v32 = 2114;
-          v33 = v13;
+          v27 = 138543874;
+          v28 = v12;
+          v29 = 2114;
+          v30 = v20;
+          v31 = 2114;
+          v32 = v13;
           v21 = "[SUCoreDictionary] key '%{public}@' references value of the incorrect class (%{public}@), returning %{public}@ value: nil";
           v22 = oslog;
           v23 = 32;
@@ -800,14 +798,14 @@ LABEL_15:
 
       v24 = objc_opt_class();
       v20 = NSStringFromClass(v24);
-      v28 = 138544130;
-      v29 = v12;
-      v30 = 2114;
-      v31 = v15;
-      v32 = 2114;
-      v33 = v20;
-      v34 = 2114;
-      v35 = v13;
+      v27 = 138544130;
+      v28 = v12;
+      v29 = 2114;
+      v30 = v15;
+      v31 = 2114;
+      v32 = v20;
+      v33 = 2114;
+      v34 = v13;
       v21 = "[SUCoreDictionary] key '%{public}@' (%{public}@) references value of the incorrect class (%{public}@), returning %{public}@ value: nil";
     }
 
@@ -817,32 +815,27 @@ LABEL_15:
   }
 
 LABEL_16:
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (void)safeTriStateForKey:()SUCoreDictionary defaultValue:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_error_impl(&dword_1E0F71000, log, OS_LOG_TYPE_ERROR, "[SUCoreDictionary] key '%{public}@' is invalid value: %{public}@, returning default value", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_error_impl(&dword_1E0F71000, log, OS_LOG_TYPE_ERROR, "[SUCoreDictionary] key '%{public}@' is invalid value: %{public}@, returning default value", &v3, 0x16u);
 }
 
 - (void)safeTriStateForKey:()SUCoreDictionary defaultValue:.cold.2(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = [MEMORY[0x1E696AD98] numberWithInteger:a2];
-  v7 = 138543618;
-  v8 = a1;
-  v9 = 2114;
-  v10 = v5;
-  _os_log_error_impl(&dword_1E0F71000, a3, OS_LOG_TYPE_ERROR, "[SUCoreDictionary] key '%{public}@' is invalid value: %{public}@, returning SUCoreTriStateNotSet", &v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 138543618;
+  v7 = a1;
+  v8 = 2114;
+  v9 = v5;
+  _os_log_error_impl(&dword_1E0F71000, a3, OS_LOG_TYPE_ERROR, "[SUCoreDictionary] key '%{public}@' is invalid value: %{public}@, returning SUCoreTriStateNotSet", &v6, 0x16u);
 }
 
 @end

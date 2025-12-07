@@ -54,7 +54,7 @@ uint64_t __46__MRUFinishTaskAssertionManager_sharedManager__block_invoke()
 
 - (void)acquireForTaskToken:(id)token withReason:(id)reason invalidationHandler:(id)handler
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   tokenCopy = token;
   reasonCopy = reason;
   handlerCopy = handler;
@@ -63,58 +63,58 @@ uint64_t __46__MRUFinishTaskAssertionManager_sharedManager__block_invoke()
   v12 = _Block_copy(handlerCopy);
   [tokenMap setObject:v12 forKey:tokenCopy];
 
-  v13 = MCLogCategoryDefault();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = MCLogCategoryDefault(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
-    v31 = tokenCopy;
-    v32 = 2112;
-    v33 = reasonCopy;
-    _os_log_impl(&dword_1A20FC000, v13, OS_LOG_TYPE_DEFAULT, "[MRUFinishTaskAssertionManager] Acquiring for token: %p with reason: %@", buf, 0x16u);
+    v33 = tokenCopy;
+    v34 = 2112;
+    v35 = reasonCopy;
+    _os_log_impl(&dword_1A20FC000, v14, OS_LOG_TYPE_DEFAULT, "[MRUFinishTaskAssertionManager] Acquiring for token: %p with reason: %@", buf, 0x16u);
   }
 
   taskAssertion = [(MRUFinishTaskAssertionManager *)self taskAssertion];
-  v15 = taskAssertion == 0;
+  v16 = taskAssertion == 0;
 
-  if (v15)
+  if (v16)
   {
-    v16 = objc_alloc(MEMORY[0x1E69C7548]);
+    v17 = objc_alloc(MEMORY[0x1E69C7548]);
     currentProcess = [MEMORY[0x1E69C7640] currentProcess];
-    v18 = [MEMORY[0x1E69C7560] attributeWithDomain:@"com.apple.common" name:@"FinishTaskUninterruptable"];
-    v29 = v18;
-    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v29 count:1];
-    v20 = [v16 initWithExplanation:@"MediaRemote UI pre-suspend cleanup." target:currentProcess attributes:v19];
-    [(MRUFinishTaskAssertionManager *)self setTaskAssertion:v20];
+    v19 = [MEMORY[0x1E69C7560] attributeWithDomain:@"com.apple.common" name:@"FinishTaskUninterruptable"];
+    v31 = v19;
+    v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v31 count:1];
+    v21 = [v17 initWithExplanation:@"MediaRemote UI pre-suspend cleanup." target:currentProcess attributes:v20];
+    [(MRUFinishTaskAssertionManager *)self setTaskAssertion:v21];
 
     taskAssertion2 = [(MRUFinishTaskAssertionManager *)self taskAssertion];
-    v28 = 0;
-    [taskAssertion2 acquireWithError:&v28];
-    v22 = v28;
+    v30 = 0;
+    [taskAssertion2 acquireWithError:&v30];
+    v23 = v30;
 
-    if (v22)
+    if (v23)
     {
-      v23 = MCLogCategoryDefault();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v25 = MCLogCategoryDefault(v24);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v31 = v22;
-        _os_log_impl(&dword_1A20FC000, v23, OS_LOG_TYPE_ERROR, "[MRUFinishTaskAssertionManager] FinishTask assertion acquisition failed with error: %@", buf, 0xCu);
+        v33 = v23;
+        _os_log_impl(&dword_1A20FC000, v25, OS_LOG_TYPE_ERROR, "[MRUFinishTaskAssertionManager] FinishTask assertion acquisition failed with error: %@", buf, 0xCu);
       }
     }
 
     else
     {
       objc_initWeak(buf, self);
-      v24 = MEMORY[0x1E69B14D8];
-      v26[0] = MEMORY[0x1E69E9820];
-      v26[1] = 3221225472;
-      v26[2] = __84__MRUFinishTaskAssertionManager_acquireForTaskToken_withReason_invalidationHandler___block_invoke;
-      v26[3] = &unk_1E7663AE8;
-      objc_copyWeak(&v27, buf);
-      v25 = [v24 timerWithInterval:0 repeats:MEMORY[0x1E69E96A0] queue:v26 block:5.0];
-      [(MRUFinishTaskAssertionManager *)self setAutoInvalidationTimer:v25];
+      v26 = MEMORY[0x1E69B14D8];
+      v28[0] = MEMORY[0x1E69E9820];
+      v28[1] = 3221225472;
+      v28[2] = __84__MRUFinishTaskAssertionManager_acquireForTaskToken_withReason_invalidationHandler___block_invoke;
+      v28[3] = &unk_1E7663AE8;
+      objc_copyWeak(&v29, buf);
+      v27 = [v26 timerWithInterval:0 repeats:MEMORY[0x1E69E96A0] queue:v28 block:5.0];
+      [(MRUFinishTaskAssertionManager *)self setAutoInvalidationTimer:v27];
 
-      objc_destroyWeak(&v27);
+      objc_destroyWeak(&v29);
       objc_destroyWeak(buf);
     }
   }
@@ -122,62 +122,63 @@ uint64_t __46__MRUFinishTaskAssertionManager_sharedManager__block_invoke()
 
 void __84__MRUFinishTaskAssertionManager_acquireForTaskToken_withReason_invalidationHandler___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = WeakRetained;
   if (WeakRetained)
   {
     v3 = [WeakRetained tokenMap];
-    if ([v3 count])
+    v4 = [v3 count];
+    if (v4)
     {
-      v4 = MCLogCategoryDefault();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+      v5 = MCLogCategoryDefault(v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        v5 = [v3 keyEnumerator];
-        v6 = [v5 allObjects];
+        v6 = [v3 keyEnumerator];
+        v7 = [v6 allObjects];
         *buf = 138412290;
-        v20 = v6;
-        _os_log_impl(&dword_1A20FC000, v4, OS_LOG_TYPE_ERROR, "[MRUFinishTaskAssertionManager] Task tokens after timeout: %@", buf, 0xCu);
+        v21 = v7;
+        _os_log_impl(&dword_1A20FC000, v5, OS_LOG_TYPE_ERROR, "[MRUFinishTaskAssertionManager] Task tokens after timeout: %@", buf, 0xCu);
       }
 
-      v16 = 0u;
       v17 = 0u;
-      v14 = 0u;
+      v18 = 0u;
       v15 = 0u;
-      v7 = v3;
-      v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
-      if (v8)
+      v16 = 0u;
+      v8 = v3;
+      v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      if (v9)
       {
-        v9 = v8;
-        v10 = *v15;
+        v10 = v9;
+        v11 = *v16;
         do
         {
-          v11 = 0;
+          v12 = 0;
           do
           {
-            if (*v15 != v10)
+            if (*v16 != v11)
             {
-              objc_enumerationMutation(v7);
+              objc_enumerationMutation(v8);
             }
 
-            v12 = [v7 objectForKey:{*(*(&v14 + 1) + 8 * v11), v14}];
-            v12[2]();
+            v13 = [v8 objectForKey:{*(*(&v15 + 1) + 8 * v12), v15}];
+            v13[2]();
 
-            ++v11;
+            ++v12;
           }
 
-          while (v9 != v11);
-          v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+          while (v10 != v12);
+          v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
         }
 
-        while (v9);
+        while (v10);
       }
 
-      [v7 removeAllObjects];
+      [v8 removeAllObjects];
     }
 
-    v13 = [v2 taskAssertion];
-    [v13 invalidate];
+    v14 = [v2 taskAssertion];
+    [v14 invalidate];
 
     [v2 setTaskAssertion:0];
   }
@@ -185,7 +186,7 @@ void __84__MRUFinishTaskAssertionManager_acquireForTaskToken_withReason_invalida
 
 - (void)releaseForTaskToken:(id)token
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   tokenCopy = token;
   dispatch_assert_queue_V2(MEMORY[0x1E69E96A0]);
   tokenMap = [(MRUFinishTaskAssertionManager *)self tokenMap];
@@ -193,21 +194,21 @@ void __84__MRUFinishTaskAssertionManager_acquireForTaskToken_withReason_invalida
 
   if (v6)
   {
-    v7 = MCLogCategoryDefault();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = MCLogCategoryDefault(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 134217984;
-      v14 = tokenCopy;
-      _os_log_impl(&dword_1A20FC000, v7, OS_LOG_TYPE_DEFAULT, "[MRUFinishTaskAssertionManager] Releasing for token: %p", &v13, 0xCu);
+      v14 = 134217984;
+      v15 = tokenCopy;
+      _os_log_impl(&dword_1A20FC000, v8, OS_LOG_TYPE_DEFAULT, "[MRUFinishTaskAssertionManager] Releasing for token: %p", &v14, 0xCu);
     }
 
     tokenMap2 = [(MRUFinishTaskAssertionManager *)self tokenMap];
     [tokenMap2 removeObjectForKey:tokenCopy];
 
     tokenMap3 = [(MRUFinishTaskAssertionManager *)self tokenMap];
-    v10 = [tokenMap3 count];
+    v11 = [tokenMap3 count];
 
-    if (!v10)
+    if (!v11)
     {
       autoInvalidationTimer = [(MRUFinishTaskAssertionManager *)self autoInvalidationTimer];
       [autoInvalidationTimer invalidate];

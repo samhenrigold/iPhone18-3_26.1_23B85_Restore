@@ -13,14 +13,12 @@
 
 + (id)_features
 {
-  v7[2] = *MEMORY[0x277D85DE8];
+  v6[2] = *MEMORY[0x277D85DE8];
   v2 = +[REFeature dailyRoutineFeature];
-  v7[0] = v2;
+  v6[0] = v2;
   v3 = +[REFeature isInDailyRoutineFeature];
-  v7[1] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v6[1] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
 
   return v4;
 }
@@ -161,25 +159,26 @@ LABEL_7:
 
   if (currentRoutineType == 1)
   {
-    v5 = 0;
+    v6 = 0;
     self->_inMorningRoutine = 1;
   }
 
   else
   {
-    self->_inMorningRoutine = REUpNextDemoAlwaysShowRoutines();
+    DemoAlwaysShowRoutines = REUpNextDemoAlwaysShowRoutines(v5);
+    self->_inMorningRoutine = DemoAlwaysShowRoutines;
     if (currentRoutineType == 2)
     {
-      v5 = REUpNextDemoAlwaysShowRoutines() ^ 1;
+      v6 = REUpNextDemoAlwaysShowRoutines(DemoAlwaysShowRoutines) ^ 1;
     }
 
     else
     {
-      v5 = 0;
+      v6 = 0;
     }
   }
 
-  self->_inEveningRoutine = v5;
+  self->_inEveningRoutine = v6;
 }
 
 - (void)_updateRoutines

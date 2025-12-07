@@ -9,6 +9,7 @@
 - (void)globalConfigurationService:(id)service didReceiveUpdatedPairSyncState:(unint64_t)state;
 - (void)loadBBSections;
 - (void)loadDNDState;
+- (void)setPairSyncEnabled:(BOOL)enabled;
 @end
 
 @implementation PBBGatewayManager
@@ -187,37 +188,6 @@ void __35__PBBGatewayManager_loadBBSections__block_invoke(uint64_t a1, void *a2)
 
 - (BOOL)pairSyncStateEditable
 {
-  v13 = *MEMORY[0x277D85DE8];
-  globalConfigurationService = [(PBBGatewayManager *)self globalConfigurationService];
-  v10 = 0;
-  v3 = [globalConfigurationService getPairSyncStateReturningError:&v10];
-  v4 = v10;
-
-  if (v4)
-  {
-    v5 = pbb_bridge_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR) && os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-    {
-      localizedDescription = [v4 localizedDescription];
-      *buf = 138543362;
-      v12 = localizedDescription;
-      _os_log_impl(&dword_25DE64000, v5, OS_LOG_TYPE_DEFAULT, "Error getting pair sync state editable value: %{public}@", buf, 0xCu);
-    }
-
-    v7 = 0;
-  }
-
-  else
-  {
-    v7 = (~v3 & 3) == 0;
-  }
-
-  v8 = *MEMORY[0x277D85DE8];
-  return v7;
-}
-
-- (BOOL)pairSyncEnabled
-{
   v12 = *MEMORY[0x277D85DE8];
   globalConfigurationService = [(PBBGatewayManager *)self globalConfigurationService];
   v9 = 0;
@@ -232,6 +202,36 @@ void __35__PBBGatewayManager_loadBBSections__block_invoke(uint64_t a1, void *a2)
       localizedDescription = [v4 localizedDescription];
       *buf = 138543362;
       v11 = localizedDescription;
+      _os_log_impl(&dword_25DE64000, v5, OS_LOG_TYPE_DEFAULT, "Error getting pair sync state editable value: %{public}@", buf, 0xCu);
+    }
+
+    v7 = 0;
+  }
+
+  else
+  {
+    v7 = (~v3 & 3) == 0;
+  }
+
+  return v7;
+}
+
+- (BOOL)pairSyncEnabled
+{
+  v11 = *MEMORY[0x277D85DE8];
+  globalConfigurationService = [(PBBGatewayManager *)self globalConfigurationService];
+  v8 = 0;
+  v3 = [globalConfigurationService getPairSyncStateReturningError:&v8];
+  v4 = v8;
+
+  if (v4)
+  {
+    v5 = pbb_bridge_log();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR) && os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    {
+      localizedDescription = [v4 localizedDescription];
+      *buf = 138543362;
+      v10 = localizedDescription;
       _os_log_impl(&dword_25DE64000, v5, OS_LOG_TYPE_DEFAULT, "Error getting pair sync enabled value: %{public}@", buf, 0xCu);
     }
 
@@ -243,8 +243,37 @@ void __35__PBBGatewayManager_loadBBSections__block_invoke(uint64_t a1, void *a2)
     v5 = ((v3 >> 2) & 1);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v5;
+}
+
+- (void)setPairSyncEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v13 = *MEMORY[0x277D85DE8];
+  globalConfigurationService = [(PBBGatewayManager *)self globalConfigurationService];
+  v10 = 0;
+  v5 = [globalConfigurationService setPairSyncPreferenceEnabled:enabledCopy error:&v10];
+  v6 = v10;
+
+  v7 = pbb_bridge_log();
+  v8 = v7;
+  if (!v5 || v6)
+  {
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR) && os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      localizedDescription = [v6 localizedDescription];
+      *buf = 138543362;
+      v12 = localizedDescription;
+      _os_log_impl(&dword_25DE64000, v8, OS_LOG_TYPE_DEFAULT, "Error setting pair sync enabled value: %{public}@", buf, 0xCu);
+    }
+  }
+
+  else if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109120;
+    LODWORD(v12) = enabledCopy;
+    _os_log_impl(&dword_25DE64000, v8, OS_LOG_TYPE_DEFAULT, "Successfully updated pair sync enabled value to %i", buf, 8u);
+  }
 }
 
 - (void)globalConfigurationService:(id)service didReceiveUpdatedPairSyncState:(unint64_t)state
@@ -260,16 +289,16 @@ void __35__PBBGatewayManager_loadBBSections__block_invoke(uint64_t a1, void *a2)
 
 void __79__PBBGatewayManager_globalConfigurationService_didReceiveUpdatedPairSyncState___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = pbb_bridge_log();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 40);
-    v8 = 136315394;
-    v9 = "[PBBGatewayManager globalConfigurationService:didReceiveUpdatedPairSyncState:]_block_invoke";
-    v10 = 2048;
-    v11 = v3;
-    _os_log_impl(&dword_25DE64000, v2, OS_LOG_TYPE_DEFAULT, "%s - pairSyncState: %lu", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[PBBGatewayManager globalConfigurationService:didReceiveUpdatedPairSyncState:]_block_invoke";
+    v9 = 2048;
+    v10 = v3;
+    _os_log_impl(&dword_25DE64000, v2, OS_LOG_TYPE_DEFAULT, "%s - pairSyncState: %lu", &v7, 0x16u);
   }
 
   v4 = [*(a1 + 32) delegate];
@@ -280,8 +309,6 @@ void __79__PBBGatewayManager_globalConfigurationService_didReceiveUpdatedPairSyn
     v6 = [*(a1 + 32) delegate];
     [v6 gatewayManagerDidUpdateFocusPairSyncValue];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (PBBGatewayManagerDelegate)delegate

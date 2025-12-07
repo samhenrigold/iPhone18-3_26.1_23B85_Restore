@@ -13,8 +13,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v12[3] = *MEMORY[0x1E69E9840];
-  v11[0] = @"person";
+  v11[3] = *MEMORY[0x1E69E9840];
+  v10[0] = @"person";
   person = self->_person;
   null = person;
   if (!person)
@@ -22,8 +22,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v12[0] = null;
-  v11[1] = @"score";
+  v11[0] = null;
+  v10[1] = @"score";
   score = self->_score;
   null2 = score;
   if (!score)
@@ -31,11 +31,11 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v12[1] = null2;
-  v11[2] = @"recommendation";
+  v11[1] = null2;
+  v10[2] = @"recommendation";
   v7 = [MEMORY[0x1E696AD98] numberWithInteger:self->_recommendation];
-  v12[2] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:3];
+  v11[2] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:3];
 
   if (score)
   {
@@ -55,7 +55,6 @@
   }
 
 LABEL_7:
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

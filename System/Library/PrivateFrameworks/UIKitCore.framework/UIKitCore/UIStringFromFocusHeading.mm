@@ -3,7 +3,7 @@
 
 @implementation UIStringFromFocusHeading
 
-uint64_t ___UIStringFromFocusHeading_block_invoke(uint64_t a1, uint64_t a2)
+void *___UIStringFromFocusHeading_block_invoke(uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 32);
   if (*(*(*(a1 + 40) + 8) + 24))

@@ -9,91 +9,91 @@
   dataCopy = data;
   responseCopy = response;
   errorCopy = error;
-  v38 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(dataCopy, "length")}];
-  _SLLog(v5, 7, @"SLGoogleOAuth2TokenResponse initWithData: %@ length urlResponse: %@ error: %@");
+  v12 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(dataCopy, "length")}];
+  _SLLog(v5, 7, @"SLGoogleOAuth2TokenResponse initWithData: %@ length urlResponse: %@ error: %@", v13, v14, v15, v16, v17, v12);
 
-  v41.receiver = self;
-  v41.super_class = SLGoogleOAuth2TokenResponse;
-  v12 = [(SLGoogleOAuth2TokenResponse *)&v41 init:v38];
-  v13 = v12;
-  if (v12)
+  v63.receiver = self;
+  v63.super_class = SLGoogleOAuth2TokenResponse;
+  v18 = [(SLGoogleOAuth2TokenResponse *)&v63 init];
+  v19 = v18;
+  if (v18)
   {
-    objc_storeStrong(&v12->_error, error);
+    objc_storeStrong(&v18->_error, error);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v14 = responseCopy;
-      statusCode = [v14 statusCode];
-      v13->_statusCode = statusCode;
-      v39 = [MEMORY[0x1E696AD98] numberWithInteger:statusCode];
-      _SLLog(v5, 7, @"SLGoogleOAuth2TokenResponse httpResponse status code %@");
+      v25 = responseCopy;
+      statusCode = [v25 statusCode];
+      v19->_statusCode = statusCode;
+      v27 = [MEMORY[0x1E696AD98] numberWithInteger:statusCode];
+      _SLLog(v5, 7, @"SLGoogleOAuth2TokenResponse httpResponse status code %@", v28, v29, v30, v31, v32, v27);
 
-      if (!v13->_error)
+      if (!v19->_error)
       {
-        v40 = 0;
-        v16 = [MEMORY[0x1E696ACB0] JSONObjectWithData:dataCopy options:0 error:{&v40, v39}];
-        v17 = v40;
-        v18 = v40;
-        if (v18)
+        v62 = 0;
+        v33 = [MEMORY[0x1E696ACB0] JSONObjectWithData:dataCopy options:0 error:&v62];
+        v34 = v62;
+        v35 = v62;
+        if (v35)
         {
-          objc_storeStrong(&v13->_error, v17);
+          objc_storeStrong(&v19->_error, v34);
         }
 
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          objc_storeStrong(&v13->_data, v16);
-          v19 = [(NSDictionary *)v13->_data objectForKeyedSubscript:@"access_token"];
-          token = v13->_token;
-          v13->_token = v19;
+          objc_storeStrong(&v19->_data, v33);
+          v41 = [(NSDictionary *)v19->_data objectForKeyedSubscript:@"access_token"];
+          token = v19->_token;
+          v19->_token = v41;
 
-          v21 = [(NSDictionary *)v13->_data objectForKeyedSubscript:@"refresh_token"];
-          refreshToken = v13->_refreshToken;
-          v13->_refreshToken = v21;
+          v43 = [(NSDictionary *)v19->_data objectForKeyedSubscript:@"refresh_token"];
+          refreshToken = v19->_refreshToken;
+          v19->_refreshToken = v43;
 
-          v23 = [(NSDictionary *)v13->_data objectForKeyedSubscript:@"id_token"];
-          idToken = v13->_idToken;
-          v13->_idToken = v23;
+          v45 = [(NSDictionary *)v19->_data objectForKeyedSubscript:@"id_token"];
+          idToken = v19->_idToken;
+          v19->_idToken = v45;
 
-          v25 = MEMORY[0x1E695DF00];
-          v26 = [(NSDictionary *)v13->_data objectForKeyedSubscript:@"expires_in"];
-          v27 = [v25 dateWithTimeIntervalSinceNow:{objc_msgSend(v26, "integerValue")}];
-          expiryDate = v13->_expiryDate;
-          v13->_expiryDate = v27;
+          v47 = MEMORY[0x1E695DF00];
+          v48 = [(NSDictionary *)v19->_data objectForKeyedSubscript:@"expires_in"];
+          v49 = [v47 dateWithTimeIntervalSinceNow:{objc_msgSend(v48, "integerValue")}];
+          expiryDate = v19->_expiryDate;
+          v19->_expiryDate = v49;
 
-          v29 = [(NSDictionary *)v13->_data objectForKeyedSubscript:@"scope"];
-          v30 = [v29 componentsSeparatedByString:@" "];
+          v51 = [(NSDictionary *)v19->_data objectForKeyedSubscript:@"scope"];
+          v52 = [v51 componentsSeparatedByString:@" "];
 
-          v31 = [SLGoogleWebClient dataclassesForScopes:v30];
-          grantedDataclasses = v13->_grantedDataclasses;
-          v13->_grantedDataclasses = v31;
+          v53 = [SLGoogleWebClient dataclassesForScopes:v52];
+          grantedDataclasses = v19->_grantedDataclasses;
+          v19->_grantedDataclasses = v53;
 
-          v33 = [(NSDictionary *)v13->_data objectForKeyedSubscript:@"error"];
+          v55 = [(NSDictionary *)v19->_data objectForKeyedSubscript:@"error"];
           objc_opt_class();
           isKindOfClass = objc_opt_isKindOfClass();
 
           if (isKindOfClass)
           {
-            v35 = [(NSDictionary *)v13->_data objectForKeyedSubscript:@"error"];
-            errorMessage = v13->_errorMessage;
-            v13->_errorMessage = v35;
+            v57 = [(NSDictionary *)v19->_data objectForKeyedSubscript:@"error"];
+            errorMessage = v19->_errorMessage;
+            v19->_errorMessage = v57;
           }
         }
 
         else
         {
-          _SLLog(v5, 7, @"SLGoogleOAuth2TokenResponse response JSON data does not represent NSDictionary. Game over.");
+          _SLLog(v5, 7, @"SLGoogleOAuth2TokenResponse response JSON data does not represent NSDictionary. Game over.", v36, v37, v38, v39, v40, v61);
         }
       }
     }
 
     else
     {
-      _SLLog(v5, 7, @"SLGoogleOAuth2TokenResponse response is not NSHTTPURLResponse. Game over.");
+      _SLLog(v5, 7, @"SLGoogleOAuth2TokenResponse response is not NSHTTPURLResponse. Game over.", v20, v21, v22, v23, v24, v60);
     }
   }
 
-  return v13;
+  return v19;
 }
 
 @end

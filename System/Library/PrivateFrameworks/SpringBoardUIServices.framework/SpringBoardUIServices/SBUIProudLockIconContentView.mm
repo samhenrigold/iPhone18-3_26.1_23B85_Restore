@@ -238,7 +238,7 @@ LABEL_24:
 
   if (((1 << state) & 0x33) != 0)
   {
-    if (SBUIAllowsIndicatorSecureRendering())
+    if (SBUIAllowsIndicatorSecureRendering(self, a2))
     {
       isForCapture = SBSIsSystemApertureAvailable() ^ 1;
       return isForCapture & 1;
@@ -249,7 +249,7 @@ LABEL_2:
     return isForCapture & 1;
   }
 
-  return SBUIAllowsIndicatorSecureRendering();
+  return SBUIAllowsIndicatorSecureRendering(self, a2);
 }
 
 - (id)_packageViewStateFromIconViewState:(int64_t)state

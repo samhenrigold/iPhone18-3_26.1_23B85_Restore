@@ -9,29 +9,28 @@
 - (void)fireCallbackContext:(const void *)context whenKeypaths:(id)keypaths changeOnClass:(Class)class;
 - (void)observeObject:(id)object;
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
+- (void)setSuspended:(BOOL)suspended;
 @end
 
 @implementation XRLazyKVOAdapter
 
 + (id)observeKeyPath:(id)path object:(id)object observer:(id)observer lazyUpdateBlock:(id)block
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   pathCopy = path;
   objectCopy = object;
   observerCopy = observer;
   blockCopy = block;
-  v21[0] = pathCopy;
-  v16 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v14, v21, 1, v15);
+  v20[0] = pathCopy;
+  v16 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v14, v20, 1, v15);
   v18 = objc_msgSend_observeKeyPathArray_object_observer_lazyUpdateBlock_(self, v17, v16, objectCopy, observerCopy, blockCopy);
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
 
 + (id)observeKeyPathArray:(id)array object:(id)object observer:(id)observer lazyUpdateBlock:(id)block
 {
-  v104[1] = *MEMORY[0x277D85DE8];
+  v103[1] = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   objectCopy = object;
   observerCopy = observer;
@@ -44,8 +43,8 @@
   v25 = objc_opt_class();
   objc_msgSend_fireCallbackContext_whenKeypaths_changeOnClass_(v23, v26, v24, arrayCopy, v25);
   objc_msgSend_observeObject_(v23, v27, objectCopy, v28, v29);
-  v104[0] = *MEMORY[0x277CBE640];
-  v32 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v30, v104, 1, v31);
+  v103[0] = *MEMORY[0x277CBE640];
+  v32 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v30, v103, 1, v31);
   objc_msgSend_setRunLoopModes_(v23, v33, v32, v34, v35);
 
   objc_msgSend_setStrongBlockAdapterToken_(v23, v36, v18, v37, v38);
@@ -57,35 +56,35 @@
     {
       if (objc_opt_class() == self)
       {
-        v48 = 43;
+        v47 = 43;
       }
 
       else
       {
-        v48 = 45;
+        v47 = 45;
       }
 
-      v89 = v48;
-      v49 = objc_opt_class();
-      v90 = NSStringFromClass(v49);
-      v50 = v90;
-      v88 = objc_msgSend_UTF8String(v90, v51, v52, v53, v54);
+      v88 = v47;
+      v48 = objc_opt_class();
+      v89 = NSStringFromClass(v48);
+      v49 = v89;
+      v87 = objc_msgSend_UTF8String(v89, v50, v51, v52, v53);
       Name = sel_getName(a2);
-      v60 = objc_msgSend_description(objectCopy, v56, v57, v58, v59);
-      v61 = v60;
-      v66 = objc_msgSend_UTF8String(v60, v62, v63, v64, v65);
+      v59 = objc_msgSend_description(objectCopy, v55, v56, v57, v58);
+      v60 = v59;
+      v65 = objc_msgSend_UTF8String(v59, v61, v62, v63, v64);
       *buf = 67109890;
-      v97 = v89;
-      v98 = 2080;
-      v99 = v88;
-      v100 = 2080;
-      v101 = Name;
-      v102 = 2080;
-      v103 = v66;
+      v96 = v88;
+      v97 = 2080;
+      v98 = v87;
+      v99 = 2080;
+      v100 = Name;
+      v101 = 2080;
+      v102 = v65;
       _os_log_fault_impl(&dword_248087000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "The block provided to %c[%s %s] captures the observed object (%s) which may extend its lifetime.  Use the 'object' parameter passed to the block instead.\nSet a breakpoint in '_DVTIUInvalidBlockCaptureBreak' to debug", buf, 0x26u);
     }
 
-    _DVTIUInvalidBlockCaptureBreak(blockCopy, objectCopy);
+    _DVTIUInvalidBlockCaptureBreak();
   }
 
   if (_DVTIURuntimeCheckForBlockCaptureOfObject(blockCopy, observerCopy))
@@ -94,49 +93,48 @@
     {
       if (objc_opt_class() == self)
       {
-        v67 = 43;
+        v66 = 43;
       }
 
       else
       {
-        v67 = 45;
+        v66 = 45;
       }
 
-      v91 = v67;
-      v68 = objc_opt_class();
-      v69 = NSStringFromClass(v68);
-      v70 = v69;
-      v75 = objc_msgSend_UTF8String(v69, v71, v72, v73, v74);
-      v76 = sel_getName(a2);
-      v81 = objc_msgSend_description(observerCopy, v77, v78, v79, v80);
-      v82 = v81;
-      v87 = objc_msgSend_UTF8String(v81, v83, v84, v85, v86);
+      v90 = v66;
+      v67 = objc_opt_class();
+      v68 = NSStringFromClass(v67);
+      v69 = v68;
+      v74 = objc_msgSend_UTF8String(v68, v70, v71, v72, v73);
+      v75 = sel_getName(a2);
+      v80 = objc_msgSend_description(observerCopy, v76, v77, v78, v79);
+      v81 = v80;
+      v86 = objc_msgSend_UTF8String(v80, v82, v83, v84, v85);
       *buf = 67109890;
-      v97 = v91;
-      v98 = 2080;
-      v99 = v75;
-      v100 = 2080;
-      v101 = v76;
-      v102 = 2080;
-      v103 = v87;
+      v96 = v90;
+      v97 = 2080;
+      v98 = v74;
+      v99 = 2080;
+      v100 = v75;
+      v101 = 2080;
+      v102 = v86;
       _os_log_fault_impl(&dword_248087000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "The block provided to %c[%s %s] captures the observer (%s) which could lead to a retain cycle -- possibly via 'self' or ivar usage.  Use the 'observer' parameter passed to the block instead.\nSet a breakpoint in '_DVTIUInvalidBlockCaptureBreak' to debug", buf, 0x26u);
     }
 
-    _DVTIUInvalidBlockCaptureBreak(blockCopy, observerCopy);
+    _DVTIUInvalidBlockCaptureBreak();
   }
 
-  v92[0] = MEMORY[0x277D85DD0];
-  v92[1] = 3221225472;
-  v92[2] = sub_2480A6844;
-  v92[3] = &unk_278EFC338;
+  v91[0] = MEMORY[0x277D85DD0];
+  v91[1] = 3221225472;
+  v91[2] = sub_2480A6844;
+  v91[3] = &unk_278EFC338;
   v42 = blockCopy;
-  v93 = v42;
-  objc_copyWeak(&v94, &location);
-  objc_msgSend_setBlock_(v18, v43, v92, v44, v45);
-  objc_destroyWeak(&v94);
+  v92 = v42;
+  objc_copyWeak(&v93, &location);
+  objc_msgSend_setBlock_(v18, v43, v91, v44, v45);
+  objc_destroyWeak(&v93);
 
   objc_destroyWeak(&location);
-  v46 = *MEMORY[0x277D85DE8];
 
   return v23;
 }
@@ -152,11 +150,11 @@
 
 - (XRLazyKVOAdapter)initWithLazyKVOResponder:(id)responder
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   responderCopy = responder;
-  v26.receiver = self;
-  v26.super_class = XRLazyKVOAdapter;
-  v5 = [(XRLazyKVOAdapter *)&v26 init];
+  v25.receiver = self;
+  v25.super_class = XRLazyKVOAdapter;
+  v5 = [(XRLazyKVOAdapter *)&v25 init];
   v6 = v5;
   if (v5)
   {
@@ -169,8 +167,8 @@
     keyPathsByContextByObj = v6->_keyPathsByContextByObj;
     v6->_keyPathsByContextByObj = v17;
 
-    v27[0] = *MEMORY[0x277CBE640];
-    v21 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v19, v27, 1, v20);
+    v26[0] = *MEMORY[0x277CBE640];
+    v21 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v19, v26, 1, v20);
     runLoopModes = v6->_runLoopModes;
     v6->_runLoopModes = v21;
 
@@ -178,7 +176,6 @@
     v6->_implementsWillChangeHandler = objc_opt_respondsToSelector() & 1;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -191,6 +188,25 @@
   v10.receiver = self;
   v10.super_class = XRLazyKVOAdapter;
   [(XRLazyKVOAdapter *)&v10 dealloc];
+}
+
+- (void)setSuspended:(BOOL)suspended
+{
+  if (self->_suspended != suspended)
+  {
+    self->_suspended = suspended;
+    if (suspended)
+    {
+      v9 = objc_msgSend_mainRunLoop(MEMORY[0x277CBEB88], a2, suspended, v3, v4);
+      objc_msgSend_cancelPerformSelectorsWithTarget_(v9, v6, self, v7, v8);
+    }
+
+    else if (self->_updatedContexts.__table_.__size_)
+    {
+
+      objc_msgSend__callbackHandler(self, a2, suspended, v3, v4);
+    }
+  }
 }
 
 - (void)fireCallbackContext:(const void *)context whenKeypaths:(id)keypaths changeOnClass:(Class)class
@@ -295,7 +311,7 @@
 
     if (v32)
     {
-      sub_2480A7B48(&self->_updatedContexts.__table_.__bucket_list_.__ptr_, &contextCopy);
+      sub_2480A7B48(&self->_updatedContexts.__table_.__bucket_list_.__ptr_, &contextCopy, &contextCopy);
     }
 
     objc_sync_exit(v25);
@@ -307,7 +323,7 @@
 
     if (v33)
     {
-      sub_2480A7B48(&self->_updatedContexts.__table_.__bucket_list_.__ptr_, &contextCopy);
+      sub_2480A7B48(&self->_updatedContexts.__table_.__bucket_list_.__ptr_, &contextCopy, &contextCopy);
     }
 
     objc_msgSend__callbackHandler(self, v34, v35, v36, v37);

@@ -307,7 +307,7 @@ LABEL_14:
       {
         OUTLINED_FUNCTION_10();
         OUTLINED_FUNCTION_0();
-        OUTLINED_FUNCTION_13_8(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to configure the audio IO", v2, v3, v4, v5, v12);
+        OUTLINED_FUNCTION_13_8(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to configure the audio IO", v2, v3, v4, v5);
       }
     }
 
@@ -315,7 +315,7 @@ LABEL_14:
     {
       OUTLINED_FUNCTION_10();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_3_28(&dword_1DB56E000, v6, v7, " [%s] %s:%d Failed to configure the audio IO", v8, v9, v10, v11, v12);
+      OUTLINED_FUNCTION_3_28(&dword_1DB56E000, v6, v7, " [%s] %s:%d Failed to configure the audio IO", v8, v9, v10, v11);
     }
   }
 
@@ -334,7 +334,7 @@ LABEL_14:
       {
         OUTLINED_FUNCTION_10();
         OUTLINED_FUNCTION_0();
-        OUTLINED_FUNCTION_13_8(&dword_1DB56E000, v0, v1, " [%s] %s:%d could not create queue", v2, v3, v4, v5, v12);
+        OUTLINED_FUNCTION_13_8(&dword_1DB56E000, v0, v1, " [%s] %s:%d could not create queue", v2, v3, v4, v5);
       }
     }
 
@@ -342,7 +342,7 @@ LABEL_14:
     {
       OUTLINED_FUNCTION_10();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_3_28(&dword_1DB56E000, v6, v7, " [%s] %s:%d could not create queue", v8, v9, v10, v11, v12);
+      OUTLINED_FUNCTION_3_28(&dword_1DB56E000, v6, v7, " [%s] %s:%d could not create queue", v8, v9, v10, v11);
     }
   }
 
@@ -361,7 +361,7 @@ LABEL_14:
       {
         OUTLINED_FUNCTION_10();
         OUTLINED_FUNCTION_0();
-        OUTLINED_FUNCTION_13_8(&dword_1DB56E000, v0, v1, " [%s] %s:%d could not create queue", v2, v3, v4, v5, v12);
+        OUTLINED_FUNCTION_13_8(&dword_1DB56E000, v0, v1, " [%s] %s:%d could not create queue", v2, v3, v4, v5);
       }
     }
 
@@ -369,7 +369,7 @@ LABEL_14:
     {
       OUTLINED_FUNCTION_10();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_3_28(&dword_1DB56E000, v6, v7, " [%s] %s:%d could not create queue", v8, v9, v10, v11, v12);
+      OUTLINED_FUNCTION_3_28(&dword_1DB56E000, v6, v7, " [%s] %s:%d could not create queue", v8, v9, v10, v11);
     }
   }
 
@@ -388,7 +388,7 @@ LABEL_14:
       {
         OUTLINED_FUNCTION_10();
         OUTLINED_FUNCTION_0();
-        OUTLINED_FUNCTION_13_8(&dword_1DB56E000, v0, v1, " [%s] %s:%d could not audio buffers", v2, v3, v4, v5, v12);
+        OUTLINED_FUNCTION_13_8(&dword_1DB56E000, v0, v1, " [%s] %s:%d could not audio buffers", v2, v3, v4, v5);
       }
     }
 
@@ -396,7 +396,7 @@ LABEL_14:
     {
       OUTLINED_FUNCTION_10();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_3_28(&dword_1DB56E000, v6, v7, " [%s] %s:%d could not audio buffers", v8, v9, v10, v11, v12);
+      OUTLINED_FUNCTION_3_28(&dword_1DB56E000, v6, v7, " [%s] %s:%d could not audio buffers", v8, v9, v10, v11);
     }
   }
 
@@ -415,7 +415,7 @@ LABEL_14:
       {
         OUTLINED_FUNCTION_10();
         OUTLINED_FUNCTION_0();
-        OUTLINED_FUNCTION_13_8(&dword_1DB56E000, v0, v1, " [%s] %s:%d null configuration", v2, v3, v4, v5, v12);
+        OUTLINED_FUNCTION_13_8(&dword_1DB56E000, v0, v1, " [%s] %s:%d null configuration", v2, v3, v4, v5);
       }
     }
 
@@ -423,7 +423,7 @@ LABEL_14:
     {
       OUTLINED_FUNCTION_10();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_3_28(&dword_1DB56E000, v6, v7, " [%s] %s:%d null configuration", v8, v9, v10, v11, v12);
+      OUTLINED_FUNCTION_3_28(&dword_1DB56E000, v6, v7, " [%s] %s:%d null configuration", v8, v9, v10, v11);
     }
   }
 

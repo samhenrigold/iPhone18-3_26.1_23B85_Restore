@@ -159,162 +159,26 @@
   v68.receiver = self;
   v68.super_class = ANSTFace;
   v5 = [(ANSTObject *)&v68 initWithCoder:coderCopy];
-  if (!v5)
+  if (v5
+    && (v6 = coderCopy, v7 = objc_opt_class(), NSStringFromSelector(sel_isFrontal), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend_decodeObjectOfClass_forKey_(v6, v9, v7, v8), v10 = objc_claimAutoreleasedReturnValue(), v6, v8, v10)
+    && (v5->_frontal = objc_msgSend_BOOLValue(v10, v11, v12), v10, v13 = v6, v14 = objc_opt_class(), NSStringFromSelector(sel_faceMaskConfidence), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend_decodeObjectOfClass_forKey_(v13, v16, v14, v15), v17 = objc_claimAutoreleasedReturnValue(), v13, v15, v17)
+    && (v5->_faceMaskConfidence = objc_msgSend_integerValue(v17, v18, v19), v17, v20 = v13, v21 = objc_opt_class(), NSStringFromSelector(sel_eyeCoveringConfidence), v22 = objc_claimAutoreleasedReturnValue(), objc_msgSend_decodeObjectOfClass_forKey_(v20, v23, v21, v22), v24 = objc_claimAutoreleasedReturnValue(), v20, v22, v24)
+    && (v5->_eyeCoveringConfidence = objc_msgSend_integerValue(v24, v25, v26), v24, v27 = v20, v28 = objc_opt_class(), NSStringFromSelector(sel_poseEstimateExists), v29 = objc_claimAutoreleasedReturnValue(), objc_msgSend_decodeObjectOfClass_forKey_(v27, v30, v28, v29), v31 = objc_claimAutoreleasedReturnValue(), v27, v29, v31)
+    && (v5->_poseEstimateExists = objc_msgSend_BOOLValue(v31, v32, v33), v31, v34 = v27, v35 = objc_opt_class(), NSStringFromSelector(sel_skinToneEstimateExists), v36 = objc_claimAutoreleasedReturnValue(), objc_msgSend_decodeObjectOfClass_forKey_(v34, v37, v35, v36), v38 = objc_claimAutoreleasedReturnValue(), v34, v36, v38)
+    && (v5->_skinToneEstimateExists = objc_msgSend_BOOLValue(v38, v39, v40), v38, sub_22E601030(v34, &v5->_smileEstimateExists, sel_smileEstimateExists))
+    && sub_22E601030(v34, &v5->_eyeBlinkEstimateExists, sel_eyeBlinkEstimateExists)
+    && sub_22E601030(v34, &v5->_eyeRectEstimateExists, sel_eyeRectEstimateExists)
+    && (!v5->_poseEstimateExists || (v41 = objc_opt_class(), NSStringFromSelector(sel_poseEstimate), v42 = objc_claimAutoreleasedReturnValue(), objc_msgSend_decodeObjectOfClass_forKey_(v34, v43, v41, v42), v44 = objc_claimAutoreleasedReturnValue(), poseEstimate = v5->_poseEstimate, v5->_poseEstimate = v44, poseEstimate, v42, v5->_poseEstimate))
+    && (!v5->_skinToneEstimateExists || (v46 = objc_opt_class(), NSStringFromSelector(sel_skinToneEstimate), v47 = objc_claimAutoreleasedReturnValue(), objc_msgSend_decodeObjectOfClass_forKey_(v34, v48, v46, v47), v49 = objc_claimAutoreleasedReturnValue(), skinToneEstimate = v5->_skinToneEstimate, v5->_skinToneEstimate = v49, skinToneEstimate, v47, v5->_skinToneEstimate))
+    && (!v5->_smileEstimateExists || (v51 = objc_opt_class(), NSStringFromSelector(sel_smileEstimate), v52 = objc_claimAutoreleasedReturnValue(), objc_msgSend_decodeObjectOfClass_forKey_(v34, v53, v51, v52), v54 = objc_claimAutoreleasedReturnValue(), smileEstimate = v5->_smileEstimate, v5->_smileEstimate = v54, smileEstimate, v52, v5->_smileEstimate))
+    && (!v5->_eyeBlinkEstimateExists || (v56 = objc_opt_class(), NSStringFromSelector(sel_eyeBlinkEstimate), v57 = objc_claimAutoreleasedReturnValue(), objc_msgSend_decodeObjectOfClass_forKey_(v34, v58, v56, v57), v59 = objc_claimAutoreleasedReturnValue(), eyeBlinkEstimate = v5->_eyeBlinkEstimate, v5->_eyeBlinkEstimate = v59, eyeBlinkEstimate, v57, v5->_eyeBlinkEstimate))
+    && (!v5->_eyeRectEstimateExists || (v61 = objc_opt_class(), NSStringFromSelector(sel_eyeRectEstimate), v62 = objc_claimAutoreleasedReturnValue(), objc_msgSend_decodeObjectOfClass_forKey_(v34, v63, v61, v62), v64 = objc_claimAutoreleasedReturnValue(), eyeRectEstimate = v5->_eyeRectEstimate, v5->_eyeRectEstimate = v64, eyeRectEstimate, v62, v5->_eyeRectEstimate)))
   {
-    goto LABEL_21;
-  }
-
-  v6 = coderCopy;
-  v7 = objc_opt_class();
-  v8 = NSStringFromSelector(sel_isFrontal);
-  v10 = objc_msgSend_decodeObjectOfClass_forKey_(v6, v9, v7, v8);
-
-  if (!v10)
-  {
-    goto LABEL_21;
-  }
-
-  v5->_frontal = objc_msgSend_BOOLValue(v10, v11, v12);
-
-  v13 = v6;
-  v14 = objc_opt_class();
-  v15 = NSStringFromSelector(sel_faceMaskConfidence);
-  v17 = objc_msgSend_decodeObjectOfClass_forKey_(v13, v16, v14, v15);
-
-  if (!v17)
-  {
-    goto LABEL_21;
-  }
-
-  v5->_faceMaskConfidence = objc_msgSend_integerValue(v17, v18, v19);
-
-  v20 = v13;
-  v21 = objc_opt_class();
-  v22 = NSStringFromSelector(sel_eyeCoveringConfidence);
-  v24 = objc_msgSend_decodeObjectOfClass_forKey_(v20, v23, v21, v22);
-
-  if (!v24)
-  {
-    goto LABEL_21;
-  }
-
-  v5->_eyeCoveringConfidence = objc_msgSend_integerValue(v24, v25, v26);
-
-  v27 = v20;
-  v28 = objc_opt_class();
-  v29 = NSStringFromSelector(sel_poseEstimateExists);
-  v31 = objc_msgSend_decodeObjectOfClass_forKey_(v27, v30, v28, v29);
-
-  if (!v31)
-  {
-    goto LABEL_21;
-  }
-
-  v5->_poseEstimateExists = objc_msgSend_BOOLValue(v31, v32, v33);
-
-  v34 = v27;
-  v35 = objc_opt_class();
-  v36 = NSStringFromSelector(sel_skinToneEstimateExists);
-  v38 = objc_msgSend_decodeObjectOfClass_forKey_(v34, v37, v35, v36);
-
-  if (!v38)
-  {
-    goto LABEL_21;
-  }
-
-  v5->_skinToneEstimateExists = objc_msgSend_BOOLValue(v38, v39, v40);
-
-  if (!sub_22E601030(v34, &v5->_smileEstimateExists, sel_smileEstimateExists))
-  {
-    goto LABEL_21;
-  }
-
-  if (!sub_22E601030(v34, &v5->_eyeBlinkEstimateExists, sel_eyeBlinkEstimateExists))
-  {
-    goto LABEL_21;
-  }
-
-  if (!sub_22E601030(v34, &v5->_eyeRectEstimateExists, sel_eyeRectEstimateExists))
-  {
-    goto LABEL_21;
-  }
-
-  if (v5->_poseEstimateExists)
-  {
-    v41 = objc_opt_class();
-    v42 = NSStringFromSelector(sel_poseEstimate);
-    v44 = objc_msgSend_decodeObjectOfClass_forKey_(v34, v43, v41, v42);
-    poseEstimate = v5->_poseEstimate;
-    v5->_poseEstimate = v44;
-
-    if (!v5->_poseEstimate)
-    {
-      goto LABEL_21;
-    }
-  }
-
-  if (v5->_skinToneEstimateExists)
-  {
-    v46 = objc_opt_class();
-    v47 = NSStringFromSelector(sel_skinToneEstimate);
-    v49 = objc_msgSend_decodeObjectOfClass_forKey_(v34, v48, v46, v47);
-    skinToneEstimate = v5->_skinToneEstimate;
-    v5->_skinToneEstimate = v49;
-
-    if (!v5->_skinToneEstimate)
-    {
-      goto LABEL_21;
-    }
-  }
-
-  if (v5->_smileEstimateExists)
-  {
-    v51 = objc_opt_class();
-    v52 = NSStringFromSelector(sel_smileEstimate);
-    v54 = objc_msgSend_decodeObjectOfClass_forKey_(v34, v53, v51, v52);
-    smileEstimate = v5->_smileEstimate;
-    v5->_smileEstimate = v54;
-
-    if (!v5->_smileEstimate)
-    {
-      goto LABEL_21;
-    }
-  }
-
-  if (v5->_eyeBlinkEstimateExists)
-  {
-    v56 = objc_opt_class();
-    v57 = NSStringFromSelector(sel_eyeBlinkEstimate);
-    v59 = objc_msgSend_decodeObjectOfClass_forKey_(v34, v58, v56, v57);
-    eyeBlinkEstimate = v5->_eyeBlinkEstimate;
-    v5->_eyeBlinkEstimate = v59;
-
-    if (!v5->_eyeBlinkEstimate)
-    {
-      goto LABEL_21;
-    }
-  }
-
-  if (!v5->_eyeRectEstimateExists)
-  {
-    goto LABEL_20;
-  }
-
-  v61 = objc_opt_class();
-  v62 = NSStringFromSelector(sel_eyeRectEstimate);
-  v64 = objc_msgSend_decodeObjectOfClass_forKey_(v34, v63, v61, v62);
-  eyeRectEstimate = v5->_eyeRectEstimate;
-  v5->_eyeRectEstimate = v64;
-
-  if (v5->_eyeRectEstimate)
-  {
-LABEL_20:
     v66 = v5;
   }
 
   else
   {
-LABEL_21:
     v66 = 0;
   }
 

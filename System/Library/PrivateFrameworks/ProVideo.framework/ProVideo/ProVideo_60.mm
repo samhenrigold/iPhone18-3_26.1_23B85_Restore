@@ -52,13 +52,13 @@ LABEL_10:
   return 1;
 }
 
-uint64_t OZSpline::interpolatorUsesTangents(OZInterpolators **this, unsigned int a2, void *a3)
+uint64_t OZSpline::interpolatorUsesTangents(atomic_ullong **this, unsigned int a2, void *a3)
 {
   Interpolator = OZInterpolators::getInterpolator(this[19], a2);
   v6 = this[20];
   if (v6)
   {
-    v7 = *(v6 + 5);
+    v7 = v6[5];
     if (v7)
     {
       if ((*(*v7 + 112))(v7, this, a3))
@@ -109,11 +109,11 @@ uint64_t OZSpline::getExtrapolation(OZSpline *this, int a2)
   return *(*(this + 21) + v2);
 }
 
-void OZSpline::getRangeU(OZSpline *this@<X0>, const CMTime *a2@<X1>, CMTime *a3@<X8>)
+void OZSpline::getRangeU(uint64_t *__return_ptr a1@<X8>, OZSpline *this@<X0>, const CMTime *a3@<X1>)
 {
   v6 = MEMORY[0x277CC08F0];
-  *&a3->value = *MEMORY[0x277CC08F0];
-  a3->epoch = v6->epoch;
+  *a1 = *MEMORY[0x277CC08F0];
+  a1[2] = v6->epoch;
   v14 = 0;
   v7 = *(this + 20);
   if (!v7 || (v8 = *(v7 + 48)) == 0)
@@ -123,25 +123,25 @@ void OZSpline::getRangeU(OZSpline *this@<X0>, const CMTime *a2@<X1>, CMTime *a3@
 
   PCSpinLock::lock(v8);
   (*(*this + 16))(this, &v14, 0, 0);
-  OZSpline::getMaxValueU(this, a2, 0, &v13);
-  OZSpline::getMinValueU(this, a2, 0, &v12);
+  OZSpline::getMaxValueU(&v13.value, this, a3, 0);
+  OZSpline::getMinValueU(&v12.value, this, a3, 0);
   time1 = v13;
   time2 = v12;
-  PC_CMTimeSaferSubtract(&time1, &time2, a3);
+  PC_CMTimeSaferSubtract(&time1, &time2, a1);
   Interpolator = OZInterpolators::getInterpolator(*(this + 19), v14);
   if ((*(*Interpolator + 64))(Interpolator))
   {
     if (*(this + 144) == 1)
     {
-      time1 = *a3;
+      time1 = *a1;
       time2 = *v6;
       if (CMTimeCompare(&time1, &time2))
       {
-        OZSpline::getStep(this, &v12);
-        time1 = *a3;
+        OZSpline::getStep(&v12, this);
+        time1 = *a1;
         time2 = v12;
         PC_CMTimeSaferAdd(&time1, &time2, &v13);
-        *a3 = v13;
+        *a1 = v13;
       }
     }
   }
@@ -155,10 +155,10 @@ void OZSpline::getRangeU(OZSpline *this@<X0>, const CMTime *a2@<X1>, CMTime *a3@
   PCSpinLock::unlock(v11);
 }
 
-__n128 OZSpline::getMaxValueU@<Q0>(OZSpline *this@<X0>, const CMTime *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+__n128 OZSpline::getMaxValueU@<Q0>(uint64_t *__return_ptr a1@<X8>, OZSpline *this@<X0>, const CMTime *a3@<X1>, int a4@<W2>)
 {
   v23 = 0;
-  if (a3)
+  if (a4)
   {
     v8 = *(this + 20);
     if (!v8 || (v9 = *(v8 + 48)) == 0)
@@ -167,7 +167,7 @@ __n128 OZSpline::getMaxValueU@<Q0>(OZSpline *this@<X0>, const CMTime *a2@<X1>, i
     }
 
     PCSpinLock::lock(v9);
-    if ((OZSpline::getLastValidVertex(this, &v23, a2) & 1) == 0)
+    if ((OZSpline::getLastValidVertex(this, &v23, a3) & 1) == 0)
     {
       v10 = *(this + 20);
       if (!v10 || (v11 = *(v10 + 48)) == 0)
@@ -180,28 +180,28 @@ __n128 OZSpline::getMaxValueU@<Q0>(OZSpline *this@<X0>, const CMTime *a2@<X1>, i
     }
   }
 
-  else if (!OZSpline::getLastValidVertex(this, &v23, a2))
+  else if (!OZSpline::getLastValidVertex(this, &v23, a3))
   {
 LABEL_16:
     v20 = MEMORY[0x277CC08F0];
     result = *MEMORY[0x277CC08F0];
-    *a4 = *MEMORY[0x277CC08F0];
-    *(a4 + 16) = *(v20 + 16);
+    *a1 = *MEMORY[0x277CC08F0];
+    a1[2] = *(v20 + 16);
     return result;
   }
 
   v12 = v23;
   v13 = *(v23 + 4);
-  *a4 = *(v23 + 1);
-  *(a4 + 16) = v13;
+  *a1 = *(v23 + 1);
+  a1[2] = v13;
   v14 = *(this + 19);
   v15 = (*(*v12 + 208))(v12);
   Interpolator = OZInterpolators::getInterpolator(v14, v15);
   (*(*Interpolator + 72))(&v21);
   result.n128_u64[0] = v21;
-  *a4 = v21;
-  *(a4 + 16) = v22;
-  if (a3)
+  *a1 = v21;
+  a1[2] = v22;
+  if (a4)
   {
     v18 = *(this + 20);
     if (!v18 || (v19 = *(v18 + 48)) == 0)
@@ -215,13 +215,13 @@ LABEL_16:
   return result;
 }
 
-void OZSpline::getMinValueU(OZSpline *this@<X0>, const CMTime *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+void OZSpline::getMinValueU(uint64_t *__return_ptr a1@<X8>, OZSpline *this@<X0>, const CMTime *a3@<X1>, int a4@<W2>)
 {
   v20 = 0;
   v8 = MEMORY[0x277CC08F0];
-  *a4 = *MEMORY[0x277CC08F0];
-  *(a4 + 16) = *(v8 + 16);
-  if (a3)
+  *a1 = *MEMORY[0x277CC08F0];
+  a1[2] = *(v8 + 16);
+  if (a4)
   {
     v9 = *(this + 20);
     if (!v9 || (v10 = *(v9 + 48)) == 0)
@@ -232,21 +232,21 @@ void OZSpline::getMinValueU(OZSpline *this@<X0>, const CMTime *a2@<X1>, int a3@<
     PCSpinLock::lock(v10);
   }
 
-  if (OZSpline::getFirstValidVertex(this, &v20, a2))
+  if (OZSpline::getFirstValidVertex(this, &v20, a3))
   {
     v11 = v20;
     v12 = *(v20 + 4);
-    *a4 = *(v20 + 1);
-    *(a4 + 16) = v12;
+    *a1 = *(v20 + 1);
+    a1[2] = v12;
     v13 = *(this + 19);
     v14 = (*(*v11 + 208))(v11);
     Interpolator = OZInterpolators::getInterpolator(v13, v14);
     (*(*Interpolator + 80))(&v18);
-    *a4 = v18;
-    *(a4 + 16) = v19;
+    *a1 = v18;
+    a1[2] = v19;
   }
 
-  if (a3)
+  if (a4)
   {
     v16 = *(this + 20);
     if (!v16 || (v17 = *(v16 + 48)) == 0)
@@ -258,23 +258,23 @@ void OZSpline::getMinValueU(OZSpline *this@<X0>, const CMTime *a2@<X1>, int a3@<
   }
 }
 
-CMTime *OZSpline::getStep@<X0>(OZSpline *this@<X0>, CMTime *a2@<X8>)
+CMTime *OZSpline::getStep@<X0>(CMTime *__return_ptr a1@<X8>, OZSpline *this@<X0>)
 {
   v2 = *(this + 21);
   if (*v2 == 1)
   {
     v3 = 1;
-    return CMTimeMake(a2, 1, v3);
+    return CMTimeMake(a1, 1, v3);
   }
 
   v4 = *(this + 20);
   if (!v4 || v2[4] != 1)
   {
     v3 = 30;
-    return CMTimeMake(a2, 1, v3);
+    return CMTimeMake(a1, 1, v3);
   }
 
-  return OZSplineNode::getFrameDuration(v4, a2);
+  return OZSplineNode::getFrameDuration(v4, a1);
 }
 
 BOOL OZSpline::getFirstValidVertex(OZSpline *this, void **a2, const CMTime *a3)
@@ -1603,8 +1603,8 @@ uint64_t OZSpline::getNextValidVertex(OZSpline *this, void ***a2, void *a3, uint
         {
           v19 = *(*v12 + 4);
           v16 = **a2;
-          v17 = *(v16 + 1);
-          v18 = *(v16 + 4);
+          v17 = *(v16 + 16);
+          v18 = *(v16 + 32);
           *&time1.value = *(*v12 + 1);
           time1.epoch = v19;
           *&time2.value = v17;
@@ -1733,8 +1733,8 @@ LABEL_24:
       {
         v23 = *(*v12 + 4);
         v14 = **a2;
-        v15 = *(v14 + 1);
-        v20 = *(v14 + 4);
+        v15 = *(v14 + 16);
+        v20 = *(v14 + 32);
         *&time1.value = *(*v12 + 1);
         time1.epoch = v23;
         *&time2.value = v15;
@@ -1776,8 +1776,8 @@ LABEL_18:
   {
     v25 = *(*v12 + 4);
     v17 = **a2;
-    v18 = *(v17 + 1);
-    v21 = *(v17 + 4);
+    v18 = *(v17 + 16);
+    v21 = *(v17 + 32);
     *&time1.value = *(*v12 + 1);
     time1.epoch = v25;
     *&time2.value = v18;
@@ -1894,7 +1894,7 @@ void **OZSpline::getValidVertexIter(OZSpline *this, void *a2)
   return v2;
 }
 
-CMTime *OZSpline::getSmallDeltaU@<X0>(OZSpline *this@<X0>, CMTime *a2@<X8>)
+CMTime *OZSpline::getSmallDeltaU@<X0>(CMTime *__return_ptr a1@<X8>, OZSpline *this@<X0>)
 {
   if (**(this + 21))
   {
@@ -1906,7 +1906,7 @@ CMTime *OZSpline::getSmallDeltaU@<X0>(OZSpline *this@<X0>, CMTime *a2@<X8>)
     v2 = 100;
   }
 
-  return CMTimeMake(a2, 1, v2);
+  return CMTimeMake(a1, 1, v2);
 }
 
 uint64_t OZSpline::getFirstVertex(OZSpline *this)
@@ -2231,7 +2231,7 @@ double OZSpline::getVertexValue(OZSpline *this, const CMTime *a2, const CMTime *
   Interpolator = OZInterpolators::getInterpolator(*(this + 19), *(*(this + 21) + 32));
   if ((*(*Interpolator + 64))(Interpolator))
   {
-    OZSpline::getMinValueU(this, MEMORY[0x277CC08F0], 0, &v52);
+    OZSpline::getMinValueU(&v52.value, this, MEMORY[0x277CC08F0], 0);
     time1 = *a2;
     time2 = v52;
     if (CMTimeCompare(&time1, &time2) < 0 && (*(this + 144) & 1) == 0)
@@ -2250,7 +2250,7 @@ double OZSpline::getVertexValue(OZSpline *this, const CMTime *a2, const CMTime *
     else
     {
       memset(&v52, 0, sizeof(v52));
-      OZSpline::getMaxValueU(this, MEMORY[0x277CC08F0], 0, &v52);
+      OZSpline::getMaxValueU(&v52.value, this, MEMORY[0x277CC08F0], 0);
       time1 = *a2;
       time2 = v52;
       if (CMTimeCompare(&time1, &time2) <= 0)
@@ -2491,9 +2491,9 @@ void OZSpline::extrapolate(OZSpline *this, char *a2, const CMTime *a3, const CMT
 {
   memset(&v60, 0, sizeof(v60));
   v12 = MEMORY[0x277CC08F0];
-  OZSpline::getMaxValueU(this, MEMORY[0x277CC08F0], 0, &v60);
+  OZSpline::getMaxValueU(&v60.value, this, MEMORY[0x277CC08F0], 0);
   memset(&v59, 0, sizeof(v59));
-  OZSpline::getMinValueU(this, v12, 0, &v59);
+  OZSpline::getMinValueU(&v59.value, this, v12, 0);
   memset(&v58, 0, sizeof(v58));
   time1 = v60;
   time2 = v59;
@@ -2753,7 +2753,7 @@ LABEL_32:
     else
     {
       memset(&v63, 0, sizeof(v63));
-      OZSpline::getStep(this, &v63);
+      OZSpline::getStep(&v63, this);
       if (*(*(this + 21) + 4) == 1)
       {
         time1 = v58;
@@ -2778,7 +2778,7 @@ LABEL_49:
   if (v23 == 2)
   {
     memset(&v62, 0, sizeof(v62));
-    OZSpline::getStep(this, &v62);
+    OZSpline::getStep(&v62, this);
     if (*(*(this + 21) + 4) == 1)
     {
       time1 = v58;
@@ -2806,7 +2806,7 @@ LABEL_49:
           time2 = v62;
           PC_CMTimeSaferSubtract(&time1, &time2, &v57);
           operator*(&v57, &time2, 2.0);
-          PCMath::mod(&v61, &time2, &time1);
+          PCMath::mod(&time1.value, &v61, &time2);
           v61 = time1;
           time2 = v57;
           if (CMTimeCompare(&time1, &time2) < 0)
@@ -2891,7 +2891,7 @@ LABEL_49:
     }
 
     v63 = v61;
-    PCMath::clamp(&v63, &v59, &v60, &time1);
+    PCMath::clamp(&time1.value, &v63, &v59, &v60);
     v44 = *&time1.value;
     *&v63.value = *&time1.value;
     epoch = time1.epoch;
@@ -3004,7 +3004,7 @@ double OZSpline::getDerivativeValue(OZSpline *this, const CMTime *a2, const CMTi
     return 0.0;
   }
 
-  OZSpline::getMinValueU(this, MEMORY[0x277CC08F0], 0, &v24);
+  OZSpline::getMinValueU(&v24.value, this, MEMORY[0x277CC08F0], 0);
   time1 = *a2;
   time2 = v24;
   if (CMTimeCompare(&time1, &time2) < 0)
@@ -3013,7 +3013,7 @@ double OZSpline::getDerivativeValue(OZSpline *this, const CMTime *a2, const CMTi
   }
 
   memset(&v24, 0, sizeof(v24));
-  OZSpline::getMaxValueU(this, MEMORY[0x277CC08F0], 0, &v24);
+  OZSpline::getMaxValueU(&v24.value, this, MEMORY[0x277CC08F0], 0);
   time1 = *a2;
   time2 = v24;
   v12 = CMTimeCompare(&time1, &time2);
@@ -3101,14 +3101,12 @@ LABEL_27:
   return result;
 }
 
-void *OZSpline::reserveMemoryForKeypoints(void *this, int a2)
+void OZSpline::reserveMemoryForKeypoints(OZSpline *this, int a2)
 {
   if (a2)
   {
-    return std::vector<OZVertex *>::reserve(this + 2, a2);
+    std::vector<OZVertex *>::reserve(this + 2, a2);
   }
-
-  return this;
 }
 
 uint64_t OZSpline::sampleSpline(OZSpline *this, const CMTime *a2, CMTime *a3, int32_t *a4, CMTime *a5, double *a6, const CMTime *a7, char a8)
@@ -3513,7 +3511,7 @@ uint64_t OZSpline::sampleSplineDerivatives(os_unfair_lock_s *a1, CMTime *a2, CMT
         v24 = v22;
         v17 = PC_CMTimeSaferAdd(&v25, &v24, &v21);
         v25.value = (*(*&a1->_os_unfair_lock_opaque + 248))(a1, &v21, a7, 0, v17);
-        std::vector<double>::push_back[abi:ne200100](a6, &v25);
+        std::vector<double>::push_back[abi:ne200100](a6, &v25.value);
       }
 
       if (a5)
@@ -3540,7 +3538,7 @@ uint64_t OZSpline::sampleSplineDerivatives(os_unfair_lock_s *a1, CMTime *a2, CMT
   return 1;
 }
 
-BOOL OZSpline::sampleSplineSegments(os_unfair_lock_s *a1, CMTime *a2, CMTime *a3, CMTime *a4, void *a5, uint64_t a6)
+BOOL OZSpline::sampleSplineSegments(os_unfair_lock_s *a1, CMTime *a2, CMTime *a3, CMTime *a4, void *a5, const void **a6)
 {
   v40 = 0;
   v12 = *&a1[40]._os_unfair_lock_opaque;
@@ -3551,7 +3549,7 @@ BOOL OZSpline::sampleSplineSegments(os_unfair_lock_s *a1, CMTime *a2, CMTime *a3
 
   PCSpinLock::lock(v13);
   a5[1] = *a5;
-  *(a6 + 8) = *a6;
+  a6[1] = *a6;
   (*(*&a1->_os_unfair_lock_opaque + 16))(a1, &v40, 0, 0);
   time1 = *a3;
   time2 = *a2;
@@ -3564,7 +3562,7 @@ BOOL OZSpline::sampleSplineSegments(os_unfair_lock_s *a1, CMTime *a2, CMTime *a3
     {
       std::vector<CMTime>::push_back[abi:ne200100](a5, &a2->value);
       time1.value = (*(*&a1->_os_unfair_lock_opaque + 240))(a1, a2, MEMORY[0x277CC08F0], 0);
-      std::vector<double>::push_back[abi:ne200100](a6, &time1);
+      std::vector<double>::push_back[abi:ne200100](a6, &time1.value);
       return v14 >= 0;
     }
 
@@ -3595,13 +3593,13 @@ LABEL_53:
     if (OZSpline::getNumberOfValidVertices(a1, MEMORY[0x277CC08F0]) <= 1)
     {
       time1.value = (*(*&a1->_os_unfair_lock_opaque + 240))(a1, a2, MEMORY[0x277CC08F0], 0);
-      std::vector<double>::push_back[abi:ne200100](a6, &time1);
+      std::vector<double>::push_back[abi:ne200100](a6, &time1.value);
       time1 = *a2;
       time2 = *a3;
       if (CMTimeCompare(&time1, &time2))
       {
         time1.value = (*(*&a1->_os_unfair_lock_opaque + 240))(a1, a3, MEMORY[0x277CC08F0], 0);
-        std::vector<double>::push_back[abi:ne200100](a6, &time1);
+        std::vector<double>::push_back[abi:ne200100](a6, &time1.value);
       }
 
       std::vector<CMTime>::push_back[abi:ne200100](a5, &a2->value);
@@ -3633,7 +3631,7 @@ LABEL_48:
       }
 
       time1.value = (*(*&a1->_os_unfair_lock_opaque + 240))(a1, a3, MEMORY[0x277CC08F0], 0);
-      std::vector<double>::push_back[abi:ne200100](a6, &time1);
+      std::vector<double>::push_back[abi:ne200100](a6, &time1.value);
       goto LABEL_51;
     }
 
@@ -3669,12 +3667,12 @@ LABEL_34:
         if (v21 == *a5 || !PCMath::equal((v21 - 24), &v39, v17, v19))
         {
           time1.value = (*(*&a1->_os_unfair_lock_opaque + 240))(a1, &v39, v17, 0);
-          std::vector<double>::push_back[abi:ne200100](a6, &time1);
+          std::vector<double>::push_back[abi:ne200100](a6, &time1.value);
           std::vector<CMTime>::push_back[abi:ne200100](a5, &v39.value);
         }
 
         time1.value = (*(*&a1->_os_unfair_lock_opaque + 240))(a1, &v36, v17, 0);
-        std::vector<double>::push_back[abi:ne200100](a6, &time1);
+        std::vector<double>::push_back[abi:ne200100](a6, &time1.value);
         std::vector<CMTime>::push_back[abi:ne200100](a5, &v36.value);
         goto LABEL_47;
       }
@@ -3700,7 +3698,7 @@ LABEL_38:
             time2 = time;
             v27 = PC_CMTimeSaferAdd(&time1, &time2, &v34);
             time1.value = (*(*&a1->_os_unfair_lock_opaque + 240))(a1, &v34, v17, 0, v27);
-            std::vector<double>::push_back[abi:ne200100](a6, &time1);
+            std::vector<double>::push_back[abi:ne200100](a6, &time1.value);
             time1 = v39;
             time2 = time;
             PC_CMTimeSaferAdd(&time1, &time2, &v34);
@@ -3735,7 +3733,7 @@ LABEL_47:
   return v14 >= 0;
 }
 
-uint64_t OZSpline::sampleSpline(uint64_t a1, CMTime *a2, CMTime *a3, int32_t *a4, uint64_t a5, uint64_t a6, const CMTime *a7, char a8)
+uint64_t OZSpline::sampleSpline(uint64_t a1, CMTime *a2, CMTime *a3, int32_t *a4, uint64_t a5, const void **a6, const CMTime *a7, char a8)
 {
   v58 = 0;
   v16 = *(a1 + 160);
@@ -3796,8 +3794,8 @@ uint64_t OZSpline::sampleSpline(uint64_t a1, CMTime *a2, CMTime *a3, int32_t *a4
             time2 = v57;
             PC_CMTimeSaferAdd(&time1, &time2, &v53);
             OZSpline::interpolate(a1, a7, v27, v28, &v53, &v52, 0);
-            v30 = *(a6 + 8);
-            v29 = *(a6 + 16);
+            v30 = a6[1];
+            v29 = a6[2];
             if (v30 >= v29)
             {
               v32 = *a6;
@@ -3828,12 +3826,12 @@ uint64_t OZSpline::sampleSpline(uint64_t a1, CMTime *a2, CMTime *a3, int32_t *a4
               }
 
               *(8 * v34) = v52;
-              v31 = 8 * v34 + 8;
+              v31 = (8 * v34 + 8);
               memcpy(0, v32, v33);
               v39 = *a6;
               *a6 = 0;
-              *(a6 + 8) = v31;
-              *(a6 + 16) = 0;
+              a6[1] = v31;
+              a6[2] = 0;
               if (v39)
               {
                 operator delete(v39);
@@ -3843,10 +3841,10 @@ uint64_t OZSpline::sampleSpline(uint64_t a1, CMTime *a2, CMTime *a3, int32_t *a4
             else
             {
               *v30 = v52;
-              v31 = (v30 + 1);
+              v31 = v30 + 8;
             }
 
-            *(a6 + 8) = v31;
+            a6[1] = v31;
           }
 
           if (a5)
@@ -3882,7 +3880,7 @@ uint64_t OZSpline::sampleSpline(uint64_t a1, CMTime *a2, CMTime *a3, int32_t *a4
           time2 = v57;
           v21 = PC_CMTimeSaferAdd(&time1, &time2, &v56);
           time1.value = (*(*a1 + 240))(a1, &v56, a7, 0, v21);
-          std::vector<double>::push_back[abi:ne200100](a6, &time1);
+          std::vector<double>::push_back[abi:ne200100](a6, &time1.value);
         }
 
         if (a5)
@@ -3979,7 +3977,7 @@ LABEL_65:
               time2 = time;
               v47 = PC_CMTimeSaferAdd(&time1, &time2, &v53);
               time1.value = (*(*a1 + 240))(a1, &v53, a7, 0, v47);
-              std::vector<double>::push_back[abi:ne200100](a6, &time1);
+              std::vector<double>::push_back[abi:ne200100](a6, &time1.value);
             }
 
             if (a5)
@@ -4001,9 +3999,9 @@ LABEL_60:
       if (a6)
       {
         time1.value = (*(*a1 + 240))(a1, &v57, a7, 0);
-        std::vector<double>::push_back[abi:ne200100](a6, &time1);
+        std::vector<double>::push_back[abi:ne200100](a6, &time1.value);
         time1.value = (*(*a1 + 240))(a1, &v56, a7, 0);
-        std::vector<double>::push_back[abi:ne200100](a6, &time1);
+        std::vector<double>::push_back[abi:ne200100](a6, &time1.value);
       }
 
       if (a5)
@@ -4028,7 +4026,7 @@ LABEL_73:
   if (a6)
   {
     time1.value = (*(*a1 + 240))(a1, a2, a7, 0);
-    std::vector<double>::push_back[abi:ne200100](a6, &time1);
+    std::vector<double>::push_back[abi:ne200100](a6, &time1.value);
     if (*a4 >= 2)
     {
       operator*(a3, *a4 - 1, &v56);
@@ -4036,7 +4034,7 @@ LABEL_73:
       time2 = v56;
       v19 = PC_CMTimeSaferAdd(&time1, &time2, &v57);
       time1.value = (*(*a1 + 240))(a1, &v57, a7, 0, v19);
-      std::vector<double>::push_back[abi:ne200100](a6, &time1);
+      std::vector<double>::push_back[abi:ne200100](a6, &time1.value);
     }
   }
 
@@ -4866,7 +4864,7 @@ char *std::vector<OZVertex *>::insert(void *a1, char *__src, char *a3)
       std::vector<double>::__throw_length_error[abi:ne200100]();
     }
 
-    v12 = __src - v10;
+    v12 = &__src[-v10];
     v13 = v7 - v10;
     if (v13 >> 2 > v11)
     {
@@ -4936,7 +4934,7 @@ char *std::vector<OZVertex *>::insert(void *a1, char *__src, char *a3)
     else
     {
       *v6 = *(v6 - 1);
-      v9 = v6 + 8;
+      v9 = (v6 + 8);
     }
 
     a1[1] = v9;
@@ -5732,7 +5730,7 @@ OZSpline *OZSpline::scaleTangentsBeforeDeletion(OZSpline *this, _BYTE **a2, cons
   v6 = MEMORY[0x277CC08F0];
   OZSpline::getPreviousValidVertex(this, a2, &v28, MEMORY[0x277CC08F0]);
   OZSpline::getNextValidVertex(v5, a2, &v27, v6);
-  v7 = *(v5 + 168);
+  v7 = *(v5 + 21);
   v8 = *(v7 + 8);
   v32 = *(v7 + 24);
   v31 = v8;
@@ -6013,15 +6011,15 @@ BOOL OZSpline::deleteAllVertices(OZSpline *this)
   return v4 != v5;
 }
 
-void OZSpline::addVertex(OZSpline *this, const CMTime *a2, double a3, const CMTime *a4)
+void OZSpline::addVertex(OZSpline *this, const CMTime *a2, double a3, const CMTime *a4, int a5)
 {
-  v5 = *(this + 20);
-  if (!v5 || (v6 = *(v5 + 48)) == 0)
+  v6 = *(this + 20);
+  if (!v6 || (v7 = *(v6 + 48)) == 0)
   {
-    v6 = (this + 8);
+    v7 = (this + 8);
   }
 
-  PCSpinLock::lock(v6);
+  PCSpinLock::lock(v7);
   operator new();
 }
 
@@ -6035,28 +6033,28 @@ BOOL OZSpline::setVertexFlag(OZSpline *this, void *a2, uint64_t a3)
   return a2 != 0;
 }
 
-void OZSpline::addVertexNoTangents(OZSpline *this, const CMTime *a2, double a3, const CMTime *a4)
+void OZSpline::addVertexNoTangents(OZSpline *this, const CMTime *a2, double a3, const CMTime *a4, int a5)
 {
-  v8 = *(this + 20);
-  if (!v8 || (v9 = *(v8 + 48)) == 0)
+  v9 = *(this + 20);
+  if (!v9 || (v10 = *(v9 + 48)) == 0)
   {
-    v9 = (this + 8);
+    v10 = (this + 8);
   }
 
-  PCSpinLock::lock(v9);
-  OZSpline::getMaxValueU(this, a4, 0, &v13);
+  PCSpinLock::lock(v10);
+  OZSpline::getMaxValueU(&v14.value, this, a4, 0);
   time1 = *a2;
-  time2 = v13;
+  time2 = v14;
   if (CMTimeCompare(&time1, &time2) >= 1)
   {
-    v10 = *(this + 20);
-    if (!v10 || (v11 = *(v10 + 48)) == 0)
+    v11 = *(this + 20);
+    if (!v11 || (v12 = *(v11 + 48)) == 0)
     {
-      v11 = (this + 8);
+      v12 = (this + 8);
     }
 
-    PCSpinLock::unlock(v11);
-    OZSpline::appendVertexNoTangents(this, a2, a3, v12);
+    PCSpinLock::unlock(v12);
+    OZSpline::appendVertexNoTangents(this, a2, a3, v13);
   }
 
   operator new();
@@ -6074,36 +6072,36 @@ void OZSpline::appendVertexNoTangents(OZSpline *this, const CMTime *a2, double a
   operator new();
 }
 
-void OZSpline::appendVertexesNoTangents(OZSpline *this@<X0>, int a2@<W1>, void *a3@<X8>)
+void OZSpline::appendVertexesNoTangents(uint64_t *__return_ptr a1@<X8>, OZSpline *this@<X0>, unsigned int a5@<W1>)
 {
-  v9 = *(this + 20);
-  if (!v9 || (v10 = *(v9 + 48)) == 0)
+  v8 = *(this + 20);
+  if (!v8 || (v9 = *(v8 + 48)) == 0)
   {
-    v10 = (this + 8);
+    v9 = (this + 8);
   }
 
-  PCSpinLock::lock(v10);
-  *a3 = 0;
-  a3[1] = 0;
-  a3[2] = 0;
-  if (a2)
+  PCSpinLock::lock(v9);
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if (a5)
   {
     operator new();
   }
 
   *(this + 145) = 1;
-  v11 = *(this + 1);
-  v12 = *(this + 3);
-  *(this + 40) = v11;
-  *(this + 17) = (((v12 - v11) << 29) - 0x100000000) >> 32;
+  v10 = *(this + 1);
+  v11 = *(this + 3);
+  *(this + 40) = v10;
+  *(this + 17) = (((v11 - v10) << 29) - 0x100000000) >> 32;
   OZSpline::refreshValidVerticesList(this);
-  v13 = *(this + 20);
-  if (!v13 || (v14 = *(v13 + 48)) == 0)
+  v12 = *(this + 20);
+  if (!v12 || (v13 = *(v12 + 48)) == 0)
   {
-    v14 = (this + 8);
+    v13 = (this + 8);
   }
 
-  PCSpinLock::unlock(v14);
+  PCSpinLock::unlock(v13);
 }
 
 void sub_25FEA4838(_Unwind_Exception *exception_object)
@@ -6393,7 +6391,7 @@ void OZSpline::deriveCurve(OZSpline *this, OZVertex *a2, const CMTime *a3, char 
     *&time.value = v29;
     time.epoch = v9;
     PC_CMTimeSaferSubtract(&time, &time2, &v31);
-    operator/(&v31.value, &time, 12.0);
+    operator/(&v31.value, 12.0, &time);
     Seconds = CMTimeGetSeconds(&time);
     v11 = MEMORY[0x277CC08F0];
     v12 = (*(*v32 + 24))(v32, MEMORY[0x277CC08F0]);
@@ -6482,7 +6480,7 @@ LABEL_18:
   *&time.value = v30;
   time.epoch = v16;
   PC_CMTimeSaferSubtract(&time, &time2, &v31);
-  operator/(&v31.value, &time, 12.0);
+  operator/(&v31.value, 12.0, &time);
   v17 = CMTimeGetSeconds(&time);
   v18 = MEMORY[0x277CC08F0];
   v19 = (*(*v33 + 24))(v33, MEMORY[0x277CC08F0]);
@@ -6508,22 +6506,22 @@ LABEL_18:
   }
 }
 
-double PCMath::mod@<D0>(PCMath *this@<X0>, const CMTime *a2@<X1>, void *a3@<X8>)
+double PCMath::mod@<D0>(uint64_t *__return_ptr a1@<X8>, PCMath *this@<X0>, const CMTime *a3@<X1>)
 {
-  *a3 = 0;
-  a3[1] = 0;
-  a3[2] = 0;
-  operator/(this, a2, a3);
-  CMTimeMake(&v7, 1, 1);
-  v11 = *a3;
-  v10 = v7;
-  PC_CMTimeFloorToSampleDuration(&v11, &v10, &v8);
-  v11 = *a3;
-  v10 = v8;
-  PC_CMTimeSaferSubtract(&v11, &v10, &v9);
-  operator*(&v9, a2, &v11);
-  result = *&v11.value;
-  *a3 = v11;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  operator/(this, a3, a1);
+  CMTimeMake(&v6, 1, 1);
+  v10 = *a1;
+  v9 = v6;
+  PC_CMTimeFloorToSampleDuration(&v10, &v9, &v7);
+  v10 = *a1;
+  v9 = v7;
+  PC_CMTimeSaferSubtract(&v10, &v9, &v8);
+  operator*(&v8, a3, &v10);
+  result = *&v10.value;
+  *a1 = v10;
   return result;
 }
 
@@ -6537,7 +6535,7 @@ BOOL OZSpline::setVertexInterpolation(OZSpline *this, void *a2, uint64_t a3)
   return a2 != 0;
 }
 
-BOOL OZSpline::getVertexInterpolation(OZInterpolators **this, void *a2, unsigned int *a3, BOOL *a4)
+BOOL OZSpline::getVertexInterpolation(atomic_ullong **this, void *a2, unsigned int *a3, BOOL *a4)
 {
   if (a2)
   {
@@ -6770,7 +6768,7 @@ BOOL OZSpline::flattenHandles(OZSpline *this, void *a2, const CMTime *a3)
   return a2 != 0;
 }
 
-uint64_t OZSpline::setVertexInputHandles(OZInterpolators **this, void *a2, double a3, double a4, const CMTime *a5, int a6)
+uint64_t OZSpline::setVertexInputHandles(atomic_ullong **this, void *a2, double a3, double a4, const CMTime *a5, int a6)
 {
   v13 = a4;
   v14 = a3;
@@ -6787,7 +6785,7 @@ uint64_t OZSpline::setVertexInputHandles(OZInterpolators **this, void *a2, doubl
   return 1;
 }
 
-uint64_t OZSpline::setVertexOutputHandles(OZInterpolators **this, void *a2, double a3, double a4, const CMTime *a5, int a6)
+uint64_t OZSpline::setVertexOutputHandles(atomic_ullong **this, void *a2, double a3, double a4, const CMTime *a5, int a6)
 {
   v8 = a4;
   v9 = a3;
@@ -6808,7 +6806,7 @@ uint64_t OZSpline::setVertexOutputHandles(OZInterpolators **this, void *a2, doub
   return 1;
 }
 
-uint64_t OZSpline::getVertexInputHandles(OZInterpolators **this, void *a2, double *a3, double *a4, const CMTime *a5, int a6)
+uint64_t OZSpline::getVertexInputHandles(atomic_ullong **this, void *a2, double *a3, double *a4, const CMTime *a5, int a6)
 {
   v15 = 0;
   v16 = 0;
@@ -6833,7 +6831,7 @@ uint64_t OZSpline::getVertexInputHandles(OZInterpolators **this, void *a2, doubl
   return 1;
 }
 
-uint64_t OZSpline::getVertexOutputHandles(OZInterpolators **this, void *a2, double *a3, double *a4, const CMTime *a5, int a6)
+uint64_t OZSpline::getVertexOutputHandles(atomic_ullong **this, void *a2, double *a3, double *a4, const CMTime *a5, int a6)
 {
   v15 = 0;
   v16 = 0;
@@ -7030,7 +7028,7 @@ void OZSpline::forceWarpSplineLinear(OZSpline *this, const CMTime *a2, const CMT
   }
 }
 
-void *OZSpline::reverseVertices(OZSpline *this, void *a2, _OWORD *a3)
+void *OZSpline::reverseVertices(OZSpline *this, _BYTE **a2, _BYTE **a3)
 {
   v6 = *(this + 20);
   if (!v6 || (v7 = *(v6 + 48)) == 0)
@@ -7046,10 +7044,10 @@ void *OZSpline::reverseVertices(OZSpline *this, void *a2, _OWORD *a3)
   if (OZSpline::getVertexIter(this, a3) + 1 != VertexIter)
   {
     v17 = *(a2 + 1);
-    v18 = *(a2 + 4);
-    v15 = a3[1];
-    v16 = *(a3 + 4);
-    (*(*a2 + 208))(a2);
+    v18 = a2[4];
+    v15 = *(a3 + 1);
+    v16 = a3[4];
+    (*(*a2 + 26))(a2);
     __p = 0;
     v13 = 0;
     v14 = 0;
@@ -7085,9 +7083,9 @@ BOOL OZSpline::getUForValue(uint64_t a1, CMTime *a2, CMTime *a3, CMTime *a4, int
   PC_CMTimeSaferSubtract(&time1, &time2, &v35);
   memset(&v37, 0, sizeof(v37));
   v14 = MEMORY[0x277CC08F0];
-  OZSpline::getMinValueU(a1, MEMORY[0x277CC08F0], 0, &v37);
+  OZSpline::getMinValueU(&v37.value, a1, MEMORY[0x277CC08F0], 0);
   memset(&v34, 0, sizeof(v34));
-  OZSpline::getMaxValueU(a1, v14, 0, &v34);
+  OZSpline::getMaxValueU(&v34.value, a1, v14, 0);
   time1 = v36;
   time2 = v37;
   if (CMTimeCompare(&time1, &time2) < 0)
@@ -7193,7 +7191,7 @@ BOOL OZSpline::getUForValue(uint64_t a1, CMTime *a2, CMTime *a3, CMTime *a4, int
     v24 = time1.value;
     if (&time1 != a2)
     {
-      std::vector<CMTime>::__assign_with_size[abi:ne200100]<CMTime*,CMTime*>(a2, time1.value, *&time1.timescale, 0xAAAAAAAAAAAAAAABLL * ((*&time1.timescale - time1.value) >> 3));
+      std::vector<CMTime>::__assign_with_size[abi:ne200100]<CMTime*,CMTime*>(&a2->value, time1.value, *&time1.timescale, 0xAAAAAAAAAAAAAAABLL * ((*&time1.timescale - time1.value) >> 3));
       v24 = time1.value;
     }
 
@@ -7497,11 +7495,12 @@ char *std::vector<OZVertex *>::__insert_with_size[abi:ne200100]<std::__list_iter
     if (v16 >= a5)
     {
       v19 = &__src[8 * a5];
-      v20 = &v9[-a5];
+      v20 = &v9[-8 * a5];
       v21 = a1[1];
       while (v20 < v9)
       {
-        v22 = *v20++;
+        v22 = *v20;
+        v20 += 8;
         *v21++ = v22;
       }
 
@@ -7519,7 +7518,8 @@ char *std::vector<OZVertex *>::__insert_with_size[abi:ne200100]<std::__list_iter
         do
         {
           v7 = v7[1];
-          *v23++ = v7[2];
+          *v23 = v7[2];
+          v23 += 8;
           --v24;
         }
 
@@ -7588,7 +7588,8 @@ char *std::vector<OZVertex *>::__insert_with_size[abi:ne200100]<std::__list_iter
         v40 = v35;
         while (v39 < v9)
         {
-          v41 = *v39++;
+          v41 = *v39;
+          v39 += 8;
           *v40++ = v41;
         }
 
@@ -7603,7 +7604,8 @@ char *std::vector<OZVertex *>::__insert_with_size[abi:ne200100]<std::__list_iter
           v42 = __src;
           do
           {
-            *v42++ = v7[2];
+            *v42 = v7[2];
+            v42 += 8;
             v7 = v7[1];
           }
 
@@ -7616,7 +7618,7 @@ char *std::vector<OZVertex *>::__insert_with_size[abi:ne200100]<std::__list_iter
   }
 
   v11 = *a1;
-  v12 = a5 + ((v9 - *a1) >> 3);
+  v12 = a5 + (&v9[-*a1] >> 3);
   if (v12 >> 61)
   {
     std::vector<double>::__throw_length_error[abi:ne200100]();
@@ -7674,7 +7676,7 @@ char *std::vector<OZVertex *>::__insert_with_size[abi:ne200100]<std::__list_iter
   return v25;
 }
 
-void *std::vector<CMTime>::__assign_with_size[abi:ne200100]<CMTime*,CMTime*>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<CMTime>::__assign_with_size[abi:ne200100]<CMTime*,CMTime*>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -7758,7 +7760,7 @@ void OZDynamicVertex::OZDynamicVertex(OZDynamicVertex *this, const CMTime *a2, d
   TXParagraphStyleFolder_Factory::createInstance(v6, v8);
   PCURL::PCURL(&v34, @"Dynamic Vertex");
   v9 = OZDynamicVertex::_id++;
-  OZChannelVertexFolder::OZChannelVertexFolder(v7, &v34, 0, v9, 0x10000u);
+  OZChannelVertexFolder::OZChannelVertexFolder(v7, &v34, 0, v9, 0x10000);
   PCString::~PCString(&v34);
   TXParagraphStyleFolder_Factory::createInstance(v10, v11);
   PCURL::PCURL(&v34, @"Dynamic Vertex Enabled");
@@ -7906,7 +7908,7 @@ uint64_t OZDynamicVertex::setBias(uint64_t this, double a2, const CMTime *a3)
   return this;
 }
 
-void OZDynamicVertex::getInputTangents(OZDynamicVertex *this, double *a2, double *a3, const CMTime *a4)
+void OZDynamicVertex::getInputTangents(OZChannel *this, double *a2, double *a3, const CMTime *a4)
 {
   if (a2)
   {
@@ -7920,7 +7922,7 @@ void OZDynamicVertex::getInputTangents(OZDynamicVertex *this, double *a2, double
   }
 }
 
-void OZDynamicVertex::getOutputTangents(OZDynamicVertex *this, double *a2, double *a3, const CMTime *a4)
+void OZDynamicVertex::getOutputTangents(OZChannel *this, double *a2, double *a3, const CMTime *a4)
 {
   if (a2)
   {
@@ -8088,7 +8090,7 @@ uint64_t OZDynamicVertex::setDefaultAtCurrentTime(OZDynamicVertex *this, const C
 void OZDynamicVertex::updateBias(OZDynamicVertex *this)
 {
   v10 = 0.0;
-  OZChannel::getKeyframes((this + 488), 0, &v8);
+  OZChannel::getKeyframes(&v8, (this + 488), 0);
   v2 = v8;
   if (v9 == v8)
   {
@@ -8608,9 +8610,9 @@ LABEL_12:
     {
       case 2:
         memset(&v123, 0, sizeof(v123));
-        OZSpline::getMinValueU(v17, MEMORY[0x277CC08F0], 0, &v123);
+        OZSpline::getMinValueU(&v123.value, v17, MEMORY[0x277CC08F0], 0);
         memset(&v122, 0, sizeof(v122));
-        MaxValueU = OZSpline::getMaxValueU(v17, MEMORY[0x277CC08F0], 0, &v122);
+        MaxValueU = OZSpline::getMaxValueU(&v122.value, v17, MEMORY[0x277CC08F0], 0);
         __p = 0;
         v120 = 0;
         v121 = 0;
@@ -8622,8 +8624,8 @@ LABEL_12:
         {
           LOBYTE(v112) = 0;
           memset(&v118, 0, sizeof(v118));
-          OZSpline::getStep(v17, &time1);
-          OZChannelSegmentVisitor::mapPingPong(&v105, &v123, &v122, &time1, 0, &v112, &v118);
+          OZSpline::getStep(&time1, v17);
+          OZChannelSegmentVisitor::mapPingPong(&v118.value, &v105, &v123, &v122, &time1, 0, &v112);
           (*(*v17 + 264))(v17, *v75, &v117, 0, v74);
           time1 = v118;
           time2 = v117;
@@ -8717,9 +8719,9 @@ LABEL_12:
         break;
       case 3:
         memset(&v123, 0, sizeof(v123));
-        OZSpline::getMinValueU(v17, MEMORY[0x277CC08F0], 0, &v123);
+        OZSpline::getMinValueU(&v123.value, v17, MEMORY[0x277CC08F0], 0);
         memset(&v122, 0, sizeof(v122));
-        v84 = OZSpline::getMaxValueU(v17, MEMORY[0x277CC08F0], 0, &v122);
+        v84 = OZSpline::getMaxValueU(&v122.value, v17, MEMORY[0x277CC08F0], 0);
         __p = 0;
         v120 = 0;
         v121 = 0;
@@ -8730,7 +8732,7 @@ LABEL_12:
         while (1)
         {
           memset(&v118, 0, sizeof(v118));
-          OZChannelSegmentVisitor::mapProgressiveRepeat(&v105, &v123, &v122, *(*(v17 + 21) + 4), &time1.value, &v118);
+          OZChannelSegmentVisitor::mapProgressiveRepeat(&v118.value, &v105, &v123, &v122, *(*(v17 + 21) + 4), &time1.value);
           (*(*v17 + 264))(v17, *v86, &v117, 0, v85);
           time1 = v118;
           time2 = v117;
@@ -8798,9 +8800,9 @@ LABEL_12:
         break;
       case 4:
         memset(&v123, 0, sizeof(v123));
-        OZSpline::getMinValueU(v17, MEMORY[0x277CC08F0], 0, &v123);
+        OZSpline::getMinValueU(&v123.value, v17, MEMORY[0x277CC08F0], 0);
         memset(&v122, 0, sizeof(v122));
-        v45 = OZSpline::getMaxValueU(v17, MEMORY[0x277CC08F0], 0, &v122);
+        v45 = OZSpline::getMaxValueU(&v122.value, v17, MEMORY[0x277CC08F0], 0);
         __p = 0;
         v120 = 0;
         v121 = 0;
@@ -8818,7 +8820,7 @@ LABEL_12:
         {
           v111 = 0;
           memset(&v118, 0, sizeof(v118));
-          OZChannelSegmentVisitor::mapProgressiveRepeat(&v105, &v123, &v122, *(*(v17 + 21) + 4), &v111, &v118);
+          OZChannelSegmentVisitor::mapProgressiveRepeat(&v118.value, &v105, &v123, &v122, *(*(v17 + 21) + 4), &v111);
           (*(*v17 + 264))(v17, *v49, &v117, 0, v48);
           time1 = v118;
           time2 = v117;
@@ -9006,9 +9008,9 @@ LABEL_35:
   {
     case 2:
       memset(&v123, 0, sizeof(v123));
-      OZSpline::getMinValueU(v17, MEMORY[0x277CC08F0], 0, &v123);
+      OZSpline::getMinValueU(&v123.value, v17, MEMORY[0x277CC08F0], 0);
       memset(&v122, 0, sizeof(v122));
-      v55 = OZSpline::getMaxValueU(v17, MEMORY[0x277CC08F0], 0, &v122);
+      v55 = OZSpline::getMaxValueU(&v122.value, v17, MEMORY[0x277CC08F0], 0);
       __p = 0;
       v120 = 0;
       v121 = 0;
@@ -9021,8 +9023,8 @@ LABEL_35:
         {
           LOBYTE(v112) = 0;
           memset(&v118, 0, sizeof(v118));
-          OZSpline::getStep(v17, &time1);
-          OZChannelSegmentVisitor::mapPingPong(&v105, &v123, &v122, &time1, 1, &v112, &v118);
+          OZSpline::getStep(&time1, v17);
+          OZChannelSegmentVisitor::mapPingPong(&v118.value, &v105, &v123, &v122, &time1, 1, &v112);
           (*(*v17 + 264))(v17, *v58, &v117, 0, v57);
           time1 = v105;
           time2 = *a3;
@@ -9109,8 +9111,8 @@ LABEL_35:
         {
           LOBYTE(v112) = 0;
           memset(&v118, 0, sizeof(v118));
-          OZSpline::getStep(v17, &time1);
-          OZChannelSegmentVisitor::mapPingPong(&v105, &v123, &v122, &time1, 0, &v112, &v118);
+          OZSpline::getStep(&time1, v17);
+          OZChannelSegmentVisitor::mapPingPong(&v118.value, &v105, &v123, &v122, &time1, 0, &v112);
           (*(*v17 + 264))(v17, *v94, &v117, 0, v93);
           time1 = v118;
           time2 = v117;
@@ -9211,9 +9213,9 @@ LABEL_35:
       goto LABEL_155;
     case 3:
       memset(&v123, 0, sizeof(v123));
-      OZSpline::getMinValueU(v17, MEMORY[0x277CC08F0], 0, &v123);
+      OZSpline::getMinValueU(&v123.value, v17, MEMORY[0x277CC08F0], 0);
       memset(&v122, 0, sizeof(v122));
-      v64 = OZSpline::getMaxValueU(v17, MEMORY[0x277CC08F0], 0, &v122);
+      v64 = OZSpline::getMaxValueU(&v122.value, v17, MEMORY[0x277CC08F0], 0);
       __p = 0;
       v120 = 0;
       v121 = 0;
@@ -9224,7 +9226,7 @@ LABEL_35:
       while (1)
       {
         memset(&v118, 0, sizeof(v118));
-        OZChannelSegmentVisitor::mapProgressiveRepeat(&v105, &v123, &v122, *(*(v17 + 21) + 4), &time1.value, &v118);
+        OZChannelSegmentVisitor::mapProgressiveRepeat(&v118.value, &v105, &v123, &v122, *(*(v17 + 21) + 4), &time1.value);
         (*(*v17 + 264))(v17, *v68, &v117, 0, v67);
         time1 = v118;
         time2 = v117;
@@ -9295,9 +9297,9 @@ LABEL_35:
       goto LABEL_155;
     case 4:
       memset(&v123, 0, sizeof(v123));
-      OZSpline::getMinValueU(v17, MEMORY[0x277CC08F0], 0, &v123);
+      OZSpline::getMinValueU(&v123.value, v17, MEMORY[0x277CC08F0], 0);
       memset(&v122, 0, sizeof(v122));
-      v32 = OZSpline::getMaxValueU(v17, MEMORY[0x277CC08F0], 0, &v122);
+      v32 = OZSpline::getMaxValueU(&v122.value, v17, MEMORY[0x277CC08F0], 0);
       __p = 0;
       v120 = 0;
       v121 = 0;
@@ -9314,7 +9316,7 @@ LABEL_35:
       {
         v111 = 0;
         memset(&v118, 0, sizeof(v118));
-        OZChannelSegmentVisitor::mapProgressiveRepeat(&v105, &v123, &v122, *(*(v17 + 21) + 4), &v111, &v118);
+        OZChannelSegmentVisitor::mapProgressiveRepeat(&v118.value, &v105, &v123, &v122, *(*(v17 + 21) + 4), &v111);
         (*(*v17 + 264))(v17, *v37, &v117, 0, v36);
         time1 = v118;
         time2 = v117;
@@ -9470,7 +9472,7 @@ void *anonymous namespace::findLeftVertex(uint64_t a1, void *a2, CMTime *a3)
   }
 }
 
-uint64_t anonymous namespace::InteriorSegment(OZInterpolators **this, OZSpline *a2, void *a3, void *a4, const CMTime *a5, const CMTime *a6, const CMTime *a7, const CMTime *a8, double a9, OZChannelSegmentVisitor *a10)
+uint64_t anonymous namespace::InteriorSegment(atomic_ullong **this, OZSpline *a2, void *a3, void *a4, const CMTime *a5, const CMTime *a6, const CMTime *a7, const CMTime *a8, double a9, OZChannelSegmentVisitor *a10)
 {
   v22 = 0;
   result = OZSpline::getVertexInterpolation(this, a2, &v22, 0);
@@ -9492,7 +9494,7 @@ uint64_t anonymous namespace::InteriorSegment(OZInterpolators **this, OZSpline *
         v23 = *a7;
         PC_CMTimeSaferAdd(&v24, &v23, &v21);
         v20 = operator/(&v21, 2, &v24);
-        (*(*this + 30))(this, &v24, MEMORY[0x277CC08F0], 1, v20);
+        ((*this)[30])(this, &v24, MEMORY[0x277CC08F0], 1, v20);
         return (*(a8->value + 16))(a8, a6, a7);
       }
     }
@@ -9540,60 +9542,60 @@ uint64_t anonymous namespace::InteriorSegment(OZInterpolators **this, OZSpline *
   return result;
 }
 
-void OZChannelSegmentVisitor::mapPingPong(CMTime *this@<X0>, const CMTime *a2@<X1>, const CMTime *a3@<X2>, const CMTime *a4@<X3>, const CMTime *a5@<X4>, char *a6@<X5>, uint64_t a7@<X8>)
+void OZChannelSegmentVisitor::mapPingPong(__int128 *__return_ptr a1@<X8>, CMTime *this@<X0>, const CMTime *a3@<X1>, const CMTime *a4@<X2>, const CMTime *a5@<X3>, const CMTime *a6@<X4>, char *a7@<X5>)
 {
-  v9 = a5;
-  memset(&v25, 0, sizeof(v25));
-  time1 = *a3;
-  time2 = *a2;
-  PC_CMTimeSaferSubtract(&time1, &time2, &v25);
-  time1 = v25;
-  v15 = MEMORY[0x277CC08F0];
+  v8 = a6;
+  memset(&v24, 0, sizeof(v24));
+  time1 = *a4;
+  time2 = *a3;
+  PC_CMTimeSaferSubtract(&time1, &time2, &v24);
+  time1 = v24;
+  v14 = MEMORY[0x277CC08F0];
   time2 = **&MEMORY[0x277CC08F0];
   if (CMTimeCompare(&time1, &time2))
   {
     time1 = *this;
-    time2 = *a2;
+    time2 = *a3;
     if (CMTimeCompare(&time1, &time2) < 0)
     {
-      time1 = *a2;
+      time1 = *a3;
       time2 = *this;
-      PC_CMTimeSaferSubtract(&time1, &time2, a7);
-      operator*(&v25, &v23, 2.0);
-      memset(&v24, 0, sizeof(v24));
-      operator/(a7, &v23, &v24);
-      CMTimeMake(&v26, 1, 1);
-      time1 = v24;
+      PC_CMTimeSaferSubtract(&time1, &time2, a1);
+      operator*(&v24, &v22, 2.0);
+      memset(&v23, 0, sizeof(v23));
+      operator/(a1, &v22, &v23);
+      CMTimeMake(&v25, 1, 1);
+      time1 = v23;
+      time2 = v25;
+      PC_CMTimeFloorToSampleDuration(&time1, &time2, &v26);
+      time1 = v23;
       time2 = v26;
-      PC_CMTimeFloorToSampleDuration(&time1, &time2, &v27);
-      time1 = v24;
-      time2 = v27;
-      PC_CMTimeSaferSubtract(&time1, &time2, &v28);
-      operator*(&v28.value, &v23, &time1);
-      v24 = time1;
+      PC_CMTimeSaferSubtract(&time1, &time2, &v27);
+      operator*(&v27.value, &v22, &time1);
+      v23 = time1;
       epoch = time1.epoch;
-      *a7 = *&time1.value;
-      *(a7 + 16) = epoch;
-      *&time1.value = *a7;
+      *a1 = *&time1.value;
+      *(a1 + 2) = epoch;
+      *&time1.value = *a1;
       time1.epoch = epoch;
-      time2 = *v15;
+      time2 = *v14;
       if (!CMTimeCompare(&time1, &time2))
       {
-        operator*(&v25, &time1, 2.0);
-        *a7 = time1;
+        operator*(&v24, &time1, 2.0);
+        *a1 = time1;
       }
 
-      time1 = *a7;
-      time2 = v25;
+      time1 = *a1;
+      time2 = v24;
       if (CMTimeCompare(&time1, &time2) >= 1)
       {
-        operator*(&v25, 2, &v27);
-        time1 = v27;
-        time2 = *a7;
-        PC_CMTimeSaferSubtract(&time1, &time2, &v28);
-        v17 = 0;
-        *a7 = *&v28.value;
-        v18 = v28.epoch;
+        operator*(&v24, 2, &v26);
+        time1 = v26;
+        time2 = *a1;
+        PC_CMTimeSaferSubtract(&time1, &time2, &v27);
+        v16 = 0;
+        *a1 = *&v27.value;
+        v17 = v27.epoch;
         goto LABEL_14;
       }
     }
@@ -9601,210 +9603,210 @@ void OZChannelSegmentVisitor::mapPingPong(CMTime *this@<X0>, const CMTime *a2@<X
     else
     {
       time1 = *this;
-      time2 = *a3;
+      time2 = *a4;
       if (CMTimeCompare(&time1, &time2) < 0)
       {
-        *a7 = *&this->value;
-        *(a7 + 16) = this->epoch;
-        *a6 = 0;
+        *a1 = *&this->value;
+        *(a1 + 2) = this->epoch;
+        *a7 = 0;
         return;
       }
 
-      if (!v9 || (time1 = v25, time2 = *a4, CMTimeCompare(&time1, &time2) < 0))
+      if (!v8 || (time1 = v24, time2 = *a5, CMTimeCompare(&time1, &time2) < 0))
       {
         time1 = *this;
-        time2 = *a2;
-        PC_CMTimeSaferSubtract(&time1, &time2, a7);
-        operator*(&v25, 2, &v23);
-        memset(&v24, 0, sizeof(v24));
-        operator/(a7, &v23, &v24);
-        CMTimeMake(&v26, 1, 1);
-        time1 = v24;
-        time2 = v26;
-        PC_CMTimeFloorToSampleDuration(&time1, &time2, &v27);
-        time1 = v24;
-        time2 = v27;
-        PC_CMTimeSaferSubtract(&time1, &time2, &v28);
-        operator*(&v28.value, &v23, &time1);
-        v24 = time1;
-        v21 = time1.epoch;
-        *a7 = *&time1.value;
-        *(a7 + 16) = v21;
-        *&time1.value = *a7;
-        time1.epoch = v21;
+        time2 = *a3;
+        PC_CMTimeSaferSubtract(&time1, &time2, a1);
+        operator*(&v24, 2, &v22);
+        memset(&v23, 0, sizeof(v23));
+        operator/(a1, &v22, &v23);
+        CMTimeMake(&v25, 1, 1);
+        time1 = v23;
         time2 = v25;
+        PC_CMTimeFloorToSampleDuration(&time1, &time2, &v26);
+        time1 = v23;
+        time2 = v26;
+        PC_CMTimeSaferSubtract(&time1, &time2, &v27);
+        operator*(&v27.value, &v22, &time1);
+        v23 = time1;
+        v20 = time1.epoch;
+        *a1 = *&time1.value;
+        *(a1 + 2) = v20;
+        *&time1.value = *a1;
+        time1.epoch = v20;
+        time2 = v24;
         if (CMTimeCompare(&time1, &time2) < 0)
         {
-          v17 = 0;
+          v16 = 0;
           goto LABEL_21;
         }
 
-        operator*(&v25, 2, &v27);
-        time1 = v27;
-        time2 = *a7;
-        PC_CMTimeSaferSubtract(&time1, &time2, &v28);
-        *a7 = *&v28.value;
-        v22 = v28.epoch;
+        operator*(&v24, 2, &v26);
+        time1 = v26;
+        time2 = *a1;
+        PC_CMTimeSaferSubtract(&time1, &time2, &v27);
+        *a1 = *&v27.value;
+        v21 = v27.epoch;
       }
 
       else
       {
-        time1 = v25;
-        time2 = *a4;
+        time1 = v24;
+        time2 = *a5;
         if (!CMTimeCompare(&time1, &time2))
         {
-          *a7 = *&v15->value;
-          *(a7 + 16) = v15->epoch;
-          *a6 = 0;
+          *a1 = *&v14->value;
+          *(a1 + 2) = v14->epoch;
+          *a7 = 0;
           goto LABEL_22;
         }
 
         time1 = *this;
-        time2 = *a3;
-        PC_CMTimeSaferSubtract(&time1, &time2, a7);
-        memset(&v28, 0, sizeof(v28));
-        time1 = v25;
         time2 = *a4;
-        PC_CMTimeSaferSubtract(&time1, &time2, &v28);
-        operator*(&v28, 2, &time2);
-        PCMath::mod(a7, &time2, &time1);
-        *a7 = *&time1.value;
-        v16 = time1.epoch;
-        *(a7 + 16) = time1.epoch;
-        *&time1.value = *a7;
-        time1.epoch = v16;
-        time2 = v28;
+        PC_CMTimeSaferSubtract(&time1, &time2, a1);
+        memset(&v27, 0, sizeof(v27));
+        time1 = v24;
+        time2 = *a5;
+        PC_CMTimeSaferSubtract(&time1, &time2, &v27);
+        operator*(&v27, 2, &time2);
+        PCMath::mod(&time1.value, a1, &time2);
+        *a1 = *&time1.value;
+        v15 = time1.epoch;
+        *(a1 + 2) = time1.epoch;
+        *&time1.value = *a1;
+        time1.epoch = v15;
+        time2 = v27;
         if ((CMTimeCompare(&time1, &time2) & 0x80000000) == 0)
         {
-          time1 = *a7;
-          time2 = v28;
-          PC_CMTimeSaferSubtract(&time1, &time2, &v26);
-          time1 = v26;
-          time2 = *a4;
-          PC_CMTimeSaferAdd(&time1, &time2, &v27);
-          v17 = 0;
-          *a7 = *&v27.value;
-          v18 = v27.epoch;
+          time1 = *a1;
+          time2 = v27;
+          PC_CMTimeSaferSubtract(&time1, &time2, &v25);
+          time1 = v25;
+          time2 = *a5;
+          PC_CMTimeSaferAdd(&time1, &time2, &v26);
+          v16 = 0;
+          *a1 = *&v26.value;
+          v17 = v26.epoch;
 LABEL_14:
-          *(a7 + 16) = v18;
+          *(a1 + 2) = v17;
 LABEL_21:
-          *a6 = v17;
+          *a7 = v16;
 LABEL_22:
-          time2 = *a7;
-          v28 = *a2;
-          PC_CMTimeSaferAdd(&time2, &v28, &time1);
-          *a7 = *&time1.value;
-          v19 = time1.epoch;
+          time2 = *a1;
+          v27 = *a3;
+          PC_CMTimeSaferAdd(&time2, &v27, &time1);
+          *a1 = *&time1.value;
+          v18 = time1.epoch;
           goto LABEL_23;
         }
 
-        time1 = v28;
-        time2 = *a7;
-        PC_CMTimeSaferSubtract(&time1, &time2, &v27);
-        *a7 = *&v27.value;
-        v22 = v27.epoch;
+        time1 = v27;
+        time2 = *a1;
+        PC_CMTimeSaferSubtract(&time1, &time2, &v26);
+        *a1 = *&v26.value;
+        v21 = v26.epoch;
       }
 
-      *(a7 + 16) = v22;
+      *(a1 + 2) = v21;
     }
 
-    v17 = 1;
+    v16 = 1;
     goto LABEL_21;
   }
 
-  *a6 = 0;
-  *a7 = *&a2->value;
-  v19 = a2->epoch;
+  *a7 = 0;
+  *a1 = *&a3->value;
+  v18 = a3->epoch;
 LABEL_23:
-  *(a7 + 16) = v19;
+  *(a1 + 2) = v18;
 }
 
-void OZChannelSegmentVisitor::mapProgressiveRepeat(CMTime *this@<X0>, const CMTime *a2@<X1>, const CMTime *a3@<X2>, const CMTime *a4@<X3>, uint64_t *a5@<X4>, uint64_t a6@<X8>)
+void OZChannelSegmentVisitor::mapProgressiveRepeat(uint64_t *__return_ptr a1@<X8>, CMTime *this@<X0>, const CMTime *a3@<X1>, const CMTime *a4@<X2>, const CMTime *a5@<X3>, uint64_t *a6@<X4>)
 {
-  v8 = a4;
-  memset(&v22, 0, sizeof(v22));
-  time1 = *a3;
-  time2 = *a2;
-  PC_CMTimeSaferSubtract(&time1, &time2, &v22);
-  time1 = v22;
+  v7 = a5;
+  memset(&v21, 0, sizeof(v21));
+  time1 = *a4;
+  time2 = *a3;
+  PC_CMTimeSaferSubtract(&time1, &time2, &v21);
+  time1 = v21;
   time2 = **&MEMORY[0x277CC08F0];
   if (!CMTimeCompare(&time1, &time2))
   {
-    *a5 = 0;
-    *a6 = *&a2->value;
-    *(a6 + 16) = a2->epoch;
+    *a6 = 0;
+    *a1 = *&a3->value;
+    a1[2] = a3->epoch;
     return;
-  }
-
-  time1 = *this;
-  time2 = *a2;
-  if (CMTimeCompare(&time1, &time2) < 0)
-  {
-    time1 = *a2;
-    time2 = *this;
-    PC_CMTimeSaferSubtract(&time1, &time2, &v20);
-    memset(&v21, 0, sizeof(v21));
-    operator/(&v20, &v22, &v21);
-    CMTimeMake(&v23, 1, 1);
-    time1 = v21;
-    time2 = v23;
-    PC_CMTimeFloorToSampleDuration(&time1, &time2, &v24);
-    time1 = v21;
-    time2 = v24;
-    PC_CMTimeSaferSubtract(&time1, &time2, &time);
-    operator*(&time.value, &v22, &time1);
-    v21 = time1;
-    epoch = time1.epoch;
-    v18 = *&time1.value;
-    time1 = *a3;
-    *&time2.value = v18;
-    time2.epoch = epoch;
-    PC_CMTimeSaferSubtract(&time1, &time2, a6);
-    time1 = *a2;
-    time2 = *this;
-    PC_CMTimeSaferSubtract(&time1, &time2, &time);
-    Seconds = CMTimeGetSeconds(&time);
-    time1 = v22;
-    v16 = (Seconds / CMTimeGetSeconds(&time1)) + 1;
-    goto LABEL_7;
   }
 
   time1 = *this;
   time2 = *a3;
-  if (CMTimeCompare(&time1, &time2) > 0 || v8 && (time1 = *this, time2 = *a3, (CMTimeCompare(&time1, &time2) & 0x80000000) == 0))
+  if (CMTimeCompare(&time1, &time2) < 0)
+  {
+    time1 = *a3;
+    time2 = *this;
+    PC_CMTimeSaferSubtract(&time1, &time2, &v19);
+    memset(&v20, 0, sizeof(v20));
+    operator/(&v19, &v21, &v20);
+    CMTimeMake(&v22, 1, 1);
+    time1 = v20;
+    time2 = v22;
+    PC_CMTimeFloorToSampleDuration(&time1, &time2, &v23);
+    time1 = v20;
+    time2 = v23;
+    PC_CMTimeSaferSubtract(&time1, &time2, &time);
+    operator*(&time.value, &v21, &time1);
+    v20 = time1;
+    epoch = time1.epoch;
+    v17 = *&time1.value;
+    time1 = *a4;
+    *&time2.value = v17;
+    time2.epoch = epoch;
+    PC_CMTimeSaferSubtract(&time1, &time2, a1);
+    time1 = *a3;
+    time2 = *this;
+    PC_CMTimeSaferSubtract(&time1, &time2, &time);
+    Seconds = CMTimeGetSeconds(&time);
+    time1 = v21;
+    v15 = (Seconds / CMTimeGetSeconds(&time1)) + 1;
+    goto LABEL_7;
+  }
+
+  time1 = *this;
+  time2 = *a4;
+  if (CMTimeCompare(&time1, &time2) > 0 || v7 && (time1 = *this, time2 = *a4, (CMTimeCompare(&time1, &time2) & 0x80000000) == 0))
   {
     time1 = *this;
-    time2 = *a2;
-    PC_CMTimeSaferSubtract(&time1, &time2, &v20);
-    memset(&v21, 0, sizeof(v21));
-    operator/(&v20, &v22, &v21);
-    CMTimeMake(&v23, 1, 1);
-    time1 = v21;
+    time2 = *a3;
+    PC_CMTimeSaferSubtract(&time1, &time2, &v19);
+    memset(&v20, 0, sizeof(v20));
+    operator/(&v19, &v21, &v20);
+    CMTimeMake(&v22, 1, 1);
+    time1 = v20;
+    time2 = v22;
+    PC_CMTimeFloorToSampleDuration(&time1, &time2, &v23);
+    time1 = v20;
     time2 = v23;
-    PC_CMTimeFloorToSampleDuration(&time1, &time2, &v24);
-    time1 = v21;
-    time2 = v24;
     PC_CMTimeSaferSubtract(&time1, &time2, &time);
-    operator*(&time.value, &v22, &time1);
-    v21 = time1;
-    v13 = time1.epoch;
-    v14 = *&time1.value;
-    time1 = *a2;
-    *&time2.value = v14;
-    time2.epoch = v13;
-    PC_CMTimeSaferAdd(&time1, &time2, a6);
+    operator*(&time.value, &v21, &time1);
+    v20 = time1;
+    v12 = time1.epoch;
+    v13 = *&time1.value;
+    time1 = *a3;
+    *&time2.value = v13;
+    time2.epoch = v12;
+    PC_CMTimeSaferAdd(&time1, &time2, a1);
     time1 = *this;
-    time2 = *a2;
+    time2 = *a3;
     PC_CMTimeSaferSubtract(&time1, &time2, &time);
-    v15 = CMTimeGetSeconds(&time);
-    time1 = v22;
-    v16 = (v15 / CMTimeGetSeconds(&time1));
+    v14 = CMTimeGetSeconds(&time);
+    time1 = v21;
+    v15 = (v14 / CMTimeGetSeconds(&time1));
 LABEL_7:
-    *a5 = v16;
+    *a6 = v15;
     return;
   }
 
-  *a6 = *&this->value;
-  *(a6 + 16) = this->epoch;
-  *a5 = 0;
+  *a1 = *&this->value;
+  a1[2] = this->epoch;
+  *a6 = 0;
 }

@@ -92,7 +92,6 @@
   toCopy = to;
   if ((*&self->_has & 2) != 0)
   {
-    version = self->_version;
     PBDataWriterWriteUint32Field();
   }
 
@@ -104,14 +103,12 @@
   has = self->_has;
   if ((has & 4) != 0)
   {
-    needsImageData = self->_needsImageData;
     PBDataWriterWriteBOOLField();
     has = self->_has;
   }
 
   if (has)
   {
-    errorCode = self->_errorCode;
     PBDataWriterWriteUint32Field();
   }
 }
@@ -187,7 +184,6 @@
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 32);
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 32) & 2) == 0 || self->_version != *(equalCopy + 6))
@@ -220,7 +216,7 @@
     }
 
 LABEL_17:
-    v8 = 0;
+    v7 = 0;
     goto LABEL_18;
   }
 
@@ -229,7 +225,6 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  v10 = *(equalCopy + 28);
   if (self->_needsImageData)
   {
     if ((*(equalCopy + 28) & 1) == 0)
@@ -244,7 +239,7 @@ LABEL_17:
   }
 
 LABEL_12:
-  v8 = (*(equalCopy + 32) & 1) == 0;
+  v7 = (*(equalCopy + 32) & 1) == 0;
   if (has)
   {
     if ((*(equalCopy + 32) & 1) == 0 || self->_errorCode != *(equalCopy + 2))
@@ -252,12 +247,12 @@ LABEL_12:
       goto LABEL_17;
     }
 
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_18:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

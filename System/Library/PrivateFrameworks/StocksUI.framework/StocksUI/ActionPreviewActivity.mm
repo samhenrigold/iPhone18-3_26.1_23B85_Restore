@@ -21,7 +21,7 @@
   controllerCopy = controller;
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_22078BDC0();
+  sub_22078BDC0(action);
 
   swift_unknownObjectRelease();
 }

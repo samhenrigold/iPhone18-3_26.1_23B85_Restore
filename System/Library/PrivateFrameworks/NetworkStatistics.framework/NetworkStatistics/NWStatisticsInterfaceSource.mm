@@ -75,7 +75,7 @@
 - (id)description
 {
   __ret = 0;
-  v3 = printf_domain();
+  v3 = printf_domain(self, a2);
   asxprintf(&__ret, v3, 0, "NWSInterfaceSource %I", self->_descriptor.ifindex);
   if (__ret)
   {
@@ -93,68 +93,77 @@
 
 - (NWStatisticsInterfaceSource)initWithManager:(id)manager interface:(int64_t)interface threshold:(int64_t)threshold
 {
-  interfaceCopy = interface;
-  v36 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
-  v23.receiver = self;
-  v23.super_class = NWStatisticsInterfaceSource;
-  v9 = [(NWStatisticsSource *)&v23 initWithManager:managerCopy source:0 provider:6];
+  v18.receiver = self;
+  v18.super_class = NWStatisticsInterfaceSource;
+  v9 = [(NWStatisticsSource *)&v18 initWithManager:managerCopy source:0 provider:6];
   if (v9)
   {
-    v32 = 0u;
-    v33 = 6;
+    v27 = 0u;
+    v28 = 6;
     thresholdCopy = threshold;
-    v35 = interfaceCopy;
-    v10 = [managerCopy addSource:v9 request:&v32 length:40];
-    v11 = NStatGetLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    interfaceCopy = interface;
+    v10 = [managerCopy addSource:v9 request:&v27 length:40];
+    v11 = v10;
+    v12 = NStatGetLog(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      if (v10)
+      if (v11)
       {
-        v12 = "Created";
+        v13 = "Created";
       }
 
       else
       {
-        v12 = "Failed to create";
+        v13 = "Failed to create";
       }
 
       *buf = 134218754;
-      v25 = managerCopy;
-      v26 = 2080;
-      v27 = v12;
-      v28 = 1024;
-      v29 = interfaceCopy;
-      v30 = 1024;
+      v20 = managerCopy;
+      v21 = 2080;
+      v22 = v13;
+      v23 = 1024;
+      interfaceCopy2 = interface;
+      v25 = 1024;
       thresholdCopy2 = threshold;
-      _os_log_impl(&dword_25BA3A000, v11, OS_LOG_TYPE_INFO, "Manager %p: %s source for interface index %d with threshold %d", buf, 0x22u);
+      _os_log_impl(&dword_25BA3A000, v12, OS_LOG_TYPE_INFO, "Manager %p: %s source for interface index %d with threshold %d", buf, 0x22u);
     }
 
     if (([managerCopy mgrflags] & 0x80) != 0)
     {
-      NStatMgrTraceF(managerCopy, "%s Manager %p: %s source for interface %I index %d with threshold %d", v13, v14, v15, v16, v17, v18, "[NWStatisticsInterfaceSource initWithManager:interface:threshold:]");
+      if (v11)
+      {
+        v14 = "Created";
+      }
+
+      else
+      {
+        v14 = "Failed to create";
+      }
+
+      NStatMgrTraceF(managerCopy, "%s Manager %p: %s source for interface %I index %d with threshold %d", "[NWStatisticsInterfaceSource initWithManager:interface:threshold:]", managerCopy, v14, interface, interface, threshold);
     }
 
-    if (v10)
+    if (v11)
     {
-      v19 = v9;
+      v15 = v9;
     }
 
     else
     {
-      v19 = 0;
+      v15 = 0;
     }
 
-    v20 = v19;
+    v16 = v15;
   }
 
   else
   {
-    v20 = 0;
+    v16 = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-  return v20;
+  return v16;
 }
 
 @end

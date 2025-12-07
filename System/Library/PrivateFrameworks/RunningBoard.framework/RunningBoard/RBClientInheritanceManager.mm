@@ -11,70 +11,66 @@
 
 - (void)_lock_sendQueuedInheritancesAndUnlock
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (!self)
   {
-    goto LABEL_13;
-  }
-
-  os_unfair_lock_assert_owner((self + 36));
-  if (*(self + 32) != 1)
-  {
-    [*(self + 16) minusSet:*(self + 8)];
-    [*(self + 24) intersectSet:*(self + 8)];
-    if (![*(self + 16) count] && !objc_msgSend(*(self + 24), "count"))
-    {
-      v10 = *(self + 16);
-      *(self + 16) = 0;
-
-      v11 = *(self + 24);
-      *(self + 24) = 0;
-
-      goto LABEL_3;
-    }
-
-    *(self + 32) = 1;
-    WeakRetained = objc_loadWeakRetained((self + 40));
-    v4 = [objc_alloc(MEMORY[0x277D46E98]) initWithGainedInheritances:*(self + 16) lostInheritances:*(self + 24)];
-    if (v4)
-    {
-      v5 = rbs_connection_log();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 138543362;
-        v15 = v4;
-        _os_log_impl(&dword_262485000, v5, OS_LOG_TYPE_DEFAULT, "Inheritance changeset: %{public}@", buf, 0xCu);
-      }
-    }
-
-    v6 = *(self + 16);
-    *(self + 16) = 0;
-
-    v7 = *(self + 24);
-    *(self + 24) = 0;
-
-    os_unfair_lock_unlock((self + 36));
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __67__RBClientInheritanceManager__lock_sendQueuedInheritancesAndUnlock__block_invoke;
-    v12[3] = &unk_279B32B80;
-    v12[4] = self;
-    v13 = v4;
-    v8 = v4;
-    [WeakRetained inheritanceManager:self didChangeInheritances:v8 completion:v12];
-
-LABEL_13:
-    v9 = *MEMORY[0x277D85DE8];
     return;
   }
 
+  os_unfair_lock_assert_owner((self + 36));
+  if (*(self + 32) == 1)
+  {
+    goto LABEL_3;
+  }
+
+  [*(self + 16) minusSet:*(self + 8)];
+  [*(self + 24) intersectSet:*(self + 8)];
+  if (![*(self + 16) count] && !objc_msgSend(*(self + 24), "count"))
+  {
+    v8 = *(self + 16);
+    *(self + 16) = 0;
+
+    v9 = *(self + 24);
+    *(self + 24) = 0;
+
 LABEL_3:
-  v2 = *MEMORY[0x277D85DE8];
+
+    os_unfair_lock_unlock((self + 36));
+    return;
+  }
+
+  *(self + 32) = 1;
+  WeakRetained = objc_loadWeakRetained((self + 40));
+  v3 = [objc_alloc(MEMORY[0x277D46E98]) initWithGainedInheritances:*(self + 16) lostInheritances:*(self + 24)];
+  if (v3)
+  {
+    v4 = rbs_connection_log();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138543362;
+      v13 = v3;
+      _os_log_impl(&dword_262485000, v4, OS_LOG_TYPE_DEFAULT, "Inheritance changeset: %{public}@", buf, 0xCu);
+    }
+  }
+
+  v5 = *(self + 16);
+  *(self + 16) = 0;
+
+  v6 = *(self + 24);
+  *(self + 24) = 0;
 
   os_unfair_lock_unlock((self + 36));
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __67__RBClientInheritanceManager__lock_sendQueuedInheritancesAndUnlock__block_invoke;
+  v10[3] = &unk_279B32B80;
+  v10[4] = self;
+  v11 = v3;
+  v7 = v3;
+  [WeakRetained inheritanceManager:self didChangeInheritances:v7 completion:v10];
 }
 
-uint64_t __67__RBClientInheritanceManager__lock_sendQueuedInheritancesAndUnlock__block_invoke(uint64_t a1)
+void __67__RBClientInheritanceManager__lock_sendQueuedInheritancesAndUnlock__block_invoke(uint64_t a1)
 {
   os_unfair_lock_lock((*(a1 + 32) + 36));
   v2 = *(*(a1 + 32) + 8);
@@ -88,7 +84,7 @@ uint64_t __67__RBClientInheritanceManager__lock_sendQueuedInheritancesAndUnlock_
   *(*(a1 + 32) + 32) = 0;
   v6 = *(a1 + 32);
 
-  return [(RBClientInheritanceManager *)v6 _lock_sendQueuedInheritancesAndUnlock];
+  [(RBClientInheritanceManager *)v6 _lock_sendQueuedInheritancesAndUnlock];
 }
 
 - (id)description

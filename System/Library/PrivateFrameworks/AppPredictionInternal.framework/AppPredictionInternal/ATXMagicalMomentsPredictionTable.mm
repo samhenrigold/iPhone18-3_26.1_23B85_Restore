@@ -42,43 +42,42 @@
 
 - (id)describeTable
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = [(NSMutableArray *)self->_predictionTableEntries count];
   v4 = objc_opt_new();
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = self->_predictionTableEntries;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"[%lu of %lu] %@", v8, v3, *(*(&v15 + 1) + 8 * i)];
+        v11 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"[%lu of %lu] %@", v8, v3, *(*(&v14 + 1) + 8 * i)];
         [v4 addObject:v11];
 
         ++v8;
       }
 
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
 
   v12 = [v4 copy];
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -117,39 +116,37 @@ LABEL_7:
 
 - (void)addPredictions:(id)predictions withApplicablePredicates:(id)predicates
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   predictionsCopy = predictions;
   predicatesCopy = predicates;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v8 = [predictionsCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [predictionsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       v11 = 0;
       do
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(predictionsCopy);
         }
 
-        [(ATXMagicalMomentsPredictionTable *)self addPrediction:*(*(&v13 + 1) + 8 * v11++) withApplicablePredicates:predicatesCopy];
+        [(ATXMagicalMomentsPredictionTable *)self addPrediction:*(*(&v12 + 1) + 8 * v11++) withApplicablePredicates:predicatesCopy];
       }
 
       while (v9 != v11);
-      v9 = [predictionsCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v9 = [predictionsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v9);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addPrediction:(id)prediction withApplicablePredicates:(id)predicates
@@ -159,7 +156,7 @@ LABEL_7:
   v8 = predicatesCopy;
   if (predictionCopy)
   {
-    if (predicatesCopy && [predicatesCopy count])
+    if (predicatesCopy && (predicatesCopy = [predicatesCopy count]) != 0)
     {
       v9 = [[ATXMagicalMomentsPredictionTableEntry alloc] initWithPrediction:predictionCopy applicablePredicates:v8];
       if (v9)
@@ -169,7 +166,7 @@ LABEL_7:
 
       else
       {
-        v10 = __atxlog_handle_default();
+        v10 = __atxlog_handle_default(0);
         if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
           [ATXMagicalMomentsPredictionTable addPrediction:withApplicablePredicates:];
@@ -179,7 +176,7 @@ LABEL_7:
 
     else
     {
-      v9 = __atxlog_handle_default();
+      v9 = __atxlog_handle_default(predicatesCopy);
       if (os_log_type_enabled(&v9->super, OS_LOG_TYPE_ERROR))
       {
         [ATXMagicalMomentsPredictionTable addPrediction:withApplicablePredicates:];
@@ -198,7 +195,7 @@ LABEL_7:
 
   else
   {
-    v4 = __atxlog_handle_default();
+    v4 = __atxlog_handle_default(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       [ATXMagicalMomentsPredictionTable predictionTableEntries];
@@ -212,30 +209,30 @@ LABEL_7:
 
 - (id)validPredictionsFromTableEntries:(id)entries event:(id)event
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   entriesCopy = entries;
   eventCopy = event;
   v7 = objc_opt_new();
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v8 = entriesCopy;
-  v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v21;
+    v11 = *v20;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v21 != v11)
+        if (*v20 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v20 + 1) + 8 * i);
+        v13 = *(*(&v19 + 1) + 8 * i);
         v14 = objc_autoreleasePoolPush();
         compoundPredicate = [v13 compoundPredicate];
         [compoundPredicate allowEvaluation];
@@ -253,13 +250,11 @@ LABEL_7:
         objc_autoreleasePoolPop(v14);
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v10);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -300,12 +295,12 @@ LABEL_7:
           predictionIdentifier2 = [v11 predictionIdentifier];
           [v5 addObject:predictionIdentifier2];
 
-          v16 = __atxlog_handle_default();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+          v17 = __atxlog_handle_default(v16);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
             v24 = v11;
-            _os_log_impl(&dword_2263AA000, v16, OS_LOG_TYPE_INFO, "ATXMM: %@", buf, 0xCu);
+            _os_log_impl(&dword_2263AA000, v17, OS_LOG_TYPE_INFO, "ATXMM: %@", buf, 0xCu);
           }
         }
 
@@ -318,68 +313,68 @@ LABEL_7:
     while (v8);
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 - (id)removeRestrictedPredictions:(id)predictions
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   predictionsCopy = predictions;
   v4 = objc_opt_new();
-  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
   v5 = predictionsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v18 objects:v24 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v19 objects:v25 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v19;
+    v8 = *v20;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * i);
+        v10 = *(*(&v19 + 1) + 8 * i);
         v11 = objc_autoreleasePoolPush();
         predictionIdentifier = [v10 predictionIdentifier];
-        if ([MEMORY[0x277CEB3B8] isInstalledAndNotRestrictedForBundle:predictionIdentifier])
+        v13 = [MEMORY[0x277CEB3B8] isInstalledAndNotRestrictedForBundle:predictionIdentifier];
+        if (v13)
         {
-          if ([MEMORY[0x277CEB3B8] isDeviceManagementPolicyOkForBundleId:predictionIdentifier])
+          v14 = [MEMORY[0x277CEB3B8] isDeviceManagementPolicyOkForBundleId:predictionIdentifier];
+          if (v14)
           {
             [v4 addObject:v10];
             goto LABEL_15;
           }
 
-          v13 = __atxlog_handle_default();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+          v15 = __atxlog_handle_default(v14);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v23 = predictionIdentifier;
-            v14 = v13;
-            v15 = "ATXMM: Skipping screen time restricted app %@.";
+            v24 = predictionIdentifier;
+            v16 = v15;
+            v17 = "ATXMM: Skipping screen time restricted app %@.";
             goto LABEL_13;
           }
         }
 
         else
         {
-          v13 = __atxlog_handle_default();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+          v15 = __atxlog_handle_default(v13);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v23 = predictionIdentifier;
-            v14 = v13;
-            v15 = "ATXMM: Skipping restricted app %@.";
+            v24 = predictionIdentifier;
+            v16 = v15;
+            v17 = "ATXMM: Skipping restricted app %@.";
 LABEL_13:
-            _os_log_impl(&dword_2263AA000, v14, OS_LOG_TYPE_DEFAULT, v15, buf, 0xCu);
+            _os_log_impl(&dword_2263AA000, v16, OS_LOG_TYPE_DEFAULT, v17, buf, 0xCu);
           }
         }
 
@@ -387,26 +382,24 @@ LABEL_15:
         objc_autoreleasePoolPop(v11);
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v18 objects:v24 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v19 objects:v25 count:16];
     }
 
     while (v7);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (id)predictionsForTriggerEvent:(id)event
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v5 = objc_autoreleasePoolPush();
   v6 = [(ATXMagicalMomentsPredictionTable *)self validPredictionsFromTableEntries:self->_predictionTableEntries event:eventCopy];
   v7 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"self" ascending:0];
-  v15[0] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v14[0] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
   v9 = [v6 sortedArrayUsingDescriptors:v8];
 
   v10 = [(ATXMagicalMomentsPredictionTable *)self deduplicatePredictions:v9];
@@ -414,24 +407,22 @@ LABEL_15:
   v12 = [v11 copy];
 
   objc_autoreleasePoolPop(v5);
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CCAC98];
   coderCopy = coder;
   v6 = [v4 sortDescriptorWithKey:@"prediction.confidence" ascending:0];
   predictionTableEntries = self->_predictionTableEntries;
-  v10[0] = v6;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+  v9[0] = v6;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
   [(NSMutableArray *)predictionTableEntries sortUsingDescriptors:v8];
 
   [coderCopy encodeObject:self->_predictionTableEntries forKey:@"predictionTableEntries"];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (ATXMagicalMomentsPredictionTable)initWithCoder:(id)coder

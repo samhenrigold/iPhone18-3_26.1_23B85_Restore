@@ -76,28 +76,28 @@ LABEL_6:
 - (void)addItem:(id)item
 {
   itemCopy = item;
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
-  v16 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2020000000;
+  v17 = 0;
   database = self->_database;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __24__SKUIWishlist_addItem___block_invoke;
-  v9[3] = &unk_2781FE038;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __24__SKUIWishlist_addItem___block_invoke;
+  v10[3] = &unk_2781FE038;
   v6 = itemCopy;
   selfCopy = self;
-  v12 = &v13;
-  v10 = v6;
-  [(SSWishlist *)database performTransactionWithBlock:v9];
-  if (*(v14 + 24) == 1)
+  v13 = &v14;
+  v11 = v6;
+  [(SSWishlist *)database performTransactionWithBlock:v10];
+  if (*(v15 + 24) == 1)
   {
     v7 = [[SKUIAddToWishlistOperation alloc] initWithItem:v6 reason:0];
-    v8 = SKUIWishlistOperationQueue();
-    [v8 addOperation:v7];
+    v9 = SKUIWishlistOperationQueue(v7, v8);
+    [v9 addOperation:v7];
   }
 
-  _Block_object_dispose(&v13, 8);
+  _Block_object_dispose(&v14, 8);
 }
 
 uint64_t __24__SKUIWishlist_addItem___block_invoke(uint64_t a1, void *a2)
@@ -257,17 +257,17 @@ void __21__SKUIWishlist_items__block_invoke_22(uint64_t a1, uint64_t a2, void *a
 - (void)removeItemsWithItemIdentifiers:(id)identifiers
 {
   identifiersCopy = identifiers;
-  v5 = SKUIWishlistOperationQueue();
+  v6 = SKUIWishlistOperationQueue(identifiersCopy, v5);
   database = self->_database;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __47__SKUIWishlist_removeItemsWithItemIdentifiers___block_invoke;
-  v9[3] = &unk_2781FE0D8;
-  v10 = identifiersCopy;
-  v11 = v5;
-  v7 = v5;
-  v8 = identifiersCopy;
-  [(SSWishlist *)database performTransactionWithBlock:v9];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __47__SKUIWishlist_removeItemsWithItemIdentifiers___block_invoke;
+  v10[3] = &unk_2781FE0D8;
+  v11 = identifiersCopy;
+  v12 = v6;
+  v8 = v6;
+  v9 = identifiersCopy;
+  [(SSWishlist *)database performTransactionWithBlock:v10];
 }
 
 uint64_t __47__SKUIWishlist_removeItemsWithItemIdentifiers___block_invoke(uint64_t a1, void *a2)
@@ -317,6 +317,12 @@ void __47__SKUIWishlist_removeItemsWithItemIdentifiers___block_invoke_2(uint64_t
   }
 
   return v6;
+}
+
+- (void)initWithAccountIdentifier:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIWishlist initWithAccountIdentifier:]";
 }
 
 @end

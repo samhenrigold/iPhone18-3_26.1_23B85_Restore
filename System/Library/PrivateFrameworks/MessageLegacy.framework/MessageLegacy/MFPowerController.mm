@@ -162,7 +162,7 @@ uint64_t __35__MFPowerController_sharedInstance__block_invoke()
 
 - (void)_setPluggedIn:(unsigned int)in
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   pluggedIn = self->_pluggedIn;
   if (pluggedIn != in)
   {
@@ -183,9 +183,9 @@ uint64_t __35__MFPowerController_sharedInstance__block_invoke()
           v7 = @"unplugged";
         }
 
-        v10 = 138412290;
-        v11 = v7;
-        _os_log_impl(&dword_258BDA000, v6, OS_LOG_TYPE_INFO, "device is now %@", &v10, 0xCu);
+        v9 = 138412290;
+        v10 = v7;
+        _os_log_impl(&dword_258BDA000, v6, OS_LOG_TYPE_INFO, "device is now %@", &v9, 0xCu);
       }
 
       if (self->_pluggedIn)
@@ -205,8 +205,6 @@ uint64_t __35__MFPowerController_sharedInstance__block_invoke()
       [defaultCenter postNotificationName:@"MFPowerStateDidChange" object:self];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (void)powerlog:(id)powerlog eventData:(id)data
@@ -272,7 +270,7 @@ uint64_t __35__MFPowerController_sharedInstance__block_invoke()
 
 - (void)_lowPowerModeChangedNotification:(id)notification
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = MFLogGeneral();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
@@ -284,15 +282,13 @@ uint64_t __35__MFPowerController_sharedInstance__block_invoke()
       v6 = @"ON";
     }
 
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_impl(&dword_258BDA000, v3, OS_LOG_TYPE_INFO, "low-power mode changed to %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_impl(&dword_258BDA000, v3, OS_LOG_TYPE_INFO, "low-power mode changed to %@", &v8, 0xCu);
   }
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter postNotificationName:@"MFBatterySaverModeDidChange" object:0];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isBatterySaverModeEnabled
@@ -305,7 +301,7 @@ uint64_t __35__MFPowerController_sharedInstance__block_invoke()
 
 - (void)_setupAssertionTimer:(double)timer
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (_powerAssertionTimer)
   {
     v5 = MFLogGeneral();
@@ -345,8 +341,6 @@ uint64_t __35__MFPowerController_sharedInstance__block_invoke()
     dispatch_source_set_event_handler(_powerAssertionTimer, handler);
     dispatch_resume(_powerAssertionTimer);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __42__MFPowerController__setupAssertionTimer___block_invoke(uint64_t a1)
@@ -400,59 +394,56 @@ void __42__MFPowerController__setupAssertionTimer___block_invoke_38()
   dispatch_sync(queue, v7);
 }
 
-uint64_t __51__MFPowerController_retainAssertionWithIdentifier___block_invoke(uint64_t a1)
+_BYTE *__51__MFPowerController_retainAssertionWithIdentifier___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = MFLogGeneral();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_258BDA000, v2, OS_LOG_TYPE_INFO, "#Assertions [+] %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_258BDA000, v2, OS_LOG_TYPE_INFO, "#Assertions [+] %@", &v5, 0xCu);
   }
 
   [*(*(a1 + 40) + 32) addObject:*(a1 + 32)];
   result = *(a1 + 40);
-  if ((*(result + 48) & 1) == 0)
+  if ((result[48] & 1) == 0)
   {
     result = [result isPluggedIn];
     if ((result & 1) == 0 && !_powerAssertion)
     {
-      result = [*(a1 + 40) _retainPowerAssertion_nts];
+      return [*(a1 + 40) _retainPowerAssertion_nts];
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (void)releaseAssertionWithIdentifier:(id)identifier
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v5 = MFLogGeneral();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v12 = identifierCopy;
+    v11 = identifierCopy;
     _os_log_impl(&dword_258BDA000, v5, OS_LOG_TYPE_INFO, "#Assertions [-] %@", buf, 0xCu);
   }
 
   queue = self->_queue;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __52__MFPowerController_releaseAssertionWithIdentifier___block_invoke;
-  v9[3] = &unk_2798B6E28;
-  v9[4] = self;
-  v10 = identifierCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __52__MFPowerController_releaseAssertionWithIdentifier___block_invoke;
+  v8[3] = &unk_2798B6E28;
+  v8[4] = self;
+  v9 = identifierCopy;
   v7 = identifierCopy;
-  dispatch_sync(queue, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  dispatch_sync(queue, v8);
 }
 
-uint64_t __52__MFPowerController_releaseAssertionWithIdentifier___block_invoke(uint64_t a1)
+void *__52__MFPowerController_releaseAssertionWithIdentifier___block_invoke(uint64_t a1)
 {
   [*(*(a1 + 32) + 32) removeObject:*(a1 + 40)];
   result = [*(*(a1 + 32) + 32) count];
@@ -520,14 +511,12 @@ uint64_t __52__MFPowerController_releaseAssertionWithIdentifier___block_invoke(u
 
 - (EFObservable)pluggedInObservable
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   powerObservable = [(MFPowerController *)self powerObservable];
-  v9[0] = self;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+  v8[0] = self;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   v5 = [powerObservable startWith:v4];
   v6 = [v5 map:&__block_literal_global_72];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -542,20 +531,18 @@ uint64_t __40__MFPowerController_pluggedInObservable__block_invoke(uint64_t a1, 
 
 - (EFObservable)lowPowerModeObservable
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277D07180] observableOnDefaultNotificationCenterWithName:@"MFBatterySaverModeDidChange" object:0];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __43__MFPowerController_lowPowerModeObservable__block_invoke;
-  v10[3] = &unk_2798B7790;
-  v10[4] = self;
-  v4 = [v3 map:v10];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __43__MFPowerController_lowPowerModeObservable__block_invoke;
+  v9[3] = &unk_2798B7790;
+  v9[4] = self;
+  v4 = [v3 map:v9];
   v5 = [MEMORY[0x277CCABB0] numberWithBool:{-[MFPowerController isBatterySaverModeEnabled](self, "isBatterySaverModeEnabled")}];
-  v11[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   v7 = [v4 startWith:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -623,49 +610,46 @@ uint64_t __43__MFPowerController_lowPowerModeObservable__block_invoke(uint64_t a
 
 void __46__MFPowerController_copyDiagnosticInformation__block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if ([*(*(a1 + 32) + 32) count])
   {
-    v15 = 0u;
-    v16 = 0u;
     v13 = 0u;
     v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     v2 = *(*(a1 + 32) + 32);
-    v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v3)
     {
       v4 = v3;
-      v5 = *v14;
+      v5 = *v12;
       do
       {
         for (i = 0; i != v4; ++i)
         {
-          if (*v14 != v5)
+          if (*v12 != v5)
           {
             objc_enumerationMutation(v2);
           }
 
-          v7 = *(*(&v13 + 1) + 8 * i);
+          v7 = *(*(&v11 + 1) + 8 * i);
           v8 = *(a1 + 40);
           v9 = [*(*(a1 + 32) + 32) countForObject:v7];
-          [v8 appendFormat:@"  %@: %d\n", v7, v9, v13];
+          [v8 appendFormat:@"  %@: %d\n", v7, v9, v11];
         }
 
-        v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v4);
     }
-
-    v10 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v11 = *(a1 + 40);
-    v12 = *MEMORY[0x277D85DE8];
+    v10 = *(a1 + 40);
 
-    [v11 appendFormat:@"(empty)\n"];
+    [v10 appendFormat:@"(empty)\n"];
   }
 }
 

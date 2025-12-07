@@ -5,7 +5,7 @@
 
 void __40__NSDictionary_XPCObject___cs_xpcObject__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   objc_opt_class();
@@ -40,9 +40,9 @@ void __40__NSDictionary_XPCObject___cs_xpcObject__block_invoke(uint64_t a1, void
         v12 = v11;
         v13 = [v6 description];
         *buf = 136315394;
-        v17 = "[NSDictionary(XPCObject) _cs_xpcObject]_block_invoke";
-        v18 = 2114;
-        v19 = v13;
+        v16 = "[NSDictionary(XPCObject) _cs_xpcObject]_block_invoke";
+        v17 = 2114;
+        v18 = v13;
         _os_log_error_impl(&dword_1DDA4B000, v12, OS_LOG_TYPE_ERROR, "%s Cannot encode non-plist types into XPC object : %{public}@", buf, 0x16u);
       }
     }
@@ -54,17 +54,15 @@ void __40__NSDictionary_XPCObject___cs_xpcObject__block_invoke(uint64_t a1, void
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v17 = "[NSDictionary(XPCObject) _cs_xpcObject]_block_invoke";
+      v16 = "[NSDictionary(XPCObject) _cs_xpcObject]_block_invoke";
       _os_log_error_impl(&dword_1DDA4B000, v14, OS_LOG_TYPE_ERROR, "%s Cannot encode key into xpcobject since the key is not NSString class type", buf, 0xCu);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __49__NSDictionary_XPCObject___cs_initWithXPCObject___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = v5;
   if (a2 && v5)
@@ -98,9 +96,9 @@ uint64_t __49__NSDictionary_XPCObject___cs_initWithXPCObject___block_invoke(uint
         v12 = CSLogContextFacilityCoreSpeech;
         if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
         {
-          v19 = 136315138;
-          v20 = "[NSDictionary(XPCObject) _cs_initWithXPCObject:]_block_invoke";
-          _os_log_error_impl(&dword_1DDA4B000, v12, OS_LOG_TYPE_ERROR, "%s Cannot decode non-plist types of XPC object", &v19, 0xCu);
+          v18 = 136315138;
+          v19 = "[NSDictionary(XPCObject) _cs_initWithXPCObject:]_block_invoke";
+          _os_log_error_impl(&dword_1DDA4B000, v12, OS_LOG_TYPE_ERROR, "%s Cannot decode non-plist types of XPC object", &v18, 0xCu);
         }
 
 LABEL_28:
@@ -125,14 +123,13 @@ LABEL_28:
   v13 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
   {
-    v19 = 136315138;
-    v20 = "[NSDictionary(XPCObject) _cs_initWithXPCObject:]_block_invoke";
-    _os_log_error_impl(&dword_1DDA4B000, v13, OS_LOG_TYPE_ERROR, "%s xpcObject key or value is NULL", &v19, 0xCu);
+    v18 = 136315138;
+    v19 = "[NSDictionary(XPCObject) _cs_initWithXPCObject:]_block_invoke";
+    _os_log_error_impl(&dword_1DDA4B000, v13, OS_LOG_TYPE_ERROR, "%s xpcObject key or value is NULL", &v18, 0xCu);
   }
 
 LABEL_29:
 
-  v17 = *MEMORY[0x1E69E9840];
   return 1;
 }
 

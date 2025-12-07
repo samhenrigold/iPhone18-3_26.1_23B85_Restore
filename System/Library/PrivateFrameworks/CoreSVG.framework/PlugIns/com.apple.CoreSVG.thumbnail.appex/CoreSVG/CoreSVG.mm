@@ -10,7 +10,6 @@ uint64_t sub_100000C8C(uint64_t a1, CGContextRef context)
   }
 
   CGContextScaleCTM(context, v7, v7);
-  v8 = *(a1 + 48);
   CGContextDrawSVGDocument();
   CFRelease(*(a1 + 48));
   return 1;

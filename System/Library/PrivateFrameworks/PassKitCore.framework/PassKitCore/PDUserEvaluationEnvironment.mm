@@ -4892,77 +4892,78 @@ LABEL_17:
   {
     selfCopy = self;
     v4 = [[NSMutableSet alloc] initWithCapacity:4];
-    if (PKPasscodeEnabled())
-    {
-      [v4 addObject:@"Passcode"];
-    }
-
-    [(objc_class *)off_10091EA50() availableDevices];
-    v24 = 0u;
-    v25 = 0u;
-    v26 = 0u;
-    obj = v27 = 0u;
-    v5 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v5 = PKPasscodeEnabled();
     if (v5)
     {
-      v6 = v5;
-      v7 = *v25;
+      v5 = [v4 addObject:@"Passcode"];
+    }
+
+    [off_10091EA50(v5) availableDevices];
+    v25 = 0u;
+    v26 = 0u;
+    v27 = 0u;
+    obj = v28 = 0u;
+    v6 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+    if (v6)
+    {
+      v7 = v6;
+      v8 = *v26;
       do
       {
-        for (i = 0; i != v6; i = i + 1)
+        for (i = 0; i != v7; i = i + 1)
         {
-          if (*v25 != v7)
+          if (*v26 != v8)
           {
             objc_enumerationMutation(obj);
           }
 
-          v9 = *(*(&v24 + 1) + 8 * i);
-          type = [v9 type];
+          v10 = *(*(&v25 + 1) + 8 * i);
+          type = [v10 type];
           if (type == 2)
           {
-            v11 = @"Face ID";
+            v12 = @"Face ID";
           }
 
           else
           {
-            v11 = 0;
+            v12 = 0;
           }
 
           if (type == 1)
           {
-            v12 = @"Touch ID";
+            v13 = @"Touch ID";
           }
 
           else
           {
-            v12 = v11;
+            v13 = v12;
           }
 
-          v13 = off_10091EA58();
-          v23 = 0;
-          v14 = [(objc_class *)v13 deviceWithDescriptor:v9 error:&v23];
-          v15 = v23;
-          if (!v15)
+          v14 = off_10091EA58();
+          v24 = 0;
+          v15 = [(objc_class *)v14 deviceWithDescriptor:v10 error:&v24];
+          v16 = v24;
+          if (!v16)
           {
-            v22 = 0;
-            v16 = [v14 identitiesWithError:&v22];
-            v15 = v22;
-            if (!v15 && [v16 count])
+            v23 = 0;
+            v17 = [v15 identitiesWithError:&v23];
+            v16 = v23;
+            if (!v16 && [v17 count])
             {
-              [v4 addObject:v12];
+              [v4 addObject:v13];
             }
           }
         }
 
-        v6 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v7 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
       }
 
-      while (v6);
+      while (v7);
     }
 
-    v17 = [v4 copy];
-    v18 = selfCopy->_prefetchedEnrolledAuthenticationMechanisms;
-    selfCopy->_prefetchedEnrolledAuthenticationMechanisms = v17;
+    v18 = [v4 copy];
+    v19 = selfCopy->_prefetchedEnrolledAuthenticationMechanisms;
+    selfCopy->_prefetchedEnrolledAuthenticationMechanisms = v18;
 
     prefetchedEnrolledAuthenticationMechanisms = selfCopy->_prefetchedEnrolledAuthenticationMechanisms;
   }
@@ -5270,217 +5271,217 @@ LABEL_44:
         }
 
         accountManager = self->_accountManager;
-        v12 = v103;
-        v103[0] = _NSConcreteStackBlock;
-        v103[1] = 3221225472;
-        v103[2] = sub_10012EDEC;
-        v103[3] = &unk_1008479A0;
-        objc_copyWeak(&v106, &location);
-        v104 = sourcesCopy;
-        v105 = completionCopy;
-        [(PDAccountManager *)accountManager accountsForFeature:2 completion:v103];
+        v12 = v105;
+        v105[0] = _NSConcreteStackBlock;
+        v105[1] = 3221225472;
+        v105[2] = sub_10012EDEC;
+        v105[3] = &unk_1008479A0;
+        objc_copyWeak(&v108, &location);
+        v106 = sourcesCopy;
+        v107 = completionCopy;
+        [(PDAccountManager *)accountManager accountsForFeature:2 completion:v105];
 
-        v13 = v104;
+        v13 = v106;
         goto LABEL_53;
       case 2u:
-        v35 = PKLogFacilityTypeGetObject();
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+        v36 = PKLogFacilityTypeGetObject();
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
         {
           sub_1005C1EE4();
         }
 
-        v36 = self->_accountManager;
-        v12 = v99;
-        v99[0] = _NSConcreteStackBlock;
-        v99[1] = 3221225472;
-        v99[2] = sub_10012EE68;
-        v99[3] = &unk_1008479C8;
-        objc_copyWeak(&v102, &location);
-        v100 = sourcesCopy;
-        v101 = completionCopy;
-        [(PDAccountManager *)v36 defaultAccountForFeature:2 completion:v99];
+        v37 = self->_accountManager;
+        v12 = v101;
+        v101[0] = _NSConcreteStackBlock;
+        v101[1] = 3221225472;
+        v101[2] = sub_10012EE68;
+        v101[3] = &unk_1008479C8;
+        objc_copyWeak(&v104, &location);
+        v102 = sourcesCopy;
+        v103 = completionCopy;
+        [(PDAccountManager *)v37 defaultAccountForFeature:2 completion:v101];
 
-        v13 = v100;
+        v13 = v102;
         goto LABEL_53;
       case 3u:
-        v26 = PKLogFacilityTypeGetObject();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+        v27 = PKLogFacilityTypeGetObject();
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
         {
           sub_1005C1EB0();
         }
 
         peerPaymentWebServiceCoordinator = self->_peerPaymentWebServiceCoordinator;
-        v12 = v95;
-        v95[0] = _NSConcreteStackBlock;
-        v95[1] = 3221225472;
-        v95[2] = sub_10012F018;
-        v95[3] = &unk_1008479F0;
-        objc_copyWeak(&v98, &location);
-        v96 = sourcesCopy;
-        v97 = completionCopy;
-        [(PDPeerPaymentWebServiceCoordinator *)peerPaymentWebServiceCoordinator accountWithPreventingServerFetch:1 completion:v95];
+        v12 = v97;
+        v97[0] = _NSConcreteStackBlock;
+        v97[1] = 3221225472;
+        v97[2] = sub_10012F018;
+        v97[3] = &unk_1008479F0;
+        objc_copyWeak(&v100, &location);
+        v98 = sourcesCopy;
+        v99 = completionCopy;
+        [(PDPeerPaymentWebServiceCoordinator *)peerPaymentWebServiceCoordinator accountWithPreventingServerFetch:1 completion:v97];
 
-        v13 = v96;
+        v13 = v98;
         goto LABEL_53;
       case 4u:
-        v30 = PKLogFacilityTypeGetObject();
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+        v31 = PKLogFacilityTypeGetObject();
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
         {
           sub_1005C1E7C();
         }
 
         paymentSetupFeaturesCoordinator = [(PDPaymentWebServiceCoordinator *)self->_paymentWebServiceCoordinator paymentSetupFeaturesCoordinator];
-        v32 = PKPassdBundleIdentifier;
-        v91[0] = _NSConcreteStackBlock;
-        v91[1] = 3221225472;
-        v91[2] = sub_10012F094;
-        v91[3] = &unk_100847A18;
-        objc_copyWeak(&v94, &location);
-        v92 = sourcesCopy;
-        v93 = completionCopy;
-        [paymentSetupFeaturesCoordinator staticPaymentSetupFeaturesForSourceApplicationID:v32 blockServerFetch:1 completion:v91];
+        v33 = PKPassdBundleIdentifier;
+        v93[0] = _NSConcreteStackBlock;
+        v93[1] = 3221225472;
+        v93[2] = sub_10012F094;
+        v93[3] = &unk_100847A18;
+        objc_copyWeak(&v96, &location);
+        v94 = sourcesCopy;
+        v95 = completionCopy;
+        [paymentSetupFeaturesCoordinator staticPaymentSetupFeaturesForSourceApplicationID:v33 blockServerFetch:1 completion:v93];
 
-        v19 = &v94;
+        v20 = &v96;
         goto LABEL_54;
       case 5u:
-        v20 = PKLogFacilityTypeGetObject();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+        v21 = PKLogFacilityTypeGetObject();
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
         {
           sub_1005C1E48();
         }
 
         applyManager = self->_applyManager;
-        v12 = v87;
-        v87[0] = _NSConcreteStackBlock;
-        v87[1] = 3221225472;
-        v87[2] = sub_10012F1C8;
-        v87[3] = &unk_100847A18;
-        objc_copyWeak(&v90, &location);
-        v88 = sourcesCopy;
-        v89 = completionCopy;
-        [(PDApplyManager *)applyManager applicationsWithCompletion:v87];
+        v12 = v89;
+        v89[0] = _NSConcreteStackBlock;
+        v89[1] = 3221225472;
+        v89[2] = sub_10012F1C8;
+        v89[3] = &unk_100847A18;
+        objc_copyWeak(&v92, &location);
+        v90 = sourcesCopy;
+        v91 = completionCopy;
+        [(PDApplyManager *)applyManager applicationsWithCompletion:v89];
 
-        v13 = v88;
+        v13 = v90;
         goto LABEL_53;
       case 6u:
-        v37 = PKLogFacilityTypeGetObject();
-        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+        v38 = PKLogFacilityTypeGetObject();
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
         {
           sub_1005C1E14();
         }
 
         transitNotificationService = self->_transitNotificationService;
-        v12 = v83;
-        v83[0] = _NSConcreteStackBlock;
-        v83[1] = 3221225472;
-        v83[2] = sub_10012F3F8;
-        v83[3] = &unk_100847A40;
-        objc_copyWeak(&v86, &location);
-        v84 = sourcesCopy;
-        v85 = completionCopy;
-        [(PDTransitNotificationService *)transitNotificationService sentTransitNotificationStateWithHandler:v83];
+        v12 = v85;
+        v85[0] = _NSConcreteStackBlock;
+        v85[1] = 3221225472;
+        v85[2] = sub_10012F3F8;
+        v85[3] = &unk_100847A40;
+        objc_copyWeak(&v88, &location);
+        v86 = sourcesCopy;
+        v87 = completionCopy;
+        [(PDTransitNotificationService *)transitNotificationService sentTransitNotificationStateWithHandler:v85];
 
-        v13 = v84;
+        v13 = v86;
         goto LABEL_53;
       case 7u:
-        v41 = PKLogFacilityTypeGetObject();
-        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
+        v42 = PKLogFacilityTypeGetObject();
+        if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
         {
           sub_1005C1DE0();
         }
 
         familyCircleManager = self->_familyCircleManager;
-        v12 = v79;
-        v79[0] = _NSConcreteStackBlock;
-        v79[1] = 3221225472;
-        v79[2] = sub_10012F4BC;
-        v79[3] = &unk_100847A18;
-        objc_copyWeak(&v82, &location);
-        v80 = sourcesCopy;
-        v81 = completionCopy;
-        [(PDFamilyCircleManager *)familyCircleManager familyMembersWithCachePolicy:2 completion:v79];
+        v12 = v81;
+        v81[0] = _NSConcreteStackBlock;
+        v81[1] = 3221225472;
+        v81[2] = sub_10012F4BC;
+        v81[3] = &unk_100847A18;
+        objc_copyWeak(&v84, &location);
+        v82 = sourcesCopy;
+        v83 = completionCopy;
+        [(PDFamilyCircleManager *)familyCircleManager familyMembersWithCachePolicy:2 completion:v81];
 
-        v13 = v80;
+        v13 = v82;
         goto LABEL_53;
       case 8u:
-        v33 = PKLogFacilityTypeGetObject();
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+        v34 = PKLogFacilityTypeGetObject();
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
         {
           sub_1005C1DAC();
         }
 
-        v34 = self->_familyCircleManager;
-        v12 = v75;
-        v75[0] = _NSConcreteStackBlock;
-        v75[1] = 3221225472;
-        v75[2] = sub_10012F538;
-        v75[3] = &unk_100847A68;
-        objc_copyWeak(&v78, &location);
-        v76 = sourcesCopy;
-        v77 = completionCopy;
-        [(PDFamilyCircleManager *)v34 memberTypeForCurrentUserWithCachePolicy:2 completion:v75];
+        v35 = self->_familyCircleManager;
+        v12 = v77;
+        v77[0] = _NSConcreteStackBlock;
+        v77[1] = 3221225472;
+        v77[2] = sub_10012F538;
+        v77[3] = &unk_100847A68;
+        objc_copyWeak(&v80, &location);
+        v78 = sourcesCopy;
+        v79 = completionCopy;
+        [(PDFamilyCircleManager *)v35 memberTypeForCurrentUserWithCachePolicy:2 completion:v77];
 
-        v13 = v76;
+        v13 = v78;
         goto LABEL_53;
       case 9u:
-        v45 = PKLogFacilityTypeGetObject();
-        if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
+        v47 = PKLogFacilityTypeGetObject();
+        if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
         {
           sub_1005C1D78();
         }
 
         expressPassManager = self->_expressPassManager;
-        v12 = v71;
-        v71[0] = _NSConcreteStackBlock;
-        v71[1] = 3221225472;
-        v71[2] = sub_10012F594;
-        v71[3] = &unk_1008479A0;
-        objc_copyWeak(&v74, &location);
-        v72 = sourcesCopy;
-        v73 = completionCopy;
-        sub_10017F518(expressPassManager, v71);
+        v12 = v73;
+        v73[0] = _NSConcreteStackBlock;
+        v73[1] = 3221225472;
+        v73[2] = sub_10012F594;
+        v73[3] = &unk_1008479A0;
+        objc_copyWeak(&v76, &location);
+        v74 = sourcesCopy;
+        v75 = completionCopy;
+        sub_10017F518(expressPassManager, v73);
 
-        v13 = v72;
+        v13 = v74;
         goto LABEL_53;
       case 0xAu:
-        v24 = PKLogFacilityTypeGetObject();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+        v25 = PKLogFacilityTypeGetObject();
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
         {
           sub_1005C1D44();
         }
 
-        v25 = self->_accountManager;
-        v12 = v67;
-        v67[0] = _NSConcreteStackBlock;
-        v67[1] = 3221225472;
-        v67[2] = sub_10012F70C;
-        v67[3] = &unk_100847A90;
-        objc_copyWeak(&v70, &location);
-        v68 = sourcesCopy;
-        v69 = completionCopy;
-        [(PDAccountManager *)v25 accountUsersByAccountIdentifierForFeature:2 completion:v67];
+        v26 = self->_accountManager;
+        v12 = v69;
+        v69[0] = _NSConcreteStackBlock;
+        v69[1] = 3221225472;
+        v69[2] = sub_10012F70C;
+        v69[3] = &unk_100847A90;
+        objc_copyWeak(&v72, &location);
+        v70 = sourcesCopy;
+        v71 = completionCopy;
+        [(PDAccountManager *)v26 accountUsersByAccountIdentifierForFeature:2 completion:v69];
 
-        v13 = v68;
+        v13 = v70;
         goto LABEL_53;
       case 0xBu:
-        v43 = PKLogFacilityTypeGetObject();
-        if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
+        v44 = PKLogFacilityTypeGetObject();
+        if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
         {
           sub_1005C1CDC();
         }
 
-        v44 = PDDefaultQueue();
-        v59[0] = _NSConcreteStackBlock;
-        v59[1] = 3221225472;
-        v59[2] = sub_10012F804;
-        v59[3] = &unk_100847B80;
-        v59[4] = self;
-        v60 = sourcesCopy;
-        v61 = completionCopy;
-        objc_copyWeak(&v62, &location);
-        dispatch_async(v44, v59);
+        v46 = PDDefaultQueue(v45);
+        v61[0] = _NSConcreteStackBlock;
+        v61[1] = 3221225472;
+        v61[2] = sub_10012F804;
+        v61[3] = &unk_100847B80;
+        v61[4] = self;
+        v62 = sourcesCopy;
+        v63 = completionCopy;
+        objc_copyWeak(&v64, &location);
+        dispatch_async(v46, v61);
 
-        objc_destroyWeak(&v62);
+        objc_destroyWeak(&v64);
         break;
       case 0xCu:
         v17 = PKLogFacilityTypeGetObject();
@@ -5489,58 +5490,58 @@ LABEL_44:
           sub_1005C1CA8();
         }
 
-        v18 = PDDefaultQueue();
+        v19 = PDDefaultQueue(v18);
         block[0] = _NSConcreteStackBlock;
         block[1] = 3221225472;
         block[2] = sub_1001300CC;
         block[3] = &unk_100847BD0;
         block[4] = self;
-        objc_copyWeak(&v58, &location);
-        v56 = sourcesCopy;
-        v57 = completionCopy;
-        dispatch_async(v18, block);
+        objc_copyWeak(&v60, &location);
+        v58 = sourcesCopy;
+        v59 = completionCopy;
+        dispatch_async(v19, block);
 
-        v19 = &v58;
+        v20 = &v60;
         goto LABEL_54;
       case 0xDu:
-        v22 = PKLogFacilityTypeGetObject();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+        v23 = PKLogFacilityTypeGetObject();
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
         {
           sub_1005C1D10();
         }
 
-        v23 = self->_accountManager;
-        v12 = v63;
-        v63[0] = _NSConcreteStackBlock;
-        v63[1] = 3221225472;
-        v63[2] = sub_10012F788;
-        v63[3] = &unk_100847A90;
-        objc_copyWeak(&v66, &location);
-        v64 = sourcesCopy;
-        v65 = completionCopy;
-        [(PDAccountManager *)v23 physicalCardsByAccountIdentifierForFeature:2 completion:v63];
+        v24 = self->_accountManager;
+        v12 = v65;
+        v65[0] = _NSConcreteStackBlock;
+        v65[1] = 3221225472;
+        v65[2] = sub_10012F788;
+        v65[3] = &unk_100847A90;
+        objc_copyWeak(&v68, &location);
+        v66 = sourcesCopy;
+        v67 = completionCopy;
+        [(PDAccountManager *)v24 physicalCardsByAccountIdentifierForFeature:2 completion:v65];
 
-        v13 = v64;
+        v13 = v66;
         goto LABEL_53;
       case 0xEu:
-        v39 = PKLogFacilityTypeGetObject();
-        if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
+        v40 = PKLogFacilityTypeGetObject();
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
         {
           sub_1005C1C74();
         }
 
-        v40 = self->_accountManager;
-        v12 = v51;
-        v51[0] = _NSConcreteStackBlock;
-        v51[1] = 3221225472;
-        v51[2] = sub_100130220;
-        v51[3] = &unk_1008479C8;
-        objc_copyWeak(&v54, &location);
-        v52 = sourcesCopy;
-        v53 = completionCopy;
-        [(PDAccountManager *)v40 defaultAccountForFeature:5 completion:v51];
+        v41 = self->_accountManager;
+        v12 = v53;
+        v53[0] = _NSConcreteStackBlock;
+        v53[1] = 3221225472;
+        v53[2] = sub_100130220;
+        v53[3] = &unk_1008479C8;
+        objc_copyWeak(&v56, &location);
+        v54 = sourcesCopy;
+        v55 = completionCopy;
+        [(PDAccountManager *)v41 defaultAccountForFeature:5 completion:v53];
 
-        v13 = v52;
+        v13 = v54;
         goto LABEL_53;
       case 0xFu:
         v14 = PKLogFacilityTypeGetObject();
@@ -5556,29 +5557,29 @@ LABEL_44:
         [(PDUserEvaluationEnvironment *)self _prefetchDataSources:sourcesCopy completion:completionCopy];
         break;
       case 0x10u:
-        v28 = PKLogFacilityTypeGetObject();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+        v29 = PKLogFacilityTypeGetObject();
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
         {
           sub_1005C1C0C();
         }
 
-        v29 = self->_accountManager;
-        v12 = v47;
-        v47[0] = _NSConcreteStackBlock;
-        v47[1] = 3221225472;
-        v47[2] = sub_10013029C;
-        v47[3] = &unk_1008479C8;
-        objc_copyWeak(&v50, &location);
-        v48 = sourcesCopy;
-        v49 = completionCopy;
-        [(PDAccountManager *)v29 defaultAccountForFeature:4 completion:v47];
+        v30 = self->_accountManager;
+        v12 = v49;
+        v49[0] = _NSConcreteStackBlock;
+        v49[1] = 3221225472;
+        v49[2] = sub_10013029C;
+        v49[3] = &unk_1008479C8;
+        objc_copyWeak(&v52, &location);
+        v50 = sourcesCopy;
+        v51 = completionCopy;
+        [(PDAccountManager *)v30 defaultAccountForFeature:4 completion:v49];
 
-        v13 = v48;
+        v13 = v50;
 LABEL_53:
 
-        v19 = (v12 + 6);
+        v20 = (v12 + 6);
 LABEL_54:
-        objc_destroyWeak(v19);
+        objc_destroyWeak(v20);
         break;
       default:
         break;

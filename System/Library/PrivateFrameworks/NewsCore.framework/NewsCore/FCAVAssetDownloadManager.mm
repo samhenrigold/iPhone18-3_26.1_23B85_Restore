@@ -44,7 +44,7 @@
 
 - (id)initWithAssetCache:(void *)cache keyCache:(void *)keyCache networkReachability:
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   v8 = a2;
   cacheCopy = cache;
   keyCacheCopy = keyCache;
@@ -56,21 +56,21 @@
 
   if (!keyCacheCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v25 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "networkReachability"];
+    v24 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "networkReachability"];
     *buf = 136315906;
-    v32 = "[FCAVAssetDownloadManager initWithAssetCache:keyCache:networkReachability:]";
-    v33 = 2080;
-    v34 = "FCAVAssetDownloadManager.m";
-    v35 = 1024;
-    v36 = 103;
-    v37 = 2114;
-    v38 = v25;
+    v31 = "[FCAVAssetDownloadManager initWithAssetCache:keyCache:networkReachability:]";
+    v32 = 2080;
+    v33 = "FCAVAssetDownloadManager.m";
+    v34 = 1024;
+    v35 = 103;
+    v36 = 2114;
+    v37 = v24;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v30.receiver = self;
-  v30.super_class = FCAVAssetDownloadManager;
-  v12 = objc_msgSendSuper2(&v30, sel_init);
+  v29.receiver = self;
+  v29.super_class = FCAVAssetDownloadManager;
+  v12 = objc_msgSendSuper2(&v29, sel_init);
   if (v12)
   {
     v13 = v12;
@@ -86,23 +86,23 @@
     v13[4] = v16;
 
     v18 = objc_alloc(MEMORY[0x1E69B68D8]);
-    v28[0] = MEMORY[0x1E69E9820];
-    v28[1] = 3221225472;
-    v28[2] = __76__FCAVAssetDownloadManager_initWithAssetCache_keyCache_networkReachability___block_invoke;
-    v28[3] = &unk_1E7C36F98;
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __76__FCAVAssetDownloadManager_initWithAssetCache_keyCache_networkReachability___block_invoke;
+    v27[3] = &unk_1E7C36F98;
     v19 = v13;
-    v29 = v19;
-    v20 = [v18 initWithConstructor:v28];
+    v28 = v19;
+    v20 = [v18 initWithConstructor:v27];
     v21 = v19[5];
     v19[5] = v20;
 
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __76__FCAVAssetDownloadManager_initWithAssetCache_keyCache_networkReachability___block_invoke_2;
-    v26[3] = &unk_1E7C36EA0;
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __76__FCAVAssetDownloadManager_initWithAssetCache_keyCache_networkReachability___block_invoke_2;
+    v25[3] = &unk_1E7C36EA0;
     v22 = v19;
-    v27 = v22;
-    [FCTaskScheduler scheduleLowPriorityBlock:v26];
+    v26 = v22;
+    [FCTaskScheduler scheduleLowPriorityBlock:v25];
   }
 
   else
@@ -111,7 +111,6 @@ LABEL_7:
     v22 = 0;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
@@ -131,32 +130,32 @@ id __76__FCAVAssetDownloadManager_initWithAssetCache_keyCache_networkReachabilit
 
 void __76__FCAVAssetDownloadManager_initWithAssetCache_keyCache_networkReachability___block_invoke_2(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = FCURLForAVAssetDownloads();
   if (v2)
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v3 = [MEMORY[0x1E696AC08] defaultManager];
     v4 = [v3 contentsOfDirectoryAtURL:v2 includingPropertiesForKeys:0 options:0 error:0];
 
-    v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v14;
+      v7 = *v13;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v14 != v7)
+          if (*v13 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v13 + 1) + 8 * i);
+          v9 = *(*(&v12 + 1) + 8 * i);
           v10 = [v9 pathExtension];
           v11 = [v10 isEqualToString:@"movpkg"];
 
@@ -166,45 +165,41 @@ void __76__FCAVAssetDownloadManager_initWithAssetCache_keyCache_networkReachabil
           }
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v6);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_ensureAssetIsPurgeable:(uint64_t)purgeable
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (purgeable)
   {
     if (v3)
     {
-      v10 = 67590;
-      if (fsctl([v3 fileSystemRepresentation], 0xC0084A44uLL, &v10, 0))
+      v9 = 67590;
+      if (fsctl([v3 fileSystemRepresentation], 0xC0084A44uLL, &v9, 0))
       {
         v5 = FCAVAssetLog;
         if (os_log_type_enabled(FCAVAssetLog, OS_LOG_TYPE_ERROR))
         {
-          v7 = v5;
+          v6 = v5;
           path = [v4 path];
-          v9 = [MEMORY[0x1E696AD98] numberWithInt:*__error()];
+          v8 = [MEMORY[0x1E696AD98] numberWithInt:*__error()];
           *buf = 138543618;
-          v12 = path;
-          v13 = 2114;
-          v14 = v9;
-          _os_log_error_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_ERROR, "AV asset download manager failed to mark asset as purgeable, URL=%{public}@, errno=%{public}@", buf, 0x16u);
+          v11 = path;
+          v12 = 2114;
+          v13 = v8;
+          _os_log_error_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_ERROR, "AV asset download manager failed to mark asset as purgeable, URL=%{public}@, errno=%{public}@", buf, 0x16u);
         }
       }
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)restoreBackgroundDownloadsWithCompletionHandler:(uint64_t)handler
@@ -370,7 +365,7 @@ void __76__FCAVAssetDownloadManager_initWithAssetCache_keyCache_networkReachabil
 
 - (void)URLSession:(id)session assetDownloadTask:(id)task didFinishDownloadingToURL:(id)l
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   taskCopy = task;
   lCopy = l;
   [(FCAVAssetDownloadManager *)self _ensureAssetIsPurgeable:lCopy];
@@ -378,17 +373,17 @@ void __76__FCAVAssetDownloadManager_initWithAssetCache_keyCache_networkReachabil
 
   if (!taskDescription && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT))
   {
-    v15 = objc_alloc(MEMORY[0x1E696AEC0]);
-    v16 = [taskCopy description];
-    v17 = [v15 initWithFormat:@"AVAssetDownloadTask %@ is missing a task description", v16];
+    v14 = objc_alloc(MEMORY[0x1E696AEC0]);
+    v15 = [taskCopy description];
+    v16 = [v14 initWithFormat:@"AVAssetDownloadTask %@ is missing a task description", v15];
     *buf = 136315906;
-    v19 = "[FCAVAssetDownloadManager URLSession:assetDownloadTask:didFinishDownloadingToURL:]";
-    v20 = 2080;
-    v21 = "FCAVAssetDownloadManager.m";
-    v22 = 1024;
-    v23 = 192;
-    v24 = 2114;
-    v25 = v17;
+    v18 = "[FCAVAssetDownloadManager URLSession:assetDownloadTask:didFinishDownloadingToURL:]";
+    v19 = 2080;
+    v20 = "FCAVAssetDownloadManager.m";
+    v21 = 1024;
+    v22 = 192;
+    v23 = 2114;
+    v24 = v16;
     _os_log_fault_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "*** Assertion failure (Identifier: MissingTaskDescription) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -397,13 +392,11 @@ void __76__FCAVAssetDownloadManager_initWithAssetCache_keyCache_networkReachabil
   v12 = [uRLAsset URL];
   error = [taskCopy error];
   [(FCAVAssetDownloadManager *)self _completeRequestForAssetID:taskDescription2 withDownloadedURL:lCopy remoteURL:v12 error:error];
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_completeRequestForAssetID:(void *)d withDownloadedURL:(void *)l remoteURL:(void *)rL error:
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   v9 = a2;
   dCopy = d;
   lCopy = l;
@@ -413,16 +406,16 @@ void __76__FCAVAssetDownloadManager_initWithAssetCache_keyCache_networkReachabil
   {
     if (rLCopy)
     {
-      v34[0] = MEMORY[0x1E69E9820];
-      v34[1] = 3221225472;
-      v34[2] = __89__FCAVAssetDownloadManager__completeRequestForAssetID_withDownloadedURL_remoteURL_error___block_invoke_2;
-      v34[3] = &unk_1E7C376A0;
-      v35 = v9;
-      v36 = v13;
+      v33[0] = MEMORY[0x1E69E9820];
+      v33[1] = 3221225472;
+      v33[2] = __89__FCAVAssetDownloadManager__completeRequestForAssetID_withDownloadedURL_remoteURL_error___block_invoke_2;
+      v33[3] = &unk_1E7C376A0;
+      v34 = v9;
+      v35 = v13;
       selfCopy = self;
-      __89__FCAVAssetDownloadManager__completeRequestForAssetID_withDownloadedURL_remoteURL_error___block_invoke_2(v34);
+      __89__FCAVAssetDownloadManager__completeRequestForAssetID_withDownloadedURL_remoteURL_error___block_invoke_2(v33);
 
-      v14 = v35;
+      v14 = v34;
 LABEL_14:
 
       goto LABEL_15;
@@ -450,28 +443,28 @@ LABEL_9:
         }
 
         v14 = [objc_alloc(MEMORY[0x1E6988168]) initWithURL:dCopy options:0];
-        v27[0] = MEMORY[0x1E69E9820];
-        v27[1] = 3221225472;
-        v27[2] = __89__FCAVAssetDownloadManager__completeRequestForAssetID_withDownloadedURL_remoteURL_error___block_invoke_52;
-        v27[3] = &unk_1E7C41B10;
-        v28 = v9;
+        v26[0] = MEMORY[0x1E69E9820];
+        v26[1] = 3221225472;
+        v26[2] = __89__FCAVAssetDownloadManager__completeRequestForAssetID_withDownloadedURL_remoteURL_error___block_invoke_52;
+        v26[3] = &unk_1E7C41B10;
+        v27 = v9;
         selfCopy2 = self;
-        v30 = dCopy;
-        v31 = lCopy;
-        v32 = pathExtension;
-        v33 = v16;
+        v29 = dCopy;
+        v30 = lCopy;
+        v31 = pathExtension;
+        v32 = v16;
         v22 = v16;
         v23 = pathExtension;
-        v24 = v27;
+        v24 = v26;
         v25 = v24;
         if (v14)
         {
           *&buf = MEMORY[0x1E69E9820];
           *(&buf + 1) = 3221225472;
-          v39 = __78__AVURLAsset_FCAdditions__fc_fetchContentKeyIdentifiersWithCompletionHandler___block_invoke;
-          v40 = &unk_1E7C37BC0;
-          v41 = v14;
-          v42 = v24;
+          v38 = __78__AVURLAsset_FCAdditions__fc_fetchContentKeyIdentifiersWithCompletionHandler___block_invoke;
+          v39 = &unk_1E7C37BC0;
+          v40 = v14;
+          v41 = v24;
           [v14 loadValuesAsynchronouslyForKeys:&unk_1F2E6F9F0 completionHandler:&buf];
         }
 
@@ -486,13 +479,11 @@ LABEL_9:
   }
 
 LABEL_15:
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)URLSession:(id)session task:(id)task didCompleteWithError:(id)error
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (error)
   {
     errorCopy = error;
@@ -504,17 +495,17 @@ LABEL_15:
 
     if (!taskDescription && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT))
     {
-      v16 = objc_alloc(MEMORY[0x1E696AEC0]);
-      v17 = [v10 description];
-      v18 = [v16 initWithFormat:@"AVAssetDownloadTask %@ is missing a task description", v17];
+      v15 = objc_alloc(MEMORY[0x1E696AEC0]);
+      v16 = [v10 description];
+      v17 = [v15 initWithFormat:@"AVAssetDownloadTask %@ is missing a task description", v16];
       *buf = 136315906;
-      v20 = "[FCAVAssetDownloadManager URLSession:task:didCompleteWithError:]";
-      v21 = 2080;
-      v22 = "FCAVAssetDownloadManager.m";
-      v23 = 1024;
-      v24 = 205;
-      v25 = 2114;
-      v26 = v18;
+      v19 = "[FCAVAssetDownloadManager URLSession:task:didCompleteWithError:]";
+      v20 = 2080;
+      v21 = "FCAVAssetDownloadManager.m";
+      v22 = 1024;
+      v23 = 205;
+      v24 = 2114;
+      v25 = v17;
       _os_log_fault_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "*** Assertion failure (Identifier: MissingTaskDescription) : %s %s:%d %{public}@", buf, 0x26u);
     }
 
@@ -523,23 +514,20 @@ LABEL_15:
     v14 = [uRLAsset URL];
     [(FCAVAssetDownloadManager *)self _completeRequestForAssetID:taskDescription2 withDownloadedURL:0 remoteURL:v14 error:errorCopy];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __44__FCAVAssetDownloadManager__isAssetInCache___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = FCAVAssetLog;
   if (os_log_type_enabled(FCAVAssetLog, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "AV asset does not have its content in the cache assetID=%{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "AV asset does not have its content in the cache assetID=%{public}@", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -561,20 +549,19 @@ BOOL __44__FCAVAssetDownloadManager__isAssetInCache___block_invoke_32(uint64_t a
 
 uint64_t __44__FCAVAssetDownloadManager__isAssetInCache___block_invoke_2(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = FCAVAssetLog;
   if (os_log_type_enabled(FCAVAssetLog, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
-    v7 = 138543618;
-    v8 = v3;
-    v9 = 2114;
-    v10 = v4;
-    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "AV asset does not have all its keys in the cache assetID=%{public}@, missing=%{public}@", &v7, 0x16u);
+    v6 = 138543618;
+    v7 = v3;
+    v8 = 2114;
+    v9 = v4;
+    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "AV asset does not have all its keys in the cache assetID=%{public}@, missing=%{public}@", &v6, 0x16u);
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -741,97 +728,94 @@ void __78__FCAVAssetDownloadManager__handleAssetDownloadFromNetwork_completionHa
   [v2 addOperation:*(a1 + 32)];
 }
 
-void __89__FCAVAssetDownloadManager__completeRequestForAssetID_withDownloadedURL_remoteURL_error___block_invoke_2(uint64_t a1)
+void __89__FCAVAssetDownloadManager__completeRequestForAssetID_withDownloadedURL_remoteURL_error___block_invoke_2(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = FCAVAssetLog;
   if (os_log_type_enabled(FCAVAssetLog, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = *(a1 + 40);
-    v6 = 138543618;
-    v7 = v3;
-    v8 = 2114;
-    v9 = v4;
-    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "AV asset download failed for assetID=%{public}@ with error=%{public}@", &v6, 0x16u);
+    v3 = a1[4];
+    v4 = a1[5];
+    v5 = 138543618;
+    v6 = v3;
+    v7 = 2114;
+    v8 = v4;
+    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "AV asset download failed for assetID=%{public}@ with error=%{public}@", &v5, 0x16u);
   }
 
-  [(FCAVAssetDownloadManager *)*(a1 + 48) _callCompletionHandlersForAssetID:0 interestToken:*(a1 + 40) error:?];
-  v5 = *MEMORY[0x1E69E9840];
+  [(FCAVAssetDownloadManager *)a1[6] _callCompletionHandlersForAssetID:0 interestToken:a1[5] error:?];
 }
 
 - (void)_callCompletionHandlersForAssetID:(void *)d interestToken:(void *)token error:
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v7 = a2;
   dCopy = d;
   tokenCopy = token;
   if (self)
   {
-    v23 = 0;
-    v24 = &v23;
-    v25 = 0x3032000000;
-    v26 = __Block_byref_object_copy__47;
-    v27 = __Block_byref_object_dispose__47;
-    v28 = 0;
+    v22 = 0;
+    v23 = &v22;
+    v24 = 0x3032000000;
+    v25 = __Block_byref_object_copy__47;
+    v26 = __Block_byref_object_dispose__47;
+    v27 = 0;
     v10 = *(self + 48);
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __82__FCAVAssetDownloadManager__callCompletionHandlersForAssetID_interestToken_error___block_invoke;
-    v20[3] = &unk_1E7C3C0E0;
-    v22 = &v23;
-    v21 = v7;
-    [v10 readWriteWithAccessor:v20];
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __82__FCAVAssetDownloadManager__callCompletionHandlersForAssetID_interestToken_error___block_invoke;
+    v19[3] = &unk_1E7C3C0E0;
+    v21 = &v22;
+    v20 = v7;
+    [v10 readWriteWithAccessor:v19];
 
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
-    v11 = v24[5];
-    v12 = [v11 countByEnumeratingWithState:&v16 objects:v29 count:16];
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
+    v11 = v23[5];
+    v12 = [v11 countByEnumeratingWithState:&v15 objects:v28 count:16];
     if (v12)
     {
-      v13 = *v17;
+      v13 = *v16;
       do
       {
         v14 = 0;
         do
         {
-          if (*v17 != v13)
+          if (*v16 != v13)
           {
             objc_enumerationMutation(v11);
           }
 
-          (*(*(*(&v16 + 1) + 8 * v14) + 16))(*(*(&v16 + 1) + 8 * v14));
+          (*(*(*(&v15 + 1) + 8 * v14) + 16))(*(*(&v15 + 1) + 8 * v14));
           ++v14;
         }
 
         while (v12 != v14);
-        v12 = [v11 countByEnumeratingWithState:&v16 objects:v29 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v15 objects:v28 count:16];
       }
 
       while (v12);
     }
 
-    _Block_object_dispose(&v23, 8);
+    _Block_object_dispose(&v22, 8);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __89__FCAVAssetDownloadManager__completeRequestForAssetID_withDownloadedURL_remoteURL_error___block_invoke_52(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = FCAVAssetLog;
   if (os_log_type_enabled(FCAVAssetLog, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v9 = 138543618;
-    v10 = v5;
-    v11 = 2114;
-    v12 = v3;
-    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "AV asset download will save assetID=%{public}@ with keyIdentifiers=%{public}@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v5;
+    v10 = 2114;
+    v11 = v3;
+    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "AV asset download will save assetID=%{public}@ with keyIdentifiers=%{public}@", &v8, 0x16u);
   }
 
   v6 = *(a1 + 40);
@@ -847,8 +831,6 @@ void __89__FCAVAssetDownloadManager__completeRequestForAssetID_withDownloadedURL
 
   [v7 adoptFileAtURL:*(a1 + 48) forAssetIdentifier:*(a1 + 32) remoteURL:*(a1 + 56) contentKeyIdentifiers:v3 extension:*(a1 + 64)];
   [(FCAVAssetDownloadManager *)*(a1 + 40) _callCompletionHandlersForAssetID:*(a1 + 72) interestToken:0 error:?];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __82__FCAVAssetDownloadManager__callCompletionHandlersForAssetID_interestToken_error___block_invoke(uint64_t a1, void *a2)
@@ -916,7 +898,7 @@ void __82__FCAVAssetDownloadManager__callCompletionHandlersForAssetID_interestTo
 
 void __77__FCAVAssetDownloadManager__restoreBackgroundDownloadsWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = &FCAVAssetLog;
   v5 = FCAVAssetLog;
@@ -924,31 +906,31 @@ void __77__FCAVAssetDownloadManager__restoreBackgroundDownloadsWithCompletionHan
   {
     v6 = v5;
     *buf = 134217984;
-    v32 = [v3 count];
+    v31 = [v3 count];
     _os_log_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_DEFAULT, "AV asset download manager found %lu background downloads to restore", buf, 0xCu);
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v7 = v3;
-  v8 = [v7 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v27;
+    v10 = *v26;
     do
     {
       v11 = 0;
       do
       {
-        if (*v27 != v10)
+        if (*v26 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v26 + 1) + 8 * v11);
+        v12 = *(*(&v25 + 1) + 8 * v11);
         objc_opt_class();
         if (v12 && (objc_opt_isKindOfClass() & 1) != 0)
         {
@@ -965,7 +947,7 @@ void __77__FCAVAssetDownloadManager__restoreBackgroundDownloadsWithCompletionHan
               v17 = a1;
               v19 = v18 = v4;
               *buf = 138543362;
-              v32 = v19;
+              v31 = v19;
               _os_log_impl(&dword_1B63EF000, v16, OS_LOG_TYPE_DEFAULT, "AV asset download manager will restore background download for asset ID %{public}@", buf, 0xCu);
 
               v4 = v18;
@@ -983,13 +965,13 @@ void __77__FCAVAssetDownloadManager__restoreBackgroundDownloadsWithCompletionHan
               v21 = 0;
             }
 
-            v24[0] = MEMORY[0x1E69E9820];
-            v24[1] = 3221225472;
-            v24[2] = __77__FCAVAssetDownloadManager__restoreBackgroundDownloadsWithCompletionHandler___block_invoke_54;
-            v24[3] = &unk_1E7C36EC8;
+            v23[0] = MEMORY[0x1E69E9820];
+            v23[1] = 3221225472;
+            v23[2] = __77__FCAVAssetDownloadManager__restoreBackgroundDownloadsWithCompletionHandler___block_invoke_54;
+            v23[3] = &unk_1E7C36EC8;
             v13 = v13;
-            v25 = v13;
-            [v21 readWriteWithAccessor:v24];
+            v24 = v13;
+            [v21 readWriteWithAccessor:v23];
           }
         }
 
@@ -1002,7 +984,7 @@ void __77__FCAVAssetDownloadManager__restoreBackgroundDownloadsWithCompletionHan
       }
 
       while (v9 != v11);
-      v22 = [v7 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v22 = [v7 countByEnumeratingWithState:&v25 objects:v29 count:16];
       v9 = v22;
     }
 
@@ -1010,7 +992,6 @@ void __77__FCAVAssetDownloadManager__restoreBackgroundDownloadsWithCompletionHan
   }
 
   (*(*(a1 + 40) + 16))();
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __77__FCAVAssetDownloadManager__restoreBackgroundDownloadsWithCompletionHandler___block_invoke_54(uint64_t a1, void *a2)

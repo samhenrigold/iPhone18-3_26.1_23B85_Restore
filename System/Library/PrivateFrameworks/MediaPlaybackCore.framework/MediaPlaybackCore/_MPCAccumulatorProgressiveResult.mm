@@ -1,7 +1,7 @@
 @interface _MPCAccumulatorProgressiveResult
 + (id)progressiveItemWithRequestedIdentifiers:(void *)identifiers modelObject:(void *)object parentResult:(int)result piaTag:;
 - ($2F6F4602BBD9A38257A07259C79964DD)tokenForDatabase:(id)database;
-- (BOOL)isValid;
+- (BOOL)isResolved;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)nextLoadableStoreID;
@@ -9,7 +9,7 @@
 - (id)resolvedIdentifiers;
 - (uint64_t)didStartLoadingStoreID:(uint64_t)d;
 - (uint64_t)isAnonymousGroup;
-- (uint64_t)isResolved;
+- (uint64_t)isValid;
 - (void)setIdentifiers:(id)identifiers forDatabase:(id)database;
 - (void)setToken:(id)token forDatabase:(id)database;
 @end
@@ -632,7 +632,7 @@ LABEL_11:
   return v4;
 }
 
-- (BOOL)isValid
+- (uint64_t)isValid
 {
   if (result)
   {
@@ -676,7 +676,7 @@ LABEL_11:
   return selfCopy;
 }
 
-- (uint64_t)isResolved
+- (BOOL)isResolved
 {
   if (result)
   {

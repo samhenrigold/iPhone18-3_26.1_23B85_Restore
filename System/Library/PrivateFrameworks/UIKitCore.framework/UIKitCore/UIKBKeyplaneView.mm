@@ -1074,7 +1074,7 @@ LABEL_6:
     goto LABEL_40;
   }
 
-  if ([keyCopy interactionType] != 16 && objc_msgSend(keyCopy, "displayType") != 35 && objc_msgSend(keyCopy, "displayType") != 31 && objc_msgSend(keyCopy, "displayType") != 32 && objc_msgSend(keyCopy, "displayType") != 1 && objc_msgSend(keyCopy, "displayType") != 25 && (objc_msgSend(keyCopy, "name"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "isEqualToString:", @"Chinese-Facemark"), v8, !v9) || -[UIKBScreenTraits idiom](self->_overrideScreenTraits, "idiom") != 1 && -[UIKBScreenTraits idiom](self->_overrideScreenTraits, "idiom") != 24 && -[UIKBScreenTraits idiom](self->_overrideScreenTraits, "idiom") != 25 && -[UIKBScreenTraits idiom](self->_overrideScreenTraits, "idiom") != 26 && -[UIKBScreenTraits idiom](self->_overrideScreenTraits, "idiom") != 23 || !-[UIKBTree isSplit](self->_keyplane, "isSplit"))
+  if ([keyCopy interactionType] != 16 && objc_msgSend(keyCopy, "displayType") != 35 && objc_msgSend(keyCopy, "displayType") != 31 && objc_msgSend(keyCopy, "displayType") != 32 && objc_msgSend(keyCopy, "displayType") != 1 && objc_msgSend(keyCopy, "displayType") != 25 && (objc_msgSend(keyCopy, "name"), v8 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v8), v8, !isEqualToString) || -[UIKBScreenTraits idiom](self->_overrideScreenTraits, "idiom") != 1 && -[UIKBScreenTraits idiom](self->_overrideScreenTraits, "idiom") != 24 && -[UIKBScreenTraits idiom](self->_overrideScreenTraits, "idiom") != 25 && -[UIKBScreenTraits idiom](self->_overrideScreenTraits, "idiom") != 26 && -[UIKBScreenTraits idiom](self->_overrideScreenTraits, "idiom") != 23 || !-[UIKBTree isSplit](self->_keyplane, "isSplit"))
   {
 LABEL_21:
     v11 = 0;
@@ -1564,8 +1564,8 @@ LABEL_118:
               v84 = [factory2 traitsForKey:keyCopy onKeyplane:self->_keyplane];
 
               v186 = v84;
-              geometry = [(NSMutableDictionary *)v84 geometry];
-              [geometry displayFrame];
+              v85 = objc_msgSend_geometry(v84);
+              [v85 displayFrame];
               v87 = v86;
               v89 = v88;
               v91 = v90;
@@ -1616,8 +1616,8 @@ LABEL_118:
                         factory3 = [(UIKBKeyplaneView *)self factory];
                         v112 = [factory3 traitsForKey:keyCopy onKeyplane:self->_keyplane];
 
-                        geometry2 = [(NSMutableDictionary *)v112 geometry];
-                        [geometry2 displayFrame];
+                        v113 = objc_msgSend_geometry(v112);
+                        [v113 displayFrame];
                         v87 = v114;
                         v89 = v115;
                         v91 = v116;
@@ -1786,9 +1786,9 @@ LABEL_54:
               if (os_variant_has_internal_diagnostics())
               {
                 name3 = [keyCopy name];
-                v147 = [name3 isEqualToString:@"EmojiPopupKey"];
+                isEqualToString = objc_msgSend_isEqualToString_(name3);
 
-                if (v147)
+                if (isEqualToString)
                 {
                   displayString = [keyCopy displayString];
                   v149 = [UIKeyboardEmojiCollectionInputView shouldHighlightEmoji:displayString];
@@ -2001,8 +2001,8 @@ LABEL_105:
           factory6 = [(UIKBKeyplaneView *)self factory];
           v34 = [factory6 traitsForKey:keyCopy onKeyplane:self->_keyplane];
 
-          geometry3 = [v34 geometry];
-          [geometry3 displayFrame];
+          v35 = objc_msgSend_geometry(v34);
+          [v35 displayFrame];
           v37 = v36;
           v39 = v38;
           v41 = v40;
@@ -2158,8 +2158,8 @@ LABEL_119:
       factory = [(UIKBKeyplaneView *)self factory];
       v7 = [factory traitsForKey:keyCopy onKeyplane:self->_keyplane];
 
-      geometry = [v7 geometry];
-      [geometry displayFrame];
+      v8 = objc_msgSend_geometry(v7);
+      [v8 displayFrame];
       v10 = v9;
       v12 = v11;
       v14 = v13;
@@ -2555,7 +2555,7 @@ LABEL_7:
 LABEL_8:
 }
 
-uint64_t __56__UIKBKeyplaneView_deactivateKey_previousState_keyView___block_invoke(uint64_t a1)
+void *__56__UIKBKeyplaneView_deactivateKey_previousState_keyView___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) removeFromSuperview];
   v2 = *(*(a1 + 40) + 536);

@@ -53,7 +53,7 @@
   settings5 = [(FPSpotlightQueryDescriptor *)self settings];
   excludedParentOIDs2 = [settings5 excludedParentOIDs];
   v26 = FPExcludedOIDParentsQueryStringFragment(excludedParentOIDs2);
-  v27 = [v17 stringWithFormat:@"(kMDItemIsShared = \"1\"", v18, v19, v22, v23, v26];
+  v27 = [v17 stringWithFormat:@"(kMDItemIsShared = 1", v18, v19, v22, v23, v26];
 
   return v27;
 }

@@ -170,9 +170,7 @@ LABEL_18:
 
 - (void)replaceParameters:(id)parameters
 {
-  v4 = [parameters copy];
-  parameters = self->_parameters;
-  self->_parameters = v4;
+  self->_parameters = [parameters copy];
 
   MEMORY[0x1EEE66BB8]();
 }

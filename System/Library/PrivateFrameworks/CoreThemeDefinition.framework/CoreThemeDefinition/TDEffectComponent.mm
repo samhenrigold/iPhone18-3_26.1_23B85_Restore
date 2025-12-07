@@ -85,29 +85,29 @@ LABEL_13:
 
 - (void)updatePresetParameters:(id)parameters atIndex:(unint64_t)index
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v7 = [-[TDEffectComponent effectType](self "effectType")];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   parameters = [(TDEffectComponent *)self parameters];
-  v9 = [parameters countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v9 = [parameters countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v22;
+    v11 = *v21;
     do
     {
       v12 = 0;
       do
       {
-        if (*v22 != v11)
+        if (*v21 != v11)
         {
           objc_enumerationMutation(parameters);
         }
 
-        v13 = *(*(&v21 + 1) + 8 * v12);
+        v13 = *(*(&v20 + 1) + 8 * v12);
         v14 = [objc_msgSend(v13 "parameterType")];
         v15 = v14;
         if (v14 <= 0xB)
@@ -147,41 +147,39 @@ LABEL_16:
       }
 
       while (v10 != v12);
-      v19 = [parameters countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v19 = [parameters countByEnumeratingWithState:&v20 objects:v24 count:16];
       v10 = v19;
     }
 
     while (v19);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addParametersToPreset:(id)preset
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = [-[TDEffectComponent effectType](self "effectType")];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   parameters = [(TDEffectComponent *)self parameters];
-  v7 = [parameters countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v7 = [parameters countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v20;
+    v9 = *v19;
     do
     {
       v10 = 0;
       do
       {
-        if (*v20 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(parameters);
         }
 
-        v11 = *(*(&v19 + 1) + 8 * v10);
+        v11 = *(*(&v18 + 1) + 8 * v10);
         v12 = [objc_msgSend(v11 "parameterType")];
         v13 = v12;
         if (v12 <= 0xB)
@@ -221,65 +219,56 @@ LABEL_16:
       }
 
       while (v8 != v10);
-      v17 = [parameters countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v17 = [parameters countByEnumeratingWithState:&v18 objects:v22 count:16];
       v8 = v17;
     }
 
     while (v17);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)parameterOfType:(unsigned int)type
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   parameters = [(TDEffectComponent *)self parameters];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v5 = [parameters countByEnumeratingWithState:&v12 objects:v16 count:16];
-  if (v5)
+  v5 = [parameters countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (!v5)
   {
-    v6 = v5;
-    v7 = *v13;
+    return 0;
+  }
+
+  v6 = v5;
+  v7 = *v12;
 LABEL_3:
-    v8 = 0;
-    while (1)
+  v8 = 0;
+  while (1)
+  {
+    if (*v12 != v7)
     {
-      if (*v13 != v7)
+      objc_enumerationMutation(parameters);
+    }
+
+    v9 = *(*(&v11 + 1) + 8 * v8);
+    if ([objc_msgSend(v9 "parameterType")] == type)
+    {
+      return v9;
+    }
+
+    if (v6 == ++v8)
+    {
+      v6 = [parameters countByEnumeratingWithState:&v11 objects:v15 count:16];
+      if (v6)
       {
-        objc_enumerationMutation(parameters);
+        goto LABEL_3;
       }
 
-      v9 = *(*(&v12 + 1) + 8 * v8);
-      if ([objc_msgSend(v9 "parameterType")] == type)
-      {
-        break;
-      }
-
-      if (v6 == ++v8)
-      {
-        v6 = [parameters countByEnumeratingWithState:&v12 objects:v16 count:16];
-        if (v6)
-        {
-          goto LABEL_3;
-        }
-
-        goto LABEL_9;
-      }
+      return 0;
     }
   }
-
-  else
-  {
-LABEL_9:
-    v9 = 0;
-  }
-
-  v10 = *MEMORY[0x277D85DE8];
-  return v9;
 }
 
 - (id)CUIEffectParameterColor1

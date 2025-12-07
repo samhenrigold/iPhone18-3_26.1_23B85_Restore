@@ -33,7 +33,7 @@
 
 - (void)updateTransitionWithProgress:(double)progress isFinal:(BOOL)final
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = 0.999;
   if (final)
   {
@@ -64,14 +64,13 @@
     v9 = v7;
     v10 = NSStringFromBOOL();
     *buf = 134218242;
-    v13 = v8;
-    v14 = 2112;
-    v15 = v10;
+    v12 = v8;
+    v13 = 2112;
+    v14 = v10;
     _os_log_impl(&dword_23A714000, v9, OS_LOG_TYPE_INFO, "[QLInteractiveTransitionController updateTransitionWithProgress:%f isFinal:%@] #AppearanceTransition", buf, 0x16u);
   }
 
   QLRunInMainThread();
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 id __74__QLInteractiveTransitionController_updateTransitionWithProgress_isFinal___block_invoke(uint64_t a1)
@@ -85,7 +84,7 @@ id __74__QLInteractiveTransitionController_updateTransitionWithProgress_isFinal_
 
 void __69__QLInteractiveTransitionController_completeTransition_withDuration___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (([*(a1 + 32) hasPerformedTransition] & 1) == 0)
   {
     [*(a1 + 32) setHasPerformedTransition:1];
@@ -99,44 +98,41 @@ void __69__QLInteractiveTransitionController_completeTransition_withDuration___b
 
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v4 = *(a1 + 48);
-      v5 = v3;
-      v6 = NSStringFromBOOL();
+      v4 = v3;
+      v5 = NSStringFromBOOL();
       *buf = 138412290;
-      v18 = v6;
-      _os_log_impl(&dword_23A714000, v5, OS_LOG_TYPE_INFO, "[QLInteractiveTransitionController completeTransition didComplete:%@] #AppearanceTransition", buf, 0xCu);
+      v16 = v5;
+      _os_log_impl(&dword_23A714000, v4, OS_LOG_TYPE_INFO, "[QLInteractiveTransitionController completeTransition didComplete:%@] #AppearanceTransition", buf, 0xCu);
     }
 
     [*(a1 + 32) setDuration:*(a1 + 40)];
-    v7 = *(a1 + 40);
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __69__QLInteractiveTransitionController_completeTransition_withDuration___block_invoke_1;
-    v14[3] = &unk_278B57340;
-    v15 = *(a1 + 32);
-    v16 = *(a1 + 48);
+    v6 = *(a1 + 40);
     v12[0] = MEMORY[0x277D85DD0];
     v12[1] = 3221225472;
-    v12[2] = __69__QLInteractiveTransitionController_completeTransition_withDuration___block_invoke_3;
-    v12[3] = &unk_278B57F18;
-    v12[4] = v15;
-    v13 = v16;
-    [MEMORY[0x277D75D18] animateWithDuration:v14 animations:v12 completion:v7];
-    v8 = *(a1 + 48);
-    v9 = [*(a1 + 32) transitionContext];
-    v10 = v9;
-    if (v8 == 1)
+    v12[2] = __69__QLInteractiveTransitionController_completeTransition_withDuration___block_invoke_1;
+    v12[3] = &unk_278B57340;
+    v13 = *(a1 + 32);
+    v14 = *(a1 + 48);
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __69__QLInteractiveTransitionController_completeTransition_withDuration___block_invoke_3;
+    v10[3] = &unk_278B57F18;
+    v10[4] = v13;
+    v11 = v14;
+    [MEMORY[0x277D75D18] animateWithDuration:v12 animations:v10 completion:v6];
+    v7 = *(a1 + 48);
+    v8 = [*(a1 + 32) transitionContext];
+    v9 = v8;
+    if (v7 == 1)
     {
-      [v9 finishInteractiveTransition];
+      [v8 finishInteractiveTransition];
     }
 
     else
     {
-      [v9 cancelInteractiveTransition];
+      [v8 cancelInteractiveTransition];
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __69__QLInteractiveTransitionController_completeTransition_withDuration___block_invoke_1(uint64_t a1)
@@ -170,14 +166,13 @@ void __69__QLInteractiveTransitionController_completeTransition_withDuration___b
 
 uint64_t __69__QLInteractiveTransitionController_completeTransition_withDuration___block_invoke_2(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = 0.0;
+  v1 = 0.0;
   if (*(a1 + 40))
   {
-    v2 = 1.0;
+    v1 = 1.0;
   }
 
-  return [*(a1 + 32) updateTransitionWithProgress:1 isFinal:v2];
+  return [*(a1 + 32) updateTransitionWithProgress:1 isFinal:v1];
 }
 
 uint64_t __69__QLInteractiveTransitionController_completeTransition_withDuration___block_invoke_3(uint64_t a1)
@@ -191,7 +186,7 @@ uint64_t __69__QLInteractiveTransitionController_completeTransition_withDuration
 
 - (void)_performForcedDismissal
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277D43EF8];
   v4 = *MEMORY[0x277D43EF8];
   if (!*MEMORY[0x277D43EF8])
@@ -213,7 +208,6 @@ uint64_t __69__QLInteractiveTransitionController_completeTransition_withDuration
   }
 
   QLRunInMainThread();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

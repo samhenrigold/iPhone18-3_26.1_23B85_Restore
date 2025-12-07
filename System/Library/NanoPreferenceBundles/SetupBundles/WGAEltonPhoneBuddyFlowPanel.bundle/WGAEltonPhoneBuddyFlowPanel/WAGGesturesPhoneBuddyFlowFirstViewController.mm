@@ -7,11 +7,13 @@
 - (id)suggestedButtonTitle;
 - (id)titleString;
 - (void)_setupViews;
+- (void)_updateViewsWithFadeInAnimaton:(BOOL)animaton;
 - (void)dealloc;
 - (void)handleSegmentAction:(id)action;
 - (void)suggestedButtonPressed:(id)pressed;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation WAGGesturesPhoneBuddyFlowFirstViewController
@@ -64,6 +66,26 @@
   }
 
   [(WAGGesturesPhoneBuddyFlowFirstViewController *)self _setupViews];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = WAGGesturesPhoneBuddyFlowFirstViewController;
+  [(WAGGesturesPhoneBuddyFlowFirstViewController *)&v7 viewWillAppear:appear];
+  _phoneBuddyFlowPanelLog = [(WAGGesturesPhoneBuddyFlowFirstViewController *)self _phoneBuddyFlowPanelLog];
+  if (os_log_type_enabled(_phoneBuddyFlowPanelLog, OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
+    *buf = 138412546;
+    v9 = v6;
+    v10 = 2080;
+    v11 = "[WAGGesturesPhoneBuddyFlowFirstViewController viewWillAppear:]";
+    _os_log_impl(&dword_0, _phoneBuddyFlowPanelLog, OS_LOG_TYPE_DEFAULT, "Elton phone buddy panel -- %@ %s", buf, 0x16u);
+  }
+
+  [(WAGGesturesPhoneBuddyFlowFirstViewController *)self _updateViewsWithFadeInAnimaton:0];
 }
 
 - (void)dealloc
@@ -431,6 +453,49 @@
 LABEL_6:
 
   return v2;
+}
+
+- (void)_updateViewsWithFadeInAnimaton:(BOOL)animaton
+{
+  animatonCopy = animaton;
+  _phoneBuddyFlowPanelLog = [(WAGGesturesPhoneBuddyFlowFirstViewController *)self _phoneBuddyFlowPanelLog];
+  if (os_log_type_enabled(_phoneBuddyFlowPanelLog, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = objc_opt_class();
+    v7 = NSStringFromClass(v6);
+    v13 = 138412546;
+    v14 = v7;
+    v15 = 2080;
+    v16 = "[WAGGesturesPhoneBuddyFlowFirstViewController _updateViewsWithFadeInAnimaton:]";
+    _os_log_impl(&dword_0, _phoneBuddyFlowPanelLog, OS_LOG_TYPE_DEFAULT, "Elton phone buddy panel -- %@ %s", &v13, 0x16u);
+  }
+
+  _gestureInstructionLabelText = [(WAGGesturesPhoneBuddyFlowFirstViewController *)self _gestureInstructionLabelText];
+  [(UILabel *)self->_gestureInstructionLabel setText:_gestureInstructionLabelText];
+
+  [(WAGGesturesPhoneBuddyFlowMediaPlayerView *)self->_currentMediaView stopAndResetVideoPlaybackToStartWithFadeInAnimation:animatonCopy];
+  [(WAGGesturesPhoneBuddyFlowMediaPlayerView *)self->_currentMediaView setHidden:1];
+  uiState = self->_uiState;
+  if (!uiState)
+  {
+    v10 = &OBJC_IVAR___WAGGesturesPhoneBuddyFlowFirstViewController__flickMediaView;
+    goto LABEL_7;
+  }
+
+  if (uiState == 1)
+  {
+    v10 = &OBJC_IVAR___WAGGesturesPhoneBuddyFlowFirstViewController__doubleTapMediaView;
+LABEL_7:
+    objc_storeStrong(&self->_currentMediaView, *&self->BPSWelcomeOptinViewController_opaque[*v10]);
+  }
+
+  [(WAGGesturesPhoneBuddyFlowMediaPlayerView *)self->_currentMediaView setHidden:0];
+  [(WAGGesturesPhoneBuddyFlowMediaPlayerView *)self->_currentMediaView startVideoPlaybackWithFadeInAnimaton:animatonCopy];
+  view = [(WAGGesturesPhoneBuddyFlowFirstViewController *)self view];
+  [view setNeedsLayout];
+
+  view2 = [(WAGGesturesPhoneBuddyFlowFirstViewController *)self view];
+  [view2 layoutIfNeeded];
 }
 
 - (void)handleSegmentAction:(id)action

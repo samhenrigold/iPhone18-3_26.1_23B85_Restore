@@ -1,5 +1,6 @@
 @interface DBGUnsignedInt
 + (id)valueWithEncodedValue:(id)value format:(id)format error:(id *)error;
++ (id)withValue:(unsigned int)value;
 - (DBGUnsignedInt)initWithUnsignedInt:(unsigned int)int;
 - (NSString)debugDescription;
 - (NSString)description;
@@ -8,6 +9,13 @@
 @end
 
 @implementation DBGUnsignedInt
+
++ (id)withValue:(unsigned int)value
+{
+  v3 = [[self alloc] initWithUnsignedInt:*&value];
+
+  return v3;
+}
 
 - (DBGUnsignedInt)initWithUnsignedInt:(unsigned int)int
 {

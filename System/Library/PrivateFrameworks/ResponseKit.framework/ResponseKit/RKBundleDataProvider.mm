@@ -72,14 +72,14 @@
 
 - (id)stringsFromTable:(id)table forLanguageIdentifier:(id)identifier
 {
-  v31[1] = *MEMORY[0x277D85DE8];
+  v30[1] = *MEMORY[0x277D85DE8];
   tableCopy = table;
   identifierCopy = identifier;
   v7 = +[RKAssets localizedStrings];
   v8 = identifierCopy;
   v9 = MEMORY[0x277CCA8D8];
-  v31[0] = v8;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:1];
+  v30[0] = v8;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
   v11 = [v9 preferredLocalizationsFromArray:&unk_2874E7108 forPreferences:v10];
   firstObject = [v11 firstObject];
   v13 = [&unk_2874E70F0 containsObject:firstObject];
@@ -131,8 +131,6 @@
 
     v19 = v26;
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v25;
 }

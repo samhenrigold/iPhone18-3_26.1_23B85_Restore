@@ -239,7 +239,7 @@
               v46 = 0u;
               if (v21)
               {
-                [v21 dk_renderPointValue];
+                objc_msgSend_dk_renderPointValue(v21);
                 v23 = *(&v45 + 1);
                 v22 = *&v45;
                 v24 = *&v46;
@@ -314,7 +314,7 @@
           v46 = 0u;
           if (v34)
           {
-            [v34 dk_renderPointValue];
+            objc_msgSend_dk_renderPointValue(v34, v41);
             v36 = *(&v45 + 1);
             v35 = *&v45;
             v37 = *&v46;

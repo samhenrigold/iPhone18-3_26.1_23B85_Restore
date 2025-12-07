@@ -19,7 +19,7 @@
 
 - (void)_createStackViewIfNeeded
 {
-  v20[4] = *MEMORY[0x277D85DE8];
+  v19[4] = *MEMORY[0x277D85DE8];
   if (!self->_stackView)
   {
     v3 = objc_alloc_init(MEMORY[0x277D75A68]);
@@ -29,28 +29,26 @@
     [(UIStackView *)self->_stackView setDistribution:0];
     [(UIStackView *)self->_stackView setTranslatesAutoresizingMaskIntoConstraints:0];
     [(APUIWidgetContainerView *)self addSubview:self->_stackView];
-    v16 = MEMORY[0x277CCAAD0];
+    v15 = MEMORY[0x277CCAAD0];
     leadingAnchor = [(UIStackView *)self->_stackView leadingAnchor];
     leadingAnchor2 = [(APUIWidgetContainerView *)self leadingAnchor];
-    v17 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v20[0] = v17;
+    v16 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+    v19[0] = v16;
     topAnchor = [(UIStackView *)self->_stackView topAnchor];
     topAnchor2 = [(APUIWidgetContainerView *)self topAnchor];
     v7 = [topAnchor constraintEqualToAnchor:topAnchor2];
-    v20[1] = v7;
+    v19[1] = v7;
     trailingAnchor = [(APUIWidgetContainerView *)self trailingAnchor];
     trailingAnchor2 = [(UIStackView *)self->_stackView trailingAnchor];
     v10 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-    v20[2] = v10;
+    v19[2] = v10;
     bottomAnchor = [(APUIWidgetContainerView *)self bottomAnchor];
     bottomAnchor2 = [(UIStackView *)self->_stackView bottomAnchor];
     v13 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-    v20[3] = v13;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:4];
-    [v16 activateConstraints:v14];
+    v19[3] = v13;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:4];
+    [v15 activateConstraints:v14];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)touchesBegan:(id)began withEvent:(id)event
@@ -79,20 +77,19 @@
 
 - (void)setViewPressed:(BOOL)pressed
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   if (pressed)
   {
     v4 = [MEMORY[0x277CD9EA0] filterWithType:*MEMORY[0x277CDA5B0]];
     layer = [(APUIWidgetContainerView *)self layer];
-    v11[0] = v4;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+    v9[0] = v4;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
     [layer setFilters:v6];
 
     v7 = [MEMORY[0x277D75348] colorWithWhite:0.6 alpha:1.0];
     [v4 setValue:objc_msgSend(v7 forKey:{"CGColor"), @"inputColor"}];
 
     [(APUIWidgetContainerView *)self setSuggestionViewLabelsAlpha:0.5];
-    v8 = *MEMORY[0x277D85DE8];
   }
 
   else
@@ -100,46 +97,42 @@
     layer2 = [(APUIWidgetContainerView *)self layer];
     [layer2 setFilters:0];
 
-    v10 = *MEMORY[0x277D85DE8];
-
     [(APUIWidgetContainerView *)self setSuggestionViewLabelsAlpha:1.0];
   }
 }
 
 - (void)setSuggestionViewLabelsAlpha:(double)alpha
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   labels = [(APUISuggestionView *)self->_suggestionView labels];
-  v5 = [labels countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [labels countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(labels);
         }
 
-        [*(*(&v10 + 1) + 8 * v8++) setAlpha:alpha];
+        [*(*(&v9 + 1) + 8 * v8++) setAlpha:alpha];
       }
 
       while (v6 != v8);
-      v6 = [labels countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [labels countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setSuggestion:(id)suggestion inView:(id)view
@@ -167,96 +160,88 @@
 
 - (void)_setAppClipSuggestion:(id)suggestion
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   suggestionCopy = suggestion;
-  v5 = __atxlog_handle_ui();
+  v5 = __atxlog_handle_ui(suggestionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     uuid = [suggestionCopy uuid];
     uUIDString = [uuid UUIDString];
-    v10 = 136446466;
-    v11 = "[APUIWidgetContainerView _setAppClipSuggestion:]";
-    v12 = 2112;
-    v13 = uUIDString;
-    _os_log_impl(&dword_240036000, v5, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: %{public}s:%@", &v10, 0x16u);
+    v9 = 136446466;
+    v10 = "[APUIWidgetContainerView _setAppClipSuggestion:]";
+    v11 = 2112;
+    v12 = uUIDString;
+    _os_log_impl(&dword_240036000, v5, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: %{public}s:%@", &v9, 0x16u);
   }
 
   v8 = objc_opt_new();
   [(APUIWidgetContainerView *)self setSuggestion:suggestionCopy inView:v8];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setAppSuggestion:(id)suggestion
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   suggestionCopy = suggestion;
-  v5 = __atxlog_handle_ui();
+  v5 = __atxlog_handle_ui(suggestionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     uuid = [suggestionCopy uuid];
     uUIDString = [uuid UUIDString];
-    v10 = 136446466;
-    v11 = "[APUIWidgetContainerView _setAppSuggestion:]";
-    v12 = 2112;
-    v13 = uUIDString;
-    _os_log_impl(&dword_240036000, v5, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: %{public}s:%@", &v10, 0x16u);
+    v9 = 136446466;
+    v10 = "[APUIWidgetContainerView _setAppSuggestion:]";
+    v11 = 2112;
+    v12 = uUIDString;
+    _os_log_impl(&dword_240036000, v5, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: %{public}s:%@", &v9, 0x16u);
   }
 
   v8 = objc_opt_new();
   [(APUIWidgetContainerView *)self setSuggestion:suggestionCopy inView:v8];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setActionSuggestion:(id)suggestion
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   suggestionCopy = suggestion;
-  v5 = __atxlog_handle_ui();
+  v5 = __atxlog_handle_ui(suggestionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     uuid = [suggestionCopy uuid];
     uUIDString = [uuid UUIDString];
-    v10 = 136446466;
-    v11 = "[APUIWidgetContainerView _setActionSuggestion:]";
-    v12 = 2112;
-    v13 = uUIDString;
-    _os_log_impl(&dword_240036000, v5, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: %{public}s:%@", &v10, 0x16u);
+    v9 = 136446466;
+    v10 = "[APUIWidgetContainerView _setActionSuggestion:]";
+    v11 = 2112;
+    v12 = uUIDString;
+    _os_log_impl(&dword_240036000, v5, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: %{public}s:%@", &v9, 0x16u);
   }
 
   v8 = objc_alloc_init(APUIActionSuggestionView);
   [(APUIWidgetContainerView *)self setSuggestion:suggestionCopy inView:v8];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setLinkSuggestion:(id)suggestion
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   suggestionCopy = suggestion;
-  v5 = __atxlog_handle_ui();
+  v5 = __atxlog_handle_ui(suggestionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     uuid = [suggestionCopy uuid];
     uUIDString = [uuid UUIDString];
-    v10 = 136446466;
-    v11 = "[APUIWidgetContainerView _setLinkSuggestion:]";
-    v12 = 2112;
-    v13 = uUIDString;
-    _os_log_impl(&dword_240036000, v5, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: %{public}s:%@", &v10, 0x16u);
+    v9 = 136446466;
+    v10 = "[APUIWidgetContainerView _setLinkSuggestion:]";
+    v11 = 2112;
+    v12 = uUIDString;
+    _os_log_impl(&dword_240036000, v5, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: %{public}s:%@", &v9, 0x16u);
   }
 
   v8 = objc_alloc_init(APUILinkSuggestionView);
   [(APUIWidgetContainerView *)self setSuggestion:suggestionCopy inView:v8];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_displayNoSuggestionsWithSuggestion:(id)suggestion
 {
   suggestionCopy = suggestion;
-  v5 = __atxlog_handle_ui();
+  v5 = __atxlog_handle_ui(suggestionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     [(APUIWidgetContainerView *)suggestionCopy _displayNoSuggestionsWithSuggestion:v5];
@@ -272,18 +257,18 @@
 {
   v26 = *MEMORY[0x277D85DE8];
   suggestionCopy = suggestion;
-  [(APUIWidgetContainerView *)self setSuggestion:suggestionCopy];
+  v5 = [(APUIWidgetContainerView *)self setSuggestion:suggestionCopy];
   if (!suggestionCopy)
   {
     selfCopy2 = self;
-    v12 = 0;
+    v13 = 0;
 LABEL_7:
-    [(APUIWidgetContainerView *)selfCopy2 _displayNoSuggestionsWithSuggestion:v12];
+    [(APUIWidgetContainerView *)selfCopy2 _displayNoSuggestionsWithSuggestion:v13];
     goto LABEL_14;
   }
 
-  v5 = __atxlog_handle_ui();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = __atxlog_handle_ui(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     uuid = [suggestionCopy uuid];
     uUIDString = [uuid UUIDString];
@@ -294,7 +279,7 @@ LABEL_7:
     v23 = uUIDString;
     v24 = 2048;
     executableType = [executableSpecification executableType];
-    _os_log_impl(&dword_240036000, v5, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: %{public}s:%@ executableSpecification: %ld", &v20, 0x20u);
+    _os_log_impl(&dword_240036000, v6, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: %{public}s:%@ executableSpecification: %ld", &v20, 0x20u);
   }
 
   executableSpecification2 = [suggestionCopy executableSpecification];
@@ -324,7 +309,7 @@ LABEL_7:
     executableType5 = [executableSpecification5 executableType];
 
     selfCopy2 = self;
-    v12 = suggestionCopy;
+    v13 = suggestionCopy;
     if (executableType5 == 10)
     {
       [(APUIWidgetContainerView *)self _setLinkSuggestion:suggestionCopy];
@@ -336,8 +321,6 @@ LABEL_7:
 
   [(APUIWidgetContainerView *)self _setAppClipSuggestion:suggestionCopy];
 LABEL_14:
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (APUISuggestionsWidgetViewDelegate)delegate
@@ -349,13 +332,12 @@ LABEL_14:
 
 - (void)_displayNoSuggestionsWithSuggestion:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 134218242;
-  v4 = 5517;
-  v5 = 2112;
-  v6 = a1;
-  _os_log_error_impl(&dword_240036000, a2, OS_LOG_TYPE_ERROR, "e:%ld * SuggestionsWidget: could not display suggestion: %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 134218242;
+  v3 = 5517;
+  v4 = 2112;
+  v5 = a1;
+  _os_log_error_impl(&dword_240036000, a2, OS_LOG_TYPE_ERROR, "e:%ld * SuggestionsWidget: could not display suggestion: %@", &v2, 0x16u);
 }
 
 @end

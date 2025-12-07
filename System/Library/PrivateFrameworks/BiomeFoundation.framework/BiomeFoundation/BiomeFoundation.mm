@@ -173,25 +173,23 @@ LABEL_12:
 
 id bm_fd_get_path(int a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  if (fcntl(a1, 50, v4) < 0)
+  v4 = *MEMORY[0x1E69E9840];
+  if (fcntl(a1, 50, v3) < 0)
   {
     v1 = 0;
   }
 
   else
   {
-    v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v4];
+    v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v3];
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 
   return v1;
 }
 
 uint64_t _bm_openat_dprotected(int a1, char *a2, int a3, uint64_t a4)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v9 = a4 != -1 && a4 != 6;
   v10 = (a3 & 3) == 2 && v9;
   if ((a3 & 0x200) != 0 && a4 != -1)
@@ -207,18 +205,17 @@ uint64_t _bm_openat_dprotected(int a1, char *a2, int a3, uint64_t a4)
       v12 = __error();
       if ((v11 & 0x80000000) == 0)
       {
-        goto LABEL_30;
+        return v11;
       }
 
       v13 = *v12;
       if (*v12 != 45)
       {
-        if (v13 != 1 || (memset(&v20, 0, 512), v14 = fstatfs(a1, &v20), v14 | v20.f_flags & 0x80))
+        if (v13 != 1 || (memset(&v19, 0, 512), v14 = fstatfs(a1, &v19), v14 | v19.f_flags & 0x80))
         {
 LABEL_29:
           *__error() = v13;
-          v11 = 0xFFFFFFFFLL;
-          goto LABEL_30;
+          return 0xFFFFFFFFLL;
         }
       }
 
@@ -231,10 +228,10 @@ LABEL_29:
   if ((a3 & 0x200) != 0)
   {
 LABEL_21:
-    v19 = 384;
+    v18 = 384;
   }
 
-  v15 = openat(a1, a2, a3 | 0x1000000, v19);
+  v15 = openat(a1, a2, a3 | 0x1000000, v18);
   v11 = v15;
   if (v10 && (v15 & 0x80000000) == 0 && _bm_set_protection_class(v15, a4))
   {
@@ -251,8 +248,6 @@ LABEL_21:
     goto LABEL_29;
   }
 
-LABEL_30:
-  v17 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -271,11 +266,11 @@ uint64_t BMDataProtectionClassFromOSProtectionClass(int a1)
 
 uint64_t bm_openat_dprotected(uint64_t a1, void *a2, int a3, uint64_t a4)
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = v7;
   v9 = a3 | 0x1000000;
-  v41 = a3 | 0x1000000;
+  v40 = a3 | 0x1000000;
   if ((a3 & 0x100000) != 0 && [v7 hasSuffix:@"/"])
   {
     v10 = [v8 substringToIndex:{objc_msgSend(v8, "length") - 1}];
@@ -312,15 +307,15 @@ uint64_t bm_openat_dprotected(uint64_t a1, void *a2, int a3, uint64_t a4)
     if ((v19 & 0x80000000) != 0)
     {
       v22 = *__error();
-      v40 = 0;
-      v23 = _bm_log_config_for_errno(v22, &v41, &v40, v8);
+      v39 = 0;
+      v23 = _bm_log_config_for_errno(v22, &v40, &v39, v8);
       v24 = __biome_log_for_category(2);
       if (os_log_type_enabled(v24, v23))
       {
         *buf = 67109378;
-        v43 = v22;
-        v44 = 2112;
-        v45 = v40;
+        v42 = v22;
+        v43 = 2112;
+        v44 = v39;
         _os_log_impl(&dword_1AC15D000, v24, v23, "bm_opendirat() failed: %{darwin.errno}d%@", buf, 0x12u);
       }
 
@@ -361,15 +356,15 @@ uint64_t bm_openat_dprotected(uint64_t a1, void *a2, int a3, uint64_t a4)
       if (v15 < 0)
       {
         v25 = *__error();
-        v40 = 0;
-        v26 = _bm_log_config_for_errno(v25, &v41, &v40, v8);
+        v39 = 0;
+        v26 = _bm_log_config_for_errno(v25, &v40, &v39, v8);
         v27 = __biome_log_for_category(2);
         if (os_log_type_enabled(v27, v26))
         {
           *buf = 67109378;
-          v43 = v25;
-          v44 = 2112;
-          v45 = v40;
+          v42 = v25;
+          v43 = 2112;
+          v44 = v39;
           _os_log_impl(&dword_1AC15D000, v27, v26, "bm_opendirat() failed: %{darwin.errno}d%@", buf, 0x12u);
         }
 
@@ -410,15 +405,15 @@ LABEL_50:
       {
 LABEL_39:
         v31 = *__error();
-        v40 = 0;
-        v32 = _bm_log_config_for_errno(v31, &v41, &v40, v8);
+        v39 = 0;
+        v32 = _bm_log_config_for_errno(v31, &v40, &v39, v8);
         v33 = __biome_log_for_category(2);
         if (os_log_type_enabled(v33, v32))
         {
           *buf = 67109378;
-          v43 = v31;
-          v44 = 2112;
-          v45 = v40;
+          v42 = v31;
+          v43 = 2112;
+          v44 = v39;
           _os_log_impl(&dword_1AC15D000, v33, v32, "_bm_openat_dprotected() failed: %{darwin.errno}d%@", buf, 0x12u);
         }
 
@@ -439,7 +434,7 @@ LABEL_39:
             if (os_log_type_enabled(v37, v32))
             {
               *buf = 67109120;
-              v43 = v36;
+              v42 = v36;
               _os_log_impl(&dword_1AC15D000, v37, v32, "_bm_openat_dprotected() unlinkat: %{darwin.errno}d", buf, 8u);
             }
           }
@@ -455,7 +450,6 @@ LABEL_49:
 
 LABEL_51:
 
-  v38 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -636,10 +630,10 @@ uint64_t BMFileAccessModeFromOFlags(__int16 a1)
 
 uint64_t _bm_set_protection_class(int a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (a2 == -1)
   {
-    goto LABEL_14;
+    return 0;
   }
 
   v2 = a2;
@@ -648,13 +642,13 @@ uint64_t _bm_set_protection_class(int a1, uint64_t a2)
   result = 0;
   if (!v4)
   {
-    goto LABEL_18;
+    return result;
   }
 
   v7 = *v5;
   if (*v5 == 45)
   {
-    goto LABEL_18;
+    return result;
   }
 
   switch(v7)
@@ -680,19 +674,17 @@ uint64_t _bm_set_protection_class(int a1, uint64_t a2)
         break;
       }
 
-      goto LABEL_14;
+      return 0;
     case 1:
 LABEL_7:
-      memset(&v14, 0, 512);
-      v8 = fstatfs(a1, &v14);
-      if (v8 | v14.f_flags & 0x80)
+      memset(&v13, 0, 512);
+      v8 = fstatfs(a1, &v13);
+      if (v8 | v13.f_flags & 0x80)
       {
         break;
       }
 
-LABEL_14:
-      result = 0;
-      goto LABEL_18;
+      return 0;
   }
 
   v12 = __biome_log_for_category(2);
@@ -702,17 +694,14 @@ LABEL_14:
   }
 
   *__error() = v7;
-  result = 0xFFFFFFFFLL;
-LABEL_18:
-  v13 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0xFFFFFFFFLL;
 }
 
 uint64_t bm_new_temporary_file(int a1, unsigned int a2, int a3, void *a4)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   strcpy(path, ".tmp.XXXXXXXX");
-  memset(&v21, 0, sizeof(v21));
+  memset(&v20, 0, sizeof(v20));
   if (a1 < 0)
   {
     v14 = __biome_log_for_category(2);
@@ -735,9 +724,7 @@ uint64_t bm_new_temporary_file(int a1, unsigned int a2, int a3, void *a4)
 LABEL_12:
 
     *__error() = 22;
-LABEL_28:
-    v8 = 0xFFFFFFFFLL;
-    goto LABEL_29;
+    return 0xFFFFFFFFLL;
   }
 
   v8 = mkostempsat_np(a1, path, 0, 0x1000000);
@@ -751,19 +738,19 @@ LABEL_28:
   {
     if (a2 == 4 || (a2 != -1 ? (v15 = a2) : (v15 = 3), !_bm_set_protection_class(v8, v15)))
     {
-      v16 = fstat(v8, &v21);
+      v16 = fstat(v8, &v20);
       v17 = __error();
       if (!v16)
       {
-        if ((v21.st_mode & 0xF000) == 0x8000)
+        if ((v20.st_mode & 0xF000) == 0x8000)
         {
-          if (v21.st_nlink == (a3 ^ 1))
+          if (v20.st_nlink == (a3 ^ 1))
           {
             goto LABEL_32;
           }
 
-          v20 = __biome_log_for_category(2);
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+          v19 = __biome_log_for_category(2);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
           {
             bm_new_temporary_file_cold_5();
           }
@@ -773,8 +760,8 @@ LABEL_28:
 
         else
         {
-          v20 = __biome_log_for_category(2);
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+          v19 = __biome_log_for_category(2);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
           {
             bm_new_temporary_file_cold_4();
           }
@@ -822,7 +809,7 @@ LABEL_25:
     {
 LABEL_27:
       *__error() = v12;
-      goto LABEL_28;
+      return 0xFFFFFFFFLL;
     }
 
 LABEL_26:
@@ -833,18 +820,17 @@ LABEL_26:
 LABEL_32:
   if (a4)
   {
-    *a4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{path, *&v21.st_dev, *&v21.st_uid, *&v21.st_atimespec, *&v21.st_mtimespec, *&v21.st_ctimespec, *&v21.st_birthtimespec, *&v21.st_size, *&v21.st_blksize, *v21.st_qspare}];
+    *a4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{path, *&v20.st_dev, *&v20.st_uid, *&v20.st_atimespec, *&v20.st_mtimespec, *&v20.st_ctimespec, *&v20.st_birthtimespec, *&v20.st_size, *&v20.st_blksize, *v20.st_qspare}];
   }
 
-LABEL_29:
-  v18 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
-uint64_t bm_opendirat(uint64_t a1, void *a2, int a3, mode_t a4)
+uint64_t bm_opendirat(uint64_t a1, void *a2, uint64_t a3, mode_t a4)
 {
+  v5 = a3;
   v7 = a2;
-  v34 = a3;
+  v34 = v5;
   v33 = objc_opt_new();
   v32 = a4;
   if ((a4 - 512) <= 0xFE00u)
@@ -859,13 +845,13 @@ LABEL_81:
     goto LABEL_63;
   }
 
-  if ((a3 & 0x9EEFFCFF) != 0)
+  if ((v5 & 0x9EEFFCFF) != 0)
   {
     bm_opendirat_cold_1();
     goto LABEL_79;
   }
 
-  if ((a3 & 0x20000100) == 0x20000100)
+  if ((v5 & 0x20000100) == 0x20000100)
   {
     v28 = __biome_log_for_category(2);
     if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
@@ -882,9 +868,9 @@ LABEL_81:
     goto LABEL_62;
   }
 
-  if ((a3 & 0x20000100) != 0)
+  if ((v5 & 0x20000100) != 0)
   {
-    if ((a3 & 0x100000) != 0)
+    if ((v5 & 0x100000) != 0)
     {
       goto LABEL_6;
     }
@@ -898,16 +884,16 @@ LABEL_81:
     bm_opendirat_cold_2();
   }
 
-  a3 |= 0x100u;
-  if ((a3 & 0x100000) == 0)
+  v5 |= 0x100u;
+  if ((v5 & 0x100000) == 0)
   {
 LABEL_77:
-    bm_opendirat_cold_4(a3, &v35);
-    a3 = v35;
+    bm_opendirat_cold_4(v5, &v35);
+    v5 = v35;
   }
 
 LABEL_6:
-  v34 = a3 | 0x1000000;
+  v34 = v5 | 0x1000000;
   if ([v7 hasSuffix:@"/"])
   {
     v8 = [v7 substringToIndex:{objc_msgSend(v7, "length") - 1}];
@@ -947,7 +933,7 @@ LABEL_6:
     v13 = 0;
     do
     {
-      v14 = openat(v9, [v12 fileSystemRepresentation], a3 & 0xFEFFFDFF | 0x1000000 | v13);
+      v14 = openat(v9, [v12 fileSystemRepresentation], v5 & 0xFEFFFDFF | 0x1000000 | v13);
       if ((v14 & 0x80000000) != 0)
       {
         v15 = *__error();
@@ -969,7 +955,7 @@ LABEL_6:
         goto LABEL_38;
       }
 
-      if ((a3 & 0x200) == 0)
+      if ((v5 & 0x200) == 0)
       {
         v19 = v12;
         v7 = v31;
@@ -1166,24 +1152,24 @@ uint64_t BMShouldRetry(void *a1, unint64_t *a2, unint64_t a3, char a4)
 
 uint64_t bm_replace_file(int a1, int a2, int a3, void *a4, uint64_t a5, unsigned int a6)
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v50[5] = *MEMORY[0x1E69E9840];
   v11 = a4;
   v12 = v11;
-  memset(&v36, 0, sizeof(v36));
-  v50 = 0u;
-  memset(v51, 0, 31);
-  v48 = 0u;
+  memset(&v35, 0, sizeof(v35));
   v49 = 0u;
-  v46 = 0u;
+  memset(v50, 0, 31);
   v47 = 0u;
-  v44 = 0u;
+  v48 = 0u;
   v45 = 0u;
-  v42 = 0u;
+  v46 = 0u;
   v43 = 0u;
-  v40 = 0u;
+  v44 = 0u;
   v41 = 0u;
-  v38 = 0u;
+  v42 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   *path = 0u;
   if (a1 < 0)
   {
@@ -1231,13 +1217,13 @@ LABEL_16:
     goto LABEL_17;
   }
 
-  v18 = fstat(a1, &v36);
-  v19 = __error();
-  if (v18)
+  v17 = fstat(a1, &v35);
+  v18 = __error();
+  if (v17)
   {
-    v14 = *v19;
-    v20 = __biome_log_for_category(2);
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v14 = *v18;
+    v19 = __biome_log_for_category(2);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       bm_new_temporary_file_cold_3();
     }
@@ -1247,7 +1233,7 @@ LABEL_23:
     goto LABEL_24;
   }
 
-  if ((v36.st_mode & 0xF000) != 0x8000)
+  if ((v35.st_mode & 0xF000) != 0x8000)
   {
     v13 = __biome_log_for_category(2);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
@@ -1259,7 +1245,7 @@ LABEL_23:
     goto LABEL_17;
   }
 
-  if (v36.st_nlink)
+  if (v35.st_nlink)
   {
     v13 = __biome_log_for_category(2);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
@@ -1271,13 +1257,13 @@ LABEL_23:
     goto LABEL_17;
   }
 
-  v21 = lseek(a1, 0, 0);
-  v22 = __error();
-  if (v21)
+  v20 = lseek(a1, 0, 0);
+  v21 = __error();
+  if (v20)
   {
-    v14 = *v22;
-    v20 = __biome_log_for_category(2);
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v14 = *v21;
+    v19 = __biome_log_for_category(2);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       bm_replace_file_cold_4();
     }
@@ -1301,20 +1287,20 @@ LABEL_23:
       }
 
       mktemp(path);
-      v27 = fclonefileat(a1, a2, path, 3u);
+      v26 = fclonefileat(a1, a2, path, 3u);
       v14 = *__error();
     }
 
-    while (v27 && v14 == 17);
-    if (v27)
+    while (v26 && v14 == 17);
+    if (v26)
     {
       if (v14 == 45)
       {
         goto LABEL_42;
       }
 
-      v20 = __biome_log_for_category(2);
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v19 = __biome_log_for_category(2);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         bm_replace_file_cold_6();
       }
@@ -1322,17 +1308,17 @@ LABEL_23:
       goto LABEL_23;
     }
 
-    v23 = a3;
+    v22 = a3;
     v15 = openat(a2, path, 553648130);
-    v31 = __error();
+    v30 = __error();
     if ((v15 & 0x80000000) == 0)
     {
       goto LABEL_65;
     }
 
-    v14 = *v31;
-    v30 = __biome_log_for_category(2);
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    v14 = *v30;
+    v29 = __biome_log_for_category(2);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       bm_replace_file_cold_7();
     }
@@ -1355,14 +1341,14 @@ LABEL_58:
     goto LABEL_17;
   }
 
-  v23 = a3;
+  v22 = a3;
   v15 = mkostempsat_np(a2, path, 0, 0x1000000);
-  v24 = __error();
+  v23 = __error();
   if ((v15 & 0x80000000) != 0)
   {
-    v14 = *v24;
-    v20 = __biome_log_for_category(2);
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v14 = *v23;
+    v19 = __biome_log_for_category(2);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       bm_replace_file_cold_12();
     }
@@ -1372,19 +1358,19 @@ LABEL_58:
 
   if (a5 != -1)
   {
-    v25 = _bm_set_protection_class(v15, a5);
-    v26 = __error();
-    if (v25)
+    v24 = _bm_set_protection_class(v15, a5);
+    v25 = __error();
+    if (v24)
     {
-      v14 = *v26;
+      v14 = *v25;
 LABEL_74:
       if (!unlinkat(a2, path, 0))
       {
         goto LABEL_25;
       }
 
-      v20 = __biome_log_for_category(2);
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v19 = __biome_log_for_category(2);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         bm_replace_file_cold_11();
       }
@@ -1417,13 +1403,13 @@ LABEL_18:
     }
   }
 
-  v28 = fcopyfile(a1, v15, 0, 8u);
-  v29 = __error();
-  if (v28)
+  v27 = fcopyfile(a1, v15, 0, 8u);
+  v28 = __error();
+  if (v27)
   {
-    v14 = *v29;
-    v30 = __biome_log_for_category(2);
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    v14 = *v28;
+    v29 = __biome_log_for_category(2);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       bm_replace_file_cold_9();
     }
@@ -1434,24 +1420,24 @@ LABEL_73:
   }
 
 LABEL_65:
-  v32 = [v12 fileSystemRepresentation];
+  v31 = [v12 fileSystemRepresentation];
   if (a6)
   {
-    v33 = renameatx_np(a2, path, v23, v32, a6);
+    v32 = renameatx_np(a2, path, v22, v31, a6);
   }
 
   else
   {
-    v33 = renameat(a2, path, v23, v32);
+    v32 = renameat(a2, path, v22, v31);
   }
 
-  v34 = v33;
-  v35 = __error();
-  if (v34)
+  v33 = v32;
+  v34 = __error();
+  if (v33)
   {
-    v14 = *v35;
-    v30 = __biome_log_for_category(2);
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    v14 = *v34;
+    v29 = __biome_log_for_category(2);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       bm_replace_file_cold_10();
     }
@@ -1461,7 +1447,6 @@ LABEL_65:
 
 LABEL_19:
 
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -1504,7 +1489,7 @@ id BMFileServerValidateAndParsePath(void *a1)
 
 BOOL BMValidatePath(void *a1, void *a2)
 {
-  v53[1] = *MEMORY[0x1E69E9840];
+  v52[1] = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = [@"streams" stringByAppendingString:@"/"];
   v5 = [v3 hasPrefix:v4];
@@ -1550,10 +1535,10 @@ LABEL_31:
       {
         if (a2)
         {
-          v52 = @"pathType";
-          v53[0] = @"resourceGeneration";
+          v51 = @"pathType";
+          v52[0] = @"resourceGeneration";
           v18 = 1;
-          [MEMORY[0x1E695DF20] dictionaryWithObjects:v53 forKeys:&v52 count:1];
+          [MEMORY[0x1E695DF20] dictionaryWithObjects:v52 forKeys:&v51 count:1];
           v13 = 0;
           *a2 = v15 = 0;
         }
@@ -1619,17 +1604,17 @@ LABEL_32:
   v18 = v16 != 0;
   if (a2 && v16)
   {
-    v44 = v6;
-    v45 = v16 != 0;
-    v46 = v13;
-    v47 = a2;
-    v51 = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:@"/"];
+    v43 = v6;
+    v44 = v16 != 0;
+    v45 = v13;
+    v46 = a2;
+    v50 = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:@"/"];
     v19 = objc_opt_new();
     if ([v17 numberOfRanges])
     {
       v20 = 0;
-      v48 = v15;
-      v50 = v19;
+      v47 = v15;
+      v49 = v19;
       do
       {
         v21 = [v17 rangeAtIndex:v20];
@@ -1650,21 +1635,21 @@ LABEL_32:
             {
               v30 = [MEMORY[0x1E696AAA8] currentHandler];
               v31 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"BOOL BMValidatePath(NSString *__strong _Nonnull, NSDictionary *__autoreleasing * _Nullable)"}];
-              v49 = [v15 objectAtIndexedSubscript:v20];
-              v32 = [v50 objectForKeyedSubscript:v49];
+              v48 = [v15 objectAtIndexedSubscript:v20];
+              v32 = [v49 objectForKeyedSubscript:v48];
               v33 = [v15 objectAtIndexedSubscript:v20];
               [v3 substringWithRange:{v23, v24}];
               v35 = v34 = v3;
               [v30 handleFailureInFunction:v31 file:@"BMSecurity.m" lineNumber:312 description:{@"Dictionary already has value %@ for key %@; new value %@", v32, v33, v35}];
 
               v3 = v34;
-              v15 = v48;
+              v15 = v47;
 
-              v29 = v50;
+              v29 = v49;
             }
 
             v36 = [v3 substringWithRange:{v23, v24}];
-            v37 = [v36 stringByTrimmingCharactersInSet:v51];
+            v37 = [v36 stringByTrimmingCharactersInSet:v50];
             v38 = [v15 objectAtIndexedSubscript:v20];
             [v29 setObject:v37 forKeyedSubscript:v38];
 
@@ -1678,16 +1663,15 @@ LABEL_32:
       while (v20 < [v17 numberOfRanges]);
     }
 
-    [v19 setObject:v44 forKeyedSubscript:@"pathType"];
+    [v19 setObject:v43 forKeyedSubscript:@"pathType"];
     v39 = v19;
-    *v47 = v19;
+    *v46 = v19;
 
-    v18 = v45;
-    v13 = v46;
+    v18 = v44;
+    v13 = v45;
   }
 
 LABEL_39:
-  v42 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
@@ -1759,9 +1743,9 @@ uint64_t BMServiceDomainForStream(uint64_t a1, void *a2)
   return v4;
 }
 
-void sub_1AC1632B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AC1632B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1911,63 +1895,26 @@ LABEL_10:
       v9 = [v5 name];
       v10 = [v8 streamWithIdentifier:v9 error:0];
 
-      if (v10)
+      if (v10 || (legacyViewResourceMapper(), v19 = objc_claimAutoreleasedReturnValue(), [v19 streamIdentifierForUUIDString], v20 = objc_claimAutoreleasedReturnValue(), v20, v19, v20) && (legacyViewResourceMapper(), v21 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v21, "streamIdentifierForUUIDString"), v22 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "name"), v23 = objc_claimAutoreleasedReturnValue(), (v22)[2](v22, v23), v24 = objc_claimAutoreleasedReturnValue(), v23, v22, v21, objc_msgSend(v8, "streamWithIdentifier:error:", v24, 0), v10 = objc_claimAutoreleasedReturnValue(), v24, v10) || (legacyViewResourceMapper(), v25 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v25, "streamIdentifierForLegacyStreamName"), v26 = objc_claimAutoreleasedReturnValue(), v26, v25, v26) && (legacyViewResourceMapper(), v27 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v27, "streamIdentifierForLegacyStreamName"), v28 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "name"), v29 = objc_claimAutoreleasedReturnValue(), (v28)[2](v28, v29), v30 = objc_claimAutoreleasedReturnValue(), v29, v28, v27, objc_msgSend(v8, "streamWithIdentifier:error:", v30, 0), v10 = objc_claimAutoreleasedReturnValue(), v30, v10))
       {
-        goto LABEL_5;
-      }
-
-      v19 = legacyViewResourceMapper();
-      v20 = [v19 streamIdentifierForUUIDString];
-
-      if (v20)
-      {
-        v21 = legacyViewResourceMapper();
-        v22 = [v21 streamIdentifierForUUIDString];
-        v23 = [v5 name];
-        v24 = (v22)[2](v22, v23);
-
-        v10 = [v8 streamWithIdentifier:v24 error:0];
-
-        if (v10)
+        v11 = [v10 valueForKey:@"identifier"];
+        v12 = [v10 valueForKeyPath:@"configuration.allowedClients"];
+        if (v12 && (v13 = (a1 + 40), [*(a1 + 40) identifier], v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v12, "containsObject:", v14), v14, (v15 & 1) == 0))
         {
-          goto LABEL_5;
+          v31 = __biome_log_for_category(0);
+          if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+          {
+            __BMNormalizedResourcesAndAccessModesListedUnderEntitlement_block_invoke_cold_1(v13);
+          }
         }
-      }
 
-      v25 = legacyViewResourceMapper();
-      v26 = [v25 streamIdentifierForLegacyStreamName];
-
-      if (v26)
-      {
-        v27 = legacyViewResourceMapper();
-        v28 = [v27 streamIdentifierForLegacyStreamName];
-        v29 = [v5 name];
-        v30 = (v28)[2](v28, v29);
-
-        v10 = [v8 streamWithIdentifier:v30 error:0];
-
-        if (v10)
+        else
         {
-LABEL_5:
-          v11 = [v10 valueForKey:@"identifier"];
-          v12 = [v10 valueForKeyPath:@"configuration.allowedClients"];
-          if (v12 && (v13 = (a1 + 40), [*(a1 + 40) identifier], v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v12, "containsObject:", v14), v14, (v15 & 1) == 0))
-          {
-            v31 = __biome_log_for_category(0);
-            if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
-            {
-              __BMNormalizedResourcesAndAccessModesListedUnderEntitlement_block_invoke_cold_1(v13);
-            }
-          }
-
-          else
-          {
-            v16 = [[BMResourceSpecifier alloc] initWithType:1 name:v11];
-            [*(a1 + 32) setObject:v6 forKeyedSubscript:v16];
-          }
-
-          goto LABEL_23;
+          v16 = [[BMResourceSpecifier alloc] initWithType:1 name:v11];
+          [*(a1 + 32) setObject:v6 forKeyedSubscript:v16];
         }
+
+        goto LABEL_23;
       }
 
       v18 = __biome_log_for_category(0);
@@ -1985,16 +1932,16 @@ LABEL_5:
 LABEL_24:
 }
 
-void sub_1AC1642D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AC1642D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 id BMNonnullSetOfStringsFromEntitlementValue(void *a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v1 = a1;
   if (!v1)
   {
@@ -2019,41 +1966,40 @@ LABEL_15:
   }
 
   v3 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(v1, "count")}];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v4 = v1;
-  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
+        v9 = *(*(&v11 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          [v3 addObject:{v9, v12}];
+          [v3 addObject:{v9, v11}];
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
 
 LABEL_17:
-  v10 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -2072,10 +2018,7 @@ void __BMResourcesAndAccessModesListedUnderEntitlement_block_invoke_3(uint64_t a
 
 uint64_t ____biome_log_for_category_block_invoke(uint64_t a1)
 {
-  v2 = os_log_create("com.apple.Biome", *(&categories + 3 * *(a1 + 32) + 2));
-  v3 = &categories + 24 * *(a1 + 32);
-  v4 = *(v3 + 1);
-  *(v3 + 1) = v2;
+  categories[3 * *(a1 + 32) + 1] = os_log_create("com.apple.Biome", categories[3 * *(a1 + 32) + 2]);
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -2197,15 +2140,16 @@ void __BMResourcesAndAccessModesListedUnderEntitlement_block_invoke_2(uint64_t a
   }
 }
 
-uint64_t BMSandboxCheck(_OWORD *a1, void *a2, int a3, void *a4)
+uint64_t BMSandboxCheck(_OWORD *a1, void *a2, uint64_t a3, void *a4)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v5 = a3;
+  v26 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a4;
   [(__CFString *)v7 UTF8String];
-  if ((a3 & 0x87FFFFFF) <= 0xE)
+  if ((v5 & 0x87FFFFFF) <= 0xE)
   {
-    if (((1 << a3) & 0x300E) != 0)
+    if (((1 << v5) & 0x300E) != 0)
     {
       [(__CFString *)v8 UTF8String];
 LABEL_6:
@@ -2215,17 +2159,17 @@ LABEL_6:
       goto LABEL_7;
     }
 
-    if (((1 << a3) & 0x4400) != 0)
+    if (((1 << v5) & 0x4400) != 0)
     {
       [(__CFString *)v8 unsignedIntValue];
       goto LABEL_6;
     }
 
-    if ((a3 & 0x87FFFFFF) == 0)
+    if ((v5 & 0x87FFFFFF) == 0)
     {
-      v20 = a1[1];
+      v19 = a1[1];
       *buf = *a1;
-      *&buf[16] = v20;
+      *&buf[16] = v19;
 LABEL_7:
       v10 = sandbox_check_by_audit_token();
       v11 = *__error();
@@ -2264,8 +2208,8 @@ LABEL_7:
           *&buf[14] = v15;
           *&buf[22] = 2114;
           *&buf[24] = v16;
-          v25 = 1024;
-          v26 = v11;
+          v24 = 1024;
+          v25 = v11;
           v17 = "BMSandboxCheck(%{public}@%{public}@%{public}@) failed with error %{darwin.errno}d";
           break;
         case 0:
@@ -2273,7 +2217,7 @@ LABEL_22:
           v7 = v13;
           goto LABEL_23;
         case 1:
-          if ((*MEMORY[0x1E69E9BD0] & ~a3) != 0)
+          if ((*MEMORY[0x1E69E9BD0] & ~v5) != 0)
           {
             v10 = 2;
           }
@@ -2294,26 +2238,26 @@ LABEL_21:
             goto LABEL_22;
           }
 
-          v22 = @", ";
+          v21 = @", ";
           *buf = 138544130;
-          v23 = &stru_1F20E2850;
+          v22 = &stru_1F20E2850;
           *&buf[4] = v13;
           *&buf[12] = 2114;
           if (v8)
           {
-            v23 = v8;
+            v22 = v8;
           }
 
           else
           {
-            v22 = &stru_1F20E2850;
+            v21 = &stru_1F20E2850;
           }
 
-          *&buf[14] = v22;
+          *&buf[14] = v21;
           *&buf[22] = 2114;
-          *&buf[24] = v23;
-          v25 = 1024;
-          v26 = v10;
+          *&buf[24] = v22;
+          v24 = 1024;
+          v25 = v10;
           v17 = "sandbox_check(%{public}@%{public}@%{public}@) returned unexpected value %d";
           break;
       }
@@ -2323,8 +2267,8 @@ LABEL_21:
     }
   }
 
-  v21 = __biome_log_for_category(0);
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+  v20 = __biome_log_for_category(0);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
   {
     BMSandboxCheck_cold_1();
   }
@@ -2332,7 +2276,6 @@ LABEL_21:
   v10 = 0xFFFFFFFFLL;
 LABEL_23:
 
-  v18 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -2403,54 +2346,53 @@ __CFString *BMResourceContainerTypeDescription(uint64_t a1)
   return v2;
 }
 
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void OUTLINED_FUNCTION_0_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-void OUTLINED_FUNCTION_1_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
-void OUTLINED_FUNCTION_0_8(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_8(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 8u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 8u);
 }
 
-void OUTLINED_FUNCTION_0_9(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_9(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void __BMNormalizedResourcesAndAccessModesListedUnderEntitlement_block_invoke_cold_2(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = [a1 name];
+  v6 = [a1 name];
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __BMNormalizedResourcesAndAccessModesListedUnderEntitlement_block_invoke_cold_1(id *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = [*a1 identifier];
+  v6 = [*a1 identifier];
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t BMStorageErrorShouldTryAgainLater(void *a1)
@@ -2476,32 +2418,31 @@ uint64_t BMStorageErrorShouldTryAgainLater(void *a1)
 
 uint64_t BiomeStreamsLibrary()
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v3[0] = 0;
+  v5 = *MEMORY[0x1E69E9840];
+  v2[0] = 0;
   if (!BiomeStreamsLibraryCore_frameworkLibrary)
   {
-    v3[1] = MEMORY[0x1E69E9820];
-    v3[2] = 3221225472;
-    v3[3] = __BiomeStreamsLibraryCore_block_invoke;
-    v3[4] = &__block_descriptor_40_e5_v8__0l;
-    v3[5] = v3;
-    v4 = xmmword_1E796AC78;
-    v5 = 0;
+    v2[1] = MEMORY[0x1E69E9820];
+    v2[2] = 3221225472;
+    v2[3] = __BiomeStreamsLibraryCore_block_invoke;
+    v2[4] = &__block_descriptor_40_e5_v8__0l;
+    v2[5] = v2;
+    v3 = xmmword_1E796AC78;
+    v4 = 0;
     BiomeStreamsLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   v0 = BiomeStreamsLibraryCore_frameworkLibrary;
   if (!BiomeStreamsLibraryCore_frameworkLibrary)
   {
-    BiomeStreamsLibrary_cold_1(v3);
+    BiomeStreamsLibrary_cold_1(v2);
   }
 
-  if (v3[0])
+  if (v2[0])
   {
-    free(v3[0]);
+    free(v2[0]);
   }
 
-  v1 = *MEMORY[0x1E69E9840];
   return v0;
 }
 
@@ -2529,64 +2470,64 @@ void __legacyViewResourceMapper_block_invoke()
 
 id BMPremigratedStreamIdentifierForBiomeLibraryStreamIdentifier(void *a1)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v3 = +[BMPublicStreamUtilities libraryPublicStreamMigrationPaths];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v24 objects:v29 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v25;
+    v6 = *v24;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v25 != v6)
+        if (*v24 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v24 + 1) + 8 * i);
+        v8 = *(*(&v23 + 1) + 8 * i);
         v9 = [v3 objectForKeyedSubscript:v8];
         [v2 setObject:v8 forKeyedSubscript:v9];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
     while (v5);
   }
 
   v10 = +[BMStreamMigrations libraryRestrictedStreamMigrationPaths];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v11 = [v10 countByEnumeratingWithState:&v20 objects:v28 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v19 objects:v27 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v21;
+    v13 = *v20;
     do
     {
       for (j = 0; j != v12; ++j)
       {
-        if (*v21 != v13)
+        if (*v20 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v20 + 1) + 8 * j);
+        v15 = *(*(&v19 + 1) + 8 * j);
         v16 = [v10 objectForKeyedSubscript:v15];
         [v2 setObject:v15 forKeyedSubscript:v16];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v20 objects:v28 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v19 objects:v27 count:16];
     }
 
     while (v12);
@@ -2594,26 +2535,24 @@ id BMPremigratedStreamIdentifierForBiomeLibraryStreamIdentifier(void *a1)
 
   v17 = [v2 objectForKeyedSubscript:v1];
 
-  v18 = *MEMORY[0x1E69E9840];
-
   return v17;
 }
 
-id BMSyncableStreamIdentifiers()
+id BMSyncableStreamIdentifiers(uint64_t a1)
 {
   if (BMSyncableStreamIdentifiers_onceToken != -1)
   {
     BMSyncableStreamIdentifiers_cold_1();
   }
 
-  v1 = BMSyncableStreamIdentifiers_identifiers;
+  v2 = BMSyncableStreamIdentifiers_identifiers;
 
-  return v1;
+  return v2;
 }
 
-void sub_1AC16C508(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AC16C508(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2629,11 +2568,8 @@ void *__getBiomeLibraryAndInternalLibraryNodeSymbolLoc_block_invoke(uint64_t a1)
 
 uint64_t __BiomeStreamsLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   BiomeStreamsLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -2675,9 +2611,9 @@ void __BMSyncableStreamIdentifiers_block_invoke()
   BMSyncableStreamIdentifiers_identifiers = v8;
 }
 
-void sub_1AC16D194(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AC16D194(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2734,28 +2670,28 @@ void __BMResourcesAndAccessModesListedUnderEntitlement_block_invoke_3_323(uint64
 
 Class __getCCSetConfigurationClass_block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v4[0] = 0;
+  v6 = *MEMORY[0x1E69E9840];
+  v3[0] = 0;
   if (!CascadeSetsLibraryCore_frameworkLibrary)
   {
-    v4[1] = MEMORY[0x1E69E9820];
-    v4[2] = 3221225472;
-    v4[3] = __CascadeSetsLibraryCore_block_invoke;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_1E796AD50;
-    v6 = 0;
+    v3[1] = MEMORY[0x1E69E9820];
+    v3[2] = 3221225472;
+    v3[3] = __CascadeSetsLibraryCore_block_invoke;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_1E796AD50;
+    v5 = 0;
     CascadeSetsLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   if (!CascadeSetsLibraryCore_frameworkLibrary)
   {
-    __getCCSetConfigurationClass_block_invoke_cold_2(v4);
+    __getCCSetConfigurationClass_block_invoke_cold_2(v3);
   }
 
-  if (v4[0])
+  if (v3[0])
   {
-    free(v4[0]);
+    free(v3[0]);
   }
 
   result = objc_getClass("CCSetConfiguration");
@@ -2766,17 +2702,13 @@ Class __getCCSetConfigurationClass_block_invoke(uint64_t a1)
   }
 
   getCCSetConfigurationClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __CascadeSetsLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   CascadeSetsLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -2888,21 +2820,23 @@ uint64_t BMDataProtectionClassFromNSFileProtectionType(void *a1)
   return v2;
 }
 
-void sub_1AC173218(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, char a47)
+void sub_1AC173218(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, ...)
 {
+  va_start(va, a46);
   _Block_object_dispose(&a29, 8);
   _Block_object_dispose(&a35, 8);
   _Block_object_dispose(&a41, 8);
-  _Block_object_dispose(&a47, 8);
-  os_activity_scope_leave((v47 - 224));
+  _Block_object_dispose(va, 8);
+  os_activity_scope_leave((v46 - 224));
   _Unwind_Resume(a1);
 }
 
-void sub_1AC173678(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_1AC173678(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
   _Block_object_dispose(&a23, 8);
-  _Block_object_dispose(&a29, 8);
-  os_activity_scope_leave((v29 - 120));
+  _Block_object_dispose(va, 8);
+  os_activity_scope_leave((v28 - 120));
   _Unwind_Resume(a1);
 }
 
@@ -3093,37 +3027,39 @@ LABEL_28:
   return v2;
 }
 
-void sub_1AC177D74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1AC177D74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AC178468(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1AC178468(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AC178850(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28)
+void sub_1AC178850(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
 {
-  _Block_object_dispose(&a28, 8);
-  _Block_object_dispose((v28 - 120), 8);
+  va_start(va, a27);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v27 - 120), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AC178CDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28)
+void sub_1AC178CDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
 {
-  _Block_object_dispose(&a28, 8);
-  _Block_object_dispose((v28 - 120), 8);
+  va_start(va, a27);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v27 - 120), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AC1793EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1AC1793EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3234,50 +3170,48 @@ id BMGetOrCreateDirectoryURL(void *a1, void *a2)
 
 uint64_t BMRemoveItemIfExistsAtPath(void *a1, void *a2)
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   v3 = a1;
   if ([v3 length])
   {
     v4 = [MEMORY[0x1E695DFF8] fileURLWithPath:v3];
 
     v5 = BMRemoveItemIfExistsAtURL(v4, a2);
-    v6 = *MEMORY[0x1E69E9840];
     return v5;
   }
 
   else
   {
-    v8 = MEMORY[0x1E696ABC0];
-    v9 = *MEMORY[0x1E696A250];
-    v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid path: %@", v3, *MEMORY[0x1E696A578]];
+    v7 = MEMORY[0x1E696ABC0];
+    v8 = *MEMORY[0x1E696A250];
+    v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid path: %@", v3, *MEMORY[0x1E696A578]];
 
-    v15[0] = v10;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
-    v12 = [v8 errorWithDomain:v9 code:-1000 userInfo:v11];
+    v13[0] = v9;
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v11 = [v7 errorWithDomain:v8 code:-1000 userInfo:v10];
     if (a2)
     {
-      if (v12)
+      if (v11)
       {
-        v12 = v12;
-        *a2 = v12;
+        v11 = v11;
+        *a2 = v11;
       }
     }
 
-    v13 = *MEMORY[0x1E69E9840];
     return 0;
   }
 }
 
 uint64_t BMRemoveItemIfExistsAtURL(void *a1, void *a2)
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   v3 = a1;
   if (v3)
   {
     v4 = [MEMORY[0x1E696AC08] defaultManager];
-    v17 = 0;
-    v5 = [v4 removeItemAtURL:v3 error:&v17];
-    v6 = v17;
+    v16 = 0;
+    v5 = [v4 removeItemAtURL:v3 error:&v16];
+    v6 = v16;
     v7 = v6;
     if (v5)
     {
@@ -3297,7 +3231,7 @@ LABEL_9:
     v12 = 0;
     if (a2 && v7)
     {
-      v16 = v7;
+      v15 = v7;
       v12 = 0;
       *a2 = v7;
     }
@@ -3307,10 +3241,10 @@ LABEL_9:
   {
     v8 = MEMORY[0x1E696ABC0];
     v9 = *MEMORY[0x1E696A250];
-    v18 = *MEMORY[0x1E696A578];
+    v17 = *MEMORY[0x1E696A578];
     v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid item URL: %@", 0];
-    v19[0] = v7;
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+    v18[0] = v7;
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
     v11 = [v8 errorWithDomain:v9 code:-1000 userInfo:v10];
     if (a2 && v11)
     {
@@ -3323,7 +3257,6 @@ LABEL_9:
 
 LABEL_10:
 
-  v14 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -3390,23 +3323,21 @@ id BMReadPropertyList(uint64_t a1, uint64_t a2, uint64_t a3)
 
 id BMDataFromNSUUID(void *a1)
 {
-  v5[2] = *MEMORY[0x1E69E9840];
+  v4[2] = *MEMORY[0x1E69E9840];
   v1 = a1;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v5[0] = 0;
-    v5[1] = 0;
-    [v1 getUUIDBytes:v5];
-    v2 = [MEMORY[0x1E695DEF0] dataWithBytes:v5 length:16];
+    v4[0] = 0;
+    v4[1] = 0;
+    [v1 getUUIDBytes:v4];
+    v2 = [MEMORY[0x1E695DEF0] dataWithBytes:v4 length:16];
   }
 
   else
   {
     v2 = 0;
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
@@ -3493,9 +3424,9 @@ id getCCSetLibraryConfigurationRegistryClass()
   return v1;
 }
 
-void sub_1AC17A9F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AC17A9F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3555,27 +3486,27 @@ id BMResourceDescriptorsLookupFromConfigurationForSet(void *a1)
 
 uint64_t BMServiceDomainSystemOverrideIsPresentInDescriptors(void *a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v1 = a1;
-  v2 = [v1 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v14;
+    v4 = *v13;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v14 != v4)
+        if (*v13 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        v6 = *(*(&v13 + 1) + 8 * i);
+        v6 = *(*(&v12 + 1) + 8 * i);
         v7 = [v6 key];
         if ([v7 isEqualToString:@"domainOverride"])
         {
@@ -3594,7 +3525,7 @@ uint64_t BMServiceDomainSystemOverrideIsPresentInDescriptors(void *a1)
         }
       }
 
-      v3 = [v1 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v3);
@@ -3603,7 +3534,6 @@ uint64_t BMServiceDomainSystemOverrideIsPresentInDescriptors(void *a1)
   v10 = 0;
 LABEL_13:
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -3643,72 +3573,68 @@ id BMResourceSyncPolicyLookupFromConfigurationForSet(void *a1)
 
 void *__getBiomeLibraryAndInternalLibraryNodeSymbolLoc_block_invoke_0(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v5[0] = 0;
+  v7 = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
   if (!BiomeStreamsLibraryCore_frameworkLibrary_0)
   {
-    v5[1] = MEMORY[0x1E69E9820];
-    v5[2] = 3221225472;
-    v5[3] = __BiomeStreamsLibraryCore_block_invoke_0;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_1E796B3D8;
-    v7 = 0;
+    v4[1] = MEMORY[0x1E69E9820];
+    v4[2] = 3221225472;
+    v4[3] = __BiomeStreamsLibraryCore_block_invoke_0;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_1E796B3D8;
+    v6 = 0;
     BiomeStreamsLibraryCore_frameworkLibrary_0 = _sl_dlopen();
   }
 
   v2 = BiomeStreamsLibraryCore_frameworkLibrary_0;
   if (!BiomeStreamsLibraryCore_frameworkLibrary_0)
   {
-    __getBiomeLibraryAndInternalLibraryNodeSymbolLoc_block_invoke_cold_1(v5);
-  }
-
-  if (v5[0])
-  {
-    free(v5[0]);
-  }
-
-  result = dlsym(v2, "BiomeLibraryAndInternalLibraryNode");
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  getBiomeLibraryAndInternalLibraryNodeSymbolLoc_ptr_0 = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-uint64_t __BiomeStreamsLibraryCore_block_invoke_0(uint64_t a1)
-{
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  result = _sl_dlopen();
-  BiomeStreamsLibraryCore_frameworkLibrary_0 = result;
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-Class __getCCSetLibraryConfigurationRegistryClass_block_invoke(uint64_t a1)
-{
-  v7 = *MEMORY[0x1E69E9840];
-  v4[0] = 0;
-  if (!IntelligencePlatformLibraryLibraryCore_frameworkLibrary)
-  {
-    v4[1] = MEMORY[0x1E69E9820];
-    v4[2] = 3221225472;
-    v4[3] = __IntelligencePlatformLibraryLibraryCore_block_invoke;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_1E796B3F0;
-    v6 = 0;
-    IntelligencePlatformLibraryLibraryCore_frameworkLibrary = _sl_dlopen();
-  }
-
-  if (!IntelligencePlatformLibraryLibraryCore_frameworkLibrary)
-  {
-    __getCCSetLibraryConfigurationRegistryClass_block_invoke_cold_2(v4);
+    __getBiomeLibraryAndInternalLibraryNodeSymbolLoc_block_invoke_cold_1(v4);
   }
 
   if (v4[0])
   {
     free(v4[0]);
+  }
+
+  result = dlsym(v2, "BiomeLibraryAndInternalLibraryNode");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  getBiomeLibraryAndInternalLibraryNodeSymbolLoc_ptr_0 = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+uint64_t __BiomeStreamsLibraryCore_block_invoke_0(uint64_t a1)
+{
+  result = _sl_dlopen();
+  BiomeStreamsLibraryCore_frameworkLibrary_0 = result;
+  return result;
+}
+
+Class __getCCSetLibraryConfigurationRegistryClass_block_invoke(uint64_t a1)
+{
+  v6 = *MEMORY[0x1E69E9840];
+  v3[0] = 0;
+  if (!IntelligencePlatformLibraryLibraryCore_frameworkLibrary)
+  {
+    v3[1] = MEMORY[0x1E69E9820];
+    v3[2] = 3221225472;
+    v3[3] = __IntelligencePlatformLibraryLibraryCore_block_invoke;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_1E796B3F0;
+    v5 = 0;
+    IntelligencePlatformLibraryLibraryCore_frameworkLibrary = _sl_dlopen();
+  }
+
+  if (!IntelligencePlatformLibraryLibraryCore_frameworkLibrary)
+  {
+    __getCCSetLibraryConfigurationRegistryClass_block_invoke_cold_2(v3);
+  }
+
+  if (v3[0])
+  {
+    free(v3[0]);
   }
 
   result = objc_getClass("CCSetLibraryConfigurationRegistry");
@@ -3719,30 +3645,26 @@ Class __getCCSetLibraryConfigurationRegistryClass_block_invoke(uint64_t a1)
   }
 
   getCCSetLibraryConfigurationRegistryClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __IntelligencePlatformLibraryLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   IntelligencePlatformLibraryLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void sub_1AC17C16C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AC17C16C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AC17C548(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1AC17C548(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3763,40 +3685,35 @@ Class __getRBSProcessHandleClass_block_invoke(uint64_t a1)
 
 void RunningBoardServicesLibrary()
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1[0] = 0;
+  v3 = *MEMORY[0x1E69E9840];
+  v0[0] = 0;
   if (!RunningBoardServicesLibraryCore_frameworkLibrary)
   {
-    v1[1] = MEMORY[0x1E69E9820];
-    v1[2] = 3221225472;
-    v1[3] = __RunningBoardServicesLibraryCore_block_invoke;
-    v1[4] = &__block_descriptor_40_e5_v8__0l;
-    v1[5] = v1;
-    v2 = xmmword_1E796B440;
-    v3 = 0;
+    v0[1] = MEMORY[0x1E69E9820];
+    v0[2] = 3221225472;
+    v0[3] = __RunningBoardServicesLibraryCore_block_invoke;
+    v0[4] = &__block_descriptor_40_e5_v8__0l;
+    v0[5] = v0;
+    v1 = xmmword_1E796B440;
+    v2 = 0;
     RunningBoardServicesLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   if (!RunningBoardServicesLibraryCore_frameworkLibrary)
   {
-    RunningBoardServicesLibrary_cold_1(v1);
+    RunningBoardServicesLibrary_cold_1(v0);
   }
 
-  if (v1[0])
+  if (v0[0])
   {
-    free(v1[0]);
+    free(v0[0]);
   }
-
-  v0 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __RunningBoardServicesLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   RunningBoardServicesLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -3858,28 +3775,28 @@ Class __getRBSAcquisitionCompletionAttributeClass_block_invoke(uint64_t a1)
 
 void __BMStreamsPathRegex_block_invoke()
 {
-  v10[14] = *MEMORY[0x1E69E9840];
-  v10[0] = @"path";
-  v10[1] = @"streamType";
-  v10[2] = @"stream";
-  v10[3] = @"lock";
-  v10[4] = @"metadata";
-  v10[5] = @"deviceType";
-  v10[6] = @"tombstone";
-  v10[7] = @"segment";
-  v10[8] = @"deviceType";
-  v10[9] = @"device";
-  v10[10] = @"tombstone";
-  v10[11] = @"segment";
-  v10[12] = @"subscriptions";
-  v10[13] = @"segment";
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:14];
+  v9[14] = *MEMORY[0x1E69E9840];
+  v9[0] = @"path";
+  v9[1] = @"streamType";
+  v9[2] = @"stream";
+  v9[3] = @"lock";
+  v9[4] = @"metadata";
+  v9[5] = @"deviceType";
+  v9[6] = @"tombstone";
+  v9[7] = @"segment";
+  v9[8] = @"deviceType";
+  v9[9] = @"device";
+  v9[10] = @"tombstone";
+  v9[11] = @"segment";
+  v9[12] = @"subscriptions";
+  v9[13] = @"segment";
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:14];
   v1 = BMStreamsPathRegex_names;
   BMStreamsPathRegex_names = v0;
 
-  v9 = 0;
-  v2 = [objc_alloc(MEMORY[0x1E696AE70]) initWithPattern:@"^streams/(public|restricted)(?:/([a-zA-Z0-9_][a-zA-Z0-9_\\-\\.:]*+)(?:(/lock)|(/metadata)|(/local)(/tombstone)?(/[0-9][0-9]*+)?|(/remote)(?:(/[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12})(/tombstone)?(/[0-9][0-9]*+)?)?|(/subscriptions)(/[0-9][0-9]*+)?))?$" options:0 error:&v9];
-  v3 = v9;
+  v8 = 0;
+  v2 = [objc_alloc(MEMORY[0x1E696AE70]) initWithPattern:@"^streams/(public|restricted)(?:/([a-zA-Z0-9_][a-zA-Z0-9_\\-\\.:]*+)(?:(/lock)|(/metadata)|(/local)(/tombstone)?(/[0-9][0-9]*+)?|(/remote)(?:(/[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12})(/tombstone)?(/[0-9][0-9]*+)?)?|(/subscriptions)(/[0-9][0-9]*+)?))?$" options:0 error:&v8];
+  v3 = v8;
   v4 = BMStreamsPathRegex_regex;
   BMStreamsPathRegex_regex = v2;
 
@@ -3897,36 +3814,34 @@ void __BMStreamsPathRegex_block_invoke()
     v7 = BMStreamsPathRegex_names;
     BMStreamsPathRegex_names = 0;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __BMComputePathRegex_block_invoke()
 {
-  v10[16] = *MEMORY[0x1E69E9840];
-  v10[0] = @"path";
-  v10[1] = @"artifacts";
-  v10[2] = @"artifactIdentifier";
-  v10[3] = @"persistent";
-  v10[4] = @"clientIdentifier";
-  v10[5] = @"subscriptionIdentifier";
-  v10[6] = @"sessions";
-  v10[7] = @"sessionIdentifier";
-  v10[8] = @"bookmarks";
-  v10[9] = @"client";
-  v10[10] = @"clientIdentifier";
-  v10[11] = @"subscriptionIdentifier";
-  v10[12] = @"sessions";
-  v10[13] = @"sessionIdentifier";
-  v10[14] = @"subscriptions";
-  v10[15] = @"stream";
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:16];
+  v9[16] = *MEMORY[0x1E69E9840];
+  v9[0] = @"path";
+  v9[1] = @"artifacts";
+  v9[2] = @"artifactIdentifier";
+  v9[3] = @"persistent";
+  v9[4] = @"clientIdentifier";
+  v9[5] = @"subscriptionIdentifier";
+  v9[6] = @"sessions";
+  v9[7] = @"sessionIdentifier";
+  v9[8] = @"bookmarks";
+  v9[9] = @"client";
+  v9[10] = @"clientIdentifier";
+  v9[11] = @"subscriptionIdentifier";
+  v9[12] = @"sessions";
+  v9[13] = @"sessionIdentifier";
+  v9[14] = @"subscriptions";
+  v9[15] = @"stream";
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:16];
   v1 = BMComputePathRegex_names;
   BMComputePathRegex_names = v0;
 
-  v9 = 0;
-  v2 = [objc_alloc(MEMORY[0x1E696AE70]) initWithPattern:@"^compute(?:(/artifacts)(/[a-zA-Z0-9_][a-zA-Z0-9_\\-\\.:]*+)|(/persistent)(/[a-zA-Z0-9_][a-zA-Z0-9_\\-\\.:]*+)(/[a-zA-Z0-9_][a-zA-Z0-9_\\-\\.:]*+)?|(/sessions)(/[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12})(/bookmarks)(/client)(/[a-zA-Z0-9_][a-zA-Z0-9_\\-\\.:]*+)(/[a-zA-Z0-9_][a-zA-Z0-9_\\-\\.:]*+)?|(/sessions)(/[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12})(/subscriptions)(/[a-zA-Z0-9_][a-zA-Z0-9_\\-\\.:]*+)?)$" options:0 error:&v9];
-  v3 = v9;
+  v8 = 0;
+  v2 = [objc_alloc(MEMORY[0x1E696AE70]) initWithPattern:@"^compute(?:(/artifacts)(/[a-zA-Z0-9_][a-zA-Z0-9_\\-\\.:]*+)|(/persistent)(/[a-zA-Z0-9_][a-zA-Z0-9_\\-\\.:]*+)(/[a-zA-Z0-9_][a-zA-Z0-9_\\-\\.:]*+)?|(/sessions)(/[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12})(/bookmarks)(/client)(/[a-zA-Z0-9_][a-zA-Z0-9_\\-\\.:]*+)(/[a-zA-Z0-9_][a-zA-Z0-9_\\-\\.:]*+)?|(/sessions)(/[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12})(/subscriptions)(/[a-zA-Z0-9_][a-zA-Z0-9_\\-\\.:]*+)?)$" options:0 error:&v8];
+  v3 = v8;
   v4 = BMComputePathRegex_regex;
   BMComputePathRegex_regex = v2;
 
@@ -3944,8 +3859,6 @@ void __BMComputePathRegex_block_invoke()
     v7 = BMComputePathRegex_names;
     BMComputePathRegex_names = 0;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 __CFString *BMDevicePlatformAsKeyString(uint64_t a1)
@@ -3963,7 +3876,7 @@ __CFString *BMDevicePlatformAsKeyString(uint64_t a1)
 
 uint64_t BMStorageErrorGetErrno(void *a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = [v1 domain];
   v3 = *MEMORY[0x1E696A798];
@@ -3981,26 +3894,26 @@ uint64_t BMStorageErrorGetErrno(void *a1)
 
     if (v7)
     {
-      v20 = 0u;
-      v21 = 0u;
-      v18 = 0u;
       v19 = 0u;
+      v20 = 0u;
+      v17 = 0u;
+      v18 = 0u;
       v8 = [v1 underlyingErrors];
-      v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v19;
+        v11 = *v18;
         while (2)
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v19 != v11)
+            if (*v18 != v11)
             {
               objc_enumerationMutation(v8);
             }
 
-            v13 = *(*(&v18 + 1) + 8 * i);
+            v13 = *(*(&v17 + 1) + 8 * i);
             v14 = [v13 domain];
             v15 = [v14 isEqual:v3];
 
@@ -4012,7 +3925,7 @@ uint64_t BMStorageErrorGetErrno(void *a1)
             }
           }
 
-          v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+          v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
           if (v10)
           {
             continue;
@@ -4028,15 +3941,15 @@ uint64_t BMStorageErrorGetErrno(void *a1)
 
 LABEL_15:
 
-  v16 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
-void sub_1AC17E918(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_1AC17E918(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
   _Block_object_dispose(&a23, 8);
-  _Block_object_dispose(&a29, 8);
-  os_activity_scope_leave((v29 - 120));
+  _Block_object_dispose(va, 8);
+  os_activity_scope_leave((v28 - 120));
   _Unwind_Resume(a1);
 }
 
@@ -4052,10 +3965,11 @@ uint64_t OUTLINED_FUNCTION_6_0(uint64_t a1)
   return [v1 addObject:a1];
 }
 
-void OUTLINED_FUNCTION_1_3(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_3(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x16u);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
 void OUTLINED_FUNCTION_3_2(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -4072,73 +3986,70 @@ void OUTLINED_FUNCTION_5_1(void *a1, uint64_t a2, os_log_t log, const char *a4, 
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0xEu);
 }
 
-void sub_1AC184180(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1AC184180(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void *__getBiomeLibraryAndInternalLibraryNodeSymbolLoc_block_invoke_1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v5[0] = 0;
+  v7 = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
   if (!BiomeStreamsLibraryCore_frameworkLibrary_1)
   {
-    v5[1] = MEMORY[0x1E69E9820];
-    v5[2] = 3221225472;
-    v5[3] = __BiomeStreamsLibraryCore_block_invoke_1;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_1E796B5D8;
-    v7 = 0;
+    v4[1] = MEMORY[0x1E69E9820];
+    v4[2] = 3221225472;
+    v4[3] = __BiomeStreamsLibraryCore_block_invoke_1;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_1E796B5D8;
+    v6 = 0;
     BiomeStreamsLibraryCore_frameworkLibrary_1 = _sl_dlopen();
   }
 
   v2 = BiomeStreamsLibraryCore_frameworkLibrary_1;
   if (!BiomeStreamsLibraryCore_frameworkLibrary_1)
   {
-    __getBiomeLibraryAndInternalLibraryNodeSymbolLoc_block_invoke_cold_1_0(v5);
+    __getBiomeLibraryAndInternalLibraryNodeSymbolLoc_block_invoke_cold_1_0(v4);
   }
 
-  if (v5[0])
+  if (v4[0])
   {
-    free(v5[0]);
+    free(v4[0]);
   }
 
   result = dlsym(v2, "BiomeLibraryAndInternalLibraryNode");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getBiomeLibraryAndInternalLibraryNodeSymbolLoc_ptr_1 = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __BiomeStreamsLibraryCore_block_invoke_1(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   BiomeStreamsLibraryCore_frameworkLibrary_1 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void OUTLINED_FUNCTION_2_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x1Cu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x1Cu);
 }
 
-void sub_1AC186F84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1AC186F84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va1, a10);
-  va_start(va, a10);
-  v11 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a17);
+  va_start(va, a17);
+  v18 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -4185,9 +4096,9 @@ id get_DKMachServiceName()
   return v2;
 }
 
-void sub_1AC187B2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AC187B2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4208,93 +4119,85 @@ void sub_1AC188414(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t CoreDuetLibrary()
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v3[0] = 0;
+  v5 = *MEMORY[0x1E69E9840];
+  v2[0] = 0;
   if (!CoreDuetLibraryCore_frameworkLibrary)
   {
-    v3[1] = MEMORY[0x1E69E9820];
-    v3[2] = 3221225472;
-    v3[3] = __CoreDuetLibraryCore_block_invoke;
-    v3[4] = &__block_descriptor_40_e5_v8__0l;
-    v3[5] = v3;
-    v4 = xmmword_1E796B7B8;
-    v5 = 0;
+    v2[1] = MEMORY[0x1E69E9820];
+    v2[2] = 3221225472;
+    v2[3] = __CoreDuetLibraryCore_block_invoke;
+    v2[4] = &__block_descriptor_40_e5_v8__0l;
+    v2[5] = v2;
+    v3 = xmmword_1E796B7B8;
+    v4 = 0;
     CoreDuetLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   v0 = CoreDuetLibraryCore_frameworkLibrary;
   if (!CoreDuetLibraryCore_frameworkLibrary)
   {
-    CoreDuetLibrary_cold_1(v3);
+    CoreDuetLibrary_cold_1(v2);
   }
 
-  if (v3[0])
+  if (v2[0])
   {
-    free(v3[0]);
+    free(v2[0]);
   }
 
-  v1 = *MEMORY[0x1E69E9840];
   return v0;
 }
 
 uint64_t __CoreDuetLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   CoreDuetLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void sub_1AC188944(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AC188944(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void *__getBiomeLibraryAndInternalLibraryNodeSymbolLoc_block_invoke_2(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v5[0] = 0;
+  v7 = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
   if (!BiomeStreamsLibraryCore_frameworkLibrary_2)
   {
-    v5[1] = MEMORY[0x1E69E9820];
-    v5[2] = 3221225472;
-    v5[3] = __BiomeStreamsLibraryCore_block_invoke_2;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_1E796B7D0;
-    v7 = 0;
+    v4[1] = MEMORY[0x1E69E9820];
+    v4[2] = 3221225472;
+    v4[3] = __BiomeStreamsLibraryCore_block_invoke_2;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_1E796B7D0;
+    v6 = 0;
     BiomeStreamsLibraryCore_frameworkLibrary_2 = _sl_dlopen();
   }
 
   v2 = BiomeStreamsLibraryCore_frameworkLibrary_2;
   if (!BiomeStreamsLibraryCore_frameworkLibrary_2)
   {
-    __getBiomeLibraryAndInternalLibraryNodeSymbolLoc_block_invoke_cold_1_1(v5);
+    __getBiomeLibraryAndInternalLibraryNodeSymbolLoc_block_invoke_cold_1_1(v4);
   }
 
-  if (v5[0])
+  if (v4[0])
   {
-    free(v5[0]);
+    free(v4[0]);
   }
 
   result = dlsym(v2, "BiomeLibraryAndInternalLibraryNode");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getBiomeLibraryAndInternalLibraryNodeSymbolLoc_ptr_2 = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __BiomeStreamsLibraryCore_block_invoke_2(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   BiomeStreamsLibraryCore_frameworkLibrary_2 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -4305,9 +4208,9 @@ void OUTLINED_FUNCTION_5_2(void *a1, uint64_t a2, os_log_t log, const char *a4, 
   _os_log_fault_impl(a1, log, OS_LOG_TYPE_FAULT, a4, va, 0x12u);
 }
 
-void sub_1AC18C724(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1AC18C724(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4542,24 +4445,22 @@ void __getCCSetConfigurationClass_block_invoke_cold_2(void *a1)
 
 void BMWritePropertyList_cold_1(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_1AC15D000, a2, OS_LOG_TYPE_ERROR, "Failed to write data to handle with error %@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_1AC15D000, a2, OS_LOG_TYPE_ERROR, "Failed to write data to handle with error %@", &v3, 0xCu);
 }
 
 void BMWritePropertyList_cold_2(uint64_t a1, unsigned __int8 *a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *a2;
-  v5 = 138412546;
-  v6 = a1;
-  v7 = 1024;
-  v8 = v3;
-  _os_log_error_impl(&dword_1AC15D000, log, OS_LOG_TYPE_ERROR, "Parent directory: %@ does not exist (isDirectory: %i)", &v5, 0x12u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412546;
+  v5 = a1;
+  v6 = 1024;
+  v7 = v3;
+  _os_log_error_impl(&dword_1AC15D000, log, OS_LOG_TYPE_ERROR, "Parent directory: %@ does not exist (isDirectory: %i)", &v4, 0x12u);
 }
 
 void BMServiceDomainForStream_cold_1()
@@ -4596,14 +4497,6 @@ void __getCCSetLibraryConfigurationRegistryClass_block_invoke_cold_2(void *a1)
   [v2 handleFailureInFunction:v3 file:@"BMServiceDomain.m" lineNumber:32 description:{@"%s", *a1}];
 
   __break(1u);
-}
-
-void BMSandboxCheck_cold_1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __getRBSProcessHandleClass_block_invoke_cold_1()
@@ -4669,28 +4562,23 @@ void bm_openat_dprotected_cold_1()
 
 void bm_openat_dprotected_cold_2()
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void bm_opendirat_cold_1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   v0 = __biome_log_for_category(2);
   if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_4_1();
-    _os_log_error_impl(v3, v4, v5, v6, v7, 8u);
+    _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
   }
 
   v1 = [MEMORY[0x1E696AD98] numberWithInt:22];
   OUTLINED_FUNCTION_6_0(v1);
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 void bm_opendirat_cold_2()
@@ -4744,49 +4632,42 @@ void bm_opendirat_cold_6()
 
 void bm_opendirat_cold_7()
 {
-  v8 = *MEMORY[0x1E69E9840];
   v0 = __biome_log_for_category(2);
   if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_4_1();
-    _os_log_error_impl(v3, v4, v5, v6, v7, 8u);
+    _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
   }
 
   v1 = [MEMORY[0x1E696AD98] numberWithInt:22];
   OUTLINED_FUNCTION_6_0(v1);
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 void bm_opendirat_cold_8(uint64_t a1, void *a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = [a2 componentsJoinedByString:{@", "}];
-  v7 = 138478083;
-  v8 = a1;
-  v9 = 2114;
-  v10 = v5;
-  _os_log_fault_impl(&dword_1AC15D000, a3, OS_LOG_TYPE_FAULT, "bm_opendirat(%{private}@) failed with sequence: %{public}@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 138478083;
+  v7 = a1;
+  v8 = 2114;
+  v9 = v5;
+  _os_log_fault_impl(&dword_1AC15D000, a3, OS_LOG_TYPE_FAULT, "bm_opendirat(%{private}@) failed with sequence: %{public}@", &v6, 0x16u);
 }
 
 void _bm_set_protection_class_cold_1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_1();
-  _os_log_fault_impl(&dword_1AC15D000, v0, OS_LOG_TYPE_FAULT, "fcntl(fd, F_GETPROTECTIONCLASS) failed: %{darwin.errno}d", v2, 8u);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1AC15D000, v0, OS_LOG_TYPE_FAULT, "fcntl(fd, F_GETPROTECTIONCLASS) failed: %{darwin.errno}d", v1, 8u);
 }
 
 void _bm_set_protection_class_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_1();
-  v4 = 1024;
-  v5 = v0;
-  _os_log_fault_impl(&dword_1AC15D000, v1, OS_LOG_TYPE_FAULT, "fcntl(fd, F_SETPROTECTIONCLASS, %d) failed: %{darwin.errno}d", v3, 0xEu);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 1024;
+  v4 = v0;
+  _os_log_fault_impl(&dword_1AC15D000, v1, OS_LOG_TYPE_FAULT, "fcntl(fd, F_SETPROTECTIONCLASS, %d) failed: %{darwin.errno}d", v2, 0xEu);
 }
 
 void bm_new_temporary_file_cold_1()
@@ -4798,20 +4679,16 @@ void bm_new_temporary_file_cold_1()
 
 void bm_new_temporary_file_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void bm_new_temporary_file_cold_3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void bm_new_temporary_file_cold_4()
@@ -4837,11 +4714,9 @@ void bm_new_temporary_file_cold_6()
 
 void bm_replace_file_cold_4()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void bm_replace_file_cold_5()
@@ -4853,57 +4728,45 @@ void bm_replace_file_cold_5()
 
 void bm_replace_file_cold_6()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void bm_replace_file_cold_7()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void bm_replace_file_cold_9()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void bm_replace_file_cold_10()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void bm_replace_file_cold_11()
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void bm_replace_file_cold_12()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void bm_replace_file_cold_14()

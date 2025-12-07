@@ -366,40 +366,40 @@
     {
       [(NSMutableDictionary *)supportedFrequencies objectForKeyedSubscript:frequencyCopy];
       __src = 0;
-      v58 = 0;
-      v59 = 0;
-      v53 = 0u;
-      v54 = 0u;
-      v55 = 0u;
-      obj = v56 = 0u;
-      v5 = [obj countByEnumeratingWithState:&v53 objects:v61 count:16];
+      v55 = 0;
+      v56 = 0;
+      v50 = 0u;
+      v51 = 0u;
+      v52 = 0u;
+      obj = v53 = 0u;
+      v5 = [obj countByEnumeratingWithState:&v50 objects:v58 count:16];
       if (v5)
       {
-        v6 = *v54;
+        v6 = *v51;
         do
         {
           for (i = 0; i != v5; i = i + 1)
           {
-            if (*v54 != v6)
+            if (*v51 != v6)
             {
               objc_enumerationMutation(obj);
             }
 
-            unsignedIntValue = [*(*(&v53 + 1) + 8 * i) unsignedIntValue];
-            v9 = v58;
-            if (v58 >= v59)
+            unsignedIntValue = [*(*(&v50 + 1) + 8 * i) unsignedIntValue];
+            v9 = v55;
+            if (v55 >= v56)
             {
               v11 = __src;
-              v12 = v58 - __src;
-              v13 = (v58 - __src) >> 2;
+              v12 = v55 - __src;
+              v13 = (v55 - __src) >> 2;
               v14 = v13 + 1;
               if ((v13 + 1) >> 62)
               {
                 sub_1000092A8();
               }
 
-              v15 = v59 - __src;
-              if ((v59 - __src) >> 1 > v14)
+              v15 = v56 - __src;
+              if ((v56 - __src) >> 1 > v14)
               {
                 v14 = v15 >> 1;
               }
@@ -424,8 +424,8 @@
               memcpy(0, v11, v12);
               v17 = __src;
               __src = 0;
-              v58 = v10;
-              v59 = 0;
+              v55 = v10;
+              v56 = 0;
               if (v17)
               {
                 operator delete(v17);
@@ -434,34 +434,29 @@
 
             else
             {
-              *v58 = unsignedIntValue;
+              *v55 = unsignedIntValue;
               v10 = (v9 + 4);
             }
 
-            v58 = v10;
+            v55 = v10;
           }
 
-          v5 = [obj countByEnumeratingWithState:&v53 objects:v61 count:16];
+          v5 = [obj countByEnumeratingWithState:&v50 objects:v58 count:16];
         }
 
         while (v5);
       }
 
       std::__sort<std::__less<unsigned int,unsigned int> &,unsigned int *>();
-      v52[0] = 0;
-      v52[1] = 0;
-      v51 = v52;
-      v47 = 0u;
-      v48 = 0u;
-      v49 = 0u;
-      v50 = 0u;
+      v49[0] = 0;
+      v49[1] = 0;
+      v48 = v49;
+      memset(v47, 0, sizeof(v47));
       v44 = selfCopy->_consumersForFrequency;
-      if ([(NSMutableDictionary *)v44 countByEnumeratingWithState:&v47 objects:v60 count:16])
+      if ([(NSMutableDictionary *)v44 countByEnumeratingWithState:v47 objects:v57 count:16])
       {
-        *v48;
-        *v48;
-        v18 = **(&v47 + 1);
-        name = [**(&v47 + 1) name];
+        v18 = **(&v47[0] + 1);
+        name = [**(&v47[0] + 1) name];
         v20 = name;
         uTF8String = [name UTF8String];
         [(NSMutableDictionary *)selfCopy->_consumersForFrequency objectForKeyedSubscript:v18];
@@ -479,8 +474,8 @@
             }
 
             __dst[v24] = 0;
-            v63 = unsignedIntValue2;
-            sub_10000936C();
+            v60 = unsignedIntValue2;
+            sub_10000936C(&v48);
           }
 
           operator new();
@@ -489,11 +484,11 @@
         sub_10000235C();
       }
 
-      v25 = v51;
-      v26 = *(v51 + 14);
-      if (v51 == v52)
+      v25 = v48;
+      v26 = *(v48 + 14);
+      if (v48 == v49)
       {
-        LODWORD(v27) = *(v51 + 14);
+        LODWORD(v27) = *(v48 + 14);
       }
 
       else
@@ -513,7 +508,7 @@
 
           v27 = 0;
           v28 = *(v25 + 14);
-          v63 = v28;
+          v60 = v28;
           if (v26 && v28)
           {
             v27 = v26 / sub_100009770(v26, v28) * v28;
@@ -552,13 +547,13 @@
           v25 = v30;
         }
 
-        while (v30 != v52);
+        while (v30 != v49);
       }
 
       v33 = __src;
-      if (v58 != __src)
+      if (v55 != __src)
       {
-        v34 = (v58 - __src) >> 2;
+        v34 = (v55 - __src) >> 2;
         do
         {
           v35 = v34 >> 1;
@@ -578,7 +573,7 @@
         }
 
         while (v34);
-        while (v33 != v58)
+        while (v33 != v55)
         {
           if (*v33 == v27)
           {
@@ -606,15 +601,15 @@ LABEL_65:
         *&__dst[4] = resourceName;
         *&__dst[12] = 2112;
         *&__dst[14] = consumersForFrequency;
-        _os_log_unreliable_impl();
+        _os_log_unreliable_impl(&_mh_execute_header, v39, 0, "Could not find a stride for resource %@ with consumers %@", __dst, 22);
       }
 
       v32 = 0;
 LABEL_66:
-      sub_100009308(&v51, v52[0]);
+      sub_100009308(&v48, v49[0]);
       if (__src)
       {
-        v58 = __src;
+        v55 = __src;
         operator delete(__src);
       }
     }

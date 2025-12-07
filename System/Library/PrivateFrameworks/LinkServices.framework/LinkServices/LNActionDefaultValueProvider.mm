@@ -43,7 +43,7 @@
 
 - (id)_loadActionMetadataWithProvider:(char)provider retry:(void *)retry error:
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   v7 = a2;
   if (self)
   {
@@ -51,9 +51,9 @@
     bundleIdentifier = [actionIdentifier bundleIdentifier];
     actionIdentifier2 = [self actionIdentifier];
     v10ActionIdentifier = [actionIdentifier2 actionIdentifier];
-    v41 = 0;
-    v12 = [v7 actionForBundleIdentifier:bundleIdentifier andActionIdentifier:v10ActionIdentifier error:&v41];
-    v13 = v41;
+    v40 = 0;
+    v12 = [v7 actionForBundleIdentifier:bundleIdentifier andActionIdentifier:v10ActionIdentifier error:&v40];
+    v13 = v40;
 
     if (v12)
     {
@@ -71,9 +71,9 @@ LABEL_30:
       {
         actionIdentifier3 = [self actionIdentifier];
         *buf = 138543618;
-        v43 = actionIdentifier3;
-        v44 = 2114;
-        v45 = v13;
+        v42 = actionIdentifier3;
+        v43 = 2114;
+        v44 = v13;
         _os_log_impl(&dword_19763D000, v20, OS_LOG_TYPE_ERROR, "Failed to find metadata for actionIdentifier %{public}@: %{public}@", buf, 0x16u);
       }
 
@@ -101,9 +101,9 @@ LABEL_30:
       goto LABEL_29;
     }
 
-    v40 = v13;
-    v15 = [v7 bundlesWithError:&v40];
-    v16 = v40;
+    v39 = v13;
+    v15 = [v7 bundlesWithError:&v39];
+    v16 = v39;
 
     actionIdentifier4 = [self actionIdentifier];
     bundleIdentifier2 = [actionIdentifier4 bundleIdentifier];
@@ -122,15 +122,15 @@ LABEL_30:
         actionIdentifier5 = [self actionIdentifier];
         bundleIdentifier3 = [actionIdentifier5 bundleIdentifier];
         *buf = 138543362;
-        v43 = bundleIdentifier3;
+        v42 = bundleIdentifier3;
         _os_log_impl(&dword_19763D000, v23, OS_LOG_TYPE_INFO, "Forcing registration of %{public}@", buf, 0xCu);
       }
 
       actionIdentifier6 = [self actionIdentifier];
       bundleIdentifier4 = [actionIdentifier6 bundleIdentifier];
-      v39 = v16;
-      [v7 registerBundleWithIdentifier:bundleIdentifier4 error:&v39];
-      v13 = v39;
+      v38 = v16;
+      [v7 registerBundleWithIdentifier:bundleIdentifier4 error:&v38];
+      v13 = v38;
 
       v28 = getLNLogCategoryMetadata();
       v29 = v28;
@@ -141,9 +141,9 @@ LABEL_30:
           actionIdentifier7 = [self actionIdentifier];
           bundleIdentifier5 = [actionIdentifier7 bundleIdentifier];
           *buf = 138543618;
-          v43 = bundleIdentifier5;
-          v44 = 2114;
-          v45 = v13;
+          v42 = bundleIdentifier5;
+          v43 = 2114;
+          v44 = v13;
           _os_log_impl(&dword_19763D000, v29, OS_LOG_TYPE_ERROR, "Failed to register %{public}@: %{public}@", buf, 0x16u);
         }
 
@@ -167,7 +167,7 @@ LABEL_30:
         actionIdentifier8 = [self actionIdentifier];
         bundleIdentifier6 = [actionIdentifier8 bundleIdentifier];
         *buf = 138543362;
-        v43 = bundleIdentifier6;
+        v42 = bundleIdentifier6;
         _os_log_impl(&dword_19763D000, v29, OS_LOG_TYPE_DEFAULT, "Forced registration completed for %{public}@, retry metadata fetch", buf, 0xCu);
       }
 
@@ -179,7 +179,7 @@ LABEL_30:
     {
       actionIdentifier9 = [self actionIdentifier];
       *buf = 138543362;
-      v43 = actionIdentifier9;
+      v42 = actionIdentifier9;
       _os_log_impl(&dword_19763D000, v35, OS_LOG_TYPE_DEFAULT, "Retrying metadata fetch for actionIdentifier %{public}@", buf, 0xCu);
     }
 
@@ -191,8 +191,6 @@ LABEL_29:
   }
 
 LABEL_31:
-
-  v37 = *MEMORY[0x1E69E9840];
 
   return self;
 }

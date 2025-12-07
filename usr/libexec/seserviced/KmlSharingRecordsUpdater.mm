@@ -22,7 +22,7 @@
     invitationIdToConfigMap = v7->_invitationIdToConfigMap;
     v7->_invitationIdToConfigMap = v11;
 
-    v13 = sub_100394A94();
+    v13 = sub_100394A94(KmlSharingRecordsUpdater);
     updaterQueue = v7->_updaterQueue;
     v7->_updaterQueue = v13;
 

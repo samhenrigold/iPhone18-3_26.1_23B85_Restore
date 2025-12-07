@@ -26,7 +26,7 @@
 - (void)viewDidLoad
 {
   ObjectType = swift_getObjectType();
-  sub_1005A4570(&qword_10098D1A8);
+  sub_1005A4570(&qword_10098D1A8, &unk_1007D6778);
   selfCopy = self;
   DynamicViewControllerDisplaying.injectFieldsIntoMetricsOverlay()();
   v5.receiver = selfCopy;

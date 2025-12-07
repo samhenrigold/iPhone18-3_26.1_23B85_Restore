@@ -1105,9 +1105,9 @@ LABEL_9:
     v19 = v18;
     v21 = v20;
     v9 = 0;
-    if (!viewIfLoaded || ([viewIfLoaded frame], v23.x = v15, v23.y = v17, !CGRectContainsPoint(v25, v23)))
+    if (!viewIfLoaded || (objc_msgSend_frame(viewIfLoaded), v23.x = v15, v23.y = v17, !CGRectContainsPoint(v25, v23)))
     {
-      if (!viewIfLoaded2 || ([viewIfLoaded2 frame], v24.x = v19, v24.y = v21, !CGRectContainsPoint(v26, v24)))
+      if (!viewIfLoaded2 || (objc_msgSend_frame(viewIfLoaded2), v24.x = v19, v24.y = v21, !CGRectContainsPoint(v26, v24)))
       {
         v9 = 1;
       }

@@ -53,13 +53,13 @@
 {
   mach_continuous_time();
   BSTimeDifferenceFromMachTimeToMachTime();
-  v3 = v2;
+  v6 = v5;
   BSTimeDifferenceFromMachTimeToMachTime();
-  v5 = v4;
-  v6 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:v3];
-  v7 = [self initWithStartDate:v6 duration:v5];
+  v8 = v7;
+  v9 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:v6];
+  v10 = [self initWithStartDate:v9 duration:v8];
 
-  return v7;
+  return v10;
 }
 
 - (BOOL)bls_containsDate:()BacklightServices withEpsilon:outDelta:

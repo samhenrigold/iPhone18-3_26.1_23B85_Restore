@@ -58,6 +58,7 @@
 
 - (void)hideTipWithAnimated:(BOOL)animated completion:(id)completion
 {
+  animatedCopy = animated;
   v6 = _Block_copy(completion);
   if (v6)
   {
@@ -72,8 +73,8 @@
   }
 
   selfCopy = self;
-  TipsManager.hideTip(animated:completion:)(animated, v6, v7);
-  outlined consume of (@escaping @callee_guaranteed () -> ())?(v6);
+  TipsManager.hideTip(animated:completion:)(animatedCopy, v6, v7);
+  outlined consume of (@escaping @callee_guaranteed () -> ())?(v6, v7);
 }
 
 - (void)dealloc
@@ -84,8 +85,6 @@
     selfCopy = self;
 
     Task.cancel()();
-
-    v5 = *(&self->super.isa + v3);
   }
 
   else
@@ -95,9 +94,9 @@
 
   *(&self->super.isa + v3) = 0;
 
-  v7.receiver = self;
-  v7.super_class = type metadata accessor for TipsManager();
-  [(TipsManager *)&v7 dealloc];
+  v6.receiver = self;
+  v6.super_class = type metadata accessor for TipsManager();
+  [(TipsManager *)&v6 dealloc];
 }
 
 - (_TtC17TVRemoteUIService11TipsManager)init

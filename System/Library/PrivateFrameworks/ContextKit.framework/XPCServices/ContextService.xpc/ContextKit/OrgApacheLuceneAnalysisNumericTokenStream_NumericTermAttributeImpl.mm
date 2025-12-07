@@ -57,7 +57,7 @@
     JreThrowNullPointerException();
   }
 
-  [reflector reflectWithIOSClass:OrgApacheLuceneAnalysisTokenattributesTermToBytesRefAttribute_class_() withNSString:@"bytes" withId:{-[OrgApacheLuceneAnalysisNumericTokenStream_NumericTermAttributeImpl getBytesRef](self, "getBytesRef")}];
+  [reflector reflectWithIOSClass:OrgApacheLuceneAnalysisTokenattributesTermToBytesRefAttribute_class_(self withNSString:a2) withId:{@"bytes", -[OrgApacheLuceneAnalysisNumericTokenStream_NumericTermAttributeImpl getBytesRef](self, "getBytesRef")}];
   if (qword_100553FE8 != -1)
   {
     sub_100049140();
@@ -69,16 +69,18 @@
     sub_100049140();
   }
 
-  [reflector reflectWithIOSClass:qword_100553FE0 withNSString:@"rawValue" withId:{JavaLangLong_valueOfWithLong_(-[OrgApacheLuceneAnalysisNumericTokenStream_NumericTermAttributeImpl getRawValue](self, "getRawValue"))}];
+  v5 = qword_100553FE0;
+  getRawValue = [(OrgApacheLuceneAnalysisNumericTokenStream_NumericTermAttributeImpl *)self getRawValue];
+  [reflector reflectWithIOSClass:v5 withNSString:@"rawValue" withId:{JavaLangLong_valueOfWithLong_(getRawValue, v7)}];
   if (qword_100553FE8 != -1)
   {
     sub_100049140();
   }
 
-  v5 = qword_100553FE0;
-  v6 = JavaLangInteger_valueOfWithInt_(self->valueSize_);
+  v8 = qword_100553FE0;
+  v9 = JavaLangInteger_valueOfWithInt_(self->valueSize_);
 
-  [reflector reflectWithIOSClass:v5 withNSString:@"valueSize" withId:v6];
+  [reflector reflectWithIOSClass:v8 withNSString:@"valueSize" withId:v9];
 }
 
 - (void)copyToWithOrgApacheLuceneUtilAttributeImpl:(id)impl
@@ -138,12 +140,12 @@ LABEL_3:
 
 - (unint64_t)hash
 {
-  v5[0] = JavaLangInteger_valueOfWithInt_(self->precisionStep_);
-  v5[1] = JavaLangInteger_valueOfWithInt_(self->shift_);
-  v5[2] = JavaLangLong_valueOfWithLong_(self->value_);
-  v5[3] = JavaLangInteger_valueOfWithInt_(self->valueSize_);
-  v3 = [IOSObjectArray arrayWithObjects:v5 count:4 type:NSObject_class_()];
-  return OrgLukhnosPortmobileUtilObjects_hash__WithNSObjectArray_(v3);
+  v8[0] = JavaLangInteger_valueOfWithInt_(self->precisionStep_);
+  v8[1] = JavaLangInteger_valueOfWithInt_(self->shift_);
+  v8[2] = JavaLangLong_valueOfWithLong_(self->value_, v3);
+  v9 = JavaLangInteger_valueOfWithInt_(self->valueSize_);
+  v5 = [IOSObjectArray arrayWithObjects:v8 count:4 type:NSObject_class_(v9, v4)];
+  return OrgLukhnosPortmobileUtilObjects_hash__WithNSObjectArray_(v5, v6);
 }
 
 - (BOOL)isEqual:(id)equal

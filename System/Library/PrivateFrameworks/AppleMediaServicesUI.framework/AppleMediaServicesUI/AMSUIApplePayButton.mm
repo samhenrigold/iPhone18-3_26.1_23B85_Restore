@@ -13,7 +13,7 @@
   v4 = [(AMSUIApplePayButton *)&v7 init];
   if (v4)
   {
-    v5 = [objc_alloc(getPKPaymentButtonClass[0]()) initWithPaymentButtonType:type paymentButtonStyle:3];
+    v5 = [objc_alloc(getPKPaymentButtonClass()) initWithPaymentButtonType:type paymentButtonStyle:3];
     [v5 sizeToFit];
     [v5 setAutoresizingMask:18];
     [(AMSUIApplePayButton *)v4 setButton:v5];

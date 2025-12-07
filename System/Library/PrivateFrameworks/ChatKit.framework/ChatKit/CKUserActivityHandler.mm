@@ -162,7 +162,7 @@
 
 + (void)messagesScene:(id)scene continueUserActivity:(id)activity withNavigationProvider:(id)provider chatController:(id)controller completion:(id)completion
 {
-  v78 = *MEMORY[0x1E69E9840];
+  v91 = *MEMORY[0x1E69E9840];
   sceneCopy = scene;
   activityCopy = activity;
   providerCopy = provider;
@@ -174,7 +174,7 @@
     if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v77 = "+[CKUserActivityHandler messagesScene:continueUserActivity:withNavigationProvider:chatController:completion:]";
+      v90 = "+[CKUserActivityHandler messagesScene:continueUserActivity:withNavigationProvider:chatController:completion:]";
       _os_log_impl(&dword_19020E000, v15, OS_LOG_TYPE_INFO, "%s", buf, 0xCu);
     }
   }
@@ -211,18 +211,18 @@ LABEL_38:
     {
       if (IMOSLoggingEnabled())
       {
-        v53 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
+        v59 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v59, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_19020E000, v53, OS_LOG_TYPE_INFO, "Handling iMessage App Store link", buf, 2u);
+          _os_log_impl(&dword_19020E000, v59, OS_LOG_TYPE_INFO, "Handling iMessage App Store link", buf, 2u);
         }
       }
 
-      v54 = objc_opt_class();
+      v60 = objc_opt_class();
       _sourceApplication = [activityCopy _sourceApplication];
       _originatingProcess = [activityCopy _originatingProcess];
-      [v54 openURL:webpageURL animate:activationState == 0 sourceApplication:_sourceApplication originatingProcess:_originatingProcess navigationProvider:providerCopy chatController:controllerCopy completion:completionCopy];
+      [v60 openURL:webpageURL animate:activationState == 0 sourceApplication:_sourceApplication originatingProcess:_originatingProcess navigationProvider:providerCopy chatController:controllerCopy completion:completionCopy];
       goto LABEL_38;
     }
 
@@ -263,11 +263,11 @@ LABEL_7:
     if (messagesScene_continueUserActivity_withNavigationProvider_chatController_completion___kCSSearchableItemActivityIdentifier)
     {
       userInfo2 = [activityCopy userInfo];
-      v68 = [userInfo2 objectForKey:messagesScene_continueUserActivity_withNavigationProvider_chatController_completion___kCSSearchableItemActivityIdentifier];
+      v81 = [userInfo2 objectForKey:messagesScene_continueUserActivity_withNavigationProvider_chatController_completion___kCSSearchableItemActivityIdentifier];
 
-      if (v68)
+      if (v81)
       {
-        v30 = v68;
+        v30 = v81;
         if ([v30 hasPrefix:@"at_"])
         {
           v31 = [v30 componentsSeparatedByString:@"_"];
@@ -280,20 +280,20 @@ LABEL_7:
         aBlock[1] = 3221225472;
         aBlock[2] = __109__CKUserActivityHandler_messagesScene_continueUserActivity_withNavigationProvider_chatController_completion___block_invoke_2;
         aBlock[3] = &unk_1E72EFA48;
-        v75 = providerCopy;
+        v88 = providerCopy;
         v33 = _Block_copy(aBlock);
         mEMORY[0x1E69A5AE8] = [MEMORY[0x1E69A5AE8] sharedInstance];
-        v71[0] = MEMORY[0x1E69E9820];
-        v71[1] = 3221225472;
-        v71[2] = __109__CKUserActivityHandler_messagesScene_continueUserActivity_withNavigationProvider_chatController_completion___block_invoke_3;
-        v71[3] = &unk_1E72F6660;
-        v72 = v30;
-        v73 = v33;
+        v84[0] = MEMORY[0x1E69E9820];
+        v84[1] = 3221225472;
+        v84[2] = __109__CKUserActivityHandler_messagesScene_continueUserActivity_withNavigationProvider_chatController_completion___block_invoke_3;
+        v84[3] = &unk_1E72F6660;
+        v85 = v30;
+        v86 = v33;
         activityType5 = v30;
         v36 = v33;
-        [mEMORY[0x1E69A5AE8] loadMessageWithGUID:activityType5 completionBlock:v71];
+        [mEMORY[0x1E69A5AE8] loadMessageWithGUID:activityType5 completionBlock:v84];
 
-        v37 = v75;
+        v37 = v88;
 LABEL_19:
 
         goto LABEL_62;
@@ -338,7 +338,7 @@ LABEL_19:
 
       if (os_log_shim_legacy_logging_enabled() && _CKShouldLogExternal())
       {
-        _CKLogExternal();
+        _CKLogExternal(0x21u, @"Couldn't find CoreSpotlight symbols", v53, v54, v55, v56, v57, v58, v80);
       }
     }
 
@@ -358,9 +358,9 @@ LABEL_19:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v66 = intent;
-        mEMORY[0x1E69A5AF8] = [v66 payee];
-        currencyAmount = [v66 currencyAmount];
+        v78 = intent;
+        mEMORY[0x1E69A5AF8] = [v78 payee];
+        currencyAmount = [v78 currencyAmount];
 
         [objc_opt_class() _showPeerPaymentUIForPerson:mEMORY[0x1E69A5AF8] amount:currencyAmount navigationProvider:providerCopy chatController:controllerCopy];
       }
@@ -375,9 +375,9 @@ LABEL_61:
           goto LABEL_62;
         }
 
-        v67 = intent;
-        mEMORY[0x1E69A5AF8] = [v67 payer];
-        currencyAmount = [v67 currencyAmount];
+        v79 = intent;
+        mEMORY[0x1E69A5AF8] = [v79 payer];
+        currencyAmount = [v79 currencyAmount];
 
         [objc_opt_class() _showPeerPaymentUIForPerson:mEMORY[0x1E69A5AF8] amount:currencyAmount navigationProvider:providerCopy chatController:controllerCopy];
       }
@@ -409,17 +409,17 @@ LABEL_61:
     if (IMOSLoggingEnabled())
     {
       CKLogCStringForType(33);
-      v60 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v60, OS_LOG_TYPE_INFO))
+      v66 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v66, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_19020E000, v60, OS_LOG_TYPE_INFO, "Failed to unarchive activity.", buf, 2u);
+        _os_log_impl(&dword_19020E000, v66, OS_LOG_TYPE_INFO, "Failed to unarchive activity.", buf, 2u);
       }
     }
 
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLogExternal())
     {
-      _CKLogExternal();
+      _CKLogExternal(0x21u, @"Failed to unarchive activity.", v67, v68, v69, v70, v71, v72, v80);
     }
   }
 
@@ -547,22 +547,22 @@ void __109__CKUserActivityHandler_messagesScene_continueUserActivity_withNavigat
   return v9 != 0;
 }
 
-void __77__CKUserActivityHandler_restoreStateFromUserActivity_withNavigationProvider___block_invoke(uint64_t a1)
+void __77__CKUserActivityHandler_restoreStateFromUserActivity_withNavigationProvider___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (IMOSLoggingEnabled())
   {
-    v2 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_19020E000, v2, OS_LOG_TYPE_INFO, "Messages controller deferredHandleURLBlock called, restoring state", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_19020E000, v3, OS_LOG_TYPE_INFO, "Messages controller deferredHandleURLBlock called, restoring state", v7, 2u);
     }
   }
 
-  v3 = objc_opt_class();
-  v4 = *(a1 + 32);
+  v4 = objc_opt_class();
+  v5 = *(a1 + 32);
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  [v3 restoreState:v4 navigationProvider:WeakRetained];
+  [v4 restoreState:v5 navigationProvider:WeakRetained];
 }
 
 + (BOOL)restoreState:(id)state navigationProvider:(id)provider
@@ -1176,15 +1176,15 @@ LABEL_11:
   }
 }
 
-void __117__CKUserActivityHandler_sendBackgroundCollaborationForUserActivity_withNavigationProvider_chatController_completion___block_invoke()
+void __117__CKUserActivityHandler_sendBackgroundCollaborationForUserActivity_withNavigationProvider_chatController_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (IMOSLoggingEnabled())
   {
-    v0 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+    v2 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
     {
-      *v1 = 0;
-      _os_log_impl(&dword_19020E000, v0, OS_LOG_TYPE_INFO, "Background task expired for sending a background collaboration", v1, 2u);
+      *v3 = 0;
+      _os_log_impl(&dword_19020E000, v2, OS_LOG_TYPE_INFO, "Background task expired for sending a background collaboration", v3, 2u);
     }
   }
 }
@@ -1380,7 +1380,7 @@ void __117__CKUserActivityHandler_sendBackgroundCollaborationForUserActivity_wit
     v29 = summary;
     if (!summary)
     {
-      v4 = CKFrameworkBundle();
+      v4 = CKFrameworkBundle(0);
       v29 = [v4 localizedStringForKey:@"DEFAULT_COLLABORATION_OPTIONS_SUMMARY" value:&stru_1F04268F8 table:@"ChatKit"];
     }
 

@@ -7,17 +7,17 @@
 
 + (id)allReps
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   _pathsContainingPossiblePluginDirectory = [self _pathsContainingPossiblePluginDirectory];
-  v39 = 0u;
-  v40 = 0u;
-  v41 = 0u;
-  v42 = 0u;
-  v3 = [_pathsContainingPossiblePluginDirectory countByEnumeratingWithState:&v39 objects:v45 count:16];
+  v43 = 0u;
+  v44 = 0u;
+  v45 = 0u;
+  v46 = 0u;
+  v3 = [_pathsContainingPossiblePluginDirectory countByEnumeratingWithState:&v43 objects:v49 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v40;
+    v5 = *v44;
     v6 = MEMORY[0x277CBEBF8];
     do
     {
@@ -25,12 +25,12 @@
       v8 = v6;
       do
       {
-        if (*v40 != v5)
+        if (*v44 != v5)
         {
           objc_enumerationMutation(_pathsContainingPossiblePluginDirectory);
         }
 
-        v9 = [*(*(&v39 + 1) + 8 * v7) stringByAppendingPathComponent:@"DataClassMigrators"];
+        v9 = [*(*(&v43 + 1) + 8 * v7) stringByAppendingPathComponent:@"DataClassMigrators"];
         v6 = [v8 arrayByAddingObject:v9];
 
         ++v7;
@@ -38,7 +38,7 @@
       }
 
       while (v4 != v7);
-      v4 = [_pathsContainingPossiblePluginDirectory countByEnumeratingWithState:&v39 objects:v45 count:16];
+      v4 = [_pathsContainingPossiblePluginDirectory countByEnumeratingWithState:&v43 objects:v49 count:16];
     }
 
     while (v4);
@@ -49,75 +49,73 @@
     v6 = MEMORY[0x277CBEBF8];
   }
 
-  v25 = _pathsContainingPossiblePluginDirectory;
+  v29 = _pathsContainingPossiblePluginDirectory;
   v10 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v35 = 0u;
-  v36 = 0u;
-  v37 = 0u;
-  v38 = 0u;
+  v39 = 0u;
+  v40 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   obj = v6;
-  v29 = [obj countByEnumeratingWithState:&v35 objects:v44 count:16];
-  if (v29)
+  v33 = [obj countByEnumeratingWithState:&v39 objects:v48 count:16];
+  if (v33)
   {
-    v27 = *v36;
+    v31 = *v40;
     do
     {
-      for (i = 0; i != v29; ++i)
+      for (i = 0; i != v33; ++i)
       {
-        if (*v36 != v27)
+        if (*v40 != v31)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v35 + 1) + 8 * i);
+        v12 = *(*(&v39 + 1) + 8 * i);
         defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-        v34 = 0;
-        v14 = [defaultManager contentsOfDirectoryAtPath:v12 error:&v34];
-        v15 = v34;
+        v38 = 0;
+        v14 = [defaultManager contentsOfDirectoryAtPath:v12 error:&v38];
+        v15 = v38;
 
-        v24 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v14, "count")}];
-        _DMLogFunc(v28, 7, @"Found %@ items in migration plugin directory %@. Error: %@");
+        v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v14, "count")}];
+        _DMLogFunc(v32, 7, @"Found %@ items in migration plugin directory %@. Error: %@", v17, v18, v19, v20, v21, v16);
 
-        v32 = 0u;
-        v33 = 0u;
-        v30 = 0u;
-        v31 = 0u;
-        v16 = v14;
-        v17 = [v16 countByEnumeratingWithState:&v30 objects:v43 count:{16, v24, v12, v15, v25}];
-        if (v17)
+        v36 = 0u;
+        v37 = 0u;
+        v34 = 0u;
+        v35 = 0u;
+        v22 = v14;
+        v23 = [v22 countByEnumeratingWithState:&v34 objects:v47 count:16];
+        if (v23)
         {
-          v18 = v17;
-          v19 = *v31;
+          v24 = v23;
+          v25 = *v35;
           do
           {
-            for (j = 0; j != v18; ++j)
+            for (j = 0; j != v24; ++j)
             {
-              if (*v31 != v19)
+              if (*v35 != v25)
               {
-                objc_enumerationMutation(v16);
+                objc_enumerationMutation(v22);
               }
 
-              v21 = [[DMPluginFileSystemRep alloc] initWithName:*(*(&v30 + 1) + 8 * j) atEnclosingPath:v12];
-              if (v21)
+              v27 = [[DMPluginFileSystemRep alloc] initWithName:*(*(&v34 + 1) + 8 * j) atEnclosingPath:v12];
+              if (v27)
               {
-                [v10 addObject:v21];
+                [v10 addObject:v27];
               }
             }
 
-            v18 = [v16 countByEnumeratingWithState:&v30 objects:v43 count:16];
+            v24 = [v22 countByEnumeratingWithState:&v34 objects:v47 count:16];
           }
 
-          while (v18);
+          while (v24);
         }
       }
 
-      v29 = [obj countByEnumeratingWithState:&v35 objects:v44 count:16];
+      v33 = [obj countByEnumeratingWithState:&v39 objects:v48 count:16];
     }
 
-    while (v29);
+    while (v33);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

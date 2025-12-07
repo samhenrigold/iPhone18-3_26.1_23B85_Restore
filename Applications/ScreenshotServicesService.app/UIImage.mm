@@ -36,7 +36,7 @@
     v41 = 0u;
     if (modelModificationInfo)
     {
-      [modelModificationInfo cropInfo];
+      objc_msgSend_cropInfo(modelModificationInfo);
     }
 
     [v18 vellumOpacity];
@@ -92,40 +92,49 @@
 
   if (propertiesCopy)
   {
-    static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
+    v19 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
 
-    if (!descriptionCopy)
+    if (descriptionCopy)
     {
-      goto LABEL_5;
-    }
-
-    goto LABEL_3;
-  }
-
-  if (descriptionCopy)
-  {
 LABEL_3:
-    static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v20 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v22 = v21;
+
+      goto LABEL_6;
+    }
   }
 
-LABEL_5:
-  v19 = sub_1000702D8();
-  v21 = v20;
-
-  (*(v13 + 8))(v15, v12);
-  if (v21 >> 60 == 15)
+  else
   {
-    v22 = 0;
+    v19 = 0;
+    if (descriptionCopy)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  v20 = 0;
+  v22 = 0;
+LABEL_6:
+  v23 = sub_1000702D8(v15, image, hdrImage, v19, v20, v22);
+  v25 = v24;
+
+  v22, v26, v27, v28, v29, v30, v31, v32;
+  v19, v33, v34, v35, v36, v37, v38, v39;
+  (*(v13 + 8))(v15, v12);
+  if (v25 >> 60 == 15)
+  {
+    v40 = 0;
   }
 
   else
   {
     isa = Data._bridgeToObjectiveC()().super.isa;
-    sub_100057E78(v19, v21);
-    v22 = isa;
+    sub_100057E78(v23, v25);
+    v40 = isa;
   }
 
-  return v22;
+  return v40;
 }
 
 - (id)ss_ppkHeicDataWithProperties:(id)properties
@@ -141,22 +150,23 @@ LABEL_5:
   }
 
   selfCopy = self;
-  v6 = sub_100069594(v4);
-  v8 = v7;
+  v7 = sub_100069594(v4, v6);
+  v9 = v8;
 
-  if (v8 >> 60 == 15)
+  v4, v10, v11, v12, v13, v14, v15, v16;
+  if (v9 >> 60 == 15)
   {
-    v9 = 0;
+    v17 = 0;
   }
 
   else
   {
     isa = Data._bridgeToObjectiveC()().super.isa;
-    sub_100057E78(v6, v8);
-    v9 = isa;
+    sub_100057E78(v7, v9);
+    v17 = isa;
   }
 
-  return v9;
+  return v17;
 }
 
 @end

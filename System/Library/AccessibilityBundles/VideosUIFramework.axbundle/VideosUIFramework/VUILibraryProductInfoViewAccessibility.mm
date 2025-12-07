@@ -39,71 +39,69 @@ BOOL __71__VUILibraryProductInfoViewAccessibility__accessibilityGetInfoSections_
 
 - (id)accessibilityElements
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   _accessibilityGetInfoSections = [(VUILibraryProductInfoViewAccessibility *)self _accessibilityGetInfoSections];
   array = [MEMORY[0x29EDB8DE8] array];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v4 = _accessibilityGetInfoSections;
-  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
-        v10 = [v9 safeValueForKey:{@"headerContentView", v14}];
+        v9 = *(*(&v13 + 1) + 8 * i);
+        v10 = [v9 safeValueForKey:{@"headerContentView", v13}];
         [array axSafelyAddObject:v10];
 
         v11 = [v9 safeValueForKey:@"dataViews"];
         [array axSafelyAddObjectsFromArray:v11];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
-
-  v12 = *MEMORY[0x29EDCA608];
 
   return array;
 }
 
 - (void)_accessibilityMarkHeaders
 {
-  v17 = *MEMORY[0x29EDCA608];
+  v16 = *MEMORY[0x29EDCA608];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   _accessibilityGetInfoSections = [(VUILibraryProductInfoViewAccessibility *)self _accessibilityGetInfoSections];
-  v3 = [_accessibilityGetInfoSections countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [_accessibilityGetInfoSections countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v12;
     v6 = *MEMORY[0x29EDC7F80];
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(_accessibilityGetInfoSections);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
+        v8 = *(*(&v11 + 1) + 8 * i);
         objc_opt_class();
         v9 = [v8 safeValueForKey:@"headerContentView"];
         v10 = __UIAccessibilityCastAsClass();
@@ -111,13 +109,11 @@ BOOL __71__VUILibraryProductInfoViewAccessibility__accessibilityGetInfoSections_
         [v10 setAccessibilityTraits:{v6 | objc_msgSend(v10, "accessibilityTraits")}];
       }
 
-      v4 = [_accessibilityGetInfoSections countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [_accessibilityGetInfoSections countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v4);
   }
-
-  v11 = *MEMORY[0x29EDCA608];
 }
 
 - (void)_accessibilityLoadAccessibilityInformation

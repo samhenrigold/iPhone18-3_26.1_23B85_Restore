@@ -20,7 +20,7 @@
 
 - (void)_queue_initializeIfNotInitialized
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = [(PSYInitialSyncStateObserver *)self syncProviderWithErrorHandler:0];
   [v3 registerSyncStateObserverIfNeeded];
 
@@ -29,50 +29,50 @@
     v4 = +[PSYRegistrySingleton registry];
     getAllDevices = [v4 getAllDevices];
 
-    v19 = 0;
-    v20 = &v19;
-    v21 = 0x2020000000;
-    v22 = [getAllDevices count];
-    v17[0] = 0;
-    v17[1] = v17;
-    v17[2] = 0x2020000000;
     v18 = 0;
-    if (*(v20 + 6))
+    v19 = &v18;
+    v20 = 0x2020000000;
+    v21 = [getAllDevices count];
+    v16[0] = 0;
+    v16[1] = v16;
+    v16[2] = 0x2020000000;
+    v17 = 0;
+    if (*(v19 + 6))
     {
-      v15 = 0u;
-      v16 = 0u;
-      v13 = 0u;
       v14 = 0u;
+      v15 = 0u;
+      v12 = 0u;
+      v13 = 0u;
       obj = getAllDevices;
-      v5 = [obj countByEnumeratingWithState:&v13 objects:v23 count:16];
+      v5 = [obj countByEnumeratingWithState:&v12 objects:v22 count:16];
       if (v5)
       {
-        v6 = *v14;
+        v6 = *v13;
         do
         {
           v7 = 0;
           do
           {
-            if (*v14 != v6)
+            if (*v13 != v6)
             {
               objc_enumerationMutation(obj);
             }
 
-            pairingID = [*(*(&v13 + 1) + 8 * v7) pairingID];
-            v12[0] = MEMORY[0x277D85DD0];
-            v12[1] = 3221225472;
-            v12[2] = __64__PSYInitialSyncStateObserver__queue_initializeIfNotInitialized__block_invoke;
-            v12[3] = &unk_2799FB5D8;
-            v12[5] = v17;
-            v12[6] = &v19;
-            v12[4] = self;
-            [(PSYInitialSyncStateObserver *)self requestSyncStateForPairingIdentifier:pairingID completion:v12];
+            pairingID = [*(*(&v12 + 1) + 8 * v7) pairingID];
+            v11[0] = MEMORY[0x277D85DD0];
+            v11[1] = 3221225472;
+            v11[2] = __64__PSYInitialSyncStateObserver__queue_initializeIfNotInitialized__block_invoke;
+            v11[3] = &unk_2799FB5D8;
+            v11[5] = v16;
+            v11[6] = &v18;
+            v11[4] = self;
+            [(PSYInitialSyncStateObserver *)self requestSyncStateForPairingIdentifier:pairingID completion:v11];
 
             ++v7;
           }
 
           while (v5 != v7);
-          v5 = [obj countByEnumeratingWithState:&v13 objects:v23 count:16];
+          v5 = [obj countByEnumeratingWithState:&v12 objects:v22 count:16];
         }
 
         while (v5);
@@ -84,11 +84,9 @@
       self->_init = 1;
     }
 
-    _Block_object_dispose(v17, 8);
-    _Block_object_dispose(&v19, 8);
+    _Block_object_dispose(v16, 8);
+    _Block_object_dispose(&v18, 8);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -132,78 +130,79 @@ void __59__PSYInitialSyncStateObserver__handleConnectionInvalidated__block_invok
 - (PSYInitialSyncStateObserver)initWithDelegate:(id)delegate
 {
   delegateCopy = delegate;
-  v33.receiver = self;
-  v33.super_class = PSYInitialSyncStateObserver;
-  v5 = [(PSYInitialSyncStateObserver *)&v33 init];
+  v35.receiver = self;
+  v35.super_class = PSYInitialSyncStateObserver;
+  v5 = [(PSYInitialSyncStateObserver *)&v35 init];
+  v6 = v5;
   if (v5)
   {
-    v6 = psy_log();
-    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+    v7 = psy_log(v5);
+    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
 
-    if (v7)
+    if (v8)
     {
-      v8 = psy_log();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v10 = psy_log(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(buf[0]) = 0;
-        _os_log_impl(&dword_25DF25000, v8, OS_LOG_TYPE_DEFAULT, "Initializing PSYInitialSyncStateObserver to monitor sync state", buf, 2u);
+        _os_log_impl(&dword_25DF25000, v10, OS_LOG_TYPE_DEFAULT, "Initializing PSYInitialSyncStateObserver to monitor sync state", buf, 2u);
       }
     }
 
-    v9 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v10 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    syncStateCache = v5->_syncStateCache;
-    v5->_syncStateCache = v10;
-
+    v11 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
     v12 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    initialSyncStateCache = v5->_initialSyncStateCache;
-    v5->_initialSyncStateCache = v12;
+    syncStateCache = v6->_syncStateCache;
+    v6->_syncStateCache = v12;
 
     v14 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    syncStateEntryCache = v5->_syncStateEntryCache;
-    v5->_syncStateEntryCache = v14;
+    initialSyncStateCache = v6->_initialSyncStateCache;
+    v6->_initialSyncStateCache = v14;
 
-    v16 = dispatch_queue_create("com.apple.pairedsync.syncobserver", v9);
-    queue = v5->_queue;
-    v5->_queue = v16;
+    v16 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    syncStateEntryCache = v6->_syncStateEntryCache;
+    v6->_syncStateEntryCache = v16;
 
-    v18 = dispatch_queue_create("com.apple.pairedsync.delegate", v9);
-    delegateQueue = v5->_delegateQueue;
-    v5->_delegateQueue = v18;
+    v18 = dispatch_queue_create("com.apple.pairedsync.syncobserver", v11);
+    queue = v6->_queue;
+    v6->_queue = v18;
 
-    [(PSYInitialSyncStateObserver *)v5 setDelegate:delegateCopy];
-    objc_initWeak(buf, v5);
+    v20 = dispatch_queue_create("com.apple.pairedsync.delegate", v11);
+    delegateQueue = v6->_delegateQueue;
+    v6->_delegateQueue = v20;
+
+    [(PSYInitialSyncStateObserver *)v6 setDelegate:delegateCopy];
+    objc_initWeak(buf, v6);
     uTF8String = [@"com.apple.pairedsyncd.launched" UTF8String];
-    v21 = v5->_queue;
+    v23 = v6->_queue;
     handler[0] = MEMORY[0x277D85DD0];
     handler[1] = 3221225472;
     handler[2] = __48__PSYInitialSyncStateObserver_initWithDelegate___block_invoke;
     handler[3] = &unk_2799FB538;
-    objc_copyWeak(&v31, buf);
-    notify_register_dispatch(uTF8String, &v5->_daemonStartedNotifyToken, v21, handler);
+    objc_copyWeak(&v33, buf);
+    notify_register_dispatch(uTF8String, &v6->_daemonStartedNotifyToken, v23, handler);
     uTF8String2 = [@"com.apple.pairedsync.lastsyncswitchid" UTF8String];
-    v23 = v5->_queue;
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __48__PSYInitialSyncStateObserver_initWithDelegate___block_invoke_2;
-    v28[3] = &unk_2799FB538;
-    objc_copyWeak(&v29, buf);
-    notify_register_dispatch(uTF8String2, &v5->_syncSwitchNotifyToken, v23, v28);
-    [PSYRegistrySingleton addDelegate:v5];
-    v24 = v5->_queue;
+    v25 = v6->_queue;
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __48__PSYInitialSyncStateObserver_initWithDelegate___block_invoke_2;
+    v30[3] = &unk_2799FB538;
+    objc_copyWeak(&v31, buf);
+    notify_register_dispatch(uTF8String2, &v6->_syncSwitchNotifyToken, v25, v30);
+    [PSYRegistrySingleton addDelegate:v6];
+    v26 = v6->_queue;
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __48__PSYInitialSyncStateObserver_initWithDelegate___block_invoke_3;
     block[3] = &unk_2799FB560;
-    v27 = v5;
-    dispatch_async(v24, block);
+    v29 = v6;
+    dispatch_async(v26, block);
 
-    objc_destroyWeak(&v29);
     objc_destroyWeak(&v31);
+    objc_destroyWeak(&v33);
     objc_destroyWeak(buf);
   }
 
-  return v5;
+  return v6;
 }
 
 void __48__PSYInitialSyncStateObserver_initWithDelegate___block_invoke(uint64_t a1)
@@ -267,7 +266,7 @@ uint64_t __39__PSYInitialSyncStateObserver_delegate__block_invoke(uint64_t a1)
   v4 = *(v3 + 40);
   *(v3 + 40) = WeakRetained;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](WeakRetained, v4);
 }
 
 void __64__PSYInitialSyncStateObserver__queue_initializeIfNotInitialized__block_invoke(void *a1, uint64_t a2, void *a3)
@@ -318,28 +317,26 @@ void __64__PSYInitialSyncStateObserver__queue_initializeIfNotInitialized__block_
 
 void __79__PSYInitialSyncStateObserver_requestSyncStateForPairingIdentifier_completion___block_invoke(uint64_t a1)
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __79__PSYInitialSyncStateObserver_requestSyncStateForPairingIdentifier_completion___block_invoke_2;
-  v10[3] = &unk_2799FB628;
-  v10[4] = v2;
-  v11 = *(a1 + 48);
-  v3 = [v2 syncProviderWithErrorHandler:v10];
-  v12[0] = *(a1 + 40);
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __79__PSYInitialSyncStateObserver_requestSyncStateForPairingIdentifier_completion___block_invoke_4;
-  v7[3] = &unk_2799FB678;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __79__PSYInitialSyncStateObserver_requestSyncStateForPairingIdentifier_completion___block_invoke_2;
+  v9[3] = &unk_2799FB628;
+  v9[4] = v2;
+  v10 = *(a1 + 48);
+  v3 = [v2 syncProviderWithErrorHandler:v9];
+  v11[0] = *(a1 + 40);
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __79__PSYInitialSyncStateObserver_requestSyncStateForPairingIdentifier_completion___block_invoke_4;
+  v6[3] = &unk_2799FB678;
   v5 = *(a1 + 40);
-  v7[4] = *(a1 + 32);
-  v8 = v5;
-  v9 = *(a1 + 48);
-  [v3 requestDeviceSyncStateEntriesForPairingIDs:v4 completion:v7];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6[4] = *(a1 + 32);
+  v7 = v5;
+  v8 = *(a1 + 48);
+  [v3 requestDeviceSyncStateEntriesForPairingIDs:v4 completion:v6];
 }
 
 void __79__PSYInitialSyncStateObserver_requestSyncStateForPairingIdentifier_completion___block_invoke_2(uint64_t a1, void *a2)
@@ -377,7 +374,7 @@ void __79__PSYInitialSyncStateObserver_requestSyncStateForPairingIdentifier_comp
 
 void __79__PSYInitialSyncStateObserver_requestSyncStateForPairingIdentifier_completion___block_invoke_5(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) _queue_updateSyncStates:*(a1 + 40) notifyDelegateOfChanges:0];
   v2 = [*(a1 + 40) objectForKeyedSubscript:*(a1 + 48)];
   v3 = [v2 hasCompletedSync];
@@ -386,52 +383,52 @@ void __79__PSYInitialSyncStateObserver_requestSyncStateForPairingIdentifier_comp
 
   if (v4)
   {
-    v5 = psy_log();
-    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+    v6 = psy_log(v5);
+    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
 
-    if (!v6)
+    if (!v7)
     {
-      v11 = 0;
+      v13 = 0;
       goto LABEL_13;
     }
 
-    v7 = psy_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = psy_log(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = [*(a1 + 48) UUIDString];
-      v9 = v8;
-      v10 = @"NO";
+      v10 = [*(a1 + 48) UUIDString];
+      v11 = v10;
+      v12 = @"NO";
       if (v3)
       {
-        v10 = @"YES";
+        v12 = @"YES";
       }
 
-      v16 = 138412546;
-      v17 = v8;
-      v18 = 2112;
+      v18 = 138412546;
       v19 = v10;
-      _os_log_impl(&dword_25DF25000, v7, OS_LOG_TYPE_DEFAULT, "requestSyncStateForPairingIdentifier:%@ hasCompletedSync=%@", &v16, 0x16u);
+      v20 = 2112;
+      v21 = v12;
+      _os_log_impl(&dword_25DF25000, v9, OS_LOG_TYPE_DEFAULT, "requestSyncStateForPairingIdentifier:%@ hasCompletedSync=%@", &v18, 0x16u);
     }
 
-    v11 = 0;
+    v13 = 0;
     goto LABEL_11;
   }
 
-  v11 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.pairedsync" code:43 userInfo:0];
-  v12 = psy_log();
-  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+  v13 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.pairedsync" code:43 userInfo:0];
+  v14 = psy_log(v13);
+  v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
 
-  if (v13)
+  if (v15)
   {
-    v7 = psy_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = psy_log(v16);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = [*(a1 + 48) UUIDString];
-      v16 = 138412546;
-      v17 = v14;
-      v18 = 2112;
-      v19 = v11;
-      _os_log_impl(&dword_25DF25000, v7, OS_LOG_TYPE_DEFAULT, "requestSyncStateForPairingIdentifier:%@ error=%@", &v16, 0x16u);
+      v17 = [*(a1 + 48) UUIDString];
+      v18 = 138412546;
+      v19 = v17;
+      v20 = 2112;
+      v21 = v13;
+      _os_log_impl(&dword_25DF25000, v9, OS_LOG_TYPE_DEFAULT, "requestSyncStateForPairingIdentifier:%@ error=%@", &v18, 0x16u);
     }
 
 LABEL_11:
@@ -439,8 +436,6 @@ LABEL_11:
 
 LABEL_13:
   (*(*(a1 + 56) + 16))();
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestInitialSyncStateForPairingIdentifier:(id)identifier completion:(id)completion
@@ -462,28 +457,26 @@ LABEL_13:
 
 void __86__PSYInitialSyncStateObserver_requestInitialSyncStateForPairingIdentifier_completion___block_invoke(uint64_t a1)
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __86__PSYInitialSyncStateObserver_requestInitialSyncStateForPairingIdentifier_completion___block_invoke_2;
-  v10[3] = &unk_2799FB628;
-  v10[4] = v2;
-  v11 = *(a1 + 48);
-  v3 = [v2 syncProviderWithErrorHandler:v10];
-  v12[0] = *(a1 + 40);
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __86__PSYInitialSyncStateObserver_requestInitialSyncStateForPairingIdentifier_completion___block_invoke_4;
-  v7[3] = &unk_2799FB678;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __86__PSYInitialSyncStateObserver_requestInitialSyncStateForPairingIdentifier_completion___block_invoke_2;
+  v9[3] = &unk_2799FB628;
+  v9[4] = v2;
+  v10 = *(a1 + 48);
+  v3 = [v2 syncProviderWithErrorHandler:v9];
+  v11[0] = *(a1 + 40);
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __86__PSYInitialSyncStateObserver_requestInitialSyncStateForPairingIdentifier_completion___block_invoke_4;
+  v6[3] = &unk_2799FB678;
   v5 = *(a1 + 40);
-  v7[4] = *(a1 + 32);
-  v8 = v5;
-  v9 = *(a1 + 48);
-  [v3 requestDeviceSyncStateEntriesForPairingIDs:v4 completion:v7];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6[4] = *(a1 + 32);
+  v7 = v5;
+  v8 = *(a1 + 48);
+  [v3 requestDeviceSyncStateEntriesForPairingIDs:v4 completion:v6];
 }
 
 void __86__PSYInitialSyncStateObserver_requestInitialSyncStateForPairingIdentifier_completion___block_invoke_2(uint64_t a1, void *a2)
@@ -521,38 +514,36 @@ void __86__PSYInitialSyncStateObserver_requestInitialSyncStateForPairingIdentifi
 
 uint64_t __86__PSYInitialSyncStateObserver_requestInitialSyncStateForPairingIdentifier_completion___block_invoke_5(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) _queue_updateSyncStates:*(a1 + 40) notifyDelegateOfChanges:0];
   v2 = [*(a1 + 40) objectForKeyedSubscript:*(a1 + 48)];
   v3 = [v2 hasCompletedInitialOrMigrationSync];
 
-  v4 = psy_log();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+  v5 = psy_log(v4);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
-  if (v5)
+  if (v6)
   {
-    v6 = psy_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = psy_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = [*(a1 + 48) UUIDString];
-      v8 = v7;
-      v9 = @"NO";
+      v9 = [*(a1 + 48) UUIDString];
+      v10 = v9;
+      v11 = @"NO";
       if (v3)
       {
-        v9 = @"YES";
+        v11 = @"YES";
       }
 
-      v12 = 138412546;
-      v13 = v7;
-      v14 = 2112;
-      v15 = v9;
-      _os_log_impl(&dword_25DF25000, v6, OS_LOG_TYPE_DEFAULT, "requestInitialSyncStateForPairingIdentifier:%@ hasCompletedInitialOrMigrationSync=%@", &v12, 0x16u);
+      v13 = 138412546;
+      v14 = v9;
+      v15 = 2112;
+      v16 = v11;
+      _os_log_impl(&dword_25DF25000, v8, OS_LOG_TYPE_DEFAULT, "requestInitialSyncStateForPairingIdentifier:%@ hasCompletedInitialOrMigrationSync=%@", &v13, 0x16u);
     }
   }
 
-  result = (*(*(a1 + 56) + 16))();
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 56) + 16))();
 }
 
 - (void)requestInitialNonMigrationSyncStateForPairingIdentifier:(id)identifier completion:(id)completion
@@ -574,28 +565,26 @@ uint64_t __86__PSYInitialSyncStateObserver_requestInitialSyncStateForPairingIden
 
 void __98__PSYInitialSyncStateObserver_requestInitialNonMigrationSyncStateForPairingIdentifier_completion___block_invoke(uint64_t a1)
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __98__PSYInitialSyncStateObserver_requestInitialNonMigrationSyncStateForPairingIdentifier_completion___block_invoke_2;
-  v10[3] = &unk_2799FB628;
-  v10[4] = v2;
-  v11 = *(a1 + 48);
-  v3 = [v2 syncProviderWithErrorHandler:v10];
-  v12[0] = *(a1 + 40);
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __98__PSYInitialSyncStateObserver_requestInitialNonMigrationSyncStateForPairingIdentifier_completion___block_invoke_4;
-  v7[3] = &unk_2799FB678;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __98__PSYInitialSyncStateObserver_requestInitialNonMigrationSyncStateForPairingIdentifier_completion___block_invoke_2;
+  v9[3] = &unk_2799FB628;
+  v9[4] = v2;
+  v10 = *(a1 + 48);
+  v3 = [v2 syncProviderWithErrorHandler:v9];
+  v11[0] = *(a1 + 40);
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __98__PSYInitialSyncStateObserver_requestInitialNonMigrationSyncStateForPairingIdentifier_completion___block_invoke_4;
+  v6[3] = &unk_2799FB678;
   v5 = *(a1 + 40);
-  v7[4] = *(a1 + 32);
-  v8 = v5;
-  v9 = *(a1 + 48);
-  [v3 requestDeviceSyncStateEntriesForPairingIDs:v4 completion:v7];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6[4] = *(a1 + 32);
+  v7 = v5;
+  v8 = *(a1 + 48);
+  [v3 requestDeviceSyncStateEntriesForPairingIDs:v4 completion:v6];
 }
 
 void __98__PSYInitialSyncStateObserver_requestInitialNonMigrationSyncStateForPairingIdentifier_completion___block_invoke_2(uint64_t a1, void *a2)
@@ -633,38 +622,36 @@ void __98__PSYInitialSyncStateObserver_requestInitialNonMigrationSyncStateForPai
 
 uint64_t __98__PSYInitialSyncStateObserver_requestInitialNonMigrationSyncStateForPairingIdentifier_completion___block_invoke_5(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) _queue_updateSyncStates:*(a1 + 40) notifyDelegateOfChanges:0];
   v2 = [*(a1 + 40) objectForKeyedSubscript:*(a1 + 48)];
   v3 = [v2 hasCompletedInitialSync];
 
-  v4 = psy_log();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+  v5 = psy_log(v4);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
-  if (v5)
+  if (v6)
   {
-    v6 = psy_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = psy_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = [*(a1 + 48) UUIDString];
-      v8 = v7;
-      v9 = @"NO";
+      v9 = [*(a1 + 48) UUIDString];
+      v10 = v9;
+      v11 = @"NO";
       if (v3)
       {
-        v9 = @"YES";
+        v11 = @"YES";
       }
 
-      v12 = 138412546;
-      v13 = v7;
-      v14 = 2112;
-      v15 = v9;
-      _os_log_impl(&dword_25DF25000, v6, OS_LOG_TYPE_DEFAULT, "requestInitialNonMigrationSyncStateForPairingIdentifier:%@ hasCompletedInitialSync=%@", &v12, 0x16u);
+      v13 = 138412546;
+      v14 = v9;
+      v15 = 2112;
+      v16 = v11;
+      _os_log_impl(&dword_25DF25000, v8, OS_LOG_TYPE_DEFAULT, "requestInitialNonMigrationSyncStateForPairingIdentifier:%@ hasCompletedInitialSync=%@", &v13, 0x16u);
     }
   }
 
-  result = (*(*(a1 + 56) + 16))();
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 56) + 16))();
 }
 
 - (id)syncProviderWithErrorHandler:(id)handler
@@ -762,51 +749,51 @@ void __52__PSYInitialSyncStateObserver__queue_querySyncState__block_invoke(uint6
 - (void)_queue_updateSyncStates:(id)states notifyDelegateOfChanges:(BOOL)changes
 {
   changesCopy = changes;
-  v89 = *MEMORY[0x277D85DE8];
+  v93 = *MEMORY[0x277D85DE8];
   statesCopy = states;
   dispatch_assert_queue_V2(self->_queue);
   if (changesCopy)
   {
-    v63 = [MEMORY[0x277CBEB58] set];
-    v60 = [MEMORY[0x277CBEB58] set];
-    v61 = [MEMORY[0x277CBEB58] set];
+    v67 = [MEMORY[0x277CBEB58] set];
+    v64 = [MEMORY[0x277CBEB58] set];
+    v65 = [MEMORY[0x277CBEB58] set];
   }
 
   else
   {
-    v60 = 0;
-    v61 = 0;
-    v63 = 0;
+    v64 = 0;
+    v65 = 0;
+    v67 = 0;
   }
 
-  v81 = 0u;
-  v82 = 0u;
-  v79 = 0u;
-  v80 = 0u;
+  v85 = 0u;
+  v86 = 0u;
+  v83 = 0u;
+  v84 = 0u;
   obj = [statesCopy keyEnumerator];
-  v7 = [obj countByEnumeratingWithState:&v79 objects:v88 count:16];
-  v62 = statesCopy;
+  v7 = [obj countByEnumeratingWithState:&v83 objects:v92 count:16];
+  v66 = statesCopy;
   if (v7)
   {
     v9 = v7;
-    v65 = *v80;
+    v69 = *v84;
     *&v8 = 138412290;
-    v59 = v8;
+    v63 = v8;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v80 != v65)
+        if (*v84 != v69)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v79 + 1) + 8 * i);
-        v12 = [statesCopy objectForKeyedSubscript:{v11, v59}];
+        v11 = *(*(&v83 + 1) + 8 * i);
+        v12 = [statesCopy objectForKeyedSubscript:{v11, v63}];
         [(NSMutableDictionary *)self->_syncStateEntryCache setObject:v12 forKeyedSubscript:v11];
         v13 = [(NSMutableDictionary *)self->_syncStateCache objectForKeyedSubscript:v11];
         v14 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v12, "hasCompletedSync")}];
-        if ([v13 BOOLValue] & 1) == 0 && (v15 = objc_msgSend(v14, "BOOLValue"), v16 = v63, (v15) || objc_msgSend(v13, "BOOLValue") && (v17 = objc_msgSend(v14, "BOOLValue"), v16 = v61, (v17 & 1) == 0))
+        if ([v13 BOOLValue] & 1) == 0 && (v15 = objc_msgSend(v14, "BOOLValue"), v16 = v67, (v15) || objc_msgSend(v13, "BOOLValue") && (v17 = objc_msgSend(v14, "BOOLValue"), v16 = v65, (v17 & 1) == 0))
         {
           [v16 addObject:v11];
           [(NSMutableDictionary *)self->_syncStateCache setObject:v14 forKeyedSubscript:v11];
@@ -818,192 +805,209 @@ void __52__PSYInitialSyncStateObserver__queue_querySyncState__block_invoke(uint6
 
         if (([v18 BOOLValue] & 1) == 0 && objc_msgSend(v19, "BOOLValue"))
         {
-          [v60 addObject:v11];
+          [v64 addObject:v11];
 LABEL_23:
           [(NSMutableDictionary *)self->_initialSyncStateCache setObject:v19 forKeyedSubscript:v11];
-          statesCopy = v62;
+          statesCopy = v66;
           goto LABEL_24;
         }
 
-        if ([v18 BOOLValue] && (objc_msgSend(v19, "BOOLValue") & 1) == 0)
+        if ([v18 BOOLValue])
         {
-          v20 = psy_log();
-          v21 = os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
-
-          if (v21)
+          bOOLValue = [v19 BOOLValue];
+          if ((bOOLValue & 1) == 0)
           {
-            v22 = psy_log();
-            if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
-            {
-              *buf = v59;
-              v87 = v11;
-              _os_log_impl(&dword_25DF25000, v22, OS_LOG_TYPE_DEFAULT, "Initial sync status changed, reset cached value for: %@", buf, 0xCu);
-            }
-          }
+            v21 = psy_log(bOOLValue);
+            v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
 
-          goto LABEL_23;
+            if (v22)
+            {
+              v24 = psy_log(v23);
+              if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+              {
+                *buf = v63;
+                v91 = v11;
+                _os_log_impl(&dword_25DF25000, v24, OS_LOG_TYPE_DEFAULT, "Initial sync status changed, reset cached value for: %@", buf, 0xCu);
+              }
+            }
+
+            goto LABEL_23;
+          }
         }
 
 LABEL_24:
       }
 
-      v9 = [obj countByEnumeratingWithState:&v79 objects:v88 count:16];
+      v9 = [obj countByEnumeratingWithState:&v83 objects:v92 count:16];
     }
 
     while (v9);
+  }
+
+  v81 = 0u;
+  v82 = 0u;
+  v79 = 0u;
+  v80 = 0u;
+  v70 = v65;
+  v25 = [v70 countByEnumeratingWithState:&v79 objects:v89 count:16];
+  if (v25)
+  {
+    v26 = v25;
+    v27 = *v80;
+    do
+    {
+      v28 = 0;
+      do
+      {
+        if (*v80 != v27)
+        {
+          objc_enumerationMutation(v70);
+        }
+
+        v29 = *(*(&v79 + 1) + 8 * v28);
+        v30 = psy_log(v25);
+        v31 = os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT);
+
+        if (v31)
+        {
+          v33 = psy_log(v32);
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 138543362;
+            v91 = v29;
+            _os_log_impl(&dword_25DF25000, v33, OS_LOG_TYPE_DEFAULT, "Resetting sync state for %{public}@", buf, 0xCu);
+          }
+        }
+
+        delegate = [(PSYInitialSyncStateObserver *)self delegate];
+        v35 = objc_opt_respondsToSelector();
+
+        if (v35)
+        {
+          delegate2 = [(PSYInitialSyncStateObserver *)self delegate];
+          [delegate2 initialSyncStateObserver:self syncDidResetForPairingIdentifier:v29];
+        }
+
+        ++v28;
+      }
+
+      while (v26 != v28);
+      v25 = [v70 countByEnumeratingWithState:&v79 objects:v89 count:16];
+      v26 = v25;
+    }
+
+    while (v25);
   }
 
   v77 = 0u;
   v78 = 0u;
   v75 = 0u;
   v76 = 0u;
-  v66 = v61;
-  v23 = [v66 countByEnumeratingWithState:&v75 objects:v85 count:16];
-  if (v23)
+  v37 = v64;
+  v38 = [v37 countByEnumeratingWithState:&v75 objects:v88 count:16];
+  if (v38)
   {
-    v24 = v23;
-    v25 = *v76;
+    v39 = v38;
+    v40 = *v76;
     do
     {
-      for (j = 0; j != v24; ++j)
+      v41 = 0;
+      do
       {
-        if (*v76 != v25)
+        if (*v76 != v40)
         {
-          objc_enumerationMutation(v66);
+          objc_enumerationMutation(v37);
         }
 
-        v27 = *(*(&v75 + 1) + 8 * j);
-        v28 = psy_log();
-        v29 = os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT);
+        v42 = *(*(&v75 + 1) + 8 * v41);
+        v43 = psy_log(v38);
+        v44 = os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT);
 
-        if (v29)
+        if (v44)
         {
-          v30 = psy_log();
-          if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+          v46 = psy_log(v45);
+          if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v87 = v27;
-            _os_log_impl(&dword_25DF25000, v30, OS_LOG_TYPE_DEFAULT, "Resetting sync state for %{public}@", buf, 0xCu);
+            v91 = v42;
+            _os_log_impl(&dword_25DF25000, v46, OS_LOG_TYPE_DEFAULT, "Setting completed Initial sync state for %{public}@", buf, 0xCu);
           }
         }
 
-        delegate = [(PSYInitialSyncStateObserver *)self delegate];
-        v32 = objc_opt_respondsToSelector();
+        delegate3 = [(PSYInitialSyncStateObserver *)self delegate];
+        v48 = objc_opt_respondsToSelector();
 
-        if (v32)
+        if (v48)
         {
-          delegate2 = [(PSYInitialSyncStateObserver *)self delegate];
-          [delegate2 initialSyncStateObserver:self syncDidResetForPairingIdentifier:v27];
+          delegate4 = [(PSYInitialSyncStateObserver *)self delegate];
+          [delegate4 initialSyncStateObserver:self initialSyncDidCompleteForPairingIdentifier:v42];
         }
+
+        ++v41;
       }
 
-      v24 = [v66 countByEnumeratingWithState:&v75 objects:v85 count:16];
+      while (v39 != v41);
+      v38 = [v37 countByEnumeratingWithState:&v75 objects:v88 count:16];
+      v39 = v38;
     }
 
-    while (v24);
+    while (v38);
   }
 
   v73 = 0u;
   v74 = 0u;
   v71 = 0u;
   v72 = 0u;
-  v34 = v60;
-  v35 = [v34 countByEnumeratingWithState:&v71 objects:v84 count:16];
-  if (v35)
+  v50 = v67;
+  v51 = [v50 countByEnumeratingWithState:&v71 objects:v87 count:16];
+  if (v51)
   {
-    v36 = v35;
-    v37 = *v72;
+    v52 = v51;
+    v53 = *v72;
     do
     {
-      for (k = 0; k != v36; ++k)
+      v54 = 0;
+      do
       {
-        if (*v72 != v37)
+        if (*v72 != v53)
         {
-          objc_enumerationMutation(v34);
+          objc_enumerationMutation(v50);
         }
 
-        v39 = *(*(&v71 + 1) + 8 * k);
-        v40 = psy_log();
-        v41 = os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT);
+        v55 = *(*(&v71 + 1) + 8 * v54);
+        v56 = psy_log(v51);
+        v57 = os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT);
 
-        if (v41)
+        if (v57)
         {
-          v42 = psy_log();
-          if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+          v59 = psy_log(v58);
+          if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v87 = v39;
-            _os_log_impl(&dword_25DF25000, v42, OS_LOG_TYPE_DEFAULT, "Setting completed Initial sync state for %{public}@", buf, 0xCu);
-          }
-        }
-
-        delegate3 = [(PSYInitialSyncStateObserver *)self delegate];
-        v44 = objc_opt_respondsToSelector();
-
-        if (v44)
-        {
-          delegate4 = [(PSYInitialSyncStateObserver *)self delegate];
-          [delegate4 initialSyncStateObserver:self initialSyncDidCompleteForPairingIdentifier:v39];
-        }
-      }
-
-      v36 = [v34 countByEnumeratingWithState:&v71 objects:v84 count:16];
-    }
-
-    while (v36);
-  }
-
-  v69 = 0u;
-  v70 = 0u;
-  v67 = 0u;
-  v68 = 0u;
-  v46 = v63;
-  v47 = [v46 countByEnumeratingWithState:&v67 objects:v83 count:16];
-  if (v47)
-  {
-    v48 = v47;
-    v49 = *v68;
-    do
-    {
-      for (m = 0; m != v48; ++m)
-      {
-        if (*v68 != v49)
-        {
-          objc_enumerationMutation(v46);
-        }
-
-        v51 = *(*(&v67 + 1) + 8 * m);
-        v52 = psy_log();
-        v53 = os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT);
-
-        if (v53)
-        {
-          v54 = psy_log();
-          if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
-          {
-            *buf = 138543362;
-            v87 = v51;
-            _os_log_impl(&dword_25DF25000, v54, OS_LOG_TYPE_DEFAULT, "Setting completed Reunion sync state for %{public}@", buf, 0xCu);
+            v91 = v55;
+            _os_log_impl(&dword_25DF25000, v59, OS_LOG_TYPE_DEFAULT, "Setting completed Reunion sync state for %{public}@", buf, 0xCu);
           }
         }
 
         delegate5 = [(PSYInitialSyncStateObserver *)self delegate];
-        v56 = objc_opt_respondsToSelector();
+        v61 = objc_opt_respondsToSelector();
 
-        if (v56)
+        if (v61)
         {
           delegate6 = [(PSYInitialSyncStateObserver *)self delegate];
-          [delegate6 initialSyncStateObserver:self syncDidCompleteForPairingIdentifier:v51];
+          [delegate6 initialSyncStateObserver:self syncDidCompleteForPairingIdentifier:v55];
         }
+
+        ++v54;
       }
 
-      v48 = [v46 countByEnumeratingWithState:&v67 objects:v83 count:16];
+      while (v52 != v54);
+      v51 = [v50 countByEnumeratingWithState:&v71 objects:v87 count:16];
+      v52 = v51;
     }
 
-    while (v48);
+    while (v51);
   }
-
-  v58 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registry:(id)registry changed:(id)changed properties:(id)properties
@@ -1037,16 +1041,16 @@ LABEL_24:
 
 void __57__PSYInitialSyncStateObserver_didUpdateSyncForPairingID___block_invoke(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
     v2 = [[PSYDeviceSyncStateEntry alloc] initWithPairingID:*(a1 + 32) syncState:3];
     v3 = v2;
     if (v2)
     {
-      v6 = *(a1 + 32);
-      v7[0] = v2;
-      v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+      v5 = *(a1 + 32);
+      v6[0] = v2;
+      v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
     }
 
     else
@@ -1061,8 +1065,6 @@ void __57__PSYInitialSyncStateObserver_didUpdateSyncForPairingID___block_invoke(
   }
 
   [*(a1 + 40) _queue_updateSyncStates:v4 notifyDelegateOfChanges:1];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

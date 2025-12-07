@@ -67,14 +67,22 @@ void __28__SandboxManager_getManager__block_invoke(uint64_t a1)
   a2[1] = 0u;
   a2[2] = 0u;
   *a2 = 0u;
-  os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-  OUTLINED_FUNCTION_0_3();
-  v3 = *self;
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    v7 = 3;
+  }
+
+  else
+  {
+    v7 = 2;
+  }
+
+  OUTLINED_FUNCTION_0_3(v7, v2, v3, v4, &_mh_execute_header, v5, v6, "assertion failure: self.sandboxHandles != ((void*)0) -> %llu");
   _os_crash_msg();
   __break(1u);
 }
 
-void __28__SandboxManager_getManager__block_invoke_cold_1(uint64_t *a1, _OWORD *a2)
+void __28__SandboxManager_getManager__block_invoke_cold_1(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -82,9 +90,17 @@ void __28__SandboxManager_getManager__block_invoke_cold_1(uint64_t *a1, _OWORD *
   a2[1] = 0u;
   a2[2] = 0u;
   *a2 = 0u;
-  os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-  OUTLINED_FUNCTION_0_3();
-  v3 = *a1;
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    v7 = 3;
+  }
+
+  else
+  {
+    v7 = 2;
+  }
+
+  OUTLINED_FUNCTION_0_3(v7, v2, v3, v4, &_mh_execute_header, v5, v6, "assertion failure: manager != ((void*)0) -> %llu");
   _os_crash_msg();
   __break(1u);
 }

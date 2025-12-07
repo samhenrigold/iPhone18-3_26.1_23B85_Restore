@@ -105,15 +105,15 @@
 
 - (void)readerController:(id)controller didDetermineAdditionalTextSamples:(id)samples dueTo:(int64_t)to
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   samplesCopy = samples;
-  v7 = WBS_LOG_CHANNEL_PREFIXTranslation();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = WBS_LOG_CHANNEL_PREFIXTranslation(samplesCopy, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     textSamples = [samplesCopy textSamples];
-    v11 = 134217984;
-    v12 = [textSamples count];
-    _os_log_debug_impl(&dword_1D4644000, v7, OS_LOG_TYPE_DEBUG, "Determined %lu additional text samples for translation", &v11, 0xCu);
+    v12 = 134217984;
+    v13 = [textSamples count];
+    _os_log_debug_impl(&dword_1D4644000, v8, OS_LOG_TYPE_DEBUG, "Determined %lu additional text samples for translation", &v12, 0xCu);
   }
 
   delegate = [(SFWebViewController *)self delegate];

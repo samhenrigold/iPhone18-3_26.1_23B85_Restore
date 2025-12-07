@@ -1,4 +1,5 @@
 @interface CKApplicationState
++ (BOOL)_isUIExtension;
 + (BOOL)isApplicationActive;
 + (BOOL)isBackground;
 + (BOOL)isViewControllerForegroundActive:(id)active;
@@ -113,6 +114,13 @@
   }
 
   return v11;
+}
+
++ (BOOL)_isUIExtension
+{
+  v2 = CKIsRunningInMessagesViewService();
+  result = v2 || (v3 = CKIsRunningInMessagesNotificationExtension(v2), v3) || CKIsRunningInMessagesTranscriptExtension(v3) != 0;
+  return result;
 }
 
 @end

@@ -35,31 +35,31 @@
 
 - (FigStreamingAssetDownloadContentConfig)_createFigContentConfigForEnvironmentalCondition:(int64_t)condition
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
   cf = 0;
-  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
   selfCopy = self;
   variantQualifiers = self->_variantQualifiers;
-  v7 = [(NSArray *)variantQualifiers countByEnumeratingWithState:&v28 objects:v34 count:16];
+  v7 = [(NSArray *)variantQualifiers countByEnumeratingWithState:&v29 objects:v35 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
-    v10 = *v29;
+    v10 = *v30;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v29 != v10)
+        if (*v30 != v10)
         {
           objc_enumerationMutation(variantQualifiers);
         }
 
-        v12 = *(*(&v28 + 1) + 8 * i);
+        v12 = *(*(&v29 + 1) + 8 * i);
         if (([v12 environmentalConditions] & condition) != 0 || objc_msgSend(v12, "environmentalConditions") == condition)
         {
           if ([objc_msgSend(v12 "_variant")])
@@ -75,14 +75,14 @@
 
           else
           {
-            FigSignalErrorAtGM();
+            FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v23, selfCopy, v25);
           }
 
           v9 = 1;
         }
       }
 
-      v8 = [(NSArray *)variantQualifiers countByEnumeratingWithState:&v28 objects:v34 count:16];
+      v8 = [(NSArray *)variantQualifiers countByEnumeratingWithState:&v29 objects:v35 count:16];
       if (v8)
       {
         continue;
@@ -125,27 +125,27 @@ LABEL_40:
       return cf;
     }
 
-    v26 = 0u;
     v27 = 0u;
-    v24 = 0u;
+    v28 = 0u;
     v25 = 0u;
+    v26 = 0u;
     mediaSelections = selfCopy->_mediaSelections;
-    v15 = [(NSArray *)mediaSelections countByEnumeratingWithState:&v24 objects:v33 count:16];
+    v15 = [(NSArray *)mediaSelections countByEnumeratingWithState:&v25 objects:v34 count:16];
     if (v15)
     {
       v16 = v15;
       array2 = 0;
-      v18 = *v25;
+      v18 = *v26;
       do
       {
         for (j = 0; j != v16; ++j)
         {
-          if (*v25 != v18)
+          if (*v26 != v18)
           {
             objc_enumerationMutation(mediaSelections);
           }
 
-          _selectedMediaArray = [*(*(&v24 + 1) + 8 * j) _selectedMediaArray];
+          _selectedMediaArray = [*(*(&v25 + 1) + 8 * j) _selectedMediaArray];
           if (_selectedMediaArray)
           {
             v21 = _selectedMediaArray;
@@ -158,7 +158,7 @@ LABEL_40:
           }
         }
 
-        v16 = [(NSArray *)mediaSelections countByEnumeratingWithState:&v24 objects:v33 count:16];
+        v16 = [(NSArray *)mediaSelections countByEnumeratingWithState:&v25 objects:v34 count:16];
       }
 
       while (v16);

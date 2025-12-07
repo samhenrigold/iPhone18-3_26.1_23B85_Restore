@@ -24,7 +24,6 @@
 - (void)_whileDatabaseLocked_ensureGreenKeyValueCaches;
 - (void)_whileDatabaseLocked_modifyCityForGreen:(id)green;
 - (void)dealloc;
-- (void)init;
 - (void)localizeCities:(id)cities;
 @end
 
@@ -288,7 +287,7 @@ LABEL_24:
 
 - (void)localizeCities:(id)cities
 {
-  v75 = *MEMORY[0x1E69E9840];
+  v74 = *MEMORY[0x1E69E9840];
   if (self->_localizedDb && [cities count])
   {
     *pnColumn = 0;
@@ -296,25 +295,25 @@ LABEL_24:
     pzErrmsg = 0;
     [(NSRecursiveLock *)self->_databaseAccessRecursiveLock lock];
     v5 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{(objc_msgSend(cities, "count") + 1) >> 1}];
+    v59 = 0u;
     v60 = 0u;
     v61 = 0u;
     v62 = 0u;
-    v63 = 0u;
-    v6 = [cities countByEnumeratingWithState:&v60 objects:v73 count:16];
+    v6 = [cities countByEnumeratingWithState:&v59 objects:v72 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v61;
+      v8 = *v60;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v61 != v8)
+          if (*v60 != v8)
           {
             objc_enumerationMutation(cities);
           }
 
-          v10 = *(*(&v60 + 1) + 8 * i);
+          v10 = *(*(&v59 + 1) + 8 * i);
           localeCode = [v10 localeCode];
           if (localeCode)
           {
@@ -335,7 +334,7 @@ LABEL_24:
           }
         }
 
-        v7 = [cities countByEnumeratingWithState:&v60 objects:v73 count:16];
+        v7 = [cities countByEnumeratingWithState:&v59 objects:v72 count:16];
       }
 
       while (v7);
@@ -419,36 +418,34 @@ LABEL_48:
       sqlite3_free_table(v41);
 LABEL_65:
 
-      v54 = 0u;
-      v55 = 0u;
-      v52 = 0u;
       v53 = 0u;
-      v47 = [cities countByEnumeratingWithState:&v52 objects:v71 count:16];
+      v54 = 0u;
+      v51 = 0u;
+      v52 = 0u;
+      v47 = [cities countByEnumeratingWithState:&v51 objects:v70 count:16];
       if (v47)
       {
         v48 = v47;
-        v49 = *v53;
+        v49 = *v52;
         do
         {
           for (j = 0; j != v48; ++j)
           {
-            if (*v53 != v49)
+            if (*v52 != v49)
             {
               objc_enumerationMutation(cities);
             }
 
-            [(ALCityManager *)self _whileDatabaseLocked_modifyCityForGreen:*(*(&v52 + 1) + 8 * j)];
+            [(ALCityManager *)self _whileDatabaseLocked_modifyCityForGreen:*(*(&v51 + 1) + 8 * j)];
           }
 
-          v48 = [cities countByEnumeratingWithState:&v52 objects:v71 count:16];
+          v48 = [cities countByEnumeratingWithState:&v51 objects:v70 count:16];
         }
 
         while (v48);
       }
 
-LABEL_72:
-      [(NSRecursiveLock *)self->_databaseAccessRecursiveLock unlock];
-      goto LABEL_73;
+      goto LABEL_72;
     }
 
     v15 = [objc_alloc(MEMORY[0x1E696AD60]) initWithCapacity:{16 * objc_msgSend(v5, "count") + 40}];
@@ -497,28 +494,28 @@ LABEL_72:
           if (v28)
           {
             v29 = v28;
-            v58 = 0u;
-            v59 = 0u;
-            v56 = 0u;
             v57 = 0u;
-            v30 = [v28 countByEnumeratingWithState:&v56 objects:v72 count:16];
+            v58 = 0u;
+            v55 = 0u;
+            v56 = 0u;
+            v30 = [v28 countByEnumeratingWithState:&v55 objects:v71 count:16];
             if (v30)
             {
               v31 = v30;
-              v32 = *v57;
+              v32 = *v56;
               do
               {
                 for (k = 0; k != v31; ++k)
                 {
-                  if (*v57 != v32)
+                  if (*v56 != v32)
                   {
                     objc_enumerationMutation(v29);
                   }
 
-                  [*(*(&v56 + 1) + 8 * k) setCountryName:v27];
+                  [*(*(&v55 + 1) + 8 * k) setCountryName:v27];
                 }
 
-                v31 = [v29 countByEnumeratingWithState:&v56 objects:v72 count:16];
+                v31 = [v29 countByEnumeratingWithState:&v55 objects:v71 count:16];
               }
 
               while (v31);
@@ -543,67 +540,67 @@ LABEL_47:
     goto LABEL_48;
   }
 
-  if ([cities count])
+  if (![cities count])
   {
-    [(NSRecursiveLock *)self->_databaseAccessRecursiveLock lock];
-    v69 = 0u;
-    v70 = 0u;
-    v67 = 0u;
-    v68 = 0u;
-    v19 = [cities countByEnumeratingWithState:&v67 objects:v74 count:16];
-    if (v19)
-    {
-      v20 = v19;
-      v21 = *v68;
-      do
-      {
-        for (m = 0; m != v20; ++m)
-        {
-          if (*v68 != v21)
-          {
-            objc_enumerationMutation(cities);
-          }
-
-          [(ALCityManager *)self _whileDatabaseLocked_modifyCityForGreen:*(*(&v67 + 1) + 8 * m)];
-        }
-
-        v20 = [cities countByEnumeratingWithState:&v67 objects:v74 count:16];
-      }
-
-      while (v20);
-    }
-
-    goto LABEL_72;
+    return;
   }
 
-LABEL_73:
-  v51 = *MEMORY[0x1E69E9840];
+  [(NSRecursiveLock *)self->_databaseAccessRecursiveLock lock];
+  v68 = 0u;
+  v69 = 0u;
+  v66 = 0u;
+  v67 = 0u;
+  v19 = [cities countByEnumeratingWithState:&v66 objects:v73 count:16];
+  if (v19)
+  {
+    v20 = v19;
+    v21 = *v67;
+    do
+    {
+      for (m = 0; m != v20; ++m)
+      {
+        if (*v67 != v21)
+        {
+          objc_enumerationMutation(cities);
+        }
+
+        [(ALCityManager *)self _whileDatabaseLocked_modifyCityForGreen:*(*(&v66 + 1) + 8 * m)];
+      }
+
+      v20 = [cities countByEnumeratingWithState:&v66 objects:v73 count:16];
+    }
+
+    while (v20);
+  }
+
+LABEL_72:
+  [(NSRecursiveLock *)self->_databaseAccessRecursiveLock unlock];
 }
 
 + (id)newCitiesByIdentifierMap:(id)map
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v4 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(map, "count")}];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v5 = [map countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [map countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       v8 = 0;
       do
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(map);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * v8);
+        v9 = *(*(&v12 + 1) + 8 * v8);
         v10 = [objc_alloc(MEMORY[0x1E696AD98]) initWithInt:{objc_msgSend(v9, "identifier")}];
         [v4 setObject:v9 forKey:v10];
 
@@ -611,20 +608,19 @@ LABEL_73:
       }
 
       while (v6 != v8);
-      v6 = [map countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [map countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
 - (id)citiesWithIdentifiers:(id)identifiers
 {
   identifiersCopy = identifiers;
-  v34 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   if ([identifiers count])
   {
     v5 = [objc_alloc(MEMORY[0x1E696AD60]) initWithCapacity:{4 * objc_msgSend(identifiersCopy, "count")}];
@@ -641,54 +637,54 @@ LABEL_73:
     }
 
     v7 = -[ALCityManager citiesMatchingQualifier:](self, "citiesMatchingQualifier:", [MEMORY[0x1E696AEC0] stringWithFormat:@"identifier IN (%@)", v5]);
-    v23 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v7, "count")}];
+    v21 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v7, "count")}];
+    v26 = 0u;
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
-    v30 = 0u;
-    v31 = 0u;
-    v8 = [identifiersCopy countByEnumeratingWithState:&v28 objects:v33 count:16];
+    v8 = [identifiersCopy countByEnumeratingWithState:&v26 objects:v31 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v29;
+      v10 = *v27;
       do
       {
         v11 = identifiersCopy;
         for (i = 0; i != v9; ++i)
         {
-          if (*v29 != v10)
+          if (*v27 != v10)
           {
             objc_enumerationMutation(v11);
           }
 
-          intValue = [*(*(&v28 + 1) + 8 * i) intValue];
+          intValue = [*(*(&v26 + 1) + 8 * i) intValue];
+          v22 = 0u;
+          v23 = 0u;
           v24 = 0u;
           v25 = 0u;
-          v26 = 0u;
-          v27 = 0u;
-          v14 = [v7 countByEnumeratingWithState:&v24 objects:v32 count:16];
+          v14 = [v7 countByEnumeratingWithState:&v22 objects:v30 count:16];
           if (v14)
           {
             v15 = v14;
-            v16 = *v25;
+            v16 = *v23;
             while (2)
             {
               for (j = 0; j != v15; ++j)
               {
-                if (*v25 != v16)
+                if (*v23 != v16)
                 {
                   objc_enumerationMutation(v7);
                 }
 
-                v18 = *(*(&v24 + 1) + 8 * j);
+                v18 = *(*(&v22 + 1) + 8 * j);
                 if (intValue == [v18 identifier])
                 {
-                  [v23 addObject:v18];
+                  [v21 addObject:v18];
                   goto LABEL_20;
                 }
               }
 
-              v15 = [v7 countByEnumeratingWithState:&v24 objects:v32 count:16];
+              v15 = [v7 countByEnumeratingWithState:&v22 objects:v30 count:16];
               if (v15)
               {
                 continue;
@@ -703,22 +699,20 @@ LABEL_20:
         }
 
         identifiersCopy = v11;
-        v9 = [v11 countByEnumeratingWithState:&v28 objects:v33 count:16];
+        v9 = [v11 countByEnumeratingWithState:&v26 objects:v31 count:16];
       }
 
       while (v9);
     }
 
-    v19 = *MEMORY[0x1E69E9840];
-    return v23;
+    return v21;
   }
 
   else
   {
-    v21 = MEMORY[0x1E695DEC8];
-    v22 = *MEMORY[0x1E69E9840];
+    v20 = MEMORY[0x1E695DEC8];
 
-    return [v21 array];
+    return [v20 array];
   }
 }
 
@@ -768,10 +762,10 @@ LABEL_20:
 
 - (id)bestCityForLegacyCity:(__CFArray *)city
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (!city)
   {
-    goto LABEL_8;
+    return 0;
   }
 
   if (CFArrayGetCount(city) > 9)
@@ -782,16 +776,14 @@ LABEL_20:
       v6 = [(ALCityManager *)self cityForClassicIdentifier:Identifier];
       if (v6)
       {
-        goto LABEL_22;
+        return v6;
       }
     }
   }
 
   if (CFArrayGetCount(city) <= 6)
   {
-LABEL_8:
-    v6 = 0;
-    goto LABEL_22;
+    return 0;
   }
 
   v7 = [(ALCityManager *)self citiesMatchingName:CPCityGetLocalizedCityName(city)];
@@ -805,33 +797,33 @@ LABEL_8:
     v8 = [[CPSearchMatcher alloc] initWithSearchString:CPCityGetLocalizedCountryName(city)];
   }
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
-  v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v16;
+    v11 = *v15;
 LABEL_12:
     v12 = 0;
     while (1)
     {
-      if (*v16 != v11)
+      if (*v15 != v11)
       {
         objc_enumerationMutation(v7);
       }
 
-      v6 = *(*(&v15 + 1) + 8 * v12);
-      if (!v8 || -[CPSearchMatcher matches:](v8, "matches:", [*(*(&v15 + 1) + 8 * v12) countryName]))
+      v6 = *(*(&v14 + 1) + 8 * v12);
+      if (!v8 || -[CPSearchMatcher matches:](v8, "matches:", [*(*(&v14 + 1) + 8 * v12) countryName]))
       {
         break;
       }
 
       if (v10 == ++v12)
       {
-        v10 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v10 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
         v6 = 0;
         if (v10)
         {
@@ -848,8 +840,6 @@ LABEL_12:
     v6 = 0;
   }
 
-LABEL_22:
-  v13 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -1269,7 +1259,7 @@ LABEL_9:
 
 - (id)defaultCitiesForLocaleCode:(id)code options:(int)options
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v7 = [(ALCityManager *)self localeWithCode:?];
   *pnColumn = 0;
   pazResult = 0;
@@ -1278,7 +1268,7 @@ LABEL_9:
   {
     *buf = 138412546;
     codeCopy = code;
-    v35 = 1024;
+    v34 = 1024;
     optionsCopy = options;
     _os_log_impl(&dword_195E6C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "ALCityManager defaultCitiesForLocaleCode: %@ options: %x", buf, 0x12u);
   }
@@ -1312,7 +1302,7 @@ LABEL_9:
       [ALCityManager defaultCitiesForLocaleCode:options:];
     }
 
-    v12 = 0;
+    return 0;
   }
 
   else
@@ -1393,7 +1383,6 @@ LABEL_9:
     }
   }
 
-  v28 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -1430,12 +1419,12 @@ LABEL_9:
 
 - (id)_defaultCityForTimeZone:(id)zone localeCode:(id)code
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
     zoneCopy = zone;
-    v32 = 2112;
+    v31 = 2112;
     codeCopy = code;
     _os_log_impl(&dword_195E6C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "ALCityManager defaultCityForTimeZone: %@ localeCode: %@", buf, 0x16u);
   }
@@ -1454,25 +1443,25 @@ LABEL_9:
   if ([v10 count] >= 2)
   {
     v11 = [v10 objectAtIndex:1];
+    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
-    v12 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v12 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v26;
+      v14 = *v25;
 LABEL_12:
       v15 = 0;
       while (1)
       {
-        if (*v26 != v14)
+        if (*v25 != v14)
         {
           objc_enumerationMutation(v9);
         }
 
-        v8 = *(*(&v25 + 1) + 8 * v15);
+        v8 = *(*(&v24 + 1) + 8 * v15);
         if ([objc_msgSend(v8 "name")])
         {
           break;
@@ -1480,7 +1469,7 @@ LABEL_12:
 
         if (v13 == ++v15)
         {
-          v13 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
+          v13 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
           if (v13)
           {
             goto LABEL_12;
@@ -1551,7 +1540,6 @@ LABEL_34:
     _os_log_impl(&dword_195E6C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "ALCityManager defaultCityForTimeZone: returning %@", buf, 0xCu);
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -1594,7 +1582,7 @@ LABEL_34:
 
 void __42__ALCityManager_willApplyTimeZoneChanges1__block_invoke()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer();
   if ([v0 isEqualToString:@"CH"])
   {
@@ -1602,45 +1590,31 @@ void __42__ALCityManager_willApplyTimeZoneChanges1__block_invoke()
   }
 
   willApplyTimeZoneChanges1_shouldUseTablesAlternate1 = [v0 isEqualToString:@"ZA"];
-  if ((willApplyTimeZoneChanges1_shouldUseTablesAlternate1 & 1) == 0 && [v0 isEqualToString:@"ZP"])
+  if ((willApplyTimeZoneChanges1_shouldUseTablesAlternate1 & 1) != 0 || ![v0 isEqualToString:@"ZP"])
   {
-    v2 = [objc_msgSend(MEMORY[0x1E695DF58] "currentLocale")];
-    if (([v2 isEqualToString:@"CN"] & 1) == 0 && (objc_msgSend(v2, "isEqualToString:", @"HK") & 1) == 0)
-    {
-      v1 = [v2 isEqualToString:@"MO"];
-      goto LABEL_3;
-    }
+    goto LABEL_9;
+  }
 
+  v2 = [objc_msgSend(MEMORY[0x1E695DF58] "currentLocale")];
+  if ([v2 isEqualToString:@"CN"] & 1) != 0 || (objc_msgSend(v2, "isEqualToString:", @"HK"))
+  {
 LABEL_2:
     v1 = 1;
-LABEL_3:
-    willApplyTimeZoneChanges1_shouldUseTablesAlternate1 = v1;
   }
 
+  else
+  {
+    v1 = [v2 isEqualToString:@"MO"];
+  }
+
+  willApplyTimeZoneChanges1_shouldUseTablesAlternate1 = v1;
+LABEL_9:
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
-    v4 = 138412290;
-    v5 = [MEMORY[0x1E696AD98] numberWithBool:willApplyTimeZoneChanges1_shouldUseTablesAlternate1];
-    _os_log_impl(&dword_195E6C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "ALCityManager _shouldUseTablesAlternate1 %@", &v4, 0xCu);
+    v3 = 138412290;
+    v4 = [MEMORY[0x1E696AD98] numberWithBool:willApplyTimeZoneChanges1_shouldUseTablesAlternate1];
+    _os_log_impl(&dword_195E6C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "ALCityManager _shouldUseTablesAlternate1 %@", &v3, 0xCu);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-- (void)init
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)defaultCityForTimeZone:localeCode:.cold.1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

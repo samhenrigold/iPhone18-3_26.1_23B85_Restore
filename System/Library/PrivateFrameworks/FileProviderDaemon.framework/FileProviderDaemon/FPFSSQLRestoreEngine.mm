@@ -10,35 +10,34 @@
 - (_TtC18FileProviderDaemon20FPFSSQLRestoreEngine)initWithUserURL:(id)l backupBuild:(id)build restoreType:(id)type
 {
   v7 = sub_1CF9E5A58();
-  v8 = *(*(v7 - 8) + 64);
   MEMORY[0x1EEE9AC00](v7 - 8);
-  v10 = &v17 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v16 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1CF9E59D8();
   if (!build)
   {
-    v12 = 0;
+    v11 = 0;
     if (type)
     {
       goto LABEL_3;
     }
 
 LABEL_5:
-    v13 = 0;
-    v15 = 0;
-    return FPFSSQLRestoreEngine.init(userURL:backupBuild:restoreType:)(v10, build, v12, v13, v15);
+    v12 = 0;
+    v14 = 0;
+    return FPFSSQLRestoreEngine.init(userURL:backupBuild:restoreType:)(v9, build, v11, v12, v14);
   }
 
   build = _sSo28NSFileProviderItemIdentifiera04FileB6DaemonE15parseableStringSSvg_0();
-  v12 = v11;
+  v11 = v10;
   if (!type)
   {
     goto LABEL_5;
   }
 
 LABEL_3:
-  v13 = _sSo28NSFileProviderItemIdentifiera04FileB6DaemonE15parseableStringSSvg_0();
-  v15 = v14;
-  return FPFSSQLRestoreEngine.init(userURL:backupBuild:restoreType:)(v10, build, v12, v13, v15);
+  v12 = _sSo28NSFileProviderItemIdentifiera04FileB6DaemonE15parseableStringSSvg_0();
+  v14 = v13;
+  return FPFSSQLRestoreEngine.init(userURL:backupBuild:restoreType:)(v9, build, v11, v12, v14);
 }
 
 - (void)restoreWithCleanupOnSuccess:(BOOL)success completionHandler:(id)handler

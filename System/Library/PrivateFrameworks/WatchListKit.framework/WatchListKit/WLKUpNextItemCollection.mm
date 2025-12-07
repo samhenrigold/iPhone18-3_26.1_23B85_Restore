@@ -7,12 +7,12 @@
 
 - (WLKUpNextItemCollection)initWithDictionary:(id)dictionary context:(id)context
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   contextCopy = context;
-  v32.receiver = self;
-  v32.super_class = WLKUpNextItemCollection;
-  v8 = [(WLKUpNextItemCollection *)&v32 init];
+  v31.receiver = self;
+  v31.super_class = WLKUpNextItemCollection;
+  v8 = [(WLKUpNextItemCollection *)&v31 init];
   if (v8)
   {
     v9 = [dictionaryCopy wlk_dateFromMillisecondsSince1970ForKey:@"timestamp"];
@@ -24,30 +24,30 @@
     title = v8->_title;
     v8->_title = v12;
 
-    v27 = dictionaryCopy;
+    v26 = dictionaryCopy;
     v14 = [dictionaryCopy wlk_arrayForKey:@"items"];
     v15 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v14, "count")}];
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
     v16 = v14;
-    v17 = [v16 countByEnumeratingWithState:&v28 objects:v33 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v27 objects:v32 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v29;
+      v19 = *v28;
       do
       {
         v20 = 0;
         do
         {
-          if (*v29 != v19)
+          if (*v28 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          v21 = *(*(&v28 + 1) + 8 * v20);
+          v21 = *(*(&v27 + 1) + 8 * v20);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -62,7 +62,7 @@
         }
 
         while (v18 != v20);
-        v18 = [v16 countByEnumeratingWithState:&v28 objects:v33 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v27 objects:v32 count:16];
       }
 
       while (v18);
@@ -75,10 +75,9 @@
       v8->_items = v23;
     }
 
-    dictionaryCopy = v27;
+    dictionaryCopy = v26;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

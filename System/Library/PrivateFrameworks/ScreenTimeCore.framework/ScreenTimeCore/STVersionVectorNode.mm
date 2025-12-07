@@ -58,17 +58,15 @@
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   identifier = [(STVersionVectorNode *)self identifier];
-  v11 = identifier;
-  v9 = @"c";
+  v10 = identifier;
+  v8 = @"c";
   v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[STVersionVectorNode count](self, "count")}];
-  v10 = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
-  v12[0] = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v9 = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v9 forKeys:&v8 count:1];
+  v11[0] = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
 
   return v6;
 }

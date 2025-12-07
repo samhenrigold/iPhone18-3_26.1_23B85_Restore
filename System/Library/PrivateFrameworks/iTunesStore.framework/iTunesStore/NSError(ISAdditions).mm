@@ -8,7 +8,7 @@
 
 - (uint64_t)errorBySettingFatalError:()ISAdditions
 {
-  __ISRecordSPIClassUsage(self);
+  __ISRecordSPIClassUsage(self, "/Library/Caches/com.apple.xbs/Sources/iTunesStore/src/ISError.m", 97, a2);
   [MEMORY[0x277CCABB0] numberWithBool:a3];
 
   return SSErrorBySettingUserInfoValue();
@@ -16,8 +16,8 @@
 
 - (uint64_t)isEqual:()ISAdditions compareUserInfo:
 {
-  v29 = *MEMORY[0x277D85DE8];
-  __ISRecordSPIClassUsage(self);
+  v28 = *MEMORY[0x277D85DE8];
+  __ISRecordSPIClassUsage(self, "/Library/Caches/com.apple.xbs/Sources/iTunesStore/src/ISError.m", 103, a2);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -34,7 +34,7 @@
   domain2 = [self domain];
   if (!v8)
   {
-    goto LABEL_24;
+    return 0;
   }
 
   if (domain == domain2)
@@ -47,7 +47,7 @@
     v11 = [domain isEqualToString:domain2];
     if (!v11)
     {
-      goto LABEL_25;
+      return v11;
     }
   }
 
@@ -58,76 +58,69 @@
     v14 = [userInfo count];
     if (v14 == [userInfo2 count])
     {
-      v26 = 0u;
-      v27 = 0u;
-      v24 = 0u;
       v25 = 0u;
-      v15 = [userInfo countByEnumeratingWithState:&v24 objects:v28 count:16];
-      if (v15)
+      v26 = 0u;
+      v23 = 0u;
+      v24 = 0u;
+      v15 = [userInfo countByEnumeratingWithState:&v23 objects:v27 count:16];
+      if (!v15)
       {
-        v16 = v15;
-        v17 = *v25;
-        LOBYTE(v11) = 1;
-        do
+        return 1;
+      }
+
+      v16 = v15;
+      v17 = *v24;
+      LOBYTE(v11) = 1;
+      do
+      {
+        for (i = 0; i != v16; ++i)
         {
-          for (i = 0; i != v16; ++i)
+          if (*v24 != v17)
           {
-            if (*v25 != v17)
-            {
-              objc_enumerationMutation(userInfo);
-            }
+            objc_enumerationMutation(userInfo);
+          }
 
-            v19 = *(*(&v24 + 1) + 8 * i);
-            v20 = [userInfo objectForKey:v19];
-            v21 = [userInfo2 objectForKey:v19];
-            if (v11)
+          v19 = *(*(&v23 + 1) + 8 * i);
+          v20 = [userInfo objectForKey:v19];
+          v21 = [userInfo2 objectForKey:v19];
+          if (v11)
+          {
+            if (v20 == v21)
             {
-              if (v20 == v21)
-              {
-                v11 = 1;
-              }
-
-              else
-              {
-                v11 = [v20 isEqual:v21];
-              }
+              v11 = 1;
             }
 
             else
             {
-              v11 = 0;
+              v11 = [v20 isEqual:v21];
             }
           }
 
-          v16 = [userInfo countByEnumeratingWithState:&v24 objects:v28 count:16];
+          else
+          {
+            v11 = 0;
+          }
         }
 
-        while (v16);
+        v16 = [userInfo countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
-      else
-      {
-        v11 = 1;
-      }
-
-      goto LABEL_25;
+      while (v16);
+      return v11;
     }
 
-LABEL_24:
-    v11 = 0;
+    return 0;
   }
 
-LABEL_25:
-  v22 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (uint64_t)isFatalError
 {
-  __ISRecordSPIClassUsage(self);
-  v2 = [objc_msgSend(self "userInfo")];
+  __ISRecordSPIClassUsage(self, "/Library/Caches/com.apple.xbs/Sources/iTunesStore/src/ISError.m", 127, a2);
+  v3 = [objc_msgSend(self "userInfo")];
 
-  return [v2 BOOLValue];
+  return [v3 BOOLValue];
 }
 
 @end

@@ -12,44 +12,44 @@
 {
   end = range.end;
   start = range.start;
-  v40[6] = *MEMORY[0x277D85DE8];
+  v39[6] = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   profileCopy = profile;
   handlerCopy = handler;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  v40[0] = @"object";
-  v40[1] = @"source";
-  v40[2] = @"status";
-  v40[3] = @"session";
-  v40[4] = @"sync_identity";
-  v40[5] = @"modification_date";
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:6];
+  v39[0] = @"object";
+  v39[1] = @"source";
+  v39[2] = @"status";
+  v39[3] = @"session";
+  v39[4] = @"sync_identity";
+  v39[5] = @"modification_date";
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:6];
   database = [profileCopy database];
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x2020000000;
-  v39 = -1;
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __110__HDObjectAuthorizationSyncEntity_generateSyncObjectsForSession_syncAnchorRange_profile_messageHandler_error___block_invoke;
-  v27[3] = &unk_278625FA0;
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x2020000000;
+  v38 = -1;
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __110__HDObjectAuthorizationSyncEntity_generateSyncObjectsForSession_syncAnchorRange_profile_messageHandler_error___block_invoke;
+  v26[3] = &unk_278625FA0;
   v17 = v15;
-  v28 = v17;
+  v27 = v17;
   v18 = sessionCopy;
-  v34 = start;
-  v35 = end;
-  v29 = v18;
-  v33 = &v36;
+  v33 = start;
+  v34 = end;
+  v28 = v18;
+  v32 = &v35;
   v19 = database;
-  v30 = v19;
+  v29 = v19;
   v20 = dictionary;
-  v31 = v20;
+  v30 = v20;
   v21 = profileCopy;
-  v32 = v21;
-  if ([(HDHealthEntity *)HDObjectAuthorizationEntity performReadTransactionWithHealthDatabase:v19 error:error block:v27])
+  v31 = v21;
+  if ([(HDHealthEntity *)HDObjectAuthorizationEntity performReadTransactionWithHealthDatabase:v19 error:error block:v26])
   {
     allValues = [v20 allValues];
-    v23 = [handlerCopy sendCodableChange:allValues resultAnchor:v37[3] sequence:0 done:1 error:error];
+    v23 = [handlerCopy sendCodableChange:allValues resultAnchor:v36[3] sequence:0 done:1 error:error];
   }
 
   else
@@ -57,8 +57,7 @@
     v23 = 0;
   }
 
-  _Block_object_dispose(&v36, 8);
-  v24 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v35, 8);
   return v23;
 }
 
@@ -156,63 +155,63 @@ LABEL_7:
 
 + (int64_t)receiveSyncObjects:(id)objects version:(id)version syncStore:(id)store profile:(id)profile error:(id *)error
 {
-  v102 = *MEMORY[0x277D85DE8];
+  v101 = *MEMORY[0x277D85DE8];
   objectsCopy = objects;
   storeCopy = store;
   profileCopy = profile;
-  v71 = storeCopy;
-  v72 = objc_opt_self();
+  v70 = storeCopy;
+  v71 = objc_opt_self();
   syncProvenance = [storeCopy syncProvenance];
-  v69 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v68 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v85 = 0u;
   v86 = 0u;
   v87 = 0u;
   v88 = 0u;
-  v89 = 0u;
   obj = objectsCopy;
-  v65 = [obj countByEnumeratingWithState:&v86 objects:v101 count:16];
-  if (v65)
+  v64 = [obj countByEnumeratingWithState:&v85 objects:v100 count:16];
+  if (v64)
   {
-    v64 = *v87;
+    v63 = *v86;
     do
     {
       v11 = 0;
       do
       {
-        if (*v87 != v64)
+        if (*v86 != v63)
         {
           v12 = v11;
           objc_enumerationMutation(obj);
           v11 = v12;
         }
 
-        v66 = v11;
-        v13 = *(*(&v86 + 1) + 8 * v11);
+        v65 = v11;
+        v13 = *(*(&v85 + 1) + 8 * v11);
         objectUUID = [v13 objectUUID];
         if (objectUUID)
         {
-          v68 = [MEMORY[0x277CCAD78] hk_UUIDWithData:?];
-          v84 = 0u;
-          v85 = 0u;
-          v82 = 0u;
+          v67 = [MEMORY[0x277CCAD78] hk_UUIDWithData:?];
           v83 = 0u;
+          v84 = 0u;
+          v81 = 0u;
+          v82 = 0u;
           authorizations = [v13 authorizations];
-          v74 = [authorizations countByEnumeratingWithState:&v82 objects:v100 count:16];
-          if (!v74)
+          v73 = [authorizations countByEnumeratingWithState:&v81 objects:v99 count:16];
+          if (!v73)
           {
             goto LABEL_37;
           }
 
-          v73 = *v83;
+          v72 = *v82;
           while (1)
           {
-            for (i = 0; i != v74; ++i)
+            for (i = 0; i != v73; ++i)
             {
-              if (*v83 != v73)
+              if (*v82 != v72)
               {
                 objc_enumerationMutation(authorizations);
               }
 
-              v15 = *(*(&v82 + 1) + 8 * i);
+              v15 = *(*(&v81 + 1) + 8 * i);
               sourceUUID = [v15 sourceUUID];
               if (sourceUUID)
               {
@@ -220,7 +219,7 @@ LABEL_7:
                 {
                   v17 = [MEMORY[0x277CCAD78] hk_UUIDWithData:sourceUUID];
                   daemon = objc_alloc_init(MEMORY[0x277CCD710]);
-                  [daemon setObjectUUID:v68];
+                  [daemon setObjectUUID:v67];
                   [daemon setSourceUUID:v17];
                   [daemon setStatus:{objc_msgSend(v15, "authorizationStatus")}];
                   [v15 modificationDate];
@@ -232,9 +231,9 @@ LABEL_7:
 
                   *&buf = 0;
                   *(&buf + 1) = &buf;
-                  v91 = 0x3032000000;
-                  v92 = __Block_byref_object_copy__136;
-                  v93 = __Block_byref_object_dispose__136;
+                  v90 = 0x3032000000;
+                  v91 = __Block_byref_object_copy__136;
+                  v92 = __Block_byref_object_dispose__136;
                   syncIdentityManager = [profileCopy syncIdentityManager];
                   legacySyncIdentity = [syncIdentityManager legacySyncIdentity];
 
@@ -244,24 +243,24 @@ LABEL_7:
                   }
 
                   syncIdentity = [v15 syncIdentity];
-                  v81 = 0;
-                  v24 = [HDSyncIdentity syncIdentityWithCodable:syncIdentity error:&v81];
-                  v25 = v81;
+                  v80 = 0;
+                  v24 = [HDSyncIdentity syncIdentityWithCodable:syncIdentity error:&v80];
+                  v25 = v80;
 
                   if (v24)
                   {
                     database = [profileCopy database];
                     p_buf = &buf;
-                    v80 = v25;
-                    v76[0] = MEMORY[0x277D85DD0];
-                    v76[1] = 3221225472;
-                    v76[2] = __90__HDObjectAuthorizationEntity__insertCodableObjectAuthorizations_syncStore_profile_error___block_invoke;
-                    v76[3] = &unk_278614288;
-                    v77 = profileCopy;
+                    v79 = v25;
+                    v75[0] = MEMORY[0x277D85DD0];
+                    v75[1] = 3221225472;
+                    v75[2] = __90__HDObjectAuthorizationEntity__insertCodableObjectAuthorizations_syncStore_profile_error___block_invoke;
+                    v75[3] = &unk_278614288;
+                    v76 = profileCopy;
                     v27 = v24;
-                    v78 = v27;
-                    v28 = [(HDHealthEntity *)HDSyncIdentityEntity performWriteTransactionWithHealthDatabase:database error:&v80 block:v76];
-                    v29 = v80;
+                    v77 = v27;
+                    v28 = [(HDHealthEntity *)HDSyncIdentityEntity performWriteTransactionWithHealthDatabase:database error:&v79 block:v75];
+                    v29 = v79;
 
                     if (v28)
                     {
@@ -270,7 +269,7 @@ LABEL_17:
                       entity = [*(*(&buf + 1) + 40) entity];
                       v25 = [v30 numberWithLongLong:{objc_msgSend(entity, "persistentID")}];
 
-                      v32 = [v69 objectForKeyedSubscript:v25];
+                      v32 = [v68 objectForKeyedSubscript:v25];
                       v33 = v32;
                       if (v32)
                       {
@@ -280,12 +279,12 @@ LABEL_17:
                       else
                       {
                         v38 = objc_alloc(MEMORY[0x277CBEB18]);
-                        v99 = daemon;
-                        v39 = [MEMORY[0x277CBEA60] arrayWithObjects:&v99 count:1];
+                        v98 = daemon;
+                        v39 = [MEMORY[0x277CBEA60] arrayWithObjects:&v98 count:1];
                         v33 = [v38 initWithArray:v39];
                       }
 
-                      [v69 setObject:v33 forKeyedSubscript:v25];
+                      [v68 setObject:v33 forKeyedSubscript:v25];
 
                       goto LABEL_29;
                     }
@@ -297,9 +296,9 @@ LABEL_17:
                     v40 = *MEMORY[0x277CCC328];
                     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_FAULT))
                     {
-                      LODWORD(v95) = 138543362;
-                      *(&v95 + 4) = v25;
-                      _os_log_fault_impl(&dword_228986000, v40, OS_LOG_TYPE_FAULT, "HDObjectAuthorizationSyncEntity SyncIdentity from received codable is nil %{public}@", &v95, 0xCu);
+                      LODWORD(v94) = 138543362;
+                      *(&v94 + 4) = v25;
+                      _os_log_fault_impl(&dword_228986000, v40, OS_LOG_TYPE_FAULT, "HDObjectAuthorizationSyncEntity SyncIdentity from received codable is nil %{public}@", &v94, 0xCu);
                     }
 
 LABEL_29:
@@ -325,7 +324,7 @@ LABEL_29:
                 v17 = [MEMORY[0x277CCA9B8] hk_error:100 format:@"Missing authorization status"];
                 daemon = [profileCopy daemon];
                 autoBugCaptureReporter = [daemon autoBugCaptureReporter];
-                [autoBugCaptureReporter reportApplyDataFailure:objc_opt_class() duringSyncFromStore:v71 error:v17];
+                [autoBugCaptureReporter reportApplyDataFailure:objc_opt_class() duringSyncFromStore:v70 error:v17];
               }
 
               else
@@ -345,14 +344,14 @@ LABEL_29:
                 v17 = [MEMORY[0x277CCA9B8] hk_error:100 format:@"Missing source ID"];
                 daemon = [profileCopy daemon];
                 autoBugCaptureReporter2 = [daemon autoBugCaptureReporter];
-                [autoBugCaptureReporter2 reportApplyDataFailure:objc_opt_class() duringSyncFromStore:v71 error:v17];
+                [autoBugCaptureReporter2 reportApplyDataFailure:objc_opt_class() duringSyncFromStore:v70 error:v17];
               }
 
 LABEL_31:
             }
 
-            v74 = [authorizations countByEnumeratingWithState:&v82 objects:v100 count:16];
-            if (!v74)
+            v73 = [authorizations countByEnumeratingWithState:&v81 objects:v99 count:16];
+            if (!v73)
             {
               goto LABEL_37;
             }
@@ -371,44 +370,44 @@ LABEL_31:
           _os_log_error_impl(&dword_228986000, v49, OS_LOG_TYPE_ERROR, "%{public}@ is missing an object ID and will be ignored.", &buf, 0xCu);
         }
 
-        v68 = [MEMORY[0x277CCA9B8] hk_error:100 format:@"Missing Object ID"];
+        v67 = [MEMORY[0x277CCA9B8] hk_error:100 format:@"Missing Object ID"];
         authorizations = [profileCopy daemon];
         autoBugCaptureReporter3 = [authorizations autoBugCaptureReporter];
-        [autoBugCaptureReporter3 reportApplyDataFailure:objc_opt_class() duringSyncFromStore:v71 error:v68];
+        [autoBugCaptureReporter3 reportApplyDataFailure:objc_opt_class() duringSyncFromStore:v70 error:v67];
 
 LABEL_37:
-        v11 = v66 + 1;
+        v11 = v65 + 1;
       }
 
-      while (v66 + 1 != v65);
-      v65 = [obj countByEnumeratingWithState:&v86 objects:v101 count:16];
+      while (v65 + 1 != v64);
+      v64 = [obj countByEnumeratingWithState:&v85 objects:v100 count:16];
     }
 
-    while (v65);
+    while (v64);
   }
 
-  v97 = 0u;
-  v98 = 0u;
-  v95 = 0u;
   v96 = 0u;
-  v52 = v69;
-  v53 = [v52 countByEnumeratingWithState:&v95 objects:&buf count:16];
+  v97 = 0u;
+  v94 = 0u;
+  v95 = 0u;
+  v52 = v68;
+  v53 = [v52 countByEnumeratingWithState:&v94 objects:&buf count:16];
   if (v53)
   {
-    v54 = *v96;
+    v54 = *v95;
     v55 = 1;
 LABEL_41:
     v56 = 0;
     while (1)
     {
-      if (*v96 != v54)
+      if (*v95 != v54)
       {
         objc_enumerationMutation(v52);
       }
 
-      v57 = *(*(&v95 + 1) + 8 * v56);
+      v57 = *(*(&v94 + 1) + 8 * v56);
       v58 = [v52 objectForKeyedSubscript:v57];
-      LOBYTE(v57) = [v72 setObjectAuthorizationRecords:v58 syncProvenance:syncProvenance syncIdentity:objc_msgSend(v57 profile:"intValue") error:{profileCopy, error}];
+      LOBYTE(v57) = [v71 setObjectAuthorizationRecords:v58 syncProvenance:syncProvenance syncIdentity:objc_msgSend(v57 profile:"intValue") error:{profileCopy, error}];
 
       if ((v57 & 1) == 0)
       {
@@ -417,7 +416,7 @@ LABEL_41:
 
       if (v53 == ++v56)
       {
-        v53 = [v52 countByEnumeratingWithState:&v95 objects:&buf count:16];
+        v53 = [v52 countByEnumeratingWithState:&v94 objects:&buf count:16];
         if (v53)
         {
           goto LABEL_41;
@@ -434,20 +433,17 @@ LABEL_47:
     v55 = 0;
   }
 
-  v59 = *MEMORY[0x277D85DE8];
   return v55;
 }
 
 + (id)syncEntityDependenciesForSyncProtocolVersion:(int)version
 {
-  v8[2] = *MEMORY[0x277D85DE8];
+  v7[2] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEB98];
-  v8[0] = objc_opt_class();
-  v8[1] = objc_opt_class();
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
+  v7[0] = objc_opt_class();
+  v7[1] = objc_opt_class();
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
   v5 = [v3 setWithArray:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

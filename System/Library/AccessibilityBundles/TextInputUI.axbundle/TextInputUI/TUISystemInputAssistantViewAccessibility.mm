@@ -5,6 +5,7 @@
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)_axAddCurrentGroup:(id)group toElements:(id)elements;
 - (void)_didTapExpandButton:(id)button;
+- (void)setShowsExpandableButtonBarItems:(BOOL)items;
 @end
 
 @implementation TUISystemInputAssistantViewAccessibility
@@ -30,18 +31,18 @@
 
 - (void)_axAddCurrentGroup:(id)group toElements:(id)elements
 {
-  v11[3] = *MEMORY[0x29EDCA608];
+  v10[3] = *MEMORY[0x29EDCA608];
   groupCopy = group;
   elementsCopy = elements;
   if ([groupCopy count] >= 2)
   {
-    v10[0] = @"GroupElements";
-    v10[1] = @"GroupTraits";
-    v11[0] = groupCopy;
-    v11[1] = &unk_2A2349E58;
-    v10[2] = @"GroupScanBehaviorTraits";
-    v11[2] = &unk_2A2349E70;
-    firstObject = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v11 forKeys:v10 count:3];
+    v9[0] = @"GroupElements";
+    v9[1] = @"GroupTraits";
+    v10[0] = groupCopy;
+    v10[1] = &unk_2A2349E58;
+    v9[2] = @"GroupScanBehaviorTraits";
+    v10[2] = &unk_2A2349E70;
+    firstObject = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
 LABEL_5:
     v8 = firstObject;
     [elementsCopy addObject:firstObject];
@@ -56,8 +57,6 @@ LABEL_5:
   }
 
 LABEL_6:
-
-  v9 = *MEMORY[0x29EDCA608];
 }
 
 - (BOOL)_isPredictionOrCandidateView:(id)view
@@ -80,42 +79,42 @@ LABEL_6:
 
 - (id)_accessibilityScannerGroupElements
 {
-  v29 = *MEMORY[0x29EDCA608];
+  v28 = *MEMORY[0x29EDCA608];
   array = [MEMORY[0x29EDB8DE8] array];
   defaultSwitchControlOptions = [MEMORY[0x29EDC7328] defaultSwitchControlOptions];
   [defaultSwitchControlOptions setShouldReturnScannerGroups:0];
   leafNodePredicate = [defaultSwitchControlOptions leafNodePredicate];
-  v26[0] = MEMORY[0x29EDCA5F8];
-  v26[1] = 3221225472;
-  v26[2] = __78__TUISystemInputAssistantViewAccessibility__accessibilityScannerGroupElements__block_invoke;
-  v26[3] = &unk_29F30A1A8;
-  v26[4] = self;
-  v20 = leafNodePredicate;
-  v27 = v20;
-  [defaultSwitchControlOptions setLeafNodePredicate:v26];
-  v21 = defaultSwitchControlOptions;
+  v25[0] = MEMORY[0x29EDCA5F8];
+  v25[1] = 3221225472;
+  v25[2] = __78__TUISystemInputAssistantViewAccessibility__accessibilityScannerGroupElements__block_invoke;
+  v25[3] = &unk_29F30A1A8;
+  v25[4] = self;
+  v19 = leafNodePredicate;
+  v26 = v19;
+  [defaultSwitchControlOptions setLeafNodePredicate:v25];
+  v20 = defaultSwitchControlOptions;
   v6 = [(TUISystemInputAssistantViewAccessibility *)self _accessibilityLeafDescendantsWithOptions:defaultSwitchControlOptions];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v22 objects:v28 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v21 objects:v27 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
     array2 = 0;
-    v11 = *v23;
+    v11 = *v22;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v23 != v11)
+        if (*v22 != v11)
         {
           objc_enumerationMutation(v6);
         }
 
-        v13 = *(*(&v22 + 1) + 8 * i);
+        v13 = *(*(&v21 + 1) + 8 * i);
         if ([(TUISystemInputAssistantViewAccessibility *)self _isPredictionOrCandidateView:v13])
         {
           v14 = v13;
@@ -136,7 +135,7 @@ LABEL_6:
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v22 objects:v28 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v21 objects:v27 count:16];
     }
 
     while (v8);
@@ -149,9 +148,9 @@ LABEL_6:
   }
 
   [(TUISystemInputAssistantViewAccessibility *)self _axAddCurrentGroup:array2 toElements:array];
-  [v21 setLeafNodePredicate:v20];
-  [v21 setShouldReturnScannerGroups:1];
-  v15 = [v9 _accessibilityLeafDescendantsWithOptions:v21];
+  [v20 setLeafNodePredicate:v19];
+  [v20 setShouldReturnScannerGroups:1];
+  v15 = [v9 _accessibilityLeafDescendantsWithOptions:v20];
   if ([v15 count])
   {
     v16 = [v15 arrayByAddingObjectsFromArray:array];
@@ -163,8 +162,6 @@ LABEL_6:
   }
 
   v17 = v16;
-
-  v18 = *MEMORY[0x29EDCA608];
 
   return v17;
 }
@@ -183,6 +180,14 @@ uint64_t __78__TUISystemInputAssistantViewAccessibility__accessibilityScannerGro
   }
 
   return v4;
+}
+
+- (void)setShowsExpandableButtonBarItems:(BOOL)items
+{
+  v4.receiver = self;
+  v4.super_class = TUISystemInputAssistantViewAccessibility;
+  [(TUISystemInputAssistantViewAccessibility *)&v4 setShowsExpandableButtonBarItems:items];
+  [(TUISystemInputAssistantViewAccessibility *)self _accessibilityLoadAccessibilityInformation];
 }
 
 - (void)_didTapExpandButton:(id)button

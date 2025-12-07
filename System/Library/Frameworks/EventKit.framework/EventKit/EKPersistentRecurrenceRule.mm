@@ -21,21 +21,19 @@
 
 void __53__EKPersistentRecurrenceRule_defaultPropertiesToLoad__block_invoke()
 {
-  v6[6] = *MEMORY[0x1E69E9840];
+  v5[6] = *MEMORY[0x1E69E9840];
   v0 = *MEMORY[0x1E6992BD0];
-  v6[0] = *MEMORY[0x1E6992BC8];
-  v6[1] = v0;
+  v5[0] = *MEMORY[0x1E6992BC8];
+  v5[1] = v0;
   v1 = *MEMORY[0x1E6992BB0];
-  v6[2] = *MEMORY[0x1E6992BB8];
-  v6[3] = v1;
+  v5[2] = *MEMORY[0x1E6992BB8];
+  v5[3] = v1;
   v2 = *MEMORY[0x1E6992BE0];
-  v6[4] = *MEMORY[0x1E6992BC0];
-  v6[5] = v2;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:6];
+  v5[4] = *MEMORY[0x1E6992BC0];
+  v5[5] = v2;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:6];
   v4 = defaultPropertiesToLoad_defaultPropertiesToLoad_1;
   defaultPropertiesToLoad_defaultPropertiesToLoad_1 = v3;
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (id)relations

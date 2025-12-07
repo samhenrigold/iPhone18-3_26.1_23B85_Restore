@@ -79,7 +79,7 @@
 
 void __43__ACHMindfulMinutesAwardingSource_activate__block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = [WeakRetained client];
   v4 = [v3 isProtectedDataAvailable];
@@ -87,9 +87,9 @@ void __43__ACHMindfulMinutesAwardingSource_activate__block_invoke(uint64_t a1)
   v5 = ACHLogWorkouts();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8[0] = 67109120;
-    v8[1] = v4;
-    _os_log_impl(&dword_221DDC000, v5, OS_LOG_TYPE_DEFAULT, "[ACHMindfulMinutesAwardingSource] Received protected data availabilty change to state: %d", v8, 8u);
+    v7[0] = 67109120;
+    v7[1] = v4;
+    _os_log_impl(&dword_221DDC000, v5, OS_LOG_TYPE_DEFAULT, "[ACHMindfulMinutesAwardingSource] Received protected data availabilty change to state: %d", v7, 8u);
   }
 
   if (v4)
@@ -97,8 +97,6 @@ void __43__ACHMindfulMinutesAwardingSource_activate__block_invoke(uint64_t a1)
     v6 = objc_loadWeakRetained((a1 + 32));
     [v6 _queue_startSampleQueryIfNecessary];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -345,18 +343,18 @@ void __48__ACHMindfulMinutesAwardingSource_sessionAdded___block_invoke(uint64_t 
 - (id)_queue_evaluateSession:(id)session shouldLog:(BOOL)log
 {
   logCopy = log;
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   internalQueue = [(ACHMindfulMinutesAwardingSource *)self internalQueue];
   dispatch_assert_queue_V2(internalQueue);
 
   calendar = self->_calendar;
   startDate = [sessionCopy startDate];
-  v50 = [(NSCalendar *)calendar components:28 fromDate:startDate];
+  v49 = [(NSCalendar *)calendar components:28 fromDate:startDate];
 
-  v49 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v48 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v10 = [(ACHMindfulMinutesAwardingSource *)self _relevantTemplatesForMindfulSession:sessionCopy];
-  v48 = logCopy;
+  v47 = logCopy;
   if (logCopy)
   {
     v11 = ACHLogAwardEngine();
@@ -366,13 +364,13 @@ void __48__ACHMindfulMinutesAwardingSource_sessionAdded___block_invoke(uint64_t 
       v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v10, "count")}];
       uUID = [sessionCopy UUID];
       *buf = 138413058;
-      v60 = v12;
-      v61 = 2114;
-      v62 = v13;
-      v63 = 2114;
-      v64 = v50;
-      v65 = 2112;
-      v66 = uUID;
+      v59 = v12;
+      v60 = 2114;
+      v61 = v13;
+      v62 = 2114;
+      v63 = v49;
+      v64 = 2112;
+      v65 = uUID;
       _os_log_impl(&dword_221DDC000, v11, OS_LOG_TYPE_DEFAULT, "[ACHMindfulMinutesAwardingSource] Evaluating triggers %@ for %{public}@ templates using activity summary with date %{public}@, values: %@", buf, 0x2Au);
     }
   }
@@ -381,34 +379,34 @@ void __48__ACHMindfulMinutesAwardingSource_sessionAdded___block_invoke(uint64_t 
   healthStore = self->_healthStore;
   WeakRetained = objc_loadWeakRetained(&self->_workoutClient);
   v18 = self->_calendar;
-  v47 = sessionCopy;
+  v46 = sessionCopy;
   endDate = [sessionCopy endDate];
-  v53 = [(ACHMindfulMinutesAwardingEnvironment *)v15 initWithHealthStore:healthStore workoutClient:WeakRetained calendar:v18 currentDate:endDate];
+  v52 = [(ACHMindfulMinutesAwardingEnvironment *)v15 initWithHealthStore:healthStore workoutClient:WeakRetained calendar:v18 currentDate:endDate];
 
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
   v55 = 0u;
+  v56 = 0u;
+  v53 = 0u;
+  v54 = 0u;
   obj = v10;
-  v20 = [obj countByEnumeratingWithState:&v54 objects:v58 count:16];
-  v21 = v48;
+  v20 = [obj countByEnumeratingWithState:&v53 objects:v57 count:16];
+  v21 = v47;
   if (v20)
   {
     v22 = v20;
-    v23 = *v55;
+    v23 = *v54;
     v24 = 0x277CCA000uLL;
     do
     {
       v25 = 0;
-      v51 = v22;
+      v50 = v22;
       do
       {
-        if (*v55 != v23)
+        if (*v54 != v23)
         {
           objc_enumerationMutation(obj);
         }
 
-        v26 = *(*(&v54 + 1) + 8 * v25);
+        v26 = *(*(&v53 + 1) + 8 * v25);
         gracePredicate = [v26 gracePredicate];
         v28 = gracePredicate;
         if (gracePredicate)
@@ -425,15 +423,15 @@ void __48__ACHMindfulMinutesAwardingSource_sessionAdded___block_invoke(uint64_t 
 
         v31 = [*(v24 + 3120) predicateWithFormat:v30];
         [v31 allowEvaluation];
-        if ([v31 evaluateWithObject:v53])
+        if ([v31 evaluateWithObject:v52])
         {
           v32 = objc_alloc_init(MEMORY[0x277CE8D38]);
           uniqueName = [v26 uniqueName];
           [v32 setTemplateUniqueName:uniqueName];
 
-          [v50 year];
-          [v50 month];
-          [v50 day];
+          [v49 year];
+          [v49 month];
+          [v49 day];
           v34 = ACHDateComponentsForYearMonthDay();
           [v32 setEarnedDateComponents:v34];
 
@@ -447,7 +445,7 @@ LABEL_17:
             if (canonicalUnit)
             {
               v38 = [MEMORY[0x277CCA9C0] expressionWithFormat:valueExpression];
-              v39 = [v38 expressionValueWithObject:v53 context:0];
+              v39 = [v38 expressionValueWithObject:v52 context:0];
               if (v39)
               {
                 v40 = MEMORY[0x277CCD7E8];
@@ -456,7 +454,7 @@ LABEL_17:
                 v42 = [v40 quantityWithUnit:canonicalUnit2 doubleValue:?];
                 [v32 setValue:v42];
 
-                v21 = v48;
+                v21 = v47;
               }
             }
           }
@@ -476,59 +474,56 @@ LABEL_17:
             if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v60 = v32;
+              v59 = v32;
               _os_log_impl(&dword_221DDC000, v43, OS_LOG_TYPE_DEFAULT, "[ACHMindfulMinutesAwardingSource] Created earned instance: %@", buf, 0xCu);
             }
 
-            [(ACHMindfulMinutesAwardingEnvironment *)v53 logValues];
+            [(ACHMindfulMinutesAwardingEnvironment *)v52 logValues];
           }
 
-          [v49 addObject:v32];
+          [v48 addObject:v32];
 
           v24 = 0x277CCA000;
-          v22 = v51;
+          v22 = v50;
         }
 
         ++v25;
       }
 
       while (v22 != v25);
-      v22 = [obj countByEnumeratingWithState:&v54 objects:v58 count:16];
+      v22 = [obj countByEnumeratingWithState:&v53 objects:v57 count:16];
     }
 
     while (v22);
   }
 
-  v44 = [v49 copy];
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = [v48 copy];
 
   return v44;
 }
 
 - (void)_runIncrementalEvaluation:(id)evaluation
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   evaluationCopy = evaluation;
   v5 = ACHLogAwardEngine();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v13 = [evaluationCopy count];
+    v12 = [evaluationCopy count];
     _os_log_impl(&dword_221DDC000, v5, OS_LOG_TYPE_DEFAULT, "[ACHMindfulMinutesAwardingSource] Running incremental evaluation for %lu sessions", buf, 0xCu);
   }
 
   engine = [(ACHMindfulMinutesAwardingSource *)self engine];
   uniqueName = [(ACHMindfulMinutesAwardingSource *)self uniqueName];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __61__ACHMindfulMinutesAwardingSource__runIncrementalEvaluation___block_invoke;
-  v10[3] = &unk_278490908;
-  v10[4] = self;
-  v11 = evaluationCopy;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __61__ACHMindfulMinutesAwardingSource__runIncrementalEvaluation___block_invoke;
+  v9[3] = &unk_278490908;
+  v9[4] = self;
+  v10 = evaluationCopy;
   v8 = evaluationCopy;
-  [engine requestIncrementalEvaluationForSource:uniqueName evaluationBlock:v10];
-
-  v9 = *MEMORY[0x277D85DE8];
+  [engine requestIncrementalEvaluationForSource:uniqueName evaluationBlock:v9];
 }
 
 id __61__ACHMindfulMinutesAwardingSource__runIncrementalEvaluation___block_invoke(uint64_t a1, void *a2)
@@ -566,46 +561,44 @@ id __61__ACHMindfulMinutesAwardingSource__runIncrementalEvaluation___block_invok
 
 void __61__ACHMindfulMinutesAwardingSource__runIncrementalEvaluation___block_invoke_314(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = [*(a1 + 40) _queue_evaluateSession:*(*(&v9 + 1) + 8 * v6) shouldLog:{1, v9}];
+        v7 = [*(a1 + 40) _queue_evaluateSession:*(*(&v8 + 1) + 8 * v6) shouldLog:{1, v8}];
         [*(*(*(a1 + 48) + 8) + 40) addObjectsFromArray:v7];
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)earnedInstancesForHistoricalInterval:(id)interval error:(id *)error
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   intervalCopy = interval;
   internalQueue = [(ACHMindfulMinutesAwardingSource *)self internalQueue];
   dispatch_assert_queue_not_V2(internalQueue);
@@ -621,25 +614,24 @@ void __61__ACHMindfulMinutesAwardingSource__runIncrementalEvaluation___block_inv
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v24 = 0x3032000000;
-  v25 = __Block_byref_object_copy_;
-  v26 = __Block_byref_object_dispose_;
-  v27 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v23 = 0x3032000000;
+  v24 = __Block_byref_object_copy_;
+  v25 = __Block_byref_object_dispose_;
+  v26 = objc_alloc_init(MEMORY[0x277CBEB18]);
   internalQueue = self->_internalQueue;
-  v15 = MEMORY[0x277D85DD0];
-  v16 = 3221225472;
-  v17 = __78__ACHMindfulMinutesAwardingSource_earnedInstancesForHistoricalInterval_error___block_invoke;
-  v18 = &unk_278490980;
+  v14 = MEMORY[0x277D85DD0];
+  v15 = 3221225472;
+  v16 = __78__ACHMindfulMinutesAwardingSource_earnedInstancesForHistoricalInterval_error___block_invoke;
+  v17 = &unk_278490980;
   selfCopy = self;
   v11 = intervalCopy;
-  v20 = v11;
+  v19 = v11;
   p_buf = &buf;
   errorCopy = error;
-  dispatch_sync(internalQueue, &v15);
-  v12 = [MEMORY[0x277CBEB98] setWithArray:{*(*(&buf + 1) + 40), v15, v16, v17, v18, selfCopy}];
+  dispatch_sync(internalQueue, &v14);
+  v12 = [MEMORY[0x277CBEB98] setWithArray:{*(*(&buf + 1) + 40), v14, v15, v16, v17, selfCopy}];
 
   _Block_object_dispose(&buf, 8);
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -740,60 +732,58 @@ void __78__ACHMindfulMinutesAwardingSource_earnedInstancesForHistoricalInterval_
 
 void __81__ACHMindfulMinutesAwardingSource_requestAchievementProgressUpdatesForTemplates___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v3 = [*(a1 + 32) _progressEnvironement];
   v4 = objc_alloc_init(MEMORY[0x277CE8D40]);
-  v20 = v3;
+  v19 = v3;
   if (v3)
   {
-    v19 = v2;
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
+    v18 = v2;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     obj = *(a1 + 40);
-    v5 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v5 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v23;
+      v7 = *v22;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v23 != v7)
+          if (*v22 != v7)
           {
             objc_enumerationMutation(obj);
           }
 
-          v9 = *(*(&v22 + 1) + 8 * i);
+          v9 = *(*(&v21 + 1) + 8 * i);
           v10 = [v4 validateTemplate:v9];
           if ([v10 isValid])
           {
-            v11 = [*(a1 + 32) _queue_goalQuantityForTemplate:v9 progressEnvironment:v20];
-            v12 = [*(a1 + 32) _queue_progressQuantityForTemplate:v9 progressEnvironment:v20];
+            v11 = [*(a1 + 32) _queue_goalQuantityForTemplate:v9 progressEnvironment:v19];
+            v12 = [*(a1 + 32) _queue_progressQuantityForTemplate:v9 progressEnvironment:v19];
             v13 = objc_alloc(MEMORY[0x277CE8CC0]);
             v14 = [v9 uniqueName];
             v15 = [v13 initWithTemplateUniqueName:v14 progressQuantity:v12 goalQuantity:v11];
 
-            [v19 addObject:v15];
+            [v18 addObject:v15];
           }
         }
 
-        v6 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v6 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v6);
     }
 
     v16 = [*(a1 + 32) progressEngine];
-    v2 = v19;
-    v17 = [v19 copy];
+    v2 = v18;
+    v17 = [v18 copy];
     [v16 processAchievementProgressUpdates:v17];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_queue_goalQuantityForTemplate:(id)template progressEnvironment:(id)environment
@@ -921,31 +911,27 @@ void __81__ACHMindfulMinutesAwardingSource_requestAchievementProgressUpdatesForT
 
 void __52__ACHMindfulMinutesAwardingSource__startSampleQuery__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_221DDC000, a2, OS_LOG_TYPE_ERROR, "[ACHMindfulMinutesAwardingSource] Error starting sample query: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_221DDC000, a2, OS_LOG_TYPE_ERROR, "[ACHMindfulMinutesAwardingSource] Error starting sample query: %@", &v2, 0xCu);
 }
 
 void __52__ACHMindfulMinutesAwardingSource__startSampleQuery__block_invoke_303_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_221DDC000, a2, OS_LOG_TYPE_ERROR, "[ACHMindfulMinutesAwardingSource] Error from sample query update: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_221DDC000, a2, OS_LOG_TYPE_ERROR, "[ACHMindfulMinutesAwardingSource] Error from sample query update: %@", &v2, 0xCu);
 }
 
 void __78__ACHMindfulMinutesAwardingSource_earnedInstancesForHistoricalInterval_error___block_invoke_3_cold_1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 description];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_221DDC000, a2, OS_LOG_TYPE_ERROR, "[ACHMindfulMinutesAwardingSource] Failed to query all mindfulness sessions: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_221DDC000, a2, OS_LOG_TYPE_ERROR, "[ACHMindfulMinutesAwardingSource] Failed to query all mindfulness sessions: %@", &v4, 0xCu);
 }
 
 @end

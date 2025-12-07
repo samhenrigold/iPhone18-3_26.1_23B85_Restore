@@ -98,7 +98,7 @@
 
   else
   {
-    v5 = VSErrorLogObject();
+    v5 = VSErrorLogObject(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [(VSOptional *)self forceUnwrapObject];

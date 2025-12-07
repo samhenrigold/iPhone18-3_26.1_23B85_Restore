@@ -3,7 +3,7 @@
 
 @implementation C3DGetColorTransformToITUR
 
-uint64_t __C3DGetColorTransformToITUR_709_block_invoke()
+uint64_t __C3DGetColorTransformToITUR_709_block_invoke(uint64_t a1, uint64_t a2)
 {
   if (C3DColorSpaceITUR_709_onceToken != -1)
   {

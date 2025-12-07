@@ -30,8 +30,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v13[3] = *MEMORY[0x1E69E9840];
-  v12[0] = @"tasks";
+  v12[3] = *MEMORY[0x1E69E9840];
+  v11[0] = @"tasks";
   tasks = [(INSnoozeTasksIntent *)self tasks];
   null = tasks;
   if (!tasks)
@@ -39,8 +39,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[0] = null;
-  v12[1] = @"nextTriggerTime";
+  v12[0] = null;
+  v11[1] = @"nextTriggerTime";
   nextTriggerTime = [(INSnoozeTasksIntent *)self nextTriggerTime];
   null2 = nextTriggerTime;
   if (!nextTriggerTime)
@@ -48,8 +48,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[1] = null2;
-  v12[2] = @"all";
+  v12[1] = null2;
+  v11[2] = @"all";
   v7 = [(INSnoozeTasksIntent *)self all];
   null3 = v7;
   if (!v7)
@@ -57,8 +57,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[2] = null3;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:3];
+  v12[2] = null3;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:3];
   if (!v7)
   {
   }
@@ -70,8 +70,6 @@
   if (!tasks)
   {
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

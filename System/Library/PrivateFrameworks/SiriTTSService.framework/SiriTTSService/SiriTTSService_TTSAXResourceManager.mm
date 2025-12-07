@@ -8,7 +8,7 @@
 
 - (NSArray)allCompactResources
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   allCompactResources = self->_allCompactResources;
   if (allCompactResources)
   {
@@ -19,26 +19,26 @@
   {
     v5 = [(TTSAXResourceManager *)self->_axManager resourcesWithType:4 subType:2];
     v6 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v22;
+      v10 = *v21;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v22 != v10)
+          if (*v21 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v21 + 1) + 8 * i);
+          v12 = *(*(&v20 + 1) + 8 * i);
           if ([v12 isInstalled])
           {
             v13 = objc_alloc_init(SiriTTSService_TTSAXResource);
@@ -55,7 +55,7 @@
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v9);
@@ -67,8 +67,6 @@
 
     v3 = self->_allCompactResources;
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

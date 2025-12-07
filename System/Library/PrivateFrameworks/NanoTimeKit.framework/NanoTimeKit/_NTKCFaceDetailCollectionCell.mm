@@ -23,7 +23,7 @@
 
 + (double)outlineLineWidth
 {
-  v2 = NTKCScreenStyle();
+  v2 = NTKCScreenStyle(self, a2);
   result = 2.66666667;
   if (v2 != 1)
   {

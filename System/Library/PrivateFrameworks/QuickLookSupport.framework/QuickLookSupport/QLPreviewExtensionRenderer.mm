@@ -217,21 +217,21 @@ LABEL_27:
 {
   v1 = [a1 preview];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_2615AE000, v2, v3, "(%@): Could not create CGContext for preview extension. Cancelling preview generation.", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_0(&dword_2615AE000, v2, v3, "(%@): Could not create CGContext for preview extension. Cancelling preview generation.", v4, v5, v6, v7);
 }
 
 - (void)drawInContextOfSize:(void *)a1 drawingBlock:completionHandler:.cold.2(void *a1)
 {
   v1 = [a1 preview];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_2615AE000, v2, v3, "(%@): Context size invalid in preview generation", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_0(&dword_2615AE000, v2, v3, "(%@): Context size invalid in preview generation", v4, v5, v6, v7);
 }
 
 - (void)drawInContextOfSize:(void *)a1 drawingBlock:completionHandler:.cold.3(void *a1)
 {
   v1 = [a1 preview];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_2615AE000, v2, v3, "(%@): Missing drawing block", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_0(&dword_2615AE000, v2, v3, "(%@): Missing drawing block", v4, v5, v6, v7);
 }
 
 - (void)drawInPDFContextOfSize:(void *)a1 drawingBlock:(NSObject *)a2 completionHandler:.cold.1(void *a1, NSObject *a2)
@@ -246,28 +246,28 @@ LABEL_27:
 {
   v1 = [a1 preview];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_2615AE000, v2, v3, "(%@): Unable to create pdf context for preview", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_0(&dword_2615AE000, v2, v3, "(%@): Unable to create pdf context for preview", v4, v5, v6, v7);
 }
 
 - (void)drawInPDFContextOfSize:(void *)a1 drawingBlock:completionHandler:.cold.3(void *a1)
 {
   v1 = [a1 preview];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_2615AE000, v2, v3, "(%@): Unable to create pdf context for preview (can't create consumer)", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_0(&dword_2615AE000, v2, v3, "(%@): Unable to create pdf context for preview (can't create consumer)", v4, v5, v6, v7);
 }
 
 - (void)drawInPDFContextOfSize:(void *)a1 drawingBlock:completionHandler:.cold.4(void *a1)
 {
   v1 = [a1 preview];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_2615AE000, v2, v3, "(%@): Unable to create data for pdf context for preview", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_0(&dword_2615AE000, v2, v3, "(%@): Unable to create data for pdf context for preview", v4, v5, v6, v7);
 }
 
 - (void)drawInPDFContextOfSize:(void *)a1 drawingBlock:completionHandler:.cold.5(void *a1)
 {
   v1 = [a1 preview];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_2615AE000, v2, v3, "(%@): Invalid context size creating PDF context", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_0(&dword_2615AE000, v2, v3, "(%@): Invalid context size creating PDF context", v4, v5, v6, v7);
 }
 
 @end

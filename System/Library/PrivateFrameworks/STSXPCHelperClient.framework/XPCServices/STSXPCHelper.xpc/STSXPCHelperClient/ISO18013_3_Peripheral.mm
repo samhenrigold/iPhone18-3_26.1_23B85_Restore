@@ -13,12 +13,15 @@
 - (void)_activateConnectionBlock:(unint64_t)block connectionState:(BOOL)state;
 - (void)_activateDisconnectBlock:(unint64_t)block;
 - (void)_activateRxCallbackWithData:(id)data lastPacket:(BOOL)packet;
+- (void)_signalConnectionStateChange:(unsigned __int8)change;
 - (void)_startAdvertising:(id)advertising prioritizedCentralAddress:(id)address;
 - (void)invalidateAndUpdateStateSignal:(BOOL)signal reason:(unint64_t)reason;
 - (void)peripheralManager:(id)manager central:(id)central didSubscribeToCharacteristic:(id)characteristic;
 - (void)peripheralManager:(id)manager central:(id)central didUnsubscribeFromCharacteristic:(id)characteristic;
 - (void)peripheralManager:(id)manager didOpenL2CAPChannel:(id)channel error:(id)error;
+- (void)peripheralManager:(id)manager didPublishL2CAPChannel:(unsigned __int16)channel error:(id)error;
 - (void)peripheralManager:(id)manager didReceiveWriteRequests:(id)requests;
+- (void)peripheralManager:(id)manager didUnpublishL2CAPChannel:(unsigned __int16)channel error:(id)error;
 - (void)peripheralManagerDidStartAdvertising:(id)advertising error:(id)error;
 - (void)peripheralManagerDidUpdateState:(id)state;
 - (void)peripheralManagerIsReadyToUpdateSubscribers:(id)subscribers;
@@ -334,6 +337,45 @@ LABEL_7:
   os_activity_scope_leave(&v12);
 
   sub_10001934C(self->_sender, v5, v6, v7, v8, v9, v10, v11, v12.opaque[0]);
+}
+
+- (void)peripheralManager:(id)manager didPublishL2CAPChannel:(unsigned __int16)channel error:(id)error
+{
+  channelCopy = channel;
+  errorCopy = error;
+  v8 = _os_activity_create(&_mh_execute_header, "peripheralManager:didPublishL2CAPChannel:error:", &_os_activity_current, OS_ACTIVITY_FLAG_IF_NONE_PRESENT);
+  state.opaque[0] = 0;
+  state.opaque[1] = 0;
+  os_activity_scope_enter(v8, &state);
+  os_activity_scope_leave(&state);
+
+  sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[ISO18013_3_Peripheral peripheralManager:didPublishL2CAPChannel:error:]", 186, self, @"LE: didPublishL2CAPChannel : 0x%X (error = %@)", v9, v10, channelCopy);
+  if (!errorCopy)
+  {
+    [(ISO18013_3_Peripheral *)self setL2CapPSM:channelCopy];
+  }
+
+  peripheralCallbackLock = [(ISO18013_3_Peripheral *)self peripheralCallbackLock];
+  [peripheralCallbackLock lock];
+
+  peripheralCallbackLock2 = [(ISO18013_3_Peripheral *)self peripheralCallbackLock];
+  [peripheralCallbackLock2 broadcast];
+
+  peripheralCallbackLock3 = [(ISO18013_3_Peripheral *)self peripheralCallbackLock];
+  [peripheralCallbackLock3 unlock];
+}
+
+- (void)peripheralManager:(id)manager didUnpublishL2CAPChannel:(unsigned __int16)channel error:(id)error
+{
+  channelCopy = channel;
+  errorCopy = error;
+  v8 = _os_activity_create(&_mh_execute_header, "peripheralManager:didUnpublishL2CAPChannel:error:", &_os_activity_current, OS_ACTIVITY_FLAG_IF_NONE_PRESENT);
+  state.opaque[0] = 0;
+  state.opaque[1] = 0;
+  os_activity_scope_enter(v8, &state);
+  os_activity_scope_leave(&state);
+
+  sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[ISO18013_3_Peripheral peripheralManager:didUnpublishL2CAPChannel:error:]", 198, self, @"LE: didUnpublishL2CAPChannel : %d (error = %@)", v9, v10, channelCopy);
 }
 
 - (void)peripheralManager:(id)manager didOpenL2CAPChannel:(id)channel error:(id)error
@@ -877,13 +919,56 @@ LABEL_8:
 
     else
     {
-      v7 = objc_alloc_init(NSMutableData);
-      rxBuffer = self->_rxBuffer;
-      self->_rxBuffer = v7;
+      self->_rxBuffer = objc_alloc_init(NSMutableData);
 
       _objc_release_x1();
     }
   }
+}
+
+- (void)_signalConnectionStateChange:(unsigned __int8)change
+{
+  changeCopy = change;
+  sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[ISO18013_3_Peripheral _signalConnectionStateChange:]", 614, self, @"LE: ConnectionStateChange=%d", v3, v4, change);
+  v6 = [NSData dataWithBytes:&changeCopy length:1];
+  peripheralManager = self->_peripheralManager;
+  getStateCharacteristicUUID = [(ISO18013_3_Peripheral *)self getStateCharacteristicUUID];
+  v9 = [(ISO18013_3_Peripheral *)self getCharacteristic:getStateCharacteristicUUID];
+  [(CBPeripheralManager *)peripheralManager updateValue:v6 forCharacteristic:v9 onSubscribedCentrals:self->_readers];
+
+  if (changeCopy == 2)
+  {
+    v10 = sub_100024AE0();
+    if (os_signpost_enabled(v10))
+    {
+      *buf = 0;
+      v11 = "BT_StateUpdate02";
+      v12 = buf;
+      goto LABEL_7;
+    }
+
+LABEL_8:
+
+    goto LABEL_9;
+  }
+
+  if (changeCopy == 1)
+  {
+    v10 = sub_100024AE0();
+    if (os_signpost_enabled(v10))
+    {
+      v14 = 0;
+      v11 = "BT_StateUpdate01";
+      v12 = &v14;
+LABEL_7:
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v10, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, v11, &unk_10005485E, v12, 2u);
+      goto LABEL_8;
+    }
+
+    goto LABEL_8;
+  }
+
+LABEL_9:
 }
 
 - (void)setReady

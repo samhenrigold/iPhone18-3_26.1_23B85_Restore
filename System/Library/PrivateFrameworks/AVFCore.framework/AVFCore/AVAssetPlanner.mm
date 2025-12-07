@@ -353,7 +353,7 @@ LABEL_19:
               memset(&v43, 0, sizeof(v43));
               if (v16)
               {
-                [v16 timeRange];
+                objc_msgSend_timeRange(v16);
               }
 
               else
@@ -395,7 +395,7 @@ LABEL_19:
 
               if (v16)
               {
-                [v16 timeRange];
+                objc_msgSend_timeRange(v16);
               }
 
               else
@@ -646,7 +646,7 @@ LABEL_13:
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_8();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
@@ -655,12 +655,12 @@ LABEL_13:
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_8();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
-- (uint64_t)makeIncrementalStateByResumptionOrStartFresh:(uint64_t *)a1 .cold.1(uint64_t *a1)
+- (void)makeIncrementalStateByResumptionOrStartFresh:(void *)a1 .cold.1(void *a1)
 {
   result = [MEMORY[0x1E696ABC0] errorWithDomain:@"AVFoundationErrorDomain" code:-11918 userInfo:0];
   *a1 = result;

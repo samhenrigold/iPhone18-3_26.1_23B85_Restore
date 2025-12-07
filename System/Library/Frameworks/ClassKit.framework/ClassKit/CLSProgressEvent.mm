@@ -199,55 +199,53 @@
 
 - (void)mergeWithObject:(id)object
 {
-  v23[13] = *MEMORY[0x277D85DE8];
+  v22[13] = *MEMORY[0x277D85DE8];
   objectCopy = object;
-  v21.receiver = self;
-  v21.super_class = CLSProgressEvent;
-  [(CLSInsightEvent *)&v21 mergeWithObject:objectCopy];
-  v23[0] = @"activityID";
-  v23[1] = @"attachmentID";
-  v23[2] = @"classID";
-  v23[3] = @"handoutID";
-  v23[4] = @"recipientPersonID";
-  v23[5] = @"handoutAttachmentType";
-  v23[6] = @"contextType";
-  v23[7] = @"objectIDPath";
-  v23[8] = @"handoutAuthorizedObjectID";
-  v23[9] = @"activityItemInfo";
-  v23[10] = @"rangeInfo";
-  v23[11] = @"timeIntervalInfo";
-  v23[12] = @"primaryActivityItemIdentifier";
-  objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v5, v23, 13);
+  v20.receiver = self;
+  v20.super_class = CLSProgressEvent;
+  [(CLSInsightEvent *)&v20 mergeWithObject:objectCopy];
+  v22[0] = @"activityID";
+  v22[1] = @"attachmentID";
+  v22[2] = @"classID";
+  v22[3] = @"handoutID";
+  v22[4] = @"recipientPersonID";
+  v22[5] = @"handoutAttachmentType";
+  v22[6] = @"contextType";
+  v22[7] = @"objectIDPath";
+  v22[8] = @"handoutAuthorizedObjectID";
+  v22[9] = @"activityItemInfo";
+  v22[10] = @"rangeInfo";
+  v22[11] = @"timeIntervalInfo";
+  v22[12] = @"primaryActivityItemIdentifier";
+  objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v5, v22, 13);
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v6 = v20 = 0u;
-  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v17, v22, 16);
+  v6 = v19 = 0u;
+  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v16, v21, 16);
   if (v8)
   {
     v10 = v8;
-    v11 = *v18;
+    v11 = *v17;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(v6);
         }
 
-        v13 = *(*(&v17 + 1) + 8 * i);
-        v14 = objc_msgSend_valueForKey_(objectCopy, v9, v13, v17);
+        v13 = *(*(&v16 + 1) + 8 * i);
+        v14 = objc_msgSend_valueForKey_(objectCopy, v9, v13, v16);
         objc_msgSend_setValue_forKey_(self, v15, v14, v13);
       }
 
-      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v9, &v17, v22, 16);
+      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v9, &v16, v21, 16);
     }
 
     while (v10);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setAppIdentifier:(id)identifier

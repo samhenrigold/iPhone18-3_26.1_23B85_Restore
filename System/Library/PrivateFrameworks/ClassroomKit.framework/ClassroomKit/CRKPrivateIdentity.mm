@@ -84,21 +84,21 @@ LABEL_3:
 
   if (v6)
   {
-    v7 = [objc_alloc(objc_opt_class()) initWithIdentityPersistentId:v6 stagedIdentityPersistentId:0 commonNamePrefix:prefixCopy];
+    v8 = [objc_alloc(objc_opt_class()) initWithIdentityPersistentId:v6 stagedIdentityPersistentId:0 commonNamePrefix:prefixCopy];
   }
 
   else
   {
-    v8 = _CRKLogGeneral_15();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _CRKLogGeneral_15(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [CRKPrivateIdentity freshPrivateIdentityWithCommonNamePrefix:v8];
+      [CRKPrivateIdentity freshPrivateIdentityWithCommonNamePrefix:v9];
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
-  return v7;
+  return v8;
 }
 
 + (id)makeIdentityWithCommonName:(id)name
@@ -138,7 +138,7 @@ LABEL_3:
 
 - (BOOL)refreshIdentities
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
   v4 = [standardUserDefaults stringForKey:@"CERTIFICATE"];
 
@@ -220,25 +220,25 @@ LABEL_6:
       commonNamePrefix = [(CRKPrivateIdentity *)self commonNamePrefix];
       v25 = [v23 commonNameWithPrefix:commonNamePrefix];
 
-      v26 = _CRKLogGeneral_15();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      v27 = _CRKLogGeneral_15(v26);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
-        v34 = 138543362;
-        v35 = v25;
-        _os_log_impl(&dword_243550000, v26, OS_LOG_TYPE_DEFAULT, "Creating staged private identity with common name: %{public}@", &v34, 0xCu);
+        v35 = 138543362;
+        v36 = v25;
+        _os_log_impl(&dword_243550000, v27, OS_LOG_TYPE_DEFAULT, "Creating staged private identity with common name: %{public}@", &v35, 0xCu);
       }
 
-      v27 = [objc_opt_class() makeIdentityWithCommonName:v25];
-      [(CRKPrivateIdentity *)self setStagedIdentityPersistentId:v27];
+      v28 = [objc_opt_class() makeIdentityWithCommonName:v25];
+      [(CRKPrivateIdentity *)self setStagedIdentityPersistentId:v28];
 
       stagedIdentityPersistentId4 = [(CRKPrivateIdentity *)self stagedIdentityPersistentId];
 
       if (stagedIdentityPersistentId4)
       {
         stagedIdentityPersistentId5 = [(CRKPrivateIdentity *)self stagedIdentityPersistentId];
-        v30 = [keychain identityWithPersistentID:stagedIdentityPersistentId5];
+        v31 = [keychain identityWithPersistentID:stagedIdentityPersistentId5];
 
-        stagedIdentityPersistentId = [v30 certificate];
+        stagedIdentityPersistentId = [v31 certificate];
         validityDateInterval = [stagedIdentityPersistentId validityDateInterval];
         endDate = [validityDateInterval endDate];
         [(CRKPrivateIdentity *)self setStagedIdentityExpirationDate:endDate];

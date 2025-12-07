@@ -116,7 +116,7 @@
 
   PaperDocumentViewController.pageLabelViewTapped(_:)();
 
-  outlined destroy of StocksKitCurrencyCache.Provider?(v6, &_sypSgMd);
+  outlined destroy of StocksKitCurrencyCache.Provider?(v6, &_sypSgMd, &_sypSgMR);
 }
 
 - (_TtC8PaperKit27PaperDocumentViewController)initWithNibName:(id)name bundle:(id)bundle

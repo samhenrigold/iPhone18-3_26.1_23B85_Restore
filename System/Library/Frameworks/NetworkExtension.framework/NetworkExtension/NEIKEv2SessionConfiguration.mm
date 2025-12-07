@@ -1,6 +1,7 @@
 @interface NEIKEv2SessionConfiguration
 - (NEIKEv2SessionConfiguration)init;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (void)copyRemoteAuthKey;
 - (void)dealloc;
 - (void)setConfigurationReply:(id)reply;
@@ -20,7 +21,7 @@
   configurationReply = self->_configurationReply;
   self->_configurationReply = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, configurationReply);
 }
 
 - (void)setConfigurationRequest:(id)request
@@ -34,7 +35,7 @@
   configurationRequest = self->_configurationRequest;
   self->_configurationRequest = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, configurationRequest);
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -215,6 +216,45 @@
   [v4 setPpkIDType:{-[NEIKEv2SessionConfiguration ppkIDType](self, "ppkIDType")}];
   [v4 setPpkMandatory:{-[NEIKEv2SessionConfiguration ppkMandatory](self, "ppkMandatory")}];
   return v4;
+}
+
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = [objc_alloc(MEMORY[0x1E696AD60]) initWithCapacity:0];
+  localIdentifier = [(NEIKEv2SessionConfiguration *)self localIdentifier];
+  [v7 appendPrettyObject:localIdentifier withName:@"Local Identifier" andIndent:v5 options:options];
+
+  remoteIdentifier = [(NEIKEv2SessionConfiguration *)self remoteIdentifier];
+  [v7 appendPrettyObject:remoteIdentifier withName:@"Remote Identifier" andIndent:v5 options:options];
+
+  configurationRequest = [(NEIKEv2SessionConfiguration *)self configurationRequest];
+  [v7 appendPrettyObject:configurationRequest withName:@"Configuration Request" andIndent:v5 options:options];
+
+  configurationReply = [(NEIKEv2SessionConfiguration *)self configurationReply];
+  [v7 appendPrettyObject:configurationReply withName:@"Configuration Reply" andIndent:v5 options:options];
+
+  authenticationProtocol = [(NEIKEv2SessionConfiguration *)self authenticationProtocol];
+  [v7 appendPrettyObject:authenticationProtocol withName:@"Local Authentication" andIndent:v5 options:options];
+
+  remoteAuthentication = [(NEIKEv2SessionConfiguration *)self remoteAuthentication];
+  [v7 appendPrettyObject:remoteAuthentication withName:@"Remote Authentication" andIndent:v5 options:options];
+
+  if ([(NEIKEv2SessionConfiguration *)self ppkIDType])
+  {
+    [v7 appendPrettyInt:-[NEIKEv2SessionConfiguration ppkIDType](self withName:"ppkIDType") andIndent:@"PPK ID Type" options:{v5, options}];
+    ppkID = [(NEIKEv2SessionConfiguration *)self ppkID];
+    [v7 appendPrettyObject:ppkID withName:@"PPK ID" andIndent:v5 options:options];
+  }
+
+  [v7 appendPrettyBOOL:-[NEIKEv2SessionConfiguration ppkMandatory](self withName:"ppkMandatory") andIndent:@"PPK Mandatory" options:{v5, options}];
+  customIKEAuthPrivateNotifies = [(NEIKEv2SessionConfiguration *)self customIKEAuthPrivateNotifies];
+  [v7 appendPrettyObject:customIKEAuthPrivateNotifies withName:@"Private Notifies" andIndent:v5 options:options];
+
+  pduSessionID = [(NEIKEv2SessionConfiguration *)self pduSessionID];
+  [v7 appendPrettyObject:pduSessionID withName:@"PDU Session ID" andIndent:v5 options:options];
+
+  return v7;
 }
 
 - (void)dealloc

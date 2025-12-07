@@ -1710,9 +1710,9 @@ LABEL_610:
         goto LABEL_611;
       }
 
-      v362 = [v359 isEqualToString:v360];
+      isEqualToString = objc_msgSend_isEqualToString_(v359);
 
-      if ((v362 & 1) == 0)
+      if ((isEqualToString & 1) == 0)
       {
         goto LABEL_610;
       }
@@ -2713,7 +2713,7 @@ LABEL_60:
 {
   transactionCopy = transaction;
   transactionDate = [transactionCopy transactionDate];
-  v5 = PKRelativeDateStringWithFullDateForUnits(transactionDate, 8206, 0);
+  v5 = PKRelativeDateStringWithFullDateForUnits(transactionDate, 0x200EuLL, 0);
   transactionType = [transactionCopy transactionType];
   v7 = transactionType;
   if (transactionType != 9)

@@ -53,9 +53,8 @@
 
 - (void)setHidden:(BOOL)hidden
 {
-  hiddenCopy = hidden;
   selfCopy = self;
-  sub_188F6F45C(hiddenCopy);
+  sub_188F6F45C(hidden);
 }
 
 - (void)_setColor:(id)color
@@ -80,9 +79,8 @@
 
 - (void)_setPrefersSolidColorHardPocket:(BOOL)pocket
 {
-  pocketCopy = pocket;
   selfCopy = self;
-  sub_188F6F714(pocketCopy);
+  sub_188F6F714(pocket);
 }
 
 - (int64_t)_preferredUserInterfaceStyle
@@ -145,7 +143,7 @@
 - (UIScrollEdgeEffect)init
 {
   v3 = OBJC_IVAR___UIScrollEdgeEffect_state;
-  _s5StateCMa();
+  _s5StateCMa(0);
   swift_allocObject();
   *(&self->super.isa + v3) = sub_188F6F1FC();
   swift_unknownObjectWeakInit();

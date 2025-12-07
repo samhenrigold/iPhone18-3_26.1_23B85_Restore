@@ -90,7 +90,7 @@
 - (JavaUtilHashtable_Values)initWithJavaUtilHashtable:(id)hashtable
 {
   objc_storeWeak(&self->this$0_, hashtable);
-  JavaUtilAbstractCollection_init(self, v4);
+  JavaUtilAbstractCollection_init();
   return self;
 }
 

@@ -3,6 +3,7 @@
 - (id)_deconstructServiceType:(const void *)type rdlen:(unsigned __int16)rdlen;
 - (id)_ipStringFromAddress:(const sockaddr *)address;
 - (id)addDomain:(const void *)domain rdlen:(unsigned __int16)rdlen;
+- (id)addServiceType:(const void *)type rdlen:(unsigned __int16)rdlen fullname:(const char *)fullname;
 - (id)init:(BOOL)init;
 - (void)addBrowseResult:(id)result hostname:(const char *)hostname address:(const sockaddr *)address interfaceIndex:(unsigned int)index;
 - (void)dealloc;
@@ -14,9 +15,9 @@
 - (id)init:(BOOL)init
 {
   initCopy = init;
-  v14.receiver = self;
-  v14.super_class = W5DNSSDBrowser;
-  v4 = [(W5DNSSDBrowser *)&v14 init];
+  v15.receiver = self;
+  v15.super_class = W5DNSSDBrowser;
+  v4 = [(W5DNSSDBrowser *)&v15 init];
   if (!v4)
   {
     return v4;
@@ -29,16 +30,15 @@
     v10 = sub_100098A04();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 136315906;
-      v16 = "[W5DNSSDBrowser init:]";
-      v17 = 2080;
-      v18 = "W5LogManager.m";
-      v19 = 1024;
-      v20 = 10018;
-      v21 = 1024;
-      v22 = Connection;
-LABEL_12:
-      _os_log_send_and_compose_impl();
+      v16 = 136315906;
+      v17 = "[W5DNSSDBrowser init:]";
+      v18 = 2080;
+      v19 = "W5LogManager.m";
+      v20 = 1024;
+      v21 = 10018;
+      v22 = 1024;
+      v23 = Connection;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v10, 0, "[wifivelocity] %s (%s:%u) DNSServiceCreateConnection failed. Error: %d", &v16, 34);
     }
   }
 
@@ -68,28 +68,29 @@ LABEL_12:
     v12 = sub_100098A04();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 136315906;
-      v16 = "[W5DNSSDBrowser init:]";
-      v17 = 2080;
-      v18 = "W5LogManager.m";
-      v19 = 1024;
-      v20 = 10021;
-      v21 = 1024;
-      v22 = v11;
-      goto LABEL_12;
+      v16 = 136315906;
+      v17 = "[W5DNSSDBrowser init:]";
+      v18 = 2080;
+      v19 = "W5LogManager.m";
+      v20 = 1024;
+      v21 = 10021;
+      v22 = 1024;
+      v23 = v11;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v12, 0, "[wifivelocity] %s (%s:%u) DNSServiceSetDispatchQueue failed. Error: %d", &v16, 34);
     }
   }
 
   v13 = sub_100098A04();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 136315650;
-    v16 = "[W5DNSSDBrowser init:]";
-    v17 = 2080;
-    v18 = "W5LogManager.m";
-    v19 = 1024;
-    v20 = 10046;
-    _os_log_send_and_compose_impl();
+    v16 = 136315650;
+    v17 = "[W5DNSSDBrowser init:]";
+    v18 = 2080;
+    v19 = "W5LogManager.m";
+    v20 = 1024;
+    v21 = 10046;
+    LODWORD(v14) = 28;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v13, 0, "[wifivelocity] %s (%s:%u) Failed to init W5DNSSDBrowser", &v16, v14, LODWORD(v15.receiver));
   }
 
   return 0;
@@ -97,12 +98,23 @@ LABEL_12:
 
 - (id)addDomain:(const void *)domain rdlen:(unsigned __int16)rdlen
 {
-  if (sub_10009A568(domain, 0, v8, 0))
+  v5 = sub_10009A568(domain, 0, v19, 0);
+  if (v5)
   {
-    v7 = sub_100098A04();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = v5;
+    v9 = sub_100098A04();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      _os_log_send_and_compose_impl();
+      v11 = 136315906;
+      v12 = "[W5DNSSDBrowser addDomain:rdlen:]";
+      v13 = 2080;
+      v14 = "W5LogManager.m";
+      v15 = 1024;
+      v16 = 10073;
+      v17 = 1024;
+      v18 = v8;
+      v10 = 34;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v9, 0, "[wifivelocity] %s (%s:%u) DomainNameToString failed. Error: %d", &v11, v10);
     }
 
     return 0;
@@ -110,11 +122,31 @@ LABEL_12:
 
   else
   {
-    v5 = [NSString stringWithFormat:@"%s", v8];
-    [(NSMutableDictionary *)self->browseResults setObject:+[NSMutableDictionary forKeyedSubscript:"dictionary"], v5];
+    v6 = [NSString stringWithFormat:@"%s", v19];
+    [(NSMutableDictionary *)self->browseResults setObject:+[NSMutableDictionary forKeyedSubscript:"dictionary"], v6];
   }
 
-  return v5;
+  return v6;
+}
+
+- (id)addServiceType:(const void *)type rdlen:(unsigned __int16)rdlen fullname:(const char *)fullname
+{
+  result = [(W5DNSSDBrowser *)self _deconstructServiceType:type rdlen:rdlen];
+  if (result)
+  {
+    v8 = result;
+    v9 = -[NSString substringFromIndex:](+[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%s", fullname), "substringFromIndex:", [@"_services._dns-sd._udp." length]);
+    result = [(NSMutableDictionary *)self->browseResults objectForKey:v9];
+    if (result)
+    {
+      [-[NSMutableDictionary objectForKeyedSubscript:](self->browseResults objectForKeyedSubscript:{v9), "setObject:forKeyedSubscript:", +[NSMutableDictionary dictionary](NSMutableDictionary, "dictionary"), v8}];
+      v10[0] = v8;
+      v10[1] = v9;
+      return [NSArray arrayWithObjects:v10 count:2];
+    }
+  }
+
+  return result;
 }
 
 - (BOOL)addServiceInstance:(const char *)instance serviceType:(const char *)type domain:(const char *)domain
@@ -383,15 +415,25 @@ LABEL_38:
     if ((v8 & 1) == 0)
     {
       *v6 = 0;
-      if (!sub_10009A568(__dst, 0, v13, 0))
+      v11 = sub_10009A568(__dst, 0, v23, 0);
+      if (!v11)
       {
-        return [NSString stringWithFormat:@"%s", v13];
+        return [NSString stringWithFormat:@"%s", v23];
       }
 
-      v12 = sub_100098A04();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = v11;
+      v14 = sub_100098A04();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        _os_log_send_and_compose_impl();
+        v15 = 136315906;
+        v16 = "[W5DNSSDBrowser _deconstructServiceType:rdlen:]";
+        v17 = 2080;
+        v18 = "W5LogManager.m";
+        v19 = 1024;
+        v20 = 10227;
+        v21 = 1024;
+        v22 = v13;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v14, 0, "[wifivelocity] %s (%s:%u) DomainNameToString failed. Error: %d", &v15, 34);
       }
 
       return 0;
@@ -450,7 +492,18 @@ LABEL_38:
   {
     addedCount = self->addedCount;
     pingedCount = self->pingedCount;
-    _os_log_send_and_compose_impl();
+    v9 = 136316162;
+    v10 = "[W5DNSSDBrowser stopBrowsing]";
+    v11 = 2080;
+    v12 = "W5LogManager.m";
+    v13 = 1024;
+    v14 = 10265;
+    v15 = 2048;
+    v16 = addedCount;
+    v17 = 2048;
+    v18 = pingedCount;
+    v8 = 48;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v5, 0, "[wifivelocity] %s (%s:%u) Browsed IP Address Stats (unique). Added: %ld, Pinged: %ld", &v9, v8);
   }
 }
 

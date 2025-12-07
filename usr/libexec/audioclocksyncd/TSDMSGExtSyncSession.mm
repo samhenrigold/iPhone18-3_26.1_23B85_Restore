@@ -114,8 +114,8 @@
   pthread_mutex_lock(&self->_sessionMutex);
   __tp.tv_sec = 0;
   __tp.tv_nsec = 0;
-  [(TSDMSGExtSyncSession *)self config];
-  [(TSDMSGExtSyncSession *)self config];
+  objc_msgSend_config(self);
+  objc_msgSend_config(self);
   sub_10001F398(&__tp, v14 / 0x3B9ACA00, v21 % 0x3B9ACA00);
   exitStatus = -536870199;
   while (![(TSDMSGExtSyncSession *)self syncSessionLocked]&& [(TSDMSGExtSyncSession *)self syncSessionThreadState]== 1)
@@ -225,30 +225,30 @@
     memset(&__p, 0, sizeof(__p));
     MSGController::MSGController(buf, 0, 1);
     MSGController::MSGController(v25, 0, 1);
-    [(TSDMSGExtSyncSession *)self config];
+    objc_msgSend_config(self);
     size = v35.__r_.__value_.__l.__size_;
     if (v35.__r_.__value_.__l.__size_)
     {
-      [(TSDMSGExtSyncSession *)self config];
+      objc_msgSend_config(self);
       sub_100020650(&__p, v35.__r_.__value_.__l.__size_);
     }
 
-    [(TSDMSGExtSyncSession *)self config];
+    objc_msgSend_config(self);
     v5 = *&v30[4];
-    [(TSDMSGExtSyncSession *)self config];
+    objc_msgSend_config(self);
     v6 = *&v53;
-    [(TSDMSGExtSyncSession *)self config];
+    objc_msgSend_config(self);
     v7 = v32;
-    [(TSDMSGExtSyncSession *)self config];
+    objc_msgSend_config(self);
     v8 = v5 / v6;
     if (v8 * 1000000000.0 <= 1.84467441e19)
     {
       v10 = v54;
       [(TSDMSGExtSyncSession *)self setNominalTriggerDurationNs:(v8 * 1000000000.0)];
       v11 = [v3 machAbsoluteNanosecondsToTicks:{-[TSDMSGExtSyncSession nominalTriggerDurationNs](self, "nominalTriggerDurationNs")}];
-      [(TSDMSGExtSyncSession *)self config];
+      objc_msgSend_config(self);
       v12 = [v3 machAbsoluteNanosecondsToTicks:*(&v33 + 1)];
-      [(TSDMSGExtSyncSession *)self config];
+      objc_msgSend_config(self);
       v13 = [v3 machAbsoluteNanosecondsToTicks:v34];
       v14 = v7 / v10;
       v15 = v11 / v14;
@@ -267,9 +267,9 @@
         [(TSDMSGExtSyncSession *)self setMaxTargetDuration:&v12[v11]];
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
         {
-          [(TSDMSGExtSyncSession *)self config];
+          objc_msgSend_config(self);
           v19 = v49;
-          [(TSDMSGExtSyncSession *)self config];
+          objc_msgSend_config(self);
           *v29 = 134220032;
           *v30 = v16;
           *&v30[8] = 2048;
@@ -291,16 +291,16 @@
           _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "alignToExternalSync args:\nminTargetFrameDur: %llu\nmaxTargetFrameDur: %llu\nminOutputFrameDur: %llu\nmaxOutputFrameDur: %llu\nnominalSystemFramerate: %u\nfrequencyMultiplier: %u\ntriggerId: %u\nsyncId: %u\nisSimulation: %i", v29, 0x48u);
         }
 
-        [(TSDMSGExtSyncSession *)self config];
+        objc_msgSend_config(self);
         *v29 = *v48;
         *&v30[4] = buf;
-        [(TSDMSGExtSyncSession *)self config];
+        objc_msgSend_config(self);
         *&v30[12] = v24;
         v32 = 0;
-        [(TSDMSGExtSyncSession *)self config];
+        objc_msgSend_config(self);
         LODWORD(v33) = v23;
         *(&v33 + 1) = v25;
-        [(TSDMSGExtSyncSession *)self extSyncSem];
+        objc_msgSend_extSyncSem(self);
         v34 = v21;
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
@@ -400,7 +400,7 @@
   v10 = v3;
   while (1)
   {
-    [(TSDMSGExtSyncSession *)self extSyncSem];
+    objc_msgSend_extSyncSem(self, v10);
     v15 = 500000000;
     v4 = sub_1000208CC(*buf, &v15);
     if (*&buf[8])

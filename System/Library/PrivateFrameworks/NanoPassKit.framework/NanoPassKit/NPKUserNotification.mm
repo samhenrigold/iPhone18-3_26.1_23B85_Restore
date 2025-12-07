@@ -9,22 +9,22 @@
 
 - (NSString)title
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v2 = pk_General_log();
+  v12 = *MEMORY[0x277D85DE8];
+  v2 = pk_General_log(self);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_ERROR);
 
   if (v3)
   {
-    v4 = pk_General_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = pk_General_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v5 = 136446722;
-      v6 = "[NPKUserNotification title]";
-      v7 = 2082;
-      v8 = "/Library/Caches/com.apple.xbs/Sources/NanoPassbook_Frameworks/NanoPassKit/User Notifications/NPKUserNotification.m";
-      v9 = 2048;
-      v10 = 24;
-      _os_log_impl(&dword_25B300000, v4, OS_LOG_TYPE_ERROR, "Error: *** NPKAssertion failure in %{public}s, %{public}s:%ld (reason: Subclasses must override)", &v5, 0x20u);
+      v6 = 136446722;
+      v7 = "[NPKUserNotification title]";
+      v8 = 2082;
+      v9 = "/Library/Caches/com.apple.xbs/Sources/NanoPassbook_Frameworks/NanoPassKit/User Notifications/NPKUserNotification.m";
+      v10 = 2048;
+      v11 = 24;
+      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_ERROR, "Error: *** NPKAssertion failure in %{public}s, %{public}s:%ld (reason: Subclasses must override)", &v6, 0x20u);
     }
   }
 
@@ -33,22 +33,22 @@
 
 - (NSString)body
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v2 = pk_General_log();
+  v12 = *MEMORY[0x277D85DE8];
+  v2 = pk_General_log(self);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_ERROR);
 
   if (v3)
   {
-    v4 = pk_General_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = pk_General_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v5 = 136446722;
-      v6 = "[NPKUserNotification body]";
-      v7 = 2082;
-      v8 = "/Library/Caches/com.apple.xbs/Sources/NanoPassbook_Frameworks/NanoPassKit/User Notifications/NPKUserNotification.m";
-      v9 = 2048;
-      v10 = 29;
-      _os_log_impl(&dword_25B300000, v4, OS_LOG_TYPE_ERROR, "Error: *** NPKAssertion failure in %{public}s, %{public}s:%ld (reason: Subclasses must override)", &v5, 0x20u);
+      v6 = 136446722;
+      v7 = "[NPKUserNotification body]";
+      v8 = 2082;
+      v9 = "/Library/Caches/com.apple.xbs/Sources/NanoPassbook_Frameworks/NanoPassKit/User Notifications/NPKUserNotification.m";
+      v10 = 2048;
+      v11 = 29;
+      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_ERROR, "Error: *** NPKAssertion failure in %{public}s, %{public}s:%ld (reason: Subclasses must override)", &v6, 0x20u);
     }
   }
 

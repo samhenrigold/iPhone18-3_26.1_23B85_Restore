@@ -12,11 +12,11 @@
   }
 }
 
-void __46__AXWebCoreGlue_accessibilityInitializeBundle__block_invoke()
+void __46__AXWebCoreGlue_accessibilityInitializeBundle__block_invoke(uint64_t a1, uint64_t a2)
 {
-  _AXUIInstallBaseCategories();
-  v0 = [MEMORY[0x29EDBD6E8] sharedInstance];
-  [v0 performValidations:&__block_literal_global_283 withPreValidationHandler:&__block_literal_global_285 postValidationHandler:0 safeCategoryInstallationHandler:&__block_literal_global_294];
+  _AXUIInstallBaseCategories(a1, a2);
+  v2 = [MEMORY[0x29EDBD6E8] sharedInstance];
+  [v2 performValidations:&__block_literal_global_283 withPreValidationHandler:&__block_literal_global_285 postValidationHandler:0 safeCategoryInstallationHandler:&__block_literal_global_294];
 }
 
 uint64_t __46__AXWebCoreGlue_accessibilityInitializeBundle__block_invoke_3(uint64_t a1, void *a2)

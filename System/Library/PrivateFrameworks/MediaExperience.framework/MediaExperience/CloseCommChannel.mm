@@ -21,42 +21,38 @@ void __routingContextRemoteXPC_CloseCommChannel_block_invoke(uint64_t a1)
 uint64_t __routingContextResilientRemote_CloseCommChannel_block_invoke(uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 32);
-  VTable = CMBaseObjectGetVTable();
-  v5 = *(*(VTable + 16) + 128);
-  if (!v5)
+  v4 = *(*(CMBaseObjectGetVTable() + 16) + 128);
+  if (!v4)
   {
     return 4294954514;
   }
 
-  v6 = *(VTable + 16) + 128;
-
-  return v5(a2, v3);
+  return v4(a2, v3);
 }
 
-uint64_t __central_CloseCommChannel_block_invoke(uint64_t a1)
+uint64_t __central_CloseCommChannel_block_invoke()
 {
-  OUTLINED_FUNCTION_1_4(a1);
-  if (v2)
+  OUTLINED_FUNCTION_1_4();
+  if (v1)
   {
-    v9 = 4294954511;
+    v5 = 4294954511;
   }
 
   else
   {
-    v3 = *(v1 + 48);
-    if (v3 && (v4 = *(v1 + 56), v5 = *(v1 + 48), VTable = CMBaseObjectGetVTable(), (v7 = *(*(VTable + 24) + 104)) != 0))
+    v2 = *(v0 + 48);
+    if (v2 && (v3 = *(v0 + 56), (v4 = *(*(CMBaseObjectGetVTable() + 24) + 104)) != 0))
     {
-      v8 = *(VTable + 24) + 104;
-      v9 = v7(v3, v4);
+      v5 = v4(v2, v3);
     }
 
     else
     {
-      v9 = 4294954514;
+      v5 = 4294954514;
     }
   }
 
-  return OUTLINED_FUNCTION_0_3(v9);
+  return OUTLINED_FUNCTION_0_3(v5);
 }
 
 void __routingContext_CloseCommChannel_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)

@@ -1,1109 +1,9 @@
-void sub_25A539700(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, std::locale a14, uint64_t a15, int a16, __int16 a17, char a18, char a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *__p, uint64_t a27)
+void std::__bind<mlx::core::QuantizedMatmul::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_1>::operator()[abi:ne200100]<>(uint64_t result, float32x4_t a2, float32x4_t a3, float32x4_t a4, double a5, float32x4_t a6, float32x4_t a7, float32x4_t a8)
 {
-  std::locale::~locale(&a14);
-  std::__hash_table<std::__hash_value_type<unsigned long,std::string>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::string>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::string>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::string>>>::~__hash_table(&a20);
-  if (__p)
-  {
-    a27 = __p;
-    operator delete(__p);
-  }
-
-  v29 = *(v27 - 120);
-  if (v29)
-  {
-    *(v27 - 112) = v29;
-    operator delete(v29);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::__hash_table<std::__hash_value_type<unsigned long,std::string>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::string>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::string>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::string>>>::~__hash_table(uint64_t a1)
-{
-  std::__hash_table<std::__hash_value_type<unsigned long,std::string>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::string>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::string>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::string>>>::__deallocate_node(a1, *(a1 + 16));
-  v2 = *a1;
-  *a1 = 0;
-  if (v2)
-  {
-    operator delete(v2);
-  }
-
-  return a1;
-}
-
-void std::__hash_table<std::__hash_value_type<unsigned long,std::string>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::string>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::string>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::string>>>::__deallocate_node(int a1, void **__p)
-{
-  if (__p)
-  {
-    v2 = __p;
-    do
-    {
-      v3 = *v2;
-      if (*(v2 + 47) < 0)
-      {
-        operator delete(v2[3]);
-      }
-
-      operator delete(v2);
-      v2 = v3;
-    }
-
-    while (v3);
-  }
-}
-
-uint64_t std::__function::__value_func<std::string ()(void)>::~__value_func[abi:ne200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-uint64_t mlx::core::cpu::CommandEncoder::dispatch<mlx::core::Compiled::eval_cpu(std::vector<mlx::core::array> const&,std::vector<mlx::core::array>&)::$_1>(mlx::core::Compiled::eval_cpu(std::vector<mlx::core::array> const&,std::vector<mlx::core::array>&)::$_1 &&)::{lambda(void)#1}::~dispatch(uint64_t a1)
-{
-  v2 = *(a1 + 72);
-  if (v2)
-  {
-    *(a1 + 80) = v2;
-    operator delete(v2);
-  }
-
-  v5 = (a1 + 48);
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v5);
-  v3 = *(a1 + 24);
-  if (v3)
-  {
-    *(a1 + 32) = v3;
-    operator delete(v3);
-  }
-
-  return a1;
-}
-
-uint64_t _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_8Compiled8eval_cpuERKNS_6vectorINS3_5arrayENS_9allocatorIS9_EEEERSC_E3__1JEEEvOT_DpOT0_EUlvE_NSA_ISM_EEFvvEED1Ev(uint64_t a1)
-{
-  *a1 = &unk_286BF6930;
-  v2 = *(a1 + 80);
-  if (v2)
-  {
-    *(a1 + 88) = v2;
-    operator delete(v2);
-  }
-
-  v5 = (a1 + 56);
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v5);
-  v3 = *(a1 + 32);
-  if (v3)
-  {
-    *(a1 + 40) = v3;
-    operator delete(v3);
-  }
-
-  return a1;
-}
-
-uint64_t _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_8Compiled8eval_cpuERKNS_6vectorINS3_5arrayENS_9allocatorIS9_EEEERSC_E3__1JEEEvOT_DpOT0_EUlvE_NSA_ISM_EEFvvEED0Ev(uint64_t a1)
-{
-  *a1 = &unk_286BF6930;
-  v2 = *(a1 + 80);
-  if (v2)
-  {
-    *(a1 + 88) = v2;
-    operator delete(v2);
-  }
-
-  v5 = (a1 + 56);
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v5);
-  v3 = *(a1 + 32);
-  if (v3)
-  {
-    *(a1 + 40) = v3;
-    operator delete(v3);
-  }
-
-  return MEMORY[0x25F851760](a1, 0x10B1C4006FBAB38);
-}
-
-void sub_25A539B70(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](va);
-  v5 = *v3;
-  if (*v3)
-  {
-    v2[5] = v5;
-    operator delete(v5);
-  }
-
-  operator delete(v2);
-  _Unwind_Resume(a1);
-}
-
-uint64_t _ZNKSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_8Compiled8eval_cpuERKNS_6vectorINS3_5arrayENS_9allocatorIS9_EEEERSC_E3__1JEEEvOT_DpOT0_EUlvE_NSA_ISM_EEFvvEE7__cloneEPNS0_6__baseISO_EE(uint64_t a1, uint64_t a2)
-{
-  *a2 = &unk_286BF6930;
-  v4 = *(a1 + 8);
-  *(a2 + 16) = *(a1 + 16);
-  *(a2 + 8) = v4;
-  *(a2 + 24) = *(a1 + 24);
-  *(a2 + 32) = 0;
-  *(a2 + 40) = 0;
-  *(a2 + 48) = 0;
-  std::vector<void *>::__init_with_size[abi:ne200100]<void **,void **>(a2 + 32, *(a1 + 32), *(a1 + 40), (*(a1 + 40) - *(a1 + 32)) >> 3);
-  *(a2 + 56) = 0;
-  *(a2 + 64) = 0;
-  *(a2 + 72) = 0;
-  std::vector<std::vector<unsigned long>>::__init_with_size[abi:ne200100]<std::vector<unsigned long>*,std::vector<unsigned long>*>(a2 + 56, *(a1 + 56), *(a1 + 64), 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 64) - *(a1 + 56)) >> 3));
-  *(a2 + 80) = 0;
-  *(a2 + 88) = 0;
-  *(a2 + 96) = 0;
-  return std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a2 + 80, *(a1 + 80), *(a1 + 88), (*(a1 + 88) - *(a1 + 80)) >> 2);
-}
-
-void sub_25A539C80(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](va);
-  v5 = *v3;
-  if (*v3)
-  {
-    *(v2 + 40) = v5;
-    operator delete(v5);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_8Compiled8eval_cpuERKNS_6vectorINS3_5arrayENS_9allocatorIS9_EEEERSC_E3__1JEEEvOT_DpOT0_EUlvE_NSA_ISM_EEFvvEE7destroyEv(uint64_t a1)
-{
-  v2 = *(a1 + 80);
-  if (v2)
-  {
-    *(a1 + 88) = v2;
-    operator delete(v2);
-  }
-
-  v4 = (a1 + 56);
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v4);
-  v3 = *(a1 + 32);
-  if (v3)
-  {
-    *(a1 + 40) = v3;
-    operator delete(v3);
-  }
-}
-
-void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_8Compiled8eval_cpuERKNS_6vectorINS3_5arrayENS_9allocatorIS9_EEEERSC_E3__1JEEEvOT_DpOT0_EUlvE_NSA_ISM_EEFvvEE18destroy_deallocateEv(uint64_t a1)
-{
-  v2 = *(a1 + 80);
-  if (v2)
-  {
-    *(a1 + 88) = v2;
-    operator delete(v2);
-  }
-
-  v4 = (a1 + 56);
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v4);
-  v3 = *(a1 + 32);
-  if (v3)
-  {
-    *(a1 + 40) = v3;
-    operator delete(v3);
-  }
-
-  operator delete(a1);
-}
-
-void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_8Compiled8eval_cpuERKNS_6vectorINS3_5arrayENS_9allocatorIS9_EEEERSC_E3__1JEEEvOT_DpOT0_EUlvE_NSA_ISM_EEFvvEEclEv(uint64_t a1)
-{
-  v1 = (*(a1 + 24))(*(a1 + 32));
-  v2 = mlx::core::scheduler::scheduler(v1);
-
-  mlx::core::scheduler::Scheduler::notify_task_completion(v2);
-}
-
-uint64_t _ZNKSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_8Compiled8eval_cpuERKNS_6vectorINS3_5arrayENS_9allocatorIS9_EEEERSC_E3__1JEEEvOT_DpOT0_EUlvE_NSA_ISM_EEFvvEE6targetERKSt9type_info(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t std::vector<void *>::__init_with_size[abi:ne200100]<void **,void **>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
-{
-  if (a4)
-  {
-    std::vector<void *>::__vallocate[abi:ne200100](result, a4);
-  }
-
-  return result;
-}
-
-void sub_25A539E54(_Unwind_Exception *exception_object)
-{
-  v3 = *v1;
-  if (*v1)
-  {
-    *(v1 + 8) = v3;
-    operator delete(v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void std::vector<void *>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
-{
-  if (!(a2 >> 61))
-  {
-    std::__allocate_at_least[abi:ne200100]<std::allocator<void *>>(a1, a2);
-  }
-
-  std::vector<int>::__throw_length_error[abi:ne200100]();
-}
-
-uint64_t std::vector<std::vector<unsigned long>>::__init_with_size[abi:ne200100]<std::vector<unsigned long>*,std::vector<unsigned long>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
-{
-  if (a4)
-  {
-    std::vector<std::vector<int>>::__vallocate[abi:ne200100](result, a4);
-  }
-
-  return result;
-}
-
-void sub_25A539F14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
-{
-  *(v9 + 8) = v10;
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&a9);
-  _Unwind_Resume(a1);
-}
-
-void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<unsigned long>>,std::vector<unsigned long>*,std::vector<unsigned long>*,std::vector<unsigned long>*>(uint64_t a1, uint64_t *a2, uint64_t *a3, void *a4)
-{
-  v4 = a4;
-  v10 = a4;
-  v11 = a4;
-  v8[0] = a1;
-  v8[1] = &v10;
-  v8[2] = &v11;
-  v9 = 0;
-  if (a2 != a3)
-  {
-    v6 = a2;
-    do
-    {
-      *v4 = 0;
-      v4[1] = 0;
-      v4[2] = 0;
-      std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(v4, *v6, v6[1], (v6[1] - *v6) >> 3);
-      v6 += 3;
-      v4 = v11 + 3;
-      v11 += 3;
-    }
-
-    while (v6 != a3);
-  }
-
-  v9 = 1;
-  std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<std::vector<unsigned long>>,std::vector<unsigned long>*>>::~__exception_guard_exceptions[abi:ne200100](v8);
-  return v4;
-}
-
-uint64_t std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<std::vector<unsigned long>>,std::vector<unsigned long>*>>::~__exception_guard_exceptions[abi:ne200100](uint64_t a1)
-{
-  if ((*(a1 + 24) & 1) == 0)
-  {
-    std::_AllocatorDestroyRangeReverse<std::allocator<std::vector<int>>,std::vector<int>*>::operator()[abi:ne200100](a1);
-  }
-
-  return a1;
-}
-
-uint64_t std::__function::__func<std::__bind<mlx::core::Compiled::eval_cpu(std::vector<mlx::core::array> const&,std::vector<mlx::core::array>&)::$_1>,std::allocator<std::__bind<mlx::core::Compiled::eval_cpu(std::vector<mlx::core::array> const&,std::vector<mlx::core::array>&)::$_1>>,void ()(void)>::~__func(uint64_t a1)
-{
-  *a1 = &unk_286BF69B0;
-  v2 = *(a1 + 64);
-  if (v2)
-  {
-    *(a1 + 72) = v2;
-    operator delete(v2);
-  }
-
-  v5 = (a1 + 40);
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v5);
-  v3 = *(a1 + 16);
-  if (v3)
-  {
-    *(a1 + 24) = v3;
-    operator delete(v3);
-  }
-
-  return a1;
-}
-
-{
-  *a1 = &unk_286BF69B0;
-  v2 = *(a1 + 64);
-  if (v2)
-  {
-    *(a1 + 72) = v2;
-    operator delete(v2);
-  }
-
-  v5 = (a1 + 40);
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v5);
-  v3 = *(a1 + 16);
-  if (v3)
-  {
-    *(a1 + 24) = v3;
-    operator delete(v3);
-  }
-
-  return MEMORY[0x25F851760](a1, 0x10B1C402834BF01);
-}
-
-void sub_25A53A204(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](va);
-  v5 = *v3;
-  if (*v3)
-  {
-    v2[3] = v5;
-    operator delete(v5);
-  }
-
-  operator delete(v2);
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::__function::__func<std::__bind<mlx::core::Compiled::eval_cpu(std::vector<mlx::core::array> const&,std::vector<mlx::core::array>&)::$_1>,std::allocator<std::__bind<mlx::core::Compiled::eval_cpu(std::vector<mlx::core::array> const&,std::vector<mlx::core::array>&)::$_1>>,void ()(void)>::__clone(void *a1, uint64_t a2)
-{
-  v4 = a1[1];
-  *a2 = &unk_286BF69B0;
-  *(a2 + 8) = v4;
-  *(a2 + 16) = 0;
-  *(a2 + 24) = 0;
-  *(a2 + 32) = 0;
-  std::vector<void *>::__init_with_size[abi:ne200100]<void **,void **>(a2 + 16, a1[2], a1[3], (a1[3] - a1[2]) >> 3);
-  *(a2 + 40) = 0;
-  *(a2 + 48) = 0;
-  *(a2 + 56) = 0;
-  std::vector<std::vector<unsigned long>>::__init_with_size[abi:ne200100]<std::vector<unsigned long>*,std::vector<unsigned long>*>(a2 + 40, a1[5], a1[6], 0xAAAAAAAAAAAAAAABLL * ((a1[6] - a1[5]) >> 3));
-  *(a2 + 64) = 0;
-  *(a2 + 72) = 0;
-  *(a2 + 80) = 0;
-  result = std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a2 + 64, a1[8], a1[9], (a1[9] - a1[8]) >> 2);
-  *(a2 + 92) = 0;
-  *(a2 + 89) = 0;
-  return result;
-}
-
-void sub_25A53A308(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](va);
-  v5 = *v3;
-  if (*v3)
-  {
-    *(v2 + 24) = v5;
-    operator delete(v5);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void std::__function::__func<std::__bind<mlx::core::Compiled::eval_cpu(std::vector<mlx::core::array> const&,std::vector<mlx::core::array>&)::$_1>,std::allocator<std::__bind<mlx::core::Compiled::eval_cpu(std::vector<mlx::core::array> const&,std::vector<mlx::core::array>&)::$_1>>,void ()(void)>::destroy(uint64_t a1)
-{
-  v2 = *(a1 + 64);
-  if (v2)
-  {
-    *(a1 + 72) = v2;
-    operator delete(v2);
-  }
-
-  v4 = (a1 + 40);
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v4);
-  v3 = *(a1 + 16);
-  if (v3)
-  {
-    *(a1 + 24) = v3;
-    operator delete(v3);
-  }
-}
-
-void std::__function::__func<std::__bind<mlx::core::Compiled::eval_cpu(std::vector<mlx::core::array> const&,std::vector<mlx::core::array>&)::$_1>,std::allocator<std::__bind<mlx::core::Compiled::eval_cpu(std::vector<mlx::core::array> const&,std::vector<mlx::core::array>&)::$_1>>,void ()(void)>::destroy_deallocate(uint64_t a1)
-{
-  v2 = *(a1 + 64);
-  if (v2)
-  {
-    *(a1 + 72) = v2;
-    operator delete(v2);
-  }
-
-  v4 = (a1 + 40);
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v4);
-  v3 = *(a1 + 16);
-  if (v3)
-  {
-    *(a1 + 24) = v3;
-    operator delete(v3);
-  }
-
-  operator delete(a1);
-}
-
-uint64_t std::__function::__func<std::__bind<mlx::core::Compiled::eval_cpu(std::vector<mlx::core::array> const&,std::vector<mlx::core::array>&)::$_1>,std::allocator<std::__bind<mlx::core::Compiled::eval_cpu(std::vector<mlx::core::array> const&,std::vector<mlx::core::array>&)::$_1>>,void ()(void)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t *mlx::core::cpu::get_command_encoder(uint64_t a1, int a2)
-{
-  v4 = a1;
-  v5 = a2;
-  if ((atomic_load_explicit(&_MergedGlobals_2, memory_order_acquire) & 1) == 0)
-  {
-    mlx::core::cpu::get_command_encoder();
-  }
-
-  v2 = std::__hash_table<std::__hash_value_type<int,std::vector<mlx::core::FunctionTable::Function>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<mlx::core::FunctionTable::Function>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<mlx::core::FunctionTable::Function>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<mlx::core::FunctionTable::Function>>>>::find<int>(&xmmword_27FA06008, &v4);
-  if (!v2)
-  {
-    v2 = std::__hash_table<std::__hash_value_type<int,mlx::core::cpu::CommandEncoder>,std::__unordered_map_hasher<int,std::__hash_value_type<int,mlx::core::cpu::CommandEncoder>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,mlx::core::cpu::CommandEncoder>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,mlx::core::cpu::CommandEncoder>>>::__emplace_unique_key_args<int,int &,mlx::core::Stream &>(&xmmword_27FA06008, &v4);
-  }
-
-  return v2 + 3;
-}
-
-uint64_t std::__hash_table<std::__hash_value_type<int,mlx::core::cpu::CommandEncoder>,std::__unordered_map_hasher<int,std::__hash_value_type<int,mlx::core::cpu::CommandEncoder>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,mlx::core::cpu::CommandEncoder>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,mlx::core::cpu::CommandEncoder>>>::~__hash_table(uint64_t a1)
-{
-  std::__hash_table<std::__hash_value_type<int,mlx::core::cpu::CommandEncoder>,std::__unordered_map_hasher<int,std::__hash_value_type<int,mlx::core::cpu::CommandEncoder>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,mlx::core::cpu::CommandEncoder>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,mlx::core::cpu::CommandEncoder>>>::__deallocate_node(a1, *(a1 + 16));
-  v2 = *a1;
-  *a1 = 0;
-  if (v2)
-  {
-    operator delete(v2);
-  }
-
-  return a1;
-}
-
-void std::__hash_table<std::__hash_value_type<int,mlx::core::cpu::CommandEncoder>,std::__unordered_map_hasher<int,std::__hash_value_type<int,mlx::core::cpu::CommandEncoder>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,mlx::core::cpu::CommandEncoder>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,mlx::core::cpu::CommandEncoder>>>::__deallocate_node(uint64_t a1, char *a2)
-{
-  if (a2)
-  {
-    v2 = a2;
-    do
-    {
-      v3 = *v2;
-      v4 = (v2 + 40);
-      std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v4);
-      operator delete(v2);
-      v2 = v3;
-    }
-
-    while (v3);
-  }
-}
-
-uint64_t *std::__hash_table<std::__hash_value_type<int,mlx::core::cpu::CommandEncoder>,std::__unordered_map_hasher<int,std::__hash_value_type<int,mlx::core::cpu::CommandEncoder>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,mlx::core::cpu::CommandEncoder>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,mlx::core::cpu::CommandEncoder>>>::__emplace_unique_key_args<int,int &,mlx::core::Stream &>(void *a1, int *a2)
-{
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
-  {
-    goto LABEL_18;
-  }
-
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
-  {
-    v5 = *a2;
-    if (*&v3 <= v2)
-    {
-      v5 = v2 % *&v3;
-    }
-  }
-
-  else
-  {
-    v5 = (*&v3 - 1) & v2;
-  }
-
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
-  {
-LABEL_18:
-    operator new();
-  }
-
-  while (1)
-  {
-    v8 = v7[1];
-    if (v8 == v2)
-    {
-      break;
-    }
-
-    if (v4.u32[0] > 1uLL)
-    {
-      if (v8 >= *&v3)
-      {
-        v8 %= *&v3;
-      }
-    }
-
-    else
-    {
-      v8 &= *&v3 - 1;
-    }
-
-    if (v8 != v5)
-    {
-      goto LABEL_18;
-    }
-
-LABEL_17:
-    v7 = *v7;
-    if (!v7)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  if (*(v7 + 4) != v2)
-  {
-    goto LABEL_17;
-  }
-
-  return v7;
-}
-
-void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<int,mlx::core::cpu::CommandEncoder>,void *>>>::operator()[abi:ne200100](uint64_t a1, void **__p)
-{
-  if (*(a1 + 8) == 1)
-  {
-    v3 = __p + 5;
-    std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v3);
-  }
-
-  if (__p)
-  {
-    operator delete(__p);
-  }
-}
-
-void mlx::core::QuantizedMatmul::eval_cpu(uint64_t a1, uint64_t *a2, uint64_t a3)
-{
-  v15[48] = *MEMORY[0x277D85DE8];
-  v3 = *a2;
-  if (a2[1] - *a2 == 64)
-  {
-    v13 = 0uLL;
-    v14 = 0;
-    v10 = *(a1 + 8);
-    v11 = *(a1 + 16);
-    v12 = &v13;
-    mlx::core::QuantizedMatmul::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0::operator()(&v10, v3, &v9);
-    mlx::core::QuantizedMatmul::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0::operator()(&v10, (v3 + 16), &v8);
-    mlx::core::QuantizedMatmul::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0::operator()(&v10, (v3 + 32), &v7);
-    mlx::core::QuantizedMatmul::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0::operator()(&v10, (v3 + 48), &v6);
-    v5 = mlx::core::allocator::malloc((*(*a3 + 60) * *(*a3 + 48)));
-    v15[0] = &unk_286BE3468;
-    v15[1] = mlx::core::allocator::free;
-    v15[3] = v15;
-    mlx::core::array::set_data(a3, v5);
-  }
-
-  mlx::core::QuantizedMatmul::eval_cpu();
-}
-
-void sub_25A53AF38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, _Unwind_Exception *exception_objecta, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32, uint64_t a33, char a34, uint64_t a35, char a36, uint64_t a37, char a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
-{
-  __cxa_free_exception(v66);
-  std::mutex::unlock(v65);
-  mlx::core::cpu::CommandEncoder::dispatch<mlx::core::QuantizedMatmul::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_1>(mlx::core::QuantizedMatmul::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_1 &&)::{lambda(void)#1}::~dispatch(&a50);
-  mlx::core::QuantizedMatmul::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_1::~$_1(&a65);
-  mlx::core::QuantizedMatmul::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_1::~$_1(&a17);
-  mlx::core::array::~array(&a32);
-  mlx::core::array::~array(&a34);
-  mlx::core::array::~array(&a36);
-  mlx::core::array::~array(&a38);
-  a50 = &a43;
-  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&a50);
-  _Unwind_Resume(a1);
-}
-
-uint64_t mlx::core::QuantizedMatmul::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0::operator()@<X0>(uint64_t result@<X0>, mlx::core::array *a2@<X1>, uint64_t **a3@<X8>)
-{
-  v5 = *a2;
-  if ((*(*a2 + 168) & 2) != 0)
-  {
-    v10 = *(a2 + 1);
-  }
-
-  else
-  {
-    v6 = result;
-    v7 = *(result + 16);
-    v15 = 0;
-    v16 = 0;
-    __p = 0;
-    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, *v5, v5[1], (v5[1] - *v5) >> 2);
-    v8 = *(*a2 + 56);
-    v12 = 0;
-    v13 = 0;
-    memset(v11, 0, sizeof(v11));
-    mlx::core::array::array(v17, &__p, v8 & 0xFFFFFFFFFFLL, &v12, v11);
-    std::vector<mlx::core::array>::push_back[abi:ne200100](v7, v17);
-    mlx::core::array::~array(v17);
-    v18 = v11;
-    std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v18);
-    if (v13)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v13);
-    }
-
-    if (__p)
-    {
-      v15 = __p;
-      operator delete(__p);
-    }
-
-    result = mlx::core::copy(a2, (*(*(v6 + 16) + 8) - 16), 2u, *v6, *(v6 + 8));
-    v9 = *(*(v6 + 16) + 8);
-    v5 = *(v9 - 16);
-    v10 = *(v9 - 8);
-  }
-
-  *a3 = v5;
-  a3[1] = v10;
-  if (v10)
-  {
-    atomic_fetch_add_explicit(v10 + 1, 1uLL, memory_order_relaxed);
-  }
-
-  return result;
-}
-
-void sub_25A53B1A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14, void *__p, uint64_t a16)
-{
-  mlx::core::array::~array((v16 - 56));
-  *(v16 - 40) = &a10;
-  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100]((v16 - 40));
-  if (a14)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a14);
-  }
-
-  if (__p)
-  {
-    a16 = __p;
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void mlx::core::QuantizedMatmul::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_1::~$_1(uint64_t a1)
-{
-  mlx::core::array::~array((a1 + 64));
-  mlx::core::array::~array((a1 + 48));
-  mlx::core::array::~array((a1 + 32));
-  mlx::core::array::~array((a1 + 16));
-
-  mlx::core::array::~array(a1);
-}
-
-void mlx::core::GatherQMM::eval_cpu(uint64_t a1, uint64_t *a2, uint64_t a3)
-{
-  v15[60] = *MEMORY[0x277D85DE8];
-  v3 = *a2;
-  if (a2[1] - *a2 == 96)
-  {
-    v13 = 0uLL;
-    v14 = 0;
-    v10 = *(a1 + 8);
-    v11 = *(a1 + 16);
-    v12 = &v13;
-    mlx::core::GatherQMM::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0::operator()(&v10, v3, &v9);
-    mlx::core::GatherQMM::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0::operator()(&v10, (v3 + 16), &v8);
-    mlx::core::GatherQMM::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0::operator()(&v10, (v3 + 32), &v7);
-    mlx::core::GatherQMM::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0::operator()(&v10, (v3 + 48), &v6);
-    v5 = mlx::core::allocator::malloc((*(*a3 + 60) * *(*a3 + 48)));
-    v15[0] = &unk_286BE3468;
-    v15[1] = mlx::core::allocator::free;
-    v15[3] = v15;
-    mlx::core::array::set_data(a3, v5);
-  }
-
-  mlx::core::GatherQMM::eval_cpu();
-}
-
-void sub_25A53BA60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, _Unwind_Exception *exception_objecta, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, char a40, uint64_t a41, char a42, uint64_t a43, char a44, uint64_t a45, char a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, char a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58)
-{
-  __cxa_free_exception(v59);
-  std::mutex::unlock(v58);
-  mlx::core::cpu::CommandEncoder::dispatch<mlx::core::GatherQMM::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_1>(mlx::core::GatherQMM::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_1 &&)::{lambda(void)#1}::~dispatch(&a58);
-  mlx::core::GatherQMM::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_1::~$_1(&STACK[0x220]);
-  mlx::core::GatherQMM::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_1::~$_1(&a21);
-  mlx::core::array::~array(&a40);
-  mlx::core::array::~array(&a42);
-  mlx::core::array::~array(&a44);
-  mlx::core::array::~array(&a46);
-  a58 = &a51;
-  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&a58);
-  _Unwind_Resume(a1);
-}
-
-uint64_t mlx::core::GatherQMM::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0::operator()@<X0>(uint64_t result@<X0>, mlx::core::array *a2@<X1>, uint64_t **a3@<X8>)
-{
-  v5 = *a2;
-  v6 = **a2;
-  v7 = v5[1];
-  v8 = v7 - v6;
-  if (v7 == v6)
-  {
-    std::vector<mlx::core::array>::__throw_out_of_range[abi:ne200100]();
-  }
-
-  v9 = (v8 >> 2) - 1;
-  v10 = v5[3];
-  if (*(v10 + 2 * v8 - 16) == *(v6 + 4 * v9) && *(v10 + 8 * v9) == 1)
-  {
-    v16 = *(a2 + 1);
-    *a3 = v5;
-  }
-
-  else
-  {
-    v12 = result;
-    v13 = *(result + 16);
-    v21 = 0;
-    v22 = 0;
-    __p = 0;
-    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, v6, v7, v8 >> 2);
-    v14 = *(*a2 + 56);
-    v18 = 0;
-    v19 = 0;
-    memset(v17, 0, sizeof(v17));
-    mlx::core::array::array(v23, &__p, v14 & 0xFFFFFFFFFFLL, &v18, v17);
-    std::vector<mlx::core::array>::push_back[abi:ne200100](v13, v23);
-    mlx::core::array::~array(v23);
-    v24 = v17;
-    std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v24);
-    if (v19)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v19);
-    }
-
-    if (__p)
-    {
-      v21 = __p;
-      operator delete(__p);
-    }
-
-    result = mlx::core::copy(a2, (*(*(v12 + 16) + 8) - 16), 2u, *v12, *(v12 + 8));
-    v15 = *(*(v12 + 16) + 8);
-    v16 = *(v15 - 8);
-    *a3 = *(v15 - 16);
-  }
-
-  a3[1] = v16;
-  if (v16)
-  {
-    atomic_fetch_add_explicit(v16 + 1, 1uLL, memory_order_relaxed);
-  }
-
-  return result;
-}
-
-void sub_25A53BD30(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14, void *__p, uint64_t a16)
-{
-  mlx::core::array::~array((v16 - 56));
-  *(v16 - 40) = &a10;
-  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100]((v16 - 40));
-  if (a14)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a14);
-  }
-
-  if (__p)
-  {
-    a16 = __p;
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void mlx::core::GatherQMM::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_1::~$_1(uint64_t a1)
-{
-  mlx::core::array::~array((a1 + 96));
-  mlx::core::array::~array((a1 + 80));
-  mlx::core::array::~array((a1 + 64));
-  mlx::core::array::~array((a1 + 48));
-  mlx::core::array::~array((a1 + 32));
-  mlx::core::array::~array((a1 + 16));
-
-  mlx::core::array::~array(a1);
-}
-
-void mlx::core::fast::AffineQuantize::eval_cpu(uint64_t a1, mlx::core::array **a2, uint64_t *a3)
-{
-  v21 = *MEMORY[0x277D85DE8];
-  v4 = *a2;
-  v5 = **a2;
-  if ((*(v5 + 168) & 2) != 0)
-  {
-    v9 = *(v4 + 1);
-    *&v13 = **a2;
-    *(&v13 + 1) = v9;
-    if (v9)
-    {
-      atomic_fetch_add_explicit((v9 + 8), 1uLL, memory_order_relaxed);
-    }
-
-    v14 = 0;
-  }
-
-  else
-  {
-    v6 = *(a1 + 8);
-    v7 = *(a1 + 16);
-    *&v20 = 0;
-    v19 = 0uLL;
-    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v19, *v5, *(v5 + 8), (*(v5 + 8) - *v5) >> 2);
-    v8 = *(*v4 + 56);
-    v12 = 0uLL;
-    memset(v17, 0, 24);
-    mlx::core::array::array(&v18, &v19, v8 & 0xFFFFFFFFFFLL, &v12, v17);
-    v15 = v17;
-    std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v15);
-    if (*(&v12 + 1))
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v12 + 1));
-    }
-
-    if (v19)
-    {
-      *(&v19 + 1) = v19;
-      operator delete(v19);
-    }
-
-    mlx::core::copy(v4, &v18, 2u, v6, v7);
-    v13 = v18;
-    if (*(&v18 + 1))
-    {
-      atomic_fetch_add_explicit((*(&v18 + 1) + 8), 1uLL, memory_order_relaxed);
-    }
-
-    v14 = 1;
-    mlx::core::array::~array(&v18);
-  }
-
-  v10 = *a3;
-  v11 = mlx::core::allocator::malloc((*(**a3 + 60) * *(**a3 + 48)));
-  v16[0] = &unk_286BE3468;
-  v16[1] = mlx::core::allocator::free;
-  v16[3] = v16;
-  mlx::core::array::set_data(v10, v11);
-}
-
-void sub_25A53C558(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, char a57)
-{
-  __cxa_free_exception(v58);
-  std::mutex::unlock(v57);
-  mlx::core::cpu::CommandEncoder::dispatch<mlx::core::fast::AffineQuantize::eval_cpu(std::vector<mlx::core::array> const&,std::vector<mlx::core::array>&)::$_1>(mlx::core::fast::AffineQuantize::eval_cpu(std::vector<mlx::core::array> const&,std::vector<mlx::core::array>&)::$_1 &&)::{lambda(void)#1}::~dispatch(&a45);
-  mlx::core::fast::AffineQuantize::eval_cpu(std::vector<mlx::core::array> const&,std::vector<mlx::core::array>&)::$_1::~$_1(&a57);
-  mlx::core::fast::AffineQuantize::eval_cpu(std::vector<mlx::core::array> const&,std::vector<mlx::core::array>&)::$_1::~$_1(&a17);
-  mlx::core::array::~array(&a29);
-  _Unwind_Resume(a1);
-}
-
-void mlx::core::fast::AffineQuantize::eval_cpu(std::vector<mlx::core::array> const&,std::vector<mlx::core::array>&)::$_1::~$_1(uint64_t a1)
-{
-  mlx::core::array::~array((a1 + 48));
-  mlx::core::array::~array((a1 + 32));
-  mlx::core::array::~array((a1 + 16));
-
-  mlx::core::array::~array(a1);
-}
-
-void mlx::core::fast::AffineQuantize::~AffineQuantize(mlx::core::fast::AffineQuantize *this)
-{
-  *this = &unk_286BF6BB8;
-  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array>)>::~__value_func[abi:ne200100](this + 56);
-  *this = &unk_286BF21A8;
-  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array>)>::~__value_func[abi:ne200100](this + 24);
-}
-
-{
-  *this = &unk_286BF6BB8;
-  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array>)>::~__value_func[abi:ne200100](this + 56);
-  *this = &unk_286BF21A8;
-  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array>)>::~__value_func[abi:ne200100](this + 24);
-
-  JUMPOUT(0x25F851760);
-}
-
-uint64_t mlx::core::cpu::CommandEncoder::dispatch<mlx::core::QuantizedMatmul::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_1>(mlx::core::QuantizedMatmul::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_1 &&)::{lambda(void)#1}::~dispatch(uint64_t a1)
-{
-  mlx::core::array::~array((a1 + 80));
-  mlx::core::array::~array((a1 + 64));
-  mlx::core::array::~array((a1 + 48));
-  mlx::core::array::~array((a1 + 32));
-  mlx::core::array::~array((a1 + 16));
-  return a1;
-}
-
-void *_ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_15QuantizedMatmul8eval_cpuERKNS_6vectorINS3_5arrayENS_9allocatorIS9_EEEERS9_E3__1JEEEvOT_DpOT0_EUlvE_NSA_ISM_EEFvvEED1Ev(void *a1)
-{
-  *a1 = &unk_286BF6C30;
-  v2 = (a1 + 5);
-  mlx::core::array::~array((a1 + 11));
-  mlx::core::array::~array((a1 + 9));
-  mlx::core::array::~array((a1 + 7));
-  mlx::core::array::~array(v2);
-  mlx::core::array::~array((a1 + 3));
-  return a1;
-}
-
-void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_15QuantizedMatmul8eval_cpuERKNS_6vectorINS3_5arrayENS_9allocatorIS9_EEEERS9_E3__1JEEEvOT_DpOT0_EUlvE_NSA_ISM_EEFvvEED0Ev(void *a1)
-{
-  *a1 = &unk_286BF6C30;
-  v2 = (a1 + 5);
-  mlx::core::array::~array((a1 + 11));
-  mlx::core::array::~array((a1 + 9));
-  mlx::core::array::~array((a1 + 7));
-  mlx::core::array::~array(v2);
-  mlx::core::array::~array((a1 + 3));
-
-  JUMPOUT(0x25F851760);
-}
-
-uint64_t _ZNKSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_15QuantizedMatmul8eval_cpuERKNS_6vectorINS3_5arrayENS_9allocatorIS9_EEEERS9_E3__1JEEEvOT_DpOT0_EUlvE_NSA_ISM_EEFvvEE7__cloneEPNS0_6__baseISO_EE(uint64_t result, uint64_t a2)
-{
-  *a2 = &unk_286BF6C30;
-  v2 = *(result + 8);
-  *(a2 + 16) = *(result + 16);
-  *(a2 + 8) = v2;
-  v3 = *(result + 32);
-  *(a2 + 24) = *(result + 24);
-  *(a2 + 32) = v3;
-  if (v3)
-  {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  v4 = *(result + 48);
-  *(a2 + 40) = *(result + 40);
-  *(a2 + 48) = v4;
-  if (v4)
-  {
-    atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  v5 = *(result + 64);
-  *(a2 + 56) = *(result + 56);
-  *(a2 + 64) = v5;
-  if (v5)
-  {
-    atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  v6 = *(result + 80);
-  *(a2 + 72) = *(result + 72);
-  *(a2 + 80) = v6;
-  if (v6)
-  {
-    atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  v7 = *(result + 96);
-  *(a2 + 88) = *(result + 88);
-  *(a2 + 96) = v7;
-  if (v7)
-  {
-    atomic_fetch_add_explicit((v7 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  v8 = *(result + 104);
-  *(a2 + 112) = *(result + 112);
-  *(a2 + 104) = v8;
-  return result;
-}
-
-void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_15QuantizedMatmul8eval_cpuERKNS_6vectorINS3_5arrayENS_9allocatorIS9_EEEERS9_E3__1JEEEvOT_DpOT0_EUlvE_NSA_ISM_EEFvvEE7destroyEv(uint64_t a1)
-{
-  mlx::core::array::~array((a1 + 88));
-  mlx::core::array::~array((a1 + 72));
-  mlx::core::array::~array((a1 + 56));
-  mlx::core::array::~array((a1 + 40));
-
-  mlx::core::array::~array((a1 + 24));
-}
-
-void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_15QuantizedMatmul8eval_cpuERKNS_6vectorINS3_5arrayENS_9allocatorIS9_EEEERS9_E3__1JEEEvOT_DpOT0_EUlvE_NSA_ISM_EEFvvEE18destroy_deallocateEv(uint64_t a1)
-{
-  mlx::core::array::~array((a1 + 88));
-  mlx::core::array::~array((a1 + 72));
-  mlx::core::array::~array((a1 + 56));
-  mlx::core::array::~array((a1 + 40));
-  mlx::core::array::~array((a1 + 24));
-
-  operator delete(a1);
-}
-
-void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_15QuantizedMatmul8eval_cpuERKNS_6vectorINS3_5arrayENS_9allocatorIS9_EEEERS9_E3__1JEEEvOT_DpOT0_EUlvE_NSA_ISM_EEFvvEEclEv(uint64_t a1, float32x4_t a2, float32x4_t a3, float32x4_t a4, double a5, float32x4_t a6, float32x4_t a7, float32x4_t a8)
-{
-  std::__bind<mlx::core::QuantizedMatmul::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_1>::operator()[abi:ne200100]<>(a1 + 24, a2, a3, a4, a5, a6, a7, a8);
-  v9 = mlx::core::scheduler::scheduler(v8);
-
-  mlx::core::scheduler::Scheduler::notify_task_completion(v9);
-}
-
-uint64_t _ZNKSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_15QuantizedMatmul8eval_cpuERKNS_6vectorINS3_5arrayENS_9allocatorIS9_EEEERS9_E3__1JEEEvOT_DpOT0_EUlvE_NSA_ISM_EEFvvEE6targetERKSt9type_info(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void std::__bind<mlx::core::QuantizedMatmul::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_1>::operator()[abi:ne200100]<>(uint64_t a1, float32x4_t a2, float32x4_t a3, float32x4_t a4, double a5, float32x4_t a6, float32x4_t a7, float32x4_t a8)
-{
-  v160 = *(a1 + 84);
-  v161 = *(a1 + 80);
-  v159 = *(a1 + 88);
-  v9 = *(a1 + 16);
+  v160 = *(result + 84);
+  v161 = *(result + 80);
+  v159 = *(result + 88);
+  v9 = *(result + 16);
   v10 = *(v9 + 56);
   switch(v10)
   {
@@ -1116,16 +16,16 @@ void std::__bind<mlx::core::QuantizedMatmul::eval_cpu(std::vector<mlx::core::arr
 
       v16 = (v15 - *v9) < 5 ? 1 : *(v15 - 8);
       v154 = v16;
-      v20 = *(*a1 + 8);
-      if (v20 == **a1)
+      v20 = *(*result + 8);
+      if (v20 == **result)
       {
         goto LABEL_79;
       }
 
       v157 = *(v15 - 4);
       v151 = *(v20 - 4);
-      v21 = *(a1 + 32);
-      v22 = *(a1 + 48);
+      v21 = *(result + 32);
+      v22 = *(result + 48);
       if (v21[1] - *v21 < 9uLL)
       {
         v127 = 0;
@@ -1139,9 +39,7 @@ void std::__bind<mlx::core::QuantizedMatmul::eval_cpu(std::vector<mlx::core::arr
           goto LABEL_79;
         }
 
-        *v21;
         v127 = *(v21[1] - 8) * *(v21[1] - 4);
-        *v22;
         v148 = *(v22[1] - 8) * *(v22[1] - 4);
       }
 
@@ -1149,14 +47,14 @@ void std::__bind<mlx::core::QuantizedMatmul::eval_cpu(std::vector<mlx::core::arr
       {
         v59 = 0;
         v142 = *(v9 + 152);
-        v145 = *(*a1 + 152);
+        v145 = *(*result + 152);
         v136 = v22[19];
         v139 = v21[19];
-        v133 = *(*(a1 + 64) + 152);
+        v133 = *(*(result + 64) + 152);
         v130 = (*(v9 + 48) / (v16 * v157)) & 0x7FFFFFFF;
         do
         {
-          v60 = *(a1 + 16);
+          v60 = *(result + 16);
           v61 = *v60;
           v62 = (v60[1] - *v60) >> 2;
           v63 = (v62 - 1);
@@ -1175,7 +73,7 @@ void std::__bind<mlx::core::QuantizedMatmul::eval_cpu(std::vector<mlx::core::arr
             while (v63 != -1);
           }
 
-          v68 = *(a1 + 32);
+          v68 = *(result + 32);
           v69 = *v68;
           v70 = (v68[1] - *v68) >> 2;
           v71 = 0;
@@ -1195,7 +93,7 @@ void std::__bind<mlx::core::QuantizedMatmul::eval_cpu(std::vector<mlx::core::arr
           }
 
           v76 = v59 * v148;
-          v77 = *(a1 + 48);
+          v77 = *(result + 48);
           v78 = *v77;
           v79 = (v77[1] - *v77) >> 2;
           v80 = 0;
@@ -1214,7 +112,7 @@ void std::__bind<mlx::core::QuantizedMatmul::eval_cpu(std::vector<mlx::core::arr
             while (v81 != -1);
           }
 
-          v85 = *(a1 + 64);
+          v85 = *(result + 64);
           v86 = *v85;
           v87 = (v85[1] - *v85) >> 2;
           v88 = 0;
@@ -1248,16 +146,16 @@ void std::__bind<mlx::core::QuantizedMatmul::eval_cpu(std::vector<mlx::core::arr
 
       v14 = (v13 - *v9) < 5 ? 1 : *(v13 - 8);
       v153 = v14;
-      v17 = *(*a1 + 8);
-      if (v17 == **a1)
+      v17 = *(*result + 8);
+      if (v17 == **result)
       {
         goto LABEL_79;
       }
 
       v156 = *(v13 - 4);
       v150 = *(v17 - 4);
-      v18 = *(a1 + 32);
-      v19 = *(a1 + 48);
+      v18 = *(result + 32);
+      v19 = *(result + 48);
       if (v18[1] - *v18 < 9uLL)
       {
         v126 = 0;
@@ -1271,9 +169,7 @@ void std::__bind<mlx::core::QuantizedMatmul::eval_cpu(std::vector<mlx::core::arr
           goto LABEL_79;
         }
 
-        *v18;
         v126 = *(v18[1] - 8) * *(v18[1] - 4);
-        *v19;
         v147 = *(v19[1] - 8) * *(v19[1] - 4);
       }
 
@@ -1281,14 +177,14 @@ void std::__bind<mlx::core::QuantizedMatmul::eval_cpu(std::vector<mlx::core::arr
       {
         v26 = 0;
         v141 = *(v9 + 152);
-        v144 = *(*a1 + 152);
+        v144 = *(*result + 152);
         v135 = v19[19];
         v138 = v18[19];
-        v132 = *(*(a1 + 64) + 152);
+        v132 = *(*(result + 64) + 152);
         v129 = (*(v9 + 48) / (v14 * v156)) & 0x7FFFFFFF;
         do
         {
-          v27 = *(a1 + 16);
+          v27 = *(result + 16);
           v28 = *v27;
           v29 = (v27[1] - *v27) >> 2;
           v30 = (v29 - 1);
@@ -1307,7 +203,7 @@ void std::__bind<mlx::core::QuantizedMatmul::eval_cpu(std::vector<mlx::core::arr
             while (v30 != -1);
           }
 
-          v35 = *(a1 + 32);
+          v35 = *(result + 32);
           v36 = *v35;
           v37 = (v35[1] - *v35) >> 2;
           v38 = 0;
@@ -1327,7 +223,7 @@ void std::__bind<mlx::core::QuantizedMatmul::eval_cpu(std::vector<mlx::core::arr
           }
 
           v43 = v26 * v147;
-          v44 = *(a1 + 48);
+          v44 = *(result + 48);
           v45 = *v44;
           v46 = (v44[1] - *v44) >> 2;
           v47 = 0;
@@ -1346,7 +242,7 @@ void std::__bind<mlx::core::QuantizedMatmul::eval_cpu(std::vector<mlx::core::arr
             while (v48 != -1);
           }
 
-          v52 = *(a1 + 64);
+          v52 = *(result + 64);
           v53 = *v52;
           v54 = (v52[1] - *v52) >> 2;
           v55 = 0;
@@ -1377,13 +273,13 @@ void std::__bind<mlx::core::QuantizedMatmul::eval_cpu(std::vector<mlx::core::arr
       {
         v12 = (v11 - *v9) < 5 ? 1 : *(v11 - 8);
         v155 = v12;
-        v23 = *(*a1 + 8);
-        if (v23 != **a1)
+        v23 = *(*result + 8);
+        if (v23 != **result)
         {
           v158 = *(v11 - 4);
           v152 = *(v23 - 4);
-          v24 = *(a1 + 32);
-          v25 = *(a1 + 48);
+          v24 = *(result + 32);
+          v25 = *(result + 48);
           if (v24[1] - *v24 < 9uLL)
           {
             v128 = 0;
@@ -1393,14 +289,14 @@ LABEL_63:
             {
               v92 = 0;
               v143 = *(v9 + 152);
-              v146 = *(*a1 + 152);
+              v146 = *(*result + 152);
               v137 = v25[19];
               v140 = v24[19];
-              v134 = *(*(a1 + 64) + 152);
+              v134 = *(*(result + 64) + 152);
               v131 = (*(v9 + 48) / (v12 * v158)) & 0x7FFFFFFF;
               do
               {
-                v93 = *(a1 + 16);
+                v93 = *(result + 16);
                 v94 = *v93;
                 v95 = (v93[1] - *v93) >> 2;
                 v96 = (v95 - 1);
@@ -1419,7 +315,7 @@ LABEL_63:
                   while (v96 != -1);
                 }
 
-                v101 = *(a1 + 32);
+                v101 = *(result + 32);
                 v102 = *v101;
                 v103 = (v101[1] - *v101) >> 2;
                 v104 = 0;
@@ -1439,7 +335,7 @@ LABEL_63:
                 }
 
                 v109 = v92 * v149;
-                v110 = *(a1 + 48);
+                v110 = *(result + 48);
                 v111 = *v110;
                 v112 = (v110[1] - *v110) >> 2;
                 v113 = 0;
@@ -1458,7 +354,7 @@ LABEL_63:
                   while (v114 != -1);
                 }
 
-                v118 = *(a1 + 64);
+                v118 = *(result + 64);
                 v119 = *v118;
                 v120 = (v118[1] - *v118) >> 2;
                 v121 = 0;
@@ -1487,9 +383,7 @@ LABEL_63:
 
           if (v25[1] - *v25 > 4uLL)
           {
-            *v24;
             v128 = *(v24[1] - 8) * *(v24[1] - 4);
-            *v25;
             v149 = *(v25[1] - 8) * *(v25[1] - 4);
             goto LABEL_63;
           }
@@ -1505,11 +399,11 @@ LABEL_79:
   }
 }
 
-void mlx::core::anonymous namespace::_qmm_dispatch_typed<float>(float *a1, float *a2, unsigned __int8 *a3, float *a4, float *a5, int a6, int a7, int a8, float32x4_t a9, double a10, double a11, double a12, float32x4_t a13, int a14, int a15, char a16)
+void mlx::core::anonymous namespace::_qmm_dispatch_typed<float>(float32x4_t *a1, float *a2, unsigned __int8 *a3, float *a4, float *a5, int a6, int a7, int a8, float32x4_t a9, double a10, double a11, double a12, float32x4_t a13, int a14, int a15, char a16)
 {
   v18 = a5;
-  v532 = *MEMORY[0x277D85DE8];
-  v511 = a6;
+  v531 = *MEMORY[0x277D85DE8];
+  v510 = a6;
   if (a15 <= 3)
   {
     if (a15 == 2)
@@ -1566,7 +460,8 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<float>(float *a1, float
                       while (v195 < a8);
                     }
 
-                    *a1++ = v196;
+                    a1->f32[0] = v196;
+                    a1 = (a1 + 4);
                     ++v191;
                   }
 
@@ -1586,7 +481,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<float>(float *a1, float
               {
                 v381 = a2;
                 bzero(a1, 4 * a7);
-                a6 = v511;
+                a6 = v510;
                 a2 = v381;
               }
 
@@ -1599,7 +494,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<float>(float *a1, float
                 do
                 {
                   v386 = *a2++;
-                  a9.f32[0] = v386;
+                  a9.i32[0] = v386;
                   if (a7 >= 1)
                   {
                     v387 = 0;
@@ -1639,11 +534,11 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<float>(float *a1, float
                 while (v382 != a8);
               }
 
-              a1 += a7;
+              a1 = (a1 + 4 * a7);
             }
           }
 
-          goto LABEL_456;
+          return;
         case 64:
           if (a16)
           {
@@ -1694,7 +589,8 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<float>(float *a1, float
                       while (v161 < a8);
                     }
 
-                    *a1++ = v162;
+                    a1->f32[0] = v162;
+                    a1 = (a1 + 4);
                     ++v157;
                   }
 
@@ -1714,7 +610,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<float>(float *a1, float
               {
                 v335 = a2;
                 bzero(a1, 4 * a7);
-                a6 = v511;
+                a6 = v510;
                 a2 = v335;
               }
 
@@ -1767,11 +663,11 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<float>(float *a1, float
                 while (v336 != a8);
               }
 
-              a1 += a7;
+              a1 = (a1 + 4 * a7);
             }
           }
 
-          goto LABEL_456;
+          return;
         case 32:
           if (a16)
           {
@@ -1822,7 +718,8 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<float>(float *a1, float
                       while (v90 < a8);
                     }
 
-                    *a1++ = v91;
+                    a1->f32[0] = v91;
+                    a1 = (a1 + 4);
                     ++v86;
                   }
 
@@ -1842,7 +739,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<float>(float *a1, float
               {
                 v395 = a2;
                 bzero(a1, 4 * a7);
-                a6 = v511;
+                a6 = v510;
                 a2 = v395;
               }
 
@@ -1895,11 +792,11 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<float>(float *a1, float
                 while (v396 != a8);
               }
 
-              a1 += a7;
+              a1 = (a1 + 4 * a7);
             }
           }
 
-          goto LABEL_456;
+          return;
       }
     }
 
@@ -1910,7 +807,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<float>(float *a1, float
         goto LABEL_457;
       }
 
-      v509 = a4;
+      v508 = a4;
       switch(a14)
       {
         case 128:
@@ -1919,20 +816,20 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<float>(float *a1, float
             if (a6 >= 1)
             {
               v236 = 0;
-              v498 = a8;
+              v497 = a8;
               do
               {
-                v504 = v236;
+                v503 = v236;
                 if (a7 >= 1)
                 {
                   v237 = 0;
                   v238 = v18;
                   v239 = a4;
                   v240 = a3;
-                  v514 = a2;
+                  v513 = a2;
                   do
                   {
-                    v520 = a1;
+                    v519 = a1;
                     if (a8 < 1)
                     {
                       v242 = 0.0;
@@ -1951,7 +848,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<float>(float *a1, float
                         do
                         {
                           v247 = &v243[v244];
-                          v242 = (((((((v242 + (*v247 * (v246 + (v245 * v524)))) + (v247[1] * (v246 + (v245 * v525)))) + (v247[2] * (v246 + (v245 * v526)))) + (v247[3] * (v246 + (v245 * v527)))) + (v247[4] * (v246 + (v245 * v528)))) + (v247[5] * (v246 + (v245 * v529)))) + (v247[6] * (v246 + (v245 * v530)))) + (v247[7] * (v246 + (v245 * v531)));
+                          v242 = (((((((v242 + (*v247 * (v246 + (v245 * v523)))) + (v247[1] * (v246 + (v245 * v524)))) + (v247[2] * (v246 + (v245 * v525)))) + (v247[3] * (v246 + (v245 * v526)))) + (v247[4] * (v246 + (v245 * v527)))) + (v247[5] * (v246 + (v245 * v528)))) + (v247[6] * (v246 + (v245 * v529)))) + (v247[7] * (v246 + (v245 * v530)));
                           v240 += 3;
                           v244 += 8;
                         }
@@ -1966,41 +863,41 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<float>(float *a1, float
                       while (v241 < a8);
                     }
 
-                    a2 = v514;
-                    *v520 = v242;
-                    a1 = v520 + 1;
+                    a2 = v513;
+                    *v519 = v242;
+                    a1 = (v519 + 1);
                     ++v237;
                   }
 
                   while (v237 != a7);
                 }
 
-                a2 += v498;
-                v236 = v504 + 1;
-                a4 = v509;
+                a2 += v497;
+                v236 = v503 + 1;
+                a4 = v508;
                 v18 = a5;
               }
 
-              while (v504 + 1 != v511);
+              while (v503 + 1 != v510);
             }
           }
 
           else if (a6 >= 1)
           {
             v458 = 0;
-            v500 = 4 * a7;
-            v506 = a7;
+            v499 = 4 * a7;
+            v505 = a7;
             do
             {
               if (a7 >= 1)
               {
                 v459 = a2;
-                bzero(a1, v500);
+                bzero(a1, v499);
                 a2 = v459;
               }
 
-              v516 = v458;
-              v522 = a1;
+              v515 = v458;
+              v521 = a1;
               if (a8 >= 1)
               {
                 v460 = 0;
@@ -2014,7 +911,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<float>(float *a1, float
                   if (a7 >= 1)
                   {
                     v466 = 0;
-                    v467 = v522;
+                    v467 = v521;
                     do
                     {
                       v468 = *v462;
@@ -2023,18 +920,18 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<float>(float *a1, float
                       do
                       {
                         v471 = v467[1];
-                        *v467 = *v467 + (v464 * (v469 + (v468 * v524)));
-                        v467[1] = v471 + (v464 * (v469 + (v468 * v525)));
+                        *v467 = *v467 + (v464 * (v469 + (v468 * v523)));
+                        v467[1] = v471 + (v464 * (v469 + (v468 * v524)));
                         v472 = v467[3];
-                        v467[2] = v467[2] + (v464 * (v469 + (v468 * v526)));
-                        v467[3] = v472 + (v464 * (v469 + (v468 * v527)));
+                        v467[2] = v467[2] + (v464 * (v469 + (v468 * v525)));
+                        v467[3] = v472 + (v464 * (v469 + (v468 * v526)));
                         v473 = v467[5];
-                        v467[4] = v467[4] + (v464 * (v469 + (v468 * v528)));
-                        v467[5] = v473 + (v464 * (v469 + (v468 * v529)));
+                        v467[4] = v467[4] + (v464 * (v469 + (v468 * v527)));
+                        v467[5] = v473 + (v464 * (v469 + (v468 * v528)));
                         v474 = v467[7];
-                        v467[6] = v467[6] + (v464 * (v469 + (v468 * v530)));
+                        v467[6] = v467[6] + (v464 * (v469 + (v468 * v529)));
                         v475 = v467 + 8;
-                        v467[7] = v474 + (v464 * (v469 + (v468 * v531)));
+                        v467[7] = v474 + (v464 * (v469 + (v468 * v530)));
                         v463 += 3;
                         v467 += 8;
                         --v470;
@@ -2057,36 +954,36 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<float>(float *a1, float
                 while (v460 != a8);
               }
 
-              a1 = &v522[v506];
-              v458 = v516 + 1;
-              a4 = v509;
+              a1 = &v521[v505];
+              v458 = v515 + 1;
+              a4 = v508;
               v18 = a5;
             }
 
-            while (v516 + 1 != v511);
+            while (v515 + 1 != v510);
           }
 
-          goto LABEL_456;
+          return;
         case 64:
           if (a16)
           {
             if (a6 >= 1)
             {
               v224 = 0;
-              v497 = a8;
+              v496 = a8;
               do
               {
-                v503 = v224;
+                v502 = v224;
                 if (a7 >= 1)
                 {
                   v225 = 0;
                   v226 = v18;
                   v227 = a4;
                   v228 = a3;
-                  v513 = a2;
+                  v512 = a2;
                   do
                   {
-                    v519 = a1;
+                    v518 = a1;
                     if (a8 < 1)
                     {
                       v230 = 0.0;
@@ -2105,7 +1002,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<float>(float *a1, float
                         do
                         {
                           v235 = &v231[v232];
-                          v230 = (((((((v230 + (*v235 * (v234 + (v233 * v524)))) + (v235[1] * (v234 + (v233 * v525)))) + (v235[2] * (v234 + (v233 * v526)))) + (v235[3] * (v234 + (v233 * v527)))) + (v235[4] * (v234 + (v233 * v528)))) + (v235[5] * (v234 + (v233 * v529)))) + (v235[6] * (v234 + (v233 * v530)))) + (v235[7] * (v234 + (v233 * v531)));
+                          v230 = (((((((v230 + (*v235 * (v234 + (v233 * v523)))) + (v235[1] * (v234 + (v233 * v524)))) + (v235[2] * (v234 + (v233 * v525)))) + (v235[3] * (v234 + (v233 * v526)))) + (v235[4] * (v234 + (v233 * v527)))) + (v235[5] * (v234 + (v233 * v528)))) + (v235[6] * (v234 + (v233 * v529)))) + (v235[7] * (v234 + (v233 * v530)));
                           v228 += 3;
                           v232 += 8;
                         }
@@ -2120,41 +1017,41 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<float>(float *a1, float
                       while (v229 < a8);
                     }
 
-                    a2 = v513;
-                    *v519 = v230;
-                    a1 = v519 + 1;
+                    a2 = v512;
+                    *v518 = v230;
+                    a1 = (v518 + 1);
                     ++v225;
                   }
 
                   while (v225 != a7);
                 }
 
-                a2 += v497;
-                v224 = v503 + 1;
-                a4 = v509;
+                a2 += v496;
+                v224 = v502 + 1;
+                a4 = v508;
                 v18 = a5;
               }
 
-              while (v503 + 1 != v511);
+              while (v502 + 1 != v510);
             }
           }
 
           else if (a6 >= 1)
           {
             v424 = 0;
-            v499 = 4 * a7;
-            v505 = a7;
+            v498 = 4 * a7;
+            v504 = a7;
             do
             {
               if (a7 >= 1)
               {
                 v425 = a2;
-                bzero(a1, v499);
+                bzero(a1, v498);
                 a2 = v425;
               }
 
-              v515 = v424;
-              v521 = a1;
+              v514 = v424;
+              v520 = a1;
               if (a8 >= 1)
               {
                 v426 = 0;
@@ -2168,7 +1065,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<float>(float *a1, float
                   if (a7 >= 1)
                   {
                     v432 = 0;
-                    v433 = v521;
+                    v433 = v520;
                     do
                     {
                       v434 = *v428;
@@ -2177,18 +1074,18 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<float>(float *a1, float
                       do
                       {
                         v437 = v433[1];
-                        *v433 = *v433 + (v430 * (v435 + (v434 * v524)));
-                        v433[1] = v437 + (v430 * (v435 + (v434 * v525)));
+                        *v433 = *v433 + (v430 * (v435 + (v434 * v523)));
+                        v433[1] = v437 + (v430 * (v435 + (v434 * v524)));
                         v438 = v433[3];
-                        v433[2] = v433[2] + (v430 * (v435 + (v434 * v526)));
-                        v433[3] = v438 + (v430 * (v435 + (v434 * v527)));
+                        v433[2] = v433[2] + (v430 * (v435 + (v434 * v525)));
+                        v433[3] = v438 + (v430 * (v435 + (v434 * v526)));
                         v439 = v433[5];
-                        v433[4] = v433[4] + (v430 * (v435 + (v434 * v528)));
-                        v433[5] = v439 + (v430 * (v435 + (v434 * v529)));
+                        v433[4] = v433[4] + (v430 * (v435 + (v434 * v527)));
+                        v433[5] = v439 + (v430 * (v435 + (v434 * v528)));
                         v440 = v433[7];
-                        v433[6] = v433[6] + (v430 * (v435 + (v434 * v530)));
+                        v433[6] = v433[6] + (v430 * (v435 + (v434 * v529)));
                         v441 = v433 + 8;
-                        v433[7] = v440 + (v430 * (v435 + (v434 * v531)));
+                        v433[7] = v440 + (v430 * (v435 + (v434 * v530)));
                         v429 += 3;
                         v433 += 8;
                         --v436;
@@ -2211,36 +1108,36 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<float>(float *a1, float
                 while (v426 != a8);
               }
 
-              a1 = &v521[v505];
-              v424 = v515 + 1;
-              a4 = v509;
+              a1 = &v520[v504];
+              v424 = v514 + 1;
+              a4 = v508;
               v18 = a5;
             }
 
-            while (v515 + 1 != v511);
+            while (v514 + 1 != v510);
           }
 
-          goto LABEL_456;
+          return;
         case 32:
           if (a16)
           {
             if (a6 >= 1)
             {
               v44 = 0;
-              v496 = a8;
+              v495 = a8;
               do
               {
-                v502 = v44;
+                v501 = v44;
                 if (a7 >= 1)
                 {
                   v45 = 0;
                   v46 = v18;
                   v47 = a4;
                   v48 = a3;
-                  v512 = a2;
+                  v511 = a2;
                   do
                   {
-                    v518 = a1;
+                    v517 = a1;
                     if (a8 < 1)
                     {
                       v50 = 0.0;
@@ -2259,7 +1156,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<float>(float *a1, float
                         do
                         {
                           v55 = &v51[v52];
-                          v50 = (((((((v50 + (*v55 * (v54 + (v53 * v524)))) + (v55[1] * (v54 + (v53 * v525)))) + (v55[2] * (v54 + (v53 * v526)))) + (v55[3] * (v54 + (v53 * v527)))) + (v55[4] * (v54 + (v53 * v528)))) + (v55[5] * (v54 + (v53 * v529)))) + (v55[6] * (v54 + (v53 * v530)))) + (v55[7] * (v54 + (v53 * v531)));
+                          v50 = (((((((v50 + (*v55 * (v54 + (v53 * v523)))) + (v55[1] * (v54 + (v53 * v524)))) + (v55[2] * (v54 + (v53 * v525)))) + (v55[3] * (v54 + (v53 * v526)))) + (v55[4] * (v54 + (v53 * v527)))) + (v55[5] * (v54 + (v53 * v528)))) + (v55[6] * (v54 + (v53 * v529)))) + (v55[7] * (v54 + (v53 * v530)));
                           v48 += 3;
                           v52 += 8;
                         }
@@ -2274,41 +1171,41 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<float>(float *a1, float
                       while (v49 < a8);
                     }
 
-                    a2 = v512;
-                    *v518 = v50;
-                    a1 = v518 + 1;
+                    a2 = v511;
+                    *v517 = v50;
+                    a1 = (v517 + 1);
                     ++v45;
                   }
 
                   while (v45 != a7);
                 }
 
-                a2 += v496;
-                v44 = v502 + 1;
-                a4 = v509;
+                a2 += v495;
+                v44 = v501 + 1;
+                a4 = v508;
                 v18 = a5;
               }
 
-              while (v502 + 1 != v511);
+              while (v501 + 1 != v510);
             }
           }
 
           else if (a6 >= 1)
           {
             v476 = 0;
-            v501 = 4 * a7;
-            v507 = a7;
+            v500 = 4 * a7;
+            v506 = a7;
             do
             {
               if (a7 >= 1)
               {
                 v477 = a2;
-                bzero(a1, v501);
+                bzero(a1, v500);
                 a2 = v477;
               }
 
-              v517 = v476;
-              v523 = a1;
+              v516 = v476;
+              v522 = a1;
               if (a8 >= 1)
               {
                 v478 = 0;
@@ -2322,7 +1219,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<float>(float *a1, float
                   if (a7 >= 1)
                   {
                     v484 = 0;
-                    v485 = v523;
+                    v485 = v522;
                     do
                     {
                       v486 = *v480;
@@ -2331,18 +1228,18 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<float>(float *a1, float
                       do
                       {
                         v489 = v485[1];
-                        *v485 = *v485 + (v482 * (v487 + (v486 * v524)));
-                        v485[1] = v489 + (v482 * (v487 + (v486 * v525)));
+                        *v485 = *v485 + (v482 * (v487 + (v486 * v523)));
+                        v485[1] = v489 + (v482 * (v487 + (v486 * v524)));
                         v490 = v485[3];
-                        v485[2] = v485[2] + (v482 * (v487 + (v486 * v526)));
-                        v485[3] = v490 + (v482 * (v487 + (v486 * v527)));
+                        v485[2] = v485[2] + (v482 * (v487 + (v486 * v525)));
+                        v485[3] = v490 + (v482 * (v487 + (v486 * v526)));
                         v491 = v485[5];
-                        v485[4] = v485[4] + (v482 * (v487 + (v486 * v528)));
-                        v485[5] = v491 + (v482 * (v487 + (v486 * v529)));
+                        v485[4] = v485[4] + (v482 * (v487 + (v486 * v527)));
+                        v485[5] = v491 + (v482 * (v487 + (v486 * v528)));
                         v492 = v485[7];
-                        v485[6] = v485[6] + (v482 * (v487 + (v486 * v530)));
+                        v485[6] = v485[6] + (v482 * (v487 + (v486 * v529)));
                         v493 = v485 + 8;
-                        v485[7] = v492 + (v482 * (v487 + (v486 * v531)));
+                        v485[7] = v492 + (v482 * (v487 + (v486 * v530)));
                         v481 += 3;
                         v485 += 8;
                         --v488;
@@ -2365,16 +1262,16 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<float>(float *a1, float
                 while (v478 != a8);
               }
 
-              a1 = &v523[v507];
-              v476 = v517 + 1;
-              a4 = v509;
+              a1 = &v522[v506];
+              v476 = v516 + 1;
+              a4 = v508;
               v18 = a5;
             }
 
-            while (v517 + 1 != v511);
+            while (v516 + 1 != v510);
           }
 
-          goto LABEL_456;
+          return;
       }
     }
 
@@ -2446,7 +1343,8 @@ LABEL_459:
                   }
 
                   v131 = vaddq_f32(v122, v124);
-                  *a1++ = vaddv_f32(vadd_f32(*v131.i8, *&vextq_s8(v131, v131, 8uLL)));
+                  a1->f32[0] = vaddv_f32(vadd_f32(*v131.i8, *&vextq_s8(v131, v131, 8uLL)));
+                  a1 = (a1 + 4);
                   ++v117;
                 }
 
@@ -2471,7 +1369,7 @@ LABEL_459:
               v268 = a1;
               v269 = a2;
               bzero(v267, 4 * a7);
-              a6 = v511;
+              a6 = v510;
               a2 = v269;
               a1 = v268;
             }
@@ -2522,11 +1420,11 @@ LABEL_459:
               while (v270 != a8);
             }
 
-            a1 += a7;
+            a1 = (a1 + 4 * a7);
           }
         }
 
-        goto LABEL_456;
+        return;
       case 64:
         if (a16)
         {
@@ -2584,7 +1482,8 @@ LABEL_459:
                   }
 
                   v114 = vaddq_f32(v105, v107);
-                  *a1++ = vaddv_f32(vadd_f32(*v114.i8, *&vextq_s8(v114, v114, 8uLL)));
+                  a1->f32[0] = vaddv_f32(vadd_f32(*v114.i8, *&vextq_s8(v114, v114, 8uLL)));
+                  a1 = (a1 + 4);
                   ++v100;
                 }
 
@@ -2609,7 +1508,7 @@ LABEL_459:
               v250 = a1;
               v251 = a2;
               bzero(v249, 4 * a7);
-              a6 = v511;
+              a6 = v510;
               a2 = v251;
               a1 = v250;
             }
@@ -2660,11 +1559,11 @@ LABEL_459:
               while (v252 != a8);
             }
 
-            a1 += a7;
+            a1 = (a1 + 4 * a7);
           }
         }
 
-        goto LABEL_456;
+        return;
       case 32:
         if (a16)
         {
@@ -2722,7 +1621,8 @@ LABEL_459:
                   }
 
                   v72 = vaddq_f32(v63, v65);
-                  *a1++ = vaddv_f32(vadd_f32(*v72.i8, *&vextq_s8(v72, v72, 8uLL)));
+                  a1->f32[0] = vaddv_f32(vadd_f32(*v72.i8, *&vextq_s8(v72, v72, 8uLL)));
+                  a1 = (a1 + 4);
                   ++v58;
                 }
 
@@ -2747,7 +1647,7 @@ LABEL_459:
               v302 = a1;
               v303 = a2;
               bzero(v301, 4 * a7);
-              a6 = v511;
+              a6 = v510;
               a2 = v303;
               a1 = v302;
             }
@@ -2798,11 +1698,11 @@ LABEL_459:
               while (v304 != a8);
             }
 
-            a1 += a7;
+            a1 = (a1 + 4 * a7);
           }
         }
 
-        goto LABEL_456;
+        return;
     }
 
     goto LABEL_458;
@@ -2861,7 +1761,8 @@ LABEL_459:
                     while (v149 < a8);
                   }
 
-                  *a1++ = v150;
+                  a1->f32[0] = v150;
+                  a1 = (a1 + 4);
                   ++v145;
                 }
 
@@ -2881,7 +1782,7 @@ LABEL_459:
             {
               v319 = a2;
               bzero(a1, 4 * a7);
-              a6 = v511;
+              a6 = v510;
               a2 = v319;
             }
 
@@ -2935,11 +1836,11 @@ LABEL_459:
               while (v320 != a8);
             }
 
-            a1 += a7;
+            a1 = (a1 + 4 * a7);
           }
         }
 
-        goto LABEL_456;
+        return;
       case 64:
         if (a16)
         {
@@ -2989,7 +1890,8 @@ LABEL_459:
                     while (v137 < a8);
                   }
 
-                  *a1++ = v138;
+                  a1->f32[0] = v138;
+                  a1 = (a1 + 4);
                   ++v133;
                 }
 
@@ -3009,7 +1911,7 @@ LABEL_459:
             {
               v285 = a2;
               bzero(a1, 4 * a7);
-              a6 = v511;
+              a6 = v510;
               a2 = v285;
             }
 
@@ -3063,11 +1965,11 @@ LABEL_459:
               while (v286 != a8);
             }
 
-            a1 += a7;
+            a1 = (a1 + 4 * a7);
           }
         }
 
-        goto LABEL_456;
+        return;
       case 32:
         if (a16)
         {
@@ -3117,7 +2019,8 @@ LABEL_459:
                     while (v78 < a8);
                   }
 
-                  *a1++ = v79;
+                  a1->f32[0] = v79;
+                  a1 = (a1 + 4);
                   ++v74;
                 }
 
@@ -3137,7 +2040,7 @@ LABEL_459:
             {
               v349 = a2;
               bzero(a1, 4 * a7);
-              a6 = v511;
+              a6 = v510;
               a2 = v349;
             }
 
@@ -3191,11 +2094,11 @@ LABEL_459:
               while (v350 != a8);
             }
 
-            a1 += a7;
+            a1 = (a1 + 4 * a7);
           }
         }
 
-        goto LABEL_456;
+        return;
     }
 
     goto LABEL_458;
@@ -3259,7 +2162,7 @@ LABEL_457:
                       v210 = vaddq_f32(v210, vmulq_f32(v221, vaddq_f32(v214, vmulq_f32(v213, vcvtq_f32_u32(vandq_s8(vshlq_u32(v219, xmmword_25A9CD6E0), v204))))));
                       v212 = vaddq_f32(v212, vmulq_f32(v222, vaddq_f32(v214, vmulq_f32(v213, vcvtq_f32_u32(vandq_s8(vshlq_u32(v220, xmmword_25A9CD6E0), v204))))));
                       v215 += 2;
-                      v217 += 2;
+                      v217 += 8;
                     }
 
                     while (v215 < 0x1E);
@@ -3274,7 +2177,8 @@ LABEL_457:
                 }
 
                 v223 = vaddq_f32(v210, v212);
-                *a1++ = vaddv_f32(vadd_f32(*v223.i8, *&vextq_s8(v223, v223, 8uLL)));
+                a1->f32[0] = vaddv_f32(vadd_f32(*v223.i8, *&vextq_s8(v223, v223, 8uLL)));
+                a1 = (a1 + 4);
                 ++v205;
               }
 
@@ -3299,7 +2203,7 @@ LABEL_457:
             v410 = a1;
             v411 = a2;
             bzero(v409, 4 * a7);
-            a6 = v511;
+            a6 = v510;
             a2 = v411;
             a1 = v410;
           }
@@ -3346,7 +2250,7 @@ LABEL_457:
             while (v412 != a8);
           }
 
-          a1 += a7;
+          a1 = (a1 + 4 * a7);
         }
       }
 
@@ -3399,7 +2303,7 @@ LABEL_457:
                       v176 = vaddq_f32(v176, vmulq_f32(v187, vaddq_f32(v180, vmulq_f32(v179, vcvtq_f32_u32(vandq_s8(vshlq_u32(v185, xmmword_25A9CD6E0), v170))))));
                       v178 = vaddq_f32(v178, vmulq_f32(v188, vaddq_f32(v180, vmulq_f32(v179, vcvtq_f32_u32(vandq_s8(vshlq_u32(v186, xmmword_25A9CD6E0), v170))))));
                       v181 += 2;
-                      v183 += 2;
+                      v183 += 8;
                     }
 
                     while (v181 < 0xE);
@@ -3414,7 +2318,8 @@ LABEL_457:
                 }
 
                 v189 = vaddq_f32(v176, v178);
-                *a1++ = vaddv_f32(vadd_f32(*v189.i8, *&vextq_s8(v189, v189, 8uLL)));
+                a1->f32[0] = vaddv_f32(vadd_f32(*v189.i8, *&vextq_s8(v189, v189, 8uLL)));
+                a1 = (a1 + 4);
                 ++v171;
               }
 
@@ -3439,7 +2344,7 @@ LABEL_457:
             v366 = a1;
             v367 = a2;
             bzero(v365, 4 * a7);
-            a6 = v511;
+            a6 = v510;
             a2 = v367;
             a1 = v366;
           }
@@ -3486,7 +2391,7 @@ LABEL_457:
             while (v368 != a8);
           }
 
-          a1 += a7;
+          a1 = (a1 + 4 * a7);
         }
       }
 
@@ -3539,7 +2444,7 @@ LABEL_457:
                       v30 = vaddq_f32(v30, vmulq_f32(v41, vaddq_f32(v34, vmulq_f32(v33, vcvtq_f32_u32(vandq_s8(vshlq_u32(v39, xmmword_25A9CD6E0), v24))))));
                       v32 = vaddq_f32(v32, vmulq_f32(v42, vaddq_f32(v34, vmulq_f32(v33, vcvtq_f32_u32(vandq_s8(vshlq_u32(v40, xmmword_25A9CD6E0), v24))))));
                       v35 += 2;
-                      v37 += 2;
+                      v37 += 8;
                     }
 
                     while (v35 < 6);
@@ -3554,7 +2459,8 @@ LABEL_457:
                 }
 
                 v43 = vaddq_f32(v30, v32);
-                *a1++ = vaddv_f32(vadd_f32(*v43.i8, *&vextq_s8(v43, v43, 8uLL)));
+                a1->f32[0] = vaddv_f32(vadd_f32(*v43.i8, *&vextq_s8(v43, v43, 8uLL)));
+                a1 = (a1 + 4);
                 ++v25;
               }
 
@@ -3579,7 +2485,7 @@ LABEL_457:
             v444 = a1;
             v445 = a2;
             bzero(v443, 4 * a7);
-            a6 = v511;
+            a6 = v510;
             a2 = v445;
             a1 = v444;
           }
@@ -3626,17 +2532,14 @@ LABEL_457:
             while (v446 != a8);
           }
 
-          a1 += a7;
+          a1 = (a1 + 4 * a7);
         }
       }
 
-      break;
+      return;
     default:
       goto LABEL_458;
   }
-
-LABEL_456:
-  v494 = *MEMORY[0x277D85DE8];
 }
 
 float mlx::core::anonymous namespace::extract_bits<float,3>(unsigned __int8 *a1, float *a2)
@@ -3656,8 +2559,8 @@ float mlx::core::anonymous namespace::extract_bits<float,3>(unsigned __int8 *a1,
 void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, unsigned __int16 *a2, unsigned __int8 *a3, unsigned __int16 *a4, __int16 *a5, int a6, int a7, int a8, float32x4_t _Q0, float32x4_t _Q1, float32x4_t _Q2, double a12, float32x4_t a13, float32x4_t _Q5, float32x4_t _Q6, int a16, int a17, char a18)
 {
   v21 = a4;
-  v826 = *MEMORY[0x277D85DE8];
-  v808 = a6;
+  v825 = *MEMORY[0x277D85DE8];
+  v807 = a6;
   if (a17 <= 3)
   {
     if (a17 == 2)
@@ -3780,7 +2683,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
               {
                 v599 = a2;
                 bzero(a1, 2 * a7);
-                a6 = v808;
+                a6 = v807;
                 a2 = v599;
               }
 
@@ -3847,7 +2750,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
             }
           }
 
-          goto LABEL_462;
+          return;
         case 64:
           if (a18)
           {
@@ -3964,7 +2867,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
               {
                 v554 = a2;
                 bzero(a1, 2 * a7);
-                a6 = v808;
+                a6 = v807;
                 a2 = v554;
               }
 
@@ -4031,7 +2934,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
             }
           }
 
-          goto LABEL_462;
+          return;
         case 32:
           if (a18)
           {
@@ -4148,7 +3051,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
               {
                 v610 = a2;
                 bzero(a1, 2 * a7);
-                a6 = v808;
+                a6 = v807;
                 a2 = v610;
               }
 
@@ -4215,7 +3118,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
             }
           }
 
-          goto LABEL_462;
+          return;
       }
     }
 
@@ -4226,7 +3129,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
         goto LABEL_463;
       }
 
-      v807 = a5;
+      v806 = a5;
       switch(a16)
       {
         case 128:
@@ -4235,17 +3138,17 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
             if (a6 >= 1)
             {
               v408 = 0;
-              v795 = a8;
+              v794 = a8;
               do
               {
-                v801 = v408;
+                v800 = v408;
                 if (a7 >= 1)
                 {
                   v409 = 0;
                   v410 = a5;
                   v411 = v21;
                   v412 = a3;
-                  v811 = a2;
+                  v810 = a2;
                   do
                   {
                     if (a8 < 1)
@@ -4274,7 +3177,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                           _H0 = v415[v416];
                           __asm { FCVT            S0, H0 }
 
-                          _H1 = v818;
+                          _H1 = v817;
                           __asm
                           {
                             FCVT            S1, H1
@@ -4287,7 +3190,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                           LOWORD(_S1) = v415[v416 + 1];
                           __asm { FCVT            S1, H1 }
 
-                          LOWORD(_S2) = v819;
+                          LOWORD(_S2) = v818;
                           __asm
                           {
                             FCVT            S2, H2
@@ -4300,7 +3203,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                           LOWORD(_S1) = v415[v416 + 2];
                           __asm { FCVT            S1, H1 }
 
-                          LOWORD(_S2) = v820;
+                          LOWORD(_S2) = v819;
                           __asm
                           {
                             FCVT            S2, H2
@@ -4313,7 +3216,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                           LOWORD(_S1) = v415[v416 + 3];
                           __asm { FCVT            S1, H1 }
 
-                          LOWORD(_S2) = v821;
+                          LOWORD(_S2) = v820;
                           __asm
                           {
                             FCVT            S2, H2
@@ -4326,7 +3229,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                           LOWORD(_S1) = v415[v416 + 4];
                           __asm { FCVT            S1, H1 }
 
-                          LOWORD(_S2) = v822;
+                          LOWORD(_S2) = v821;
                           __asm
                           {
                             FCVT            S2, H2
@@ -4339,7 +3242,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                           LOWORD(_S1) = v415[v416 + 5];
                           __asm { FCVT            S1, H1 }
 
-                          LOWORD(_S2) = v823;
+                          LOWORD(_S2) = v822;
                           __asm
                           {
                             FCVT            S2, H2
@@ -4352,7 +3255,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                           LOWORD(_S1) = v415[v416 + 6];
                           __asm { FCVT            S1, H1 }
 
-                          LOWORD(_S2) = v824;
+                          LOWORD(_S2) = v823;
                           __asm
                           {
                             FCVT            S2, H2
@@ -4365,7 +3268,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                           LOWORD(_S1) = v415[v416 + 7];
                           __asm { FCVT            S1, H1 }
 
-                          LOWORD(_S2) = v825;
+                          LOWORD(_S2) = v824;
                           __asm
                           {
                             FCVT            S2, H2
@@ -4389,7 +3292,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                       while (v413 < a8);
                     }
 
-                    a2 = v811;
+                    a2 = v810;
                     a1->i16[0] = _H10;
                     a1 = (a1 + 2);
                     ++v409;
@@ -4398,32 +3301,32 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                   while (v409 != a7);
                 }
 
-                a2 += v795;
-                v408 = v801 + 1;
+                a2 += v794;
+                v408 = v800 + 1;
                 v21 = a4;
-                a5 = v807;
+                a5 = v806;
               }
 
-              while (v801 + 1 != v808);
+              while (v800 + 1 != v807);
             }
           }
 
           else if (a6 >= 1)
           {
             v705 = 0;
-            v797 = 2 * a7;
-            v803 = a7;
+            v796 = 2 * a7;
+            v802 = a7;
             do
             {
               if (a7 >= 1)
               {
                 v706 = a2;
-                bzero(a1, v797);
+                bzero(a1, v796);
                 a2 = v706;
               }
 
-              v813 = v705;
-              v816 = a1;
+              v812 = v705;
+              v815 = a1;
               if (a8 >= 1)
               {
                 v707 = 0;
@@ -4444,7 +3347,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                     _H0 = *a2;
                     __asm { FCVT            S8, H0 }
 
-                    v715 = v816;
+                    v715 = v815;
                     do
                     {
                       _H0 = *v709;
@@ -4458,7 +3361,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                       v720 = 16;
                       do
                       {
-                        _H0 = v818;
+                        _H0 = v817;
                         __asm { FCVT            S0, H0 }
 
                         _H1 = v715->i16[0];
@@ -4468,7 +3371,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                         __asm { FCVT            H0, S0 }
 
                         v715->i16[0] = LOWORD(_S0);
-                        LOWORD(_S0) = v819;
+                        LOWORD(_S0) = v818;
                         __asm { FCVT            S0, H0 }
 
                         LOWORD(_S1) = v715->i16[1];
@@ -4478,7 +3381,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                         __asm { FCVT            H0, S0 }
 
                         v715->i16[1] = LOWORD(_S0);
-                        LOWORD(_S0) = v820;
+                        LOWORD(_S0) = v819;
                         __asm { FCVT            S0, H0 }
 
                         LOWORD(_S1) = v715->i16[2];
@@ -4488,7 +3391,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                         __asm { FCVT            H0, S0 }
 
                         v715->i16[2] = LOWORD(_S0);
-                        LOWORD(_S0) = v821;
+                        LOWORD(_S0) = v820;
                         __asm { FCVT            S0, H0 }
 
                         LOWORD(_S1) = v715->i16[3];
@@ -4498,7 +3401,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                         __asm { FCVT            H0, S0 }
 
                         v715->i16[3] = LOWORD(_S0);
-                        LOWORD(_S0) = v822;
+                        LOWORD(_S0) = v821;
                         __asm { FCVT            S0, H0 }
 
                         LOWORD(_S1) = v715[1].i16[0];
@@ -4508,7 +3411,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                         __asm { FCVT            H0, S0 }
 
                         v715[1].i16[0] = LOWORD(_S0);
-                        LOWORD(_S0) = v823;
+                        LOWORD(_S0) = v822;
                         __asm { FCVT            S0, H0 }
 
                         LOWORD(_S1) = v715[1].i16[1];
@@ -4518,7 +3421,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                         __asm { FCVT            H0, S0 }
 
                         v715[1].i16[1] = LOWORD(_S0);
-                        LOWORD(_S0) = v824;
+                        LOWORD(_S0) = v823;
                         __asm { FCVT            S0, H0 }
 
                         LOWORD(_S1) = v715[1].i16[2];
@@ -4528,7 +3431,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                         __asm { FCVT            H0, S0 }
 
                         v715[1].i16[2] = LOWORD(_S0);
-                        LOWORD(_S0) = v825;
+                        LOWORD(_S0) = v824;
                         __asm { FCVT            S0, H0 }
 
                         v745 = v715 + 2;
@@ -4561,33 +3464,33 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                 while (v707 != a8);
               }
 
-              a1 = (v816 + 2 * v803);
-              v705 = v813 + 1;
+              a1 = (v815 + 2 * v802);
+              v705 = v812 + 1;
               v21 = a4;
-              a5 = v807;
+              a5 = v806;
             }
 
-            while (v813 + 1 != v808);
+            while (v812 + 1 != v807);
           }
 
-          goto LABEL_462;
+          return;
         case 64:
           if (a18)
           {
             if (a6 >= 1)
             {
               v361 = 0;
-              v794 = a8;
+              v793 = a8;
               do
               {
-                v800 = v361;
+                v799 = v361;
                 if (a7 >= 1)
                 {
                   v362 = 0;
                   v363 = a5;
                   v364 = v21;
                   v365 = a3;
-                  v810 = a2;
+                  v809 = a2;
                   do
                   {
                     if (a8 < 1)
@@ -4616,7 +3519,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                           _H0 = v368[v369];
                           __asm { FCVT            S0, H0 }
 
-                          _H1 = v818;
+                          _H1 = v817;
                           __asm
                           {
                             FCVT            S1, H1
@@ -4629,7 +3532,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                           LOWORD(_S1) = v368[v369 + 1];
                           __asm { FCVT            S1, H1 }
 
-                          LOWORD(_S2) = v819;
+                          LOWORD(_S2) = v818;
                           __asm
                           {
                             FCVT            S2, H2
@@ -4642,7 +3545,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                           LOWORD(_S1) = v368[v369 + 2];
                           __asm { FCVT            S1, H1 }
 
-                          LOWORD(_S2) = v820;
+                          LOWORD(_S2) = v819;
                           __asm
                           {
                             FCVT            S2, H2
@@ -4655,7 +3558,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                           LOWORD(_S1) = v368[v369 + 3];
                           __asm { FCVT            S1, H1 }
 
-                          LOWORD(_S2) = v821;
+                          LOWORD(_S2) = v820;
                           __asm
                           {
                             FCVT            S2, H2
@@ -4668,7 +3571,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                           LOWORD(_S1) = v368[v369 + 4];
                           __asm { FCVT            S1, H1 }
 
-                          LOWORD(_S2) = v822;
+                          LOWORD(_S2) = v821;
                           __asm
                           {
                             FCVT            S2, H2
@@ -4681,7 +3584,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                           LOWORD(_S1) = v368[v369 + 5];
                           __asm { FCVT            S1, H1 }
 
-                          LOWORD(_S2) = v823;
+                          LOWORD(_S2) = v822;
                           __asm
                           {
                             FCVT            S2, H2
@@ -4694,7 +3597,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                           LOWORD(_S1) = v368[v369 + 6];
                           __asm { FCVT            S1, H1 }
 
-                          LOWORD(_S2) = v824;
+                          LOWORD(_S2) = v823;
                           __asm
                           {
                             FCVT            S2, H2
@@ -4707,7 +3610,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                           LOWORD(_S1) = v368[v369 + 7];
                           __asm { FCVT            S1, H1 }
 
-                          LOWORD(_S2) = v825;
+                          LOWORD(_S2) = v824;
                           __asm
                           {
                             FCVT            S2, H2
@@ -4731,7 +3634,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                       while (v366 < a8);
                     }
 
-                    a2 = v810;
+                    a2 = v809;
                     a1->i16[0] = _H10;
                     a1 = (a1 + 2);
                     ++v362;
@@ -4740,32 +3643,32 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                   while (v362 != a7);
                 }
 
-                a2 += v794;
-                v361 = v800 + 1;
+                a2 += v793;
+                v361 = v799 + 1;
                 v21 = a4;
-                a5 = v807;
+                a5 = v806;
               }
 
-              while (v800 + 1 != v808);
+              while (v799 + 1 != v807);
             }
           }
 
           else if (a6 >= 1)
           {
             v641 = 0;
-            v796 = 2 * a7;
-            v802 = a7;
+            v795 = 2 * a7;
+            v801 = a7;
             do
             {
               if (a7 >= 1)
               {
                 v642 = a2;
-                bzero(a1, v796);
+                bzero(a1, v795);
                 a2 = v642;
               }
 
-              v812 = v641;
-              v815 = a1;
+              v811 = v641;
+              v814 = a1;
               if (a8 >= 1)
               {
                 v643 = 0;
@@ -4786,7 +3689,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                     _H0 = *a2;
                     __asm { FCVT            S8, H0 }
 
-                    v651 = v815;
+                    v651 = v814;
                     do
                     {
                       _H0 = *v645;
@@ -4800,7 +3703,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                       v656 = 8;
                       do
                       {
-                        _H0 = v818;
+                        _H0 = v817;
                         __asm { FCVT            S0, H0 }
 
                         _H1 = v651->i16[0];
@@ -4810,7 +3713,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                         __asm { FCVT            H0, S0 }
 
                         v651->i16[0] = LOWORD(_S0);
-                        LOWORD(_S0) = v819;
+                        LOWORD(_S0) = v818;
                         __asm { FCVT            S0, H0 }
 
                         LOWORD(_S1) = v651->i16[1];
@@ -4820,7 +3723,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                         __asm { FCVT            H0, S0 }
 
                         v651->i16[1] = LOWORD(_S0);
-                        LOWORD(_S0) = v820;
+                        LOWORD(_S0) = v819;
                         __asm { FCVT            S0, H0 }
 
                         LOWORD(_S1) = v651->i16[2];
@@ -4830,7 +3733,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                         __asm { FCVT            H0, S0 }
 
                         v651->i16[2] = LOWORD(_S0);
-                        LOWORD(_S0) = v821;
+                        LOWORD(_S0) = v820;
                         __asm { FCVT            S0, H0 }
 
                         LOWORD(_S1) = v651->i16[3];
@@ -4840,7 +3743,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                         __asm { FCVT            H0, S0 }
 
                         v651->i16[3] = LOWORD(_S0);
-                        LOWORD(_S0) = v822;
+                        LOWORD(_S0) = v821;
                         __asm { FCVT            S0, H0 }
 
                         LOWORD(_S1) = v651[1].i16[0];
@@ -4850,7 +3753,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                         __asm { FCVT            H0, S0 }
 
                         v651[1].i16[0] = LOWORD(_S0);
-                        LOWORD(_S0) = v823;
+                        LOWORD(_S0) = v822;
                         __asm { FCVT            S0, H0 }
 
                         LOWORD(_S1) = v651[1].i16[1];
@@ -4860,7 +3763,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                         __asm { FCVT            H0, S0 }
 
                         v651[1].i16[1] = LOWORD(_S0);
-                        LOWORD(_S0) = v824;
+                        LOWORD(_S0) = v823;
                         __asm { FCVT            S0, H0 }
 
                         LOWORD(_S1) = v651[1].i16[2];
@@ -4870,7 +3773,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                         __asm { FCVT            H0, S0 }
 
                         v651[1].i16[2] = LOWORD(_S0);
-                        LOWORD(_S0) = v825;
+                        LOWORD(_S0) = v824;
                         __asm { FCVT            S0, H0 }
 
                         v681 = v651 + 2;
@@ -4903,33 +3806,33 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                 while (v643 != a8);
               }
 
-              a1 = (v815 + 2 * v802);
-              v641 = v812 + 1;
+              a1 = (v814 + 2 * v801);
+              v641 = v811 + 1;
               v21 = a4;
-              a5 = v807;
+              a5 = v806;
             }
 
-            while (v812 + 1 != v808);
+            while (v811 + 1 != v807);
           }
 
-          goto LABEL_462;
+          return;
         case 32:
           if (a18)
           {
             if (a6 >= 1)
             {
               v49 = 0;
-              v793 = a8;
+              v792 = a8;
               do
               {
-                v799 = v49;
+                v798 = v49;
                 if (a7 >= 1)
                 {
                   v50 = 0;
                   v51 = a5;
                   v52 = v21;
                   v53 = a3;
-                  v809 = a2;
+                  v808 = a2;
                   do
                   {
                     if (a8 < 1)
@@ -4958,7 +3861,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                           _H0 = v56[v57];
                           __asm { FCVT            S0, H0 }
 
-                          _H1 = v818;
+                          _H1 = v817;
                           __asm
                           {
                             FCVT            S1, H1
@@ -4971,7 +3874,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                           LOWORD(_S1) = v56[v57 + 1];
                           __asm { FCVT            S1, H1 }
 
-                          LOWORD(_S2) = v819;
+                          LOWORD(_S2) = v818;
                           __asm
                           {
                             FCVT            S2, H2
@@ -4984,7 +3887,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                           LOWORD(_S1) = v56[v57 + 2];
                           __asm { FCVT            S1, H1 }
 
-                          LOWORD(_S2) = v820;
+                          LOWORD(_S2) = v819;
                           __asm
                           {
                             FCVT            S2, H2
@@ -4997,7 +3900,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                           LOWORD(_S1) = v56[v57 + 3];
                           __asm { FCVT            S1, H1 }
 
-                          LOWORD(_S2) = v821;
+                          LOWORD(_S2) = v820;
                           __asm
                           {
                             FCVT            S2, H2
@@ -5010,7 +3913,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                           LOWORD(_S1) = v56[v57 + 4];
                           __asm { FCVT            S1, H1 }
 
-                          LOWORD(_S2) = v822;
+                          LOWORD(_S2) = v821;
                           __asm
                           {
                             FCVT            S2, H2
@@ -5023,7 +3926,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                           LOWORD(_S1) = v56[v57 + 5];
                           __asm { FCVT            S1, H1 }
 
-                          LOWORD(_S2) = v823;
+                          LOWORD(_S2) = v822;
                           __asm
                           {
                             FCVT            S2, H2
@@ -5036,7 +3939,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                           LOWORD(_S1) = v56[v57 + 6];
                           __asm { FCVT            S1, H1 }
 
-                          LOWORD(_S2) = v824;
+                          LOWORD(_S2) = v823;
                           __asm
                           {
                             FCVT            S2, H2
@@ -5049,7 +3952,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                           LOWORD(_S1) = v56[v57 + 7];
                           __asm { FCVT            S1, H1 }
 
-                          LOWORD(_S2) = v825;
+                          LOWORD(_S2) = v824;
                           __asm
                           {
                             FCVT            S2, H2
@@ -5073,7 +3976,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                       while (v54 < a8);
                     }
 
-                    a2 = v809;
+                    a2 = v808;
                     a1->i16[0] = _H10;
                     a1 = (a1 + 2);
                     ++v50;
@@ -5082,32 +3985,32 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                   while (v50 != a7);
                 }
 
-                a2 += v793;
-                v49 = v799 + 1;
+                a2 += v792;
+                v49 = v798 + 1;
                 v21 = a4;
-                a5 = v807;
+                a5 = v806;
               }
 
-              while (v799 + 1 != v808);
+              while (v798 + 1 != v807);
             }
           }
 
           else if (a6 >= 1)
           {
             v748 = 0;
-            v798 = 2 * a7;
-            v804 = a7;
+            v797 = 2 * a7;
+            v803 = a7;
             do
             {
               if (a7 >= 1)
               {
                 v749 = a2;
-                bzero(a1, v798);
+                bzero(a1, v797);
                 a2 = v749;
               }
 
-              v814 = v748;
-              v817 = a1;
+              v813 = v748;
+              v816 = a1;
               if (a8 >= 1)
               {
                 v750 = 0;
@@ -5128,7 +4031,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                     _H0 = *a2;
                     __asm { FCVT            S8, H0 }
 
-                    v758 = v817;
+                    v758 = v816;
                     do
                     {
                       _H0 = *v752;
@@ -5142,7 +4045,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                       v763 = 4;
                       do
                       {
-                        _H0 = v818;
+                        _H0 = v817;
                         __asm { FCVT            S0, H0 }
 
                         _H1 = v758->i16[0];
@@ -5152,7 +4055,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                         __asm { FCVT            H0, S0 }
 
                         v758->i16[0] = LOWORD(_S0);
-                        LOWORD(_S0) = v819;
+                        LOWORD(_S0) = v818;
                         __asm { FCVT            S0, H0 }
 
                         LOWORD(_S1) = v758->i16[1];
@@ -5162,7 +4065,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                         __asm { FCVT            H0, S0 }
 
                         v758->i16[1] = LOWORD(_S0);
-                        LOWORD(_S0) = v820;
+                        LOWORD(_S0) = v819;
                         __asm { FCVT            S0, H0 }
 
                         LOWORD(_S1) = v758->i16[2];
@@ -5172,7 +4075,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                         __asm { FCVT            H0, S0 }
 
                         v758->i16[2] = LOWORD(_S0);
-                        LOWORD(_S0) = v821;
+                        LOWORD(_S0) = v820;
                         __asm { FCVT            S0, H0 }
 
                         LOWORD(_S1) = v758->i16[3];
@@ -5182,7 +4085,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                         __asm { FCVT            H0, S0 }
 
                         v758->i16[3] = LOWORD(_S0);
-                        LOWORD(_S0) = v822;
+                        LOWORD(_S0) = v821;
                         __asm { FCVT            S0, H0 }
 
                         LOWORD(_S1) = v758[1].i16[0];
@@ -5192,7 +4095,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                         __asm { FCVT            H0, S0 }
 
                         v758[1].i16[0] = LOWORD(_S0);
-                        LOWORD(_S0) = v823;
+                        LOWORD(_S0) = v822;
                         __asm { FCVT            S0, H0 }
 
                         LOWORD(_S1) = v758[1].i16[1];
@@ -5202,7 +4105,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                         __asm { FCVT            H0, S0 }
 
                         v758[1].i16[1] = LOWORD(_S0);
-                        LOWORD(_S0) = v824;
+                        LOWORD(_S0) = v823;
                         __asm { FCVT            S0, H0 }
 
                         LOWORD(_S1) = v758[1].i16[2];
@@ -5212,7 +4115,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                         __asm { FCVT            H0, S0 }
 
                         v758[1].i16[2] = LOWORD(_S0);
-                        LOWORD(_S0) = v825;
+                        LOWORD(_S0) = v824;
                         __asm { FCVT            S0, H0 }
 
                         v788 = v758 + 2;
@@ -5245,16 +4148,16 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<half>(float16x4_t *a1, 
                 while (v750 != a8);
               }
 
-              a1 = (v817 + 2 * v804);
-              v748 = v814 + 1;
+              a1 = (v816 + 2 * v803);
+              v748 = v813 + 1;
               v21 = a4;
-              a5 = v807;
+              a5 = v806;
             }
 
-            while (v814 + 1 != v808);
+            while (v813 + 1 != v807);
           }
 
-          goto LABEL_462;
+          return;
       }
     }
 
@@ -5362,7 +4265,7 @@ LABEL_465:
               v481 = a1;
               v482 = a2;
               bzero(v480, 2 * a7);
-              a6 = v808;
+              a6 = v807;
               a2 = v482;
               a1 = v481;
             }
@@ -5436,7 +4339,7 @@ LABEL_465:
           }
         }
 
-        goto LABEL_462;
+        return;
       case 64:
         if (a18)
         {
@@ -5530,7 +4433,7 @@ LABEL_465:
               v457 = a1;
               v458 = a2;
               bzero(v456, 2 * a7);
-              a6 = v808;
+              a6 = v807;
               a2 = v458;
               a1 = v457;
             }
@@ -5604,7 +4507,7 @@ LABEL_465:
           }
         }
 
-        goto LABEL_462;
+        return;
       case 32:
         if (a18)
         {
@@ -5698,7 +4601,7 @@ LABEL_465:
               v518 = a1;
               v519 = a2;
               bzero(v517, 2 * a7);
-              a6 = v808;
+              a6 = v807;
               a2 = v519;
               a1 = v518;
             }
@@ -5772,7 +4675,7 @@ LABEL_465:
           }
         }
 
-        goto LABEL_462;
+        return;
     }
 
     goto LABEL_464;
@@ -5900,7 +4803,7 @@ LABEL_465:
             {
               v541 = a2;
               bzero(a1, 2 * a7);
-              a6 = v808;
+              a6 = v807;
               a2 = v541;
             }
 
@@ -5968,7 +4871,7 @@ LABEL_465:
           }
         }
 
-        goto LABEL_462;
+        return;
       case 64:
         if (a18)
         {
@@ -6087,7 +4990,7 @@ LABEL_465:
             {
               v504 = a2;
               bzero(a1, 2 * a7);
-              a6 = v808;
+              a6 = v807;
               a2 = v504;
             }
 
@@ -6155,7 +5058,7 @@ LABEL_465:
           }
         }
 
-        goto LABEL_462;
+        return;
       case 32:
         if (a18)
         {
@@ -6274,7 +5177,7 @@ LABEL_465:
             {
               v565 = a2;
               bzero(a1, 2 * a7);
-              a6 = v808;
+              a6 = v807;
               a2 = v565;
             }
 
@@ -6342,7 +5245,7 @@ LABEL_465:
           }
         }
 
-        goto LABEL_462;
+        return;
     }
 
     goto LABEL_464;
@@ -6411,7 +5314,7 @@ LABEL_463:
                       v348 = vaddq_f32(v348, vmulq_f32(vaddq_f32(_Q5, vmulq_n_f32(vcvtq_f32_u32(vandq_s8(vshlq_u32(v357, xmmword_25A9CD6E0), v342)), _S4)), vcvtq_f32_f16(*v359.i8)));
                       v350 = vaddq_f32(v350, vmulq_f32(vaddq_f32(_Q5, vmulq_n_f32(vcvtq_f32_u32(vandq_s8(vshlq_u32(v358, xmmword_25A9CD6E0), v342)), _S4)), vcvt_hight_f32_f16(v359)));
                       v353 += 2;
-                      v355 += 2;
+                      v355 += 8;
                     }
 
                     while (v353 < 0x1E);
@@ -6455,7 +5358,7 @@ LABEL_463:
             v622 = a1;
             v623 = a2;
             bzero(v621, 2 * a7);
-            a6 = v808;
+            a6 = v807;
             a2 = v623;
             a1 = v622;
           }
@@ -6574,7 +5477,7 @@ LABEL_463:
                       v300 = vaddq_f32(v300, vmulq_f32(vaddq_f32(_Q5, vmulq_n_f32(vcvtq_f32_u32(vandq_s8(vshlq_u32(v309, xmmword_25A9CD6E0), v294)), _S4)), vcvtq_f32_f16(*v311.i8)));
                       v302 = vaddq_f32(v302, vmulq_f32(vaddq_f32(_Q5, vmulq_n_f32(vcvtq_f32_u32(vandq_s8(vshlq_u32(v310, xmmword_25A9CD6E0), v294)), _S4)), vcvt_hight_f32_f16(v311)));
                       v305 += 2;
-                      v307 += 2;
+                      v307 += 8;
                     }
 
                     while (v305 < 0xE);
@@ -6618,7 +5521,7 @@ LABEL_463:
             v579 = a1;
             v580 = a2;
             bzero(v578, 2 * a7);
-            a6 = v808;
+            a6 = v807;
             a2 = v580;
             a1 = v579;
           }
@@ -6737,7 +5640,7 @@ LABEL_463:
                       v32 = vaddq_f32(v32, vmulq_f32(vaddq_f32(_Q5, vmulq_n_f32(vcvtq_f32_u32(vandq_s8(vshlq_u32(v45, xmmword_25A9CD6E0), v26)), _S4)), vcvtq_f32_f16(*v47.i8)));
                       v34 = vaddq_f32(v34, vmulq_f32(vaddq_f32(_Q5, vmulq_n_f32(vcvtq_f32_u32(vandq_s8(vshlq_u32(v46, xmmword_25A9CD6E0), v26)), _S4)), vcvt_hight_f32_f16(v47)));
                       v41 += 2;
-                      v43 += 2;
+                      v43 += 8;
                     }
 
                     while (v41 < 6);
@@ -6781,7 +5684,7 @@ LABEL_463:
             v686 = a1;
             v687 = a2;
             bzero(v685, 2 * a7);
-            a6 = v808;
+            a6 = v807;
             a2 = v687;
             a1 = v686;
           }
@@ -6846,13 +5749,10 @@ LABEL_463:
         }
       }
 
-      break;
+      return;
     default:
       goto LABEL_464;
   }
-
-LABEL_462:
-  v791 = *MEMORY[0x277D85DE8];
 }
 
 __int16 mlx::core::anonymous namespace::extract_bits<half,3>@<H0>(unsigned __int8 *a1@<X0>, short float *a2@<X1>)
@@ -6871,7 +5771,7 @@ __int16 mlx::core::anonymous namespace::extract_bits<half,3>@<H0>(unsigned __int
 
 void mlx::core::anonymous namespace::_qmm_dispatch_typed<mlx::core::_MLX_BFloat16>(_WORD *a1, unsigned __int16 *a2, unsigned __int8 *a3, unsigned __int16 *a4, unsigned __int16 *a5, int a6, int a7, int a8, double a9, double a10, float a11, int a12, int a13, char a14)
 {
-  v913 = *MEMORY[0x277D85DE8];
+  v909 = *MEMORY[0x277D85DE8];
   if (a13 <= 3)
   {
     if (a13 == 2)
@@ -6879,7 +5779,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<mlx::core::_MLX_BFloat1
       switch(a12)
       {
         case 128:
-          v319 = a1;
+          v317 = a1;
           if (a14)
           {
             if (a6 >= 1)
@@ -6888,71 +5788,71 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<mlx::core::_MLX_BFloat1
               {
                 if (a7 >= 1)
                 {
-                  v321 = 0;
-                  v322 = a3;
-                  v323 = a4;
-                  v324 = a5;
+                  v319 = 0;
+                  v320 = a3;
+                  v321 = a4;
+                  v322 = a5;
                   do
                   {
                     if (a8 < 1)
                     {
-                      LOWORD(v326) = 0;
+                      LOWORD(v324) = 0;
                     }
 
                     else
                     {
-                      v325 = 0;
-                      v326 = 0;
-                      v327 = a2;
+                      v323 = 0;
+                      v324 = 0;
+                      v325 = a2;
                       do
                       {
-                        v328 = 0;
-                        LODWORD(v329) = *v323 << 16;
-                        LODWORD(v330) = *v324 << 16;
-                        v331 = v327;
+                        v326 = 0;
+                        LODWORD(v327) = *v321 << 16;
+                        LODWORD(v328) = *v322 << 16;
+                        v329 = v325;
                         do
                         {
-                          v332 = v322[v328];
-                          v333 = v329 * COERCE_FLOAT((COERCE_INT((v332 & 3)) + (HIWORD(COERCE_UNSIGNED_INT((v332 & 3))) & 1) + 0x7FFF) & 0xFFFF0000);
-                          LODWORD(v334) = (LODWORD(v333) + (HIWORD(LODWORD(v333)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v335) = (COERCE_INT(v334 + v330) + (HIWORD(COERCE_UNSIGNED_INT(v334 + v330)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v336) = (COERCE_INT(v335 * COERCE_FLOAT(*v331 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v335 * COERCE_FLOAT(*v331 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v337) = (COERCE_INT(v336 + COERCE_FLOAT(v326 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v336 + COERCE_FLOAT(v326 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                          v338 = v329 * COERCE_FLOAT((COERCE_INT(((v332 >> 2) & 3)) + (HIWORD(COERCE_UNSIGNED_INT(((v332 >> 2) & 3))) & 1) + 0x7FFF) & 0xFFFF0000);
-                          LODWORD(v339) = (LODWORD(v338) + (HIWORD(LODWORD(v338)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v340) = (COERCE_INT(v339 + v330) + (HIWORD(COERCE_UNSIGNED_INT(v339 + v330)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v341) = (COERCE_INT(v340 * COERCE_FLOAT(v331[1] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v340 * COERCE_FLOAT(v331[1] << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v342) = (COERCE_INT(v337 + v341) + (HIWORD(COERCE_UNSIGNED_INT(v337 + v341)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          v343 = v329 * COERCE_FLOAT((COERCE_INT(((v332 >> 4) & 3)) + (HIWORD(COERCE_UNSIGNED_INT(((v332 >> 4) & 3))) & 1) + 0x7FFF) & 0xFFFF0000);
-                          LODWORD(v344) = (LODWORD(v343) + (HIWORD(LODWORD(v343)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v345) = (COERCE_INT(v344 + v330) + (HIWORD(COERCE_UNSIGNED_INT(v344 + v330)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v346) = (COERCE_INT(v345 * COERCE_FLOAT(v331[2] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v345 * COERCE_FLOAT(v331[2] << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v347) = (COERCE_INT(v342 + v346) + (HIWORD(COERCE_UNSIGNED_INT(v342 + v346)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          v348 = v329 * COERCE_FLOAT((COERCE_INT((v332 >> 6)) + (HIWORD(COERCE_UNSIGNED_INT((v332 >> 6))) & 1) + 0x7FFF) & 0xFFFF0000);
-                          LODWORD(v349) = (LODWORD(v348) + (HIWORD(LODWORD(v348)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v350) = (COERCE_INT(v349 + v330) + (HIWORD(COERCE_UNSIGNED_INT(v349 + v330)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v351) = (COERCE_INT(v350 * COERCE_FLOAT(v331[3] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v350 * COERCE_FLOAT(v331[3] << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                          v326 = (COERCE_INT(v347 + v351) + (HIWORD(COERCE_UNSIGNED_INT(v347 + v351)) & 1) + 0x7FFF) >> 16;
-                          v331 += 4;
-                          ++v328;
+                          v330 = v320[v326];
+                          v331 = v327 * COERCE_FLOAT((COERCE_INT((v330 & 3)) + (HIWORD(COERCE_UNSIGNED_INT((v330 & 3))) & 1) + 0x7FFF) & 0xFFFF0000);
+                          LODWORD(v332) = (LODWORD(v331) + (HIWORD(LODWORD(v331)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v333) = (COERCE_INT(v332 + v328) + (HIWORD(COERCE_UNSIGNED_INT(v332 + v328)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v334) = (COERCE_INT(v333 * COERCE_FLOAT(*v329 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v333 * COERCE_FLOAT(*v329 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v335) = (COERCE_INT(v334 + COERCE_FLOAT(v324 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v334 + COERCE_FLOAT(v324 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                          v336 = v327 * COERCE_FLOAT((COERCE_INT(((v330 >> 2) & 3)) + (HIWORD(COERCE_UNSIGNED_INT(((v330 >> 2) & 3))) & 1) + 0x7FFF) & 0xFFFF0000);
+                          LODWORD(v337) = (LODWORD(v336) + (HIWORD(LODWORD(v336)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v338) = (COERCE_INT(v337 + v328) + (HIWORD(COERCE_UNSIGNED_INT(v337 + v328)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v339) = (COERCE_INT(v338 * COERCE_FLOAT(v329[1] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v338 * COERCE_FLOAT(v329[1] << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v340) = (COERCE_INT(v335 + v339) + (HIWORD(COERCE_UNSIGNED_INT(v335 + v339)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          v341 = v327 * COERCE_FLOAT((COERCE_INT(((v330 >> 4) & 3)) + (HIWORD(COERCE_UNSIGNED_INT(((v330 >> 4) & 3))) & 1) + 0x7FFF) & 0xFFFF0000);
+                          LODWORD(v342) = (LODWORD(v341) + (HIWORD(LODWORD(v341)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v343) = (COERCE_INT(v342 + v328) + (HIWORD(COERCE_UNSIGNED_INT(v342 + v328)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v344) = (COERCE_INT(v343 * COERCE_FLOAT(v329[2] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v343 * COERCE_FLOAT(v329[2] << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v345) = (COERCE_INT(v340 + v344) + (HIWORD(COERCE_UNSIGNED_INT(v340 + v344)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          v346 = v327 * COERCE_FLOAT((COERCE_INT((v330 >> 6)) + (HIWORD(COERCE_UNSIGNED_INT((v330 >> 6))) & 1) + 0x7FFF) & 0xFFFF0000);
+                          LODWORD(v347) = (LODWORD(v346) + (HIWORD(LODWORD(v346)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v348) = (COERCE_INT(v347 + v328) + (HIWORD(COERCE_UNSIGNED_INT(v347 + v328)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v349) = (COERCE_INT(v348 * COERCE_FLOAT(v329[3] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v348 * COERCE_FLOAT(v329[3] << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                          v324 = (COERCE_INT(v345 + v349) + (HIWORD(COERCE_UNSIGNED_INT(v345 + v349)) & 1) + 0x7FFF) >> 16;
+                          v329 += 4;
+                          ++v326;
                         }
 
-                        while (v328 != 32);
-                        v322 += 32;
-                        ++v323;
-                        ++v324;
-                        v327 += 128;
+                        while (v326 != 32);
+                        v320 += 32;
+                        ++v321;
+                        ++v322;
                         v325 += 128;
+                        v323 += 128;
                       }
 
-                      while (v325 < a8);
+                      while (v323 < a8);
                     }
 
-                    *v319++ = v326;
-                    ++v321;
+                    *v317++ = v324;
+                    ++v319;
                   }
 
-                  while (v321 != a7);
+                  while (v319 != a7);
                 }
 
                 a2 += a8;
@@ -6966,80 +5866,80 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<mlx::core::_MLX_BFloat1
             {
               if (a7 >= 1)
               {
-                bzero(v319, 2 * a7);
+                bzero(v317, 2 * a7);
               }
 
               if (a8 >= 1)
               {
-                v646 = 0;
-                v647 = a3;
-                v648 = a4;
-                v649 = a5;
+                v643 = 0;
+                v644 = a3;
+                v645 = a4;
+                v646 = a5;
                 do
                 {
                   if (a7 >= 1)
                   {
-                    v650 = 0;
-                    LODWORD(v651) = *a2 << 16;
-                    v652 = v319;
+                    v647 = 0;
+                    LODWORD(v648) = *a2 << 16;
+                    v649 = v317;
                     do
                     {
-                      LODWORD(v653) = *v648 << 16;
-                      LODWORD(v654) = *v649 << 16;
-                      v655 = 32;
+                      LODWORD(v650) = *v645 << 16;
+                      LODWORD(v651) = *v646 << 16;
+                      v652 = 32;
                       do
                       {
-                        v656 = *v647;
-                        v657 = v653 * COERCE_FLOAT((COERCE_INT((v656 & 3)) + (HIWORD(COERCE_UNSIGNED_INT((v656 & 3))) & 1) + 0x7FFF) & 0xFFFF0000);
-                        LODWORD(v658) = (LODWORD(v657) + (HIWORD(LODWORD(v657)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v659) = (COERCE_INT(v658 + v654) + (HIWORD(COERCE_UNSIGNED_INT(v658 + v654)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v660) = (COERCE_INT(v659 * v651) + (HIWORD(COERCE_UNSIGNED_INT(v659 * v651)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        *v652 = (COERCE_INT(v660 + COERCE_FLOAT(*v652 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v660 + COERCE_FLOAT(*v652 << 16))) & 1) + 0x7FFF) >> 16;
-                        v661 = v653 * COERCE_FLOAT((COERCE_INT(((v656 >> 2) & 3)) + (HIWORD(COERCE_UNSIGNED_INT(((v656 >> 2) & 3))) & 1) + 0x7FFF) & 0xFFFF0000);
-                        LODWORD(v662) = (LODWORD(v661) + (HIWORD(LODWORD(v661)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v663) = (COERCE_INT(v662 + v654) + (HIWORD(COERCE_UNSIGNED_INT(v662 + v654)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v664) = (COERCE_INT(v663 * v651) + (HIWORD(COERCE_UNSIGNED_INT(v663 * v651)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        v652[1] = (COERCE_INT(v664 + COERCE_FLOAT(v652[1] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v664 + COERCE_FLOAT(v652[1] << 16))) & 1) + 0x7FFF) >> 16;
-                        v665 = v653 * COERCE_FLOAT((COERCE_INT(((v656 >> 4) & 3)) + (HIWORD(COERCE_UNSIGNED_INT(((v656 >> 4) & 3))) & 1) + 0x7FFF) & 0xFFFF0000);
-                        LODWORD(v666) = (LODWORD(v665) + (HIWORD(LODWORD(v665)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v667) = (COERCE_INT(v666 + v654) + (HIWORD(COERCE_UNSIGNED_INT(v666 + v654)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v668) = (COERCE_INT(v667 * v651) + (HIWORD(COERCE_UNSIGNED_INT(v667 * v651)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        v652[2] = (COERCE_INT(v668 + COERCE_FLOAT(v652[2] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v668 + COERCE_FLOAT(v652[2] << 16))) & 1) + 0x7FFF) >> 16;
-                        v669 = v653 * COERCE_FLOAT((COERCE_INT((v656 >> 6)) + (HIWORD(COERCE_UNSIGNED_INT((v656 >> 6))) & 1) + 0x7FFF) & 0xFFFF0000);
-                        LODWORD(v670) = (LODWORD(v669) + (HIWORD(LODWORD(v669)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v671) = (COERCE_INT(v670 + v654) + (HIWORD(COERCE_UNSIGNED_INT(v670 + v654)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        v672 = COERCE_FLOAT((COERCE_INT(v671 * v651) + (HIWORD(COERCE_UNSIGNED_INT(v671 * v651)) & 1) + 0x7FFF) & 0xFFFF0000) + COERCE_FLOAT(v652[3] << 16);
-                        v673 = v652 + 4;
-                        v652[3] = (LODWORD(v672) + (HIWORD(LODWORD(v672)) & 1u) + 0x7FFF) >> 16;
-                        ++v647;
-                        v652 += 4;
-                        --v655;
+                        v653 = *v644;
+                        v654 = v650 * COERCE_FLOAT((COERCE_INT((v653 & 3)) + (HIWORD(COERCE_UNSIGNED_INT((v653 & 3))) & 1) + 0x7FFF) & 0xFFFF0000);
+                        LODWORD(v655) = (LODWORD(v654) + (HIWORD(LODWORD(v654)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v656) = (COERCE_INT(v655 + v651) + (HIWORD(COERCE_UNSIGNED_INT(v655 + v651)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v657) = (COERCE_INT(v656 * v648) + (HIWORD(COERCE_UNSIGNED_INT(v656 * v648)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        *v649 = (COERCE_INT(v657 + COERCE_FLOAT(*v649 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v657 + COERCE_FLOAT(*v649 << 16))) & 1) + 0x7FFF) >> 16;
+                        v658 = v650 * COERCE_FLOAT((COERCE_INT(((v653 >> 2) & 3)) + (HIWORD(COERCE_UNSIGNED_INT(((v653 >> 2) & 3))) & 1) + 0x7FFF) & 0xFFFF0000);
+                        LODWORD(v659) = (LODWORD(v658) + (HIWORD(LODWORD(v658)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v660) = (COERCE_INT(v659 + v651) + (HIWORD(COERCE_UNSIGNED_INT(v659 + v651)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v661) = (COERCE_INT(v660 * v648) + (HIWORD(COERCE_UNSIGNED_INT(v660 * v648)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        v649[1] = (COERCE_INT(v661 + COERCE_FLOAT(v649[1] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v661 + COERCE_FLOAT(v649[1] << 16))) & 1) + 0x7FFF) >> 16;
+                        v662 = v650 * COERCE_FLOAT((COERCE_INT(((v653 >> 4) & 3)) + (HIWORD(COERCE_UNSIGNED_INT(((v653 >> 4) & 3))) & 1) + 0x7FFF) & 0xFFFF0000);
+                        LODWORD(v663) = (LODWORD(v662) + (HIWORD(LODWORD(v662)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v664) = (COERCE_INT(v663 + v651) + (HIWORD(COERCE_UNSIGNED_INT(v663 + v651)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v665) = (COERCE_INT(v664 * v648) + (HIWORD(COERCE_UNSIGNED_INT(v664 * v648)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        v649[2] = (COERCE_INT(v665 + COERCE_FLOAT(v649[2] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v665 + COERCE_FLOAT(v649[2] << 16))) & 1) + 0x7FFF) >> 16;
+                        v666 = v650 * COERCE_FLOAT((COERCE_INT((v653 >> 6)) + (HIWORD(COERCE_UNSIGNED_INT((v653 >> 6))) & 1) + 0x7FFF) & 0xFFFF0000);
+                        LODWORD(v667) = (LODWORD(v666) + (HIWORD(LODWORD(v666)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v668) = (COERCE_INT(v667 + v651) + (HIWORD(COERCE_UNSIGNED_INT(v667 + v651)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        v669 = COERCE_FLOAT((COERCE_INT(v668 * v648) + (HIWORD(COERCE_UNSIGNED_INT(v668 * v648)) & 1) + 0x7FFF) & 0xFFFF0000) + COERCE_FLOAT(v649[3] << 16);
+                        v670 = v649 + 4;
+                        v649[3] = (LODWORD(v669) + (HIWORD(LODWORD(v669)) & 1u) + 0x7FFF) >> 16;
+                        ++v644;
+                        v649 += 4;
+                        --v652;
                       }
 
-                      while (v655);
-                      ++v648;
-                      ++v649;
-                      v650 += 128;
-                      v652 = v673;
+                      while (v652);
+                      ++v645;
+                      ++v646;
+                      v647 += 128;
+                      v649 = v670;
                     }
 
-                    while (v650 < a7);
+                    while (v647 < a7);
                   }
 
                   ++a2;
-                  ++v646;
+                  ++v643;
                 }
 
-                while (v646 != a8);
+                while (v643 != a8);
               }
 
-              v319 += a7;
+              v317 += a7;
             }
           }
 
-          goto LABEL_456;
+          return;
         case 64:
-          v271 = a1;
+          v270 = a1;
           if (a14)
           {
             if (a6 >= 1)
@@ -7048,71 +5948,71 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<mlx::core::_MLX_BFloat1
               {
                 if (a7 >= 1)
                 {
-                  v273 = 0;
-                  v274 = a3;
-                  v275 = a4;
-                  v276 = a5;
+                  v272 = 0;
+                  v273 = a3;
+                  v274 = a4;
+                  v275 = a5;
                   do
                   {
                     if (a8 < 1)
                     {
-                      LOWORD(v278) = 0;
+                      LOWORD(v277) = 0;
                     }
 
                     else
                     {
+                      v276 = 0;
                       v277 = 0;
-                      v278 = 0;
-                      v279 = a2;
+                      v278 = a2;
                       do
                       {
-                        v280 = 0;
+                        v279 = 0;
+                        LODWORD(v280) = *v274 << 16;
                         LODWORD(v281) = *v275 << 16;
-                        LODWORD(v282) = *v276 << 16;
-                        v283 = v279;
+                        v282 = v278;
                         do
                         {
-                          v284 = v274[v280];
-                          v285 = v281 * COERCE_FLOAT((COERCE_INT((v284 & 3)) + (HIWORD(COERCE_UNSIGNED_INT((v284 & 3))) & 1) + 0x7FFF) & 0xFFFF0000);
-                          LODWORD(v286) = (LODWORD(v285) + (HIWORD(LODWORD(v285)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v287) = (COERCE_INT(v286 + v282) + (HIWORD(COERCE_UNSIGNED_INT(v286 + v282)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v288) = (COERCE_INT(v287 * COERCE_FLOAT(*v283 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v287 * COERCE_FLOAT(*v283 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v289) = (COERCE_INT(v288 + COERCE_FLOAT(v278 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v288 + COERCE_FLOAT(v278 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                          v290 = v281 * COERCE_FLOAT((COERCE_INT(((v284 >> 2) & 3)) + (HIWORD(COERCE_UNSIGNED_INT(((v284 >> 2) & 3))) & 1) + 0x7FFF) & 0xFFFF0000);
-                          LODWORD(v291) = (LODWORD(v290) + (HIWORD(LODWORD(v290)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v292) = (COERCE_INT(v291 + v282) + (HIWORD(COERCE_UNSIGNED_INT(v291 + v282)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v293) = (COERCE_INT(v292 * COERCE_FLOAT(v283[1] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v292 * COERCE_FLOAT(v283[1] << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v294) = (COERCE_INT(v289 + v293) + (HIWORD(COERCE_UNSIGNED_INT(v289 + v293)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          v295 = v281 * COERCE_FLOAT((COERCE_INT(((v284 >> 4) & 3)) + (HIWORD(COERCE_UNSIGNED_INT(((v284 >> 4) & 3))) & 1) + 0x7FFF) & 0xFFFF0000);
-                          LODWORD(v296) = (LODWORD(v295) + (HIWORD(LODWORD(v295)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v297) = (COERCE_INT(v296 + v282) + (HIWORD(COERCE_UNSIGNED_INT(v296 + v282)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v298) = (COERCE_INT(v297 * COERCE_FLOAT(v283[2] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v297 * COERCE_FLOAT(v283[2] << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v299) = (COERCE_INT(v294 + v298) + (HIWORD(COERCE_UNSIGNED_INT(v294 + v298)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          v300 = v281 * COERCE_FLOAT((COERCE_INT((v284 >> 6)) + (HIWORD(COERCE_UNSIGNED_INT((v284 >> 6))) & 1) + 0x7FFF) & 0xFFFF0000);
-                          LODWORD(v301) = (LODWORD(v300) + (HIWORD(LODWORD(v300)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v302) = (COERCE_INT(v301 + v282) + (HIWORD(COERCE_UNSIGNED_INT(v301 + v282)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v303) = (COERCE_INT(v302 * COERCE_FLOAT(v283[3] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v302 * COERCE_FLOAT(v283[3] << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                          v278 = (COERCE_INT(v299 + v303) + (HIWORD(COERCE_UNSIGNED_INT(v299 + v303)) & 1) + 0x7FFF) >> 16;
-                          v283 += 4;
-                          ++v280;
+                          v283 = v273[v279];
+                          v284 = v280 * COERCE_FLOAT((COERCE_INT((v283 & 3)) + (HIWORD(COERCE_UNSIGNED_INT((v283 & 3))) & 1) + 0x7FFF) & 0xFFFF0000);
+                          LODWORD(v285) = (LODWORD(v284) + (HIWORD(LODWORD(v284)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v286) = (COERCE_INT(v285 + v281) + (HIWORD(COERCE_UNSIGNED_INT(v285 + v281)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v287) = (COERCE_INT(v286 * COERCE_FLOAT(*v282 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v286 * COERCE_FLOAT(*v282 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v288) = (COERCE_INT(v287 + COERCE_FLOAT(v277 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v287 + COERCE_FLOAT(v277 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                          v289 = v280 * COERCE_FLOAT((COERCE_INT(((v283 >> 2) & 3)) + (HIWORD(COERCE_UNSIGNED_INT(((v283 >> 2) & 3))) & 1) + 0x7FFF) & 0xFFFF0000);
+                          LODWORD(v290) = (LODWORD(v289) + (HIWORD(LODWORD(v289)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v291) = (COERCE_INT(v290 + v281) + (HIWORD(COERCE_UNSIGNED_INT(v290 + v281)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v292) = (COERCE_INT(v291 * COERCE_FLOAT(v282[1] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v291 * COERCE_FLOAT(v282[1] << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v293) = (COERCE_INT(v288 + v292) + (HIWORD(COERCE_UNSIGNED_INT(v288 + v292)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          v294 = v280 * COERCE_FLOAT((COERCE_INT(((v283 >> 4) & 3)) + (HIWORD(COERCE_UNSIGNED_INT(((v283 >> 4) & 3))) & 1) + 0x7FFF) & 0xFFFF0000);
+                          LODWORD(v295) = (LODWORD(v294) + (HIWORD(LODWORD(v294)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v296) = (COERCE_INT(v295 + v281) + (HIWORD(COERCE_UNSIGNED_INT(v295 + v281)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v297) = (COERCE_INT(v296 * COERCE_FLOAT(v282[2] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v296 * COERCE_FLOAT(v282[2] << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v298) = (COERCE_INT(v293 + v297) + (HIWORD(COERCE_UNSIGNED_INT(v293 + v297)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          v299 = v280 * COERCE_FLOAT((COERCE_INT((v283 >> 6)) + (HIWORD(COERCE_UNSIGNED_INT((v283 >> 6))) & 1) + 0x7FFF) & 0xFFFF0000);
+                          LODWORD(v300) = (LODWORD(v299) + (HIWORD(LODWORD(v299)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v301) = (COERCE_INT(v300 + v281) + (HIWORD(COERCE_UNSIGNED_INT(v300 + v281)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v302) = (COERCE_INT(v301 * COERCE_FLOAT(v282[3] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v301 * COERCE_FLOAT(v282[3] << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                          v277 = (COERCE_INT(v298 + v302) + (HIWORD(COERCE_UNSIGNED_INT(v298 + v302)) & 1) + 0x7FFF) >> 16;
+                          v282 += 4;
+                          ++v279;
                         }
 
-                        while (v280 != 16);
-                        v274 += 16;
+                        while (v279 != 16);
+                        v273 += 16;
+                        ++v274;
                         ++v275;
-                        ++v276;
-                        v279 += 64;
-                        v277 += 64;
+                        v278 += 64;
+                        v276 += 64;
                       }
 
-                      while (v277 < a8);
+                      while (v276 < a8);
                     }
 
-                    *v271++ = v278;
-                    ++v273;
+                    *v270++ = v277;
+                    ++v272;
                   }
 
-                  while (v273 != a7);
+                  while (v272 != a7);
                 }
 
                 a2 += a8;
@@ -7126,80 +6026,80 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<mlx::core::_MLX_BFloat1
             {
               if (a7 >= 1)
               {
-                bzero(v271, 2 * a7);
+                bzero(v270, 2 * a7);
               }
 
               if (a8 >= 1)
               {
-                v577 = 0;
-                v578 = a3;
-                v579 = a4;
-                v580 = a5;
+                v574 = 0;
+                v575 = a3;
+                v576 = a4;
+                v577 = a5;
                 do
                 {
                   if (a7 >= 1)
                   {
-                    v581 = 0;
-                    LODWORD(v582) = *a2 << 16;
-                    v583 = v271;
+                    v578 = 0;
+                    LODWORD(v579) = *a2 << 16;
+                    v580 = v270;
                     do
                     {
-                      LODWORD(v584) = *v579 << 16;
-                      LODWORD(v585) = *v580 << 16;
-                      v586 = 16;
+                      LODWORD(v581) = *v576 << 16;
+                      LODWORD(v582) = *v577 << 16;
+                      v583 = 16;
                       do
                       {
-                        v587 = *v578;
-                        v588 = v584 * COERCE_FLOAT((COERCE_INT((v587 & 3)) + (HIWORD(COERCE_UNSIGNED_INT((v587 & 3))) & 1) + 0x7FFF) & 0xFFFF0000);
-                        LODWORD(v589) = (LODWORD(v588) + (HIWORD(LODWORD(v588)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v590) = (COERCE_INT(v589 + v585) + (HIWORD(COERCE_UNSIGNED_INT(v589 + v585)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v591) = (COERCE_INT(v590 * v582) + (HIWORD(COERCE_UNSIGNED_INT(v590 * v582)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        *v583 = (COERCE_INT(v591 + COERCE_FLOAT(*v583 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v591 + COERCE_FLOAT(*v583 << 16))) & 1) + 0x7FFF) >> 16;
-                        v592 = v584 * COERCE_FLOAT((COERCE_INT(((v587 >> 2) & 3)) + (HIWORD(COERCE_UNSIGNED_INT(((v587 >> 2) & 3))) & 1) + 0x7FFF) & 0xFFFF0000);
-                        LODWORD(v593) = (LODWORD(v592) + (HIWORD(LODWORD(v592)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v594) = (COERCE_INT(v593 + v585) + (HIWORD(COERCE_UNSIGNED_INT(v593 + v585)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v595) = (COERCE_INT(v594 * v582) + (HIWORD(COERCE_UNSIGNED_INT(v594 * v582)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        v583[1] = (COERCE_INT(v595 + COERCE_FLOAT(v583[1] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v595 + COERCE_FLOAT(v583[1] << 16))) & 1) + 0x7FFF) >> 16;
-                        v596 = v584 * COERCE_FLOAT((COERCE_INT(((v587 >> 4) & 3)) + (HIWORD(COERCE_UNSIGNED_INT(((v587 >> 4) & 3))) & 1) + 0x7FFF) & 0xFFFF0000);
-                        LODWORD(v597) = (LODWORD(v596) + (HIWORD(LODWORD(v596)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v598) = (COERCE_INT(v597 + v585) + (HIWORD(COERCE_UNSIGNED_INT(v597 + v585)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v599) = (COERCE_INT(v598 * v582) + (HIWORD(COERCE_UNSIGNED_INT(v598 * v582)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        v583[2] = (COERCE_INT(v599 + COERCE_FLOAT(v583[2] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v599 + COERCE_FLOAT(v583[2] << 16))) & 1) + 0x7FFF) >> 16;
-                        v600 = v584 * COERCE_FLOAT((COERCE_INT((v587 >> 6)) + (HIWORD(COERCE_UNSIGNED_INT((v587 >> 6))) & 1) + 0x7FFF) & 0xFFFF0000);
-                        LODWORD(v601) = (LODWORD(v600) + (HIWORD(LODWORD(v600)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v602) = (COERCE_INT(v601 + v585) + (HIWORD(COERCE_UNSIGNED_INT(v601 + v585)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        v603 = COERCE_FLOAT((COERCE_INT(v602 * v582) + (HIWORD(COERCE_UNSIGNED_INT(v602 * v582)) & 1) + 0x7FFF) & 0xFFFF0000) + COERCE_FLOAT(v583[3] << 16);
-                        v604 = v583 + 4;
-                        v583[3] = (LODWORD(v603) + (HIWORD(LODWORD(v603)) & 1u) + 0x7FFF) >> 16;
-                        ++v578;
-                        v583 += 4;
-                        --v586;
+                        v584 = *v575;
+                        v585 = v581 * COERCE_FLOAT((COERCE_INT((v584 & 3)) + (HIWORD(COERCE_UNSIGNED_INT((v584 & 3))) & 1) + 0x7FFF) & 0xFFFF0000);
+                        LODWORD(v586) = (LODWORD(v585) + (HIWORD(LODWORD(v585)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v587) = (COERCE_INT(v586 + v582) + (HIWORD(COERCE_UNSIGNED_INT(v586 + v582)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v588) = (COERCE_INT(v587 * v579) + (HIWORD(COERCE_UNSIGNED_INT(v587 * v579)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        *v580 = (COERCE_INT(v588 + COERCE_FLOAT(*v580 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v588 + COERCE_FLOAT(*v580 << 16))) & 1) + 0x7FFF) >> 16;
+                        v589 = v581 * COERCE_FLOAT((COERCE_INT(((v584 >> 2) & 3)) + (HIWORD(COERCE_UNSIGNED_INT(((v584 >> 2) & 3))) & 1) + 0x7FFF) & 0xFFFF0000);
+                        LODWORD(v590) = (LODWORD(v589) + (HIWORD(LODWORD(v589)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v591) = (COERCE_INT(v590 + v582) + (HIWORD(COERCE_UNSIGNED_INT(v590 + v582)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v592) = (COERCE_INT(v591 * v579) + (HIWORD(COERCE_UNSIGNED_INT(v591 * v579)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        v580[1] = (COERCE_INT(v592 + COERCE_FLOAT(v580[1] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v592 + COERCE_FLOAT(v580[1] << 16))) & 1) + 0x7FFF) >> 16;
+                        v593 = v581 * COERCE_FLOAT((COERCE_INT(((v584 >> 4) & 3)) + (HIWORD(COERCE_UNSIGNED_INT(((v584 >> 4) & 3))) & 1) + 0x7FFF) & 0xFFFF0000);
+                        LODWORD(v594) = (LODWORD(v593) + (HIWORD(LODWORD(v593)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v595) = (COERCE_INT(v594 + v582) + (HIWORD(COERCE_UNSIGNED_INT(v594 + v582)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v596) = (COERCE_INT(v595 * v579) + (HIWORD(COERCE_UNSIGNED_INT(v595 * v579)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        v580[2] = (COERCE_INT(v596 + COERCE_FLOAT(v580[2] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v596 + COERCE_FLOAT(v580[2] << 16))) & 1) + 0x7FFF) >> 16;
+                        v597 = v581 * COERCE_FLOAT((COERCE_INT((v584 >> 6)) + (HIWORD(COERCE_UNSIGNED_INT((v584 >> 6))) & 1) + 0x7FFF) & 0xFFFF0000);
+                        LODWORD(v598) = (LODWORD(v597) + (HIWORD(LODWORD(v597)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v599) = (COERCE_INT(v598 + v582) + (HIWORD(COERCE_UNSIGNED_INT(v598 + v582)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        v600 = COERCE_FLOAT((COERCE_INT(v599 * v579) + (HIWORD(COERCE_UNSIGNED_INT(v599 * v579)) & 1) + 0x7FFF) & 0xFFFF0000) + COERCE_FLOAT(v580[3] << 16);
+                        v601 = v580 + 4;
+                        v580[3] = (LODWORD(v600) + (HIWORD(LODWORD(v600)) & 1u) + 0x7FFF) >> 16;
+                        ++v575;
+                        v580 += 4;
+                        --v583;
                       }
 
-                      while (v586);
-                      ++v579;
-                      ++v580;
-                      v581 += 64;
-                      v583 = v604;
+                      while (v583);
+                      ++v576;
+                      ++v577;
+                      v578 += 64;
+                      v580 = v601;
                     }
 
-                    while (v581 < a7);
+                    while (v578 < a7);
                   }
 
                   ++a2;
-                  ++v577;
+                  ++v574;
                 }
 
-                while (v577 != a8);
+                while (v574 != a8);
               }
 
-              v271 += a7;
+              v270 += a7;
             }
           }
 
-          goto LABEL_456;
+          return;
         case 32:
-          v134 = a1;
+          v133 = a1;
           if (a14)
           {
             if (a6 >= 1)
@@ -7208,71 +6108,71 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<mlx::core::_MLX_BFloat1
               {
                 if (a7 >= 1)
                 {
-                  v136 = 0;
-                  v137 = a3;
-                  v138 = a4;
-                  v139 = a5;
+                  v135 = 0;
+                  v136 = a3;
+                  v137 = a4;
+                  v138 = a5;
                   do
                   {
                     if (a8 < 1)
                     {
-                      LOWORD(v141) = 0;
+                      LOWORD(v140) = 0;
                     }
 
                     else
                     {
+                      v139 = 0;
                       v140 = 0;
-                      v141 = 0;
-                      v142 = a2;
+                      v141 = a2;
                       do
                       {
-                        v143 = 0;
+                        v142 = 0;
+                        LODWORD(v143) = *v137 << 16;
                         LODWORD(v144) = *v138 << 16;
-                        LODWORD(v145) = *v139 << 16;
-                        v146 = v142;
+                        v145 = v141;
                         do
                         {
-                          v147 = v137[v143];
-                          v148 = v144 * COERCE_FLOAT((COERCE_INT((v147 & 3)) + (HIWORD(COERCE_UNSIGNED_INT((v147 & 3))) & 1) + 0x7FFF) & 0xFFFF0000);
-                          LODWORD(v149) = (LODWORD(v148) + (HIWORD(LODWORD(v148)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v150) = (COERCE_INT(v149 + v145) + (HIWORD(COERCE_UNSIGNED_INT(v149 + v145)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v151) = (COERCE_INT(v150 * COERCE_FLOAT(*v146 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v150 * COERCE_FLOAT(*v146 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v152) = (COERCE_INT(v151 + COERCE_FLOAT(v141 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v151 + COERCE_FLOAT(v141 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                          v153 = v144 * COERCE_FLOAT((COERCE_INT(((v147 >> 2) & 3)) + (HIWORD(COERCE_UNSIGNED_INT(((v147 >> 2) & 3))) & 1) + 0x7FFF) & 0xFFFF0000);
-                          LODWORD(v154) = (LODWORD(v153) + (HIWORD(LODWORD(v153)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v155) = (COERCE_INT(v154 + v145) + (HIWORD(COERCE_UNSIGNED_INT(v154 + v145)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v156) = (COERCE_INT(v155 * COERCE_FLOAT(v146[1] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v155 * COERCE_FLOAT(v146[1] << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v157) = (COERCE_INT(v152 + v156) + (HIWORD(COERCE_UNSIGNED_INT(v152 + v156)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          v158 = v144 * COERCE_FLOAT((COERCE_INT(((v147 >> 4) & 3)) + (HIWORD(COERCE_UNSIGNED_INT(((v147 >> 4) & 3))) & 1) + 0x7FFF) & 0xFFFF0000);
-                          LODWORD(v159) = (LODWORD(v158) + (HIWORD(LODWORD(v158)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v160) = (COERCE_INT(v159 + v145) + (HIWORD(COERCE_UNSIGNED_INT(v159 + v145)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v161) = (COERCE_INT(v160 * COERCE_FLOAT(v146[2] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v160 * COERCE_FLOAT(v146[2] << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v162) = (COERCE_INT(v157 + v161) + (HIWORD(COERCE_UNSIGNED_INT(v157 + v161)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          v163 = v144 * COERCE_FLOAT((COERCE_INT((v147 >> 6)) + (HIWORD(COERCE_UNSIGNED_INT((v147 >> 6))) & 1) + 0x7FFF) & 0xFFFF0000);
-                          LODWORD(v164) = (LODWORD(v163) + (HIWORD(LODWORD(v163)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v165) = (COERCE_INT(v164 + v145) + (HIWORD(COERCE_UNSIGNED_INT(v164 + v145)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v166) = (COERCE_INT(v165 * COERCE_FLOAT(v146[3] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v165 * COERCE_FLOAT(v146[3] << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                          v141 = (COERCE_INT(v162 + v166) + (HIWORD(COERCE_UNSIGNED_INT(v162 + v166)) & 1) + 0x7FFF) >> 16;
-                          v146 += 4;
-                          ++v143;
+                          v146 = v136[v142];
+                          v147 = v143 * COERCE_FLOAT((COERCE_INT((v146 & 3)) + (HIWORD(COERCE_UNSIGNED_INT((v146 & 3))) & 1) + 0x7FFF) & 0xFFFF0000);
+                          LODWORD(v148) = (LODWORD(v147) + (HIWORD(LODWORD(v147)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v149) = (COERCE_INT(v148 + v144) + (HIWORD(COERCE_UNSIGNED_INT(v148 + v144)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v150) = (COERCE_INT(v149 * COERCE_FLOAT(*v145 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v149 * COERCE_FLOAT(*v145 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v151) = (COERCE_INT(v150 + COERCE_FLOAT(v140 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v150 + COERCE_FLOAT(v140 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                          v152 = v143 * COERCE_FLOAT((COERCE_INT(((v146 >> 2) & 3)) + (HIWORD(COERCE_UNSIGNED_INT(((v146 >> 2) & 3))) & 1) + 0x7FFF) & 0xFFFF0000);
+                          LODWORD(v153) = (LODWORD(v152) + (HIWORD(LODWORD(v152)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v154) = (COERCE_INT(v153 + v144) + (HIWORD(COERCE_UNSIGNED_INT(v153 + v144)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v155) = (COERCE_INT(v154 * COERCE_FLOAT(v145[1] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v154 * COERCE_FLOAT(v145[1] << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v156) = (COERCE_INT(v151 + v155) + (HIWORD(COERCE_UNSIGNED_INT(v151 + v155)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          v157 = v143 * COERCE_FLOAT((COERCE_INT(((v146 >> 4) & 3)) + (HIWORD(COERCE_UNSIGNED_INT(((v146 >> 4) & 3))) & 1) + 0x7FFF) & 0xFFFF0000);
+                          LODWORD(v158) = (LODWORD(v157) + (HIWORD(LODWORD(v157)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v159) = (COERCE_INT(v158 + v144) + (HIWORD(COERCE_UNSIGNED_INT(v158 + v144)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v160) = (COERCE_INT(v159 * COERCE_FLOAT(v145[2] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v159 * COERCE_FLOAT(v145[2] << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v161) = (COERCE_INT(v156 + v160) + (HIWORD(COERCE_UNSIGNED_INT(v156 + v160)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          v162 = v143 * COERCE_FLOAT((COERCE_INT((v146 >> 6)) + (HIWORD(COERCE_UNSIGNED_INT((v146 >> 6))) & 1) + 0x7FFF) & 0xFFFF0000);
+                          LODWORD(v163) = (LODWORD(v162) + (HIWORD(LODWORD(v162)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v164) = (COERCE_INT(v163 + v144) + (HIWORD(COERCE_UNSIGNED_INT(v163 + v144)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v165) = (COERCE_INT(v164 * COERCE_FLOAT(v145[3] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v164 * COERCE_FLOAT(v145[3] << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                          v140 = (COERCE_INT(v161 + v165) + (HIWORD(COERCE_UNSIGNED_INT(v161 + v165)) & 1) + 0x7FFF) >> 16;
+                          v145 += 4;
+                          ++v142;
                         }
 
-                        while (v143 != 8);
-                        v137 += 8;
+                        while (v142 != 8);
+                        v136 += 8;
+                        ++v137;
                         ++v138;
-                        ++v139;
-                        v142 += 32;
-                        v140 += 32;
+                        v141 += 32;
+                        v139 += 32;
                       }
 
-                      while (v140 < a8);
+                      while (v139 < a8);
                     }
 
-                    *v134++ = v141;
-                    ++v136;
+                    *v133++ = v140;
+                    ++v135;
                   }
 
-                  while (v136 != a7);
+                  while (v135 != a7);
                 }
 
                 a2 += a8;
@@ -7286,78 +6186,78 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<mlx::core::_MLX_BFloat1
             {
               if (a7 >= 1)
               {
-                bzero(v134, 2 * a7);
+                bzero(v133, 2 * a7);
               }
 
               if (a8 >= 1)
               {
-                v675 = 0;
-                v676 = a3;
-                v677 = a4;
-                v678 = a5;
+                v672 = 0;
+                v673 = a3;
+                v674 = a4;
+                v675 = a5;
                 do
                 {
                   if (a7 >= 1)
                   {
-                    v679 = 0;
-                    LODWORD(v680) = *a2 << 16;
-                    v681 = v134;
+                    v676 = 0;
+                    LODWORD(v677) = *a2 << 16;
+                    v678 = v133;
                     do
                     {
-                      LODWORD(v682) = *v677 << 16;
-                      LODWORD(v683) = *v678 << 16;
-                      v684 = 8;
+                      LODWORD(v679) = *v674 << 16;
+                      LODWORD(v680) = *v675 << 16;
+                      v681 = 8;
                       do
                       {
-                        v685 = *v676;
-                        v686 = v682 * COERCE_FLOAT((COERCE_INT((v685 & 3)) + (HIWORD(COERCE_UNSIGNED_INT((v685 & 3))) & 1) + 0x7FFF) & 0xFFFF0000);
-                        LODWORD(v687) = (LODWORD(v686) + (HIWORD(LODWORD(v686)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v688) = (COERCE_INT(v687 + v683) + (HIWORD(COERCE_UNSIGNED_INT(v687 + v683)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v689) = (COERCE_INT(v688 * v680) + (HIWORD(COERCE_UNSIGNED_INT(v688 * v680)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        *v681 = (COERCE_INT(v689 + COERCE_FLOAT(*v681 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v689 + COERCE_FLOAT(*v681 << 16))) & 1) + 0x7FFF) >> 16;
-                        v690 = v682 * COERCE_FLOAT((COERCE_INT(((v685 >> 2) & 3)) + (HIWORD(COERCE_UNSIGNED_INT(((v685 >> 2) & 3))) & 1) + 0x7FFF) & 0xFFFF0000);
-                        LODWORD(v691) = (LODWORD(v690) + (HIWORD(LODWORD(v690)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v692) = (COERCE_INT(v691 + v683) + (HIWORD(COERCE_UNSIGNED_INT(v691 + v683)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v693) = (COERCE_INT(v692 * v680) + (HIWORD(COERCE_UNSIGNED_INT(v692 * v680)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        v681[1] = (COERCE_INT(v693 + COERCE_FLOAT(v681[1] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v693 + COERCE_FLOAT(v681[1] << 16))) & 1) + 0x7FFF) >> 16;
-                        v694 = v682 * COERCE_FLOAT((COERCE_INT(((v685 >> 4) & 3)) + (HIWORD(COERCE_UNSIGNED_INT(((v685 >> 4) & 3))) & 1) + 0x7FFF) & 0xFFFF0000);
-                        LODWORD(v695) = (LODWORD(v694) + (HIWORD(LODWORD(v694)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v696) = (COERCE_INT(v695 + v683) + (HIWORD(COERCE_UNSIGNED_INT(v695 + v683)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v697) = (COERCE_INT(v696 * v680) + (HIWORD(COERCE_UNSIGNED_INT(v696 * v680)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        v681[2] = (COERCE_INT(v697 + COERCE_FLOAT(v681[2] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v697 + COERCE_FLOAT(v681[2] << 16))) & 1) + 0x7FFF) >> 16;
-                        v698 = v682 * COERCE_FLOAT((COERCE_INT((v685 >> 6)) + (HIWORD(COERCE_UNSIGNED_INT((v685 >> 6))) & 1) + 0x7FFF) & 0xFFFF0000);
-                        LODWORD(v699) = (LODWORD(v698) + (HIWORD(LODWORD(v698)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v700) = (COERCE_INT(v699 + v683) + (HIWORD(COERCE_UNSIGNED_INT(v699 + v683)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        v701 = COERCE_FLOAT((COERCE_INT(v700 * v680) + (HIWORD(COERCE_UNSIGNED_INT(v700 * v680)) & 1) + 0x7FFF) & 0xFFFF0000) + COERCE_FLOAT(v681[3] << 16);
-                        v702 = v681 + 4;
-                        v681[3] = (LODWORD(v701) + (HIWORD(LODWORD(v701)) & 1u) + 0x7FFF) >> 16;
-                        ++v676;
-                        v681 += 4;
-                        --v684;
+                        v682 = *v673;
+                        v683 = v679 * COERCE_FLOAT((COERCE_INT((v682 & 3)) + (HIWORD(COERCE_UNSIGNED_INT((v682 & 3))) & 1) + 0x7FFF) & 0xFFFF0000);
+                        LODWORD(v684) = (LODWORD(v683) + (HIWORD(LODWORD(v683)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v685) = (COERCE_INT(v684 + v680) + (HIWORD(COERCE_UNSIGNED_INT(v684 + v680)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v686) = (COERCE_INT(v685 * v677) + (HIWORD(COERCE_UNSIGNED_INT(v685 * v677)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        *v678 = (COERCE_INT(v686 + COERCE_FLOAT(*v678 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v686 + COERCE_FLOAT(*v678 << 16))) & 1) + 0x7FFF) >> 16;
+                        v687 = v679 * COERCE_FLOAT((COERCE_INT(((v682 >> 2) & 3)) + (HIWORD(COERCE_UNSIGNED_INT(((v682 >> 2) & 3))) & 1) + 0x7FFF) & 0xFFFF0000);
+                        LODWORD(v688) = (LODWORD(v687) + (HIWORD(LODWORD(v687)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v689) = (COERCE_INT(v688 + v680) + (HIWORD(COERCE_UNSIGNED_INT(v688 + v680)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v690) = (COERCE_INT(v689 * v677) + (HIWORD(COERCE_UNSIGNED_INT(v689 * v677)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        v678[1] = (COERCE_INT(v690 + COERCE_FLOAT(v678[1] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v690 + COERCE_FLOAT(v678[1] << 16))) & 1) + 0x7FFF) >> 16;
+                        v691 = v679 * COERCE_FLOAT((COERCE_INT(((v682 >> 4) & 3)) + (HIWORD(COERCE_UNSIGNED_INT(((v682 >> 4) & 3))) & 1) + 0x7FFF) & 0xFFFF0000);
+                        LODWORD(v692) = (LODWORD(v691) + (HIWORD(LODWORD(v691)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v693) = (COERCE_INT(v692 + v680) + (HIWORD(COERCE_UNSIGNED_INT(v692 + v680)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v694) = (COERCE_INT(v693 * v677) + (HIWORD(COERCE_UNSIGNED_INT(v693 * v677)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        v678[2] = (COERCE_INT(v694 + COERCE_FLOAT(v678[2] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v694 + COERCE_FLOAT(v678[2] << 16))) & 1) + 0x7FFF) >> 16;
+                        v695 = v679 * COERCE_FLOAT((COERCE_INT((v682 >> 6)) + (HIWORD(COERCE_UNSIGNED_INT((v682 >> 6))) & 1) + 0x7FFF) & 0xFFFF0000);
+                        LODWORD(v696) = (LODWORD(v695) + (HIWORD(LODWORD(v695)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v697) = (COERCE_INT(v696 + v680) + (HIWORD(COERCE_UNSIGNED_INT(v696 + v680)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        v698 = COERCE_FLOAT((COERCE_INT(v697 * v677) + (HIWORD(COERCE_UNSIGNED_INT(v697 * v677)) & 1) + 0x7FFF) & 0xFFFF0000) + COERCE_FLOAT(v678[3] << 16);
+                        v699 = v678 + 4;
+                        v678[3] = (LODWORD(v698) + (HIWORD(LODWORD(v698)) & 1u) + 0x7FFF) >> 16;
+                        ++v673;
+                        v678 += 4;
+                        --v681;
                       }
 
-                      while (v684);
-                      ++v677;
-                      ++v678;
-                      v679 += 32;
-                      v681 = v702;
+                      while (v681);
+                      ++v674;
+                      ++v675;
+                      v676 += 32;
+                      v678 = v699;
                     }
 
-                    while (v679 < a7);
+                    while (v676 < a7);
                   }
 
                   ++a2;
-                  ++v675;
+                  ++v672;
                 }
 
-                while (v675 != a8);
+                while (v672 != a8);
               }
 
-              v134 += a7;
+              v133 += a7;
             }
           }
 
-          goto LABEL_456;
+          return;
       }
     }
 
@@ -7368,7 +6268,7 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<mlx::core::_MLX_BFloat1
         goto LABEL_457;
       }
 
-      v888 = a1;
+      v884 = a1;
       switch(a12)
       {
         case 128:
@@ -7376,506 +6276,303 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<mlx::core::_MLX_BFloat1
           {
             if (a6 >= 1)
             {
-              v416 = 0;
-              v853 = a8;
+              v413 = 0;
+              v849 = a8;
               do
               {
-                v865 = v416;
-                v895 = a2;
+                v861 = v413;
+                v891 = a2;
                 if (a7 >= 1)
                 {
-                  v417 = 0;
-                  v419 = a3;
-                  v418 = a4;
-                  v420 = a5;
+                  v414 = 0;
+                  v416 = a3;
+                  v415 = a4;
+                  v417 = a5;
                   do
                   {
-                    v881 = v417;
+                    v877 = v414;
                     if (a8 < 1)
                     {
-                      LOWORD(v422) = 0;
+                      LOWORD(v419) = 0;
                     }
 
                     else
                     {
-                      v421 = 0;
-                      v422 = 0;
-                      v423 = v895;
+                      v418 = 0;
+                      v419 = 0;
+                      v420 = v891;
                       do
                       {
-                        v424 = 0;
-                        LODWORD(v425) = *v418 << 16;
-                        LODWORD(v426) = *v420 << 16;
+                        v421 = 0;
+                        LODWORD(v422) = *v415 << 16;
+                        LODWORD(v423) = *v417 << 16;
                         do
                         {
-                          LODWORD(v427) = (COERCE_INT(v425 * COERCE_FLOAT(v905 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v425 * COERCE_FLOAT(v905 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v428) = (COERCE_INT(v427 + v426) + (HIWORD(COERCE_UNSIGNED_INT(v427 + v426)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v429) = (COERCE_INT(v428 * COERCE_FLOAT(*(v423 + v424) << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v428 * COERCE_FLOAT(*(v423 + v424) << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v430) = (COERCE_INT(v429 + COERCE_FLOAT(v422 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v429 + COERCE_FLOAT(v422 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v431) = (COERCE_INT(v425 * COERCE_FLOAT(v906 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v425 * COERCE_FLOAT(v906 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v432) = (COERCE_INT(v431 + v426) + (HIWORD(COERCE_UNSIGNED_INT(v431 + v426)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v433) = *(v423 + v424 + 2) << 16;
-                          LODWORD(v434) = (COERCE_INT(v432 * v433) + (HIWORD(COERCE_UNSIGNED_INT(v432 * v433)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v435) = (COERCE_INT(v430 + v434) + (HIWORD(COERCE_UNSIGNED_INT(v430 + v434)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v436) = (COERCE_INT(v425 * COERCE_FLOAT(v907 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v425 * COERCE_FLOAT(v907 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v437) = (COERCE_INT(v436 + v426) + (HIWORD(COERCE_UNSIGNED_INT(v436 + v426)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v438) = *(v423 + v424 + 4) << 16;
-                          LODWORD(v439) = (COERCE_INT(v437 * v438) + (HIWORD(COERCE_UNSIGNED_INT(v437 * v438)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v440) = (COERCE_INT(v435 + v439) + (HIWORD(COERCE_UNSIGNED_INT(v435 + v439)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v441) = (COERCE_INT(v425 * COERCE_FLOAT(v908 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v425 * COERCE_FLOAT(v908 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v442) = (COERCE_INT(v441 + v426) + (HIWORD(COERCE_UNSIGNED_INT(v441 + v426)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v443) = *(v423 + v424 + 6) << 16;
-                          LODWORD(v444) = (COERCE_INT(v442 * v443) + (HIWORD(COERCE_UNSIGNED_INT(v442 * v443)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v445) = (COERCE_INT(v440 + v444) + (HIWORD(COERCE_UNSIGNED_INT(v440 + v444)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v446) = (COERCE_INT(v425 * COERCE_FLOAT(v909 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v425 * COERCE_FLOAT(v909 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v447) = (COERCE_INT(v446 + v426) + (HIWORD(COERCE_UNSIGNED_INT(v446 + v426)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v448) = *(v423 + v424 + 8) << 16;
-                          LODWORD(v449) = (COERCE_INT(v447 * v448) + (HIWORD(COERCE_UNSIGNED_INT(v447 * v448)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v450) = (COERCE_INT(v445 + v449) + (HIWORD(COERCE_UNSIGNED_INT(v445 + v449)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v451) = (COERCE_INT(v425 * COERCE_FLOAT(v910 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v425 * COERCE_FLOAT(v910 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v452) = (COERCE_INT(v451 + v426) + (HIWORD(COERCE_UNSIGNED_INT(v451 + v426)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v453) = *(v423 + v424 + 10) << 16;
-                          LODWORD(v454) = (COERCE_INT(v452 * v453) + (HIWORD(COERCE_UNSIGNED_INT(v452 * v453)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v455) = (COERCE_INT(v450 + v454) + (HIWORD(COERCE_UNSIGNED_INT(v450 + v454)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v456) = (COERCE_INT(v425 * COERCE_FLOAT(v911 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v425 * COERCE_FLOAT(v911 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v457) = (COERCE_INT(v456 + v426) + (HIWORD(COERCE_UNSIGNED_INT(v456 + v426)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v458) = *(v423 + v424 + 12) << 16;
-                          LODWORD(v459) = (COERCE_INT(v457 * v458) + (HIWORD(COERCE_UNSIGNED_INT(v457 * v458)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v460) = (COERCE_INT(v455 + v459) + (HIWORD(COERCE_UNSIGNED_INT(v455 + v459)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v461) = (COERCE_INT(v425 * COERCE_FLOAT(v912 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v425 * COERCE_FLOAT(v912 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v462) = (COERCE_INT(v461 + v426) + (HIWORD(COERCE_UNSIGNED_INT(v461 + v426)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v463) = *(v423 + v424 + 14) << 16;
-                          v464 = v460 + COERCE_FLOAT((COERCE_INT(v462 * v463) + (HIWORD(COERCE_UNSIGNED_INT(v462 * v463)) & 1) + 0x7FFF) & 0xFFFF0000);
-                          v422 = (LODWORD(v464) + (HIWORD(LODWORD(v464)) & 1u) + 0x7FFF) >> 16;
-                          v419 += 3;
-                          v424 += 16;
+                          LODWORD(v424) = (COERCE_INT(v422 * COERCE_FLOAT(v901 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v422 * COERCE_FLOAT(v901 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v425) = (COERCE_INT(v424 + v423) + (HIWORD(COERCE_UNSIGNED_INT(v424 + v423)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v426) = (COERCE_INT(v425 * COERCE_FLOAT(v420[v421] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v425 * COERCE_FLOAT(v420[v421] << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v427) = (COERCE_INT(v426 + COERCE_FLOAT(v419 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v426 + COERCE_FLOAT(v419 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v428) = (COERCE_INT(v422 * COERCE_FLOAT(v902 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v422 * COERCE_FLOAT(v902 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v429) = (COERCE_INT(v428 + v423) + (HIWORD(COERCE_UNSIGNED_INT(v428 + v423)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v430) = v420[v421 + 1] << 16;
+                          LODWORD(v431) = (COERCE_INT(v429 * v430) + (HIWORD(COERCE_UNSIGNED_INT(v429 * v430)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v432) = (COERCE_INT(v427 + v431) + (HIWORD(COERCE_UNSIGNED_INT(v427 + v431)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v433) = (COERCE_INT(v422 * COERCE_FLOAT(v903 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v422 * COERCE_FLOAT(v903 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v434) = (COERCE_INT(v433 + v423) + (HIWORD(COERCE_UNSIGNED_INT(v433 + v423)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v435) = v420[v421 + 2] << 16;
+                          LODWORD(v436) = (COERCE_INT(v434 * v435) + (HIWORD(COERCE_UNSIGNED_INT(v434 * v435)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v437) = (COERCE_INT(v432 + v436) + (HIWORD(COERCE_UNSIGNED_INT(v432 + v436)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v438) = (COERCE_INT(v422 * COERCE_FLOAT(v904 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v422 * COERCE_FLOAT(v904 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v439) = (COERCE_INT(v438 + v423) + (HIWORD(COERCE_UNSIGNED_INT(v438 + v423)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v440) = v420[v421 + 3] << 16;
+                          LODWORD(v441) = (COERCE_INT(v439 * v440) + (HIWORD(COERCE_UNSIGNED_INT(v439 * v440)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v442) = (COERCE_INT(v437 + v441) + (HIWORD(COERCE_UNSIGNED_INT(v437 + v441)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v443) = (COERCE_INT(v422 * COERCE_FLOAT(v905 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v422 * COERCE_FLOAT(v905 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v444) = (COERCE_INT(v443 + v423) + (HIWORD(COERCE_UNSIGNED_INT(v443 + v423)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v445) = v420[v421 + 4] << 16;
+                          LODWORD(v446) = (COERCE_INT(v444 * v445) + (HIWORD(COERCE_UNSIGNED_INT(v444 * v445)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v447) = (COERCE_INT(v442 + v446) + (HIWORD(COERCE_UNSIGNED_INT(v442 + v446)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v448) = (COERCE_INT(v422 * COERCE_FLOAT(v906 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v422 * COERCE_FLOAT(v906 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v449) = (COERCE_INT(v448 + v423) + (HIWORD(COERCE_UNSIGNED_INT(v448 + v423)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v450) = v420[v421 + 5] << 16;
+                          LODWORD(v451) = (COERCE_INT(v449 * v450) + (HIWORD(COERCE_UNSIGNED_INT(v449 * v450)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v452) = (COERCE_INT(v447 + v451) + (HIWORD(COERCE_UNSIGNED_INT(v447 + v451)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v453) = (COERCE_INT(v422 * COERCE_FLOAT(v907 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v422 * COERCE_FLOAT(v907 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v454) = (COERCE_INT(v453 + v423) + (HIWORD(COERCE_UNSIGNED_INT(v453 + v423)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v455) = v420[v421 + 6] << 16;
+                          LODWORD(v456) = (COERCE_INT(v454 * v455) + (HIWORD(COERCE_UNSIGNED_INT(v454 * v455)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v457) = (COERCE_INT(v452 + v456) + (HIWORD(COERCE_UNSIGNED_INT(v452 + v456)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v458) = (COERCE_INT(v422 * COERCE_FLOAT(v908 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v422 * COERCE_FLOAT(v908 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v459) = (COERCE_INT(v458 + v423) + (HIWORD(COERCE_UNSIGNED_INT(v458 + v423)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v460) = v420[v421 + 7] << 16;
+                          v461 = v457 + COERCE_FLOAT((COERCE_INT(v459 * v460) + (HIWORD(COERCE_UNSIGNED_INT(v459 * v460)) & 1) + 0x7FFF) & 0xFFFF0000);
+                          v419 = (LODWORD(v461) + (HIWORD(LODWORD(v461)) & 1u) + 0x7FFF) >> 16;
+                          v416 += 3;
+                          v421 += 8;
                         }
 
-                        while (v424 != 256);
-                        ++v418;
-                        ++v420;
-                        v423 += 256;
-                        v421 += 128;
+                        while ((v421 * 2) != 256);
+                        ++v415;
+                        ++v417;
+                        v420 += 128;
+                        v418 += 128;
                       }
 
-                      while (v421 < a8);
+                      while (v418 < a8);
                     }
 
-                    *v888++ = v422;
-                    v417 = v881 + 1;
+                    *v884++ = v419;
+                    v414 = v877 + 1;
                   }
 
-                  while (v881 + 1 != a7);
+                  while (v877 + 1 != a7);
                 }
 
-                a2 = (v895 + 2 * v853);
-                v416 = v865 + 1;
+                a2 = &v891[v849];
+                v413 = v861 + 1;
               }
 
-              while (v865 + 1 != a6);
+              while (v861 + 1 != a6);
             }
           }
 
           else if (a6 >= 1)
           {
-            v771 = 0;
-            v858 = 2 * a7;
-            v870 = a7;
+            v768 = 0;
+            v854 = 2 * a7;
+            v866 = a7;
             do
             {
               if (a7 >= 1)
               {
-                bzero(v888, v858);
+                bzero(v884, v854);
               }
 
-              v886 = v771;
-              v903 = a2;
+              v882 = v768;
+              v899 = a2;
               if (a8 >= 1)
               {
-                v772 = 0;
-                v774 = a3;
-                v773 = a4;
-                v775 = a5;
+                v769 = 0;
+                v771 = a3;
+                v770 = a4;
+                v772 = a5;
                 do
                 {
                   if (a7 >= 1)
                   {
-                    v776 = 0;
-                    v777 = v888;
-                    LODWORD(v778) = *v903 << 16;
+                    v773 = 0;
+                    v774 = v884;
+                    LODWORD(v775) = *v899 << 16;
                     do
                     {
-                      LODWORD(v779) = *v773 << 16;
-                      LODWORD(v780) = *v775 << 16;
-                      v781 = 16;
+                      LODWORD(v776) = *v770 << 16;
+                      LODWORD(v777) = *v772 << 16;
+                      v778 = 16;
                       do
                       {
-                        LODWORD(v782) = (COERCE_INT(v779 * COERCE_FLOAT(v905 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v779 * COERCE_FLOAT(v905 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v783) = (COERCE_INT(v782 + v780) + (HIWORD(COERCE_UNSIGNED_INT(v782 + v780)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v784) = (COERCE_INT(v783 * v778) + (HIWORD(COERCE_UNSIGNED_INT(v783 * v778)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        *v777 = (COERCE_INT(v784 + COERCE_FLOAT(*v777 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v784 + COERCE_FLOAT(*v777 << 16))) & 1) + 0x7FFF) >> 16;
-                        LODWORD(v785) = (COERCE_INT(v779 * COERCE_FLOAT(v906 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v779 * COERCE_FLOAT(v906 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v786) = (COERCE_INT(v785 + v780) + (HIWORD(COERCE_UNSIGNED_INT(v785 + v780)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v787) = (COERCE_INT(v786 * v778) + (HIWORD(COERCE_UNSIGNED_INT(v786 * v778)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        v777[1] = (COERCE_INT(v787 + COERCE_FLOAT(v777[1] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v787 + COERCE_FLOAT(v777[1] << 16))) & 1) + 0x7FFF) >> 16;
-                        LODWORD(v788) = (COERCE_INT(v779 * COERCE_FLOAT(v907 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v779 * COERCE_FLOAT(v907 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v789) = (COERCE_INT(v788 + v780) + (HIWORD(COERCE_UNSIGNED_INT(v788 + v780)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v790) = (COERCE_INT(v789 * v778) + (HIWORD(COERCE_UNSIGNED_INT(v789 * v778)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        v777[2] = (COERCE_INT(v790 + COERCE_FLOAT(v777[2] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v790 + COERCE_FLOAT(v777[2] << 16))) & 1) + 0x7FFF) >> 16;
-                        LODWORD(v791) = (COERCE_INT(v779 * COERCE_FLOAT(v908 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v779 * COERCE_FLOAT(v908 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v792) = (COERCE_INT(v791 + v780) + (HIWORD(COERCE_UNSIGNED_INT(v791 + v780)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v793) = (COERCE_INT(v792 * v778) + (HIWORD(COERCE_UNSIGNED_INT(v792 * v778)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        v777[3] = (COERCE_INT(v793 + COERCE_FLOAT(v777[3] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v793 + COERCE_FLOAT(v777[3] << 16))) & 1) + 0x7FFF) >> 16;
-                        LODWORD(v794) = (COERCE_INT(v779 * COERCE_FLOAT(v909 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v779 * COERCE_FLOAT(v909 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v795) = (COERCE_INT(v794 + v780) + (HIWORD(COERCE_UNSIGNED_INT(v794 + v780)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v796) = (COERCE_INT(v795 * v778) + (HIWORD(COERCE_UNSIGNED_INT(v795 * v778)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        v777[4] = (COERCE_INT(v796 + COERCE_FLOAT(v777[4] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v796 + COERCE_FLOAT(v777[4] << 16))) & 1) + 0x7FFF) >> 16;
-                        LODWORD(v797) = (COERCE_INT(v779 * COERCE_FLOAT(v910 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v779 * COERCE_FLOAT(v910 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v798) = (COERCE_INT(v797 + v780) + (HIWORD(COERCE_UNSIGNED_INT(v797 + v780)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v799) = (COERCE_INT(v798 * v778) + (HIWORD(COERCE_UNSIGNED_INT(v798 * v778)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        v777[5] = (COERCE_INT(v799 + COERCE_FLOAT(v777[5] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v799 + COERCE_FLOAT(v777[5] << 16))) & 1) + 0x7FFF) >> 16;
-                        LODWORD(v800) = (COERCE_INT(v779 * COERCE_FLOAT(v911 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v779 * COERCE_FLOAT(v911 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v801) = (COERCE_INT(v800 + v780) + (HIWORD(COERCE_UNSIGNED_INT(v800 + v780)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v802) = (COERCE_INT(v801 * v778) + (HIWORD(COERCE_UNSIGNED_INT(v801 * v778)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        v777[6] = (COERCE_INT(v802 + COERCE_FLOAT(v777[6] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v802 + COERCE_FLOAT(v777[6] << 16))) & 1) + 0x7FFF) >> 16;
-                        LODWORD(v803) = (COERCE_INT(v779 * COERCE_FLOAT(v912 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v779 * COERCE_FLOAT(v912 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v804) = (COERCE_INT(v803 + v780) + (HIWORD(COERCE_UNSIGNED_INT(v803 + v780)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        v805 = COERCE_FLOAT((COERCE_INT(v804 * v778) + (HIWORD(COERCE_UNSIGNED_INT(v804 * v778)) & 1) + 0x7FFF) & 0xFFFF0000) + COERCE_FLOAT(v777[7] << 16);
-                        v806 = v777 + 8;
-                        v777[7] = (LODWORD(v805) + (HIWORD(LODWORD(v805)) & 1u) + 0x7FFF) >> 16;
-                        v774 += 3;
-                        v777 += 8;
-                        --v781;
+                        LODWORD(v779) = (COERCE_INT(v776 * COERCE_FLOAT(v901 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v776 * COERCE_FLOAT(v901 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v780) = (COERCE_INT(v779 + v777) + (HIWORD(COERCE_UNSIGNED_INT(v779 + v777)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v781) = (COERCE_INT(v780 * v775) + (HIWORD(COERCE_UNSIGNED_INT(v780 * v775)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        *v774 = (COERCE_INT(v781 + COERCE_FLOAT(*v774 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v781 + COERCE_FLOAT(*v774 << 16))) & 1) + 0x7FFF) >> 16;
+                        LODWORD(v782) = (COERCE_INT(v776 * COERCE_FLOAT(v902 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v776 * COERCE_FLOAT(v902 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v783) = (COERCE_INT(v782 + v777) + (HIWORD(COERCE_UNSIGNED_INT(v782 + v777)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v784) = (COERCE_INT(v783 * v775) + (HIWORD(COERCE_UNSIGNED_INT(v783 * v775)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        v774[1] = (COERCE_INT(v784 + COERCE_FLOAT(v774[1] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v784 + COERCE_FLOAT(v774[1] << 16))) & 1) + 0x7FFF) >> 16;
+                        LODWORD(v785) = (COERCE_INT(v776 * COERCE_FLOAT(v903 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v776 * COERCE_FLOAT(v903 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v786) = (COERCE_INT(v785 + v777) + (HIWORD(COERCE_UNSIGNED_INT(v785 + v777)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v787) = (COERCE_INT(v786 * v775) + (HIWORD(COERCE_UNSIGNED_INT(v786 * v775)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        v774[2] = (COERCE_INT(v787 + COERCE_FLOAT(v774[2] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v787 + COERCE_FLOAT(v774[2] << 16))) & 1) + 0x7FFF) >> 16;
+                        LODWORD(v788) = (COERCE_INT(v776 * COERCE_FLOAT(v904 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v776 * COERCE_FLOAT(v904 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v789) = (COERCE_INT(v788 + v777) + (HIWORD(COERCE_UNSIGNED_INT(v788 + v777)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v790) = (COERCE_INT(v789 * v775) + (HIWORD(COERCE_UNSIGNED_INT(v789 * v775)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        v774[3] = (COERCE_INT(v790 + COERCE_FLOAT(v774[3] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v790 + COERCE_FLOAT(v774[3] << 16))) & 1) + 0x7FFF) >> 16;
+                        LODWORD(v791) = (COERCE_INT(v776 * COERCE_FLOAT(v905 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v776 * COERCE_FLOAT(v905 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v792) = (COERCE_INT(v791 + v777) + (HIWORD(COERCE_UNSIGNED_INT(v791 + v777)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v793) = (COERCE_INT(v792 * v775) + (HIWORD(COERCE_UNSIGNED_INT(v792 * v775)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        v774[4] = (COERCE_INT(v793 + COERCE_FLOAT(v774[4] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v793 + COERCE_FLOAT(v774[4] << 16))) & 1) + 0x7FFF) >> 16;
+                        LODWORD(v794) = (COERCE_INT(v776 * COERCE_FLOAT(v906 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v776 * COERCE_FLOAT(v906 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v795) = (COERCE_INT(v794 + v777) + (HIWORD(COERCE_UNSIGNED_INT(v794 + v777)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v796) = (COERCE_INT(v795 * v775) + (HIWORD(COERCE_UNSIGNED_INT(v795 * v775)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        v774[5] = (COERCE_INT(v796 + COERCE_FLOAT(v774[5] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v796 + COERCE_FLOAT(v774[5] << 16))) & 1) + 0x7FFF) >> 16;
+                        LODWORD(v797) = (COERCE_INT(v776 * COERCE_FLOAT(v907 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v776 * COERCE_FLOAT(v907 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v798) = (COERCE_INT(v797 + v777) + (HIWORD(COERCE_UNSIGNED_INT(v797 + v777)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v799) = (COERCE_INT(v798 * v775) + (HIWORD(COERCE_UNSIGNED_INT(v798 * v775)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        v774[6] = (COERCE_INT(v799 + COERCE_FLOAT(v774[6] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v799 + COERCE_FLOAT(v774[6] << 16))) & 1) + 0x7FFF) >> 16;
+                        LODWORD(v800) = (COERCE_INT(v776 * COERCE_FLOAT(v908 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v776 * COERCE_FLOAT(v908 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v801) = (COERCE_INT(v800 + v777) + (HIWORD(COERCE_UNSIGNED_INT(v800 + v777)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        v802 = COERCE_FLOAT((COERCE_INT(v801 * v775) + (HIWORD(COERCE_UNSIGNED_INT(v801 * v775)) & 1) + 0x7FFF) & 0xFFFF0000) + COERCE_FLOAT(v774[7] << 16);
+                        v803 = v774 + 8;
+                        v774[7] = (LODWORD(v802) + (HIWORD(LODWORD(v802)) & 1u) + 0x7FFF) >> 16;
+                        v771 += 3;
+                        v774 += 8;
+                        --v778;
                       }
 
-                      while (v781);
-                      ++v773;
-                      ++v775;
-                      v776 += 128;
-                      v777 = v806;
+                      while (v778);
+                      ++v770;
+                      ++v772;
+                      v773 += 128;
+                      v774 = v803;
                     }
 
-                    while (v776 < a7);
+                    while (v773 < a7);
                   }
 
-                  ++v903;
-                  ++v772;
+                  ++v899;
+                  ++v769;
                 }
 
-                while (v772 != a8);
+                while (v769 != a8);
               }
 
-              a2 = v903;
-              v888 += v870;
-              v771 = v886 + 1;
+              a2 = v899;
+              v884 += v866;
+              v768 = v882 + 1;
             }
 
-            while (v886 + 1 != a6);
+            while (v882 + 1 != a6);
           }
 
-          goto LABEL_456;
+          return;
         case 64:
           if (a14)
           {
             if (a6 >= 1)
             {
-              v367 = 0;
-              v852 = a8;
-              do
-              {
-                v864 = v367;
-                v894 = a2;
-                if (a7 >= 1)
-                {
-                  v368 = 0;
-                  v370 = a3;
-                  v369 = a4;
-                  v371 = a5;
-                  do
-                  {
-                    v880 = v368;
-                    if (a8 < 1)
-                    {
-                      LOWORD(v373) = 0;
-                    }
-
-                    else
-                    {
-                      v372 = 0;
-                      v373 = 0;
-                      v374 = v894;
-                      do
-                      {
-                        v375 = 0;
-                        LODWORD(v376) = *v369 << 16;
-                        LODWORD(v377) = *v371 << 16;
-                        do
-                        {
-                          LODWORD(v378) = (COERCE_INT(v376 * COERCE_FLOAT(v905 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v376 * COERCE_FLOAT(v905 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v379) = (COERCE_INT(v378 + v377) + (HIWORD(COERCE_UNSIGNED_INT(v378 + v377)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v380) = (COERCE_INT(v379 * COERCE_FLOAT(*(v374 + v375) << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v379 * COERCE_FLOAT(*(v374 + v375) << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v381) = (COERCE_INT(v380 + COERCE_FLOAT(v373 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v380 + COERCE_FLOAT(v373 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v382) = (COERCE_INT(v376 * COERCE_FLOAT(v906 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v376 * COERCE_FLOAT(v906 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v383) = (COERCE_INT(v382 + v377) + (HIWORD(COERCE_UNSIGNED_INT(v382 + v377)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v384) = *(v374 + v375 + 2) << 16;
-                          LODWORD(v385) = (COERCE_INT(v383 * v384) + (HIWORD(COERCE_UNSIGNED_INT(v383 * v384)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v386) = (COERCE_INT(v381 + v385) + (HIWORD(COERCE_UNSIGNED_INT(v381 + v385)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v387) = (COERCE_INT(v376 * COERCE_FLOAT(v907 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v376 * COERCE_FLOAT(v907 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v388) = (COERCE_INT(v387 + v377) + (HIWORD(COERCE_UNSIGNED_INT(v387 + v377)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v389) = *(v374 + v375 + 4) << 16;
-                          LODWORD(v390) = (COERCE_INT(v388 * v389) + (HIWORD(COERCE_UNSIGNED_INT(v388 * v389)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v391) = (COERCE_INT(v386 + v390) + (HIWORD(COERCE_UNSIGNED_INT(v386 + v390)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v392) = (COERCE_INT(v376 * COERCE_FLOAT(v908 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v376 * COERCE_FLOAT(v908 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v393) = (COERCE_INT(v392 + v377) + (HIWORD(COERCE_UNSIGNED_INT(v392 + v377)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v394) = *(v374 + v375 + 6) << 16;
-                          LODWORD(v395) = (COERCE_INT(v393 * v394) + (HIWORD(COERCE_UNSIGNED_INT(v393 * v394)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v396) = (COERCE_INT(v391 + v395) + (HIWORD(COERCE_UNSIGNED_INT(v391 + v395)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v397) = (COERCE_INT(v376 * COERCE_FLOAT(v909 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v376 * COERCE_FLOAT(v909 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v398) = (COERCE_INT(v397 + v377) + (HIWORD(COERCE_UNSIGNED_INT(v397 + v377)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v399) = *(v374 + v375 + 8) << 16;
-                          LODWORD(v400) = (COERCE_INT(v398 * v399) + (HIWORD(COERCE_UNSIGNED_INT(v398 * v399)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v401) = (COERCE_INT(v396 + v400) + (HIWORD(COERCE_UNSIGNED_INT(v396 + v400)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v402) = (COERCE_INT(v376 * COERCE_FLOAT(v910 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v376 * COERCE_FLOAT(v910 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v403) = (COERCE_INT(v402 + v377) + (HIWORD(COERCE_UNSIGNED_INT(v402 + v377)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v404) = *(v374 + v375 + 10) << 16;
-                          LODWORD(v405) = (COERCE_INT(v403 * v404) + (HIWORD(COERCE_UNSIGNED_INT(v403 * v404)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v406) = (COERCE_INT(v401 + v405) + (HIWORD(COERCE_UNSIGNED_INT(v401 + v405)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v407) = (COERCE_INT(v376 * COERCE_FLOAT(v911 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v376 * COERCE_FLOAT(v911 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v408) = (COERCE_INT(v407 + v377) + (HIWORD(COERCE_UNSIGNED_INT(v407 + v377)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v409) = *(v374 + v375 + 12) << 16;
-                          LODWORD(v410) = (COERCE_INT(v408 * v409) + (HIWORD(COERCE_UNSIGNED_INT(v408 * v409)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v411) = (COERCE_INT(v406 + v410) + (HIWORD(COERCE_UNSIGNED_INT(v406 + v410)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v412) = (COERCE_INT(v376 * COERCE_FLOAT(v912 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v376 * COERCE_FLOAT(v912 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v413) = (COERCE_INT(v412 + v377) + (HIWORD(COERCE_UNSIGNED_INT(v412 + v377)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v414) = *(v374 + v375 + 14) << 16;
-                          v415 = v411 + COERCE_FLOAT((COERCE_INT(v413 * v414) + (HIWORD(COERCE_UNSIGNED_INT(v413 * v414)) & 1) + 0x7FFF) & 0xFFFF0000);
-                          v373 = (LODWORD(v415) + (HIWORD(LODWORD(v415)) & 1u) + 0x7FFF) >> 16;
-                          v370 += 3;
-                          v375 += 16;
-                        }
-
-                        while (v375 != 128);
-                        ++v369;
-                        ++v371;
-                        v374 += 128;
-                        v372 += 64;
-                      }
-
-                      while (v372 < a8);
-                    }
-
-                    *v888++ = v373;
-                    v368 = v880 + 1;
-                  }
-
-                  while (v880 + 1 != a7);
-                }
-
-                a2 = (v894 + 2 * v852);
-                v367 = v864 + 1;
-              }
-
-              while (v864 + 1 != a6);
-            }
-          }
-
-          else if (a6 >= 1)
-          {
-            v719 = 0;
-            v857 = 2 * a7;
-            v869 = a7;
-            do
-            {
-              if (a7 >= 1)
-              {
-                bzero(v888, v857);
-              }
-
-              v885 = v719;
-              v902 = a2;
-              if (a8 >= 1)
-              {
-                v720 = 0;
-                v722 = a3;
-                v721 = a4;
-                v723 = a5;
-                do
-                {
-                  if (a7 >= 1)
-                  {
-                    v724 = 0;
-                    v725 = v888;
-                    LODWORD(v726) = *v902 << 16;
-                    do
-                    {
-                      LODWORD(v727) = *v721 << 16;
-                      LODWORD(v728) = *v723 << 16;
-                      v729 = 8;
-                      do
-                      {
-                        LODWORD(v730) = (COERCE_INT(v727 * COERCE_FLOAT(v905 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v727 * COERCE_FLOAT(v905 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v731) = (COERCE_INT(v730 + v728) + (HIWORD(COERCE_UNSIGNED_INT(v730 + v728)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v732) = (COERCE_INT(v731 * v726) + (HIWORD(COERCE_UNSIGNED_INT(v731 * v726)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        *v725 = (COERCE_INT(v732 + COERCE_FLOAT(*v725 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v732 + COERCE_FLOAT(*v725 << 16))) & 1) + 0x7FFF) >> 16;
-                        LODWORD(v733) = (COERCE_INT(v727 * COERCE_FLOAT(v906 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v727 * COERCE_FLOAT(v906 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v734) = (COERCE_INT(v733 + v728) + (HIWORD(COERCE_UNSIGNED_INT(v733 + v728)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v735) = (COERCE_INT(v734 * v726) + (HIWORD(COERCE_UNSIGNED_INT(v734 * v726)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        v725[1] = (COERCE_INT(v735 + COERCE_FLOAT(v725[1] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v735 + COERCE_FLOAT(v725[1] << 16))) & 1) + 0x7FFF) >> 16;
-                        LODWORD(v736) = (COERCE_INT(v727 * COERCE_FLOAT(v907 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v727 * COERCE_FLOAT(v907 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v737) = (COERCE_INT(v736 + v728) + (HIWORD(COERCE_UNSIGNED_INT(v736 + v728)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v738) = (COERCE_INT(v737 * v726) + (HIWORD(COERCE_UNSIGNED_INT(v737 * v726)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        v725[2] = (COERCE_INT(v738 + COERCE_FLOAT(v725[2] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v738 + COERCE_FLOAT(v725[2] << 16))) & 1) + 0x7FFF) >> 16;
-                        LODWORD(v739) = (COERCE_INT(v727 * COERCE_FLOAT(v908 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v727 * COERCE_FLOAT(v908 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v740) = (COERCE_INT(v739 + v728) + (HIWORD(COERCE_UNSIGNED_INT(v739 + v728)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v741) = (COERCE_INT(v740 * v726) + (HIWORD(COERCE_UNSIGNED_INT(v740 * v726)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        v725[3] = (COERCE_INT(v741 + COERCE_FLOAT(v725[3] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v741 + COERCE_FLOAT(v725[3] << 16))) & 1) + 0x7FFF) >> 16;
-                        LODWORD(v742) = (COERCE_INT(v727 * COERCE_FLOAT(v909 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v727 * COERCE_FLOAT(v909 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v743) = (COERCE_INT(v742 + v728) + (HIWORD(COERCE_UNSIGNED_INT(v742 + v728)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v744) = (COERCE_INT(v743 * v726) + (HIWORD(COERCE_UNSIGNED_INT(v743 * v726)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        v725[4] = (COERCE_INT(v744 + COERCE_FLOAT(v725[4] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v744 + COERCE_FLOAT(v725[4] << 16))) & 1) + 0x7FFF) >> 16;
-                        LODWORD(v745) = (COERCE_INT(v727 * COERCE_FLOAT(v910 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v727 * COERCE_FLOAT(v910 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v746) = (COERCE_INT(v745 + v728) + (HIWORD(COERCE_UNSIGNED_INT(v745 + v728)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v747) = (COERCE_INT(v746 * v726) + (HIWORD(COERCE_UNSIGNED_INT(v746 * v726)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        v725[5] = (COERCE_INT(v747 + COERCE_FLOAT(v725[5] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v747 + COERCE_FLOAT(v725[5] << 16))) & 1) + 0x7FFF) >> 16;
-                        LODWORD(v748) = (COERCE_INT(v727 * COERCE_FLOAT(v911 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v727 * COERCE_FLOAT(v911 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v749) = (COERCE_INT(v748 + v728) + (HIWORD(COERCE_UNSIGNED_INT(v748 + v728)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v750) = (COERCE_INT(v749 * v726) + (HIWORD(COERCE_UNSIGNED_INT(v749 * v726)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        v725[6] = (COERCE_INT(v750 + COERCE_FLOAT(v725[6] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v750 + COERCE_FLOAT(v725[6] << 16))) & 1) + 0x7FFF) >> 16;
-                        LODWORD(v751) = (COERCE_INT(v727 * COERCE_FLOAT(v912 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v727 * COERCE_FLOAT(v912 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v752) = (COERCE_INT(v751 + v728) + (HIWORD(COERCE_UNSIGNED_INT(v751 + v728)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        v753 = COERCE_FLOAT((COERCE_INT(v752 * v726) + (HIWORD(COERCE_UNSIGNED_INT(v752 * v726)) & 1) + 0x7FFF) & 0xFFFF0000) + COERCE_FLOAT(v725[7] << 16);
-                        v754 = v725 + 8;
-                        v725[7] = (LODWORD(v753) + (HIWORD(LODWORD(v753)) & 1u) + 0x7FFF) >> 16;
-                        v722 += 3;
-                        v725 += 8;
-                        --v729;
-                      }
-
-                      while (v729);
-                      ++v721;
-                      ++v723;
-                      v724 += 64;
-                      v725 = v754;
-                    }
-
-                    while (v724 < a7);
-                  }
-
-                  ++v902;
-                  ++v720;
-                }
-
-                while (v720 != a8);
-              }
-
-              a2 = v902;
-              v888 += v869;
-              v719 = v885 + 1;
-            }
-
-            while (v885 + 1 != a6);
-          }
-
-          goto LABEL_456;
-        case 32:
-          if (a14)
-          {
-            if (a6 >= 1)
-            {
-              v33 = 0;
+              v364 = 0;
               v848 = a8;
               do
               {
-                v860 = v33;
+                v860 = v364;
                 v890 = a2;
                 if (a7 >= 1)
                 {
-                  v34 = 0;
-                  v36 = a3;
-                  v35 = a4;
-                  v37 = a5;
+                  v365 = 0;
+                  v367 = a3;
+                  v366 = a4;
+                  v368 = a5;
                   do
                   {
-                    v876 = v34;
+                    v876 = v365;
                     if (a8 < 1)
                     {
-                      LOWORD(v39) = 0;
+                      LOWORD(v370) = 0;
                     }
 
                     else
                     {
-                      v38 = 0;
-                      v39 = 0;
-                      v40 = v890;
+                      v369 = 0;
+                      v370 = 0;
+                      v371 = v890;
                       do
                       {
-                        v41 = 0;
-                        LODWORD(v42) = *v35 << 16;
-                        LODWORD(v43) = *v37 << 16;
+                        v372 = 0;
+                        LODWORD(v373) = *v366 << 16;
+                        LODWORD(v374) = *v368 << 16;
                         do
                         {
-                          LODWORD(v44) = (COERCE_INT(v42 * COERCE_FLOAT(v905 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v42 * COERCE_FLOAT(v905 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v45) = (COERCE_INT(v44 + v43) + (HIWORD(COERCE_UNSIGNED_INT(v44 + v43)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v46) = (COERCE_INT(v45 * COERCE_FLOAT(*(v40 + v41) << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v45 * COERCE_FLOAT(*(v40 + v41) << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v47) = (COERCE_INT(v46 + COERCE_FLOAT(v39 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v46 + COERCE_FLOAT(v39 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v48) = (COERCE_INT(v42 * COERCE_FLOAT(v906 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v42 * COERCE_FLOAT(v906 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v49) = (COERCE_INT(v48 + v43) + (HIWORD(COERCE_UNSIGNED_INT(v48 + v43)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v50) = *(v40 + v41 + 2) << 16;
-                          LODWORD(v51) = (COERCE_INT(v49 * v50) + (HIWORD(COERCE_UNSIGNED_INT(v49 * v50)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v52) = (COERCE_INT(v47 + v51) + (HIWORD(COERCE_UNSIGNED_INT(v47 + v51)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v53) = (COERCE_INT(v42 * COERCE_FLOAT(v907 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v42 * COERCE_FLOAT(v907 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v54) = (COERCE_INT(v53 + v43) + (HIWORD(COERCE_UNSIGNED_INT(v53 + v43)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v55) = *(v40 + v41 + 4) << 16;
-                          LODWORD(v56) = (COERCE_INT(v54 * v55) + (HIWORD(COERCE_UNSIGNED_INT(v54 * v55)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v57) = (COERCE_INT(v52 + v56) + (HIWORD(COERCE_UNSIGNED_INT(v52 + v56)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v58) = (COERCE_INT(v42 * COERCE_FLOAT(v908 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v42 * COERCE_FLOAT(v908 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v59) = (COERCE_INT(v58 + v43) + (HIWORD(COERCE_UNSIGNED_INT(v58 + v43)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v60) = *(v40 + v41 + 6) << 16;
-                          LODWORD(v61) = (COERCE_INT(v59 * v60) + (HIWORD(COERCE_UNSIGNED_INT(v59 * v60)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v62) = (COERCE_INT(v57 + v61) + (HIWORD(COERCE_UNSIGNED_INT(v57 + v61)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v63) = (COERCE_INT(v42 * COERCE_FLOAT(v909 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v42 * COERCE_FLOAT(v909 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v64) = (COERCE_INT(v63 + v43) + (HIWORD(COERCE_UNSIGNED_INT(v63 + v43)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v65) = *(v40 + v41 + 8) << 16;
-                          LODWORD(v66) = (COERCE_INT(v64 * v65) + (HIWORD(COERCE_UNSIGNED_INT(v64 * v65)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v67) = (COERCE_INT(v62 + v66) + (HIWORD(COERCE_UNSIGNED_INT(v62 + v66)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v68) = (COERCE_INT(v42 * COERCE_FLOAT(v910 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v42 * COERCE_FLOAT(v910 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v69) = (COERCE_INT(v68 + v43) + (HIWORD(COERCE_UNSIGNED_INT(v68 + v43)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v70) = *(v40 + v41 + 10) << 16;
-                          LODWORD(v71) = (COERCE_INT(v69 * v70) + (HIWORD(COERCE_UNSIGNED_INT(v69 * v70)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v72) = (COERCE_INT(v67 + v71) + (HIWORD(COERCE_UNSIGNED_INT(v67 + v71)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v73) = (COERCE_INT(v42 * COERCE_FLOAT(v911 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v42 * COERCE_FLOAT(v911 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v74) = (COERCE_INT(v73 + v43) + (HIWORD(COERCE_UNSIGNED_INT(v73 + v43)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v75) = *(v40 + v41 + 12) << 16;
-                          LODWORD(v76) = (COERCE_INT(v74 * v75) + (HIWORD(COERCE_UNSIGNED_INT(v74 * v75)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v77) = (COERCE_INT(v72 + v76) + (HIWORD(COERCE_UNSIGNED_INT(v72 + v76)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v78) = (COERCE_INT(v42 * COERCE_FLOAT(v912 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v42 * COERCE_FLOAT(v912 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v79) = (COERCE_INT(v78 + v43) + (HIWORD(COERCE_UNSIGNED_INT(v78 + v43)) & 1) + 0x7FFF) & 0xFFFF0000;
-                          LODWORD(v80) = *(v40 + v41 + 14) << 16;
-                          v81 = v77 + COERCE_FLOAT((COERCE_INT(v79 * v80) + (HIWORD(COERCE_UNSIGNED_INT(v79 * v80)) & 1) + 0x7FFF) & 0xFFFF0000);
-                          v39 = (LODWORD(v81) + (HIWORD(LODWORD(v81)) & 1u) + 0x7FFF) >> 16;
-                          v36 += 3;
-                          v41 += 16;
+                          LODWORD(v375) = (COERCE_INT(v373 * COERCE_FLOAT(v901 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v373 * COERCE_FLOAT(v901 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v376) = (COERCE_INT(v375 + v374) + (HIWORD(COERCE_UNSIGNED_INT(v375 + v374)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v377) = (COERCE_INT(v376 * COERCE_FLOAT(v371[v372] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v376 * COERCE_FLOAT(v371[v372] << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v378) = (COERCE_INT(v377 + COERCE_FLOAT(v370 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v377 + COERCE_FLOAT(v370 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v379) = (COERCE_INT(v373 * COERCE_FLOAT(v902 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v373 * COERCE_FLOAT(v902 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v380) = (COERCE_INT(v379 + v374) + (HIWORD(COERCE_UNSIGNED_INT(v379 + v374)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v381) = v371[v372 + 1] << 16;
+                          LODWORD(v382) = (COERCE_INT(v380 * v381) + (HIWORD(COERCE_UNSIGNED_INT(v380 * v381)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v383) = (COERCE_INT(v378 + v382) + (HIWORD(COERCE_UNSIGNED_INT(v378 + v382)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v384) = (COERCE_INT(v373 * COERCE_FLOAT(v903 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v373 * COERCE_FLOAT(v903 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v385) = (COERCE_INT(v384 + v374) + (HIWORD(COERCE_UNSIGNED_INT(v384 + v374)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v386) = v371[v372 + 2] << 16;
+                          LODWORD(v387) = (COERCE_INT(v385 * v386) + (HIWORD(COERCE_UNSIGNED_INT(v385 * v386)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v388) = (COERCE_INT(v383 + v387) + (HIWORD(COERCE_UNSIGNED_INT(v383 + v387)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v389) = (COERCE_INT(v373 * COERCE_FLOAT(v904 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v373 * COERCE_FLOAT(v904 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v390) = (COERCE_INT(v389 + v374) + (HIWORD(COERCE_UNSIGNED_INT(v389 + v374)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v391) = v371[v372 + 3] << 16;
+                          LODWORD(v392) = (COERCE_INT(v390 * v391) + (HIWORD(COERCE_UNSIGNED_INT(v390 * v391)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v393) = (COERCE_INT(v388 + v392) + (HIWORD(COERCE_UNSIGNED_INT(v388 + v392)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v394) = (COERCE_INT(v373 * COERCE_FLOAT(v905 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v373 * COERCE_FLOAT(v905 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v395) = (COERCE_INT(v394 + v374) + (HIWORD(COERCE_UNSIGNED_INT(v394 + v374)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v396) = v371[v372 + 4] << 16;
+                          LODWORD(v397) = (COERCE_INT(v395 * v396) + (HIWORD(COERCE_UNSIGNED_INT(v395 * v396)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v398) = (COERCE_INT(v393 + v397) + (HIWORD(COERCE_UNSIGNED_INT(v393 + v397)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v399) = (COERCE_INT(v373 * COERCE_FLOAT(v906 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v373 * COERCE_FLOAT(v906 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v400) = (COERCE_INT(v399 + v374) + (HIWORD(COERCE_UNSIGNED_INT(v399 + v374)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v401) = v371[v372 + 5] << 16;
+                          LODWORD(v402) = (COERCE_INT(v400 * v401) + (HIWORD(COERCE_UNSIGNED_INT(v400 * v401)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v403) = (COERCE_INT(v398 + v402) + (HIWORD(COERCE_UNSIGNED_INT(v398 + v402)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v404) = (COERCE_INT(v373 * COERCE_FLOAT(v907 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v373 * COERCE_FLOAT(v907 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v405) = (COERCE_INT(v404 + v374) + (HIWORD(COERCE_UNSIGNED_INT(v404 + v374)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v406) = v371[v372 + 6] << 16;
+                          LODWORD(v407) = (COERCE_INT(v405 * v406) + (HIWORD(COERCE_UNSIGNED_INT(v405 * v406)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v408) = (COERCE_INT(v403 + v407) + (HIWORD(COERCE_UNSIGNED_INT(v403 + v407)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v409) = (COERCE_INT(v373 * COERCE_FLOAT(v908 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v373 * COERCE_FLOAT(v908 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v410) = (COERCE_INT(v409 + v374) + (HIWORD(COERCE_UNSIGNED_INT(v409 + v374)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v411) = v371[v372 + 7] << 16;
+                          v412 = v408 + COERCE_FLOAT((COERCE_INT(v410 * v411) + (HIWORD(COERCE_UNSIGNED_INT(v410 * v411)) & 1) + 0x7FFF) & 0xFFFF0000);
+                          v370 = (LODWORD(v412) + (HIWORD(LODWORD(v412)) & 1u) + 0x7FFF) >> 16;
+                          v367 += 3;
+                          v372 += 8;
                         }
 
-                        while (v41 != 64);
-                        ++v35;
-                        ++v37;
-                        v40 += 64;
-                        v38 += 32;
+                        while ((v372 * 2) != 128);
+                        ++v366;
+                        ++v368;
+                        v371 += 64;
+                        v369 += 64;
                       }
 
-                      while (v38 < a8);
+                      while (v369 < a8);
                     }
 
-                    *v888++ = v39;
-                    v34 = v876 + 1;
+                    *v884++ = v370;
+                    v365 = v876 + 1;
                   }
 
                   while (v876 + 1 != a7);
                 }
 
-                a2 = (v890 + 2 * v848);
-                v33 = v860 + 1;
+                a2 = &v890[v848];
+                v364 = v860 + 1;
               }
 
               while (v860 + 1 != a6);
@@ -7884,102 +6581,305 @@ void mlx::core::anonymous namespace::_qmm_dispatch_typed<mlx::core::_MLX_BFloat1
 
           else if (a6 >= 1)
           {
-            v807 = 0;
-            v859 = 2 * a7;
-            v871 = a7;
+            v716 = 0;
+            v853 = 2 * a7;
+            v865 = a7;
             do
             {
               if (a7 >= 1)
               {
-                bzero(v888, v859);
+                bzero(v884, v853);
               }
 
-              v887 = v807;
-              v904 = a2;
+              v881 = v716;
+              v898 = a2;
               if (a8 >= 1)
               {
-                v808 = 0;
-                v810 = a3;
-                v809 = a4;
-                v811 = a5;
+                v717 = 0;
+                v719 = a3;
+                v718 = a4;
+                v720 = a5;
                 do
                 {
                   if (a7 >= 1)
                   {
-                    v812 = 0;
-                    v813 = v888;
-                    LODWORD(v814) = *v904 << 16;
+                    v721 = 0;
+                    v722 = v884;
+                    LODWORD(v723) = *v898 << 16;
                     do
                     {
-                      LODWORD(v815) = *v809 << 16;
-                      LODWORD(v816) = *v811 << 16;
-                      v817 = 4;
+                      LODWORD(v724) = *v718 << 16;
+                      LODWORD(v725) = *v720 << 16;
+                      v726 = 8;
                       do
                       {
-                        LODWORD(v818) = (COERCE_INT(v815 * COERCE_FLOAT(v905 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v815 * COERCE_FLOAT(v905 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v819) = (COERCE_INT(v818 + v816) + (HIWORD(COERCE_UNSIGNED_INT(v818 + v816)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v820) = (COERCE_INT(v819 * v814) + (HIWORD(COERCE_UNSIGNED_INT(v819 * v814)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        *v813 = (COERCE_INT(v820 + COERCE_FLOAT(*v813 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v820 + COERCE_FLOAT(*v813 << 16))) & 1) + 0x7FFF) >> 16;
-                        LODWORD(v821) = (COERCE_INT(v815 * COERCE_FLOAT(v906 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v815 * COERCE_FLOAT(v906 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v822) = (COERCE_INT(v821 + v816) + (HIWORD(COERCE_UNSIGNED_INT(v821 + v816)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v823) = (COERCE_INT(v822 * v814) + (HIWORD(COERCE_UNSIGNED_INT(v822 * v814)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        v813[1] = (COERCE_INT(v823 + COERCE_FLOAT(v813[1] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v823 + COERCE_FLOAT(v813[1] << 16))) & 1) + 0x7FFF) >> 16;
-                        LODWORD(v824) = (COERCE_INT(v815 * COERCE_FLOAT(v907 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v815 * COERCE_FLOAT(v907 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v825) = (COERCE_INT(v824 + v816) + (HIWORD(COERCE_UNSIGNED_INT(v824 + v816)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v826) = (COERCE_INT(v825 * v814) + (HIWORD(COERCE_UNSIGNED_INT(v825 * v814)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        v813[2] = (COERCE_INT(v826 + COERCE_FLOAT(v813[2] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v826 + COERCE_FLOAT(v813[2] << 16))) & 1) + 0x7FFF) >> 16;
-                        LODWORD(v827) = (COERCE_INT(v815 * COERCE_FLOAT(v908 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v815 * COERCE_FLOAT(v908 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v828) = (COERCE_INT(v827 + v816) + (HIWORD(COERCE_UNSIGNED_INT(v827 + v816)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v829) = (COERCE_INT(v828 * v814) + (HIWORD(COERCE_UNSIGNED_INT(v828 * v814)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        v813[3] = (COERCE_INT(v829 + COERCE_FLOAT(v813[3] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v829 + COERCE_FLOAT(v813[3] << 16))) & 1) + 0x7FFF) >> 16;
-                        LODWORD(v830) = (COERCE_INT(v815 * COERCE_FLOAT(v909 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v815 * COERCE_FLOAT(v909 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v831) = (COERCE_INT(v830 + v816) + (HIWORD(COERCE_UNSIGNED_INT(v830 + v816)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v832) = (COERCE_INT(v831 * v814) + (HIWORD(COERCE_UNSIGNED_INT(v831 * v814)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        v813[4] = (COERCE_INT(v832 + COERCE_FLOAT(v813[4] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v832 + COERCE_FLOAT(v813[4] << 16))) & 1) + 0x7FFF) >> 16;
-                        LODWORD(v833) = (COERCE_INT(v815 * COERCE_FLOAT(v910 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v815 * COERCE_FLOAT(v910 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v834) = (COERCE_INT(v833 + v816) + (HIWORD(COERCE_UNSIGNED_INT(v833 + v816)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v835) = (COERCE_INT(v834 * v814) + (HIWORD(COERCE_UNSIGNED_INT(v834 * v814)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        v813[5] = (COERCE_INT(v835 + COERCE_FLOAT(v813[5] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v835 + COERCE_FLOAT(v813[5] << 16))) & 1) + 0x7FFF) >> 16;
-                        LODWORD(v836) = (COERCE_INT(v815 * COERCE_FLOAT(v911 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v815 * COERCE_FLOAT(v911 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v837) = (COERCE_INT(v836 + v816) + (HIWORD(COERCE_UNSIGNED_INT(v836 + v816)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v838) = (COERCE_INT(v837 * v814) + (HIWORD(COERCE_UNSIGNED_INT(v837 * v814)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        v813[6] = (COERCE_INT(v838 + COERCE_FLOAT(v813[6] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v838 + COERCE_FLOAT(v813[6] << 16))) & 1) + 0x7FFF) >> 16;
-                        LODWORD(v839) = (COERCE_INT(v815 * COERCE_FLOAT(v912 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v815 * COERCE_FLOAT(v912 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v840) = (COERCE_INT(v839 + v816) + (HIWORD(COERCE_UNSIGNED_INT(v839 + v816)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        v841 = COERCE_FLOAT((COERCE_INT(v840 * v814) + (HIWORD(COERCE_UNSIGNED_INT(v840 * v814)) & 1) + 0x7FFF) & 0xFFFF0000) + COERCE_FLOAT(v813[7] << 16);
-                        v842 = v813 + 8;
-                        v813[7] = (LODWORD(v841) + (HIWORD(LODWORD(v841)) & 1u) + 0x7FFF) >> 16;
-                        v810 += 3;
-                        v813 += 8;
-                        --v817;
+                        LODWORD(v727) = (COERCE_INT(v724 * COERCE_FLOAT(v901 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v724 * COERCE_FLOAT(v901 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v728) = (COERCE_INT(v727 + v725) + (HIWORD(COERCE_UNSIGNED_INT(v727 + v725)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v729) = (COERCE_INT(v728 * v723) + (HIWORD(COERCE_UNSIGNED_INT(v728 * v723)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        *v722 = (COERCE_INT(v729 + COERCE_FLOAT(*v722 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v729 + COERCE_FLOAT(*v722 << 16))) & 1) + 0x7FFF) >> 16;
+                        LODWORD(v730) = (COERCE_INT(v724 * COERCE_FLOAT(v902 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v724 * COERCE_FLOAT(v902 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v731) = (COERCE_INT(v730 + v725) + (HIWORD(COERCE_UNSIGNED_INT(v730 + v725)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v732) = (COERCE_INT(v731 * v723) + (HIWORD(COERCE_UNSIGNED_INT(v731 * v723)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        v722[1] = (COERCE_INT(v732 + COERCE_FLOAT(v722[1] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v732 + COERCE_FLOAT(v722[1] << 16))) & 1) + 0x7FFF) >> 16;
+                        LODWORD(v733) = (COERCE_INT(v724 * COERCE_FLOAT(v903 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v724 * COERCE_FLOAT(v903 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v734) = (COERCE_INT(v733 + v725) + (HIWORD(COERCE_UNSIGNED_INT(v733 + v725)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v735) = (COERCE_INT(v734 * v723) + (HIWORD(COERCE_UNSIGNED_INT(v734 * v723)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        v722[2] = (COERCE_INT(v735 + COERCE_FLOAT(v722[2] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v735 + COERCE_FLOAT(v722[2] << 16))) & 1) + 0x7FFF) >> 16;
+                        LODWORD(v736) = (COERCE_INT(v724 * COERCE_FLOAT(v904 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v724 * COERCE_FLOAT(v904 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v737) = (COERCE_INT(v736 + v725) + (HIWORD(COERCE_UNSIGNED_INT(v736 + v725)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v738) = (COERCE_INT(v737 * v723) + (HIWORD(COERCE_UNSIGNED_INT(v737 * v723)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        v722[3] = (COERCE_INT(v738 + COERCE_FLOAT(v722[3] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v738 + COERCE_FLOAT(v722[3] << 16))) & 1) + 0x7FFF) >> 16;
+                        LODWORD(v739) = (COERCE_INT(v724 * COERCE_FLOAT(v905 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v724 * COERCE_FLOAT(v905 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v740) = (COERCE_INT(v739 + v725) + (HIWORD(COERCE_UNSIGNED_INT(v739 + v725)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v741) = (COERCE_INT(v740 * v723) + (HIWORD(COERCE_UNSIGNED_INT(v740 * v723)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        v722[4] = (COERCE_INT(v741 + COERCE_FLOAT(v722[4] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v741 + COERCE_FLOAT(v722[4] << 16))) & 1) + 0x7FFF) >> 16;
+                        LODWORD(v742) = (COERCE_INT(v724 * COERCE_FLOAT(v906 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v724 * COERCE_FLOAT(v906 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v743) = (COERCE_INT(v742 + v725) + (HIWORD(COERCE_UNSIGNED_INT(v742 + v725)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v744) = (COERCE_INT(v743 * v723) + (HIWORD(COERCE_UNSIGNED_INT(v743 * v723)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        v722[5] = (COERCE_INT(v744 + COERCE_FLOAT(v722[5] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v744 + COERCE_FLOAT(v722[5] << 16))) & 1) + 0x7FFF) >> 16;
+                        LODWORD(v745) = (COERCE_INT(v724 * COERCE_FLOAT(v907 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v724 * COERCE_FLOAT(v907 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v746) = (COERCE_INT(v745 + v725) + (HIWORD(COERCE_UNSIGNED_INT(v745 + v725)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v747) = (COERCE_INT(v746 * v723) + (HIWORD(COERCE_UNSIGNED_INT(v746 * v723)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        v722[6] = (COERCE_INT(v747 + COERCE_FLOAT(v722[6] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v747 + COERCE_FLOAT(v722[6] << 16))) & 1) + 0x7FFF) >> 16;
+                        LODWORD(v748) = (COERCE_INT(v724 * COERCE_FLOAT(v908 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v724 * COERCE_FLOAT(v908 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v749) = (COERCE_INT(v748 + v725) + (HIWORD(COERCE_UNSIGNED_INT(v748 + v725)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        v750 = COERCE_FLOAT((COERCE_INT(v749 * v723) + (HIWORD(COERCE_UNSIGNED_INT(v749 * v723)) & 1) + 0x7FFF) & 0xFFFF0000) + COERCE_FLOAT(v722[7] << 16);
+                        v751 = v722 + 8;
+                        v722[7] = (LODWORD(v750) + (HIWORD(LODWORD(v750)) & 1u) + 0x7FFF) >> 16;
+                        v719 += 3;
+                        v722 += 8;
+                        --v726;
                       }
 
-                      while (v817);
-                      ++v809;
-                      ++v811;
-                      v812 += 32;
-                      v813 = v842;
+                      while (v726);
+                      ++v718;
+                      ++v720;
+                      v721 += 64;
+                      v722 = v751;
                     }
 
-                    while (v812 < a7);
+                    while (v721 < a7);
                   }
 
-                  ++v904;
-                  ++v808;
+                  ++v898;
+                  ++v717;
                 }
 
-                while (v808 != a8);
+                while (v717 != a8);
               }
 
-              a2 = v904;
-              v888 += v871;
-              v807 = v887 + 1;
+              a2 = v898;
+              v884 += v865;
+              v716 = v881 + 1;
             }
 
-            while (v887 + 1 != a6);
+            while (v881 + 1 != a6);
           }
 
-          goto LABEL_456;
+          return;
+        case 32:
+          if (a14)
+          {
+            if (a6 >= 1)
+            {
+              v32 = 0;
+              v844 = a8;
+              do
+              {
+                v856 = v32;
+                v886 = a2;
+                if (a7 >= 1)
+                {
+                  v33 = 0;
+                  v35 = a3;
+                  v34 = a4;
+                  v36 = a5;
+                  do
+                  {
+                    v872 = v33;
+                    if (a8 < 1)
+                    {
+                      LOWORD(v38) = 0;
+                    }
+
+                    else
+                    {
+                      v37 = 0;
+                      v38 = 0;
+                      v39 = v886;
+                      do
+                      {
+                        v40 = 0;
+                        LODWORD(v41) = *v34 << 16;
+                        LODWORD(v42) = *v36 << 16;
+                        do
+                        {
+                          LODWORD(v43) = (COERCE_INT(v41 * COERCE_FLOAT(v901 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v41 * COERCE_FLOAT(v901 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v44) = (COERCE_INT(v43 + v42) + (HIWORD(COERCE_UNSIGNED_INT(v43 + v42)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v45) = (COERCE_INT(v44 * COERCE_FLOAT(v39[v40] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v44 * COERCE_FLOAT(v39[v40] << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v46) = (COERCE_INT(v45 + COERCE_FLOAT(v38 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v45 + COERCE_FLOAT(v38 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v47) = (COERCE_INT(v41 * COERCE_FLOAT(v902 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v41 * COERCE_FLOAT(v902 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v48) = (COERCE_INT(v47 + v42) + (HIWORD(COERCE_UNSIGNED_INT(v47 + v42)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v49) = v39[v40 + 1] << 16;
+                          LODWORD(v50) = (COERCE_INT(v48 * v49) + (HIWORD(COERCE_UNSIGNED_INT(v48 * v49)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v51) = (COERCE_INT(v46 + v50) + (HIWORD(COERCE_UNSIGNED_INT(v46 + v50)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v52) = (COERCE_INT(v41 * COERCE_FLOAT(v903 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v41 * COERCE_FLOAT(v903 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v53) = (COERCE_INT(v52 + v42) + (HIWORD(COERCE_UNSIGNED_INT(v52 + v42)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v54) = v39[v40 + 2] << 16;
+                          LODWORD(v55) = (COERCE_INT(v53 * v54) + (HIWORD(COERCE_UNSIGNED_INT(v53 * v54)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v56) = (COERCE_INT(v51 + v55) + (HIWORD(COERCE_UNSIGNED_INT(v51 + v55)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v57) = (COERCE_INT(v41 * COERCE_FLOAT(v904 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v41 * COERCE_FLOAT(v904 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v58) = (COERCE_INT(v57 + v42) + (HIWORD(COERCE_UNSIGNED_INT(v57 + v42)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v59) = v39[v40 + 3] << 16;
+                          LODWORD(v60) = (COERCE_INT(v58 * v59) + (HIWORD(COERCE_UNSIGNED_INT(v58 * v59)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v61) = (COERCE_INT(v56 + v60) + (HIWORD(COERCE_UNSIGNED_INT(v56 + v60)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v62) = (COERCE_INT(v41 * COERCE_FLOAT(v905 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v41 * COERCE_FLOAT(v905 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v63) = (COERCE_INT(v62 + v42) + (HIWORD(COERCE_UNSIGNED_INT(v62 + v42)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v64) = v39[v40 + 4] << 16;
+                          LODWORD(v65) = (COERCE_INT(v63 * v64) + (HIWORD(COERCE_UNSIGNED_INT(v63 * v64)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v66) = (COERCE_INT(v61 + v65) + (HIWORD(COERCE_UNSIGNED_INT(v61 + v65)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v67) = (COERCE_INT(v41 * COERCE_FLOAT(v906 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v41 * COERCE_FLOAT(v906 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v68) = (COERCE_INT(v67 + v42) + (HIWORD(COERCE_UNSIGNED_INT(v67 + v42)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v69) = v39[v40 + 5] << 16;
+                          LODWORD(v70) = (COERCE_INT(v68 * v69) + (HIWORD(COERCE_UNSIGNED_INT(v68 * v69)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v71) = (COERCE_INT(v66 + v70) + (HIWORD(COERCE_UNSIGNED_INT(v66 + v70)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v72) = (COERCE_INT(v41 * COERCE_FLOAT(v907 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v41 * COERCE_FLOAT(v907 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v73) = (COERCE_INT(v72 + v42) + (HIWORD(COERCE_UNSIGNED_INT(v72 + v42)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v74) = v39[v40 + 6] << 16;
+                          LODWORD(v75) = (COERCE_INT(v73 * v74) + (HIWORD(COERCE_UNSIGNED_INT(v73 * v74)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v76) = (COERCE_INT(v71 + v75) + (HIWORD(COERCE_UNSIGNED_INT(v71 + v75)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v77) = (COERCE_INT(v41 * COERCE_FLOAT(v908 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v41 * COERCE_FLOAT(v908 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v78) = (COERCE_INT(v77 + v42) + (HIWORD(COERCE_UNSIGNED_INT(v77 + v42)) & 1) + 0x7FFF) & 0xFFFF0000;
+                          LODWORD(v79) = v39[v40 + 7] << 16;
+                          v80 = v76 + COERCE_FLOAT((COERCE_INT(v78 * v79) + (HIWORD(COERCE_UNSIGNED_INT(v78 * v79)) & 1) + 0x7FFF) & 0xFFFF0000);
+                          v38 = (LODWORD(v80) + (HIWORD(LODWORD(v80)) & 1u) + 0x7FFF) >> 16;
+                          v35 += 3;
+                          v40 += 8;
+                        }
+
+                        while ((v40 * 2) != 64);
+                        ++v34;
+                        ++v36;
+                        v39 += 32;
+                        v37 += 32;
+                      }
+
+                      while (v37 < a8);
+                    }
+
+                    *v884++ = v38;
+                    v33 = v872 + 1;
+                  }
+
+                  while (v872 + 1 != a7);
+                }
+
+                a2 = &v886[v844];
+                v32 = v856 + 1;
+              }
+
+              while (v856 + 1 != a6);
+            }
+          }
+
+          else if (a6 >= 1)
+          {
+            v804 = 0;
+            v855 = 2 * a7;
+            v867 = a7;
+            do
+            {
+              if (a7 >= 1)
+              {
+                bzero(v884, v855);
+              }
+
+              v883 = v804;
+              v900 = a2;
+              if (a8 >= 1)
+              {
+                v805 = 0;
+                v807 = a3;
+                v806 = a4;
+                v808 = a5;
+                do
+                {
+                  if (a7 >= 1)
+                  {
+                    v809 = 0;
+                    v810 = v884;
+                    LODWORD(v811) = *v900 << 16;
+                    do
+                    {
+                      LODWORD(v812) = *v806 << 16;
+                      LODWORD(v813) = *v808 << 16;
+                      v814 = 4;
+                      do
+                      {
+                        LODWORD(v815) = (COERCE_INT(v812 * COERCE_FLOAT(v901 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v812 * COERCE_FLOAT(v901 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v816) = (COERCE_INT(v815 + v813) + (HIWORD(COERCE_UNSIGNED_INT(v815 + v813)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v817) = (COERCE_INT(v816 * v811) + (HIWORD(COERCE_UNSIGNED_INT(v816 * v811)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        *v810 = (COERCE_INT(v817 + COERCE_FLOAT(*v810 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v817 + COERCE_FLOAT(*v810 << 16))) & 1) + 0x7FFF) >> 16;
+                        LODWORD(v818) = (COERCE_INT(v812 * COERCE_FLOAT(v902 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v812 * COERCE_FLOAT(v902 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v819) = (COERCE_INT(v818 + v813) + (HIWORD(COERCE_UNSIGNED_INT(v818 + v813)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v820) = (COERCE_INT(v819 * v811) + (HIWORD(COERCE_UNSIGNED_INT(v819 * v811)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        v810[1] = (COERCE_INT(v820 + COERCE_FLOAT(v810[1] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v820 + COERCE_FLOAT(v810[1] << 16))) & 1) + 0x7FFF) >> 16;
+                        LODWORD(v821) = (COERCE_INT(v812 * COERCE_FLOAT(v903 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v812 * COERCE_FLOAT(v903 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v822) = (COERCE_INT(v821 + v813) + (HIWORD(COERCE_UNSIGNED_INT(v821 + v813)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v823) = (COERCE_INT(v822 * v811) + (HIWORD(COERCE_UNSIGNED_INT(v822 * v811)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        v810[2] = (COERCE_INT(v823 + COERCE_FLOAT(v810[2] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v823 + COERCE_FLOAT(v810[2] << 16))) & 1) + 0x7FFF) >> 16;
+                        LODWORD(v824) = (COERCE_INT(v812 * COERCE_FLOAT(v904 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v812 * COERCE_FLOAT(v904 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v825) = (COERCE_INT(v824 + v813) + (HIWORD(COERCE_UNSIGNED_INT(v824 + v813)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v826) = (COERCE_INT(v825 * v811) + (HIWORD(COERCE_UNSIGNED_INT(v825 * v811)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        v810[3] = (COERCE_INT(v826 + COERCE_FLOAT(v810[3] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v826 + COERCE_FLOAT(v810[3] << 16))) & 1) + 0x7FFF) >> 16;
+                        LODWORD(v827) = (COERCE_INT(v812 * COERCE_FLOAT(v905 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v812 * COERCE_FLOAT(v905 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v828) = (COERCE_INT(v827 + v813) + (HIWORD(COERCE_UNSIGNED_INT(v827 + v813)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v829) = (COERCE_INT(v828 * v811) + (HIWORD(COERCE_UNSIGNED_INT(v828 * v811)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        v810[4] = (COERCE_INT(v829 + COERCE_FLOAT(v810[4] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v829 + COERCE_FLOAT(v810[4] << 16))) & 1) + 0x7FFF) >> 16;
+                        LODWORD(v830) = (COERCE_INT(v812 * COERCE_FLOAT(v906 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v812 * COERCE_FLOAT(v906 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v831) = (COERCE_INT(v830 + v813) + (HIWORD(COERCE_UNSIGNED_INT(v830 + v813)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v832) = (COERCE_INT(v831 * v811) + (HIWORD(COERCE_UNSIGNED_INT(v831 * v811)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        v810[5] = (COERCE_INT(v832 + COERCE_FLOAT(v810[5] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v832 + COERCE_FLOAT(v810[5] << 16))) & 1) + 0x7FFF) >> 16;
+                        LODWORD(v833) = (COERCE_INT(v812 * COERCE_FLOAT(v907 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v812 * COERCE_FLOAT(v907 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v834) = (COERCE_INT(v833 + v813) + (HIWORD(COERCE_UNSIGNED_INT(v833 + v813)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v835) = (COERCE_INT(v834 * v811) + (HIWORD(COERCE_UNSIGNED_INT(v834 * v811)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        v810[6] = (COERCE_INT(v835 + COERCE_FLOAT(v810[6] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v835 + COERCE_FLOAT(v810[6] << 16))) & 1) + 0x7FFF) >> 16;
+                        LODWORD(v836) = (COERCE_INT(v812 * COERCE_FLOAT(v908 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v812 * COERCE_FLOAT(v908 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v837) = (COERCE_INT(v836 + v813) + (HIWORD(COERCE_UNSIGNED_INT(v836 + v813)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        v838 = COERCE_FLOAT((COERCE_INT(v837 * v811) + (HIWORD(COERCE_UNSIGNED_INT(v837 * v811)) & 1) + 0x7FFF) & 0xFFFF0000) + COERCE_FLOAT(v810[7] << 16);
+                        v839 = v810 + 8;
+                        v810[7] = (LODWORD(v838) + (HIWORD(LODWORD(v838)) & 1u) + 0x7FFF) >> 16;
+                        v807 += 3;
+                        v810 += 8;
+                        --v814;
+                      }
+
+                      while (v814);
+                      ++v806;
+                      ++v808;
+                      v809 += 32;
+                      v810 = v839;
+                    }
+
+                    while (v809 < a7);
+                  }
+
+                  ++v900;
+                  ++v805;
+                }
+
+                while (v805 != a8);
+              }
+
+              a2 = v900;
+              v884 += v867;
+              v804 = v883 + 1;
+            }
+
+            while (v883 + 1 != a6);
+          }
+
+          return;
       }
     }
 
@@ -7995,7 +6895,7 @@ LABEL_459:
     switch(a12)
     {
       case 128:
-        v190 = a1;
+        v189 = a1;
         if (a14)
         {
           if (a6 >= 1)
@@ -8004,61 +6904,61 @@ LABEL_459:
             {
               if (a7 >= 1)
               {
-                v192 = 0;
-                v193 = a3;
-                v194 = a4;
-                v195 = a5;
+                v191 = 0;
+                v192 = a3;
+                v193 = a4;
+                v194 = a5;
                 do
                 {
                   if (a8 < 1)
                   {
-                    LOWORD(v197) = 0;
+                    LOWORD(v196) = 0;
                   }
 
                   else
                   {
+                    v195 = 0;
                     v196 = 0;
-                    v197 = 0;
-                    v198 = a2;
+                    v197 = a2;
                     do
                     {
-                      v199 = 0;
+                      v198 = 0;
+                      LODWORD(v199) = *v193 << 16;
                       LODWORD(v200) = *v194 << 16;
-                      LODWORD(v201) = *v195 << 16;
-                      v202 = v198;
+                      v201 = v197;
                       do
                       {
-                        v203 = v193[v199];
-                        v204 = v200 * COERCE_FLOAT((COERCE_INT((v203 & 0xF)) + (HIWORD(COERCE_UNSIGNED_INT((v203 & 0xF))) & 1) + 0x7FFF) & 0xFFFF0000);
-                        LODWORD(v205) = (LODWORD(v204) + (HIWORD(LODWORD(v204)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v206) = (COERCE_INT(v205 + v201) + (HIWORD(COERCE_UNSIGNED_INT(v205 + v201)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v207) = (COERCE_INT(v206 * COERCE_FLOAT(*v202 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v206 * COERCE_FLOAT(*v202 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v208) = (COERCE_INT(v207 + COERCE_FLOAT(v197 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v207 + COERCE_FLOAT(v197 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                        v209 = v200 * COERCE_FLOAT((COERCE_INT((v203 >> 4)) + (HIWORD(COERCE_UNSIGNED_INT((v203 >> 4))) & 1) + 0x7FFF) & 0xFFFF0000);
-                        LODWORD(v210) = (LODWORD(v209) + (HIWORD(LODWORD(v209)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v211) = (COERCE_INT(v210 + v201) + (HIWORD(COERCE_UNSIGNED_INT(v210 + v201)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v212) = (COERCE_INT(v211 * COERCE_FLOAT(v202[1] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v211 * COERCE_FLOAT(v202[1] << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                        v197 = (COERCE_INT(v208 + v212) + (HIWORD(COERCE_UNSIGNED_INT(v208 + v212)) & 1) + 0x7FFF) >> 16;
-                        v202 += 2;
-                        ++v199;
+                        v202 = v192[v198];
+                        v203 = v199 * COERCE_FLOAT((COERCE_INT((v202 & 0xF)) + (HIWORD(COERCE_UNSIGNED_INT((v202 & 0xF))) & 1) + 0x7FFF) & 0xFFFF0000);
+                        LODWORD(v204) = (LODWORD(v203) + (HIWORD(LODWORD(v203)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v205) = (COERCE_INT(v204 + v200) + (HIWORD(COERCE_UNSIGNED_INT(v204 + v200)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v206) = (COERCE_INT(v205 * COERCE_FLOAT(*v201 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v205 * COERCE_FLOAT(*v201 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v207) = (COERCE_INT(v206 + COERCE_FLOAT(v196 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v206 + COERCE_FLOAT(v196 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                        v208 = v199 * COERCE_FLOAT((COERCE_INT((v202 >> 4)) + (HIWORD(COERCE_UNSIGNED_INT((v202 >> 4))) & 1) + 0x7FFF) & 0xFFFF0000);
+                        LODWORD(v209) = (LODWORD(v208) + (HIWORD(LODWORD(v208)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v210) = (COERCE_INT(v209 + v200) + (HIWORD(COERCE_UNSIGNED_INT(v209 + v200)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v211) = (COERCE_INT(v210 * COERCE_FLOAT(v201[1] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v210 * COERCE_FLOAT(v201[1] << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                        v196 = (COERCE_INT(v207 + v211) + (HIWORD(COERCE_UNSIGNED_INT(v207 + v211)) & 1) + 0x7FFF) >> 16;
+                        v201 += 2;
+                        ++v198;
                       }
 
-                      while (v199 != 64);
-                      v193 += 64;
+                      while (v198 != 64);
+                      v192 += 64;
+                      ++v193;
                       ++v194;
-                      ++v195;
-                      v198 += 128;
-                      v196 += 128;
+                      v197 += 128;
+                      v195 += 128;
                     }
 
-                    while (v196 < a8);
+                    while (v195 < a8);
                   }
 
-                  *v190++ = v197;
-                  ++v192;
+                  *v189++ = v196;
+                  ++v191;
                 }
 
-                while (v192 != a7);
+                while (v191 != a7);
               }
 
               a2 += a8;
@@ -8068,79 +6968,79 @@ LABEL_459:
 
         else if (a6 >= 1)
         {
-          v486 = 0;
-          v897 = 2 * a7;
+          v483 = 0;
+          v893 = 2 * a7;
           do
           {
             if (a7 >= 1)
             {
-              bzero(v190, v897);
+              bzero(v189, v893);
             }
 
             if (a8 >= 1)
             {
-              v487 = 0;
-              v488 = a3;
-              v489 = a4;
-              v490 = a5;
+              v484 = 0;
+              v485 = a3;
+              v486 = a4;
+              v487 = a5;
               do
               {
                 if (a7 >= 1)
                 {
-                  v491 = 0;
-                  LODWORD(v492) = *a2 << 16;
-                  v493 = v190;
+                  v488 = 0;
+                  LODWORD(v489) = *a2 << 16;
+                  v490 = v189;
                   do
                   {
-                    LODWORD(v494) = *v489 << 16;
-                    LODWORD(v495) = *v490 << 16;
-                    v496 = 64;
+                    LODWORD(v491) = *v486 << 16;
+                    LODWORD(v492) = *v487 << 16;
+                    v493 = 64;
                     do
                     {
-                      v497 = *v488;
-                      v498 = v494 * COERCE_FLOAT((COERCE_INT((v497 & 0xF)) + (HIWORD(COERCE_UNSIGNED_INT((v497 & 0xF))) & 1) + 0x7FFF) & 0xFFFF0000);
-                      LODWORD(v499) = (LODWORD(v498) + (HIWORD(LODWORD(v498)) & 1) + 0x7FFF) & 0xFFFF0000;
-                      LODWORD(v500) = (COERCE_INT(v499 + v495) + (HIWORD(COERCE_UNSIGNED_INT(v499 + v495)) & 1) + 0x7FFF) & 0xFFFF0000;
-                      LODWORD(v501) = (COERCE_INT(v500 * v492) + (HIWORD(COERCE_UNSIGNED_INT(v500 * v492)) & 1) + 0x7FFF) & 0xFFFF0000;
-                      *v493 = (COERCE_INT(v501 + COERCE_FLOAT(*v493 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v501 + COERCE_FLOAT(*v493 << 16))) & 1) + 0x7FFF) >> 16;
-                      v502 = v494 * COERCE_FLOAT((COERCE_INT((v497 >> 4)) + (HIWORD(COERCE_UNSIGNED_INT((v497 >> 4))) & 1) + 0x7FFF) & 0xFFFF0000);
-                      LODWORD(v503) = (LODWORD(v502) + (HIWORD(LODWORD(v502)) & 1) + 0x7FFF) & 0xFFFF0000;
-                      LODWORD(v504) = (COERCE_INT(v503 + v495) + (HIWORD(COERCE_UNSIGNED_INT(v503 + v495)) & 1) + 0x7FFF) & 0xFFFF0000;
-                      v505 = COERCE_FLOAT((COERCE_INT(v504 * v492) + (HIWORD(COERCE_UNSIGNED_INT(v504 * v492)) & 1) + 0x7FFF) & 0xFFFF0000) + COERCE_FLOAT(v493[1] << 16);
-                      v506 = v493 + 2;
-                      v493[1] = (LODWORD(v505) + (HIWORD(LODWORD(v505)) & 1u) + 0x7FFF) >> 16;
-                      ++v488;
-                      v493 += 2;
-                      --v496;
+                      v494 = *v485;
+                      v495 = v491 * COERCE_FLOAT((COERCE_INT((v494 & 0xF)) + (HIWORD(COERCE_UNSIGNED_INT((v494 & 0xF))) & 1) + 0x7FFF) & 0xFFFF0000);
+                      LODWORD(v496) = (LODWORD(v495) + (HIWORD(LODWORD(v495)) & 1) + 0x7FFF) & 0xFFFF0000;
+                      LODWORD(v497) = (COERCE_INT(v496 + v492) + (HIWORD(COERCE_UNSIGNED_INT(v496 + v492)) & 1) + 0x7FFF) & 0xFFFF0000;
+                      LODWORD(v498) = (COERCE_INT(v497 * v489) + (HIWORD(COERCE_UNSIGNED_INT(v497 * v489)) & 1) + 0x7FFF) & 0xFFFF0000;
+                      *v490 = (COERCE_INT(v498 + COERCE_FLOAT(*v490 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v498 + COERCE_FLOAT(*v490 << 16))) & 1) + 0x7FFF) >> 16;
+                      v499 = v491 * COERCE_FLOAT((COERCE_INT((v494 >> 4)) + (HIWORD(COERCE_UNSIGNED_INT((v494 >> 4))) & 1) + 0x7FFF) & 0xFFFF0000);
+                      LODWORD(v500) = (LODWORD(v499) + (HIWORD(LODWORD(v499)) & 1) + 0x7FFF) & 0xFFFF0000;
+                      LODWORD(v501) = (COERCE_INT(v500 + v492) + (HIWORD(COERCE_UNSIGNED_INT(v500 + v492)) & 1) + 0x7FFF) & 0xFFFF0000;
+                      v502 = COERCE_FLOAT((COERCE_INT(v501 * v489) + (HIWORD(COERCE_UNSIGNED_INT(v501 * v489)) & 1) + 0x7FFF) & 0xFFFF0000) + COERCE_FLOAT(v490[1] << 16);
+                      v503 = v490 + 2;
+                      v490[1] = (LODWORD(v502) + (HIWORD(LODWORD(v502)) & 1u) + 0x7FFF) >> 16;
+                      ++v485;
+                      v490 += 2;
+                      --v493;
                     }
 
-                    while (v496);
-                    ++v489;
-                    ++v490;
-                    v491 += 128;
-                    v493 = v506;
+                    while (v493);
+                    ++v486;
+                    ++v487;
+                    v488 += 128;
+                    v490 = v503;
                   }
 
-                  while (v491 < a7);
+                  while (v488 < a7);
                 }
 
                 ++a2;
-                ++v487;
+                ++v484;
               }
 
-              while (v487 != a8);
+              while (v484 != a8);
             }
 
-            v190 += a7;
-            ++v486;
+            v189 += a7;
+            ++v483;
           }
 
-          while (v486 != a6);
+          while (v483 != a6);
         }
 
-        goto LABEL_456;
+        return;
       case 64:
-        v167 = a1;
+        v166 = a1;
         if (a14)
         {
           if (a6 >= 1)
@@ -8149,61 +7049,61 @@ LABEL_459:
             {
               if (a7 >= 1)
               {
-                v169 = 0;
-                v170 = a3;
-                v171 = a4;
-                v172 = a5;
+                v168 = 0;
+                v169 = a3;
+                v170 = a4;
+                v171 = a5;
                 do
                 {
                   if (a8 < 1)
                   {
-                    LOWORD(v174) = 0;
+                    LOWORD(v173) = 0;
                   }
 
                   else
                   {
+                    v172 = 0;
                     v173 = 0;
-                    v174 = 0;
-                    v175 = a2;
+                    v174 = a2;
                     do
                     {
-                      v176 = 0;
+                      v175 = 0;
+                      LODWORD(v176) = *v170 << 16;
                       LODWORD(v177) = *v171 << 16;
-                      LODWORD(v178) = *v172 << 16;
-                      v179 = v175;
+                      v178 = v174;
                       do
                       {
-                        v180 = v170[v176];
-                        v181 = v177 * COERCE_FLOAT((COERCE_INT((v180 & 0xF)) + (HIWORD(COERCE_UNSIGNED_INT((v180 & 0xF))) & 1) + 0x7FFF) & 0xFFFF0000);
-                        LODWORD(v182) = (LODWORD(v181) + (HIWORD(LODWORD(v181)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v183) = (COERCE_INT(v182 + v178) + (HIWORD(COERCE_UNSIGNED_INT(v182 + v178)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v184) = (COERCE_INT(v183 * COERCE_FLOAT(*v179 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v183 * COERCE_FLOAT(*v179 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v185) = (COERCE_INT(v184 + COERCE_FLOAT(v174 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v184 + COERCE_FLOAT(v174 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                        v186 = v177 * COERCE_FLOAT((COERCE_INT((v180 >> 4)) + (HIWORD(COERCE_UNSIGNED_INT((v180 >> 4))) & 1) + 0x7FFF) & 0xFFFF0000);
-                        LODWORD(v187) = (LODWORD(v186) + (HIWORD(LODWORD(v186)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v188) = (COERCE_INT(v187 + v178) + (HIWORD(COERCE_UNSIGNED_INT(v187 + v178)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v189) = (COERCE_INT(v188 * COERCE_FLOAT(v179[1] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v188 * COERCE_FLOAT(v179[1] << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                        v174 = (COERCE_INT(v185 + v189) + (HIWORD(COERCE_UNSIGNED_INT(v185 + v189)) & 1) + 0x7FFF) >> 16;
-                        v179 += 2;
-                        ++v176;
+                        v179 = v169[v175];
+                        v180 = v176 * COERCE_FLOAT((COERCE_INT((v179 & 0xF)) + (HIWORD(COERCE_UNSIGNED_INT((v179 & 0xF))) & 1) + 0x7FFF) & 0xFFFF0000);
+                        LODWORD(v181) = (LODWORD(v180) + (HIWORD(LODWORD(v180)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v182) = (COERCE_INT(v181 + v177) + (HIWORD(COERCE_UNSIGNED_INT(v181 + v177)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v183) = (COERCE_INT(v182 * COERCE_FLOAT(*v178 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v182 * COERCE_FLOAT(*v178 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v184) = (COERCE_INT(v183 + COERCE_FLOAT(v173 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v183 + COERCE_FLOAT(v173 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                        v185 = v176 * COERCE_FLOAT((COERCE_INT((v179 >> 4)) + (HIWORD(COERCE_UNSIGNED_INT((v179 >> 4))) & 1) + 0x7FFF) & 0xFFFF0000);
+                        LODWORD(v186) = (LODWORD(v185) + (HIWORD(LODWORD(v185)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v187) = (COERCE_INT(v186 + v177) + (HIWORD(COERCE_UNSIGNED_INT(v186 + v177)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v188) = (COERCE_INT(v187 * COERCE_FLOAT(v178[1] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v187 * COERCE_FLOAT(v178[1] << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                        v173 = (COERCE_INT(v184 + v188) + (HIWORD(COERCE_UNSIGNED_INT(v184 + v188)) & 1) + 0x7FFF) >> 16;
+                        v178 += 2;
+                        ++v175;
                       }
 
-                      while (v176 != 32);
-                      v170 += 32;
+                      while (v175 != 32);
+                      v169 += 32;
+                      ++v170;
                       ++v171;
-                      ++v172;
-                      v175 += 64;
-                      v173 += 64;
+                      v174 += 64;
+                      v172 += 64;
                     }
 
-                    while (v173 < a8);
+                    while (v172 < a8);
                   }
 
-                  *v167++ = v174;
-                  ++v169;
+                  *v166++ = v173;
+                  ++v168;
                 }
 
-                while (v169 != a7);
+                while (v168 != a7);
               }
 
               a2 += a8;
@@ -8213,79 +7113,79 @@ LABEL_459:
 
         else if (a6 >= 1)
         {
-          v465 = 0;
-          v896 = 2 * a7;
+          v462 = 0;
+          v892 = 2 * a7;
           do
           {
             if (a7 >= 1)
             {
-              bzero(v167, v896);
+              bzero(v166, v892);
             }
 
             if (a8 >= 1)
             {
-              v466 = 0;
-              v467 = a3;
-              v468 = a4;
-              v469 = a5;
+              v463 = 0;
+              v464 = a3;
+              v465 = a4;
+              v466 = a5;
               do
               {
                 if (a7 >= 1)
                 {
-                  v470 = 0;
-                  LODWORD(v471) = *a2 << 16;
-                  v472 = v167;
+                  v467 = 0;
+                  LODWORD(v468) = *a2 << 16;
+                  v469 = v166;
                   do
                   {
-                    LODWORD(v473) = *v468 << 16;
-                    LODWORD(v474) = *v469 << 16;
-                    v475 = 32;
+                    LODWORD(v470) = *v465 << 16;
+                    LODWORD(v471) = *v466 << 16;
+                    v472 = 32;
                     do
                     {
-                      v476 = *v467;
-                      v477 = v473 * COERCE_FLOAT((COERCE_INT((v476 & 0xF)) + (HIWORD(COERCE_UNSIGNED_INT((v476 & 0xF))) & 1) + 0x7FFF) & 0xFFFF0000);
-                      LODWORD(v478) = (LODWORD(v477) + (HIWORD(LODWORD(v477)) & 1) + 0x7FFF) & 0xFFFF0000;
-                      LODWORD(v479) = (COERCE_INT(v478 + v474) + (HIWORD(COERCE_UNSIGNED_INT(v478 + v474)) & 1) + 0x7FFF) & 0xFFFF0000;
-                      LODWORD(v480) = (COERCE_INT(v479 * v471) + (HIWORD(COERCE_UNSIGNED_INT(v479 * v471)) & 1) + 0x7FFF) & 0xFFFF0000;
-                      *v472 = (COERCE_INT(v480 + COERCE_FLOAT(*v472 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v480 + COERCE_FLOAT(*v472 << 16))) & 1) + 0x7FFF) >> 16;
-                      v481 = v473 * COERCE_FLOAT((COERCE_INT((v476 >> 4)) + (HIWORD(COERCE_UNSIGNED_INT((v476 >> 4))) & 1) + 0x7FFF) & 0xFFFF0000);
-                      LODWORD(v482) = (LODWORD(v481) + (HIWORD(LODWORD(v481)) & 1) + 0x7FFF) & 0xFFFF0000;
-                      LODWORD(v483) = (COERCE_INT(v482 + v474) + (HIWORD(COERCE_UNSIGNED_INT(v482 + v474)) & 1) + 0x7FFF) & 0xFFFF0000;
-                      v484 = COERCE_FLOAT((COERCE_INT(v483 * v471) + (HIWORD(COERCE_UNSIGNED_INT(v483 * v471)) & 1) + 0x7FFF) & 0xFFFF0000) + COERCE_FLOAT(v472[1] << 16);
-                      v485 = v472 + 2;
-                      v472[1] = (LODWORD(v484) + (HIWORD(LODWORD(v484)) & 1u) + 0x7FFF) >> 16;
-                      ++v467;
-                      v472 += 2;
-                      --v475;
+                      v473 = *v464;
+                      v474 = v470 * COERCE_FLOAT((COERCE_INT((v473 & 0xF)) + (HIWORD(COERCE_UNSIGNED_INT((v473 & 0xF))) & 1) + 0x7FFF) & 0xFFFF0000);
+                      LODWORD(v475) = (LODWORD(v474) + (HIWORD(LODWORD(v474)) & 1) + 0x7FFF) & 0xFFFF0000;
+                      LODWORD(v476) = (COERCE_INT(v475 + v471) + (HIWORD(COERCE_UNSIGNED_INT(v475 + v471)) & 1) + 0x7FFF) & 0xFFFF0000;
+                      LODWORD(v477) = (COERCE_INT(v476 * v468) + (HIWORD(COERCE_UNSIGNED_INT(v476 * v468)) & 1) + 0x7FFF) & 0xFFFF0000;
+                      *v469 = (COERCE_INT(v477 + COERCE_FLOAT(*v469 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v477 + COERCE_FLOAT(*v469 << 16))) & 1) + 0x7FFF) >> 16;
+                      v478 = v470 * COERCE_FLOAT((COERCE_INT((v473 >> 4)) + (HIWORD(COERCE_UNSIGNED_INT((v473 >> 4))) & 1) + 0x7FFF) & 0xFFFF0000);
+                      LODWORD(v479) = (LODWORD(v478) + (HIWORD(LODWORD(v478)) & 1) + 0x7FFF) & 0xFFFF0000;
+                      LODWORD(v480) = (COERCE_INT(v479 + v471) + (HIWORD(COERCE_UNSIGNED_INT(v479 + v471)) & 1) + 0x7FFF) & 0xFFFF0000;
+                      v481 = COERCE_FLOAT((COERCE_INT(v480 * v468) + (HIWORD(COERCE_UNSIGNED_INT(v480 * v468)) & 1) + 0x7FFF) & 0xFFFF0000) + COERCE_FLOAT(v469[1] << 16);
+                      v482 = v469 + 2;
+                      v469[1] = (LODWORD(v481) + (HIWORD(LODWORD(v481)) & 1u) + 0x7FFF) >> 16;
+                      ++v464;
+                      v469 += 2;
+                      --v472;
                     }
 
-                    while (v475);
-                    ++v468;
-                    ++v469;
-                    v470 += 64;
-                    v472 = v485;
+                    while (v472);
+                    ++v465;
+                    ++v466;
+                    v467 += 64;
+                    v469 = v482;
                   }
 
-                  while (v470 < a7);
+                  while (v467 < a7);
                 }
 
                 ++a2;
-                ++v466;
+                ++v463;
               }
 
-              while (v466 != a8);
+              while (v463 != a8);
             }
 
-            v167 += a7;
-            ++v465;
+            v166 += a7;
+            ++v462;
           }
 
-          while (v465 != a6);
+          while (v462 != a6);
         }
 
-        goto LABEL_456;
+        return;
       case 32:
-        v82 = a1;
+        v81 = a1;
         if (a14)
         {
           if (a6 >= 1)
@@ -8294,61 +7194,61 @@ LABEL_459:
             {
               if (a7 >= 1)
               {
-                v84 = 0;
-                v85 = a3;
-                v86 = a4;
-                v87 = a5;
+                v83 = 0;
+                v84 = a3;
+                v85 = a4;
+                v86 = a5;
                 do
                 {
                   if (a8 < 1)
                   {
-                    LOWORD(v89) = 0;
+                    LOWORD(v88) = 0;
                   }
 
                   else
                   {
+                    v87 = 0;
                     v88 = 0;
-                    v89 = 0;
-                    v90 = a2;
+                    v89 = a2;
                     do
                     {
-                      v91 = 0;
+                      v90 = 0;
+                      LODWORD(v91) = *v85 << 16;
                       LODWORD(v92) = *v86 << 16;
-                      LODWORD(v93) = *v87 << 16;
-                      v94 = v90;
+                      v93 = v89;
                       do
                       {
-                        v95 = v85[v91];
-                        v96 = v92 * COERCE_FLOAT((COERCE_INT((v95 & 0xF)) + (HIWORD(COERCE_UNSIGNED_INT((v95 & 0xF))) & 1) + 0x7FFF) & 0xFFFF0000);
-                        LODWORD(v97) = (LODWORD(v96) + (HIWORD(LODWORD(v96)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v98) = (COERCE_INT(v97 + v93) + (HIWORD(COERCE_UNSIGNED_INT(v97 + v93)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v99) = (COERCE_INT(v98 * COERCE_FLOAT(*v94 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v98 * COERCE_FLOAT(*v94 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v100) = (COERCE_INT(v99 + COERCE_FLOAT(v89 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v99 + COERCE_FLOAT(v89 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                        v101 = v92 * COERCE_FLOAT((COERCE_INT((v95 >> 4)) + (HIWORD(COERCE_UNSIGNED_INT((v95 >> 4))) & 1) + 0x7FFF) & 0xFFFF0000);
-                        LODWORD(v102) = (LODWORD(v101) + (HIWORD(LODWORD(v101)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v103) = (COERCE_INT(v102 + v93) + (HIWORD(COERCE_UNSIGNED_INT(v102 + v93)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v104) = (COERCE_INT(v103 * COERCE_FLOAT(v94[1] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v103 * COERCE_FLOAT(v94[1] << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                        v89 = (COERCE_INT(v100 + v104) + (HIWORD(COERCE_UNSIGNED_INT(v100 + v104)) & 1) + 0x7FFF) >> 16;
-                        v94 += 2;
-                        ++v91;
+                        v94 = v84[v90];
+                        v95 = v91 * COERCE_FLOAT((COERCE_INT((v94 & 0xF)) + (HIWORD(COERCE_UNSIGNED_INT((v94 & 0xF))) & 1) + 0x7FFF) & 0xFFFF0000);
+                        LODWORD(v96) = (LODWORD(v95) + (HIWORD(LODWORD(v95)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v97) = (COERCE_INT(v96 + v92) + (HIWORD(COERCE_UNSIGNED_INT(v96 + v92)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v98) = (COERCE_INT(v97 * COERCE_FLOAT(*v93 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v97 * COERCE_FLOAT(*v93 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v99) = (COERCE_INT(v98 + COERCE_FLOAT(v88 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v98 + COERCE_FLOAT(v88 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                        v100 = v91 * COERCE_FLOAT((COERCE_INT((v94 >> 4)) + (HIWORD(COERCE_UNSIGNED_INT((v94 >> 4))) & 1) + 0x7FFF) & 0xFFFF0000);
+                        LODWORD(v101) = (LODWORD(v100) + (HIWORD(LODWORD(v100)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v102) = (COERCE_INT(v101 + v92) + (HIWORD(COERCE_UNSIGNED_INT(v101 + v92)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v103) = (COERCE_INT(v102 * COERCE_FLOAT(v93[1] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v102 * COERCE_FLOAT(v93[1] << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                        v88 = (COERCE_INT(v99 + v103) + (HIWORD(COERCE_UNSIGNED_INT(v99 + v103)) & 1) + 0x7FFF) >> 16;
+                        v93 += 2;
+                        ++v90;
                       }
 
-                      while (v91 != 16);
-                      v85 += 16;
+                      while (v90 != 16);
+                      v84 += 16;
+                      ++v85;
                       ++v86;
-                      ++v87;
-                      v90 += 32;
-                      v88 += 32;
+                      v89 += 32;
+                      v87 += 32;
                     }
 
-                    while (v88 < a8);
+                    while (v87 < a8);
                   }
 
-                  *v82++ = v89;
-                  ++v84;
+                  *v81++ = v88;
+                  ++v83;
                 }
 
-                while (v84 != a7);
+                while (v83 != a7);
               }
 
               a2 += a8;
@@ -8358,77 +7258,77 @@ LABEL_459:
 
         else if (a6 >= 1)
         {
-          v531 = 0;
-          v899 = 2 * a7;
+          v528 = 0;
+          v895 = 2 * a7;
           do
           {
             if (a7 >= 1)
             {
-              bzero(v82, v899);
+              bzero(v81, v895);
             }
 
             if (a8 >= 1)
             {
-              v532 = 0;
-              v533 = a3;
-              v534 = a4;
-              v535 = a5;
+              v529 = 0;
+              v530 = a3;
+              v531 = a4;
+              v532 = a5;
               do
               {
                 if (a7 >= 1)
                 {
-                  v536 = 0;
-                  LODWORD(v537) = *a2 << 16;
-                  v538 = v82;
+                  v533 = 0;
+                  LODWORD(v534) = *a2 << 16;
+                  v535 = v81;
                   do
                   {
-                    LODWORD(v539) = *v534 << 16;
-                    LODWORD(v540) = *v535 << 16;
-                    v541 = 16;
+                    LODWORD(v536) = *v531 << 16;
+                    LODWORD(v537) = *v532 << 16;
+                    v538 = 16;
                     do
                     {
-                      v542 = *v533;
-                      v543 = v539 * COERCE_FLOAT((COERCE_INT((v542 & 0xF)) + (HIWORD(COERCE_UNSIGNED_INT((v542 & 0xF))) & 1) + 0x7FFF) & 0xFFFF0000);
-                      LODWORD(v544) = (LODWORD(v543) + (HIWORD(LODWORD(v543)) & 1) + 0x7FFF) & 0xFFFF0000;
-                      LODWORD(v545) = (COERCE_INT(v544 + v540) + (HIWORD(COERCE_UNSIGNED_INT(v544 + v540)) & 1) + 0x7FFF) & 0xFFFF0000;
-                      LODWORD(v546) = (COERCE_INT(v545 * v537) + (HIWORD(COERCE_UNSIGNED_INT(v545 * v537)) & 1) + 0x7FFF) & 0xFFFF0000;
-                      *v538 = (COERCE_INT(v546 + COERCE_FLOAT(*v538 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v546 + COERCE_FLOAT(*v538 << 16))) & 1) + 0x7FFF) >> 16;
-                      v547 = v539 * COERCE_FLOAT((COERCE_INT((v542 >> 4)) + (HIWORD(COERCE_UNSIGNED_INT((v542 >> 4))) & 1) + 0x7FFF) & 0xFFFF0000);
-                      LODWORD(v548) = (LODWORD(v547) + (HIWORD(LODWORD(v547)) & 1) + 0x7FFF) & 0xFFFF0000;
-                      LODWORD(v549) = (COERCE_INT(v548 + v540) + (HIWORD(COERCE_UNSIGNED_INT(v548 + v540)) & 1) + 0x7FFF) & 0xFFFF0000;
-                      v550 = COERCE_FLOAT((COERCE_INT(v549 * v537) + (HIWORD(COERCE_UNSIGNED_INT(v549 * v537)) & 1) + 0x7FFF) & 0xFFFF0000) + COERCE_FLOAT(v538[1] << 16);
-                      v551 = v538 + 2;
-                      v538[1] = (LODWORD(v550) + (HIWORD(LODWORD(v550)) & 1u) + 0x7FFF) >> 16;
-                      ++v533;
-                      v538 += 2;
-                      --v541;
+                      v539 = *v530;
+                      v540 = v536 * COERCE_FLOAT((COERCE_INT((v539 & 0xF)) + (HIWORD(COERCE_UNSIGNED_INT((v539 & 0xF))) & 1) + 0x7FFF) & 0xFFFF0000);
+                      LODWORD(v541) = (LODWORD(v540) + (HIWORD(LODWORD(v540)) & 1) + 0x7FFF) & 0xFFFF0000;
+                      LODWORD(v542) = (COERCE_INT(v541 + v537) + (HIWORD(COERCE_UNSIGNED_INT(v541 + v537)) & 1) + 0x7FFF) & 0xFFFF0000;
+                      LODWORD(v543) = (COERCE_INT(v542 * v534) + (HIWORD(COERCE_UNSIGNED_INT(v542 * v534)) & 1) + 0x7FFF) & 0xFFFF0000;
+                      *v535 = (COERCE_INT(v543 + COERCE_FLOAT(*v535 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v543 + COERCE_FLOAT(*v535 << 16))) & 1) + 0x7FFF) >> 16;
+                      v544 = v536 * COERCE_FLOAT((COERCE_INT((v539 >> 4)) + (HIWORD(COERCE_UNSIGNED_INT((v539 >> 4))) & 1) + 0x7FFF) & 0xFFFF0000);
+                      LODWORD(v545) = (LODWORD(v544) + (HIWORD(LODWORD(v544)) & 1) + 0x7FFF) & 0xFFFF0000;
+                      LODWORD(v546) = (COERCE_INT(v545 + v537) + (HIWORD(COERCE_UNSIGNED_INT(v545 + v537)) & 1) + 0x7FFF) & 0xFFFF0000;
+                      v547 = COERCE_FLOAT((COERCE_INT(v546 * v534) + (HIWORD(COERCE_UNSIGNED_INT(v546 * v534)) & 1) + 0x7FFF) & 0xFFFF0000) + COERCE_FLOAT(v535[1] << 16);
+                      v548 = v535 + 2;
+                      v535[1] = (LODWORD(v547) + (HIWORD(LODWORD(v547)) & 1u) + 0x7FFF) >> 16;
+                      ++v530;
+                      v535 += 2;
+                      --v538;
                     }
 
-                    while (v541);
-                    ++v534;
-                    ++v535;
-                    v536 += 32;
-                    v538 = v551;
+                    while (v538);
+                    ++v531;
+                    ++v532;
+                    v533 += 32;
+                    v535 = v548;
                   }
 
-                  while (v536 < a7);
+                  while (v533 < a7);
                 }
 
                 ++a2;
-                ++v532;
+                ++v529;
               }
 
-              while (v532 != a8);
+              while (v529 != a8);
             }
 
-            v82 += a7;
-            ++v531;
+            v81 += a7;
+            ++v528;
           }
 
-          while (v531 != a6);
+          while (v528 != a6);
         }
 
-        goto LABEL_456;
+        return;
     }
 
     goto LABEL_458;
@@ -8436,7 +7336,7 @@ LABEL_459:
 
   if (a13 == 6)
   {
-    v889 = a1;
+    v885 = a1;
     switch(a12)
     {
       case 128:
@@ -8444,505 +7344,505 @@ LABEL_459:
         {
           if (a6 >= 1)
           {
-            v242 = 0;
-            v851 = a8;
+            v241 = 0;
+            v847 = a8;
             do
             {
-              v863 = v242;
-              v893 = a2;
+              v859 = v241;
+              v889 = a2;
               if (a7 >= 1)
               {
-                v243 = 0;
-                v245 = a3;
-                v244 = a4;
-                v246 = a5;
+                v242 = 0;
+                v244 = a3;
+                v243 = a4;
+                v245 = a5;
                 do
                 {
-                  v879 = v243;
+                  v875 = v242;
                   if (a8 < 1)
                   {
-                    LOWORD(v248) = 0;
+                    LOWORD(v247) = 0;
                   }
 
                   else
                   {
+                    v246 = 0;
                     v247 = 0;
-                    v248 = 0;
-                    v249 = v893;
+                    v248 = v889;
                     do
                     {
-                      v250 = 0;
-                      LODWORD(v251) = *v244 << 16;
-                      LODWORD(v252) = *v246 << 16;
+                      v249 = 0;
+                      LODWORD(v250) = *v243 << 16;
+                      LODWORD(v251) = *v245 << 16;
                       do
                       {
-                        LODWORD(v253) = (COERCE_INT(v251 * COERCE_FLOAT(v905 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v251 * COERCE_FLOAT(v905 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v254) = (COERCE_INT(v253 + v252) + (HIWORD(COERCE_UNSIGNED_INT(v253 + v252)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v255) = (COERCE_INT(v254 * COERCE_FLOAT(*(v249 + v250) << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v254 * COERCE_FLOAT(*(v249 + v250) << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v256) = (COERCE_INT(v255 + COERCE_FLOAT(v248 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v255 + COERCE_FLOAT(v248 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v257) = (COERCE_INT(v251 * COERCE_FLOAT(v906 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v251 * COERCE_FLOAT(v906 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v258) = (COERCE_INT(v257 + v252) + (HIWORD(COERCE_UNSIGNED_INT(v257 + v252)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v259) = *(v249 + v250 + 2) << 16;
-                        LODWORD(v260) = (COERCE_INT(v258 * v259) + (HIWORD(COERCE_UNSIGNED_INT(v258 * v259)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v261) = (COERCE_INT(v256 + v260) + (HIWORD(COERCE_UNSIGNED_INT(v256 + v260)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v262) = (COERCE_INT(v251 * COERCE_FLOAT(v907 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v251 * COERCE_FLOAT(v907 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v263) = (COERCE_INT(v262 + v252) + (HIWORD(COERCE_UNSIGNED_INT(v262 + v252)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v264) = *(v249 + v250 + 4) << 16;
-                        LODWORD(v265) = (COERCE_INT(v263 * v264) + (HIWORD(COERCE_UNSIGNED_INT(v263 * v264)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v266) = (COERCE_INT(v261 + v265) + (HIWORD(COERCE_UNSIGNED_INT(v261 + v265)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v267) = (COERCE_INT(v251 * COERCE_FLOAT(v908 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v251 * COERCE_FLOAT(v908 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v268) = (COERCE_INT(v267 + v252) + (HIWORD(COERCE_UNSIGNED_INT(v267 + v252)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v269) = *(v249 + v250 + 6) << 16;
-                        v270 = v266 + COERCE_FLOAT((COERCE_INT(v268 * v269) + (HIWORD(COERCE_UNSIGNED_INT(v268 * v269)) & 1) + 0x7FFF) & 0xFFFF0000);
-                        v248 = (LODWORD(v270) + (HIWORD(LODWORD(v270)) & 1u) + 0x7FFF) >> 16;
-                        v245 += 3;
-                        v250 += 8;
+                        LODWORD(v252) = (COERCE_INT(v250 * COERCE_FLOAT(v901 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v250 * COERCE_FLOAT(v901 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v253) = (COERCE_INT(v252 + v251) + (HIWORD(COERCE_UNSIGNED_INT(v252 + v251)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v254) = (COERCE_INT(v253 * COERCE_FLOAT(v248[v249] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v253 * COERCE_FLOAT(v248[v249] << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v255) = (COERCE_INT(v254 + COERCE_FLOAT(v247 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v254 + COERCE_FLOAT(v247 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v256) = (COERCE_INT(v250 * COERCE_FLOAT(v902 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v250 * COERCE_FLOAT(v902 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v257) = (COERCE_INT(v256 + v251) + (HIWORD(COERCE_UNSIGNED_INT(v256 + v251)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v258) = v248[v249 + 1] << 16;
+                        LODWORD(v259) = (COERCE_INT(v257 * v258) + (HIWORD(COERCE_UNSIGNED_INT(v257 * v258)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v260) = (COERCE_INT(v255 + v259) + (HIWORD(COERCE_UNSIGNED_INT(v255 + v259)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v261) = (COERCE_INT(v250 * COERCE_FLOAT(v903 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v250 * COERCE_FLOAT(v903 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v262) = (COERCE_INT(v261 + v251) + (HIWORD(COERCE_UNSIGNED_INT(v261 + v251)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v263) = v248[v249 + 2] << 16;
+                        LODWORD(v264) = (COERCE_INT(v262 * v263) + (HIWORD(COERCE_UNSIGNED_INT(v262 * v263)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v265) = (COERCE_INT(v260 + v264) + (HIWORD(COERCE_UNSIGNED_INT(v260 + v264)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v266) = (COERCE_INT(v250 * COERCE_FLOAT(v904 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v250 * COERCE_FLOAT(v904 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v267) = (COERCE_INT(v266 + v251) + (HIWORD(COERCE_UNSIGNED_INT(v266 + v251)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v268) = v248[v249 + 3] << 16;
+                        v269 = v265 + COERCE_FLOAT((COERCE_INT(v267 * v268) + (HIWORD(COERCE_UNSIGNED_INT(v267 * v268)) & 1) + 0x7FFF) & 0xFFFF0000);
+                        v247 = (LODWORD(v269) + (HIWORD(LODWORD(v269)) & 1u) + 0x7FFF) >> 16;
+                        v244 += 3;
+                        v249 += 4;
                       }
 
-                      while (v250 != 256);
-                      ++v244;
-                      ++v246;
-                      v249 += 256;
-                      v247 += 128;
+                      while ((v249 * 2) != 256);
+                      ++v243;
+                      ++v245;
+                      v248 += 128;
+                      v246 += 128;
                     }
 
-                    while (v247 < a8);
+                    while (v246 < a8);
                   }
 
-                  *v889++ = v248;
-                  v243 = v879 + 1;
+                  *v885++ = v247;
+                  v242 = v875 + 1;
                 }
 
-                while (v879 + 1 != a7);
+                while (v875 + 1 != a7);
               }
 
-              a2 = (v893 + 2 * v851);
-              v242 = v863 + 1;
+              a2 = &v889[v847];
+              v241 = v859 + 1;
             }
 
-            while (v863 + 1 != a6);
+            while (v859 + 1 != a6);
           }
         }
 
         else if (a6 >= 1)
         {
-          v552 = 0;
-          v846 = 2 * a7;
-          v855 = a7;
+          v549 = 0;
+          v842 = 2 * a7;
+          v851 = a7;
           do
           {
             if (a7 >= 1)
             {
-              bzero(v889, v846);
+              bzero(v885, v842);
             }
 
-            v867 = v552;
-            v900 = a2;
+            v863 = v549;
+            v896 = a2;
             if (a8 >= 1)
             {
-              v553 = 0;
-              v555 = a3;
-              v554 = a4;
-              v556 = a5;
+              v550 = 0;
+              v552 = a3;
+              v551 = a4;
+              v553 = a5;
               do
               {
-                v883 = v553;
+                v879 = v550;
                 if (a7 >= 1)
                 {
-                  v557 = 0;
-                  v558 = v889;
-                  LODWORD(v559) = *v900 << 16;
+                  v554 = 0;
+                  v555 = v885;
+                  LODWORD(v556) = *v896 << 16;
                   do
                   {
-                    LODWORD(v560) = *v554 << 16;
-                    LODWORD(v561) = *v556 << 16;
-                    v562 = 32;
+                    LODWORD(v557) = *v551 << 16;
+                    LODWORD(v558) = *v553 << 16;
+                    v559 = 32;
                     do
                     {
-                      LODWORD(v563) = (COERCE_INT(v560 * COERCE_FLOAT(v905 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v560 * COERCE_FLOAT(v905 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                      LODWORD(v564) = (COERCE_INT(v563 + v561) + (HIWORD(COERCE_UNSIGNED_INT(v563 + v561)) & 1) + 0x7FFF) & 0xFFFF0000;
-                      LODWORD(v565) = (COERCE_INT(v564 * v559) + (HIWORD(COERCE_UNSIGNED_INT(v564 * v559)) & 1) + 0x7FFF) & 0xFFFF0000;
-                      *v558 = (COERCE_INT(v565 + COERCE_FLOAT(*v558 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v565 + COERCE_FLOAT(*v558 << 16))) & 1) + 0x7FFF) >> 16;
-                      LODWORD(v566) = (COERCE_INT(v560 * COERCE_FLOAT(v906 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v560 * COERCE_FLOAT(v906 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                      LODWORD(v567) = (COERCE_INT(v566 + v561) + (HIWORD(COERCE_UNSIGNED_INT(v566 + v561)) & 1) + 0x7FFF) & 0xFFFF0000;
-                      v568 = COERCE_FLOAT((COERCE_INT(v567 * v559) + (HIWORD(COERCE_UNSIGNED_INT(v567 * v559)) & 1) + 0x7FFF) & 0xFFFF0000) + COERCE_FLOAT(v558[1] << 16);
-                      v558[1] = (LODWORD(v568) + (HIWORD(LODWORD(v568)) & 1u) + 0x7FFF) >> 16;
-                      LODWORD(v569) = (COERCE_INT(v560 * COERCE_FLOAT(v907 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v560 * COERCE_FLOAT(v907 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                      LODWORD(v570) = (COERCE_INT(v569 + v561) + (HIWORD(COERCE_UNSIGNED_INT(v569 + v561)) & 1) + 0x7FFF) & 0xFFFF0000;
-                      v571 = COERCE_FLOAT((COERCE_INT(v570 * v559) + (HIWORD(COERCE_UNSIGNED_INT(v570 * v559)) & 1) + 0x7FFF) & 0xFFFF0000) + COERCE_FLOAT(v558[2] << 16);
-                      v558[2] = (LODWORD(v571) + (HIWORD(LODWORD(v571)) & 1u) + 0x7FFF) >> 16;
-                      LODWORD(v572) = (COERCE_INT(v560 * COERCE_FLOAT(v908 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v560 * COERCE_FLOAT(v908 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                      LODWORD(v573) = (COERCE_INT(v572 + v561) + (HIWORD(COERCE_UNSIGNED_INT(v572 + v561)) & 1) + 0x7FFF) & 0xFFFF0000;
-                      v574 = COERCE_FLOAT((COERCE_INT(v573 * v559) + (HIWORD(COERCE_UNSIGNED_INT(v573 * v559)) & 1) + 0x7FFF) & 0xFFFF0000) + COERCE_FLOAT(v558[3] << 16);
-                      v575 = v558 + 4;
-                      v558[3] = (LODWORD(v574) + (HIWORD(LODWORD(v574)) & 1u) + 0x7FFF) >> 16;
-                      v555 += 3;
-                      v558 += 4;
-                      --v562;
+                      LODWORD(v560) = (COERCE_INT(v557 * COERCE_FLOAT(v901 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v557 * COERCE_FLOAT(v901 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                      LODWORD(v561) = (COERCE_INT(v560 + v558) + (HIWORD(COERCE_UNSIGNED_INT(v560 + v558)) & 1) + 0x7FFF) & 0xFFFF0000;
+                      LODWORD(v562) = (COERCE_INT(v561 * v556) + (HIWORD(COERCE_UNSIGNED_INT(v561 * v556)) & 1) + 0x7FFF) & 0xFFFF0000;
+                      *v555 = (COERCE_INT(v562 + COERCE_FLOAT(*v555 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v562 + COERCE_FLOAT(*v555 << 16))) & 1) + 0x7FFF) >> 16;
+                      LODWORD(v563) = (COERCE_INT(v557 * COERCE_FLOAT(v902 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v557 * COERCE_FLOAT(v902 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                      LODWORD(v564) = (COERCE_INT(v563 + v558) + (HIWORD(COERCE_UNSIGNED_INT(v563 + v558)) & 1) + 0x7FFF) & 0xFFFF0000;
+                      v565 = COERCE_FLOAT((COERCE_INT(v564 * v556) + (HIWORD(COERCE_UNSIGNED_INT(v564 * v556)) & 1) + 0x7FFF) & 0xFFFF0000) + COERCE_FLOAT(v555[1] << 16);
+                      v555[1] = (LODWORD(v565) + (HIWORD(LODWORD(v565)) & 1u) + 0x7FFF) >> 16;
+                      LODWORD(v566) = (COERCE_INT(v557 * COERCE_FLOAT(v903 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v557 * COERCE_FLOAT(v903 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                      LODWORD(v567) = (COERCE_INT(v566 + v558) + (HIWORD(COERCE_UNSIGNED_INT(v566 + v558)) & 1) + 0x7FFF) & 0xFFFF0000;
+                      v568 = COERCE_FLOAT((COERCE_INT(v567 * v556) + (HIWORD(COERCE_UNSIGNED_INT(v567 * v556)) & 1) + 0x7FFF) & 0xFFFF0000) + COERCE_FLOAT(v555[2] << 16);
+                      v555[2] = (LODWORD(v568) + (HIWORD(LODWORD(v568)) & 1u) + 0x7FFF) >> 16;
+                      LODWORD(v569) = (COERCE_INT(v557 * COERCE_FLOAT(v904 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v557 * COERCE_FLOAT(v904 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                      LODWORD(v570) = (COERCE_INT(v569 + v558) + (HIWORD(COERCE_UNSIGNED_INT(v569 + v558)) & 1) + 0x7FFF) & 0xFFFF0000;
+                      v571 = COERCE_FLOAT((COERCE_INT(v570 * v556) + (HIWORD(COERCE_UNSIGNED_INT(v570 * v556)) & 1) + 0x7FFF) & 0xFFFF0000) + COERCE_FLOAT(v555[3] << 16);
+                      v572 = v555 + 4;
+                      v555[3] = (LODWORD(v571) + (HIWORD(LODWORD(v571)) & 1u) + 0x7FFF) >> 16;
+                      v552 += 3;
+                      v555 += 4;
+                      --v559;
                     }
 
-                    while (v562);
-                    ++v554;
-                    ++v556;
-                    v557 += 128;
-                    v558 = v575;
+                    while (v559);
+                    ++v551;
+                    ++v553;
+                    v554 += 128;
+                    v555 = v572;
                   }
 
-                  while (v557 < a7);
+                  while (v554 < a7);
                 }
 
-                ++v900;
-                v553 = v883 + 1;
+                ++v896;
+                v550 = v879 + 1;
               }
 
-              while (v883 + 1 != a8);
+              while (v879 + 1 != a8);
             }
 
-            a2 = v900;
-            v889 += v855;
-            v552 = v867 + 1;
+            a2 = v896;
+            v885 += v851;
+            v549 = v863 + 1;
           }
 
-          while (v867 + 1 != a6);
+          while (v863 + 1 != a6);
         }
 
-        goto LABEL_456;
+        return;
       case 64:
         if (a14)
         {
           if (a6 >= 1)
           {
-            v213 = 0;
-            v850 = a8;
+            v212 = 0;
+            v846 = a8;
             do
             {
-              v862 = v213;
-              v892 = a2;
+              v858 = v212;
+              v888 = a2;
               if (a7 >= 1)
               {
-                v214 = 0;
-                v216 = a3;
-                v215 = a4;
-                v217 = a5;
+                v213 = 0;
+                v215 = a3;
+                v214 = a4;
+                v216 = a5;
                 do
                 {
-                  v878 = v214;
+                  v874 = v213;
                   if (a8 < 1)
                   {
-                    LOWORD(v219) = 0;
+                    LOWORD(v218) = 0;
                   }
 
                   else
                   {
+                    v217 = 0;
                     v218 = 0;
-                    v219 = 0;
-                    v220 = v892;
+                    v219 = v888;
                     do
                     {
-                      v221 = 0;
-                      LODWORD(v222) = *v215 << 16;
-                      LODWORD(v223) = *v217 << 16;
+                      v220 = 0;
+                      LODWORD(v221) = *v214 << 16;
+                      LODWORD(v222) = *v216 << 16;
                       do
                       {
-                        LODWORD(v224) = (COERCE_INT(v222 * COERCE_FLOAT(v905 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v222 * COERCE_FLOAT(v905 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v225) = (COERCE_INT(v224 + v223) + (HIWORD(COERCE_UNSIGNED_INT(v224 + v223)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v226) = (COERCE_INT(v225 * COERCE_FLOAT(*(v220 + v221) << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v225 * COERCE_FLOAT(*(v220 + v221) << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v227) = (COERCE_INT(v226 + COERCE_FLOAT(v219 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v226 + COERCE_FLOAT(v219 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v228) = (COERCE_INT(v222 * COERCE_FLOAT(v906 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v222 * COERCE_FLOAT(v906 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v229) = (COERCE_INT(v228 + v223) + (HIWORD(COERCE_UNSIGNED_INT(v228 + v223)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v230) = *(v220 + v221 + 2) << 16;
-                        LODWORD(v231) = (COERCE_INT(v229 * v230) + (HIWORD(COERCE_UNSIGNED_INT(v229 * v230)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v232) = (COERCE_INT(v227 + v231) + (HIWORD(COERCE_UNSIGNED_INT(v227 + v231)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v233) = (COERCE_INT(v222 * COERCE_FLOAT(v907 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v222 * COERCE_FLOAT(v907 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v234) = (COERCE_INT(v233 + v223) + (HIWORD(COERCE_UNSIGNED_INT(v233 + v223)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v235) = *(v220 + v221 + 4) << 16;
-                        LODWORD(v236) = (COERCE_INT(v234 * v235) + (HIWORD(COERCE_UNSIGNED_INT(v234 * v235)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v237) = (COERCE_INT(v232 + v236) + (HIWORD(COERCE_UNSIGNED_INT(v232 + v236)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v238) = (COERCE_INT(v222 * COERCE_FLOAT(v908 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v222 * COERCE_FLOAT(v908 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v239) = (COERCE_INT(v238 + v223) + (HIWORD(COERCE_UNSIGNED_INT(v238 + v223)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v240) = *(v220 + v221 + 6) << 16;
-                        v241 = v237 + COERCE_FLOAT((COERCE_INT(v239 * v240) + (HIWORD(COERCE_UNSIGNED_INT(v239 * v240)) & 1) + 0x7FFF) & 0xFFFF0000);
-                        v219 = (LODWORD(v241) + (HIWORD(LODWORD(v241)) & 1u) + 0x7FFF) >> 16;
-                        v216 += 3;
-                        v221 += 8;
+                        LODWORD(v223) = (COERCE_INT(v221 * COERCE_FLOAT(v901 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v221 * COERCE_FLOAT(v901 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v224) = (COERCE_INT(v223 + v222) + (HIWORD(COERCE_UNSIGNED_INT(v223 + v222)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v225) = (COERCE_INT(v224 * COERCE_FLOAT(v219[v220] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v224 * COERCE_FLOAT(v219[v220] << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v226) = (COERCE_INT(v225 + COERCE_FLOAT(v218 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v225 + COERCE_FLOAT(v218 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v227) = (COERCE_INT(v221 * COERCE_FLOAT(v902 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v221 * COERCE_FLOAT(v902 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v228) = (COERCE_INT(v227 + v222) + (HIWORD(COERCE_UNSIGNED_INT(v227 + v222)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v229) = v219[v220 + 1] << 16;
+                        LODWORD(v230) = (COERCE_INT(v228 * v229) + (HIWORD(COERCE_UNSIGNED_INT(v228 * v229)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v231) = (COERCE_INT(v226 + v230) + (HIWORD(COERCE_UNSIGNED_INT(v226 + v230)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v232) = (COERCE_INT(v221 * COERCE_FLOAT(v903 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v221 * COERCE_FLOAT(v903 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v233) = (COERCE_INT(v232 + v222) + (HIWORD(COERCE_UNSIGNED_INT(v232 + v222)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v234) = v219[v220 + 2] << 16;
+                        LODWORD(v235) = (COERCE_INT(v233 * v234) + (HIWORD(COERCE_UNSIGNED_INT(v233 * v234)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v236) = (COERCE_INT(v231 + v235) + (HIWORD(COERCE_UNSIGNED_INT(v231 + v235)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v237) = (COERCE_INT(v221 * COERCE_FLOAT(v904 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v221 * COERCE_FLOAT(v904 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v238) = (COERCE_INT(v237 + v222) + (HIWORD(COERCE_UNSIGNED_INT(v237 + v222)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v239) = v219[v220 + 3] << 16;
+                        v240 = v236 + COERCE_FLOAT((COERCE_INT(v238 * v239) + (HIWORD(COERCE_UNSIGNED_INT(v238 * v239)) & 1) + 0x7FFF) & 0xFFFF0000);
+                        v218 = (LODWORD(v240) + (HIWORD(LODWORD(v240)) & 1u) + 0x7FFF) >> 16;
+                        v215 += 3;
+                        v220 += 4;
                       }
 
-                      while (v221 != 128);
-                      ++v215;
-                      ++v217;
-                      v220 += 128;
-                      v218 += 64;
+                      while ((v220 * 2) != 128);
+                      ++v214;
+                      ++v216;
+                      v219 += 64;
+                      v217 += 64;
                     }
 
-                    while (v218 < a8);
+                    while (v217 < a8);
                   }
 
-                  *v889++ = v219;
-                  v214 = v878 + 1;
+                  *v885++ = v218;
+                  v213 = v874 + 1;
                 }
 
-                while (v878 + 1 != a7);
+                while (v874 + 1 != a7);
               }
 
-              a2 = (v892 + 2 * v850);
-              v213 = v862 + 1;
+              a2 = &v888[v846];
+              v212 = v858 + 1;
             }
 
-            while (v862 + 1 != a6);
+            while (v858 + 1 != a6);
           }
         }
 
         else if (a6 >= 1)
         {
-          v507 = 0;
-          v845 = 2 * a7;
-          v854 = a7;
+          v504 = 0;
+          v841 = 2 * a7;
+          v850 = a7;
           do
           {
             if (a7 >= 1)
             {
-              bzero(v889, v845);
+              bzero(v885, v841);
             }
 
-            v866 = v507;
-            v898 = a2;
+            v862 = v504;
+            v894 = a2;
             if (a8 >= 1)
             {
-              v508 = 0;
-              v510 = a3;
-              v509 = a4;
-              v511 = a5;
+              v505 = 0;
+              v507 = a3;
+              v506 = a4;
+              v508 = a5;
               do
               {
-                v882 = v508;
+                v878 = v505;
                 if (a7 >= 1)
                 {
-                  v512 = 0;
-                  v513 = v889;
-                  LODWORD(v514) = *v898 << 16;
+                  v509 = 0;
+                  v510 = v885;
+                  LODWORD(v511) = *v894 << 16;
                   do
                   {
-                    LODWORD(v515) = *v509 << 16;
-                    LODWORD(v516) = *v511 << 16;
-                    v517 = 16;
+                    LODWORD(v512) = *v506 << 16;
+                    LODWORD(v513) = *v508 << 16;
+                    v514 = 16;
                     do
                     {
-                      LODWORD(v518) = (COERCE_INT(v515 * COERCE_FLOAT(v905 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v515 * COERCE_FLOAT(v905 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                      LODWORD(v519) = (COERCE_INT(v518 + v516) + (HIWORD(COERCE_UNSIGNED_INT(v518 + v516)) & 1) + 0x7FFF) & 0xFFFF0000;
-                      LODWORD(v520) = (COERCE_INT(v519 * v514) + (HIWORD(COERCE_UNSIGNED_INT(v519 * v514)) & 1) + 0x7FFF) & 0xFFFF0000;
-                      *v513 = (COERCE_INT(v520 + COERCE_FLOAT(*v513 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v520 + COERCE_FLOAT(*v513 << 16))) & 1) + 0x7FFF) >> 16;
-                      LODWORD(v521) = (COERCE_INT(v515 * COERCE_FLOAT(v906 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v515 * COERCE_FLOAT(v906 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                      LODWORD(v522) = (COERCE_INT(v521 + v516) + (HIWORD(COERCE_UNSIGNED_INT(v521 + v516)) & 1) + 0x7FFF) & 0xFFFF0000;
-                      v523 = COERCE_FLOAT((COERCE_INT(v522 * v514) + (HIWORD(COERCE_UNSIGNED_INT(v522 * v514)) & 1) + 0x7FFF) & 0xFFFF0000) + COERCE_FLOAT(v513[1] << 16);
-                      v513[1] = (LODWORD(v523) + (HIWORD(LODWORD(v523)) & 1u) + 0x7FFF) >> 16;
-                      LODWORD(v524) = (COERCE_INT(v515 * COERCE_FLOAT(v907 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v515 * COERCE_FLOAT(v907 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                      LODWORD(v525) = (COERCE_INT(v524 + v516) + (HIWORD(COERCE_UNSIGNED_INT(v524 + v516)) & 1) + 0x7FFF) & 0xFFFF0000;
-                      v526 = COERCE_FLOAT((COERCE_INT(v525 * v514) + (HIWORD(COERCE_UNSIGNED_INT(v525 * v514)) & 1) + 0x7FFF) & 0xFFFF0000) + COERCE_FLOAT(v513[2] << 16);
-                      v513[2] = (LODWORD(v526) + (HIWORD(LODWORD(v526)) & 1u) + 0x7FFF) >> 16;
-                      LODWORD(v527) = (COERCE_INT(v515 * COERCE_FLOAT(v908 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v515 * COERCE_FLOAT(v908 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                      LODWORD(v528) = (COERCE_INT(v527 + v516) + (HIWORD(COERCE_UNSIGNED_INT(v527 + v516)) & 1) + 0x7FFF) & 0xFFFF0000;
-                      v529 = COERCE_FLOAT((COERCE_INT(v528 * v514) + (HIWORD(COERCE_UNSIGNED_INT(v528 * v514)) & 1) + 0x7FFF) & 0xFFFF0000) + COERCE_FLOAT(v513[3] << 16);
-                      v530 = v513 + 4;
-                      v513[3] = (LODWORD(v529) + (HIWORD(LODWORD(v529)) & 1u) + 0x7FFF) >> 16;
-                      v510 += 3;
-                      v513 += 4;
-                      --v517;
+                      LODWORD(v515) = (COERCE_INT(v512 * COERCE_FLOAT(v901 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v512 * COERCE_FLOAT(v901 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                      LODWORD(v516) = (COERCE_INT(v515 + v513) + (HIWORD(COERCE_UNSIGNED_INT(v515 + v513)) & 1) + 0x7FFF) & 0xFFFF0000;
+                      LODWORD(v517) = (COERCE_INT(v516 * v511) + (HIWORD(COERCE_UNSIGNED_INT(v516 * v511)) & 1) + 0x7FFF) & 0xFFFF0000;
+                      *v510 = (COERCE_INT(v517 + COERCE_FLOAT(*v510 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v517 + COERCE_FLOAT(*v510 << 16))) & 1) + 0x7FFF) >> 16;
+                      LODWORD(v518) = (COERCE_INT(v512 * COERCE_FLOAT(v902 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v512 * COERCE_FLOAT(v902 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                      LODWORD(v519) = (COERCE_INT(v518 + v513) + (HIWORD(COERCE_UNSIGNED_INT(v518 + v513)) & 1) + 0x7FFF) & 0xFFFF0000;
+                      v520 = COERCE_FLOAT((COERCE_INT(v519 * v511) + (HIWORD(COERCE_UNSIGNED_INT(v519 * v511)) & 1) + 0x7FFF) & 0xFFFF0000) + COERCE_FLOAT(v510[1] << 16);
+                      v510[1] = (LODWORD(v520) + (HIWORD(LODWORD(v520)) & 1u) + 0x7FFF) >> 16;
+                      LODWORD(v521) = (COERCE_INT(v512 * COERCE_FLOAT(v903 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v512 * COERCE_FLOAT(v903 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                      LODWORD(v522) = (COERCE_INT(v521 + v513) + (HIWORD(COERCE_UNSIGNED_INT(v521 + v513)) & 1) + 0x7FFF) & 0xFFFF0000;
+                      v523 = COERCE_FLOAT((COERCE_INT(v522 * v511) + (HIWORD(COERCE_UNSIGNED_INT(v522 * v511)) & 1) + 0x7FFF) & 0xFFFF0000) + COERCE_FLOAT(v510[2] << 16);
+                      v510[2] = (LODWORD(v523) + (HIWORD(LODWORD(v523)) & 1u) + 0x7FFF) >> 16;
+                      LODWORD(v524) = (COERCE_INT(v512 * COERCE_FLOAT(v904 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v512 * COERCE_FLOAT(v904 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                      LODWORD(v525) = (COERCE_INT(v524 + v513) + (HIWORD(COERCE_UNSIGNED_INT(v524 + v513)) & 1) + 0x7FFF) & 0xFFFF0000;
+                      v526 = COERCE_FLOAT((COERCE_INT(v525 * v511) + (HIWORD(COERCE_UNSIGNED_INT(v525 * v511)) & 1) + 0x7FFF) & 0xFFFF0000) + COERCE_FLOAT(v510[3] << 16);
+                      v527 = v510 + 4;
+                      v510[3] = (LODWORD(v526) + (HIWORD(LODWORD(v526)) & 1u) + 0x7FFF) >> 16;
+                      v507 += 3;
+                      v510 += 4;
+                      --v514;
                     }
 
-                    while (v517);
-                    ++v509;
-                    ++v511;
-                    v512 += 64;
-                    v513 = v530;
+                    while (v514);
+                    ++v506;
+                    ++v508;
+                    v509 += 64;
+                    v510 = v527;
                   }
 
-                  while (v512 < a7);
+                  while (v509 < a7);
                 }
 
-                ++v898;
-                v508 = v882 + 1;
+                ++v894;
+                v505 = v878 + 1;
               }
 
-              while (v882 + 1 != a8);
+              while (v878 + 1 != a8);
             }
 
-            a2 = v898;
-            v889 += v854;
-            v507 = v866 + 1;
+            a2 = v894;
+            v885 += v850;
+            v504 = v862 + 1;
           }
 
-          while (v866 + 1 != a6);
+          while (v862 + 1 != a6);
         }
 
-        goto LABEL_456;
+        return;
       case 32:
         if (a14)
         {
           if (a6 >= 1)
           {
-            v105 = 0;
-            v849 = a8;
+            v104 = 0;
+            v845 = a8;
             do
             {
-              v861 = v105;
-              v891 = a2;
+              v857 = v104;
+              v887 = a2;
               if (a7 >= 1)
               {
-                v106 = 0;
-                v108 = a3;
-                v107 = a4;
-                v109 = a5;
+                v105 = 0;
+                v107 = a3;
+                v106 = a4;
+                v108 = a5;
                 do
                 {
-                  v877 = v106;
+                  v873 = v105;
                   if (a8 < 1)
                   {
-                    LOWORD(v111) = 0;
+                    LOWORD(v110) = 0;
                   }
 
                   else
                   {
+                    v109 = 0;
                     v110 = 0;
-                    v111 = 0;
-                    v112 = v891;
+                    v111 = v887;
                     do
                     {
-                      v113 = 0;
-                      LODWORD(v114) = *v107 << 16;
-                      LODWORD(v115) = *v109 << 16;
+                      v112 = 0;
+                      LODWORD(v113) = *v106 << 16;
+                      LODWORD(v114) = *v108 << 16;
                       do
                       {
-                        LODWORD(v116) = (COERCE_INT(v114 * COERCE_FLOAT(v905 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v114 * COERCE_FLOAT(v905 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v117) = (COERCE_INT(v116 + v115) + (HIWORD(COERCE_UNSIGNED_INT(v116 + v115)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v118) = (COERCE_INT(v117 * COERCE_FLOAT(*(v112 + v113) << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v117 * COERCE_FLOAT(*(v112 + v113) << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v119) = (COERCE_INT(v118 + COERCE_FLOAT(v111 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v118 + COERCE_FLOAT(v111 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v120) = (COERCE_INT(v114 * COERCE_FLOAT(v906 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v114 * COERCE_FLOAT(v906 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v121) = (COERCE_INT(v120 + v115) + (HIWORD(COERCE_UNSIGNED_INT(v120 + v115)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v122) = *(v112 + v113 + 2) << 16;
-                        LODWORD(v123) = (COERCE_INT(v121 * v122) + (HIWORD(COERCE_UNSIGNED_INT(v121 * v122)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v124) = (COERCE_INT(v119 + v123) + (HIWORD(COERCE_UNSIGNED_INT(v119 + v123)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v125) = (COERCE_INT(v114 * COERCE_FLOAT(v907 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v114 * COERCE_FLOAT(v907 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v126) = (COERCE_INT(v125 + v115) + (HIWORD(COERCE_UNSIGNED_INT(v125 + v115)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v127) = *(v112 + v113 + 4) << 16;
-                        LODWORD(v128) = (COERCE_INT(v126 * v127) + (HIWORD(COERCE_UNSIGNED_INT(v126 * v127)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v129) = (COERCE_INT(v124 + v128) + (HIWORD(COERCE_UNSIGNED_INT(v124 + v128)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v130) = (COERCE_INT(v114 * COERCE_FLOAT(v908 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v114 * COERCE_FLOAT(v908 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v131) = (COERCE_INT(v130 + v115) + (HIWORD(COERCE_UNSIGNED_INT(v130 + v115)) & 1) + 0x7FFF) & 0xFFFF0000;
-                        LODWORD(v132) = *(v112 + v113 + 6) << 16;
-                        v133 = v129 + COERCE_FLOAT((COERCE_INT(v131 * v132) + (HIWORD(COERCE_UNSIGNED_INT(v131 * v132)) & 1) + 0x7FFF) & 0xFFFF0000);
-                        v111 = (LODWORD(v133) + (HIWORD(LODWORD(v133)) & 1u) + 0x7FFF) >> 16;
-                        v108 += 3;
-                        v113 += 8;
+                        LODWORD(v115) = (COERCE_INT(v113 * COERCE_FLOAT(v901 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v113 * COERCE_FLOAT(v901 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v116) = (COERCE_INT(v115 + v114) + (HIWORD(COERCE_UNSIGNED_INT(v115 + v114)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v117) = (COERCE_INT(v116 * COERCE_FLOAT(v111[v112] << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v116 * COERCE_FLOAT(v111[v112] << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v118) = (COERCE_INT(v117 + COERCE_FLOAT(v110 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v117 + COERCE_FLOAT(v110 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v119) = (COERCE_INT(v113 * COERCE_FLOAT(v902 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v113 * COERCE_FLOAT(v902 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v120) = (COERCE_INT(v119 + v114) + (HIWORD(COERCE_UNSIGNED_INT(v119 + v114)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v121) = v111[v112 + 1] << 16;
+                        LODWORD(v122) = (COERCE_INT(v120 * v121) + (HIWORD(COERCE_UNSIGNED_INT(v120 * v121)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v123) = (COERCE_INT(v118 + v122) + (HIWORD(COERCE_UNSIGNED_INT(v118 + v122)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v124) = (COERCE_INT(v113 * COERCE_FLOAT(v903 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v113 * COERCE_FLOAT(v903 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v125) = (COERCE_INT(v124 + v114) + (HIWORD(COERCE_UNSIGNED_INT(v124 + v114)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v126) = v111[v112 + 2] << 16;
+                        LODWORD(v127) = (COERCE_INT(v125 * v126) + (HIWORD(COERCE_UNSIGNED_INT(v125 * v126)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v128) = (COERCE_INT(v123 + v127) + (HIWORD(COERCE_UNSIGNED_INT(v123 + v127)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v129) = (COERCE_INT(v113 * COERCE_FLOAT(v904 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v113 * COERCE_FLOAT(v904 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v130) = (COERCE_INT(v129 + v114) + (HIWORD(COERCE_UNSIGNED_INT(v129 + v114)) & 1) + 0x7FFF) & 0xFFFF0000;
+                        LODWORD(v131) = v111[v112 + 3] << 16;
+                        v132 = v128 + COERCE_FLOAT((COERCE_INT(v130 * v131) + (HIWORD(COERCE_UNSIGNED_INT(v130 * v131)) & 1) + 0x7FFF) & 0xFFFF0000);
+                        v110 = (LODWORD(v132) + (HIWORD(LODWORD(v132)) & 1u) + 0x7FFF) >> 16;
+                        v107 += 3;
+                        v112 += 4;
                       }
 
-                      while (v113 != 64);
-                      ++v107;
-                      ++v109;
-                      v112 += 64;
-                      v110 += 32;
+                      while ((v112 * 2) != 64);
+                      ++v106;
+                      ++v108;
+                      v111 += 32;
+                      v109 += 32;
                     }
 
-                    while (v110 < a8);
+                    while (v109 < a8);
                   }
 
-                  *v889++ = v111;
-                  v106 = v877 + 1;
+                  *v885++ = v110;
+                  v105 = v873 + 1;
                 }
 
-                while (v877 + 1 != a7);
+                while (v873 + 1 != a7);
               }
 
-              a2 = (v891 + 2 * v849);
-              v105 = v861 + 1;
+              a2 = &v887[v845];
+              v104 = v857 + 1;
             }
 
-            while (v861 + 1 != a6);
+            while (v857 + 1 != a6);
           }
         }
 
         else if (a6 >= 1)
         {
-          v605 = 0;
-          v847 = 2 * a7;
-          v856 = a7;
+          v602 = 0;
+          v843 = 2 * a7;
+          v852 = a7;
           do
           {
             if (a7 >= 1)
             {
-              bzero(v889, v847);
+              bzero(v885, v843);
             }
 
-            v868 = v605;
-            v901 = a2;
+            v864 = v602;
+            v897 = a2;
             if (a8 >= 1)
             {
-              v606 = 0;
-              v608 = a3;
-              v607 = a4;
-              v609 = a5;
+              v603 = 0;
+              v605 = a3;
+              v604 = a4;
+              v606 = a5;
               do
               {
-                v884 = v606;
+                v880 = v603;
                 if (a7 >= 1)
                 {
-                  v610 = 0;
-                  v611 = v889;
-                  LODWORD(v612) = *v901 << 16;
+                  v607 = 0;
+                  v608 = v885;
+                  LODWORD(v609) = *v897 << 16;
                   do
                   {
-                    LODWORD(v613) = *v607 << 16;
-                    LODWORD(v614) = *v609 << 16;
-                    v615 = 8;
+                    LODWORD(v610) = *v604 << 16;
+                    LODWORD(v611) = *v606 << 16;
+                    v612 = 8;
                     do
                     {
-                      LODWORD(v616) = (COERCE_INT(v613 * COERCE_FLOAT(v905 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v613 * COERCE_FLOAT(v905 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                      LODWORD(v617) = (COERCE_INT(v616 + v614) + (HIWORD(COERCE_UNSIGNED_INT(v616 + v614)) & 1) + 0x7FFF) & 0xFFFF0000;
-                      LODWORD(v618) = (COERCE_INT(v617 * v612) + (HIWORD(COERCE_UNSIGNED_INT(v617 * v612)) & 1) + 0x7FFF) & 0xFFFF0000;
-                      *v611 = (COERCE_INT(v618 + COERCE_FLOAT(*v611 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v618 + COERCE_FLOAT(*v611 << 16))) & 1) + 0x7FFF) >> 16;
-                      LODWORD(v619) = (COERCE_INT(v613 * COERCE_FLOAT(v906 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v613 * COERCE_FLOAT(v906 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                      LODWORD(v620) = (COERCE_INT(v619 + v614) + (HIWORD(COERCE_UNSIGNED_INT(v619 + v614)) & 1) + 0x7FFF) & 0xFFFF0000;
-                      v621 = COERCE_FLOAT((COERCE_INT(v620 * v612) + (HIWORD(COERCE_UNSIGNED_INT(v620 * v612)) & 1) + 0x7FFF) & 0xFFFF0000) + COERCE_FLOAT(v611[1] << 16);
-                      v611[1] = (LODWORD(v621) + (HIWORD(LODWORD(v621)) & 1u) + 0x7FFF) >> 16;
-                      LODWORD(v622) = (COERCE_INT(v613 * COERCE_FLOAT(v907 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v613 * COERCE_FLOAT(v907 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                      LODWORD(v623) = (COERCE_INT(v622 + v614) + (HIWORD(COERCE_UNSIGNED_INT(v622 + v614)) & 1) + 0x7FFF) & 0xFFFF0000;
-                      v624 = COERCE_FLOAT((COERCE_INT(v623 * v612) + (HIWORD(COERCE_UNSIGNED_INT(v623 * v612)) & 1) + 0x7FFF) & 0xFFFF0000) + COERCE_FLOAT(v611[2] << 16);
-                      v611[2] = (LODWORD(v624) + (HIWORD(LODWORD(v624)) & 1u) + 0x7FFF) >> 16;
-                      LODWORD(v625) = (COERCE_INT(v613 * COERCE_FLOAT(v908 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v613 * COERCE_FLOAT(v908 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
-                      LODWORD(v626) = (COERCE_INT(v625 + v614) + (HIWORD(COERCE_UNSIGNED_INT(v625 + v614)) & 1) + 0x7FFF) & 0xFFFF0000;
-                      v627 = COERCE_FLOAT((COERCE_INT(v626 * v612) + (HIWORD(COERCE_UNSIGNED_INT(v626 * v612)) & 1) + 0x7FFF) & 0xFFFF0000) + COERCE_FLOAT(v611[3] << 16);
-                      v628 = v611 + 4;
-                      v611[3] = (LODWORD(v627) + (HIWORD(LODWORD(v627)) & 1u) + 0x7FFF) >> 16;
-                      v608 += 3;
-                      v611 += 4;
-                      --v615;
+                      LODWORD(v613) = (COERCE_INT(v610 * COERCE_FLOAT(v901 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v610 * COERCE_FLOAT(v901 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                      LODWORD(v614) = (COERCE_INT(v613 + v611) + (HIWORD(COERCE_UNSIGNED_INT(v613 + v611)) & 1) + 0x7FFF) & 0xFFFF0000;
+                      LODWORD(v615) = (COERCE_INT(v614 * v609) + (HIWORD(COERCE_UNSIGNED_INT(v614 * v609)) & 1) + 0x7FFF) & 0xFFFF0000;
+                      *v608 = (COERCE_INT(v615 + COERCE_FLOAT(*v608 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v615 + COERCE_FLOAT(*v608 << 16))) & 1) + 0x7FFF) >> 16;
+                      LODWORD(v616) = (COERCE_INT(v610 * COERCE_FLOAT(v902 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v610 * COERCE_FLOAT(v902 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                      LODWORD(v617) = (COERCE_INT(v616 + v611) + (HIWORD(COERCE_UNSIGNED_INT(v616 + v611)) & 1) + 0x7FFF) & 0xFFFF0000;
+                      v618 = COERCE_FLOAT((COERCE_INT(v617 * v609) + (HIWORD(COERCE_UNSIGNED_INT(v617 * v609)) & 1) + 0x7FFF) & 0xFFFF0000) + COERCE_FLOAT(v608[1] << 16);
+                      v608[1] = (LODWORD(v618) + (HIWORD(LODWORD(v618)) & 1u) + 0x7FFF) >> 16;
+                      LODWORD(v619) = (COERCE_INT(v610 * COERCE_FLOAT(v903 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v610 * COERCE_FLOAT(v903 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                      LODWORD(v620) = (COERCE_INT(v619 + v611) + (HIWORD(COERCE_UNSIGNED_INT(v619 + v611)) & 1) + 0x7FFF) & 0xFFFF0000;
+                      v621 = COERCE_FLOAT((COERCE_INT(v620 * v609) + (HIWORD(COERCE_UNSIGNED_INT(v620 * v609)) & 1) + 0x7FFF) & 0xFFFF0000) + COERCE_FLOAT(v608[2] << 16);
+                      v608[2] = (LODWORD(v621) + (HIWORD(LODWORD(v621)) & 1u) + 0x7FFF) >> 16;
+                      LODWORD(v622) = (COERCE_INT(v610 * COERCE_FLOAT(v904 << 16)) + (HIWORD(COERCE_UNSIGNED_INT(v610 * COERCE_FLOAT(v904 << 16))) & 1) + 0x7FFF) & 0xFFFF0000;
+                      LODWORD(v623) = (COERCE_INT(v622 + v611) + (HIWORD(COERCE_UNSIGNED_INT(v622 + v611)) & 1) + 0x7FFF) & 0xFFFF0000;
+                      v624 = COERCE_FLOAT((COERCE_INT(v623 * v609) + (HIWORD(COERCE_UNSIGNED_INT(v623 * v609)) & 1) + 0x7FFF) & 0xFFFF0000) + COERCE_FLOAT(v608[3] << 16);
+                      v625 = v608 + 4;
+                      v608[3] = (LODWORD(v624) + (HIWORD(LODWORD(v624)) & 1u) + 0x7FFF) >> 16;
+                      v605 += 3;
+                      v608 += 4;
+                      --v612;
                     }
 
-                    while (v615);
-                    ++v607;
-                    ++v609;
-                    v610 += 32;
-                    v611 = v628;
+                    while (v612);
+                    ++v604;
+                    ++v606;
+                    v607 += 32;
+                    v608 = v625;
                   }
 
-                  while (v610 < a7);
+                  while (v607 < a7);
                 }
 
-                ++v901;
-                v606 = v884 + 1;
+                ++v897;
+                v603 = v880 + 1;
               }
 
-              while (v884 + 1 != a8);
+              while (v880 + 1 != a8);
             }
 
-            a2 = v901;
-            v889 += v856;
-            v605 = v868 + 1;
+            a2 = v897;
+            v885 += v852;
+            v602 = v864 + 1;
           }
 
-          while (v868 + 1 != a6);
+          while (v864 + 1 != a6);
         }
 
-        goto LABEL_456;
+        return;
     }
 
     goto LABEL_458;
@@ -8959,7 +7859,7 @@ LABEL_457:
   switch(a12)
   {
     case 128:
-      v352 = a1;
+      v350 = a1;
       if (a14)
       {
         if (a6 >= 1)
@@ -8968,53 +7868,52 @@ LABEL_457:
           {
             if (a7 >= 1)
             {
-              v354 = 0;
-              v355 = a3;
-              v356 = a4;
-              v357 = a5;
+              v352 = 0;
+              v353 = a3;
+              v354 = a4;
+              v355 = a5;
               do
               {
                 if (a8 < 1)
                 {
-                  LOWORD(v359) = 0;
+                  LOWORD(v357) = 0;
                 }
 
                 else
                 {
-                  v358 = 0;
-                  v359 = 0;
-                  v360 = a2;
+                  v356 = 0;
+                  v357 = 0;
+                  v358 = a2;
                   do
                   {
-                    v361 = 0;
-                    v362 = *v357 << 16;
+                    v359 = 0;
                     do
                     {
-                      LOBYTE(a11) = v355[v361];
-                      v363 = COERCE_FLOAT(*v356 << 16) * COERCE_FLOAT((COERCE_INT(LODWORD(a11)) + (HIWORD(COERCE_UNSIGNED_INT(LODWORD(a11))) & 1) + 0x7FFF) & 0xFFFF0000);
-                      v364 = COERCE_FLOAT((LODWORD(v363) + (HIWORD(LODWORD(v363)) & 1) + 0x7FFF) & 0xFFFF0000) + COERCE_FLOAT(*v357 << 16);
-                      LODWORD(v365) = (LODWORD(v364) + (HIWORD(LODWORD(v364)) & 1) + 0x7FFF) & 0xFFFF0000;
-                      LODWORD(v366) = v360[v361++] << 16;
-                      a11 = COERCE_FLOAT((COERCE_INT(v365 * v366) + (HIWORD(COERCE_UNSIGNED_INT(v365 * v366)) & 1) + 0x7FFF) & 0xFFFF0000) + COERCE_FLOAT(v359 << 16);
-                      v359 = (LODWORD(a11) + (HIWORD(LODWORD(a11)) & 1u) + 0x7FFF) >> 16;
+                      LOBYTE(a11) = v353[v359];
+                      v360 = COERCE_FLOAT(*v354 << 16) * COERCE_FLOAT((COERCE_INT(LODWORD(a11)) + (HIWORD(COERCE_UNSIGNED_INT(LODWORD(a11))) & 1) + 0x7FFF) & 0xFFFF0000);
+                      v361 = COERCE_FLOAT((LODWORD(v360) + (HIWORD(LODWORD(v360)) & 1) + 0x7FFF) & 0xFFFF0000) + COERCE_FLOAT(*v355 << 16);
+                      LODWORD(v362) = (LODWORD(v361) + (HIWORD(LODWORD(v361)) & 1) + 0x7FFF) & 0xFFFF0000;
+                      LODWORD(v363) = v358[v359++] << 16;
+                      a11 = COERCE_FLOAT((COERCE_INT(v362 * v363) + (HIWORD(COERCE_UNSIGNED_INT(v362 * v363)) & 1) + 0x7FFF) & 0xFFFF0000) + COERCE_FLOAT(v357 << 16);
+                      v357 = (LODWORD(a11) + (HIWORD(LODWORD(a11)) & 1u) + 0x7FFF) >> 16;
                     }
 
-                    while (v361 != 128);
-                    v355 += 128;
-                    ++v356;
-                    ++v357;
-                    v360 += 128;
+                    while (v359 != 128);
+                    v353 += 128;
+                    ++v354;
+                    ++v355;
                     v358 += 128;
+                    v356 += 128;
                   }
 
-                  while (v358 < a8);
+                  while (v356 < a8);
                 }
 
-                *v352++ = v359;
-                ++v354;
+                *v350++ = v357;
+                ++v352;
               }
 
-              while (v354 != a7);
+              while (v352 != a7);
             }
 
             a2 += a8;
@@ -9028,62 +7927,62 @@ LABEL_457:
         {
           if (a7 >= 1)
           {
-            bzero(v352, 2 * a7);
+            bzero(v350, 2 * a7);
           }
 
           if (a8 >= 1)
           {
-            v704 = 0;
-            v705 = a3;
-            v706 = a4;
-            v707 = a5;
+            v701 = 0;
+            v702 = a3;
+            v703 = a4;
+            v704 = a5;
             do
             {
               if (a7 >= 1)
               {
-                v708 = 0;
-                LODWORD(v709) = *a2 << 16;
-                v710 = v352;
+                v705 = 0;
+                LODWORD(v706) = *a2 << 16;
+                v707 = v350;
                 do
                 {
-                  LODWORD(v711) = *v706 << 16;
-                  LODWORD(v712) = *v707 << 16;
-                  v713 = 128;
-                  v714 = v710;
+                  LODWORD(v708) = *v703 << 16;
+                  LODWORD(v709) = *v704 << 16;
+                  v710 = 128;
+                  v711 = v707;
                   do
                   {
-                    v715 = *v705++;
-                    v716 = v711 * COERCE_FLOAT((COERCE_INT(v715) + (HIWORD(COERCE_UNSIGNED_INT(v715)) & 1) + 0x7FFF) & 0xFFFF0000);
-                    v717 = COERCE_FLOAT((LODWORD(v716) + (HIWORD(LODWORD(v716)) & 1) + 0x7FFF) & 0xFFFF0000) + v712;
-                    v710 = v714 + 1;
-                    v718 = COERCE_FLOAT((COERCE_INT(COERCE_FLOAT((LODWORD(v717) + (HIWORD(LODWORD(v717)) & 1) + 0x7FFF) & 0xFFFF0000) * v709) + (HIWORD(COERCE_UNSIGNED_INT(COERCE_FLOAT((LODWORD(v717) + (HIWORD(LODWORD(v717)) & 1) + 0x7FFF) & 0xFFFF0000) * v709)) & 1) + 0x7FFF) & 0xFFFF0000) + COERCE_FLOAT(*v714 << 16);
-                    *v714++ = (LODWORD(v718) + (HIWORD(LODWORD(v718)) & 1u) + 0x7FFF) >> 16;
-                    --v713;
+                    v712 = *v702++;
+                    v713 = v708 * COERCE_FLOAT((COERCE_INT(v712) + (HIWORD(COERCE_UNSIGNED_INT(v712)) & 1) + 0x7FFF) & 0xFFFF0000);
+                    v714 = COERCE_FLOAT((LODWORD(v713) + (HIWORD(LODWORD(v713)) & 1) + 0x7FFF) & 0xFFFF0000) + v709;
+                    v707 = v711 + 1;
+                    v715 = COERCE_FLOAT((COERCE_INT(COERCE_FLOAT((LODWORD(v714) + (HIWORD(LODWORD(v714)) & 1) + 0x7FFF) & 0xFFFF0000) * v706) + (HIWORD(COERCE_UNSIGNED_INT(COERCE_FLOAT((LODWORD(v714) + (HIWORD(LODWORD(v714)) & 1) + 0x7FFF) & 0xFFFF0000) * v706)) & 1) + 0x7FFF) & 0xFFFF0000) + COERCE_FLOAT(*v711 << 16);
+                    *v711++ = (LODWORD(v715) + (HIWORD(LODWORD(v715)) & 1u) + 0x7FFF) >> 16;
+                    --v710;
                   }
 
-                  while (v713);
-                  ++v706;
-                  ++v707;
-                  v708 += 128;
+                  while (v710);
+                  ++v703;
+                  ++v704;
+                  v705 += 128;
                 }
 
-                while (v708 < a7);
+                while (v705 < a7);
               }
 
               ++a2;
-              ++v704;
+              ++v701;
             }
 
-            while (v704 != a8);
+            while (v701 != a8);
           }
 
-          v352 += a7;
+          v350 += a7;
         }
       }
 
       break;
     case 64:
-      v304 = a1;
+      v303 = a1;
       if (a14)
       {
         if (a6 >= 1)
@@ -9092,53 +7991,52 @@ LABEL_457:
           {
             if (a7 >= 1)
             {
-              v306 = 0;
-              v307 = a3;
-              v308 = a4;
-              v309 = a5;
+              v305 = 0;
+              v306 = a3;
+              v307 = a4;
+              v308 = a5;
               do
               {
                 if (a8 < 1)
                 {
-                  LOWORD(v311) = 0;
+                  LOWORD(v310) = 0;
                 }
 
                 else
                 {
+                  v309 = 0;
                   v310 = 0;
-                  v311 = 0;
-                  v312 = a2;
+                  v311 = a2;
                   do
                   {
-                    v313 = 0;
-                    v314 = *v309 << 16;
+                    v312 = 0;
                     do
                     {
-                      LOBYTE(a11) = v307[v313];
-                      v315 = COERCE_FLOAT(*v308 << 16) * COERCE_FLOAT((COERCE_INT(LODWORD(a11)) + (HIWORD(COERCE_UNSIGNED_INT(LODWORD(a11))) & 1) + 0x7FFF) & 0xFFFF0000);
-                      v316 = COERCE_FLOAT((LODWORD(v315) + (HIWORD(LODWORD(v315)) & 1) + 0x7FFF) & 0xFFFF0000) + COERCE_FLOAT(*v309 << 16);
-                      LODWORD(v317) = (LODWORD(v316) + (HIWORD(LODWORD(v316)) & 1) + 0x7FFF) & 0xFFFF0000;
-                      LODWORD(v318) = v312[v313++] << 16;
-                      a11 = COERCE_FLOAT((COERCE_INT(v317 * v318) + (HIWORD(COERCE_UNSIGNED_INT(v317 * v318)) & 1) + 0x7FFF) & 0xFFFF0000) + COERCE_FLOAT(v311 << 16);
-                      v311 = (LODWORD(a11) + (HIWORD(LODWORD(a11)) & 1u) + 0x7FFF) >> 16;
+                      LOBYTE(a11) = v306[v312];
+                      v313 = COERCE_FLOAT(*v307 << 16) * COERCE_FLOAT((COERCE_INT(LODWORD(a11)) + (HIWORD(COERCE_UNSIGNED_INT(LODWORD(a11))) & 1) + 0x7FFF) & 0xFFFF0000);
+                      v314 = COERCE_FLOAT((LODWORD(v313) + (HIWORD(LODWORD(v313)) & 1) + 0x7FFF) & 0xFFFF0000) + COERCE_FLOAT(*v308 << 16);
+                      LODWORD(v315) = (LODWORD(v314) + (HIWORD(LODWORD(v314)) & 1) + 0x7FFF) & 0xFFFF0000;
+                      LODWORD(v316) = v311[v312++] << 16;
+                      a11 = COERCE_FLOAT((COERCE_INT(v315 * v316) + (HIWORD(COERCE_UNSIGNED_INT(v315 * v316)) & 1) + 0x7FFF) & 0xFFFF0000) + COERCE_FLOAT(v310 << 16);
+                      v310 = (LODWORD(a11) + (HIWORD(LODWORD(a11)) & 1u) + 0x7FFF) >> 16;
                     }
 
-                    while (v313 != 64);
-                    v307 += 64;
+                    while (v312 != 64);
+                    v306 += 64;
+                    ++v307;
                     ++v308;
-                    ++v309;
-                    v312 += 64;
-                    v310 += 64;
+                    v311 += 64;
+                    v309 += 64;
                   }
 
-                  while (v310 < a8);
+                  while (v309 < a8);
                 }
 
-                *v304++ = v311;
-                ++v306;
+                *v303++ = v310;
+                ++v305;
               }
 
-              while (v306 != a7);
+              while (v305 != a7);
             }
 
             a2 += a8;
@@ -9152,56 +8050,56 @@ LABEL_457:
         {
           if (a7 >= 1)
           {
-            bzero(v304, 2 * a7);
+            bzero(v303, 2 * a7);
           }
 
           if (a8 >= 1)
           {
-            v630 = 0;
-            v631 = a3;
-            v632 = a4;
-            v633 = a5;
+            v627 = 0;
+            v628 = a3;
+            v629 = a4;
+            v630 = a5;
             do
             {
               if (a7 >= 1)
               {
-                v634 = 0;
-                LODWORD(v635) = *a2 << 16;
-                v636 = v304;
+                v631 = 0;
+                LODWORD(v632) = *a2 << 16;
+                v633 = v303;
                 do
                 {
-                  LODWORD(v637) = *v632 << 16;
-                  LODWORD(v638) = *v633 << 16;
-                  v639 = 64;
-                  v640 = v636;
+                  LODWORD(v634) = *v629 << 16;
+                  LODWORD(v635) = *v630 << 16;
+                  v636 = 64;
+                  v637 = v633;
                   do
                   {
-                    v641 = *v631++;
-                    v642 = v637 * COERCE_FLOAT((COERCE_INT(v641) + (HIWORD(COERCE_UNSIGNED_INT(v641)) & 1) + 0x7FFF) & 0xFFFF0000);
-                    v643 = COERCE_FLOAT((LODWORD(v642) + (HIWORD(LODWORD(v642)) & 1) + 0x7FFF) & 0xFFFF0000) + v638;
-                    v636 = v640 + 1;
-                    v644 = COERCE_FLOAT((COERCE_INT(COERCE_FLOAT((LODWORD(v643) + (HIWORD(LODWORD(v643)) & 1) + 0x7FFF) & 0xFFFF0000) * v635) + (HIWORD(COERCE_UNSIGNED_INT(COERCE_FLOAT((LODWORD(v643) + (HIWORD(LODWORD(v643)) & 1) + 0x7FFF) & 0xFFFF0000) * v635)) & 1) + 0x7FFF) & 0xFFFF0000) + COERCE_FLOAT(*v640 << 16);
-                    *v640++ = (LODWORD(v644) + (HIWORD(LODWORD(v644)) & 1u) + 0x7FFF) >> 16;
-                    --v639;
+                    v638 = *v628++;
+                    v639 = v634 * COERCE_FLOAT((COERCE_INT(v638) + (HIWORD(COERCE_UNSIGNED_INT(v638)) & 1) + 0x7FFF) & 0xFFFF0000);
+                    v640 = COERCE_FLOAT((LODWORD(v639) + (HIWORD(LODWORD(v639)) & 1) + 0x7FFF) & 0xFFFF0000) + v635;
+                    v633 = v637 + 1;
+                    v641 = COERCE_FLOAT((COERCE_INT(COERCE_FLOAT((LODWORD(v640) + (HIWORD(LODWORD(v640)) & 1) + 0x7FFF) & 0xFFFF0000) * v632) + (HIWORD(COERCE_UNSIGNED_INT(COERCE_FLOAT((LODWORD(v640) + (HIWORD(LODWORD(v640)) & 1) + 0x7FFF) & 0xFFFF0000) * v632)) & 1) + 0x7FFF) & 0xFFFF0000) + COERCE_FLOAT(*v637 << 16);
+                    *v637++ = (LODWORD(v641) + (HIWORD(LODWORD(v641)) & 1u) + 0x7FFF) >> 16;
+                    --v636;
                   }
 
-                  while (v639);
-                  ++v632;
-                  ++v633;
-                  v634 += 64;
+                  while (v636);
+                  ++v629;
+                  ++v630;
+                  v631 += 64;
                 }
 
-                while (v634 < a7);
+                while (v631 < a7);
               }
 
               ++a2;
-              ++v630;
+              ++v627;
             }
 
-            while (v630 != a8);
+            while (v627 != a8);
           }
 
-          v304 += a7;
+          v303 += a7;
         }
       }
 
@@ -9235,15 +8133,14 @@ LABEL_457:
                   do
                   {
                     v27 = 0;
-                    v28 = *v23 << 16;
                     do
                     {
                       LOBYTE(a11) = v21[v27];
-                      v29 = COERCE_FLOAT(*v22 << 16) * COERCE_FLOAT((COERCE_INT(LODWORD(a11)) + (HIWORD(COERCE_UNSIGNED_INT(LODWORD(a11))) & 1) + 0x7FFF) & 0xFFFF0000);
-                      v30 = COERCE_FLOAT((LODWORD(v29) + (HIWORD(LODWORD(v29)) & 1) + 0x7FFF) & 0xFFFF0000) + COERCE_FLOAT(*v23 << 16);
-                      LODWORD(v31) = (LODWORD(v30) + (HIWORD(LODWORD(v30)) & 1) + 0x7FFF) & 0xFFFF0000;
-                      LODWORD(v32) = v26[v27++] << 16;
-                      a11 = COERCE_FLOAT((COERCE_INT(v31 * v32) + (HIWORD(COERCE_UNSIGNED_INT(v31 * v32)) & 1) + 0x7FFF) & 0xFFFF0000) + COERCE_FLOAT(v25 << 16);
+                      v28 = COERCE_FLOAT(*v22 << 16) * COERCE_FLOAT((COERCE_INT(LODWORD(a11)) + (HIWORD(COERCE_UNSIGNED_INT(LODWORD(a11))) & 1) + 0x7FFF) & 0xFFFF0000);
+                      v29 = COERCE_FLOAT((LODWORD(v28) + (HIWORD(LODWORD(v28)) & 1) + 0x7FFF) & 0xFFFF0000) + COERCE_FLOAT(*v23 << 16);
+                      LODWORD(v30) = (LODWORD(v29) + (HIWORD(LODWORD(v29)) & 1) + 0x7FFF) & 0xFFFF0000;
+                      LODWORD(v31) = v26[v27++] << 16;
+                      a11 = COERCE_FLOAT((COERCE_INT(v30 * v31) + (HIWORD(COERCE_UNSIGNED_INT(v30 * v31)) & 1) + 0x7FFF) & 0xFFFF0000) + COERCE_FLOAT(v25 << 16);
                       v25 = (LODWORD(a11) + (HIWORD(LODWORD(a11)) & 1u) + 0x7FFF) >> 16;
                     }
 
@@ -9281,61 +8178,58 @@ LABEL_457:
 
           if (a8 >= 1)
           {
-            v756 = 0;
-            v757 = a3;
-            v758 = a4;
-            v759 = a5;
+            v753 = 0;
+            v754 = a3;
+            v755 = a4;
+            v756 = a5;
             do
             {
               if (a7 >= 1)
               {
-                v760 = 0;
-                LODWORD(v761) = *a2 << 16;
-                v762 = v18;
+                v757 = 0;
+                LODWORD(v758) = *a2 << 16;
+                v759 = v18;
                 do
                 {
-                  LODWORD(v763) = *v758 << 16;
-                  LODWORD(v764) = *v759 << 16;
-                  v765 = 32;
-                  v766 = v762;
+                  LODWORD(v760) = *v755 << 16;
+                  LODWORD(v761) = *v756 << 16;
+                  v762 = 32;
+                  v763 = v759;
                   do
                   {
-                    v767 = *v757++;
-                    v768 = v763 * COERCE_FLOAT((COERCE_INT(v767) + (HIWORD(COERCE_UNSIGNED_INT(v767)) & 1) + 0x7FFF) & 0xFFFF0000);
-                    v769 = COERCE_FLOAT((LODWORD(v768) + (HIWORD(LODWORD(v768)) & 1) + 0x7FFF) & 0xFFFF0000) + v764;
-                    v762 = v766 + 1;
-                    v770 = COERCE_FLOAT((COERCE_INT(COERCE_FLOAT((LODWORD(v769) + (HIWORD(LODWORD(v769)) & 1) + 0x7FFF) & 0xFFFF0000) * v761) + (HIWORD(COERCE_UNSIGNED_INT(COERCE_FLOAT((LODWORD(v769) + (HIWORD(LODWORD(v769)) & 1) + 0x7FFF) & 0xFFFF0000) * v761)) & 1) + 0x7FFF) & 0xFFFF0000) + COERCE_FLOAT(*v766 << 16);
-                    *v766++ = (LODWORD(v770) + (HIWORD(LODWORD(v770)) & 1u) + 0x7FFF) >> 16;
-                    --v765;
+                    v764 = *v754++;
+                    v765 = v760 * COERCE_FLOAT((COERCE_INT(v764) + (HIWORD(COERCE_UNSIGNED_INT(v764)) & 1) + 0x7FFF) & 0xFFFF0000);
+                    v766 = COERCE_FLOAT((LODWORD(v765) + (HIWORD(LODWORD(v765)) & 1) + 0x7FFF) & 0xFFFF0000) + v761;
+                    v759 = v763 + 1;
+                    v767 = COERCE_FLOAT((COERCE_INT(COERCE_FLOAT((LODWORD(v766) + (HIWORD(LODWORD(v766)) & 1) + 0x7FFF) & 0xFFFF0000) * v758) + (HIWORD(COERCE_UNSIGNED_INT(COERCE_FLOAT((LODWORD(v766) + (HIWORD(LODWORD(v766)) & 1) + 0x7FFF) & 0xFFFF0000) * v758)) & 1) + 0x7FFF) & 0xFFFF0000) + COERCE_FLOAT(*v763 << 16);
+                    *v763++ = (LODWORD(v767) + (HIWORD(LODWORD(v767)) & 1u) + 0x7FFF) >> 16;
+                    --v762;
                   }
 
-                  while (v765);
-                  ++v758;
-                  ++v759;
-                  v760 += 32;
+                  while (v762);
+                  ++v755;
+                  ++v756;
+                  v757 += 32;
                 }
 
-                while (v760 < a7);
+                while (v757 < a7);
               }
 
               ++a2;
-              ++v756;
+              ++v753;
             }
 
-            while (v756 != a8);
+            while (v753 != a8);
           }
 
           v18 += a7;
         }
       }
 
-      break;
+      return;
     default:
       goto LABEL_458;
   }
-
-LABEL_456:
-  v843 = *MEMORY[0x277D85DE8];
 }
 
 float mlx::core::anonymous namespace::extract_bits<mlx::core::_MLX_BFloat16,3>(unsigned __int8 *a1, _WORD *a2)
@@ -10182,4 +9076,884 @@ LABEL_91:
       std::invalid_argument::invalid_argument[abi:ne200100](exception, "[quantized_matmul] only floating types are supported");
       __cxa_throw(exception, off_279921408, MEMORY[0x277D82610]);
   }
+}
+
+void *std::__function::__func<std::__bind<mlx::core::GatherQMM::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_1>,std::allocator<std::__bind<mlx::core::GatherQMM::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_1>>,void ()(void)>::~__func(void *a1)
+{
+  *a1 = &unk_286BF6E28;
+  v2 = (a1 + 3);
+  mlx::core::array::~array((a1 + 13));
+  mlx::core::array::~array((a1 + 11));
+  mlx::core::array::~array((a1 + 9));
+  mlx::core::array::~array((a1 + 7));
+  mlx::core::array::~array((a1 + 5));
+  mlx::core::array::~array(v2);
+  mlx::core::array::~array((a1 + 1));
+  return a1;
+}
+
+void std::__function::__func<std::__bind<mlx::core::GatherQMM::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_1>,std::allocator<std::__bind<mlx::core::GatherQMM::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_1>>,void ()(void)>::~__func(void *a1)
+{
+  *a1 = &unk_286BF6E28;
+  v2 = (a1 + 3);
+  mlx::core::array::~array((a1 + 13));
+  mlx::core::array::~array((a1 + 11));
+  mlx::core::array::~array((a1 + 9));
+  mlx::core::array::~array((a1 + 7));
+  mlx::core::array::~array((a1 + 5));
+  mlx::core::array::~array(v2);
+  mlx::core::array::~array((a1 + 1));
+
+  JUMPOUT(0x25F851760);
+}
+
+uint64_t std::__function::__func<std::__bind<mlx::core::GatherQMM::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_1>,std::allocator<std::__bind<mlx::core::GatherQMM::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_1>>,void ()(void)>::__clone(uint64_t result, uint64_t a2)
+{
+  v3 = *(result + 8);
+  v2 = *(result + 16);
+  *a2 = &unk_286BF6E28;
+  *(a2 + 8) = v3;
+  *(a2 + 16) = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v4 = *(result + 32);
+  *(a2 + 24) = *(result + 24);
+  *(a2 + 32) = v4;
+  if (v4)
+  {
+    atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v5 = *(result + 48);
+  *(a2 + 40) = *(result + 40);
+  *(a2 + 48) = v5;
+  if (v5)
+  {
+    atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v6 = *(result + 64);
+  *(a2 + 56) = *(result + 56);
+  *(a2 + 64) = v6;
+  if (v6)
+  {
+    atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v7 = *(result + 80);
+  *(a2 + 72) = *(result + 72);
+  *(a2 + 80) = v7;
+  if (v7)
+  {
+    atomic_fetch_add_explicit((v7 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v8 = *(result + 96);
+  *(a2 + 88) = *(result + 88);
+  *(a2 + 96) = v8;
+  if (v8)
+  {
+    atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v9 = *(result + 112);
+  *(a2 + 104) = *(result + 104);
+  *(a2 + 112) = v9;
+  if (v9)
+  {
+    atomic_fetch_add_explicit((v9 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v10 = *(result + 120);
+  *(a2 + 128) = *(result + 128);
+  *(a2 + 120) = v10;
+  *(a2 + 137) = 0;
+  *(a2 + 140) = 0;
+  return result;
+}
+
+void std::__function::__func<std::__bind<mlx::core::GatherQMM::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_1>,std::allocator<std::__bind<mlx::core::GatherQMM::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_1>>,void ()(void)>::destroy(uint64_t a1)
+{
+  mlx::core::array::~array((a1 + 104));
+  mlx::core::array::~array((a1 + 88));
+  mlx::core::array::~array((a1 + 72));
+  mlx::core::array::~array((a1 + 56));
+  mlx::core::array::~array((a1 + 40));
+  mlx::core::array::~array((a1 + 24));
+
+  mlx::core::array::~array((a1 + 8));
+}
+
+void std::__function::__func<std::__bind<mlx::core::GatherQMM::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_1>,std::allocator<std::__bind<mlx::core::GatherQMM::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_1>>,void ()(void)>::destroy_deallocate(uint64_t a1)
+{
+  mlx::core::array::~array((a1 + 104));
+  mlx::core::array::~array((a1 + 88));
+  mlx::core::array::~array((a1 + 72));
+  mlx::core::array::~array((a1 + 56));
+  mlx::core::array::~array((a1 + 40));
+  mlx::core::array::~array((a1 + 24));
+  mlx::core::array::~array((a1 + 8));
+
+  operator delete(a1);
+}
+
+uint64_t std::__function::__func<std::__bind<mlx::core::GatherQMM::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_1>,std::allocator<std::__bind<mlx::core::GatherQMM::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_1>>,void ()(void)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t mlx::core::cpu::CommandEncoder::dispatch<mlx::core::fast::AffineQuantize::eval_cpu(std::vector<mlx::core::array> const&,std::vector<mlx::core::array>&)::$_1>(mlx::core::fast::AffineQuantize::eval_cpu(std::vector<mlx::core::array> const&,std::vector<mlx::core::array>&)::$_1 &&)::{lambda(void)#1}::~dispatch(uint64_t a1)
+{
+  mlx::core::array::~array((a1 + 64));
+  mlx::core::array::~array((a1 + 48));
+  mlx::core::array::~array((a1 + 32));
+  mlx::core::array::~array((a1 + 16));
+  return a1;
+}
+
+void *_ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_4fast14AffineQuantize8eval_cpuERKNS_6vectorINS3_5arrayENS_9allocatorISA_EEEERSD_E3__1JEEEvOT_DpOT0_EUlvE_NSB_ISN_EEFvvEED1Ev(void *a1)
+{
+  *a1 = &unk_286BF6F20;
+  v2 = (a1 + 5);
+  mlx::core::array::~array((a1 + 9));
+  mlx::core::array::~array((a1 + 7));
+  mlx::core::array::~array(v2);
+  mlx::core::array::~array((a1 + 3));
+  return a1;
+}
+
+void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_4fast14AffineQuantize8eval_cpuERKNS_6vectorINS3_5arrayENS_9allocatorISA_EEEERSD_E3__1JEEEvOT_DpOT0_EUlvE_NSB_ISN_EEFvvEED0Ev(void *a1)
+{
+  *a1 = &unk_286BF6F20;
+  v2 = (a1 + 5);
+  mlx::core::array::~array((a1 + 9));
+  mlx::core::array::~array((a1 + 7));
+  mlx::core::array::~array(v2);
+  mlx::core::array::~array((a1 + 3));
+
+  JUMPOUT(0x25F851760);
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_4fast14AffineQuantize8eval_cpuERKNS_6vectorINS3_5arrayENS_9allocatorISA_EEEERSD_E3__1JEEEvOT_DpOT0_EUlvE_NSB_ISN_EEFvvEE7__cloneEPNS0_6__baseISP_EE(uint64_t result, uint64_t a2)
+{
+  *a2 = &unk_286BF6F20;
+  v2 = *(result + 8);
+  *(a2 + 16) = *(result + 16);
+  *(a2 + 8) = v2;
+  v3 = *(result + 32);
+  *(a2 + 24) = *(result + 24);
+  *(a2 + 32) = v3;
+  if (v3)
+  {
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v4 = *(result + 48);
+  *(a2 + 40) = *(result + 40);
+  *(a2 + 48) = v4;
+  if (v4)
+  {
+    atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v5 = *(result + 64);
+  *(a2 + 56) = *(result + 56);
+  *(a2 + 64) = v5;
+  if (v5)
+  {
+    atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v6 = *(result + 80);
+  *(a2 + 72) = *(result + 72);
+  *(a2 + 80) = v6;
+  if (v6)
+  {
+    atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  *(a2 + 88) = *(result + 88);
+  return result;
+}
+
+void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_4fast14AffineQuantize8eval_cpuERKNS_6vectorINS3_5arrayENS_9allocatorISA_EEEERSD_E3__1JEEEvOT_DpOT0_EUlvE_NSB_ISN_EEFvvEE7destroyEv(uint64_t a1)
+{
+  mlx::core::array::~array((a1 + 72));
+  mlx::core::array::~array((a1 + 56));
+  mlx::core::array::~array((a1 + 40));
+
+  mlx::core::array::~array((a1 + 24));
+}
+
+void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_4fast14AffineQuantize8eval_cpuERKNS_6vectorINS3_5arrayENS_9allocatorISA_EEEERSD_E3__1JEEEvOT_DpOT0_EUlvE_NSB_ISN_EEFvvEE18destroy_deallocateEv(uint64_t a1)
+{
+  mlx::core::array::~array((a1 + 72));
+  mlx::core::array::~array((a1 + 56));
+  mlx::core::array::~array((a1 + 40));
+  mlx::core::array::~array((a1 + 24));
+
+  operator delete(a1);
+}
+
+void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_4fast14AffineQuantize8eval_cpuERKNS_6vectorINS3_5arrayENS_9allocatorISA_EEEERSD_E3__1JEEEvOT_DpOT0_EUlvE_NSB_ISN_EEFvvEEclEv(uint64_t a1, int8x8_t a2, float a3)
+{
+  v3 = std::__bind<mlx::core::fast::AffineQuantize::eval_cpu(std::vector<mlx::core::array> const&,std::vector<mlx::core::array>&)::$_1>::operator()[abi:ne200100]<>((a1 + 24), a2, a3);
+  v4 = mlx::core::scheduler::scheduler(v3);
+
+  mlx::core::scheduler::Scheduler::notify_task_completion(v4);
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_4fast14AffineQuantize8eval_cpuERKNS_6vectorINS3_5arrayENS_9allocatorISA_EEEERSD_E3__1JEEEvOT_DpOT0_EUlvE_NSB_ISN_EEFvvEE6targetERKSt9type_info(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+__int16 *std::__bind<mlx::core::fast::AffineQuantize::eval_cpu(std::vector<mlx::core::array> const&,std::vector<mlx::core::array>&)::$_1>::operator()[abi:ne200100]<>(uint64_t *a1, int8x8_t a2, float a3)
+{
+  v3 = *a1;
+  v4 = *(*a1 + 56);
+  switch(v4)
+  {
+    case 12:
+      v21 = *(a1 + 16);
+      v20 = *(a1 + 17);
+      v22 = *(a1[2] + 152);
+      v23 = *(a1[4] + 152);
+      v24 = *(a1[6] + 152);
+      v25 = *(v3 + 48);
+      v26 = *(v3 + 152);
+      if ((v20 ^ (v20 - 1)) <= v20 - 1)
+      {
+
+        return mlx::core::quantize<mlx::core::_MLX_BFloat16,unsigned char>(v26, v22, v23, v24, v20, v21, v25, a2);
+      }
+
+      else
+      {
+
+        return mlx::core::quantize<mlx::core::_MLX_BFloat16,unsigned int>(v26, v22, v23, v24, v20, v21, v25, a2, a3);
+      }
+
+    case 10:
+      v14 = *(a1 + 16);
+      v13 = *(a1 + 17);
+      v15 = *(a1[2] + 152);
+      v16 = *(a1[4] + 152);
+      v17 = *(a1[6] + 152);
+      v18 = *(v3 + 48);
+      v19 = *(v3 + 152);
+      if ((v13 ^ (v13 - 1)) <= v13 - 1)
+      {
+
+        return mlx::core::quantize<float,unsigned char>(v19, v15, v16, v17, v13, v14, v18, a2, a3);
+      }
+
+      else
+      {
+
+        return mlx::core::quantize<float,unsigned int>(v19, v15, v16, v17, v13, v14, v18, a2, a3);
+      }
+
+    case 9:
+      v6 = *(a1 + 16);
+      v5 = *(a1 + 17);
+      v7 = *(a1[2] + 152);
+      v8 = *(a1[4] + 152);
+      v9 = *(a1[6] + 152);
+      v10 = *(v3 + 48);
+      v11 = *(v3 + 152);
+      if ((v5 ^ (v5 - 1)) <= v5 - 1)
+      {
+
+        return mlx::core::quantize<half,unsigned char>(v11, v7, v8, v9, v5, v6, v10, a2, a3);
+      }
+
+      else
+      {
+
+        return mlx::core::quantize<half,unsigned int>(v11, v7, v8, v9, v5, v6, v10, a2, a3);
+      }
+
+    default:
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "[fast::AffineQuantize::eval_cpu] Only supports floating point inputs");
+      __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+}
+
+__int16 *mlx::core::quantize<half,unsigned int>(__int16 *result, uint64_t a2, uint64_t a3, uint64_t a4, __int32 a5, int a6, unint64_t a7, int8x8_t a8, float a9)
+{
+  if (a5 == 3)
+  {
+    v9 = 8;
+  }
+
+  else if (a5 == 6)
+  {
+    v9 = 4;
+  }
+
+  else
+  {
+    v9 = 32 / a5;
+  }
+
+  if (a6 <= a7)
+  {
+    v10 = 0;
+    a8.i32[0] = a5;
+    LOWORD(a9) = vaddlv_u8(vcnt_s8(a8));
+    v11 = ~(-1 << a5);
+    v12 = a7 / a6;
+    if (LODWORD(a9) == 1)
+    {
+      v13 = 1;
+    }
+
+    else
+    {
+      v13 = 3;
+    }
+
+    v14 = v13 * a6 / v9;
+    v15 = (a6 / v9);
+    do
+    {
+      if (a6 < 1)
+      {
+        _S5 = INFINITY;
+        v16 = -INFINITY;
+      }
+
+      else
+      {
+        v16 = -INFINITY;
+        _S5 = INFINITY;
+        v18 = a6;
+        v19 = result;
+        do
+        {
+          v20 = *v19++;
+          _H7 = v20;
+          __asm { FCVT            S7, H7 }
+
+          if (v16 < _S7)
+          {
+            v16 = _S7;
+          }
+
+          if (_S5 > _S7)
+          {
+            _S5 = _S7;
+          }
+
+          --v18;
+        }
+
+        while (v18);
+      }
+
+      v26 = fabsf(_S5);
+      v27 = fabsf(v16);
+      v28 = (v16 - _S5) / v11;
+      if (v28 < 0.0000001)
+      {
+        v28 = 0.0000001;
+      }
+
+      v29 = v26 <= v27;
+      if (v26 <= v27)
+      {
+        v30 = -v28;
+      }
+
+      else
+      {
+        v30 = v28;
+      }
+
+      if (v29)
+      {
+        _S5 = v16;
+      }
+
+      v31 = rintf(_S5 / v30);
+      _ZF = v31 == 0.0;
+      if (v31 == 0.0)
+      {
+        _S6 = v30;
+      }
+
+      else
+      {
+        _S6 = _S5 / v31;
+      }
+
+      if (_ZF)
+      {
+        _S5 = 0.0;
+      }
+
+      if (v15 >= 1)
+      {
+        v34 = 0;
+        v35 = a2 + 4 * v10 * v14;
+        v36 = result;
+        do
+        {
+          if (v9 < 1)
+          {
+            v38 = 0;
+          }
+
+          else
+          {
+            v37 = 0;
+            v38 = 0;
+            v39 = v9;
+            v40 = v36;
+            do
+            {
+              v41 = *v40++;
+              _H7 = v41;
+              __asm { FCVT            S7, H7 }
+
+              v44 = rintf((_S7 - _S5) / _S6);
+              if (v44 < 0.0)
+              {
+                v44 = 0.0;
+              }
+
+              if (v44 > v11)
+              {
+                v44 = ~(-1 << a5);
+              }
+
+              v38 |= v44 << v37;
+              v37 += a5;
+              --v39;
+            }
+
+            while (v39);
+          }
+
+          if (LODWORD(a9) == 1)
+          {
+            *(v35 + 4 * v34) = v38;
+          }
+
+          else
+          {
+            v45 = v35 + 12 * v34;
+            *v45 = v38;
+            *(v45 + 4) = vand_s8(vshl_u32(vdup_n_s32(v38), 0xFFFFFFF0FFFFFFF8), 0xFF000000FFLL);
+          }
+
+          ++v34;
+          v36 += v9;
+        }
+
+        while (v34 != v15);
+      }
+
+      __asm { FCVT            H6, S6 }
+
+      *(a3 + 2 * v10) = _H6;
+      __asm { FCVT            H5, S5 }
+
+      *(a4 + 2 * v10++) = _H5;
+      result += a6;
+    }
+
+    while (v10 < v12);
+  }
+
+  return result;
+}
+
+__int16 *mlx::core::quantize<half,unsigned char>(__int16 *result, uint64_t a2, uint64_t a3, uint64_t a4, __int32 a5, int a6, unint64_t a7, int8x8_t a8, float a9)
+{
+  if (a5 == 3)
+  {
+    v9 = 8;
+  }
+
+  else if (a5 == 6)
+  {
+    v9 = 4;
+  }
+
+  else
+  {
+    v9 = 32 / a5;
+  }
+
+  if (a6 <= a7)
+  {
+    v10 = 0;
+    a8.i32[0] = a5;
+    LOWORD(a9) = vaddlv_u8(vcnt_s8(a8));
+    v11 = ~(-1 << a5);
+    v12 = a7 / a6;
+    if (LODWORD(a9) == 1)
+    {
+      v13 = 1;
+    }
+
+    else
+    {
+      v13 = 3;
+    }
+
+    v14 = v13 * a6 / v9;
+    v15 = (a6 / v9);
+    do
+    {
+      if (a6 < 1)
+      {
+        _S3 = INFINITY;
+        v16 = -INFINITY;
+      }
+
+      else
+      {
+        v16 = -INFINITY;
+        _S3 = INFINITY;
+        v18 = a6;
+        v19 = result;
+        do
+        {
+          v20 = *v19++;
+          _H5 = v20;
+          __asm { FCVT            S5, H5 }
+
+          if (v16 < _S5)
+          {
+            v16 = _S5;
+          }
+
+          if (_S3 > _S5)
+          {
+            _S3 = _S5;
+          }
+
+          --v18;
+        }
+
+        while (v18);
+      }
+
+      v26 = fabsf(_S3);
+      v27 = fabsf(v16);
+      v28 = (v16 - _S3) / v11;
+      if (v28 < 0.0000001)
+      {
+        v28 = 0.0000001;
+      }
+
+      v29 = v26 <= v27;
+      if (v26 <= v27)
+      {
+        v30 = -v28;
+      }
+
+      else
+      {
+        v30 = v28;
+      }
+
+      if (v29)
+      {
+        _S3 = v16;
+      }
+
+      v31 = rintf(_S3 / v30);
+      _ZF = v31 == 0.0;
+      if (v31 == 0.0)
+      {
+        _S4 = v30;
+      }
+
+      else
+      {
+        _S4 = _S3 / v31;
+      }
+
+      if (_ZF)
+      {
+        _S3 = 0.0;
+      }
+
+      if (v15 >= 1)
+      {
+        v34 = 0;
+        v35 = a2 + v10 * v14;
+        v36 = result;
+        do
+        {
+          if (v9 < 1)
+          {
+            v38 = 0;
+          }
+
+          else
+          {
+            v37 = 0;
+            v38 = 0;
+            v39 = v9;
+            v40 = v36;
+            do
+            {
+              v41 = *v40++;
+              _H5 = v41;
+              __asm { FCVT            S5, H5 }
+
+              v44 = rintf((_S5 - _S3) / _S4);
+              if (v44 < 0.0)
+              {
+                v44 = 0.0;
+              }
+
+              if (v44 > v11)
+              {
+                v44 = ~(-1 << a5);
+              }
+
+              v38 |= v44 << v37;
+              v37 += a5;
+              --v39;
+            }
+
+            while (v39);
+          }
+
+          if (LODWORD(a9) == 1)
+          {
+            *(v35 + v34) = v38;
+          }
+
+          else
+          {
+            v45 = v35 + 3 * v34;
+            *v45 = v38;
+            *(v45 + 2) = BYTE2(v38);
+          }
+
+          ++v34;
+          v36 += v9;
+        }
+
+        while (v34 != v15);
+      }
+
+      __asm { FCVT            H4, S4 }
+
+      *(a3 + 2 * v10) = _H4;
+      __asm { FCVT            H3, S3 }
+
+      *(a4 + 2 * v10++) = _H3;
+      result += a6;
+    }
+
+    while (v10 < v12);
+  }
+
+  return result;
+}
+
+unsigned __int16 *mlx::core::quantize<mlx::core::_MLX_BFloat16,unsigned int>(unsigned __int16 *result, uint64_t a2, uint64_t a3, uint64_t a4, __int32 a5, int a6, unint64_t a7, int8x8_t a8, float a9)
+{
+  if (a5 == 3)
+  {
+    v9 = 8;
+  }
+
+  else if (a5 == 6)
+  {
+    v9 = 4;
+  }
+
+  else
+  {
+    v9 = 32 / a5;
+  }
+
+  if (a6 <= a7)
+  {
+    v10 = 0;
+    a8.i32[0] = a5;
+    LOWORD(a9) = vaddlv_u8(vcnt_s8(a8));
+    v11 = ~(-1 << a5);
+    if (LODWORD(a9) == 1)
+    {
+      v12 = 1;
+    }
+
+    else
+    {
+      v12 = 3;
+    }
+
+    v13 = v12 * a6 / v9;
+    v14 = (a6 / v9);
+    do
+    {
+      if (a6 < 1)
+      {
+        v16 = INFINITY;
+        v15 = -INFINITY;
+      }
+
+      else
+      {
+        v15 = -INFINITY;
+        v16 = INFINITY;
+        v17 = a6;
+        v18 = result;
+        do
+        {
+          v19 = *v18++;
+          LODWORD(v20) = v19 << 16;
+          if (v15 < COERCE_FLOAT(v19 << 16))
+          {
+            v15 = v20;
+          }
+
+          if (v16 > v20)
+          {
+            v16 = v20;
+          }
+
+          --v17;
+        }
+
+        while (v17);
+      }
+
+      v21 = fabsf(v16);
+      v22 = fabsf(v15);
+      v23 = (v15 - v16) / v11;
+      if (v23 < 0.0000001)
+      {
+        v23 = 0.0000001;
+      }
+
+      v24 = v21 <= v22;
+      if (v21 <= v22)
+      {
+        v25 = -v23;
+      }
+
+      else
+      {
+        v25 = v23;
+      }
+
+      if (v24)
+      {
+        v16 = v15;
+      }
+
+      v26 = rintf(v16 / v25);
+      v27 = v26 == 0.0;
+      if (v26 == 0.0)
+      {
+        v28 = v25;
+      }
+
+      else
+      {
+        v28 = v16 / v26;
+      }
+
+      if (v27)
+      {
+        v16 = 0.0;
+      }
+
+      if (v14 >= 1)
+      {
+        v29 = 0;
+        v30 = a2 + 4 * v10 * v13;
+        v31 = result;
+        do
+        {
+          if (v9 < 1)
+          {
+            v33 = 0;
+          }
+
+          else
+          {
+            v32 = 0;
+            v33 = 0;
+            v34 = v9;
+            v35 = v31;
+            do
+            {
+              v36 = *v35++;
+              v37 = rintf((COERCE_FLOAT(v36 << 16) - v16) / v28);
+              if (v37 < 0.0)
+              {
+                v37 = 0.0;
+              }
+
+              if (v37 > v11)
+              {
+                v37 = ~(-1 << a5);
+              }
+
+              v33 |= v37 << v32;
+              v32 += a5;
+              --v34;
+            }
+
+            while (v34);
+          }
+
+          if (LODWORD(a9) == 1)
+          {
+            *(v30 + 4 * v29) = v33;
+          }
+
+          else
+          {
+            v38 = v30 + 12 * v29;
+            *v38 = v33;
+            *(v38 + 4) = vand_s8(vshl_u32(vdup_n_s32(v33), 0xFFFFFFF0FFFFFFF8), 0xFF000000FFLL);
+          }
+
+          ++v29;
+          v31 += v9;
+        }
+
+        while (v29 != v14);
+      }
+
+      *(a3 + 2 * v10) = (LODWORD(v28) + (HIWORD(LODWORD(v28)) & 1u) + 0x7FFF) >> 16;
+      *(a4 + 2 * v10++) = (LODWORD(v16) + (HIWORD(LODWORD(v16)) & 1u) + 0x7FFF) >> 16;
+      result += a6;
+    }
+
+    while (v10 < a7 / a6);
+  }
+
+  return result;
 }

@@ -248,10 +248,10 @@
     v223 = v66;
     [(CKEffectPickerView *)v21 setMomentsCollectionView:v66];
     v71 = objc_alloc(MEMORY[0x1E69DCF38]);
-    v72 = CKFrameworkBundle();
+    v72 = CKFrameworkBundle(v71);
     v73 = [v72 localizedStringForKey:@"IMPACT_PICKER_BUBBLE_EFFECT_STYLE" value:&stru_1F04268F8 table:@"ChatKit"];
     v228[0] = v73;
-    v74 = CKFrameworkBundle();
+    v74 = CKFrameworkBundle(v73);
     v75 = [v74 localizedStringForKey:@"IMPACT_PICKER_SCREEN_EFFECT_STYLE" value:&stru_1F04268F8 table:@"ChatKit"];
     v228[1] = v75;
     v76 = [MEMORY[0x1E695DEC8] arrayWithObjects:v228 count:2];
@@ -319,7 +319,7 @@
     v211 = v96;
     [(CKEffectPickerView *)v21 setPageControl:v96];
     v99 = [objc_alloc(MEMORY[0x1E69DCC10]) initWithFrame:{v92, v93, v94, v95}];
-    v100 = CKFrameworkBundle();
+    v100 = CKFrameworkBundle(v99);
     v101 = [v100 localizedStringForKey:@"IMPACT_PICKER_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
     [v99 setText:v101];
 
@@ -3855,7 +3855,7 @@ uint64_t __72__CKEffectPickerView_collectionView_willDisplayCell_forItemAtIndexP
   objc_initWeak(&location, self);
   v5 = MEMORY[0x1E695DFF0];
   effect = [cellCopy effect];
-  [effect duration];
+  objc_msgSend_duration(effect);
   v8 = v7;
   v18[0] = MEMORY[0x1E69E9820];
   v18[1] = 3221225472;

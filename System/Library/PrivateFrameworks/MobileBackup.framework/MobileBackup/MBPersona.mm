@@ -1,9 +1,11 @@
 @interface MBPersona
 + (Class)personaClass;
 + (id)personaWithAttributes:(id)attributes volumeMountPoint:(id)point;
++ (id)personaWithIdentifier:(id)identifier userPersonaType:(unint64_t)type dataSeparatedPersona:(BOOL)persona volumeMountPoint:(id)point;
 + (id)personaWithUMPersona:(id)persona error:(id *)error;
 - (BOOL)shouldRestoreToSharedVolume;
 - (MBPersona)initWithPersonaAttributes:(id)attributes volumeMountPoint:(id)point;
+- (MBPersona)initWithPersonaIdentifier:(id)identifier userPersonaType:(unint64_t)type dataSeparatedPersona:(BOOL)persona volumeMountPoint:(id)point;
 - (MBPersona)initWithUMPersona:(id)persona error:(id *)error;
 - (NSDictionary)restoreDepotRootsByVolume;
 - (NSSet)volumesToBackUp;
@@ -105,6 +107,16 @@
   return v3;
 }
 
++ (id)personaWithIdentifier:(id)identifier userPersonaType:(unint64_t)type dataSeparatedPersona:(BOOL)persona volumeMountPoint:(id)point
+{
+  personaCopy = persona;
+  pointCopy = point;
+  identifierCopy = identifier;
+  v11 = [objc_alloc(+[MBPersona personaClass](MBPersona "personaClass"))];
+
+  return v11;
+}
+
 + (id)personaWithAttributes:(id)attributes volumeMountPoint:(id)point
 {
   pointCopy = point;
@@ -120,6 +132,37 @@
   v6 = [objc_alloc(+[MBPersona personaClass](MBPersona "personaClass"))];
 
   return v6;
+}
+
+- (MBPersona)initWithPersonaIdentifier:(id)identifier userPersonaType:(unint64_t)type dataSeparatedPersona:(BOOL)persona volumeMountPoint:(id)point
+{
+  personaCopy = persona;
+  identifierCopy = identifier;
+  pointCopy = point;
+  if (!identifierCopy)
+  {
+    [MBPersona initWithPersonaIdentifier:userPersonaType:dataSeparatedPersona:volumeMountPoint:];
+  }
+
+  v12 = pointCopy;
+  if (!pointCopy)
+  {
+    [MBPersona initWithPersonaIdentifier:userPersonaType:dataSeparatedPersona:volumeMountPoint:];
+  }
+
+  v16.receiver = self;
+  v16.super_class = MBPersona;
+  v13 = [(MBPersona *)&v16 init];
+  v14 = v13;
+  if (v13)
+  {
+    [(MBPersona *)v13 setPersonaIdentifier:identifierCopy];
+    [(MBPersona *)v14 setUserPersonaType:type];
+    [(MBPersona *)v14 setIsDataSeparatedPersona:personaCopy];
+    [(MBPersona *)v14 setVolumeMountPoint:v12];
+  }
+
+  return v14;
 }
 
 - (MBPersona)initWithPersonaAttributes:(id)attributes volumeMountPoint:(id)point
@@ -140,7 +183,7 @@
 
 - (MBPersona)initWithUMPersona:(id)persona error:(id *)error
 {
-  v87 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   personaCopy = persona;
   if (!personaCopy)
   {
@@ -162,77 +205,78 @@
       v10 = [MEMORY[0x1E69DF088] personaAttributesForPersonaUniqueString:path];
       if (v10)
       {
-        userPersonaNickName12 = v10;
+        userPersonaNickName14 = v10;
         if (([(__CFString *)v10 isPersonalPersona]& 1) == 0)
         {
           [MBPersona initWithUMPersona:error:];
         }
 
-        userPersonaUniqueString2 = path;
+        userPersonaUniqueString3 = path;
         path = @"/private/var/mobile";
 LABEL_20:
-        v22 = [(MBPersona *)self initWithPersonaAttributes:userPersonaNickName12 volumeMountPoint:path];
-        userPersonaNickName5 = userPersonaNickName12;
+        v16 = [(MBPersona *)self initWithPersonaAttributes:userPersonaNickName14 volumeMountPoint:path];
+        userPersonaNickName7 = userPersonaNickName14;
         self = path;
-        userPersonaNickName12 = userPersonaUniqueString2;
-        path = v22;
+        userPersonaNickName14 = userPersonaUniqueString3;
+        path = v16;
 LABEL_30:
 
         self = path;
         goto LABEL_31;
       }
 
-      userPersonaNickName12 = @"/private/var/mobile";
+      userPersonaNickName14 = @"/private/var/mobile";
       goto LABEL_22;
     }
 
-    if (([v7 isDefaultPersona] & 1) != 0 || objc_msgSend(v7, "isSystemPersona"))
+    isDefaultPersona = [v7 isDefaultPersona];
+    if ((isDefaultPersona & 1) != 0 || (isDefaultPersona = [v7 isSystemPersona], isDefaultPersona))
     {
-      v23 = MBGetDefaultLog();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+      v18 = MBGetDefaultLog(isDefaultPersona);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
       {
         userPersonaNickName = [v7 userPersonaNickName];
         *buf = 138543874;
-        v82 = path;
-        v83 = 2112;
-        v84 = userPersonaNickName;
-        v85 = 2048;
+        v43 = path;
+        v44 = 2112;
+        v45 = userPersonaNickName;
+        v46 = 2048;
         userPersonaType = [v7 userPersonaType];
-        _os_log_impl(&dword_1DEB5D000, v23, OS_LOG_TYPE_DEBUG, "Using the personal persona for persona %{public}@ %@ (%ld)", buf, 0x20u);
+        _os_log_impl(&dword_1DEB5D000, v18, OS_LOG_TYPE_DEBUG, "Using the personal persona for persona %{public}@ %@ (%ld)", buf, 0x20u);
 
         userPersonaNickName2 = [v7 userPersonaNickName];
-        userPersonaType2 = [v7 userPersonaType];
-        _MBLog(@"Db", "Using the personal persona for persona %{public}@ %@ (%ld)", v25, v26, v27, v28, v29, v30, path);
+        _MBLog(@"Db", "Using the personal persona for persona %{public}@ %@ (%ld)", path, userPersonaNickName2, [v7 userPersonaType]);
       }
 
-      userPersonaNickName12 = [MEMORY[0x1E69DF088] personaAttributesForPersonaType:0];
+      userPersonaNickName14 = [MEMORY[0x1E69DF088] personaAttributesForPersonaType:0];
 
-      if (userPersonaNickName12)
+      if (userPersonaNickName14)
       {
-        if (([(__CFString *)userPersonaNickName12 isPersonalPersona]& 1) == 0)
+        isPersonalPersona = [(__CFString *)userPersonaNickName14 isPersonalPersona];
+        if ((isPersonalPersona & 1) == 0)
         {
           [MBPersona initWithUMPersona:error:];
         }
 
-        v31 = MBGetDefaultLog();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+        v23 = MBGetDefaultLog(isPersonalPersona);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
         {
           userPersonaNickName3 = [v7 userPersonaNickName];
-          userPersonaType3 = [v7 userPersonaType];
-          *buf = 138543874;
-          v82 = userPersonaNickName12;
-          v83 = 2112;
-          v84 = userPersonaNickName3;
-          v85 = 2048;
-          userPersonaType = userPersonaType3;
-          _os_log_impl(&dword_1DEB5D000, v31, OS_LOG_TYPE_INFO, "Using the attributes for personal persona: %{public}@ instead of %@ (%ld)", buf, 0x20u);
-
-          userPersonaNickName2 = [v7 userPersonaNickName];
           userPersonaType2 = [v7 userPersonaType];
-          _MBLog(@"I ", "Using the attributes for personal persona: %{public}@ instead of %@ (%ld)", v34, v35, v36, v37, v38, v39, userPersonaNickName12);
+          *buf = 138543874;
+          v43 = userPersonaNickName14;
+          v44 = 2112;
+          v45 = userPersonaNickName3;
+          v46 = 2048;
+          userPersonaType = userPersonaType2;
+          _os_log_impl(&dword_1DEB5D000, v23, OS_LOG_TYPE_INFO, "Using the attributes for personal persona: %{public}@ instead of %@ (%ld)", buf, 0x20u);
+
+          userPersonaNickName4 = [v7 userPersonaNickName];
+          _MBLog(@"I ", "Using the attributes for personal persona: %{public}@ instead of %@ (%ld)", userPersonaNickName14, userPersonaNickName4, [v7 userPersonaType]);
         }
 
-        userPersonaUniqueString2 = [(__CFString *)userPersonaNickName12 userPersonaUniqueString];
+        userPersonaUniqueString2 = [(__CFString *)userPersonaNickName14 userPersonaUniqueString];
+        userPersonaUniqueString3 = userPersonaUniqueString2;
         path = @"/private/var/mobile";
         if (userPersonaUniqueString2)
         {
@@ -248,75 +292,73 @@ LABEL_30:
 
     else
     {
-      userPersonaNickName12 = [MEMORY[0x1E69DF088] personaAttributesForPersonaUniqueString:path];
-      if (!userPersonaNickName12)
+      v10 = [MEMORY[0x1E69DF088] personaAttributesForPersonaUniqueString:path];
+      userPersonaNickName14 = v10;
+      if (!v10)
       {
 LABEL_22:
-        v41 = MBGetDefaultLog();
-        if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+        v28 = MBGetDefaultLog(v10);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
         {
-          userPersonaNickName4 = [v7 userPersonaNickName];
+          userPersonaNickName5 = [v7 userPersonaNickName];
           *buf = 138543874;
-          v82 = path;
-          v83 = 2112;
-          v84 = userPersonaNickName4;
-          v85 = 2048;
+          v43 = path;
+          v44 = 2112;
+          v45 = userPersonaNickName5;
+          v46 = 2048;
           userPersonaType = [v7 userPersonaType];
-          _os_log_impl(&dword_1DEB5D000, v41, OS_LOG_TYPE_ERROR, "Failed to fetch the attributes for persona %{public}@ %@ (%ld)", buf, 0x20u);
+          _os_log_impl(&dword_1DEB5D000, v28, OS_LOG_TYPE_ERROR, "Failed to fetch the attributes for persona %{public}@ %@ (%ld)", buf, 0x20u);
 
-          userPersonaNickName2 = [v7 userPersonaNickName];
-          userPersonaType2 = [v7 userPersonaType];
-          _MBLog(@"E ", "Failed to fetch the attributes for persona %{public}@ %@ (%ld)", v43, v44, v45, v46, v47, v48, path);
+          userPersonaNickName6 = [v7 userPersonaNickName];
+          _MBLog(@"E ", "Failed to fetch the attributes for persona %{public}@ %@ (%ld)", path, userPersonaNickName6, [v7 userPersonaType]);
         }
 
-        userPersonaNickName5 = [v7 userPersonaNickName];
-        [MBError errorWithCode:1 format:@"nil persona attributes for %@ persona", userPersonaNickName5, userPersonaNickName2, userPersonaType2];
+        userPersonaNickName7 = [v7 userPersonaNickName];
+        [MBError errorWithCode:1 format:@"nil persona attributes for %@ persona", userPersonaNickName7];
 LABEL_29:
-        *error = v22 = 0;
+        *error = v16 = 0;
         goto LABEL_30;
       }
 
-      v61 = MBGetDefaultLog();
-      if (os_log_type_enabled(v61, OS_LOG_TYPE_INFO))
+      v36 = MBGetDefaultLog(v10);
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
       {
         *buf = 138543618;
-        v82 = path;
-        v83 = 2114;
-        v84 = userPersonaNickName12;
-        _os_log_impl(&dword_1DEB5D000, v61, OS_LOG_TYPE_INFO, "Fetched persona attributes for persona %{public}@: %{public}@", buf, 0x16u);
-        userPersonaNickName2 = userPersonaNickName12;
-        _MBLog(@"I ", "Fetched persona attributes for persona %{public}@: %{public}@", v62, v63, v64, v65, v66, v67, path);
+        v43 = path;
+        v44 = 2114;
+        v45 = userPersonaNickName14;
+        _os_log_impl(&dword_1DEB5D000, v36, OS_LOG_TYPE_INFO, "Fetched persona attributes for persona %{public}@: %{public}@", buf, 0x16u);
+        _MBLog(@"I ", "Fetched persona attributes for persona %{public}@: %{public}@", path, userPersonaNickName14);
       }
 
-      userPersonaUniqueString2 = [(__CFString *)userPersonaNickName12 userPersonaUniqueString];
+      userPersonaUniqueString3 = [(__CFString *)userPersonaNickName14 userPersonaUniqueString];
 
-      personaLayoutPathURL = [(__CFString *)userPersonaNickName12 personaLayoutPathURL];
+      personaLayoutPathURL = [(__CFString *)userPersonaNickName14 personaLayoutPathURL];
       path = [personaLayoutPathURL path];
 
-      if (userPersonaUniqueString2)
+      if (userPersonaUniqueString3)
       {
         if (!path)
         {
-          v69 = MBGetDefaultLog();
-          if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
+          v38 = MBGetDefaultLog(userPersonaUniqueString2);
+          if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
           {
-            userPersonaNickName6 = [v7 userPersonaNickName];
-            userPersonaType4 = [v7 userPersonaType];
+            userPersonaNickName8 = [v7 userPersonaNickName];
+            userPersonaType3 = [v7 userPersonaType];
             *buf = 138543618;
-            v82 = userPersonaNickName6;
-            v83 = 2048;
-            v84 = userPersonaType4;
-            _os_log_impl(&dword_1DEB5D000, v69, OS_LOG_TYPE_ERROR, "nil volumeMountPoint for %{public}@ persona (%ld)", buf, 0x16u);
+            v43 = userPersonaNickName8;
+            v44 = 2048;
+            v45 = userPersonaType3;
+            _os_log_impl(&dword_1DEB5D000, v38, OS_LOG_TYPE_ERROR, "nil volumeMountPoint for %{public}@ persona (%ld)", buf, 0x16u);
 
-            userPersonaNickName7 = [v7 userPersonaNickName];
-            [v7 userPersonaType];
-            _MBLog(@"E ", "nil volumeMountPoint for %{public}@ persona (%ld)", v73, v74, v75, v76, v77, v78, userPersonaNickName7);
+            userPersonaNickName9 = [v7 userPersonaNickName];
+            _MBLog(@"E ", "nil volumeMountPoint for %{public}@ persona (%ld)", userPersonaNickName9, [v7 userPersonaType]);
           }
 
-          userPersonaNickName5 = [v7 userPersonaNickName];
-          [MBError errorWithCode:1 format:@"nil volume mount point for %@ persona", userPersonaNickName5];
-          *error = v22 = 0;
-          path = userPersonaUniqueString2;
+          userPersonaNickName7 = [v7 userPersonaNickName];
+          [MBError errorWithCode:1 format:@"nil volume mount point for %@ persona", userPersonaNickName7];
+          *error = v16 = 0;
+          path = userPersonaUniqueString3;
           goto LABEL_30;
         }
 
@@ -324,46 +366,44 @@ LABEL_29:
       }
     }
 
-    v49 = MBGetDefaultLog();
-    if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+    v31 = MBGetDefaultLog(userPersonaUniqueString2);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
-      userPersonaNickName8 = [v7 userPersonaNickName];
-      userPersonaType5 = [v7 userPersonaType];
+      userPersonaNickName10 = [v7 userPersonaNickName];
+      userPersonaType4 = [v7 userPersonaType];
       *buf = 138543618;
-      v82 = userPersonaNickName8;
-      v83 = 2048;
-      v84 = userPersonaType5;
-      _os_log_impl(&dword_1DEB5D000, v49, OS_LOG_TYPE_ERROR, "nil personaIdentifier for %{public}@ persona (%ld)", buf, 0x16u);
+      v43 = userPersonaNickName10;
+      v44 = 2048;
+      v45 = userPersonaType4;
+      _os_log_impl(&dword_1DEB5D000, v31, OS_LOG_TYPE_ERROR, "nil personaIdentifier for %{public}@ persona (%ld)", buf, 0x16u);
 
-      userPersonaNickName9 = [v7 userPersonaNickName];
-      userPersonaNickName2 = [v7 userPersonaType];
-      _MBLog(@"E ", "nil personaIdentifier for %{public}@ persona (%ld)", v53, v54, v55, v56, v57, v58, userPersonaNickName9);
+      userPersonaNickName11 = [v7 userPersonaNickName];
+      _MBLog(@"E ", "nil personaIdentifier for %{public}@ persona (%ld)", userPersonaNickName11, [v7 userPersonaType]);
     }
 
-    userPersonaNickName5 = [v7 userPersonaNickName];
-    [MBError errorWithCode:1 format:@"nil persona identifier for %@ persona", userPersonaNickName5, userPersonaNickName2, userPersonaType2];
+    userPersonaNickName7 = [v7 userPersonaNickName];
+    [MBError errorWithCode:1 format:@"nil persona identifier for %@ persona", userPersonaNickName7];
     goto LABEL_29;
   }
 
-  v13 = MBGetDefaultLog();
+  v13 = MBGetDefaultLog(0);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
-    userPersonaNickName10 = [v7 userPersonaNickName];
+    userPersonaNickName12 = [v7 userPersonaNickName];
     *buf = 138543362;
-    v82 = userPersonaNickName10;
+    v43 = userPersonaNickName12;
     _os_log_impl(&dword_1DEB5D000, v13, OS_LOG_TYPE_ERROR, "nil personaIdentifier for %{public}@ persona", buf, 0xCu);
 
-    userPersonaNickName11 = [v7 userPersonaNickName];
-    _MBLog(@"E ", "nil personaIdentifier for %{public}@ persona", v16, v17, v18, v19, v20, v21, userPersonaNickName11);
+    userPersonaNickName13 = [v7 userPersonaNickName];
+    _MBLog(@"E ", "nil personaIdentifier for %{public}@ persona", userPersonaNickName13);
   }
 
-  userPersonaNickName12 = [v7 userPersonaNickName];
-  [MBError errorWithCode:1 format:@"nil persona identifier for %@ persona", userPersonaNickName12];
-  *error = v22 = 0;
+  userPersonaNickName14 = [v7 userPersonaNickName];
+  [MBError errorWithCode:1 format:@"nil persona identifier for %@ persona", userPersonaNickName14];
+  *error = v16 = 0;
 LABEL_31:
 
-  v59 = *MEMORY[0x1E69E9840];
-  return v22;
+  return v16;
 }
 
 - (id)description
@@ -673,10 +713,10 @@ LABEL_31:
   personaIdentifier = [(MBPersona *)self personaIdentifier];
   v4 = [v2 stringWithFormat:@"RestoreOperationLog-%@.log", personaIdentifier];
 
-  v5 = MBGetLogDir();
-  v6 = [v5 stringByAppendingPathComponent:v4];
+  v7 = MBGetLogDir(v5, v6);
+  v8 = [v7 stringByAppendingPathComponent:v4];
 
-  return v6;
+  return v8;
 }
 
 - (NSString)l28BackupTelemetryPlistPath
@@ -759,42 +799,40 @@ LABEL_31:
 
 - (void)removeRestoreKeybags
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   restoreKeyBagsPath = [(MBPersona *)self restoreKeyBagsPath];
-  v3 = MBGetDefaultLog();
+  v3 = MBGetDefaultLog(restoreKeyBagsPath);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v23 = restoreKeyBagsPath;
+    v11 = restoreKeyBagsPath;
     _os_log_impl(&dword_1DEB5D000, v3, OS_LOG_TYPE_DEFAULT, "Removing the restore keybags at %{public}@", buf, 0xCu);
-    _MBLog(@"Df", "Removing the restore keybags at %{public}@", v4, v5, v6, v7, v8, v9, restoreKeyBagsPath);
+    _MBLog(@"Df", "Removing the restore keybags at %{public}@", restoreKeyBagsPath);
   }
 
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v21 = 0;
-  v11 = [defaultManager removeItemAtPath:restoreKeyBagsPath error:&v21];
-  v12 = v21;
+  v9 = 0;
+  v5 = [defaultManager removeItemAtPath:restoreKeyBagsPath error:&v9];
+  v6 = v9;
 
-  if ((v11 & 1) == 0)
+  if ((v5 & 1) == 0)
   {
-    v13 = MBGetDefaultLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v8 = MBGetDefaultLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v23 = restoreKeyBagsPath;
-      v24 = 2114;
-      v25 = v12;
-      _os_log_impl(&dword_1DEB5D000, v13, OS_LOG_TYPE_ERROR, "Failed to remove the restore keybags at %{public}@: %{public}@", buf, 0x16u);
-      _MBLog(@"E ", "Failed to remove the restore keybags at %{public}@: %{public}@", v14, v15, v16, v17, v18, v19, restoreKeyBagsPath);
+      v11 = restoreKeyBagsPath;
+      v12 = 2114;
+      v13 = v6;
+      _os_log_impl(&dword_1DEB5D000, v8, OS_LOG_TYPE_ERROR, "Failed to remove the restore keybags at %{public}@: %{public}@", buf, 0x16u);
+      _MBLog(@"E ", "Failed to remove the restore keybags at %{public}@: %{public}@", restoreKeyBagsPath, v6);
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (NSDictionary)restoreDepotRootsByVolume
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   restoreDepotRootsByVolume = selfCopy->_restoreDepotRootsByVolume;
@@ -824,17 +862,15 @@ LABEL_2:
   cacheDirectory = [(MBPersona *)selfCopy cacheDirectory];
   v10 = [cacheDirectory stringByAppendingPathComponent:@"restore_depot"];
 
-  v15 = volumeMountPoint;
-  v16[0] = v10;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+  v14 = volumeMountPoint;
+  v15[0] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
   v12 = selfCopy->_restoreDepotRootsByVolume;
   selfCopy->_restoreDepotRootsByVolume = v11;
 
   v4 = selfCopy->_restoreDepotRootsByVolume;
 LABEL_7:
   objc_sync_exit(selfCopy);
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

@@ -22,7 +22,7 @@
 
 - (BOOL)isMediaSystemUUID:(id)d error:(id *)error
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dCopy = d;
   dataSource = [(HMDHomeRemoteEventAccessController *)self dataSource];
   v8 = dataSource;
@@ -39,9 +39,9 @@
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       v13 = HMFGetLogIdentifier();
-      v16 = 138543362;
-      v17 = v13;
-      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to determine media system existence due to no data source", &v16, 0xCu);
+      v15 = 138543362;
+      v16 = v13;
+      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to determine media system existence due to no data source", &v15, 0xCu);
     }
 
     objc_autoreleasePoolPop(v10);
@@ -57,13 +57,12 @@
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (BOOL)isSiriEndpointAccessoryUUID:(id)d error:(id *)error
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dCopy = d;
   dataSource = [(HMDHomeRemoteEventAccessController *)self dataSource];
   v8 = dataSource;
@@ -80,9 +79,9 @@
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       v13 = HMFGetLogIdentifier();
-      v16 = 138543362;
-      v17 = v13;
-      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to determine allowed remote event due to no data source", &v16, 0xCu);
+      v15 = 138543362;
+      v16 = v13;
+      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to determine allowed remote event due to no data source", &v15, 0xCu);
     }
 
     objc_autoreleasePoolPop(v10);
@@ -98,13 +97,12 @@
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (BOOL)isAppleMediaAccessoryUUID:(id)d error:(id *)error
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dCopy = d;
   dataSource = [(HMDHomeRemoteEventAccessController *)self dataSource];
   v8 = dataSource;
@@ -121,9 +119,9 @@
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       v13 = HMFGetLogIdentifier();
-      v16 = 138543362;
-      v17 = v13;
-      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to determine allowed remote event due to no data source", &v16, 0xCu);
+      v15 = 138543362;
+      v16 = v13;
+      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to determine allowed remote event due to no data source", &v15, 0xCu);
     }
 
     objc_autoreleasePoolPop(v10);
@@ -139,13 +137,12 @@
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (BOOL)remoteEventAllowedForAccessoryInfoWithTopicSuffix:(id)suffix deviceType:(unint64_t)type userType:(unint64_t)userType
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   suffixCopy = suffix;
   if (suffixCopy)
   {
@@ -176,11 +173,11 @@ LABEL_13:
       if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         v23 = HMFGetLogIdentifier();
-        v26 = 138543618;
-        v27 = v23;
-        v28 = 2112;
-        v29 = suffixCopy;
-        _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_ERROR, "%{public}@Failed to get remove event allowed due to no ACL for accessory info topicSuffix: %@", &v26, 0x16u);
+        v25 = 138543618;
+        v26 = v23;
+        v27 = 2112;
+        v28 = suffixCopy;
+        _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_ERROR, "%{public}@Failed to get remove event allowed due to no ACL for accessory info topicSuffix: %@", &v25, 0x16u);
       }
 
       objc_autoreleasePoolPop(v20);
@@ -196,22 +193,21 @@ LABEL_13:
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
   {
     v19 = HMFGetLogIdentifier();
-    v26 = 138543362;
-    v27 = v19;
-    _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_ERROR, "%{public}@Failed to get remove event allowed due to no topicSuffix", &v26, 0xCu);
+    v25 = 138543362;
+    v26 = v19;
+    _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_ERROR, "%{public}@Failed to get remove event allowed due to no topicSuffix", &v25, 0xCu);
   }
 
   objc_autoreleasePoolPop(v16);
   v15 = 0;
 LABEL_14:
 
-  v24 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 - (BOOL)remoteEventAllowedForHomeEventTopic:(id)topic parsedEventTopic:(id)eventTopic deviceType:(unint64_t)type userType:(unint64_t)userType
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   topicCopy = topic;
   eventTopicCopy = eventTopic;
   topicSuffix = [eventTopicCopy topicSuffix];
@@ -248,11 +244,11 @@ LABEL_13:
       {
         v29 = HMFGetLogIdentifier();
         topicSuffix4 = [eventTopicCopy topicSuffix];
-        v33 = 138543618;
-        v34 = v29;
-        v35 = 2112;
-        v36 = topicSuffix4;
-        _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_ERROR, "%{public}@Failed to get remove event allowed due to no ACL for home topic suffix: %@", &v33, 0x16u);
+        v32 = 138543618;
+        v33 = v29;
+        v34 = 2112;
+        v35 = topicSuffix4;
+        _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_ERROR, "%{public}@Failed to get remove event allowed due to no ACL for home topic suffix: %@", &v32, 0x16u);
       }
 
       objc_autoreleasePoolPop(v26);
@@ -268,31 +264,30 @@ LABEL_13:
   if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
   {
     v25 = HMFGetLogIdentifier();
-    v33 = 138543362;
-    v34 = v25;
-    _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_ERROR, "%{public}@Failed to get remove event allowed due to no accessory topic suffix", &v33, 0xCu);
+    v32 = 138543362;
+    v33 = v25;
+    _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_ERROR, "%{public}@Failed to get remove event allowed due to no accessory topic suffix", &v32, 0xCu);
   }
 
   objc_autoreleasePoolPop(v22);
   v21 = 0;
 LABEL_14:
 
-  v31 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
 - (BOOL)remoteEventAllowedForAccessoryEventTopic:(id)topic parsedEventTopic:(id)eventTopic deviceType:(unint64_t)type userType:(unint64_t)userType
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   topicCopy = topic;
   eventTopicCopy = eventTopic;
   accessoryUUID = [topicCopy accessoryUUID];
-  v51 = 0;
-  v13 = [(HMDHomeRemoteEventAccessController *)self isAppleMediaAccessoryUUID:accessoryUUID error:&v51];
-  v14 = v51;
-  v50 = v14;
-  v15 = [(HMDHomeRemoteEventAccessController *)self isSiriEndpointAccessoryUUID:accessoryUUID error:&v50];
-  v16 = v50;
+  v50 = 0;
+  v13 = [(HMDHomeRemoteEventAccessController *)self isAppleMediaAccessoryUUID:accessoryUUID error:&v50];
+  v14 = v50;
+  v49 = v14;
+  v15 = [(HMDHomeRemoteEventAccessController *)self isSiriEndpointAccessoryUUID:accessoryUUID error:&v49];
+  v16 = v49;
 
   if (v16)
   {
@@ -303,9 +298,9 @@ LABEL_14:
     {
       v20 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v53 = v20;
-      v54 = 2112;
-      v55 = v16;
+      v52 = v20;
+      v53 = 2112;
+      v54 = v16;
       v21 = "%{public}@Failed to get remote event allowed due to known accessory type with error: %@";
       v22 = v19;
       v23 = 22;
@@ -335,38 +330,38 @@ LABEL_25:
 
     if (!topicSuffix)
     {
-      v38 = objc_autoreleasePoolPush();
+      v37 = objc_autoreleasePoolPush();
       selfCopy2 = self;
-      v40 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+      v39 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
       {
-        v41 = HMFGetLogIdentifier();
+        v40 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v53 = v41;
-        _os_log_impl(&dword_2531F8000, v40, OS_LOG_TYPE_ERROR, "%{public}@Failed to get remove event allowed due to no accessory topic suffix", buf, 0xCu);
+        v52 = v40;
+        _os_log_impl(&dword_2531F8000, v39, OS_LOG_TYPE_ERROR, "%{public}@Failed to get remove event allowed due to no accessory topic suffix", buf, 0xCu);
       }
 
-      objc_autoreleasePoolPop(v38);
+      objc_autoreleasePoolPop(v37);
       v27 = 0;
       goto LABEL_25;
     }
 
-    v31 = +[HMDAccessoryEventsGenerated topicMap];
+    v30 = +[HMDAccessoryEventsGenerated topicMap];
     topicSuffix2 = [eventTopicCopy topicSuffix];
-    v33 = [v31 objectForKeyedSubscript:topicSuffix2];
-    v49 = [v33 objectForKeyedSubscript:@"remoteUserAccessControl"];
+    v32 = [v30 objectForKeyedSubscript:topicSuffix2];
+    v48 = [v32 objectForKeyedSubscript:@"remoteUserAccessControl"];
 
-    v47 = +[HMDAccessoryEventsGenerated topicMap];
+    v46 = +[HMDAccessoryEventsGenerated topicMap];
     topicSuffix3 = [eventTopicCopy topicSuffix];
-    v35 = [v47 objectForKeyedSubscript:topicSuffix3];
-    v36 = [v35 objectForKeyedSubscript:@"remoteDeviceAccessControl"];
+    v34 = [v46 objectForKeyedSubscript:topicSuffix3];
+    v35 = [v34 objectForKeyedSubscript:@"remoteDeviceAccessControl"];
 
-    v37 = v36;
-    if (v49 && v36)
+    v36 = v35;
+    if (v48 && v35)
     {
-      if (([HMDRemoteEventRouterAccessControl remoteUserAccessControlFromNumber:v49]& userType) != 0)
+      if (([HMDRemoteEventRouterAccessControl remoteUserAccessControlFromNumber:v48]& userType) != 0)
       {
-        v27 = ([HMDRemoteEventRouterAccessControl remoteDeviceAccessControlFromNumber:v36]& type) != 0;
+        v27 = ([HMDRemoteEventRouterAccessControl remoteDeviceAccessControlFromNumber:v35]& type) != 0;
 LABEL_24:
 
         asAccessorySettingTopic = 0;
@@ -376,24 +371,24 @@ LABEL_24:
 
     else
     {
-      v42 = objc_autoreleasePoolPush();
+      v41 = objc_autoreleasePoolPush();
       selfCopy3 = self;
-      v44 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+      v43 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
       {
-        v45 = HMFGetLogIdentifier();
+        v44 = HMFGetLogIdentifier();
         [eventTopicCopy topicSuffix];
-        v46 = v48 = v37;
+        v45 = v47 = v36;
         *buf = 138543618;
-        v53 = v45;
-        v54 = 2112;
-        v55 = v46;
-        _os_log_impl(&dword_2531F8000, v44, OS_LOG_TYPE_ERROR, "%{public}@Failed to get remove event allowed due to no ACL for accessory topic suffix: %@", buf, 0x16u);
+        v52 = v44;
+        v53 = 2112;
+        v54 = v45;
+        _os_log_impl(&dword_2531F8000, v43, OS_LOG_TYPE_ERROR, "%{public}@Failed to get remove event allowed due to no ACL for accessory topic suffix: %@", buf, 0x16u);
 
-        v37 = v48;
+        v36 = v47;
       }
 
-      objc_autoreleasePoolPop(v42);
+      objc_autoreleasePoolPop(v41);
     }
 
     v27 = 0;
@@ -407,7 +402,7 @@ LABEL_24:
   {
     v20 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v53 = v20;
+    v52 = v20;
     v21 = "%{public}@Failed to determine remote event allowed for non-supported accessory";
     v22 = v19;
     v23 = 12;
@@ -420,18 +415,17 @@ LABEL_10:
   v27 = 0;
 LABEL_11:
 
-  v28 = *MEMORY[0x277D85DE8];
   return v27;
 }
 
 - (BOOL)remoteEventAllowForMediaSystemSettingEventTopic:(id)topic deviceType:(unint64_t)type userType:(unint64_t)userType
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   topicCopy = topic;
   mediaSystemUUID = [topicCopy mediaSystemUUID];
-  v24 = 0;
-  v10 = [(HMDHomeRemoteEventAccessController *)self isMediaSystemUUID:mediaSystemUUID error:&v24];
-  v11 = v24;
+  v23 = 0;
+  v10 = [(HMDHomeRemoteEventAccessController *)self isMediaSystemUUID:mediaSystemUUID error:&v23];
+  v11 = v23;
   if (v11)
   {
     v12 = objc_autoreleasePoolPush();
@@ -441,9 +435,9 @@ LABEL_11:
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v26 = v15;
-      v27 = 2112;
-      v28 = v11;
+      v25 = v15;
+      v26 = 2112;
+      v27 = v11;
       v16 = "%{public}@Failed to get remote event allowed for media system with error: %@";
       v17 = v14;
       v18 = 22;
@@ -465,7 +459,7 @@ LABEL_8:
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v26 = v15;
+      v25 = v15;
       v16 = "%{public}@Failed to determine remote event allowed for unknown media system";
       v17 = v14;
       v18 = 12;
@@ -484,13 +478,12 @@ LABEL_9:
   v21 = [settingsHelper remoteEventAllowedForKeyPath:mediaSystemSettingKeyPath deviceType:type userType:userType];
 
 LABEL_10:
-  v22 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
 - (BOOL)remoteEventAllowedForTopic:(id)topic deviceType:(unint64_t)type userType:(unint64_t)userType
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   topicCopy = topic;
   v9 = [MEMORY[0x277CD19F0] decodeTopic:topicCopy];
   v10 = v9;
@@ -526,13 +519,13 @@ LABEL_10:
           if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
           {
             v22 = HMFGetLogIdentifier();
-            v25 = 138543874;
-            v26 = v22;
-            v27 = 2112;
-            v28 = v10;
-            v29 = 2112;
-            v30 = topicCopy;
-            _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_ERROR, "%{public}@Failed to determine remote event allowed due to unknown parsed topic: %@ with topic: %@", &v25, 0x20u);
+            v24 = 138543874;
+            v25 = v22;
+            v26 = 2112;
+            v27 = v10;
+            v28 = 2112;
+            v29 = topicCopy;
+            _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_ERROR, "%{public}@Failed to determine remote event allowed due to unknown parsed topic: %@ with topic: %@", &v24, 0x20u);
           }
 
           objc_autoreleasePoolPop(v19);
@@ -550,18 +543,17 @@ LABEL_10:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
       v16 = HMFGetLogIdentifier();
-      v25 = 138543618;
-      v26 = v16;
-      v27 = 2112;
-      v28 = topicCopy;
-      _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_DEBUG, "%{public}@Failed to determine allowed remote event due to unparsable topic: %@", &v25, 0x16u);
+      v24 = 138543618;
+      v25 = v16;
+      v26 = 2112;
+      v27 = topicCopy;
+      _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_DEBUG, "%{public}@Failed to determine allowed remote event due to unparsable topic: %@", &v24, 0x16u);
     }
 
     objc_autoreleasePoolPop(v13);
     v12 = 0;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

@@ -8,10 +8,10 @@
 
 - (_TtC11SettingsApp27SettingsApplicationDelegate)init
 {
-  *(&self->super.isa + OBJC_IVAR____TtC11SettingsApp27SettingsApplicationDelegate_observationTokens) = &_swiftEmptyArrayStorage;
+  *(&self->super.isa + OBJC_IVAR____TtC11SettingsApp27SettingsApplicationDelegate_observationTokens) = _swiftEmptyArrayStorage;
   ObservationRegistrar.init()();
   v4.receiver = self;
-  v4.super_class = type metadata accessor for SettingsApplicationDelegate();
+  v4.super_class = type metadata accessor for SettingsApplicationDelegate(0);
   return [(SettingsApplicationDelegate *)&v4 init];
 }
 
@@ -37,7 +37,7 @@
   role = [sessionCopy role];
   v7 = [objc_allocWithZone(UISceneConfiguration) initWithName:0 sessionRole:role];
 
-  type metadata accessor for SettingsAppSceneDelegate();
+  type metadata accessor for SettingsAppSceneDelegate(0);
   [v7 setDelegateClass:swift_getObjCClassFromMetadata()];
 
   return v7;

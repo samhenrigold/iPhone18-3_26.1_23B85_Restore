@@ -18,18 +18,18 @@
 
 - (void)_clearXPCConnection
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   xpcConnection = self->_xpcConnection;
   if (xpcConnection)
   {
     v4 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
     {
-      v7 = 136315394;
-      v8 = "[AFAudioSessionAssertionConnection _clearXPCConnection]";
-      v9 = 2048;
-      v10 = xpcConnection;
-      _os_log_debug_impl(&dword_1912FE000, v4, OS_LOG_TYPE_DEBUG, "%s Destroy XPC connection %p.", &v7, 0x16u);
+      v6 = 136315394;
+      v7 = "[AFAudioSessionAssertionConnection _clearXPCConnection]";
+      v8 = 2048;
+      v9 = xpcConnection;
+      _os_log_debug_impl(&dword_1912FE000, v4, OS_LOG_TYPE_DEBUG, "%s Destroy XPC connection %p.", &v6, 0x16u);
       xpcConnection = self->_xpcConnection;
     }
 
@@ -38,13 +38,11 @@
     v5 = self->_xpcConnection;
     self->_xpcConnection = 0;
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_xpcConnection
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   xpcConnection = self->_xpcConnection;
   if (!xpcConnection)
   {
@@ -55,19 +53,19 @@
     [(NSXPCConnection *)self->_xpcConnection _setQueue:self->_queue];
     objc_initWeak(&location, self);
     v6 = self->_xpcConnection;
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __51__AFAudioSessionAssertionConnection__xpcConnection__block_invoke;
-    v16[3] = &unk_1E7348A80;
-    objc_copyWeak(&v17, &location);
-    [(NSXPCConnection *)v6 setInvalidationHandler:v16];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __51__AFAudioSessionAssertionConnection__xpcConnection__block_invoke;
+    v15[3] = &unk_1E7348A80;
+    objc_copyWeak(&v16, &location);
+    [(NSXPCConnection *)v6 setInvalidationHandler:v15];
     v7 = self->_xpcConnection;
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __51__AFAudioSessionAssertionConnection__xpcConnection__block_invoke_2;
-    v14[3] = &unk_1E7348A80;
-    objc_copyWeak(&v15, &location);
-    [(NSXPCConnection *)v7 setInterruptionHandler:v14];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __51__AFAudioSessionAssertionConnection__xpcConnection__block_invoke_2;
+    v13[3] = &unk_1E7348A80;
+    objc_copyWeak(&v14, &location);
+    [(NSXPCConnection *)v7 setInterruptionHandler:v13];
     v8 = self->_xpcConnection;
     v9 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F05BF140];
     [(NSXPCConnection *)v8 setRemoteObjectInterface:v9];
@@ -76,21 +74,19 @@
     v10 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
     {
-      v13 = self->_xpcConnection;
+      v12 = self->_xpcConnection;
       *buf = 136315394;
-      v20 = "[AFAudioSessionAssertionConnection _xpcConnection]";
-      v21 = 2048;
-      v22 = v13;
+      v19 = "[AFAudioSessionAssertionConnection _xpcConnection]";
+      v20 = 2048;
+      v21 = v12;
       _os_log_debug_impl(&dword_1912FE000, v10, OS_LOG_TYPE_DEBUG, "%s Create XPC connection %p.", buf, 0x16u);
     }
 
-    objc_destroyWeak(&v15);
-    objc_destroyWeak(&v17);
+    objc_destroyWeak(&v14);
+    objc_destroyWeak(&v16);
     objc_destroyWeak(&location);
     xpcConnection = self->_xpcConnection;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return xpcConnection;
 }
@@ -109,41 +105,39 @@ void __51__AFAudioSessionAssertionConnection__xpcConnection__block_invoke_2(uint
 
 - (void)handleXPCConnectionInvalidated
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315394;
-    v6 = "[AFAudioSessionAssertionConnection handleXPCConnectionInvalidated]";
-    v7 = 2048;
+    v4 = 136315394;
+    v5 = "[AFAudioSessionAssertionConnection handleXPCConnectionInvalidated]";
+    v6 = 2048;
     selfCopy = self;
-    _os_log_error_impl(&dword_1912FE000, v3, OS_LOG_TYPE_ERROR, "%s %p", &v5, 0x16u);
+    _os_log_error_impl(&dword_1912FE000, v3, OS_LOG_TYPE_ERROR, "%s %p", &v4, 0x16u);
   }
 
   [(AFAudioSessionAssertionConnection *)self invalidate];
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleXPCConnectionInterrupted
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315394;
-    v6 = "[AFAudioSessionAssertionConnection handleXPCConnectionInterrupted]";
-    v7 = 2048;
+    v4 = 136315394;
+    v5 = "[AFAudioSessionAssertionConnection handleXPCConnectionInterrupted]";
+    v6 = 2048;
     selfCopy = self;
-    _os_log_error_impl(&dword_1912FE000, v3, OS_LOG_TYPE_ERROR, "%s %p", &v5, 0x16u);
+    _os_log_error_impl(&dword_1912FE000, v3, OS_LOG_TYPE_ERROR, "%s %p", &v4, 0x16u);
   }
 
   [(AFAudioSessionAssertionConnection *)self invalidate];
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_finalizeWithContext:(id)context error:(id)error
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   errorCopy = error;
   if ([(AFTwoArgumentSafetyBlock *)self->_relinquishmentHandler invokeWithValue:contextCopy andValue:errorCopy])
@@ -153,154 +147,145 @@ void __51__AFAudioSessionAssertionConnection__xpcConnection__block_invoke_2(uint
     {
       if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
       {
-        v10 = 136315650;
-        v11 = "[AFAudioSessionAssertionConnection _finalizeWithContext:error:]";
-        v12 = 2048;
+        v9 = 136315650;
+        v10 = "[AFAudioSessionAssertionConnection _finalizeWithContext:error:]";
+        v11 = 2048;
         selfCopy2 = self;
-        v14 = 2112;
-        v15 = errorCopy;
-        _os_log_error_impl(&dword_1912FE000, v8, OS_LOG_TYPE_ERROR, "%s %p error = %@", &v10, 0x20u);
+        v13 = 2112;
+        v14 = errorCopy;
+        _os_log_error_impl(&dword_1912FE000, v8, OS_LOG_TYPE_ERROR, "%s %p error = %@", &v9, 0x20u);
       }
     }
 
     else if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
-      v10 = 136315650;
-      v11 = "[AFAudioSessionAssertionConnection _finalizeWithContext:error:]";
-      v12 = 2048;
+      v9 = 136315650;
+      v10 = "[AFAudioSessionAssertionConnection _finalizeWithContext:error:]";
+      v11 = 2048;
       selfCopy2 = self;
-      v14 = 2112;
-      v15 = contextCopy;
-      _os_log_impl(&dword_1912FE000, v8, OS_LOG_TYPE_INFO, "%s %p context = %@", &v10, 0x20u);
+      v13 = 2112;
+      v14 = contextCopy;
+      _os_log_impl(&dword_1912FE000, v8, OS_LOG_TYPE_INFO, "%s %p context = %@", &v9, 0x20u);
     }
   }
 
   [(AFAudioSessionAssertionConnection *)self _clearXPCConnection];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_relinquishWithContext:(id)context error:(id)error options:(unint64_t)options
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   errorCopy = error;
   v10 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315906;
-    v19 = "[AFAudioSessionAssertionConnection _relinquishWithContext:error:options:]";
-    v20 = 2048;
+    v18 = "[AFAudioSessionAssertionConnection _relinquishWithContext:error:options:]";
+    v19 = 2048;
     selfCopy = self;
-    v22 = 2112;
-    v23 = contextCopy;
-    v24 = 2112;
-    v25 = errorCopy;
+    v21 = 2112;
+    v22 = contextCopy;
+    v23 = 2112;
+    v24 = errorCopy;
     _os_log_impl(&dword_1912FE000, v10, OS_LOG_TYPE_INFO, "%s %p context = %@, error = %@", buf, 0x2Au);
   }
 
   objc_initWeak(buf, self);
   _xpcConnection = [(AFAudioSessionAssertionConnection *)self _xpcConnection];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __74__AFAudioSessionAssertionConnection__relinquishWithContext_error_options___block_invoke;
-  v16[3] = &unk_1E7349738;
-  objc_copyWeak(&v17, buf);
-  v12 = [_xpcConnection remoteObjectProxyWithErrorHandler:v16];
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __74__AFAudioSessionAssertionConnection__relinquishWithContext_error_options___block_invoke_18;
-  v14[3] = &unk_1E7348A80;
-  objc_copyWeak(&v15, buf);
-  [v12 relinquishAudioSessionWithContext:contextCopy error:errorCopy options:options completion:v14];
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __74__AFAudioSessionAssertionConnection__relinquishWithContext_error_options___block_invoke;
+  v15[3] = &unk_1E7349738;
+  objc_copyWeak(&v16, buf);
+  v12 = [_xpcConnection remoteObjectProxyWithErrorHandler:v15];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __74__AFAudioSessionAssertionConnection__relinquishWithContext_error_options___block_invoke_18;
+  v13[3] = &unk_1E7348A80;
+  objc_copyWeak(&v14, buf);
+  [v12 relinquishAudioSessionWithContext:contextCopy error:errorCopy options:options completion:v13];
 
-  objc_destroyWeak(&v15);
-  objc_destroyWeak(&v17);
+  objc_destroyWeak(&v14);
+  objc_destroyWeak(&v16);
   objc_destroyWeak(buf);
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __74__AFAudioSessionAssertionConnection__relinquishWithContext_error_options___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
   {
-    v6 = v4;
+    v5 = v4;
     WeakRetained = objc_loadWeakRetained((a1 + 32));
-    v8 = 136315650;
-    v9 = "[AFAudioSessionAssertionConnection _relinquishWithContext:error:options:]_block_invoke";
-    v10 = 2048;
-    v11 = WeakRetained;
-    v12 = 2112;
-    v13 = v3;
-    _os_log_error_impl(&dword_1912FE000, v6, OS_LOG_TYPE_ERROR, "%s %p error = %@", &v8, 0x20u);
+    v7 = 136315650;
+    v8 = "[AFAudioSessionAssertionConnection _relinquishWithContext:error:options:]_block_invoke";
+    v9 = 2048;
+    v10 = WeakRetained;
+    v11 = 2112;
+    v12 = v3;
+    _os_log_error_impl(&dword_1912FE000, v5, OS_LOG_TYPE_ERROR, "%s %p error = %@", &v7, 0x20u);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __74__AFAudioSessionAssertionConnection__relinquishWithContext_error_options___block_invoke_18(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     v3 = v2;
     WeakRetained = objc_loadWeakRetained((a1 + 32));
-    v6 = 136315394;
-    v7 = "[AFAudioSessionAssertionConnection _relinquishWithContext:error:options:]_block_invoke";
-    v8 = 2048;
-    v9 = WeakRetained;
-    _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s %p done", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[AFAudioSessionAssertionConnection _relinquishWithContext:error:options:]_block_invoke";
+    v7 = 2048;
+    v8 = WeakRetained;
+    _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s %p done", &v5, 0x16u);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_acquireWithContext:(id)context
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   v5 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v19 = "[AFAudioSessionAssertionConnection _acquireWithContext:]";
-    v20 = 2048;
+    v18 = "[AFAudioSessionAssertionConnection _acquireWithContext:]";
+    v19 = 2048;
     selfCopy = self;
-    v22 = 2112;
-    v23 = contextCopy;
+    v21 = 2112;
+    v22 = contextCopy;
     _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s %p context = %@", buf, 0x20u);
   }
 
   v6 = self->_queue;
   objc_initWeak(buf, self);
   _xpcConnection = [(AFAudioSessionAssertionConnection *)self _xpcConnection];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __57__AFAudioSessionAssertionConnection__acquireWithContext___block_invoke;
-  v15[3] = &unk_1E7349710;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __57__AFAudioSessionAssertionConnection__acquireWithContext___block_invoke;
+  v14[3] = &unk_1E7349710;
   v8 = v6;
-  v16 = v8;
-  objc_copyWeak(&v17, buf);
-  v9 = [_xpcConnection remoteObjectProxyWithErrorHandler:v15];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __57__AFAudioSessionAssertionConnection__acquireWithContext___block_invoke_3;
-  v12[3] = &unk_1E73427C0;
+  v15 = v8;
+  objc_copyWeak(&v16, buf);
+  v9 = [_xpcConnection remoteObjectProxyWithErrorHandler:v14];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __57__AFAudioSessionAssertionConnection__acquireWithContext___block_invoke_3;
+  v11[3] = &unk_1E73427C0;
   v10 = v8;
-  v13 = v10;
-  objc_copyWeak(&v14, buf);
-  [v9 acquireAudioSessionWithContext:contextCopy relinquishmentHandler:v12];
+  v12 = v10;
+  objc_copyWeak(&v13, buf);
+  [v9 acquireAudioSessionWithContext:contextCopy relinquishmentHandler:v11];
 
-  objc_destroyWeak(&v14);
-  objc_destroyWeak(&v17);
+  objc_destroyWeak(&v13);
+  objc_destroyWeak(&v16);
 
   objc_destroyWeak(buf);
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __57__AFAudioSessionAssertionConnection__acquireWithContext___block_invoke(uint64_t a1, void *a2)
@@ -352,22 +337,22 @@ void __57__AFAudioSessionAssertionConnection__acquireWithContext___block_invoke_
 
 - (void)relinquishWithError:(id)error options:(unint64_t)options
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   v7 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
   {
-    v11 = v7;
-    v12 = AFAssertionRelinquishmentOptionsGetNames(options);
+    v10 = v7;
+    v11 = AFAssertionRelinquishmentOptionsGetNames(options);
     *buf = 136315906;
-    v17 = "[AFAudioSessionAssertionConnection relinquishWithError:options:]";
-    v18 = 2048;
+    v16 = "[AFAudioSessionAssertionConnection relinquishWithError:options:]";
+    v17 = 2048;
     selfCopy = self;
-    v20 = 2112;
-    v21 = errorCopy;
-    v22 = 2112;
-    v23 = v12;
-    _os_log_error_impl(&dword_1912FE000, v11, OS_LOG_TYPE_ERROR, "%s %p error = %@, options = %@", buf, 0x2Au);
+    v19 = 2112;
+    v20 = errorCopy;
+    v21 = 2112;
+    v22 = v11;
+    _os_log_error_impl(&dword_1912FE000, v10, OS_LOG_TYPE_ERROR, "%s %p error = %@, options = %@", buf, 0x2Au);
   }
 
   queue = self->_queue;
@@ -376,17 +361,15 @@ void __57__AFAudioSessionAssertionConnection__acquireWithContext___block_invoke_
   block[2] = __65__AFAudioSessionAssertionConnection_relinquishWithError_options___block_invoke;
   block[3] = &unk_1E73484C0;
   block[4] = self;
-  v14 = errorCopy;
+  v13 = errorCopy;
   optionsCopy = options;
   v9 = errorCopy;
   dispatch_async(queue, block);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)relinquishWithContext:(id)context options:(unint64_t)options
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   v7 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
@@ -394,13 +377,13 @@ void __57__AFAudioSessionAssertionConnection__acquireWithContext___block_invoke_
     v8 = v7;
     v9 = AFAssertionRelinquishmentOptionsGetNames(options);
     *buf = 136315906;
-    v17 = "[AFAudioSessionAssertionConnection relinquishWithContext:options:]";
-    v18 = 2048;
+    v16 = "[AFAudioSessionAssertionConnection relinquishWithContext:options:]";
+    v17 = 2048;
     selfCopy = self;
-    v20 = 2112;
-    v21 = contextCopy;
-    v22 = 2112;
-    v23 = v9;
+    v19 = 2112;
+    v20 = contextCopy;
+    v21 = 2112;
+    v22 = v9;
     _os_log_impl(&dword_1912FE000, v8, OS_LOG_TYPE_INFO, "%s %p context = %@, options = %@", buf, 0x2Au);
   }
 
@@ -410,23 +393,21 @@ void __57__AFAudioSessionAssertionConnection__acquireWithContext___block_invoke_
   block[2] = __67__AFAudioSessionAssertionConnection_relinquishWithContext_options___block_invoke;
   block[3] = &unk_1E73484C0;
   block[4] = self;
-  v14 = contextCopy;
+  v13 = contextCopy;
   optionsCopy = options;
   v11 = contextCopy;
   dispatch_async(queue, block);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)invalidate
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v8 = "[AFAudioSessionAssertionConnection invalidate]";
-    v9 = 2048;
+    v7 = "[AFAudioSessionAssertionConnection invalidate]";
+    v8 = 2048;
     selfCopy = self;
     _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s %p", buf, 0x16u);
   }
@@ -438,7 +419,6 @@ void __57__AFAudioSessionAssertionConnection__acquireWithContext___block_invoke_
   block[3] = &unk_1E73497C8;
   block[4] = self;
   dispatch_async(queue, block);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __47__AFAudioSessionAssertionConnection_invalidate__block_invoke(uint64_t a1)
@@ -451,13 +431,13 @@ void __47__AFAudioSessionAssertionConnection_invalidate__block_invoke(uint64_t a
 
 - (void)dealloc
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v9 = "[AFAudioSessionAssertionConnection dealloc]";
-    v10 = 2048;
+    v8 = "[AFAudioSessionAssertionConnection dealloc]";
+    v9 = 2048;
     selfCopy = self;
     _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s %p", buf, 0x16u);
   }
@@ -466,46 +446,44 @@ void __47__AFAudioSessionAssertionConnection_invalidate__block_invoke(uint64_t a
   v5 = [AFError errorWithCode:41 description:v4];
   [(AFAudioSessionAssertionConnection *)self _finalizeWithContext:0 error:v5];
 
-  v7.receiver = self;
-  v7.super_class = AFAudioSessionAssertionConnection;
-  [(AFAudioSessionAssertionConnection *)&v7 dealloc];
-  v6 = *MEMORY[0x1E69E9840];
+  v6.receiver = self;
+  v6.super_class = AFAudioSessionAssertionConnection;
+  [(AFAudioSessionAssertionConnection *)&v6 dealloc];
 }
 
 - (NSString)description
 {
   v3 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v8.receiver = self;
-  v8.super_class = AFAudioSessionAssertionConnection;
-  v4 = [(AFAudioSessionAssertionConnection *)&v8 description];
-  instanceContext = self->_instanceContext;
-  v6 = [v3 initWithFormat:@"%@ {uuid = %@, instanceContext = %@, acquisitionContext = %@}", v4, self->_uuid, instanceContext, self->_acquisitionContext];
+  v7.receiver = self;
+  v7.super_class = AFAudioSessionAssertionConnection;
+  v4 = [(AFAudioSessionAssertionConnection *)&v7 description];
+  v5 = [v3 initWithFormat:@"%@ {uuid = %@, instanceContext = %@, acquisitionContext = %@}", v4, self->_uuid, self->_instanceContext, self->_acquisitionContext];
 
-  return v6;
+  return v5;
 }
 
 - (AFAudioSessionAssertionConnection)initWithInstanceContext:(id)context acquisitionContext:(id)acquisitionContext relinquishmentHandler:(id)handler
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   acquisitionContextCopy = acquisitionContext;
   handlerCopy = handler;
-  v34.receiver = self;
-  v34.super_class = AFAudioSessionAssertionConnection;
-  v11 = [(AFAudioSessionAssertionConnection *)&v34 init];
+  v33.receiver = self;
+  v33.super_class = AFAudioSessionAssertionConnection;
+  v11 = [(AFAudioSessionAssertionConnection *)&v33 init];
   if (v11)
   {
     v12 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
       *buf = 136315906;
-      v36 = "[AFAudioSessionAssertionConnection initWithInstanceContext:acquisitionContext:relinquishmentHandler:]";
-      v37 = 2048;
-      v38 = v11;
-      v39 = 2112;
-      v40 = contextCopy;
-      v41 = 2112;
-      v42 = acquisitionContextCopy;
+      v35 = "[AFAudioSessionAssertionConnection initWithInstanceContext:acquisitionContext:relinquishmentHandler:]";
+      v36 = 2048;
+      v37 = v11;
+      v38 = 2112;
+      v39 = contextCopy;
+      v40 = 2112;
+      v41 = acquisitionContextCopy;
       _os_log_impl(&dword_1912FE000, v12, OS_LOG_TYPE_INFO, "%s %p instanceContext = %@, acquisitionContext = %@", buf, 0x2Au);
     }
 
@@ -534,13 +512,13 @@ void __47__AFAudioSessionAssertionConnection_invalidate__block_invoke(uint64_t a
     v11->_acquisitionContext = v20;
 
     v22 = [AFTwoArgumentSafetyBlock alloc];
-    v32[0] = MEMORY[0x1E69E9820];
-    v32[1] = 3221225472;
-    v32[2] = __102__AFAudioSessionAssertionConnection_initWithInstanceContext_acquisitionContext_relinquishmentHandler___block_invoke;
-    v32[3] = &unk_1E7342798;
-    v33 = handlerCopy;
+    v31[0] = MEMORY[0x1E69E9820];
+    v31[1] = 3221225472;
+    v31[2] = __102__AFAudioSessionAssertionConnection_initWithInstanceContext_acquisitionContext_relinquishmentHandler___block_invoke;
+    v31[3] = &unk_1E7342798;
+    v32 = handlerCopy;
     v23 = [AFError errorWithCode:40];
-    v24 = [(AFTwoArgumentSafetyBlock *)v22 initWithBlock:v32 defaultValue1:0 defaultValue2:v23];
+    v24 = [(AFTwoArgumentSafetyBlock *)v22 initWithBlock:v31 defaultValue1:0 defaultValue2:v23];
     relinquishmentHandler = v11->_relinquishmentHandler;
     v11->_relinquishmentHandler = v24;
 
@@ -549,12 +527,11 @@ void __47__AFAudioSessionAssertionConnection_invalidate__block_invoke(uint64_t a
     block[1] = 3221225472;
     block[2] = __102__AFAudioSessionAssertionConnection_initWithInstanceContext_acquisitionContext_relinquishmentHandler___block_invoke_2;
     block[3] = &unk_1E7349860;
-    v30 = v11;
-    v31 = acquisitionContextCopy;
+    v29 = v11;
+    v30 = acquisitionContextCopy;
     dispatch_async(v26, block);
   }
 
-  v27 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

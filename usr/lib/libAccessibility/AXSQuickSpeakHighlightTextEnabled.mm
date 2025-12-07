@@ -3,7 +3,7 @@
 
 @implementation AXSQuickSpeakHighlightTextEnabled
 
-uint64_t ___AXSQuickSpeakHighlightTextEnabled_block_invoke()
+void *___AXSQuickSpeakHighlightTextEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

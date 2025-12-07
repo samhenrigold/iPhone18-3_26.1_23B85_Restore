@@ -7,7 +7,7 @@
 - (id)presentationControllerForPresentedViewController:(id)controller presentingViewController:(id)viewController sourceViewController:(id)sourceViewController;
 - (void)_dismissBrowserViewController;
 - (void)_firstResponderDidChange:(id)change;
-- (void)_prepareDocumentAnimationInfoWithCompletion:(uint64_t *)completion;
+- (void)_prepareDocumentAnimationInfoWithCompletion:(void *)completion;
 - (void)_presentBrowserViewController;
 - (void)_updateParentNavigationBarVisibility:(void *)visibility;
 - (void)animateTransition:(id)transition;
@@ -438,7 +438,7 @@
   objc_destroyWeak(&location);
 }
 
-- (void)_prepareDocumentAnimationInfoWithCompletion:(uint64_t *)completion
+- (void)_prepareDocumentAnimationInfoWithCompletion:(void *)completion
 {
   if (completion)
   {

@@ -225,43 +225,7 @@
     }
 
     v6 = v5;
-    if (!v6)
-    {
-      goto LABEL_11;
-    }
-
-    accessoryIdentifier = [(HMFConnectivityInfo *)self accessoryIdentifier];
-    accessoryIdentifier2 = [(HMFConnectivityInfo *)v6 accessoryIdentifier];
-    v9 = HMFEqualObjects();
-
-    if (!v9)
-    {
-      goto LABEL_11;
-    }
-
-    woBLEInfo = [(HMFConnectivityInfo *)self woBLEInfo];
-    woBLEInfo2 = [(HMFConnectivityInfo *)v6 woBLEInfo];
-    v12 = HMFEqualObjects();
-
-    if (!v12)
-    {
-      goto LABEL_11;
-    }
-
-    woWLANInfos = [(HMFConnectivityInfo *)self woWLANInfos];
-    woWLANInfos2 = [(HMFConnectivityInfo *)v6 woWLANInfos];
-    v15 = HMFEqualObjects();
-
-    if (!v15)
-    {
-      goto LABEL_11;
-    }
-
-    woWLANDarkPollMinimumInterval = [(HMFConnectivityInfo *)self woWLANDarkPollMinimumInterval];
-    woWLANDarkPollMinimumInterval2 = [(HMFConnectivityInfo *)v6 woWLANDarkPollMinimumInterval];
-    v18 = HMFEqualObjects();
-
-    if (v18)
+    if (v6 && ([(HMFConnectivityInfo *)self accessoryIdentifier], v7 = objc_claimAutoreleasedReturnValue(), [(HMFConnectivityInfo *)v6 accessoryIdentifier], v8 = objc_claimAutoreleasedReturnValue(), v9 = HMFEqualObjects(), v8, v7, v9) && ([(HMFConnectivityInfo *)self woBLEInfo], v10 = objc_claimAutoreleasedReturnValue(), [(HMFConnectivityInfo *)v6 woBLEInfo], v11 = objc_claimAutoreleasedReturnValue(), v12 = HMFEqualObjects(), v11, v10, v12) && ([(HMFConnectivityInfo *)self woWLANInfos], v13 = objc_claimAutoreleasedReturnValue(), [(HMFConnectivityInfo *)v6 woWLANInfos], v14 = objc_claimAutoreleasedReturnValue(), v15 = HMFEqualObjects(), v14, v13, v15) && ([(HMFConnectivityInfo *)self woWLANDarkPollMinimumInterval], v16 = objc_claimAutoreleasedReturnValue(), [(HMFConnectivityInfo *)v6 woWLANDarkPollMinimumInterval], v17 = objc_claimAutoreleasedReturnValue(), v18 = HMFEqualObjects(), v17, v16, v18))
     {
       woWLANLastDarkPollDate = [(HMFConnectivityInfo *)self woWLANLastDarkPollDate];
       woWLANLastDarkPollDate2 = [(HMFConnectivityInfo *)v6 woWLANLastDarkPollDate];
@@ -270,7 +234,6 @@
 
     else
     {
-LABEL_11:
       v21 = 0;
     }
   }

@@ -5,7 +5,7 @@
 
 void ___AXFrontBoardSortedNonSystemAppProcessesAndScenes_block_invoke(uint64_t a1, void *a2)
 {
-  v19[2] = *MEMORY[0x277D85DE8];
+  v18[2] = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (![v3 accessibilitySceneOwnerIsAUIApplication])
   {
@@ -77,19 +77,17 @@ LABEL_8:
       if (v13 && [v3 accessibilitySceneIsForegroundVisible])
       {
         v14 = *(a1 + 40);
-        v18[0] = @"scene";
-        v18[1] = @"process";
-        v19[0] = v3;
-        v19[1] = v13;
-        v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
+        v17[0] = @"scene";
+        v17[1] = @"process";
+        v18[0] = v3;
+        v18[1] = v13;
+        v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
         [v14 addObject:v15];
       }
     }
   }
 
 LABEL_25:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t ___AXFrontBoardSortedNonSystemAppProcessesAndScenes_block_invoke_2(uint64_t a1, void *a2)

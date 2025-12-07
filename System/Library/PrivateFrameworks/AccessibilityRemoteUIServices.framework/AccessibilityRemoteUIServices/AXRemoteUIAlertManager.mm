@@ -44,7 +44,7 @@ uint64_t __40__AXRemoteUIAlertManager_sharedInstance__block_invoke()
 
 - (void)presentRemoteUIAlertWithIdentifier:(id)identifier viewControllerClassName:(id)name userInfo:(id)info presentationHandler:(id)handler dismissalHandler:(id)dismissalHandler
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   nameCopy = name;
   infoCopy = info;
@@ -55,38 +55,38 @@ uint64_t __40__AXRemoteUIAlertManager_sharedInstance__block_invoke()
 
   if (v18)
   {
-    v34 = infoCopy;
-    v35 = nameCopy;
-    v36 = identifierCopy;
+    v33 = infoCopy;
+    v34 = nameCopy;
+    v35 = identifierCopy;
     v19 = objc_opt_new();
+    v36 = 0u;
     v37 = 0u;
     v38 = 0u;
     v39 = 0u;
-    v40 = 0u;
     remoteCallbackHolders2 = [(AXRemoteUIAlertManager *)self remoteCallbackHolders];
-    v21 = [remoteCallbackHolders2 countByEnumeratingWithState:&v37 objects:v43 count:16];
+    v21 = [remoteCallbackHolders2 countByEnumeratingWithState:&v36 objects:v42 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v38;
+      v23 = *v37;
       do
       {
         for (i = 0; i != v22; ++i)
         {
-          if (*v38 != v23)
+          if (*v37 != v23)
           {
             objc_enumerationMutation(remoteCallbackHolders2);
           }
 
-          v25 = *(*(&v37 + 1) + 8 * i);
-          v26 = [(AXRemoteUIAlertManager *)self remoteCallbackHolders:v34];
+          v25 = *(*(&v36 + 1) + 8 * i);
+          v26 = [(AXRemoteUIAlertManager *)self remoteCallbackHolders:v33];
           v27 = [v26 objectForKeyedSubscript:v25];
 
           remoteAlertHandle = [v27 remoteAlertHandle];
           [remoteAlertHandle invalidate];
         }
 
-        v22 = [remoteCallbackHolders2 countByEnumeratingWithState:&v37 objects:v43 count:16];
+        v22 = [remoteCallbackHolders2 countByEnumeratingWithState:&v36 objects:v42 count:16];
       }
 
       while (v22);
@@ -98,50 +98,48 @@ uint64_t __40__AXRemoteUIAlertManager_sharedInstance__block_invoke()
     if (dismissalHandlerCopy)
     {
       v30 = MEMORY[0x277CCA9B8];
-      v41 = *MEMORY[0x277CCA450];
-      v42 = @"dismissing existing remote UI alert";
-      v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
+      v40 = *MEMORY[0x277CCA450];
+      v41 = @"dismissing existing remote UI alert";
+      v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
       v32 = [v30 errorWithDomain:@"com.apple.AccessibilityRemoteUIServices" code:-110 userInfo:v31];
       dismissalHandlerCopy[2](dismissalHandlerCopy, v32);
     }
 
-    nameCopy = v35;
-    identifierCopy = v36;
-    infoCopy = v34;
+    nameCopy = v34;
+    identifierCopy = v35;
+    infoCopy = v33;
   }
 
   else
   {
     [(AXRemoteUIAlertManager *)self _sbs_presentRemoteUIAlertWithIdentifier:identifierCopy viewControllerClassName:nameCopy userInfo:infoCopy presentationHandler:handlerCopy dismissalHandler:dismissalHandlerCopy];
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 void __131__AXRemoteUIAlertManager_presentRemoteUIAlertWithIdentifier_viewControllerClassName_userInfo_presentationHandler_dismissalHandler___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v16;
+    v5 = *v15;
     do
     {
       v6 = 0;
       do
       {
-        if (*v16 != v5)
+        if (*v15 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v15 + 1) + 8 * v6);
+        v7 = *(*(&v14 + 1) + 8 * v6);
         v8 = [*(a1 + 40) remoteCallbackHolders];
         v9 = [v8 objectForKeyedSubscript:v7];
 
@@ -162,13 +160,11 @@ void __131__AXRemoteUIAlertManager_presentRemoteUIAlertWithIdentifier_viewContro
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v4);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __131__AXRemoteUIAlertManager_presentRemoteUIAlertWithIdentifier_viewControllerClassName_userInfo_presentationHandler_dismissalHandler___block_invoke_2(uint64_t a1)
@@ -179,7 +175,7 @@ void __131__AXRemoteUIAlertManager_presentRemoteUIAlertWithIdentifier_viewContro
 
 - (void)_sbs_presentRemoteUIAlertWithIdentifier:(id)identifier viewControllerClassName:(id)name userInfo:(id)info presentationHandler:(id)handler dismissalHandler:(id)dismissalHandler
 {
-  v29[2] = *MEMORY[0x277D85DE8];
+  v28[2] = *MEMORY[0x277D85DE8];
   v12 = MEMORY[0x277D66BD8];
   dismissalHandlerCopy = dismissalHandler;
   handlerCopy = handler;
@@ -199,11 +195,11 @@ void __131__AXRemoteUIAlertManager_presentRemoteUIAlertWithIdentifier_viewContro
     v23 = infoCopy;
   }
 
-  v28[0] = @"userInfo";
-  v28[1] = @"handleId";
-  v29[0] = v23;
-  v29[1] = handleID;
-  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:2];
+  v27[0] = @"userInfo";
+  v27[1] = @"handleId";
+  v28[0] = v23;
+  v28[1] = handleID;
+  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
   [v22 setUserInfo:v24];
 
   v25 = objc_opt_new();
@@ -215,7 +211,6 @@ void __131__AXRemoteUIAlertManager_presentRemoteUIAlertWithIdentifier_viewContro
   [remoteCallbackHolders setObject:v25 forKeyedSubscript:handleID];
 
   [v20 activateWithContext:v22];
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remoteAlertHandleDidActivate:(id)activate

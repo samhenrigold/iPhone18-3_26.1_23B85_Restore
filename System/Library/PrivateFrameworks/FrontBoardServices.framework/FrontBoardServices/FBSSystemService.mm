@@ -181,7 +181,7 @@ uint64_t __33__FBSSystemService_sharedService__block_invoke()
   v19 = *MEMORY[0x1E69E9840];
   actionsCopy = actions;
   resultCopy = result;
-  v8 = FBLogCommon();
+  v8 = FBLogCommon(resultCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     fbs_singleLineDescriptionOfBSActions = [actionsCopy fbs_singleLineDescriptionOfBSActions];

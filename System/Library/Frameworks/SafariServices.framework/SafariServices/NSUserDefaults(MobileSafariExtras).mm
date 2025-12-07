@@ -4,8 +4,8 @@
 - (uint64_t)safari_isJavaScriptEnabled;
 - (uint64_t)safari_javaScriptCanOpenWindowsAutomatically;
 - (uint64_t)safari_shouldAutomaticallyDownloadReadingListItems;
-- (uint64_t)safari_warnAboutFraudulentWebsites;
 - (void)safari_registerMobileSafariDefaults;
+- (void)safari_warnAboutFraudulentWebsites;
 @end
 
 @implementation NSUserDefaults(MobileSafariExtras)
@@ -249,7 +249,7 @@
   return [self BOOLForKey:v2];
 }
 
-- (uint64_t)safari_warnAboutFraudulentWebsites
+- (void)safari_warnAboutFraudulentWebsites
 {
   v2 = *MEMORY[0x1E69B1F78];
   result = restrictedValueForKey(*MEMORY[0x1E69B1F78]);
@@ -274,9 +274,9 @@
     +[NSUserDefaults(MobileSafariExtras) safari_sfAppDefaults];
   }
 
-  v1 = safari_sfAppDefaults_sfAppDefaults;
+  v2 = safari_sfAppDefaults_sfAppDefaults;
 
-  return v1;
+  return v2;
 }
 
 - (uint64_t)safari_enableStandaloneTabBar

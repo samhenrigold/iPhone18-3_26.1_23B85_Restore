@@ -49,7 +49,7 @@ uint64_t specialized RKARSystem.session(_:didUpdate:)(void *a1)
   *&v10 = MEMORY[0x1EEE9AC00](v8).n128_u64[0];
   v12 = aBlock - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   v13 = [a1 renderFramesPerSecond];
-  type metadata accessor for ARReferenceObject(0, &lazy cache variable for type metadata for OS_dispatch_queue);
+  type metadata accessor for ARReferenceObject(0, &lazy cache variable for type metadata for OS_dispatch_queue, 0x1E69E9610);
   v14 = static OS_dispatch_queue.main.getter();
   v15 = swift_allocObject();
   *(v15 + 16) = v2;
@@ -65,8 +65,8 @@ uint64_t specialized RKARSystem.session(_:didUpdate:)(void *a1)
 
   static DispatchQoS.unspecified.getter();
   aBlock[0] = MEMORY[0x1E69E7CC0];
-  lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x1E69E7F60]);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd);
+  lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x1E69E7F60], MEMORY[0x1E69E7F70]);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
   lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A]();
   dispatch thunk of SetAlgebra.init<A>(_:)();
   MEMORY[0x1E12F4260](0, v12, v7, v16);
@@ -477,11 +477,13 @@ LABEL_15:
   }
 }
 
-uint64_t block_copy_helper_10(uint64_t a1, uint64_t a2)
+double block_copy_helper_10(uint64_t a1, uint64_t a2)
 {
   v2 = *(a2 + 40);
   *(a1 + 32) = *(a2 + 32);
   *(a1 + 40) = v2;
+
+  return result;
 }
 
 unint64_t lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A]()
@@ -489,7 +491,7 @@ unint64_t lazy protocol witness table accessor for type [DispatchWorkItemFlags] 
   result = lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A];
   if (!lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A])
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A]);
   }
@@ -507,10 +509,10 @@ uint64_t outlined init with take of Material(__int128 *a1, uint64_t a2)
   return a2;
 }
 
-uint64_t outlined assign with take of Material?(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t outlined assign with take of Material?(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(a3);
-  (*(*(v5 - 8) + 40))(a2, a1, v5);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
+  (*(*(v6 - 8) + 40))(a2, a1, v6);
   return a2;
 }
 
@@ -526,7 +528,7 @@ unint64_t lazy protocol witness table accessor for type Float and conformance Fl
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type UUID and conformance UUID(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type UUID and conformance UUID(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -543,7 +545,7 @@ uint64_t Entity.__accessibilityWrappers(rootEntityWrapper:)(id a1)
 {
   v2 = type metadata accessor for Entity.ChildCollection();
   MEMORY[0x1EEE9AC00](v2 - 8);
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit6EntityC15ChildCollectionV16IndexingIteratorVy__AEGMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit6EntityC15ChildCollectionV16IndexingIteratorVy__AEGMd, &_s10RealityKit6EntityC15ChildCollectionV16IndexingIteratorVy__AEGMR);
   v42 = *(v3 - 8);
   v4 = MEMORY[0x1EEE9AC00](v3);
   v46 = &v41 - v5;
@@ -740,7 +742,7 @@ LABEL_26:
       lazy protocol witness table accessor for type [__EntityAccessibilityWrapper] and conformance [A]();
       for (i = 0; i != v26; ++i)
       {
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay10RealityKit28__EntityAccessibilityWrapperCGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay10RealityKit28__EntityAccessibilityWrapperCGMd, &_sSay10RealityKit28__EntityAccessibilityWrapperCGMR);
         v32 = specialized protocol witness for Collection.subscript.read in conformance [A](v52, i, v17);
         v34 = *v33;
         (v32)(v52, 0);
@@ -848,7 +850,7 @@ LABEL_13:
   }
 
 LABEL_5:
-  specialized Array._reserveCapacityImpl(minimumCapacity:growForAppend:)(result);
+  specialized Array._reserveCapacityImpl(minimumCapacity:growForAppend:)(result, 1);
   v7 = *v1;
   v8 = *v1 & 0xFFFFFFFFFFFFFF8;
   specialized Array._copyContents(initializing:)(v8 + 8 * *(v8 + 0x10) + 32, (*(v8 + 0x18) >> 1) - *(v8 + 0x10), a1);
@@ -888,7 +890,7 @@ _OWORD *Entity.__calculateScreenBoundingRect(in:)(char *a1)
   HasTransform.visualBounds(recursive:relativeTo:excludeInactive:)();
   v22 = v2;
   v23 = v3;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys5SIMD3VySfGGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys5SIMD3VySfGGMd, &_ss23_ContiguousArrayStorageCys5SIMD3VySfGGMR);
   result = swift_allocObject();
   v5 = vdupq_lane_s32(0, 0);
   v6 = v5;
@@ -992,7 +994,7 @@ uint64_t __EntityAccessibilityWrapper.entityLabel.getter()
   v46 = v1;
   MEMORY[0x1EEE9AC00](v1);
   v44 = &v36 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23LocalizedStringResourceVSgMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23LocalizedStringResourceVSgMd, &_s10Foundation23LocalizedStringResourceVSgMR);
   MEMORY[0x1EEE9AC00](v3 - 8);
   v47 = &v36 - v4;
   v5 = type metadata accessor for LocalizedStringResource();
@@ -1002,7 +1004,7 @@ uint64_t __EntityAccessibilityWrapper.entityLabel.getter()
   v42 = &v36 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v7);
   v43 = &v36 - v8;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5SliceVy10Foundation16AttributedStringV13CharacterViewVGMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5SliceVy10Foundation16AttributedStringV13CharacterViewVGMd, &_ss5SliceVy10Foundation16AttributedStringV13CharacterViewVGMR);
   MEMORY[0x1EEE9AC00](v9 - 8);
   v40 = &v36 - v10;
   v11 = type metadata accessor for AttributedString.CharacterView();
@@ -1010,14 +1012,14 @@ uint64_t __EntityAccessibilityWrapper.entityLabel.getter()
   v39 = v11;
   MEMORY[0x1EEE9AC00](v11);
   v37 = &v36 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation13TextComponentVSgMd);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation13TextComponentVSgMd, &_s17RealityFoundation13TextComponentVSgMR);
   MEMORY[0x1EEE9AC00](v13 - 8);
   v15 = &v36 - v14;
   v16 = type metadata accessor for Entity.ComponentSet();
   v17 = *(v16 - 8);
   MEMORY[0x1EEE9AC00](v16);
   v19 = &v36 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation16AttributedStringVSgMd);
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation16AttributedStringVSgMd, &_s10Foundation16AttributedStringVSgMR);
   MEMORY[0x1EEE9AC00](v20 - 8);
   v22 = &v36 - v21;
   v23 = type metadata accessor for AttributedString();
@@ -1037,14 +1039,14 @@ uint64_t __EntityAccessibilityWrapper.entityLabel.getter()
   (*(v17 + 8))(v19, v16);
   if ((*(*(v26 - 8) + 48))(v15, 1, v26))
   {
-    outlined destroy of ARConfigurationCreateResult?(v15, &_s17RealityFoundation13TextComponentVSgMd);
+    outlined destroy of ARConfigurationCreateResult?(v15, &_s17RealityFoundation13TextComponentVSgMd, &_s17RealityFoundation13TextComponentVSgMR);
 LABEL_4:
     (*(v24 + 56))(v22, 1, 1, v23);
     goto LABEL_5;
   }
 
   TextComponent.text.getter();
-  outlined destroy of ARConfigurationCreateResult?(v15, &_s17RealityFoundation13TextComponentVSgMd);
+  outlined destroy of ARConfigurationCreateResult?(v15, &_s17RealityFoundation13TextComponentVSgMd, &_s17RealityFoundation13TextComponentVSgMR);
   if ((*(v24 + 48))(v22, 1, v23) != 1)
   {
     v33 = v36;
@@ -1059,7 +1061,7 @@ LABEL_4:
   }
 
 LABEL_5:
-  outlined destroy of ARConfigurationCreateResult?(v22, &_s10Foundation16AttributedStringVSgMd);
+  outlined destroy of ARConfigurationCreateResult?(v22, &_s10Foundation16AttributedStringVSgMd, &_s10Foundation16AttributedStringVSgMR);
   if (swift_weakLoadStrong())
   {
     v27 = v44;
@@ -1087,7 +1089,7 @@ LABEL_5:
     (*(v48 + 56))(v47, 1, 1, v49);
   }
 
-  outlined destroy of ARConfigurationCreateResult?(v28, &_s10Foundation23LocalizedStringResourceVSgMd);
+  outlined destroy of ARConfigurationCreateResult?(v28, &_s10Foundation23LocalizedStringResourceVSgMd, &_s10Foundation23LocalizedStringResourceVSgMR);
   if (!swift_weakLoadStrong())
   {
     return 0;
@@ -1101,7 +1103,7 @@ LABEL_5:
 uint64_t specialized Collection.subscript.getter@<X0>(uint64_t a1@<X8>)
 {
   v32 = a1;
-  v31 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation16AttributedStringV5IndexV5lower_AE5uppertMd);
+  v31 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation16AttributedStringV5IndexV5lower_AE5uppertMd, &_s10Foundation16AttributedStringV5IndexV5lower_AE5uppertMR);
   MEMORY[0x1EEE9AC00](v31);
   v30 = &v26 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v3);
@@ -1110,23 +1112,23 @@ uint64_t specialized Collection.subscript.getter@<X0>(uint64_t a1@<X8>)
   v7 = *(v6 - 8);
   MEMORY[0x1EEE9AC00](v6);
   v9 = &v26 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSny10Foundation16AttributedStringV5IndexVGMd);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSny10Foundation16AttributedStringV5IndexVGMd, &_sSny10Foundation16AttributedStringV5IndexVGMR);
   MEMORY[0x1EEE9AC00](v10);
   v12 = &v26 - v11;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16PartialRangeFromVy10Foundation16AttributedStringV5IndexVGMd);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16PartialRangeFromVy10Foundation16AttributedStringV5IndexVGMd, &_ss16PartialRangeFromVy10Foundation16AttributedStringV5IndexVGMR);
   MEMORY[0x1EEE9AC00](v13 - 8);
   v15 = &v26 - v14;
   v16 = type metadata accessor for AttributedString.CharacterView();
-  v17 = lazy protocol witness table accessor for type AccessibilityComponent.SupportedActions and conformance AccessibilityComponent.SupportedActions(&lazy protocol witness table cache variable for type AttributedString.CharacterView and conformance AttributedString.CharacterView, MEMORY[0x1E6968678]);
+  v17 = lazy protocol witness table accessor for type AccessibilityComponent.SupportedActions and conformance AccessibilityComponent.SupportedActions(&lazy protocol witness table cache variable for type AttributedString.CharacterView and conformance AttributedString.CharacterView, MEMORY[0x1E6968678], MEMORY[0x1E6968690]);
   v33 = v16;
   v18 = v17;
   dispatch thunk of Collection.startIndex.getter();
-  lazy protocol witness table accessor for type AccessibilityComponent.SupportedActions and conformance AccessibilityComponent.SupportedActions(&lazy protocol witness table cache variable for type AttributedString.Index and conformance AttributedString.Index, MEMORY[0x1E69687E8]);
+  lazy protocol witness table accessor for type AccessibilityComponent.SupportedActions and conformance AccessibilityComponent.SupportedActions(&lazy protocol witness table cache variable for type AttributedString.Index and conformance AttributedString.Index, MEMORY[0x1E69687E8], MEMORY[0x1E69687F8]);
   result = dispatch thunk of static Equatable.== infix(_:_:)();
   if (result)
   {
     dispatch thunk of Collection.endIndex.getter();
-    lazy protocol witness table accessor for type AccessibilityComponent.SupportedActions and conformance AccessibilityComponent.SupportedActions(&lazy protocol witness table cache variable for type AttributedString.Index and conformance AttributedString.Index, MEMORY[0x1E69687E8]);
+    lazy protocol witness table accessor for type AccessibilityComponent.SupportedActions and conformance AccessibilityComponent.SupportedActions(&lazy protocol witness table cache variable for type AttributedString.Index and conformance AttributedString.Index, MEMORY[0x1E69687E8], MEMORY[0x1E69687F0]);
     result = dispatch thunk of static Comparable.<= infix(_:_:)();
     if (result)
     {
@@ -1139,7 +1141,7 @@ uint64_t specialized Collection.subscript.getter@<X0>(uint64_t a1@<X8>)
       v23 = v30;
       v22 = v31;
       v20(&v5[*(v31 + 48)], v9, v6);
-      outlined init with copy of CheckedContinuation<related decl 'e' for ARErrorCode?, Never>?(v5, v23, &_s10Foundation16AttributedStringV5IndexV5lower_AE5uppertMd);
+      outlined init with copy of CheckedContinuation<related decl 'e' for ARErrorCode?, Never>?(v5, v23, &_s10Foundation16AttributedStringV5IndexV5lower_AE5uppertMd, &_s10Foundation16AttributedStringV5IndexV5lower_AE5uppertMR);
       v24 = *(v22 + 48);
       v20(v12, v23, v6);
       v25 = *(v21 + 8);
@@ -1148,7 +1150,7 @@ uint64_t specialized Collection.subscript.getter@<X0>(uint64_t a1@<X8>)
       v20(&v12[*(v27 + 36)], (v23 + *(v22 + 48)), v6);
       v25(v23, v6);
       dispatch thunk of Collection.subscript.getter();
-      return outlined destroy of ARConfigurationCreateResult?(v12, &_sSny10Foundation16AttributedStringV5IndexVGMd);
+      return outlined destroy of ARConfigurationCreateResult?(v12, &_sSny10Foundation16AttributedStringV5IndexVGMd, &_sSny10Foundation16AttributedStringV5IndexVGMR);
     }
   }
 
@@ -1186,7 +1188,7 @@ uint64_t __EntityAccessibilityWrapper.entityValue.getter()
   v1 = *(v0 - 8);
   MEMORY[0x1EEE9AC00](v0);
   v3 = &v16 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23LocalizedStringResourceVSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23LocalizedStringResourceVSgMd, &_s10Foundation23LocalizedStringResourceVSgMR);
   MEMORY[0x1EEE9AC00](v4 - 8);
   v6 = &v16 - v5;
   v7 = type metadata accessor for LocalizedStringResource();
@@ -1216,11 +1218,11 @@ uint64_t __EntityAccessibilityWrapper.entityValue.getter()
     (*(v8 + 56))(v6, 1, 1, v7);
   }
 
-  outlined destroy of ARConfigurationCreateResult?(v6, &_s10Foundation23LocalizedStringResourceVSgMd);
+  outlined destroy of ARConfigurationCreateResult?(v6, &_s10Foundation23LocalizedStringResourceVSgMd, &_s10Foundation23LocalizedStringResourceVSgMR);
   return 0;
 }
 
-uint64_t @objc __EntityAccessibilityWrapper.isEntityRoot.getter(void *a1, uint64_t a2, uint64_t (*a3)(void))
+uint64_t @objc __EntityAccessibilityWrapper.isEntityRoot.getter(char *a1, uint64_t a2, uint64_t (*a3)(void))
 {
   if (swift_weakLoadStrong())
   {
@@ -1411,7 +1413,7 @@ LABEL_6:
   swift_unknownObjectRetain();
   Strong = v9;
 LABEL_8:
-  outlined destroy of ARConfigurationCreateResult?(&v26, &_sypSgMd);
+  outlined destroy of ARConfigurationCreateResult?(&v26, &_sypSgMd, &_sypSgMR);
   *&v27 = 0;
   v26 = Strong;
   *(&v27 + 1) = ObjectType;
@@ -1420,7 +1422,7 @@ LABEL_8:
   {
     v13 = v12;
     outlined init with copy of AccessibilityEvents.CustomAction(v23[0], v6, type metadata accessor for AccessibilityComponent.RotorType);
-    outlined init with copy of CheckedContinuation<related decl 'e' for ARErrorCode?, Never>?(&v26, &v6[v4[6]], &_sypSgMd);
+    outlined init with copy of CheckedContinuation<related decl 'e' for ARErrorCode?, Never>?(&v26, &v6[v4[6]], &_sypSgMd, &_sypSgMR);
 
     v14 = [a1 searchDirection];
     v15 = swift_allocObject();
@@ -1433,7 +1435,7 @@ LABEL_8:
     *v17 = partial apply for closure #1 in closure #1 in closure #1 in __EntityAccessibilityWrapper.entityAccessibilityCustomRotors.getter;
     v17[1] = v15;
     v25[3] = v4;
-    v25[4] = lazy protocol witness table accessor for type AccessibilityComponent.SupportedActions and conformance AccessibilityComponent.SupportedActions(&lazy protocol witness table cache variable for type AccessibilityEvents.RotorNavigation and conformance AccessibilityEvents.RotorNavigation, type metadata accessor for AccessibilityEvents.RotorNavigation);
+    v25[4] = lazy protocol witness table accessor for type AccessibilityComponent.SupportedActions and conformance AccessibilityComponent.SupportedActions(&lazy protocol witness table cache variable for type AccessibilityEvents.RotorNavigation and conformance AccessibilityEvents.RotorNavigation, type metadata accessor for AccessibilityEvents.RotorNavigation, &protocol conformance descriptor for AccessibilityEvents.RotorNavigation);
     boxed_opaque_existential_0 = __swift_allocate_boxed_opaque_existential_0(v25);
     outlined init with copy of AccessibilityEvents.CustomAction(v6, boxed_opaque_existential_0, type metadata accessor for AccessibilityEvents.RotorNavigation);
 
@@ -1450,7 +1452,7 @@ LABEL_8:
       swift_unknownObjectRelease();
 
       outlined destroy of AccessibilityEvents.CustomAction(v6, type metadata accessor for AccessibilityEvents.RotorNavigation);
-      outlined destroy of ARConfigurationCreateResult?(&v26, &_sypSgMd);
+      outlined destroy of ARConfigurationCreateResult?(&v26, &_sypSgMd, &_sypSgMR);
 
       return v21;
     }
@@ -1458,12 +1460,12 @@ LABEL_8:
     swift_unknownObjectRelease();
 
     outlined destroy of AccessibilityEvents.CustomAction(v6, type metadata accessor for AccessibilityEvents.RotorNavigation);
-    outlined destroy of ARConfigurationCreateResult?(&v26, &_sypSgMd);
+    outlined destroy of ARConfigurationCreateResult?(&v26, &_sypSgMd, &_sypSgMR);
   }
 
   else
   {
-    outlined destroy of ARConfigurationCreateResult?(&v26, &_sypSgMd);
+    outlined destroy of ARConfigurationCreateResult?(&v26, &_sypSgMd, &_sypSgMR);
 
     swift_unknownObjectRelease();
   }
@@ -1494,7 +1496,7 @@ LABEL_5:
   }
 
   outlined init with copy of Any(a1, v10);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObject_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObject_pMd, &_sSo8NSObject_pMR);
   if (swift_dynamicCast())
   {
     swift_beginAccess();
@@ -1505,15 +1507,15 @@ LABEL_5:
   return OS_dispatch_semaphore.signal()();
 }
 
-Class @objc __EntityAccessibilityWrapper.entityAccessibilityCustomRotors.getter(void *a1, uint64_t a2, void (*a3)(void), unint64_t *a4)
+Class @objc __EntityAccessibilityWrapper.entityAccessibilityCustomRotors.getter(void *a1, uint64_t a2, uint64_t (*a3)(void), unint64_t *a4, void *a5)
 {
-  v6 = a1;
+  v8 = a1;
   a3();
 
-  type metadata accessor for ARReferenceObject(0, a4);
-  v7.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  type metadata accessor for ARReferenceObject(0, a4, a5);
+  v9.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
-  return v7.super.isa;
+  return v9.super.isa;
 }
 
 uint64_t __EntityAccessibilityWrapper.entityAccessibilityCustomActions.getter()
@@ -1620,7 +1622,7 @@ uint64_t closure #1 in closure #1 in __EntityAccessibilityWrapper.entityAccessib
   (*(*(v8 - 8) + 16))(v7, a2, v8);
   *&v7[*(v5 + 20)] = a3;
   v12[3] = v5;
-  v12[4] = lazy protocol witness table accessor for type AccessibilityComponent.SupportedActions and conformance AccessibilityComponent.SupportedActions(&lazy protocol witness table cache variable for type AccessibilityEvents.CustomAction and conformance AccessibilityEvents.CustomAction, type metadata accessor for AccessibilityEvents.CustomAction);
+  v12[4] = lazy protocol witness table accessor for type AccessibilityComponent.SupportedActions and conformance AccessibilityComponent.SupportedActions(&lazy protocol witness table cache variable for type AccessibilityEvents.CustomAction and conformance AccessibilityEvents.CustomAction, type metadata accessor for AccessibilityEvents.CustomAction, &protocol conformance descriptor for AccessibilityEvents.CustomAction);
   boxed_opaque_existential_0 = __swift_allocate_boxed_opaque_existential_0(v12);
   outlined init with copy of AccessibilityEvents.CustomAction(v7, boxed_opaque_existential_0, type metadata accessor for AccessibilityEvents.CustomAction);
 
@@ -1724,7 +1726,7 @@ uint64_t __EntityAccessibilityWrapper.entitySupportsAccessibilityActivateAction.
 
     (*(v1 + 8))(v3, v0);
     static AccessibilityComponent.SupportedActions.activate.getter();
-    lazy protocol witness table accessor for type AccessibilityComponent.SupportedActions and conformance AccessibilityComponent.SupportedActions(&lazy protocol witness table cache variable for type AccessibilityComponent.SupportedActions and conformance AccessibilityComponent.SupportedActions, MEMORY[0x1E697A5F0]);
+    lazy protocol witness table accessor for type AccessibilityComponent.SupportedActions and conformance AccessibilityComponent.SupportedActions(&lazy protocol witness table cache variable for type AccessibilityComponent.SupportedActions and conformance AccessibilityComponent.SupportedActions, MEMORY[0x1E697A5F0], MEMORY[0x1E697A5F8]);
     v11 = dispatch thunk of SetAlgebra.isSuperset(of:)();
     v12 = *(v5 + 8);
     v12(v7, v4);
@@ -1739,7 +1741,7 @@ uint64_t __EntityAccessibilityWrapper.entitySupportsAccessibilityActivateAction.
   return v11 & 1;
 }
 
-uint64_t @objc __EntityAccessibilityWrapper.entityPerformAccessibilityActivate()(void *a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void))
+uint64_t @objc __EntityAccessibilityWrapper.entityPerformAccessibilityActivate()(char *a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void))
 {
   result = swift_weakLoadStrong();
   if (result)
@@ -1765,11 +1767,11 @@ id __EntityAccessibilityWrapper.__allocating_init()()
   return [v1 init];
 }
 
-id __EntityAccessibilityWrapper.__deallocating_deinit()
+id __EntityAccessibilityWrapper.__deallocating_deinit(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for __EntityAccessibilityWrapper();
-  return objc_msgSendSuper2(&v2, sel_dealloc);
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for __EntityAccessibilityWrapper();
+  return objc_msgSendSuper2(&v3, sel_dealloc);
 }
 
 id thunk for @escaping @callee_guaranteed (@guaranteed UIAccessibilityCustomRotorSearchPredicate) -> (@owned UIAccessibilityCustomRotorItemResult?)(uint64_t a1, void *a2)
@@ -1792,16 +1794,16 @@ uint64_t thunk for @escaping @callee_guaranteed (@guaranteed UIAccessibilityCust
   return v3 & 1;
 }
 
-uint64_t specialized Array._reserveCapacityImpl(minimumCapacity:growForAppend:)(uint64_t a1)
+uint64_t specialized Array._reserveCapacityImpl(minimumCapacity:growForAppend:)(uint64_t a1, char a2)
 {
-  v3 = *v1;
+  v4 = *v2;
   result = swift_isUniquelyReferenced_nonNull_bridgeObject();
-  *v1 = v3;
+  *v2 = v4;
   if (result)
   {
-    if ((v3 & 0x8000000000000000) == 0 && (v3 & 0x4000000000000000) == 0)
+    if ((v4 & 0x8000000000000000) == 0 && (v4 & 0x4000000000000000) == 0)
     {
-      if (a1 <= *((v3 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+      if (a1 <= *((v4 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
       {
         return result;
       }
@@ -1810,7 +1812,7 @@ uint64_t specialized Array._reserveCapacityImpl(minimumCapacity:growForAppend:)(
     }
   }
 
-  else if ((v3 & 0x8000000000000000) == 0 && (v3 & 0x4000000000000000) == 0)
+  else if ((v4 & 0x8000000000000000) == 0 && (v4 & 0x4000000000000000) == 0)
   {
     goto LABEL_9;
   }
@@ -1818,7 +1820,7 @@ uint64_t specialized Array._reserveCapacityImpl(minimumCapacity:growForAppend:)(
   __CocoaSet.count.getter();
 LABEL_9:
   result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-  *v1 = result;
+  *v2 = result;
   return result;
 }
 
@@ -1860,7 +1862,7 @@ uint64_t specialized Array._copyContents(initializing:)(uint64_t result, uint64_
           lazy protocol witness table accessor for type [__EntityAccessibilityWrapper] and conformance [A]();
           for (i = 0; i != v6; ++i)
           {
-            __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay10RealityKit28__EntityAccessibilityWrapperCGMd);
+            __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay10RealityKit28__EntityAccessibilityWrapperCGMd, &_sSay10RealityKit28__EntityAccessibilityWrapperCGMR);
             v9 = specialized protocol witness for Collection.subscript.read in conformance [A](v13, i, a3);
             v11 = *v10;
             (v9)(v13, 0);
@@ -1930,11 +1932,13 @@ uint64_t partial apply for closure #1 in closure #1 in __EntityAccessibilityWrap
   return closure #1 in closure #1 in __EntityAccessibilityWrapper.entityAccessibilityCustomActions.getter(a1, v1 + v4, v5);
 }
 
-uint64_t block_copy_helper_11(uint64_t a1, uint64_t a2)
+double block_copy_helper_11(uint64_t a1, uint64_t a2)
 {
   v2 = *(a2 + 40);
   *(a1 + 32) = *(a2 + 32);
   *(a1 + 40) = v2;
+
+  return result;
 }
 
 id partial apply for closure #1 in closure #1 in __EntityAccessibilityWrapper.entityAccessibilityCustomRotors.getter(void *a1)
@@ -1960,7 +1964,7 @@ uint64_t outlined destroy of AccessibilityEvents.CustomAction(uint64_t a1, uint6
   return a1;
 }
 
-uint64_t lazy protocol witness table accessor for type AccessibilityComponent.SupportedActions and conformance AccessibilityComponent.SupportedActions(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type AccessibilityComponent.SupportedActions and conformance AccessibilityComponent.SupportedActions(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -1975,7 +1979,7 @@ uint64_t lazy protocol witness table accessor for type AccessibilityComponent.Su
 
 uint64_t outlined init with take of (lower: AttributedString.Index, upper: AttributedString.Index)(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation16AttributedStringV5IndexV5lower_AE5uppertMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation16AttributedStringV5IndexV5lower_AE5uppertMd, &_s10Foundation16AttributedStringV5IndexV5lower_AE5uppertMR);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
@@ -1994,9 +1998,9 @@ void ARView.physicsOrigin.getter()
   }
 }
 
-void *key path getter for ARView.physicsOrigin : ARView@<X0>(void *result@<X0>, uint64_t *a2@<X8>)
+void key path getter for ARView.physicsOrigin : ARView(void *a1@<X0>, uint64_t *a2@<X8>)
 {
-  if (*(*result + OBJC_IVAR____TtC10RealityKit6ARView__scene))
+  if (*(*a1 + OBJC_IVAR____TtC10RealityKit6ARView__scene))
   {
 
     v3 = Scene.physicsOrigin.getter();
@@ -2008,11 +2012,9 @@ void *key path getter for ARView.physicsOrigin : ARView@<X0>(void *result@<X0>, 
   {
     __break(1u);
   }
-
-  return result;
 }
 
-uint64_t key path setter for ARView.physicsOrigin : ARView(uint64_t a1, void *a2)
+void key path setter for ARView.physicsOrigin : ARView(void *a1, void *a2)
 {
   if (*(*a2 + OBJC_IVAR____TtC10RealityKit6ARView__scene))
   {
@@ -2024,13 +2026,11 @@ uint64_t key path setter for ARView.physicsOrigin : ARView(uint64_t a1, void *a2
   {
     __break(1u);
   }
-
-  return result;
 }
 
-uint64_t ARView.physicsOrigin.setter()
+void ARView.physicsOrigin.setter(uint64_t a1)
 {
-  if (*(v0 + OBJC_IVAR____TtC10RealityKit6ARView__scene))
+  if (*(v1 + OBJC_IVAR____TtC10RealityKit6ARView__scene))
   {
 
     Scene.physicsOrigin.setter();
@@ -2040,11 +2040,9 @@ uint64_t ARView.physicsOrigin.setter()
   {
     __break(1u);
   }
-
-  return result;
 }
 
-uint64_t (*ARView.physicsOrigin.modify(uint64_t (*result)(uint64_t result, char a2)))(uint64_t result, char a2)
+uint64_t (*ARView.physicsOrigin.modify(uint64_t (*result)()))()
 {
   v2 = OBJC_IVAR____TtC10RealityKit6ARView__scene;
   *(result + 1) = v1;
@@ -2067,9 +2065,9 @@ uint64_t (*ARView.physicsOrigin.modify(uint64_t (*result)(uint64_t result, char 
   return result;
 }
 
-uint64_t ARView.physicsOrigin.modify(uint64_t result, char a2)
+void ARView.physicsOrigin.modify(void *a1, char a2)
 {
-  v2 = *(*(result + 8) + *(result + 16));
+  v2 = *(a1[1] + a1[2]);
   if ((a2 & 1) == 0)
   {
     if (v2)
@@ -2081,7 +2079,7 @@ uint64_t ARView.physicsOrigin.modify(uint64_t result, char a2)
 
 LABEL_10:
     __break(1u);
-    return result;
+    return;
   }
 
   if (!v2)
@@ -2107,7 +2105,7 @@ void SimpleMaterial.tintColor.setter(void *a1)
   SimpleMaterial.__tintColor.setter();
 }
 
-void (*SimpleMaterial.tintColor.modify(void *a1))(void **a1, char a2)
+void (*SimpleMaterial.tintColor.modify(void *a1))(void **a1, uint64_t a2)
 {
   a1[1] = v1;
   v3 = SimpleMaterial.__tintColor.getter();
@@ -2121,30 +2119,30 @@ uint64_t MaterialColorParameter.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>
 {
   v4 = type metadata accessor for __MaterialColorParameter();
   v5 = *(v4 - 8);
-  MEMORY[0x1EEE9AC00](v4);
-  v7 = (&v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
-  (*(v5 + 16))(v7, a1, v4);
-  v8 = (*(v5 + 88))(v7, v4);
-  v9 = v8;
-  v10 = *MEMORY[0x1E697A2E0];
-  if (v8 == *MEMORY[0x1E697A2E0])
+  v6 = MEMORY[0x1EEE9AC00](v4);
+  v8 = (&v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
+  (*(v5 + 16))(v8, a1, v4, v6);
+  v9 = (*(v5 + 88))(v8, v4);
+  v10 = v9;
+  v11 = *MEMORY[0x1E697A2E0];
+  if (v9 == *MEMORY[0x1E697A2E0])
   {
-    (*(v5 + 96))(v7, v4);
-    v13 = *v7;
-    v12 = [objc_allocWithZone(MEMORY[0x1E69DC888]) initWithCGColor_];
+    (*(v5 + 96))(v8, v4);
+    v14 = *v8;
+    v13 = [objc_allocWithZone(MEMORY[0x1E69DC888]) initWithCGColor_];
 
     result = (*(v5 + 8))(a1, v4);
     goto LABEL_5;
   }
 
-  if (v8 == *MEMORY[0x1E697A2E8])
+  if (v9 == *MEMORY[0x1E697A2E8])
   {
     (*(v5 + 8))(a1, v4);
-    result = (*(v5 + 96))(v7, v4);
-    v12 = *v7;
+    result = (*(v5 + 96))(v8, v4);
+    v13 = *v8;
 LABEL_5:
-    *a2 = v12;
-    *(a2 + 8) = v9 != v10;
+    *a2 = v13;
+    *(a2 + 8) = v10 != v11;
     return result;
   }
 
@@ -2164,7 +2162,7 @@ void outlined consume of MaterialColorParameter(void *a1, char a2)
   }
 }
 
-void (*SimpleMaterial.baseColor.modify(uint64_t *a1))(void ***a1, char a2)
+void (*SimpleMaterial.baseColor.modify(uint64_t *a1))(void ***a1, uint64_t a2)
 {
   v3 = MEMORY[0x1E69E7D08];
   if (MEMORY[0x1E69E7D08])
@@ -2238,20 +2236,20 @@ LABEL_11:
   return result;
 }
 
-uint64_t SimpleMaterial.init(color:roughness:isMetallic:)(void *a1, uint64_t a2)
+uint64_t SimpleMaterial.init(color:roughness:isMetallic:)(void *a1, uint64_t a2, uint64_t a3)
 {
-  v4 = type metadata accessor for MaterialScalarParameter();
-  v5 = *(v4 - 8);
-  *&v6 = MEMORY[0x1EEE9AC00](v4).n128_u64[0];
-  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = [a1 CGColor];
-  (*(v5 + 16))(v8, a2, v4);
+  v5 = type metadata accessor for MaterialScalarParameter();
+  v6 = *(v5 - 8);
+  *&v7 = MEMORY[0x1EEE9AC00](v5).n128_u64[0];
+  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = [a1 CGColor];
+  (*(v6 + 16))(v9, a2, v5);
   SimpleMaterial.init(color:roughness:isMetallic:)();
 
-  return (*(v5 + 8))(a2, v4);
+  return (*(v6 + 8))(a2, v5);
 }
 
-uint64_t SimpleMaterial.init(color:roughness:isMetallic:assetService:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t SimpleMaterial.init(color:roughness:isMetallic:assetService:)(void *a1, uint64_t a2, uint64_t a3, void *a4)
 {
   v7 = type metadata accessor for MaterialScalarParameter();
   v8 = *(v7 - 8);
@@ -2272,7 +2270,7 @@ void UnlitMaterial.tintColor.setter(void *a1)
   UnlitMaterial.__tintColor.setter();
 }
 
-void (*UnlitMaterial.tintColor.modify(void *a1))(void **a1, char a2)
+void (*UnlitMaterial.tintColor.modify(void *a1))(void **a1, uint64_t a2)
 {
   a1[1] = v1;
   v3 = UnlitMaterial.__tintColor.getter();
@@ -2291,7 +2289,7 @@ uint64_t SimpleMaterial.baseColor.getter@<X0>(void (*a1)(__n128)@<X0>, uint64_t 
   return MaterialColorParameter.init(_:)(v7, a2);
 }
 
-uint64_t key path getter for SimpleMaterial.baseColor : SimpleMaterial@<X0>(void (*a1)(uint64_t)@<X3>, uint64_t a2@<X8>)
+uint64_t key path getter for SimpleMaterial.baseColor : SimpleMaterial@<X0>(void (*a1)(__n128)@<X3>, uint64_t a2@<X8>)
 {
   v4 = type metadata accessor for __MaterialColorParameter();
   v5 = MEMORY[0x1EEE9AC00](v4 - 8);
@@ -2304,26 +2302,26 @@ uint64_t key path getter for SimpleMaterial.baseColor : SimpleMaterial@<X0>(void
   return result;
 }
 
-uint64_t key path setter for SimpleMaterial.baseColor : SimpleMaterial(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void *))
+uint64_t key path setter for SimpleMaterial.baseColor : SimpleMaterial(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void *, __n128))
 {
   v7 = type metadata accessor for __MaterialColorParameter();
   v8 = *(v7 - 8);
-  MEMORY[0x1EEE9AC00](v7);
-  v10 = (&v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v11 = *a1;
+  v9 = MEMORY[0x1EEE9AC00](v7);
+  v11 = (&v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v12 = *a1;
   if (*(a1 + 8))
   {
-    *v10 = v11;
-    (*(v8 + 104))(v10, *MEMORY[0x1E697A2E8], v7);
+    *v11 = v12;
+    (*(v8 + 104))(v11, *MEMORY[0x1E697A2E8], v7, v9);
   }
 
   else
   {
-    *v10 = [v11 CGColor];
-    (*(v8 + 104))(v10, *MEMORY[0x1E697A2E0], v7);
+    *v11 = [v12 CGColor];
+    (*(v8 + 104))(v11, *MEMORY[0x1E697A2E0], v7);
   }
 
-  return a5(v10);
+  return (a5)(v11);
 }
 
 uint64_t SimpleMaterial.baseColor.setter(uint64_t a1, uint64_t (*a2)(void *))
@@ -2351,7 +2349,7 @@ uint64_t SimpleMaterial.baseColor.setter(uint64_t a1, uint64_t (*a2)(void *))
   return a2(v8);
 }
 
-void (*UnlitMaterial.baseColor.modify(uint64_t *a1))(void ***a1, char a2)
+void (*UnlitMaterial.baseColor.modify(uint64_t *a1))(void ***a1, uint64_t a2)
 {
   v3 = MEMORY[0x1E69E7D08];
   if (MEMORY[0x1E69E7D08])
@@ -2492,9 +2490,9 @@ void SimpleMaterial.baseColor.modify(void ***a1, char a2, void (*a3)(void *))
   free(v4);
 }
 
-void UnlitMaterial.init(color:applyPostProcessToneMap:)(void *a1)
+void UnlitMaterial.init(color:applyPostProcessToneMap:)(void *a1, uint64_t a2)
 {
-  v1 = [a1 CGColor];
+  v2 = [a1 CGColor];
   UnlitMaterial.init(color:applyPostProcessToneMap:)();
 }
 
@@ -2524,7 +2522,7 @@ void PhysicallyBasedMaterial.BaseColor.tint.setter(void *a1)
   PhysicallyBasedMaterial.SheenColor.__tint.setter();
 }
 
-void (*PhysicallyBasedMaterial.BaseColor.tint.modify(void *a1))(void **a1, char a2)
+void (*PhysicallyBasedMaterial.BaseColor.tint.modify(void *a1))(void **a1, uint64_t a2)
 {
   a1[1] = v1;
   v3 = PhysicallyBasedMaterial.SheenColor.__tint.getter();
@@ -2534,16 +2532,16 @@ void (*PhysicallyBasedMaterial.BaseColor.tint.modify(void *a1))(void **a1, char 
   return PhysicallyBasedMaterial.BaseColor.tint.modify;
 }
 
-uint64_t PhysicallyBasedMaterial.BaseColor.init(tint:texture:)(void *a1, uint64_t a2, uint64_t *a3, uint64_t a4, void (*a5)(id, char *))
+uint64_t PhysicallyBasedMaterial.BaseColor.init(tint:texture:)(void *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, void (*a5)(id, char *))
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(a3);
-  *&v10 = MEMORY[0x1EEE9AC00](v9 - 8).n128_u64[0];
-  v12 = &v15 - v11;
-  v13 = [a1 CGColor];
-  outlined init with copy of CheckedContinuation<related decl 'e' for ARErrorCode?, Never>?(a2, v12, a3);
-  a5(v13, v12);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
+  *&v11 = MEMORY[0x1EEE9AC00](v10 - 8).n128_u64[0];
+  v13 = &v16 - v12;
+  v14 = [a1 CGColor];
+  outlined init with copy of CheckedContinuation<related decl 'e' for ARErrorCode?, Never>?(a2, v13, a3, a4);
+  a5(v14, v13);
 
-  return outlined destroy of ARConfigurationCreateResult?(a2, a3);
+  return outlined destroy of ARConfigurationCreateResult?(a2, a3, a4);
 }
 
 void PhysicallyBasedMaterial.EmissiveColor.color.setter(void *a1)
@@ -2552,7 +2550,7 @@ void PhysicallyBasedMaterial.EmissiveColor.color.setter(void *a1)
   PhysicallyBasedMaterial.SheenColor.__tint.setter();
 }
 
-void (*PhysicallyBasedMaterial.EmissiveColor.color.modify(void *a1))(void **a1, char a2)
+void (*PhysicallyBasedMaterial.EmissiveColor.color.modify(void *a1))(void **a1, uint64_t a2)
 {
   a1[1] = v1;
   v3 = PhysicallyBasedMaterial.SheenColor.__tint.getter();
@@ -2568,7 +2566,7 @@ void PhysicallyBasedMaterial.SheenColor.tint.setter(void *a1)
   PhysicallyBasedMaterial.SheenColor.__tint.setter();
 }
 
-void (*PhysicallyBasedMaterial.SheenColor.tint.modify(void *a1))(void **a1, char a2)
+void (*PhysicallyBasedMaterial.SheenColor.tint.modify(void *a1))(void **a1, uint64_t a2)
 {
   a1[1] = v1;
   v3 = PhysicallyBasedMaterial.SheenColor.__tint.getter();
@@ -2584,7 +2582,7 @@ void CustomMaterial.BaseColor.tint.setter(void *a1)
   CustomMaterial.EmissiveColor.__color.setter();
 }
 
-void (*CustomMaterial.BaseColor.tint.modify(void *a1))(void **a1, char a2)
+void (*CustomMaterial.BaseColor.tint.modify(void *a1))(void **a1, uint64_t a2)
 {
   a1[1] = v1;
   v3 = CustomMaterial.EmissiveColor.__color.getter();
@@ -2616,7 +2614,7 @@ void CustomMaterial.EmissiveColor.color.setter(void *a1)
   CustomMaterial.EmissiveColor.__color.setter();
 }
 
-void (*CustomMaterial.EmissiveColor.color.modify(void *a1))(void **a1, char a2)
+void (*CustomMaterial.EmissiveColor.color.modify(void *a1))(void **a1, uint64_t a2)
 {
   a1[1] = v1;
   v3 = CustomMaterial.EmissiveColor.__color.getter();
@@ -2650,27 +2648,27 @@ id MaterialColorParameter.init(_colorLiteralRed:green:blue:alpha:)@<X0>(uint64_t
   return result;
 }
 
-uint64_t MaterialColorParameter.hash(into:)()
+uint64_t MaterialColorParameter.hash(into:)(uint64_t a1)
 {
-  v1 = type metadata accessor for __MaterialColorParameter();
-  v2 = *(v1 - 8);
-  v3 = MEMORY[0x1EEE9AC00](v1);
-  v5 = (&v8 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v6 = *v0;
-  if (*(v0 + 8))
+  v2 = type metadata accessor for __MaterialColorParameter();
+  v3 = *(v2 - 8);
+  v4 = MEMORY[0x1EEE9AC00](v2);
+  v6 = (&v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v7 = *v1;
+  if (*(v1 + 8))
   {
-    *v5 = v6;
-    (*(v2 + 104))(v5, *MEMORY[0x1E697A2E8], v1, v3);
+    *v6 = v7;
+    (*(v3 + 104))(v6, *MEMORY[0x1E697A2E8], v2, v4);
   }
 
   else
   {
-    *v5 = [v6 CGColor];
-    (*(v2 + 104))(v5, *MEMORY[0x1E697A2E0], v1);
+    *v6 = [v7 CGColor];
+    (*(v3 + 104))(v6, *MEMORY[0x1E697A2E0], v2);
   }
 
   __MaterialColorParameter.hash(into:)();
-  return (*(v2 + 8))(v5, v1);
+  return (*(v3 + 8))(v6, v2);
 }
 
 Swift::Int MaterialColorParameter.hashValue.getter()
@@ -2707,52 +2705,52 @@ id protocol witness for _ExpressibleByColorLiteral.init(_colorLiteralRed:green:b
   return result;
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance MaterialColorParameter()
+uint64_t protocol witness for Hashable.hash(into:) in conformance MaterialColorParameter(uint64_t a1)
 {
-  v1 = type metadata accessor for __MaterialColorParameter();
-  v2 = *(v1 - 8);
-  v3 = MEMORY[0x1EEE9AC00](v1);
-  v5 = (&v8 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v6 = *v0;
-  if (*(v0 + 8))
+  v2 = type metadata accessor for __MaterialColorParameter();
+  v3 = *(v2 - 8);
+  v4 = MEMORY[0x1EEE9AC00](v2);
+  v6 = (&v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v7 = *v1;
+  if (*(v1 + 8))
+  {
+    *v6 = v7;
+    (*(v3 + 104))(v6, *MEMORY[0x1E697A2E8], v2, v4);
+  }
+
+  else
+  {
+    *v6 = [v7 CGColor];
+    (*(v3 + 104))(v6, *MEMORY[0x1E697A2E0], v2);
+  }
+
+  __MaterialColorParameter.hash(into:)();
+  return (*(v3 + 8))(v6, v2);
+}
+
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance MaterialColorParameter(uint64_t a1)
+{
+  v2 = type metadata accessor for __MaterialColorParameter();
+  v3 = *(v2 - 8);
+  MEMORY[0x1EEE9AC00](v2);
+  v5 = (&v9 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v6 = *v1;
+  v7 = *(v1 + 8);
+  Hasher.init(_seed:)();
+  if (v7)
   {
     *v5 = v6;
-    (*(v2 + 104))(v5, *MEMORY[0x1E697A2E8], v1, v3);
+    (*(v3 + 104))(v5, *MEMORY[0x1E697A2E8], v2);
   }
 
   else
   {
     *v5 = [v6 CGColor];
-    (*(v2 + 104))(v5, *MEMORY[0x1E697A2E0], v1);
+    (*(v3 + 104))(v5, *MEMORY[0x1E697A2E0], v2);
   }
 
   __MaterialColorParameter.hash(into:)();
-  return (*(v2 + 8))(v5, v1);
-}
-
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance MaterialColorParameter()
-{
-  v1 = type metadata accessor for __MaterialColorParameter();
-  v2 = *(v1 - 8);
-  MEMORY[0x1EEE9AC00](v1);
-  v4 = (&v8 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v5 = *v0;
-  v6 = *(v0 + 8);
-  Hasher.init(_seed:)();
-  if (v6)
-  {
-    *v4 = v5;
-    (*(v2 + 104))(v4, *MEMORY[0x1E697A2E8], v1);
-  }
-
-  else
-  {
-    *v4 = [v5 CGColor];
-    (*(v2 + 104))(v4, *MEMORY[0x1E697A2E0], v1);
-  }
-
-  __MaterialColorParameter.hash(into:)();
-  (*(v2 + 8))(v4, v1);
+  (*(v3 + 8))(v5, v2);
   return Hasher._finalize()();
 }
 
@@ -2763,13 +2761,13 @@ uint64_t PhysicallyBasedMaterial.EmissiveColor.customMirror.getter@<X0>(uint64_t
   v3 = *(v2 - 8);
   MEMORY[0x1EEE9AC00](v2);
   v5 = v19 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6MirrorV12DisplayStyleOSgMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6MirrorV12DisplayStyleOSgMd, &_ss6MirrorV12DisplayStyleOSgMR);
   MEMORY[0x1EEE9AC00](v6 - 8);
   v8 = v19 - v7;
   v9 = type metadata accessor for PhysicallyBasedMaterial.EmissiveColor();
   v10 = MEMORY[0x1EEE9AC00](v9);
   (*(v12 + 16))(v19 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0), v1, v9, v10);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySS_yptGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySS_yptGMd, &_ss23_ContiguousArrayStorageCySS_yptGMR);
   v13 = swift_allocObject();
   *(v13 + 16) = xmmword_1E1252F40;
   *(v13 + 32) = 0x726F6C6F63;
@@ -2782,7 +2780,7 @@ uint64_t PhysicallyBasedMaterial.EmissiveColor.customMirror.getter@<X0>(uint64_t
   *(v13 + 72) = v16;
   *(v13 + 80) = 0x65727574786574;
   *(v13 + 88) = 0xE700000000000000;
-  *(v13 + 120) = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation18MaterialParametersV7TextureVSgMd);
+  *(v13 + 120) = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation18MaterialParametersV7TextureVSgMd, &_s17RealityFoundation18MaterialParametersV7TextureVSgMR);
   __swift_allocate_boxed_opaque_existential_0((v13 + 96));
   MEMORY[0x1E12F3650]();
   v17 = type metadata accessor for Mirror.DisplayStyle();
@@ -2799,13 +2797,13 @@ uint64_t PhysicallyBasedMaterial.BaseColor.customMirror.getter@<X0>(uint64_t (*a
   v8 = *(v7 - 8);
   MEMORY[0x1EEE9AC00](v7);
   v10 = &v27 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6MirrorV12DisplayStyleOSgMd);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6MirrorV12DisplayStyleOSgMd, &_ss6MirrorV12DisplayStyleOSgMR);
   v12 = MEMORY[0x1EEE9AC00](v11 - 8);
   v14 = &v27 - v13;
   v15 = a1(0, v12);
   v16 = MEMORY[0x1EEE9AC00](v15);
   (*(v18 + 16))(&v27 - v17, v4, v15, v16);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySS_yptGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySS_yptGMd, &_ss23_ContiguousArrayStorageCySS_yptGMR);
   v19 = swift_allocObject();
   *(v19 + 16) = xmmword_1E1252F40;
   *(v19 + 32) = 1953393012;
@@ -2819,7 +2817,7 @@ uint64_t PhysicallyBasedMaterial.BaseColor.customMirror.getter@<X0>(uint64_t (*a
   *(v19 + 72) = v24;
   *(v19 + 80) = 0x65727574786574;
   *(v19 + 88) = 0xE700000000000000;
-  *(v19 + 120) = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation18MaterialParametersV7TextureVSgMd);
+  *(v19 + 120) = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation18MaterialParametersV7TextureVSgMd, &_s17RealityFoundation18MaterialParametersV7TextureVSgMR);
   __swift_allocate_boxed_opaque_existential_0((v19 + 96));
   v27();
   v25 = type metadata accessor for Mirror.DisplayStyle();
@@ -2947,12 +2945,11 @@ uint64_t storeEnumTagSinglePayload for MaterialColorParameter(uint64_t result, u
   return result;
 }
 
-uint64_t ARView.automaticallyConfigureSession.setter(char a1)
+void ARView.automaticallyConfigureSession.setter(char a1)
 {
   v3 = v1 + OBJC_IVAR____TtC10RealityKit6ARView_sessionComponents;
-  result = swift_beginAccess();
+  swift_beginAccess();
   *(v3 + 2) = a1;
-  return result;
 }
 
 void ARView.cameraMode.getter(_BYTE *a1@<X8>)
@@ -3416,7 +3413,7 @@ LABEL_5:
   __break(1u);
 }
 
-uint64_t (*ARView.__enableUpdateCameraWorldMatrixFromARFrame.modify(uint64_t (*result)(uint64_t a1, char a2)))(uint64_t a1, char a2)
+uint64_t (*ARView.__enableUpdateCameraWorldMatrixFromARFrame.modify(uint64_t (*result)(uint64_t a1, uint64_t a2)))(uint64_t a1, uint64_t a2)
 {
   v2 = OBJC_IVAR____TtC10RealityKit6ARView_arSystem;
   *result = v1;
@@ -3436,7 +3433,7 @@ uint64_t (*ARView.__enableUpdateCameraWorldMatrixFromARFrame.modify(uint64_t (*r
   return result;
 }
 
-uint64_t (*ARView.__enableUpdateCameraProjectionMatrixFromARFrame.modify(uint64_t (*result)(uint64_t a1, char a2)))(uint64_t a1, char a2)
+uint64_t (*ARView.__enableUpdateCameraProjectionMatrixFromARFrame.modify(uint64_t (*result)(uint64_t a1, uint64_t a2)))(uint64_t a1, uint64_t a2)
 {
   v2 = OBJC_IVAR____TtC10RealityKit6ARView_arSystem;
   *result = v1;
@@ -3628,7 +3625,7 @@ uint64_t ARView.__enableUpdateCameraWorldMatrixFromARFrame.setter(uint64_t resul
   return result;
 }
 
-uint64_t (*ARView.__autoFireStartTriggerOnPlacement.modify(uint64_t (*result)(uint64_t a1, char a2)))(uint64_t a1, char a2)
+uint64_t (*ARView.__autoFireStartTriggerOnPlacement.modify(uint64_t (*result)(uint64_t a1, uint64_t a2)))(uint64_t a1, uint64_t a2)
 {
   v2 = OBJC_IVAR____TtC10RealityKit6ARView_arSystem;
   *result = v1;
@@ -3672,7 +3669,7 @@ LABEL_5:
   return result;
 }
 
-void (*ARView.__occlusionEntity(for:)(void (*result)(void, void)))(void, void)
+char *ARView.__occlusionEntity(for:)(char *result)
 {
   v2 = *(v1 + OBJC_IVAR____TtC10RealityKit6ARView_arSystem);
   if (v2)
@@ -4039,7 +4036,7 @@ void specialized ARView.handleTranslation(_:)(void *a1)
   v3 = *(v2 - 8);
   MEMORY[0x1EEE9AC00](v2);
   v5 = &v58 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit18AnchoringComponentV6TargetOSgMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit18AnchoringComponentV6TargetOSgMd, &_s10RealityKit18AnchoringComponentV6TargetOSgMR);
   MEMORY[0x1EEE9AC00](v6 - 8);
   v8 = &v58 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v9);
@@ -4096,7 +4093,7 @@ LABEL_22:
             }
 
             v27 = v26;
-            type metadata accessor for ARView();
+            type metadata accessor for ARView(0);
             if (!swift_dynamicCastClass())
             {
               goto LABEL_36;
@@ -4104,14 +4101,14 @@ LABEL_22:
 
             v28 = (v13 + OBJC_IVAR____TtC10RealityKit34EntityTranslationGestureRecognizer_touchHeight);
             v29 = *(v13 + OBJC_IVAR____TtC10RealityKit34EntityTranslationGestureRecognizer_touchHeight);
-            LOBYTE(v67[0]) = *(v13 + OBJC_IVAR____TtC10RealityKit34EntityTranslationGestureRecognizer_touchHeight + 4);
-            specialized EntityGestureRecognizer.planeForUnprojection(heightOffset:)(v29 | (LOBYTE(v67[0]) << 32), v62);
-            if (v66)
+            v64[0].i8[0] = *(v13 + OBJC_IVAR____TtC10RealityKit34EntityTranslationGestureRecognizer_touchHeight + 4);
+            specialized EntityGestureRecognizer.planeForUnprojection(heightOffset:)(v29 | (v64[0].u8[0] << 32), v62);
+            if (v63)
             {
               goto LABEL_12;
             }
 
-            v30 = ARView.unproject(_:ontoPlane:relativeToCamera:)(0, v24, v23, v62[0], v63, *&v64, v65);
+            v30 = ARView.unproject(_:ontoPlane:relativeToCamera:)(0, v24, v23, v62[0], v62[1], v62[2], v62[3]);
             if (v32)
             {
               goto LABEL_12;
@@ -4147,9 +4144,9 @@ LABEL_36:
             }
 
             v49 = *v28;
-            LOBYTE(v67[0]) = *(v28 + 4);
-            specialized EntityGestureRecognizer.planeForUnprojection(heightOffset:)(v49 | (LOBYTE(v67[0]) << 32), v67);
-            if (v71 & 1) != 0 || (v50 = ARView.unproject(_:ontoPlane:relativeToCamera:)(0, v19, v21, v67[0], v68, v69, v70), (v52))
+            v64[0].i8[0] = *(v28 + 4);
+            specialized EntityGestureRecognizer.planeForUnprojection(heightOffset:)(v49 | (v64[0].u8[0] << 32), v64);
+            if (v65 & 1) != 0 || (v50 = ARView.unproject(_:ontoPlane:relativeToCamera:)(0, v19, v21, v64[0], v64[1], v64[2], v64[3]), (v52))
             {
 LABEL_12:
 
@@ -4211,7 +4208,7 @@ LABEL_12:
         *&v44 = vadd_f32(*v43, __PAIR64__(v58.u32[1], v36));
         *(&v44 + 1) = vaddq_f32(*v43, v59).u32[2];
         *v43->f32 = v44;
-        v42(v67, 0);
+        v42(v64, 0);
 LABEL_24:
 
         goto LABEL_25;
@@ -4252,9 +4249,9 @@ LABEL_10:
     return;
   }
 
-  v24[0] = 1;
-  specialized EntityGestureRecognizer.planeForUnprojection(heightOffset:)(0x100000000, v24);
-  if (v24[64])
+  LOBYTE(v24) = 1;
+  specialized EntityGestureRecognizer.planeForUnprojection(heightOffset:)(0x100000000, &v24);
+  if (v25)
   {
   }
 
@@ -4267,14 +4264,14 @@ LABEL_10:
 
     specialized SIMD.subscript.getter(xmmword_1E1252DD0, COERCE_DOUBLE(2));
     HasTransform.convert(normal:from:)();
-    *v21 = v8;
+    v21 = v8;
     v9 = vmulq_f32(v8, v8);
     *&v10 = v9.f32[2] + vaddv_f32(*v9.f32);
     *v8.f32 = vrsqrte_f32(v10);
     *v8.f32 = vmul_f32(*v8.f32, vrsqrts_f32(v10, vmul_f32(*v8.f32, *v8.f32)));
     LODWORD(v19) = vmul_f32(*v8.f32, vrsqrts_f32(v10, vmul_f32(*v8.f32, *v8.f32))).u32[0];
     v11 = __sincosf_stret(v7 * -0.5);
-    v12 = vmulq_n_f32(vmulq_n_f32(*v21, v19), v11.__sinval);
+    v12 = vmulq_n_f32(vmulq_n_f32(v21, v19), v11.__sinval);
     v12.i32[3] = LODWORD(v11.__cosval);
     v22 = v12;
     v13 = HasTransform.orientation.modify();
@@ -4445,14 +4442,14 @@ unint64_t lazy protocol witness table accessor for type ARView.EntityGestures an
 
 uint64_t outlined destroy of AnchoringComponent.Target?(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit18AnchoringComponentV6TargetOSgMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit18AnchoringComponentV6TargetOSgMd, &_s10RealityKit18AnchoringComponentV6TargetOSgMR);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
 
 uint64_t outlined init with take of AnchoringComponent.Target?(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit18AnchoringComponentV6TargetOSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit18AnchoringComponentV6TargetOSgMd, &_s10RealityKit18AnchoringComponentV6TargetOSgMR);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }

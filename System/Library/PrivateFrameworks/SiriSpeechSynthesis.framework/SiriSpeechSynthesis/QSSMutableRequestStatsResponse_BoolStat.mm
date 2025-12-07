@@ -3,9 +3,16 @@
 - (QSSMutableRequestStatsResponse_BoolStat)init;
 - (id)copyWithZone:(_NSZone *)zone;
 - (void)setName:(id)name;
+- (void)setValue:(BOOL)value;
 @end
 
 @implementation QSSMutableRequestStatsResponse_BoolStat
+
+- (void)setValue:(BOOL)value
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:value];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
 
 - (BOOL)value
 {

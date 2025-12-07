@@ -45,11 +45,11 @@
   return v2;
 }
 
-void __44__MADVUWGalleryManager_sharedGalleryManager__block_invoke()
+void __44__MADVUWGalleryManager_sharedGalleryManager__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_alloc_init(objc_opt_class());
-  v1 = sharedGalleryManager_instance;
-  sharedGalleryManager_instance = v0;
+  v2 = objc_alloc_init(objc_opt_class());
+  v3 = sharedGalleryManager_instance;
+  sharedGalleryManager_instance = v2;
 }
 
 - (id)sharedGalleryForPhotoLibrary:(id)library
@@ -96,7 +96,7 @@ void __44__MADVUWGalleryManager_sharedGalleryManager__block_invoke()
 
 void __53__MADVUWGalleryManager_sharedGalleryForPhotoLibrary___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v2 = [*(*(a1 + 32) + 16) objectForKeyedSubscript:*(a1 + 40)];
   v3 = *(*(a1 + 56) + 8);
   v4 = *(v3 + 40);
@@ -106,34 +106,35 @@ void __53__MADVUWGalleryManager_sharedGalleryForPhotoLibrary___block_invoke(uint
   {
     v5 = [*(a1 + 48) vcp_visionCacheStorageDirectoryURL];
     v6 = [v5 URLByAppendingPathComponent:@"VUIndex.sqlite"];
+    v7 = v6;
     if (v6)
     {
-      v7 = VCPSignPostLog();
-      v8 = os_signpost_id_generate(v7);
+      v8 = VCPSignPostLog(v6);
+      v9 = os_signpost_id_generate(v8);
 
-      v9 = VCPSignPostLog();
-      v10 = v9;
-      if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
+      v11 = VCPSignPostLog(v10);
+      v12 = v11;
+      if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v8, "VUWGallery_initWithPath", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v9, "VUWGallery_initWithPath", "", buf, 2u);
       }
 
-      v19 = 0;
-      v11 = [objc_alloc(MEMORY[0x1E69E0678]) initWithClient:0 path:v6 error:&v19];
-      v12 = v19;
-      v13 = *(*(a1 + 56) + 8);
-      v14 = *(v13 + 40);
-      *(v13 + 40) = v11;
+      v22 = 0;
+      v13 = [objc_alloc(MEMORY[0x1E69E0678]) initWithClient:0 path:v7 error:&v22];
+      v14 = v22;
+      v15 = *(*(a1 + 56) + 8);
+      v16 = *(v15 + 40);
+      *(v15 + 40) = v13;
 
       if (*(*(*(a1 + 56) + 8) + 40))
       {
-        v15 = VCPSignPostLog();
-        v16 = v15;
-        if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
+        v18 = VCPSignPostLog(v17);
+        v19 = v18;
+        if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
         {
           *buf = 0;
-          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v16, OS_SIGNPOST_INTERVAL_END, v8, "VUWGallery_initWithPath", "", buf, 2u);
+          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v19, OS_SIGNPOST_INTERVAL_END, v9, "VUWGallery_initWithPath", "", buf, 2u);
         }
 
         [*(*(a1 + 32) + 16) setObject:*(*(*(a1 + 56) + 8) + 40) forKeyedSubscript:*(a1 + 40)];
@@ -141,20 +142,20 @@ void __53__MADVUWGalleryManager_sharedGalleryForPhotoLibrary___block_invoke(uint
 
       else if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v18 = *(a1 + 40);
+        v21 = *(a1 + 40);
         *buf = 138412546;
-        v21 = v18;
-        v22 = 2112;
-        v23 = v12;
+        v24 = v21;
+        v25 = 2112;
+        v26 = v14;
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[MADVUWGalleryManager] Failed to create VUWGallery with library %@ - %@", buf, 0x16u);
       }
     }
 
     else if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v17 = *(a1 + 40);
+      v20 = *(a1 + 40);
       *buf = 138412290;
-      v21 = v17;
+      v24 = v20;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[MADVUWGalleryManager] Failed to create VUWGallery: no VUIndex URL for library %@", buf, 0xCu);
     }
   }

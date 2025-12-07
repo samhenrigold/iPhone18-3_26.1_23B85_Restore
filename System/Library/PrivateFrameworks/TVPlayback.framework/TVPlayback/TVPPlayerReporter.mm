@@ -8,6 +8,7 @@
 - (void)_playerCurrentMediaItemWillChange:(id)change;
 - (void)_playerStateWillChange:(id)change;
 - (void)_sendPlaybackStartupEventsIfNecessary;
+- (void)_sendRTCEvent:(id)event withCategory:(unsigned __int16)category type:(unsigned __int16)type values:(id)values;
 - (void)_setupRTCAgent;
 - (void)dealloc;
 - (void)sendPlaybackStartupMetricsManually;
@@ -134,7 +135,7 @@ LABEL_7:
 
 - (void)_setupRTCAgent
 {
-  v35[7] = *MEMORY[0x277D85DE8];
+  v34[7] = *MEMORY[0x277D85DE8];
   rtcAgent = [(TVPPlayerReporter *)self rtcAgent];
 
   if (!rtcAgent)
@@ -153,26 +154,26 @@ LABEL_7:
     }
 
     v7 = *MEMORY[0x277D44040];
-    v34[0] = *MEMORY[0x277D44030];
-    v34[1] = v7;
-    v35[0] = &unk_287E59780;
-    v35[1] = &unk_287E59798;
-    v34[2] = *MEMORY[0x277D44080];
+    v33[0] = *MEMORY[0x277D44030];
+    v33[1] = v7;
+    v34[0] = &unk_287E59780;
+    v34[1] = &unk_287E59798;
+    v33[2] = *MEMORY[0x277D44080];
     v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:arc4random()];
     v9 = *MEMORY[0x277D44010];
-    v35[2] = v8;
-    v35[3] = MEMORY[0x277CBEC28];
+    v34[2] = v8;
+    v34[3] = MEMORY[0x277CBEC28];
     v10 = *MEMORY[0x277D44068];
-    v34[3] = v9;
-    v34[4] = v10;
+    v33[3] = v9;
+    v33[4] = v10;
     v11 = *MEMORY[0x277D44050];
-    v35[4] = MEMORY[0x277CBEC38];
-    v35[5] = MEMORY[0x277CBEC38];
+    v34[4] = MEMORY[0x277CBEC38];
+    v34[5] = MEMORY[0x277CBEC38];
     v12 = *MEMORY[0x277D44028];
-    v34[5] = v11;
-    v34[6] = v12;
-    v35[6] = v6;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:7];
+    v33[5] = v11;
+    v33[6] = v12;
+    v34[6] = v6;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:7];
     v14 = [v13 mutableCopy];
 
     player = [(TVPPlayerReporter *)self player];
@@ -202,16 +203,16 @@ LABEL_7:
       if (v17)
       {
         v20 = [MEMORY[0x277D43FE0] newHierarchyTokenFromParentToken:v17];
-        v28[0] = MEMORY[0x277D85DD0];
-        v28[1] = 3221225472;
-        v28[2] = __35__TVPPlayerReporter__setupRTCAgent__block_invoke;
-        v28[3] = &unk_279D7BDF0;
-        v29 = currentMediaItem;
+        v27[0] = MEMORY[0x277D85DD0];
+        v27[1] = 3221225472;
+        v27[2] = __35__TVPPlayerReporter__setupRTCAgent__block_invoke;
+        v27[3] = &unk_279D7BDF0;
+        v28 = currentMediaItem;
         v17 = v17;
-        v30 = v17;
-        v31 = v20;
+        v29 = v17;
+        v30 = v20;
         v21 = v20;
-        [v29 performMediaItemMetadataTransactionWithBlock:v28];
+        [v28 performMediaItemMetadataTransactionWithBlock:v27];
       }
     }
 
@@ -219,7 +220,7 @@ LABEL_7:
     if (os_log_type_enabled(sLogObject_4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v33 = v17;
+      v32 = v17;
       _os_log_impl(&dword_26CEDD000, v22, OS_LOG_TYPE_DEFAULT, "RTC hierarchy token for session: %@", buf, 0xCu);
     }
 
@@ -236,8 +237,6 @@ LABEL_7:
     rtcAgent2 = [(TVPPlayerReporter *)self rtcAgent];
     [rtcAgent2 startConfigurationWithCompletionHandler:&__block_literal_global_23];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __35__TVPPlayerReporter__setupRTCAgent__block_invoke(uint64_t a1)
@@ -296,9 +295,70 @@ void __35__TVPPlayerReporter__setupRTCAgent__block_invoke_20(uint64_t a1, void *
   }
 }
 
+- (void)_sendRTCEvent:(id)event withCategory:(unsigned __int16)category type:(unsigned __int16)type values:(id)values
+{
+  typeCopy = type;
+  categoryCopy = category;
+  v27 = *MEMORY[0x277D85DE8];
+  eventCopy = event;
+  valuesCopy = values;
+  rtcAgent = [(TVPPlayerReporter *)self rtcAgent];
+
+  if (rtcAgent)
+  {
+    v13 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:valuesCopy];
+    v14 = v13;
+    if (eventCopy)
+    {
+      [v13 setObject:eventCopy forKey:@"event"];
+    }
+
+    v15 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v16 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:categoryCopy];
+    [v15 setObject:v16 forKey:*MEMORY[0x277D43FF0]];
+
+    v17 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:typeCopy];
+    [v15 setObject:v17 forKey:*MEMORY[0x277D44008]];
+
+    [v15 setObject:&unk_287E597B0 forKey:*MEMORY[0x277D43FF8]];
+    if (v14)
+    {
+      [v15 setObject:v14 forKey:*MEMORY[0x277D44000]];
+    }
+
+    rtcAgent2 = [(TVPPlayerReporter *)self rtcAgent];
+    v19 = [rtcAgent2 sendMessageWithDictionary:v15 error:0];
+
+    v20 = sLogObject_4;
+    if (os_log_type_enabled(sLogObject_4, OS_LOG_TYPE_DEFAULT))
+    {
+      v21 = @"unsuccessful";
+      if (v19)
+      {
+        v21 = @"successful";
+      }
+
+      v23 = 138412546;
+      v24 = eventCopy;
+      v25 = 2112;
+      v26 = v21;
+      _os_log_impl(&dword_26CEDD000, v20, OS_LOG_TYPE_DEFAULT, "RTC Sending %@ payload was %@", &v23, 0x16u);
+    }
+  }
+
+  else
+  {
+    v22 = sLogObject_4;
+    if (os_log_type_enabled(sLogObject_4, OS_LOG_TYPE_ERROR))
+    {
+      [TVPReportingSession _sendEvent:eventCopy withCategory:v22 type:? values:?];
+    }
+  }
+}
+
 - (void)_sendPlaybackStartupEventsIfNecessary
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   player = [(TVPPlayerReporter *)self player];
   currentMediaItem = [player currentMediaItem];
   v5 = [currentMediaItem mediaItemMetadataForProperty:@"TVPMediaItemPlaybackReportingEventCollection"];
@@ -402,7 +462,7 @@ LABEL_25:
   else
   {
     player3 = [(TVPPlayerReporter *)self player];
-    [player3 duration];
+    objc_msgSend_duration(player3);
     v22 = v21;
 
     if (v22 == 3.40282347e38)
@@ -433,7 +493,7 @@ LABEL_31:
   if (os_log_type_enabled(sLogObject_4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v32 = v7;
+    v31 = v7;
     _os_log_impl(&dword_26CEDD000, v27, OS_LOG_TYPE_DEFAULT, "Reporting dict: %@", buf, 0xCu);
   }
 
@@ -446,7 +506,6 @@ LABEL_31:
   }
 
 LABEL_36:
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_rtcAgentUserInfo
@@ -516,11 +575,10 @@ LABEL_36:
 
 void __35__TVPPlayerReporter__setupRTCAgent__block_invoke_20_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_26CEDD000, a2, OS_LOG_TYPE_DEBUG, "RTCReporting backends: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_26CEDD000, a2, OS_LOG_TYPE_DEBUG, "RTCReporting backends: %@", &v2, 0xCu);
 }
 
 @end

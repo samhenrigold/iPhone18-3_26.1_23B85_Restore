@@ -243,23 +243,7 @@
 
 - (BOOL)fixValidPermissions:(id *)permissions
 {
-  if (![(TrustdFileHelper *)self changeOwnerOfValidFile:@"valid.sqlite3" error:permissions])
-  {
-    goto LABEL_5;
-  }
-
-  v5 = [NSString stringWithFormat:@"%@-shm", @"valid.sqlite3"];
-  v6 = [(TrustdFileHelper *)self changeOwnerOfValidFile:v5 error:permissions];
-
-  if (!v6)
-  {
-    goto LABEL_5;
-  }
-
-  v7 = [NSString stringWithFormat:@"%@-wal", @"valid.sqlite3"];
-  v8 = [(TrustdFileHelper *)self changeOwnerOfValidFile:v7 error:permissions];
-
-  if (v8)
+  if ([(TrustdFileHelper *)self changeOwnerOfValidFile:@"valid.sqlite3" error:permissions]&& ([NSString stringWithFormat:@"%@-shm", @"valid.sqlite3"], v5 = objc_claimAutoreleasedReturnValue(), v6 = [(TrustdFileHelper *)self changeOwnerOfValidFile:v5 error:permissions], v5, v6) && ([NSString stringWithFormat:@"%@-wal", @"valid.sqlite3"], v7 = objc_claimAutoreleasedReturnValue(), v8 = [(TrustdFileHelper *)self changeOwnerOfValidFile:v7 error:permissions], v7, v8))
   {
     v9 = [NSString stringWithFormat:@"%@-journal", @"valid.sqlite3"];
     v10 = [(TrustdFileHelper *)self changeOwnerOfValidFile:v9 error:permissions];
@@ -267,7 +251,6 @@
 
   else
   {
-LABEL_5:
     v10 = 0;
   }
 

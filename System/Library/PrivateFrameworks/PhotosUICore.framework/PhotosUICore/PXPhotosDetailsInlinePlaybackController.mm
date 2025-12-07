@@ -75,7 +75,7 @@ LABEL_10:
   v16 = 0u;
   v17 = 0u;
   v15 = 0u;
-  [(PXPhotosDetailsInlinePlaybackController *)self _currentTileIdentifierForRecord:recordCopy];
+  objc_msgSend__currentTileIdentifierForRecord_(self);
 
   v8 = *MEMORY[0x1E695F050];
   v14 = *(MEMORY[0x1E695F050] + 8);
@@ -271,7 +271,7 @@ uint64_t __71__PXPhotosDetailsInlinePlaybackController_checkOutTile_withIdentifi
   retstr->index[9] = 0;
   if (v6)
   {
-    [v6 tileIdentifier];
+    objc_msgSend_tileIdentifier(v6);
     v8 = &retstr->index[1];
     if (!retstr->length)
     {
@@ -294,7 +294,7 @@ uint64_t __71__PXPhotosDetailsInlinePlaybackController_checkOutTile_withIdentifi
     geometryReference = [v7 geometryReference];
     if (tilingController2)
     {
-      [tilingController2 tileIdentifierForTile:geometryReference];
+      objc_msgSend_tileIdentifierForTile_(tilingController2);
     }
 
     else

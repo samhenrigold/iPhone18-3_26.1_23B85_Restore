@@ -217,15 +217,15 @@
 
 - (id)formattedDescription:(unint64_t)description
 {
-  v16[6] = *MEMORY[0x1E69E9840];
+  v15[6] = *MEMORY[0x1E69E9840];
   v5 = [@"\n" stringByPaddingToLength:description + 4 withString:@" " startingAtIndex:0];
   retainedLabel = [(_MTLObjectWithLabel *)self retainedLabel];
   v7 = MEMORY[0x1E696AEC0];
-  v15.receiver = self;
-  v15.super_class = _MTLCommandEncoder;
-  v8 = [(_MTLCommandEncoder *)&v15 description];
-  v16[0] = v5;
-  v16[1] = @"label =";
+  v14.receiver = self;
+  v14.super_class = _MTLCommandEncoder;
+  v8 = [(_MTLCommandEncoder *)&v14 description];
+  v15[0] = v5;
+  v15[1] = @"label =";
   if (retainedLabel)
   {
     v9 = retainedLabel;
@@ -236,9 +236,9 @@
     v9 = @"<none>";
   }
 
-  v16[2] = v9;
-  v16[3] = v5;
-  v16[4] = @"device =";
+  v15[2] = v9;
+  v15[3] = v5;
+  v15[4] = @"device =";
   device = self->_device;
   if (device)
   {
@@ -250,10 +250,9 @@
     v11 = @"<null>";
   }
 
-  v16[5] = v11;
-  v12 = [v7 stringWithFormat:@"%@%@", v8, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v16, 6), "componentsJoinedByString:", @" "];
+  v15[5] = v11;
+  v12 = [v7 stringWithFormat:@"%@%@", v8, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v15, 6), "componentsJoinedByString:", @" "];
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 

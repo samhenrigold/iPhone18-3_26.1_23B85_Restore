@@ -1,4 +1,5 @@
 @interface ASDTIOPAudioIsolatedIOBufferDevice
++ (id)forIOObject:(unsigned int)object andIDValue:(id)value;
 - (BOOL)getStreamDescription:(AudioStreamBasicDescription *)description;
 - (BOOL)open;
 - (BOOL)setStreamDescription:(const AudioStreamBasicDescription *)description withBufferFrameSize:(unsigned int)size;
@@ -13,6 +14,15 @@
 
 @implementation ASDTIOPAudioIsolatedIOBufferDevice
 
++ (id)forIOObject:(unsigned int)object andIDValue:(id)value
+{
+  v4 = *&object;
+  valueCopy = value;
+  v7 = [[self alloc] initForIOObject:v4 andIDValue:valueCopy];
+
+  return v7;
+}
+
 - (id)initForIOObject:(unsigned int)object andIDValue:(id)value
 {
   v5 = *MEMORY[0x277D85DE8];
@@ -22,7 +32,7 @@
 
 - (BOOL)open
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   ptr = self->_userClient.__ptr_;
   if (!ptr)
   {
@@ -30,18 +40,18 @@
   }
 
   v4 = ASDT::IOUserClient::OpenConnection(ptr);
+  v6 = v4;
   if ((v4 & 1) == 0)
   {
-    v5 = ASDTIOPLogType();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = ASDTIOPLogType(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       idValue = [(ASDTIOService *)self idValue];
       [(ASDTIOPAudioIsolatedIOBufferDevice *)idValue open];
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-  return v4;
+  return v6;
 }
 
 - (void)close
@@ -135,11 +145,10 @@
 
 - (void)initForIOObject:(uint64_t)a1 andIDValue:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2416E9000, a2, OS_LOG_TYPE_ERROR, "%@: Failed to create IsolatedIOBuffer user client", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2416E9000, a2, OS_LOG_TYPE_ERROR, "%@: Failed to create IsolatedIOBuffer user client", &v2, 0xCu);
 }
 
 - (void)open

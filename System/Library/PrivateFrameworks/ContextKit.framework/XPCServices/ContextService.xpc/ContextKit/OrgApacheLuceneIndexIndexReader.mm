@@ -1,6 +1,9 @@
 @interface OrgApacheLuceneIndexIndexReader
 - (BOOL)tryIncRef;
+- (id)documentWithInt:(int)int;
+- (id)documentWithInt:(int)int withJavaUtilSet:(id)set;
 - (id)ensureOpen;
+- (id)getTermVectorWithInt:(int)int withNSString:(id)string;
 - (id)leaves;
 - (int)getRefCount;
 - (void)addReaderClosedListenerWithOrgApacheLuceneIndexIndexReader_ReaderClosedListener:(id)listener;
@@ -110,6 +113,36 @@ LABEL_8:
 
   while (v3 >= 1 && ![*(self + 16) compareAndSetWithInt:v3 withInt:(v3 + 1)]);
   return v3 > 0;
+}
+
+- (id)getTermVectorWithInt:(int)int withNSString:(id)string
+{
+  result = [(OrgApacheLuceneIndexIndexReader *)self getTermVectorsWithInt:*&int];
+  if (result)
+  {
+
+    return [result termsWithNSString:string];
+  }
+
+  return result;
+}
+
+- (id)documentWithInt:(int)int
+{
+  v3 = *&int;
+  v5 = new_OrgApacheLuceneDocumentDocumentStoredFieldVisitor_init();
+  [(OrgApacheLuceneIndexIndexReader *)self documentWithInt:v3 withOrgApacheLuceneIndexStoredFieldVisitor:v5];
+
+  return [(OrgApacheLuceneDocumentDocumentStoredFieldVisitor *)v5 getDocument];
+}
+
+- (id)documentWithInt:(int)int withJavaUtilSet:(id)set
+{
+  v4 = *&int;
+  v6 = new_OrgApacheLuceneDocumentDocumentStoredFieldVisitor_initWithJavaUtilSet_(set);
+  [(OrgApacheLuceneIndexIndexReader *)self documentWithInt:v4 withOrgApacheLuceneIndexStoredFieldVisitor:v6];
+
+  return [(OrgApacheLuceneDocumentDocumentStoredFieldVisitor *)v6 getDocument];
 }
 
 - (void)close

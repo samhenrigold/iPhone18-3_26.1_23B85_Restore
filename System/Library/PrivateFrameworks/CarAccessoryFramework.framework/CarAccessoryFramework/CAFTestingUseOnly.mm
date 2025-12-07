@@ -287,14 +287,12 @@
 
 - (NSArray)typeTestIndexByPositions
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   typeTestIndexByPositionServices = [(CAFTestingUseOnly *)self typeTestIndexByPositionServices];
   v3 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"vehicleLayoutKey" ascending:1];
-  v8[0] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v7[0] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   v5 = [typeTestIndexByPositionServices sortedArrayUsingDescriptors:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -318,14 +316,12 @@
 
 - (NSArray)typeTestIndexByUnits
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   typeTestIndexByUnitServices = [(CAFTestingUseOnly *)self typeTestIndexByUnitServices];
   v3 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"distanceUnit" ascending:1];
-  v8[0] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v7[0] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   v5 = [typeTestIndexByUnitServices sortedArrayUsingDescriptors:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -349,14 +345,12 @@
 
 - (NSArray)protocolPerfTests
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   protocolPerfTestServices = [(CAFTestingUseOnly *)self protocolPerfTestServices];
   v3 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"testString" ascending:1];
-  v8[0] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v7[0] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   v5 = [protocolPerfTestServices sortedArrayUsingDescriptors:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

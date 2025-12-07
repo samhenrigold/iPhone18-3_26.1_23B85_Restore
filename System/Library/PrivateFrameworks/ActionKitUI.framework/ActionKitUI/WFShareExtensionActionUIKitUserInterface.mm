@@ -117,13 +117,13 @@ void __137__WFShareExtensionActionUIKitUserInterface_addContentToShareController
   if ([*(a1 + 32) isEqualToString:*MEMORY[0x277CE8910]])
   {
     v4 = [*(a1 + 40) inputContentItemClassesFromInputConfiguration:*(a1 + 48)];
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __137__WFShareExtensionActionUIKitUserInterface_addContentToShareController_withInput_inputConfiguration_extensionUserInfo_completionHandler___block_invoke_2;
-    v26[3] = &unk_278C37120;
-    v28 = *(a1 + 72);
-    v27 = *(a1 + 56);
-    [v3 generateCollectionByCoercingToItemClasses:v4 completionHandler:v26];
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __137__WFShareExtensionActionUIKitUserInterface_addContentToShareController_withInput_inputConfiguration_extensionUserInfo_completionHandler___block_invoke_2;
+    v25[3] = &unk_278C37120;
+    v27 = *(a1 + 72);
+    v26 = *(a1 + 56);
+    [v3 generateCollectionByCoercingToItemClasses:v4 completionHandler:v25];
 
 LABEL_16:
     goto LABEL_17;
@@ -156,15 +156,15 @@ LABEL_16:
 
     v9 = objc_opt_new();
     v10 = [v3 items];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __137__WFShareExtensionActionUIKitUserInterface_addContentToShareController_withInput_inputConfiguration_extensionUserInfo_completionHandler___block_invoke_4;
-    v22[3] = &unk_278C37148;
-    v24 = v7;
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __137__WFShareExtensionActionUIKitUserInterface_addContentToShareController_withInput_inputConfiguration_extensionUserInfo_completionHandler___block_invoke_4;
+    v21[3] = &unk_278C37148;
+    v23 = v7;
     v11 = v9;
-    v23 = v11;
-    v25 = v8;
-    v12 = [v10 if_compactMap:v22];
+    v22 = v11;
+    v24 = v8;
+    v12 = [v10 if_compactMap:v21];
 
     v13 = objc_opt_new();
     v14 = [MEMORY[0x277CCA8D8] mainBundle];
@@ -182,7 +182,6 @@ LABEL_16:
       [v16 setAttributedContentText:v18];
     }
 
-    v19 = *(a1 + 56);
     if (objc_opt_respondsToSelector())
     {
       [*(a1 + 56) addExtensionItem:v16];
@@ -192,7 +191,7 @@ LABEL_16:
     block[1] = 3221225472;
     block[2] = __137__WFShareExtensionActionUIKitUserInterface_addContentToShareController_withInput_inputConfiguration_extensionUserInfo_completionHandler___block_invoke_5;
     block[3] = &unk_278C37170;
-    v21 = *(a1 + 72);
+    v20 = *(a1 + 72);
     dispatch_async(MEMORY[0x277D85CD0], block);
 
     goto LABEL_16;
@@ -270,40 +269,39 @@ LABEL_5:
 
 void __137__WFShareExtensionActionUIKitUserInterface_addContentToShareController_withInput_inputConfiguration_extensionUserInfo_completionHandler___block_invoke_3(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a4;
   if ([v6 count])
   {
-    v34 = v7;
-    v35 = v6;
-    v36 = objc_opt_new();
+    v31 = v7;
+    v32 = v6;
+    v33 = objc_opt_new();
+    v35 = 0u;
+    v36 = 0u;
+    v37 = 0u;
     v38 = 0u;
-    v39 = 0u;
-    v40 = 0u;
-    v41 = 0u;
     v8 = v6;
-    v9 = [v8 countByEnumeratingWithState:&v38 objects:v42 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v35 objects:v39 count:16];
     v10 = a1;
     if (v9)
     {
       v11 = v9;
-      v12 = *v39;
+      v12 = *v36;
       v13 = 0x277CBE000uLL;
       v14 = 0x277CCA000uLL;
       do
       {
         v15 = 0;
-        v37 = v11;
+        v34 = v11;
         do
         {
-          if (*v39 != v12)
+          if (*v36 != v12)
           {
             objc_enumerationMutation(v8);
           }
 
-          v16 = *(*(&v38 + 1) + 8 * v15);
-          v17 = *(v13 + 3008);
+          v16 = *(*(&v35 + 1) + 8 * v15);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -312,52 +310,51 @@ void __137__WFShareExtensionActionUIKitUserInterface_addContentToShareController
 
           else
           {
-            v18 = *(v14 + 3240);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              [v36 addObject:v16];
+              [v33 addObject:v16];
             }
 
             else
             {
-              v19 = v12;
-              v20 = v10;
-              v21 = v13;
-              v22 = v8;
-              v23 = v14;
-              v24 = [MEMORY[0x277CFC490] typeWithClass:objc_opt_class()];
-              v25 = [MEMORY[0x277CFC490] typeWithClassName:@"UIImage" frameworkName:@"UIKit" location:2];
-              v26 = [v24 conformsToType:v25];
+              v17 = v12;
+              v18 = v10;
+              v19 = v13;
+              v20 = v8;
+              v21 = v14;
+              v22 = [MEMORY[0x277CFC490] typeWithClass:objc_opt_class()];
+              v23 = [MEMORY[0x277CFC490] typeWithClassName:@"UIImage" frameworkName:@"UIKit" location:2];
+              v24 = [v22 conformsToType:v23];
 
-              if (v26)
+              if (v24)
               {
-                v10 = v20;
-                [*(v20 + 32) addImage:v16];
-                v14 = v23;
-                v8 = v22;
-                v13 = v21;
-                v12 = v19;
-                v11 = v37;
+                v10 = v18;
+                [*(v18 + 32) addImage:v16];
+                v14 = v21;
+                v8 = v20;
+                v13 = v19;
+                v12 = v17;
+                v11 = v34;
               }
 
               else
               {
                 objc_opt_class();
-                v14 = v23;
-                v8 = v22;
-                v13 = v21;
-                v10 = v20;
-                v12 = v19;
-                v11 = v37;
+                v14 = v21;
+                v8 = v20;
+                v13 = v19;
+                v10 = v18;
+                v12 = v17;
+                v11 = v34;
                 if (objc_opt_isKindOfClass())
                 {
-                  objc_setAssociatedObject(*(v20 + 32), v16, v16, 1);
-                  v27 = *(v20 + 32);
-                  v28 = [v16 fileURL];
-                  v29 = v27;
-                  v10 = v20;
-                  [v29 addURL:v28];
+                  objc_setAssociatedObject(*(v18 + 32), v16, v16, 1);
+                  v25 = *(v18 + 32);
+                  v26 = [v16 fileURL];
+                  v27 = v25;
+                  v10 = v18;
+                  [v27 addURL:v26];
                 }
               }
             }
@@ -367,28 +364,26 @@ void __137__WFShareExtensionActionUIKitUserInterface_addContentToShareController
         }
 
         while (v11 != v15);
-        v11 = [v8 countByEnumeratingWithState:&v38 objects:v42 count:16];
+        v11 = [v8 countByEnumeratingWithState:&v35 objects:v39 count:16];
       }
 
       while (v11);
     }
 
-    v30 = v10;
-    v31 = *(v10 + 32);
-    v32 = [v36 componentsJoinedByString:@"\n"];
-    [v31 setInitialText:v32];
+    v28 = v10;
+    v29 = *(v10 + 32);
+    v30 = [v33 componentsJoinedByString:@"\n"];
+    [v29 setInitialText:v30];
 
-    (*(*(v30 + 40) + 16))();
-    v7 = v34;
-    v6 = v35;
+    (*(*(v28 + 40) + 16))();
+    v7 = v31;
+    v6 = v32;
   }
 
   else
   {
     (*(*(a1 + 40) + 16))();
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performActionWithInput:(id)input inputConfiguration:(id)configuration socialServiceType:(id)type extensionBundleIdentifier:(id)identifier extensionUserInfo:(id)info completionHandler:(id)handler

@@ -35,28 +35,27 @@ void sub_100000B84(xpc_connection_t connection)
 
 void sub_100000C5C(uint64_t a1, uint64_t a2)
 {
+  v7 = 0u;
   v8 = 0u;
-  v9 = 0u;
-  v4 = *(a1 + 32);
   xpc_connection_get_audit_token();
   if (IMDAuditTokenTaskHasEntitlement())
   {
-    v7[0] = _NSConcreteStackBlock;
-    v7[1] = 3221225472;
-    v7[2] = sub_100000E5C;
-    v7[3] = &unk_1000082D0;
-    v7[4] = *(a1 + 32);
-    v7[5] = a2;
-    v10[0] = 0;
-    v10[1] = 0;
+    v6[0] = _NSConcreteStackBlock;
+    v6[1] = 3221225472;
+    v6[2] = sub_100000E5C;
+    v6[3] = &unk_1000082D0;
+    v6[4] = *(a1 + 32);
+    v6[5] = a2;
+    v9[0] = 0;
+    v9[1] = 0;
     pthread_main_thread_np();
     pthread_dependency_init_np();
     *block = _NSConcreteStackBlock;
     *&block[8] = 3221225472;
     *&block[16] = sub_100002034;
-    v12 = &unk_100008320;
-    v13 = v7;
-    v14 = v10;
+    v11 = &unk_100008320;
+    v12 = v6;
+    v13 = v9;
     dispatch_async(&_dispatch_main_q, block);
     pthread_dependency_wait_np();
   }
@@ -66,16 +65,16 @@ void sub_100000C5C(uint64_t a1, uint64_t a2)
     pid = xpc_connection_get_pid(*(a1 + 32));
     if (IMOSLoggingEnabled())
     {
-      v6 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+      v5 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
         *block = 138412802;
         *&block[4] = @"com.apple.private.imcore.imtranscoderservice";
         *&block[12] = 2112;
         *&block[14] = IMProcessNameForPid();
         *&block[22] = 1024;
-        LODWORD(v12) = pid;
-        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Denying xpc connection, task does not have entitlement: %@  (%@:%d)", block, 0x1Cu);
+        LODWORD(v11) = pid;
+        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Denying xpc connection, task does not have entitlement: %@  (%@:%d)", block, 0x1Cu);
       }
     }
 
@@ -627,15 +626,9 @@ void sub_1000021CC(uint64_t a1)
   reply = xpc_dictionary_create_reply(*(a1 + 32));
   [objc_msgSend(*(a1 + 40) "path")];
   IMInsertStringsToXPCDictionary();
-  v10 = *(a1 + 113);
-  v6 = *(a1 + 112);
   IMInsertBoolsToXPCDictionary();
-  v11 = *(a1 + 56);
-  v7 = *(a1 + 48);
   IMInsertCodableObjectsToXPCDictionary();
-  v8 = *(a1 + 64);
   IMInsertCodableObjectsToXPCDictionary();
-  v9 = *(a1 + 72);
   IMInsertCodableObjectsToXPCDictionary();
   if (IMOSLoggingEnabled())
   {
@@ -645,9 +638,9 @@ void sub_1000021CC(uint64_t a1)
       v5 = *(a1 + 72);
       v4 = *(a1 + 80);
       *buf = 138412546;
-      v13 = v4;
-      v14 = 2112;
-      v15 = v5;
+      v7 = v4;
+      v8 = 2112;
+      v9 = v5;
       _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Handled TranscodeAttachment for %@ complete, additionalContext %@", buf, 0x16u);
     }
   }
@@ -704,12 +697,7 @@ void sub_1000024CC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5, 
 void sub_100002560(uint64_t a1)
 {
   reply = xpc_dictionary_create_reply(*(a1 + 32));
-  v9 = *(a1 + 56);
-  v7 = *(a1 + 48);
-  v5 = *(a1 + 40);
   IMInsertCodableObjectsToXPCDictionary();
-  v8 = *(a1 + 89);
-  v6 = *(a1 + 88);
   IMInsertBoolsToXPCDictionary();
   if (IMOSLoggingEnabled())
   {
@@ -718,7 +706,7 @@ void sub_100002560(uint64_t a1)
     {
       v4 = *(a1 + 64);
       *buf = 138412290;
-      v11 = v4;
+      v6 = v4;
       _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Handled TranscodeAttachment for %@ via fallback", buf, 0xCu);
     }
   }
@@ -805,13 +793,9 @@ void sub_100002884(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t a5)
 void sub_10000291C(uint64_t a1)
 {
   reply = xpc_dictionary_create_reply(*(a1 + 32));
-  v7 = *(a1 + 104);
   IMInsertBoolsToXPCDictionary();
-  v8 = *(a1 + 40);
   IMInsertCodableObjectsToXPCDictionary();
-  v9 = *(a1 + 48);
   IMInsertCodableObjectsToXPCDictionary();
-  v10 = *(a1 + 56);
   IMInsertCodableObjectsToXPCDictionary();
   if (IMOSLoggingEnabled())
   {
@@ -822,11 +806,11 @@ void sub_10000291C(uint64_t a1)
       v6 = *(a1 + 56);
       v5 = *(a1 + 64);
       *buf = 138412802;
-      v12 = v5;
-      v13 = 2112;
-      v14 = v4;
-      v15 = 2112;
-      v16 = v6;
+      v8 = v5;
+      v9 = 2112;
+      v10 = v4;
+      v11 = 2112;
+      v12 = v6;
       _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Handled GenerateSafeRender for %@, previewURL: %@ error: %@", buf, 0x20u);
     }
   }
@@ -888,9 +872,7 @@ void sub_100002BB0(uint64_t a1, char a2, uint64_t a3)
 void sub_100002C3C(uint64_t a1)
 {
   reply = xpc_dictionary_create_reply(*(a1 + 32));
-  v7 = *(a1 + 80);
   IMInsertBoolsToXPCDictionary();
-  v8 = *(a1 + 40);
   IMInsertCodableObjectsToXPCDictionary();
   if (IMOSLoggingEnabled())
   {
@@ -910,11 +892,11 @@ void sub_100002C3C(uint64_t a1)
       v6 = *(a1 + 40);
       v5 = *(a1 + 48);
       *buf = 138412802;
-      v10 = v5;
+      v8 = v5;
+      v9 = 2112;
+      v10 = v4;
       v11 = 2112;
-      v12 = v4;
-      v13 = 2112;
-      v14 = v6;
+      v12 = v6;
       _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Handled GenerateSnapshot for %@, success: %@ snapshotError: %@", buf, 0x20u);
     }
   }
@@ -965,12 +947,11 @@ void sub_100002E90(uint64_t a1, char a2, uint64_t a3, double a4, double a5)
 void sub_100002F28(uint64_t a1)
 {
   reply = xpc_dictionary_create_reply(*(a1 + 32));
-  v8 = *(a1 + 104);
   IMInsertBoolsToXPCDictionary();
-  v9 = *(a1 + 40);
+  v8 = *(a1 + 40);
   IMInsertCodableObjectsToXPCDictionary();
   *buf = *(a1 + 72);
-  [NSValue valueWithBytes:buf objCType:"{CGSize=dd}", v9, 0];
+  [NSValue valueWithBytes:buf objCType:"{CGSize=dd}", v8, 0];
   IMInsertCodableObjectsToXPCDictionary();
   if (IMOSLoggingEnabled())
   {
@@ -994,10 +975,10 @@ void sub_100002F28(uint64_t a1)
       *&buf[4] = v4;
       *&buf[12] = 2112;
       *&buf[14] = v5;
-      v11 = 2048;
-      v12 = v6;
-      v13 = 2048;
-      v14 = v7;
+      v10 = 2048;
+      v11 = v6;
+      v12 = 2048;
+      v13 = v7;
       _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Handled GeneratePreview for %@, success: %@ size: (%f, %f)", buf, 0x2Au);
     }
   }
@@ -1059,12 +1040,11 @@ void sub_1000031E0(uint64_t a1, char a2, uint64_t a3, double a4, double a5)
 void sub_100003278(uint64_t a1)
 {
   reply = xpc_dictionary_create_reply(*(a1 + 32));
-  v8 = *(a1 + 104);
   IMInsertBoolsToXPCDictionary();
-  v9 = *(a1 + 40);
+  v8 = *(a1 + 40);
   IMInsertCodableObjectsToXPCDictionary();
   *buf = *(a1 + 72);
-  [NSValue valueWithBytes:buf objCType:"{CGSize=dd}", v9, 0];
+  [NSValue valueWithBytes:buf objCType:"{CGSize=dd}", v8, 0];
   IMInsertCodableObjectsToXPCDictionary();
   if (IMOSLoggingEnabled())
   {
@@ -1088,10 +1068,10 @@ void sub_100003278(uint64_t a1)
       *&buf[4] = v4;
       *&buf[12] = 2112;
       *&buf[14] = v5;
-      v11 = 2048;
-      v12 = v6;
-      v13 = 2048;
-      v14 = v7;
+      v10 = 2048;
+      v11 = v6;
+      v12 = 2048;
+      v13 = v7;
       _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Handled GenerateMetadata for %@, success: %@ size: (%f, %f)", buf, 0x2Au);
     }
   }
@@ -1155,13 +1135,11 @@ __n128 sub_100003528(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t a5
 void sub_1000035BC(uint64_t a1)
 {
   reply = xpc_dictionary_create_reply(*(a1 + 32));
-  v6 = *(a1 + 104);
   IMInsertBoolsToXPCDictionary();
-  v7 = *(a1 + 40);
   IMInsertCodableObjectsToXPCDictionary();
-  v8 = *(a1 + 48);
+  v6 = *(a1 + 48);
   IMInsertDatasToXPCDictionary();
-  [*(a1 + 56) __imArrayByApplyingBlock:{&stru_100008620, v8, 0}];
+  [*(a1 + 56) __imArrayByApplyingBlock:{&stru_100008620, v6, 0}];
   IMInsertArraysToXPCDictionary();
   if (IMOSLoggingEnabled())
   {
@@ -1171,9 +1149,9 @@ void sub_1000035BC(uint64_t a1)
       v4 = *(a1 + 64);
       v5 = *(a1 + 72);
       *buf = 138412546;
-      v10 = v4;
-      v11 = 2112;
-      v12 = v5;
+      v8 = v4;
+      v9 = 2112;
+      v10 = v5;
       _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Handled DecodeiMessageAppPayload for %@ bundleID %@", buf, 0x16u);
     }
   }

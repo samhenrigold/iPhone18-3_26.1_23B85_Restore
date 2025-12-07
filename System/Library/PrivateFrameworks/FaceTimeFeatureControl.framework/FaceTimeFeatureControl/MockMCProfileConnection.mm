@@ -7,13 +7,12 @@
 
 - (BOOL)isVideoConferencingRemoteControlAllowed
 {
-  v3 = *(&self->super.super.isa + OBJC_IVAR____TtC22FaceTimeFeatureControl23MockMCProfileConnection_onIsVideoConferencingRemoteControlAllowed);
-  v2 = *(&self->super._observers + OBJC_IVAR____TtC22FaceTimeFeatureControl23MockMCProfileConnection_onIsVideoConferencingRemoteControlAllowed);
+  v2 = *(&self->super.super.isa + OBJC_IVAR____TtC22FaceTimeFeatureControl23MockMCProfileConnection_onIsVideoConferencingRemoteControlAllowed);
   selfCopy = self;
 
-  LOBYTE(v3) = v3(v5);
+  LOBYTE(v2) = v2(v4);
 
-  return v3 & 1;
+  return v2 & 1;
 }
 
 - (_TtC22FaceTimeFeatureControl23MockMCProfileConnection)init

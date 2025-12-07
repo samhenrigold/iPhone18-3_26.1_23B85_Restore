@@ -31,7 +31,7 @@
 
 - (id)_calculateIdentityEmailAddress
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   emailAddresses = [(EMReceivingAccount *)self emailAddresses];
   if ([emailAddresses count] <= 1)
   {
@@ -40,7 +40,7 @@
   }
 
   hostname = [(EMReceivingAccount *)self hostname];
-  v41 = hostname;
+  v40 = hostname;
   _lp_highLevelDomainFromHost = [hostname _lp_highLevelDomainFromHost];
   username = [(EMReceivingAccount *)self username];
   emailAddressValue = [username emailAddressValue];
@@ -52,37 +52,37 @@
     v8 = localPart;
   }
 
-  v35 = v8;
+  v34 = v8;
 
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
   v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   obj = emailAddresses;
-  v9 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
+  v9 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
   if (!v9)
   {
 
     goto LABEL_37;
   }
 
-  v36 = 0;
-  v38 = 0;
-  v33 = 0;
-  v40 = 0;
+  v35 = 0;
+  v37 = 0;
+  v32 = 0;
+  v39 = 0;
   v10 = 0;
-  v11 = *v43;
+  v11 = *v42;
   do
   {
     v12 = 0;
     do
     {
-      if (*v43 != v11)
+      if (*v42 != v11)
       {
         objc_enumerationMutation(obj);
       }
 
-      v13 = *(*(&v42 + 1) + 8 * v12);
+      v13 = *(*(&v41 + 1) + 8 * v12);
       if ([emailAddressValue isEqual:v13])
       {
         firstObject = v13;
@@ -97,24 +97,24 @@
 
         if (v15)
         {
-          v16 = v38;
-          v17 = v40;
+          v16 = v37;
+          v17 = v39;
           v18 = v13;
 LABEL_14:
           v19 = v13;
-          v38 = v16;
-          v40 = v17;
+          v37 = v16;
+          v39 = v17;
           v10 = v18;
           goto LABEL_17;
         }
 
-        if (v40)
+        if (v39)
         {
           goto LABEL_16;
         }
 
         localPart2 = [v13 localPart];
-        v21 = [localPart2 ef_caseInsensitiveIsEqualToString:v35];
+        v21 = [localPart2 ef_caseInsensitiveIsEqualToString:v34];
 
         v22 = MEMORY[0x1E699B820];
         domain2 = [v13 domain];
@@ -122,17 +122,17 @@ LABEL_14:
 
         if (v22)
         {
-          v24 = v36;
-          if (!v36)
+          v24 = v35;
+          if (!v35)
           {
             v24 = v13;
           }
 
-          v36 = v24;
+          v35 = v24;
           v18 = 0;
-          v40 = 0;
+          v39 = 0;
           v10 = 0;
-          v16 = v38;
+          v16 = v37;
           v17 = v13;
           if (v21)
           {
@@ -142,7 +142,7 @@ LABEL_14:
 
         else
         {
-          if (v38)
+          if (v37)
           {
             goto LABEL_31;
           }
@@ -152,25 +152,25 @@ LABEL_14:
 
           if (!v26)
           {
-            v38 = 0;
+            v37 = 0;
 LABEL_31:
-            v40 = 0;
+            v39 = 0;
 LABEL_16:
             v10 = 0;
             goto LABEL_17;
           }
 
-          v27 = v33;
-          if (!v33)
+          v27 = v32;
+          if (!v32)
           {
             v27 = v13;
           }
 
-          v33 = v27;
+          v32 = v27;
           v17 = 0;
           v18 = 0;
-          v38 = 0;
-          v40 = 0;
+          v37 = 0;
+          v39 = 0;
           v10 = 0;
           v16 = v13;
           if (v21)
@@ -182,11 +182,11 @@ LABEL_16:
 
 LABEL_17:
       ++v12;
-      hostname = v41;
+      hostname = v40;
     }
 
     while (v9 != v12);
-    v28 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
+    v28 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
     v9 = v28;
   }
 
@@ -198,8 +198,8 @@ LABEL_17:
     goto LABEL_49;
   }
 
-  v29 = v40;
-  if (v40)
+  v29 = v39;
+  if (v39)
   {
 LABEL_49:
     firstObject = v29;
@@ -207,43 +207,42 @@ LABEL_49:
 
   else
   {
-    v29 = v36;
-    if (v36)
+    v29 = v35;
+    if (v35)
     {
-      v40 = 0;
+      v39 = 0;
       goto LABEL_49;
     }
 
-    if (v38)
+    if (v37)
     {
-      v40 = 0;
-      v36 = 0;
-      v29 = v38;
+      v39 = 0;
+      v35 = 0;
+      v29 = v37;
       goto LABEL_49;
     }
 
-    v29 = v33;
-    if (v33)
+    v29 = v32;
+    if (v32)
     {
-      v40 = 0;
-      v38 = 0;
-      v36 = 0;
+      v39 = 0;
+      v37 = 0;
+      v35 = 0;
       goto LABEL_49;
     }
 
 LABEL_37:
     firstObject = [obj firstObject];
     v10 = 0;
-    v40 = 0;
-    v33 = 0;
-    v38 = 0;
-    v36 = 0;
+    v39 = 0;
+    v32 = 0;
+    v37 = 0;
+    v35 = 0;
   }
 
 LABEL_38:
 
 LABEL_39:
-  v30 = *MEMORY[0x1E69E9840];
 
   return firstObject;
 }

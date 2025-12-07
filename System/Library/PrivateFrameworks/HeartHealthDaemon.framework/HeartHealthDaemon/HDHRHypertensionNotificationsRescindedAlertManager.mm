@@ -112,44 +112,37 @@
   dispatch_async(queue, v8);
 }
 
-uint64_t __100__HDHRHypertensionNotificationsRescindedAlertManager_featureStatusProviding_didUpdateFeatureStatus___block_invoke(uint64_t a1)
+uint64_t __100__HDHRHypertensionNotificationsRescindedAlertManager_featureStatusProviding_didUpdateFeatureStatus___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
-  v2 = HKLogHeartRateCategory();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = HKLogHeartRateCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = HRLogSensitiveClassName();
-    v5 = *(a1 + 40);
+    v5 = HRLogSensitiveClassName(*(a1 + 32), v4);
     v6 = HKSensitiveLogItem();
-    v9 = 138543618;
-    v10 = v4;
-    v11 = 2114;
-    v12 = v6;
-    _os_log_impl(&dword_229486000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] Feature status did change to: %{public}@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v5;
+    v10 = 2114;
+    v11 = v6;
+    _os_log_impl(&dword_229486000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Feature status did change to: %{public}@", &v8, 0x16u);
   }
 
-  result = [*(a1 + 32) _queue_presentRescindedOrReEnabledAlertIfNeededWithFeatureStatus:*(a1 + 40)];
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _queue_presentRescindedOrReEnabledAlertIfNeededWithFeatureStatus:*(a1 + 40)];
 }
 
 - (void)_queue_pullFeatureStatusAndPresentAlertIfNeeded
 {
   OUTLINED_FUNCTION_4();
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = HRLogSensitiveClassName();
+  v2 = HRLogSensitiveClassName(v0, v1);
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_1_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 - (void)_queue_presentRescindedOrReEnabledAlertIfNeededWithFeatureStatus:(id)status
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   statusCopy = status;
   dispatch_assert_queue_V2(self->_queue);
   if (([(HDHRPairedSyncStateProviding *)self->_pairedSyncStateProvider isPairedSyncCompleted]& 1) != 0)
@@ -161,10 +154,10 @@ uint64_t __100__HDHRHypertensionNotificationsRescindedAlertManager_featureStatus
       v6 = HKLogHeartRateCategory();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v7 = HRLogSensitiveClassName();
+        v8 = HRLogSensitiveClassName(self, v13);
         *buf = 138543362;
-        v29 = v7;
-        v8 = "[%{public}@] Hypertension notifications are disabled in settings";
+        v33 = v8;
+        v9 = "[%{public}@] Hypertension notifications are disabled in settings";
         goto LABEL_11;
       }
 
@@ -182,12 +175,12 @@ LABEL_18:
       v6 = HKLogHeartRateCategory();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v7 = HRLogSensitiveClassName();
+        v8 = HRLogSensitiveClassName(self, v7);
         *buf = 138543362;
-        v29 = v7;
-        v8 = "[%{public}@] Hypertension notifications are unavailable for non-rescinding reasons";
+        v33 = v8;
+        v9 = "[%{public}@] Hypertension notifications are unavailable for non-rescinding reasons";
 LABEL_11:
-        _os_log_impl(&dword_229486000, v6, OS_LOG_TYPE_DEFAULT, v8, buf, 0xCu);
+        _os_log_impl(&dword_229486000, v6, OS_LOG_TYPE_DEFAULT, v9, buf, 0xCu);
 
         goto LABEL_12;
       }
@@ -196,14 +189,14 @@ LABEL_11:
     }
 
     localKeyValueDomain = self->_localKeyValueDomain;
-    v27 = 0;
-    v12 = [(HDKeyValueDomain *)localKeyValueDomain dateForKey:@"HypertensionNotificationsDisabledNotificationShownDateKey" error:&v27];
-    v13 = v27;
-    if (v13)
+    v31 = 0;
+    v15 = [(HDKeyValueDomain *)localKeyValueDomain dateForKey:@"HypertensionNotificationsDisabledNotificationShownDateKey" error:&v31];
+    v16 = v31;
+    if (v16)
     {
       _HKInitializeLogging();
-      v14 = HKLogHeartRateCategory();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v17 = HKLogHeartRateCategory();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         [HDHRHypertensionNotificationsRescindedAlertManager _queue_presentRescindedOrReEnabledAlertIfNeededWithFeatureStatus:];
       }
@@ -214,27 +207,27 @@ LABEL_11:
     if ([(HDHRHypertensionNotificationsRescindedAlertManager *)self _isFeatureRescindedWithUsageEvaluation:v5])
     {
       _HKInitializeLogging();
-      v16 = HKLogHeartRateCategory();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v18 = HKLogHeartRateCategory();
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = HRLogSensitiveClassName();
+        v20 = HRLogSensitiveClassName(self, v19);
         *buf = 138543618;
-        v29 = v17;
-        v30 = 2114;
-        v31 = v12;
-        _os_log_impl(&dword_229486000, v16, OS_LOG_TYPE_DEFAULT, "[%{public}@] Hypertension notifications are rescinded (last shown date: %{public}@)", buf, 0x16u);
+        v33 = v20;
+        v34 = 2114;
+        v35 = v15;
+        _os_log_impl(&dword_229486000, v18, OS_LOG_TYPE_DEFAULT, "[%{public}@] Hypertension notifications are rescinded (last shown date: %{public}@)", buf, 0x16u);
       }
 
-      if (!v12)
+      if (!v15)
       {
         [(HDHRHypertensionNotificationsRescindedAlertManager *)self _presentHypertensionNotificationsRescindedAlertForUsageEvaluation:v5];
-        v18 = self->_localKeyValueDomain;
+        v21 = self->_localKeyValueDomain;
         date = [MEMORY[0x277CBEAA8] date];
-        v26 = 0;
-        [(HDKeyValueDomain *)v18 setDate:date forKey:@"HypertensionNotificationsDisabledNotificationShownDateKey" error:&v26];
-        v14 = v26;
+        v30 = 0;
+        [(HDKeyValueDomain *)v21 setDate:date forKey:@"HypertensionNotificationsDisabledNotificationShownDateKey" error:&v30];
+        v17 = v30;
 
-        if (!v14)
+        if (!v17)
         {
 LABEL_16:
 
@@ -243,8 +236,8 @@ LABEL_17:
         }
 
         _HKInitializeLogging();
-        v20 = HKLogHeartRateCategory();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        v23 = HKLogHeartRateCategory();
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
           [HDHRHypertensionNotificationsRescindedAlertManager _queue_presentRescindedOrReEnabledAlertIfNeededWithFeatureStatus:];
         }
@@ -255,35 +248,35 @@ LABEL_33:
       }
     }
 
-    else if (v12)
+    else if (v15)
     {
       _HKInitializeLogging();
-      v21 = HKLogHeartRateCategory();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v24 = HKLogHeartRateCategory();
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
-        v22 = HRLogSensitiveClassName();
+        v26 = HRLogSensitiveClassName(self, v25);
         *buf = 138543618;
-        v29 = v22;
-        v30 = 2114;
-        v31 = v12;
-        _os_log_impl(&dword_229486000, v21, OS_LOG_TYPE_DEFAULT, "[%{public}@] Hypertension notifications are not rescinded (last shown date: %{public}@)", buf, 0x16u);
+        v33 = v26;
+        v34 = 2114;
+        v35 = v15;
+        _os_log_impl(&dword_229486000, v24, OS_LOG_TYPE_DEFAULT, "[%{public}@] Hypertension notifications are not rescinded (last shown date: %{public}@)", buf, 0x16u);
       }
 
       [(HDHRHypertensionNotificationsRescindedAlertManager *)self _presentHypertensionNotificationsReEnabledAlert];
-      v23 = self->_localKeyValueDomain;
-      v24 = [MEMORY[0x277CBEB98] setWithObject:@"HypertensionNotificationsDisabledNotificationShownDateKey"];
-      v25 = 0;
-      [(HDKeyValueDomain *)v23 removeValuesForKeys:v24 error:&v25];
-      v14 = v25;
+      v27 = self->_localKeyValueDomain;
+      v28 = [MEMORY[0x277CBEB98] setWithObject:@"HypertensionNotificationsDisabledNotificationShownDateKey"];
+      v29 = 0;
+      [(HDKeyValueDomain *)v27 removeValuesForKeys:v28 error:&v29];
+      v17 = v29;
 
-      if (!v14)
+      if (!v17)
       {
         goto LABEL_16;
       }
 
       _HKInitializeLogging();
-      v20 = HKLogHeartRateCategory();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v23 = HKLogHeartRateCategory();
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         [HDHRHypertensionNotificationsRescindedAlertManager _queue_presentRescindedOrReEnabledAlertIfNeededWithFeatureStatus:];
       }
@@ -296,19 +289,17 @@ LABEL_33:
   }
 
   _HKInitializeLogging();
-  v9 = HKLogHeartRateCategory();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = HKLogHeartRateCategory();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = HRLogSensitiveClassName();
+    v12 = HRLogSensitiveClassName(self, v11);
     *buf = 138543362;
-    v29 = v10;
-    _os_log_impl(&dword_229486000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] Paired sync not complete", buf, 0xCu);
+    v33 = v12;
+    _os_log_impl(&dword_229486000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] Paired sync not complete", buf, 0xCu);
   }
 
   [(HDHRHypertensionNotificationsRescindedAlertManager *)self _unitTesting_callNotificationNotPostedHandlerIfSet];
 LABEL_19:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_unitTesting_callNotificationNotPostedHandlerIfSet
@@ -447,9 +438,9 @@ LABEL_8:
   {
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = HRLogSensitiveClassName();
+      v11 = HRLogSensitiveClassName(self, v10);
       v12 = 138543362;
-      v13 = v10;
+      v13 = v11;
       _os_log_impl(&dword_229486000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] Scheduling Hypertension notifications rescinded alert", &v12, 0xCu);
     }
 
@@ -460,11 +451,9 @@ LABEL_8:
   {
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [HDHRHypertensionNotificationsRescindedAlertManager _presentHypertensionNotificationsRescindedAlertForUsageEvaluation:];
+      [(HDHRHypertensionNotificationsRescindedAlertManager *)self _presentHypertensionNotificationsRescindedAlertForUsageEvaluation:v9];
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_presentHypertensionNotificationsReEnabledAlert
@@ -474,122 +463,118 @@ LABEL_8:
   v3 = HKLogHeartRateCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = HRLogSensitiveClassName();
+    v5 = HRLogSensitiveClassName(self, v4);
     v10 = 138543362;
-    v11 = v4;
+    v11 = v5;
     _os_log_impl(&dword_229486000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Scheduling Hypertension notifications re-enabled alert", &v10, 0xCu);
   }
 
-  v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v6 = [v5 localizedStringForKey:@"HYPERTENSION_NOTIFICATIONS_REENABLED_TITLE" value:&stru_283CC4740 table:@"Localizable-Hermit"];
-  v7 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v8 = [v7 localizedStringForKey:@"HYPERTENSION_NOTIFICATIONS_REENABLED_BODY" value:&stru_283CC4740 table:@"Localizable-Hermit"];
-  [(HDHRHypertensionNotificationsRescindedAlertManager *)self _presentNotificationWithTitle:v6 message:v8 type:6];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v6 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v7 = [v6 localizedStringForKey:@"HYPERTENSION_NOTIFICATIONS_REENABLED_TITLE" value:&stru_283CC4740 table:@"Localizable-Hermit"];
+  v8 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v9 = [v8 localizedStringForKey:@"HYPERTENSION_NOTIFICATIONS_REENABLED_BODY" value:&stru_283CC4740 table:@"Localizable-Hermit"];
+  [(HDHRHypertensionNotificationsRescindedAlertManager *)self _presentNotificationWithTitle:v7 message:v9 type:6];
 }
 
 - (BOOL)_isFeatureRescindedWithUsageEvaluation:(id)evaluation
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v3 = *MEMORY[0x277CCBF08];
+  v28 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277CCBF08];
   evaluationCopy = evaluation;
-  v5 = [evaluationCopy isRequirementSatisfiedWithIdentifier:v3];
-  v6 = [evaluationCopy isRequirementSatisfiedWithIdentifier:*MEMORY[0x277CCBF00]];
-  v7 = [evaluationCopy isRequirementSatisfiedWithIdentifier:*MEMORY[0x277CCBFD0]];
-  v8 = [evaluationCopy isRequirementSatisfiedWithIdentifier:*MEMORY[0x277CCBF30]];
+  v6 = [evaluationCopy isRequirementSatisfiedWithIdentifier:v4];
+  v7 = [evaluationCopy isRequirementSatisfiedWithIdentifier:*MEMORY[0x277CCBF00]];
+  v8 = [evaluationCopy isRequirementSatisfiedWithIdentifier:*MEMORY[0x277CCBFD0]];
+  v9 = [evaluationCopy isRequirementSatisfiedWithIdentifier:*MEMORY[0x277CCBF30]];
 
   _HKInitializeLogging();
-  v9 = HKLogHeartRateCategory();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = HKLogHeartRateCategory();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = HRLogSensitiveClassName();
-    v11 = [MEMORY[0x277CCABB0] numberWithBool:v6 ^ 1u];
-    v12 = [MEMORY[0x277CCABB0] numberWithBool:v5 ^ 1u];
+    v12 = HRLogSensitiveClassName(self, v11);
     v13 = [MEMORY[0x277CCABB0] numberWithBool:v7 ^ 1u];
-    v14 = [MEMORY[0x277CCABB0] numberWithBool:v8 ^ 1u];
-    v17 = 138544386;
-    v18 = v10;
-    v19 = 2114;
-    v20 = v11;
-    v21 = 2114;
-    v22 = v12;
-    v23 = 2114;
-    v24 = v13;
-    v25 = 2114;
-    v26 = v14;
-    _os_log_impl(&dword_229486000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] Checking if feature is unavailable for rescinding reasons: regionNotSupportedOnRemoteDevice -> %{public}@, regionNotSupportedOnLocalDevice -> %{public}@, expired -> %{public}@, disabled -> %{public}@", &v17, 0x34u);
+    v14 = [MEMORY[0x277CCABB0] numberWithBool:v6 ^ 1u];
+    v15 = [MEMORY[0x277CCABB0] numberWithBool:v8 ^ 1u];
+    v16 = [MEMORY[0x277CCABB0] numberWithBool:v9 ^ 1u];
+    v18 = 138544386;
+    v19 = v12;
+    v20 = 2114;
+    v21 = v13;
+    v22 = 2114;
+    v23 = v14;
+    v24 = 2114;
+    v25 = v15;
+    v26 = 2114;
+    v27 = v16;
+    _os_log_impl(&dword_229486000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] Checking if feature is unavailable for rescinding reasons: regionNotSupportedOnRemoteDevice -> %{public}@, regionNotSupportedOnLocalDevice -> %{public}@, expired -> %{public}@, disabled -> %{public}@", &v18, 0x34u);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-  return v5 & v6 & v7 & v8 ^ 1;
+  return v6 & v7 & v8 & v9 ^ 1;
 }
 
 - (BOOL)_isFeatureUnavailableForNonRescindedReasonsWithUsageEvaluation:(id)evaluation
 {
-  v49 = *MEMORY[0x277D85DE8];
-  v3 = *MEMORY[0x277CCBF28];
+  v50 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277CCBF28];
   evaluationCopy = evaluation;
-  v5 = [evaluationCopy isRequirementSatisfiedWithIdentifier:v3];
-  v6 = [evaluationCopy isRequirementSatisfiedWithIdentifier:*MEMORY[0x277CCBF70]];
-  v7 = [evaluationCopy isRequirementSatisfiedWithIdentifier:*MEMORY[0x277CCBF50]];
-  v8 = [evaluationCopy isRequirementSatisfiedWithIdentifier:*MEMORY[0x277CCBFE8]];
-  v9 = [evaluationCopy isRequirementSatisfiedWithIdentifier:*MEMORY[0x277CCBF48]];
-  v10 = [evaluationCopy isRequirementSatisfiedWithIdentifier:*MEMORY[0x277CCBF80]];
-  v11 = [evaluationCopy isRequirementSatisfiedWithIdentifier:*MEMORY[0x277CCBED8]];
-  v30 = [evaluationCopy isRequirementSatisfiedWithIdentifier:*MEMORY[0x277CCBEF0]];
+  v6 = [evaluationCopy isRequirementSatisfiedWithIdentifier:v4];
+  v7 = [evaluationCopy isRequirementSatisfiedWithIdentifier:*MEMORY[0x277CCBF70]];
+  v8 = [evaluationCopy isRequirementSatisfiedWithIdentifier:*MEMORY[0x277CCBF50]];
+  v9 = [evaluationCopy isRequirementSatisfiedWithIdentifier:*MEMORY[0x277CCBFE8]];
+  v10 = [evaluationCopy isRequirementSatisfiedWithIdentifier:*MEMORY[0x277CCBF48]];
+  v11 = [evaluationCopy isRequirementSatisfiedWithIdentifier:*MEMORY[0x277CCBF80]];
+  v12 = [evaluationCopy isRequirementSatisfiedWithIdentifier:*MEMORY[0x277CCBED8]];
+  v31 = [evaluationCopy isRequirementSatisfiedWithIdentifier:*MEMORY[0x277CCBEF0]];
 
   _HKInitializeLogging();
-  v12 = HKLogHeartRateCategory();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = HKLogHeartRateCategory();
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v28 = HRLogSensitiveClassName();
-    v27 = [MEMORY[0x277CCABB0] numberWithBool:v5 ^ 1u];
-    v26 = [MEMORY[0x277CCABB0] numberWithBool:v6 ^ 1u];
-    v13 = [MEMORY[0x277CCABB0] numberWithBool:v7 ^ 1u];
-    [MEMORY[0x277CCABB0] numberWithBool:v8 ^ 1u];
-    v14 = v29 = v11;
+    v29 = HRLogSensitiveClassName(self, v14);
+    v28 = [MEMORY[0x277CCABB0] numberWithBool:v6 ^ 1u];
+    v27 = [MEMORY[0x277CCABB0] numberWithBool:v7 ^ 1u];
+    v15 = [MEMORY[0x277CCABB0] numberWithBool:v8 ^ 1u];
     [MEMORY[0x277CCABB0] numberWithBool:v9 ^ 1u];
-    v15 = v25 = v5;
+    v16 = v30 = v12;
     [MEMORY[0x277CCABB0] numberWithBool:v10 ^ 1u];
-    v16 = v24 = v6;
-    [MEMORY[0x277CCABB0] numberWithBool:v29 ^ 1u];
-    v23 = v10;
-    v17 = v9;
-    v19 = v18 = v8;
-    v20 = [MEMORY[0x277CCABB0] numberWithBool:v30 ^ 1u];
+    v17 = v26 = v6;
+    [MEMORY[0x277CCABB0] numberWithBool:v11 ^ 1u];
+    v18 = v25 = v7;
+    [MEMORY[0x277CCABB0] numberWithBool:v30 ^ 1u];
+    v24 = v11;
+    v19 = v10;
+    v21 = v20 = v9;
+    v22 = [MEMORY[0x277CCABB0] numberWithBool:v31 ^ 1u];
     *buf = 138545410;
-    v32 = v28;
-    v33 = 2114;
-    v34 = v27;
-    v35 = 2114;
-    v36 = v26;
-    v37 = 2114;
-    v38 = v13;
-    v39 = 2114;
-    v40 = v14;
-    v41 = 2114;
-    v42 = v15;
-    v43 = 2114;
-    v44 = v16;
-    v45 = 2114;
-    v46 = v19;
-    v47 = 2114;
-    v48 = v20;
-    _os_log_impl(&dword_229486000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] Checking if feature is unavailable for non-rescinding reasons: featureFlag -> %{public}@, age gated -> %{public}@, disabled in privacy -> %{public}@, wrist detection disabled -> %{public}@, health app hidden -> %{public}@, store demo mode -> %{public}@, active remote device not present -> %{public}@, capability not supported -> %{public}@", buf, 0x5Cu);
+    v33 = v29;
+    v34 = 2114;
+    v35 = v28;
+    v36 = 2114;
+    v37 = v27;
+    v38 = 2114;
+    v39 = v15;
+    v40 = 2114;
+    v41 = v16;
+    v42 = 2114;
+    v43 = v17;
+    v44 = 2114;
+    v45 = v18;
+    v46 = 2114;
+    v47 = v21;
+    v48 = 2114;
+    v49 = v22;
+    _os_log_impl(&dword_229486000, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@] Checking if feature is unavailable for non-rescinding reasons: featureFlag -> %{public}@, age gated -> %{public}@, disabled in privacy -> %{public}@, wrist detection disabled -> %{public}@, health app hidden -> %{public}@, store demo mode -> %{public}@, active remote device not present -> %{public}@, capability not supported -> %{public}@", buf, 0x5Cu);
 
-    v8 = v18;
-    v9 = v17;
-    v10 = v23;
+    v9 = v20;
+    v10 = v19;
+    v11 = v24;
 
-    v6 = v24;
-    v5 = v25;
+    v7 = v25;
+    v6 = v26;
 
-    v11 = v29;
+    v12 = v30;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-  return (v5 & v6 & v7 & v8 & v9 & v10 & v11 & v30 & 1) == 0;
+  return (v6 & v7 & v8 & v9 & v10 & v11 & v12 & v31 & 1) == 0;
 }
 
 - (void)_presentNotificationWithTitle:(id)title message:(id)message type:(int64_t)type
@@ -635,56 +620,53 @@ LABEL_8:
   objc_destroyWeak(&location);
 }
 
-void __97__HDHRHypertensionNotificationsRescindedAlertManager__presentNotificationWithTitle_message_type___block_invoke(id *a1)
+void __97__HDHRHypertensionNotificationsRescindedAlertManager__presentNotificationWithTitle_message_type___block_invoke(id *a1, uint64_t a2)
 {
   v21 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
-  v2 = HKLogHeartRateCategory();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = HKLogHeartRateCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = a1[4];
-    v4 = HRLogSensitiveClassName();
+    v5 = HRLogSensitiveClassName(a1[4], v4);
     *buf = 138543362;
-    v20 = v4;
-    _os_log_impl(&dword_229486000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] About to post Hypertension notifications rescinded/reenabled notification", buf, 0xCu);
+    v20 = v5;
+    _os_log_impl(&dword_229486000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] About to post Hypertension notifications rescinded/reenabled notification", buf, 0xCu);
   }
 
-  v5 = [a1[4] unitTesting_postNotificationHandler];
-  v6 = v5 == 0;
+  v6 = [a1[4] unitTesting_postNotificationHandler];
+  v7 = v6 == 0;
 
-  v7 = a1[4];
-  if (v6)
+  v8 = a1[4];
+  if (v7)
   {
-    WeakRetained = objc_loadWeakRetained(v7 + 1);
-    v10 = [WeakRetained notificationManager];
-    v11 = a1[5];
+    WeakRetained = objc_loadWeakRetained(v8 + 1);
+    v11 = [WeakRetained notificationManager];
+    v12 = a1[5];
     v15[0] = MEMORY[0x277D85DD0];
     v15[1] = 3221225472;
     v15[2] = __97__HDHRHypertensionNotificationsRescindedAlertManager__presentNotificationWithTitle_message_type___block_invoke_345;
     v15[3] = &unk_278660078;
     objc_copyWeak(v18, a1 + 6);
-    v12 = a1[5];
-    v13 = a1[4];
-    v16 = v12;
-    v17 = v13;
+    v13 = a1[5];
+    v14 = a1[4];
+    v16 = v13;
+    v17 = v14;
     v18[1] = a1[7];
-    [v10 postNotificationWithRequest:v11 completion:v15];
+    [v11 postNotificationWithRequest:v12 completion:v15];
 
     objc_destroyWeak(v18);
   }
 
   else
   {
-    v8 = [v7 unitTesting_postNotificationHandler];
-    (v8)[2](v8, a1[5]);
+    v9 = [v8 unitTesting_postNotificationHandler];
+    (v9)[2](v9, a1[5]);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __97__HDHRHypertensionNotificationsRescindedAlertManager__presentNotificationWithTitle_message_type___block_invoke_345(uint64_t a1, uint64_t a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v4 = a3;
   _HKInitializeLogging();
   v5 = HKLogHeartRateCategory();
@@ -700,17 +682,16 @@ void __97__HDHRHypertensionNotificationsRescindedAlertManager__presentNotificati
   else if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 48));
-    v8 = HRLogSensitiveClassName();
-    v9 = [*(a1 + 32) identifier];
-    v10 = *MEMORY[0x277D13048];
+    v9 = HRLogSensitiveClassName(WeakRetained, v8);
+    v10 = [*(a1 + 32) identifier];
     v11 = HKSensitiveLogItem();
-    v16 = 138543874;
-    v17 = v8;
-    v18 = 2114;
-    v19 = v9;
-    v20 = 2114;
-    v21 = v11;
-    _os_log_impl(&dword_229486000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Requested notification (%{public}@ - %{public}@)", &v16, 0x20u);
+    v15 = 138543874;
+    v16 = v9;
+    v17 = 2114;
+    v18 = v10;
+    v19 = 2114;
+    v20 = v11;
+    _os_log_impl(&dword_229486000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Requested notification (%{public}@ - %{public}@)", &v15, 0x20u);
   }
 
   v12 = [HDHRHypertensionNotificationDeliveryEvent alloc];
@@ -718,66 +699,50 @@ void __97__HDHRHypertensionNotificationsRescindedAlertManager__presentNotificati
   v14 = [(HDHRHypertensionNotificationDeliveryEvent *)v12 initWithProfile:v13 type:*(a1 + 56)];
 
   [*(*(a1 + 40) + 48) submitEvent:v14 error:0];
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_presentRescindedOrReEnabledAlertIfNeededWithFeatureStatus:.cold.1()
 {
   OUTLINED_FUNCTION_4();
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = HRLogSensitiveClassName();
+  v2 = HRLogSensitiveClassName(v0, v1);
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_1_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 - (void)_queue_presentRescindedOrReEnabledAlertIfNeededWithFeatureStatus:.cold.2()
 {
   OUTLINED_FUNCTION_4();
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = HRLogSensitiveClassName();
+  v2 = HRLogSensitiveClassName(v0, v1);
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_1_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 - (void)_queue_presentRescindedOrReEnabledAlertIfNeededWithFeatureStatus:.cold.3()
 {
   OUTLINED_FUNCTION_4();
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = HRLogSensitiveClassName();
+  v2 = HRLogSensitiveClassName(v0, v1);
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_1_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
-- (void)_presentHypertensionNotificationsRescindedAlertForUsageEvaluation:.cold.1()
+- (void)_presentHypertensionNotificationsRescindedAlertForUsageEvaluation:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v6 = HRLogSensitiveClassName();
+  v7 = HRLogSensitiveClassName(a1, a2);
   OUTLINED_FUNCTION_1_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 void __97__HDHRHypertensionNotificationsRescindedAlertManager__presentNotificationWithTitle_message_type___block_invoke_345_cold_1()
 {
   OUTLINED_FUNCTION_4();
-  v9 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((v0 + 48));
-  v2 = HRLogSensitiveClassName();
+  v3 = HRLogSensitiveClassName(WeakRetained, v2);
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_1_3();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
 }
 
 @end

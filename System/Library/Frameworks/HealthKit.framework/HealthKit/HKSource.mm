@@ -11,6 +11,7 @@
 + (id)_publicSourceForClinicalExternalIdentifier:(id)identifier name:(id)name;
 + (id)_researchStudiesDirectoryURL;
 + (id)_sourceBundleIdentifierWithEntitlements:(id)entitlements processBundleIdentifier:(id)identifier isExtension:(BOOL)extension;
++ (id)_sourceNameWithRepresentsCurrentDevice:(BOOL)device defaultSource:(BOOL)source;
 + (id)_sourceWithBundleIdentifier:(id)identifier defaultBundleIdentifier:(id)bundleIdentifier appEntitlements:(id)entitlements name:(id)name;
 + (id)_sourceWithBundleIdentifier:(id)identifier name:(id)name productType:(id)type options:(unint64_t)options;
 + (id)_uncachedDefaultSource;
@@ -119,31 +120,34 @@ uint64_t __30__HKSource__localDeviceSource__block_invoke(uint64_t a1)
 
 uint64_t __25__HKSource_defaultSource__block_invoke(uint64_t a1)
 {
-  defaultSource_defaultSource = [*(a1 + 32) _uncachedDefaultSource];
+  v1 = [*(a1 + 32) _uncachedDefaultSource];
+  v2 = defaultSource_defaultSource;
+  defaultSource_defaultSource = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 + (id)_uncachedDefaultSource
 {
-  v8 = 0;
-  v3 = [_HKEntitlements entitlementsForCurrentTaskWithError:&v8];
-  v4 = v8;
+  v10 = 0;
+  v3 = [_HKEntitlements entitlementsForCurrentTaskWithError:&v10];
+  v4 = v10;
+  v6 = v4;
   if (!v3)
   {
-    _HKInitializeLogging();
-    v5 = HKLogDefault;
+    _HKInitializeLogging(v4, v5);
+    v7 = HKLogDefault;
     if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_ERROR))
     {
-      +[(HKSource *)v4];
+      +[(HKSource *)v6];
     }
 
-    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D920] format:{@"Unable to create default source, failed to retrieve entitlements: %@", v4}];
+    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D920] format:{@"Unable to create default source, failed to retrieve entitlements: %@", v6}];
   }
 
-  v6 = [self _uncachedDefaultSourceWithEntitlements:v3];
+  v8 = [self _uncachedDefaultSourceWithEntitlements:v3];
 
-  return v6;
+  return v8;
 }
 
 + (id)_uncachedDefaultSourceWithEntitlements:(id)entitlements
@@ -155,35 +159,35 @@ uint64_t __25__HKSource_defaultSource__block_invoke(uint64_t a1)
 
   if (!v7)
   {
-    _HKInitializeLogging();
-    v8 = HKLogDefault;
+    _HKInitializeLogging(v8, v9);
+    v10 = HKLogDefault;
     if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_ERROR))
     {
-      [HKSource _uncachedDefaultSourceWithEntitlements:v8];
+      [HKSource _uncachedDefaultSourceWithEntitlements:v10];
     }
 
     [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D920] format:@"Unable to create default source. The bundle identifier of the client is nil"];
   }
 
-  v9 = [self _representsCurrentDeviceWithBundleIdentifier:v7];
-  if (v9)
+  v11 = [self _representsCurrentDeviceWithBundleIdentifier:v7];
+  if (v11)
   {
-    v10 = 2;
+    v12 = 2;
   }
 
   else
   {
-    v10 = [self _sourceOptionsForAppEntitlements:entitlementsCopy];
+    v12 = [self _sourceOptionsForAppEntitlements:entitlementsCopy];
   }
 
-  v11 = [self _currentSourceProductType:v9];
-  v12 = [self _sourceNameWithRepresentsCurrentDevice:v9 defaultSource:1];
+  v13 = [self _currentSourceProductType:v11];
+  v14 = [self _sourceNameWithRepresentsCurrentDevice:v11 defaultSource:1];
   _init = [[HKSource alloc] _init];
   [_init _setBundleIdentifier:v7];
-  [_init _setProductType:v11];
-  [_init _setName:v12];
-  [_init _setLocalDevice:v9];
-  [_init _setOptions:v10];
+  [_init _setProductType:v13];
+  [_init _setName:v14];
+  [_init _setLocalDevice:v11];
+  [_init _setOptions:v12];
 
   return _init;
 }
@@ -206,14 +210,14 @@ uint64_t __31__HKSource__connectedGymSource__block_invoke()
   v1 = _connectedGymSource__connectedGymSource;
   _connectedGymSource__connectedGymSource = v0;
 
-  [_connectedGymSource__connectedGymSource _setBundleIdentifier:@"com.apple.health.GymKit"];
-  v2 = _connectedGymSource__connectedGymSource;
-  v3 = HKConnectedGymSourceName();
-  [v2 _setName:v3];
+  v2 = [_connectedGymSource__connectedGymSource _setBundleIdentifier:@"com.apple.health.GymKit"];
+  v3 = _connectedGymSource__connectedGymSource;
+  v5 = HKConnectedGymSourceName(v2, v4);
+  [v3 _setName:v5];
 
-  v4 = _connectedGymSource__connectedGymSource;
+  v6 = _connectedGymSource__connectedGymSource;
 
-  return [v4 _setOptions:274];
+  return [v6 _setOptions:274];
 }
 
 + (id)_blePeripheralSource
@@ -234,14 +238,14 @@ uint64_t __32__HKSource__blePeripheralSource__block_invoke()
   v1 = _blePeripheralSource__blePeripheralSource;
   _blePeripheralSource__blePeripheralSource = v0;
 
-  [_blePeripheralSource__blePeripheralSource _setBundleIdentifier:@"com.apple.BTLEServer"];
-  v2 = _blePeripheralSource__blePeripheralSource;
-  v3 = HKBLEPeripheralSourceName();
-  [v2 _setName:v3];
+  v2 = [_blePeripheralSource__blePeripheralSource _setBundleIdentifier:@"com.apple.BTLEServer"];
+  v3 = _blePeripheralSource__blePeripheralSource;
+  v5 = HKBLEPeripheralSourceName(v2, v4);
+  [v3 _setName:v5];
 
-  v4 = _blePeripheralSource__blePeripheralSource;
+  v6 = _blePeripheralSource__blePeripheralSource;
 
-  return [v4 _setOptions:386];
+  return [v6 _setOptions:386];
 }
 
 + (id)_hrCoordinatorSource
@@ -262,14 +266,14 @@ uint64_t __32__HKSource__hrCoordinatorSource__block_invoke()
   v1 = _hrCoordinatorSource__hrCoordinatorSource;
   _hrCoordinatorSource__hrCoordinatorSource = v0;
 
-  [_hrCoordinatorSource__hrCoordinatorSource _setBundleIdentifier:@"com.apple.heartratecoordinatord"];
-  v2 = _hrCoordinatorSource__hrCoordinatorSource;
-  v3 = HKHRCoordinatorSourceName();
-  [v2 _setName:v3];
+  v2 = [_hrCoordinatorSource__hrCoordinatorSource _setBundleIdentifier:@"com.apple.heartratecoordinatord"];
+  v3 = _hrCoordinatorSource__hrCoordinatorSource;
+  v5 = HKHRCoordinatorSourceName(v2, v4);
+  [v3 _setName:v5];
 
-  v4 = _hrCoordinatorSource__hrCoordinatorSource;
+  v6 = _hrCoordinatorSource__hrCoordinatorSource;
 
-  return [v4 _setOptions:386];
+  return [v6 _setOptions:386];
 }
 
 + (id)_sourceBundleIdentifierWithEntitlements:(id)entitlements processBundleIdentifier:(id)identifier isExtension:(BOOL)extension
@@ -320,6 +324,38 @@ LABEL_6:
   return v4;
 }
 
++ (id)_sourceNameWithRepresentsCurrentDevice:(BOOL)device defaultSource:(BOOL)source
+{
+  if (device)
+  {
+    processName = [_HKBehavior currentDeviceDisplayName:device];
+  }
+
+  else if (source)
+  {
+    mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
+    v6 = [mainBundle objectForInfoDictionaryKey:@"CFBundleDisplayName"];
+
+    if (v6)
+    {
+      processName = v6;
+    }
+
+    else
+    {
+      processInfo = [MEMORY[0x1E696AE30] processInfo];
+      processName = [processInfo processName];
+    }
+  }
+
+  else
+  {
+    processName = 0;
+  }
+
+  return processName;
+}
+
 + (id)_generateIdentifierForAppleDevice
 {
   uUID = [MEMORY[0x1E696AFB0] UUID];
@@ -339,7 +375,7 @@ LABEL_6:
 
 + (id)_researchStudiesDirectoryURL
 {
-  v2 = HKSharedResourcesDirectory();
+  v2 = HKSharedResourcesDirectory(self);
   v3 = [v2 stringByAppendingPathComponent:@"Library/Research/Studies/"];
 
   v4 = [MEMORY[0x1E695DFF8] fileURLWithPath:v3 isDirectory:1];
@@ -812,7 +848,7 @@ LABEL_10:
   name = self->_name;
   self->_name = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, name);
 }
 
 - (void)_setBundleIdentifier:(id)identifier
@@ -821,7 +857,7 @@ LABEL_10:
   bundleIdentifier = self->_bundleIdentifier;
   self->_bundleIdentifier = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, bundleIdentifier);
 }
 
 - (BOOL)_isAppleDevice
@@ -842,7 +878,7 @@ LABEL_10:
   modificationDate = self->_modificationDate;
   self->_modificationDate = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, modificationDate);
 }
 
 - (id)asJSONObject
@@ -859,11 +895,10 @@ LABEL_10:
 
 + (void)_uncachedDefaultSource
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
   selfCopy = self;
-  _os_log_error_impl(&dword_19197B000, a2, OS_LOG_TYPE_ERROR, "unable to create default source, cannot retrieve entitlements for the current task: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_19197B000, a2, OS_LOG_TYPE_ERROR, "unable to create default source, cannot retrieve entitlements for the current task: %{public}@", &v2, 0xCu);
 }
 
 + (void)_privateSourceForClinicalAccountIdentifier:(uint64_t)a1 name:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)

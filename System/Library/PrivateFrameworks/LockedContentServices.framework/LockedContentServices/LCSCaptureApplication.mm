@@ -31,9 +31,9 @@
 {
   infoCopy = info;
   attributesCopy = attributes;
-  v27.receiver = self;
-  v27.super_class = LCSCaptureApplication;
-  v9 = [(LCSCaptureApplication *)&v27 init];
+  v28.receiver = self;
+  v28.super_class = LCSCaptureApplication;
+  v9 = [(LCSCaptureApplication *)&v28 init];
   v10 = v9;
   if (v9)
   {
@@ -49,20 +49,20 @@
     objc_storeStrong(&v10->_attributes, attributes);
     objc_initWeak(&location, v10);
     v15 = MEMORY[0x277CF0BD0];
-    v21 = MEMORY[0x277D85DD0];
-    v22 = 3221225472;
-    v23 = __58__LCSCaptureApplication_initWithExtensionInfo_attributes___block_invoke;
-    v24 = &unk_279825188;
-    objc_copyWeak(&v25, &location);
-    v16 = [v15 assertionWithIdentifier:@"launchPrewarm" stateDidChangeHandler:&v21];
+    v22 = MEMORY[0x277D85DD0];
+    v23 = 3221225472;
+    v24 = __58__LCSCaptureApplication_initWithExtensionInfo_attributes___block_invoke;
+    v25 = &unk_279825188;
+    objc_copyWeak(&v26, &location);
+    v16 = [v15 assertionWithIdentifier:@"launchPrewarm" stateDidChangeHandler:&v22];
     launchPrewarmCompoundAssertion = v10->_launchPrewarmCompoundAssertion;
     v10->_launchPrewarmCompoundAssertion = v16;
 
     v18 = v10->_launchPrewarmCompoundAssertion;
-    v19 = LCSLogCommon();
-    [(BSCompoundAssertion *)v18 setLog:v19, v21, v22, v23, v24];
+    v20 = LCSLogCommon(v19);
+    [(BSCompoundAssertion *)v18 setLog:v20, v22, v23, v24, v25];
 
-    objc_destroyWeak(&v25);
+    objc_destroyWeak(&v26);
     objc_destroyWeak(&location);
   }
 
@@ -95,15 +95,16 @@ void __58__LCSCaptureApplication_initWithExtensionInfo_attributes___block_invoke
 - (id)_bundleRecordForBundleIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v8 = 0;
-  v4 = [MEMORY[0x277CC1E90] bundleRecordWithBundleIdentifier:identifierCopy allowPlaceholder:0 error:&v8];
-  v5 = v8;
+  v9 = 0;
+  v4 = [MEMORY[0x277CC1E90] bundleRecordWithBundleIdentifier:identifierCopy allowPlaceholder:0 error:&v9];
+  v5 = v9;
+  v6 = v5;
   if (!v4)
   {
-    v6 = LCSLogCommon();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = LCSLogCommon(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(LCSCaptureApplication *)identifierCopy _bundleRecordForBundleIdentifier:v5];
+      [(LCSCaptureApplication *)identifierCopy _bundleRecordForBundleIdentifier:v6];
     }
   }
 
@@ -118,27 +119,27 @@ void __58__LCSCaptureApplication_initWithExtensionInfo_attributes___block_invoke
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   path = [v5 path];
-  v13 = 0;
-  v8 = [defaultManager createDirectoryAtPath:path withIntermediateDirectories:1 attributes:0 error:&v13];
-  v9 = v13;
+  v14 = 0;
+  v8 = [defaultManager createDirectoryAtPath:path withIntermediateDirectories:1 attributes:0 error:&v14];
+  v9 = v14;
 
   if (v8)
   {
-    v10 = v5;
+    v11 = v5;
   }
 
   else
   {
-    v11 = LCSLogCommon();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = LCSLogCommon(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [(LCSCaptureApplication *)v5 _captureIntentContextDirectoryURLForBundleIdentifier:v9];
     }
 
-    v10 = 0;
+    v11 = 0;
   }
 
-  return v10;
+  return v11;
 }
 
 - (id)_captureIntentContextFileURLForBundleIdentifier:(id)identifier
@@ -151,10 +152,10 @@ void __58__LCSCaptureApplication_initWithExtensionInfo_attributes___block_invoke
 
 - (NSData)captureIntentContext
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (!self->_bundleIdentifier)
   {
-    v2 = LCSLogCommon();
+    v2 = LCSLogCommon(self);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       [(LCSCaptureApplication *)v2 captureIntentContext:v7];
@@ -164,14 +165,14 @@ void __58__LCSCaptureApplication_initWithExtensionInfo_attributes___block_invoke
   }
 
   v2 = [(LCSCaptureApplication *)self _captureIntentContextFileURLForBundleIdentifier:?];
-  v3 = LCSLogCommon();
+  v3 = LCSLogCommon(v2);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
   if (!v2)
   {
     if (v4)
     {
-      LOWORD(v16) = 0;
-      _os_log_impl(&dword_256175000, v3, OS_LOG_TYPE_DEFAULT, "File URL can't be found for the capture intent context, this may be expected", &v16, 2u);
+      LOWORD(v15) = 0;
+      _os_log_impl(&dword_256175000, v3, OS_LOG_TYPE_DEFAULT, "File URL can't be found for the capture intent context, this may be expected", &v15, 2u);
     }
 
 LABEL_11:
@@ -182,88 +183,86 @@ LABEL_11:
   if (v4)
   {
     absoluteString = [v2 absoluteString];
-    v16 = 138543362;
-    v17 = absoluteString;
-    _os_log_impl(&dword_256175000, v3, OS_LOG_TYPE_DEFAULT, "Retrieving capture intent context from: %{public}@", &v16, 0xCu);
+    v15 = 138543362;
+    v16 = absoluteString;
+    _os_log_impl(&dword_256175000, v3, OS_LOG_TYPE_DEFAULT, "Retrieving capture intent context from: %{public}@", &v15, 0xCu);
   }
 
   v6 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:v2];
 LABEL_12:
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 - (void)setCaptureIntentContext:(id)context
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   contextCopy = context;
+  v5 = contextCopy;
   if (self->_bundleIdentifier)
   {
-    v5 = [(LCSCaptureApplication *)self _captureIntentContextFileURLForBundleIdentifier:?];
-    if (v5)
+    v6 = [(LCSCaptureApplication *)self _captureIntentContextFileURLForBundleIdentifier:?];
+    v7 = v6;
+    if (v6)
     {
-      v6 = LCSLogCommon();
-      v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
-      if (contextCopy)
+      v8 = LCSLogCommon(v6);
+      v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+      if (v5)
       {
-        if (v7)
+        if (v9)
         {
-          absoluteString = [v5 absoluteString];
+          absoluteString = [v7 absoluteString];
           *buf = 138543362;
-          v31 = absoluteString;
-          _os_log_impl(&dword_256175000, v6, OS_LOG_TYPE_DEFAULT, "Writing capture intent context to: %{public}@", buf, 0xCu);
+          v33 = absoluteString;
+          _os_log_impl(&dword_256175000, v8, OS_LOG_TYPE_DEFAULT, "Writing capture intent context to: %{public}@", buf, 0xCu);
         }
 
-        [contextCopy writeToURL:v5 atomically:1];
+        [v5 writeToURL:v7 atomically:1];
         goto LABEL_18;
       }
 
-      if (v7)
+      if (v9)
       {
-        absoluteString2 = [v5 absoluteString];
+        absoluteString2 = [v7 absoluteString];
         *buf = 138543362;
-        v31 = absoluteString2;
-        _os_log_impl(&dword_256175000, v6, OS_LOG_TYPE_DEFAULT, "Received nil context, removing capture intent context from: %{public}@", buf, 0xCu);
+        v33 = absoluteString2;
+        _os_log_impl(&dword_256175000, v8, OS_LOG_TYPE_DEFAULT, "Received nil context, removing capture intent context from: %{public}@", buf, 0xCu);
       }
 
       defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-      v29 = 0;
-      v26 = [defaultManager removeItemAtURL:v5 error:&v29];
-      v16 = v29;
+      v31 = 0;
+      v28 = [defaultManager removeItemAtURL:v7 error:&v31];
+      v18 = v31;
 
-      if ((v26 & 1) == 0)
+      if ((v28 & 1) == 0)
       {
-        v27 = LCSLogCommon();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+        v30 = LCSLogCommon(v29);
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
         {
-          [(LCSCaptureApplication *)v5 setCaptureIntentContext:v16];
+          [(LCSCaptureApplication *)v7 setCaptureIntentContext:v18];
         }
       }
     }
 
     else
     {
-      v16 = LCSLogCommon();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v18 = LCSLogCommon(0);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        [(LCSCaptureApplication *)v16 setCaptureIntentContext:v17, v18, v19, v20, v21, v22, v23];
+        [(LCSCaptureApplication *)v18 setCaptureIntentContext:v19, v20, v21, v22, v23, v24, v25];
       }
     }
 
     goto LABEL_18;
   }
 
-  v5 = LCSLogCommon();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v7 = LCSLogCommon(contextCopy);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    [(LCSCaptureApplication *)v5 setCaptureIntentContext:v9, v10, v11, v12, v13, v14, v15];
+    [(LCSCaptureApplication *)v7 setCaptureIntentContext:v11, v12, v13, v14, v15, v16, v17];
   }
 
 LABEL_18:
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (id)acquireLaunchPrewarmAssertionForReason:(id)reason
@@ -320,7 +319,7 @@ LABEL_18:
 
 - (id)_resolvedLinkActionForLaunchTarget:(unint64_t)target launchType:(unint64_t)type
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v7 = [objc_alloc(MEMORY[0x277D23C38]) initWithOptions:0];
   v8 = [(LCSCaptureApplication *)self _queue_systemProtocolForLaunchType:type];
   if (!v8)
@@ -338,7 +337,8 @@ LABEL_18:
   firstObject = [allValues firstObject];
   if (firstObject)
   {
-    v14 = objc_alloc_init(MEMORY[0x277D23BC8]);
+    bundleIdentifier = objc_alloc_init(MEMORY[0x277D23BC8]);
+    v15 = bundleIdentifier;
     if (target == 1)
     {
       bundleIdentifier = [(LCSExtensionDescribing *)self->_extension bundleIdentifier];
@@ -357,19 +357,19 @@ LABEL_18:
 
     v17 = bundleIdentifier;
 LABEL_11:
-    v18 = LCSLogCommon();
+    v18 = LCSLogCommon(bundleIdentifier);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       v19 = [v10 debugDescription];
-      v24 = 138412546;
-      v25 = v19;
-      v26 = 2112;
-      v27 = v17;
-      _os_log_impl(&dword_256175000, v18, OS_LOG_TYPE_DEFAULT, "Action metadata found in the action map: %@. Creating a link launch action with preferred bundle identifier: %@", &v24, 0x16u);
+      v23 = 138412546;
+      v24 = v19;
+      v25 = 2112;
+      v26 = v17;
+      _os_log_impl(&dword_256175000, v18, OS_LOG_TYPE_DEFAULT, "Action metadata found in the action map: %@. Creating a link launch action with preferred bundle identifier: %@", &v23, 0x16u);
     }
 
-    [v14 setPreferredBundleIdentifier:v17];
-    v20 = [MEMORY[0x277D23BB0] policyWithActionMetadata:firstObject signals:v14];
+    [(NSString *)v15 setPreferredBundleIdentifier:v17];
+    v20 = [MEMORY[0x277D23BB0] policyWithActionMetadata:firstObject signals:v15];
     v21 = [v20 actionWithParameters:MEMORY[0x277CBEBF8]];
     v16 = [v21 actionWithOpenWhenRun:0];
 
@@ -380,7 +380,6 @@ LABEL_11:
 LABEL_14:
 
 LABEL_15:
-  v22 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -447,26 +446,24 @@ LABEL_15:
 
 void __51__LCSCaptureApplication__generateCachedLinkActions__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = WeakRetained;
   if (WeakRetained && !WeakRetained[3])
   {
-    v3 = LCSLogCommon();
+    v3 = LCSLogCommon(WeakRetained);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = v2[7];
-      v8 = 138412290;
-      v9 = v4;
-      _os_log_impl(&dword_256175000, v3, OS_LOG_TYPE_DEFAULT, "Prewarming link actions for %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = v4;
+      _os_log_impl(&dword_256175000, v3, OS_LOG_TYPE_DEFAULT, "Prewarming link actions for %@", &v7, 0xCu);
     }
 
     v5 = [v2 _queue_resolvedLinkActions];
     v6 = v2[3];
     v2[3] = v5;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_clearCachedLinkActions
@@ -487,22 +484,21 @@ void __48__LCSCaptureApplication__clearCachedLinkActions__block_invoke(uint64_t 
 {
   v8 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = LCSLogCommon();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = LCSLogCommon(WeakRetained);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = WeakRetained[7];
+      v4 = v2[7];
       v6 = 138412290;
-      v7 = v3;
-      _os_log_impl(&dword_256175000, v2, OS_LOG_TYPE_DEFAULT, "Clearing cached link actions for %@", &v6, 0xCu);
+      v7 = v4;
+      _os_log_impl(&dword_256175000, v3, OS_LOG_TYPE_DEFAULT, "Clearing cached link actions for %@", &v6, 0xCu);
     }
 
-    v4 = WeakRetained[3];
-    WeakRetained[3] = 0;
+    v5 = v2[3];
+    v2[3] = 0;
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_beginObservingMetadataChanges
@@ -600,52 +596,50 @@ void __55__LCSCaptureApplication__beginObservingMetadataChanges__block_invoke_2(
   dispatch_sync(linkActionQueue, v23);
   if (v25[5] || ([(LCSCaptureApplication *)self _resolvedLinkActionForLaunchTarget:target launchType:type], v9 = objc_claimAutoreleasedReturnValue(), v10 = v25[5], v25[5] = v9, v10, v25[5]))
   {
-    v11 = objc_opt_new();
-    [v11 setOneShotForSpringBoardOnly:1];
+    v12 = objc_opt_new();
+    [v12 setOneShotForSpringBoardOnly:1];
     if (!type)
     {
-      v12 = objc_opt_new();
+      v13 = objc_opt_new();
       captureIntentContext = [(LCSCaptureApplication *)self captureIntentContext];
       if (captureIntentContext)
       {
-        [v12 setEncodedCaptureAppContext:captureIntentContext];
+        [v13 setEncodedCaptureAppContext:captureIntentContext];
       }
 
-      [v11 setSystemContext:v12];
+      [v12 setSystemContext:v13];
     }
 
-    v14 = objc_alloc(MEMORY[0x277D23C48]);
-    v15 = objc_opt_new();
-    v16 = [v14 initWithIdentifier:v15 action:v25[5] executorOptions:v11];
+    v15 = objc_alloc(MEMORY[0x277D23C48]);
+    v16 = objc_opt_new();
+    v17 = [v15 initWithIdentifier:v16 action:v25[5] executorOptions:v12];
 
-    v17 = [objc_alloc(MEMORY[0x277D756D8]) initWithAction:v16 responseHandler:&__block_literal_global_4];
-    v18 = LCSLogCommon();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v18 = [objc_alloc(MEMORY[0x277D756D8]) initWithAction:v17 responseHandler:&__block_literal_global_4];
+    v19 = LCSLogCommon(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = [v17 debugDescription];
+      v20 = [v18 debugDescription];
       *buf = 138412290;
-      v31 = v19;
-      _os_log_impl(&dword_256175000, v18, OS_LOG_TYPE_DEFAULT, "Link action created: %@", buf, 0xCu);
+      v31 = v20;
+      _os_log_impl(&dword_256175000, v19, OS_LOG_TYPE_DEFAULT, "Link action created: %@", buf, 0xCu);
     }
 
-    [v7 addObject:v17];
+    [v7 addObject:v18];
   }
 
   else
   {
-    v11 = LCSLogCommon();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = LCSLogCommon(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [LCSCaptureApplication _launchActionsForTarget:v11 launchType:?];
+      [LCSCaptureApplication _launchActionsForTarget:v12 launchType:?];
     }
   }
 
-  v20 = [v7 copy];
+  v21 = [v7 copy];
   _Block_object_dispose(&v24, 8);
 
-  v21 = *MEMORY[0x277D85DE8];
-
-  return v20;
+  return v21;
 }
 
 void __60__LCSCaptureApplication__launchActionsForTarget_launchType___block_invoke(void *a1)
@@ -656,29 +650,28 @@ void __60__LCSCaptureApplication__launchActionsForTarget_launchType___block_invo
     return;
   }
 
-  v3 = a1[6];
-  v4 = NSStringFromLCSCaptureApplicationLaunchType();
-  v10 = [v1 objectForKey:v4];
+  v3 = NSStringFromLCSCaptureApplicationLaunchType();
+  v9 = [v1 objectForKey:v3];
 
-  v5 = v10;
-  if (v10)
+  v4 = v9;
+  if (v9)
   {
-    v6 = a1[7];
-    if (v6 == 1)
+    v5 = a1[7];
+    if (v5 == 1)
     {
-      v7 = [v10 extensionLaunchAction];
+      v6 = [v9 extensionLaunchAction];
       goto LABEL_8;
     }
 
-    if (!v6)
+    if (!v5)
     {
-      v7 = [v10 applicationLaunchAction];
+      v6 = [v9 applicationLaunchAction];
 LABEL_8:
-      v8 = *(a1[5] + 8);
-      v9 = *(v8 + 40);
-      *(v8 + 40) = v7;
+      v7 = *(a1[5] + 8);
+      v8 = *(v7 + 40);
+      *(v7 + 40) = v6;
 
-      v5 = v10;
+      v4 = v9;
     }
   }
 }
@@ -768,41 +761,43 @@ id __63__LCSCaptureApplication_descriptionBuilderWithMultilinePrefix___block_inv
 
 - (void)_bundleRecordForBundleIdentifier:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = [a2 localizedDescription];
-  OUTLINED_FUNCTION_0_1(&dword_256175000, v2, v3, "Unable to resolve bundle record for %@: %@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v3 = [a2 localizedDescription];
+  *v10 = 138412546;
+  *&v10[4] = a1;
+  *&v10[12] = 2112;
+  *&v10[14] = v3;
+  OUTLINED_FUNCTION_0_1(&dword_256175000, v4, v5, "Unable to resolve bundle record for %@: %@", v6, v7, v8, v9, *v10, *&v10[8], *&v10[16]);
 }
 
 - (void)_captureIntentContextDirectoryURLForBundleIdentifier:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v3 = [a1 absoluteString];
-  v11 = [a2 debugDescription];
-  OUTLINED_FUNCTION_0_1(&dword_256175000, v4, v5, "Can't create a directory URL: %{public}@ error: %@", v6, v7, v8, v9, 2u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v4 = [a2 debugDescription];
+  *v11 = 138543618;
+  *&v11[4] = v3;
+  *&v11[12] = 2112;
+  *&v11[14] = v4;
+  OUTLINED_FUNCTION_0_1(&dword_256175000, v5, v6, "Can't create a directory URL: %{public}@ error: %@", v7, v8, v9, v10, *v11, *&v11[8], *&v11[16]);
 }
 
 - (void)setCaptureIntentContext:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v3 = [a1 absoluteString];
-  v11 = [a2 localizedDescription];
-  OUTLINED_FUNCTION_0_1(&dword_256175000, v4, v5, "Unable to remove capture intent context from %{public}@ : %{public}@", v6, v7, v8, v9, 2u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v4 = [a2 localizedDescription];
+  *v11 = 138543618;
+  *&v11[4] = v3;
+  *&v11[12] = 2114;
+  *&v11[14] = v4;
+  OUTLINED_FUNCTION_0_1(&dword_256175000, v5, v6, "Unable to remove capture intent context from %{public}@ : %{public}@", v7, v8, v9, v10, *v11, *&v11[8], *&v11[16]);
 }
 
 - (void)_launchActionsForTarget:(uint64_t)a1 launchType:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 56);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_256175000, a2, OS_LOG_TYPE_ERROR, "Unable to resolve link action for capture application: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_256175000, a2, OS_LOG_TYPE_ERROR, "Unable to resolve link action for capture application: %@", &v3, 0xCu);
 }
 
 @end

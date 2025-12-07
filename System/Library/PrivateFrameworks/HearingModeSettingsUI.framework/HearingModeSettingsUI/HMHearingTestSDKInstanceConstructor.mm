@@ -18,7 +18,7 @@
 
   else
   {
-    v6 = hearing_log();
+    v6 = hearing_log(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [(HMHearingTestSDKInstanceConstructor *)v6 makeStandardViewController:v7];
@@ -43,7 +43,7 @@
 
   else
   {
-    v8 = hearing_log();
+    v8 = hearing_log(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [(HMHearingTestSDKInstanceConstructor *)v8 makeStandardViewController:v9];
@@ -76,7 +76,7 @@
 
   else
   {
-    v11 = hearing_log();
+    v11 = hearing_log(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [(HMHearingTestSDKInstanceConstructor *)v11 makeTestResultsControllerWithSample:v12 bluetoothAddress:v13, v14, v15, v16, v17, v18];

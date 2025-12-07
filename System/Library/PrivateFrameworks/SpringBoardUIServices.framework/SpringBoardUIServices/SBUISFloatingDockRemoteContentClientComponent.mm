@@ -142,7 +142,7 @@ void __111__SBUISFloatingDockRemoteContentClientComponent_requestDismissContentF
     v12 = 0;
   }
 
-  transitionContext = [settingsCopy transitionContext];
+  v13 = objc_msgSend_transitionContext(settingsCopy);
 
   settings = [sceneCopy settings];
 
@@ -234,7 +234,7 @@ void __111__SBUISFloatingDockRemoteContentClientComponent_requestDismissContentF
 
     if (objc_opt_respondsToSelector())
     {
-      animationSettings = [transitionContext animationSettings];
+      animationSettings = [v13 animationSettings];
       [v12 updateContentForFloatingDockRemoteContentScene:v27 withContext:v16 withAnimationSettings:animationSettings];
     }
   }

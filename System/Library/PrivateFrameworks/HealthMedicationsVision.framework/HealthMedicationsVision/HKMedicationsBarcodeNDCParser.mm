@@ -117,38 +117,38 @@ LABEL_8:
 
 + (id)parsedNDCCodesFromCMSampleBuffer:(opaqueCMSampleBuffer *)buffer error:(id *)error
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = [self _barcodeObservationsFrom:buffer error:error];
   if (v5)
   {
     v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v16;
+      v10 = *v15;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v16 != v10)
+          if (*v15 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = [self parsedNDCCodeFromBarcodeObservation:{*(*(&v15 + 1) + 8 * i), v15}];
+          v12 = [self parsedNDCCodeFromBarcodeObservation:{*(*(&v14 + 1) + 8 * i), v14}];
           if ([v12 length])
           {
             [v6 addObject:v12];
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v9);
@@ -159,46 +159,44 @@ LABEL_8:
   {
     v6 = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 + (id)parsedGTIN14CodesFromCMSampleBuffer:(opaqueCMSampleBuffer *)buffer error:(id *)error
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = [self _barcodeObservationsFrom:buffer error:error];
   if (v5)
   {
     v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v16;
+      v10 = *v15;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v16 != v10)
+          if (*v15 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = [self parsedGTIN14CodeFromBarcodeObservation:{*(*(&v15 + 1) + 8 * i), v15}];
+          v12 = [self parsedGTIN14CodeFromBarcodeObservation:{*(*(&v14 + 1) + 8 * i), v14}];
           if ([v12 length])
           {
             [v6 addObject:v12];
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v9);
@@ -209,8 +207,6 @@ LABEL_8:
   {
     v6 = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

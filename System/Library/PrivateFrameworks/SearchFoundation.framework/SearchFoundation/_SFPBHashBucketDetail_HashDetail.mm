@@ -7,6 +7,7 @@
 - (id)dictionaryRepresentation;
 - (int)sba_entity_typesAtIndex:(unint64_t)index;
 - (unint64_t)hash;
+- (void)addSba_entity_types:(int)sba_entity_types;
 - (void)setFull_hash:(id)full_hash;
 - (void)setMatched_url_variant:(id)matched_url_variant;
 - (void)setSba_entity_types:(id)sba_entity_types;
@@ -17,7 +18,7 @@
 
 - (_SFPBHashBucketDetail_HashDetail)initWithFacade:(id)facade
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   facadeCopy = facade;
   v5 = [(_SFPBHashBucketDetail_HashDetail *)self init];
   if (v5)
@@ -46,32 +47,32 @@
       v9 = 0;
     }
 
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v10 = [facadeCopy sba:0 entity:?types];
-    v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v21;
+      v13 = *v20;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v21 != v13)
+          if (*v20 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          if (*(*(&v20 + 1) + 8 * i))
+          if (*(*(&v19 + 1) + 8 * i))
           {
             [v9 addObject:?];
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v12);
@@ -94,17 +95,16 @@
     v17 = v5;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (_SFPBHashBucketDetail_HashDetail)initWithDictionary:(id)dictionary
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v27.receiver = self;
-  v27.super_class = _SFPBHashBucketDetail_HashDetail;
-  v5 = [(_SFPBHashBucketDetail_HashDetail *)&v27 init];
+  v26.receiver = self;
+  v26.super_class = _SFPBHashBucketDetail_HashDetail;
+  v5 = [(_SFPBHashBucketDetail_HashDetail *)&v26 init];
   if (v5)
   {
     v6 = [dictionaryCopy objectForKeyedSubscript:@"fullHash"];
@@ -126,28 +126,28 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v22 = v6;
-      v25 = 0u;
-      v26 = 0u;
-      v23 = 0u;
+      v21 = v6;
       v24 = 0u;
+      v25 = 0u;
+      v22 = 0u;
+      v23 = 0u;
       v10 = v9;
-      v11 = [v10 countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v22 objects:v27 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v24;
+        v13 = *v23;
         do
         {
           v14 = 0;
           do
           {
-            if (*v24 != v13)
+            if (*v23 != v13)
             {
               objc_enumerationMutation(v10);
             }
 
-            v15 = *(*(&v23 + 1) + 8 * v14);
+            v15 = *(*(&v22 + 1) + 8 * v14);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -158,13 +158,13 @@
           }
 
           while (v12 != v14);
-          v12 = [v10 countByEnumeratingWithState:&v23 objects:v28 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v22 objects:v27 count:16];
         }
 
         while (v12);
       }
 
-      v6 = v22;
+      v6 = v21;
     }
 
     v16 = [dictionaryCopy objectForKeyedSubscript:@"hasTableOfContents"];
@@ -185,7 +185,6 @@
     v19 = v5;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -392,7 +391,7 @@ LABEL_20:
 
 - (void)writeTo:(id)to
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   toCopy = to;
   full_hash = [(_SFPBHashBucketDetail_HashDetail *)self full_hash];
   if (full_hash)
@@ -406,32 +405,32 @@ LABEL_20:
   }
 
   sba_entity_types = [(_SFPBHashBucketDetail_HashDetail *)self sba_entity_types];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v7 = [sba_entity_types countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [sba_entity_types countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       v10 = 0;
       do
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(sba_entity_types);
         }
 
-        [*(*(&v13 + 1) + 8 * v10) intValue];
+        [*(*(&v12 + 1) + 8 * v10) intValue];
         PBDataWriterWriteInt32Field();
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [sba_entity_types countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [sba_entity_types countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
@@ -447,15 +446,11 @@ LABEL_20:
   {
     PBDataWriterWriteStringField();
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setMatched_url_variant:(id)matched_url_variant
 {
-  v4 = [matched_url_variant copy];
-  matched_url_variant = self->_matched_url_variant;
-  self->_matched_url_variant = v4;
+  self->_matched_url_variant = [matched_url_variant copy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -468,20 +463,33 @@ LABEL_20:
   return intValue;
 }
 
+- (void)addSba_entity_types:(int)sba_entity_types
+{
+  v3 = *&sba_entity_types;
+  sba_entity_types = self->_sba_entity_types;
+  if (!sba_entity_types)
+  {
+    array = [MEMORY[0x1E695DF70] array];
+    v7 = self->_sba_entity_types;
+    self->_sba_entity_types = array;
+
+    sba_entity_types = self->_sba_entity_types;
+  }
+
+  v8 = [MEMORY[0x1E696AD98] numberWithInt:v3];
+  [(NSArray *)sba_entity_types addObject:v8];
+}
+
 - (void)setSba_entity_types:(id)sba_entity_types
 {
-  v4 = [sba_entity_types copy];
-  sba_entity_types = self->_sba_entity_types;
-  self->_sba_entity_types = v4;
+  self->_sba_entity_types = [sba_entity_types copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setFull_hash:(id)full_hash
 {
-  v4 = [full_hash copy];
-  full_hash = self->_full_hash;
-  self->_full_hash = v4;
+  self->_full_hash = [full_hash copy];
 
   MEMORY[0x1EEE66BB8]();
 }

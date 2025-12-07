@@ -36,21 +36,21 @@ double BrotliInitSharedEncoderDictionary(uint64_t a1)
   return result;
 }
 
-uint64_t BrotliCleanupSharedEncoderDictionary(uint64_t result, uint64_t a2)
+uint64_t BrotliCleanupSharedEncoderDictionary(uint64_t result, void *a2)
 {
   v3 = result;
-  if (*(a2 + 408))
+  if (a2[51])
   {
     v4 = 0;
     do
     {
-      result = DestroyPreparedDictionary(v3, *(a2 + 416 + 8 * v4++));
+      result = DestroyPreparedDictionary(v3, a2[v4++ + 52]);
     }
 
-    while (v4 < *(a2 + 408));
+    while (v4 < a2[51]);
   }
 
-  v5 = *(a2 + 1128);
+  v5 = a2[141];
   if (v5)
   {
     if (v5 == 1)
@@ -70,7 +70,7 @@ uint64_t BrotliCleanupSharedEncoderDictionary(uint64_t result, uint64_t a2)
         v6 += 168;
       }
 
-      while (v7 < *(a2 + 1128));
+      while (v7 < a2[141]);
 
       return BrotliFree(v3);
     }
@@ -90,7 +90,7 @@ uint64_t BrotliDestroyEncoderDictionary(uint64_t a1)
   return BrotliFree(a1);
 }
 
-void *(**BrotliCreateManagedDictionary(void *(*a1)(int a1, size_t size), void (*a2)(int a1, void *a2), void *(*a3)(int a1, size_t size)))(int a1, size_t size)
+void *(**BrotliCreateManagedDictionary(uint64_t (*a1)(uint64_t, size_t), void (*a2)(int a1, void *a2), void *(*a3)(int a1, size_t size)))(int a1, size_t size)
 {
   v6 = BrotliBootstrapAlloc(0x28uLL, a1, a2, a3);
   v7 = v6;
@@ -272,7 +272,7 @@ uint64_t BrotliBuildHistogramsWithContext(uint64_t result, uint64_t a2, uint64_t
   return result;
 }
 
-uint64_t BrotliCompressFragmentFast(uint64_t result, unsigned __int8 *a2, unint64_t a3, int a4, uint64_t a5, unsigned int a6, unint64_t *a7, uint64_t a8)
+uint64_t BrotliCompressFragmentFast(uint64_t result, unsigned __int8 *a2, unint64_t a3, uint64_t a4, uint64_t a5, unsigned int a6, unint64_t *a7, uint64_t a8)
 {
   v10 = *a7;
   if (!a3)
@@ -280,6 +280,7 @@ uint64_t BrotliCompressFragmentFast(uint64_t result, unsigned __int8 *a2, unint6
     goto LABEL_15;
   }
 
+  v11 = a4;
   v14 = __clz(a6) ^ 0x1F;
   if (v14 > 12)
   {
@@ -309,7 +310,7 @@ uint64_t BrotliCompressFragmentFast(uint64_t result, unsigned __int8 *a2, unint6
     result = EmitUncompressedMetaBlock_0(a2, &a2[a3], v10, a7, a8);
   }
 
-  if (a4)
+  if (v11)
   {
     v10 = *a7;
 LABEL_15:
@@ -322,7 +323,7 @@ LABEL_15:
   return result;
 }
 
-unint64_t BrotliCompressFragmentFastImpl9(uint64_t a1, unsigned __int8 *a2, unint64_t a3, int a4, uint64_t a5, unint64_t *a6, uint64_t a7)
+uint64_t BrotliCompressFragmentFastImpl9(uint64_t a1, unsigned __int8 *a2, unint64_t a3, int a4, uint64_t a5, unint64_t *a6, uint64_t a7)
 {
   v202 = (a1 + 1152);
   v203 = a3;
@@ -1145,7 +1146,7 @@ LABEL_138:
   return result;
 }
 
-unint64_t BrotliCompressFragmentFastImpl11(uint64_t a1, unsigned __int8 *a2, unint64_t a3, int a4, uint64_t a5, unint64_t *a6, uint64_t a7)
+uint64_t BrotliCompressFragmentFastImpl11(uint64_t a1, unsigned __int8 *a2, unint64_t a3, int a4, uint64_t a5, unint64_t *a6, uint64_t a7)
 {
   v202 = (a1 + 1152);
   v203 = a3;
@@ -1968,7 +1969,7 @@ LABEL_138:
   return result;
 }
 
-unint64_t BrotliCompressFragmentFastImpl13(uint64_t a1, unsigned __int8 *a2, unint64_t a3, int a4, uint64_t a5, unint64_t *a6, uint64_t a7)
+uint64_t BrotliCompressFragmentFastImpl13(uint64_t a1, unsigned __int8 *a2, unint64_t a3, int a4, uint64_t a5, unint64_t *a6, uint64_t a7)
 {
   v202 = (a1 + 1152);
   v203 = a3;
@@ -2791,7 +2792,7 @@ LABEL_138:
   return result;
 }
 
-unint64_t BrotliCompressFragmentFastImpl15(uint64_t a1, unsigned __int8 *a2, unint64_t a3, int a4, uint64_t a5, unint64_t *a6, uint64_t a7)
+uint64_t BrotliCompressFragmentFastImpl15(uint64_t a1, unsigned __int8 *a2, unint64_t a3, int a4, uint64_t a5, unint64_t *a6, uint64_t a7)
 {
   v202 = (a1 + 1152);
   v203 = a3;
@@ -3629,7 +3630,7 @@ void *EmitUncompressedMetaBlock_0(const void *a1, uint64_t a2, unint64_t a3, uni
   return result;
 }
 
-unint64_t BuildAndStoreLiteralPrefixCode(uint64_t a1, unsigned __int8 *a2, unint64_t a3, _BYTE *a4, uint64_t a5, unint64_t *a6, uint64_t a7)
+unint64_t BuildAndStoreLiteralPrefixCode(uint64_t a1, unsigned __int8 *a2, unint64_t a3, unsigned __int8 *a4, uint64_t a5, unint64_t *a6, uint64_t a7)
 {
   v14 = a1 + 6288;
   bzero((a1 + 6288), 0x400uLL);
@@ -3843,7 +3844,7 @@ unint64_t BuildAndStoreCommandPrefixCode(uint64_t a1, unint64_t *a2, uint64_t a3
   return BrotliStoreHuffmanTree(a1 + 832, 0x40uLL, a1 + 2184, a2, a3);
 }
 
-void *BrotliCreateBackwardReferences(void *result, unint64_t a2, unint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, void *a7, int *a8, double a9, int32x4_t a10, double a11, double a12, double a13, int32x4_t a14, unint64_t *a15, _DWORD *a16, void *a17, void *a18)
+void *BrotliCreateBackwardReferences(void *result, char *a2, unint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, void *a7, int *a8, double d0_0, int32x4_t q1_0, double d2_0, double d3_0, double a13, int32x4_t a14, unint64_t *a9, char *a10, void *a11, void *a12)
 {
   v18 = *(a6 + 40);
   if (*(a6 + 88))
@@ -3854,18 +3855,18 @@ void *BrotliCreateBackwardReferences(void *result, unint64_t a2, unint64_t a3, u
       {
         if (v18 == 5)
         {
-          return CreateBackwardReferencesDH5(result, a2, a3, a4, a5, a6, a7, a8, a15, a16, a17, a18);
+          return CreateBackwardReferencesDH5(result, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12);
         }
 
         if (v18 == 6)
         {
-          return CreateBackwardReferencesDH6(result, a2, a3, a4, a5, a6, a7, a8, a15, a16, a17, a18);
+          return CreateBackwardReferencesDH6(result, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12);
         }
 
 LABEL_29:
         if (v18 == 35)
         {
-          return CreateBackwardReferencesNH35(result, a2, a3, a4, a6, a7, a8, a15, a16, a17, a18);
+          return CreateBackwardReferencesNH35(result, a2, a3, a4, a6, a7, a8, a9, a10, a11, a12);
         }
 
         return result;
@@ -3875,11 +3876,11 @@ LABEL_9:
       switch(v18)
       {
         case 2:
-          return CreateBackwardReferencesNH2(result, a2, a3, a4, a5, a6, a7, a8, a15, a16, a17, a18);
+          return CreateBackwardReferencesNH2(result, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12);
         case 3:
-          return CreateBackwardReferencesNH3(result, a2, a3, a4, a6, a7, a8, a15, a16, a17, a18);
+          return CreateBackwardReferencesNH3(result, a2, a3, a4, a6, a7, a8, a9, a10, a11, a12);
         case 4:
-          return CreateBackwardReferencesNH4(result, a2, a3, a4, a5, a6, a7, a8, a15, a16, a17, a18);
+          return CreateBackwardReferencesNH4(result, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12);
       }
 
       return result;
@@ -3890,11 +3891,11 @@ LABEL_9:
       switch(v18)
       {
         case '(':
-          return CreateBackwardReferencesDH40(result, a2, a3, a4, a5, a6, a7, a8, a15, a16, a17, a18);
+          return CreateBackwardReferencesDH40(result, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12);
         case ')':
-          return CreateBackwardReferencesDH41(result, a2, a3, a4, a5, a6, a7, a8, a15, a16, a17, a18);
+          return CreateBackwardReferencesDH41(result, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12);
         case '*':
-          return CreateBackwardReferencesDH42(result, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18);
+          return CreateBackwardReferencesDH42(result, a2, a3, a4, a5, a6, a7, a8, d0_0, q1_0, d2_0, d3_0, a13, a14, a9, a10, a11, a12);
       }
 
       return result;
@@ -3904,18 +3905,18 @@ LABEL_9:
     {
       if (v18 == 55)
       {
-        return CreateBackwardReferencesDH55(result, a2, a3, a4, a6, a7, a8, a15, a16, a17, a18);
+        return CreateBackwardReferencesDH55(result, a2, a3, a4, a6, a7, a8, a9, a10, a11, a12);
       }
 
       if (v18 == 65)
       {
-        return CreateBackwardReferencesDH65(result, a2, a3, a4, a5, a6, a7, a8, a15, a16, a17, a18);
+        return CreateBackwardReferencesDH65(result, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12);
       }
 
       return result;
     }
 
-    return CreateBackwardReferencesNH54(result, a2, a3, a4, a6, a7, a8, a15, a16, a17, a18);
+    return CreateBackwardReferencesNH54(result, a2, a3, a4, a6, a7, a8, a9, a10, a11, a12);
   }
 
   if (v18 <= 39)
@@ -3924,12 +3925,12 @@ LABEL_9:
     {
       if (v18 == 5)
       {
-        return CreateBackwardReferencesNH5(result, a2, a3, a4, a5, a6, a7, a8, a15, a16, a17, a18);
+        return CreateBackwardReferencesNH5(result, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12);
       }
 
       if (v18 == 6)
       {
-        return CreateBackwardReferencesNH6(result, a2, a3, a4, a5, a6, a7, a8, a15, a16, a17, a18);
+        return CreateBackwardReferencesNH6(result, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12);
       }
 
       goto LABEL_29;
@@ -3943,11 +3944,11 @@ LABEL_9:
     switch(v18)
     {
       case '6':
-        return CreateBackwardReferencesNH54(result, a2, a3, a4, a6, a7, a8, a15, a16, a17, a18);
+        return CreateBackwardReferencesNH54(result, a2, a3, a4, a6, a7, a8, a9, a10, a11, a12);
       case '7':
-        return CreateBackwardReferencesNH55(result, a2, a3, a4, a6, a7, a8, a15, a16, a17, a18);
+        return CreateBackwardReferencesNH55(result, a2, a3, a4, a6, a7, a8, a9, a10, a11, a12);
       case 'A':
-        return CreateBackwardReferencesNH65(result, a2, a3, a4, a5, a6, a7, a8, a15, a16, a17, a18);
+        return CreateBackwardReferencesNH65(result, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12);
     }
   }
 
@@ -3956,11 +3957,11 @@ LABEL_9:
     switch(v18)
     {
       case '(':
-        return CreateBackwardReferencesNH40(result, a2, a3, a4, a5, a6, a7, a8, a15, a16, a17, a18);
+        return CreateBackwardReferencesNH40(result, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12);
       case ')':
-        return CreateBackwardReferencesNH41(result, a2, a3, a4, a5, a6, a7, a8, a15, a16, a17, a18);
+        return CreateBackwardReferencesNH41(result, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12);
       case '*':
-        return CreateBackwardReferencesNH42(result, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18);
+        return CreateBackwardReferencesNH42(result, a2, a3, a4, a5, a6, a7, a8, d0_0, q1_0, d2_0, d3_0, a13, a14, a9, a10, a11, a12);
     }
   }
 
@@ -4791,7 +4792,7 @@ LABEL_159:
           v150 = v148 || v149 > a4;
           if (!v150 && *(v128 + v147) == *(v128 + v149))
           {
-            v151 = (v128 + v146);
+            v151 = v128 + v146;
             if (v27 < 8)
             {
               k = v27;
@@ -4820,7 +4821,7 @@ LABEL_206:
               for (k = v27; k > 7; k -= 8)
               {
                 v154 = *&v140[v152];
-                v155 = *&v151[v152];
+                v155 = *(v151 + v152);
                 if (v154 != v155)
                 {
                   v159 = v152 + (__clz(__rbit64(v155 ^ v154)) >> 3);
@@ -4830,7 +4831,7 @@ LABEL_206:
                 v152 += 8;
               }
 
-              v156 = &v151[v152];
+              v156 = (v151 + v152);
               v157 = &v140[v152];
               if (k)
               {
@@ -4838,7 +4839,7 @@ LABEL_206:
               }
             }
 
-            v159 = v156 - v151;
+            v159 = &v156[-v151];
 LABEL_212:
             v128 = a3;
             if (v159 > 2 || v137 <= 1 && v159 == 2)
@@ -7349,7 +7350,7 @@ LABEL_476:
   return result;
 }
 
-unint64_t CreateBackwardReferencesDH40(unint64_t result, uint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, int *a6, uint64_t a7, int *a8, unint64_t *a9, uint64_t a10, void *a11, void *a12)
+unint64_t CreateBackwardReferencesDH40(unint64_t result, unint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, int *a6, uint64_t a7, int *a8, unint64_t *a9, uint64_t a10, void *a11, void *a12)
 {
   v12 = a2;
   v13 = *a9;
@@ -7452,7 +7453,7 @@ LABEL_22:
     v25 = 0;
     result = 0;
     v313 = v22;
-    v26 = v309[v22];
+    v26 = *&v309[2 * v22];
     v27 = v14 - v12;
     v28 = *(a6 + 9);
     v30 = *(a7 + 96);
@@ -7776,7 +7777,7 @@ LABEL_382:
     {
       for (i = 0; i != v70; ++i)
       {
-        v72 = v334[i];
+        v72 = *&v334[2 * i];
         v74 = *(v72 + 16);
         v73 = *(v72 + 20);
         v75 = v72 + 24 + 4 * (1 << v73);
@@ -7788,7 +7789,7 @@ LABEL_382:
         }
 
         v78 = 0;
-        result = *(v319 + 12) + v19 - v333[i];
+        result = *(v319 + 12) + v19 - *&v333[2 * i];
         v79 = *(v72 + 8);
         v80 = (0x1FE35A7BD3579BD3 * (*v33 & (0xFFFFFFFFFFFFFFFFLL >> -*(v72 + 12)))) >> -v74;
         v81 = *(v75 + 2 * v80);
@@ -8155,7 +8156,7 @@ LABEL_152:
       v126 = 0;
       result = 0;
       v313 = v124;
-      v328 = v309[v124];
+      v328 = *&v309[2 * v124];
       v127 = *(a7 + 104);
       v338 = *(a7 + 96);
       v128 = v338 + 196608;
@@ -8477,7 +8478,7 @@ LABEL_342:
         v327 = v168 + v326;
         while (1)
         {
-          v169 = v334[v167];
+          v169 = *&v334[2 * v167];
           v170 = *(v169 + 16);
           v171 = *(v169 + 20);
           v172 = v169 + 24 + 4 * (1 << v171);
@@ -8489,7 +8490,7 @@ LABEL_342:
           }
 
           v175 = 0;
-          v176 = v333[v167];
+          v176 = *&v333[2 * v167];
           v177 = v330 - v176;
           v178 = *(v169 + 8);
           v179 = (0x1FE35A7BD3579BD3 * (*v130 & (0xFFFFFFFFFFFFFFFFLL >> -*(v169 + 12)))) >> -v170;
@@ -9028,7 +9029,7 @@ LABEL_463:
   return result;
 }
 
-unint64_t CreateBackwardReferencesDH41(unint64_t result, uint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, int *a8, unint64_t *a9, uint64_t a10, void *a11, void *a12)
+unint64_t CreateBackwardReferencesDH41(unint64_t result, unint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, int *a8, unint64_t *a9, uint64_t a10, void *a11, void *a12)
 {
   v12 = a2;
   v13 = *(a6 + 16);

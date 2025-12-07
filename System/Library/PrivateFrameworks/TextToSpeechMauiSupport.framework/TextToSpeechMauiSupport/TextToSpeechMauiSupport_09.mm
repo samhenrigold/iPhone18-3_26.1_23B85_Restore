@@ -782,7 +782,7 @@ uint64_t loc_exportNode_WordRecord(uint64_t a1, uint64_t a2, uint64_t a3, uint64
 
   else
   {
-    result = (*(a2 + 80))(a3, a4, *a8, a8);
+    result = (*(a2 + 80))(a3, a4, *a8, a8, a5);
     if ((result & 0x80000000) != 0)
     {
       return result;
@@ -875,7 +875,7 @@ uint64_t loc_exportNonMarkerLabelWithWType(uint64_t a1, uint64_t a2, uint64_t a3
 
   else
   {
-    result = (*(a2 + 80))(a3, a4, *a8, a8);
+    result = (*(a2 + 80))(a3, a4, *a8, a8, a5);
     if ((result & 0x80000000) != 0)
     {
       return result;
@@ -937,8 +937,8 @@ uint64_t loc_exportNonMarkerLabelWithWType(uint64_t a1, uint64_t a2, uint64_t a3
 uint64_t replaceBasicTokensWithTokenIntTnInLingDB(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   v6 = 0;
-  v58 = 0;
-  v57 = 0;
+  v43 = 0;
+  v42 = 0;
   v7 = *(a5 + 32);
   v8 = *(v7 + 24);
   if (v8 >= *(v7 + 32))
@@ -952,25 +952,25 @@ uint64_t replaceBasicTokensWithTokenIntTnInLingDB(uint64_t a1, uint64_t a2, uint
     v13 = *v8;
     if (*(*v8 + 26) == 1)
     {
-      U32Attribute = LDOObject_GetU32Attribute(*v8, "_TTYPE", &v57 + 1, &v58);
+      U32Attribute = LDOObject_GetU32Attribute(*v8, "_TTYPE", &v42 + 1, &v43);
       v6 = LH_ERROR_to_VERROR(U32Attribute);
       if ((v6 & 0x80000000) != 0)
       {
         return v6;
       }
 
-      if (HIDWORD(v57) && v58 == 6)
+      if (HIDWORD(v42) && v43 == 6)
       {
         AbsoluteFrom = LDOLabel_GetAbsoluteFrom(v13);
         AbsoluteTo = LDOLabel_GetAbsoluteTo(v13);
-        v17 = LDOObject_GetU32Attribute(v13, "CREATED_BEFORE_TOKENTN", &v57 + 1, &v57);
+        v17 = LDOObject_GetU32Attribute(v13, "CREATED_BEFORE_TOKENTN", &v42 + 1, &v42);
         v6 = LH_ERROR_to_VERROR(v17);
         if ((v6 & 0x80000000) != 0)
         {
           return v6;
         }
 
-        if (!HIDWORD(v57) || v57 != 1)
+        if (!HIDWORD(v42) || v42 != 1)
         {
           break;
         }
@@ -984,136 +984,136 @@ LABEL_49:
     }
   }
 
-  v61 = 0;
-  v62 = 0;
-  v60 = 0;
-  v18 = (*(a2 + 104))(a3, a4, 1, 0, &v62 + 2);
-  if ((v18 & 0x80000000) != 0)
+  v46 = 0;
+  v47 = 0;
+  v45 = 0;
+  v18 = (*(a2 + 104))(a3, a4, 1, 0, &v47 + 2);
+  if (v18 < 0)
   {
 LABEL_57:
-    v6 = v18;
-    v25 = a6;
-    v48 = a1;
+    LODWORD(v6) = v18;
+    v19 = a6;
+    v34 = a1;
     goto LABEL_60;
   }
 
-  v25 = (*(a2 + 104))(a3, a4, 3, HIWORD(v62), &v62);
-  if ((v25 & 0x80000000) != 0 || !v62)
+  v19 = (*(a2 + 104))(a3, a4, 3, HIWORD(v47), &v47);
+  if ((v19 & 0x80000000) != 0 || !v47)
   {
-    log_OutText(*(a1 + 32), a6, 4, 0, "ldoutil : loc_replaceBasicTokensWithTokenIntTnInLingDB End (%x) ", v22, v23, v24, v25);
-    v6 = v25;
-    if ((v25 & 0x80000000) != 0)
+    log_OutText(*(a1 + 32), a6, 4, 0, "ldoutil : loc_replaceBasicTokensWithTokenIntTnInLingDB End (%x) ", v19);
+    v6 = v19;
+    if ((v19 & 0x80000000) != 0)
     {
-      return v25 | 0x80002000;
+      return v19 | 0x80002000;
     }
 
     goto LABEL_49;
   }
 
-  v53 = 0;
-  v54 = AbsoluteFrom;
-  v26 = AbsoluteTo;
-  v27 = 1;
+  v38 = 0;
+  v39 = AbsoluteFrom;
+  v20 = AbsoluteTo;
+  v21 = 1;
   while (1)
   {
-    v28 = v62;
-    LOWORD(v63) = 0;
-    v66 = 0;
-    v29 = (*(a2 + 184))(a3, a4, v62, 1, &v63);
-    v34 = 24031;
-    if (v29 < 0 || v63 != 1)
+    v22 = v47;
+    LOWORD(v48) = 0;
+    v51 = 0;
+    v23 = (*(a2 + 184))(a3, a4, v47, 1, &v48);
+    v24 = 24031;
+    if (v23 < 0 || v48 != 1)
     {
       goto LABEL_55;
     }
 
-    (*(a2 + 168))(a3, a4, v28, 1, 1, &v61 + 2, &v66);
-    if (v66 != 1)
+    (*(a2 + 168))(a3, a4, v22, 1, 1, &v46 + 2, &v51);
+    if (v51 != 1)
     {
       break;
     }
 
-    v35 = v62;
-    LOWORD(v63) = 0;
-    v66 = 0;
-    v36 = (*(a2 + 184))(a3, a4, v62, 2, &v63);
-    v34 = 24031;
-    if (v36 < 0 || v63 != 1)
+    v25 = v47;
+    LOWORD(v48) = 0;
+    v51 = 0;
+    v26 = (*(a2 + 184))(a3, a4, v47, 2, &v48);
+    v24 = 24031;
+    if (v26 < 0 || v48 != 1)
     {
       goto LABEL_55;
     }
 
-    (*(a2 + 168))(a3, a4, v35, 2, 1, &v61, &v66);
-    if (v66 != 1)
+    (*(a2 + 168))(a3, a4, v25, 2, 1, &v46, &v51);
+    if (v51 != 1)
     {
       break;
     }
 
-    v37 = v62;
-    LOWORD(v63) = 0;
-    v66 = 0;
-    if (((*(a2 + 184))(a3, a4, v62, 0, &v63) & 0x80000000) == 0 && v63 == 1)
+    v27 = v47;
+    LOWORD(v48) = 0;
+    v51 = 0;
+    if (((*(a2 + 184))(a3, a4, v47, 0, &v48) & 0x80000000) == 0 && v48 == 1)
     {
-      (*(a2 + 168))(a3, a4, v37, 0, 1, &v60, &v66);
-      if (v66 != 1)
+      (*(a2 + 168))(a3, a4, v27, 0, 1, &v45, &v51);
+      if (v51 != 1)
       {
-        v6 = 2147491840;
-        v25 = a6;
-        v48 = a1;
-        v49 = *(a1 + 32);
-        v50 = a6;
-        v34 = 24030;
+        LODWORD(v6) = -2147475456;
+        v19 = a6;
+        v34 = a1;
+        v35 = *(a1 + 32);
+        v36 = a6;
+        v24 = 24030;
         goto LABEL_56;
       }
     }
 
-    if (HIWORD(v61) >= v26 && v60 != 5)
+    if (HIWORD(v46) >= v20 && v45 != 5)
     {
       v6 = 0;
 LABEL_53:
-      log_OutText(*(a1 + 32), a6, 4, 0, "ldoutil : loc_replaceBasicTokensWithTokenIntTnInLingDB End (%x) ", v31, v32, v33, v6);
+      log_OutText(*(a1 + 32), a6, 4, 0, "ldoutil : loc_replaceBasicTokensWithTokenIntTnInLingDB End (%x) ", v6);
       goto LABEL_49;
     }
 
-    if (HIWORD(v61) < v54 || v61 > v26 || v60 > 3)
+    if (HIWORD(v46) < v39 || v46 > v20 || v45 > 3)
     {
       v6 = 0;
-      v47 = v62;
+      v33 = v47;
       goto LABEL_45;
     }
 
-    if (v27 == 1)
+    if (v21 == 1)
     {
-      if (HIWORD(v61) != v54)
+      if (HIWORD(v46) != v39)
       {
         v6 = 0;
-        v27 = 1;
+        v21 = 1;
         goto LABEL_39;
       }
 
-      v59 = v62;
-      v38 = (*(a2 + 80))(a3, a4);
-      if (v38 < 0)
+      v44 = v47;
+      v28 = (*(a2 + 80))(a3, a4);
+      if (v28 < 0)
       {
-        LODWORD(v25) = v38;
-        return v25 | 0x80002000;
+        LODWORD(v19) = v28;
+        return v19 | 0x80002000;
       }
 
-      v39 = v59;
-      v66 = v54;
-      v65 = v26;
-      v64 = 0;
-      v63 = 6;
-      v40 = (*(a2 + 160))(a3, a4, v59, 0, 1, &v63, &v64);
-      if ((v40 & 0x80000000) != 0 || (v40 = (*(a2 + 160))(a3, a4, v39, 1, 1, &v66, &v64), (v40 & 0x80000000) != 0) || (v40 = (*(a2 + 160))(a3, a4, v39, 2, 1, &v65, &v64), (v40 & 0x80000000) != 0))
+      v29 = v44;
+      v51 = v39;
+      v50 = v20;
+      v49 = 0;
+      v48 = 6;
+      v30 = (*(a2 + 160))(a3, a4, v44, 0, 1, &v48, &v49);
+      if (v30 < 0 || (v30 = (*(a2 + 160))(a3, a4, v29, 1, 1, &v51, &v49), v30 < 0) || (v30 = (*(a2 + 160))(a3, a4, v29, 2, 1, &v50, &v49), v30 < 0))
       {
-        v6 = v40;
+        LODWORD(v6) = v30;
 LABEL_59:
-        v25 = a6;
-        v48 = a1;
+        v19 = a6;
+        v34 = a1;
         goto LABEL_60;
       }
 
-      v6 = loc_exportTokenIntTnSpecificFieldToLingDB(a1, a2, a3, a4, v13, v39);
+      v6 = loc_exportTokenIntTnSpecificFieldToLingDB(a1, a2, a3, a4, v13, v29);
       if ((v6 & 0x80000000) != 0)
       {
         goto LABEL_59;
@@ -1125,21 +1125,21 @@ LABEL_59:
       v6 = 0;
     }
 
-    v27 = 0;
+    v21 = 0;
 LABEL_39:
-    v45 = (*(a2 + 192))(a3, a4, v62);
-    v46 = *(a1 + 32);
-    if (v45)
+    v31 = (*(a2 + 192))(a3, a4, v47);
+    v32 = *(a1 + 32);
+    if (v31)
     {
-      log_OutPublic(v46, a6, 24033, "%s%d", v41, v42, v43, v44, "tokenRecId");
+      log_OutPublic(v32, a6, 24033, "%s%d", "tokenRecId", v47);
       goto LABEL_53;
     }
 
-    log_OutText(v46, a6, 5, 0, "deleting key %d", v42, v43, v44, v62);
-    if (!v53)
+    log_OutText(v32, a6, 5, 0, "deleting key %d", v47);
+    if (!v38)
     {
-      v18 = (*(a2 + 104))(a3, a4, 3, HIWORD(v62), &v62);
-      if ((v18 & 0x80000000) != 0)
+      v18 = (*(a2 + 104))(a3, a4, 3, HIWORD(v47), &v47);
+      if (v18 < 0)
       {
         goto LABEL_57;
       }
@@ -1147,29 +1147,29 @@ LABEL_39:
       continue;
     }
 
-    v47 = v53;
-    LOWORD(v62) = v53;
+    v33 = v38;
+    LOWORD(v47) = v38;
 LABEL_45:
-    v53 = v47;
-    if ((*(a2 + 120))(a3, a4, v47, &v62) || !v62)
+    v38 = v33;
+    if ((*(a2 + 120))(a3, a4, v33, &v47) || !v47)
     {
       goto LABEL_53;
     }
   }
 
-  v34 = 24030;
+  v24 = 24030;
 LABEL_55:
-  v6 = 2147491840;
-  v25 = a6;
-  v48 = a1;
-  v49 = *(a1 + 32);
-  v50 = a6;
+  LODWORD(v6) = -2147475456;
+  v19 = a6;
+  v34 = a1;
+  v35 = *(a1 + 32);
+  v36 = a6;
 LABEL_56:
-  log_OutPublic(v49, v50, v34, 0, v30, v31, v32, v33, v52);
+  log_OutPublic(v35, v36, v24, 0);
 LABEL_60:
-  log_OutText(*(v48 + 32), v25, 4, 0, "ldoutil : loc_replaceBasicTokensWithTokenIntTnInLingDB End (%x) ", v19, v20, v21, v6);
-  LODWORD(v25) = v6;
-  return v25 | 0x80002000;
+  log_OutText(*(v34 + 32), v19, 4, 0, "ldoutil : loc_replaceBasicTokensWithTokenIntTnInLingDB End (%x) ", v6);
+  LODWORD(v19) = v6;
+  return v19 | 0x80002000;
 }
 
 uint64_t LingDBIsValid(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4)
@@ -1404,7 +1404,7 @@ uint64_t loc_compute_overflow(uint64_t a1, unsigned int *a2, unsigned int *a3, _
   return v10;
 }
 
-uint64_t loc_importWordRecordFieldsFromLingDB(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, int a7, int a8, int a9, int a10)
+uint64_t loc_importWordRecordFieldsFromLingDB(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, int a8, int a9, int a10)
 {
   v51 = 0;
   v50 = 0;
@@ -1830,8 +1830,9 @@ uint64_t luavmldoutil_destroy_lua_vm(uint64_t result, uint64_t *a2)
   return result;
 }
 
-uint64_t hlp_luavmldoutil_initialize_lua_vm(_WORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6, char *__src, unsigned int a8, int a9)
+uint64_t hlp_luavmldoutil_initialize_lua_vm(_WORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6, char *__src, uint64_t a8, int a9)
 {
+  v9 = a8;
   v21 = 0;
   if (*a6)
   {
@@ -1864,7 +1865,7 @@ uint64_t hlp_luavmldoutil_initialize_lua_vm(_WORD *a1, uint64_t a2, uint64_t a3,
   v20 = *a6;
   if (a9 != 1)
   {
-    IsLuaCodeAvailable = LuaVMLDO_LoadScriptFromBuffer(v20, __src, a8);
+    IsLuaCodeAvailable = LuaVMLDO_LoadScriptFromBuffer(v20, __src, v9);
     if (!IsLuaCodeAvailable)
     {
       goto LABEL_20;
@@ -1976,7 +1977,7 @@ uint64_t LDO_ConFromText(void *a1, uint64_t a2, char *a3, char *a4, char *a5)
   return result;
 }
 
-uint64_t LDO_Des(uint64_t *a1)
+uint64_t LDO_Des(void *a1)
 {
   v2 = a1[3];
   if (!v2 || (result = OOC_PlacementDeleteObject(a1[1], v2), !result))
@@ -2291,7 +2292,7 @@ uint64_t LDO_ComputeLeafNodesByRange(uint64_t a1, _DWORD *a2, unsigned int *a3, 
   return ErrorArg;
 }
 
-uint64_t LDO_AppendNewNode(uint64_t a1, size_t a2, char *a3, char *a4, int a5, unsigned int a6, void *a7)
+uint64_t LDO_AppendNewNode(uint64_t a1, size_t a2, char *a3, char *a4, uint64_t a5, uint64_t a6, void *a7)
 {
   v9 = 0;
   result = PNEW_LDOTreeNode_Con(*(a1 + 8), *(a1 + 8), a2, a3, a4, a5, a6, &v9);
@@ -2440,13 +2441,14 @@ LABEL_8:
   return v11;
 }
 
-uint64_t LDO_ComputeOverlappingLabels(uint64_t a1, unsigned int *a2, unsigned int *a3, int a4, unsigned int *a5)
+uint64_t LDO_ComputeOverlappingLabels(uint64_t a1, unsigned int *a2, unsigned int *a3, uint64_t a4, unsigned int *a5)
 {
+  v6 = a4;
   v9 = 0;
   result = LDO_ValidateIndices(a1, a2, a3, &v9 + 1, &v9, 0);
   if (!result)
   {
-    return LDOLabelSet_ComputeOverlappingLabels(*(a1 + 32), HIDWORD(v9), v9, a4, a5);
+    return LDOLabelSet_ComputeOverlappingLabels(*(a1 + 32), HIDWORD(v9), v9, v6, a5);
   }
 
   return result;
@@ -2493,7 +2495,7 @@ __n128 LDO_GetLabels@<Q0>(uint64_t a1@<X0>, __n128 *a2@<X8>)
   return result;
 }
 
-uint64_t LDO_InsertNewNodeWithText(uint64_t a1, size_t a2, char *a3, char *a4, unsigned int a5, char *a6, uint64_t *a7)
+uint64_t LDO_InsertNewNodeWithText(uint64_t a1, size_t a2, char *a3, char *a4, uint64_t a5, char *a6, uint64_t *a7)
 {
   *v16 = 0;
   v10 = PNEW_LDOTreeNode_Con(*(a1 + 8), *(a1 + 8), a2, a3, a4, a5, a5, v16);
@@ -2538,7 +2540,7 @@ uint64_t LDO_SetText(uint64_t a1, size_t a2, char *__s)
   return result;
 }
 
-uint64_t LDO_ReplaceNodes(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t LDO_ReplaceNodes(void *a1, uint64_t a2, uint64_t a3)
 {
   v25 = 0;
   v26 = 0;
@@ -2557,7 +2559,7 @@ LABEL_24:
   v7 = *(v6 + 64);
   if (!v7)
   {
-    v7 = *(a1 + 16);
+    v7 = a1[2];
   }
 
   v8 = *(v6 + 104);
@@ -2583,7 +2585,7 @@ LABEL_24:
   v11 = HIDWORD(v25);
   v13 = v26;
   v12 = HIDWORD(v26);
-  ErrorArg = LDOLabelSet_ComputeContainedLabels(*(a1 + 32), HIDWORD(v26), v26, 0, &v22);
+  ErrorArg = LDOLabelSet_ComputeContainedLabels(a1[4], HIDWORD(v26), v26, 0, &v22);
   if (ErrorArg)
   {
     goto LABEL_24;
@@ -2595,13 +2597,13 @@ LABEL_24:
     goto LABEL_24;
   }
 
-  ErrorArg = LDOLabelSet_UpdateRegularLabels(*(a1 + 32), a2, a3);
+  ErrorArg = LDOLabelSet_UpdateRegularLabels(a1[4], a2, a3);
   if (ErrorArg)
   {
     goto LABEL_24;
   }
 
-  ErrorArg = LDOLabelSet_UpdateSpan(*(a1 + 32), HIDWORD(v26), v10 - v11);
+  ErrorArg = LDOLabelSet_UpdateSpan(a1[4], HIDWORD(v26), v10 - v11);
   if (ErrorArg)
   {
     goto LABEL_24;
@@ -2661,7 +2663,7 @@ LABEL_25:
   LODWORD(v22) = 0;
   if (v23)
   {
-    OOCAllocator_Free(*(a1 + 8), v23);
+    OOCAllocator_Free(a1[1], v23);
   }
 
   return v20;
@@ -2782,7 +2784,7 @@ uint64_t __LDO_DestroyLDOTreeNodeVector(uint64_t result)
   return result;
 }
 
-size_t LDO_ReplaceNodesUsingMapping(uint64_t a1, uint64_t a2)
+uint64_t LDO_ReplaceNodesUsingMapping(uint64_t a1, uint64_t a2)
 {
   v2 = *(a2 + 72);
   v3 = *(a2 + 80) - v2;
@@ -2975,10 +2977,10 @@ LABEL_27:
   return v25;
 }
 
-uint64_t LDO_ToString(uint64_t a1, uint64_t *a2)
+uint64_t LDO_ToString(void *a1, uint64_t *a2)
 {
   v18 = 0;
-  v4 = PNEW_LDOString_Con(*(a1 + 8), *(a1 + 8), a2);
+  v4 = PNEW_LDOString_Con(a1[1], a1[1], a2);
   if (v4)
   {
     return v4;
@@ -2988,10 +2990,10 @@ uint64_t LDO_ToString(uint64_t a1, uint64_t *a2)
   appended = LHString_Append(v5, "LDO\n");
   if (!appended)
   {
-    appended = LDOString_AppendPrefixStringSuffix(v5, "  Initial text: ", *(a1 + 24), "\n");
+    appended = LDOString_AppendPrefixStringSuffix(v5, "  Initial text: ", a1[3], "\n");
     if (!appended)
     {
-      v10 = LDOTreeNode_ComputeText(*(a1 + 16), &v18);
+      v10 = LDOTreeNode_ComputeText(a1[2], &v18);
       v11 = v18;
       if (v10)
       {
@@ -3012,7 +3014,7 @@ uint64_t LDO_ToString(uint64_t a1, uint64_t *a2)
         v18 = 0;
       }
 
-      v14 = *(a1 + 16);
+      v14 = a1[2];
       if (v14)
       {
         v10 = (*(*v14 + 24))(v14, &v18, v11);
@@ -3039,7 +3041,7 @@ uint64_t LDO_ToString(uint64_t a1, uint64_t *a2)
           v18 = 0;
         }
 
-        v16 = *(a1 + 32);
+        v16 = a1[4];
         if (!v16)
         {
           v11 = 0;
@@ -4539,7 +4541,7 @@ void PNEW_LDOLabel_ConSpecial(uint64_t a1, uint64_t a2, char *a3, char *a4, int 
   }
 }
 
-uint64_t LDOTreeNode_Con(uint64_t a1, uint64_t a2, size_t a3, char *a4, char *a5, int a6, unsigned int a7)
+uint64_t LDOTreeNode_Con(uint64_t a1, uint64_t a2, size_t a3, char *a4, char *a5, int a6, int a7)
 {
   v14 = a7;
   v15 = a6;
@@ -4713,7 +4715,7 @@ uint64_t LDOTreeNode_ConEx(uint64_t a1, uint64_t a2, size_t a3, char *a4, char *
   return result;
 }
 
-uint64_t LDOTreeNode_ConRoot(uint64_t a1, uint64_t a2, char *a3, char *a4, char *a5)
+uint64_t LDOTreeNode_ConRoot(size_t a1, uint64_t a2, char *a3, char *a4, char *a5)
 {
   result = LDOObject_Con(a1, a2);
   if (!result)
@@ -4738,7 +4740,7 @@ uint64_t LDOTreeNode_ConRoot(uint64_t a1, uint64_t a2, char *a3, char *a4, char 
   return result;
 }
 
-uint64_t LDOTreeNode_SetText(uint64_t a1, char *a2)
+uint64_t LDOTreeNode_SetText(size_t a1, char *a2)
 {
   v27 = 0;
   v26 = 0;
@@ -5426,7 +5428,7 @@ uint64_t __LDOTreeNode_ComputeChildIndex(uint64_t a1, _DWORD *a2, _DWORD *a3)
   return err_GenerateErrorArg();
 }
 
-uint64_t LDOTreeNode_ComputeRoot(uint64_t result, void *a2)
+uint64_t LDOTreeNode_ComputeRoot(uint64_t result, uint64_t *a2)
 {
   do
   {
@@ -6253,7 +6255,7 @@ LABEL_16:
   return v5;
 }
 
-uint64_t PNEW_LDOTreeNode_Con(uint64_t a1, uint64_t a2, size_t a3, char *a4, char *a5, int a6, unsigned int a7, uint64_t *a8)
+uint64_t PNEW_LDOTreeNode_Con(uint64_t a1, uint64_t a2, size_t a3, char *a4, char *a5, int a6, int a7, uint64_t *a8)
 {
   v18 = 0;
   v16 = OOCAllocator_Malloc(a1, 112, &v18);
@@ -7092,13 +7094,13 @@ LABEL_11:
   return v12;
 }
 
-uint64_t LDOLabelSet_ComputeContainedLabels(uint64_t *a1, unsigned int a2, unsigned int a3, int a4, unsigned int *a5)
+uint64_t LDOLabelSet_ComputeContainedLabels(void *a1, unsigned int a2, unsigned int a3, int a4, unsigned int *a5)
 {
   result = 0;
   v31 = 0;
   *a5 = 0;
   *(a5 + 1) = 0;
-  v7 = (a5 + 2);
+  v7 = a5 + 2;
   *(a5 + 2) = 0;
   v8 = a1[3];
   if (v8 < a1[4])
@@ -7173,13 +7175,13 @@ uint64_t LDOLabelSet_ComputeContainedLabels(uint64_t *a1, unsigned int a2, unsig
   return result;
 }
 
-uint64_t LDOLabelSet_ComputeOverlappingLabels(uint64_t *a1, unsigned int a2, unsigned int a3, int a4, unsigned int *a5)
+uint64_t LDOLabelSet_ComputeOverlappingLabels(void *a1, unsigned int a2, unsigned int a3, int a4, unsigned int *a5)
 {
   result = 0;
   v33 = 0;
   *a5 = 0;
   *(a5 + 1) = 0;
-  v7 = (a5 + 2);
+  v7 = a5 + 2;
   *(a5 + 2) = 0;
   v8 = a1[3];
   if (v8 < a1[4])
@@ -7595,7 +7597,7 @@ uint64_t PNEW_LDOLabelSet_Con(uint64_t a1, uint64_t a2, uint64_t *a3)
   return result;
 }
 
-uint64_t LDOTreeNodeMappingItem_Con(uint64_t a1, uint64_t a2)
+uint64_t LDOTreeNodeMappingItem_Con(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = LDOObject_Con(a1, a2);
   if (!result)
@@ -8777,7 +8779,7 @@ LABEL_11:
   return result;
 }
 
-uint64_t LDOObject_RemoveAttributes(uint64_t *a1)
+uint64_t LDOObject_RemoveAttributes(void *a1)
 {
   v17 = 0;
   v1 = a1[4];

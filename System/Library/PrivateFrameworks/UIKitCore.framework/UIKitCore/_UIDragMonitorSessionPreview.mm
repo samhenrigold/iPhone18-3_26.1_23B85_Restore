@@ -136,8 +136,8 @@
 
 - (CGSize)previewScaledSize
 {
-  preview = [(_UIDragMonitorSessionPreview *)self preview];
-  [preview scaledSize];
+  v2 = objc_msgSend_preview(self, a2);
+  [v2 scaledSize];
   v4 = v3;
   v6 = v5;
 
@@ -150,8 +150,8 @@
 
 - (CGSize)previewContentSize
 {
-  preview = [(_UIDragMonitorSessionPreview *)self preview];
-  [preview contentSize];
+  v2 = objc_msgSend_preview(self, a2);
+  [v2 contentSize];
   v4 = v3;
   v6 = v5;
 
@@ -164,8 +164,8 @@
 
 - (CGPoint)previewContentOffset
 {
-  preview = [(_UIDragMonitorSessionPreview *)self preview];
-  [preview contentOffset];
+  v2 = objc_msgSend_preview(self, a2);
+  [v2 contentOffset];
   v4 = v3;
   v6 = v5;
 
@@ -178,8 +178,8 @@
 
 - (UIBezierPath)outline
 {
-  preview = [(_UIDragMonitorSessionPreview *)self preview];
-  outline = [preview outline];
+  v2 = objc_msgSend_preview(self, a2);
+  outline = [v2 outline];
 
   return outline;
 }

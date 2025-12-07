@@ -36,7 +36,7 @@ void __88__PLCloudSharingViewedStateChangeJob__executeAssetLastViewedCommentDate
   v4 = [v2 arrayWithObject:v3];
   v5 = [PLManagedAsset cloudSharedAssetsWithGUIDs:v4 inLibrary:*(a1 + 40)];
 
-  if ([v5 count] >= 2)
+  if (objc_msgSend_count(v5) >= 2)
   {
     v6 = PLPhotoSharingGetLog();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -103,7 +103,7 @@ void __84__PLCloudSharingViewedStateChangeJob__executeAssetCommentsReadStateChan
   v4 = [v2 arrayWithObject:v3];
   v5 = [PLManagedAsset cloudSharedAssetsWithGUIDs:v4 inLibrary:*(a1 + 40)];
 
-  if ([v5 count] >= 2)
+  if (objc_msgSend_count(v5) >= 2)
   {
     v6 = PLPhotoSharingGetLog();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))

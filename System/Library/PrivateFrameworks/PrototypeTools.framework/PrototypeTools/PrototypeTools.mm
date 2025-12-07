@@ -1,4 +1,4 @@
-uint64_t PTInstallIsAppleInternal()
+uint64_t PTInstallIsAppleInternal(uint64_t a1, uint64_t a2)
 {
   if (PTInstallIsAppleInternal_onceToken != -1)
   {
@@ -119,7 +119,7 @@ void sub_21E626334(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t OUTLINED_FUNCTION_0()
+uint64_t OUTLINED_FUNCTION_0(uint64_t a1)
 {
 
   return NSRequestConcreteImplementation();
@@ -128,7 +128,7 @@ uint64_t OUTLINED_FUNCTION_0()
 void PTTransactionBegin(void *a1)
 {
   v1 = a1;
-  v2 = _TransactionQueue();
+  v2 = _TransactionQueue(v1);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __PTTransactionBegin_block_invoke;
@@ -138,27 +138,27 @@ void PTTransactionBegin(void *a1)
   dispatch_sync(v2, block);
 }
 
-id _TransactionQueue()
+id _TransactionQueue(uint64_t a1)
 {
   if (_TransactionQueue_onceToken != -1)
   {
     _TransactionQueue_cold_1();
   }
 
-  v1 = _TransactionQueue___queue;
+  v2 = _TransactionQueue___queue;
 
-  return v1;
+  return v2;
 }
 
 void __PTTransactionBegin_block_invoke(uint64_t a1)
 {
-  v2 = _TransactionsByReason();
+  v2 = _TransactionsByReason(a1);
   v5 = [v2 objectForKey:*(a1 + 32)];
 
   if (!v5)
   {
     v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v3 = _TransactionsByReason();
+    v3 = _TransactionsByReason(v5);
     [v3 setObject:v5 forKey:*(a1 + 32)];
   }
 
@@ -167,22 +167,22 @@ void __PTTransactionBegin_block_invoke(uint64_t a1)
   [v5 addObject:v4];
 }
 
-id _TransactionsByReason()
+id _TransactionsByReason(uint64_t a1)
 {
   if (_TransactionsByReason_onceToken != -1)
   {
     _TransactionsByReason_cold_1();
   }
 
-  v1 = _TransactionsByReason___transactions;
+  v2 = _TransactionsByReason___transactions;
 
-  return v1;
+  return v2;
 }
 
 void PTTransactionEnd(void *a1)
 {
   v1 = a1;
-  v2 = _TransactionQueue();
+  v2 = _TransactionQueue(v1);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __PTTransactionEnd_block_invoke;
@@ -195,7 +195,7 @@ void PTTransactionEnd(void *a1)
 void __PTTransactionEnd_block_invoke(uint64_t a1)
 {
   v8 = *MEMORY[0x277D85DE8];
-  v2 = _TransactionsByReason();
+  v2 = _TransactionsByReason(a1);
   v3 = [v2 objectForKey:*(a1 + 32)];
 
   if ([v3 count])
@@ -247,16 +247,16 @@ id PTHomeDirectory()
   return v3;
 }
 
-id PTPrototypeDirectory()
+id PTPrototypeDirectory(uint64_t a1)
 {
   if (PTPrototypeDirectory_onceToken != -1)
   {
     PTPrototypeDirectory_cold_1();
   }
 
-  v1 = PTPrototypeDirectory___path;
+  v2 = PTPrototypeDirectory___path;
 
-  return v1;
+  return v2;
 }
 
 void __PTPrototypeDirectory_block_invoke()
@@ -379,16 +379,16 @@ LABEL_27:
   return v14;
 }
 
-id PTPlistableClasses()
+id PTPlistableClasses(uint64_t a1)
 {
   if (PTPlistableClasses_onceToken != -1)
   {
     PTPlistableClasses_cold_1();
   }
 
-  v1 = PTPlistableClasses_classes;
+  v2 = PTPlistableClasses_classes;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __PTPlistableClasses_block_invoke()
@@ -406,36 +406,36 @@ uint64_t __PTPlistableClasses_block_invoke()
   return MEMORY[0x2821F96F8](v6, v7);
 }
 
-uint64_t PTValidateDictionary(void *a1)
+uint64_t PTValidateDictionary(void *a1, uint64_t a2, uint64_t a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v1 = a1;
+  v19 = *MEMORY[0x277D85DE8];
+  v3 = a1;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
+    v16 = 0u;
+    v17 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v12 = 0u;
-    v13 = 0u;
-    v2 = v1;
-    v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
-    if (v3)
+    v4 = v3;
+    v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    if (v5)
     {
-      v4 = v3;
-      v5 = *v13;
+      v6 = v5;
+      v7 = *v15;
       while (2)
       {
-        for (i = 0; i != v4; ++i)
+        for (i = 0; i != v6; ++i)
         {
-          if (*v13 != v5)
+          if (*v15 != v7)
           {
-            objc_enumerationMutation(v2);
+            objc_enumerationMutation(v4);
           }
 
-          v7 = *(*(&v12 + 1) + 8 * i);
+          v9 = *(*(&v14 + 1) + 8 * i);
           if (objc_opt_isKindOfClass())
           {
-            v8 = [v2 objectForKeyedSubscript:{v7, v12}];
+            v10 = [v4 objectForKeyedSubscript:{v9, v14}];
             isKindOfClass = objc_opt_isKindOfClass();
 
             if (isKindOfClass)
@@ -444,13 +444,13 @@ uint64_t PTValidateDictionary(void *a1)
             }
           }
 
-          v10 = 0;
+          v12 = 0;
           goto LABEL_15;
         }
 
-        v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
-        v10 = 1;
-        if (v4)
+        v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v12 = 1;
+        if (v6)
         {
           continue;
         }
@@ -461,7 +461,7 @@ uint64_t PTValidateDictionary(void *a1)
 
     else
     {
-      v10 = 1;
+      v12 = 1;
     }
 
 LABEL_15:
@@ -469,51 +469,51 @@ LABEL_15:
 
   else
   {
-    v10 = 0;
+    v12 = 0;
   }
 
-  return v10;
+  return v12;
 }
 
-uint64_t PTValidateArray(void *a1)
+uint64_t PTValidateArray(void *a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v1 = a1;
+  v15 = *MEMORY[0x277D85DE8];
+  v2 = a1;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v11 = 0u;
     v12 = 0u;
-    v9 = 0u;
+    v13 = 0u;
     v10 = 0u;
-    v2 = v1;
-    v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
-    if (v3)
+    v11 = 0u;
+    v3 = v2;
+    v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+    if (v4)
     {
-      v4 = v3;
-      v5 = *v10;
+      v5 = v4;
+      v6 = *v11;
       while (2)
       {
-        v6 = 0;
+        v7 = 0;
         do
         {
-          if (*v10 != v5)
+          if (*v11 != v6)
           {
-            objc_enumerationMutation(v2);
+            objc_enumerationMutation(v3);
           }
 
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
-            v7 = 0;
+            v8 = 0;
             goto LABEL_13;
           }
 
-          ++v6;
+          ++v7;
         }
 
-        while (v4 != v6);
-        v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
-        if (v4)
+        while (v5 != v7);
+        v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+        if (v5)
         {
           continue;
         }
@@ -522,57 +522,57 @@ uint64_t PTValidateArray(void *a1)
       }
     }
 
-    v7 = 1;
+    v8 = 1;
 LABEL_13:
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  return v7;
+  return v8;
 }
 
-uint64_t PTValidateSet(void *a1)
+uint64_t PTValidateSet(void *a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v1 = a1;
+  v15 = *MEMORY[0x277D85DE8];
+  v2 = a1;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v11 = 0u;
     v12 = 0u;
-    v9 = 0u;
+    v13 = 0u;
     v10 = 0u;
-    v2 = v1;
-    v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
-    if (v3)
+    v11 = 0u;
+    v3 = v2;
+    v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+    if (v4)
     {
-      v4 = v3;
-      v5 = *v10;
+      v5 = v4;
+      v6 = *v11;
       while (2)
       {
-        v6 = 0;
+        v7 = 0;
         do
         {
-          if (*v10 != v5)
+          if (*v11 != v6)
           {
-            objc_enumerationMutation(v2);
+            objc_enumerationMutation(v3);
           }
 
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
-            v7 = 0;
+            v8 = 0;
             goto LABEL_13;
           }
 
-          ++v6;
+          ++v7;
         }
 
-        while (v4 != v6);
-        v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
-        if (v4)
+        while (v5 != v7);
+        v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+        if (v5)
         {
           continue;
         }
@@ -581,16 +581,16 @@ uint64_t PTValidateSet(void *a1)
       }
     }
 
-    v7 = 1;
+    v8 = 1;
 LABEL_13:
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  return v7;
+  return v8;
 }
 
 uint64_t PTValidatePredicate(void *a1)
@@ -706,7 +706,7 @@ uint64_t PTPrototypingEventAvailable(uint64_t a1)
   return v4;
 }
 
-uint64_t __PTPrototypingEventAvailable_block_invoke()
+void *__PTPrototypingEventAvailable_block_invoke()
 {
   v0 = objc_alloc_init(MEMORY[0x277CBEB58]);
   v1 = PTPrototypingEventAvailable___availableEvents;
@@ -800,15 +800,15 @@ __CFString *PTPrototypingEventsDescription(void *a1)
   return v6;
 }
 
-void sub_21E62B4D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_21E62B4D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t __PTPrototypingEventsDescription_block_invoke(uint64_t a1, uint64_t a2)
+void *__PTPrototypingEventsDescription_block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) containsIndex:a2];
   if (result)
@@ -819,7 +819,7 @@ uint64_t __PTPrototypingEventsDescription_block_invoke(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t __PTPrototypingEventsDescription_block_invoke_2(uint64_t a1, unint64_t a2, _BYTE *a3)
+void *__PTPrototypingEventsDescription_block_invoke_2(uint64_t a1, unint64_t a2, _BYTE *a3)
 {
   result = [*(a1 + 32) containsIndex:a2];
   if (result)
@@ -861,12 +861,12 @@ uint64_t __PTPrototypingEventsDescription_block_invoke_2(uint64_t a1, unint64_t 
   return result;
 }
 
-id _ParameterRecordsPath()
+id _ParameterRecordsPath(uint64_t a1)
 {
-  v0 = PTPrototypeDirectory();
-  v1 = [v0 stringByAppendingPathComponent:@"ParameterRecords.archive"];
+  v1 = PTPrototypeDirectory(a1);
+  v2 = [v1 stringByAppendingPathComponent:@"ParameterRecords.archive"];
 
-  return v1;
+  return v2;
 }
 
 void sub_21E62F154(_Unwind_Exception *a1)
@@ -876,50 +876,50 @@ void sub_21E62F154(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-id _ProxyDefinitionDirectory()
+id _ProxyDefinitionDirectory(uint64_t a1)
 {
   if (_ProxyDefinitionDirectory_onceToken != -1)
   {
     _ProxyDefinitionDirectory_cold_1();
   }
 
-  v1 = _ProxyDefinitionDirectory___path;
+  v2 = _ProxyDefinitionDirectory___path;
 
-  return v1;
+  return v2;
 }
 
-id _SettingsArchiveDirectory()
+id _SettingsArchiveDirectory(uint64_t a1)
 {
   if (_SettingsArchiveDirectory_onceToken != -1)
   {
     _SettingsArchiveDirectory_cold_1();
   }
 
-  v1 = _SettingsArchiveDirectory___path;
+  v2 = _SettingsArchiveDirectory___path;
 
-  return v1;
+  return v2;
 }
 
-id _DomainInfoPath()
+id _DomainInfoPath(uint64_t a1)
 {
-  v0 = PTPrototypeDirectory();
-  v1 = [v0 stringByAppendingPathComponent:@"DomainInfo.archive"];
+  v1 = PTPrototypeDirectory(a1);
+  v2 = [v1 stringByAppendingPathComponent:@"DomainInfo.archive"];
 
-  return v1;
+  return v2;
 }
 
-id _TestRecipeInfoPath()
+id _TestRecipeInfoPath(uint64_t a1)
 {
-  v0 = PTPrototypeDirectory();
-  v1 = [v0 stringByAppendingPathComponent:@"TestRecipeInfo.archive"];
+  v1 = PTPrototypeDirectory(a1);
+  v2 = [v1 stringByAppendingPathComponent:@"TestRecipeInfo.archive"];
 
-  return v1;
+  return v2;
 }
 
 id _ProxyDefinitionPath(void *a1)
 {
   v1 = [a1 stringByAppendingPathExtension:@"archive"];
-  v2 = _ProxyDefinitionDirectory();
+  v2 = _ProxyDefinitionDirectory(v1);
   v3 = [v2 stringByAppendingPathComponent:v1];
 
   return v3;
@@ -928,7 +928,7 @@ id _ProxyDefinitionPath(void *a1)
 id _SettingsArchivePath(void *a1)
 {
   v1 = [a1 stringByAppendingPathExtension:@"settings"];
-  v2 = _SettingsArchiveDirectory();
+  v2 = _SettingsArchiveDirectory(v1);
   v3 = [v2 stringByAppendingPathComponent:v1];
 
   return v3;
@@ -1034,64 +1034,68 @@ void sub_21E62FAB0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
   _Unwind_Resume(a1);
 }
 
-id _PTReadDomainInfo()
+id _PTReadDomainInfo(uint64_t a1)
 {
-  v0 = _DomainInfoPath();
-  v1 = objc_opt_class();
-  v2 = _ReadInfo(v0, v1, @"domain info");
+  v1 = _DomainInfoPath(a1);
+  v2 = objc_opt_class();
+  v3 = _ReadInfo(v1, v2, @"domain info");
 
-  return v2;
+  return v3;
 }
 
 void _PTWriteDomainInfo(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v10 = 0;
-  v1 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:a1 requiringSecureCoding:1 error:&v10];
-  v2 = v10;
-  if (!v1 || (_DomainInfoPath(), v3 = objc_claimAutoreleasedReturnValue(), v9 = v2, v4 = [v1 writeToFile:v3 options:1 error:&v9], v5 = v9, v2, v3, v2 = v5, (v4 & 1) == 0))
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0;
+  v1 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:a1 requiringSecureCoding:1 error:&v12];
+  v2 = v12;
+  v3 = v2;
+  if (!v1 || (_DomainInfoPath(v2), v4 = objc_claimAutoreleasedReturnValue(), v11 = v3, v5 = [v1 writeToFile:v4 options:1 error:&v11], v6 = v11, v3, v4, v3 = v6, (v5 & 1) == 0))
   {
-    v6 = PTLogObjectForTopic(2);
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = PTLogObjectForTopic(2);
+    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+    if (v8)
     {
-      v7 = _DomainInfoPath();
-      v8 = [v2 localizedDescription];
+      v9 = _DomainInfoPath(v8);
+      v10 = [v3 localizedDescription];
       *buf = 138412546;
-      v12 = v7;
-      v13 = 2112;
-      v14 = v8;
-      _os_log_impl(&dword_21E61D000, v6, OS_LOG_TYPE_DEFAULT, "Unable to write domain dictionary to file %@: %@", buf, 0x16u);
+      v14 = v9;
+      v15 = 2112;
+      v16 = v10;
+      _os_log_impl(&dword_21E61D000, v7, OS_LOG_TYPE_DEFAULT, "Unable to write domain dictionary to file %@: %@", buf, 0x16u);
     }
   }
 }
 
-id _PTReadTestRecipeInfo()
+id _PTReadTestRecipeInfo(uint64_t a1)
 {
-  v0 = _TestRecipeInfoPath();
-  v1 = objc_opt_class();
-  v2 = _ReadInfo(v0, v1, @"test recipe info");
+  v1 = _TestRecipeInfoPath(a1);
+  v2 = objc_opt_class();
+  v3 = _ReadInfo(v1, v2, @"test recipe info");
 
-  return v2;
+  return v3;
 }
 
 void _PTWriteTestRecipeInfo(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v10 = 0;
-  v1 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:a1 requiringSecureCoding:1 error:&v10];
-  v2 = v10;
-  if (!v1 || (_DomainInfoPath(), v3 = objc_claimAutoreleasedReturnValue(), v9 = v2, v4 = [v1 writeToFile:v3 options:1 error:&v9], v5 = v9, v2, v3, v2 = v5, (v4 & 1) == 0))
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0;
+  v1 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:a1 requiringSecureCoding:1 error:&v12];
+  v2 = v12;
+  v3 = v2;
+  if (!v1 || (_DomainInfoPath(v2), v4 = objc_claimAutoreleasedReturnValue(), v11 = v3, v5 = [v1 writeToFile:v4 options:1 error:&v11], v6 = v11, v3, v4, v3 = v6, (v5 & 1) == 0))
   {
-    v6 = PTLogObjectForTopic(2);
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = PTLogObjectForTopic(2);
+    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+    if (v8)
     {
-      v7 = _DomainInfoPath();
-      v8 = [v2 localizedDescription];
+      v9 = _DomainInfoPath(v8);
+      v10 = [v3 localizedDescription];
       *buf = 138412546;
-      v12 = v7;
-      v13 = 2112;
-      v14 = v8;
-      _os_log_impl(&dword_21E61D000, v6, OS_LOG_TYPE_DEFAULT, "Unable to write test recipe dictionary to file %@: %@", buf, 0x16u);
+      v14 = v9;
+      v15 = 2112;
+      v16 = v10;
+      _os_log_impl(&dword_21E61D000, v7, OS_LOG_TYPE_DEFAULT, "Unable to write test recipe dictionary to file %@: %@", buf, 0x16u);
     }
   }
 }
@@ -1291,54 +1295,53 @@ void _PTClearSettingsArchive(void *a1)
 
 void _PTMigrateIfNecessary()
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v0 = +[PTDefaults sharedInstance];
   v1 = [MEMORY[0x277CCAA00] defaultManager];
   if ([v0 shouldClearPrototypeCachesForMigration])
   {
-    [v0 setShouldClearPrototypeCachesForMigration:0];
-    v2 = _DomainInfoPath();
+    v2 = _DomainInfoPath([v0 setShouldClearPrototypeCachesForMigration:0]);
     [v1 removeItemAtPath:v2 error:0];
 
-    v3 = _TestRecipeInfoPath();
-    [v1 removeItemAtPath:v3 error:0];
+    v4 = _TestRecipeInfoPath(v3);
+    [v1 removeItemAtPath:v4 error:0];
   }
 
   if ([v0 shouldClearSettingsArchivesForMigration])
   {
-    [v0 setShouldClearSettingsArchivesForMigration:0];
-    v15 = 0u;
     v16 = 0u;
-    v13 = 0u;
+    v17 = 0u;
     v14 = 0u;
-    v4 = _SettingsArchiveDirectory();
-    v5 = [v1 contentsOfDirectoryAtPath:v4 error:{0, 0}];
+    v15 = 0u;
+    v5 = _SettingsArchiveDirectory([v0 setShouldClearSettingsArchivesForMigration:0]);
+    v6 = [v1 contentsOfDirectoryAtPath:v5 error:{0, 0}];
 
-    v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
-    if (v6)
+    v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    if (v7)
     {
-      v7 = v6;
-      v8 = *v14;
+      v8 = v7;
+      v9 = *v15;
       do
       {
-        v9 = 0;
+        v10 = 0;
         do
         {
-          if (*v14 != v8)
+          if (*v15 != v9)
           {
-            objc_enumerationMutation(v5);
+            objc_enumerationMutation(v6);
           }
 
-          v10 = *(*(&v13 + 1) + 8 * v9);
-          v11 = _SettingsArchiveDirectory();
-          v12 = [v11 stringByAppendingPathComponent:v10];
-          [v1 removeItemAtPath:v12 error:0];
+          v11 = *(*(&v14 + 1) + 8 * v10);
+          v12 = _SettingsArchiveDirectory(v7);
+          v13 = [v12 stringByAppendingPathComponent:v11];
+          [v1 removeItemAtPath:v13 error:0];
 
-          ++v9;
+          ++v10;
         }
 
-        while (v7 != v9);
-        v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        while (v8 != v10);
+        v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = v7;
       }
 
       while (v7);
@@ -1353,9 +1356,9 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_21E634BE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_21E634BE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }

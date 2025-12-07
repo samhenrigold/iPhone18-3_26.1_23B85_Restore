@@ -80,7 +80,7 @@ LABEL_26:
     {
       if ([(MapsSuggestionsTooEarlyFilter *)v9 shouldKeepEntry:v8])
       {
-        if (!MapsSuggestionsEntriesAtLeastOneIsOfType(24, entryCopy, v8) && !MapsSuggestionsAtLeastOneEntryIsShortcut(v8, entryCopy) && !MapsSuggestionsEntriesAreBothOfType(23, entryCopy, v8))
+        if (!MapsSuggestionsEntriesAtLeastOneIsOfType(0x18, entryCopy, v8) && !MapsSuggestionsAtLeastOneEntryIsShortcut(v8, entryCopy) && !MapsSuggestionsEntriesAreBothOfType(0x17, entryCopy, v8))
         {
           geoMapItem = [entryCopy geoMapItem];
           if (geoMapItem)

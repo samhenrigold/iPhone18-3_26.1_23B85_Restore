@@ -28,7 +28,7 @@
 - (id)debugDescription
 {
   propertyListDictionary = [(PFAssetAdjustments *)self propertyListDictionary];
-  v4 = [propertyListDictionary mutableCopy];
+  v4 = objc_msgSend_mutableCopy(propertyListDictionary);
 
   v5 = [(PFAssetAdjustments *)self deserializedAdjustmentDataWithError:0];
   if (v5)
@@ -64,7 +64,7 @@
   atomicallyCopy = atomically;
   lCopy = l;
   propertyListDictionary = [(PFAssetAdjustments *)self propertyListDictionary];
-  v8 = [propertyListDictionary mutableCopy];
+  v8 = objc_msgSend_mutableCopy(propertyListDictionary);
 
   adjustmentTimestamp = self->_adjustmentTimestamp;
   if (adjustmentTimestamp)
@@ -547,7 +547,7 @@ LABEL_13:
         path = v14;
         if (!v14 || ([v14 isEqual:v12] & 1) == 0)
         {
-          v16 = [v9 mutableCopy];
+          v16 = objc_msgSend_mutableCopy(v9);
           [v16 setObject:v12 forKeyedSubscript:@"adjustmentData"];
 
           v9 = v16;

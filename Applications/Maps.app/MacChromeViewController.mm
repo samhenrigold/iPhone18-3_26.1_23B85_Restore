@@ -1231,7 +1231,7 @@ LABEL_13:
       v9 = routeAttributes2;
       if (routeAttributes2)
       {
-        [routeAttributes2 timepoint];
+        objc_msgSend_timepoint(routeAttributes2);
       }
 
       else

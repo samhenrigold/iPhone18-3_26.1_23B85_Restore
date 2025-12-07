@@ -23,7 +23,7 @@
 
 - (void)_logFailure
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v3 = flowLogHandle;
   if (os_log_type_enabled(flowLogHandle, OS_LOG_TYPE_ERROR))
   {
@@ -45,35 +45,35 @@
     v10 = timeStringMillisecondsFromReferenceInterval(v9);
     failedFlows = [(ConnectionFailureTracker *)self failedFlows];
     *buf = 136316418;
-    v35 = v5;
-    v36 = 2112;
-    v37 = processName;
-    v38 = 1024;
-    *v39 = ifIndex;
-    *&v39[4] = 1024;
-    *&v39[6] = numConsecutiveFailures;
-    v40 = 2112;
-    v41 = v10;
-    v42 = 1024;
-    v43 = [failedFlows count];
+    v34 = v5;
+    v35 = 2112;
+    v36 = processName;
+    v37 = 1024;
+    *v38 = ifIndex;
+    *&v38[4] = 1024;
+    *&v38[6] = numConsecutiveFailures;
+    v39 = 2112;
+    v40 = v10;
+    v41 = 1024;
+    v42 = [failedFlows count];
     _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_ERROR, "RCF: Repeated TCPv%s connection failures seen from %@ on interface index %d, total %d starting at %@, last %d are:", buf, 0x32u);
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   failedFlows2 = [(ConnectionFailureTracker *)self failedFlows];
-  v13 = [failedFlows2 countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v13 = [failedFlows2 countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v30;
+    v15 = *v29;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v30 != v15)
+        if (*v29 != v15)
         {
           objc_enumerationMutation(failedFlows2);
         }
@@ -81,7 +81,7 @@
         v17 = flowLogHandle;
         if (os_log_type_enabled(flowLogHandle, OS_LOG_TYPE_ERROR))
         {
-          v18 = *(*(&v29 + 1) + 8 * i);
+          v18 = *(*(&v28 + 1) + 8 * i);
           v19 = v17;
           [v18 flowStart];
           v21 = timeStringMillisecondsFromReferenceInterval(v20);
@@ -92,27 +92,25 @@
           [v18 flowDuration];
           v27 = timeStringMillisecondsFromReferenceInterval(v25 + v26);
           *buf = 138412802;
-          v35 = v21;
-          v36 = 2048;
-          v37 = v23;
-          v38 = 2112;
-          *v39 = v27;
+          v34 = v21;
+          v35 = 2048;
+          v36 = v23;
+          v37 = 2112;
+          *v38 = v27;
           _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_ERROR, "RCF:   Connection failure:  flow start %@  duration %.3f  end %@", buf, 0x20u);
         }
       }
 
-      v14 = [failedFlows2 countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v14 = [failedFlows2 countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v14);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_reportFailure:(unint64_t)failure owner:(id)owner
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   ownerCopy = owner;
   v7 = flowLogHandle;
   if (os_log_type_enabled(flowLogHandle, OS_LOG_TYPE_ERROR))
@@ -129,15 +127,15 @@
     }
 
     processName = [(ConnectionFailureTracker *)self processName];
-    v16 = 136315906;
-    v17 = v9;
-    v18 = 2112;
-    v19 = processName;
-    v20 = 1024;
+    v15 = 136315906;
+    v16 = v9;
+    v17 = 2112;
+    v18 = processName;
+    v19 = 1024;
     ifIndex = [(ConnectionFailureTracker *)self ifIndex];
-    v22 = 2048;
+    v21 = 2048;
     failureCopy = failure;
-    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_ERROR, "RCF: Report repeated TCPv%s connection failures from %@ on interface index %d, suppressed reports %lld", &v16, 0x26u);
+    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_ERROR, "RCF: Report repeated TCPv%s connection failures from %@ on interface index %d, suppressed reports %lld", &v15, 0x26u);
   }
 
   [(ConnectionFailureTracker *)self lastConnectionFailTime];
@@ -170,13 +168,11 @@
   [(ConnectionFailureTracker *)self isIPv6];
   internal_symptom_set_qualifier();
   internal_symptom_send();
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)noteInitialSnapshot:(id)snapshot
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   snapshotCopy = snapshot;
   v5 = objc_alloc_init(ConnectionFailureInstance);
   [snapshotCopy flowStartTimeIntervalSinceReferenceDate];
@@ -208,31 +204,31 @@ LABEL_14:
         if ([snapshotCopy interfaceCellular])
         {
           selfCopy3 = self;
-          v24 = 2;
+          v23 = 2;
 LABEL_20:
-          [(ConnectionFailureTracker *)selfCopy3 setIfType:v24];
+          [(ConnectionFailureTracker *)selfCopy3 setIfType:v23];
           goto LABEL_3;
         }
 
         if ([snapshotCopy interfaceWiFi])
         {
           selfCopy3 = self;
-          v24 = 1;
+          v23 = 1;
           goto LABEL_20;
         }
 
         if ([snapshotCopy interfaceWired])
         {
           selfCopy3 = self;
-          v24 = 3;
+          v23 = 3;
           goto LABEL_20;
         }
 
         v19 = flowLogHandle;
         if (os_log_type_enabled(flowLogHandle, OS_LOG_TYPE_ERROR))
         {
-          v25 = 138477827;
-          v26 = snapshotCopy;
+          v24 = 138477827;
+          v25 = snapshotCopy;
           v20 = "RCF: Can't derive interface type  from %{private}@";
           goto LABEL_10;
         }
@@ -250,11 +246,11 @@ LABEL_20:
     v19 = flowLogHandle;
     if (os_log_type_enabled(flowLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v25 = 138477827;
-      v26 = snapshotCopy;
+      v24 = 138477827;
+      v25 = snapshotCopy;
       v20 = "RCF: Unknown address family in %{private}@";
 LABEL_10:
-      _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_ERROR, v20, &v25, 0xCu);
+      _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_ERROR, v20, &v24, 0xCu);
     }
 
 LABEL_11:
@@ -279,7 +275,6 @@ LABEL_3:
   [(ConnectionFailureTracker *)self setLastConnectionFailTime:?];
 LABEL_12:
 
-  v21 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

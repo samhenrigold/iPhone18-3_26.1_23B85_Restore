@@ -16,40 +16,40 @@ void _ADLog(void *a1, void *a2, char a3)
 
   if (_ADLog_internalBuild)
   {
-    v9 = a3;
+    v10 = a3;
   }
 
   else
   {
-    v9 = 2;
+    v10 = 2;
   }
 
-  v10 = _ADLogQueue();
+  v11 = _ADLogQueue(v9);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = ___ADLog_block_invoke_2;
   block[3] = &unk_278C55628;
-  v16 = v9;
-  v14 = v8;
-  v15 = v6;
-  v11 = v6;
-  v12 = v8;
-  dispatch_async(v10, block);
+  v17 = v10;
+  v15 = v8;
+  v16 = v6;
+  v12 = v6;
+  v13 = v8;
+  dispatch_async(v11, block);
 }
 
-id _ADLogQueue()
+id _ADLogQueue(uint64_t a1)
 {
   if (_ADLogQueue_onceToken != -1)
   {
     _ADLogQueue_cold_1();
   }
 
-  v1 = _ADLogQueue_loggingQueue;
+  v2 = _ADLogQueue_loggingQueue;
 
-  return v1;
+  return v2;
 }
 
-id GetKeychainPropertyListForKey(void *a1, OSStatus *a2)
+id GetKeychainPropertyListForKey(void *a1, int *a2)
 {
   v3 = a1;
   v4 = ADCopyDataFromKeychain(v3, a2);
@@ -667,16 +667,16 @@ LABEL_15:
   return [a2 hasError] ^ 1;
 }
 
-id ADAdsOptions()
+id ADAdsOptions(uint64_t a1)
 {
   if (ADAdsOptions_once != -1)
   {
     ADAdsOptions_cold_1();
   }
 
-  v1 = ADAdsOptions_sOptions;
+  v2 = ADAdsOptions_sOptions;
 
-  return v1;
+  return v2;
 }
 
 void __ADAdsOptions_block_invoke()
@@ -1499,31 +1499,29 @@ id ClientTypeToString(uint64_t a1)
 
 void __ClientTypeToString_block_invoke()
 {
-  v4[7] = *MEMORY[0x277D85DE8];
-  v3[0] = &unk_285104830;
-  v3[1] = &unk_285104848;
-  v4[0] = @"ClientType_Default";
-  v4[1] = @"ClientType_Tilt";
-  v3[2] = &unk_285104860;
-  v3[3] = &unk_285104878;
-  v4[2] = @"ClientType_AnonymousDemand";
-  v4[3] = @"ClientType_Content";
-  v3[4] = &unk_285104890;
-  v3[5] = &unk_2851048A8;
-  v4[4] = @"ClientType_Toro";
-  v4[5] = @"ClientType_DevicePack";
-  v3[6] = &unk_2851048C0;
-  v4[6] = @"ClientType_DeviceNewsPlusSubscriber";
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:7];
+  v3[7] = *MEMORY[0x277D85DE8];
+  v2[0] = &unk_285104830;
+  v2[1] = &unk_285104848;
+  v3[0] = @"ClientType_Default";
+  v3[1] = @"ClientType_Tilt";
+  v2[2] = &unk_285104860;
+  v2[3] = &unk_285104878;
+  v3[2] = @"ClientType_AnonymousDemand";
+  v3[3] = @"ClientType_Content";
+  v2[4] = &unk_285104890;
+  v2[5] = &unk_2851048A8;
+  v3[4] = @"ClientType_Toro";
+  v3[5] = @"ClientType_DevicePack";
+  v2[6] = &unk_2851048C0;
+  v3[6] = @"ClientType_DeviceNewsPlusSubscriber";
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:7];
   v1 = ClientTypeToString_strings;
   ClientTypeToString_strings = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
-void sub_23E6E3978(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23E6E3978(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1535,9 +1533,9 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_23E6E3D18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23E6E3D18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3058,7 +3056,6 @@ id ADEncryptString(void *a1)
 
 size_t __ADEncryptString_block_invoke()
 {
-  v0 = *MEMORY[0x277CBECE8];
   ADEncryptString_adServerKeyRef = SecKeyCreateRSAPublicKey();
   result = SecKeyGetBlockSize(ADEncryptString_adServerKeyRef);
   ADEncryptString_cipherBufferSize = result;
@@ -3280,7 +3277,7 @@ uint64_t RequestRetryDelay(uint64_t a1)
 void takeXPCTransaction(void *a1)
 {
   v1 = a1;
-  v2 = _TransactionQueue();
+  v2 = _TransactionQueue(v1);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __takeXPCTransaction_block_invoke;
@@ -3290,27 +3287,27 @@ void takeXPCTransaction(void *a1)
   dispatch_sync(v2, block);
 }
 
-id _TransactionQueue()
+id _TransactionQueue(uint64_t a1)
 {
   if (_TransactionQueue_onceToken != -1)
   {
     _TransactionQueue_cold_1();
   }
 
-  v1 = _TransactionQueue___queue;
+  v2 = _TransactionQueue___queue;
 
-  return v1;
+  return v2;
 }
 
 void __takeXPCTransaction_block_invoke(uint64_t a1)
 {
-  v2 = _TransactionsByReason();
+  v2 = _TransactionsByReason(a1);
   v5 = [v2 objectForKey:*(a1 + 32)];
 
   if (!v5)
   {
     v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v3 = _TransactionsByReason();
+    v3 = _TransactionsByReason(v5);
     [v3 setObject:v5 forKey:*(a1 + 32)];
   }
 
@@ -3319,22 +3316,22 @@ void __takeXPCTransaction_block_invoke(uint64_t a1)
   [v5 addObject:v4];
 }
 
-id _TransactionsByReason()
+id _TransactionsByReason(uint64_t a1)
 {
   if (_TransactionsByReason_onceToken != -1)
   {
     _TransactionsByReason_cold_1();
   }
 
-  v1 = _TransactionsByReason___transactions;
+  v2 = _TransactionsByReason___transactions;
 
-  return v1;
+  return v2;
 }
 
 void releaseXPCTransaction(void *a1)
 {
   v1 = a1;
-  v2 = _TransactionQueue();
+  v2 = _TransactionQueue(v1);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __releaseXPCTransaction_block_invoke;
@@ -3346,7 +3343,7 @@ void releaseXPCTransaction(void *a1)
 
 void __releaseXPCTransaction_block_invoke(uint64_t a1)
 {
-  v2 = _TransactionsByReason();
+  v2 = _TransactionsByReason(a1);
   v4 = [v2 objectForKey:*(a1 + 32)];
 
   if ([v4 count])
@@ -3363,7 +3360,7 @@ void __releaseXPCTransaction_block_invoke(uint64_t a1)
 
 BOOL StringMatch(void *a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = v3;
   v5 = a2;
@@ -3373,29 +3370,28 @@ BOOL StringMatch(void *a1, void *a2)
   v8 = 0;
   if (v6 && v7)
   {
-    memset(&v16, 0, sizeof(v16));
-    if (regcomp(&v16, v7, 7))
+    memset(&v15, 0, sizeof(v15));
+    if (regcomp(&v15, v7, 7))
     {
       MEMORY[0x28223BE20]();
-      regerror(0, &v16, v15, 0xFFuLL);
-      v12 = MEMORY[0x277CCACA8];
-      v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:v15];
-      v14 = [v12 stringWithFormat:@"[%s]: Error %d compiling regular expression pattern '%s' - %@", "BOOL StringMatch(NSString *__strong, NSString *__strong)", 0, v7, v13];
-      _ADLog(@"iAdInternalLogging", v14, 0);
+      regerror(0, &v15, v14, 0xFFuLL);
+      v11 = MEMORY[0x277CCACA8];
+      v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:v14];
+      v13 = [v11 stringWithFormat:@"[%s]: Error %d compiling regular expression pattern '%s' - %@", "BOOL StringMatch(NSString *__strong, NSString *__strong)", 0, v7, v12];
+      _ADLog(@"iAdInternalLogging", v13, 0);
 
-      memset(&v16, 0, sizeof(v16));
+      memset(&v15, 0, sizeof(v15));
       v8 = 0;
     }
 
     else
     {
-      v9 = regexec(&v16, [v3 UTF8String], 0, 0, 2);
-      MEMORY[0x23EF10640](&v16);
+      v9 = regexec(&v15, [v3 UTF8String], 0, 0, 2);
+      MEMORY[0x23EF10640](&v15);
       v8 = v9 == 0;
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -5587,8 +5583,8 @@ LABEL_34:
   return [a2 hasError] ^ 1;
 }
 
-void ADLogBarrier()
+void ADLogBarrier(uint64_t a1)
 {
-  v0 = _ADLogQueue();
-  dispatch_barrier_sync(v0, &__block_literal_global_21);
+  v1 = _ADLogQueue(a1);
+  dispatch_barrier_sync(v1, &__block_literal_global_21);
 }

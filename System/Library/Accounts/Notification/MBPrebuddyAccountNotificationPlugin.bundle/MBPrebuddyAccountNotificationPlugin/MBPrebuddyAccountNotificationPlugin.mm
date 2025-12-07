@@ -19,7 +19,7 @@
       *buf = 138412290;
       v14 = oldAccountCopy;
       _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "MBPrebuddyAccountNotificationPlugin: iCloud Account will be signed out, so cancelling Prebuddy mode: %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"Df", "MBPrebuddyAccountNotificationPlugin: iCloud Account will be signed out, so cancelling Prebuddy mode: %@", oldAccountCopy);
     }
 
     v11 = +[MBPrebuddyManager sharedManager];
@@ -54,7 +54,7 @@
     v15 = 2112;
     v16 = dataclassesCopy;
     _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "MBPrebuddyAccountNotificationPlugin: didPerformActionsForDataclasses: %@\nisPrimary: %@\n%@", buf, 0x20u);
-    _MBLog();
+    _MBLog(@"Df", "MBPrebuddyAccountNotificationPlugin: didPerformActionsForDataclasses: %@\nisPrimary: %@\n%@", accountCopy, v10, dataclassesCopy);
   }
 
   if (v8 && [(MBPrebuddyAccountNotificationPlugin *)self _shouldUpdateFollowUpForDataclasses:dataclassesCopy])
@@ -106,7 +106,7 @@
             *buf = 138412290;
             v21 = v11;
             _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "MBPrebuddyAccountNotificationPlugin: Dataclass means we should update the follow up: %@", buf, 0xCu);
-            _MBLog();
+            _MBLog(@"Df", "MBPrebuddyAccountNotificationPlugin: Dataclass means we should update the follow up: %@", v11);
           }
 
           v13 = 1;
@@ -130,7 +130,7 @@
   {
     *buf = 0;
     _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "MBPrebuddyAccountNotificationPlugin: No dataclasses triggering us to update the follow up", buf, 2u);
-    _MBLog();
+    _MBLog(@"Df", "MBPrebuddyAccountNotificationPlugin: No dataclasses triggering us to update the follow up");
   }
 
   v13 = 0;
@@ -146,7 +146,7 @@ LABEL_15:
   {
     *v4 = 0;
     _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "MBPrebuddyAccountNotificationPlugin: Updating follow up", v4, 2u);
-    _MBLog();
+    _MBLog(@"Df", "MBPrebuddyAccountNotificationPlugin: Updating follow up");
   }
 
   v3 = dispatch_get_global_queue(21, 0);

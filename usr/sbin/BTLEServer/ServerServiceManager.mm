@@ -18,6 +18,7 @@
 - (void)refreshPersistanceAssertion;
 - (void)removeService:(id)service;
 - (void)respondToRequest:(id)request withResult:(int64_t)result;
+- (void)setPersist:(BOOL)persist;
 - (void)updateValue:(id)value forCharacteristic:(id)characteristic onSubscribedCentrals:(id)centrals;
 @end
 
@@ -33,6 +34,13 @@
   v3 = qword_1000DDB18;
 
   return v3;
+}
+
+- (void)setPersist:(BOOL)persist
+{
+  [(ServerServiceManager *)self setShouldPersist:persist];
+
+  [(ServerServiceManager *)self refreshPersistanceAssertion];
 }
 
 + (void)initialize

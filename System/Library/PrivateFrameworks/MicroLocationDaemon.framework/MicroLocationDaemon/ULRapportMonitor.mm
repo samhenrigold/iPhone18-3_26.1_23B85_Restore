@@ -1,4 +1,5 @@
 @interface ULRapportMonitor
+- (ULRapportMonitor)initWithNotificationHelper:(id)helper identityTypeFlags:(unsigned int)flags controlFlags:(unint64_t)controlFlags;
 - (void)_activateCompanionLinkClientAndSetHandlers;
 - (void)_getIdentities;
 - (void)_startMonitoringForDevices;
@@ -10,6 +11,24 @@
 @end
 
 @implementation ULRapportMonitor
+
+- (ULRapportMonitor)initWithNotificationHelper:(id)helper identityTypeFlags:(unsigned int)flags controlFlags:(unint64_t)controlFlags
+{
+  v6 = *&flags;
+  helperCopy = helper;
+  v12.receiver = self;
+  v12.super_class = ULRapportMonitor;
+  v9 = [(ULEventMonitor *)&v12 init];
+  v10 = v9;
+  if (v9)
+  {
+    [(ULRapportMonitor *)v9 setNotificationHelper:helperCopy];
+    [(ULRapportMonitor *)v10 setIdentityTypeFlags:v6];
+    [(ULRapportMonitor *)v10 setControlFlags:controlFlags];
+  }
+
+  return v10;
+}
 
 - (void)startMonitoring:(id)monitoring
 {
@@ -65,7 +84,7 @@
 
 - (void)_startMonitoringForIdentities
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277D44150]);
   [(ULRapportMonitor *)self setClient:v3];
 
@@ -75,14 +94,14 @@
 
   objc_initWeak(&location, self);
   notificationHelper = [(ULRapportMonitor *)self notificationHelper];
-  v10 = MEMORY[0x277D85DD0];
-  v11 = 3221225472;
-  v12 = __49__ULRapportMonitor__startMonitoringForIdentities__block_invoke;
-  v13 = &unk_2798D4348;
-  objc_copyWeak(&v14, &location);
-  [notificationHelper addObserverForNotificationName:@"com.apple.rapport.identitiesChanged" handler:&v10];
+  v9 = MEMORY[0x277D85DD0];
+  v10 = 3221225472;
+  v11 = __49__ULRapportMonitor__startMonitoringForIdentities__block_invoke;
+  v12 = &unk_2798D4348;
+  objc_copyWeak(&v13, &location);
+  [notificationHelper addObserverForNotificationName:@"com.apple.rapport.identitiesChanged" handler:&v9];
 
-  [(ULRapportMonitor *)self _getIdentities:v10];
+  [(ULRapportMonitor *)self _getIdentities:v9];
   if (onceToken_MicroLocation_Default != -1)
   {
     [ULRapportMonitor _startMonitoringForIdentities];
@@ -93,13 +112,12 @@
   {
     v8 = +[(ULEvent *)ULRapportMonitorEventIdentities];
     *buf = 138412290;
-    v17 = v8;
+    v16 = v8;
     _os_log_impl(&dword_258FE9000, v7, OS_LOG_TYPE_DEFAULT, "Start monitoring: %@", buf, 0xCu);
   }
 
-  objc_destroyWeak(&v14);
+  objc_destroyWeak(&v13);
   objc_destroyWeak(&location);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __49__ULRapportMonitor__startMonitoringForIdentities__block_invoke(uint64_t a1)
@@ -113,7 +131,7 @@ void __49__ULRapportMonitor__startMonitoringForIdentities__block_invoke(uint64_t
 
 - (void)_startMonitoringForDevices
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277D44160]);
   [(ULRapportMonitor *)self setCompanionLinkClient:v3];
 
@@ -135,17 +153,15 @@ void __49__ULRapportMonitor__startMonitoringForIdentities__block_invoke(uint64_t
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = +[(ULEvent *)ULRapportMonitorEventDeviceFound];
-    v11 = 138412290;
-    v12 = v9;
-    _os_log_impl(&dword_258FE9000, v8, OS_LOG_TYPE_DEFAULT, "Start monitoring: %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v9;
+    _os_log_impl(&dword_258FE9000, v8, OS_LOG_TYPE_DEFAULT, "Start monitoring: %@", &v10, 0xCu);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopMonitoringForIdentities
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
   {
     [ULRapportMonitor _startMonitoringForDevices];
@@ -155,9 +171,9 @@ void __49__ULRapportMonitor__startMonitoringForIdentities__block_invoke(uint64_t
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = +[(ULEvent *)ULRapportMonitorEventIdentities];
-    v8 = 138412290;
-    v9 = v4;
-    _os_log_impl(&dword_258FE9000, v3, OS_LOG_TYPE_DEFAULT, "Stop monitoring: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v4;
+    _os_log_impl(&dword_258FE9000, v3, OS_LOG_TYPE_DEFAULT, "Stop monitoring: %@", &v7, 0xCu);
   }
 
   notificationHelper = [(ULRapportMonitor *)self notificationHelper];
@@ -168,12 +184,11 @@ void __49__ULRapportMonitor__startMonitoringForIdentities__block_invoke(uint64_t
 
   [(ULRapportMonitor *)self setClient:0];
   [(ULRapportMonitor *)self setIdentities:0];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopMonitoringForDevices
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
   {
     [ULRapportMonitor _startMonitoringForDevices];
@@ -183,9 +198,9 @@ void __49__ULRapportMonitor__startMonitoringForIdentities__block_invoke(uint64_t
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = +[(ULEvent *)ULRapportMonitorEventDeviceFound];
-    v8 = 138412290;
-    v9 = v4;
-    _os_log_impl(&dword_258FE9000, v3, OS_LOG_TYPE_DEFAULT, "Stop monitoring: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v4;
+    _os_log_impl(&dword_258FE9000, v3, OS_LOG_TYPE_DEFAULT, "Stop monitoring: %@", &v7, 0xCu);
   }
 
   companionLinkClient = [(ULRapportMonitor *)self companionLinkClient];
@@ -195,7 +210,6 @@ void __49__ULRapportMonitor__startMonitoringForIdentities__block_invoke(uint64_t
   [companionLinkClient2 setDeviceFoundHandler:0];
 
   [(ULRapportMonitor *)self setCompanionLinkClient:0];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_getIdentities
@@ -216,7 +230,7 @@ void __49__ULRapportMonitor__startMonitoringForIdentities__block_invoke(uint64_t
 
 void __34__ULRapportMonitor__getIdentities__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -236,9 +250,9 @@ void __34__ULRapportMonitor__getIdentities__block_invoke(uint64_t a1, void *a2, 
       v10 = logObject_MicroLocation_Default;
       if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_ERROR))
       {
-        v16 = 138412290;
-        v17 = v6;
-        _os_log_impl(&dword_258FE9000, v10, OS_LOG_TYPE_ERROR, "getIdentitiesWithFlags failed with error: %@", &v16, 0xCu);
+        v15 = 138412290;
+        v16 = v6;
+        _os_log_impl(&dword_258FE9000, v10, OS_LOG_TYPE_ERROR, "getIdentitiesWithFlags failed with error: %@", &v15, 0xCu);
       }
 
       [v8 _stopMonitoringForIdentities];
@@ -257,8 +271,6 @@ void __34__ULRapportMonitor__getIdentities__block_invoke(uint64_t a1, void *a2, 
       [v8 postEvent:v12];
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_activateCompanionLinkClientAndSetHandlers
@@ -303,7 +315,7 @@ void __62__ULRapportMonitor__activateCompanionLinkClientAndSetHandlers__block_in
 
 void __62__ULRapportMonitor__activateCompanionLinkClientAndSetHandlers__block_invoke_2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = WeakRetained;
@@ -322,9 +334,9 @@ void __62__ULRapportMonitor__activateCompanionLinkClientAndSetHandlers__block_in
       v7 = logObject_MicroLocation_Default;
       if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_ERROR))
       {
-        v10 = 138412290;
-        v11 = v3;
-        _os_log_impl(&dword_258FE9000, v7, OS_LOG_TYPE_ERROR, "activateWithCompletion failed with error: %@", &v10, 0xCu);
+        v9 = 138412290;
+        v10 = v3;
+        _os_log_impl(&dword_258FE9000, v7, OS_LOG_TYPE_ERROR, "activateWithCompletion failed with error: %@", &v9, 0xCu);
       }
 
       [v5 _stopMonitoringForDevices];
@@ -340,13 +352,11 @@ void __62__ULRapportMonitor__activateCompanionLinkClientAndSetHandlers__block_in
       v8 = logObject_MicroLocation_Default;
       if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v10) = 0;
-        _os_log_impl(&dword_258FE9000, v8, OS_LOG_TYPE_DEFAULT, "RPCompanionLinkClient activated", &v10, 2u);
+        LOWORD(v9) = 0;
+        _os_log_impl(&dword_258FE9000, v8, OS_LOG_TYPE_DEFAULT, "RPCompanionLinkClient activated", &v9, 2u);
       }
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

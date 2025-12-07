@@ -78,18 +78,18 @@ void __44___ANEClient_connectionUsedForLoadingModel___block_invoke(uint64_t a1, 
 
 void __45___ANEClient_compileModel_options_qos_error___block_invoke(uint64_t a1)
 {
-  v3 = (a1 + 32);
+  v3 = a1 + 32;
   v2 = *(a1 + 32);
   v4 = *(*(a1 + 56) + 8);
   v21 = *(v4 + 40);
   v5 = [_ANESandboxingHelper issueSandboxExtensionForModel:v2 error:&v21];
   objc_storeStrong((v4 + 40), v21);
-  if (*(*(v3[3] + 8) + 40))
+  if (*(*(*(v3 + 24) + 8) + 40))
   {
     v6 = gLogger_1;
     if (os_log_type_enabled(gLogger_1, OS_LOG_TYPE_ERROR))
     {
-      __45___ANEClient_compileModel_options_qos_error___block_invoke_cold_1(a1, v6, v3);
+      __45___ANEClient_compileModel_options_qos_error___block_invoke_cold_1(a1, v6);
     }
   }
 
@@ -118,25 +118,25 @@ void __45___ANEClient_compileModel_options_qos_error___block_invoke(uint64_t a1)
 
 void __45___ANEClient_compileModel_options_qos_error___block_invoke_2(uint64_t a1, int a2, void *a3, void *a4, void *a5)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v9 = a3;
   v10 = a4;
   v11 = a5;
   v12 = gLogger_1;
   if (os_log_type_enabled(gLogger_1, OS_LOG_TYPE_DEBUG))
   {
-    v23 = *(a1 + 56);
-    v24 = v12;
-    v25 = NSStringFromSelector(v23);
-    v26 = 138413058;
-    *v27 = v25;
-    *&v27[8] = 1024;
-    *v28 = a2;
-    *&v28[4] = 2112;
-    *&v28[6] = v10;
-    v29 = 2112;
-    v30 = v11;
-    _os_log_debug_impl(&dword_1AD246000, v24, OS_LOG_TYPE_DEBUG, "%@: success=%d : cacheURLIdentifier=%@ : err=%@", &v26, 0x26u);
+    v20 = *(a1 + 56);
+    v21 = v12;
+    v22 = NSStringFromSelector(v20);
+    v23 = 138413058;
+    *v24 = v22;
+    *&v24[8] = 1024;
+    *v25 = a2;
+    *&v25[4] = 2112;
+    *&v25[6] = v10;
+    v26 = 2112;
+    v27 = v11;
+    _os_log_debug_impl(&dword_1AD246000, v21, OS_LOG_TYPE_DEBUG, "%@: success=%d : cacheURLIdentifier=%@ : err=%@", &v23, 0x26u);
   }
 
   *(*(*(a1 + 40) + 8) + 24) = a2;
@@ -151,29 +151,25 @@ void __45___ANEClient_compileModel_options_qos_error___block_invoke_2(uint64_t a
     objc_storeStrong((*(*(a1 + 48) + 8) + 40), a5);
   }
 
-  v13 = *(*(*(a1 + 40) + 8) + 24);
-  v14 = *(a1 + 72);
   [*(a1 + 32) string_id];
   kdebug_trace();
-  v15 = gLogger_1;
-  v16 = v15;
-  v17 = *(a1 + 64);
-  if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
+  v13 = gLogger_1;
+  v14 = v13;
+  v15 = *(a1 + 64);
+  if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
   {
-    v18 = *(a1 + 32);
-    v19 = *(*(*(a1 + 40) + 8) + 24);
-    v20 = *(a1 + 72);
-    v21 = [v18 string_id];
-    v26 = 67109632;
-    *v27 = v19;
-    *&v27[4] = 1024;
-    *&v27[6] = v20;
-    *v28 = 2048;
-    *&v28[2] = v21;
-    _os_signpost_emit_with_name_impl(&dword_1AD246000, v16, OS_SIGNPOST_EVENT, v17, "_ANEF_MODEL_COMPILE", "ok:%u qos:%u model.string_id:%llu", &v26, 0x18u);
+    v16 = *(a1 + 32);
+    v17 = *(*(*(a1 + 40) + 8) + 24);
+    v18 = *(a1 + 72);
+    v19 = [v16 string_id];
+    v23 = 67109632;
+    *v24 = v17;
+    *&v24[4] = 1024;
+    *&v24[6] = v18;
+    *v25 = 2048;
+    *&v25[2] = v19;
+    _os_signpost_emit_with_name_impl(&dword_1AD246000, v14, OS_SIGNPOST_EVENT, v15, "_ANEF_MODEL_COMPILE", "ok:%u qos:%u model.string_id:%llu", &v23, 0x18u);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __46___ANEClient_doUnloadModel_options_qos_error___block_invoke(uint64_t a1)
@@ -198,7 +194,7 @@ void __46___ANEClient_doUnloadModel_options_qos_error___block_invoke(uint64_t a1
 
 void __46___ANEClient_doUnloadModel_options_qos_error___block_invoke_2(uint64_t a1, int a2, void *a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = gLogger_1;
   if (os_log_type_enabled(gLogger_1, OS_LOG_TYPE_INFO))
@@ -206,13 +202,13 @@ void __46___ANEClient_doUnloadModel_options_qos_error___block_invoke_2(uint64_t 
     v8 = *(a1 + 56);
     v9 = v7;
     v10 = NSStringFromSelector(v8);
-    v21 = 138412802;
-    *v22 = v10;
-    *&v22[8] = 1024;
-    v23[0] = a2;
-    LOWORD(v23[1]) = 2112;
-    *(&v23[1] + 2) = v6;
-    _os_log_impl(&dword_1AD246000, v9, OS_LOG_TYPE_INFO, "%@: success=%d : err=%@", &v21, 0x1Cu);
+    v18 = 138412802;
+    *v19 = v10;
+    *&v19[8] = 1024;
+    v20[0] = a2;
+    LOWORD(v20[1]) = 2112;
+    *(&v20[1] + 2) = v6;
+    _os_log_impl(&dword_1AD246000, v9, OS_LOG_TYPE_INFO, "%@: success=%d : err=%@", &v18, 0x1Cu);
   }
 
   *(*(*(a1 + 40) + 8) + 24) = a2;
@@ -221,51 +217,47 @@ void __46___ANEClient_doUnloadModel_options_qos_error___block_invoke_2(uint64_t 
     objc_storeStrong((*(*(a1 + 48) + 8) + 40), a3);
   }
 
-  v11 = *(*(*(a1 + 40) + 8) + 24);
-  v12 = *(a1 + 72);
   [*(a1 + 32) string_id];
   kdebug_trace();
-  v13 = gLogger_1;
-  v14 = v13;
-  v15 = *(a1 + 64);
-  if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  v11 = gLogger_1;
+  v12 = v11;
+  v13 = *(a1 + 64);
+  if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
   {
-    v16 = *(a1 + 32);
-    v17 = *(*(*(a1 + 40) + 8) + 24);
-    v18 = *(a1 + 72);
-    v19 = [v16 string_id];
-    v21 = 67109632;
-    *v22 = v17;
-    *&v22[4] = 1024;
-    *&v22[6] = v18;
-    LOWORD(v23[0]) = 2048;
-    *(v23 + 2) = v19;
-    _os_signpost_emit_with_name_impl(&dword_1AD246000, v14, OS_SIGNPOST_EVENT, v15, "_ANEF_MODEL_UNLOAD", "ok:%u qos:%u model.string_id:%llu", &v21, 0x18u);
+    v14 = *(a1 + 32);
+    v15 = *(*(*(a1 + 40) + 8) + 24);
+    v16 = *(a1 + 72);
+    v17 = [v14 string_id];
+    v18 = 67109632;
+    *v19 = v15;
+    *&v19[4] = 1024;
+    *&v19[6] = v16;
+    LOWORD(v20[0]) = 2048;
+    *(v20 + 2) = v17;
+    _os_signpost_emit_with_name_impl(&dword_1AD246000, v12, OS_SIGNPOST_EVENT, v13, "_ANEF_MODEL_UNLOAD", "ok:%u qos:%u model.string_id:%llu", &v18, 0x18u);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
-void __37___ANEClient_compiledModelExistsFor___block_invoke(uint64_t a1, int a2, void *a3, void *a4)
+void __37___ANEClient_compiledModelExistsFor___block_invoke(uint64_t a1, unsigned int a2, void *a3, void *a4)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = a4;
   v9 = gLogger_1;
   if (os_log_type_enabled(gLogger_1, OS_LOG_TYPE_DEBUG))
   {
-    v15 = *(a1 + 56);
-    v16 = v9;
-    v17 = NSStringFromSelector(v15);
-    v18 = 138413058;
-    v19 = v17;
-    v20 = 1024;
-    v21 = a2;
-    v22 = 2112;
-    v23 = v7;
-    v24 = 2112;
-    v25 = v8;
-    _os_log_debug_impl(&dword_1AD246000, v16, OS_LOG_TYPE_DEBUG, "%@: success=%d : cacheURLIdentifier=%@ : err=%@", &v18, 0x26u);
+    v14 = *(a1 + 56);
+    v15 = v9;
+    v16 = NSStringFromSelector(v14);
+    v17 = 138413058;
+    v18 = v16;
+    v19 = 1024;
+    v20 = a2;
+    v21 = 2112;
+    v22 = v7;
+    v23 = 2112;
+    v24 = v8;
+    _os_log_debug_impl(&dword_1AD246000, v15, OS_LOG_TYPE_DEBUG, "%@: success=%d : cacheURLIdentifier=%@ : err=%@", &v17, 0x26u);
   }
 
   [*(a1 + 32) setCacheURLIdentifier:v7];
@@ -283,33 +275,31 @@ void __37___ANEClient_compiledModelExistsFor___block_invoke(uint64_t a1, int a2,
   if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
   {
     v13 = [*(a1 + 32) string_id];
-    v18 = 134218240;
-    v19 = v13;
-    v20 = 1024;
-    v21 = a2;
-    _os_signpost_emit_with_name_impl(&dword_1AD246000, v11, OS_SIGNPOST_EVENT, v12, "_ANEF_COMPILED_MODEL_EXISTS", "model.string_id:%llu success:%u", &v18, 0x12u);
+    v17 = 134218240;
+    v18 = v13;
+    v19 = 1024;
+    v20 = a2;
+    _os_signpost_emit_with_name_impl(&dword_1AD246000, v11, OS_SIGNPOST_EVENT, v12, "_ANEF_COMPILED_MODEL_EXISTS", "model.string_id:%llu success:%u", &v17, 0x12u);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __33___ANEClient_purgeCompiledModel___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = gLogger_1;
   if (os_log_type_enabled(gLogger_1, OS_LOG_TYPE_DEBUG))
   {
-    v15 = *(a1 + 56);
-    v16 = v7;
-    v17 = NSStringFromSelector(v15);
-    v18 = 138412802;
-    v19 = v17;
-    v20 = 1024;
-    v21 = a2;
-    v22 = 2112;
-    v23 = v6;
-    _os_log_debug_impl(&dword_1AD246000, v16, OS_LOG_TYPE_DEBUG, "%@: success=%d : err=%@", &v18, 0x1Cu);
+    v13 = *(a1 + 56);
+    v14 = v7;
+    v15 = NSStringFromSelector(v13);
+    v16 = 138412802;
+    v17 = v15;
+    v18 = 1024;
+    v19 = a2;
+    v20 = 2112;
+    v21 = v6;
+    _os_log_debug_impl(&dword_1AD246000, v14, OS_LOG_TYPE_DEBUG, "%@: success=%d : err=%@", &v16, 0x1Cu);
   }
 
   *(*(*(a1 + 40) + 8) + 24) = a2;
@@ -319,26 +309,62 @@ void __33___ANEClient_purgeCompiledModel___block_invoke(uint64_t a1, int a2, voi
   }
 
   [*(a1 + 32) string_id];
-  v8 = *(*(*(a1 + 40) + 8) + 24);
   kdebug_trace();
-  v9 = gLogger_1;
-  v10 = v9;
-  v11 = *(a1 + 64);
-  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
+  v8 = gLogger_1;
+  v9 = v8;
+  v10 = *(a1 + 64);
+  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
   {
-    v12 = [*(a1 + 32) string_id];
-    v13 = *(*(*(a1 + 40) + 8) + 24);
-    v18 = 134218240;
+    v11 = [*(a1 + 32) string_id];
+    v12 = *(*(*(a1 + 40) + 8) + 24);
+    v16 = 134218240;
+    v17 = v11;
+    v18 = 1024;
     v19 = v12;
-    v20 = 1024;
-    v21 = v13;
-    _os_signpost_emit_with_name_impl(&dword_1AD246000, v10, OS_SIGNPOST_EVENT, v11, "_ANEF_PURGE_COMPILED_MODEL", "model.string_id:%llu ok:%u", &v18, 0x12u);
+    _os_signpost_emit_with_name_impl(&dword_1AD246000, v9, OS_SIGNPOST_EVENT, v10, "_ANEF_PURGE_COMPILED_MODEL", "model.string_id:%llu ok:%u", &v16, 0x12u);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
-void __46___ANEClient_compiledModelExistsMatchingHash___block_invoke(void *a1, int a2, void *a3)
+void __46___ANEClient_compiledModelExistsMatchingHash___block_invoke(void *a1, unsigned int a2, void *a3)
+{
+  v19 = *MEMORY[0x1E69E9840];
+  v6 = a3;
+  v7 = gLogger_1;
+  if (os_log_type_enabled(gLogger_1, OS_LOG_TYPE_DEBUG))
+  {
+    v11 = a1[6];
+    v12 = v7;
+    v13 = NSStringFromSelector(v11);
+    v14 = 138412802;
+    *v15 = v13;
+    *&v15[8] = 1024;
+    v16 = a2;
+    v17 = 2112;
+    v18 = v6;
+    _os_log_debug_impl(&dword_1AD246000, v12, OS_LOG_TYPE_DEBUG, "%@: success=%d : err=%@", &v14, 0x1Cu);
+  }
+
+  *(*(a1[4] + 8) + 24) = a2;
+  if (v6)
+  {
+    objc_storeStrong((*(a1[5] + 8) + 40), a3);
+  }
+
+  kdebug_trace();
+  v8 = gLogger_1;
+  v9 = v8;
+  v10 = a1[7];
+  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
+  {
+    v14 = 67109376;
+    *v15 = 0;
+    *&v15[4] = 1024;
+    *&v15[6] = a2;
+    _os_signpost_emit_with_name_impl(&dword_1AD246000, v9, OS_SIGNPOST_EVENT, v10, "_ANEF_COMPILED_MODEL_EXISTS", "%u success:%u", &v14, 0xEu);
+  }
+}
+
+void __45___ANEClient_purgeCompiledModelMatchingHash___block_invoke(void *a1, int a2, void *a3)
 {
   v20 = *MEMORY[0x1E69E9840];
   v6 = a3;
@@ -369,57 +395,13 @@ void __46___ANEClient_compiledModelExistsMatchingHash___block_invoke(void *a1, i
   v10 = a1[7];
   if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
   {
+    v11 = *(*(a1[4] + 8) + 24);
     v15 = 67109376;
     *v16 = 0;
     *&v16[4] = 1024;
-    *&v16[6] = a2;
-    _os_signpost_emit_with_name_impl(&dword_1AD246000, v9, OS_SIGNPOST_EVENT, v10, "_ANEF_COMPILED_MODEL_EXISTS", "%u success:%u", &v15, 0xEu);
+    *&v16[6] = v11;
+    _os_signpost_emit_with_name_impl(&dword_1AD246000, v9, OS_SIGNPOST_EVENT, v10, "_ANEF_PURGE_COMPILED_MODEL", "%u ok:%u", &v15, 0xEu);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
-}
-
-void __45___ANEClient_purgeCompiledModelMatchingHash___block_invoke(void *a1, int a2, void *a3)
-{
-  v22 = *MEMORY[0x1E69E9840];
-  v6 = a3;
-  v7 = gLogger_1;
-  if (os_log_type_enabled(gLogger_1, OS_LOG_TYPE_DEBUG))
-  {
-    v14 = a1[6];
-    v15 = v7;
-    v16 = NSStringFromSelector(v14);
-    v17 = 138412802;
-    *v18 = v16;
-    *&v18[8] = 1024;
-    v19 = a2;
-    v20 = 2112;
-    v21 = v6;
-    _os_log_debug_impl(&dword_1AD246000, v15, OS_LOG_TYPE_DEBUG, "%@: success=%d : err=%@", &v17, 0x1Cu);
-  }
-
-  *(*(a1[4] + 8) + 24) = a2;
-  if (v6)
-  {
-    objc_storeStrong((*(a1[5] + 8) + 40), a3);
-  }
-
-  v8 = *(*(a1[4] + 8) + 24);
-  kdebug_trace();
-  v9 = gLogger_1;
-  v10 = v9;
-  v11 = a1[7];
-  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
-  {
-    v12 = *(*(a1[4] + 8) + 24);
-    v17 = 67109376;
-    *v18 = 0;
-    *&v18[4] = 1024;
-    *&v18[6] = v12;
-    _os_signpost_emit_with_name_impl(&dword_1AD246000, v10, OS_SIGNPOST_EVENT, v11, "_ANEF_PURGE_COMPILED_MODEL", "%u ok:%u", &v17, 0xEu);
-  }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __37___ANEClient_sharedPrivateConnection__block_invoke()
@@ -431,48 +413,44 @@ uint64_t __37___ANEClient_sharedPrivateConnection__block_invoke()
 
 void __31___ANEClient_beginRealTimeTask__block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = a3;
   *(*(*(a1 + 32) + 8) + 24) = a2;
   v6 = gLogger_1;
   if (os_log_type_enabled(gLogger_1, OS_LOG_TYPE_DEBUG))
   {
-    v8 = *(a1 + 40);
-    v9 = v6;
-    v10 = NSStringFromSelector(v8);
-    v11 = 138412802;
-    v12 = v10;
-    v13 = 1024;
-    v14 = a2;
-    v15 = 2112;
-    v16 = v5;
-    _os_log_debug_impl(&dword_1AD246000, v9, OS_LOG_TYPE_DEBUG, "%@: success=%d : err=%@", &v11, 0x1Cu);
+    v7 = *(a1 + 40);
+    v8 = v6;
+    v9 = NSStringFromSelector(v7);
+    v10 = 138412802;
+    v11 = v9;
+    v12 = 1024;
+    v13 = a2;
+    v14 = 2112;
+    v15 = v5;
+    _os_log_debug_impl(&dword_1AD246000, v8, OS_LOG_TYPE_DEBUG, "%@: success=%d : err=%@", &v10, 0x1Cu);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __29___ANEClient_endRealTimeTask__block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = a3;
   *(*(*(a1 + 32) + 8) + 24) = a2;
   v6 = gLogger_1;
   if (os_log_type_enabled(gLogger_1, OS_LOG_TYPE_DEBUG))
   {
-    v8 = *(a1 + 40);
-    v9 = v6;
-    v10 = NSStringFromSelector(v8);
-    v11 = 138412802;
-    v12 = v10;
-    v13 = 1024;
-    v14 = a2;
-    v15 = 2112;
-    v16 = v5;
-    _os_log_debug_impl(&dword_1AD246000, v9, OS_LOG_TYPE_DEBUG, "%@: success=%d : err=%@", &v11, 0x1Cu);
+    v7 = *(a1 + 40);
+    v8 = v6;
+    v9 = NSStringFromSelector(v7);
+    v10 = 138412802;
+    v11 = v9;
+    v12 = 1024;
+    v13 = a2;
+    v14 = 2112;
+    v15 = v5;
+    _os_log_debug_impl(&dword_1AD246000, v8, OS_LOG_TYPE_DEBUG, "%@: success=%d : err=%@", &v10, 0x1Cu);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __44___ANEClient_doLoadModel_options_qos_error___block_invoke(uint64_t a1)
@@ -515,7 +493,7 @@ LABEL_6:
   v7 = gLogger_1;
   if (os_log_type_enabled(gLogger_1, OS_LOG_TYPE_ERROR))
   {
-    __45___ANEClient_compileModel_options_qos_error___block_invoke_cold_1(a1, v7, (a1 + 40));
+    __45___ANEClient_compileModel_options_qos_error___block_invoke_cold_1(a1, v7);
   }
 
 LABEL_7:
@@ -523,34 +501,34 @@ LABEL_7:
 
 void __44___ANEClient_doLoadModel_options_qos_error___block_invoke_2(uint64_t a1, int a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8)
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   v15 = a3;
-  v39 = a7;
+  v36 = a7;
   v16 = a8;
   v17 = gLogger_1;
   if (os_log_type_enabled(gLogger_1, OS_LOG_TYPE_DEBUG))
   {
     aSelectora = *(a1 + 56);
-    v35 = v17;
+    v32 = v17;
     aSelector = NSStringFromSelector(aSelectora);
-    v36 = *(a1 + 32);
+    v33 = *(a1 + 32);
     *buf = 138414082;
-    *v41 = aSelector;
-    *&v41[8] = 2048;
-    *v42 = v36;
-    *&v42[8] = 1024;
-    v43 = a2;
-    v44 = 2048;
-    v45 = a4;
-    v46 = 2048;
-    v47 = a5;
-    v48 = 1024;
-    v49 = a6;
-    v50 = 2112;
-    v51 = v39;
-    v52 = 2112;
-    v53 = v16;
-    _os_log_debug_impl(&dword_1AD246000, v35, OS_LOG_TYPE_DEBUG, "%@: model[%p] : success=%d : progamHandle=0x%llx : intermediateBufferHandle=%llu : queueDepth=%d : modelCacheIdentifier=%@ : err=%@", buf, 0x4Au);
+    *v38 = aSelector;
+    *&v38[8] = 2048;
+    *v39 = v33;
+    *&v39[8] = 1024;
+    v40 = a2;
+    v41 = 2048;
+    v42 = a4;
+    v43 = 2048;
+    v44 = a5;
+    v45 = 1024;
+    v46 = a6;
+    v47 = 2112;
+    v48 = v36;
+    v49 = 2112;
+    v50 = v16;
+    _os_log_debug_impl(&dword_1AD246000, v32, OS_LOG_TYPE_DEBUG, "%@: model[%p] : success=%d : progamHandle=0x%llx : intermediateBufferHandle=%llu : queueDepth=%d : modelCacheIdentifier=%@ : err=%@", buf, 0x4Au);
   }
 
   *(*(*(a1 + 40) + 8) + 24) = a2;
@@ -570,7 +548,7 @@ LABEL_11:
   }
 
   [v18 updateModelAttributes:v15 state:3 programHandle:a4 intermediateBufferHandle:a5 queueDepth:a6];
-  [*v19 setCacheURLIdentifier:v39];
+  [*v19 setCacheURLIdentifier:v36];
   v20 = [_ANEDeviceController controllerWithProgramHandle:a4];
   v21 = [_ANEProgramForEvaluation programWithController:v20 intermediateBufferHandle:a5 queueDepth:a6];
   [*v19 setProgram:v21];
@@ -578,7 +556,7 @@ LABEL_11:
   v22 = gLogger_1;
   if (os_log_type_enabled(gLogger_1, OS_LOG_TYPE_DEBUG))
   {
-    __44___ANEClient_doLoadModel_options_qos_error___block_invoke_2_cold_1((a1 + 32), v22);
+    __44___ANEClient_doLoadModel_options_qos_error___block_invoke_2_cold_1(a1 + 32, v22);
   }
 
   v23 = [_ANEProgramIOSurfacesMapper mapperWithController:v20, aSelector];
@@ -587,7 +565,7 @@ LABEL_11:
   v24 = gLogger_1;
   if (os_log_type_enabled(gLogger_1, OS_LOG_TYPE_DEBUG))
   {
-    __44___ANEClient_doLoadModel_options_qos_error___block_invoke_2_cold_2((a1 + 32), v24);
+    __44___ANEClient_doLoadModel_options_qos_error___block_invoke_2_cold_2(a1 + 32, v24);
   }
 
   if (v16)
@@ -596,79 +574,75 @@ LABEL_11:
   }
 
 LABEL_12:
-  v25 = *(*(*(a1 + 40) + 8) + 24);
-  v26 = *(a1 + 72);
   [*(a1 + 32) string_id];
   kdebug_trace();
-  v27 = gLogger_1;
-  v28 = v27;
-  v29 = *(a1 + 64);
-  if (v29 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v27))
+  v25 = gLogger_1;
+  v26 = v25;
+  v27 = *(a1 + 64);
+  if (v27 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v25))
   {
-    v30 = *(a1 + 32);
-    v31 = *(*(*(a1 + 40) + 8) + 24);
-    v32 = *(a1 + 72);
-    v33 = [v30 string_id];
+    v28 = *(a1 + 32);
+    v29 = *(*(*(a1 + 40) + 8) + 24);
+    v30 = *(a1 + 72);
+    v31 = [v28 string_id];
     *buf = 67109632;
-    *v41 = v31;
-    *&v41[4] = 1024;
-    *&v41[6] = v32;
-    *v42 = 2048;
-    *&v42[2] = v33;
-    _os_signpost_emit_with_name_impl(&dword_1AD246000, v28, OS_SIGNPOST_EVENT, v29, "_ANEF_MODEL_LOAD", "ok:%u qos:%u model.string_id:%llu", buf, 0x18u);
+    *v38 = v29;
+    *&v38[4] = 1024;
+    *&v38[6] = v30;
+    *v39 = 2048;
+    *&v39[2] = v31;
+    _os_signpost_emit_with_name_impl(&dword_1AD246000, v26, OS_SIGNPOST_EVENT, v27, "_ANEF_MODEL_LOAD", "ok:%u qos:%u model.string_id:%llu", buf, 0x18u);
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 void __71___ANEClient_doLoadModelNewInstance_options_modelInstParams_qos_error___block_invoke(uint64_t a1)
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) objectForKeyedSubscript:kANEFBaseModelIdentifierKey[0]];
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
   v3 = [*(a1 + 40) procedureArray];
-  v26 = [v3 countByEnumeratingWithState:&v41 objects:v46 count:16];
-  if (v26)
+  v25 = [v3 countByEnumeratingWithState:&v40 objects:v45 count:16];
+  if (v25)
   {
-    v4 = *v42;
-    v28 = v3;
-    v29 = v2;
-    v25 = *v42;
+    v4 = *v41;
+    v27 = v3;
+    v28 = v2;
+    v24 = *v41;
     do
     {
       v5 = 0;
       do
       {
-        if (*v42 != v4)
+        if (*v41 != v4)
         {
           objc_enumerationMutation(v3);
         }
 
-        v27 = v5;
-        v6 = *(*(&v41 + 1) + 8 * v5);
+        v26 = v5;
+        v6 = *(*(&v40 + 1) + 8 * v5);
+        v36 = 0u;
         v37 = 0u;
         v38 = 0u;
         v39 = 0u;
-        v40 = 0u;
         v7 = [v6 weightArray];
-        v8 = [v7 countByEnumeratingWithState:&v37 objects:v45 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v36 objects:v44 count:16];
         if (v8)
         {
           v9 = v8;
-          v10 = *v38;
+          v10 = *v37;
           while (2)
           {
             for (i = 0; i != v9; ++i)
             {
-              if (*v38 != v10)
+              if (*v37 != v10)
               {
                 objc_enumerationMutation(v7);
               }
 
-              v12 = *(*(&v37 + 1) + 8 * i);
+              v12 = *(*(&v36 + 1) + 8 * i);
               v13 = [v12 weightURL];
               v14 = [v13 path];
               v15 = *(*(a1 + 64) + 8);
@@ -682,16 +656,16 @@ void __71___ANEClient_doLoadModelNewInstance_options_modelInstParams_qos_error__
                 v17 = gLogger_1;
                 if (os_log_type_enabled(gLogger_1, OS_LOG_TYPE_ERROR))
                 {
-                  __71___ANEClient_doLoadModelNewInstance_options_modelInstParams_qos_error___block_invoke_cold_1(a1, v17, a1 + 64);
+                  __71___ANEClient_doLoadModelNewInstance_options_modelInstParams_qos_error___block_invoke_cold_1(a1, v17);
                 }
 
-                v3 = v28;
-                v2 = v29;
+                v3 = v27;
+                v2 = v28;
                 goto LABEL_20;
               }
             }
 
-            v9 = [v7 countByEnumeratingWithState:&v37 objects:v45 count:16];
+            v9 = [v7 countByEnumeratingWithState:&v36 objects:v44 count:16];
             if (v9)
             {
               continue;
@@ -701,17 +675,17 @@ void __71___ANEClient_doLoadModelNewInstance_options_modelInstParams_qos_error__
           }
         }
 
-        v5 = v27 + 1;
-        v3 = v28;
-        v2 = v29;
-        v4 = v25;
+        v5 = v26 + 1;
+        v3 = v27;
+        v2 = v28;
+        v4 = v24;
       }
 
-      while (v27 + 1 != v26);
-      v26 = [v28 countByEnumeratingWithState:&v41 objects:v46 count:16];
+      while (v26 + 1 != v25);
+      v25 = [v27 countByEnumeratingWithState:&v40 objects:v45 count:16];
     }
 
-    while (v26);
+    while (v25);
   }
 
 LABEL_20:
@@ -723,16 +697,16 @@ LABEL_20:
     v20 = *(a1 + 32);
     v21 = *(a1 + 40);
     v22 = *(a1 + 96);
-    v30[0] = MEMORY[0x1E69E9820];
-    v30[1] = 3221225472;
-    v30[2] = __71___ANEClient_doLoadModelNewInstance_options_modelInstParams_qos_error___block_invoke_29;
-    v30[3] = &unk_1E79BA638;
-    v33 = *(a1 + 80);
-    v31 = v19;
-    v32 = vextq_s8(*(a1 + 64), *(a1 + 64), 8uLL);
-    v35 = *(a1 + 96);
-    v34 = *(a1 + 88);
-    [v18 loadModelNewInstance:v31 options:v20 modelInstParams:v21 qos:v22 withReply:v30];
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = __71___ANEClient_doLoadModelNewInstance_options_modelInstParams_qos_error___block_invoke_29;
+    v29[3] = &unk_1E79BA638;
+    v32 = *(a1 + 80);
+    v30 = v19;
+    v31 = vextq_s8(*(a1 + 64), *(a1 + 64), 8uLL);
+    v34 = *(a1 + 96);
+    v33 = *(a1 + 88);
+    [v18 loadModelNewInstance:v30 options:v20 modelInstParams:v21 qos:v22 withReply:v29];
   }
 
   else
@@ -743,40 +717,38 @@ LABEL_20:
       __71___ANEClient_doLoadModelNewInstance_options_modelInstParams_qos_error___block_invoke_cold_2(a1, v23);
     }
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 void __71___ANEClient_doLoadModelNewInstance_options_modelInstParams_qos_error___block_invoke_29(uint64_t a1, int a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8)
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   v15 = a3;
-  v39 = a7;
+  v36 = a7;
   v16 = a8;
   v17 = gLogger_1;
   if (os_log_type_enabled(gLogger_1, OS_LOG_TYPE_DEBUG))
   {
     aSelectora = *(a1 + 56);
-    v35 = v17;
+    v32 = v17;
     aSelector = NSStringFromSelector(aSelectora);
-    v36 = *(a1 + 32);
+    v33 = *(a1 + 32);
     *buf = 138414082;
-    *v41 = aSelector;
-    *&v41[8] = 2048;
-    *v42 = v36;
-    *&v42[8] = 1024;
-    v43 = a2;
-    v44 = 2048;
-    v45 = a4;
-    v46 = 2048;
-    v47 = a5;
-    v48 = 1024;
-    v49 = a6;
-    v50 = 2112;
-    v51 = v39;
-    v52 = 2112;
-    v53 = v16;
-    _os_log_debug_impl(&dword_1AD246000, v35, OS_LOG_TYPE_DEBUG, "%@: model[%p] : success=%d : progamHandle=0x%llx : intermediateBufferHandle=%llu : queueDepth=%d : modelCacheIdentifier=%@ : err=%@", buf, 0x4Au);
+    *v38 = aSelector;
+    *&v38[8] = 2048;
+    *v39 = v33;
+    *&v39[8] = 1024;
+    v40 = a2;
+    v41 = 2048;
+    v42 = a4;
+    v43 = 2048;
+    v44 = a5;
+    v45 = 1024;
+    v46 = a6;
+    v47 = 2112;
+    v48 = v36;
+    v49 = 2112;
+    v50 = v16;
+    _os_log_debug_impl(&dword_1AD246000, v32, OS_LOG_TYPE_DEBUG, "%@: model[%p] : success=%d : progamHandle=0x%llx : intermediateBufferHandle=%llu : queueDepth=%d : modelCacheIdentifier=%@ : err=%@", buf, 0x4Au);
   }
 
   *(*(*(a1 + 40) + 8) + 24) = a2;
@@ -796,7 +768,7 @@ LABEL_11:
   }
 
   [v18 updateModelAttributes:v15 state:3 programHandle:a4 intermediateBufferHandle:a5 queueDepth:a6];
-  [*v19 setCacheURLIdentifier:v39];
+  [*v19 setCacheURLIdentifier:v36];
   v20 = [_ANEDeviceController controllerWithProgramHandle:a4];
   v21 = [_ANEProgramForEvaluation programWithController:v20 intermediateBufferHandle:a5 queueDepth:a6];
   [*v19 setProgram:v21];
@@ -804,7 +776,7 @@ LABEL_11:
   v22 = gLogger_1;
   if (os_log_type_enabled(gLogger_1, OS_LOG_TYPE_DEBUG))
   {
-    __44___ANEClient_doLoadModel_options_qos_error___block_invoke_2_cold_1((a1 + 32), v22);
+    __44___ANEClient_doLoadModel_options_qos_error___block_invoke_2_cold_1(a1 + 32, v22);
   }
 
   v23 = [_ANEProgramIOSurfacesMapper mapperWithController:v20, aSelector];
@@ -813,7 +785,7 @@ LABEL_11:
   v24 = gLogger_1;
   if (os_log_type_enabled(gLogger_1, OS_LOG_TYPE_DEBUG))
   {
-    __44___ANEClient_doLoadModel_options_qos_error___block_invoke_2_cold_2((a1 + 32), v24);
+    __44___ANEClient_doLoadModel_options_qos_error___block_invoke_2_cold_2(a1 + 32, v24);
   }
 
   if (v16)
@@ -822,29 +794,25 @@ LABEL_11:
   }
 
 LABEL_12:
-  v25 = *(*(*(a1 + 40) + 8) + 24);
-  v26 = *(a1 + 72);
   [*(a1 + 32) string_id];
   kdebug_trace();
-  v27 = gLogger_1;
-  v28 = v27;
-  v29 = *(a1 + 64);
-  if (v29 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v27))
+  v25 = gLogger_1;
+  v26 = v25;
+  v27 = *(a1 + 64);
+  if (v27 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v25))
   {
-    v30 = *(a1 + 32);
-    v31 = *(*(*(a1 + 40) + 8) + 24);
-    v32 = *(a1 + 72);
-    v33 = [v30 string_id];
+    v28 = *(a1 + 32);
+    v29 = *(*(*(a1 + 40) + 8) + 24);
+    v30 = *(a1 + 72);
+    v31 = [v28 string_id];
     *buf = 67109632;
-    *v41 = v31;
-    *&v41[4] = 1024;
-    *&v41[6] = v32;
-    *v42 = 2048;
-    *&v42[2] = v33;
-    _os_signpost_emit_with_name_impl(&dword_1AD246000, v28, OS_SIGNPOST_EVENT, v29, "_ANEF_ADAPTER_LOAD", "ok:%u qos:%u model.string_id:%llu", buf, 0x18u);
+    *v38 = v29;
+    *&v38[4] = 1024;
+    *&v38[6] = v30;
+    *v39 = 2048;
+    *&v39[2] = v31;
+    _os_signpost_emit_with_name_impl(&dword_1AD246000, v26, OS_SIGNPOST_EVENT, v27, "_ANEF_ADAPTER_LOAD", "ok:%u qos:%u model.string_id:%llu", buf, 0x18u);
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __71___ANEClient_doPrepareChainingWithModel_options_chainingReq_qos_error___block_invoke(uint64_t a1)
@@ -867,21 +835,21 @@ uint64_t __71___ANEClient_doPrepareChainingWithModel_options_chainingReq_qos_err
 
 void __71___ANEClient_doPrepareChainingWithModel_options_chainingReq_qos_error___block_invoke_2(void *a1, int a2, void *a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = gLogger_1;
   if (os_log_type_enabled(gLogger_1, OS_LOG_TYPE_DEBUG))
   {
-    v14 = a1[6];
-    v15 = v7;
-    v16 = NSStringFromSelector(v14);
-    v17 = 138412802;
-    v18 = v16;
-    v19 = 1024;
-    v20 = a2;
-    v21 = 2112;
-    v22 = v6;
-    _os_log_debug_impl(&dword_1AD246000, v15, OS_LOG_TYPE_DEBUG, "%@: success=%d : err=%@", &v17, 0x1Cu);
+    v12 = a1[6];
+    v13 = v7;
+    v14 = NSStringFromSelector(v12);
+    v15 = 138412802;
+    v16 = v14;
+    v17 = 1024;
+    v18 = a2;
+    v19 = 2112;
+    v20 = v6;
+    _os_log_debug_impl(&dword_1AD246000, v13, OS_LOG_TYPE_DEBUG, "%@: success=%d : err=%@", &v15, 0x1Cu);
   }
 
   *(*(a1[4] + 8) + 24) = a2;
@@ -890,131 +858,99 @@ void __71___ANEClient_doPrepareChainingWithModel_options_chainingReq_qos_error__
     objc_storeStrong((*(a1[5] + 8) + 40), a3);
   }
 
-  v8 = *(*(a1[4] + 8) + 24);
   kdebug_trace();
-  v9 = gLogger_1;
-  v10 = v9;
-  v11 = a1[7];
-  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
+  v8 = gLogger_1;
+  v9 = v8;
+  v10 = a1[7];
+  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
   {
-    v12 = *(*(a1[4] + 8) + 24);
-    v17 = 67109120;
-    LODWORD(v18) = v12;
-    _os_signpost_emit_with_name_impl(&dword_1AD246000, v10, OS_SIGNPOST_EVENT, v11, "_ANEF_PREPARE_CHAINING", "ok:%u", &v17, 8u);
+    v11 = *(*(a1[4] + 8) + 24);
+    v15 = 67109120;
+    LODWORD(v16) = v11;
+    _os_signpost_emit_with_name_impl(&dword_1AD246000, v9, OS_SIGNPOST_EVENT, v10, "_ANEF_PREPARE_CHAINING", "ok:%u", &v15, 8u);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __19___ANEClient_echo___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = a3;
   *(*(*(a1 + 32) + 8) + 24) = a2;
   v6 = gLogger_1;
   if (os_log_type_enabled(gLogger_1, OS_LOG_TYPE_DEBUG))
   {
-    v8 = *(a1 + 40);
-    v9 = v6;
-    v10 = NSStringFromSelector(v8);
-    v11 = 138412802;
-    v12 = v10;
-    v13 = 1024;
-    v14 = a2;
-    v15 = 2112;
-    v16 = v5;
-    _os_log_debug_impl(&dword_1AD246000, v9, OS_LOG_TYPE_DEBUG, "%@: success=%d : err=%@", &v11, 0x1Cu);
+    v7 = *(a1 + 40);
+    v8 = v6;
+    v9 = NSStringFromSelector(v7);
+    v10 = 138412802;
+    v11 = v9;
+    v12 = 1024;
+    v13 = a2;
+    v14 = 2112;
+    v15 = v5;
+    _os_log_debug_impl(&dword_1AD246000, v8, OS_LOG_TYPE_DEBUG, "%@: success=%d : err=%@", &v10, 0x1Cu);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __46___ANEClient_initWithRestrictedAccessAllowed___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_17_0(a1, a2);
-  v4 = OUTLINED_FUNCTION_8_0();
-  v5 = NSStringFromSelector(v4);
+  v3 = OUTLINED_FUNCTION_8_0();
+  v4 = NSStringFromSelector(v3);
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_5_4(&dword_1AD246000, v6, v7, "%@: interruptHandler", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_5_4(&dword_1AD246000, v5, v6, "%@: interruptHandler", v7, v8, v9, v10);
 }
 
 void __46___ANEClient_initWithRestrictedAccessAllowed___block_invoke_6_cold_1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_17_0(a1, a2);
-  v4 = OUTLINED_FUNCTION_8_0();
+  v3 = OUTLINED_FUNCTION_8_0();
+  v4 = NSStringFromSelector(v3);
+  OUTLINED_FUNCTION_3_0();
+  OUTLINED_FUNCTION_5_4(&dword_1AD246000, v5, v6, "%@: invalidationHandler", v7, v8, v9, v10);
+}
+
+void __45___ANEClient_compileModel_options_qos_error___block_invoke_cold_1(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  v4 = OUTLINED_FUNCTION_4_0();
   v5 = NSStringFromSelector(v4);
-  OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_5_4(&dword_1AD246000, v6, v7, "%@: invalidationHandler", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x1E69E9840];
-}
-
-void __45___ANEClient_compileModel_options_qos_error___block_invoke_cold_1(uint64_t a1, void *a2, uint64_t *a3)
-{
-  v18 = *MEMORY[0x1E69E9840];
-  v5 = *(a1 + 72);
-  v6 = a2;
-  v7 = OUTLINED_FUNCTION_4_0();
-  v8 = NSStringFromSelector(v7);
-  v9 = *a3;
   OUTLINED_FUNCTION_4_2();
-  OUTLINED_FUNCTION_7(&dword_1AD246000, v10, v11, "%@: Failed to issue sandbox extension model=%@", v12, v13, v14, v15, v17);
-
-  v16 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_7(&dword_1AD246000, v6, v7, "%@: Failed to issue sandbox extension model=%@", v8, v9, v10, v11);
 }
 
-void __44___ANEClient_doLoadModel_options_qos_error___block_invoke_2_cold_1(uint64_t *a1, void *a2)
+void __44___ANEClient_doLoadModel_options_qos_error___block_invoke_2_cold_1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_18(a1, a2);
-  v4 = [OUTLINED_FUNCTION_8_0() program];
+  v3 = [OUTLINED_FUNCTION_8_0() program];
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_5_4(&dword_1AD246000, v5, v6, "evaluateOnlyProgramForModel p=%@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_5_4(&dword_1AD246000, v4, v5, "evaluateOnlyProgramForModel p=%@", v6, v7, v8, v9);
 }
 
-void __44___ANEClient_doLoadModel_options_qos_error___block_invoke_2_cold_2(uint64_t *a1, void *a2)
+void __44___ANEClient_doLoadModel_options_qos_error___block_invoke_2_cold_2(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_18(a1, a2);
-  v4 = [OUTLINED_FUNCTION_8_0() mapper];
+  v3 = [OUTLINED_FUNCTION_8_0() mapper];
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_5_4(&dword_1AD246000, v5, v6, "mapperForModel p=%@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_5_4(&dword_1AD246000, v4, v5, "mapperForModel p=%@", v6, v7, v8, v9);
 }
 
-void __71___ANEClient_doLoadModelNewInstance_options_modelInstParams_qos_error___block_invoke_cold_1(uint64_t a1, void *a2, uint64_t a3)
+void __71___ANEClient_doLoadModelNewInstance_options_modelInstParams_qos_error___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v5 = *(a1 + 80);
-  v6 = a2;
-  v7 = OUTLINED_FUNCTION_4_0();
-  v8 = NSStringFromSelector(v7);
-  v9 = *(*(*a3 + 8) + 40);
+  v3 = a2;
+  v4 = OUTLINED_FUNCTION_4_0();
+  v5 = NSStringFromSelector(v4);
   OUTLINED_FUNCTION_4_2();
-  OUTLINED_FUNCTION_7(&dword_1AD246000, v10, v11, "%@: issueSandboxExtensionForPath error=%@", v12, v13, v14, v15, v17);
-
-  v16 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_7(&dword_1AD246000, v6, v7, "%@: issueSandboxExtensionForPath error=%@", v8, v9, v10, v11);
 }
 
 void __71___ANEClient_doLoadModelNewInstance_options_modelInstParams_qos_error___block_invoke_cold_2(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v4 = *(a1 + 80);
-  v5 = a2;
-  v6 = OUTLINED_FUNCTION_4_0();
-  v7 = NSStringFromSelector(v6);
-  v8 = *(a1 + 56);
+  v3 = a2;
+  v4 = OUTLINED_FUNCTION_4_0();
+  v5 = NSStringFromSelector(v4);
   OUTLINED_FUNCTION_4_2();
-  OUTLINED_FUNCTION_7(&dword_1AD246000, v9, v10, "%@: Failed to issue sandbox extension model=%@", v11, v12, v13, v14, v16);
-
-  v15 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_7(&dword_1AD246000, v6, v7, "%@: Failed to issue sandbox extension model=%@", v8, v9, v10, v11);
 }
 
 @end

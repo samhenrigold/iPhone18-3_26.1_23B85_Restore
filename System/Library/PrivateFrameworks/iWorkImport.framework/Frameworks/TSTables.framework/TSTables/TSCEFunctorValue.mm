@@ -9,9 +9,9 @@
 + (id)functorValue:(const TSCEFunctor *)value
 {
   v4 = [TSCEFunctorValue alloc];
-  v8 = objc_msgSend_initWithFunctor_(v4, v5, value, v6, v7);
+  v7 = objc_msgSend_initWithFunctor_(v4, v5, value, v6);
 
-  return v8;
+  return v7;
 }
 
 - (TSCEFunctorValue)initWithFunctor:(const TSCEFunctor *)functor

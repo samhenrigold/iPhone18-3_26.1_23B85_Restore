@@ -18,8 +18,8 @@
   indexSet = [MEMORY[0x1E696AD50] indexSet];
   v25 = neighborsCopy;
   [indexSet addIndexes:neighborsCopy];
-  v26 = [datasetCopy count];
-  while ([indexSet count])
+  v26 = objc_msgSend_count(datasetCopy);
+  while (objc_msgSend_count(indexSet))
   {
     firstIndex = [indexSet firstIndex];
     v19 = [datasetCopy objectAtIndexedSubscript:firstIndex];
@@ -27,7 +27,7 @@
     {
       objects[firstIndex] = 1;
       v20 = [(PLDBSCANClustering *)self _neighborsAtIndex:firstIndex withDistancesFlatMatrix:matrix datasetSize:v26];
-      v21 = [v20 count];
+      v21 = objc_msgSend_count(v20);
       if (v21 >= [(PLDataDensityClustering *)self minimumNumberOfObjects])
       {
         v28[0] = MEMORY[0x1E69E9820];
@@ -54,7 +54,7 @@
   return v22;
 }
 
-uint64_t __122__PLDBSCANClustering__expandClusterForObject_dataset_objectsMappedToCluster_visitedObjects_distancesFlatMatrix_neighbors___block_invoke(uint64_t a1, uint64_t a2)
+void *__122__PLDBSCANClustering__expandClusterForObject_dataset_objectsMappedToCluster_visitedObjects_distancesFlatMatrix_neighbors___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) containsIndex:a2];
   if ((result & 1) == 0)
@@ -98,7 +98,7 @@ uint64_t __122__PLDBSCANClustering__expandClusterForObject_dataset_objectsMapped
   datasetCopy = dataset;
   blockCopy = block;
   selfCopy = self;
-  if ([datasetCopy count] >= 0x801)
+  if (objc_msgSend_count(datasetCopy) >= 0x801)
   {
     v8 = objc_alloc_init(PLSamplingClustering);
     [(PLSamplingClustering *)v8 setNumberOfClusters:2048];
@@ -122,7 +122,7 @@ uint64_t __122__PLDBSCANClustering__expandClusterForObject_dataset_objectsMapped
     self = selfCopy;
   }
 
-  v13 = [datasetCopy count];
+  v13 = objc_msgSend_count(datasetCopy);
   v14 = [(PLDataClustering *)self createDistancesFlatMatrixForDataset:datasetCopy];
   v15 = malloc_type_calloc(8uLL, v13, 0xABC152BAuLL);
   v33 = v13;
@@ -166,7 +166,7 @@ uint64_t __122__PLDBSCANClustering__expandClusterForObject_dataset_objectsMapped
           v15[v19] = 1;
           [(PLDBSCANClustering *)self _neighborsAtIndex:v19 withDistancesFlatMatrix:v14 datasetSize:v33];
           v24 = v23 = self;
-          if ([v24 count] >= v32)
+          if (objc_msgSend_count(v24) >= v32)
           {
             v25 = [(PLDBSCANClustering *)v23 _expandClusterForObject:v22 dataset:v16 objectsMappedToCluster:cf visitedObjects:v15 distancesFlatMatrix:v14 neighbors:v24];
             [array2 addObject:v25];

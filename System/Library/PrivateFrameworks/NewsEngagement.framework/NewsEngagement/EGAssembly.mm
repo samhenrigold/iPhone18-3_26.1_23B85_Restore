@@ -8,7 +8,7 @@
 {
   ObjectType = swift_getObjectType();
   v4 = OBJC_IVAR___EGAssembly_assemblies;
-  sub_25BE5BFA0();
+  sub_25BE5BFA0(0);
   v5 = swift_allocObject();
   *(v5 + 16) = xmmword_25BEB60E0;
   v6 = type metadata accessor for EngagementAssembly();

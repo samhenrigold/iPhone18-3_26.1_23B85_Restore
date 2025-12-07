@@ -81,43 +81,40 @@ BOOL __99__HDSyncSampleOriginUtilities_generateStateSyncCodableDevices_predicate
 
 id __79__HDSyncSampleOriginUtilities_ingestSourceSyncObjects_syncStore_profile_error___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v3 = a2;
-  v4 = [v3 bundleIdentifier];
-  v5 = [v4 isEqualToString:*MEMORY[0x277CCE4A8]];
+  v14 = *MEMORY[0x277D85DE8];
+  v2 = a2;
+  v3 = [v2 bundleIdentifier];
+  v4 = [v3 isEqualToString:*MEMORY[0x277CCE4A8]];
 
-  if (v5)
+  if (v4)
   {
-    v6 = [v3 decodedUUID];
-    if (v6)
+    v5 = [v2 decodedUUID];
+    if (v5)
     {
-      v7 = [v3 copy];
+      v6 = objc_msgSend_copy(v2);
 
-      v8 = [MEMORY[0x277CCDA00] _generateIdentifierForAppleDeviceWithUUID:v6];
-      [v7 setBundleIdentifier:v8];
+      v7 = [MEMORY[0x277CCDA00] _generateIdentifierForAppleDeviceWithUUID:v5];
+      [v6 setBundleIdentifier:v7];
 
-      v3 = v7;
+      v2 = v6;
     }
 
     else
     {
       _HKInitializeLogging();
-      v9 = *MEMORY[0x277CCC2A0];
+      v8 = *MEMORY[0x277CCC2A0];
       if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
       {
-        v12 = *(a1 + 32);
-        v13 = v9;
-        v15 = 138543362;
-        v16 = objc_opt_class();
-        v14 = v16;
-        _os_log_error_impl(&dword_228986000, v13, OS_LOG_TYPE_ERROR, "[%{public}@]: Decoded UUID found nil.", &v15, 0xCu);
+        v10 = v8;
+        v12 = 138543362;
+        v13 = objc_opt_class();
+        v11 = v13;
+        _os_log_error_impl(&dword_228986000, v10, OS_LOG_TYPE_ERROR, "[%{public}@]: Decoded UUID found nil.", &v12, 0xCu);
       }
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
-  return v3;
+  return v2;
 }
 
 + (int64_t)ingestContributorSyncObjects:(id)objects syncStore:(id)store profile:(id)profile error:(id *)error
@@ -167,7 +164,7 @@ id __79__HDSyncSampleOriginUtilities_ingestSourceSyncObjects_syncStore_profile_e
 
 BOOL __104__HDSyncSampleOriginUtilities_generateStateSyncCodableContributors_predicate_profile_transaction_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = [HDContributorSyncEntity _syncCodableContributorFromRow:a4 profile:*(a1 + 32) transaction:*(a1 + 40) error:a8];
+  v9 = [HDContributorSyncEntity _syncCodableContributorFromRow:a4 profile:*(a1 + 32) transaction:*(a1 + 40) error:a8, a7];
   if (v9)
   {
     [*(a1 + 48) addObject:v9];

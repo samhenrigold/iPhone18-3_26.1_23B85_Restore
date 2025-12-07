@@ -78,7 +78,7 @@
 
 - (id)getConnection
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (self)
   {
     os_unfair_lock_lock((self + 8));
@@ -91,14 +91,14 @@
       v7 = mach_service;
       if (mach_service)
       {
-        v13[0] = MEMORY[0x1E69E9820];
-        v13[1] = 3221225472;
-        v13[2] = __32__NSPServerClient_getConnection__block_invoke;
-        v13[3] = &unk_1E7A308F8;
-        v13[4] = self;
+        v12[0] = MEMORY[0x1E69E9820];
+        v12[1] = 3221225472;
+        v12[2] = __32__NSPServerClient_getConnection__block_invoke;
+        v12[3] = &unk_1E7A308F8;
+        v12[4] = self;
         v8 = mach_service;
-        v14 = v8;
-        xpc_connection_set_event_handler(v8, v13);
+        v13 = v8;
+        xpc_connection_set_event_handler(v8, v12);
         xpc_connection_resume(v8);
         objc_storeStrong((self + 24), v7);
       }
@@ -125,8 +125,6 @@
   {
     v10 = 0;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -163,7 +161,7 @@
 
 void __32__NSPServerClient_getConnection__block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (v3 && MEMORY[0x1B2708030](v3) == MEMORY[0x1E69E9E98])
@@ -186,9 +184,9 @@ void __32__NSPServerClient_getConnection__block_invoke(uint64_t a1, void *a2)
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         string = xpc_dictionary_get_string(v4, *MEMORY[0x1E69E9E28]);
-        v10 = 136315138;
-        v11 = string;
-        _os_log_impl(&dword_1AE7E2000, v7, OS_LOG_TYPE_INFO, "Got an error on the XPC connection: %s", &v10, 0xCu);
+        v9 = 136315138;
+        v10 = string;
+        _os_log_impl(&dword_1AE7E2000, v7, OS_LOG_TYPE_INFO, "Got an error on the XPC connection: %s", &v9, 0xCu);
       }
 
       objc_storeStrong((*(a1 + 32) + 24), 0);
@@ -198,14 +196,11 @@ void __32__NSPServerClient_getConnection__block_invoke(uint64_t a1, void *a2)
     os_unfair_lock_unlock((v5 + 8));
     xpc_connection_cancel(*(a1 + 40));
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __50__NSPServerClient_isAllowedToUseFetchTokenService__block_invoke()
 {
   getpid();
-  v0 = *MEMORY[0x1E69E9BD0];
   result = sandbox_check();
   if (!result)
   {
@@ -217,7 +212,7 @@ uint64_t __50__NSPServerClient_isAllowedToUseFetchTokenService__block_invoke()
 
 - (id)getTokenFetchConnection
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (self)
   {
     if (qword_1ED4BF5D8 != -1)
@@ -236,21 +231,21 @@ uint64_t __50__NSPServerClient_isAllowedToUseFetchTokenService__block_invoke()
         v6 = mach_service;
         if (mach_service)
         {
-          v13[0] = MEMORY[0x1E69E9820];
-          v13[1] = 3221225472;
-          v13[2] = __42__NSPServerClient_getTokenFetchConnection__block_invoke;
-          v13[3] = &unk_1E7A308F8;
-          v13[4] = self;
+          v12[0] = MEMORY[0x1E69E9820];
+          v12[1] = 3221225472;
+          v12[2] = __42__NSPServerClient_getTokenFetchConnection__block_invoke;
+          v12[3] = &unk_1E7A308F8;
+          v12[4] = self;
           v7 = mach_service;
-          v14 = v7;
-          xpc_connection_set_event_handler(v7, v13);
+          v13 = v7;
+          xpc_connection_set_event_handler(v7, v12);
           xpc_connection_resume(v7);
           objc_storeStrong((self + 32), v6);
           v8 = nplog_obj();
           if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
           {
             *buf = 136315138;
-            v16 = "com.apple.networkserviceproxy.fetch-token";
+            v15 = "com.apple.networkserviceproxy.fetch-token";
             _os_log_debug_impl(&dword_1AE7E2000, v8, OS_LOG_TYPE_DEBUG, "Created an XPC connection to %s", buf, 0xCu);
           }
         }
@@ -261,7 +256,7 @@ uint64_t __50__NSPServerClient_isAllowedToUseFetchTokenService__block_invoke()
           if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315138;
-            v16 = "com.apple.networkserviceproxy.fetch-token";
+            v15 = "com.apple.networkserviceproxy.fetch-token";
             _os_log_error_impl(&dword_1AE7E2000, v10, OS_LOG_TYPE_ERROR, "Failed to create an XPC connection to %s", buf, 0xCu);
           }
         }
@@ -284,14 +279,12 @@ uint64_t __50__NSPServerClient_isAllowedToUseFetchTokenService__block_invoke()
     getConnection = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return getConnection;
 }
 
 void __42__NSPServerClient_getTokenFetchConnection__block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (v3 && MEMORY[0x1B2708030](v3) == MEMORY[0x1E69E9E98])
@@ -314,9 +307,9 @@ void __42__NSPServerClient_getTokenFetchConnection__block_invoke(uint64_t a1, vo
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         string = xpc_dictionary_get_string(v4, *MEMORY[0x1E69E9E28]);
-        v10 = 136315138;
-        v11 = string;
-        _os_log_impl(&dword_1AE7E2000, v7, OS_LOG_TYPE_INFO, "Got an error on the XPC connection: %s", &v10, 0xCu);
+        v9 = 136315138;
+        v10 = string;
+        _os_log_impl(&dword_1AE7E2000, v7, OS_LOG_TYPE_INFO, "Got an error on the XPC connection: %s", &v9, 0xCu);
       }
 
       objc_storeStrong((*(a1 + 32) + 32), 0);
@@ -326,8 +319,6 @@ void __42__NSPServerClient_getTokenFetchConnection__block_invoke(uint64_t a1, vo
     os_unfair_lock_unlock((v5 + 8));
     xpc_connection_cancel(*(a1 + 40));
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchCurrentConfigurationWithCompletionHandler:(id)handler
@@ -425,7 +416,7 @@ void __66__NSPServerClient_fetchCurrentConfigurationWithCompletionHandler___bloc
 
 void __62__NSPServerClient_fetchNewConfigurationWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (v3 && MEMORY[0x1B2708030](v3) == MEMORY[0x1E69E9E80])
@@ -434,9 +425,9 @@ void __62__NSPServerClient_fetchNewConfigurationWithCompletionHandler___block_in
     v6 = nplog_obj();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v9[0] = 67109120;
-      v9[1] = v5;
-      _os_log_debug_impl(&dword_1AE7E2000, v6, OS_LOG_TYPE_DEBUG, "Attempt to fetch new configuration returned %d", v9, 8u);
+      v8[0] = 67109120;
+      v8[1] = v5;
+      _os_log_debug_impl(&dword_1AE7E2000, v6, OS_LOG_TYPE_DEBUG, "Attempt to fetch new configuration returned %d", v8, 8u);
     }
   }
 
@@ -450,8 +441,6 @@ void __62__NSPServerClient_fetchNewConfigurationWithCompletionHandler___block_in
   {
     (*(v7 + 16))(v7, v5);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resetConfigurationInternalSettings:(id)settings
@@ -486,14 +475,14 @@ void __54__NSPServerClient_resetConfigurationInternalSettings___block_invoke(uin
 
 void __54__NSPServerClient_resetConfigurationInternalSettings___block_invoke_2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = nplog_obj();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_1AE7E2000, v4, OS_LOG_TYPE_INFO, "Set of config while resetting internal settings returned: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v3;
+    _os_log_impl(&dword_1AE7E2000, v4, OS_LOG_TYPE_INFO, "Set of config while resetting internal settings returned: %@", &v6, 0xCu);
   }
 
   v5 = *(a1 + 32);
@@ -501,8 +490,6 @@ void __54__NSPServerClient_resetConfigurationInternalSettings___block_invoke_2(u
   {
     (*(v5 + 16))(v5, v3 == 0);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setCurrentConfiguration:(id)configuration withCompletionHandler:(id)handler
@@ -671,7 +658,7 @@ void __48__NSPServerClient_getPrivacyProxyConfiguration___block_invoke(uint64_t 
   v4 = MEMORY[0x1EEE9AC00](self, a2, configuration, handler);
   v6 = v5;
   selfa = v4;
-  v891 = *MEMORY[0x1E69E9840];
+  v873 = *MEMORY[0x1E69E9840];
   v8 = v7;
   v9 = v6;
   v10 = nplog_obj();
@@ -681,1402 +668,1428 @@ void __48__NSPServerClient_getPrivacyProxyConfiguration___block_invoke(uint64_t 
     _os_log_debug_impl(&dword_1AE7E2000, v10, OS_LOG_TYPE_DEBUG, "Requesting set proxy configuration", buf, 2u);
   }
 
-  v11 = 0x1E695D000uLL;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v702 = v9;
-    v713 = objc_alloc_init(NSPPrivacyProxyConfiguration);
-    v12 = [v8 objectForKeyedSubscript:@"version"];
-    if (v12)
+    v684 = v9;
+    v695 = objc_alloc_init(NSPPrivacyProxyConfiguration);
+    v11 = [v8 objectForKeyedSubscript:@"version"];
+    if (v11)
     {
-      v13 = v12;
-      v14 = [v8 objectForKeyedSubscript:@"version"];
+      v12 = v11;
+      v13 = [v8 objectForKeyedSubscript:@"version"];
       objc_opt_class();
       isKindOfClass = objc_opt_isKindOfClass();
 
       if (isKindOfClass)
       {
-        v16 = [v8 objectForKeyedSubscript:@"version"];
-        -[NSPPrivacyProxyConfiguration setVersion:](v713, "setVersion:", [v16 unsignedIntValue]);
+        v15 = [v8 objectForKeyedSubscript:@"version"];
+        -[NSPPrivacyProxyConfiguration setVersion:](v695, "setVersion:", [v15 unsignedIntValue]);
       }
     }
 
-    v17 = [v8 objectForKeyedSubscript:{@"enabled", v702}];
-    if (v17)
+    v16 = [v8 objectForKeyedSubscript:{@"enabled", v684}];
+    if (v16)
     {
-      v18 = v17;
-      v19 = [v8 objectForKeyedSubscript:@"enabled"];
+      v17 = v16;
+      v18 = [v8 objectForKeyedSubscript:@"enabled"];
       objc_opt_class();
-      v20 = objc_opt_isKindOfClass();
+      v19 = objc_opt_isKindOfClass();
 
-      if (v20)
+      if (v19)
       {
-        v21 = [v8 objectForKeyedSubscript:@"enabled"];
-        -[NSPPrivacyProxyConfiguration setEnabled:](v713, "setEnabled:", [v21 BOOLValue]);
+        v20 = [v8 objectForKeyedSubscript:@"enabled"];
+        -[NSPPrivacyProxyConfiguration setEnabled:](v695, "setEnabled:", [v20 BOOLValue]);
       }
     }
 
-    v22 = [v8 objectForKeyedSubscript:@"disableUntil"];
-    if (v22)
+    v21 = [v8 objectForKeyedSubscript:@"disableUntil"];
+    if (v21)
     {
-      v23 = v22;
-      v24 = [v8 objectForKeyedSubscript:@"disableUntil"];
+      v22 = v21;
+      v23 = [v8 objectForKeyedSubscript:@"disableUntil"];
       objc_opt_class();
-      v25 = objc_opt_isKindOfClass();
+      v24 = objc_opt_isKindOfClass();
 
-      if (v25)
+      if (v24)
       {
-        v26 = [v8 objectForKeyedSubscript:@"disableUntil"];
-        -[NSPPrivacyProxyConfiguration setDisableUntil:](v713, "setDisableUntil:", [v26 unsignedLongValue]);
+        v25 = [v8 objectForKeyedSubscript:@"disableUntil"];
+        -[NSPPrivacyProxyConfiguration setDisableUntil:](v695, "setDisableUntil:", [v25 unsignedLongValue]);
       }
     }
 
-    v712 = objc_alloc_init(NSPPrivacyProxyAuthenticationInfo);
-    [(NSPPrivacyProxyConfiguration *)v713 setAuthInfo:?];
-    v27 = [v8 objectForKeyedSubscript:@"authInfo"];
-    v711 = v8;
-    if (v27)
+    v694 = objc_alloc_init(NSPPrivacyProxyAuthenticationInfo);
+    [(NSPPrivacyProxyConfiguration *)v695 setAuthInfo:?];
+    v26 = [v8 objectForKeyedSubscript:@"authInfo"];
+    v693 = v8;
+    if (v26)
     {
-      v28 = v27;
-      v29 = [v8 objectForKeyedSubscript:@"authInfo"];
+      v27 = v26;
+      v28 = [v8 objectForKeyedSubscript:@"authInfo"];
       objc_opt_class();
-      v30 = objc_opt_isKindOfClass();
+      v29 = objc_opt_isKindOfClass();
 
-      if (v30)
+      if (v29)
       {
-        v31 = [v8 objectForKeyedSubscript:@"authInfo"];
-        v32 = [v31 objectForKeyedSubscript:@"authURL"];
-        v33 = 0x1E696A000uLL;
-        v704 = v31;
-        if (v32)
+        v30 = [v8 objectForKeyedSubscript:@"authInfo"];
+        v31 = [v30 objectForKeyedSubscript:@"authURL"];
+        v686 = v30;
+        if (v31)
         {
-          v34 = v32;
-          v35 = [v31 objectForKeyedSubscript:@"authURL"];
+          v32 = v31;
+          v33 = [v30 objectForKeyedSubscript:@"authURL"];
           objc_opt_class();
-          v36 = objc_opt_isKindOfClass();
+          v34 = objc_opt_isKindOfClass();
 
-          v31 = v704;
-          if (v36)
+          v30 = v686;
+          if (v34)
           {
-            v37 = [v704 objectForKeyedSubscript:@"authURL"];
-            [(NSPPrivacyProxyAuthenticationInfo *)v712 setAuthURL:v37];
+            v35 = [v686 objectForKeyedSubscript:@"authURL"];
+            [(NSPPrivacyProxyAuthenticationInfo *)v694 setAuthURL:v35];
           }
         }
 
-        v38 = [v31 objectForKeyedSubscript:@"accessTokenURL"];
-        if (v38)
+        v36 = [v30 objectForKeyedSubscript:@"accessTokenURL"];
+        if (v36)
         {
-          v39 = v38;
-          v40 = [v31 objectForKeyedSubscript:@"accessTokenURL"];
+          v37 = v36;
+          v38 = [v30 objectForKeyedSubscript:@"accessTokenURL"];
           objc_opt_class();
-          v41 = objc_opt_isKindOfClass();
+          v39 = objc_opt_isKindOfClass();
 
-          v31 = v704;
-          if (v41)
+          v30 = v686;
+          if (v39)
           {
-            v42 = [v704 objectForKeyedSubscript:@"accessTokenURL"];
-            [(NSPPrivacyProxyAuthenticationInfo *)v712 setAccessTokenURL:v42];
+            v40 = [v686 objectForKeyedSubscript:@"accessTokenURL"];
+            [(NSPPrivacyProxyAuthenticationInfo *)v694 setAccessTokenURL:v40];
           }
         }
 
-        v43 = [v31 objectForKeyedSubscript:@"accessTokenTypes"];
-        v44 = 0x1E695D000uLL;
-        if (v43)
+        v41 = [v30 objectForKeyedSubscript:@"accessTokenTypes"];
+        if (v41)
         {
-          v45 = v43;
-          v46 = [v31 objectForKeyedSubscript:@"accessTokenTypes"];
+          v42 = v41;
+          v43 = [v30 objectForKeyedSubscript:@"accessTokenTypes"];
           objc_opt_class();
-          v47 = objc_opt_isKindOfClass();
+          v44 = objc_opt_isKindOfClass();
 
-          v31 = v704;
-          if (v47)
+          v30 = v686;
+          if (v44)
           {
-            [v704 objectForKeyedSubscript:@"accessTokenTypes"];
-            v857 = 0u;
-            v858 = 0u;
-            v859 = 0u;
-            v48 = v860 = 0u;
-            v49 = [v48 countByEnumeratingWithState:&v857 objects:v890 count:16];
-            if (v49)
+            [v686 objectForKeyedSubscript:@"accessTokenTypes"];
+            v839 = 0u;
+            v840 = 0u;
+            v841 = 0u;
+            v45 = v842 = 0u;
+            v46 = [v45 countByEnumeratingWithState:&v839 objects:v872 count:16];
+            if (v46)
             {
-              v50 = v49;
-              v51 = *v858;
+              v47 = v46;
+              v48 = *v840;
               do
               {
-                for (i = 0; i != v50; ++i)
+                for (i = 0; i != v47; ++i)
                 {
-                  if (*v858 != v51)
+                  if (*v840 != v48)
                   {
-                    objc_enumerationMutation(v48);
+                    objc_enumerationMutation(v45);
                   }
 
-                  v53 = *(*(&v857 + 1) + 8 * i);
+                  v50 = *(*(&v839 + 1) + 8 * i);
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
-                    -[NSPPrivacyProxyAuthenticationInfo addAccessTokenTypes:](v712, "addAccessTokenTypes:", [v53 unsignedIntValue]);
+                    -[NSPPrivacyProxyAuthenticationInfo addAccessTokenTypes:](v694, "addAccessTokenTypes:", [v50 unsignedIntValue]);
                   }
                 }
 
-                v50 = [v48 countByEnumeratingWithState:&v857 objects:v890 count:16];
+                v47 = [v45 countByEnumeratingWithState:&v839 objects:v872 count:16];
               }
 
-              while (v50);
+              while (v47);
             }
 
-            v31 = v704;
+            v30 = v686;
           }
         }
 
-        v54 = [v31 objectForKeyedSubscript:@"accessTokenKnownOrigins"];
-        if (v54)
+        v51 = [v30 objectForKeyedSubscript:@"accessTokenKnownOrigins"];
+        if (v51)
         {
-          v55 = v54;
-          v56 = [v31 objectForKeyedSubscript:@"accessTokenKnownOrigins"];
+          v52 = v51;
+          v53 = [v30 objectForKeyedSubscript:@"accessTokenKnownOrigins"];
           objc_opt_class();
-          v57 = objc_opt_isKindOfClass();
+          v54 = objc_opt_isKindOfClass();
 
-          v31 = v704;
-          if (v57)
+          v30 = v686;
+          if (v54)
           {
-            [v704 objectForKeyedSubscript:@"accessTokenKnownOrigins"];
-            v853 = 0u;
-            v854 = 0u;
-            v855 = 0u;
-            v58 = v856 = 0u;
-            v59 = [v58 countByEnumeratingWithState:&v853 objects:v889 count:16];
-            if (v59)
+            [v686 objectForKeyedSubscript:@"accessTokenKnownOrigins"];
+            v835 = 0u;
+            v836 = 0u;
+            v837 = 0u;
+            v55 = v838 = 0u;
+            v56 = [v55 countByEnumeratingWithState:&v835 objects:v871 count:16];
+            if (v56)
             {
-              v60 = v59;
-              v61 = *v854;
+              v57 = v56;
+              v58 = *v836;
               do
               {
-                for (j = 0; j != v60; ++j)
+                for (j = 0; j != v57; ++j)
                 {
-                  if (*v854 != v61)
+                  if (*v836 != v58)
                   {
-                    objc_enumerationMutation(v58);
+                    objc_enumerationMutation(v55);
                   }
 
-                  v63 = *(*(&v853 + 1) + 8 * j);
+                  v60 = *(*(&v835 + 1) + 8 * j);
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
-                    [(NSPPrivacyProxyAuthenticationInfo *)v712 addAccessTokenKnownOrigins:v63];
+                    [(NSPPrivacyProxyAuthenticationInfo *)v694 addAccessTokenKnownOrigins:v60];
                   }
                 }
 
-                v60 = [v58 countByEnumeratingWithState:&v853 objects:v889 count:16];
+                v57 = [v55 countByEnumeratingWithState:&v835 objects:v871 count:16];
               }
 
-              while (v60);
+              while (v57);
             }
 
-            v31 = v704;
+            v30 = v686;
           }
         }
 
-        v64 = [v31 objectForKeyedSubscript:@"accessTokenBlockedIssuers"];
-        if (v64)
+        v61 = [v30 objectForKeyedSubscript:@"accessTokenBlockedIssuers"];
+        if (v61)
         {
-          v65 = v64;
-          v66 = [v31 objectForKeyedSubscript:@"accessTokenBlockedIssuers"];
+          v62 = v61;
+          v63 = [v30 objectForKeyedSubscript:@"accessTokenBlockedIssuers"];
           objc_opt_class();
-          v67 = objc_opt_isKindOfClass();
+          v64 = objc_opt_isKindOfClass();
 
-          v31 = v704;
-          if (v67)
+          v30 = v686;
+          if (v64)
           {
-            [v704 objectForKeyedSubscript:@"accessTokenBlockedIssuers"];
-            v849 = 0u;
-            v850 = 0u;
-            v851 = 0u;
-            v68 = v852 = 0u;
-            v69 = [v68 countByEnumeratingWithState:&v849 objects:v888 count:16];
-            if (v69)
+            [v686 objectForKeyedSubscript:@"accessTokenBlockedIssuers"];
+            v831 = 0u;
+            v832 = 0u;
+            v833 = 0u;
+            v65 = v834 = 0u;
+            v66 = [v65 countByEnumeratingWithState:&v831 objects:v870 count:16];
+            if (v66)
             {
-              v70 = v69;
-              v71 = *v850;
+              v67 = v66;
+              v68 = *v832;
               do
               {
-                for (k = 0; k != v70; ++k)
+                for (k = 0; k != v67; ++k)
                 {
-                  if (*v850 != v71)
+                  if (*v832 != v68)
                   {
-                    objc_enumerationMutation(v68);
+                    objc_enumerationMutation(v65);
                   }
 
-                  v73 = *(*(&v849 + 1) + 8 * k);
+                  v70 = *(*(&v831 + 1) + 8 * k);
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
-                    [(NSPPrivacyProxyAuthenticationInfo *)v712 addAccessTokenBlockedIssuers:v73];
+                    [(NSPPrivacyProxyAuthenticationInfo *)v694 addAccessTokenBlockedIssuers:v70];
                   }
                 }
 
-                v70 = [v68 countByEnumeratingWithState:&v849 objects:v888 count:16];
+                v67 = [v65 countByEnumeratingWithState:&v831 objects:v870 count:16];
               }
 
-              while (v70);
+              while (v67);
             }
 
-            v31 = v704;
+            v30 = v686;
           }
         }
 
-        v74 = [v31 objectForKeyedSubscript:@"authType"];
-        if (v74)
+        v71 = [v30 objectForKeyedSubscript:@"authType"];
+        if (v71)
         {
-          v75 = v74;
-          v76 = [v31 objectForKeyedSubscript:@"authType"];
+          v72 = v71;
+          v73 = [v30 objectForKeyedSubscript:@"authType"];
           objc_opt_class();
-          v77 = objc_opt_isKindOfClass();
+          v74 = objc_opt_isKindOfClass();
 
-          v31 = v704;
-          if (v77)
+          v30 = v686;
+          if (v74)
           {
-            v78 = [v704 objectForKeyedSubscript:@"authType"];
-            if ([v78 isEqualToString:@"UNKNOWN"])
+            v75 = [v686 objectForKeyedSubscript:@"authType"];
+            if ([v75 isEqualToString:@"UNKNOWN"])
             {
-              v79 = 0;
+              v76 = 0;
             }
 
-            else if ([v78 isEqualToString:@"BAA"])
+            else if ([v75 isEqualToString:@"BAA"])
             {
-              v79 = 1;
+              v76 = 1;
             }
 
-            else if ([v78 isEqualToString:@"ANISETTE"])
+            else if ([v75 isEqualToString:@"ANISETTE"])
             {
-              v79 = 2;
+              v76 = 2;
             }
 
-            else if ([v78 isEqualToString:@"BAA_ANISETTE"])
+            else if ([v75 isEqualToString:@"BAA_ANISETTE"])
             {
-              v79 = 3;
+              v76 = 3;
             }
 
-            else if ([v78 isEqualToString:@"TOKEN"])
+            else if ([v75 isEqualToString:@"TOKEN"])
             {
-              v79 = 4;
+              v76 = 4;
             }
 
             else
             {
-              v79 = 0;
+              v76 = 0;
             }
 
-            [(NSPPrivacyProxyAuthenticationInfo *)v712 setAuthType:v79];
-            v31 = v704;
+            [(NSPPrivacyProxyAuthenticationInfo *)v694 setAuthType:v76];
+            v30 = v686;
           }
         }
 
-        v81 = [v31 objectForKeyedSubscript:@"nonDefaultAttesters"];
-        if (v81)
+        v78 = [v30 objectForKeyedSubscript:@"nonDefaultAttesters"];
+        if (v78)
         {
-          v82 = v81;
-          v83 = [v31 objectForKeyedSubscript:@"nonDefaultAttesters"];
+          v79 = v78;
+          v80 = [v30 objectForKeyedSubscript:@"nonDefaultAttesters"];
           objc_opt_class();
-          v84 = objc_opt_isKindOfClass();
+          v81 = objc_opt_isKindOfClass();
 
-          v31 = v704;
-          if (v84)
+          v30 = v686;
+          if (v81)
           {
-            [v704 objectForKeyedSubscript:@"nonDefaultAttesters"];
-            v845 = 0u;
-            v846 = 0u;
-            v847 = 0u;
-            obj = v848 = 0u;
-            v85 = [obj countByEnumeratingWithState:&v845 objects:v887 count:16];
-            if (v85)
+            [v686 objectForKeyedSubscript:@"nonDefaultAttesters"];
+            v827 = 0u;
+            v828 = 0u;
+            v829 = 0u;
+            obj = v830 = 0u;
+            v82 = [obj countByEnumeratingWithState:&v827 objects:v869 count:16];
+            if (v82)
             {
-              v86 = v85;
-              v87 = *v846;
-              v706 = *v846;
+              v83 = v82;
+              v84 = *v828;
+              v688 = *v828;
               do
               {
-                v88 = 0;
-                v707 = v86;
+                v85 = 0;
+                v689 = v83;
                 do
                 {
-                  if (*v846 != v87)
+                  if (*v828 != v84)
                   {
                     objc_enumerationMutation(obj);
                   }
 
-                  v89 = *(*(&v845 + 1) + 8 * v88);
+                  v86 = *(*(&v827 + 1) + 8 * v85);
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
-                    v709 = v88;
-                    v717 = objc_alloc_init(NSPPrivacyProxyTokenAttester);
-                    [(NSPPrivacyProxyAuthenticationInfo *)v712 addNonDefaultAttesters:?];
-                    v90 = [v89 objectForKeyedSubscript:@"authType"];
-                    if (v90)
+                    v691 = v85;
+                    v699 = objc_alloc_init(NSPPrivacyProxyTokenAttester);
+                    [(NSPPrivacyProxyAuthenticationInfo *)v694 addNonDefaultAttesters:?];
+                    v87 = [v86 objectForKeyedSubscript:@"authType"];
+                    if (v87)
                     {
-                      v91 = v90;
-                      v92 = [v89 objectForKeyedSubscript:@"authType"];
-                      v93 = *(v33 + 3776);
+                      v88 = v87;
+                      v89 = [v86 objectForKeyedSubscript:@"authType"];
                       objc_opt_class();
-                      v94 = objc_opt_isKindOfClass();
+                      v90 = objc_opt_isKindOfClass();
 
-                      if (v94)
+                      if (v90)
                       {
-                        v95 = [v89 objectForKeyedSubscript:@"authType"];
-                        if ([v95 isEqualToString:@"UNKNOWN"])
+                        v91 = [v86 objectForKeyedSubscript:@"authType"];
+                        if ([v91 isEqualToString:@"UNKNOWN"])
                         {
-                          v96 = 0;
+                          v92 = 0;
                         }
 
-                        else if ([v95 isEqualToString:@"BAA"])
+                        else if ([v91 isEqualToString:@"BAA"])
                         {
-                          v96 = 1;
+                          v92 = 1;
                         }
 
-                        else if ([v95 isEqualToString:@"ANISETTE"])
+                        else if ([v91 isEqualToString:@"ANISETTE"])
                         {
-                          v96 = 2;
+                          v92 = 2;
                         }
 
-                        else if ([v95 isEqualToString:@"BAA_ANISETTE"])
+                        else if ([v91 isEqualToString:@"BAA_ANISETTE"])
                         {
-                          v96 = 3;
+                          v92 = 3;
                         }
 
-                        else if ([v95 isEqualToString:@"TOKEN"])
+                        else if ([v91 isEqualToString:@"TOKEN"])
                         {
-                          v96 = 4;
+                          v92 = 4;
                         }
 
                         else
                         {
-                          v96 = 0;
+                          v92 = 0;
                         }
 
-                        [(NSPPrivacyProxyTokenAttester *)v717 setAuthType:v96];
+                        [(NSPPrivacyProxyTokenAttester *)v699 setAuthType:v92];
                       }
                     }
 
-                    v97 = [v89 objectForKeyedSubscript:@"attesterURL"];
-                    if (v97)
+                    v93 = [v86 objectForKeyedSubscript:@"attesterURL"];
+                    if (v93)
                     {
-                      v98 = v97;
-                      v99 = [v89 objectForKeyedSubscript:@"attesterURL"];
-                      v100 = *(v33 + 3776);
+                      v94 = v93;
+                      v95 = [v86 objectForKeyedSubscript:@"attesterURL"];
+                      objc_opt_class();
+                      v96 = objc_opt_isKindOfClass();
+
+                      if (v96)
+                      {
+                        v97 = [v86 objectForKeyedSubscript:@"attesterURL"];
+                        [(NSPPrivacyProxyTokenAttester *)v699 setAttesterURL:v97];
+                      }
+                    }
+
+                    v98 = [v86 objectForKeyedSubscript:@"associatedIssuers"];
+                    if (v98)
+                    {
+                      v99 = v98;
+                      v100 = [v86 objectForKeyedSubscript:@"associatedIssuers"];
                       objc_opt_class();
                       v101 = objc_opt_isKindOfClass();
 
                       if (v101)
                       {
-                        v102 = [v89 objectForKeyedSubscript:@"attesterURL"];
-                        [(NSPPrivacyProxyTokenAttester *)v717 setAttesterURL:v102];
-                      }
-                    }
-
-                    v103 = [v89 objectForKeyedSubscript:@"associatedIssuers"];
-                    if (v103)
-                    {
-                      v104 = v103;
-                      v105 = [v89 objectForKeyedSubscript:@"associatedIssuers"];
-                      v106 = *(v44 + 3784);
-                      objc_opt_class();
-                      v107 = objc_opt_isKindOfClass();
-
-                      if (v107)
-                      {
-                        v108 = [v89 objectForKeyedSubscript:@"associatedIssuers"];
-                        v841 = 0u;
-                        v842 = 0u;
-                        v843 = 0u;
-                        v844 = 0u;
-                        v723 = v108;
-                        v109 = [v723 countByEnumeratingWithState:&v841 objects:v886 count:16];
-                        if (v109)
+                        v102 = [v86 objectForKeyedSubscript:@"associatedIssuers"];
+                        v823 = 0u;
+                        v824 = 0u;
+                        v825 = 0u;
+                        v826 = 0u;
+                        v705 = v102;
+                        v103 = [v705 countByEnumeratingWithState:&v823 objects:v868 count:16];
+                        if (v103)
                         {
-                          v110 = v109;
-                          v111 = *v842;
-                          v715 = *v842;
+                          v104 = v103;
+                          v105 = *v824;
+                          v697 = *v824;
                           do
                           {
-                            v112 = 0;
-                            v720 = v110;
+                            v106 = 0;
+                            v702 = v104;
                             do
                             {
-                              if (*v842 != v111)
+                              if (*v824 != v105)
                               {
-                                objc_enumerationMutation(v723);
+                                objc_enumerationMutation(v705);
                               }
 
-                              v113 = *(*(&v841 + 1) + 8 * v112);
+                              v107 = *(*(&v823 + 1) + 8 * v106);
                               objc_opt_class();
                               if (objc_opt_isKindOfClass())
                               {
-                                v729 = v112;
-                                v736 = objc_alloc_init(NSPPrivacyProxyTokenIssuer);
-                                [(NSPPrivacyProxyTokenAttester *)v717 addAssociatedIssuers:?];
-                                v114 = [v113 objectForKeyedSubscript:@"issuerName"];
-                                v115 = v113;
-                                if (v114)
+                                v711 = v106;
+                                v718 = objc_alloc_init(NSPPrivacyProxyTokenIssuer);
+                                [(NSPPrivacyProxyTokenAttester *)v699 addAssociatedIssuers:?];
+                                v108 = [v107 objectForKeyedSubscript:@"issuerName"];
+                                v109 = v107;
+                                if (v108)
                                 {
-                                  v116 = v114;
-                                  v117 = [v113 objectForKeyedSubscript:@"issuerName"];
-                                  v118 = *(v33 + 3776);
+                                  v110 = v108;
+                                  v111 = [v107 objectForKeyedSubscript:@"issuerName"];
                                   objc_opt_class();
-                                  v119 = objc_opt_isKindOfClass();
+                                  v112 = objc_opt_isKindOfClass();
 
-                                  if (v119)
+                                  if (v112)
                                   {
-                                    v120 = [v115 objectForKeyedSubscript:@"issuerName"];
-                                    [(NSPPrivacyProxyTokenIssuer *)v736 setIssuerName:v120];
+                                    v113 = [v109 objectForKeyedSubscript:@"issuerName"];
+                                    [(NSPPrivacyProxyTokenIssuer *)v718 setIssuerName:v113];
                                   }
                                 }
 
-                                v121 = [v115 objectForKeyedSubscript:@"tokenKeys"];
-                                if (v121)
+                                v114 = [v109 objectForKeyedSubscript:@"tokenKeys"];
+                                if (v114)
                                 {
-                                  v122 = v121;
-                                  v123 = [v115 objectForKeyedSubscript:@"tokenKeys"];
-                                  v124 = *(v44 + 3784);
+                                  v115 = v114;
+                                  v116 = [v109 objectForKeyedSubscript:@"tokenKeys"];
                                   objc_opt_class();
-                                  v125 = objc_opt_isKindOfClass();
+                                  v117 = objc_opt_isKindOfClass();
 
-                                  if (v125)
+                                  if (v117)
                                   {
-                                    v126 = [v115 objectForKeyedSubscript:@"tokenKeys"];
-                                    v837 = 0u;
-                                    v838 = 0u;
-                                    v839 = 0u;
-                                    v840 = 0u;
-                                    v127 = v126;
-                                    v128 = [v127 countByEnumeratingWithState:&v837 objects:v885 count:16];
-                                    if (v128)
+                                    v118 = [v109 objectForKeyedSubscript:@"tokenKeys"];
+                                    v819 = 0u;
+                                    v820 = 0u;
+                                    v821 = 0u;
+                                    v822 = 0u;
+                                    v119 = v118;
+                                    v120 = [v119 countByEnumeratingWithState:&v819 objects:v867 count:16];
+                                    if (v120)
                                     {
-                                      v129 = v128;
-                                      v130 = *v838;
+                                      v121 = v120;
+                                      v122 = *v820;
                                       do
                                       {
-                                        for (m = 0; m != v129; ++m)
+                                        for (m = 0; m != v121; ++m)
                                         {
-                                          if (*v838 != v130)
+                                          if (*v820 != v122)
                                           {
-                                            objc_enumerationMutation(v127);
+                                            objc_enumerationMutation(v119);
                                           }
 
-                                          v132 = *(*(&v837 + 1) + 8 * m);
+                                          v124 = *(*(&v819 + 1) + 8 * m);
                                           objc_opt_class();
                                           if (objc_opt_isKindOfClass())
                                           {
-                                            v133 = objc_alloc_init(NSPPrivacyProxyTokenKey);
-                                            [(NSPPrivacyProxyTokenIssuer *)v736 addTokenKeys:v133];
-                                            v134 = [v132 objectForKeyedSubscript:@"key"];
-                                            if (v134)
+                                            v125 = objc_alloc_init(NSPPrivacyProxyTokenKey);
+                                            [(NSPPrivacyProxyTokenIssuer *)v718 addTokenKeys:v125];
+                                            v126 = [v124 objectForKeyedSubscript:@"key"];
+                                            if (v126)
                                             {
-                                              v135 = v134;
-                                              v136 = [v132 objectForKeyedSubscript:@"key"];
+                                              v127 = v126;
+                                              v128 = [v124 objectForKeyedSubscript:@"key"];
                                               objc_opt_class();
-                                              v137 = objc_opt_isKindOfClass();
+                                              v129 = objc_opt_isKindOfClass();
 
-                                              if (v137)
+                                              if (v129)
                                               {
-                                                v138 = [v132 objectForKeyedSubscript:@"key"];
-                                                [(NSPPrivacyProxyTokenKey *)v133 setKey:v138];
+                                                v130 = [v124 objectForKeyedSubscript:@"key"];
+                                                [(NSPPrivacyProxyTokenKey *)v125 setKey:v130];
                                               }
                                             }
 
-                                            v139 = [v132 objectForKeyedSubscript:@"expiration"];
-                                            if (v139)
+                                            v131 = [v124 objectForKeyedSubscript:@"expiration"];
+                                            if (v131)
                                             {
-                                              v140 = v139;
-                                              v141 = [v132 objectForKeyedSubscript:@"expiration"];
+                                              v132 = v131;
+                                              v133 = [v124 objectForKeyedSubscript:@"expiration"];
                                               objc_opt_class();
-                                              v142 = objc_opt_isKindOfClass();
+                                              v134 = objc_opt_isKindOfClass();
 
-                                              if (v142)
+                                              if (v134)
                                               {
-                                                v143 = [v132 objectForKeyedSubscript:@"expiration"];
-                                                -[NSPPrivacyProxyTokenKey setExpiration:](v133, "setExpiration:", [v143 unsignedLongLongValue]);
+                                                v135 = [v124 objectForKeyedSubscript:@"expiration"];
+                                                -[NSPPrivacyProxyTokenKey setExpiration:](v125, "setExpiration:", [v135 unsignedLongLongValue]);
                                               }
                                             }
 
-                                            v144 = [v132 objectForKeyedSubscript:@"rotation"];
-                                            if (v144)
+                                            v136 = [v124 objectForKeyedSubscript:@"rotation"];
+                                            if (v136)
                                             {
-                                              v145 = v144;
-                                              v146 = [v132 objectForKeyedSubscript:@"rotation"];
+                                              v137 = v136;
+                                              v138 = [v124 objectForKeyedSubscript:@"rotation"];
                                               objc_opt_class();
-                                              v147 = objc_opt_isKindOfClass();
+                                              v139 = objc_opt_isKindOfClass();
 
-                                              if (v147)
+                                              if (v139)
                                               {
-                                                v148 = [v132 objectForKeyedSubscript:@"rotation"];
-                                                -[NSPPrivacyProxyTokenKey setRotation:](v133, "setRotation:", [v148 unsignedLongLongValue]);
+                                                v140 = [v124 objectForKeyedSubscript:@"rotation"];
+                                                -[NSPPrivacyProxyTokenKey setRotation:](v125, "setRotation:", [v140 unsignedLongLongValue]);
                                               }
                                             }
 
-                                            v149 = [v132 objectForKeyedSubscript:@"tokenType"];
-                                            if (v149)
+                                            v141 = [v124 objectForKeyedSubscript:@"tokenType"];
+                                            if (v141)
                                             {
-                                              v150 = v149;
-                                              v151 = [v132 objectForKeyedSubscript:@"tokenType"];
+                                              v142 = v141;
+                                              v143 = [v124 objectForKeyedSubscript:@"tokenType"];
                                               objc_opt_class();
-                                              v152 = objc_opt_isKindOfClass();
+                                              v144 = objc_opt_isKindOfClass();
 
-                                              if (v152)
+                                              if (v144)
                                               {
-                                                v153 = [v132 objectForKeyedSubscript:@"tokenType"];
-                                                -[NSPPrivacyProxyTokenKey setTokenType:](v133, "setTokenType:", [v153 unsignedIntValue]);
+                                                v145 = [v124 objectForKeyedSubscript:@"tokenType"];
+                                                -[NSPPrivacyProxyTokenKey setTokenType:](v125, "setTokenType:", [v145 unsignedIntValue]);
                                               }
                                             }
 
-                                            v154 = [v132 objectForKeyedSubscript:@"metadataSize"];
-                                            if (v154)
+                                            v146 = [v124 objectForKeyedSubscript:@"metadataSize"];
+                                            if (v146)
                                             {
-                                              v155 = v154;
-                                              v156 = [v132 objectForKeyedSubscript:@"metadataSize"];
+                                              v147 = v146;
+                                              v148 = [v124 objectForKeyedSubscript:@"metadataSize"];
                                               objc_opt_class();
-                                              v157 = objc_opt_isKindOfClass();
+                                              v149 = objc_opt_isKindOfClass();
 
-                                              if (v157)
+                                              if (v149)
                                               {
-                                                v158 = [v132 objectForKeyedSubscript:@"metadataSize"];
-                                                -[NSPPrivacyProxyTokenKey setMetadataSize:](v133, "setMetadataSize:", [v158 unsignedIntValue]);
+                                                v150 = [v124 objectForKeyedSubscript:@"metadataSize"];
+                                                -[NSPPrivacyProxyTokenKey setMetadataSize:](v125, "setMetadataSize:", [v150 unsignedIntValue]);
                                               }
                                             }
-
-                                            v11 = 0x1E695D000uLL;
                                           }
                                         }
 
-                                        v129 = [v127 countByEnumeratingWithState:&v837 objects:v885 count:16];
+                                        v121 = [v119 countByEnumeratingWithState:&v819 objects:v867 count:16];
                                       }
 
-                                      while (v129);
+                                      while (v121);
                                     }
-
-                                    v33 = 0x1E696A000;
-                                    v44 = 0x1E695D000;
                                   }
                                 }
 
-                                v159 = [v115 objectForKeyedSubscript:@"transparencyKeyBundle"];
-                                if (v159)
+                                v151 = [v109 objectForKeyedSubscript:@"transparencyKeyBundle"];
+                                if (v151)
                                 {
-                                  v160 = v159;
-                                  v161 = [v115 objectForKeyedSubscript:@"transparencyKeyBundle"];
+                                  v152 = v151;
+                                  v153 = [v109 objectForKeyedSubscript:@"transparencyKeyBundle"];
                                   objc_opt_class();
-                                  v162 = objc_opt_isKindOfClass();
+                                  v154 = objc_opt_isKindOfClass();
 
-                                  if (v162)
+                                  if (v154)
                                   {
-                                    v163 = [v115 objectForKeyedSubscript:@"transparencyKeyBundle"];
-                                    [(NSPPrivacyProxyTokenIssuer *)v736 setTransparencyKeyBundle:v163];
+                                    v155 = [v109 objectForKeyedSubscript:@"transparencyKeyBundle"];
+                                    [(NSPPrivacyProxyTokenIssuer *)v718 setTransparencyKeyBundle:v155];
                                   }
                                 }
 
-                                v164 = [v115 objectForKeyedSubscript:@"transparencyProof"];
-                                if (v164)
+                                v156 = [v109 objectForKeyedSubscript:@"transparencyProof"];
+                                if (v156)
                                 {
-                                  v165 = v164;
-                                  v166 = [v115 objectForKeyedSubscript:@"transparencyProof"];
+                                  v157 = v156;
+                                  v158 = [v109 objectForKeyedSubscript:@"transparencyProof"];
                                   objc_opt_class();
-                                  v167 = objc_opt_isKindOfClass();
+                                  v159 = objc_opt_isKindOfClass();
 
-                                  if (v167)
+                                  if (v159)
                                   {
-                                    v168 = [v115 objectForKeyedSubscript:@"transparencyProof"];
-                                    [(NSPPrivacyProxyTokenIssuer *)v736 setTransparencyProof:v168];
+                                    v160 = [v109 objectForKeyedSubscript:@"transparencyProof"];
+                                    [(NSPPrivacyProxyTokenIssuer *)v718 setTransparencyProof:v160];
                                   }
                                 }
 
-                                v169 = [v115 objectForKeyedSubscript:@"transparencyInternalProof"];
-                                if (v169)
+                                v161 = [v109 objectForKeyedSubscript:@"transparencyInternalProof"];
+                                if (v161)
                                 {
-                                  v170 = v169;
-                                  v171 = [v115 objectForKeyedSubscript:@"transparencyInternalProof"];
+                                  v162 = v161;
+                                  v163 = [v109 objectForKeyedSubscript:@"transparencyInternalProof"];
                                   objc_opt_class();
-                                  v172 = objc_opt_isKindOfClass();
+                                  v164 = objc_opt_isKindOfClass();
 
-                                  if (v172)
+                                  if (v164)
                                   {
-                                    v173 = [v115 objectForKeyedSubscript:@"transparencyInternalProof"];
-                                    [(NSPPrivacyProxyTokenIssuer *)v736 setTransparencyInternalProof:v173];
+                                    v165 = [v109 objectForKeyedSubscript:@"transparencyInternalProof"];
+                                    [(NSPPrivacyProxyTokenIssuer *)v718 setTransparencyInternalProof:v165];
                                   }
                                 }
 
-                                v111 = v715;
-                                v110 = v720;
-                                v112 = v729;
+                                v105 = v697;
+                                v104 = v702;
+                                v106 = v711;
                               }
 
-                              ++v112;
+                              ++v106;
                             }
 
-                            while (v112 != v110);
-                            v110 = [v723 countByEnumeratingWithState:&v841 objects:v886 count:16];
+                            while (v106 != v104);
+                            v104 = [v705 countByEnumeratingWithState:&v823 objects:v868 count:16];
                           }
 
-                          while (v110);
+                          while (v104);
                         }
                       }
                     }
 
-                    v88 = v709;
-                    v8 = v711;
-                    v87 = v706;
-                    v86 = v707;
+                    v85 = v691;
+                    v8 = v693;
+                    v84 = v688;
+                    v83 = v689;
                   }
 
-                  ++v88;
+                  ++v85;
                 }
 
-                while (v88 != v86);
-                v86 = [obj countByEnumeratingWithState:&v845 objects:v887 count:16];
+                while (v85 != v83);
+                v83 = [obj countByEnumeratingWithState:&v827 objects:v869 count:16];
               }
 
-              while (v86);
+              while (v83);
             }
 
-            v31 = v704;
+            v30 = v686;
           }
         }
       }
     }
 
-    v174 = [v8 objectForKeyedSubscript:@"quotaInfo"];
-    if (v174)
+    v166 = [v8 objectForKeyedSubscript:@"quotaInfo"];
+    if (v166)
     {
-      v175 = v174;
-      v176 = [v8 objectForKeyedSubscript:@"quotaInfo"];
+      v167 = v166;
+      v168 = [v8 objectForKeyedSubscript:@"quotaInfo"];
       objc_opt_class();
-      v177 = objc_opt_isKindOfClass();
+      v169 = objc_opt_isKindOfClass();
 
-      if (v177)
+      if (v169)
       {
-        v730 = objc_alloc_init(NSPPrivacyProxyQuotaInfo);
-        [(NSPPrivacyProxyConfiguration *)v713 setQuotaInfo:?];
-        v178 = [v8 objectForKeyedSubscript:@"quotaInfo"];
-        v179 = [v178 objectForKeyedSubscript:@"quotaServices"];
-        if (v179)
+        v712 = objc_alloc_init(NSPPrivacyProxyQuotaInfo);
+        [(NSPPrivacyProxyConfiguration *)v695 setQuotaInfo:?];
+        v170 = [v8 objectForKeyedSubscript:@"quotaInfo"];
+        v171 = [v170 objectForKeyedSubscript:@"quotaServices"];
+        if (v171)
         {
-          v180 = v179;
-          v181 = [v178 objectForKeyedSubscript:@"quotaServices"];
+          v172 = v171;
+          v173 = [v170 objectForKeyedSubscript:@"quotaServices"];
           objc_opt_class();
-          v182 = objc_opt_isKindOfClass();
+          v174 = objc_opt_isKindOfClass();
 
-          if (v182)
+          if (v174)
           {
-            v724 = v178;
-            [v178 objectForKeyedSubscript:@"quotaServices"];
-            v833 = 0u;
-            v834 = 0u;
-            v835 = 0u;
-            v737 = v836 = 0u;
-            v183 = [v737 countByEnumeratingWithState:&v833 objects:v884 count:16];
-            v184 = v730;
-            if (v183)
+            v706 = v170;
+            [v170 objectForKeyedSubscript:@"quotaServices"];
+            v815 = 0u;
+            v816 = 0u;
+            v817 = 0u;
+            v719 = v818 = 0u;
+            v175 = [v719 countByEnumeratingWithState:&v815 objects:v866 count:16];
+            v176 = v712;
+            if (v175)
             {
-              v185 = v183;
-              v186 = *v834;
+              v177 = v175;
+              v178 = *v816;
               do
               {
-                for (n = 0; n != v185; ++n)
+                for (n = 0; n != v177; ++n)
                 {
-                  if (*v834 != v186)
+                  if (*v816 != v178)
                   {
-                    objc_enumerationMutation(v737);
+                    objc_enumerationMutation(v719);
                   }
 
-                  v188 = *(*(&v833 + 1) + 8 * n);
-                  v189 = *(v11 + 3872);
+                  v180 = *(*(&v815 + 1) + 8 * n);
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
-                    v190 = objc_alloc_init(NSPPrivacyProxyQuotaService);
-                    [(NSPPrivacyProxyQuotaInfo *)v184 addQuotaServices:v190];
-                    v191 = [v188 objectForKeyedSubscript:@"serviceURL"];
-                    if (v191)
+                    v181 = objc_alloc_init(NSPPrivacyProxyQuotaService);
+                    [(NSPPrivacyProxyQuotaInfo *)v176 addQuotaServices:v181];
+                    v182 = [v180 objectForKeyedSubscript:@"serviceURL"];
+                    if (v182)
                     {
-                      v192 = v191;
-                      v193 = [v188 objectForKeyedSubscript:@"serviceURL"];
+                      v183 = v182;
+                      v184 = [v180 objectForKeyedSubscript:@"serviceURL"];
                       objc_opt_class();
-                      v194 = objc_opt_isKindOfClass();
+                      v185 = objc_opt_isKindOfClass();
 
-                      if (v194)
+                      if (v185)
                       {
-                        v195 = [v188 objectForKeyedSubscript:@"serviceURL"];
-                        [(NSPPrivacyProxyQuotaService *)v190 setServiceURL:v195];
+                        v186 = [v180 objectForKeyedSubscript:@"serviceURL"];
+                        [(NSPPrivacyProxyQuotaService *)v181 setServiceURL:v186];
                       }
                     }
 
-                    v196 = [v188 objectForKeyedSubscript:@"supportedUseCaseIdentifiers"];
-                    if (v196)
+                    v187 = [v180 objectForKeyedSubscript:@"supportedUseCaseIdentifiers"];
+                    if (v187)
                     {
-                      v197 = v196;
-                      v198 = [v188 objectForKeyedSubscript:@"supportedUseCaseIdentifiers"];
+                      v188 = v187;
+                      v189 = [v180 objectForKeyedSubscript:@"supportedUseCaseIdentifiers"];
                       objc_opt_class();
-                      v199 = objc_opt_isKindOfClass();
+                      v190 = objc_opt_isKindOfClass();
 
-                      if (v199)
+                      if (v190)
                       {
-                        v200 = [v188 objectForKeyedSubscript:@"supportedUseCaseIdentifiers"];
-                        v829 = 0u;
-                        v830 = 0u;
-                        v831 = 0u;
-                        v832 = 0u;
-                        v201 = v200;
-                        v202 = [v201 countByEnumeratingWithState:&v829 objects:v883 count:16];
-                        if (v202)
+                        v191 = [v180 objectForKeyedSubscript:@"supportedUseCaseIdentifiers"];
+                        v811 = 0u;
+                        v812 = 0u;
+                        v813 = 0u;
+                        v814 = 0u;
+                        v192 = v191;
+                        v193 = [v192 countByEnumeratingWithState:&v811 objects:v865 count:16];
+                        if (v193)
                         {
-                          v203 = v202;
-                          v204 = *v830;
+                          v194 = v193;
+                          v195 = *v812;
                           do
                           {
-                            for (ii = 0; ii != v203; ++ii)
+                            for (ii = 0; ii != v194; ++ii)
                             {
-                              if (*v830 != v204)
+                              if (*v812 != v195)
                               {
-                                objc_enumerationMutation(v201);
+                                objc_enumerationMutation(v192);
                               }
 
-                              v206 = *(*(&v829 + 1) + 8 * ii);
+                              v197 = *(*(&v811 + 1) + 8 * ii);
                               objc_opt_class();
                               if (objc_opt_isKindOfClass())
                               {
-                                [(NSPPrivacyProxyQuotaService *)v190 addSupportedUseCaseIdentifiers:v206];
+                                [(NSPPrivacyProxyQuotaService *)v181 addSupportedUseCaseIdentifiers:v197];
                               }
                             }
 
-                            v203 = [v201 countByEnumeratingWithState:&v829 objects:v883 count:16];
+                            v194 = [v192 countByEnumeratingWithState:&v811 objects:v865 count:16];
                           }
 
-                          while (v203);
+                          while (v194);
                         }
 
-                        v184 = v730;
+                        v176 = v712;
                       }
                     }
-
-                    v11 = 0x1E695D000;
                   }
                 }
 
-                v185 = [v737 countByEnumeratingWithState:&v833 objects:v884 count:16];
+                v177 = [v719 countByEnumeratingWithState:&v815 objects:v866 count:16];
               }
 
-              while (v185);
+              while (v177);
             }
 
-            v8 = v711;
-            v178 = v724;
+            v8 = v693;
+            v170 = v706;
           }
         }
       }
     }
 
-    v207 = [v8 objectForKeyedSubscript:@"policyTierMap"];
-    if (v207)
+    v198 = [v8 objectForKeyedSubscript:@"policyTierMap"];
+    if (v198)
     {
-      v208 = v207;
-      v209 = [v8 objectForKeyedSubscript:@"policyTierMap"];
-      v210 = 0x1E695D000uLL;
+      v199 = v198;
+      v200 = [v8 objectForKeyedSubscript:@"policyTierMap"];
       objc_opt_class();
-      v211 = objc_opt_isKindOfClass();
+      v201 = objc_opt_isKindOfClass();
 
-      if (v211)
+      if (v201)
       {
         [v8 objectForKeyedSubscript:@"policyTierMap"];
-        v825 = 0u;
-        v826 = 0u;
-        v827 = 0u;
-        v212 = v828 = 0u;
-        v213 = [v212 countByEnumeratingWithState:&v825 objects:v882 count:16];
-        if (v213)
+        v807 = 0u;
+        v808 = 0u;
+        v809 = 0u;
+        v202 = v810 = 0u;
+        v203 = [v202 countByEnumeratingWithState:&v807 objects:v864 count:16];
+        if (v203)
         {
-          v214 = v213;
-          v215 = 0x1E7A30000uLL;
-          v216 = *v826;
-          v718 = v212;
-          v725 = *v826;
+          v204 = v203;
+          v205 = 0x1E7A30000uLL;
+          v206 = *v808;
+          v700 = v202;
+          v707 = *v808;
           do
           {
-            v217 = 0;
-            v731 = v214;
+            v207 = 0;
+            v713 = v204;
             do
             {
-              if (*v826 != v216)
+              if (*v808 != v206)
               {
-                objc_enumerationMutation(v212);
+                objc_enumerationMutation(v202);
               }
 
-              v218 = *(*(&v825 + 1) + 8 * v217);
+              v208 = *(*(&v807 + 1) + 8 * v207);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v738 = objc_alloc_init(*(v215 + 736));
-                [(NSPPrivacyProxyConfiguration *)v713 addPolicyTierMap:?];
-                v219 = [v218 objectForKeyedSubscript:@"tier"];
-                if (v219)
+                v720 = objc_alloc_init(*(v205 + 736));
+                [(NSPPrivacyProxyConfiguration *)v695 addPolicyTierMap:?];
+                v209 = [v208 objectForKeyedSubscript:@"tier"];
+                if (v209)
                 {
-                  v220 = v219;
-                  v221 = [v218 objectForKeyedSubscript:@"tier"];
+                  v210 = v209;
+                  v211 = [v208 objectForKeyedSubscript:@"tier"];
                   objc_opt_class();
-                  v222 = objc_opt_isKindOfClass();
+                  v212 = objc_opt_isKindOfClass();
 
-                  if (v222)
+                  if (v212)
                   {
-                    v223 = [v218 objectForKeyedSubscript:@"tier"];
-                    if ([v223 isEqualToString:@"UNKNOWN"])
+                    v213 = [v208 objectForKeyedSubscript:@"tier"];
+                    if ([v213 isEqualToString:@"UNKNOWN"])
                     {
-                      v224 = 0;
+                      v214 = 0;
                     }
 
-                    else if ([v223 isEqualToString:@"FREE"])
+                    else if ([v213 isEqualToString:@"FREE"])
                     {
-                      v224 = 1;
+                      v214 = 1;
                     }
 
-                    else if ([v223 isEqualToString:@"SUBSCRIBER"])
+                    else if ([v213 isEqualToString:@"SUBSCRIBER"])
                     {
-                      v224 = 2;
+                      v214 = 2;
                     }
 
                     else
                     {
-                      v224 = 0;
+                      v214 = 0;
                     }
 
-                    [v738 setTier:v224];
+                    [v720 setTier:v214];
                   }
                 }
 
-                v225 = [v218 objectForKeyedSubscript:@"policy"];
-                if (v225)
+                v215 = [v208 objectForKeyedSubscript:@"policy"];
+                if (v215)
                 {
-                  v226 = v225;
-                  v227 = [v218 objectForKeyedSubscript:@"policy"];
+                  v216 = v215;
+                  v217 = [v208 objectForKeyedSubscript:@"policy"];
                   objc_opt_class();
-                  v228 = objc_opt_isKindOfClass();
+                  v218 = objc_opt_isKindOfClass();
 
-                  if (v228)
+                  if (v218)
                   {
-                    v229 = [v218 objectForKeyedSubscript:@"policy"];
-                    v230 = [v229 objectForKeyedSubscript:@"conditions"];
-                    if (v230)
+                    v219 = [v208 objectForKeyedSubscript:@"policy"];
+                    v220 = [v219 objectForKeyedSubscript:@"conditions"];
+                    if (v220)
                     {
-                      v231 = v230;
-                      v232 = [v229 objectForKeyedSubscript:@"conditions"];
-                      v233 = *(v210 + 3784);
+                      v221 = v220;
+                      v222 = [v219 objectForKeyedSubscript:@"conditions"];
                       objc_opt_class();
-                      v234 = objc_opt_isKindOfClass();
+                      v223 = objc_opt_isKindOfClass();
 
-                      if (v234)
+                      if (v223)
                       {
-                        v235 = v229;
-                        v236 = objc_alloc_init(NSPPrivacyProxyPolicy);
-                        [v738 setPolicy:v236];
-                        v824 = 0u;
-                        v823 = 0u;
-                        v822 = 0u;
-                        v821 = 0u;
-                        v721 = v235;
-                        v237 = [v235 objectForKeyedSubscript:@"conditions"];
-                        v238 = [v237 countByEnumeratingWithState:&v821 objects:v881 count:16];
-                        if (v238)
+                        v224 = v219;
+                        v225 = objc_alloc_init(NSPPrivacyProxyPolicy);
+                        [v720 setPolicy:v225];
+                        v806 = 0u;
+                        v805 = 0u;
+                        v804 = 0u;
+                        v803 = 0u;
+                        v703 = v224;
+                        v226 = [v224 objectForKeyedSubscript:@"conditions"];
+                        v227 = [v226 countByEnumeratingWithState:&v803 objects:v863 count:16];
+                        if (v227)
                         {
-                          v239 = v238;
-                          v240 = *v822;
+                          v228 = v227;
+                          v229 = *v804;
                           do
                           {
-                            for (jj = 0; jj != v239; ++jj)
+                            for (jj = 0; jj != v228; ++jj)
                             {
-                              if (*v822 != v240)
+                              if (*v804 != v229)
                               {
-                                objc_enumerationMutation(v237);
+                                objc_enumerationMutation(v226);
                               }
 
-                              v242 = *(*(&v821 + 1) + 8 * jj);
-                              if ([v242 isEqualToString:@"UNKNOWN"])
+                              v231 = *(*(&v803 + 1) + 8 * jj);
+                              if ([v231 isEqualToString:@"UNKNOWN"])
                               {
-                                v243 = 0;
+                                v232 = 0;
                               }
 
-                              else if ([v242 isEqualToString:@"SAFARI_UNENCRYPTED"])
+                              else if ([v231 isEqualToString:@"SAFARI_UNENCRYPTED"])
                               {
-                                v243 = 1;
+                                v232 = 1;
                               }
 
-                              else if ([v242 isEqualToString:@"SAFARI_DNS"])
+                              else if ([v231 isEqualToString:@"SAFARI_DNS"])
                               {
-                                v243 = 2;
+                                v232 = 2;
                               }
 
-                              else if ([v242 isEqualToString:@"SAFARI_TRACKER"])
+                              else if ([v231 isEqualToString:@"SAFARI_TRACKER"])
                               {
-                                v243 = 3;
+                                v232 = 3;
                               }
 
-                              else if ([v242 isEqualToString:@"MAIL_TRACKER"])
+                              else if ([v231 isEqualToString:@"MAIL_TRACKER"])
                               {
-                                v243 = 4;
+                                v232 = 4;
                               }
 
-                              else if ([v242 isEqualToString:@"SAFARI_ALL"])
+                              else if ([v231 isEqualToString:@"SAFARI_ALL"])
                               {
-                                v243 = 5;
+                                v232 = 5;
                               }
 
-                              else if ([v242 isEqualToString:@"SAFARI_HTTP"])
+                              else if ([v231 isEqualToString:@"SAFARI_HTTP"])
                               {
-                                v243 = 6;
+                                v232 = 6;
                               }
 
-                              else if ([v242 isEqualToString:@"ANY_UNENCRYPTED"])
+                              else if ([v231 isEqualToString:@"ANY_UNENCRYPTED"])
                               {
-                                v243 = 7;
+                                v232 = 7;
                               }
 
-                              else if ([v242 isEqualToString:@"ANY_DNS"])
+                              else if ([v231 isEqualToString:@"ANY_DNS"])
                               {
-                                v243 = 8;
+                                v232 = 8;
                               }
 
-                              else if ([v242 isEqualToString:@"ANY_KNOWN_TRACKER"])
+                              else if ([v231 isEqualToString:@"ANY_KNOWN_TRACKER"])
                               {
-                                v243 = 9;
+                                v232 = 9;
                               }
 
-                              else if ([v242 isEqualToString:@"ANY_APP_TRACKER"])
+                              else if ([v231 isEqualToString:@"ANY_APP_TRACKER"])
                               {
-                                v243 = 10;
+                                v232 = 10;
                               }
 
-                              else if ([v242 isEqualToString:@"NEWS_URL_RESOLUTION"])
+                              else if ([v231 isEqualToString:@"NEWS_URL_RESOLUTION"])
                               {
-                                v243 = 11;
+                                v232 = 11;
                               }
 
-                              else if ([v242 isEqualToString:@"EXPOSURE_NOTIFICATIONS"])
+                              else if ([v231 isEqualToString:@"EXPOSURE_NOTIFICATIONS"])
                               {
-                                v243 = 12;
+                                v232 = 12;
                               }
 
-                              else if ([v242 isEqualToString:@"APPLE_CERTIFICATES"])
+                              else if ([v231 isEqualToString:@"APPLE_CERTIFICATES"])
                               {
-                                v243 = 13;
+                                v232 = 13;
                               }
 
-                              else if ([v242 isEqualToString:@"NETWORK_TOOLS"])
+                              else if ([v231 isEqualToString:@"NETWORK_TOOLS"])
                               {
-                                v243 = 14;
+                                v232 = 14;
                               }
 
-                              else if ([v242 isEqualToString:@"METRICS_UPLOAD"])
+                              else if ([v231 isEqualToString:@"METRICS_UPLOAD"])
                               {
-                                v243 = 15;
+                                v232 = 15;
                               }
 
-                              else if ([v242 isEqualToString:@"BRANDED_CALLING"])
+                              else if ([v231 isEqualToString:@"BRANDED_CALLING"])
                               {
-                                v243 = 16;
+                                v232 = 16;
                               }
 
-                              else if ([v242 isEqualToString:@"NEWS_EMBEDDED_CONTENT"])
+                              else if ([v231 isEqualToString:@"NEWS_EMBEDDED_CONTENT"])
                               {
-                                v243 = 17;
+                                v232 = 17;
                               }
 
-                              else if ([v242 isEqualToString:@"APP_METRICS"])
+                              else if ([v231 isEqualToString:@"APP_METRICS"])
                               {
-                                v243 = 18;
+                                v232 = 18;
                               }
 
-                              else if ([v242 isEqualToString:@"SAFARI_PRIVATE_UNENCRYPTED"])
+                              else if ([v231 isEqualToString:@"SAFARI_PRIVATE_UNENCRYPTED"])
                               {
-                                v243 = 19;
+                                v232 = 19;
                               }
 
-                              else if ([v242 isEqualToString:@"SAFARI_PRIVATE_DNS"])
+                              else if ([v231 isEqualToString:@"SAFARI_PRIVATE_DNS"])
                               {
-                                v243 = 20;
+                                v232 = 20;
                               }
 
-                              else if ([v242 isEqualToString:@"SAFARI_PRIVATE_ALL"])
+                              else if ([v231 isEqualToString:@"SAFARI_PRIVATE_ALL"])
                               {
-                                v243 = 21;
+                                v232 = 21;
                               }
 
-                              else if ([v242 isEqualToString:@"SAFARI_METRICS"])
+                              else if ([v231 isEqualToString:@"SAFARI_METRICS"])
                               {
-                                v243 = 22;
+                                v232 = 22;
                               }
 
-                              else if ([v242 isEqualToString:@"PROMOTED_CONTENT"])
+                              else if ([v231 isEqualToString:@"PROMOTED_CONTENT"])
                               {
-                                v243 = 23;
+                                v232 = 23;
                               }
 
-                              else if ([v242 isEqualToString:@"POSTBACK_FETCH"])
+                              else if ([v231 isEqualToString:@"POSTBACK_FETCH"])
                               {
-                                v243 = 24;
+                                v232 = 24;
                               }
 
-                              else if ([v242 isEqualToString:@"PM_PR_ICON_FETCHING"])
+                              else if ([v231 isEqualToString:@"PM_PR_ICON_FETCHING"])
                               {
-                                v243 = 25;
+                                v232 = 25;
                               }
 
-                              else if ([v242 isEqualToString:@"LAUNCH_WARNING_DETAILS"])
+                              else if ([v231 isEqualToString:@"LAUNCH_WARNING_DETAILS"])
                               {
-                                v243 = 26;
+                                v232 = 26;
                               }
 
-                              else if ([v242 isEqualToString:@"PODCASTS_LINK_PRESENTATION"])
+                              else if ([v231 isEqualToString:@"PODCASTS_LINK_PRESENTATION"])
                               {
-                                v243 = 27;
+                                v232 = 27;
                               }
 
                               else
                               {
-                                v243 = 0;
+                                v232 = 0;
                               }
 
-                              [(NSPPrivacyProxyPolicy *)v236 addConditions:v243];
+                              [(NSPPrivacyProxyPolicy *)v225 addConditions:v232];
                             }
 
-                            v239 = [v237 countByEnumeratingWithState:&v821 objects:v881 count:16];
+                            v228 = [v226 countByEnumeratingWithState:&v803 objects:v863 count:16];
                           }
 
-                          while (v239);
+                          while (v228);
                         }
 
-                        v210 = 0x1E695D000;
-                        v212 = v718;
-                        v229 = v721;
-                        v215 = 0x1E7A30000;
+                        v202 = v700;
+                        v219 = v703;
+                        v205 = 0x1E7A30000;
                       }
                     }
                   }
                 }
 
-                v216 = v725;
-                v214 = v731;
+                v206 = v707;
+                v204 = v713;
               }
 
-              ++v217;
+              ++v207;
             }
 
-            while (v217 != v214);
-            v214 = [v212 countByEnumeratingWithState:&v825 objects:v882 count:16];
+            while (v207 != v204);
+            v204 = [v202 countByEnumeratingWithState:&v807 objects:v864 count:16];
           }
 
-          while (v214);
+          while (v204);
         }
 
-        v8 = v711;
-        v11 = 0x1E695D000;
+        v8 = v693;
       }
     }
 
-    v244 = [v8 objectForKeyedSubscript:@"proxies"];
-    if (v244)
+    v233 = [v8 objectForKeyedSubscript:@"proxies"];
+    if (v233)
     {
-      v245 = v244;
-      v246 = [v8 objectForKeyedSubscript:@"proxies"];
+      v234 = v233;
+      v235 = [v8 objectForKeyedSubscript:@"proxies"];
       objc_opt_class();
-      v247 = objc_opt_isKindOfClass();
+      v236 = objc_opt_isKindOfClass();
 
-      if (v247)
+      if (v236)
       {
-        v248 = [v8 objectForKeyedSubscript:@"proxies"];
-        v817 = 0u;
-        v818 = 0u;
-        v819 = 0u;
-        v820 = 0u;
-        v739 = v248;
-        v249 = [v739 countByEnumeratingWithState:&v817 objects:v880 count:16];
-        if (v249)
+        v237 = [v8 objectForKeyedSubscript:@"proxies"];
+        v799 = 0u;
+        v800 = 0u;
+        v801 = 0u;
+        v802 = 0u;
+        v721 = v237;
+        v238 = [v721 countByEnumeratingWithState:&v799 objects:v862 count:16];
+        if (v238)
         {
-          v250 = v249;
-          v251 = *v818;
-          v726 = *v818;
+          v239 = v238;
+          v240 = *v800;
+          v708 = *v800;
           do
           {
-            v252 = 0;
-            v732 = v250;
+            v241 = 0;
+            v714 = v239;
             do
             {
-              if (*v818 != v251)
+              if (*v800 != v240)
               {
-                objc_enumerationMutation(v739);
+                objc_enumerationMutation(v721);
               }
 
-              v253 = *(*(&v817 + 1) + 8 * v252);
+              v242 = *(*(&v799 + 1) + 8 * v241);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v254 = objc_alloc_init(NSPPrivacyProxyProxyInfo);
-                [(NSPPrivacyProxyConfiguration *)v713 addProxies:v254];
-                v255 = [v253 objectForKeyedSubscript:@"proxyHop"];
+                v243 = objc_alloc_init(NSPPrivacyProxyProxyInfo);
+                [(NSPPrivacyProxyConfiguration *)v695 addProxies:v243];
+                v244 = [v242 objectForKeyedSubscript:@"proxyHop"];
+                if (v244)
+                {
+                  v245 = v244;
+                  v246 = [v242 objectForKeyedSubscript:@"proxyHop"];
+                  objc_opt_class();
+                  v247 = objc_opt_isKindOfClass();
+
+                  if (v247)
+                  {
+                    v248 = [v242 objectForKeyedSubscript:@"proxyHop"];
+                    if ([v248 isEqualToString:@"UNKNOWN"])
+                    {
+                      v249 = 0;
+                    }
+
+                    else if ([v248 isEqualToString:@"INGRESS_ONLY"])
+                    {
+                      v249 = 1;
+                    }
+
+                    else if ([v248 isEqualToString:@"EGRESS_ONLY"])
+                    {
+                      v249 = 2;
+                    }
+
+                    else if ([v248 isEqualToString:@"ANY"])
+                    {
+                      v249 = 3;
+                    }
+
+                    else
+                    {
+                      v249 = 0;
+                    }
+
+                    [(NSPPrivacyProxyProxyInfo *)v243 setProxyHop:v249];
+                  }
+                }
+
+                v250 = [v242 objectForKeyedSubscript:@"proxyURL"];
+                if (v250)
+                {
+                  v251 = v250;
+                  v252 = [v242 objectForKeyedSubscript:@"proxyURL"];
+                  objc_opt_class();
+                  v253 = objc_opt_isKindOfClass();
+
+                  if (v253)
+                  {
+                    v254 = [v242 objectForKeyedSubscript:@"proxyURL"];
+                    [(NSPPrivacyProxyProxyInfo *)v243 setProxyURL:v254];
+                  }
+                }
+
+                v255 = [v242 objectForKeyedSubscript:@"proxyKeyInfo"];
                 if (v255)
                 {
                   v256 = v255;
-                  v257 = [v253 objectForKeyedSubscript:@"proxyHop"];
+                  v257 = [v242 objectForKeyedSubscript:@"proxyKeyInfo"];
                   objc_opt_class();
                   v258 = objc_opt_isKindOfClass();
 
                   if (v258)
                   {
-                    v259 = [v253 objectForKeyedSubscript:@"proxyHop"];
-                    if ([v259 isEqualToString:@"UNKNOWN"])
+                    v259 = [v242 objectForKeyedSubscript:@"proxyKeyInfo"];
+                    v795 = 0u;
+                    v796 = 0u;
+                    v797 = 0u;
+                    v798 = 0u;
+                    v260 = v259;
+                    v261 = [v260 countByEnumeratingWithState:&v795 objects:v861 count:16];
+                    if (v261)
                     {
-                      v260 = 0;
-                    }
+                      v262 = v261;
+                      v263 = *v796;
+                      do
+                      {
+                        for (kk = 0; kk != v262; ++kk)
+                        {
+                          if (*v796 != v263)
+                          {
+                            objc_enumerationMutation(v260);
+                          }
 
-                    else if ([v259 isEqualToString:@"INGRESS_ONLY"])
-                    {
-                      v260 = 1;
-                    }
+                          v265 = *(*(&v795 + 1) + 8 * kk);
+                          objc_opt_class();
+                          if (objc_opt_isKindOfClass())
+                          {
+                            [(NSPPrivacyProxyProxyInfo *)v243 addProxyKeyInfo:v265];
+                          }
+                        }
 
-                    else if ([v259 isEqualToString:@"EGRESS_ONLY"])
-                    {
-                      v260 = 2;
-                    }
+                        v262 = [v260 countByEnumeratingWithState:&v795 objects:v861 count:16];
+                      }
 
-                    else if ([v259 isEqualToString:@"ANY"])
-                    {
-                      v260 = 3;
+                      while (v262);
                     }
-
-                    else
-                    {
-                      v260 = 0;
-                    }
-
-                    [(NSPPrivacyProxyProxyInfo *)v254 setProxyHop:v260];
                   }
                 }
 
-                v261 = [v253 objectForKeyedSubscript:@"proxyURL"];
-                if (v261)
-                {
-                  v262 = v261;
-                  v263 = [v253 objectForKeyedSubscript:@"proxyURL"];
-                  objc_opt_class();
-                  v264 = objc_opt_isKindOfClass();
-
-                  if (v264)
-                  {
-                    v265 = [v253 objectForKeyedSubscript:@"proxyURL"];
-                    [(NSPPrivacyProxyProxyInfo *)v254 setProxyURL:v265];
-                  }
-                }
-
-                v266 = [v253 objectForKeyedSubscript:@"proxyKeyInfo"];
+                v266 = [v242 objectForKeyedSubscript:@"tokenKeyInfo"];
                 if (v266)
                 {
                   v267 = v266;
-                  v268 = [v253 objectForKeyedSubscript:@"proxyKeyInfo"];
+                  v268 = [v242 objectForKeyedSubscript:@"tokenKeyInfo"];
                   objc_opt_class();
                   v269 = objc_opt_isKindOfClass();
 
                   if (v269)
                   {
-                    v270 = [v253 objectForKeyedSubscript:@"proxyKeyInfo"];
-                    v813 = 0u;
-                    v814 = 0u;
-                    v815 = 0u;
-                    v816 = 0u;
-                    v271 = v270;
-                    v272 = [v271 countByEnumeratingWithState:&v813 objects:v879 count:16];
-                    if (v272)
+                    v270 = [v242 objectForKeyedSubscript:@"tokenKeyInfo"];
+                    [(NSPPrivacyProxyProxyInfo *)v243 setTokenKeyInfo:v270];
+                  }
+                }
+
+                v271 = [v242 objectForKeyedSubscript:@"supportsFallback"];
+                if (v271)
+                {
+                  v272 = v271;
+                  v273 = [v242 objectForKeyedSubscript:@"supportsFallback"];
+                  objc_opt_class();
+                  v274 = objc_opt_isKindOfClass();
+
+                  if (v274)
+                  {
+                    v275 = [v242 objectForKeyedSubscript:@"supportsFallback"];
+                    -[NSPPrivacyProxyProxyInfo setSupportsFallback:](v243, "setSupportsFallback:", [v275 BOOLValue]);
+                  }
+                }
+
+                v276 = [v242 objectForKeyedSubscript:@"vendor"];
+                if (v276)
+                {
+                  v277 = v276;
+                  v278 = [v242 objectForKeyedSubscript:@"vendor"];
+                  objc_opt_class();
+                  v279 = objc_opt_isKindOfClass();
+
+                  if (v279)
+                  {
+                    v280 = [v242 objectForKeyedSubscript:@"vendor"];
+                    [(NSPPrivacyProxyProxyInfo *)v243 setVendor:v280];
+                  }
+                }
+
+                v281 = [v242 objectForKeyedSubscript:@"tcpProxyFqdn"];
+                if (v281)
+                {
+                  v282 = v281;
+                  v283 = [v242 objectForKeyedSubscript:@"tcpProxyFqdn"];
+                  objc_opt_class();
+                  v284 = objc_opt_isKindOfClass();
+
+                  if (v284)
+                  {
+                    v285 = [v242 objectForKeyedSubscript:@"tcpProxyFqdn"];
+                    [(NSPPrivacyProxyProxyInfo *)v243 setTcpProxyFqdn:v285];
+                  }
+                }
+
+                v286 = [v242 objectForKeyedSubscript:@"preferredPathConfigUri"];
+                if (v286)
+                {
+                  v287 = v286;
+                  v288 = [v242 objectForKeyedSubscript:@"preferredPathConfigUri"];
+                  objc_opt_class();
+                  v289 = objc_opt_isKindOfClass();
+
+                  if (v289)
+                  {
+                    v290 = [v242 objectForKeyedSubscript:@"preferredPathConfigUri"];
+                    [(NSPPrivacyProxyProxyInfo *)v243 setPreferredPathConfigUri:v290];
+                  }
+                }
+
+                v291 = [v242 objectForKeyedSubscript:@"proxyVersion"];
+                if (v291)
+                {
+                  v292 = v291;
+                  v293 = [v242 objectForKeyedSubscript:@"proxyVersion"];
+                  objc_opt_class();
+                  v294 = objc_opt_isKindOfClass();
+
+                  if (v294)
+                  {
+                    v295 = [v242 objectForKeyedSubscript:@"proxyVersion"];
+                    [(NSPPrivacyProxyProxyInfo *)v243 setProxyVersion:v295];
+                  }
+                }
+
+                v296 = [v242 objectForKeyedSubscript:@"supportsResumption"];
+                if (v296)
+                {
+                  v297 = v296;
+                  v298 = [v242 objectForKeyedSubscript:@"supportsResumption"];
+                  objc_opt_class();
+                  v299 = objc_opt_isKindOfClass();
+
+                  if (v299)
+                  {
+                    v300 = [v242 objectForKeyedSubscript:@"supportsResumption"];
+                    -[NSPPrivacyProxyProxyInfo setSupportsResumption:](v243, "setSupportsResumption:", [v300 BOOLValue]);
+                  }
+                }
+
+                v301 = [v242 objectForKeyedSubscript:@"fallbackSupportsUDPProxying"];
+                if (v301)
+                {
+                  v302 = v301;
+                  v303 = [v242 objectForKeyedSubscript:@"fallbackSupportsUDPProxying"];
+                  objc_opt_class();
+                  v304 = objc_opt_isKindOfClass();
+
+                  if (v304)
+                  {
+                    v305 = [v242 objectForKeyedSubscript:@"fallbackSupportsUDPProxying"];
+                    -[NSPPrivacyProxyProxyInfo setFallbackSupportsUDPProxying:](v243, "setFallbackSupportsUDPProxying:", [v305 BOOLValue]);
+                  }
+                }
+
+                v306 = [v242 objectForKeyedSubscript:@"bootstrapAddresses"];
+                if (v306)
+                {
+                  v307 = v306;
+                  v308 = [v242 objectForKeyedSubscript:@"bootstrapAddresses"];
+                  objc_opt_class();
+                  v309 = objc_opt_isKindOfClass();
+
+                  if (v309)
+                  {
+                    v310 = [v242 objectForKeyedSubscript:@"bootstrapAddresses"];
+                    v791 = 0u;
+                    v792 = 0u;
+                    v793 = 0u;
+                    v794 = 0u;
+                    v311 = v310;
+                    v312 = [v311 countByEnumeratingWithState:&v791 objects:v860 count:16];
+                    if (v312)
                     {
-                      v273 = v272;
-                      v274 = *v814;
+                      v313 = v312;
+                      v314 = *v792;
                       do
                       {
-                        for (kk = 0; kk != v273; ++kk)
+                        for (mm = 0; mm != v313; ++mm)
                         {
-                          if (*v814 != v274)
+                          if (*v792 != v314)
                           {
-                            objc_enumerationMutation(v271);
+                            objc_enumerationMutation(v311);
                           }
 
-                          v276 = *(*(&v813 + 1) + 8 * kk);
+                          v316 = *(*(&v791 + 1) + 8 * mm);
                           objc_opt_class();
                           if (objc_opt_isKindOfClass())
                           {
-                            [(NSPPrivacyProxyProxyInfo *)v254 addProxyKeyInfo:v276];
+                            [(NSPPrivacyProxyProxyInfo *)v243 addBootstrapAddresses:v316];
                           }
                         }
 
-                        v273 = [v271 countByEnumeratingWithState:&v813 objects:v879 count:16];
+                        v313 = [v311 countByEnumeratingWithState:&v791 objects:v860 count:16];
                       }
 
-                      while (v273);
+                      while (v313);
                     }
                   }
                 }
 
-                v277 = [v253 objectForKeyedSubscript:@"tokenKeyInfo"];
-                if (v277)
-                {
-                  v278 = v277;
-                  v279 = [v253 objectForKeyedSubscript:@"tokenKeyInfo"];
-                  objc_opt_class();
-                  v280 = objc_opt_isKindOfClass();
-
-                  if (v280)
-                  {
-                    v281 = [v253 objectForKeyedSubscript:@"tokenKeyInfo"];
-                    [(NSPPrivacyProxyProxyInfo *)v254 setTokenKeyInfo:v281];
-                  }
-                }
-
-                v282 = [v253 objectForKeyedSubscript:@"supportsFallback"];
-                if (v282)
-                {
-                  v283 = v282;
-                  v284 = [v253 objectForKeyedSubscript:@"supportsFallback"];
-                  objc_opt_class();
-                  v285 = objc_opt_isKindOfClass();
-
-                  if (v285)
-                  {
-                    v286 = [v253 objectForKeyedSubscript:@"supportsFallback"];
-                    -[NSPPrivacyProxyProxyInfo setSupportsFallback:](v254, "setSupportsFallback:", [v286 BOOLValue]);
-                  }
-                }
-
-                v287 = [v253 objectForKeyedSubscript:@"vendor"];
-                if (v287)
-                {
-                  v288 = v287;
-                  v289 = [v253 objectForKeyedSubscript:@"vendor"];
-                  objc_opt_class();
-                  v290 = objc_opt_isKindOfClass();
-
-                  if (v290)
-                  {
-                    v291 = [v253 objectForKeyedSubscript:@"vendor"];
-                    [(NSPPrivacyProxyProxyInfo *)v254 setVendor:v291];
-                  }
-                }
-
-                v292 = [v253 objectForKeyedSubscript:@"tcpProxyFqdn"];
-                if (v292)
-                {
-                  v293 = v292;
-                  v294 = [v253 objectForKeyedSubscript:@"tcpProxyFqdn"];
-                  objc_opt_class();
-                  v295 = objc_opt_isKindOfClass();
-
-                  if (v295)
-                  {
-                    v296 = [v253 objectForKeyedSubscript:@"tcpProxyFqdn"];
-                    [(NSPPrivacyProxyProxyInfo *)v254 setTcpProxyFqdn:v296];
-                  }
-                }
-
-                v297 = [v253 objectForKeyedSubscript:@"preferredPathConfigUri"];
-                if (v297)
-                {
-                  v298 = v297;
-                  v299 = [v253 objectForKeyedSubscript:@"preferredPathConfigUri"];
-                  objc_opt_class();
-                  v300 = objc_opt_isKindOfClass();
-
-                  if (v300)
-                  {
-                    v301 = [v253 objectForKeyedSubscript:@"preferredPathConfigUri"];
-                    [(NSPPrivacyProxyProxyInfo *)v254 setPreferredPathConfigUri:v301];
-                  }
-                }
-
-                v302 = [v253 objectForKeyedSubscript:@"proxyVersion"];
-                if (v302)
-                {
-                  v303 = v302;
-                  v304 = [v253 objectForKeyedSubscript:@"proxyVersion"];
-                  objc_opt_class();
-                  v305 = objc_opt_isKindOfClass();
-
-                  if (v305)
-                  {
-                    v306 = [v253 objectForKeyedSubscript:@"proxyVersion"];
-                    [(NSPPrivacyProxyProxyInfo *)v254 setProxyVersion:v306];
-                  }
-                }
-
-                v307 = [v253 objectForKeyedSubscript:@"supportsResumption"];
-                if (v307)
-                {
-                  v308 = v307;
-                  v309 = [v253 objectForKeyedSubscript:@"supportsResumption"];
-                  objc_opt_class();
-                  v310 = objc_opt_isKindOfClass();
-
-                  if (v310)
-                  {
-                    v311 = [v253 objectForKeyedSubscript:@"supportsResumption"];
-                    -[NSPPrivacyProxyProxyInfo setSupportsResumption:](v254, "setSupportsResumption:", [v311 BOOLValue]);
-                  }
-                }
-
-                v312 = [v253 objectForKeyedSubscript:@"fallbackSupportsUDPProxying"];
-                if (v312)
-                {
-                  v313 = v312;
-                  v314 = [v253 objectForKeyedSubscript:@"fallbackSupportsUDPProxying"];
-                  objc_opt_class();
-                  v315 = objc_opt_isKindOfClass();
-
-                  if (v315)
-                  {
-                    v316 = [v253 objectForKeyedSubscript:@"fallbackSupportsUDPProxying"];
-                    -[NSPPrivacyProxyProxyInfo setFallbackSupportsUDPProxying:](v254, "setFallbackSupportsUDPProxying:", [v316 BOOLValue]);
-                  }
-                }
-
-                v317 = [v253 objectForKeyedSubscript:@"bootstrapAddresses"];
+                v317 = [v242 objectForKeyedSubscript:@"allowedNextHops"];
                 if (v317)
                 {
                   v318 = v317;
-                  v319 = [v253 objectForKeyedSubscript:@"bootstrapAddresses"];
+                  v319 = [v242 objectForKeyedSubscript:@"allowedNextHops"];
                   objc_opt_class();
                   v320 = objc_opt_isKindOfClass();
 
                   if (v320)
                   {
-                    v321 = [v253 objectForKeyedSubscript:@"bootstrapAddresses"];
-                    v809 = 0u;
-                    v810 = 0u;
-                    v811 = 0u;
-                    v812 = 0u;
+                    v321 = [v242 objectForKeyedSubscript:@"allowedNextHops"];
+                    v787 = 0u;
+                    v788 = 0u;
+                    v789 = 0u;
+                    v790 = 0u;
                     v322 = v321;
-                    v323 = [v322 countByEnumeratingWithState:&v809 objects:v878 count:16];
+                    v323 = [v322 countByEnumeratingWithState:&v787 objects:v859 count:16];
                     if (v323)
                     {
                       v324 = v323;
-                      v325 = *v810;
+                      v325 = *v788;
                       do
                       {
-                        for (mm = 0; mm != v324; ++mm)
+                        for (nn = 0; nn != v324; ++nn)
                         {
-                          if (*v810 != v325)
+                          if (*v788 != v325)
                           {
                             objc_enumerationMutation(v322);
                           }
 
-                          v327 = *(*(&v809 + 1) + 8 * mm);
+                          v327 = *(*(&v787 + 1) + 8 * nn);
                           objc_opt_class();
                           if (objc_opt_isKindOfClass())
                           {
-                            [(NSPPrivacyProxyProxyInfo *)v254 addBootstrapAddresses:v327];
+                            [(NSPPrivacyProxyProxyInfo *)v243 addAllowedNextHops:v327];
                           }
                         }
 
-                        v324 = [v322 countByEnumeratingWithState:&v809 objects:v878 count:16];
+                        v324 = [v322 countByEnumeratingWithState:&v787 objects:v859 count:16];
                       }
 
                       while (v324);
@@ -2084,1455 +2097,1388 @@ void __48__NSPServerClient_getPrivacyProxyConfiguration___block_invoke(uint64_t 
                   }
                 }
 
-                v328 = [v253 objectForKeyedSubscript:@"allowedNextHops"];
+                v328 = [v242 objectForKeyedSubscript:@"tokenChallenge"];
                 if (v328)
                 {
                   v329 = v328;
-                  v330 = [v253 objectForKeyedSubscript:@"allowedNextHops"];
+                  v330 = [v242 objectForKeyedSubscript:@"tokenChallenge"];
                   objc_opt_class();
                   v331 = objc_opt_isKindOfClass();
 
                   if (v331)
                   {
-                    v332 = [v253 objectForKeyedSubscript:@"allowedNextHops"];
-                    v805 = 0u;
-                    v806 = 0u;
-                    v807 = 0u;
-                    v808 = 0u;
-                    v333 = v332;
-                    v334 = [v333 countByEnumeratingWithState:&v805 objects:v877 count:16];
-                    if (v334)
+                    v332 = [v242 objectForKeyedSubscript:@"tokenChallenge"];
+                    [(NSPPrivacyProxyProxyInfo *)v243 setTokenChallenge:v332];
+                  }
+                }
+
+                v333 = [v242 objectForKeyedSubscript:@"preferredPathPatterns"];
+                if (v333)
+                {
+                  v334 = v333;
+                  v335 = [v242 objectForKeyedSubscript:@"preferredPathPatterns"];
+                  objc_opt_class();
+                  v336 = objc_opt_isKindOfClass();
+
+                  if (v336)
+                  {
+                    v337 = [v242 objectForKeyedSubscript:@"preferredPathPatterns"];
+                    v783 = 0u;
+                    v784 = 0u;
+                    v785 = 0u;
+                    v786 = 0u;
+                    v338 = v337;
+                    v339 = [v338 countByEnumeratingWithState:&v783 objects:v858 count:16];
+                    if (v339)
                     {
-                      v335 = v334;
-                      v336 = *v806;
+                      v340 = v339;
+                      v341 = *v784;
                       do
                       {
-                        for (nn = 0; nn != v335; ++nn)
+                        for (i1 = 0; i1 != v340; ++i1)
                         {
-                          if (*v806 != v336)
+                          if (*v784 != v341)
                           {
-                            objc_enumerationMutation(v333);
+                            objc_enumerationMutation(v338);
                           }
 
-                          v338 = *(*(&v805 + 1) + 8 * nn);
+                          v343 = *(*(&v783 + 1) + 8 * i1);
                           objc_opt_class();
                           if (objc_opt_isKindOfClass())
                           {
-                            [(NSPPrivacyProxyProxyInfo *)v254 addAllowedNextHops:v338];
+                            [(NSPPrivacyProxyProxyInfo *)v243 addPreferredPathPatterns:v343];
                           }
                         }
 
-                        v335 = [v333 countByEnumeratingWithState:&v805 objects:v877 count:16];
+                        v340 = [v338 countByEnumeratingWithState:&v783 objects:v858 count:16];
                       }
 
-                      while (v335);
+                      while (v340);
                     }
                   }
                 }
 
-                v339 = [v253 objectForKeyedSubscript:@"tokenChallenge"];
-                if (v339)
-                {
-                  v340 = v339;
-                  v341 = [v253 objectForKeyedSubscript:@"tokenChallenge"];
-                  objc_opt_class();
-                  v342 = objc_opt_isKindOfClass();
-
-                  if (v342)
-                  {
-                    v343 = [v253 objectForKeyedSubscript:@"tokenChallenge"];
-                    [(NSPPrivacyProxyProxyInfo *)v254 setTokenChallenge:v343];
-                  }
-                }
-
-                v344 = [v253 objectForKeyedSubscript:@"preferredPathPatterns"];
+                v344 = [v242 objectForKeyedSubscript:@"algorithm"];
                 if (v344)
                 {
                   v345 = v344;
-                  v346 = [v253 objectForKeyedSubscript:@"preferredPathPatterns"];
+                  v346 = [v242 objectForKeyedSubscript:@"algorithm"];
                   objc_opt_class();
                   v347 = objc_opt_isKindOfClass();
 
                   if (v347)
                   {
-                    v348 = [v253 objectForKeyedSubscript:@"preferredPathPatterns"];
-                    v801 = 0u;
-                    v802 = 0u;
-                    v803 = 0u;
-                    v804 = 0u;
-                    v349 = v348;
-                    v350 = [v349 countByEnumeratingWithState:&v801 objects:v876 count:16];
-                    if (v350)
+                    v348 = [v242 objectForKeyedSubscript:@"algorithm"];
+                    if ([v348 isEqualToString:@"NOT_SET"])
                     {
-                      v351 = v350;
-                      v352 = *v802;
-                      do
-                      {
-                        for (i1 = 0; i1 != v351; ++i1)
-                        {
-                          if (*v802 != v352)
-                          {
-                            objc_enumerationMutation(v349);
-                          }
-
-                          v354 = *(*(&v801 + 1) + 8 * i1);
-                          objc_opt_class();
-                          if (objc_opt_isKindOfClass())
-                          {
-                            [(NSPPrivacyProxyProxyInfo *)v254 addPreferredPathPatterns:v354];
-                          }
-                        }
-
-                        v351 = [v349 countByEnumeratingWithState:&v801 objects:v876 count:16];
-                      }
-
-                      while (v351);
-                    }
-                  }
-                }
-
-                v355 = [v253 objectForKeyedSubscript:@"algorithm"];
-                if (v355)
-                {
-                  v356 = v355;
-                  v357 = [v253 objectForKeyedSubscript:@"algorithm"];
-                  objc_opt_class();
-                  v358 = objc_opt_isKindOfClass();
-
-                  if (v358)
-                  {
-                    v359 = [v253 objectForKeyedSubscript:@"algorithm"];
-                    if ([v359 isEqualToString:@"NOT_SET"])
-                    {
-                      v360 = 0;
+                      v349 = 0;
                     }
 
-                    else if ([v359 isEqualToString:@"P384"])
+                    else if ([v348 isEqualToString:@"P384"])
                     {
-                      v360 = 1;
+                      v349 = 1;
                     }
 
-                    else if ([v359 isEqualToString:@"X25519"])
+                    else if ([v348 isEqualToString:@"X25519"])
                     {
-                      v360 = 2;
+                      v349 = 2;
                     }
 
-                    else if ([v359 isEqualToString:@"X25519_MLKEM768"])
+                    else if ([v348 isEqualToString:@"X25519_MLKEM768"])
                     {
-                      v360 = 3;
+                      v349 = 3;
                     }
 
                     else
                     {
-                      v360 = 0;
+                      v349 = 0;
                     }
 
-                    [(NSPPrivacyProxyProxyInfo *)v254 setAlgorithm:v360];
+                    [(NSPPrivacyProxyProxyInfo *)v243 setAlgorithm:v349];
                   }
                 }
 
-                v361 = [v253 objectForKeyedSubscript:@"proxyIndex"];
-                if (v361)
+                v350 = [v242 objectForKeyedSubscript:@"proxyIndex"];
+                if (v350)
                 {
-                  v362 = v361;
-                  v363 = [v253 objectForKeyedSubscript:@"proxyIndex"];
+                  v351 = v350;
+                  v352 = [v242 objectForKeyedSubscript:@"proxyIndex"];
                   objc_opt_class();
-                  v364 = objc_opt_isKindOfClass();
+                  v353 = objc_opt_isKindOfClass();
 
-                  if (v364)
+                  if (v353)
                   {
-                    v365 = [v253 objectForKeyedSubscript:@"proxyIndex"];
-                    -[NSPPrivacyProxyProxyInfo setProxyIndex:](v254, "setProxyIndex:", [v365 unsignedIntValue]);
+                    v354 = [v242 objectForKeyedSubscript:@"proxyIndex"];
+                    -[NSPPrivacyProxyProxyInfo setProxyIndex:](v243, "setProxyIndex:", [v354 unsignedIntValue]);
                   }
                 }
 
-                v251 = v726;
-                v250 = v732;
+                v240 = v708;
+                v239 = v714;
               }
 
-              ++v252;
+              ++v241;
             }
 
-            while (v252 != v250);
-            v250 = [v739 countByEnumeratingWithState:&v817 objects:v880 count:16];
+            while (v241 != v239);
+            v239 = [v721 countByEnumeratingWithState:&v799 objects:v862 count:16];
           }
 
-          while (v250);
+          while (v239);
         }
 
-        v8 = v711;
-        v11 = 0x1E695D000uLL;
+        v8 = v693;
       }
     }
 
-    v366 = [v8 objectForKeyedSubscript:@"pathWeights"];
-    if (v366)
+    v355 = [v8 objectForKeyedSubscript:@"pathWeights"];
+    if (v355)
     {
-      v367 = v366;
-      v368 = [v8 objectForKeyedSubscript:@"pathWeights"];
+      v356 = v355;
+      v357 = [v8 objectForKeyedSubscript:@"pathWeights"];
       objc_opt_class();
-      v369 = objc_opt_isKindOfClass();
+      v358 = objc_opt_isKindOfClass();
 
-      if (v369)
+      if (v358)
       {
-        v370 = [v8 objectForKeyedSubscript:@"pathWeights"];
-        v797 = 0u;
-        v798 = 0u;
-        v799 = 0u;
-        v800 = 0u;
-        v371 = v370;
-        v372 = [v371 countByEnumeratingWithState:&v797 objects:v875 count:16];
-        if (v372)
+        v359 = [v8 objectForKeyedSubscript:@"pathWeights"];
+        v779 = 0u;
+        v780 = 0u;
+        v781 = 0u;
+        v782 = 0u;
+        v360 = v359;
+        v361 = [v360 countByEnumeratingWithState:&v779 objects:v857 count:16];
+        if (v361)
         {
-          v373 = v372;
-          v374 = *v798;
+          v362 = v361;
+          v363 = *v780;
           do
           {
-            for (i2 = 0; i2 != v373; ++i2)
+            for (i2 = 0; i2 != v362; ++i2)
             {
-              if (*v798 != v374)
+              if (*v780 != v363)
               {
-                objc_enumerationMutation(v371);
+                objc_enumerationMutation(v360);
               }
 
-              v376 = *(*(&v797 + 1) + 8 * i2);
-              v377 = *(v11 + 3872);
+              v365 = *(*(&v779 + 1) + 8 * i2);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v378 = objc_alloc_init(NSPPrivacyProxyProxyPathWeight);
-                [(NSPPrivacyProxyConfiguration *)v713 addPathWeights:v378];
-                v379 = [v376 objectForKeyedSubscript:@"weight"];
-                if (v379)
+                v366 = objc_alloc_init(NSPPrivacyProxyProxyPathWeight);
+                [(NSPPrivacyProxyConfiguration *)v695 addPathWeights:v366];
+                v367 = [v365 objectForKeyedSubscript:@"weight"];
+                if (v367)
                 {
-                  v380 = v379;
-                  v381 = [v376 objectForKeyedSubscript:@"weight"];
+                  v368 = v367;
+                  v369 = [v365 objectForKeyedSubscript:@"weight"];
                   objc_opt_class();
-                  v382 = objc_opt_isKindOfClass();
+                  v370 = objc_opt_isKindOfClass();
 
-                  if (v382)
+                  if (v370)
                   {
-                    v383 = [v376 objectForKeyedSubscript:@"weight"];
-                    -[NSPPrivacyProxyProxyPathWeight setWeight:](v378, "setWeight:", [v383 unsignedIntValue]);
+                    v371 = [v365 objectForKeyedSubscript:@"weight"];
+                    -[NSPPrivacyProxyProxyPathWeight setWeight:](v366, "setWeight:", [v371 unsignedIntValue]);
                   }
                 }
 
-                v384 = [v376 objectForKeyedSubscript:@"proxies"];
-                if (v384)
+                v372 = [v365 objectForKeyedSubscript:@"proxies"];
+                if (v372)
                 {
-                  v385 = v384;
-                  v386 = [v376 objectForKeyedSubscript:@"proxies"];
+                  v373 = v372;
+                  v374 = [v365 objectForKeyedSubscript:@"proxies"];
                   objc_opt_class();
-                  v387 = objc_opt_isKindOfClass();
+                  v375 = objc_opt_isKindOfClass();
 
-                  if (v387)
+                  if (v375)
                   {
-                    v388 = [v376 objectForKeyedSubscript:@"proxies"];
-                    v793 = 0u;
-                    v794 = 0u;
-                    v795 = 0u;
-                    v796 = 0u;
-                    v389 = v388;
-                    v390 = [v389 countByEnumeratingWithState:&v793 objects:v874 count:16];
-                    if (v390)
+                    v376 = [v365 objectForKeyedSubscript:@"proxies"];
+                    v775 = 0u;
+                    v776 = 0u;
+                    v777 = 0u;
+                    v778 = 0u;
+                    v377 = v376;
+                    v378 = [v377 countByEnumeratingWithState:&v775 objects:v856 count:16];
+                    if (v378)
                     {
-                      v391 = v390;
-                      v392 = *v794;
+                      v379 = v378;
+                      v380 = *v776;
                       do
                       {
-                        for (i3 = 0; i3 != v391; ++i3)
+                        for (i3 = 0; i3 != v379; ++i3)
                         {
-                          if (*v794 != v392)
+                          if (*v776 != v380)
                           {
-                            objc_enumerationMutation(v389);
+                            objc_enumerationMutation(v377);
                           }
 
-                          -[NSPPrivacyProxyProxyPathWeight addProxies:](v378, "addProxies:", [*(*(&v793 + 1) + 8 * i3) unsignedIntValue]);
+                          -[NSPPrivacyProxyProxyPathWeight addProxies:](v366, "addProxies:", [*(*(&v775 + 1) + 8 * i3) unsignedIntValue]);
                         }
 
-                        v391 = [v389 countByEnumeratingWithState:&v793 objects:v874 count:16];
+                        v379 = [v377 countByEnumeratingWithState:&v775 objects:v856 count:16];
                       }
 
-                      while (v391);
+                      while (v379);
                     }
                   }
                 }
-
-                v11 = 0x1E695D000;
               }
             }
 
-            v373 = [v371 countByEnumeratingWithState:&v797 objects:v875 count:16];
+            v362 = [v360 countByEnumeratingWithState:&v779 objects:v857 count:16];
           }
 
-          while (v373);
+          while (v362);
         }
 
-        v8 = v711;
+        v8 = v693;
       }
     }
 
-    v394 = [v8 objectForKeyedSubscript:@"resolvers"];
-    if (v394)
+    v382 = [v8 objectForKeyedSubscript:@"resolvers"];
+    if (v382)
     {
-      v395 = v394;
-      v396 = [v8 objectForKeyedSubscript:@"resolvers"];
+      v383 = v382;
+      v384 = [v8 objectForKeyedSubscript:@"resolvers"];
       objc_opt_class();
-      v397 = objc_opt_isKindOfClass();
+      v385 = objc_opt_isKindOfClass();
 
-      if (v397)
+      if (v385)
       {
-        v398 = [v8 objectForKeyedSubscript:@"resolvers"];
-        v789 = 0u;
-        v790 = 0u;
-        v791 = 0u;
-        v792 = 0u;
-        v740 = v398;
-        v399 = [v740 countByEnumeratingWithState:&v789 objects:v873 count:16];
-        if (v399)
+        v386 = [v8 objectForKeyedSubscript:@"resolvers"];
+        v771 = 0u;
+        v772 = 0u;
+        v773 = 0u;
+        v774 = 0u;
+        v722 = v386;
+        v387 = [v722 countByEnumeratingWithState:&v771 objects:v855 count:16];
+        if (v387)
         {
-          v400 = v399;
-          v401 = *v790;
+          v388 = v387;
+          v389 = *v772;
           do
           {
-            v402 = 0;
-            v733 = v400;
+            v390 = 0;
+            v715 = v388;
             do
             {
-              if (*v790 != v401)
+              if (*v772 != v389)
               {
-                objc_enumerationMutation(v740);
+                objc_enumerationMutation(v722);
               }
 
-              v403 = *(*(&v789 + 1) + 8 * v402);
+              v391 = *(*(&v771 + 1) + 8 * v390);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v404 = objc_alloc_init(NSPPrivacyProxyResolverInfo);
-                [(NSPPrivacyProxyConfiguration *)v713 addResolvers:v404];
-                v405 = [v403 objectForKeyedSubscript:@"dohURL"];
-                if (v405)
+                v392 = objc_alloc_init(NSPPrivacyProxyResolverInfo);
+                [(NSPPrivacyProxyConfiguration *)v695 addResolvers:v392];
+                v393 = [v391 objectForKeyedSubscript:@"dohURL"];
+                if (v393)
                 {
-                  v406 = v405;
-                  v407 = [v403 objectForKeyedSubscript:@"dohURL"];
+                  v394 = v393;
+                  v395 = [v391 objectForKeyedSubscript:@"dohURL"];
                   objc_opt_class();
-                  v408 = objc_opt_isKindOfClass();
+                  v396 = objc_opt_isKindOfClass();
 
-                  if (v408)
+                  if (v396)
                   {
-                    v409 = [v403 objectForKeyedSubscript:@"dohURL"];
-                    [(NSPPrivacyProxyResolverInfo *)v404 setDohURL:v409];
+                    v397 = [v391 objectForKeyedSubscript:@"dohURL"];
+                    [(NSPPrivacyProxyResolverInfo *)v392 setDohURL:v397];
                   }
                 }
 
-                v410 = [v403 objectForKeyedSubscript:@"obliviousDoHConfig"];
-                if (v410)
+                v398 = [v391 objectForKeyedSubscript:@"obliviousDoHConfig"];
+                if (v398)
                 {
-                  v411 = v410;
-                  v412 = [v403 objectForKeyedSubscript:@"obliviousDoHConfig"];
+                  v399 = v398;
+                  v400 = [v391 objectForKeyedSubscript:@"obliviousDoHConfig"];
                   objc_opt_class();
-                  v413 = objc_opt_isKindOfClass();
+                  v401 = objc_opt_isKindOfClass();
 
-                  if (v413)
+                  if (v401)
                   {
-                    v414 = [v403 objectForKeyedSubscript:@"obliviousDoHConfig"];
-                    [(NSPPrivacyProxyResolverInfo *)v404 setObliviousDoHConfig:v414];
+                    v402 = [v391 objectForKeyedSubscript:@"obliviousDoHConfig"];
+                    [(NSPPrivacyProxyResolverInfo *)v392 setObliviousDoHConfig:v402];
                   }
                 }
 
-                v415 = [v403 objectForKeyedSubscript:@"weight"];
-                if (v415)
+                v403 = [v391 objectForKeyedSubscript:@"weight"];
+                if (v403)
                 {
-                  v416 = v415;
-                  v417 = [v403 objectForKeyedSubscript:@"weight"];
+                  v404 = v403;
+                  v405 = [v391 objectForKeyedSubscript:@"weight"];
                   objc_opt_class();
-                  v418 = objc_opt_isKindOfClass();
+                  v406 = objc_opt_isKindOfClass();
 
-                  if (v418)
+                  if (v406)
                   {
-                    v419 = [v403 objectForKeyedSubscript:@"weight"];
-                    -[NSPPrivacyProxyResolverInfo setWeight:](v404, "setWeight:", [v419 unsignedIntValue]);
+                    v407 = [v391 objectForKeyedSubscript:@"weight"];
+                    -[NSPPrivacyProxyResolverInfo setWeight:](v392, "setWeight:", [v407 unsignedIntValue]);
                   }
                 }
 
-                v420 = [v403 objectForKeyedSubscript:@"proxyIndex"];
-                v400 = v733;
-                if (v420)
+                v408 = [v391 objectForKeyedSubscript:@"proxyIndex"];
+                v388 = v715;
+                if (v408)
                 {
-                  v421 = v420;
-                  v422 = [v403 objectForKeyedSubscript:@"proxyIndex"];
+                  v409 = v408;
+                  v410 = [v391 objectForKeyedSubscript:@"proxyIndex"];
                   objc_opt_class();
-                  v423 = objc_opt_isKindOfClass();
+                  v411 = objc_opt_isKindOfClass();
 
-                  if (v423)
+                  if (v411)
                   {
-                    v424 = [v403 objectForKeyedSubscript:@"proxyIndex"];
-                    -[NSPPrivacyProxyResolverInfo setProxyIndex:](v404, "setProxyIndex:", [v424 unsignedIntValue]);
+                    v412 = [v391 objectForKeyedSubscript:@"proxyIndex"];
+                    -[NSPPrivacyProxyResolverInfo setProxyIndex:](v392, "setProxyIndex:", [v412 unsignedIntValue]);
                   }
                 }
               }
 
-              ++v402;
+              ++v390;
             }
 
-            while (v400 != v402);
-            v400 = [v740 countByEnumeratingWithState:&v789 objects:v873 count:16];
+            while (v388 != v390);
+            v388 = [v722 countByEnumeratingWithState:&v771 objects:v855 count:16];
           }
 
-          while (v400);
+          while (v388);
         }
 
-        v8 = v711;
-        v11 = 0x1E695D000uLL;
+        v8 = v693;
       }
     }
 
-    v425 = [v8 objectForKeyedSubscript:@"bootstrapResolver"];
-    if (v425)
+    v413 = [v8 objectForKeyedSubscript:@"bootstrapResolver"];
+    if (v413)
     {
-      v426 = v425;
-      v427 = [v8 objectForKeyedSubscript:@"bootstrapResolver"];
-      v428 = *(v11 + 3872);
+      v414 = v413;
+      v415 = [v8 objectForKeyedSubscript:@"bootstrapResolver"];
       objc_opt_class();
-      v429 = objc_opt_isKindOfClass();
+      v416 = objc_opt_isKindOfClass();
 
-      if (v429)
+      if (v416)
       {
-        v430 = [v8 objectForKeyedSubscript:@"bootstrapResolver"];
-        v431 = objc_alloc_init(NSPPrivacyProxyResolverInfo);
-        v432 = [v430 objectForKeyedSubscript:@"dohURL"];
-        if (v432)
+        v417 = [v8 objectForKeyedSubscript:@"bootstrapResolver"];
+        v418 = objc_alloc_init(NSPPrivacyProxyResolverInfo);
+        v419 = [v417 objectForKeyedSubscript:@"dohURL"];
+        if (v419)
         {
-          v433 = v432;
-          v434 = [v430 objectForKeyedSubscript:@"dohURL"];
+          v420 = v419;
+          v421 = [v417 objectForKeyedSubscript:@"dohURL"];
           objc_opt_class();
-          v435 = objc_opt_isKindOfClass();
+          v422 = objc_opt_isKindOfClass();
 
-          if (v435)
+          if (v422)
           {
-            v436 = [v430 objectForKeyedSubscript:@"dohURL"];
-            [(NSPPrivacyProxyResolverInfo *)v431 setDohURL:v436];
+            v423 = [v417 objectForKeyedSubscript:@"dohURL"];
+            [(NSPPrivacyProxyResolverInfo *)v418 setDohURL:v423];
           }
         }
 
-        v437 = [v430 objectForKeyedSubscript:@"obliviousDoHConfig"];
-        if (v437)
+        v424 = [v417 objectForKeyedSubscript:@"obliviousDoHConfig"];
+        if (v424)
         {
-          v438 = v437;
-          v439 = [v430 objectForKeyedSubscript:@"obliviousDoHConfig"];
+          v425 = v424;
+          v426 = [v417 objectForKeyedSubscript:@"obliviousDoHConfig"];
           objc_opt_class();
-          v440 = objc_opt_isKindOfClass();
+          v427 = objc_opt_isKindOfClass();
 
-          if (v440)
+          if (v427)
           {
-            v441 = [v430 objectForKeyedSubscript:@"obliviousDoHConfig"];
-            [(NSPPrivacyProxyResolverInfo *)v431 setObliviousDoHConfig:v441];
+            v428 = [v417 objectForKeyedSubscript:@"obliviousDoHConfig"];
+            [(NSPPrivacyProxyResolverInfo *)v418 setObliviousDoHConfig:v428];
           }
         }
 
-        v442 = [v430 objectForKeyedSubscript:@"weight"];
-        if (v442)
+        v429 = [v417 objectForKeyedSubscript:@"weight"];
+        if (v429)
         {
-          v443 = v442;
-          v444 = [v430 objectForKeyedSubscript:@"weight"];
+          v430 = v429;
+          v431 = [v417 objectForKeyedSubscript:@"weight"];
           objc_opt_class();
-          v445 = objc_opt_isKindOfClass();
+          v432 = objc_opt_isKindOfClass();
 
-          if (v445)
+          if (v432)
           {
-            v446 = [v430 objectForKeyedSubscript:@"weight"];
-            -[NSPPrivacyProxyResolverInfo setWeight:](v431, "setWeight:", [v446 unsignedIntValue]);
+            v433 = [v417 objectForKeyedSubscript:@"weight"];
+            -[NSPPrivacyProxyResolverInfo setWeight:](v418, "setWeight:", [v433 unsignedIntValue]);
           }
         }
 
-        v447 = [v430 objectForKeyedSubscript:@"proxyIndex"];
-        if (v447)
+        v434 = [v417 objectForKeyedSubscript:@"proxyIndex"];
+        if (v434)
         {
-          v448 = v447;
-          v449 = [v430 objectForKeyedSubscript:@"proxyIndex"];
+          v435 = v434;
+          v436 = [v417 objectForKeyedSubscript:@"proxyIndex"];
           objc_opt_class();
-          v450 = objc_opt_isKindOfClass();
+          v437 = objc_opt_isKindOfClass();
 
-          if (v450)
+          if (v437)
           {
-            v451 = [v430 objectForKeyedSubscript:@"proxyIndex"];
-            -[NSPPrivacyProxyResolverInfo setProxyIndex:](v431, "setProxyIndex:", [v451 unsignedIntValue]);
+            v438 = [v417 objectForKeyedSubscript:@"proxyIndex"];
+            -[NSPPrivacyProxyResolverInfo setProxyIndex:](v418, "setProxyIndex:", [v438 unsignedIntValue]);
           }
         }
 
-        [(NSPPrivacyProxyConfiguration *)v713 setBootstrapResolver:v431];
+        [(NSPPrivacyProxyConfiguration *)v695 setBootstrapResolver:v418];
       }
     }
 
-    v452 = [v8 objectForKeyedSubscript:@"dnsProbe"];
-    if (v452)
+    v439 = [v8 objectForKeyedSubscript:@"dnsProbe"];
+    if (v439)
     {
-      v453 = v452;
-      v454 = [v8 objectForKeyedSubscript:@"dnsProbe"];
+      v440 = v439;
+      v441 = [v8 objectForKeyedSubscript:@"dnsProbe"];
       objc_opt_class();
-      v455 = objc_opt_isKindOfClass();
+      v442 = objc_opt_isKindOfClass();
 
-      if (v455)
+      if (v442)
       {
-        v456 = [v8 objectForKeyedSubscript:@"dnsProbe"];
-        [(NSPPrivacyProxyConfiguration *)v713 setDnsProbe:v456];
+        v443 = [v8 objectForKeyedSubscript:@"dnsProbe"];
+        [(NSPPrivacyProxyConfiguration *)v695 setDnsProbe:v443];
       }
     }
 
-    v457 = [v8 objectForKeyedSubscript:@"obliviousConfigs"];
-    if (v457)
+    v444 = [v8 objectForKeyedSubscript:@"obliviousConfigs"];
+    if (v444)
     {
-      v458 = v457;
-      v459 = [v8 objectForKeyedSubscript:@"obliviousConfigs"];
+      v445 = v444;
+      v446 = [v8 objectForKeyedSubscript:@"obliviousConfigs"];
       objc_opt_class();
-      v460 = objc_opt_isKindOfClass();
+      v447 = objc_opt_isKindOfClass();
 
-      if (v460)
+      if (v447)
       {
-        v461 = v8;
-        v462 = [v8 objectForKeyedSubscript:@"obliviousConfigs"];
-        v785 = 0u;
-        v786 = 0u;
-        v787 = 0u;
-        v788 = 0u;
-        v463 = v462;
-        v464 = [v463 countByEnumeratingWithState:&v785 objects:v872 count:16];
-        if (v464)
+        v448 = v8;
+        v449 = [v8 objectForKeyedSubscript:@"obliviousConfigs"];
+        v767 = 0u;
+        v768 = 0u;
+        v769 = 0u;
+        v770 = 0u;
+        v450 = v449;
+        v451 = [v450 countByEnumeratingWithState:&v767 objects:v854 count:16];
+        if (v451)
         {
-          v465 = v464;
-          v466 = 0x1E7A30000uLL;
-          v467 = *v786;
-          v468 = @"proxyURLPath";
-          v710 = v463;
-          v714 = *v786;
+          v452 = v451;
+          v453 = 0x1E7A30000uLL;
+          v454 = *v768;
+          v455 = @"proxyURLPath";
+          v692 = v450;
+          v696 = *v768;
           do
           {
-            v469 = 0;
-            v716 = v465;
+            v456 = 0;
+            v698 = v452;
             do
             {
-              if (*v786 != v467)
+              if (*v768 != v454)
               {
-                objc_enumerationMutation(v463);
+                objc_enumerationMutation(v450);
               }
 
-              v719 = v469;
-              v470 = *(*(&v785 + 1) + 8 * v469);
+              v701 = v456;
+              v457 = *(*(&v767 + 1) + 8 * v456);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v727 = objc_alloc_init(*(v466 + 712));
-                [(NSPPrivacyProxyConfiguration *)v713 addObliviousConfigs:?];
-                v471 = [v470 objectForKeyedSubscript:@"obliviousHTTPConfig"];
-                if (v471)
+                v709 = objc_alloc_init(*(v453 + 712));
+                [(NSPPrivacyProxyConfiguration *)v695 addObliviousConfigs:?];
+                v458 = [v457 objectForKeyedSubscript:@"obliviousHTTPConfig"];
+                if (v458)
                 {
-                  v472 = v471;
-                  v473 = [v470 objectForKeyedSubscript:@"obliviousHTTPConfig"];
+                  v459 = v458;
+                  v460 = [v457 objectForKeyedSubscript:@"obliviousHTTPConfig"];
                   objc_opt_class();
-                  v474 = objc_opt_isKindOfClass();
+                  v461 = objc_opt_isKindOfClass();
 
-                  if (v474)
+                  if (v461)
                   {
-                    v475 = [v470 objectForKeyedSubscript:@"obliviousHTTPConfig"];
-                    [v727 setObliviousHTTPConfig:v475];
+                    v462 = [v457 objectForKeyedSubscript:@"obliviousHTTPConfig"];
+                    [v709 setObliviousHTTPConfig:v462];
                   }
                 }
 
-                v476 = [v470 objectForKeyedSubscript:@"obliviousHTTPType"];
-                if (v476)
+                v463 = [v457 objectForKeyedSubscript:@"obliviousHTTPType"];
+                if (v463)
                 {
-                  v477 = v476;
-                  v478 = [v470 objectForKeyedSubscript:@"obliviousHTTPType"];
+                  v464 = v463;
+                  v465 = [v457 objectForKeyedSubscript:@"obliviousHTTPType"];
                   objc_opt_class();
-                  v479 = objc_opt_isKindOfClass();
+                  v466 = objc_opt_isKindOfClass();
 
-                  if (v479)
+                  if (v466)
                   {
-                    v480 = [v470 objectForKeyedSubscript:@"obliviousHTTPType"];
-                    if ([v480 isEqualToString:@"DEFAULT"])
+                    v467 = [v457 objectForKeyedSubscript:@"obliviousHTTPType"];
+                    if ([v467 isEqualToString:@"DEFAULT"])
                     {
-                      v481 = 0;
+                      v468 = 0;
                     }
 
-                    else if ([v480 isEqualToString:@"CHUNKED"])
+                    else if ([v467 isEqualToString:@"CHUNKED"])
                     {
-                      v481 = 1;
+                      v468 = 1;
                     }
 
-                    else if ([v480 isEqualToString:@"CONTEXT"])
+                    else if ([v467 isEqualToString:@"CONTEXT"])
                     {
-                      v481 = 2;
+                      v468 = 2;
                     }
 
                     else
                     {
-                      v481 = 0;
+                      v468 = 0;
                     }
 
-                    [v727 setObliviousHTTPType:v481];
+                    [v709 setObliviousHTTPType:v468];
                   }
                 }
 
-                v482 = [v470 objectForKeyedSubscript:@"transparencyKeyBundle"];
-                if (v482)
+                v469 = [v457 objectForKeyedSubscript:@"transparencyKeyBundle"];
+                if (v469)
                 {
-                  v483 = v482;
-                  v484 = [v470 objectForKeyedSubscript:@"transparencyKeyBundle"];
+                  v470 = v469;
+                  v471 = [v457 objectForKeyedSubscript:@"transparencyKeyBundle"];
                   objc_opt_class();
-                  v485 = objc_opt_isKindOfClass();
+                  v472 = objc_opt_isKindOfClass();
 
-                  if (v485)
+                  if (v472)
                   {
-                    v486 = [v470 objectForKeyedSubscript:@"transparencyKeyBundle"];
-                    [v727 setTransparencyKeyBundle:v486];
+                    v473 = [v457 objectForKeyedSubscript:@"transparencyKeyBundle"];
+                    [v709 setTransparencyKeyBundle:v473];
                   }
                 }
 
-                v487 = [v470 objectForKeyedSubscript:@"transparencyProof"];
-                if (v487)
+                v474 = [v457 objectForKeyedSubscript:@"transparencyProof"];
+                if (v474)
                 {
-                  v488 = v487;
-                  v489 = [v470 objectForKeyedSubscript:@"transparencyProof"];
+                  v475 = v474;
+                  v476 = [v457 objectForKeyedSubscript:@"transparencyProof"];
                   objc_opt_class();
-                  v490 = objc_opt_isKindOfClass();
+                  v477 = objc_opt_isKindOfClass();
 
-                  if (v490)
+                  if (v477)
                   {
-                    v491 = [v470 objectForKeyedSubscript:@"transparencyProof"];
-                    [v727 setTransparencyProof:v491];
+                    v478 = [v457 objectForKeyedSubscript:@"transparencyProof"];
+                    [v709 setTransparencyProof:v478];
                   }
                 }
 
-                v492 = [v470 objectForKeyedSubscript:@"transparencyInternalProof"];
-                if (v492)
+                v479 = [v457 objectForKeyedSubscript:@"transparencyInternalProof"];
+                if (v479)
                 {
-                  v493 = v492;
-                  v494 = [v470 objectForKeyedSubscript:@"transparencyInternalProof"];
+                  v480 = v479;
+                  v481 = [v457 objectForKeyedSubscript:@"transparencyInternalProof"];
                   objc_opt_class();
-                  v495 = objc_opt_isKindOfClass();
+                  v482 = objc_opt_isKindOfClass();
 
-                  if (v495)
+                  if (v482)
                   {
-                    v496 = [v470 objectForKeyedSubscript:@"transparencyInternalProof"];
-                    [v727 setTransparencyInternalProof:v496];
+                    v483 = [v457 objectForKeyedSubscript:@"transparencyInternalProof"];
+                    [v709 setTransparencyInternalProof:v483];
                   }
                 }
 
-                v497 = [v470 objectForKeyedSubscript:@"obliviousTargets"];
-                if (v497)
+                v484 = [v457 objectForKeyedSubscript:@"obliviousTargets"];
+                if (v484)
                 {
-                  v498 = v497;
-                  v499 = [v470 objectForKeyedSubscript:@"obliviousTargets"];
+                  v485 = v484;
+                  v486 = [v457 objectForKeyedSubscript:@"obliviousTargets"];
                   objc_opt_class();
-                  v500 = objc_opt_isKindOfClass();
+                  v487 = objc_opt_isKindOfClass();
 
-                  if (v500)
+                  if (v487)
                   {
-                    v501 = [v470 objectForKeyedSubscript:@"obliviousTargets"];
-                    v781 = 0u;
-                    v782 = 0u;
-                    v783 = 0u;
-                    v784 = 0u;
-                    v741 = v501;
-                    v502 = [v741 countByEnumeratingWithState:&v781 objects:v871 count:16];
-                    v503 = 0x1E695D000uLL;
-                    if (v502)
+                    v488 = [v457 objectForKeyedSubscript:@"obliviousTargets"];
+                    v763 = 0u;
+                    v764 = 0u;
+                    v765 = 0u;
+                    v766 = 0u;
+                    v723 = v488;
+                    v489 = [v723 countByEnumeratingWithState:&v763 objects:v853 count:16];
+                    if (v489)
                     {
-                      v504 = v502;
-                      v505 = *v782;
-                      v722 = *v782;
+                      v490 = v489;
+                      v491 = *v764;
+                      v704 = *v764;
                       do
                       {
-                        v506 = 0;
-                        v734 = v504;
+                        v492 = 0;
+                        v716 = v490;
                         do
                         {
-                          if (*v782 != v505)
+                          if (*v764 != v491)
                           {
-                            objc_enumerationMutation(v741);
+                            objc_enumerationMutation(v723);
                           }
 
-                          v507 = *(*(&v781 + 1) + 8 * v506);
-                          v508 = *(v503 + 3872);
+                          v493 = *(*(&v763 + 1) + 8 * v492);
                           objc_opt_class();
                           if (objc_opt_isKindOfClass())
                           {
-                            v509 = v468;
-                            v510 = objc_alloc_init(NSPPrivacyProxyObliviousTargetInfo);
-                            [v727 addObliviousTargets:v510];
-                            v511 = [v507 objectForKeyedSubscript:@"targetHost"];
+                            v494 = v455;
+                            v495 = objc_alloc_init(NSPPrivacyProxyObliviousTargetInfo);
+                            [v709 addObliviousTargets:v495];
+                            v496 = [v493 objectForKeyedSubscript:@"targetHost"];
+                            if (v496)
+                            {
+                              v497 = v496;
+                              v498 = [v493 objectForKeyedSubscript:@"targetHost"];
+                              objc_opt_class();
+                              v499 = objc_opt_isKindOfClass();
+
+                              if (v499)
+                              {
+                                v500 = [v493 objectForKeyedSubscript:@"targetHost"];
+                                [(NSPPrivacyProxyObliviousTargetInfo *)v495 setTargetHost:v500];
+                              }
+                            }
+
+                            v501 = [v493 objectForKeyedSubscript:v494];
+                            if (v501)
+                            {
+                              v502 = v501;
+                              v503 = [v493 objectForKeyedSubscript:v494];
+                              objc_opt_class();
+                              v504 = objc_opt_isKindOfClass();
+
+                              if (v504)
+                              {
+                                v505 = [v493 objectForKeyedSubscript:v494];
+                                [(NSPPrivacyProxyObliviousTargetInfo *)v495 setProxyURLPath:v505];
+                              }
+                            }
+
+                            v506 = [v493 objectForKeyedSubscript:@"proxyIndex"];
+                            if (v506)
+                            {
+                              v507 = v506;
+                              v508 = [v493 objectForKeyedSubscript:@"proxyIndex"];
+                              objc_opt_class();
+                              v509 = objc_opt_isKindOfClass();
+
+                              if (v509)
+                              {
+                                v510 = [v493 objectForKeyedSubscript:@"proxyIndex"];
+                                -[NSPPrivacyProxyObliviousTargetInfo setProxyIndex:](v495, "setProxyIndex:", [v510 unsignedIntValue]);
+                              }
+                            }
+
+                            v511 = [v493 objectForKeyedSubscript:@"weight"];
                             if (v511)
                             {
                               v512 = v511;
-                              v513 = [v507 objectForKeyedSubscript:@"targetHost"];
+                              v513 = [v493 objectForKeyedSubscript:@"weight"];
                               objc_opt_class();
                               v514 = objc_opt_isKindOfClass();
 
                               if (v514)
                               {
-                                v515 = [v507 objectForKeyedSubscript:@"targetHost"];
-                                [(NSPPrivacyProxyObliviousTargetInfo *)v510 setTargetHost:v515];
+                                v515 = [v493 objectForKeyedSubscript:@"weight"];
+                                -[NSPPrivacyProxyObliviousTargetInfo setWeight:](v495, "setWeight:", [v515 unsignedIntValue]);
                               }
                             }
 
-                            v516 = [v507 objectForKeyedSubscript:v509];
+                            v516 = [v493 objectForKeyedSubscript:@"processes"];
                             if (v516)
                             {
                               v517 = v516;
-                              v518 = [v507 objectForKeyedSubscript:v509];
+                              v518 = [v493 objectForKeyedSubscript:@"processes"];
                               objc_opt_class();
                               v519 = objc_opt_isKindOfClass();
 
                               if (v519)
                               {
-                                v520 = [v507 objectForKeyedSubscript:v509];
-                                [(NSPPrivacyProxyObliviousTargetInfo *)v510 setProxyURLPath:v520];
-                              }
-                            }
-
-                            v521 = [v507 objectForKeyedSubscript:@"proxyIndex"];
-                            if (v521)
-                            {
-                              v522 = v521;
-                              v523 = [v507 objectForKeyedSubscript:@"proxyIndex"];
-                              objc_opt_class();
-                              v524 = objc_opt_isKindOfClass();
-
-                              if (v524)
-                              {
-                                v525 = [v507 objectForKeyedSubscript:@"proxyIndex"];
-                                -[NSPPrivacyProxyObliviousTargetInfo setProxyIndex:](v510, "setProxyIndex:", [v525 unsignedIntValue]);
-                              }
-                            }
-
-                            v526 = [v507 objectForKeyedSubscript:@"weight"];
-                            if (v526)
-                            {
-                              v527 = v526;
-                              v528 = [v507 objectForKeyedSubscript:@"weight"];
-                              objc_opt_class();
-                              v529 = objc_opt_isKindOfClass();
-
-                              if (v529)
-                              {
-                                v530 = [v507 objectForKeyedSubscript:@"weight"];
-                                -[NSPPrivacyProxyObliviousTargetInfo setWeight:](v510, "setWeight:", [v530 unsignedIntValue]);
-                              }
-                            }
-
-                            v531 = [v507 objectForKeyedSubscript:@"processes"];
-                            if (v531)
-                            {
-                              v532 = v531;
-                              v533 = [v507 objectForKeyedSubscript:@"processes"];
-                              objc_opt_class();
-                              v534 = objc_opt_isKindOfClass();
-
-                              if (v534)
-                              {
-                                v535 = [v507 objectForKeyedSubscript:@"processes"];
-                                v777 = 0u;
-                                v778 = 0u;
-                                v779 = 0u;
-                                v780 = 0u;
-                                v536 = v535;
-                                v537 = [v536 countByEnumeratingWithState:&v777 objects:v870 count:16];
-                                if (v537)
+                                v520 = [v493 objectForKeyedSubscript:@"processes"];
+                                v759 = 0u;
+                                v760 = 0u;
+                                v761 = 0u;
+                                v762 = 0u;
+                                v521 = v520;
+                                v522 = [v521 countByEnumeratingWithState:&v759 objects:v852 count:16];
+                                if (v522)
                                 {
-                                  v538 = v537;
-                                  v539 = *v778;
+                                  v523 = v522;
+                                  v524 = *v760;
                                   do
                                   {
-                                    for (i4 = 0; i4 != v538; ++i4)
+                                    for (i4 = 0; i4 != v523; ++i4)
                                     {
-                                      if (*v778 != v539)
+                                      if (*v760 != v524)
                                       {
-                                        objc_enumerationMutation(v536);
+                                        objc_enumerationMutation(v521);
                                       }
 
-                                      v541 = *(*(&v777 + 1) + 8 * i4);
+                                      v526 = *(*(&v759 + 1) + 8 * i4);
                                       objc_opt_class();
                                       if (objc_opt_isKindOfClass())
                                       {
-                                        [(NSPPrivacyProxyObliviousTargetInfo *)v510 addProcesses:v541];
+                                        [(NSPPrivacyProxyObliviousTargetInfo *)v495 addProcesses:v526];
                                       }
                                     }
 
-                                    v538 = [v536 countByEnumeratingWithState:&v777 objects:v870 count:16];
+                                    v523 = [v521 countByEnumeratingWithState:&v759 objects:v852 count:16];
                                   }
 
-                                  while (v538);
+                                  while (v523);
                                 }
-
-                                v503 = 0x1E695D000;
                               }
                             }
 
-                            v468 = v509;
-                            v505 = v722;
-                            v504 = v734;
+                            v455 = v494;
+                            v491 = v704;
+                            v490 = v716;
                           }
 
-                          ++v506;
+                          ++v492;
                         }
 
-                        while (v506 != v504);
-                        v504 = [v741 countByEnumeratingWithState:&v781 objects:v871 count:16];
+                        while (v492 != v490);
+                        v490 = [v723 countByEnumeratingWithState:&v763 objects:v853 count:16];
                       }
 
-                      while (v504);
+                      while (v490);
                     }
 
-                    v463 = v710;
-                    v461 = v711;
-                    v466 = 0x1E7A30000;
+                    v450 = v692;
+                    v448 = v693;
+                    v453 = 0x1E7A30000;
                   }
                 }
 
-                v467 = v714;
-                v465 = v716;
+                v454 = v696;
+                v452 = v698;
               }
 
-              v469 = v719 + 1;
+              v456 = v701 + 1;
             }
 
-            while (v719 + 1 != v465);
-            v465 = [v463 countByEnumeratingWithState:&v785 objects:v872 count:16];
+            while (v701 + 1 != v452);
+            v452 = [v450 countByEnumeratingWithState:&v767 objects:v854 count:16];
           }
 
-          while (v465);
+          while (v452);
         }
 
-        v11 = 0x1E695D000uLL;
-        v8 = v461;
+        v8 = v448;
       }
     }
 
-    v542 = [v8 objectForKeyedSubscript:@"preferredPathEnabledPercentage"];
-    if (v542)
+    v527 = [v8 objectForKeyedSubscript:@"preferredPathEnabledPercentage"];
+    if (v527)
     {
-      v543 = v542;
-      v544 = [v8 objectForKeyedSubscript:@"preferredPathEnabledPercentage"];
+      v528 = v527;
+      v529 = [v8 objectForKeyedSubscript:@"preferredPathEnabledPercentage"];
       objc_opt_class();
-      v545 = objc_opt_isKindOfClass();
+      v530 = objc_opt_isKindOfClass();
 
-      if (v545)
+      if (v530)
       {
-        v546 = [v8 objectForKeyedSubscript:@"preferredPathEnabledPercentage"];
-        -[NSPPrivacyProxyConfiguration setPreferredPathEnabledPercentage:](v713, "setPreferredPathEnabledPercentage:", [v546 unsignedIntValue]);
+        v531 = [v8 objectForKeyedSubscript:@"preferredPathEnabledPercentage"];
+        -[NSPPrivacyProxyConfiguration setPreferredPathEnabledPercentage:](v695, "setPreferredPathEnabledPercentage:", [v531 unsignedIntValue]);
       }
     }
 
-    v547 = [v8 objectForKeyedSubscript:@"proxiedContentMaps"];
-    if (v547)
+    v532 = [v8 objectForKeyedSubscript:@"proxiedContentMaps"];
+    if (v532)
     {
-      v548 = v547;
-      v549 = [v8 objectForKeyedSubscript:@"proxiedContentMaps"];
+      v533 = v532;
+      v534 = [v8 objectForKeyedSubscript:@"proxiedContentMaps"];
       objc_opt_class();
-      v550 = objc_opt_isKindOfClass();
+      v535 = objc_opt_isKindOfClass();
 
-      if (v550)
+      if (v535)
       {
-        v551 = [v8 objectForKeyedSubscript:@"proxiedContentMaps"];
-        v773 = 0u;
-        v774 = 0u;
-        v775 = 0u;
-        v776 = 0u;
-        v742 = v551;
-        v552 = [v742 countByEnumeratingWithState:&v773 objects:v869 count:16];
-        if (v552)
+        v536 = [v8 objectForKeyedSubscript:@"proxiedContentMaps"];
+        v755 = 0u;
+        v756 = 0u;
+        v757 = 0u;
+        v758 = 0u;
+        v724 = v536;
+        v537 = [v724 countByEnumeratingWithState:&v755 objects:v851 count:16];
+        if (v537)
         {
-          v553 = v552;
-          v554 = @"systemProcessOnly";
-          v555 = *v774;
-          v728 = *v774;
+          v538 = v537;
+          v539 = @"systemProcessOnly";
+          v540 = *v756;
+          v710 = *v756;
           do
           {
-            v556 = 0;
-            v735 = v553;
+            v541 = 0;
+            v717 = v538;
             do
             {
-              if (*v774 != v555)
+              if (*v756 != v540)
               {
-                objc_enumerationMutation(v742);
+                objc_enumerationMutation(v724);
               }
 
-              v557 = *(*(&v773 + 1) + 8 * v556);
-              v558 = *(v11 + 3872);
+              v542 = *(*(&v755 + 1) + 8 * v541);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v559 = v554;
-                v560 = objc_alloc_init(NSPPrivacyProxyProxiedContentMap);
-                [(NSPPrivacyProxyConfiguration *)v713 addProxiedContentMaps:v560];
-                v561 = [v557 objectForKeyedSubscript:@"enabled"];
-                if (v561)
+                v543 = v539;
+                v544 = objc_alloc_init(NSPPrivacyProxyProxiedContentMap);
+                [(NSPPrivacyProxyConfiguration *)v695 addProxiedContentMaps:v544];
+                v545 = [v542 objectForKeyedSubscript:@"enabled"];
+                if (v545)
                 {
-                  v562 = v561;
-                  v563 = [v557 objectForKeyedSubscript:@"enabled"];
+                  v546 = v545;
+                  v547 = [v542 objectForKeyedSubscript:@"enabled"];
                   objc_opt_class();
-                  v564 = objc_opt_isKindOfClass();
+                  v548 = objc_opt_isKindOfClass();
 
-                  if (v564)
+                  if (v548)
                   {
-                    v565 = [v557 objectForKeyedSubscript:@"enabled"];
-                    -[NSPPrivacyProxyProxiedContentMap setEnabled:](v560, "setEnabled:", [v565 BOOLValue]);
+                    v549 = [v542 objectForKeyedSubscript:@"enabled"];
+                    -[NSPPrivacyProxyProxiedContentMap setEnabled:](v544, "setEnabled:", [v549 BOOLValue]);
                   }
                 }
 
-                v566 = [v557 objectForKeyedSubscript:v554];
-                if (v566)
+                v550 = [v542 objectForKeyedSubscript:v539];
+                if (v550)
                 {
-                  v567 = v566;
-                  v568 = [v557 objectForKeyedSubscript:v554];
+                  v551 = v550;
+                  v552 = [v542 objectForKeyedSubscript:v539];
                   objc_opt_class();
-                  v569 = objc_opt_isKindOfClass();
+                  v553 = objc_opt_isKindOfClass();
 
-                  if (v569)
+                  if (v553)
                   {
-                    v570 = [v557 objectForKeyedSubscript:v554];
-                    -[NSPPrivacyProxyProxiedContentMap setSystemProcessOnly:](v560, "setSystemProcessOnly:", [v570 BOOLValue]);
+                    v554 = [v542 objectForKeyedSubscript:v539];
+                    -[NSPPrivacyProxyProxiedContentMap setSystemProcessOnly:](v544, "setSystemProcessOnly:", [v554 BOOLValue]);
                   }
                 }
 
-                v571 = [v557 objectForKeyedSubscript:@"supportsReverseProxying"];
-                if (v571)
+                v555 = [v542 objectForKeyedSubscript:@"supportsReverseProxying"];
+                if (v555)
                 {
-                  v572 = v571;
-                  v573 = [v557 objectForKeyedSubscript:@"supportsReverseProxying"];
+                  v556 = v555;
+                  v557 = [v542 objectForKeyedSubscript:@"supportsReverseProxying"];
                   objc_opt_class();
-                  v574 = objc_opt_isKindOfClass();
+                  v558 = objc_opt_isKindOfClass();
 
-                  if (v574)
+                  if (v558)
                   {
-                    v575 = [v557 objectForKeyedSubscript:@"supportsReverseProxying"];
-                    -[NSPPrivacyProxyProxiedContentMap setSupportsReverseProxying:](v560, "setSupportsReverseProxying:", [v575 BOOLValue]);
+                    v559 = [v542 objectForKeyedSubscript:@"supportsReverseProxying"];
+                    -[NSPPrivacyProxyProxiedContentMap setSupportsReverseProxying:](v544, "setSupportsReverseProxying:", [v559 BOOLValue]);
                   }
                 }
 
-                v576 = [v557 objectForKeyedSubscript:@"percentEnabled"];
-                if (v576)
+                v560 = [v542 objectForKeyedSubscript:@"percentEnabled"];
+                if (v560)
                 {
-                  v577 = v576;
-                  v578 = [v557 objectForKeyedSubscript:@"percentEnabled"];
+                  v561 = v560;
+                  v562 = [v542 objectForKeyedSubscript:@"percentEnabled"];
                   objc_opt_class();
-                  v579 = objc_opt_isKindOfClass();
+                  v563 = objc_opt_isKindOfClass();
 
-                  if (v579)
+                  if (v563)
                   {
-                    v580 = [v557 objectForKeyedSubscript:@"percentEnabled"];
-                    -[NSPPrivacyProxyProxiedContentMap setPercentEnabled:](v560, "setPercentEnabled:", [v580 unsignedIntValue]);
+                    v564 = [v542 objectForKeyedSubscript:@"percentEnabled"];
+                    -[NSPPrivacyProxyProxiedContentMap setPercentEnabled:](v544, "setPercentEnabled:", [v564 unsignedIntValue]);
                   }
                 }
 
-                v581 = [v557 objectForKeyedSubscript:@"resolver"];
-                if (v581)
+                v565 = [v542 objectForKeyedSubscript:@"resolver"];
+                if (v565)
                 {
-                  v582 = v581;
-                  v583 = [v557 objectForKeyedSubscript:@"resolver"];
+                  v566 = v565;
+                  v567 = [v542 objectForKeyedSubscript:@"resolver"];
                   objc_opt_class();
-                  v584 = objc_opt_isKindOfClass();
+                  v568 = objc_opt_isKindOfClass();
 
-                  if (v584)
+                  if (v568)
                   {
-                    v585 = [v557 objectForKeyedSubscript:@"resolver"];
-                    -[NSPPrivacyProxyProxiedContentMap setResolver:](v560, "setResolver:", [v585 unsignedIntValue]);
+                    v569 = [v542 objectForKeyedSubscript:@"resolver"];
+                    -[NSPPrivacyProxyProxiedContentMap setResolver:](v544, "setResolver:", [v569 unsignedIntValue]);
                   }
                 }
 
-                v586 = [v557 objectForKeyedSubscript:@"identifier"];
+                v570 = [v542 objectForKeyedSubscript:@"identifier"];
+                if (v570)
+                {
+                  v571 = v570;
+                  v572 = [v542 objectForKeyedSubscript:@"identifier"];
+                  objc_opt_class();
+                  v573 = objc_opt_isKindOfClass();
+
+                  if (v573)
+                  {
+                    v574 = [v542 objectForKeyedSubscript:@"identifier"];
+                    [(NSPPrivacyProxyProxiedContentMap *)v544 setIdentifier:v574];
+                  }
+                }
+
+                v575 = [v542 objectForKeyedSubscript:@"proxies"];
+                if (v575)
+                {
+                  v576 = v575;
+                  v577 = [v542 objectForKeyedSubscript:@"proxies"];
+                  objc_opt_class();
+                  v578 = objc_opt_isKindOfClass();
+
+                  if (v578)
+                  {
+                    v579 = [v542 objectForKeyedSubscript:@"proxies"];
+                    v751 = 0u;
+                    v752 = 0u;
+                    v753 = 0u;
+                    v754 = 0u;
+                    v580 = v579;
+                    v581 = [v580 countByEnumeratingWithState:&v751 objects:v850 count:16];
+                    if (v581)
+                    {
+                      v582 = v581;
+                      v583 = *v752;
+                      do
+                      {
+                        for (i5 = 0; i5 != v582; ++i5)
+                        {
+                          if (*v752 != v583)
+                          {
+                            objc_enumerationMutation(v580);
+                          }
+
+                          v585 = *(*(&v751 + 1) + 8 * i5);
+                          objc_opt_class();
+                          if (objc_opt_isKindOfClass())
+                          {
+                            -[NSPPrivacyProxyProxiedContentMap addProxies:](v544, "addProxies:", [v585 unsignedIntValue]);
+                          }
+                        }
+
+                        v582 = [v580 countByEnumeratingWithState:&v751 objects:v850 count:16];
+                      }
+
+                      while (v582);
+                    }
+
+                    v539 = v543;
+                  }
+                }
+
+                v586 = [v542 objectForKeyedSubscript:@"hostnames"];
                 if (v586)
                 {
                   v587 = v586;
-                  v588 = [v557 objectForKeyedSubscript:@"identifier"];
+                  v588 = [v542 objectForKeyedSubscript:@"hostnames"];
                   objc_opt_class();
                   v589 = objc_opt_isKindOfClass();
 
                   if (v589)
                   {
-                    v590 = [v557 objectForKeyedSubscript:@"identifier"];
-                    [(NSPPrivacyProxyProxiedContentMap *)v560 setIdentifier:v590];
-                  }
-                }
-
-                v591 = [v557 objectForKeyedSubscript:@"proxies"];
-                if (v591)
-                {
-                  v592 = v591;
-                  v593 = [v557 objectForKeyedSubscript:@"proxies"];
-                  objc_opt_class();
-                  v594 = objc_opt_isKindOfClass();
-
-                  if (v594)
-                  {
-                    v595 = [v557 objectForKeyedSubscript:@"proxies"];
-                    v769 = 0u;
-                    v770 = 0u;
-                    v771 = 0u;
-                    v772 = 0u;
-                    v596 = v595;
-                    v597 = [v596 countByEnumeratingWithState:&v769 objects:v868 count:16];
-                    if (v597)
+                    v590 = [v542 objectForKeyedSubscript:@"hostnames"];
+                    v747 = 0u;
+                    v748 = 0u;
+                    v749 = 0u;
+                    v750 = 0u;
+                    v591 = v590;
+                    v592 = [v591 countByEnumeratingWithState:&v747 objects:v849 count:16];
+                    if (v592)
                     {
-                      v598 = v597;
-                      v599 = *v770;
+                      v593 = v592;
+                      v594 = *v748;
                       do
                       {
-                        for (i5 = 0; i5 != v598; ++i5)
+                        for (i6 = 0; i6 != v593; ++i6)
                         {
-                          if (*v770 != v599)
+                          if (*v748 != v594)
                           {
-                            objc_enumerationMutation(v596);
+                            objc_enumerationMutation(v591);
                           }
 
-                          v601 = *(*(&v769 + 1) + 8 * i5);
+                          v596 = *(*(&v747 + 1) + 8 * i6);
                           objc_opt_class();
                           if (objc_opt_isKindOfClass())
                           {
-                            -[NSPPrivacyProxyProxiedContentMap addProxies:](v560, "addProxies:", [v601 unsignedIntValue]);
+                            [(NSPPrivacyProxyProxiedContentMap *)v544 addHostnames:v596];
                           }
                         }
 
-                        v598 = [v596 countByEnumeratingWithState:&v769 objects:v868 count:16];
+                        v593 = [v591 countByEnumeratingWithState:&v747 objects:v849 count:16];
                       }
 
-                      while (v598);
+                      while (v593);
                     }
 
-                    v11 = 0x1E695D000;
-                    v554 = v559;
+                    v539 = v543;
                   }
                 }
 
-                v602 = [v557 objectForKeyedSubscript:@"hostnames"];
-                if (v602)
+                v597 = [v542 objectForKeyedSubscript:@"processes"];
+                if (v597)
                 {
-                  v603 = v602;
-                  v604 = [v557 objectForKeyedSubscript:@"hostnames"];
+                  v598 = v597;
+                  v599 = [v542 objectForKeyedSubscript:@"processes"];
                   objc_opt_class();
-                  v605 = objc_opt_isKindOfClass();
+                  v600 = objc_opt_isKindOfClass();
 
-                  if (v605)
+                  if (v600)
                   {
-                    v606 = [v557 objectForKeyedSubscript:@"hostnames"];
-                    v765 = 0u;
-                    v766 = 0u;
-                    v767 = 0u;
-                    v768 = 0u;
-                    v607 = v606;
-                    v608 = [v607 countByEnumeratingWithState:&v765 objects:v867 count:16];
-                    if (v608)
+                    v601 = [v542 objectForKeyedSubscript:@"processes"];
+                    v743 = 0u;
+                    v744 = 0u;
+                    v745 = 0u;
+                    v746 = 0u;
+                    v602 = v601;
+                    v603 = [v602 countByEnumeratingWithState:&v743 objects:v848 count:16];
+                    if (v603)
                     {
-                      v609 = v608;
-                      v610 = *v766;
+                      v604 = v603;
+                      v605 = *v744;
                       do
                       {
-                        for (i6 = 0; i6 != v609; ++i6)
+                        for (i7 = 0; i7 != v604; ++i7)
                         {
-                          if (*v766 != v610)
+                          if (*v744 != v605)
                           {
-                            objc_enumerationMutation(v607);
+                            objc_enumerationMutation(v602);
                           }
 
-                          v612 = *(*(&v765 + 1) + 8 * i6);
+                          v607 = *(*(&v743 + 1) + 8 * i7);
                           objc_opt_class();
                           if (objc_opt_isKindOfClass())
                           {
-                            [(NSPPrivacyProxyProxiedContentMap *)v560 addHostnames:v612];
+                            [(NSPPrivacyProxyProxiedContentMap *)v544 addProcesses:v607];
                           }
                         }
 
-                        v609 = [v607 countByEnumeratingWithState:&v765 objects:v867 count:16];
+                        v604 = [v602 countByEnumeratingWithState:&v743 objects:v848 count:16];
                       }
 
-                      while (v609);
+                      while (v604);
                     }
 
-                    v11 = 0x1E695D000;
-                    v554 = v559;
+                    v539 = v543;
                   }
                 }
 
-                v613 = [v557 objectForKeyedSubscript:@"processes"];
-                if (v613)
+                v608 = [v542 objectForKeyedSubscript:@"urls"];
+                if (v608)
                 {
-                  v614 = v613;
-                  v615 = [v557 objectForKeyedSubscript:@"processes"];
+                  v609 = v608;
+                  v610 = [v542 objectForKeyedSubscript:@"urls"];
                   objc_opt_class();
-                  v616 = objc_opt_isKindOfClass();
+                  v611 = objc_opt_isKindOfClass();
 
-                  if (v616)
+                  if (v611)
                   {
-                    v617 = [v557 objectForKeyedSubscript:@"processes"];
-                    v761 = 0u;
-                    v762 = 0u;
-                    v763 = 0u;
-                    v764 = 0u;
-                    v618 = v617;
-                    v619 = [v618 countByEnumeratingWithState:&v761 objects:v866 count:16];
-                    if (v619)
+                    v612 = [v542 objectForKeyedSubscript:@"urls"];
+                    v739 = 0u;
+                    v740 = 0u;
+                    v741 = 0u;
+                    v742 = 0u;
+                    v613 = v612;
+                    v614 = [v613 countByEnumeratingWithState:&v739 objects:v847 count:16];
+                    if (v614)
                     {
-                      v620 = v619;
-                      v621 = *v762;
+                      v615 = v614;
+                      v616 = *v740;
                       do
                       {
-                        for (i7 = 0; i7 != v620; ++i7)
+                        for (i8 = 0; i8 != v615; ++i8)
                         {
-                          if (*v762 != v621)
+                          if (*v740 != v616)
                           {
-                            objc_enumerationMutation(v618);
+                            objc_enumerationMutation(v613);
                           }
 
-                          v623 = *(*(&v761 + 1) + 8 * i7);
+                          v618 = *(*(&v739 + 1) + 8 * i8);
                           objc_opt_class();
                           if (objc_opt_isKindOfClass())
                           {
-                            [(NSPPrivacyProxyProxiedContentMap *)v560 addProcesses:v623];
+                            [(NSPPrivacyProxyProxiedContentMap *)v544 addUrls:v618];
                           }
                         }
 
-                        v620 = [v618 countByEnumeratingWithState:&v761 objects:v866 count:16];
+                        v615 = [v613 countByEnumeratingWithState:&v739 objects:v847 count:16];
                       }
 
-                      while (v620);
+                      while (v615);
                     }
 
-                    v11 = 0x1E695D000;
-                    v554 = v559;
+                    v539 = v543;
                   }
                 }
 
-                v624 = [v557 objectForKeyedSubscript:@"urls"];
+                v619 = [v542 objectForKeyedSubscript:@"matchExactHostnames"];
+                if (v619)
+                {
+                  v620 = v619;
+                  v621 = [v542 objectForKeyedSubscript:@"matchExactHostnames"];
+                  objc_opt_class();
+                  v622 = objc_opt_isKindOfClass();
+
+                  if (v622)
+                  {
+                    v623 = [v542 objectForKeyedSubscript:@"matchExactHostnames"];
+                    -[NSPPrivacyProxyProxiedContentMap setMatchExactHostnames:](v544, "setMatchExactHostnames:", [v623 BOOLValue]);
+                  }
+                }
+
+                v624 = [v542 objectForKeyedSubscript:@"isPrivacyProxy"];
+                v538 = v717;
                 if (v624)
                 {
                   v625 = v624;
-                  v626 = [v557 objectForKeyedSubscript:@"urls"];
+                  v626 = [v542 objectForKeyedSubscript:@"isPrivacyProxy"];
                   objc_opt_class();
                   v627 = objc_opt_isKindOfClass();
 
                   if (v627)
                   {
-                    v628 = [v557 objectForKeyedSubscript:@"urls"];
-                    v757 = 0u;
-                    v758 = 0u;
-                    v759 = 0u;
-                    v760 = 0u;
-                    v629 = v628;
-                    v630 = [v629 countByEnumeratingWithState:&v757 objects:v865 count:16];
-                    if (v630)
-                    {
-                      v631 = v630;
-                      v632 = *v758;
-                      do
-                      {
-                        for (i8 = 0; i8 != v631; ++i8)
-                        {
-                          if (*v758 != v632)
-                          {
-                            objc_enumerationMutation(v629);
-                          }
-
-                          v634 = *(*(&v757 + 1) + 8 * i8);
-                          objc_opt_class();
-                          if (objc_opt_isKindOfClass())
-                          {
-                            [(NSPPrivacyProxyProxiedContentMap *)v560 addUrls:v634];
-                          }
-                        }
-
-                        v631 = [v629 countByEnumeratingWithState:&v757 objects:v865 count:16];
-                      }
-
-                      while (v631);
-                    }
-
-                    v11 = 0x1E695D000uLL;
-                    v554 = v559;
+                    v628 = [v542 objectForKeyedSubscript:@"isPrivacyProxy"];
+                    -[NSPPrivacyProxyProxiedContentMap setIsPrivacyProxy:](v544, "setIsPrivacyProxy:", [v628 BOOLValue]);
                   }
                 }
 
-                v635 = [v557 objectForKeyedSubscript:@"matchExactHostnames"];
-                if (v635)
-                {
-                  v636 = v635;
-                  v637 = [v557 objectForKeyedSubscript:@"matchExactHostnames"];
-                  objc_opt_class();
-                  v638 = objc_opt_isKindOfClass();
-
-                  if (v638)
-                  {
-                    v639 = [v557 objectForKeyedSubscript:@"matchExactHostnames"];
-                    -[NSPPrivacyProxyProxiedContentMap setMatchExactHostnames:](v560, "setMatchExactHostnames:", [v639 BOOLValue]);
-                  }
-                }
-
-                v640 = [v557 objectForKeyedSubscript:@"isPrivacyProxy"];
-                v553 = v735;
-                if (v640)
-                {
-                  v641 = v640;
-                  v642 = [v557 objectForKeyedSubscript:@"isPrivacyProxy"];
-                  objc_opt_class();
-                  v643 = objc_opt_isKindOfClass();
-
-                  if (v643)
-                  {
-                    v644 = [v557 objectForKeyedSubscript:@"isPrivacyProxy"];
-                    -[NSPPrivacyProxyProxiedContentMap setIsPrivacyProxy:](v560, "setIsPrivacyProxy:", [v644 BOOLValue]);
-                  }
-                }
-
-                v555 = v728;
+                v540 = v710;
               }
 
-              ++v556;
+              ++v541;
             }
 
-            while (v556 != v553);
-            v553 = [v742 countByEnumeratingWithState:&v773 objects:v869 count:16];
+            while (v541 != v538);
+            v538 = [v724 countByEnumeratingWithState:&v755 objects:v851 count:16];
           }
 
-          while (v553);
+          while (v538);
         }
 
-        v8 = v711;
+        v8 = v693;
       }
     }
 
-    v645 = [v8 objectForKeyedSubscript:@"maxTokenNum"];
-    if (v645)
+    v629 = [v8 objectForKeyedSubscript:@"maxTokenNum"];
+    if (v629)
     {
-      v646 = v645;
-      v647 = [v8 objectForKeyedSubscript:@"maxTokenNum"];
+      v630 = v629;
+      v631 = [v8 objectForKeyedSubscript:@"maxTokenNum"];
       objc_opt_class();
-      v648 = objc_opt_isKindOfClass();
+      v632 = objc_opt_isKindOfClass();
 
-      if (v648)
+      if (v632)
       {
-        v649 = [v8 objectForKeyedSubscript:@"maxTokenNum"];
-        -[NSPPrivacyProxyConfiguration setMaxTokenNum:](v713, "setMaxTokenNum:", [v649 unsignedIntValue]);
+        v633 = [v8 objectForKeyedSubscript:@"maxTokenNum"];
+        -[NSPPrivacyProxyConfiguration setMaxTokenNum:](v695, "setMaxTokenNum:", [v633 unsignedIntValue]);
       }
     }
 
-    v650 = [v8 objectForKeyedSubscript:@"regionId"];
-    if (v650)
+    v634 = [v8 objectForKeyedSubscript:@"regionId"];
+    if (v634)
     {
-      v651 = v650;
-      v652 = [v8 objectForKeyedSubscript:@"regionId"];
+      v635 = v634;
+      v636 = [v8 objectForKeyedSubscript:@"regionId"];
       objc_opt_class();
-      v653 = objc_opt_isKindOfClass();
+      v637 = objc_opt_isKindOfClass();
 
-      if (v653)
+      if (v637)
       {
-        v654 = [v8 objectForKeyedSubscript:@"regionId"];
-        [(NSPPrivacyProxyConfiguration *)v713 setRegionId:v654];
+        v638 = [v8 objectForKeyedSubscript:@"regionId"];
+        [(NSPPrivacyProxyConfiguration *)v695 setRegionId:v638];
       }
     }
 
-    v655 = [v8 objectForKeyedSubscript:@"fallbackPathWeights"];
-    if (v655)
+    v639 = [v8 objectForKeyedSubscript:@"fallbackPathWeights"];
+    if (v639)
     {
-      v656 = v655;
-      v657 = [v8 objectForKeyedSubscript:@"fallbackPathWeights"];
+      v640 = v639;
+      v641 = [v8 objectForKeyedSubscript:@"fallbackPathWeights"];
       objc_opt_class();
-      v658 = objc_opt_isKindOfClass();
+      v642 = objc_opt_isKindOfClass();
 
-      if (v658)
+      if (v642)
       {
-        v659 = [v8 objectForKeyedSubscript:@"fallbackPathWeights"];
-        v753 = 0u;
-        v754 = 0u;
-        v755 = 0u;
-        v756 = 0u;
-        v660 = v659;
-        v661 = [v660 countByEnumeratingWithState:&v753 objects:v864 count:16];
-        if (v661)
+        v643 = [v8 objectForKeyedSubscript:@"fallbackPathWeights"];
+        v735 = 0u;
+        v736 = 0u;
+        v737 = 0u;
+        v738 = 0u;
+        v644 = v643;
+        v645 = [v644 countByEnumeratingWithState:&v735 objects:v846 count:16];
+        if (v645)
         {
-          v662 = v661;
-          v663 = *v754;
+          v646 = v645;
+          v647 = *v736;
           do
           {
-            for (i9 = 0; i9 != v662; ++i9)
+            for (i9 = 0; i9 != v646; ++i9)
             {
-              if (*v754 != v663)
+              if (*v736 != v647)
               {
-                objc_enumerationMutation(v660);
+                objc_enumerationMutation(v644);
               }
 
-              v665 = *(*(&v753 + 1) + 8 * i9);
-              v666 = *(v11 + 3872);
+              v649 = *(*(&v735 + 1) + 8 * i9);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v667 = objc_alloc_init(NSPPrivacyProxyProxyPathWeight);
-                [(NSPPrivacyProxyConfiguration *)v713 addFallbackPathWeights:v667];
-                v668 = [v665 objectForKeyedSubscript:@"weight"];
-                if (v668)
+                v650 = objc_alloc_init(NSPPrivacyProxyProxyPathWeight);
+                [(NSPPrivacyProxyConfiguration *)v695 addFallbackPathWeights:v650];
+                v651 = [v649 objectForKeyedSubscript:@"weight"];
+                if (v651)
                 {
-                  v669 = v668;
-                  v670 = [v665 objectForKeyedSubscript:@"weight"];
+                  v652 = v651;
+                  v653 = [v649 objectForKeyedSubscript:@"weight"];
                   objc_opt_class();
-                  v671 = objc_opt_isKindOfClass();
+                  v654 = objc_opt_isKindOfClass();
 
-                  if (v671)
+                  if (v654)
                   {
-                    v672 = [v665 objectForKeyedSubscript:@"weight"];
-                    -[NSPPrivacyProxyProxyPathWeight setWeight:](v667, "setWeight:", [v672 unsignedIntValue]);
+                    v655 = [v649 objectForKeyedSubscript:@"weight"];
+                    -[NSPPrivacyProxyProxyPathWeight setWeight:](v650, "setWeight:", [v655 unsignedIntValue]);
                   }
                 }
 
-                v673 = [v665 objectForKeyedSubscript:@"proxies"];
-                if (v673)
+                v656 = [v649 objectForKeyedSubscript:@"proxies"];
+                if (v656)
                 {
-                  v674 = v673;
-                  v675 = [v665 objectForKeyedSubscript:@"proxies"];
+                  v657 = v656;
+                  v658 = [v649 objectForKeyedSubscript:@"proxies"];
                   objc_opt_class();
-                  v676 = objc_opt_isKindOfClass();
+                  v659 = objc_opt_isKindOfClass();
 
-                  if (v676)
+                  if (v659)
                   {
-                    v677 = [v665 objectForKeyedSubscript:@"proxies"];
-                    v749 = 0u;
-                    v750 = 0u;
-                    v751 = 0u;
-                    v752 = 0u;
-                    v678 = v677;
-                    v679 = [v678 countByEnumeratingWithState:&v749 objects:v863 count:16];
-                    if (v679)
+                    v660 = [v649 objectForKeyedSubscript:@"proxies"];
+                    v731 = 0u;
+                    v732 = 0u;
+                    v733 = 0u;
+                    v734 = 0u;
+                    v661 = v660;
+                    v662 = [v661 countByEnumeratingWithState:&v731 objects:v845 count:16];
+                    if (v662)
                     {
-                      v680 = v679;
-                      v681 = *v750;
+                      v663 = v662;
+                      v664 = *v732;
                       do
                       {
-                        for (i10 = 0; i10 != v680; ++i10)
+                        for (i10 = 0; i10 != v663; ++i10)
                         {
-                          if (*v750 != v681)
+                          if (*v732 != v664)
                           {
-                            objc_enumerationMutation(v678);
+                            objc_enumerationMutation(v661);
                           }
 
-                          -[NSPPrivacyProxyProxyPathWeight addProxies:](v667, "addProxies:", [*(*(&v749 + 1) + 8 * i10) unsignedIntValue]);
+                          -[NSPPrivacyProxyProxyPathWeight addProxies:](v650, "addProxies:", [*(*(&v731 + 1) + 8 * i10) unsignedIntValue]);
                         }
 
-                        v680 = [v678 countByEnumeratingWithState:&v749 objects:v863 count:16];
+                        v663 = [v661 countByEnumeratingWithState:&v731 objects:v845 count:16];
                       }
 
-                      while (v680);
+                      while (v663);
                     }
                   }
                 }
-
-                v11 = 0x1E695D000;
               }
             }
 
-            v662 = [v660 countByEnumeratingWithState:&v753 objects:v864 count:16];
+            v646 = [v644 countByEnumeratingWithState:&v735 objects:v846 count:16];
           }
 
-          while (v662);
+          while (v646);
         }
 
-        v8 = v711;
+        v8 = v693;
       }
     }
 
-    v683 = [v8 objectForKeyedSubscript:@"trustedNetworkDiscoveredProxies"];
-    if (v683)
+    v666 = [v8 objectForKeyedSubscript:@"trustedNetworkDiscoveredProxies"];
+    if (v666)
     {
-      v684 = v683;
-      v685 = [v8 objectForKeyedSubscript:@"trustedNetworkDiscoveredProxies"];
+      v667 = v666;
+      v668 = [v8 objectForKeyedSubscript:@"trustedNetworkDiscoveredProxies"];
       objc_opt_class();
-      v686 = objc_opt_isKindOfClass();
+      v669 = objc_opt_isKindOfClass();
 
-      if (v686)
+      if (v669)
       {
         [v8 objectForKeyedSubscript:@"trustedNetworkDiscoveredProxies"];
-        v745 = 0u;
-        v746 = 0u;
-        v747 = 0u;
-        v687 = v748 = 0u;
-        v688 = [v687 countByEnumeratingWithState:&v745 objects:v862 count:16];
-        if (v688)
+        v727 = 0u;
+        v728 = 0u;
+        v729 = 0u;
+        v670 = v730 = 0u;
+        v671 = [v670 countByEnumeratingWithState:&v727 objects:v844 count:16];
+        if (v671)
         {
-          v689 = v688;
-          v690 = *v746;
+          v672 = v671;
+          v673 = *v728;
           do
           {
-            for (i11 = 0; i11 != v689; ++i11)
+            for (i11 = 0; i11 != v672; ++i11)
             {
-              if (*v746 != v690)
+              if (*v728 != v673)
               {
-                objc_enumerationMutation(v687);
+                objc_enumerationMutation(v670);
               }
 
-              [(NSPPrivacyProxyConfiguration *)v713 addTrustedNetworkDiscoveredProxies:*(*(&v745 + 1) + 8 * i11)];
+              [(NSPPrivacyProxyConfiguration *)v695 addTrustedNetworkDiscoveredProxies:*(*(&v727 + 1) + 8 * i11)];
             }
 
-            v689 = [v687 countByEnumeratingWithState:&v745 objects:v862 count:16];
+            v672 = [v670 countByEnumeratingWithState:&v727 objects:v844 count:16];
           }
 
-          while (v689);
+          while (v672);
         }
       }
     }
 
-    data = [(NSPPrivacyProxyConfiguration *)v713 data];
+    data = [(NSPPrivacyProxyConfiguration *)v695 data];
     getConnection = [(NSPServerClient *)selfa getConnection];
     if (getConnection)
     {
-      v694 = xpc_dictionary_create(0, 0, 0);
-      xpc_dictionary_set_int64(v694, "NSPServerCommandType", 16);
+      v677 = xpc_dictionary_create(0, 0, 0);
+      xpc_dictionary_set_int64(v677, "NSPServerCommandType", 16);
       if (data)
       {
-        v696 = v694;
-        v697 = _CFXPCCreateXPCObjectFromCFObject();
-        xpc_dictionary_set_value(v696, "NSPServerConfiguration", v697);
+        v679 = v677;
+        v680 = _CFXPCCreateXPCObjectFromCFObject();
+        xpc_dictionary_set_value(v679, "NSPServerConfiguration", v680);
       }
 
       Property = selfa;
       if (selfa)
       {
-        Property = objc_getProperty(selfa, v695, 16, 1);
+        Property = objc_getProperty(selfa, v678, 16, 1);
       }
 
-      v699 = Property;
+      v682 = Property;
       handler[0] = MEMORY[0x1E69E9820];
       handler[1] = 3221225472;
       handler[2] = __66__NSPServerClient_setPrivacyProxyConfiguration_completionHandler___block_invoke;
       handler[3] = &unk_1E7A30920;
-      v744 = v703;
-      xpc_connection_send_message_with_reply(getConnection, v694, v699, handler);
+      v726 = v685;
+      xpc_connection_send_message_with_reply(getConnection, v677, v682, handler);
 
-      v9 = v703;
+      v9 = v685;
     }
 
     else
     {
-      v700 = nplog_obj();
-      if (os_log_type_enabled(v700, OS_LOG_TYPE_ERROR))
+      v683 = nplog_obj();
+      if (os_log_type_enabled(v683, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_error_impl(&dword_1AE7E2000, v700, OS_LOG_TYPE_ERROR, "Failed to get XPC connection", buf, 2u);
+        _os_log_error_impl(&dword_1AE7E2000, v683, OS_LOG_TYPE_ERROR, "Failed to get XPC connection", buf, 2u);
       }
 
-      v9 = v703;
-      (v703)[2](v703, @"IPC failed");
+      v9 = v685;
+      (v685)[2](v685, @"IPC failed");
     }
   }
 
   else
   {
-    v80 = nplog_obj();
-    if (os_log_type_enabled(v80, OS_LOG_TYPE_ERROR))
+    v77 = nplog_obj();
+    if (os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_error_impl(&dword_1AE7E2000, v80, OS_LOG_TYPE_ERROR, "Failed to set the NSP configuration: configuration parameter is invalid", buf, 2u);
+      _os_log_error_impl(&dword_1AE7E2000, v77, OS_LOG_TYPE_ERROR, "Failed to set the NSP configuration: configuration parameter is invalid", buf, 2u);
     }
 
     v9[2](v9, @"invalid config dictionary");
   }
-
-  v701 = *MEMORY[0x1E69E9840];
 }
 
 void __66__NSPServerClient_setPrivacyProxyConfiguration_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -3561,7 +3507,7 @@ void __66__NSPServerClient_setPrivacyProxyConfiguration_completionHandler___bloc
 
 - (void)convertPrivacyProxyConfigurationWithCompletionHandler:(id)handler completionHandler:(id)completionHandler
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   completionHandlerCopy = completionHandler;
   v8 = nplog_obj();
@@ -3592,7 +3538,7 @@ void __66__NSPServerClient_setPrivacyProxyConfiguration_completionHandler___bloc
     handler[1] = 3221225472;
     handler[2] = __91__NSPServerClient_convertPrivacyProxyConfigurationWithCompletionHandler_completionHandler___block_invoke;
     handler[3] = &unk_1E7A30920;
-    v19 = completionHandlerCopy;
+    v18 = completionHandlerCopy;
     xpc_connection_send_message_with_reply(getConnection, v10, &self->super, handler);
   }
 
@@ -3606,15 +3552,13 @@ void __66__NSPServerClient_setPrivacyProxyConfiguration_completionHandler___bloc
     }
 
     v15 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v21 = *MEMORY[0x1E696A588];
-    v22[0] = @"IPC failed";
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+    v20 = *MEMORY[0x1E696A588];
+    v21[0] = @"IPC failed";
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
     v10 = [v15 initWithDomain:@"privacyProxyErrorDomain" code:1002 userInfo:v16];
 
     (*(completionHandlerCopy + 2))(completionHandlerCopy, 0, v10);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __91__NSPServerClient_convertPrivacyProxyConfigurationWithCompletionHandler_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -3642,17 +3586,17 @@ void __91__NSPServerClient_convertPrivacyProxyConfigurationWithCompletionHandler
 
 + (id)getErrorFromDict:(uint64_t)dict
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = a2;
   objc_opt_self();
   if (!v2)
   {
-    v10 = nplog_obj();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    v9 = nplog_obj();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      v11 = 136315138;
-      v12 = "+[NSPServerClient getErrorFromDict:]";
-      _os_log_fault_impl(&dword_1AE7E2000, v10, OS_LOG_TYPE_FAULT, "%s called with null dict", &v11, 0xCu);
+      v10 = 136315138;
+      v11 = "+[NSPServerClient getErrorFromDict:]";
+      _os_log_fault_impl(&dword_1AE7E2000, v9, OS_LOG_TYPE_FAULT, "%s called with null dict", &v10, 0xCu);
     }
 
     goto LABEL_3;
@@ -3694,14 +3638,13 @@ LABEL_3:
   }
 
 LABEL_13:
-  v8 = *MEMORY[0x1E69E9840];
 
   return int64;
 }
 
 - (void)overrideProxiedContentMap:(id)map enabled:(BOOL)enabled completionHandler:(id)handler
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   mapCopy = map;
   handlerCopy = handler;
   v10 = nplog_obj();
@@ -3733,7 +3676,7 @@ LABEL_13:
     handler[1] = 3221225472;
     handler[2] = __71__NSPServerClient_overrideProxiedContentMap_enabled_completionHandler___block_invoke;
     handler[3] = &unk_1E7A30920;
-    v21 = handlerCopy;
+    v20 = handlerCopy;
     xpc_connection_send_message_with_reply(getConnection, v12, &self->super, handler);
   }
 
@@ -3747,15 +3690,13 @@ LABEL_13:
     }
 
     v17 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v23 = *MEMORY[0x1E696A588];
-    v24[0] = @"IPC failed";
-    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+    v22 = *MEMORY[0x1E696A588];
+    v23[0] = @"IPC failed";
+    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
     v12 = [v17 initWithDomain:@"privacyProxyErrorDomain" code:1002 userInfo:v18];
 
     (*(handlerCopy + 2))(handlerCopy, v12);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __71__NSPServerClient_overrideProxiedContentMap_enabled_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -3773,7 +3714,7 @@ uint64_t __71__NSPServerClient_overrideProxiedContentMap_enabled_completionHandl
 
 - (void)getOverrideProxiedContentMapEnabled:(id)enabled completionHandler:(id)handler
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   enabledCopy = enabled;
   handlerCopy = handler;
   v8 = nplog_obj();
@@ -3804,7 +3745,7 @@ uint64_t __71__NSPServerClient_overrideProxiedContentMap_enabled_completionHandl
     handler[1] = 3221225472;
     handler[2] = __73__NSPServerClient_getOverrideProxiedContentMapEnabled_completionHandler___block_invoke;
     handler[3] = &unk_1E7A30920;
-    v19 = handlerCopy;
+    v18 = handlerCopy;
     xpc_connection_send_message_with_reply(getConnection, v10, &self->super, handler);
   }
 
@@ -3818,15 +3759,13 @@ uint64_t __71__NSPServerClient_overrideProxiedContentMap_enabled_completionHandl
     }
 
     v15 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v21 = *MEMORY[0x1E696A588];
-    v22[0] = @"IPC failed";
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+    v20 = *MEMORY[0x1E696A588];
+    v21[0] = @"IPC failed";
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
     v10 = [v15 initWithDomain:@"privacyProxyErrorDomain" code:1002 userInfo:v16];
 
     (*(handlerCopy + 2))(handlerCopy, 0, v10);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __73__NSPServerClient_getOverrideProxiedContentMapEnabled_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -3845,13 +3784,13 @@ void __73__NSPServerClient_getOverrideProxiedContentMapEnabled_completionHandler
 - (void)setProxiedContentMapDoHBootstrapEnabled:(BOOL)enabled completionHandler:(id)handler
 {
   enabledCopy = enabled;
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v7 = nplog_obj();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     *buf = 67109120;
-    v20 = enabledCopy;
+    v19 = enabledCopy;
     _os_log_debug_impl(&dword_1AE7E2000, v7, OS_LOG_TYPE_DEBUG, "Set proxied content map DoH bootstrap enabled to %u", buf, 8u);
   }
 
@@ -3870,7 +3809,7 @@ void __73__NSPServerClient_getOverrideProxiedContentMapEnabled_completionHandler
     handler[1] = 3221225472;
     handler[2] = __77__NSPServerClient_setProxiedContentMapDoHBootstrapEnabled_completionHandler___block_invoke;
     handler[3] = &unk_1E7A30920;
-    v16 = handlerCopy;
+    v15 = handlerCopy;
     xpc_connection_send_message_with_reply(getConnection, v9, &self->super, handler);
   }
 
@@ -3884,15 +3823,13 @@ void __73__NSPServerClient_getOverrideProxiedContentMapEnabled_completionHandler
     }
 
     v12 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v17 = *MEMORY[0x1E696A588];
-    v18 = @"IPC failed";
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+    v16 = *MEMORY[0x1E696A588];
+    v17 = @"IPC failed";
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
     v9 = [v12 initWithDomain:@"privacyProxyErrorDomain" code:1002 userInfo:v13];
 
     (*(handlerCopy + 2))(handlerCopy, v9);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __77__NSPServerClient_setProxiedContentMapDoHBootstrapEnabled_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -3910,7 +3847,7 @@ uint64_t __77__NSPServerClient_setProxiedContentMapDoHBootstrapEnabled_completio
 
 - (void)overridePreferredProxy:(id)proxy completionHandler:(id)handler
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   proxyCopy = proxy;
   handlerCopy = handler;
   v8 = nplog_obj();
@@ -3941,7 +3878,7 @@ uint64_t __77__NSPServerClient_setProxiedContentMapDoHBootstrapEnabled_completio
     handler[1] = 3221225472;
     handler[2] = __60__NSPServerClient_overridePreferredProxy_completionHandler___block_invoke;
     handler[3] = &unk_1E7A30920;
-    v19 = handlerCopy;
+    v18 = handlerCopy;
     xpc_connection_send_message_with_reply(getConnection, v10, &self->super, handler);
   }
 
@@ -3955,15 +3892,13 @@ uint64_t __77__NSPServerClient_setProxiedContentMapDoHBootstrapEnabled_completio
     }
 
     v15 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v21 = *MEMORY[0x1E696A588];
-    v22[0] = @"IPC failed";
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+    v20 = *MEMORY[0x1E696A588];
+    v21[0] = @"IPC failed";
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
     v10 = [v15 initWithDomain:@"privacyProxyErrorDomain" code:1002 userInfo:v16];
 
     (*(handlerCopy + 2))(handlerCopy, v10);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __60__NSPServerClient_overridePreferredProxy_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -3981,7 +3916,7 @@ uint64_t __60__NSPServerClient_overridePreferredProxy_completionHandler___block_
 
 - (void)getPreferredProxyWithCompletionHandler:(id)handler
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v5 = nplog_obj();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -4004,7 +3939,7 @@ uint64_t __60__NSPServerClient_overridePreferredProxy_completionHandler___block_
     handler[1] = 3221225472;
     handler[2] = __58__NSPServerClient_getPreferredProxyWithCompletionHandler___block_invoke;
     handler[3] = &unk_1E7A30920;
-    v14 = handlerCopy;
+    v13 = handlerCopy;
     xpc_connection_send_message_with_reply(getConnection, v7, &self->super, handler);
   }
 
@@ -4018,15 +3953,13 @@ uint64_t __60__NSPServerClient_overridePreferredProxy_completionHandler___block_
     }
 
     v10 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v16 = *MEMORY[0x1E696A588];
-    v17[0] = @"IPC failed";
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v15 = *MEMORY[0x1E696A588];
+    v16[0] = @"IPC failed";
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     v7 = [v10 initWithDomain:@"privacyProxyErrorDomain" code:1002 userInfo:v11];
 
     (*(handlerCopy + 2))(handlerCopy, 0, v7);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __58__NSPServerClient_getPreferredProxyWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
@@ -4048,7 +3981,7 @@ void __58__NSPServerClient_getPreferredProxyWithCompletionHandler___block_invoke
 
 - (void)overridePreferredResolver:(id)resolver completionHandler:(id)handler
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   resolverCopy = resolver;
   handlerCopy = handler;
   v8 = nplog_obj();
@@ -4079,7 +4012,7 @@ void __58__NSPServerClient_getPreferredProxyWithCompletionHandler___block_invoke
     handler[1] = 3221225472;
     handler[2] = __63__NSPServerClient_overridePreferredResolver_completionHandler___block_invoke;
     handler[3] = &unk_1E7A30920;
-    v19 = handlerCopy;
+    v18 = handlerCopy;
     xpc_connection_send_message_with_reply(getConnection, v10, &self->super, handler);
   }
 
@@ -4093,15 +4026,13 @@ void __58__NSPServerClient_getPreferredProxyWithCompletionHandler___block_invoke
     }
 
     v15 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v21 = *MEMORY[0x1E696A588];
-    v22[0] = @"IPC failed";
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+    v20 = *MEMORY[0x1E696A588];
+    v21[0] = @"IPC failed";
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
     v10 = [v15 initWithDomain:@"privacyProxyErrorDomain" code:1002 userInfo:v16];
 
     (*(handlerCopy + 2))(handlerCopy, v10);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __63__NSPServerClient_overridePreferredResolver_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -4119,7 +4050,7 @@ uint64_t __63__NSPServerClient_overridePreferredResolver_completionHandler___blo
 
 - (void)getPreferredResolverWithCompletionHandler:(id)handler
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v5 = nplog_obj();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -4142,7 +4073,7 @@ uint64_t __63__NSPServerClient_overridePreferredResolver_completionHandler___blo
     handler[1] = 3221225472;
     handler[2] = __61__NSPServerClient_getPreferredResolverWithCompletionHandler___block_invoke;
     handler[3] = &unk_1E7A30920;
-    v14 = handlerCopy;
+    v13 = handlerCopy;
     xpc_connection_send_message_with_reply(getConnection, v7, &self->super, handler);
   }
 
@@ -4156,15 +4087,13 @@ uint64_t __63__NSPServerClient_overridePreferredResolver_completionHandler___blo
     }
 
     v10 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v16 = *MEMORY[0x1E696A588];
-    v17[0] = @"IPC failed";
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v15 = *MEMORY[0x1E696A588];
+    v16[0] = @"IPC failed";
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     v7 = [v10 initWithDomain:@"privacyProxyErrorDomain" code:1002 userInfo:v11];
 
     (*(handlerCopy + 2))(handlerCopy, 0, v7);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __61__NSPServerClient_getPreferredResolverWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
@@ -4186,7 +4115,7 @@ void __61__NSPServerClient_getPreferredResolverWithCompletionHandler___block_inv
 
 - (void)overridePreferredObliviousProxy:(id)proxy completionHandler:(id)handler
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   proxyCopy = proxy;
   handlerCopy = handler;
   v8 = nplog_obj();
@@ -4217,7 +4146,7 @@ void __61__NSPServerClient_getPreferredResolverWithCompletionHandler___block_inv
     handler[1] = 3221225472;
     handler[2] = __69__NSPServerClient_overridePreferredObliviousProxy_completionHandler___block_invoke;
     handler[3] = &unk_1E7A30920;
-    v19 = handlerCopy;
+    v18 = handlerCopy;
     xpc_connection_send_message_with_reply(getConnection, v10, &self->super, handler);
   }
 
@@ -4231,15 +4160,13 @@ void __61__NSPServerClient_getPreferredResolverWithCompletionHandler___block_inv
     }
 
     v15 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v21 = *MEMORY[0x1E696A588];
-    v22[0] = @"IPC failed";
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+    v20 = *MEMORY[0x1E696A588];
+    v21[0] = @"IPC failed";
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
     v10 = [v15 initWithDomain:@"privacyProxyErrorDomain" code:1002 userInfo:v16];
 
     (*(handlerCopy + 2))(handlerCopy, v10);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __69__NSPServerClient_overridePreferredObliviousProxy_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -4257,7 +4184,7 @@ uint64_t __69__NSPServerClient_overridePreferredObliviousProxy_completionHandler
 
 - (void)getPreferredObliviousProxyWithCompletionHandler:(id)handler
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v5 = nplog_obj();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -4280,7 +4207,7 @@ uint64_t __69__NSPServerClient_overridePreferredObliviousProxy_completionHandler
     handler[1] = 3221225472;
     handler[2] = __67__NSPServerClient_getPreferredObliviousProxyWithCompletionHandler___block_invoke;
     handler[3] = &unk_1E7A30920;
-    v14 = handlerCopy;
+    v13 = handlerCopy;
     xpc_connection_send_message_with_reply(getConnection, v7, &self->super, handler);
   }
 
@@ -4294,15 +4221,13 @@ uint64_t __69__NSPServerClient_overridePreferredObliviousProxy_completionHandler
     }
 
     v10 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v16 = *MEMORY[0x1E696A588];
-    v17[0] = @"IPC failed";
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v15 = *MEMORY[0x1E696A588];
+    v16[0] = @"IPC failed";
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     v7 = [v10 initWithDomain:@"privacyProxyErrorDomain" code:1002 userInfo:v11];
 
     (*(handlerCopy + 2))(handlerCopy, 0, v7);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __67__NSPServerClient_getPreferredObliviousProxyWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
@@ -4324,7 +4249,7 @@ void __67__NSPServerClient_getPreferredObliviousProxyWithCompletionHandler___blo
 
 - (void)overrideIngressProxy:(id)proxy fallbackProxy:(id)fallbackProxy key:(id)key completionHandler:(id)handler
 {
-  v32[1] = *MEMORY[0x1E69E9840];
+  v31[1] = *MEMORY[0x1E69E9840];
   proxyCopy = proxy;
   fallbackProxyCopy = fallbackProxy;
   keyCopy = key;
@@ -4371,7 +4296,7 @@ void __67__NSPServerClient_getPreferredObliviousProxyWithCompletionHandler___blo
     handler[1] = 3221225472;
     handler[2] = __76__NSPServerClient_overrideIngressProxy_fallbackProxy_key_completionHandler___block_invoke;
     handler[3] = &unk_1E7A30920;
-    v29 = handlerCopy;
+    v28 = handlerCopy;
     xpc_connection_send_message_with_reply(getConnection, v16, &self->super, handler);
   }
 
@@ -4385,15 +4310,13 @@ void __67__NSPServerClient_getPreferredObliviousProxyWithCompletionHandler___blo
     }
 
     v25 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v31 = *MEMORY[0x1E696A588];
-    v32[0] = @"IPC failed";
-    v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:&v31 count:1];
+    v30 = *MEMORY[0x1E696A588];
+    v31[0] = @"IPC failed";
+    v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:&v30 count:1];
     v16 = [v25 initWithDomain:@"privacyProxyErrorDomain" code:1002 userInfo:v26];
 
     (*(handlerCopy + 2))(handlerCopy, v16);
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __76__NSPServerClient_overrideIngressProxy_fallbackProxy_key_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -4411,7 +4334,7 @@ uint64_t __76__NSPServerClient_overrideIngressProxy_fallbackProxy_key_completion
 
 - (void)getOverrideIngressProxyWithCompletionHandler:(id)handler
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v5 = nplog_obj();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -4434,7 +4357,7 @@ uint64_t __76__NSPServerClient_overrideIngressProxy_fallbackProxy_key_completion
     handler[1] = 3221225472;
     handler[2] = __64__NSPServerClient_getOverrideIngressProxyWithCompletionHandler___block_invoke;
     handler[3] = &unk_1E7A30920;
-    v14 = handlerCopy;
+    v13 = handlerCopy;
     xpc_connection_send_message_with_reply(getConnection, v7, &self->super, handler);
   }
 
@@ -4448,15 +4371,13 @@ uint64_t __76__NSPServerClient_overrideIngressProxy_fallbackProxy_key_completion
     }
 
     v10 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v16 = *MEMORY[0x1E696A588];
-    v17[0] = @"IPC failed";
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v15 = *MEMORY[0x1E696A588];
+    v16[0] = @"IPC failed";
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     v7 = [v10 initWithDomain:@"privacyProxyErrorDomain" code:1002 userInfo:v11];
 
     (*(handlerCopy + 2))(handlerCopy, 0, 0, 0, v7);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __64__NSPServerClient_getOverrideIngressProxyWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
@@ -4485,7 +4406,7 @@ void __64__NSPServerClient_getOverrideIngressProxyWithCompletionHandler___block_
 
 - (void)setForceFallback:(BOOL)fallback completionHandler:(id)handler
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v7 = nplog_obj();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
@@ -4509,7 +4430,7 @@ void __64__NSPServerClient_getOverrideIngressProxyWithCompletionHandler___block_
     handler[1] = 3221225472;
     handler[2] = __54__NSPServerClient_setForceFallback_completionHandler___block_invoke;
     handler[3] = &unk_1E7A30920;
-    v16 = handlerCopy;
+    v15 = handlerCopy;
     xpc_connection_send_message_with_reply(getConnection, v9, &self->super, handler);
   }
 
@@ -4523,15 +4444,13 @@ void __64__NSPServerClient_getOverrideIngressProxyWithCompletionHandler___block_
     }
 
     v12 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v18 = *MEMORY[0x1E696A588];
-    v19[0] = @"IPC failed";
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+    v17 = *MEMORY[0x1E696A588];
+    v18[0] = @"IPC failed";
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
     v9 = [v12 initWithDomain:@"privacyProxyErrorDomain" code:1002 userInfo:v13];
 
     (*(handlerCopy + 2))(handlerCopy, v9);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __54__NSPServerClient_setForceFallback_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -4549,7 +4468,7 @@ uint64_t __54__NSPServerClient_setForceFallback_completionHandler___block_invoke
 
 - (void)getForceFallbackWithCompletionHandler:(id)handler
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v5 = nplog_obj();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -4572,7 +4491,7 @@ uint64_t __54__NSPServerClient_setForceFallback_completionHandler___block_invoke
     handler[1] = 3221225472;
     handler[2] = __57__NSPServerClient_getForceFallbackWithCompletionHandler___block_invoke;
     handler[3] = &unk_1E7A30920;
-    v14 = handlerCopy;
+    v13 = handlerCopy;
     xpc_connection_send_message_with_reply(getConnection, v7, &self->super, handler);
   }
 
@@ -4586,15 +4505,13 @@ uint64_t __54__NSPServerClient_setForceFallback_completionHandler___block_invoke
     }
 
     v10 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v16 = *MEMORY[0x1E696A588];
-    v17[0] = @"IPC failed";
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v15 = *MEMORY[0x1E696A588];
+    v16[0] = @"IPC failed";
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     v7 = [v10 initWithDomain:@"privacyProxyErrorDomain" code:1002 userInfo:v11];
 
     (*(handlerCopy + 2))(handlerCopy, 0, v7);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __57__NSPServerClient_getForceFallbackWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
@@ -4613,19 +4530,19 @@ void __57__NSPServerClient_getForceFallbackWithCompletionHandler___block_invoke(
 - (void)setPrivacyProxyStatus:(BOOL)status completionHandler:(id)handler
 {
   statusCopy = status;
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v7 = nplog_obj();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v15 = @"Disabled";
+    v14 = @"Disabled";
     if (statusCopy)
     {
-      v15 = @"Enabled";
+      v14 = @"Enabled";
     }
 
     *buf = 138412290;
-    v21 = v15;
+    v20 = v14;
     _os_log_debug_impl(&dword_1AE7E2000, v7, OS_LOG_TYPE_DEBUG, "Setting privacy proxy %@", buf, 0xCu);
   }
 
@@ -4644,7 +4561,7 @@ void __57__NSPServerClient_getForceFallbackWithCompletionHandler___block_invoke(
     handler[1] = 3221225472;
     handler[2] = __59__NSPServerClient_setPrivacyProxyStatus_completionHandler___block_invoke;
     handler[3] = &unk_1E7A30920;
-    v17 = handlerCopy;
+    v16 = handlerCopy;
     xpc_connection_send_message_with_reply(getConnection, v9, &self->super, handler);
   }
 
@@ -4658,15 +4575,13 @@ void __57__NSPServerClient_getForceFallbackWithCompletionHandler___block_invoke(
     }
 
     v12 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v18 = *MEMORY[0x1E696A588];
-    v19 = @"IPC failed";
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+    v17 = *MEMORY[0x1E696A588];
+    v18 = @"IPC failed";
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
     v9 = [v12 initWithDomain:@"privacyProxyErrorDomain" code:1002 userInfo:v13];
 
     (*(handlerCopy + 2))(handlerCopy, v9);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __59__NSPServerClient_setPrivacyProxyStatus_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -4684,7 +4599,7 @@ uint64_t __59__NSPServerClient_setPrivacyProxyStatus_completionHandler___block_i
 
 - (void)getPrivacyProxyStatusWithCompletionHandler:(id)handler
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v5 = nplog_obj();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -4707,7 +4622,7 @@ uint64_t __59__NSPServerClient_setPrivacyProxyStatus_completionHandler___block_i
     handler[1] = 3221225472;
     handler[2] = __62__NSPServerClient_getPrivacyProxyStatusWithCompletionHandler___block_invoke;
     handler[3] = &unk_1E7A30920;
-    v14 = handlerCopy;
+    v13 = handlerCopy;
     xpc_connection_send_message_with_reply(getConnection, v7, &self->super, handler);
   }
 
@@ -4721,15 +4636,13 @@ uint64_t __59__NSPServerClient_setPrivacyProxyStatus_completionHandler___block_i
     }
 
     v10 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v16 = *MEMORY[0x1E696A588];
-    v17[0] = @"IPC failed";
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v15 = *MEMORY[0x1E696A588];
+    v16[0] = @"IPC failed";
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     v7 = [v10 initWithDomain:@"privacyProxyErrorDomain" code:1002 userInfo:v11];
 
     (*(handlerCopy + 2))(handlerCopy, 0, v7);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __62__NSPServerClient_getPrivacyProxyStatusWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
@@ -4747,7 +4660,7 @@ void __62__NSPServerClient_getPrivacyProxyStatusWithCompletionHandler___block_in
 
 - (void)getPrivacyProxyServiceStatusWithCompletionHandler:(id)handler
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v5 = nplog_obj();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -4770,7 +4683,7 @@ void __62__NSPServerClient_getPrivacyProxyStatusWithCompletionHandler___block_in
     handler[1] = 3221225472;
     handler[2] = __69__NSPServerClient_getPrivacyProxyServiceStatusWithCompletionHandler___block_invoke;
     handler[3] = &unk_1E7A30920;
-    v14 = handlerCopy;
+    v13 = handlerCopy;
     xpc_connection_send_message_with_reply(getConnection, v7, &self->super, handler);
   }
 
@@ -4784,15 +4697,13 @@ void __62__NSPServerClient_getPrivacyProxyStatusWithCompletionHandler___block_in
     }
 
     v10 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v16 = *MEMORY[0x1E696A588];
-    v17[0] = @"IPC failed";
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v15 = *MEMORY[0x1E696A588];
+    v16[0] = @"IPC failed";
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     v7 = [v10 initWithDomain:@"privacyProxyErrorDomain" code:1002 userInfo:v11];
 
     (*(handlerCopy + 2))(handlerCopy, 0, v7);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __69__NSPServerClient_getPrivacyProxyServiceStatusWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
@@ -4818,7 +4729,7 @@ void __69__NSPServerClient_getPrivacyProxyServiceStatusWithCompletionHandler___b
 
 - (void)getPrivacyProxyServiceStatusTimelineWithCompletionHandler:(id)handler
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v5 = nplog_obj();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -4841,7 +4752,7 @@ void __69__NSPServerClient_getPrivacyProxyServiceStatusWithCompletionHandler___b
     handler[1] = 3221225472;
     handler[2] = __77__NSPServerClient_getPrivacyProxyServiceStatusTimelineWithCompletionHandler___block_invoke;
     handler[3] = &unk_1E7A30920;
-    v14 = handlerCopy;
+    v13 = handlerCopy;
     xpc_connection_send_message_with_reply(getConnection, v7, &self->super, handler);
   }
 
@@ -4855,15 +4766,13 @@ void __69__NSPServerClient_getPrivacyProxyServiceStatusWithCompletionHandler___b
     }
 
     v10 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v16 = *MEMORY[0x1E696A588];
-    v17[0] = @"IPC failed";
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v15 = *MEMORY[0x1E696A588];
+    v16[0] = @"IPC failed";
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     v7 = [v10 initWithDomain:@"privacyProxyErrorDomain" code:1002 userInfo:v11];
 
     (*(handlerCopy + 2))(handlerCopy, 0, v7);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __77__NSPServerClient_getPrivacyProxyServiceStatusTimelineWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
@@ -4894,7 +4803,7 @@ void __77__NSPServerClient_getPrivacyProxyServiceStatusTimelineWithCompletionHan
 
 - (void)reportPrivacyProxyServiceStatus:(unint64_t)status completionHandler:(id)handler
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v7 = nplog_obj();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
@@ -4918,7 +4827,7 @@ void __77__NSPServerClient_getPrivacyProxyServiceStatusTimelineWithCompletionHan
     handler[1] = 3221225472;
     handler[2] = __69__NSPServerClient_reportPrivacyProxyServiceStatus_completionHandler___block_invoke;
     handler[3] = &unk_1E7A30920;
-    v16 = handlerCopy;
+    v15 = handlerCopy;
     xpc_connection_send_message_with_reply(getConnection, v9, &self->super, handler);
   }
 
@@ -4932,15 +4841,13 @@ void __77__NSPServerClient_getPrivacyProxyServiceStatusTimelineWithCompletionHan
     }
 
     v12 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v18 = *MEMORY[0x1E696A588];
-    v19[0] = @"IPC failed";
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+    v17 = *MEMORY[0x1E696A588];
+    v18[0] = @"IPC failed";
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
     v9 = [v12 initWithDomain:@"privacyProxyErrorDomain" code:1002 userInfo:v13];
 
     (*(handlerCopy + 2))(handlerCopy, v9);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __69__NSPServerClient_reportPrivacyProxyServiceStatus_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -4958,7 +4865,7 @@ uint64_t __69__NSPServerClient_reportPrivacyProxyServiceStatus_completionHandler
 
 - (void)reportPrivacyProxyNetworkStatus:(id)status completionHandler:(id)handler
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   statusCopy = status;
   handlerCopy = handler;
   v8 = nplog_obj();
@@ -4990,7 +4897,7 @@ uint64_t __69__NSPServerClient_reportPrivacyProxyServiceStatus_completionHandler
     handler[1] = 3221225472;
     handler[2] = __69__NSPServerClient_reportPrivacyProxyNetworkStatus_completionHandler___block_invoke;
     handler[3] = &unk_1E7A30920;
-    v20 = handlerCopy;
+    v19 = handlerCopy;
     xpc_connection_send_message_with_reply(getConnection, v10, &self->super, handler);
   }
 
@@ -5004,15 +4911,13 @@ uint64_t __69__NSPServerClient_reportPrivacyProxyServiceStatus_completionHandler
     }
 
     v16 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v22 = *MEMORY[0x1E696A588];
-    v23[0] = @"IPC failed";
-    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+    v21 = *MEMORY[0x1E696A588];
+    v22[0] = @"IPC failed";
+    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
     v10 = [v16 initWithDomain:@"privacyProxyErrorDomain" code:1002 userInfo:v17];
 
     (*(handlerCopy + 2))(handlerCopy, v10);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __69__NSPServerClient_reportPrivacyProxyNetworkStatus_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -5030,7 +4935,7 @@ uint64_t __69__NSPServerClient_reportPrivacyProxyNetworkStatus_completionHandler
 
 - (void)getPrivacyProxyAppStatusesWithCompletionHandler:(id)handler
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v5 = nplog_obj();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -5053,7 +4958,7 @@ uint64_t __69__NSPServerClient_reportPrivacyProxyNetworkStatus_completionHandler
     handler[1] = 3221225472;
     handler[2] = __67__NSPServerClient_getPrivacyProxyAppStatusesWithCompletionHandler___block_invoke;
     handler[3] = &unk_1E7A30920;
-    v14 = handlerCopy;
+    v13 = handlerCopy;
     xpc_connection_send_message_with_reply(getConnection, v7, &self->super, handler);
   }
 
@@ -5067,15 +4972,13 @@ uint64_t __69__NSPServerClient_reportPrivacyProxyNetworkStatus_completionHandler
     }
 
     v10 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v16 = *MEMORY[0x1E696A588];
-    v17[0] = @"IPC failed";
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v15 = *MEMORY[0x1E696A588];
+    v16[0] = @"IPC failed";
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     v7 = [v10 initWithDomain:@"privacyProxyErrorDomain" code:1002 userInfo:v11];
 
     (*(handlerCopy + 2))(handlerCopy, 0, 0, v7);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __67__NSPServerClient_getPrivacyProxyAppStatusesWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
@@ -5117,7 +5020,7 @@ void __67__NSPServerClient_getPrivacyProxyAppStatusesWithCompletionHandler___blo
 
 - (void)setPrivacyProxyAppStatus:(unint64_t)status bundleIdentifier:(id)identifier path:(id)path completionHandler:(id)handler
 {
-  v30[1] = *MEMORY[0x1E69E9840];
+  v29[1] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   pathCopy = path;
   handlerCopy = handler;
@@ -5152,7 +5055,7 @@ void __67__NSPServerClient_getPrivacyProxyAppStatusesWithCompletionHandler___blo
     handler[1] = 3221225472;
     handler[2] = __84__NSPServerClient_setPrivacyProxyAppStatus_bundleIdentifier_path_completionHandler___block_invoke;
     handler[3] = &unk_1E7A30920;
-    v27 = handlerCopy;
+    v26 = handlerCopy;
     xpc_connection_send_message_with_reply(getConnection, v17, &self->super, handler);
   }
 
@@ -5166,15 +5069,13 @@ void __67__NSPServerClient_getPrivacyProxyAppStatusesWithCompletionHandler___blo
     }
 
     v23 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v29 = *MEMORY[0x1E696A588];
-    v30[0] = @"IPC failed";
-    v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:&v29 count:1];
+    v28 = *MEMORY[0x1E696A588];
+    v29[0] = @"IPC failed";
+    v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
     v17 = [v23 initWithDomain:@"privacyProxyErrorDomain" code:1002 userInfo:v24];
 
     (*(handlerCopy + 2))(handlerCopy, v17);
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __84__NSPServerClient_setPrivacyProxyAppStatus_bundleIdentifier_path_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -5192,7 +5093,7 @@ uint64_t __84__NSPServerClient_setPrivacyProxyAppStatus_bundleIdentifier_path_co
 
 - (void)setPrivacyProxyUserTier:(unint64_t)tier completionHandler:(id)handler
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v7 = nplog_obj();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
@@ -5208,7 +5109,7 @@ uint64_t __84__NSPServerClient_setPrivacyProxyAppStatus_bundleIdentifier_path_co
     }
 
     *buf = 138412290;
-    v25 = tier;
+    v24 = tier;
     _os_log_debug_impl(&dword_1AE7E2000, v7, OS_LOG_TYPE_DEBUG, "Setting user tier for privacy proxy %@", buf, 0xCu);
   }
 
@@ -5237,7 +5138,7 @@ uint64_t __84__NSPServerClient_setPrivacyProxyAppStatus_bundleIdentifier_path_co
     handler[1] = 3221225472;
     handler[2] = __61__NSPServerClient_setPrivacyProxyUserTier_completionHandler___block_invoke;
     handler[3] = &unk_1E7A30920;
-    v21 = handlerCopy;
+    v20 = handlerCopy;
     xpc_connection_send_message_with_reply(getConnection, v9, &self->super, handler);
   }
 
@@ -5251,15 +5152,13 @@ uint64_t __84__NSPServerClient_setPrivacyProxyAppStatus_bundleIdentifier_path_co
     }
 
     v16 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v22 = *MEMORY[0x1E696A588];
-    v23 = @"IPC failed";
-    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+    v21 = *MEMORY[0x1E696A588];
+    v22 = @"IPC failed";
+    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
     v9 = [v16 initWithDomain:@"privacyProxyErrorDomain" code:1002 userInfo:v17];
 
     (*(handlerCopy + 2))(handlerCopy, v9);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __61__NSPServerClient_setPrivacyProxyUserTier_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -5277,7 +5176,7 @@ uint64_t __61__NSPServerClient_setPrivacyProxyUserTier_completionHandler___block
 
 - (void)getPrivacyProxyUserTierWithCompletionHandler:(id)handler
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v5 = nplog_obj();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -5300,7 +5199,7 @@ uint64_t __61__NSPServerClient_setPrivacyProxyUserTier_completionHandler___block
     handler[1] = 3221225472;
     handler[2] = __64__NSPServerClient_getPrivacyProxyUserTierWithCompletionHandler___block_invoke;
     handler[3] = &unk_1E7A30920;
-    v14 = handlerCopy;
+    v13 = handlerCopy;
     xpc_connection_send_message_with_reply(getConnection, v7, &self->super, handler);
   }
 
@@ -5314,15 +5213,13 @@ uint64_t __61__NSPServerClient_setPrivacyProxyUserTier_completionHandler___block
     }
 
     v10 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v16 = *MEMORY[0x1E696A588];
-    v17[0] = @"IPC failed";
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v15 = *MEMORY[0x1E696A588];
+    v16[0] = @"IPC failed";
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     v7 = [v10 initWithDomain:@"privacyProxyErrorDomain" code:1002 userInfo:v11];
 
     (*(handlerCopy + 2))(handlerCopy, 0, 0, v7);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __64__NSPServerClient_getPrivacyProxyUserTierWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
@@ -5350,7 +5247,7 @@ void __64__NSPServerClient_getPrivacyProxyUserTierWithCompletionHandler___block_
 
 - (void)setFreeUserTierUntilTomorrowWithCompletionHandler:(id)handler
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v5 = nplog_obj();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -5375,7 +5272,7 @@ void __64__NSPServerClient_getPrivacyProxyUserTierWithCompletionHandler___block_
     handler[1] = 3221225472;
     handler[2] = __69__NSPServerClient_setFreeUserTierUntilTomorrowWithCompletionHandler___block_invoke;
     handler[3] = &unk_1E7A30920;
-    v14 = handlerCopy;
+    v13 = handlerCopy;
     xpc_connection_send_message_with_reply(getConnection, v7, &self->super, handler);
   }
 
@@ -5389,15 +5286,13 @@ void __64__NSPServerClient_getPrivacyProxyUserTierWithCompletionHandler___block_
     }
 
     v10 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v16 = *MEMORY[0x1E696A588];
-    v17[0] = @"IPC failed";
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v15 = *MEMORY[0x1E696A588];
+    v16[0] = @"IPC failed";
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     v7 = [v10 initWithDomain:@"privacyProxyErrorDomain" code:1002 userInfo:v11];
 
     (*(handlerCopy + 2))(handlerCopy, v7);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __69__NSPServerClient_setFreeUserTierUntilTomorrowWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
@@ -5415,14 +5310,14 @@ uint64_t __69__NSPServerClient_setFreeUserTierUntilTomorrowWithCompletionHandler
 
 - (void)setPrivacyProxyTrafficState:(unint64_t)state proxyTraffic:(unint64_t)traffic completionHandler:(id)handler
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v9 = nplog_obj();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218240;
     stateCopy = state;
-    v23 = 2048;
+    v22 = 2048;
     trafficCopy = traffic;
     _os_log_debug_impl(&dword_1AE7E2000, v9, OS_LOG_TYPE_DEBUG, "Setting privacy proxy traffic state for traffic type %llx: %llx", buf, 0x16u);
   }
@@ -5443,7 +5338,7 @@ uint64_t __69__NSPServerClient_setFreeUserTierUntilTomorrowWithCompletionHandler
     handler[1] = 3221225472;
     handler[2] = __78__NSPServerClient_setPrivacyProxyTrafficState_proxyTraffic_completionHandler___block_invoke;
     handler[3] = &unk_1E7A30920;
-    v18 = handlerCopy;
+    v17 = handlerCopy;
     xpc_connection_send_message_with_reply(getConnection, v11, &self->super, handler);
   }
 
@@ -5457,15 +5352,13 @@ uint64_t __69__NSPServerClient_setFreeUserTierUntilTomorrowWithCompletionHandler
     }
 
     v14 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v19 = *MEMORY[0x1E696A588];
-    v20 = @"IPC failed";
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+    v18 = *MEMORY[0x1E696A588];
+    v19 = @"IPC failed";
+    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
     v11 = [v14 initWithDomain:@"privacyProxyErrorDomain" code:1002 userInfo:v15];
 
     (*(handlerCopy + 2))(handlerCopy, v11);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __78__NSPServerClient_setPrivacyProxyTrafficState_proxyTraffic_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -5483,7 +5376,7 @@ uint64_t __78__NSPServerClient_setPrivacyProxyTrafficState_proxyTraffic_completi
 
 - (void)getPrivacyProxyTrafficStateWithCompletionHandler:(id)handler
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v5 = nplog_obj();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -5506,7 +5399,7 @@ uint64_t __78__NSPServerClient_setPrivacyProxyTrafficState_proxyTraffic_completi
     handler[1] = 3221225472;
     handler[2] = __68__NSPServerClient_getPrivacyProxyTrafficStateWithCompletionHandler___block_invoke;
     handler[3] = &unk_1E7A30920;
-    v14 = handlerCopy;
+    v13 = handlerCopy;
     xpc_connection_send_message_with_reply(getConnection, v7, &self->super, handler);
   }
 
@@ -5520,15 +5413,13 @@ uint64_t __78__NSPServerClient_setPrivacyProxyTrafficState_proxyTraffic_completi
     }
 
     v10 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v16 = *MEMORY[0x1E696A588];
-    v17[0] = @"IPC failed";
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v15 = *MEMORY[0x1E696A588];
+    v16[0] = @"IPC failed";
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     v7 = [v10 initWithDomain:@"privacyProxyErrorDomain" code:1002 userInfo:v11];
 
     (*(handlerCopy + 2))(handlerCopy, 0, v7);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __68__NSPServerClient_getPrivacyProxyTrafficStateWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
@@ -5554,7 +5445,7 @@ void __68__NSPServerClient_getPrivacyProxyTrafficStateWithCompletionHandler___bl
 
 - (void)getPrivacyProxyEffectiveUserTierWithCompletionHandler:(id)handler
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v5 = nplog_obj();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -5577,7 +5468,7 @@ void __68__NSPServerClient_getPrivacyProxyTrafficStateWithCompletionHandler___bl
     handler[1] = 3221225472;
     handler[2] = __73__NSPServerClient_getPrivacyProxyEffectiveUserTierWithCompletionHandler___block_invoke;
     handler[3] = &unk_1E7A30920;
-    v14 = handlerCopy;
+    v13 = handlerCopy;
     xpc_connection_send_message_with_reply(getConnection, v7, &self->super, handler);
   }
 
@@ -5591,15 +5482,13 @@ void __68__NSPServerClient_getPrivacyProxyTrafficStateWithCompletionHandler___bl
     }
 
     v10 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v16 = *MEMORY[0x1E696A588];
-    v17[0] = @"IPC failed";
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v15 = *MEMORY[0x1E696A588];
+    v16[0] = @"IPC failed";
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     v7 = [v10 initWithDomain:@"privacyProxyErrorDomain" code:1002 userInfo:v11];
 
     (*(handlerCopy + 2))(handlerCopy, 0, v7);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __73__NSPServerClient_getPrivacyProxyEffectiveUserTierWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
@@ -5679,13 +5568,13 @@ uint64_t __48__NSPServerClient_getPrivacyProxyDomainFilters___block_invoke(uint6
 
 - (id)getAgentUUIDForType:(int64_t)type
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = nplog_obj();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v18 = 134217984;
+    v17 = 134217984;
     typeCopy5 = type;
-    _os_log_debug_impl(&dword_1AE7E2000, v5, OS_LOG_TYPE_DEBUG, "Looking up agent UUID for type %lld", &v18, 0xCu);
+    _os_log_debug_impl(&dword_1AE7E2000, v5, OS_LOG_TYPE_DEBUG, "Looking up agent UUID for type %lld", &v17, 0xCu);
   }
 
   getConnection = [(NSPServerClient *)self getConnection];
@@ -5705,11 +5594,11 @@ uint64_t __48__NSPServerClient_getPrivacyProxyDomainFilters___block_invoke(uint6
         v10 = nplog_obj();
         if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
         {
-          v18 = 138412546;
+          v17 = 138412546;
           typeCopy5 = v11;
-          v20 = 2048;
+          v19 = 2048;
           typeCopy2 = type;
-          _os_log_debug_impl(&dword_1AE7E2000, v10, OS_LOG_TYPE_DEBUG, "Received agent UUID %@ for type %lld", &v18, 0x16u);
+          _os_log_debug_impl(&dword_1AE7E2000, v10, OS_LOG_TYPE_DEBUG, "Received agent UUID %@ for type %lld", &v17, 0x16u);
         }
 
         goto LABEL_8;
@@ -5725,11 +5614,11 @@ LABEL_8:
         goto LABEL_12;
       }
 
-      v18 = 134217984;
+      v17 = 134217984;
       typeCopy5 = type;
-      v15 = "Failed to fetch agent UUID for type %lld, UUID was nil";
-      v16 = v10;
-      v17 = 12;
+      v14 = "Failed to fetch agent UUID for type %lld, UUID was nil";
+      v15 = v10;
+      v16 = 12;
     }
 
     else
@@ -5740,31 +5629,29 @@ LABEL_8:
         goto LABEL_7;
       }
 
-      v18 = 134218242;
+      v17 = 134218242;
       typeCopy5 = type;
-      v20 = 2112;
+      v19 = 2112;
       typeCopy2 = v9;
-      v15 = "Failed to fetch agent UUID for type %lld, message failed (%@)";
-      v16 = v10;
-      v17 = 22;
+      v14 = "Failed to fetch agent UUID for type %lld, message failed (%@)";
+      v15 = v10;
+      v16 = 22;
     }
 
-    _os_log_error_impl(&dword_1AE7E2000, v16, OS_LOG_TYPE_ERROR, v15, &v18, v17);
+    _os_log_error_impl(&dword_1AE7E2000, v15, OS_LOG_TYPE_ERROR, v14, &v17, v16);
     goto LABEL_7;
   }
 
   v7 = nplog_obj();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    v18 = 134217984;
+    v17 = 134217984;
     typeCopy5 = type;
-    _os_log_error_impl(&dword_1AE7E2000, v7, OS_LOG_TYPE_ERROR, "Failed to fetch agent UUID for type %lld, unable to get connection", &v18, 0xCu);
+    _os_log_error_impl(&dword_1AE7E2000, v7, OS_LOG_TYPE_ERROR, "Failed to fetch agent UUID for type %lld, unable to get connection", &v17, 0xCu);
   }
 
   v11 = 0;
 LABEL_12:
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -5916,7 +5803,7 @@ uint64_t __59__NSPServerClient_setPrivacyProxyPolicy_completionHandler___block_i
 
 - (void)mergePrivacyProxyPolicy:(id)policy
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   policyCopy = policy;
   v5 = nplog_obj();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -5939,7 +5826,7 @@ uint64_t __59__NSPServerClient_setPrivacyProxyPolicy_completionHandler___block_i
     handler[1] = 3221225472;
     handler[2] = __43__NSPServerClient_mergePrivacyProxyPolicy___block_invoke;
     handler[3] = &unk_1E7A30920;
-    v14 = policyCopy;
+    v13 = policyCopy;
     xpc_connection_send_message_with_reply(getConnection, v7, &self->super, handler);
   }
 
@@ -5953,15 +5840,13 @@ uint64_t __59__NSPServerClient_setPrivacyProxyPolicy_completionHandler___block_i
     }
 
     v10 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v16 = *MEMORY[0x1E696A588];
-    v17[0] = @"IPC failed";
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v15 = *MEMORY[0x1E696A588];
+    v16[0] = @"IPC failed";
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     v7 = [v10 initWithDomain:@"privacyProxyErrorDomain" code:1002 userInfo:v11];
 
     (*(policyCopy + 2))(policyCopy, 0, v7);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __43__NSPServerClient_mergePrivacyProxyPolicy___block_invoke(uint64_t a1, void *a2)
@@ -6111,7 +5996,7 @@ LABEL_8:
 
 - (void)getPrivacyProxyInfoWithCompletionHandler:(id)handler
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v5 = nplog_obj();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -6134,7 +6019,7 @@ LABEL_8:
     handler[1] = 3221225472;
     handler[2] = __60__NSPServerClient_getPrivacyProxyInfoWithCompletionHandler___block_invoke;
     handler[3] = &unk_1E7A30920;
-    v14 = handlerCopy;
+    v13 = handlerCopy;
     xpc_connection_send_message_with_reply(getConnection, v7, &self->super, handler);
   }
 
@@ -6148,15 +6033,13 @@ LABEL_8:
     }
 
     v10 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v16 = *MEMORY[0x1E696A588];
-    v17[0] = @"IPC failed";
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v15 = *MEMORY[0x1E696A588];
+    v16[0] = @"IPC failed";
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     v7 = [v10 initWithDomain:@"privacyProxyErrorDomain" code:1002 userInfo:v11];
 
     (*(handlerCopy + 2))(handlerCopy, 0, v7);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __60__NSPServerClient_getPrivacyProxyInfoWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
@@ -6182,7 +6065,7 @@ void __60__NSPServerClient_getPrivacyProxyInfoWithCompletionHandler___block_invo
 
 - (void)setGeohashSharingPreference:(BOOL)preference completionHandler:(id)handler
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v7 = nplog_obj();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
@@ -6206,7 +6089,7 @@ void __60__NSPServerClient_getPrivacyProxyInfoWithCompletionHandler___block_invo
     handler[1] = 3221225472;
     handler[2] = __65__NSPServerClient_setGeohashSharingPreference_completionHandler___block_invoke;
     handler[3] = &unk_1E7A30920;
-    v16 = handlerCopy;
+    v15 = handlerCopy;
     xpc_connection_send_message_with_reply(getConnection, v9, &self->super, handler);
   }
 
@@ -6220,15 +6103,13 @@ void __60__NSPServerClient_getPrivacyProxyInfoWithCompletionHandler___block_invo
     }
 
     v12 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v18 = *MEMORY[0x1E696A588];
-    v19[0] = @"IPC failed";
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+    v17 = *MEMORY[0x1E696A588];
+    v18[0] = @"IPC failed";
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
     v9 = [v12 initWithDomain:@"privacyProxyErrorDomain" code:1002 userInfo:v13];
 
     (*(handlerCopy + 2))(handlerCopy, v9);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __65__NSPServerClient_setGeohashSharingPreference_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -6246,7 +6127,7 @@ uint64_t __65__NSPServerClient_setGeohashSharingPreference_completionHandler___b
 
 - (void)getGeohashSharingPreferenceWithCompletionHandler:(id)handler
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v5 = nplog_obj();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -6269,7 +6150,7 @@ uint64_t __65__NSPServerClient_setGeohashSharingPreference_completionHandler___b
     handler[1] = 3221225472;
     handler[2] = __68__NSPServerClient_getGeohashSharingPreferenceWithCompletionHandler___block_invoke;
     handler[3] = &unk_1E7A30920;
-    v14 = handlerCopy;
+    v13 = handlerCopy;
     xpc_connection_send_message_with_reply(getConnection, v7, &self->super, handler);
   }
 
@@ -6283,15 +6164,13 @@ uint64_t __65__NSPServerClient_setGeohashSharingPreference_completionHandler___b
     }
 
     v10 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v16 = *MEMORY[0x1E696A588];
-    v17[0] = @"IPC failed";
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v15 = *MEMORY[0x1E696A588];
+    v16[0] = @"IPC failed";
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     v7 = [v10 initWithDomain:@"privacyProxyErrorDomain" code:1002 userInfo:v11];
 
     (*(handlerCopy + 2))(handlerCopy, 0, v7);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __68__NSPServerClient_getGeohashSharingPreferenceWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
@@ -6309,14 +6188,14 @@ void __68__NSPServerClient_getGeohashSharingPreferenceWithCompletionHandler___bl
 
 - (void)setGeohashOverride:(id)override completionHandler:(id)handler
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   overrideCopy = override;
   handlerCopy = handler;
   v8 = nplog_obj();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v21 = overrideCopy;
+    v20 = overrideCopy;
     _os_log_debug_impl(&dword_1AE7E2000, v8, OS_LOG_TYPE_DEBUG, "Set Geohash override to %@", buf, 0xCu);
   }
 
@@ -6339,7 +6218,7 @@ void __68__NSPServerClient_getGeohashSharingPreferenceWithCompletionHandler___bl
     handler[1] = 3221225472;
     handler[2] = __56__NSPServerClient_setGeohashOverride_completionHandler___block_invoke;
     handler[3] = &unk_1E7A30920;
-    v17 = handlerCopy;
+    v16 = handlerCopy;
     xpc_connection_send_message_with_reply(getConnection, v10, &self->super, handler);
   }
 
@@ -6353,15 +6232,13 @@ void __68__NSPServerClient_getGeohashSharingPreferenceWithCompletionHandler___bl
     }
 
     v13 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v18 = *MEMORY[0x1E696A588];
-    v19 = @"IPC failed";
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+    v17 = *MEMORY[0x1E696A588];
+    v18 = @"IPC failed";
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
     v10 = [v13 initWithDomain:@"privacyProxyErrorDomain" code:1002 userInfo:v14];
 
     (*(handlerCopy + 2))(handlerCopy, v10);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __56__NSPServerClient_setGeohashOverride_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -6379,7 +6256,7 @@ uint64_t __56__NSPServerClient_setGeohashOverride_completionHandler___block_invo
 
 - (void)getPrivacyProxyAccountTypeWithCompletionHandler:(id)handler
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v5 = nplog_obj();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -6402,7 +6279,7 @@ uint64_t __56__NSPServerClient_setGeohashOverride_completionHandler___block_invo
     handler[1] = 3221225472;
     handler[2] = __67__NSPServerClient_getPrivacyProxyAccountTypeWithCompletionHandler___block_invoke;
     handler[3] = &unk_1E7A30920;
-    v14 = handlerCopy;
+    v13 = handlerCopy;
     xpc_connection_send_message_with_reply(getConnection, v7, &self->super, handler);
   }
 
@@ -6416,15 +6293,13 @@ uint64_t __56__NSPServerClient_setGeohashOverride_completionHandler___block_invo
     }
 
     v10 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v16 = *MEMORY[0x1E696A588];
-    v17[0] = @"IPC failed";
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v15 = *MEMORY[0x1E696A588];
+    v16[0] = @"IPC failed";
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     v7 = [v10 initWithDomain:@"privacyProxyErrorDomain" code:1002 userInfo:v11];
 
     (*(handlerCopy + 2))(handlerCopy, 0, 0, v7);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __67__NSPServerClient_getPrivacyProxyAccountTypeWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
@@ -6444,13 +6319,13 @@ void __67__NSPServerClient_getPrivacyProxyAccountTypeWithCompletionHandler___blo
 - (void)setPrivateAccessTokensEnabled:(BOOL)enabled completionHandler:(id)handler
 {
   enabledCopy = enabled;
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v7 = nplog_obj();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     *buf = 67109120;
-    v20 = enabledCopy;
+    v19 = enabledCopy;
     _os_log_debug_impl(&dword_1AE7E2000, v7, OS_LOG_TYPE_DEBUG, "Set private access tokens enabled state to %u", buf, 8u);
   }
 
@@ -6469,7 +6344,7 @@ void __67__NSPServerClient_getPrivacyProxyAccountTypeWithCompletionHandler___blo
     handler[1] = 3221225472;
     handler[2] = __67__NSPServerClient_setPrivateAccessTokensEnabled_completionHandler___block_invoke;
     handler[3] = &unk_1E7A30920;
-    v16 = handlerCopy;
+    v15 = handlerCopy;
     xpc_connection_send_message_with_reply(getConnection, v9, &self->super, handler);
   }
 
@@ -6483,15 +6358,13 @@ void __67__NSPServerClient_getPrivacyProxyAccountTypeWithCompletionHandler___blo
     }
 
     v12 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v17 = *MEMORY[0x1E696A588];
-    v18 = @"IPC failed";
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+    v16 = *MEMORY[0x1E696A588];
+    v17 = @"IPC failed";
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
     v9 = [v12 initWithDomain:@"privacyProxyErrorDomain" code:1002 userInfo:v13];
 
     (*(handlerCopy + 2))(handlerCopy, v9);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __67__NSPServerClient_setPrivateAccessTokensEnabled_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -6509,7 +6382,7 @@ uint64_t __67__NSPServerClient_setPrivateAccessTokensEnabled_completionHandler__
 
 - (void)getPrivateAccessTokensEnabledWithCompletionHandler:(id)handler
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v5 = nplog_obj();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -6532,7 +6405,7 @@ uint64_t __67__NSPServerClient_setPrivateAccessTokensEnabled_completionHandler__
     handler[1] = 3221225472;
     handler[2] = __70__NSPServerClient_getPrivateAccessTokensEnabledWithCompletionHandler___block_invoke;
     handler[3] = &unk_1E7A30920;
-    v14 = handlerCopy;
+    v13 = handlerCopy;
     xpc_connection_send_message_with_reply(getConnection, v7, &self->super, handler);
   }
 
@@ -6546,15 +6419,13 @@ uint64_t __67__NSPServerClient_setPrivateAccessTokensEnabled_completionHandler__
     }
 
     v10 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v16 = *MEMORY[0x1E696A588];
-    v17[0] = @"IPC failed";
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v15 = *MEMORY[0x1E696A588];
+    v16[0] = @"IPC failed";
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     v7 = [v10 initWithDomain:@"privacyProxyErrorDomain" code:1002 userInfo:v11];
 
     (*(handlerCopy + 2))(handlerCopy, 0, v7);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __70__NSPServerClient_getPrivateAccessTokensEnabledWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
@@ -6573,13 +6444,13 @@ void __70__NSPServerClient_getPrivateAccessTokensEnabledWithCompletionHandler___
 - (void)privateAccessTokensAllowTools:(BOOL)tools completionHandler:(id)handler
 {
   toolsCopy = tools;
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v7 = nplog_obj();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     *buf = 67109120;
-    v20 = toolsCopy;
+    v19 = toolsCopy;
     _os_log_debug_impl(&dword_1AE7E2000, v7, OS_LOG_TYPE_DEBUG, "Set private access tokens allow tools to %u", buf, 8u);
   }
 
@@ -6598,7 +6469,7 @@ void __70__NSPServerClient_getPrivateAccessTokensEnabledWithCompletionHandler___
     handler[1] = 3221225472;
     handler[2] = __67__NSPServerClient_privateAccessTokensAllowTools_completionHandler___block_invoke;
     handler[3] = &unk_1E7A30920;
-    v16 = handlerCopy;
+    v15 = handlerCopy;
     xpc_connection_send_message_with_reply(getConnection, v9, &self->super, handler);
   }
 
@@ -6612,15 +6483,13 @@ void __70__NSPServerClient_getPrivateAccessTokensEnabledWithCompletionHandler___
     }
 
     v12 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v17 = *MEMORY[0x1E696A588];
-    v18 = @"IPC failed";
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+    v16 = *MEMORY[0x1E696A588];
+    v17 = @"IPC failed";
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
     v9 = [v12 initWithDomain:@"privacyProxyErrorDomain" code:1002 userInfo:v13];
 
     (*(handlerCopy + 2))(handlerCopy, v9);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __67__NSPServerClient_privateAccessTokensAllowTools_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -6639,13 +6508,13 @@ uint64_t __67__NSPServerClient_privateAccessTokensAllowTools_completionHandler__
 - (void)setInProcessFlowDivert:(BOOL)divert completionHandler:(id)handler
 {
   divertCopy = divert;
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v7 = nplog_obj();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     *buf = 67109120;
-    v20 = divertCopy;
+    v19 = divertCopy;
     _os_log_debug_impl(&dword_1AE7E2000, v7, OS_LOG_TYPE_DEBUG, "Set in-process flow divert enabled to %u", buf, 8u);
   }
 
@@ -6664,7 +6533,7 @@ uint64_t __67__NSPServerClient_privateAccessTokensAllowTools_completionHandler__
     handler[1] = 3221225472;
     handler[2] = __60__NSPServerClient_setInProcessFlowDivert_completionHandler___block_invoke;
     handler[3] = &unk_1E7A30920;
-    v16 = handlerCopy;
+    v15 = handlerCopy;
     xpc_connection_send_message_with_reply(getConnection, v9, &self->super, handler);
   }
 
@@ -6678,15 +6547,13 @@ uint64_t __67__NSPServerClient_privateAccessTokensAllowTools_completionHandler__
     }
 
     v12 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v17 = *MEMORY[0x1E696A588];
-    v18 = @"IPC failed";
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+    v16 = *MEMORY[0x1E696A588];
+    v17 = @"IPC failed";
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
     v9 = [v12 initWithDomain:@"privacyProxyErrorDomain" code:1002 userInfo:v13];
 
     (*(handlerCopy + 2))(handlerCopy, v9);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __60__NSPServerClient_setInProcessFlowDivert_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -6705,13 +6572,13 @@ uint64_t __60__NSPServerClient_setInProcessFlowDivert_completionHandler___block_
 - (void)setPreferredPathRoutingEnabled:(BOOL)enabled completionHandler:(id)handler
 {
   enabledCopy = enabled;
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v7 = nplog_obj();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     *buf = 67109120;
-    v20 = enabledCopy;
+    v19 = enabledCopy;
     _os_log_debug_impl(&dword_1AE7E2000, v7, OS_LOG_TYPE_DEBUG, "Set preferred path routing enabled to %u", buf, 8u);
   }
 
@@ -6730,7 +6597,7 @@ uint64_t __60__NSPServerClient_setInProcessFlowDivert_completionHandler___block_
     handler[1] = 3221225472;
     handler[2] = __68__NSPServerClient_setPreferredPathRoutingEnabled_completionHandler___block_invoke;
     handler[3] = &unk_1E7A30920;
-    v16 = handlerCopy;
+    v15 = handlerCopy;
     xpc_connection_send_message_with_reply(getConnection, v9, &self->super, handler);
   }
 
@@ -6744,15 +6611,13 @@ uint64_t __60__NSPServerClient_setInProcessFlowDivert_completionHandler___block_
     }
 
     v12 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v17 = *MEMORY[0x1E696A588];
-    v18 = @"IPC failed";
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+    v16 = *MEMORY[0x1E696A588];
+    v17 = @"IPC failed";
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
     v9 = [v12 initWithDomain:@"privacyProxyErrorDomain" code:1002 userInfo:v13];
 
     (*(handlerCopy + 2))(handlerCopy, v9);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __68__NSPServerClient_setPreferredPathRoutingEnabled_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -6770,7 +6635,7 @@ uint64_t __68__NSPServerClient_setPreferredPathRoutingEnabled_completionHandler_
 
 - (void)sendRTCReport:(int64_t)report errorCode:(int64_t)code url:(id)url completionHandler:(id)handler
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   urlCopy = url;
   handlerCopy = handler;
   v12 = nplog_obj();
@@ -6803,7 +6668,7 @@ uint64_t __68__NSPServerClient_setPreferredPathRoutingEnabled_completionHandler_
     handler[1] = 3221225472;
     handler[2] = __65__NSPServerClient_sendRTCReport_errorCode_url_completionHandler___block_invoke;
     handler[3] = &unk_1E7A30920;
-    v23 = handlerCopy;
+    v22 = handlerCopy;
     xpc_connection_send_message_with_reply(getConnection, v14, &self->super, handler);
   }
 
@@ -6817,15 +6682,13 @@ uint64_t __68__NSPServerClient_setPreferredPathRoutingEnabled_completionHandler_
     }
 
     v19 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v25 = *MEMORY[0x1E696A588];
-    v26[0] = @"IPC failed";
-    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+    v24 = *MEMORY[0x1E696A588];
+    v25[0] = @"IPC failed";
+    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
     v14 = [v19 initWithDomain:@"privacyProxyErrorDomain" code:1002 userInfo:v20];
 
     (*(handlerCopy + 2))(handlerCopy, v14);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __65__NSPServerClient_sendRTCReport_errorCode_url_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -6843,7 +6706,7 @@ uint64_t __65__NSPServerClient_sendRTCReport_errorCode_url_completionHandler___b
 
 - (void)fetchPrivateAccessTokenWithFetcher:(id)fetcher allowRetry:(BOOL)retry completionHandler:(id)handler
 {
-  v91 = *MEMORY[0x1E69E9840];
+  v90 = *MEMORY[0x1E69E9840];
   fetcherCopy = fetcher;
   handlerCopy = handler;
   v10 = nplog_obj();
@@ -6856,7 +6719,7 @@ uint64_t __65__NSPServerClient_sendRTCReport_errorCode_url_completionHandler___b
   getTokenFetchConnection = [(NSPServerClient *)self getTokenFetchConnection];
   if (getTokenFetchConnection)
   {
-    v76 = handlerCopy;
+    v75 = handlerCopy;
     v12 = xpc_dictionary_create(0, 0, 0);
     xpc_dictionary_set_int64(v12, "NSPServerCommandType", 51);
     xarray = xpc_array_create(0, 0);
@@ -6894,15 +6757,15 @@ uint64_t __65__NSPServerClient_sendRTCReport_errorCode_url_completionHandler___b
     }
 
     xpc_array_append_value(xarray, v14);
-    v86 = 0u;
-    v87 = 0u;
-    v84 = 0u;
     v85 = 0u;
-    v77 = fetcherCopy;
-    v75 = getTokenFetchConnection;
+    v86 = 0u;
+    v83 = 0u;
+    v84 = 0u;
+    v76 = fetcherCopy;
+    v74 = getTokenFetchConnection;
     retryCopy = retry;
     selfCopy = self;
-    v71 = v14;
+    v70 = v14;
     if (fetcherCopy)
     {
       Property = objc_getProperty(fetcherCopy, v26, 120, 1);
@@ -6914,22 +6777,22 @@ uint64_t __65__NSPServerClient_sendRTCReport_errorCode_url_completionHandler___b
     }
 
     v28 = Property;
-    v29 = [v28 countByEnumeratingWithState:&v84 objects:v90 count:16];
+    v29 = [v28 countByEnumeratingWithState:&v83 objects:v89 count:16];
     if (v29)
     {
       v30 = v29;
-      v31 = *v85;
+      v31 = *v84;
       do
       {
         v32 = 0;
         do
         {
-          if (*v85 != v31)
+          if (*v84 != v31)
           {
             objc_enumerationMutation(v28);
           }
 
-          v33 = *(*(&v84 + 1) + 8 * v32);
+          v33 = *(*(&v83 + 1) + 8 * v32);
           v35 = xpc_dictionary_create(0, 0, 0);
           if (v33)
           {
@@ -6963,7 +6826,7 @@ uint64_t __65__NSPServerClient_sendRTCReport_errorCode_url_completionHandler___b
         }
 
         while (v30 != v32);
-        v46 = [v28 countByEnumeratingWithState:&v84 objects:v90 count:{16, v71}];
+        v46 = [v28 countByEnumeratingWithState:&v83 objects:v89 count:{16, v70}];
         v30 = v46;
       }
 
@@ -6972,55 +6835,55 @@ uint64_t __65__NSPServerClient_sendRTCReport_errorCode_url_completionHandler___b
 
     v47 = v12;
     xpc_dictionary_set_value(v12, "NSPServerPrivateAccessTokenChallenges", xarray);
-    fetcherCopy = v77;
-    if ([v77 rateLimit])
+    fetcherCopy = v76;
+    if ([v76 rateLimit])
     {
-      xpc_dictionary_set_uint64(v12, "NSPServerPrivateAccessTokenRateLimit", [v77 rateLimit]);
+      xpc_dictionary_set_uint64(v12, "NSPServerPrivateAccessTokenRateLimit", [v76 rateLimit]);
     }
 
-    getTokenFetchConnection = v75;
-    handlerCopy = v76;
-    if ([v77 metadataSize])
+    getTokenFetchConnection = v74;
+    handlerCopy = v75;
+    if ([v76 metadataSize])
     {
-      xpc_dictionary_set_uint64(v12, "NSPServerPrivateAccessTokenMetadataSize", [v77 metadataSize]);
+      xpc_dictionary_set_uint64(v12, "NSPServerPrivateAccessTokenMetadataSize", [v76 metadataSize]);
     }
 
-    selectedOrigin = [v77 selectedOrigin];
+    selectedOrigin = [v76 selectedOrigin];
     if (selectedOrigin)
     {
       v49 = v12;
       xpc_dictionary_set_string(v49, "NSPServerPrivateAccessTokenOriginName", [selectedOrigin UTF8String]);
     }
 
-    bundleID = [v77 bundleID];
+    bundleID = [v76 bundleID];
     if (bundleID)
     {
       v51 = v12;
       xpc_dictionary_set_string(v51, "NSPServerSigningIdentifier", [bundleID UTF8String]);
     }
 
-    if (v77)
+    if (v76)
     {
-      v52 = !v77[20] && v77[21] == 0;
-      v53 = v52 && v77[22] == 0;
-      if (!v53 || v77[23] != 0)
+      v52 = !v76[20] && v76[21] == 0;
+      v53 = v52 && v76[22] == 0;
+      if (!v53 || v76[23] != 0)
       {
         memset(bytes, 0, sizeof(bytes));
-        [v77 auditToken];
+        objc_msgSend_auditToken(v76);
         xpc_dictionary_set_data(v12, "NSPServerEffectiveAuditToken", bytes, 0x20uLL);
       }
     }
 
-    if ([v77 systemClient])
+    if ([v76 systemClient])
     {
       xpc_dictionary_set_BOOL(v12, "NSPServerTokenSystemClient", 1);
     }
 
-    customAttester = [v77 customAttester];
+    customAttester = [v76 customAttester];
 
     if (customAttester)
     {
-      customAttester2 = [v77 customAttester];
+      customAttester2 = [v76 customAttester];
       absoluteString = [customAttester2 absoluteString];
       if (absoluteString)
       {
@@ -7028,7 +6891,7 @@ uint64_t __65__NSPServerClient_sendRTCReport_errorCode_url_completionHandler___b
         xpc_dictionary_set_string(v58, "NSPServerPrivateAccessTokenCustomAttester", [absoluteString UTF8String]);
       }
 
-      customAttesterHeaders = [v77 customAttesterHeaders];
+      customAttesterHeaders = [v76 customAttesterHeaders];
       if (customAttesterHeaders)
       {
         v60 = v12;
@@ -7037,11 +6900,11 @@ uint64_t __65__NSPServerClient_sendRTCReport_errorCode_url_completionHandler___b
       }
     }
 
-    auxiliaryAuthenticationCacheKey = [v77 auxiliaryAuthenticationCacheKey];
+    auxiliaryAuthenticationCacheKey = [v76 auxiliaryAuthenticationCacheKey];
 
     if (auxiliaryAuthenticationCacheKey)
     {
-      auxiliaryAuthenticationCacheKey2 = [v77 auxiliaryAuthenticationCacheKey];
+      auxiliaryAuthenticationCacheKey2 = [v76 auxiliaryAuthenticationCacheKey];
       if (auxiliaryAuthenticationCacheKey2)
       {
         v65 = v12;
@@ -7063,11 +6926,11 @@ uint64_t __65__NSPServerClient_sendRTCReport_errorCode_url_completionHandler___b
     handler[1] = 3221225472;
     handler[2] = __83__NSPServerClient_fetchPrivateAccessTokenWithFetcher_allowRetry_completionHandler___block_invoke;
     handler[3] = &unk_1E7A309C0;
-    v82 = retryCopy;
+    v81 = retryCopy;
     handler[4] = selfCopy;
-    v80 = v77;
-    v81 = v76;
-    xpc_connection_send_message_with_reply(v75, v12, v66, handler);
+    v79 = v76;
+    v80 = v75;
+    xpc_connection_send_message_with_reply(v74, v12, v66, handler);
   }
 
   else
@@ -7080,15 +6943,13 @@ uint64_t __65__NSPServerClient_sendRTCReport_errorCode_url_completionHandler___b
     }
 
     v68 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v88 = *MEMORY[0x1E696A588];
-    v89 = @"IPC failed";
-    v69 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v89 forKeys:&v88 count:1];
+    v87 = *MEMORY[0x1E696A588];
+    v88 = @"IPC failed";
+    v69 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v88 forKeys:&v87 count:1];
     v47 = [v68 initWithDomain:@"privacyProxyErrorDomain" code:1002 userInfo:v69];
 
     (*(handlerCopy + 2))(handlerCopy, 0, v47);
   }
-
-  v70 = *MEMORY[0x1E69E9840];
 }
 
 void __83__NSPServerClient_fetchPrivateAccessTokenWithFetcher_allowRetry_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -7121,7 +6982,7 @@ void __83__NSPServerClient_fetchPrivateAccessTokenWithFetcher_allowRetry_complet
 
 - (void)fetchPrivateAccessTokenPairWithFetcher:(id)fetcher allowRetry:(BOOL)retry completionHandler:(id)handler
 {
-  v68[1] = *MEMORY[0x1E69E9840];
+  v67[1] = *MEMORY[0x1E69E9840];
   fetcherCopy = fetcher;
   handlerCopy = handler;
   v10 = nplog_obj();
@@ -7141,14 +7002,14 @@ void __83__NSPServerClient_fetchPrivateAccessTokenWithFetcher_allowRetry_complet
       v18 = xpc_array_create(0, 0);
       v19 = xpc_dictionary_create(0, 0, 0);
       v21 = objc_getProperty(fetcherCopy, v20, 64, 1);
-      v59 = v19;
+      v58 = v19;
       if (v21)
       {
         v22 = v19;
         v23 = _CFXPCCreateXPCObjectFromCFObject();
         xpc_dictionary_set_value(v22, "NSPServerPrivateAccessTokenChallenge", v23);
 
-        v19 = v59;
+        v19 = v58;
       }
 
       v25 = objc_getProperty(fetcherCopy, v24, 80, 1);
@@ -7158,7 +7019,7 @@ void __83__NSPServerClient_fetchPrivateAccessTokenWithFetcher_allowRetry_complet
         v27 = _CFXPCCreateXPCObjectFromCFObject();
         xpc_dictionary_set_value(v26, "NSPServerPrivateAccessTokenKey", v27);
 
-        v19 = v59;
+        v19 = v58;
       }
 
       v29 = objc_getProperty(fetcherCopy, v28, 88, 1);
@@ -7168,7 +7029,7 @@ void __83__NSPServerClient_fetchPrivateAccessTokenWithFetcher_allowRetry_complet
         v31 = _CFXPCCreateXPCObjectFromCFObject();
         xpc_dictionary_set_value(v30, "NSPServerPrivateAccessTokenOriginNameKey", v31);
 
-        v19 = v59;
+        v19 = v58;
       }
 
       xpc_array_append_value(v18, v19);
@@ -7177,7 +7038,7 @@ void __83__NSPServerClient_fetchPrivateAccessTokenWithFetcher_allowRetry_complet
       if (v34)
       {
         v35 = v32;
-        v58 = getTokenFetchConnection;
+        v57 = getTokenFetchConnection;
         v36 = handlerCopy;
         v37 = v17;
         selfCopy = self;
@@ -7193,7 +7054,7 @@ void __83__NSPServerClient_fetchPrivateAccessTokenWithFetcher_allowRetry_complet
         self = selfCopy;
         v17 = v37;
         handlerCopy = v36;
-        getTokenFetchConnection = v58;
+        getTokenFetchConnection = v57;
       }
 
       xpc_array_append_value(v18, v32);
@@ -7225,7 +7086,7 @@ void __83__NSPServerClient_fetchPrivateAccessTokenWithFetcher_allowRetry_complet
       if (!v47 || fetcherCopy[22] != 0 || fetcherCopy[23] != 0)
       {
         memset(bytes, 0, sizeof(bytes));
-        [fetcherCopy auditToken];
+        objc_msgSend_auditToken(fetcherCopy);
         xpc_dictionary_set_data(v17, "NSPServerEffectiveAuditToken", bytes, 0x20uLL);
       }
 
@@ -7251,8 +7112,8 @@ void __83__NSPServerClient_fetchPrivateAccessTokenWithFetcher_allowRetry_complet
       handler[3] = &unk_1E7A309C0;
       retryCopy2 = retry;
       handler[4] = self;
-      v61 = fetcherCopy;
-      v62 = handlerCopy;
+      v60 = fetcherCopy;
+      v61 = handlerCopy;
       xpc_connection_send_message_with_reply(getTokenFetchConnection, v17, Property, handler);
     }
 
@@ -7266,9 +7127,9 @@ void __83__NSPServerClient_fetchPrivateAccessTokenWithFetcher_allowRetry_complet
       }
 
       v53 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v65 = *MEMORY[0x1E696A588];
-      v66 = @"IPC failed";
-      v54 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v66 forKeys:&v65 count:1];
+      v64 = *MEMORY[0x1E696A588];
+      v65 = @"IPC failed";
+      v54 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
       v17 = [v53 initWithDomain:@"privacyProxyErrorDomain" code:1002 userInfo:v54];
 
       (*(handlerCopy + 2))(handlerCopy, 0, 0, 0, v17);
@@ -7278,15 +7139,13 @@ void __83__NSPServerClient_fetchPrivateAccessTokenWithFetcher_allowRetry_complet
   else
   {
     v55 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v67 = *MEMORY[0x1E696A588];
-    v68[0] = @"No paired challenges found";
-    v56 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v68 forKeys:&v67 count:1];
+    v66 = *MEMORY[0x1E696A588];
+    v67[0] = @"No paired challenges found";
+    v56 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v67 forKeys:&v66 count:1];
     getTokenFetchConnection = [v55 initWithDomain:@"privacyProxyErrorDomain" code:1004 userInfo:v56];
 
     (*(handlerCopy + 2))(handlerCopy, 0, 0, 0, getTokenFetchConnection);
   }
-
-  v57 = *MEMORY[0x1E69E9840];
 }
 
 void __87__NSPServerClient_fetchPrivateAccessTokenPairWithFetcher_allowRetry_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -7321,7 +7180,7 @@ void __87__NSPServerClient_fetchPrivateAccessTokenPairWithFetcher_allowRetry_com
 
 - (void)fetchPrivateAccessTokenAndAuxAuthWithFetcher:(id)fetcher allowRetry:(BOOL)retry completionHandler:(id)handler
 {
-  v66[1] = *MEMORY[0x1E69E9840];
+  v65[1] = *MEMORY[0x1E69E9840];
   fetcherCopy = fetcher;
   handlerCopy = handler;
   v10 = nplog_obj();
@@ -7342,7 +7201,7 @@ void __87__NSPServerClient_fetchPrivateAccessTokenPairWithFetcher_allowRetry_com
       v18 = xpc_array_create(0, 0);
       v19 = xpc_dictionary_create(0, 0, 0);
       v21 = objc_getProperty(fetcherCopy, v20, 64, 1);
-      v57 = v19;
+      v56 = v19;
       if (v21)
       {
         v22 = v19;
@@ -7405,7 +7264,7 @@ void __87__NSPServerClient_fetchPrivateAccessTokenPairWithFetcher_allowRetry_com
       if (!v42 || fetcherCopy[22] != 0 || fetcherCopy[23] != 0)
       {
         memset(bytes, 0, sizeof(bytes));
-        [fetcherCopy auditToken];
+        objc_msgSend_auditToken(fetcherCopy);
         xpc_dictionary_set_data(v17, "NSPServerEffectiveAuditToken", bytes, 0x20uLL);
       }
 
@@ -7446,10 +7305,10 @@ void __87__NSPServerClient_fetchPrivateAccessTokenPairWithFetcher_allowRetry_com
       handler[1] = 3221225472;
       handler[2] = __93__NSPServerClient_fetchPrivateAccessTokenAndAuxAuthWithFetcher_allowRetry_completionHandler___block_invoke;
       handler[3] = &unk_1E7A309C0;
-      v61 = retryCopy;
+      v60 = retryCopy;
       handler[4] = self;
-      v59 = fetcherCopy;
-      v60 = handlerCopy;
+      v58 = fetcherCopy;
+      v59 = handlerCopy;
       xpc_connection_send_message_with_reply(getTokenFetchConnection, v17, Property, handler);
     }
 
@@ -7463,9 +7322,9 @@ void __87__NSPServerClient_fetchPrivateAccessTokenPairWithFetcher_allowRetry_com
       }
 
       v51 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v63 = *MEMORY[0x1E696A588];
-      v64 = @"IPC failed";
-      v52 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v64 forKeys:&v63 count:1];
+      v62 = *MEMORY[0x1E696A588];
+      v63 = @"IPC failed";
+      v52 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v63 forKeys:&v62 count:1];
       v17 = [v51 initWithDomain:@"privacyProxyErrorDomain" code:1002 userInfo:v52];
 
       (*(handlerCopy + 2))(handlerCopy, 0, 0, v17);
@@ -7475,15 +7334,13 @@ void __87__NSPServerClient_fetchPrivateAccessTokenPairWithFetcher_allowRetry_com
   else
   {
     v53 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v65 = *MEMORY[0x1E696A588];
-    v66[0] = @"Challenges not found";
-    v54 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v66 forKeys:&v65 count:1];
+    v64 = *MEMORY[0x1E696A588];
+    v65[0] = @"Challenges not found";
+    v54 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v65 forKeys:&v64 count:1];
     getTokenFetchConnection = [v53 initWithDomain:@"privacyProxyErrorDomain" code:1004 userInfo:v54];
 
     (*(handlerCopy + 2))(handlerCopy, 0, 0, getTokenFetchConnection);
   }
-
-  v55 = *MEMORY[0x1E69E9840];
 }
 
 void __93__NSPServerClient_fetchPrivateAccessTokenAndAuxAuthWithFetcher_allowRetry_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -7517,7 +7374,7 @@ void __93__NSPServerClient_fetchPrivateAccessTokenAndAuxAuthWithFetcher_allowRet
 
 - (void)fetchKnownPrivateAccessTokenKeyWithFetcher:(id)fetcher allowRetry:(BOOL)retry completionHandler:(id)handler
 {
-  v29[1] = *MEMORY[0x1E69E9840];
+  v28[1] = *MEMORY[0x1E69E9840];
   fetcherCopy = fetcher;
   handlerCopy = handler;
   v10 = nplog_obj();
@@ -7558,15 +7415,15 @@ void __93__NSPServerClient_fetchPrivateAccessTokenAndAuxAuthWithFetcher_allowRet
       Property = 0;
     }
 
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __91__NSPServerClient_fetchKnownPrivateAccessTokenKeyWithFetcher_allowRetry_completionHandler___block_invoke;
-    v23[3] = &unk_1E7A309C0;
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __91__NSPServerClient_fetchKnownPrivateAccessTokenKeyWithFetcher_allowRetry_completionHandler___block_invoke;
+    v22[3] = &unk_1E7A309C0;
     retryCopy = retry;
-    v23[4] = self;
-    v24 = fetcherCopy;
-    v25 = handlerCopy;
-    xpc_connection_send_message_with_reply(getTokenFetchConnection, v12, Property, v23);
+    v22[4] = self;
+    v23 = fetcherCopy;
+    v24 = handlerCopy;
+    xpc_connection_send_message_with_reply(getTokenFetchConnection, v12, Property, v22);
   }
 
   else
@@ -7579,15 +7436,13 @@ void __93__NSPServerClient_fetchPrivateAccessTokenAndAuxAuthWithFetcher_allowRet
     }
 
     v20 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v28 = *MEMORY[0x1E696A588];
-    v29[0] = @"IPC failed";
-    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+    v27 = *MEMORY[0x1E696A588];
+    v28[0] = @"IPC failed";
+    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
     v12 = [v20 initWithDomain:@"privacyProxyErrorDomain" code:1002 userInfo:v21];
 
     (*(handlerCopy + 2))(handlerCopy, 0, v12);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __91__NSPServerClient_fetchKnownPrivateAccessTokenKeyWithFetcher_allowRetry_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -7803,7 +7658,7 @@ void __91__NSPServerClient_fetchKnownPrivateAccessTokenKeyWithFetcher_allowRetry
 
 - (void)fetchAuxiliaryAuthenticationDataFromCacheForType:(unint64_t)type label:(id)label cacheKey:(id)key completionHandler:(id)handler
 {
-  v29[1] = *MEMORY[0x1E69E9840];
+  v28[1] = *MEMORY[0x1E69E9840];
   labelCopy = label;
   keyCopy = key;
   handlerCopy = handler;
@@ -7843,7 +7698,7 @@ void __91__NSPServerClient_fetchKnownPrivateAccessTokenKeyWithFetcher_allowRetry
     handler[1] = 3221225472;
     handler[2] = __101__NSPServerClient_fetchAuxiliaryAuthenticationDataFromCacheForType_label_cacheKey_completionHandler___block_invoke;
     handler[3] = &unk_1E7A30920;
-    v26 = handlerCopy;
+    v25 = handlerCopy;
     xpc_connection_send_message_with_reply(getTokenFetchConnection, v15, &self->super, handler);
   }
 
@@ -7857,15 +7712,13 @@ void __91__NSPServerClient_fetchKnownPrivateAccessTokenKeyWithFetcher_allowRetry
     }
 
     v22 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v28 = *MEMORY[0x1E696A588];
-    v29[0] = @"IPC failed";
-    v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+    v27 = *MEMORY[0x1E696A588];
+    v28[0] = @"IPC failed";
+    v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
     v15 = [v22 initWithDomain:@"privacyProxyErrorDomain" code:1002 userInfo:v23];
 
     (*(handlerCopy + 2))(handlerCopy, 0, v15);
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 void __101__NSPServerClient_fetchAuxiliaryAuthenticationDataFromCacheForType_label_cacheKey_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -7924,7 +7777,7 @@ void __101__NSPServerClient_fetchAuxiliaryAuthenticationDataFromCacheForType_lab
 
 - (void)startProxyToMPTCPConverterProxyWithCompletionHandler:(id)handler
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v5 = nplog_obj();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -7947,7 +7800,7 @@ void __101__NSPServerClient_fetchAuxiliaryAuthenticationDataFromCacheForType_lab
     handler[1] = 3221225472;
     handler[2] = __72__NSPServerClient_startProxyToMPTCPConverterProxyWithCompletionHandler___block_invoke;
     handler[3] = &unk_1E7A30920;
-    v14 = handlerCopy;
+    v13 = handlerCopy;
     xpc_connection_send_message_with_reply(getConnection, v7, &self->super, handler);
   }
 
@@ -7961,15 +7814,13 @@ void __101__NSPServerClient_fetchAuxiliaryAuthenticationDataFromCacheForType_lab
     }
 
     v10 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v16 = *MEMORY[0x1E696A588];
-    v17[0] = @"IPC failed";
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v15 = *MEMORY[0x1E696A588];
+    v16[0] = @"IPC failed";
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     v7 = [v10 initWithDomain:@"privacyProxyErrorDomain" code:1002 userInfo:v11];
 
     (*(handlerCopy + 2))(handlerCopy, v7);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __72__NSPServerClient_startProxyToMPTCPConverterProxyWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
@@ -7987,7 +7838,7 @@ uint64_t __72__NSPServerClient_startProxyToMPTCPConverterProxyWithCompletionHand
 
 - (void)stopProxyToMPTCPConverterProxyWithCompletionHandler:(id)handler
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v5 = nplog_obj();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -8010,7 +7861,7 @@ uint64_t __72__NSPServerClient_startProxyToMPTCPConverterProxyWithCompletionHand
     handler[1] = 3221225472;
     handler[2] = __71__NSPServerClient_stopProxyToMPTCPConverterProxyWithCompletionHandler___block_invoke;
     handler[3] = &unk_1E7A30920;
-    v14 = handlerCopy;
+    v13 = handlerCopy;
     xpc_connection_send_message_with_reply(getConnection, v7, &self->super, handler);
   }
 
@@ -8024,15 +7875,13 @@ uint64_t __72__NSPServerClient_startProxyToMPTCPConverterProxyWithCompletionHand
     }
 
     v10 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v16 = *MEMORY[0x1E696A588];
-    v17[0] = @"IPC failed";
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v15 = *MEMORY[0x1E696A588];
+    v16[0] = @"IPC failed";
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     v7 = [v10 initWithDomain:@"privacyProxyErrorDomain" code:1002 userInfo:v11];
 
     (*(handlerCopy + 2))(handlerCopy, v7);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __71__NSPServerClient_stopProxyToMPTCPConverterProxyWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
@@ -8101,7 +7950,7 @@ uint64_t __113__NSPServerClient_dumpPrivacyProxyTokenEventsWithCompletionHandler
 
 - (void)setPrivacyProxyTokenEventsProactiveTokenFetchParams:(id)params lowerTokenCountThresholdStr:(id)str lowerTokenCountProbabilityStr:(id)probabilityStr statsDurationStr:(id)durationStr upperLWMCountThresholdStr:(id)thresholdStr upperLWMCountProbabilityOffsetStr:(id)offsetStr completionHandler:(id)handler
 {
-  v43[1] = *MEMORY[0x1E69E9840];
+  v42[1] = *MEMORY[0x1E69E9840];
   paramsCopy = params;
   strCopy = str;
   probabilityStrCopy = probabilityStr;
@@ -8181,7 +8030,7 @@ uint64_t __113__NSPServerClient_dumpPrivacyProxyTokenEventsWithCompletionHandler
     handler[1] = 3221225472;
     handler[2] = __224__NSPServerClient_setPrivacyProxyTokenEventsProactiveTokenFetchParams_lowerTokenCountThresholdStr_lowerTokenCountProbabilityStr_statsDurationStr_upperLWMCountThresholdStr_upperLWMCountProbabilityOffsetStr_completionHandler___block_invoke;
     handler[3] = &unk_1E7A30920;
-    v41 = handlerCopy;
+    v40 = handlerCopy;
     xpc_connection_send_message_with_reply(getConnection, v21, &self->super, handler);
   }
 
@@ -8196,9 +8045,9 @@ uint64_t __113__NSPServerClient_dumpPrivacyProxyTokenEventsWithCompletionHandler
     }
 
     v34 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v42 = *MEMORY[0x1E696A588];
-    v43[0] = @"IPC failed";
-    v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v43 forKeys:&v42 count:1];
+    v41 = *MEMORY[0x1E696A588];
+    v42[0] = @"IPC failed";
+    v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v42 forKeys:&v41 count:1];
     v21 = [v34 initWithDomain:@"privacyProxyErrorDomain" code:1004 userInfo:v35];
 
     (*(handlerCopy + 2))(handlerCopy, v21);
@@ -8206,8 +8055,6 @@ uint64_t __113__NSPServerClient_dumpPrivacyProxyTokenEventsWithCompletionHandler
     v28 = offsetStrCopy;
     v27 = strCopy;
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __224__NSPServerClient_setPrivacyProxyTokenEventsProactiveTokenFetchParams_lowerTokenCountThresholdStr_lowerTokenCountProbabilityStr_statsDurationStr_upperLWMCountThresholdStr_upperLWMCountProbabilityOffsetStr_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -8225,7 +8072,7 @@ uint64_t __224__NSPServerClient_setPrivacyProxyTokenEventsProactiveTokenFetchPar
 
 - (void)checkRemainingCostQuotaWithFetcher:(id)fetcher allowRetry:(BOOL)retry completionHandler:(id)handler
 {
-  v34[1] = *MEMORY[0x1E69E9840];
+  v33[1] = *MEMORY[0x1E69E9840];
   fetcherCopy = fetcher;
   handlerCopy = handler;
   v10 = nplog_obj();
@@ -8270,7 +8117,7 @@ uint64_t __224__NSPServerClient_setPrivacyProxyTokenEventsProactiveTokenFetchPar
       if (!v21 || fetcherCopy[23] != 0)
       {
         memset(bytes, 0, sizeof(bytes));
-        [fetcherCopy auditToken];
+        objc_msgSend_auditToken(fetcherCopy);
         xpc_dictionary_set_data(v12, "NSPServerEffectiveAuditToken", bytes, 0x20uLL);
       }
     }
@@ -8285,15 +8132,15 @@ uint64_t __224__NSPServerClient_setPrivacyProxyTokenEventsProactiveTokenFetchPar
       Property = 0;
     }
 
-    v28[0] = MEMORY[0x1E69E9820];
-    v28[1] = 3221225472;
-    v28[2] = __83__NSPServerClient_checkRemainingCostQuotaWithFetcher_allowRetry_completionHandler___block_invoke;
-    v28[3] = &unk_1E7A309C0;
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __83__NSPServerClient_checkRemainingCostQuotaWithFetcher_allowRetry_completionHandler___block_invoke;
+    v27[3] = &unk_1E7A309C0;
     retryCopy = retry;
-    v28[4] = self;
-    v29 = fetcherCopy;
-    v30 = handlerCopy;
-    xpc_connection_send_message_with_reply(getTokenFetchConnection, v12, Property, v28);
+    v27[4] = self;
+    v28 = fetcherCopy;
+    v29 = handlerCopy;
+    xpc_connection_send_message_with_reply(getTokenFetchConnection, v12, Property, v27);
   }
 
   else
@@ -8306,15 +8153,13 @@ uint64_t __224__NSPServerClient_setPrivacyProxyTokenEventsProactiveTokenFetchPar
     }
 
     v25 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v33 = *MEMORY[0x1E696A588];
-    v34[0] = @"IPC failed";
-    v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:&v33 count:1];
+    v32 = *MEMORY[0x1E696A588];
+    v33[0] = @"IPC failed";
+    v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:&v32 count:1];
     v12 = [v25 initWithDomain:@"privacyProxyErrorDomain" code:1002 userInfo:v26];
 
     (*(handlerCopy + 2))(handlerCopy, 0, v12, 0.0, 0.0);
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 void __83__NSPServerClient_checkRemainingCostQuotaWithFetcher_allowRetry_completionHandler___block_invoke(uint64_t a1, void *a2)

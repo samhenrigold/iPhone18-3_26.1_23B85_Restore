@@ -181,7 +181,7 @@ id __36__AMSSetDemoAccountTask_performTask__block_invoke_7(uint64_t a1, void *a2
   return v19;
 }
 
-void __36__AMSSetDemoAccountTask_performTask__block_invoke_9(uint64_t a1, void *a2)
+void __36__AMSSetDemoAccountTask_performTask__block_invoke_9(void *a1, void *a2)
 {
   v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
@@ -259,7 +259,7 @@ id __36__AMSSetDemoAccountTask_performTask__block_invoke_11(uint64_t a1)
   return v9;
 }
 
-void __36__AMSSetDemoAccountTask_performTask__block_invoke_2(uint64_t a1, void *a2)
+void __36__AMSSetDemoAccountTask_performTask__block_invoke_2(void *a1, void *a2)
 {
   v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
@@ -309,7 +309,7 @@ id __36__AMSSetDemoAccountTask_performTask__block_invoke_14(uint64_t a1, void *a
   return v3;
 }
 
-void __36__AMSSetDemoAccountTask_performTask__block_invoke_2_17(uint64_t a1, void *a2)
+void __36__AMSSetDemoAccountTask_performTask__block_invoke_2_17(void *a1, void *a2)
 {
   v16 = *MEMORY[0x1E69E9840];
   v3 = a2;

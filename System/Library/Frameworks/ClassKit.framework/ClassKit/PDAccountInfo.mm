@@ -12,6 +12,7 @@
 - (id)description;
 - (void)_updateOrgAdminUserRecordID;
 - (void)_updateUserRecordID;
+- (void)updateAuthenticationState:(BOOL)state forServiceID:(id)d userInteractive:(BOOL)interactive;
 @end
 
 @implementation PDAccountInfo
@@ -452,6 +453,128 @@ LABEL_22:
   return v19;
 }
 
+- (void)updateAuthenticationState:(BOOL)state forServiceID:(id)d userInteractive:(BOOL)interactive
+{
+  stateCopy = state;
+  dCopy = d;
+  v9 = sub_100040498(self, dCopy);
+  if (dCopy && ([dCopy isEqualToString:@"iCloudDriveServiceName"] & 1) != 0)
+  {
+    if (stateCopy)
+    {
+      v10 = 2;
+    }
+
+    else
+    {
+      v10 = 1;
+    }
+
+    if (v9 == v10)
+    {
+      goto LABEL_33;
+    }
+
+    v11 = !stateCopy;
+  }
+
+  else
+  {
+    v12 = sub_100040570(self);
+    if (stateCopy)
+    {
+      v13 = 2;
+    }
+
+    else
+    {
+      v13 = 1;
+    }
+
+    if (v12)
+    {
+      v10 = v13;
+    }
+
+    else
+    {
+      v10 = 0;
+    }
+
+    if (v9 == v10)
+    {
+      goto LABEL_33;
+    }
+
+    v11 = v10 == 1;
+    if (!dCopy)
+    {
+      goto LABEL_28;
+    }
+  }
+
+  if ([dCopy isEqualToString:@"orion"])
+  {
+    if (self)
+    {
+      self->_handoutServiceAuthenticationState = v10;
+    }
+
+    if (!v11)
+    {
+      goto LABEL_28;
+    }
+
+    sub_10003F68C(self, 0);
+    goto LABEL_27;
+  }
+
+  if (([dCopy isEqualToString:@"apple_school_manager"] & 1) == 0 && !objc_msgSend(dCopy, "isEqualToString:", @"apple_business_manager"))
+  {
+    v17 = [dCopy isEqualToString:@"iCloudDriveServiceName"];
+    if (self && v17)
+    {
+      self->_iCloudDriveAuthenticationState = v10;
+    }
+
+    goto LABEL_28;
+  }
+
+  if (self)
+  {
+    self->_rosterServiceAuthenticationState = v10;
+  }
+
+  if (v11)
+  {
+    sub_10003F69C(self, 0);
+LABEL_27:
+    v11 = 1;
+  }
+
+LABEL_28:
+  CLSInitLog();
+  v14 = CLSLogAuthorization;
+  if (os_log_type_enabled(CLSLogAuthorization, OS_LOG_TYPE_DEFAULT))
+  {
+    v15 = v14;
+    v16 = NSStringFromCLSAuthenticationState();
+    v18 = 138412546;
+    v19 = v16;
+    v20 = 2112;
+    v21 = dCopy;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "updateAuthenticationState new authenticationState:%@ for %@", &v18, 0x16u);
+  }
+
+  if (v11)
+  {
+    sub_10003FC24(PDAccountInfo, self, interactive);
+  }
+
+  [CLSUtil postNotificationAsync:"com.apple.progressd.accountChanged"];
+LABEL_33:
+}
+
 - (void)_updateOrgAdminUserRecordID
 {
   v6 = 0;
@@ -545,7 +668,6 @@ LABEL_22:
     }
 
     [v3 appendFormat:@"  hasCredentials                    : %s\n", v8];
-    rosterServiceAuthenticationState = self->_rosterServiceAuthenticationState;
   }
 
   else
@@ -563,62 +685,50 @@ LABEL_22:
     [v3 appendFormat:@"  hasCredentials                    : %s\n", "NO"];
   }
 
+  v9 = NSStringFromCLSAuthenticationState();
+  [v3 appendFormat:@"  rosterServiceAuthenticationState  : %@\n", v9];
+
   v10 = NSStringFromCLSAuthenticationState();
-  [v3 appendFormat:@"  rosterServiceAuthenticationState  : %@\n", v10];
+  [v3 appendFormat:@"  handoutServiceAuthenticationState : %@\n", v10];
 
-  if (self)
-  {
-    handoutServiceAuthenticationState = self->_handoutServiceAuthenticationState;
-    v12 = NSStringFromCLSAuthenticationState();
-    [v3 appendFormat:@"  handoutServiceAuthenticationState : %@\n", v12];
-
-    iCloudDriveAuthenticationState = self->_iCloudDriveAuthenticationState;
-  }
-
-  else
-  {
-    v21 = NSStringFromCLSAuthenticationState();
-    [v3 appendFormat:@"  handoutServiceAuthenticationState : %@\n", v21];
-  }
-
-  v14 = NSStringFromCLSAuthenticationState();
-  [v3 appendFormat:@"  iCloudDriveAuthenticationState    : %@\n", v14];
+  v11 = NSStringFromCLSAuthenticationState();
+  [v3 appendFormat:@"  iCloudDriveAuthenticationState    : %@\n", v11];
 
   if (self)
   {
     if (self->_hasUbiquityEnabled)
     {
-      v15 = "YES";
+      v12 = "YES";
     }
 
     else
     {
-      v15 = "NO";
+      v12 = "NO";
     }
 
-    [v3 appendFormat:@"  hasUbiquityEnabled                : %s\n", v15];
+    [v3 appendFormat:@"  hasUbiquityEnabled                : %s\n", v12];
     if (self->_mayOpenFromManagedToUnmanaged)
     {
-      v16 = "YES";
+      v13 = "YES";
     }
 
     else
     {
-      v16 = "NO";
+      v13 = "NO";
     }
 
-    [v3 appendFormat:@"  mayOpenFromManagedToUnmanaged     : %s\n", v16];
+    [v3 appendFormat:@"  mayOpenFromManagedToUnmanaged     : %s\n", v13];
     if (self->_mayOpenFromUnmanagedToManaged)
     {
-      v17 = "YES";
+      v14 = "YES";
     }
 
     else
     {
-      v17 = "NO";
+      v14 = "NO";
     }
 
-    [v3 appendFormat:@"  mayOpenFromUnmanagedToManaged     : %s\n", v17];
+    [v3 appendFormat:@"  mayOpenFromUnmanagedToManaged     : %s\n", v14];
     [v3 appendFormat:@"  schoolworkUbiquitousContainerURL  : %@\n", self->_schoolworkUbiquitousContainerURL];
     [v3 appendFormat:@"  schoolworkUbiquitousContainerError: %@\n", self->_schoolworkUbiquitousContainerError];
     [v3 appendFormat:@"  orgAdminUserRecordID              : %@\n", self->_orgAdminUserRecordID];
@@ -645,9 +755,9 @@ LABEL_22:
   }
 
   [v3 appendFormat:@"  multimediaCacheDirectoryURLError  : %@\n", multimediaCacheDirectoryURLError];
-  v19 = [v3 copy];
+  v16 = [v3 copy];
 
-  return v19;
+  return v16;
 }
 
 @end

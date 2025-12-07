@@ -85,70 +85,64 @@ LABEL_9:
 
 void __21__MUBlurView__update__block_invoke(uint64_t a1)
 {
-  v30[4] = *MEMORY[0x1E69E9840];
+  v26[4] = *MEMORY[0x1E69E9840];
   [*(*(a1 + 32) + 520) removeFromSuperview];
   [*(a1 + 32) setBackgroundColor:0];
   v2 = *(a1 + 32);
-  if (*(v2 + 410) != 1)
+  if (*(v2 + 410) == 1)
   {
-    [v2 _setBackground:0];
-    v5 = [*(a1 + 32) backgroundEffects];
-    v6 = [*(a1 + 32) materialBlurView];
-    [v6 setBackgroundEffects:v5];
+    v3 = *(v2 + 488);
+    switch(v3)
+    {
+      case 2:
 
-    v7 = *(a1 + 32);
-    v8 = [v7 blurView];
-    [v7 insertSubview:v8 atIndex:0];
+        [v2 _mapsui_setScrimGlassBackground];
+        break;
+      case 1:
 
-    v22 = MEMORY[0x1E696ACD8];
-    v29 = [*(a1 + 32) blurView];
-    v28 = [v29 leadingAnchor];
-    v27 = [*(a1 + 32) leadingAnchor];
-    v26 = [v28 constraintEqualToAnchor:v27];
-    v30[0] = v26;
-    v25 = [*(a1 + 32) blurView];
-    v24 = [v25 trailingAnchor];
-    v23 = [*(a1 + 32) trailingAnchor];
-    v9 = [v24 constraintEqualToAnchor:v23];
-    v30[1] = v9;
-    v10 = [*(a1 + 32) blurView];
-    v11 = [v10 topAnchor];
-    v12 = [*(a1 + 32) topAnchor];
-    v13 = [v11 constraintEqualToAnchor:v12];
-    v30[2] = v13;
-    v14 = [*(a1 + 32) blurView];
-    v15 = [v14 bottomAnchor];
-    v16 = [*(a1 + 32) bottomAnchor];
-    v17 = [v15 constraintEqualToAnchor:v16];
-    v30[3] = v17;
-    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:4];
-    [v22 activateConstraints:v18];
+        [v2 _mapsui_setNonAdaptiveSignGlassBackground];
+        break;
+      case 0:
 
-    goto LABEL_9;
+        [v2 _mapsui_setNonAdaptiveGlassBackground];
+        break;
+    }
   }
 
-  v3 = *(v2 + 488);
-  switch(v3)
+  else
   {
-    case 2:
-      v21 = *MEMORY[0x1E69E9840];
+    [v2 _setBackground:0];
+    v4 = [*(a1 + 32) backgroundEffects];
+    v5 = [*(a1 + 32) materialBlurView];
+    [v5 setBackgroundEffects:v4];
 
-      [v2 _mapsui_setScrimGlassBackground];
-      break;
-    case 1:
-      v20 = *MEMORY[0x1E69E9840];
+    v6 = *(a1 + 32);
+    v7 = [v6 blurView];
+    [v6 insertSubview:v7 atIndex:0];
 
-      [v2 _mapsui_setNonAdaptiveSignGlassBackground];
-      break;
-    case 0:
-      v4 = *MEMORY[0x1E69E9840];
-
-      [v2 _mapsui_setNonAdaptiveGlassBackground];
-      return;
-    default:
-LABEL_9:
-      v19 = *MEMORY[0x1E69E9840];
-      return;
+    v18 = MEMORY[0x1E696ACD8];
+    v25 = [*(a1 + 32) blurView];
+    v24 = [v25 leadingAnchor];
+    v23 = [*(a1 + 32) leadingAnchor];
+    v22 = [v24 constraintEqualToAnchor:v23];
+    v26[0] = v22;
+    v21 = [*(a1 + 32) blurView];
+    v20 = [v21 trailingAnchor];
+    v19 = [*(a1 + 32) trailingAnchor];
+    v8 = [v20 constraintEqualToAnchor:v19];
+    v26[1] = v8;
+    v9 = [*(a1 + 32) blurView];
+    v10 = [v9 topAnchor];
+    v11 = [*(a1 + 32) topAnchor];
+    v12 = [v10 constraintEqualToAnchor:v11];
+    v26[2] = v12;
+    v13 = [*(a1 + 32) blurView];
+    v14 = [v13 bottomAnchor];
+    v15 = [*(a1 + 32) bottomAnchor];
+    v16 = [v14 constraintEqualToAnchor:v15];
+    v26[3] = v16;
+    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:4];
+    [v18 activateConstraints:v17];
   }
 }
 
@@ -463,7 +457,7 @@ LABEL_9:
 
 void __21__MUBlurView__update__block_invoke_2(uint64_t a1)
 {
-  v25[4] = *MEMORY[0x1E69E9840];
+  v24[4] = *MEMORY[0x1E69E9840];
   [*(a1 + 32) _setBackground:0];
   v2 = [*(a1 + 32) blurViewIfExists];
   [v2 removeFromSuperview];
@@ -475,31 +469,29 @@ void __21__MUBlurView__update__block_invoke_2(uint64_t a1)
   v5 = [v4 nonBlurView];
   [v4 insertSubview:v5 atIndex:0];
 
-  v17 = MEMORY[0x1E696ACD8];
-  v24 = [*(a1 + 32) nonBlurView];
-  v23 = [v24 leadingAnchor];
-  v22 = [*(a1 + 32) leadingAnchor];
-  v21 = [v23 constraintEqualToAnchor:v22];
-  v25[0] = v21;
-  v20 = [*(a1 + 32) nonBlurView];
-  v19 = [v20 trailingAnchor];
-  v18 = [*(a1 + 32) trailingAnchor];
-  v6 = [v19 constraintEqualToAnchor:v18];
-  v25[1] = v6;
+  v16 = MEMORY[0x1E696ACD8];
+  v23 = [*(a1 + 32) nonBlurView];
+  v22 = [v23 leadingAnchor];
+  v21 = [*(a1 + 32) leadingAnchor];
+  v20 = [v22 constraintEqualToAnchor:v21];
+  v24[0] = v20;
+  v19 = [*(a1 + 32) nonBlurView];
+  v18 = [v19 trailingAnchor];
+  v17 = [*(a1 + 32) trailingAnchor];
+  v6 = [v18 constraintEqualToAnchor:v17];
+  v24[1] = v6;
   v7 = [*(a1 + 32) nonBlurView];
   v8 = [v7 topAnchor];
   v9 = [*(a1 + 32) topAnchor];
   v10 = [v8 constraintEqualToAnchor:v9];
-  v25[2] = v10;
+  v24[2] = v10;
   v11 = [*(a1 + 32) nonBlurView];
   v12 = [v11 bottomAnchor];
   v13 = [*(a1 + 32) bottomAnchor];
   v14 = [v12 constraintEqualToAnchor:v13];
-  v25[3] = v14;
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:4];
-  [v17 activateConstraints:v15];
-
-  v16 = *MEMORY[0x1E69E9840];
+  v24[3] = v14;
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:4];
+  [v16 activateConstraints:v15];
 }
 
 - (void)setGlassStyle:(unint64_t)style

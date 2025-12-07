@@ -39,7 +39,7 @@
 
 - (void)processRequest:(id)request completionHandler:(id)handler
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   mEMORY[0x277D08F78] = [MEMORY[0x277D08F78] sharedInstance];
   isManagedLostModeActive = [mEMORY[0x277D08F78] isManagedLostModeActive];
@@ -49,14 +49,14 @@
     v8 = objc_alloc_init(MDMLostDeviceLocationManager);
     delegate = [(MDMRequestBase *)self delegate];
     originator = [delegate originator];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __77__MDMRequestDeviceLocationCommand_Handler__processRequest_completionHandler___block_invoke;
-    v19[3] = &unk_27982CAF0;
-    v20 = handlerCopy;
-    [(MDMLostDeviceLocationManager *)v8 getCurrentLocationForOriginator:originator completion:v19];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __77__MDMRequestDeviceLocationCommand_Handler__processRequest_completionHandler___block_invoke;
+    v18[3] = &unk_27982CAF0;
+    v19 = handlerCopy;
+    [(MDMLostDeviceLocationManager *)v8 getCurrentLocationForOriginator:originator completion:v18];
 
-    v11 = v20;
+    v11 = v19;
   }
 
   else
@@ -72,15 +72,13 @@
       v16 = v15;
       dMCVerboseDescription = [(MDMLostDeviceLocationManager *)v8 DMCVerboseDescription];
       *buf = 138543362;
-      v22 = dMCVerboseDescription;
+      v21 = dMCVerboseDescription;
       _os_log_impl(&dword_2561F5000, v16, OS_LOG_TYPE_ERROR, "Could not determine device current location: %{public}@", buf, 0xCu);
     }
 
     v11 = [(MDMAbstractTunnelParser *)MDMParser responseWithError:v8];
     (*(handlerCopy + 2))(handlerCopy, v11);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __77__MDMRequestDeviceLocationCommand_Handler__processRequest_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)

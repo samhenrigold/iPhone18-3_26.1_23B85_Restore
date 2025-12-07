@@ -58,35 +58,36 @@
 
 - (void)_playback:(id)_playback context:(id)context completion:(id)completion audioStartHandler:(id)handler
 {
-  v76 = *MEMORY[0x277D85DE8];
+  v85 = *MEMORY[0x277D85DE8];
   _playbackCopy = _playback;
   contextCopy = context;
   completionCopy = completion;
   handlerCopy = handler;
   dispatch_assert_queue_V2(self->_queue);
   _hasCachedCompletion = [(_LTServerSpeakSession *)self _hasCachedCompletion];
-  v15 = _LTOSLogTTS();
-  v16 = os_log_type_enabled(v15, OS_LOG_TYPE_INFO);
-  if (_hasCachedCompletion)
+  v15 = _hasCachedCompletion;
+  v17 = _LTOSLogTTS(_hasCachedCompletion, v16);
+  v18 = os_log_type_enabled(v17, OS_LOG_TYPE_INFO);
+  if (v15)
   {
-    if (v16)
+    if (v18)
     {
       LOWORD(buf) = 0;
-      _os_log_impl(&dword_232E53000, v15, OS_LOG_TYPE_INFO, "Prepping playback for audio data of request", &buf, 2u);
+      _os_log_impl(&dword_232E53000, v17, OS_LOG_TYPE_INFO, "Prepping playback for audio data of request", &buf, 2u);
     }
 
     outputFileURL = [contextCopy outputFileURL];
-    v18 = [(_LTServerSpeakSession *)self _createTemporaryOutputFileWithURL:outputFileURL];
+    v20 = [(_LTServerSpeakSession *)self _createTemporaryOutputFileWithURL:outputFileURL];
 
-    [_playbackCopy writeToURL:v18];
-    v73 = 0;
+    [_playbackCopy writeToURL:v20];
+    v82 = 0;
     buf = 0u;
-    v72 = 0u;
+    v81 = 0u;
     if (_playbackCopy)
     {
-      [_playbackCopy asbd];
-      [_playbackCopy asbd];
-      if (DWORD2(v68) == 1819304813)
+      objc_msgSend_asbd(_playbackCopy);
+      objc_msgSend_asbd(_playbackCopy);
+      if (v78[2] == 1819304813)
       {
         packetDescriptions = [_playbackCopy packetDescriptions];
         rawData = [_playbackCopy rawData];
@@ -96,171 +97,172 @@
 
     else
     {
-      v70 = 0;
-      v69 = 0uLL;
-      v68 = 0uLL;
+      v79 = 0;
+      memset(v78, 0, sizeof(v78));
     }
 
-    v57 = contextCopy;
-    v58 = v18;
-    v55 = handlerCopy;
+    v67 = contextCopy;
+    v68 = v20;
+    v65 = handlerCopy;
     rawData2 = [_playbackCopy rawData];
-    v21 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v66 = 0;
-    v67 = 0;
+    v23 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v76 = 0;
+    v77 = 0;
     if ([_playbackCopy packetCount] < 1)
     {
-      v24 = 0;
+      v26 = 0;
     }
 
     else
     {
-      v22 = 0;
-      v23 = 0;
       v24 = 0;
+      v25 = 0;
+      v26 = 0;
       do
       {
         packetDescriptions2 = [_playbackCopy packetDescriptions];
-        [packetDescriptions2 getBytes:&v66 range:{v22, 16}];
+        [packetDescriptions2 getBytes:&v76 range:{v24, 16}];
 
-        v26 = MEMORY[0x277CBEA90];
+        v28 = MEMORY[0x277CBEA90];
         bytes = [rawData2 bytes];
-        v28 = [v26 dataWithBytes:bytes + v66 length:HIDWORD(v67)];
-        [v21 addObject:v28];
-        v24 += [v28 length];
+        v30 = [v28 dataWithBytes:bytes + v76 length:HIDWORD(v77)];
+        [v23 addObject:v30];
+        v26 += [v30 length];
 
-        ++v23;
-        v22 += 16;
+        ++v25;
+        v24 += 16;
       }
 
-      while ([_playbackCopy packetCount] > v23);
+      while ([_playbackCopy packetCount] > v25);
     }
 
-    v29 = objc_alloc_init(MEMORY[0x277CE1AC8]);
+    v31 = objc_alloc_init(MEMORY[0x277CE1AC8]);
     if (_playbackCopy)
     {
-      [_playbackCopy asbd];
+      objc_msgSend_asbd(_playbackCopy);
     }
 
     else
     {
-      v75 = 0;
-      memset(v74, 0, sizeof(v74));
+      v84 = 0;
+      memset(v83, 0, sizeof(v83));
     }
 
-    v63[0] = _LTAudioFormat48khzPCM;
-    v63[1] = *&qword_233005D50;
-    v64 = 16;
-    v65 = 0;
-    v30 = [v29 decodeChunks:v21 from:v74 to:v63 outError:{&v65, 0x100000002, unk_233005D58, _LTAudioFormat48khzPCM}];
-    v31 = v65;
-    v32 = _LTOSLogTTS();
-    v33 = v32;
-    if (v31)
+    v73[0] = _LTAudioFormat48khzPCM;
+    v73[1] = *&qword_233005D50;
+    v74 = 16;
+    v75 = 0;
+    v32 = [v31 decodeChunks:v23 from:v83 to:v73 outError:{&v75, 0x100000002, unk_233005D58, _LTAudioFormat48khzPCM}];
+    v33 = v75;
+    v35 = _LTOSLogTTS(v33, v34);
+    v36 = v35;
+    if (v33)
     {
-      contextCopy = v57;
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      contextCopy = v67;
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
       {
         [_LTServerSpeakSession _playback:context:completion:audioStartHandler:];
       }
 
-      (completionCopy)[2](completionCopy, v58, v31);
+      (completionCopy)[2](completionCopy, v68, v33);
     }
 
     else
     {
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
       {
-        v34 = v33;
-        v35 = [v30 length];
-        *v74 = 134218240;
-        *&v74[4] = v24;
-        *&v74[12] = 2048;
-        *&v74[14] = v35;
-        _os_log_impl(&dword_232E53000, v34, OS_LOG_TYPE_INFO, "Converted %ld bytes to %ld bytes", v74, 0x16u);
+        v37 = v36;
+        v38 = [v32 length];
+        *v83 = 134218240;
+        *&v83[4] = v26;
+        *&v83[12] = 2048;
+        *&v83[14] = v38;
+        _os_log_impl(&dword_232E53000, v37, OS_LOG_TYPE_INFO, "Converted %ld bytes to %ld bytes", v83, 0x16u);
       }
 
-      buf = v54;
-      v72 = v53;
-      v73 = 16;
-      contextCopy = v57;
+      buf = v64;
+      v81 = v63;
+      v82 = 16;
+      contextCopy = v67;
     }
 
-    if (v31)
+    if (v33)
     {
-      v18 = v58;
-      rawData = v30;
-      handlerCopy = v55;
+      v20 = v68;
+      rawData = v32;
+      handlerCopy = v65;
 LABEL_40:
 
       goto LABEL_41;
     }
 
     packetDescriptions = 0;
-    v18 = v58;
-    rawData = v30;
-    handlerCopy = v55;
+    v20 = v68;
+    rawData = v32;
+    handlerCopy = v65;
 LABEL_29:
-    v36 = [rawData length];
-    v37 = v36 / DWORD2(v72);
-    v38 = v37 / *&buf;
-    v39 = _LTOSLogTTS();
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
+    v39 = [rawData length];
+    v40 = v39 / DWORD2(v81);
+    v41 = v40 / *&buf;
+    v43 = _LTOSLogTTS(v39, v42);
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
     {
-      [_LTServerSpeakSession _playback:v37 context:v39 completion:v38 audioStartHandler:?];
+      [_LTServerSpeakSession _playback:v40 context:v43 completion:v41 audioStartHandler:?];
     }
 
-    v40 = [_LTPlaybackService alloc];
-    *v74 = buf;
-    *&v74[16] = v72;
-    v75 = v73;
-    v41 = [(_LTPlaybackService *)v40 initWithContext:contextCopy ASBD:v74];
+    v44 = [_LTPlaybackService alloc];
+    *v83 = buf;
+    *&v83[16] = v81;
+    v84 = v82;
+    v45 = [(_LTPlaybackService *)v44 initWithContext:contextCopy ASBD:v83];
     player = self->_player;
-    self->_player = v41;
+    self->_player = v45;
 
-    v43 = self->_player;
-    if (v43)
+    v48 = self->_player;
+    if (v48)
     {
-      start = [(_LTPlaybackService *)v43 start];
+      start = [(_LTPlaybackService *)v48 start];
+      lt_internalTTSCreationError = start;
       if (!start)
       {
         _hasCachedCompletion2 = [(_LTServerSpeakSession *)self _hasCachedCompletion];
-        v49 = _LTOSLogTTS();
-        v50 = v49;
-        if (_hasCachedCompletion2)
+        v55 = _hasCachedCompletion2;
+        v57 = _LTOSLogTTS(_hasCachedCompletion2, v56);
+        v58 = v57;
+        if (v55)
         {
-          if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
+          if (os_log_type_enabled(v57, OS_LOG_TYPE_DEBUG))
           {
             [_LTServerSpeakSession _playback:context:completion:audioStartHandler:];
           }
 
-          v51 = [(_LTPlaybackService *)self->_player enqueue:rawData packetCount:0 packetDescriptions:0];
+          v59 = [(_LTPlaybackService *)self->_player enqueue:rawData packetCount:0 packetDescriptions:0];
           block[0] = MEMORY[0x277D85DD0];
           block[1] = 3221225472;
           block[2] = __72___LTServerSpeakSession__playback_context_completion_audioStartHandler___block_invoke;
           block[3] = &unk_2789B79B0;
-          v61 = handlerCopy;
-          v60 = _playbackCopy;
-          v62 = v38;
+          v71 = handlerCopy;
+          v70 = _playbackCopy;
+          v72 = v41;
           dispatch_async(MEMORY[0x277D85CD0], block);
           [(_LTPlaybackService *)self->_player flushAndStop];
-          [(_LTPlaybackService *)self->_player reset];
-          v52 = _LTOSLogTTS();
-          if (os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
+          reset = [(_LTPlaybackService *)self->_player reset];
+          v62 = _LTOSLogTTS(reset, v61);
+          if (os_log_type_enabled(v62, OS_LOG_TYPE_INFO))
           {
-            *v74 = 0;
-            _os_log_impl(&dword_232E53000, v52, OS_LOG_TYPE_INFO, "Finished TTS playback", v74, 2u);
+            *v83 = 0;
+            _os_log_impl(&dword_232E53000, v62, OS_LOG_TYPE_INFO, "Finished TTS playback", v83, 2u);
           }
 
-          (completionCopy)[2](completionCopy, v18, 0);
+          (completionCopy)[2](completionCopy, v20, 0);
         }
 
         else
         {
-          if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
+          if (os_log_type_enabled(v57, OS_LOG_TYPE_INFO))
           {
-            *v74 = 0;
-            _os_log_impl(&dword_232E53000, v50, OS_LOG_TYPE_INFO, "Not playing back audio for server speak session because it was previously cancelled since this request started", v74, 2u);
+            *v83 = 0;
+            _os_log_impl(&dword_232E53000, v58, OS_LOG_TYPE_INFO, "Not playing back audio for server speak session because it was previously cancelled since this request started", v83, 2u);
           }
 
           completionCopy[2](completionCopy, 0, 0);
@@ -269,8 +271,8 @@ LABEL_29:
         goto LABEL_39;
       }
 
-      v45 = _LTOSLogTTS();
-      if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+      v52 = _LTOSLogTTS(start, v50);
+      if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
       {
         [_LTServerSpeakSession _playback:context:completion:audioStartHandler:];
       }
@@ -278,31 +280,29 @@ LABEL_29:
 
     else
     {
-      v46 = _LTOSLogTTS();
-      if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+      v53 = _LTOSLogTTS(0, v47);
+      if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
       {
         [_LTServerSpeakSession _playback:context:completion:audioStartHandler:];
       }
 
-      start = [MEMORY[0x277CCA9B8] lt_internalTTSCreationError];
+      lt_internalTTSCreationError = [MEMORY[0x277CCA9B8] lt_internalTTSCreationError];
     }
 
-    (completionCopy)[2](completionCopy, v18, start);
+    (completionCopy)[2](completionCopy, v20, lt_internalTTSCreationError);
 LABEL_39:
 
     goto LABEL_40;
   }
 
-  if (v16)
+  if (v18)
   {
     LOWORD(buf) = 0;
-    _os_log_impl(&dword_232E53000, v15, OS_LOG_TYPE_INFO, "Not playing back audio for server speak session because it was previously cancelled", &buf, 2u);
+    _os_log_impl(&dword_232E53000, v17, OS_LOG_TYPE_INFO, "Not playing back audio for server speak session because it was previously cancelled", &buf, 2u);
   }
 
   completionCopy[2](completionCopy, 0, 0);
 LABEL_41:
-
-  v47 = *MEMORY[0x277D85DE8];
 }
 
 - (void)speak:(id)speak context:(id)context completion:(id)completion audioStartHandler:(id)handler
@@ -336,7 +336,7 @@ LABEL_41:
 
 - (void)cancel
 {
-  v3 = _LTOSLogTTS();
+  v3 = _LTOSLogTTS(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;
@@ -403,31 +403,14 @@ LABEL_41:
   _Block_object_dispose(&v15, 8);
 }
 
-- (void)_playback:context:completion:audioStartHandler:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 - (void)_playback:(double)a3 context:completion:audioStartHandler:.cold.2(uint64_t a1, NSObject *a2, double a3)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 134218240;
-  v5 = a3;
-  v6 = 2048;
-  v7 = a1;
-  _os_log_debug_impl(&dword_232E53000, a2, OS_LOG_TYPE_DEBUG, "Duration: %f. Total number of frames: %ld", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_playback:context:completion:audioStartHandler:.cold.3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 134218240;
+  v4 = a3;
+  v5 = 2048;
+  v6 = a1;
+  _os_log_debug_impl(&dword_232E53000, a2, OS_LOG_TYPE_DEBUG, "Duration: %f. Total number of frames: %ld", &v3, 0x16u);
 }
 
 - (void)_playback:context:completion:audioStartHandler:.cold.5()

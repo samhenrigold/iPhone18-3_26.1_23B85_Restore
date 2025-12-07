@@ -70,11 +70,11 @@ uint64_t __19__E5RunnerObjC_log__block_invoke()
 
 - (E5RunnerObjC)initWithModelConfiguration:(id)configuration error:(id *)error
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
-  v10.receiver = self;
-  v10.super_class = E5RunnerObjC;
-  if ([(E5RunnerObjC *)&v10 init])
+  v9.receiver = self;
+  v9.super_class = E5RunnerObjC;
+  if ([(E5RunnerObjC *)&v9 init])
   {
     v6 = +[E5RunnerObjC log];
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -86,29 +86,29 @@ uint64_t __19__E5RunnerObjC_log__block_invoke()
 
     if (configurationCopy)
     {
-      [configurationCopy modelConfiguration];
+      objc_msgSend_modelConfiguration(configurationCopy);
     }
 
     else
     {
-      v20 = 0;
+      v19 = 0;
       *__p = 0u;
-      v19 = 0u;
-      v16 = 0u;
-      v17 = 0u;
-      v14 = 0u;
+      v18 = 0u;
       v15 = 0u;
-      v12 = 0u;
+      v16 = 0u;
       v13 = 0u;
+      v14 = 0u;
+      v11 = 0u;
+      v12 = 0u;
       *buf = 0u;
     }
 
-    cgm::token_generation_inference::ajax::AJAXE5MLModelLoader::createModelFromBundle(buf, v7);
+    cgm::token_generation_inference::ajax::AJAXE5MLModelLoader::createModelFromBundle(buf);
   }
 
-  v8 = 0;
+  v7 = 0;
 
-  return v8;
+  return v7;
 }
 
 - (BOOL)supportsModularAttention
@@ -557,7 +557,7 @@ LABEL_18:
   v5 = v4;
   v3(a1);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_220940000, v6, v7, "Failed to run inference: %s.", v8, v9, v10, v11, v12);
+  OUTLINED_FUNCTION_4(&dword_220940000, v6, v7, "Failed to run inference: %s.", v8, v9, v10, v11);
 }
 
 - (void)createKVCacheEntry:(uint64_t)a1 error:.cold.1(uint64_t a1)
@@ -567,7 +567,7 @@ LABEL_18:
   v5 = v4;
   v3(a1);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_220940000, v6, v7, "Failed to run inference: %s.", v8, v9, v10, v11, v12);
+  OUTLINED_FUNCTION_4(&dword_220940000, v6, v7, "Failed to run inference: %s.", v8, v9, v10, v11);
 }
 
 + (void)compiledModelWithConfiguration:bundleCachePath:error:.cold.2()

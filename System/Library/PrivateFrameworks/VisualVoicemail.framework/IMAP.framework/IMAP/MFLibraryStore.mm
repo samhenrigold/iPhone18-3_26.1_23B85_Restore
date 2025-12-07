@@ -11,18 +11,30 @@
 - (BOOL)hasMessageForAccount:(id)account;
 - (BOOL)shouldGrowFetchWindow;
 - (MFLibraryStore)initWithCriterion:(id)criterion mailbox:(id)mailbox readOnly:(BOOL)only;
+- (MFLibraryStore)initWithMailboxUid:(id)uid readOnly:(BOOL)only;
 - (id)URLString;
 - (id)_cachedBodyDataContainerForMessage:(id)message valueIfNotPresent:(id)present;
 - (id)_cachedHeaderDataForMessage:(id)message valueIfNotPresent:(id)present;
 - (id)_cachedHeadersForMessage:(id)message valueIfNotPresent:(id)present;
+- (id)_copyDataFromMimePart:(id)part threshold:(unsigned int)threshold downloadIfNecessary:(BOOL)necessary;
+- (id)_fetchBodyDataForMessage:(id)message andHeaderDataIfReadilyAvailable:(id *)available downloadIfNecessary:(BOOL)necessary partial:(BOOL *)partial;
 - (id)_memberMessagesWithCompactionNotification:(id)notification;
+- (id)bodyDataForMessage:(id)message isComplete:(BOOL *)complete isPartial:(BOOL *)partial downloadIfNecessary:(BOOL)necessary;
 - (id)copyMessagesMatchingCriterion:(id)criterion options:(unsigned int)options;
 - (id)copyMessagesMatchingText:(id)text options:(unsigned int)options;
+- (id)copyMessagesWithRemoteIDs:(id)ds options:(unsigned int)options;
 - (id)copyMessagesWithRemoteIDs:(id)ds options:(unsigned int)options inMailbox:(id)mailbox;
+- (id)copyOfAllMessagesForBodyLoadingFromRowID:(unsigned int)d limit:(unsigned int)limit;
+- (id)copyOfAllMessagesWithOptions:(unsigned int)options;
+- (id)copyOfMessagesInRange:(_NSRange)range options:(unsigned int)options generation:(unint64_t *)generation;
 - (id)criterion;
+- (id)dataForMimePart:(id)part inRange:(_NSRange)range isComplete:(BOOL *)complete downloadIfNecessary:(BOOL)necessary didDownload:(BOOL *)download;
 - (id)dateOfNewestNonSearchResultMessage;
 - (id)dateOfOldestNonIndexedNonSearchResultMessage;
 - (id)filterMessagesByMembership:(id)membership;
+- (id)fullBodyDataForMessage:(id)message andHeaderDataIfReadilyAvailable:(id *)available isComplete:(BOOL *)complete downloadIfNecessary:(BOOL)necessary usePartDatas:(BOOL)datas didDownload:(BOOL *)download;
+- (id)messageForMessageID:(id)d options:(unsigned int)options;
+- (id)messageWithLibraryID:(unsigned int)d options:(unsigned int)options;
 - (id)mutableCopyOfAllMessages;
 - (id)newObjectCache;
 - (id)serverSearchResults;
@@ -30,10 +42,12 @@
 - (unint64_t)_calculateFetchWindowWithAdditionalMultiple:(BOOL)multiple;
 - (unint64_t)_fetchWindowMinimum;
 - (unint64_t)_fetchWindowMultiple;
+- (unint64_t)allNonDeletedCountIncludingServerSearch:(BOOL)search andThreadSearch:(BOOL)threadSearch;
 - (unint64_t)appendMessages:(id)messages unsuccessfulOnes:(id)ones newMessageIDs:(id)ds newMessages:(id)newMessages flagsToSet:(id)set;
 - (unint64_t)fetchWindow;
 - (unint64_t)fetchWindowCap;
 - (unint64_t)growFetchWindow;
+- (unint64_t)nonDeletedCountIncludingServerSearch:(BOOL)search andThreadSearch:(BOOL)threadSearch;
 - (unint64_t)serverUnreadOnlyOnServerCount;
 - (unint64_t)totalCount;
 - (unint64_t)unreadCount;
@@ -49,6 +63,7 @@
 - (void)dealloc;
 - (void)deleteBodyDataForMessage:(id)message;
 - (void)deleteMessages:(id)messages moveToTrash:(BOOL)trash;
+- (void)deleteMessagesOlderThanNumberOfDays:(int)days compact:(BOOL)compact;
 - (void)doCompact;
 - (void)handleMessageFlagsChanged:(id)changed;
 - (void)handleMessagesAdded:(id)added earliestReceivedDate:(id)date;
@@ -85,6 +100,16 @@
   }
 
   return v11;
+}
+
+- (MFLibraryStore)initWithMailboxUid:(id)uid readOnly:(BOOL)only
+{
+  onlyCopy = only;
+  uidCopy = uid;
+  criterion = [uidCopy criterion];
+  v8 = [(MFLibraryStore *)self initWithCriterion:criterion mailbox:uidCopy readOnly:onlyCopy];
+
+  return v8;
 }
 
 + (id)storeWithCriterion:(id)criterion
@@ -237,6 +262,189 @@ uint64_t __40__MFLibraryStore__addInvocationToQueue___block_invoke()
   return v4;
 }
 
+- (unint64_t)nonDeletedCountIncludingServerSearch:(BOOL)search andThreadSearch:(BOOL)threadSearch
+{
+  threadSearchCopy = threadSearch;
+  searchCopy = search;
+  library = self->_library;
+  uRLString = [(MFLibraryStore *)self URLString];
+  v8 = [(MFMessageLibrary *)library nonDeletedCountForMailbox:uRLString includeServerSearchResults:searchCopy includeThreadSearchResults:threadSearchCopy];
+
+  return v8;
+}
+
+- (unint64_t)allNonDeletedCountIncludingServerSearch:(BOOL)search andThreadSearch:(BOOL)threadSearch
+{
+  threadSearchCopy = threadSearch;
+  searchCopy = search;
+  library = self->_library;
+  uRLString = [(MFLibraryStore *)self URLString];
+  v8 = [(MFMessageLibrary *)library allNonDeleteCountForMailbox:uRLString includeServerSearchResults:searchCopy includeThreadSearchResults:threadSearchCopy];
+
+  return v8;
+}
+
+- (id)messageWithLibraryID:(unsigned int)d options:(unsigned int)options
+{
+  v4 = *&options;
+  v5 = *&d;
+  library = self->_library;
+  uRLString = [(MFLibraryStore *)self URLString];
+  v9 = [(MFMessageLibrary *)library messageWithLibraryID:v5 options:v4 inMailbox:uRLString];
+
+  [v9 setMessageStore:self];
+
+  return v9;
+}
+
+- (id)copyOfMessagesInRange:(_NSRange)range options:(unsigned int)options generation:(unint64_t *)generation
+{
+  v6 = *&options;
+  length = range.length;
+  location = range.location;
+  v30 = *MEMORY[0x277D85DE8];
+  [(MFLibraryStore *)self mf_lock];
+  if (generation)
+  {
+    *generation = self->super._generationNumber;
+  }
+
+  if (v6 == 399)
+  {
+    library = self->_library;
+    uRLString = [(MFLibraryStore *)self URLString];
+    v12 = [(MFMessageLibrary *)library messagesWithSummariesForMailbox:uRLString range:location, length];
+  }
+
+  else
+  {
+    if ((v6 & 0x180) != 0)
+    {
+      v13 = MEMORY[0x277CBEB18];
+      criterion = [(MFLibraryStore *)self criterion];
+      v15 = [v13 arrayWithObject:criterion];
+
+      if ((v6 & 0x80) != 0)
+      {
+        v16 = [MFMessageCriterion messageIsDeletedCriterion:0];
+        [v15 addObject:v16];
+      }
+
+      if ((v6 & 0x100) != 0)
+      {
+        v17 = [MFMessageCriterion messageIsServerSearchResultCriterion:0];
+        [v15 addObject:v17];
+      }
+
+      uRLString = [MFMessageCriterion andCompoundCriterionWithCriteria:v15];
+    }
+
+    else
+    {
+      uRLString = [(MFLibraryStore *)self criterion];
+    }
+
+    v12 = [(MFMessageLibrary *)self->_library messagesMatchingCriterion:uRLString options:v6 range:location, length];
+  }
+
+  v18 = v12;
+
+  [(MFLibraryStore *)self mf_unlock];
+  v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v19 = v18;
+  v20 = [v19 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  if (v20)
+  {
+    v21 = v20;
+    v22 = *v26;
+    do
+    {
+      v23 = 0;
+      do
+      {
+        if (*v26 != v22)
+        {
+          objc_enumerationMutation(v19);
+        }
+
+        [*(*(&v25 + 1) + 8 * v23++) setMessageStore:{self, v25}];
+      }
+
+      while (v21 != v23);
+      v21 = [v19 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    }
+
+    while (v21);
+  }
+
+  return v19;
+}
+
+- (id)copyOfAllMessagesWithOptions:(unsigned int)options
+{
+  v3 = *&options;
+  [(MFLibraryStore *)self mf_lock];
+  v5 = [(MFLibraryStore *)self copyOfMessagesInRange:0 options:0x7FFFFFFFFFFFFFFFLL, v3];
+  if ([v5 count] && self->super._state <= 1)
+  {
+    [(MFLibraryStore *)self mf_unlock];
+    [(MFMailMessageStore *)self messagesWereAdded:v5];
+    [(MFLibraryStore *)self addCountsForMessages:v5 shouldUpdateUnreadCount:0];
+  }
+
+  else
+  {
+    [(MFLibraryStore *)self mf_unlock];
+  }
+
+  return v5;
+}
+
+- (id)copyOfAllMessagesForBodyLoadingFromRowID:(unsigned int)d limit:(unsigned int)limit
+{
+  v4 = *&limit;
+  v5 = *&d;
+  v21 = *MEMORY[0x277D85DE8];
+  library = self->_library;
+  uRLString = [(MFLibraryStore *)self URLString];
+  v9 = [(MFMessageLibrary *)library messagesWithoutSummariesForMailbox:uRLString fromRowID:v5 limit:v4];
+
+  v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v10 = v9;
+  v11 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  if (v11)
+  {
+    v12 = v11;
+    v13 = *v17;
+    do
+    {
+      v14 = 0;
+      do
+      {
+        if (*v17 != v13)
+        {
+          objc_enumerationMutation(v10);
+        }
+
+        [*(*(&v16 + 1) + 8 * v14++) setMessageStore:{self, v16}];
+      }
+
+      while (v12 != v14);
+      v12 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    }
+
+    while (v12);
+  }
+
+  return v10;
+}
+
 - (id)mutableCopyOfAllMessages
 {
   copyOfAllMessages = [(MFLibraryStore *)self copyOfAllMessages];
@@ -247,29 +455,28 @@ uint64_t __40__MFLibraryStore__addInvocationToQueue___block_invoke()
 
 - (id)copyMessagesMatchingText:(id)text options:(unsigned int)options
 {
-  v20[3] = *MEMORY[0x277D85DE8];
+  v19[3] = *MEMORY[0x277D85DE8];
   textCopy = text;
   v7 = [[MFMessageCriterion alloc] initWithType:34 qualifier:0 expression:textCopy];
   v8 = [[MFMessageCriterion alloc] initWithType:9 qualifier:0 expression:textCopy];
   v9 = [[MFMessageCriterion alloc] initWithType:1 qualifier:0 expression:textCopy];
 
   [(MFMessageCriterion *)v9 setCriterionIdentifier:*MEMORY[0x277D07030]];
-  v20[0] = v7;
-  v20[1] = v8;
-  v20[2] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:3];
+  v19[0] = v7;
+  v19[1] = v8;
+  v19[2] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:3];
   v11 = [MFMessageCriterion orCompoundCriterionWithCriteria:v10];
 
   criterion = [(MFLibraryStore *)self criterion];
-  v19[0] = criterion;
-  v19[1] = v11;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
+  v18[0] = criterion;
+  v18[1] = v11;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
   v14 = [MFMessageCriterion andCompoundCriterionWithCriteria:v13];
 
   library = [(MFLibraryStore *)self library];
   v16 = [library messagesMatchingCriterion:v14 options:options | 3];
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -293,6 +500,16 @@ uint64_t __40__MFLibraryStore__addInvocationToQueue___block_invoke()
 
   [v14 makeObjectsPerformSelector:sel_setMessageStore_ withObject:self];
   return v14;
+}
+
+- (id)copyMessagesWithRemoteIDs:(id)ds options:(unsigned int)options
+{
+  v4 = *&options;
+  dsCopy = ds;
+  mailboxUid = [(MFMailMessageStore *)self mailboxUid];
+  v8 = [(MFLibraryStore *)self copyMessagesWithRemoteIDs:dsCopy options:v4 inMailbox:mailboxUid];
+
+  return v8;
 }
 
 - (id)copyMessagesWithRemoteIDs:(id)ds options:(unsigned int)options inMailbox:(id)mailbox
@@ -490,23 +707,23 @@ uint64_t __40__MFLibraryStore__addInvocationToQueue___block_invoke()
 
 - (id)filterMessagesByMembership:(id)membership
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   membershipCopy = membership;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v5 = [membershipCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [membershipCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
     array = 0;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(membershipCopy);
         }
@@ -514,7 +731,7 @@ uint64_t __40__MFLibraryStore__addInvocationToQueue___block_invoke()
         mailboxUid = self->super._mailboxUid;
         if (mailboxUid)
         {
-          v11 = *(*(&v15 + 1) + 8 * i);
+          v11 = *(*(&v14 + 1) + 8 * i);
           mailbox = [v11 mailbox];
 
           if (mailboxUid == mailbox)
@@ -529,7 +746,7 @@ uint64_t __40__MFLibraryStore__addInvocationToQueue___block_invoke()
         }
       }
 
-      v6 = [membershipCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [membershipCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
@@ -539,8 +756,6 @@ uint64_t __40__MFLibraryStore__addInvocationToQueue___block_invoke()
   {
     array = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -588,33 +803,33 @@ uint64_t __40__MFLibraryStore__addInvocationToQueue___block_invoke()
 
 - (void)_handleFlagsChangedForMessages:(id)messages flags:(id)flags oldFlagsByMessage:(id)message
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   messagesCopy = messages;
   flagsCopy = flags;
   messageCopy = message;
   type = [(MFMailboxUid *)self->super._mailboxUid type];
   [(MFLibraryStore *)self mf_lock];
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   obj = messagesCopy;
-  v12 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v12 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v30;
-    v27 = type - 5;
+    v14 = *v29;
+    v26 = type - 5;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v30 != v14)
+        if (*v29 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v29 + 1) + 8 * i);
+        v16 = *(*(&v28 + 1) + 8 * i);
         v17 = [messageCopy objectForKey:v16];
         intValue = [v17 intValue];
 
@@ -644,7 +859,7 @@ uint64_t __40__MFLibraryStore__addInvocationToQueue___block_invoke()
           {
             self->super._deletedMessageCount = deletedMessageCount + 1;
             self->super._deletedMessagesSize += messageSize;
-            if (v27 > 1)
+            if (v26 > 1)
             {
               goto LABEL_15;
             }
@@ -677,14 +892,13 @@ LABEL_22:
         }
       }
 
-      v13 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v13 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v13);
   }
 
   [(MFLibraryStore *)self mf_unlock];
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleMessageFlagsChanged:(id)changed
@@ -718,40 +932,40 @@ LABEL_5:
 
 - (id)_memberMessagesWithCompactionNotification:(id)notification
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   userInfo = [notificationCopy userInfo];
   v6 = [userInfo objectForKey:@"messages"];
   v7 = [userInfo objectForKey:@"mailboxes"];
   if ([v6 count] && self->super._mailboxUid && objc_msgSend(v7, "indexOfObject:") != 0x7FFFFFFFFFFFFFFFLL)
   {
-    v20 = v7;
-    v21 = v6;
-    v22 = userInfo;
-    v23 = notificationCopy;
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
+    v19 = v7;
+    v20 = v6;
+    v21 = userInfo;
+    v22 = notificationCopy;
     v25 = 0u;
-    v12 = v6;
-    v13 = [v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
-    if (v13)
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
+    v11 = v6;
+    v12 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    if (v12)
     {
-      v14 = v13;
+      v13 = v12;
       array = 0;
-      v15 = *v25;
+      v14 = *v24;
       do
       {
-        for (i = 0; i != v14; ++i)
+        for (i = 0; i != v13; ++i)
         {
-          if (*v25 != v15)
+          if (*v24 != v14)
           {
-            objc_enumerationMutation(v12);
+            objc_enumerationMutation(v11);
           }
 
-          v17 = *(*(&v24 + 1) + 8 * i);
+          v16 = *(*(&v23 + 1) + 8 * i);
           mailboxUid = self->super._mailboxUid;
-          mailbox = [v17 mailbox];
+          mailbox = [v16 mailbox];
 
           if (mailboxUid == mailbox)
           {
@@ -760,14 +974,14 @@ LABEL_5:
               array = [MEMORY[0x277CBEB18] array];
             }
 
-            [array addObject:v17];
+            [array addObject:v16];
           }
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
-      while (v14);
+      while (v13);
     }
 
     else
@@ -775,10 +989,10 @@ LABEL_5:
       array = 0;
     }
 
-    userInfo = v22;
-    notificationCopy = v23;
-    v7 = v20;
-    v6 = v21;
+    userInfo = v21;
+    notificationCopy = v22;
+    v7 = v19;
+    v6 = v20;
   }
 
   else
@@ -788,7 +1002,6 @@ LABEL_5:
 
   v9 = array;
 
-  v10 = *MEMORY[0x277D85DE8];
   return array;
 }
 
@@ -822,84 +1035,133 @@ LABEL_5:
   [(MFMailMessageStore *)&v3 dealloc];
 }
 
+- (id)messageForMessageID:(id)d options:(unsigned int)options
+{
+  v4 = *&options;
+  library = self->_library;
+  dCopy = d;
+  uRLString = [(MFLibraryStore *)self URLString];
+  v9 = [(MFMessageLibrary *)library messageWithMessageID:dCopy options:v4 inMailbox:uRLString];
+
+  [v9 setMessageStore:self];
+
+  return v9;
+}
+
+- (id)_fetchBodyDataForMessage:(id)message andHeaderDataIfReadilyAvailable:(id *)available downloadIfNecessary:(BOOL)necessary partial:(BOOL *)partial
+{
+  result = [(MFMessageLibrary *)self->_library bodyDataForMessage:message andHeaderDataIfReadilyAvailable:available, necessary];
+  if (partial)
+  {
+    *partial = 1;
+  }
+
+  return result;
+}
+
+- (id)dataForMimePart:(id)part inRange:(_NSRange)range isComplete:(BOOL *)complete downloadIfNecessary:(BOOL)necessary didDownload:(BOOL *)download
+{
+  necessaryCopy = necessary;
+  length = range.length;
+  location = range.location;
+  v13 = MEMORY[0x277D24EE8];
+  partCopy = part;
+  v15 = objc_alloc_init(v13);
+  v16 = [objc_alloc(MEMORY[0x277D24F88]) initWithConsumer:v15];
+  LODWORD(download) = [(MFLibraryStore *)self dataForMimePart:partCopy inRange:location isComplete:length withConsumer:complete downloadIfNecessary:v16 didDownload:necessaryCopy, download];
+
+  [v16 done];
+  if (download)
+  {
+    data = [v15 data];
+  }
+
+  else
+  {
+    data = 0;
+  }
+
+  return data;
+}
+
 - (BOOL)dataForMimePart:(id)part inRange:(_NSRange)range isComplete:(BOOL *)complete withConsumer:(id)consumer downloadIfNecessary:(BOOL)necessary didDownload:(BOOL *)download
 {
   necessaryCopy = necessary;
   location = range.location;
   length = range.length;
-  v92 = *MEMORY[0x277D85DE8];
+  v94 = *MEMORY[0x277D85DE8];
   partCopy = part;
   consumerCopy = consumer;
   mimeBody = [partCopy mimeBody];
   message = [mimeBody message];
 
-  v15 = getLogger_0();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v16 = getLogger_0(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     mailboxUid = [(MFMailMessageStore *)self mailboxUid];
     mambaID = [mailboxUid mambaID];
     [message messageID];
-    v19 = v18 = consumerCopy;
+    v20 = v19 = consumerCopy;
     partNumber = [partCopy partNumber];
     *buf = 136315906;
-    v83 = mambaID;
-    v84 = 2080;
-    v85 = " ";
-    v86 = 2114;
-    v87 = v19;
+    v85 = mambaID;
+    v86 = 2080;
+    v87 = " ";
     v88 = 2114;
-    v89 = partNumber;
-    _os_log_impl(&dword_2720B1000, v15, OS_LOG_TYPE_DEFAULT, "#I %s%s#CacheLoads requesting data for MIME part %{public}@:%{public}@", buf, 0x2Au);
+    v89 = v20;
+    v90 = 2114;
+    v91 = partNumber;
+    _os_log_impl(&dword_2720B1000, v16, OS_LOG_TYPE_DEFAULT, "#I %s%s#CacheLoads requesting data for MIME part %{public}@:%{public}@", buf, 0x2Au);
 
-    consumerCopy = v18;
+    consumerCopy = v19;
   }
 
   parentPart = [partCopy parentPart];
 
   if (parentPart || length != 0x7FFFFFFFFFFFFFFFLL)
   {
-    v24 = [(MFLibraryStore *)self _cachedBodyDataContainerForMessage:message valueIfNotPresent:0];
-    v25 = v24;
-    if (v24 && (v26 = MEMORY[0x277D24FE8], *(v24 + *MEMORY[0x277D24FE8])) && (*(v24 + *MEMORY[0x277D24FF8]) & 1) == 0)
+    v25 = [(MFLibraryStore *)self _cachedBodyDataContainerForMessage:message valueIfNotPresent:0];
+    v26 = v25;
+    if (v25 && (v27 = MEMORY[0x277D24FE8], *(v25 + *MEMORY[0x277D24FE8])) && (*(v25 + *MEMORY[0x277D24FF8]) & 1) == 0)
     {
-      v75 = consumerCopy;
-      v40 = getLogger_0();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+      v77 = consumerCopy;
+      v41 = getLogger_0(v25);
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
       {
         mailboxUid2 = [(MFMailMessageStore *)self mailboxUid];
         mambaID2 = [mailboxUid2 mambaID];
         messageID = [message messageID];
         partNumber2 = [partCopy partNumber];
         *buf = 136315906;
-        v83 = mambaID2;
-        v84 = 2080;
-        v85 = " ";
-        v86 = 2114;
-        v87 = messageID;
+        v85 = mambaID2;
+        v86 = 2080;
+        v87 = " ";
         v88 = 2114;
-        v89 = partNumber2;
-        _os_log_impl(&dword_2720B1000, v40, OS_LOG_TYPE_DEFAULT, "#I %s%s#CacheLoads found full cached data for %{public}@:%{public}@", buf, 0x2Au);
+        v89 = messageID;
+        v90 = 2114;
+        v91 = partNumber2;
+        _os_log_impl(&dword_2720B1000, v41, OS_LOG_TYPE_DEFAULT, "#I %s%s#CacheLoads found full cached data for %{public}@:%{public}@", buf, 0x2Au);
       }
 
-      v44 = [*&v25[*v26] length];
+      v45 = [*&v26[*v27] length];
       range = [partCopy range];
-      v22 = 0;
+      v23 = 0;
       if (range == 0x7FFFFFFFFFFFFFFFLL)
       {
-        consumerCopy = v75;
+        consumerCopy = v77;
       }
 
       else
       {
-        v47 = range;
-        v48 = v46;
-        v49 = range + v46 > v44;
-        consumerCopy = v75;
-        if (!v49)
+        v48 = range;
+        v49 = v47;
+        v50 = range + v47 > v45;
+        consumerCopy = v77;
+        if (!v50)
         {
-          v22 = *&v25[*v26];
-          v50 = [v22 mf_subdataWithRange:{v47, v48}];
-          [v75 appendData:v50];
+          v23 = *&v26[*v27];
+          v51 = [v23 mf_subdataWithRange:{v48, v49}];
+          [v77 appendData:v51];
 
           if (complete)
           {
@@ -911,17 +1173,17 @@ LABEL_5:
 
     else
     {
-      v22 = 0;
+      v23 = 0;
     }
 
-    if (v22 || location)
+    if (v23 || location)
     {
-      if (v22)
+      if (v23)
       {
 LABEL_23:
 
 LABEL_24:
-        v23 = 1;
+        v24 = 1;
         goto LABEL_25;
       }
     }
@@ -929,32 +1191,32 @@ LABEL_24:
     else
     {
       library = [(MFLibraryStore *)self library];
-      v22 = [library dataForMimePart:partCopy isComplete:complete];
+      v23 = [library dataForMimePart:partCopy isComplete:complete];
 
-      if (v22)
+      if (v23)
       {
-        v28 = v25;
-        v29 = getLogger_0();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+        v30 = v26;
+        v31 = getLogger_0(v29);
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
         {
           mailboxUid3 = [(MFMailMessageStore *)self mailboxUid];
           mambaID3 = [mailboxUid3 mambaID];
           messageID2 = [message messageID];
           [partCopy partNumber];
-          v34 = v33 = consumerCopy;
+          v36 = v35 = consumerCopy;
           *buf = 136315906;
-          v83 = mambaID3;
-          v84 = 2080;
-          v85 = " ";
-          v86 = 2114;
-          v87 = messageID2;
+          v85 = mambaID3;
+          v86 = 2080;
+          v87 = " ";
           v88 = 2114;
-          v89 = v34;
-          v35 = "#I %s%s#CacheLoads found part data in database %{public}@:%{public}@";
+          v89 = messageID2;
+          v90 = 2114;
+          v91 = v36;
+          v37 = "#I %s%s#CacheLoads found part data in database %{public}@:%{public}@";
 LABEL_21:
-          _os_log_impl(&dword_2720B1000, v29, OS_LOG_TYPE_DEFAULT, v35, buf, 0x2Au);
+          _os_log_impl(&dword_2720B1000, v31, OS_LOG_TYPE_DEFAULT, v37, buf, 0x2Au);
 
-          consumerCopy = v33;
+          consumerCopy = v35;
           goto LABEL_22;
         }
 
@@ -962,43 +1224,43 @@ LABEL_21:
       }
     }
 
-    v36 = partDataFromFullBodyData(self, message, partCopy, complete, 0, download);
-    if (v36)
+    v38 = partDataFromFullBodyData(self, message, partCopy, complete, 0, download);
+    if (v38)
     {
-      v22 = v36;
-      v28 = v25;
-      v29 = getLogger_0();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+      v23 = v38;
+      v30 = v26;
+      v31 = getLogger_0(v38);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
       {
         mailboxUid3 = [(MFMailMessageStore *)self mailboxUid];
         mambaID4 = [mailboxUid3 mambaID];
         messageID2 = [message messageID];
         [partCopy partNumber];
-        v34 = v33 = consumerCopy;
+        v36 = v35 = consumerCopy;
         *buf = 136315906;
-        v83 = mambaID4;
-        v84 = 2080;
-        v85 = " ";
-        v86 = 2114;
-        v87 = messageID2;
+        v85 = mambaID4;
+        v86 = 2080;
+        v87 = " ";
         v88 = 2114;
-        v89 = v34;
-        v35 = "#I %s%s#CacheLoads extracted part data from full body data in database %{public}@:%{public}@";
+        v89 = messageID2;
+        v90 = 2114;
+        v91 = v36;
+        v37 = "#I %s%s#CacheLoads extracted part data from full body data in database %{public}@:%{public}@";
         goto LABEL_21;
       }
 
 LABEL_22:
 
-      [consumerCopy appendData:v22];
-      v25 = v28;
+      [consumerCopy appendData:v23];
+      v26 = v30;
       goto LABEL_23;
     }
 
     type = [partCopy type];
-    v52 = [type isEqualToString:@"multipart"];
+    v53 = [type isEqualToString:@"multipart"];
 
-    v23 = 0;
-    if (v52)
+    v24 = 0;
+    if (v53)
     {
       downloadCopy4 = download;
     }
@@ -1008,73 +1270,73 @@ LABEL_22:
       downloadCopy4 = download;
       if (necessaryCopy)
       {
-        v54 = getLogger_0();
-        if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
+        v56 = getLogger_0(v54);
+        if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
         {
           mailboxUid4 = [(MFMailMessageStore *)self mailboxUid];
           mambaID5 = [mailboxUid4 mambaID];
           [message messageID];
-          v76 = v25;
-          v58 = v57 = consumerCopy;
+          v78 = v26;
+          v60 = v59 = consumerCopy;
           partNumber3 = [partCopy partNumber];
           *buf = 136315906;
-          v83 = mambaID5;
+          v85 = mambaID5;
           downloadCopy4 = download;
-          v84 = 2080;
-          v85 = " ";
-          v86 = 2114;
-          v87 = v58;
+          v86 = 2080;
+          v87 = " ";
           v88 = 2114;
-          v89 = partNumber3;
-          _os_log_impl(&dword_2720B1000, v54, OS_LOG_TYPE_DEFAULT, "#I %s%s#CacheLoads downloading part data from server %{public}@:%{public}@", buf, 0x2Au);
+          v89 = v60;
+          v90 = 2114;
+          v91 = partNumber3;
+          _os_log_impl(&dword_2720B1000, v56, OS_LOG_TYPE_DEFAULT, "#I %s%s#CacheLoads downloading part data from server %{public}@:%{public}@", buf, 0x2Au);
 
-          consumerCopy = v57;
-          v25 = v76;
+          consumerCopy = v59;
+          v26 = v78;
         }
 
         consumerCopy = [(MFLibraryStore *)self _fetchDataForMimePart:partCopy range:location isComplete:length consumer:complete, consumerCopy];
-        v23 = consumerCopy;
+        v24 = consumerCopy;
         if (downloadCopy4)
         {
-          *downloadCopy4 = consumerCopy;
+          *downloadCopy4 = consumerCopy & 1;
         }
 
-        v61 = getLogger_0();
-        if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
+        v63 = getLogger_0(consumerCopy);
+        if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
         {
           mailboxUid5 = [(MFMailMessageStore *)self mailboxUid];
           mambaID6 = [mailboxUid5 mambaID];
-          if (v23)
+          if (v24)
           {
-            v63 = @"SUCCESS";
+            v65 = @"SUCCESS";
           }
 
           else
           {
-            v63 = @"FAILED";
+            v65 = @"FAILED";
           }
 
           [message messageID];
-          v64 = v77 = consumerCopy;
+          v66 = v79 = consumerCopy;
           partNumber4 = [partCopy partNumber];
           *buf = 136316162;
-          v83 = mambaID6;
+          v85 = mambaID6;
           downloadCopy4 = download;
-          v84 = 2080;
-          v85 = " ";
-          v86 = 2112;
-          v87 = v63;
-          v88 = 2114;
-          v89 = v64;
+          v86 = 2080;
+          v87 = " ";
+          v88 = 2112;
+          v89 = v65;
           v90 = 2114;
-          v91 = partNumber4;
-          _os_log_impl(&dword_2720B1000, v61, OS_LOG_TYPE_DEFAULT, "#I %s%s#CacheLoads %@ downloading part data from server %{public}@:%{public}@", buf, 0x34u);
+          v91 = v66;
+          v92 = 2114;
+          v93 = partNumber4;
+          _os_log_impl(&dword_2720B1000, v63, OS_LOG_TYPE_DEFAULT, "#I %s%s#CacheLoads %@ downloading part data from server %{public}@:%{public}@", buf, 0x34u);
 
-          consumerCopy = v77;
+          consumerCopy = v79;
         }
       }
 
-      if (v23)
+      if (v24)
       {
         goto LABEL_52;
       }
@@ -1082,53 +1344,52 @@ LABEL_22:
 
     if (necessaryCopy)
     {
-      v66 = partDataFromFullBodyData(self, message, partCopy, complete, 1, downloadCopy4);
-      if (v66)
+      v68 = partDataFromFullBodyData(self, message, partCopy, complete, 1, downloadCopy4);
+      if (v68)
       {
-        v22 = v66;
-        v67 = v25;
-        v68 = getLogger_0();
-        if (os_log_type_enabled(v68, OS_LOG_TYPE_DEFAULT))
+        v23 = v68;
+        v69 = v26;
+        v70 = getLogger_0(v68);
+        if (os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
         {
           mailboxUid6 = [(MFMailMessageStore *)self mailboxUid];
           mambaID7 = [mailboxUid6 mambaID];
           messageID3 = [message messageID];
           [partCopy partNumber];
-          v73 = v72 = consumerCopy;
+          v75 = v74 = consumerCopy;
           *buf = 136315906;
-          v83 = mambaID7;
-          v84 = 2080;
-          v85 = " ";
-          v86 = 2114;
-          v87 = messageID3;
+          v85 = mambaID7;
+          v86 = 2080;
+          v87 = " ";
           v88 = 2114;
-          v89 = v73;
-          _os_log_impl(&dword_2720B1000, v68, OS_LOG_TYPE_DEFAULT, "#I %s%s#CacheLoads extracted part data from full body data via download %{public}@:%{public}@", buf, 0x2Au);
+          v89 = messageID3;
+          v90 = 2114;
+          v91 = v75;
+          _os_log_impl(&dword_2720B1000, v70, OS_LOG_TYPE_DEFAULT, "#I %s%s#CacheLoads extracted part data from full body data via download %{public}@:%{public}@", buf, 0x2Au);
 
-          consumerCopy = v72;
+          consumerCopy = v74;
         }
 
-        [consumerCopy appendData:v22];
+        [consumerCopy appendData:v23];
         goto LABEL_24;
       }
     }
 
 LABEL_52:
-    v22 = v25;
+    v23 = v26;
     goto LABEL_25;
   }
 
-  v22 = [(MFLibraryStore *)self fullBodyDataForMessage:message andHeaderDataIfReadilyAvailable:0 isComplete:0 downloadIfNecessary:necessaryCopy usePartDatas:0 didDownload:download];
-  if (v22)
+  v23 = [(MFLibraryStore *)self fullBodyDataForMessage:message andHeaderDataIfReadilyAvailable:0 isComplete:0 downloadIfNecessary:necessaryCopy usePartDatas:0 didDownload:download];
+  if (v23)
   {
-    [consumerCopy appendData:v22];
+    [consumerCopy appendData:v23];
   }
 
-  v23 = v22 != 0;
+  v24 = v23 != 0;
 LABEL_25:
 
-  v38 = *MEMORY[0x277D85DE8];
-  return v23;
+  return v24;
 }
 
 - (id)storeData:(id)data forMimePart:(id)part isComplete:(BOOL)complete
@@ -1156,6 +1417,467 @@ LABEL_25:
   }
 
   return data;
+}
+
+- (id)_copyDataFromMimePart:(id)part threshold:(unsigned int)threshold downloadIfNecessary:(BOOL)necessary
+{
+  necessaryCopy = necessary;
+  partCopy = part;
+  v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v9 = v8;
+  if (threshold != -1)
+  {
+    [v8 addObject:partCopy];
+    if (![v9 count])
+    {
+      goto LABEL_39;
+    }
+
+    do
+    {
+      v10 = [v9 objectAtIndex:0];
+      firstChildPart = [v10 firstChildPart];
+      if (firstChildPart)
+      {
+        v12 = firstChildPart;
+        do
+        {
+          [v9 addObject:v12];
+          nextSiblingPart = [v12 nextSiblingPart];
+
+          v12 = nextSiblingPart;
+        }
+
+        while (nextSiblingPart);
+      }
+
+      else if ([v10 isAttachment])
+      {
+        [v10 range];
+        LODWORD(v12) = v14 >= threshold;
+      }
+
+      else
+      {
+        LODWORD(v12) = 0;
+      }
+
+      [v9 removeObjectAtIndex:0];
+    }
+
+    while ([v9 count] && !v12);
+    if (!v12)
+    {
+LABEL_39:
+      v35 = 0;
+      goto LABEL_42;
+    }
+  }
+
+  Mutable = CFDictionaryCreateMutable(0, 0, 0, MEMORY[0x277CBF150]);
+  mimeBody = [partCopy mimeBody];
+  message = [mimeBody message];
+
+  [v9 removeAllObjects];
+  [v9 addObject:partCopy];
+  if (!Mutable)
+  {
+LABEL_38:
+    v35 = 0;
+    goto LABEL_41;
+  }
+
+  thresholdCopy = threshold;
+  while ([v9 count])
+  {
+    v19 = [v9 objectAtIndex:0];
+    firstChildPart2 = [v19 firstChildPart];
+    if (firstChildPart2)
+    {
+      v21 = firstChildPart2;
+      do
+      {
+        [v9 addObject:v21];
+        nextSiblingPart2 = [v21 nextSiblingPart];
+
+        v21 = nextSiblingPart2;
+      }
+
+      while (nextSiblingPart2);
+      type = [v19 type];
+      v24 = [type isEqualToString:@"multipart"];
+
+      if ((v24 & 1) == 0)
+      {
+        goto LABEL_23;
+      }
+    }
+
+    else if (![v19 isAttachment] || (objc_msgSend(v19, "range"), v25 < thresholdCopy))
+    {
+LABEL_23:
+      [v19 range];
+      if (v26)
+      {
+        v27 = [message dataForMimePart:v19 inRange:0 isComplete:0x7FFFFFFFFFFFFFFFLL downloadIfNecessary:0 didDownload:{necessaryCopy, 0}];
+        data = [v19 decodedDataForData:v27];
+      }
+
+      else
+      {
+        data = [MEMORY[0x277CBEA90] data];
+      }
+
+      firstChildPart3 = [v19 firstChildPart];
+      v30 = firstChildPart3;
+      if (firstChildPart3)
+      {
+        v29FirstChildPart = [firstChildPart3 firstChildPart];
+        if (v29FirstChildPart || ![v30 isAttachment])
+        {
+LABEL_32:
+        }
+
+        else if ([data length])
+        {
+          [v30 range];
+          if (v32 >= thresholdCopy)
+          {
+            [MEMORY[0x277CCACA8] stringWithFormat:@"X-Apple-Content-Length: %lu\n", v32];
+            v33 = v38 = thresholdCopy;
+            v29FirstChildPart = [v33 dataUsingEncoding:1];
+
+            v34 = [v29FirstChildPart mutableCopy];
+            [v34 appendData:data];
+
+            data = v34;
+            thresholdCopy = v38;
+            goto LABEL_32;
+          }
+        }
+      }
+
+      if (data)
+      {
+        CFDictionarySetValue(Mutable, v19, data);
+      }
+
+      else
+      {
+        CFRelease(Mutable);
+        Mutable = 0;
+      }
+    }
+
+    [v9 removeObjectAtIndex:0];
+
+    if (!Mutable)
+    {
+      goto LABEL_38;
+    }
+  }
+
+  v35 = objc_alloc_init(MEMORY[0x277CBEB28]);
+  v36 = objc_alloc_init(MFMessageWriter);
+  [(MFMessageWriter *)v36 appendDataForMimePart:partCopy toData:v35 withPartData:Mutable];
+  CFRelease(Mutable);
+
+LABEL_41:
+LABEL_42:
+
+  return v35;
+}
+
+- (id)fullBodyDataForMessage:(id)message andHeaderDataIfReadilyAvailable:(id *)available isComplete:(BOOL *)complete downloadIfNecessary:(BOOL)necessary usePartDatas:(BOOL)datas didDownload:(BOOL *)download
+{
+  datasCopy = datas;
+  necessaryCopy = necessary;
+  v43 = *MEMORY[0x277D85DE8];
+  messageCopy = message;
+  v14 = [(MFLibraryStore *)self _cachedBodyDataContainerForMessage:messageCopy valueIfNotPresent:0];
+  v15 = v14;
+  if (v14)
+  {
+    if ((*(v14 + *MEMORY[0x277D24FF8]) & 1) == 0)
+    {
+      v16 = MEMORY[0x277D24FF0];
+      if (complete || (*(v14 + *MEMORY[0x277D24FF0]) & 1) == 0)
+      {
+        v17 = *(v14 + *MEMORY[0x277D24FE8]);
+        v18 = v17;
+        if (complete)
+        {
+          *complete = v15[*v16] ^ 1;
+        }
+
+        v19 = getLogger_0(v17);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+        {
+          mailboxUid = [(MFMailMessageStore *)self mailboxUid];
+          *buf = 136315650;
+          mambaID = [mailboxUid mambaID];
+          v39 = 2080;
+          v40 = " ";
+          v41 = 2112;
+          v42 = messageCopy;
+          _os_log_impl(&dword_2720B1000, v19, OS_LOG_TYPE_DEFAULT, "#I %s%s#CacheLoads returning cached full body data for %@", buf, 0x20u);
+        }
+
+        if (v18)
+        {
+          v21 = 0;
+          goto LABEL_34;
+        }
+      }
+    }
+  }
+
+  if ([messageCopy isLibraryMessage])
+  {
+    library = self->_library;
+    v36 = 0;
+    v18 = [(MFMessageLibrary *)library fullBodyDataForMessage:messageCopy andHeaderDataIfReadilyAvailable:&v36];
+    v23 = v36;
+    v24 = v23;
+    if (v18)
+    {
+      v21 = [objc_alloc(MEMORY[0x277D24F30]) initWithData:v18 partial:1 incomplete:0];
+      v25 = [(MFLibraryStore *)self _cachedBodyDataContainerForMessage:messageCopy valueIfNotPresent:v21];
+      goto LABEL_31;
+    }
+
+    v21 = v23;
+    if (!datasCopy)
+    {
+      goto LABEL_18;
+    }
+
+LABEL_15:
+    if (necessaryCopy)
+    {
+      [messageCopy messageBodyUpdatingFlags:0];
+    }
+
+    else
+    {
+      [messageCopy messageBodyIfAvailableUpdatingFlags:0];
+    }
+    v26 = ;
+    if (v26 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+    {
+      topLevelPart = [v26 topLevelPart];
+      v18 = [(MFLibraryStore *)self _copyDataFromMimePart:topLevelPart threshold:0xFFFFFFFFLL downloadIfNecessary:necessaryCopy];
+      if (v18)
+      {
+        v33 = topLevelPart;
+        v28 = [objc_alloc(MEMORY[0x277D24F30]) initWithData:v18 partial:0 incomplete:0];
+        v29 = [(MFLibraryStore *)self _cachedBodyDataContainerForMessage:messageCopy valueIfNotPresent:v28];
+        if (download)
+        {
+          *download = 1;
+        }
+
+        topLevelPart = v33;
+      }
+    }
+
+    else
+    {
+      v18 = 0;
+    }
+
+    if (v18)
+    {
+      goto LABEL_32;
+    }
+
+    goto LABEL_29;
+  }
+
+  v21 = 0;
+  if (datasCopy)
+  {
+    goto LABEL_15;
+  }
+
+LABEL_18:
+  v18 = 0;
+LABEL_29:
+  if (!necessaryCopy)
+  {
+    goto LABEL_32;
+  }
+
+  v35 = v21;
+  v18 = [(MFLibraryStore *)self _fetchFullBodyDataForMessage:messageCopy andHeaderDataIfReadilyAvailable:&v35 downloadIfNecessary:1 didDownload:download];
+  v24 = v35;
+LABEL_31:
+
+  v21 = v24;
+LABEL_32:
+  if (v21)
+  {
+    v30 = [(MFLibraryStore *)self _cachedHeaderDataForMessage:messageCopy valueIfNotPresent:v21];
+  }
+
+LABEL_34:
+  if (complete)
+  {
+    *complete = v18 != 0;
+  }
+
+  if (available)
+  {
+    v31 = v21;
+    *available = v21;
+  }
+
+  return v18;
+}
+
+- (id)bodyDataForMessage:(id)message isComplete:(BOOL *)complete isPartial:(BOOL *)partial downloadIfNecessary:(BOOL)necessary
+{
+  necessaryCopy = necessary;
+  v48 = *MEMORY[0x277D85DE8];
+  messageCopy = message;
+  v11 = [(MFLibraryStore *)self _cachedBodyDataContainerForMessage:messageCopy valueIfNotPresent:0];
+  v12 = v11;
+  if (!v11)
+  {
+    goto LABEL_11;
+  }
+
+  v13 = MEMORY[0x277D24FF0];
+  if (!complete && (*(v11 + *MEMORY[0x277D24FF0]) & 1) != 0)
+  {
+    goto LABEL_11;
+  }
+
+  v14 = *(v11 + *MEMORY[0x277D24FE8]);
+  v15 = v14;
+  if (complete)
+  {
+    *complete = v12[*v13] ^ 1;
+  }
+
+  if (partial)
+  {
+    *partial = v12[*MEMORY[0x277D24FF8]];
+  }
+
+  v16 = getLogger_0(v14);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  {
+    mailboxUid = [(MFMailMessageStore *)self mailboxUid];
+    *buf = 136315650;
+    mambaID = [mailboxUid mambaID];
+    v44 = 2080;
+    v45 = " ";
+    v46 = 2112;
+    v47 = messageCopy;
+    _os_log_impl(&dword_2720B1000, v16, OS_LOG_TYPE_DEFAULT, "#I %s%s#CacheLoads returning cached body data for %@", buf, 0x20u);
+  }
+
+  if (!v15)
+  {
+LABEL_11:
+    library = self->_library;
+    v41 = 0;
+    v15 = [(MFMessageLibrary *)library bodyDataForMessage:messageCopy andHeaderDataIfReadilyAvailable:&v41 isComplete:complete];
+    v19 = v41;
+    if (v15)
+    {
+      if (complete)
+      {
+        v20 = !*complete;
+      }
+
+      else
+      {
+        v20 = 0;
+      }
+
+      v38 = necessaryCopy;
+      if (partial)
+      {
+        *partial = 1;
+      }
+
+      v21 = [objc_alloc(MEMORY[0x277D24F30]) initWithData:v15 partial:1 incomplete:v20];
+      v22 = getLogger_0([(MFLibraryStore *)self _cachedBodyDataContainerForMessage:messageCopy valueIfNotPresent:v21]);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      {
+        mailboxUid2 = [(MFMailMessageStore *)self mailboxUid];
+        mambaID2 = [mailboxUid2 mambaID];
+        *buf = 136315650;
+        mambaID = mambaID2;
+        v44 = 2080;
+        v45 = " ";
+        v46 = 2112;
+        v47 = messageCopy;
+        _os_log_impl(&dword_2720B1000, v22, OS_LOG_TYPE_DEFAULT, "#I %s%s#CacheLoads returning body data from Library for %@", buf, 0x20u);
+      }
+
+      necessaryCopy = v38;
+    }
+
+    if (v19)
+    {
+      v25 = [(MFLibraryStore *)self _cachedHeaderDataForMessage:messageCopy valueIfNotPresent:v19];
+    }
+
+    if (!v15)
+    {
+      v40 = 0;
+      v27 = getLogger_0(v26);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+      {
+        mailboxUid3 = [(MFMailMessageStore *)self mailboxUid];
+        mambaID3 = [mailboxUid3 mambaID];
+        *buf = 136315650;
+        mambaID = mambaID3;
+        v44 = 2080;
+        v45 = " ";
+        v46 = 2112;
+        v47 = messageCopy;
+        _os_log_impl(&dword_2720B1000, v27, OS_LOG_TYPE_DEFAULT, "#I %s%s#CacheLoads fetching body data from network for %@", buf, 0x20u);
+      }
+
+      v39 = 0;
+      v15 = [(MFLibraryStore *)self _fetchBodyDataForMessage:messageCopy andHeaderDataIfReadilyAvailable:&v39 downloadIfNecessary:necessaryCopy partial:&v40];
+      v30 = v39;
+      if (v15)
+      {
+        if (complete)
+        {
+          *complete = 1;
+        }
+
+        if (partial)
+        {
+          *partial = v40;
+        }
+
+        v31 = objc_alloc(MEMORY[0x277D24F30]);
+        v32 = [v31 initWithData:v15 partial:v40 incomplete:0];
+        v33 = [(MFLibraryStore *)self _cachedBodyDataContainerForMessage:messageCopy valueIfNotPresent:v32];
+        v34 = v33;
+        if (v33)
+        {
+          v35 = *(v33 + *MEMORY[0x277D24FE8]);
+
+          v15 = v35;
+        }
+
+        if (v30)
+        {
+          v36 = [(MFLibraryStore *)self _cachedHeaderDataForMessage:messageCopy valueIfNotPresent:v30];
+        }
+      }
+    }
+  }
+
+  return v15;
 }
 
 - (void)deleteBodyDataForMessage:(id)message
@@ -1342,8 +2064,8 @@ LABEL_25:
   v45 = [(MFLibraryStore *)v43 setFlagsFromDictionary:v44 forMessages:array3];
 
   v46 = CFAbsoluteTimeGetCurrent();
-  v47 = getLogger_0();
-  if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
+  v48 = getLogger_0(v47);
+  if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
   {
     mailboxUid = [(MFMailMessageStore *)v43 mailboxUid];
     mambaID = [mailboxUid mambaID];
@@ -1359,10 +2081,37 @@ LABEL_25:
     v72 = v46 - Current;
     v73 = 2048;
     v74 = (v46 - Current) / v52;
-    _os_log_debug_impl(&dword_2720B1000, v47, OS_LOG_TYPE_DEBUG, "#D %s%s[LogMessageDeletionTimes] Deleting %lu messages took %4.5f seconds (%4.5f s/msg)", buf, 0x34u);
+    _os_log_debug_impl(&dword_2720B1000, v48, OS_LOG_TYPE_DEBUG, "#D %s%s[LogMessageDeletionTimes] Deleting %lu messages took %4.5f seconds (%4.5f s/msg)", buf, 0x34u);
+  }
+}
+
+- (void)deleteMessagesOlderThanNumberOfDays:(int)days compact:(BOOL)compact
+{
+  v4 = *&days;
+  v19 = *MEMORY[0x277D85DE8];
+  v6 = [(MFMailMessageStore *)self mailboxUid:*&days];
+  uRLString = [v6 URLString];
+
+  Current = CFAbsoluteTimeGetCurrent();
+  v9 = [(MFMessageLibrary *)self->_library messagesForMailbox:uRLString olderThanNumberOfDays:v4];
+  v10 = [v9 count];
+  v11 = v10;
+  if (v10)
+  {
+    v10 = [(MFMessageLibrary *)self->_library compactMessages:v9];
   }
 
-  v48 = *MEMORY[0x277D85DE8];
+  v12 = vm_imap_log(v10);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  {
+    v13 = 134218498;
+    v14 = v11;
+    v15 = 2112;
+    v16 = uRLString;
+    v17 = 2048;
+    v18 = CFAbsoluteTimeGetCurrent() - Current;
+    _os_log_debug_impl(&dword_2720B1000, v12, OS_LOG_TYPE_DEBUG, "[LogMessageDeletionTimes] Searching for and deleting %lu messages in %@ took: %fs", &v13, 0x20u);
+  }
 }
 
 - (void)setFlagsForAllMessagesFromDictionary:(id)dictionary
@@ -1441,19 +2190,25 @@ LABEL_25:
 
 - (void)doCompact
 {
-  if ([(MFLibraryStore *)self canCompact])
+  canCompact = [(MFLibraryStore *)self canCompact];
+  if (canCompact)
   {
-    uRLString = [(MFLibraryStore *)self URLString];
-    if (uRLString)
+    canCompact = [(MFLibraryStore *)self URLString];
+    v4 = canCompact;
+    if (canCompact && self->super._deletedMessageCount)
     {
-      if (self->super._deletedMessageCount)
-      {
-        [(MFMessageLibrary *)self->_library compactMailbox:uRLString];
-      }
+      v5 = canCompact;
+      canCompact = [(MFMessageLibrary *)self->_library compactMailbox:canCompact];
+      v4 = v5;
     }
   }
 
-  MEMORY[0x2821F96F8]();
+  else
+  {
+    v4 = 0;
+  }
+
+  MEMORY[0x2821F96F8](canCompact, v4);
 }
 
 - (void)compactMessages:(id)messages
@@ -1549,37 +2304,36 @@ LABEL_25:
 
 uint64_t __32__MFLibraryStore_newObjectCache__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v5 = a2;
-  v6 = a3;
-  v7 = *(a1 + 32);
-  if (objc_opt_isKindOfClass() & 1) != 0 && (v8 = *(a1 + 32), (objc_opt_isKindOfClass()))
+  v4 = a2;
+  v5 = a3;
+  if (objc_opt_isKindOfClass() & 1) != 0 && (objc_opt_isKindOfClass())
   {
-    v9 = v5;
-    v10 = v6;
-    v11 = *MEMORY[0x277D24FF0];
-    v12 = v9[v11];
-    if (v12 == 1 && v10[v11] != 1 || (v13 = *MEMORY[0x277D24FF8], v14 = v9[v13], v14 == 1) && v10[v13] != 1)
+    v6 = v4;
+    v7 = v5;
+    v8 = *MEMORY[0x277D24FF0];
+    v9 = v6[v8];
+    if (v9 == 1 && v7[v8] != 1 || (v10 = *MEMORY[0x277D24FF8], v11 = v6[v10], v11 == 1) && v7[v10] != 1)
     {
-      v15 = -1;
+      v12 = -1;
     }
 
-    else if ((v12 & 1) != 0 || (v10[v11] & 1) == 0)
+    else if ((v9 & 1) != 0 || (v7[v8] & 1) == 0)
     {
-      v15 = v10[v13] & (v14 ^ 1u);
+      v12 = v7[v10] & (v11 ^ 1u);
     }
 
     else
     {
-      v15 = 1;
+      v12 = 1;
     }
   }
 
   else
   {
-    v15 = 0;
+    v12 = 0;
   }
 
-  return v15;
+  return v12;
 }
 
 - (id)_cachedHeadersForMessage:(id)message valueIfNotPresent:(id)present

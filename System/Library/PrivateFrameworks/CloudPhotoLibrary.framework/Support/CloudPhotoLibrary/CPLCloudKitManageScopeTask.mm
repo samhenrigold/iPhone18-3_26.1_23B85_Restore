@@ -44,28 +44,28 @@
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v11 = sub_100003744();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = sub_100003744(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         scope = self->_scope;
-        v16 = 138543618;
-        v17 = v10;
-        v18 = 2112;
-        v19 = scope;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Picked %{public}@ for %@", &v16, 0x16u);
+        v18 = 138543618;
+        v19 = v10;
+        v20 = 2112;
+        v21 = scope;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Picked %{public}@ for %@", &v18, 0x16u);
       }
     }
 
-    [(CPLScopeChange *)self->_scope updateScopeIdentifier:v10];
+    v14 = [(CPLScopeChange *)self->_scope updateScopeIdentifier:v10];
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v13 = sub_100003744();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v15 = sub_100003744(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = self->_scope;
-        v16 = 138412290;
-        v17 = v14;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "New scope is %@", &v16, 0xCu);
+        v16 = self->_scope;
+        v18 = 138412290;
+        v19 = v16;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "New scope is %@", &v18, 0xCu);
       }
     }
 
@@ -226,7 +226,7 @@
         v17 = [[CKUserIdentityLookupInfo alloc] initWithUserRecordID:v26];
       }
 
-      [v9 setObject:v13 forKeyedSubscript:v23];
+      userIdentifier = [v9 setObject:v13 forKeyedSubscript:v23];
 LABEL_17:
       if (v17)
       {
@@ -236,7 +236,7 @@ LABEL_17:
 
       else if ((_CPLSilentLogging & 1) == 0)
       {
-        v27 = sub_100003744();
+        v27 = sub_100003744(userIdentifier);
         if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
         {
           LODWORD(buf) = 138412290;

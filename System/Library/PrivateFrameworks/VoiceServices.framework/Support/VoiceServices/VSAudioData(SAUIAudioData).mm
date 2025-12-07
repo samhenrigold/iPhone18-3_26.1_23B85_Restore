@@ -15,13 +15,13 @@
 
 - (uint64_t)writeToFilePath:()SAUIAudioData
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v4 = a3;
   audioData = [self audioData];
   memset(&inFormat, 0, sizeof(inFormat));
-  [self asbd];
-  [self asbd];
-  if (v25 == 1869641075)
+  [&inFormat asbd];
+  [v18 asbd];
+  if (v19 == 1869641075)
   {
     v6 = VSGetLogDefault();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
@@ -30,7 +30,7 @@
       _os_log_impl(&dword_2727E4000, v6, OS_LOG_TYPE_INFO, "Decoding opus for dumping.", &buf, 2u);
     }
 
-    v7 = [MEMORY[0x277D79920] pcmAudioDataFromOpusAudio:self];
+    v7 = [MEMORY[0x277D79920] pcmAudioDataFromOpusAudio:?];
     v8 = VSGetLogDefault();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
@@ -42,7 +42,7 @@
 
     if (v7)
     {
-      [v7 asbd];
+      [&buf asbd];
     }
 
     else
@@ -56,86 +56,79 @@
   }
 
   outAudioFile = 0;
-  v10 = [MEMORY[0x277CBEBC0] fileURLWithPath:v4];
-  v11 = AudioFileCreateWithURL(v10, 0x57415645u, &inFormat, 1u, &outAudioFile);
-  if (v11)
+  v10 = [MEMORY[0x277CBEBC0] fileURLWithPath:?];
+  if (AudioFileCreateWithURL(v10, 0x57415645u, &inFormat, 1u, &outAudioFile))
   {
-    v12 = v11;
-    v13 = VSGetLogDefault();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v11 = VSGetLogDefault();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v14 = [MEMORY[0x277CCACA8] vs_stringFrom4CC:v12];
+      v12 = [MEMORY[0x277CCACA8] vs_stringFrom4CC:?];
       LODWORD(buf.mSampleRate) = 138412546;
       *(&buf.mSampleRate + 4) = v4;
       LOWORD(buf.mFormatFlags) = 2112;
-      *(&buf.mFormatFlags + 2) = v14;
-      v15 = "Error AudioFileCreateWithURL: '%@', code: %@";
+      *(&buf.mFormatFlags + 2) = v12;
+      v13 = "Error AudioFileCreateWithURL: '%@', code: %@";
 LABEL_19:
-      _os_log_error_impl(&dword_2727E4000, v13, OS_LOG_TYPE_ERROR, v15, &buf, 0x16u);
+      _os_log_error_impl(&dword_2727E4000, v11, OS_LOG_TYPE_ERROR, v13, &buf, 0x16u);
     }
   }
 
   else
   {
     ioNumBytes = [audioData length];
-    v16 = AudioFileWriteBytes(outAudioFile, 0, 0, &ioNumBytes, [audioData bytes]);
-    if (v16)
+    if (AudioFileWriteBytes(outAudioFile, 0, 0, &ioNumBytes, [audioData bytes]))
     {
-      v17 = v16;
-      v13 = VSGetLogDefault();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v11 = VSGetLogDefault();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        v14 = [MEMORY[0x277CCACA8] vs_stringFrom4CC:v17];
+        v12 = [MEMORY[0x277CCACA8] vs_stringFrom4CC:?];
         LODWORD(buf.mSampleRate) = 138412546;
         *(&buf.mSampleRate + 4) = v4;
         LOWORD(buf.mFormatFlags) = 2112;
-        *(&buf.mFormatFlags + 2) = v14;
-        v15 = "Error AudioFileWriteBytes: '%@', code: %@";
+        *(&buf.mFormatFlags + 2) = v12;
+        v13 = "Error AudioFileWriteBytes: '%@', code: %@";
         goto LABEL_19;
       }
     }
 
     else
     {
-      v18 = AudioFileClose(outAudioFile);
-      if (!v18)
+      if (!AudioFileClose(outAudioFile))
       {
-        v20 = 1;
+        v14 = 1;
         goto LABEL_21;
       }
 
-      v19 = v18;
-      v13 = VSGetLogDefault();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v11 = VSGetLogDefault();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        v14 = [MEMORY[0x277CCACA8] vs_stringFrom4CC:v19];
+        v12 = [MEMORY[0x277CCACA8] vs_stringFrom4CC:?];
         LODWORD(buf.mSampleRate) = 138412546;
         *(&buf.mSampleRate + 4) = v4;
         LOWORD(buf.mFormatFlags) = 2112;
-        *(&buf.mFormatFlags + 2) = v14;
-        v15 = "Error AudioFileClose: '%@', code: %@";
+        *(&buf.mFormatFlags + 2) = v12;
+        v13 = "Error AudioFileClose: '%@', code: %@";
         goto LABEL_19;
       }
     }
   }
 
-  v20 = 0;
+  v14 = 0;
 LABEL_21:
 
-  v21 = *MEMORY[0x277D85DE8];
-  return v20;
+  return v14;
 }
 
 - (uint64_t)populatePCMDataWithSiriOpusSData:()SAUIAudioData withOpusASBD:
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v6 = a3;
   mEMORY[0x277D79960] = [MEMORY[0x277D79960] sharedInstance];
   v8 = *(a4 + 16);
   *buf = *a4;
-  v29 = v8;
-  v30 = *(a4 + 32);
-  v9 = [mEMORY[0x277D79960] beginChunkDecoderForStreamDescription:buf];
+  v28 = v8;
+  v29 = *(a4 + 32);
+  v9 = [mEMORY[0x277D79960] beginChunkDecoderForStreamDescription:?];
 
   data = [MEMORY[0x277CBEB28] data];
   v11 = [v6 length];
@@ -145,13 +138,13 @@ LABEL_21:
     v13 = bytes;
     selfCopy = self;
     v14 = 0;
-    LODWORD(v15) = 0;
+    v15 = 0;
     while (1)
     {
       do
       {
         v16 = *(v13 + v14);
-        v15 = v16 & 0x7Fu | (v15 << 7);
+        v15 = v16 & 0x7F | (v15 << 7);
         ++v14;
       }
 
@@ -167,32 +160,31 @@ LABEL_21:
         break;
       }
 
-      v18 = [MEMORY[0x277CBEA90] dataWithBytes:v13 + v14 length:v15];
+      v18 = [MEMORY[0x277CBEA90] dataWithBytes:? length:?];
       mEMORY[0x277D79960]2 = [MEMORY[0x277D79960] sharedInstance];
-      v27 = 0;
-      v15 = [mEMORY[0x277D79960]2 decodeChunk:v18 outError:&v27];
-      v20 = v27;
+      v20 = [mEMORY[0x277D79960]2 decodeChunk:? outError:?];
+      v21 = 0;
 
-      if (v20)
+      if (v21)
       {
-        v22 = VSGetLogDefault();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+        v23 = VSGetLogDefault();
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          *&buf[4] = v20;
-          _os_log_error_impl(&dword_2727E4000, v22, OS_LOG_TYPE_ERROR, "Unable to convert OPUS to PCM. %@", buf, 0xCu);
+          *&buf[4] = v21;
+          _os_log_error_impl(&dword_2727E4000, v23, OS_LOG_TYPE_ERROR, "Unable to convert OPUS to PCM. %@", buf, 0xCu);
         }
 
         goto LABEL_15;
       }
 
-      [data appendData:v15];
+      [data appendData:?];
 
-      LODWORD(v15) = 0;
+      v15 = 0;
       v14 = v17;
       if (v17 >= v11)
       {
-        v21 = 1;
+        v22 = 1;
         goto LABEL_16;
       }
     }
@@ -205,27 +197,26 @@ LABEL_21:
       *&buf[8] = 1024;
       *&buf[10] = v14;
       *&buf[14] = 1024;
-      LODWORD(v29) = v11;
+      LODWORD(v28) = v11;
       _os_log_error_impl(&dword_2727E4000, v18, OS_LOG_TYPE_ERROR, "Invalid chunk size: %d at offset %d, bytes count = %d\n", buf, 0x14u);
     }
 
 LABEL_15:
 
-    v21 = 0;
+    v22 = 0;
   }
 
   else
   {
-    v21 = 1;
+    v22 = 1;
   }
 
 LABEL_16:
   mEMORY[0x277D79960]3 = [MEMORY[0x277D79960] sharedInstance];
   [mEMORY[0x277D79960]3 endChunkDecoding];
 
-  [self setAudioData:data];
-  v24 = *MEMORY[0x277D85DE8];
-  return v21;
+  [self setAudioData:?];
+  return v22;
 }
 
 - (uint64_t)populateWithOpusData:()SAUIAudioData
@@ -243,11 +234,11 @@ LABEL_16:
     v11 = 0;
     while (1)
     {
-      LODWORD(v12) = 0;
+      v12 = 0;
       do
       {
         v13 = *(v9 + v11);
-        v12 = v13 & 0x7Fu | (v12 << 7);
+        v12 = v13 & 0x7F | (v12 << 7);
         ++v11;
       }
 
@@ -263,53 +254,51 @@ LABEL_16:
         break;
       }
 
-      v19 = [data length];
+      v15 = [data length];
       LODWORD(v20) = 0;
       HIDWORD(v20) = v12;
-      [data2 appendBytes:&v19 length:16];
-      [data appendBytes:v9 + v11 length:v12];
+      [data2 appendBytes:v15 length:v20];
+      [data appendBytes:? length:?];
       ++v10;
       v11 += v12;
       if (v14 >= v7)
       {
-        goto LABEL_13;
+        goto LABEL_12;
       }
     }
 
-    v15 = VSGetLogDefault();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = VSGetLogDefault();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      LODWORD(v19) = 67109632;
-      HIDWORD(v19) = v12;
+      v19[0] = 67109632;
+      v19[1] = v12;
       LOWORD(v20) = 1024;
       *(&v20 + 2) = v11;
       HIWORD(v20) = 1024;
       v21 = v7;
-      _os_log_error_impl(&dword_2727E4000, v15, OS_LOG_TYPE_ERROR, "Invalid chunk size: %d at offset %d, bytes count = %d\n", &v19, 0x14u);
+      _os_log_error_impl(&dword_2727E4000, v16, OS_LOG_TYPE_ERROR, "Invalid chunk size: %d at offset %d, bytes count = %d\n", v19, 0x14u);
     }
 
-    v16 = 0;
+    v17 = 0;
   }
 
   else
   {
-    v10 = 0;
-LABEL_13:
-    [self setPacketCount:v10];
-    [self setPacketDescriptions:data2];
-    [self setAudioData:data];
-    v16 = 1;
+LABEL_12:
+    [self setPacketCount:?];
+    [self setPacketDescriptions:?];
+    [self setAudioData:?];
+    v17 = 1;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-  return v16;
+  return v17;
 }
 
 - (uint64_t)populateWithPCMData:()SAUIAudioData
 {
   [self setAudioData:?];
-  [self setPacketCount:0];
-  [self setPacketDescriptions:0];
+  [self setPacketCount:?];
+  [self setPacketDescriptions:?];
   return 1;
 }
 
@@ -348,83 +337,90 @@ LABEL_13:
 
 + (id)audioDataWithASBD:()SAUIAudioData rawData:
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = a4;
   v6 = objc_alloc_init(MEMORY[0x277D79920]);
   v7 = *(a3 + 16);
   *buf = *a3;
   *&buf[16] = v7;
-  v21 = *(a3 + 32);
-  [v6 setAsbd:buf];
-  if (!v6)
+  v23 = *(a3 + 32);
+  [v6 setAsbd:?];
+  if (v6)
   {
-    goto LABEL_10;
-  }
-
-  [v6 asbd];
-  if (v19 == 1819304813)
-  {
-    audioData = [v6 audioData];
-    [v6 populateWithPCMData:audioData];
+    [v20 asbd];
+    if (DWORD2(v20[0]) == 1819304813)
+    {
+      audioData = [v6 audioData];
+      [v6 populateWithPCMData:?];
 
 LABEL_4:
-    v9 = v6;
-    goto LABEL_12;
-  }
-
-  [v6 asbd];
-  if (v18 == 1869641075)
-  {
-    if ([v6 populateWithOpusData:v5])
-    {
-      goto LABEL_4;
+      v9 = v6;
+      goto LABEL_12;
     }
 
-    v10 = VSGetLogDefault();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    [v18 asbd];
+    if (DWORD2(v18[0]) == 1869641075)
     {
-      *buf = 136315138;
-      *&buf[4] = "+[VSAudioData(SAUIAudioData) audioDataWithASBD:rawData:]";
-      v11 = "%s, invalid opus data";
-      v12 = v10;
-      v13 = 12;
+      if ([v6 populateWithOpusData:?])
+      {
+        goto LABEL_4;
+      }
+
+      v10 = VSGetLogDefault();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 136315138;
+        *&buf[4] = "+[VSAudioData(SAUIAudioData) audioDataWithASBD:rawData:]";
+        v11 = "%s, invalid opus data";
+        v12 = v10;
+        v13 = 12;
 LABEL_19:
-      _os_log_error_impl(&dword_2727E4000, v12, OS_LOG_TYPE_ERROR, v11, buf, v13);
+        _os_log_error_impl(&dword_2727E4000, v12, OS_LOG_TYPE_ERROR, v11, buf, v13);
+        goto LABEL_11;
+      }
+
+      goto LABEL_11;
     }
   }
 
   else
   {
-LABEL_10:
-    v10 = VSGetLogDefault();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-    {
-      if (v6)
-      {
-        [v6 asbd];
-        v16 = v17;
-      }
-
-      else
-      {
-        v16 = 0;
-      }
-
-      *buf = 136315394;
-      *&buf[4] = "+[VSAudioData(SAUIAudioData) audioDataWithASBD:rawData:]";
-      *&buf[12] = 1024;
-      *&buf[14] = v16;
-      v11 = "%s, Unknown format: %d";
-      v12 = v10;
-      v13 = 18;
-      goto LABEL_19;
-    }
+    v21 = 0;
+    memset(v20, 0, sizeof(v20));
+    memset(v18, 0, sizeof(v18));
+    v19 = 0;
   }
+
+  v10 = VSGetLogDefault();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  {
+    if (v6)
+    {
+      [v16 asbd];
+      v15 = DWORD2(v16[0]);
+    }
+
+    else
+    {
+      v15 = 0;
+      v17 = 0;
+      memset(v16, 0, sizeof(v16));
+    }
+
+    *buf = 136315394;
+    *&buf[4] = "+[VSAudioData(SAUIAudioData) audioDataWithASBD:rawData:]";
+    *&buf[12] = 1024;
+    *&buf[14] = v15;
+    v11 = "%s, Unknown format: %d";
+    v12 = v10;
+    v13 = 18;
+    goto LABEL_19;
+  }
+
+LABEL_11:
 
   v9 = 0;
 LABEL_12:
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -433,8 +429,8 @@ LABEL_12:
 {
   v3 = a3;
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v18 = 0;
-  v19 = 0;
+  v16 = 0;
+  v17 = 0;
   if ([v3 packetCount] >= 1)
   {
     v5 = 0;
@@ -442,14 +438,14 @@ LABEL_12:
     do
     {
       packetDescriptions = [v3 packetDescriptions];
-      [packetDescriptions getBytes:&v18 range:{v5, 16}];
+      [packetDescriptions getBytes:? range:?];
 
       v8 = MEMORY[0x277CBEA90];
       audioData = [v3 audioData];
-      bytes = [audioData bytes];
-      v11 = [v8 dataWithBytes:bytes + v18 length:HIDWORD(v19)];
+      [audioData bytes];
+      v10 = [v8 dataWithBytes:? length:?];
 
-      [v4 addObject:v11];
+      [v4 addObject:?];
       ++v6;
       v5 += 16;
     }
@@ -457,52 +453,95 @@ LABEL_12:
     while ([v3 packetCount] > v6);
   }
 
-  v12 = objc_alloc_init(MEMORY[0x277D79960]);
+  v11 = objc_alloc_init(MEMORY[0x277D79960]);
   if (v3)
   {
-    [v3 asbd];
+    [v15 asbd];
   }
 
   else
   {
-    memset(v17, 0, 40);
+    memset(v15, 0, 40);
   }
 
-  v16 = 0;
-  v13 = [v12 decodeChunks:v4 streamDescription:v17 outError:&v16];
-  v14 = 0;
-  if (!v16)
-  {
-    v14 = objc_alloc_init(MEMORY[0x277D79920]);
-    [v14 setAudioData:v13];
-    *&v17[0] = 0x40E7700000000000;
-    *(v17 + 8) = xmmword_272832680;
-    *(&v17[1] + 8) = xmmword_272832690;
-    [v14 setAsbd:v17];
-  }
+  v12 = [v11 decodeChunks:? streamDescription:? outError:?];
+  v13 = objc_alloc_init(MEMORY[0x277D79920]);
+  [v13 setAudioData:?];
+  *&v15[0] = 0x40E7700000000000;
+  *(v15 + 8) = xmmword_272832680;
+  *(&v15[1] + 8) = xmmword_272832690;
+  [v13 setAsbd:?];
 
-  return v14;
+  return v13;
 }
 
 + (id)audioDataFromPresynthesisRequest:()SAUIAudioData
 {
   v3 = a3;
   v4 = objc_alloc_init(MEMORY[0x277D79920]);
-  v12 = 0;
-  v10 = 0u;
-  v11 = 0u;
-  if (v3)
+  v20 = 0;
+  v18 = 0u;
+  v19 = 0u;
+  if (!v3)
   {
-    [v3 playerStreamDescription];
-    v9 = 0;
-    v7 = 0u;
-    v8 = 0u;
-    [v3 decoderStreamDescription];
+    goto LABEL_8;
   }
 
-  v5 = 0;
+  [&v18 playerStreamDescription];
+  v17 = 0;
+  v15 = 0u;
+  v16 = 0u;
+  [&v15 decoderStreamDescription];
+  if (DWORD2(v15) == 1869641075)
+  {
+    v8 = *&v15;
+    v9 = *&v18;
+    audioData = [v3 audioData];
+    if (v8 == v9)
+    {
+      v14 = [v4 populateWithOpusData:?];
 
-  return v5;
+      [v4 setAsbd:{v15, v16, v17}];
+      if (!v14)
+      {
+        goto LABEL_8;
+      }
+    }
+
+    else
+    {
+      v11 = [v4 populatePCMDataWithSiriOpusSData:v15 withOpusASBD:{v16, v17}];
+
+      [v4 setAsbd:{v18, v19, v20}];
+      if ((v11 & 1) == 0)
+      {
+        goto LABEL_8;
+      }
+    }
+
+LABEL_5:
+    v7 = v4;
+    goto LABEL_9;
+  }
+
+  if (DWORD2(v15) == 1819304813)
+  {
+    [v4 setAsbd:{v15, v16, v17}];
+    audioData2 = [v3 audioData];
+    v6 = [v4 populateWithPCMData:?];
+
+    if (v6)
+    {
+      goto LABEL_5;
+    }
+  }
+
+LABEL_8:
+  v7 = 0;
+LABEL_9:
+  v12 = v7;
+
+  return v12;
 }
 
 + (id)audioDataFromSAUIAudioData:()SAUIAudioData
@@ -511,9 +550,9 @@ LABEL_12:
   v3 = a3;
   v4 = objc_alloc_init(MEMORY[0x277D79920]);
   v42 = v3;
-  decoderStreamDescription = [v3 decoderStreamDescription];
-  v6 = VSGetLogDefault();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  decoderStreamDescription = [v5 decoderStreamDescription];
+  v7 = VSGetLogDefault();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     formatID = [decoderStreamDescription formatID];
     sampleRate = [decoderStreamDescription sampleRate];
@@ -521,7 +560,7 @@ LABEL_12:
     *&buf[4] = formatID;
     *v44 = 2112;
     *&v44[2] = sampleRate;
-    _os_log_debug_impl(&dword_2727E4000, v6, OS_LOG_TYPE_DEBUG, "decoderStreamDescription formatID: %@, sample rate: %@", buf, 0x16u);
+    _os_log_debug_impl(&dword_2727E4000, v7, OS_LOG_TYPE_DEBUG, "decoderStreamDescription formatID: %@, sample rate: %@", buf, 0x16u);
   }
 
   formatID2 = [decoderStreamDescription formatID];
@@ -529,7 +568,7 @@ LABEL_12:
 
   sampleRate2 = [decoderStreamDescription sampleRate];
   [sampleRate2 doubleValue];
-  v11 = v10;
+  v12 = v11;
 
   formatFlags = [decoderStreamDescription formatFlags];
   unsignedIntValue = [formatFlags unsignedIntValue];
@@ -555,15 +594,15 @@ LABEL_12:
   if (unsignedIntegerValue == 1869641075)
   {
     v40 = unsignedIntValue5;
-    v25 = unsignedIntValue4;
-    v26 = unsignedIntValue3;
-    v27 = unsignedIntValue2;
-    v28 = unsignedIntValue;
+    v26 = unsignedIntValue4;
+    v27 = unsignedIntValue3;
+    v28 = unsignedIntValue2;
+    v29 = unsignedIntValue;
     [v42 audioBuffer];
-    v33 = v30 = v4;
-    v34 = [v30 populateWithOpusData:v33];
+    v34 = v31 = v4;
+    v35 = [v31 populateWithOpusData:?];
 
-    if (v34)
+    if (v35)
     {
       goto LABEL_6;
     }
@@ -574,74 +613,68 @@ LABEL_12:
   if (unsignedIntegerValue == 1819304813)
   {
     v40 = unsignedIntValue5;
-    v25 = unsignedIntValue4;
-    v26 = unsignedIntValue3;
-    v27 = unsignedIntValue2;
-    v28 = unsignedIntValue;
+    v26 = unsignedIntValue4;
+    v27 = unsignedIntValue3;
+    v28 = unsignedIntValue2;
+    v29 = unsignedIntValue;
     audioBuffer = [v42 audioBuffer];
-    v30 = v4;
-    v31 = [v4 populateWithPCMData:audioBuffer];
+    v31 = v4;
+    v32 = [v4 populateWithPCMData:?];
 
-    if (v31)
+    if (v32)
     {
 LABEL_6:
-      *buf = v11;
+      *buf = v12;
       *&buf[8] = unsignedIntegerValue;
-      *v44 = v28;
-      *&v44[4] = v27;
-      *&v44[8] = v26;
-      v45 = v25;
+      *v44 = v29;
+      *&v44[4] = v28;
+      *&v44[8] = v27;
+      v45 = v26;
       v46 = v40;
       v47 = unsignedIntValue6;
       v48 = unsignedIntValue7;
-      [v30 setAsbd:buf];
-      v32 = v30;
+      [v31 setAsbd:?];
+      v33 = v31;
 LABEL_9:
-      v4 = v30;
+      v4 = v31;
       goto LABEL_13;
     }
 
 LABEL_8:
-    v32 = 0;
+    v33 = 0;
     goto LABEL_9;
   }
 
-  v35 = VSGetLogDefault();
-  if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+  v36 = VSGetLogDefault();
+  if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
   {
     *buf = 67109120;
     *&buf[4] = unsignedIntegerValue;
-    _os_log_error_impl(&dword_2727E4000, v35, OS_LOG_TYPE_ERROR, "Unknown server audio format ID: %d", buf, 8u);
+    _os_log_error_impl(&dword_2727E4000, v36, OS_LOG_TYPE_ERROR, "Unknown server audio format ID: %d", buf, 8u);
   }
 
-  v32 = 0;
+  v33 = 0;
 LABEL_13:
 
-  v36 = *MEMORY[0x277D85DE8];
-
-  return v32;
+  return v33;
 }
 
 + (id)audioDataFromFile:()SAUIAudioData error:
 {
-  v47[1] = *MEMORY[0x277D85DE8];
+  outAudioFile[11] = *MEMORY[0x277D85DE8];
   v5 = [MEMORY[0x277CBEBC0] fileURLWithPath:?];
-  outAudioFile = 0;
-  v6 = AudioFileOpenURL(v5, kAudioFileReadPermission, 0, &outAudioFile);
-  if (v6)
+  outAudioFile[0] = 0;
+  if (AudioFileOpenURL(v5, kAudioFileReadPermission, 0, outAudioFile))
   {
     if (a4)
     {
-      v7 = MEMORY[0x277CCA9B8];
-      v8 = v6;
-      v46 = *MEMORY[0x277CCA470];
-      v47[0] = @"AudioFileOpenURL";
-      v9 = MEMORY[0x277CBEAC0];
-      v10 = v47;
-      v11 = &v46;
+      v6 = MEMORY[0x277CCA9B8];
+      outAudioFile[9] = *MEMORY[0x277CCA470];
+      outAudioFile[10] = @"AudioFileOpenURL";
+      v7 = MEMORY[0x277CBEAC0];
 LABEL_10:
-      v14 = [v9 dictionaryWithObjects:v10 forKeys:v11 count:1];
-      *a4 = [v7 errorWithDomain:@"audioDataFromFile:error:" code:v8 userInfo:v14];
+      v8 = [v7 dictionaryWithObjects:? forKeys:? count:?];
+      *a4 = [v6 errorWithDomain:? code:? userInfo:?];
 
       goto LABEL_11;
     }
@@ -649,44 +682,36 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  v36 = 0;
+  v23 = 0;
   outPropertyData = 0u;
-  v35 = 0u;
+  v22 = 0u;
   ioDataSize = 40;
-  Property = AudioFileGetProperty(outAudioFile, 0x64666D74u, &ioDataSize, &outPropertyData);
-  if (Property)
+  if (AudioFileGetProperty(outAudioFile[0], 0x64666D74u, &ioDataSize, &outPropertyData))
   {
     if (a4)
     {
-      v7 = MEMORY[0x277CCA9B8];
-      v8 = Property;
-      v44 = *MEMORY[0x277CCA470];
-      v45 = @"AudioFileGetProperty kAudioFilePropertyDataFormat";
-      v9 = MEMORY[0x277CBEAC0];
-      v10 = &v45;
-      v11 = &v44;
+      v6 = MEMORY[0x277CCA9B8];
+      outAudioFile[7] = *MEMORY[0x277CCA470];
+      outAudioFile[8] = @"AudioFileGetProperty kAudioFilePropertyDataFormat";
+      v7 = MEMORY[0x277CBEAC0];
       goto LABEL_10;
     }
 
 LABEL_11:
-    v15 = 0;
+    v9 = 0;
     goto LABEL_12;
   }
 
   *ioNumBytes = 0;
   ioDataSize = 8;
-  v13 = AudioFileGetProperty(outAudioFile, 0x62636E74u, &ioDataSize, ioNumBytes);
-  if (v13)
+  if (AudioFileGetProperty(outAudioFile[0], 0x62636E74u, &ioDataSize, ioNumBytes))
   {
     if (a4)
     {
-      v7 = MEMORY[0x277CCA9B8];
-      v8 = v13;
-      v42 = *MEMORY[0x277CCA470];
-      v43 = @"AudioFileGetProperty kAudioFilePropertyAudioDataByteCount";
-      v9 = MEMORY[0x277CBEAC0];
-      v10 = &v43;
-      v11 = &v42;
+      v6 = MEMORY[0x277CCA9B8];
+      outAudioFile[5] = *MEMORY[0x277CCA470];
+      outAudioFile[6] = @"AudioFileGetProperty kAudioFilePropertyAudioDataByteCount";
+      v7 = MEMORY[0x277CBEAC0];
       goto LABEL_10;
     }
 
@@ -695,62 +720,54 @@ LABEL_11:
 
   *ioNumPackets = 0;
   ioDataSize = 8;
-  v18 = AudioFileGetProperty(outAudioFile, 0x70636E74u, &ioDataSize, ioNumPackets);
-  if (v18)
+  if (AudioFileGetProperty(outAudioFile[0], 0x70636E74u, &ioDataSize, ioNumPackets))
   {
     if (!a4)
     {
       goto LABEL_11;
     }
 
-    v19 = MEMORY[0x277CCA9B8];
-    v20 = v18;
-    v40 = *MEMORY[0x277CCA470];
-    v41 = @"AudioFileGetProperty kAudioFilePropertyAudioDataPacketCount";
-    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
-    [v19 errorWithDomain:@"audioDataFromFile:error:" code:v20 userInfo:v21];
-    *a4 = v15 = 0;
+    v11 = MEMORY[0x277CCA9B8];
+    outAudioFile[3] = *MEMORY[0x277CCA470];
+    outAudioFile[4] = @"AudioFileGetProperty kAudioFilePropertyAudioDataPacketCount";
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
+    [v11 errorWithDomain:? code:? userInfo:?];
+    *a4 = v9 = 0;
   }
 
   else
   {
-    v21 = [MEMORY[0x277CBEB28] dataWithLength:16 * *ioNumPackets];
-    mutableBytes = [v21 mutableBytes];
-    v23 = [MEMORY[0x277CBEB28] dataWithLength:*ioNumBytes];
-    mutableBytes2 = [v23 mutableBytes];
-    PacketData = AudioFileReadPacketData(outAudioFile, 0, ioNumBytes, mutableBytes, 0, ioNumPackets, mutableBytes2);
-    if (PacketData)
+    v12 = [MEMORY[0x277CBEB28] dataWithLength:?];
+    mutableBytes = [v12 mutableBytes];
+    v14 = [MEMORY[0x277CBEB28] dataWithLength:?];
+    mutableBytes2 = [v14 mutableBytes];
+    if (AudioFileReadPacketData(outAudioFile[0], 0, ioNumBytes, mutableBytes, 0, ioNumPackets, mutableBytes2))
     {
       if (a4)
       {
-        v26 = MEMORY[0x277CCA9B8];
-        v27 = PacketData;
-        v38 = *MEMORY[0x277CCA470];
-        v39 = @"AudioFileGetProperty kAudioFilePropertyAudioDataPacketCount";
-        v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
-        *a4 = [v26 errorWithDomain:@"audioDataFromFile:error:" code:v27 userInfo:v28];
+        v16 = MEMORY[0x277CCA9B8];
+        outAudioFile[1] = *MEMORY[0x277CCA470];
+        outAudioFile[2] = @"AudioFileGetProperty kAudioFilePropertyAudioDataPacketCount";
+        v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
+        *a4 = [v16 errorWithDomain:? code:? userInfo:?];
       }
 
-      v15 = 0;
+      v9 = 0;
     }
 
     else
     {
-      v15 = objc_alloc_init(MEMORY[0x277D79920]);
-      v29[0] = outPropertyData;
-      v29[1] = v35;
-      v30 = v36;
-      [v15 setAsbd:v29];
-      [v15 setAudioData:v23];
-      [v15 setPacketCount:*ioNumPackets];
-      [v15 setPacketDescriptions:v21];
+      v9 = objc_alloc_init(MEMORY[0x277D79920]);
+      [v9 setAsbd:{outPropertyData, v22, v23}];
+      [v9 setAudioData:?];
+      [v9 setPacketCount:?];
+      [v9 setPacketDescriptions:?];
     }
   }
 
 LABEL_12:
-  v16 = *MEMORY[0x277D85DE8];
 
-  return v15;
+  return v9;
 }
 
 @end

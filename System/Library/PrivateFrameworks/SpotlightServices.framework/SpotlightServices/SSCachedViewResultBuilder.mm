@@ -13,20 +13,20 @@
 
   if (v5)
   {
-    v6 = SSAppVendedTopHitViewsEnabled();
+    v7 = SSAppVendedTopHitViewsEnabled(v6);
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  return v6;
+  return v7;
 }
 
 - (id)buildInlineCardSections
 {
-  v25[1] = *MEMORY[0x1E69E9840];
+  v24[1] = *MEMORY[0x1E69E9840];
   v3 = [SFSearchResult_SpotlightExtras alloc];
   result = [(SSResultBuilder *)self result];
   v5 = [(SFSearchResult_SpotlightExtras *)v3 initWithResult:result];
@@ -64,10 +64,8 @@
   v21 = [result3 valueForAttribute:v7 withType:objc_opt_class()];
   [v10 setArchive:v21];
 
-  v25[0] = v10;
-  v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:1];
-
-  v23 = *MEMORY[0x1E69E9840];
+  v24[0] = v10;
+  v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:1];
 
   return v22;
 }

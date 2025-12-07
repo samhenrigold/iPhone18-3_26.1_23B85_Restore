@@ -35,28 +35,28 @@
 
 - (void)resetDataSource
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   managedEventCounterRequestGroups = [objc_opt_class() managedEventCounterRequestGroups];
-  v4 = [managedEventCounterRequestGroups countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [managedEventCounterRequestGroups countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       v7 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(managedEventCounterRequestGroups);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * v7);
+        v8 = *(*(&v10 + 1) + 8 * v7);
         eventCountersManager = [(HMDCloudSyncLogEventsAnalyzer *)self eventCountersManager];
         [eventCountersManager resetEventCountersForRequestGroup:v8];
 
@@ -64,13 +64,11 @@
       }
 
       while (v5 != v7);
-      v5 = [managedEventCounterRequestGroups countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [managedEventCounterRequestGroups countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)cloudSyncAnalysisResultForDate:(id)date
@@ -118,7 +116,7 @@
   v16 = dateCopy;
   v25 = v13;
   [v14 enumerateKeysAndObjectsUsingBlock:v27];
-  v17 = [v15 copy];
+  v17 = objc_msgSend_copy(v15);
   [(HMDCloudSyncAnalysisResultLogEvent *)v5 setLegacyUploadReasonCountMap:v17];
 
   eventCountersManager4 = [(HMDCloudSyncLogEventsAnalyzer *)self eventCountersManager];
@@ -241,7 +239,7 @@ void __64__HMDCloudSyncLogEventsAnalyzer_cloudSyncAnalysisResultForDate___block_
 
 - (void)handleUploadReasonLogEvent:(id)event
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   saveReason = [eventCopy saveReason];
   if (saveReason)
@@ -252,17 +250,17 @@ void __64__HMDCloudSyncLogEventsAnalyzer_cloudSyncAnalysisResultForDate___block_
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v9 = HMFGetLogIdentifier();
-      v16 = 138544386;
-      v17 = v9;
-      v18 = 2114;
-      v19 = saveReason;
-      v20 = 2048;
+      v15 = 138544386;
+      v16 = v9;
+      v17 = 2114;
+      v18 = saveReason;
+      v19 = 2048;
       legacyPushCount = [eventCopy legacyPushCount];
-      v22 = 2048;
+      v21 = 2048;
       homeZonePushCount = [eventCopy homeZonePushCount];
-      v24 = 2048;
+      v23 = 2048;
       homeManagerPushCount = [eventCopy homeManagerPushCount];
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@[HMDCloudSyncLogEventsAnalyzer] Received upload reason: %{public}@ Count for legacy: %ld homeZone: %ld homeManager: %ld", &v16, 0x34u);
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@[HMDCloudSyncLogEventsAnalyzer] Received upload reason: %{public}@ Count for legacy: %ld homeZone: %ld homeManager: %ld", &v15, 0x34u);
     }
 
     objc_autoreleasePoolPop(v6);
@@ -285,8 +283,6 @@ void __64__HMDCloudSyncLogEventsAnalyzer_cloudSyncAnalysisResultForDate___block_
 
     [eventCountersManager incrementEventCounterForEventName:saveReason2 requestGroup:v14 withValue:v11];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleUploadLogEvent:(id)event
@@ -422,7 +418,7 @@ LABEL_10:
 
 - (void)observeEvent:(id)event
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -431,9 +427,9 @@ LABEL_10:
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v37 = v8;
-    v38 = 2112;
-    v39 = objc_opt_class();
+    v36 = v8;
+    v37 = 2112;
+    v38 = objc_opt_class();
     _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@[CloudSyncLogEventsAnalyzer] Processing Cloud Event: %@", buf, 0x16u);
   }
 
@@ -586,16 +582,16 @@ LABEL_10:
               else
               {
                 context = objc_autoreleasePoolPush();
-                v35 = selfCopy;
+                v34 = selfCopy;
                 v30 = HMFGetOSLogHandle();
                 if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
                 {
-                  v33 = HMFGetLogIdentifier();
+                  v32 = HMFGetLogIdentifier();
                   v31 = objc_opt_class();
                   *buf = 138543618;
-                  v37 = v33;
-                  v38 = 2112;
-                  v39 = v31;
+                  v36 = v32;
+                  v37 = 2112;
+                  v38 = v31;
                   _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_ERROR, "%{public}@Event class: %@ matched none of the handlers in HMDCloudSyncLogEventsAnalyzer", buf, 0x16u);
                 }
 
@@ -607,17 +603,15 @@ LABEL_10:
       }
     }
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDCloudSyncLogEventsAnalyzer)initWithDataSource:(id)source
 {
-  v21[10] = *MEMORY[0x277D85DE8];
+  v20[10] = *MEMORY[0x277D85DE8];
   sourceCopy = source;
-  v20.receiver = self;
-  v20.super_class = HMDCloudSyncLogEventsAnalyzer;
-  v5 = [(HMDCloudSyncLogEventsAnalyzer *)&v20 init];
+  v19.receiver = self;
+  v19.super_class = HMDCloudSyncLogEventsAnalyzer;
+  v5 = [(HMDCloudSyncLogEventsAnalyzer *)&v19 init];
   if (v5)
   {
     legacyCountersManager = [sourceCopy legacyCountersManager];
@@ -641,17 +635,17 @@ LABEL_10:
     v5->_deviceStateProvider = deviceStateProvider;
 
     logEventDispatcher = [sourceCopy logEventDispatcher];
-    v21[0] = objc_opt_class();
-    v21[1] = objc_opt_class();
-    v21[2] = objc_opt_class();
-    v21[3] = objc_opt_class();
-    v21[4] = objc_opt_class();
-    v21[5] = objc_opt_class();
-    v21[6] = objc_opt_class();
-    v21[7] = objc_opt_class();
-    v21[8] = objc_opt_class();
-    v21[9] = objc_opt_class();
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:10];
+    v20[0] = objc_opt_class();
+    v20[1] = objc_opt_class();
+    v20[2] = objc_opt_class();
+    v20[3] = objc_opt_class();
+    v20[4] = objc_opt_class();
+    v20[5] = objc_opt_class();
+    v20[6] = objc_opt_class();
+    v20[7] = objc_opt_class();
+    v20[8] = objc_opt_class();
+    v20[9] = objc_opt_class();
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:10];
     [logEventDispatcher addObserver:v5 forEventClasses:v17];
 
     [sourceCopy addThresholdTrigger:@"cloudSyncPushCount" forEventName:@"HMDCloudSyncLogEventsAnalyzerIncomingPushCount" requestGroup:@"HMDCloudSyncLogEventsAnalyzerOperationsRequestGroupKey" atThreshold:100];
@@ -663,20 +657,18 @@ LABEL_10:
     [sourceCopy addThresholdTrigger:@"cloudSyncUploadErrorCountV2" forEventName:@"HMDCloudSyncLogEventsAnalyzerUploadErrorCount" requestGroup:@"HMDCloudSyncLogEventsAnalyzerOperationsRequestGroupKey" atThreshold:10 uploadImmediately:1];
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 + (id)managedEventCounterRequestGroups
 {
-  v5[5] = *MEMORY[0x277D85DE8];
-  v5[0] = @"HMDCloudSyncLogEventsAnalyzerOperationsRequestGroupKey";
-  v5[1] = @"HMDCloudSyncLogEventsAnalyzerLegacyUploadReasonRequestGroupKey";
-  v5[2] = @"HMDCloudSyncLogEventsAnalyzerLegacyUploadNoPushReasonRequestGroupKey";
-  v5[3] = @"HMDCloudSyncLogEventsAnalyzerUploadErrorRequestGroupKey";
-  v5[4] = @"HMDCloudSyncLogEventsAnalyzerLegacyUploadErrorRequestGroupKey";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:5];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[5] = *MEMORY[0x277D85DE8];
+  v4[0] = @"HMDCloudSyncLogEventsAnalyzerOperationsRequestGroupKey";
+  v4[1] = @"HMDCloudSyncLogEventsAnalyzerLegacyUploadReasonRequestGroupKey";
+  v4[2] = @"HMDCloudSyncLogEventsAnalyzerLegacyUploadNoPushReasonRequestGroupKey";
+  v4[3] = @"HMDCloudSyncLogEventsAnalyzerUploadErrorRequestGroupKey";
+  v4[4] = @"HMDCloudSyncLogEventsAnalyzerLegacyUploadErrorRequestGroupKey";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:5];
 
   return v2;
 }

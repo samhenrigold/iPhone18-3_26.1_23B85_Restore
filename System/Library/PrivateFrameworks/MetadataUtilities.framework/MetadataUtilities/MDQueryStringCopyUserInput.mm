@@ -5,7 +5,6 @@
 
 uint64_t ____MDQueryStringCopyUserInput_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v3 = *(*(a1 + 32) + 8);
   if (!*(v3 + 24) && *(a2 + 48) == 4)
   {
@@ -27,7 +26,6 @@ uint64_t ____MDQueryStringCopyUserInput_block_invoke(uint64_t a1, uint64_t a2)
     }
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return a2;
 }
 

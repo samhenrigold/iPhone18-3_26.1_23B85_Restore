@@ -54,33 +54,33 @@
 
 + (id)searchableMessageAttachmentsForBaseMessage:(id)message includeEncryptedBody:(BOOL)body
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   messageCopy = message;
-  v29 = +[MFAttachmentManager defaultManager];
-  v30 = [v29 attachmentsForMessage:messageCopy withSchemes:0 updatingFlags:0];
+  v28 = +[MFAttachmentManager defaultManager];
+  v29 = [v28 attachmentsForMessage:messageCopy withSchemes:0 updatingFlags:0];
   v4 = objc_opt_new();
   v5 = objc_opt_new();
   v6 = objc_opt_new();
   v7 = objc_opt_new();
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
-  obj = v30;
-  v8 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  obj = v29;
+  v8 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
   if (v8)
   {
-    v9 = *v33;
+    v9 = *v32;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v33 != v9)
+        if (*v32 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v32 + 1) + 8 * i);
+        v11 = *(*(&v31 + 1) + 8 * i);
         mimeType = [v11 mimeType];
         v13 = mimeType;
         if (mimeType)
@@ -135,7 +135,7 @@
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v8 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
     }
 
     while (v8);
@@ -143,8 +143,6 @@
 
   v24 = objc_alloc(MEMORY[0x1E699B6B8]);
   v25 = [v24 initWithNames:v6 paths:v7 UTIs:v5 specificUTIs:MEMORY[0x1E695E0F0] mimeTypes:v4 kinds:MEMORY[0x1E695E0F0]];
-
-  v26 = *MEMORY[0x1E69E9840];
 
   return v25;
 }
@@ -218,51 +216,38 @@
 
 - (id)fetchIndexableAttachments
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   shouldExcludeFromIndex = [(MFSearchableIndexItem_iOS *)self shouldExcludeFromIndex];
   v4 = [(EDSearchableIndexItem *)self indexingType]!= 0;
   baseMessage = [(EDSearchableIndexItem *)self baseMessage];
-  if (v4 || shouldExcludeFromIndex)
+  if (v4 || shouldExcludeFromIndex || ([MEMORY[0x1E695DF00] dateWithTimeIntervalSinceNow:-604800.0], v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(baseMessage, "dateSent"), v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "timeIntervalSince1970"), v8 = v7, objc_msgSend(v5, "timeIntervalSince1970"), v10 = v9, v6, v5, v8 < v10))
   {
-    goto LABEL_3;
-  }
-
-  v5 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceNow:-604800.0];
-  dateSent = [baseMessage dateSent];
-  [dateSent timeIntervalSince1970];
-  v8 = v7;
-  [v5 timeIntervalSince1970];
-  v10 = v9;
-
-  if (v8 < v10)
-  {
-LABEL_3:
     nullFuture = [MEMORY[0x1E699B7C8] nullFuture];
   }
 
   else
   {
-    v27 = +[MFAttachmentManager defaultManager];
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
+    v26 = +[MFAttachmentManager defaultManager];
     v33 = 0u;
-    v29 = objc_opt_new();
-    v12 = [v27 attachmentsForMessage:baseMessage withSchemes:0 updatingFlags:0];
-    v13 = [v12 countByEnumeratingWithState:&v32 objects:v38 count:16];
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
+    v28 = objc_opt_new();
+    v12 = [v26 attachmentsForMessage:baseMessage withSchemes:0 updatingFlags:0];
+    v13 = [v12 countByEnumeratingWithState:&v31 objects:v37 count:16];
     if (v13)
     {
-      v14 = *v33;
+      v14 = *v32;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v33 != v14)
+          if (*v32 != v14)
           {
             objc_enumerationMutation(v12);
           }
 
-          v16 = *(*(&v32 + 1) + 8 * i);
+          v16 = *(*(&v31 + 1) + 8 * i);
           if (([v16 isDataAvailableLocally] & 1) == 0 && -[MFSearchableIndexItem_iOS _shouldAutoDownloadAttachment:](self, "_shouldAutoDownloadAttachment:", v16))
           {
             v17 = +[MFSearchableIndexItem_iOS log];
@@ -271,37 +256,35 @@ LABEL_3:
               v23 = [v16 url];
               absoluteString = [v23 absoluteString];
               *buf = 138412290;
-              v37 = absoluteString;
+              v36 = absoluteString;
               _os_log_debug_impl(&dword_1B0389000, v17, OS_LOG_TYPE_DEBUG, "fetching attachment %@", buf, 0xCu);
             }
 
             promise = [MEMORY[0x1E699B868] promise];
-            v30[0] = MEMORY[0x1E69E9820];
-            v30[1] = 3221225472;
-            v30[2] = __54__MFSearchableIndexItem_iOS_fetchIndexableAttachments__block_invoke;
-            v30[3] = &unk_1E7AA7798;
+            v29[0] = MEMORY[0x1E69E9820];
+            v29[1] = 3221225472;
+            v29[2] = __54__MFSearchableIndexItem_iOS_fetchIndexableAttachments__block_invoke;
+            v29[3] = &unk_1E7AA7798;
             v19 = promise;
-            v31 = v19;
-            [v16 setFetchCompletionBlock:v30];
+            v30 = v19;
+            [v16 setFetchCompletionBlock:v29];
             [v16 setWantsCompletionBlockOffMainThread:1];
             fetchData = [v16 fetchData];
             future = [v19 future];
             v22 = [future recover:&__block_literal_global_56];
 
-            [v29 addObject:v22];
+            [v28 addObject:v22];
           }
         }
 
-        v13 = [v12 countByEnumeratingWithState:&v32 objects:v38 count:16];
+        v13 = [v12 countByEnumeratingWithState:&v31 objects:v37 count:16];
       }
 
       while (v13);
     }
 
-    nullFuture = [MEMORY[0x1E699B7C8] join:v29];
+    nullFuture = [MEMORY[0x1E699B7C8] join:v28];
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 
   return nullFuture;
 }

@@ -13,14 +13,12 @@
 
 + (id)sortDescriptors
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"sortOrder" ascending:0];
-  v7[0] = v2;
+  v6[0] = v2;
   v3 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"uuid" ascending:1];
-  v7[1] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[1] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
 
   return v4;
 }
@@ -39,21 +37,19 @@
 
 + (id)propertiesToObserveForDownloadableEpisodes
 {
-  v7[9] = *MEMORY[0x1E69E9840];
+  v6[9] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E695DFD8];
-  v7[0] = @"uuid";
-  v7[1] = @"unplayedCount";
-  v7[2] = @"episodes";
-  v7[3] = @"deletedEpisodes";
-  v7[4] = @"settings";
-  v7[5] = @"sortOrder";
-  v7[6] = @"defaultSettings";
-  v7[7] = @"containerOrder";
-  v7[8] = @"hidden";
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:9];
+  v6[0] = @"uuid";
+  v6[1] = @"unplayedCount";
+  v6[2] = @"episodes";
+  v6[3] = @"deletedEpisodes";
+  v6[4] = @"settings";
+  v6[5] = @"sortOrder";
+  v6[6] = @"defaultSettings";
+  v6[7] = @"containerOrder";
+  v6[8] = @"hidden";
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:9];
   v4 = [v2 setWithArray:v3];
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

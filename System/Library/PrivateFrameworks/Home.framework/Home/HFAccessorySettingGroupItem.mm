@@ -213,7 +213,7 @@ LABEL_3:
 - (id)_subclass_updateWithOptions:(id)options
 {
   selfCopy = self;
-  v84 = *MEMORY[0x277D85DE8];
+  v83 = *MEMORY[0x277D85DE8];
   entity = [(HFAccessorySettingGroupItem *)self entity];
   settingKeyPath = [(HFAccessorySettingGroupItem *)selfCopy settingKeyPath];
   v7 = objc_alloc_init(HFMutableItemUpdateOutcome);
@@ -314,9 +314,9 @@ LABEL_3:
       {
         v41 = NSStringFromSelector(aSelector);
         *buf = 138412546;
-        v81 = v41;
-        v82 = 2112;
-        v83 = settingKeyPath;
+        v80 = v41;
+        v81 = 2112;
+        v82 = settingKeyPath;
         _os_log_impl(&dword_20D9BF000, v40, OS_LOG_TYPE_DEFAULT, "%@ language setting %@ is being formatted, fetching the option from the siri endpoint manager instead", buf, 0x16u);
       }
 
@@ -473,8 +473,6 @@ LABEL_44:
 
   [(HFAccessorySettingGroupItem *)selfCopy _decorateHiddenOrDisabled:v7];
   v74 = [MEMORY[0x277D2C900] futureWithResult:v7];
-
-  v75 = *MEMORY[0x277D85DE8];
 
   return v74;
 }

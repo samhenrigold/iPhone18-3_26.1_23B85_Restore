@@ -6,13 +6,13 @@
 
 - (id)transformedValue:(id)value
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   v4 = VSDefaultLogObject();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v28 = valueCopy;
+    v27 = valueCopy;
     _os_log_impl(&dword_270DD4000, v4, OS_LOG_TYPE_DEFAULT, "Handling response %@", buf, 0xCu);
   }
 
@@ -21,25 +21,25 @@
   if (objc_opt_isKindOfClass())
   {
     ratingsStoreFronts = [valueCopy ratingsStoreFronts];
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
-    v7 = [ratingsStoreFronts countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v7 = [ratingsStoreFronts countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v23;
+      v9 = *v22;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v23 != v9)
+          if (*v22 != v9)
           {
             objc_enumerationMutation(ratingsStoreFronts);
           }
 
-          v11 = *(*(&v22 + 1) + 8 * i);
+          v11 = *(*(&v21 + 1) + 8 * i);
           v12 = objc_alloc_init(VSStorefront);
           storeFrontID = [v11 storeFrontID];
           [(VSStorefront *)v12 setIdentitifer:storeFrontID];
@@ -50,7 +50,7 @@
           [v5 addObject:v12];
         }
 
-        v8 = [ratingsStoreFronts countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v8 = [ratingsStoreFronts countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v8);
@@ -87,18 +87,15 @@
 
   v19 = v17;
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v19;
 }
 
 - (void)transformedValue:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_270DD4000, a2, OS_LOG_TYPE_ERROR, "Unexpected response type: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_270DD4000, a2, OS_LOG_TYPE_ERROR, "Unexpected response type: %@", &v2, 0xCu);
 }
 
 @end

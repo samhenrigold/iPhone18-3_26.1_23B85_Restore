@@ -52,7 +52,7 @@
   encoderCopy = encoder;
   if (backingCopy)
   {
-    [backingCopy structure];
+    objc_msgSend_structure(backingCopy);
     +[CLKUIMetalAtlas _createMTLTextureWithBacking:device:encoder:];
   }
 

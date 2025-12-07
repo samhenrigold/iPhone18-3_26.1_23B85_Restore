@@ -138,25 +138,28 @@ void __47__NDAnalyticsUploadScheduler_backgroundSession__block_invoke(uint64_t a
     [NDAnalyticsUploadScheduler handleLaunchEventForBackgroundSessionWithIdentifier:completion:];
   }
 
-  if (([identifierCopy isEqualToString:@"com.apple.newsd.analytics.uploader"] & 1) == 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  v8 = [identifierCopy isEqualToString:@"com.apple.newsd.analytics.uploader"];
+  if ((v8 & 1) == 0)
   {
-    [NDAnalyticsUploadScheduler handleLaunchEventForBackgroundSessionWithIdentifier:completion:];
+    v8 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+    if (v8)
+    {
+      [NDAnalyticsUploadScheduler handleLaunchEventForBackgroundSessionWithIdentifier:completion:];
+    }
   }
 
-  v8 = NDSharedServiceLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = NDSharedServiceLog(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v12 = 136315138;
     v13 = "[NDAnalyticsUploadScheduler handleLaunchEventForBackgroundSessionWithIdentifier:completion:]";
-    _os_log_impl(&dword_25BDF7000, v8, OS_LOG_TYPE_INFO, "%s", &v12, 0xCu);
+    _os_log_impl(&dword_25BDF7000, v9, OS_LOG_TYPE_INFO, "%s", &v12, 0xCu);
   }
 
   backgroundSessionLaunchEventCounter = [(NDAnalyticsUploadScheduler *)self backgroundSessionLaunchEventCounter];
   [backgroundSessionLaunchEventCounter increment];
-  v10 = FCDispatchQueueForQualityOfService();
-  [backgroundSessionLaunchEventCounter notifyWhenCountReachesZeroOnQueue:v10 usingBlock:completionCopy];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v11 = FCDispatchQueueForQualityOfService();
+  [backgroundSessionLaunchEventCounter notifyWhenCountReachesZeroOnQueue:v11 usingBlock:completionCopy];
 }
 
 - (void)scheduleUploadInWindow:(id)window withForegroundUploadCompletion:(id)completion
@@ -164,13 +167,18 @@ void __47__NDAnalyticsUploadScheduler_backgroundSession__block_invoke(uint64_t a
   v27 = *MEMORY[0x277D85DE8];
   windowCopy = window;
   completionCopy = completion;
-  if (!windowCopy && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  v8 = completionCopy;
+  if (!windowCopy)
   {
-    [NDAnalyticsUploadScheduler scheduleUploadInWindow:withForegroundUploadCompletion:];
+    completionCopy = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+    if (completionCopy)
+    {
+      [NDAnalyticsUploadScheduler scheduleUploadInWindow:withForegroundUploadCompletion:];
+    }
   }
 
-  v8 = NDSharedServiceLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = NDSharedServiceLog(completionCopy);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     earlierDate = [windowCopy earlierDate];
     laterDate = [windowCopy laterDate];
@@ -180,7 +188,7 @@ void __47__NDAnalyticsUploadScheduler_backgroundSession__block_invoke(uint64_t a
     v24 = earlierDate;
     v25 = 2112;
     v26 = laterDate;
-    _os_log_impl(&dword_25BDF7000, v8, OS_LOG_TYPE_INFO, "%s with start date %@, end date %@", buf, 0x20u);
+    _os_log_impl(&dword_25BDF7000, v9, OS_LOG_TYPE_INFO, "%s with start date %@, end date %@", buf, 0x20u);
   }
 
   lock = [(NDAnalyticsUploadScheduler *)self lock];
@@ -190,55 +198,53 @@ void __47__NDAnalyticsUploadScheduler_backgroundSession__block_invoke(uint64_t a
   v18 = &unk_27997A678;
   selfCopy = self;
   v20 = windowCopy;
-  v12 = windowCopy;
+  v13 = windowCopy;
   [lock performWithLockSync:&v15];
 
-  v13 = [(NDAnalyticsUploadScheduler *)self schedulingAndForegroundUploadThrottler:v15];
-  [v13 tickleWithCompletion:completionCopy];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v14 = [(NDAnalyticsUploadScheduler *)self schedulingAndForegroundUploadThrottler:v15];
+  [v14 tickleWithCompletion:v8];
 }
 
 - (void)operationThrottler:(id)throttler performAsyncOperationWithCompletion:(id)completion
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   throttlerCopy = throttler;
   completionCopy = completion;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = __Block_byref_object_copy__2;
-  v21 = __Block_byref_object_dispose__2;
-  v22 = 0;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__2;
+  v22 = __Block_byref_object_dispose__2;
+  v23 = 0;
   lock = [(NDAnalyticsUploadScheduler *)self lock];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __85__NDAnalyticsUploadScheduler_operationThrottler_performAsyncOperationWithCompletion___block_invoke;
-  v16[3] = &unk_27997A7D0;
-  v16[4] = self;
-  v16[5] = &v17;
-  [lock performWithLockSync:v16];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __85__NDAnalyticsUploadScheduler_operationThrottler_performAsyncOperationWithCompletion___block_invoke;
+  v17[3] = &unk_27997A7D0;
+  v17[4] = self;
+  v17[5] = &v18;
+  [lock performWithLockSync:v17];
 
-  laterDate = [v18[5] laterDate];
+  laterDate = [v19[5] laterDate];
   date = [MEMORY[0x277CBEAA8] date];
   v11 = [laterDate fc_isEarlierThanOrEqualTo:date];
 
-  v12 = NDSharedServiceLog();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+  v13 = NDSharedServiceLog(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
-    laterDate2 = [v18[5] laterDate];
+    laterDate2 = [v19[5] laterDate];
     *buf = 138412290;
-    v24 = laterDate2;
-    _os_log_impl(&dword_25BDF7000, v12, OS_LOG_TYPE_INFO, "Scheduling payload with delivery window end date of %@", buf, 0xCu);
+    v25 = laterDate2;
+    _os_log_impl(&dword_25BDF7000, v13, OS_LOG_TYPE_INFO, "Scheduling payload with delivery window end date of %@", buf, 0xCu);
   }
 
   if (v11)
   {
-    v14 = NDSharedServiceLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    v16 = NDSharedServiceLog(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_25BDF7000, v14, OS_LOG_TYPE_INFO, "Uploading now", buf, 2u);
+      _os_log_impl(&dword_25BDF7000, v16, OS_LOG_TYPE_INFO, "Uploading now", buf, 2u);
     }
 
     [(NDAnalyticsUploadScheduler *)self _uploadWithCompletion:completionCopy];
@@ -246,13 +252,11 @@ void __47__NDAnalyticsUploadScheduler_backgroundSession__block_invoke(uint64_t a
 
   else
   {
-    [(NDAnalyticsUploadScheduler *)self _scheduleBackgroundUploadInWindow:v18[5]];
+    [(NDAnalyticsUploadScheduler *)self _scheduleBackgroundUploadInWindow:v19[5]];
     completionCopy[2](completionCopy);
   }
 
-  _Block_object_dispose(&v17, 8);
-
-  v15 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v18, 8);
 }
 
 void __85__NDAnalyticsUploadScheduler_operationThrottler_performAsyncOperationWithCompletion___block_invoke(uint64_t a1)
@@ -276,47 +280,45 @@ void __85__NDAnalyticsUploadScheduler_operationThrottler_performAsyncOperationWi
 
 - (void)URLSession:(id)session task:(id)task willBeginDelayedRequest:(id)request completionHandler:(id)handler
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   handlerCopy = handler;
-  v10 = NDSharedServiceLog();
+  v10 = NDSharedServiceLog(handlerCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     taskDescription = [taskCopy taskDescription];
     *buf = 136315394;
-    v17 = "[NDAnalyticsUploadScheduler URLSession:task:willBeginDelayedRequest:completionHandler:]";
-    v18 = 2112;
-    v19 = taskDescription;
+    v16 = "[NDAnalyticsUploadScheduler URLSession:task:willBeginDelayedRequest:completionHandler:]";
+    v17 = 2112;
+    v18 = taskDescription;
     _os_log_impl(&dword_25BDF7000, v10, OS_LOG_TYPE_INFO, "%s called for task with description %@", buf, 0x16u);
   }
 
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __88__NDAnalyticsUploadScheduler_URLSession_task_willBeginDelayedRequest_completionHandler___block_invoke;
-  v14[3] = &unk_27997AD08;
-  v15 = handlerCopy;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __88__NDAnalyticsUploadScheduler_URLSession_task_willBeginDelayedRequest_completionHandler___block_invoke;
+  v13[3] = &unk_27997AD08;
+  v14 = handlerCopy;
   v12 = handlerCopy;
-  [(NDAnalyticsUploadScheduler *)self _uploadWithCompletion:v14];
-
-  v13 = *MEMORY[0x277D85DE8];
+  [(NDAnalyticsUploadScheduler *)self _uploadWithCompletion:v13];
 }
 
 - (void)URLSession:(id)session task:(id)task didCompleteWithError:(id)error
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   errorCopy = error;
-  v9 = NDSharedServiceLog();
+  v9 = NDSharedServiceLog(errorCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     taskDescription = [taskCopy taskDescription];
-    v17 = 136315650;
-    v18 = "[NDAnalyticsUploadScheduler URLSession:task:didCompleteWithError:]";
-    v19 = 2112;
-    v20 = taskDescription;
-    v21 = 2112;
-    v22 = errorCopy;
-    _os_log_impl(&dword_25BDF7000, v9, OS_LOG_TYPE_INFO, "%s called for task with description %@, error %@", &v17, 0x20u);
+    v16 = 136315650;
+    v17 = "[NDAnalyticsUploadScheduler URLSession:task:didCompleteWithError:]";
+    v18 = 2112;
+    v19 = taskDescription;
+    v20 = 2112;
+    v21 = errorCopy;
+    _os_log_impl(&dword_25BDF7000, v9, OS_LOG_TYPE_INFO, "%s called for task with description %@, error %@", &v16, 0x20u);
   }
 
   domain = [errorCopy domain];
@@ -353,7 +355,6 @@ void __85__NDAnalyticsUploadScheduler_operationThrottler_performAsyncOperationWi
   [delegate uploadSchedulerDidDropScheduledBackgroundUpload:self];
 
 LABEL_12:
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_scheduleBackgroundUploadInWindow:(id)window
@@ -385,8 +386,8 @@ LABEL_12:
   [laterDate timeIntervalSinceNow];
   [v13 set_timeoutIntervalForResource:?];
 
-  v16 = NDSharedServiceLog();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+  v17 = NDSharedServiceLog(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
   {
     earlierDate2 = [windowCopy earlierDate];
     laterDate2 = [windowCopy laterDate];
@@ -396,28 +397,26 @@ LABEL_12:
     v23 = laterDate2;
     v24 = 2112;
     v25 = uUIDString;
-    _os_log_impl(&dword_25BDF7000, v16, OS_LOG_TYPE_INFO, "Scheduling background task with start date %@, end date %@, taskDescription %@", buf, 0x20u);
+    _os_log_impl(&dword_25BDF7000, v17, OS_LOG_TYPE_INFO, "Scheduling background task with start date %@, end date %@, taskDescription %@", buf, 0x20u);
   }
 
   [v13 resume];
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __64__NDAnalyticsUploadScheduler__scheduleBackgroundUploadInWindow___block_invoke_2(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v3 = NDSharedServiceLog();
+  v3 = NDSharedServiceLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = [v2 taskDescription];
-    v6 = 138412290;
-    v7 = v4;
-    _os_log_impl(&dword_25BDF7000, v3, OS_LOG_TYPE_INFO, "Cancelling background task with taskDescription %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v4;
+    _os_log_impl(&dword_25BDF7000, v3, OS_LOG_TYPE_INFO, "Cancelling background task with taskDescription %@", &v5, 0xCu);
   }
 
   [v2 cancel];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_uploadWithCompletion:(id)completion
@@ -480,86 +479,65 @@ uint64_t __52__NDAnalyticsUploadScheduler__uploadWithCompletion___block_invoke_2
 
 - (void)initWithURLSessionQueue:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "URLSessionQueue"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "URLSessionQueue", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)handleLaunchEventForBackgroundSessionWithIdentifier:completion:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "identifier"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "identifier", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)handleLaunchEventForBackgroundSessionWithIdentifier:completion:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "[identifier isEqualToString:NDAnalyticsUploadSchedulerBackgroundSessionIdentifier]"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "[identifier isEqualToString:NDAnalyticsUploadSchedulerBackgroundSessionIdentifier]", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)scheduleUploadInWindow:withForegroundUploadCompletion:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "deliveryWindow"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "deliveryWindow", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void __85__NDAnalyticsUploadScheduler_operationThrottler_performAsyncOperationWithCompletion___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"invalid nil value for '%s'", "deliveryWindow"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "deliveryWindow", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)_scheduleBackgroundUploadInWindow:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "deliveryWindow"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "deliveryWindow", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)_uploadWithCompletion:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "completion"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "completion", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BDF7000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 @end

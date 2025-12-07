@@ -76,7 +76,7 @@
 
 - (void)setAppBundleIdentifiers:(id)identifiers
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   os_unfair_lock_lock(&self->_lock);
   v5 = [identifiersCopy copy];
@@ -85,33 +85,33 @@
 
   v7 = objc_autoreleasePoolPush();
   v8 = [MEMORY[0x277CBEB18] arrayWithCapacity:{-[NSMutableDictionary count](self->_duplicateEventCache, "count")}];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   allKeys = [(NSMutableDictionary *)self->_duplicateEventCache allKeys];
-  v10 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v10 = [allKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v17;
+    v12 = *v16;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v17 != v12)
+        if (*v16 != v12)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v14 = *(*(&v16 + 1) + 8 * i);
+        v14 = *(*(&v15 + 1) + 8 * i);
         if (![(NSSet *)self->_appBundleIdentifiers containsObject:v14])
         {
           [v8 addObject:v14];
         }
       }
 
-      v11 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v11 = [allKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v11);
@@ -120,8 +120,6 @@
   [(NSMutableDictionary *)self->_duplicateEventCache removeObjectsForKeys:v8];
   objc_autoreleasePoolPop(v7);
   os_unfair_lock_unlock(&self->_lock);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setUpdateHandler:(id)handler

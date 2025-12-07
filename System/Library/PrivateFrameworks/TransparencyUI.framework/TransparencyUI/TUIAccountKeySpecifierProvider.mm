@@ -85,11 +85,10 @@ uint64_t __57__TUIAccountKeySpecifierProvider_initWithAccountManager___block_inv
 
 - (void)refreshSelfAccountKey
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(&dword_26F50B000, v0, OS_LOG_TYPE_DEBUG, "%s  on %{public}@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_26F50B000, v0, OS_LOG_TYPE_DEBUG, "%s  on %{public}@", v1, 0x16u);
 }
 
 uint64_t __55__TUIAccountKeySpecifierProvider_refreshSelfAccountKey__block_invoke()
@@ -158,7 +157,7 @@ uint64_t __55__TUIAccountKeySpecifierProvider_refreshSelfAccountKey__block_invok
 
 void __50__TUIAccountKeySpecifierProvider_reloadSpecifiers__block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
@@ -170,9 +169,9 @@ void __50__TUIAccountKeySpecifierProvider_reloadSpecifiers__block_invoke(uint64_
     v3 = TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_10;
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_INFO))
     {
-      v7 = 138543362;
-      v8 = WeakRetained;
-      _os_log_impl(&dword_26F50B000, v3, OS_LOG_TYPE_INFO, "%{public}@ attempting to reload specifiers...", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = WeakRetained;
+      _os_log_impl(&dword_26F50B000, v3, OS_LOG_TYPE_INFO, "%{public}@ attempting to reload specifiers...", &v6, 0xCu);
     }
 
     v4 = [WeakRetained delegate];
@@ -189,13 +188,11 @@ void __50__TUIAccountKeySpecifierProvider_reloadSpecifiers__block_invoke(uint64_
     v5 = TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_10;
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136315138;
-      v8 = "[TUIAccountKeySpecifierProvider reloadSpecifiers]_block_invoke";
-      _os_log_impl(&dword_26F50B000, v5, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", &v7, 0xCu);
+      v6 = 136315138;
+      v7 = "[TUIAccountKeySpecifierProvider reloadSpecifiers]_block_invoke";
+      _os_log_impl(&dword_26F50B000, v5, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __50__TUIAccountKeySpecifierProvider_reloadSpecifiers__block_invoke_2()
@@ -593,7 +590,7 @@ uint64_t __49__TUIAccountKeySpecifierProvider__showInfoAlert___block_invoke()
 
 void __49__TUIAccountKeySpecifierProvider__showInfoAlert___block_invoke_118(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
@@ -618,13 +615,11 @@ void __49__TUIAccountKeySpecifierProvider__showInfoAlert___block_invoke_118(uint
     v9 = TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_10;
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_ERROR))
     {
-      v11 = 136315138;
-      v12 = "[TUIAccountKeySpecifierProvider _showInfoAlert:]_block_invoke";
-      _os_log_impl(&dword_26F50B000, v9, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", &v11, 0xCu);
+      v10 = 136315138;
+      v11 = "[TUIAccountKeySpecifierProvider _showInfoAlert:]_block_invoke";
+      _os_log_impl(&dword_26F50B000, v9, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", &v10, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __49__TUIAccountKeySpecifierProvider__showInfoAlert___block_invoke_2()
@@ -643,20 +638,18 @@ uint64_t __49__TUIAccountKeySpecifierProvider__showInfoAlert___block_invoke_2()
 
 - (void)initWithAccountManager:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_26F50B000, v0, OS_LOG_TYPE_ERROR, "%s initWithAccountManager is not supported on %{public}@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_26F50B000, v0, OS_LOG_TYPE_ERROR, "%s initWithAccountManager is not supported on %{public}@", v1, 0x16u);
 }
 
 - (void)_showInfoAlert:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(&dword_26F50B000, v0, OS_LOG_TYPE_DEBUG, "%s  on %{public}@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_26F50B000, v0, OS_LOG_TYPE_DEBUG, "%s  on %{public}@", v1, 0x16u);
 }
 
 @end

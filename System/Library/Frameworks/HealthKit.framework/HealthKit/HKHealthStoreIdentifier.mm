@@ -62,9 +62,11 @@
 
 uint64_t __49__HKHealthStoreIdentifier_primaryStoreIdentifier__block_invoke(uint64_t a1)
 {
-  primaryStoreIdentifier__primaryIdentifier = [objc_alloc(*(a1 + 32)) initPrimaryStoreIdentifier];
+  v1 = [objc_alloc(*(a1 + 32)) initPrimaryStoreIdentifier];
+  v2 = primaryStoreIdentifier__primaryIdentifier;
+  primaryStoreIdentifier__primaryIdentifier = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 - (BOOL)isEqual:(id)equal
@@ -154,30 +156,30 @@ uint64_t __49__HKHealthStoreIdentifier_primaryStoreIdentifier__block_invoke(uint
 
   if (v5)
   {
-    v7 = +[HKHealthStoreIdentifier primaryStoreIdentifier];
+    v9 = +[HKHealthStoreIdentifier primaryStoreIdentifier];
 LABEL_5:
-    v8 = v7;
+    v10 = v9;
     goto LABEL_6;
   }
 
   if (v6)
   {
-    v7 = [(HKHealthStoreIdentifier *)self initWithIdentifier:v6];
-    self = v7;
+    v9 = [(HKHealthStoreIdentifier *)self initWithIdentifier:v6];
+    self = v9;
     goto LABEL_5;
   }
 
-  _HKInitializeLogging();
-  v10 = HKLogDefault;
+  _HKInitializeLogging(v7, v8);
+  v12 = HKLogDefault;
   if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_ERROR))
   {
-    [HKHealthStoreIdentifier initWithCoder:v10];
+    [HKHealthStoreIdentifier initWithCoder:v12];
   }
 
-  v8 = 0;
+  v10 = 0;
 LABEL_6:
 
-  return v8;
+  return v10;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -193,14 +195,12 @@ LABEL_6:
 
 - (void)initWithCoder:(void *)a1 .cold.1(void *a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v1 = a1;
-  v4 = 138412290;
-  v5 = objc_opt_class();
-  v2 = v5;
-  _os_log_error_impl(&dword_19197B000, v1, OS_LOG_TYPE_ERROR, "Asked to decode an %@ with no UUID; returning nil", &v4, 0xCu);
-
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = objc_opt_class();
+  v2 = v4;
+  _os_log_error_impl(&dword_19197B000, v1, OS_LOG_TYPE_ERROR, "Asked to decode an %@ with no UUID; returning nil", &v3, 0xCu);
 }
 
 @end

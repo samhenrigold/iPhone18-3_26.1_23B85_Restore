@@ -74,7 +74,7 @@ uint64_t AppleSPUAccCompassPlugin::Release(AppleSPUAccCompassPlugin *this)
   return v2;
 }
 
-void AppleSPUAccCompassPlugin::open()
+void AppleSPUAccCompassPlugin::open(AppleSPUAccCompassPlugin *a1, uint64_t a2)
 {
   if (qword_2A1A130B0 != -1)
   {
@@ -227,7 +227,7 @@ __CFDictionary *AppleSPUAccCompassPlugin::copyPropertyForClient(AppleSPUAccCompa
 
 void AppleSPUAccCompassPlugin::accRemovalNotification(AppleSPUAccCompassPlugin *this, void *a2, int a3, void *a4, __IOHIDDevice *a5)
 {
-  v22 = *MEMORY[0x29EDCA608];
+  v21 = *MEMORY[0x29EDCA608];
   if (this)
   {
     v7 = *(this + 5);
@@ -237,9 +237,9 @@ void AppleSPUAccCompassPlugin::accRemovalNotification(AppleSPUAccCompassPlugin *
     {
       if (v9)
       {
-        v20 = 134217984;
-        v21 = a4;
-        _os_log_impl(&dword_29D407000, v8, OS_LOG_TYPE_DEFAULT, "Accessory detached %p\n", &v20, 0xCu);
+        v19 = 134217984;
+        v20 = a4;
+        _os_log_impl(&dword_29D407000, v8, OS_LOG_TYPE_DEFAULT, "Accessory detached %p\n", &v19, 0xCu);
       }
 
       v10 = 0;
@@ -249,13 +249,13 @@ void AppleSPUAccCompassPlugin::accRemovalNotification(AppleSPUAccCompassPlugin *
       {
         v12 = v11;
         v13 = *(this + 3);
-        v20 = *(&AppleSPUAccCompassPlugin::accCompassCompensationTable + 4 * v10 + 3);
-        LOBYTE(v21) = 0;
+        v19 = *(&AppleSPUAccCompassPlugin::accCompassCompensationTable + 4 * v10 + 3);
+        LOBYTE(v20) = 0;
         v14 = *(v13 + 8);
-        if (!v14 || (*(*v14 + 80))(v14, 4, &v20, 5, 0, 0))
+        if (!v14 || (*(*v14 + 80))(v14, 4, &v19, 5, 0, 0))
         {
           sub_29D408EE4();
-          goto LABEL_12;
+          return;
         }
 
         v11 = 0;
@@ -266,34 +266,27 @@ void AppleSPUAccCompassPlugin::accRemovalNotification(AppleSPUAccCompassPlugin *
       v15 = qword_2A1A130A8;
       if (!os_log_type_enabled(qword_2A1A130A8, OS_LOG_TYPE_DEFAULT))
       {
-        goto LABEL_12;
+        return;
       }
 
-      LOWORD(v20) = 0;
+      LOWORD(v19) = 0;
       v16 = "Accessory Compass compensation Disabled \n";
       v17 = v15;
       v18 = 2;
+      goto LABEL_11;
     }
 
-    else
+    if (v9)
     {
-      if (!v9)
-      {
-        goto LABEL_12;
-      }
-
-      v20 = 134217984;
-      v21 = a4;
+      v19 = 134217984;
+      v20 = a4;
       v16 = "Unexpected Accessory removed %p\n";
       v17 = v8;
       v18 = 12;
+LABEL_11:
+      _os_log_impl(&dword_29D407000, v17, OS_LOG_TYPE_DEFAULT, v16, &v19, v18);
     }
-
-    _os_log_impl(&dword_29D407000, v17, OS_LOG_TYPE_DEFAULT, v16, &v20, v18);
   }
-
-LABEL_12:
-  v19 = *MEMORY[0x29EDCA608];
 }
 
 void AppleSPUAccCompassServicePluginFactory(const __CFAllocator *a1, const void *a2)
@@ -306,10 +299,11 @@ void AppleSPUAccCompassServicePluginFactory(const __CFAllocator *a1, const void 
   }
 }
 
-void sub_29D408400(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_29D408400(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 BOOL sub_29D408420()
@@ -318,19 +312,19 @@ BOOL sub_29D408420()
   return os_log_type_enabled(v0, OS_LOG_TYPE_ERROR);
 }
 
-uint64_t AppleSPUAccCompassPlugin::openInterface(uint64_t a1, uint64_t a2)
+uint64_t AppleSPUAccCompassPlugin::openInterface(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   theInterface = 0;
-  IOHIDServiceRegistryID = AppleSPUAccCompassPlugin::getIOHIDServiceRegistryID();
-  v4 = *MEMORY[0x29EDBB110];
-  v5 = IORegistryEntryIDMatching(IOHIDServiceRegistryID);
-  MatchingService = IOServiceGetMatchingService(v4, v5);
+  IOHIDServiceRegistryID = AppleSPUAccCompassPlugin::getIOHIDServiceRegistryID(a1, a3);
+  v5 = *MEMORY[0x29EDBB110];
+  v6 = IORegistryEntryIDMatching(IOHIDServiceRegistryID);
+  MatchingService = IOServiceGetMatchingService(v5, v6);
   if (!a2)
   {
     return 3758097090;
   }
 
-  v7 = MatchingService;
+  v8 = MatchingService;
   *a2 = MatchingService;
   if (!MatchingService)
   {
@@ -338,76 +332,73 @@ uint64_t AppleSPUAccCompassPlugin::openInterface(uint64_t a1, uint64_t a2)
   }
 
   theScore = 0;
-  v8 = *MEMORY[0x29EDB8EF0];
-  v9 = CFUUIDGetConstantUUIDWithBytes(*MEMORY[0x29EDB8EF0], 0x3Bu, 0xC5u, 0xCCu, 0x87u, 0x84u, 0x5Eu, 0x48u, 0xABu, 0xA9u, 0xC2u, 0x94u, 0x36u, 0, 0x1Bu, 0xA6u, 0x8Au);
-  v10 = CFUUIDGetConstantUUIDWithBytes(0, 0xC2u, 0x44u, 0xE8u, 0x58u, 0x10u, 0x9Cu, 0x11u, 0xD4u, 0x91u, 0xD4u, 0, 0x50u, 0xE4u, 0xC6u, 0x42u, 0x6Fu);
-  v11 = IOCreatePlugInInterfaceForService(v7, v9, v10, &theInterface, &theScore);
-  v12 = 0;
-  v13 = theInterface;
-  if (!v11 && theInterface)
+  v9 = *MEMORY[0x29EDB8EF0];
+  v10 = CFUUIDGetConstantUUIDWithBytes(*MEMORY[0x29EDB8EF0], 0x3Bu, 0xC5u, 0xCCu, 0x87u, 0x84u, 0x5Eu, 0x48u, 0xABu, 0xA9u, 0xC2u, 0x94u, 0x36u, 0, 0x1Bu, 0xA6u, 0x8Au);
+  v11 = CFUUIDGetConstantUUIDWithBytes(0, 0xC2u, 0x44u, 0xE8u, 0x58u, 0x10u, 0x9Cu, 0x11u, 0xD4u, 0x91u, 0xD4u, 0, 0x50u, 0xE4u, 0xC6u, 0x42u, 0x6Fu);
+  v12 = IOCreatePlugInInterfaceForService(v8, v10, v11, &theInterface, &theScore);
+  v13 = 0;
+  v14 = theInterface;
+  if (!v12 && theInterface)
   {
     QueryInterface = (*theInterface)->QueryInterface;
-    v15 = CFUUIDGetConstantUUIDWithBytes(v8, 0x59u, 0x79u, 0x99u, 0x3Cu, 0x85u, 0xF5u, 0x4Du, 0x59u, 0x85u, 0x93u, 0xFFu, 0x92u, 0x15u, 0xDAu, 0x47u, 0xADu);
-    v16 = CFUUIDGetUUIDBytes(v15);
-    (QueryInterface)(v13, *&v16.byte0, *&v16.byte8, a2 + 8);
-    v17 = *(a2 + 8);
-    if (v17)
+    v16 = CFUUIDGetConstantUUIDWithBytes(v9, 0x59u, 0x79u, 0x99u, 0x3Cu, 0x85u, 0xF5u, 0x4Du, 0x59u, 0x85u, 0x93u, 0xFFu, 0x92u, 0x15u, 0xDAu, 0x47u, 0xADu);
+    v17 = CFUUIDGetUUIDBytes(v16);
+    (QueryInterface)(v14, *&v17.byte0, *&v17.byte8, a2 + 8);
+    v18 = *(a2 + 8);
+    if (v18)
     {
-      v18 = (*(*v17 + 64))(v17, 0);
-      v13 = theInterface;
-      if (v18)
+      v19 = (*(*v18 + 64))(v18, 0);
+      v14 = theInterface;
+      if (v19)
       {
-        v12 = 3758097101;
+        v13 = 3758097101;
         if (!theInterface)
         {
-          return v12;
+          return v13;
         }
       }
 
       else
       {
-        v12 = 0;
+        v13 = 0;
       }
 
       goto LABEL_10;
     }
 
-    v12 = 0;
-    v13 = theInterface;
+    v13 = 0;
+    v14 = theInterface;
   }
 
-  if (v13)
+  if (v14)
   {
 LABEL_10:
-    ((*v13)->Release)(v13);
+    ((*v14)->Release)(v14);
   }
 
-  return v12;
+  return v13;
 }
 
 uint64_t AppleSPUAccCompassPlugin::setProperty(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v14[1] = *MEMORY[0x29EDCA608];
-  MEMORY[0x2A1C7C4A8]();
-  v8 = (v14 - ((v7 + 19) & 0xFFFFFFFFFFFFFFF0));
+  v13[1] = *MEMORY[0x29EDCA608];
+  MEMORY[0x2A1C7C4A8](a1, a2, a3, a4);
+  v8 = (v13 - ((v7 + 19) & 0xFFFFFFFFFFFFFFF0));
   *v8 = v9;
   memcpy(v8 + 1, v10, v7);
   v11 = *(a2 + 8);
   if (v11)
   {
-    result = (*(*v11 + 80))(v11, 4, v8, a5 + 4, 0, 0);
+    return (*(*v11 + 80))(v11, 4, v8, a5 + 4, 0, 0);
   }
 
   else
   {
-    result = 3758097112;
+    return 3758097112;
   }
-
-  v13 = *MEMORY[0x29EDCA608];
-  return result;
 }
 
-const __CFNumber *AppleSPUAccCompassPlugin::getIOHIDServiceRegistryID()
+const __CFNumber *AppleSPUAccCompassPlugin::getIOHIDServiceRegistryID(uint64_t a1, uint64_t a2)
 {
   result = IOHIDServiceGetRegistryID();
   if (result)
@@ -429,94 +420,89 @@ const __CFNumber *AppleSPUAccCompassPlugin::getIOHIDServiceRegistryID()
 
 void AppleSPUAccCompassPlugin::accAddedNotification(AppleSPUAccCompassPlugin *this, void *a2, int a3, __IOHIDDevice *a4, __IOHIDDevice *a5)
 {
-  v24 = *MEMORY[0x29EDCA608];
-  v19 = 0;
+  v23 = *MEMORY[0x29EDCA608];
+  v18 = 0;
   if (this)
   {
-    v8 = qword_2A1A130A8;
+    v7 = qword_2A1A130A8;
     if (os_log_type_enabled(qword_2A1A130A8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v23 = a4;
-      _os_log_impl(&dword_29D407000, v8, OS_LOG_TYPE_DEFAULT, "Accessory added %p\n", buf, 0xCu);
+      v22 = a4;
+      _os_log_impl(&dword_29D407000, v7, OS_LOG_TYPE_DEFAULT, "Accessory added %p\n", buf, 0xCu);
     }
 
-    v9 = AppleSPUAccCompassPlugin::verifyAccMatchedDevice(this, a4);
-    if (!v9)
+    v8 = AppleSPUAccCompassPlugin::verifyAccMatchedDevice(this, a4);
+    if (!v8)
     {
-      v10 = 0;
-      v11 = 1;
-      while (1)
+      v9 = 0;
+      for (i = 1; ; i = 0)
       {
-        v12 = v11;
-        v13 = (&AppleSPUAccCompassPlugin::accCompassCompensationTable + 16 * v10);
-        AccCompassCompensationElementData = AppleSPUAccCompassPlugin::getAccCompassCompensationElementData(v9, a4, 65302, v13[1], buf, &v19);
+        v11 = i;
+        v12 = (&AppleSPUAccCompassPlugin::accCompassCompensationTable + 16 * v9);
+        AccCompassCompensationElementData = AppleSPUAccCompassPlugin::getAccCompassCompensationElementData(v8, a4, 65302, v12[1], buf, &v18);
         if (AccCompassCompensationElementData)
         {
-          goto LABEL_2;
+          return;
         }
 
-        if (AppleSPUAccCompassPlugin::setProperty(AccCompassCompensationElementData, *(this + 3), v13[2], buf, v19))
+        if (AppleSPUAccCompassPlugin::setProperty(AccCompassCompensationElementData, *(this + 3), v12[2], buf, v18))
         {
           break;
         }
 
         buf[0] = 1;
-        v19 = 1;
-        v15 = *(this + 3);
-        *v20 = v13[3];
-        v21 = 1;
-        v16 = *(v15 + 8);
-        if (!v16 || (*(*v16 + 80))(v16, 4, v20, 5, 0, 0))
+        v18 = 1;
+        v14 = *(this + 3);
+        *v19 = v12[3];
+        v20 = 1;
+        v15 = *(v14 + 8);
+        if (!v15 || (*(*v15 + 80))(v15, 4, v19, 5, 0, 0))
         {
-          v18 = qword_2A1A130A8;
+          v17 = qword_2A1A130A8;
           if (!sub_29D408420())
           {
-            goto LABEL_2;
+            return;
           }
 
-          *v20 = 0;
+          *v19 = 0;
           goto LABEL_19;
         }
 
-        v17 = qword_2A1A130A8;
-        v9 = os_log_type_enabled(qword_2A1A130A8, OS_LOG_TYPE_DEFAULT);
-        if (v9)
+        v16 = qword_2A1A130A8;
+        v8 = os_log_type_enabled(qword_2A1A130A8, OS_LOG_TYPE_DEFAULT);
+        if (v8)
         {
-          *v20 = 0;
-          _os_log_impl(&dword_29D407000, v17, OS_LOG_TYPE_DEFAULT, "Accessory Compass Compensation enabled \n", v20, 2u);
+          *v19 = 0;
+          _os_log_impl(&dword_29D407000, v16, OS_LOG_TYPE_DEFAULT, "Accessory Compass Compensation enabled \n", v19, 2u);
         }
 
-        v11 = 0;
-        v10 = 1;
-        if ((v12 & 1) == 0)
+        v9 = 1;
+        if ((v11 & 1) == 0)
         {
-          goto LABEL_2;
+          return;
         }
       }
 
-      v18 = qword_2A1A130A8;
+      v17 = qword_2A1A130A8;
       if (!sub_29D408420())
       {
-        goto LABEL_2;
+        return;
       }
 
-      *v20 = 0;
+      *v19 = 0;
 LABEL_19:
-      _os_log_error_impl(&dword_29D407000, v18, OS_LOG_TYPE_ERROR, "Error enabling compass compensation!", v20, 2u);
+      _os_log_error_impl(&dword_29D407000, v17, OS_LOG_TYPE_ERROR, "Error enabling compass compensation!", v19, 2u);
     }
   }
-
-LABEL_2:
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t AppleSPUAccCompassPlugin::verifyAccMatchedDevice(AppleSPUAccCompassPlugin *this, IOHIDDeviceRef device)
 {
   v3 = this;
-  v15 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
   v4 = 3758097109;
-  if (!*(this + 5) || (v5 = qword_2A1A130A8, os_log_type_enabled(qword_2A1A130A8, OS_LOG_TYPE_DEFAULT)) && (v13 = 134217984, v14 = device, _os_log_impl(&dword_29D407000, v5, OS_LOG_TYPE_DEFAULT, "Unexpected Second Accessory Verified %p", &v13, 0xCu), !*(v3 + 5)))
+  if (!*(this + 5) || (v5 = qword_2A1A130A8, os_log_type_enabled(qword_2A1A130A8, OS_LOG_TYPE_DEFAULT)) && (v12 = 134217984, v13 = device, _os_log_impl(&dword_29D407000, v5, OS_LOG_TYPE_DEFAULT, "Unexpected Second Accessory Verified %p", &v12, 0xCu), !*(v3 + 5)))
   {
     v6 = 0;
     v7 = 1;
@@ -538,20 +524,19 @@ uint64_t AppleSPUAccCompassPlugin::verifyAccMatchedDevice(AppleSPUAccCompassPlug
       v4 = 0;
       if (os_log_type_enabled(qword_2A1A130A8, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = 134217984;
-        v14 = device;
-        _os_log_impl(&dword_29D407000, v10, OS_LOG_TYPE_DEFAULT, "Accessory verified and attached %p\n", &v13, 0xCu);
-        v4 = 0;
+        v12 = 134217984;
+        v13 = device;
+        _os_log_impl(&dword_29D407000, v10, OS_LOG_TYPE_DEFAULT, "Accessory verified and attached %p\n", &v12, 0xCu);
+        return 0;
       }
     }
 
     else
     {
-      v4 = 3758097136;
+      return 3758097136;
     }
   }
 
-  v11 = *MEMORY[0x29EDCA608];
   return v4;
 }
 
@@ -679,7 +664,7 @@ uint64_t AppleSPUAccCompassPlugin::performCommand(uint64_t a1, uint64_t a2, uint
   return result;
 }
 
-uint64_t AppleSPUAccCompassPlugin::getProperty(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, void *a6)
+uint64_t AppleSPUAccCompassPlugin::getProperty(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, uint64_t *a6)
 {
   result = 3758097090;
   v11 = a3;
@@ -712,7 +697,8 @@ void sub_29D408E44()
 {
   if (sub_29D408420())
   {
-    sub_29D408400(&dword_29D407000, v0, v1, "Error connecting to compass service!", v2, v3, v4, v5, 0);
+    v6 = 0;
+    sub_29D408400(&dword_29D407000, v0, v1, "Error connecting to compass service!", v2, v3, v4, v5, v6);
   }
 }
 
@@ -720,7 +706,8 @@ void sub_29D408E94()
 {
   if (sub_29D408420())
   {
-    sub_29D408400(&dword_29D407000, v0, v1, "Error adding match notification!", v2, v3, v4, v5, 0);
+    v6 = 0;
+    sub_29D408400(&dword_29D407000, v0, v1, "Error adding match notification!", v2, v3, v4, v5, v6);
   }
 }
 
@@ -728,7 +715,8 @@ void sub_29D408EE4()
 {
   if (sub_29D408420())
   {
-    sub_29D408400(&dword_29D407000, v0, v1, "Error disabling compass compensation!", v2, v3, v4, v5, 0);
+    v6 = 0;
+    sub_29D408400(&dword_29D407000, v0, v1, "Error disabling compass compensation!", v2, v3, v4, v5, v6);
   }
 }
 

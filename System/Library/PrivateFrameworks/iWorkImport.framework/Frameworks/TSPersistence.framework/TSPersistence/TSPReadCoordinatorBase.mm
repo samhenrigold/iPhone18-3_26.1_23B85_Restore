@@ -10,10 +10,12 @@
 - (id).cxx_construct;
 - (id)context;
 - (id)contextForReader:(id)reader;
+- (id)externalObjectForIdentifier:(int64_t)identifier componentIdentifier:(int64_t)componentIdentifier isReadFinished:(BOOL)finished;
 - (id)lazyReferenceDelegateForReader:(id)reader;
 - (id)objectDelegateForReader:(id)reader;
 - (id)objectForIdentifier:(int64_t)identifier;
 - (id)reader:(id)reader wantsDataForIdentifier:(int64_t)identifier;
+- (id)unarchivedObjectForIdentifier:(int64_t)identifier isReadFinished:(BOOL)finished;
 - (int64_t)reader:(id)reader wantsObjectIdentifierForUUID:(id)d;
 - (unint64_t)fileFormatVersion;
 - (unint64_t)readVersion;
@@ -270,6 +272,48 @@
   objc_exception_throw(v18);
 }
 
+- (id)unarchivedObjectForIdentifier:(int64_t)identifier isReadFinished:(BOOL)finished
+{
+  v4 = MEMORY[0x277D81150];
+  v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSPReadCoordinatorBase unarchivedObjectForIdentifier:isReadFinished:]", finished);
+  v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPReadCoordinator.mm");
+  v8 = objc_opt_class();
+  v9 = NSStringFromClass(v8);
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v4, v10, v5, v7, 529, 0, "Abstract method not overridden by %{public}@", v9);
+
+  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v11, v12);
+  v13 = MEMORY[0x277CBEAD8];
+  v14 = MEMORY[0x277CCACA8];
+  v15 = objc_opt_class();
+  v16 = NSStringFromClass(v15);
+  v18 = objc_msgSend_stringWithFormat_(v14, v17, @"Abstract method not overridden by %@: %s", v16, "[TSPReadCoordinatorBase unarchivedObjectForIdentifier:isReadFinished:]");
+  v20 = objc_msgSend_exceptionWithName_reason_userInfo_(v13, v19, *MEMORY[0x277CBE658], v18, 0);
+  v21 = v20;
+
+  objc_exception_throw(v20);
+}
+
+- (id)externalObjectForIdentifier:(int64_t)identifier componentIdentifier:(int64_t)componentIdentifier isReadFinished:(BOOL)finished
+{
+  v5 = MEMORY[0x277D81150];
+  v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSPReadCoordinatorBase externalObjectForIdentifier:componentIdentifier:isReadFinished:]", componentIdentifier, finished);
+  v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPReadCoordinator.mm");
+  v9 = objc_opt_class();
+  v10 = NSStringFromClass(v9);
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v5, v11, v6, v8, 533, 0, "Abstract method not overridden by %{public}@", v10);
+
+  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v12, v13);
+  v14 = MEMORY[0x277CBEAD8];
+  v15 = MEMORY[0x277CCACA8];
+  v16 = objc_opt_class();
+  v17 = NSStringFromClass(v16);
+  v19 = objc_msgSend_stringWithFormat_(v15, v18, @"Abstract method not overridden by %@: %s", v17, "[TSPReadCoordinatorBase externalObjectForIdentifier:componentIdentifier:isReadFinished:]");
+  v21 = objc_msgSend_exceptionWithName_reason_userInfo_(v14, v20, *MEMORY[0x277CBE658], v19, 0);
+  v22 = v21;
+
+  objc_exception_throw(v21);
+}
+
 - (void)didReferenceExternalObject:(id)object withIdentifier:(int64_t)identifier
 {
   objectCopy = object;
@@ -523,13 +567,15 @@
 - (void)externalReferenceInfoForObjectIdentifier:(int64_t)identifier componentIdentifier:(int64_t)componentIdentifier
 {
   identifierCopy = identifier;
-  v4 = sub_2769ABC64(&self->_externalReferences.__table_.__bucket_list_.__ptr_, &identifierCopy);
-  if (!v4)
+  v6 = sub_2769ABC64(&self->_externalReferences.__table_.__bucket_list_.__ptr_, &identifierCopy);
+  if (!v6)
   {
-    sub_276A83ED8();
+    v8[0] = componentIdentifier;
+    memset(&v8[1], 0, 24);
+    sub_276A83ED8(&self->_externalReferences, &identifierCopy, v8);
   }
 
-  return v4 + 3;
+  return v6 + 3;
 }
 
 - (void)reader:(id)reader didFindExternalReferenceToObjectIdentifier:(int64_t)identifier componentIdentifier:(int64_t)componentIdentifier isWeak:(BOOL)weak allowUnknownObject:(BOOL)object objectClass:(Class)class objectProtocol:(id)protocol fromParentObject:(id)self0 completion:(id)self1

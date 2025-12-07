@@ -37,9 +37,11 @@
 
 uint64_t __29__STAppInfoCache_sharedCache__block_invoke()
 {
-  sharedCache_sharedCache = objc_opt_new();
+  v0 = objc_opt_new();
+  v1 = sharedCache_sharedCache;
+  sharedCache_sharedCache = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (STAppInfoCache)init
@@ -104,7 +106,7 @@ uint64_t __29__STAppInfoCache_sharedCache__block_invoke()
 
 - (id)appInfoForBundleIdentifier:(id)identifier adamId:(id)id distributorId:(id)distributorId
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   idCopy = id;
   distributorIdCopy = distributorId;
@@ -139,33 +141,31 @@ uint64_t __29__STAppInfoCache_sharedCache__block_invoke()
       if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v26 = v14;
+        v25 = v14;
         _os_log_impl(&dword_1B831F000, v16, OS_LOG_TYPE_INFO, "Loading alt distro app info for %@", buf, 0xCu);
       }
 
       altDistroAppInfoLoader = [(STAppInfoCache *)self altDistroAppInfoLoader];
-      v21[0] = MEMORY[0x1E69E9820];
-      v21[1] = 3221225472;
-      v21[2] = __66__STAppInfoCache_appInfoForBundleIdentifier_adamId_distributorId___block_invoke;
-      v21[3] = &unk_1E7CE69A0;
+      v20[0] = MEMORY[0x1E69E9820];
+      v20[1] = 3221225472;
+      v20[2] = __66__STAppInfoCache_appInfoForBundleIdentifier_adamId_distributorId___block_invoke;
+      v20[3] = &unk_1E7CE69A0;
       v18 = v14;
-      v22 = v18;
+      v21 = v18;
       selfCopy = self;
-      v24 = identifierCopy;
-      [altDistroAppInfoLoader fetchForAppBundleId:v24 adamId:idCopy distributorBundleId:distributorIdCopy completionHandler:v21];
+      v23 = identifierCopy;
+      [altDistroAppInfoLoader fetchForAppBundleId:v23 adamId:idCopy distributorBundleId:distributorIdCopy completionHandler:v20];
 
       v13 = v18;
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
 
 void __66__STAppInfoCache_appInfoForBundleIdentifier_adamId_distributorId___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -176,15 +176,15 @@ void __66__STAppInfoCache_appInfoForBundleIdentifier_adamId_distributorId___bloc
     {
       v10 = *(a1 + 32);
       *buf = 138412290;
-      v18 = v10;
+      v17 = v10;
       _os_log_impl(&dword_1B831F000, v9, OS_LOG_TYPE_INFO, "Received app info from alt distro app info loader:%@", buf, 0xCu);
     }
 
     v11 = *(a1 + 40);
     v12 = [v7 bundleIdentifier];
-    v15 = v12;
-    v16 = v7;
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+    v14 = v12;
+    v15 = v7;
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
     [v11 _finishedFetchingAppInfoByBundleIdentifier:v13];
   }
 
@@ -196,8 +196,6 @@ void __66__STAppInfoCache_appInfoForBundleIdentifier_adamId_distributorId___bloc
       __66__STAppInfoCache_appInfoForBundleIdentifier_adamId_distributorId___block_invoke_cold_1(a1, v5, v12);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)appInfoForBundleIdentifier:(id)identifier localOnly:(BOOL)only
@@ -295,31 +293,31 @@ void __68__STAppInfoCache_fetchAppInfoForBundleIdentifier_completionHandler___bl
 
 - (void)fetchAppInfoForBundleIdentifiers:(id)identifiers completionHandler:(id)handler
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   handlerCopy = handler;
   v8 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(identifiersCopy, "count")}];
   v9 = objc_opt_new();
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v10 = identifiersCopy;
-  v11 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v24;
+    v13 = *v23;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v24 != v13)
+        if (*v23 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v23 + 1) + 8 * i);
+        v15 = *(*(&v22 + 1) + 8 * i);
         v16 = [(STAppInfoCache *)self _appInfoForBundleIdentifier:v15];
         if ([v16 source])
         {
@@ -332,7 +330,7 @@ void __68__STAppInfoCache_fetchAppInfoForBundleIdentifier_completionHandler___bl
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v12);
@@ -341,23 +339,21 @@ void __68__STAppInfoCache_fetchAppInfoForBundleIdentifier_completionHandler___bl
   if ([v9 count])
   {
     lookupQueue = [(STAppInfoCache *)self lookupQueue];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __69__STAppInfoCache_fetchAppInfoForBundleIdentifiers_completionHandler___block_invoke;
-    v19[3] = &unk_1E7CE6A40;
-    v19[4] = self;
-    v20 = v9;
-    v21 = v8;
-    v22 = handlerCopy;
-    dispatch_async(lookupQueue, v19);
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __69__STAppInfoCache_fetchAppInfoForBundleIdentifiers_completionHandler___block_invoke;
+    v18[3] = &unk_1E7CE6A40;
+    v18[4] = self;
+    v19 = v9;
+    v20 = v8;
+    v21 = handlerCopy;
+    dispatch_async(lookupQueue, v18);
   }
 
   else
   {
     (*(handlerCopy + 2))(handlerCopy, v8);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __69__STAppInfoCache_fetchAppInfoForBundleIdentifiers_completionHandler___block_invoke(uint64_t a1)
@@ -508,7 +504,7 @@ LABEL_23:
 
 - (id)_fetchAppInfoFromLaunchServicesWithBundleIdentifier:(id)identifier
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v4 = +[STLog appInfo];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
@@ -516,9 +512,9 @@ LABEL_23:
     [STAppInfoCache _fetchAppInfoFromLaunchServicesWithBundleIdentifier:];
   }
 
-  v30 = 0;
-  v5 = [objc_alloc(MEMORY[0x1E69635F8]) initWithBundleIdentifier:identifierCopy allowPlaceholder:0 error:&v30];
-  v6 = v30;
+  v29 = 0;
+  v5 = [objc_alloc(MEMORY[0x1E69635F8]) initWithBundleIdentifier:identifierCopy allowPlaceholder:0 error:&v29];
+  v6 = v29;
   if (v5)
   {
     if ([identifierCopy isEqualToString:@"com.apple.facetime"] && !MGGetBoolAnswer())
@@ -602,9 +598,9 @@ LABEL_23:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
       *buf = 138543618;
-      v32 = identifierCopy;
-      v33 = 2114;
-      v34 = v6;
+      v31 = identifierCopy;
+      v32 = 2114;
+      v33 = v6;
       _os_log_impl(&dword_1B831F000, v18, OS_LOG_TYPE_INFO, "No application record found for %{public}@ %{public}@", buf, 0x16u);
     }
 
@@ -612,7 +608,6 @@ LABEL_23:
   }
 
 LABEL_21:
-  v28 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -635,7 +630,7 @@ LABEL_21:
 
 - (void)_fetchAppStoreInfoAndNotifyWithBundleIdentifiers:(id)identifiers timeoutInterval:(double)interval completionHandler:(id)handler
 {
-  v77 = *MEMORY[0x1E69E9840];
+  v76 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   handlerCopy = handler;
   bundleIdentifiersWithPendingRequests = [(STAppInfoCache *)self bundleIdentifiersWithPendingRequests];
@@ -644,37 +639,37 @@ LABEL_21:
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
-    v73 = v8;
+    v72 = v8;
     _os_log_impl(&dword_1B831F000, v9, OS_LOG_TYPE_INFO, "Going to query %{public}@ from the store", buf, 0xCu);
   }
 
   [bundleIdentifiersWithPendingRequests unionSet:v8];
   v10 = [v8 count];
-  v54 = [identifiersCopy mutableCopy];
+  v53 = [identifiersCopy mutableCopy];
+  v51 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v10];
   v52 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v10];
-  v53 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v10];
-  v51 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:v10];
   v50 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:v10];
-  v69 = 0u;
-  v70 = 0u;
-  v67 = 0u;
+  v49 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:v10];
   v68 = 0u;
+  v69 = 0u;
+  v66 = 0u;
+  v67 = 0u;
   v11 = v8;
-  v12 = [v11 countByEnumeratingWithState:&v67 objects:v76 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v66 objects:v75 count:16];
   if (v12)
   {
-    v13 = *v68;
+    v13 = *v67;
     do
     {
       v14 = 0;
       do
       {
-        if (*v68 != v13)
+        if (*v67 != v13)
         {
           objc_enumerationMutation(v11);
         }
 
-        v15 = *(*(&v67 + 1) + 8 * v14);
+        v15 = *(*(&v66 + 1) + 8 * v14);
         v16 = [(NSCache *)self->_appInfoByBundleIdentifier objectForKey:v15];
         if (!v16)
         {
@@ -685,7 +680,7 @@ LABEL_21:
           }
 
           *buf = 138412290;
-          v73 = v15;
+          v72 = v15;
           v23 = v20;
           v24 = "AppInfo not found for bundleIdentifier: %@";
           v25 = 12;
@@ -710,9 +705,9 @@ LABEL_20:
             }
 
             *buf = 138412546;
-            v73 = v15;
-            v74 = 1024;
-            v75 = v19;
+            v72 = v15;
+            v73 = 1024;
+            v74 = v19;
             v23 = v20;
             v24 = "AppInfo from unknown source or missing an adamID or skipping AMS. Reverting to iTunes lookup. BundleIdentifier: %@, skipping AMS: %d";
             v25 = 18;
@@ -726,10 +721,26 @@ LABEL_20:
           goto LABEL_20;
         }
 
-        [v54 removeObject:v15];
+        [v53 removeObject:v15];
         if ([v16 distributorIsThirdParty])
         {
-          [v53 addObject:v16];
+          [v52 addObject:v16];
+          [v49 addObject:v15];
+          v20 = +[STLog appInfo];
+          if (!os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+          {
+            goto LABEL_21;
+          }
+
+          *buf = 138543362;
+          v72 = v15;
+          v21 = v20;
+          v22 = "Adding app with bundleID %{public}@ to global list";
+        }
+
+        else
+        {
+          [v51 addObject:v16];
           [v50 addObject:v15];
           v20 = +[STLog appInfo];
           if (!os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
@@ -738,23 +749,7 @@ LABEL_20:
           }
 
           *buf = 138543362;
-          v73 = v15;
-          v21 = v20;
-          v22 = "Adding app with bundleID %{public}@ to global list";
-        }
-
-        else
-        {
-          [v52 addObject:v16];
-          [v51 addObject:v15];
-          v20 = +[STLog appInfo];
-          if (!os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
-          {
-            goto LABEL_21;
-          }
-
-          *buf = 138543362;
-          v73 = v15;
+          v72 = v15;
           v21 = v20;
           v22 = "Adding app with bundleID %{public}@ to App Store list";
         }
@@ -766,7 +761,7 @@ LABEL_21:
       }
 
       while (v12 != v14);
-      v26 = [v11 countByEnumeratingWithState:&v67 objects:v76 count:16];
+      v26 = [v11 countByEnumeratingWithState:&v66 objects:v75 count:16];
       v12 = v26;
     }
 
@@ -774,45 +769,45 @@ LABEL_21:
   }
 
   objc_initWeak(buf, self);
-  if ([v53 count])
-  {
-    v27 = [STAMSClient makeAMSMediaTaskForApps:v53 isGlobal:1];
-    if (v27)
-    {
-      v63[0] = MEMORY[0x1E69E9820];
-      v63[1] = 3221225472;
-      v63[2] = __101__STAppInfoCache__fetchAppStoreInfoAndNotifyWithBundleIdentifiers_timeoutInterval_completionHandler___block_invoke;
-      v63[3] = &unk_1E7CE6A90;
-      v63[4] = self;
-      objc_copyWeak(&v66, buf);
-      v64 = v50;
-      v65 = handlerCopy;
-      [STAMSClient loadMediaForTask:v27 withCompletionHandler:v63];
-
-      objc_destroyWeak(&v66);
-    }
-  }
-
   if ([v52 count])
   {
-    v28 = [STAMSClient makeAMSMediaTaskForApps:v52 isGlobal:0];
-    if (v28)
+    v27 = [STAMSClient makeAMSMediaTaskForApps:v52 isGlobal:1];
+    if (v27)
     {
-      v59[0] = MEMORY[0x1E69E9820];
-      v59[1] = 3221225472;
-      v59[2] = __101__STAppInfoCache__fetchAppStoreInfoAndNotifyWithBundleIdentifiers_timeoutInterval_completionHandler___block_invoke_3;
-      v59[3] = &unk_1E7CE6A90;
-      v59[4] = self;
-      objc_copyWeak(&v62, buf);
-      v60 = v51;
-      v61 = handlerCopy;
-      [STAMSClient loadMediaForTask:v28 withCompletionHandler:v59];
+      v62[0] = MEMORY[0x1E69E9820];
+      v62[1] = 3221225472;
+      v62[2] = __101__STAppInfoCache__fetchAppStoreInfoAndNotifyWithBundleIdentifiers_timeoutInterval_completionHandler___block_invoke;
+      v62[3] = &unk_1E7CE6A90;
+      v62[4] = self;
+      objc_copyWeak(&v65, buf);
+      v63 = v49;
+      v64 = handlerCopy;
+      [STAMSClient loadMediaForTask:v27 withCompletionHandler:v62];
 
-      objc_destroyWeak(&v62);
+      objc_destroyWeak(&v65);
     }
   }
 
-  v29 = v54;
+  if ([v51 count])
+  {
+    v28 = [STAMSClient makeAMSMediaTaskForApps:v51 isGlobal:0];
+    if (v28)
+    {
+      v58[0] = MEMORY[0x1E69E9820];
+      v58[1] = 3221225472;
+      v58[2] = __101__STAppInfoCache__fetchAppStoreInfoAndNotifyWithBundleIdentifiers_timeoutInterval_completionHandler___block_invoke_3;
+      v58[3] = &unk_1E7CE6A90;
+      v58[4] = self;
+      objc_copyWeak(&v61, buf);
+      v59 = v50;
+      v60 = handlerCopy;
+      [STAMSClient loadMediaForTask:v28 withCompletionHandler:v58];
+
+      objc_destroyWeak(&v61);
+    }
+  }
+
+  v29 = v53;
 
   if ([v29 count])
   {
@@ -828,10 +823,10 @@ LABEL_21:
     v38 = [v35 queryItemWithName:@"country" value:countryCode];
 
     v39 = [MEMORY[0x1E696AF60] queryItemWithName:@"entity" value:{@"software, iPadSoftware, macSoftware"}];
-    v71[0] = v34;
-    v71[1] = v38;
-    v71[2] = v39;
-    v40 = [MEMORY[0x1E695DEC8] arrayWithObjects:v71 count:3];
+    v70[0] = v34;
+    v70[1] = v38;
+    v70[2] = v39;
+    v40 = [MEMORY[0x1E695DEC8] arrayWithObjects:v70 count:3];
     [v30 setQueryItems:v40];
 
     v41 = MEMORY[0x1E696AF68];
@@ -848,22 +843,20 @@ LABEL_21:
     v43 = ;
 
     urlSession = [(STAppInfoCache *)self urlSession];
-    v55[0] = MEMORY[0x1E69E9820];
-    v55[1] = 3221225472;
-    v55[2] = __101__STAppInfoCache__fetchAppStoreInfoAndNotifyWithBundleIdentifiers_timeoutInterval_completionHandler___block_invoke_5;
-    v55[3] = &unk_1E7CE6AB8;
-    objc_copyWeak(&v58, buf);
-    v56 = v29;
-    v57 = handlerCopy;
-    v45 = [urlSession dataTaskWithRequest:v43 completionHandler:v55];
+    v54[0] = MEMORY[0x1E69E9820];
+    v54[1] = 3221225472;
+    v54[2] = __101__STAppInfoCache__fetchAppStoreInfoAndNotifyWithBundleIdentifiers_timeoutInterval_completionHandler___block_invoke_5;
+    v54[3] = &unk_1E7CE6AB8;
+    objc_copyWeak(&v57, buf);
+    v55 = v29;
+    v56 = handlerCopy;
+    v45 = [urlSession dataTaskWithRequest:v43 completionHandler:v54];
 
     [v45 resume];
-    objc_destroyWeak(&v58);
+    objc_destroyWeak(&v57);
   }
 
   objc_destroyWeak(buf);
-
-  v46 = *MEMORY[0x1E69E9840];
 }
 
 void __101__STAppInfoCache__fetchAppStoreInfoAndNotifyWithBundleIdentifiers_timeoutInterval_completionHandler___block_invoke(id *a1, void *a2, void *a3)
@@ -933,7 +926,7 @@ void __101__STAppInfoCache__fetchAppStoreInfoAndNotifyWithBundleIdentifiers_time
 
 - (void)_handleAMSClientResponseForBundleIdentifiers:(id)identifiers results:(id)results error:(id)error completionHandler:(id)handler
 {
-  v82 = *MEMORY[0x1E69E9840];
+  v81 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   resultsCopy = results;
   errorCopy = error;
@@ -954,31 +947,31 @@ void __101__STAppInfoCache__fetchAppStoreInfoAndNotifyWithBundleIdentifiers_time
     }
   }
 
-  v61 = errorCopy;
-  v62 = identifiersCopy;
+  v60 = errorCopy;
+  v61 = identifiersCopy;
   v16 = [identifiersCopy mutableCopy];
   v17 = objc_opt_new();
+  v72 = 0u;
   v73 = 0u;
   v74 = 0u;
   v75 = 0u;
-  v76 = 0u;
   v18 = resultsCopy;
-  v19 = [v18 countByEnumeratingWithState:&v73 objects:v81 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v72 objects:v80 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v74;
-    v64 = *v74;
+    v21 = *v73;
+    v63 = *v73;
     do
     {
       for (i = 0; i != v20; ++i)
       {
-        if (*v74 != v21)
+        if (*v73 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        v23 = *(*(&v73 + 1) + 8 * i);
+        v23 = *(*(&v72 + 1) + 8 * i);
         bundleIdentifier = [v23 bundleIdentifier];
         v25 = [bundleIdentifier length];
 
@@ -991,7 +984,7 @@ void __101__STAppInfoCache__fetchAppStoreInfoAndNotifyWithBundleIdentifiers_time
           }
 
           *buf = 138543362;
-          v80 = v23;
+          v79 = v23;
           v33 = v28;
           v34 = "Unable to parse store response, bundle identifier is missing: %{public}@";
 LABEL_19:
@@ -1011,7 +1004,7 @@ LABEL_19:
           }
 
           *buf = 138543362;
-          v80 = v23;
+          v79 = v23;
           v33 = v28;
           v34 = "Unable to parse store response, display name is missing: %{public}@";
           goto LABEL_19;
@@ -1054,7 +1047,7 @@ LABEL_19:
           v16 = v37;
           v18 = v36;
           v17 = v35;
-          v21 = v64;
+          v21 = v63;
         }
 
         [v28 setPlatform:v32];
@@ -1076,40 +1069,40 @@ LABEL_19:
         v46 = +[STLog appInfo];
         if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
         {
-          [STAppInfoCache _handleAMSClientResponseForBundleIdentifiers:v78 results:v28 error:? completionHandler:?];
+          [STAppInfoCache _handleAMSClientResponseForBundleIdentifiers:v77 results:v28 error:? completionHandler:?];
         }
 
 LABEL_27:
       }
 
-      v20 = [v18 countByEnumeratingWithState:&v73 objects:v81 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v72 objects:v80 count:16];
     }
 
     while (v20);
   }
 
-  v63 = v18;
+  v62 = v18;
 
-  v71 = 0u;
-  v72 = 0u;
-  v69 = 0u;
   v70 = 0u;
+  v71 = 0u;
+  v68 = 0u;
+  v69 = 0u;
   v47 = v16;
-  v48 = [v47 countByEnumeratingWithState:&v69 objects:v77 count:16];
+  v48 = [v47 countByEnumeratingWithState:&v68 objects:v76 count:16];
   if (v48)
   {
     v49 = v48;
-    v50 = *v70;
+    v50 = *v69;
     do
     {
       for (j = 0; j != v49; ++j)
       {
-        if (*v70 != v50)
+        if (*v69 != v50)
         {
           objc_enumerationMutation(v47);
         }
 
-        v52 = *(*(&v69 + 1) + 8 * j);
+        v52 = *(*(&v68 + 1) + 8 * j);
         v53 = objc_opt_new();
         [v53 setSource:3];
         [v53 setBundleIdentifier:v52];
@@ -1120,14 +1113,14 @@ LABEL_27:
         {
           bundleIdentifier5 = [v53 bundleIdentifier];
           *buf = 138412290;
-          v80 = bundleIdentifier5;
+          v79 = bundleIdentifier5;
           _os_log_impl(&dword_1B831F000, v54, OS_LOG_TYPE_DEFAULT, "Did not find app %@ in AMS Response; setting AppInfo to placeholder", buf, 0xCu);
         }
 
         [v17 setObject:v53 forKeyedSubscript:v52];
       }
 
-      v49 = [v47 countByEnumeratingWithState:&v69 objects:v77 count:16];
+      v49 = [v47 countByEnumeratingWithState:&v68 objects:v76 count:16];
     }
 
     while (v49);
@@ -1138,17 +1131,15 @@ LABEL_27:
   block[1] = 3221225472;
   block[2] = __95__STAppInfoCache__handleAMSClientResponseForBundleIdentifiers_results_error_completionHandler___block_invoke;
   block[3] = &unk_1E7CE6AE0;
-  objc_copyWeak(&v68, buf);
-  v66 = v17;
-  v67 = handlerCopy;
+  objc_copyWeak(&v67, buf);
+  v65 = v17;
+  v66 = handlerCopy;
   v56 = handlerCopy;
   v57 = v17;
   dispatch_async(MEMORY[0x1E69E96A0], block);
 
-  objc_destroyWeak(&v68);
+  objc_destroyWeak(&v67);
   objc_destroyWeak(buf);
-
-  v58 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __95__STAppInfoCache__handleAMSClientResponseForBundleIdentifiers_results_error_completionHandler___block_invoke(uint64_t a1)
@@ -1159,10 +1150,9 @@ uint64_t __95__STAppInfoCache__handleAMSClientResponseForBundleIdentifiers_resul
   result = *(a1 + 40);
   if (result)
   {
-    v4 = *(a1 + 32);
-    v5 = *(result + 16);
+    v4 = *(result + 16);
 
-    return v5();
+    return v4();
   }
 
   return result;
@@ -1170,7 +1160,7 @@ uint64_t __95__STAppInfoCache__handleAMSClientResponseForBundleIdentifiers_resul
 
 - (void)_handleiTunesResponseForBundleIdentifiers:(id)identifiers response:(id)response data:(id)data error:(id)error completionHandler:(id)handler
 {
-  v76 = *MEMORY[0x1E69E9840];
+  v75 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   dataCopy = data;
   errorCopy = error;
@@ -1197,46 +1187,46 @@ uint64_t __95__STAppInfoCache__handleAMSClientResponseForBundleIdentifiers_resul
 
   else
   {
-    v70 = 0;
-    v17 = [MEMORY[0x1E696ACB0] JSONObjectWithData:dataCopy options:0 error:&v70];
-    v18 = v70;
+    v69 = 0;
+    v17 = [MEMORY[0x1E696ACB0] JSONObjectWithData:dataCopy options:0 error:&v69];
+    v18 = v69;
     if (v17)
     {
-      v53 = [identifiersCopy mutableCopy];
-      v57 = objc_opt_new();
+      v52 = [identifiersCopy mutableCopy];
+      v56 = objc_opt_new();
       v19 = [v17 objectForKeyedSubscript:@"results"];
       objc_opt_class();
-      v51 = dataCopy;
-      v52 = identifiersCopy;
-      v50 = handlerCopy;
+      v50 = dataCopy;
+      v51 = identifiersCopy;
+      v49 = handlerCopy;
       val = self;
-      v48 = v18;
+      v47 = v18;
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
 
         v19 = 0;
       }
 
-      v49 = v17;
-      v68 = 0u;
-      v69 = 0u;
+      v48 = v17;
       v67 = 0u;
+      v68 = 0u;
       v66 = 0u;
+      v65 = 0u;
       obj = v19;
-      v56 = [obj countByEnumeratingWithState:&v66 objects:v75 count:16];
-      if (v56)
+      v55 = [obj countByEnumeratingWithState:&v65 objects:v74 count:16];
+      if (v55)
       {
-        v55 = *v67;
+        v54 = *v66;
         do
         {
-          for (i = 0; i != v56; ++i)
+          for (i = 0; i != v55; ++i)
           {
-            if (*v67 != v55)
+            if (*v66 != v54)
             {
               objc_enumerationMutation(obj);
             }
 
-            v21 = *(*(&v66 + 1) + 8 * i);
+            v21 = *(*(&v65 + 1) + 8 * i);
             v22 = [v21 objectForKeyedSubscript:@"bundleId"];
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -1294,7 +1284,7 @@ uint64_t __95__STAppInfoCache__handleAMSClientResponseForBundleIdentifiers_resul
               }
 
               *buf = 138543362;
-              v74 = v21;
+              v73 = v21;
               v30 = v28;
               v31 = "Unable to parse store response, bundle identifier is missing: %{public}@";
 LABEL_32:
@@ -1311,7 +1301,7 @@ LABEL_32:
               }
 
               *buf = 138543362;
-              v74 = v21;
+              v73 = v21;
               v30 = v28;
               v31 = "Unable to parse store response, display name is missing: %{public}@";
               goto LABEL_32;
@@ -1345,43 +1335,43 @@ LABEL_32:
 
             [v28 setDeveloperName:v26];
             [v28 setRatingLabel:v27];
-            [v57 setObject:v28 forKeyedSubscript:v22];
-            [v53 removeObject:v22];
+            [v56 setObject:v28 forKeyedSubscript:v22];
+            [v52 removeObject:v22];
             v33 = +[STLog appInfo];
             if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
             {
-              [STAppInfoCache _handleAMSClientResponseForBundleIdentifiers:v72 results:v28 error:? completionHandler:?];
+              [STAppInfoCache _handleAMSClientResponseForBundleIdentifiers:v71 results:v28 error:? completionHandler:?];
             }
 
 LABEL_40:
           }
 
-          v56 = [obj countByEnumeratingWithState:&v66 objects:v75 count:16];
+          v55 = [obj countByEnumeratingWithState:&v65 objects:v74 count:16];
         }
 
-        while (v56);
+        while (v55);
       }
 
-      v64 = 0u;
-      v65 = 0u;
-      v62 = 0u;
       v63 = 0u;
-      v34 = v53;
-      v35 = [v34 countByEnumeratingWithState:&v62 objects:v71 count:16];
+      v64 = 0u;
+      v61 = 0u;
+      v62 = 0u;
+      v34 = v52;
+      v35 = [v34 countByEnumeratingWithState:&v61 objects:v70 count:16];
       if (v35)
       {
         v36 = v35;
-        v37 = *v63;
+        v37 = *v62;
         do
         {
           for (j = 0; j != v36; ++j)
           {
-            if (*v63 != v37)
+            if (*v62 != v37)
             {
               objc_enumerationMutation(v34);
             }
 
-            v39 = *(*(&v62 + 1) + 8 * j);
+            v39 = *(*(&v61 + 1) + 8 * j);
             v40 = objc_opt_new();
             [v40 setSource:3];
             [v40 setBundleIdentifier:v39];
@@ -1392,14 +1382,14 @@ LABEL_40:
             {
               bundleIdentifier = [v40 bundleIdentifier];
               *buf = 138412290;
-              v74 = bundleIdentifier;
+              v73 = bundleIdentifier;
               _os_log_impl(&dword_1B831F000, v41, OS_LOG_TYPE_DEFAULT, "Did not find app %@ in iTunes Response; setting AppInfo to placeholder", buf, 0xCu);
             }
 
-            [v57 setObject:v40 forKeyedSubscript:v39];
+            [v56 setObject:v40 forKeyedSubscript:v39];
           }
 
-          v36 = [v34 countByEnumeratingWithState:&v62 objects:v71 count:16];
+          v36 = [v34 countByEnumeratingWithState:&v61 objects:v70 count:16];
         }
 
         while (v36);
@@ -1410,21 +1400,21 @@ LABEL_40:
       block[1] = 3221225472;
       block[2] = __98__STAppInfoCache__handleiTunesResponseForBundleIdentifiers_response_data_error_completionHandler___block_invoke;
       block[3] = &unk_1E7CE6AE0;
-      objc_copyWeak(&v61, buf);
-      v59 = v57;
-      handlerCopy = v50;
-      v60 = v50;
-      v43 = v57;
+      objc_copyWeak(&v60, buf);
+      v58 = v56;
+      handlerCopy = v49;
+      v59 = v49;
+      v43 = v56;
       dispatch_async(MEMORY[0x1E69E96A0], block);
 
-      objc_destroyWeak(&v61);
+      objc_destroyWeak(&v60);
       objc_destroyWeak(buf);
 
-      dataCopy = v51;
-      identifiersCopy = v52;
+      dataCopy = v50;
+      identifiersCopy = v51;
       errorCopy = 0;
-      v18 = v48;
-      v17 = v49;
+      v18 = v47;
+      v17 = v48;
     }
 
     else
@@ -1441,8 +1431,6 @@ LABEL_40:
       }
     }
   }
-
-  v46 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __98__STAppInfoCache__handleiTunesResponseForBundleIdentifiers_response_data_error_completionHandler___block_invoke(uint64_t a1)
@@ -1453,10 +1441,9 @@ uint64_t __98__STAppInfoCache__handleiTunesResponseForBundleIdentifiers_response
   result = *(a1 + 40);
   if (result)
   {
-    v4 = *(a1 + 32);
-    v5 = *(result + 16);
+    v4 = *(result + 16);
 
-    return v5();
+    return v4();
   }
 
   return result;
@@ -1494,19 +1481,19 @@ uint64_t __98__STAppInfoCache__handleiTunesResponseForBundleIdentifiers_response
 
 void __66__STAppInfoCache__fetchSyncedInstalledAppInfoForBundleIdentifier___block_invoke(uint64_t a1)
 {
-  v46[1] = *MEMORY[0x1E69E9840];
+  v45[1] = *MEMORY[0x1E69E9840];
   v2 = +[STInstalledApp fetchRequest];
   v3 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K == %@", @"bundleIdentifier", *(a1 + 32)];
   [v2 setPredicate:v3];
 
   v4 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"userDeviceState.device.identifier" ascending:1];
-  v46[0] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:1];
+  v45[0] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:1];
   [v2 setSortDescriptors:v5];
 
-  v41 = 0;
-  v6 = [v2 execute:&v41];
-  v7 = v41;
+  v40 = 0;
+  v6 = [v2 execute:&v40];
+  v7 = v40;
   if (!v6)
   {
     v17 = +[STLog appInfo];
@@ -1536,25 +1523,25 @@ LABEL_12:
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v44 = 0x2020000000;
-  v45 = 0x7FFFFFFFFFFFFFFFLL;
-  v37 = 0;
-  v38 = &v37;
-  v39 = 0x2020000000;
-  v40 = 0x7FFFFFFFFFFFFFFFLL;
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x2020000000;
-  v36 = 0x7FFFFFFFFFFFFFFFLL;
-  v32[0] = MEMORY[0x1E69E9820];
-  v32[1] = 3221225472;
-  v32[2] = __66__STAppInfoCache__fetchSyncedInstalledAppInfoForBundleIdentifier___block_invoke_230;
-  v32[3] = &unk_1E7CE6B08;
-  v32[4] = &v33;
-  v32[5] = &buf;
-  v32[6] = &v37;
-  v8 = [v6 indexOfObjectPassingTest:v32];
-  if (v8 != 0x7FFFFFFFFFFFFFFFLL || (v8 = v38[3], v8 != 0x7FFFFFFFFFFFFFFFLL) || (v8 = v34[3], v8 != 0x7FFFFFFFFFFFFFFFLL) || (v8 = *(*(&buf + 1) + 24), v8 != 0x7FFFFFFFFFFFFFFFLL))
+  v43 = 0x2020000000;
+  v44 = 0x7FFFFFFFFFFFFFFFLL;
+  v36 = 0;
+  v37 = &v36;
+  v38 = 0x2020000000;
+  v39 = 0x7FFFFFFFFFFFFFFFLL;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x2020000000;
+  v35 = 0x7FFFFFFFFFFFFFFFLL;
+  v31[0] = MEMORY[0x1E69E9820];
+  v31[1] = 3221225472;
+  v31[2] = __66__STAppInfoCache__fetchSyncedInstalledAppInfoForBundleIdentifier___block_invoke_230;
+  v31[3] = &unk_1E7CE6B08;
+  v31[4] = &v32;
+  v31[5] = &buf;
+  v31[6] = &v36;
+  v8 = [v6 indexOfObjectPassingTest:v31];
+  if (v8 != 0x7FFFFFFFFFFFFFFFLL || (v8 = v37[3], v8 != 0x7FFFFFFFFFFFFFFFLL) || (v8 = v33[3], v8 != 0x7FFFFFFFFFFFFFFFLL) || (v8 = *(*(&buf + 1) + 24), v8 != 0x7FFFFFFFFFFFFFFFLL))
   {
     v9 = [v6 objectAtIndexedSubscript:v8];
     v10 = objc_opt_new();
@@ -1628,7 +1615,7 @@ LABEL_12:
       if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         v29 = [v9 description];
-        __66__STAppInfoCache__fetchSyncedInstalledAppInfoForBundleIdentifier___block_invoke_cold_1(v29, v42, v28);
+        __66__STAppInfoCache__fetchSyncedInstalledAppInfoForBundleIdentifier___block_invoke_cold_1(v29, v41, v28);
       }
 
       v27 = [v9 bundleIdentifier];
@@ -1645,12 +1632,10 @@ LABEL_12:
     [*(*(*(a1 + 40) + 8) + 40) setArtworkData:v30];
   }
 
-  _Block_object_dispose(&v33, 8);
-  _Block_object_dispose(&v37, 8);
+  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v36, 8);
   _Block_object_dispose(&buf, 8);
 LABEL_34:
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 BOOL __66__STAppInfoCache__fetchSyncedInstalledAppInfoForBundleIdentifier___block_invoke_230(void *a1, void *a2, uint64_t a3)
@@ -1704,7 +1689,7 @@ BOOL __66__STAppInfoCache__fetchSyncedInstalledAppInfoForBundleIdentifier___bloc
 
 void __61__STAppInfoCache__finishedFetchingAppInfoByBundleIdentifier___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = *(a1 + 32);
   v7 = a3;
@@ -1712,15 +1697,13 @@ void __61__STAppInfoCache__finishedFetchingAppInfoByBundleIdentifier___block_inv
   v8 = [MEMORY[0x1E696AD88] defaultCenter];
   v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"AppInfoCacheDidFetchResult-%@", v5];
   v10 = *(a1 + 40);
-  v14 = @"AppInfo";
-  v15[0] = v7;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+  v13 = @"AppInfo";
+  v14[0] = v7;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
   [v8 postNotificationName:v9 object:v10 userInfo:v11];
 
   v12 = [MEMORY[0x1E696AD88] defaultCenter];
   [v12 postNotificationName:@"STAppInfoCacheDidUpdateNotificationName" object:*(a1 + 40) userInfo:0];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_preloadedAppInfoWithBundleIdentifier:(id)identifier
@@ -1785,80 +1768,62 @@ void __61__STAppInfoCache__finishedFetchingAppInfoByBundleIdentifier___block_inv
 
 void __51__STAppInfoCache__localAppNameForBundleIdentifier___block_invoke()
 {
-  v4[10] = *MEMORY[0x1E69E9840];
-  v3[0] = @"com.apple.camera";
-  v3[1] = @"com.apple.compass";
-  v4[0] = @"CameraAppName";
-  v4[1] = @"CompassAppName";
-  v3[2] = @"com.apple.Health";
-  v3[3] = @"com.apple.mobilephone";
-  v4[2] = @"HealthAppName";
-  v4[3] = @"PhoneAppName";
-  v3[4] = @"com.apple.mobilesafari";
-  v3[5] = @"com.apple.mobileslideshow";
-  v4[4] = @"SafariAppName";
-  v4[5] = @"PhotosAppName";
-  v3[6] = @"com.apple.MobileSMS";
-  v3[7] = @"com.apple.mobiletimer";
-  v4[6] = @"MessagesAppName";
-  v4[7] = @"ClockAppName";
-  v3[8] = @"com.apple.Passbook";
-  v3[9] = @"com.apple.Preferences";
-  v4[8] = @"PassbookAppName";
-  v4[9] = @"SettingsAppName";
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:10];
+  v3[10] = *MEMORY[0x1E69E9840];
+  v2[0] = @"com.apple.camera";
+  v2[1] = @"com.apple.compass";
+  v3[0] = @"CameraAppName";
+  v3[1] = @"CompassAppName";
+  v2[2] = @"com.apple.Health";
+  v2[3] = @"com.apple.mobilephone";
+  v3[2] = @"HealthAppName";
+  v3[3] = @"PhoneAppName";
+  v2[4] = @"com.apple.mobilesafari";
+  v2[5] = @"com.apple.mobileslideshow";
+  v3[4] = @"SafariAppName";
+  v3[5] = @"PhotosAppName";
+  v2[6] = @"com.apple.MobileSMS";
+  v2[7] = @"com.apple.mobiletimer";
+  v3[6] = @"MessagesAppName";
+  v3[7] = @"ClockAppName";
+  v2[8] = @"com.apple.Passbook";
+  v2[9] = @"com.apple.Preferences";
+  v3[8] = @"PassbookAppName";
+  v3[9] = @"SettingsAppName";
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:v2 count:10];
   v1 = _localAppNameForBundleIdentifier__localAppNameMap;
   _localAppNameForBundleIdentifier__localAppNameMap = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 void __66__STAppInfoCache_appInfoForBundleIdentifier_adamId_distributorId___block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138412546;
-  *&v4[4] = *(a1 + 48);
-  *&v4[12] = 2112;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_1(&dword_1B831F000, a2, a3, "Cannot fetch alt distro app info for bundle ID:%@ error:%@", *v4, *&v4[8], *&v4[16], *MEMORY[0x1E69E9840]);
-  v3 = *MEMORY[0x1E69E9840];
+  *v3 = 138412546;
+  *&v3[4] = *(a1 + 48);
+  *&v3[12] = 2112;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_1(&dword_1B831F000, a2, a3, "Cannot fetch alt distro app info for bundle ID:%@ error:%@", *v3, *&v3[8], *&v3[16], *MEMORY[0x1E69E9840]);
 }
 
 - (void)_appInfoForBundleIdentifier:(void *)a1 .cold.1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 description];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_5(&dword_1B831F000, v2, v3, "STAppInfoCache is vending result with no displayName: %{public}@ in function: %s:%d", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_5(&dword_1B831F000, v2, v3, "STAppInfoCache is vending result with no displayName: %{public}@ in function: %s:%d", v4, v5, v6, v7);
 }
 
 - (void)_appInfoForBundleIdentifier:(void *)a1 .cold.2(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 description];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_5(&dword_1B831F000, v2, v3, "STAppInfoCache is vending result with no displayName: %{public}@ in function: %s:%d", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_5(&dword_1B831F000, v2, v3, "STAppInfoCache is vending result with no displayName: %{public}@ in function: %s:%d", v4, v5, v6, v7);
 }
 
 - (void)_fetchAppInfoFromLaunchServicesWithBundleIdentifier:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  _os_log_debug_impl(&dword_1B831F000, v0, OS_LOG_TYPE_DEBUG, "Going to query %{public}@ from LS", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_handleAMSClientResponseForBundleIdentifiers:results:error:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1B831F000, v0, v1, "App lookup of %@ from media services failed: %{public}@");
   v2 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2();
+  _os_log_debug_impl(&dword_1B831F000, v0, OS_LOG_TYPE_DEBUG, "Going to query %{public}@ from LS", v1, 0xCu);
 }
 
 - (void)_handleAMSClientResponseForBundleIdentifiers:(uint64_t)a1 results:(uint64_t)a2 error:completionHandler:.cold.2(uint64_t a1, uint64_t a2)
@@ -1867,14 +1832,6 @@ void __66__STAppInfoCache_appInfoForBundleIdentifier_adamId_distributorId___bloc
   *v3 = 138543362;
   *v2 = v4;
   OUTLINED_FUNCTION_6(&dword_1B831F000, v5, v6, "Got app %{public}@ details from the store");
-}
-
-- (void)_handleiTunesResponseForBundleIdentifiers:response:data:error:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1B831F000, v0, v1, "App lookup of %@ from store failed: %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 void __66__STAppInfoCache__fetchSyncedInstalledAppInfoForBundleIdentifier___block_invoke_cold_1(void *a1, uint8_t *buf, os_log_t log)
@@ -1890,10 +1847,9 @@ void __66__STAppInfoCache__fetchSyncedInstalledAppInfoForBundleIdentifier___bloc
 
 void __66__STAppInfoCache__fetchSyncedInstalledAppInfoForBundleIdentifier___block_invoke_cold_2()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  _os_log_fault_impl(&dword_1B831F000, v0, OS_LOG_TYPE_FAULT, "Failed to fetch installed apps: %{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1B831F000, v0, OS_LOG_TYPE_FAULT, "Failed to fetch installed apps: %{public}@", v1, 0xCu);
 }
 
 @end

@@ -96,7 +96,7 @@ uint64_t __60__TUIReportToAppleSpecifierProvider_initWithAccountManager___block_
 
 void __53__TUIReportToAppleSpecifierProvider_reloadSpecifiers__block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
@@ -108,8 +108,8 @@ void __53__TUIReportToAppleSpecifierProvider_reloadSpecifiers__block_invoke(uint
     v3 = TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_19;
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_19, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v7) = 0;
-      _os_log_impl(&dword_26F50B000, v3, OS_LOG_TYPE_INFO, "Attempting to reload specifiers...", &v7, 2u);
+      LOWORD(v6) = 0;
+      _os_log_impl(&dword_26F50B000, v3, OS_LOG_TYPE_INFO, "Attempting to reload specifiers...", &v6, 2u);
     }
 
     v4 = [WeakRetained delegate];
@@ -126,13 +126,11 @@ void __53__TUIReportToAppleSpecifierProvider_reloadSpecifiers__block_invoke(uint
     v5 = TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_19;
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_19, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136315138;
-      v8 = "[TUIReportToAppleSpecifierProvider reloadSpecifiers]_block_invoke";
-      _os_log_impl(&dword_26F50B000, v5, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", &v7, 0xCu);
+      v6 = 136315138;
+      v7 = "[TUIReportToAppleSpecifierProvider reloadSpecifiers]_block_invoke";
+      _os_log_impl(&dword_26F50B000, v5, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __53__TUIReportToAppleSpecifierProvider_reloadSpecifiers__block_invoke_2()
@@ -164,11 +162,10 @@ uint64_t __53__TUIReportToAppleSpecifierProvider_reloadSpecifiers__block_invoke_
 
 - (void)_learnMoreTapped
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(&dword_26F50B000, v0, OS_LOG_TYPE_DEBUG, "%s  on %{public}@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_26F50B000, v0, OS_LOG_TYPE_DEBUG, "%s  on %{public}@", v1, 0x16u);
 }
 
 uint64_t __53__TUIReportToAppleSpecifierProvider__learnMoreTapped__block_invoke()
@@ -180,7 +177,7 @@ uint64_t __53__TUIReportToAppleSpecifierProvider__learnMoreTapped__block_invoke(
 
 void __53__TUIReportToAppleSpecifierProvider__learnMoreTapped__block_invoke_57(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -199,13 +196,11 @@ void __53__TUIReportToAppleSpecifierProvider__learnMoreTapped__block_invoke_57(u
     v4 = TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_19;
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_19, OS_LOG_TYPE_ERROR))
     {
-      v6 = 136315138;
-      v7 = "[TUIReportToAppleSpecifierProvider _learnMoreTapped]_block_invoke";
-      _os_log_impl(&dword_26F50B000, v4, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", &v6, 0xCu);
+      v5 = 136315138;
+      v6 = "[TUIReportToAppleSpecifierProvider _learnMoreTapped]_block_invoke";
+      _os_log_impl(&dword_26F50B000, v4, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", &v5, 0xCu);
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __53__TUIReportToAppleSpecifierProvider__learnMoreTapped__block_invoke_2()
@@ -272,11 +267,10 @@ uint64_t __53__TUIReportToAppleSpecifierProvider__learnMoreTapped__block_invoke_
 
 - (void)initWithAccountManager:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_26F50B000, v0, OS_LOG_TYPE_ERROR, "%s not supported on %{public}@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_26F50B000, v0, OS_LOG_TYPE_ERROR, "%s not supported on %{public}@", v1, 0x16u);
 }
 
 @end

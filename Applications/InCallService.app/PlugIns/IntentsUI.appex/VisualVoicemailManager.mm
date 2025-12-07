@@ -35,7 +35,7 @@
 
 - (void)fetchMessagesWithCompletion:(id)completion
 {
-  v5 = sub_100030744(&qword_1000C5110);
+  v5 = sub_100030744(&qword_1000C5110, &unk_1000A19F0);
   __chkstk_darwin(v5 - 8, v6);
   v8 = &v15 - v7;
   v9 = _Block_copy(completion);
@@ -60,7 +60,7 @@
 
 - (void)deleteVoicemails:(NSArray *)voicemails completion:(id)completion
 {
-  v7 = sub_100030744(&qword_1000C5110);
+  v7 = sub_100030744(&qword_1000C5110, &unk_1000A19F0);
   __chkstk_darwin(v7 - 8, v8);
   v10 = &v18 - v9;
   v11 = _Block_copy(completion);
@@ -87,7 +87,7 @@
 
 - (void)markVoicemailsAsRead:(NSArray *)read completion:(id)completion
 {
-  v7 = sub_100030744(&qword_1000C5110);
+  v7 = sub_100030744(&qword_1000C5110, &unk_1000A19F0);
   __chkstk_darwin(v7 - 8, v8);
   v10 = &v18 - v9;
   v11 = _Block_copy(completion);
@@ -114,7 +114,7 @@
 
 - (void)trashVoicemails:(NSArray *)voicemails completion:(id)completion
 {
-  v7 = sub_100030744(&qword_1000C5110);
+  v7 = sub_100030744(&qword_1000C5110, &unk_1000A19F0);
   __chkstk_darwin(v7 - 8, v8);
   v10 = &v18 - v9;
   v11 = _Block_copy(completion);
@@ -141,7 +141,7 @@
 
 - (void)removeVoicemailsFromTrash:(NSArray *)trash completion:(id)completion
 {
-  v7 = sub_100030744(&qword_1000C5110);
+  v7 = sub_100030744(&qword_1000C5110, &unk_1000A19F0);
   __chkstk_darwin(v7 - 8, v8);
   v10 = &v18 - v9;
   v11 = _Block_copy(completion);
@@ -168,7 +168,7 @@
 
 - (void)voicemailWithIdentifier:(MPMessageID *)identifier completion:(id)completion
 {
-  v7 = sub_100030744(&qword_1000C5110);
+  v7 = sub_100030744(&qword_1000C5110, &unk_1000A19F0);
   __chkstk_darwin(v7 - 8, v8);
   v10 = &v18 - v9;
   v11 = _Block_copy(completion);
@@ -196,7 +196,7 @@
 - (void)messagesPassingTest:(id)test completion:
 {
   v4 = v3;
-  v7 = sub_100030744(&qword_1000C5110);
+  v7 = sub_100030744(&qword_1000C5110, &unk_1000A19F0);
   __chkstk_darwin(v7 - 8, v8);
   v10 = &v18 - v9;
   v11 = _Block_copy(test);
@@ -237,7 +237,7 @@
 
 - (void)requestInitialStateIfNecessaryAndSendNotifications:(BOOL)notifications
 {
-  v5 = sub_100030744(&qword_1000C5110);
+  v5 = sub_100030744(&qword_1000C5110, &unk_1000A19F0);
   __chkstk_darwin(v5 - 8, v6);
   v8 = &v13 - v7;
   v9 = sub_10007B608();
@@ -301,43 +301,43 @@
 - (void)onlineStatusDidChange
 {
   selfCopy = self;
-  sub_100042034("%s observed voicemailsDidChange");
+  sub_100042034("%s observed voicemailsDidChange", v2);
 }
 
 - (void)capabilitiesDidChange
 {
   selfCopy = self;
-  sub_100042034("%s observed capabilitiesDidChange");
+  sub_100042034("%s observed capabilitiesDidChange", v2);
 }
 
 - (void)subscriptionStateStatusDidChange
 {
   selfCopy = self;
-  sub_100042034("%s observed subscriptionStatusDidChange");
+  sub_100042034("%s observed subscriptionStatusDidChange", v2);
 }
 
 - (void)syncInProgresDidChange
 {
   selfCopy = self;
-  sub_100042034("%s observed syncInProgressDidChnage");
+  sub_100042034("%s observed syncInProgressDidChnage", v2);
 }
 
 - (void)managerStorageUsageDidChange
 {
   selfCopy = self;
-  sub_100042034("%s observed manageStorageUsageDidChange");
+  sub_100042034("%s observed manageStorageUsageDidChange", v2);
 }
 
 - (void)transcribingStatusDidChange
 {
   selfCopy = self;
-  sub_100042034("%s observed transcribingStatusDidChange");
+  sub_100042034("%s observed transcribingStatusDidChange", v2);
 }
 
 - (void)accountsDidChange
 {
   selfCopy = self;
-  sub_100042034("%s observed accountsDidChange");
+  sub_100042034("%s observed accountsDidChange", v2);
 }
 
 - (int64_t)estimatedCount

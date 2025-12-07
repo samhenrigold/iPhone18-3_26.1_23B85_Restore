@@ -15,7 +15,7 @@ id accessibilityLocalizedString(void *a1)
   return v5;
 }
 
-void _AXUIInstallBaseCategories()
+void _AXUIInstallBaseCategories(uint64_t result, uint64_t a2)
 {
   if (_AXUIInstallBaseCategories_onceToken != -1)
   {
@@ -26,48 +26,48 @@ void _AXUIInstallBaseCategories()
 id AXWebNotificationWithName(void *a1)
 {
   v1 = a1;
-  v2 = _NotificationMap();
+  v2 = _NotificationMap(v1);
   v3 = [v2 valueForKey:v1];
 
   return v3;
 }
 
-id _NotificationMap()
+id _NotificationMap(uint64_t a1)
 {
   if (_NotificationMap_onceToken != -1)
   {
     _NotificationMap_cold_1();
   }
 
-  v1 = _NotificationMap_notificationsMap;
+  v2 = _NotificationMap_notificationsMap;
 
-  return v1;
+  return v2;
 }
 
 id AXWebNotificationName(void *a1)
 {
-  v16 = *MEMORY[0x29EDCA608];
+  v15 = *MEMORY[0x29EDCA608];
   v1 = a1;
-  _NotificationMap();
+  _NotificationMap(v1);
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v2 = v14 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v2 = v13 = 0u;
+  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
-    v4 = *v12;
+    v4 = *v11;
     while (2)
     {
       for (i = 0; i != v3; i = i + 1)
       {
-        if (*v12 != v4)
+        if (*v11 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v11 + 1) + 8 * i);
-        v7 = [v2 objectForKeyedSubscript:{v6, v11}];
+        v6 = *(*(&v10 + 1) + 8 * i);
+        v7 = [v2 objectForKeyedSubscript:{v6, v10}];
         v8 = [v7 isEqual:v1];
 
         if (v8)
@@ -77,7 +77,7 @@ id AXWebNotificationName(void *a1)
         }
       }
 
-      v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v3)
       {
         continue;
@@ -89,7 +89,15 @@ id AXWebNotificationName(void *a1)
 
 LABEL_11:
 
-  v9 = *MEMORY[0x29EDCA608];
-
   return v3;
+}
+
+CGRect UIAccessibilityConvertFrameToScreenCoordinates(CGRect rect, UIView *view)
+{
+  MEMORY[0x2A1C6A7E0](view, rect.origin, *&rect.origin.y, rect.size, *&rect.size.height);
+  result.size.height = v5;
+  result.size.width = v4;
+  result.origin.y = v3;
+  result.origin.x = v2;
+  return result;
 }

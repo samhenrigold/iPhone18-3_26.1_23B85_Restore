@@ -46,7 +46,7 @@
 
 - (id)_wakeWithTuple:(id)tuple dnsName:(id)name
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   tupleCopy = tuple;
   nameCopy = name;
   queue = [(HAPSuspendedAccessory *)self queue];
@@ -79,15 +79,15 @@
     [tupleCopy wakePort];
     [(HAPSuspendedAccessoryIP *)self timeout];
     [(HAPSuspendedAccessory *)self queue];
+    v35 = 0;
     v36 = 0;
-    v37 = 0;
-    v39 = v38 = self;
+    v38 = v37 = self;
     v23 = AsyncConnection_Connect();
 
     if (v23)
     {
       v24 = MEMORY[0x277CCA9B8];
-      v25 = [MEMORY[0x277CCA9B8] errorWithOSStatus:{v23, 0, 0, self, v39}];
+      v25 = [MEMORY[0x277CCA9B8] errorWithOSStatus:{v23, 0, 0, self, v38}];
       v26 = [v24 hapErrorWithCode:1 description:@"Connection failed" reason:0 suggestion:0 underlyingError:v25];
     }
 
@@ -109,17 +109,17 @@
     if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
     {
       HMFGetLogIdentifier();
-      v32 = v40 = v17;
+      v32 = v39 = v17;
       identifier = [(HAPSuspendedAccessory *)selfCopy identifier];
       *buf = 138543874;
-      v42 = v32;
-      v43 = 2112;
-      v44 = identifier;
-      v45 = 2112;
-      v46 = v26;
+      v41 = v32;
+      v42 = 2112;
+      v43 = identifier;
+      v44 = 2112;
+      v45 = v26;
       _os_log_impl(&dword_22AADC000, v31, OS_LOG_TYPE_INFO, "%{public}@The suspended accessory: '%@' sent wake command with error: %@", buf, 0x20u);
 
-      v17 = v40;
+      v17 = v39;
     }
 
     objc_autoreleasePoolPop(v29);
@@ -130,8 +130,6 @@
   {
     v12 = [MEMORY[0x277CCA9B8] hapErrorWithCode:9];
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -152,36 +150,36 @@
 
 void __46__HAPSuspendedAccessoryIP_wakeWithCompletion___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) wakeTuples];
   v3 = [v2 count];
 
   if (v3)
   {
-    v24 = 0u;
-    v25 = 0u;
     v22 = 0u;
     v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v4 = [*(a1 + 32) wakeTuples];
-    v5 = [v4 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v5)
     {
       v6 = v5;
       v7 = 0;
       v8 = 0;
-      v9 = *v23;
+      v9 = *v21;
       do
       {
         v10 = 0;
         v11 = v7;
         do
         {
-          if (*v23 != v9)
+          if (*v21 != v9)
           {
             objc_enumerationMutation(v4);
           }
 
-          v12 = *(*(&v22 + 1) + 8 * v10);
+          v12 = *(*(&v20 + 1) + 8 * v10);
           v13 = *(a1 + 32);
           v14 = [v13 dnsName];
           v7 = [v13 _wakeWithTuple:v12 dnsName:v14];
@@ -192,7 +190,7 @@ void __46__HAPSuspendedAccessoryIP_wakeWithCompletion___block_invoke(uint64_t a1
         }
 
         while (v6 != v10);
-        v6 = [v4 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v6);
@@ -212,7 +210,6 @@ void __46__HAPSuspendedAccessoryIP_wakeWithCompletion___block_invoke(uint64_t a1
 LABEL_15:
     (*(*(a1 + 40) + 16))();
 
-    v19 = *MEMORY[0x277D85DE8];
     return;
   }
 
@@ -222,18 +219,16 @@ LABEL_15:
   if (v15)
   {
     v17 = *(a1 + 32);
-    v21 = [v17 dnsName];
+    v19 = [v17 dnsName];
     v18 = [v17 _wakeWithTuple:0 dnsName:?];
     (*(v16 + 16))(v16, v18);
   }
 
   else
   {
-    v21 = [MEMORY[0x277CCA9B8] hapErrorWithCode:9];
+    v19 = [MEMORY[0x277CCA9B8] hapErrorWithCode:9];
     (*(v16 + 16))(v16);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -277,7 +272,6 @@ LABEL_15:
 
 uint64_t __38__HAPSuspendedAccessoryIP_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
   logCategory__hmf_once_v2 = HMFCreateOSLogHandle();
 
   return MEMORY[0x2821F96F8]();

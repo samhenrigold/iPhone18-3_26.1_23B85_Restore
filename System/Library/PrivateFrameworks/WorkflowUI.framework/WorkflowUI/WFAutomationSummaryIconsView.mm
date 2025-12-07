@@ -86,12 +86,12 @@
     homeTriggerIconView3 = [(WFAutomationSummaryIconsView *)self homeTriggerIconView];
     [homeTriggerIconView3 removeFromSuperview];
 
-    [(WFAutomationSummaryIconsView *)self setHomeTriggerIconView:0];
+    v10 = [(WFAutomationSummaryIconsView *)self setHomeTriggerIconView:0];
   }
 
-  v13 = [objc_alloc(getHUTriggerIconViewClass()) initWithIconDescriptor:iconCopy];
+  v14 = [objc_alloc(getHUTriggerIconViewClass(v10)) initWithIconDescriptor:iconCopy];
 
-  [(WFAutomationSummaryIconsView *)self setHomeTriggerIconView:v13];
+  [(WFAutomationSummaryIconsView *)self setHomeTriggerIconView:v14];
   homeTriggerIconView4 = [(WFAutomationSummaryIconsView *)self homeTriggerIconView];
   [homeTriggerIconView4 setTranslatesAutoresizingMaskIntoConstraints:0];
 

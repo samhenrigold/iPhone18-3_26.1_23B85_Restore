@@ -35,9 +35,9 @@
   if (v12 == [objc_opt_class() _titlesMenuBarViewElementClass])
   {
     v13 = [elementCopy getAttribute:@"type"];
-    v14 = [v13 isEqualToString:@"shelf"];
+    isEqualToString = objc_msgSend_isEqualToString_(v13);
 
-    if (v14)
+    if (isEqualToString)
     {
       _shelfMenuBarViewElementClass = [objc_opt_class() _shelfMenuBarViewElementClass];
 LABEL_13:

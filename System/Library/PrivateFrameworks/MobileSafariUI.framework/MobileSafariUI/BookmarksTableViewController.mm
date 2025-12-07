@@ -1611,33 +1611,33 @@ id __90__BookmarksTableViewController_tableView_contextMenuConfigurationForRowAt
   [animatorCopy addAnimations:v15];
 }
 
-void __100__BookmarksTableViewController_tableView_willPerformPreviewActionForMenuWithConfiguration_animator___block_invoke(uint64_t a1)
+void __100__BookmarksTableViewController_tableView_willPerformPreviewActionForMenuWithConfiguration_animator___block_invoke(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
-  v3 = *(a1 + 32);
+  v4 = *(a1 + 32);
   if (isKindOfClass)
   {
-    v4 = v3;
-    [v4 setPreviewing:0];
+    v5 = v4;
+    [v5 setPreviewing:0];
     WeakRetained = [*(a1 + 40) navigationController];
     [WeakRetained pushViewController:*(a1 + 32) animated:1];
   }
 
   else
   {
-    v5 = *(a1 + 40);
-    if (v3)
+    v6 = *(a1 + 40);
+    if (v4)
     {
-      WeakRetained = objc_loadWeakRetained(v5 + 149);
+      WeakRetained = objc_loadWeakRetained(v6 + 149);
       [WeakRetained commitLinkPreviewViewController:*(a1 + 32)];
     }
 
     else
     {
-      v6 = *(a1 + 48);
+      v7 = *(a1 + 48);
       WeakRetained = [*(a1 + 56) identifier];
-      [v5 tableView:v6 didSelectRowAtIndexPath:?];
+      [v6 tableView:v7 didSelectRowAtIndexPath:?];
     }
   }
 }

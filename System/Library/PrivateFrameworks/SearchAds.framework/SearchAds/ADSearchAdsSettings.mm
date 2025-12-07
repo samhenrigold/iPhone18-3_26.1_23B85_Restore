@@ -195,7 +195,7 @@
 
 - (void)refreshClientSettings:(id)settings
 {
-  v89 = *MEMORY[0x277D85DE8];
+  v88 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
   v9 = objc_msgSend_sharedInstance(MEMORY[0x277CE9630], v5, v6, v7, v8);
   v13 = objc_msgSend_BOOLForKey_(v9, v10, @"ClientSettingsForceExpire", v11, v12);
@@ -216,56 +216,43 @@
   v22 = objc_msgSend_clientSettings(self, v14, v15, v16, v17);
   hasExpirationDate = objc_msgSend_hasExpirationDate(v22, v23, v24, v25, v26);
 
-  if (v13 & 1 | ((hasExpirationDate & 1) == 0))
+  if (v13 & 1 | ((hasExpirationDate & 1) == 0) || (objc_msgSend_date(MEMORY[0x277CBEAA8], v28, v29, v30, v31), v32 = objc_claimAutoreleasedReturnValue(), v37 = objc_msgSend_AD_toServerTime(v32, v33, v34, v35, v36), v32, objc_msgSend_clientSettings(self, v38, v39, v40, v41), v42 = objc_claimAutoreleasedReturnValue(), objc_msgSend_expirationDate(v42, v43, v44, v45, v46), v48 = v47, v42, v48 <= v37))
   {
-    goto LABEL_7;
-  }
-
-  v32 = objc_msgSend_date(MEMORY[0x277CBEAA8], v28, v29, v30, v31);
-  v37 = objc_msgSend_AD_toServerTime(v32, v33, v34, v35, v36);
-
-  v42 = objc_msgSend_clientSettings(self, v38, v39, v40, v41);
-  objc_msgSend_expirationDate(v42, v43, v44, v45, v46);
-  v48 = v47;
-
-  if (v48 <= v37)
-  {
-LABEL_7:
     v49 = objc_msgSend_sharedInstance(MEMORY[0x277CE96B8], v28, v29, v30, v31);
     v54 = objc_msgSend_workQueue(MEMORY[0x277CE96B8], v50, v51, v52, v53);
-    v82[0] = MEMORY[0x277D85DD0];
-    v82[1] = 3221225472;
-    v82[2] = sub_264E4780C;
-    v82[3] = &unk_279B88990;
-    v82[4] = self;
-    v83 = v49;
-    v84 = settingsCopy;
+    v81[0] = MEMORY[0x277D85DD0];
+    v81[1] = 3221225472;
+    v81[2] = sub_264E4780C;
+    v81[3] = &unk_279B88990;
+    v81[4] = self;
+    v82 = v49;
+    v83 = settingsCopy;
     v55 = v49;
-    objc_msgSend_addOperationWithBlock_(v54, v56, v82, v57, v58);
+    objc_msgSend_addOperationWithBlock_(v54, v56, v81, v57, v58);
   }
 
   else
   {
-    v60 = APLogForCategory();
-    if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
+    v59 = APLogForCategory();
+    if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
     {
-      v65 = objc_msgSend_clientSettings(self, v61, v62, v63, v64);
-      objc_msgSend_expirationDate(v65, v66, v67, v68, v69);
+      v64 = objc_msgSend_clientSettings(self, v60, v61, v62, v63);
+      objc_msgSend_expirationDate(v64, v65, v66, v67, v68);
       *buf = 134218240;
-      v86 = v37;
-      v87 = 2048;
-      v88 = v70;
-      _os_log_impl(&dword_264E42000, v60, OS_LOG_TYPE_DEFAULT, "Client Settings has not expired. (%f < %f)", buf, 0x16u);
+      v85 = v37;
+      v86 = 2048;
+      v87 = v69;
+      _os_log_impl(&dword_264E42000, v59, OS_LOG_TYPE_DEFAULT, "Client Settings has not expired. (%f < %f)", buf, 0x16u);
     }
 
-    v71 = APLogForCategory();
-    if (os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT))
+    v70 = APLogForCategory();
+    if (os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
     {
-      v76 = objc_msgSend_clientSettings(self, v72, v73, v74, v75);
-      v81 = objc_msgSend_AD_jsonString(v76, v77, v78, v79, v80);
+      v75 = objc_msgSend_clientSettings(self, v71, v72, v73, v74);
+      v80 = objc_msgSend_AD_jsonString(v75, v76, v77, v78, v79);
       *buf = 138412290;
-      v86 = *&v81;
-      _os_log_impl(&dword_264E42000, v71, OS_LOG_TYPE_DEFAULT, "Current Client Settings: %@", buf, 0xCu);
+      v85 = *&v80;
+      _os_log_impl(&dword_264E42000, v70, OS_LOG_TYPE_DEFAULT, "Current Client Settings: %@", buf, 0xCu);
     }
 
     if (settingsCopy)
@@ -273,8 +260,6 @@ LABEL_7:
       (*(settingsCopy + 2))(settingsCopy, 0);
     }
   }
-
-  v59 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_fCapSettingsFromType:(int64_t)type
@@ -373,33 +358,33 @@ LABEL_16:
 {
   selfCopy = self;
   v4 = 0;
-  v119 = *MEMORY[0x277D85DE8];
+  v118 = *MEMORY[0x277D85DE8];
   do
   {
     v5 = selfCopy;
     v6 = objc_msgSend__fCapParametersFromType_(selfCopy, a2, v4, v2, v3, selfCopy);
-    v113 = v4;
+    v112 = v4;
     v10 = objc_msgSend__fCapSettingsFromType_(v5, v7, v4, v8, v9);
+    v113 = 0u;
     v114 = 0u;
     v115 = 0u;
     v116 = 0u;
-    v117 = 0u;
     v11 = v6;
-    v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v114, v118, 16);
+    v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v113, v117, 16);
     if (v13)
     {
       v18 = v13;
-      v19 = *v115;
+      v19 = *v114;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v115 != v19)
+          if (*v114 != v19)
           {
             objc_enumerationMutation(v11);
           }
 
-          v21 = *(*(&v114 + 1) + 8 * i);
+          v21 = *(*(&v113 + 1) + 8 * i);
           v22 = objc_msgSend_key(v21, v14, v15, v16, v17);
           isEqualToString = objc_msgSend_isEqualToString_(v22, v23, @"frequencyCapExpirationInSeconds", v24, v25);
 
@@ -451,23 +436,22 @@ LABEL_16:
           }
         }
 
-        v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v14, &v114, v118, 16);
+        v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v14, &v113, v117, 16);
       }
 
       while (v18);
     }
 
-    v4 = v113 + 1;
+    v4 = v112 + 1;
   }
 
-  while (v113 != 5);
+  while (v112 != 5);
   objc_msgSend_checkDefaultsAndSetInternalSettingsOverrides(selfCopy, a2, v110, v2, v3);
-  v111 = *MEMORY[0x277D85DE8];
 }
 
 - (void)checkDefaultsAndSetInternalSettingsOverrides
 {
-  v1064 = *MEMORY[0x277D85DE8];
+  v1063 = *MEMORY[0x277D85DE8];
   v6 = objc_msgSend_sharedInstance(MEMORY[0x277CE9630], a2, v2, v3, v4);
   self->_isBaseline = objc_msgSend_BOOLForKey_(v6, v7, @"IsBaselineRequest", v8, v9);
 
@@ -484,9 +468,9 @@ LABEL_16:
       v11 = @"disabled.";
     }
 
-    v1062 = 138412290;
-    v1063 = v11;
-    _os_log_impl(&dword_264E42000, v10, OS_LOG_TYPE_DEFAULT, "Is Baseline Request has been %@", &v1062, 0xCu);
+    v1061 = 138412290;
+    v1062 = v11;
+    _os_log_impl(&dword_264E42000, v10, OS_LOG_TYPE_DEFAULT, "Is Baseline Request has been %@", &v1061, 0xCu);
   }
 
   v16 = objc_msgSend_sharedInstance(MEMORY[0x277CE9630], v12, v13, v14, v15);
@@ -505,9 +489,9 @@ LABEL_16:
       v21 = @"disabled.";
     }
 
-    v1062 = 138412290;
-    v1063 = v21;
-    _os_log_impl(&dword_264E42000, v20, OS_LOG_TYPE_DEFAULT, "RequestedTemplate has been %@", &v1062, 0xCu);
+    v1061 = 138412290;
+    v1062 = v21;
+    _os_log_impl(&dword_264E42000, v20, OS_LOG_TYPE_DEFAULT, "RequestedTemplate has been %@", &v1061, 0xCu);
   }
 
   if (self->_isCustomTemplate)
@@ -532,9 +516,9 @@ LABEL_16:
       v34 = @"disabled.";
     }
 
-    v1062 = 138412290;
-    v1063 = v34;
-    _os_log_impl(&dword_264E42000, v33, OS_LOG_TYPE_DEFAULT, "Toro Is Test Search Request has been %@", &v1062, 0xCu);
+    v1061 = 138412290;
+    v1062 = v34;
+    _os_log_impl(&dword_264E42000, v33, OS_LOG_TYPE_DEFAULT, "Toro Is Test Search Request has been %@", &v1061, 0xCu);
   }
 
   v39 = objc_msgSend_sharedInstance(MEMORY[0x277CE9630], v35, v36, v37, v38);
@@ -553,9 +537,9 @@ LABEL_16:
       v44 = @"disabled.";
     }
 
-    v1062 = 138412290;
-    v1063 = v44;
-    _os_log_impl(&dword_264E42000, v43, OS_LOG_TYPE_DEFAULT, "Toro requested image ad template has been %@", &v1062, 0xCu);
+    v1061 = 138412290;
+    v1062 = v44;
+    _os_log_impl(&dword_264E42000, v43, OS_LOG_TYPE_DEFAULT, "Toro requested image ad template has been %@", &v1061, 0xCu);
   }
 
   v49 = objc_msgSend_sharedInstance(MEMORY[0x277CE9630], v45, v46, v47, v48);
@@ -574,9 +558,9 @@ LABEL_16:
       v54 = @"disabled.";
     }
 
-    v1062 = 138412290;
-    v1063 = v54;
-    _os_log_impl(&dword_264E42000, v53, OS_LOG_TYPE_DEFAULT, "Toro requested rating ad template has been %@", &v1062, 0xCu);
+    v1061 = 138412290;
+    v1062 = v54;
+    _os_log_impl(&dword_264E42000, v53, OS_LOG_TYPE_DEFAULT, "Toro requested rating ad template has been %@", &v1061, 0xCu);
   }
 
   v59 = objc_msgSend_sharedInstance(MEMORY[0x277CE9630], v55, v56, v57, v58);
@@ -986,8 +970,6 @@ LABEL_16:
       objc_msgSend_overrideRevGeoThreshold_(v1043, v1057, v1058, v1059, v1060);
     }
   }
-
-  v1061 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_getParametersForName:(id)name

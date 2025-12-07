@@ -38,7 +38,7 @@
 
 - (id)itk_constraintEqualToAnchor:()ITK constant:priority:
 {
-  v4 = [self constraintEqualToAnchor:? constant:?];
+  v4 = [self constraintEqualToAnchor:a2 constant:?];
   *&v5 = a3;
   [v4 setPriority:v5];
 
@@ -47,7 +47,7 @@
 
 - (id)itk_constraintGreaterThanOrEqualToAnchor:()ITK constant:priority:
 {
-  v4 = [self constraintGreaterThanOrEqualToAnchor:? constant:?];
+  v4 = [self constraintGreaterThanOrEqualToAnchor:a2 constant:?];
   *&v5 = a3;
   [v4 setPriority:v5];
 
@@ -56,7 +56,7 @@
 
 - (id)itk_constraintLessThanOrEqualToAnchor:()ITK constant:priority:
 {
-  v4 = [self constraintLessThanOrEqualToAnchor:? constant:?];
+  v4 = [self constraintLessThanOrEqualToAnchor:a2 constant:?];
   *&v5 = a3;
   [v4 setPriority:v5];
 

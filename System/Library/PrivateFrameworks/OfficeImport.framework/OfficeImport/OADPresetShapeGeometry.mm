@@ -43,18 +43,18 @@
 
 - (id)escherEquivalentCustomGeometry
 {
-  EshGeometryProperties::EshGeometryProperties(v10);
-  if (EshShapeLib::cloneShapeProperties(LOWORD(self->mType), v10, v3))
+  EshGeometryProperties::EshGeometryProperties(&v10);
+  if (EshShapeLib::cloneShapeProperties(LOWORD(self->mType), &v10, v3))
   {
-    EshGeometryProperties::addImpliedSegments(v10);
+    EshGeometryProperties::addImpliedSegments(&v10);
     v4 = objc_alloc_init(OADCustomShapeGeometry);
     [(OADShapeGeometry *)v4 setIsEscher:1];
-    Vertices = EshGeometryProperties::getVertices(v10);
-    [OABShapeGeometry readFromPathCommands:EshGeometryProperties::getSegments(v10) pathParams:Vertices toGeometry:v4];
-    [OABShapeGeometry readFromFormulas:EshGeometryProperties::getFormulas(v10) toGeometry:v4];
-    if (EshGeometryProperties::isInscribesSet(v10))
+    Vertices = EshGeometryProperties::getVertices(&v10);
+    [OABShapeGeometry readFromPathCommands:EshGeometryProperties::getSegments(&v10) pathParams:Vertices toGeometry:v4];
+    [OABShapeGeometry readFromFormulas:EshGeometryProperties::getFormulas(&v10) toGeometry:v4];
+    if (EshGeometryProperties::isInscribesSet(&v10))
     {
-      [OABShapeGeometry readFromTextBoxRects:EshGeometryProperties::getInscribes(v10) toGeometry:v4];
+      [OABShapeGeometry readFromTextBoxRects:EshGeometryProperties::getInscribes(&v10) toGeometry:v4];
     }
 
     v9 = v11;
@@ -72,7 +72,7 @@
     v4 = 0;
   }
 
-  EshGeometryProperties::~EshGeometryProperties(v10);
+  EshGeometryProperties::~EshGeometryProperties(&v10);
 
   return v4;
 }

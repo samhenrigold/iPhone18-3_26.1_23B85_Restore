@@ -24,11 +24,11 @@
 
 - (uint64_t)hf_eventType
 {
-  v2 = objc_opt_class();
+  v3 = objc_opt_class();
   region = [self region];
-  v4 = [v2 hf_locationEventTypeForRegion:region];
+  v5 = [v3 hf_locationEventTypeForRegion:region];
 
-  return v4;
+  return v5;
 }
 
 + (void)hf_isRegion:()HFAdditions atHome:

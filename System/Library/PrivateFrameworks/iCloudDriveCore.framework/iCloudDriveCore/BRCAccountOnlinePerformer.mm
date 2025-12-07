@@ -91,27 +91,22 @@
 
 - (void)resumeAndAutoClose
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *(self + 8);
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_3_1();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 - (void)perform
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = brc_bread_crumbs();
   v3 = brc_default_log();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_fault_impl(&dword_223E7A000, v3, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: implemented by subclass%@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_fault_impl(&dword_223E7A000, v3, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: implemented by subclass%@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_close

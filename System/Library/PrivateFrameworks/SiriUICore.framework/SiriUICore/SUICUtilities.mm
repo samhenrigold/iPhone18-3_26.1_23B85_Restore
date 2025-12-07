@@ -65,9 +65,11 @@ void __56__SUICUtilities_substringRangesContainingEmojiInString___block_invoke(u
 
 uint64_t __36__SUICUtilities__emojisToNotInclude__block_invoke()
 {
-  _emojisToNotInclude_emojis = [MEMORY[0x1E695DFD8] setWithArray:&unk_1F43C7548];
+  v0 = [MEMORY[0x1E695DFD8] setWithArray:&unk_1F43C7548];
+  v1 = _emojisToNotInclude_emojis;
+  _emojisToNotInclude_emojis = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

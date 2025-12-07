@@ -205,7 +205,7 @@ LABEL_4:
     goto LABEL_5;
   }
 
-  identifierCopy = __atxlog_handle_blending();
+  identifierCopy = __atxlog_handle_blending(0);
   if (os_log_type_enabled(identifierCopy, OS_LOG_TYPE_ERROR))
   {
     [ATXSearchFeedbackListener _logCAActionWithIdentifier:suggestionCopy suggestion:identifierCopy eventType:?];
@@ -401,11 +401,11 @@ LABEL_5:
 
 - (void)resultsDidBecomeVisible:(id)visible
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   visibleCopy = visible;
   if (![(ATXSearchFeedbackListener *)self _isDuplicateEventWithState:&self->_debounce timestamp:[visibleCopy timestamp] method:a2])
   {
-    v45 = visibleCopy;
+    v47 = visibleCopy;
     selfCopy = self;
     objc_sync_enter(selfCopy);
     v7 = __atxlog_handle_feedback();
@@ -415,17 +415,17 @@ LABEL_5:
       results = [visibleCopy results];
       *info = 134218499;
       *&info[4] = triggerEvent;
-      v60 = 2117;
-      v61 = v45;
       v62 = 2117;
-      v63 = results;
+      v63 = v47;
+      v64 = 2117;
+      v65 = results;
       _os_log_debug_impl(&dword_1BF549000, v7, OS_LOG_TYPE_DEBUG, "ATXSFL SF: resultsDidBecomeVisible, event:%lu, feedback:%{sensitive}@, results:%{sensitive}@", info, 0x20u);
     }
 
-    if (selfCopy->_previousSessionHadEngagement && (v8 = [v45 timestamp], lastEventTimestamp = selfCopy->_debounce.searchViewDidDisappear.lastEventTimestamp, *info = 0, mach_timebase_info(info), (v8 - lastEventTimestamp) * *info / *&info[4] <= 0x2FAF07F))
+    if (selfCopy->_previousSessionHadEngagement && (v8 = [v47 timestamp], lastEventTimestamp = selfCopy->_debounce.searchViewDidDisappear.lastEventTimestamp, *info = 0, mach_timebase_info(info), (v8 - lastEventTimestamp) * *info / *&info[4] <= 0x2FAF07F))
     {
-      v49 = __atxlog_handle_feedback();
-      if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
+      v51 = __atxlog_handle_feedback();
+      if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
       {
         [ATXSearchFeedbackListener resultsDidBecomeVisible:];
       }
@@ -433,33 +433,33 @@ LABEL_5:
 
     else
     {
-      v49 = objc_opt_new();
-      v46 = objc_opt_new();
+      v51 = objc_opt_new();
       v48 = objc_opt_new();
-      v47 = objc_opt_new();
+      v50 = objc_opt_new();
+      v49 = objc_opt_new();
+      v56 = 0u;
+      v57 = 0u;
       v54 = 0u;
       v55 = 0u;
-      v52 = 0u;
-      v53 = 0u;
-      results2 = [v45 results];
-      v11 = [results2 countByEnumeratingWithState:&v52 objects:v58 count:16];
+      results2 = [v47 results];
+      v11 = [results2 countByEnumeratingWithState:&v54 objects:v60 count:16];
       if (v11)
       {
-        v51 = *v53;
+        v53 = *v55;
         *&v12 = 138412546;
-        v44 = v12;
+        v46 = v12;
         obj = results2;
         do
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v53 != v51)
+            if (*v55 != v53)
             {
               objc_enumerationMutation(obj);
             }
 
-            v14 = *(*(&v52 + 1) + 8 * i);
-            [(ATXSearchFeedbackListener *)selfCopy _sendSpotlightUIStreamEventType:3 searchResult:v14, v44];
+            v14 = *(*(&v54 + 1) + 8 * i);
+            [(ATXSearchFeedbackListener *)selfCopy _sendSpotlightUIStreamEventType:3 searchResult:v14, v46];
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -480,14 +480,14 @@ LABEL_5:
                 selfCopy->_appBlendingCacheId = uUIDString2;
               }
 
-              if (([(NSMutableSet *)selfCopy->_visibleAppUUIDs containsObject:uUIDString]& 1) == 0)
+              if ((objc_msgSend_containsObject_(selfCopy->_visibleAppUUIDs) & 1) == 0)
               {
-                [v49 addObject:uUIDString];
+                [v51 addObject:uUIDString];
               }
 
-              if (([(NSMutableSet *)selfCopy->_visibleAppBundleIds containsObject:bundleIdExecutableObject]& 1) == 0)
+              if ((objc_msgSend_containsObject_(selfCopy->_visibleAppBundleIds) & 1) == 0)
               {
-                [v48 addObject:bundleIdExecutableObject];
+                [v50 addObject:bundleIdExecutableObject];
               }
 
 LABEL_39:
@@ -503,9 +503,11 @@ LABEL_39:
               uUIDString3 = [uuid2 UUIDString];
 
               contextActionIdentifier = [v15 contextActionIdentifier];
+              v28 = contextActionIdentifier;
               if (!contextActionIdentifier)
               {
                 contextActionIdentifier = [objc_alloc(MEMORY[0x1E69C5B70]) initWithProactiveSuggestion:uUIDString];
+                v28 = contextActionIdentifier;
               }
 
               if (!selfCopy->_actionBlendingCacheId)
@@ -516,58 +518,62 @@ LABEL_39:
                 selfCopy->_actionBlendingCacheId = uUIDString4;
               }
 
-              if (uUIDString3 && ([(NSMutableSet *)selfCopy->_visibleActionUUIDs containsObject:uUIDString3]& 1) == 0)
+              if (uUIDString3)
               {
-                [v46 addObject:uUIDString3];
+                contextActionIdentifier = objc_msgSend_containsObject_(selfCopy->_visibleActionUUIDs);
+                if ((contextActionIdentifier & 1) == 0)
+                {
+                  contextActionIdentifier = [v48 addObject:uUIDString3];
+                }
               }
 
-              if (contextActionIdentifier)
+              if (v28)
               {
-                if (([(NSMutableSet *)selfCopy->_visibleActionContextIdentifiers containsObject:contextActionIdentifier]& 1) == 0)
+                if ((objc_msgSend_containsObject_(selfCopy->_visibleActionContextIdentifiers) & 1) == 0)
                 {
-                  [v47 addObject:contextActionIdentifier];
-                  [(ATXSearchFeedbackListener *)selfCopy _logCAActionWithIdentifiers:contextActionIdentifier eventType:3];
+                  [v49 addObject:v28];
+                  [(ATXSearchFeedbackListener *)selfCopy _logCAActionWithIdentifiers:v28 eventType:3];
                 }
               }
 
               else
               {
-                v35 = __atxlog_handle_blending();
-                if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+                v37 = __atxlog_handle_blending(contextActionIdentifier);
+                if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
                 {
                   executableSpecification = [uUIDString executableSpecification];
                   executableIdentifier = [executableSpecification executableIdentifier];
-                  *info = v44;
+                  *info = v46;
                   *&info[4] = executableIdentifier;
-                  v60 = 2112;
-                  v61 = uUIDString;
-                  _os_log_error_impl(&dword_1BF549000, v35, OS_LOG_TYPE_ERROR, "ATXContextActionIdentifier: nil: %@, %@", info, 0x16u);
+                  v62 = 2112;
+                  v63 = uUIDString;
+                  _os_log_error_impl(&dword_1BF549000, v37, OS_LOG_TYPE_ERROR, "ATXContextActionIdentifier: nil: %@, %@", info, 0x16u);
                 }
               }
 
               goto LABEL_39;
             }
 
-            v31 = objc_alloc(MEMORY[0x1E69C5B70]);
+            v32 = objc_alloc(MEMORY[0x1E69C5B70]);
             requestedTopic = [v14 requestedTopic];
             sectionBundleIdentifier = [v14 sectionBundleIdentifier];
-            v15 = [v31 initWithTopic:requestedTopic sectionBundleIdentifier:sectionBundleIdentifier];
+            v15 = [v32 initWithTopic:requestedTopic sectionBundleIdentifier:sectionBundleIdentifier];
 
             if (!v15)
             {
-              uUIDString = __atxlog_handle_blending();
+              uUIDString = __atxlog_handle_blending(v35);
               if (os_log_type_enabled(uUIDString, OS_LOG_TYPE_ERROR))
               {
                 requestedTopic2 = [v14 requestedTopic];
-                [(ATXSearchFeedbackListener *)requestedTopic2 resultsDidBecomeVisible:buf, &v57, uUIDString];
+                [(ATXSearchFeedbackListener *)requestedTopic2 resultsDidBecomeVisible:buf, &v59, uUIDString];
               }
 
               goto LABEL_39;
             }
 
-            if (([(NSMutableSet *)selfCopy->_visibleActionContextIdentifiers containsObject:v15]& 1) == 0)
+            if ((objc_msgSend_containsObject_(selfCopy->_visibleActionContextIdentifiers) & 1) == 0)
             {
-              [v47 addObject:v15];
+              [v49 addObject:v15];
               [(ATXSearchFeedbackListener *)selfCopy _logCAActionWithIdentifiers:v15 eventType:3];
             }
 
@@ -575,28 +581,28 @@ LABEL_40:
           }
 
           results2 = obj;
-          v11 = [obj countByEnumeratingWithState:&v52 objects:v58 count:16];
+          v11 = [obj countByEnumeratingWithState:&v54 objects:v60 count:16];
         }
 
         while (v11);
       }
 
-      if ((selfCopy->_appBlendingCacheId || selfCopy->_actionBlendingCacheId) && (-[NSObject count](v49, "count") || [v46 count]))
+      if ((selfCopy->_appBlendingCacheId || selfCopy->_actionBlendingCacheId) && (-[NSObject count](v51, "count") || [v48 count]))
       {
-        v38 = selfCopy->_appBlendingCacheId;
-        v39 = selfCopy->_actionBlendingCacheId;
-        v40 = objc_opt_new();
-        v41 = [ATXSpotlightEvent suggestionsAppearedEventWithAppSuggestionIds:v49 actionSuggestionIds:v46 appBlendingCacheId:v38 actionBlendingCacheId:v39 date:v40];
+        v40 = selfCopy->_appBlendingCacheId;
+        v41 = selfCopy->_actionBlendingCacheId;
+        v42 = objc_opt_new();
+        v43 = [ATXSpotlightEvent suggestionsAppearedEventWithAppSuggestionIds:v51 actionSuggestionIds:v48 appBlendingCacheId:v40 actionBlendingCacheId:v41 date:v42];
 
-        [(ATXSearchFeedbackListener *)selfCopy writeSpotlightEvent:v41 isViewAppearEvent:0];
-        [(NSMutableSet *)selfCopy->_visibleAppUUIDs addObjectsFromArray:v49];
-        [(NSMutableSet *)selfCopy->_visibleActionUUIDs addObjectsFromArray:v46];
-        [(NSMutableSet *)selfCopy->_visibleAppBundleIds addObjectsFromArray:v48];
+        [(ATXSearchFeedbackListener *)selfCopy writeSpotlightEvent:v43 isViewAppearEvent:0];
+        [(NSMutableSet *)selfCopy->_visibleAppUUIDs addObjectsFromArray:v51];
+        [(NSMutableSet *)selfCopy->_visibleActionUUIDs addObjectsFromArray:v48];
+        [(NSMutableSet *)selfCopy->_visibleAppBundleIds addObjectsFromArray:v50];
       }
     }
 
     objc_sync_exit(selfCopy);
-    visibleCopy = v45;
+    visibleCopy = v47;
   }
 }
 
@@ -620,7 +626,7 @@ LABEL_40:
 
 - (void)didEngageResult:(id)result
 {
-  v76 = *MEMORY[0x1E69E9840];
+  v75 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   if (!-[ATXSearchFeedbackListener _isDuplicateEventWithState:timestamp:method:](self, "_isDuplicateEventWithState:timestamp:method:", &self->_debounce.didEngageResult, [resultCopy timestamp], a2))
   {
@@ -635,21 +641,21 @@ LABEL_40:
       actionEngaged = [resultCopy actionEngaged];
       matchesUnengagedSuggestion = [resultCopy matchesUnengagedSuggestion];
       result = [resultCopy result];
-      v62 = 134219522;
-      v63 = triggerEvent;
-      v64 = 2048;
-      v65 = destination;
-      v66 = 2048;
-      v67 = actionTarget;
-      v68 = 1024;
-      v69 = actionEngaged;
-      v70 = 1024;
-      v71 = matchesUnengagedSuggestion;
-      v72 = 2112;
-      v73 = resultCopy;
-      v74 = 2112;
-      v75 = result;
-      _os_log_debug_impl(&dword_1BF549000, v7, OS_LOG_TYPE_DEBUG, "ATXSFL SF: didEngageResult, event:%lu, destination:%lu, actionTarget:%lu, actionEngaged:%{BOOL}d, matchedUnengagedSuggestion:%{BOOL}d, feedback:%@, result:%@", &v62, 0x40u);
+      v61 = 134219522;
+      v62 = triggerEvent;
+      v63 = 2048;
+      v64 = destination;
+      v65 = 2048;
+      v66 = actionTarget;
+      v67 = 1024;
+      v68 = actionEngaged;
+      v69 = 1024;
+      v70 = matchesUnengagedSuggestion;
+      v71 = 2112;
+      v72 = resultCopy;
+      v73 = 2112;
+      v74 = result;
+      _os_log_debug_impl(&dword_1BF549000, v7, OS_LOG_TYPE_DEBUG, "ATXSFL SF: didEngageResult, event:%lu, destination:%lu, actionTarget:%lu, actionEngaged:%{BOOL}d, matchedUnengagedSuggestion:%{BOOL}d, feedback:%@, result:%@", &v61, 0x40u);
     }
 
     if ([resultCopy triggerEvent] == 2 && objc_msgSend(resultCopy, "destination") == 2 && !objc_msgSend(resultCopy, "actionTarget"))
@@ -670,9 +676,9 @@ LABEL_40:
         if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
           bundleIdExecutableObject = [proactiveSuggestion bundleIdExecutableObject];
-          v62 = 138412290;
-          v63 = bundleIdExecutableObject;
-          _os_log_impl(&dword_1BF549000, v14, OS_LOG_TYPE_DEFAULT, "ATXSFL: didEngageResult app bundle id: %@", &v62, 0xCu);
+          v61 = 138412290;
+          v62 = bundleIdExecutableObject;
+          _os_log_impl(&dword_1BF549000, v14, OS_LOG_TYPE_DEFAULT, "ATXSFL: didEngageResult app bundle id: %@", &v61, 0xCu);
         }
 
         appBlendingCacheId = selfCopy->_appBlendingCacheId;
@@ -857,20 +863,20 @@ LABEL_63:
         goto LABEL_65;
       }
 
-      v58 = applicationBundleIdentifier;
+      applicationBundleIdentifier;
       if ([(NSMutableSet *)selfCopy->_visibleAppBundleIds count])
       {
-        if ([(NSMutableSet *)selfCopy->_visibleAppBundleIds containsObject:v58])
+        if (objc_msgSend_containsObject_(selfCopy->_visibleAppBundleIds))
         {
-          v59 = 2002;
+          v58 = 2002;
         }
 
         else
         {
-          v59 = 2001;
+          v58 = 2001;
         }
 
-        [ATXBlendingCaptureRateTracker logSpotlightAppDiversionWithCaptureType:v59 tracker:selfCopy->_tracker];
+        [ATXBlendingCaptureRateTracker logSpotlightAppDiversionWithCaptureType:v58 tracker:selfCopy->_tracker];
       }
 
       v44 = 4;
@@ -886,11 +892,11 @@ LABEL_63:
     [(ATXSearchFeedbackListener *)selfCopy writeSpotlightEvent:v53 isViewAppearEvent:0];
     v54 = applicationBundleIdentifier;
 LABEL_65:
-    v60 = __atxlog_handle_feedback();
-    if (os_log_type_enabled(v60, OS_LOG_TYPE_DEBUG))
+    v59 = __atxlog_handle_feedback();
+    if (os_log_type_enabled(v59, OS_LOG_TYPE_DEBUG))
     {
-      v61 = [ATXActionPredictionTypes actionTypeToString:v44];
-      [(ATXSearchFeedbackListener *)v54 didEngageResult:v61, &v62, v60];
+      v60 = [ATXActionPredictionTypes actionTypeToString:v44];
+      [(ATXSearchFeedbackListener *)v54 didEngageResult:v60, &v61, v59];
     }
 
     goto LABEL_68;
@@ -1051,7 +1057,7 @@ LABEL_28:
 
 - (void)didPerformCommand:(id)command
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   commandCopy = command;
   [(ATXSearchFeedbackListener *)self _sendSpotlightUIStreamAppEngageWithFeedback:commandCopy];
   result = [(ATXSpotlightFeedbackManager *)commandCopy result];
@@ -1067,91 +1073,93 @@ LABEL_28:
 
   command2 = [(ATXSpotlightFeedbackManager *)commandCopy command];
   v9 = [(ATXSearchFeedbackListener *)self bundleIdentifierFromResult:result];
-  v10 = __atxlog_handle_zkw_hide();
+  v10 = __atxlog_handle_zkw_hide(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v39 = 138412290;
-    v40 = v9;
-    _os_log_impl(&dword_1BF549000, v10, OS_LOG_TYPE_DEFAULT, "ATXSFL: bundleId ---> %@", &v39, 0xCu);
+    v46 = 138412290;
+    v47 = v9;
+    _os_log_impl(&dword_1BF549000, v10, OS_LOG_TYPE_DEFAULT, "ATXSFL: bundleId ---> %@", &v46, 0xCu);
   }
 
-  v11 = __atxlog_handle_zkw_hide();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = __atxlog_handle_zkw_hide(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [result identifier];
-    v39 = 138412290;
-    v40 = identifier;
-    _os_log_impl(&dword_1BF549000, v11, OS_LOG_TYPE_DEFAULT, "ATXSFL: searchResultIdentifier ---> %@", &v39, 0xCu);
+    v46 = 138412290;
+    v47 = identifier;
+    _os_log_impl(&dword_1BF549000, v12, OS_LOG_TYPE_DEFAULT, "ATXSFL: searchResultIdentifier ---> %@", &v46, 0xCu);
   }
 
-  v13 = __atxlog_handle_zkw_hide();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
-  {
-    category = [command2 category];
-    v39 = 67109120;
-    LODWORD(v40) = category;
-    _os_log_impl(&dword_1BF549000, v13, OS_LOG_TYPE_DEFAULT, "ATXSFL: category ---> %d", &v39, 8u);
-  }
-
-  v15 = __atxlog_handle_zkw_hide();
+  v15 = __atxlog_handle_zkw_hide(v14);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    proactiveIdentifier = [command2 proactiveIdentifier];
-    v39 = 138412290;
-    v40 = proactiveIdentifier;
-    _os_log_impl(&dword_1BF549000, v15, OS_LOG_TYPE_DEFAULT, "ATXSFL: proactiveIdentifier ---> %@", &v39, 0xCu);
+    category = [command2 category];
+    v46 = 67109120;
+    LODWORD(v47) = category;
+    _os_log_impl(&dword_1BF549000, v15, OS_LOG_TYPE_DEFAULT, "ATXSFL: category ---> %d", &v46, 8u);
   }
 
-  v17 = __atxlog_handle_zkw_hide();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v18 = __atxlog_handle_zkw_hide(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  {
+    proactiveIdentifier = [command2 proactiveIdentifier];
+    v46 = 138412290;
+    v47 = proactiveIdentifier;
+    _os_log_impl(&dword_1BF549000, v18, OS_LOG_TYPE_DEFAULT, "ATXSFL: proactiveIdentifier ---> %@", &v46, 0xCu);
+  }
+
+  v21 = __atxlog_handle_zkw_hide(v20);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
     shouldClearWholeSection = [command2 shouldClearWholeSection];
-    v39 = 67109120;
-    LODWORD(v40) = shouldClearWholeSection;
-    _os_log_impl(&dword_1BF549000, v17, OS_LOG_TYPE_DEFAULT, "ATXSFL: shouldClearWholeSection ---> %{BOOL}d", &v39, 8u);
+    v46 = 67109120;
+    LODWORD(v47) = shouldClearWholeSection;
+    _os_log_impl(&dword_1BF549000, v21, OS_LOG_TYPE_DEFAULT, "ATXSFL: shouldClearWholeSection ---> %{BOOL}d", &v46, 8u);
   }
 
-  v19 = objc_alloc_init(ATXSpotlightFeedbackManager);
+  v23 = objc_alloc_init(ATXSpotlightFeedbackManager);
   category2 = [command2 category];
   if (category2 > 2)
   {
     if (category2 == 6)
     {
-      v28 = __atxlog_handle_zkw_hide();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+      v34 = __atxlog_handle_zkw_hide(category2);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
       {
         category3 = [command2 category];
-        v39 = 67109120;
-        LODWORD(v40) = category3;
-        _os_log_impl(&dword_1BF549000, v28, OS_LOG_TYPE_DEFAULT, "ATXSFL: hiding app suggestion for category %d", &v39, 8u);
+        v46 = 67109120;
+        LODWORD(v47) = category3;
+        _os_log_impl(&dword_1BF549000, v34, OS_LOG_TYPE_DEFAULT, "ATXSFL: hiding app suggestion for category %d", &v46, 8u);
       }
 
-      if (![result isLocalApplicationResult])
+      isLocalApplicationResult = [result isLocalApplicationResult];
+      if (!isLocalApplicationResult)
       {
         goto LABEL_34;
       }
 
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) == 0)
+      isLocalApplicationResult = objc_opt_isKindOfClass();
+      if ((isLocalApplicationResult & 1) == 0)
       {
         goto LABEL_34;
       }
 
       proactiveSuggestion = [result proactiveSuggestion];
-      [(ATXSpotlightFeedbackManager *)v19 addHiddenAppSuggestionBundleIdentifier:proactiveSuggestion];
+      [(ATXSpotlightFeedbackManager *)v23 addHiddenAppSuggestionBundleIdentifier:proactiveSuggestion];
       goto LABEL_33;
     }
 
     if (category2 == 3)
     {
       proactiveSuggestion = [command2 proactiveIdentifier];
-      [(ATXSpotlightFeedbackManager *)v19 addHiddenContextIdentifier:proactiveSuggestion];
+      [(ATXSpotlightFeedbackManager *)v23 addHiddenContextIdentifier:proactiveSuggestion];
       goto LABEL_33;
     }
 
 LABEL_32:
     proactiveSuggestion = [command2 proactiveIdentifier];
-    [(ATXSpotlightFeedbackManager *)v19 addHiddenActionExecutableIdentifier:proactiveSuggestion];
+    [(ATXSpotlightFeedbackManager *)v23 addHiddenActionExecutableIdentifier:proactiveSuggestion];
     goto LABEL_33;
   }
 
@@ -1159,13 +1167,13 @@ LABEL_32:
   {
     if (!category2)
     {
-      proactiveSuggestion = __atxlog_handle_zkw_hide();
+      proactiveSuggestion = __atxlog_handle_zkw_hide(category2);
       if (os_log_type_enabled(proactiveSuggestion, OS_LOG_TYPE_DEFAULT))
       {
         category4 = [command2 category];
-        v39 = 67109120;
-        LODWORD(v40) = category4;
-        _os_log_impl(&dword_1BF549000, proactiveSuggestion, OS_LOG_TYPE_DEFAULT, "ATXSFL: no hiding action for category %d", &v39, 8u);
+        v46 = 67109120;
+        LODWORD(v47) = category4;
+        _os_log_impl(&dword_1BF549000, proactiveSuggestion, OS_LOG_TYPE_DEFAULT, "ATXSFL: no hiding action for category %d", &v46, 8u);
       }
 
       goto LABEL_33;
@@ -1175,90 +1183,92 @@ LABEL_32:
   }
 
   shouldClearWholeSection2 = [command2 shouldClearWholeSection];
-  v22 = __atxlog_handle_zkw_hide();
-  v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
-  if (shouldClearWholeSection2)
+  v26 = shouldClearWholeSection2;
+  v27 = __atxlog_handle_zkw_hide(shouldClearWholeSection2);
+  v28 = os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT);
+  if (v26)
   {
-    if (v23)
+    if (v28)
     {
-      v39 = 138412290;
-      v40 = v9;
-      _os_log_impl(&dword_1BF549000, v22, OS_LOG_TYPE_DEFAULT, "ATXSFL: User disabled all shortcut suggestions from bundleId: %@", &v39, 0xCu);
+      v46 = 138412290;
+      v47 = v9;
+      _os_log_impl(&dword_1BF549000, v27, OS_LOG_TYPE_DEFAULT, "ATXSFL: User disabled all shortcut suggestions from bundleId: %@", &v46, 0xCu);
     }
 
-    [(ATXSpotlightFeedbackManager *)v19 addHiddenAutoShortcutIdentifier:v9];
+    isLocalApplicationResult = [(ATXSpotlightFeedbackManager *)v23 addHiddenAutoShortcutIdentifier:v9];
     goto LABEL_34;
   }
 
-  if (v23)
+  if (v28)
   {
     identifier2 = [result identifier];
-    v39 = 138412290;
-    v40 = identifier2;
-    _os_log_impl(&dword_1BF549000, v22, OS_LOG_TYPE_DEFAULT, "ATXSFL: User has hidden auto shortcut with signature: %@. Will not show this specific shortcut suggestion", &v39, 0xCu);
+    v46 = 138412290;
+    v47 = identifier2;
+    _os_log_impl(&dword_1BF549000, v27, OS_LOG_TYPE_DEFAULT, "ATXSFL: User has hidden auto shortcut with signature: %@. Will not show this specific shortcut suggestion", &v46, 0xCu);
   }
 
   proactiveSuggestion = [result identifier];
-  v27 = [(ATXSpotlightFeedbackManager *)v9 stringByAppendingString:proactiveSuggestion];
-  [(ATXSpotlightFeedbackManager *)v19 addHiddenAutoShortcutIdentifier:v27];
+  v33 = [(ATXSpotlightFeedbackManager *)v9 stringByAppendingString:proactiveSuggestion];
+  [(ATXSpotlightFeedbackManager *)v23 addHiddenAutoShortcutIdentifier:v33];
 
 LABEL_33:
 LABEL_34:
-  v30 = __atxlog_handle_zkw_hide();
-  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+  v36 = __atxlog_handle_zkw_hide(isLocalApplicationResult);
+  if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
   {
     proactiveIdentifier2 = [command2 proactiveIdentifier];
-    v39 = 138412546;
-    v40 = v19;
-    v41 = 2112;
-    v42 = proactiveIdentifier2;
-    _os_log_impl(&dword_1BF549000, v30, OS_LOG_TYPE_DEFAULT, "ATXSFL: feedbackManager %@ addHiddenActionExecutableIdentifier %@", &v39, 0x16u);
+    v46 = 138412546;
+    v47 = v23;
+    v48 = 2112;
+    v49 = proactiveIdentifier2;
+    _os_log_impl(&dword_1BF549000, v36, OS_LOG_TYPE_DEFAULT, "ATXSFL: feedbackManager %@ addHiddenActionExecutableIdentifier %@", &v46, 0x16u);
   }
 
 LABEL_37:
   result2 = [(ATXSpotlightFeedbackManager *)commandCopy result];
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  v39 = objc_opt_isKindOfClass();
+  if (v39)
   {
-    v33 = result2;
-    proactiveSuggestion2 = [v33 proactiveSuggestion];
-    v35 = __atxlog_handle_zkw_hide();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+    v40 = result2;
+    proactiveSuggestion2 = [v40 proactiveSuggestion];
+    v42 = __atxlog_handle_zkw_hide(proactiveSuggestion2);
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
     {
       uiSpecification = [proactiveSuggestion2 uiSpecification];
       title = [uiSpecification title];
-      v39 = 138413058;
-      v40 = commandCopy;
-      v41 = 2112;
-      v42 = v33;
-      v43 = 2112;
-      v44 = title;
-      v45 = 2112;
-      v46 = proactiveSuggestion2;
-      _os_log_impl(&dword_1BF549000, v35, OS_LOG_TYPE_DEFAULT, "didPerformCommand ---> %@ result = %@ suggestion (%@) = %@", &v39, 0x2Au);
+      v46 = 138413058;
+      v47 = commandCopy;
+      v48 = 2112;
+      v49 = v40;
+      v50 = 2112;
+      v51 = title;
+      v52 = 2112;
+      v53 = proactiveSuggestion2;
+      _os_log_impl(&dword_1BF549000, v42, OS_LOG_TYPE_DEFAULT, "didPerformCommand ---> %@ result = %@ suggestion (%@) = %@", &v46, 0x2Au);
     }
   }
 
   else
   {
-    v33 = __atxlog_handle_zkw_hide();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+    v40 = __atxlog_handle_zkw_hide(v39);
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
     {
-      v38 = objc_opt_class();
-      v39 = 138412802;
-      v40 = commandCopy;
-      v41 = 2112;
-      v42 = result2;
-      v43 = 2112;
-      v44 = v38;
-      _os_log_impl(&dword_1BF549000, v33, OS_LOG_TYPE_DEFAULT, "didPerformCommand ---> %@ result = %@ class = %@", &v39, 0x20u);
+      v45 = objc_opt_class();
+      v46 = 138412802;
+      v47 = commandCopy;
+      v48 = 2112;
+      v49 = result2;
+      v50 = 2112;
+      v51 = v45;
+      _os_log_impl(&dword_1BF549000, v40, OS_LOG_TYPE_DEFAULT, "didPerformCommand ---> %@ result = %@ class = %@", &v46, 0x20u);
     }
   }
 }
 
 - (void)_sendSpotlightUIStreamAppEngageWithFeedback:(id)feedback
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   feedbackCopy = feedback;
   command = [feedbackCopy command];
   objc_opt_class();
@@ -1266,54 +1276,54 @@ LABEL_37:
 
   if (isKindOfClass)
   {
-    v7 = __atxlog_handle_zkw_hide();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = __atxlog_handle_zkw_hide(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       result = [feedbackCopy result];
       sectionBundleIdentifier = [result sectionBundleIdentifier];
-      v22 = 138412290;
-      v23 = sectionBundleIdentifier;
-      _os_log_impl(&dword_1BF549000, v7, OS_LOG_TYPE_DEFAULT, "ATXSFL: sendSpotlightUIStreamAppEngageWithFeedback commandEngagementFeedback.result.sectionBundleIdentifier ='%@'", &v22, 0xCu);
+      v23 = 138412290;
+      v24 = sectionBundleIdentifier;
+      _os_log_impl(&dword_1BF549000, v8, OS_LOG_TYPE_DEFAULT, "ATXSFL: sendSpotlightUIStreamAppEngageWithFeedback commandEngagementFeedback.result.sectionBundleIdentifier ='%@'", &v23, 0xCu);
     }
 
     result2 = [feedbackCopy result];
     sectionBundleIdentifier2 = [result2 sectionBundleIdentifier];
-    v12 = [sectionBundleIdentifier2 isEqualToString:@"com.apple.searchd.zkw.apps"];
+    v13 = [sectionBundleIdentifier2 isEqualToString:@"com.apple.searchd.zkw.apps"];
 
     command2 = [feedbackCopy command];
     applicationBundleIdentifier = [command2 applicationBundleIdentifier];
     if ([applicationBundleIdentifier length])
     {
-      if (v12)
+      if (v13)
       {
-        v15 = 4;
+        v16 = 4;
       }
 
       else
       {
-        v15 = 5;
+        v16 = 5;
       }
 
-      v16 = [objc_alloc(MEMORY[0x1E69C5C00]) initWithType:v15 suggestionUniqueId:applicationBundleIdentifier suggestionType:@"app" suggestionSubtype:0 suggestionContext:0];
-      v17 = __atxlog_handle_feedback();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v17 = [objc_alloc(MEMORY[0x1E69C5C00]) initWithType:v16 suggestionUniqueId:applicationBundleIdentifier suggestionType:@"app" suggestionSubtype:0 suggestionContext:0];
+      v18 = __atxlog_handle_feedback();
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        eventType = [v16 eventType];
-        suggestionType = [v16 suggestionType];
-        suggestionSubtype = [v16 suggestionSubtype];
-        suggestionUniqueId = [v16 suggestionUniqueId];
-        v22 = 134218754;
-        v23 = eventType;
-        v24 = 2112;
-        v25 = suggestionType;
-        v26 = 2112;
-        v27 = suggestionSubtype;
-        v28 = 2112;
-        v29 = suggestionUniqueId;
-        _os_log_impl(&dword_1BF549000, v17, OS_LOG_TYPE_DEFAULT, "ATXSFL: uiEvent type%ld: %@ %@ %@", &v22, 0x2Au);
+        eventType = [v17 eventType];
+        suggestionType = [v17 suggestionType];
+        suggestionSubtype = [v17 suggestionSubtype];
+        suggestionUniqueId = [v17 suggestionUniqueId];
+        v23 = 134218754;
+        v24 = eventType;
+        v25 = 2112;
+        v26 = suggestionType;
+        v27 = 2112;
+        v28 = suggestionSubtype;
+        v29 = 2112;
+        v30 = suggestionUniqueId;
+        _os_log_impl(&dword_1BF549000, v18, OS_LOG_TYPE_DEFAULT, "ATXSFL: uiEvent type%ld: %@ %@ %@", &v23, 0x2Au);
       }
 
-      [(ATXSearchFeedbackListener *)self _sendSpotlightUIEvent:v16];
+      [(ATXSearchFeedbackListener *)self _sendSpotlightUIEvent:v17];
     }
   }
 }
@@ -1321,6 +1331,7 @@ LABEL_37:
 - (void)_sendSpotlightUIEvent:(id)event
 {
   eventCopy = event;
+  v5 = eventCopy;
   p_viewAppearEvent = &self->_viewAppearEvent;
   if ((self->_viewAppearEvent | 8) == 0x1E)
   {
@@ -1329,10 +1340,10 @@ LABEL_37:
 
   else
   {
-    v6 = __atxlog_handle_metrics();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = __atxlog_handle_metrics(eventCopy);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      [(ATXSearchFeedbackListener *)p_viewAppearEvent _sendSpotlightUIEvent:eventCopy, v6];
+      [(ATXSearchFeedbackListener *)p_viewAppearEvent _sendSpotlightUIEvent:v5, v7];
     }
   }
 }

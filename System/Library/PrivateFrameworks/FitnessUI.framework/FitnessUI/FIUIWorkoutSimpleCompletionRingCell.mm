@@ -62,8 +62,7 @@ void __84__FIUIWorkoutSimpleCompletionRingCell_preferredHeightForLocalizedName_f
   v2 = preferredHeightForLocalizedName_fittingWidth__sizingLabel;
   preferredHeightForLocalizedName_fittingWidth__sizingLabel = v1;
 
-  [preferredHeightForLocalizedName_fittingWidth__sizingLabel setNumberOfLines:0];
-  v3 = _Font();
+  v3 = _Font([preferredHeightForLocalizedName_fittingWidth__sizingLabel setNumberOfLines:0]);
   [preferredHeightForLocalizedName_fittingWidth__sizingLabel setFont:v3];
 }
 
@@ -102,8 +101,7 @@ void __84__FIUIWorkoutSimpleCompletionRingCell_preferredHeightForLocalizedName_f
     typeLabel = v4->_typeLabel;
     v4->_typeLabel = v19;
 
-    [(UILabel *)v4->_typeLabel setNumberOfLines:0];
-    v21 = _Font();
+    v21 = _Font([(UILabel *)v4->_typeLabel setNumberOfLines:0]);
     [(UILabel *)v4->_typeLabel setFont:v21];
 
     whiteColor = [MEMORY[0x1E69DC888] whiteColor];

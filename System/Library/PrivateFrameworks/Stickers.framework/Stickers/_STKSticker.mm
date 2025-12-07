@@ -8,12 +8,11 @@
 
 - (NSArray)representations
 {
-  v2 = *(self + OBJC_IVAR____STKSticker_representations);
   type metadata accessor for _STKStickerRepresentation(0);
 
-  v3 = sub_1B8A240E4();
+  v2 = sub_1B8A240E4();
 
-  return v3;
+  return v2;
 }
 
 - (NSData)metadata

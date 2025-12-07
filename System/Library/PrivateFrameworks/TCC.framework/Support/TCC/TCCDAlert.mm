@@ -43,8 +43,7 @@
 
 - (BOOL)isDisplayableForCondition:(int64_t)condition
 {
-  platformName = [(TCCDAlert *)self platformName];
-  result = (!platformName || (v6 = platformName, +[TCCDPlatform currentPlatform](TCCDPlatform, "currentPlatform"), v7 = objc_claimAutoreleasedReturnValue(), [v7 name], v8 = objc_claimAutoreleasedReturnValue(), -[TCCDAlert platformName](self, "platformName"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v8, "isEqualToString:", v9), v9, v8, v7, v6, v10)) && -[TCCDAlert condition](self, "condition") == condition;
+  result = (!platformName || (v6 = platformName, +[TCCDPlatform currentPlatform](TCCDPlatform, "currentPlatform"), v7 = platformName = [(TCCDAlert *)self platformName];
   return result;
 }
 

@@ -103,25 +103,26 @@ uint64_t __37__NFMPlayCommands__isInternalInstall__block_invoke()
 
 - (BOOL)_playSoundAtPath:(id)path
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   v5 = [objc_alloc(MEMORY[0x277CBEBC0]) initFileURLWithPath:pathCopy isDirectory:0];
   if (v5)
   {
     initAuxiliarySession = [objc_alloc(MEMORY[0x277CEFC98]) initAuxiliarySession];
     v7 = *MEMORY[0x277CEFC70];
-    v40 = 0;
-    [initAuxiliarySession setCategory:v7 error:&v40];
-    v8 = v40;
+    v43 = 0;
+    [initAuxiliarySession setCategory:v7 error:&v43];
+    v8 = v43;
+    v9 = v8;
     if (v8)
     {
-      v9 = nfm_log();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = nfm_log(v8);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        [NFMPlayCommands _playSoundAtPath:v9];
+        [NFMPlayCommands _playSoundAtPath:v10];
       }
 
-      v10 = 0;
+      v11 = 0;
     }
 
     else
@@ -131,51 +132,52 @@ uint64_t __37__NFMPlayCommands__isInternalInstall__block_invoke()
       {
         items = [(AVQueuePlayer *)avQueuePlayer items];
         items2 = [(AVQueuePlayer *)self->_avQueuePlayer items];
-        v14 = [items2 count];
+        v15 = [items2 count];
 
-        if (v14)
+        if (v15)
         {
-          v35 = items;
-          v38 = 0u;
+          v38 = items;
+          v41 = 0u;
+          v42 = 0u;
           v39 = 0u;
-          v36 = 0u;
-          v37 = 0u;
-          v15 = items;
-          v16 = [v15 countByEnumeratingWithState:&v36 objects:v43 count:16];
-          if (v16)
+          v40 = 0u;
+          v17 = items;
+          v18 = [v17 countByEnumeratingWithState:&v39 objects:v46 count:16];
+          if (v18)
           {
-            v17 = v16;
-            v18 = *v37;
+            v19 = v18;
+            v20 = *v40;
             while (2)
             {
-              for (i = 0; i != v17; ++i)
+              for (i = 0; i != v19; ++i)
               {
-                if (*v37 != v18)
+                if (*v40 != v20)
                 {
-                  objc_enumerationMutation(v15);
+                  objc_enumerationMutation(v17);
                 }
 
-                asset = [*(*(&v36 + 1) + 8 * i) asset];
-                v21 = [asset URL];
+                asset = [*(*(&v39 + 1) + 8 * i) asset];
+                v23 = [asset URL];
 
-                if ([v21 isEqual:v5])
+                v24 = [v23 isEqual:v5];
+                if (v24)
                 {
-                  v32 = nfm_log();
-                  if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+                  v36 = nfm_log(v24);
+                  if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 138412290;
-                    v42 = v21;
-                    _os_log_impl(&dword_25B17F000, v32, OS_LOG_TYPE_DEFAULT, "Already playing requested sound - %@, skipping", buf, 0xCu);
+                    v45 = v23;
+                    _os_log_impl(&dword_25B17F000, v36, OS_LOG_TYPE_DEFAULT, "Already playing requested sound - %@, skipping", buf, 0xCu);
                   }
 
-                  v10 = 0;
-                  v8 = 0;
+                  v11 = 0;
+                  v9 = 0;
                   goto LABEL_31;
                 }
               }
 
-              v17 = [v15 countByEnumeratingWithState:&v36 objects:v43 count:16];
-              if (v17)
+              v19 = [v17 countByEnumeratingWithState:&v39 objects:v46 count:16];
+              if (v19)
               {
                 continue;
               }
@@ -184,52 +186,53 @@ uint64_t __37__NFMPlayCommands__isInternalInstall__block_invoke()
             }
           }
 
-          items = v35;
-          v8 = 0;
+          items = v38;
+          v9 = 0;
         }
 
-        v22 = nfm_log();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+        v25 = nfm_log(v16);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_25B17F000, v22, OS_LOG_TYPE_DEFAULT, "Queing a sound", buf, 2u);
+          _os_log_impl(&dword_25B17F000, v25, OS_LOG_TYPE_DEFAULT, "Queing a sound", buf, 2u);
         }
 
-        v23 = self->_avQueuePlayer;
-        v24 = [MEMORY[0x277CE65B0] playerItemWithURL:v5];
-        [(AVQueuePlayer *)v23 insertItem:v24 afterItem:0];
+        v26 = self->_avQueuePlayer;
+        v27 = [MEMORY[0x277CE65B0] playerItemWithURL:v5];
+        [(AVQueuePlayer *)v26 insertItem:v27 afterItem:0];
       }
 
       else
       {
-        v25 = [objc_alloc(MEMORY[0x277CE65F8]) initWithURL:v5];
+        v28 = [objc_alloc(MEMORY[0x277CE65F8]) initWithURL:v5];
         items = self->_avQueuePlayer;
-        self->_avQueuePlayer = v25;
+        self->_avQueuePlayer = v28;
       }
 
       [(AVQueuePlayer *)self->_avQueuePlayer setAllowsExternalPlayback:0];
-      LODWORD(v26) = 1.0;
-      [(AVQueuePlayer *)self->_avQueuePlayer setVolume:v26];
+      LODWORD(v29) = 1.0;
+      [(AVQueuePlayer *)self->_avQueuePlayer setVolume:v29];
       [(AVQueuePlayer *)self->_avQueuePlayer _setClientName:@"LocatePhone"];
       [(AVQueuePlayer *)self->_avQueuePlayer setAudioSession:initAuxiliarySession];
-      if ([(NFMPlayCommands *)self _isInFaceTimeCall])
+      _isInFaceTimeCall = [(NFMPlayCommands *)self _isInFaceTimeCall];
+      if (_isInFaceTimeCall)
       {
-        v27 = nfm_log();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+        v31 = nfm_log(_isInFaceTimeCall);
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_25B17F000, v27, OS_LOG_TYPE_DEFAULT, "User is in a FaceTime Video Call.", buf, 2u);
+          _os_log_impl(&dword_25B17F000, v31, OS_LOG_TYPE_DEFAULT, "User is in a FaceTime Video Call.", buf, 2u);
         }
 
-        v28 = 9;
+        v32 = 9;
       }
 
       else
       {
-        v28 = 10;
+        v32 = 10;
       }
 
-      [(AVQueuePlayer *)self->_avQueuePlayer _setClientPriority:v28, v35];
+      [(AVQueuePlayer *)self->_avQueuePlayer _setClientPriority:v32, v38];
       defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
       [defaultCenter addObserver:self selector:sel_playbackStateChanged_ name:*MEMORY[0x277CE60C0] object:0];
 
@@ -240,7 +243,7 @@ uint64_t __37__NFMPlayCommands__isInternalInstall__block_invoke()
       [defaultCenter3 addObserver:self selector:sel_playbackStateChanged_ name:*MEMORY[0x277CE6150] object:0];
 
       [(AVQueuePlayer *)self->_avQueuePlayer play];
-      v10 = 1;
+      v11 = 1;
     }
 
 LABEL_31:
@@ -248,17 +251,16 @@ LABEL_31:
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
-  v33 = *MEMORY[0x277D85DE8];
-  return v10;
+  return v11;
 }
 
 - (BOOL)playSoundAndFlash
 {
   playFindLocallySound = [(NFMPlayCommands *)self playFindLocallySound];
-  v4 = nfm_log();
+  v4 = nfm_log(playFindLocallySound);
   v5 = v4;
   if (playFindLocallySound)
   {
@@ -287,22 +289,22 @@ LABEL_31:
 
 - (void)playNearbySound
 {
-  if (CFPreferencesGetAppBooleanValue(@"disableNearbySound", @"com.apple.internal.watchprecisionfinding", 0) && [(NFMPlayCommands *)self _isInternalInstall])
+  if (CFPreferencesGetAppBooleanValue(@"disableNearbySound", @"com.apple.internal.watchprecisionfinding", 0) && (v3 = [(NFMPlayCommands *)self _isInternalInstall], v3))
   {
-    v3 = nfm_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = nfm_log(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_25B17F000, v3, OS_LOG_TYPE_DEFAULT, "########### Watch is nearby, default set, skipping sound", buf, 2u);
+      _os_log_impl(&dword_25B17F000, v4, OS_LOG_TYPE_DEFAULT, "########### Watch is nearby, default set, skipping sound", buf, 2u);
     }
   }
 
   else
   {
-    v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v5 = [v4 pathForResource:@"chirp" ofType:@"caf"];
+    v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v6 = [v5 pathForResource:@"chirp" ofType:@"caf"];
 
-    [(NFMPlayCommands *)self _playSoundAtPath:v5];
+    [(NFMPlayCommands *)self _playSoundAtPath:v6];
   }
 }
 
@@ -351,15 +353,15 @@ LABEL_31:
 
 - (void)playbackStateChanged:(id)changed
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
-  v5 = nfm_log();
+  v5 = nfm_log(changedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     name = [changedCopy name];
-    v15 = 138412290;
-    v16 = name;
-    _os_log_impl(&dword_25B17F000, v5, OS_LOG_TYPE_DEFAULT, "Playback state changed: %@", &v15, 0xCu);
+    v14 = 138412290;
+    v15 = name;
+    _os_log_impl(&dword_25B17F000, v5, OS_LOG_TYPE_DEFAULT, "Playback state changed: %@", &v14, 0xCu);
   }
 
   name2 = [changedCopy name];
@@ -382,13 +384,11 @@ LABEL_31:
 
   defaultCenter3 = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter3 removeObserver:self name:v8 object:0];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)flashLED
 {
-  v3 = nfm_log();
+  v3 = nfm_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v13 = 0;
@@ -418,49 +418,48 @@ LABEL_31:
 - (void)setFlashEnabled:(BOOL)enabled
 {
   enabledCopy = enabled;
-  v12 = *MEMORY[0x277D85DE8];
-  v4 = nfm_log();
+  v13 = *MEMORY[0x277D85DE8];
+  v4 = nfm_log(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v11 = enabledCopy;
+    v12 = enabledCopy;
     _os_log_impl(&dword_25B17F000, v4, OS_LOG_TYPE_DEFAULT, "########### setFlashEnabled: %d", buf, 8u);
   }
 
   v5 = [MEMORY[0x277CE5AC8] defaultDeviceWithMediaType:*MEMORY[0x277CE5EA8]];
-  if ([v5 hasTorch])
+  hasTorch = [v5 hasTorch];
+  if (hasTorch)
   {
-    v9 = 0;
-    [v5 lockForConfiguration:&v9];
-    v6 = v9;
+    v10 = 0;
+    [v5 lockForConfiguration:&v10];
+    v7 = v10;
     [v5 setTorchMode:enabledCopy];
-    [v5 unlockForConfiguration];
-    if (v6)
+    unlockForConfiguration = [v5 unlockForConfiguration];
+    if (v7)
     {
-      v7 = nfm_log();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v9 = nfm_log(unlockForConfiguration);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        [(NFMPlayCommands *)v6 setFlashEnabled:v5, v7];
+        [(NFMPlayCommands *)v7 setFlashEnabled:v5, v9];
       }
     }
   }
 
   else
   {
-    v6 = nfm_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = nfm_log(hasTorch);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(NFMPlayCommands *)v5 setFlashEnabled:v6];
+      [(NFMPlayCommands *)v5 setFlashEnabled:v7];
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateFlashState
 {
   flashCount = self->_flashCount;
-  v4 = nfm_log();
+  v4 = nfm_log(self);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
   if (flashCount <= 0)
   {
@@ -495,36 +494,37 @@ LABEL_31:
 
 - (BOOL)_isFaceTimeOrCameraFrontmost
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v20 = [MEMORY[0x277CBEB98] setWithArray:&unk_286C65908];
+  v30 = *MEMORY[0x277D85DE8];
+  v19 = [MEMORY[0x277CBEB98] setWithArray:&unk_286C65908];
   v2 = [MEMORY[0x277D46FA0] predicateMatchingBundleIdentifiers:?];
   v3 = MEMORY[0x277D46FA8];
   descriptor = [MEMORY[0x277D46FB0] descriptor];
-  v19 = v2;
+  v18 = v2;
   v5 = [v3 statesForPredicate:v2 withDescriptor:descriptor error:0];
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   obj = v5;
-  v6 = [obj countByEnumeratingWithState:&v22 objects:v30 count:16];
-  if (v6)
+  taskState = [obj countByEnumeratingWithState:&v21 objects:v29 count:16];
+  if (taskState)
   {
-    v7 = v6;
+    v7 = taskState;
     v8 = 0;
-    v9 = *v23;
+    v9 = *v22;
     do
     {
-      for (i = 0; i != v7; ++i)
+      v10 = 0;
+      do
       {
-        if (*v23 != v9)
+        if (*v22 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v22 + 1) + 8 * i);
-        v12 = nfm_log();
+        v11 = *(*(&v21 + 1) + 8 * v10);
+        v12 = nfm_log(taskState);
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           process = [v11 process];
@@ -532,19 +532,23 @@ LABEL_31:
           identifier = [bundle identifier];
           v16 = [v11 description];
           *buf = 138412546;
-          v27 = identifier;
-          v28 = 2112;
-          v29 = v16;
+          v26 = identifier;
+          v27 = 2112;
+          v28 = v16;
           _os_log_impl(&dword_25B17F000, v12, OS_LOG_TYPE_DEFAULT, "########### Application state: %@, %@", buf, 0x16u);
         }
 
-        v8 |= [v11 taskState] == 4;
+        taskState = [v11 taskState];
+        v8 |= taskState == 4;
+        ++v10;
       }
 
-      v7 = [obj countByEnumeratingWithState:&v22 objects:v30 count:16];
+      while (v7 != v10);
+      taskState = [obj countByEnumeratingWithState:&v21 objects:v29 count:16];
+      v7 = taskState;
     }
 
-    while (v7);
+    while (taskState);
   }
 
   else
@@ -552,7 +556,6 @@ LABEL_31:
     v8 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v8 & 1;
 }
 
@@ -583,22 +586,20 @@ LABEL_31:
 
 - (void)setFlashEnabled:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_25B17F000, a2, OS_LOG_TYPE_ERROR, "########### No Torch! (%@)", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_25B17F000, a2, OS_LOG_TYPE_ERROR, "########### No Torch! (%@)", &v2, 0xCu);
 }
 
 - (void)setFlashEnabled:(os_log_t)log .cold.2(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_25B17F000, log, OS_LOG_TYPE_ERROR, "########### Error adjusting flash: %@ (For Device: %@)", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_25B17F000, log, OS_LOG_TYPE_ERROR, "########### Error adjusting flash: %@ (For Device: %@)", &v3, 0x16u);
 }
 
 @end

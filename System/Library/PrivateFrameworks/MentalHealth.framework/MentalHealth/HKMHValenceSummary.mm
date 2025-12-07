@@ -58,12 +58,10 @@
   v5 = [MEMORY[0x277CCABB0] numberWithInteger:self->_countPleasant];
   v6 = [MEMORY[0x277CCABB0] numberWithInteger:self->_countNeutral];
   v7 = [MEMORY[0x277CCABB0] numberWithInteger:self->_countUnpleasant];
-  start = self->_dayIndexRange.start;
-  duration = self->_dayIndexRange.duration;
-  v10 = NSStringFromHKDayIndexRange();
-  v11 = [v3 stringWithFormat:@"<%@:%p Counts pleasant:%@ neutral:%@ unpleasant:%@ day index range:%@>", v4, self, v5, v6, v7, v10];
+  v8 = NSStringFromHKDayIndexRange();
+  v9 = [v3 stringWithFormat:@"<%@:%p Counts pleasant:%@ neutral:%@ unpleasant:%@ day index range:%@>", v4, self, v5, v6, v7, v8];
 
-  return v11;
+  return v9;
 }
 
 - (HKMHValenceSummary)initWithCoder:(id)coder

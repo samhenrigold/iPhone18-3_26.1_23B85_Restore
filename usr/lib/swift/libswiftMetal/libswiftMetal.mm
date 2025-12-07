@@ -16,7 +16,7 @@ uint64_t sub_299B02200(uint64_t a1, uint64_t a2)
 
 void MTLBuffer.addDebugMarker(_:range:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v7 = MEMORY[0x29C2ABAB0]();
+  v7 = MEMORY[0x29C2ABAB0](a1, a2);
   if (__OFSUB__(a4, a3))
   {
     __break(1u);
@@ -59,7 +59,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -98,7 +97,6 @@ uint64_t protocol witness for IteratorProtocol.next() in conformance MTLLogConta
 
 uint64_t MTLLogContainer.makeIterator()()
 {
-  v1 = *v0;
   swift_unknownObjectRetain();
 
   return NSFastEnumerationIterator.init(_:)();
@@ -106,19 +104,17 @@ uint64_t MTLLogContainer.makeIterator()()
 
 uint64_t protocol witness for Sequence.makeIterator() in conformance MTLLogContainer()
 {
-  v1 = *v0;
   swift_unknownObjectRetain();
   NSFastEnumerationIterator.init(_:)();
 
   return swift_unknownObjectRelease();
 }
 
-uint64_t protocol witness for Sequence._copyToContiguousArray() in conformance MTLLogContainer()
+void *protocol witness for Sequence._copyToContiguousArray() in conformance MTLLogContainer()
 {
-  v1 = *v0;
-  v2 = specialized _copySequenceToContiguousArray<A>(_:)();
+  v1 = specialized _copySequenceToContiguousArray<A>(_:)(*v0);
   swift_unknownObjectRelease();
-  return v2;
+  return v1;
 }
 
 id MTLCommandBuffer.logs.getter@<X0>(void *a1@<X8>)
@@ -128,10 +124,9 @@ id MTLCommandBuffer.logs.getter@<X0>(void *a1@<X8>)
   return result;
 }
 
-uint64_t thunk for @escaping @callee_guaranteed (@guaranteed MTLCommandBuffer) -> ()(uint64_t a1)
+uint64_t thunk for @escaping @callee_guaranteed (@guaranteed MTLCommandBuffer) -> ()(uint64_t a1, uint64_t a2)
 {
   v2 = *(a1 + 32);
-  v1 = *(a1 + 40);
 
   v3 = swift_unknownObjectRetain();
   v2(v3);
@@ -228,13 +223,12 @@ uint64_t MTLDevice.getDefaultSamplePositions(sampleCount:)(uint64_t result)
 
 Swift::tuple_cpu_UInt64_gpu_UInt64 __swiftcall MTLDevice.sampleTimestamps()()
 {
-  v6[1] = *MEMORY[0x29EDCA608];
-  v5 = 0;
-  v6[0] = 0;
-  [v0 sampleTimestamps:v6 gpuTimestamp:&v5];
-  v2 = v5;
-  v1 = v6[0];
-  v3 = *MEMORY[0x29EDCA608];
+  v5[1] = *MEMORY[0x29EDCA608];
+  v4 = 0;
+  v5[0] = 0;
+  [v0 sampleTimestamps:v5 gpuTimestamp:&v4];
+  v2 = v4;
+  v1 = v5[0];
   result.gpu = v2;
   result.cpu = v1;
   return result;
@@ -242,32 +236,31 @@ Swift::tuple_cpu_UInt64_gpu_UInt64 __swiftcall MTLDevice.sampleTimestamps()()
 
 id MTLDevice.makeRenderPipelineState(descriptor:options:)(uint64_t a1, uint64_t a2)
 {
-  v12[1] = *MEMORY[0x29EDCA608];
-  v11 = 0;
-  v12[0] = 0;
-  v3 = [v2 newRenderPipelineStateWithMeshDescriptor:a1 options:a2 reflection:v12 error:&v11];
-  v4 = v12[0];
+  v11[1] = *MEMORY[0x29EDCA608];
+  v10 = 0;
+  v11[0] = 0;
+  v3 = [v2 newRenderPipelineStateWithMeshDescriptor:a1 options:a2 reflection:v11 error:&v10];
+  v4 = v11[0];
   if (v3)
   {
     v5 = v3;
-    v6 = v11;
+    v6 = v10;
     v7 = v4;
   }
 
   else
   {
-    v5 = v11;
+    v5 = v10;
     v8 = v4;
     _convertNSErrorToError(_:)();
 
     swift_willThrow();
   }
 
-  v9 = *MEMORY[0x29EDCA608];
   return v5;
 }
 
-MTLIOCompressionContext specialized String.withCString<A>(_:)(uint64_t a1, uint64_t a2, MTLIOCompressionMethod type, size_t chunkSize)
+void *specialized String.withCString<A>(_:)(uint64_t a1, uint64_t a2, MTLIOCompressionMethod type, size_t chunkSize)
 {
   if ((a2 & 0x1000000000000000) == 0)
   {
@@ -307,11 +300,11 @@ id MTLFunctionConstantValues.setConstantValues(_:type:range:)(id result, uint64_
   return result;
 }
 
-uint64_t MTLAccelerationStructureCommandEncoder.useResources(_:usage:)(int64_t a1, uint64_t a2)
+uint64_t MTLAccelerationStructureCommandEncoder.useResources(_:usage:)(unint64_t a1, uint64_t a2)
 {
   if (a1 >> 62)
   {
-    if (a1 < 0)
+    if ((a1 & 0x8000000000000000) != 0)
     {
       v7 = a1;
     }
@@ -455,73 +448,69 @@ id MTLTexture.makeTextureView(pixelFormat:textureType:levels:slices:swizzle:)(id
   return result;
 }
 
-_DWORD *MTLRasterizationRateSampleArray.subscript.getter(uint64_t a1)
+float MTLRasterizationRateSampleArray.subscript.getter(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x29EDCA608];
-  v6[0] = 0;
-  result = [v1 __getRawArray_];
-  if ((a1 & 0x8000000000000000) == 0 && v6[0] > a1)
+  v5[1] = *MEMORY[0x29EDCA608];
+  v5[0] = 0;
+  v3 = [v1 __getRawArray_];
+  result = 0.0;
+  if ((a1 & 0x8000000000000000) == 0 && v5[0] > a1)
   {
-    v4 = result[a1];
+    return v3[a1];
   }
 
-  v5 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 _DWORD *key path getter for MTLRasterizationRateSampleArray.subscript(_:) : MTLRasterizationRateSampleArray@<X0>(void **a1@<X0>, uint64_t *a2@<X1>, _DWORD *a3@<X8>)
 {
-  v9[1] = *MEMORY[0x29EDCA608];
+  v8[1] = *MEMORY[0x29EDCA608];
   v4 = *a1;
   v5 = *a2;
-  v9[0] = 0;
+  v8[0] = 0;
   result = [v4 __getRawArray_];
   v7 = 0;
-  if ((v5 & 0x8000000000000000) == 0 && v5 < v9[0])
+  if ((v5 & 0x8000000000000000) == 0 && v5 < v8[0])
   {
     v7 = result[v5];
   }
 
   *a3 = v7;
-  v8 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 _DWORD *key path setter for MTLRasterizationRateSampleArray.subscript(_:) : MTLRasterizationRateSampleArray(int *a1, void **a2, uint64_t *a3)
 {
-  v8[1] = *MEMORY[0x29EDCA608];
+  v7[1] = *MEMORY[0x29EDCA608];
   v3 = *a3;
   v4 = *a1;
   v5 = *a2;
-  v8[0] = 0;
+  v7[0] = 0;
   result = [v5 __getRawArray_];
-  if ((v3 & 0x8000000000000000) == 0 && v3 < v8[0])
+  if ((v3 & 0x8000000000000000) == 0 && v3 < v7[0])
   {
     result[v3] = v4;
   }
 
-  v7 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 float *MTLRasterizationRateSampleArray.subscript.setter(uint64_t a1, float a2)
 {
-  v7[1] = *MEMORY[0x29EDCA608];
-  v7[0] = 0;
+  v6[1] = *MEMORY[0x29EDCA608];
+  v6[0] = 0;
   result = [v2 __getRawArray_];
-  if ((a1 & 0x8000000000000000) == 0 && v7[0] > a1)
+  if ((a1 & 0x8000000000000000) == 0 && v6[0] > a1)
   {
     result[a1] = a2;
   }
 
-  v6 = *MEMORY[0x29EDCA608];
   return result;
 }
 
-_DWORD *(*MTLRasterizationRateSampleArray.subscript.modify(uint64_t a1, uint64_t a2))(uint64_t a1)
+uint64_t (*MTLRasterizationRateSampleArray.subscript.modify(uint64_t a1, uint64_t a2))()
 {
   v3 = v2;
-  v10 = *MEMORY[0x29EDCA608];
   *(a1 + 8) = a2;
   *(a1 + 16) = v3;
   *a1 = 0;
@@ -533,7 +522,6 @@ _DWORD *(*MTLRasterizationRateSampleArray.subscript.modify(uint64_t a1, uint64_t
   }
 
   *(a1 + 24) = v7;
-  v8 = *MEMORY[0x29EDCA608];
   return MTLRasterizationRateSampleArray.subscript.modify;
 }
 
@@ -683,11 +671,10 @@ void closure #1 in MTLSharedEvent.valueSignaled(_:)(uint64_t a1, void *a2, uint6
 
 uint64_t thunk for @escaping @callee_guaranteed @Sendable (@guaranteed MTLSharedEvent, @unowned UInt64) -> ()(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v5 = *(a1 + 32);
-  v4 = *(a1 + 40);
+  v4 = *(a1 + 32);
 
-  v6 = swift_unknownObjectRetain();
-  v5(v6, a3);
+  v5 = swift_unknownObjectRetain();
+  v4(v5, a3);
 
   return swift_unknownObjectRelease();
 }
@@ -702,19 +689,17 @@ uint64_t MTLSharedEvent.valueSignaled(_:)(uint64_t a1, uint64_t a2)
 
 uint64_t MTLSharedEvent.valueSignaled(_:)()
 {
-  v2 = v0[11];
   v1 = v0[12];
-  v3 = v0[10];
+  v2 = v0[10];
   v0[2] = v0;
   v0[3] = MTLSharedEvent.valueSignaled(_:);
-  v4 = swift_continuation_init();
-  closure #1 in MTLSharedEvent.valueSignaled(_:)(v4, v1, v3);
+  v3 = swift_continuation_init();
+  closure #1 in MTLSharedEvent.valueSignaled(_:)(v3, v1, v2);
 
   return MEMORY[0x2A1C73CC0](v0 + 2);
 }
 
 {
-  v3 = *v0;
   v1 = *(*v0 + 8);
 
   return v1();
@@ -731,14 +716,14 @@ id MTL4ComputeCommandEncoder.copy(sourceTexture:sourceSlice:sourceLevel:sourceOr
   return [v13 copyFromTexture:a1 sourceSlice:a2 sourceLevel:a3 sourceOrigin:v16 sourceSize:v15 toBuffer:a10 destinationOffset:a11 destinationBytesPerRow:a12 destinationBytesPerImage:a13 options:?];
 }
 
-id MTL4ComputeCommandEncoder.copy(sourceBuffer:sourceOffset:sourceBytesPerRow:sourceBytesPerImage:sourceSize:destinationTexture:destinationSlice:destinationLevel:destinationOrigin:options:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, int a8, uint64_t a9, uint64_t a10, __int128 a11, uint64_t a12, uint64_t a13)
+id MTL4ComputeCommandEncoder.copy(sourceBuffer:sourceOffset:sourceBytesPerRow:sourceBytesPerImage:sourceSize:destinationTexture:destinationSlice:destinationLevel:destinationOrigin:options:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, __int128 a11, uint64_t a12, uint64_t a13)
 {
   v17[0] = a5;
   v17[1] = a6;
   v17[2] = a7;
   v15 = a11;
   v16 = a12;
-  return [v13 copyFromBuffer:a1 sourceOffset:a2 sourceBytesPerRow:a3 sourceBytesPerImage:a4 sourceSize:v17 toTexture:a9 destinationSlice:a10 destinationLevel:&v15 destinationOrigin:a13 options:?];
+  return [v13 copyFromBuffer:a1 sourceOffset:a2 sourceBytesPerRow:a3 sourceBytesPerImage:a4 sourceSize:v17 toTexture:a8 destinationSlice:a9 destinationLevel:a10 destinationOrigin:&v15 options:a13];
 }
 
 id MTLBlitCommandEncoder.fill(buffer:range:value:)(id result, uint64_t a2, uint64_t a3, unsigned __int8 a4)
@@ -774,13 +759,13 @@ id MTLBlitCommandEncoder.resetCommandsInBuffer(_:range:)(id result, uint64_t a2,
   return result;
 }
 
-uint64_t MTL4CommandQueue.commit(_:options:)(int64_t a1, void *a2)
+uint64_t MTL4CommandQueue.commit(_:options:)(unint64_t a1, void *a2)
 {
   if (a2)
   {
     if (a1 >> 62)
     {
-      if (a1 < 0)
+      if ((a1 & 0x8000000000000000) != 0)
       {
         v10 = a1;
       }
@@ -821,7 +806,7 @@ uint64_t MTL4CommandQueue.commit(_:options:)(int64_t a1, void *a2)
   {
     if (a1 >> 62)
     {
-      if (a1 < 0)
+      if ((a1 & 0x8000000000000000) != 0)
       {
         v14 = a1;
       }
@@ -859,11 +844,11 @@ uint64_t MTL4CommandQueue.commit(_:options:)(int64_t a1, void *a2)
   return swift_unknownObjectRelease();
 }
 
-uint64_t MTLCommandBuffer.useResidencySets(_:)(int64_t a1, uint64_t a2, SEL *a3)
+uint64_t MTLCommandBuffer.useResidencySets(_:)(unint64_t a1, uint64_t a2, SEL *a3)
 {
   if (a1 >> 62)
   {
-    if (a1 < 0)
+    if ((a1 & 0x8000000000000000) != 0)
     {
       v8 = a1;
     }
@@ -873,7 +858,7 @@ uint64_t MTLCommandBuffer.useResidencySets(_:)(int64_t a1, uint64_t a2, SEL *a3)
       v8 = a1 & 0xFFFFFFFFFFFFFF8;
     }
 
-    v5 = MEMORY[0x29C2ABB10](v8);
+    v5 = MEMORY[0x29C2ABB10](v8, a2);
     v10 = MEMORY[0x29C2ABB10](v8);
 
     if (v10)
@@ -911,14 +896,6 @@ id MTL4CommandBuffer.resolveCounterHeap(_:range:buffer:fenceToWait:fenceToUpdate
   return result;
 }
 
-id MTL4Compiler.makeComputePipelineState(descriptor:dynamicLinkingDescriptor:compilerTaskOptions:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v6 = *MEMORY[0x29EDCA608];
-  result = MTL4Compiler.makeComputePipelineState(descriptor:dynamicLinkingDescriptor:compilerTaskOptions:)(a1, a2, a3, a4, &selRef_newComputePipelineStateWithDescriptor_dynamicLinkingDescriptor_compilerTaskOptions_error_);
-  v5 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
 uint64_t MTL4Compiler.makeComputePipelineState(descriptor:dynamicLinkingDescriptor:compilerTaskOptions:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4[19] = a3;
@@ -953,7 +930,6 @@ uint64_t MTL4Compiler.makeComputePipelineState(descriptor:dynamicLinkingDescript
   v1[12] = thunk for @escaping @callee_guaranteed (@guaranteed MTLComputePipelineState?, @guaranteed Error?) -> ();
   v1[13] = &block_descriptor_63;
   v13 = _Block_copy(v4);
-  v14 = v1[15];
 
   [v6 newComputePipelineStateWithDescriptor:v10 dynamicLinkingDescriptor:v9 compilerTaskOptions:v7 completionHandler:v13];
   _Block_release(v13);
@@ -962,33 +938,24 @@ uint64_t MTL4Compiler.makeComputePipelineState(descriptor:dynamicLinkingDescript
   return MEMORY[0x2A1C73CC0](v3);
 }
 
-id MTL4Compiler.makeRenderPipelineState(descriptor:dynamicLinkingDescriptor:compilerTaskOptions:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v6 = *MEMORY[0x29EDCA608];
-  result = MTL4Compiler.makeComputePipelineState(descriptor:dynamicLinkingDescriptor:compilerTaskOptions:)(a1, a2, a3, a4, &selRef_newRenderPipelineStateWithDescriptor_dynamicLinkingDescriptor_compilerTaskOptions_error_);
-  v5 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
 id MTL4Compiler.makeComputePipelineState(descriptor:dynamicLinkingDescriptor:compilerTaskOptions:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, SEL *a5)
 {
-  v11[1] = *MEMORY[0x29EDCA608];
-  v11[0] = 0;
+  v10[1] = *MEMORY[0x29EDCA608];
+  v10[0] = 0;
   v6 = [v5 *a5];
   if (v6)
   {
-    v7 = v11[0];
+    v7 = v10[0];
   }
 
   else
   {
-    v8 = v11[0];
+    v8 = v10[0];
     _convertNSErrorToError(_:)();
 
     swift_willThrow();
   }
 
-  v9 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
@@ -1026,7 +993,6 @@ uint64_t MTL4Compiler.makeRenderPipelineState(descriptor:dynamicLinkingDescripto
   v1[12] = thunk for @escaping @callee_guaranteed (@guaranteed MTLComputePipelineState?, @guaranteed Error?) -> ();
   v1[13] = &block_descriptor_57;
   v13 = _Block_copy(v4);
-  v14 = v1[15];
 
   [v6 newRenderPipelineStateWithDescriptor:v10 dynamicLinkingDescriptor:v9 compilerTaskOptions:v7 completionHandler:v13];
   _Block_release(v13);
@@ -1037,23 +1003,22 @@ uint64_t MTL4Compiler.makeRenderPipelineState(descriptor:dynamicLinkingDescripto
 
 id MTL4Compiler.makeRenderPipelineStateBySpecialization(descriptor:pipeline:)(uint64_t a1, uint64_t a2)
 {
-  v8[1] = *MEMORY[0x29EDCA608];
-  v8[0] = 0;
-  v3 = [v2 newRenderPipelineStateBySpecializationWithDescriptor:a1 pipeline:a2 error:v8];
+  v7[1] = *MEMORY[0x29EDCA608];
+  v7[0] = 0;
+  v3 = [v2 newRenderPipelineStateBySpecializationWithDescriptor:a1 pipeline:a2 error:v7];
   if (v3)
   {
-    v4 = v8[0];
+    v4 = v7[0];
   }
 
   else
   {
-    v5 = v8[0];
+    v5 = v7[0];
     _convertNSErrorToError(_:)();
 
     swift_willThrow();
   }
 
-  v6 = *MEMORY[0x29EDCA608];
   return v3;
 }
 
@@ -1089,7 +1054,6 @@ uint64_t MTL4Compiler.makeRenderPipelineStateBySpecialization(descriptor:pipelin
   v1[12] = thunk for @escaping @callee_guaranteed (@guaranteed MTLComputePipelineState?, @guaranteed Error?) -> ();
   v1[13] = &block_descriptor_51;
   v12 = _Block_copy(v4);
-  v13 = v1[15];
 
   [v6 newRenderPipelineStateBySpecializationWithDescriptor:v9 pipeline:v7 completionHandler:v12];
   _Block_release(v12);
@@ -1100,23 +1064,22 @@ uint64_t MTL4Compiler.makeRenderPipelineStateBySpecialization(descriptor:pipelin
 
 id MTL4Compiler.makeBinaryFunction(descriptor:compilerTaskOptions:)(uint64_t a1, uint64_t a2)
 {
-  v8[1] = *MEMORY[0x29EDCA608];
-  v8[0] = 0;
-  v3 = [v2 newBinaryFunctionWithDescriptor:a1 compilerTaskOptions:a2 error:v8];
+  v7[1] = *MEMORY[0x29EDCA608];
+  v7[0] = 0;
+  v3 = [v2 newBinaryFunctionWithDescriptor:a1 compilerTaskOptions:a2 error:v7];
   if (v3)
   {
-    v4 = v8[0];
+    v4 = v7[0];
   }
 
   else
   {
-    v5 = v8[0];
+    v5 = v7[0];
     _convertNSErrorToError(_:)();
 
     swift_willThrow();
   }
 
-  v6 = *MEMORY[0x29EDCA608];
   return v3;
 }
 
@@ -1152,7 +1115,6 @@ uint64_t MTL4Compiler.makeBinaryFunction(descriptor:compilerTaskOptions:)()
   v1[12] = thunk for @escaping @callee_guaranteed (@guaranteed MTLComputePipelineState?, @guaranteed Error?) -> ();
   v1[13] = &block_descriptor_45;
   v12 = _Block_copy(v4);
-  v13 = v1[15];
 
   [v6 newBinaryFunctionWithDescriptor:v9 compilerTaskOptions:v7 completionHandler:v12];
   _Block_release(v12);
@@ -1191,7 +1153,6 @@ uint64_t MTL4Compiler.makeLibrary(descriptor:)()
   v1[12] = thunk for @escaping @callee_guaranteed (@guaranteed MTLComputePipelineState?, @guaranteed Error?) -> ();
   v1[13] = &block_descriptor_39;
   v11 = _Block_copy(v4);
-  v12 = v1[15];
 
   [v6 newLibraryWithDescriptor:v7 completionHandler:v11];
   _Block_release(v11);
@@ -1204,20 +1165,18 @@ uint64_t MTL4Compiler.makeLibrary(descriptor:)()
   v1 = *v0;
   if (*(*v0 + 48))
   {
-    v2 = *(*v0 + 48);
     swift_willThrow();
-    v3 = *(v1 + 8);
+    v2 = *(v1 + 8);
 
-    return v3();
+    return v2();
   }
 
   else
   {
-    v5 = *(*v0 + 128);
-    v6 = *(v1 + 8);
-    v7 = *v0;
+    v4 = *(*v0 + 128);
+    v5 = *(v1 + 8);
 
-    return v6(v5);
+    return v5(v4);
   }
 }
 
@@ -1251,7 +1210,6 @@ uint64_t MTL4Compiler.makeDynamicLibrary(library:)()
   v1[12] = thunk for @escaping @callee_guaranteed (@guaranteed MTLComputePipelineState?, @guaranteed Error?) -> ();
   v1[13] = &block_descriptor_33;
   v11 = _Block_copy(v4);
-  v12 = v1[15];
 
   [v6 newDynamicLibrary:v7 completionHandler:v11];
   _Block_release(v11);
@@ -1269,27 +1227,25 @@ uint64_t MTL4Compiler.makeDynamicLibrary(url:)(uint64_t a1)
 
 uint64_t MTL4Compiler.makeDynamicLibrary(url:)()
 {
-  v2 = v0[17];
   v1 = v0[18];
   v0[2] = v0;
   v0[7] = v0 + 16;
   v0[3] = MTL4Compiler.makeComputePipelineState(descriptor:dynamicLinkingDescriptor:compilerTaskOptions:);
-  v3 = swift_continuation_init();
-  URL._bridgeToObjectiveC()(v4);
-  v6 = v5;
-  v7 = swift_allocObject();
-  *(v7 + 16) = v3;
+  v2 = swift_continuation_init();
+  URL._bridgeToObjectiveC()(v3);
+  v5 = v4;
+  v6 = swift_allocObject();
+  *(v6 + 16) = v2;
   v0[14] = partial apply for closure #1 in closure #1 in MTL4Compiler.makeMachineLearningPipelineState(descriptor:);
-  v0[15] = v7;
+  v0[15] = v6;
   v0[10] = MEMORY[0x29EDCA5F8];
   v0[11] = 1107296256;
   v0[12] = thunk for @escaping @callee_guaranteed (@guaranteed MTLComputePipelineState?, @guaranteed Error?) -> ();
   v0[13] = &block_descriptor_27;
-  v8 = _Block_copy(v0 + 10);
-  v9 = v0[15];
+  v7 = _Block_copy(v0 + 10);
 
-  [v1 newDynamicLibraryWithURL:v6 completionHandler:v8];
-  _Block_release(v8);
+  [v1 newDynamicLibraryWithURL:v5 completionHandler:v7];
+  _Block_release(v7);
   swift_unknownObjectRelease();
 
   return MEMORY[0x2A1C73CC0](v0 + 2);
@@ -1297,23 +1253,22 @@ uint64_t MTL4Compiler.makeDynamicLibrary(url:)()
 
 id MTL4Compiler.makeMachineLearningPipelineState(descriptor:)(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x29EDCA608];
-  v7[0] = 0;
-  v2 = [v1 newMachineLearningPipelineStateWithDescriptor:a1 error:v7];
+  v6[1] = *MEMORY[0x29EDCA608];
+  v6[0] = 0;
+  v2 = [v1 newMachineLearningPipelineStateWithDescriptor:a1 error:v6];
   if (v2)
   {
-    v3 = v7[0];
+    v3 = v6[0];
   }
 
   else
   {
-    v4 = v7[0];
+    v4 = v6[0];
     _convertNSErrorToError(_:)();
 
     swift_willThrow();
   }
 
-  v5 = *MEMORY[0x29EDCA608];
   return v2;
 }
 
@@ -1347,7 +1302,6 @@ uint64_t MTL4Compiler.makeMachineLearningPipelineState(descriptor:)()
   v1[12] = thunk for @escaping @callee_guaranteed (@guaranteed MTLComputePipelineState?, @guaranteed Error?) -> ();
   v1[13] = &block_descriptor;
   v11 = _Block_copy(v4);
-  v12 = v1[15];
 
   [v6 newMachineLearningPipelineStateWithDescriptor:v7 completionHandler:v11];
   _Block_release(v11);
@@ -1358,50 +1312,33 @@ uint64_t MTL4Compiler.makeMachineLearningPipelineState(descriptor:)()
 
 uint64_t thunk for @escaping @callee_guaranteed (@guaranteed MTLComputePipelineState?, @guaranteed Error?) -> ()(uint64_t a1, uint64_t a2, void *a3)
 {
-  v6 = *(a1 + 32);
-  v5 = *(a1 + 40);
+  v5 = *(a1 + 32);
 
   swift_unknownObjectRetain();
-  v7 = a3;
-  v6(a2, a3);
+  v6 = a3;
+  v5(a2, a3);
 
   return swift_unknownObjectRelease();
-}
-
-id MTL4Archive.makeComputePipelineState(descriptor:dynamicLinkingDescriptor:)(uint64_t a1, void *a2, uint64_t a3)
-{
-  v5 = *MEMORY[0x29EDCA608];
-  result = MTL4Archive.makeComputePipelineState(descriptor:dynamicLinkingDescriptor:)(a1, a2, a3, &selRef_newComputePipelineStateWithDescriptor_dynamicLinkingDescriptor_error_, &selRef_newComputePipelineStateWithDescriptor_error_);
-  v4 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-id MTL4Archive.makeRenderPipelineState(descriptor:dynamicLinkingDescriptor:)(uint64_t a1, void *a2, uint64_t a3)
-{
-  v5 = *MEMORY[0x29EDCA608];
-  result = MTL4Archive.makeComputePipelineState(descriptor:dynamicLinkingDescriptor:)(a1, a2, a3, &selRef_newRenderPipelineStateWithDescriptor_dynamicLinkingDescriptor_error_, &selRef_newRenderPipelineStateWithDescriptor_error_);
-  v4 = *MEMORY[0x29EDCA608];
-  return result;
 }
 
 id MTL4Archive.makeComputePipelineState(descriptor:dynamicLinkingDescriptor:)(uint64_t a1, void *a2, uint64_t a3, SEL *a4, SEL *a5)
 {
   v6 = v5;
-  v17[1] = *MEMORY[0x29EDCA608];
+  v16[1] = *MEMORY[0x29EDCA608];
   if (a2)
   {
-    v17[0] = 0;
+    v16[0] = 0;
     v9 = a2;
     v10 = [v6 *a4];
     if (v10)
     {
       v11 = v10;
-      v12 = v17[0];
+      v12 = v16[0];
     }
 
     else
     {
-      v11 = v17[0];
+      v11 = v16[0];
       _convertNSErrorToError(_:)();
 
       swift_willThrow();
@@ -1410,24 +1347,23 @@ id MTL4Archive.makeComputePipelineState(descriptor:dynamicLinkingDescriptor:)(ui
 
   else
   {
-    v17[0] = 0;
+    v16[0] = 0;
     v13 = [v5 *a5];
     if (v13)
     {
       v11 = v13;
-      v14 = v17[0];
+      v14 = v16[0];
     }
 
     else
     {
-      v11 = v17[0];
+      v11 = v16[0];
       _convertNSErrorToError(_:)();
 
       swift_willThrow();
     }
   }
 
-  v15 = *MEMORY[0x29EDCA608];
   return v11;
 }
 
@@ -1462,11 +1398,10 @@ uint64_t MTLRenderPassDescriptor.getSamplePositions()()
   return result;
 }
 
-uint64_t key path getter for MTL4RenderPassDescriptor.samplePositions : MTL4RenderPassDescriptor@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+uint64_t key path getter for MTL4RenderPassDescriptor.samplePositions : MTL4RenderPassDescriptor@<X0>(uint64_t *a1@<X8>)
 {
-  v3 = *a1;
   result = MTLRenderPassDescriptor.getSamplePositions()();
-  *a2 = result;
+  *a1 = result;
   return result;
 }
 
@@ -1499,7 +1434,7 @@ id MTL4RenderPassDescriptor.samplePositions.setter(uint64_t a1)
   }
 }
 
-id (*MTL4RenderPassDescriptor.samplePositions.modify(uint64_t *a1))(uint64_t *a1, char a2)
+unint64_t MTL4RenderPassDescriptor.samplePositions.modify(uint64_t *a1)
 {
   a1[1] = v1;
   result = [v1 getSamplePositions:0 count:0];
@@ -1654,7 +1589,7 @@ id MTLResourceViewPool.copyResourceViews(sourcePool:sourceRange:destinationIndex
   return result;
 }
 
-uint64_t *(*MTLTextureViewDescriptor.levelRange.modify(uint64_t *(**a1)(uint64_t *a1, char a2)))(uint64_t *a1, char a2)
+uint64_t (*MTLTextureViewDescriptor.levelRange.modify(uint64_t (**a1)()))()
 {
   a1[2] = v1;
   result = [v1 levelRange];
@@ -1712,7 +1647,7 @@ id key path setter for MTLTextureViewDescriptor.levelRange : MTLTextureViewDescr
   else
   {
     v9 = *a2;
-    v10 = NSMakeRange();
+    NSMakeRange();
     v12 = v11;
     v13 = *a5;
 
@@ -1733,7 +1668,7 @@ id MTLTextureViewDescriptor.levelRange.setter(id result, uint64_t a2, SEL *a3)
   return result;
 }
 
-uint64_t *(*MTLTextureViewDescriptor.sliceRange.modify(uint64_t *(**a1)(uint64_t *a1, char a2)))(uint64_t *a1, char a2)
+uint64_t (*MTLTextureViewDescriptor.sliceRange.modify(uint64_t (**a1)()))()
 {
   a1[2] = v1;
   result = [v1 sliceRange];
@@ -1812,9 +1747,9 @@ id MTLBuffer.didModifyRange(_:)(id result, uint64_t a2, uint64_t a3, SEL *a4)
   return result;
 }
 
-uint64_t specialized _copySequenceToContiguousArray<A>(_:)()
+void *specialized _copySequenceToContiguousArray<A>(_:)(uint64_t a1)
 {
-  v0 = *(*(type metadata accessor for MTLLogContainer.Iterator() - 8) + 64);
+  type metadata accessor for MTLLogContainer.Iterator(0);
   MEMORY[0x2A1C7C4A8]();
   v2 = v24 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
   swift_unknownObjectRetain();
@@ -1929,9 +1864,9 @@ LABEL_24:
   return result;
 }
 
-uint64_t specialized Sequence._copySequenceContents(initializing:)(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t specialized Sequence._copySequenceContents(initializing:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v6 = *(*(type metadata accessor for MTLLogContainer.Iterator() - 8) + 64);
+  type metadata accessor for MTLLogContainer.Iterator(0);
   MEMORY[0x2A1C7C4A8]();
   v8 = v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   result = NSFastEnumerationIterator.init(_:)();
@@ -2105,7 +2040,7 @@ unint64_t lazy protocol witness table accessor for type MTLLogContainer.Iterator
   result = lazy protocol witness table cache variable for type MTLLogContainer.Iterator and conformance MTLLogContainer.Iterator;
   if (!lazy protocol witness table cache variable for type MTLLogContainer.Iterator and conformance MTLLogContainer.Iterator)
   {
-    type metadata accessor for MTLLogContainer.Iterator();
+    type metadata accessor for MTLLogContainer.Iterator(255);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type MTLLogContainer.Iterator and conformance MTLLogContainer.Iterator);
   }
@@ -2113,7 +2048,7 @@ unint64_t lazy protocol witness table accessor for type MTLLogContainer.Iterator
   return result;
 }
 
-uint64_t type metadata accessor for MTLLogContainer.Iterator()
+uint64_t type metadata accessor for MTLLogContainer.Iterator(uint64_t a1)
 {
   result = type metadata singleton initialization cache for MTLLogContainer.Iterator;
   if (!type metadata singleton initialization cache for MTLLogContainer.Iterator)
@@ -2180,10 +2115,10 @@ LABEL_8:
   return result;
 }
 
-uint64_t type metadata completion function for MTLLogContainer.Iterator()
+uint64_t type metadata completion function for MTLLogContainer.Iterator(uint64_t a1)
 {
   result = type metadata accessor for NSFastEnumerationIterator();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -2234,14 +2169,14 @@ uint64_t storeEnumTagSinglePayload for MTLSamplePosition(uint64_t result, int a2
 
 uint64_t outlined init with take of MTLLogContainer.Iterator(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for MTLLogContainer.Iterator();
+  v4 = type metadata accessor for MTLLogContainer.Iterator(0);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
 
 uint64_t outlined destroy of MTLLogContainer.Iterator(uint64_t a1)
 {
-  v2 = type metadata accessor for MTLLogContainer.Iterator();
+  v2 = type metadata accessor for MTLLogContainer.Iterator(0);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }

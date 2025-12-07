@@ -538,7 +538,7 @@ void __49__PVCinematicEffect_updateDictionary_completion___block_invoke(uint64_t
   if (!self->_isAssetOK || ([objc_opt_class() deviceSupportsRendering:0] & 1) == 0)
   {
     v40 = HGObject::operator new(0x1A0uLL);
-    v41 = HGNode::HGNode(v40);
+    HGNode::HGNode(v40);
     *v84 = v40;
     return v41;
   }

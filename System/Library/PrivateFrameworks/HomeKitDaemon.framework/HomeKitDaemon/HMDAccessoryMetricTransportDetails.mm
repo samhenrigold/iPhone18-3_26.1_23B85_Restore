@@ -7,34 +7,32 @@
 
 - (id)attributeDescriptions
 {
-  v21[5] = *MEMORY[0x277D85DE8];
+  v20[5] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   accessoryProtocol = [(HMDAccessoryMetricTransportDetails *)self accessoryProtocol];
   v4 = [v3 initWithName:@"accessoryProtocol" value:accessoryProtocol];
-  v21[0] = v4;
+  v20[0] = v4;
   v5 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDAccessoryMetricTransportDetails *)self isAccessoryBatteryPowered];
   v6 = HMFBooleanToString();
   v7 = [v5 initWithName:@"isAccessoryBatteryPowered" value:v6];
-  v21[1] = v7;
+  v20[1] = v7;
   v8 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDAccessoryMetricTransportDetails *)self isAccessoryBridged];
   v9 = HMFBooleanToString();
   v10 = [v8 initWithName:@"isAccessoryBridged" value:v9];
-  v21[2] = v10;
+  v20[2] = v10;
   v11 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDAccessoryMetricTransportDetails *)self isThreadAccessory];
   v12 = HMFBooleanToString();
   v13 = [v11 initWithName:@"isThreadAccessory" value:v12];
-  v21[3] = v13;
+  v20[3] = v13;
   v14 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDAccessoryMetricTransportDetails *)self isHH2Enabled];
   v15 = HMFBooleanToString();
   v16 = [v14 initWithName:@"isHH2Enabled" value:v15];
-  v21[4] = v16;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:5];
-
-  v18 = *MEMORY[0x277D85DE8];
+  v20[4] = v16;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:5];
 
   return v17;
 }

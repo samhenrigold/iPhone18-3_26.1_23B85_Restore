@@ -472,54 +472,54 @@ LABEL_36:
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance DateComponents()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance DateComponents(uint64_t a1)
 {
-  v2 = *v0;
-  v1 = v0[1];
-  v3 = v0[2];
-  v4 = v0[3];
-  v14 = v0[4];
-  v15 = v0[6];
-  v29 = *(v0 + 40);
-  v30 = *(v0 + 56);
-  v16 = v0[8];
-  v17 = v0[10];
-  v31 = *(v0 + 72);
-  v32 = *(v0 + 88);
-  v28 = v0[12];
-  v43 = *(v0 + 104);
-  v18 = v0[14];
-  v19 = v0[16];
-  v33 = *(v0 + 120);
-  v34 = *(v0 + 136);
-  v20 = v0[18];
-  v21 = v0[20];
-  v35 = *(v0 + 152);
-  v36 = *(v0 + 168);
-  v22 = v0[22];
-  v23 = v0[24];
-  v37 = *(v0 + 184);
-  v38 = *(v0 + 200);
-  v24 = v0[26];
-  v25 = v0[30];
-  v39 = *(v0 + 216);
-  v40 = *(v0 + 248);
-  v26 = v0[32];
-  v41 = *(v0 + 264);
-  v27 = v0[34];
-  v42 = *(v0 + 280);
-  v5 = *(v0 + 281);
-  v6 = *(v0 + 282);
+  v3 = *v1;
+  v2 = v1[1];
+  v4 = v1[2];
+  v5 = v1[3];
+  v15 = v1[4];
+  v16 = v1[6];
+  v30 = *(v1 + 40);
+  v31 = *(v1 + 56);
+  v17 = v1[8];
+  v18 = v1[10];
+  v32 = *(v1 + 72);
+  v33 = *(v1 + 88);
+  v29 = v1[12];
+  v44 = *(v1 + 104);
+  v19 = v1[14];
+  v20 = v1[16];
+  v34 = *(v1 + 120);
+  v35 = *(v1 + 136);
+  v21 = v1[18];
+  v22 = v1[20];
+  v36 = *(v1 + 152);
+  v37 = *(v1 + 168);
+  v23 = v1[22];
+  v24 = v1[24];
+  v38 = *(v1 + 184);
+  v39 = *(v1 + 200);
+  v25 = v1[26];
+  v26 = v1[30];
+  v40 = *(v1 + 216);
+  v41 = *(v1 + 248);
+  v27 = v1[32];
+  v42 = *(v1 + 264);
+  v28 = v1[34];
+  v43 = *(v1 + 280);
+  v6 = *(v1 + 281);
+  v7 = *(v1 + 282);
   Hasher.init(_seed:)();
-  if (v2)
+  if (v3)
   {
     Hasher._combine(_:)(1u);
     ObjectType = swift_getObjectType();
-    v8 = *(v1 + 120);
+    v9 = *(v2 + 120);
     swift_unknownObjectRetain();
-    v8(v44, ObjectType, v1);
+    v9(v45, ObjectType, v2);
     swift_unknownObjectRelease();
-    if (v3)
+    if (v4)
     {
       goto LABEL_3;
     }
@@ -528,16 +528,16 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Dat
   else
   {
     Hasher._combine(_:)(0);
-    if (v3)
+    if (v4)
     {
 LABEL_3:
       Hasher._combine(_:)(1u);
-      v9 = swift_getObjectType();
-      v10 = *(v4 + 120);
+      v10 = swift_getObjectType();
+      v11 = *(v5 + 120);
       swift_unknownObjectRetain();
-      v10(v44, v9, v4);
+      v11(v45, v10, v5);
       swift_unknownObjectRelease();
-      if (v29)
+      if (v30)
       {
         goto LABEL_4;
       }
@@ -547,11 +547,11 @@ LABEL_3:
   }
 
   Hasher._combine(_:)(0);
-  if (v29)
+  if (v30)
   {
 LABEL_4:
     Hasher._combine(_:)(0);
-    if (!v30)
+    if (!v31)
     {
       goto LABEL_5;
     }
@@ -561,13 +561,13 @@ LABEL_4:
 
 LABEL_21:
   Hasher._combine(_:)(1u);
-  MEMORY[0x1865CD060](v14);
-  if (!v30)
+  MEMORY[0x1865CD060](v15);
+  if (!v31)
   {
 LABEL_5:
     Hasher._combine(_:)(1u);
-    MEMORY[0x1865CD060](v15);
-    if (!v31)
+    MEMORY[0x1865CD060](v16);
+    if (!v32)
     {
       goto LABEL_6;
     }
@@ -577,12 +577,12 @@ LABEL_5:
 
 LABEL_22:
   Hasher._combine(_:)(0);
-  if (!v31)
+  if (!v32)
   {
 LABEL_6:
     Hasher._combine(_:)(1u);
-    MEMORY[0x1865CD060](v16);
-    if (!v32)
+    MEMORY[0x1865CD060](v17);
+    if (!v33)
     {
       goto LABEL_7;
     }
@@ -592,12 +592,12 @@ LABEL_6:
 
 LABEL_23:
   Hasher._combine(_:)(0);
-  if (!v32)
+  if (!v33)
   {
 LABEL_7:
     Hasher._combine(_:)(1u);
-    MEMORY[0x1865CD060](v17);
-    if (!v33)
+    MEMORY[0x1865CD060](v18);
+    if (!v34)
     {
       goto LABEL_8;
     }
@@ -607,12 +607,12 @@ LABEL_7:
 
 LABEL_24:
   Hasher._combine(_:)(0);
-  if (!v33)
+  if (!v34)
   {
 LABEL_8:
     Hasher._combine(_:)(1u);
-    MEMORY[0x1865CD060](v18);
-    if (!v34)
+    MEMORY[0x1865CD060](v19);
+    if (!v35)
     {
       goto LABEL_9;
     }
@@ -622,12 +622,12 @@ LABEL_8:
 
 LABEL_25:
   Hasher._combine(_:)(0);
-  if (!v34)
+  if (!v35)
   {
 LABEL_9:
     Hasher._combine(_:)(1u);
-    MEMORY[0x1865CD060](v19);
-    if (!v35)
+    MEMORY[0x1865CD060](v20);
+    if (!v36)
     {
       goto LABEL_10;
     }
@@ -637,12 +637,12 @@ LABEL_9:
 
 LABEL_26:
   Hasher._combine(_:)(0);
-  if (!v35)
+  if (!v36)
   {
 LABEL_10:
     Hasher._combine(_:)(1u);
-    MEMORY[0x1865CD060](v20);
-    if (!v36)
+    MEMORY[0x1865CD060](v21);
+    if (!v37)
     {
       goto LABEL_11;
     }
@@ -652,12 +652,12 @@ LABEL_10:
 
 LABEL_27:
   Hasher._combine(_:)(0);
-  if (!v36)
+  if (!v37)
   {
 LABEL_11:
     Hasher._combine(_:)(1u);
-    MEMORY[0x1865CD060](v21);
-    if (!v37)
+    MEMORY[0x1865CD060](v22);
+    if (!v38)
     {
       goto LABEL_12;
     }
@@ -667,12 +667,12 @@ LABEL_11:
 
 LABEL_28:
   Hasher._combine(_:)(0);
-  if (!v37)
+  if (!v38)
   {
 LABEL_12:
     Hasher._combine(_:)(1u);
-    MEMORY[0x1865CD060](v22);
-    if (!v38)
+    MEMORY[0x1865CD060](v23);
+    if (!v39)
     {
       goto LABEL_13;
     }
@@ -682,12 +682,12 @@ LABEL_12:
 
 LABEL_29:
   Hasher._combine(_:)(0);
-  if (!v38)
+  if (!v39)
   {
 LABEL_13:
     Hasher._combine(_:)(1u);
-    MEMORY[0x1865CD060](v23);
-    if (!v39)
+    MEMORY[0x1865CD060](v24);
+    if (!v40)
     {
       goto LABEL_14;
     }
@@ -697,12 +697,12 @@ LABEL_13:
 
 LABEL_30:
   Hasher._combine(_:)(0);
-  if (!v39)
+  if (!v40)
   {
 LABEL_14:
     Hasher._combine(_:)(1u);
-    MEMORY[0x1865CD060](v24);
-    if (!v40)
+    MEMORY[0x1865CD060](v25);
+    if (!v41)
     {
       goto LABEL_15;
     }
@@ -712,12 +712,12 @@ LABEL_14:
 
 LABEL_31:
   Hasher._combine(_:)(0);
-  if (!v40)
+  if (!v41)
   {
 LABEL_15:
     Hasher._combine(_:)(1u);
-    MEMORY[0x1865CD060](v25);
-    if (!v41)
+    MEMORY[0x1865CD060](v26);
+    if (!v42)
     {
       goto LABEL_16;
     }
@@ -727,19 +727,19 @@ LABEL_15:
 
 LABEL_32:
   Hasher._combine(_:)(0);
-  if (!v41)
+  if (!v42)
   {
 LABEL_16:
     Hasher._combine(_:)(1u);
-    MEMORY[0x1865CD060](v26);
-    if (!v42)
+    MEMORY[0x1865CD060](v27);
+    if (!v43)
     {
       goto LABEL_17;
     }
 
 LABEL_34:
     Hasher._combine(_:)(0);
-    if (v5 != 2)
+    if (v6 != 2)
     {
       goto LABEL_18;
     }
@@ -749,39 +749,39 @@ LABEL_34:
 
 LABEL_33:
   Hasher._combine(_:)(0);
-  if (v42)
+  if (v43)
   {
     goto LABEL_34;
   }
 
 LABEL_17:
   Hasher._combine(_:)(1u);
-  MEMORY[0x1865CD060](v27);
-  if (v5 != 2)
+  MEMORY[0x1865CD060](v28);
+  if (v6 != 2)
   {
 LABEL_18:
     Hasher._combine(_:)(1u);
-    v11 = v5 & 1;
+    v12 = v6 & 1;
     goto LABEL_36;
   }
 
 LABEL_35:
-  v11 = 0;
+  v12 = 0;
 LABEL_36:
-  Hasher._combine(_:)(v11);
-  if (v6 == 2)
+  Hasher._combine(_:)(v12);
+  if (v7 == 2)
   {
-    v12 = 0;
+    v13 = 0;
   }
 
   else
   {
     Hasher._combine(_:)(1u);
-    v12 = v6 & 1;
+    v13 = v7 & 1;
   }
 
-  Hasher._combine(_:)(v12);
-  if (v43)
+  Hasher._combine(_:)(v13);
+  if (v44)
   {
     Hasher._combine(_:)(0);
   }
@@ -789,7 +789,7 @@ LABEL_36:
   else
   {
     Hasher._combine(_:)(1u);
-    MEMORY[0x1865CD060](v28);
+    MEMORY[0x1865CD060](v29);
   }
 
   return Hasher._finalize()();
@@ -801,7 +801,7 @@ uint64_t DateComponents.customMirror.getter@<X0>(uint64_t a1@<X8>)
   v124 = *(v3 - 8);
   MEMORY[0x1EEE9AC00](v3);
   v5 = &v121 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6MirrorV12DisplayStyleOSgMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6MirrorV12DisplayStyleOSgMd, &_ss6MirrorV12DisplayStyleOSgMR);
   MEMORY[0x1EEE9AC00](v6 - 8);
   v8 = &v121 - v7;
   memcpy(v130, v1, 0x11BuLL);
@@ -1448,7 +1448,7 @@ LABEL_86:
   (*(v119 + 56))(v8, 0, 1, v118);
   (*(v25 + 104))(v26, *MEMORY[0x1E69E75D8], v19);
   outlined init with copy of DateComponents(v130, &v126);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSSg5label_yp5valuetGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSSg5label_yp5valuetGMd, &_sSaySSSg5label_yp5valuetGMR);
   lazy protocol witness table accessor for type [(label: String?, value: Any)] and conformance [A]();
   return Mirror.init<A, B>(_:children:displayStyle:ancestorRepresentation:)();
 }
@@ -1497,7 +1497,7 @@ uint64_t DateComponents.description.getter()
         v6 = 0xE000000000000000;
       }
 
-      __swift_destroy_boxed_opaque_existential_1(&v12);
+      __swift_destroy_boxed_opaque_existential_1(v12);
       MEMORY[0x1865CB0E0](v5, v6);
 
       MEMORY[0x1865CB0E0](8250, 0xE200000000000000);
@@ -1505,7 +1505,7 @@ uint64_t DateComponents.description.getter()
       MEMORY[0x1865CB0E0](32, 0xE100000000000000);
       MEMORY[0x1865CB0E0](v13, v14);
 
-      outlined destroy of TermOfAddress?(v15, &_sSSSg5label_yp5valuetMd);
+      outlined destroy of TermOfAddress?(v15, &_sSSSg5label_yp5valuetMd, &_sSSSg5label_yp5valuetMR);
       dispatch thunk of _AnyIteratorBoxBase.next()();
     }
 
@@ -1528,10 +1528,10 @@ unint64_t protocol witness for RawRepresentable.init(rawValue:) in conformance D
   return result;
 }
 
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance DateComponents.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance DateComponents.CodingKeys@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = specialized DateComponents.CodingKeys.init(stringValue:)(a1, a2);
-  *a3 = result;
+  result = specialized DateComponents.CodingKeys.init(stringValue:)(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -1558,7 +1558,7 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
 
 uint64_t DateComponents.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation14DateComponentsV10CodingKeys33_A6EB5CE9F6026BED8852DBF300CCA004LLOGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation14DateComponentsV10CodingKeys33_A6EB5CE9F6026BED8852DBF300CCA004LLOGMd, &_ss22KeyedDecodingContainerVy10Foundation14DateComponentsV10CodingKeys33_A6EB5CE9F6026BED8852DBF300CCA004LLOGMR);
   v6 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v5);
   v8 = &v65 - v7;
@@ -2690,7 +2690,7 @@ uint64_t Calendar.RecurrenceRule.recurrences(of:in:)@<X0>(void *a1@<X0>, uint64_
   return outlined init with copy of Calendar.RecurrenceRule(v17, v16);
 }
 
-uint64_t static Calendar.RecurrenceRule.minutely(calendar:interval:end:matchingPolicy:repeatedTimePolicy:months:daysOfTheYear:daysOfTheMonth:weekdays:hours:minutes:seconds:setPositions:)@<X0>(_OWORD *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, char *a4@<X3>, char *a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
+uint64_t static Calendar.RecurrenceRule.minutely(calendar:interval:end:matchingPolicy:repeatedTimePolicy:months:daysOfTheYear:daysOfTheMonth:weekdays:hours:minutes:seconds:setPositions:)@<X0>(__int128 *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, char *a4@<X3>, char *a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
 {
   v15 = *a3;
   v16 = *(a3 + 8);
@@ -2716,7 +2716,7 @@ uint64_t static Calendar.RecurrenceRule.minutely(calendar:interval:end:matchingP
   swift_unknownObjectRetain();
 }
 
-uint64_t static Calendar.RecurrenceRule.weekly(calendar:interval:end:matchingPolicy:repeatedTimePolicy:months:weekdays:hours:minutes:seconds:setPositions:)@<X0>(_OWORD *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, char *a4@<X3>, char *a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>, uint64_t a10, uint64_t a11, uint64_t a12)
+uint64_t static Calendar.RecurrenceRule.weekly(calendar:interval:end:matchingPolicy:repeatedTimePolicy:months:weekdays:hours:minutes:seconds:setPositions:)@<X0>(__int128 *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, char *a4@<X3>, char *a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   v12 = *a3;
   v13 = *(a3 + 8);
@@ -2742,7 +2742,7 @@ uint64_t static Calendar.RecurrenceRule.weekly(calendar:interval:end:matchingPol
   swift_unknownObjectRetain();
 }
 
-uint64_t static Calendar.RecurrenceRule.daily(calendar:interval:end:matchingPolicy:repeatedTimePolicy:months:daysOfTheMonth:weekdays:hours:minutes:seconds:setPositions:)@<X0>(_OWORD *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, char *a4@<X3>, char *a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14)
+uint64_t static Calendar.RecurrenceRule.daily(calendar:interval:end:matchingPolicy:repeatedTimePolicy:months:daysOfTheMonth:weekdays:hours:minutes:seconds:setPositions:)@<X0>(__int128 *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, char *a4@<X3>, char *a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14)
 {
   v14 = *a3;
   v15 = *(a3 + 8);
@@ -2768,7 +2768,7 @@ uint64_t static Calendar.RecurrenceRule.daily(calendar:interval:end:matchingPoli
   swift_unknownObjectRetain();
 }
 
-uint64_t static Calendar.RecurrenceRule.yearly(calendar:interval:end:matchingPolicy:repeatedTimePolicy:months:daysOfTheYear:daysOfTheMonth:weeks:weekdays:hours:minutes:seconds:setPositions:)@<X0>(_OWORD *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, char *a4@<X3>, char *a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15)
+uint64_t static Calendar.RecurrenceRule.yearly(calendar:interval:end:matchingPolicy:repeatedTimePolicy:months:daysOfTheYear:daysOfTheMonth:weeks:weekdays:hours:minutes:seconds:setPositions:)@<X0>(__int128 *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, char *a4@<X3>, char *a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15)
 {
   v15 = *a3;
   v16 = *(a3 + 8);
@@ -2837,12 +2837,12 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Calenda
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Calendar.RecurrenceRule.End.CodingKeys()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Calendar.RecurrenceRule.End.CodingKeys(uint64_t a1)
 {
   String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Calendar.RecurrenceRule.End.CodingKeys()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Calendar.RecurrenceRule.End.CodingKeys(uint64_t a1)
 {
   Hasher.init(_seed:)();
   String.hash(into:)();
@@ -2891,7 +2891,7 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
 
 uint64_t Calendar.RecurrenceRule.End.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation8CalendarV14RecurrenceRuleV3EndV10CodingKeysOGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation8CalendarV14RecurrenceRuleV3EndV10CodingKeysOGMd, &_ss22KeyedDecodingContainerVy10Foundation8CalendarV14RecurrenceRuleV3EndV10CodingKeysOGMR);
   v6 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v5);
   v8 = &v14 - v7;
@@ -2937,7 +2937,7 @@ uint64_t Calendar.RecurrenceRule.End.init(from:)@<X0>(void *a1@<X0>, uint64_t a2
 
 uint64_t Calendar.RecurrenceRule.End.encode(to:)(void *a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation8CalendarV14RecurrenceRuleV3EndV10CodingKeysOGMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation8CalendarV14RecurrenceRuleV3EndV10CodingKeysOGMd, &_ss22KeyedEncodingContainerVy10Foundation8CalendarV14RecurrenceRuleV3EndV10CodingKeysOGMR);
   v4 = *(v3 - 8);
   MEMORY[0x1EEE9AC00](v3);
   v6 = v10 - v5;
@@ -3030,12 +3030,12 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Calenda
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Calendar.RecurrenceRule.Weekday.CodingKeys()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Calendar.RecurrenceRule.Weekday.CodingKeys(uint64_t a1)
 {
   String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Calendar.RecurrenceRule.Weekday.CodingKeys()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Calendar.RecurrenceRule.Weekday.CodingKeys(uint64_t a1)
 {
   Hasher.init(_seed:)();
   String.hash(into:)();
@@ -3090,7 +3090,7 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
 
 uint64_t Calendar.RecurrenceRule.Weekday.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation8CalendarV14RecurrenceRuleV7WeekdayO10CodingKeysOGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation8CalendarV14RecurrenceRuleV7WeekdayO10CodingKeysOGMd, &_ss22KeyedDecodingContainerVy10Foundation8CalendarV14RecurrenceRuleV7WeekdayO10CodingKeysOGMR);
   v6 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v5);
   v8 = &v16 - v7;
@@ -3132,7 +3132,7 @@ uint64_t Calendar.RecurrenceRule.Weekday.init(from:)@<X0>(void *a1@<X0>, uint64_
 
 uint64_t Calendar.RecurrenceRule.Weekday.encode(to:)(void *a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation8CalendarV14RecurrenceRuleV7WeekdayO10CodingKeysOGMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation8CalendarV14RecurrenceRuleV7WeekdayO10CodingKeysOGMd, &_ss22KeyedEncodingContainerVy10Foundation8CalendarV14RecurrenceRuleV7WeekdayO10CodingKeysOGMR);
   v4 = *(v3 - 8);
   MEMORY[0x1EEE9AC00](v3);
   v6 = v11 - v5;
@@ -3229,12 +3229,12 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Calenda
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Calendar.RecurrenceRule.Month.CodingKeys()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Calendar.RecurrenceRule.Month.CodingKeys(uint64_t a1)
 {
   String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Calendar.RecurrenceRule.Month.CodingKeys()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Calendar.RecurrenceRule.Month.CodingKeys(uint64_t a1)
 {
   Hasher.init(_seed:)();
   String.hash(into:)();
@@ -3315,7 +3315,7 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
 
 uint64_t Calendar.RecurrenceRule.Month.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation8CalendarV14RecurrenceRuleV5MonthV10CodingKeysOGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation8CalendarV14RecurrenceRuleV5MonthV10CodingKeysOGMd, &_ss22KeyedDecodingContainerVy10Foundation8CalendarV14RecurrenceRuleV5MonthV10CodingKeysOGMR);
   v6 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v5);
   v8 = &v13[-1] - v7;
@@ -3349,20 +3349,20 @@ uint64_t Calendar.RecurrenceRule.Month.init(from:)@<X0>(void *a1@<X0>, uint64_t 
 
 uint64_t Calendar.RecurrenceRule.Month.encode(to:)(void *a1)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation8CalendarV14RecurrenceRuleV5MonthV10CodingKeysOGMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation8CalendarV14RecurrenceRuleV5MonthV10CodingKeysOGMd, &_ss22KeyedEncodingContainerVy10Foundation8CalendarV14RecurrenceRuleV5MonthV10CodingKeysOGMR);
   v5 = *(v4 - 8);
   MEMORY[0x1EEE9AC00](v4);
-  v7 = &v10[-v6 - 8];
+  v7 = &v10[-1] - v6;
   if (*(v1 + 8) == 1)
   {
     __swift_project_boxed_opaque_existential_1(a1, a1[3]);
     lazy protocol witness table accessor for type Calendar.RecurrenceRule.Month.CodingKeys and conformance Calendar.RecurrenceRule.Month.CodingKeys();
     dispatch thunk of Encoder.container<A>(keyedBy:)();
-    v10[0] = 0;
+    LOBYTE(v10[0]) = 0;
     KeyedEncodingContainer.encode(_:forKey:)();
     if (!v2)
     {
-      v10[0] = 1;
+      LOBYTE(v10[0]) = 1;
       KeyedEncodingContainer.encode(_:forKey:)();
     }
 
@@ -3373,7 +3373,7 @@ uint64_t Calendar.RecurrenceRule.Month.encode(to:)(void *a1)
   {
     __swift_project_boxed_opaque_existential_1(a1, a1[3]);
     dispatch thunk of Encoder.singleValueContainer()();
-    __swift_mutable_project_boxed_opaque_existential_1(v10, v11);
+    __swift_mutable_project_boxed_opaque_existential_1(v10, v10[3]);
     dispatch thunk of SingleValueEncodingContainer.encode(_:)();
     return __swift_destroy_boxed_opaque_existential_1(v10);
   }
@@ -3459,17 +3459,17 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Calenda
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Calendar.RecurrenceRule.CodingKeys()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Calendar.RecurrenceRule.CodingKeys(uint64_t a1)
 {
-  Calendar.RecurrenceRule.CodingKeys.rawValue.getter(*v0);
+  Calendar.RecurrenceRule.CodingKeys.rawValue.getter(*v1);
   String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Calendar.RecurrenceRule.CodingKeys()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Calendar.RecurrenceRule.CodingKeys(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  Calendar.RecurrenceRule.CodingKeys.rawValue.getter(v1);
+  Calendar.RecurrenceRule.CodingKeys.rawValue.getter(v2);
   String.hash(into:)();
 
   return Hasher._finalize()();
@@ -3513,7 +3513,7 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
 
 uint64_t Calendar.RecurrenceRule.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v68 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation8CalendarV14RecurrenceRuleV10CodingKeysOGMd);
+  v68 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation8CalendarV14RecurrenceRuleV10CodingKeysOGMd, &_ss22KeyedDecodingContainerVy10Foundation8CalendarV14RecurrenceRuleV10CodingKeysOGMR);
   v5 = *(v68 - 8);
   MEMORY[0x1EEE9AC00](v68);
   v7 = &v19 - v6;
@@ -3550,14 +3550,14 @@ uint64_t Calendar.RecurrenceRule.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8
   lazy protocol witness table accessor for type Calendar.RepeatedTimePolicy and conformance Calendar.RepeatedTimePolicy();
   KeyedDecodingContainer.decode<A>(_:forKey:)();
   v29 = v46;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay10Foundation8CalendarV14RecurrenceRuleV5MonthVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay10Foundation8CalendarV14RecurrenceRuleV5MonthVGMd, &_sSay10Foundation8CalendarV14RecurrenceRuleV5MonthVGMR);
   LOBYTE(v38) = 6;
-  lazy protocol witness table accessor for type [Calendar.RecurrenceRule.Month] and conformance <A> [A](&lazy protocol witness table cache variable for type [Calendar.RecurrenceRule.Month] and conformance <A> [A], lazy protocol witness table accessor for type Calendar.RecurrenceRule.Month and conformance Calendar.RecurrenceRule.Month);
+  lazy protocol witness table accessor for type [Calendar.RecurrenceRule.Month] and conformance <A> [A](&lazy protocol witness table cache variable for type [Calendar.RecurrenceRule.Month] and conformance <A> [A], lazy protocol witness table accessor for type Calendar.RecurrenceRule.Month and conformance Calendar.RecurrenceRule.Month, MEMORY[0x1E69E6330]);
   KeyedDecodingContainer.decode<A>(_:forKey:)();
   v28 = v46;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd, &_sSaySiGMR);
   LOBYTE(v38) = 7;
-  v26 = lazy protocol witness table accessor for type [Int] and conformance <A> [A](&lazy protocol witness table cache variable for type [Int] and conformance <A> [A]);
+  v26 = lazy protocol witness table accessor for type [Int] and conformance <A> [A](&lazy protocol witness table cache variable for type [Int] and conformance <A> [A], MEMORY[0x1E69E6560], MEMORY[0x1E69E6330]);
   v27 = v9;
   KeyedDecodingContainer.decode<A>(_:forKey:)();
   *(&v36 + 1) = v46;
@@ -3568,9 +3568,9 @@ uint64_t Calendar.RecurrenceRule.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8
   LOBYTE(v38) = 9;
   KeyedDecodingContainer.decode<A>(_:forKey:)();
   v35 = v46;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay10Foundation8CalendarV14RecurrenceRuleV7WeekdayOGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay10Foundation8CalendarV14RecurrenceRuleV7WeekdayOGMd, &_sSay10Foundation8CalendarV14RecurrenceRuleV7WeekdayOGMR);
   LOBYTE(v38) = 10;
-  lazy protocol witness table accessor for type [Calendar.RecurrenceRule.Weekday] and conformance <A> [A](&lazy protocol witness table cache variable for type [Calendar.RecurrenceRule.Weekday] and conformance <A> [A], lazy protocol witness table accessor for type Calendar.RecurrenceRule.Weekday and conformance Calendar.RecurrenceRule.Weekday);
+  lazy protocol witness table accessor for type [Calendar.RecurrenceRule.Weekday] and conformance <A> [A](&lazy protocol witness table cache variable for type [Calendar.RecurrenceRule.Weekday] and conformance <A> [A], lazy protocol witness table accessor for type Calendar.RecurrenceRule.Weekday and conformance Calendar.RecurrenceRule.Weekday, MEMORY[0x1E69E6330]);
   KeyedDecodingContainer.decode<A>(_:forKey:)();
   v24 = v46;
   LOBYTE(v38) = 13;
@@ -3648,7 +3648,7 @@ uint64_t Calendar.RecurrenceRule.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8
 
 uint64_t Calendar.RecurrenceRule.encode(to:)(void *a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation8CalendarV14RecurrenceRuleV10CodingKeysOGMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation8CalendarV14RecurrenceRuleV10CodingKeysOGMd, &_ss22KeyedEncodingContainerVy10Foundation8CalendarV14RecurrenceRuleV10CodingKeysOGMR);
   v4 = *(v3 - 8);
   MEMORY[0x1EEE9AC00](v3);
   v6 = &v19 - v5;
@@ -3714,13 +3714,13 @@ uint64_t Calendar.RecurrenceRule.encode(to:)(void *a1)
     KeyedEncodingContainer.encode<A>(_:forKey:)();
     *&v34 = v26;
     v36 = 6;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay10Foundation8CalendarV14RecurrenceRuleV5MonthVGMd);
-    lazy protocol witness table accessor for type [Calendar.RecurrenceRule.Month] and conformance <A> [A](&lazy protocol witness table cache variable for type [Calendar.RecurrenceRule.Month] and conformance <A> [A], lazy protocol witness table accessor for type Calendar.RecurrenceRule.Month and conformance Calendar.RecurrenceRule.Month);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay10Foundation8CalendarV14RecurrenceRuleV5MonthVGMd, &_sSay10Foundation8CalendarV14RecurrenceRuleV5MonthVGMR);
+    lazy protocol witness table accessor for type [Calendar.RecurrenceRule.Month] and conformance <A> [A](&lazy protocol witness table cache variable for type [Calendar.RecurrenceRule.Month] and conformance <A> [A], lazy protocol witness table accessor for type Calendar.RecurrenceRule.Month and conformance Calendar.RecurrenceRule.Month, MEMORY[0x1E69E6300]);
     KeyedEncodingContainer.encode<A>(_:forKey:)();
     *&v34 = v25;
     v36 = 7;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd);
-    lazy protocol witness table accessor for type [Int] and conformance <A> [A](&lazy protocol witness table cache variable for type [Int] and conformance <A> [A]);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd, &_sSaySiGMR);
+    lazy protocol witness table accessor for type [Int] and conformance <A> [A](&lazy protocol witness table cache variable for type [Int] and conformance <A> [A], MEMORY[0x1E69E6538], MEMORY[0x1E69E6300]);
     *&v32 = v3;
     KeyedEncodingContainer.encode<A>(_:forKey:)();
     *&v34 = v24;
@@ -3731,8 +3731,8 @@ uint64_t Calendar.RecurrenceRule.encode(to:)(void *a1)
     KeyedEncodingContainer.encode<A>(_:forKey:)();
     *&v34 = v23;
     v36 = 10;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay10Foundation8CalendarV14RecurrenceRuleV7WeekdayOGMd);
-    lazy protocol witness table accessor for type [Calendar.RecurrenceRule.Weekday] and conformance <A> [A](&lazy protocol witness table cache variable for type [Calendar.RecurrenceRule.Weekday] and conformance <A> [A], lazy protocol witness table accessor for type Calendar.RecurrenceRule.Weekday and conformance Calendar.RecurrenceRule.Weekday);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay10Foundation8CalendarV14RecurrenceRuleV7WeekdayOGMd, &_sSay10Foundation8CalendarV14RecurrenceRuleV7WeekdayOGMR);
+    lazy protocol witness table accessor for type [Calendar.RecurrenceRule.Weekday] and conformance <A> [A](&lazy protocol witness table cache variable for type [Calendar.RecurrenceRule.Weekday] and conformance <A> [A], lazy protocol witness table accessor for type Calendar.RecurrenceRule.Weekday and conformance Calendar.RecurrenceRule.Weekday, MEMORY[0x1E69E6300]);
     KeyedEncodingContainer.encode<A>(_:forKey:)();
     *&v34 = v22;
     v36 = 11;
@@ -3951,33 +3951,17 @@ Swift::Int Calendar.RecurrenceRule.End.hashValue.getter()
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Calendar.RecurrenceRule.End._End()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Calendar.RecurrenceRule.End._End(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = *(v0 + 8);
+  v2 = *v1;
+  v3 = *(v1 + 8);
   Hasher.init(_seed:)();
-  if (v2)
+  if (v3)
   {
-    if (v2 == 1)
+    if (v3 == 1)
     {
       MEMORY[0x1865CD060](2);
-      v3 = v1;
-    }
-
-    else
-    {
-      v3 = 0;
-    }
-
-    MEMORY[0x1865CD060](v3);
-  }
-
-  else
-  {
-    MEMORY[0x1865CD060](1);
-    if ((v1 & 0x7FFFFFFFFFFFFFFFLL) != 0)
-    {
-      v4 = v1;
+      v4 = v2;
     }
 
     else
@@ -3985,7 +3969,23 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Cal
       v4 = 0;
     }
 
-    MEMORY[0x1865CD090](v4);
+    MEMORY[0x1865CD060](v4);
+  }
+
+  else
+  {
+    MEMORY[0x1865CD060](1);
+    if ((v2 & 0x7FFFFFFFFFFFFFFFLL) != 0)
+    {
+      v5 = v2;
+    }
+
+    else
+    {
+      v5 = 0;
+    }
+
+    MEMORY[0x1865CD090](v5);
   }
 
   return Hasher._finalize()();
@@ -4025,23 +4025,23 @@ void protocol witness for Hashable.hash(into:) in conformance Calendar.Recurrenc
   Hasher._combine(_:)(v1);
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Calendar.RecurrenceRule.Month()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Calendar.RecurrenceRule.Month(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = *(v0 + 8);
+  v2 = *v1;
+  v3 = *(v1 + 8);
   Hasher.init(_seed:)();
-  MEMORY[0x1865CD060](v1);
-  Hasher._combine(_:)(v2);
+  MEMORY[0x1865CD060](v2);
+  Hasher._combine(_:)(v3);
   return Hasher._finalize()();
 }
 
-uint64_t Calendar.RecurrenceRule.Weekday.hash(into:)()
+uint64_t Calendar.RecurrenceRule.Weekday.hash(into:)(uint64_t a1)
 {
-  v1 = *v0;
-  if (v0[1] < 0)
+  v2 = *v1;
+  if (v1[1] < 0)
   {
     MEMORY[0x1865CD060](1);
-    MEMORY[0x1865CD060](v1);
+    MEMORY[0x1865CD060](v2);
   }
 
   else
@@ -4054,22 +4054,31 @@ uint64_t Calendar.RecurrenceRule.Weekday.hash(into:)()
 
 Swift::Int Calendar.RecurrenceRule.Weekday.hashValue.getter()
 {
+  v1 = *(v0 + 8);
+  v4 = *v0;
+  v5 = v1;
   Hasher.init(_seed:)();
-  Calendar.RecurrenceRule.Weekday.hash(into:)();
+  Calendar.RecurrenceRule.Weekday.hash(into:)(v3);
   return Hasher._finalize()();
 }
 
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance Calendar.RecurrenceRule.Weekday()
 {
+  v1 = *(v0 + 8);
+  v4 = *v0;
+  v5 = v1;
   Hasher.init(_seed:)();
-  Calendar.RecurrenceRule.Weekday.hash(into:)();
+  Calendar.RecurrenceRule.Weekday.hash(into:)(v3);
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Calendar.RecurrenceRule.Weekday()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Calendar.RecurrenceRule.Weekday(uint64_t a1)
 {
+  v2 = *(v1 + 8);
+  v5 = *v1;
+  v6 = v2;
   Hasher.init(_seed:)();
-  Calendar.RecurrenceRule.Weekday.hash(into:)();
+  Calendar.RecurrenceRule.Weekday.hash(into:)(v4);
   return Hasher._finalize()();
 }
 
@@ -4253,10 +4262,10 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Calenda
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Calendar.RecurrenceRule()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Calendar.RecurrenceRule(uint64_t a1)
 {
   Hasher.init(_seed:)();
-  Calendar.RecurrenceRule.hash(into:)(v1);
+  Calendar.RecurrenceRule.hash(into:)(v2);
   return Hasher._finalize()();
 }
 
@@ -4672,12 +4681,12 @@ unint64_t lazy protocol witness table accessor for type Calendar.RecurrenceRule.
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type [Calendar.RecurrenceRule.Weekday] and conformance <A> [A](unint64_t *a1, void (*a2)(void))
+uint64_t lazy protocol witness table accessor for type [Calendar.RecurrenceRule.Weekday] and conformance <A> [A](unint64_t *a1, void (*a2)(void), uint64_t a3)
 {
   result = *a1;
   if (!result)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay10Foundation8CalendarV14RecurrenceRuleV7WeekdayOGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay10Foundation8CalendarV14RecurrenceRuleV7WeekdayOGMd, &_sSay10Foundation8CalendarV14RecurrenceRuleV7WeekdayOGMR);
     a2();
     result = swift_getWitnessTable();
     atomic_store(result, a1);
@@ -4720,12 +4729,12 @@ unint64_t lazy protocol witness table accessor for type Calendar.RecurrenceRule.
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type [Calendar.RecurrenceRule.Month] and conformance <A> [A](unint64_t *a1, void (*a2)(void))
+uint64_t lazy protocol witness table accessor for type [Calendar.RecurrenceRule.Month] and conformance <A> [A](unint64_t *a1, void (*a2)(void), uint64_t a3)
 {
   result = *a1;
   if (!result)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay10Foundation8CalendarV14RecurrenceRuleV5MonthVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay10Foundation8CalendarV14RecurrenceRuleV5MonthVGMd, &_sSay10Foundation8CalendarV14RecurrenceRuleV5MonthVGMR);
     a2();
     result = swift_getWitnessTable();
     atomic_store(result, a1);
@@ -4734,12 +4743,12 @@ uint64_t lazy protocol witness table accessor for type [Calendar.RecurrenceRule.
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type [Int] and conformance <A> [A](unint64_t *a1)
+uint64_t lazy protocol witness table accessor for type [Int] and conformance <A> [A](unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   result = *a1;
   if (!result)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySiGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySiGMd, &_sSaySiGMR);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -5136,7 +5145,7 @@ unint64_t specialized Calendar.RecurrenceRule.CodingKeys.init(rawValue:)(Swift::
   }
 }
 
-uint64_t protocol witness for DataProtocol.regions.getter in conformance <A> ArraySlice<A>@<X0>(_OWORD *a1@<X8>)
+uint64_t protocol witness for DataProtocol.regions.getter in conformance <A> ArraySlice<A>@<X0>(__int128 *a1@<X8>)
 {
   v2 = v1[1];
   *a1 = *v1;
@@ -5155,7 +5164,7 @@ uint64_t Repeated<A>.regions.getter(uint64_t result, char a2)
     }
 
     v3 = result;
-    v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss15CollectionOfOneVys5UInt8VGMd);
+    v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss15CollectionOfOneVys5UInt8VGMd, &_ss15CollectionOfOneVys5UInt8VGMR);
     v7 = &protocol witness table for <A> CollectionOfOne<A>;
     LOBYTE(v5[0]) = a2;
     __src = *__swift_project_boxed_opaque_existential_1(v5, v6);
@@ -5178,28 +5187,28 @@ uint64_t protocol witness for DataProtocol.regions.getter in conformance <A> Rep
 
 uint64_t instantiation function for generic protocol witness table for <A> [A](uint64_t a1)
 {
-  result = lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type [UInt8] and conformance [A], &_sSays5UInt8VGMd);
+  result = lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type [UInt8] and conformance [A], &_sSays5UInt8VGMd, &_sSays5UInt8VGMR, MEMORY[0x1E69E6338]);
   *(a1 + 8) = result;
   return result;
 }
 
 uint64_t instantiation function for generic protocol witness table for <A> ArraySlice<A>(uint64_t a1)
 {
-  result = lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type ArraySlice<UInt8> and conformance ArraySlice<A>, &_ss10ArraySliceVys5UInt8VGMd);
+  result = lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type ArraySlice<UInt8> and conformance ArraySlice<A>, &_ss10ArraySliceVys5UInt8VGMd, &_ss10ArraySliceVys5UInt8VGMR, MEMORY[0x1E69E6970]);
   *(a1 + 8) = result;
   return result;
 }
 
 uint64_t instantiation function for generic protocol witness table for <A> ContiguousArray<A>(uint64_t a1)
 {
-  result = lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type ContiguousArray<UInt8> and conformance ContiguousArray<A>, &_ss15ContiguousArrayVys5UInt8VGMd);
+  result = lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type ContiguousArray<UInt8> and conformance ContiguousArray<A>, &_ss15ContiguousArrayVys5UInt8VGMd, &_ss15ContiguousArrayVys5UInt8VGMR, MEMORY[0x1E69E6C18]);
   *(a1 + 8) = result;
   return result;
 }
 
 uint64_t instantiation function for generic protocol witness table for <A> EmptyCollection<A>(uint64_t a1)
 {
-  result = lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type EmptyCollection<UInt8> and conformance EmptyCollection<A>, &_ss15EmptyCollectionVys5UInt8VGMd);
+  result = lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type EmptyCollection<UInt8> and conformance EmptyCollection<A>, &_ss15EmptyCollectionVys5UInt8VGMd, &_ss15EmptyCollectionVys5UInt8VGMR, MEMORY[0x1E69E6C50]);
   *(a1 + 8) = result;
   return result;
 }
@@ -5209,8 +5218,8 @@ unint64_t lazy protocol witness table accessor for type Slice<Repeated<UInt8>> a
   result = lazy protocol witness table cache variable for type Slice<Repeated<UInt8>> and conformance <> Slice<A>;
   if (!lazy protocol witness table cache variable for type Slice<Repeated<UInt8>> and conformance <> Slice<A>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_ss5SliceVys8RepeatedVys5UInt8VGGMd);
-    lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type Repeated<UInt8> and conformance <A> Repeated<A>, &_ss8RepeatedVys5UInt8VGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_ss5SliceVys8RepeatedVys5UInt8VGGMd, &_ss5SliceVys8RepeatedVys5UInt8VGGMR);
+    lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type Repeated<UInt8> and conformance <A> Repeated<A>, &_ss8RepeatedVys5UInt8VGMd, &_ss8RepeatedVys5UInt8VGMR, &protocol conformance descriptor for <A> Repeated<A>);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type Slice<Repeated<UInt8>> and conformance <> Slice<A>);
   }
@@ -5220,25 +5229,25 @@ unint64_t lazy protocol witness table accessor for type Slice<Repeated<UInt8>> a
 
 uint64_t instantiation function for generic protocol witness table for <A> Repeated<A>(uint64_t a1)
 {
-  result = lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type Repeated<UInt8> and conformance Repeated<A>, &_ss8RepeatedVys5UInt8VGMd);
+  result = lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type Repeated<UInt8> and conformance Repeated<A>, &_ss8RepeatedVys5UInt8VGMd, &_ss8RepeatedVys5UInt8VGMR, MEMORY[0x1E69E7C10]);
   *(a1 + 8) = result;
   return result;
 }
 
 uint64_t instantiation function for generic protocol witness table for <A> [A](void *a1)
 {
-  a1[1] = lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type [UInt8] and conformance <A> [A], &_sSays5UInt8VGMd);
-  a1[2] = lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type [UInt8] and conformance [A], &_sSays5UInt8VGMd);
-  result = lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type [UInt8] and conformance [A], &_sSays5UInt8VGMd);
+  a1[1] = lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type [UInt8] and conformance <A> [A], &_sSays5UInt8VGMd, &_sSays5UInt8VGMR, &protocol conformance descriptor for <A> [A]);
+  a1[2] = lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type [UInt8] and conformance [A], &_sSays5UInt8VGMd, &_sSays5UInt8VGMR, MEMORY[0x1E69E6318]);
+  result = lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type [UInt8] and conformance [A], &_sSays5UInt8VGMd, &_sSays5UInt8VGMR, MEMORY[0x1E69E6348]);
   a1[3] = result;
   return result;
 }
 
 uint64_t instantiation function for generic protocol witness table for <A> ContiguousArray<A>(void *a1)
 {
-  a1[1] = lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type ContiguousArray<UInt8> and conformance <A> ContiguousArray<A>, &_ss15ContiguousArrayVys5UInt8VGMd);
-  a1[2] = lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type ContiguousArray<UInt8> and conformance ContiguousArray<A>, &_ss15ContiguousArrayVys5UInt8VGMd);
-  result = lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type ContiguousArray<UInt8> and conformance ContiguousArray<A>, &_ss15ContiguousArrayVys5UInt8VGMd);
+  a1[1] = lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type ContiguousArray<UInt8> and conformance <A> ContiguousArray<A>, &_ss15ContiguousArrayVys5UInt8VGMd, &_ss15ContiguousArrayVys5UInt8VGMR, &protocol conformance descriptor for <A> ContiguousArray<A>);
+  a1[2] = lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type ContiguousArray<UInt8> and conformance ContiguousArray<A>, &_ss15ContiguousArrayVys5UInt8VGMd, &_ss15ContiguousArrayVys5UInt8VGMR, MEMORY[0x1E69E6C00]);
+  result = lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type ContiguousArray<UInt8> and conformance ContiguousArray<A>, &_ss15ContiguousArrayVys5UInt8VGMd, &_ss15ContiguousArrayVys5UInt8VGMR, MEMORY[0x1E69E6C28]);
   a1[3] = result;
   return result;
 }
@@ -5412,7 +5421,7 @@ LABEL_25:
     v16 = v27[v9];
 LABEL_28:
     v27[0] = v16;
-    v17 = a1(v27);
+    v17 = (a1)(v27, a2);
     if (v4 || (v17 & 1) != 0)
     {
       return v9;
@@ -5446,7 +5455,7 @@ LABEL_45:
   return 0;
 }
 
-void *specialized RangeReplaceableCollection.remove(at:)(void *result)
+uint64_t *specialized RangeReplaceableCollection.remove(at:)(uint64_t *result)
 {
   v2 = v1[1] >> 10;
   v3 = v1[5] >> 10;
@@ -5520,7 +5529,6 @@ LABEL_12:
   return result;
 }
 
-uint64_t *specialized RangeReplaceableCollection.remove(at:)(uint64_t *result)
 {
   v2 = v1[1] >> 10;
   v3 = v1[5] >> 10;
@@ -5840,7 +5848,7 @@ uint64_t specialized UnsafeMutableBufferPointer.initialize<A>(fromContentsOf:)(u
 
 void _s10Foundation4DataVyACxcSTRzs5UInt8V7ElementRtzlufCs10ArraySliceVyAEG_Tt0g5(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss10ArraySliceVys5UInt8VGMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss10ArraySliceVys5UInt8VGMd, &_ss10ArraySliceVys5UInt8VGMR);
   v16[3] = v8;
   v16[4] = &protocol witness table for <A> ArraySlice<A>;
   v9 = swift_allocObject();
@@ -5870,7 +5878,7 @@ void _s10Foundation4DataVyACxcSTRzs5UInt8V7ElementRtzlufCs10ArraySliceVyAEG_Tt0g
 
 unint64_t _s10Foundation4DataVyACxcSTRzs5UInt8V7ElementRtzlufCSryAEG_Tt0g5(uint64_t a1, uint64_t a2)
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSrys5UInt8VGMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSrys5UInt8VGMd, &_sSrys5UInt8VGMR);
   v10 = &protocol witness table for <A> UnsafeMutableBufferPointer<A>;
   v8[0] = a1;
   v8[1] = a2;
@@ -5981,7 +5989,7 @@ uint64_t static __DataStorage.vmOpsThreshold.getter()
   return static __DataStorage.vmOpsThreshold;
 }
 
-uint64_t key path getter for __DataStorage._deallocator : __DataStorage@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
+uint64_t key path getter for __DataStorage._deallocator : __DataStorage@<X0>(uint64_t a1@<X0>, uint64_t (**a2)()@<X8>)
 {
   v3 = *(*a1 + 48);
   v4 = *(*a1 + 56);
@@ -6025,11 +6033,12 @@ uint64_t key path setter for __DataStorage._deallocator : __DataStorage(uint64_t
 
   v7 = *a2;
   v8 = *(*a2 + 48);
+  v9 = *(v7 + 56);
   *(v7 + 48) = v6;
   *(v7 + 56) = v5;
   outlined copy of (@escaping @callee_guaranteed (@in_guaranteed URL, @guaranteed Error) -> (@unowned Bool))?(v3);
 
-  return outlined consume of (@escaping @callee_guaranteed (@in_guaranteed URL, @guaranteed Error) -> (@unowned Bool))?(v8);
+  return outlined consume of (@escaping @callee_guaranteed (@in_guaranteed URL, @guaranteed Error) -> (@unowned Bool))?(v8, v9);
 }
 
 uint64_t __DataStorage._deallocator.getter()
@@ -6042,19 +6051,20 @@ uint64_t __DataStorage._deallocator.getter()
 uint64_t __DataStorage._deallocator.setter(uint64_t a1, uint64_t a2)
 {
   v3 = *(v2 + 48);
+  v4 = *(v2 + 56);
   *(v2 + 48) = a1;
   *(v2 + 56) = a2;
-  return outlined consume of (@escaping @callee_guaranteed (@in_guaranteed URL, @guaranteed Error) -> (@unowned Bool))?(v3);
+  return outlined consume of (@escaping @callee_guaranteed (@in_guaranteed URL, @guaranteed Error) -> (@unowned Bool))?(v3, v4);
 }
 
-void specialized __DataStorage.withUnsafeBytes<A>(in:apply:)(uint64_t a1, uint64_t a2, void *a3)
+void specialized __DataStorage.withUnsafeBytes<A>(in:apply:)(_BYTE *result, uint64_t a2, void *a3)
 {
   v4 = a3[2];
   if (!v4)
   {
     v8 = 0;
-    v6 = __OFSUB__(a2, a1);
-    v9 = a2 - a1;
+    v6 = __OFSUB__(a2, result);
+    v9 = a2 - result;
     if (!v6)
     {
       goto LABEL_4;
@@ -6064,8 +6074,8 @@ void specialized __DataStorage.withUnsafeBytes<A>(in:apply:)(uint64_t a1, uint64
   }
 
   v5 = a3[5];
-  v6 = __OFSUB__(a1, v5);
-  v7 = a1 - v5;
+  v6 = __OFSUB__(result, v5);
+  v7 = &result[-v5];
   if (v6)
   {
 LABEL_13:
@@ -6073,9 +6083,9 @@ LABEL_13:
     return;
   }
 
-  v8 = (v7 + v4);
-  v6 = __OFSUB__(a2, a1);
-  v9 = a2 - a1;
+  v8 = &v7[v4];
+  v6 = __OFSUB__(a2, result);
+  v9 = a2 - result;
   if (v6)
   {
 LABEL_12:
@@ -6220,7 +6230,7 @@ uint64_t __DataStorage._copyWillRetain.setter(uint64_t result)
   return result;
 }
 
-_BYTE *(*__DataStorage._copyWillRetain.modify(uint64_t a1))(_BYTE *result)
+uint64_t (*__DataStorage._copyWillRetain.modify(uint64_t a1))()
 {
   *a1 = v1;
   *(a1 + 8) = *(v1 + 32) >= 0;
@@ -6255,10 +6265,11 @@ Swift::Void __swiftcall __DataStorage._freeBytes()()
     v3 = v1[6];
     if (v3)
     {
-      v4 = v1[3];
+      v4 = v1[7];
+      v5 = v1[3];
 
-      v3(v2, v4);
-      outlined consume of (@escaping @callee_guaranteed (@in_guaranteed URL, @guaranteed Error) -> (@unowned Bool))?(v3);
+      v3(v2, v5);
+      outlined consume of (@escaping @callee_guaranteed (@in_guaranteed URL, @guaranteed Error) -> (@unowned Bool))?(v3, v4);
     }
 
     else
@@ -6267,11 +6278,12 @@ Swift::Void __swiftcall __DataStorage._freeBytes()()
     }
   }
 
-  v5 = v1[6];
+  v6 = v1[6];
+  v7 = v1[7];
   v1[6] = 0;
   v1[7] = 0;
 
-  outlined consume of (@escaping @callee_guaranteed (@in_guaranteed URL, @guaranteed Error) -> (@unowned Bool))?(v5);
+  outlined consume of (@escaping @callee_guaranteed (@in_guaranteed URL, @guaranteed Error) -> (@unowned Bool))?(v6, v7);
 }
 
 uint64_t __DataStorage.enumerateBytes(in:_:)(uint64_t result, uint64_t a2, uint64_t (*a3)(void))
@@ -6367,7 +6379,7 @@ Swift::Void __swiftcall __DataStorage.set(_:to:)(Swift::Int _, Swift::UInt8 to)
   __break(1u);
 }
 
-uint64_t __DataStorage.__allocating_init(length:)(uint64_t a1)
+uint64_t __DataStorage.__allocating_init(length:)(Swift::Int a1)
 {
   v2 = swift_allocObject();
   __DataStorage.init(length:)(a1);
@@ -6455,7 +6467,7 @@ LABEL_10:
           if (!a1)
           {
 LABEL_19:
-            outlined consume of (@escaping @callee_guaranteed (@in_guaranteed URL, @guaranteed Error) -> (@unowned Bool))?(a4);
+            outlined consume of (@escaping @callee_guaranteed (@in_guaranteed URL, @guaranteed Error) -> (@unowned Bool))?(a4, a5);
             return v6;
           }
 
@@ -6543,10 +6555,11 @@ void *__DataStorage.deinit()
     v3 = v1[6];
     if (v3)
     {
-      v4 = v1[3];
+      v4 = v1[7];
+      v5 = v1[3];
 
-      v3(v2, v4);
-      outlined consume of (@escaping @callee_guaranteed (@in_guaranteed URL, @guaranteed Error) -> (@unowned Bool))?(v3);
+      v3(v2, v5);
+      outlined consume of (@escaping @callee_guaranteed (@in_guaranteed URL, @guaranteed Error) -> (@unowned Bool))?(v3, v4);
     }
 
     else
@@ -6555,11 +6568,12 @@ void *__DataStorage.deinit()
     }
   }
 
-  v5 = v1[6];
+  v6 = v1[6];
+  v7 = v1[7];
   v1[6] = 0;
   v1[7] = 0;
-  outlined consume of (@escaping @callee_guaranteed (@in_guaranteed URL, @guaranteed Error) -> (@unowned Bool))?(v5);
-  outlined consume of (@escaping @callee_guaranteed (@in_guaranteed URL, @guaranteed Error) -> (@unowned Bool))?(v1[6]);
+  outlined consume of (@escaping @callee_guaranteed (@in_guaranteed URL, @guaranteed Error) -> (@unowned Bool))?(v6, v7);
+  outlined consume of (@escaping @callee_guaranteed (@in_guaranteed URL, @guaranteed Error) -> (@unowned Bool))?(v1[6], v1[7]);
   return v1;
 }
 
@@ -6853,7 +6867,7 @@ LABEL_14:
   return result;
 }
 
-void Data.InlineData.count.setter(unint64_t a1)
+void Data.InlineData.count.setter(int64_t a1)
 {
   v2 = *(v1 + 14);
   if (a1 <= v2)
@@ -6880,7 +6894,7 @@ void Data.InlineData.count.setter(unint64_t a1)
   __break(1u);
 }
 
-void Data.InlineData.resetBytes(in:)(int64_t a1, unint64_t a2)
+void Data.InlineData.resetBytes(in:)(int64_t a1, int64_t a2)
 {
   v3 = *(v2 + 14);
   if (v3 < a1)
@@ -7145,7 +7159,7 @@ uint64_t Data.InlineSlice.init(capacity:)(uint64_t a1)
   return 0;
 }
 
-uint64_t Data.InlineSlice.init(count:)(uint64_t a1)
+Swift::Int Data.InlineSlice.init(count:)(Swift::Int a1)
 {
   type metadata accessor for __DataStorage();
   swift_allocObject();
@@ -7173,7 +7187,7 @@ LABEL_7:
   return result;
 }
 
-uint64_t Data.InlineSlice.init(_:)(uint64_t a1, unint64_t a2)
+unint64_t Data.InlineSlice.init(_:)(uint64_t a1, unint64_t a2)
 {
   v8 = *MEMORY[0x1E69E9840];
   v3 = BYTE6(a2);
@@ -7927,7 +7941,7 @@ uint64_t Data.LargeSlice.storage.setter(uint64_t a1)
   return result;
 }
 
-uint64_t Data.LargeSlice.init(_:count:)(uint64_t a1, uint64_t a2)
+uint64_t Data.LargeSlice.init(_:count:)(uint64_t result, uint64_t a2)
 {
   if (a2 < 0)
   {
@@ -7937,12 +7951,12 @@ uint64_t Data.LargeSlice.init(_:count:)(uint64_t a1, uint64_t a2)
   else
   {
     type metadata accessor for Data.RangeReference();
-    result = swift_allocObject();
-    *(result + 16) = 0;
-    *(result + 24) = a2;
+    v3 = swift_allocObject();
+    *(v3 + 16) = 0;
+    *(v3 + 24) = a2;
   }
 
-  return result;
+  return v3;
 }
 
 uint64_t Data.LargeSlice.init(capacity:)(uint64_t a1)
@@ -7957,7 +7971,7 @@ uint64_t Data.LargeSlice.init(capacity:)(uint64_t a1)
   return result;
 }
 
-uint64_t Data.LargeSlice.init(count:)(uint64_t a1)
+Swift::Int Data.LargeSlice.init(count:)(Swift::Int a1)
 {
   type metadata accessor for __DataStorage();
   swift_allocObject();
@@ -8948,7 +8962,7 @@ LABEL_11:
   return result;
 }
 
-uint64_t specialized Data._Representation.withUnsafeBytes<A>(_:)(uint64_t a1, unint64_t a2, char *a3, char *a4, char a5)
+uint64_t specialized Data._Representation.withUnsafeBytes<A>(_:)(uint64_t a1, unint64_t a2, __CFString *a3, char *a4, char a5)
 {
   v22[2] = *MEMORY[0x1E69E9840];
   v5 = a2 >> 62;
@@ -9113,7 +9127,7 @@ uint64_t _s10Foundation4DataV15_RepresentationO15withUnsafeBytesyxxSWKXEKlFyt_Tg
   return (a3)(v9, v5);
 }
 
-void specialized Data._Representation.withUnsafeBytes<A>(_:)(uint64_t a1, unint64_t a2, int a3, int64_t __n, uint64_t a5)
+void specialized Data._Representation.withUnsafeBytes<A>(_:)(uint64_t a1, unint64_t a2, int a3, uint64_t __n, uint64_t a5)
 {
   __src[2] = *MEMORY[0x1E69E9840];
   v5 = a2 >> 62;
@@ -9386,62 +9400,6 @@ LABEL_7:
   closure #1 in closure #1 in static Base64.encodeToData<A>(bytes:options:)(&v17, a3, a4, a5, &v16);
 }
 
-void specialized Data._Representation.withUnsafeMutableBytes<A>(_:)(uint64_t *a1, uint64_t a2)
-{
-  v12 = *MEMORY[0x1E69E9840];
-  v4 = *a1;
-  v5 = a1[1];
-  v6 = v5 >> 62;
-  if ((v5 >> 62) <= 1)
-  {
-    if (!v6)
-    {
-      outlined consume of Data._Representation(v4, v5);
-      LOWORD(v11) = v5;
-      BYTE2(v11) = BYTE2(v5);
-      BYTE3(v11) = BYTE3(v5);
-      BYTE4(v11) = BYTE4(v5);
-      BYTE5(v11) = BYTE5(v5);
-      *(a2 + 8) = &v10;
-      *(a2 + 16) = &v10 + BYTE6(v5);
-      v7 = v11 | ((WORD2(v11) | (BYTE6(v5) << 16)) << 32);
-      *a1 = v4;
-      a1[1] = v7;
-      return;
-    }
-
-    outlined consume of Data._Representation(v4, v5);
-    v10 = v4;
-    v11 = v5 & 0x3FFFFFFFFFFFFFFFLL;
-    *a1 = xmmword_181234410;
-    outlined consume of Data._Representation(0, 0xC000000000000000);
-    specialized Data.InlineSlice.withUnsafeMutableBytes<A>(_:)(&v10, a2);
-    v8 = v10;
-    v9 = v11 | 0x4000000000000000;
-    goto LABEL_7;
-  }
-
-  if (v6 == 2)
-  {
-
-    outlined consume of Data._Representation(v4, v5);
-    v10 = v4;
-    v11 = v5 & 0x3FFFFFFFFFFFFFFFLL;
-    *a1 = xmmword_181234410;
-    outlined consume of Data._Representation(0, 0xC000000000000000);
-    specialized Data.LargeSlice.withUnsafeMutableBytes<A>(_:)(&v10, a2);
-    v8 = v10;
-    v9 = v11 | 0x8000000000000000;
-LABEL_7:
-    *a1 = v8;
-    a1[1] = v9;
-    return;
-  }
-
-  *(a2 + 8) = &v10;
-  *(a2 + 16) = &v10;
-}
-
 void (*Data._Representation.subscript.modify(uint64_t a1, uint64_t a2))(uint64_t a1)
 {
   *a1 = a2;
@@ -9533,7 +9491,7 @@ uint64_t Data._representation.setter(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t Data.init<A>(buffer:)(uint64_t result, uint64_t a2, uint64_t a3)
+unint64_t Data.init<A>(buffer:)(unint64_t result, uint64_t a2, uint64_t a3)
 {
   if (result)
   {
@@ -9584,21 +9542,21 @@ uint64_t Data.init<A>(buffer:)(uint64_t result, uint64_t a2, uint64_t a3)
   return result;
 }
 
-uint64_t closure #3 in Data.init<A>(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X8>)
+uint64_t closure #3 in Data.init<A>(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t a5@<X8>)
 {
-  v7 = *(a3 - 8);
+  v8 = *(a3 - 8);
   MEMORY[0x1EEE9AC00](a1);
-  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  if (v8)
+  v12 = v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  if (v9)
   {
-    v14[1] = v9 - v8;
+    v15[1] = v10 - v9;
   }
 
   swift_getAssociatedTypeWitness();
-  v12 = *(swift_getTupleTypeMetadata2() + 48);
-  (*(v7 + 16))(v11, a2, a3);
+  v13 = *(swift_getTupleTypeMetadata2() + 48);
+  (*(v8 + 16))(v12, a2, a3);
   result = dispatch thunk of Sequence._copyContents(initializing:)();
-  *(a4 + v12) = result;
+  *(a5 + v13) = result;
   return result;
 }
 
@@ -9737,7 +9695,7 @@ uint64_t Data.count.modify(uint64_t *a1, char a2)
   return result;
 }
 
-uint64_t Data.withUnsafeBytes<A, B>(_:)(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t (*Data.withUnsafeBytes<A, B>(_:)(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6))(void)
 {
   v7[2] = a5;
   v7[3] = a6;
@@ -9746,7 +9704,7 @@ uint64_t Data.withUnsafeBytes<A, B>(_:)(uint64_t a1, uint64_t a2, uint64_t a3, u
   return Data._Representation.withUnsafeBytes<A>(_:)(partial apply for closure #1 in Data.withUnsafeBytes<A, B>(_:), v7, a3, a4);
 }
 
-double specialized Data.withContiguousStorageIfAvailable<A>(_:)@<D0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+double specialized Data.withContiguousStorageIfAvailable<A>(_:)@<D0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X8>, uint64_t a4@<X2>)
 {
   v20[2] = *MEMORY[0x1E69E9840];
   v4 = a2 >> 62;
@@ -9821,7 +9779,7 @@ LABEL_25:
     BYTE5(v20[1]) = v5;
     v7 = v20;
 LABEL_20:
-    _s10Foundation6Base64O6decode4data7optionsAA4DataVSgAH_So06NSDataB15DecodingOptionsVtAC0H5ErrorOYKFZs6ResultOyAhMGSRys5UInt8VGXEfU_(v7, v6, a3, a4);
+    _s10Foundation6Base64O6decode4data7optionsAA4DataVSgAH_So06NSDataB15DecodingOptionsVtAC0H5ErrorOYKFZs6ResultOyAhMGSRys5UInt8VGXEfU_(v7, v6, a4, a3);
     return result;
   }
 
@@ -9864,76 +9822,75 @@ LABEL_27:
 
 LABEL_22:
   result = 0.0;
-  *a4 = xmmword_181234410;
-  *(a4 + 16) = 0;
+  *a3 = xmmword_181234410;
+  *(a3 + 16) = 0;
   return result;
 }
 
-double specialized Data.withContiguousStorageIfAvailable<A>(_:)@<D0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, _OWORD *a5@<X8>)
+void specialized Data.withContiguousStorageIfAvailable<A>(_:)(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, _OWORD *a5@<X8>)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v5 = a2 >> 62;
   if ((a2 >> 62) > 1)
   {
     if (v5 != 2)
     {
-      memset(v31, 0, 14);
-      *&v32[0] = _s10Foundation4DataV15_RepresentationO5countAESi_tcfC_0(a3);
-      v32[1] = v30;
-      specialized Data._Representation.withUnsafeMutableBytes<A>(_:)(v32, a3, v31, 0, a4);
-      result = v32[0];
-      *a5 = *v32;
-      return result;
+      memset(v30, 0, 14);
+      v31[0] = _s10Foundation4DataV15_RepresentationO5countAESi_tcfC_0(a3);
+      v31[1] = v29;
+      specialized Data._Representation.withUnsafeMutableBytes<A>(_:)(v31, a3, v30, 0, a4);
+      *a5 = *v31;
+      return;
     }
 
-    v12 = *(a1 + 16);
-    v13 = *(a1 + 24);
-    v14 = *((a2 & 0x3FFFFFFFFFFFFFFFLL) + 0x10);
-    if (v14)
+    v11 = *(a1 + 16);
+    v12 = *(a1 + 24);
+    v13 = *((a2 & 0x3FFFFFFFFFFFFFFFLL) + 0x10);
+    if (v13)
     {
-      v15 = *((a2 & 0x3FFFFFFFFFFFFFFFLL) + 0x28);
-      v16 = __OFSUB__(v12, v15);
-      v17 = v12 - v15;
-      if (v16)
+      v14 = *((a2 & 0x3FFFFFFFFFFFFFFFLL) + 0x28);
+      v15 = __OFSUB__(v11, v14);
+      v16 = v11 - v14;
+      if (v15)
       {
 LABEL_28:
         __break(1u);
         goto LABEL_29;
       }
 
-      v18 = v17 + v14;
-      v16 = __OFSUB__(v13, v12);
-      v19 = v13 - v12;
-      if (!v16)
+      v17 = v16 + v13;
+      v15 = __OFSUB__(v12, v11);
+      v18 = v12 - v11;
+      if (!v15)
       {
 LABEL_8:
-        v20 = *((a2 & 0x3FFFFFFFFFFFFFFFLL) + 0x18);
-        if (v20 >= v19)
+        v19 = *((a2 & 0x3FFFFFFFFFFFFFFFLL) + 0x18);
+        if (v19 >= v18)
         {
-          v20 = v19;
+          v19 = v18;
         }
 
-        v21 = v20 + v18;
-        if (v18)
+        v20 = v19 + v17;
+        if (v17)
         {
-          v22 = v21;
+          v21 = v20;
         }
 
         else
         {
-          v22 = 0;
+          v21 = 0;
         }
 
-        return specialized closure #1 in Data.withContiguousStorageIfAvailable<A>(_:)(v18, v22, a3, a4, a5);
+        goto LABEL_22;
       }
     }
 
     else
     {
-      v18 = 0;
-      v16 = __OFSUB__(v13, v12);
-      v19 = v13 - v12;
-      if (!v16)
+      v17 = 0;
+      v15 = __OFSUB__(v12, v11);
+      v18 = v12 - v11;
+      if (!v15)
       {
         goto LABEL_8;
       }
@@ -9947,55 +9904,55 @@ LABEL_27:
 
   if (!v5)
   {
-    v31[0] = a1;
-    LOWORD(v31[1]) = a2;
-    BYTE2(v31[1]) = BYTE2(a2);
-    BYTE3(v31[1]) = BYTE3(a2);
-    BYTE4(v31[1]) = BYTE4(a2);
+    v30[0] = a1;
+    LOWORD(v30[1]) = a2;
+    BYTE2(v30[1]) = BYTE2(a2);
+    BYTE3(v30[1]) = BYTE3(a2);
+    BYTE4(v30[1]) = BYTE4(a2);
     v6 = BYTE6(a2);
-    BYTE5(v31[1]) = BYTE5(a2);
-    *&v32[0] = _s10Foundation4DataV15_RepresentationO5countAESi_tcfC_0(a3);
-    v32[1] = v10;
-    specialized Data._Representation.withUnsafeMutableBytes<A>(_:)(v32, a3, v31, v6, a4);
-    result = v32[0];
-    *a5 = *v32;
-    return result;
+    BYTE5(v30[1]) = BYTE5(a2);
+    v31[0] = _s10Foundation4DataV15_RepresentationO5countAESi_tcfC_0(a3);
+    v31[1] = v10;
+    specialized Data._Representation.withUnsafeMutableBytes<A>(_:)(v31, a3, v30, v6, a4);
+    *a5 = *v31;
+    return;
   }
 
-  v23 = (a1 >> 32) - a1;
+  v22 = (a1 >> 32) - a1;
   if (a1 >> 32 < a1)
   {
     goto LABEL_27;
   }
 
-  v24 = *((a2 & 0x3FFFFFFFFFFFFFFFLL) + 0x10);
-  if (!v24)
+  v23 = *((a2 & 0x3FFFFFFFFFFFFFFFLL) + 0x10);
+  if (!v23)
   {
 LABEL_21:
-    v18 = 0;
-    v22 = 0;
-    return specialized closure #1 in Data.withContiguousStorageIfAvailable<A>(_:)(v18, v22, a3, a4, a5);
+    v17 = 0;
+    v21 = 0;
+    goto LABEL_22;
   }
 
-  v25 = *((a2 & 0x3FFFFFFFFFFFFFFFLL) + 0x28);
-  v26 = a1 - v25;
-  if (__OFSUB__(a1, v25))
+  v24 = *((a2 & 0x3FFFFFFFFFFFFFFFLL) + 0x28);
+  v25 = a1 - v24;
+  if (__OFSUB__(a1, v24))
   {
 LABEL_29:
     __break(1u);
   }
 
-  if (*((a2 & 0x3FFFFFFFFFFFFFFFLL) + 0x18) < v23)
+  if (*((a2 & 0x3FFFFFFFFFFFFFFFLL) + 0x18) < v22)
   {
-    v23 = *((a2 & 0x3FFFFFFFFFFFFFFFLL) + 0x18);
+    v22 = *((a2 & 0x3FFFFFFFFFFFFFFFLL) + 0x18);
   }
 
-  v18 = v26 + v24;
-  if (!(v26 + v24))
+  v17 = v25 + v23;
+  if (!(v25 + v23))
   {
     goto LABEL_21;
   }
 
-  v22 = v23 + v18;
-  return specialized closure #1 in Data.withContiguousStorageIfAvailable<A>(_:)(v18, v22, a3, a4, a5);
+  v21 = v22 + v17;
+LABEL_22:
+  specialized closure #1 in Data.withContiguousStorageIfAvailable<A>(_:)(v17, v21, a3, a4, a5);
 }

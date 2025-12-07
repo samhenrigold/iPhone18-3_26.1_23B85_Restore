@@ -123,9 +123,9 @@ LABEL_17:
 
 - (id)description
 {
-  v14.receiver = self;
-  v14.super_class = AVTCoreModelColorVariation;
-  v3 = [(AVTCoreModelColorVariation *)&v14 description];
+  v16.receiver = self;
+  v16.super_class = AVTCoreModelColorVariation;
+  v3 = [(AVTCoreModelColorVariation *)&v16 description];
   v4 = [v3 mutableCopy];
 
   colorPreset = [(AVTCoreModelColorVariation *)self colorPreset];
@@ -133,18 +133,19 @@ LABEL_17:
   [v4 appendFormat:@" name: %@", name];
 
   color = [(AVTCoreModelColorVariation *)self color];
-  v8 = AVTAvatarSettingKindDescription([color settingKind]);
-  [v4 appendFormat:@" settingKind: %@", v8];
+  settingKind = [color settingKind];
+  v10 = AVTAvatarSettingKindDescription(settingKind, v9);
+  [v4 appendFormat:@" settingKind: %@", v10];
 
-  v9 = MEMORY[0x1E696AD98];
+  v11 = MEMORY[0x1E696AD98];
   colorPreset2 = [(AVTCoreModelColorVariation *)self colorPreset];
   [colorPreset2 variation];
-  v11 = [v9 numberWithFloat:?];
-  [v4 appendFormat:@" variation: %@", v11];
+  v13 = [v11 numberWithFloat:?];
+  [v4 appendFormat:@" variation: %@", v13];
 
-  v12 = [v4 copy];
+  v14 = [v4 copy];
 
-  return v12;
+  return v14;
 }
 
 @end

@@ -18,7 +18,7 @@
 
 - (void)mergeFrom:(id)from
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   embeddingTensor = self->_embeddingTensor;
   v6 = *(fromCopy + 5);
@@ -98,29 +98,29 @@ LABEL_15:
     [(SIRINLUINTERNALEMBEDDINGEmbeddingResponse *)self setSentenceEmbeddingTensor:?];
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v12 = *(fromCopy + 6);
-  v13 = [v12 countByEnumeratingWithState:&v29 objects:v34 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v28 objects:v33 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v30;
+    v15 = *v29;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v30 != v15)
+        if (*v29 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        [(SIRINLUINTERNALEMBEDDINGEmbeddingResponse *)self addEmbeddingTensorOutputs:*(*(&v29 + 1) + 8 * i)];
+        [(SIRINLUINTERNALEMBEDDINGEmbeddingResponse *)self addEmbeddingTensorOutputs:*(*(&v28 + 1) + 8 * i)];
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v29 objects:v34 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v28 objects:v33 count:16];
     }
 
     while (v14);
@@ -147,35 +147,33 @@ LABEL_15:
     *&self->_has |= 4u;
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v19 = *(fromCopy + 8);
-  v20 = [v19 countByEnumeratingWithState:&v25 objects:v33 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v24 objects:v32 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v26;
+    v22 = *v25;
     do
     {
       for (j = 0; j != v21; ++j)
       {
-        if (*v26 != v22)
+        if (*v25 != v22)
         {
           objc_enumerationMutation(v19);
         }
 
-        [(SIRINLUINTERNALEMBEDDINGEmbeddingResponse *)self addSubwordEmbeddingTensorOutputs:*(*(&v25 + 1) + 8 * j), v25];
+        [(SIRINLUINTERNALEMBEDDINGEmbeddingResponse *)self addSubwordEmbeddingTensorOutputs:*(*(&v24 + 1) + 8 * j), v24];
       }
 
-      v21 = [v19 countByEnumeratingWithState:&v25 objects:v33 count:16];
+      v21 = [v19 countByEnumeratingWithState:&v24 objects:v32 count:16];
     }
 
     while (v21);
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)hash
@@ -260,7 +258,6 @@ LABEL_8:
     }
   }
 
-  v7 = *(equalCopy + 88);
   if ((*&self->_has & 8) != 0)
   {
     if ((*(equalCopy + 88) & 8) == 0 || self->_numToken != *(equalCopy + 4))
@@ -272,7 +269,7 @@ LABEL_8:
   else if ((*(equalCopy + 88) & 8) != 0)
   {
 LABEL_34:
-    v13 = 0;
+    v11 = 0;
     goto LABEL_35;
   }
 
@@ -326,7 +323,6 @@ LABEL_34:
     }
   }
 
-  v11 = *(equalCopy + 88);
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 88) & 4) == 0 || self->_numSubwordToken != *(equalCopy + 3))
@@ -343,22 +339,22 @@ LABEL_34:
   subwordEmbeddingTensorOutputs = self->_subwordEmbeddingTensorOutputs;
   if (subwordEmbeddingTensorOutputs | *(equalCopy + 8))
   {
-    v13 = [(NSMutableArray *)subwordEmbeddingTensorOutputs isEqual:?];
+    v11 = [(NSMutableArray *)subwordEmbeddingTensorOutputs isEqual:?];
   }
 
   else
   {
-    v13 = 1;
+    v11 = 1;
   }
 
 LABEL_35:
 
-  return v13;
+  return v11;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(SIRINLUINTERNALNLv4EmbeddingTensor *)self->_embeddingTensor copyWithZone:zone];
   v7 = *(v5 + 40);
@@ -405,30 +401,30 @@ LABEL_5:
   v12 = *(v5 + 56);
   *(v5 + 56) = v11;
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   v13 = self->_embeddingTensorOutputs;
-  v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v33 objects:v38 count:16];
+  v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v32 objects:v37 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v34;
+    v16 = *v33;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v34 != v16)
+        if (*v33 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = [*(*(&v33 + 1) + 8 * i) copyWithZone:zone];
+        v18 = [*(*(&v32 + 1) + 8 * i) copyWithZone:zone];
         [v5 addEmbeddingTensorOutputs:v18];
       }
 
-      v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v33 objects:v38 count:16];
+      v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v32 objects:v37 count:16];
     }
 
     while (v15);
@@ -444,36 +440,35 @@ LABEL_5:
     *(v5 + 88) |= 4u;
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v21 = self->_subwordEmbeddingTensorOutputs;
-  v22 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v29 objects:v37 count:16];
+  v22 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v28 objects:v36 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v30;
+    v24 = *v29;
     do
     {
       for (j = 0; j != v23; ++j)
       {
-        if (*v30 != v24)
+        if (*v29 != v24)
         {
           objc_enumerationMutation(v21);
         }
 
-        v26 = [*(*(&v29 + 1) + 8 * j) copyWithZone:{zone, v29}];
+        v26 = [*(*(&v28 + 1) + 8 * j) copyWithZone:{zone, v28}];
         [v5 addSubwordEmbeddingTensorOutputs:v26];
       }
 
-      v23 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v29 objects:v37 count:16];
+      v23 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v28 objects:v36 count:16];
     }
 
     while (v23);
   }
 
-  v27 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -575,7 +570,7 @@ LABEL_9:
 
 - (void)writeTo:(id)to
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (self->_embeddingTensor)
   {
@@ -590,7 +585,6 @@ LABEL_9:
   has = self->_has;
   if ((has & 8) != 0)
   {
-    numToken = self->_numToken;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -610,12 +604,10 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  numLayer = self->_numLayer;
   PBDataWriterWriteUint64Field();
   if (*&self->_has)
   {
 LABEL_8:
-    embeddingDim = self->_embeddingDim;
     PBDataWriterWriteUint64Field();
   }
 
@@ -625,33 +617,32 @@ LABEL_9:
     PBDataWriterWriteSubmessage();
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
-  v28 = 0u;
-  v7 = self->_embeddingTensorOutputs;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v27 objects:v32 count:16];
-  if (v8)
+  v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v6 = self->_embeddingTensorOutputs;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v20 objects:v25 count:16];
+  if (v7)
   {
-    v9 = v8;
-    v10 = *v28;
+    v8 = v7;
+    v9 = *v21;
     do
     {
-      for (i = 0; i != v9; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v28 != v10)
+        if (*v21 != v9)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v27 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
-    while (v9);
+    while (v8);
   }
 
   if (self->_subwordTokenChain)
@@ -661,45 +652,41 @@ LABEL_9:
 
   if ((*&self->_has & 4) != 0)
   {
-    numSubwordToken = self->_numSubwordToken;
     PBDataWriterWriteUint64Field();
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v14 = self->_subwordEmbeddingTensorOutputs;
-  v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v23 objects:v31 count:16];
-  if (v15)
+  v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v11 = self->_subwordEmbeddingTensorOutputs;
+  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v16 objects:v24 count:16];
+  if (v12)
   {
-    v16 = v15;
-    v17 = *v24;
+    v13 = v12;
+    v14 = *v17;
     do
     {
-      for (j = 0; j != v16; ++j)
+      for (j = 0; j != v13; ++j)
       {
-        if (*v24 != v17)
+        if (*v17 != v14)
         {
-          objc_enumerationMutation(v14);
+          objc_enumerationMutation(v11);
         }
 
-        v19 = *(*(&v23 + 1) + 8 * j);
         PBDataWriterWriteSubmessage();
       }
 
-      v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v23 objects:v31 count:16];
+      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v16 objects:v24 count:16];
     }
 
-    while (v16);
+    while (v13);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (id)dictionaryRepresentation
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   embeddingTensor = self->_embeddingTensor;
   if (embeddingTensor)
@@ -718,8 +705,8 @@ LABEL_9:
   has = self->_has;
   if ((has & 8) != 0)
   {
-    v31 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->_numToken];
-    [dictionary setObject:v31 forKey:@"num_token"];
+    v30 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->_numToken];
+    [dictionary setObject:v30 forKey:@"num_token"];
 
     has = self->_has;
     if ((has & 2) == 0)
@@ -739,8 +726,8 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v32 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->_numLayer];
-  [dictionary setObject:v32 forKey:@"num_layer"];
+  v31 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->_numLayer];
+  [dictionary setObject:v31 forKey:@"num_layer"];
 
   if (*&self->_has)
   {
@@ -760,30 +747,30 @@ LABEL_9:
   if ([(NSMutableArray *)self->_embeddingTensorOutputs count])
   {
     v12 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](self->_embeddingTensorOutputs, "count")}];
+    v36 = 0u;
     v37 = 0u;
     v38 = 0u;
     v39 = 0u;
-    v40 = 0u;
     v13 = self->_embeddingTensorOutputs;
-    v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v37 objects:v42 count:16];
+    v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v36 objects:v41 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v38;
+      v16 = *v37;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v38 != v16)
+          if (*v37 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          dictionaryRepresentation4 = [*(*(&v37 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation4 = [*(*(&v36 + 1) + 8 * i) dictionaryRepresentation];
           [v12 addObject:dictionaryRepresentation4];
         }
 
-        v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v37 objects:v42 count:16];
+        v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v36 objects:v41 count:16];
       }
 
       while (v15);
@@ -808,30 +795,30 @@ LABEL_9:
   if ([(NSMutableArray *)self->_subwordEmbeddingTensorOutputs count])
   {
     v22 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](self->_subwordEmbeddingTensorOutputs, "count")}];
+    v32 = 0u;
     v33 = 0u;
     v34 = 0u;
     v35 = 0u;
-    v36 = 0u;
     v23 = self->_subwordEmbeddingTensorOutputs;
-    v24 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v33 objects:v41 count:16];
+    v24 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v32 objects:v40 count:16];
     if (v24)
     {
       v25 = v24;
-      v26 = *v34;
+      v26 = *v33;
       do
       {
         for (j = 0; j != v25; ++j)
         {
-          if (*v34 != v26)
+          if (*v33 != v26)
           {
             objc_enumerationMutation(v23);
           }
 
-          dictionaryRepresentation6 = [*(*(&v33 + 1) + 8 * j) dictionaryRepresentation];
+          dictionaryRepresentation6 = [*(*(&v32 + 1) + 8 * j) dictionaryRepresentation];
           [v22 addObject:dictionaryRepresentation6];
         }
 
-        v25 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v33 objects:v41 count:16];
+        v25 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v32 objects:v40 count:16];
       }
 
       while (v25);
@@ -839,8 +826,6 @@ LABEL_9:
 
     [dictionary setObject:v22 forKey:@"subword_embedding_tensor_outputs"];
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }

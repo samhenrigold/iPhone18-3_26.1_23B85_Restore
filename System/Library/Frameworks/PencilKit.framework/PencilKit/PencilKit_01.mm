@@ -1,39 +1,6 @@
-uint64_t sub_1C7CE44D0()
-{
-
-  return MEMORY[0x1EEE6BDD0](v0, 32, 7);
-}
-
-uint64_t sub_1C7CE4510()
-{
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVy9PencilKit27RecognitionSearchControllerC0E6ResultV_GMd);
-  v2 = *(v1 - 8);
-  v3 = *(v2 + 80);
-  v4 = (v3 + 48) & ~v3;
-  v5 = *(v2 + 64);
-  swift_unknownObjectRelease();
-
-  (*(v2 + 8))(v0 + v4, v1);
-
-  return MEMORY[0x1EEE6BDD0](v0, v4 + v5, v3 | 7);
-}
-
-uint64_t sub_1C7CE45F0()
-{
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd);
-  v2 = *(v1 - 8);
-  v3 = *(v2 + 80);
-  v4 = (v3 + 24) & ~v3;
-  v5 = *(v2 + 64);
-
-  (*(v2 + 8))(v0 + v4, v1);
-
-  return MEMORY[0x1EEE6BDD0](v0, v4 + v5, v3 | 7);
-}
-
 uint64_t sub_1C7CE46C0()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd, &_sScCyyts5NeverOGMR);
   v2 = *(v1 - 8);
   v3 = *(v2 + 80);
   v4 = (v3 + 32) & ~v3;
@@ -113,7 +80,7 @@ id sub_1C7CE4AD8@<X0>(id *a1@<X0>, void *a2@<X8>)
   return result;
 }
 
-uint64_t get_enum_tag_for_layout_string_So22PKToolPickerCustomItemCSo7UIImageCIeggo_Sg_0(uint64_t *a1)
+uint64_t get_enum_tag_for_layout_string_So22PKToolPickerCustomItemCSo7UIImageCIeggo_Sg_0(unint64_t *a1)
 {
   v1 = *a1;
   if (*a1 >= 0xFFFFFFFF)
@@ -193,7 +160,7 @@ double sub_1C7CE4EEC(double *a1, uint64_t a2)
 
 uint64_t sub_1C7CE4EF8@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
 {
-  result = type metadata accessor for InkFunction();
+  result = type metadata accessor for InkFunction(0);
   *a2 = *(a1 + *(result + 44));
   return result;
 }
@@ -201,14 +168,14 @@ uint64_t sub_1C7CE4EF8@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
 uint64_t sub_1C7CE4F30(char *a1, uint64_t a2)
 {
   v3 = *a1;
-  result = type metadata accessor for InkFunction();
+  result = type metadata accessor for InkFunction(0);
   *(a2 + *(result + 44)) = v3;
   return result;
 }
 
 uint64_t sub_1C7CE4F64@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
 {
-  result = type metadata accessor for InkFunction();
+  result = type metadata accessor for InkFunction(0);
   *a2 = *(a1 + *(result + 48));
   return result;
 }
@@ -216,7 +183,7 @@ uint64_t sub_1C7CE4F64@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
 uint64_t sub_1C7CE4F9C(char *a1, uint64_t a2)
 {
   v3 = *a1;
-  result = type metadata accessor for InkFunction();
+  result = type metadata accessor for InkFunction(0);
   *(a2 + *(result + 48)) = v3;
   return result;
 }
@@ -293,7 +260,7 @@ uint64_t sub_1C7CE5228()
 
 uint64_t sub_1C7CE52A0()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySay9PencilKit8PKStrokeVGs5NeverOGMd);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySay9PencilKit8PKStrokeVGs5NeverOGMd, &_sScCySay9PencilKit8PKStrokeVGs5NeverOGMR);
   v2 = *(v1 - 8);
   v3 = *(v2 + 80);
   v4 = (v3 + 24) & ~v3;
@@ -304,7 +271,7 @@ uint64_t sub_1C7CE52A0()
   return MEMORY[0x1EEE6BDD0](v0, v4 + v5, v3 | 7);
 }
 
-uint64_t outlined consume of (@escaping @callee_guaranteed (@guaranteed [PKStroke], @guaranteed [PKStroke]) -> ())?(uint64_t result)
+uint64_t outlined consume of (@escaping @callee_guaranteed (@guaranteed [PKStroke], @guaranteed [PKStroke]) -> ())?(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -602,12 +569,12 @@ uint64_t protocol witness for static _ObjectiveCBridgeable._conditionallyBridgeF
   return v3 & 1;
 }
 
-uint64_t protocol witness for static _ObjectiveCBridgeable._unconditionallyBridgeFromObjectiveC(_:) in conformance CIImageOption@<X0>(uint64_t *a1@<X8>)
+uint64_t protocol witness for static _ObjectiveCBridgeable._unconditionallyBridgeFromObjectiveC(_:) in conformance CIImageOption@<X0>(uint64_t *a2@<X8>)
 {
-  v2 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v3 = MEMORY[0x1CCA6CE70](v2);
+  v3 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v4 = MEMORY[0x1CCA6CE70](v3);
 
-  *a1 = v3;
+  *a2 = v4;
   return result;
 }
 
@@ -619,7 +586,7 @@ uint64_t protocol witness for Hashable.hashValue.getter in conformance CIImageOp
   return v1;
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance CIImageOption()
+uint64_t protocol witness for Hashable.hash(into:) in conformance CIImageOption(uint64_t a1)
 {
   static String._unconditionallyBridgeFromObjectiveC(_:)();
   String.hash(into:)();
@@ -643,33 +610,33 @@ uint64_t protocol witness for ExpressibleByArrayLiteral.init(arrayLiteral:) in c
   return result;
 }
 
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance CIImageOption()
+uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance CIImageOption(void *a1, uint64_t *a2)
 {
-  v0 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v2 = v1;
-  if (v0 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v2 == v3)
+  v2 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v4 = v3;
+  if (v2 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v4 == v5)
   {
-    v5 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v5 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v7 = _stringCompareWithSmolCheck(_:_:expecting:)();
   }
 
-  return v5 & 1;
+  return v7 & 1;
 }
 
 uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance CIImageOption(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type CIImageOption and conformance CIImageOption(&lazy protocol witness table cache variable for type CIImageOption and conformance CIImageOption, type metadata accessor for CIImageOption);
-  v3 = lazy protocol witness table accessor for type CIImageOption and conformance CIImageOption(&lazy protocol witness table cache variable for type CIImageOption and conformance CIImageOption, type metadata accessor for CIImageOption);
+  v2 = lazy protocol witness table accessor for type CIImageOption and conformance CIImageOption(&lazy protocol witness table cache variable for type CIImageOption and conformance CIImageOption, type metadata accessor for CIImageOption, &protocol conformance descriptor for CIImageOption);
+  v3 = lazy protocol witness table accessor for type CIImageOption and conformance CIImageOption(&lazy protocol witness table cache variable for type CIImageOption and conformance CIImageOption, type metadata accessor for CIImageOption, &protocol conformance descriptor for CIImageOption);
   v4 = MEMORY[0x1E69E6168];
 
   return MEMORY[0x1EEE6ABA0](a1, v2, v3, v4);
 }
 
-uint64_t lazy protocol witness table accessor for type CIImageOption and conformance CIImageOption(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type CIImageOption and conformance CIImageOption(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -704,8 +671,8 @@ uint64_t protocol witness for RawRepresentable.init(rawValue:) in conformance CI
 
 uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance CIContextOption(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type CIImageOption and conformance CIImageOption(&lazy protocol witness table cache variable for type CIContextOption and conformance CIContextOption, type metadata accessor for CIContextOption);
-  v3 = lazy protocol witness table accessor for type CIImageOption and conformance CIImageOption(&lazy protocol witness table cache variable for type CIContextOption and conformance CIContextOption, type metadata accessor for CIContextOption);
+  v2 = lazy protocol witness table accessor for type CIImageOption and conformance CIImageOption(&lazy protocol witness table cache variable for type CIContextOption and conformance CIContextOption, type metadata accessor for CIContextOption, &protocol conformance descriptor for CIContextOption);
+  v3 = lazy protocol witness table accessor for type CIImageOption and conformance CIImageOption(&lazy protocol witness table cache variable for type CIContextOption and conformance CIContextOption, type metadata accessor for CIContextOption, &protocol conformance descriptor for CIContextOption);
   v4 = MEMORY[0x1E69E6168];
 
   return MEMORY[0x1EEE6ABA0](a1, v2, v3, v4);
@@ -853,60 +820,60 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance PKC
   return Hasher._finalize()();
 }
 
-void PKCustomTool.init(customIdentifier:configuration:color:weight:)(void *a1@<X3>, double a2@<X4>, char a3@<W5>, void *a4@<X8>)
+void PKCustomTool.init(customIdentifier:configuration:color:weight:)(void *a3@<X3>, double a4@<X4>, char a5@<W5>, void *a6@<X8>)
 {
-  v8 = MEMORY[0x1CCA6CE70]();
+  v10 = MEMORY[0x1CCA6CE70]();
 
   swift_unknownObjectRetain();
   objc_opt_self();
-  v9 = swift_dynamicCastObjCClass();
-  if (!v9)
+  v11 = swift_dynamicCastObjCClass();
+  if (!v11)
   {
-    v11 = 0;
+    v13 = 0;
     goto LABEL_6;
   }
 
-  v10 = v9;
-  if (([v9 supportsStrokeWeight] & 1) == 0 && (a3 & 1) == 0)
+  v12 = v11;
+  if (([v11 supportsStrokeWeight] & 1) == 0 && (a5 & 1) == 0)
   {
-    v11 = 1;
+    v13 = 1;
 LABEL_6:
-    swift_unknownObjectRelease();
-    lazy protocol witness table accessor for type PKCustomTool.ParameterError and conformance PKCustomTool.ParameterError();
+    v14 = swift_unknownObjectRelease();
+    lazy protocol witness table accessor for type PKCustomTool.ParameterError and conformance PKCustomTool.ParameterError(v14, v15, v16);
     swift_allocError();
-    *v12 = v11;
+    *v17 = v13;
     swift_willThrow();
 
     swift_unknownObjectRelease();
     return;
   }
 
-  if ([v10 supportsStrokeWeight])
+  if ([v12 supportsStrokeWeight])
   {
-    if (a3)
+    if (a5)
     {
-      v11 = 2;
+      v13 = 2;
       goto LABEL_6;
     }
 
     goto LABEL_11;
   }
 
-  v13 = 0.0;
-  if ((a3 & 1) == 0)
+  v18 = 0.0;
+  if ((a5 & 1) == 0)
   {
 LABEL_11:
-    v13 = a2;
+    v18 = a4;
   }
 
-  v14 = [objc_allocWithZone(PKCustomTool) initWithCustomIdentifier:v8 configuration:v10 color:a1 weight:v13];
+  v19 = [objc_allocWithZone(PKCustomTool) initWithCustomIdentifier:v10 configuration:v12 color:a3 weight:v18];
 
   swift_unknownObjectRelease_n();
-  *a4 = v14;
-  a4[1] = 0;
+  *a6 = v19;
+  a6[1] = 0;
 }
 
-unint64_t lazy protocol witness table accessor for type PKCustomTool.ParameterError and conformance PKCustomTool.ParameterError()
+unint64_t lazy protocol witness table accessor for type PKCustomTool.ParameterError and conformance PKCustomTool.ParameterError(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type PKCustomTool.ParameterError and conformance PKCustomTool.ParameterError;
   if (!lazy protocol witness table cache variable for type PKCustomTool.ParameterError and conformance PKCustomTool.ParameterError)
@@ -947,35 +914,35 @@ void key path getter for PKCustomTool.customIdentifier : PKCustomTool(id *a1@<X0
   a2[1] = v6;
 }
 
-void PKCustomTool.customIdentifier.setter()
+void PKCustomTool.customIdentifier.setter(uint64_t a1, uint64_t a2)
 {
-  v1 = MEMORY[0x1CCA6CE70]();
+  v3 = MEMORY[0x1CCA6CE70](a1);
 
-  v2 = *(v0 + 8);
-  if (v2 || (v2 = [*v0 customConfigurationCopy], (*(v0 + 8) = v2) != 0))
+  v4 = *(v2 + 8);
+  if (v4 || (v4 = [*v2 customConfigurationCopy], (*(v2 + 8) = v4) != 0))
   {
-    if ([v2 supportsColor])
+    if ([v4 supportsColor])
     {
-      v3 = [*v0 color];
+      v5 = [*v2 color];
     }
 
     else
     {
-      v3 = 0;
+      v5 = 0;
     }
 
-    v4 = 0.0;
-    if ([v2 supportsStrokeWeight])
+    v6 = 0.0;
+    if ([v4 supportsStrokeWeight])
     {
-      [*v0 weight];
-      v4 = v5;
+      [*v2 weight];
+      v6 = v7;
     }
 
-    v6 = objc_allocWithZone(PKCustomTool);
-    v7 = v2;
-    v8 = [v6 initWithCustomIdentifier:v1 configuration:v7 color:v3 weight:v4];
+    v8 = objc_allocWithZone(PKCustomTool);
+    v9 = v4;
+    v10 = [v8 initWithCustomIdentifier:v3 configuration:v9 color:v5 weight:v6];
 
-    *v0 = v8;
+    *v2 = v10;
   }
 
   else
@@ -984,7 +951,7 @@ void PKCustomTool.customIdentifier.setter()
   }
 }
 
-void (*PKCustomTool.customIdentifier.modify(uint64_t *a1))(uint64_t a1, char a2)
+void (*PKCustomTool.customIdentifier.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   a1[2] = v1;
   v3 = [*v1 customIdentifier];
@@ -996,17 +963,19 @@ void (*PKCustomTool.customIdentifier.modify(uint64_t *a1))(uint64_t a1, char a2)
   return PKCustomTool.customIdentifier.modify;
 }
 
-void PKCustomTool.customIdentifier.modify(uint64_t a1, char a2)
+void PKCustomTool.customIdentifier.modify(uint64_t *a1, char a2)
 {
+  v3 = *a1;
+  v2 = a1[1];
   if (a2)
   {
 
-    PKCustomTool.customIdentifier.setter();
+    PKCustomTool.customIdentifier.setter(v3, v2);
   }
 
   else
   {
-    PKCustomTool.customIdentifier.setter();
+    PKCustomTool.customIdentifier.setter(*a1, v2);
   }
 }
 
@@ -1102,18 +1071,18 @@ void (*PKCustomTool.weight.modify(void *a1))(double *a1)
   return PKCustomTool.weight.modify;
 }
 
-uint64_t specialized static PKCustomTool.== infix(_:_:)(uint64_t a1, uint64_t a2)
+uint64_t specialized static PKCustomTool.== infix(_:_:)(uint64_t *a1, uint64_t *a2)
 {
-  v2 = *(a1 + 8);
-  v3 = *(a2 + 8);
-  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSObject);
+  v2 = a1[1];
+  v3 = a2[1];
+  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSObject, 0x1E69E58C0);
   if (static NSObject.== infix(_:_:)())
   {
     if (v2)
     {
       if (v3)
       {
-        type metadata accessor for NSObject(0, &lazy cache variable for type metadata for PKToolConfiguration);
+        type metadata accessor for NSObject(0, &lazy cache variable for type metadata for PKToolConfiguration, off_1E82D4D60);
         v4 = v3;
         v5 = v2;
         v6 = static NSObject.== infix(_:_:)();
@@ -1642,7 +1611,7 @@ LABEL_9:
 
 uint64_t _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   MEMORY[0x1EEE9AC00](v9 - 8);
   v11 = v25 - v10;
   outlined init with copy of TaskPriority?(a3, v25 - v10);
@@ -1730,7 +1699,7 @@ LABEL_6:
 
 uint64_t _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCytSg_Tt2g5(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   MEMORY[0x1EEE9AC00](v9 - 8);
   v11 = v25 - v10;
   outlined init with copy of TaskPriority?(a3, v25 - v10);
@@ -1766,7 +1735,7 @@ LABEL_6:
       *(v20 + 16) = a4;
       *(v20 + 24) = a5;
 
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sytSgMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sytSgMd, &_sytSgMR);
       v21 = (v18 | v16);
       if (v18 | v16)
       {
@@ -1802,7 +1771,7 @@ LABEL_6:
   v24 = swift_allocObject();
   *(v24 + 16) = a4;
   *(v24 + 24) = a5;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sytSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sytSgMd, &_sytSgMR);
   if (v18 | v16)
   {
     v26[4] = 0;
@@ -1814,9 +1783,9 @@ LABEL_6:
   return swift_task_create();
 }
 
-void CanvasDataDetectorInteraction.wantsDataDetection.setter(char a1)
+void CanvasDataDetectorInteraction.wantsDataDetection.setter(uint64_t result)
 {
-  *(v1 + 40) = a1;
+  *(v1 + 40) = result;
   if (*(v1 + 24))
   {
     [(PKDataDetectorInteractionHelper *)*(v1 + 24) setWantsDataDetection:?];
@@ -1984,7 +1953,7 @@ void CanvasDataDetectorInteraction.forceProofreadingDetectionDisabled.modify(uin
 
 uint64_t key path setter for CanvasDataDetectorInteraction.shouldHideItems : CanvasDataDetectorInteraction(char *a1, uint64_t *a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   MEMORY[0x1EEE9AC00](v4 - 8);
   v6 = &v14 - v5;
   v7 = *a1;
@@ -2007,7 +1976,7 @@ uint64_t key path setter for CanvasDataDetectorInteraction.shouldHideItems : Can
 uint64_t CanvasDataDetectorInteraction.shouldHideItems.setter(char a1)
 {
   v2 = v1;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   MEMORY[0x1EEE9AC00](v4 - 8);
   v6 = &v12 - v5;
   swift_beginAccess();
@@ -2025,7 +1994,7 @@ uint64_t CanvasDataDetectorInteraction.shouldHideItems.setter(char a1)
   _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(0, 0, v6, &async function pointer to partial apply for closure #1 in CanvasDataDetectorInteraction.setNeedsLayout(), v9);
 }
 
-void (*CanvasDataDetectorInteraction.shouldHideItems.modify(uint64_t *a1))(void **a1, char a2)
+uint64_t (*CanvasDataDetectorInteraction.shouldHideItems.modify(uint64_t *a1))()
 {
   v3 = MEMORY[0x1E69E7D08];
   if (MEMORY[0x1E69E7D08])
@@ -2041,7 +2010,7 @@ void (*CanvasDataDetectorInteraction.shouldHideItems.modify(uint64_t *a1))(void 
   v5 = v4;
   *a1 = v4;
   *(v4 + 24) = v1;
-  v6 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd) - 8) + 64);
+  v6 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR) - 8) + 64);
   if (v3)
   {
     v7 = swift_coroFrameAlloc();
@@ -2070,7 +2039,7 @@ __n128 CanvasDataDetectorInteraction.drawingTransform.getter@<Q0>(uint64_t a1@<X
 
 uint64_t key path setter for CanvasDataDetectorInteraction.drawingTransform : CanvasDataDetectorInteraction(uint64_t a1, uint64_t *a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   MEMORY[0x1EEE9AC00](v4 - 8);
   v6 = &v16 - v5;
   v7 = *(a1 + 32);
@@ -2098,7 +2067,7 @@ uint64_t key path setter for CanvasDataDetectorInteraction.drawingTransform : Ca
 uint64_t CanvasDataDetectorInteraction.drawingTransform.setter(_OWORD *a1)
 {
   v2 = v1;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   MEMORY[0x1EEE9AC00](v4 - 8);
   v6 = &v13 - v5;
   swift_beginAccess();
@@ -2119,7 +2088,7 @@ uint64_t CanvasDataDetectorInteraction.drawingTransform.setter(_OWORD *a1)
   _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(0, 0, v6, &closure #1 in CanvasDataDetectorInteraction.setNeedsLayout()partial apply, v10);
 }
 
-void (*CanvasDataDetectorInteraction.drawingTransform.modify(uint64_t *a1))(void **a1, char a2)
+uint64_t (*CanvasDataDetectorInteraction.drawingTransform.modify(uint64_t *a1))()
 {
   v3 = MEMORY[0x1E69E7D08];
   if (MEMORY[0x1E69E7D08])
@@ -2135,7 +2104,7 @@ void (*CanvasDataDetectorInteraction.drawingTransform.modify(uint64_t *a1))(void
   v5 = v4;
   *a1 = v4;
   *(v4 + 24) = v1;
-  v6 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd) - 8) + 64);
+  v6 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR) - 8) + 64);
   if (v3)
   {
     v7 = swift_coroFrameAlloc();
@@ -2151,7 +2120,7 @@ void (*CanvasDataDetectorInteraction.drawingTransform.modify(uint64_t *a1))(void
   return CanvasDataDetectorInteraction.drawingTransform.modify;
 }
 
-void CanvasDataDetectorInteraction.shouldHideItems.modify(void **a1, char a2, uint64_t a3, uint64_t a4)
+void CanvasDataDetectorInteraction.shouldHideItems.modify(void *a1, char a2, uint64_t a3, uint64_t a4)
 {
   v6 = *a1;
   swift_endAccess();
@@ -2177,7 +2146,7 @@ void CanvasDataDetectorInteraction.shouldHideItems.modify(void **a1, char a2, ui
   free(v6);
 }
 
-uint64_t key path getter for CanvasDataDetectorInteraction.replaceStrokesClosure : CanvasDataDetectorInteraction@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+uint64_t key path getter for CanvasDataDetectorInteraction.replaceStrokesClosure : CanvasDataDetectorInteraction@<X0>(uint64_t *a1@<X0>, uint64_t (**a2)()@<X8>)
 {
   v3 = *a1;
   swift_beginAccess();
@@ -2199,7 +2168,7 @@ uint64_t key path getter for CanvasDataDetectorInteraction.replaceStrokesClosure
 
   *a2 = v7;
   a2[1] = v6;
-  return outlined copy of (@escaping @callee_guaranteed @async (@guaranteed [PKStroke], @guaranteed [PKStroke]) -> ())?(v4);
+  return outlined copy of (@escaping @callee_guaranteed @async (@guaranteed [PKStroke], @guaranteed [PKStroke]) -> ())?(v4, v5);
 }
 
 uint64_t key path setter for CanvasDataDetectorInteraction.replaceStrokesClosure : CanvasDataDetectorInteraction(uint64_t *a1, uint64_t *a2)
@@ -2223,17 +2192,18 @@ uint64_t key path setter for CanvasDataDetectorInteraction.replaceStrokesClosure
   v7 = *a2;
   swift_beginAccess();
   v8 = *(v7 + 112);
+  v9 = *(v7 + 120);
   *(v7 + 112) = v6;
   *(v7 + 120) = v5;
-  outlined copy of (@escaping @callee_guaranteed @async (@guaranteed [PKStroke], @guaranteed [PKStroke]) -> ())?(v3);
-  return outlined consume of (@escaping @callee_guaranteed (@guaranteed [PKStroke], @guaranteed [PKStroke]) -> ())?(v8);
+  outlined copy of (@escaping @callee_guaranteed @async (@guaranteed [PKStroke], @guaranteed [PKStroke]) -> ())?(v3, v4);
+  return outlined consume of (@escaping @callee_guaranteed (@guaranteed [PKStroke], @guaranteed [PKStroke]) -> ())?(v8, v9);
 }
 
 uint64_t CanvasDataDetectorInteraction.replaceStrokesClosure.getter()
 {
   swift_beginAccess();
   v1 = *(v0 + 112);
-  outlined copy of (@escaping @callee_guaranteed @async (@guaranteed [PKStroke], @guaranteed [PKStroke]) -> ())?(v1);
+  outlined copy of (@escaping @callee_guaranteed @async (@guaranteed [PKStroke], @guaranteed [PKStroke]) -> ())?(v1, *(v0 + 120));
   return v1;
 }
 
@@ -2241,9 +2211,10 @@ uint64_t CanvasDataDetectorInteraction.replaceStrokesClosure.setter(uint64_t a1,
 {
   swift_beginAccess();
   v5 = *(v2 + 112);
+  v6 = *(v2 + 120);
   *(v2 + 112) = a1;
   *(v2 + 120) = a2;
-  return outlined consume of (@escaping @callee_guaranteed (@guaranteed [PKStroke], @guaranteed [PKStroke]) -> ())?(v5);
+  return outlined consume of (@escaping @callee_guaranteed (@guaranteed [PKStroke], @guaranteed [PKStroke]) -> ())?(v5, v6);
 }
 
 uint64_t closure #1 in CanvasDataDetectorInteraction.setupHelper(view:parentView:)(uint64_t a1, uint64_t a2)
@@ -2256,7 +2227,7 @@ uint64_t closure #1 in CanvasDataDetectorInteraction.setupHelper(view:parentView
   v8 = *(v7 - 8);
   MEMORY[0x1EEE9AC00](v7);
   v10 = aBlock - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for OS_dispatch_queue);
+  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for OS_dispatch_queue, 0x1E69E9610);
   v11 = static OS_dispatch_queue.main.getter();
   aBlock[4] = partial apply for closure #1 in closure #1 in CanvasDataDetectorInteraction.setupHelper(view:parentView:);
   aBlock[5] = a2;
@@ -2269,7 +2240,7 @@ uint64_t closure #1 in CanvasDataDetectorInteraction.setupHelper(view:parentView
   static DispatchQoS.unspecified.getter();
   aBlock[0] = MEMORY[0x1E69E7CC0];
   lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
   lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A]();
   dispatch thunk of SetAlgebra.init<A>(_:)();
   MEMORY[0x1CCA6D110](0, v10, v6, v12);
@@ -2279,49 +2250,49 @@ uint64_t closure #1 in CanvasDataDetectorInteraction.setupHelper(view:parentView
   return (*(v8 + 8))(v10, v7);
 }
 
-uint64_t closure #1 in closure #1 in CanvasDataDetectorInteraction.setupHelper(view:parentView:)()
+uint64_t closure #1 in closure #1 in CanvasDataDetectorInteraction.setupHelper(view:parentView:)(uint64_t a1)
 {
   swift_beginAccess();
   result = swift_weakLoadStrong();
   if (result)
   {
-    v1 = result;
+    v2 = result;
     if ([objc_opt_self() proofreadingEnabled])
     {
       swift_beginAccess();
-      v2 = *(v1 + 41) ^ 1;
-      v3 = *(v1 + 24);
-      if (!v3)
+      v3 = *(v2 + 41) ^ 1;
+      v4 = *(v2 + 24);
+      if (!v4)
       {
       }
     }
 
     else
     {
-      v2 = 0;
-      v3 = *(v1 + 24);
-      if (!v3)
+      v3 = 0;
+      v4 = *(v2 + 24);
+      if (!v4)
       {
       }
     }
 
-    v4 = v3;
-    [(PKDataDetectorInteractionHelper *)v4 setWantsProofreadingDetection:?];
+    v5 = v4;
+    [(PKDataDetectorInteractionHelper *)v5 setWantsProofreadingDetection:?];
   }
 
   return result;
 }
 
-void closure #2 in CanvasDataDetectorInteraction.setupHelper(view:parentView:)(uint64_t a1, uint64_t a2, unint64_t *a3, uint64_t a4, void (*a5)(void *, Class))
+void closure #2 in CanvasDataDetectorInteraction.setupHelper(view:parentView:)(uint64_t a1, uint64_t a2, unint64_t *a3, void *a4, void (*a5)(void *, Class))
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v8 = Strong;
-    type metadata accessor for NSObject(0, a3);
+    v9 = Strong;
+    type metadata accessor for NSObject(0, a3, a4);
     isa = Array._bridgeToObjectiveC()().super.isa;
-    a5(v8, isa);
+    a5(v9, isa);
   }
 }
 
@@ -2367,14 +2338,14 @@ uint64_t closure #1 in CanvasDataDetectorInteraction.setNeedsLayout()()
 uint64_t CanvasDataDetectorInteraction.deinit()
 {
 
-  outlined consume of (@escaping @callee_guaranteed (@guaranteed [PKStroke], @guaranteed [PKStroke]) -> ())?(*(v0 + 112));
+  outlined consume of (@escaping @callee_guaranteed (@guaranteed [PKStroke], @guaranteed [PKStroke]) -> ())?(*(v0 + 112), *(v0 + 120));
   return v0;
 }
 
 uint64_t CanvasDataDetectorInteraction.__deallocating_deinit()
 {
 
-  outlined consume of (@escaping @callee_guaranteed (@guaranteed [PKStroke], @guaranteed [PKStroke]) -> ())?(*(v0 + 112));
+  outlined consume of (@escaping @callee_guaranteed (@guaranteed [PKStroke], @guaranteed [PKStroke]) -> ())?(*(v0 + 112), *(v0 + 120));
 
   return MEMORY[0x1EEE6BDC0](v0, 128, 7);
 }
@@ -2421,7 +2392,7 @@ uint64_t _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRytSg_TG5TQ0_()
 uint64_t specialized CanvasDataDetectorInteraction.init(strokeProvider:view:)(uint64_t a1, void *a2)
 {
   v3 = v2;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   MEMORY[0x1EEE9AC00](v6 - 8);
   v8 = &v15 - v7;
   *(v3 + 24) = 0;
@@ -2453,7 +2424,7 @@ uint64_t specialized CanvasDataDetectorInteraction.init(strokeProvider:view:)(ui
   return v3;
 }
 
-uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1)
+uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -2502,7 +2473,7 @@ uint64_t closure #1 in CanvasDataDetectorInteraction.setNeedsLayout()partial app
 
 uint64_t specialized DataDetectorHelperDelegate.dataDetectorInteractionHelperNeedsLayout(_:)()
 {
-  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   MEMORY[0x1EEE9AC00](v0 - 8);
   v2 = &v9 - v1;
   result = swift_weakLoadStrong();
@@ -2535,10 +2506,11 @@ uint64_t specialized DataDetectorHelperDelegate.dataDetectorInteractionHelper(_:
     v6 = *(v5 + 112);
     if (v6)
     {
+      v7 = *(v5 + 120);
 
       v6(a1, a2);
 
-      return outlined consume of (@escaping @callee_guaranteed (@guaranteed [PKStroke], @guaranteed [PKStroke]) -> ())?(v6);
+      return outlined consume of (@escaping @callee_guaranteed (@guaranteed [PKStroke], @guaranteed [PKStroke]) -> ())?(v6, v7);
     }
 
     else
@@ -2566,14 +2538,14 @@ uint64_t objectdestroyTm()
 
 uint64_t outlined init with copy of TaskPriority?(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
 uint64_t outlined destroy of TaskPriority?(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -2650,7 +2622,7 @@ unint64_t lazy protocol witness table accessor for type [DispatchWorkItemFlags] 
   result = lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A];
   if (!lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A])
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A]);
   }
@@ -2658,7 +2630,7 @@ unint64_t lazy protocol witness table accessor for type [DispatchWorkItemFlags] 
   return result;
 }
 
-uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1)
+uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -3264,7 +3236,7 @@ id static PKStroke._unconditionallyBridgeFromObjectiveC(_:)@<X0>(void *a1@<X0>, 
 
   else
   {
-    result = _assertionFailure(_:_:file:line:flags:)();
+    result = _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0, 0xE000000000000000, "PencilKit/PKStroke.swift", 24, 2, 154, 0);
     __break(1u);
   }
 
@@ -3296,7 +3268,7 @@ id protocol witness for static _ObjectiveCBridgeable._unconditionallyBridgeFromO
 
   else
   {
-    result = _assertionFailure(_:_:file:line:flags:)();
+    result = _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0, 0xE000000000000000, "PencilKit/PKStroke.swift", 24, 2, 154, 0);
     __break(1u);
   }
 
@@ -3316,9 +3288,58 @@ unint64_t type metadata accessor for PKFloatRange()
   return result;
 }
 
-size_t specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(size_t a1, int64_t a2, char a3)
+char *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(char *a1, uint64_t a2, uint64_t a3)
+{
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCySNy12CoreGraphics7CGFloatVGGMd, &_ss23_ContiguousArrayStorageCySNy12CoreGraphics7CGFloatVGGMR);
+  *v3 = result;
+  return result;
+}
+
+{
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCy9PencilKit8PKStrokeVGMd, &_ss23_ContiguousArrayStorageCy9PencilKit8PKStrokeVGMR, &type metadata for PKStroke);
+  *v3 = result;
+  return result;
+}
+
+{
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCy9PencilKit13PKStrokePointVGMd, &_ss23_ContiguousArrayStorageCy9PencilKit13PKStrokePointVGMR, &type metadata for PKStrokePoint);
+  *v3 = result;
+  return result;
+}
+
+{
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
+  *v3 = result;
+  return result;
+}
+
+{
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCySo7CGPointVGMd, &_ss23_ContiguousArrayStorageCySo7CGPointVGMR);
+  *v3 = result;
+  return result;
+}
+
+{
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
+  *v3 = result;
+  return result;
+}
+
+{
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
+  *v3 = result;
+  return result;
+}
+
+void *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(void *a1, uint64_t a2, uint64_t a3)
 {
   result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCy9PencilKit28PKLongPressGestureRecognizerC0G13StartLocationVGMd, &_ss23_ContiguousArrayStorageCy9PencilKit28PKLongPressGestureRecognizerC0G13StartLocationVGMR, type metadata accessor for PKLongPressGestureRecognizer.PressStartLocation);
+  *v3 = result;
+  return result;
+}
+
+{
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
   *v3 = result;
   return result;
 }
@@ -3329,79 +3350,72 @@ size_t specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapaci
   return result;
 }
 
-void *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(void *a1, int64_t a2, char a3)
+char *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(char *result, int64_t a2, char a3, char *a4, uint64_t *a5, uint64_t *a6, uint64_t a7)
 {
-  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
-  *v3 = result;
-  return result;
-}
-
-char *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(char *result, int64_t a2, char a3, char *a4, uint64_t *a5)
-{
-  v6 = result;
+  v8 = result;
   if (a3)
   {
-    v7 = *(a4 + 3);
-    v8 = v7 >> 1;
-    if ((v7 >> 1) < a2)
+    v9 = *(a4 + 3);
+    v10 = v9 >> 1;
+    if ((v9 >> 1) < a2)
     {
-      if (v8 + 0x4000000000000000 < 0)
+      if (v10 + 0x4000000000000000 < 0)
       {
         __break(1u);
         return result;
       }
 
-      v8 = v7 & 0xFFFFFFFFFFFFFFFELL;
-      if ((v7 & 0xFFFFFFFFFFFFFFFELL) <= a2)
+      v10 = v9 & 0xFFFFFFFFFFFFFFFELL;
+      if ((v9 & 0xFFFFFFFFFFFFFFFELL) <= a2)
       {
-        v8 = a2;
+        v10 = a2;
       }
     }
   }
 
   else
   {
-    v8 = a2;
+    v10 = a2;
   }
 
-  v9 = *(a4 + 2);
-  if (v8 <= v9)
+  v11 = *(a4 + 2);
+  if (v10 <= v11)
   {
-    v10 = *(a4 + 2);
+    v12 = *(a4 + 2);
   }
 
   else
   {
-    v10 = v8;
+    v12 = v10;
   }
 
-  if (v10)
+  if (v12)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(a5);
-    v11 = swift_allocObject();
-    v12 = _swift_stdlib_malloc_size(v11);
-    v13 = v12 - 32;
-    if (v12 < 32)
+    __swift_instantiateConcreteTypeFromMangledNameV2(a5, a6);
+    v13 = swift_allocObject();
+    v14 = _swift_stdlib_malloc_size(v13);
+    v15 = v14 - 32;
+    if (v14 < 32)
     {
-      v13 = v12 - 25;
+      v15 = v14 - 25;
     }
 
-    *(v11 + 2) = v9;
-    *(v11 + 3) = 2 * (v13 >> 3);
+    *(v13 + 2) = v11;
+    *(v13 + 3) = 2 * (v15 >> 3);
   }
 
   else
   {
-    v11 = MEMORY[0x1E69E7CC0];
+    v13 = MEMORY[0x1E69E7CC0];
   }
 
-  v14 = v11 + 32;
-  v15 = a4 + 32;
-  if (v6)
+  v16 = v13 + 32;
+  v17 = a4 + 32;
+  if (v8)
   {
-    if (v11 != a4 || v14 >= &v15[8 * v9])
+    if (v13 != a4 || v16 >= &v17[8 * v11])
     {
-      memmove(v14, v15, 8 * v9);
+      memmove(v16, v17, 8 * v11);
     }
 
     *(a4 + 2) = 0;
@@ -3412,74 +3426,75 @@ char *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
     swift_arrayInitWithCopy();
   }
 
-  return v11;
+  return v13;
 }
 
+char *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(char *result, int64_t a2, char a3, char *a4, uint64_t *a5, uint64_t *a6)
 {
-  v6 = result;
+  v7 = result;
   if (a3)
   {
-    v7 = *(a4 + 3);
-    v8 = v7 >> 1;
-    if ((v7 >> 1) < a2)
+    v8 = *(a4 + 3);
+    v9 = v8 >> 1;
+    if ((v8 >> 1) < a2)
     {
-      if (v8 + 0x4000000000000000 < 0)
+      if (v9 + 0x4000000000000000 < 0)
       {
         __break(1u);
         return result;
       }
 
-      v8 = v7 & 0xFFFFFFFFFFFFFFFELL;
-      if ((v7 & 0xFFFFFFFFFFFFFFFELL) <= a2)
+      v9 = v8 & 0xFFFFFFFFFFFFFFFELL;
+      if ((v8 & 0xFFFFFFFFFFFFFFFELL) <= a2)
       {
-        v8 = a2;
+        v9 = a2;
       }
     }
   }
 
   else
   {
-    v8 = a2;
+    v9 = a2;
   }
 
-  v9 = *(a4 + 2);
-  if (v8 <= v9)
+  v10 = *(a4 + 2);
+  if (v9 <= v10)
   {
-    v10 = *(a4 + 2);
+    v11 = *(a4 + 2);
   }
 
   else
   {
-    v10 = v8;
+    v11 = v9;
   }
 
-  if (v10)
+  if (v11)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(a5);
-    v11 = swift_allocObject();
-    v12 = _swift_stdlib_malloc_size(v11);
-    v13 = v12 - 32;
-    if (v12 < 32)
+    __swift_instantiateConcreteTypeFromMangledNameV2(a5, a6);
+    v12 = swift_allocObject();
+    v13 = _swift_stdlib_malloc_size(v12);
+    v14 = v13 - 32;
+    if (v13 < 32)
     {
-      v13 = v12 - 17;
+      v14 = v13 - 17;
     }
 
-    *(v11 + 2) = v9;
-    *(v11 + 3) = 2 * (v13 >> 4);
+    *(v12 + 2) = v10;
+    *(v12 + 3) = 2 * (v14 >> 4);
   }
 
   else
   {
-    v11 = MEMORY[0x1E69E7CC0];
+    v12 = MEMORY[0x1E69E7CC0];
   }
 
-  v14 = v11 + 32;
-  v15 = a4 + 32;
-  if (v6)
+  v15 = v12 + 32;
+  v16 = a4 + 32;
+  if (v7)
   {
-    if (v11 != a4 || v14 >= &v15[16 * v9])
+    if (v12 != a4 || v15 >= &v16[16 * v10])
     {
-      memmove(v14, v15, 16 * v9);
+      memmove(v15, v16, 16 * v10);
     }
 
     *(a4 + 2) = 0;
@@ -3487,10 +3502,10 @@ char *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
 
   else
   {
-    memcpy(v14, v15, 16 * v9);
+    memcpy(v15, v16, 16 * v10);
   }
 
-  return v11;
+  return v12;
 }
 
 void *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(void *result, int64_t a2, char a3, void *a4)
@@ -3534,7 +3549,7 @@ void *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy9PencilKit6PKTool_pGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy9PencilKit6PKTool_pGMd, &_ss23_ContiguousArrayStorageCy9PencilKit6PKTool_pGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v10[2] = v8;
@@ -3558,14 +3573,14 @@ void *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
 
   else
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s9PencilKit6PKTool_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s9PencilKit6PKTool_pMd, &_s9PencilKit6PKTool_pMR);
     swift_arrayInitWithCopy();
   }
 
   return v10;
 }
 
-size_t specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(size_t result, int64_t a2, char a3, void *a4, uint64_t *a5, uint64_t a6, uint64_t (*a7)(void))
+void *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(void *result, int64_t a2, char a3, void *a4, uint64_t *a5, uint64_t *a6, uint64_t (*a7)(void))
 {
   v9 = result;
   if (a3)
@@ -3611,7 +3626,7 @@ LABEL_30:
     goto LABEL_19;
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(a5);
+  __swift_instantiateConcreteTypeFromMangledNameV2(a5, a6);
   v14 = *(a7(0) - 8);
   v15 = *(v14 + 72);
   v16 = (*(v14 + 80) + 32) & ~*(v14 + 80);
@@ -3625,7 +3640,7 @@ LABEL_29:
     goto LABEL_30;
   }
 
-  if (result - v16 == 0x8000000000000000 && v15 == -1)
+  if ((result - v16) == 0x8000000000000000 && v15 == -1)
   {
     goto LABEL_29;
   }
@@ -3657,7 +3672,7 @@ LABEL_19:
   return v17;
 }
 
-uint64_t RefineRenderer.init(metalKitView:from:to:image:toImage:depth:toDepth:)(void *a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7)
+id RefineRenderer.init(metalKitView:from:to:image:toImage:depth:toDepth:)(void *a1, uint64_t *a2, void *a3, void *a4, void *a5, void *a6, void *a7)
 {
   v107 = *MEMORY[0x1E69E9840];
   v13 = [a1 device];
@@ -4182,7 +4197,7 @@ LABEL_39:
     v24.f64[1] = v25;
     v39[0] = vcvt_f32_f64(v24);
     [v18 setVertexBytes:v39 length:8 atIndex:1];
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo22RefineFragmentUniformsaGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo22RefineFragmentUniformsaGMd, &_ss23_ContiguousArrayStorageCySo22RefineFragmentUniformsaGMR);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_1C8018A40;
     *(inited + 32) = 0;
@@ -4375,7 +4390,7 @@ id PKEraserTool.eraserType.getter@<X0>(_BYTE *a1@<X8>)
   result = [*v1 eraserType];
   if (result >= 3)
   {
-    result = _assertionFailure(_:_:file:line:flags:)();
+    result = _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD00000000000001ALL, 0x80000001C80203D0, "PencilKit/PKEraserTool.swift", 28, 2, 60, 0);
     __break(1u);
   }
 
@@ -4392,7 +4407,7 @@ id key path getter for PKEraserTool.eraserType : PKEraserTool@<X0>(id *a1@<X0>, 
   result = [*a1 eraserType];
   if (result >= 3)
   {
-    result = _assertionFailure(_:_:file:line:flags:)();
+    result = _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD00000000000001ALL, 0x80000001C80203D0, "PencilKit/PKEraserTool.swift", 28, 2, 60, 0);
     __break(1u);
   }
 
@@ -4426,7 +4441,7 @@ id (*PKEraserTool.eraserType.modify(uint64_t a1))(uint64_t a1)
   v3 = [*v1 eraserType];
   if (v3 >= 3)
   {
-    result = _assertionFailure(_:_:file:line:flags:)();
+    result = _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD00000000000001ALL, 0x80000001C80203D0, "PencilKit/PKEraserTool.swift", 28, 2, 60, 0);
     __break(1u);
   }
 
@@ -4464,7 +4479,7 @@ void PKEraserTool.width.setter(double a1)
 
     else
     {
-      _assertionFailure(_:_:file:line:flags:)();
+      _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD00000000000001ALL, 0x80000001C80203D0, "PencilKit/PKEraserTool.swift", 28, 2, 60, 0);
       __break(1u);
     }
   }
@@ -4508,7 +4523,7 @@ id static PKEraserTool._unconditionallyBridgeFromObjectiveC(_:)@<X0>(id result@<
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type PKEraserTool.EraserType and conformance PKEraserTool.EraserType()
+unint64_t lazy protocol witness table accessor for type PKEraserTool.EraserType and conformance PKEraserTool.EraserType(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type PKEraserTool.EraserType and conformance PKEraserTool.EraserType;
   if (!lazy protocol witness table cache variable for type PKEraserTool.EraserType and conformance PKEraserTool.EraserType)
@@ -4591,29 +4606,32 @@ uint64_t StrokeAnimationController.setupRefineAnimation(from:to:drawing:)()
   {
     v3 = *(v0 + 40);
     v4 = v2;
-    v9 = *(v0 + 16);
+    v12 = *(v0 + 16);
     [v4 stopRefineAnimation];
-    *(v0 + 88) = static MainActor.shared.getter();
-    v5 = swift_task_alloc();
-    *(v0 + 96) = v5;
-    *(v5 + 16) = v4;
-    *(v5 + 24) = v9;
-    *(v5 + 40) = v3;
-    *(v5 + 48) = v1;
+    v5 = static MainActor.shared.getter();
+    *(v0 + 88) = v5;
     v6 = swift_task_alloc();
-    *(v0 + 104) = v6;
-    *v6 = v0;
-    v6[1] = StrokeAnimationController.setupRefineAnimation(from:to:drawing:);
+    *(v0 + 96) = v6;
+    *(v6 + 16) = v4;
+    *(v6 + 24) = v12;
+    *(v6 + 40) = v3;
+    *(v6 + 48) = v1;
+    v7 = swift_task_alloc();
+    *(v0 + 104) = v7;
+    *v7 = v0;
+    v7[1] = StrokeAnimationController.setupRefineAnimation(from:to:drawing:);
+    v8 = MEMORY[0x1E69E85E0];
+    v9 = MEMORY[0x1E69E7CA8] + 8;
 
-    return MEMORY[0x1EEE6DDE0]();
+    return MEMORY[0x1EEE6DDE0](v7, v5, v8, 0xD000000000000026, 0x80000001C80203F0, partial apply for closure #1 in StrokeAnimationController.setupRefineAnimation(from:to:drawing:), v6, v9);
   }
 
   else
   {
 
-    v7 = *(v0 + 8);
+    v10 = *(v0 + 8);
 
-    return v7();
+    return v10();
   }
 }
 
@@ -4638,7 +4656,7 @@ void closure #1 in StrokeAnimationController.setupRefineAnimation(from:to:drawin
 {
   v24 = a2;
   v25 = a5;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd, &_sScCyyts5NeverOGMR);
   v9 = *(v8 - 8);
   MEMORY[0x1EEE9AC00](v8);
   v11 = &v21 - v10;
@@ -4703,27 +4721,30 @@ uint64_t StrokeAnimationController.startStrokeInAnimation(strokes:drawing:)()
     v4 = v0[2];
     v5 = v2;
     [v5 stopRefineAnimation];
-    v0[10] = static MainActor.shared.getter();
-    v6 = swift_task_alloc();
-    v0[11] = v6;
-    v6[2] = v5;
-    v6[3] = v4;
-    v6[4] = v3;
-    v6[5] = v1;
+    v6 = static MainActor.shared.getter();
+    v0[10] = v6;
     v7 = swift_task_alloc();
-    v0[12] = v7;
-    *v7 = v0;
-    v7[1] = StrokeAnimationController.startStrokeInAnimation(strokes:drawing:);
+    v0[11] = v7;
+    v7[2] = v5;
+    v7[3] = v4;
+    v7[4] = v3;
+    v7[5] = v1;
+    v8 = swift_task_alloc();
+    v0[12] = v8;
+    *v8 = v0;
+    v8[1] = StrokeAnimationController.startStrokeInAnimation(strokes:drawing:);
+    v9 = MEMORY[0x1E69E85E0];
+    v10 = MEMORY[0x1E69E7CA8] + 8;
 
-    return MEMORY[0x1EEE6DDE0]();
+    return MEMORY[0x1EEE6DDE0](v8, v6, v9, 0xD000000000000028, 0x80000001C8020420, partial apply for closure #1 in StrokeAnimationController.startStrokeInAnimation(strokes:drawing:), v7, v10);
   }
 
   else
   {
 
-    v8 = v0[1];
+    v11 = v0[1];
 
-    return v8();
+    return v11();
   }
 }
 
@@ -4746,7 +4767,7 @@ uint64_t StrokeAnimationController.startStrokeInAnimation(strokes:drawing:)()
 
 void closure #1 in StrokeAnimationController.startStrokeInAnimation(strokes:drawing:)(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd, &_sScCyyts5NeverOGMR);
   v10 = *(v9 - 8);
   MEMORY[0x1EEE9AC00](v9);
   v12 = &aBlock - v11;
@@ -4817,7 +4838,7 @@ uint64_t block_copy_helper_0(uint64_t a1, uint64_t a2)
 
 uint64_t objectdestroyTm_0()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd, &_sScCyyts5NeverOGMR);
   v2 = *(v1 - 8);
   v3 = *(v2 + 80);
   v4 = (v3 + 16) & ~v3;
@@ -4827,11 +4848,11 @@ uint64_t objectdestroyTm_0()
   return MEMORY[0x1EEE6BDD0](v0, v4 + v5, v3 | 7);
 }
 
-id SearchQueryDelegate.__deallocating_deinit()
+id SearchQueryDelegate.__deallocating_deinit(uint64_t a1, uint64_t a2)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for SearchQueryDelegate();
-  return objc_msgSendSuper2(&v2, sel_dealloc);
+  v4.receiver = v2;
+  v4.super_class = type metadata accessor for SearchQueryDelegate();
+  return objc_msgSendSuper2(&v4, sel_dealloc);
 }
 
 uint64_t RecognitionSearchController.__allocating_init(strokeProvider:)(uint64_t a1)
@@ -4857,7 +4878,7 @@ uint64_t RecognitionSearchController.search(_:fullWordsOnly:caseMatchingOnly:)(u
   *(v6 + 40) = v5;
   *(v6 + 16) = a1;
   *(v6 + 24) = a2;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationV15BufferingPolicyOy9PencilKit27RecognitionSearchControllerC0G6ResultV__GMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationV15BufferingPolicyOy9PencilKit27RecognitionSearchControllerC0G6ResultV__GMd, &_sScS12ContinuationV15BufferingPolicyOy9PencilKit27RecognitionSearchControllerC0G6ResultV__GMR);
   *(v6 + 48) = v7;
   *(v6 + 56) = *(v7 - 8);
   *(v6 + 64) = swift_task_alloc();
@@ -4893,11 +4914,11 @@ uint64_t closure #1 in RecognitionSearchController.search(_:fullWordsOnly:caseMa
 {
   v23 = a5;
   v22 = a4;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVy9PencilKit27RecognitionSearchControllerC0E6ResultV_GMd);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVy9PencilKit27RecognitionSearchControllerC0E6ResultV_GMd, &_sScS12ContinuationVy9PencilKit27RecognitionSearchControllerC0E6ResultV_GMR);
   v11 = *(v10 - 8);
   MEMORY[0x1EEE9AC00](v10);
   v13 = &v21[-v12];
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   MEMORY[0x1EEE9AC00](v14 - 8);
   v16 = &v21[-v15];
   v17 = type metadata accessor for TaskPriority();
@@ -4925,7 +4946,7 @@ uint64_t closure #1 in closure #1 in RecognitionSearchController.search(_:fullWo
   *(v8 + 120) = a5;
   *(v8 + 40) = a4;
   *(v8 + 48) = a7;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVy9PencilKit27RecognitionSearchControllerC0E6ResultV_GMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVy9PencilKit27RecognitionSearchControllerC0E6ResultV_GMd, &_sScS12ContinuationVy9PencilKit27RecognitionSearchControllerC0E6ResultV_GMR);
   *(v8 + 72) = v9;
   v10 = *(v9 - 8);
   *(v8 + 80) = v10;
@@ -4935,14 +4956,15 @@ uint64_t closure #1 in closure #1 in RecognitionSearchController.search(_:fullWo
   return MEMORY[0x1EEE6DFA0](closure #1 in closure #1 in RecognitionSearchController.search(_:fullWordsOnly:caseMatchingOnly:), 0, 0);
 }
 
-uint64_t closure #1 in closure #1 in RecognitionSearchController.search(_:fullWordsOnly:caseMatchingOnly:)()
+uint64_t closure #1 in closure #1 in RecognitionSearchController.search(_:fullWordsOnly:caseMatchingOnly:)(uint64_t a1, uint64_t a2)
 {
-  v1 = *(v0 + 40);
-  *(v0 + 104) = [objc_allocWithZone(type metadata accessor for SearchQueryDelegate()) init];
+  v3 = *(v2 + 40);
+  *(v2 + 104) = [objc_allocWithZone(type metadata accessor for SearchQueryDelegate()) init];
 
-  return MEMORY[0x1EEE6DFA0](closure #1 in closure #1 in RecognitionSearchController.search(_:fullWordsOnly:caseMatchingOnly:), v1, 0);
+  return MEMORY[0x1EEE6DFA0](closure #1 in closure #1 in RecognitionSearchController.search(_:fullWordsOnly:caseMatchingOnly:), v3, 0);
 }
 
+uint64_t closure #1 in closure #1 in RecognitionSearchController.search(_:fullWordsOnly:caseMatchingOnly:)()
 {
   v1 = *(v0 + 40);
   v2 = swift_beginAccess();
@@ -4985,9 +5007,9 @@ LABEL_11:
 
 {
   v1 = *(v0 + 104);
-  v23 = *(v0 + 96);
+  v24 = *(v0 + 96);
   v2 = *(v0 + 80);
-  v22 = *(v0 + 72);
+  v23 = *(v0 + 72);
   v4 = *(v0 + 56);
   v3 = *(v0 + 64);
   v5 = *(v0 + 121);
@@ -5001,39 +5023,40 @@ LABEL_11:
   v10 = MEMORY[0x1CCA6CE70](v7, v4);
   [v9 setQueryString_];
 
-  (*(v2 + 16))(v23, v3, v22);
+  (*(v2 + 16))(v24, v3, v23);
   v11 = (*(v2 + 80) + 24) & ~*(v2 + 80);
   v12 = swift_allocObject();
   *(v12 + 16) = v8;
-  (*(v2 + 32))(v12 + v11, v23, v22);
+  (*(v2 + 32))(v12 + v11, v24, v23);
   v13 = &v1[OBJC_IVAR____TtC9PencilKitP33_0537958B5BACCEE51E097AACDDA82C0419SearchQueryDelegate_searchResultsBlock];
   v14 = *&v1[OBJC_IVAR____TtC9PencilKitP33_0537958B5BACCEE51E097AACDDA82C0419SearchQueryDelegate_searchResultsBlock];
+  v15 = *&v1[OBJC_IVAR____TtC9PencilKitP33_0537958B5BACCEE51E097AACDDA82C0419SearchQueryDelegate_searchResultsBlock + 8];
   *v13 = partial apply for closure #1 in closure #1 in closure #1 in RecognitionSearchController.search(_:fullWordsOnly:caseMatchingOnly:);
   v13[1] = v12;
-  v15 = v9;
-  v16 = v1;
+  v16 = v9;
+  v17 = v1;
 
-  outlined consume of (@escaping @callee_guaranteed (@guaranteed [PKStroke], @guaranteed [PKStroke]) -> ())?(v14);
-  v17 = swift_allocObject();
-  *(v17 + 16) = v15;
-  *(v17 + 24) = v16;
-  v18 = v15;
+  outlined consume of (@escaping @callee_guaranteed (@guaranteed [PKStroke], @guaranteed [PKStroke]) -> ())?(v14, v15);
+  v18 = swift_allocObject();
+  *(v18 + 16) = v16;
+  *(v18 + 24) = v17;
   v19 = v16;
+  v20 = v17;
   AsyncStream.Continuation.onTermination.setter();
-  [v18 start];
+  [v19 start];
 
-  v20 = *(v0 + 8);
+  v21 = *(v0 + 8);
 
-  return v20();
+  return v21();
 }
 
 uint64_t closure #1 in closure #1 in closure #1 in RecognitionSearchController.search(_:fullWordsOnly:caseMatchingOnly:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVy9PencilKit27RecognitionSearchControllerC0E6ResultV_GMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVy9PencilKit27RecognitionSearchControllerC0E6ResultV_GMd, &_sScS12ContinuationVy9PencilKit27RecognitionSearchControllerC0E6ResultV_GMR);
   v8 = *(v7 - 8);
   MEMORY[0x1EEE9AC00](v7);
   v10 = &v18 - v9;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   MEMORY[0x1EEE9AC00](v11 - 8);
   v13 = &v18 - v12;
   v14 = type metadata accessor for TaskPriority();
@@ -5053,7 +5076,7 @@ uint64_t closure #1 in closure #1 in closure #1 in RecognitionSearchController.s
 uint64_t closure #1 in closure #1 in closure #1 in closure #1 in RecognitionSearchController.search(_:fullWordsOnly:caseMatchingOnly:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   v6[7] = a6;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationV11YieldResultOy9PencilKit27RecognitionSearchControllerC0gC0V__GMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationV11YieldResultOy9PencilKit27RecognitionSearchControllerC0gC0V__GMd, &_sScS12ContinuationV11YieldResultOy9PencilKit27RecognitionSearchControllerC0gC0V__GMR);
   v6[8] = v9;
   v6[9] = *(v9 - 8);
   v6[10] = swift_task_alloc();
@@ -5090,7 +5113,7 @@ uint64_t closure #1 in closure #1 in closure #1 in closure #1 in RecognitionSear
       *(v0 + 24) = v7;
       *(v0 + 40) = v8;
 
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVy9PencilKit27RecognitionSearchControllerC0E6ResultV_GMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVy9PencilKit27RecognitionSearchControllerC0E6ResultV_GMd, &_sScS12ContinuationVy9PencilKit27RecognitionSearchControllerC0E6ResultV_GMR);
       AsyncStream.Continuation.yield(_:)();
       (*v3)(v5, v6);
       v4 = (v4 + 40);
@@ -5100,7 +5123,7 @@ uint64_t closure #1 in closure #1 in closure #1 in closure #1 in RecognitionSear
     while (v2);
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVy9PencilKit27RecognitionSearchControllerC0E6ResultV_GMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVy9PencilKit27RecognitionSearchControllerC0E6ResultV_GMd, &_sScS12ContinuationVy9PencilKit27RecognitionSearchControllerC0E6ResultV_GMR);
   AsyncStream.Continuation.finish()();
 
   v9 = *(v0 + 8);
@@ -5206,7 +5229,7 @@ unint64_t type metadata accessor for CHSearchQueryItem()
 
 uint64_t partial apply for closure #1 in closure #1 in RecognitionSearchController.search(_:fullWordsOnly:caseMatchingOnly:)(uint64_t a1)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVy9PencilKit27RecognitionSearchControllerC0E6ResultV_GMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVy9PencilKit27RecognitionSearchControllerC0E6ResultV_GMd, &_sScS12ContinuationVy9PencilKit27RecognitionSearchControllerC0E6ResultV_GMR);
   v4 = *(v1 + 16);
   v5 = *(v1 + 24);
   v6 = *(v1 + 32);
@@ -5224,7 +5247,7 @@ uint64_t partial apply for closure #1 in closure #1 in RecognitionSearchControll
 
 uint64_t partial apply for closure #1 in closure #1 in closure #1 in RecognitionSearchController.search(_:fullWordsOnly:caseMatchingOnly:)(uint64_t a1, uint64_t a2)
 {
-  v5 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVy9PencilKit27RecognitionSearchControllerC0E6ResultV_GMd) - 8);
+  v5 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVy9PencilKit27RecognitionSearchControllerC0E6ResultV_GMd, &_sScS12ContinuationVy9PencilKit27RecognitionSearchControllerC0E6ResultV_GMR) - 8);
   v6 = *(v2 + 16);
   v7 = v2 + ((*(v5 + 80) + 24) & ~*(v5 + 80));
 
@@ -5239,15 +5262,16 @@ uint64_t partial apply for closure #2 in closure #1 in closure #1 in Recognition
   [v1 setDelegate_];
   v3 = (v2 + OBJC_IVAR____TtC9PencilKitP33_0537958B5BACCEE51E097AACDDA82C0419SearchQueryDelegate_searchResultsBlock);
   v4 = *(v2 + OBJC_IVAR____TtC9PencilKitP33_0537958B5BACCEE51E097AACDDA82C0419SearchQueryDelegate_searchResultsBlock);
+  v5 = *(v2 + OBJC_IVAR____TtC9PencilKitP33_0537958B5BACCEE51E097AACDDA82C0419SearchQueryDelegate_searchResultsBlock + 8);
   *v3 = 0;
   v3[1] = 0;
 
-  return outlined consume of (@escaping @callee_guaranteed (@guaranteed [PKStroke], @guaranteed [PKStroke]) -> ())?(v4);
+  return outlined consume of (@escaping @callee_guaranteed (@guaranteed [PKStroke], @guaranteed [PKStroke]) -> ())?(v4, v5);
 }
 
 uint64_t partial apply for closure #1 in closure #1 in closure #1 in closure #1 in RecognitionSearchController.search(_:fullWordsOnly:caseMatchingOnly:)(uint64_t a1)
 {
-  v4 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVy9PencilKit27RecognitionSearchControllerC0E6ResultV_GMd) - 8);
+  v4 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVy9PencilKit27RecognitionSearchControllerC0E6ResultV_GMd, &_sScS12ContinuationVy9PencilKit27RecognitionSearchControllerC0E6ResultV_GMR) - 8);
   v5 = (*(v4 + 80) + 48) & ~*(v4 + 80);
   v6 = v1[2];
   v7 = v1[3];
@@ -5495,7 +5519,7 @@ id static PKStrokePoint._unconditionallyBridgeFromObjectiveC(_:)@<X0>(void *a1@<
 
   else
   {
-    result = _assertionFailure(_:_:file:line:flags:)();
+    result = _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0, 0xE000000000000000, "PencilKit/PKStrokePoint.swift", 29, 2, 92, 0);
     __break(1u);
   }
 
@@ -5513,7 +5537,7 @@ id protocol witness for static _ObjectiveCBridgeable._unconditionallyBridgeFromO
 
   else
   {
-    result = _assertionFailure(_:_:file:line:flags:)();
+    result = _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0, 0xE000000000000000, "PencilKit/PKStrokePoint.swift", 29, 2, 92, 0);
     __break(1u);
   }
 
@@ -5735,7 +5759,7 @@ uint64_t PKTiledViewAnimationController.setupRefineAnimation(from:to:in:alternat
   *(v6 + 1280) = v9;
   *(v6 + 1288) = *(v9 - 8);
   *(v6 + 1296) = swift_task_alloc();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   *(v6 + 1304) = swift_task_alloc();
   v10 = type metadata accessor for OSSignpostID();
   *(v6 + 1312) = v10;
@@ -6146,7 +6170,7 @@ LABEL_7:
       *(v0 + 56) = v0 + 1168;
       *(v0 + 24) = PKTiledViewAnimationController.setupRefineAnimation(from:to:in:alternateContainerView:alternateDrawingTransform:);
       v74 = swift_continuation_init();
-      v75 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccySo7UIImageCSgs5NeverOGMd);
+      v75 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccySo7UIImageCSgs5NeverOGMd, &_sSccySo7UIImageCSgs5NeverOGMR);
       *(v0 + 1648) = v75;
       *(v0 + 584) = v75;
       *(v0 + 560) = v74;
@@ -6410,7 +6434,7 @@ LABEL_35:
     outlined destroy of TaskPriority?(v20);
     v28 = swift_task_alloc();
     *(v0 + 1728) = v28;
-    v29 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9PencilKit13PKRefineMorphV8GridMeshV_AEtMd);
+    v29 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9PencilKit13PKRefineMorphV8GridMeshV_AEtMd, &_s9PencilKit13PKRefineMorphV8GridMeshV_AEtMR);
     *v28 = v0;
     v28[1] = PKTiledViewAnimationController.setupRefineAnimation(from:to:in:alternateContainerView:alternateDrawingTransform:);
 
@@ -6635,7 +6659,7 @@ uint64_t closure #3 in PKTiledViewAnimationController.setupRefineAnimation(from:
 
 uint64_t _sScTss5NeverORs_rlE8detached4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntFZ9PencilKit13PKRefineMorphV8GridMeshV_ANt_Tt2g5(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   MEMORY[0x1EEE9AC00](v9 - 8);
   v11 = v25 - v10;
   outlined init with copy of TaskPriority?(a3, v25 - v10);
@@ -6671,7 +6695,7 @@ LABEL_6:
       *(v20 + 16) = a4;
       *(v20 + 24) = a5;
 
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_s9PencilKit13PKRefineMorphV8GridMeshV_AEtMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_s9PencilKit13PKRefineMorphV8GridMeshV_AEtMd, &_s9PencilKit13PKRefineMorphV8GridMeshV_AEtMR);
       v21 = (v18 | v16);
       if (v18 | v16)
       {
@@ -6704,7 +6728,7 @@ LABEL_6:
   v24 = swift_allocObject();
   *(v24 + 16) = a4;
   *(v24 + 24) = a5;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9PencilKit13PKRefineMorphV8GridMeshV_AEtMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9PencilKit13PKRefineMorphV8GridMeshV_AEtMd, &_s9PencilKit13PKRefineMorphV8GridMeshV_AEtMR);
   if (v18 | v16)
   {
     v26[4] = 0;
@@ -7082,7 +7106,7 @@ LABEL_21:
       *(v0 + 56) = v0 + 432;
       *(v0 + 24) = PKTiledViewAnimationController.setupStrokeInAnimation(to:in:alternateContainerView:alternateDrawingTransform:);
       v63 = swift_continuation_init();
-      v64 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccySo7UIImageCSgs5NeverOGMd);
+      v64 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccySo7UIImageCSgs5NeverOGMd, &_sSccySo7UIImageCSgs5NeverOGMR);
       *(v0 + 776) = v64;
       *(v0 + 200) = v64;
       *(v0 + 144) = MEMORY[0x1E69E9820];
@@ -7467,58 +7491,6 @@ uint64_t PKTiledViewAnimationController.refine(from:to:in:)()
 }
 
 {
-  v1 = v0[9];
-  v2 = *(v1 + 16);
-  v3 = MEMORY[0x1E69E7CC0];
-  if (v2)
-  {
-    v15 = MEMORY[0x1E69E7CC0];
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v2, 0);
-    v3 = v15;
-    v4 = (v1 + 32);
-    do
-    {
-      v5 = *v4;
-      v6 = [v5 copyForMutation];
-      [v6 _setHidden_];
-
-      v8 = *(v15 + 16);
-      v7 = *(v15 + 24);
-      if (v8 >= v7 >> 1)
-      {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v7 > 1), v8 + 1, 1);
-      }
-
-      *(v15 + 16) = v8 + 1;
-      *(v15 + 8 * v8 + 32) = v6;
-      ++v4;
-      --v2;
-    }
-
-    while (v2);
-  }
-
-  v0[23] = v3;
-  v9 = v0[20];
-  v10 = v0[15];
-  v11 = v0[11];
-  v0[24] = static MainActor.shared.getter();
-  v12 = swift_task_alloc();
-  v0[25] = v12;
-  v12[2] = v9;
-  v12[3] = v3;
-  v12[4] = v10;
-  v12[5] = v11;
-  v12[6] = 0x3FE8000000000000;
-  v13 = swift_task_alloc();
-  v0[26] = v13;
-  *v13 = v0;
-  v13[1] = PKTiledViewAnimationController.refine(from:to:in:);
-
-  return MEMORY[0x1EEE6DDE0]();
-}
-
-{
   v1 = *v0;
 
   v2 = *(v1 + 152);
@@ -7571,18 +7543,21 @@ uint64_t PKTiledViewAnimationController.refine(from:to:in:)()
   v2 = v0[15];
   v3 = v0[11];
   v0[28] = [v1 didChangeDrawing:v2 undoable:1];
-  v0[29] = static MainActor.shared.getter();
-  v4 = swift_task_alloc();
-  v0[30] = v4;
-  v4[2] = v1;
-  v4[3] = v2;
-  v4[4] = v3;
+  v4 = static MainActor.shared.getter();
+  v0[29] = v4;
   v5 = swift_task_alloc();
-  v0[31] = v5;
-  *v5 = v0;
-  v5[1] = PKTiledViewAnimationController.refine(from:to:in:);
+  v0[30] = v5;
+  v5[2] = v1;
+  v5[3] = v2;
+  v5[4] = v3;
+  v6 = swift_task_alloc();
+  v0[31] = v6;
+  *v6 = v0;
+  v6[1] = PKTiledViewAnimationController.refine(from:to:in:);
+  v7 = MEMORY[0x1E69E85E0];
+  v8 = MEMORY[0x1E69E7CA8] + 8;
 
-  return MEMORY[0x1EEE6DDE0]();
+  return MEMORY[0x1EEE6DDE0](v6, v4, v7, 0xD000000000000013, 0x80000001C8020760, partial apply for closure #3 in PKTiledViewAnimationController.refine(from:to:in:), v5, v8);
 }
 
 {
@@ -7616,9 +7591,65 @@ uint64_t PKTiledViewAnimationController.refine(from:to:in:)()
   return v7(v6);
 }
 
+uint64_t PKTiledViewAnimationController.refine(from:to:in:)(uint64_t a1)
+{
+  v2 = v1[9];
+  v3 = *(v2 + 16);
+  v4 = MEMORY[0x1E69E7CC0];
+  if (v3)
+  {
+    v19 = MEMORY[0x1E69E7CC0];
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v3, 0);
+    v4 = v19;
+    v5 = (v2 + 32);
+    do
+    {
+      v6 = *v5;
+      v7 = [v6 copyForMutation];
+      [v7 _setHidden_];
+
+      v9 = *(v19 + 16);
+      v8 = *(v19 + 24);
+      if (v9 >= v8 >> 1)
+      {
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v8 > 1), v9 + 1, 1);
+      }
+
+      *(v19 + 16) = v9 + 1;
+      *(v19 + 8 * v9 + 32) = v7;
+      ++v5;
+      --v3;
+    }
+
+    while (v3);
+  }
+
+  v1[23] = v4;
+  v10 = v1[20];
+  v11 = v1[15];
+  v12 = v1[11];
+  v13 = static MainActor.shared.getter();
+  v1[24] = v13;
+  v14 = swift_task_alloc();
+  v1[25] = v14;
+  v14[2] = v10;
+  v14[3] = v4;
+  v14[4] = v11;
+  v14[5] = v12;
+  v14[6] = 0x3FE8000000000000;
+  v15 = swift_task_alloc();
+  v1[26] = v15;
+  *v15 = v1;
+  v15[1] = PKTiledViewAnimationController.refine(from:to:in:);
+  v16 = MEMORY[0x1E69E85E0];
+  v17 = MEMORY[0x1E69E7CA8] + 8;
+
+  return MEMORY[0x1EEE6DDE0](v15, v13, v16, 0xD000000000000013, 0x80000001C8020760, partial apply for closure #2 in PKTiledViewAnimationController.refine(from:to:in:), v14, v17);
+}
+
 void closure #2 in PKTiledViewAnimationController.refine(from:to:in:)(uint64_t a1, void *a2, double a3, uint64_t a4, uint64_t a5, void *a6)
 {
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd, &_sScCyyts5NeverOGMR);
   v12 = *(v11 - 8);
   MEMORY[0x1EEE9AC00](v11);
   v14 = aBlock - v13;
@@ -7645,13 +7676,13 @@ void closure #2 in PKTiledViewAnimationController.refine(from:to:in:)(uint64_t a
 uint64_t closure #1 in closure #2 in PKTiledViewAnimationController.refine(from:to:in:)(Swift::Double a1)
 {
   PKTiledViewAnimationController.startRefineAnimation(duration:)(a1);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd, &_sScCyyts5NeverOGMR);
   return CheckedContinuation.resume(returning:)();
 }
 
 void closure #3 in PKTiledViewAnimationController.refine(from:to:in:)(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd, &_sScCyyts5NeverOGMR);
   v9 = *(v8 - 8);
   MEMORY[0x1EEE9AC00](v8);
   v11 = aBlock - v10;
@@ -7684,7 +7715,7 @@ uint64_t closure #1 in closure #3 in PKTiledViewAnimationController.refine(from:
   v3 = *(a1 + OBJC_IVAR___PKTiledViewAnimationController_renderer);
   *(a1 + OBJC_IVAR___PKTiledViewAnimationController_renderer) = 0;
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd, &_sScCyyts5NeverOGMR);
   return CheckedContinuation.resume(returning:)();
 }
 
@@ -7850,14 +7881,14 @@ uint64_t PKTiledViewAnimationController.strokesForAlphaImage(_:reverse:forStroki
       isa = [v28 inkFunctions];
       if (!isa)
       {
-        type metadata accessor for NSObject(0, &lazy cache variable for type metadata for PKInkFunction);
+        type metadata accessor for NSObject(0, &lazy cache variable for type metadata for PKInkFunction, off_1E82D42C8);
         static Array._unconditionallyBridgeFromObjectiveC(_:)();
         isa = Array._bridgeToObjectiveC()().super.isa;
       }
 
       v41 = objc_allocWithZone(PKInkBehavior);
       v42 = MEMORY[0x1CCA6CE70](0x6874706564, 0xE500000000000000);
-      type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSNumber);
+      type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSNumber, 0x1E696AD98);
       v43 = Array._bridgeToObjectiveC()().super.isa;
       *&v119 = 0;
       v118 = 0x3FF0000000000000uLL;
@@ -7948,7 +7979,7 @@ uint64_t PKTiledViewAnimationController.strokesForAlphaImage(_:reverse:forStroki
       goto LABEL_46;
     }
 
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy9PencilKit13PKStrokePointVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy9PencilKit13PKStrokePointVGMd, &_ss23_ContiguousArrayStorageCy9PencilKit13PKStrokePointVGMR);
     inited = swift_initStackObject();
     *(inited + 16) = v103;
     v65 = [v65 path];
@@ -8062,12 +8093,12 @@ LABEL_51:
 
   __break(1u);
 LABEL_52:
-  result = _assertionFailure(_:_:file:line:flags:)();
+  result = _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0, 0xE000000000000000, "PencilKit/PKStrokePoint.swift", 29, 2, 92, 0);
   __break(1u);
   return result;
 }
 
-uint64_t PKStroke.approximateLen.getter()
+unint64_t PKStroke.approximateLen.getter()
 {
   v1 = *v0;
   v2 = [v1 path];
@@ -8091,7 +8122,7 @@ uint64_t PKStroke.approximateLen.getter()
 
   v5 = result;
   result = [v3 count];
-  if (result < 0)
+  if ((result & 0x8000000000000000) != 0)
   {
 LABEL_19:
     __break(1u);
@@ -8228,7 +8259,7 @@ id closure #1 in closure #2 in PKTiledViewAnimationController.strokesForAlphaIma
   return result;
 }
 
-uint64_t _sSTsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFs12Zip2SequenceVy9PencilKit12PKStrokePathVs5SliceVyAJGG_12CoreGraphics7CGFloatVs5NeverOTB503_s9f4Kit8h19V14approximateLen12k9Graphics7M26VvgAgA0C5PointV_AIt_tXEfU_Tf1cn_n(void *a1, uint64_t a2, uint64_t a3, void *a4)
+uint64_t _sSTsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFs12Zip2SequenceVy9PencilKit12PKStrokePathVs5SliceVyAJGG_12CoreGraphics7CGFloatVs5NeverOTB503_s9f4Kit8h19V14approximateLen12k9Graphics7M26VvgAgA0C5PointV_AIt_tXEfU_Tf1cn_n(void *a1, uint64_t a2, unint64_t a3, void *a4)
 {
   v5 = v4;
   v10 = [a1 count];
@@ -8258,12 +8289,12 @@ LABEL_54:
   }
 
   v13 = [a4 count];
-  if (a3 < 0 || v13 < a3)
+  if ((a3 & 0x8000000000000000) != 0 || v13 < a3)
   {
     goto LABEL_54;
   }
 
-  if (a3 - a2 >= v10)
+  if ((a3 - a2) >= v10)
   {
     v14 = v10;
   }
@@ -8275,7 +8306,7 @@ LABEL_54:
 
   v53 = MEMORY[0x1E69E7CC0];
   specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v14 & ~(v14 >> 63), 0);
-  if (a3 - a2 < 0)
+  if (((a3 - a2) & 0x8000000000000000) != 0)
   {
 LABEL_55:
     __break(1u);
@@ -8459,7 +8490,7 @@ LABEL_43:
   }
 
 LABEL_58:
-  result = _assertionFailure(_:_:file:line:flags:)();
+  result = _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0, 0xE000000000000000, "PencilKit/PKStrokePoint.swift", 29, 2, 92, 0);
   __break(1u);
   return result;
 }
@@ -8526,7 +8557,7 @@ uint64_t _sIeAgH_ytIeAgHr_TR(uint64_t a1, uint64_t a2, uint64_t a3, int *a4)
 
 uint64_t _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2gq5(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   MEMORY[0x1EEE9AC00](v9 - 8);
   v11 = v23 - v10;
   outlined init with copy of TaskPriority?(a3, v23 - v10);
@@ -8758,14 +8789,14 @@ LABEL_26:
   }
 
 LABEL_32:
-  result = _assertionFailure(_:_:file:line:flags:)();
+  result = _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0, 0xE000000000000000, "PencilKit/PKStrokePoint.swift", 29, 2, 92, 0);
   __break(1u);
   return result;
 }
 
 uint64_t partial apply for closure #1 in closure #3 in PKTiledViewAnimationController.refine(from:to:in:)()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd, &_sScCyyts5NeverOGMR);
   v1 = *(v0 + 16);
 
   return closure #1 in closure #3 in PKTiledViewAnimationController.refine(from:to:in:)(v1);
@@ -8780,7 +8811,7 @@ uint64_t block_copy_helper_1(uint64_t a1, uint64_t a2)
 
 uint64_t partial apply for closure #1 in closure #2 in PKTiledViewAnimationController.refine(from:to:in:)()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd, &_sScCyyts5NeverOGMR);
   v1 = *(v0 + 24);
 
   return closure #1 in closure #2 in PKTiledViewAnimationController.refine(from:to:in:)(v1);
@@ -8986,7 +9017,7 @@ uint64_t objectdestroy_69Tm()
   return MEMORY[0x1EEE6BDD0](v0, 48, 7);
 }
 
-uint64_t StrokeInRenderer.init(metalKitView:toImage:toDepth:)(void *a1, id a2, void *a3)
+id StrokeInRenderer.init(metalKitView:toImage:toDepth:)(void *a1, id a2, void *a3)
 {
   v59 = *MEMORY[0x1E69E9840];
   v7 = [a1 device];
@@ -9229,7 +9260,7 @@ LABEL_6:
         v16.f64[1] = v17;
         v22[0] = vcvt_f32_f64(v16);
         [v10 setVertexBytes:v22 length:8 atIndex:1];
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo22RefineFragmentUniformsaGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo22RefineFragmentUniformsaGMd, &_ss23_ContiguousArrayStorageCySo22RefineFragmentUniformsaGMR);
         inited = swift_initStackObject();
         inited[8] = 0.0;
         inited[9] = 0.0;
@@ -9279,11 +9310,11 @@ uint64_t StrokeInRenderer.__ivar_destroyer()
   return swift_unknownObjectRelease();
 }
 
-id StrokeInRenderer.__deallocating_deinit()
+id StrokeInRenderer.__deallocating_deinit(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for StrokeInRenderer();
-  return objc_msgSendSuper2(&v2, sel_dealloc);
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for StrokeInRenderer();
+  return objc_msgSendSuper2(&v3, sel_dealloc);
 }
 
 uint64_t one-time initialization function for logger()

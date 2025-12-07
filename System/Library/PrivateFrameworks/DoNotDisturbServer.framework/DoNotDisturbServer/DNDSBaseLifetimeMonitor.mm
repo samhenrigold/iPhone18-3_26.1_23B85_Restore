@@ -111,29 +111,28 @@
 
 - (id)sysdiagnoseDataForDate:(id)date redacted:(BOOL)redacted
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   dateCopy = date;
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x3032000000;
-  v15 = __Block_byref_object_copy__1;
-  v16 = __Block_byref_object_dispose__1;
-  v17 = 0;
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x3032000000;
+  v14 = __Block_byref_object_copy__1;
+  v15 = __Block_byref_object_dispose__1;
+  v16 = 0;
   queue = self->_queue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __59__DNDSBaseLifetimeMonitor_sysdiagnoseDataForDate_redacted___block_invoke;
   block[3] = &unk_278F89EA8;
   block[4] = self;
-  block[5] = &v12;
+  block[5] = &v11;
   dispatch_sync(queue, block);
-  v7 = [v13[5] bs_mapNoNulls:&__block_literal_global_0];
-  v18 = @"active-uuids";
-  v19[0] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+  v7 = [v12[5] bs_mapNoNulls:&__block_literal_global_0];
+  v17 = @"active-uuids";
+  v18[0] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
 
-  _Block_object_dispose(&v12, 8);
-  v9 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v11, 8);
 
   return v8;
 }

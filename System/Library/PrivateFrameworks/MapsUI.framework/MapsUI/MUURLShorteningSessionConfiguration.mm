@@ -40,14 +40,12 @@
 - (MUURLShorteningSessionConfiguration)init
 {
   ObjectType = swift_getObjectType();
-  v4 = *MEMORY[0x1E696F178];
-  v5 = *(MEMORY[0x1E696F178] + 8);
   GEOConfigGetDouble();
-  *(&self->super.isa + OBJC_IVAR___MUURLShorteningSessionConfiguration_timeout) = v6;
+  *(&self->super.isa + OBJC_IVAR___MUURLShorteningSessionConfiguration_timeout) = v4;
   *(&self->super.isa + OBJC_IVAR___MUURLShorteningSessionConfiguration_doNotUseCache) = 0;
-  v8.receiver = self;
-  v8.super_class = ObjectType;
-  return [(MUURLShorteningSessionConfiguration *)&v8 init];
+  v6.receiver = self;
+  v6.super_class = ObjectType;
+  return [(MUURLShorteningSessionConfiguration *)&v6 init];
 }
 
 - (MUURLShorteningSessionConfiguration)initWithTimeout:(double)timeout doNotUseCache:(BOOL)cache

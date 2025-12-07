@@ -6,7 +6,7 @@ id _STExecutableIdentityResolvedIdentityForIdentity(void *a1, int a2, int a3)
   v37 = 0u;
   if (v5)
   {
-    [v5 auditToken];
+    objc_msgSend_auditToken(v5);
   }
 
   v7 = [v6 hasAuditToken];
@@ -27,7 +27,7 @@ id _STExecutableIdentityResolvedIdentityForIdentity(void *a1, int a2, int a3)
     v17 = v16;
     if (v16)
     {
-      [v16 auditToken];
+      objc_msgSend_auditToken(v16);
     }
 
     else
@@ -174,7 +174,7 @@ LABEL_36:
 
   else if (v6)
   {
-    [v6 auditToken];
+    objc_msgSend_auditToken(v6);
   }
 
   v31 = objc_alloc(MEMORY[0x277D6B980]);
@@ -185,7 +185,7 @@ LABEL_36:
   return v32;
 }
 
-id STAttributedEntityResolverLocalizedStringFromTableInCFBundle(void *a1, __CFBundle *a2, void *a3, void *a4)
+__CFString *STAttributedEntityResolverLocalizedStringFromTableInCFBundle(void *a1, __CFBundle *a2, void *a3, void *a4)
 {
   v7 = a1;
   v8 = a3;
@@ -216,9 +216,11 @@ id STSystemStatusLogServer()
 
 uint64_t __STSystemStatusLogServer_block_invoke()
 {
-  _MergedGlobals_0 = os_log_create(*MEMORY[0x277D6BF90], "Server");
+  v0 = os_log_create(*MEMORY[0x277D6BF90], "Server");
+  v1 = _MergedGlobals_0;
+  _MergedGlobals_0 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
@@ -228,16 +230,16 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_26C4B2E00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_26C4B2E00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_26C4B30C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_26C4B30C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -256,9 +258,11 @@ id STSystemStatusLogEntityResolving()
 
 uint64_t __STSystemStatusLogEntityResolving_block_invoke()
 {
-  _MergedGlobals_1 = os_log_create(*MEMORY[0x277D6BF90], "EntityResolving");
+  v0 = os_log_create(*MEMORY[0x277D6BF90], "EntityResolving");
+  v1 = _MergedGlobals_1;
+  _MergedGlobals_1 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 void sub_26C4B8ED0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
@@ -277,7 +281,7 @@ void sub_26C4B9010(_Unwind_Exception *a1)
 
 void sub_26C4BA0D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  objc_destroyWeak((v68 + 40));
+  objc_destroyWeak((v65 + 40));
   objc_destroyWeak(&location);
   _Unwind_Resume(a1);
 }
@@ -310,9 +314,11 @@ id STSystemStatusLogTelephonyState()
 
 uint64_t __STSystemStatusLogTelephonyState_block_invoke()
 {
-  _MergedGlobals_3 = os_log_create(*MEMORY[0x277D6BF90], "TelephonyState");
+  v0 = os_log_create(*MEMORY[0x277D6BF90], "TelephonyState");
+  v1 = _MergedGlobals_3;
+  _MergedGlobals_3 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 void sub_26C4BBB70(_Unwind_Exception *a1)
@@ -408,7 +414,7 @@ __CFString *STTelephonyCachedBooleanDebugName(uint64_t a1)
   return v2;
 }
 
-void sub_26C4C1A40(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id location)
+void sub_26C4C1A40(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id location)
 {
   objc_destroyWeak((v26 + 48));
   _Block_object_dispose(&a17, 8);
@@ -595,14 +601,14 @@ uint64_t STStatusDomainNameForEntitlementValue(void *a1)
 
 id STEntitledDomainsForEntitlementValue(void *a1)
 {
-  v31[1] = *MEMORY[0x277D85DE8];
+  v30[1] = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = objc_alloc_init(MEMORY[0x277CBEB58]);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v31[0] = v1;
-    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:1];
+    v30[0] = v1;
+    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
   }
 
   else
@@ -612,26 +618,26 @@ id STEntitledDomainsForEntitlementValue(void *a1)
     {
       v4 = v1;
       v3 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v4, "count")}];
+      v24 = 0u;
       v25 = 0u;
       v26 = 0u;
       v27 = 0u;
-      v28 = 0u;
       v5 = v4;
-      v6 = [v5 countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v24 objects:v29 count:16];
       if (v6)
       {
         v7 = v6;
-        v8 = *v26;
+        v8 = *v25;
         do
         {
           for (i = 0; i != v7; ++i)
           {
-            if (*v26 != v8)
+            if (*v25 != v8)
             {
               objc_enumerationMutation(v5);
             }
 
-            v10 = *(*(&v25 + 1) + 8 * i);
+            v10 = *(*(&v24 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -639,7 +645,7 @@ id STEntitledDomainsForEntitlementValue(void *a1)
             }
           }
 
-          v7 = [v5 countByEnumeratingWithState:&v25 objects:v30 count:16];
+          v7 = [v5 countByEnumeratingWithState:&v24 objects:v29 count:16];
         }
 
         while (v7);
@@ -652,41 +658,40 @@ id STEntitledDomainsForEntitlementValue(void *a1)
     }
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v11 = v3;
-  v12 = [v11 countByEnumeratingWithState:&v21 objects:v29 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v20 objects:v28 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v22;
+    v14 = *v21;
     do
     {
       for (j = 0; j != v13; ++j)
       {
-        if (*v22 != v14)
+        if (*v21 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = STStatusDomainNameForEntitlementValue(*(*(&v21 + 1) + 8 * j));
+        v16 = STStatusDomainNameForEntitlementValue(*(*(&v20 + 1) + 8 * j));
         if (v16 != -1)
         {
-          v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{v16, v21}];
+          v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{v16, v20}];
           [v2 addObject:v17];
         }
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v21 objects:v29 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v20 objects:v28 count:16];
     }
 
     while (v13);
   }
 
   v18 = [v2 copy];
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }

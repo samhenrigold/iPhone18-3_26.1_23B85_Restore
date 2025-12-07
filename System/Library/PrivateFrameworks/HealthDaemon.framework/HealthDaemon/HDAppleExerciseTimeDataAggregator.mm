@@ -6,7 +6,7 @@
 
 - (id)dataObjectsFromSensorDatum:(id)datum error:(id *)error
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   datumCopy = datum;
   quantity = [datumCopy quantity];
   if (!quantity)
@@ -21,7 +21,7 @@
 
   if (v11)
   {
-    v39 = quantity;
+    v38 = quantity;
     hk_gregorianCalendarWithUTCTimeZone = [MEMORY[0x277CBEA80] hk_gregorianCalendarWithUTCTimeZone];
     dateInterval = [datumCopy dateInterval];
     startDate = [dateInterval startDate];
@@ -29,12 +29,12 @@
 
     dateInterval2 = [datumCopy dateInterval];
     startDate2 = [dateInterval2 startDate];
-    v40 = datumCopy;
+    v39 = datumCopy;
     dateInterval3 = [datumCopy dateInterval];
     endDate = [dateInterval3 endDate];
     v20 = [hk_gregorianCalendarWithUTCTimeZone components:64 fromDate:startDate2 toDate:endDate options:0];
 
-    v38 = v20;
+    v37 = v20;
     minute = [v20 minute];
     v22 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v23 = MEMORY[0x277CCD7E8];
@@ -55,8 +55,8 @@
       while (minute != v26);
     }
 
-    quantity = v39;
-    datumCopy = v40;
+    quantity = v38;
+    datumCopy = v39;
   }
 
   else
@@ -69,19 +69,17 @@
     v32 = *MEMORY[0x277CCC298];
     if (os_log_type_enabled(*MEMORY[0x277CCC298], OS_LOG_TYPE_ERROR))
     {
-      v35 = v32;
+      v34 = v32;
       canonicalUnit3 = [v9 canonicalUnit];
       *buf = 138478083;
-      v42 = quantity;
-      v43 = 2114;
-      v44 = canonicalUnit3;
-      _os_log_error_impl(&dword_228986000, v35, OS_LOG_TYPE_ERROR, "Rejecting datum of unexpected quantity type %{private}@ (expected compatibility with %{public}@)", buf, 0x16u);
+      v41 = quantity;
+      v42 = 2114;
+      v43 = canonicalUnit3;
+      _os_log_error_impl(&dword_228986000, v34, OS_LOG_TYPE_ERROR, "Rejecting datum of unexpected quantity type %{private}@ (expected compatibility with %{public}@)", buf, 0x16u);
     }
 
     v22 = 0;
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 
   return v22;
 }

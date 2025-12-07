@@ -24,17 +24,17 @@
 
 - (_CPInhibitorManager)init
 {
-  v37[2] = *MEMORY[0x1E69E9840];
-  v27.receiver = self;
-  v27.super_class = _CPInhibitorManager;
-  v2 = [(_CPInhibitorManager *)&v27 init];
+  v36[2] = *MEMORY[0x1E69E9840];
+  v26.receiver = self;
+  v26.super_class = _CPInhibitorManager;
+  v2 = [(_CPInhibitorManager *)&v26 init];
   if (v2)
   {
     v3 = os_log_create("com.apple.appsupport", "running-board-inhibitor");
     os_log = v2->_os_log;
     v2->_os_log = v3;
 
-    if (RunningBoardServicesLibraryCore())
+    if (RunningBoardServicesLibraryCore(0))
     {
       v5 = objc_alloc_init(MEMORY[0x1E695DF90]);
       inhibitorMap = v2->_inhibitorMap;
@@ -44,91 +44,91 @@
       inhibitorMapLock = v2->_inhibitorMapLock;
       v2->_inhibitorMapLock = v7;
 
-      v33 = 0;
-      v34 = &v33;
-      v35 = 0x2050000000;
+      v32 = 0;
+      v33 = &v32;
+      v34 = 0x2050000000;
       v9 = getRBSProcessHandleClass_softClass;
-      v36 = getRBSProcessHandleClass_softClass;
+      v35 = getRBSProcessHandleClass_softClass;
       if (!getRBSProcessHandleClass_softClass)
       {
         *buf = MEMORY[0x1E69E9820];
-        v29 = 3221225472;
-        v30 = __getRBSProcessHandleClass_block_invoke;
-        v31 = &unk_1E7450E18;
-        v32 = &v33;
+        v28 = 3221225472;
+        v29 = __getRBSProcessHandleClass_block_invoke;
+        v30 = &unk_1E7450E18;
+        v31 = &v32;
         __getRBSProcessHandleClass_block_invoke(buf);
-        v9 = v34[3];
+        v9 = v33[3];
       }
 
       v10 = v9;
-      _Block_object_dispose(&v33, 8);
+      _Block_object_dispose(&v32, 8);
       currentProcess = [v9 currentProcess];
       if ([currentProcess isManaged])
       {
         v2->_isProcessRunningBoardManaged = 1;
-        v33 = 0;
-        v34 = &v33;
-        v35 = 0x2050000000;
+        v32 = 0;
+        v33 = &v32;
+        v34 = 0x2050000000;
         v12 = getRBSTargetClass_softClass;
-        v36 = getRBSTargetClass_softClass;
+        v35 = getRBSTargetClass_softClass;
         if (!getRBSTargetClass_softClass)
         {
           *buf = MEMORY[0x1E69E9820];
-          v29 = 3221225472;
-          v30 = __getRBSTargetClass_block_invoke;
-          v31 = &unk_1E7450E18;
-          v32 = &v33;
+          v28 = 3221225472;
+          v29 = __getRBSTargetClass_block_invoke;
+          v30 = &unk_1E7450E18;
+          v31 = &v32;
           __getRBSTargetClass_block_invoke(buf);
-          v12 = v34[3];
+          v12 = v33[3];
         }
 
         v13 = v12;
-        _Block_object_dispose(&v33, 8);
+        _Block_object_dispose(&v32, 8);
         currentProcess2 = [v12 currentProcess];
         runningBoardTarget = v2->_runningBoardTarget;
         v2->_runningBoardTarget = currentProcess2;
 
-        v33 = 0;
-        v34 = &v33;
-        v35 = 0x2050000000;
+        v32 = 0;
+        v33 = &v32;
+        v34 = 0x2050000000;
         v16 = getRBSDomainAttributeClass_softClass;
-        v36 = getRBSDomainAttributeClass_softClass;
+        v35 = getRBSDomainAttributeClass_softClass;
         if (!getRBSDomainAttributeClass_softClass)
         {
           *buf = MEMORY[0x1E69E9820];
-          v29 = 3221225472;
-          v30 = __getRBSDomainAttributeClass_block_invoke;
-          v31 = &unk_1E7450E18;
-          v32 = &v33;
+          v28 = 3221225472;
+          v29 = __getRBSDomainAttributeClass_block_invoke;
+          v30 = &unk_1E7450E18;
+          v31 = &v32;
           __getRBSDomainAttributeClass_block_invoke(buf);
-          v16 = v34[3];
+          v16 = v33[3];
         }
 
         v17 = v16;
-        _Block_object_dispose(&v33, 8);
+        _Block_object_dispose(&v32, 8);
         v18 = [v16 attributeWithDomain:@"com.apple.common" name:@"FinishTaskUninterruptable"];
-        v37[0] = v18;
-        v33 = 0;
-        v34 = &v33;
-        v35 = 0x2050000000;
+        v36[0] = v18;
+        v32 = 0;
+        v33 = &v32;
+        v34 = 0x2050000000;
         v19 = getRBSAcquisitionCompletionAttributeClass_softClass;
-        v36 = getRBSAcquisitionCompletionAttributeClass_softClass;
+        v35 = getRBSAcquisitionCompletionAttributeClass_softClass;
         if (!getRBSAcquisitionCompletionAttributeClass_softClass)
         {
           *buf = MEMORY[0x1E69E9820];
-          v29 = 3221225472;
-          v30 = __getRBSAcquisitionCompletionAttributeClass_block_invoke;
-          v31 = &unk_1E7450E18;
-          v32 = &v33;
+          v28 = 3221225472;
+          v29 = __getRBSAcquisitionCompletionAttributeClass_block_invoke;
+          v30 = &unk_1E7450E18;
+          v31 = &v32;
           __getRBSAcquisitionCompletionAttributeClass_block_invoke(buf);
-          v19 = v34[3];
+          v19 = v33[3];
         }
 
         v20 = v19;
-        _Block_object_dispose(&v33, 8);
+        _Block_object_dispose(&v32, 8);
         v21 = [v19 attributeWithCompletionPolicy:1];
-        v37[1] = v21;
-        v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:2];
+        v36[1] = v21;
+        v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:2];
         runningBoardAttributes = v2->_runningBoardAttributes;
         v2->_runningBoardAttributes = v22;
       }
@@ -145,7 +145,6 @@
     }
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -276,34 +275,30 @@
 
 - (void)startAnInhibitor
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(&dword_195E6C000, v0, OS_LOG_TYPE_ERROR, "Failed to take assertion, error: %{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_195E6C000, v0, OS_LOG_TYPE_ERROR, "Failed to take assertion, error: %{public}@", v1, 0xCu);
 }
 
 - (void)stopInhibitorWithIdentifier:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(&dword_195E6C000, v0, OS_LOG_TYPE_ERROR, "Failed to pop and invalidate assertion %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_195E6C000, v0, OS_LOG_TYPE_ERROR, "Failed to pop and invalidate assertion %@", v1, 0xCu);
 }
 
 - (void)pushAssertion:withIdentifier:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(&dword_195E6C000, v0, OS_LOG_TYPE_DEBUG, "Push assertion %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_195E6C000, v0, OS_LOG_TYPE_DEBUG, "Push assertion %@", v1, 0xCu);
 }
 
 - (void)popAssertionWithIdentifier:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(&dword_195E6C000, v0, OS_LOG_TYPE_DEBUG, "Pop assertion %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_195E6C000, v0, OS_LOG_TYPE_DEBUG, "Pop assertion %@", v1, 0xCu);
 }
 
 @end

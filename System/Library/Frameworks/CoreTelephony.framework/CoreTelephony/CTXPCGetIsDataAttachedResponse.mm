@@ -1,9 +1,24 @@
 @interface CTXPCGetIsDataAttachedResponse
 + (id)allowedClassesForArguments;
 - (BOOL)isDataAttached;
+- (CTXPCGetIsDataAttachedResponse)initWithIsDataAttached:(BOOL)attached;
 @end
 
 @implementation CTXPCGetIsDataAttachedResponse
+
+- (CTXPCGetIsDataAttachedResponse)initWithIsDataAttached:(BOOL)attached
+{
+  v10[1] = *MEMORY[0x1E69E9840];
+  v9 = @"isDataAttached";
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:attached];
+  v10[0] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8.receiver = self;
+  v8.super_class = CTXPCGetIsDataAttachedResponse;
+  v6 = [(CTXPCMessage *)&v8 initWithNamedArguments:v5];
+
+  return v6;
+}
 
 - (BOOL)isDataAttached
 {

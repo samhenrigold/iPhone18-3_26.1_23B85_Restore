@@ -16,49 +16,49 @@
 
 - (BKUIFingerPrintPosedVideoPlayerView)initWithAssetName:(id)name subdirectory:(id)subdirectory
 {
-  v52[4] = *MEMORY[0x277D85DE8];
+  v51[4] = *MEMORY[0x277D85DE8];
   nameCopy = name;
   subdirectoryCopy = subdirectory;
-  v51.receiver = self;
-  v51.super_class = BKUIFingerPrintPosedVideoPlayerView;
+  v50.receiver = self;
+  v50.super_class = BKUIFingerPrintPosedVideoPlayerView;
   v9 = *MEMORY[0x277CBF3A0];
   v10 = *(MEMORY[0x277CBF3A0] + 8);
   v11 = *(MEMORY[0x277CBF3A0] + 16);
   v12 = *(MEMORY[0x277CBF3A0] + 24);
-  v13 = [(BKUIFingerPrintPosedVideoPlayerView *)&v51 initWithFrame:*MEMORY[0x277CBF3A0], v10, v11, v12];
+  v13 = [(BKUIFingerPrintPosedVideoPlayerView *)&v50 initWithFrame:*MEMORY[0x277CBF3A0], v10, v11, v12];
   v14 = v13;
   if (v13)
   {
     objc_storeStrong(&v13->_assetName, name);
     objc_storeStrong(&v14->_subDirectory, subdirectory);
     v15 = [objc_alloc(MEMORY[0x277D755E8]) initWithFrame:{v9, v10, v11, v12}];
-    v50 = nameCopy;
+    v49 = nameCopy;
     portraitImageView = v14->_portraitImageView;
     v14->_portraitImageView = v15;
 
     [(UIImageView *)v14->_portraitImageView setTranslatesAutoresizingMaskIntoConstraints:0];
     [(UIImageView *)v14->_portraitImageView setAlpha:0.0];
     [(BKUIFingerPrintPosedVideoPlayerView *)v14 addSubview:v14->_portraitImageView];
-    v44 = MEMORY[0x277CCAAD0];
+    v43 = MEMORY[0x277CCAAD0];
     leadingAnchor = [(UIImageView *)v14->_portraitImageView leadingAnchor];
     leadingAnchor2 = [(BKUIFingerPrintPosedVideoPlayerView *)v14 leadingAnchor];
-    v46 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v52[0] = v46;
+    v45 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+    v51[0] = v45;
     trailingAnchor = [(UIImageView *)v14->_portraitImageView trailingAnchor];
     trailingAnchor2 = [(BKUIFingerPrintPosedVideoPlayerView *)v14 trailingAnchor];
     v18 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-    v52[1] = v18;
+    v51[1] = v18;
     topAnchor = [(UIImageView *)v14->_portraitImageView topAnchor];
     topAnchor2 = [(BKUIFingerPrintPosedVideoPlayerView *)v14 topAnchor];
     v21 = [topAnchor constraintEqualToAnchor:topAnchor2];
-    v52[2] = v21;
+    v51[2] = v21;
     bottomAnchor = [(UIImageView *)v14->_portraitImageView bottomAnchor];
     [(BKUIFingerPrintPosedVideoPlayerView *)v14 bottomAnchor];
-    v23 = v49 = subdirectoryCopy;
+    v23 = v48 = subdirectoryCopy;
     v24 = [bottomAnchor constraintEqualToAnchor:v23];
-    v52[3] = v24;
-    v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:4];
-    [v44 activateConstraints:v25];
+    v51[3] = v24;
+    v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:4];
+    [v43 activateConstraints:v25];
 
     v26 = MEMORY[0x277D755B8];
     _devicePrefix = [(BKUIFingerPrintPosedVideoPlayerView *)v14 _devicePrefix];
@@ -76,8 +76,8 @@
     verticalPosedImage = v14->_verticalPosedImage;
     v14->_verticalPosedImage = v36;
 
-    subdirectoryCopy = v49;
-    nameCopy = v50;
+    subdirectoryCopy = v48;
+    nameCopy = v49;
 
     v38 = [MEMORY[0x277CE65D8] playerLayerWithPlayer:0];
     playerLayer = v14->_playerLayer;
@@ -90,7 +90,6 @@
     v14->_assetnameForAssetLengthDict = &unk_2853CCBC0;
   }
 
-  v42 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -103,13 +102,11 @@
 
 - (void)load
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   assetName = [self assetName];
-  v5 = 138412290;
-  v6 = assetName;
-  _os_log_fault_impl(&dword_241B0A000, a2, OS_LOG_TYPE_FAULT, "Defaulting to no tutorial video; unable to find one for %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = assetName;
+  _os_log_fault_impl(&dword_241B0A000, a2, OS_LOG_TYPE_FAULT, "Defaulting to no tutorial video; unable to find one for %@", &v4, 0xCu);
 }
 
 - (void)itemDidFinishPlaying:(id)playing
@@ -141,7 +138,7 @@
 
 - (id)_filters
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   traitCollection = [(BKUIFingerPrintPosedVideoPlayerView *)self traitCollection];
   userInterfaceStyle = [traitCollection userInterfaceStyle];
 
@@ -157,22 +154,20 @@
 
   v5 = objc_alloc(MEMORY[0x277CD9EA0]);
   v6 = [v5 initWithType:*MEMORY[0x277CDA2C0]];
-  v11 = v4;
-  v12 = *(MEMORY[0x277CD9DA0] + 4);
-  v13 = *(MEMORY[0x277CD9DA0] + 20);
-  v14 = v4;
-  v15 = *(MEMORY[0x277CD9DA0] + 28);
-  v16 = *(MEMORY[0x277CD9DA0] + 44);
-  v17 = v4;
-  *v18 = *(MEMORY[0x277CD9DA0] + 52);
-  *&v18[12] = *(MEMORY[0x277CD9DA0] + 64);
-  v7 = [MEMORY[0x277CCAE60] valueWithCAColorMatrix:&v11];
+  v10 = v4;
+  v11 = *(MEMORY[0x277CD9DA0] + 4);
+  v12 = *(MEMORY[0x277CD9DA0] + 20);
+  v13 = v4;
+  v14 = *(MEMORY[0x277CD9DA0] + 28);
+  v15 = *(MEMORY[0x277CD9DA0] + 44);
+  v16 = v4;
+  *v17 = *(MEMORY[0x277CD9DA0] + 52);
+  *&v17[12] = *(MEMORY[0x277CD9DA0] + 64);
+  v7 = [MEMORY[0x277CCAE60] valueWithCAColorMatrix:&v10];
   [v6 setValue:v7 forKey:@"inputColorMatrix"];
 
-  v19[0] = v6;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v18[0] = v6;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
 
   return v8;
 }

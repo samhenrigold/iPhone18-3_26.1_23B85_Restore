@@ -36,7 +36,7 @@
   _Block_object_dispose(&v12, 8);
 }
 
-void __59__TPSHRAccountInfoStatusValidation_validateWithCompletion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
+void __59__TPSHRAccountInfoStatusValidation_validateWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a3;
   if (v5)
@@ -70,20 +70,18 @@ void __59__TPSHRAccountInfoStatusValidation_validateWithCompletion___block_invok
 
 void __59__TPSHRAccountInfoStatusValidation_validateWithCompletion___block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v6 = [*(a1 + 32) name];
   v7 = [*(a1 + 32) targetContext];
-  v9 = 138413058;
-  v10 = v6;
-  v11 = 2112;
-  v12 = v7;
-  v13 = 1024;
-  v14 = 0;
-  v15 = 2112;
-  v16 = a2;
-  _os_log_debug_impl(&dword_232D6F000, a3, OS_LOG_TYPE_DEBUG, "%@ - targetContext: %@. Valid: %d. Error: %@", &v9, 0x26u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = 138413058;
+  v9 = v6;
+  v10 = 2112;
+  v11 = v7;
+  v12 = 1024;
+  v13 = 0;
+  v14 = 2112;
+  v15 = a2;
+  _os_log_debug_impl(&dword_232D6F000, a3, OS_LOG_TYPE_DEBUG, "%@ - targetContext: %@. Valid: %d. Error: %@", &v8, 0x26u);
 }
 
 @end

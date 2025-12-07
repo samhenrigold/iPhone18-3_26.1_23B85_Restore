@@ -49,7 +49,7 @@
 
 - (void)forwardInvocation:(id)invocation
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   selector = [invocation selector];
   if ([(MNNavigationState *)self _isSelectorValidForForwarding:selector])
   {
@@ -57,19 +57,16 @@
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = NSStringFromSelector(selector);
-      v9 = 138412546;
-      v10 = v6;
-      v11 = 2112;
-      v12 = objc_opt_class();
-      _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_DEFAULT, "%@ is not supported by state %@", &v9, 0x16u);
+      v7 = 138412546;
+      v8 = v6;
+      v9 = 2112;
+      v10 = objc_opt_class();
+      _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_DEFAULT, "%@ is not supported by state %@", &v7, 0x16u);
     }
-
-    v7 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v8 = *MEMORY[0x1E69E9840];
 
     [(MNNavigationState *)self doesNotRecognizeSelector:selector];
   }
@@ -124,20 +121,19 @@
 
 - (unint64_t)type
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315650;
-    v6 = "[MNNavigationState type]";
-    v7 = 2080;
-    v8 = "/Library/Caches/com.apple.xbs/Sources/Navigation/NavigationState/MNNavigationState.m";
-    v9 = 1024;
-    v10 = 27;
-    _os_log_impl(&dword_1D311E000, v2, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: Hit an unreachable code path", &v5, 0x1Cu);
+    v4 = 136315650;
+    v5 = "[MNNavigationState type]";
+    v6 = 2080;
+    v7 = "/Library/Caches/com.apple.xbs/Sources/Navigation/NavigationState/MNNavigationState.m";
+    v8 = 1024;
+    v9 = 27;
+    _os_log_impl(&dword_1D311E000, v2, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: Hit an unreachable code path", &v4, 0x1Cu);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return -1;
 }
 

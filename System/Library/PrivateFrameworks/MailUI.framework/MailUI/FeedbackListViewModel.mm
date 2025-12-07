@@ -126,7 +126,7 @@
   MEMORY[0x277D82BD8](helper);
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA34E80);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA34E80, &qword_214CEDC90);
     v5 = sub_214CCF7D4();
 
     v6 = v5;

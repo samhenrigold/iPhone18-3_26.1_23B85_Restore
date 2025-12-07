@@ -145,9 +145,9 @@
   queueCopy = queue;
   delegateCopy = delegate;
   identifierCopy = identifier;
-  v30.receiver = self;
-  v30.super_class = IDSNWSocketPairConnection;
-  v19 = [(IDSNWSocketPairConnection *)&v30 init];
+  v31.receiver = self;
+  v31.super_class = IDSNWSocketPairConnection;
+  v19 = [(IDSNWSocketPairConnection *)&v31 init];
   v20 = v19;
   if (v19)
   {
@@ -170,18 +170,18 @@
     connectReadyBlock = v20->_connectReadyBlock;
     v20->_connectReadyBlock = 0;
 
-    v24 = sub_1006D15E0();
-    options = nw_framer_create_options(v24);
+    v25 = sub_1006D15E0(v24);
+    options = nw_framer_create_options(v25);
 
-    v28[0] = 0;
-    v28[1] = v28;
-    v28[2] = 0x2020000000;
-    v29 = 0;
-    v27 = options;
+    v29[0] = 0;
+    v29[1] = v29;
+    v29[2] = 0x2020000000;
+    v30 = 0;
+    v28 = options;
     nw_connection_modify_connected_protocol_stack();
     nw_connection_get_uuid();
 
-    _Block_object_dispose(v28, 8);
+    _Block_object_dispose(v29, 8);
   }
 
   return v20;

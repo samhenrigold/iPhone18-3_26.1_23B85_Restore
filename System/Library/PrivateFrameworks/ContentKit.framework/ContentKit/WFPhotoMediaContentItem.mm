@@ -905,16 +905,16 @@ void __70__WFPhotoMediaContentItem_generateFileRepresentation_options_forType___
   }
 }
 
-void __70__WFPhotoMediaContentItem_generateFileRepresentation_options_forType___block_invoke_2(uint64_t a1, void *a2, void *a3)
+void __70__WFPhotoMediaContentItem_generateFileRepresentation_options_forType___block_invoke_2(void *a1, void *a2, void *a3)
 {
   v6 = a2;
   v5 = a3;
   if (!(v6 | v5))
   {
-    v5 = [objc_opt_class() badCoercionErrorForType:*(a1 + 40)];
+    v5 = [objc_opt_class() badCoercionErrorForType:a1[5]];
   }
 
-  (*(*(a1 + 48) + 16))();
+  (*(a1[6] + 16))();
 }
 
 - (id)preferredAssetResourceForType:(id)type
@@ -1759,7 +1759,7 @@ void __39__WFPhotoMediaContentItem_getMetadata___block_invoke(uint64_t a1, void 
 - (id)duration
 {
   asset = [(WFPhotoMediaContentItem *)self asset];
-  [asset duration];
+  objc_msgSend_duration(asset);
   v4 = v3;
 
   if (v4 == 0.0)
@@ -2601,7 +2601,7 @@ LABEL_11:
   if (([asset mediaType] & 0xFFFFFFFFFFFFFFFELL) == 2)
   {
     asset2 = [(WFPhotoMediaContentItem *)self asset];
-    [asset2 duration];
+    objc_msgSend_duration(asset2);
     v8 = WFChooseFromListFormatPlaybackDuration(v7);
 
     if (!textCopy)

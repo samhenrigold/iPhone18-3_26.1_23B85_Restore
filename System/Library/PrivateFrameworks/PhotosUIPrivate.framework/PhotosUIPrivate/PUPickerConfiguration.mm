@@ -1053,28 +1053,27 @@ LABEL_37:
 
     if ([(PUPickerConfiguration *)self selectionLimit]< 2 || [(PUPickerConfiguration *)self selectionLimit]> 100)
     {
-      v10 = 0;
+      v13 = 0;
       goto LABEL_13;
     }
 
 LABEL_10:
-    [(PUPickerConfiguration *)self selectionLimit];
-    [(PUPickerConfiguration *)self sourceType];
+    selectionLimit2 = [(PUPickerConfiguration *)self selectionLimit];
+    sourceType = [(PUPickerConfiguration *)self sourceType];
     generatedFilter = [(PUPickerConfiguration *)self generatedFilter];
-    [generatedFilter displayAssetMediaType];
+    displayAssetMediaType = [generatedFilter displayAssetMediaType];
     photoLibrary = [(PUPickerConfiguration *)self photoLibrary];
-    [photoLibrary px_peoplePetsHomeVisibility];
-    v10 = PUPickerConfigurationGetSelectionLimitString();
+    v13 = PUPickerConfigurationGetSelectionLimitString(selectionLimit2, sourceType, displayAssetMediaType, [photoLibrary px_peoplePetsHomeVisibility]);
 
     goto LABEL_13;
   }
 
   prompt2 = [(PUPickerConfiguration *)self prompt];
 LABEL_12:
-  v10 = prompt2;
+  v13 = prompt2;
 LABEL_13:
 
-  return v10;
+  return v13;
 }
 
 - (int64_t)cancellationSystemItemWithBehavior:(int64_t)behavior
@@ -1946,7 +1945,7 @@ LABEL_60:
       v155 = 0u;
       if (v43)
       {
-        [v43 clientAuditToken];
+        objc_msgSend_clientAuditToken(v43);
       }
 
       *buf = *v154;
@@ -2033,7 +2032,7 @@ LABEL_60:
     {
       if (connectionCopy)
       {
-        [connectionCopy auditToken];
+        objc_msgSend_auditToken(connectionCopy);
       }
 
       else

@@ -24,33 +24,33 @@
 
 - (void)migrateWorkflow
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   actions = [(WFWorkflowMigration *)self actions];
-  v4 = [actions countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v4 = [actions countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v4)
   {
     v5 = v4;
-    v23 = *v25;
+    v22 = *v24;
     do
     {
       v6 = 0;
       do
       {
-        if (*v25 != v23)
+        if (*v24 != v22)
         {
           objc_enumerationMutation(actions);
         }
 
-        v7 = *(*(&v24 + 1) + 8 * v6);
+        v7 = *(*(&v23 + 1) + 8 * v6);
         actionIdentifierKey = [(WFWorkflowMigration *)self actionIdentifierKey];
         v9 = [v7 objectForKey:actionIdentifierKey];
-        v10 = [v9 isEqualToString:@"com.culturedcode.ThingsTouch.addtask"];
+        isEqualToString = objc_msgSend_isEqualToString_(v9);
 
-        if (v10)
+        if (isEqualToString)
         {
           actionParametersKey = [(WFWorkflowMigration *)self actionParametersKey];
           v12 = [v7 objectForKeyedSubscript:actionParametersKey];
@@ -94,14 +94,13 @@ LABEL_9:
       }
 
       while (v5 != v6);
-      v5 = [actions countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v5 = [actions countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v5);
   }
 
   [(WFWorkflowMigration *)self finish];
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (NSDateFormatter)dateFormatter

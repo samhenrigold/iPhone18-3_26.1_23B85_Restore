@@ -1,6 +1,6 @@
-void sub_1BFBEF6E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1BFBEF6E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -162,40 +162,40 @@ const google::protobuf::UnknownFieldSet *SnippetUI::Button_Container_ButtonItem:
 
 void siri::dialogengine::DialogStatePatternFromNSDictionary(siri::dialogengine *this@<X0>, void *a2@<X8>)
 {
-  v4 = this;
-  if (v4)
+  v3 = this;
+  if (v3)
   {
-    v11 = v4;
-    v5 = [(siri::dialogengine *)v4 objectForKey:@"count"];
-    v6 = v5;
-    if (v5)
+    v10 = v3;
+    v4 = [(siri::dialogengine *)v3 objectForKey:@"count"];
+    v5 = v4;
+    if (v4)
     {
-      v7 = [v5 unsignedIntValue];
+      v6 = [v4 unsignedIntValue];
     }
 
     else
     {
-      v7 = 0;
+      v6 = 0;
     }
 
-    v8 = [(siri::dialogengine *)v11 objectForKey:@"timestamp"];
-    v9 = v8;
-    if (v8)
+    v7 = [(siri::dialogengine *)v10 objectForKey:@"timestamp"];
+    v8 = v7;
+    if (v7)
     {
-      [v8 doubleValue];
+      [v7 doubleValue];
     }
 
     else
     {
-      v10 = 0;
+      v9 = 0;
     }
 
-    *a2 = v7;
+    *a2 = v6;
     a2[1] = 1;
-    a2[2] = v10;
+    a2[2] = v9;
     a2[3] = 1;
 
-    v4 = v11;
+    v3 = v10;
   }
 
   else
@@ -235,14 +235,14 @@ uint64_t siri::dialogengine::GetRequiredBooleanSettingFromPatternContext(uint64_
     v6 = 0;
 LABEL_9:
     std::operator+<char>();
-    v10 = std::string::append(&v15, "'. It should always exist.");
-    v11 = *&v10->__r_.__value_.__l.__data_;
-    v17 = v10->__r_.__value_.__r.__words[2];
-    *__p = v11;
-    v10->__r_.__value_.__l.__size_ = 0;
-    v10->__r_.__value_.__r.__words[2] = 0;
-    v10->__r_.__value_.__r.__words[0] = 0;
-    siri::dialogengine::Log::LogWithLevel(__p, 3u);
+    v9 = std::string::append(&v14, "'. It should always exist.");
+    v10 = *&v9->__r_.__value_.__l.__data_;
+    v16 = v9->__r_.__value_.__r.__words[2];
+    *__p = v10;
+    v9->__r_.__value_.__l.__size_ = 0;
+    v9->__r_.__value_.__r.__words[2] = 0;
+    v9->__r_.__value_.__r.__words[0] = 0;
+    siri::dialogengine::Log::LogWithLevel(__p, 3);
     goto LABEL_10;
   }
 
@@ -259,46 +259,45 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  v7 = **v5;
-  if (v8)
+  if (v7)
   {
-    v9 = v8[66];
+    v8 = v7[66];
     if (!v6)
     {
-      return v9 & 1;
+      return v8 & 1;
     }
 
     goto LABEL_15;
   }
 
   std::operator+<char>();
-  v13 = std::string::append(&v15, "' but it's not a BOOLean variable.");
-  v14 = *&v13->__r_.__value_.__l.__data_;
-  v17 = v13->__r_.__value_.__r.__words[2];
-  *__p = v14;
-  v13->__r_.__value_.__l.__size_ = 0;
-  v13->__r_.__value_.__r.__words[2] = 0;
-  v13->__r_.__value_.__r.__words[0] = 0;
-  siri::dialogengine::Log::LogWithLevel(__p, 3u);
+  v12 = std::string::append(&v14, "' but it's not a BOOLean variable.");
+  v13 = *&v12->__r_.__value_.__l.__data_;
+  v16 = v12->__r_.__value_.__r.__words[2];
+  *__p = v13;
+  v12->__r_.__value_.__l.__size_ = 0;
+  v12->__r_.__value_.__r.__words[2] = 0;
+  v12->__r_.__value_.__r.__words[0] = 0;
+  siri::dialogengine::Log::LogWithLevel(__p, 3);
 LABEL_10:
-  if (SHIBYTE(v17) < 0)
+  if (SHIBYTE(v16) < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (SHIBYTE(v15.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v15.__r_.__value_.__l.__data_);
+    operator delete(v14.__r_.__value_.__l.__data_);
   }
 
-  v9 = 0;
+  v8 = 0;
   if (v6)
   {
 LABEL_15:
     std::__shared_weak_count::__release_shared[abi:ne200100](v6);
   }
 
-  return v9 & 1;
+  return v8 & 1;
 }
 
 void sub_1BFBEFC1C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
@@ -620,7 +619,7 @@ const google::protobuf::UnknownFieldSet *SnippetUI::ImageElement_Source::Interna
   return google::protobuf::internal::WireFormat::InternalSerializeUnknownFieldsToArray((v55 & 0xFFFFFFFFFFFFFFFELL), a2, a3, a4);
 }
 
-const google::protobuf::UnknownFieldSet *SnippetUI::ImageElement::InternalSerializeWithCachedSizesToArray(SnippetUI::ImageElement *this, google::protobuf::UnknownFieldSet *a2, google::protobuf::io::EpsCopyOutputStream *a3, google::protobuf::io::EpsCopyOutputStream *a4)
+google::protobuf::UnknownFieldSet *SnippetUI::ImageElement::InternalSerializeWithCachedSizesToArray(SnippetUI::ImageElement *this, google::protobuf::UnknownFieldSet *a2, google::protobuf::io::EpsCopyOutputStream *a3, google::protobuf::io::EpsCopyOutputStream *a4)
 {
   v7 = *(this + 6);
   if (v7)
@@ -638,7 +637,7 @@ LABEL_6:
       {
         google::protobuf::internal::LogMessage::LogMessage(v36, 3, "/Library/Caches/com.apple.xbs/Sources/DialogEngine/protobuf/src/google/protobuf/repeated_field.h", 1539);
         v10 = google::protobuf::internal::LogMessage::operator<<(v36, "CHECK failed: (index) < (current_size_): ");
-        google::protobuf::internal::LogFinisher::operator=(&v35, v10);
+        google::protobuf::internal::LogFinisher::operator=(&v35, &v10->__r_.__value_.__l.__data_);
         google::protobuf::internal::LogMessage::~LogMessage(&v36[0].__r_.__value_.__l.__data_);
       }
 
@@ -695,7 +694,7 @@ LABEL_6:
 LABEL_5:
     google::protobuf::internal::LogMessage::LogMessage(v36, 3, "/Library/Caches/com.apple.xbs/Sources/DialogEngine/protobuf/src/google/protobuf/repeated_field.h", 1538);
     v9 = google::protobuf::internal::LogMessage::operator<<(v36, "CHECK failed: (index) >= (0): ");
-    google::protobuf::internal::LogFinisher::operator=(&v35, v9);
+    google::protobuf::internal::LogFinisher::operator=(&v35, &v9->__r_.__value_.__l.__data_);
     google::protobuf::internal::LogMessage::~LogMessage(&v36[0].__r_.__value_.__l.__data_);
     goto LABEL_6;
   }
@@ -715,7 +714,7 @@ LABEL_19:
     {
       google::protobuf::internal::LogMessage::LogMessage(v36, 3, "/Library/Caches/com.apple.xbs/Sources/DialogEngine/protobuf/src/google/protobuf/io/coded_stream.h", 856);
       v21 = google::protobuf::internal::LogMessage::operator<<(v36, "CHECK failed: ptr < end_: ");
-      google::protobuf::internal::LogFinisher::operator=(&v35, v21);
+      google::protobuf::internal::LogFinisher::operator=(&v35, &v21->__r_.__value_.__l.__data_);
       google::protobuf::internal::LogMessage::~LogMessage(&v36[0].__r_.__value_.__l.__data_);
     }
 
@@ -794,9 +793,9 @@ LABEL_19:
   return a2;
 }
 
-void sub_1BFBF0388(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1BFBF0388(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -993,7 +992,7 @@ LABEL_42:
   std::string::basic_string[abi:ne200100]<0>(a4, "");
 }
 
-void sub_1BFBF06AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, char a18)
+void sub_1BFBF06AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, google::protobuf::internal::ArenaImpl *a18)
 {
   if (a17 < 0)
   {
@@ -1004,22 +1003,22 @@ void sub_1BFBF06AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void siri::dialogengine::ExtractUserSettings(siri::dialogengine *this@<X0>, NSDictionary *a2@<X1>, uint64_t a3@<X8>)
+void siri::dialogengine::ExtractUserSettings(siri::dialogengine *this@<X0>, NSDictionary *a2@<X1>, char *a3@<X8>)
 {
   v3 = a2;
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v5 = this;
   v6 = v5;
-  *(a3 + 8) = 0;
-  *(a3 + 16) = 0;
-  v32 = a3 + 8;
+  *(a3 + 1) = 0;
+  *(a3 + 2) = 0;
+  v31 = a3 + 8;
   *a3 = a3 + 8;
   if (v3)
   {
     v7 = siri::dialogengine::DefaultUserSettings(v5);
     if (v7 != a3)
     {
-      std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<std::string,std::string>,std::__tree_node<std::__value_type<std::string,std::string>,void *> *,long>>(a3, *v7, (v7 + 8));
+      std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<std::string,std::string>,std::__tree_node<std::__value_type<std::string,std::string>,void *> *,long>>(a3, *v7, v7 + 1);
     }
   }
 
@@ -1029,31 +1028,31 @@ void siri::dialogengine::ExtractUserSettings(siri::dialogengine *this@<X0>, NSDi
     v9 = v8;
     if (v8)
     {
-      v38 = 0u;
-      v39 = 0u;
-      v36 = 0u;
       v37 = 0u;
+      v38 = 0u;
+      v35 = 0u;
+      v36 = 0u;
       v10 = v8;
-      v11 = [v10 countByEnumeratingWithState:&v36 objects:v41 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v35 objects:v40 count:16];
       if (v11)
       {
-        v12 = *v37;
+        v12 = *v36;
         do
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v37 != v12)
+            if (*v36 != v12)
             {
               objc_enumerationMutation(v10);
             }
 
-            v14 = *(*(&v36 + 1) + 8 * i);
+            v14 = *(*(&v35 + 1) + 8 * i);
             v15 = v14;
             v16 = std::string::basic_string[abi:ne200100]<0>(__p, [v14 UTF8String]);
             v17 = siri::dialogengine::DefaultUserSettings(v16);
             if (v17 + 8 == std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::find<std::string>(v17, __p))
             {
-              if (v35 >= 0)
+              if (v34 >= 0)
               {
                 v28 = __p;
               }
@@ -1082,10 +1081,10 @@ void siri::dialogengine::ExtractUserSettings(siri::dialogengine *this@<X0>, NSDi
 
                 if (size)
                 {
-                  v40 = __p;
-                  v24 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a3, __p);
+                  v39 = __p;
+                  v24 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a3, __p, &v39);
                   std::string::operator=((v24 + 56), &__str);
-                  if (v35 >= 0)
+                  if (v34 >= 0)
                   {
                     v26 = __p;
                   }
@@ -1101,12 +1100,12 @@ void siri::dialogengine::ExtractUserSettings(siri::dialogengine *this@<X0>, NSDi
                     p_str = __str.__r_.__value_.__r.__words[0];
                   }
 
-                  siri::dialogengine::Log::Debug("Parsed user setting '%s': '%s'", v25, v26, p_str, v32);
+                  siri::dialogengine::Log::Debug("Parsed user setting '%s': '%s'", v25, v26, p_str, v31);
                 }
 
                 else
                 {
-                  if (v35 >= 0)
+                  if (v34 >= 0)
                   {
                     v30 = __p;
                   }
@@ -1127,7 +1126,7 @@ void siri::dialogengine::ExtractUserSettings(siri::dialogengine *this@<X0>, NSDi
 
               else
               {
-                if (v35 >= 0)
+                if (v34 >= 0)
                 {
                   v29 = __p;
                 }
@@ -1141,21 +1140,19 @@ void siri::dialogengine::ExtractUserSettings(siri::dialogengine *this@<X0>, NSDi
               }
             }
 
-            if (v35 < 0)
+            if (v34 < 0)
             {
               operator delete(__p[0]);
             }
           }
 
-          v11 = [v10 countByEnumeratingWithState:&v36 objects:v41 count:16];
+          v11 = [v10 countByEnumeratingWithState:&v35 objects:v40 count:16];
         }
 
         while (v11);
       }
     }
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1BFBF09E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void **a11, uint64_t a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24)
@@ -1340,7 +1337,7 @@ void sub_1BFBF0E1C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void ___ZL42AppendVisualResultToPatternExecutionResultP22PatternExecutionResultP6NSDataRKNSt3__112basic_stringIcNS3_11char_traitsIcEENS3_9allocatorIcEEEE_block_invoke(uint64_t a1, uint64_t *a2)
+void ___ZL42AppendVisualResultToPatternExecutionResultP22PatternExecutionResultP6NSDataRKNSt3__112basic_stringIcNS3_11char_traitsIcEENS3_9allocatorIcEEEE_block_invoke(uint64_t a1, uint64_t **a2)
 {
   if (*(a2 + 23) < 0)
   {
@@ -1407,7 +1404,7 @@ void SnippetUI::CustomCanvas::~CustomCanvas(SnippetUI::CustomCanvas *this)
   JUMPOUT(0x1C68D4E80);
 }
 
-const google::protobuf::UnknownFieldSet *SnippetUI::ImageElement_Symbol::InternalSerializeWithCachedSizesToArray(SnippetUI::ImageElement_Symbol *this, google::protobuf::UnknownFieldSet *a2, google::protobuf::io::EpsCopyOutputStream *a3, google::protobuf::io::EpsCopyOutputStream *a4)
+google::protobuf::UnknownFieldSet *SnippetUI::ImageElement_Symbol::InternalSerializeWithCachedSizesToArray(SnippetUI::ImageElement_Symbol *this, google::protobuf::UnknownFieldSet *a2, google::protobuf::io::EpsCopyOutputStream *a3, google::protobuf::io::EpsCopyOutputStream *a4)
 {
   v7 = *(this + 2);
   v8 = *(v7 + 23);
@@ -1654,7 +1651,7 @@ LABEL_45:
   return google::protobuf::internal::WireFormat::InternalSerializeUnknownFieldsToArray((v39 & 0xFFFFFFFFFFFFFFFELL), a2, a3, a4);
 }
 
-unsigned __int8 *google::protobuf::io::EpsCopyOutputStream::WriteStringMaybeAliased(google::protobuf::io::EpsCopyOutputStream *a1, int a2, const void **a3, char *a4)
+char *google::protobuf::io::EpsCopyOutputStream::WriteStringMaybeAliased(google::protobuf::io::EpsCopyOutputStream *a1, int a2, const void ***a3, char *a4)
 {
   v4 = *(a3 + 23);
   if ((v4 & 0x8000000000000000) == 0 || (v4 = a3[1], v4 <= 127))
@@ -1939,7 +1936,7 @@ const google::protobuf::UnknownFieldSet *SnippetUI::VisualElement::InternalSeria
   return google::protobuf::internal::WireFormat::InternalSerializeUnknownFieldsToArray((v39 & 0xFFFFFFFFFFFFFFFELL), a2, a3, a4);
 }
 
-const google::protobuf::UnknownFieldSet *SnippetUI::VisualProperty::InternalSerializeWithCachedSizesToArray(SnippetUI::VisualProperty *this, google::protobuf::UnknownFieldSet *a2, google::protobuf::io::EpsCopyOutputStream *a3, google::protobuf::io::EpsCopyOutputStream *a4)
+google::protobuf::UnknownFieldSet *SnippetUI::VisualProperty::InternalSerializeWithCachedSizesToArray(SnippetUI::VisualProperty *this, google::protobuf::UnknownFieldSet *a2, google::protobuf::io::EpsCopyOutputStream *a3, google::protobuf::io::EpsCopyOutputStream *a4)
 {
   v7 = *(this + 6);
   if (v7)
@@ -1957,7 +1954,7 @@ LABEL_6:
       {
         google::protobuf::internal::LogMessage::LogMessage(v41, 3, "/Library/Caches/com.apple.xbs/Sources/DialogEngine/protobuf/src/google/protobuf/repeated_field.h", 1539);
         v10 = google::protobuf::internal::LogMessage::operator<<(v41, "CHECK failed: (index) < (current_size_): ");
-        google::protobuf::internal::LogFinisher::operator=(&v40, v10);
+        google::protobuf::internal::LogFinisher::operator=(&v40, &v10->__r_.__value_.__l.__data_);
         google::protobuf::internal::LogMessage::~LogMessage(&v41[0].__r_.__value_.__l.__data_);
       }
 
@@ -2014,7 +2011,7 @@ LABEL_6:
 LABEL_5:
     google::protobuf::internal::LogMessage::LogMessage(v41, 3, "/Library/Caches/com.apple.xbs/Sources/DialogEngine/protobuf/src/google/protobuf/repeated_field.h", 1538);
     v9 = google::protobuf::internal::LogMessage::operator<<(v41, "CHECK failed: (index) >= (0): ");
-    google::protobuf::internal::LogFinisher::operator=(&v40, v9);
+    google::protobuf::internal::LogFinisher::operator=(&v40, &v9->__r_.__value_.__l.__data_);
     google::protobuf::internal::LogMessage::~LogMessage(&v41[0].__r_.__value_.__l.__data_);
     goto LABEL_6;
   }
@@ -2158,9 +2155,9 @@ LABEL_36:
   return google::protobuf::internal::WireFormat::InternalSerializeUnknownFieldsToArray((v38 & 0xFFFFFFFFFFFFFFFELL), a2, a3, a4);
 }
 
-void sub_1BFBF1BE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1BFBF1BE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -2508,7 +2505,7 @@ LABEL_59:
   return google::protobuf::internal::WireFormat::InternalSerializeUnknownFieldsToArray((v55 & 0xFFFFFFFFFFFFFFFELL), v5, a3, a4);
 }
 
-const google::protobuf::UnknownFieldSet *SnippetUI::TextElement::InternalSerializeWithCachedSizesToArray(SnippetUI::TextElement *this, google::protobuf::UnknownFieldSet *a2, google::protobuf::io::EpsCopyOutputStream *a3, google::protobuf::io::EpsCopyOutputStream *a4)
+google::protobuf::UnknownFieldSet *SnippetUI::TextElement::InternalSerializeWithCachedSizesToArray(SnippetUI::TextElement *this, google::protobuf::UnknownFieldSet *a2, google::protobuf::io::EpsCopyOutputStream *a3, google::protobuf::io::EpsCopyOutputStream *a4)
 {
   v7 = *(this + 25);
   if (v7 == 1)
@@ -2825,7 +2822,7 @@ LABEL_64:
     {
       google::protobuf::internal::LogMessage::LogMessage(v81, 3, "/Library/Caches/com.apple.xbs/Sources/DialogEngine/protobuf/src/google/protobuf/io/coded_stream.h", 856);
       v60 = google::protobuf::internal::LogMessage::operator<<(v81, "CHECK failed: ptr < end_: ");
-      google::protobuf::internal::LogFinisher::operator=(&v80, v60);
+      google::protobuf::internal::LogFinisher::operator=(&v80, &v60->__r_.__value_.__l.__data_);
       google::protobuf::internal::LogMessage::~LogMessage(&v81[0].__r_.__value_.__l.__data_);
     }
 
@@ -2949,14 +2946,14 @@ LABEL_64:
   return a2;
 }
 
-void sub_1BFBF26E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1BFBF26E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-const google::protobuf::UnknownFieldSet *SnippetUI::TextProperty::InternalSerializeWithCachedSizesToArray(SnippetUI::TextProperty *this, google::protobuf::UnknownFieldSet *a2, google::protobuf::io::EpsCopyOutputStream *a3, google::protobuf::io::EpsCopyOutputStream *a4)
+google::protobuf::UnknownFieldSet *SnippetUI::TextProperty::InternalSerializeWithCachedSizesToArray(SnippetUI::TextProperty *this, google::protobuf::UnknownFieldSet *a2, google::protobuf::io::EpsCopyOutputStream *a3, google::protobuf::io::EpsCopyOutputStream *a4)
 {
   v7 = *(this + 6);
   if (v7)
@@ -3390,7 +3387,7 @@ const google::protobuf::UnknownFieldSet *SnippetUI::Command::InternalSerializeWi
   return google::protobuf::internal::WireFormat::InternalSerializeUnknownFieldsToArray((v38 & 0xFFFFFFFFFFFFFFFELL), v5, a3, a4);
 }
 
-const google::protobuf::UnknownFieldSet *SnippetUI::ActionProperty::InternalSerializeWithCachedSizesToArray(SnippetUI::ActionProperty *this, google::protobuf::UnknownFieldSet *a2, google::protobuf::io::EpsCopyOutputStream *a3, google::protobuf::io::EpsCopyOutputStream *a4)
+google::protobuf::UnknownFieldSet *SnippetUI::ActionProperty::InternalSerializeWithCachedSizesToArray(SnippetUI::ActionProperty *this, google::protobuf::UnknownFieldSet *a2, google::protobuf::io::EpsCopyOutputStream *a3, google::protobuf::io::EpsCopyOutputStream *a4)
 {
   v7 = *(this + 6);
   if (v7)
@@ -3408,7 +3405,7 @@ LABEL_6:
       {
         google::protobuf::internal::LogMessage::LogMessage(v24, 3, "/Library/Caches/com.apple.xbs/Sources/DialogEngine/protobuf/src/google/protobuf/repeated_field.h", 1539);
         v10 = google::protobuf::internal::LogMessage::operator<<(v24, "CHECK failed: (index) < (current_size_): ");
-        google::protobuf::internal::LogFinisher::operator=(&v23, v10);
+        google::protobuf::internal::LogFinisher::operator=(&v23, &v10->__r_.__value_.__l.__data_);
         google::protobuf::internal::LogMessage::~LogMessage(&v24[0].__r_.__value_.__l.__data_);
       }
 
@@ -3465,7 +3462,7 @@ LABEL_6:
 LABEL_5:
     google::protobuf::internal::LogMessage::LogMessage(v24, 3, "/Library/Caches/com.apple.xbs/Sources/DialogEngine/protobuf/src/google/protobuf/repeated_field.h", 1538);
     v9 = google::protobuf::internal::LogMessage::operator<<(v24, "CHECK failed: (index) >= (0): ");
-    google::protobuf::internal::LogFinisher::operator=(&v23, v9);
+    google::protobuf::internal::LogFinisher::operator=(&v23, &v9->__r_.__value_.__l.__data_);
     google::protobuf::internal::LogMessage::~LogMessage(&v24[0].__r_.__value_.__l.__data_);
     goto LABEL_6;
   }
@@ -3502,14 +3499,14 @@ LABEL_25:
   return google::protobuf::internal::WireFormat::InternalSerializeUnknownFieldsToArray((v21 & 0xFFFFFFFFFFFFFFFELL), a2, a3, a4);
 }
 
-void sub_1BFBF3020(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1BFBF3020(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-const google::protobuf::UnknownFieldSet *SnippetUI::Button_Container::InternalSerializeWithCachedSizesToArray(SnippetUI::Button_Container *this, google::protobuf::UnknownFieldSet *a2, google::protobuf::io::EpsCopyOutputStream *a3, google::protobuf::io::EpsCopyOutputStream *a4)
+google::protobuf::UnknownFieldSet *SnippetUI::Button_Container::InternalSerializeWithCachedSizesToArray(SnippetUI::Button_Container *this, google::protobuf::UnknownFieldSet *a2, google::protobuf::io::EpsCopyOutputStream *a3, google::protobuf::io::EpsCopyOutputStream *a4)
 {
   v7 = *(this + 6);
   if (v7)
@@ -3527,7 +3524,7 @@ LABEL_6:
       {
         google::protobuf::internal::LogMessage::LogMessage(v22, 3, "/Library/Caches/com.apple.xbs/Sources/DialogEngine/protobuf/src/google/protobuf/repeated_field.h", 1539);
         v10 = google::protobuf::internal::LogMessage::operator<<(v22, "CHECK failed: (index) < (current_size_): ");
-        google::protobuf::internal::LogFinisher::operator=(&v21, v10);
+        google::protobuf::internal::LogFinisher::operator=(&v21, &v10->__r_.__value_.__l.__data_);
         google::protobuf::internal::LogMessage::~LogMessage(&v22[0].__r_.__value_.__l.__data_);
       }
 
@@ -3584,7 +3581,7 @@ LABEL_6:
 LABEL_5:
     google::protobuf::internal::LogMessage::LogMessage(v22, 3, "/Library/Caches/com.apple.xbs/Sources/DialogEngine/protobuf/src/google/protobuf/repeated_field.h", 1538);
     v9 = google::protobuf::internal::LogMessage::operator<<(v22, "CHECK failed: (index) >= (0): ");
-    google::protobuf::internal::LogFinisher::operator=(&v21, v9);
+    google::protobuf::internal::LogFinisher::operator=(&v21, &v9->__r_.__value_.__l.__data_);
     google::protobuf::internal::LogMessage::~LogMessage(&v22[0].__r_.__value_.__l.__data_);
     goto LABEL_6;
   }
@@ -3599,14 +3596,14 @@ LABEL_19:
   return google::protobuf::internal::WireFormat::InternalSerializeUnknownFieldsToArray((v19 & 0xFFFFFFFFFFFFFFFELL), a2, a3, a4);
 }
 
-void sub_1BFBF3228(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1BFBF3228(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-const google::protobuf::UnknownFieldSet *SnippetUI::Response_Group::InternalSerializeWithCachedSizesToArray(SnippetUI::Response_Group *this, google::protobuf::UnknownFieldSet *a2, google::protobuf::io::EpsCopyOutputStream *a3, google::protobuf::io::EpsCopyOutputStream *a4)
+google::protobuf::UnknownFieldSet *SnippetUI::Response_Group::InternalSerializeWithCachedSizesToArray(SnippetUI::Response_Group *this, google::protobuf::UnknownFieldSet *a2, google::protobuf::io::EpsCopyOutputStream *a3, google::protobuf::io::EpsCopyOutputStream *a4)
 {
   v7 = *(this + 5);
   v8 = *(v7 + 23);
@@ -3821,7 +3818,7 @@ LABEL_23:
   return google::protobuf::internal::WireFormat::InternalSerializeUnknownFieldsToArray((v18 & 0xFFFFFFFFFFFFFFFELL), a2, a3, a4);
 }
 
-unsigned __int8 *google::protobuf::io::EpsCopyOutputStream::WriteRawMaybeAliased(google::protobuf::io::EpsCopyOutputStream *this, void *a2, uint64_t a3, char *a4)
+char *google::protobuf::io::EpsCopyOutputStream::WriteRawMaybeAliased(google::protobuf::io::EpsCopyOutputStream *this, void *a2, uint64_t a3, char *a4)
 {
   if (*(this + 57) == 1)
   {
@@ -3843,7 +3840,7 @@ unsigned __int8 *google::protobuf::io::EpsCopyOutputStream::WriteRawMaybeAliased
   }
 }
 
-unsigned __int8 *google::protobuf::io::EpsCopyOutputStream::WriteStringMaybeAliasedOutline(google::protobuf::io::EpsCopyOutputStream *this, int a2, void **a3, char *a4)
+char *google::protobuf::io::EpsCopyOutputStream::WriteStringMaybeAliasedOutline(google::protobuf::io::EpsCopyOutputStream *this, int a2, const void ***a3, char *a4)
 {
   v4 = a4;
   v8 = *this;
@@ -3867,7 +3864,7 @@ unsigned __int8 *google::protobuf::io::EpsCopyOutputStream::WriteStringMaybeAlia
   {
     google::protobuf::internal::LogMessage::LogMessage(v23, 3, "/Library/Caches/com.apple.xbs/Sources/DialogEngine/protobuf/src/google/protobuf/io/coded_stream.h", 856);
     v10 = google::protobuf::internal::LogMessage::operator<<(v23, "CHECK failed: ptr < end_: ");
-    google::protobuf::internal::LogFinisher::operator=(&v22, v10);
+    google::protobuf::internal::LogFinisher::operator=(&v22, &v10->__r_.__value_.__l.__data_);
     google::protobuf::internal::LogMessage::~LogMessage(&v23[0].__r_.__value_.__l.__data_);
   }
 
@@ -3939,9 +3936,9 @@ unsigned __int8 *google::protobuf::io::EpsCopyOutputStream::WriteStringMaybeAlia
   return google::protobuf::io::EpsCopyOutputStream::WriteRawMaybeAliased(this, v18, v9, v17);
 }
 
-void sub_1BFBF37E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1BFBF37E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -7532,7 +7529,7 @@ const google::protobuf::UnknownFieldSet *SnippetUI::Response_Section::InternalSe
     {
       google::protobuf::internal::LogMessage::LogMessage(v50, 3, "/Library/Caches/com.apple.xbs/Sources/DialogEngine/protobuf/src/google/protobuf/io/coded_stream.h", 856);
       v20 = google::protobuf::internal::LogMessage::operator<<(v50, "CHECK failed: ptr < end_: ");
-      google::protobuf::internal::LogFinisher::operator=(&v49, v20);
+      google::protobuf::internal::LogFinisher::operator=(&v49, &v20->__r_.__value_.__l.__data_);
       google::protobuf::internal::LogMessage::~LogMessage(&v50[0].__r_.__value_.__l.__data_);
     }
 
@@ -7616,7 +7613,7 @@ const google::protobuf::UnknownFieldSet *SnippetUI::Response_Section::InternalSe
     {
       google::protobuf::internal::LogMessage::LogMessage(v50, 3, "/Library/Caches/com.apple.xbs/Sources/DialogEngine/protobuf/src/google/protobuf/io/coded_stream.h", 856);
       v33 = google::protobuf::internal::LogMessage::operator<<(v50, "CHECK failed: ptr < end_: ");
-      google::protobuf::internal::LogFinisher::operator=(&v49, v33);
+      google::protobuf::internal::LogFinisher::operator=(&v49, &v33->__r_.__value_.__l.__data_);
       google::protobuf::internal::LogMessage::~LogMessage(&v50[0].__r_.__value_.__l.__data_);
     }
 
@@ -7709,9 +7706,9 @@ const google::protobuf::UnknownFieldSet *SnippetUI::Response_Section::InternalSe
   return a2;
 }
 
-void sub_1BFBF6BEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1BFBF6BEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -7719,7 +7716,7 @@ void sub_1BFBF6BEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 BOOL google::protobuf::MessageLite::AppendPartialToString(uint64_t a1, std::string *a2)
 {
   v2 = a2;
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   size = SHIBYTE(a2->__r_.__value_.__r.__words[2]);
   if ((size & 0x8000000000000000) != 0)
   {
@@ -7731,18 +7728,18 @@ BOOL google::protobuf::MessageLite::AppendPartialToString(uint64_t a1, std::stri
   v7 = v5 >> 31;
   if (v5 >> 31)
   {
-    google::protobuf::internal::LogMessage::LogMessage(v17, 2, "/Library/Caches/com.apple.xbs/Sources/DialogEngine/protobuf/src/google/protobuf/message_lite.cc", 425);
+    google::protobuf::internal::LogMessage::LogMessage(v16, 2, "/Library/Caches/com.apple.xbs/Sources/DialogEngine/protobuf/src/google/protobuf/message_lite.cc", 425);
     (*(*a1 + 16))(__p, a1);
-    v10 = google::protobuf::internal::LogMessage::operator<<(v17, __p);
+    v10 = google::protobuf::internal::LogMessage::operator<<(v16, __p);
     v11 = google::protobuf::internal::LogMessage::operator<<(v10, " exceeded maximum protobuf size of 2GB: ");
     v12 = google::protobuf::internal::LogMessage::operator<<(v11, v6);
-    google::protobuf::internal::LogFinisher::operator=(&v15, v12);
+    google::protobuf::internal::LogFinisher::operator=(&v14, &v12->__r_.__value_.__l.__data_);
     if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p[0].__r_.__value_.__l.__data_);
     }
 
-    v9 = v17;
+    v9 = v16;
     goto LABEL_11;
   }
 
@@ -7752,23 +7749,21 @@ BOOL google::protobuf::MessageLite::AppendPartialToString(uint64_t a1, std::stri
     v2 = v2->__r_.__value_.__r.__words[0];
   }
 
-  *&v17[0].__r_.__value_.__l.__data_ = v2 + size + v6;
+  *&v16[0].__r_.__value_.__l.__data_ = v2 + size + v6;
+  v17 = 0;
   v18 = 0;
-  v19 = 0;
-  v20 = google::protobuf::io::CodedOutputStream::default_serialization_deterministic_ & 1;
-  if (v17[0].__r_.__value_.__r.__words[0] != (*(*a1 + 112))(a1))
+  v19 = google::protobuf::io::CodedOutputStream::default_serialization_deterministic_ & 1;
+  if (v16[0].__r_.__value_.__r.__words[0] != (*(*a1 + 112))(a1))
   {
     google::protobuf::internal::LogMessage::LogMessage(__p, 3, "/Library/Caches/com.apple.xbs/Sources/DialogEngine/protobuf/src/google/protobuf/message_lite.cc", 328);
     v8 = google::protobuf::internal::LogMessage::operator<<(__p, "CHECK failed: target + size == res: ");
-    google::protobuf::internal::LogFinisher::operator=(&v15, v8);
+    google::protobuf::internal::LogFinisher::operator=(&v14, &v8->__r_.__value_.__l.__data_);
     v9 = __p;
 LABEL_11:
     google::protobuf::internal::LogMessage::~LogMessage(&v9->__r_.__value_.__l.__data_);
   }
 
-  result = v7 == 0;
-  v14 = *MEMORY[0x1E69E9840];
-  return result;
+  return v7 == 0;
 }
 
 char *SnippetUI::ImageElement_Symbol::ByteSizeLong(SnippetUI::ImageElement_Symbol *this)
@@ -9217,7 +9212,7 @@ uint64_t google::protobuf::RepeatedField<int>::Get(_DWORD *a1, int a2)
   {
     google::protobuf::internal::LogMessage::LogMessage(v8, 3, "/Library/Caches/com.apple.xbs/Sources/DialogEngine/protobuf/src/google/protobuf/repeated_field.h", 1176);
     v4 = google::protobuf::internal::LogMessage::operator<<(v8, "CHECK failed: (index) >= (0): ");
-    google::protobuf::internal::LogFinisher::operator=(&v7, v4);
+    google::protobuf::internal::LogFinisher::operator=(&v7, &v4->__r_.__value_.__l.__data_);
     google::protobuf::internal::LogMessage::~LogMessage(&v8[0].__r_.__value_.__l.__data_);
   }
 
@@ -9225,16 +9220,16 @@ uint64_t google::protobuf::RepeatedField<int>::Get(_DWORD *a1, int a2)
   {
     google::protobuf::internal::LogMessage::LogMessage(v8, 3, "/Library/Caches/com.apple.xbs/Sources/DialogEngine/protobuf/src/google/protobuf/repeated_field.h", 1177);
     v5 = google::protobuf::internal::LogMessage::operator<<(v8, "CHECK failed: (index) < (current_size_): ");
-    google::protobuf::internal::LogFinisher::operator=(&v7, v5);
+    google::protobuf::internal::LogFinisher::operator=(&v7, &v5->__r_.__value_.__l.__data_);
     google::protobuf::internal::LogMessage::~LogMessage(&v8[0].__r_.__value_.__l.__data_);
   }
 
   return google::protobuf::RepeatedField<int>::elements(a1) + 4 * a2;
 }
 
-void sub_1BFBF864C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1BFBF864C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9246,7 +9241,7 @@ BOOL google::protobuf::MessageLite::AppendToString(const char *a1, std::string *
     google::protobuf::internal::LogMessage::LogMessage(v9, 3, "/Library/Caches/com.apple.xbs/Sources/DialogEngine/protobuf/src/google/protobuf/message_lite.cc", 417);
     v4 = google::protobuf::internal::LogMessage::operator<<(v9, "CHECK failed: IsInitialized(): ");
     v5 = google::protobuf::internal::LogMessage::operator<<(v4, &__p);
-    google::protobuf::internal::LogFinisher::operator=(&v7, v5);
+    google::protobuf::internal::LogFinisher::operator=(&v7, &v5->__r_.__value_.__l.__data_);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
@@ -9271,45 +9266,45 @@ void sub_1BFBF8744(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void siri::dialogengine::SetVisualInfo(int *a1, uint64_t a2)
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   *a2 = a1[6];
   *(a2 + 8) = a1[24];
   *(a2 + 16) = a1[18];
   *(a2 + 24) = a1[12];
+  v38 = 0;
   v39 = 0;
   v40 = 0;
-  v41 = 0;
+  v35 = 0;
   v36 = 0;
   v37 = 0;
-  v38 = 0;
-  google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<SnippetUI::Response_Section>::TypeHandler>(&v36, (a1 + 4));
-  if (v37 >= 1)
+  google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<SnippetUI::Response_Section>::TypeHandler>(&v35, (a1 + 4));
+  if (v36 >= 1)
   {
     v2 = 0;
     do
     {
-      v3 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<SnippetUI::Response_Section>::TypeHandler>(&v36, v2);
+      v3 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<SnippetUI::Response_Section>::TypeHandler>(&v35, v2);
       siri::dialogengine::GetVisualElementId(&__p, v3);
-      siri::dialogengine::GetStoredItems(&v45, v3);
-      v4 = v45.__r_.__value_.__r.__words[0];
-      if (v45.__r_.__value_.__l.__data_ == &v45.__r_.__value_.__r.__words[1])
+      siri::dialogengine::GetStoredItems(&v44, v3);
+      v4 = v44.__r_.__value_.__r.__words[0];
+      if (v44.__r_.__value_.__l.__data_ == &v44.__r_.__value_.__r.__words[1])
       {
 LABEL_11:
-        std::string::basic_string[abi:ne200100]<0>(&v34, "");
+        std::string::basic_string[abi:ne200100]<0>(&v33, "");
       }
 
       else
       {
         while (1)
         {
-          LODWORD(v42.__first_) = *(v4 + 32);
-          siri::dialogengine::CatBinary::vcat_item::vcat_item(&v42.__begin_, (v4 + 40));
-          if (v44 == 6)
+          LODWORD(v41.__first_) = *(v4 + 32);
+          siri::dialogengine::CatBinary::vcat_item::vcat_item(&v41.__begin_, (v4 + 40));
+          if (v43 == 6)
           {
             break;
           }
 
-          siri::dialogengine::CatBinary::vcat_item::~vcat_item(&v42.__begin_);
+          siri::dialogengine::CatBinary::vcat_item::~vcat_item(&v41.__begin_);
           v5 = *(v4 + 8);
           if (v5)
           {
@@ -9335,59 +9330,59 @@ LABEL_11:
           }
 
           v4 = v6;
-          if (v6 == &v45.__r_.__value_.__r.__words[1])
+          if (v6 == &v44.__r_.__value_.__r.__words[1])
           {
             goto LABEL_11;
           }
         }
 
-        if (*(v43 + 23) < 0)
+        if (*(v42 + 23) < 0)
         {
-          std::string::__init_copy_ctor_external(&v34, *v43, *(v43 + 1));
+          std::string::__init_copy_ctor_external(&v33, *v42, *(v42 + 1));
         }
 
         else
         {
-          v8 = *v43;
-          v34.__r_.__value_.__r.__words[2] = *(v43 + 2);
-          *&v34.__r_.__value_.__l.__data_ = v8;
+          v8 = *v42;
+          v33.__r_.__value_.__r.__words[2] = *(v42 + 2);
+          *&v33.__r_.__value_.__l.__data_ = v8;
         }
 
-        siri::dialogengine::CatBinary::vcat_item::~vcat_item(&v42.__begin_);
+        siri::dialogengine::CatBinary::vcat_item::~vcat_item(&v41.__begin_);
       }
 
-      std::__tree<std::__value_type<int,siri::dialogengine::CatBinary::vcat_item>,std::__map_value_compare<int,std::__value_type<int,siri::dialogengine::CatBinary::vcat_item>,std::less<int>,true>,std::allocator<std::__value_type<int,siri::dialogengine::CatBinary::vcat_item>>>::destroy(v45.__r_.__value_.__l.__size_);
-      if ((v34.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      std::__tree<std::__value_type<int,siri::dialogengine::CatBinary::vcat_item>,std::__map_value_compare<int,std::__value_type<int,siri::dialogengine::CatBinary::vcat_item>,std::less<int>,true>,std::allocator<std::__value_type<int,siri::dialogengine::CatBinary::vcat_item>>>::destroy(v44.__r_.__value_.__l.__size_);
+      if ((v33.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        size = HIBYTE(v34.__r_.__value_.__r.__words[2]);
-      }
-
-      else
-      {
-        size = v34.__r_.__value_.__l.__size_;
-      }
-
-      std::string::basic_string[abi:ne200100](&v45, size + 1);
-      if ((v45.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-      {
-        v10 = &v45;
+        size = HIBYTE(v33.__r_.__value_.__r.__words[2]);
       }
 
       else
       {
-        v10 = v45.__r_.__value_.__r.__words[0];
+        size = v33.__r_.__value_.__l.__size_;
+      }
+
+      std::string::basic_string[abi:ne200100](&v44, size + 1);
+      if ((v44.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v10 = &v44;
+      }
+
+      else
+      {
+        v10 = v44.__r_.__value_.__r.__words[0];
       }
 
       if (size)
       {
-        if ((v34.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        if ((v33.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v11 = &v34;
+          v11 = &v33;
         }
 
         else
         {
-          v11 = v34.__r_.__value_.__r.__words[0];
+          v11 = v33.__r_.__value_.__r.__words[0];
         }
 
         memmove(v10, v11, size);
@@ -9414,30 +9409,30 @@ LABEL_11:
         v13 = __p.__r_.__value_.__l.__size_;
       }
 
-      v14 = std::string::append(&v45, p_p, v13);
+      v14 = std::string::append(&v44, p_p, v13);
       v15 = v14->__r_.__value_.__r.__words[0];
-      v46.__r_.__value_.__r.__words[0] = v14->__r_.__value_.__l.__size_;
-      *(v46.__r_.__value_.__r.__words + 7) = *(&v14->__r_.__value_.__r.__words[1] + 7);
+      v45.__r_.__value_.__r.__words[0] = v14->__r_.__value_.__l.__size_;
+      *(v45.__r_.__value_.__r.__words + 7) = *(&v14->__r_.__value_.__r.__words[1] + 7);
       v16 = HIBYTE(v14->__r_.__value_.__r.__words[2]);
       v14->__r_.__value_.__l.__size_ = 0;
       v14->__r_.__value_.__r.__words[2] = 0;
       v14->__r_.__value_.__r.__words[0] = 0;
-      v17 = v40;
-      if (v40 >= v41)
+      v17 = v39;
+      if (v39 >= v40)
       {
-        v19 = 0xAAAAAAAAAAAAAAABLL * ((v40 - v39) >> 3);
+        v19 = 0xAAAAAAAAAAAAAAABLL * ((v39 - v38) >> 3);
         v20 = v19 + 1;
         if (v19 + 1 > 0xAAAAAAAAAAAAAAALL)
         {
           std::vector<std::vector<std::string>>::__throw_length_error[abi:ne200100]();
         }
 
-        if (0x5555555555555556 * ((v41 - v39) >> 3) > v20)
+        if (0x5555555555555556 * ((v40 - v38) >> 3) > v20)
         {
-          v20 = 0x5555555555555556 * ((v41 - v39) >> 3);
+          v20 = 0x5555555555555556 * ((v40 - v38) >> 3);
         }
 
-        if (0xAAAAAAAAAAAAAAABLL * ((v41 - v39) >> 3) >= 0x555555555555555)
+        if (0xAAAAAAAAAAAAAAABLL * ((v40 - v38) >> 3) >= 0x555555555555555)
         {
           v21 = 0xAAAAAAAAAAAAAAALL;
         }
@@ -9447,52 +9442,52 @@ LABEL_11:
           v21 = v20;
         }
 
-        v42.__end_cap_.__value_ = &v39;
+        v41.__end_cap_.__value_ = &v38;
         if (v21)
         {
-          std::__allocate_at_least[abi:ne200100]<std::allocator<std::string>>(&v39, v21);
+          std::__allocate_at_least[abi:ne200100]<std::allocator<std::string>>(&v38, v21);
         }
 
-        v22 = 8 * ((v40 - v39) >> 3);
+        v22 = 8 * ((v39 - v38) >> 3);
         *v22 = v15;
-        *(v22 + 8) = v46.__r_.__value_.__r.__words[0];
-        *(v22 + 15) = *(v46.__r_.__value_.__r.__words + 7);
+        *(v22 + 8) = v45.__r_.__value_.__r.__words[0];
+        *(v22 + 15) = *(v45.__r_.__value_.__r.__words + 7);
         *(v22 + 23) = v16;
         v18 = (24 * v19 + 24);
-        v23 = (v22 - (v40 - v39));
-        memcpy(v23, v39, v40 - v39);
-        v24 = v39;
-        v25 = v41;
-        v39 = v23;
-        v40 = v18;
-        v41 = 0;
-        v42.__first_ = v24;
-        v42.__end_ = v24;
-        v42.__end_cap_.__value_ = v25;
-        v42.__begin_ = v24;
-        std::__split_buffer<std::string>::~__split_buffer(&v42);
+        v23 = (v22 - (v39 - v38));
+        memcpy(v23, v38, v39 - v38);
+        v24 = v38;
+        v25 = v40;
+        v38 = v23;
+        v39 = v18;
+        v40 = 0;
+        v41.__first_ = v24;
+        v41.__end_ = v24;
+        v41.__end_cap_.__value_ = v25;
+        v41.__begin_ = v24;
+        std::__split_buffer<std::string>::~__split_buffer(&v41);
       }
 
       else
       {
-        v40->__r_.__value_.__r.__words[0] = v15;
-        v17->__r_.__value_.__l.__size_ = v46.__r_.__value_.__r.__words[0];
-        *(&v17->__r_.__value_.__r.__words[1] + 7) = *(v46.__r_.__value_.__r.__words + 7);
+        v39->__r_.__value_.__r.__words[0] = v15;
+        v17->__r_.__value_.__l.__size_ = v45.__r_.__value_.__r.__words[0];
+        *(&v17->__r_.__value_.__r.__words[1] + 7) = *(v45.__r_.__value_.__r.__words + 7);
         *(&v17->__r_.__value_.__s + 23) = v16;
         v18 = v17 + 1;
       }
 
-      v40 = v18;
-      if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
+      v39 = v18;
+      if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v45.__r_.__value_.__l.__data_);
+        operator delete(v44.__r_.__value_.__l.__data_);
       }
 
       std::operator+<char>();
-      v26 = std::string::append(&v46, ", Visual Element (Section) ID: ");
+      v26 = std::string::append(&v45, ", Visual Element (Section) ID: ");
       v27 = *&v26->__r_.__value_.__l.__data_;
-      v45.__r_.__value_.__r.__words[2] = v26->__r_.__value_.__r.__words[2];
-      *&v45.__r_.__value_.__l.__data_ = v27;
+      v44.__r_.__value_.__r.__words[2] = v26->__r_.__value_.__r.__words[2];
+      *&v44.__r_.__value_.__l.__data_ = v27;
       v26->__r_.__value_.__l.__size_ = 0;
       v26->__r_.__value_.__r.__words[2] = 0;
       v26->__r_.__value_.__r.__words[0] = 0;
@@ -9516,17 +9511,22 @@ LABEL_11:
         v29 = __p.__r_.__value_.__l.__size_;
       }
 
-      v30 = std::string::append(&v45, v28, v29);
+      v30 = std::string::append(&v44, v28, v29);
       v31 = *&v30->__r_.__value_.__l.__data_;
-      v42.__end_ = v30->__r_.__value_.__r.__words[2];
-      *&v42.__first_ = v31;
+      v41.__end_ = v30->__r_.__value_.__r.__words[2];
+      *&v41.__first_ = v31;
       v30->__r_.__value_.__l.__size_ = 0;
       v30->__r_.__value_.__r.__words[2] = 0;
       v30->__r_.__value_.__r.__words[0] = 0;
-      siri::dialogengine::Log::LogWithLevel(&v42, 0);
-      if (SHIBYTE(v42.__end_) < 0)
+      siri::dialogengine::Log::LogWithLevel(&v41, 0);
+      if (SHIBYTE(v41.__end_) < 0)
       {
-        operator delete(v42.__first_);
+        operator delete(v41.__first_);
+      }
+
+      if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v44.__r_.__value_.__l.__data_);
       }
 
       if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
@@ -9534,14 +9534,9 @@ LABEL_11:
         operator delete(v45.__r_.__value_.__l.__data_);
       }
 
-      if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v46.__r_.__value_.__l.__data_);
-      }
-
-      if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v34.__r_.__value_.__l.__data_);
+        operator delete(v33.__r_.__value_.__l.__data_);
       }
 
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -9552,18 +9547,17 @@ LABEL_11:
       ++v2;
     }
 
-    while (v2 < v37);
+    while (v2 < v36);
   }
 
-  if ((a2 + 32) != &v39)
+  if ((a2 + 32) != &v38)
   {
-    std::vector<std::string>::__assign_with_size[abi:ne200100]<std::string*,std::string*>((a2 + 32), v39, v40, 0xAAAAAAAAAAAAAAABLL * ((v40 - v39) >> 3));
+    std::vector<std::string>::__assign_with_size[abi:ne200100]<std::string*,std::string*>((a2 + 32), v38, v39, 0xAAAAAAAAAAAAAAABLL * ((v39 - v38) >> 3));
   }
 
-  google::protobuf::RepeatedPtrField<siri::dialogengine::SchemaBinary::Input>::~RepeatedPtrField(&v36);
-  v42.__first_ = &v39;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v42);
-  v32 = *MEMORY[0x1E69E9840];
+  google::protobuf::RepeatedPtrField<siri::dialogengine::SchemaBinary::Input>::~RepeatedPtrField(&v35);
+  v41.__first_ = &v38;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v41);
 }
 
 void sub_1BFBF8C18(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22, char *a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, void *a29, uint64_t a30, int a31, __int16 a32, char a33, char a34)
@@ -9637,8 +9631,8 @@ LABEL_16:
       v13 = v12 - v7;
       if (v12 == v7)
       {
-        std::string::basic_string(&v30, __s, 1uLL, 0xFFFFFFFFFFFFFFFFLL, &v29);
-        v20 = siri::dialogengine::StringEndsWith(a1, &v30.__r_.__value_.__l.__data_);
+        std::string::basic_string(&v28, __s, 1uLL, 0xFFFFFFFFFFFFFFFFLL, &v27);
+        v19 = siri::dialogengine::StringEndsWith(a1, &v28.__r_.__value_.__l.__data_);
         goto LABEL_41;
       }
 
@@ -9649,68 +9643,68 @@ LABEL_16:
 
       if ((v2 & 0x80) != 0)
       {
-        v21 = size - 1;
+        v20 = size - 1;
       }
 
       else
       {
-        v21 = v2 - 1;
+        v20 = v2 - 1;
       }
 
-      if (v13 == v21)
+      if (v13 == v20)
       {
-        std::string::basic_string(&v30, __s, 0, v13, &v29);
-        v20 = siri::dialogengine::StringStartsWith(a1, &v30.__r_.__value_.__l.__data_);
+        std::string::basic_string(&v28, __s, 0, v13, &v27);
+        v19 = siri::dialogengine::StringStartsWith(a1, &v28.__r_.__value_.__l.__data_);
 LABEL_41:
-        v9 = v20;
-        if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
+        v9 = v19;
+        if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v30.__r_.__value_.__l.__data_);
+          operator delete(v28.__r_.__value_.__l.__data_);
         }
 
         return v9;
       }
 
       std::operator+<char>();
-      v22 = std::string::append(&v29, "'");
-      v23 = *&v22->__r_.__value_.__l.__data_;
-      v30.__r_.__value_.__r.__words[2] = v22->__r_.__value_.__r.__words[2];
-      *&v30.__r_.__value_.__l.__data_ = v23;
-      v22->__r_.__value_.__l.__size_ = 0;
-      v22->__r_.__value_.__r.__words[2] = 0;
-      v22->__r_.__value_.__r.__words[0] = 0;
-      siri::dialogengine::Log::LogWithLevel(&v30, 3u);
-      if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
+      v21 = std::string::append(&v27, "'");
+      v22 = *&v21->__r_.__value_.__l.__data_;
+      v28.__r_.__value_.__r.__words[2] = v21->__r_.__value_.__r.__words[2];
+      *&v28.__r_.__value_.__l.__data_ = v22;
+      v21->__r_.__value_.__l.__size_ = 0;
+      v21->__r_.__value_.__r.__words[2] = 0;
+      v21->__r_.__value_.__r.__words[0] = 0;
+      siri::dialogengine::Log::LogWithLevel(&v28, 3);
+      if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v30.__r_.__value_.__l.__data_);
+        operator delete(v28.__r_.__value_.__l.__data_);
       }
 
-      if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v29.__r_.__value_.__l.__data_);
+        operator delete(v27.__r_.__value_.__l.__data_);
       }
 
-      v24 = *(a1 + 23);
-      if (v24 >= 0)
+      v23 = *(a1 + 23);
+      if (v23 >= 0)
       {
-        v19 = *(a1 + 23);
+        v18 = *(a1 + 23);
       }
 
       else
       {
-        v19 = *(a1 + 8);
+        v18 = *(a1 + 8);
       }
 
-      v25 = HIBYTE(__s->__r_.__value_.__r.__words[2]);
-      v26 = v25;
-      if ((v25 & 0x80u) != 0)
+      v24 = HIBYTE(__s->__r_.__value_.__r.__words[2]);
+      v25 = v24;
+      if ((v24 & 0x80u) != 0)
       {
-        v25 = __s->__r_.__value_.__l.__size_;
+        v24 = __s->__r_.__value_.__l.__size_;
       }
 
-      if (v19 == v25)
+      if (v18 == v24)
       {
-        if (v24 >= 0)
+        if (v23 >= 0)
         {
           v16 = a1;
         }
@@ -9720,18 +9714,17 @@ LABEL_41:
           v16 = *a1;
         }
 
-        v27 = __s->__r_.__value_.__r.__words[0];
-        if (v26 >= 0)
+        if (v25 >= 0)
         {
-          v18 = __s;
+          v17 = __s;
         }
 
         else
         {
-          v18 = __s->__r_.__value_.__r.__words[0];
+          v17 = __s->__r_.__value_.__r.__words[0];
         }
 
-        return memcmp(v16, v18, v19) == 0;
+        return memcmp(v16, v17, v18) == 0;
       }
 
       return 0;
@@ -9782,19 +9775,18 @@ LABEL_24:
     v16 = *a1;
   }
 
-  v17 = __s->__r_.__value_.__r.__words[0];
   if ((v2 & 0x80u) == 0)
   {
-    v18 = __s;
+    v17 = __s;
   }
 
   else
   {
-    v18 = __s->__r_.__value_.__r.__words[0];
+    v17 = __s->__r_.__value_.__r.__words[0];
   }
 
-  v19 = v4;
-  return memcmp(v16, v18, v19) == 0;
+  v18 = v4;
+  return memcmp(v16, v17, v18) == 0;
 }
 
 void sub_1BFBF8FAC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)

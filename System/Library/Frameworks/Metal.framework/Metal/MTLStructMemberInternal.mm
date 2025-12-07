@@ -207,27 +207,27 @@
 
 - (id)formattedDescription:(unint64_t)description withPrintedTypes:(id)types
 {
-  v16[15] = *MEMORY[0x1E69E9840];
+  v15[15] = *MEMORY[0x1E69E9840];
   v7 = [@"\n" stringByPaddingToLength:description + 4 withString:@" " startingAtIndex:0];
   v8 = MEMORY[0x1E696AEC0];
-  v15.receiver = self;
-  v15.super_class = MTLStructMemberInternal;
-  v9 = [(MTLStructMemberInternal *)&v15 description];
+  v14.receiver = self;
+  v14.super_class = MTLStructMemberInternal;
+  v9 = [(MTLStructMemberInternal *)&v14 description];
   name = self->_name;
-  v16[0] = v7;
-  v16[1] = @"Name =";
-  v16[2] = name;
-  v16[3] = v7;
-  v16[4] = @"Offset =";
-  v16[5] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_offset];
-  v16[6] = v7;
-  v16[7] = @"DataType =";
-  v16[8] = MTLDataTypeString(*(self + 12));
-  v16[9] = v7;
-  v16[10] = @"ArgumentIndex =";
-  v16[11] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_argumentIndex];
-  v16[12] = v7;
-  v16[13] = @"TypeInfo =";
+  v15[0] = v7;
+  v15[1] = @"Name =";
+  v15[2] = name;
+  v15[3] = v7;
+  v15[4] = @"Offset =";
+  v15[5] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_offset];
+  v15[6] = v7;
+  v15[7] = @"DataType =";
+  v15[8] = MTLDataTypeString(*(self + 12));
+  v15[9] = v7;
+  v15[10] = @"ArgumentIndex =";
+  v15[11] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_argumentIndex];
+  v15[12] = v7;
+  v15[13] = @"TypeInfo =";
   typeInfo = self->_typeInfo;
   if (typeInfo)
   {
@@ -239,10 +239,8 @@
     v12 = @" nil";
   }
 
-  v16[14] = v12;
-  result = [v8 stringWithFormat:@"%@%@", v9, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v16, 15), "componentsJoinedByString:", @" "];
-  v14 = *MEMORY[0x1E69E9840];
-  return result;
+  v15[14] = v12;
+  return [v8 stringWithFormat:@"%@%@", v9, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v15, 15), "componentsJoinedByString:", @" "];
 }
 
 - (BOOL)isEqual:(id)equal

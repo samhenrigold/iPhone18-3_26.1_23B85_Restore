@@ -23,34 +23,33 @@
 {
   v9 = type metadata accessor for UUID();
   v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
   __chkstk_darwin(v9);
-  v13 = &v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = &v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   static String._unconditionallyBridgeFromObjectiveC(_:)();
   deviceCopy = device;
   selfCopy = self;
-  sub_100006F1C(v13, deviceCopy, link);
+  sub_100006F1C(v12, deviceCopy, link);
 
-  (*(v10 + 8))(v13, v9);
+  (*(v10 + 8))(v12, v9);
 }
 
 - (void)relaySession:(int64_t)session closedWithError:(id)error
 {
   selfCopy = self;
   errorCopy = error;
-  sub_100007100();
+  sub_100007100(session, error);
 }
 
 - (void)relaySession:(int64_t)session receivedOPACKData:(id)data dataLink:(int64_t)link
 {
   dataCopy = data;
   selfCopy = self;
-  v7 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
-  v9 = v8;
+  v8 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
+  v10 = v9;
 
-  sub_100007510();
-  sub_100003388(v7, v9);
+  sub_100007510(session, v8, v10);
+  sub_100003388(v8, v10);
 }
 
 - (void)relaySession:(int64_t)session stream:(id)stream status:(int64_t)status
@@ -64,10 +63,11 @@
 - (void)relayPresenterStartServiceExtension:(id)extension completion:(id)completion
 {
   v5 = _Block_copy(completion);
-  static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v6 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v8 = v7;
   *(swift_allocObject() + 16) = v5;
   selfCopy = self;
-  sub_100007A34();
+  sub_100007A34(v6, v8);
 }
 
 - (void)relayTerminateService
@@ -127,42 +127,40 @@
   selfCopy = self;
   transportCopy = transport;
   v10 = sub_10000FC6C(&qword_1000991D8, &qword_100075780);
-  v11 = *(*(v10 - 8) + 64);
   __chkstk_darwin(v10 - 8);
-  v13 = &selfCopy - v12;
-  v14 = type metadata accessor for UUID();
-  v15 = *(v14 - 8);
-  v16 = *(v15 + 64);
-  v17 = __chkstk_darwin(v14);
-  v19 = &selfCopy - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v17);
-  v21 = &selfCopy - v20;
-  v22 = _Block_copy(completion);
+  v12 = &selfCopy - v11;
+  v13 = type metadata accessor for UUID();
+  v14 = *(v13 - 8);
+  v15 = __chkstk_darwin(v13);
+  v17 = &selfCopy - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v15);
+  v19 = &selfCopy - v18;
+  v20 = _Block_copy(completion);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   if (reconnect)
   {
     static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-    v23 = 0;
+    v21 = 0;
   }
 
   else
   {
-    v23 = 1;
+    v21 = 1;
   }
 
-  sub_10001137C(v13, v23, 1, v14);
-  v24 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v26 = v25;
+  sub_10001137C(v12, v21, 1, v13);
+  v22 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v24 = v23;
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-  _Block_copy(v22);
-  v27 = selfCopy;
-  sub_1000094D0(v21, v13, v24, v26, v19, transportCopy, v27, v22);
-  _Block_release(v22);
+  _Block_copy(v20);
+  v25 = selfCopy;
+  sub_1000094D0(v19, v12, v22, v24, v17, transportCopy, v25, v20);
+  _Block_release(v20);
 
-  v28 = *(v15 + 8);
-  v28(v19, v14);
-  sub_100011668(v13, &qword_1000991D8, &qword_100075780);
-  v28(v21, v14);
+  v26 = *(v14 + 8);
+  v26(v17, v13);
+  sub_100011668(v12, &qword_1000991D8, &qword_100075780);
+  v26(v19, v13);
 }
 
 - (void)relaySessionClose:(int64_t)close error:(id)error completion:(id)completion
@@ -179,17 +177,16 @@
 {
   v6 = type metadata accessor for UUID();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = _Block_copy(completion);
+  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = _Block_copy(completion);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-  _Block_copy(v11);
+  _Block_copy(v10);
   selfCopy = self;
-  sub_10000B2E4(v10, selfCopy, v11);
-  _Block_release(v11);
+  sub_10000B2E4(v9, selfCopy, v10);
+  _Block_release(v10);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (void)relaySession:(int64_t)session sendOPACKData:(id)data completion:(id)completion
@@ -208,9 +205,10 @@
 
 - (void)relaySession:(int64_t)session closeStream:(id)stream
 {
-  static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v6 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v8 = v7;
   selfCopy = self;
-  sub_10000DA58();
+  sub_10000DA58(session, v6, v8);
 }
 
 - (void)relaySession:(int64_t)session setStreamSuspended:(BOOL)suspended completion:(id)completion

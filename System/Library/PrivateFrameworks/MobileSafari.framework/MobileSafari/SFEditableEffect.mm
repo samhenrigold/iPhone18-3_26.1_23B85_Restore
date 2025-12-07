@@ -46,7 +46,7 @@
 
 - (BOOL)applyToViews:(id)views
 {
-  sub_18B7B0AC0(0, &qword_1EA9D46F0);
+  sub_18B7B0AC0(0, &qword_1EA9D46F0, 0x1E69DD250);
   v4 = sub_18BC20D98();
   swift_beginAccess();
   selfCopy = self;
@@ -100,15 +100,15 @@
 
   v6 = SFEditableEffect.isEqual(_:)(v8);
 
-  sub_18B988BAC(v8, &qword_1EA9D5220);
+  sub_18B988BAC(v8, &qword_1EA9D5220, &qword_18BC3FCB0);
   return v6 & 1;
 }
 
 - (int64_t)hash
 {
   swift_beginAccess();
-  _s5LayerVMa();
-  sub_18B98EF50(&qword_1EA9D3D88, _s5LayerVMa);
+  _s5LayerVMa(0);
+  sub_18B98EF50(&qword_1EA9D3D88, _s5LayerVMa, &unk_18BC40340);
   selfCopy = self;
   sub_18BC1E3F8();
   v4 = sub_18BC20E88();

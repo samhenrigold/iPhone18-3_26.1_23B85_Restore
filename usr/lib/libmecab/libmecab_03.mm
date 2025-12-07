@@ -1,15 +1,3 @@
-void MeCab::scoped_ptr<MeCab::Writer>::~scoped_ptr(void *a1)
-{
-  *a1 = &unk_2A1F35600;
-  v1 = a1[1];
-  if (v1)
-  {
-    (*(*v1 + 8))(v1);
-  }
-
-  JUMPOUT(0x29C29A380);
-}
-
 void MeCab::scoped_ptr<MeCab::Lattice>::~scoped_ptr(void *a1)
 {
   *a1 = &unk_2A1F35D78;
@@ -46,26 +34,26 @@ void MeCab::scoped_ptr<MeCab::CharProperty>::~scoped_ptr(void *a1)
   JUMPOUT(0x29C29A380);
 }
 
-void std::__stable_sort<std::_ClassicAlgPolicy,MeCab::Dictionary::compile(MeCab::Param const&,std::vector<std::string> const&,char const*,MeCab::CompileOptions const&)::$_0 &,std::__wrap_iter<std::pair<std::string,mecab_token_t *> *>>(void **a1, __n128 *a2, unint64_t a3, __n128 *a4, uint64_t a5)
+void std::__stable_sort<std::_ClassicAlgPolicy,MeCab::Dictionary::compile(MeCab::Param const&,std::vector<std::string> const&,char const*,MeCab::CompileOptions const&)::$_0 &,std::__wrap_iter<std::pair<std::string,mecab_token_t *> *>>(char *a1, char *a2, unint64_t a3, __n128 *a4, int64_t a5)
 {
   if (a3 >= 2)
   {
     v6 = a1;
     if (a3 == 2)
     {
-      v7 = a2 - 2;
-      if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a2[-2].n128_u64, a1) & 0x80) != 0)
+      v7 = a2 - 32;
+      if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a2 - 4, a1) & 0x80) != 0)
       {
-        v8 = *(v6 + 16);
+        v8 = *(v6 + 2);
         v9 = *v6;
-        v10 = a2[-1].n128_u64[0];
+        v10 = *(a2 - 2);
         *v6 = *v7;
-        *(v6 + 16) = v10;
+        *(v6 + 2) = v10;
         *v7 = v9;
-        a2[-1].n128_u64[0] = v8;
-        v11 = *(v6 + 24);
-        *(v6 + 24) = a2[-1].n128_u64[1];
-        a2[-1].n128_u64[1] = v11;
+        *(a2 - 2) = v8;
+        v11 = *(v6 + 3);
+        *(v6 + 3) = *(a2 - 1);
+        *(a2 - 1) = v11;
       }
     }
 
@@ -76,8 +64,8 @@ void std::__stable_sort<std::_ClassicAlgPolicy,MeCab::Dictionary::compile(MeCab:
       {
         if (a1 != a2)
         {
-          v18 = a1 + 4;
-          if (a1 + 4 != a2)
+          v18 = (a1 + 32);
+          if (a1 + 32 != a2)
           {
             v19 = 0;
             v20 = a1;
@@ -92,32 +80,32 @@ void std::__stable_sort<std::_ClassicAlgPolicy,MeCab::Dictionary::compile(MeCab:
                 v21[1] = 0;
                 v21[2] = 0;
                 *v21 = 0;
-                v41 = v20[7];
+                v41 = *(v20 + 7);
                 v23 = v19;
                 while (1)
                 {
-                  v24 = v6 + v23;
-                  if (*(v6 + v23 + 55) < 0)
+                  v24 = &v6[v23];
+                  if (v6[v23 + 55] < 0)
                   {
-                    operator delete(*(v24 + 32));
+                    operator delete(*(v24 + 4));
                   }
 
-                  *(v24 + 32) = *v24;
-                  v25 = *(v24 + 16);
-                  v26 = *(v24 + 24);
-                  *(v24 + 23) = 0;
+                  *(v24 + 2) = *v24;
+                  v25 = *(v24 + 2);
+                  v26 = *(v24 + 3);
+                  v24[23] = 0;
                   *v24 = 0;
-                  *(v24 + 48) = v25;
-                  *(v24 + 56) = v26;
+                  *(v24 + 6) = v25;
+                  *(v24 + 7) = v26;
                   if (!v23)
                   {
                     break;
                   }
 
                   v23 -= 32;
-                  if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v39, (v23 + v6)) & 0x80) == 0)
+                  if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v39, &v6[v23]) & 0x80) == 0)
                   {
-                    v27 = v6 + v23 + 32;
+                    v27 = &v6[v23 + 32];
                     goto LABEL_21;
                   }
                 }
@@ -149,20 +137,20 @@ LABEL_21:
       {
         v14 = a4;
         v15 = a3 >> 1;
-        v16 = &a1[4 * (a3 >> 1)];
+        v16 = &a1[32 * (a3 >> 1)];
         v17 = a3 >> 1;
         if (v12 <= a5)
         {
           std::__stable_sort_move<std::_ClassicAlgPolicy,MeCab::Dictionary::compile(MeCab::Param const&,std::vector<std::string> const&,char const*,MeCab::CompileOptions const&)::$_0 &,std::__wrap_iter<std::pair<std::string,mecab_token_t *> *>>(a1, v16, v17, a4);
-          v29 = &v14[2 * v15];
-          std::__stable_sort_move<std::_ClassicAlgPolicy,MeCab::Dictionary::compile(MeCab::Param const&,std::vector<std::string> const&,char const*,MeCab::CompileOptions const&)::$_0 &,std::__wrap_iter<std::pair<std::string,mecab_token_t *> *>>((v6 + 32 * (v12 >> 1)), a2, v12 - (v12 >> 1), v29);
-          v30 = &v14[2 * v12];
+          v29 = &v14[4 * v15];
+          std::__stable_sort_move<std::_ClassicAlgPolicy,MeCab::Dictionary::compile(MeCab::Param const&,std::vector<std::string> const&,char const*,MeCab::CompileOptions const&)::$_0 &,std::__wrap_iter<std::pair<std::string,mecab_token_t *> *>>(&v6[32 * (v12 >> 1)], a2, v12 - (v12 >> 1), v29);
+          v30 = &v14[4 * v12];
           v31 = v29;
           v32 = v14;
           while (v31 != v30)
           {
             v33 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v31, v32);
-            v34 = *(v6 + 23);
+            v34 = v6[23];
             if (v33 < 0)
             {
               if (v34 < 0)
@@ -171,11 +159,11 @@ LABEL_21:
               }
 
               v36 = *v31;
-              *(v6 + 16) = v31[1].n128_u64[0];
+              *(v6 + 2) = v31[1].n128_u64[0];
               *v6 = v36;
               v31[1].n128_u8[7] = 0;
               v31->n128_u8[0] = 0;
-              *(v6 + 24) = v31[1].n128_u64[1];
+              *(v6 + 3) = v31[1].n128_u64[1];
               v31 += 2;
             }
 
@@ -187,11 +175,11 @@ LABEL_21:
               }
 
               v35 = *v32;
-              *(v6 + 16) = v32[1].n128_u64[0];
+              *(v6 + 2) = v32[1].n128_u64[0];
               *v6 = v35;
               v32[1].n128_u8[7] = 0;
               v32->n128_u8[0] = 0;
-              *(v6 + 24) = v32[1].n128_u64[1];
+              *(v6 + 3) = v32[1].n128_u64[1];
               v32 += 2;
             }
 
@@ -200,17 +188,17 @@ LABEL_21:
             {
               while (v31 != v30)
               {
-                if (*(v6 + 23) < 0)
+                if (v6[23] < 0)
                 {
                   operator delete(*v6);
                 }
 
                 v38 = *v31;
-                *(v6 + 16) = v31[1].n128_u64[0];
+                *(v6 + 2) = v31[1].n128_u64[0];
                 *v6 = v38;
                 v31[1].n128_u8[7] = 0;
                 v31->n128_u8[0] = 0;
-                *(v6 + 24) = v31[1].n128_u64[1];
+                *(v6 + 3) = v31[1].n128_u64[1];
                 v31 += 2;
                 v6 += 32;
               }
@@ -221,17 +209,17 @@ LABEL_21:
 
           while (v32 != v29)
           {
-            if (*(v6 + 23) < 0)
+            if (v6[23] < 0)
             {
               operator delete(*v6);
             }
 
             v37 = *v32;
-            *(v6 + 16) = v32[1].n128_u64[0];
+            *(v6 + 2) = v32[1].n128_u64[0];
             *v6 = v37;
             v32[1].n128_u8[7] = 0;
             v32->n128_u8[0] = 0;
-            *(v6 + 24) = v32[1].n128_u64[1];
+            *(v6 + 3) = v32[1].n128_u64[1];
             v32 += 2;
             v6 += 32;
           }
@@ -241,12 +229,12 @@ LABEL_46:
           {
             do
             {
-              if (v14[1].n128_i8[7] < 0)
+              if (*(v14 + 23) < 0)
               {
-                operator delete(v14->n128_u64[0]);
+                operator delete(*v14);
               }
 
-              v14 += 2;
+              v14 += 4;
               --v12;
             }
 
@@ -257,9 +245,9 @@ LABEL_46:
         else
         {
           std::__stable_sort<std::_ClassicAlgPolicy,MeCab::Dictionary::compile(MeCab::Param const&,std::vector<std::string> const&,char const*,MeCab::CompileOptions const&)::$_0 &,std::__wrap_iter<std::pair<std::string,mecab_token_t *> *>>(a1, v16, v17, a4, a5);
-          std::__stable_sort<std::_ClassicAlgPolicy,MeCab::Dictionary::compile(MeCab::Param const&,std::vector<std::string> const&,char const*,MeCab::CompileOptions const&)::$_0 &,std::__wrap_iter<std::pair<std::string,mecab_token_t *> *>>(v6 + 32 * (v12 >> 1), a2, v12 - (v12 >> 1), v14, a5);
+          std::__stable_sort<std::_ClassicAlgPolicy,MeCab::Dictionary::compile(MeCab::Param const&,std::vector<std::string> const&,char const*,MeCab::CompileOptions const&)::$_0 &,std::__wrap_iter<std::pair<std::string,mecab_token_t *> *>>(&v6[32 * (v12 >> 1)], a2, v12 - (v12 >> 1), v14, a5);
 
-          std::__inplace_merge<std::_ClassicAlgPolicy,MeCab::Dictionary::compile(MeCab::Param const&,std::vector<std::string> const&,char const*,MeCab::CompileOptions const&)::$_0 &,std::__wrap_iter<std::pair<std::string,mecab_token_t *> *>>(v6, (v6 + 32 * (v12 >> 1)), a2, v12 >> 1, v12 - (v12 >> 1), v14, a5);
+          std::__inplace_merge<std::_ClassicAlgPolicy,MeCab::Dictionary::compile(MeCab::Param const&,std::vector<std::string> const&,char const*,MeCab::CompileOptions const&)::$_0 &,std::__wrap_iter<std::pair<std::string,mecab_token_t *> *>>(v6, &v6[32 * (v12 >> 1)], a2, v12 >> 1, v12 - (v12 >> 1), v14, a5);
         }
       }
     }
@@ -287,7 +275,7 @@ void sub_2991682D8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-__n128 std::__stable_sort_move<std::_ClassicAlgPolicy,MeCab::Dictionary::compile(MeCab::Param const&,std::vector<std::string> const&,char const*,MeCab::CompileOptions const&)::$_0 &,std::__wrap_iter<std::pair<std::string,mecab_token_t *> *>>(__n128 *a1, __n128 *a2, unint64_t a3, __n128 *a4)
+__n128 std::__stable_sort_move<std::_ClassicAlgPolicy,MeCab::Dictionary::compile(MeCab::Param const&,std::vector<std::string> const&,char const*,MeCab::CompileOptions const&)::$_0 &,std::__wrap_iter<std::pair<std::string,mecab_token_t *> *>>(uint64_t a1, char *a2, unint64_t a3, __n128 *a4)
 {
   if (a3)
   {
@@ -295,41 +283,41 @@ __n128 std::__stable_sort_move<std::_ClassicAlgPolicy,MeCab::Dictionary::compile
     v7 = a1;
     if (a3 == 2)
     {
-      v9 = a2 - 2;
-      if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a2[-2].n128_u64, a1) & 0x80) != 0)
+      v9 = a2 - 32;
+      if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a2 - 4, a1) & 0x80) != 0)
       {
         v28 = *v9;
-        v4[1].n128_u64[0] = a2[-1].n128_u64[0];
+        v4[1].n128_u64[0] = *(a2 - 2);
         *v4 = v28;
-        a2[-2].n128_u64[1] = 0;
-        a2[-1].n128_u64[0] = 0;
-        v9->n128_u64[0] = 0;
-        v4[1].n128_u64[1] = a2[-1].n128_u64[1];
+        *(a2 - 3) = 0;
+        *(a2 - 2) = 0;
+        *v9 = 0;
+        v4[1].n128_u64[1] = *(a2 - 1);
         result = *v7;
-        v4[3].n128_u64[0] = v7[1].n128_u64[0];
+        v4[3].n128_u64[0] = *(v7 + 16);
         v4[2] = result;
-        v7->n128_u64[1] = 0;
-        v7[1].n128_u64[0] = 0;
-        v7->n128_u64[0] = 0;
-        v11 = &v7[1].n128_u64[1];
+        *(v7 + 8) = 0;
+        *(v7 + 16) = 0;
+        *v7 = 0;
+        v11 = (v7 + 24);
       }
 
       else
       {
         v10 = *v7;
-        v4[1].n128_u64[0] = v7[1].n128_u64[0];
+        v4[1].n128_u64[0] = *(v7 + 16);
         *v4 = v10;
-        v7->n128_u64[1] = 0;
-        v7[1].n128_u64[0] = 0;
-        v7->n128_u64[0] = 0;
-        v4[1].n128_u64[1] = v7[1].n128_u64[1];
+        *(v7 + 8) = 0;
+        *(v7 + 16) = 0;
+        *v7 = 0;
+        v4[1].n128_u64[1] = *(v7 + 24);
         result = *v9;
-        v4[3].n128_u64[0] = a2[-1].n128_u64[0];
+        v4[3].n128_u64[0] = *(a2 - 2);
         v4[2] = result;
-        a2[-2].n128_u64[1] = 0;
-        a2[-1].n128_u64[0] = 0;
-        v9->n128_u64[0] = 0;
-        v11 = &a2[-1].n128_u64[1];
+        *(a2 - 3) = 0;
+        *(a2 - 2) = 0;
+        *v9 = 0;
+        v11 = a2 - 8;
       }
 
       v4[3].n128_u64[1] = *v11;
@@ -338,47 +326,47 @@ __n128 std::__stable_sort_move<std::_ClassicAlgPolicy,MeCab::Dictionary::compile
     else if (a3 == 1)
     {
       result = *a1;
-      a4[1].n128_u64[0] = a1[1].n128_u64[0];
+      a4[1].n128_u64[0] = *(a1 + 16);
       *a4 = result;
-      a1->n128_u64[1] = 0;
-      a1[1].n128_u64[0] = 0;
-      a1->n128_u64[0] = 0;
-      a4[1].n128_u64[1] = a1[1].n128_u64[1];
+      *(a1 + 8) = 0;
+      *(a1 + 16) = 0;
+      *a1 = 0;
+      a4[1].n128_u64[1] = *(a1 + 24);
     }
 
     else if (a3 > 8)
     {
-      v22 = &a1[2 * (a3 >> 1)];
+      v22 = (a1 + 32 * (a3 >> 1));
       std::__stable_sort<std::_ClassicAlgPolicy,MeCab::Dictionary::compile(MeCab::Param const&,std::vector<std::string> const&,char const*,MeCab::CompileOptions const&)::$_0 &,std::__wrap_iter<std::pair<std::string,mecab_token_t *> *>>(a1, v22, a3 >> 1, a4, a3 >> 1);
-      std::__stable_sort<std::_ClassicAlgPolicy,MeCab::Dictionary::compile(MeCab::Param const&,std::vector<std::string> const&,char const*,MeCab::CompileOptions const&)::$_0 &,std::__wrap_iter<std::pair<std::string,mecab_token_t *> *>>(&v7[2 * (a3 >> 1)], a2, a3 - (a3 >> 1), &v4[2 * (a3 >> 1)], a3 - (a3 >> 1));
-      v23 = &v7[2 * (a3 >> 1)];
+      std::__stable_sort<std::_ClassicAlgPolicy,MeCab::Dictionary::compile(MeCab::Param const&,std::vector<std::string> const&,char const*,MeCab::CompileOptions const&)::$_0 &,std::__wrap_iter<std::pair<std::string,mecab_token_t *> *>>((v7 + 32 * (a3 >> 1)), a2, a3 - (a3 >> 1), &v4[2 * (a3 >> 1)], a3 - (a3 >> 1));
+      v23 = v7 + 32 * (a3 >> 1);
       while (v23 != a2)
       {
         if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v23, v7) & 0x80) != 0)
         {
           result = *v23;
-          v4[1].n128_u64[0] = v23[1].n128_u64[0];
+          v4[1].n128_u64[0] = *(v23 + 16);
           *v4 = result;
-          v23->n128_u64[1] = 0;
-          v23[1].n128_u64[0] = 0;
-          v23->n128_u64[0] = 0;
+          *(v23 + 8) = 0;
+          *(v23 + 16) = 0;
+          *v23 = 0;
           v24 = v23;
-          v23 += 2;
+          v23 += 32;
         }
 
         else
         {
           result = *v7;
-          v4[1].n128_u64[0] = v7[1].n128_u64[0];
+          v4[1].n128_u64[0] = *(v7 + 16);
           *v4 = result;
-          v7->n128_u64[1] = 0;
-          v7[1].n128_u64[0] = 0;
-          v7->n128_u64[0] = 0;
+          *(v7 + 8) = 0;
+          *(v7 + 16) = 0;
+          *v7 = 0;
           v24 = v7;
-          v7 += 2;
+          v7 += 32;
         }
 
-        v4[1].n128_u64[1] = v24[1].n128_u64[1];
+        v4[1].n128_u64[1] = *(v24 + 24);
         v4 += 2;
         if (v7 == v22)
         {
@@ -387,19 +375,19 @@ __n128 std::__stable_sort_move<std::_ClassicAlgPolicy,MeCab::Dictionary::compile
             v25 = 0;
             do
             {
-              v26 = &v23[v25];
-              v27 = &v4[v25];
-              result = v23[v25];
-              v27[1].n128_u64[0] = v23[v25 + 1].n128_u64[0];
+              v26 = v23 + v25;
+              v27 = &v4[v25 / 0x10];
+              result = *(v23 + v25);
+              v27[1].n128_u64[0] = *(v23 + v25 + 16);
               *v27 = result;
-              v26->n128_u64[1] = 0;
-              v26[1].n128_u64[0] = 0;
-              v26->n128_u64[0] = 0;
-              v27[1].n128_u64[1] = v23[v25 + 1].n128_u64[1];
-              v25 += 2;
+              *(v26 + 8) = 0;
+              *(v26 + 16) = 0;
+              *v26 = 0;
+              v27[1].n128_u64[1] = *(v23 + v25 + 24);
+              v25 += 32;
             }
 
-            while (&v26[2] != a2);
+            while ((v26 + 32) != a2);
           }
 
           return result;
@@ -411,33 +399,33 @@ __n128 std::__stable_sort_move<std::_ClassicAlgPolicy,MeCab::Dictionary::compile
         v29 = 0;
         do
         {
-          v30 = &v4[v29];
-          v31 = &v7[v29];
-          result = v7[v29];
-          v30[1].n128_u64[0] = v7[v29 + 1].n128_u64[0];
+          v30 = &v4[v29 / 0x10];
+          v31 = (v7 + v29);
+          result = *(v7 + v29);
+          v30[1].n128_u64[0] = *(v7 + v29 + 16);
           *v30 = result;
-          v31->n128_u64[1] = 0;
-          v31[1].n128_u64[0] = 0;
-          v31->n128_u64[0] = 0;
-          v30[1].n128_u64[1] = v7[v29 + 1].n128_u64[1];
-          v29 += 2;
+          v31[1] = 0;
+          v31[2] = 0;
+          *v31 = 0;
+          v30[1].n128_u64[1] = *(v7 + v29 + 24);
+          v29 += 32;
         }
 
-        while (&v31[2] != v22);
+        while (v31 + 4 != v22);
       }
     }
 
     else if (a1 != a2)
     {
       result = *a1;
-      a4[1].n128_u64[0] = a1[1].n128_u64[0];
+      a4[1].n128_u64[0] = *(a1 + 16);
       *a4 = result;
-      a1->n128_u64[1] = 0;
-      a1[1].n128_u64[0] = 0;
-      a1->n128_u64[0] = 0;
-      a4[1].n128_u64[1] = a1[1].n128_u64[1];
-      v12 = a1 + 2;
-      if (&a1[2] != a2)
+      *(a1 + 8) = 0;
+      *(a1 + 16) = 0;
+      *a1 = 0;
+      a4[1].n128_u64[1] = *(a1 + 24);
+      v12 = (a1 + 32);
+      if ((a1 + 32) != a2)
       {
         v13 = 0;
         v14 = a4;
@@ -461,7 +449,7 @@ __n128 std::__stable_sort_move<std::_ClassicAlgPolicy,MeCab::Dictionary::compile
               while (1)
               {
                 v18 = (v4 + v19);
-                v20 = (&v4[-2] + v19);
+                v20 = &v4[-2] + v19;
                 if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v15, v20) & 0x80) == 0)
                 {
                   break;
@@ -493,31 +481,31 @@ __n128 std::__stable_sort_move<std::_ClassicAlgPolicy,MeCab::Dictionary::compile
             }
 
             result = *v15;
-            v18[1].n128_u64[0] = v15[1].n128_u64[0];
+            v18[1].n128_u64[0] = v15[2];
             *v18 = result;
-            v7[3].n128_u8[7] = 0;
-            v15->n128_u8[0] = 0;
-            v18[1].n128_u64[1] = v7[3].n128_u64[1];
+            *(v7 + 55) = 0;
+            *v15 = 0;
+            v18[1].n128_u64[1] = *(v7 + 56);
           }
 
           else
           {
             result = *v15;
-            v14[3].n128_u64[0] = v15[1].n128_u64[0];
+            v14[3].n128_u64[0] = v15[2];
             *v16 = result;
-            v15->n128_u64[1] = 0;
-            v15[1].n128_u64[0] = 0;
-            v15->n128_u64[0] = 0;
-            v14[3].n128_u64[1] = v7[3].n128_u64[1];
+            v15[1] = 0;
+            v15[2] = 0;
+            *v15 = 0;
+            v14[3].n128_u64[1] = *(v7 + 56);
           }
 
-          v12 = v15 + 2;
+          v12 = v15 + 4;
           v13 += 32;
           v14 = v16;
           v7 = v15;
         }
 
-        while (&v15[2] != a2);
+        while (v15 + 4 != a2);
       }
     }
   }
@@ -525,7 +513,7 @@ __n128 std::__stable_sort_move<std::_ClassicAlgPolicy,MeCab::Dictionary::compile
   return result;
 }
 
-void std::__inplace_merge<std::_ClassicAlgPolicy,MeCab::Dictionary::compile(MeCab::Param const&,std::vector<std::string> const&,char const*,MeCab::CompileOptions const&)::$_0 &,std::__wrap_iter<std::pair<std::string,mecab_token_t *> *>>(uint64_t a1, void **a2, uint64_t a3, uint64_t a4, uint64_t a5, __n128 *a6, uint64_t a7)
+void std::__inplace_merge<std::_ClassicAlgPolicy,MeCab::Dictionary::compile(MeCab::Param const&,std::vector<std::string> const&,char const*,MeCab::CompileOptions const&)::$_0 &,std::__wrap_iter<std::pair<std::string,mecab_token_t *> *>>(uint64_t **a1, uint64_t **a2, uint64_t **a3, uint64_t a4, uint64_t a5, void **a6, uint64_t a7)
 {
   v73 = a5;
   if (a5)
@@ -541,13 +529,13 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,MeCab::Dictionary::compile(MeCa
       v14 = -a4;
       while (1)
       {
-        v15 = v13 + a1;
-        if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a2, (v13 + a1)) & 0x80) != 0)
+        v15 = &a1[v13 / 8];
+        if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a2, &a1[v13 / 8]) & 0x80) != 0)
         {
           break;
         }
 
-        v13 += 4;
+        v13 += 32;
         if (__CFADD__(v14++, 1))
         {
           return;
@@ -563,23 +551,23 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,MeCab::Dictionary::compile(MeCa
       {
         if (v14 == -1)
         {
-          v63 = v13 + a1;
-          v64 = *(v13 + a1);
-          v76 = *(v13 + a1 + 16);
+          v63 = &a1[v13 / 8];
+          v64 = *&a1[v13 / 8];
+          v76 = a1[v13 / 8 + 2];
           v75 = v64;
           v65 = *a2;
-          *(v63 + 16) = a2[2];
+          *(v63 + 2) = a2[2];
           *v63 = v65;
           *a2 = v75;
           a2[2] = v76;
-          v66 = *(v13 + a1 + 24);
-          *(v63 + 24) = a2[3];
+          v66 = a1[v13 / 8 + 3];
+          *(v63 + 3) = a2[3];
           a2[3] = v66;
           return;
         }
 
         v23 = v17 / 2;
-        v21 = (&v13[4 * (v17 / 2)] + a1);
+        v21 = &(&a1[4 * (v17 / 2)])[v13 / 8];
         v20 = a2;
         if (a2 != a3)
         {
@@ -602,7 +590,7 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,MeCab::Dictionary::compile(MeCa
 
             if (v26 < 0)
             {
-              v20 = v25 + 4;
+              v20 = (v25 + 4);
             }
           }
 
@@ -619,20 +607,20 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,MeCab::Dictionary::compile(MeCa
         v19 = v73 / 2;
         v20 = &a2[4 * (v73 / 2)];
         v21 = a2;
-        if ((a2 - a1) != v13)
+        if (a2 - a1 != v13)
         {
           v22 = (a2 - a1 - v13) >> 5;
-          v21 = (v13 + a1);
+          v21 = &a1[v13 / 8];
           do
           {
-            if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v20, &v21[4 * (v22 >> 1)]) & 0x80u) != 0)
+            if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v20, &v21[32 * (v22 >> 1)]) & 0x80u) != 0)
             {
               v22 >>= 1;
             }
 
             else
             {
-              v21 += 4 * (v22 >> 1) + 4;
+              v21 += 32 * (v22 >> 1) + 32;
               v22 += ~(v22 >> 1);
             }
           }
@@ -651,8 +639,8 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,MeCab::Dictionary::compile(MeCa
         a3 = v21;
         if (a2 != v20)
         {
-          a3 = (v21 + 4);
-          v27 = v21 + 4;
+          a3 = (v21 + 32);
+          v27 = v21 + 32;
           v28 = a2;
           while (1)
           {
@@ -677,8 +665,8 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,MeCab::Dictionary::compile(MeCa
               a2 = v28;
             }
 
-            v27 += 4;
-            a3 += 32;
+            v27 += 32;
+            a3 += 4;
           }
 
           if (v27 != a2)
@@ -689,18 +677,18 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,MeCab::Dictionary::compile(MeCa
               while (1)
               {
                 v34 = *v27;
-                v76 = v27[2];
+                v76 = *(v27 + 2);
                 v75 = v34;
                 v35 = *v33;
-                v27[2] = v33[2];
+                *(v27 + 2) = v33[2];
                 *v27 = v35;
                 v36 = v75;
                 v33[2] = v76;
                 *v33 = v36;
-                v37 = v27[3];
-                v27[3] = v33[3];
+                v37 = *(v27 + 3);
+                *(v27 + 3) = v33[3];
                 v33[3] = v37;
-                v27 += 4;
+                v27 += 32;
                 v33 += 4;
                 if (v33 == v20)
                 {
@@ -738,7 +726,7 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,MeCab::Dictionary::compile(MeCa
       {
         v39 = v21;
         a6 = v70;
-        std::__inplace_merge<std::_ClassicAlgPolicy,MeCab::Dictionary::compile(MeCab::Param const&,std::vector<std::string> const&,char const*,MeCab::CompileOptions const&)::$_0 &,std::__wrap_iter<std::pair<std::string,mecab_token_t *> *>>(v13 + a1, v39, a3, v23, v19, v70, v72);
+        std::__inplace_merge<std::_ClassicAlgPolicy,MeCab::Dictionary::compile(MeCab::Param const&,std::vector<std::string> const&,char const*,MeCab::CompileOptions const&)::$_0 &,std::__wrap_iter<std::pair<std::string,mecab_token_t *> *>>(&a1[v13 / 8], v39, a3, v23, v19, v70, v72);
         v15 = a3;
         a3 = v68;
       }
@@ -767,14 +755,14 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,MeCab::Dictionary::compile(MeCa
       do
       {
         v57 = *v56;
-        v55[1].n128_u64[0] = *(v56 + 16);
+        v55[1].n128_u64[0] = v56[2];
         *v55 = v57;
-        *(v56 + 8) = 0;
-        *(v56 + 16) = 0;
+        v56[1] = 0;
+        v56[2] = 0;
         *v56 = 0;
-        v55[1].n128_u64[1] = *(v56 + 24);
+        v55[1].n128_u64[1] = v56[3];
         ++v43;
-        v56 += 32;
+        v56 += 4;
         v55 += 2;
       }
 
@@ -792,11 +780,11 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,MeCab::Dictionary::compile(MeCa
           }
 
           v62 = *a2;
-          *(a1 + 16) = a2[2];
+          a1[2] = a2[2];
           *a1 = v62;
           *(a2 + 23) = 0;
           *a2 = 0;
-          *(a1 + 24) = a2[3];
+          a1[3] = a2[3];
           a2 += 4;
         }
 
@@ -808,15 +796,15 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,MeCab::Dictionary::compile(MeCa
           }
 
           v61 = *v58;
-          *(a1 + 16) = v58[1].n128_u64[0];
+          a1[2] = v58[1].n128_u64[0];
           *a1 = v61;
           v58[1].n128_u8[7] = 0;
           v58->n128_u8[0] = 0;
-          *(a1 + 24) = v58[1].n128_u64[1];
+          a1[3] = v58[1].n128_u64[1];
           v58 += 2;
         }
 
-        a1 += 32;
+        a1 += 4;
         if (v55 == v58)
         {
           goto LABEL_86;
@@ -837,29 +825,29 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,MeCab::Dictionary::compile(MeCa
       v43 = 0;
       do
       {
-        v44 = &a6[v42 / 0x10];
-        v45 = &a2[v42 / 8];
-        v46 = *&a2[v42 / 8];
-        v44[1].n128_u64[0] = a2[v42 / 8 + 2];
+        v44 = &a6[v42];
+        v45 = &a2[v42];
+        v46 = *&a2[v42];
+        v44[2] = a2[v42 + 2];
         *v44 = v46;
         v45[1] = 0;
         v45[2] = 0;
         *v45 = 0;
-        v44[1].n128_u64[1] = a2[v42 / 8 + 3];
+        v44[3] = a2[v42 + 3];
         ++v43;
-        v42 += 32;
+        v42 += 4;
       }
 
       while (v45 + 4 != a3);
       v69 = a3;
       v71 = a6;
-      v47 = &a6[v42 / 0x10];
-      v48 = a3 - 32;
+      v47 = &a6[v42];
+      v48 = (a3 - 4);
       v49 = a3;
       v74 = v47;
       while (a2 != a1)
       {
-        v50 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>((v47 - 32), a2 - 4);
+        v50 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v47 - 4, a2 - 32);
         if (v50 >= 0)
         {
           v51 = v47;
@@ -872,17 +860,17 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,MeCab::Dictionary::compile(MeCa
 
         if (v50 >= 0)
         {
-          v52 = v47 - 32;
+          v52 = (v47 - 4);
         }
 
         else
         {
-          v52 = (a2 - 4);
+          v52 = a2 - 4;
         }
 
         if (v50 >= 0)
         {
-          v47 -= 32;
+          v47 -= 4;
         }
 
         else
@@ -890,17 +878,17 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,MeCab::Dictionary::compile(MeCa
           a2 -= 4;
         }
 
-        if (*(v48 + 23) < 0)
+        if (v48[23] < 0)
         {
           operator delete(*v48);
         }
 
         v53 = *v52;
-        *(v48 + 16) = *(v52 + 16);
+        *(v48 + 2) = v52[2];
         *v48 = v53;
         *(v51 - 9) = 0;
         *v52 = 0;
-        *(v48 + 24) = *(v51 - 8);
+        *(v48 + 3) = *(v51 - 1);
         v49 -= 32;
         v48 -= 32;
         a3 = v69;
@@ -920,12 +908,12 @@ LABEL_86:
     {
       do
       {
-        if (a6[1].n128_i8[7] < 0)
+        if (*(a6 + 23) < 0)
         {
-          operator delete(a6->n128_u64[0]);
+          operator delete(*a6);
         }
 
-        a6 += 2;
+        a6 += 4;
         --v43;
       }
 
@@ -1092,10 +1080,10 @@ uint64_t MeCab::Param::dump_config(uint64_t result, void *a2)
 
 BOOL MeCab::Param::load(MeCab::Param *this, const char *a2)
 {
-  v58[19] = *MEMORY[0x29EDCA608];
-  std::ifstream::basic_ifstream(v56);
-  v4 = v56[0];
-  if ((v57[*(v56[0] - 24) + 16] & 5) != 0)
+  v57[19] = *MEMORY[0x29EDCA608];
+  std::ifstream::basic_ifstream(v55, a2, 8);
+  v4 = v55[0];
+  if ((v56[*(v55[0] - 24) + 16] & 5) != 0)
   {
     v6 = *(this + 16);
     v5 = (this + 128);
@@ -1118,11 +1106,11 @@ BOOL MeCab::Param::load(MeCab::Param *this, const char *a2)
   v17 = MEMORY[0x29EDCA600];
   while (1)
   {
-    std::ios_base::getloc((v56 + *(v4 - 24)));
-    v18 = std::locale::use_facet(&v53, v16);
+    std::ios_base::getloc((v55 + *(v4 - 24)));
+    v18 = std::locale::use_facet(&v52, v16);
     v19 = (v18->__vftable[2].~facet_0)(v18, 10);
-    std::locale::~locale(&v53);
-    v20 = std::getline[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v56, &__str, v19);
+    std::locale::~locale(&v52);
+    v20 = std::getline[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v55, &__str, v19);
     v15 = (*(v20 + *(*v20 - 24) + 32) & 5) != 0;
     if ((*(v20 + *(*v20 - 24) + 32) & 5) != 0)
     {
@@ -1263,8 +1251,8 @@ BOOL MeCab::Param::load(MeCab::Param *this, const char *a2)
         v34 = __str.__r_.__value_.__l.__size_;
       }
 
-      std::string::basic_string(&v53, &__str, v27, v34 - v27, &__p);
-      std::string::basic_string(&__p, &__str, 0, (v33 + 1), &v55);
+      std::string::basic_string(&v52, &__str, v27, v34 - v27, &__p);
+      std::string::basic_string(&__p, &__str, 0, (v33 + 1), &v54);
       if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
         p_p = &__p;
@@ -1275,20 +1263,20 @@ BOOL MeCab::Param::load(MeCab::Param *this, const char *a2)
         p_p = __p.__r_.__value_.__r.__words[0];
       }
 
-      MeCab::Param::set<std::string>(this, p_p, &v53, 0);
+      MeCab::Param::set<std::string>(this, p_p, &v52, 0);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
       }
 
-      if (SHIBYTE(v53.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v52.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v53.__r_.__value_.__l.__data_);
+        operator delete(v52.__r_.__value_.__l.__data_);
       }
     }
 
 LABEL_51:
-    v4 = v56[0];
+    v4 = v55[0];
   }
 
   if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
@@ -1297,12 +1285,11 @@ LABEL_51:
   }
 
 LABEL_61:
-  v56[0] = *MEMORY[0x29EDC9518];
-  *(v56 + *(v56[0] - 24)) = *(MEMORY[0x29EDC9518] + 24);
-  MEMORY[0x29C29A160](v57);
+  v55[0] = *MEMORY[0x29EDC9518];
+  *(v55 + *(v55[0] - 24)) = *(MEMORY[0x29EDC9518] + 24);
+  MEMORY[0x29C29A160](v56);
   std::istream::~istream();
-  MEMORY[0x29C29A320](v58);
-  v50 = *MEMORY[0x29EDCA608];
+  MEMORY[0x29C29A320](v57);
   return v15;
 }
 
@@ -1314,13 +1301,13 @@ void sub_29916941C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   }
 
   std::ifstream::~ifstream(&a28, MEMORY[0x29EDC9518]);
-  MEMORY[0x29C29A320](&a72);
+  MEMORY[0x29C29A320](&a65);
   _Unwind_Resume(a1);
 }
 
 uint64_t MeCab::Param::open(uint64_t a1, int a2, char **a3, uint64_t a4)
 {
-  v97[2] = *MEMORY[0x29EDCA608];
+  v96[2] = *MEMORY[0x29EDCA608];
   if (a2 <= 0)
   {
     if (*(a1 + 79) < 0)
@@ -1336,25 +1323,23 @@ uint64_t MeCab::Param::open(uint64_t a1, int a2, char **a3, uint64_t a4)
     }
 
     strcpy(v25, "unknown");
-LABEL_108:
-    result = 1;
-    goto LABEL_109;
+    return 1;
   }
 
-  std::string::basic_string[abi:ne200100]<0>(&v96, *a3);
+  std::string::basic_string[abi:ne200100]<0>(&v95, *a3);
   v6 = (a1 + 56);
   if (*(a1 + 79) < 0)
   {
     operator delete(*v6);
   }
 
-  *v6 = *&v96.__first_;
-  *(a1 + 72) = v96.__end_;
-  std::string::basic_string[abi:ne200100]<0>(&v94, "MeCab: Yet Another Part-of-Speech and Morphological Analyzer\n\nCopyright(C) 2001-2012 Taku Kudo \nCopyright(C) 2004-2008 Nippon Telegraph and Telephone Corporation\n");
-  v7 = std::string::append(&v94, "\nUsage: ", 8uLL);
+  *v6 = *&v95.__first_;
+  *(a1 + 72) = v95.__end_;
+  std::string::basic_string[abi:ne200100]<0>(&v93, "MeCab: Yet Another Part-of-Speech and Morphological Analyzer\n\nCopyright(C) 2001-2012 Taku Kudo \nCopyright(C) 2004-2008 Nippon Telegraph and Telephone Corporation\n");
+  v7 = std::string::append(&v93, "\nUsage: ", 8uLL);
   v8 = *&v7->__r_.__value_.__l.__data_;
-  v95.__r_.__value_.__r.__words[2] = v7->__r_.__value_.__r.__words[2];
-  *&v95.__r_.__value_.__l.__data_ = v8;
+  v94.__r_.__value_.__r.__words[2] = v7->__r_.__value_.__r.__words[2];
+  *&v94.__r_.__value_.__l.__data_ = v8;
   v7->__r_.__value_.__l.__size_ = 0;
   v7->__r_.__value_.__r.__words[2] = 0;
   v7->__r_.__value_.__r.__words[0] = 0;
@@ -1379,17 +1364,17 @@ LABEL_108:
     v11 = *(a1 + 64);
   }
 
-  v12 = std::string::append(&v95, v10, v11);
+  v12 = std::string::append(&v94, v10, v11);
   v13 = *&v12->__r_.__value_.__l.__data_;
-  v96.__end_ = v12->__r_.__value_.__r.__words[2];
-  *&v96.__first_ = v13;
+  v95.__end_ = v12->__r_.__value_.__r.__words[2];
+  *&v95.__first_ = v13;
   v12->__r_.__value_.__l.__size_ = 0;
   v12->__r_.__value_.__r.__words[2] = 0;
   v12->__r_.__value_.__r.__words[0] = 0;
-  v14 = std::string::append(&v96, " [options] files\n", 0x11uLL);
+  v14 = std::string::append(&v95, " [options] files\n", 0x11uLL);
   v15 = v14->__r_.__value_.__r.__words[0];
-  v97[0] = v14->__r_.__value_.__l.__size_;
-  *(v97 + 7) = *(&v14->__r_.__value_.__r.__words[1] + 7);
+  v96[0] = v14->__r_.__value_.__l.__size_;
+  *(v96 + 7) = *(&v14->__r_.__value_.__r.__words[1] + 7);
   v16 = HIBYTE(v14->__r_.__value_.__r.__words[2]);
   v14->__r_.__value_.__l.__size_ = 0;
   v14->__r_.__value_.__r.__words[2] = 0;
@@ -1399,19 +1384,14 @@ LABEL_108:
     operator delete(*(a1 + 80));
   }
 
-  v17 = v97[0];
+  v17 = v96[0];
   *(a1 + 80) = v15;
   *(a1 + 88) = v17;
-  *(a1 + 95) = *(v97 + 7);
+  *(a1 + 95) = *(v96 + 7);
   *(a1 + 103) = v16;
-  if (SHIBYTE(v96.__end_) < 0)
+  if (SHIBYTE(v95.__end_) < 0)
   {
-    operator delete(v96.__first_);
-  }
-
-  if (SHIBYTE(v95.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v95.__r_.__value_.__l.__data_);
+    operator delete(v95.__first_);
   }
 
   if (SHIBYTE(v94.__r_.__value_.__r.__words[2]) < 0)
@@ -1419,59 +1399,64 @@ LABEL_108:
     operator delete(v94.__r_.__value_.__l.__data_);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(&v94, "mecab");
-  v18 = std::string::append(&v94, " of ", 4uLL);
+  if (SHIBYTE(v93.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v93.__r_.__value_.__l.__data_);
+  }
+
+  std::string::basic_string[abi:ne200100]<0>(&v93, "mecab");
+  v18 = std::string::append(&v93, " of ", 4uLL);
   v19 = *&v18->__r_.__value_.__l.__data_;
-  v95.__r_.__value_.__r.__words[2] = v18->__r_.__value_.__r.__words[2];
-  *&v95.__r_.__value_.__l.__data_ = v19;
+  v94.__r_.__value_.__r.__words[2] = v18->__r_.__value_.__r.__words[2];
+  *&v94.__r_.__value_.__l.__data_ = v19;
   v18->__r_.__value_.__l.__size_ = 0;
   v18->__r_.__value_.__r.__words[2] = 0;
   v18->__r_.__value_.__r.__words[0] = 0;
-  v20 = std::string::append(&v95, "0.996", 5uLL);
+  v20 = std::string::append(&v94, "0.996", 5uLL);
   v21 = *&v20->__r_.__value_.__l.__data_;
-  v96.__end_ = v20->__r_.__value_.__r.__words[2];
-  *&v96.__first_ = v21;
+  v95.__end_ = v20->__r_.__value_.__r.__words[2];
+  *&v95.__first_ = v21;
   v20->__r_.__value_.__l.__size_ = 0;
   v20->__r_.__value_.__r.__words[2] = 0;
   v20->__r_.__value_.__r.__words[0] = 0;
-  std::string::push_back(&v96, 10);
-  v97[0] = v96.__begin_;
-  first = v96.__first_;
-  *(v97 + 7) = *(&v96.__begin_ + 7);
-  end_high = HIBYTE(v96.__end_);
-  memset(&v96, 0, 24);
+  std::string::push_back(&v95, 10);
+  v96[0] = v95.__begin_;
+  first = v95.__first_;
+  *(v96 + 7) = *(&v95.__begin_ + 7);
+  end_high = HIBYTE(v95.__end_);
+  memset(&v95, 0, 24);
   if (*(a1 + 127) < 0)
   {
     operator delete(*(a1 + 104));
-    v26 = SHIBYTE(v96.__end_);
-    v27 = v97[0];
+    v26 = SHIBYTE(v95.__end_);
+    v27 = v96[0];
     *(a1 + 104) = first;
     *(a1 + 112) = v27;
-    *(a1 + 119) = *(v97 + 7);
+    *(a1 + 119) = *(v96 + 7);
     *(a1 + 127) = end_high;
     if (v26 < 0)
     {
-      operator delete(v96.__first_);
+      operator delete(v95.__first_);
     }
   }
 
   else
   {
-    v24 = v97[0];
+    v24 = v96[0];
     *(a1 + 104) = first;
     *(a1 + 112) = v24;
-    *(a1 + 119) = *(v97 + 7);
+    *(a1 + 119) = *(v96 + 7);
     *(a1 + 127) = end_high;
-  }
-
-  if (SHIBYTE(v95.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v95.__r_.__value_.__l.__data_);
   }
 
   if (SHIBYTE(v94.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v94.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v93.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v93.__r_.__value_.__l.__data_);
   }
 
   v28 = *a4;
@@ -1554,11 +1539,11 @@ LABEL_108:
       v45 = *(v44 - 3);
       if (v45)
       {
-        std::string::basic_string[abi:ne200100]<0>(&v96, v45);
-        MeCab::Param::set<std::string>(a1, v43, &v96, 1);
-        if (SHIBYTE(v96.__end_) < 0)
+        std::string::basic_string[abi:ne200100]<0>(&v95, v45);
+        MeCab::Param::set<std::string>(a1, v43, &v95, 1);
+        if (SHIBYTE(v95.__end_) < 0)
         {
-          operator delete(v96.__first_);
+          operator delete(v95.__first_);
         }
       }
 
@@ -1573,7 +1558,7 @@ LABEL_108:
   result = 1;
   if (a2 == 1)
   {
-    goto LABEL_109;
+    return result;
   }
 
   v48 = (a1 + 32);
@@ -1586,7 +1571,7 @@ LABEL_108:
       break;
     }
 
-    std::string::basic_string[abi:ne200100]<0>(&v95, a3[v49]);
+    std::string::basic_string[abi:ne200100]<0>(&v94, a3[v49]);
     v57 = *(a1 + 40);
     v56 = *(a1 + 48);
     if (v57 >= v56)
@@ -1614,17 +1599,17 @@ LABEL_108:
         v62 = v60;
       }
 
-      v96.__end_cap_.__value_ = v48;
+      v95.__end_cap_.__value_ = v48;
       if (v62)
       {
         std::__allocate_at_least[abi:ne200100]<std::allocator<std::string>>(v48, v62);
       }
 
       v72 = 24 * v59;
-      v73 = *&v95.__r_.__value_.__l.__data_;
-      *(v72 + 16) = *(&v95.__r_.__value_.__l + 2);
+      v73 = *&v94.__r_.__value_.__l.__data_;
+      *(v72 + 16) = *(&v94.__r_.__value_.__l + 2);
       *v72 = v73;
-      memset(&v95, 0, sizeof(v95));
+      memset(&v94, 0, sizeof(v94));
       v74 = 24 * v59 + 24;
       v75 = *(a1 + 32);
       v76 = *(a1 + 40) - v75;
@@ -1635,31 +1620,31 @@ LABEL_108:
       *(a1 + 40) = v74;
       v79 = *(a1 + 48);
       *(a1 + 48) = 0;
-      v96.__end_ = v78;
-      v96.__end_cap_.__value_ = v79;
-      v96.__first_ = v78;
-      v96.__begin_ = v78;
-      std::__split_buffer<std::string>::~__split_buffer(&v96);
-      v80 = SHIBYTE(v95.__r_.__value_.__r.__words[2]);
+      v95.__end_ = v78;
+      v95.__end_cap_.__value_ = v79;
+      v95.__first_ = v78;
+      v95.__begin_ = v78;
+      std::__split_buffer<std::string>::~__split_buffer(&v95);
+      v80 = SHIBYTE(v94.__r_.__value_.__r.__words[2]);
       *(a1 + 40) = v74;
       if ((v80 & 0x80000000) == 0)
       {
         goto LABEL_102;
       }
 
-      v81 = v95.__r_.__value_.__r.__words[0];
+      v81 = v94.__r_.__value_.__r.__words[0];
       goto LABEL_101;
     }
 
-    v58 = *&v95.__r_.__value_.__l.__data_;
-    *(v57 + 16) = *(&v95.__r_.__value_.__l + 2);
+    v58 = *&v94.__r_.__value_.__l.__data_;
+    *(v57 + 16) = *(&v94.__r_.__value_.__l + 2);
     *v57 = v58;
     *(a1 + 40) = v57 + 24;
 LABEL_102:
     LODWORD(v49) = v49 + 1;
     if (v49 >= a2)
     {
-      goto LABEL_108;
+      return 1;
     }
   }
 
@@ -1703,8 +1688,8 @@ LABEL_102:
         goto LABEL_110;
       }
 
-      LODWORD(v96.__first_) = 1;
-      MeCab::Param::set<int>(a1, v66, &v96, 1);
+      LODWORD(v95.__first_) = 1;
+      MeCab::Param::set<int>(a1, v66, &v95, 1);
       goto LABEL_102;
     }
 
@@ -1716,18 +1701,18 @@ LABEL_102:
         goto LABEL_111;
       }
 
-      std::string::basic_string[abi:ne200100]<0>(&v96, a3[v49]);
-      MeCab::Param::set<std::string>(a1, v66, &v96, 1);
-      if (SHIBYTE(v96.__end_) < 0)
+      std::string::basic_string[abi:ne200100]<0>(&v95, a3[v49]);
+      MeCab::Param::set<std::string>(a1, v66, &v95, 1);
+      if (SHIBYTE(v95.__end_) < 0)
       {
-        operator delete(v96.__first_);
+        operator delete(v95.__first_);
       }
 
       goto LABEL_102;
     }
 
-    std::string::basic_string[abi:ne200100]<0>(&v96, v70);
-    MeCab::Param::set<std::string>(a1, v66, &v96, 1);
+    std::string::basic_string[abi:ne200100]<0>(&v95, v70);
+    MeCab::Param::set<std::string>(a1, v66, &v95, 1);
     goto LABEL_99;
   }
 
@@ -1742,7 +1727,7 @@ LABEL_102:
 
   if (!i)
   {
-    goto LABEL_108;
+    return 1;
   }
 
   v63 = *a4;
@@ -1751,7 +1736,7 @@ LABEL_102:
 LABEL_104:
     v83 = strlen(a3[v49]);
     v84 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v82, a3[v49], v83);
-    goto LABEL_105;
+    return 0;
   }
 
   v64 = (a4 + 40);
@@ -1771,22 +1756,22 @@ LABEL_104:
     if (v55 == 61)
     {
 LABEL_110:
-      v87 = strlen(a3[v49]);
-      v88 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v86, a3[v49], v87);
-      goto LABEL_105;
+      v86 = strlen(a3[v49]);
+      v87 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v85, a3[v49], v86);
+      return 0;
     }
 
     v48 = v52;
-    LODWORD(v96.__first_) = 1;
-    MeCab::Param::set<int>(a1, v63, &v96, 1);
+    LODWORD(v95.__first_) = 1;
+    MeCab::Param::set<int>(a1, v63, &v95, 1);
     goto LABEL_102;
   }
 
   if (v55 == 61)
   {
-    std::string::basic_string[abi:ne200100]<0>(&v96, &v50[i + 3]);
+    std::string::basic_string[abi:ne200100]<0>(&v95, &v50[i + 3]);
     v48 = v52;
-    MeCab::Param::set<std::string>(a1, v63, &v96, 1);
+    MeCab::Param::set<std::string>(a1, v63, &v95, 1);
     goto LABEL_99;
   }
 
@@ -1794,12 +1779,12 @@ LABEL_110:
   v48 = v52;
   if (v53 + 1 != a2)
   {
-    std::string::basic_string[abi:ne200100]<0>(&v96, a3[v49]);
-    MeCab::Param::set<std::string>(a1, v63, &v96, 1);
+    std::string::basic_string[abi:ne200100]<0>(&v95, a3[v49]);
+    MeCab::Param::set<std::string>(a1, v63, &v95, 1);
 LABEL_99:
-    if (SHIBYTE(v96.__end_) < 0)
+    if (SHIBYTE(v95.__end_) < 0)
     {
-      v81 = v96.__first_;
+      v81 = v95.__first_;
 LABEL_101:
       operator delete(v81);
       goto LABEL_102;
@@ -1809,13 +1794,9 @@ LABEL_101:
   }
 
 LABEL_111:
-  v90 = strlen(a3[v53]);
-  v91 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v89, a3[v53], v90);
-LABEL_105:
-  result = 0;
-LABEL_109:
-  v85 = *MEMORY[0x29EDCA608];
-  return result;
+  v89 = strlen(a3[v53]);
+  v90 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v88, a3[v53], v89);
+  return 0;
 }
 
 void sub_299169DEC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30)
@@ -1828,11 +1809,11 @@ void sub_299169DEC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_29916A110(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11)
+void sub_29916A110(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
   if (a11)
   {
-    MEMORY[0x29C29A350](a11, 0x1000C8077774924);
+    MEMORY[0x29C29A350](a11, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -1930,9 +1911,9 @@ uint64_t MeCab::ModelImpl::open(MeCab::Viterbi **this, int a2, char **a3)
   return v7;
 }
 
-void sub_29916A48C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_29916A48C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   MeCab::Param::~Param(va);
   _Unwind_Resume(a1);
 }
@@ -1991,9 +1972,9 @@ void sub_29916A5D4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_29916A6C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_29916A6C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   MeCab::Param::~Param(va);
   _Unwind_Resume(a1);
 }
@@ -2058,11 +2039,11 @@ LABEL_14:
   return v8;
 }
 
-void sub_29916A888(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_29916A888(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 56))(a10);
+    (*(*a10 + 56))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -2080,7 +2061,7 @@ void *MeCab::scoped_ptr<MeCab::Model>::~scoped_ptr(void *a1)
   return a1;
 }
 
-uint64_t MeCab::ModelImpl::createTagger(MeCab::ModelImpl *this, uint64_t a2)
+MeCab::TaggerImpl *MeCab::ModelImpl::createTagger(MeCab::ModelImpl *this, uint64_t a2)
 {
   if (*(this + 1) && *(this + 3))
   {
@@ -2091,9 +2072,9 @@ uint64_t MeCab::ModelImpl::createTagger(MeCab::ModelImpl *this, uint64_t a2)
   return 0;
 }
 
-uint64_t MeCab::ModelImpl::createLattice(MeCab::ModelImpl *this, uint64_t a2)
+MeCab::LatticeImpl *MeCab::ModelImpl::createLattice(const MeCab::Writer **this, uint64_t a2)
 {
-  if (*(this + 1) && *(this + 3))
+  if (this[1] && this[3])
   {
     operator new();
   }
@@ -2553,7 +2534,7 @@ void MeCab::LatticeImpl::LatticeImpl(MeCab::LatticeImpl *this, const MeCab::Writ
   operator new();
 }
 
-void sub_29916C1CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, _Unwind_Exception *exception_object, uint64_t a10)
+void sub_29916C1CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, _Unwind_Exception *exception_object, uint64_t a10)
 {
   v20 = v14[10];
   if (v20)
@@ -2565,31 +2546,31 @@ void sub_29916C1CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   *v12 = v18;
   if (*v13)
   {
-    (*(**v13 + 8))(*v13);
+    (*(**v13 + 8))(*v13, a2, a3, a4, a5, a6, a7, a8);
   }
 
   v14[6] = v17;
   v21 = v14[7];
   if (v21)
   {
-    (*(*v21 + 8))(v21);
+    (*(*v21 + 8))(v21, a2, a3, a4, a5, a6, a7, a8);
   }
 
   v14[4] = v16;
   v22 = v14[5];
   if (v22)
   {
-    (*(*v22 + 8))(v22);
+    (*(*v22 + 8))(v22, a2, a3, a4, a5, a6, a7, a8);
   }
 
   v14[2] = v15;
   v23 = v14[3];
   if (v23)
   {
-    (*(*v23 + 8))(v23);
+    (*(*v23 + 8))(v23, a2, a3, a4, a5, a6, a7, a8);
   }
 
-  MEMORY[0x29C29A380](v14, 0x10B1C40567112E6);
+  MEMORY[0x29C29A380](v14, 0x10B1C40567112E6, a3, a4, a5, a6, a7, a8);
   *(v10 + 176) = a10;
   v24 = *(v10 + 184);
   if (v24)
@@ -2633,15 +2614,12 @@ void sub_29916C1CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::vector<mecab_node_t *>::reserve(void *result)
+void std::vector<mecab_node_t *>::reserve(void *a1)
 {
-  if (!((result[2] - *result) >> 16))
+  if (!((a1[2] - *a1) >> 16))
   {
-    v1 = result[1] - *result;
     operator new();
   }
-
-  return result;
 }
 
 void *MeCab::scoped_ptr<MeCab::Allocator<mecab_node_t,mecab_path_t>>::~scoped_ptr(void *a1)
@@ -2763,8 +2741,8 @@ void MeCab::LatticeImpl::set_sentence(MeCab::LatticeImpl *this, char *a2, uint64
 {
   (**this)(this);
   v6 = a3 + 4;
-  std::vector<mecab_learner_node_t *>::resize(this + 72, a3 + 4);
-  std::vector<mecab_learner_node_t *>::resize(this + 96, a3 + 4);
+  std::vector<mecab_learner_node_t *>::resize(this + 9, a3 + 4);
+  std::vector<mecab_learner_node_t *>::resize(this + 12, a3 + 4);
   if (((*(*this + 144))(this, 64) & 1) != 0 || (*(*this + 144))(this, 4))
   {
     v7 = (*(*this + 176))(this);
@@ -2817,14 +2795,14 @@ uint64_t MeCab::Allocator<mecab_node_t,mecab_path_t>::nbest_generator(uint64_t a
 
 void MeCab::LatticeImpl::set_result(MeCab::LatticeImpl *this, const char *a2)
 {
-  v87 = *MEMORY[0x29EDCA608];
+  v86 = *MEMORY[0x29EDCA608];
   v4 = (*(*this + 176))(this);
   v5 = strlen(a2);
   v6 = MeCab::Allocator<mecab_node_t,mecab_path_t>::alloc(v4, v5 + 1);
   strncpy(v6, a2, v5 + 1);
   __p = 0;
+  v82 = 0;
   v83 = 0;
-  v84 = 0;
   v7 = strlen(a2);
   v8 = strlen(v6);
   if (v7)
@@ -2848,22 +2826,22 @@ void MeCab::LatticeImpl::set_result(MeCab::LatticeImpl *this, const char *a2)
       }
 
       *v11 = 0;
-      v12 = v83;
-      if (v83 >= v84)
+      v12 = v82;
+      if (v82 >= v83)
       {
-        v14 = (v83 - __p) >> 3;
+        v14 = (v82 - __p) >> 3;
         if ((v14 + 1) >> 61)
         {
           std::vector<MeCab::RewritePattern>::__throw_length_error[abi:ne200100]();
         }
 
-        v15 = (v84 - __p) >> 2;
+        v15 = (v83 - __p) >> 2;
         if (v15 <= v14 + 1)
         {
           v15 = v14 + 1;
         }
 
-        if (v84 - __p >= 0x7FFFFFFFFFFFFFF8)
+        if (v83 - __p >= 0x7FFFFFFFFFFFFFF8)
         {
           v16 = 0x1FFFFFFFFFFFFFFFLL;
         }
@@ -2881,12 +2859,12 @@ void MeCab::LatticeImpl::set_result(MeCab::LatticeImpl *this, const char *a2)
         v17 = (8 * v14);
         *v17 = v6;
         v13 = 8 * v14 + 8;
-        v18 = v17 - (v83 - __p);
-        memcpy(v18, __p, v83 - __p);
+        v18 = v17 - (v82 - __p);
+        memcpy(v18, __p, v82 - __p);
         v19 = __p;
         __p = v18;
-        v83 = v13;
-        v84 = 0;
+        v82 = v13;
+        v83 = 0;
         if (v19)
         {
           operator delete(v19);
@@ -2895,11 +2873,11 @@ void MeCab::LatticeImpl::set_result(MeCab::LatticeImpl *this, const char *a2)
 
       else
       {
-        *v83 = v6;
+        *v82 = v6;
         v13 = (v12 + 8);
       }
 
-      v83 = v13;
+      v82 = v13;
       ++v9;
       if (v11 == v10)
       {
@@ -2932,16 +2910,16 @@ void MeCab::LatticeImpl::set_result(MeCab::LatticeImpl *this, const char *a2)
     v24 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v23, ") [", 3);
     v25 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v24, "lsize == lines.size()", 21);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v25, "] ", 2);
-    MeCab::die::~die(&v81);
+    MeCab::die::~die(&v80);
   }
 
-  memset(&v81, 0, sizeof(v81));
+  memset(&v80, 0, sizeof(v80));
+  v77 = 0;
   v78 = 0;
   v79 = 0;
-  v80 = 0;
+  v74 = 0;
   v75 = 0;
   v76 = 0;
-  v77 = 0;
   if (v13 != v20)
   {
     v26 = 0;
@@ -2950,12 +2928,12 @@ void MeCab::LatticeImpl::set_result(MeCab::LatticeImpl *this, const char *a2)
       v27 = v20[v26];
       if (strcmp("EOS", v27))
       {
+        v84 = 0;
         v85 = 0;
-        v86 = 0;
         v28 = strlen(v27);
         v29 = 0;
         v30 = &v27[v28];
-        v31 = &v85;
+        v31 = &v84;
         while (1)
         {
           v32 = v29;
@@ -2993,26 +2971,26 @@ LABEL_39:
         }
 
 LABEL_40:
-        v34 = v85;
-        v35 = strlen(v85);
-        std::string::append(&v81, v85, v35);
-        std::string::basic_string[abi:ne200100]<0>(v73, v34);
-        std::vector<std::string>::push_back[abi:ne200100](&v78, v73);
-        if (v74 < 0)
+        v34 = v84;
+        v35 = strlen(v84);
+        std::string::append(&v80, v84, v35);
+        std::string::basic_string[abi:ne200100]<0>(v72, v34);
+        std::vector<std::string>::push_back[abi:ne200100](&v77, v72);
+        if (v73 < 0)
         {
-          operator delete(v73[0]);
+          operator delete(v72[0]);
         }
 
-        std::string::basic_string[abi:ne200100]<0>(v73, v86);
-        std::vector<std::string>::push_back[abi:ne200100](&v75, v73);
-        if (v74 < 0)
+        std::string::basic_string[abi:ne200100]<0>(v72, v85);
+        std::vector<std::string>::push_back[abi:ne200100](&v74, v72);
+        if (v73 < 0)
         {
-          operator delete(v73[0]);
+          operator delete(v72[0]);
         }
 
         ++v26;
         v20 = __p;
-        if (v26 < (v83 - __p) >> 3)
+        if (v26 < (v82 - __p) >> 3)
         {
           continue;
         }
@@ -3022,7 +3000,7 @@ LABEL_40:
     }
   }
 
-  if (v76 - v75 != v79 - v78)
+  if (v75 - v74 != v78 - v77)
   {
     v36 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "/Library/Caches/com.apple.xbs/Sources/Mecabra/src/tagger.cpp", 60);
     v37 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v36, "(", 1);
@@ -3030,27 +3008,27 @@ LABEL_40:
     v39 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v38, ") [", 3);
     v40 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v39, "features.size() == surfaces.size()", 34);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v40, "] ", 2);
-    MeCab::die::~die(v73);
+    MeCab::die::~die(v72);
   }
 
   v41 = (*(*this + 176))(this);
-  v42 = SHIBYTE(v81.__r_.__value_.__r.__words[2]);
-  v43 = v81.__r_.__value_.__r.__words[0];
-  if ((v81.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  v42 = SHIBYTE(v80.__r_.__value_.__r.__words[2]);
+  v43 = v80.__r_.__value_.__r.__words[0];
+  if ((v80.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    size = HIBYTE(v81.__r_.__value_.__r.__words[2]);
+    size = HIBYTE(v80.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    size = v81.__r_.__value_.__l.__size_;
+    size = v80.__r_.__value_.__l.__size_;
   }
 
   v45 = MeCab::Allocator<mecab_node_t,mecab_path_t>::alloc(v41, size + 1);
   v46 = v45;
   if (v42 >= 0)
   {
-    v47 = &v81;
+    v47 = &v80;
   }
 
   else
@@ -3074,7 +3052,7 @@ LABEL_40:
   *(v54 + 91) = 3;
   *(v51 + 64) = *(this + 1);
   **(this + 9) = v51;
-  if (v79 == v78)
+  if (v78 == v77)
   {
     v62 = v51;
   }
@@ -3092,9 +3070,9 @@ LABEL_40:
       *v60 = v51;
       *(v51 + 8) = v60;
       *(v60 + 64) = *(this + 1) + v58;
-      v63 = v78;
-      v64 = v78 + v56 * 8;
-      v65 = *(v78 + v56 * 8 + 23);
+      v63 = v77;
+      v64 = v77 + v56 * 8;
+      v65 = *(v77 + v56 * 8 + 23);
       if (v65 < 0)
       {
         v65 = *(v64 + 8);
@@ -3112,8 +3090,8 @@ LABEL_40:
       *(v60 + 92) = 0;
       *(v60 + 96) = 0;
       v67 = (*(*this + 176))(this, v61);
-      v68 = &v75[v56];
-      v69 = SHIBYTE(v75[v56 + 2]);
+      v68 = &v74[v56];
+      v69 = SHIBYTE(v74[v56 + 2]);
       if (v69 < 0)
       {
         v70 = *v68;
@@ -3122,7 +3100,7 @@ LABEL_40:
 
       else
       {
-        v70 = &v75[v56];
+        v70 = &v74[v56];
       }
 
       v71 = MeCab::Allocator<mecab_node_t,mecab_path_t>::alloc(v67, v69 + 1);
@@ -3135,27 +3113,25 @@ LABEL_40:
       v51 = v62;
     }
 
-    while (v57 < 0xAAAAAAAAAAAAAAABLL * ((v79 - v78) >> 3));
+    while (v57 < 0xAAAAAAAAAAAAAAABLL * ((v78 - v77) >> 3));
   }
 
   *(v62 + 8) = v55;
   *v55 = v62;
-  v73[0] = &v75;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v73);
-  v75 = &v78;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v75);
-  if (SHIBYTE(v81.__r_.__value_.__r.__words[2]) < 0)
+  v72[0] = &v74;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v72);
+  v74 = &v77;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v74);
+  if (SHIBYTE(v80.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v81.__r_.__value_.__l.__data_);
+    operator delete(v80.__r_.__value_.__l.__data_);
   }
 
   if (__p)
   {
-    v83 = __p;
+    v82 = __p;
     operator delete(__p);
   }
-
-  v72 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29916D070(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, char **a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, char *a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, void *__p, uint64_t a22, int a23, __int16 a24, char a25, char a26, void *a27, uint64_t a28)
@@ -3238,9 +3214,9 @@ uint64_t MeCab::LatticeImpl::toString(MeCab::LatticeImpl *this, char *a2, uint64
   return v3;
 }
 
-void sub_29916D320(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29916D320(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   MeCab::StringBuffer::~StringBuffer(va);
   _Unwind_Resume(a1);
 }
@@ -3305,7 +3281,7 @@ LABEL_16:
   v6 = a1[21];
   if (v6)
   {
-    if ((MeCab::Writer::writeNode(v6, a1, a2) & 1) == 0)
+    if ((MeCab::Writer::writeNode(v6, a1, a2, this) & 1) == 0)
     {
       return 0;
     }
@@ -3355,9 +3331,9 @@ uint64_t MeCab::LatticeImpl::toString(void *a1, uint64_t a2, uint64_t a3, uint64
   return v4;
 }
 
-void sub_29916D664(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29916D664(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   MeCab::StringBuffer::~StringBuffer(va);
   _Unwind_Resume(a1);
 }
@@ -3415,7 +3391,7 @@ LABEL_17:
     BYTE11(v12) = 4;
     v8 = (*(*this + 64))(this);
     *&v11 = v8 + (*(*this + 88))(this);
-    if (!MeCab::Writer::writeNode(*(this + 21), this, v10))
+    if (!MeCab::Writer::writeNode(*(this + 21), this, v10, a3))
     {
       return 0;
     }
@@ -3447,9 +3423,9 @@ uint64_t MeCab::LatticeImpl::enumNBestAsString(MeCab::LatticeImpl *this, uint64_
   return v4;
 }
 
-void sub_29916D8DC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29916D8DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   MeCab::StringBuffer::~StringBuffer(va);
   _Unwind_Resume(a1);
 }
@@ -3793,12 +3769,12 @@ void sub_29916F420(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t std::istream::getline[abi:ne200100](void *a1)
+uint64_t std::istream::getline[abi:ne200100](void *a1, uint64_t a2, uint64_t a3)
 {
   std::ios_base::getloc((a1 + *(*a1 - 24)));
-  v1 = std::locale::use_facet(&v3, MEMORY[0x29EDC93D0]);
-  (v1->__vftable[2].~facet_0)(v1, 10);
-  std::locale::~locale(&v3);
+  v3 = std::locale::use_facet(&v5, MEMORY[0x29EDC93D0]);
+  (v3->__vftable[2].~facet_0)(v3, 10);
+  std::locale::~locale(&v5);
   return std::istream::getline();
 }
 
@@ -3816,7 +3792,7 @@ uint64_t MeCab::ModelImpl::dictionary_info(MeCab::ModelImpl *this)
   }
 }
 
-uint64_t MeCab::ModelImpl::lookup(uint64_t a1, unsigned __int8 *a2, unint64_t a3, uint64_t a4)
+uint64_t MeCab::ModelImpl::lookup(uint64_t a1, unsigned __int16 *a2, unsigned __int16 *a3, uint64_t a4)
 {
   v6 = *(*(a1 + 8) + 16);
   v7 = (*(*a4 + 176))(a4);
@@ -4066,7 +4042,6 @@ uint64_t MeCab::Allocator<mecab_node_t,mecab_path_t>::alloc(uint64_t a1, uint64_
   }
 
   v3 = a2 + 1;
-  v4 = *(a1 + 56);
 
   return MeCab::ChunkFreeList<char>::alloc(v2, v3);
 }
@@ -4401,7 +4376,7 @@ LABEL_15:
 
 uint64_t MeCab::Viterbi::initPartial(uint64_t *a1)
 {
-  v32 = *MEMORY[0x29EDCA608];
+  v31 = *MEMORY[0x29EDCA608];
   v2 = (*(*a1 + 144))(a1, 4);
   v3 = *a1;
   if (v2)
@@ -4440,8 +4415,8 @@ uint64_t MeCab::Viterbi::initPartial(uint64_t *a1)
     v11 = (*(*a1 + 88))(a1);
     strncpy(v7, v10, v11 + 1);
     __p = 0;
+    v28 = 0;
     v29 = 0;
-    v30 = 0;
     v12 = (*(*a1 + 88))(a1);
     v13 = strlen(v7);
     if (v12 != -1)
@@ -4470,22 +4445,22 @@ uint64_t MeCab::Viterbi::initPartial(uint64_t *a1)
 
 LABEL_18:
         *v16 = 0;
-        v17 = v29;
-        if (v29 >= v30)
+        v17 = v28;
+        if (v28 >= v29)
         {
-          v19 = (v29 - __p) >> 3;
+          v19 = (v28 - __p) >> 3;
           if ((v19 + 1) >> 61)
           {
             std::vector<MeCab::RewritePattern>::__throw_length_error[abi:ne200100]();
           }
 
-          v20 = (v30 - __p) >> 2;
+          v20 = (v29 - __p) >> 2;
           if (v20 <= v19 + 1)
           {
             v20 = v19 + 1;
           }
 
-          if (v30 - __p >= 0x7FFFFFFFFFFFFFF8)
+          if (v29 - __p >= 0x7FFFFFFFFFFFFFF8)
           {
             v21 = 0x1FFFFFFFFFFFFFFFLL;
           }
@@ -4503,12 +4478,12 @@ LABEL_18:
           v22 = (8 * v19);
           *v22 = v7;
           v18 = 8 * v19 + 8;
-          v23 = v22 - (v29 - __p);
-          memcpy(v23, __p, v29 - __p);
+          v23 = v22 - (v28 - __p);
+          memcpy(v23, __p, v28 - __p);
           v24 = __p;
           __p = v23;
-          v29 = v18;
-          v30 = 0;
+          v28 = v18;
+          v29 = 0;
           if (v24)
           {
             operator delete(v24);
@@ -4517,11 +4492,11 @@ LABEL_18:
 
         else
         {
-          *v29 = v7;
+          *v28 = v7;
           v18 = (v17 + 8);
         }
 
-        v29 = v18;
+        v28 = v18;
         if (v16 == v15)
         {
           break;
@@ -4533,7 +4508,7 @@ LABEL_18:
       while (v14++ != v12);
     }
 
-    v31 = 0uLL;
+    v30 = 0uLL;
     (*(*a1 + 88))(a1);
     operator new[]();
   }
@@ -4545,15 +4520,14 @@ LABEL_18:
     (*(*a1 + 264))(a1, v9, 1);
   }
 
-  v26 = *MEMORY[0x29EDCA608];
   return 1;
 }
 
-void sub_29917191C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *__p, uint64_t a25)
+void sub_29917191C(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *__p, uint64_t a25)
 {
   if (a23)
   {
-    MEMORY[0x29C29A350](a23, 0x1000C8077774924);
+    MEMORY[0x29C29A350](a23, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   if (__p)
@@ -4588,7 +4562,7 @@ uint64_t MeCab::Viterbi::viterbi<true,true>(uint64_t a1, uint64_t a2)
     {
       if (v4[v15])
       {
-        v16 = MeCab::Tokenizer<mecab_node_t,mecab_path_t>::lookup<true>(*(a1 + 16), (v8 + v15), v8 + v7, v6, a2);
+        v16 = MeCab::Tokenizer<mecab_node_t,mecab_path_t>::lookup<true>(*(a1 + 16), (v8 + v15), (v8 + v7), v6, a2);
         *(v5 + 8 * v15) = v16;
         {
           break;
@@ -4665,7 +4639,7 @@ uint64_t MeCab::Viterbi::viterbi<true,false>(uint64_t a1, uint64_t a2)
     {
       if (v4[v16])
       {
-        v17 = MeCab::Tokenizer<mecab_node_t,mecab_path_t>::lookup<false>(*(a1 + 16), (v8 + v16), v8 + v7, v6, v15);
+        v17 = MeCab::Tokenizer<mecab_node_t,mecab_path_t>::lookup<false>(*(a1 + 16), (v8 + v16), (v8 + v7), v6, v15);
         *(v5 + 8 * v16) = v17;
         {
           break;
@@ -4742,7 +4716,7 @@ uint64_t MeCab::Viterbi::viterbi<false,true>(uint64_t a1, uint64_t a2)
     {
       if (v4[v15])
       {
-        v16 = MeCab::Tokenizer<mecab_node_t,mecab_path_t>::lookup<true>(*(a1 + 16), (v8 + v15), v8 + v7, v6, a2);
+        v16 = MeCab::Tokenizer<mecab_node_t,mecab_path_t>::lookup<true>(*(a1 + 16), (v8 + v15), (v8 + v7), v6, a2);
         *(v5 + 8 * v15) = v16;
         {
           break;
@@ -4819,7 +4793,7 @@ uint64_t MeCab::Viterbi::viterbi<false,false>(uint64_t a1, uint64_t a2)
     {
       if (v4[v16])
       {
-        v17 = MeCab::Tokenizer<mecab_node_t,mecab_path_t>::lookup<false>(*(a1 + 16), (v8 + v16), v8 + v7, v6, v15);
+        v17 = MeCab::Tokenizer<mecab_node_t,mecab_path_t>::lookup<false>(*(a1 + 16), (v8 + v16), (v8 + v7), v6, v15);
         *(v5 + 8 * v16) = v17;
         {
           break;
@@ -5479,9 +5453,9 @@ uint64_t MeCab::Connector::open(MeCab::Connector *this, const char *a2, uint64_t
 
 BOOL MeCab::Connector::openText(MeCab::Connector *this, const char *a2)
 {
-  v11[19] = *MEMORY[0x29EDCA608];
-  std::ifstream::basic_ifstream(v9);
-  v4 = *&v10[*(v9[0] - 24) + 16] & 5;
+  v10[19] = *MEMORY[0x29EDCA608];
+  std::ifstream::basic_ifstream(v8, a2, 8);
+  v4 = *&v9[*(v8[0] - 24) + 16] & 5;
   if (!v4)
   {
     operator new[]();
@@ -5490,19 +5464,18 @@ BOOL MeCab::Connector::openText(MeCab::Connector *this, const char *a2)
   v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(this + 46, "no such file or directory: ", 27);
   v6 = strlen(a2);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, a2, v6);
-  v9[0] = *MEMORY[0x29EDC9518];
-  *(v9 + *(v9[0] - 24)) = *(MEMORY[0x29EDC9518] + 24);
-  MEMORY[0x29C29A160](v10);
+  v8[0] = *MEMORY[0x29EDC9518];
+  *(v8 + *(v8[0] - 24)) = *(MEMORY[0x29EDC9518] + 24);
+  MEMORY[0x29C29A160](v9);
   std::istream::~istream();
-  MEMORY[0x29C29A320](v11);
-  v7 = *MEMORY[0x29EDCA608];
+  MEMORY[0x29C29A320](v10);
   return v4 == 0;
 }
 
 void MeCab::Connector::compile(MeCab::Connector *this, const char *a2, const char *a3)
 {
   v23 = *MEMORY[0x29EDCA608];
-  std::ifstream::basic_ifstream(v21);
+  std::ifstream::basic_ifstream(v21, this, 8);
   std::string::basic_string[abi:ne200100]<0>(__p, "1 1\n0 0 0\n");
   std::istringstream::basic_istringstream[abi:ne200100](v17, __p, 8);
   if (v19 < 0)
@@ -5523,7 +5496,7 @@ void MeCab::Connector::compile(MeCab::Connector *this, const char *a2, const cha
     std::ostream::flush();
   }
 
-  std::ofstream::basic_ofstream(__p);
+  std::ofstream::basic_ofstream(__p, a2, 20);
   if ((v20[*(__p[0] - 3)] & 5) != 0)
   {
     v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "/Library/Caches/com.apple.xbs/Sources/Mecabra/src/connector.cpp", 63);
@@ -5543,11 +5516,11 @@ void MeCab::Connector::compile(MeCab::Connector *this, const char *a2, const cha
   operator new[]();
 }
 
-void sub_299174888(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, std::locale a49, void *__p)
+void sub_299174888(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, std::locale a49, void *__p)
 {
   if (a47)
   {
-    MEMORY[0x29C29A350](a47, 0x1000C8077774924);
+    MEMORY[0x29C29A350](a47, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   std::ofstream::~ofstream(&__p, MEMORY[0x29EDC9520]);
@@ -6050,8 +6023,7 @@ std::string *MeCab::create_filename@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, std
 
   else
   {
-    *&a3->__r_.__value_.__l.__data_ = *a1;
-    a3->__r_.__value_.__r.__words[2] = *(a1 + 16);
+    *a3 = *a1;
   }
 
   v5 = SHIBYTE(a3->__r_.__value_.__r.__words[2]);
@@ -6428,7 +6400,7 @@ LABEL_51:
   else
   {
     v43 = MEMORY[0x29EDC9418];
-    v44 = 0xAAAAAAAAAAAAAAABLL * (v41 - v42);
+    v44 = 0xAAAAAAAAAAAAAAABLL * ((v41 - v42) >> 3);
     while (1)
     {
       v45 = operator new(24 * v44, v43);
@@ -6452,7 +6424,7 @@ LABEL_51:
   }
 
 LABEL_58:
-  std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::string *>>(v42, v41, 0xAAAAAAAAAAAAAAABLL * (v41 - v42), v48, v44);
+  std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::string *>>(v42, v41, 0xAAAAAAAAAAAAAAABLL * ((v41 - v42) >> 3), v48, v44);
   if (v48)
   {
     operator delete(v48);
@@ -6649,7 +6621,17 @@ BOOL MeCab::load_dictionary_resource(MeCab *this, MeCab::Param *a2)
         operator delete(v40.__r_.__value_.__l.__data_);
       }
 
-      std::ifstream::basic_ifstream(&v40);
+      if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        p_str = &__str;
+      }
+
+      else
+      {
+        p_str = __str.__r_.__value_.__r.__words[0];
+      }
+
+      std::ifstream::basic_ifstream(&v40, p_str, 8);
       if ((*(&v40 + *(v40.__r_.__value_.__r.__words[0] - 24) + 32) & 5) == 0)
       {
         std::string::operator=(&v39, &__str);
@@ -6673,65 +6655,65 @@ BOOL MeCab::load_dictionary_resource(MeCab *this, MeCab::Param *a2)
 
   if (v4 >= 0)
   {
-    v8 = v3;
+    v9 = v3;
   }
 
   else
   {
-    v8 = size;
+    v9 = size;
   }
 
-  if (!v8)
+  if (!v9)
   {
-    v9 = getenv("MECABRC");
-    if (v9)
+    v10 = getenv("MECABRC");
+    if (v10)
     {
-      std::string::__assign_external(&v39, v9);
+      std::string::__assign_external(&v39, v10);
     }
   }
 
   MeCab::Param::get<std::string>(this, "dicdir", &__str);
-  v10 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
+  v11 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
   if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    v10 = __str.__r_.__value_.__l.__size_;
+    v11 = __str.__r_.__value_.__l.__size_;
   }
 
-  if (!v10)
+  if (!v11)
   {
     if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
     {
       __str.__r_.__value_.__l.__size_ = 1;
-      p_str = __str.__r_.__value_.__r.__words[0];
+      v12 = __str.__r_.__value_.__r.__words[0];
     }
 
     else
     {
       *(&__str.__r_.__value_.__s + 23) = 1;
-      p_str = &__str;
+      v12 = &__str;
     }
 
-    LOWORD(p_str->__r_.__value_.__l.__data_) = 46;
+    LOWORD(v12->__r_.__value_.__l.__data_) = 46;
   }
 
-  LODWORD(v12) = HIBYTE(v39.__r_.__value_.__r.__words[2]);
-  v13 = v39.__r_.__value_.__r.__words[0];
+  LODWORD(v13) = HIBYTE(v39.__r_.__value_.__r.__words[2]);
+  v14 = v39.__r_.__value_.__r.__words[0];
   if ((v39.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    LODWORD(v12) = v39.__r_.__value_.__r.__words[1];
+    LODWORD(v13) = v39.__r_.__value_.__r.__words[1];
   }
 
-  v12 = v12;
-  v14 = &v39;
+  v13 = v13;
+  v15 = &v39;
   if ((v39.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    v14 = v39.__r_.__value_.__r.__words[0];
+    v15 = v39.__r_.__value_.__r.__words[0];
   }
 
-  v15 = &v14[-1].__r_.__value_.__r.__words[2] + 7;
+  v16 = &v15[-1].__r_.__value_.__r.__words[2] + 7;
   do
   {
-    if (v12 < 1)
+    if (v13 < 1)
     {
       if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
       {
@@ -6741,137 +6723,137 @@ BOOL MeCab::load_dictionary_resource(MeCab *this, MeCab::Param *a2)
       else
       {
         *(&v39.__r_.__value_.__s + 23) = 1;
-        v13 = &v39;
+        v14 = &v39;
       }
 
-      LOWORD(v13->__r_.__value_.__l.__data_) = 46;
-      goto LABEL_42;
+      LOWORD(v14->__r_.__value_.__l.__data_) = 46;
+      goto LABEL_45;
     }
 
-    v16 = v12 - 1;
-    v17 = v15[v12--];
+    v17 = v13 - 1;
+    v18 = v16[v13--];
   }
 
-  while (v17 != 47);
-  std::string::basic_string(&v40, &v39, 0, v16, __p);
+  while (v18 != 47);
+  std::string::basic_string(&v40, &v39, 0, v17, __p);
   if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v39.__r_.__value_.__l.__data_);
   }
 
   v39 = v40;
-LABEL_42:
+LABEL_45:
   std::string::basic_string[abi:ne200100]<0>(&v40, "$(rcpath)");
-  v18 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
+  v19 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
   if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v19 = &__str;
+    v20 = &__str;
   }
 
   else
   {
-    v19 = __str.__r_.__value_.__r.__words[0];
+    v20 = __str.__r_.__value_.__r.__words[0];
   }
 
   if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    v18 = __str.__r_.__value_.__l.__size_;
+    v19 = __str.__r_.__value_.__l.__size_;
   }
 
-  v20 = HIBYTE(v40.__r_.__value_.__r.__words[2]);
+  v21 = HIBYTE(v40.__r_.__value_.__r.__words[2]);
   if ((v40.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v21 = &v40;
+    v22 = &v40;
   }
 
   else
   {
-    v21 = v40.__r_.__value_.__r.__words[0];
+    v22 = v40.__r_.__value_.__r.__words[0];
   }
 
   if ((v40.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v22 = HIBYTE(v40.__r_.__value_.__r.__words[2]);
+    v23 = HIBYTE(v40.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    v22 = v40.__r_.__value_.__l.__size_;
+    v23 = v40.__r_.__value_.__l.__size_;
   }
 
-  if (v22)
+  if (v23)
   {
-    if (v18 >= v22)
+    if (v19 >= v23)
     {
-      v23 = v19 + v18;
-      v24 = v21->__r_.__value_.__s.__data_[0];
-      v25 = v19;
+      v24 = v20 + v19;
+      v25 = v22->__r_.__value_.__s.__data_[0];
+      v26 = v20;
       do
       {
-        v26 = v18 - v22;
-        if (v26 == -1)
+        v27 = v19 - v23;
+        if (v27 == -1)
         {
           break;
         }
 
-        v27 = memchr(v25, v24, v26 + 1);
-        if (!v27)
+        v28 = memchr(v26, v25, v27 + 1);
+        if (!v28)
         {
           break;
         }
 
-        v28 = v27;
-        if (!memcmp(v27, v21, v22))
+        v29 = v28;
+        if (!memcmp(v28, v22, v23))
         {
-          if (v28 != v23)
+          if (v29 != v24)
           {
-            v29 = v28 - v19;
-            if (v28 - v19 != -1)
+            v30 = v29 - v20;
+            if (v29 - v20 != -1)
             {
-              goto LABEL_62;
+              goto LABEL_65;
             }
           }
 
           break;
         }
 
-        v25 = (v28 + 1);
-        v18 = v23 - (v28 + 1);
+        v26 = (v29 + 1);
+        v19 = v24 - (v29 + 1);
       }
 
-      while (v18 >= v22);
+      while (v19 >= v23);
     }
   }
 
   else
   {
-    v29 = 0;
-LABEL_62:
+    v30 = 0;
+LABEL_65:
     if ((v39.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v30 = &v39;
+      v31 = &v39;
     }
 
     else
     {
-      v30 = v39.__r_.__value_.__r.__words[0];
+      v31 = v39.__r_.__value_.__r.__words[0];
     }
 
     if ((v39.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v31 = HIBYTE(v39.__r_.__value_.__r.__words[2]);
+      v32 = HIBYTE(v39.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      v31 = v39.__r_.__value_.__l.__size_;
+      v32 = v39.__r_.__value_.__l.__size_;
     }
 
-    std::string::replace(&__str, v29, v22, v30, v31);
-    v20 = HIBYTE(v40.__r_.__value_.__r.__words[2]);
+    std::string::replace(&__str, v30, v23, v31, v32);
+    v21 = HIBYTE(v40.__r_.__value_.__r.__words[2]);
   }
 
-  if (v20 < 0)
+  if (v21 < 0)
   {
     operator delete(v40.__r_.__value_.__l.__data_);
   }
@@ -6894,15 +6876,15 @@ LABEL_62:
 
   if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v32 = &__str;
+    v33 = &__str;
   }
 
   else
   {
-    v32 = __str.__r_.__value_.__r.__words[0];
+    v33 = __str.__r_.__value_.__r.__words[0];
   }
 
-  v33 = MeCab::Param::load(this, v32);
+  v34 = MeCab::Param::load(this, v33);
   if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__str.__r_.__value_.__l.__data_);
@@ -6913,8 +6895,7 @@ LABEL_62:
     operator delete(v39.__r_.__value_.__l.__data_);
   }
 
-  v34 = *MEMORY[0x29EDCA608];
-  return v33;
+  return v34;
 }
 
 void sub_29917608C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, void *a29, uint64_t a30, int a31, __int16 a32, char a33, char a34)
@@ -6935,33 +6916,32 @@ void sub_29917608C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 BOOL MeCab::file_exists(MeCab *this, const char *a2)
 {
-  v7[19] = *MEMORY[0x29EDCA608];
-  std::ifstream::basic_ifstream(v5);
-  v2 = (*&v6[*(v5[0] - 24) + 16] & 5) == 0;
-  v5[0] = *MEMORY[0x29EDC9518];
-  *(v5 + *(v5[0] - 24)) = *(MEMORY[0x29EDC9518] + 24);
-  MEMORY[0x29C29A160](v6);
+  v6[19] = *MEMORY[0x29EDCA608];
+  std::ifstream::basic_ifstream(v4, this, 8);
+  v2 = (*&v5[*(v4[0] - 24) + 16] & 5) == 0;
+  v4[0] = *MEMORY[0x29EDC9518];
+  *(v4 + *(v4[0] - 24)) = *(MEMORY[0x29EDC9518] + 24);
+  MEMORY[0x29C29A160](v5);
   std::istream::~istream();
-  MEMORY[0x29C29A320](v7);
-  v3 = *MEMORY[0x29EDCA608];
+  MEMORY[0x29C29A320](v6);
   return v2;
 }
 
-void std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::string *>>(void **a1, void **a2, unint64_t a3, uint64_t a4, uint64_t a5)
+void std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::string *>>(char *a1, char *a2, unint64_t a3, __int128 *a4, int64_t a5)
 {
   if (a3 >= 2)
   {
     v6 = a1;
     if (a3 == 2)
     {
-      v7 = a2 - 3;
+      v7 = a2 - 24;
       if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a2 - 3, a1) & 0x80) != 0)
       {
-        v8 = v6[2];
+        v8 = *(v6 + 2);
         v9 = *v6;
         v10 = *(a2 - 1);
         *v6 = *v7;
-        v6[2] = v10;
+        *(v6 + 2) = v10;
         *v7 = v9;
         *(a2 - 1) = v8;
       }
@@ -6974,8 +6954,8 @@ void std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__w
       {
         if (a1 != a2)
         {
-          v17 = a1 + 3;
-          if (a1 + 3 != a2)
+          v17 = (a1 + 24);
+          if (a1 + 24 != a2)
           {
             v18 = 0;
             v19 = a1;
@@ -6986,23 +6966,23 @@ void std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__w
               if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v17, v20) & 0x80) != 0)
               {
                 v21 = *v19;
-                v38 = v19[2];
+                v38 = *(v19 + 2);
                 v37 = v21;
-                v19[1] = 0;
-                v19[2] = 0;
+                *(v19 + 1) = 0;
+                *(v19 + 2) = 0;
                 *v19 = 0;
                 v22 = v18;
                 do
                 {
-                  v23 = (v6 + v22);
-                  if (*(v6 + v22 + 47) < 0)
+                  v23 = &v6[v22];
+                  if (v6[v22 + 47] < 0)
                   {
-                    operator delete(v23[3]);
+                    operator delete(*(v23 + 3));
                   }
 
-                  *(v23 + 3) = *v23;
-                  v23[5] = v23[2];
-                  *(v23 + 23) = 0;
+                  *(v23 + 24) = *v23;
+                  *(v23 + 5) = *(v23 + 2);
+                  v23[23] = 0;
                   *v23 = 0;
                   if (!v22)
                   {
@@ -7013,9 +6993,9 @@ void std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__w
                   v22 -= 24;
                 }
 
-                while ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v37, (v6 + v22)) & 0x80) != 0);
-                v24 = *(v6 + v22 + 47);
-                v25 = v6 + v22 + 24;
+                while ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v37, &v6[v22]) & 0x80) != 0);
+                v24 = v6[v22 + 47];
+                v25 = &v6[v22 + 24];
                 if (v24 < 0)
                 {
                   operator delete(*v25);
@@ -7027,11 +7007,11 @@ LABEL_22:
                 *v25 = v26;
               }
 
-              v17 = v19 + 3;
+              v17 = (v19 + 24);
               v18 += 24;
             }
 
-            while (v19 + 3 != a2);
+            while (v19 + 24 != a2);
           }
         }
       }
@@ -7040,20 +7020,20 @@ LABEL_22:
       {
         v13 = a4;
         v14 = a3 >> 1;
-        v15 = &a1[3 * (a3 >> 1)];
+        v15 = &a1[24 * (a3 >> 1)];
         v16 = a3 >> 1;
         if (v11 <= a5)
         {
           std::__stable_sort_move<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::string *>>(a1, v15, v16, a4);
           v27 = v13 + 24 * v14;
-          std::__stable_sort_move<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::string *>>(&v6[3 * (v11 >> 1)], a2, v11 - (v11 >> 1), v27);
+          std::__stable_sort_move<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::string *>>(&v6[24 * (v11 >> 1)], a2, v11 - (v11 >> 1), v27);
           v28 = v13 + 24 * v11;
           v29 = v27;
           v30 = v13;
           while (v29 != v28)
           {
             v31 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v29, v30);
-            v32 = *(v6 + 23);
+            v32 = v6[23];
             if (v31 < 0)
             {
               if (v32 < 0)
@@ -7062,7 +7042,7 @@ LABEL_22:
               }
 
               v34 = *v29;
-              v6[2] = *(v29 + 16);
+              *(v6 + 2) = *(v29 + 16);
               *v6 = v34;
               *(v29 + 23) = 0;
               *v29 = 0;
@@ -7077,27 +7057,27 @@ LABEL_22:
               }
 
               v33 = *v30;
-              v6[2] = *(v30 + 16);
+              *(v6 + 2) = *(v30 + 2);
               *v6 = v33;
               *(v30 + 23) = 0;
               *v30 = 0;
-              v30 += 24;
+              v30 = (v30 + 24);
             }
 
-            v6 += 3;
+            v6 += 24;
             if (v30 == v27)
             {
               while (v29 != v28)
               {
-                if (*(v6 + 23) < 0)
+                if (v6[23] < 0)
                 {
                   operator delete(*v6);
                 }
 
                 v36 = *v29;
-                v6[2] = *(v29 + 16);
+                *(v6 + 2) = *(v29 + 16);
                 *v6 = v36;
-                v6 += 3;
+                v6 += 24;
                 *(v29 + 23) = 0;
                 *v29 = 0;
                 v29 += 24;
@@ -7109,18 +7089,18 @@ LABEL_22:
 
           while (v30 != v27)
           {
-            if (*(v6 + 23) < 0)
+            if (v6[23] < 0)
             {
               operator delete(*v6);
             }
 
             v35 = *v30;
-            v6[2] = *(v30 + 16);
+            *(v6 + 2) = *(v30 + 2);
             *v6 = v35;
-            v6 += 3;
+            v6 += 24;
             *(v30 + 23) = 0;
             *v30 = 0;
-            v30 += 24;
+            v30 = (v30 + 24);
           }
 
 LABEL_45:
@@ -7133,7 +7113,7 @@ LABEL_45:
                 operator delete(*v13);
               }
 
-              v13 += 24;
+              v13 = (v13 + 24);
               --v11;
             }
 
@@ -7144,9 +7124,9 @@ LABEL_45:
         else
         {
           std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::string *>>(a1, v15, v16, a4, a5);
-          std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::string *>>(&v6[3 * (v11 >> 1)], a2, v11 - (v11 >> 1), v13, a5);
+          std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::string *>>(&v6[24 * (v11 >> 1)], a2, v11 - (v11 >> 1), v13, a5);
 
-          std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::string *>>(v6, &v6[3 * (v11 >> 1)], a2, v11 >> 1, v11 - (v11 >> 1), v13, a5);
+          std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::string *>>(v6, &v6[24 * (v11 >> 1)], a2, v11 >> 1, v11 - (v11 >> 1), v13, a5);
         }
       }
     }
@@ -7174,7 +7154,7 @@ void sub_2991765D8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::__stable_sort_move<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::string *>>(void **a1, void **a2, unint64_t a3, uint64_t a4)
+void std::__stable_sort_move<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::string *>>(uint64_t **a1, uint64_t **a2, unint64_t a3, uint64_t a4)
 {
   if (a3)
   {
@@ -7182,7 +7162,7 @@ void std::__stable_sort_move<std::_ClassicAlgPolicy,std::__less<void,void> &,std
     v7 = a1;
     if (a3 == 2)
     {
-      v9 = a2 - 3;
+      v9 = (a2 - 3);
       if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a2 - 3, a1) & 0x80) == 0)
       {
         v10 = *v7;
@@ -7192,20 +7172,20 @@ void std::__stable_sort_move<std::_ClassicAlgPolicy,std::__less<void,void> &,std
         v7[2] = 0;
         *v7 = 0;
         v11 = *v9;
-        *(v4 + 40) = v9[2];
+        *(v4 + 40) = *(v9 + 2);
         *(v4 + 24) = v11;
 LABEL_40:
         *v9 = 0;
-        v9[1] = 0;
-        v9[2] = 0;
+        *(v9 + 1) = 0;
+        *(v9 + 2) = 0;
         return;
       }
 
       v28 = *v9;
-      *(v4 + 16) = v9[2];
+      *(v4 + 16) = *(v9 + 2);
       *v4 = v28;
-      v9[1] = 0;
-      v9[2] = 0;
+      *(v9 + 1) = 0;
+      *(v9 + 2) = 0;
       *v9 = 0;
       v29 = *v7;
       *(v4 + 40) = v7[2];
@@ -7227,7 +7207,7 @@ LABEL_39:
     {
       v22 = &a1[3 * (a3 >> 1)];
       std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::string *>>(a1, v22, a3 >> 1, a4, a3 >> 1);
-      std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::string *>>(&v7[3 * (a3 >> 1)], a2, a3 - (a3 >> 1), v4 + 24 * (a3 >> 1), a3 - (a3 >> 1));
+      std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::string *>>(&v7[3 * (a3 >> 1)], a2, a3 - (a3 >> 1), (v4 + 24 * (a3 >> 1)), a3 - (a3 >> 1));
       v23 = &v7[3 * (a3 >> 1)];
       while (v23 != a2)
       {
@@ -7293,7 +7273,7 @@ LABEL_39:
       a1[1] = 0;
       a1[2] = 0;
       *a1 = 0;
-      v13 = a1 + 3;
+      v13 = (a1 + 3);
       if (a1 + 3 != a2)
       {
         v14 = 0;
@@ -7373,7 +7353,7 @@ LABEL_39:
   }
 }
 
-void std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::string *>>(char *a1, char *a2, char *a3, uint64_t a4, uint64_t a5, __int128 *a6, uint64_t a7)
+void std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::string *>>(uint64_t **a1, uint64_t **a2, uint64_t **a3, uint64_t a4, uint64_t a5, uint64_t **a6, uint64_t a7)
 {
   v68 = a5;
   if (a5)
@@ -7390,8 +7370,8 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,std::_
       v14 = -a4;
       while (1)
       {
-        v15 = &v13[a1];
-        if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a2, &v13[a1]) & 0x80) != 0)
+        v15 = &a1[v13 / 8];
+        if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a2, &a1[v13 / 8]) & 0x80) != 0)
         {
           break;
         }
@@ -7410,14 +7390,14 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,std::_
       {
         if (v14 == -1)
         {
-          v60 = &v13[a1];
-          v72 = *&v13[a1 + 16];
-          v70 = *&v13[a1];
+          v60 = &a1[v13 / 8];
+          v72 = a1[v13 / 8 + 2];
+          v70 = *&a1[v13 / 8];
           v61 = *a2;
-          *(v60 + 2) = *(a2 + 2);
+          v60[2] = a2[2];
           *v60 = v61;
           *a2 = v70;
-          *(a2 + 2) = v72;
+          a2[2] = v72;
           return;
         }
 
@@ -7425,13 +7405,13 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,std::_
         v19 = a2;
         if (a2 != a3)
         {
-          v23 = &a1[24 * v22];
-          v24 = 0xAAAAAAAAAAAAAAABLL * ((a3 - a2) >> 3);
+          v23 = &a1[3 * v22];
+          v24 = 0xAAAAAAAAAAAAAAABLL * (a3 - a2);
           v19 = a2;
           do
           {
-            v25 = &v19[24 * (v24 >> 1)];
-            v26 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v25, &v13[v23]);
+            v25 = &v19[3 * (v24 >> 1)];
+            v26 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v25, &v23[v13 / 8]);
             if (v26 >= 0)
             {
               v24 >>= 1;
@@ -7444,7 +7424,7 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,std::_
 
             if (v26 < 0)
             {
-              v19 = v25 + 24;
+              v19 = (v25 + 3);
             }
           }
 
@@ -7453,29 +7433,29 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,std::_
           v17 = v68;
         }
 
-        v18 = 0xAAAAAAAAAAAAAAABLL * ((v19 - a2) >> 3);
-        v20 = &a1[24 * v22 + v13];
+        v18 = 0xAAAAAAAAAAAAAAABLL * (v19 - a2);
+        v20 = &(&a1[3 * v22])[v13 / 8];
       }
 
       else
       {
         v18 = v68 / 2;
-        v19 = &a2[24 * (v68 / 2)];
+        v19 = &a2[3 * (v68 / 2)];
         v20 = a2;
-        if ((a2 - a1) != v13)
+        if (a2 - a1 != v13)
         {
           v21 = 0xAAAAAAAAAAAAAAABLL * ((a2 - a1 - v13) >> 3);
-          v20 = &v13[a1];
+          v20 = &a1[v13 / 8];
           do
           {
-            if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v19, &v20[24 * (v21 >> 1)]) & 0x80u) != 0)
+            if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v19, &v20[3 * (v21 >> 1)]) & 0x80u) != 0)
             {
               v21 >>= 1;
             }
 
             else
             {
-              v20 += 24 * (v21 >> 1) + 24;
+              v20 += 3 * (v21 >> 1) + 3;
               v21 += ~(v21 >> 1);
             }
           }
@@ -7494,29 +7474,29 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,std::_
         a3 = v20;
         if (a2 != v19)
         {
-          v27 = *(v20 + 2);
+          v27 = v20[2];
           v28 = *v20;
-          v29 = *(a2 + 2);
+          v29 = a2[2];
           *v20 = *a2;
-          *(v20 + 2) = v29;
+          v20[2] = v29;
           *a2 = v28;
-          *(a2 + 2) = v27;
-          a3 = v20 + 24;
-          for (i = a2 + 24; i != v19; i += 24)
+          a2[2] = v27;
+          a3 = v20 + 3;
+          for (i = a2 + 3; i != v19; i += 3)
           {
             if (a3 == a2)
             {
               a2 = i;
             }
 
-            v31 = *(a3 + 2);
+            v31 = a3[2];
             v32 = *a3;
-            v33 = *(i + 2);
+            v33 = i[2];
             *a3 = *i;
-            *(a3 + 2) = v33;
+            a3[2] = v33;
             *i = v32;
-            *(i + 2) = v31;
-            a3 += 24;
+            i[2] = v31;
+            a3 += 3;
           }
 
           if (a3 != a2)
@@ -7527,15 +7507,15 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,std::_
             {
               while (1)
               {
-                v71 = *(v34 + 2);
+                v71 = v34[2];
                 v69 = *v34;
                 v36 = *v35;
-                *(v34 + 2) = *(v35 + 2);
+                v34[2] = v35[2];
                 *v34 = v36;
-                v34 += 24;
-                *(v35 + 2) = v71;
+                v34 += 3;
+                v35[2] = v71;
                 *v35 = v69;
-                v35 += 24;
+                v35 += 3;
                 if (v35 == v19)
                 {
                   break;
@@ -7557,7 +7537,7 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,std::_
 
       a4 = -v14 - v22;
       v37 = v17 - v18;
-      if (v22 + v18 >= v17 - (v22 + v18) - v14)
+      if ((v22 + v18) >= (v17 - (v22 + v18) - v14))
       {
         v39 = v22;
         v40 = -v14 - v22;
@@ -7573,7 +7553,7 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,std::_
       {
         v38 = v20;
         v8 = a6;
-        std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::string *>>(&v13[a1], v38, a3, v22, v18, a6, v67);
+        std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::string *>>(&a1[v13 / 8], v38, a3, v22, v18, a6, v67);
         v15 = a3;
         a3 = v65;
       }
@@ -7601,13 +7581,13 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,std::_
       do
       {
         v55 = *v54;
-        *(v53 + 2) = *(v54 + 2);
+        v53[2] = v54[2];
         *v53 = v55;
-        v53 = (v53 + 24);
-        *(v54 + 1) = 0;
-        *(v54 + 2) = 0;
+        v53 += 3;
+        v54[1] = 0;
+        v54[2] = 0;
         *v54 = 0;
-        v54 += 24;
+        v54 += 3;
         ++v43;
       }
 
@@ -7615,7 +7595,7 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,std::_
       while (a2 != a3)
       {
         v56 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a2, v8);
-        v57 = a1[23];
+        v57 = *(a1 + 23);
         if (v56 < 0)
         {
           if (v57 < 0)
@@ -7624,11 +7604,11 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,std::_
           }
 
           v59 = *a2;
-          *(a1 + 2) = *(a2 + 2);
+          a1[2] = a2[2];
           *a1 = v59;
-          a2[23] = 0;
+          *(a2 + 23) = 0;
           *a2 = 0;
-          a2 += 24;
+          a2 += 3;
         }
 
         else
@@ -7639,14 +7619,14 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,std::_
           }
 
           v58 = *v8;
-          *(a1 + 2) = *(v8 + 2);
+          a1[2] = v8[2];
           *a1 = v58;
           *(v8 + 23) = 0;
           *v8 = 0;
-          v8 = (v8 + 24);
+          v8 += 3;
         }
 
-        a1 += 24;
+        a1 += 3;
         if (v53 == v8)
         {
           goto LABEL_94;
@@ -7657,19 +7637,19 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,std::_
       {
         do
         {
-          if (a1[23] < 0)
+          if (*(a1 + 23) < 0)
           {
             operator delete(*a1);
           }
 
           v63 = *v8;
-          *(a1 + 2) = *(v8 + 2);
+          a1[2] = v8[2];
           *a1 = v63;
-          a1 += 24;
+          a1 += 3;
           *(v8 + 23) = 0;
           *v8 = 0;
-          v64 = (v53 - 24) == v8;
-          v8 = (v8 + 24);
+          v64 = v53 - 3 == v8;
+          v8 += 3;
         }
 
         while (!v64);
@@ -7690,24 +7670,24 @@ LABEL_94:
       v43 = 0;
       do
       {
-        v44 = v8 + v42;
+        v44 = &v8[v42];
         v45 = &a2[v42];
         v46 = *&a2[v42];
-        *(v44 + 16) = *&a2[v42 + 16];
+        v44[2] = a2[v42 + 2];
         *v44 = v46;
-        *(v45 + 1) = 0;
-        *(v45 + 2) = 0;
+        v45[1] = 0;
+        v45[2] = 0;
         *v45 = 0;
         ++v43;
-        v42 += 24;
+        v42 += 3;
       }
 
       while (&a2[v42] != a3);
-      v47 = (a3 - 24);
-      v48 = (v8 + v42);
+      v47 = a3 - 3;
+      v48 = &v8[v42];
       while (a2 != a1)
       {
-        v49 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v48 - 3, a2 - 3);
+        v49 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v48 - 3, a2 - 24);
         if (v49 >= 0)
         {
           v50 = v48;
@@ -7720,22 +7700,22 @@ LABEL_94:
 
         if (v49 >= 0)
         {
-          v51 = v48 - 24;
+          v51 = v48 - 3;
         }
 
         else
         {
-          v51 = a2 - 24;
+          v51 = a2 - 3;
         }
 
         if (v49 >= 0)
         {
-          v48 = (v48 - 24);
+          v48 -= 3;
         }
 
         else
         {
-          a2 -= 24;
+          a2 -= 3;
         }
 
         if (*(v47 + 23) < 0)
@@ -7744,7 +7724,7 @@ LABEL_94:
         }
 
         v52 = *v51;
-        v47[2] = *(v51 + 2);
+        v47[2] = v51[2];
         *v47 = v52;
         v47 -= 3;
         *(v50 - 1) = 0;
@@ -7756,14 +7736,14 @@ LABEL_94:
         }
       }
 
-      for (; v48 != v8; v48 = (v48 - 24))
+      for (; v48 != v8; v48 -= 3)
       {
         if (*(v47 + 23) < 0)
         {
           operator delete(*v47);
         }
 
-        v62 = *(v48 - 24);
+        v62 = *(v48 - 3);
         v47[2] = *(v48 - 1);
         *v47 = v62;
         v47 -= 3;
@@ -7782,7 +7762,7 @@ LABEL_95:
           operator delete(*v8);
         }
 
-        v8 = (v8 + 24);
+        v8 += 3;
         --v43;
       }
 
@@ -8041,7 +8021,7 @@ void sub_2991776A4(_Unwind_Exception *a1)
     MEMORY[0x29C29A350](v7, 0x1000C8077774924);
   }
 
-  MeCab::Dictionary::~Dictionary(&v1[5]);
+  MeCab::Dictionary::~Dictionary(v1 + 5);
   v8 = *v3;
   if (*v3)
   {
@@ -8052,14 +8032,14 @@ void sub_2991776A4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t MeCab::Tokenizer<mecab_node_t,mecab_path_t>::lookup<false>(uint64_t a1, unsigned __int8 *a2, unint64_t a3, uint64_t a4, double a5)
+uint64_t MeCab::Tokenizer<mecab_node_t,mecab_path_t>::lookup<false>(uint64_t a1, unsigned __int16 *a2, unsigned __int16 *a3, uint64_t a4, double a5)
 {
   v5 = a4;
   v6 = a2;
   v7 = a1;
   v62 = 0;
   v61 = 0;
-  if (a3 - a2 <= 0xFFFE)
+  if ((a3 - a2) <= 0xFFFE)
   {
     v8 = a3;
   }
@@ -8097,7 +8077,7 @@ uint64_t MeCab::Tokenizer<mecab_node_t,mecab_path_t>::lookup<false>(uint64_t a1,
     if (v12 >= 2 && (v13 & 0xE0) == 0xC0)
     {
       v14 = 2;
-      v13 = v11[1] & 0x3F | ((v13 & 0x1F) << 6);
+      v13 = *(v11 + 1) & 0x3F | ((v13 & 0x1F) << 6);
     }
 
     else
@@ -8109,7 +8089,7 @@ uint64_t MeCab::Tokenizer<mecab_node_t,mecab_path_t>::lookup<false>(uint64_t a1,
 
       if ((v13 & 0xF0) == 0xE0)
       {
-        v13 = (v13 << 12) | ((v11[1] & 0x3F) << 6) | v11[2] & 0x3F;
+        v13 = (v13 << 12) | ((*(v11 + 1) & 0x3F) << 6) | v11[1] & 0x3F;
         v14 = 3;
       }
 
@@ -8161,7 +8141,7 @@ LABEL_14:
     v15 = v10[v13];
     if ((v9 & v15 & 0x3FFFF) != 0)
     {
-      v11 += v14;
+      v11 = (v11 + v14);
       v9 = v10[v13];
       if (v11 < v8)
       {
@@ -8576,29 +8556,24 @@ void MeCab::Tokenizer<mecab_node_t,mecab_path_t>::addUnknownNodes<false>(uint64_
 
     while (v9);
   }
-
-  else
-  {
-    v21 = *a7;
-  }
 }
 
-uint64_t MeCab::Tokenizer<mecab_node_t,mecab_path_t>::lookup<true>(uint64_t a1, unsigned __int8 *a2, unint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t MeCab::Tokenizer<mecab_node_t,mecab_path_t>::lookup<true>(uint64_t a1, unsigned __int16 *a2, char *a3, uint64_t a4, uint64_t a5)
 {
   v6 = a2;
   v79 = 0;
   v78 = 0;
-  if (a3 - a2 <= 0xFFFE)
+  if ((a3 - a2) <= 0xFFFE)
   {
     v8 = a3;
   }
 
   else
   {
-    v8 = (a2 + 0xFFFF);
+    v8 = a2 + 0xFFFF;
   }
 
-  v9 = &a2[-(*(*a5 + 64))(a5)];
+  v9 = a2 - (*(*a5 + 64))(a5);
   while (++v9 < (*(*a5 + 88))(a5))
   {
     if ((*(*a5 + 248))(a5, v9) == 1)
@@ -8636,7 +8611,7 @@ uint64_t MeCab::Tokenizer<mecab_node_t,mecab_path_t>::lookup<true>(uint64_t a1, 
     if (v14 >= 2 && (v15 & 0xE0) == 0xC0)
     {
       v16 = 2;
-      v15 = v13[1] & 0x3F | ((v15 & 0x1F) << 6);
+      v15 = *(v13 + 1) & 0x3F | ((v15 & 0x1F) << 6);
     }
 
     else
@@ -8648,7 +8623,7 @@ uint64_t MeCab::Tokenizer<mecab_node_t,mecab_path_t>::lookup<true>(uint64_t a1, 
 
       if ((v15 & 0xF0) == 0xE0)
       {
-        v15 = (v15 << 12) | ((v13[1] & 0x3F) << 6) | v13[2] & 0x3F;
+        v15 = (v15 << 12) | ((*(v13 + 1) & 0x3F) << 6) | v13[1] & 0x3F;
         v16 = 3;
       }
 
@@ -8700,7 +8675,7 @@ LABEL_18:
     v17 = v12[v15];
     if ((v11 & v17 & 0x3FFFF) != 0)
     {
-      v13 += v16;
+      v13 = (v13 + v16);
       v11 = v12[v15];
       if (v13 < v8)
       {
@@ -9160,7 +9135,7 @@ LABEL_142:
           *(v58 + 82) = v52 - v6;
           *(v58 + 91) = 1;
           *(v58 + 24) = 0;
-          v59 = &v6[-(*(*a5 + 64))(a5, v57)];
+          v59 = v6 - (*(*a5 + 64))(a5, v57);
           v60 = (*(*a5 + 256))(a5, v59);
           *(v34 + 72) = v60;
           if (!v60)
@@ -9204,7 +9179,6 @@ uint64_t MeCab::anonymous namespace::is_valid_node<mecab_node_t>(uint64_t a1, ui
     v11 = v10;
     if ((*(*a1 + 248))(a1, v9 - v8) == 1 && (*(*a1 + 248))(a1, v5 + v6) == 1)
     {
-      v12 = *(a2 + 72);
       if (*v11 != 42 || v11[1])
       {
         operator new[]();
@@ -9217,21 +9191,21 @@ uint64_t MeCab::anonymous namespace::is_valid_node<mecab_node_t>(uint64_t a1, ui
   return 0;
 }
 
-void sub_29917909C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21)
+void sub_29917909C(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21)
 {
   if (a15)
   {
-    MEMORY[0x29C29A350](a15, 0x10C80436913F5);
+    MEMORY[0x29C29A350](a15, 0x10C80436913F5, a3, a4, a5, a6, a7, a8);
   }
 
   if (a18)
   {
-    MEMORY[0x29C29A350](a18, v21);
+    MEMORY[0x29C29A350](a18, v21, a3, a4, a5, a6, a7, a8);
   }
 
   if (a21)
   {
-    MEMORY[0x29C29A350](a21, v21);
+    MEMORY[0x29C29A350](a21, v21, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -9288,11 +9262,11 @@ uint64_t MeCab::Tokenizer<mecab_node_t,mecab_path_t>::addUnknownNodes<true>(uint
   return *a8;
 }
 
-void sub_299179508(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11)
+void sub_299179508(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
   if (a11)
   {
-    MEMORY[0x29C29A350](a11, v11);
+    MEMORY[0x29C29A350](a11, v11, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -9575,7 +9549,7 @@ LABEL_23:
   return 0;
 }
 
-void sub_29917A4A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, void *a27, uint64_t a28, int a29, __int16 a30, char a31, char a32)
+void sub_29917A4A8(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, void *a27, uint64_t a28, int a29, __int16 a30, char a31, char a32)
 {
   if (a15 < 0)
   {
@@ -9584,12 +9558,12 @@ void sub_29917A4A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
   if (a18)
   {
-    MEMORY[0x29C29A350](a18, 0x10C80436913F5);
+    MEMORY[0x29C29A350](a18, 0x10C80436913F5, a3, a4, a5, a6, a7, a8);
   }
 
   if (a22)
   {
-    MEMORY[0x29C29A350](a22, 0x1000C8077774924);
+    MEMORY[0x29C29A350](a22, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   if (a32 < 0)
@@ -9605,7 +9579,7 @@ void sub_29917A4A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<MeCab::Dictionary *>::push_back[abi:ne200100](uint64_t a1, void *a2)
+void std::vector<MeCab::Dictionary *>::push_back[abi:ne200100](uint64_t a1, uint64_t *a2)
 {
   v4 = *(a1 + 8);
   v3 = *(a1 + 16);
@@ -9811,7 +9785,7 @@ void sub_29917AB20(_Unwind_Exception *a1)
     MEMORY[0x29C29A350](v7, 0x1000C8077774924);
   }
 
-  MeCab::Dictionary::~Dictionary(&v1[5]);
+  MeCab::Dictionary::~Dictionary(v1 + 5);
   v8 = *v3;
   if (*v3)
   {
@@ -9822,14 +9796,14 @@ void sub_29917AB20(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t MeCab::Tokenizer<mecab_learner_node_t,mecab_learner_path_t>::lookup<false>(uint64_t a1, unsigned __int8 *a2, unint64_t a3, uint64_t a4, double a5)
+uint64_t MeCab::Tokenizer<mecab_learner_node_t,mecab_learner_path_t>::lookup<false>(uint64_t a1, unsigned __int16 *a2, unsigned __int16 *a3, uint64_t a4, double a5)
 {
   v5 = a4;
   v6 = a2;
   v7 = a1;
   v63 = 0;
   v62 = 0;
-  if (a3 - a2 <= 0xFFFE)
+  if ((a3 - a2) <= 0xFFFE)
   {
     v8 = a3;
   }
@@ -9867,7 +9841,7 @@ uint64_t MeCab::Tokenizer<mecab_learner_node_t,mecab_learner_path_t>::lookup<fal
     if (v12 >= 2 && (v13 & 0xE0) == 0xC0)
     {
       v14 = 2;
-      v13 = v11[1] & 0x3F | ((v13 & 0x1F) << 6);
+      v13 = *(v11 + 1) & 0x3F | ((v13 & 0x1F) << 6);
     }
 
     else
@@ -9879,7 +9853,7 @@ uint64_t MeCab::Tokenizer<mecab_learner_node_t,mecab_learner_path_t>::lookup<fal
 
       if ((v13 & 0xF0) == 0xE0)
       {
-        v13 = (v13 << 12) | ((v11[1] & 0x3F) << 6) | v11[2] & 0x3F;
+        v13 = (v13 << 12) | ((*(v11 + 1) & 0x3F) << 6) | v11[1] & 0x3F;
         v14 = 3;
       }
 
@@ -9931,7 +9905,7 @@ LABEL_14:
     v15 = v10[v13];
     if ((v9 & v15 & 0x3FFFF) != 0)
     {
-      v11 += v14;
+      v11 = (v11 + v14);
       v9 = v10[v13];
       if (v11 < v8)
       {
@@ -10336,11 +10310,6 @@ void MeCab::Tokenizer<mecab_learner_node_t,mecab_learner_path_t>::addUnknownNode
 
     while (v9);
   }
-
-  else
-  {
-    v19 = *a7;
-  }
 }
 
 uint64_t MeCab::Tokenizer<mecab_learner_node_t,mecab_learner_path_t>::open(void *a1, const MeCab::Param *a2)
@@ -10461,7 +10430,7 @@ LABEL_23:
   return 0;
 }
 
-void sub_29917C12C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, void *a27, uint64_t a28, int a29, __int16 a30, char a31, char a32)
+void sub_29917C12C(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, void *a27, uint64_t a28, int a29, __int16 a30, char a31, char a32)
 {
   if (a15 < 0)
   {
@@ -10470,12 +10439,12 @@ void sub_29917C12C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
   if (a18)
   {
-    MEMORY[0x29C29A350](a18, 0x10C80436913F5);
+    MEMORY[0x29C29A350](a18, 0x10C80436913F5, a3, a4, a5, a6, a7, a8);
   }
 
   if (a22)
   {
-    MEMORY[0x29C29A350](a22, 0x1000C8077774924);
+    MEMORY[0x29C29A350](a22, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   if (a32 < 0)
@@ -11433,7 +11402,6 @@ BOOL std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<ch
     a1 = *a1;
   }
 
-  v6 = *a2;
   if (v5 < 0)
   {
     a2 = *a2;
@@ -11442,11 +11410,11 @@ BOOL std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<ch
   return memcmp(a1, a2, v3) == 0;
 }
 
-void MeCab::Writer::writeUser(uint64_t a1, uint64_t a2)
+void MeCab::Writer::writeUser(uint64_t a1, uint64_t a2, MeCab::StringBuffer *a3)
 {
-  v2 = *(a1 + 32);
-  (*(*a2 + 16))(a2);
-  MeCab::Writer::writeNode();
+  v5 = *(a1 + 32);
+  v6 = (*(*a2 + 16))(a2);
+  MeCab::Writer::writeNode(v6, a2, v5, v6, a3);
 }
 
 uint64_t MeCab::Writer::write(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -11467,28 +11435,27 @@ uint64_t MeCab::Writer::write(uint64_t a1, uint64_t a2, uint64_t a3)
   return v6(v8, a2, a3);
 }
 
-void sub_29917E634(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32)
+void sub_29917E634(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32)
 {
   if (a29)
   {
-    MEMORY[0x29C29A350](a29, 0x10C80436913F5);
+    MEMORY[0x29C29A350](a29, 0x10C80436913F5, a3, a4, a5, a6, a7, a8);
   }
 
   if (a32)
   {
-    MEMORY[0x29C29A350](a32, 0x1000C8077774924);
+    MEMORY[0x29C29A350](a32, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t MeCab::Writer::writeNode(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t MeCab::Writer::writeNode(uint64_t a1, uint64_t a2, uint64_t a3, MeCab::StringBuffer *a4)
 {
-  v3 = *(a3 + 91);
-  if (v3 <= 5)
+  v4 = *(a3 + 91);
+  if (v4 <= 5)
   {
-    v4 = *(a1 + qword_299181BC8[v3]);
-    MeCab::Writer::writeNode();
+    MeCab::Writer::writeNode(a1, a2, *(a1 + qword_299181BC8[v4]), a3, a4);
   }
 
   return 1;
@@ -11496,7 +11463,7 @@ uint64_t MeCab::Writer::writeNode(uint64_t a1, uint64_t a2, uint64_t a3)
 
 MeCab::StringBuffer *MeCab::StringBuffer::operator<<(MeCab::StringBuffer *a1, int a2)
 {
-  *&v11[63] = *MEMORY[0x29EDCA608];
+  *&v10[63] = *MEMORY[0x29EDCA608];
   p_s = &__s;
   if (a2)
   {
@@ -11512,7 +11479,7 @@ MeCab::StringBuffer *MeCab::StringBuffer::operator<<(MeCab::StringBuffer *a1, in
 
   else
   {
-    p_s = v11;
+    p_s = v10;
     __s = 48;
   }
 
@@ -11520,7 +11487,7 @@ MeCab::StringBuffer *MeCab::StringBuffer::operator<<(MeCab::StringBuffer *a1, in
   v4 = p_s - 1;
   if (v4 > &__s)
   {
-    v5 = v11;
+    v5 = v10;
     do
     {
       v6 = *(v5 - 1);
@@ -11531,18 +11498,16 @@ MeCab::StringBuffer *MeCab::StringBuffer::operator<<(MeCab::StringBuffer *a1, in
     while (v5++ < v4);
   }
 
-  result = MeCab::StringBuffer::write(a1, &__s);
-  v9 = *MEMORY[0x29EDCA608];
-  return result;
+  return MeCab::StringBuffer::write(a1, &__s);
 }
 
 MeCab::StringBuffer *MeCab::StringBuffer::operator<<(MeCab::StringBuffer *a1, unsigned int a2)
 {
-  *&v13[63] = *MEMORY[0x29EDCA608];
+  *&v12[63] = *MEMORY[0x29EDCA608];
   p_s = &__s;
   if ((a2 & 0x80000000) != 0)
   {
-    p_s = v13;
+    p_s = v12;
     __s = 45;
     a2 = -a2;
 LABEL_5:
@@ -11563,7 +11528,7 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  v3 = v13;
+  v3 = v12;
   __s = 48;
 LABEL_7:
   v5 = p_s == v3;
@@ -11583,9 +11548,7 @@ LABEL_7:
     while (!v4);
   }
 
-  result = MeCab::StringBuffer::write(a1, &__s);
-  v11 = *MEMORY[0x29EDCA608];
-  return result;
+  return MeCab::StringBuffer::write(a1, &__s);
 }
 
 float btrie_open(void *(*a1)(void *, unint64_t, void *), void *a2, _DWORD *a3, unint64_t a4)
@@ -11632,7 +11595,7 @@ void btrie_close(void **a1)
   }
 }
 
-uint64_t btrie_exact_match_search(uint64_t a1, unsigned __int8 *__s2, unsigned int a3, uint8x8_t a4)
+uint64_t btrie_exact_match_search(uint64_t a1, unsigned __int8 *__s2, unsigned int a3, int8x8_t a4)
 {
   v6 = a1;
   while (1)
@@ -11749,7 +11712,7 @@ LABEL_13:
   return 0;
 }
 
-BOOL anonymous namespace::__btrie_find_common_prefix(uint64_t a1, int a2, unsigned __int8 *a3, unsigned int a4, unint64_t a5, unint64_t *a6, uint64_t a7, __int16 a8, uint8x8_t a9)
+BOOL anonymous namespace::__btrie_find_common_prefix(uint64_t a1, int a2, unsigned __int8 *a3, unsigned int a4, unint64_t a5, unint64_t *a6, uint64_t a7, uint64_t a8, int8x8_t a9)
 {
   v14 = a2 & 3;
   if ((a2 & 3u) > 1)
@@ -11804,8 +11767,8 @@ LABEL_32:
         v45 = 0;
         do
         {
-          v47 = *v40++;
-          a9 = vcnt_s8(v47);
+          v49 = *v40++;
+          a9 = vcnt_s8(v49);
           a9.i16[0] = vaddlv_u8(a9);
           v45 += a9.i32[0];
           --v41;
@@ -11820,9 +11783,11 @@ LABEL_32:
       }
 
       a9.i32[0] = v42 & ~(-1 << v43);
-      v48 = vcnt_s8(a9);
-      v48.i16[0] = vaddlv_u8(v48);
-      v49 = v44[v45 + v48.i32[0]];
+      a9 = vcnt_s8(a9);
+      a9.i16[0] = vaddlv_u8(a9);
+      v46 = v44[v45 + a9.i32[0]];
+      v47 = a4 - 1;
+      v48 = a3 + 1;
     }
 
     v23 = (*(a1 + 8) + (a2 - 3));
@@ -11858,6 +11823,8 @@ LABEL_32:
 
 LABEL_36:
     v46 = v23[*a3 + 1];
+    v47 = a4 - 1;
+    v48 = a3 + 1;
   }
 
   if ((a2 & 3) != 0)
@@ -12064,17 +12031,17 @@ uint64_t MeCab::QuantizedConnector::compile(MeCab::QuantizedConnector *this, con
   v3 = MEMORY[0x2A1C7C4A8](this, a2, a3);
   v5 = v4;
   v6 = v3;
-  v78 = *MEMORY[0x29EDCA608];
-  std::ifstream::basic_ifstream(v73);
+  v77 = *MEMORY[0x29EDCA608];
+  std::ifstream::basic_ifstream(v72, v3, 8);
   std::string::basic_string[abi:ne200100]<0>(__p, "1 1\n0 0 0\n");
-  std::istringstream::basic_istringstream[abi:ne200100](v61, __p, 8);
-  if (v77 < 0)
+  std::istringstream::basic_istringstream[abi:ne200100](v60, __p, 8);
+  if (v76 < 0)
   {
     operator delete(__p[0]);
   }
 
-  v7 = v73;
-  if ((v74[*(v73[0] - 24) + 16] & 5) != 0)
+  v7 = v72;
+  if ((v73[*(v72[0] - 24) + 16] & 5) != 0)
   {
     v8 = strlen(v6);
     v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], v6, v8);
@@ -12085,11 +12052,11 @@ uint64_t MeCab::QuantizedConnector::compile(MeCab::QuantizedConnector *this, con
     std::locale::~locale(__p);
     std::ostream::put();
     std::ostream::flush();
-    v7 = v61;
+    v7 = v60;
   }
 
-  std::ofstream::basic_ofstream(&v70);
-  if ((v71[*(v70 - 24) + 24] & 5) != 0)
+  std::ofstream::basic_ofstream(&v69, v5, 20);
+  if ((v70[*(v69 - 24) + 24] & 5) != 0)
   {
     v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "/Library/Caches/com.apple.xbs/Sources/Mecabra/src/quantized_connector.cpp", 73);
     v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, "(", 1);
@@ -12107,15 +12074,15 @@ uint64_t MeCab::QuantizedConnector::compile(MeCab::QuantizedConnector *this, con
   v21 = strlen(v6);
   v22 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v20, v6, v21);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v22, " ... ", 5);
+  v65 = 0;
   v66 = 0;
   v67 = 0;
-  v68 = 0;
   std::ios_base::getloc((v7 + *(*v7 - 24)));
-  v23 = std::locale::use_facet(&v69, MEMORY[0x29EDC93D0]);
+  v23 = std::locale::use_facet(&v68, MEMORY[0x29EDC93D0]);
   (v23->__vftable[2].~facet_0)(v23, 10);
-  std::locale::~locale(&v69);
+  std::locale::~locale(&v68);
   std::istream::getline();
-  if (MeCab::tokenize2<std::back_insert_iterator<std::vector<char *>>>(__p, "\t ", &v66, 2uLL) != 2)
+  if (MeCab::tokenize2<std::back_insert_iterator<std::vector<char *>>>(__p, "\t ", &v65, 2uLL) != 2)
   {
     v24 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "/Library/Caches/com.apple.xbs/Sources/Mecabra/src/quantized_connector.cpp", 73);
     v25 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v24, "(", 1);
@@ -12126,14 +12093,14 @@ uint64_t MeCab::QuantizedConnector::compile(MeCab::QuantizedConnector *this, con
     v30 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v29, "format error: ", 14);
     v31 = strlen(__p);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v30, __p, v31);
-    MeCab::die::~die(&v69);
+    MeCab::die::~die(&v68);
   }
 
-  v32 = v66;
-  v33 = atoi(*v66);
-  v65[79] = v33;
+  v32 = v65;
+  v33 = atoi(*v65);
+  v64[79] = v33;
   v34 = atoi(v32[1]);
-  v65[78] = v34;
+  v64[78] = v34;
   if (v34 * v33)
   {
     operator new();
@@ -12143,25 +12110,25 @@ uint64_t MeCab::QuantizedConnector::compile(MeCab::QuantizedConnector *this, con
   v36 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v35, "x", 1);
   v37 = MEMORY[0x29C29A290](v36, v34);
   std::ios_base::getloc((v37 + *(*v37 - 24)));
-  v38 = std::locale::use_facet(&v69, MEMORY[0x29EDC93D0]);
+  v38 = std::locale::use_facet(&v68, MEMORY[0x29EDC93D0]);
   (v38->__vftable[2].~facet_0)(v38, 10);
-  std::locale::~locale(&v69);
+  std::locale::~locale(&v68);
   std::ostream::put();
   std::ostream::flush();
   while (1)
   {
     std::ios_base::getloc((v7 + *(*v7 - 24)));
-    v39 = std::locale::use_facet(&v69, MEMORY[0x29EDC93D0]);
+    v39 = std::locale::use_facet(&v68, MEMORY[0x29EDC93D0]);
     (v39->__vftable[2].~facet_0)(v39, 10);
-    std::locale::~locale(&v69);
+    std::locale::~locale(&v68);
     v40 = std::istream::getline();
     if ((*(v40 + *(*v40 - 24) + 32) & 5) != 0)
     {
       break;
     }
 
-    v67 = v66;
-    if (MeCab::tokenize2<std::back_insert_iterator<std::vector<char *>>>(__p, "\t ", &v66, 3uLL) != 3)
+    v66 = v65;
+    if (MeCab::tokenize2<std::back_insert_iterator<std::vector<char *>>>(__p, "\t ", &v65, 3uLL) != 3)
     {
       v41 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "/Library/Caches/com.apple.xbs/Sources/Mecabra/src/quantized_connector.cpp", 73);
       v42 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v41, "(", 1);
@@ -12172,11 +12139,11 @@ uint64_t MeCab::QuantizedConnector::compile(MeCab::QuantizedConnector *this, con
       v47 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v46, "format error: ", 14);
       v48 = strlen(__p);
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v47, __p, v48);
-      MeCab::die::~die(&v69);
+      MeCab::die::~die(&v68);
     }
 
-    v49 = v66;
-    v50 = atoi(*v66);
+    v49 = v65;
+    v50 = atoi(*v65);
     v51 = atoi(v49[1]);
     v52 = atoi(v49[2]);
     if (v50 >= v33 || v51 >= v34)
@@ -12188,7 +12155,7 @@ uint64_t MeCab::QuantizedConnector::compile(MeCab::QuantizedConnector *this, con
       v57 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v56, "l < lsize && r < rsize", 22);
       v58 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v57, "] ", 2);
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v58, "index values are out of range", 29);
-      MeCab::die::~die(&v69);
+      MeCab::die::~die(&v68);
     }
 
     MeCab::progress_bar("emitting matrix      ", (v50 + 1), v33);
@@ -12196,57 +12163,56 @@ uint64_t MeCab::QuantizedConnector::compile(MeCab::QuantizedConnector *this, con
   }
 
   std::ostream::write();
-  if (v71[*(v70 - 24) + 24])
+  if (v70[*(v69 - 24) + 24])
   {
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "ERROR: failed to write lsize\n", 29);
   }
 
   std::ostream::write();
-  if (v71[*(v70 - 24) + 24])
+  if (v70[*(v69 - 24) + 24])
   {
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "ERROR: failed to write rsize\n", 29);
   }
 
   std::ostream::write();
-  if (v71[*(v70 - 24) + 24])
+  if (v70[*(v69 - 24) + 24])
   {
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "ERROR: failed to write matrix\n", 30);
   }
 
-  if (v66)
+  if (v65)
   {
-    v67 = v66;
-    operator delete(v66);
+    v66 = v65;
+    operator delete(v65);
   }
 
   if (!std::filebuf::close())
   {
-    std::ios_base::clear(&v71[*(v70 - 24) - 8], *&v71[*(v70 - 24) + 24] | 4);
+    std::ios_base::clear(&v70[*(v69 - 24) - 8], *&v70[*(v69 - 24) + 24] | 4);
   }
 
-  v70 = *MEMORY[0x29EDC9520];
-  *&v71[*(v70 - 24) - 8] = *(MEMORY[0x29EDC9520] + 24);
-  MEMORY[0x29C29A160](v71);
+  v69 = *MEMORY[0x29EDC9520];
+  *&v70[*(v69 - 24) - 8] = *(MEMORY[0x29EDC9520] + 24);
+  MEMORY[0x29C29A160](v70);
   std::ostream::~ostream();
-  MEMORY[0x29C29A320](&v72);
-  v61[0] = *MEMORY[0x29EDC9530];
-  *(v61 + *(v61[0] - 24)) = *(MEMORY[0x29EDC9530] + 24);
-  v62 = MEMORY[0x29EDC9570] + 16;
-  if (v64 < 0)
+  MEMORY[0x29C29A320](&v71);
+  v60[0] = *MEMORY[0x29EDC9530];
+  *(v60 + *(v60[0] - 24)) = *(MEMORY[0x29EDC9530] + 24);
+  v61 = MEMORY[0x29EDC9570] + 16;
+  if (v63 < 0)
   {
-    operator delete(v63[7].__locale_);
+    operator delete(v62[7].__locale_);
   }
 
-  v62 = MEMORY[0x29EDC9568] + 16;
-  std::locale::~locale(v63);
+  v61 = MEMORY[0x29EDC9568] + 16;
+  std::locale::~locale(v62);
   std::istream::~istream();
-  MEMORY[0x29C29A320](v65);
-  v73[0] = *MEMORY[0x29EDC9518];
-  *(v73 + *(v73[0] - 24)) = *(MEMORY[0x29EDC9518] + 24);
-  MEMORY[0x29C29A160](v74);
+  MEMORY[0x29C29A320](v64);
+  v72[0] = *MEMORY[0x29EDC9518];
+  *(v72 + *(v72[0] - 24)) = *(MEMORY[0x29EDC9518] + 24);
+  MEMORY[0x29C29A160](v73);
   std::istream::~istream();
-  MEMORY[0x29C29A320](&v75);
-  v59 = *MEMORY[0x29EDCA608];
+  MEMORY[0x29C29A320](&v74);
   return 1;
 }
 

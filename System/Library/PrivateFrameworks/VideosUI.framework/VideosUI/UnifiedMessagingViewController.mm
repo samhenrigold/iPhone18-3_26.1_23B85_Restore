@@ -28,9 +28,11 @@
 
 - (void)messageViewController:(id)controller didUpdateSize:(CGSize)size
 {
+  height = size.height;
+  width = size.width;
   controllerCopy = controller;
   selfCopy = self;
-  sub_1E3A7B950();
+  sub_1E3A7B950(width, height);
 }
 
 - (void)messageViewController:(id)controller didSelectActionWithDialogResult:(id)result

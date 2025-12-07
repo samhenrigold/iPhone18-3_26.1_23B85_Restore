@@ -49,7 +49,7 @@
     v18 = v15 / v12;
   }
 
-  [(CIImage *)v6 extent];
+  objc_msgSend_extent(v6);
   v23 = v21 + v17 * v22;
   v26 = v24 + v20 * v25;
   v27 = v19 * v22;
@@ -62,7 +62,7 @@
   v87 = 0u;
   v88 = 0u;
   layoutConfiguration = [(PFParallaxLayoutHelper *)self layoutConfiguration];
-  [PISegmentationHelper computeClockLayerOrderWithVisibleFrame:v6 segmentationMatte:layoutConfiguration layoutConfiguration:self->_context context:0 interactive:v23, v26, v27, v28];
+  objc_msgSend_computeClockLayerOrderWithVisibleFrame_segmentationMatte_layoutConfiguration_context_interactive_(PISegmentationHelper, v23, v26, v27, v28);
 
   [PISegmentationHelper computeMatteCoverageWithRect:v6 segmentationMatte:self->_context context:v30, v32, v34, v36];
   v39 = v38;
@@ -333,8 +333,8 @@ void __70__PIPosterLayoutHelper_intermediateWithAdaptiveStrategy_intermediate___
   width = v11;
   height = v13;
   v15 = *(MEMORY[0x1E695F050] + 16);
-  v82 = *MEMORY[0x1E695F050];
-  v83 = v15;
+  v78 = *MEMORY[0x1E695F050];
+  v79 = v15;
   [intermediateCopy adaptiveVisibleRect];
   if (strategy)
   {
@@ -360,106 +360,104 @@ void __70__PIPosterLayoutHelper_intermediateWithAdaptiveStrategy_intermediate___
       goto LABEL_9;
     }
 
-    v72 = v18;
-    v73 = v16;
+    v68 = v18;
+    v69 = v16;
     [(PFParallaxLayoutHelper *)self originalImageSize];
     v29 = v28;
     v31 = v30;
-    memset(v81, 0, sizeof(v81));
+    memset(v77, 0, sizeof(v77));
     [intermediateCopy visibleRect];
     v33 = v32;
     v35 = v34;
     v37 = v36;
     v39 = v38;
-    v40 = [intermediateCopy headroomStrategy] == 2;
-    matte = self->_matte;
+    [intermediateCopy headroomStrategy];
     layoutConfiguration = [(PFParallaxLayoutHelper *)self layoutConfiguration];
-    v70 = v29;
-    v71 = v31;
-    [PISegmentationHelper computeInactiveFrameWithVisibleFrame:1 imageSize:v40 canUpdateVisibleRect:matte considerHeadroom:layoutConfiguration segmentationMatte:self->_context layoutConfiguration:v33 context:v35, v37, v39, v29, v31];
+    v66 = v29;
+    v67 = v31;
+    objc_msgSend_computeInactiveFrameWithVisibleFrame_imageSize_canUpdateVisibleRect_considerHeadroom_segmentationMatte_layoutConfiguration_context_(PISegmentationHelper, v33, v35, v37, v39, v29, v31);
 
-    v85.origin = 0u;
-    v85.size = 0u;
-    if (CGRectIsNull(v85) || CGRectIsNull(v81[0]))
+    v81.origin = 0u;
+    v81.size = 0u;
+    if (CGRectIsNull(v81) || CGRectIsNull(v77[0]))
     {
 LABEL_7:
       strategy = 0;
       goto LABEL_10;
     }
 
-    y = v81[0].origin.y;
-    x = v81[0].origin.x;
-    height = v81[0].size.height;
-    width = v81[0].size.width;
-    v22 = v72;
-    v20 = v73;
+    y = v77[0].origin.y;
+    x = v77[0].origin.x;
+    height = v77[0].size.height;
+    width = v77[0].size.width;
+    v22 = v68;
+    v20 = v69;
     if ([intermediateCopy adaptiveStrategy] == 2)
     {
       [intermediateCopy adaptiveVisibleRect];
-      if (!CGRectIsNull(v86))
+      if (!CGRectIsNull(v82))
       {
-        v44 = MEMORY[0x1E69C07A8];
+        v42 = MEMORY[0x1E69C07A8];
         [intermediateCopy visibleRect];
+        v44 = v43;
         v46 = v45;
         v48 = v47;
         v50 = v49;
-        v52 = v51;
         [intermediateCopy adaptiveVisibleRect];
-        [v44 topFrameForVisibleRect:v46 adaptiveRect:{v48, v50, v52, v53, v54, v55, v56}];
+        [v42 topFrameForVisibleRect:v44 adaptiveRect:{v46, v48, v50, v51, v52, v53, v54}];
+        v56 = v55;
         v58 = v57;
         v60 = v59;
         v62 = v61;
-        v64 = v63;
-        v80 = 0u;
-        v79 = 0u;
-        v78 = 0u;
-        v77 = 0u;
-        v65 = [intermediateCopy headroomStrategy] == 2;
-        v66 = self->_matte;
+        v76 = 0u;
+        v75 = 0u;
+        v74 = 0u;
+        v73 = 0u;
+        [intermediateCopy headroomStrategy];
         layoutConfiguration2 = [(PFParallaxLayoutHelper *)self layoutConfiguration];
-        [PISegmentationHelper computeInactiveFrameWithVisibleFrame:1 imageSize:v65 canUpdateVisibleRect:v66 considerHeadroom:layoutConfiguration2 segmentationMatte:self->_context layoutConfiguration:v58 context:v60, v62, v64, v70, v71];
+        objc_msgSend_computeInactiveFrameWithVisibleFrame_imageSize_canUpdateVisibleRect_considerHeadroom_segmentationMatte_layoutConfiguration_context_(PISegmentationHelper, v56, v58, v60, v62, v66, v67);
 
-        if (CGRectIsNull(v81[1]) || CGRectIsNull(v81[0]))
+        if (CGRectIsNull(v77[1]) || CGRectIsNull(v77[0]))
         {
           goto LABEL_7;
         }
 
-        v82 = v79;
-        v83 = v80;
-        v20 = v77;
-        v22 = v78;
+        v78 = v75;
+        v79 = v76;
+        v20 = v73;
+        v22 = v74;
         [intermediateCopy adaptiveVisibleRect];
-        v21 = v68;
+        v21 = v64;
         [intermediateCopy visibleRect];
-        v23 = *(&v77 + 1) + *(&v78 + 1) - v69;
+        v23 = *(&v73 + 1) + *(&v74 + 1) - v65;
       }
     }
 
-    v24 = v81[1].size.height;
-    v27 = v81[1].size.width;
-    v26 = v81[1].origin.y;
-    v25 = v81[1].origin.x;
+    v24 = v77[1].size.height;
+    v27 = v77[1].size.width;
+    v26 = v77[1].origin.y;
+    v25 = v77[1].origin.x;
 LABEL_9:
-    v74[0] = MEMORY[0x1E69E9820];
-    v74[1] = 3221225472;
-    v74[2] = __70__PIPosterLayoutHelper_intermediateWithInactiveStrategy_intermediate___block_invoke;
-    v74[3] = &__block_descriptor_168_e45_v16__0__PFParallaxMutableIntermediateLayout_8l;
-    *&v74[4] = x;
-    *&v74[5] = y;
-    *&v74[6] = width;
-    *&v74[7] = height;
-    v74[8] = strategy;
-    *&v74[9] = v25;
-    *&v74[10] = v26;
-    *&v74[11] = v27;
-    *&v74[12] = v24;
-    v74[13] = v20;
-    v74[14] = v21;
-    v74[15] = v22;
-    *&v74[16] = v23;
-    v76 = v83;
-    v75 = v82;
-    strategy = [intermediateCopy updateWithConfiguration:v74];
+    v70[0] = MEMORY[0x1E69E9820];
+    v70[1] = 3221225472;
+    v70[2] = __70__PIPosterLayoutHelper_intermediateWithInactiveStrategy_intermediate___block_invoke;
+    v70[3] = &__block_descriptor_168_e45_v16__0__PFParallaxMutableIntermediateLayout_8l;
+    *&v70[4] = x;
+    *&v70[5] = y;
+    *&v70[6] = width;
+    *&v70[7] = height;
+    v70[8] = strategy;
+    *&v70[9] = v25;
+    *&v70[10] = v26;
+    *&v70[11] = v27;
+    *&v70[12] = v24;
+    v70[13] = v20;
+    v70[14] = v21;
+    v70[15] = v22;
+    *&v70[16] = v23;
+    v72 = v79;
+    v71 = v78;
+    strategy = [intermediateCopy updateWithConfiguration:v70];
   }
 
 LABEL_10:

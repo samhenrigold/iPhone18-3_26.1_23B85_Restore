@@ -27,7 +27,7 @@
 - (void)mousePointerDevicesDidChange:(id)change
 {
   sub_10005CEDC();
-  sub_10005D054(&qword_10032D648, sub_10005CEDC);
+  sub_10005D054(&qword_10032D648, sub_10005CEDC, &protocol conformance descriptor for NSObject);
   v4 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
   sub_10005B8E0(v4);

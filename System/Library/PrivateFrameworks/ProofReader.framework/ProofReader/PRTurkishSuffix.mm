@@ -2,6 +2,7 @@
 + (id)standardTurkishNounSuffixes;
 + (id)standardTurkishSuffixes;
 + (id)standardTurkishVerbSuffixes;
++ (void)_enumerateSuffixMatchesForBuffer:(char *)buffer length:(unint64_t)length followedByLetter:(unsigned __int8)letter options:(unint64_t)options depth:(unint64_t)depth matchState:(int)state suffixStack:(id *)stack suffixRangeStack:(_NSRange *)self0 usingBlock:(id)self1;
 + (void)enumerateSuffixMatchesForBuffer:(char *)buffer length:(unint64_t)length options:(unint64_t)options usingBlock:(id)block;
 + (void)enumerateSuffixMatchesForWord:(id)word options:(unint64_t)options usingBlock:(id)block;
 - (PRTurkishSuffix)initWithPattern:(id)pattern name:(id)name type:(int)type postponesApostrophe:(BOOL)apostrophe;
@@ -14,13 +15,13 @@
 
 - (void)_fillPatternBuffer
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = [(NSString *)self->_pattern length];
   usedBufLen = 0;
   self->_patternBufferLength = 0;
-  v13.location = 0;
-  v13.length = v3;
-  if (v3 == CFStringGetBytes(self->_pattern, v13, 0x504u, 0x5Fu, 0, buffer, 16, &usedBufLen))
+  v12.location = 0;
+  v12.length = v3;
+  if (v3 == CFStringGetBytes(self->_pattern, v12, 0x504u, 0x5Fu, 0, buffer, 16, &usedBufLen))
   {
     v4 = usedBufLen;
     if (usedBufLen)
@@ -56,8 +57,6 @@
       while (v5 < v4);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (PRTurkishSuffix)initWithPattern:(id)pattern name:(id)name type:(int)type postponesApostrophe:(BOOL)apostrophe
@@ -710,31 +709,30 @@ LABEL_235:
 
 + (id)standardTurkishNounSuffixes
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = standardTurkishNounSuffixes_standardTurkishNounSuffixes;
   if (!standardTurkishNounSuffixes_standardTurkishNounSuffixes)
   {
     v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:{@"(y)Im", @"sIn", @"DIr", @"(y)Iz", @"sInIz", @"DIrlAr", @"(y)DIm", @"(y)DIn", @"(y)DI", @"(y)DIk", @"(y)DInIz", @"(y)DIlAr", @"(y)sAm", @"(y)sAn", @"(y)sA", @"(y)sAk", @"(y)sAnIz", @"(y)sAlAr", @"(y)DIysAm", @"(y)DIysAn", @"(y)DIysA", @"(y)DIysAk", @"(y)DIysAnIz", @"(y)DIysAlAr", @"(y)DImsA", @"(y)DInsA", @"(y)DIysA", @"(y)DIksA", @"(y)DInIzsA", @"(y)DIysAlAr", @"(y)mIşIm", @"(y)mIşsIn", @"(y)mIş", @"(y)mIşIz", @"(y)mIşsInIz", @"(y)mIşlAr", @"(y)mIşsAm", @"(y)mIşsAn", @"(y)mIşsA", @"(y)mIşsAk", @"(y)mIşsAnIz", @"(y)mIşsAlAr", @"(y)A", @"DA", @"DAn", @"(y)I", @"(n)In", @"lAr", @"(s)I(n)", @"(I)m", @"(I)mIz", @"(I)n", @"(I)nIz", @"lArI(n)", @"sIz", @"(y)lA", @"lI", @"lIK", @"CI", @"ki(n)", @"Daş"}];
     v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:{@"I-am", @"you-are", @"it-is", @"we-are", @"you-are", @"they-are", @"I-was", @"you-were", @"it-was", @"we-were", @"you-were", @"they-were", @"if-I-am", @"if-you-are", @"if-it-is", @"if-we-are", @"if-you-are", @"if-they-are", @"if-I-was", @"if-you-were", @"if-it-was", @"if-we-were", @"if-you-were", @"if-they-were", @"if-I-was", @"if-you-were", @"if-it-was", @"if-we-were", @"if-you-were", @"if-they-were", @"apparently-I-am", @"apparently-you-are", @"apparently-it-is", @"apparently-we-are", @"apparently-you-are", @"apparently-they-are", @"if-apparently-I-am", @"if-apparently-you-are", @"if-apparently-it-is", @"if-apparently-we-are", @"if-apparently-you-are", @"if-apparently-they-are", @"to", @"at", @"from", @"acc.", @"of", @"pl.", @"its", @"my", @"our", @"your", @"your", @"their", @"-less", @"with", @"having", @"-ness", @"-er", @"which-is", @"fellow"}];
+    v9 = 0u;
     v10 = 0u;
-    v11 = 0u;
-    v12 = 1;
-    memset(v9, 0, sizeof(v9));
-    HIBYTE(v10) = 1;
-    BYTE8(v11) = 1;
-    BYTE10(v11) = 1;
-    BYTE14(v11) = 1;
+    v11 = 1;
+    memset(v8, 0, sizeof(v8));
+    HIBYTE(v9) = 1;
+    BYTE8(v10) = 1;
+    BYTE10(v10) = 1;
+    BYTE14(v10) = 1;
     v2 = objc_alloc_init(MEMORY[0x1E695DF70]);
     for (i = 0; i != 72; ++i)
     {
-      v6 = -[PRTurkishSuffix initWithPattern:name:type:postponesApostrophe:]([PRTurkishSuffix alloc], "initWithPattern:name:type:postponesApostrophe:", [v3 objectAtIndex:i], objc_msgSend(v4, "objectAtIndex:", i), byte_1D2BFADE0[i], *(v9 + i) != 0);
+      v6 = -[PRTurkishSuffix initWithPattern:name:type:postponesApostrophe:]([PRTurkishSuffix alloc], "initWithPattern:name:type:postponesApostrophe:", [v3 objectAtIndex:i], objc_msgSend(v4, "objectAtIndex:", i), byte_1D2BFADE0[i], *(v8 + i) != 0);
       [v2 addObject:v6];
     }
 
     standardTurkishNounSuffixes_standardTurkishNounSuffixes = v2;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -770,40 +768,148 @@ LABEL_235:
   return result;
 }
 
++ (void)_enumerateSuffixMatchesForBuffer:(char *)buffer length:(unint64_t)length followedByLetter:(unsigned __int8)letter options:(unint64_t)options depth:(unint64_t)depth matchState:(int)state suffixStack:(id *)stack suffixRangeStack:(_NSRange *)self0 usingBlock:(id)self1
+{
+  letterCopy = letter;
+  v47 = *MEMORY[0x1E69E9840];
+  v42 = 0u;
+  v43 = 0u;
+  v44 = 0u;
+  v45 = 0u;
+  obj = +[PRTurkishSuffix standardTurkishSuffixes];
+  v40 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
+  if (v40)
+  {
+    v39 = *v43;
+    v36 = depth + 1;
+    v34 = &rangeStack[depth];
+    depthCopy = depth;
+    v38 = &_turkishSuffixMatchTable + 60 * state;
+    v33 = letterCopy;
+    bufferCopy = buffer;
+    lengthCopy = length;
+    do
+    {
+      v16 = 0;
+      do
+      {
+        if (*v43 != v39)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v17 = *(*(&v42 + 1) + 8 * v16);
+        v41 = 0;
+        LODWORD(v18) = *&v38[4 * [v17 suffixType]];
+        if (v18)
+        {
+          v19 = [v17 matchingIndexInBuffer:buffer length:length followedByLetter:letterCopy matchWithNameOnly:&v41];
+          if (v19 != 0x7FFFFFFFFFFFFFFFLL)
+          {
+            v20 = v19;
+            v21 = length - v19;
+            v22 = v41 == 0;
+            stack[depth] = v17;
+            if (v22)
+            {
+              v18 = v18;
+            }
+
+            else
+            {
+              v18 = 12;
+            }
+
+            v34->location = v19;
+            v34->length = v21;
+            if ((options & 2) != 0)
+            {
+              array = 0;
+              array2 = 0;
+            }
+
+            else
+            {
+              v30 = v18;
+              array = [MEMORY[0x1E695DF70] array];
+              array2 = [MEMORY[0x1E695DF70] array];
+              if (v36)
+              {
+                depthCopy2 = depth;
+                p_length = &v34->length;
+                do
+                {
+                  [array addObject:stack[depthCopy2]];
+                  [array2 addObject:{objc_msgSend(MEMORY[0x1E696B098], "valueWithRange:", *(p_length - 1), *p_length)}];
+                  --depthCopy2;
+                  p_length -= 2;
+                }
+
+                while (depthCopy2 != -1);
+                depth = depthCopy;
+              }
+
+              v18 = v30;
+            }
+
+            (*(block + 2))(block, v20, v17, v20, v21, v18, array, array2, &v41 + 1);
+            if ((v41 & 0x100) != 0)
+            {
+              return;
+            }
+
+            letterCopy = v33;
+            buffer = bufferCopy;
+            length = lengthCopy;
+            if (v20 && lengthCopy > v20 && v36 <= 0xF && (v41 & 1) == 0)
+            {
+              [self _enumerateSuffixMatchesForBuffer:bufferCopy length:v20 followedByLetter:bufferCopy[v20] options:options depth:v36 matchState:v18 suffixStack:stack suffixRangeStack:rangeStack usingBlock:block];
+            }
+          }
+        }
+
+        ++v16;
+      }
+
+      while (v16 != v40);
+      v27 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
+      v40 = v27;
+    }
+
+    while (v27);
+  }
+}
+
 + (void)enumerateSuffixMatchesForBuffer:(char *)buffer length:(unint64_t)length options:(unint64_t)options usingBlock:(id)block
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v11 = objc_alloc_init(MEMORY[0x1E696AAC8]);
   v12 = 0;
-  memset(v16, 0, sizeof(v16));
+  memset(v15, 0, sizeof(v15));
   do
   {
-    v13 = &v15[v12];
+    v13 = &v14[v12];
     *v13 = xmmword_1D2BF76A0;
     v13[1] = xmmword_1D2BF76A0;
     v12 += 32;
   }
 
   while (v12 != 256);
-  [self _enumerateSuffixMatchesForBuffer:buffer length:length followedByLetter:0 options:options depth:0 matchState:13 suffixStack:NAN suffixRangeStack:v16 usingBlock:{v15, block}];
-
-  v14 = *MEMORY[0x1E69E9840];
+  [self _enumerateSuffixMatchesForBuffer:buffer length:length followedByLetter:0 options:options depth:0 matchState:13 suffixStack:NAN suffixRangeStack:v15 usingBlock:{v14, block}];
 }
 
 + (void)enumerateSuffixMatchesForWord:(id)word options:(unint64_t)options usingBlock:(id)block
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   usedBufLen = 0;
   v8 = [word stringByReplacingOccurrencesOfString:@"’" withString:@"'"];
   v9 = [(__CFString *)v8 length];
-  v14.length = [(__CFString *)v8 length];
-  v14.location = 0;
-  if (v9 == CFStringGetBytes(v8, v14, 0x504u, 0x5Fu, 0, buffer, 72, &usedBufLen))
+  v13.length = [(__CFString *)v8 length];
+  v13.location = 0;
+  if (v9 == CFStringGetBytes(v8, v13, 0x504u, 0x5Fu, 0, buffer, 72, &usedBufLen))
   {
     [self enumerateSuffixMatchesForBuffer:buffer length:usedBufLen options:options usingBlock:block];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 @end

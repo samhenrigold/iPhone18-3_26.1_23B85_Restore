@@ -49,26 +49,26 @@ uint64_t __47__AALoginContextTransientStorage_sharedStorage__block_invoke()
 
 - (void)save:(id)save
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   saveCopy = save;
   [(NSLock *)self->_clearLock lock];
   self->_hasBeenCleared = 0;
   [(NSLock *)self->_clearLock unlock];
   appleID = [saveCopy appleID];
-  v6 = _AALogSystem();
+  v6 = _AALogSystem(appleID);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
   if (appleID)
   {
     if (v7)
     {
       *buf = 138412290;
-      v29 = appleID;
+      v28 = appleID;
       _os_log_impl(&dword_1B6F6A000, v6, OS_LOG_TYPE_DEFAULT, "AALoginContextTransientStorage: saving tokens for Apple ID %@...", buf, 0xCu);
     }
 
-    v26 = @"AKTransientAppleID";
-    v27 = appleID;
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+    v25 = @"AKTransientAppleID";
+    v26 = appleID;
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
     v6 = [v8 mutableCopy];
 
     altDSID = [saveCopy altDSID];
@@ -79,7 +79,7 @@ uint64_t __47__AALoginContextTransientStorage_sharedStorage__block_invoke()
 
     else
     {
-      v10 = _AALogSystem();
+      v10 = _AALogSystem(0);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
@@ -125,12 +125,11 @@ uint64_t __47__AALoginContextTransientStorage_sharedStorage__block_invoke()
       [v6 setObject:lastName2 forKeyedSubscript:@"AKTransientLastName"];
     }
 
-    [(AALoginContextTransientStorage *)self _saveNonsensitiveParameters:v6];
-    v20 = _AALogSystem();
+    v20 = _AALogSystem([(AALoginContextTransientStorage *)self _saveNonsensitiveParameters:v6]);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v29 = appleID;
+      v28 = appleID;
       _os_log_impl(&dword_1B6F6A000, v20, OS_LOG_TYPE_DEFAULT, "AALoginContextTransientStorage: saving tokens for Apple ID %@...", buf, 0xCu);
     }
 
@@ -152,106 +151,102 @@ uint64_t __47__AALoginContextTransientStorage_sharedStorage__block_invoke()
     *buf = 0;
     _os_log_impl(&dword_1B6F6A000, v6, OS_LOG_TYPE_DEFAULT, "AALoginContextTransientStorage: fatal error! No Apple ID in login context!", buf, 2u);
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (id)storedContext
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   [(NSLock *)self->_clearLock lock];
   hasBeenCleared = self->_hasBeenCleared;
-  [(NSLock *)self->_clearLock unlock];
+  unlock = [(NSLock *)self->_clearLock unlock];
   if (hasBeenCleared)
   {
-    v4 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v5 = _AALogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _AALogSystem(unlock);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v23) = 0;
-      _os_log_impl(&dword_1B6F6A000, v5, OS_LOG_TYPE_DEFAULT, "AALoginContextTransientStorage: retrieving stored login response parameters...", &v23, 2u);
+      LOWORD(v24) = 0;
+      _os_log_impl(&dword_1B6F6A000, v6, OS_LOG_TYPE_DEFAULT, "AALoginContextTransientStorage: retrieving stored login response parameters...", &v24, 2u);
     }
 
     _readNonsensitiveParameters = [(AALoginContextTransientStorage *)self _readNonsensitiveParameters];
-    v7 = _readNonsensitiveParameters;
+    v8 = _readNonsensitiveParameters;
     if (_readNonsensitiveParameters)
     {
-      v8 = [_readNonsensitiveParameters objectForKeyedSubscript:@"AKTransientAppleID"];
-      v9 = [v7 objectForKeyedSubscript:@"AKTransientAltDSID"];
-      v10 = _AALogSystem();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v9 = [_readNonsensitiveParameters objectForKeyedSubscript:@"AKTransientAppleID"];
+      v10 = [v8 objectForKeyedSubscript:@"AKTransientAltDSID"];
+      v11 = _AALogSystem(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v23 = 138412290;
-        v24 = v8;
-        _os_log_impl(&dword_1B6F6A000, v10, OS_LOG_TYPE_DEFAULT, "AALoginContextTransientStorage: found stored login response parameters for %@!", &v23, 0xCu);
+        v24 = 138412290;
+        v25 = v9;
+        _os_log_impl(&dword_1B6F6A000, v11, OS_LOG_TYPE_DEFAULT, "AALoginContextTransientStorage: found stored login response parameters for %@!", &v24, 0xCu);
       }
 
-      v4 = [[AAStorableLoginContext alloc] initWithAppleID:v8 altDSID:v9];
-      v11 = [v7 objectForKeyedSubscript:@"AKTransientDSID"];
-      [(AAStorableLoginContext *)v4 setDSID:v11];
+      v5 = [[AAStorableLoginContext alloc] initWithAppleID:v9 altDSID:v10];
+      v12 = [v8 objectForKeyedSubscript:@"AKTransientDSID"];
+      [(AAStorableLoginContext *)v5 setDSID:v12];
 
-      v12 = [v7 objectForKeyedSubscript:@"AKTransientIsBeneficiaryLogin"];
+      v13 = [v8 objectForKeyedSubscript:@"AKTransientIsBeneficiaryLogin"];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        -[AAStorableLoginContext setBeneficiaryLogin:](v4, "setBeneficiaryLogin:", [v12 BOOLValue]);
+        -[AAStorableLoginContext setBeneficiaryLogin:](v5, "setBeneficiaryLogin:", [v13 BOOLValue]);
       }
 
-      v13 = [v7 objectForKeyedSubscript:@"AKTransientFirstName"];
-      [(AAStorableLoginContext *)v4 setFirstName:v13];
+      v14 = [v8 objectForKeyedSubscript:@"AKTransientFirstName"];
+      [(AAStorableLoginContext *)v5 setFirstName:v14];
 
-      v14 = [v7 objectForKeyedSubscript:@"AKTransientMiddleName"];
-      [(AAStorableLoginContext *)v4 setMiddleName:v14];
+      v15 = [v8 objectForKeyedSubscript:@"AKTransientMiddleName"];
+      [(AAStorableLoginContext *)v5 setMiddleName:v15];
 
-      v15 = [v7 objectForKeyedSubscript:@"AKTransientLastName"];
-      [(AAStorableLoginContext *)v4 setLastName:v15];
+      v16 = [v8 objectForKeyedSubscript:@"AKTransientLastName"];
+      [(AAStorableLoginContext *)v5 setLastName:v16];
 
-      v16 = _AALogSystem();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v18 = _AALogSystem(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        v23 = 138412290;
-        v24 = v8;
-        _os_log_impl(&dword_1B6F6A000, v16, OS_LOG_TYPE_DEFAULT, "AALoginContextTransientStorage: retrieving temporary keychain items Apple ID %@!", &v23, 0xCu);
+        v24 = 138412290;
+        v25 = v9;
+        _os_log_impl(&dword_1B6F6A000, v18, OS_LOG_TYPE_DEFAULT, "AALoginContextTransientStorage: retrieving temporary keychain items Apple ID %@!", &v24, 0xCu);
       }
 
-      v17 = [(AALoginContextTransientStorage *)self _keychainItemForUsername:v8 service:@"com.apple.transient.rp"];
-      [(AAStorableLoginContext *)v4 setRawPassword:v17];
+      v19 = [(AALoginContextTransientStorage *)self _keychainItemForUsername:v9 service:@"com.apple.transient.rp"];
+      [(AAStorableLoginContext *)v5 setRawPassword:v19];
 
-      v18 = [(AALoginContextTransientStorage *)self _keychainItemForUsername:v8 service:@"com.apple.transient.ck"];
-      [(AAStorableLoginContext *)v4 setContinuationKey:v18];
+      v20 = [(AALoginContextTransientStorage *)self _keychainItemForUsername:v9 service:@"com.apple.transient.ck"];
+      [(AAStorableLoginContext *)v5 setContinuationKey:v20];
 
-      v19 = [(AALoginContextTransientStorage *)self _keychainItemForUsername:v8 service:@"com.apple.transient.prk"];
-      [(AAStorableLoginContext *)v4 setPasswordResetKey:v19];
+      v21 = [(AALoginContextTransientStorage *)self _keychainItemForUsername:v9 service:@"com.apple.transient.prk"];
+      [(AAStorableLoginContext *)v5 setPasswordResetKey:v21];
 
-      v20 = [(AALoginContextTransientStorage *)self _keychainItemForUsername:v8 service:@"com.apple.transient.ckt"];
-      [(AAStorableLoginContext *)v4 setCloudKitToken:v20];
+      v22 = [(AALoginContextTransientStorage *)self _keychainItemForUsername:v9 service:@"com.apple.transient.ckt"];
+      [(AAStorableLoginContext *)v5 setCloudKitToken:v22];
     }
 
     else
     {
-      v8 = _AALogSystem();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = _AALogSystem(0);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v23) = 0;
-        _os_log_impl(&dword_1B6F6A000, v8, OS_LOG_TYPE_DEFAULT, "AALoginContextTransientStorage: no known stored Apple ID.", &v23, 2u);
+        LOWORD(v24) = 0;
+        _os_log_impl(&dword_1B6F6A000, v9, OS_LOG_TYPE_DEFAULT, "AALoginContextTransientStorage: no known stored Apple ID.", &v24, 2u);
       }
 
-      v4 = 0;
+      v5 = 0;
     }
   }
 
-  v21 = *MEMORY[0x1E69E9840];
-
-  return v4;
+  return v5;
 }
 
 - (void)clear
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   [(NSLock *)self->_clearLock lock];
   self->_hasBeenCleared = 1;
   [(NSLock *)self->_clearLock unlock];
@@ -260,20 +255,19 @@ uint64_t __47__AALoginContextTransientStorage_sharedStorage__block_invoke()
   if (_readNonsensitiveParameters)
   {
     v5 = [_readNonsensitiveParameters objectForKeyedSubscript:@"AKTransientAppleID"];
-    v6 = _AALogSystem();
+    v6 = _AALogSystem(v5);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138412290;
-      v10 = v5;
-      _os_log_impl(&dword_1B6F6A000, v6, OS_LOG_TYPE_DEFAULT, "AALoginContextTransientStorage: removing stored login response parameters for Apple ID %@...", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v5;
+      _os_log_impl(&dword_1B6F6A000, v6, OS_LOG_TYPE_DEFAULT, "AALoginContextTransientStorage: removing stored login response parameters for Apple ID %@...", &v8, 0xCu);
     }
 
-    [(AALoginContextTransientStorage *)self _saveNonsensitiveParameters:0];
-    v7 = _AALogSystem();
+    v7 = _AALogSystem([(AALoginContextTransientStorage *)self _saveNonsensitiveParameters:0]);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v9) = 0;
-      _os_log_impl(&dword_1B6F6A000, v7, OS_LOG_TYPE_DEFAULT, "AALoginContextTransientStorage: removing temporary keychain items...", &v9, 2u);
+      LOWORD(v8) = 0;
+      _os_log_impl(&dword_1B6F6A000, v7, OS_LOG_TYPE_DEFAULT, "AALoginContextTransientStorage: removing temporary keychain items...", &v8, 2u);
     }
 
     [(AALoginContextTransientStorage *)self _deleteKeychainItemForUsername:v5 service:@"com.apple.transient.rp"];
@@ -284,15 +278,13 @@ uint64_t __47__AALoginContextTransientStorage_sharedStorage__block_invoke()
 
   else
   {
-    v5 = _AALogSystem();
+    v5 = _AALogSystem(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v9) = 0;
-      _os_log_impl(&dword_1B6F6A000, v5, OS_LOG_TYPE_DEFAULT, "AALoginContextTransientStorage: nothing to clear.", &v9, 2u);
+      LOWORD(v8) = 0;
+      _os_log_impl(&dword_1B6F6A000, v5, OS_LOG_TYPE_DEFAULT, "AALoginContextTransientStorage: nothing to clear.", &v8, 2u);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_saveNonsensitiveParameters:(id)parameters
@@ -316,7 +308,7 @@ uint64_t __47__AALoginContextTransientStorage_sharedStorage__block_invoke()
 
 - (void)_saveKeychainItem:(id)item forUsername:(id)username service:(id)service
 {
-  v38[7] = *MEMORY[0x1E69E9840];
+  v37[7] = *MEMORY[0x1E69E9840];
   itemCopy = item;
   usernameCopy = username;
   serviceCopy = service;
@@ -331,58 +323,58 @@ uint64_t __47__AALoginContextTransientStorage_sharedStorage__block_invoke()
       {
         v13 = *MEMORY[0x1E697ABE8];
         v14 = *MEMORY[0x1E697AC30];
-        v37[0] = *MEMORY[0x1E697ABD8];
-        v37[1] = v14;
-        v38[0] = v13;
-        v38[1] = usernameCopy;
+        v36[0] = *MEMORY[0x1E697ABD8];
+        v36[1] = v14;
+        v37[0] = v13;
+        v37[1] = usernameCopy;
         v15 = *MEMORY[0x1E697AFF8];
-        v37[2] = *MEMORY[0x1E697AE88];
-        v37[3] = v15;
+        v36[2] = *MEMORY[0x1E697AE88];
+        v36[3] = v15;
         v16 = *MEMORY[0x1E697B008];
-        v38[2] = v10;
-        v38[3] = v16;
+        v37[2] = v10;
+        v37[3] = v16;
         v17 = *MEMORY[0x1E697AEB0];
-        v37[4] = *MEMORY[0x1E697AEC0];
-        v37[5] = v17;
-        v38[4] = &unk_1F2F24B98;
-        v38[5] = MEMORY[0x1E695E110];
+        v36[4] = *MEMORY[0x1E697AEC0];
+        v36[5] = v17;
+        v37[4] = &unk_1F2F24B98;
+        v37[5] = MEMORY[0x1E695E110];
         v18 = *MEMORY[0x1E697B3C0];
-        v37[6] = *MEMORY[0x1E697B3C0];
-        v38[6] = v11;
-        v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:v37 count:7];
+        v36[6] = *MEMORY[0x1E697B3C0];
+        v37[6] = v11;
+        v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:v36 count:7];
         v20 = SecItemAdd(v19, 0);
-        v21 = _AALogSystem();
+        v21 = _AALogSystem(v20);
         if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
           v22 = [MEMORY[0x1E696AD98] numberWithInt:v20];
           *buf = 138412802;
-          v32 = usernameCopy;
-          v33 = 2112;
-          v34 = v10;
-          v35 = 2112;
-          v36 = v22;
+          v31 = usernameCopy;
+          v32 = 2112;
+          v33 = v10;
+          v34 = 2112;
+          v35 = v22;
           _os_log_impl(&dword_1B6F6A000, v21, OS_LOG_TYPE_DEFAULT, "AALoginContextTransientStorage: SecItemAdd (u: %@, s: %@) result: %@", buf, 0x20u);
         }
 
         if (v20 == -25299)
         {
-          v30 = v18;
-          v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v30 count:1];
+          v29 = v18;
+          v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v29 count:1];
           v24 = [(__CFDictionary *)v19 dictionaryWithValuesForKeys:v23];
 
           v25 = [(__CFDictionary *)v19 mutableCopy];
           [v25 removeObjectForKey:v18];
           v26 = SecItemUpdate(v25, v24);
-          v27 = _AALogSystem();
+          v27 = _AALogSystem(v26);
           if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
           {
             v28 = [MEMORY[0x1E696AD98] numberWithInt:v26];
             *buf = 138412802;
-            v32 = usernameCopy;
-            v33 = 2112;
-            v34 = v10;
-            v35 = 2112;
-            v36 = v28;
+            v31 = usernameCopy;
+            v32 = 2112;
+            v33 = v10;
+            v34 = 2112;
+            v35 = v28;
             _os_log_impl(&dword_1B6F6A000, v27, OS_LOG_TYPE_DEFAULT, "AALoginContextTransientStorage: SecItemUpdate (u: %@, s: %@) result: %@", buf, 0x20u);
           }
         }
@@ -390,7 +382,7 @@ uint64_t __47__AALoginContextTransientStorage_sharedStorage__block_invoke()
 
       else
       {
-        v19 = _AALogSystem();
+        v19 = _AALogSystem(0);
         if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
@@ -401,7 +393,7 @@ uint64_t __47__AALoginContextTransientStorage_sharedStorage__block_invoke()
 
     else
     {
-      v12 = _AALogSystem();
+      v12 = _AALogSystem(0);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
@@ -409,19 +401,17 @@ uint64_t __47__AALoginContextTransientStorage_sharedStorage__block_invoke()
       }
     }
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_keychainItemForUsername:(id)username service:(id)service
 {
-  v30[5] = *MEMORY[0x1E69E9840];
+  v29[5] = *MEMORY[0x1E69E9840];
   usernameCopy = username;
   serviceCopy = service;
   v7 = serviceCopy;
   if (!serviceCopy)
   {
-    v11 = _AALogSystem();
+    v11 = _AALogSystem(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -437,7 +427,7 @@ LABEL_19:
 
   if (!usernameCopy)
   {
-    v11 = _AALogSystem();
+    v11 = _AALogSystem(serviceCopy);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -449,23 +439,23 @@ LABEL_19:
   }
 
   v8 = *MEMORY[0x1E697AE88];
-  v29[0] = *MEMORY[0x1E697AC30];
-  v29[1] = v8;
-  v30[0] = usernameCopy;
-  v30[1] = serviceCopy;
+  v28[0] = *MEMORY[0x1E697AC30];
+  v28[1] = v8;
+  v29[0] = usernameCopy;
+  v29[1] = serviceCopy;
   v9 = *MEMORY[0x1E697B008];
   v10 = *MEMORY[0x1E697B318];
-  v29[2] = *MEMORY[0x1E697AFF8];
-  v29[3] = v10;
-  v30[2] = v9;
-  v30[3] = MEMORY[0x1E695E118];
-  v29[4] = *MEMORY[0x1E697B380];
-  v30[4] = *MEMORY[0x1E697B388];
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:5];
+  v28[2] = *MEMORY[0x1E697AFF8];
+  v28[3] = v10;
+  v29[2] = v9;
+  v29[3] = MEMORY[0x1E695E118];
+  v28[4] = *MEMORY[0x1E697B380];
+  v29[4] = *MEMORY[0x1E697B388];
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:5];
   result = 0;
   v12 = SecItemCopyMatching(v11, &result);
   v13 = result;
-  v14 = _AALogSystem();
+  v14 = _AALogSystem(v12);
   v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
   if (v12 || !v13)
   {
@@ -475,11 +465,11 @@ LABEL_19:
       {
         v19 = [MEMORY[0x1E696AD98] numberWithInt:v12];
         *buf = 138412802;
-        v24 = usernameCopy;
-        v25 = 2112;
-        v26 = v7;
-        v27 = 2112;
-        v28 = v19;
+        v23 = usernameCopy;
+        v24 = 2112;
+        v25 = v7;
+        v26 = 2112;
+        v27 = v19;
         _os_log_impl(&dword_1B6F6A000, v14, OS_LOG_TYPE_DEFAULT, "AALoginContextTransientStorage: SecItemCopyMatching (u: %@, s: %@) failed: %@", buf, 0x20u);
       }
     }
@@ -487,9 +477,9 @@ LABEL_19:
     else if (v15)
     {
       *buf = 138412546;
-      v24 = usernameCopy;
-      v25 = 2112;
-      v26 = v7;
+      v23 = usernameCopy;
+      v24 = 2112;
+      v25 = v7;
       _os_log_impl(&dword_1B6F6A000, v14, OS_LOG_TYPE_DEFAULT, "AALoginContextTransientStorage: SecItemCopyMatching (u: %@, s: %@) returned noErr and nil data!", buf, 0x16u);
     }
 
@@ -499,7 +489,7 @@ LABEL_19:
   if (v15)
   {
     *buf = 138412290;
-    v24 = v7;
+    v23 = v7;
     _os_log_impl(&dword_1B6F6A000, v14, OS_LOG_TYPE_DEFAULT, "AALoginContextTransientStorage: successfully read keychain item %@", buf, 0xCu);
   }
 
@@ -508,70 +498,67 @@ LABEL_19:
   CFRelease(result);
 LABEL_20:
 
-  v20 = *MEMORY[0x1E69E9840];
-
   return v17;
 }
 
 - (void)_deleteKeychainItemForUsername:(id)username service:(id)service
 {
-  v23[3] = *MEMORY[0x1E69E9840];
+  v22[3] = *MEMORY[0x1E69E9840];
   usernameCopy = username;
   serviceCopy = service;
   v7 = serviceCopy;
   if (!serviceCopy)
   {
-    v10 = _AALogSystem();
+    v10 = _AALogSystem(0);
     if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_11;
     }
 
-    LOWORD(v16) = 0;
+    LOWORD(v15) = 0;
     v14 = "AALoginContextTransientStorage: delete error - given nil service!";
 LABEL_10:
-    _os_log_impl(&dword_1B6F6A000, v10, OS_LOG_TYPE_DEFAULT, v14, &v16, 2u);
+    _os_log_impl(&dword_1B6F6A000, v10, OS_LOG_TYPE_DEFAULT, v14, &v15, 2u);
     goto LABEL_11;
   }
 
   if (!usernameCopy)
   {
-    v10 = _AALogSystem();
+    v10 = _AALogSystem(serviceCopy);
     if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_11;
     }
 
-    LOWORD(v16) = 0;
+    LOWORD(v15) = 0;
     v14 = "AALoginContextTransientStorage: delete error - given nil username!";
     goto LABEL_10;
   }
 
   v8 = *MEMORY[0x1E697B008];
   v9 = *MEMORY[0x1E697AC30];
-  v22[0] = *MEMORY[0x1E697AFF8];
-  v22[1] = v9;
-  v23[0] = v8;
-  v23[1] = usernameCopy;
-  v22[2] = *MEMORY[0x1E697AE88];
-  v23[2] = serviceCopy;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:3];
+  v21[0] = *MEMORY[0x1E697AFF8];
+  v21[1] = v9;
+  v22[0] = v8;
+  v22[1] = usernameCopy;
+  v21[2] = *MEMORY[0x1E697AE88];
+  v22[2] = serviceCopy;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:3];
   v11 = SecItemDelete(v10);
-  v12 = _AALogSystem();
+  v12 = _AALogSystem(v11);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     v13 = [MEMORY[0x1E696AD98] numberWithInt:v11];
-    v16 = 138412802;
-    v17 = usernameCopy;
-    v18 = 2112;
-    v19 = v7;
-    v20 = 2112;
-    v21 = v13;
-    _os_log_impl(&dword_1B6F6A000, v12, OS_LOG_TYPE_DEFAULT, "AALoginContextTransientStorage: SecItemDelete (u: %@, s: %@) result: %@", &v16, 0x20u);
+    v15 = 138412802;
+    v16 = usernameCopy;
+    v17 = 2112;
+    v18 = v7;
+    v19 = 2112;
+    v20 = v13;
+    _os_log_impl(&dword_1B6F6A000, v12, OS_LOG_TYPE_DEFAULT, "AALoginContextTransientStorage: SecItemDelete (u: %@, s: %@) result: %@", &v15, 0x20u);
   }
 
 LABEL_11:
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -20,26 +20,24 @@
 
 void __31__HMDActionSetModel_properties__block_invoke()
 {
-  v7[3] = *MEMORY[0x277D85DE8];
-  v6[0] = @"name";
+  v6[3] = *MEMORY[0x277D85DE8];
+  v5[0] = @"name";
   v0 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v7[0] = v0;
-  v6[1] = @"type";
+  v6[0] = v0;
+  v5[1] = @"type";
   v1 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v7[1] = v1;
-  v6[2] = @"lastExecutionDate";
+  v6[1] = v1;
+  v5[2] = @"lastExecutionDate";
   v2 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v7[2] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:3];
+  v6[2] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:3];
   v4 = properties__properties_31279;
   properties__properties_31279 = v3;
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (id)cd_getMKFActionSetFromActionSet:(id)set
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   setCopy = set;
   if (!setCopy)
   {
@@ -47,9 +45,9 @@ void __31__HMDActionSetModel_properties__block_invoke()
   }
 
   v5 = setCopy;
-  v17 = 0;
-  v6 = [HMDBackingStore cdlsFetchManagedObjectWithUUID:setCopy ofManagedObjectType:objc_opt_class() error:&v17];
-  v7 = v17;
+  v16 = 0;
+  v6 = [HMDBackingStore cdlsFetchManagedObjectWithUUID:setCopy ofManagedObjectType:objc_opt_class() error:&v16];
+  v7 = v16;
   v8 = v7;
   if (v6)
   {
@@ -75,19 +73,17 @@ void __31__HMDActionSetModel_properties__block_invoke()
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v19 = v13;
-      v20 = 2112;
-      v21 = v5;
-      v22 = 2112;
-      v23 = v8;
+      v18 = v13;
+      v19 = 2112;
+      v20 = v5;
+      v21 = 2112;
+      v22 = v8;
       _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Unable to find MKFActionSet for actionSet UUID %@: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v10);
     v14 = 0;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

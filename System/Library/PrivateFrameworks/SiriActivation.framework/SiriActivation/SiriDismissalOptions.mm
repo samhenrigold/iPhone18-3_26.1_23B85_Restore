@@ -1,5 +1,6 @@
 @interface SiriDismissalOptions
 - (SiriDismissalOptions)initWithCoder:(id)coder;
+- (SiriDismissalOptions)initWithDeactivationOptions:(unint64_t)options animated:(BOOL)animated dismissalReason:(int64_t)reason;
 - (SiriDismissalOptions)initWithDeactivationOptions:(unint64_t)options animated:(BOOL)animated requestCancellationReason:(int64_t)reason dismissalReason:(int64_t)dismissalReason shouldTurnScreenOff:(BOOL)off;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
@@ -7,6 +8,14 @@
 @end
 
 @implementation SiriDismissalOptions
+
+- (SiriDismissalOptions)initWithDeactivationOptions:(unint64_t)options animated:(BOOL)animated dismissalReason:(int64_t)reason
+{
+  animatedCopy = animated;
+  CancellationReason = SASDismissalReasonGetCancellationReason(reason);
+
+  return [(SiriDismissalOptions *)self initWithDeactivationOptions:options animated:animatedCopy requestCancellationReason:CancellationReason dismissalReason:reason shouldTurnScreenOff:0];
+}
 
 - (SiriDismissalOptions)initWithDeactivationOptions:(unint64_t)options animated:(BOOL)animated requestCancellationReason:(int64_t)reason dismissalReason:(int64_t)dismissalReason shouldTurnScreenOff:(BOOL)off
 {

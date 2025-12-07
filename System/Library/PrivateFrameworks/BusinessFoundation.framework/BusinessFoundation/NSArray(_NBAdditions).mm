@@ -12,24 +12,24 @@
 {
   if ([self count] <= a3)
   {
-    v6 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v5 = [self objectAtIndex:a3];
+    v6 = [self objectAtIndex:a3];
     if (objc_opt_isKindOfClass())
     {
-      v6 = v5;
+      v7 = v6;
     }
 
     else
     {
-      v6 = 0;
+      v7 = 0;
     }
   }
 
-  return v6;
+  return v7;
 }
 
 - (uint64_t)nb_safeStringAtIndex:()_NBAdditions

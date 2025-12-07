@@ -99,13 +99,13 @@
   return v3;
 }
 
-void __26__QLListCell__folderImage__block_invoke()
+void __26__QLListCell__folderImage__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = MEMORY[0x277D755B8];
-  v3 = QLFrameworkBundle();
-  v1 = [v0 imageNamed:@"folder" inBundle:v3 compatibleWithTraitCollection:0];
-  v2 = _folderImage__folderImage;
-  _folderImage__folderImage = v1;
+  v2 = MEMORY[0x277D755B8];
+  v5 = QLFrameworkBundle();
+  v3 = [v2 imageNamed:@"folder" inBundle:v5 compatibleWithTraitCollection:0];
+  v4 = _folderImage__folderImage;
+  _folderImage__folderImage = v3;
 }
 
 - (void)setItem:(id)item

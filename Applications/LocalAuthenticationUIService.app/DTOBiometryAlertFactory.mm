@@ -39,41 +39,37 @@ TouchIdAlertController *__65__DTOBiometryAlertFactory_biometryRequiredAlertWithB
 {
   if (*(a1 + 40) == LACBiometryTypeTouchID)
   {
-    v2 = objc_alloc_init(TouchIdAlertController);
-    v3 = *(a1 + 32);
+    v1 = objc_alloc_init(TouchIdAlertController);
+    v2 = [NSBundle bundleForClass:objc_opt_class()];
+    v3 = [v2 localizedStringForKey:@"TOUCH_ID_REQUIRED" value:&stru_1000ADB50 table:@"MobileUI"];
+    [(TouchIdAlertController *)v1 setTitle:v3];
+
     v4 = [NSBundle bundleForClass:objc_opt_class()];
-    v5 = [v4 localizedStringForKey:@"TOUCH_ID_REQUIRED" value:&stru_1000ADB50 table:@"MobileUI"];
-    [(TouchIdAlertController *)v2 setTitle:v5];
+    v5 = [v4 localizedStringForKey:@"DTO_IS_ACTIVE_TOUCH_ID" value:&stru_1000ADB50 table:@"MobileUI-Ratchet"];
+    [(TouchIdAlertController *)v1 setMessage:v5];
 
-    v6 = *(a1 + 32);
-    v7 = [NSBundle bundleForClass:objc_opt_class()];
-    v8 = [v7 localizedStringForKey:@"DTO_IS_ACTIVE_TOUCH_ID" value:&stru_1000ADB50 table:@"MobileUI-Ratchet"];
-    [(TouchIdAlertController *)v2 setMessage:v8];
-
-    v9 = +[UIColor tertiaryLabelColor];
-    v10 = [(TouchIdAlertController *)v2 _headerContentViewController];
-    v11 = [v10 view];
-    [v11 setTintColor:v9];
+    v6 = +[UIColor tertiaryLabelColor];
+    v7 = [(TouchIdAlertController *)v1 _headerContentViewController];
+    v8 = [v7 view];
+    [v8 setTintColor:v6];
   }
 
   else
   {
-    v2 = objc_alloc_init(FaceIdAlertViewController);
-    v12 = __65__DTOBiometryAlertFactory_biometryRequiredAlertWithBiometryType___block_invoke_2();
-    [(TouchIdAlertController *)v2 setGlyph:v12];
+    v1 = objc_alloc_init(FaceIdAlertViewController);
+    v9 = __65__DTOBiometryAlertFactory_biometryRequiredAlertWithBiometryType___block_invoke_2();
+    [(TouchIdAlertController *)v1 setGlyph:v9];
 
-    v13 = *(a1 + 32);
-    v14 = [NSBundle bundleForClass:objc_opt_class()];
-    v15 = [v14 localizedStringForKey:@"FACE_ID_REQUIRED" value:&stru_1000ADB50 table:@"MobileUI"];
-    [(TouchIdAlertController *)v2 setTitle:v15];
+    v10 = [NSBundle bundleForClass:objc_opt_class()];
+    v11 = [v10 localizedStringForKey:@"FACE_ID_REQUIRED" value:&stru_1000ADB50 table:@"MobileUI"];
+    [(TouchIdAlertController *)v1 setTitle:v11];
 
-    v16 = *(a1 + 32);
-    v9 = [NSBundle bundleForClass:objc_opt_class()];
-    v10 = [v9 localizedStringForKey:@"DTO_IS_ACTIVE_FACE_ID" value:&stru_1000ADB50 table:@"MobileUI-Ratchet"];
-    [(TouchIdAlertController *)v2 setMessage:v10];
+    v6 = [NSBundle bundleForClass:objc_opt_class()];
+    v7 = [v6 localizedStringForKey:@"DTO_IS_ACTIVE_FACE_ID" value:&stru_1000ADB50 table:@"MobileUI-Ratchet"];
+    [(TouchIdAlertController *)v1 setMessage:v7];
   }
 
-  return v2;
+  return v1;
 }
 
 id __65__DTOBiometryAlertFactory_biometryRequiredAlertWithBiometryType___block_invoke_2()

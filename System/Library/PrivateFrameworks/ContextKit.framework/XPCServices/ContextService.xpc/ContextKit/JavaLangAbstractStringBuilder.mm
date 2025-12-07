@@ -1,9 +1,18 @@
 @interface JavaLangAbstractStringBuilder
 - (id)description;
+- (id)substringWithInt:(int)int;
+- (id)substringWithInt:(int)int withInt:(int)withInt;
+- (int)codePointAtWithInt:(int)int;
+- (int)codePointBeforeWithInt:(int)int;
+- (int)codePointCountWithInt:(int)int withInt:(int)withInt;
 - (int)indexOfWithNSString:(id)string withInt:(int)int;
 - (int)lastIndexOfWithNSString:(id)string withInt:(int)int;
+- (unsigned)charAtWithInt:(int)int;
 - (void)dealloc;
 - (void)ensureCapacityWithInt:(int)int;
+- (void)getCharsWithInt:(int)int withInt:(int)withInt withCharArray:(id)array withInt:(int)a6;
+- (void)setCharAtWithInt:(int)int withChar:(unsigned __int16)char;
+- (void)setLengthWithInt:(int)int;
 - (void)setWithCharArray:(id)array withInt:(int)int;
 - (void)trimToSize;
 @end
@@ -56,6 +65,16 @@
   self->delegate_.count_ = int;
 }
 
+- (unsigned)charAtWithInt:(int)int
+{
+  if (int < 0 || self->delegate_.count_ <= int)
+  {
+    sub_100247AA0(&self->delegate_, *&int);
+  }
+
+  return self->delegate_.buffer_[int];
+}
+
 - (void)ensureCapacityWithInt:(int)int
 {
   bufferSize = self->delegate_.bufferSize_;
@@ -74,6 +93,100 @@
 
     sub_1002476A4(&self->delegate_, intCopy);
   }
+}
+
+- (void)getCharsWithInt:(int)int withInt:(int)withInt withCharArray:(id)array withInt:(int)a6
+{
+  v6 = withInt - int;
+  if (withInt < int || ((count = self->delegate_.count_, count >= int) ? (v8 = count < withInt) : (v8 = 1), v8))
+  {
+    sub_100247B44(&self->delegate_, *&int, withInt);
+  }
+
+  if ((v6 | int) < 0 || self->delegate_.bufferSize_ < withInt)
+  {
+    IOSArray_throwOutOfBounds();
+  }
+
+  if (!array)
+  {
+    JreThrowNullPointerException();
+  }
+
+  if ((v6 | a6) < 0 || v6 + a6 > *(array + 2))
+  {
+    IOSArray_throwOutOfBounds();
+  }
+
+  v9 = &self->delegate_.buffer_[int];
+
+  memcpy(array + 2 * a6 + 12, v9, 2 * v6);
+}
+
+- (void)setCharAtWithInt:(int)int withChar:(unsigned __int16)char
+{
+  if (int < 0 || self->delegate_.count_ <= int)
+  {
+    sub_100247AA0(&self->delegate_, *&int);
+  }
+
+  self->delegate_.buffer_[int] = char;
+}
+
+- (void)setLengthWithInt:(int)int
+{
+  if (int < 0)
+  {
+    objc_exception_throw([[JavaLangStringIndexOutOfBoundsException alloc] initWithNSString:[NSString stringWithFormat:@"length < 0: %d", *&int]]);
+  }
+
+  if (self->delegate_.bufferSize_ < int)
+  {
+    sub_1002476A4(&self->delegate_, int);
+  }
+
+  count = self->delegate_.count_;
+  if (int > count)
+  {
+    bzero(&self->delegate_.buffer_[count], 2 * (int - count));
+  }
+
+  self->delegate_.count_ = int;
+}
+
+- (id)substringWithInt:(int)int
+{
+  if (int < 0 || (count = self->delegate_.count_, v5 = count - int, count < int))
+  {
+    sub_100247AA0(&self->delegate_, *&int);
+  }
+
+  if (count == int)
+  {
+    return &stru_100484358;
+  }
+
+  v7 = &self->delegate_.buffer_[int];
+
+  return [NSString stringWithCharacters:v7 length:v5];
+}
+
+- (id)substringWithInt:(int)int withInt:(int)withInt
+{
+  if (int < 0 || withInt < int || self->delegate_.count_ < withInt)
+  {
+    sub_100247B44(&self->delegate_, *&int, withInt);
+  }
+
+  v5 = withInt - int;
+  if (withInt == int)
+  {
+    return &stru_100484358;
+  }
+
+  v7 = &self->delegate_.buffer_[int];
+
+  return [NSString stringWithCharacters:v7 length:v5];
 }
 
 - (id)description
@@ -296,6 +409,44 @@ LABEL_9:
 
     free(buffer);
   }
+}
+
+- (int)codePointAtWithInt:(int)int
+{
+  v4 = *&int;
+  if (int < 0 || (count = self->delegate_.count_, count <= v4))
+  {
+    sub_100247AA0(&self->delegate_, v4);
+  }
+
+  buffer = self->delegate_.buffer_;
+
+  return JavaLangCharacter_codePointAtRaw(buffer, v4, count);
+}
+
+- (int)codePointBeforeWithInt:(int)int
+{
+  if (int < 1 || self->delegate_.count_ < int)
+  {
+    sub_100247AA0(&self->delegate_, *&int);
+  }
+
+  buffer = self->delegate_.buffer_;
+
+  return JavaLangCharacter_codePointBeforeRaw(buffer, int, 0);
+}
+
+- (int)codePointCountWithInt:(int)int withInt:(int)withInt
+{
+  v5 = *&int;
+  if (int < 0 || (v6 = withInt - int, withInt < v5) || self->delegate_.count_ < withInt)
+  {
+    sub_100247B44(&self->delegate_, v5, withInt);
+  }
+
+  buffer = self->delegate_.buffer_;
+
+  return JavaLangCharacter_codePointCountRaw(buffer, v5, v6);
 }
 
 - (void)dealloc

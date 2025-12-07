@@ -95,58 +95,53 @@
 
 - (void)_setupSubviews
 {
-  v18 = objc_alloc(MEMORY[0x277D751E0]);
+  v19 = objc_alloc(MEMORY[0x277D751E0]);
   titleView = [(AKPasswordResetViewController *)self titleView];
-  v20 = [v18 initWithCustomView:?];
+  v21 = [v19 initWithCustomView:?];
   navigationItem = [(AKPasswordResetViewController *)self navigationItem];
-  [navigationItem setLeftBarButtonItem:v20];
+  [navigationItem setLeftBarButtonItem:v21];
   MEMORY[0x277D82BD8](navigationItem);
-  MEMORY[0x277D82BD8](v20);
-  MEMORY[0x277D82BD8](titleView);
+  MEMORY[0x277D82BD8](v21);
   mEMORY[0x277CF0228] = [MEMORY[0x277CF0228] sharedManager];
   isAuthKitSolariumFeatureEnabled = [mEMORY[0x277CF0228] isAuthKitSolariumFeatureEnabled];
   MEMORY[0x277D82BD8](mEMORY[0x277CF0228]);
   if (isAuthKitSolariumFeatureEnabled)
   {
-    v16 = [objc_alloc(MEMORY[0x277D751E0]) initWithBarButtonSystemItem:1 target:self action:sel_didSelectClose_];
+    v17 = [objc_alloc(MEMORY[0x277D751E0]) initWithBarButtonSystemItem:1 target:self action:sel_didSelectClose_];
     navigationItem2 = [(AKPasswordResetViewController *)self navigationItem];
-    [navigationItem2 setRightBarButtonItem:v16];
+    [navigationItem2 setRightBarButtonItem:v17];
     MEMORY[0x277D82BD8](navigationItem2);
-    MEMORY[0x277D82BD8](v16);
     closeButton = [(AKPasswordResetViewController *)self closeButton];
     [(UIButton *)closeButton setHidden:1];
-    MEMORY[0x277D82BD8](closeButton);
+    v2 = MEMORY[0x277D82BD8](closeButton).n128_u64[0];
   }
 
   else
   {
-    v11 = objc_alloc(MEMORY[0x277D751E0]);
+    v12 = objc_alloc(MEMORY[0x277D751E0]);
     closeButton2 = [(AKPasswordResetViewController *)self closeButton];
-    v13 = [v11 initWithCustomView:?];
+    v14 = [v12 initWithCustomView:?];
     navigationItem3 = [(AKPasswordResetViewController *)self navigationItem];
-    [navigationItem3 setRightBarButtonItem:v13];
+    [navigationItem3 setRightBarButtonItem:v14];
     MEMORY[0x277D82BD8](navigationItem3);
-    MEMORY[0x277D82BD8](v13);
-    MEMORY[0x277D82BD8](closeButton2);
+    MEMORY[0x277D82BD8](v14);
+    v2 = MEMORY[0x277D82BD8](closeButton2).n128_u64[0];
   }
 
   profilePictureImageView = [(AKPasswordResetViewController *)self profilePictureImageView];
   [(UIImageView *)profilePictureImageView frame];
-  v3 = v2 / 2.0;
+  v4 = v3 / 2.0;
   profilePictureImageView2 = [(AKPasswordResetViewController *)self profilePictureImageView];
   layer = [(UIImageView *)profilePictureImageView2 layer];
-  [layer setCornerRadius:v3];
+  [layer setCornerRadius:v4];
   MEMORY[0x277D82BD8](layer);
   MEMORY[0x277D82BD8](profilePictureImageView2);
-  MEMORY[0x277D82BD8](profilePictureImageView);
   profilePictureImageView3 = [(AKPasswordResetViewController *)self profilePictureImageView];
   layer2 = [(UIImageView *)profilePictureImageView3 layer];
   [layer2 setMasksToBounds:1];
   MEMORY[0x277D82BD8](layer2);
-  MEMORY[0x277D82BD8](profilePictureImageView3);
   contentScrollView = [(AKPasswordResetViewController *)self contentScrollView];
   [(UIScrollView *)contentScrollView setAccessibilityIdentifier:@"SCROLL_VIEW"];
-  MEMORY[0x277D82BD8](contentScrollView);
   contentView = [(AKPasswordResetViewController *)self contentView];
   [(UIStackView *)contentView setAccessibilityIdentifier:@"SCROLL_VIEW_CONTENT_VIEW"];
   MEMORY[0x277D82BD8](contentView);
@@ -155,74 +150,72 @@
 - (void)_applyLocalization
 {
   selfCopy = self;
-  v34[1] = a2;
-  v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v3 = [v4 localizedStringForKey:@"PASSWORD_RESET_OPTIONS_SERVICE_TITLE_REBRAND" value:? table:?];
+  v39[1] = a2;
+  v9 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v8 = [v9 localizedStringForKey:@"PASSWORD_RESET_OPTIONS_SERVICE_TITLE_REBRAND" value:? table:?];
   serviceNameLabel = [(AKPasswordResetViewController *)selfCopy serviceNameLabel];
-  [(UILabel *)serviceNameLabel setText:v3];
+  [(UILabel *)serviceNameLabel setText:v8];
   MEMORY[0x277D82BD8](serviceNameLabel);
-  MEMORY[0x277D82BD8](v3);
-  MEMORY[0x277D82BD8](v4);
-  v7 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v6 = [v7 localizedStringForKey:@"PASSWORD_RESET_OPTIONS_SCREEN_TITLE" value:&stru_28358EF68 table:@"Localizable"];
+  MEMORY[0x277D82BD8](v8);
+  MEMORY[0x277D82BD8](v9);
+  v12 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v11 = [v12 localizedStringForKey:@"PASSWORD_RESET_OPTIONS_SCREEN_TITLE" value:&stru_28358EF68 table:@"Localizable"];
   screenTitleLabel = [(AKPasswordResetViewController *)selfCopy screenTitleLabel];
-  [(UILabel *)screenTitleLabel setText:v6];
+  [(UILabel *)screenTitleLabel setText:v11];
   MEMORY[0x277D82BD8](screenTitleLabel);
-  MEMORY[0x277D82BD8](v6);
-  MEMORY[0x277D82BD8](v7);
-  mEMORY[0x277CF0130] = [MEMORY[0x277CF0130] sharedInstance];
-  v34[0] = [mEMORY[0x277CF0130] primaryAuthKitAccount];
-  MEMORY[0x277D82BD8](mEMORY[0x277CF0130]);
-  v9 = MEMORY[0x277CF0300];
-  username = [v34[0] username];
-  v33 = [v9 formattedUsernameFromUsername:?];
-  MEMORY[0x277D82BD8](username);
-  v32 = objc_alloc_init(MEMORY[0x277CCAC00]);
-  mEMORY[0x277CF0130]2 = [MEMORY[0x277CF0130] sharedInstance];
-  v11 = [mEMORY[0x277CF0130]2 familyNameForAccount:v34[0]];
-  [v32 setFamilyName:?];
   MEMORY[0x277D82BD8](v11);
-  MEMORY[0x277D82BD8](mEMORY[0x277CF0130]2);
+  mEMORY[0x277CF0130] = [MEMORY[0x277CF0130] sharedInstance];
+  v39[0] = [mEMORY[0x277CF0130] primaryAuthKitAccount];
+  *&v2 = MEMORY[0x277D82BD8](mEMORY[0x277CF0130]).n128_u64[0];
+  v14 = MEMORY[0x277CF0300];
+  username = [v39[0] username];
+  v38 = [v14 formattedUsernameFromUsername:?];
+  MEMORY[0x277D82BD8](username);
+  v37 = objc_alloc_init(MEMORY[0x277CCAC00]);
+  mEMORY[0x277CF0130]2 = [MEMORY[0x277CF0130] sharedInstance];
+  v16 = [mEMORY[0x277CF0130]2 familyNameForAccount:v39[0]];
+  [v37 setFamilyName:?];
+  MEMORY[0x277D82BD8](v16);
   mEMORY[0x277CF0130]3 = [MEMORY[0x277CF0130] sharedInstance];
-  v13 = [mEMORY[0x277CF0130]3 givenNameForAccount:v34[0]];
-  [v32 setGivenName:?];
-  MEMORY[0x277D82BD8](v13);
+  v18 = [mEMORY[0x277CF0130]3 givenNameForAccount:v39[0]];
+  [v37 setGivenName:?];
+  MEMORY[0x277D82BD8](v18);
   MEMORY[0x277D82BD8](mEMORY[0x277CF0130]3);
-  v31 = objc_alloc_init(MEMORY[0x277CCAC08]);
-  v30 = [v31 stringFromPersonNameComponents:v32];
-  v15 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v29 = [v15 localizedStringForKey:@"PASSWORD_RESET_OPTIONS_SCREEN_SUMMARY" value:&stru_28358EF68 table:@"Localizable"];
-  MEMORY[0x277D82BD8](v15);
-  v19 = MEMORY[0x277CCACA8];
-  v18 = v29;
-  v16 = v30;
-  v17 = v33;
+  v36 = objc_alloc_init(MEMORY[0x277CCAC08]);
+  v35 = [v36 stringFromPersonNameComponents:v37];
+  v20 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v34 = [v20 localizedStringForKey:@"PASSWORD_RESET_OPTIONS_SCREEN_SUMMARY" value:&stru_28358EF68 table:@"Localizable"];
+  *&v3 = MEMORY[0x277D82BD8](v20).n128_u64[0];
+  v24 = MEMORY[0x277CCACA8];
+  v23 = v34;
+  v21 = v35;
+  v22 = v38;
   currentDevice = [MEMORY[0x277D75418] currentDevice];
   localizedModel = [currentDevice localizedModel];
-  v28 = [v19 stringWithFormat:v18, v16, v17, localizedModel];
+  v33 = [v24 stringWithFormat:v23, v21, v22, localizedModel];
   MEMORY[0x277D82BD8](localizedModel);
-  MEMORY[0x277D82BD8](currentDevice);
-  v22 = v28;
+  *&v4 = MEMORY[0x277D82BD8](currentDevice).n128_u64[0];
+  v27 = v33;
   screenSummaryLabel = [(AKPasswordResetViewController *)selfCopy screenSummaryLabel];
-  [(UILabel *)screenSummaryLabel setText:v22];
-  MEMORY[0x277D82BD8](screenSummaryLabel);
+  [(UILabel *)screenSummaryLabel setText:v27];
+  *&v5 = MEMORY[0x277D82BD8](screenSummaryLabel).n128_u64[0];
   resetMyPasswordButton = [(AKPasswordResetViewController *)selfCopy resetMyPasswordButton];
   _resetMyPasswordButtonTitle = [(AKPasswordResetViewController *)selfCopy _resetMyPasswordButtonTitle];
   [UIButton setTitle:resetMyPasswordButton forState:"setTitle:forState:"];
   MEMORY[0x277D82BD8](_resetMyPasswordButtonTitle);
-  MEMORY[0x277D82BD8](resetMyPasswordButton);
+  *&v6 = MEMORY[0x277D82BD8](resetMyPasswordButton).n128_u64[0];
   helpSomeoneElseButton = [(AKPasswordResetViewController *)selfCopy helpSomeoneElseButton];
   _helpSomeonElseButtonTitle = [(AKPasswordResetViewController *)selfCopy _helpSomeonElseButtonTitle];
   [UIButton setTitle:helpSomeoneElseButton forState:"setTitle:forState:"];
   MEMORY[0x277D82BD8](_helpSomeonElseButtonTitle);
   MEMORY[0x277D82BD8](helpSomeoneElseButton);
-  objc_storeStrong(&v28, 0);
-  objc_storeStrong(&v29, 0);
-  objc_storeStrong(&v30, 0);
-  objc_storeStrong(&v31, 0);
-  objc_storeStrong(&v32, 0);
   objc_storeStrong(&v33, 0);
-  objc_storeStrong(v34, 0);
+  objc_storeStrong(&v34, 0);
+  objc_storeStrong(&v35, 0);
+  objc_storeStrong(&v36, 0);
+  objc_storeStrong(&v37, 0);
+  objc_storeStrong(&v38, 0);
+  objc_storeStrong(v39, 0);
 }
 
 - (id)_resetMyPasswordButtonTitle
@@ -251,86 +244,80 @@
   view = [(AKPasswordResetViewController *)selfCopy view];
   [view setBackgroundColor:systemBackgroundColor];
   MEMORY[0x277D82BD8](view);
-  MEMORY[0x277D82BD8](systemBackgroundColor);
   keyIconImageView = [(AKPasswordResetViewController *)selfCopy keyIconImageView];
   [(UIImageView *)keyIconImageView frame];
   location[1] = v2;
   location[2] = v3;
   location[3] = v4;
   location[4] = v5;
-  v20 = *&v4 / 2.0;
+  v24 = *&v4 / 2.0;
   keyIconImageView2 = [(AKPasswordResetViewController *)selfCopy keyIconImageView];
   layer = [(UIImageView *)keyIconImageView2 layer];
-  [layer setCornerRadius:v20];
+  [layer setCornerRadius:v24];
   MEMORY[0x277D82BD8](layer);
   MEMORY[0x277D82BD8](keyIconImageView2);
-  MEMORY[0x277D82BD8](keyIconImageView);
   systemBackgroundColor2 = [MEMORY[0x277D75348] systemBackgroundColor];
   keyIconImageView3 = [(AKPasswordResetViewController *)selfCopy keyIconImageView];
   [(UIImageView *)keyIconImageView3 setBackgroundColor:systemBackgroundColor2];
   MEMORY[0x277D82BD8](keyIconImageView3);
-  MEMORY[0x277D82BD8](systemBackgroundColor2);
-  v27 = +[AKPasswordResetAppearance serviceNameFont];
+  v31 = +[AKPasswordResetAppearance serviceNameFont];
   serviceNameLabel = [(AKPasswordResetViewController *)selfCopy serviceNameLabel];
-  [(UILabel *)serviceNameLabel setFont:v27];
+  [(UILabel *)serviceNameLabel setFont:v31];
   MEMORY[0x277D82BD8](serviceNameLabel);
-  MEMORY[0x277D82BD8](v27);
   serviceNameLabel2 = [(AKPasswordResetViewController *)selfCopy serviceNameLabel];
   [(UILabel *)serviceNameLabel2 setAdjustsFontForContentSizeCategory:0];
-  MEMORY[0x277D82BD8](serviceNameLabel2);
   mEMORY[0x277CF0228] = [MEMORY[0x277CF0228] sharedManager];
   isAuthKitSolariumFeatureEnabled = [mEMORY[0x277CF0228] isAuthKitSolariumFeatureEnabled];
-  MEMORY[0x277D82BD8](mEMORY[0x277CF0228]);
+  v6 = MEMORY[0x277D82BD8](mEMORY[0x277CF0228]).n128_u64[0];
   if ((isAuthKitSolariumFeatureEnabled & 1) == 0)
   {
-    v17 = +[AKPasswordResetAppearance closeButtonConfiguration];
+    v21 = +[AKPasswordResetAppearance closeButtonConfiguration];
     closeButton = [(AKPasswordResetViewController *)selfCopy closeButton];
-    [(UIButton *)closeButton setConfiguration:v17];
+    [(UIButton *)closeButton setConfiguration:v21];
     MEMORY[0x277D82BD8](closeButton);
-    MEMORY[0x277D82BD8](v17);
+    v6 = MEMORY[0x277D82BD8](v21).n128_u64[0];
   }
 
-  v13 = +[AKPasswordResetAppearance screenTitleFont];
+  v17 = +[AKPasswordResetAppearance screenTitleFont];
   screenTitleLabel = [(AKPasswordResetViewController *)selfCopy screenTitleLabel];
-  [(UILabel *)screenTitleLabel setFont:v13];
+  [(UILabel *)screenTitleLabel setFont:v17];
   MEMORY[0x277D82BD8](screenTitleLabel);
-  MEMORY[0x277D82BD8](v13);
-  v15 = +[AKPasswordResetAppearance screenSummaryFont];
+  v19 = +[AKPasswordResetAppearance screenSummaryFont];
   screenSummaryLabel = [(AKPasswordResetViewController *)selfCopy screenSummaryLabel];
-  [(UILabel *)screenSummaryLabel setFont:v15];
+  [(UILabel *)screenSummaryLabel setFont:v19];
   MEMORY[0x277D82BD8](screenSummaryLabel);
-  MEMORY[0x277D82BD8](v15);
+  MEMORY[0x277D82BD8](v19);
   objc_initWeak(location, selfCopy);
   _resetMyPasswordButtonConfiguration = [(AKPasswordResetViewController *)selfCopy _resetMyPasswordButtonConfiguration];
   resetMyPasswordButton = [(AKPasswordResetViewController *)selfCopy resetMyPasswordButton];
   [(UIButton *)resetMyPasswordButton setConfiguration:_resetMyPasswordButtonConfiguration];
   MEMORY[0x277D82BD8](resetMyPasswordButton);
-  MEMORY[0x277D82BD8](_resetMyPasswordButtonConfiguration);
+  *&v7 = MEMORY[0x277D82BD8](_resetMyPasswordButtonConfiguration).n128_u64[0];
   resetMyPasswordButton2 = [(AKPasswordResetViewController *)selfCopy resetMyPasswordButton];
-  v37 = MEMORY[0x277D85DD0];
-  v38 = -1073741824;
-  v39 = 0;
-  v40 = __44__AKPasswordResetViewController__applyStyle__block_invoke;
-  v41 = &unk_2784A5D98;
-  objc_copyWeak(v42, location);
-  [(UIButton *)resetMyPasswordButton2 setConfigurationUpdateHandler:&v37];
-  MEMORY[0x277D82BD8](resetMyPasswordButton2);
+  v41 = MEMORY[0x277D85DD0];
+  v42 = -1073741824;
+  v43 = 0;
+  v44 = __44__AKPasswordResetViewController__applyStyle__block_invoke;
+  v45 = &unk_2784A5D98;
+  objc_copyWeak(v46, location);
+  [(UIButton *)resetMyPasswordButton2 setConfigurationUpdateHandler:&v41];
+  *&v8 = MEMORY[0x277D82BD8](resetMyPasswordButton2).n128_u64[0];
   _helpSomeoneElseButtonConfiguration = [(AKPasswordResetViewController *)selfCopy _helpSomeoneElseButtonConfiguration];
   helpSomeoneElseButton = [(AKPasswordResetViewController *)selfCopy helpSomeoneElseButton];
   [(UIButton *)helpSomeoneElseButton setConfiguration:_helpSomeoneElseButtonConfiguration];
   MEMORY[0x277D82BD8](helpSomeoneElseButton);
-  MEMORY[0x277D82BD8](_helpSomeoneElseButtonConfiguration);
+  *&v9 = MEMORY[0x277D82BD8](_helpSomeoneElseButtonConfiguration).n128_u64[0];
   helpSomeoneElseButton2 = [(AKPasswordResetViewController *)selfCopy helpSomeoneElseButton];
-  v31 = MEMORY[0x277D85DD0];
-  v32 = -1073741824;
-  v33 = 0;
-  v34 = __44__AKPasswordResetViewController__applyStyle__block_invoke_2;
-  v35 = &unk_2784A5D98;
-  objc_copyWeak(&v36, location);
-  [(UIButton *)helpSomeoneElseButton2 setConfigurationUpdateHandler:&v31];
+  v35 = MEMORY[0x277D85DD0];
+  v36 = -1073741824;
+  v37 = 0;
+  v38 = __44__AKPasswordResetViewController__applyStyle__block_invoke_2;
+  v39 = &unk_2784A5D98;
+  objc_copyWeak(&v40, location);
+  [(UIButton *)helpSomeoneElseButton2 setConfigurationUpdateHandler:&v35];
   MEMORY[0x277D82BD8](helpSomeoneElseButton2);
-  objc_destroyWeak(&v36);
-  objc_destroyWeak(v42);
+  objc_destroyWeak(&v40);
+  objc_destroyWeak(v46);
   objc_destroyWeak(location);
 }
 
@@ -447,7 +434,7 @@ void __44__AKPasswordResetViewController__applyStyle__block_invoke_2(id *a1, voi
   [(AKPasswordResetViewController *)selfCopy setShowResetMyPasswordButtonLoading:1];
   resetMyPasswordButton = [(AKPasswordResetViewController *)selfCopy resetMyPasswordButton];
   [(UIButton *)resetMyPasswordButton setNeedsUpdateConfiguration];
-  MEMORY[0x277D82BD8](resetMyPasswordButton);
+  *&v3 = MEMORY[0x277D82BD8](resetMyPasswordButton).n128_u64[0];
   [(AKPasswordResetViewController *)selfCopy _startLoading];
   delegate = [(AKPasswordResetViewController *)selfCopy delegate];
   [(AKPasswordResetViewControllerDelegate *)delegate passwordResetControllerDidSelectPrimaryUser:selfCopy];
@@ -464,7 +451,7 @@ void __44__AKPasswordResetViewController__applyStyle__block_invoke_2(id *a1, voi
   [(AKPasswordResetViewController *)selfCopy setShowHelpSomeoneElseButtonLoading:1];
   helpSomeoneElseButton = [(AKPasswordResetViewController *)selfCopy helpSomeoneElseButton];
   [(UIButton *)helpSomeoneElseButton setNeedsUpdateConfiguration];
-  MEMORY[0x277D82BD8](helpSomeoneElseButton);
+  *&v3 = MEMORY[0x277D82BD8](helpSomeoneElseButton).n128_u64[0];
   [(AKPasswordResetViewController *)selfCopy _startLoading];
   delegate = [(AKPasswordResetViewController *)selfCopy delegate];
   [(AKPasswordResetViewControllerDelegate *)delegate passwordResetControllerDidSelectOtherUser:selfCopy];
@@ -475,14 +462,14 @@ void __44__AKPasswordResetViewController__applyStyle__block_invoke_2(id *a1, voi
 - (void)_loadProfilePicture
 {
   selfCopy = self;
-  v12[1] = a2;
+  v13[1] = a2;
   imageProvider = [(AKPasswordResetViewController *)self imageProvider];
-  v12[0] = [(AKProfileImageProviding *)imageProvider profilePictureForAccountOwner];
-  MEMORY[0x277D82BD8](imageProvider);
-  if (v12[0])
+  v13[0] = [(AKProfileImageProviding *)imageProvider profilePictureForAccountOwner];
+  *&v2 = MEMORY[0x277D82BD8](imageProvider).n128_u64[0];
+  if (v13[0])
   {
     profilePictureImageView = [(AKPasswordResetViewController *)selfCopy profilePictureImageView];
-    [(UIImageView *)profilePictureImageView setImage:v12[0]];
+    [(UIImageView *)profilePictureImageView setImage:v13[0]];
     MEMORY[0x277D82BD8](profilePictureImageView);
   }
 
@@ -490,19 +477,19 @@ void __44__AKPasswordResetViewController__applyStyle__block_invoke_2(id *a1, voi
   {
     objc_initWeak(&location, selfCopy);
     imageProvider2 = [(AKPasswordResetViewController *)selfCopy imageProvider];
-    v5 = MEMORY[0x277D85DD0];
-    v6 = -1073741824;
-    v7 = 0;
-    v8 = __52__AKPasswordResetViewController__loadProfilePicture__block_invoke;
-    v9 = &unk_2784A5DE8;
-    objc_copyWeak(&v10, &location);
-    [(AKProfileImageProviding *)imageProvider2 profilePictureForAccountOwnerWithCompletion:&v5];
+    v6 = MEMORY[0x277D85DD0];
+    v7 = -1073741824;
+    v8 = 0;
+    v9 = __52__AKPasswordResetViewController__loadProfilePicture__block_invoke;
+    v10 = &unk_2784A5DE8;
+    objc_copyWeak(&v11, &location);
+    [(AKProfileImageProviding *)imageProvider2 profilePictureForAccountOwnerWithCompletion:&v6];
     MEMORY[0x277D82BD8](imageProvider2);
-    objc_destroyWeak(&v10);
+    objc_destroyWeak(&v11);
     objc_destroyWeak(&location);
   }
 
-  objc_storeStrong(v12, 0);
+  objc_storeStrong(v13, 0);
 }
 
 void __52__AKPasswordResetViewController__loadProfilePicture__block_invoke(id *a1, void *a2, void *a3)
@@ -561,20 +548,18 @@ void __52__AKPasswordResetViewController__loadProfilePicture__block_invoke_2(uin
     v2 = 3;
   }
 
-  v5 = v2;
-  MEMORY[0x277D82BD8](mEMORY[0x277CF0228]);
-  v13[1] = v5;
-  [filledButtonConfiguration setCornerStyle:v5];
+  v12[1] = v2;
+  [filledButtonConfiguration setCornerStyle:{v2, MEMORY[0x277D82BD8](mEMORY[0x277CF0228]).n128_f64[0]}];
   [filledButtonConfiguration setImagePadding:6.0];
-  v8 = MEMORY[0x277D85DD0];
-  v9 = -1073741824;
-  v10 = 0;
-  v11 = __68__AKPasswordResetViewController__resetMyPasswordButtonConfiguration__block_invoke;
-  v12 = &unk_2784A5E10;
-  objc_copyWeak(v13, location);
-  [filledButtonConfiguration setTitleTextAttributesTransformer:&v8];
+  v7 = MEMORY[0x277D85DD0];
+  v8 = -1073741824;
+  v9 = 0;
+  v10 = __68__AKPasswordResetViewController__resetMyPasswordButtonConfiguration__block_invoke;
+  v11 = &unk_2784A5E10;
+  objc_copyWeak(v12, location);
+  [filledButtonConfiguration setTitleTextAttributesTransformer:&v7];
   v4 = MEMORY[0x277D82BE0](filledButtonConfiguration);
-  objc_destroyWeak(v13);
+  objc_destroyWeak(v12);
   objc_storeStrong(&filledButtonConfiguration, 0);
   objc_destroyWeak(location);
 
@@ -586,39 +571,36 @@ id __68__AKPasswordResetViewController__resetMyPasswordButtonConfiguration__bloc
   location[1] = a1;
   location[0] = 0;
   objc_storeStrong(location, a2);
-  v12[1] = a1;
-  v12[0] = [location[0] mutableCopy];
+  v10[1] = a1;
+  v10[0] = [location[0] mutableCopy];
   WeakRetained = objc_loadWeakRetained(a1 + 4);
   if (WeakRetained)
   {
     if ([WeakRetained showResetMyPasswordButtonLoading] & 1) != 0 || (objc_msgSend(WeakRetained, "showHelpSomeoneElseButtonLoading"))
     {
-      v9 = [MEMORY[0x277D75348] systemGrayColor];
-      v2 = *MEMORY[0x277D740C0];
-      [v12[0] setObject:? forKeyedSubscript:?];
-      MEMORY[0x277D82BD8](v9);
+      v7 = [MEMORY[0x277D75348] systemGrayColor];
+      [v10[0] setObject:? forKeyedSubscript:?];
+      v2 = MEMORY[0x277D82BD8](v7).n128_u64[0];
     }
 
     else
     {
-      v8 = [MEMORY[0x277D75348] whiteColor];
-      v3 = *MEMORY[0x277D740C0];
-      [v12[0] setObject:? forKeyedSubscript:?];
-      MEMORY[0x277D82BD8](v8);
+      v6 = [MEMORY[0x277D75348] whiteColor];
+      [v10[0] setObject:? forKeyedSubscript:?];
+      v2 = MEMORY[0x277D82BD8](v6).n128_u64[0];
     }
 
-    v7 = +[AKPasswordResetAppearance actionButtonFont];
-    v4 = *MEMORY[0x277D740A8];
-    [v12[0] setObject:? forKeyedSubscript:?];
-    MEMORY[0x277D82BD8](v7);
+    v5 = +[AKPasswordResetAppearance actionButtonFont];
+    [v10[0] setObject:? forKeyedSubscript:?];
+    MEMORY[0x277D82BD8](v5);
   }
 
-  v6 = MEMORY[0x277D82BE0](v12[0]);
+  v4 = MEMORY[0x277D82BE0](v10[0]);
   objc_storeStrong(&WeakRetained, 0);
-  objc_storeStrong(v12, 0);
+  objc_storeStrong(v10, 0);
   objc_storeStrong(location, 0);
 
-  return v6;
+  return v4;
 }
 
 - (id)_helpSomeoneElseButtonConfiguration
@@ -648,76 +630,39 @@ id __68__AKPasswordResetViewController__helpSomeoneElseButtonConfiguration__bloc
   location[1] = a1;
   location[0] = 0;
   objc_storeStrong(location, a2);
-  v12[1] = a1;
-  v12[0] = [location[0] mutableCopy];
+  v10[1] = a1;
+  v10[0] = [location[0] mutableCopy];
   WeakRetained = objc_loadWeakRetained(a1 + 4);
   if (WeakRetained)
   {
     if ([WeakRetained showResetMyPasswordButtonLoading] & 1) != 0 || (objc_msgSend(WeakRetained, "showHelpSomeoneElseButtonLoading"))
     {
-      v9 = [MEMORY[0x277D75348] systemGrayColor];
-      v2 = *MEMORY[0x277D740C0];
-      [v12[0] setObject:? forKeyedSubscript:?];
-      MEMORY[0x277D82BD8](v9);
+      v7 = [MEMORY[0x277D75348] systemGrayColor];
+      [v10[0] setObject:? forKeyedSubscript:?];
+      v2 = MEMORY[0x277D82BD8](v7).n128_u64[0];
     }
 
     else
     {
-      v8 = [MEMORY[0x277D75348] systemBlueColor];
-      v3 = *MEMORY[0x277D740C0];
-      [v12[0] setObject:? forKeyedSubscript:?];
-      MEMORY[0x277D82BD8](v8);
+      v6 = [MEMORY[0x277D75348] systemBlueColor];
+      [v10[0] setObject:? forKeyedSubscript:?];
+      v2 = MEMORY[0x277D82BD8](v6).n128_u64[0];
     }
 
-    v7 = +[AKPasswordResetAppearance actionButtonFont];
-    v4 = *MEMORY[0x277D740A8];
-    [v12[0] setObject:? forKeyedSubscript:?];
-    MEMORY[0x277D82BD8](v7);
+    v5 = +[AKPasswordResetAppearance actionButtonFont];
+    [v10[0] setObject:? forKeyedSubscript:?];
+    MEMORY[0x277D82BD8](v5);
   }
 
-  v6 = MEMORY[0x277D82BE0](v12[0]);
+  v4 = MEMORY[0x277D82BE0](v10[0]);
   objc_storeStrong(&WeakRetained, 0);
-  objc_storeStrong(v12, 0);
+  objc_storeStrong(v10, 0);
   objc_storeStrong(location, 0);
 
-  return v6;
+  return v4;
 }
 
 - (void)_startLoading
-{
-  selfCopy = self;
-  location[1] = a2;
-  location[0] = _AKLogSystem();
-  v11 = OS_LOG_TYPE_DEFAULT;
-  if (os_log_type_enabled(location[0], OS_LOG_TYPE_DEFAULT))
-  {
-    v8 = location[0];
-    v9 = v11;
-    __os_log_helper_16_0_0(v10);
-    _os_log_impl(&dword_222379000, v8, v9, "Started loading state in password reset options screen", v10, 2u);
-  }
-
-  objc_storeStrong(location, 0);
-  resetMyPasswordButton = [(AKPasswordResetViewController *)selfCopy resetMyPasswordButton];
-  [(UIButton *)resetMyPasswordButton setEnabled:0];
-  MEMORY[0x277D82BD8](resetMyPasswordButton);
-  helpSomeoneElseButton = [(AKPasswordResetViewController *)selfCopy helpSomeoneElseButton];
-  [(UIButton *)helpSomeoneElseButton setEnabled:0];
-  MEMORY[0x277D82BD8](helpSomeoneElseButton);
-  closeButton = [(AKPasswordResetViewController *)selfCopy closeButton];
-  [(UIButton *)closeButton setHidden:1];
-  MEMORY[0x277D82BD8](closeButton);
-  navigationItem = [(AKPasswordResetViewController *)selfCopy navigationItem];
-  rightBarButtonItem = [navigationItem rightBarButtonItem];
-  [rightBarButtonItem setHidden:1];
-  MEMORY[0x277D82BD8](rightBarButtonItem);
-  MEMORY[0x277D82BD8](navigationItem);
-  view = [(AKPasswordResetViewController *)selfCopy view];
-  [view setUserInteractionEnabled:0];
-  MEMORY[0x277D82BD8](view);
-}
-
-- (void)stopLoading
 {
   selfCopy = self;
   location[1] = a2;
@@ -728,35 +673,68 @@ id __68__AKPasswordResetViewController__helpSomeoneElseButtonConfiguration__bloc
     v12 = location[0];
     v13 = v15;
     __os_log_helper_16_0_0(v14);
-    _os_log_impl(&dword_222379000, v12, v13, "Stopped loading state in password reset options screen", v14, 2u);
+    _os_log_impl(&dword_222379000, v12, v13, "Started loading state in password reset options screen", v14, 2u);
+  }
+
+  objc_storeStrong(location, 0);
+  resetMyPasswordButton = [(AKPasswordResetViewController *)selfCopy resetMyPasswordButton];
+  [(UIButton *)resetMyPasswordButton setEnabled:0];
+  *&v2 = MEMORY[0x277D82BD8](resetMyPasswordButton).n128_u64[0];
+  helpSomeoneElseButton = [(AKPasswordResetViewController *)selfCopy helpSomeoneElseButton];
+  [(UIButton *)helpSomeoneElseButton setEnabled:0];
+  *&v3 = MEMORY[0x277D82BD8](helpSomeoneElseButton).n128_u64[0];
+  closeButton = [(AKPasswordResetViewController *)selfCopy closeButton];
+  [(UIButton *)closeButton setHidden:1];
+  *&v4 = MEMORY[0x277D82BD8](closeButton).n128_u64[0];
+  navigationItem = [(AKPasswordResetViewController *)selfCopy navigationItem];
+  rightBarButtonItem = [navigationItem rightBarButtonItem];
+  [rightBarButtonItem setHidden:1];
+  MEMORY[0x277D82BD8](rightBarButtonItem);
+  *&v5 = MEMORY[0x277D82BD8](navigationItem).n128_u64[0];
+  view = [(AKPasswordResetViewController *)selfCopy view];
+  [view setUserInteractionEnabled:0];
+  MEMORY[0x277D82BD8](view);
+}
+
+- (void)stopLoading
+{
+  selfCopy = self;
+  location[1] = a2;
+  location[0] = _AKLogSystem();
+  v20 = OS_LOG_TYPE_DEFAULT;
+  if (os_log_type_enabled(location[0], OS_LOG_TYPE_DEFAULT))
+  {
+    v17 = location[0];
+    v18 = v20;
+    __os_log_helper_16_0_0(v19);
+    _os_log_impl(&dword_222379000, v17, v18, "Stopped loading state in password reset options screen", v19, 2u);
   }
 
   objc_storeStrong(location, 0);
   [(AKPasswordResetViewController *)selfCopy setShowResetMyPasswordButtonLoading:0];
   resetMyPasswordButton = [(AKPasswordResetViewController *)selfCopy resetMyPasswordButton];
   [(UIButton *)resetMyPasswordButton setNeedsUpdateConfiguration];
-  MEMORY[0x277D82BD8](resetMyPasswordButton);
-  [(AKPasswordResetViewController *)selfCopy setShowHelpSomeoneElseButtonLoading:0];
+  *&v2 = MEMORY[0x277D82BD8](resetMyPasswordButton).n128_u64[0];
+  [(AKPasswordResetViewController *)selfCopy setShowHelpSomeoneElseButtonLoading:0, v2];
   helpSomeoneElseButton = [(AKPasswordResetViewController *)selfCopy helpSomeoneElseButton];
   [(UIButton *)helpSomeoneElseButton setNeedsUpdateConfiguration];
-  MEMORY[0x277D82BD8](helpSomeoneElseButton);
+  *&v3 = MEMORY[0x277D82BD8](helpSomeoneElseButton).n128_u64[0];
   resetMyPasswordButton2 = [(AKPasswordResetViewController *)selfCopy resetMyPasswordButton];
   [(UIButton *)resetMyPasswordButton2 setEnabled:1];
-  MEMORY[0x277D82BD8](resetMyPasswordButton2);
+  *&v4 = MEMORY[0x277D82BD8](resetMyPasswordButton2).n128_u64[0];
   helpSomeoneElseButton2 = [(AKPasswordResetViewController *)selfCopy helpSomeoneElseButton];
   [(UIButton *)helpSomeoneElseButton2 setEnabled:1];
-  MEMORY[0x277D82BD8](helpSomeoneElseButton2);
   mEMORY[0x277CF0228] = [MEMORY[0x277CF0228] sharedManager];
   isAuthKitSolariumFeatureEnabled = [mEMORY[0x277CF0228] isAuthKitSolariumFeatureEnabled];
   closeButton = [(AKPasswordResetViewController *)selfCopy closeButton];
   [(UIButton *)closeButton setHidden:isAuthKitSolariumFeatureEnabled];
   MEMORY[0x277D82BD8](closeButton);
-  MEMORY[0x277D82BD8](mEMORY[0x277CF0228]);
+  *&v5 = MEMORY[0x277D82BD8](mEMORY[0x277CF0228]).n128_u64[0];
   navigationItem = [(AKPasswordResetViewController *)selfCopy navigationItem];
   rightBarButtonItem = [navigationItem rightBarButtonItem];
   [rightBarButtonItem setHidden:0];
   MEMORY[0x277D82BD8](rightBarButtonItem);
-  MEMORY[0x277D82BD8](navigationItem);
+  *&v6 = MEMORY[0x277D82BD8](navigationItem).n128_u64[0];
   view = [(AKPasswordResetViewController *)selfCopy view];
   [view setUserInteractionEnabled:1];
   MEMORY[0x277D82BD8](view);

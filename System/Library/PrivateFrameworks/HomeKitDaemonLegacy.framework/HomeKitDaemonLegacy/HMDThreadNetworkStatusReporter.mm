@@ -47,7 +47,7 @@
 
 void __63__HMDThreadNetworkStatusReporter__runThreadNetworkStateCapture__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -63,9 +63,9 @@ void __63__HMDThreadNetworkStatusReporter__runThreadNetworkStateCapture__block_i
       {
         v19 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v23 = v19;
-        v24 = 2112;
-        v25 = v6;
+        v22 = v19;
+        v23 = 2112;
+        v24 = v6;
         _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_ERROR, "%{public}@Periodic Thread network health reporting failed with error %@", buf, 0x16u);
       }
 
@@ -85,44 +85,42 @@ void __63__HMDThreadNetworkStatusReporter__runThreadNetworkStateCapture__block_i
       v15 = HMFGetOSLogHandle();
       if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
-        v21 = HMFGetLogIdentifier();
+        v20 = HMFGetLogIdentifier();
         *buf = 138546178;
-        v23 = v21;
-        v24 = 2048;
-        v25 = [v5 reportDuration];
-        v26 = 2048;
-        v27 = [v5 numAdvertisedBRs];
-        v28 = 2048;
-        v29 = [v5 numAppleBRs];
-        v30 = 2048;
-        v31 = [v5 numThirdPartyBRs];
-        v32 = 2048;
-        v33 = [v5 numThreadNetworks];
-        v34 = 2048;
-        v35 = [v5 maxSimuIPPrefixesDetected];
-        v36 = 2048;
-        v37 = [v5 txTotal];
-        v38 = 2048;
-        v39 = [v5 txSuccess];
-        v40 = 2048;
-        v41 = [v5 txDelayAvg];
-        v42 = 2048;
-        v43 = [v5 rxTotal];
-        v44 = 2048;
-        v45 = [v5 rxSuccess];
+        v22 = v20;
+        v23 = 2048;
+        v24 = [v5 reportDuration];
+        v25 = 2048;
+        v26 = [v5 numAdvertisedBRs];
+        v27 = 2048;
+        v28 = [v5 numAppleBRs];
+        v29 = 2048;
+        v30 = [v5 numThirdPartyBRs];
+        v31 = 2048;
+        v32 = [v5 numThreadNetworks];
+        v33 = 2048;
+        v34 = [v5 maxSimuIPPrefixesDetected];
+        v35 = 2048;
+        v36 = [v5 txTotal];
+        v37 = 2048;
+        v38 = [v5 txSuccess];
+        v39 = 2048;
+        v40 = [v5 txDelayAvg];
+        v41 = 2048;
+        v42 = [v5 rxTotal];
+        v43 = 2048;
+        v44 = [v5 rxSuccess];
         _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Periodic Thread network health reporting - duration=%ld BRs:(T=%ld A=%ld 3=%ld) Ntwk:(#=%ld IPpfx=%ld) Tx:(T=%ld S=%ld AvgDelay=%ld) Rx:(T=%ld S=%ld)", buf, 0x7Au);
       }
 
       objc_autoreleasePoolPop(v13);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_checkIfThreadNetworkIsRunningWithCompletion:(id)completion
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   workQueue = [(HMDThreadNetworkStatusReporter *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -142,22 +140,20 @@ void __63__HMDThreadNetworkStatusReporter__runThreadNetworkStateCapture__block_i
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       v11 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v11;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_DEBUG, "%{public}@No thread network metadata store", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v11;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_DEBUG, "%{public}@No thread network metadata store", &v13, 0xCu);
     }
 
     objc_autoreleasePoolPop(v8);
     v12 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
     completionCopy[2](completionCopy, 0, v12);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_unregisterForThreadNetworkEvents
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDThreadNetworkStatusReporter *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -169,11 +165,11 @@ void __63__HMDThreadNetworkStatusReporter__runThreadNetworkStateCapture__block_i
     v7 = HMFGetLogIdentifier();
     home = [(HMDThreadNetworkStatusReporter *)selfCopy home];
     name = [home name];
-    v14 = 138543618;
-    v15 = v7;
-    v16 = 2112;
-    v17 = name;
-    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@_unregisterForThreadNetworkEvents for home %@", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = v7;
+    v15 = 2112;
+    v16 = name;
+    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@_unregisterForThreadNetworkEvents for home %@", &v13, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -187,8 +183,6 @@ void __63__HMDThreadNetworkStatusReporter__runThreadNetworkStateCapture__block_i
     [home2 onThreadNetworkConnectionStateChange:1];
     [v12 onThreadNetworkNodeTypeStateChange:0];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unregisterForThreadNetworkEvents
@@ -204,7 +198,7 @@ void __63__HMDThreadNetworkStatusReporter__runThreadNetworkStateCapture__block_i
 
 - (void)_registerForThreadNetworkEvents
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDThreadNetworkStatusReporter *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -216,18 +210,16 @@ void __63__HMDThreadNetworkStatusReporter__runThreadNetworkStateCapture__block_i
     v7 = HMFGetLogIdentifier();
     home = [(HMDThreadNetworkStatusReporter *)selfCopy home];
     name = [home name];
-    v12 = 138543618;
-    v13 = v7;
-    v14 = 2112;
-    v15 = name;
-    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@_registerForThreadNetworkEvents for home %@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v7;
+    v13 = 2112;
+    v14 = name;
+    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@_registerForThreadNetworkEvents for home %@", &v11, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
   threadRadioClient = [(HMDThreadNetworkStatusReporter *)selfCopy threadRadioClient];
   [threadRadioClient registerForThreadNetworkEvents:selfCopy];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerForThreadNetworkEvents
@@ -253,7 +245,7 @@ void __64__HMDThreadNetworkStatusReporter_registerForThreadNetworkEvents__block_
 
 - (void)threadBTCallStateChange:(id)change
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -261,13 +253,13 @@ void __64__HMDThreadNetworkStatusReporter_registerForThreadNetworkEvents__block_
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v22 = 138543874;
-    v23 = v8;
-    v24 = 2112;
-    v25 = changeCopy;
-    v26 = 2048;
+    v21 = 138543874;
+    v22 = v8;
+    v23 = 2112;
+    v24 = changeCopy;
+    v25 = 2048;
     callState = [changeCopy callState];
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@threadBTCallStateChange - received event %@, value %ld", &v22, 0x20u);
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@threadBTCallStateChange - received event %@, value %ld", &v21, 0x20u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -291,11 +283,11 @@ LABEL_14:
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         v20 = HMFGetLogIdentifier();
-        v22 = 138543618;
-        v23 = v20;
-        v24 = 2112;
-        v25 = changeCopy;
-        _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_ERROR, "%{public}@Unexpected event %@", &v22, 0x16u);
+        v21 = 138543618;
+        v22 = v20;
+        v23 = 2112;
+        v24 = changeCopy;
+        _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_ERROR, "%{public}@Unexpected event %@", &v21, 0x16u);
       }
 
       objc_autoreleasePoolPop(v17);
@@ -312,24 +304,22 @@ LABEL_14:
   {
     v15 = HMFGetLogIdentifier();
     callState3 = [changeCopy callState];
-    v22 = 138543874;
-    v23 = v15;
-    v24 = 2112;
-    v25 = changeCopy;
-    v26 = 2048;
+    v21 = 138543874;
+    v22 = v15;
+    v23 = 2112;
+    v24 = changeCopy;
+    v25 = 2048;
     callState = callState3;
-    _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@No linked home, dropping threadBTCallStateChange event %@, value %ld", &v22, 0x20u);
+    _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@No linked home, dropping threadBTCallStateChange event %@, value %ld", &v21, 0x20u);
   }
 
   objc_autoreleasePoolPop(v12);
 LABEL_15:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)threadPreferredNetworkUpdated:(id)updated
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -338,13 +328,13 @@ LABEL_15:
   {
     v8 = HMFGetLogIdentifier();
     eventValue = [updatedCopy eventValue];
-    v20 = 138543874;
-    v21 = v8;
-    v22 = 2112;
-    v23 = updatedCopy;
-    v24 = 2112;
-    v25 = eventValue;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@threadPreferredNetworkUpdated - received event %@, value %@", &v20, 0x20u);
+    v19 = 138543874;
+    v20 = v8;
+    v21 = 2112;
+    v22 = updatedCopy;
+    v23 = 2112;
+    v24 = eventValue;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@threadPreferredNetworkUpdated - received event %@, value %@", &v19, 0x20u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -358,7 +348,7 @@ LABEL_15:
       if (eventValue2)
       {
         eventValue3 = [updatedCopy eventValue];
-        v13 = [eventValue3 copy];
+        v13 = objc_msgSend_copy(eventValue3);
         [home saveAndSyncWithThreadOperationalDataset:v13];
       }
     }
@@ -373,24 +363,22 @@ LABEL_15:
     {
       v17 = HMFGetLogIdentifier();
       eventValue4 = [updatedCopy eventValue];
-      v20 = 138543874;
-      v21 = v17;
-      v22 = 2112;
-      v23 = updatedCopy;
-      v24 = 2112;
-      v25 = eventValue4;
-      _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_ERROR, "%{public}@No linked home, dropping threadPreferredNetworkUpdated event %@, value %@", &v20, 0x20u);
+      v19 = 138543874;
+      v20 = v17;
+      v21 = 2112;
+      v22 = updatedCopy;
+      v23 = 2112;
+      v24 = eventValue4;
+      _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_ERROR, "%{public}@No linked home, dropping threadPreferredNetworkUpdated event %@, value %@", &v19, 0x20u);
     }
 
     objc_autoreleasePoolPop(v14);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)threadPeripheralDeviceNodeTypeChange:(id)change
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -398,13 +386,13 @@ LABEL_15:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v16 = 138543874;
-    v17 = v8;
-    v18 = 2112;
-    v19 = changeCopy;
-    v20 = 2048;
+    v15 = 138543874;
+    v16 = v8;
+    v17 = 2112;
+    v18 = changeCopy;
+    v19 = 2048;
     peripheralDeviceNodeType = [changeCopy peripheralDeviceNodeType];
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@threadPeripheralDeviceNodeTypeChange - received event %@, peripheral nodeType %ld", &v16, 0x20u);
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@threadPeripheralDeviceNodeTypeChange - received event %@, peripheral nodeType %ld", &v15, 0x20u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -423,20 +411,18 @@ LABEL_15:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v14 = HMFGetLogIdentifier();
-      v16 = 138543362;
-      v17 = v14;
-      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@No linked home, dropping threadPeripheralDeviceNodeTypeChange event", &v16, 0xCu);
+      v15 = 138543362;
+      v16 = v14;
+      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@No linked home, dropping threadPeripheralDeviceNodeTypeChange event", &v15, 0xCu);
     }
 
     objc_autoreleasePoolPop(v11);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)threadWakeOnDeviceConnectionStateChange:(id)change
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -445,15 +431,15 @@ LABEL_15:
   {
     v8 = HMFGetLogIdentifier();
     eMACAddressAsString = [changeCopy eMACAddressAsString];
-    v17 = 138544130;
-    v18 = v8;
-    v19 = 2112;
-    v20 = changeCopy;
-    v21 = 2112;
-    v22 = eMACAddressAsString;
-    v23 = 2048;
+    v16 = 138544130;
+    v17 = v8;
+    v18 = 2112;
+    v19 = changeCopy;
+    v20 = 2112;
+    v21 = eMACAddressAsString;
+    v22 = 2048;
     connectionState = [changeCopy connectionState];
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@threadWakeOnDeviceConnectionStateChange - received event %@, eMACAddress %@, connectionState %ld", &v17, 0x2Au);
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@threadWakeOnDeviceConnectionStateChange - received event %@, eMACAddress %@, connectionState %ld", &v16, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -472,20 +458,18 @@ LABEL_15:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       v15 = HMFGetLogIdentifier();
-      v17 = 138543362;
-      v18 = v15;
-      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@No linked home, dropping threadWakeOnDeviceConnectionStateChange event", &v17, 0xCu);
+      v16 = 138543362;
+      v17 = v15;
+      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@No linked home, dropping threadWakeOnDeviceConnectionStateChange event", &v16, 0xCu);
     }
 
     objc_autoreleasePoolPop(v12);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)threadNetworkStateChange:(id)change
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -493,15 +477,15 @@ LABEL_15:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v21 = 138544130;
-    v22 = v8;
-    v23 = 2112;
-    v24 = changeCopy;
-    v25 = 2048;
+    v20 = 138544130;
+    v21 = v8;
+    v22 = 2112;
+    v23 = changeCopy;
+    v24 = 2048;
     eventType = [changeCopy eventType];
-    v27 = 2048;
+    v26 = 2048;
     eventValue = [changeCopy eventValue];
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@threadNetworkStateChange - received event %@, type %ld, value %ld", &v21, 0x2Au);
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@threadNetworkStateChange - received event %@, type %ld, value %ld", &v20, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -516,19 +500,19 @@ LABEL_15:
       v14 = HMFGetLogIdentifier();
       eventType2 = [changeCopy eventType];
       eventValue2 = [changeCopy eventValue];
-      v21 = 138544130;
-      v22 = v14;
-      v23 = 2112;
-      v24 = changeCopy;
-      v25 = 2048;
+      v20 = 138544130;
+      v21 = v14;
+      v22 = 2112;
+      v23 = changeCopy;
+      v24 = 2048;
       eventType = eventType2;
-      v27 = 2048;
+      v26 = 2048;
       eventValue = eventValue2;
       v17 = "%{public}@No linked home, dropping threadNetworkStateChange event %@, type %ld, value %ld";
       v18 = v13;
       v19 = 42;
 LABEL_12:
-      _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_ERROR, v17, &v21, v19);
+      _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_ERROR, v17, &v20, v19);
     }
 
 LABEL_13:
@@ -552,10 +536,10 @@ LABEL_13:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v14 = HMFGetLogIdentifier();
-      v21 = 138543618;
-      v22 = v14;
-      v23 = 2112;
-      v24 = changeCopy;
+      v20 = 138543618;
+      v21 = v14;
+      v22 = 2112;
+      v23 = changeCopy;
       v17 = "%{public}@Unexpected event %@";
       v18 = v13;
       v19 = 22;
@@ -567,8 +551,6 @@ LABEL_13:
 
   [home onThreadNetworkConnectionStateChange:{objc_msgSend(changeCopy, "eventValue")}];
 LABEL_14:
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_runThreadNetworkStatusPeriodicUpdate
@@ -593,22 +575,22 @@ LABEL_14:
 
     objc_initWeak(location, self);
     doesHomeContainResident = [home doesHomeContainResident];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __71__HMDThreadNetworkStatusReporter__runThreadNetworkStatusPeriodicUpdate__block_invoke;
-    v22[3] = &unk_279723910;
-    objc_copyWeak(&v24, location);
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __71__HMDThreadNetworkStatusReporter__runThreadNetworkStatusPeriodicUpdate__block_invoke;
+    v21[3] = &unk_279723910;
+    objc_copyWeak(&v23, location);
     v8 = home;
-    v23 = v8;
-    [v4 retrieveMetadata:threadOperationalDataset homeHasResident:doesHomeContainResident completion:v22];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __71__HMDThreadNetworkStatusReporter__runThreadNetworkStatusPeriodicUpdate__block_invoke_2;
-    v19[3] = &unk_279725BE0;
-    objc_copyWeak(&v21, location);
+    v22 = v8;
+    [v4 retrieveMetadata:threadOperationalDataset homeHasResident:doesHomeContainResident completion:v21];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __71__HMDThreadNetworkStatusReporter__runThreadNetworkStatusPeriodicUpdate__block_invoke_2;
+    v18[3] = &unk_279725BE0;
+    objc_copyWeak(&v20, location);
     v9 = v8;
-    v20 = v9;
-    [(HMDThreadNetworkStatusReporter *)self _checkIfThreadNetworkIsRunningWithCompletion:v19];
+    v19 = v9;
+    [(HMDThreadNetworkStatusReporter *)self _checkIfThreadNetworkIsRunningWithCompletion:v18];
     [(HMDThreadNetworkStatusReporter *)self _runThreadNetworkStateCapture];
     v10 = dispatch_time(0, 60000000000 * [(HMDThreadNetworkStatusReporter *)self threadNetworkPeriodicCheckFrequencyInMins]);
     workQueue2 = [(HMDThreadNetworkStatusReporter *)self workQueue];
@@ -616,13 +598,13 @@ LABEL_14:
     block[1] = 3221225472;
     block[2] = __71__HMDThreadNetworkStatusReporter__runThreadNetworkStatusPeriodicUpdate__block_invoke_3;
     block[3] = &unk_279732FD8;
-    objc_copyWeak(&v18, location);
+    objc_copyWeak(&v17, location);
     dispatch_after(v10, workQueue2, block);
 
-    objc_destroyWeak(&v18);
-    objc_destroyWeak(&v21);
+    objc_destroyWeak(&v17);
+    objc_destroyWeak(&v20);
 
-    objc_destroyWeak(&v24);
+    objc_destroyWeak(&v23);
     objc_destroyWeak(location);
   }
 
@@ -641,8 +623,6 @@ LABEL_14:
 
     objc_autoreleasePoolPop(v12);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __71__HMDThreadNetworkStatusReporter__runThreadNetworkStatusPeriodicUpdate__block_invoke(uint64_t a1, void *a2)
@@ -665,7 +645,7 @@ void __71__HMDThreadNetworkStatusReporter__runThreadNetworkStatusPeriodicUpdate_
           {
             v6 = *(a1 + 32);
             v7 = [v9 operationalDataset];
-            v8 = [v7 copy];
+            v8 = objc_msgSend_copy(v7);
             [v6 saveAndSyncWithThreadOperationalDataset:v8];
           }
         }
@@ -708,7 +688,7 @@ void __71__HMDThreadNetworkStatusReporter__runThreadNetworkStatusPeriodicUpdate_
 
 - (void)_scheduleThreadNetworkStatusPeriodicUpdate
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDThreadNetworkStatusReporter *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -735,18 +715,16 @@ void __71__HMDThreadNetworkStatusReporter__runThreadNetworkStatusPeriodicUpdate_
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v11 = HMFGetLogIdentifier();
-      v13 = 138543618;
-      v14 = v11;
-      v15 = 2048;
+      v12 = 138543618;
+      v13 = v11;
+      v14 = 2048;
       threadNetworkPeriodicCheckFrequencyInMins = [(HMDThreadNetworkStatusReporter *)selfCopy threadNetworkPeriodicCheckFrequencyInMins];
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@Scheduling start of periodic Thread network health reporting (for every %lu minutes)", &v13, 0x16u);
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@Scheduling start of periodic Thread network health reporting (for every %lu minutes)", &v12, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
     [(HMDThreadNetworkStatusReporter *)selfCopy _runThreadNetworkStatusPeriodicUpdate];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)run
@@ -817,12 +795,11 @@ void __37__HMDThreadNetworkStatusReporter_run__block_invoke(uint64_t a1)
 
 uint64_t __45__HMDThreadNetworkStatusReporter_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_18297;
-  logCategory__hmf_once_v1_18297 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_18297;
+  logCategory__hmf_once_v1_18297 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

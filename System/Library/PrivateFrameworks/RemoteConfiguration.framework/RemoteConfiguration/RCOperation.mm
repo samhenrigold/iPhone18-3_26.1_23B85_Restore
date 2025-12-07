@@ -58,30 +58,27 @@
     *(v2 + 41) = v11;
 
     dispatch_group_enter(*(v2 + 41));
-    v13 = RCSharedLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = RCSharedLog(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       shortOperationDescription = [v2 shortOperationDescription];
       *buf = 138543362;
       v19 = shortOperationDescription;
-      _os_log_impl(&dword_2179FC000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@ created", buf, 0xCu);
+      _os_log_impl(&dword_2179FC000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@ created", buf, 0xCu);
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 - (void)dealloc
 {
-  v7 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"an operation should never be deallocated while it is still executing"];
+  v6 = 136315906;
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3_0(&dword_2179FC000, MEMORY[0x277D86220], v1, "*** Assertion failure: %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_0(&dword_2179FC000, MEMORY[0x277D86220], v1, "*** Assertion failure: %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)cancel
@@ -116,41 +113,39 @@
 
 void __35__RCOperation_setRelativePriority___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = [*(a1 + 32) childOperations];
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = RCProtocolCast(&unk_2829A2C08, *(*(&v9 + 1) + 8 * v6));
+        v7 = RCProtocolCast(&unk_2829A2C08, *(*(&v8 + 1) + 8 * v6));
         [v7 setRelativePriority:*(a1 + 40)];
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setQualityOfService:(int64_t)service
@@ -178,28 +173,28 @@ void __35__RCOperation_setRelativePriority___block_invoke(uint64_t a1)
 
 void __35__RCOperation_setQualityOfService___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v2 = [*(a1 + 32) childOperations];
-  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     do
     {
       v6 = 0;
       do
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * v6);
+        v7 = *(*(&v10 + 1) + 8 * v6);
         v8 = objc_opt_class();
         v9 = RCDynamicCast(v8, v7);
         [v9 setQualityOfService:*(a1 + 40)];
@@ -208,37 +203,33 @@ void __35__RCOperation_setQualityOfService___block_invoke(uint64_t a1)
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)start
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc(MEMORY[0x277CCACA8]);
   shortOperationDescription = [self shortOperationDescription];
   v4 = [v2 initWithFormat:@"%@ has already been started", shortOperationDescription];
   *buf = 136315906;
-  v7 = "[RCOperation start]";
-  v8 = 2080;
-  v9 = "/Library/Caches/com.apple.xbs/Sources/RemoteConfiguration/RemoteConfiguration/Operations/RCOperation.m";
-  v10 = 1024;
-  v11 = 174;
-  v12 = 2114;
-  v13 = v4;
+  v6 = "[RCOperation start]";
+  v7 = 2080;
+  v8 = "/Library/Caches/com.apple.xbs/Sources/RemoteConfiguration/RemoteConfiguration/Operations/RCOperation.m";
+  v9 = 1024;
+  v10 = 174;
+  v11 = 2114;
+  v12 = v4;
   _os_log_error_impl(&dword_2179FC000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure: %s %s:%d %{public}@", buf, 0x26u);
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_startIfNeeded
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   startOnce = [(RCOperation *)self startOnce];
   trigger = [startOnce trigger];
 
@@ -247,14 +238,14 @@ void __35__RCOperation_setQualityOfService___block_invoke(uint64_t a1)
     [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
     [(RCOperation *)self setOperationStartTime:?];
     selfCopy = self;
-    v17 = 0.0;
-    if ([(RCOperation *)selfCopy _shouldThrottleOperationWithRetryAfter:&v17])
+    v16 = 0.0;
+    if ([(RCOperation *)selfCopy _shouldThrottleOperationWithRetryAfter:&v16])
     {
       dictionary = [MEMORY[0x277CBEB38] dictionary];
       _errorUserInfo = [(RCOperation *)selfCopy _errorUserInfo];
       [dictionary addEntriesFromDictionary:_errorUserInfo];
 
-      v8 = [MEMORY[0x277CCABB0] numberWithDouble:v17];
+      v8 = [MEMORY[0x277CCABB0] numberWithDouble:v16];
       [dictionary setObject:v8 forKey:@"RCErrorRetryAfter"];
 
       v9 = [MEMORY[0x277CCA9B8] rc_errorWithCode:8 description:@"The operation was throttled." additionalUserInfo:dictionary];
@@ -267,14 +258,13 @@ void __35__RCOperation_setQualityOfService___block_invoke(uint64_t a1)
       {
         [(RCOperation *)selfCopy willChangeValueForKey:@"isExecuting"];
         atomic_store(1u, &selfCopy->_executing);
-        [(RCOperation *)selfCopy didChangeValueForKey:@"isExecuting"];
-        v15 = RCSharedLog();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        v14 = RCSharedLog([(RCOperation *)selfCopy didChangeValueForKey:@"isExecuting"]);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
           longOperationDescription = [(RCOperation *)selfCopy longOperationDescription];
           *buf = 138543362;
-          v19 = longOperationDescription;
-          _os_log_impl(&dword_2179FC000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@ started", buf, 0xCu);
+          v18 = longOperationDescription;
+          _os_log_impl(&dword_2179FC000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@ started", buf, 0xCu);
         }
 
         [(RCOperation *)selfCopy prepareOperation];
@@ -299,20 +289,17 @@ LABEL_9:
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return trigger;
 }
 
 - (void)performOperation
 {
-  v7 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Abstract method"];
+  v6 = 136315906;
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3_0(&dword_2179FC000, MEMORY[0x277D86220], v1, "*** Assertion failure: %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_0(&dword_2179FC000, MEMORY[0x277D86220], v1, "*** Assertion failure: %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)finishedPerformingOperationWithError:(id)error
@@ -381,13 +368,17 @@ LABEL_11:
 
   throttleGroup = [(RCOperation *)self throttleGroup];
 
-  if (!throttleGroup && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  if (!throttleGroup)
   {
-    [RCOperation _handleThrottlingFromError:delay:];
+    v8 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+    if (v8)
+    {
+      [RCOperation _handleThrottlingFromError:delay:];
+    }
   }
 
-  v8 = RCSharedLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = RCSharedLog(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     shortOperationDescription = [(RCOperation *)self shortOperationDescription];
     throttleGroup2 = [(RCOperation *)self throttleGroup];
@@ -399,7 +390,7 @@ LABEL_11:
     delayCopy = delay;
     v19 = 2114;
     v20 = errorCopy;
-    _os_log_impl(&dword_2179FC000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ will start throttling requests from group %@ for %.2f seconds due to error %{public}@", buf, 0x2Au);
+    _os_log_impl(&dword_2179FC000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ will start throttling requests from group %@ for %.2f seconds due to error %{public}@", buf, 0x2Au);
   }
 
   v12[0] = MEMORY[0x277D85DD0];
@@ -409,8 +400,6 @@ LABEL_11:
   v12[4] = self;
   *&v12[5] = delay;
   [_handleThrottlingFromError_delay__s_throttleLock performWithLockSync:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __48__RCOperation__handleThrottlingFromError_delay___block_invoke()
@@ -437,40 +426,37 @@ void __48__RCOperation__handleThrottlingFromError_delay___block_invoke_92(uint64
 
 - (void)_handleRetryFromError:(id)error signal:(id)signal
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   signalCopy = signal;
-  [(RCOperation *)self setRetryCount:[(RCOperation *)self retryCount]+ 1];
-  v8 = RCSharedLog();
+  v8 = RCSharedLog([(RCOperation *)self setRetryCount:[(RCOperation *)self retryCount]+ 1]);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     shortOperationDescription = [(RCOperation *)self shortOperationDescription];
     *buf = 138544386;
-    v18 = shortOperationDescription;
-    v19 = 2048;
+    v17 = shortOperationDescription;
+    v18 = 2048;
     retryCount = [(RCOperation *)self retryCount];
-    v21 = 2048;
+    v20 = 2048;
     maxRetries = [(RCOperation *)self maxRetries];
-    v23 = 2114;
-    v24 = signalCopy;
-    v25 = 2114;
-    v26 = errorCopy;
+    v22 = 2114;
+    v23 = signalCopy;
+    v24 = 2114;
+    v25 = errorCopy;
     _os_log_impl(&dword_2179FC000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ will perform retry %lu of %lu after %{public}@ due to error: %{public}@", buf, 0x34u);
   }
 
   v10 = RCDispatchQueueForQualityOfService([(RCOperation *)self qualityOfService]);
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __44__RCOperation__handleRetryFromError_signal___block_invoke;
-  v14[3] = &unk_27822F260;
-  v14[4] = self;
-  v15 = errorCopy;
-  v16 = signalCopy;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __44__RCOperation__handleRetryFromError_signal___block_invoke;
+  v13[3] = &unk_27822F260;
+  v13[4] = self;
+  v14 = errorCopy;
+  v15 = signalCopy;
   v11 = signalCopy;
   v12 = errorCopy;
-  [v11 onQueue:v10 signal:v14];
-
-  v13 = *MEMORY[0x277D85DE8];
+  [v11 onQueue:v10 signal:v13];
 }
 
 uint64_t __44__RCOperation__handleRetryFromError_signal___block_invoke(uint64_t a1, int a2)
@@ -534,48 +520,46 @@ uint64_t __44__RCOperation__handleRetryFromError_signal___block_invoke(uint64_t 
 
 void __40__RCOperation_associateChildOperations___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(a1 + 40) _associateChildOperation:{*(*(&v8 + 1) + 8 * v6++), v8}];
+        [*(a1 + 40) _associateChildOperation:{*(*(&v7 + 1) + 8 * v6++), v7}];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_associateChildOperation:(id)operation
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   operationCopy = operation;
   if (operationCopy)
   {
     v5 = RCProtocolCast(&unk_2829A2B68, operationCopy);
-    v6 = RCSharedLog();
+    v6 = RCSharedLog(v5);
     v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
     if (v5)
     {
@@ -583,11 +567,11 @@ void __40__RCOperation_associateChildOperations___block_invoke(uint64_t a1)
       {
         shortOperationDescription = [v5 shortOperationDescription];
         shortOperationDescription2 = [(RCOperation *)self shortOperationDescription];
-        v19 = 138543618;
-        v20 = shortOperationDescription;
-        v21 = 2114;
-        v22 = shortOperationDescription2;
-        _os_log_impl(&dword_2179FC000, v6, OS_LOG_TYPE_DEFAULT, "associated child operation %{public}@ with parent %{public}@", &v19, 0x16u);
+        v18 = 138543618;
+        v19 = shortOperationDescription;
+        v20 = 2114;
+        v21 = shortOperationDescription2;
+        _os_log_impl(&dword_2179FC000, v6, OS_LOG_TYPE_DEFAULT, "associated child operation %{public}@ with parent %{public}@", &v18, 0x16u);
       }
     }
 
@@ -596,11 +580,11 @@ void __40__RCOperation_associateChildOperations___block_invoke(uint64_t a1)
       v10 = objc_opt_class();
       v11 = v10;
       shortOperationDescription3 = [(RCOperation *)self shortOperationDescription];
-      v19 = 138543618;
-      v20 = v10;
-      v21 = 2114;
-      v22 = shortOperationDescription3;
-      _os_log_impl(&dword_2179FC000, v6, OS_LOG_TYPE_DEFAULT, "associated child operation %{public}@ with parent %{public}@", &v19, 0x16u);
+      v18 = 138543618;
+      v19 = v10;
+      v20 = 2114;
+      v21 = shortOperationDescription3;
+      _os_log_impl(&dword_2179FC000, v6, OS_LOG_TYPE_DEFAULT, "associated child operation %{public}@ with parent %{public}@", &v18, 0x16u);
     }
 
     if ([(RCOperation *)self childOperationsCancelled]|| ([(RCOperation *)self childOperations], v13 = objc_claimAutoreleasedReturnValue(), v13, !v13))
@@ -627,8 +611,6 @@ void __40__RCOperation_associateChildOperations___block_invoke(uint64_t a1)
       }
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelChildOperations
@@ -731,47 +713,48 @@ void __36__RCOperation_cancelChildOperations__block_invoke(uint64_t a1)
 
   [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
   [(RCOperation *)self setOperationEndTime:?];
-  if ([(RCOperation *)self isCancelled])
+  isCancelled = [(RCOperation *)self isCancelled];
+  if (isCancelled)
   {
-    v5 = RCSharedLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = RCSharedLog(isCancelled);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       shortOperationDescription = [(RCOperation *)self shortOperationDescription];
       *buf = 138543362;
       v19 = shortOperationDescription;
-      v7 = "%{public}@ cancelled";
-      v8 = v5;
-      v9 = 12;
+      v8 = "%{public}@ cancelled";
+      v9 = v6;
+      v10 = 12;
 LABEL_12:
-      _os_log_impl(&dword_2179FC000, v8, OS_LOG_TYPE_DEFAULT, v7, buf, v9);
+      _os_log_impl(&dword_2179FC000, v9, OS_LOG_TYPE_DEFAULT, v8, buf, v10);
     }
   }
 
   else
   {
-    v10 = RCSharedLog();
-    v5 = v10;
+    v11 = RCSharedLog(isCancelled);
+    v6 = v11;
     if (errorCopy)
     {
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        [(RCOperation *)self _finishOperationWithError:errorCopy, v5];
+        [(RCOperation *)self _finishOperationWithError:errorCopy, v6];
       }
     }
 
-    else if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    else if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       shortOperationDescription = [(RCOperation *)self shortOperationDescription];
       [(RCOperation *)self operationEndTime];
-      v12 = v11;
+      v13 = v12;
       [(RCOperation *)self operationStartTime];
       *buf = 138543618;
       v19 = shortOperationDescription;
       v20 = 2048;
-      v21 = RCSecondsToMilliseconds(v12 - v13);
-      v7 = "%{public}@ finished with total time: %llums";
-      v8 = v5;
-      v9 = 22;
+      v21 = RCSecondsToMilliseconds(v13 - v14);
+      v8 = "%{public}@ finished with total time: %llums";
+      v9 = v6;
+      v10 = 22;
       goto LABEL_12;
     }
   }
@@ -795,22 +778,19 @@ LABEL_12:
   [childOperationsLock performWithLockSync:v17];
 
   [(RCOperation *)self operationDidFinishWithError:errorCopy];
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_errorUserInfo
 {
-  v10[2] = *MEMORY[0x277D85DE8];
-  v9[0] = @"RCErrorOperationClassNameKey";
+  v9[2] = *MEMORY[0x277D85DE8];
+  v8[0] = @"RCErrorOperationClassNameKey";
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  v10[0] = v4;
-  v9[1] = @"RCErrorOperationIDKey";
+  v9[0] = v4;
+  v8[1] = @"RCErrorOperationIDKey";
   operationID = [(RCOperation *)self operationID];
-  v10[1] = operationID;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[1] = operationID;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
 
   return v6;
 }
@@ -839,39 +819,33 @@ LABEL_12:
 
 - (void)_handleThrottlingFromError:delay:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"a throttled operation must be part of a throttle group"];
+  v6 = 136315906;
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3_0(&dword_2179FC000, MEMORY[0x277D86220], v1, "*** Assertion failure: %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_0(&dword_2179FC000, MEMORY[0x277D86220], v1, "*** Assertion failure: %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)_finishOperationWithError:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"operation must only be finished once"];
+  v6 = 136315906;
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3_0(&dword_2179FC000, MEMORY[0x277D86220], v1, "*** Assertion failure: %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_0(&dword_2179FC000, MEMORY[0x277D86220], v1, "*** Assertion failure: %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)_finishOperationWithError:(NSObject *)a3 .cold.2(void *a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = [a1 shortOperationDescription];
-  v7 = 138543618;
-  v8 = v5;
-  v9 = 2114;
-  v10 = a2;
-  _os_log_error_impl(&dword_2179FC000, a3, OS_LOG_TYPE_ERROR, "%{public}@ failed with error: %{public}@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138543618;
+  v7 = v5;
+  v8 = 2114;
+  v9 = a2;
+  _os_log_error_impl(&dword_2179FC000, a3, OS_LOG_TYPE_ERROR, "%{public}@ failed with error: %{public}@", &v6, 0x16u);
 }
 
 @end

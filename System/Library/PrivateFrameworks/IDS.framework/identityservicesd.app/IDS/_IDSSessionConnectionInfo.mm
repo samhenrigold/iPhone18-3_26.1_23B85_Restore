@@ -151,7 +151,7 @@
         }
 
         v15 = *(*(&v19 + 1) + 8 * i);
-        [v15 doubleValue];
+        objc_msgSend_doubleValue(v15, v19);
         if (v8 - v16 > interval)
         {
           [v9 addObject:v15];

@@ -81,41 +81,41 @@ LABEL_12:
 
 - (NRDevicePairingTarget)initWithCoder:(id)coder
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v27.receiver = self;
-  v27.super_class = NRDevicePairingTarget;
-  v5 = [(NRDevicePairingTarget *)&v27 init];
+  v23.receiver = self;
+  v23.super_class = NRDevicePairingTarget;
+  v5 = [(NRDevicePairingTarget *)&v23 init];
   if (!v5)
   {
-    v13 = nrCopyLogObj_1529();
+    v12 = nrCopyLogObj_1529();
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v14 = v13;
-      v15 = os_log_type_enabled(v13, OS_LOG_TYPE_ERROR);
+      v13 = v12;
+      v14 = os_log_type_enabled(v12, OS_LOG_TYPE_ERROR);
 
-      if (!v15)
+      if (!v14)
       {
         goto LABEL_7;
       }
     }
 
-    v16 = nrCopyLogObj_1529();
-    _NRLogWithArgs(v16, 16, "%s%.30s:%-4d ABORTING: [super init] failed", v17, v18, v19, v20, v21, "");
+    v15 = nrCopyLogObj_1529();
+    _NRLogWithArgs(v15, 16, "%s%.30s:%-4d ABORTING: [super init] failed", ", "[NRDevicePairingTarget initWithCoder:]"", 233);
 
 LABEL_7:
-    v22 = _os_log_pack_size();
-    MEMORY[0x28223BE20](v22, v23);
-    v24 = *__error();
-    v25 = _os_log_pack_fill();
-    *v25 = 136446210;
-    *(v25 + 4) = "[NRDevicePairingTarget initWithCoder:]";
-    v26 = nrCopyLogObj_1529();
-    _NRLogAbortWithPack(v26);
+    v16 = _os_log_pack_size();
+    v18 = &v22 - ((MEMORY[0x28223BE20](v16, v17) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v19 = __error();
+    v20 = _os_log_pack_fill(v18, v16, *v19, &dword_25B98C000, "%{public}s [super init] failed");
+    *v20 = 136446210;
+    *(v20 + 4) = "[NRDevicePairingTarget initWithCoder:]";
+    v21 = nrCopyLogObj_1529();
+    _NRLogAbortWithPack(v21, v18);
   }
 
   v6 = v5;
@@ -132,7 +132,6 @@ LABEL_7:
   v10 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"operationalProperties"];
   [(NRDevicePairingTarget *)v6 setOperationalProperties:v10];
 
-  v11 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

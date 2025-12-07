@@ -22,18 +22,18 @@
 
 - (id)_dictionaryRepresentation
 {
-  v13[3] = *MEMORY[0x1E69E9840];
-  v12[0] = @"partySizeRange";
-  v15.location = [(INRidePartySizeOption *)self partySizeRange];
-  v3 = NSStringFromRange(v15);
+  v12[3] = *MEMORY[0x1E69E9840];
+  v11[0] = @"partySizeRange";
+  v14.location = [(INRidePartySizeOption *)self partySizeRange];
+  v3 = NSStringFromRange(v14);
   null = v3;
   if (!v3)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[0] = null;
-  v12[1] = @"sizeDescription";
+  v12[0] = null;
+  v11[1] = @"sizeDescription";
   sizeDescription = self->_sizeDescription;
   null2 = sizeDescription;
   if (!sizeDescription)
@@ -41,8 +41,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[1] = null2;
-  v12[2] = @"priceRange";
+  v12[1] = null2;
+  v11[2] = @"priceRange";
   priceRange = self->_priceRange;
   null3 = priceRange;
   if (!priceRange)
@@ -50,8 +50,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[2] = null3;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:3];
+  v12[2] = null3;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:3];
   if (priceRange)
   {
     if (sizeDescription)
@@ -83,7 +83,6 @@ LABEL_9:
 LABEL_15:
 
 LABEL_10:
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

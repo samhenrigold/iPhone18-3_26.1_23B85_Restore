@@ -10,18 +10,16 @@
 {
   if (*(self + OBJC_IVAR___MTSearchSeeAllSection_nextPage + 8))
   {
-    v2 = *(self + OBJC_IVAR___MTSearchSeeAllSection_nextPage);
-    v3 = *(self + OBJC_IVAR___MTSearchSeeAllSection_nextPage + 8);
 
-    v4 = _sSS18PodcastsFoundationE18userDefaultsObjectSo8NSStringCSgyF_0();
+    v2 = _sSS18PodcastsFoundationE18userDefaultsObjectSo8NSStringCSgyF_0();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (MTSearchSeeAllSection)initWithContentType:(int64_t)type nextPage:(id)page

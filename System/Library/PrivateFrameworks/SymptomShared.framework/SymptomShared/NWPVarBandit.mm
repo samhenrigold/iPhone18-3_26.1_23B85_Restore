@@ -14,31 +14,29 @@
 
 - (void)_defaultModelInit
 {
-  v7[8] = *MEMORY[0x277D85DE8];
+  v6[8] = *MEMORY[0x277D85DE8];
   [(NWPVar *)self setModel:1];
-  v6[0] = @"analytics";
-  v6[1] = @"kEpsilonValue";
-  v7[0] = MEMORY[0x277CBEC28];
-  v7[1] = &unk_284788300;
-  v6[2] = @"kEpsilonDecayRate";
-  v6[3] = @"kEpsilonLastRewards";
-  v7[2] = &unk_284788320;
-  v7[3] = &unk_284788320;
-  v6[4] = @"kEpsilonDecayedMinimumValue";
-  v6[5] = @"kEpsilonResetAt";
-  v7[4] = &unk_284788320;
-  v7[5] = &unk_284788320;
-  v6[6] = @"kUCBConfidenceValue";
-  v6[7] = @"kUCBResetAt";
-  v7[6] = &unk_284788310;
-  v7[7] = &unk_284788320;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:8];
+  v5[0] = @"analytics";
+  v5[1] = @"kEpsilonValue";
+  v6[0] = MEMORY[0x277CBEC28];
+  v6[1] = &unk_284788300;
+  v5[2] = @"kEpsilonDecayRate";
+  v5[3] = @"kEpsilonLastRewards";
+  v6[2] = &unk_284788320;
+  v6[3] = &unk_284788320;
+  v5[4] = @"kEpsilonDecayedMinimumValue";
+  v5[5] = @"kEpsilonResetAt";
+  v6[4] = &unk_284788320;
+  v6[5] = &unk_284788320;
+  v5[6] = @"kUCBConfidenceValue";
+  v5[7] = @"kUCBResetAt";
+  v6[6] = &unk_284788310;
+  v6[7] = &unk_284788320;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:8];
   [(NWPVar *)self setHyperParams:v3];
 
   v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
   [(NWPVarBandit *)self setLastSampleRewards:v4];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)initInValueSpace:(id)space withLabel:(id)label
@@ -106,7 +104,7 @@
 
 - (BOOL)setInitialValue:(id)value
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   if (!valueCopy)
   {
@@ -116,81 +114,81 @@
   if (![(NWPVar *)self useScalarRange])
   {
     allState = [(NWPVar *)self allState];
-    v12 = [allState objectForKeyedSubscript:valueCopy];
+    v14 = [allState objectForKeyedSubscript:valueCopy];
 
-    if (v12)
+    if (v14)
     {
       [(NWPVar *)self setFirstValue:valueCopy];
-      v8 = 1;
+      v9 = 1;
       goto LABEL_15;
     }
 
-    v13 = nwpvarLogHandle();
-    if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v16 = nwpvarLogHandle(v15);
+    if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_13;
     }
 
-    v17 = 134218242;
+    v19 = 134218242;
     selfCopy3 = self;
-    v19 = 2112;
-    v20 = valueCopy;
-    v14 = "(%p) failure to set initial value: %@, out of range";
+    v21 = 2112;
+    v22 = valueCopy;
+    v17 = "(%p) failure to set initial value: %@, out of range";
     goto LABEL_12;
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v13 = nwpvarLogHandle();
-    if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v16 = nwpvarLogHandle(isKindOfClass);
+    if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
 LABEL_13:
 
 LABEL_14:
-      v8 = 0;
+      v9 = 0;
       goto LABEL_15;
     }
 
-    v17 = 134218242;
+    v19 = 134218242;
     selfCopy3 = self;
-    v19 = 2112;
-    v20 = valueCopy;
-    v14 = "(%p) failure to set initial value: %@, expected numerical type";
+    v21 = 2112;
+    v22 = valueCopy;
+    v17 = "(%p) failure to set initial value: %@, expected numerical type";
 LABEL_12:
-    _os_log_impl(&dword_2324A0000, v13, OS_LOG_TYPE_ERROR, v14, &v17, 0x16u);
+    _os_log_impl(&dword_2324A0000, v16, OS_LOG_TYPE_ERROR, v17, &v19, 0x16u);
     goto LABEL_13;
   }
 
-  v5 = _numToInternalKey(valueCopy);
+  v6 = _numToInternalKey(valueCopy);
   allState2 = [(NWPVar *)self allState];
-  v7 = [allState2 objectForKeyedSubscript:v5];
-  v8 = v7 != 0;
+  v8 = [allState2 objectForKeyedSubscript:v6];
+  v9 = v8 != 0;
 
-  if (v7)
+  if (v8)
   {
-    v9 = MEMORY[0x277CCABB0];
-    [v5 floatValue];
-    v10 = [v9 numberWithFloat:?];
-    [(NWPVar *)self setFirstValue:v10];
+    v11 = MEMORY[0x277CCABB0];
+    [v6 floatValue];
+    v12 = [v11 numberWithFloat:?];
+    [(NWPVar *)self setFirstValue:v12];
   }
 
   else
   {
-    v10 = nwpvarLogHandle();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = nwpvarLogHandle(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v17 = 134218242;
+      v19 = 134218242;
       selfCopy3 = self;
-      v19 = 2112;
-      v20 = valueCopy;
-      _os_log_impl(&dword_2324A0000, v10, OS_LOG_TYPE_ERROR, "(%p) failure to set initial value: %@, out of numerical range", &v17, 0x16u);
+      v21 = 2112;
+      v22 = valueCopy;
+      _os_log_impl(&dword_2324A0000, v12, OS_LOG_TYPE_ERROR, "(%p) failure to set initial value: %@, out of numerical range", &v19, 0x16u);
     }
   }
 
 LABEL_15:
-  v15 = *MEMORY[0x277D85DE8];
-  return v8;
+  return v9;
 }
 
 - (BOOL)selectModel:(unint64_t)model
@@ -206,7 +204,7 @@ LABEL_15:
 
 - (id)_epsilongreedy_predictValueGivenContext:(id)context
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   v4 = objc_alloc_init(NWPVarValue_Record);
   hyperParams = [(NWPVar *)self hyperParams];
   v6 = [hyperParams objectForKeyedSubscript:@"kEpsilonResetAt"];
@@ -246,25 +244,24 @@ LABEL_15:
   if (v16 <= v11)
   {
     referenceValues = [(NWPVar *)self referenceValues];
-    v37 = arc4random_uniform([referenceValues count]);
+    v38 = arc4random_uniform([referenceValues count]);
 
     referenceValues2 = [(NWPVar *)self referenceValues];
-    [referenceValues2 objectAtIndexedSubscript:v37];
-    v33 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+    [referenceValues2 objectAtIndexedSubscript:v38];
+    v34 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
 
-    [(NWPVarValue_Record *)v4 setInfo:2];
-    nwpvarLogHandle();
+    nwpvarLogHandle([(NWPVarValue_Record *)v4 setInfo:2]);
     *&v24 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
     if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
     {
       *buf = 134218754;
       selfCopy5 = self;
-      v51 = 2048;
-      v52 = v16;
-      v53 = 2048;
-      v54 = v11;
-      v55 = 2112;
-      v56 = *&v33;
+      v52 = 2048;
+      v53 = v16;
+      v54 = 2048;
+      v55 = v11;
+      v56 = 2112;
+      v57 = *&v34;
       _os_log_impl(&dword_2324A0000, v24, OS_LOG_TYPE_INFO, "(%p) prediction detail, exploring, rand (%f) vs. epsilon (%f), returning: %@", buf, 0x2Au);
     }
   }
@@ -275,81 +272,78 @@ LABEL_15:
     [allState keysSortedByValueUsingComparator:&__block_literal_global_320];
     *&v24 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
 
-    v25 = nwpvarLogHandle();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+    v26 = nwpvarLogHandle(v25);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134218242;
       selfCopy5 = self;
-      v51 = 2112;
-      v52 = *&v24;
-      _os_log_impl(&dword_2324A0000, v25, OS_LOG_TYPE_DEBUG, "(%p) prediction detail, exploiting, all: %@", buf, 0x16u);
+      v52 = 2112;
+      v53 = *&v24;
+      _os_log_impl(&dword_2324A0000, v26, OS_LOG_TYPE_DEBUG, "(%p) prediction detail, exploiting, all: %@", buf, 0x16u);
     }
 
-    v26 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v27 = objc_alloc_init(MEMORY[0x277CBEB18]);
     allState2 = [(NWPVar *)self allState];
-    v28 = [v24 objectAtIndexedSubscript:0];
-    v29 = [allState2 objectForKeyedSubscript:v28];
-    [v29 sampleRewardMean];
-    v31 = v30;
+    v29 = [v24 objectAtIndexedSubscript:0];
+    v30 = [allState2 objectForKeyedSubscript:v29];
+    [v30 sampleRewardMean];
+    v32 = v31;
 
-    v45[0] = MEMORY[0x277D85DD0];
-    v45[1] = 3221225472;
-    v45[2] = __56__NWPVarBandit__epsilongreedy_predictValueGivenContext___block_invoke_321;
-    v45[3] = &unk_2789869E0;
-    v32 = v26;
-    v46 = v32;
+    v46[0] = MEMORY[0x277D85DD0];
+    v46[1] = 3221225472;
+    v46[2] = __56__NWPVarBandit__epsilongreedy_predictValueGivenContext___block_invoke_321;
+    v46[3] = &unk_2789869E0;
+    v33 = v27;
+    v47 = v33;
     selfCopy3 = self;
-    v48 = v31;
-    [v24 enumerateObjectsUsingBlock:v45];
-    [v32 objectAtIndexedSubscript:{arc4random_uniform(objc_msgSend(v32, "count"))}];
-    v33 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-    [(NWPVarValue_Record *)v4 setInfo:1];
-    v34 = nwpvarLogHandle();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+    v49 = v32;
+    [v24 enumerateObjectsUsingBlock:v46];
+    [v33 objectAtIndexedSubscript:{arc4random_uniform(objc_msgSend(v33, "count"))}];
+    v34 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+    v35 = nwpvarLogHandle([(NWPVarValue_Record *)v4 setInfo:1]);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
     {
-      v35 = [v32 count];
+      v36 = [v33 count];
       *buf = 134219266;
       selfCopy5 = self;
-      v51 = 2048;
-      v52 = v16;
-      v53 = 2048;
-      v54 = v11;
-      v55 = 2048;
-      v56 = v35;
-      v57 = 2112;
-      v58 = v33;
-      v59 = 2112;
-      v60 = v32;
-      _os_log_impl(&dword_2324A0000, v34, OS_LOG_TYPE_INFO, "(%p) prediction detail, exploiting, rand (%f) vs. epsilon (%f), leaders count: %lu, returning: %@, leaders: %@", buf, 0x3Eu);
+      v52 = 2048;
+      v53 = v16;
+      v54 = 2048;
+      v55 = v11;
+      v56 = 2048;
+      v57 = v36;
+      v58 = 2112;
+      v59 = v34;
+      v60 = 2112;
+      v61 = v33;
+      _os_log_impl(&dword_2324A0000, v35, OS_LOG_TYPE_INFO, "(%p) prediction detail, exploiting, rand (%f) vs. epsilon (%f), leaders count: %lu, returning: %@, leaders: %@", buf, 0x3Eu);
     }
   }
 
-  v39 = nwpvarLogHandle();
-  if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
+  v41 = nwpvarLogHandle(v40);
+  if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
   {
     *buf = 134218242;
     selfCopy5 = self;
-    v51 = 2112;
-    v52 = v33;
-    _os_log_impl(&dword_2324A0000, v39, OS_LOG_TYPE_INFO, "(%p) prediction: %@", buf, 0x16u);
+    v52 = 2112;
+    v53 = v34;
+    _os_log_impl(&dword_2324A0000, v41, OS_LOG_TYPE_INFO, "(%p) prediction: %@", buf, 0x16u);
   }
 
   if ([(NWPVar *)self useScalarRange])
   {
-    v40 = _numToInternalKey(*&v33);
-    [(NWPVarValue_Record *)v4 setValue:v40];
+    v42 = _numToInternalKey(*&v34);
+    [(NWPVarValue_Record *)v4 setValue:v42];
   }
 
   else
   {
-    [(NWPVarValue_Record *)v4 setValue:*&v33];
+    [(NWPVarValue_Record *)v4 setValue:*&v34];
   }
 
-  *&v41 = v11;
-  v42 = [MEMORY[0x277CCABB0] numberWithFloat:v41];
-  [(NWPVarValue_Record *)v4 setEffective_epsilon:v42];
-
-  v43 = *MEMORY[0x277D85DE8];
+  *&v43 = v11;
+  v44 = [MEMORY[0x277CCABB0] numberWithFloat:v43];
+  [(NWPVarValue_Record *)v4 setEffective_epsilon:v44];
 
   return v4;
 }
@@ -406,8 +400,8 @@ void __56__NWPVarBandit__epsilongreedy_predictValueGivenContext___block_invoke_3
 
 - (id)_ucb_predictValueGivenContext:(id)context
 {
-  v42 = *MEMORY[0x277D85DE8];
-  v32 = objc_alloc_init(NWPVarValue_Record);
+  v41 = *MEMORY[0x277D85DE8];
+  v31 = objc_alloc_init(NWPVarValue_Record);
   v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
   hyperParams = [(NWPVar *)self hyperParams];
   v6 = [hyperParams objectForKeyedSubscript:@"kUCBConfidenceValue"];
@@ -424,27 +418,27 @@ void __56__NWPVarBandit__epsilongreedy_predictValueGivenContext___block_invoke_3
   }
 
   v12 = log(([(NWPVar *)self pullCount]+ 1));
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   allState = [(NWPVar *)self allState];
-  v14 = [allState countByEnumeratingWithState:&v33 objects:v41 count:16];
+  v14 = [allState countByEnumeratingWithState:&v32 objects:v40 count:16];
   if (v14)
   {
     v15 = v14;
     v16 = v12;
-    v17 = *v34;
+    v17 = *v33;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v34 != v17)
+        if (*v33 != v17)
         {
           objc_enumerationMutation(allState);
         }
 
-        v19 = *(*(&v33 + 1) + 8 * i);
+        v19 = *(*(&v32 + 1) + 8 * i);
         allState2 = [(NWPVar *)self allState];
         v21 = [allState2 objectForKeyedSubscript:v19];
 
@@ -454,7 +448,7 @@ void __56__NWPVarBandit__epsilongreedy_predictValueGivenContext___block_invoke_3
         [v4 setObject:v24 forKeyedSubscript:v19];
       }
 
-      v15 = [allState countByEnumeratingWithState:&v33 objects:v41 count:16];
+      v15 = [allState countByEnumeratingWithState:&v32 objects:v40 count:16];
     }
 
     while (v15);
@@ -462,37 +456,35 @@ void __56__NWPVarBandit__epsilongreedy_predictValueGivenContext___block_invoke_3
 
   v25 = [v4 keysSortedByValueUsingComparator:&__block_literal_global_324];
   v26 = [v25 objectAtIndexedSubscript:0];
-  v27 = nwpvarLogHandle();
+  v27 = nwpvarLogHandle(v26);
   if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
   {
     *buf = 134218242;
     selfCopy = self;
-    v39 = 2112;
-    v40 = v26;
+    v38 = 2112;
+    v39 = v26;
     _os_log_impl(&dword_2324A0000, v27, OS_LOG_TYPE_INFO, "(%p) prediction: %@", buf, 0x16u);
   }
 
   if ([(NWPVar *)self useScalarRange])
   {
     v28 = _numToInternalKey(v26);
-    v29 = v32;
-    [(NWPVarValue_Record *)v32 setValue:v28];
+    v29 = v31;
+    [(NWPVarValue_Record *)v31 setValue:v28];
   }
 
   else
   {
-    v29 = v32;
-    [(NWPVarValue_Record *)v32 setValue:v26];
+    v29 = v31;
+    [(NWPVarValue_Record *)v31 setValue:v26];
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 
   return v29;
 }
 
 - (id)predictValueGivenContext:(id)context generationId:(id *)id
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v7 = objc_alloc_init(NWPVarValue_Record);
   [(NWPVar *)self setLogicalClock:[(NWPVar *)self logicalClock]+ 1];
@@ -551,15 +543,14 @@ LABEL_17:
   v11 = [MEMORY[0x277CCABB0] numberWithFloat:0.0];
   [(NWPVarValue_Record *)v7 setEffective_epsilon:v11];
 
-  [(NWPVar *)self setFirstValue:0];
-  v12 = nwpvarLogHandle();
+  v12 = nwpvarLogHandle([(NWPVar *)self setFirstValue:0]);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
-    v25 = 134218242;
+    v24 = 134218242;
     selfCopy = self;
-    v27 = 2112;
-    v28 = firstValue2;
-    _os_log_impl(&dword_2324A0000, v12, OS_LOG_TYPE_INFO, "(%p) prediction from initial value: %@", &v25, 0x16u);
+    v26 = 2112;
+    v27 = firstValue2;
+    _os_log_impl(&dword_2324A0000, v12, OS_LOG_TYPE_INFO, "(%p) prediction from initial value: %@", &v24, 0x16u);
   }
 
   if (!id)
@@ -584,134 +575,135 @@ LABEL_10:
   *id = value2;
 LABEL_18:
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return firstValue2;
 }
 
 - (BOOL)setReward:(float)reward onValue:(id)value forPredictionGenerationId:(id)id
 {
-  v80 = *MEMORY[0x277D85DE8];
+  v86 = *MEMORY[0x277D85DE8];
   v8 = COERCE_DOUBLE(value);
   v9 = COERCE_DOUBLE(id);
-  if ([(NWPVar *)self useScalarRange])
+  useScalarRange = [(NWPVar *)self useScalarRange];
+  if (useScalarRange)
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) == 0)
     {
-      nwpvarLogHandle();
-      *&v13 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-      if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      nwpvarLogHandle(isKindOfClass);
+      *&v16 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+      if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_18;
       }
 
       *buf = 134218498;
       selfCopy9 = self;
-      v72 = 2048;
+      v78 = 2048;
       rewardCopy2 = reward;
-      v74 = 2112;
+      v80 = 2112;
       armPullCount2 = *&v8;
-      v20 = "(%p) setting reward: %f for invalid value type: %@, failed";
+      v26 = "(%p) setting reward: %f for invalid value type: %@, failed";
       goto LABEL_16;
     }
 
-    v10 = _numToInternalKey(*&v8);
+    v12 = _numToInternalKey(*&v8);
 
-    v8 = *&v10;
+    v8 = *&v12;
   }
 
-  if (v8 == 0.0 || (-[NWPVar allState](self, "allState"), v11 = objc_claimAutoreleasedReturnValue(), [v11 objectForKeyedSubscript:*&v8], v12 = objc_claimAutoreleasedReturnValue(), v12, v11, !v12))
+  if (v8 == 0.0 || (-[NWPVar allState](self, "allState"), v13 = objc_claimAutoreleasedReturnValue(), [v13 objectForKeyedSubscript:*&v8], v14 = objc_claimAutoreleasedReturnValue(), v14, v13, !v14))
   {
-    nwpvarLogHandle();
-    *&v13 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-    if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    nwpvarLogHandle(useScalarRange);
+    *&v16 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+    if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_18;
     }
 
     *buf = 134218498;
     selfCopy9 = self;
-    v72 = 2048;
+    v78 = 2048;
     rewardCopy2 = reward;
-    v74 = 2112;
+    v80 = 2112;
     armPullCount2 = *&v8;
-    v20 = "(%p) setting reward: %f for invalid value: %@, failed";
+    v26 = "(%p) setting reward: %f for invalid value: %@, failed";
 LABEL_16:
-    v21 = v13;
-    v22 = 32;
+    v27 = v16;
+    v28 = 32;
 LABEL_17:
-    _os_log_impl(&dword_2324A0000, v21, OS_LOG_TYPE_ERROR, v20, buf, v22);
+    _os_log_impl(&dword_2324A0000, v27, OS_LOG_TYPE_ERROR, v26, buf, v28);
     goto LABEL_18;
   }
 
   if (v9 != 0.0)
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    v15 = objc_opt_isKindOfClass();
+    if (v15)
     {
-      *&v13 = COERCE_DOUBLE(*&v9);
+      *&v16 = COERCE_DOUBLE(*&v9);
       uuidCache = [(NWPVarBandit *)self uuidCache];
 
       if (uuidCache)
       {
         uuidCache2 = [(NWPVarBandit *)self uuidCache];
-        v16 = [uuidCache2 entryForKey:v13];
+        v20 = [uuidCache2 entryForKey:v16];
 
-        if (v16)
+        if (v20)
         {
-          value = [v16 value];
-          v18 = [value isEqual:*&v8];
+          value = [v20 value];
+          v23 = [value isEqual:*&v8];
 
-          if (v18)
+          if (v23)
           {
             uuidCache3 = [(NWPVarBandit *)self uuidCache];
-            [uuidCache3 removeObjectForKey:v13];
+            [uuidCache3 removeObjectForKey:v16];
 
             goto LABEL_25;
           }
 
-          v58 = nwpvarLogHandle();
-          if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+          v63 = nwpvarLogHandle(v24);
+          if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
           {
-            [v16 value];
-            v59 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+            [v20 value];
+            v64 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
             *buf = 134218498;
             selfCopy9 = self;
-            v72 = 2112;
-            rewardCopy2 = v59;
-            v74 = 2112;
+            v78 = 2112;
+            rewardCopy2 = v64;
+            v80 = 2112;
             armPullCount2 = *&v8;
-            _os_log_impl(&dword_2324A0000, v58, OS_LOG_TYPE_ERROR, "(%p) supplied uuid was minted for a different value %@ (which is not %@)", buf, 0x20u);
+            _os_log_impl(&dword_2324A0000, v63, OS_LOG_TYPE_ERROR, "(%p) supplied uuid was minted for a different value %@ (which is not %@)", buf, 0x20u);
           }
 
           goto LABEL_53;
         }
 
-        v16 = nwpvarLogHandle();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        v20 = nwpvarLogHandle(v21);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
           *buf = 134218242;
           selfCopy9 = self;
-          v72 = 2112;
-          rewardCopy2 = *&v13;
-          v57 = "(%p) supplied uuid has already been used or expired %@";
+          v78 = 2112;
+          rewardCopy2 = *&v16;
+          v62 = "(%p) supplied uuid has already been used or expired %@";
           goto LABEL_49;
         }
       }
 
       else
       {
-        v16 = nwpvarLogHandle();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        v20 = nwpvarLogHandle(v18);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
           *buf = 134218242;
           selfCopy9 = self;
-          v72 = 2112;
-          rewardCopy2 = *&v13;
-          v57 = "(%p) supplied uuid didn't come from us %@";
+          v78 = 2112;
+          rewardCopy2 = *&v16;
+          v62 = "(%p) supplied uuid didn't come from us %@";
 LABEL_49:
-          _os_log_impl(&dword_2324A0000, v16, OS_LOG_TYPE_ERROR, v57, buf, 0x16u);
+          _os_log_impl(&dword_2324A0000, v20, OS_LOG_TYPE_ERROR, v62, buf, 0x16u);
         }
       }
 
@@ -720,134 +712,132 @@ LABEL_53:
       goto LABEL_18;
     }
 
-    nwpvarLogHandle();
-    *&v13 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    nwpvarLogHandle(v15);
+    *&v16 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218242;
       selfCopy9 = self;
-      v72 = 2112;
+      v78 = 2112;
       rewardCopy2 = v9;
-      v20 = "(%p) supplied uuid is not the expected type %@";
-      v21 = v13;
-      v22 = 22;
+      v26 = "(%p) supplied uuid is not the expected type %@";
+      v27 = v16;
+      v28 = 22;
       goto LABEL_17;
     }
 
 LABEL_18:
-    v23 = 0;
+    v29 = 0;
     goto LABEL_19;
   }
 
   expectingRewardOn = [(NWPVar *)self expectingRewardOn];
-  v27 = [*&v8 isEqual:expectingRewardOn];
+  v32 = [*&v8 isEqual:expectingRewardOn];
 
-  if (v27)
+  if (v32)
   {
     [(NWPVar *)self setExpectingRewardOn:0];
-    v16 = 0;
-    v28 = 1;
+    v20 = 0;
+    v33 = 1;
     goto LABEL_26;
   }
 
-  v16 = 0;
+  v20 = 0;
 LABEL_25:
-  v28 = 0;
+  v33 = 0;
 LABEL_26:
   allState = [(NWPVar *)self allState];
-  v30 = [allState objectForKeyedSubscript:*&v8];
+  v35 = [allState objectForKeyedSubscript:*&v8];
 
-  v31 = v30;
-  objc_sync_enter(v31);
-  v69 = (*&v9 != 0) | v28;
-  if (v69 == 1)
+  v36 = v35;
+  objc_sync_enter(v36);
+  v75 = (*&v9 != 0) | v33;
+  if (v75 == 1)
   {
     [(NWPVar *)self setPullCount:[(NWPVar *)self pullCount]+ 1];
-    [v31 setArmPullCount:{objc_msgSend(v31, "armPullCount") + 1}];
-    v32 = nwpvarLogHandle();
-    if (!os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+    v37 = nwpvarLogHandle([v36 setArmPullCount:{objc_msgSend(v36, "armPullCount") + 1}]);
+    if (!os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
     {
       goto LABEL_34;
     }
 
-    *&v33 = COERCE_DOUBLE([(NWPVar *)self pullCount]);
-    armPullCount = [v31 armPullCount];
-    armObservedCount = [v31 armObservedCount];
-    v36 = "weak";
+    *&v38 = COERCE_DOUBLE([(NWPVar *)self pullCount]);
+    armPullCount = [v36 armPullCount];
+    armObservedCount = [v36 armObservedCount];
+    v41 = "weak";
     *buf = 134219010;
     selfCopy9 = self;
     if (v9 != 0.0)
     {
-      v36 = "strong";
+      v41 = "strong";
     }
 
-    v72 = 2048;
-    rewardCopy2 = *&v33;
-    v74 = 2048;
+    v78 = 2048;
+    rewardCopy2 = *&v38;
+    v80 = 2048;
     armPullCount2 = armPullCount;
-    v76 = 2048;
+    v82 = 2048;
     armObservedCount2 = armObservedCount;
-    v78 = 2080;
-    v79 = v36;
-    v37 = "(%p) incrementing pulls to %lu, arm pulls to %llu, arm observed %llu, %s prediction nexus";
-    v38 = v32;
-    v39 = 52;
+    v84 = 2080;
+    v85 = v41;
+    v42 = "(%p) incrementing pulls to %lu, arm pulls to %llu, arm observed %llu, %s prediction nexus";
+    v43 = v37;
+    v44 = 52;
   }
 
   else
   {
-    [v31 setArmObservedCount:{objc_msgSend(v31, "armObservedCount") + 1}];
-    v32 = nwpvarLogHandle();
-    if (!os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+    v37 = nwpvarLogHandle([v36 setArmObservedCount:{objc_msgSend(v36, "armObservedCount") + 1}]);
+    if (!os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
     {
       goto LABEL_34;
     }
 
     *buf = 134218752;
     selfCopy9 = self;
-    v72 = 2048;
+    v78 = 2048;
     rewardCopy2 = COERCE_DOUBLE([(NWPVar *)self pullCount]);
-    v74 = 2048;
-    armPullCount2 = [v31 armPullCount];
-    v76 = 2048;
-    armObservedCount2 = [v31 armObservedCount];
-    v37 = "(%p) not incrementing pulls %lu, arm pulls %llu, arm observed up to %llu, no prediction nexus";
-    v38 = v32;
-    v39 = 42;
+    v80 = 2048;
+    armPullCount2 = [v36 armPullCount];
+    v82 = 2048;
+    armObservedCount2 = [v36 armObservedCount];
+    v42 = "(%p) not incrementing pulls %lu, arm pulls %llu, arm observed up to %llu, no prediction nexus";
+    v43 = v37;
+    v44 = 42;
   }
 
-  _os_log_impl(&dword_2324A0000, v38, OS_LOG_TYPE_INFO, v37, buf, v39);
+  _os_log_impl(&dword_2324A0000, v43, OS_LOG_TYPE_INFO, v42, buf, v44);
 LABEL_34:
 
-  [v31 sampleRewardMean];
-  [v31 setSampleRewardMean:{v40 + (reward - v40) * (1.0 / (objc_msgSend(v31, "armObservedCount") + objc_msgSend(v31, "armPullCount")))}];
-  [v31 sampleRewardSum];
-  [v31 setSampleRewardSum:v41 + reward];
-  [v31 sampleRewardSumSquares];
-  [v31 setSampleRewardSumSquares:reward * reward + v42];
+  [v36 sampleRewardMean];
+  [v36 setSampleRewardMean:{v45 + (reward - v45) * (1.0 / (objc_msgSend(v36, "armObservedCount") + objc_msgSend(v36, "armPullCount")))}];
+  [v36 sampleRewardSum];
+  [v36 setSampleRewardSum:v46 + reward];
+  [v36 sampleRewardSumSquares];
+  [v36 setSampleRewardSumSquares:reward * reward + v47];
   hyperParams = [(NWPVar *)self hyperParams];
-  v44 = [hyperParams objectForKeyedSubscript:@"kEpsilonLastRewards"];
-  intValue = [v44 intValue];
+  v49 = [hyperParams objectForKeyedSubscript:@"kEpsilonLastRewards"];
+  intValue = [v49 intValue];
 
   if (intValue)
   {
     lastSampleRewards = [(NWPVarBandit *)self lastSampleRewards];
-    v47 = [lastSampleRewards objectForKeyedSubscript:*&v8];
+    v52 = [lastSampleRewards objectForKeyedSubscript:*&v8];
 
-    if (!v47)
+    if (!v52)
     {
-      v47 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v52 = objc_alloc_init(MEMORY[0x277CBEB18]);
       lastSampleRewards2 = [(NWPVarBandit *)self lastSampleRewards];
-      [lastSampleRewards2 setObject:v47 forKeyedSubscript:*&v8];
+      [lastSampleRewards2 setObject:v52 forKeyedSubscript:*&v8];
     }
 
-    *&v48 = reward;
-    v50 = [MEMORY[0x277CCABB0] numberWithFloat:v48];
-    [v47 addObject:v50];
+    *&v53 = reward;
+    v55 = [MEMORY[0x277CCABB0] numberWithFloat:v53];
+    [v52 addObject:v55];
 
-    if ([v47 count] > intValue)
+    if ([v52 count] > intValue)
     {
-      [v47 removeObjectAtIndex:0];
+      [v52 removeObjectAtIndex:0];
     }
   }
 
@@ -864,14 +854,14 @@ LABEL_34:
   }
 
   hyperParams2 = [(NWPVar *)self hyperParams];
-  v54 = [hyperParams2 objectForKeyedSubscript:@"analytics"];
-  bOOLValue = [v54 BOOLValue];
+  v59 = [hyperParams2 objectForKeyedSubscript:@"analytics"];
+  bOOLValue = [v59 BOOLValue];
 
   if (bOOLValue)
   {
-    if (v69)
+    if (v75)
     {
-      info = [v16 info];
+      info = [v20 info];
     }
 
     else
@@ -879,8 +869,8 @@ LABEL_34:
       info = 3;
     }
 
-    effective_epsilon = [v16 effective_epsilon];
-    v61 = effective_epsilon;
+    effective_epsilon = [v20 effective_epsilon];
+    v66 = effective_epsilon;
     if (effective_epsilon)
     {
       telemetryReporter = effective_epsilon;
@@ -899,34 +889,33 @@ LABEL_59:
   }
 
 LABEL_60:
-  objc_sync_exit(v31);
+  objc_sync_exit(v36);
 
-  v64 = nwpvarLogHandle();
-  if (os_log_type_enabled(v64, OS_LOG_TYPE_INFO))
+  v70 = nwpvarLogHandle(v69);
+  if (os_log_type_enabled(v70, OS_LOG_TYPE_INFO))
   {
-    armPullCount3 = [v31 armPullCount];
-    [v31 sampleRewardMean];
-    v67 = v66;
-    [v31 sampleRewardSum];
+    armPullCount3 = [v36 armPullCount];
+    [v36 sampleRewardMean];
+    v73 = v72;
+    [v36 sampleRewardSum];
     *buf = 134219010;
     selfCopy9 = self;
-    v72 = 2112;
+    v78 = 2112;
     rewardCopy2 = v8;
-    v74 = 2048;
+    v80 = 2048;
     armPullCount2 = armPullCount3;
-    v76 = 2048;
-    armObservedCount2 = v67;
-    v78 = 2048;
-    v79 = v68;
-    _os_log_impl(&dword_2324A0000, v64, OS_LOG_TYPE_INFO, "(%p) setting reward detail for %@: pulls=%llu, sampleRewardMean=%f, sampleRewardSum=%f", buf, 0x34u);
+    v82 = 2048;
+    armObservedCount2 = v73;
+    v84 = 2048;
+    v85 = v74;
+    _os_log_impl(&dword_2324A0000, v70, OS_LOG_TYPE_INFO, "(%p) setting reward detail for %@: pulls=%llu, sampleRewardMean=%f, sampleRewardSum=%f", buf, 0x34u);
   }
 
-  v23 = 1;
-  v13 = v16;
+  v29 = 1;
+  v16 = v20;
 LABEL_19:
 
-  v24 = *MEMORY[0x277D85DE8];
-  return v23;
+  return v29;
 }
 
 @end

@@ -15,7 +15,7 @@
   descriptionCopy = description;
   targetCopy = target;
   actionCopy = action;
-  if (MobileStoreUILibraryCore_0())
+  if (MobileStoreUILibraryCore_0(0))
   {
     v9 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:0 target:0 set:0 get:0 detail:0 cell:4 edit:0];
     v10 = [MEMORY[0x277CCABB0] numberWithDouble:*MEMORY[0x277D76F30]];
@@ -83,10 +83,10 @@
 - (PSUIAppInstallCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier specifier:(id)specifier
 {
   identifierCopy = identifier;
-  v118.receiver = self;
-  v118.super_class = PSUIAppInstallCell;
+  v117.receiver = self;
+  v117.super_class = PSUIAppInstallCell;
   specifierCopy = specifier;
-  v9 = [(PSTableCell *)&v118 initWithStyle:style reuseIdentifier:identifierCopy specifier:?];
+  v9 = [(PSTableCell *)&v117 initWithStyle:style reuseIdentifier:identifierCopy specifier:?];
   if (v9)
   {
     v10 = objc_alloc(MEMORY[0x277D755E8]);
@@ -160,24 +160,24 @@
     contentView2 = [(PSUIAppInstallCell *)v9 contentView];
     [contentView2 addSubview:v9->_labelContainerView];
 
-    v120 = 0;
-    v121 = &v120;
-    v122 = 0x2050000000;
+    v119 = 0;
+    v120 = &v119;
+    v121 = 0x2050000000;
     v36 = getSUUIItemOfferButtonClass_softClass;
-    v123 = getSUUIItemOfferButtonClass_softClass;
+    v122 = getSUUIItemOfferButtonClass_softClass;
     if (!getSUUIItemOfferButtonClass_softClass)
     {
-      v119[0] = MEMORY[0x277D85DD0];
-      v119[1] = 3221225472;
-      v119[2] = __getSUUIItemOfferButtonClass_block_invoke;
-      v119[3] = &unk_279BA9F68;
-      v119[4] = &v120;
-      __getSUUIItemOfferButtonClass_block_invoke(v119);
-      v36 = v121[3];
+      v118[0] = MEMORY[0x277D85DD0];
+      v118[1] = 3221225472;
+      v118[2] = __getSUUIItemOfferButtonClass_block_invoke;
+      v118[3] = &unk_279BA9F68;
+      v118[4] = &v119;
+      __getSUUIItemOfferButtonClass_block_invoke(v118);
+      v36 = v120[3];
     }
 
     v37 = v36;
-    _Block_object_dispose(&v120, 8);
+    _Block_object_dispose(&v119, 8);
     v38 = objc_alloc_init(v36);
     installButton = v9->_installButton;
     v9->_installButton = v38;
@@ -197,127 +197,126 @@
     contentView3 = [(PSUIAppInstallCell *)v9 contentView];
     [contentView3 addSubview:v9->_installButton];
 
-    v119[0] = 0;
+    v118[0] = 0;
     v45 = [specifierCopy propertyForKey:@"PSUIAppButtonAction"];
-    [v45 getValue:v119];
+    [v45 getValue:v118];
 
     v46 = v9->_installButton;
     v47 = [specifierCopy propertyForKey:@"PSUIAppButtonTarget"];
-    [(SUUIItemOfferButton *)v46 addTarget:v47 action:v119[0] forControlEvents:64];
+    [(SUUIItemOfferButton *)v46 addTarget:v47 action:v118[0] forControlEvents:64];
 
     array = [MEMORY[0x277CBEB18] array];
     constraints = v9->_constraints;
     v9->_constraints = array;
 
-    v50 = v9->_nameLabel;
-    v51 = _NSDictionaryOfVariableBindings(&cfstr_IconviewNamela.isa, v9->_iconView, v50, v9->_publisherLabel, v9->_installedLabel, v9->_labelContainerView, v9->_installButton, 0);
-    v52 = v9->_constraints;
-    v116 = v51;
-    v53 = v51;
-    v54 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"H:|-15-[_iconView]-8-[_labelContainerView]-(>=10)-[_installButton]-12-|" options:0 metrics:0 views:?];
-    [(NSMutableArray *)v52 addObjectsFromArray:v54];
+    v50 = _NSDictionaryOfVariableBindings(&cfstr_IconviewNamela.isa, v9->_iconView, v9->_nameLabel, v9->_publisherLabel, v9->_installedLabel, v9->_labelContainerView, v9->_installButton, 0);
+    v51 = v9->_constraints;
+    v115 = v50;
+    v52 = v50;
+    v53 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"H:|-15-[_iconView]-8-[_labelContainerView]-(>=10)-[_installButton]-12-|" options:0 metrics:0 views:?];
+    [(NSMutableArray *)v51 addObjectsFromArray:v53];
 
-    v55 = v9->_constraints;
-    v56 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"V:|[_nameLabel]-2-[_publisherLabel]-3-[_installedLabel]" options:0 metrics:0 views:v53];
-    [(NSMutableArray *)v55 addObjectsFromArray:v56];
+    v54 = v9->_constraints;
+    v55 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"V:|[_nameLabel]-2-[_publisherLabel]-3-[_installedLabel]" options:0 metrics:0 views:v52];
+    [(NSMutableArray *)v54 addObjectsFromArray:v55];
 
     widthAnchor = [(UIImageView *)v9->_iconView widthAnchor];
     heightAnchor = [(UIImageView *)v9->_iconView heightAnchor];
-    v59 = [widthAnchor constraintEqualToAnchor:heightAnchor multiplier:1.0];
-    [v59 setActive:1];
+    v58 = [widthAnchor constraintEqualToAnchor:heightAnchor multiplier:1.0];
+    [v58 setActive:1];
 
     bottomAnchor = [(UILabel *)v9->_installedLabel bottomAnchor];
     bottomAnchor2 = [(UIView *)v9->_labelContainerView bottomAnchor];
-    v62 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+    v61 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
     installedConstraint = v9->_installedConstraint;
-    v9->_installedConstraint = v62;
+    v9->_installedConstraint = v61;
 
     [(NSLayoutConstraint *)v9->_installedConstraint setActive:1];
     bottomAnchor3 = [(UILabel *)v9->_publisherLabel bottomAnchor];
     bottomAnchor4 = [(UIView *)v9->_labelContainerView bottomAnchor];
-    v66 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4];
+    v65 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4];
     availableConstraint = v9->_availableConstraint;
-    v9->_availableConstraint = v66;
+    v9->_availableConstraint = v65;
 
     [(NSLayoutConstraint *)v9->_availableConstraint setActive:0];
     centerYAnchor = [(UIImageView *)v9->_iconView centerYAnchor];
     contentView4 = [(PSUIAppInstallCell *)v9 contentView];
     centerYAnchor2 = [contentView4 centerYAnchor];
-    v71 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-    [v71 setActive:1];
+    v70 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
+    [v70 setActive:1];
 
     centerYAnchor3 = [(UIView *)v9->_labelContainerView centerYAnchor];
     contentView5 = [(PSUIAppInstallCell *)v9 contentView];
     centerYAnchor4 = [contentView5 centerYAnchor];
-    v75 = [centerYAnchor3 constraintEqualToAnchor:centerYAnchor4];
-    [v75 setActive:1];
+    v74 = [centerYAnchor3 constraintEqualToAnchor:centerYAnchor4];
+    [v74 setActive:1];
 
     centerYAnchor5 = [(SUUIItemOfferButton *)v9->_installButton centerYAnchor];
     contentView6 = [(PSUIAppInstallCell *)v9 contentView];
     centerYAnchor6 = [contentView6 centerYAnchor];
-    v79 = [centerYAnchor5 constraintEqualToAnchor:centerYAnchor6];
-    [v79 setActive:1];
+    v78 = [centerYAnchor5 constraintEqualToAnchor:centerYAnchor6];
+    [v78 setActive:1];
 
     leadingAnchor = [(UIView *)v9->_labelContainerView leadingAnchor];
     leadingAnchor2 = [(UILabel *)v9->_nameLabel leadingAnchor];
-    v82 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    [v82 setActive:1];
+    v81 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+    [v81 setActive:1];
 
     leadingAnchor3 = [(UIView *)v9->_labelContainerView leadingAnchor];
     leadingAnchor4 = [(UILabel *)v9->_publisherLabel leadingAnchor];
-    v85 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
-    [v85 setActive:1];
+    v84 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
+    [v84 setActive:1];
 
     leadingAnchor5 = [(UIView *)v9->_labelContainerView leadingAnchor];
     leadingAnchor6 = [(UILabel *)v9->_installedLabel leadingAnchor];
-    v88 = [leadingAnchor5 constraintEqualToAnchor:leadingAnchor6];
-    [v88 setActive:1];
+    v87 = [leadingAnchor5 constraintEqualToAnchor:leadingAnchor6];
+    [v87 setActive:1];
 
     trailingAnchor = [(UIView *)v9->_labelContainerView trailingAnchor];
     trailingAnchor2 = [(UILabel *)v9->_nameLabel trailingAnchor];
-    v91 = [trailingAnchor constraintGreaterThanOrEqualToAnchor:trailingAnchor2];
-    [v91 setActive:1];
+    v90 = [trailingAnchor constraintGreaterThanOrEqualToAnchor:trailingAnchor2];
+    [v90 setActive:1];
 
     trailingAnchor3 = [(UIView *)v9->_labelContainerView trailingAnchor];
     trailingAnchor4 = [(UILabel *)v9->_publisherLabel trailingAnchor];
-    v94 = [trailingAnchor3 constraintGreaterThanOrEqualToAnchor:trailingAnchor4];
-    [v94 setActive:1];
+    v93 = [trailingAnchor3 constraintGreaterThanOrEqualToAnchor:trailingAnchor4];
+    [v93 setActive:1];
 
     trailingAnchor5 = [(UIView *)v9->_labelContainerView trailingAnchor];
     trailingAnchor6 = [(UILabel *)v9->_installedLabel trailingAnchor];
-    v97 = [trailingAnchor5 constraintGreaterThanOrEqualToAnchor:trailingAnchor6];
-    [v97 setActive:1];
+    v96 = [trailingAnchor5 constraintGreaterThanOrEqualToAnchor:trailingAnchor6];
+    [v96 setActive:1];
 
     topAnchor = [(UIView *)v9->_labelContainerView topAnchor];
     contentView7 = [(PSUIAppInstallCell *)v9 contentView];
     topAnchor2 = [contentView7 topAnchor];
-    v101 = [topAnchor constraintGreaterThanOrEqualToAnchor:topAnchor2 constant:15.0];
+    v100 = [topAnchor constraintGreaterThanOrEqualToAnchor:topAnchor2 constant:15.0];
     labelPaddingTop = v9->_labelPaddingTop;
-    v9->_labelPaddingTop = v101;
+    v9->_labelPaddingTop = v100;
 
     [(NSLayoutConstraint *)v9->_labelPaddingTop setActive:1];
     bottomAnchor5 = [(UIView *)v9->_labelContainerView bottomAnchor];
     contentView8 = [(PSUIAppInstallCell *)v9 contentView];
     bottomAnchor6 = [contentView8 bottomAnchor];
-    v106 = [bottomAnchor5 constraintGreaterThanOrEqualToAnchor:bottomAnchor6 constant:-15.0];
+    v105 = [bottomAnchor5 constraintGreaterThanOrEqualToAnchor:bottomAnchor6 constant:-15.0];
     labelPaddingBottom = v9->_labelPaddingBottom;
-    v9->_labelPaddingBottom = v106;
+    v9->_labelPaddingBottom = v105;
 
     [(NSLayoutConstraint *)v9->_labelPaddingBottom setActive:1];
     widthAnchor2 = [(SUUIItemOfferButton *)v9->_installButton widthAnchor];
-    v109 = [widthAnchor2 constraintEqualToConstant:59.0];
+    v108 = [widthAnchor2 constraintEqualToConstant:59.0];
     installButtonWidthConstraint = v9->_installButtonWidthConstraint;
-    v9->_installButtonWidthConstraint = v109;
+    v9->_installButtonWidthConstraint = v108;
 
     heightAnchor2 = [(SUUIItemOfferButton *)v9->_installButton heightAnchor];
-    v112 = [heightAnchor2 constraintEqualToConstant:26.0];
+    v111 = [heightAnchor2 constraintEqualToConstant:26.0];
     installButtonHeightConstraint = v9->_installButtonHeightConstraint;
-    v9->_installButtonHeightConstraint = v112;
+    v9->_installButtonHeightConstraint = v111;
 
     [MEMORY[0x277CCAAD0] activateConstraints:v9->_constraints];
-    v114 = [specifierCopy propertyForKey:@"PSUIAppInstalled"];
+    v113 = [specifierCopy propertyForKey:@"PSUIAppInstalled"];
 
-    v9->_installState = v114 != 0;
+    v9->_installState = v113 != 0;
     [(PSUIAppInstallCell *)v9 _updateCellWithInstallState];
   }
 
@@ -326,31 +325,30 @@
 
 - (void)setInstallState:(int)state
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   getLogger = [(PSUIAppInstallCell *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315394;
-    v8 = "[PSUIAppInstallCell setInstallState:]";
-    v9 = 1024;
+    v6 = 136315394;
+    v7 = "[PSUIAppInstallCell setInstallState:]";
+    v8 = 1024;
     stateCopy = state;
-    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s setting app install state to %i", &v7, 0x12u);
+    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s setting app install state to %i", &v6, 0x12u);
   }
 
   self->_installState = state;
   [(PSUIAppInstallCell *)self setNeedsUpdateConstraints];
   [(PSUIAppInstallCell *)self setNeedsLayout];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateConstraints
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   getLogger = [(PSUIAppInstallCell *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v12 = "[PSUIAppInstallCell updateConstraints]";
+    v11 = "[PSUIAppInstallCell updateConstraints]";
     _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
@@ -377,26 +375,25 @@ LABEL_7:
     [*(&self->super.super.super.super.super.isa + *v6) setActive:1];
   }
 
-  v10.receiver = self;
-  v10.super_class = PSUIAppInstallCell;
-  [(PSUIAppInstallCell *)&v10 updateConstraints];
-  v9 = *MEMORY[0x277D85DE8];
+  v9.receiver = self;
+  v9.super_class = PSUIAppInstallCell;
+  [(PSUIAppInstallCell *)&v9 updateConstraints];
 }
 
 - (void)layoutSubviews
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   getLogger = [(PSUIAppInstallCell *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v9 = "[PSUIAppInstallCell layoutSubviews]";
+    v8 = "[PSUIAppInstallCell layoutSubviews]";
     _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
-  v7.receiver = self;
-  v7.super_class = PSUIAppInstallCell;
-  [(PSTableCell *)&v7 layoutSubviews];
+  v6.receiver = self;
+  v6.super_class = PSUIAppInstallCell;
+  [(PSTableCell *)&v6 layoutSubviews];
   [(PSUIAppInstallCell *)self _updateCellWithInstallState];
   if (![(NSLayoutConstraint *)self->_installButtonWidthConstraint isActive])
   {
@@ -408,45 +405,45 @@ LABEL_7:
     [(NSLayoutConstraint *)self->_installButtonWidthConstraint setActive:1];
     [(NSLayoutConstraint *)self->_installButtonHeightConstraint setActive:1];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateCellWithInstallState
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   getLogger = [(PSUIAppInstallCell *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
     installState = self->_installState;
-    v11 = 136315394;
-    v12 = "[PSUIAppInstallCell _updateCellWithInstallState]";
-    v13 = 1024;
-    v14 = installState;
-    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s updating UI view state with install state %i", &v11, 0x12u);
+    v10 = 136315394;
+    v11 = "[PSUIAppInstallCell _updateCellWithInstallState]";
+    v12 = 1024;
+    v13 = installState;
+    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s updating UI view state with install state %i", &v10, 0x12u);
   }
 
   v5 = self->_installState;
-  if (!v5)
+  if (v5)
+  {
+    if (v5 != 1)
+    {
+      return;
+    }
+
+    v6 = 0;
+    v7 = @"OPEN";
+  }
+
+  else
   {
     v6 = 1;
     v7 = @"INSTALL";
-    goto LABEL_7;
   }
 
-  if (v5 == 1)
-  {
-    v6 = 0;
-    v7 = @"OPEN";
-LABEL_7:
-    v8 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v9 = [v8 localizedStringForKey:v7 value:&stru_287733598 table:@"AppInstallCell"];
-    [(SUUIItemOfferButton *)self->_installButton setTitle:v9];
+  v8 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v9 = [v8 localizedStringForKey:v7 value:&stru_287733598 table:@"AppInstallCell"];
+  [(SUUIItemOfferButton *)self->_installButton setTitle:v9];
 
-    [(UILabel *)self->_installedLabel setHidden:v6];
-  }
-
-  v10 = *MEMORY[0x277D85DE8];
+  [(UILabel *)self->_installedLabel setHidden:v6];
 }
 
 - (void)refreshCellContentsWithSpecifier:(id)specifier

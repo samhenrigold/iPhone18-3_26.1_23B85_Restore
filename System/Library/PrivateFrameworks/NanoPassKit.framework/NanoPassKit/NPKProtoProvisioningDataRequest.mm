@@ -39,7 +39,6 @@
 {
   if (*&self->_has)
   {
-    includeDeviceMetadata = self->_includeDeviceMetadata;
     PBDataWriterWriteBOOLField();
   }
 }

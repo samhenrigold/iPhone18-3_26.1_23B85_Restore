@@ -1,6 +1,6 @@
 @interface GameOverlayUIService
 - (_TtC13GameOverlayUI20GameOverlayUIService)init;
-- (uint64_t)closeDashboard;
+- (double)closeDashboard;
 - (void)checkDashboardOverlayVisibility:(id)visibility;
 - (void)listener:(id)listener didReceiveConnection:(id)connection withContext:(id)context;
 - (void)setUpAccessPointWithLocation:(id)location useCase:(id)case gameInternal:(id)internal didReturnToForeground:(id)foreground newToGameCenter:(id)center sceneIdentifier:(id)identifier;
@@ -18,20 +18,19 @@
 - (void)checkDashboardOverlayVisibility:(id)visibility
 {
   v4 = sub_100002B38(&unk_100130F10, &qword_1000EA660);
-  v5 = *(*(v4 - 8) + 64);
   __chkstk_darwin(v4 - 8);
-  v7 = &v12 - v6;
-  v8 = _Block_copy(visibility);
-  v9 = swift_allocObject();
-  *(v9 + 16) = v8;
-  v10 = type metadata accessor for TaskPriority();
-  (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
-  v11 = swift_allocObject();
-  v11[2] = 0;
-  v11[3] = 0;
-  v11[4] = sub_100040248;
-  v11[5] = v9;
-  sub_100014BBC(0, 0, v7, &unk_1000EA4D8, v11);
+  v6 = &v11 - v5;
+  v7 = _Block_copy(visibility);
+  v8 = swift_allocObject();
+  *(v8 + 16) = v7;
+  v9 = type metadata accessor for TaskPriority();
+  (*(*(v9 - 8) + 56))(v6, 1, 1, v9);
+  v10 = swift_allocObject();
+  v10[2] = 0;
+  v10[3] = 0;
+  v10[4] = sub_100040248;
+  v10[5] = v8;
+  sub_100014BBC(0, 0, v6, &unk_1000EA4D8, v10);
 }
 
 - (void)setUpAccessPointWithLocation:(id)location useCase:(id)case gameInternal:(id)internal didReturnToForeground:(id)foreground newToGameCenter:(id)center sceneIdentifier:(id)identifier
@@ -68,39 +67,38 @@
 - (void)tearDownAccessPointWithSceneIdentifier:(id)identifier
 {
   v5 = sub_100002B38(&unk_100130F10, &qword_1000EA660);
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5 - 8);
-  v8 = &v17 - v7;
+  v7 = &v16 - v6;
   if (identifier)
   {
     identifier = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v10 = v9;
+    v9 = v8;
   }
 
   else
   {
-    v10 = 0;
+    v9 = 0;
   }
 
   selfCopy = self;
-  v11 = sub_10007C628(0, identifier, v10);
-  v13 = v12;
+  v10 = sub_10007C628(0, identifier, v9);
+  v12 = v11;
 
-  if (v13)
+  if (v12)
   {
-    v14 = type metadata accessor for TaskPriority();
-    (*(*(v14 - 8) + 56))(v8, 1, 1, v14);
-    v15 = swift_allocObject();
-    v15[2] = 0;
-    v15[3] = 0;
-    v15[4] = v11;
-    v15[5] = v13;
-    sub_100014BBC(0, 0, v8, &unk_1000EA488, v15);
+    v13 = type metadata accessor for TaskPriority();
+    (*(*(v13 - 8) + 56))(v7, 1, 1, v13);
+    v14 = swift_allocObject();
+    v14[2] = 0;
+    v14[3] = 0;
+    v14[4] = v10;
+    v14[5] = v12;
+    sub_100014BBC(0, 0, v7, &unk_1000EA488, v14);
   }
 
   else
   {
-    v16 = selfCopy;
+    v15 = selfCopy;
   }
 }
 
@@ -242,51 +240,50 @@ LABEL_6:
   sub_10003EB8C(configCopy);
 }
 
-- (uint64_t)closeDashboard
+- (double)closeDashboard
 {
   v0 = type metadata accessor for ZoomCoordinator.DashboardVisibilityState();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
-  v3 = __chkstk_darwin(v0);
-  v5 = &v18 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v3);
-  v7 = &v18 - v6;
+  __chkstk_darwin(v0);
+  v3 = &v17 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v4);
+  v6 = &v17 - v5;
   if (qword_10012CC18 != -1)
   {
     swift_once();
   }
 
-  v8 = type metadata accessor for Logger();
-  sub_100011F80(v8, qword_100135C88);
-  v9 = Logger.logObject.getter();
-  v10 = static os_log_type_t.info.getter();
-  if (os_log_type_enabled(v9, v10))
+  v7 = type metadata accessor for Logger();
+  sub_100011F80(v7, qword_100135C88);
+  v8 = Logger.logObject.getter();
+  v9 = static os_log_type_t.info.getter();
+  if (os_log_type_enabled(v8, v9))
   {
-    v11 = swift_slowAlloc();
-    *v11 = 0;
-    _os_log_impl(&_mh_execute_header, v9, v10, "GameOverlayUIService: closeDashboard called", v11, 2u);
+    v10 = swift_slowAlloc();
+    *v10 = 0;
+    _os_log_impl(&_mh_execute_header, v8, v9, "GameOverlayUIService: closeDashboard called", v10, 2u);
   }
 
   type metadata accessor for ZoomCoordinator();
   static ZoomCoordinator.shared.getter();
   dispatch thunk of ZoomCoordinator.dashboardVisibility.getter();
 
-  v12 = (*(v1 + 88))(v7, v0);
-  v13 = enum case for ZoomCoordinator.DashboardVisibilityState.open(_:);
-  result = (*(v1 + 8))(v7, v0);
-  if (v12 == v13)
+  v11 = (*(v1 + 88))(v6, v0);
+  v12 = enum case for ZoomCoordinator.DashboardVisibilityState.open(_:);
+  (*(v1 + 8))(v6, v0);
+  if (v11 == v12)
   {
-    v15 = Logger.logObject.getter();
-    v16 = static os_log_type_t.info.getter();
-    if (os_log_type_enabled(v15, v16))
+    v14 = Logger.logObject.getter();
+    v15 = static os_log_type_t.info.getter();
+    if (os_log_type_enabled(v14, v15))
     {
-      v17 = swift_slowAlloc();
-      *v17 = 0;
-      _os_log_impl(&_mh_execute_header, v15, v16, "GameOverlayUIService: setting dashboard visibility to closed", v17, 2u);
+      v16 = swift_slowAlloc();
+      *v16 = 0;
+      _os_log_impl(&_mh_execute_header, v14, v15, "GameOverlayUIService: setting dashboard visibility to closed", v16, 2u);
     }
 
     static ZoomCoordinator.shared.getter();
-    (*(v1 + 104))(v5, enum case for ZoomCoordinator.DashboardVisibilityState.closed(_:), v0);
+    (*(v1 + 104))(v3, enum case for ZoomCoordinator.DashboardVisibilityState.closed(_:), v0);
     dispatch thunk of ZoomCoordinator.dashboardVisibility.setter();
   }
 

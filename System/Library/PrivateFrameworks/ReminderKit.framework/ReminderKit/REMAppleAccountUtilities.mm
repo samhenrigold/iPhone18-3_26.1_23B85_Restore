@@ -16,6 +16,7 @@
 - (void)_updateCachedICloudACAccounts;
 - (void)dealloc;
 - (void)performBlockInPersonaContextForAccountIdentifier:(id)identifier block:(id)block;
+- (void)saveDidChooseToMigrate:(BOOL)migrate didFinishMigration:(BOOL)migration toACAccount:(id)account inStore:(id)store completionHandler:(id)handler;
 @end
 
 @implementation REMAppleAccountUtilities
@@ -129,11 +130,11 @@ uint64_t __42__REMAppleAccountUtilities_sharedInstance__block_invoke(uint64_t a1
   return v4;
 }
 
-uint64_t __70__REMAppleAccountUtilities_unsafeUntilSystemReady_allICloudACAccounts__block_invoke(uint64_t result)
+void *__70__REMAppleAccountUtilities_unsafeUntilSystemReady_allICloudACAccounts__block_invoke(void *result)
 {
-  if (*(*(result + 32) + 24))
+  if (*(result[4] + 24))
   {
-    return [*(*(*(result + 40) + 8) + 40) addObjectsFromArray:?];
+    return [*(*(result[5] + 8) + 40) addObjectsFromArray:?];
   }
 
   return result;
@@ -334,9 +335,72 @@ void __91__REMAppleAccountUtilities_unsafeUntilSystemReady_iCloudAccountCalDavSe
   return lowercaseString;
 }
 
+- (void)saveDidChooseToMigrate:(BOOL)migrate didFinishMigration:(BOOL)migration toACAccount:(id)account inStore:(id)store completionHandler:(id)handler
+{
+  migrationCopy = migration;
+  migrateCopy = migrate;
+  v35 = *MEMORY[0x1E69E9840];
+  accountCopy = account;
+  storeCopy = store;
+  handlerCopy = handler;
+  v14 = +[REMLog utility];
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  {
+    identifier = [accountCopy identifier];
+    *buf = 67109634;
+    v30 = migrateCopy;
+    v31 = 1024;
+    v32 = migrationCopy;
+    v33 = 2112;
+    v34 = identifier;
+    _os_log_debug_impl(&dword_19A0DB000, v14, OS_LOG_TYPE_DEBUG, "Trying to set didChooseToMigrate=%d didFinishMigration=%d on ACAccount (%@)", buf, 0x18u);
+  }
+
+  v15 = [accountCopy objectForKeyedSubscript:@"remindersIsUsingCloudKit"];
+  v16 = [accountCopy objectForKeyedSubscript:@"remindersDidFinishMigrationToCloudKit"];
+  bOOLValue = [v15 BOOLValue];
+  bOOLValue2 = [v16 BOOLValue];
+  if (!v15 || !v16 || bOOLValue != migrateCopy || bOOLValue2 != migrationCopy)
+  {
+    v19 = +[REMLog utility];
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+    {
+      identifier2 = [accountCopy identifier];
+      *buf = 67109634;
+      v30 = migrateCopy;
+      v31 = 1024;
+      v32 = migrationCopy;
+      v33 = 2112;
+      v34 = identifier2;
+      _os_log_debug_impl(&dword_19A0DB000, v19, OS_LOG_TYPE_DEBUG, "Actually setting didChooseToMigrate=%d didFinishMigration=%d on ACAccount (%@)", buf, 0x18u);
+    }
+
+    v20 = [MEMORY[0x1E696AD98] numberWithBool:migrateCopy];
+    [accountCopy setObject:v20 forKeyedSubscript:@"remindersIsUsingCloudKit"];
+
+    v21 = [MEMORY[0x1E696AD98] numberWithBool:migrationCopy];
+    [accountCopy setObject:v21 forKeyedSubscript:@"remindersDidFinishMigrationToCloudKit"];
+
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __108__REMAppleAccountUtilities_saveDidChooseToMigrate_didFinishMigration_toACAccount_inStore_completionHandler___block_invoke;
+    v24[3] = &unk_1E7509378;
+    v27 = migrateCopy;
+    v28 = migrationCopy;
+    v25 = accountCopy;
+    v26 = handlerCopy;
+    [storeCopy saveAccount:v25 withCompletionHandler:v24];
+  }
+
+  else if (handlerCopy)
+  {
+    (*(handlerCopy + 2))(handlerCopy, 1, 0);
+  }
+}
+
 void __108__REMAppleAccountUtilities_saveDidChooseToMigrate_didFinishMigration_toACAccount_inStore_completionHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = +[REMLog utility];
   v7 = v6;
@@ -353,13 +417,13 @@ void __108__REMAppleAccountUtilities_saveDidChooseToMigrate_didFinishMigration_t
     v8 = *(a1 + 48);
     v9 = *(a1 + 49);
     v10 = [*(a1 + 32) identifier];
-    v13[0] = 67109634;
-    v13[1] = v8;
-    v14 = 1024;
-    v15 = v9;
-    v16 = 2114;
-    v17 = v10;
-    _os_log_impl(&dword_19A0DB000, v7, OS_LOG_TYPE_DEFAULT, "Saved didChooseToMigrate=%d didFinishMigration=%d on ACAccount (%{public}@)", v13, 0x18u);
+    v12[0] = 67109634;
+    v12[1] = v8;
+    v13 = 1024;
+    v14 = v9;
+    v15 = 2114;
+    v16 = v10;
+    _os_log_impl(&dword_19A0DB000, v7, OS_LOG_TYPE_DEFAULT, "Saved didChooseToMigrate=%d didFinishMigration=%d on ACAccount (%{public}@)", v12, 0x18u);
   }
 
   v11 = *(a1 + 40);
@@ -367,8 +431,6 @@ void __108__REMAppleAccountUtilities_saveDidChooseToMigrate_didFinishMigration_t
   {
     (*(v11 + 16))(v11, a2, v5);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)accessQueue
@@ -404,10 +466,10 @@ void __39__REMAppleAccountUtilities_accessQueue__block_invoke()
 
 void __57__REMAppleAccountUtilities__updateCachedICloudACAccounts__block_invoke(uint64_t a1)
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   if (([*(a1 + 32) cachedICloudACAccountsAreValid] & 1) == 0)
   {
-    v35 = objc_autoreleasePoolPush();
+    v34 = objc_autoreleasePoolPush();
     v2 = [MEMORY[0x1E695DF70] array];
     v3 = [*(a1 + 32) _debug_primaryICloudACAccount];
     v4 = *(a1 + 32);
@@ -448,61 +510,61 @@ void __57__REMAppleAccountUtilities__updateCachedICloudACAccounts__block_invoke(
       }
     }
 
-    v32 = v9;
-    v33 = v3;
+    v31 = v9;
+    v32 = v3;
     objc_storeStrong((*(a1 + 32) + 24), v2);
-    v34 = a1;
+    v33 = a1;
     v13 = *(*(a1 + 32) + 32);
     if (!v13)
     {
       v13 = [MEMORY[0x1E695DF90] dictionary];
     }
 
-    v48 = 0u;
-    v49 = 0u;
-    v46 = 0u;
     v47 = 0u;
+    v48 = 0u;
+    v45 = 0u;
+    v46 = 0u;
     obj = v2;
-    v38 = [obj countByEnumeratingWithState:&v46 objects:v51 count:16];
-    if (v38)
+    v37 = [obj countByEnumeratingWithState:&v45 objects:v50 count:16];
+    if (v37)
     {
-      v37 = *v47;
+      v36 = *v46;
       v14 = *MEMORY[0x1E6959B48];
       do
       {
         v15 = 0;
         do
         {
-          if (*v47 != v37)
+          if (*v46 != v36)
           {
             objc_enumerationMutation(obj);
           }
 
-          v41 = v15;
-          v16 = *(*(&v46 + 1) + 8 * v15);
+          v40 = v15;
+          v16 = *(*(&v45 + 1) + 8 * v15);
           context = objc_autoreleasePoolPush();
           v17 = [v16 displayAccount];
+          v41 = 0u;
           v42 = 0u;
           v43 = 0u;
           v44 = 0u;
-          v45 = 0u;
-          v39 = v17;
+          v38 = v17;
           v18 = [v17 childAccounts];
-          v19 = [v18 countByEnumeratingWithState:&v42 objects:v50 count:16];
+          v19 = [v18 countByEnumeratingWithState:&v41 objects:v49 count:16];
           if (v19)
           {
             v20 = v19;
-            v21 = *v43;
+            v21 = *v42;
             do
             {
               for (i = 0; i != v20; ++i)
               {
-                if (*v43 != v21)
+                if (*v42 != v21)
                 {
                   objc_enumerationMutation(v18);
                 }
 
-                v23 = *(*(&v42 + 1) + 8 * i);
+                v23 = *(*(&v41 + 1) + 8 * i);
                 v24 = [v23 enabledDataclasses];
                 v25 = [v24 containsObject:v14];
 
@@ -514,33 +576,31 @@ void __57__REMAppleAccountUtilities__updateCachedICloudACAccounts__block_invoke(
                 }
               }
 
-              v20 = [v18 countByEnumeratingWithState:&v42 objects:v50 count:16];
+              v20 = [v18 countByEnumeratingWithState:&v41 objects:v49 count:16];
             }
 
             while (v20);
           }
 
           objc_autoreleasePoolPop(context);
-          v15 = v41 + 1;
+          v15 = v40 + 1;
         }
 
-        while (v41 + 1 != v38);
-        v38 = [obj countByEnumeratingWithState:&v46 objects:v51 count:16];
+        while (v40 + 1 != v37);
+        v37 = [obj countByEnumeratingWithState:&v45 objects:v50 count:16];
       }
 
-      while (v38);
+      while (v37);
     }
 
-    v28 = *(v34 + 32);
+    v28 = *(v33 + 32);
     v29 = *(v28 + 32);
     *(v28 + 32) = v13;
     v30 = v13;
 
-    [*(v34 + 32) setCachedICloudACAccountsAreValid:1];
-    objc_autoreleasePoolPop(v35);
+    [*(v33 + 32) setCachedICloudACAccountsAreValid:1];
+    objc_autoreleasePoolPop(v34);
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_invalidateCachedICloudACAccounts
@@ -605,7 +665,7 @@ void __61__REMAppleAccountUtilities__invalidateCachedICloudACAccounts__block_inv
 
 void __72__REMAppleAccountUtilities__cachedDisplayICloudACAccountWithIdentifier___block_invoke(uint64_t a1)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) cachedICloudACAccountsAreValid])
   {
     v2 = *(*(a1 + 32) + 16);
@@ -621,26 +681,26 @@ void __72__REMAppleAccountUtilities__cachedDisplayICloudACAccountWithIdentifier_
     if (!*(*(*(a1 + 48) + 8) + 40))
     {
       v6 = *(*(a1 + 32) + 24);
+      v28 = 0u;
       v29 = 0u;
       v30 = 0u;
       v31 = 0u;
-      v32 = 0u;
       v7 = v6;
-      v8 = [v7 countByEnumeratingWithState:&v29 objects:v34 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v28 objects:v33 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v30;
+        v10 = *v29;
         while (2)
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v30 != v10)
+            if (*v29 != v10)
             {
               objc_enumerationMutation(v7);
             }
 
-            v12 = *(*(&v29 + 1) + 8 * i);
+            v12 = *(*(&v28 + 1) + 8 * i);
             v13 = [v12 identifier];
             v14 = [v13 isEqualToString:*(a1 + 40)];
 
@@ -651,7 +711,7 @@ void __72__REMAppleAccountUtilities__cachedDisplayICloudACAccountWithIdentifier_
             }
           }
 
-          v9 = [v7 countByEnumeratingWithState:&v29 objects:v34 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v28 objects:v33 count:16];
           if (v9)
           {
             continue;
@@ -668,26 +728,26 @@ LABEL_17:
         v15 = [*(*(a1 + 32) + 32) objectForKeyedSubscript:*(a1 + 40)];
         if (v15)
         {
-          v27 = 0u;
-          v28 = 0u;
-          v25 = 0u;
           v26 = 0u;
+          v27 = 0u;
+          v24 = 0u;
+          v25 = 0u;
           obj = v7;
-          v16 = [obj countByEnumeratingWithState:&v25 objects:v33 count:16];
+          v16 = [obj countByEnumeratingWithState:&v24 objects:v32 count:16];
           if (v16)
           {
             v17 = v16;
-            v18 = *v26;
+            v18 = *v25;
             while (2)
             {
               for (j = 0; j != v17; ++j)
               {
-                if (*v26 != v18)
+                if (*v25 != v18)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v20 = *(*(&v25 + 1) + 8 * j);
+                v20 = *(*(&v24 + 1) + 8 * j);
                 v21 = [v20 identifier];
                 v22 = [v21 isEqualToString:v15];
 
@@ -698,7 +758,7 @@ LABEL_17:
                 }
               }
 
-              v17 = [obj countByEnumeratingWithState:&v25 objects:v33 count:16];
+              v17 = [obj countByEnumeratingWithState:&v24 objects:v32 count:16];
               if (v17)
               {
                 continue;
@@ -722,13 +782,11 @@ LABEL_29:
       __72__REMAppleAccountUtilities__cachedDisplayICloudACAccountWithIdentifier___block_invoke_cold_1(a1, v3);
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)performBlockInPersonaContextForAccountIdentifier:(id)identifier block:(id)block
 {
-  v44[3] = *MEMORY[0x1E69E9840];
+  v43[3] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   blockCopy = block;
   v8 = [(REMAppleAccountUtilities *)self _cachedDisplayICloudACAccountWithIdentifier:identifierCopy];
@@ -748,9 +806,9 @@ LABEL_29:
     *&buf[12] = 2114;
     *&buf[14] = identifierCopy;
     *&buf[22] = 2114;
-    v43 = identifier;
-    LOWORD(v44[0]) = 2112;
-    *(v44 + 2) = v16;
+    v42 = identifier;
+    LOWORD(v43[0]) = 2112;
+    *(v43 + 2) = v16;
     _os_log_impl(&dword_19A0DB000, v14, OS_LOG_TYPE_INFO, "performBlockInPersonaContext: Looked up account persona {personaIdentifier: %{public}@, accountIdentifier: %{public}@, displayAccountIdentifier: %{public}@, desc: %@}", buf, 0x2Au);
   }
 
@@ -766,9 +824,9 @@ LABEL_29:
       _os_log_impl(&dword_19A0DB000, v23, OS_LOG_TYPE_INFO, "performBlockInPersonaContext: Adopting persona {personaIdentifier: %{public}@, accountIdentifier: %{public}@}", buf, 0x16u);
     }
 
-    v37 = 0;
-    v24 = [currentPersona copyCurrentPersonaContextWithError:&v37];
-    v25 = v37;
+    v36 = 0;
+    v24 = [currentPersona copyCurrentPersonaContextWithError:&v36];
+    v25 = v36;
     if (v25)
     {
       v26 = +[REMLog utility];
@@ -802,9 +860,9 @@ LABEL_29:
         _os_log_impl(&dword_19A0DB000, v18, OS_LOG_TYPE_INFO, "performBlockInPersonaContext: Adopting personal persona (isProxy) {accountIdentifier: %{public}@}", buf, 0xCu);
       }
 
-      v36 = 0;
-      v20 = [currentPersona copyCurrentPersonaContextWithError:&v36];
-      v21 = v36;
+      v35 = 0;
+      v20 = [currentPersona copyCurrentPersonaContextWithError:&v35];
+      v21 = v35;
       if (v21)
       {
         v22 = +[REMLog utility];
@@ -818,24 +876,24 @@ LABEL_29:
 
       else
       {
-        v38 = 0;
-        v39 = &v38;
-        v40 = 0x2050000000;
+        v37 = 0;
+        v38 = &v37;
+        v39 = 0x2050000000;
         v29 = getUMUserPersonaAttributesClass_softClass;
-        v41 = getUMUserPersonaAttributesClass_softClass;
+        v40 = getUMUserPersonaAttributesClass_softClass;
         if (!getUMUserPersonaAttributesClass_softClass)
         {
           *buf = MEMORY[0x1E69E9820];
           *&buf[8] = 3221225472;
           *&buf[16] = __getUMUserPersonaAttributesClass_block_invoke;
-          v43 = &unk_1E75093A0;
-          v44[0] = &v38;
+          v42 = &unk_1E75093A0;
+          v43[0] = &v37;
           __getUMUserPersonaAttributesClass_block_invoke(buf);
-          v29 = v39[3];
+          v29 = v38[3];
         }
 
         v30 = v29;
-        _Block_object_dispose(&v38, 8);
+        _Block_object_dispose(&v37, 8);
         v31 = [v29 personaAttributesForPersonaType:0];
         userPersonaUniqueString = [v31 userPersonaUniqueString];
         v33 = [currentPersona generateAndRestorePersonaContextWithPersonaUniqueString:userPersonaUniqueString];
@@ -857,8 +915,6 @@ LABEL_29:
       blockCopy[2](blockCopy, 0, 0);
     }
   }
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isCurrentPersonaDataSeparated
@@ -891,59 +947,24 @@ LABEL_29:
   *self = sharedInstance_sharedInstance;
 }
 
-void __94__REMAppleAccountUtilities_unsafeUntilSystemReady_allCloudKitRemindersEnabledICloudACAccounts__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_5(&dword_19A0DB000, v0, v1, "unsafeUntilSystemReady_allCloudKitRemindersEnabledICloudACAccounts encounters an iCloud ACAccount with nil identifier, skipped {account: %@}", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)unsafeUntilSystemReady_icloudACAccountMatchingAccountIdentifier:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_5(&dword_19A0DB000, v0, v1, "unsafeUntilSystemReady_icloudACAccountMatchingAccountIdentifier can't find a matching ACAccount with {accountIdentifier: %{public}@}", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)unsafeUntilSystemReady_iCloudAccountCalDavServiceWithAccountID:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_5(&dword_19A0DB000, v0, v1, "unsafeUntilSystemReady_iCloudAccountCalDavServiceWithAccountID failed to match ACAccount with {accountID: %{public}@}", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __108__REMAppleAccountUtilities_saveDidChooseToMigrate_didFinishMigration_toACAccount_inStore_completionHandler___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_5(&dword_19A0DB000, v0, v1, "Error saving migration state to ACAccount: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 void __57__REMAppleAccountUtilities__updateCachedICloudACAccounts__block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   [a1 count];
   OUTLINED_FUNCTION_2();
-  _os_log_fault_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_FAULT, "REMAppleAccountUtilities found more than 3 AAAccount, revisit this for performance {count: %ld}", v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_FAULT, "REMAppleAccountUtilities found more than 3 AAAccount, revisit this for performance {count: %ld}", v3, 0xCu);
 }
 
 void __72__REMAppleAccountUtilities__cachedDisplayICloudACAccountWithIdentifier___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 40);
   v4 = [MEMORY[0x1E696AF00] callStackSymbols];
-  v6 = 138543618;
-  v7 = v3;
-  v8 = 2114;
-  v9 = v4;
-  _os_log_error_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_ERROR, "Querying -_cachedDisplayICloudACAccountWithIdentifier: when the internal cache is invalid {identifier: %{public}@, callstack: %{public}@}", &v6, 0x16u);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138543618;
+  v6 = v3;
+  v7 = 2114;
+  v8 = v4;
+  _os_log_error_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_ERROR, "Querying -_cachedDisplayICloudACAccountWithIdentifier: when the internal cache is invalid {identifier: %{public}@, callstack: %{public}@}", &v5, 0x16u);
 }
 
 @end

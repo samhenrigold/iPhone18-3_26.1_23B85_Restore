@@ -112,7 +112,7 @@ LABEL_21:
 
 + (id)lowpassFilterWithCoefficient:(double)coefficient
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   objc_opt_self();
   if (coefficient <= 0.0)
   {
@@ -131,19 +131,18 @@ LABEL_21:
 
   [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:v2];
 LABEL_6:
-  v7[1] = 0;
-  v6[0] = 0x3FF0000000000000;
-  *&v6[1] = coefficient + -1.0;
-  *v7 = coefficient;
-  v3 = [objc_alloc(objc_opt_class()) initWithCount:2 feedforwardCoefficients:v7 feedbackCoefficients:v6];
-  v4 = *MEMORY[0x1E69E9840];
+  v6[1] = 0;
+  v5[0] = 0x3FF0000000000000;
+  *&v5[1] = coefficient + -1.0;
+  *v6 = coefficient;
+  v3 = [objc_alloc(objc_opt_class()) initWithCount:2 feedforwardCoefficients:v6 feedbackCoefficients:v5];
 
   return v3;
 }
 
 + (id)lowpassInertiaFilterWithCoefficient:(double)coefficient
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   objc_opt_self();
   coefficientCopy = coefficient;
   if (coefficient <= 0.0)
@@ -162,19 +161,18 @@ LABEL_6:
   }
 
   [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:{v2, *&coefficient}];
-  coefficientCopy = v8;
+  coefficientCopy = v7;
 LABEL_6:
-  v11 = coefficientCopy;
-  v12 = vmulq_n_f64(xmmword_1E4AADDB0, coefficientCopy);
+  v10 = coefficientCopy;
+  v11 = vmulq_n_f64(xmmword_1E4AADDB0, coefficientCopy);
   v3 = vmulq_n_f64(xmmword_1E4AADDC0, coefficientCopy);
-  v13 = coefficientCopy * 0.3;
-  v14 = v3.f64[0];
-  v9[0] = 0x3FF0000000000000;
-  *&v9[1] = coefficientCopy + -1.0;
-  *&v9[2] = coefficientCopy * 0.4;
-  v10 = v3;
-  v4 = [objc_alloc(objc_opt_class()) initWithCount:5 feedforwardCoefficients:&v11 feedbackCoefficients:v9];
-  v5 = *MEMORY[0x1E69E9840];
+  v12 = coefficientCopy * 0.3;
+  v13 = v3.f64[0];
+  v8[0] = 0x3FF0000000000000;
+  *&v8[1] = coefficientCopy + -1.0;
+  *&v8[2] = coefficientCopy * 0.4;
+  v9 = v3;
+  v4 = [objc_alloc(objc_opt_class()) initWithCount:5 feedforwardCoefficients:&v10 feedbackCoefficients:v8];
 
   return v4;
 }

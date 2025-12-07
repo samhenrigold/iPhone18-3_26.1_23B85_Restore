@@ -53,15 +53,17 @@ void __35__SSReadingList_defaultReadingList__block_invoke(uint64_t a1)
   v10 = URL;
   v11 = title;
   v12 = previewText;
-  v13 = WBS_LOG_CHANNEL_PREFIXReadingList();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = WBS_LOG_CHANNEL_PREFIXReadingList(v12, v13);
+  v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+  if (v15)
   {
-    *v19 = 0;
-    _os_log_impl(&dword_1D4644000, v13, OS_LOG_TYPE_DEFAULT, "#Client: Adding item to Reading List", v19, 2u);
+    *v26 = 0;
+    _os_log_impl(&dword_1D4644000, v14, OS_LOG_TYPE_DEFAULT, "#Client: Adding item to Reading List", v26, 2u);
   }
 
-  v14 = WBS_LOG_CHANNEL_PREFIXReadingList();
-  if (!os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  v17 = WBS_LOG_CHANNEL_PREFIXReadingList(v15, v16);
+  v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG);
+  if (!v18)
   {
     if (v10)
     {
@@ -69,29 +71,30 @@ void __35__SSReadingList_defaultReadingList__block_invoke(uint64_t a1)
     }
 
 LABEL_11:
-    v17 = WBS_LOG_CHANNEL_PREFIXReadingList();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v24 = WBS_LOG_CHANNEL_PREFIXReadingList(v18, v19);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      [SSReadingList addReadingListItemWithURL:v17 title:? previewText:? error:?];
+      [SSReadingList addReadingListItemWithURL:v24 title:? previewText:? error:?];
     }
 
     [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:@"Cannot add a Reading List item with nil URL."];
     goto LABEL_14;
   }
 
-  [SSReadingList addReadingListItemWithURL:v11 title:v10 previewText:v14 error:?];
+  [SSReadingList addReadingListItemWithURL:v11 title:v10 previewText:v17 error:?];
   if (!v10)
   {
     goto LABEL_11;
   }
 
 LABEL_5:
-  if (![SSReadingList supportsURL:v10])
+  v20 = [SSReadingList supportsURL:v10];
+  if ((v20 & 1) == 0)
   {
-    v16 = WBS_LOG_CHANNEL_PREFIXReadingList();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v23 = WBS_LOG_CHANNEL_PREFIXReadingList(v20, v21);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      [SSReadingList addReadingListItemWithURL:v16 title:? previewText:? error:?];
+      [SSReadingList addReadingListItemWithURL:v23 title:? previewText:? error:?];
       if (error)
       {
         goto LABEL_9;
@@ -102,19 +105,19 @@ LABEL_5:
     {
 LABEL_9:
       [MEMORY[0x1E696ABC0] errorWithDomain:@"SSReadingListErrorDomain" code:1 userInfo:0];
-      *error = v15 = 0;
+      *error = v22 = 0;
       goto LABEL_15;
     }
 
 LABEL_14:
-    v15 = 0;
+    v22 = 0;
     goto LABEL_15;
   }
 
-  v15 = [(SSReadingList *)self _addReadingListItemWithURL:v10 title:v11 previewText:v12];
+  v22 = [(SSReadingList *)self _addReadingListItemWithURL:v10 title:v11 previewText:v12];
 LABEL_15:
 
-  return v15;
+  return v22;
 }
 
 - (BOOL)_addReadingListItemWithURL:(id)l title:(id)title previewText:(id)text
@@ -153,75 +156,75 @@ LABEL_3:
 
   uTF8String3 = "";
 LABEL_6:
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x2020000000;
+  v40 = 0;
+  v41 = &v40;
+  v42 = 0x2020000000;
   v18 = getkWebBookmarksAddressKeySymbolLoc(void)::ptr;
-  v42 = getkWebBookmarksAddressKeySymbolLoc(void)::ptr;
+  v43 = getkWebBookmarksAddressKeySymbolLoc(void)::ptr;
   if (!getkWebBookmarksAddressKeySymbolLoc(void)::ptr)
   {
-    v34 = MEMORY[0x1E69E9820];
-    v35 = 3221225472;
-    v36 = ___ZL35getkWebBookmarksAddressKeySymbolLocv_block_invoke;
-    v37 = &unk_1E848F7D0;
-    v38 = &v39;
+    v35 = MEMORY[0x1E69E9820];
+    v36 = 3221225472;
+    v37 = ___ZL35getkWebBookmarksAddressKeySymbolLocv_block_invoke;
+    v38 = &unk_1E848F7D0;
+    v39 = &v40;
     v19 = WebBookmarksLibrary();
-    v40[3] = dlsym(v19, "kWebBookmarksAddressKey");
-    getkWebBookmarksAddressKeySymbolLoc(void)::ptr = *(v38[1] + 24);
-    v18 = v40[3];
+    v41[3] = dlsym(v19, "kWebBookmarksAddressKey");
+    getkWebBookmarksAddressKeySymbolLoc(void)::ptr = *(v39[1] + 24);
+    v18 = v41[3];
   }
 
-  _Block_object_dispose(&v39, 8);
+  _Block_object_dispose(&v40, 8);
   if (!v18)
   {
     goto LABEL_24;
   }
 
   xpc_dictionary_set_string(v11, *v18, uTF8String);
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x2020000000;
+  v40 = 0;
+  v41 = &v40;
+  v42 = 0x2020000000;
   v20 = getkWebBookmarksTitleKeySymbolLoc(void)::ptr;
-  v42 = getkWebBookmarksTitleKeySymbolLoc(void)::ptr;
+  v43 = getkWebBookmarksTitleKeySymbolLoc(void)::ptr;
   if (!getkWebBookmarksTitleKeySymbolLoc(void)::ptr)
   {
-    v34 = MEMORY[0x1E69E9820];
-    v35 = 3221225472;
-    v36 = ___ZL33getkWebBookmarksTitleKeySymbolLocv_block_invoke;
-    v37 = &unk_1E848F7D0;
-    v38 = &v39;
+    v35 = MEMORY[0x1E69E9820];
+    v36 = 3221225472;
+    v37 = ___ZL33getkWebBookmarksTitleKeySymbolLocv_block_invoke;
+    v38 = &unk_1E848F7D0;
+    v39 = &v40;
     v21 = WebBookmarksLibrary();
-    v40[3] = dlsym(v21, "kWebBookmarksTitleKey");
-    getkWebBookmarksTitleKeySymbolLoc(void)::ptr = *(v38[1] + 24);
-    v20 = v40[3];
+    v41[3] = dlsym(v21, "kWebBookmarksTitleKey");
+    getkWebBookmarksTitleKeySymbolLoc(void)::ptr = *(v39[1] + 24);
+    v20 = v41[3];
   }
 
-  _Block_object_dispose(&v39, 8);
+  _Block_object_dispose(&v40, 8);
   if (!v20)
   {
     goto LABEL_24;
   }
 
   xpc_dictionary_set_string(v11, *v20, uTF8String2);
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x2020000000;
+  v40 = 0;
+  v41 = &v40;
+  v42 = 0x2020000000;
   v22 = getkWebBookmarksPreviewTextKeySymbolLoc(void)::ptr;
-  v42 = getkWebBookmarksPreviewTextKeySymbolLoc(void)::ptr;
+  v43 = getkWebBookmarksPreviewTextKeySymbolLoc(void)::ptr;
   if (!getkWebBookmarksPreviewTextKeySymbolLoc(void)::ptr)
   {
-    v34 = MEMORY[0x1E69E9820];
-    v35 = 3221225472;
-    v36 = ___ZL39getkWebBookmarksPreviewTextKeySymbolLocv_block_invoke;
-    v37 = &unk_1E848F7D0;
-    v38 = &v39;
+    v35 = MEMORY[0x1E69E9820];
+    v36 = 3221225472;
+    v37 = ___ZL39getkWebBookmarksPreviewTextKeySymbolLocv_block_invoke;
+    v38 = &unk_1E848F7D0;
+    v39 = &v40;
     v23 = WebBookmarksLibrary();
-    v40[3] = dlsym(v23, "kWebBookmarksPreviewTextKey");
-    getkWebBookmarksPreviewTextKeySymbolLoc(void)::ptr = *(v38[1] + 24);
-    v22 = v40[3];
+    v41[3] = dlsym(v23, "kWebBookmarksPreviewTextKey");
+    getkWebBookmarksPreviewTextKeySymbolLoc(void)::ptr = *(v39[1] + 24);
+    v22 = v41[3];
   }
 
-  _Block_object_dispose(&v39, 8);
+  _Block_object_dispose(&v40, 8);
   if (!v22)
   {
     goto LABEL_24;
@@ -229,72 +232,72 @@ LABEL_6:
 
   xpc_dictionary_set_string(v11, *v22, uTF8String3);
   connection = self->_connection;
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x2020000000;
+  v40 = 0;
+  v41 = &v40;
+  v42 = 0x2020000000;
   v25 = getkWebBookmarksAddToReadingListMessageNameSymbolLoc(void)::ptr;
-  v42 = getkWebBookmarksAddToReadingListMessageNameSymbolLoc(void)::ptr;
+  v43 = getkWebBookmarksAddToReadingListMessageNameSymbolLoc(void)::ptr;
   if (!getkWebBookmarksAddToReadingListMessageNameSymbolLoc(void)::ptr)
   {
-    v34 = MEMORY[0x1E69E9820];
-    v35 = 3221225472;
-    v36 = ___ZL52getkWebBookmarksAddToReadingListMessageNameSymbolLocv_block_invoke;
-    v37 = &unk_1E848F7D0;
-    v38 = &v39;
+    v35 = MEMORY[0x1E69E9820];
+    v36 = 3221225472;
+    v37 = ___ZL52getkWebBookmarksAddToReadingListMessageNameSymbolLocv_block_invoke;
+    v38 = &unk_1E848F7D0;
+    v39 = &v40;
     v26 = WebBookmarksLibrary();
-    v40[3] = dlsym(v26, "kWebBookmarksAddToReadingListMessageName");
-    getkWebBookmarksAddToReadingListMessageNameSymbolLoc(void)::ptr = *(v38[1] + 24);
-    v25 = v40[3];
+    v41[3] = dlsym(v26, "kWebBookmarksAddToReadingListMessageName");
+    getkWebBookmarksAddToReadingListMessageNameSymbolLoc(void)::ptr = *(v39[1] + 24);
+    v25 = v41[3];
   }
 
-  _Block_object_dispose(&v39, 8);
+  _Block_object_dispose(&v40, 8);
   if (!v25)
   {
     goto LABEL_24;
   }
 
   v27 = [(WebBookmarksXPCConnection *)connection messageWithName:*v25];
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x2020000000;
+  v40 = 0;
+  v41 = &v40;
+  v42 = 0x2020000000;
   v28 = getkWebBookmarksItemKeySymbolLoc(void)::ptr;
-  v42 = getkWebBookmarksItemKeySymbolLoc(void)::ptr;
+  v43 = getkWebBookmarksItemKeySymbolLoc(void)::ptr;
   if (!getkWebBookmarksItemKeySymbolLoc(void)::ptr)
   {
-    v34 = MEMORY[0x1E69E9820];
-    v35 = 3221225472;
-    v36 = ___ZL32getkWebBookmarksItemKeySymbolLocv_block_invoke;
-    v37 = &unk_1E848F7D0;
-    v38 = &v39;
+    v35 = MEMORY[0x1E69E9820];
+    v36 = 3221225472;
+    v37 = ___ZL32getkWebBookmarksItemKeySymbolLocv_block_invoke;
+    v38 = &unk_1E848F7D0;
+    v39 = &v40;
     v29 = WebBookmarksLibrary();
-    v40[3] = dlsym(v29, "kWebBookmarksItemKey");
-    getkWebBookmarksItemKeySymbolLoc(void)::ptr = *(v38[1] + 24);
-    v28 = v40[3];
+    v41[3] = dlsym(v29, "kWebBookmarksItemKey");
+    getkWebBookmarksItemKeySymbolLoc(void)::ptr = *(v39[1] + 24);
+    v28 = v41[3];
   }
 
-  _Block_object_dispose(&v39, 8);
+  _Block_object_dispose(&v40, 8);
   if (v28)
   {
     xpc_dictionary_set_value(v27, *v28, v11);
     [(WebBookmarksXPCConnection *)self->_connection sendMessage:v27];
-    v39 = 0;
-    v40 = &v39;
-    v41 = 0x2050000000;
+    v40 = 0;
+    v41 = &v40;
+    v42 = 0x2050000000;
     v30 = getSafariFetcherServerProxyClass(void)::softClass;
-    v42 = getSafariFetcherServerProxyClass(void)::softClass;
+    v43 = getSafariFetcherServerProxyClass(void)::softClass;
     if (!getSafariFetcherServerProxyClass(void)::softClass)
     {
-      v34 = MEMORY[0x1E69E9820];
-      v35 = 3221225472;
-      v36 = ___ZL32getSafariFetcherServerProxyClassv_block_invoke;
-      v37 = &unk_1E848F7D0;
-      v38 = &v39;
-      ___ZL32getSafariFetcherServerProxyClassv_block_invoke(&v34);
-      v30 = v40[3];
+      v35 = MEMORY[0x1E69E9820];
+      v36 = 3221225472;
+      v37 = ___ZL32getSafariFetcherServerProxyClassv_block_invoke;
+      v38 = &unk_1E848F7D0;
+      v39 = &v40;
+      ___ZL32getSafariFetcherServerProxyClassv_block_invoke(&v35);
+      v30 = v41[3];
     }
 
     v31 = v30;
-    _Block_object_dispose(&v39, 8);
+    _Block_object_dispose(&v40, 8);
     v32 = objc_alloc_init(v30);
     [v32 startReadingListFetcher];
 
@@ -304,8 +307,8 @@ LABEL_6:
   else
   {
 LABEL_24:
-    dlerror();
-    result = abort_report_np();
+    v34 = dlerror();
+    result = abort_report_np("%s", v34);
     __break(1u);
   }
 
@@ -316,50 +319,51 @@ LABEL_24:
 {
   if (!self->_connection)
   {
-    v17 = 0;
-    v18 = &v17;
-    v19 = 0x2050000000;
+    v18 = 0;
+    v19 = &v18;
+    v20 = 0x2050000000;
     v3 = getWebBookmarksXPCConnectionClass(void)::softClass;
-    v20 = getWebBookmarksXPCConnectionClass(void)::softClass;
+    v21 = getWebBookmarksXPCConnectionClass(void)::softClass;
     if (!getWebBookmarksXPCConnectionClass(void)::softClass)
     {
-      v12 = MEMORY[0x1E69E9820];
-      v13 = 3221225472;
-      v14 = ___ZL33getWebBookmarksXPCConnectionClassv_block_invoke;
-      v15 = &unk_1E848F7D0;
-      v16 = &v17;
-      ___ZL33getWebBookmarksXPCConnectionClassv_block_invoke(&v12);
-      v3 = v18[3];
+      v13 = MEMORY[0x1E69E9820];
+      v14 = 3221225472;
+      v15 = ___ZL33getWebBookmarksXPCConnectionClassv_block_invoke;
+      v16 = &unk_1E848F7D0;
+      v17 = &v18;
+      ___ZL33getWebBookmarksXPCConnectionClassv_block_invoke(&v13);
+      v3 = v19[3];
     }
 
     v4 = v3;
-    _Block_object_dispose(&v17, 8);
+    _Block_object_dispose(&v18, 8);
     v5 = [v3 alloc];
-    v17 = 0;
-    v18 = &v17;
-    v19 = 0x2020000000;
+    v18 = 0;
+    v19 = &v18;
+    v20 = 0x2020000000;
     v6 = getkWebBookmarksdServiceNameSymbolLoc(void)::ptr;
-    v20 = getkWebBookmarksdServiceNameSymbolLoc(void)::ptr;
+    v21 = getkWebBookmarksdServiceNameSymbolLoc(void)::ptr;
     if (!getkWebBookmarksdServiceNameSymbolLoc(void)::ptr)
     {
-      v12 = MEMORY[0x1E69E9820];
-      v13 = 3221225472;
-      v14 = ___ZL37getkWebBookmarksdServiceNameSymbolLocv_block_invoke;
-      v15 = &unk_1E848F7D0;
-      v16 = &v17;
+      v13 = MEMORY[0x1E69E9820];
+      v14 = 3221225472;
+      v15 = ___ZL37getkWebBookmarksdServiceNameSymbolLocv_block_invoke;
+      v16 = &unk_1E848F7D0;
+      v17 = &v18;
       v7 = WebBookmarksLibrary();
       v8 = dlsym(v7, "kWebBookmarksdServiceName");
-      *(v16[1] + 24) = v8;
-      getkWebBookmarksdServiceNameSymbolLoc(void)::ptr = *(v16[1] + 24);
-      v6 = v18[3];
+      *(v17[1] + 24) = v8;
+      getkWebBookmarksdServiceNameSymbolLoc(void)::ptr = *(v17[1] + 24);
+      v6 = v19[3];
     }
 
-    _Block_object_dispose(&v17, 8);
+    _Block_object_dispose(&v18, 8);
     if (!v6)
     {
-      v11 = [SFDefaultBrowserListView productDetailsUserDidInteractWithApp:interactionType:];
-      _Block_object_dispose(&v17, 8);
-      _Unwind_Resume(v11);
+      [SFDefaultBrowserListView productDetailsUserDidInteractWithApp:interactionType:];
+      v12 = v11;
+      _Block_object_dispose(&v18, 8);
+      _Unwind_Resume(v12);
     }
 
     v9 = [v5 initClientForMachService:*v6];
@@ -372,13 +376,13 @@ LABEL_24:
 
 - (void)connection:(id)connection didCloseWithError:(id)error
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   errorCopy = error;
-  v6 = WBS_LOG_CHANNEL_PREFIXReadingList();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v7 = WBS_LOG_CHANNEL_PREFIXReadingList(errorCopy, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    v7 = [errorCopy description];
-    [(SSReadingList *)v7 connection:v9 didCloseWithError:v6];
+    v8 = [errorCopy description];
+    [(SSReadingList *)v8 connection:v10 didCloseWithError:v7];
   }
 
   connection = self->_connection;

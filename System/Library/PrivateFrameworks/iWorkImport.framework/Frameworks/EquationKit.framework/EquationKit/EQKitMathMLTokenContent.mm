@@ -7,15 +7,15 @@
 
 - (EQKitMathMLTokenContent)initWithChildren:(id)children
 {
-  v9.receiver = self;
-  v9.super_class = EQKitMathMLTokenContent;
-  v7 = [(EQKitMathMLTokenContent *)&v9 init];
-  if (v7)
+  v6.receiver = self;
+  v6.super_class = EQKitMathMLTokenContent;
+  v4 = [(EQKitMathMLTokenContent *)&v6 init];
+  if (v4)
   {
-    v7->mChildren = objc_msgSend_copy(children, v4, v5, v6);
+    v4->mChildren = [children copy];
   }
 
-  return v7;
+  return v4;
 }
 
 - (void)dealloc

@@ -74,7 +74,7 @@ LABEL_6:
     {
       if (dateCopy && [dateCopy compare:endDateCopy] == 1)
       {
-        v13 = __atxlog_handle_default();
+        v13 = __atxlog_handle_default(1);
         if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
         {
           v21 = objc_opt_class();
@@ -268,73 +268,74 @@ LABEL_11:
   if (protoCopy)
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v5 = protoCopy;
-      if ([v5 hasStartDate])
+      v6 = protoCopy;
+      if ([v6 hasStartDate])
       {
-        v6 = objc_alloc(MEMORY[0x1E695DF00]);
-        [v5 startDate];
-        v7 = [v6 initWithTimeIntervalSinceReferenceDate:?];
+        v7 = objc_alloc(MEMORY[0x1E695DF00]);
+        [v6 startDate];
+        v8 = [v7 initWithTimeIntervalSinceReferenceDate:?];
       }
 
       else
       {
-        v7 = 0;
+        v8 = 0;
       }
 
-      if ([v5 hasEndDate])
+      if ([v6 hasEndDate])
       {
-        v9 = objc_alloc(MEMORY[0x1E695DF00]);
-        [v5 endDate];
-        v10 = [v9 initWithTimeIntervalSinceReferenceDate:?];
+        v10 = objc_alloc(MEMORY[0x1E695DF00]);
+        [v6 endDate];
+        v11 = [v10 initWithTimeIntervalSinceReferenceDate:?];
       }
 
       else
       {
-        v10 = 0;
+        v11 = 0;
       }
 
-      predicate = [v5 predicate];
-      v12 = [predicate length];
+      predicate = [v6 predicate];
+      v13 = [predicate length];
 
-      if (v12)
+      if (v13)
       {
-        v13 = objc_autoreleasePoolPush();
-        v14 = MEMORY[0x1E696ACD0];
-        v15 = objc_opt_class();
-        predicate2 = [v5 predicate];
-        v21 = 0;
-        v17 = [v14 unarchivedObjectOfClass:v15 fromData:predicate2 error:&v21];
-        v18 = v21;
+        v14 = objc_autoreleasePoolPush();
+        v15 = MEMORY[0x1E696ACD0];
+        v16 = objc_opt_class();
+        predicate2 = [v6 predicate];
+        v23 = 0;
+        v18 = [v15 unarchivedObjectOfClass:v16 fromData:predicate2 error:&v23];
+        v19 = v23;
 
-        objc_autoreleasePoolPop(v13);
-        if (v18)
+        objc_autoreleasePoolPop(v14);
+        if (v19)
         {
-          v19 = __atxlog_handle_default();
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+          v21 = __atxlog_handle_default(v20);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
           {
-            [(ATXActionCriteria *)v18 initWithProto:v19];
+            [(ATXActionCriteria *)v19 initWithProto:v21];
           }
         }
       }
 
       else
       {
-        v17 = 0;
+        v18 = 0;
       }
 
-      self = [(ATXActionCriteria *)self initWithStartDate:v7 endDate:v10 lockScreenEligible:[v5 isLockScreenEligible] predicate:v17];
+      self = [(ATXActionCriteria *)self initWithStartDate:v8 endDate:v11 lockScreenEligible:[v6 isLockScreenEligible] predicate:v18];
 
       selfCopy = self;
     }
 
     else
     {
-      v5 = __atxlog_handle_default();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+      v6 = __atxlog_handle_default(isKindOfClass);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
       {
-        [(ATXActionCriteria *)self initWithProto:v5];
+        [(ATXActionCriteria *)self initWithProto:v6];
       }
 
       selfCopy = 0;
@@ -371,16 +372,16 @@ LABEL_11:
   {
     v6 = objc_autoreleasePoolPush();
     predicate = self->_predicate;
-    v12 = 0;
-    v8 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:predicate requiringSecureCoding:1 error:&v12];
-    v9 = v12;
+    v13 = 0;
+    v8 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:predicate requiringSecureCoding:1 error:&v13];
+    v9 = v13;
     [(ATXPBActionCriteria *)v3 setPredicate:v8];
 
     objc_autoreleasePoolPop(v6);
     if (v9)
     {
-      v10 = __atxlog_handle_default();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = __atxlog_handle_default(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         [(ATXActionCriteria *)v9 proto];
       }

@@ -1,5 +1,6 @@
 @interface NanoDirectionWaypoint
 + (NanoDirectionWaypoint)directionWaypointWithGEOMapItem:(id)item;
++ (NanoDirectionWaypoint)directionWaypointWithLabel:(id)label muid:(unint64_t)muid providerID:(int)d;
 + (NanoDirectionWaypoint)directionWaypointWithSearchString:(id)string;
 + (id)directionWaypointForCompanionWaypoint:(id)waypoint;
 + (id)directionWaypointForComposedWaypoint:(id)waypoint;
@@ -173,15 +174,27 @@
   return v5;
 }
 
++ (NanoDirectionWaypoint)directionWaypointWithLabel:(id)label muid:(unint64_t)muid providerID:(int)d
+{
+  v5 = *&d;
+  labelCopy = label;
+  v9 = objc_alloc_init(self);
+  [v9 setSearchString:labelCopy];
+
+  [v9 setMuid:muid];
+  [v9 setProviderID:v5];
+
+  return v9;
+}
+
 - (NSString)name
 {
-  composedWaypoint = self->_composedWaypoint;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     name = [(GEOComposedWaypoint *)self->_composedWaypoint name];
 LABEL_5:
-    v6 = name;
+    v5 = name;
     goto LABEL_6;
   }
 
@@ -197,29 +210,29 @@ LABEL_5:
   searchString = name2;
   if (name2 || (searchString = self->_searchString) != 0)
   {
-    v6 = searchString;
+    v5 = searchString;
   }
 
   else
   {
     geoMapItem2 = [(NanoDirectionWaypoint *)self geoMapItem];
     name3 = [geoMapItem2 name];
-    v13 = name3;
+    v12 = name3;
     if (name3)
     {
-      v6 = name3;
+      v5 = name3;
     }
 
     else
     {
-      v14 = +[NSBundle mainBundle];
-      v6 = [v14 localizedStringForKey:@"Destination [Nano value:Route Planning]" table:{@"localized string not found", 0}];
+      v13 = +[NSBundle mainBundle];
+      v5 = [v13 localizedStringForKey:@"Destination [Nano value:Route Planning]" table:{@"localized string not found", 0}];
     }
   }
 
 LABEL_6:
 
-  return v6;
+  return v5;
 }
 
 - (BOOL)isValid
@@ -334,14 +347,14 @@ LABEL_10:
   }
 
   objc_initWeak(&location, self);
-  v56[0] = _NSConcreteStackBlock;
-  v56[1] = 3221225472;
-  v56[2] = sub_10001AFAC;
-  v56[3] = &unk_100085BE8;
-  objc_copyWeak(&v58, &location);
+  v58[0] = _NSConcreteStackBlock;
+  v58[1] = 3221225472;
+  v58[2] = sub_10001AFAC;
+  v58[3] = &unk_100085BE8;
+  objc_copyWeak(&v60, &location);
   v21 = handlerCopy;
-  v57 = v21;
-  v53 = objc_retainBlock(v56);
+  v59 = v21;
+  v55 = objc_retainBlock(v58);
   composedWaypoint2 = [(NanoDirectionWaypoint *)self composedWaypoint];
 
   if (composedWaypoint2)
@@ -351,25 +364,25 @@ LABEL_10:
 
     if (needsAdditionalNavData)
     {
-      v25 = sub_100053324();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+      v26 = sub_100053324(v25);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "composedWaypoint needs additional nav data", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_INFO, "composedWaypoint needs additional nav data", buf, 2u);
       }
 
       geoMapItem3 = [(NanoDirectionWaypoint *)self geoMapItem];
-      v51 = [GEOComposedWaypoint composedWaypointForIncompleteMapItem:geoMapItem3 traits:traitsCopy clientAttributes:0 completionHandler:v53 networkActivityHandler:0];
-      objc_storeWeak(&self->_refinementTicket, v51);
+      v53 = [GEOComposedWaypoint composedWaypointForIncompleteMapItem:geoMapItem3 traits:traitsCopy clientAttributes:0 completionHandler:v55 networkActivityHandler:0];
+      objc_storeWeak(&self->_refinementTicket, v53);
     }
 
     else
     {
-      v27 = sub_100053324();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+      v28 = sub_100053324(v25);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_INFO, "Using existing composedWaypoint for refinement", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_INFO, "Using existing composedWaypoint for refinement", buf, 2u);
       }
 
       geoMapItem3 = [(NanoDirectionWaypoint *)self composedWaypoint];
@@ -392,21 +405,21 @@ LABEL_10:
     isCurrentLocation = [(NanoDirectionWaypoint *)self isCurrentLocation];
     if (geoMapItem3)
     {
-      v29 = 0;
+      v30 = 0;
     }
 
     else
     {
-      v29 = isCurrentLocation;
+      v30 = isCurrentLocation;
     }
 
-    if (v29 == 1)
+    if (v30 == 1)
     {
-      v30 = sub_100053324();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      v31 = sub_100053324(isCurrentLocation);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, "Waypoint wants current location but none found on traits", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_ERROR, "Waypoint wants current location but none found on traits", buf, 2u);
       }
     }
 
@@ -415,70 +428,70 @@ LABEL_10:
     providerID = [(NanoDirectionWaypoint *)self providerID];
     latLng = [geoMapItem3 latLng];
     [latLng lat];
-    v35 = v34;
+    v36 = v35;
     latLng2 = [geoMapItem3 latLng];
     [latLng2 lng];
-    v38 = CLLocationCoordinate2DMake(v35, v37);
+    v39 = CLLocationCoordinate2DMake(v36, v38);
 
-    if (geoMapItem3 && CLLocationCoordinate2DIsValid(v38))
+    if (geoMapItem3 && (v40 = CLLocationCoordinate2DIsValid(v39)))
     {
-      v39 = sub_100053324();
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
+      v41 = sub_100053324(v40);
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
       {
         latLng3 = [geoMapItem3 latLng];
         [latLng3 lat];
-        v42 = v41;
+        v44 = v43;
         latLng4 = [geoMapItem3 latLng];
         [latLng4 lng];
         *buf = 134283777;
-        selfCopy = v42;
-        v62 = 2049;
-        v63 = v44;
-        _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_INFO, "Will refine location: %{private}#.3lf,%{private}#.3lf", buf, 0x16u);
+        selfCopy = v44;
+        v64 = 2049;
+        v65 = v46;
+        _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_INFO, "Will refine location: %{private}#.3lf,%{private}#.3lf", buf, 0x16u);
       }
 
-      v45 = [GEOComposedWaypoint composedWaypointForCurrentLocation:geoMapItem3 traits:traitsCopy auditToken:tokenCopy completionHandler:v53 networkActivityHandler:0];
-      objc_storeWeak(&self->_refinementTicket, v45);
+      v47 = [GEOComposedWaypoint composedWaypointForCurrentLocation:geoMapItem3 traits:traitsCopy auditToken:tokenCopy completionHandler:v55 networkActivityHandler:0];
+      objc_storeWeak(&self->_refinementTicket, v47);
     }
 
     else if (muid)
     {
-      v46 = sub_100053324();
-      if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
+      v48 = sub_100053324(v40);
+      if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
       {
         *buf = 134283777;
         selfCopy = muid;
-        v62 = 1025;
-        LODWORD(v63) = providerID;
-        _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_INFO, "Will refine ID: %{private}llu/%{private}d", buf, 0x12u);
+        v64 = 1025;
+        LODWORD(v65) = providerID;
+        _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_INFO, "Will refine ID: %{private}llu/%{private}d", buf, 0x12u);
       }
 
-      v47 = [GEOComposedWaypoint composedWaypointForID:muid resultsProviderID:providerID contentProvider:0 traits:traitsCopy clientAttributes:0 completionHandler:v53 networkActivityHandler:0];
-      objc_storeWeak(&self->_refinementTicket, v47);
+      v49 = [GEOComposedWaypoint composedWaypointForID:muid resultsProviderID:providerID contentProvider:0 traits:traitsCopy clientAttributes:0 completionHandler:v55 networkActivityHandler:0];
+      objc_storeWeak(&self->_refinementTicket, v49);
     }
 
     else if (searchString)
     {
-      v48 = sub_100053324();
-      if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
+      v50 = sub_100053324(v40);
+      if (os_log_type_enabled(v50, OS_LOG_TYPE_INFO))
       {
         *buf = 138477827;
         selfCopy = searchString;
-        _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_INFO, "Will refine address: %{private}@", buf, 0xCu);
+        _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_INFO, "Will refine address: %{private}@", buf, 0xCu);
       }
 
-      v49 = [GEOComposedWaypoint composedWaypointForSearchString:searchString completionItem:0 traits:traitsCopy clientAttributes:0 completionHandler:v53 networkActivityHandler:0];
-      objc_storeWeak(&self->_refinementTicket, v49);
+      v51 = [GEOComposedWaypoint composedWaypointForSearchString:searchString completionItem:0 traits:traitsCopy clientAttributes:0 completionHandler:v55 networkActivityHandler:0];
+      objc_storeWeak(&self->_refinementTicket, v51);
     }
 
     else
     {
-      v50 = sub_100053324();
-      if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
+      v52 = sub_100053324(v40);
+      if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
       {
         *buf = 138477827;
         selfCopy = self;
-        _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_ERROR, "Unable to refine: %{private}@", buf, 0xCu);
+        _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_ERROR, "Unable to refine: %{private}@", buf, 0xCu);
       }
 
       block[0] = _NSConcreteStackBlock;
@@ -486,12 +499,12 @@ LABEL_10:
       block[2] = sub_10001B07C;
       block[3] = &unk_100085C10;
       block[4] = self;
-      v55 = v53;
+      v57 = v55;
       dispatch_async(&_dispatch_main_q, block);
     }
   }
 
-  objc_destroyWeak(&v58);
+  objc_destroyWeak(&v60);
   objc_destroyWeak(&location);
 LABEL_50:
 }

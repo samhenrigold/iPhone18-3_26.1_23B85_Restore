@@ -27,7 +27,7 @@ uint64_t _citrus_VIQR_stdenc_init(uint64_t a1, uint64_t a2, uint64_t a3, void *a
   v8[4] = v8 + 3;
   *v7 = v8;
   v11 = 1;
-  v12 = &mnemonic_rfc1456;
+  v12 = mnemonic_rfc1456;
   while (1)
   {
     v13 = v12[v10];
@@ -204,7 +204,7 @@ uint64_t _citrus_VIQR_stdenc_cstomb(uint64_t a1, void *a2, uint64_t a3, int a4, 
   return _citrus_VIQR_wcrtomb_priv(*(a1 + 8), a2, a3, a5, __src, a7);
 }
 
-uint64_t _citrus_VIQR_stdenc_mbtowc(uint64_t a1, int *a2, unsigned __int8 **a3, uint64_t a4, int *a5, uint64_t *a6, uint64_t a7)
+uint64_t _citrus_VIQR_stdenc_mbtowc(uint64_t a1, unsigned int *a2, unsigned __int8 **a3, uint64_t a4, int *a5, uint64_t *a6, uint64_t a7)
 {
   v9 = _citrus_VIQR_mbrtowc_priv(*(a1 + 8), a2, a3, a4, a5, a6);
   v10 = v9;
@@ -281,7 +281,7 @@ void mnemonic_destroy(void *a1)
     do
     {
       v3 = *v2;
-      mnemonic_destroy();
+      mnemonic_destroy(v2);
       v2 = v3;
     }
 
@@ -412,7 +412,7 @@ LABEL_19:
     }
 
     result = 0;
-    v30 = (v13 - v7);
+    v30 = v13 - v7;
     if (!v22)
     {
       v30 = 0;
@@ -471,7 +471,7 @@ LABEL_24:
       if (!v10)
       {
 LABEL_19:
-        v18 = v16 + 3;
+        v18 = v16 + 24;
         while (1)
         {
           v18 = *v18;
@@ -480,7 +480,7 @@ LABEL_19:
             break;
           }
 
-          if (*(v18 + 11) == a4)
+          if (*(v18 + 44) == a4)
           {
             goto LABEL_26;
           }
@@ -494,7 +494,7 @@ LABEL_26:
         goto LABEL_27;
       }
 
-      v16 += 3;
+      v16 += 24;
       while (1)
       {
         v16 = *v16;
@@ -503,7 +503,7 @@ LABEL_26:
           return 22;
         }
 
-        if (*(v16 + 11) == __src[4])
+        if (*(v16 + 44) == __src[4])
         {
           __src[4] = 92;
           goto LABEL_19;

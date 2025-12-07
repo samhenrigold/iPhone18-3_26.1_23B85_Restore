@@ -106,11 +106,11 @@
   v12 = sub_20BAD56E0();
   v13[1] = selfCopy;
   (*(v7 + 16))(v9, *(&selfCopy->super.super.super.isa + v11) + OBJC_IVAR____TtC9SeymourUI41WorkoutPlanTemplateDetailPageDataProvider_metricPage, v6, v12);
-  sub_20BAD9094(&qword_27C76A0B0);
+  sub_20BAD9094(&qword_27C76A0B0, &protocol conformance descriptor for WorkoutPlanTemplateDetailViewController);
   sub_20C138C54();
   (*(v7 + 8))(v9, v6);
-  sub_20BAD9094(&qword_27C76A0B8);
-  sub_20BAD9094(&qword_27C76A0C0);
+  sub_20BAD9094(&qword_27C76A0B8, &protocol conformance descriptor for WorkoutPlanTemplateDetailViewController);
+  sub_20BAD9094(&qword_27C76A0C0, &protocol conformance descriptor for WorkoutPlanTemplateDetailViewController);
   sub_20C139364();
 }
 
@@ -127,8 +127,8 @@
   v5.super_class = swift_getObjectType();
   v4 = v5.receiver;
   [(WorkoutPlanTemplateDetailViewController *)&v5 viewDidDisappear:disappearCopy];
-  sub_20BAD9094(&qword_27C76A0B8);
-  sub_20BAD9094(&qword_27C76A0C0);
+  sub_20BAD9094(&qword_27C76A0B8, &protocol conformance descriptor for WorkoutPlanTemplateDetailViewController);
+  sub_20BAD9094(&qword_27C76A0C0, &protocol conformance descriptor for WorkoutPlanTemplateDetailViewController);
   sub_20C139374();
 }
 

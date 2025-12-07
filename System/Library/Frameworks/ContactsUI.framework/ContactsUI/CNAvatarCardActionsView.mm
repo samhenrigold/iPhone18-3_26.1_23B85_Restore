@@ -95,8 +95,8 @@
   viewCopy = view;
   pathCopy = path;
   v8 = [(CNAvatarCardActionsView *)self _actionAtIndexPath:pathCopy];
-  contacts = [(CNAvatarCardActionsView *)self contacts];
-  if ([contacts count] < 2)
+  v9 = objc_msgSend_contacts(self);
+  if ([v9 count] < 2)
   {
 
     goto LABEL_6;
@@ -841,8 +841,8 @@ void __37__CNAvatarCardActionsView_reloadData__block_invoke(uint64_t a1)
   actionsManager = [(CNAvatarCardActionsView *)self actionsManager];
   if (!actionsManager)
   {
-    contacts = [(CNAvatarCardActionsView *)self contacts];
-    v7 = [CNQuickActionsManager actionsManagerForContacts:contacts];
+    v9 = objc_msgSend_contacts(self);
+    v7 = [CNQuickActionsManager actionsManagerForContacts:v9];
 
     actionCategories = [(CNAvatarCardActionsView *)self actionCategories];
     [v7 setCategories:actionCategories];

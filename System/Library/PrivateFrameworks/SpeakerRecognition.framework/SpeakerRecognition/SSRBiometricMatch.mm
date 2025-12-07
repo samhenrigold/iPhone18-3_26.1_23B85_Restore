@@ -9,7 +9,7 @@
 
 - (BOOL)_getLastBiometricMatchEvent:(BOOL *)event atTime:(unint64_t *)time
 {
-  *&v22[13] = *MEMORY[0x277D85DE8];
+  *&v21[13] = *MEMORY[0x277D85DE8];
   biometricDevice = self->_biometricDevice;
   if (!biometricDevice)
   {
@@ -17,20 +17,20 @@
     v14 = os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR);
     if (!v14)
     {
-      goto LABEL_16;
+      return v14;
     }
 
     *buf = 136315138;
-    v20 = "[SSRBiometricMatch _getLastBiometricMatchEvent:atTime:]";
+    v19 = "[SSRBiometricMatch _getLastBiometricMatchEvent:atTime:]";
     _os_log_error_impl(&dword_225E12000, v15, OS_LOG_TYPE_ERROR, "%s ERR: Biometric device is nil - Bailing out", buf, 0xCu);
 LABEL_15:
     LOBYTE(v14) = 0;
-    goto LABEL_16;
+    return v14;
   }
 
-  v18 = 0;
-  v7 = [(BKDevice *)biometricDevice lastMatchEventWithError:&v18];
-  v8 = v18;
+  v17 = 0;
+  v7 = [(BKDevice *)biometricDevice lastMatchEventWithError:&v17];
+  v8 = v17;
   v9 = *MEMORY[0x277D01970];
   v10 = os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT);
   if (!v7)
@@ -38,9 +38,9 @@ LABEL_15:
     if (v10)
     {
       *buf = 136315394;
-      v20 = "[SSRBiometricMatch _getLastBiometricMatchEvent:atTime:]";
-      v21 = 2112;
-      *v22 = v8;
+      v19 = "[SSRBiometricMatch _getLastBiometricMatchEvent:atTime:]";
+      v20 = 2112;
+      *v21 = v8;
       _os_log_impl(&dword_225E12000, v9, OS_LOG_TYPE_DEFAULT, "%s BiometricMatchEvents unavailable with error %@", buf, 0x16u);
     }
 
@@ -53,11 +53,11 @@ LABEL_15:
     result = [v7 result];
     timeStamp = [v7 timeStamp];
     *buf = 136315650;
-    v20 = "[SSRBiometricMatch _getLastBiometricMatchEvent:atTime:]";
-    v21 = 1024;
-    *v22 = result;
-    v22[2] = 2048;
-    *&v22[3] = timeStamp;
+    v19 = "[SSRBiometricMatch _getLastBiometricMatchEvent:atTime:]";
+    v20 = 1024;
+    *v21 = result;
+    v21[2] = 2048;
+    *&v21[3] = timeStamp;
     _os_log_impl(&dword_225E12000, v11, OS_LOG_TYPE_DEFAULT, "%s BiometricMatchEvent: result = %u, timeStamp = %llu", buf, 0x1Cu);
   }
 
@@ -72,48 +72,44 @@ LABEL_15:
   }
 
   LOBYTE(v14) = 1;
-LABEL_16:
-  v16 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (unint64_t)getLastBiometricMatchForVoiceTriggerTimeStamp:(unint64_t)stamp
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (!stamp)
   {
     v10 = *MEMORY[0x277D01970];
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v17 = "[SSRBiometricMatch getLastBiometricMatchForVoiceTriggerTimeStamp:]";
+      v16 = "[SSRBiometricMatch getLastBiometricMatchForVoiceTriggerTimeStamp:]";
       _os_log_error_impl(&dword_225E12000, v10, OS_LOG_TYPE_ERROR, "%s triggerTimeStamp is nil - Bailing out", buf, 0xCu);
     }
 
-    goto LABEL_12;
+    return 0;
   }
 
-  v15 = 0;
   v14 = 0;
+  v13 = 0;
   CSMachAbsoluteTimeToMachContinuousTime();
-  if (![(SSRBiometricMatch *)self _getLastBiometricMatchEvent:&v15 atTime:&v14])
+  if (![(SSRBiometricMatch *)self _getLastBiometricMatchEvent:&v14 atTime:&v13])
   {
     v11 = *MEMORY[0x277D01970];
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v17 = "[SSRBiometricMatch getLastBiometricMatchForVoiceTriggerTimeStamp:]";
+      v16 = "[SSRBiometricMatch getLastBiometricMatchForVoiceTriggerTimeStamp:]";
       _os_log_impl(&dword_225E12000, v11, OS_LOG_TYPE_DEFAULT, "%s No biometric information available", buf, 0xCu);
     }
 
-LABEL_12:
-    result = 0;
-    goto LABEL_13;
+    return 0;
   }
 
   CSMachAbsoluteTimeGetTimeInterval();
   v5 = v4;
-  v6 = v15;
+  v6 = v14;
   v7 = *MEMORY[0x277D01970];
   v8 = os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT);
   if (v6 == 1 && v5 < 3.0)
@@ -121,100 +117,96 @@ LABEL_12:
     if (v8)
     {
       *buf = 136315394;
-      v17 = "[SSRBiometricMatch getLastBiometricMatchForVoiceTriggerTimeStamp:]";
-      v18 = 2048;
-      v19 = v5;
+      v16 = "[SSRBiometricMatch getLastBiometricMatchForVoiceTriggerTimeStamp:]";
+      v17 = 2048;
+      v18 = v5;
       _os_log_impl(&dword_225E12000, v7, OS_LOG_TYPE_DEFAULT, "%s Biometric match happened in last %f secs", buf, 0x16u);
     }
 
-    result = 1;
+    return 1;
   }
 
   else
   {
     if (v8)
     {
-      v13 = @"MIS-MATCH";
-      v17 = "[SSRBiometricMatch getLastBiometricMatchForVoiceTriggerTimeStamp:]";
+      v12 = @"MIS-MATCH";
+      v16 = "[SSRBiometricMatch getLastBiometricMatchForVoiceTriggerTimeStamp:]";
       *buf = 136315650;
       if (v6)
       {
-        v13 = @"MATCH";
+        v12 = @"MATCH";
       }
 
-      v18 = 2112;
-      v19 = *&v13;
-      v20 = 2048;
-      v21 = v5;
+      v17 = 2112;
+      v18 = *&v12;
+      v19 = 2048;
+      v20 = v5;
       _os_log_impl(&dword_225E12000, v7, OS_LOG_TYPE_DEFAULT, "%s Biometric match result: %@ happened in last %f secs", buf, 0x20u);
-      LOBYTE(v6) = v15;
+      LOBYTE(v6) = v14;
     }
 
     if (v6)
     {
-      result = 3;
+      return 3;
     }
 
     else
     {
-      result = 2;
+      return 2;
     }
   }
-
-LABEL_13:
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 - (SSRBiometricMatch)init
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v16.receiver = self;
-  v16.super_class = SSRBiometricMatch;
-  v2 = [(SSRBiometricMatch *)&v16 init];
+  v23 = *MEMORY[0x277D85DE8];
+  v15.receiver = self;
+  v15.super_class = SSRBiometricMatch;
+  v2 = [(SSRBiometricMatch *)&v15 init];
   if (v2)
   {
-    v17 = 0;
-    v18 = &v17;
-    v19 = 0x2050000000;
+    v16 = 0;
+    v17 = &v16;
+    v18 = 0x2050000000;
     v3 = getBKDeviceClass_softClass;
-    v20 = getBKDeviceClass_softClass;
+    v19 = getBKDeviceClass_softClass;
     if (!getBKDeviceClass_softClass)
     {
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = __getBKDeviceClass_block_invoke;
-      v22 = &unk_278579720;
-      v23 = &v17;
+      v21 = &unk_278579720;
+      v22 = &v16;
       __getBKDeviceClass_block_invoke(buf);
-      v3 = v18[3];
+      v3 = v17[3];
     }
 
     v4 = v3;
-    _Block_object_dispose(&v17, 8);
-    v17 = 0;
-    v18 = &v17;
-    v19 = 0x2050000000;
+    _Block_object_dispose(&v16, 8);
+    v16 = 0;
+    v17 = &v16;
+    v18 = 0x2050000000;
     v5 = getBKDeviceManagerClass_softClass;
-    v20 = getBKDeviceManagerClass_softClass;
+    v19 = getBKDeviceManagerClass_softClass;
     if (!getBKDeviceManagerClass_softClass)
     {
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = __getBKDeviceManagerClass_block_invoke;
-      v22 = &unk_278579720;
-      v23 = &v17;
+      v21 = &unk_278579720;
+      v22 = &v16;
       __getBKDeviceManagerClass_block_invoke(buf);
-      v5 = v18[3];
+      v5 = v17[3];
     }
 
     v6 = v5;
-    _Block_object_dispose(&v17, 8);
+    _Block_object_dispose(&v16, 8);
     availableDevices = [v5 availableDevices];
     firstObject = [availableDevices firstObject];
-    v15 = 0;
-    v9 = [v3 deviceWithDescriptor:firstObject error:&v15];
-    v10 = v15;
+    v14 = 0;
+    v9 = [v3 deviceWithDescriptor:firstObject error:&v14];
+    v10 = v14;
     biometricDevice = v2->_biometricDevice;
     v2->_biometricDevice = v9;
 
@@ -232,7 +224,6 @@ LABEL_13:
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v2;
 }
 

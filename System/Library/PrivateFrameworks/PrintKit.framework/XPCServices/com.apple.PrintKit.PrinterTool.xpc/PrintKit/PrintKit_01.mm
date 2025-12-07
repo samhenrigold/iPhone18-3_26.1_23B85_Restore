@@ -391,7 +391,7 @@ LABEL_62:
   }
 }
 
-CGContext *sub_1000238A4(size_t a1, size_t a2)
+CGContextRef sub_1000238A4(size_t a1, size_t a2)
 {
   DeviceRGB = CGColorSpaceCreateDeviceRGB();
   v5 = CGBitmapContextCreate(0, a1, a2, 8uLL, (4 * a1 + 15) & 0xFFFFFFFFFFFFFFF0, DeviceRGB, 1u);
@@ -948,10 +948,10 @@ void sub_100024620(uint64_t a1, void *a2)
   }
 }
 
-void sub_1000248C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1000248C8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = LocalSocketProxy;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -2256,7 +2256,7 @@ void sub_100029220(uint64_t a1, uint64_t a2, void *a3)
   v11 = *(a1 + 40);
   if (v5)
   {
-    [v5 range];
+    objc_msgSend_range(v5);
     v12 = BYTE3(v27);
   }
 
@@ -2276,7 +2276,7 @@ void sub_100029220(uint64_t a1, uint64_t a2, void *a3)
   v13 = *(a1 + 40);
   if (v5)
   {
-    [v5 range];
+    objc_msgSend_range(v5);
     v14 = BYTE2(v27);
   }
 
@@ -2296,7 +2296,7 @@ void sub_100029220(uint64_t a1, uint64_t a2, void *a3)
   v15 = *(a1 + 40);
   if (v5)
   {
-    [v5 range];
+    objc_msgSend_range(v5);
     v16 = v27 >> 8;
   }
 
@@ -2316,7 +2316,7 @@ void sub_100029220(uint64_t a1, uint64_t a2, void *a3)
   v17 = *(a1 + 40);
   if (v5)
   {
-    [v5 range];
+    objc_msgSend_range(v5);
     v18 = v27;
   }
 
@@ -2336,7 +2336,7 @@ void sub_100029220(uint64_t a1, uint64_t a2, void *a3)
   v19 = *(a1 + 40);
   if (v5)
   {
-    [v5 range];
+    objc_msgSend_range(v5);
     v20 = HIBYTE(v27);
   }
 
@@ -2356,7 +2356,7 @@ void sub_100029220(uint64_t a1, uint64_t a2, void *a3)
   v21 = *(a1 + 40);
   if (v5)
   {
-    [v5 range];
+    objc_msgSend_range(v5);
     v22 = BYTE6(v27);
   }
 
@@ -2376,7 +2376,7 @@ void sub_100029220(uint64_t a1, uint64_t a2, void *a3)
   v23 = *(a1 + 40);
   if (v5)
   {
-    [v5 range];
+    objc_msgSend_range(v5);
     v24 = HIDWORD(v27) >> 8;
   }
 
@@ -2396,7 +2396,7 @@ void sub_100029220(uint64_t a1, uint64_t a2, void *a3)
   v25 = *(a1 + 40);
   if (v5)
   {
-    [v5 range];
+    objc_msgSend_range(v5);
     v26 = BYTE4(v27);
   }
 
@@ -2892,7 +2892,7 @@ void sub_10002B93C(id a1)
   v4 = os_log_create("com.apple.printing", [(__CFString *)PKLogCategoryProgress[0] UTF8String]);
   v9[3] = v4;
   v8[4] = PKLogCategoryFramework;
-  v5 = os_log_create("com.apple.printing", unk_1000C93B8(PKLogCategoryFramework, "UTF8String"));
+  v5 = os_log_create("com.apple.printing", unk_1000C9880(PKLogCategoryFramework, "UTF8String"));
   v9[4] = v5;
   v6 = [NSDictionary dictionaryWithObjects:v9 forKeys:v8 count:5];
   v7 = qword_1000C7C00;
@@ -2921,16 +2921,16 @@ void sub_10002C33C(uint64_t a1, void *a2, void *a3)
   [*(a1 + 32) setObject:v6 forKeyedSubscript:v7];
 }
 
-void sub_10002E1B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, ...)
+void sub_10002E1B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v11 = va_arg(va1, id);
+  va_start(va1, a13);
+  va_start(va, a13);
+  v17 = va_arg(va1, id);
   objc_destroyWeak(va1);
 
   objc_destroyWeak(va);
-  objc_destroyWeak((v9 - 48));
-  objc_destroyWeak((v9 - 40));
+  objc_destroyWeak((v15 - 48));
+  objc_destroyWeak((v15 - 40));
   _Unwind_Resume(a1);
 }
 
@@ -3431,7 +3431,7 @@ id getNamedAttr<NSArray<ipp_collection_t *> * {__strong}>(void *a1, void *a2)
   return v6;
 }
 
-id sub_10003049C(uint64_t a1, void *a2)
+NSMutableArray *sub_10003049C(uint64_t a1, void *a2)
 {
   v3 = a2;
   v15 = 0;
@@ -3466,9 +3466,9 @@ id sub_10003049C(uint64_t a1, void *a2)
   return v4;
 }
 
-void sub_100030638(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, ...)
+void sub_100030638(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -4254,10 +4254,10 @@ id sub_100034914(uint64_t a1, uint64_t a2)
   return v3;
 }
 
-void sub_100034C30(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_100034C30(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = NANBrowse_Entity;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -4507,11 +4507,13 @@ void sub_1000370C0(uint64_t a1, uint64_t a2, void *a3)
   dispatch_async(*(a1 + 32), *(a1 + 40));
 }
 
-void sub_100037858(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34)
+void sub_100037858(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, ...)
 {
-  sub_100037E38(&a34);
+  va_start(va, a33);
 
-  _Block_object_dispose((v40 - 192), 8);
+  sub_100037E38(va);
+  _Block_object_dispose((v39 - 192), 8);
+
   _Unwind_Resume(a1);
 }
 
@@ -4654,7 +4656,7 @@ void sub_100037E00(void *a1)
 
 uint64_t sub_100037E38(void *a1)
 {
-  *a1 = off_1000A2C38;
+  *a1 = &off_1000A2C38;
   v1 = a1[3];
   if (v1)
   {
@@ -4672,7 +4674,7 @@ uint64_t sub_100037E38(void *a1)
   return sub_10000B548(a1);
 }
 
-uint64_t urfWriteLine(uint64_t a1, void *__src, int a3, int a4, int a5)
+uint64_t urfWriteLine(uint64_t a1, void *__src, unsigned int a3, int a4, int a5)
 {
   result = 0;
   if (a1 && a3 >= 1 && a4 >= 1)
@@ -5426,10 +5428,9 @@ id sub_10003B508(uint64_t a1, void *a2)
   return v4;
 }
 
-char *sub_10003B6E0(uint64_t a1, uint64_t a2, char *a3)
+char *sub_10003B6E0(uint64_t a1, uint64_t a2, unint64_t a3)
 {
   v6 = [*(a1 + 8) length];
-  v7 = *(a1 + 8);
   if (&v6[-*a1] < a3)
   {
     a3 = &v6[-*a1];
@@ -5677,12 +5678,11 @@ void sub_10003CE54(uint64_t a1, void *a2)
 
 void sub_10003CF4C(uint64_t a1, void *a2)
 {
-  v4 = a2;
-  v3 = *(a1 + 40);
-  [v4 setInteger:(*(*(a1 + 32) + 16))()];
+  v3 = a2;
+  [v3 setInteger:(*(*(a1 + 32) + 16))()];
 }
 
-void sub_10003D0FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
+void sub_10003D0FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
 {
   _Block_object_dispose(&a17, 8);
 
@@ -5719,7 +5719,7 @@ void sub_10003D14C(uint64_t a1, void *a2, BOOL *a3)
   }
 }
 
-void sub_10003D574(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26)
+void sub_10003D574(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26)
 {
   _Block_object_dispose(&a21, 8);
 
@@ -6933,7 +6933,7 @@ uint64_t sub_10003F9F0(uint64_t a1)
   return 1;
 }
 
-uint64_t sub_10003FA30(uint64_t a1, void *a2, int a3)
+uint64_t sub_10003FA30(uint64_t a1, void *a2, unsigned int a3)
 {
   v3 = a3;
   v5 = *(a1 + 84) & 0xFFFFFFFE;
@@ -8820,7 +8820,7 @@ LABEL_12:
   return v7;
 }
 
-id liteGetPrintersForCurrentNetwork(void)
+NameAndPrinters *liteGetPrintersForCurrentNetwork(void)
 {
   v2[0] = _NSConcreteStackBlock;
   v2[1] = 3221225472;
@@ -8857,12 +8857,12 @@ void sub_100044A88(uint64_t a1, void *a2, uint64_t a3, BOOL *a4)
   *a4 = *(*(*(a1 + 40) + 8) + 40) != 0;
 }
 
-void liteSetupDefaults(void)
+void liteSetupDefaults(uint64_t a1)
 {
   keyExistsAndHasValidFormat = 0;
-  *v6 = 0x500000006;
-  v4 = 0;
-  v3 = 4;
+  *v7 = 0x500000006;
+  v5 = 0;
+  v4 = 4;
   GSInitialize();
   if (CFPreferencesGetAppBooleanValue(@"PrintKitPreserveJobFiles", @".GlobalPreferences", &keyExistsAndHasValidFormat))
   {
@@ -8874,32 +8874,32 @@ void liteSetupDefaults(void)
     PreserveControlFiles = 1;
   }
 
-  v0 = objc_alloc_init(PKiCloudDataController);
-  v1 = iCloudDataController;
-  iCloudDataController = v0;
+  v1 = objc_alloc_init(PKiCloudDataController);
+  v2 = iCloudDataController;
+  iCloudDataController = v1;
 
-  if (sysctl(v6, 2u, &v4, &v3, 0, 0))
+  if (sysctl(v7, 2u, &v5, &v4, 0, 0))
   {
-    v4 = 0x7FFFFFFF;
-    LODWORD(v2) = 429496729;
+    v5 = 0x7FFFFFFF;
+    LODWORD(v3) = 429496729;
   }
 
   else
   {
-    LODWORD(v2) = v4 / 5;
+    LODWORD(v3) = v5 / 5;
   }
 
-  if (v2 >= 0x8000000)
+  if (v3 >= 0x8000000)
   {
-    v2 = 0x8000000;
+    v3 = 0x8000000;
   }
 
   else
   {
-    v2 = v2;
+    v3 = v3;
   }
 
-  MaxImageMemory = v2;
+  MaxImageMemory = v3;
   MaxRenderMemory = 37748736;
   MaxProcessingJobs = 1;
   liteNotifyRunning(1);
@@ -9032,9 +9032,10 @@ id sub_1000452F4(uint64_t a1, void *a2)
   return v4;
 }
 
-BOOL sub_100045828(uint64_t a1, int a2)
+BOOL sub_100045828(uint64_t a1, uint64_t a2)
 {
-  if (!sub_1000458C0(a2, *(a1 + 32)) || !sub_1000458C0(a2, *(a1 + 40)))
+  v2 = a2;
+  if (!sub_1000458C0(a2, *(a1 + 32)) || !sub_1000458C0(v2, *(a1 + 40)))
   {
     return 0;
   }
@@ -9048,7 +9049,7 @@ BOOL sub_100045828(uint64_t a1, int a2)
       break;
     }
 
-    v6 = write(a2, &asc_100081F0B[v4], 1 - v4);
+    v6 = write(v2, &asc_100081F0B[v4], 1 - v4);
     v4 += v6;
   }
 
@@ -9212,37 +9213,37 @@ LABEL_15:
 LABEL_16:
 }
 
-CGFloat _lite_page_transform@<D0>(CGRect a1@<0:D0, 8:D1, 16:D2, 24:D3>, unint64_t a2@<X0>, unint64_t a3@<X1>, int a4@<W2>, int a5@<W3>, int a6@<W4>, uint64_t a7@<X8>)
+CGFloat _lite_page_transform@<D0>(CGAffineTransform *__return_ptr a1@<X8>, CGRect a2@<0:D0, 8:D1, 16:D2, 24:D3>, unint64_t a3@<X0>, unint64_t a4@<X1>, int a5@<W2>, int a6@<W3>, int a7@<W4>)
 {
-  height = a1.size.height;
-  width = a1.size.width;
-  y = a1.origin.y;
-  x = a1.origin.x;
-  if (a6)
+  height = a2.size.height;
+  width = a2.size.width;
+  y = a2.origin.y;
+  x = a2.origin.x;
+  if (a7)
+  {
+    v16 = a4;
+  }
+
+  else
   {
     v16 = a3;
   }
 
-  else
-  {
-    v16 = a2;
-  }
-
   v17 = v16 * -0.5;
-  if (a6)
-  {
-    v18 = a2;
-  }
-
-  else
+  if (a7)
   {
     v18 = a3;
   }
 
-  CGAffineTransformMakeTranslation(&v38, v17, v18 * -0.5);
-  if (a4 <= 4)
+  else
   {
-    switch(a4)
+    v18 = a4;
+  }
+
+  CGAffineTransformMakeTranslation(&v38, v17, v18 * -0.5);
+  if (a5 <= 4)
+  {
+    switch(a5)
     {
       case 2:
         v36 = 0uLL;
@@ -9265,16 +9266,16 @@ CGFloat _lite_page_transform@<D0>(CGRect a1@<0:D0, 8:D1, 16:D2, 24:D3>, unint64_
     goto LABEL_26;
   }
 
-  if (a4 > 6)
+  if (a5 > 6)
   {
-    if (a4 == 7)
+    if (a5 == 7)
     {
       v36 = 0uLL;
       v19 = xmmword_10006B990;
       goto LABEL_23;
     }
 
-    if (a4 == 8)
+    if (a5 == 8)
     {
       v36 = 0uLL;
       v19 = xmmword_10006B850;
@@ -9291,7 +9292,7 @@ LABEL_19:
   }
 
   v36 = 0uLL;
-  if (a4 == 5)
+  if (a5 == 5)
   {
     v19 = xmmword_10006B850;
   }
@@ -9305,10 +9306,10 @@ LABEL_19:
 LABEL_26:
   v31 = v20;
   v32 = v19;
-  if (a5 == 1 || a5 == -1)
+  if (a6 == 1 || a6 == -1)
   {
     memset(&v39, 0, sizeof(v39));
-    CGAffineTransformMakeRotation(&v39, a5 * 3.14159265 * 0.5);
+    CGAffineTransformMakeRotation(&v39, a6 * 3.14159265 * 0.5);
     *&t1.a = v31;
     *&t1.c = v32;
     *&t1.tx = v36;
@@ -9339,10 +9340,10 @@ LABEL_26:
   v43.size.width = width;
   v43.size.height = height;
   v24 = CGRectGetHeight(v43);
-  v25 = v23 / a2;
-  if (v25 >= v24 / a3)
+  v25 = v23 / a3;
+  if (v25 >= v24 / a4)
   {
-    v25 = v24 / a3;
+    v25 = v24 / a4;
   }
 
   CGAffineTransformMakeScale(&v39, v25, v25);
@@ -9351,28 +9352,28 @@ LABEL_26:
   *&t2.a = v31;
   *&t2.c = v32;
   *&t2.tx = v36;
-  CGAffineTransformConcat(a7, &t1, &t2);
-  v26 = *(a7 + 16);
-  *&t2.a = *a7;
+  CGAffineTransformConcat(a1, &t1, &t2);
+  v26 = *&a1->c;
+  *&t2.a = *&a1->a;
   *&t2.c = v26;
-  *&t2.tx = *(a7 + 32);
+  *&t2.tx = *&a1->tx;
   v33 = v39;
   CGAffineTransformConcat(&t1, &t2, &v33);
   v27 = *&t1.c;
-  *a7 = *&t1.a;
-  *(a7 + 16) = v27;
-  *(a7 + 32) = *&t1.tx;
-  v28 = *(a7 + 16);
-  *&t2.a = *a7;
+  *&a1->a = *&t1.a;
+  *&a1->c = v27;
+  *&a1->tx = *&t1.tx;
+  v28 = *&a1->c;
+  *&t2.a = *&a1->a;
   *&t2.c = v28;
-  *&t2.tx = *(a7 + 32);
+  *&t2.tx = *&a1->tx;
   v33 = v37;
   CGAffineTransformConcat(&t1, &t2, &v33);
   v29 = *&t1.c;
-  *a7 = *&t1.a;
-  *(a7 + 16) = v29;
+  *&a1->a = *&t1.a;
+  *&a1->c = v29;
   result = t1.tx;
-  *(a7 + 32) = *&t1.tx;
+  *&a1->tx = *&t1.tx;
   return result;
 }
 
@@ -9489,7 +9490,7 @@ void _liteDrawImageToSheet(CGContext *a1, CGImageRef image, int a3, CGSize a4, C
   v38.origin.y = v34;
   v38.size.width = v35;
   v38.size.height = v36;
-  _lite_page_transform(v38, v19, v20, a3, 0, a3 > 4, &v37);
+  _lite_page_transform(&v37, v38, v19, v20, a3, 0, a3 > 4);
   CGContextConcatCTM(a1, &v37);
   v39.size.width = v14;
   v39.size.height = v16;

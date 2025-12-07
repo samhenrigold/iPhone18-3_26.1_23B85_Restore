@@ -41,7 +41,7 @@
 
 - (SGTextMessageItem)initWithCoder:(id)coder
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectForKey:@"message"];
   textContent = [v5 textContent];
@@ -57,9 +57,9 @@
     v8 = sgLogHandle();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
-      v11 = 138412290;
-      v12 = coderCopy;
-      _os_log_fault_impl(&dword_231E60000, v8, OS_LOG_TYPE_FAULT, "Error decoding null message.textContent in %@:", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = coderCopy;
+      _os_log_fault_impl(&dword_231E60000, v8, OS_LOG_TYPE_FAULT, "Error decoding null message.textContent in %@:", &v10, 0xCu);
     }
 
     if (_PASEvaluateLogFaultAndProbCrashCriteria())
@@ -70,7 +70,6 @@
     selfCopy = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

@@ -15,10 +15,11 @@ id sub_1A0C(uint64_t a1)
   }
 }
 
-id sub_1C2C(id result, io_registry_entry_t a2, int a3)
+id sub_1C2C(id result, uint64_t a2, int a3)
 {
   if (a3 == -536870608)
   {
+    v4 = a2;
     v5 = result;
     if (sub_2160(a2, @"FrontCameraActive"))
     {
@@ -30,8 +31,8 @@ id sub_1C2C(id result, io_registry_entry_t a2, int a3)
       v6 = 0;
     }
 
-    v7 = v6 | sub_2160(a2, @"BackCameraActive");
-    if (sub_2160(a2, @"BackTeleCameraActive"))
+    v7 = v6 | sub_2160(v4, @"BackCameraActive");
+    if (sub_2160(v4, @"BackTeleCameraActive"))
     {
       v8 = v7 | 4;
     }
@@ -81,10 +82,11 @@ BOOL sub_2160(io_registry_entry_t a1, const __CFString *a2)
   return v6;
 }
 
-void sub_21D0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_21D0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 id sub_25D8(uint64_t a1)

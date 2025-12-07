@@ -57,7 +57,7 @@
 {
   memset(v21, 0, sizeof(v21));
   v20 = 0u;
-  if (self && ([(AVRoutingScheduledParameterRamp *)self timeRange], (BYTE4(v21[1]) & 0x1D) == 1))
+  if (self && (objc_msgSend_timeRange(self, a2), (BYTE4(v21[1]) & 0x1D) == 1))
   {
     time = *(v21 + 8);
     Seconds = CMTimeGetSeconds(&time);
@@ -121,7 +121,7 @@
   memset(&v19, 0, sizeof(v19));
   if (self)
   {
-    [(AVRoutingScheduledParameterRamp *)self timeRange];
+    objc_msgSend_timeRange(self);
   }
 
   range = v19;
@@ -159,17 +159,17 @@
 
 - (AVRoutingScheduledFloatValueRamp)initWithPropertyList:(id)list
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     selfCopy = self;
-    v24 = MEMORY[0x1E695DF30];
-    v25 = *MEMORY[0x1E695D940];
-    v26 = "[propertyList isKindOfClass:[NSDictionary class]]";
+    v23 = MEMORY[0x1E695DF30];
+    v24 = *MEMORY[0x1E695D940];
+    v25 = "[propertyList isKindOfClass:[NSDictionary class]]";
 LABEL_15:
-    v28 = [v24 exceptionWithName:v25 reason:AVMethodExceptionReasonWithObjectAndSelector(self userInfo:{a2, @"invalid parameter not satisfying: %s", v19, v20, v21, v22, v23, v26), 0}];
-    objc_exception_throw(v28);
+    v27 = [v23 exceptionWithName:v24 reason:AVMethodExceptionReasonWithObjectAndSelector(self userInfo:{a2, @"invalid parameter not satisfying: %s", v18, v19, v20, v21, v22, v25), 0}];
+    objc_exception_throw(v27);
   }
 
   v6 = MEMORY[0x1E6960C98];
@@ -179,7 +179,7 @@ LABEL_15:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    CMTimeRangeMakeFromDictionary(&v32, v7);
+    CMTimeRangeMakeFromDictionary(&v31, v7);
     goto LABEL_6;
   }
 
@@ -189,16 +189,16 @@ LABEL_15:
   {
     CMTimeMakeFromDictionary(&start, v8);
     duration = **&MEMORY[0x1E6960C88];
-    CMTimeRangeMake(&v32, &start, &duration);
+    CMTimeRangeMake(&v31, &start, &duration);
 LABEL_6:
-    value = v32.start.value;
-    flags = v32.start.flags;
-    timescale = v32.start.timescale;
-    epoch = v32.start.epoch;
-    v11 = v32.duration.value;
-    v12 = *&v32.duration.timescale;
-    v13 = v32.duration.epoch;
-    if ((v32.start.flags & 1) == 0)
+    value = v31.start.value;
+    flags = v31.start.flags;
+    timescale = v31.start.timescale;
+    epoch = v31.start.epoch;
+    v11 = v31.duration.value;
+    v12 = *&v31.duration.timescale;
+    v13 = v31.duration.epoch;
+    if ((v31.start.flags & 1) == 0)
     {
       goto LABEL_13;
     }
@@ -215,9 +215,9 @@ LABEL_6:
   {
 LABEL_13:
     selfCopy2 = self;
-    v24 = MEMORY[0x1E695DF30];
-    v25 = *MEMORY[0x1E695D940];
-    v26 = "CMTIMERANGE_IS_VALID(timeRange)";
+    v23 = MEMORY[0x1E695DF30];
+    v24 = *MEMORY[0x1E695D940];
+    v25 = "CMTIMERANGE_IS_VALID(timeRange)";
     goto LABEL_15;
   }
 
@@ -227,20 +227,18 @@ LABEL_9:
     goto LABEL_13;
   }
 
-  v29 = v12;
+  v28 = v12;
   [objc_msgSend(list objectForKey:{@"startValue", "floatValue"}];
   [objc_msgSend(list objectForKey:{@"endValue", "floatValue"}];
   LODWORD(v15) = v14;
-  v32.start.value = value;
-  v32.start.timescale = timescale;
-  v32.start.flags = flags;
-  v32.start.epoch = epoch;
-  v32.duration.value = v11;
-  *&v32.duration.timescale = v29;
-  v32.duration.epoch = 0;
-  result = [(AVRoutingScheduledFloatValueRamp *)self initWithStartValue:&v32 endValue:v29 timeRange:v15];
-  v17 = *MEMORY[0x1E69E9840];
-  return result;
+  v31.start.value = value;
+  v31.start.timescale = timescale;
+  v31.start.flags = flags;
+  v31.start.epoch = epoch;
+  v31.duration.value = v11;
+  *&v31.duration.timescale = v28;
+  v31.duration.epoch = 0;
+  return [(AVRoutingScheduledFloatValueRamp *)self initWithStartValue:&v31 endValue:v28 timeRange:v15];
 }
 
 - (id)propertyList
@@ -250,7 +248,7 @@ LABEL_9:
   v13 = 0u;
   if (self)
   {
-    [(AVRoutingScheduledParameterRamp *)self timeRange];
+    objc_msgSend_timeRange(self, a2);
     v3 = (BYTE4(v15) & 0x1D) == 1;
   }
 

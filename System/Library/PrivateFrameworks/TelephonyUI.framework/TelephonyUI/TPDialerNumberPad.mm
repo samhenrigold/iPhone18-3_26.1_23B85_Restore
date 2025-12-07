@@ -12,68 +12,64 @@
 
 + (id)dialerNumberPadFullCharacters
 {
-  v17[12] = *MEMORY[0x1E69E9840];
-  v16 = [MEMORY[0x1E696AD98] numberWithInt:0];
-  v17[0] = v16;
-  v15 = [MEMORY[0x1E696AD98] numberWithInt:1];
-  v17[1] = v15;
-  v14 = [MEMORY[0x1E696AD98] numberWithInt:2];
-  v17[2] = v14;
+  v16[12] = *MEMORY[0x1E69E9840];
+  v15 = [MEMORY[0x1E696AD98] numberWithInt:0];
+  v16[0] = v15;
+  v14 = [MEMORY[0x1E696AD98] numberWithInt:1];
+  v16[1] = v14;
+  v13 = [MEMORY[0x1E696AD98] numberWithInt:2];
+  v16[2] = v13;
   v2 = [MEMORY[0x1E696AD98] numberWithInt:3];
-  v17[3] = v2;
+  v16[3] = v2;
   v3 = [MEMORY[0x1E696AD98] numberWithInt:4];
-  v17[4] = v3;
+  v16[4] = v3;
   v4 = [MEMORY[0x1E696AD98] numberWithInt:5];
-  v17[5] = v4;
+  v16[5] = v4;
   v5 = [MEMORY[0x1E696AD98] numberWithInt:6];
-  v17[6] = v5;
+  v16[6] = v5;
   v6 = [MEMORY[0x1E696AD98] numberWithInt:7];
-  v17[7] = v6;
+  v16[7] = v6;
   v7 = [MEMORY[0x1E696AD98] numberWithInt:8];
-  v17[8] = v7;
+  v16[8] = v7;
   v8 = [MEMORY[0x1E696AD98] numberWithInt:9];
-  v17[9] = v8;
+  v16[9] = v8;
   v9 = [MEMORY[0x1E696AD98] numberWithInt:10];
-  v17[10] = v9;
+  v16[10] = v9;
   v10 = [MEMORY[0x1E696AD98] numberWithInt:11];
-  v17[11] = v10;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:12];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v16[11] = v10;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:12];
 
   return v11;
 }
 
 + (id)dialerNumberPadNumericCharacters
 {
-  v17[12] = *MEMORY[0x1E69E9840];
-  v16 = [MEMORY[0x1E696AD98] numberWithInt:0];
-  v17[0] = v16;
-  v15 = [MEMORY[0x1E696AD98] numberWithInt:1];
-  v17[1] = v15;
-  v14 = [MEMORY[0x1E696AD98] numberWithInt:2];
-  v17[2] = v14;
+  v16[12] = *MEMORY[0x1E69E9840];
+  v15 = [MEMORY[0x1E696AD98] numberWithInt:0];
+  v16[0] = v15;
+  v14 = [MEMORY[0x1E696AD98] numberWithInt:1];
+  v16[1] = v14;
+  v13 = [MEMORY[0x1E696AD98] numberWithInt:2];
+  v16[2] = v13;
   v2 = [MEMORY[0x1E696AD98] numberWithInt:3];
-  v17[3] = v2;
+  v16[3] = v2;
   v3 = [MEMORY[0x1E696AD98] numberWithInt:4];
-  v17[4] = v3;
+  v16[4] = v3;
   v4 = [MEMORY[0x1E696AD98] numberWithInt:5];
-  v17[5] = v4;
+  v16[5] = v4;
   v5 = [MEMORY[0x1E696AD98] numberWithInt:6];
-  v17[6] = v5;
+  v16[6] = v5;
   v6 = [MEMORY[0x1E696AD98] numberWithInt:7];
-  v17[7] = v6;
+  v16[7] = v6;
   v7 = [MEMORY[0x1E696AD98] numberWithInt:8];
-  v17[8] = v7;
+  v16[8] = v7;
   v8 = [MEMORY[0x1E696AD98] numberWithInt:13];
-  v17[9] = v8;
+  v16[9] = v8;
   v9 = [MEMORY[0x1E696AD98] numberWithInt:10];
-  v17[10] = v9;
+  v16[10] = v9;
   v10 = [MEMORY[0x1E696AD98] numberWithInt:13];
-  v17[11] = v10;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:12];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v16[11] = v10;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:12];
 
   return v11;
 }

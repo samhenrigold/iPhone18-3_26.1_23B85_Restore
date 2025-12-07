@@ -16,26 +16,22 @@
 
 - (BOOL)addTLV:(unint64_t)v uuid:(id)uuid
 {
-  v8[2] = *MEMORY[0x277D85DE8];
-  if (uuid)
+  v7[2] = *MEMORY[0x277D85DE8];
+  if (!uuid)
   {
-    v8[0] = 0;
-    v8[1] = 0;
-    [uuid getUUIDBytes:v8];
-    v5 = TLV8BufferAppend();
-    result = v5 == 0;
-    if (v5)
-    {
-      self->_addHasFailed = 1;
-    }
+    return 0;
   }
 
-  else
+  v7[0] = 0;
+  v7[1] = 0;
+  [uuid getUUIDBytes:v7];
+  v5 = TLV8BufferAppend();
+  result = v5 == 0;
+  if (v5)
   {
-    result = 0;
+    self->_addHasFailed = 1;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 

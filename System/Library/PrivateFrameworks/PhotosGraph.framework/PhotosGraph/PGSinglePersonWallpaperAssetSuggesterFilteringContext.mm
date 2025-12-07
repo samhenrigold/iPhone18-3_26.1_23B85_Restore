@@ -17,49 +17,47 @@
 
 - (id)dictionaryRepresentation
 {
-  v20[13] = *MEMORY[0x277D85DE8];
-  v19[0] = @"PGSinglePersonWallpaperAssetSuggesterFilteringContextTimeIntervalForCandidateDeduping";
-  v18 = [MEMORY[0x277CCABB0] numberWithDouble:self->_timeIntervalForCandidateDeduping];
-  v20[0] = v18;
-  v19[1] = @"PGSinglePersonWallpaperAssetSuggesterFilteringContextRequiresSmile";
-  v17 = [MEMORY[0x277CCABB0] numberWithBool:self->_requiresSmile];
-  v20[1] = v17;
-  v19[2] = @"PGSinglePersonWallpaperAssetSuggesterFilteringContextRequiresNoBlink";
-  v16 = [MEMORY[0x277CCABB0] numberWithBool:self->_requiresNoBlink];
-  v20[2] = v16;
-  v19[3] = @"PGSinglePersonWallpaperAssetSuggesterFilteringContextMinimumFaceQuality";
-  v15 = [MEMORY[0x277CCABB0] numberWithDouble:self->_minimumFaceQuality];
-  v20[3] = v15;
-  v19[4] = @"PGSinglePersonWallpaperAssetSuggesterFilteringContextFaceQualityPenaltyCutOff";
+  v19[13] = *MEMORY[0x277D85DE8];
+  v18[0] = @"PGSinglePersonWallpaperAssetSuggesterFilteringContextTimeIntervalForCandidateDeduping";
+  v17 = [MEMORY[0x277CCABB0] numberWithDouble:self->_timeIntervalForCandidateDeduping];
+  v19[0] = v17;
+  v18[1] = @"PGSinglePersonWallpaperAssetSuggesterFilteringContextRequiresSmile";
+  v16 = [MEMORY[0x277CCABB0] numberWithBool:self->_requiresSmile];
+  v19[1] = v16;
+  v18[2] = @"PGSinglePersonWallpaperAssetSuggesterFilteringContextRequiresNoBlink";
+  v15 = [MEMORY[0x277CCABB0] numberWithBool:self->_requiresNoBlink];
+  v19[2] = v15;
+  v18[3] = @"PGSinglePersonWallpaperAssetSuggesterFilteringContextMinimumFaceQuality";
+  v14 = [MEMORY[0x277CCABB0] numberWithDouble:self->_minimumFaceQuality];
+  v19[3] = v14;
+  v18[4] = @"PGSinglePersonWallpaperAssetSuggesterFilteringContextFaceQualityPenaltyCutOff";
   v3 = [MEMORY[0x277CCABB0] numberWithDouble:self->_faceQualityPenaltyCutOff];
-  v20[4] = v3;
-  v19[5] = @"PGSinglePersonWallpaperAssetSuggesterFilteringContextMinimumFaceSize";
+  v19[4] = v3;
+  v18[5] = @"PGSinglePersonWallpaperAssetSuggesterFilteringContextMinimumFaceSize";
   v4 = [MEMORY[0x277CCABB0] numberWithDouble:self->_minimumFaceSize];
-  v20[5] = v4;
-  v19[6] = @"PGSinglePersonWallpaperAssetSuggesterFilteringContextMaximumFaceSize";
+  v19[5] = v4;
+  v18[6] = @"PGSinglePersonWallpaperAssetSuggesterFilteringContextMaximumFaceSize";
   v5 = [MEMORY[0x277CCABB0] numberWithDouble:self->_maximumFaceSize];
-  v20[6] = v5;
-  v19[7] = @"PGSinglePersonWallpaperAssetSuggesterFilteringContextMaximumFaceRoll";
+  v19[6] = v5;
+  v18[7] = @"PGSinglePersonWallpaperAssetSuggesterFilteringContextMaximumFaceRoll";
   v6 = [MEMORY[0x277CCABB0] numberWithDouble:self->_maximumFaceRoll];
-  v20[7] = v6;
-  v19[8] = @"PGSinglePersonWallpaperAssetSuggesterFilteringContextMinimumWallpaperScore";
+  v19[7] = v6;
+  v18[8] = @"PGSinglePersonWallpaperAssetSuggesterFilteringContextMinimumWallpaperScore";
   v7 = [MEMORY[0x277CCABB0] numberWithDouble:self->_minimumWallpaperScore];
-  v20[8] = v7;
-  v19[9] = @"PGSinglePersonWallpaperAssetSuggesterFilteringContextAbsoluteMinimumWallpaperScore";
+  v19[8] = v7;
+  v18[9] = @"PGSinglePersonWallpaperAssetSuggesterFilteringContextAbsoluteMinimumWallpaperScore";
   v8 = [MEMORY[0x277CCABB0] numberWithDouble:self->_absoluteMinimumWallpaperScore];
-  v20[9] = v8;
-  v19[10] = @"PGSinglePersonWallpaperAssetSuggesterFilteringContextMinimumCropScore";
+  v19[9] = v8;
+  v18[10] = @"PGSinglePersonWallpaperAssetSuggesterFilteringContextMinimumCropScore";
   v9 = [MEMORY[0x277CCABB0] numberWithDouble:self->_minimumCropScore];
-  v20[10] = v9;
-  v19[11] = @"PGSinglePersonWallpaperAssetSuggesterFilteringContextMaximumLowLightScore";
+  v19[10] = v9;
+  v18[11] = @"PGSinglePersonWallpaperAssetSuggesterFilteringContextMaximumLowLightScore";
   v10 = [MEMORY[0x277CCABB0] numberWithDouble:self->_maximumLowLightScore];
-  v20[11] = v10;
-  v19[12] = @"PGSinglePersonWallpaperAssetSuggesterFilteringContextMaximumCropZoomRatio";
+  v19[11] = v10;
+  v18[12] = @"PGSinglePersonWallpaperAssetSuggesterFilteringContextMaximumCropZoomRatio";
   v11 = [MEMORY[0x277CCABB0] numberWithDouble:self->_maximumCropZoomRatio];
-  v20[12] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:13];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v19[12] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:13];
 
   return v12;
 }
@@ -240,7 +238,7 @@
 
 - (void)_commonInitInOrientation:(int64_t)orientation
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   self->_orientation = orientation;
   PFDeviceScreenSize();
   v6 = v4;
@@ -250,13 +248,13 @@
     v9 = 1.0;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
     {
-      v15 = 134218496;
-      v16 = v6;
-      v17 = 2048;
-      v18 = v7;
-      v19 = 2048;
-      v20 = 0x3FF0000000000000;
-      _os_log_fault_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "PFSizeGetAspectRatio produced an undefined aspect ratio from size {%lf, %lf}. Returning %f. Use PFSizeGetAspectRatioWithDefault() to provide a value for this case.", &v15, 0x20u);
+      v14 = 134218496;
+      v15 = v6;
+      v16 = 2048;
+      v17 = v7;
+      v18 = 2048;
+      v19 = 0x3FF0000000000000;
+      _os_log_fault_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "PFSizeGetAspectRatio produced an undefined aspect ratio from size {%lf, %lf}. Returning %f. Use PFSizeGetAspectRatioWithDefault() to provide a value for this case.", &v14, 0x20u);
     }
   }
 
@@ -275,7 +273,6 @@
   *&self->_minimumCropScore = xmmword_22F78BFC0;
   self->_maximumCropZoomRatio = 1.45;
   *&self->_requiresSmile = 257;
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)initForCameraStyleable

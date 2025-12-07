@@ -23,9 +23,9 @@
 
 - (SUUIFlexibleSegmentedControl)initWithFrame:(CGRect)frame
 {
-  v8.receiver = self;
-  v8.super_class = SUUIFlexibleSegmentedControl;
-  v3 = [(SUUIFlexibleSegmentedControl *)&v8 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v10.receiver = self;
+  v10.super_class = SUUIFlexibleSegmentedControl;
+  v3 = [(SUUIFlexibleSegmentedControl *)&v10 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   v4 = v3;
   if (v3)
   {
@@ -35,8 +35,8 @@
     segmentedControl = v4->_segmentedControl;
     v4->_segmentedControl = v5;
 
-    [(UISegmentedControl *)v4->_segmentedControl addTarget:v4 action:sel__valueChangeAction_ forControlEvents:4096];
-    [(UISegmentedControl *)v4->_segmentedControl setSemanticContentAttribute:storeSemanticContentAttribute()];
+    v7 = [(UISegmentedControl *)v4->_segmentedControl addTarget:v4 action:sel__valueChangeAction_ forControlEvents:4096];
+    [(UISegmentedControl *)v4->_segmentedControl setSemanticContentAttribute:storeSemanticContentAttribute(v7, v8)];
     [(SUUIFlexibleSegmentedControl *)v4 addSubview:v4->_segmentedControl];
   }
 

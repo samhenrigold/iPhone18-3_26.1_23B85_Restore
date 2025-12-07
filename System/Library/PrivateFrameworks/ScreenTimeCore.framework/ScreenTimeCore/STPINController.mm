@@ -109,51 +109,51 @@
 
 - (void)_setNewPIN:(id)n currentPIN:(id)iN recoveryAppleIDPrompt:(id)prompt completionHandler:(id)handler
 {
-  v66[2] = *MEMORY[0x1E69E9840];
+  v65[2] = *MEMORY[0x1E69E9840];
   nCopy = n;
   iNCopy = iN;
   promptCopy = prompt;
   handlerCopy = handler;
   if (!nCopy || [(STPINController *)self _isPINValid:nCopy])
   {
-    v61 = 0;
-    v62 = &v61;
-    v63 = 0x2020000000;
-    v64 = 0;
-    v55 = 0;
-    v56 = &v55;
-    v57 = 0x3032000000;
-    v58 = __Block_byref_object_copy__11;
-    v59 = __Block_byref_object_dispose__11;
     v60 = 0;
-    v51 = 0;
-    v52 = &v51;
-    v53 = 0x2020000000;
+    v61 = &v60;
+    v62 = 0x2020000000;
+    v63 = 0;
     v54 = 0;
+    v55 = &v54;
+    v56 = 0x3032000000;
+    v57 = __Block_byref_object_copy__11;
+    v58 = __Block_byref_object_dispose__11;
+    v59 = 0;
+    v50 = 0;
+    v51 = &v50;
+    v52 = 0x2020000000;
+    v53 = 0;
     user = [(STPINController *)self user];
     managedObjectContext = [user managedObjectContext];
     [managedObjectContext setMergePolicy:*MEMORY[0x1E695D370]];
-    v41[0] = MEMORY[0x1E69E9820];
-    v41[1] = 3221225472;
-    v41[2] = __81__STPINController__setNewPIN_currentPIN_recoveryAppleIDPrompt_completionHandler___block_invoke;
-    v41[3] = &unk_1E7CE7B18;
+    v40[0] = MEMORY[0x1E69E9820];
+    v40[1] = 3221225472;
+    v40[2] = __81__STPINController__setNewPIN_currentPIN_recoveryAppleIDPrompt_completionHandler___block_invoke;
+    v40[3] = &unk_1E7CE7B18;
     v17 = managedObjectContext;
-    v42 = v17;
+    v41 = v17;
     v18 = user;
-    v43 = v18;
-    v44 = iNCopy;
-    v48 = &v55;
+    v42 = v18;
+    v43 = iNCopy;
+    v47 = &v54;
     v19 = nCopy;
-    v45 = v19;
-    v49 = &v51;
+    v44 = v19;
+    v48 = &v50;
     v20 = promptCopy;
-    v50 = &v61;
+    v49 = &v60;
     selfCopy = self;
-    v47 = v20;
-    [v17 performBlockAndWait:v41];
-    if (*(v62 + 24) == 1)
+    v46 = v20;
+    [v17 performBlockAndWait:v40];
+    if (*(v61 + 24) == 1)
     {
-      if (*(v52 + 24) == 1)
+      if (*(v51 + 24) == 1)
       {
         if (!v20)
         {
@@ -161,18 +161,18 @@
           [currentHandler handleFailureInMethod:a2 object:self file:@"STPINController.m" lineNumber:169 description:@"Recovery Apple ID prompt must not be nil"];
         }
 
-        v33[0] = MEMORY[0x1E69E9820];
-        v33[1] = 3221225472;
-        v33[2] = __81__STPINController__setNewPIN_currentPIN_recoveryAppleIDPrompt_completionHandler___block_invoke_41;
-        v33[3] = &unk_1E7CE7B68;
-        v39 = &v61;
-        v34 = v17;
+        v32[0] = MEMORY[0x1E69E9820];
+        v32[1] = 3221225472;
+        v32[2] = __81__STPINController__setNewPIN_currentPIN_recoveryAppleIDPrompt_completionHandler___block_invoke_41;
+        v32[3] = &unk_1E7CE7B68;
+        v38 = &v60;
+        v33 = v17;
         selfCopy2 = self;
-        v36 = v19;
-        v37 = v18;
-        v40 = &v55;
-        v38 = handlerCopy;
-        (*(v20 + 2))(v20, v33);
+        v35 = v19;
+        v36 = v18;
+        v39 = &v54;
+        v37 = handlerCopy;
+        (*(v20 + 2))(v20, v32);
 
         goto LABEL_12;
       }
@@ -182,16 +182,16 @@
 
     else
     {
-      v21 = v56[5];
+      v21 = v55[5];
     }
 
     (*(handlerCopy + 2))(handlerCopy, v21);
 LABEL_12:
 
-    _Block_object_dispose(&v51, 8);
-    _Block_object_dispose(&v55, 8);
+    _Block_object_dispose(&v50, 8);
+    _Block_object_dispose(&v54, 8);
 
-    _Block_object_dispose(&v61, 8);
+    _Block_object_dispose(&v60, 8);
     goto LABEL_13;
   }
 
@@ -203,21 +203,20 @@ LABEL_12:
   v27 = [v25 initWithFormat:v24 locale:currentLocale, objc_msgSend(objc_opt_class(), "pinLength")];
 
   v28 = *MEMORY[0x1E696A598];
-  v65[0] = *MEMORY[0x1E696A578];
-  v65[1] = v28;
-  v66[0] = v23;
-  v66[1] = v27;
-  v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v66 forKeys:v65 count:2];
+  v64[0] = *MEMORY[0x1E696A578];
+  v64[1] = v28;
+  v65[0] = v23;
+  v65[1] = v27;
+  v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v65 forKeys:v64 count:2];
   v30 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"STErrorDomain" code:20 userInfo:v29];
   (*(handlerCopy + 2))(handlerCopy, v30);
 
 LABEL_13:
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 void __81__STPINController__setNewPIN_currentPIN_recoveryAppleIDPrompt_completionHandler___block_invoke(uint64_t a1)
 {
-  v38[1] = *MEMORY[0x1E69E9840];
+  v36[1] = *MEMORY[0x1E69E9840];
   [*(a1 + 32) refreshObject:*(a1 + 40) mergeChanges:1];
   v2 = *(a1 + 40);
   if (v2 && ([v2 isDeleted] & 1) == 0)
@@ -229,83 +228,82 @@ void __81__STPINController__setNewPIN_currentPIN_recoveryAppleIDPrompt_completio
       v5 = [v4 localizedStringForKey:@"PINIncorrectError" value:&stru_1F3040980 table:0];
 
       v6 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v37 = *MEMORY[0x1E696A578];
-      v38[0] = v5;
-      v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:&v37 count:1];
+      v35 = *MEMORY[0x1E696A578];
+      v36[0] = v5;
+      v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:&v35 count:1];
       v8 = [v6 initWithDomain:@"STErrorDomain" code:18 userInfo:v7];
       v9 = *(*(a1 + 80) + 8);
       v10 = *(v9 + 40);
       *(v9 + 40) = v8;
     }
 
-    v11 = a1 + 80;
-    v12 = *(*(a1 + 80) + 8);
-    v14 = *(v12 + 40);
-    v13 = (v12 + 40);
-    if (!v14)
+    v11 = *(*(a1 + 80) + 8);
+    v13 = *(v11 + 40);
+    v12 = (v11 + 40);
+    if (!v13)
     {
       if (*(a1 + 56))
       {
-        v15 = [*(a1 + 40) effectiveRecoveryAltDSID];
-        v16 = [*(a1 + 40) familyMemberType];
-        if (!*(a1 + 72) || v15)
+        v14 = [*(a1 + 40) effectiveRecoveryAltDSID];
+        v15 = [*(a1 + 40) familyMemberType];
+        if (!*(a1 + 72) || v14)
         {
-          v26 = a1 + 88;
+          v25 = a1 + 88;
           *(*(*(a1 + 88) + 8) + 24) = 0;
         }
 
         else
         {
-          v17 = [*(a1 + 40) dsid];
-          v18 = [v17 integerValue];
-          v19 = 1;
-          if (v18 && v16)
+          v16 = [*(a1 + 40) dsid];
+          v17 = [v16 integerValue];
+          v18 = 1;
+          if (v17 && v15)
           {
-            if ([v16 isEqualToString:@"Unknown"])
+            if ([v15 isEqualToString:@"Unknown"])
             {
-              v19 = 1;
+              v18 = 1;
             }
 
-            else if ([v16 isEqualToString:@"Adult"])
+            else if ([v15 isEqualToString:@"Adult"])
             {
-              v19 = [*(a1 + 40) isManaged] ^ 1;
+              v18 = [*(a1 + 40) isManaged] ^ 1;
             }
 
             else
             {
-              v19 = 0;
+              v18 = 0;
             }
           }
 
-          v26 = a1 + 88;
-          *(*(*(a1 + 88) + 8) + 24) = v19;
+          v25 = a1 + 88;
+          *(*(*(a1 + 88) + 8) + 24) = v18;
         }
 
-        if (*(*(*v26 + 8) + 24))
+        if (*(*(*v25 + 8) + 24))
         {
           *(*(*(a1 + 96) + 8) + 24) = 1;
         }
 
         else
         {
-          v29 = *(a1 + 56);
-          v28 = *(a1 + 64);
-          v30 = *(a1 + 40);
-          v31 = *(*(a1 + 80) + 8);
-          v36 = *(v31 + 40);
-          v32 = [v28 _setPasscode:v29 recoveryAppleID:v15 forUser:v30 error:&v36];
-          objc_storeStrong((v31 + 40), v36);
-          *(*(*(a1 + 96) + 8) + 24) = v32;
+          v28 = *(a1 + 56);
+          v27 = *(a1 + 64);
+          v29 = *(a1 + 40);
+          v30 = *(*(a1 + 80) + 8);
+          v34 = *(v30 + 40);
+          v31 = [v27 _setPasscode:v28 recoveryAppleID:v14 forUser:v29 error:&v34];
+          objc_storeStrong((v30 + 40), v34);
+          *(*(*(a1 + 96) + 8) + 24) = v31;
         }
       }
 
       else
       {
-        v20 = *(a1 + 40);
+        v19 = *(a1 + 40);
         obj = 0;
-        v21 = [STBlueprint deleteManagedUserBlueprintForUser:v20 error:&obj];
-        objc_storeStrong(v13, obj);
-        *(*(*(a1 + 96) + 8) + 24) = v21;
+        v20 = [STBlueprint deleteManagedUserBlueprintForUser:v19 error:&obj];
+        objc_storeStrong(v12, obj);
+        *(*(*(a1 + 96) + 8) + 24) = v20;
         if (*(*(*(a1 + 96) + 8) + 24) == 1)
         {
           [*(a1 + 40) setEffectivePasscode:0];
@@ -315,21 +313,21 @@ void __81__STPINController__setNewPIN_currentPIN_recoveryAppleIDPrompt_completio
           [*(a1 + 40) setIsCommunicationSafetyReceivingRestricted:0];
           [*(a1 + 40) setIsCommunicationSafetyNotificationEnabled:0];
           [*(a1 + 40) setIsCommunicationSafetyAnalyticsEnabled:0];
-          v22 = *(a1 + 64);
-          v23 = *(a1 + 40);
-          v24 = *(*(a1 + 80) + 8);
-          v34 = *(v24 + 40);
-          v25 = [v22 _saveChangesForUser:v23 error:&v34];
-          objc_storeStrong((v24 + 40), v34);
-          *(*(*(a1 + 96) + 8) + 24) = v25;
+          v21 = *(a1 + 64);
+          v22 = *(a1 + 40);
+          v23 = *(*(a1 + 80) + 8);
+          v32 = *(v23 + 40);
+          v24 = [v21 _saveChangesForUser:v22 error:&v32];
+          objc_storeStrong((v23 + 40), v32);
+          *(*(*(a1 + 96) + 8) + 24) = v24;
         }
 
         else
         {
-          v27 = +[STLog pinController];
-          if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+          v26 = +[STLog pinController];
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
           {
-            __81__STPINController__setNewPIN_currentPIN_recoveryAppleIDPrompt_completionHandler___block_invoke_cold_1(v11);
+            __81__STPINController__setNewPIN_currentPIN_recoveryAppleIDPrompt_completionHandler___block_invoke_cold_1();
           }
         }
       }
@@ -341,11 +339,9 @@ void __81__STPINController__setNewPIN_currentPIN_recoveryAppleIDPrompt_completio
     v3 = +[STLog pinController];
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      __81__STPINController__setNewPIN_currentPIN_recoveryAppleIDPrompt_completionHandler___block_invoke_cold_2(a1);
+      __81__STPINController__setNewPIN_currentPIN_recoveryAppleIDPrompt_completionHandler___block_invoke_cold_2();
     }
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 void __81__STPINController__setNewPIN_currentPIN_recoveryAppleIDPrompt_completionHandler___block_invoke_41(uint64_t a1, void *a2)
@@ -418,7 +414,7 @@ void __81__STPINController__setNewPIN_currentPIN_recoveryAppleIDPrompt_completio
     v14 = +[STLog pinController];
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      [STPINController _setPasscode:error recoveryAppleID:? forUser:? error:?];
+      [STPINController _setPasscode:recoveryAppleID:forUser:error:];
     }
 
     v13 = 0;
@@ -429,7 +425,7 @@ void __81__STPINController__setNewPIN_currentPIN_recoveryAppleIDPrompt_completio
 
 - (BOOL)_saveChangesForUser:(id)user error:(id *)error
 {
-  v18[2] = *MEMORY[0x1E69E9840];
+  v17[2] = *MEMORY[0x1E69E9840];
   userCopy = user;
   managedObjectContext = [userCopy managedObjectContext];
   v7 = [managedObjectContext save:error];
@@ -446,18 +442,17 @@ void __81__STPINController__setNewPIN_currentPIN_recoveryAppleIDPrompt_completio
     v10 = [v9 localizedStringForKey:@"PersistPINError" value:&stru_1F3040980 table:0];
 
     v11 = *MEMORY[0x1E696A578];
-    v18[0] = v10;
+    v17[0] = v10;
     v12 = *MEMORY[0x1E696AA08];
-    v17[0] = v11;
-    v17[1] = v12;
+    v16[0] = v11;
+    v16[1] = v12;
     v13 = STXPCSafeErrorFromCoreDataError(*error, 1);
-    v18[1] = v13;
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:2];
+    v17[1] = v13;
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:2];
 
     *error = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"STErrorDomain" code:1 userInfo:v14];
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -510,7 +505,7 @@ void __45__STPINController_authenticateWithPIN_error___block_invoke(uint64_t a1)
     v8 = +[STLog pinController];
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __45__STPINController_authenticateWithPIN_error___block_invoke_cold_1(v2);
+      __45__STPINController_authenticateWithPIN_error___block_invoke_cold_1();
     }
   }
 }
@@ -561,7 +556,7 @@ void __79__STPINController_authenticateWithPIN_allowPasscodeRecovery_completionH
 - (BOOL)_authenticateWithPIN:(id)n forUser:(id)user allowPasscodeRecovery:(BOOL)recovery error:(id *)error
 {
   recoveryCopy = recovery;
-  v47[1] = *MEMORY[0x1E69E9840];
+  v46[1] = *MEMORY[0x1E69E9840];
   nCopy = n;
   userCopy = user;
   timeoutEndDate = [(STPINController *)self timeoutEndDate];
@@ -612,12 +607,12 @@ LABEL_12:
 
           if (passcodeEntryAttemptCount < 5)
           {
-            v42[0] = *MEMORY[0x1E696A578];
-            v42[1] = @"PINAuthenticationAttempts";
-            v43[0] = v28;
+            v41[0] = *MEMORY[0x1E696A578];
+            v41[1] = @"PINAuthenticationAttempts";
+            v42[0] = v28;
             v29 = [MEMORY[0x1E696AD98] numberWithLongLong:passcodeEntryAttemptCount + 1];
-            v43[1] = v29;
-            v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v43 forKeys:v42 count:2];
+            v42[1] = v29;
+            v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v42 forKeys:v41 count:2];
           }
 
           else
@@ -626,14 +621,14 @@ LABEL_12:
             [(STPINController *)self _beginTimeoutUntilDate:v29];
             [userCopy setPasscodeEntryTimeoutEndDate:v29];
             v30 = *MEMORY[0x1E696A578];
-            v45[0] = v28;
-            v44[0] = v30;
-            v44[1] = @"PINAuthenticationAttempts";
+            v44[0] = v28;
+            v43[0] = v30;
+            v43[1] = @"PINAuthenticationAttempts";
             v31 = [MEMORY[0x1E696AD98] numberWithLongLong:passcodeEntryAttemptCount + 1];
-            v44[2] = @"PINTimeoutDate";
-            v45[1] = v31;
-            v45[2] = v29;
-            v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v45 forKeys:v44 count:3];
+            v43[2] = @"PINTimeoutDate";
+            v44[1] = v31;
+            v44[2] = v29;
+            v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v44 forKeys:v43 count:3];
           }
 
           v20 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"STErrorDomain" code:18 userInfo:v32];
@@ -650,9 +645,9 @@ LABEL_12:
       if (!_os_feature_enabled_impl())
       {
 LABEL_30:
-        v39 = 0;
-        v33 = [managedObjectContext save:&v39];
-        v34 = v39;
+        v38 = 0;
+        v33 = [managedObjectContext save:&v38];
+        v34 = v38;
         if ((v33 & 1) == 0)
         {
           v35 = +[STLog pinController];
@@ -682,7 +677,7 @@ LABEL_30:
       if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v41 = v21;
+        v40 = v21;
         _os_log_impl(&dword_1B831F000, v24, OS_LOG_TYPE_DEFAULT, "Updating last passcode use date: %{public}@", buf, 0xCu);
       }
     }
@@ -708,9 +703,9 @@ LABEL_30:
     managedObjectContext = [v16 localizedStringForKey:@"PINEntryTimeoutError" value:&stru_1F3040980 table:0];
 
     v17 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v46 = *MEMORY[0x1E696A578];
-    v47[0] = managedObjectContext;
-    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v47 forKeys:&v46 count:1];
+    v45 = *MEMORY[0x1E696A578];
+    v46[0] = managedObjectContext;
+    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v46 forKeys:&v45 count:1];
     *error = [v17 initWithDomain:@"STErrorDomain" code:24 userInfo:v18];
 
     goto LABEL_12;
@@ -719,7 +714,6 @@ LABEL_30:
   v15 = 0;
 LABEL_38:
 
-  v37 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -745,7 +739,7 @@ LABEL_38:
 
 - (void)_beginTimeoutUntilDate:(id)date
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   [(STPINController *)self setTimeoutEndDate:dateCopy];
   [dateCopy timeIntervalSinceNow];
@@ -771,19 +765,19 @@ LABEL_38:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     *buf = 67109120;
-    v21 = vcvtpd_s64_f64(v6);
+    v20 = vcvtpd_s64_f64(v6);
     _os_log_impl(&dword_1B831F000, v10, OS_LOG_TYPE_INFO, "Scheduled PIN timeout for %d seconds", buf, 8u);
   }
 
   mainQueue = [MEMORY[0x1E696ADC8] mainQueue];
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __42__STPINController__beginTimeoutUntilDate___block_invoke;
-  v18[3] = &unk_1E7CE7AA0;
-  v18[4] = self;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __42__STPINController__beginTimeoutUntilDate___block_invoke;
+  v17[3] = &unk_1E7CE7AA0;
+  v17[4] = self;
   v12 = dateCopy;
-  v19 = v12;
-  [mainQueue addOperationWithBlock:v18];
+  v18 = v12;
+  [mainQueue addOperationWithBlock:v17];
 
   backoffTimer = [(STPINController *)self backoffTimer];
 
@@ -801,22 +795,18 @@ LABEL_38:
     [(STPINController *)self setBackoffTimer:v14];
     dispatch_activate(v14);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __42__STPINController__beginTimeoutUntilDate___block_invoke(uint64_t a1)
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AD88] defaultCenter];
   v4 = *(a1 + 32);
   v3 = *(a1 + 40);
-  v7 = @"TimeoutEndDate";
-  v8[0] = v3;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v6 = @"TimeoutEndDate";
+  v7[0] = v3;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   [v2 postNotificationName:@"PINTimeoutDidBegin" object:v4 userInfo:v5];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __42__STPINController__beginTimeoutUntilDate___block_invoke_2(uint64_t a1)
@@ -913,103 +903,52 @@ void __70__STPINController_sendPasscodeActivityToParentsWithCompletionHandler___
 
 - (void)initWithUser:(NSObject *)a3 .cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = [a2 dsid];
-  v7 = 138412546;
-  v8 = a1;
-  v9 = 2112;
-  v10 = v5;
-  _os_log_debug_impl(&dword_1B831F000, a3, OS_LOG_TYPE_DEBUG, "Created new PinController: %@ for user: %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 138412546;
+  v7 = a1;
+  v8 = 2112;
+  v9 = v5;
+  _os_log_debug_impl(&dword_1B831F000, a3, OS_LOG_TYPE_DEBUG, "Created new PinController: %@ for user: %@", &v6, 0x16u);
 }
 
-void __81__STPINController__setNewPIN_currentPIN_recoveryAppleIDPrompt_completionHandler___block_invoke_cold_1(uint64_t a1)
+void __81__STPINController__setNewPIN_currentPIN_recoveryAppleIDPrompt_completionHandler___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_3_6(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3_6(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4_1();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v1, v2, "Failed to delete managed user blueprint: %{public}@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "Failed to delete managed user blueprint: %{public}@", v2, v3, v4, v5);
 }
 
-void __81__STPINController__setNewPIN_currentPIN_recoveryAppleIDPrompt_completionHandler___block_invoke_cold_2(uint64_t a1)
+- (void)_saveChangesForUser:(NSObject *)a3 error:.cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = *(*(*(a1 + 80) + 8) + 40);
-  OUTLINED_FUNCTION_4_1();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v2, v3, "Failed to get user: %{public}@", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_setPasscode:(uint64_t *)a1 recoveryAppleID:forUser:error:.cold.1(uint64_t *a1)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = *a1;
-  OUTLINED_FUNCTION_4_1();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v2, v3, "Failed to save managed user blueprint: %{public}@", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_saveChangesForUser:(NSObject *)a3 error:.cold.1(void *a1, uint64_t *a2, NSObject *a3)
-{
-  v12 = *MEMORY[0x1E69E9840];
-  v5 = [a1 objectID];
-  v6 = *a2;
+  v9 = *MEMORY[0x1E69E9840];
+  v4 = [a1 objectID];
   OUTLINED_FUNCTION_2();
-  v10 = 2114;
-  v11 = v7;
-  _os_log_error_impl(&dword_1B831F000, a3, OS_LOG_TYPE_ERROR, "Failed to save PIN for %{public}@: %{public}@", v9, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = 2114;
+  v8 = v5;
+  _os_log_error_impl(&dword_1B831F000, a3, OS_LOG_TYPE_ERROR, "Failed to save PIN for %{public}@: %{public}@", v6, 0x16u);
 }
 
-void __45__STPINController_authenticateWithPIN_error___block_invoke_cold_1(uint64_t a1)
+void __45__STPINController_authenticateWithPIN_error___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_3_6(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3_6(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4_1();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v1, v2, "Failed to authenticate PIN: %{public}@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
-}
-
-void __79__STPINController_authenticateWithPIN_allowPasscodeRecovery_completionHandler___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "Failed to authenticate PIN: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "Failed to authenticate PIN: %{public}@", v2, v3, v4, v5);
 }
 
 - (void)_authenticateWithPIN:forUser:allowPasscodeRecovery:error:.cold.2()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  _os_log_fault_impl(&dword_1B831F000, v0, OS_LOG_TYPE_FAULT, "Failed to save pin entry attempt count: %{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1B831F000, v0, OS_LOG_TYPE_FAULT, "Failed to save pin entry attempt count: %{public}@", v1, 0xCu);
 }
 
 - (void)_authenticateWithPIN:(void *)a1 forUser:(NSObject *)a2 allowPasscodeRecovery:error:.cold.3(void *a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v4[0] = 67109120;
-  v4[1] = [a1 isDeleted];
-  _os_log_error_impl(&dword_1B831F000, a2, OS_LOG_TYPE_ERROR, "Failed to get user - was deleted: %d", v4, 8u);
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-void __70__STPINController_sendPasscodeActivityToParentsWithCompletionHandler___block_invoke_cold_1()
-{
-  v7 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, MEMORY[0x1E69E9C10], v0, "Failed to create proxy in order to send passcode activity to parents: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __70__STPINController_sendPasscodeActivityToParentsWithCompletionHandler___block_invoke_2_cold_1()
-{
-  v7 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, MEMORY[0x1E69E9C10], v0, "Failed to send passcode activity to parents: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v3[0] = 67109120;
+  v3[1] = [a1 isDeleted];
+  _os_log_error_impl(&dword_1B831F000, a2, OS_LOG_TYPE_ERROR, "Failed to get user - was deleted: %d", v3, 8u);
 }
 
 @end

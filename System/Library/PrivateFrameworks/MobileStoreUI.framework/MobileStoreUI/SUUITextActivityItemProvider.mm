@@ -7,9 +7,9 @@
 - (id)item
 {
   activityType = [(UIActivityItemProvider *)self activityType];
-  v4 = [activityType isEqualToString:*MEMORY[0x277D54720]];
+  isEqualToString = objc_msgSend_isEqualToString_(activityType);
 
-  if (v4)
+  if (isEqualToString)
   {
     v5 = 0;
   }

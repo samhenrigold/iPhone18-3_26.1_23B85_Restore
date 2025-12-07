@@ -915,7 +915,7 @@ LABEL_11:
   v12[2] = *MEMORY[0x1E69E9840];
   v11[0] = *off_1E70EC920;
   rangeCopy = range;
-  v5 = +[UIColor blackColor];
+  v5 = objc_msgSend_blackColor(UIColor);
   v12[0] = v5;
   v11[1] = *off_1E70EC8D0;
   v6 = +[UIColor clearColor];

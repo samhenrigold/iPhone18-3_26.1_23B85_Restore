@@ -438,7 +438,7 @@ LABEL_12:
       do
       {
         v12 = sub_100000B1C(a1, v11);
-        (sub_100001058)();
+        sub_100001058(v12);
         free(v12);
         v11 = sub_100000E04(v8);
       }
@@ -796,7 +796,7 @@ void sub_100001C74(const char *a1)
         do
         {
           v9 = sub_100000B1C(a1, v8);
-          sub_100001C74();
+          sub_100001C74(v9);
           free(v9);
           v8 = sub_100000E04(v6);
         }
@@ -816,8 +816,8 @@ uint64_t start()
   {
     v2 = (&off_1000082D0)[2 * v0];
     v3 = i;
-    memset(&v34, 0, sizeof(v34));
-    if (!lstat(v2, &v34))
+    memset(&v33, 0, sizeof(v33));
+    if (!lstat(v2, &v33))
     {
       break;
     }
@@ -883,8 +883,8 @@ uint64_t start()
     sub_10000086C("IOServiceGetMatchingService(kIOWatchdogMatchingDict) failed\n");
   }
 
-  v33 = 1;
-  if (sysctlbyname("kern.vfsnspace", 0, 0, &v33, 4uLL))
+  v32 = 1;
+  if (sysctlbyname("kern.vfsnspace", 0, 0, &v32, 4uLL))
   {
     v13 = __stderrp;
     v14 = __error();
@@ -899,19 +899,19 @@ uint64_t start()
   {
     v19 = (&off_1000082D0)[2 * v17];
     v20 = v18;
-    memset(&v34, 0, sizeof(v34));
-    if (!lstat(v19, &v34))
+    memset(&v33, 0, sizeof(v33));
+    if (!lstat(v19, &v33))
     {
       v21 = time(0);
       sub_10000086C("Starting to merge from %s to %s at %lu\n", v19, "/private", v21);
       sub_100001630(v19, "/private", 0);
       if (rmdir(v19))
       {
-        v29 = *__error();
-        v30 = __error();
-        v31 = strerror(*v30);
-        v32 = __error();
-        sub_1000008A8(v29, "main", 451, "rmdir", "rmdir(%s) failed: %s (%d)", v19, v31, *v32);
+        v28 = *__error();
+        v29 = __error();
+        v30 = strerror(*v29);
+        v31 = __error();
+        sub_1000008A8(v28, "main", 451, "rmdir", "rmdir(%s) failed: %s (%d)", v19, v30, *v31);
       }
 
       v22 = time(0);
@@ -934,7 +934,7 @@ uint64_t start()
   {
     v25 = __error();
     strerror(*v25);
-    v26 = *__error();
+    __error();
     sub_10000086C("Failed to remove %s: %s (%d)\n");
   }
 
@@ -943,8 +943,8 @@ uint64_t start()
     sub_10000086C("Removed AKS migration file at %s\n");
   }
 
-  v27 = time(0);
-  sub_10000086C("Finished at %lu (%lds)\n", v27, v27 - v4);
+  v26 = time(0);
+  sub_10000086C("Finished at %lu (%lds)\n", v26, v26 - v4);
   return 0;
 }
 
@@ -1344,9 +1344,9 @@ uint64_t sub_100002E70@<X0>(uint64_t a1@<X8>)
   }
 }
 
-uint64_t sub_100002E80(uint64_t a1, uint64_t a2, uint64_t a3, ...)
+uint64_t sub_100002E80(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
 {
-  va_start(va, a3);
+  va_start(va, a6);
 
   return open_dprotected_np(va, 514, 4, 0);
 }
@@ -1444,29 +1444,29 @@ uint64_t sub_1000030B8(const char *a1, char a2)
 uint64_t sub_1000031F4(const char *a1, uint64_t a2, uint64_t a3, int *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v10 = a2;
-  v12 = sub_100002E64(a1, a2, a3, a4, a5, a6, a7, a8, v32, v33, v34, v36);
+  v12 = sub_100002E64(a1, a2, a3, a4, a5, a6, a7, a8, v35, v36, v37, v39);
   bzero(v12, v13);
-  v21 = sub_100002E64(v14, v15, "%s/%s", v16, v17, v18, v19, v20, a1, a3, v35, v37);
+  v21 = sub_100002E64(v14, v15, "%s/%s", v16, v17, v18, v19, v20, a1, a3, v38, v40);
   v24 = snprintf(v21, v22, v23);
-  v27 = sub_100002E80(v24, v25, v26);
-  if (v27 != -1)
+  v30 = sub_100002E80(v24, v25, v26, v27, v28, v29);
+  if (v30 != -1)
   {
-    v28 = v27;
+    v31 = v30;
     if ((v10 & 2) != 0)
     {
 LABEL_5:
-      *a4 = v28;
+      *a4 = v31;
       return 1;
     }
 
-    if (!sub_100002D24(v27, 52))
+    if (!sub_100002D24(v30, 52))
     {
-      v29 = sub_100002E70(qword_10000C288);
-      fprintf(v29, "%s has different allowlist needed=%c\n", a1, v30);
+      v32 = sub_100002E70(qword_10000C288);
+      fprintf(v32, "%s has different allowlist needed=%c\n", a1, v33);
       goto LABEL_5;
     }
 
-    close(v28);
+    close(v31);
   }
 
   return 0;

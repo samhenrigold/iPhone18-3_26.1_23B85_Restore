@@ -1,6 +1,6 @@
-void sub_100005270(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_100005270(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -12,23 +12,30 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_100005678(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_100005678(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_100005950(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_100005950(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_100005C1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_100005C1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_100018460(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
+{
+  va_start(va, a25);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -78,7 +85,7 @@ id PHFaceTimeApplicationIsRemoved()
       goto LABEL_8;
     }
 
-    v4 = PHDefaultLog();
+    v4 = PHDefaultLog(v2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       PHFaceTimeApplicationIsRemoved_cold_1(v0, v3, v4);
@@ -128,9 +135,9 @@ int main(int argc, const char **argv, const char **envp)
   return argv;
 }
 
-void sub_10002FE44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10002FE44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -142,37 +149,37 @@ uint64_t __Block_byref_object_copy__1(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_10002FF70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10002FF70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_100030040(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100030040(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_100030298(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100030298(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1000308AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000308AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_100030C00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100030C00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -184,9 +191,9 @@ void sub_100031D90(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_100032638(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100032638(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -298,39 +305,40 @@ void sub_1000549E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_0_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-id RTTUIConversationViewControllerClass()
+id RTTUIConversationViewControllerClass(uint64_t a1)
 {
   if (RTTUIConversationViewControllerClass_onceToken != -1)
   {
     RTTUIConversationViewControllerClass_cold_1();
   }
 
-  v1 = RTTUIConversationViewControllerClass_sRTTUIConversationViewControllerClass;
+  v2 = RTTUIConversationViewControllerClass_sRTTUIConversationViewControllerClass;
 
-  return v1;
+  return v2;
 }
 
-id RTTUIUtilitiesClass()
+id RTTUIUtilitiesClass(uint64_t a1)
 {
   if (RTTUIUtilitiesClass_onceToken != -1)
   {
     RTTUIUtilitiesClass_cold_1();
   }
 
-  v1 = RTTUIUtilitiesClass_sRTTUIUtilitiesClass;
+  v2 = RTTUIUtilitiesClass_sRTTUIUtilitiesClass;
 
-  return v1;
+  return v2;
 }
 
-void sub_10005F4F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10005F4F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -369,7 +377,7 @@ unint64_t PhoneAggregateBadges(uint64_t a1, uint64_t a2, char a3)
 void PhoneBadgeChanged(void *a1)
 {
   v1 = a1;
-  v2 = PHDefaultLog();
+  v2 = PHDefaultLog(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -403,11 +411,12 @@ void PhoneBadgeChanged(void *a1)
 LABEL_9:
 }
 
-void sub_100064470(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id location, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28)
+void sub_100064470(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id location, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
 {
-  objc_destroyWeak((v28 + 32));
+  va_start(va, a27);
+  objc_destroyWeak((v27 + 32));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a28, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -439,9 +448,9 @@ void sub_100066D9C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_10006CEF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10006CEF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -489,29 +498,30 @@ Class __getPSSimStatusCacheClass_block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __SettingsCellularLibraryCore_block_invoke()
+uint64_t __SettingsCellularLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   SettingsCellularLibraryCore_frameworkLibrary = result;
   return result;
 }
 
-void OUTLINED_FUNCTION_0_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
-id _voicemailCheckQueue()
+id _voicemailCheckQueue(uint64_t a1)
 {
   if (_voicemailCheckQueue_s_voicemailOnceToken != -1)
   {
     _voicemailCheckQueue_cold_1();
   }
 
-  v1 = _voicemailCheckQueue_s_voicemailQueue;
+  v2 = _voicemailCheckQueue_s_voicemailQueue;
 
-  return v1;
+  return v2;
 }
 
 void ___voicemailCheckQueue_block_invoke(id a1)
@@ -542,15 +552,16 @@ void PHHasEnhancedVoicemailAsync(void *a1)
 {
   v1 = a1;
   v2 = [UIApp launchedToTest];
-  v3 = _voicemailCheckQueue();
-  v5[0] = _NSConcreteStackBlock;
-  v5[1] = 3221225472;
-  v5[2] = __PHHasEnhancedVoicemailAsync_block_invoke;
-  v5[3] = &unk_1002865E0;
-  v7 = v2;
-  v6 = v1;
-  v4 = v1;
-  dispatch_async(v3, v5);
+  v3 = v2;
+  v4 = _voicemailCheckQueue(v2);
+  v6[0] = _NSConcreteStackBlock;
+  v6[1] = 3221225472;
+  v6[2] = __PHHasEnhancedVoicemailAsync_block_invoke;
+  v6[3] = &unk_1002865E0;
+  v8 = v3;
+  v7 = v1;
+  v5 = v1;
+  dispatch_async(v4, v6);
 }
 
 uint64_t __PHHasEnhancedVoicemailAsync_block_invoke(uint64_t a1)
@@ -601,36 +612,37 @@ BOOL _voicemailShouldBeHidden()
 
 uint64_t PHShouldHideVoicemailUI()
 {
-  v4 = 0;
-  v5 = &v4;
-  v6 = 0x2020000000;
-  v7 = 1;
-  if ([UIApp showsPhoneVoicemail])
+  v5 = 0;
+  v6 = &v5;
+  v7 = 0x2020000000;
+  v8 = 1;
+  v0 = [UIApp showsPhoneVoicemail];
+  if (v0)
   {
-    v0 = _voicemailCheckQueue();
+    v1 = _voicemailCheckQueue(v0);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = __PHShouldHideVoicemailUI_block_invoke;
     block[3] = &unk_100286540;
-    block[4] = &v4;
-    dispatch_sync(v0, block);
+    block[4] = &v5;
+    dispatch_sync(v1, block);
 
-    v1 = *(v5 + 24);
+    v2 = *(v6 + 24);
   }
 
   else
   {
-    v1 = 1;
-    *(v5 + 24) = 1;
+    v2 = 1;
+    *(v6 + 24) = 1;
   }
 
-  _Block_object_dispose(&v4, 8);
-  return v1 & 1;
+  _Block_object_dispose(&v5, 8);
+  return v2 & 1;
 }
 
-void sub_100075A4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100075A4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -652,7 +664,7 @@ uint64_t PHShouldOptimisticallyHideVoicemailUI(void *a1)
     if (v2)
     {
       ShouldBeHidden = [v2 BOOLValue];
-      v5 = _voicemailCheckQueue();
+      v5 = _voicemailCheckQueue(ShouldBeHidden);
       v7[0] = _NSConcreteStackBlock;
       v7[1] = 3221225472;
       v7[2] = __PHShouldOptimisticallyHideVoicemailUI_block_invoke;
@@ -726,16 +738,16 @@ id PHVoicemailDetailPageDateFormatter()
   return v0;
 }
 
-id PHVoicemailDurationFormatter()
+id PHVoicemailDurationFormatter(uint64_t a1)
 {
   if (PHVoicemailDurationFormatter_onceToken != -1)
   {
     PHVoicemailDurationFormatter_cold_1();
   }
 
-  v1 = PHVoicemailDurationFormatter_voicemailDurationFormatter;
+  v2 = PHVoicemailDurationFormatter_voicemailDurationFormatter;
 
-  return v1;
+  return v2;
 }
 
 id PHVoicemailFormatTime(double a1)
@@ -753,7 +765,7 @@ id PHVoicemailFormatTime(double a1)
   }
 
   v3 = v1;
-  v4 = PHVoicemailDurationFormatter();
+  v4 = PHVoicemailDurationFormatter(v3);
   v5 = [v4 stringFromTimeInterval:v2];
 
   v6 = [NSString stringWithFormat:@"%@%@", v3, v5];
@@ -815,28 +827,28 @@ float PHVoicemailConfidenceThresholdForSegment()
   return v3;
 }
 
-id PHVoicemailTranscriptAttributedPrefix()
+id PHVoicemailTranscriptAttributedPrefix(uint64_t a1)
 {
   if (PHVoicemailTranscriptAttributedPrefix_onceToken != -1)
   {
     PHVoicemailTranscriptAttributedPrefix_cold_1();
   }
 
-  v1 = PHVoicemailTranscriptAttributedPrefix_attributedPrefix;
+  v2 = PHVoicemailTranscriptAttributedPrefix_attributedPrefix;
 
-  return v1;
+  return v2;
 }
 
-id PHVoicemailTranscriptAttributedSuffix()
+id PHVoicemailTranscriptAttributedSuffix(uint64_t a1)
 {
   if (PHVoicemailTranscriptAttributedSuffix_onceToken != -1)
   {
     PHVoicemailTranscriptAttributedSuffix_cold_1();
   }
 
-  v1 = PHVoicemailTranscriptAttributedSuffix_attributedSuffix;
+  v2 = PHVoicemailTranscriptAttributedSuffix_attributedSuffix;
 
-  return v1;
+  return v2;
 }
 
 id PHVoicemailFormatTranscript(void *a1, int a2)
@@ -1028,10 +1040,11 @@ void sub_100077524(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_0_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_100080D30(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
@@ -1041,9 +1054,9 @@ void sub_100080D30(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1000841CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000841CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1120,11 +1133,11 @@ void PHRecentCallDetailsViewResetFormattersBlock_block_invoke_2(id a1)
   [v1 postNotificationName:@"PHRecentCallDetailsViewFormattersDidChangeNotification" object:0];
 }
 
-void sub_100091808(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_100091808(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   objc_destroyWeak(va);
-  objc_destroyWeak((v5 - 24));
+  objc_destroyWeak((v9 - 24));
   _Unwind_Resume(a1);
 }
 
@@ -1163,9 +1176,9 @@ void sub_1000936F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_100093CB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100093CB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1177,11 +1190,11 @@ uint64_t __Block_byref_object_copy__5(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1000947E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000947E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  objc_destroyWeak((v7 + 40));
+  objc_destroyWeak((v13 + 40));
   _Unwind_Resume(a1);
 }
 
@@ -1192,9 +1205,9 @@ void sub_10009D5E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_10009DAD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_10009DAD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1206,37 +1219,37 @@ uint64_t __Block_byref_object_copy__7(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_10009DE70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10009DE70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_10009DFEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10009DFEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_10009E1DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10009E1DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_10009EAB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10009EAB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_10009ECA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10009ECA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1248,16 +1261,16 @@ void sub_10009EF04(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_10009F078(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10009F078(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1000A1978(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000A1978(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1281,40 +1294,40 @@ void ___defaultContactsKeyDescriptors_block_invoke(id a1)
   _defaultContactsKeyDescriptors_keyDescriptors = v2;
 }
 
-id PHDefaultLog()
+id PHDefaultLog(uint64_t a1)
 {
   if (PHDefaultLog_onceToken != -1)
   {
     PHDefaultLog_cold_1();
   }
 
-  v1 = PHDefaultLog_PHDefaultLog;
+  v2 = PHDefaultLog_PHDefaultLog;
 
-  return v1;
+  return v2;
 }
 
-id PHOversizedLog()
+id PHOversizedLog(uint64_t a1)
 {
   if (PHOversizedLog_onceToken != -1)
   {
     PHOversizedLog_cold_1();
   }
 
-  v1 = PHOversizedLog_PHOversizedLog;
+  v2 = PHOversizedLog_PHOversizedLog;
 
-  return v1;
+  return v2;
 }
 
-id PHOversizedLogQueue()
+id PHOversizedLogQueue(uint64_t a1)
 {
   if (PHOversizedLogQueue_onceToken != -1)
   {
     PHOversizedLogQueue_cold_1();
   }
 
-  v1 = PHOversizedLogQueue_PHOversizedLogQueue;
+  v2 = PHOversizedLogQueue_PHOversizedLogQueue;
 
-  return v1;
+  return v2;
 }
 
 BOOL MPVoicemailTableViewController.isAccountProvisioningRequiredForAtLeastOneAccount.getter()
@@ -1356,13 +1369,13 @@ LABEL_32:
 
     v7 = [v6 accounts];
     swift_unknownObjectRelease();
-    type metadata accessor for VoicemailAccount();
+    type metadata accessor for VoicemailAccount(0);
     v0 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
   else
   {
-    v0 = &_swiftEmptyArrayStorage;
+    v0 = _swiftEmptyArrayStorage;
   }
 
   if (v0 >> 62)
@@ -1494,20 +1507,20 @@ Swift::Void __swiftcall MPVoicemailTableViewController.startObservingPreferences
   }
 }
 
-void closure #1 in MPVoicemailTableViewController.startObservingPreferences()()
+void closure #1 in MPVoicemailTableViewController.startObservingPreferences()(uint64_t a1)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
+    v2 = Strong;
     [Strong loadTableHeaderView];
   }
 }
 
 Swift::Void __swiftcall MPVoicemailTableViewController.stopObservingPreferences()()
 {
-  type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for NSMutableArray);
+  type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for NSMutableArray, NSMutableArray_ptr);
   v1 = NSArray.init(arrayLiteral:)();
   [v0 setObservations:v1];
 }
@@ -1517,7 +1530,7 @@ Swift::Void __swiftcall MPVoicemailTableViewController.voicemailMessageTableView
   v3 = v2;
   v6 = type metadata accessor for URL();
   v7 = *(v6 - 8);
-  __chkstk_darwin();
+  __chkstk_darwin(v6);
   v9 = &v49 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = [v3 messageAtIndex:{-[objc_class row](dialRequestButtonTappedForRowWithIndexPath.super.isa, "row")}];
   if (!v10)
@@ -1597,7 +1610,7 @@ LABEL_28:
           v52 = v22;
           aBlock[0] = v26;
           *v25 = 136315138;
-          type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for TUDialRequest);
+          type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for TUDialRequest, TUDialRequest_ptr);
           v49 = v16;
           v27 = v22;
           v28 = String.init<A>(reflecting:)();
@@ -1686,7 +1699,7 @@ void MPVoicemailTableViewController.startDialRequestFor(message:)(void *a1)
 {
   v3 = type metadata accessor for URL();
   v4 = *(v3 - 8);
-  __chkstk_darwin();
+  __chkstk_darwin(v3);
   v6 = &v40 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   v7 = [v1 voicemailController];
   if (v7 && (v8 = v7, v9 = [v7 callProviderManager], v8, v9))
@@ -1720,7 +1733,7 @@ void MPVoicemailTableViewController.startDialRequestFor(message:)(void *a1)
         v43 = v14;
         aBlock[0] = v19;
         *v18 = 136315138;
-        type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for TUDialRequest);
+        type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for TUDialRequest, TUDialRequest_ptr);
         v21 = v14;
         v22 = String.init<A>(reflecting:)();
         v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v22, v23, aBlock);
@@ -1819,9 +1832,9 @@ uint64_t closure #1 in MPVoicemailTableViewController.configureLegacyVoicemailCe
   *(a5 + 8) = a2;
   *(a5 + 16) = a3;
   *(a5 + 24) = a4;
-  v7 = *(type metadata accessor for LegacyVoicemailCellView() + 28);
+  v7 = *(type metadata accessor for LegacyVoicemailCellView(0) + 28);
   *(a5 + v7) = swift_getKeyPath();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA11ColorSchemeO_GMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA11ColorSchemeO_GMd, &_s7SwiftUI11EnvironmentV7ContentOyAA11ColorSchemeO_GMR);
   swift_storeEnumTagMultiPayload();
   v8 = a1;
 }
@@ -1863,7 +1876,7 @@ id default argument 3 of VoicemailTranscriptProcessor.processTranscriptText(from
   return v0;
 }
 
-double default argument 4 of VoicemailTranscriptProcessor.processTranscriptText(from:searchText:maxLines:font:containerWidth:)()
+CGFloat default argument 4 of VoicemailTranscriptProcessor.processTranscriptText(from:searchText:maxLines:font:containerWidth:)()
 {
   v0 = [objc_opt_self() mainScreen];
   [v0 bounds];
@@ -1939,9 +1952,9 @@ unint64_t lazy protocol witness table accessor for type Defaults.Error and confo
 
 uint64_t key path setter for EnvironmentValues.editMode : EnvironmentValues(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7BindingVyAA8EditModeOGSgMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7BindingVyAA8EditModeOGSgMd, &_s7SwiftUI7BindingVyAA8EditModeOGSgMR);
   __chkstk_darwin(v2 - 8);
-  outlined init with copy of Binding<EditMode>?(a1, &v5 - v3, &_s7SwiftUI7BindingVyAA8EditModeOGSgMd);
+  outlined init with copy of Binding<EditMode>?(a1, &v5 - v3, &_s7SwiftUI7BindingVyAA8EditModeOGSgMd, &_s7SwiftUI7BindingVyAA8EditModeOGSgMR);
   return EnvironmentValues.editMode.setter();
 }
 
@@ -1960,19 +1973,19 @@ uint64_t variable initialization expression of VoicemailAccountManager.cacheDefa
   return swift_unknownObjectRetain();
 }
 
-uint64_t variable initialization expression of VoicemailAccountManager._cache@<X0>(uint64_t a1@<X8>)
+uint64_t variable initialization expression of VoicemailAccountManager._cache@<X0>(uint64_t a2@<X8>)
 {
-  v4 = 0;
-  *a1 = 0;
-  *(a1 + 8) = 0;
-  v1 = a1 + 8;
-  v2 = type metadata accessor for Optional();
-  return (*(*(v2 - 8) + 32))(v1, &v4, v2);
+  v5 = 0;
+  *a2 = 0;
+  *(a2 + 8) = 0;
+  v2 = a2 + 8;
+  v3 = type metadata accessor for Optional();
+  return (*(*(v3 - 8) + 32))(v2, &v5, v3);
 }
 
 uint64_t variable initialization expression of VoicemailAccountManager.updatesPublisher()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine18PassthroughSubjectCy11MobilePhone29VoicemailAccountManagerUpdateC_10Foundation4UUIDVSgts5NeverOGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine18PassthroughSubjectCy11MobilePhone29VoicemailAccountManagerUpdateC_10Foundation4UUIDVSgts5NeverOGMd, &_s7Combine18PassthroughSubjectCy11MobilePhone29VoicemailAccountManagerUpdateC_10Foundation4UUIDVSgts5NeverOGMR);
   swift_allocObject();
   return PassthroughSubject.init()();
 }
@@ -2005,14 +2018,14 @@ uint64_t variable initialization expression of PhoneVoicemailBadgeController.unr
   v3.receiver = v1;
   v3.super_class = v0;
   objc_msgSendSuper2(&v3, "init");
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine19CurrentValueSubjectCy11MobilePhone14VoicemailBadgeCs5NeverOGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine19CurrentValueSubjectCy11MobilePhone14VoicemailBadgeCs5NeverOGMd, &_s7Combine19CurrentValueSubjectCy11MobilePhone14VoicemailBadgeCs5NeverOGMR);
   swift_allocObject();
   return CurrentValueSubject.init(_:)();
 }
 
 uint64_t variable initialization expression of ObservableRecentsController.localizedRecentCallInfoCache()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone10ValueCacheCySSAA27ObservableRecentsControllerC23LocalizedRecentCallInfoVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone10ValueCacheCySSAA27ObservableRecentsControllerC23LocalizedRecentCallInfoVGMd, _s11MobilePhone10ValueCacheCySSAA27ObservableRecentsControllerC23LocalizedRecentCallInfoVGMR);
   v0 = swift_allocObject();
   *(v0 + 16) = [objc_allocWithZone(NSCache) init];
   return v0;
@@ -2027,7 +2040,7 @@ void variable initialization expression of FTMessage.dirtyFolder(uint64_t a1@<X8
 
 uint64_t variable initialization expression of FTMessage._transcript()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone9FTMessageC4LazyCy_AA17TranscriptMessage_pSgGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone9FTMessageC4LazyCy_AA17TranscriptMessage_pSgGMd, &_s11MobilePhone9FTMessageC4LazyCy_AA17TranscriptMessage_pSgGMR);
   result = swift_allocObject();
   *(result + 16) = 0;
   *(result + 24) = implicit closure #1 in variable initialization expression of FTMessage._transcript;
@@ -2042,18 +2055,18 @@ uint64_t variable initialization expression of OpenMobilePhoneAppDeepLinks._targ
   v0 = *(v17 - 8);
   __chkstk_darwin(v17);
   v2 = &v17 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents12IntentDialogVSgMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents12IntentDialogVSgMd, &_s10AppIntents12IntentDialogVSgMR);
   v4 = __chkstk_darwin(v3 - 8);
   v6 = &v17 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v4);
   v8 = &v17 - v7;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23LocalizedStringResourceVSgMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23LocalizedStringResourceVSgMd, &_s10Foundation23LocalizedStringResourceVSgMR);
   __chkstk_darwin(v9 - 8);
   v11 = &v17 - v10;
   v12 = type metadata accessor for LocalizedStringResource();
   v13 = *(v12 - 8);
   __chkstk_darwin(v12);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents15IntentParameterCy11MobilePhone0efA9DeepLinksOGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents15IntentParameterCy11MobilePhone0efA9DeepLinksOGMd, &_s10AppIntents15IntentParameterCy11MobilePhone0efA9DeepLinksOGMR);
   LocalizedStringResource.init(stringLiteral:)();
   (*(v13 + 56))(v11, 1, 1, v12);
   v18 = 5;
@@ -2066,14 +2079,14 @@ uint64_t variable initialization expression of OpenMobilePhoneAppDeepLinks._targ
   return IntentParameter<>.init(title:description:default:requestValueDialog:requestDisambiguationDialog:inputConnectionBehavior:supportedValues:)();
 }
 
-id variable initialization expression of ValueCache.cache()
+id variable initialization expression of ValueCache.cache(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7NSCacheCMd);
-  type metadata accessor for BoxedKey();
-  type metadata accessor for BoxedValue();
-  v0 = objc_allocWithZone(swift_getObjCClassFromMetadata());
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7NSCacheCMd, &_sSo7NSCacheCMR);
+  type metadata accessor for BoxedKey(0, a1, a3, v6);
+  type metadata accessor for BoxedValue(0, a2, v7, v8);
+  v9 = objc_allocWithZone(swift_getObjCClassFromMetadata());
 
-  return [v0 init];
+  return [v9 init];
 }
 
 id NSCache.__allocating_init()()
@@ -2093,12 +2106,12 @@ uint64_t variable initialization expression of LegacyMailboxService.queue()
   __chkstk_darwin(v3);
   v4 = type metadata accessor for DispatchQoS();
   __chkstk_darwin(v4 - 8);
-  v6[1] = type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for OS_dispatch_queue);
+  v6[1] = type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for OS_dispatch_queue, OS_dispatch_queue_ptr);
   static DispatchQoS.userInteractive.getter();
-  v8 = &_swiftEmptyArrayStorage;
-  lazy protocol witness table accessor for type ObservableRecentsController and conformance ObservableRecentsController(&lazy protocol witness table cache variable for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes, &type metadata accessor for OS_dispatch_queue.Attributes);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMd);
-  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](&lazy protocol witness table cache variable for type [OS_dispatch_queue.Attributes] and conformance [A], &_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMd);
+  v8 = _swiftEmptyArrayStorage;
+  lazy protocol witness table accessor for type ObservableRecentsController and conformance ObservableRecentsController(&lazy protocol witness table cache variable for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes, &type metadata accessor for OS_dispatch_queue.Attributes, &protocol conformance descriptor for OS_dispatch_queue.Attributes);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMd, &_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMR);
+  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](&lazy protocol witness table cache variable for type [OS_dispatch_queue.Attributes] and conformance [A], &_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMd, &_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMR, &protocol conformance descriptor for [A]);
   dispatch thunk of SetAlgebra.init<A>(_:)();
   (*(v0 + 104))(v2, enum case for OS_dispatch_queue.AutoreleaseFrequency.inherit(_:), v7);
   return OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
@@ -2111,10 +2124,10 @@ id variable initialization expression of VoicemailSearchViewCell.metadataView(ui
   return [v1 init];
 }
 
-uint64_t variable initialization expression of RecentCallView._editMode@<X0>(uint64_t *a1@<X1>, uint64_t *a2@<X8>)
+uint64_t variable initialization expression of RecentCallView._editMode@<X0>(uint64_t *a2@<X1>, uint64_t *a3@<X2>, uint64_t *a4@<X8>)
 {
-  *a2 = swift_getKeyPath();
-  __swift_instantiateConcreteTypeFromMangledNameV2(a1);
+  *a4 = swift_getKeyPath();
+  __swift_instantiateConcreteTypeFromMangledNameV2(a2, a3);
 
   return swift_storeEnumTagMultiPayload();
 }
@@ -2394,14 +2407,14 @@ uint64_t variable initialization expression of ObservableRecentsController._cont
 
 uint64_t variable initialization expression of VoicemailBadgeCalculator.currentBadge()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine19CurrentValueSubjectCySo10PhoneBadgeas5NeverOGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine19CurrentValueSubjectCySo10PhoneBadgeas5NeverOGMd, &_s7Combine19CurrentValueSubjectCySo10PhoneBadgeas5NeverOGMR);
   swift_allocObject();
   return CurrentValueSubject.init(_:)();
 }
 
-uint64_t variable initialization expression of VoicemailAccountManagerWithDelegateDecorator.updatesPublisher(uint64_t *a1)
+uint64_t variable initialization expression of VoicemailAccountManagerWithDelegateDecorator.updatesPublisher(uint64_t *a1, uint64_t *a2)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(a1);
+  __swift_instantiateConcreteTypeFromMangledNameV2(a1, a2);
   swift_allocObject();
   return PassthroughSubject.init()();
 }
@@ -2444,7 +2457,7 @@ uint64_t VoicemailAccountManagerComposer.init()@<X0>(uint64_t a1@<X8>)
 
 uint64_t variable initialization expression of VMDVoicemailCountSource.countChangedPublisher()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine18PassthroughSubjectCyyts5NeverOGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine18PassthroughSubjectCyyts5NeverOGMd, &_s7Combine18PassthroughSubjectCyyts5NeverOGMR);
   swift_allocObject();
   return PassthroughSubject.init()();
 }
@@ -2452,7 +2465,7 @@ uint64_t variable initialization expression of VMDVoicemailCountSource.countChan
 uint64_t variable initialization expression of RecentCallView._recentsController()
 {
   type metadata accessor for ObservableRecentsController(0);
-  lazy protocol witness table accessor for type ObservableRecentsController and conformance ObservableRecentsController(&lazy protocol witness table cache variable for type ObservableRecentsController and conformance ObservableRecentsController, type metadata accessor for ObservableRecentsController);
+  lazy protocol witness table accessor for type ObservableRecentsController and conformance ObservableRecentsController(&lazy protocol witness table cache variable for type ObservableRecentsController and conformance ObservableRecentsController, type metadata accessor for ObservableRecentsController, &protocol conformance descriptor for ObservableRecentsController);
 
   return EnvironmentObject.init()();
 }
@@ -2502,13 +2515,6 @@ uint64_t protocol witness for static _ObjectiveCBridgeable._conditionallyBridgeF
   return v3 & 1;
 }
 
-uint64_t protocol witness for static _ObjectiveCBridgeable._unconditionallyBridgeFromObjectiveC(_:) in conformance UIFontWeight@<X0>(void *a1@<X8>)
-{
-  result = static CGFloat._unconditionallyBridgeFromObjectiveC(_:)();
-  *a1 = v3;
-  return result;
-}
-
 uint64_t protocol witness for static _ObjectiveCBridgeable._forceBridgeFromObjectiveC(_:result:) in conformance UIContentSizeCategory(uint64_t a1, id *a2)
 {
   result = static String._forceBridgeFromObjectiveC(_:result:)();
@@ -2523,19 +2529,19 @@ uint64_t protocol witness for static _ObjectiveCBridgeable._conditionallyBridgeF
   return v3 & 1;
 }
 
-uint64_t protocol witness for static _ObjectiveCBridgeable._unconditionallyBridgeFromObjectiveC(_:) in conformance UIContentSizeCategory@<X0>(void *a1@<X8>)
+uint64_t protocol witness for static _ObjectiveCBridgeable._unconditionallyBridgeFromObjectiveC(_:) in conformance UIContentSizeCategory@<X0>(void *a2@<X8>)
 {
   static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v2 = String._bridgeToObjectiveC()();
+  v3 = String._bridgeToObjectiveC()();
 
-  *a1 = v2;
+  *a2 = v3;
   return result;
 }
 
-uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance UIContentSizeCategory()
+uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance UIContentSizeCategory(uint64_t a1)
 {
-  lazy protocol witness table accessor for type ObservableRecentsController and conformance ObservableRecentsController(&lazy protocol witness table cache variable for type UIContentSizeCategory and conformance UIContentSizeCategory, type metadata accessor for UIContentSizeCategory);
-  lazy protocol witness table accessor for type ObservableRecentsController and conformance ObservableRecentsController(&lazy protocol witness table cache variable for type UIContentSizeCategory and conformance UIContentSizeCategory, type metadata accessor for UIContentSizeCategory);
+  lazy protocol witness table accessor for type ObservableRecentsController and conformance ObservableRecentsController(&lazy protocol witness table cache variable for type UIContentSizeCategory and conformance UIContentSizeCategory, type metadata accessor for UIContentSizeCategory, &protocol conformance descriptor for UIContentSizeCategory);
+  lazy protocol witness table accessor for type ObservableRecentsController and conformance ObservableRecentsController(&lazy protocol witness table cache variable for type UIContentSizeCategory and conformance UIContentSizeCategory, type metadata accessor for UIContentSizeCategory, &protocol conformance descriptor for UIContentSizeCategory);
 
   return _SwiftNewtypeWrapper<>._toCustomAnyHashable()();
 }
@@ -2548,26 +2554,26 @@ uint64_t _sSo21UIContentSizeCategoryaSYSCSY8rawValue03RawE0QzvgTW_0@<X0>(uint64_
   return result;
 }
 
-uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance NSNotificationName()
+uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance NSNotificationName(uint64_t a1)
 {
-  lazy protocol witness table accessor for type ObservableRecentsController and conformance ObservableRecentsController(&lazy protocol witness table cache variable for type NSNotificationName and conformance NSNotificationName, type metadata accessor for NSNotificationName);
-  lazy protocol witness table accessor for type ObservableRecentsController and conformance ObservableRecentsController(&lazy protocol witness table cache variable for type NSNotificationName and conformance NSNotificationName, type metadata accessor for NSNotificationName);
+  lazy protocol witness table accessor for type ObservableRecentsController and conformance ObservableRecentsController(&lazy protocol witness table cache variable for type NSNotificationName and conformance NSNotificationName, type metadata accessor for NSNotificationName, &protocol conformance descriptor for NSNotificationName);
+  lazy protocol witness table accessor for type ObservableRecentsController and conformance ObservableRecentsController(&lazy protocol witness table cache variable for type NSNotificationName and conformance NSNotificationName, type metadata accessor for NSNotificationName, &protocol conformance descriptor for NSNotificationName);
 
   return _SwiftNewtypeWrapper<>._toCustomAnyHashable()();
 }
 
-uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance NSAttributedStringKey()
+uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance NSAttributedStringKey(uint64_t a1)
 {
-  lazy protocol witness table accessor for type ObservableRecentsController and conformance ObservableRecentsController(&lazy protocol witness table cache variable for type NSAttributedStringKey and conformance NSAttributedStringKey, type metadata accessor for NSAttributedStringKey);
-  lazy protocol witness table accessor for type ObservableRecentsController and conformance ObservableRecentsController(&lazy protocol witness table cache variable for type NSAttributedStringKey and conformance NSAttributedStringKey, type metadata accessor for NSAttributedStringKey);
+  lazy protocol witness table accessor for type ObservableRecentsController and conformance ObservableRecentsController(&lazy protocol witness table cache variable for type NSAttributedStringKey and conformance NSAttributedStringKey, type metadata accessor for NSAttributedStringKey, &protocol conformance descriptor for NSAttributedStringKey);
+  lazy protocol witness table accessor for type ObservableRecentsController and conformance ObservableRecentsController(&lazy protocol witness table cache variable for type NSAttributedStringKey and conformance NSAttributedStringKey, type metadata accessor for NSAttributedStringKey, &protocol conformance descriptor for NSAttributedStringKey);
 
   return _SwiftNewtypeWrapper<>._toCustomAnyHashable()();
 }
 
-uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance UIFontTextStyle()
+uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance UIFontTextStyle(uint64_t a1)
 {
-  lazy protocol witness table accessor for type ObservableRecentsController and conformance ObservableRecentsController(&lazy protocol witness table cache variable for type UIFontTextStyle and conformance UIFontTextStyle, type metadata accessor for UIFontTextStyle);
-  lazy protocol witness table accessor for type ObservableRecentsController and conformance ObservableRecentsController(&lazy protocol witness table cache variable for type UIFontTextStyle and conformance UIFontTextStyle, type metadata accessor for UIFontTextStyle);
+  lazy protocol witness table accessor for type ObservableRecentsController and conformance ObservableRecentsController(&lazy protocol witness table cache variable for type UIFontTextStyle and conformance UIFontTextStyle, type metadata accessor for UIFontTextStyle, &protocol conformance descriptor for UIFontTextStyle);
+  lazy protocol witness table accessor for type ObservableRecentsController and conformance ObservableRecentsController(&lazy protocol witness table cache variable for type UIFontTextStyle and conformance UIFontTextStyle, type metadata accessor for UIFontTextStyle, &protocol conformance descriptor for UIFontTextStyle);
 
   return _SwiftNewtypeWrapper<>._toCustomAnyHashable()();
 }
@@ -2579,42 +2585,42 @@ double protocol witness for RawRepresentable.rawValue.getter in conformance UIFo
   return result;
 }
 
-uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance UIFontWeight()
+uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance UIFontWeight(uint64_t a1)
 {
-  lazy protocol witness table accessor for type ObservableRecentsController and conformance ObservableRecentsController(&lazy protocol witness table cache variable for type UIFontWeight and conformance UIFontWeight, type metadata accessor for UIFontWeight);
-  lazy protocol witness table accessor for type ObservableRecentsController and conformance ObservableRecentsController(&lazy protocol witness table cache variable for type UIFontWeight and conformance UIFontWeight, type metadata accessor for UIFontWeight);
+  lazy protocol witness table accessor for type ObservableRecentsController and conformance ObservableRecentsController(&lazy protocol witness table cache variable for type UIFontWeight and conformance UIFontWeight, type metadata accessor for UIFontWeight, &protocol conformance descriptor for UIFontWeight);
+  lazy protocol witness table accessor for type ObservableRecentsController and conformance ObservableRecentsController(&lazy protocol witness table cache variable for type UIFontWeight and conformance UIFontWeight, type metadata accessor for UIFontWeight, &protocol conformance descriptor for UIFontWeight);
   lazy protocol witness table accessor for type CGFloat and conformance CGFloat();
   return _SwiftNewtypeWrapper<>._toCustomAnyHashable()();
 }
 
-uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance UIFontDescriptorAttributeName()
+uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance UIFontDescriptorAttributeName(uint64_t a1)
 {
-  lazy protocol witness table accessor for type ObservableRecentsController and conformance ObservableRecentsController(&lazy protocol witness table cache variable for type UIFontDescriptorAttributeName and conformance UIFontDescriptorAttributeName, type metadata accessor for UIFontDescriptorAttributeName);
-  lazy protocol witness table accessor for type ObservableRecentsController and conformance ObservableRecentsController(&lazy protocol witness table cache variable for type UIFontDescriptorAttributeName and conformance UIFontDescriptorAttributeName, type metadata accessor for UIFontDescriptorAttributeName);
+  lazy protocol witness table accessor for type ObservableRecentsController and conformance ObservableRecentsController(&lazy protocol witness table cache variable for type UIFontDescriptorAttributeName and conformance UIFontDescriptorAttributeName, type metadata accessor for UIFontDescriptorAttributeName, &protocol conformance descriptor for UIFontDescriptorAttributeName);
+  lazy protocol witness table accessor for type ObservableRecentsController and conformance ObservableRecentsController(&lazy protocol witness table cache variable for type UIFontDescriptorAttributeName and conformance UIFontDescriptorAttributeName, type metadata accessor for UIFontDescriptorAttributeName, &protocol conformance descriptor for UIFontDescriptorAttributeName);
 
   return _SwiftNewtypeWrapper<>._toCustomAnyHashable()();
 }
 
-uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance UIFontDescriptorTraitKey()
+uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance UIFontDescriptorTraitKey(uint64_t a1)
 {
-  lazy protocol witness table accessor for type ObservableRecentsController and conformance ObservableRecentsController(&lazy protocol witness table cache variable for type UIFontDescriptorTraitKey and conformance UIFontDescriptorTraitKey, type metadata accessor for UIFontDescriptorTraitKey);
-  lazy protocol witness table accessor for type ObservableRecentsController and conformance ObservableRecentsController(&lazy protocol witness table cache variable for type UIFontDescriptorTraitKey and conformance UIFontDescriptorTraitKey, type metadata accessor for UIFontDescriptorTraitKey);
+  lazy protocol witness table accessor for type ObservableRecentsController and conformance ObservableRecentsController(&lazy protocol witness table cache variable for type UIFontDescriptorTraitKey and conformance UIFontDescriptorTraitKey, type metadata accessor for UIFontDescriptorTraitKey, &protocol conformance descriptor for UIFontDescriptorTraitKey);
+  lazy protocol witness table accessor for type ObservableRecentsController and conformance ObservableRecentsController(&lazy protocol witness table cache variable for type UIFontDescriptorTraitKey and conformance UIFontDescriptorTraitKey, type metadata accessor for UIFontDescriptorTraitKey, &protocol conformance descriptor for UIFontDescriptorTraitKey);
 
   return _SwiftNewtypeWrapper<>._toCustomAnyHashable()();
 }
 
-uint64_t protocol witness for RawRepresentable.init(rawValue:) in conformance UIContentSizeCategory@<X0>(void *a1@<X8>)
+uint64_t protocol witness for RawRepresentable.init(rawValue:) in conformance UIContentSizeCategory@<X0>(void *a2@<X8>)
 {
-  v2 = String._bridgeToObjectiveC()();
+  v3 = String._bridgeToObjectiveC()();
 
-  *a1 = v2;
+  *a2 = v3;
   return result;
 }
 
-uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance UIMenuIdentifier()
+uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance UIMenuIdentifier(uint64_t a1)
 {
-  lazy protocol witness table accessor for type ObservableRecentsController and conformance ObservableRecentsController(&lazy protocol witness table cache variable for type UIMenuIdentifier and conformance UIMenuIdentifier, type metadata accessor for UIMenuIdentifier);
-  lazy protocol witness table accessor for type ObservableRecentsController and conformance ObservableRecentsController(&lazy protocol witness table cache variable for type UIMenuIdentifier and conformance UIMenuIdentifier, type metadata accessor for UIMenuIdentifier);
+  lazy protocol witness table accessor for type ObservableRecentsController and conformance ObservableRecentsController(&lazy protocol witness table cache variable for type UIMenuIdentifier and conformance UIMenuIdentifier, type metadata accessor for UIMenuIdentifier, &protocol conformance descriptor for UIMenuIdentifier);
+  lazy protocol witness table accessor for type ObservableRecentsController and conformance ObservableRecentsController(&lazy protocol witness table cache variable for type UIMenuIdentifier and conformance UIMenuIdentifier, type metadata accessor for UIMenuIdentifier, &protocol conformance descriptor for UIMenuIdentifier);
 
   return _SwiftNewtypeWrapper<>._toCustomAnyHashable()();
 }
@@ -2638,37 +2644,37 @@ uint64_t protocol witness for Hashable.hashValue.getter in conformance NSAttribu
   return v0;
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance NSAttributedStringKey()
+uint64_t protocol witness for Hashable.hash(into:) in conformance NSAttributedStringKey(uint64_t a1)
 {
   static String._unconditionallyBridgeFromObjectiveC(_:)();
   String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance NSAttributedStringKey()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance NSAttributedStringKey(uint64_t a1)
 {
   static String._unconditionallyBridgeFromObjectiveC(_:)();
   Hasher.init(_seed:)();
   String.hash(into:)();
-  v0 = Hasher._finalize()();
+  v1 = Hasher._finalize()();
 
-  return v0;
+  return v1;
 }
 
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance NSAttributedStringKey()
+uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance NSAttributedStringKey(void *a1, uint64_t *a2)
 {
-  v0 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v2 = v1;
-  if (v0 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v2 == v3)
+  v2 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v4 = v3;
+  if (v2 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v4 == v5)
   {
-    v5 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v5 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v7 = _stringCompareWithSmolCheck(_:_:expecting:)();
   }
 
-  return v5 & 1;
+  return v7 & 1;
 }
 
 unint64_t getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(uint64_t a1, unint64_t a2, uint64_t *a3)
@@ -2769,14 +2775,14 @@ LABEL_8:
   }
 }
 
-char *_StringGuts._allocateForDeconstruct()(uint64_t a1, unint64_t a2)
+void *_StringGuts._allocateForDeconstruct()(uint64_t a1, unint64_t a2)
 {
   v3 = specialized _copyCollectionToContiguousArray<A>(_:)(a1, a2);
   specialized Array.append<A>(contentsOf:)(&outlined read-only object #0 of _StringGuts._allocateForDeconstruct());
   return v3;
 }
 
-char *specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, unint64_t a2)
+void *specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, unint64_t a2)
 {
   if ((a2 & 0x1000000000000000) != 0)
   {
@@ -2796,7 +2802,7 @@ char *specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, unint64_t
 
   if (!v5)
   {
-    return &_swiftEmptyArrayStorage;
+    return _swiftEmptyArrayStorage;
   }
 
   v6 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCs5UInt8V_Tt1gq5(v5, 0);
@@ -2805,7 +2811,7 @@ char *specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, unint64_t
   {
     v15[0] = a1;
     v15[1] = a2 & 0xFFFFFFFFFFFFFFLL;
-    memcpy(v6 + 32, v15, HIBYTE(a2) & 0xF);
+    memcpy(v6 + 4, v15, HIBYTE(a2) & 0xF);
     return v7;
   }
 
@@ -2822,7 +2828,7 @@ char *specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, unint64_t
   if (v4 >= v9)
   {
 LABEL_9:
-    memcpy(v7 + 32, v8, v9);
+    memcpy(v7 + 4, v8, v9);
     if (v9 != v4)
     {
       while (1)
@@ -2832,7 +2838,7 @@ LABEL_13:
         v10 = String.UTF8View._foreignCount()();
         if (!v10)
         {
-          return &_swiftEmptyArrayStorage;
+          return _swiftEmptyArrayStorage;
         }
 
         v11 = v10;
@@ -2954,10 +2960,10 @@ void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_
 
   if (!v2)
   {
-    return &_swiftEmptyArrayStorage;
+    return _swiftEmptyArrayStorage;
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys5UInt8VGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys5UInt8VGMd, &_ss23_ContiguousArrayStorageCys5UInt8VGMR);
   v4 = swift_allocObject();
   v5 = _swift_stdlib_malloc_size(v4);
   result = v4;
@@ -3007,7 +3013,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys5UInt8VGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys5UInt8VGMd, &_ss23_ContiguousArrayStorageCys5UInt8VGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     *(v10 + 2) = v8;
@@ -3016,7 +3022,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   else
   {
-    v10 = &_swiftEmptyArrayStorage;
+    v10 = _swiftEmptyArrayStorage;
   }
 
   v12 = v10 + 32;
@@ -3079,7 +3085,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyypGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyypGMd, &_ss23_ContiguousArrayStorageCyypGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -3094,7 +3100,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   else
   {
-    v10 = &_swiftEmptyArrayStorage;
+    v10 = _swiftEmptyArrayStorage;
   }
 
   v13 = v10 + 32;
@@ -3157,7 +3163,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySnySiGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySnySiGGMd, &_ss23_ContiguousArrayStorageCySnySiGGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -3235,7 +3241,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd, &_ss23_ContiguousArrayStorageCySiGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -3313,7 +3319,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -3328,7 +3334,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   else
   {
-    v10 = &_swiftEmptyArrayStorage;
+    v10 = _swiftEmptyArrayStorage;
   }
 
   v13 = v10 + 32;
@@ -3391,7 +3397,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy11MobilePhone17SymbolDescriptionVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy11MobilePhone17SymbolDescriptionVGMd, &_ss23_ContiguousArrayStorageCy11MobilePhone17SymbolDescriptionVGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     *(v10 + 2) = v8;
@@ -3465,7 +3471,7 @@ uint64_t specialized Defaults.getValueFromUserDefaults<A>(key:suiteName:)(uint64
 
   v20[0] = v18;
   v20[1] = v19;
-  outlined init with copy of Binding<EditMode>?(v20, &v18, &_sypSgMd);
+  outlined init with copy of Binding<EditMode>?(v20, &v18, &_sypSgMd, &_sypSgMR);
   if (*(&v19 + 1))
   {
     if (swift_dynamicCast())
@@ -3484,7 +3490,7 @@ uint64_t specialized Defaults.getValueFromUserDefaults<A>(key:suiteName:)(uint64
       v14[1] = a2;
       v14[2] = a3;
       v14[3] = a4;
-      outlined init with copy of Binding<EditMode>?(v20, (v14 + 4), &_sypSgMd);
+      outlined init with copy of Binding<EditMode>?(v20, (v14 + 4), &_sypSgMd, &_sypSgMR);
       v15[8] = &type metadata for Bool;
       *(v15 + 72) = 1;
       swift_willThrow();
@@ -3543,7 +3549,7 @@ uint64_t specialized Defaults.getValueFromUserDefaults<A>(key:suiteName:)(uint64
 
   v20[0] = v18;
   v20[1] = v19;
-  outlined init with copy of Binding<EditMode>?(v20, &v18, &_sypSgMd);
+  outlined init with copy of Binding<EditMode>?(v20, &v18, &_sypSgMd, &_sypSgMR);
   if (*(&v19 + 1))
   {
     if (swift_dynamicCast())
@@ -3562,7 +3568,7 @@ uint64_t specialized Defaults.getValueFromUserDefaults<A>(key:suiteName:)(uint64
       v14[1] = a2;
       v14[2] = a3;
       v14[3] = a4;
-      outlined init with copy of Binding<EditMode>?(v20, (v14 + 4), &_sypSgMd);
+      outlined init with copy of Binding<EditMode>?(v20, (v14 + 4), &_sypSgMd, &_sypSgMR);
       v15[8] = &type metadata for String;
       *(v15 + 72) = 1;
       swift_willThrow();
@@ -3604,9 +3610,9 @@ uint64_t block_copy_helper(uint64_t a1, uint64_t a2)
   *(a1 + 40) = v2;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_0(uint64_t a1)
+uint64_t __swift_destroy_boxed_opaque_existential_0(void *a1)
 {
-  v1 = *(*(a1 + 24) - 8);
+  v1 = *(a1[3] - 8);
   if ((*(v1 + 82) & 2) != 0)
   {
   }
@@ -3619,9 +3625,9 @@ uint64_t __swift_destroy_boxed_opaque_existential_0(uint64_t a1)
 
 uint64_t specialized MPVoicemailTableViewController.configureLegacyVoicemailCell(_:for:showLabel:onCallTapped:)(uint64_t a1, uint64_t a2, char a3, uint64_t a4, uint64_t a5)
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI22UIHostingConfigurationVy11MobilePhone23LegacyVoicemailCellViewVAA05EmptyJ0VGMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI22UIHostingConfigurationVy11MobilePhone23LegacyVoicemailCellViewVAA05EmptyJ0VGMd, &_s7SwiftUI22UIHostingConfigurationVy11MobilePhone23LegacyVoicemailCellViewVAA05EmptyJ0VGMR);
   v10 = *(v9 - 8);
-  v11 = (__chkstk_darwin)();
+  v11 = __chkstk_darwin(v9);
   v13 = &v18[-((v12 + 15) & 0xFFFFFFFFFFFFFFF0)];
   __chkstk_darwin(v11);
   v15 = &v18[-v14];
@@ -3629,8 +3635,8 @@ uint64_t specialized MPVoicemailTableViewController.configureLegacyVoicemailCell
   v20 = a3;
   v21 = a4;
   v22 = a5;
-  type metadata accessor for LegacyVoicemailCellView();
-  lazy protocol witness table accessor for type ObservableRecentsController and conformance ObservableRecentsController(&lazy protocol witness table cache variable for type LegacyVoicemailCellView and conformance LegacyVoicemailCellView, type metadata accessor for LegacyVoicemailCellView);
+  type metadata accessor for LegacyVoicemailCellView(0);
+  lazy protocol witness table accessor for type ObservableRecentsController and conformance ObservableRecentsController(&lazy protocol witness table cache variable for type LegacyVoicemailCellView and conformance LegacyVoicemailCellView, type metadata accessor for LegacyVoicemailCellView, &protocol conformance descriptor for LegacyVoicemailCellView);
   UIHostingConfiguration<>.init(content:)();
   static Edge.Set.leading.getter();
   UIHostingConfiguration.margins(_:_:)();
@@ -3638,14 +3644,14 @@ uint64_t specialized MPVoicemailTableViewController.configureLegacyVoicemailCell
   v16(v13, v9);
   static Edge.Set.trailing.getter();
   v23[3] = v9;
-  v23[4] = lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](&lazy protocol witness table cache variable for type UIHostingConfiguration<LegacyVoicemailCellView, EmptyView> and conformance UIHostingConfiguration<A, B>, &_s7SwiftUI22UIHostingConfigurationVy11MobilePhone23LegacyVoicemailCellViewVAA05EmptyJ0VGMd);
+  v23[4] = lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](&lazy protocol witness table cache variable for type UIHostingConfiguration<LegacyVoicemailCellView, EmptyView> and conformance UIHostingConfiguration<A, B>, &_s7SwiftUI22UIHostingConfigurationVy11MobilePhone23LegacyVoicemailCellViewVAA05EmptyJ0VGMd, &_s7SwiftUI22UIHostingConfigurationVy11MobilePhone23LegacyVoicemailCellViewVAA05EmptyJ0VGMR, &protocol conformance descriptor for UIHostingConfiguration<A, B>);
   __swift_allocate_boxed_opaque_existential_1(v23);
   UIHostingConfiguration.margins(_:_:)();
   v16(v15, v9);
   return UITableViewCell.contentConfiguration.setter();
 }
 
-uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1)
+uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -3657,7 +3663,7 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1)
   return result;
 }
 
-uint64_t sub_1000AD94C()
+uint64_t sub_1000AD94C(uint64_t *a1)
 {
   if (__isPlatformVersionAtLeast(2, 26, 0, 0))
   {
@@ -3681,7 +3687,7 @@ uint64_t sub_1000AD94C()
   }
 }
 
-uint64_t sub_1000ADAB0()
+uint64_t sub_1000ADAB0(uint64_t *a1)
 {
   if (__isPlatformVersionAtLeast(2, 26, 0, 0))
   {
@@ -3875,7 +3881,7 @@ unint64_t lazy protocol witness table accessor for type MobilePhoneAppDeepLinks 
   return result;
 }
 
-uint64_t type metadata accessor for NSMutableArray(uint64_t a1, unint64_t *a2)
+uint64_t type metadata accessor for NSMutableArray(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
@@ -3888,7 +3894,7 @@ uint64_t type metadata accessor for NSMutableArray(uint64_t a1, unint64_t *a2)
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type ObservableRecentsController and conformance ObservableRecentsController(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type ObservableRecentsController and conformance ObservableRecentsController(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -3901,7 +3907,7 @@ uint64_t lazy protocol witness table accessor for type ObservableRecentsControll
   return result;
 }
 
-uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1)
+uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -3978,26 +3984,26 @@ uint64_t sub_1000AE528()
   return _swift_deallocObject(v0, 24, 7);
 }
 
-uint64_t outlined init with copy of Binding<EditMode>?(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t outlined init with copy of Binding<EditMode>?(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(a3);
-  (*(*(v5 - 8) + 16))(a2, a1, v5);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
+  (*(*(v6 - 8) + 16))(a2, a1, v6);
   return a2;
 }
 
 uint64_t outlined destroy of Any?(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sypSgMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sypSgMd, &_sypSgMR);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
 
-uint64_t lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](unint64_t *a1, uint64_t *a2)
+uint64_t lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2, a3);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -4065,12 +4071,12 @@ uint64_t _sSo7CGPointVwst_0(uint64_t result, int a2, int a3)
   return result;
 }
 
-void type metadata accessor for CGColorRef(uint64_t a1, unint64_t *a2)
+void type metadata accessor for CGColorRef(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
@@ -4111,7 +4117,7 @@ uint64_t key path getter for VoicemailSearchViewCell.callButtonTapHandler : Voic
 
   *a2 = v7;
   a2[1] = v6;
-  return outlined copy of (@escaping @callee_guaranteed @Sendable () -> ())?(v4);
+  return outlined copy of (@escaping @callee_guaranteed @Sendable () -> ())?(v4, v5);
 }
 
 uint64_t key path setter for VoicemailSearchViewCell.callButtonTapHandler : VoicemailSearchViewCell(uint64_t *a1, void *a2)
@@ -4135,10 +4141,11 @@ uint64_t key path setter for VoicemailSearchViewCell.callButtonTapHandler : Voic
   v7 = (*a2 + OBJC_IVAR____TtC11MobilePhone23VoicemailSearchViewCell_callButtonTapHandler);
   swift_beginAccess();
   v8 = *v7;
+  v9 = v7[1];
   *v7 = v6;
   v7[1] = v5;
-  outlined copy of (@escaping @callee_guaranteed @Sendable () -> ())?(v3);
-  return outlined consume of (@escaping @callee_guaranteed () -> ())?(v8);
+  outlined copy of (@escaping @callee_guaranteed @Sendable () -> ())?(v3, v4);
+  return outlined consume of (@escaping @callee_guaranteed () -> ())?(v8, v9);
 }
 
 uint64_t VoicemailSearchViewCell.callButtonTapHandler.getter()
@@ -4146,11 +4153,11 @@ uint64_t VoicemailSearchViewCell.callButtonTapHandler.getter()
   v1 = (v0 + OBJC_IVAR____TtC11MobilePhone23VoicemailSearchViewCell_callButtonTapHandler);
   swift_beginAccess();
   v2 = *v1;
-  outlined copy of (@escaping @callee_guaranteed @Sendable () -> ())?(*v1);
+  outlined copy of (@escaping @callee_guaranteed @Sendable () -> ())?(*v1, v1[1]);
   return v2;
 }
 
-uint64_t outlined copy of (@escaping @callee_guaranteed @Sendable () -> ())?(uint64_t result)
+uint64_t outlined copy of (@escaping @callee_guaranteed @Sendable () -> ())?(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -4164,12 +4171,13 @@ uint64_t VoicemailSearchViewCell.callButtonTapHandler.setter(uint64_t a1, uint64
   v5 = (v2 + OBJC_IVAR____TtC11MobilePhone23VoicemailSearchViewCell_callButtonTapHandler);
   swift_beginAccess();
   v6 = *v5;
+  v7 = v5[1];
   *v5 = a1;
   v5[1] = a2;
-  return outlined consume of (@escaping @callee_guaranteed () -> ())?(v6);
+  return outlined consume of (@escaping @callee_guaranteed () -> ())?(v6, v7);
 }
 
-uint64_t outlined consume of (@escaping @callee_guaranteed () -> ())?(uint64_t result)
+uint64_t outlined consume of (@escaping @callee_guaranteed () -> ())?(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -4180,7 +4188,7 @@ uint64_t outlined consume of (@escaping @callee_guaranteed () -> ())?(uint64_t r
 
 uint64_t one-time initialization function for transcriptProcessor()
 {
-  type metadata accessor for VoicemailTranscriptProcessor();
+  type metadata accessor for VoicemailTranscriptProcessor(0);
   swift_allocObject();
   result = VoicemailTranscriptProcessor.init()();
   static VoicemailSearchViewCell.transcriptProcessor = result;
@@ -4197,7 +4205,7 @@ uint64_t VoicemailSearchViewCell.commonConstraints.getter()
 
   else
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
     v2 = swift_allocObject();
     *(v2 + 16) = xmmword_100209A70;
     v3 = *&v0[OBJC_IVAR____TtC11MobilePhone23VoicemailSearchViewCell_avatarView];
@@ -4258,7 +4266,7 @@ uint64_t VoicemailSearchViewCell.axConstraints.getter()
 
   else
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
     v2 = swift_allocObject();
     *(v2 + 16) = xmmword_100209A80;
     v3 = [*&v0[OBJC_IVAR____TtC11MobilePhone23VoicemailSearchViewCell_metadataView] leadingAnchor];
@@ -4285,7 +4293,7 @@ uint64_t VoicemailSearchViewCell.nonAXConstraints.getter()
 
   else
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
     v2 = swift_allocObject();
     *(v2 + 16) = xmmword_100209A70;
     v3 = *&v0[OBJC_IVAR____TtC11MobilePhone23VoicemailSearchViewCell_avatarView];
@@ -4343,7 +4351,7 @@ uint64_t VoicemailSearchViewCell.transcriptViewVisibleConstraints.getter()
 
   else
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
     v2 = swift_allocObject();
     *(v2 + 16) = xmmword_100209A90;
     v3 = *&v0[OBJC_IVAR____TtC11MobilePhone23VoicemailSearchViewCell_transcriptView];
@@ -4376,7 +4384,7 @@ uint64_t VoicemailSearchViewCell.transcriptViewHiddenConstraints.getter()
 
   else
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
     v2 = swift_allocObject();
     *(v2 + 16) = xmmword_100209A80;
     v3 = [*&v0[OBJC_IVAR____TtC11MobilePhone23VoicemailSearchViewCell_metadataView] bottomAnchor];
@@ -4544,7 +4552,7 @@ void VoicemailSearchViewCell.setupViews()()
 
   v17 = objc_opt_self();
   VoicemailSearchViewCell.commonConstraints.getter();
-  type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for NSLayoutConstraint);
+  type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for NSLayoutConstraint, NSLayoutConstraint_ptr);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
   [v17 activateConstraints:isa];
@@ -4605,11 +4613,11 @@ Swift::Void __swiftcall VoicemailSearchViewCell.configureWithVoicemailMessageVie
   *&v3[OBJC_IVAR____TtC11MobilePhone23VoicemailSearchViewCell_item] = item;
 
   v8 = *&v3[OBJC_IVAR____TtC11MobilePhone23VoicemailSearchViewCell_avatarViewController];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
   v9 = swift_allocObject();
   *(v9 + 16) = xmmword_100209A80;
   *(v9 + 32) = contact;
-  type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CNContact);
+  type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CNContact, CNContact_ptr);
   v10 = item;
   v11 = contact.super.isa;
   isa = Array._bridgeToObjectiveC()().super.isa;
@@ -4692,7 +4700,7 @@ void VoicemailSearchViewCell.loadConstraintsForTranscriptView()()
   if (v1)
   {
     VoicemailSearchViewCell.transcriptViewVisibleConstraints.getter();
-    type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for NSLayoutConstraint);
+    type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for NSLayoutConstraint, NSLayoutConstraint_ptr);
     isa = Array._bridgeToObjectiveC()().super.isa;
 
     [v2 activateConstraints:isa];
@@ -4703,7 +4711,7 @@ void VoicemailSearchViewCell.loadConstraintsForTranscriptView()()
   else
   {
     VoicemailSearchViewCell.transcriptViewHiddenConstraints.getter();
-    type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for NSLayoutConstraint);
+    type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for NSLayoutConstraint, NSLayoutConstraint_ptr);
     v4 = Array._bridgeToObjectiveC()().super.isa;
 
     [v2 activateConstraints:v4];
@@ -4726,7 +4734,7 @@ void VoicemailSearchViewCell.updateConstraintsForAccessibility()()
   if (v3)
   {
     VoicemailSearchViewCell.axConstraints.getter();
-    type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for NSLayoutConstraint);
+    type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for NSLayoutConstraint, NSLayoutConstraint_ptr);
     isa = Array._bridgeToObjectiveC()().super.isa;
 
     [v4 activateConstraints:isa];
@@ -4737,7 +4745,7 @@ void VoicemailSearchViewCell.updateConstraintsForAccessibility()()
   else
   {
     VoicemailSearchViewCell.nonAXConstraints.getter();
-    type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for NSLayoutConstraint);
+    type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for NSLayoutConstraint, NSLayoutConstraint_ptr);
     v6 = Array._bridgeToObjectiveC()().super.isa;
 
     [v4 activateConstraints:v6];
@@ -4750,7 +4758,7 @@ void VoicemailSearchViewCell.updateConstraintsForAccessibility()()
   [v4 deactivateConstraints:v7];
 }
 
-double static VoicemailSearchViewCell.separatorInset(for:)()
+double static VoicemailSearchViewCell.separatorInset(for:)(uint64_t a1)
 {
   if (UIContentSizeCategory.isAccessibilityCategory.getter())
   {
@@ -4859,17 +4867,17 @@ LABEL_13:
       v15 = [v32 telephonyUISubheadlineShortFont];
       v16 = String._bridgeToObjectiveC()();
 
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo21NSAttributedStringKeya_yptGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo21NSAttributedStringKeya_yptGMd, &_ss23_ContiguousArrayStorageCySo21NSAttributedStringKeya_yptGMR);
       inited = swift_initStackObject();
       *(inited + 16) = xmmword_100209AA0;
       *(inited + 32) = NSFontAttributeName;
-      *(inited + 64) = type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for UIFont);
+      *(inited + 64) = type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for UIFont, UIFont_ptr);
       *(inited + 40) = v15;
       v18 = NSFontAttributeName;
       v19 = v15;
       _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSo21NSAttributedStringKeya_ypTt0g5Tf4g_n(inited);
       swift_setDeallocating();
-      outlined destroy of (NSAttributedStringKey, Any)(inited + 32, &_sSo21NSAttributedStringKeya_yptMd);
+      outlined destroy of (NSAttributedStringKey, Any)(inited + 32, &_sSo21NSAttributedStringKeya_yptMd, &_sSo21NSAttributedStringKeya_yptMR);
       type metadata accessor for NSAttributedStringKey(0);
       lazy protocol witness table accessor for type NSAttributedStringKey and conformance NSAttributedStringKey();
       isa = Dictionary._bridgeToObjectiveC()().super.isa;
@@ -4917,7 +4925,7 @@ Swift::String __swiftcall VoicemailSearchViewCell.truncate(text:with:for:)(Swift
   countAndFlagsBits = with._countAndFlagsBits;
   v6 = text._object;
   v7 = text._countAndFlagsBits;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSgMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
   __chkstk_darwin(v8 - 8);
   v10 = &v50 - v9;
   if (String.count.getter() <= a3)
@@ -4973,7 +4981,7 @@ Swift::String __swiftcall VoicemailSearchViewCell.truncate(text:with:for:)(Swift
     v18 = StringProtocol.range<A>(of:options:range:locale:)();
     v20 = v19;
     v22 = v21;
-    outlined destroy of (NSAttributedStringKey, Any)(v10, &_s10Foundation6LocaleVSgMd);
+    outlined destroy of (NSAttributedStringKey, Any)(v10, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
 
     if ((v22 & 1) == 0)
     {
@@ -5084,7 +5092,7 @@ LABEL_21:
                 v55 = v45 + 32;
                 v56 = v46 != 0;
                 v57 = (2 * v46) | 1;
-                __swift_instantiateConcreteTypeFromMangledNameV2(&_ss10ArraySliceVySSGMd);
+                __swift_instantiateConcreteTypeFromMangledNameV2(&_ss10ArraySliceVySSGMd, &_ss10ArraySliceVySSGMR);
                 lazy protocol witness table accessor for type ArraySlice<String> and conformance ArraySlice<A>();
                 v41 = BidirectionalCollection<>.joined(separator:)();
                 v43 = v47;
@@ -5224,7 +5232,7 @@ unint64_t lazy protocol witness table accessor for type ArraySlice<String> and c
   result = lazy protocol witness table cache variable for type ArraySlice<String> and conformance ArraySlice<A>;
   if (!lazy protocol witness table cache variable for type ArraySlice<String> and conformance ArraySlice<A>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_ss10ArraySliceVySSGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_ss10ArraySliceVySSGMd, &_ss10ArraySliceVySSGMR);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ArraySlice<String> and conformance ArraySlice<A>);
   }
@@ -5232,7 +5240,7 @@ unint64_t lazy protocol witness table accessor for type ArraySlice<String> and c
   return result;
 }
 
-uint64_t type metadata accessor for VoicemailSearchViewCell()
+uint64_t type metadata accessor for VoicemailSearchViewCell(uint64_t a1)
 {
   result = type metadata singleton initialization cache for VoicemailSearchViewCell;
   if (!type metadata singleton initialization cache for VoicemailSearchViewCell)
@@ -5243,10 +5251,10 @@ uint64_t type metadata accessor for VoicemailSearchViewCell()
   return result;
 }
 
-uint64_t type metadata completion function for VoicemailSearchViewCell()
+uint64_t type metadata completion function for VoicemailSearchViewCell(uint64_t a1)
 {
   result = type metadata accessor for Logger();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     return swift_updateClassMetadata2();
   }
@@ -5254,10 +5262,10 @@ uint64_t type metadata completion function for VoicemailSearchViewCell()
   return result;
 }
 
-uint64_t outlined destroy of (NSAttributedStringKey, Any)(uint64_t a1, uint64_t *a2)
+uint64_t outlined destroy of (NSAttributedStringKey, Any)(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(a2);
-  (*(*(v3 - 8) + 8))(a1, v3);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(a2, a3);
+  (*(*(v4 - 8) + 8))(a1, v4);
   return a1;
 }
 
@@ -5295,11 +5303,11 @@ uint64_t >> prefix<A>(_:)(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t one-time initialization function for nickname(uint64_t a1, uint64_t *a2)
+uint64_t one-time initialization function for nickname(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
-  v3 = type metadata accessor for Logger();
-  __swift_allocate_value_buffer(v3, a2);
-  __swift_project_value_buffer(v3, a2);
+  v5 = type metadata accessor for Logger();
+  __swift_allocate_value_buffer(v5, a2);
+  __swift_project_value_buffer(v5, a2);
   return Logger.init(subsystem:category:)();
 }
 
@@ -5381,54 +5389,54 @@ uint64_t *OS_os_log.inCallService.unsafeMutableAddressor()
   return &static OS_os_log.inCallService;
 }
 
-id static OS_os_log.mobilePhone.getter(void *a1, void **a2)
+id static OS_os_log.mobilePhone.getter(void *a1, void **a2, uint64_t a3)
 {
   if (*a1 == -1)
   {
-    v3 = *a2;
+    v4 = *a2;
   }
 
   else
   {
     swift_once();
-    v3 = *a2;
+    v4 = *a2;
   }
 
-  return v3;
+  return v4;
 }
 
-uint64_t one-time initialization function for inCallService(uint64_t a1, uint64_t *a2)
+uint64_t one-time initialization function for inCallService(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
-  v3 = type metadata accessor for Logger();
-  __swift_allocate_value_buffer(v3, a2);
-  __swift_project_value_buffer(v3, a2);
+  v5 = type metadata accessor for Logger();
+  __swift_allocate_value_buffer(v5, a2);
+  __swift_project_value_buffer(v5, a2);
   return Logger.init(subsystem:category:)();
 }
 
-uint64_t Logger.mobilePhone.unsafeMutableAddressor(void *a1, uint64_t a2)
+uint64_t Logger.mobilePhone.unsafeMutableAddressor(void *a1, uint64_t a2, uint64_t a3)
 {
   if (*a1 != -1)
   {
     swift_once();
   }
 
-  v3 = type metadata accessor for Logger();
+  v4 = type metadata accessor for Logger();
 
-  return __swift_project_value_buffer(v3, a2);
+  return __swift_project_value_buffer(v4, a2);
 }
 
-uint64_t static Logger.inCallService.getter@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t static Logger.inCallService.getter@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a4@<X8>)
 {
   if (*a1 != -1)
   {
     swift_once();
   }
 
-  v5 = type metadata accessor for Logger();
-  v6 = __swift_project_value_buffer(v5, a2);
-  v7 = *(*(v5 - 8) + 16);
+  v6 = type metadata accessor for Logger();
+  v7 = __swift_project_value_buffer(v6, a2);
+  v8 = *(*(v6 - 8) + 16);
 
-  return v7(a3, v6, v5);
+  return v8(a4, v7, v6);
 }
 
 uint64_t String.init(namedPropertyValues:for:)(uint64_t a1, void *a2)
@@ -5437,20 +5445,20 @@ uint64_t String.init(namedPropertyValues:for:)(uint64_t a1, void *a2)
   v4 = *(a1 + 16);
   if (v4)
   {
-    v36 = &_swiftEmptyArrayStorage;
+    v36 = _swiftEmptyArrayStorage;
     specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v4, 0);
-    v5 = &_swiftEmptyArrayStorage;
+    v5 = _swiftEmptyArrayStorage;
     v6 = a1 + 32;
     do
     {
-      outlined init with copy of Binding<EditMode>?(v6, &v33, &_sSS4name_ypSg5valuetMd);
+      outlined init with copy of Binding<EditMode>?(v6, &v33, &_sSS4name_ypSg5valuetMd, &_sSS4name_ypSg5valuetMR);
       v31 = v33;
       v32 = v34;
 
       v7._countAndFlagsBits = 61;
       v7._object = 0xE100000000000000;
       String.append(_:)(v7);
-      outlined init with copy of Binding<EditMode>?(&v35, &v28, &_sypSgMd);
+      outlined init with copy of Binding<EditMode>?(&v35, &v28, &_sypSgMd, &_sypSgMR);
       if (v29)
       {
         outlined init with take of Any(&v28, v30);
@@ -5462,7 +5470,7 @@ uint64_t String.init(namedPropertyValues:for:)(uint64_t a1, void *a2)
 
       else
       {
-        outlined destroy of (NSAttributedStringKey, Any)(&v28, &_sypSgMd);
+        outlined destroy of (NSAttributedStringKey, Any)(&v28, &_sypSgMd, &_sypSgMR);
         v10 = 0xE300000000000000;
         v8 = 7104878;
       }
@@ -5476,7 +5484,7 @@ uint64_t String.init(namedPropertyValues:for:)(uint64_t a1, void *a2)
       String.append(_:)(v12);
       v13 = v31;
       v14 = v32;
-      outlined destroy of (NSAttributedStringKey, Any)(&v33, &_sSS4name_ypSg5valuetMd);
+      outlined destroy of (NSAttributedStringKey, Any)(&v33, &_sSS4name_ypSg5valuetMd, &_sSS4name_ypSg5valuetMR);
       v36 = v5;
       v16 = v5[2];
       v15 = v5[3];
@@ -5502,11 +5510,11 @@ uint64_t String.init(namedPropertyValues:for:)(uint64_t a1, void *a2)
   else
   {
 
-    v5 = &_swiftEmptyArrayStorage;
+    v5 = _swiftEmptyArrayStorage;
   }
 
   v33 = v5;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
   lazy protocol witness table accessor for type [String] and conformance [A]();
   v18 = BidirectionalCollection<>.joined(separator:)();
   v20 = v19;
@@ -5533,7 +5541,7 @@ uint64_t String.init(namedPropertyValues:for:)(uint64_t a1, void *a2)
   return v25;
 }
 
-char *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(char *a1, int64_t a2, char a3)
+char *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(char *a1, uint64_t a2, uint64_t a3)
 {
   result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
   *v3 = result;
@@ -5551,7 +5559,7 @@ unint64_t lazy protocol witness table accessor for type [String] and conformance
   result = lazy protocol witness table cache variable for type [String] and conformance [A];
   if (!lazy protocol witness table cache variable for type [String] and conformance [A])
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySSGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySSGMd, &_sSaySSGMR);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type [String] and conformance [A]);
   }
@@ -5577,9 +5585,9 @@ _OWORD *outlined init with take of Any(_OWORD *a1, _OWORD *a2)
   return a2;
 }
 
-void *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(void *a1, int64_t a2, char a3)
+void *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(void *a1, uint64_t a2, uint64_t a3)
 {
-  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCy11MobilePhone9MessageIDC_AC0F0_ptGMd, &_ss23_ContiguousArrayStorageCy11MobilePhone9MessageIDC_AC0F0_ptGMR, &_s11MobilePhone9MessageIDC_AA0C0_ptMd);
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCy11MobilePhone9MessageIDC_AC0F0_ptGMd, &_ss23_ContiguousArrayStorageCy11MobilePhone9MessageIDC_AC0F0_ptGMR, &_s11MobilePhone9MessageIDC_AA0C0_ptMd, &_s11MobilePhone9MessageIDC_AA0C0_ptMR);
   *v3 = result;
   return result;
 }
@@ -5590,7 +5598,6 @@ void *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacit
   return result;
 }
 
-size_t specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(size_t a1, int64_t a2, char a3)
 {
   result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
   *v3 = result;
@@ -5638,7 +5645,7 @@ char *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -5653,7 +5660,7 @@ char *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
 
   else
   {
-    v10 = &_swiftEmptyArrayStorage;
+    v10 = _swiftEmptyArrayStorage;
   }
 
   v13 = v10 + 32;
@@ -5716,7 +5723,7 @@ char *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyypGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyypGMd, &_ss23_ContiguousArrayStorageCyypGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -5794,7 +5801,7 @@ char *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd, &_ss23_ContiguousArrayStorageCySiGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -5832,70 +5839,70 @@ char *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
   return v10;
 }
 
-void *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(void *result, int64_t a2, char a3, void *a4, uint64_t *a5, uint64_t a6, uint64_t *a7)
+void *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(void *result, int64_t a2, char a3, void *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, uint64_t *a8)
 {
-  v9 = result;
+  v11 = result;
   if (a3)
   {
-    v10 = a4[3];
-    v11 = v10 >> 1;
-    if ((v10 >> 1) < a2)
+    v12 = a4[3];
+    v13 = v12 >> 1;
+    if ((v12 >> 1) < a2)
     {
-      if (v11 + 0x4000000000000000 < 0)
+      if (v13 + 0x4000000000000000 < 0)
       {
         __break(1u);
         return result;
       }
 
-      v11 = v10 & 0xFFFFFFFFFFFFFFFELL;
-      if ((v10 & 0xFFFFFFFFFFFFFFFELL) <= a2)
+      v13 = v12 & 0xFFFFFFFFFFFFFFFELL;
+      if ((v12 & 0xFFFFFFFFFFFFFFFELL) <= a2)
       {
-        v11 = a2;
+        v13 = a2;
       }
     }
   }
 
   else
   {
-    v11 = a2;
+    v13 = a2;
   }
 
-  v12 = a4[2];
-  if (v11 <= v12)
+  v14 = a4[2];
+  if (v13 <= v14)
   {
-    v13 = a4[2];
+    v15 = a4[2];
   }
 
   else
   {
-    v13 = v11;
+    v15 = v13;
   }
 
-  if (v13)
+  if (v15)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(a5);
-    v14 = swift_allocObject();
-    v15 = _swift_stdlib_malloc_size(v14);
-    v16 = v15 - 32;
-    if (v15 < 32)
+    __swift_instantiateConcreteTypeFromMangledNameV2(a5, a6);
+    v16 = swift_allocObject();
+    v17 = _swift_stdlib_malloc_size(v16);
+    v18 = v17 - 32;
+    if (v17 < 32)
     {
-      v16 = v15 - 17;
+      v18 = v17 - 17;
     }
 
-    v14[2] = v12;
-    v14[3] = 2 * (v16 >> 4);
+    v16[2] = v14;
+    v16[3] = 2 * (v18 >> 4);
   }
 
   else
   {
-    v14 = _swiftEmptyArrayStorage;
+    v16 = _swiftEmptyArrayStorage;
   }
 
-  if (v9)
+  if (v11)
   {
-    if (v14 != a4 || v14 + 4 >= &a4[2 * v12 + 4])
+    if (v16 != a4 || v16 + 4 >= &a4[2 * v14 + 4])
     {
-      memmove(v14 + 4, a4 + 4, 16 * v12);
+      memmove(v16 + 4, a4 + 4, 16 * v14);
     }
 
     a4[2] = 0;
@@ -5903,11 +5910,11 @@ void *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
 
   else
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(a7);
+    __swift_instantiateConcreteTypeFromMangledNameV2(a7, a8);
     swift_arrayInitWithCopy();
   }
 
-  return v14;
+  return v16;
 }
 
 void *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(void *result, int64_t a2, char a3, void *a4)
@@ -5951,7 +5958,7 @@ void *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySay11MobilePhone7Message_pGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySay11MobilePhone7Message_pGGMd, &_ss23_ContiguousArrayStorageCySay11MobilePhone7Message_pGGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -5981,14 +5988,13 @@ void *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
 
   else
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay11MobilePhone7Message_pGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay11MobilePhone7Message_pGMd, &_sSay11MobilePhone7Message_pGMR);
     swift_arrayInitWithCopy();
   }
 
   return v10;
 }
 
-size_t specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(size_t result, int64_t a2, char a3, void *a4)
 {
   v5 = result;
   if (a3)
@@ -6034,7 +6040,7 @@ LABEL_30:
     goto LABEL_19;
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation4UUIDVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation4UUIDVGMd, &_ss23_ContiguousArrayStorageCy10Foundation4UUIDVGMR);
   v10 = *(type metadata accessor for UUID() - 8);
   v11 = *(v10 + 72);
   v12 = (*(v10 + 80) + 32) & ~*(v10 + 80);
@@ -6048,7 +6054,7 @@ LABEL_29:
     goto LABEL_30;
   }
 
-  if (result - v12 == 0x8000000000000000 && v11 == -1)
+  if ((result - v12) == 0x8000000000000000 && v11 == -1)
   {
     goto LABEL_29;
   }
@@ -6150,12 +6156,12 @@ id VoicemailAccountManagerDataProtocol.init(cache:anyAccountSubscribed:online:is
   if (!a9)
   {
     v21 = [a1 accounts];
-    type metadata accessor for VoicemailAccount();
+    type metadata accessor for VoicemailAccount(0);
     static Array._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
   v22 = objc_allocWithZone(swift_getObjCClassFromMetadata());
-  type metadata accessor for VoicemailAccount();
+  type metadata accessor for VoicemailAccount(0);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
   v24 = [v22 initWithAnyAccountSubscribed:v16 & 1 online:a3 & 1 isMessageWaiting:v26 & 1 storageUsage:v19 transcriptionEnabled:v18 & 1 transcriptionProgress:v17 accounts:isa];
@@ -6241,14 +6247,14 @@ uint64_t SpringBoardOrientationObserver.onOrientationLock.setter(uint64_t a1, ui
 
 uint64_t SpringBoardOrientationObserverWrapper.isLocked.getter()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone18PHCFNotifyObserverCySbGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone18PHCFNotifyObserverCySbGMd, &_s11MobilePhone18PHCFNotifyObserverCySbGMR);
   swift_initStaticObject();
   return specialized PHCFNotifyObserver.getCurrentValue()() & 1;
 }
 
 uint64_t SpringBoardOrientationObserverWrapper.currentOrientation.getter()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone18PHCFNotifyObserverCySo19UIDeviceOrientationVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone18PHCFNotifyObserverCySo19UIDeviceOrientationVGMd, &_s11MobilePhone18PHCFNotifyObserverCySo19UIDeviceOrientationVGMR);
   swift_initStaticObject();
   return specialized PHCFNotifyObserver.getCurrentValue()();
 }
@@ -6372,7 +6378,7 @@ uint64_t SpringBoardOrientationObserver.__deallocating_deinit()
   return swift_deallocClassInstance();
 }
 
-uint64_t type metadata accessor for SpringBoardOrientationObserver()
+uint64_t type metadata accessor for SpringBoardOrientationObserver(uint64_t a1)
 {
   result = type metadata singleton initialization cache for SpringBoardOrientationObserver;
   if (!type metadata singleton initialization cache for SpringBoardOrientationObserver)
@@ -6383,10 +6389,10 @@ uint64_t type metadata accessor for SpringBoardOrientationObserver()
   return result;
 }
 
-uint64_t type metadata completion function for SpringBoardOrientationObserver()
+uint64_t type metadata completion function for SpringBoardOrientationObserver(uint64_t a1)
 {
   result = type metadata accessor for Logger();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = swift_updateClassMetadata2();
     if (!result)
@@ -6664,7 +6670,7 @@ uint64_t VoicemailSearchMetadataView.commonConstraints.getter()
 
   else
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
     v2 = swift_allocObject();
     *(v2 + 16) = xmmword_100209C00;
     v3 = [*&v0[OBJC_IVAR____TtC11MobilePhone27VoicemailSearchMetadataView_badgeView] centerYAnchor];
@@ -6905,16 +6911,17 @@ Swift::Void __swiftcall VoicemailSearchMetadataView.didTapCall()()
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = (Strong + OBJC_IVAR____TtC11MobilePhone23VoicemailSearchViewCell_callButtonTapHandler);
+    v1 = Strong + OBJC_IVAR____TtC11MobilePhone23VoicemailSearchViewCell_callButtonTapHandler;
     v2 = Strong;
     swift_beginAccess();
     v3 = *v1;
-    outlined copy of (@escaping @callee_guaranteed () -> ())?(*v1, v1[1]);
+    v4 = *(v1 + 8);
+    outlined copy of (@escaping @callee_guaranteed () -> ())?(v3, v4);
 
     if (v3)
     {
       v3();
-      outlined consume of (@escaping @callee_guaranteed () -> ())?(v3);
+      outlined consume of (@escaping @callee_guaranteed () -> ())?(v3, v4);
     }
   }
 }
@@ -6962,17 +6969,17 @@ void specialized VoicemailSearchMetadataView.init(coder:)()
   __break(1u);
 }
 
-uint64_t sub_1000B6388@<X0>(uint64_t *a1@<X8>)
+uint64_t sub_1000B6388@<X0>(uint64_t *a2@<X8>)
 {
   swift_beginAccess();
   result = swift_unknownObjectWeakLoadStrong();
-  *a1 = result;
+  *a2 = result;
   return result;
 }
 
 uint64_t outlined destroy of Notification?(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation12NotificationVSgMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation12NotificationVSgMd, &_s10Foundation12NotificationVSgMR);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -7005,7 +7012,7 @@ uint64_t RecentsCellConfigurator.recentsReminderActionProvider.getter()
     swift_allocObject();
     v4 = v0;
     v2 = RecentsReminderActionProvider.init(callProviderManager:)();
-    lazy protocol witness table accessor for type RecentsCellConfigurator and conformance RecentsCellConfigurator(&lazy protocol witness table cache variable for type RecentsCellConfigurator and conformance RecentsCellConfigurator);
+    lazy protocol witness table accessor for type RecentsCellConfigurator and conformance RecentsCellConfigurator(&lazy protocol witness table cache variable for type RecentsCellConfigurator and conformance RecentsCellConfigurator, &protocol conformance descriptor for RecentsCellConfigurator);
     swift_unknownObjectRetain();
     dispatch thunk of RecentsReminderActionProvider.delegate.setter();
     *(v4 + v1) = v2;
@@ -7014,7 +7021,7 @@ uint64_t RecentsCellConfigurator.recentsReminderActionProvider.getter()
   return v2;
 }
 
-uint64_t type metadata accessor for RecentsCellConfigurator()
+uint64_t type metadata accessor for RecentsCellConfigurator(uint64_t a1)
 {
   result = type metadata singleton initialization cache for RecentsCellConfigurator;
   if (!type metadata singleton initialization cache for RecentsCellConfigurator)
@@ -7025,7 +7032,7 @@ uint64_t type metadata accessor for RecentsCellConfigurator()
   return result;
 }
 
-uint64_t (*RecentsCellConfigurator.recentsReminderActionProvider.modify(uint64_t *a1))(void *a1)
+uint64_t (*RecentsCellConfigurator.recentsReminderActionProvider.modify(uint64_t *a1))(uint64_t *a1)
 {
   a1[1] = v1;
   *a1 = RecentsCellConfigurator.recentsReminderActionProvider.getter();
@@ -7060,7 +7067,7 @@ void RecentsCellConfigurator.tableView.setter(void *a1)
   if (Strong)
   {
     v3 = Strong;
-    type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for MPLegacyRecentsTableViewCell);
+    type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for MPLegacyRecentsTableViewCell, off_100282448);
     ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
     v5 = String._bridgeToObjectiveC()();
     [v3 registerClass:ObjCClassFromMetadata forCellReuseIdentifier:v5];
@@ -7108,7 +7115,7 @@ void RecentsCellConfigurator.tableView.modify(id **a1, char a2)
     if (Strong)
     {
       v6 = Strong;
-      type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for MPLegacyRecentsTableViewCell);
+      type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for MPLegacyRecentsTableViewCell, off_100282448);
       ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
       v8 = String._bridgeToObjectiveC()();
       [v6 registerClass:ObjCClassFromMetadata forCellReuseIdentifier:v8];
@@ -7146,7 +7153,7 @@ id RecentsCellConfigurator.__allocating_init(tableView:recentsController:feature
   *&v20[OBJC_IVAR___MPRecentsCellConfigurator____lazy_storage___recentsReminderActionProvider] = 0;
   *&v20[OBJC_IVAR___MPRecentsCellConfigurator____lazy_storage___remindMeActionConfigurator] = 0;
   swift_unknownObjectWeakInit();
-  type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for MPLegacyRecentsTableViewCell);
+  type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for MPLegacyRecentsTableViewCell, off_100282448);
   ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
 
   v27 = String._bridgeToObjectiveC()();
@@ -7187,9 +7194,9 @@ id RecentsCellConfigurator.__allocating_init(tableView:recentsController:feature
   return v38;
 }
 
-id RecentsCellConfigurator.init(tableView:recentsController:featureFlags:tapTargets:callReportingViewModel:reportFlowPresenter:contactsService:avatarViewControllerSettings:placeCallAction:removeCallsAtIndexPaths:presentingViewController:)(void *a1, void *a2, void *a3, char a4, void *a5, void *a6, void *a7, void *a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13)
+id RecentsCellConfigurator.init(tableView:recentsController:featureFlags:tapTargets:callReportingViewModel:reportFlowPresenter:contactsService:avatarViewControllerSettings:placeCallAction:removeCallsAtIndexPaths:presentingViewController:)(void *a1, void *a2, void *a3, uint64_t a4, void *a5, void *a6, void *a7, void *a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13)
 {
-  v19 = specialized RecentsCellConfigurator.init(tableView:recentsController:featureFlags:tapTargets:callReportingViewModel:reportFlowPresenter:contactsService:avatarViewControllerSettings:placeCallAction:removeCallsAtIndexPaths:presentingViewController:)(a1, a2, a3, a4, a5, a6, a7, a9, a10, a11, a12);
+  v19 = specialized RecentsCellConfigurator.init(tableView:recentsController:featureFlags:tapTargets:callReportingViewModel:reportFlowPresenter:contactsService:avatarViewControllerSettings:placeCallAction:removeCallsAtIndexPaths:presentingViewController:)(a1, a2, a3, a4, a5, a6, a7, a9, a10, a11, a12, a13);
 
   return v19;
 }
@@ -7247,7 +7254,7 @@ id RecentsCellConfigurator.cell(for:recentCall:)(uint64_t a1, void *a2)
     }
 
     ContactsService.avatarContacts(for:)(a2);
-    type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CNContact);
+    type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CNContact, CNContact_ptr);
     v15 = Array._bridgeToObjectiveC()().super.isa;
 
     [v12 setContacts:v15];
@@ -7286,7 +7293,7 @@ id RecentsCellConfigurator.cell(for:recentCall:)(uint64_t a1, void *a2)
     if (v23)
     {
       v24 = v23;
-      type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CHHandle);
+      type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CHHandle, CHHandle_ptr);
       lazy protocol witness table accessor for type CHHandle and conformance NSObject();
       v25 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
 
@@ -7350,7 +7357,7 @@ id RecentsCellConfigurator.trailingSwipeActionsConfigurationForRow(at:recentCall
   v9 = *(v8 - 8);
   v10 = *(v9 + 64);
   __chkstk_darwin(v8);
-  v46 = &_swiftEmptyArrayStorage;
+  v46 = _swiftEmptyArrayStorage;
   v12 = *(v2 + OBJC_IVAR___MPRecentsCellConfigurator_removeCallsAtIndexPaths);
   v11 = *(v2 + OBJC_IVAR___MPRecentsCellConfigurator_removeCallsAtIndexPaths + 8);
   (*(v9 + 16))(&v41 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0), a1, v8);
@@ -7385,14 +7392,14 @@ id RecentsCellConfigurator.trailingSwipeActionsConfigurationForRow(at:recentCall
   v20 = [*(v3 + OBJC_IVAR___MPRecentsCellConfigurator_recentsController) itemForRecentCall:a2];
   v21 = *(v3 + OBJC_IVAR___MPRecentsCellConfigurator_contactsService);
   v22 = *&v21[OBJC_IVAR___MPContactsService_dataProvider];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo15CNKeyDescriptor_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo15CNKeyDescriptor_pMd, &_sSo15CNKeyDescriptor_pMR);
   isa = Array._bridgeToObjectiveC()().super.isa;
   v24 = [v22 contactByHandleForRecentCall:a2 keyDescriptors:isa];
 
   if (v24)
   {
-    type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CHHandle);
-    type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CNContact);
+    type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CHHandle, CHHandle_ptr);
+    type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CNContact, CNContact_ptr);
     lazy protocol witness table accessor for type CHHandle and conformance NSObject();
     v25 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   }
@@ -7406,7 +7413,7 @@ id RecentsCellConfigurator.trailingSwipeActionsConfigurationForRow(at:recentCall
   if (v26)
   {
     v27 = v26;
-    type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CHHandle);
+    type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CHHandle, CHHandle_ptr);
     lazy protocol witness table accessor for type CHHandle and conformance NSObject();
     v28 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
 
@@ -7426,7 +7433,7 @@ id RecentsCellConfigurator.trailingSwipeActionsConfigurationForRow(at:recentCall
   v33 = v42;
   RecentsItem.init(from:recentsItem:contacts:)();
   RecentsCellConfigurator.remindMeActionConfigurator.getter();
-  lazy protocol witness table accessor for type RecentsCellConfigurator and conformance RecentsCellConfigurator(&lazy protocol witness table cache variable for type RecentsCellConfigurator and conformance RecentsCellConfigurator);
+  lazy protocol witness table accessor for type RecentsCellConfigurator and conformance RecentsCellConfigurator(&lazy protocol witness table cache variable for type RecentsCellConfigurator and conformance RecentsCellConfigurator, &protocol conformance descriptor for RecentsCellConfigurator);
   swift_unknownObjectRetain();
   dispatch thunk of RecentsRemindMeActionConfigurator.delegate.setter();
 
@@ -7457,7 +7464,7 @@ id RecentsCellConfigurator.trailingSwipeActionsConfigurationForRow(at:recentCall
     specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
   }
 
-  type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for UIContextualAction);
+  type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for UIContextualAction, UIContextualAction_ptr);
   v38 = Array._bridgeToObjectiveC()().super.isa;
 
   v39 = [objc_opt_self() configurationWithActions:v38];
@@ -7466,9 +7473,9 @@ id RecentsCellConfigurator.trailingSwipeActionsConfigurationForRow(at:recentCall
   return v39;
 }
 
-uint64_t closure #1 in RecentsCellConfigurator.trailingSwipeActionsConfigurationForRow(at:recentCall:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void (*a5)(uint64_t), uint64_t a6, uint64_t a7)
+double closure #1 in RecentsCellConfigurator.trailingSwipeActionsConfigurationForRow(at:recentCall:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void (*a5)(uint64_t), uint64_t a6, uint64_t a7)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation9IndexPathVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation9IndexPathVGMd, &_ss23_ContiguousArrayStorageCy10Foundation9IndexPathVGMR);
   v9 = type metadata accessor for IndexPath();
   v10 = *(v9 - 8);
   v11 = (*(v10 + 80) + 32) & ~*(v10 + 80);
@@ -7476,6 +7483,8 @@ uint64_t closure #1 in RecentsCellConfigurator.trailingSwipeActionsConfiguration
   *(v12 + 16) = xmmword_100209AA0;
   (*(v10 + 16))(v12 + v11, a7, v9);
   a5(v12);
+
+  return result;
 }
 
 void thunk for @escaping @callee_guaranteed (@guaranteed UIContextualAction, @guaranteed UIView, @guaranteed @escaping @callee_guaranteed (@unowned Bool) -> ()) -> ()(uint64_t a1, void *a2, void *a3, void *aBlock)
@@ -7561,11 +7570,11 @@ id @objc RecentsCellConfigurator.cell(for:recentCall:)(void *a1, uint64_t a2, ui
 uint64_t RecentsCellConfigurator.configure(cardController:for:)(void *a1, void *a2)
 {
   v5 = *(v2 + OBJC_IVAR___MPRecentsCellConfigurator_recentsController);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
   v6 = swift_allocObject();
   *(v6 + 16) = xmmword_100209A80;
   *(v6 + 32) = [objc_opt_self() descriptorForRequiredKeys];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo15CNKeyDescriptor_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo15CNKeyDescriptor_pMd, &_sSo15CNKeyDescriptor_pMR);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
   v8 = [v5 contactForRecentCall:a2 keyDescriptors:isa];
@@ -7577,7 +7586,7 @@ uint64_t RecentsCellConfigurator.configure(cardController:for:)(void *a1, void *
 
   [a1 setContact:v8];
   v9 = [a2 identityExtension];
-  if (!v9 || ((v9, v10 = [v8 phoneNumbers], __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo14CNLabeledValueCMd), v11 = static Array._unconditionallyBridgeFromObjectiveC(_:)(), v10, v11 >> 62) ? (v12 = _CocoaArrayWrapper.endIndex.getter()) : (v12 = *((v11 & 0xFFFFFFFFFFFFFF8) + 0x10)), , v12 != 1))
+  if (!v9 || ((v9, v10 = [v8 phoneNumbers], __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo14CNLabeledValueCMd, &_sSo14CNLabeledValueCMR), v11 = static Array._unconditionallyBridgeFromObjectiveC(_:)(), v10, v11 >> 62) ? (v12 = _CocoaArrayWrapper.endIndex.getter()) : (v12 = *((v11 & 0xFFFFFFFFFFFFFF8) + 0x10)), , v12 != 1))
   {
     v22 = [v5 itemForRecentCall:a2];
     v21 = [v22 localizedSubtitle];
@@ -7647,86 +7656,86 @@ LABEL_11:
   return result;
 }
 
-uint64_t closure #1 in RecentsCellConfigurator.reportSwipeAction(for:)(uint64_t a1, uint64_t a2, uint64_t (*a3)(uint64_t), uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8)
+uint64_t closure #1 in RecentsCellConfigurator.reportSwipeAction(for:)(__n128 a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t), uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9)
 {
-  if (a5 <= 2)
+  if (a6 <= 2)
   {
-    switch(a5)
+    switch(a6)
     {
       case 0:
-        v13 = Logger.logObject.getter();
-        v14 = static os_log_type_t.default.getter();
-        if (os_log_type_enabled(v13, v14))
+        v14 = Logger.logObject.getter();
+        v15 = static os_log_type_t.default.getter();
+        if (os_log_type_enabled(v14, v15))
         {
-          v15 = swift_slowAlloc();
-          *v15 = 0;
-          _os_log_impl(&_mh_execute_header, v13, v14, "MPRecentsTableViewController: we are showing the native spam reporting and blocking for facetime", v15, 2u);
+          v16 = swift_slowAlloc();
+          *v16 = 0;
+          _os_log_impl(&_mh_execute_header, v14, v15, "MPRecentsTableViewController: we are showing the native spam reporting and blocking for facetime", v16, 2u);
         }
 
-        ReportFlowPresenter.presentFaceTimeSpamReportAndBlockAlert(for:)(a8);
-        return a3(1);
+        ReportFlowPresenter.presentFaceTimeSpamReportAndBlockAlert(for:)(a9);
+        return a4(1);
       case 1:
-        v10 = Logger.logObject.getter();
-        v11 = static os_log_type_t.default.getter();
-        if (os_log_type_enabled(v10, v11))
+        v11 = Logger.logObject.getter();
+        v12 = static os_log_type_t.default.getter();
+        if (os_log_type_enabled(v11, v12))
         {
-          v12 = swift_slowAlloc();
-          *v12 = 0;
-          _os_log_impl(&_mh_execute_header, v10, v11, "MPRecentsTableViewController: we are showing the carrier reporting and blocking option", v12, 2u);
+          v13 = swift_slowAlloc();
+          *v13 = 0;
+          _os_log_impl(&_mh_execute_header, v11, v12, "MPRecentsTableViewController: we are showing the carrier reporting and blocking option", v13, 2u);
         }
 
-        ReportFlowPresenter.showCarrierVoiceCallReportAlert(for:)(a8);
-        return a3(1);
+        ReportFlowPresenter.showCarrierVoiceCallReportAlert(for:)(a9);
+        return a4(1);
       case 2:
-        v16 = Logger.logObject.getter();
-        v17 = static os_log_type_t.default.getter();
-        if (os_log_type_enabled(v16, v17))
+        v17 = Logger.logObject.getter();
+        v18 = static os_log_type_t.default.getter();
+        if (os_log_type_enabled(v17, v18))
         {
-          v18 = swift_slowAlloc();
-          *v18 = 0;
-          _os_log_impl(&_mh_execute_header, v16, v17, "MPRecentsTableViewController: we are showing the third party reporting and blocking option", v18, 2u);
+          v19 = swift_slowAlloc();
+          *v19 = 0;
+          _os_log_impl(&_mh_execute_header, v17, v18, "MPRecentsTableViewController: we are showing the third party reporting and blocking option", v19, 2u);
         }
 
-        ReportFlowPresenter.showReportingExtension(for:)(a8);
-        return a3(1);
+        ReportFlowPresenter.showReportingExtension(for:)(a9);
+        return a4(1);
     }
   }
 
   else
   {
-    if (a5 <= 4)
+    if (a6 <= 4)
     {
-      if (a5 == 3)
+      if (a6 == 3)
       {
-        ReportFlowPresenter.presentBlockAllAlert(for:)(a8);
+        ReportFlowPresenter.presentBlockAllAlert(for:)(a9);
       }
 
       else
       {
-        ReportFlowPresenter.presentBlockUnknownAlert(for:)(a8);
+        ReportFlowPresenter.presentBlockUnknownAlert(for:)(a9);
       }
 
-      return a3(1);
+      return a4(1);
     }
 
-    if (a5 == 5)
+    if (a6 == 5)
     {
-      ReportFlowPresenter.presentGroupFaceTimeSpamReportAndBlockAlert(for:)(a8);
-      return a3(1);
+      ReportFlowPresenter.presentGroupFaceTimeSpamReportAndBlockAlert(for:)(a9);
+      return a4(1);
     }
 
-    if (a5 == 6)
+    if (a6 == 6)
     {
-      v19 = Logger.logObject.getter();
-      v20 = static os_log_type_t.default.getter();
-      if (os_log_type_enabled(v19, v20))
+      v20 = Logger.logObject.getter();
+      v21 = static os_log_type_t.default.getter();
+      if (os_log_type_enabled(v20, v21))
       {
-        v21 = swift_slowAlloc();
-        *v21 = 0;
-        _os_log_impl(&_mh_execute_header, v19, v20, "MPRecentsTableViewController: we are showing none flow", v21, 2u);
+        v22 = swift_slowAlloc();
+        *v22 = 0;
+        _os_log_impl(&_mh_execute_header, v20, v21, "MPRecentsTableViewController: we are showing none flow", v22, 2u);
       }
 
-      return a3(1);
+      return a4(1);
     }
   }
 
@@ -7735,7 +7744,7 @@ uint64_t closure #1 in RecentsCellConfigurator.reportSwipeAction(for:)(uint64_t 
   return result;
 }
 
-uint64_t RecentsCellConfigurator.update(reminderUUID:for:)(uint64_t a1, uint64_t a2)
+double RecentsCellConfigurator.update(reminderUUID:for:)(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
   v6 = type metadata accessor for RecentsItem();
@@ -7743,7 +7752,7 @@ uint64_t RecentsCellConfigurator.update(reminderUUID:for:)(uint64_t a1, uint64_t
   v43 = v6;
   __chkstk_darwin(v6);
   v8 = &v38 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   v10 = __chkstk_darwin(v9 - 8);
   v12 = &v38 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v10);
@@ -7799,15 +7808,15 @@ uint64_t RecentsCellConfigurator.update(reminderUUID:for:)(uint64_t a1, uint64_t
     v23 = outlined destroy of UUID?(v14);
   }
 
-  v44 = &_swiftEmptyArrayStorage;
+  v44 = _swiftEmptyArrayStorage;
   v29 = *(a2 + 16);
   if (v29)
   {
-    v30 = *(v42 + 2);
-    v31 = a2 + ((v42[80] + 32) & ~v42[80]);
-    v32 = *(v42 + 9);
-    v33 = (v42 + 8);
-    v42 = &_swiftEmptyArrayStorage;
+    v30 = v42[2];
+    v31 = a2 + ((*(v42 + 80) + 32) & ~*(v42 + 80));
+    v32 = v42[9];
+    v33 = (v42 + 1);
+    v42 = _swiftEmptyArrayStorage;
     do
     {
       v34 = v43;
@@ -7835,7 +7844,7 @@ uint64_t RecentsCellConfigurator.update(reminderUUID:for:)(uint64_t a1, uint64_t
 
   else
   {
-    v42 = &_swiftEmptyArrayStorage;
+    v42 = _swiftEmptyArrayStorage;
   }
 
   __chkstk_darwin(v23);
@@ -7843,11 +7852,13 @@ uint64_t RecentsCellConfigurator.update(reminderUUID:for:)(uint64_t a1, uint64_t
   *(&v38 - 2) = v41;
   *(&v38 - 1) = v36;
   specialized Sequence.forEach(_:)(partial apply for closure #1 in RecentsCellConfigurator.update(reminderUUID:for:), (&v38 - 4), v42);
+
+  return result;
 }
 
 void closure #1 in RecentsCellConfigurator.update(reminderUUID:for:)(uint64_t *a1, uint64_t a2, uint64_t a3)
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   __chkstk_darwin(v6 - 8);
   v8 = v14 - v7;
   v9 = *a1;
@@ -7959,62 +7970,62 @@ id TUHandle.init(_:)(void *a1)
   return v5;
 }
 
-id specialized RecentsCellConfigurator.init(tableView:recentsController:featureFlags:tapTargets:callReportingViewModel:reportFlowPresenter:contactsService:avatarViewControllerSettings:placeCallAction:removeCallsAtIndexPaths:presentingViewController:)(void *a1, void *a2, void *a3, char a4, void *a5, void *a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
+id specialized RecentsCellConfigurator.init(tableView:recentsController:featureFlags:tapTargets:callReportingViewModel:reportFlowPresenter:contactsService:avatarViewControllerSettings:placeCallAction:removeCallsAtIndexPaths:presentingViewController:)(void *a1, void *a2, void *a3, char a4, void *a5, void *a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   ObjectType = swift_getObjectType();
-  v17 = &v11[OBJC_IVAR___MPRecentsCellConfigurator_cellIdentifier];
-  *v17 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v17[1] = v18;
-  v19 = OBJC_IVAR___MPRecentsCellConfigurator_logger;
+  v18 = &v12[OBJC_IVAR___MPRecentsCellConfigurator_cellIdentifier];
+  *v18 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v18[1] = v19;
+  v20 = OBJC_IVAR___MPRecentsCellConfigurator_logger;
   if (one-time initialization token for mobilePhone != -1)
   {
     swift_once();
   }
 
-  v20 = type metadata accessor for Logger();
-  v21 = __swift_project_value_buffer(v20, static Logger.mobilePhone);
-  (*(*(v20 - 8) + 16))(&v11[v19], v21, v20);
+  v21 = type metadata accessor for Logger();
+  v22 = __swift_project_value_buffer(v21, static Logger.mobilePhone);
+  (*(*(v21 - 8) + 16))(&v12[v20], v22, v21);
   swift_unknownObjectWeakInit();
-  *&v11[OBJC_IVAR___MPRecentsCellConfigurator____lazy_storage___recentsReminderActionProvider] = 0;
-  *&v11[OBJC_IVAR___MPRecentsCellConfigurator____lazy_storage___remindMeActionConfigurator] = 0;
+  *&v12[OBJC_IVAR___MPRecentsCellConfigurator____lazy_storage___recentsReminderActionProvider] = 0;
+  *&v12[OBJC_IVAR___MPRecentsCellConfigurator____lazy_storage___remindMeActionConfigurator] = 0;
   swift_unknownObjectWeakInit();
-  type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for MPLegacyRecentsTableViewCell);
+  type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for MPLegacyRecentsTableViewCell, off_100282448);
   ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
 
-  v23 = String._bridgeToObjectiveC()();
+  v24 = String._bridgeToObjectiveC()();
 
-  [a1 registerClass:ObjCClassFromMetadata forCellReuseIdentifier:v23];
+  [a1 registerClass:ObjCClassFromMetadata forCellReuseIdentifier:v24];
 
   swift_beginAccess();
   swift_unknownObjectWeakAssign();
-  *&v11[OBJC_IVAR___MPRecentsCellConfigurator_recentsController] = a2;
-  *&v11[OBJC_IVAR___MPRecentsCellConfigurator_featureFlags] = a3;
-  v11[OBJC_IVAR___MPRecentsCellConfigurator_tapTargets] = a4 & 1;
-  *&v11[OBJC_IVAR___MPRecentsCellConfigurator_callReportingViewModel] = a5;
-  *&v11[OBJC_IVAR___MPRecentsCellConfigurator_reportFlowPresenter] = a6;
-  *&v11[OBJC_IVAR___MPRecentsCellConfigurator_contactsService] = a7;
-  v24 = objc_opt_self();
-  v25 = a2;
-  v26 = a3;
-  v27 = a5;
-  v28 = a6;
-  v29 = a7;
-  v30 = [v24 sharedInstance];
-  v31 = [v30 contactStore];
+  *&v12[OBJC_IVAR___MPRecentsCellConfigurator_recentsController] = a2;
+  *&v12[OBJC_IVAR___MPRecentsCellConfigurator_featureFlags] = a3;
+  v12[OBJC_IVAR___MPRecentsCellConfigurator_tapTargets] = a4 & 1;
+  *&v12[OBJC_IVAR___MPRecentsCellConfigurator_callReportingViewModel] = a5;
+  *&v12[OBJC_IVAR___MPRecentsCellConfigurator_reportFlowPresenter] = a6;
+  *&v12[OBJC_IVAR___MPRecentsCellConfigurator_contactsService] = a7;
+  v25 = objc_opt_self();
+  v26 = a2;
+  v27 = a3;
+  v28 = a5;
+  v29 = a6;
+  v30 = a7;
+  v31 = [v25 sharedInstance];
+  v32 = [v31 contactStore];
 
-  v32 = [objc_opt_self() settingsWithContactStore:v31 threeDTouchEnabled:1];
-  *&v11[OBJC_IVAR___MPRecentsCellConfigurator_avatarViewControllerSettings] = v32;
-  v33 = &v11[OBJC_IVAR___MPRecentsCellConfigurator_placeCallAction];
-  *v33 = a8;
-  v33[1] = a9;
-  v34 = &v11[OBJC_IVAR___MPRecentsCellConfigurator_removeCallsAtIndexPaths];
-  *v34 = a10;
-  v34[1] = a11;
+  v33 = [objc_opt_self() settingsWithContactStore:v32 threeDTouchEnabled:1];
+  *&v12[OBJC_IVAR___MPRecentsCellConfigurator_avatarViewControllerSettings] = v33;
+  v34 = &v12[OBJC_IVAR___MPRecentsCellConfigurator_placeCallAction];
+  *v34 = a8;
+  v34[1] = a9;
+  v35 = &v12[OBJC_IVAR___MPRecentsCellConfigurator_removeCallsAtIndexPaths];
+  *v35 = a10;
+  v35[1] = a11;
   swift_unknownObjectWeakAssign();
-  v40.receiver = v11;
-  v40.super_class = ObjectType;
+  v41.receiver = v12;
+  v41.super_class = ObjectType;
 
-  return objc_msgSendSuper2(&v40, "init");
+  return objc_msgSendSuper2(&v41, "init");
 }
 
 uint64_t sub_1000B9634()
@@ -8035,7 +8046,7 @@ unint64_t lazy protocol witness table accessor for type CHHandle and conformance
   result = lazy protocol witness table cache variable for type CHHandle and conformance NSObject;
   if (!lazy protocol witness table cache variable for type CHHandle and conformance NSObject)
   {
-    type metadata accessor for NSMutableArray(255, &lazy cache variable for type metadata for CHHandle);
+    type metadata accessor for NSMutableArray(255, &lazy cache variable for type metadata for CHHandle, CHHandle_ptr);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type CHHandle and conformance NSObject);
   }
@@ -8056,7 +8067,7 @@ uint64_t sub_1000B9724()
   return _swift_deallocObject(v0, v4 + v5, v3 | 7);
 }
 
-uint64_t partial apply for closure #1 in RecentsCellConfigurator.trailingSwipeActionsConfigurationForRow(at:recentCall:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+double partial apply for closure #1 in RecentsCellConfigurator.trailingSwipeActionsConfigurationForRow(at:recentCall:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v9 = *(type metadata accessor for IndexPath() - 8);
   v10 = *(v4 + 16);
@@ -8066,12 +8077,12 @@ uint64_t partial apply for closure #1 in RecentsCellConfigurator.trailingSwipeAc
   return closure #1 in RecentsCellConfigurator.trailingSwipeActionsConfigurationForRow(at:recentCall:)(a1, a2, a3, a4, v10, v11, v12);
 }
 
-uint64_t lazy protocol witness table accessor for type RecentsCellConfigurator and conformance RecentsCellConfigurator(unint64_t *a1)
+uint64_t lazy protocol witness table accessor for type RecentsCellConfigurator and conformance RecentsCellConfigurator(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
   {
-    type metadata accessor for RecentsCellConfigurator();
+    type metadata accessor for RecentsCellConfigurator(255);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -8086,7 +8097,7 @@ void *specialized Sequence.compactMap<A>(_:)(uint64_t a1, uint64_t a2, void *a3,
   {
     swift_unknownObjectRetain();
     __CocoaSet.makeIterator()();
-    type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CHHandle);
+    type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CHHandle, CHHandle_ptr);
     lazy protocol witness table accessor for type CHHandle and conformance NSObject();
     result = Set.Iterator.init(_cocoa:)();
     v4 = v38;
@@ -8134,8 +8145,8 @@ LABEL_12:
     if (!v17)
     {
 LABEL_40:
-      outlined consume of Set<CHHandle>.Iterator._Variant();
-      return &_swiftEmptyArrayStorage;
+      outlined consume of Set<CHHandle>.Iterator._Variant(v4);
+      return _swiftEmptyArrayStorage;
     }
 
     while (1)
@@ -8150,7 +8161,7 @@ LABEL_40:
 
           if (v19)
           {
-            type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CNContact);
+            type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CNContact, CNContact_ptr);
             swift_dynamicCast();
             if (v37)
             {
@@ -8221,7 +8232,7 @@ LABEL_40:
 
 LABEL_36:
       specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
-      if (*((&_swiftEmptyArrayStorage & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((&_swiftEmptyArrayStorage & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+      if (*((_swiftEmptyArrayStorage & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((_swiftEmptyArrayStorage & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
       {
         specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
       }
@@ -8237,7 +8248,7 @@ LABEL_36:
 LABEL_14:
       if (__CocoaSet.Iterator.next()())
       {
-        type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CHHandle);
+        type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CHHandle, CHHandle_ptr);
         swift_dynamicCast();
         v17 = v37;
         v15 = v8;
@@ -8279,14 +8290,14 @@ LABEL_14:
 
 uint64_t outlined init with copy of UUID?(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
 uint64_t outlined destroy of UUID?(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -8298,16 +8309,16 @@ uint64_t sub_1000B9E2C@<X0>(uint64_t *a1@<X8>)
   return result;
 }
 
-uint64_t sub_1000B9E58(void *a1, void *a2)
+uint64_t sub_1000B9E58(uint64_t *a1, void *a2)
 {
   *(*a2 + OBJC_IVAR___MPRecentsCellConfigurator____lazy_storage___recentsReminderActionProvider) = *a1;
 }
 
-uint64_t sub_1000B9EA4@<X0>(uint64_t *a1@<X8>)
+uint64_t sub_1000B9EA4@<X0>(uint64_t *a2@<X8>)
 {
   swift_beginAccess();
   result = swift_unknownObjectWeakLoadStrong();
-  *a1 = result;
+  *a2 = result;
   return result;
 }
 
@@ -8318,10 +8329,10 @@ void sub_1000B9F00(id *a1)
   RecentsCellConfigurator.tableView.setter(v1);
 }
 
-uint64_t type metadata completion function for RecentsCellConfigurator()
+uint64_t type metadata completion function for RecentsCellConfigurator(uint64_t a1)
 {
   result = type metadata accessor for Logger();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     return swift_updateClassMetadata2();
   }
@@ -8352,16 +8363,16 @@ uint64_t sub_1000BA074()
 uint64_t partial apply for closure #1 in RecentsCellConfigurator.reportSwipeAction(for:)(uint64_t a1, uint64_t a2, uint64_t (*a3)(uint64_t), uint64_t a4)
 {
   v9 = *(type metadata accessor for Logger() - 8);
-  v10 = (*(v9 + 80) + 24) & ~*(v9 + 80);
-  v11 = (*(v9 + 64) + v10 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v12 = *(v4 + 16);
-  v13 = *(v4 + v11);
-  v14 = *(v4 + ((v11 + 15) & 0xFFFFFFFFFFFFFFF8));
+  v11 = (*(v9 + 80) + 24) & ~*(v9 + 80);
+  v12 = (*(v9 + 64) + v11 + 7) & 0xFFFFFFFFFFFFFFF8;
+  v13 = *(v4 + 16);
+  v14 = *(v4 + v12);
+  v15 = *(v4 + ((v12 + 15) & 0xFFFFFFFFFFFFFFF8));
 
-  return closure #1 in RecentsCellConfigurator.reportSwipeAction(for:)(a1, a2, a3, a4, v12, v4 + v10, v13, v14);
+  return closure #1 in RecentsCellConfigurator.reportSwipeAction(for:)(v10, a1, a2, a3, a4, v13, v4 + v11, v14, v15);
 }
 
-uint64_t key path getter for OrientationMonitorAccelerometer.onOrientationChange : OrientationMonitorAccelerometer@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
+uint64_t key path getter for OrientationMonitorAccelerometer.onOrientationChange : OrientationMonitorAccelerometer@<X0>(uint64_t a1@<X0>, uint64_t (**a2)()@<X8>)
 {
   result = (*(**a1 + 104))();
   if (result)
@@ -8403,7 +8414,7 @@ uint64_t key path setter for OrientationMonitorAccelerometer.onOrientationChange
   }
 
   v7 = *(**a2 + 112);
-  outlined copy of (@escaping @callee_guaranteed @Sendable () -> ())?(v3);
+  outlined copy of (@escaping @callee_guaranteed @Sendable () -> ())?(v3, v4);
   return v7(v6, v5);
 }
 
@@ -8411,7 +8422,7 @@ uint64_t OrientationMonitorAccelerometer.onOrientationChange.getter()
 {
   swift_beginAccess();
   v1 = *(v0 + 16);
-  outlined copy of (@escaping @callee_guaranteed @Sendable () -> ())?(v1);
+  outlined copy of (@escaping @callee_guaranteed @Sendable () -> ())?(v1, *(v0 + 24));
   return v1;
 }
 
@@ -8419,9 +8430,10 @@ uint64_t OrientationMonitorAccelerometer.onOrientationChange.setter(uint64_t a1,
 {
   swift_beginAccess();
   v5 = *(v2 + 16);
+  v6 = *(v2 + 24);
   *(v2 + 16) = a1;
   *(v2 + 24) = a2;
-  return outlined consume of (@escaping @callee_guaranteed () -> ())?(v5);
+  return outlined consume of (@escaping @callee_guaranteed () -> ())?(v5, v6);
 }
 
 id (*OrientationMonitorAccelerometer.orientationEventsEnabled.modify(uint64_t a1))(uint64_t a1)
@@ -8467,31 +8479,32 @@ void *OrientationMonitorAccelerometer.init(onOrientationChange:)(uint64_t a1, ui
   v2[5] = 0;
   swift_beginAccess();
   v6 = v2[2];
+  v7 = v2[3];
   v2[2] = a1;
   v2[3] = a2;
-  v7 = v5;
-  outlined copy of (@escaping @callee_guaranteed @Sendable () -> ())?(a1);
-  outlined consume of (@escaping @callee_guaranteed () -> ())?(v6);
-  v8 = swift_allocObject();
+  v8 = v5;
+  outlined copy of (@escaping @callee_guaranteed @Sendable () -> ())?(a1, a2);
+  outlined consume of (@escaping @callee_guaranteed () -> ())?(v6, v7);
+  v9 = swift_allocObject();
   swift_weakInit();
-  v9 = type metadata accessor for AccelerometerDelegate();
-  v10 = objc_allocWithZone(v9);
-  v11 = &v10[OBJC_IVAR____TtC11MobilePhoneP33_4C1B1F2DAAC46834EA132CE9DCD273E421AccelerometerDelegate_onOrientationChange];
-  *v11 = partial apply for closure #1 in OrientationMonitorAccelerometer.init(onOrientationChange:);
-  v11[1] = v8;
-  *&v10[OBJC_IVAR____TtC11MobilePhoneP33_4C1B1F2DAAC46834EA132CE9DCD273E421AccelerometerDelegate_accelerometer] = v7;
-  v17.receiver = v10;
-  v17.super_class = v9;
-  v12 = v7;
+  v10 = type metadata accessor for AccelerometerDelegate();
+  v11 = objc_allocWithZone(v10);
+  v12 = &v11[OBJC_IVAR____TtC11MobilePhoneP33_4C1B1F2DAAC46834EA132CE9DCD273E421AccelerometerDelegate_onOrientationChange];
+  *v12 = partial apply for closure #1 in OrientationMonitorAccelerometer.init(onOrientationChange:);
+  v12[1] = v9;
+  *&v11[OBJC_IVAR____TtC11MobilePhoneP33_4C1B1F2DAAC46834EA132CE9DCD273E421AccelerometerDelegate_accelerometer] = v8;
+  v18.receiver = v11;
+  v18.super_class = v10;
+  v13 = v8;
   swift_retain_n();
-  v13 = objc_msgSendSuper2(&v17, "init");
-  v14 = v13;
-  [v12 setDelegate:v14];
+  v14 = objc_msgSendSuper2(&v18, "init");
+  v15 = v14;
+  [v13 setDelegate:v15];
 
-  outlined consume of (@escaping @callee_guaranteed () -> ())?(a1);
+  outlined consume of (@escaping @callee_guaranteed () -> ())?(a1, a2);
 
-  v15 = v2[5];
-  v2[5] = v13;
+  v16 = v2[5];
+  v2[5] = v14;
 
   return v2;
 }
@@ -8503,18 +8516,19 @@ uint64_t sub_1000BA7BC()
   return _swift_deallocObject(v0, 24, 7);
 }
 
-uint64_t closure #1 in OrientationMonitorAccelerometer.init(onOrientationChange:)(uint64_t a1)
+uint64_t closure #1 in OrientationMonitorAccelerometer.init(onOrientationChange:)(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
   result = swift_weakLoadStrong();
   if (result)
   {
-    v3 = (*(*result + 104))(result);
+    v4 = (*(*result + 104))(result);
+    v6 = v5;
 
-    if (v3)
+    if (v4)
     {
-      v3(a1);
-      return outlined consume of (@escaping @callee_guaranteed () -> ())?(v3);
+      v4(a1);
+      return outlined consume of (@escaping @callee_guaranteed () -> ())?(v4, v6);
     }
   }
 
@@ -8526,7 +8540,7 @@ uint64_t OrientationMonitorAccelerometer.deinit()
   [*(v0 + 32) setOrientationEventsEnabled:0];
   [*(v0 + 32) setPassiveOrientationEvents:1];
   [*(v0 + 32) setDelegate:0];
-  outlined consume of (@escaping @callee_guaranteed () -> ())?(*(v0 + 16));
+  outlined consume of (@escaping @callee_guaranteed () -> ())?(*(v0 + 16), *(v0 + 24));
 
   return v0;
 }
@@ -8536,7 +8550,7 @@ uint64_t OrientationMonitorAccelerometer.__deallocating_deinit()
   [*(v0 + 32) setOrientationEventsEnabled:0];
   [*(v0 + 32) setPassiveOrientationEvents:1];
   [*(v0 + 32) setDelegate:0];
-  outlined consume of (@escaping @callee_guaranteed () -> ())?(*(v0 + 16));
+  outlined consume of (@escaping @callee_guaranteed () -> ())?(*(v0 + 16), *(v0 + 24));
 
   return swift_deallocClassInstance();
 }
@@ -8904,17 +8918,19 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Default
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Defaults.Key()
+double protocol witness for Hashable.hash(into:) in conformance Defaults.Key(uint64_t a1)
 {
-  Defaults.Key.rawValue.getter(*v0);
+  Defaults.Key.rawValue.getter(*v1);
   String.hash(into:)();
+
+  return result;
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Defaults.Key()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Defaults.Key(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  Defaults.Key.rawValue.getter(v1);
+  Defaults.Key.rawValue.getter(v2);
   String.hash(into:)();
 
   return Hasher._finalize()();
@@ -8994,12 +9010,12 @@ id Defaults.Observation.__deallocating_deinit()
   return objc_msgSendSuper2(&v5, "dealloc");
 }
 
-uint64_t Defaults.liveVoiceMailAccountUUID.getter@<X0>(uint64_t a1@<X8>)
+void Defaults.liveVoiceMailAccountUUID.getter(uint64_t a1@<X8>)
 {
   v2 = type metadata accessor for UUID();
   v3 = *(v2 - 8);
   __chkstk_darwin(v2);
-  v5 = v33 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0) + 16;
+  v5 = v32 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0) + 16;
   v6 = static String._unconditionallyBridgeFromObjectiveC(_:)();
   specialized Defaults.getValueFromUserDefaults<A>(key:suiteName:)(0xD000000000000018, 0x80000001002405B0, v6, v7);
   v9 = v8;
@@ -9012,25 +9028,25 @@ uint64_t Defaults.liveVoiceMailAccountUUID.getter@<X0>(uint64_t a1@<X8>)
   else
   {
     UUID.init()();
-    v11 = UUID.uuidString.getter();
-    v13 = v12;
+    v10 = UUID.uuidString.getter();
+    v12 = v11;
     (*(v3 + 8))(v5, v2);
-    v14 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v16 = v15;
-    v17 = objc_allocWithZone(NSUserDefaults);
+    v13 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v15 = v14;
+    v16 = objc_allocWithZone(NSUserDefaults);
 
-    v18 = String._bridgeToObjectiveC()();
-    v19 = [v17 initWithSuiteName:v18];
+    v17 = String._bridgeToObjectiveC()();
+    v18 = [v16 initWithSuiteName:v17];
 
-    if (v19)
+    if (v18)
     {
       swift_bridgeObjectRelease_n();
-      v33[0] = v11;
-      v33[1] = v13;
+      v32[0] = v10;
+      v32[1] = v12;
 
-      v20 = _bridgeAnythingNonVerbatimToObjectiveC<A>(_:)();
-      v21 = String._bridgeToObjectiveC()();
-      [v19 setObject:v20 forKey:v21];
+      v19 = _bridgeAnythingNonVerbatimToObjectiveC<A>(_:)();
+      v20 = String._bridgeToObjectiveC()();
+      [v18 setObject:v19 forKey:v20];
       swift_unknownObjectRelease();
 
       UUID.init(uuidString:)();
@@ -9039,10 +9055,10 @@ uint64_t Defaults.liveVoiceMailAccountUUID.getter@<X0>(uint64_t a1@<X8>)
     else
     {
       lazy protocol witness table accessor for type Defaults.Error and conformance Defaults.Error();
-      v22 = swift_allocError();
-      *v23 = v14;
-      *(v23 + 8) = v16;
-      *(v23 + 72) = 0;
+      v21 = swift_allocError();
+      *v22 = v13;
+      *(v22 + 8) = v15;
+      *(v22 + 72) = 0;
       swift_willThrow();
 
       if (one-time initialization token for mobilePhone != -1)
@@ -9050,39 +9066,39 @@ uint64_t Defaults.liveVoiceMailAccountUUID.getter@<X0>(uint64_t a1@<X8>)
         swift_once();
       }
 
-      v24 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v24, static Logger.mobilePhone);
+      v23 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v23, static Logger.mobilePhone);
       swift_errorRetain();
-      v25 = Logger.logObject.getter();
-      v26 = static os_log_type_t.error.getter();
+      v24 = Logger.logObject.getter();
+      v25 = static os_log_type_t.error.getter();
 
-      if (os_log_type_enabled(v25, v26))
+      if (os_log_type_enabled(v24, v25))
       {
+        v26 = swift_slowAlloc();
         v27 = swift_slowAlloc();
-        v28 = swift_slowAlloc();
-        v33[0] = v28;
-        *v27 = 136315138;
-        v33[2] = v22;
+        v32[0] = v27;
+        *v26 = 136315138;
+        v32[2] = v21;
         swift_errorRetain();
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd);
-        v29 = String.init<A>(reflecting:)();
-        v31 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v29, v30, v33);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
+        v28 = String.init<A>(reflecting:)();
+        v30 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v28, v29, v32);
 
-        *(v27 + 4) = v31;
-        _os_log_impl(&_mh_execute_header, v25, v26, "Defaults error: %s", v27, 0xCu);
-        __swift_destroy_boxed_opaque_existential_0(v28);
+        *(v26 + 4) = v30;
+        _os_log_impl(&_mh_execute_header, v24, v25, "Defaults error: %s", v26, 0xCu);
+        __swift_destroy_boxed_opaque_existential_0(v27);
       }
 
       else
       {
       }
 
-      return (*(v3 + 56))(a1, 1, 1, v2);
+      (*(v3 + 56))(a1, 1, 1, v2);
     }
   }
 }
 
-uint64_t Defaults.value<A>(of:)@<X0>(unsigned __int8 a1@<W0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+void Defaults.value<A>(of:)(unsigned __int8 a1@<W0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   if ((a1 & 0xFE) == 2)
   {
@@ -9102,7 +9118,8 @@ uint64_t Defaults.value<A>(of:)@<X0>(unsigned __int8 a1@<W0>, uint64_t a2@<X1>, 
       *(v12 + 48) = 0u;
       *(v12 + 64) = 0;
       *(v12 + 72) = 2;
-      return swift_willThrow();
+      swift_willThrow();
+      return;
     }
   }
 
@@ -9287,13 +9304,12 @@ uint64_t Defaults.showLiveVoicemailOnboarding.getter()
   return (v2 == 2) | (v2 & 1);
 }
 
-uint64_t key path getter for Defaults.showLiveVoicemailOnboarding : Defaults@<X0>(_BYTE *a1@<X8>)
+void key path getter for Defaults.showLiveVoicemailOnboarding : Defaults(_BYTE *a1@<X8>)
 {
   v2 = static String._unconditionallyBridgeFromObjectiveC(_:)();
   v4 = specialized Defaults.getValueFromUserDefaults<A>(key:suiteName:)(0xD00000000000001BLL, 0x8000000100240610, v2, v3);
 
   *a1 = (v4 == 2) | v4 & 1;
-  return result;
 }
 
 void (*Defaults.showLiveVoicemailOnboarding.modify(_BYTE *a1))(char *a1)
@@ -9423,11 +9439,11 @@ LABEL_12:
   return outlined destroy of Any?(v48);
 }
 
-uint64_t Defaults.set<A>(_:for:)(uint64_t a1, unsigned __int8 a2, uint64_t a3)
+void Defaults.set<A>(_:for:)(uint64_t a1, unsigned __int8 a2, uint64_t a3)
 {
   v7 = *(a3 - 8);
   __chkstk_darwin(a1);
-  v9 = &v16 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   if ((v10 & 0xFE) == 2)
   {
     if (one-time initialization token for isInternalInstall != -1)
@@ -9446,7 +9462,8 @@ uint64_t Defaults.set<A>(_:for:)(uint64_t a1, unsigned __int8 a2, uint64_t a3)
       *(v14 + 48) = 0u;
       *(v14 + 64) = 0;
       *(v14 + 72) = 2;
-      return swift_willThrow();
+      swift_willThrow();
+      return;
     }
   }
 
@@ -9524,7 +9541,7 @@ uint64_t static Defaults.isInternalInstall.setter(char a1)
   return result;
 }
 
-uint64_t (*static Defaults.isInternalInstall.modify())()
+uint64_t (*static Defaults.isInternalInstall.modify(uint64_t a1))()
 {
   if (one-time initialization token for isInternalInstall != -1)
   {
@@ -9599,7 +9616,7 @@ void specialized Defaults.showLiveVoicemailOnboarding.setter(char a1)
       v19 = v15;
       *v14 = 136315138;
       swift_errorRetain();
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
       v16 = String.init<A>(reflecting:)();
       v18 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v16, v17, &v19);
 
@@ -9614,7 +9631,7 @@ void specialized Defaults.showLiveVoicemailOnboarding.setter(char a1)
   }
 }
 
-uint64_t specialized Defaults.BOOL(for:)(unsigned __int8 a1)
+unint64_t specialized Defaults.BOOL(for:)(unsigned __int8 a1)
 {
   v1 = a1;
   if ((a1 & 0xFE) == 2)

@@ -39,26 +39,30 @@
 
 - (void)_enumerateWithXPCConnection:(id)connection block:(id)block
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v24[1] = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   blockCopy = block;
   if (*&self->_bindingMap && [(LSPlugInQueryWithIdentifier *)self isBindingMapValid])
   {
-    v17 = 0;
-    v18 = 0;
-    inited = _LSContextInitReturningError(&v18, &v17);
-    v9 = v17;
+    v21 = 0;
+    v22 = 0;
+    inited = _LSContextInitReturningError(&v22, &v21);
+    v9 = v21;
     if (inited)
     {
       v10 = [MEMORY[0x1E695DFA8] set];
-      _LSDatabaseGetStringForCFString(v18, *&self->_bindingMap, 0);
-      v11 = v18;
-      v12 = *(&self->super.super._legacy + 1);
-      v15 = MEMORY[0x1E69E9820];
-      v16 = v10;
-      _LSDatabaseEnumeratingBindingMap(v11);
-      [(LSPlugInQuery *)self sort:1 pluginIDs:v16 andYield:blockCopy context:&v18, v15, 3221225472, __65__LSPlugInQueryWithIdentifier__enumerateWithXPCConnection_block___block_invoke, &unk_1E6A1D720];
-      _LSContextDestroy(&v18);
+      StringForCFString = _LSDatabaseGetStringForCFString(v22, *&self->_bindingMap, 0);
+      v12 = v22;
+      v13 = *(&self->super.super._legacy + 1);
+      v16 = MEMORY[0x1E69E9820];
+      v17 = 3221225472;
+      v18 = __65__LSPlugInQueryWithIdentifier__enumerateWithXPCConnection_block___block_invoke;
+      v19 = &unk_1E6A1D720;
+      v14 = v10;
+      v20 = v14;
+      _LSDatabaseEnumeratingBindingMap(v12, v13, StringForCFString, &v16);
+      [(LSPlugInQuery *)self sort:1 pluginIDs:v14 andYield:blockCopy context:&v22, v16, v17, v18, v19];
+      _LSContextDestroy(&v22);
     }
 
     else
@@ -69,14 +73,12 @@
 
   else
   {
-    v19 = *MEMORY[0x1E696A278];
-    v20[0] = @"invalid bundleIdentifier";
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
-    v13 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -50, v9, "[LSPlugInQueryWithIdentifier _enumerateWithXPCConnection:block:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSPlugInQueryWithIdentifier.m", 55);
-    blockCopy[2](blockCopy, 0, v13);
+    v23 = *MEMORY[0x1E696A278];
+    v24[0] = @"invalid bundleIdentifier";
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+    v15 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -50, v9, "[LSPlugInQueryWithIdentifier _enumerateWithXPCConnection:block:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSPlugInQueryWithIdentifier.m", 55);
+    blockCopy[2](blockCopy, 0, v15);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __65__LSPlugInQueryWithIdentifier__enumerateWithXPCConnection_block___block_invoke(uint64_t a1)

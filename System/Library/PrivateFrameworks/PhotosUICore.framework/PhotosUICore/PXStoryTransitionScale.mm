@@ -62,11 +62,11 @@
   [(PXStoryConcreteTransition *)self clipLayouts];
   if (objc_claimAutoreleasedReturnValue())
   {
-    [(PXStoryAnimation *)self time];
+    objc_msgSend_time(self);
     *&time.value = v17;
     time.epoch = v18;
     Seconds = CMTimeGetSeconds(&time);
-    [(PXStoryConcreteTransition *)self duration];
+    objc_msgSend_duration(self);
     *&time.value = v17;
     time.epoch = v18;
     v5 = CMTimeGetSeconds(&time);
@@ -194,10 +194,10 @@ LABEL_17:
 
       v7 = 0;
 LABEL_14:
-      [(PXStoryAnimation *)self time];
+      objc_msgSend_time(self);
       time = v17;
       Seconds = CMTimeGetSeconds(&time);
-      [(PXStoryConcreteTransition *)self duration];
+      objc_msgSend_duration(self);
       time = v17;
       v10 = Seconds / CMTimeGetSeconds(&time);
       *&v10 = v10;

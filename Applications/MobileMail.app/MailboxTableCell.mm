@@ -101,13 +101,11 @@
 
     subtitleFont2 = [self subtitleFont];
     [subtitleFont2 _bodyLeading];
-    UIRoundToViewScale();
-    *&qword_1006DD038 = v10 + *&qword_1006DD038;
+    *&qword_1006DD038 = UIRoundToViewScale(v10 * 7.0 * 0.0625) + *&qword_1006DD038;
 
-    UIRoundToViewScale();
-    qword_1006DD038 = v11;
-    v12 = +[NSNotificationCenter defaultCenter];
-    [v12 addObserver:self selector:"_contentSizeCategoryChanged:" name:UIContentSizeCategoryDidChangeNotification object:0];
+    qword_1006DD038 = UIRoundToViewScale(*&qword_1006DD038);
+    v11 = +[NSNotificationCenter defaultCenter];
+    [v11 addObserver:self selector:"_contentSizeCategoryChanged:" name:UIContentSizeCategoryDidChangeNotification object:0];
 
     return *&qword_1006DD038;
   }
@@ -153,8 +151,7 @@
   {
     subtitleFont = [self subtitleFont];
     [subtitleFont _bodyLeading];
-    UIRoundToViewScale();
-    v2 = v4;
+    v2 = UIRoundToViewScale(v4 * 0.5);
 
     qword_1006DD040 = v2;
   }
@@ -1164,290 +1161,336 @@ LABEL_14:
     _shouldUnreadCountBeVisible = 0;
   }
 
-  if ((([(MailboxTableCell *)self isEditing]& 1) != 0 || ![(MailboxTableCell *)self accessoryType]) && [(MailboxTableCell *)self isEditing])
+  if (([(MailboxTableCell *)self isEditing]& 1) != 0 || ![(MailboxTableCell *)self accessoryType])
   {
-    [(MailboxTableCell *)self editingAccessoryType];
+    if ([(MailboxTableCell *)self isEditing])
+    {
+      v6 = [(MailboxTableCell *)self editingAccessoryType]!= 0;
+    }
+
+    else
+    {
+      v6 = 0;
+    }
+  }
+
+  else
+  {
+    v6 = 1;
   }
 
   effectiveUserInterfaceLayoutDirection = [(MailboxTableCell *)self effectiveUserInterfaceLayoutDirection];
   if ([(MailboxTableCell *)self flattenHierarchy])
   {
-    v7 = 0;
+    v8 = 0;
   }
 
   else
   {
-    v7 = (*(&self->_detailsDisclosureButton + 1) + *(&self->_titleColor + 1));
+    v8 = (*(&self->_detailsDisclosureButton + 1) + *(&self->_titleColor + 1));
   }
 
-  v8 = sub_10024BCE0(v7);
-  v172.receiver = self;
-  v172.super_class = MailboxTableCell;
-  [(MailboxTableCell *)&v172 layoutSubviews];
+  v9 = sub_10024BCE0(v8);
+  v181.receiver = self;
+  v181.super_class = MailboxTableCell;
+  [(MailboxTableCell *)&v181 layoutSubviews];
   contentView = [(MailboxTableCell *)self contentView];
   [contentView bounds];
-  v168 = v11;
-  rect = v10;
-  v13 = v12;
-  v15 = v14;
+  v177 = v12;
+  rect = v11;
+  v14 = v13;
+  v16 = v15;
 
   contentView2 = [(MailboxTableCell *)self contentView];
   [contentView2 frame];
-  v18 = v17;
-  v20 = v19;
-  v22 = v21;
-  v24 = v23;
+  v19 = v18;
+  v21 = v20;
+  v23 = v22;
+  v25 = v24;
 
   if ([(MailboxTableCell *)self isExpandable])
   {
     preferredContentSizeCategory = [UIApp preferredContentSizeCategory];
     IsAccessibilityCategory = UIContentSizeCategoryIsAccessibilityCategory(preferredContentSizeCategory);
 
-    v27 = 12.5;
+    v28 = 12.5;
     if (!effectiveUserInterfaceLayoutDirection)
     {
-      v27 = 0.0;
+      v28 = 0.0;
     }
 
-    v28 = v18 - v27;
+    v29 = v19 - v28;
     if (IsAccessibilityCategory)
     {
-      v29 = v18;
+      v30 = v19;
     }
 
     else
     {
-      v29 = v28;
+      v30 = v29;
     }
 
     if (IsAccessibilityCategory)
     {
-      v30 = v22;
+      v31 = v23;
     }
 
     else
     {
-      v30 = v22 + 12.5;
+      v31 = v23 + 12.5;
     }
 
     contentView3 = [(MailboxTableCell *)self contentView];
-    [contentView3 setFrame:{v29, v20, v30, v24}];
+    [contentView3 setFrame:{v30, v21, v31, v25}];
 
     accessoryView = [(MailboxTableCell *)self accessoryView];
     [accessoryView frame];
-    v34 = v33;
-    v36 = v35;
-    v38 = v37;
+    v35 = v34;
+    v37 = v36;
+    v39 = v38;
 
     if (effectiveUserInterfaceLayoutDirection)
     {
-      v39 = 8.0;
+      v40 = 8.0;
     }
 
     else
     {
-      v39 = v30;
+      v40 = v31;
     }
 
     accessoryView2 = [(MailboxTableCell *)self accessoryView];
-    [accessoryView2 setFrame:{v39, v34, v36, v38}];
+    [accessoryView2 setFrame:{v40, v35, v37, v39}];
   }
 
-  if (image)
+  if (image && ([UIApp preferredContentSizeCategory], v42 = objc_claimAutoreleasedReturnValue(), v43 = UIContentSizeCategoryIsAccessibilityCategory(v42), v42, !v43))
   {
-    preferredContentSizeCategory2 = [UIApp preferredContentSizeCategory];
-    v42 = UIContentSizeCategoryIsAccessibilityCategory(preferredContentSizeCategory2);
+    imageView2 = [(MailboxTableCell *)self imageView];
+    [imageView2 frame];
+    v51 = v50;
+    v53 = v52;
+    v55 = v54;
+    v57 = v56;
 
-    if (!v42)
+    v58 = sub_10024BD78(v8);
+    v182.origin.x = v51;
+    v182.origin.y = v53;
+    v182.size.width = v55;
+    v182.size.height = v57;
+    Width = CGRectGetWidth(v182);
+    v60 = UIRoundToViewScale(v58 + Width * -0.5) + *(&self->_mailboxes + 1);
+    if (effectiveUserInterfaceLayoutDirection)
     {
-      imageView2 = [(MailboxTableCell *)self imageView];
-      [imageView2 frame];
-      v50 = v49;
-      v52 = v51;
-      v54 = v53;
-      v56 = v55;
-
-      sub_10024BD78(v7);
-      v173.origin.x = v50;
-      v173.origin.y = v52;
-      v173.size.width = v54;
-      v173.size.height = v56;
-      CGRectGetWidth(v173);
-      UIRoundToViewScale();
-      v58 = v57 + *(&self->_mailboxes + 1);
-      if (effectiveUserInterfaceLayoutDirection)
-      {
-        v174.origin.y = v168;
-        v174.origin.x = rect;
-        v174.size.width = v13;
-        v174.size.height = v15;
-        Width = CGRectGetWidth(v174);
-        v175.origin.x = v58;
-        v175.origin.y = v52;
-        v175.size.width = v54;
-        v175.size.height = v56;
-        v58 = Width - CGRectGetMaxX(v175);
-      }
-
-      imageView3 = [(MailboxTableCell *)self imageView];
-      [imageView3 setFrame:{v58, v52, v54, v56}];
-
-LABEL_35:
-      v47 = 0;
-      goto LABEL_36;
-    }
-  }
-
-  preferredContentSizeCategory3 = [UIApp preferredContentSizeCategory];
-  v44 = UIContentSizeCategoryIsAccessibilityCategory(preferredContentSizeCategory3);
-
-  if (!v44)
-  {
-    v8 = v8 - sub_10024BCE0(v7);
-    if (v8 < 8.0)
-    {
-      v47 = 1;
-      v8 = 8.0;
-      goto LABEL_36;
+      v183.origin.y = v177;
+      v183.origin.x = rect;
+      v183.size.width = v14;
+      v183.size.height = v16;
+      v61 = CGRectGetWidth(v183);
+      v184.origin.x = v60;
+      v184.origin.y = v53;
+      v184.size.width = v55;
+      v184.size.height = v57;
+      v60 = v61 - CGRectGetMaxX(v184);
     }
 
-    goto LABEL_35;
-  }
-
-  preferredContentSizeCategory4 = [UIApp preferredContentSizeCategory];
-  v46 = UIContentSizeCategoryIsAccessibilityCategory(preferredContentSizeCategory4);
-
-  if (image)
-  {
-    v47 = 0;
+    imageView3 = [(MailboxTableCell *)self imageView];
+    [imageView3 setFrame:{v60, v53, v55, v57}];
   }
 
   else
   {
-    v47 = v46;
-  }
+    preferredContentSizeCategory2 = [UIApp preferredContentSizeCategory];
+    v45 = UIContentSizeCategoryIsAccessibilityCategory(preferredContentSizeCategory2);
 
-LABEL_36:
-  contentView4 = [(MailboxTableCell *)self contentView];
-  [contentView4 bounds];
-  CGRectGetMaxX(v176);
-
-  [(MailboxTableCell *)self isExpandable];
-  if (effectiveUserInterfaceLayoutDirection)
-  {
-    v177.origin.y = v168;
-    v177.origin.x = rect;
-    v177.size.width = v13;
-    v177.size.height = v15;
-    CGRectGetMinX(v177);
-  }
-
-  v62 = *(&self->_iconOffset.y + 1);
-  if (v62)
-  {
-    [v62 sizeToFit];
-    [*(&self->_iconOffset.y + 1) frame];
-    v67 = v64;
-    v68 = v65;
-    height = v66;
-    if (!effectiveUserInterfaceLayoutDirection)
+    if (v45)
     {
-      CGRectGetWidth(*&v63);
+      preferredContentSizeCategory3 = [UIApp preferredContentSizeCategory];
+      v47 = UIContentSizeCategoryIsAccessibilityCategory(preferredContentSizeCategory3);
+
+      if (image)
+      {
+        v48 = 0;
+      }
+
+      else
+      {
+        v48 = v47;
+      }
+
+      goto LABEL_38;
     }
 
-    UIRoundToViewScale();
-    x = v178.origin.x;
-    v178.origin.y = v67;
-    v178.size.width = v68;
-    v178.size.height = height;
-    CGRectGetHeight(v178);
-    UIRoundToViewScale();
-    y = v71;
-    v169 = x;
+    v9 = v9 - sub_10024BCE0(v8);
+    if (v9 < 8.0)
+    {
+      v48 = 1;
+      v9 = 8.0;
+      goto LABEL_38;
+    }
+  }
+
+  v48 = 0;
+LABEL_38:
+  contentView4 = [(MailboxTableCell *)self contentView];
+  [contentView4 bounds];
+  MaxX = CGRectGetMaxX(v185);
+
+  if ([(MailboxTableCell *)self isExpandable])
+  {
+    v65 = 14.0;
+  }
+
+  else
+  {
+    v65 = 20.0;
+  }
+
+  if (effectiveUserInterfaceLayoutDirection)
+  {
+    v186.origin.y = v177;
+    v186.origin.x = rect;
+    v186.size.width = v14;
+    v186.size.height = v16;
+    MinX = CGRectGetMinX(v186);
+    if (v6)
+    {
+      v67 = MinX;
+    }
+
+    else
+    {
+      v67 = v65 + MinX;
+    }
+  }
+
+  else if (v6)
+  {
+    v67 = MaxX;
+  }
+
+  else
+  {
+    v67 = MaxX - v65;
+  }
+
+  v68 = *(&self->_iconOffset.y + 1);
+  if (v68)
+  {
+    [v68 sizeToFit];
+    [*(&self->_iconOffset.y + 1) frame];
+    v73 = v70;
+    v74 = v71;
+    v75 = v72;
+    if (effectiveUserInterfaceLayoutDirection)
+    {
+      v76 = v67 + 10.0;
+    }
+
+    else
+    {
+      v76 = v67 - CGRectGetWidth(*&v69) + -10.0;
+    }
+
+    v187.origin.x = UIRoundToViewScale(v76);
+    x = v187.origin.x;
+    v187.origin.y = v73;
+    v187.size.width = v74;
+    v187.size.height = v75;
+    Height = CGRectGetHeight(v187);
+    y = UIRoundToViewScale((v16 - Height) * 0.5);
+    v178 = x;
     [*(&self->_iconOffset.y + 1) setFrame:x];
   }
 
   else
   {
     y = CGRectZero.origin.y;
-    v169 = CGRectZero.origin.x;
-    v68 = CGRectZero.size.width;
-    height = CGRectZero.size.height;
+    v178 = CGRectZero.origin.x;
+    v74 = CGRectZero.size.width;
+    v75 = CGRectZero.size.height;
   }
 
-  v72 = *(&self->_unreadCountLabel + 1);
-  if (v72)
+  v79 = *(&self->_unreadCountLabel + 1);
+  if (v79)
   {
-    v73 = v8;
-    [v72 frame];
-    v78 = v75;
-    v79 = v76;
-    v80 = v77;
+    v80 = v9;
+    [v79 frame];
+    v85 = v82;
+    v86 = v83;
+    v87 = v84;
     if (effectiveUserInterfaceLayoutDirection)
     {
       [*(&self->_iconOffset.y + 1) frame];
-      CGRectGetMaxX(v179);
+      v88 = CGRectGetMaxX(v188) + 10.0;
+      if (*(&self->_iconOffset.y + 1))
+      {
+        v89 = v88 + 10.0;
+      }
+
+      else
+      {
+        v89 = v88;
+      }
     }
 
     else
     {
-      CGRectGetWidth(*&v74);
-      v81 = *(&self->_iconOffset.y + 1);
-      if (v81)
+      v89 = v67 - CGRectGetWidth(*&v81) + -10.0;
+      v90 = *(&self->_iconOffset.y + 1);
+      if (v90)
       {
-        [v81 frame];
-        CGRectGetWidth(v180);
+        [v90 frame];
+        v89 = v89 - (CGRectGetWidth(v189) + 10.0);
       }
     }
 
-    UIRoundToViewScale();
-    v82 = v181.origin.x;
-    v181.origin.y = v78;
-    v181.size.width = v79;
-    v181.size.height = v80;
-    CGRectGetHeight(v181);
-    UIRoundToViewScale();
-    [*(&self->_unreadCountLabel + 1) setFrame:{v82, v83, v79, v80}];
-    v8 = v73;
+    v190.origin.x = UIRoundToViewScale(v89);
+    v91 = v190.origin.x;
+    v190.origin.y = v85;
+    v190.size.width = v86;
+    v190.size.height = v87;
+    v92 = CGRectGetHeight(v190);
+    [*(&self->_unreadCountLabel + 1) setFrame:{v91, UIRoundToViewScale((v16 - v92) * 0.5), v86, v87}];
+    v9 = v80;
   }
 
   traitCollection = [(MailboxTableCell *)self traitCollection];
   _splitViewControllerContext = [traitCollection _splitViewControllerContext];
 
   _viewConfigurationState = [(MailboxTableCell *)self _viewConfigurationState];
-  recta = height;
+  recta = v75;
   if ([(MailboxTableCell *)self isExpandable])
   {
     textLabel4 = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleSubheadline addingSymbolicTraits:0x8000 options:0];
     textLabel = [(MailboxTableCell *)self textLabel];
-    v89 = [UIFont fontWithDescriptor:textLabel4 size:0.0];
-    [textLabel setFont:v89];
+    v98 = [UIFont fontWithDescriptor:textLabel4 size:0.0];
+    [textLabel setFont:v98];
 
     textLabel2 = [(MailboxTableCell *)self textLabel];
-    v91 = +[UIColor mailAccountCellTitleColor];
-    [textLabel2 setTextColor:v91];
+    v100 = +[UIColor mailAccountCellTitleColor];
+    [textLabel2 setTextColor:v100];
 
     textLabel3 = [(MailboxTableCell *)self textLabel];
-    v93 = +[UIColor clearColor];
-    [textLabel3 setBackgroundColor:v93];
+    v102 = +[UIColor clearColor];
+    [textLabel3 setBackgroundColor:v102];
 
-    v8 = 8.0;
+    v9 = 8.0;
   }
 
   else if ([(MailboxTableCell *)self isCellEnabled])
   {
-    v94 = *(&self->_userInfo + 1);
-    if (v94)
+    v103 = *(&self->_userInfo + 1);
+    if (v103)
     {
       textLabel4 = [(MailboxTableCell *)self textLabel];
-      [textLabel4 setTextColor:v94];
-      goto LABEL_57;
+      [textLabel4 setTextColor:v103];
+      goto LABEL_69;
     }
 
     traitCollection2 = [(MailboxTableCell *)self traitCollection];
-    v160 = [traitCollection2 mf_useSplitViewStyling] & ((_viewConfigurationState & 4) != 0);
+    v169 = [traitCollection2 mf_useSplitViewStyling] & ((_viewConfigurationState & 4) != 0);
 
-    if (v160 != 1 || _splitViewControllerContext == 2)
+    if (v169 != 1 || _splitViewControllerContext == 2)
     {
       textLabel4 = +[UIColor labelColor];
       textLabel3 = [(MailboxTableCell *)self textLabel];
@@ -1456,9 +1499,9 @@ LABEL_36:
 
     else
     {
-      v161 = +[UIColor systemWhiteColor];
+      v170 = +[UIColor systemWhiteColor];
       textLabel5 = [(MailboxTableCell *)self textLabel];
-      [textLabel5 setTextColor:v161];
+      [textLabel5 setTextColor:v170];
 
       textLabel4 = +[UIColor systemWhiteColor];
       textLabel3 = [(MailboxTableCell *)self imageView];
@@ -1473,25 +1516,25 @@ LABEL_36:
     [textLabel4 setTextColor:textLabel3];
   }
 
-LABEL_57:
+LABEL_69:
   textLabel6 = [(MailboxTableCell *)self textLabel];
   [textLabel6 frame];
-  v97 = v96;
-  v99 = v98;
+  v106 = v105;
+  v108 = v107;
 
-  v163 = v68;
+  v172 = v74;
   if (!effectiveUserInterfaceLayoutDirection)
   {
     if (_shouldUnreadCountBeVisible)
     {
-      v184.origin.y = y;
-      v184.origin.x = v169;
-      v184.size.width = v68;
-      v184.size.height = height;
-      v102 = CGRectGetMinX(v184) - v8 + -5.0;
-      if (v47)
+      v193.origin.y = y;
+      v193.origin.x = v178;
+      v193.size.width = v74;
+      v193.size.height = v75;
+      v111 = CGRectGetMinX(v193) - v9 + -5.0;
+      if (v48)
       {
-        goto LABEL_64;
+        goto LABEL_76;
       }
     }
 
@@ -1499,137 +1542,136 @@ LABEL_57:
     {
       contentView5 = [(MailboxTableCell *)self contentView];
       [contentView5 bounds];
-      v102 = CGRectGetMaxX(v187) - v8 + -5.0;
+      v111 = CGRectGetMaxX(v196) - v9 + -5.0;
 
-      if (v47)
+      if (v48)
       {
-        goto LABEL_64;
+        goto LABEL_76;
       }
     }
 
-LABEL_66:
-    v165 = v99;
-    v166 = v97;
-    v103 = v8;
-    v104 = v8;
-    v105 = v102;
-    goto LABEL_67;
+LABEL_78:
+    v174 = v108;
+    v175 = v106;
+    v112 = v9;
+    v113 = v9;
+    v114 = v111;
+    goto LABEL_79;
   }
 
-  v100 = 5.0;
+  v109 = 5.0;
   if (_shouldUnreadCountBeVisible)
   {
-    v182.origin.y = y;
-    v182.origin.x = v169;
-    v182.size.width = v68;
-    v182.size.height = height;
-    v100 = CGRectGetMaxX(v182) + 5.0;
+    v191.origin.y = y;
+    v191.origin.x = v178;
+    v191.size.width = v74;
+    v191.size.height = v75;
+    v109 = CGRectGetMaxX(v191) + 5.0;
   }
 
   contentView6 = [(MailboxTableCell *)self contentView];
   [contentView6 bounds];
-  v102 = CGRectGetMaxX(v183) - v100 - v8;
+  v111 = CGRectGetMaxX(v192) - v109 - v9;
 
-  v8 = v100;
-  if (!v47)
+  v9 = v109;
+  if (!v48)
   {
-    goto LABEL_66;
+    goto LABEL_78;
   }
 
-LABEL_64:
-  v103 = v8;
-  v185.origin.x = v8;
-  v185.origin.y = v97;
-  v185.size.width = v102;
-  v185.size.height = v99;
-  v186 = CGRectInset(v185, 12.0, 0.0);
-  v104 = v186.origin.x;
-  v165 = v186.size.height;
-  v166 = v186.origin.y;
-  v105 = v186.size.width;
-LABEL_67:
+LABEL_76:
+  v112 = v9;
+  v194.origin.x = v9;
+  v194.origin.y = v106;
+  v194.size.width = v111;
+  v194.size.height = v108;
+  v195 = CGRectInset(v194, 12.0, 0.0);
+  v113 = v195.origin.x;
+  v174 = v195.size.height;
+  v175 = v195.origin.y;
+  v114 = v195.size.width;
+LABEL_79:
   detailTextLabel = [(MailboxTableCell *)self detailTextLabel];
   [detailTextLabel frame];
-  v109 = v108;
-  v111 = v110;
-  v113 = v112;
-  v115 = v114;
+  v118 = v117;
+  v120 = v119;
+  v122 = v121;
+  v124 = v123;
 
-  if (-[MailboxTableCell style](self, "style") == 3 || ([UIApp preferredContentSizeCategory], v116 = objc_claimAutoreleasedReturnValue(), v117 = UIContentSizeCategoryIsAccessibilityCategory(v116), v116, v117))
+  if (-[MailboxTableCell style](self, "style") == 3 || ([UIApp preferredContentSizeCategory], v125 = objc_claimAutoreleasedReturnValue(), v126 = UIContentSizeCategoryIsAccessibilityCategory(v125), v125, v126))
   {
-    v113 = v102;
+    v122 = v111;
   }
 
   else
   {
-    v103 = v109;
+    v112 = v118;
   }
 
-  preferredContentSizeCategory5 = [UIApp preferredContentSizeCategory];
-  v119 = UIContentSizeCategoryIsAccessibilityCategory(preferredContentSizeCategory5);
+  preferredContentSizeCategory4 = [UIApp preferredContentSizeCategory];
+  v128 = UIContentSizeCategoryIsAccessibilityCategory(preferredContentSizeCategory4);
 
   textLabel7 = [(MailboxTableCell *)self textLabel];
-  v121 = textLabel7;
-  if (v119)
+  v130 = textLabel7;
+  if (v128)
   {
-    v122 = +[MailboxTableCell titleFont];
-    [v122 lineHeight];
-    [v121 sizeThatFits:{v102, v123 + v123}];
-    v125 = v124;
+    v131 = +[MailboxTableCell titleFont];
+    [v131 lineHeight];
+    [v130 sizeThatFits:{v111, v132 + v132}];
+    v134 = v133;
 
-    v126 = v125 + 0.0;
-    v188.origin.y = 0.0;
-    v188.origin.x = v104;
-    v188.size.width = v105;
-    v188.size.height = v125;
-    v195.origin.x = v103;
-    v195.origin.y = v125 + 0.0;
-    v195.size.width = v113;
-    v195.size.height = v115;
-    v189 = CGRectUnion(v188, v195);
-    v127 = v189.size.height;
-    [(MailboxTableCell *)self bounds:v189.origin.x];
-    v129 = ceil((v128 - v127) * 0.5);
-    v190.origin.y = 0.0;
-    v190.origin.x = v104;
-    v190.size.width = v105;
-    v190.size.height = v125;
-    v191 = CGRectOffset(v190, 0.0, v129);
-    v130 = v191.origin.x;
-    v191.origin.x = v103;
-    v131 = v191.origin.y;
-    v132 = v191.size.width;
-    v133 = v191.size.height;
-    v191.origin.y = v126;
-    v191.size.width = v113;
-    v191.size.height = v115;
-    v192 = CGRectOffset(v191, 0.0, v129);
-    v134 = v192.origin.x;
-    v135 = v192.origin.y;
-    v136 = v192.size.width;
-    v137 = v192.size.height;
+    v135 = v134 + 0.0;
+    v197.origin.y = 0.0;
+    v197.origin.x = v113;
+    v197.size.width = v114;
+    v197.size.height = v134;
+    v204.origin.x = v112;
+    v204.origin.y = v134 + 0.0;
+    v204.size.width = v122;
+    v204.size.height = v124;
+    v198 = CGRectUnion(v197, v204);
+    v136 = v198.size.height;
+    [(MailboxTableCell *)self bounds:v198.origin.x];
+    v138 = ceil((v137 - v136) * 0.5);
+    v199.origin.y = 0.0;
+    v199.origin.x = v113;
+    v199.size.width = v114;
+    v199.size.height = v134;
+    v200 = CGRectOffset(v199, 0.0, v138);
+    v139 = v200.origin.x;
+    v200.origin.x = v112;
+    v140 = v200.origin.y;
+    v141 = v200.size.width;
+    v142 = v200.size.height;
+    v200.origin.y = v135;
+    v200.size.width = v122;
+    v200.size.height = v124;
+    v201 = CGRectOffset(v200, 0.0, v138);
+    v143 = v201.origin.x;
+    v144 = v201.origin.y;
+    v145 = v201.size.width;
+    v146 = v201.size.height;
     textLabel8 = [(MailboxTableCell *)self textLabel];
-    [textLabel8 setFrame:{v130, v131, v132, v133}];
+    [textLabel8 setFrame:{v139, v140, v141, v142}];
 
     detailTextLabel2 = [(MailboxTableCell *)self detailTextLabel];
-    [detailTextLabel2 setFrame:{v134, v135, v136, v137}];
+    [detailTextLabel2 setFrame:{v143, v144, v145, v146}];
 
     textLabel9 = [(MailboxTableCell *)self textLabel];
     [textLabel9 _firstLineBaselineFrameOriginY];
-    v142 = v141;
-    v143 = +[MailboxTableCell titleFont];
-    [v143 capHeight];
-    v145 = v142 + v144 * -0.5;
+    v151 = v150;
+    v152 = +[MailboxTableCell titleFont];
+    [v152 capHeight];
+    v154 = v151 + v153 * -0.5;
 
     if (*(&self->_iconOffset.y + 1))
     {
-      v193.origin.y = y;
-      v193.origin.x = v169;
-      v193.size.width = v164;
-      v193.size.height = recta;
-      CGRectGetHeight(v193);
-      UIRoundToViewScale();
-      [*(&self->_iconOffset.y + 1) setFrame:{v169, v145 - v146, v164, recta}];
+      v202.origin.y = y;
+      v202.origin.x = v178;
+      v202.size.width = v173;
+      v202.size.height = recta;
+      v155 = CGRectGetHeight(v202);
+      [*(&self->_iconOffset.y + 1) setFrame:{v178, v154 - UIRoundToViewScale(v155 * 0.5), v173, recta}];
     }
 
     accessoryView3 = [(MailboxTableCell *)self accessoryView];
@@ -1637,27 +1679,26 @@ LABEL_67:
     if (accessoryView3)
     {
       [accessoryView3 frame];
-      v149 = v194.origin.x;
-      v150 = v194.size.width;
-      v151 = v194.size.height;
-      CGRectGetHeight(v194);
-      UIRoundToViewScale();
-      [detailTextLabel3 setFrame:{v149, v145 - v152, v150, v151}];
+      v158 = v203.origin.x;
+      v159 = v203.size.width;
+      v160 = v203.size.height;
+      v161 = CGRectGetHeight(v203);
+      [detailTextLabel3 setFrame:{v158, v154 - UIRoundToViewScale(v161 * 0.5), v159, v160}];
     }
   }
 
   else
   {
-    [textLabel7 setFrame:{v104, v166, v105, v165}];
+    [textLabel7 setFrame:{v113, v175, v114, v174}];
 
     detailTextLabel3 = [(MailboxTableCell *)self detailTextLabel];
-    [detailTextLabel3 setFrame:{v103, v111, v113, v115}];
+    [detailTextLabel3 setFrame:{v112, v120, v122, v124}];
   }
 
   traitCollection3 = [(MailboxTableCell *)self traitCollection];
   if ([traitCollection3 mf_useSplitViewStyling])
   {
-    goto LABEL_78;
+    goto LABEL_90;
   }
 
   isEditing = [(MailboxTableCell *)self isEditing];
@@ -1665,27 +1706,27 @@ LABEL_67:
   if ((isEditing & 1) == 0)
   {
     isHighlighted = [(MailboxTableCell *)self isHighlighted];
-    v156 = isHighlighted;
+    v165 = isHighlighted;
     if (isHighlighted)
     {
-      v157 = +[UIColor _tertiaryFillColor];
-      traitCollection3 = v157;
+      v166 = +[UIColor _tertiaryFillColor];
+      traitCollection3 = v166;
     }
 
     else
     {
       traitCollection3 = [(MailboxTableCell *)self traitCollection];
-      v157 = +[UIColor mailCellSelectionStateColorForInterfaceLevel:](UIColor, "mailCellSelectionStateColorForInterfaceLevel:", [traitCollection3 userInterfaceLevel]);
+      v166 = +[UIColor mailCellSelectionStateColorForInterfaceLevel:](UIColor, "mailCellSelectionStateColorForInterfaceLevel:", [traitCollection3 userInterfaceLevel]);
     }
 
     selectedBackgroundView = [(MailboxTableCell *)self selectedBackgroundView];
-    [selectedBackgroundView setBackgroundColor:v157];
+    [selectedBackgroundView setBackgroundColor:v166];
 
-    if ((v156 & 1) == 0)
+    if ((v165 & 1) == 0)
     {
     }
 
-LABEL_78:
+LABEL_90:
   }
 }
 

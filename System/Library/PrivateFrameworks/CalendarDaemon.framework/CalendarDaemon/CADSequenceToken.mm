@@ -2,13 +2,29 @@
 - (BOOL)isEqual:(id)equal;
 - (CADSequenceToken)initWithAllDBSequenceMap:(id)map;
 - (CADSequenceToken)initWithCoder:(id)coder;
+- (CADSequenceToken)initWithMainDBSequence:(int)sequence;
 - (CADSequenceToken)initWithSerializedSequenceString:(id)string;
 - (id)description;
 - (id)serializedSequenceString;
 - (int)mainDBSequence;
+- (int)sequenceForDatabaseID:(int)d;
 @end
 
 @implementation CADSequenceToken
+
+- (CADSequenceToken)initWithMainDBSequence:(int)sequence
+{
+  v3 = *&sequence;
+  v11[1] = *MEMORY[0x277D85DE8];
+  v5 = [MEMORY[0x277CCABB0] numberWithInt:*MEMORY[0x277CF7570]];
+  v10 = v5;
+  v6 = [MEMORY[0x277CCABB0] numberWithInt:v3];
+  v11[0] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v8 = [(CADSequenceToken *)self initWithAllDBSequenceMap:v7];
+
+  return v8;
+}
 
 - (CADSequenceToken)initWithAllDBSequenceMap:(id)map
 {
@@ -99,6 +115,25 @@
   return v3;
 }
 
+- (int)sequenceForDatabaseID:(int)d
+{
+  allDBSequenceMap = self->_allDBSequenceMap;
+  v4 = [MEMORY[0x277CCABB0] numberWithInt:*&d];
+  v5 = [(NSDictionary *)allDBSequenceMap objectForKey:v4];
+
+  if (v5)
+  {
+    intValue = [v5 intValue];
+  }
+
+  else
+  {
+    intValue = -1;
+  }
+
+  return intValue;
+}
+
 - (CADSequenceToken)initWithCoder:(id)coder
 {
   coderCopy = coder;
@@ -142,70 +177,68 @@ uint64_t __34__CADSequenceToken_initWithCoder___block_invoke()
 
 - (id)serializedSequenceString
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   string = [MEMORY[0x277CCAB68] string];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   allDBSequenceMap = [(CADSequenceToken *)self allDBSequenceMap];
-  v5 = [allDBSequenceMap countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v5 = [allDBSequenceMap countByEnumeratingWithState:&v22 objects:v27 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v24;
+    v7 = *v23;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v24 != v7)
+        if (*v23 != v7)
         {
           objc_enumerationMutation(allDBSequenceMap);
         }
 
-        [string appendFormat:@"%@, ", *(*(&v23 + 1) + 8 * i)];
+        [string appendFormat:@"%@, ", *(*(&v22 + 1) + 8 * i)];
       }
 
-      v6 = [allDBSequenceMap countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v6 = [allDBSequenceMap countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
     while (v6);
   }
 
   [string appendString:@"|"];
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   allDBSequenceMap2 = [(CADSequenceToken *)self allDBSequenceMap];
-  v10 = [allDBSequenceMap2 countByEnumeratingWithState:&v19 objects:v27 count:16];
+  v10 = [allDBSequenceMap2 countByEnumeratingWithState:&v18 objects:v26 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v20;
+    v12 = *v19;
     do
     {
       for (j = 0; j != v11; ++j)
       {
-        if (*v20 != v12)
+        if (*v19 != v12)
         {
           objc_enumerationMutation(allDBSequenceMap2);
         }
 
-        v14 = *(*(&v19 + 1) + 8 * j);
+        v14 = *(*(&v18 + 1) + 8 * j);
         allDBSequenceMap3 = [(CADSequenceToken *)self allDBSequenceMap];
         v16 = [allDBSequenceMap3 objectForKey:v14];
 
         [string appendFormat:@"%@, ", v16];
       }
 
-      v11 = [allDBSequenceMap2 countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v11 = [allDBSequenceMap2 countByEnumeratingWithState:&v18 objects:v26 count:16];
     }
 
     while (v11);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return string;
 }

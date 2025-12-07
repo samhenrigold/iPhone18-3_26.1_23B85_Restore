@@ -67,39 +67,37 @@
 
 - (void)handleConnectionEstablishedWithProxy:(id)proxy
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   proxyCopy = proxy;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v5 = self->_registeredServices;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [proxyCopy startServiceDiscoveryWithConfiguration:*(*(&v11 + 1) + 8 * v9++) completionHandler:{&__block_literal_global_6, v11}];
+        [proxyCopy startServiceDiscoveryWithConfiguration:*(*(&v10 + 1) + 8 * v9++) completionHandler:{&__block_literal_global_6, v10}];
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleEventType:(unint64_t)type keyData:(id)data valueData:(id)valueData
@@ -108,7 +106,6 @@
   valueDataCopy = valueData;
   if (type <= 3)
   {
-    v9 = dword_22E0049F0[type];
     (*(self->_serviceCallback + 2))();
   }
 }
@@ -213,7 +210,7 @@ void __75__WiFiP2PDNSServiceDiscoveryManager_stopServiceDiscoveryWithConfigurati
   [v8 stopServiceDiscoveryWithConfiguration:a1[5] completionHandler:v7];
 }
 
-uint64_t __75__WiFiP2PDNSServiceDiscoveryManager_stopServiceDiscoveryWithConfiguration___block_invoke_2(void *a1)
+void *__75__WiFiP2PDNSServiceDiscoveryManager_stopServiceDiscoveryWithConfiguration___block_invoke_2(void *a1)
 {
   if ((*(*(a1[6] + 8) + 24) & 1) == 0)
   {

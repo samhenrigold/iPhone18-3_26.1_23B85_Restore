@@ -55,88 +55,87 @@
 
 - (box<glm::detail::tvec3<float>>)boundsFromObjectBoundsOfType:(SEL)type
 {
-  v7 = *&a4;
-  v10 = objc_msgSend_bounds(self, type, v4, v5, v6);
-  v92 = *v10;
-  v93 = *(v10 + 16);
-  if (!objc_msgSend_useIndividualBounds(self, v11, v93, v12, v13))
+  v9 = objc_msgSend_bounds(self, v4, v5, v6, type);
+  v91 = *v9;
+  v92 = *(v9 + 16);
+  if (!objc_msgSend_useIndividualBounds(self, v10, v92, v11, v12))
   {
-    v90 = *(v10 + 48);
-    v55 = *(v10 + 64);
-    v91 = v55;
-    if (*(v10 + 72) != *(v10 + 80))
+    v89 = *(v9 + 48);
+    v54 = *(v9 + 64);
+    v90 = v54;
+    if (*(v9 + 72) != *(v9 + 80))
     {
-      v56 = MEMORY[0x277D81150];
-      v57 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, v55, v15, v16, "[TSCH3DChartCacheableGetProjectedBoundsPipeline boundsFromObjectBoundsOfType:]");
-      v62 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v58, v59, v60, v61, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DChartGetProjectedBoundsPipeline.mm");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v56, v63, v64, v65, v66, v57, v62, 464, 0, "cannot have individual bounds when flag is false");
+      v55 = MEMORY[0x277D81150];
+      v56 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, v54, v14, v15, "[TSCH3DChartCacheableGetProjectedBoundsPipeline boundsFromObjectBoundsOfType:]");
+      v61 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v57, v58, v59, v60, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DChartGetProjectedBoundsPipeline.mm");
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v55, v62, v63, v64, v65, v56, v61, 464, 0, "cannot have individual bounds when flag is false");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v67, v68, v69, v70);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v66, v67, v68, v69);
     }
 
-    if ((sub_276155178(v92.i32) & 1) == 0 && (sub_276155178(v90.i32) & 1) == 0)
+    if ((sub_276155178(v91.i32) & 1) == 0 && (sub_276155178(v89.i32) & 1) == 0)
     {
-      v75 = MEMORY[0x277D81150];
-      v76 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v71, v72, v73, v74, "[TSCH3DChartCacheableGetProjectedBoundsPipeline boundsFromObjectBoundsOfType:]");
-      v81 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v77, v78, v79, v80, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DChartGetProjectedBoundsPipeline.mm");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v75, v82, v83, v84, v85, v76, v81, 465, 0, "invalid bounds state");
+      v74 = MEMORY[0x277D81150];
+      v75 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v70, v71, v72, v73, "[TSCH3DChartCacheableGetProjectedBoundsPipeline boundsFromObjectBoundsOfType:]");
+      v80 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v76, v77, v78, v79, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DChartGetProjectedBoundsPipeline.mm");
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v74, v81, v82, v83, v84, v75, v80, 465, 0, "invalid bounds state");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v86, v87, v88, v89);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v85, v86, v87, v88);
     }
 
     goto LABEL_19;
   }
 
-  if (*(v10 + 72) == *(v10 + 80))
+  if (*(v9 + 72) == *(v9 + 80))
   {
-    v90 = *(v10 + 48);
-    v91 = *(v10 + 64);
+    v89 = *(v9 + 48);
+    v90 = *(v9 + 64);
 LABEL_19:
-    result = sub_276155178(v90.i32);
-    *&retstr->_min.var0.var0 = vbslq_s8(vcltzq_s32(vshlq_n_s32(vmovl_u16(vdup_n_s16(result)), 0x1FuLL)), v92, v90);
-    *&retstr->_max.var1.var0 = vbsl_s8(vcltz_s32(vshl_n_s32(vdup_n_s32(result), 0x1FuLL)), *&v93, *&v91);
+    result = sub_276155178(v89.i32);
+    *&retstr->_min.var0.var0 = vbslq_s8(vcltzq_s32(vshlq_n_s32(vmovl_u16(vdup_n_s16(result)), 0x1FuLL)), v91, v89);
+    *&retstr->_max.var1.var0 = vbsl_s8(vcltz_s32(vshl_n_s32(vdup_n_s32(result), 0x1FuLL)), *&v92, *&v90);
     return result;
   }
 
-  result = sub_276155178(v92.i32);
+  result = sub_276155178(v91.i32);
   if ((result & 1) == 0)
   {
-    v22 = MEMORY[0x277D81150];
-    v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, v19, v20, v21, "[TSCH3DChartCacheableGetProjectedBoundsPipeline boundsFromObjectBoundsOfType:]");
-    v28 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v24, v25, v26, v27, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DChartGetProjectedBoundsPipeline.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v22, v29, v30, v31, v32, v23, v28, 452, 0, "cannot have bounds when using individual bounds");
+    v21 = MEMORY[0x277D81150];
+    v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, v18, v19, v20, "[TSCH3DChartCacheableGetProjectedBoundsPipeline boundsFromObjectBoundsOfType:]");
+    v27 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v23, v24, v25, v26, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DChartGetProjectedBoundsPipeline.mm");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v21, v28, v29, v30, v31, v22, v27, 452, 0, "cannot have bounds when using individual bounds");
 
-    result = objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v33, v34, v35, v36);
+    result = objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v32, v33, v34, v35);
   }
 
   if (!self->_projector)
   {
-    v37 = MEMORY[0x277D81150];
-    v38 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, v19, v20, v21, "[TSCH3DChartCacheableGetProjectedBoundsPipeline boundsFromObjectBoundsOfType:]");
-    v43 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v39, v40, v41, v42, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DChartGetProjectedBoundsPipeline.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v37, v44, v45, v46, v47, v38, v43, 453, 0, "invalid nil value for '%{public}s'", "_projector");
+    v36 = MEMORY[0x277D81150];
+    v37 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, v18, v19, v20, "[TSCH3DChartCacheableGetProjectedBoundsPipeline boundsFromObjectBoundsOfType:]");
+    v42 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v38, v39, v40, v41, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DChartGetProjectedBoundsPipeline.mm");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v36, v43, v44, v45, v46, v37, v42, 453, 0, "invalid nil value for '%{public}s'", "_projector");
 
-    result = objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v48, v49, v50, v51);
+    result = objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v47, v48, v49, v50);
   }
 
   *&retstr->_min.var0.var0 = xmmword_2764D5F00;
-  v52 = 2.84809454e-306;
+  v51 = 2.84809454e-306;
   *&retstr->_max.var1.var0 = 0x80000000800000;
-  for (i = *(v10 + 72); i != *(v10 + 80); i += 24)
+  for (i = *(v9 + 72); i != *(v9 + 80); i += 24)
   {
     projector = self->_projector;
     if (projector)
     {
-      objc_msgSend_projectBounds_type_(projector, v18, v52, v20, v21, i, v7);
+      objc_msgSend_projectBounds_type_(projector, v51, v19, v20);
     }
 
     else
     {
-      v90 = 0uLL;
-      v91 = 0.0;
+      v89 = 0uLL;
+      v90 = 0.0;
     }
 
-    result = sub_276166138(retstr, &v90);
+    result = sub_276166138(retstr, &v89);
   }
 
   return result;
@@ -149,7 +148,7 @@ LABEL_19:
   v16 = v11;
   if (v11)
   {
-    objc_msgSend_infoChartScale(v11, v12, v13, v14, v15);
+    objc_msgSend_infoChartScale(v11, v13, v14, v15);
     v17 = v20;
     LODWORD(v18) = HIDWORD(v21);
   }
@@ -184,31 +183,31 @@ LABEL_19:
   objc_msgSend_resetTransformsForLayoutBounds(self->_projector, a2, v2, v3, v4);
   if (!self->_layoutBoundsValid)
   {
-    v19.receiver = self;
-    v19.super_class = TSCH3DChartCacheableGetProjectedBoundsPipeline;
-    [(TSCH3DChartGetProjectedBoundsPipeline *)&v19 updateLayoutBounds];
+    v17.receiver = self;
+    v17.super_class = TSCH3DChartCacheableGetProjectedBoundsPipeline;
+    [(TSCH3DChartGetProjectedBoundsPipeline *)&v17 updateLayoutBounds];
     self->_layoutBoundsValid = 1;
   }
 
   *&self->super._layoutBounds._min.var0.var0 = xmmword_2764D5F00;
   *&self->super._layoutBounds._max.var1.var0 = 0x80000000800000;
   projector = self->_projector;
-  v10 = objc_msgSend_p_depthBoundsTypes(self, v6, 2.84809454e-306, v7, v8);
+  objc_msgSend_p_depthBoundsTypes(self, v6, 2.84809454e-306, v7, v8);
   if (projector)
   {
-    objc_msgSend_projectBounds_type_(projector, v11, v12, v13, v14, &self->_constantDepthBodyLayout3DBounds, v10);
-    v15 = v17;
-    v16 = v18;
+    objc_msgSend_projectBounds_type_(projector, v10, v11, v12);
+    v13 = v15;
+    v14 = v16;
   }
 
   else
   {
-    v16 = 0;
-    v15 = 0uLL;
+    v14 = 0;
+    v13 = 0uLL;
   }
 
-  *&self->super._constantDepthBodyLayoutBounds._min.var0.var0 = v15;
-  *&self->super._constantDepthBodyLayoutBounds._max.var1.var0 = v16;
+  *&self->super._constantDepthBodyLayoutBounds._min.var0.var0 = v13;
+  *&self->super._constantDepthBodyLayoutBounds._max.var1.var0 = v14;
 }
 
 - (void)calculateBounds
@@ -217,24 +216,24 @@ LABEL_19:
   if (projector)
   {
     p_bodyLayout3DBounds = &self->_bodyLayout3DBounds;
-    objc_msgSend_projectBounds_type_(projector, a2, v2, v3, v4, &self->_bodyLayout3DBounds, 0);
+    objc_msgSend_projectBounds_type_(projector, v2, v3, v4, a2, &self->_bodyLayout3DBounds, 0);
 LABEL_5:
     v29 = *__p;
-    v30 = v124;
+    v30 = v82;
     goto LABEL_6;
   }
 
-  v10 = MEMORY[0x277D81150];
-  v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v2, v3, v4, "[TSCH3DChartCacheableGetProjectedBoundsPipeline calculateBounds]");
-  v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, v13, v14, v15, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DChartGetProjectedBoundsPipeline.mm");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v17, v18, v19, v20, v11, v16, 517, 0, "invalid nil value for '%{public}s'", "_projector");
+  v9 = MEMORY[0x277D81150];
+  v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v2, v3, v4, "[TSCH3DChartCacheableGetProjectedBoundsPipeline calculateBounds]");
+  v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, v12, v13, v14, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DChartGetProjectedBoundsPipeline.mm");
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v16, v17, v18, v19, v10, v15, 517, 0, "invalid nil value for '%{public}s'", "_projector");
 
-  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v21, v22, v23, v24);
+  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v20, v21, v22, v23);
   v28 = self->_projector;
   p_bodyLayout3DBounds = &self->_bodyLayout3DBounds;
   if (v28)
   {
-    objc_msgSend_projectBounds_type_(v28, v9, v25, v26, v27, p_bodyLayout3DBounds, 0);
+    objc_msgSend_projectBounds_type_(v28, v25, v26, v27, v24, p_bodyLayout3DBounds, 0);
     goto LABEL_5;
   }
 
@@ -250,10 +249,10 @@ LABEL_6:
   v35 = 0.0;
   if (v31)
   {
-    objc_msgSend_projectBounds_type_(v31, v9, 0.0, 0.0, 0.0, &self->_layout3DBounds, 0);
+    objc_msgSend_projectBounds_type_(v31, 0.0, 0.0, 0.0);
     v33 = 0uLL;
     v34 = *__p;
-    v35 = v124;
+    v35 = v82;
   }
 
   *&self->super._orientBounds._min.var0.var0 = v34;
@@ -261,9 +260,9 @@ LABEL_6:
   v36 = self->_projector;
   if (v36)
   {
-    objc_msgSend_projectBounds_type_(v36, v9, *&v34, v35, 0.0, &self->_shadowsLayout3DBounds, 0);
+    objc_msgSend_projectBounds_type_(v36, *&v34, v35, 0.0);
     v33 = *__p;
-    v32 = v124;
+    v32 = v82;
   }
 
   *&self->super._drawingBounds._min.var0.var0 = v33;
@@ -272,123 +271,123 @@ LABEL_6:
   {
     v37 = objc_opt_class();
     v38 = a2;
-    v122 = NSStringFromSelector(a2);
+    v80 = NSStringFromSelector(a2);
     v39 = MEMORY[0x277CCACA8];
-    sub_276166580(&p_bodyLayout3DBounds->_min.var0.var0, v40, v41, v42, v43, v44, v45, v46);
-    if (v124 >= 0.0)
+    sub_276166580(&p_bodyLayout3DBounds->_min.var0.var0, __p);
+    if (v82 >= 0.0)
     {
-      objc_msgSend_stringWithUTF8String_(v39, v47, v48, v49, v50, __p);
+      objc_msgSend_stringWithUTF8String_(v39, v40, v41, v42, v43, __p);
     }
 
     else
     {
-      objc_msgSend_stringWithUTF8String_(v39, v47, v48, v49, v50, __p[0]);
+      objc_msgSend_stringWithUTF8String_(v39, v40, v41, v42, v43, __p[0]);
     }
-    v58 = ;
-    if (SHIBYTE(v124) < 0)
+    v44 = ;
+    if (SHIBYTE(v82) < 0)
     {
       operator delete(__p[0]);
     }
 
-    v59 = MEMORY[0x277CCACA8];
-    sub_276166580(&self->super._chartBounds._min.var0.var0, v51, v52, v53, v54, v55, v56, v57);
-    if (v124 >= 0.0)
+    v45 = MEMORY[0x277CCACA8];
+    sub_276166580(&self->super._chartBounds._min.var0.var0, __p);
+    if (v82 >= 0.0)
     {
-      objc_msgSend_stringWithUTF8String_(v59, v60, v61, v62, v63, __p);
+      objc_msgSend_stringWithUTF8String_(v45, v46, v47, v48, v49, __p);
     }
 
     else
     {
-      objc_msgSend_stringWithUTF8String_(v59, v60, v61, v62, v63, __p[0]);
+      objc_msgSend_stringWithUTF8String_(v45, v46, v47, v48, v49, __p[0]);
     }
-    v64 = ;
-    v65 = v38;
-    if (SHIBYTE(v124) < 0)
+    v50 = ;
+    v51 = v38;
+    if (SHIBYTE(v82) < 0)
     {
       operator delete(__p[0]);
     }
 
-    NSLog(&cfstr_PBodyLayoutCha.isa, v37, self, v122, v58, v64);
+    NSLog(&cfstr_PBodyLayoutCha.isa, v37, self, v80, v44, v50);
 
     if (byte_280A46430)
     {
-      v66 = objc_opt_class();
-      v67 = NSStringFromSelector(v38);
-      v68 = MEMORY[0x277CCACA8];
-      sub_276166580(&self->_layout3DBounds._min.var0.var0, v69, v70, v71, v72, v73, v74, v75);
-      if (v124 >= 0.0)
+      v52 = objc_opt_class();
+      v53 = NSStringFromSelector(v38);
+      v54 = MEMORY[0x277CCACA8];
+      sub_276166580(&self->_layout3DBounds._min.var0.var0, __p);
+      if (v82 >= 0.0)
       {
-        objc_msgSend_stringWithUTF8String_(v68, v76, v77, v78, v79, __p);
+        objc_msgSend_stringWithUTF8String_(v54, v55, v56, v57, v58, __p);
       }
 
       else
       {
-        objc_msgSend_stringWithUTF8String_(v68, v76, v77, v78, v79, __p[0]);
+        objc_msgSend_stringWithUTF8String_(v54, v55, v56, v57, v58, __p[0]);
       }
-      v87 = ;
-      if (SHIBYTE(v124) < 0)
+      v59 = ;
+      if (SHIBYTE(v82) < 0)
       {
         operator delete(__p[0]);
       }
 
-      v88 = MEMORY[0x277CCACA8];
-      sub_276166580(&self->super._orientBounds._min.var0.var0, v80, v81, v82, v83, v84, v85, v86);
-      if (v124 >= 0.0)
+      v60 = MEMORY[0x277CCACA8];
+      sub_276166580(&self->super._orientBounds._min.var0.var0, __p);
+      if (v82 >= 0.0)
       {
-        objc_msgSend_stringWithUTF8String_(v88, v89, v90, v91, v92, __p);
+        objc_msgSend_stringWithUTF8String_(v60, v61, v62, v63, v64, __p);
       }
 
       else
       {
-        objc_msgSend_stringWithUTF8String_(v88, v89, v90, v91, v92, __p[0]);
+        objc_msgSend_stringWithUTF8String_(v60, v61, v62, v63, v64, __p[0]);
       }
-      v93 = ;
-      if (SHIBYTE(v124) < 0)
+      v65 = ;
+      if (SHIBYTE(v82) < 0)
       {
         operator delete(__p[0]);
       }
 
-      NSLog(&cfstr_POrientLayoutC.isa, v66, self, v67, v87, v93);
+      NSLog(&cfstr_POrientLayoutC.isa, v52, self, v53, v59, v65);
 
       if (byte_280A46430)
       {
-        v94 = objc_opt_class();
-        v95 = NSStringFromSelector(v65);
-        v96 = MEMORY[0x277CCACA8];
-        sub_276166580(&self->_shadowsLayout3DBounds._min.var0.var0, v97, v98, v99, v100, v101, v102, v103);
-        if (v124 >= 0.0)
+        v66 = objc_opt_class();
+        v67 = NSStringFromSelector(v51);
+        v68 = MEMORY[0x277CCACA8];
+        sub_276166580(&self->_shadowsLayout3DBounds._min.var0.var0, __p);
+        if (v82 >= 0.0)
         {
-          objc_msgSend_stringWithUTF8String_(v96, v104, v105, v106, v107, __p);
+          objc_msgSend_stringWithUTF8String_(v68, v69, v70, v71, v72, __p);
         }
 
         else
         {
-          objc_msgSend_stringWithUTF8String_(v96, v104, v105, v106, v107, __p[0]);
+          objc_msgSend_stringWithUTF8String_(v68, v69, v70, v71, v72, __p[0]);
         }
-        v115 = ;
-        if (SHIBYTE(v124) < 0)
+        v73 = ;
+        if (SHIBYTE(v82) < 0)
         {
           operator delete(__p[0]);
         }
 
-        v116 = MEMORY[0x277CCACA8];
-        sub_276166580(&self->super._drawingBounds._min.var0.var0, v108, v109, v110, v111, v112, v113, v114);
-        if (v124 >= 0.0)
+        v74 = MEMORY[0x277CCACA8];
+        sub_276166580(&self->super._drawingBounds._min.var0.var0, __p);
+        if (v82 >= 0.0)
         {
-          objc_msgSend_stringWithUTF8String_(v116, v117, v118, v119, v120, __p);
+          objc_msgSend_stringWithUTF8String_(v74, v75, v76, v77, v78, __p);
         }
 
         else
         {
-          objc_msgSend_stringWithUTF8String_(v116, v117, v118, v119, v120, __p[0]);
+          objc_msgSend_stringWithUTF8String_(v74, v75, v76, v77, v78, __p[0]);
         }
-        v121 = ;
-        if (SHIBYTE(v124) < 0)
+        v79 = ;
+        if (SHIBYTE(v82) < 0)
         {
           operator delete(__p[0]);
         }
 
-        NSLog(&cfstr_PDrawingLayout.isa, v94, self, v95, v115, v121);
+        NSLog(&cfstr_PDrawingLayout.isa, v66, self, v67, v73, v79);
       }
     }
   }
@@ -431,7 +430,7 @@ LABEL_6:
   v46 = v41;
   if (v41)
   {
-    objc_msgSend_infoChartScale(v41, v42, v43, v44, v45);
+    objc_msgSend_infoChartScale(v41, v43, v44, v45);
     v47 = v85;
   }
 
@@ -445,7 +444,7 @@ LABEL_6:
   objc_msgSend_setOriginalInfoChartScale_(v46, v42, *&v47, v44, v45, &v86);
   if (v46)
   {
-    objc_msgSend_rotation(v46, v48, v49, v50, v51);
+    objc_msgSend_rotation(v46, v49, v50, v51);
     v52 = v83;
     LODWORD(v53) = v84;
   }
@@ -466,7 +465,7 @@ LABEL_6:
   {
     if (v46)
     {
-      objc_msgSend_infoChartScale(v46, v59, v60, v61, v62);
+      objc_msgSend_infoChartScale(v46, v60, v61, v62);
       LODWORD(v63) = DWORD2(v86);
     }
 
@@ -484,7 +483,7 @@ LABEL_6:
     v74 = self->super._originalSceneAccessor;
     if (v74)
     {
-      objc_msgSend_infoChartScaleVec3(self->super._originalSceneAccessor, v70, v71, v72, v73);
+      objc_msgSend_infoChartScaleVec3(self->super._originalSceneAccessor, v71, v72, v73);
       v75 = v81;
     }
 

@@ -39,7 +39,7 @@
 - (id)zoomSourceView
 {
   selfCopy = self;
-  v3 = sub_1E3DCF238();
+  v3 = sub_1E3DCF238(selfCopy);
 
   return v3;
 }

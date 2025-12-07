@@ -600,7 +600,7 @@ LABEL_30:
       {
         if ([(NSArray *)v14 count]<= i)
         {
-          v26 = 0x7FFFFFFF;
+          v26 = 0x7FFFFFFFLL;
         }
 
         else
@@ -616,7 +616,7 @@ LABEL_30:
 
           if (v22 >= v25)
           {
-            v26 = 0x7FFFFFFF;
+            v26 = 0x7FFFFFFFLL;
           }
 
           else
@@ -737,18 +737,18 @@ LABEL_10:
 
     if (v7 >= v9)
     {
-      v10 = 0x7FFFFFFF;
+      v10 = 0x7FFFFFFFLL;
     }
 
     else
     {
-      v10 = v7 | 0x7FFF0000;
+      v10 = v7 | 0x7FFF0000u;
     }
   }
 
   else
   {
-    v10 = 0x7FFFFFFF;
+    v10 = 0x7FFFFFFFLL;
   }
 
   v11 = (*(self->_skcTileMapNode + 152) * *(self->_skcTileMapNode + 151));
@@ -777,7 +777,7 @@ LABEL_10:
 
     if (v9 >= v11)
     {
-      v12 = 0x7FFFFFFF;
+      v12 = 0x7FFFFFFFLL;
     }
 
     else
@@ -788,7 +788,7 @@ LABEL_10:
 
   else
   {
-    v12 = 0x7FFFFFFF;
+    v12 = 0x7FFFFFFFLL;
   }
 
   skcTileMapNode = self->_skcTileMapNode;
@@ -883,7 +883,7 @@ LABEL_10:
 
       if (v15 >= v17)
       {
-        v18 = 0x7FFFFFFF;
+        v18 = 0x7FFFFFFFLL;
       }
 
       else
@@ -894,7 +894,7 @@ LABEL_10:
 
     else
     {
-      v18 = 0x7FFFFFFF;
+      v18 = 0x7FFFFFFFLL;
     }
 
     SKCTileMapNode::setTile(self->_skcTileMapNode, column + *(self->_skcTileMapNode + 151) * row, v18);
@@ -999,7 +999,7 @@ LABEL_10:
         numberOfColumns = [(SKTileMapNode *)self numberOfColumns];
         if (v15 >= v17)
         {
-          v19 = 0x7FFFFFFF;
+          v19 = 0x7FFFFFFFLL;
         }
 
         else
@@ -1091,7 +1091,7 @@ LABEL_10:
 
     if (v15 >= v17)
     {
-      v18 = 0x7FFFFFFF;
+      v18 = 0x7FFFFFFFLL;
     }
 
     else
@@ -1102,7 +1102,7 @@ LABEL_10:
 
   else
   {
-    v18 = 0x7FFFFFFF;
+    v18 = 0x7FFFFFFFLL;
   }
 
   numberOfColumns = [(SKTileMapNode *)self numberOfColumns];
@@ -1359,7 +1359,7 @@ LABEL_10:
   {
     if (*(skcTileMapNode + 152))
     {
-      SKCTileMapNode::setAllTiles(skcTileMapNode, 0x7FFFFFFF);
+      SKCTileMapNode::setAllTiles(skcTileMapNode, 0x7FFFFFFFLL);
     }
   }
 }
@@ -1546,7 +1546,7 @@ LABEL_38:
 
 - (void)updateTileGroupsAtX:(unint64_t)x y:(unint64_t)y
 {
-  v153 = *MEMORY[0x277D85DE8];
+  v152[8] = *MEMORY[0x277D85DE8];
   if ([(SKTileMapNode *)self enableAutomapping])
   {
     v144 = 0u;
@@ -1653,7 +1653,7 @@ LABEL_22:
 
       if (!v22)
       {
-        SKCTileMapNode::setTile(self->_skcTileMapNode, v110[0], 0x7FFFFFFF);
+        SKCTileMapNode::setTile(self->_skcTileMapNode, v110[0], 0x7FFFFFFFLL);
 LABEL_29:
         if (v111 != *v110)
         {
@@ -1934,7 +1934,7 @@ LABEL_138:
               else
               {
                 v118 = v88 + v90 * v91;
-                SKCTileMapNode::setTile(v89, v88 + v90 * v91, (v87 << 16) | 0xFFFF);
+                SKCTileMapNode::setTile(v89, v88 + v90 * v91, (v87 << 16) | 0xFFFFu);
                 v92 = (*(&v143 + 1) + 8 * (v145 >> 10));
                 if (v144 == *(&v143 + 1))
                 {

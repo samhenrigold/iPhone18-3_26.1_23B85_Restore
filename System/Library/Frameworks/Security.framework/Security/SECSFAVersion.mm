@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)productNameAsString:(int)string;
 - (int)StringAsProductName:(id)name;
 - (int)productName;
 - (unint64_t)hash;
@@ -301,7 +302,6 @@ LABEL_6:
   has = self->_has;
   if ((has & 8) != 0)
   {
-    productName = self->_productName;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -321,7 +321,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  major = self->_major;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -336,12 +335,10 @@ LABEL_4:
   }
 
 LABEL_11:
-  minor = self->_minor;
   PBDataWriterWriteInt64Field();
   if (*&self->_has)
   {
 LABEL_5:
-    build = self->_build;
     PBDataWriterWriteInt64Field();
   }
 
@@ -481,6 +478,21 @@ LABEL_10:
   else
   {
     v4 = 1;
+  }
+
+  return v4;
+}
+
+- (id)productNameAsString:(int)string
+{
+  if ((string - 1) >= 5)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E70D5048[string - 1];
   }
 
   return v4;

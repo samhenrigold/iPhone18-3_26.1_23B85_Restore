@@ -74,15 +74,15 @@ uint64_t __40__SL_OOPAWebViewController__loadWebView__block_invoke_3(uint64_t a1
   }
 }
 
-uint64_t __85__SL_OOPAWebViewController__evaluateDocumentTitleForUIWebView_retryCount_completion___block_invoke(void *a1)
+uint64_t __85__SL_OOPAWebViewController__evaluateDocumentTitleForUIWebView_retryCount_completion___block_invoke(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  _SLLog(v1, 3, @"No title for webview, re-trying...");
-  v3 = a1[4];
-  v4 = a1[5];
-  v5 = a1[6];
-  v6 = a1[7] - 1;
+  _SLLog(v8, 3, @"No title for webview, re-trying...", a4, a5, a6, a7, a8, v15);
+  v10 = a1[4];
+  v11 = a1[5];
+  v12 = a1[6];
+  v13 = a1[7] - 1;
 
-  return [v3 _evaluateDocumentTitleForUIWebView:v4 retryCount:v6 completion:v5];
+  return [v10 _evaluateDocumentTitleForUIWebView:v11 retryCount:v13 completion:v12];
 }
 
 void __83__SL_OOPAWebViewController__evaluateDocumentTitleForWebView_retryCount_completion___block_invoke(void *a1, void *a2, void *a3)
@@ -92,7 +92,7 @@ void __83__SL_OOPAWebViewController__evaluateDocumentTitleForWebView_retryCount_
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) != 0 && [v6 length])
   {
-    _SLLog(v3, 3, @"Found title for webview");
+    _SLLog(v3, 3, @"Found title for webview", v8, v9, v10, v11, v12, v18);
     (*(a1[6] + 16))();
   }
 
@@ -100,35 +100,35 @@ void __83__SL_OOPAWebViewController__evaluateDocumentTitleForWebView_retryCount_
   {
     if (v7)
     {
-      _SLLog(v3, 3, @"Error evaluating document title: %@");
+      _SLLog(v3, 3, @"Error evaluating document title: %@", v8, v9, v10, v11, v12, v7);
     }
 
-    v8 = dispatch_time(0, 200000000);
+    v13 = dispatch_time(0, 200000000);
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __83__SL_OOPAWebViewController__evaluateDocumentTitleForWebView_retryCount_completion___block_invoke_2;
     block[3] = &unk_1E8175F10;
-    v9 = a1[5];
+    v14 = a1[5];
     block[4] = a1[4];
-    v10 = v9;
-    v12 = a1[6];
-    v11 = a1[7];
-    v14 = v10;
-    v16 = v11;
-    v15 = v12;
-    dispatch_after(v8, MEMORY[0x1E69E96A0], block);
+    v15 = v14;
+    v17 = a1[6];
+    v16 = a1[7];
+    v20 = v15;
+    v22 = v16;
+    v21 = v17;
+    dispatch_after(v13, MEMORY[0x1E69E96A0], block);
   }
 }
 
-uint64_t __83__SL_OOPAWebViewController__evaluateDocumentTitleForWebView_retryCount_completion___block_invoke_2(void *a1)
+uint64_t __83__SL_OOPAWebViewController__evaluateDocumentTitleForWebView_retryCount_completion___block_invoke_2(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  _SLLog(v1, 7, @"No title for webview, re-trying...");
-  v3 = a1[4];
-  v4 = a1[5];
-  v5 = a1[6];
-  v6 = a1[7] - 1;
+  _SLLog(v8, 7, @"No title for webview, re-trying...", a4, a5, a6, a7, a8, v15);
+  v10 = a1[4];
+  v11 = a1[5];
+  v12 = a1[6];
+  v13 = a1[7] - 1;
 
-  return [v3 _evaluateDocumentTitleForWebView:v4 retryCount:v6 completion:v5];
+  return [v10 _evaluateDocumentTitleForWebView:v11 retryCount:v13 completion:v12];
 }
 
 @end

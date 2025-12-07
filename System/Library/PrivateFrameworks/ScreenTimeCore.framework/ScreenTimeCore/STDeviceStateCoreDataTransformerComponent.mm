@@ -461,7 +461,7 @@
     v16 = +[STLog coreDataTransformer];
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      sub_100114578();
+      sub_100114578(v6);
     }
 
     if (error)

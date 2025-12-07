@@ -87,28 +87,28 @@ LABEL_10:
 
 + ($82EDB067EE6F192B39F18594CC8676AD)getDominantUserActivityInfoInDateInterval:(id)interval store:(id)store
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v4 = [TADominantUserActivity getCumulativeUserActivityTimeInDateInterval:interval store:store];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  *&v5 = COERCE_DOUBLE([v4 countByEnumeratingWithState:&v19 objects:v23 count:16]);
+  *&v5 = COERCE_DOUBLE([v4 countByEnumeratingWithState:&v18 objects:v22 count:16]);
   integerValue = 0;
   if (*&v5 != 0.0)
   {
-    v7 = *v20;
+    v7 = *v19;
     v8 = 0.0;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v20 != v7)
+        if (*v19 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
+        v10 = *(*(&v18 + 1) + 8 * i);
         v11 = [v4 objectForKeyedSubscript:v10];
         [v11 doubleValue];
         v13 = v12;
@@ -122,18 +122,17 @@ LABEL_10:
         }
       }
 
-      *&v5 = COERCE_DOUBLE([v4 countByEnumeratingWithState:&v19 objects:v23 count:16]);
+      *&v5 = COERCE_DOUBLE([v4 countByEnumeratingWithState:&v18 objects:v22 count:16]);
     }
 
     while (*&v5 != 0.0);
     *&v5 = v8;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-  v17 = integerValue;
-  v18 = *&v5;
-  result.var1 = v18;
-  result.var0 = v17;
+  v16 = integerValue;
+  v17 = *&v5;
+  result.var1 = v17;
+  result.var0 = v16;
   return result;
 }
 

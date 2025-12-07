@@ -1,4 +1,5 @@
 @interface CNFoundationError
++ (BOOL)ifResultIsNo:(BOOL)no setOutputError:(id *)error toError:(id)toError;
 + (BOOL)ifResultIsNo:(BOOL)no setOutputError:(id *)error withBlock:(id)block;
 + (BOOL)isCertificateError:(id)error;
 + (BOOL)isError:(id)error errorWithDomain:(id)domain code:(int64_t)code;
@@ -100,14 +101,14 @@
 
 + (id)errorWithCode:(int64_t)code underlyingError:(id)error
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   errorCopy = error;
   v6 = errorCopy;
   if (errorCopy)
   {
-    v11 = *MEMORY[0x1E696AA08];
-    v12[0] = errorCopy;
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = *MEMORY[0x1E696AA08];
+    v11[0] = errorCopy;
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   }
 
   else
@@ -116,22 +117,20 @@
   }
 
   v8 = [MEMORY[0x1E696ABC0] errorWithDomain:@"CNContactsFoundationErrorDomain" code:code userInfo:v7];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 + (id)errorWithCode:(int64_t)code underlyingException:(id)exception
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   exceptionCopy = exception;
   v6 = exceptionCopy;
   if (exceptionCopy)
   {
-    v11 = @"com.apple.contacts.underlying-exception";
-    v12[0] = exceptionCopy;
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = @"com.apple.contacts.underlying-exception";
+    v11[0] = exceptionCopy;
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   }
 
   else
@@ -140,8 +139,6 @@
   }
 
   v8 = [MEMORY[0x1E696ABC0] errorWithDomain:@"CNContactsFoundationErrorDomain" code:code userInfo:v7];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -176,6 +173,21 @@
   }
 
   return nilCopy;
+}
+
++ (BOOL)ifResultIsNo:(BOOL)no setOutputError:(id *)error toError:(id)toError
+{
+  noCopy = no;
+  toErrorCopy = toError;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __57__CNFoundationError_ifResultIsNo_setOutputError_toError___block_invoke;
+  v11[3] = &unk_1E6ED8090;
+  v12 = toErrorCopy;
+  v9 = toErrorCopy;
+  LOBYTE(error) = [self ifResultIsNo:noCopy setOutputError:error withBlock:v11];
+
+  return error;
 }
 
 + (BOOL)ifResultIsNo:(BOOL)no setOutputError:(id *)error withBlock:(id)block

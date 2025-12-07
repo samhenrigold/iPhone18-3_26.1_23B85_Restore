@@ -9,14 +9,15 @@
 
 + (_TtC8VideosUI20VUIJetPackController)controllerWithBagKey:(id)key defaults:(id)defaults urlOverrideDefaultKey:(id)defaultKey
 {
-  sub_1E4205F14();
+  v7 = sub_1E4205F14();
+  v9 = v8;
   swift_getObjCClassMetadata();
   keyCopy = key;
   defaultsCopy = defaults;
-  static VUIJetPackController.controller(bagKey:defaults:urlOverrideDefaultKey:)();
-  v10 = v9;
+  static VUIJetPackController.controller(bagKey:defaults:urlOverrideDefaultKey:)(keyCopy, defaults, v7, v9);
+  v13 = v12;
 
-  return v10;
+  return v13;
 }
 
 - (id)getJetPackURL

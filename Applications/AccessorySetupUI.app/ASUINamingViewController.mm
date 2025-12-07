@@ -24,9 +24,9 @@
 - (_TtC16AccessorySetupUI24ASUINamingViewController)initWithContentView:(id)view
 {
   viewCopy = view;
-  v5 = sub_10002B8AC(view);
+  v6 = sub_10002B8AC(view, v5);
 
-  return v5;
+  return v6;
 }
 
 @end

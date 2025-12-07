@@ -22,17 +22,17 @@
 {
   swift_beginAccess();
   v5 = &_swiftEmptyArrayStorage;
-  sub_1001379C4(&qword_1002BC2D0);
+  sub_1001379C4(&qword_1002BC2D0, &qword_1001C7640);
   Published.init(initialValue:)();
   swift_endAccess();
   v4.receiver = self;
-  v4.super_class = type metadata accessor for HeadphoneAudioNotificationModel();
+  v4.super_class = type metadata accessor for HeadphoneAudioNotificationModel(0);
   return [(HeadphoneAudioNotificationModel *)&v4 init];
 }
 
 - (void)setData:(id)data
 {
-  sub_1001379C4(&qword_1002BC338);
+  sub_1001379C4(&qword_1002BC338, &qword_1001C7710);
   v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
   HeadphoneAudioNotificationModel.setData(_:)(v4);

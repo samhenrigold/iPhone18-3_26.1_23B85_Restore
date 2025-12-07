@@ -14,18 +14,18 @@
 
 - (double)totalTapDistance
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = self->_firstTouch;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v4 = self->_dragTouches;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v18;
+    v7 = *v17;
     v8 = 0.0;
     do
     {
@@ -33,13 +33,13 @@
       v10 = v3;
       do
       {
-        if (*v18 != v7)
+        if (*v17 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * v9);
-        [(TISKTap *)self distance:v10 withTouch:v11, v17];
+        v11 = *(*(&v16 + 1) + 8 * v9);
+        [(TISKTap *)self distance:v10 withTouch:v11, v16];
         v8 = v8 + v12;
         v3 = v11;
 
@@ -48,7 +48,7 @@
       }
 
       while (v6 != v9);
-      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v6);
@@ -62,7 +62,6 @@
   [(TISKTap *)self distance:v3 withTouch:self->_lastTouch];
   v14 = v13;
 
-  v15 = *MEMORY[0x277D85DE8];
   return v8 + v14;
 }
 

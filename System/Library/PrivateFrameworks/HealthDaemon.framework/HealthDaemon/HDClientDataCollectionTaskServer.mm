@@ -20,10 +20,9 @@
 
 + (id)requiredEntitlements
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = *MEMORY[0x277CCC8B0];
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = *MEMORY[0x277CCC8B0];
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }
@@ -96,7 +95,7 @@
 
 void __56__HDClientDataCollectionTaskServer_connectionConfigured__block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) profile];
   v3 = [v2 dataCollectionManager];
   v4 = [*(*(a1 + 32) + 72) quantityType];
@@ -115,11 +114,11 @@ void __56__HDClientDataCollectionTaskServer_connectionConfigured__block_invoke(u
     {
       v11 = *(a1 + 32);
       v12 = *(v11 + 88);
-      v18 = 138543618;
-      v19 = v11;
-      v20 = 2112;
-      v21 = v12;
-      _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: Registering aggregator for client data collection: %@", &v18, 0x16u);
+      v17 = 138543618;
+      v18 = v11;
+      v19 = 2112;
+      v20 = v12;
+      _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: Registering aggregator for client data collection: %@", &v17, 0x16u);
     }
 
     v13 = objc_alloc_init(MEMORY[0x277CCD2A0]);
@@ -132,13 +131,11 @@ void __56__HDClientDataCollectionTaskServer_connectionConfigured__block_invoke(u
 
   else if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
-    v17 = *(a1 + 32);
-    v18 = 138543362;
-    v19 = v17;
-    _os_log_error_impl(&dword_228986000, v9, OS_LOG_TYPE_ERROR, "%{public}@: No aggregator available for data collection.", &v18, 0xCu);
+    v16 = *(a1 + 32);
+    v17 = 138543362;
+    v18 = v16;
+    _os_log_error_impl(&dword_228986000, v9, OS_LOG_TYPE_ERROR, "%{public}@: No aggregator available for data collection.", &v17, 0xCu);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remote_setCollectionState:(id)state completion:(id)completion
@@ -169,7 +166,7 @@ uint64_t __73__HDClientDataCollectionTaskServer_remote_setCollectionState_comple
 
 - (void)remote_insertDatums:(id)datums device:(id)device metadata:(id)metadata options:(unint64_t)options batchUUID:(id)d registrationUUID:(id)iD completion:(id)completion
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   datumsCopy = datums;
   deviceCopy = device;
   metadataCopy = metadata;
@@ -186,17 +183,17 @@ uint64_t __73__HDClientDataCollectionTaskServer_remote_setCollectionState_comple
   }
 
   queue = self->_queue;
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __118__HDClientDataCollectionTaskServer_remote_insertDatums_device_metadata_options_batchUUID_registrationUUID_completion___block_invoke;
-  v30[3] = &unk_27862DA68;
-  v30[4] = self;
-  v31 = datumsCopy;
-  v32 = deviceCopy;
-  v33 = metadataCopy;
-  v34 = dCopy;
-  v35 = iDCopy;
-  v36 = completionCopy;
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __118__HDClientDataCollectionTaskServer_remote_insertDatums_device_metadata_options_batchUUID_registrationUUID_completion___block_invoke;
+  v29[3] = &unk_27862DA68;
+  v29[4] = self;
+  v30 = datumsCopy;
+  v31 = deviceCopy;
+  v32 = metadataCopy;
+  v33 = dCopy;
+  v34 = iDCopy;
+  v35 = completionCopy;
   optionsCopy = options;
   v23 = completionCopy;
   v24 = iDCopy;
@@ -204,14 +201,12 @@ uint64_t __73__HDClientDataCollectionTaskServer_remote_setCollectionState_comple
   v26 = metadataCopy;
   v27 = deviceCopy;
   v28 = datumsCopy;
-  dispatch_sync(queue, v30);
-
-  v29 = *MEMORY[0x277D85DE8];
+  dispatch_sync(queue, v29);
 }
 
 void __118__HDClientDataCollectionTaskServer_remote_insertDatums_device_metadata_options_batchUUID_registrationUUID_completion___block_invoke(uint64_t a1)
 {
-  v89 = *MEMORY[0x277D85DE8];
+  v88 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   v3 = *(a1 + 48);
   v2 = *(a1 + 56);
@@ -219,19 +214,19 @@ void __118__HDClientDataCollectionTaskServer_remote_insertDatums_device_metadata
   v5 = *(a1 + 72);
   v6 = *(a1 + 80);
   v7 = *(a1 + 88);
-  v64 = *(a1 + 40);
-  v59 = v3;
-  v60 = v2;
-  v61 = v4;
-  v63 = v5;
-  v62 = v6;
+  v63 = *(a1 + 40);
+  v58 = v3;
+  v59 = v2;
+  v60 = v4;
+  v62 = v5;
+  v61 = v6;
   if (v1)
   {
     dispatch_assert_queue_V2(*(v1 + 40));
-    if ([v63 isEqual:*(v1 + 80)])
+    if ([v62 isEqual:*(v1 + 80)])
     {
-      v55 = v3;
-      v57 = v7;
+      v54 = v3;
+      v56 = v7;
       _HKInitializeLogging();
       v8 = *MEMORY[0x277CCC298];
       if (os_log_type_enabled(*MEMORY[0x277CCC298], OS_LOG_TYPE_DEFAULT))
@@ -239,56 +234,56 @@ void __118__HDClientDataCollectionTaskServer_remote_insertDatums_device_metadata
         v9 = v8;
         v10 = HKDiagnosticStringFromUUID();
         *buf = 138543874;
-        v84 = v1;
-        v85 = 2114;
-        v86 = v10;
-        v87 = 2048;
-        v88 = [v64 count];
+        v83 = v1;
+        v84 = 2114;
+        v85 = v10;
+        v86 = 2048;
+        v87 = [v63 count];
         _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: Batch %{public}@: Received %ld datums.", buf, 0x20u);
       }
 
-      if ([v64 count])
+      if ([v63 count])
       {
-        v11 = v60;
-        if (v60)
+        v11 = v59;
+        if (v59)
         {
-          v76 = 0;
-          v12 = v60;
+          v75 = 0;
+          v12 = v59;
           v13 = [v1 client];
-          v14 = [v12 hd_validateMetadataKeysAndValuesWithClient:v13 error:&v76];
+          v14 = [v12 hd_validateMetadataKeysAndValuesWithClient:v13 error:&v75];
 
-          v15 = v76;
-          v56 = v15;
+          v15 = v75;
+          v55 = v15;
           if ((v14 & 1) == 0)
           {
             if (!v15)
             {
-              v56 = [MEMORY[0x277CCA9B8] hk_errorForInvalidArgument:@"@" class:objc_opt_class() selector:sel__queue_insertDatums_device_metadata_options_batchUUID_registrationUUID_completion_ format:@"Failed to validate provided metadata"];
+              v55 = [MEMORY[0x277CCA9B8] hk_errorForInvalidArgument:@"@" class:objc_opt_class() selector:sel__queue_insertDatums_device_metadata_options_batchUUID_registrationUUID_completion_ format:@"Failed to validate provided metadata"];
             }
 
             v21 = [(HDClientDataCollectionTaskServer *)v1 _loggingClientProxy];
-            [v21 clientRemote_receivedBatch:v61 error:v56];
+            [v21 clientRemote_receivedBatch:v60 error:v55];
 
-            v62[2](v62, 1, 0);
+            v61[2](v61, 1, 0);
 LABEL_40:
 
             goto LABEL_41;
           }
 
-          v16 = v59;
-          v11 = v60;
+          v16 = v58;
+          v11 = v59;
         }
 
         else
         {
-          v56 = 0;
-          v16 = v59;
+          v55 = 0;
+          v16 = v58;
         }
 
         if (v16)
         {
           v20 = [*(v1 + 104) objectForKeyedSubscript:?];
-          v11 = v60;
+          v11 = v59;
         }
 
         else
@@ -296,31 +291,31 @@ LABEL_40:
           v20 = *(v1 + 112);
         }
 
-        v65 = v20;
+        v64 = v20;
         if (v20)
         {
-          v74 = 0u;
-          v75 = 0u;
-          v72 = 0u;
           v73 = 0u;
-          obj = v64;
-          v22 = [obj countByEnumeratingWithState:&v72 objects:buf count:16];
+          v74 = 0u;
+          v71 = 0u;
+          v72 = 0u;
+          obj = v63;
+          v22 = [obj countByEnumeratingWithState:&v71 objects:buf count:16];
           if (v22)
           {
-            v23 = *v73;
+            v23 = *v72;
             while (2)
             {
               for (i = 0; i != v22; ++i)
               {
-                if (*v73 != v23)
+                if (*v72 != v23)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v25 = *(*(&v72 + 1) + 8 * i);
+                v25 = *(*(&v71 + 1) + 8 * i);
                 v26 = [v25 dateInterval];
                 v27 = [v26 endDate];
-                v28 = [v65 dateInterval];
+                v28 = [v64 dateInterval];
                 v29 = [v28 endDate];
                 v30 = [v27 hk_isBeforeOrEqualToDate:v29];
 
@@ -331,18 +326,18 @@ LABEL_40:
                   v38 = objc_opt_class();
                   v39 = [v25 dateInterval];
                   v40 = [v39 endDate];
-                  v41 = [v65 dateInterval];
+                  v41 = [v64 dateInterval];
                   v42 = [v41 endDate];
                   v43 = [v37 hk_errorForInvalidArgument:@"@" class:v38 selector:sel__queue_insertDatums_device_metadata_options_batchUUID_registrationUUID_completion_ format:{@"Out-of-order data received: got an end date of %@ but our last datum was %@", v40, v42}];
-                  [v36 clientRemote_receivedBatch:v61 error:v43];
+                  [v36 clientRemote_receivedBatch:v60 error:v43];
 
-                  v62[2](v62, 1, 0);
+                  v61[2](v61, 1, 0);
                   v44 = obj;
                   goto LABEL_39;
                 }
               }
 
-              v22 = [obj countByEnumeratingWithState:&v72 objects:buf count:16];
+              v22 = [obj countByEnumeratingWithState:&v71 objects:buf count:16];
               if (v22)
               {
                 continue;
@@ -352,15 +347,15 @@ LABEL_40:
             }
           }
 
-          v11 = v60;
+          v11 = v59;
         }
 
-        v70[0] = MEMORY[0x277D85DD0];
-        v70[1] = 3221225472;
-        v70[2] = __118__HDClientDataCollectionTaskServer__queue_insertDatums_device_metadata_options_batchUUID_registrationUUID_completion___block_invoke;
-        v70[3] = &unk_27862DA90;
-        v71 = v11;
-        v31 = [v64 hk_map:v70];
+        v69[0] = MEMORY[0x277D85DD0];
+        v69[1] = 3221225472;
+        v69[2] = __118__HDClientDataCollectionTaskServer__queue_insertDatums_device_metadata_options_batchUUID_registrationUUID_completion___block_invoke;
+        v69[3] = &unk_27862DA90;
+        v70 = v11;
+        v31 = [v63 hk_map:v69];
         if (!*(v1 + 104))
         {
           v32 = objc_alloc_init(MEMORY[0x277CBEB38]);
@@ -370,9 +365,9 @@ LABEL_40:
 
         v34 = [v31 lastObject];
         v35 = v34;
-        if (v59)
+        if (v58)
         {
-          [*(v1 + 104) setObject:v34 forKeyedSubscript:v59];
+          [*(v1 + 104) setObject:v34 forKeyedSubscript:v58];
         }
 
         else
@@ -383,22 +378,22 @@ LABEL_40:
         }
 
         objc_initWeak(&location, v1);
-        v66[0] = MEMORY[0x277D85DD0];
-        v66[1] = 3221225472;
-        v66[2] = __118__HDClientDataCollectionTaskServer__queue_insertDatums_device_metadata_options_batchUUID_registrationUUID_completion___block_invoke_2;
-        v66[3] = &unk_27862DAB8;
-        objc_copyWeak(&v68, &location);
-        v46 = v61;
-        v67 = v46;
+        v65[0] = MEMORY[0x277D85DD0];
+        v65[1] = 3221225472;
+        v65[2] = __118__HDClientDataCollectionTaskServer__queue_insertDatums_device_metadata_options_batchUUID_registrationUUID_completion___block_invoke_2;
+        v65[3] = &unk_27862DAB8;
+        objc_copyWeak(&v67, &location);
+        v46 = v60;
+        v66 = v46;
         v47 = [v31 lastObject];
-        [v47 setSaveCompletion:v66];
+        [v47 setSaveCompletion:v65];
 
-        objc_storeStrong((v1 + 56), v55);
-        [*(v1 + 88) dataCollector:v1 didCollectSensorData:v31 device:v59 options:v57];
+        objc_storeStrong((v1 + 56), v54);
+        [*(v1 + 88) dataCollector:v1 didCollectSensorData:v31 device:v58 options:v56];
         v48 = [(HDClientDataCollectionTaskServer *)v1 _loggingClientProxy];
         [v48 clientRemote_receivedBatch:v46 error:0];
 
-        if (v57)
+        if (v56)
         {
           _HKInitializeLogging();
           v49 = *MEMORY[0x277CCC298];
@@ -407,49 +402,47 @@ LABEL_40:
             v50 = HKDiagnosticStringFromUUID();
             v51 = [*(v1 + 72) quantityType];
             v52 = [v51 identifier];
-            *v77 = 138543874;
-            v78 = v1;
-            v79 = 2114;
-            v80 = v50;
-            v81 = 2114;
-            v82 = v52;
-            _os_log_impl(&dword_228986000, v49, OS_LOG_TYPE_DEFAULT, "%{public}@: Batch %{public}@: Was transient data collection for type %{public}@", v77, 0x20u);
+            *v76 = 138543874;
+            v77 = v1;
+            v78 = 2114;
+            v79 = v50;
+            v80 = 2114;
+            v81 = v52;
+            _os_log_impl(&dword_228986000, v49, OS_LOG_TYPE_DEFAULT, "%{public}@: Batch %{public}@: Was transient data collection for type %{public}@", v76, 0x20u);
           }
 
           v53 = [(HDClientDataCollectionTaskServer *)v1 _loggingClientProxy];
           [v53 clientRemote_finishedPersistenceForBatch:v46 error:0];
         }
 
-        v62[2](v62, 1, 0);
+        v61[2](v61, 1, 0);
 
-        objc_destroyWeak(&v68);
+        objc_destroyWeak(&v67);
         objc_destroyWeak(&location);
 
-        v44 = v71;
+        v44 = v70;
 LABEL_39:
 
         goto LABEL_40;
       }
 
       v18 = [(HDClientDataCollectionTaskServer *)v1 _loggingClientProxy];
-      [v18 clientRemote_receivedBatch:v61 error:0];
+      [v18 clientRemote_receivedBatch:v60 error:0];
 
       v19 = [(HDClientDataCollectionTaskServer *)v1 _loggingClientProxy];
-      [v19 clientRemote_finishedPersistenceForBatch:v61 error:0];
+      [v19 clientRemote_finishedPersistenceForBatch:v60 error:0];
 
-      v62[2](v62, 1, 0);
+      v61[2](v61, 1, 0);
     }
 
     else
     {
-      v17 = [MEMORY[0x277CCA9B8] hk_error:114 format:{@"Server synchronization failed (expected %@, got %@)", *(v1 + 80), v63}];
-      (v62)[2](v62, 0, v17);
+      v17 = [MEMORY[0x277CCA9B8] hk_error:114 format:{@"Server synchronization failed (expected %@, got %@)", *(v1 + 80), v62}];
+      (v61)[2](v61, 0, v17);
     }
   }
 
 LABEL_41:
-
-  v54 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remote_registerWithCompletion:(id)completion
@@ -473,21 +466,19 @@ LABEL_41:
 
 void __66__HDClientDataCollectionTaskServer_remote_registerWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC298];
   if (os_log_type_enabled(*MEMORY[0x277CCC298], OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Couldn't flush data to client with error: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Couldn't flush data to client with error: %{public}@", &v6, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __66__HDClientDataCollectionTaskServer_remote_registerWithCompletion___block_invoke_312(uint64_t a1)
@@ -526,7 +517,7 @@ void __66__HDClientDataCollectionTaskServer_remote_registerWithCompletion___bloc
 
 - (void)connectionInvalidated
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   profile = [(HDStandardTaskServer *)self profile];
   daemon = [profile daemon];
   isTerminating = [daemon isTerminating];
@@ -542,21 +533,19 @@ void __66__HDClientDataCollectionTaskServer_remote_registerWithCompletion___bloc
       bundleIdentifier = [(HKDataCollectorTaskServerConfiguration *)self->_configuration bundleIdentifier];
       v10 = [(HDDataAggregator *)self->_aggregator description];
       *buf = 138543874;
-      v14 = v8;
-      v15 = 2114;
-      v16 = bundleIdentifier;
-      v17 = 2114;
-      v18 = v10;
+      v13 = v8;
+      v14 = 2114;
+      v15 = bundleIdentifier;
+      v16 = 2114;
+      v17 = v10;
       _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "Unregistering data collector %{public}@ with bundle identifier %{public}@ from data aggregator: %{public}@", buf, 0x20u);
     }
 
     [(HDDataAggregator *)self->_aggregator unregisterDataCollector:self];
-    v12.receiver = self;
-    v12.super_class = HDClientDataCollectionTaskServer;
-    [(HDStandardTaskServer *)&v12 connectionInvalidated];
+    v11.receiver = self;
+    v11.super_class = HDClientDataCollectionTaskServer;
+    [(HDStandardTaskServer *)&v11 connectionInvalidated];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_loggingClientProxy
@@ -605,21 +594,19 @@ void __72__HDClientDataCollectionTaskServer__didFinishPersistenceForBatch_error_
 
 void __55__HDClientDataCollectionTaskServer__loggingClientProxy__block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC298];
   if (os_log_type_enabled(*MEMORY[0x277CCC298], OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Error during XPC call to client proxy: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Error during XPC call to client proxy: %{public}@", &v6, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)beginCollectionForDataAggregator:(id)aggregator lastPersistedSensorDatum:(id)datum
@@ -641,7 +628,7 @@ void __55__HDClientDataCollectionTaskServer__loggingClientProxy__block_invoke(ui
 
 void __94__HDClientDataCollectionTaskServer_beginCollectionForDataAggregator_lastPersistedSensorDatum___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 80);
   _HKInitializeLogging();
   v3 = *MEMORY[0x277CCC298];
@@ -651,9 +638,9 @@ void __94__HDClientDataCollectionTaskServer_beginCollectionForDataAggregator_las
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       v5 = *(a1 + 32);
-      v15 = 138543362;
-      v16 = v5;
-      _os_log_error_impl(&dword_228986000, v3, OS_LOG_TYPE_ERROR, "%{public}@: Ignoring duplicate registration request", &v15, 0xCu);
+      v13 = 138543362;
+      v14 = v5;
+      _os_log_error_impl(&dword_228986000, v3, OS_LOG_TYPE_ERROR, "%{public}@: Ignoring duplicate registration request", &v13, 0xCu);
     }
   }
 
@@ -663,11 +650,11 @@ void __94__HDClientDataCollectionTaskServer_beginCollectionForDataAggregator_las
     {
       v6 = *(a1 + 32);
       v7 = *(a1 + 40);
-      v15 = 138543618;
-      v16 = v6;
-      v17 = 2114;
-      v18 = v7;
-      _os_log_impl(&dword_228986000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Beginning collection for aggregator: %{public}@", &v15, 0x16u);
+      v13 = 138543618;
+      v14 = v6;
+      v15 = 2114;
+      v16 = v7;
+      _os_log_impl(&dword_228986000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Beginning collection for aggregator: %{public}@", &v13, 0x16u);
     }
 
     v8 = [MEMORY[0x277CCAD78] UUID];
@@ -675,23 +662,20 @@ void __94__HDClientDataCollectionTaskServer_beginCollectionForDataAggregator_las
     v10 = *(v9 + 80);
     *(v9 + 80) = v8;
 
-    v11 = *(a1 + 48);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v12 = [MEMORY[0x277CCD7F0] quantityDatumWithHDQuantityDatum:*(a1 + 48)];
+      v11 = [MEMORY[0x277CCD7F0] quantityDatumWithHDQuantityDatum:*(a1 + 48)];
     }
 
     else
     {
-      v12 = 0;
+      v11 = 0;
     }
 
-    v13 = [(HDClientDataCollectionTaskServer *)*(a1 + 32) _loggingClientProxy];
-    [v13 clientRemote_beginCollectionWithConfiguration:*(*(a1 + 32) + 96) lastPersistedDatum:v12 registrationUUID:*(*(a1 + 32) + 80)];
+    v12 = [(HDClientDataCollectionTaskServer *)*(a1 + 32) _loggingClientProxy];
+    [v12 clientRemote_beginCollectionWithConfiguration:*(*(a1 + 32) + 96) lastPersistedDatum:v11 registrationUUID:*(*(a1 + 32) + 80)];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dataAggregator:(id)aggregator wantsCollectionWithConfiguration:(id)configuration
@@ -749,33 +733,33 @@ void __84__HDClientDataCollectionTaskServer_dataAggregator_wantsCollectionWithCo
 
 void __82__HDClientDataCollectionTaskServer_dataAggregator_didPersistDatums_success_error___block_invoke(uint64_t a1)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   if (*(a1 + 56))
   {
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     v2 = *(a1 + 40);
-    v3 = [v2 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v3 = [v2 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v3)
     {
       v5 = v3;
-      v6 = *v23;
+      v6 = *v22;
       v7 = MEMORY[0x277CCC298];
       *&v4 = 138543362;
-      v21 = v4;
+      v20 = v4;
       do
       {
         v8 = 0;
         do
         {
-          if (*v23 != v6)
+          if (*v22 != v6)
           {
             objc_enumerationMutation(v2);
           }
 
-          v9 = *(*(&v22 + 1) + 8 * v8);
+          v9 = *(*(&v21 + 1) + 8 * v8);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -789,8 +773,8 @@ void __82__HDClientDataCollectionTaskServer_dataAggregator_didPersistDatums_succ
               if (os_log_type_enabled(*v7, OS_LOG_TYPE_DEFAULT))
               {
                 v13 = *(a1 + 32);
-                *buf = v21;
-                v28 = v13;
+                *buf = v20;
+                v27 = v13;
                 _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@: Calling completion for datum(s) inserted via HKDataCollector", buf, 0xCu);
               }
 
@@ -803,38 +787,33 @@ void __82__HDClientDataCollectionTaskServer_dataAggregator_didPersistDatums_succ
         }
 
         while (v5 != v8);
-        v5 = [v2 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v5 = [v2 countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v5);
     }
+
+    goto LABEL_15;
   }
 
-  else
+  _HKInitializeLogging();
+  v15 = *MEMORY[0x277CCC298];
+  if (os_log_type_enabled(*MEMORY[0x277CCC298], OS_LOG_TYPE_ERROR))
   {
-    _HKInitializeLogging();
-    v15 = *MEMORY[0x277CCC298];
-    if (!os_log_type_enabled(*MEMORY[0x277CCC298], OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_17;
-    }
-
-    v18 = *(a1 + 32);
-    v17 = *(a1 + 40);
+    v17 = *(a1 + 32);
+    v16 = *(a1 + 40);
     v2 = v15;
-    v19 = [v17 count];
-    v20 = *(a1 + 48);
+    v18 = [v16 count];
+    v19 = *(a1 + 48);
     *buf = 138543874;
-    v28 = v18;
-    v29 = 2048;
-    v30 = v19;
-    v31 = 2114;
-    v32 = v20;
+    v27 = v17;
+    v28 = 2048;
+    v29 = v18;
+    v30 = 2114;
+    v31 = v19;
     _os_log_error_impl(&dword_228986000, v2, OS_LOG_TYPE_ERROR, "%{public}@: Failed persistence for %ld datums: %{public}@", buf, 0x20u);
+LABEL_15:
   }
-
-LABEL_17:
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dataAggregator:(id)aggregator requestsCollectionThroughDate:(id)date completion:(id)completion
@@ -915,7 +894,7 @@ void __92__HDClientDataCollectionTaskServer_dataAggregator_requestsCollectionThr
 
 void __92__HDClientDataCollectionTaskServer_dataAggregator_requestsCollectionThroughDate_completion___block_invoke_2(uint64_t a1, int a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC298];
   v5 = *MEMORY[0x277CCC298];
@@ -926,14 +905,14 @@ void __92__HDClientDataCollectionTaskServer_dataAggregator_requestsCollectionThr
       goto LABEL_6;
     }
 
-    v15 = *(a1 + 32);
+    v14 = *(a1 + 32);
     v7 = v4;
-    v8 = [v15 bundleIdentifier];
-    v16 = *(a1 + 64);
+    v8 = [v14 bundleIdentifier];
+    v15 = *(a1 + 64);
     *buf = 138543618;
-    v22 = v8;
-    v23 = 1024;
-    v24 = v16;
+    v21 = v8;
+    v22 = 1024;
+    v23 = v15;
     _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "Failed to acquire data collection flush assertion for %{public}@ (%d)", buf, 0x12u);
     goto LABEL_4;
   }
@@ -945,9 +924,9 @@ void __92__HDClientDataCollectionTaskServer_dataAggregator_requestsCollectionThr
     v8 = [v6 bundleIdentifier];
     v9 = *(a1 + 64);
     *buf = 138543618;
-    v22 = v8;
-    v23 = 1024;
-    v24 = v9;
+    v21 = v8;
+    v22 = 1024;
+    v23 = v9;
     _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_INFO, "Acquired data collection flush assertion for %{public}@ (%d)", buf, 0x12u);
 LABEL_4:
   }
@@ -955,54 +934,50 @@ LABEL_4:
 LABEL_6:
   v10 = [*(a1 + 40) client];
   v11 = [v10 connection];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __92__HDClientDataCollectionTaskServer_dataAggregator_requestsCollectionThroughDate_completion___block_invoke_347;
-  v19[3] = &unk_27861A378;
-  v19[4] = *(a1 + 40);
-  v20 = *(a1 + 56);
-  v12 = [v11 remoteObjectProxyWithErrorHandler:v19];
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __92__HDClientDataCollectionTaskServer_dataAggregator_requestsCollectionThroughDate_completion___block_invoke_347;
+  v18[3] = &unk_27861A378;
+  v18[4] = *(a1 + 40);
+  v19 = *(a1 + 56);
+  v12 = [v11 remoteObjectProxyWithErrorHandler:v18];
 
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __92__HDClientDataCollectionTaskServer_dataAggregator_requestsCollectionThroughDate_completion___block_invoke_2_349;
-  v17[3] = &unk_2786173C8;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __92__HDClientDataCollectionTaskServer_dataAggregator_requestsCollectionThroughDate_completion___block_invoke_2_349;
+  v16[3] = &unk_2786173C8;
   v13 = *(a1 + 48);
-  v17[4] = *(a1 + 40);
-  v18 = *(a1 + 56);
-  [v12 clientRemote_collectThroughDate:v13 completion:v17];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v16[4] = *(a1 + 40);
+  v17 = *(a1 + 56);
+  [v12 clientRemote_collectThroughDate:v13 completion:v16];
 }
 
 void __92__HDClientDataCollectionTaskServer_dataAggregator_requestsCollectionThroughDate_completion___block_invoke_347(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC298];
   if (os_log_type_enabled(*MEMORY[0x277CCC298], OS_LOG_TYPE_ERROR))
   {
-    v9 = *(a1 + 32);
+    v8 = *(a1 + 32);
     *buf = 138543618;
-    v14 = v9;
-    v15 = 2114;
-    v16 = v3;
+    v13 = v8;
+    v14 = 2114;
+    v15 = v3;
     _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Failed to request data collection flush from client: %{public}@", buf, 0x16u);
   }
 
   v5 = *(*(a1 + 32) + 40);
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __92__HDClientDataCollectionTaskServer_dataAggregator_requestsCollectionThroughDate_completion___block_invoke_348;
-  v10[3] = &unk_278614008;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __92__HDClientDataCollectionTaskServer_dataAggregator_requestsCollectionThroughDate_completion___block_invoke_348;
+  v9[3] = &unk_278614008;
   v6 = *(a1 + 40);
-  v11 = v3;
-  v12 = v6;
+  v10 = v3;
+  v11 = v6;
   v7 = v3;
-  dispatch_sync(v5, v10);
-
-  v8 = *MEMORY[0x277D85DE8];
+  dispatch_sync(v5, v9);
 }
 
 void __92__HDClientDataCollectionTaskServer_dataAggregator_requestsCollectionThroughDate_completion___block_invoke_2_349(uint64_t a1, char a2, void *a3)

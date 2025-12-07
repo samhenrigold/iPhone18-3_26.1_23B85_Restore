@@ -19,6 +19,7 @@
 + (BOOL)registerSerializationClass:(Class)class
 {
   v4 = [(objc_class *)class conformsToProtocol:&unk_283803278];
+  v5 = v4;
   if (v4)
   {
     [(objc_class *)class registerForSerialization];
@@ -26,14 +27,14 @@
 
   else
   {
-    v5 = _PTLogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _PTLogSystem(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [(PTSerialization *)class registerSerializationClass:v5];
+      [(PTSerialization *)class registerSerializationClass:v6];
     }
   }
 
-  return v4;
+  return v5;
 }
 
 + (unint64_t)sizeOfSerializedObject:(id)object options:(id)options
@@ -144,7 +145,7 @@ LABEL_7:
 + (void)registerTypeInfo:(id)info
 {
   infoCopy = info;
-  v4 = _PTLogSystem();
+  v4 = _PTLogSystem(infoCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [(PTSerialization *)infoCopy registerTypeInfo:v4];

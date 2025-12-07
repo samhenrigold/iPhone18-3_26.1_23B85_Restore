@@ -21,7 +21,7 @@
 - (void)loadView
 {
   selfCopy = self;
-  sub_1BD291838();
+  sub_1BD291838(selfCopy);
 }
 
 - (void)viewWillLayoutSubviews

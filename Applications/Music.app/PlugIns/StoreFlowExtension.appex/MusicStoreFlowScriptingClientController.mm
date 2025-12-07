@@ -1,6 +1,7 @@
 @interface MusicStoreFlowScriptingClientController
 + (id)sharedScriptingClientController;
 - (BOOL)clientInterface:(id)interface isAllowedToOpenExternalURL:(id)l;
+- (BOOL)presentAccountViewController:(id)controller showNavigationBar:(BOOL)bar animated:(BOOL)animated;
 - (MusicStoreFlowScriptingClientController)init;
 - (id)_correspondingStoreFlowServiceViewControllerForViewController:(id)controller;
 - (void)_activateStoreFlowServiceViewController:(id)controller;
@@ -8,7 +9,10 @@
 - (void)_handleApplicationDidEnterBackgroundNotification:(id)notification;
 - (void)_handleApplicationWillEnterForegroundNotification:(id)notification;
 - (void)applyCloudServiceSetupConfiguration:(id)configuration;
+- (void)clientInterface:(id)interface dismissSafariViewControllerAnimated:(BOOL)animated fromViewController:(id)controller completion:(id)completion;
+- (void)clientInterface:(id)interface dismissViewController:(id)controller animated:(BOOL)animated completion:(id)completion;
 - (void)clientInterface:(id)interface overrideCreditCardPresentationFromViewController:(id)controller completion:(id)completion;
+- (void)clientInterface:(id)interface presentSafariViewControllerWithURL:(id)l fromViewController:(id)controller animated:(BOOL)animated completion:(id)completion;
 - (void)dealloc;
 - (void)registerStoreFlowServiceViewController:(id)controller;
 - (void)storeFlowServiceViewControllerDidLoad:(id)load;
@@ -106,6 +110,60 @@
     [(MusicStoreFlowScriptingClientController *)self _activateStoreFlowServiceViewController:appearCopy];
     v5 = appearCopy;
   }
+}
+
+- (BOOL)presentAccountViewController:(id)controller showNavigationBar:(BOOL)bar animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  barCopy = bar;
+  controllerCopy = controller;
+  v9 = [[SUNavigationController alloc] initWithRootViewController:controllerCopy];
+  clientInterface = [controllerCopy clientInterface];
+
+  [v9 setClientInterface:clientInterface];
+  [v9 setNavigationBarHidden:!barCopy];
+  rootViewController = [(MusicStoreFlowScriptingClientController *)self rootViewController];
+  LOBYTE(animatedCopy) = [rootViewController storeFlowScriptingClientController:self requestsPresentingViewController:v9 animated:animatedCopy];
+
+  return animatedCopy;
+}
+
+- (void)clientInterface:(id)interface dismissViewController:(id)controller animated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  controllerCopy = controller;
+  completionCopy = completion;
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v10 = [controllerCopy adjustedTargetForSelector:"self"];
+  }
+
+  else
+  {
+    v10 = controllerCopy;
+  }
+
+  v11 = v10;
+  v12 = [(MusicStoreFlowScriptingClientController *)self _correspondingStoreFlowServiceViewControllerForViewController:controllerCopy];
+  [v12 storeFlowScriptingClientController:self requestsDismissingViewController:v11 animated:animatedCopy completion:completionCopy];
+}
+
+- (void)clientInterface:(id)interface presentSafariViewControllerWithURL:(id)l fromViewController:(id)controller animated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  completionCopy = completion;
+  lCopy = l;
+  v13 = [(MusicStoreFlowScriptingClientController *)self _correspondingStoreFlowServiceViewControllerForViewController:controller];
+  [v13 storeFlowScriptingClientController:self requestsPresentingSafariViewControllerWithURL:lCopy animated:animatedCopy completion:completionCopy];
+}
+
+- (void)clientInterface:(id)interface dismissSafariViewControllerAnimated:(BOOL)animated fromViewController:(id)controller completion:(id)completion
+{
+  animatedCopy = animated;
+  completionCopy = completion;
+  v10 = [(MusicStoreFlowScriptingClientController *)self _correspondingStoreFlowServiceViewControllerForViewController:controller];
+  [v10 storeFlowScriptingClientController:self requestsDismissingSafariViewControllerAnimated:animatedCopy completion:completionCopy];
 }
 
 - (BOOL)clientInterface:(id)interface isAllowedToOpenExternalURL:(id)l

@@ -3,6 +3,7 @@
 + (id)nullIdentity;
 - (BOOL)_equalsSEPPrivateKey:(__SecKey *)key;
 - (BOOL)signDataPtr:(const void *)ptr dataLen:(unint64_t)len signatureBytes:(unsigned __int8)bytes[64] error:(id *)error;
+- (BOOL)verifyAuthTag:(id)tag data:(id)data type:(int)type error:(id *)error;
 - (BOOL)verifyAuthTagPtr:(const void *)ptr authTagLen:(unint64_t)len dataPtr:(const void *)dataPtr dataLen:(unint64_t)dataLen type:(int)type error:(id *)error;
 - (BOOL)verifySignature:(id)signature data:(id)data error:(id *)error;
 - (BOOL)verifySignaturePtr:(const void *)ptr signatureLen:(unint64_t)len dataPtr:(const void *)dataPtr dataLen:(unint64_t)dataLen error:(id *)error;
@@ -157,10 +158,10 @@ void __26__RPIdentity_nullIdentity__block_invoke()
 
 - (RPIdentity)initWithType:(int)type
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v13.receiver = self;
-  v13.super_class = RPIdentity;
-  v4 = [(RPIdentity *)&v13 init];
+  v15 = *MEMORY[0x1E69E9840];
+  v12.receiver = self;
+  v12.super_class = RPIdentity;
+  v4 = [(RPIdentity *)&v12 init];
   v5 = v4;
   if (v4)
   {
@@ -168,7 +169,7 @@ void __26__RPIdentity_nullIdentity__block_invoke()
     if ((type & 0xFFFFFFFB) == 0xA)
     {
       cced25519_make_key_pair_compat();
-      v6 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v15 length:32];
+      v6 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v14 length:32];
       edPKData = v5->_edPKData;
       v5->_edPKData = v6;
 
@@ -182,7 +183,6 @@ void __26__RPIdentity_nullIdentity__block_invoke()
     v10 = v5;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -427,22 +427,27 @@ void __26__RPIdentity_nullIdentity__block_invoke()
 
 - (id)descriptionWithLevel:(int)level
 {
-  v4 = shouldPrintSensitiveData();
-  v88 = 0;
-  NSAppendPrintF();
-  v5 = 0;
+  v4 = shouldPrintSensitiveData(self, a2);
+  v125 = 0;
+  NSAppendPrintF(&v125, "RPIdentity");
+  v5 = v125;
   v6 = v5;
   type = self->_type;
   if (type)
   {
-    v87 = v5;
-    if (type <= 0x10)
+    v124 = v5;
+    if (type > 0x10)
+    {
+      v8 = "?";
+    }
+
+    else
     {
       v8 = off_1E7C94770[type - 1];
     }
 
-    NSAppendPrintF();
-    v9 = v87;
+    NSAppendPrintF(&v124, ", Type %s", v8);
+    v9 = v124;
 
     v6 = v9;
   }
@@ -459,290 +464,303 @@ void __26__RPIdentity_nullIdentity__block_invoke()
   {
     if (!v10)
     {
-      goto LABEL_10;
+      goto LABEL_11;
     }
 
-    v86[9] = v6;
-    formatSensitiveData(", ID ", v4);
-    NSAppendPrintF();
-    v13 = v6;
+    v123 = v6;
+    v13 = formatSensitiveData(", ID ", v4);
+    NSAppendPrintF(&v123, v13, v10);
+    v14 = v123;
     v12 = v6;
-    v6 = v13;
+    v6 = v14;
   }
 
-LABEL_10:
+LABEL_11:
   if (v11)
   {
-    v86[8] = v6;
-    formatSensitiveData(", IDS ", v4);
-    NSAppendPrintF();
-    v14 = v6;
+    v122 = v6;
+    v15 = formatSensitiveData(", IDS ", v4);
+    NSAppendPrintF(&v122, v15, v11);
+    v16 = v122;
 
-    v6 = v14;
+    v6 = v16;
   }
 
   accountAltDSID = self->_accountAltDSID;
   if (accountAltDSID)
   {
-    v86[7] = v6;
-    v16 = accountAltDSID;
-    formatSensitiveData(", AccountAltDSID ", v4);
-    NSAppendPrintF();
-    v17 = v6;
+    v121 = v6;
+    v18 = accountAltDSID;
+    v19 = formatSensitiveData(", AccountAltDSID ", v4);
+    NSAppendPrintF(&v121, v19, v18);
+    v20 = v121;
 
-    v6 = v17;
+    v6 = v20;
   }
 
   accountID = self->_accountID;
   if (accountID)
   {
-    v86[6] = v6;
-    v19 = accountID;
-    formatSensitiveData(", AID ", v4);
-    NSAppendPrintF();
-    v20 = v6;
+    v120 = v6;
+    v22 = accountID;
+    v23 = formatSensitiveData(", AID ", v4);
+    NSAppendPrintF(&v120, v23, v22);
+    v24 = v120;
 
-    v6 = v20;
+    v6 = v24;
   }
 
   name = self->_name;
   if (name)
   {
-    v86[5] = v6;
-    v22 = name;
-    formatSensitiveData(", Nm ", v4);
-    NSAppendPrintF();
-    v23 = v6;
+    v119 = v6;
+    v26 = name;
+    v27 = formatSensitiveData(", Nm ", v4);
+    NSAppendPrintF(&v119, v27, v26);
+    v28 = v119;
 
-    v6 = v23;
+    v6 = v28;
   }
 
   homeKitUserIdentifier = self->_homeKitUserIdentifier;
   if (homeKitUserIdentifier)
   {
-    v86[4] = v6;
-    v25 = homeKitUserIdentifier;
-    formatSensitiveData(", HKUID ", v4);
-    NSAppendPrintF();
-    v26 = v6;
+    v118 = v6;
+    v30 = homeKitUserIdentifier;
+    v31 = formatSensitiveData(", HKUID ", v4);
+    NSAppendPrintF(&v118, v31, v30);
+    v32 = v118;
 
-    v6 = v26;
+    v6 = v32;
   }
 
   mediaRemoteID = self->_mediaRemoteID;
   if (mediaRemoteID)
   {
-    v86[3] = v6;
-    v28 = mediaRemoteID;
-    formatSensitiveData(", MRI ", v4);
-    NSAppendPrintF();
-    v29 = v6;
+    v117 = v6;
+    v34 = mediaRemoteID;
+    v35 = formatSensitiveData(", MRI ", v4);
+    NSAppendPrintF(&v117, v35, v34);
+    v36 = v117;
 
-    v6 = v29;
+    v6 = v36;
   }
 
   sendersKnownAlias = self->_sendersKnownAlias;
   if (sendersKnownAlias)
   {
-    v86[2] = v6;
-    v31 = sendersKnownAlias;
-    formatSensitiveData(", SKA ", v4);
-    NSAppendPrintF();
-    v32 = v6;
+    v116 = v6;
+    v38 = sendersKnownAlias;
+    v39 = formatSensitiveData(", SKA ", v4);
+    NSAppendPrintF(&v116, v39, v38);
+    v40 = v116;
 
-    v6 = v32;
+    v6 = v40;
   }
 
   model = self->_model;
   if (model)
   {
-    v86[1] = v6;
-    v34 = model;
-    formatSensitiveData(", Md ", v4);
-    NSAppendPrintF();
-    v35 = v6;
+    v115 = v6;
+    v42 = model;
+    v43 = formatSensitiveData(", Md ", v4);
+    NSAppendPrintF(&v115, v43, v42);
+    v44 = v115;
 
-    v6 = v35;
+    v6 = v44;
   }
 
-  v36 = self->_mediaRouteID;
-  v37 = v36;
-  if (v36)
+  v45 = self->_mediaRouteID;
+  v46 = v45;
+  if (v45)
   {
-    if ([(NSString *)v36 isEqual:self->_identifier])
+    if ([(NSString *)v45 isEqual:self->_identifier])
     {
-      v86[0] = v6;
-      v38 = v86;
+      v114 = v6;
+      v47 = &v114;
+      NSAppendPrintF(&v114, ", MRtI ~", v96);
     }
 
     else
     {
-      v85 = v6;
-      formatSensitiveData(", MRtI ", v4);
-      v38 = &v85;
+      v113 = v6;
+      v48 = formatSensitiveData(", MRtI ", v4);
+      v47 = &v113;
+      NSAppendPrintF(&v113, v48, v46);
     }
 
-    NSAppendPrintF();
-    v39 = *v38;
+    v49 = *v47;
 
-    v6 = v39;
+    v6 = v49;
   }
 
   contactID = self->_contactID;
   if (contactID)
   {
-    v41 = contactID;
-    formatSensitiveData(", CNID ", v4);
-    NSAppendPrintF();
-    v42 = v6;
+    v112 = v6;
+    v51 = contactID;
+    v52 = formatSensitiveData(", CNID ", v4);
+    NSAppendPrintF(&v112, v52, v51);
+    v53 = v112;
 
-    v6 = v42;
+    v6 = v53;
   }
 
   allUsedSendersKnownAliases = self->_allUsedSendersKnownAliases;
   if (allUsedSendersKnownAliases)
   {
-    v44 = allUsedSendersKnownAliases;
-    v45 = [(NSArray *)v44 componentsJoinedByString:@" "];
-    formatSensitiveData(", Used SKAs ", v4);
-    NSAppendPrintF();
-    v46 = v6;
+    v55 = allUsedSendersKnownAliases;
+    v56 = [(NSArray *)v55 componentsJoinedByString:@" "];
+    v111 = v6;
+    v57 = formatSensitiveData(", Used SKAs ", v4);
+    NSAppendPrintF(&v111, v57, v56);
+    v58 = v111;
 
-    v6 = v46;
+    v6 = v58;
   }
 
-  revisionID = self->_revisionID;
-  NSAppendPrintF();
-  v47 = v6;
+  v110 = v6;
+  NSAppendPrintF(&v110, ", Rev %u", self->_revisionID);
+  v59 = v110;
 
   if (v4)
   {
     deviceIRKData = self->_deviceIRKData;
     if (deviceIRKData)
     {
-      revisionID = deviceIRKData;
-      NSAppendPrintF();
-      v49 = v47;
+      v109 = v59;
+      v61 = deviceIRKData;
+      NSAppendPrintF(&v109, ", dIRK %{mask}", v61);
+      v62 = v109;
 
-      v47 = v49;
+      v59 = v62;
     }
 
     edPKData = self->_edPKData;
     if (edPKData)
     {
-      v51 = edPKData;
-      [(NSData *)v51 length];
-      NSAppendPrintF();
-      v52 = v47;
+      v108 = v59;
+      v64 = edPKData;
+      NSAppendPrintF(&v108, ", EdPK <%.3@> %d B", v64, [(NSData *)v64 length]);
+      v65 = v108;
 
-      v47 = v52;
+      v59 = v65;
     }
 
     edSKData = self->_edSKData;
     if (edSKData)
     {
-      v54 = edSKData;
-      [(NSData *)v54 length];
-      NSAppendPrintF();
-      v55 = v47;
+      v107 = v59;
+      v67 = edSKData;
+      NSAppendPrintF(&v107, ", EdSK %d B", [(NSData *)v67 length]);
+      v68 = v107;
 
-      v47 = v55;
+      v59 = v68;
     }
 
     if (self->_sepPrivateKey)
     {
-      NSAppendPrintF();
-      v56 = v47;
+      v106 = v59;
+      NSAppendPrintF(&v106, ", SEP");
+      v69 = v106;
 
-      v47 = v56;
+      v59 = v69;
     }
 
     btIRKData = self->_btIRKData;
     if (btIRKData)
     {
-      v76 = btIRKData;
-      NSAppendPrintF();
-      v58 = v47;
+      v105 = v59;
+      v71 = btIRKData;
+      NSAppendPrintF(&v105, ", bIRK %{mask}", v71);
+      v72 = v105;
 
-      v47 = v58;
+      v59 = v72;
     }
 
     btAddress = self->_btAddress;
     if (btAddress)
     {
-      v77 = btAddress;
-      NSAppendPrintF();
-      v60 = v47;
+      v104 = v59;
+      v74 = btAddress;
+      NSAppendPrintF(&v104, ", bAdd %{mask}'", v74);
+      v75 = v104;
 
-      v47 = v60;
+      v59 = v75;
     }
 
     dateAdded = self->_dateAdded;
     if (dateAdded)
     {
-      v78 = dateAdded;
-      NSAppendPrintF();
-      v62 = v47;
+      v103 = v59;
+      v77 = dateAdded;
+      NSAppendPrintF(&v103, ", Added %@", v77);
+      v78 = v103;
 
-      v47 = v62;
+      v59 = v78;
     }
 
     dateRequested = self->_dateRequested;
     if (dateRequested)
     {
-      v79 = dateRequested;
-      NSAppendPrintF();
-      v64 = v47;
+      v102 = v59;
+      v80 = dateRequested;
+      NSAppendPrintF(&v102, ", Req %@", v80);
+      v81 = v102;
 
-      v47 = v64;
+      v59 = v81;
     }
 
     dateAcknowledged = self->_dateAcknowledged;
     if (dateAcknowledged)
     {
-      v80 = dateAcknowledged;
-      NSAppendPrintF();
-      v66 = v47;
+      v101 = v59;
+      v83 = dateAcknowledged;
+      NSAppendPrintF(&v101, ", Ack %@", v83);
+      v84 = v101;
 
-      v47 = v66;
+      v59 = v84;
     }
 
     dateRemoved = self->_dateRemoved;
     if (dateRemoved)
     {
-      v81 = dateRemoved;
-      NSAppendPrintF();
-      v68 = v47;
+      v100 = v59;
+      v86 = dateRemoved;
+      NSAppendPrintF(&v100, ", Removed %@", v86);
+      v87 = v100;
 
-      v47 = v68;
+      v59 = v87;
     }
 
-    if (self->_featureFlags)
+    featureFlags = self->_featureFlags;
+    if (featureFlags)
     {
-      featureFlags = self->_featureFlags;
-      NSAppendPrintF();
-      v69 = v47;
+      v99 = v59;
+      NSAppendPrintF(&v99, ", FFlags %#ll{flags}", featureFlags, &unk_1B6F2E520);
+      v89 = v99;
 
-      v47 = v69;
+      v59 = v89;
     }
 
     acl = self->_acl;
     if (acl)
     {
-      v83 = acl;
-      NSAppendPrintF();
-      v71 = v47;
+      v98 = v59;
+      v91 = acl;
+      NSAppendPrintF(&v98, ", ACL %@", v91);
+      v92 = v98;
 
-      v47 = v71;
+      v59 = v92;
     }
   }
 
-  source = self->_source;
-  NSAppendPrintF();
-  v72 = v47;
+  v97 = v59;
+  NSAppendPrintF(&v97, ", Src %u", self->_source);
+  v93 = v97;
 
-  v73 = v72;
-  return v72;
+  v94 = v93;
+  return v93;
 }
 
 - (unsigned)compareWithRPIdentity:(id)identity
@@ -1264,615 +1282,615 @@ LABEL_9:
   metadata = [itemCopy metadata];
   secrets = [itemCopy secrets];
   identifier = [itemCopy identifier];
-  v9 = identifier;
+  v15 = identifier;
   if (!identifier)
   {
     if (error)
     {
-      *error = RPErrorF();
+      *error = RPErrorF(4294960588, "No identifier", v9, v10, v11, v12, v13, v14, v164);
     }
 
     goto LABEL_8;
   }
 
   identifier = self->_identifier;
-  v11 = identifier;
-  v12 = identifier;
-  v13 = v12;
-  if (v11 == v12)
+  v17 = identifier;
+  v18 = identifier;
+  v19 = v18;
+  if (v17 == v18)
   {
   }
 
   else
   {
-    if (!v12)
+    if (!v18)
     {
 
 LABEL_12:
-      objc_storeStrong(&self->_identifier, v9);
-      v15 = 32;
+      objc_storeStrong(&self->_identifier, v15);
+      v21 = 32;
       goto LABEL_13;
     }
 
-    v14 = [(NSString *)v11 isEqual:v12];
+    v20 = [(NSString *)v17 isEqual:v18];
 
-    if ((v14 & 1) == 0)
+    if ((v20 & 1) == 0)
     {
       goto LABEL_12;
     }
   }
 
-  v15 = 0;
+  v21 = 0;
 LABEL_13:
   type = [itemCopy type];
-  v171 = itemCopy;
-  v157 = v9;
+  v184 = itemCopy;
+  v170 = v15;
   if ([type isEqual:@"RPIdentity-FamilyAccount"])
   {
-    v167 = 0;
-    v17 = 3;
+    v180 = 0;
+    v23 = 3;
     goto LABEL_33;
   }
 
   if ([type isEqual:@"RPIdentity-FamilyDevice"])
   {
-    v167 = 0;
-    v17 = 4;
+    v180 = 0;
+    v23 = 4;
     goto LABEL_33;
   }
 
   if ([type isEqual:@"RPIdentity-FriendAccount"])
   {
-    v167 = 0;
-    v17 = 5;
+    v180 = 0;
+    v23 = 5;
     goto LABEL_33;
   }
 
   if ([type isEqual:@"RPIdentity-FriendDevice"])
   {
-    v167 = 0;
-    v17 = 6;
+    v180 = 0;
+    v23 = 6;
     goto LABEL_33;
   }
 
   if ([type isEqual:@"RPIdentity-PairedAccount"])
   {
-    v167 = 0;
-    v17 = 7;
+    v180 = 0;
+    v23 = 7;
     goto LABEL_33;
   }
 
   if ([type isEqual:@"RPIdentity-PairedDevice"])
   {
-    v167 = 0;
-    v17 = 8;
+    v180 = 0;
+    v23 = 8;
     goto LABEL_33;
   }
 
   if ([type isEqual:@"RPIdentity-SameAccountDevice"])
   {
-    v167 = 0;
-    v17 = 2;
+    v180 = 0;
+    v23 = 2;
     goto LABEL_33;
   }
 
   if ([type isEqual:@"RPIdentity-Self"])
   {
-    v167 = 0;
-    v17 = 1;
+    v180 = 0;
+    v23 = 1;
     goto LABEL_33;
   }
 
   if ([type isEqual:@"RPIdentity-SharedTVUserDevice"])
   {
-    v167 = 0;
-    v17 = 12;
+    v180 = 0;
+    v23 = 12;
     goto LABEL_33;
   }
 
   if ([type isEqual:@"RPIdentity-AdHocPaired"])
   {
-    v17 = 15;
-    v167 = 1;
+    v23 = 15;
+    v180 = 1;
 LABEL_33:
 
-    v165 = v17;
-    if (v17 != self->_type)
+    v178 = v23;
+    if (v23 != self->_type)
     {
-      self->_type = v17;
-      v15 |= 0x200u;
+      self->_type = v23;
+      v21 |= 0x200u;
     }
 
     objc_opt_class();
-    v18 = NSDictionaryGetNSArrayOfClass();
+    v24 = NSDictionaryGetNSArrayOfClass();
     accessGroups = self->_accessGroups;
-    v20 = v18;
-    v21 = accessGroups;
-    v22 = v21;
-    v156 = v20;
-    if (v20 == v21)
+    v26 = v24;
+    v27 = accessGroups;
+    v28 = v27;
+    v169 = v26;
+    if (v26 == v27)
     {
 
       goto LABEL_42;
     }
 
-    if ((v20 != 0) != (v21 == 0))
+    if ((v26 != 0) != (v27 == 0))
     {
-      v23 = v20;
-      v24 = [(NSArray *)v20 isEqual:v21];
+      v29 = v26;
+      v30 = [(NSArray *)v26 isEqual:v27];
 
-      if (v24)
+      if (v30)
       {
 LABEL_42:
         CFStringGetTypeID();
-        v25 = CFDictionaryGetTypedValue();
-        if (![v25 length])
+        v31 = CFDictionaryGetTypedValue();
+        if (![v31 length])
         {
           goto LABEL_50;
         }
 
         accountAltDSID = self->_accountAltDSID;
-        v27 = v25;
-        v28 = accountAltDSID;
-        v29 = v28;
-        if (v27 == v28)
+        v33 = v31;
+        v34 = accountAltDSID;
+        v35 = v34;
+        if (v33 == v34)
         {
 
           goto LABEL_50;
         }
 
-        if ((v27 != 0) != (v28 == 0))
+        if ((v33 != 0) != (v34 == 0))
         {
-          v30 = [(NSString *)v27 isEqual:v28];
+          v36 = [(NSString *)v33 isEqual:v34];
 
-          if (v30)
+          if (v36)
           {
 LABEL_50:
             CFStringGetTypeID();
-            v31 = CFDictionaryGetTypedValue();
-            v170 = v31;
-            if (![v31 length])
+            v37 = CFDictionaryGetTypedValue();
+            v183 = v37;
+            if (![v37 length])
             {
               goto LABEL_58;
             }
 
             accountID = self->_accountID;
-            v33 = v31;
-            v34 = accountID;
-            v35 = v34;
-            if (v33 == v34)
+            v39 = v37;
+            v40 = accountID;
+            v41 = v40;
+            if (v39 == v40)
             {
 
               goto LABEL_58;
             }
 
-            if ((v33 != 0) != (v34 == 0))
+            if ((v39 != 0) != (v40 == 0))
             {
-              v36 = [(NSString *)v33 isEqual:v34];
+              v42 = [(NSString *)v39 isEqual:v40];
 
-              if (v36)
+              if (v42)
               {
 LABEL_58:
                 CFStringGetTypeID();
-                v37 = CFDictionaryGetTypedValue();
-                v169 = v37;
-                if (![v37 length])
+                v43 = CFDictionaryGetTypedValue();
+                v182 = v43;
+                if (![v43 length])
                 {
                   goto LABEL_66;
                 }
 
                 contactID = self->_contactID;
-                v39 = v37;
-                v40 = contactID;
-                v41 = v40;
-                if (v39 == v40)
+                v45 = v43;
+                v46 = contactID;
+                v47 = v46;
+                if (v45 == v46)
                 {
 
                   goto LABEL_66;
                 }
 
-                if ((v39 != 0) != (v40 == 0))
+                if ((v45 != 0) != (v46 == 0))
                 {
-                  v42 = [(NSString *)v39 isEqual:v40];
+                  v48 = [(NSString *)v45 isEqual:v46];
 
-                  if (v42)
+                  if (v48)
                   {
 LABEL_66:
                     CFDateGetTypeID();
-                    v43 = CFDictionaryGetTypedValue();
-                    obj = v43;
-                    if (!v43)
+                    v49 = CFDictionaryGetTypedValue();
+                    obj = v49;
+                    if (!v49)
                     {
                       goto LABEL_74;
                     }
 
                     dateAcknowledged = self->_dateAcknowledged;
-                    v45 = v43;
-                    v46 = dateAcknowledged;
-                    v47 = v46;
-                    if (v45 == v46)
+                    v51 = v49;
+                    v52 = dateAcknowledged;
+                    v53 = v52;
+                    if (v51 == v52)
                     {
 
                       goto LABEL_74;
                     }
 
-                    if (v46)
+                    if (v52)
                     {
-                      v48 = [(NSDate *)v45 isEqual:v46];
+                      v54 = [(NSDate *)v51 isEqual:v52];
 
-                      if (v48)
+                      if (v54)
                       {
 LABEL_74:
                         CFDateGetTypeID();
-                        v49 = CFDictionaryGetTypedValue();
-                        v161 = v49;
-                        if (!v49)
+                        v55 = CFDictionaryGetTypedValue();
+                        v174 = v55;
+                        if (!v55)
                         {
                           goto LABEL_82;
                         }
 
                         dateAdded = self->_dateAdded;
-                        v51 = v49;
-                        v52 = dateAdded;
-                        v53 = v52;
-                        if (v51 == v52)
+                        v57 = v55;
+                        v58 = dateAdded;
+                        v59 = v58;
+                        if (v57 == v58)
                         {
 
                           goto LABEL_82;
                         }
 
-                        if (v52)
+                        if (v58)
                         {
-                          v54 = [(NSDate *)v51 isEqual:v52];
+                          v60 = [(NSDate *)v57 isEqual:v58];
 
-                          if (v54)
+                          if (v60)
                           {
 LABEL_82:
                             CFDateGetTypeID();
-                            v55 = CFDictionaryGetTypedValue();
+                            v61 = CFDictionaryGetTypedValue();
                             dateRemoved = self->_dateRemoved;
-                            v57 = v55;
-                            v58 = dateRemoved;
-                            v59 = v58;
-                            v154 = v57;
-                            if (v57 == v58)
+                            v63 = v61;
+                            v64 = dateRemoved;
+                            v65 = v64;
+                            v167 = v63;
+                            if (v63 == v64)
                             {
 
                               goto LABEL_89;
                             }
 
-                            if ((v57 != 0) != (v58 == 0))
+                            if ((v63 != 0) != (v64 == 0))
                             {
-                              v60 = v25;
-                              v61 = v11;
-                              v62 = v57;
-                              v63 = [(NSDate *)v57 isEqual:v58];
+                              v66 = v31;
+                              v67 = v17;
+                              v68 = v63;
+                              v69 = [(NSDate *)v63 isEqual:v64];
 
-                              v11 = v61;
-                              v25 = v60;
-                              if (v63)
+                              v17 = v67;
+                              v31 = v66;
+                              if (v69)
                               {
 LABEL_89:
                                 CFDateGetTypeID();
-                                v64 = CFDictionaryGetTypedValue();
-                                v65 = v64;
-                                if (!v64)
+                                v70 = CFDictionaryGetTypedValue();
+                                v71 = v70;
+                                if (!v70)
                                 {
                                   goto LABEL_97;
                                 }
 
                                 dateRequested = self->_dateRequested;
-                                v67 = v64;
-                                v68 = dateRequested;
-                                v69 = v68;
-                                if (v67 == v68)
+                                v73 = v70;
+                                v74 = dateRequested;
+                                v75 = v74;
+                                if (v73 == v74)
                                 {
 
                                   goto LABEL_97;
                                 }
 
-                                if (v68)
+                                if (v74)
                                 {
-                                  v70 = [(NSDate *)v67 isEqual:v68];
+                                  v76 = [(NSDate *)v73 isEqual:v74];
 
-                                  if (v70)
+                                  if (v76)
                                   {
 LABEL_97:
-                                    v71 = CFDictionaryGetCFDataOfLength();
-                                    v160 = v71;
-                                    if (!v71)
+                                    v77 = CFDictionaryGetCFDataOfLength();
+                                    v173 = v77;
+                                    if (!v77)
                                     {
                                       goto LABEL_105;
                                     }
 
                                     deviceIRKData = self->_deviceIRKData;
-                                    v73 = v71;
-                                    v74 = deviceIRKData;
-                                    v75 = v74;
-                                    if (v73 == v74)
+                                    v79 = v77;
+                                    v80 = deviceIRKData;
+                                    v81 = v80;
+                                    if (v79 == v80)
                                     {
 
                                       goto LABEL_105;
                                     }
 
-                                    if (v74)
+                                    if (v80)
                                     {
-                                      v76 = [(NSData *)v73 isEqual:v74];
+                                      v82 = [(NSData *)v79 isEqual:v80];
 
-                                      if (v76)
+                                      if (v82)
                                       {
 LABEL_105:
-                                        v77 = CFDictionaryGetCFDataOfLength();
-                                        v159 = v77;
-                                        if (!v77)
+                                        v83 = CFDictionaryGetCFDataOfLength();
+                                        v172 = v83;
+                                        if (!v83)
                                         {
                                           goto LABEL_113;
                                         }
 
                                         edPKData = self->_edPKData;
-                                        v79 = v77;
-                                        v80 = edPKData;
-                                        v81 = v80;
-                                        if (v79 == v80)
+                                        v85 = v83;
+                                        v86 = edPKData;
+                                        v87 = v86;
+                                        if (v85 == v86)
                                         {
 
                                           goto LABEL_113;
                                         }
 
-                                        if (v80)
+                                        if (v86)
                                         {
-                                          v82 = [(NSData *)v79 isEqual:v80];
+                                          v88 = [(NSData *)v85 isEqual:v86];
 
-                                          if (v82)
+                                          if (v88)
                                           {
 LABEL_113:
-                                            v83 = CFDictionaryGetCFDataOfLength();
-                                            v158 = v83;
-                                            if (!v83)
+                                            v89 = CFDictionaryGetCFDataOfLength();
+                                            v171 = v89;
+                                            if (!v89)
                                             {
                                               goto LABEL_121;
                                             }
 
                                             edSKData = self->_edSKData;
-                                            v85 = v83;
-                                            v86 = edSKData;
-                                            v87 = v86;
-                                            if (v85 == v86)
+                                            v91 = v89;
+                                            v92 = edSKData;
+                                            v93 = v92;
+                                            if (v91 == v92)
                                             {
 
                                               goto LABEL_121;
                                             }
 
-                                            if (v86)
+                                            if (v92)
                                             {
-                                              v88 = [(NSData *)v85 isEqual:v86];
+                                              v94 = [(NSData *)v91 isEqual:v92];
 
-                                              if (v88)
+                                              if (v94)
                                               {
 LABEL_121:
                                                 Int64 = CFDictionaryGetInt64();
                                                 if (Int64 != self->_featureFlags)
                                                 {
                                                   self->_featureFlags = Int64;
-                                                  v15 |= 0x400u;
+                                                  v21 |= 0x400u;
                                                 }
 
-                                                v153 = v65;
-                                                v90 = (v165 & 0xFFFFFFFB) == 2 || (v165 & 7) == 4;
-                                                v91 = v167;
-                                                if (v90)
+                                                v166 = v71;
+                                                v96 = (v178 & 0xFFFFFFFB) == 2 || (v178 & 7) == 4;
+                                                v97 = v180;
+                                                if (v96)
                                                 {
-                                                  v91 = 1;
+                                                  v97 = 1;
                                                 }
 
-                                                if (v91 == 1)
+                                                if (v97 == 1)
                                                 {
-                                                  v92 = v11;
-                                                  itemCopy = v171;
+                                                  v98 = v17;
+                                                  itemCopy = v184;
                                                 }
 
                                                 else
                                                 {
                                                   CFStringGetTypeID();
-                                                  v92 = CFDictionaryGetTypedValue();
-                                                  itemCopy = v171;
-                                                  if (!v92)
+                                                  v98 = CFDictionaryGetTypedValue();
+                                                  itemCopy = v184;
+                                                  if (!v98)
                                                   {
-                                                    v94 = 0;
+                                                    v100 = 0;
                                                     goto LABEL_140;
                                                   }
                                                 }
 
                                                 idsDeviceID = self->_idsDeviceID;
-                                                v94 = v92;
-                                                v95 = idsDeviceID;
-                                                v96 = v95;
-                                                if (v94 == v95)
+                                                v100 = v98;
+                                                v101 = idsDeviceID;
+                                                v102 = v101;
+                                                if (v100 == v101)
                                                 {
 
                                                   goto LABEL_140;
                                                 }
 
-                                                if (v95)
+                                                if (v101)
                                                 {
-                                                  v97 = [(NSString *)v94 isEqual:v95];
+                                                  v103 = [(NSString *)v100 isEqual:v101];
 
-                                                  if (v97)
+                                                  if (v103)
                                                   {
 LABEL_140:
                                                     CFStringGetTypeID();
-                                                    v98 = CFDictionaryGetTypedValue();
-                                                    v168 = v98;
-                                                    if (![v98 length])
+                                                    v104 = CFDictionaryGetTypedValue();
+                                                    v181 = v104;
+                                                    if (![v104 length])
                                                     {
                                                       goto LABEL_148;
                                                     }
 
                                                     mediaRemoteID = self->_mediaRemoteID;
-                                                    v100 = v98;
-                                                    v101 = mediaRemoteID;
-                                                    v102 = v101;
-                                                    if (v100 == v101)
+                                                    v106 = v104;
+                                                    v107 = mediaRemoteID;
+                                                    v108 = v107;
+                                                    if (v106 == v107)
                                                     {
 
                                                       goto LABEL_148;
                                                     }
 
-                                                    if ((v100 != 0) != (v101 == 0))
+                                                    if ((v106 != 0) != (v107 == 0))
                                                     {
-                                                      v103 = [(NSString *)v100 isEqual:v101];
+                                                      v109 = [(NSString *)v106 isEqual:v107];
 
-                                                      if (v103)
+                                                      if (v109)
                                                       {
 LABEL_148:
                                                         CFStringGetTypeID();
-                                                        v104 = CFDictionaryGetTypedValue();
-                                                        v166 = v104;
-                                                        if (![v104 length])
+                                                        v110 = CFDictionaryGetTypedValue();
+                                                        v179 = v110;
+                                                        if (![v110 length])
                                                         {
                                                           goto LABEL_156;
                                                         }
 
                                                         mediaRouteID = self->_mediaRouteID;
-                                                        v106 = v104;
-                                                        v107 = mediaRouteID;
-                                                        v108 = v107;
-                                                        if (v106 == v107)
+                                                        v112 = v110;
+                                                        v113 = mediaRouteID;
+                                                        v114 = v113;
+                                                        if (v112 == v113)
                                                         {
 
                                                           goto LABEL_156;
                                                         }
 
-                                                        if ((v106 != 0) != (v107 == 0))
+                                                        if ((v112 != 0) != (v113 == 0))
                                                         {
-                                                          v109 = [(NSString *)v106 isEqual:v107];
+                                                          v115 = [(NSString *)v112 isEqual:v113];
 
-                                                          if (v109)
+                                                          if (v115)
                                                           {
 LABEL_156:
                                                             CFStringGetTypeID();
-                                                            v110 = CFDictionaryGetTypedValue();
-                                                            v164 = v110;
-                                                            if (![v110 length])
+                                                            v116 = CFDictionaryGetTypedValue();
+                                                            v177 = v116;
+                                                            if (![v116 length])
                                                             {
                                                               goto LABEL_164;
                                                             }
 
                                                             model = self->_model;
-                                                            v112 = v110;
-                                                            v113 = model;
-                                                            v114 = v113;
-                                                            if (v112 == v113)
+                                                            v118 = v116;
+                                                            v119 = model;
+                                                            v120 = v119;
+                                                            if (v118 == v119)
                                                             {
 
                                                               goto LABEL_164;
                                                             }
 
-                                                            if ((v112 != 0) != (v113 == 0))
+                                                            if ((v118 != 0) != (v119 == 0))
                                                             {
-                                                              v115 = [(NSString *)v112 isEqual:v113];
+                                                              v121 = [(NSString *)v118 isEqual:v119];
 
-                                                              if (v115)
+                                                              if (v121)
                                                               {
 LABEL_164:
                                                                 name = [itemCopy name];
-                                                                v163 = name;
-                                                                v152 = v94;
+                                                                v176 = name;
+                                                                v165 = v100;
                                                                 if (![name length])
                                                                 {
                                                                   goto LABEL_172;
                                                                 }
 
                                                                 name = self->_name;
-                                                                v118 = name;
-                                                                v119 = name;
-                                                                v120 = v119;
-                                                                if (v118 == v119)
+                                                                v124 = name;
+                                                                v125 = name;
+                                                                v126 = v125;
+                                                                if (v124 == v125)
                                                                 {
 
                                                                   goto LABEL_172;
                                                                 }
 
-                                                                if ((v118 != 0) != (v119 == 0))
+                                                                if ((v124 != 0) != (v125 == 0))
                                                                 {
-                                                                  v121 = [(NSString *)v118 isEqual:v119];
+                                                                  v127 = [(NSString *)v124 isEqual:v125];
 
-                                                                  if (v121)
+                                                                  if (v127)
                                                                   {
 LABEL_172:
                                                                     self->_revisionID = CFDictionaryGetInt64Ranged();
                                                                     CFStringGetTypeID();
-                                                                    v122 = CFDictionaryGetTypedValue();
-                                                                    v155 = v25;
-                                                                    if (![v122 length])
+                                                                    v128 = CFDictionaryGetTypedValue();
+                                                                    v168 = v31;
+                                                                    if (![v128 length])
                                                                     {
                                                                       goto LABEL_180;
                                                                     }
 
                                                                     sendersKnownAlias = self->_sendersKnownAlias;
-                                                                    v124 = v122;
-                                                                    v125 = sendersKnownAlias;
-                                                                    v126 = v125;
-                                                                    if (v124 == v125)
+                                                                    v130 = v128;
+                                                                    v131 = sendersKnownAlias;
+                                                                    v132 = v131;
+                                                                    if (v130 == v131)
                                                                     {
 
                                                                       goto LABEL_180;
                                                                     }
 
-                                                                    if ((v124 != 0) != (v125 == 0))
+                                                                    if ((v130 != 0) != (v131 == 0))
                                                                     {
-                                                                      v127 = [(NSString *)v124 isEqual:v125];
+                                                                      v133 = [(NSString *)v130 isEqual:v131];
 
-                                                                      if (v127)
+                                                                      if (v133)
                                                                       {
 LABEL_180:
                                                                         objc_opt_class();
-                                                                        v128 = NSDictionaryGetNSArrayOfClass();
+                                                                        v134 = NSDictionaryGetNSArrayOfClass();
                                                                         allUsedSendersKnownAliases = self->_allUsedSendersKnownAliases;
-                                                                        v130 = v128;
-                                                                        v131 = allUsedSendersKnownAliases;
-                                                                        v132 = v131;
-                                                                        if (v130 == v131)
+                                                                        v136 = v134;
+                                                                        v137 = allUsedSendersKnownAliases;
+                                                                        v138 = v137;
+                                                                        if (v136 == v137)
                                                                         {
 
                                                                           goto LABEL_187;
                                                                         }
 
-                                                                        if ((v130 != 0) != (v131 == 0))
+                                                                        if ((v136 != 0) != (v137 == 0))
                                                                         {
-                                                                          v133 = [(NSArray *)v130 isEqual:v131];
+                                                                          v139 = [(NSArray *)v136 isEqual:v137];
 
-                                                                          if (v133)
+                                                                          if (v139)
                                                                           {
 LABEL_187:
-                                                                            v134 = CFDictionaryGetInt64() != 0;
-                                                                            if (self->_userAdded != v134)
+                                                                            v140 = CFDictionaryGetInt64() != 0;
+                                                                            if (self->_userAdded != v140)
                                                                             {
-                                                                              self->_userAdded = v134;
-                                                                              v15 |= 0x4000u;
+                                                                              self->_userAdded = v140;
+                                                                              v21 |= 0x4000u;
                                                                             }
 
-                                                                            v135 = CFDictionaryGetCFDataOfLength();
-                                                                            v136 = v135;
-                                                                            if (!v135)
+                                                                            v141 = CFDictionaryGetCFDataOfLength();
+                                                                            v142 = v141;
+                                                                            if (!v141)
                                                                             {
 LABEL_198:
-                                                                              v142 = CFDictionaryGetCFDataOfLength();
-                                                                              v143 = v142;
-                                                                              if (v142)
+                                                                              v148 = CFDictionaryGetCFDataOfLength();
+                                                                              v149 = v148;
+                                                                              if (v148)
                                                                               {
                                                                                 btAddress = self->_btAddress;
                                                                                 p_btAddress = &self->_btAddress;
-                                                                                v146 = v142;
-                                                                                v147 = btAddress;
-                                                                                v148 = v147;
-                                                                                if (v146 != v147)
+                                                                                v152 = v148;
+                                                                                v153 = btAddress;
+                                                                                v154 = v153;
+                                                                                if (v152 != v153)
                                                                                 {
-                                                                                  if (v147)
+                                                                                  if (v153)
                                                                                   {
-                                                                                    v149 = [(NSData *)v146 isEqual:v147];
+                                                                                    v155 = [(NSData *)v152 isEqual:v153];
 
-                                                                                    if (v149)
+                                                                                    if (v155)
                                                                                     {
                                                                                       goto LABEL_206;
                                                                                     }
@@ -1882,35 +1900,35 @@ LABEL_198:
                                                                                   {
                                                                                   }
 
-                                                                                  objc_storeStrong(p_btAddress, v143);
-                                                                                  v15 |= 0x800000u;
+                                                                                  objc_storeStrong(p_btAddress, v149);
+                                                                                  v21 |= 0x800000u;
 LABEL_206:
-                                                                                  itemCopy = v171;
+                                                                                  itemCopy = v184;
                                                                                   goto LABEL_207;
                                                                                 }
                                                                               }
 
 LABEL_207:
 
-                                                                              v9 = v157;
+                                                                              v15 = v170;
                                                                               goto LABEL_208;
                                                                             }
 
                                                                             btIRKData = self->_btIRKData;
-                                                                            v138 = v135;
-                                                                            v139 = btIRKData;
-                                                                            v140 = v139;
-                                                                            if (v138 == v139)
+                                                                            v144 = v141;
+                                                                            v145 = btIRKData;
+                                                                            v146 = v145;
+                                                                            if (v144 == v145)
                                                                             {
 
                                                                               goto LABEL_198;
                                                                             }
 
-                                                                            if (v139)
+                                                                            if (v145)
                                                                             {
-                                                                              v141 = [(NSData *)v138 isEqual:v139];
+                                                                              v147 = [(NSData *)v144 isEqual:v145];
 
-                                                                              if (v141)
+                                                                              if (v147)
                                                                               {
                                                                                 goto LABEL_197;
                                                                               }
@@ -1920,10 +1938,10 @@ LABEL_207:
                                                                             {
                                                                             }
 
-                                                                            objc_storeStrong(&self->_btIRKData, v136);
-                                                                            v15 |= 0x400000u;
+                                                                            objc_storeStrong(&self->_btIRKData, v142);
+                                                                            v21 |= 0x400000u;
 LABEL_197:
-                                                                            itemCopy = v171;
+                                                                            itemCopy = v184;
                                                                             goto LABEL_198;
                                                                           }
                                                                         }
@@ -1932,8 +1950,8 @@ LABEL_197:
                                                                         {
                                                                         }
 
-                                                                        objc_storeStrong(&self->_allUsedSendersKnownAliases, v128);
-                                                                        v15 |= 0x1000000u;
+                                                                        objc_storeStrong(&self->_allUsedSendersKnownAliases, v134);
+                                                                        v21 |= 0x1000000u;
                                                                         goto LABEL_187;
                                                                       }
                                                                     }
@@ -1942,8 +1960,8 @@ LABEL_197:
                                                                     {
                                                                     }
 
-                                                                    objc_storeStrong(&self->_sendersKnownAlias, v122);
-                                                                    v15 |= 0x40000u;
+                                                                    objc_storeStrong(&self->_sendersKnownAlias, v128);
+                                                                    v21 |= 0x40000u;
                                                                     goto LABEL_180;
                                                                   }
                                                                 }
@@ -1952,8 +1970,8 @@ LABEL_197:
                                                                 {
                                                                 }
 
-                                                                objc_storeStrong(&self->_name, v163);
-                                                                v15 |= 0x100u;
+                                                                objc_storeStrong(&self->_name, v176);
+                                                                v21 |= 0x100u;
                                                                 goto LABEL_172;
                                                               }
                                                             }
@@ -1962,8 +1980,8 @@ LABEL_197:
                                                             {
                                                             }
 
-                                                            objc_storeStrong(&self->_model, v110);
-                                                            v15 |= 0x80u;
+                                                            objc_storeStrong(&self->_model, v116);
+                                                            v21 |= 0x80u;
                                                             goto LABEL_164;
                                                           }
                                                         }
@@ -1972,8 +1990,8 @@ LABEL_197:
                                                         {
                                                         }
 
-                                                        objc_storeStrong(&self->_mediaRouteID, v104);
-                                                        v15 |= 0x20000u;
+                                                        objc_storeStrong(&self->_mediaRouteID, v110);
+                                                        v21 |= 0x20000u;
                                                         goto LABEL_156;
                                                       }
                                                     }
@@ -1982,8 +2000,8 @@ LABEL_197:
                                                     {
                                                     }
 
-                                                    objc_storeStrong(&self->_mediaRemoteID, v98);
-                                                    v15 |= 0x10000u;
+                                                    objc_storeStrong(&self->_mediaRemoteID, v104);
+                                                    v21 |= 0x10000u;
                                                     goto LABEL_148;
                                                   }
                                                 }
@@ -1992,8 +2010,8 @@ LABEL_197:
                                                 {
                                                 }
 
-                                                objc_storeStrong(&self->_idsDeviceID, v92);
-                                                v15 |= 0x40u;
+                                                objc_storeStrong(&self->_idsDeviceID, v98);
+                                                v21 |= 0x40u;
                                                 goto LABEL_140;
                                               }
                                             }
@@ -2002,8 +2020,8 @@ LABEL_197:
                                             {
                                             }
 
-                                            objc_storeStrong(&self->_edSKData, v158);
-                                            v15 |= 0x10u;
+                                            objc_storeStrong(&self->_edSKData, v171);
+                                            v21 |= 0x10u;
                                             goto LABEL_121;
                                           }
                                         }
@@ -2012,8 +2030,8 @@ LABEL_197:
                                         {
                                         }
 
-                                        objc_storeStrong(&self->_edPKData, v159);
-                                        v15 |= 8u;
+                                        objc_storeStrong(&self->_edPKData, v172);
+                                        v21 |= 8u;
                                         goto LABEL_113;
                                       }
                                     }
@@ -2022,8 +2040,8 @@ LABEL_197:
                                     {
                                     }
 
-                                    objc_storeStrong(&self->_deviceIRKData, v160);
-                                    v15 |= 4u;
+                                    objc_storeStrong(&self->_deviceIRKData, v173);
+                                    v21 |= 4u;
                                     goto LABEL_105;
                                   }
                                 }
@@ -2032,8 +2050,8 @@ LABEL_197:
                                 {
                                 }
 
-                                objc_storeStrong(&self->_dateRequested, v65);
-                                v15 |= 2u;
+                                objc_storeStrong(&self->_dateRequested, v71);
+                                v21 |= 2u;
                                 goto LABEL_97;
                               }
                             }
@@ -2042,8 +2060,8 @@ LABEL_197:
                             {
                             }
 
-                            objc_storeStrong(&self->_dateRemoved, v55);
-                            v15 |= 2u;
+                            objc_storeStrong(&self->_dateRemoved, v61);
+                            v21 |= 2u;
                             goto LABEL_89;
                           }
                         }
@@ -2052,8 +2070,8 @@ LABEL_197:
                         {
                         }
 
-                        objc_storeStrong(&self->_dateAdded, v161);
-                        v15 |= 2u;
+                        objc_storeStrong(&self->_dateAdded, v174);
+                        v21 |= 2u;
                         goto LABEL_82;
                       }
                     }
@@ -2063,7 +2081,7 @@ LABEL_197:
                     }
 
                     objc_storeStrong(&self->_dateAcknowledged, obj);
-                    v15 |= 2u;
+                    v21 |= 2u;
                     goto LABEL_74;
                   }
                 }
@@ -2072,8 +2090,8 @@ LABEL_197:
                 {
                 }
 
-                objc_storeStrong(&self->_contactID, v37);
-                v15 |= 0x8000u;
+                objc_storeStrong(&self->_contactID, v43);
+                v21 |= 0x8000u;
                 goto LABEL_66;
               }
             }
@@ -2082,8 +2100,8 @@ LABEL_197:
             {
             }
 
-            objc_storeStrong(&self->_accountID, v31);
-            v15 |= 0x2000u;
+            objc_storeStrong(&self->_accountID, v37);
+            v21 |= 0x2000u;
             goto LABEL_58;
           }
         }
@@ -2092,8 +2110,8 @@ LABEL_197:
         {
         }
 
-        objc_storeStrong(&self->_accountAltDSID, v25);
-        v15 |= 0x2000000u;
+        objc_storeStrong(&self->_accountAltDSID, v31);
+        v21 |= 0x2000000u;
         goto LABEL_50;
       }
     }
@@ -2102,22 +2120,22 @@ LABEL_197:
     {
     }
 
-    objc_storeStrong(&self->_accessGroups, v18);
-    v15 |= 0x80000u;
+    objc_storeStrong(&self->_accessGroups, v24);
+    v21 |= 0x80000u;
     goto LABEL_42;
   }
 
   if (error)
   {
     type2 = [itemCopy type];
-    *error = RPErrorF();
+    *error = RPErrorF(4294960540, "Unsupported type '%@'", v158, v159, v160, v161, v162, v163, type2);
   }
 
 LABEL_8:
-  v15 = 1;
+  v21 = 1;
 LABEL_208:
 
-  return v15;
+  return v21;
 }
 
 - (unsigned)updateWithRPMessage:(id)message error:(id *)error
@@ -2432,211 +2450,240 @@ LABEL_17:
 
 - (id)authTagForData:(id)data type:(int)type error:(id *)error
 {
+  v6 = *&type;
   dataCopy = data;
   v9 = self->_deviceIRKData;
   if (!v9)
   {
     if (error)
     {
-      RPErrorF();
-      v10 = 0;
-      *error = v15 = 0;
-      goto LABEL_23;
+      RPErrorF(4294960551, "No DeviceIRK", v10, v11, v12, v13, v14, v15, v44);
+      v16 = 0;
+      *error = v27 = 0;
+      goto LABEL_24;
     }
 
-    v10 = 0;
+    v16 = 0;
     goto LABEL_12;
   }
 
-  v10 = v9;
-  v11 = _os_feature_enabled_impl();
-  if ((type - 5) <= 1 && v11)
+  v16 = v9;
+  v17 = _os_feature_enabled_impl();
+  if ((v6 - 5) <= 1 && v17)
   {
-    v20 = 0;
-    v12 = [_TtC7Rapport12RPIRKRatchet ratchetedIRKDataForIdentity:self error:&v20];
-    v13 = v20;
-    if (v13)
+    v46 = 0;
+    v18 = [_TtC7Rapport12RPIRKRatchet ratchetedIRKDataForIdentity:self error:&v46];
+    v19 = v46;
+    if (v19)
     {
-      v14 = v13;
+      v26 = v19;
       if (error)
       {
-        *error = RPErrorF();
+        *error = RPErrorF(4294960551, "Unable to retrieve ratcheted IRK", v20, v21, v22, v23, v24, v25, v44);
       }
 
 LABEL_12:
-      v15 = 0;
-      goto LABEL_23;
+      v27 = 0;
+      goto LABEL_24;
     }
   }
 
   else
   {
-    v12 = v10;
+    v18 = v16;
   }
 
-  if ([(NSData *)v12 length]!= 16)
+  v28 = [(NSData *)v18 length];
+  if (v28 != 16)
   {
     if (error)
     {
-      goto LABEL_20;
+      RPErrorF(4294960553, "Bad DeviceIRK length (%zu bytes)", v29, v30, v31, v32, v33, v34, v28);
+LABEL_21:
+      *error = v27 = 0;
+      goto LABEL_23;
     }
 
-    goto LABEL_21;
+LABEL_22:
+    v27 = 0;
+    goto LABEL_23;
   }
 
-  [(NSData *)v12 bytes];
+  [(NSData *)v18 bytes];
   [dataCopy bytes];
   [dataCopy length];
-  v16 = SipHash();
-  v19[0] = BYTE5(v16);
-  v19[1] = BYTE4(v16);
-  v19[2] = BYTE3(v16);
-  v19[3] = BYTE2(v16);
-  v19[4] = BYTE1(v16);
-  v19[5] = v16;
-  if ((type - 1) >= 6)
+  v35 = SipHash();
+  v45[0] = BYTE5(v35);
+  v45[1] = BYTE4(v35);
+  v45[2] = BYTE3(v35);
+  v45[3] = BYTE2(v35);
+  v45[4] = BYTE1(v35);
+  v45[5] = v35;
+  if ((v6 - 1) >= 6)
   {
     if (error)
     {
-LABEL_20:
-      RPErrorF();
-      *error = v15 = 0;
-      goto LABEL_22;
+      RPErrorF(4294960591, "Bad AuthTag type (%d)", v36, v37, v38, v39, v40, v41, v6);
+      goto LABEL_21;
     }
 
-LABEL_21:
-    v15 = 0;
     goto LABEL_22;
   }
 
-  v17 = type - 1;
-  v15 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v19 length:qword_1B6F2E5B0[v17]];
-LABEL_22:
-  v10 = v12;
+  v42 = v6 - 1;
+  v27 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v45 length:qword_1B6F2E5B0[v42]];
 LABEL_23:
+  v16 = v18;
+LABEL_24:
 
-  return v15;
+  return v27;
+}
+
+- (BOOL)verifyAuthTag:(id)tag data:(id)data type:(int)type error:(id *)error
+{
+  v7 = *&type;
+  tagCopy = tag;
+  dataCopy = data;
+  tagCopy2 = tag;
+  bytes = [tagCopy2 bytes];
+  v15 = [tagCopy2 length];
+
+  bytes2 = [dataCopy bytes];
+  v17 = [dataCopy length];
+
+  return [(RPIdentity *)self verifyAuthTagPtr:bytes authTagLen:v15 dataPtr:bytes2 dataLen:v17 type:v7 error:error];
 }
 
 - (BOOL)verifyAuthTagPtr:(const void *)ptr authTagLen:(unint64_t)len dataPtr:(const void *)dataPtr dataLen:(unint64_t)dataLen type:(int)type error:(id *)error
 {
+  v9 = *&type;
   v13 = self->_deviceIRKData;
   if (!v13)
   {
     if (error)
     {
-      v26 = RPErrorF();
-      v14 = 0;
-LABEL_21:
-      v25 = 0;
-      *error = v26;
-      goto LABEL_24;
+      v41 = RPErrorF(4294960551, "No DeviceIRK", v14, v15, v16, v17, v18, v19, lenCopy);
+      v20 = 0;
+LABEL_23:
+      v38 = 0;
+      *error = v41;
+      goto LABEL_26;
     }
 
-    v14 = 0;
-    goto LABEL_23;
+    v20 = 0;
+    goto LABEL_25;
   }
 
-  v14 = v13;
-  if ([(NSData *)v13 length]!= 16)
-  {
-    if (!error)
-    {
-      goto LABEL_23;
-    }
-
-LABEL_20:
-    v26 = RPErrorF();
-    goto LABEL_21;
-  }
-
-  v15 = _os_feature_enabled_impl();
-  if ((type - 5) <= 1 && v15)
-  {
-    v29 = 0;
-    v16 = [_TtC7Rapport12RPIRKRatchet ratchetedIRKDataForIdentity:self error:&v29];
-    v17 = v29;
-    if (!v17)
-    {
-      v18 = v16;
-
-      v14 = v18;
-    }
-  }
-
-  [(NSData *)v14 bytes];
-  v19 = SipHash();
-  v28[0] = BYTE5(v19);
-  v28[1] = BYTE4(v19);
-  v28[2] = BYTE3(v19);
-  v28[3] = BYTE2(v19);
-  v28[4] = BYTE1(v19);
-  v28[5] = v19;
-  if ((type - 1) >= 6)
-  {
-    if (!error)
-    {
-      goto LABEL_23;
-    }
-
-    goto LABEL_20;
-  }
-
-  if (qword_1B6F2E5B0[type - 1] != len)
+  v20 = v13;
+  v21 = [(NSData *)v13 length];
+  if (v21 != 16)
   {
     if (error)
     {
-      goto LABEL_20;
+      lenCopy = v21;
+      v39 = "Bad DeviceIRK length (%zu bytes)";
+LABEL_19:
+      v40 = 4294960553;
+      goto LABEL_22;
     }
 
-LABEL_23:
-    v25 = 0;
-    goto LABEL_24;
+LABEL_25:
+    v38 = 0;
+    goto LABEL_26;
   }
 
-  v20 = 0;
-  v21 = v28;
+  v28 = _os_feature_enabled_impl();
+  if ((v9 - 5) <= 1 && v28)
+  {
+    v45 = 0;
+    v29 = [_TtC7Rapport12RPIRKRatchet ratchetedIRKDataForIdentity:self error:&v45];
+    v30 = v45;
+    if (!v30)
+    {
+      v31 = v29;
+
+      v20 = v31;
+    }
+  }
+
+  [(NSData *)v20 bytes];
+  v32 = SipHash();
+  v44[0] = BYTE5(v32);
+  v44[1] = BYTE4(v32);
+  v44[2] = BYTE3(v32);
+  v44[3] = BYTE2(v32);
+  v44[4] = BYTE1(v32);
+  v44[5] = v32;
+  if ((v9 - 1) >= 6)
+  {
+    if (error)
+    {
+      lenCopy = v9;
+      v39 = "Bad AuthTag type (%d)";
+      v40 = 4294960591;
+      goto LABEL_22;
+    }
+
+    goto LABEL_25;
+  }
+
+  if (qword_1B6F2E5B0[(v9 - 1)] != len)
+  {
+    if (error)
+    {
+      lenCopy = len;
+      v39 = "Bad AuthTag length (%zu bytes)";
+      goto LABEL_19;
+    }
+
+    goto LABEL_25;
+  }
+
+  v33 = 0;
+  v34 = v44;
   do
   {
-    v23 = *ptr;
+    v36 = *ptr;
     ptr = ptr + 1;
-    v22 = v23;
-    v24 = *v21++;
-    v20 |= v24 ^ v22;
+    v35 = v36;
+    v37 = *v34++;
+    v33 |= v37 ^ v35;
     --len;
   }
 
   while (len);
-  v25 = v20 == 0;
-  if (error && v20)
+  v38 = v33 == 0;
+  if (error && v33)
   {
-    goto LABEL_20;
+    v39 = "AuthTag mismatch";
+    v40 = 4294960548;
+LABEL_22:
+    v41 = RPErrorF(v40, v39, v22, v23, v24, v25, v26, v27, lenCopy);
+    goto LABEL_23;
   }
 
-LABEL_24:
+LABEL_26:
 
-  return v25;
+  return v38;
 }
 
 - (id)signData:(id)data error:(id *)error
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   dataCopy2 = data;
   bytes = [dataCopy2 bytes];
   v10 = [dataCopy2 length];
 
-  if ([(RPIdentity *)self signDataPtr:bytes dataLen:v10 signatureBytes:v14 error:error])
+  if ([(RPIdentity *)self signDataPtr:bytes dataLen:v10 signatureBytes:v13 error:error])
   {
-    v11 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v14 length:64];
+    v11 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v13 length:64];
   }
 
   else
   {
     v11 = 0;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -2667,25 +2714,25 @@ LABEL_24:
     v9 = self->_edPKData;
     if ([(__CFData *)v9 length]== 32)
     {
-      v14 = self->_edSKData;
-      v15 = [(NSData *)v14 length];
-      v12 = v15 == 32;
-      if (v15 == 32)
+      v20 = self->_edSKData;
+      v21 = [(NSData *)v20 length];
+      v12 = v21 == 32;
+      if (v21 == 32)
       {
         [(__CFData *)v9 bytes];
-        [(NSData *)v14 bytes];
+        [(NSData *)v20 bytes];
         cced25519_sign_compat();
       }
 
       else if (error)
       {
-        *error = RPErrorF();
+        *error = RPErrorF(4294896142, "No EdSK", v22, v23, v24, v25, v26, v27, v29);
       }
     }
 
     else if (error)
     {
-      RPErrorF();
+      RPErrorF(4294896141, "No EdPK", v14, v15, v16, v17, v18, v19, v29);
       *error = v12 = 0;
     }
 
@@ -2716,29 +2763,38 @@ LABEL_24:
 {
   if (len == 64)
   {
-    v8 = self->_edPKData;
-    if ([(NSData *)v8 length]== 32)
+    v9 = self->_edPKData;
+    if ([(NSData *)v9 length]== 32)
     {
-      [(NSData *)v8 bytes];
-      v9 = cced25519_verify_compat();
-      v10 = v9 == 0;
-      if (!error || !v9)
+      [(NSData *)v9 bytes];
+      v16 = cced25519_verify_compat();
+      v17 = v16 == 0;
+      if (!error || !v16)
       {
-        goto LABEL_12;
+        goto LABEL_13;
       }
+
+      v18 = "Signature verify failed";
+      v19 = 4294960542;
     }
 
-    else if (!error)
+    else
     {
-      v10 = 0;
-      goto LABEL_12;
+      if (!error)
+      {
+        v17 = 0;
+        goto LABEL_13;
+      }
+
+      v18 = "No EdPK";
+      v19 = 4294896141;
     }
 
-    RPErrorF();
-    *error = v10 = 0;
-LABEL_12:
+    RPErrorF(v19, v18, v10, v11, v12, v13, v14, v15, v21);
+    *error = v17 = 0;
+LABEL_13:
 
-    return v10;
+    return v17;
   }
 
   if (!error)
@@ -2746,9 +2802,9 @@ LABEL_12:
     return 0;
   }
 
-  RPErrorF();
-  *error = v10 = 0;
-  return v10;
+  RPErrorF(4294960580, "Bad signature size (%zu)", ptr, len, dataPtr, dataLen, error, v7, len);
+  *error = v17 = 0;
+  return v17;
 }
 
 - (id)_edPKDataFromSEPPrivateKey:(__SecKey *)key

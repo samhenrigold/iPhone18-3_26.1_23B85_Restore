@@ -12,62 +12,62 @@ uint64_t SVG::PatternElement::appendChild(void *a1, const void **a2)
   return SVG::Element::appendChild(a1, a2);
 }
 
-void SVG::PatternElement::computePlaybackRect(uint64_t a1, void *a2, CGFloat a3, CGFloat a4, CGFloat a5, CGFloat a6)
+void SVG::PatternElement::computePlaybackRect(CGFloat a1, CGFloat a2, CGFloat a3, CGFloat a4, uint64_t a5, void *a6)
 {
-  SVG::PatternElement::specifiedState(a1, a2, v10);
+  SVG::PatternElement::specifiedState(v10, a5, a6);
   v12 = v11;
   v13 = *(&v10[3] + 8);
   v14 = v10[5];
   v15 = *(&v10[6] + 8);
   v16 = v10[8];
-  v17.origin.x = a3;
-  v17.origin.y = a4;
-  v17.size.width = a5;
-  v17.size.height = a6;
+  v17.origin.x = a1;
+  v17.origin.y = a2;
+  v17.size.width = a3;
+  v17.size.height = a4;
   SVG::LengthRect::computeRect(&v12, v17);
 }
 
-void SVG::PatternElement::specifiedState(uint64_t a1@<X0>, void *a2@<X1>, __int128 *a3@<X8>)
+void SVG::PatternElement::specifiedState(__int128 *a1@<X8>, uint64_t a2@<X0>, void *a3@<X1>)
 {
-  a3[10] = xmmword_25D1D5EA0;
-  a3[11] = unk_25D1D5EB0;
-  a3[12] = xmmword_25D1D5EC0;
-  a3[13] = unk_25D1D5ED0;
-  a3[6] = xmmword_25D1D5E60;
-  a3[7] = unk_25D1D5E70;
-  a3[8] = xmmword_25D1D5E80;
-  a3[9] = unk_25D1D5E90;
-  a3[2] = xmmword_25D1D5E20;
-  a3[3] = unk_25D1D5E30;
-  a3[4] = xmmword_25D1D5E40;
-  a3[5] = unk_25D1D5E50;
-  *a3 = __const__ZNK3SVG14PatternElement17contentsTransformE6CGRectS1_RKNSt3__113unordered_mapIPK7__CFURLNS2_17reference_wrapperIKNS_7ElementEEENS2_4hashIS6_EENS2_8equal_toIS6_EENS2_9allocatorINS2_4pairIKS6_SA_EEEEEE_specifiedState;
-  a3[1] = unk_25D1D5E10;
-  *a3 = 0;
-  *(a3 + 32) = 0;
-  *(a3 + 40) = 0;
-  v4 = a3 + 40;
-  *(a3 + 56) = 0;
-  v5 = a3 + 56;
-  *(a3 + 48) = 0;
-  *(a3 + 72) = 0;
-  *(a3 + 80) = 0;
-  *(a3 + 104) = 0;
-  v6 = a3 + 104;
-  *(a3 + 96) = 0;
-  *(a3 + 120) = 0;
-  *(a3 + 128) = 0;
-  *(a3 + 152) = 0;
-  v7 = a3 + 152;
-  *(a3 + 144) = 0;
-  *(a3 + 156) = 0;
-  *(a3 + 160) = 0;
-  *(a3 + 168) = 0;
-  v8 = a3 + 168;
-  *(a3 + 164) = 0;
-  *(a3 + 216) = 0;
+  a1[10] = xmmword_25D1D5EA0;
+  a1[11] = unk_25D1D5EB0;
+  a1[12] = xmmword_25D1D5EC0;
+  a1[13] = unk_25D1D5ED0;
+  a1[6] = xmmword_25D1D5E60;
+  a1[7] = unk_25D1D5E70;
+  a1[8] = xmmword_25D1D5E80;
+  a1[9] = unk_25D1D5E90;
+  a1[2] = xmmword_25D1D5E20;
+  a1[3] = unk_25D1D5E30;
+  a1[4] = xmmword_25D1D5E40;
+  a1[5] = unk_25D1D5E50;
+  *a1 = __const__ZNK3SVG14PatternElement17contentsTransformE6CGRectS1_RKNSt3__113unordered_mapIPK7__CFURLNS2_17reference_wrapperIKNS_7ElementEEENS2_4hashIS6_EENS2_8equal_toIS6_EENS2_9allocatorINS2_4pairIKS6_SA_EEEEEE_specifiedState;
+  a1[1] = unk_25D1D5E10;
+  *a1 = 0;
+  *(a1 + 32) = 0;
+  *(a1 + 40) = 0;
+  v4 = a1 + 40;
+  *(a1 + 56) = 0;
+  v5 = a1 + 56;
+  *(a1 + 48) = 0;
+  *(a1 + 72) = 0;
+  *(a1 + 80) = 0;
+  *(a1 + 104) = 0;
+  v6 = a1 + 104;
+  *(a1 + 96) = 0;
+  *(a1 + 120) = 0;
+  *(a1 + 128) = 0;
+  *(a1 + 152) = 0;
+  v7 = a1 + 152;
+  *(a1 + 144) = 0;
+  *(a1 + 156) = 0;
+  *(a1 + 160) = 0;
+  *(a1 + 168) = 0;
+  v8 = a1 + 168;
+  *(a1 + 164) = 0;
+  *(a1 + 216) = 0;
   memset(v24, 170, sizeof(v24));
-  SVG::hrefChain<SVG::PatternElement>(a1, a2, v24);
+  SVG::hrefChain<SVG::PatternElement>(a2, a3, v24);
   v9 = v24[0];
   v10 = v24[1];
   if (v24[1] == v24[0])
@@ -94,135 +94,135 @@ void SVG::PatternElement::specifiedState(uint64_t a1@<X0>, void *a2@<X1>, __int1
     v19 = v12[45];
     v15 = v12[40];
     v16 = v12[41];
-    if (v12[42] & 1) == 0 && (a3[2])
+    if (v12[42] & 1) == 0 && (a1[2])
     {
-      v15 = *a3;
-      v16 = a3[1];
-      LOBYTE(v17) = *(a3 + 32);
+      v15 = *a1;
+      v16 = a1[1];
+      LOBYTE(v17) = *(a1 + 32);
     }
 
-    if ((v11[688] & 1) == 0 && *(a3 + 48) == 1)
+    if ((v11[688] & 1) == 0 && *(a1 + 48) == 1)
     {
       *(&v17 + 1) = *v4;
-      v18[0] = *(v4 + 8);
+      v18[0] = v4[8];
     }
 
-    if ((v11[712] & 1) == 0 && *(a3 + 72) == 1)
+    if ((v11[712] & 1) == 0 && *(a1 + 72) == 1)
     {
       *&v18[8] = *v5;
-      v18[24] = *(v5 + 16);
+      v18[24] = v5[16];
     }
 
-    if ((v11[736] & 1) == 0 && *(a3 + 96) == 1)
+    if ((v11[736] & 1) == 0 && *(a1 + 96) == 1)
     {
-      v19 = a3[5];
-      v20[0] = *(a3 + 96);
+      v19 = a1[5];
+      v20[0] = *(a1 + 96);
     }
 
-    if ((v11[760] & 1) == 0 && *(a3 + 120) == 1)
+    if ((v11[760] & 1) == 0 && *(a1 + 120) == 1)
     {
       *&v20[8] = *v6;
-      v20[24] = *(v6 + 16);
+      v20[24] = v6[16];
     }
 
-    if ((v11[784] & 1) == 0 && *(a3 + 144) == 1)
+    if ((v11[784] & 1) == 0 && *(a1 + 144) == 1)
     {
-      v21 = a3[8];
-      LOBYTE(v22) = *(a3 + 144);
+      v21 = a1[8];
+      LOBYTE(v22) = *(a1 + 144);
     }
 
-    if ((v11[796] & 1) == 0 && *(a3 + 156) == 1)
+    if ((v11[796] & 1) == 0 && *(a1 + 156) == 1)
     {
       DWORD2(v22) = *v7;
-      BYTE12(v22) = *(v7 + 4);
+      BYTE12(v22) = v7[4];
     }
 
-    if ((v11[804] & 1) == 0 && *(a3 + 164) == 1)
+    if ((v11[804] & 1) == 0 && *(a1 + 164) == 1)
     {
-      *v23 = *(a3 + 40);
-      v23[4] = *(a3 + 164);
+      *v23 = *(a1 + 40);
+      v23[4] = *(a1 + 164);
     }
 
-    if ((v11[856] & 1) == 0 && *(a3 + 216) == 1)
+    if ((v11[856] & 1) == 0 && *(a1 + 216) == 1)
     {
       *&v23[8] = *v8;
-      *&v23[24] = *(v8 + 16);
-      *&v23[40] = *(v8 + 32);
-      v23[56] = *(v8 + 48);
+      *&v23[24] = *(v8 + 1);
+      *&v23[40] = *(v8 + 2);
+      v23[56] = v8[48];
     }
 
-    a3[10] = *v23;
-    a3[11] = *&v23[16];
-    a3[12] = *&v23[32];
-    a3[13] = *&v23[48];
-    a3[6] = *v20;
-    a3[7] = *&v20[16];
-    a3[8] = v21;
-    a3[9] = v22;
-    a3[2] = v17;
-    a3[3] = *v18;
-    a3[4] = *&v18[16];
-    a3[5] = v19;
-    *a3 = v15;
-    a3[1] = v16;
+    a1[10] = *v23;
+    a1[11] = *&v23[16];
+    a1[12] = *&v23[32];
+    a1[13] = *&v23[48];
+    a1[6] = *v20;
+    a1[7] = *&v20[16];
+    a1[8] = v21;
+    a1[9] = v22;
+    a1[2] = v17;
+    a1[3] = *v18;
+    a1[4] = *&v18[16];
+    a1[5] = v19;
+    *a1 = v15;
+    a1[1] = v16;
   }
 
   while (v10 != v9);
-  if ((a3[3] & 1) == 0)
+  if ((a1[3] & 1) == 0)
   {
 LABEL_31:
-    *(a3 + 48) = 1;
-    *(a3 + 5) = 5;
+    *(a1 + 48) = 1;
+    *(a1 + 5) = 5;
   }
 
-  if ((*(a3 + 72) & 1) == 0)
+  if ((*(a1 + 72) & 1) == 0)
   {
-    *(a3 + 7) = 0;
-    *(a3 + 16) = 0;
-    *(a3 + 72) = 1;
+    *(a1 + 7) = 0;
+    *(a1 + 16) = 0;
+    *(a1 + 72) = 1;
   }
 
-  if ((a3[6] & 1) == 0)
+  if ((a1[6] & 1) == 0)
   {
-    *(a3 + 10) = 0;
-    *(a3 + 22) = 0;
-    *(a3 + 96) = 1;
+    *(a1 + 10) = 0;
+    *(a1 + 22) = 0;
+    *(a1 + 96) = 1;
   }
 
-  if ((*(a3 + 120) & 1) == 0)
+  if ((*(a1 + 120) & 1) == 0)
   {
-    *(a3 + 13) = 0;
-    *(a3 + 28) = 0;
-    *(a3 + 120) = 1;
+    *(a1 + 13) = 0;
+    *(a1 + 28) = 0;
+    *(a1 + 120) = 1;
   }
 
-  if ((a3[9] & 1) == 0)
+  if ((a1[9] & 1) == 0)
   {
-    *(a3 + 16) = 0;
-    *(a3 + 34) = 0;
-    *(a3 + 144) = 1;
+    *(a1 + 16) = 0;
+    *(a1 + 34) = 0;
+    *(a1 + 144) = 1;
   }
 
-  if ((*(a3 + 156) & 1) == 0)
+  if ((*(a1 + 156) & 1) == 0)
   {
-    *(a3 + 38) = 1;
-    *(a3 + 156) = 1;
+    *(a1 + 38) = 1;
+    *(a1 + 156) = 1;
   }
 
-  if ((*(a3 + 164) & 1) == 0)
+  if ((*(a1 + 164) & 1) == 0)
   {
-    *(a3 + 40) = 0;
-    *(a3 + 164) = 1;
+    *(a1 + 40) = 0;
+    *(a1 + 164) = 1;
   }
 
-  if ((*(a3 + 216) & 1) == 0)
+  if ((*(a1 + 216) & 1) == 0)
   {
     v13 = MEMORY[0x277CBF2C0];
     v14 = *(MEMORY[0x277CBF2C0] + 16);
     *v8 = *MEMORY[0x277CBF2C0];
-    *(v8 + 16) = v14;
-    *(v8 + 32) = *(v13 + 32);
-    *(a3 + 216) = 1;
+    *(v8 + 1) = v14;
+    *(v8 + 2) = *(v13 + 32);
+    *(a1 + 216) = 1;
   }
 
   if (v9)
@@ -232,22 +232,22 @@ LABEL_31:
   }
 }
 
-void SVG::PatternElement::computeRecordingRect(uint64_t a1, void *a2, CGFloat a3, CGFloat a4, CGFloat a5, CGFloat a6)
+void SVG::PatternElement::computeRecordingRect(CGFloat a1, CGFloat a2, CGFloat a3, CGFloat a4, uint64_t a5, void *a6)
 {
-  SVG::PatternElement::specifiedState(a1, a2, v10);
+  SVG::PatternElement::specifiedState(v10, a5, a6);
   v12 = v11;
   v13 = *(&v10[3] + 8);
   v14 = v10[5];
   v15 = *(&v10[6] + 8);
   v16 = v10[8];
-  v17.origin.x = a3;
-  v17.origin.y = a4;
-  v17.size.width = a5;
-  v17.size.height = a6;
+  v17.origin.x = a1;
+  v17.origin.y = a2;
+  v17.size.width = a3;
+  v17.size.height = a4;
   SVG::LengthRect::computePatternRecordingRect(&v12, v17);
 }
 
-CGAffineTransform *SVG::PatternElement::contentsTransform@<X0>(uint64_t a1@<X0>, void *a2@<X1>, uint64_t a3@<X8>, CGFloat a4@<D0>, CGFloat a5@<D1>, CGFloat a6@<D2>, CGFloat a7@<D3>, double a8@<D4>, double a9@<D5>, double a10@<D6>, double a11@<D7>)
+CGAffineTransform *SVG::PatternElement::contentsTransform@<X0>(uint64_t a1@<X8>, CGFloat a2@<D0>, CGFloat a3@<D1>, CGFloat a4@<D2>, CGFloat a5@<D3>, double a6@<D4>, double a7@<D5>, double a8@<D6>, double a9@<D7>, uint64_t a10@<X0>, void *a11@<X1>)
 {
   v34 = xmmword_25D1D5EA0;
   v35 = unk_25D1D5EB0;
@@ -263,20 +263,20 @@ CGAffineTransform *SVG::PatternElement::contentsTransform@<X0>(uint64_t a1@<X0>,
   v29 = unk_25D1D5E50;
   v24 = __const__ZNK3SVG14PatternElement17contentsTransformE6CGRectS1_RKNSt3__113unordered_mapIPK7__CFURLNS2_17reference_wrapperIKNS_7ElementEEENS2_4hashIS6_EENS2_8equal_toIS6_EENS2_9allocatorINS2_4pairIKS6_SA_EEEEEE_specifiedState;
   v25 = unk_25D1D5E10;
-  SVG::PatternElement::specifiedState(a1, a2, &v24);
+  SVG::PatternElement::specifiedState(&v24, a10, a11);
   if (v26)
   {
     v20 = v24;
     v21 = v25;
     v22 = *(&v26 + 1);
 
-    return SVG::computeViewBoxTransform(v22, a3, *&v20, *(&v20 + 1), *&v21, *(&v21 + 1), a8, a9, a10, a11);
+    return SVG::computeViewBoxTransform(v22, a1, *&v20, *(&v20 + 1), *&v21, *(&v21 + 1), a6, a7, a8, a9);
   }
 
   else
   {
-    result = SVG::unitTransform(v34, a3, a4, a5, a6, a7);
-    *(a3 + 48) = 1;
+    result = SVG::unitTransform(v34, a1, a2, a3, a4, a5);
+    *(a1 + 48) = 1;
   }
 
   return result;
@@ -292,7 +292,7 @@ uint64_t SVG::hrefChain<SVG::PatternElement>@<X0>(uint64_t a1@<X0>, void *a2@<X1
   memset(v11, 0, sizeof(v11));
   v12 = 0xAAAAAAAA3F800000;
   i = a1;
-  std::__hash_table<SVG::PatternElement const*,std::hash<SVG::PatternElement const*>,std::equal_to<SVG::PatternElement const*>,std::allocator<SVG::PatternElement const*>>::__emplace_unique_key_args<SVG::PatternElement const*,SVG::PatternElement const*>(v11, &i);
+  std::__hash_table<SVG::PatternElement const*,std::hash<SVG::PatternElement const*>,std::equal_to<SVG::PatternElement const*>,std::allocator<SVG::PatternElement const*>>::__emplace_unique_key_args<SVG::PatternElement const*,SVG::PatternElement const*>(v11, &i, &i);
   for (i = *(*(a3[1] - 8) + 864); i; i = *(*(a3[1] - 8) + 864))
   {
     v6 = std::__hash_table<std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::__unordered_map_hasher<__CFURL const*,std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::hash<__CFURL const*>,std::equal_to<__CFURL const*>,true>,std::__unordered_map_equal<__CFURL const*,std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::equal_to<__CFURL const*>,std::hash<__CFURL const*>,true>,std::allocator<std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>>>::find<__CFURL const*>(a2, &i);
@@ -311,7 +311,7 @@ uint64_t SVG::hrefChain<SVG::PatternElement>@<X0>(uint64_t a1@<X0>, void *a2@<X1
       break;
     }
 
-    std::__hash_table<SVG::PatternElement const*,std::hash<SVG::PatternElement const*>,std::equal_to<SVG::PatternElement const*>,std::allocator<SVG::PatternElement const*>>::__emplace_unique_key_args<SVG::PatternElement const*,SVG::PatternElement const*>(v11, &v9);
+    std::__hash_table<SVG::PatternElement const*,std::hash<SVG::PatternElement const*>,std::equal_to<SVG::PatternElement const*>,std::allocator<SVG::PatternElement const*>>::__emplace_unique_key_args<SVG::PatternElement const*,SVG::PatternElement const*>(v11, &v9, &v9);
     v8 = v9;
     std::vector<std::reference_wrapper<SVG::PatternElement const>>::push_back[abi:nn200100](a3, &v8);
   }
@@ -503,35 +503,35 @@ void std::vector<std::reference_wrapper<SVG::PatternElement const>>::push_back[a
   *(a1 + 8) = v6;
 }
 
-void *std::__hash_table<SVG::PatternElement const*,std::hash<SVG::PatternElement const*>,std::equal_to<SVG::PatternElement const*>,std::allocator<SVG::PatternElement const*>>::__emplace_unique_key_args<SVG::PatternElement const*,SVG::PatternElement const*>(void *a1, void *a2)
+void *std::__hash_table<SVG::PatternElement const*,std::hash<SVG::PatternElement const*>,std::equal_to<SVG::PatternElement const*>,std::allocator<SVG::PatternElement const*>>::__emplace_unique_key_args<SVG::PatternElement const*,SVG::PatternElement const*>(float *a1, void *a2, void *a3)
 {
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = a1[1];
-  if (!*&v5)
+  v3 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
+  v4 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v3 >> 47) ^ v3);
+  v5 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+  v6 = *(a1 + 2);
+  if (!*&v6)
   {
     goto LABEL_18;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v7 = vcnt_s8(v6);
+  v7.i16[0] = vaddlv_u8(v7);
+  if (v7.u32[0] > 1uLL)
   {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-    if (v4 >= *&v5)
+    v8 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+    if (v5 >= *&v6)
     {
-      v7 = v4 % *&v5;
+      v8 = v5 % *&v6;
     }
   }
 
   else
   {
-    v7 = v4 & (*&v5 - 1);
+    v8 = v5 & (*&v6 - 1);
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v9 = *(*a1 + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
   {
 LABEL_18:
     operator new();
@@ -539,47 +539,47 @@ LABEL_18:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v11 = v10[1];
+    if (v11 == v5)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v7.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v11 >= *&v6)
       {
-        v10 %= *&v5;
+        v11 %= *&v6;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v11 &= *&v6 - 1;
     }
 
-    if (v10 != v7)
+    if (v11 != v8)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v9 = *v9;
-    if (!v9)
+    v10 = *v10;
+    if (!v10)
     {
       goto LABEL_18;
     }
   }
 
-  if (v9[2] != *a2)
+  if (v10[2] != *a2)
   {
     goto LABEL_17;
   }
 
-  return v9;
+  return v10;
 }
 
-void std::__hash_table<SVG::PatternElement const*,std::hash<SVG::PatternElement const*>,std::equal_to<SVG::PatternElement const*>,std::allocator<SVG::PatternElement const*>>::__rehash<true>(uint64_t a1, size_t __n)
+void std::__hash_table<SVG::PatternElement const*,std::hash<SVG::PatternElement const*>,std::equal_to<SVG::PatternElement const*>,std::allocator<SVG::PatternElement const*>>::__rehash<true>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -595,7 +595,7 @@ void std::__hash_table<SVG::PatternElement const*,std::hash<SVG::PatternElement 
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -603,7 +603,7 @@ void std::__hash_table<SVG::PatternElement const*,std::hash<SVG::PatternElement 
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -627,7 +627,7 @@ void std::__hash_table<SVG::PatternElement const*,std::hash<SVG::PatternElement 
     {
 LABEL_6:
 
-      std::__hash_table<SVG::PatternElement const*,std::hash<SVG::PatternElement const*>,std::equal_to<SVG::PatternElement const*>,std::allocator<SVG::PatternElement const*>>::__do_rehash<true>(a1, prime);
+      std::__hash_table<SVG::PatternElement const*,std::hash<SVG::PatternElement const*>,std::equal_to<SVG::PatternElement const*>,std::allocator<SVG::PatternElement const*>>::__do_rehash<true>(result, prime);
     }
   }
 }
@@ -687,45 +687,37 @@ void *std::__hash_table<std::__hash_value_type<__CFURL const*,std::reference_wra
     return 0;
   }
 
-  result = *v8;
-  if (*v8)
+  for (result = *v8; result; result = *result)
   {
-    do
+    v10 = result[1];
+    if (v5 == v10)
     {
-      v10 = result[1];
-      if (v5 == v10)
+      if (result[2] == *a2)
       {
-        if (result[2] == *a2)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v6.u32[0] > 1uLL)
+      {
+        if (v10 >= *&v2)
         {
-          return result;
+          v10 %= *&v2;
         }
       }
 
       else
       {
-        if (v6.u32[0] > 1uLL)
-        {
-          if (v10 >= *&v2)
-          {
-            v10 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v10 &= *&v2 - 1;
-        }
-
-        if (v10 != v7)
-        {
-          return 0;
-        }
+        v10 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v10 != v7)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
@@ -764,45 +756,37 @@ void *std::__hash_table<SVG::PatternElement const*,std::hash<SVG::PatternElement
     return 0;
   }
 
-  result = *v8;
-  if (*v8)
+  for (result = *v8; result; result = *result)
   {
-    do
+    v10 = result[1];
+    if (v10 == v5)
     {
-      v10 = result[1];
-      if (v10 == v5)
+      if (result[2] == *a2)
       {
-        if (result[2] == *a2)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v6.u32[0] > 1uLL)
+      {
+        if (v10 >= *&v2)
         {
-          return result;
+          v10 %= *&v2;
         }
       }
 
       else
       {
-        if (v6.u32[0] > 1uLL)
-        {
-          if (v10 >= *&v2)
-          {
-            v10 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v10 &= *&v2 - 1;
-        }
-
-        if (v10 != v7)
-        {
-          return 0;
-        }
+        v10 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v10 != v7)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
@@ -891,7 +875,7 @@ uint64_t SVG::Recorder::recordGetCTM(SVG::Recorder *this)
   return result;
 }
 
-uint64_t SVG::Recording::append(uint64_t a1, uint64_t a2)
+unsigned int *SVG::Recording::append(uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 8);
   if (v3 >= *(a1 + 16))
@@ -904,14 +888,14 @@ uint64_t SVG::Recording::append(uint64_t a1, uint64_t a2)
     *v3 = 0;
     *(v3 + 120) = -1;
     std::__variant_detail::__ctor<std::__variant_detail::__traits<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM>>::__generic_construct[abi:nn200100]<std::__variant_detail::__move_constructor<std::__variant_detail::__traits<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM>,(std::__variant_detail::_Trait)1>>(v3, a2);
-    result = v3 + 128;
+    result = (v3 + 128);
   }
 
   *(a1 + 8) = result;
   return result;
 }
 
-uint64_t SVG::Recorder::setInitialState(SVG::Recorder *this)
+unsigned int *SVG::Recorder::setInitialState(SVG::Recorder *this)
 {
   std::deque<SVG::Recorder::State>::push_back(this, this + 48);
   v3[0] = 0;
@@ -989,7 +973,7 @@ uint64_t SVG::Recorder::Recorder(uint64_t a1, _BYTE *a2, uint64_t a3, unsigned i
   return a1;
 }
 
-uint64_t SVG::Recorder::append(uint64_t a1, uint64_t a2)
+void SVG::Recorder::append(uint64_t a1, uint64_t a2)
 {
   v27 = a1;
   v2 = *(a2 + 120);
@@ -1021,7 +1005,7 @@ uint64_t SVG::Recorder::append(uint64_t a1, uint64_t a2)
   v19.b = v28.origin.y;
   v19.c = v28.size.width;
   v19.d = v28.size.height;
-  result = SVG::Recorder::updateCost(a1, a2, &v19);
+  SVG::Recorder::updateCost(a1, a2, &v19);
   if (*(a1 + 392) == 1 && *(a1 + 408) == 1)
   {
     *&v19.a = a1;
@@ -1037,22 +1021,21 @@ uint64_t SVG::Recorder::append(uint64_t a1, uint64_t a2)
     v24 = a1;
     v25 = a1;
     v26 = a1;
-    v17 = *(a2 + 120);
-    if (v17 != -1)
+    v16 = *(a2 + 120);
+    if (v16 != -1)
     {
       v27 = &v19;
-      return (off_286EBA848[v17])(&v27, a2);
+      (off_286EBA848[v16])(&v27, a2);
+      return;
     }
 
 LABEL_7:
-    v18 = std::__throw_bad_variant_access[abi:nn200100]();
-    return SVG::Recorder::takeRecording(v18);
+    v17 = std::__throw_bad_variant_access[abi:nn200100]();
+    SVG::Recorder::takeRecording(v18, v17);
   }
-
-  return result;
 }
 
-void SVG::Recorder::takeRecording(SVG::Recorder *this@<X0>, void *a2@<X8>)
+void SVG::Recorder::takeRecording(uint64_t *__return_ptr a1@<X8>, SVG::Recorder *this@<X0>)
 {
   SVG::Recorder::setInitialState(this);
   v4 = *(this + 22);
@@ -1066,9 +1049,9 @@ void SVG::Recorder::takeRecording(SVG::Recorder *this@<X0>, void *a2@<X8>)
   *(this + 24) = 0;
   if (*(this + 392) == 1 && (*(this + 408) & 1) != 0)
   {
-    *a2 = v4;
-    a2[1] = v5;
-    a2[2] = v6;
+    *a1 = v4;
+    a1[1] = v5;
+    a1[2] = v6;
     v9 = 0;
     v10 = 0;
     v8 = 0;
@@ -1078,7 +1061,7 @@ void SVG::Recorder::takeRecording(SVG::Recorder *this@<X0>, void *a2@<X8>)
   {
     memcpy(v7, &unk_25D1D5F00, sizeof(v7));
     SVG::Recorder::Recorder(v7, this + 48, *(this + 25), 1u, 1.0);
-    SVG::Recorder::takeRecording(v7);
+    SVG::Recorder::takeRecording(a1, v7);
     std::deque<SVG::BoundingRectState::State>::~deque[abi:nn200100](&v7[32]);
     v12[0] = &v7[22];
     std::vector<std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM>>::__destroy_vector::operator()[abi:nn200100](v12);
@@ -1218,7 +1201,7 @@ void std::__allocate_at_least[abi:nn200100]<std::allocator<CGAffineTransform>>(u
   std::vector<SVG::Length>::__throw_length_error[abi:nn200100]();
 }
 
-uint64_t std::vector<std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM>>::__emplace_back_slow_path<std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM>>(unsigned int **a1, uint64_t a2)
+unsigned int *std::vector<std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM>>::__emplace_back_slow_path<std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM>>(char **a1, uint64_t a2)
 {
   v2 = (a1[1] - *a1) >> 7;
   v3 = v2 + 1;
@@ -1257,10 +1240,10 @@ uint64_t std::vector<std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCT
   *v7 = 0;
   *(v7 + 120) = -1;
   std::__variant_detail::__ctor<std::__variant_detail::__traits<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM>>::__generic_construct[abi:nn200100]<std::__variant_detail::__move_constructor<std::__variant_detail::__traits<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM>,(std::__variant_detail::_Trait)1>>(v2 << 7, a2);
-  v8 = (v2 << 7) + 128;
+  v8 = ((v2 << 7) + 128);
   v9 = *a1;
   v10 = a1[1];
-  v11 = v7 + *a1 - v10;
+  v11 = (v7 + *a1 - v10);
   if (*a1 != v10)
   {
     v12 = *a1;
@@ -1277,14 +1260,14 @@ uint64_t std::vector<std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCT
     while (v12 != v10);
     do
     {
-      v14 = v9[30];
+      v14 = *(v9 + 30);
       if (v14 != -1)
       {
         (__const__ZNSt3__116__variant_detail12__visitation6__base11__visit_altB8nn200100IZNS0_6__dtorINS0_8__traitsIJN3SVG9SaveStateENS6_12RestoreStateENS6_9ConcatCTMENS6_9DrawImageENS6_8FillPathENS6_18DrawLinearGradientENS6_18DrawRadialGradientENS6_11ClipToPathsENS6_10ClipToMaskENS6_7SetFillENS6_22BeginTransparencyLayerENS6_20EndTransparencyLayerENS6_8SetAlphaENS6_6GetCTMEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRSN_EEEDcOSO_DpOT0____fmatrix[v14])(&v16, v9);
       }
 
-      v9[30] = -1;
-      v9 += 32;
+      *(v9 + 30) = -1;
+      v9 += 128;
     }
 
     while (v9 != v10);
@@ -1624,7 +1607,7 @@ __n128 _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10_
   return result;
 }
 
-uint64_t std::deque<SVG::BoundingRectState::State>::emplace_back<SVG::BoundingRectState::State>(void *a1, uint64_t a2)
+uint64_t std::deque<SVG::BoundingRectState::State>::emplace_back<SVG::BoundingRectState::State>(unint64_t *a1, uint64_t a2)
 {
   v4 = a1[2];
   v5 = a1[1];
@@ -1673,7 +1656,7 @@ uint64_t std::deque<SVG::BoundingRectState::State>::emplace_back<SVG::BoundingRe
   return v18 - 88;
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<SVG::Visitor<SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_1,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_2,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_3,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_4,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_5,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_6,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_7,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_8,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_9,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_10,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_11,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_12,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_13,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_14>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&>(void ***a1)
+uint64_t std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<SVG::Visitor<SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_1,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_2,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_3,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_4,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_5,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_6,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_7,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_8,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_9,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_10,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_11,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_12,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_13,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_14>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&>(unint64_t ***a1)
 {
   v1 = **a1;
   v4[0] = &unk_286EB9400;
@@ -1735,7 +1718,7 @@ void std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[
   }
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<2ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<SVG::Visitor<SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_1,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_2,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_3,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_4,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_5,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_6,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_7,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_8,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_9,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_10,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_11,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_12,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_13,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_14>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&>(uint64_t a1, uint64_t a2)
+unsigned int *std::__variant_detail::__visitation::__base::__dispatcher<2ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<SVG::Visitor<SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_1,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_2,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_3,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_4,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_5,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_6,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_7,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_8,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_9,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_10,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_11,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_12,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_13,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_14>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&>(uint64_t a1, uint64_t a2)
 {
   v2 = *(*a1 + 16);
   v5 = &unk_286EB9490;
@@ -1753,7 +1736,7 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<2ul>::__dispa
   return result;
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<3ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<SVG::Visitor<SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_1,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_2,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_3,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_4,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_5,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_6,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_7,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_8,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_9,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_10,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_11,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_12,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_13,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_14>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&>(uint64_t a1, uint64_t a2)
+unsigned int *std::__variant_detail::__visitation::__base::__dispatcher<3ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<SVG::Visitor<SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_1,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_2,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_3,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_4,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_5,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_6,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_7,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_8,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_9,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_10,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_11,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_12,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_13,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_14>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&>(uint64_t a1, uint64_t a2)
 {
   v3 = *(*a1 + 24);
   v4 = *(a2 + 8);
@@ -1777,7 +1760,7 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<3ul>::__dispa
   return result;
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<4ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<SVG::Visitor<SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_1,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_2,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_3,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_4,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_5,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_6,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_7,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_8,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_9,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_10,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_11,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_12,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_13,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_14>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&>(uint64_t a1, uint64_t a2)
+unsigned int *std::__variant_detail::__visitation::__base::__dispatcher<4ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<SVG::Visitor<SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_1,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_2,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_3,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_4,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_5,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_6,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_7,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_8,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_9,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_10,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_11,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_12,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_13,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_14>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&>(uint64_t a1, uint64_t a2)
 {
   v3 = *(*a1 + 32);
   v4 = *(a2 + 8);
@@ -1799,7 +1782,7 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<4ul>::__dispa
   return result;
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<5ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<SVG::Visitor<SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_1,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_2,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_3,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_4,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_5,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_6,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_7,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_8,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_9,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_10,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_11,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_12,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_13,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_14>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&>(uint64_t a1, uint64_t a2)
+unsigned int *std::__variant_detail::__visitation::__base::__dispatcher<5ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<SVG::Visitor<SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_1,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_2,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_3,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_4,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_5,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_6,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_7,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_8,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_9,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_10,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_11,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_12,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_13,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_14>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&>(uint64_t a1, uint64_t a2)
 {
   v3 = *(*a1 + 40);
   v4 = *(a2 + 8);
@@ -1824,7 +1807,7 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<5ul>::__dispa
   return result;
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<6ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<SVG::Visitor<SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_1,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_2,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_3,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_4,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_5,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_6,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_7,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_8,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_9,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_10,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_11,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_12,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_13,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_14>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&>(uint64_t a1, uint64_t a2)
+unsigned int *std::__variant_detail::__visitation::__base::__dispatcher<6ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<SVG::Visitor<SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_1,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_2,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_3,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_4,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_5,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_6,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_7,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_8,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_9,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_10,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_11,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_12,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_13,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_14>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&>(uint64_t a1, uint64_t a2)
 {
   v3 = *(*a1 + 48);
   v4 = *(a2 + 8);
@@ -1850,7 +1833,7 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<6ul>::__dispa
   return result;
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<7ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<SVG::Visitor<SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_1,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_2,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_3,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_4,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_5,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_6,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_7,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_8,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_9,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_10,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_11,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_12,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_13,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_14>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&>(uint64_t a1, uint64_t a2)
+unsigned int *std::__variant_detail::__visitation::__base::__dispatcher<7ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<SVG::Visitor<SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_1,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_2,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_3,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_4,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_5,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_6,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_7,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_8,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_9,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_10,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_11,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_12,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_13,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_14>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&>(uint64_t a1, uint64_t a2)
 {
   v2 = *(*a1 + 56);
   v4 = *(a2 + 8);
@@ -1873,7 +1856,7 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<7ul>::__dispa
   return result;
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<8ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<SVG::Visitor<SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_1,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_2,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_3,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_4,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_5,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_6,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_7,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_8,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_9,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_10,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_11,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_12,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_13,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_14>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&>(uint64_t a1, uint64_t a2)
+unsigned int *std::__variant_detail::__visitation::__base::__dispatcher<8ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<SVG::Visitor<SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_1,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_2,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_3,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_4,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_5,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_6,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_7,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_8,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_9,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_10,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_11,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_12,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_13,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_14>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&>(uint64_t a1, uint64_t a2)
 {
   v2 = *(*a1 + 64);
   v4 = *(a2 + 8);
@@ -1989,7 +1972,7 @@ LABEL_17:
   return result;
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<10ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<SVG::Visitor<SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_1,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_2,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_3,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_4,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_5,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_6,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_7,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_8,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_9,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_10,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_11,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_12,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_13,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_14>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&>(uint64_t a1)
+unsigned int *std::__variant_detail::__visitation::__base::__dispatcher<10ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<SVG::Visitor<SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_1,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_2,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_3,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_4,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_5,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_6,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_7,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_8,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_9,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_10,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_11,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_12,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_13,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_14>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&>(uint64_t a1)
 {
   v1 = *(*a1 + 80);
   v3[0] = &unk_286EB9730;
@@ -2003,7 +1986,7 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<10ul>::__disp
   return result;
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<11ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<SVG::Visitor<SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_1,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_2,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_3,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_4,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_5,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_6,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_7,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_8,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_9,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_10,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_11,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_12,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_13,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_14>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&>(uint64_t a1)
+unsigned int *std::__variant_detail::__visitation::__base::__dispatcher<11ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<SVG::Visitor<SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_1,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_2,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_3,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_4,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_5,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_6,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_7,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_8,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_9,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_10,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_11,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_12,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_13,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_14>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&>(uint64_t a1)
 {
   v1 = *(*a1 + 88);
   v3[0] = &unk_286EB97F8;
@@ -2017,7 +2000,7 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<11ul>::__disp
   return result;
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<12ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<SVG::Visitor<SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_1,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_2,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_3,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_4,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_5,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_6,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_7,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_8,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_9,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_10,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_11,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_12,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_13,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_14>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&>(uint64_t a1, uint64_t a2)
+unsigned int *std::__variant_detail::__visitation::__base::__dispatcher<12ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<SVG::Visitor<SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_1,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_2,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_3,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_4,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_5,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_6,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_7,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_8,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_9,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_10,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_11,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_12,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_13,SVG::Recorder::append(std::variant<SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&)::$_14>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,SVG::SaveState,SVG::RestoreState,SVG::ConcatCTM,SVG::DrawImage,SVG::FillPath,SVG::DrawLinearGradient,SVG::DrawRadialGradient,SVG::ClipToPaths,SVG::ClipToMask,SVG::SetFill,SVG::BeginTransparencyLayer,SVG::EndTransparencyLayer,SVG::SetAlpha,SVG::GetCTM> const&>(uint64_t a1, uint64_t a2)
 {
   v2 = *(*a1 + 96);
   v4[0] = &unk_286EB94D8;
@@ -2175,8 +2158,7 @@ LABEL_7:
   }
 
   v7 = *a3;
-  *a3 = 0;
-  *(a3 + 1) = 0;
+  *a3 = 0uLL;
   v8 = *(a2 + 8);
   *a2 = v7;
   if (v8)
@@ -2197,7 +2179,7 @@ LABEL_7:
   return result;
 }
 
-uint64_t std::deque<SVG::Recorder::State>::push_back(void *a1, _BYTE *a2)
+uint64_t std::deque<SVG::Recorder::State>::push_back(unint64_t *a1, _BYTE *a2)
 {
   v4 = a1[1];
   v5 = a1[2];
@@ -2240,13 +2222,13 @@ uint64_t std::deque<SVG::Recorder::State>::push_back(void *a1, _BYTE *a2)
 
     a1[4] = v7 - 32;
     v15 = *v4;
-    a1[1] = v4 + 8;
+    a1[1] = (v4 + 1);
     std::__split_buffer<SVG::Recorder::State *>::emplace_back<SVG::Recorder::State *&>(a1, &v15);
     v4 = a1[1];
     v8 = a1[5] + a1[4];
   }
 
-  v13 = *&v4[(v8 >> 2) & 0x3FFFFFFFFFFFFFF8] + ((v8 & 0x1F) << 7);
+  v13 = *(v4 + ((v8 >> 2) & 0x3FFFFFFFFFFFFFF8)) + ((v8 & 0x1F) << 7);
   *v13 = *a2;
   *(v13 + 8) = 0;
   *(v13 + 112) = -1;
@@ -2256,24 +2238,23 @@ uint64_t std::deque<SVG::Recorder::State>::push_back(void *a1, _BYTE *a2)
   return result;
 }
 
-void *std::__split_buffer<SVG::Recorder::State *>::emplace_back<SVG::Recorder::State *&>(void *result, void *a2)
+void std::__split_buffer<SVG::Recorder::State *>::emplace_back<SVG::Recorder::State *&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
       std::__allocate_at_least[abi:nn200100]<std::allocator<SVG::Recorder::State *>>(v11);
@@ -2285,18 +2266,17 @@ void *std::__split_buffer<SVG::Recorder::State *>::emplace_back<SVG::Recorder::S
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
 void std::__allocate_at_least[abi:nn200100]<std::allocator<SVG::Recorder::State *>>(unint64_t a1)
@@ -2309,94 +2289,94 @@ void std::__allocate_at_least[abi:nn200100]<std::allocator<SVG::Recorder::State 
   std::vector<SVG::Length>::__throw_length_error[abi:nn200100]();
 }
 
-void SVG::createParallelBitmapContext(SVG *this@<X0>, CGRect a2@<0:D0, 8:D1, 16:D2, 24:D3>, CGContext **a3@<X8>)
+void SVG::createParallelBitmapContext(CGContext **__return_ptr a1@<X8>, SVG *this@<X0>, CGRect a3@<0:D0, 8:D1, 16:D2, 24:D3>)
 {
-  if (a2.size.width == 0.0 || (height = a2.size.height, a2.size.height == 0.0))
+  if (a3.size.width == 0.0 || (height = a3.size.height, a3.size.height == 0.0))
   {
-    *a3 = 0;
+    *a1 = 0;
   }
 
   else
   {
-    width = a2.size.width;
-    y = a2.origin.y;
-    x = a2.origin.x;
-    *&v9 = -1;
-    *(&v9 + 1) = -1;
-    *&v32.c = v9;
-    *&v32.tx = v9;
-    *&v32.a = v9;
-    CGContextGetCTM(&v32, this);
-    v30 = v32.ty + y * v32.d + v32.b * x;
-    v31 = v32.tx + y * v32.c + v32.a * x;
+    width = a3.size.width;
+    y = a3.origin.y;
+    x = a3.origin.x;
+    *&v8 = -1;
+    *(&v8 + 1) = -1;
+    *&v31.c = v8;
+    *&v31.tx = v8;
+    *&v31.a = v8;
+    CGContextGetCTM(&v31, this);
+    v29 = v31.ty + y * v31.d + v31.b * x;
+    v30 = v31.tx + y * v31.c + v31.a * x;
+    v32.origin.x = x;
+    v32.origin.y = y;
+    v32.size.width = width;
+    v32.size.height = height;
+    MaxX = CGRectGetMaxX(v32);
+    v28 = v31.tx + y * v31.c + v31.a * MaxX;
+    v10 = v31.ty + y * v31.d + v31.b * MaxX;
     v33.origin.x = x;
     v33.origin.y = y;
     v33.size.width = width;
     v33.size.height = height;
-    MaxX = CGRectGetMaxX(v33);
-    v29 = v32.tx + y * v32.c + v32.a * MaxX;
-    v11 = v32.ty + y * v32.d + v32.b * MaxX;
+    MaxY = CGRectGetMaxY(v33);
+    v12 = v31.tx + MaxY * v31.c + v31.a * x;
+    v13 = v31.ty + MaxY * v31.d + v31.b * x;
     v34.origin.x = x;
     v34.origin.y = y;
     v34.size.width = width;
     v34.size.height = height;
-    MaxY = CGRectGetMaxY(v34);
-    v13 = v32.tx + MaxY * v32.c + v32.a * x;
-    v14 = v32.ty + MaxY * v32.d + v32.b * x;
+    v14 = CGRectGetMaxX(v34);
     v35.origin.x = x;
     v35.origin.y = y;
     v35.size.width = width;
     v35.size.height = height;
-    v15 = CGRectGetMaxX(v35);
-    v36.origin.x = x;
-    v36.origin.y = y;
-    v36.size.width = width;
-    v36.size.height = height;
-    v16 = CGRectGetMaxY(v36);
-    v17 = v32.tx + v16 * v32.c + v32.a * v15;
-    v18 = v32.ty + v16 * v32.d + v32.b * v15;
-    v19 = sqrt((v11 - v30) * (v11 - v30) + (v29 - v31) * (v29 - v31));
-    v20 = sqrt((v18 - v14) * (v18 - v14) + (v17 - v13) * (v17 - v13));
-    v21 = sqrt((v14 - v30) * (v14 - v30) + (v13 - v31) * (v13 - v31));
-    v22 = sqrt((v18 - v11) * (v18 - v11) + (v17 - v29) * (v17 - v29));
-    if (v19 >= v20)
+    v15 = CGRectGetMaxY(v35);
+    v16 = v31.tx + v15 * v31.c + v31.a * v14;
+    v17 = v31.ty + v15 * v31.d + v31.b * v14;
+    v18 = sqrt((v10 - v29) * (v10 - v29) + (v28 - v30) * (v28 - v30));
+    v19 = sqrt((v17 - v13) * (v17 - v13) + (v16 - v12) * (v16 - v12));
+    v20 = sqrt((v13 - v29) * (v13 - v29) + (v12 - v30) * (v12 - v30));
+    v21 = sqrt((v17 - v10) * (v17 - v10) + (v16 - v28) * (v16 - v28));
+    if (v18 >= v19)
     {
-      v23 = v19;
+      v22 = v18;
     }
 
     else
     {
-      v23 = v20;
+      v22 = v19;
     }
 
-    v24 = vcvtpd_u64_f64(v23);
-    if (v21 >= v22)
+    v23 = vcvtpd_u64_f64(v22);
+    if (v20 >= v21)
     {
-      v22 = v21;
+      v21 = v20;
     }
 
-    v25 = vcvtpd_u64_f64(v22);
-    v26 = CGColorSpaceCreateWithName(*MEMORY[0x277CBF4B8]);
-    if (4 * v24 * v25 <= 0x200000)
+    v24 = vcvtpd_u64_f64(v21);
+    v25 = CGColorSpaceCreateWithName(*MEMORY[0x277CBF4B8]);
+    if (4 * v23 * v24 <= 0x200000)
     {
-      v28 = CGBitmapContextCreate(0, v24, v25, 8uLL, 4 * v24, v26, 2u);
-      v27 = v28;
-      if (v28)
+      v27 = CGBitmapContextCreate(0, v23, v24, 8uLL, 4 * v23, v25, 2u);
+      v26 = v27;
+      if (v27)
       {
-        CGContextScaleCTM(v28, v24 / width, v25 / height);
-        CGContextTranslateCTM(v27, -x, -y);
+        CGContextScaleCTM(v27, v23 / width, v24 / height);
+        CGContextTranslateCTM(v26, -x, -y);
       }
     }
 
     else
     {
-      v27 = 0;
+      v26 = 0;
     }
 
-    *a3 = v27;
-    if (v26)
+    *a1 = v26;
+    if (v25)
     {
-      CFRelease(v26);
+      CFRelease(v25);
     }
   }
 }
@@ -2485,21 +2465,21 @@ CGAffineTransform *SVG::invert@<X0>(CGAffineTransform *this@<X0>, uint64_t a2@<X
 {
   if (fabs(this->a * this->d - this->b * this->c) <= 2.22044605e-16)
   {
-    v5 = 0;
+    v4 = 0;
     *a2 = 0;
   }
 
   else
   {
-    v4 = *&this->c;
-    *&v6.a = *&this->a;
-    *&v6.c = v4;
-    *&v6.tx = *&this->tx;
-    this = CGAffineTransformInvert(a2, &v6);
-    v5 = 1;
+    v3 = *&this->c;
+    *&v5.a = *&this->a;
+    *&v5.c = v3;
+    *&v5.tx = *&this->tx;
+    this = CGAffineTransformInvert(a2, &v5);
+    v4 = 1;
   }
 
-  *(a2 + 48) = v5;
+  *(a2 + 48) = v4;
   return this;
 }
 
@@ -2973,7 +2953,7 @@ unint64_t SVG::consumeCommaWspPlus(uint64_t *a1, unint64_t a2)
   return v5;
 }
 
-void std::vector<CGAffineTransform>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<CGAffineTransform>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x555555555555556)
   {
@@ -3271,18 +3251,18 @@ uint64_t SVG::GradientElement::appendChild(void *a1, const void **a2)
   return SVG::Element::appendChild(a1, a2);
 }
 
-void SVG::GradientElement::getGradient(uint64_t a1, uint64_t a2, void *a3)
+void SVG::GradientElement::getGradient(unint64_t a1, void *a2, void *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   CFArrayCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF128]);
   *&__dst = a1;
   std::__hash_table<std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::__unordered_map_hasher<__CFURL const*,std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::hash<__CFURL const*>,std::equal_to<__CFURL const*>,true>,std::__unordered_map_equal<__CFURL const*,std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::equal_to<__CFURL const*>,std::hash<__CFURL const*>,true>,std::allocator<std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>>>::find<__CFURL const*>(a3, &__dst);
-  memset(v5, 0, sizeof(v5));
+  memset(v7, 0, sizeof(v7));
   *&__dst = a1;
-  std::vector<std::reference_wrapper<SVG::GradientElement const>>::push_back[abi:nn200100](v5, &__dst);
+  std::vector<std::reference_wrapper<SVG::GradientElement const>>::push_back[abi:nn200100](v7, &__dst);
   __dst = 0u;
   __p = 0u;
-  v8 = 0xAAAAAAAA3F800000;
+  v10 = 0xAAAAAAAA3F800000;
   operator new();
 }
 
@@ -3323,7 +3303,7 @@ LABEL_9:
   return result;
 }
 
-void std::vector<std::reference_wrapper<SVG::GradientElement const>>::push_back[abi:nn200100](uint64_t a1, void *a2)
+void std::vector<std::reference_wrapper<SVG::GradientElement const>>::push_back[abi:nn200100](uint64_t a1, uint64_t *a2)
 {
   v4 = *(a1 + 8);
   v3 = *(a1 + 16);
@@ -3634,7 +3614,7 @@ void SVG::MaskElement::~MaskElement(SVG::MaskElement *this)
   JUMPOUT(0x25F894240);
 }
 
-void SVG::analyzeDependencies(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X3>, void *a5@<X8>)
+void SVG::analyzeDependencies(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X3>, const void **a5@<X8>)
 {
   v41 = 0;
   v42 = 0;
@@ -3683,7 +3663,7 @@ LABEL_28:
       operator new();
     }
 
-    v16 = *(v10 + 8);
+    v16 = *(v10 + 2);
     while (1)
     {
       v17 = *(v15 + 8);
@@ -3769,7 +3749,7 @@ LABEL_26:
     *&v28[0] = std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<SVG::Visitor<SVG::analyzeDependencies(std::unordered_map<__CFURL const*,std::reference_wrapper<SVG::Element const>> const&,std::unordered_map<SVG::Element const*,SVG::Presentation> const&,SVG::Presentation const&,SVG::Element const&)::$_0,SVG::analyzeDependencies(std::unordered_map<__CFURL const*,std::reference_wrapper<SVG::Element const>> const&,std::unordered_map<SVG::Element const*,SVG::Presentation> const&,SVG::Presentation const&,SVG::Element const&)::$_1>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)0,std::reference_wrapper<SVG::PatternElement const>,std::reference_wrapper<SVG::MaskElement const>> &>;
     *(&v28[0] + 1) = std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<SVG::Visitor<SVG::analyzeDependencies(std::unordered_map<__CFURL const*,std::reference_wrapper<SVG::Element const>> const&,std::unordered_map<SVG::Element const*,SVG::Presentation> const&,SVG::Presentation const&,SVG::Element const&)::$_0,SVG::analyzeDependencies(std::unordered_map<__CFURL const*,std::reference_wrapper<SVG::Element const>> const&,std::unordered_map<SVG::Element const*,SVG::Presentation> const&,SVG::Presentation const&,SVG::Element const&)::$_1>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)0,std::reference_wrapper<SVG::PatternElement const>,std::reference_wrapper<SVG::MaskElement const>> &>;
     (*(v28 + v18))(&v44, v10);
-    v10 += 16;
+    v10 += 2;
   }
 
   while (v10 != v9);
@@ -3832,21 +3812,21 @@ LABEL_31:
   }
 }
 
-void SVG::findDependentElements(uint64_t a1, void *a2)
+void SVG::findDependentElements(const void **a1, void *a2)
 {
   if (v4)
   {
     v5 = v4;
-    v7 = *(a1 + 8);
-    v6 = *(a1 + 16);
+    v7 = a1[1];
+    v6 = a1[2];
     if (v7 < v6)
     {
       *v7 = v4;
-      *(v7 + 8) = 0;
+      *(v7 + 2) = 0;
 LABEL_7:
-      v11 = v7 + 16;
+      v11 = (v7 + 16);
 LABEL_28:
-      *(a1 + 8) = v11;
+      a1[1] = v11;
       goto LABEL_29;
     }
 
@@ -3886,8 +3866,8 @@ LABEL_26:
       memcpy(v22, v12, v13);
       v23 = *a1;
       *a1 = v22;
-      *(a1 + 8) = v11;
-      *(a1 + 16) = 0;
+      a1[1] = v11;
+      a1[2] = 0;
       if (v23)
       {
         operator delete(v23);
@@ -3902,12 +3882,12 @@ LABEL_26:
   if (v8)
   {
     v9 = v8;
-    v7 = *(a1 + 8);
-    v10 = *(a1 + 16);
+    v7 = a1[1];
+    v10 = a1[2];
     if (v7 < v10)
     {
       *v7 = v8;
-      *(v7 + 8) = 1;
+      *(v7 + 2) = 1;
       goto LABEL_7;
     }
 
@@ -3958,7 +3938,7 @@ LABEL_29:
   }
 }
 
-uint64_t SVG::enqueue(uint64_t a1, void *a2, void *a3, void *a4, uint64_t a5, uint64_t a6)
+uint64_t SVG::enqueue(const void **a1, float *a2, float *a3, void *a4, uint64_t a5, uint64_t a6)
 {
   *&v43 = a5;
   *(&v43 + 1) = a6;
@@ -3973,7 +3953,7 @@ uint64_t SVG::enqueue(uint64_t a1, void *a2, void *a3, void *a4, uint64_t a5, ui
     goto LABEL_2;
   }
 
-  std::__hash_table<std::variant<std::reference_wrapper<SVG::PatternElement const>,std::reference_wrapper<SVG::MaskElement const>>,SVG::DependentElementHash,SVG::DependentElementPredicate,std::allocator<std::variant<std::reference_wrapper<SVG::PatternElement const>,std::reference_wrapper<SVG::MaskElement const>>>>::__emplace_unique_key_args<std::variant<std::reference_wrapper<SVG::PatternElement const>,std::reference_wrapper<SVG::MaskElement const>>,std::variant<std::reference_wrapper<SVG::PatternElement const>,std::reference_wrapper<SVG::MaskElement const>>&>(a3, &v44);
+  std::__hash_table<std::variant<std::reference_wrapper<SVG::PatternElement const>,std::reference_wrapper<SVG::MaskElement const>>,SVG::DependentElementHash,SVG::DependentElementPredicate,std::allocator<std::variant<std::reference_wrapper<SVG::PatternElement const>,std::reference_wrapper<SVG::MaskElement const>>>>::__emplace_unique_key_args<std::variant<std::reference_wrapper<SVG::PatternElement const>,std::reference_wrapper<SVG::MaskElement const>>,std::variant<std::reference_wrapper<SVG::PatternElement const>,std::reference_wrapper<SVG::MaskElement const>>&>(a3, &v44, &v44);
   if (std::__hash_table<std::variant<std::reference_wrapper<SVG::PatternElement const>,std::reference_wrapper<SVG::MaskElement const>>,SVG::DependentElementHash,SVG::DependentElementPredicate,std::allocator<std::variant<std::reference_wrapper<SVG::PatternElement const>,std::reference_wrapper<SVG::MaskElement const>>>>::find<std::variant<std::reference_wrapper<SVG::PatternElement const>,std::reference_wrapper<SVG::MaskElement const>>>(a2, &v43))
   {
     goto LABEL_44;
@@ -4039,13 +4019,13 @@ LABEL_18:
   }
 
   while (v16[2] != v43);
-  v19 = *(a1 + 8);
+  v19 = a1[1];
   v20 = v16[4];
   v21 = v16[5];
   if (v20 == v21)
   {
 LABEL_24:
-    v24 = *(a1 + 16);
+    v24 = a1[2];
     if (v19 >= v24)
     {
       v26 = (v19 - *a1) >> 4;
@@ -4078,14 +4058,14 @@ LABEL_24:
 
       v35 = (16 * v26);
       *v35 = v43;
-      v25 = 16 * v26 + 16;
-      v36 = *(a1 + 8) - *a1;
-      v37 = 16 * v26 - v36;
+      v25 = (16 * v26 + 16);
+      v36 = a1[1] - *a1;
+      v37 = (16 * v26 - v36);
       memcpy(v35 - v36, *a1, v36);
       v38 = *a1;
       *a1 = v37;
-      *(a1 + 8) = v25;
-      *(a1 + 16) = 0;
+      a1[1] = v25;
+      a1[2] = 0;
       if (v38)
       {
         operator delete(v38);
@@ -4095,11 +4075,11 @@ LABEL_24:
     else
     {
       *v19 = v43;
-      v25 = (v19 + 1);
+      v25 = v19 + 16;
     }
 
-    *(a1 + 8) = v25;
-    std::__hash_table<std::variant<std::reference_wrapper<SVG::PatternElement const>,std::reference_wrapper<SVG::MaskElement const>>,SVG::DependentElementHash,SVG::DependentElementPredicate,std::allocator<std::variant<std::reference_wrapper<SVG::PatternElement const>,std::reference_wrapper<SVG::MaskElement const>>>>::__emplace_unique_key_args<std::variant<std::reference_wrapper<SVG::PatternElement const>,std::reference_wrapper<SVG::MaskElement const>>,std::variant<std::reference_wrapper<SVG::PatternElement const>,std::reference_wrapper<SVG::MaskElement const>>&>(a2, &v43);
+    a1[1] = v25;
+    std::__hash_table<std::variant<std::reference_wrapper<SVG::PatternElement const>,std::reference_wrapper<SVG::MaskElement const>>,SVG::DependentElementHash,SVG::DependentElementPredicate,std::allocator<std::variant<std::reference_wrapper<SVG::PatternElement const>,std::reference_wrapper<SVG::MaskElement const>>>>::__emplace_unique_key_args<std::variant<std::reference_wrapper<SVG::PatternElement const>,std::reference_wrapper<SVG::MaskElement const>>,std::variant<std::reference_wrapper<SVG::PatternElement const>,std::reference_wrapper<SVG::MaskElement const>>&>(a2, &v43, &v43);
 LABEL_44:
     v11 = 0;
     goto LABEL_45;
@@ -4112,23 +4092,23 @@ LABEL_44:
     v20 += 2;
     if (v20 == v21)
     {
-      v19 = *(a1 + 8);
+      v19 = a1[1];
       goto LABEL_24;
     }
   }
 
   v31 = *a1;
-  v30 = *(a1 + 8);
+  v30 = a1[1];
   v32 = v30 - *a1;
   if (v22 < v32)
   {
     v33 = 16 * v23;
     do
     {
-      std::__hash_table<std::variant<std::reference_wrapper<SVG::PatternElement const>,std::reference_wrapper<SVG::MaskElement const>>,SVG::DependentElementHash,SVG::DependentElementPredicate,std::allocator<std::variant<std::reference_wrapper<SVG::PatternElement const>,std::reference_wrapper<SVG::MaskElement const>>>>::__erase_unique<std::variant<std::reference_wrapper<SVG::PatternElement const>,std::reference_wrapper<SVG::MaskElement const>>>(a2, v31 + v33);
+      std::__hash_table<std::variant<std::reference_wrapper<SVG::PatternElement const>,std::reference_wrapper<SVG::MaskElement const>>,SVG::DependentElementHash,SVG::DependentElementPredicate,std::allocator<std::variant<std::reference_wrapper<SVG::PatternElement const>,std::reference_wrapper<SVG::MaskElement const>>>>::__erase_unique<std::variant<std::reference_wrapper<SVG::PatternElement const>,std::reference_wrapper<SVG::MaskElement const>>>(a2, &v31[v33]);
       ++v23;
       v31 = *a1;
-      v30 = *(a1 + 8);
+      v30 = a1[1];
       v32 = v30 - *a1;
       v33 += 16;
     }
@@ -4146,7 +4126,7 @@ LABEL_44:
     }
 
     while (v34 > v22);
-    *(a1 + 8) = v30;
+    a1[1] = v30;
   }
 
 LABEL_2:
@@ -4170,12 +4150,12 @@ void std::__allocate_at_least[abi:nn200100]<std::allocator<std::variant<std::ref
   std::vector<SVG::Length>::__throw_length_error[abi:nn200100]();
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<SVG::Visitor<SVG::analyzeDependencies(std::unordered_map<__CFURL const*,std::reference_wrapper<SVG::Element const>> const&,std::unordered_map<SVG::Element const*,SVG::Presentation> const&,SVG::Presentation const&,SVG::Element const&)::$_0,SVG::analyzeDependencies(std::unordered_map<__CFURL const*,std::reference_wrapper<SVG::Element const>> const&,std::unordered_map<SVG::Element const*,SVG::Presentation> const&,SVG::Presentation const&,SVG::Element const&)::$_1>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)0,std::reference_wrapper<SVG::PatternElement const>,std::reference_wrapper<SVG::MaskElement const>> &>(void ***a1, unint64_t *a2)
+uint64_t std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<SVG::Visitor<SVG::analyzeDependencies(std::unordered_map<__CFURL const*,std::reference_wrapper<SVG::Element const>> const&,std::unordered_map<SVG::Element const*,SVG::Presentation> const&,SVG::Presentation const&,SVG::Element const&)::$_0,SVG::analyzeDependencies(std::unordered_map<__CFURL const*,std::reference_wrapper<SVG::Element const>> const&,std::unordered_map<SVG::Element const*,SVG::Presentation> const&,SVG::Presentation const&,SVG::Element const&)::$_1>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)0,std::reference_wrapper<SVG::PatternElement const>,std::reference_wrapper<SVG::MaskElement const>> &>(void ***a1, unint64_t ***a2)
 {
   v2 = *a1;
   v3 = *a2;
   v4 = **a1;
-  v8 = *(*a2 + 56);
+  v8 = (*a2)[7];
   v5 = std::__hash_table<std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::__unordered_map_hasher<__CFURL const*,std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::hash<__CFURL const*>,std::equal_to<__CFURL const*>,true>,std::__unordered_map_equal<__CFURL const*,std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::equal_to<__CFURL const*>,std::hash<__CFURL const*>,true>,std::allocator<std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>>>::find<__CFURL const*>(v4, &v8);
   v6 = *v2[1] + 32;
   v9 = *(v2 + 1);
@@ -4189,12 +4169,12 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispa
   return std::__hash_table<SVG::Element const*,std::hash<SVG::Element const*>,std::equal_to<SVG::Element const*>,std::allocator<SVG::Element const*>>::~__hash_table(v10);
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<SVG::Visitor<SVG::analyzeDependencies(std::unordered_map<__CFURL const*,std::reference_wrapper<SVG::Element const>> const&,std::unordered_map<SVG::Element const*,SVG::Presentation> const&,SVG::Presentation const&,SVG::Element const&)::$_0,SVG::analyzeDependencies(std::unordered_map<__CFURL const*,std::reference_wrapper<SVG::Element const>> const&,std::unordered_map<SVG::Element const*,SVG::Presentation> const&,SVG::Presentation const&,SVG::Element const&)::$_1>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)0,std::reference_wrapper<SVG::PatternElement const>,std::reference_wrapper<SVG::MaskElement const>> &>(uint64_t *a1, unint64_t *a2)
+uint64_t std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<SVG::Visitor<SVG::analyzeDependencies(std::unordered_map<__CFURL const*,std::reference_wrapper<SVG::Element const>> const&,std::unordered_map<SVG::Element const*,SVG::Presentation> const&,SVG::Presentation const&,SVG::Element const&)::$_0,SVG::analyzeDependencies(std::unordered_map<__CFURL const*,std::reference_wrapper<SVG::Element const>> const&,std::unordered_map<SVG::Element const*,SVG::Presentation> const&,SVG::Presentation const&,SVG::Element const&)::$_1>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)0,std::reference_wrapper<SVG::PatternElement const>,std::reference_wrapper<SVG::MaskElement const>> &>(uint64_t *a1, unint64_t ***a2)
 {
   v2 = *a1;
   v3 = *a2;
   v4 = *(*a1 + 32);
-  v8 = *(*a2 + 56);
+  v8 = (*a2)[7];
   v5 = std::__hash_table<std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::__unordered_map_hasher<__CFURL const*,std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::hash<__CFURL const*>,std::equal_to<__CFURL const*>,true>,std::__unordered_map_equal<__CFURL const*,std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>,std::equal_to<__CFURL const*>,std::hash<__CFURL const*>,true>,std::allocator<std::__hash_value_type<__CFURL const*,std::reference_wrapper<SVG::Element const>>>>::find<__CFURL const*>(v4, &v8);
   v6 = **(v2 + 40) + 32;
   v9 = *(v2 + 48);
@@ -4595,58 +4575,58 @@ LABEL_24:
   operator delete(v3);
 }
 
-unint64_t std::__hash_table<std::variant<std::reference_wrapper<SVG::PatternElement const>,std::reference_wrapper<SVG::MaskElement const>>,SVG::DependentElementHash,SVG::DependentElementPredicate,std::allocator<std::variant<std::reference_wrapper<SVG::PatternElement const>,std::reference_wrapper<SVG::MaskElement const>>>>::__emplace_unique_key_args<std::variant<std::reference_wrapper<SVG::PatternElement const>,std::reference_wrapper<SVG::MaskElement const>>,std::variant<std::reference_wrapper<SVG::PatternElement const>,std::reference_wrapper<SVG::MaskElement const>>&>(void *a1, uint64_t a2)
+void std::__hash_table<std::variant<std::reference_wrapper<SVG::PatternElement const>,std::reference_wrapper<SVG::MaskElement const>>,SVG::DependentElementHash,SVG::DependentElementPredicate,std::allocator<std::variant<std::reference_wrapper<SVG::PatternElement const>,std::reference_wrapper<SVG::MaskElement const>>>>::__emplace_unique_key_args<std::variant<std::reference_wrapper<SVG::PatternElement const>,std::reference_wrapper<SVG::MaskElement const>>,std::variant<std::reference_wrapper<SVG::PatternElement const>,std::reference_wrapper<SVG::MaskElement const>>&>(float *a1, uint64_t a2, _OWORD *a3)
 {
-  result = std::visit[abi:nn200100]<SVG::Visitor<SVG::DependentElementHash::operator()(std::variant<std::reference_wrapper<SVG::PatternElement const>,std::reference_wrapper<SVG::MaskElement const>> const&)::{lambda(SVG::PatternElement const&)#1},SVG::DependentElementHash::operator()(std::variant<std::reference_wrapper<SVG::PatternElement const>,std::reference_wrapper<SVG::MaskElement const>> const&)::{lambda(SVG::MaskElement const&)#1}>,std::variant<std::reference_wrapper<SVG::PatternElement const>,std::reference_wrapper<SVG::MaskElement const>> const&,void>(&v14, a2);
-  v5 = a1[1];
-  if (!*&v5)
+  v5 = std::visit[abi:nn200100]<SVG::Visitor<SVG::DependentElementHash::operator()(std::variant<std::reference_wrapper<SVG::PatternElement const>,std::reference_wrapper<SVG::MaskElement const>> const&)::{lambda(SVG::PatternElement const&)#1},SVG::DependentElementHash::operator()(std::variant<std::reference_wrapper<SVG::PatternElement const>,std::reference_wrapper<SVG::MaskElement const>> const&)::{lambda(SVG::MaskElement const&)#1}>,std::variant<std::reference_wrapper<SVG::PatternElement const>,std::reference_wrapper<SVG::MaskElement const>> const&,void>(&v15, a2);
+  v6 = *(a1 + 2);
+  if (!*&v6)
   {
     goto LABEL_27;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v7 = vcnt_s8(v6);
+  v7.i16[0] = vaddlv_u8(v7);
+  if (v7.u32[0] > 1uLL)
   {
-    v7 = result;
-    if (result >= *&v5)
+    v8 = v5;
+    if (v5 >= *&v6)
     {
-      v7 = result % *&v5;
+      v8 = v5 % *&v6;
     }
   }
 
   else
   {
-    v7 = (*&v5 - 1) & result;
+    v8 = (*&v6 - 1) & v5;
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v9 = *(*a1 + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
   {
 LABEL_27:
     operator new();
   }
 
-  v10 = *(a2 + 8);
+  v11 = *(a2 + 8);
   while (1)
   {
-    v11 = v9[1];
-    if (v11 != result)
+    v12 = v10[1];
+    if (v12 != v5)
     {
-      if (v6.u32[0] > 1uLL)
+      if (v7.u32[0] > 1uLL)
       {
-        if (v11 >= *&v5)
+        if (v12 >= *&v6)
         {
-          v11 %= *&v5;
+          v12 %= *&v6;
         }
       }
 
       else
       {
-        v11 &= *&v5 - 1;
+        v12 &= *&v6 - 1;
       }
 
-      if (v11 != v7)
+      if (v12 != v8)
       {
         goto LABEL_27;
       }
@@ -4654,50 +4634,48 @@ LABEL_27:
       goto LABEL_26;
     }
 
-    v12 = *(v9 + 6);
-    if (v12 != 1)
+    v13 = *(v10 + 6);
+    if (v13 != 1)
     {
       break;
     }
 
-    if (v10 == 1)
+    if (v11 == 1)
     {
       goto LABEL_25;
     }
 
 LABEL_26:
-    v9 = *v9;
-    if (!v9)
+    v10 = *v10;
+    if (!v10)
     {
       goto LABEL_27;
     }
   }
 
-  if (v12)
+  if (v13)
   {
-    v13 = 0;
+    v14 = 0;
   }
 
   else
   {
-    v13 = v10 == 0;
+    v14 = v11 == 0;
   }
 
-  if (!v13)
+  if (!v14)
   {
     goto LABEL_26;
   }
 
 LABEL_25:
-  if (v9[2] != *a2)
+  if (v10[2] != *a2)
   {
     goto LABEL_26;
   }
-
-  return result;
 }
 
-uint64_t OTSVGTableCreateFromData(const __CFData *a1, int a2)
+void *OTSVGTableCreateFromData(const __CFData *a1, int a2, double a3)
 {
   if (a1)
   {
@@ -4706,46 +4684,46 @@ uint64_t OTSVGTableCreateFromData(const __CFData *a1, int a2)
       Length = CFDataGetLength(a1);
       if (Length >= 10)
       {
-        v4 = Length;
+        v5 = Length;
         *buffer = -21846;
-        v22.location = 0;
-        v22.length = 2;
-        CFDataGetBytes(a1, v22, buffer);
-        v5 = __rev16(*buffer);
-        *buffer = -1431655766;
-        v23.location = 2;
-        v23.length = 4;
+        v23.location = 0;
+        v23.length = 2;
         CFDataGetBytes(a1, v23, buffer);
-        if (!v5)
+        v6 = __rev16(*buffer);
+        *buffer = -1431655766;
+        v24.location = 2;
+        v24.length = 4;
+        CFDataGetBytes(a1, v24, buffer);
+        if (!v6)
         {
-          v6 = buffer[0] << 24;
-          v7 = buffer[1];
-          v8 = buffer[2];
-          v9 = buffer[3];
-          v10.location = v6 | (buffer[1] << 16) | (buffer[2] << 8) | buffer[3];
-          v11 = v10.location + 2;
-          if (v10.location + 2 <= v4)
+          v7 = buffer[0] << 24;
+          v8 = buffer[1];
+          v9 = buffer[2];
+          v10 = buffer[3];
+          v11.location = v7 | (buffer[1] << 16) | (buffer[2] << 8) | buffer[3];
+          v12 = v11.location + 2;
+          if (v11.location + 2 <= v5)
           {
             *buffer = -21846;
-            v10.length = 2;
-            CFDataGetBytes(a1, v10, buffer);
-            v12 = buffer[0];
-            v13 = buffer[1];
-            if (v11 + 12 * (buffer[1] | (buffer[0] << 8)) <= v4)
+            v11.length = 2;
+            CFDataGetBytes(a1, v11, buffer);
+            v13 = buffer[0];
+            v14 = buffer[1];
+            if (v12 + 12 * (buffer[1] | (buffer[0] << 8)) <= v5)
             {
-              v15 = buffer[1] | (buffer[0] << 8);
+              v16 = buffer[1] | (buffer[0] << 8);
               BytePtr = CFDataGetBytePtr(a1);
-              if (v15)
+              if (v16)
               {
-                v17 = 12 * v13 + 3072 * v12 - 12;
-                v18 = &BytePtr[0x10000 * v7 + 16 + 256 * v8 + v6 + v9];
-                while (v17)
+                v18 = 12 * v14 + 3072 * v13 - 12;
+                v19 = &BytePtr[0x10000 * v8 + 16 + 256 * v9 + v7 + v10];
+                while (v18)
                 {
-                  v19 = bswap32(*v18) >> 16;
-                  v20 = bswap32(*(v18 - 7));
-                  v17 -= 12;
-                  v18 += 12;
-                  if (v19 < HIWORD(v20))
+                  v20 = bswap32(*v19) >> 16;
+                  v21 = bswap32(*(v19 - 7));
+                  v18 -= 12;
+                  v19 += 12;
+                  if (v20 < HIWORD(v21))
                   {
                     return 0;
                   }
@@ -4753,7 +4731,7 @@ uint64_t OTSVGTableCreateFromData(const __CFData *a1, int a2)
               }
 
               memset(buffer, 170, sizeof(buffer));
-              _ZNSt3__115allocate_sharedB8nn200100IN3SVG5TableENS_9allocatorIS2_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
+              _ZNSt3__115allocate_sharedB8nn200100IN3SVG5TableENS_9allocatorIS2_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_(buffer);
             }
           }
         }
@@ -4792,7 +4770,7 @@ void OTSVGTableEnumerateGlyphs(std::mutex **a1, uint64_t a2)
   }
 }
 
-uint64_t OTSVGTableGetDocumentIndexForGlyph(std::mutex **a1, unsigned int a2)
+unint64_t OTSVGTableGetDocumentIndexForGlyph(std::mutex **a1, unsigned int a2)
 {
   if (!a1)
   {
@@ -4936,28 +4914,28 @@ void SVG::playback(uint64_t a1, uint64_t *a2)
   }
 }
 
-uint64_t SVG::SetFill::execute(uint64_t a1, uint64_t a2, uint64_t a3)
+void SVG::SetFill::execute(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6[0] = &v7;
-  v6[1] = &v7;
-  v6[2] = a3;
-  v6[3] = a3;
-  v6[4] = &v7;
-  v7 = a2;
+  v5[0] = &v6;
+  v5[1] = &v6;
+  v5[2] = a3;
+  v5[3] = a3;
+  v5[4] = &v6;
+  v6 = a2;
   v3 = *(a1 + 112);
   if (v3 == -1)
   {
-    v5 = std::__throw_bad_variant_access[abi:nn200100]();
-    return SVG::SetFill::dump(v5);
+    v4 = std::__throw_bad_variant_access[abi:nn200100]();
+    SVG::SetFill::dump(v4);
   }
 
   else
   {
-    v8 = v6;
-    v9[0] = std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<SVG::Visitor<SVG::SetFill::execute(CGContext *,SVG::PlaybackState &)::$_0,SVG::SetFill::execute(CGContext *,SVG::PlaybackState &)::$_1,SVG::SetFill::execute(CGContext *,SVG::PlaybackState &)::$_2>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,SVG::CF<CGColor *>,SVG::SetFill::CurrentColor,SVG::SetFill::PatternData> const&>;
-    v9[1] = std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<SVG::Visitor<SVG::SetFill::execute(CGContext *,SVG::PlaybackState &)::$_0,SVG::SetFill::execute(CGContext *,SVG::PlaybackState &)::$_1,SVG::SetFill::execute(CGContext *,SVG::PlaybackState &)::$_2>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,SVG::CF<CGColor *>,SVG::SetFill::CurrentColor,SVG::SetFill::PatternData> const&>;
-    v9[2] = std::__variant_detail::__visitation::__base::__dispatcher<2ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<SVG::Visitor<SVG::SetFill::execute(CGContext *,SVG::PlaybackState &)::$_0,SVG::SetFill::execute(CGContext *,SVG::PlaybackState &)::$_1,SVG::SetFill::execute(CGContext *,SVG::PlaybackState &)::$_2>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,SVG::CF<CGColor *>,SVG::SetFill::CurrentColor,SVG::SetFill::PatternData> const&>;
-    return (v9[v3])(&v8, a1 + 8);
+    v7 = v5;
+    v8[0] = std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<SVG::Visitor<SVG::SetFill::execute(CGContext *,SVG::PlaybackState &)::$_0,SVG::SetFill::execute(CGContext *,SVG::PlaybackState &)::$_1,SVG::SetFill::execute(CGContext *,SVG::PlaybackState &)::$_2>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,SVG::CF<CGColor *>,SVG::SetFill::CurrentColor,SVG::SetFill::PatternData> const&>;
+    v8[1] = std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<SVG::Visitor<SVG::SetFill::execute(CGContext *,SVG::PlaybackState &)::$_0,SVG::SetFill::execute(CGContext *,SVG::PlaybackState &)::$_1,SVG::SetFill::execute(CGContext *,SVG::PlaybackState &)::$_2>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,SVG::CF<CGColor *>,SVG::SetFill::CurrentColor,SVG::SetFill::PatternData> const&>;
+    v8[2] = std::__variant_detail::__visitation::__base::__dispatcher<2ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<SVG::Visitor<SVG::SetFill::execute(CGContext *,SVG::PlaybackState &)::$_0,SVG::SetFill::execute(CGContext *,SVG::PlaybackState &)::$_1,SVG::SetFill::execute(CGContext *,SVG::PlaybackState &)::$_2>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,SVG::CF<CGColor *>,SVG::SetFill::CurrentColor,SVG::SetFill::PatternData> const&>;
+    (v8[v3])(&v7, a1 + 8);
   }
 }
 
@@ -5087,7 +5065,7 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<2ul>::__dispa
   return std::ostream::flush();
 }
 
-void SVG::RecordBase::operator()(void *a1, unint64_t a2, const SVG::Presentation *a3)
+void SVG::RecordBase::operator()(float *a1, unint64_t **a2, const SVG::Presentation *a3)
 {
   v35 = *MEMORY[0x277D85DE8];
   if (!(*(*a1 + 80))(a1) || std::__hash_table<SVG::Element const*,std::hash<SVG::Element const*>,std::equal_to<SVG::Element const*>,std::allocator<SVG::Element const*>>::find<SVG::Element const*>(a1 + 3, a2))
@@ -5095,9 +5073,9 @@ void SVG::RecordBase::operator()(void *a1, unint64_t a2, const SVG::Presentation
     return;
   }
 
-  v6 = 0x9DDFEA08EB382D69 * (((((a2 >> 3) & 0x3FFFFFF) << 6) | 8) ^ HIDWORD(a2));
-  v7 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (HIDWORD(a2) ^ (v6 >> 47) ^ v6)) ^ ((0x9DDFEA08EB382D69 * (HIDWORD(a2) ^ (v6 >> 47) ^ v6)) >> 47));
-  v8 = a1[4];
+  v6 = 0x9DDFEA08EB382D69 * (((((a2 >> 3) & 0x3FFFFFF) << 6) | 8) ^ (a2 >> 32));
+  v7 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * ((a2 >> 32) ^ (v6 >> 47) ^ v6)) ^ ((0x9DDFEA08EB382D69 * ((a2 >> 32) ^ (v6 >> 47) ^ v6)) >> 47));
+  v8 = *(a1 + 8);
   if (!*&v8)
   {
     goto LABEL_20;
@@ -5107,7 +5085,7 @@ void SVG::RecordBase::operator()(void *a1, unint64_t a2, const SVG::Presentation
   v9.i16[0] = vaddlv_u8(v9);
   if (v9.u32[0] > 1uLL)
   {
-    v10 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (HIDWORD(a2) ^ (v6 >> 47) ^ v6)) ^ ((0x9DDFEA08EB382D69 * (HIDWORD(a2) ^ (v6 >> 47) ^ v6)) >> 47));
+    v10 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * ((a2 >> 32) ^ (v6 >> 47) ^ v6)) ^ ((0x9DDFEA08EB382D69 * ((a2 >> 32) ^ (v6 >> 47) ^ v6)) >> 47));
     if (v7 >= *&v8)
     {
       v10 = v7 % *&v8;
@@ -5119,7 +5097,7 @@ void SVG::RecordBase::operator()(void *a1, unint64_t a2, const SVG::Presentation
     v10 = (*&v8 - 1) & v7;
   }
 
-  v11 = *(a1[3] + 8 * v10);
+  v11 = *(*(a1 + 3) + 8 * v10);
   if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_20:
@@ -5169,7 +5147,7 @@ LABEL_19:
   {
     v15 = v14;
     memcpy(__dst, &unk_25D1D6528, sizeof(__dst));
-    SVG::Presentation::inherit(v15, a3, a1[2], __dst);
+    SVG::Presentation::inherit(v15, a3, *(a1 + 2), __dst);
     (*(*a1 + 16))(a1, a2, __dst);
     if (LODWORD(__dst[28]) != -1)
     {
@@ -5218,8 +5196,8 @@ LABEL_19:
 
   else
   {
-    v21 = *(a2 + 32);
-    v22 = *(a2 + 40);
+    v21 = a2[4];
+    v22 = a2[5];
     while (v21 != v22)
     {
       v23 = *v21++;
@@ -5230,9 +5208,9 @@ LABEL_19:
   v16 = std::__hash_table<SVG::Element const*,std::hash<SVG::Element const*>,std::equal_to<SVG::Element const*>,std::allocator<SVG::Element const*>>::find<SVG::Element const*>(a1 + 3, a2);
   if (v16)
   {
-    v17 = a1[4];
+    v17 = *(a1 + 8);
     v18 = *v16;
-    v19 = v16[1];
+    v19 = *(v16 + 1);
     v20 = vcnt_s8(v17);
     v20.i16[0] = vaddlv_u8(v20);
     if (v20.u32[0] > 1uLL)
@@ -5248,7 +5226,7 @@ LABEL_19:
       v19 &= *&v17 - 1;
     }
 
-    v24 = a1[3];
+    v24 = *(a1 + 3);
     v25 = *(v24 + 8 * v19);
     do
     {
@@ -5257,12 +5235,12 @@ LABEL_19:
     }
 
     while (v25 != v16);
-    if (v26 == a1 + 5)
+    if (v26 == a1 + 10)
     {
       goto LABEL_53;
     }
 
-    v27 = v26[1];
+    v27 = *(v26 + 1);
     if (v20.u32[0] > 1uLL)
     {
       if (v27 >= *&v17)
@@ -5333,19 +5311,19 @@ LABEL_57:
 
       if (v28 != v19)
       {
-        *(a1[3] + 8 * v28) = v26;
+        *(*(a1 + 3) + 8 * v28) = v26;
         v18 = *v16;
       }
     }
 
     *v26 = v18;
     *v16 = 0;
-    --a1[6];
+    --*(a1 + 6);
     operator delete(v16);
   }
 }
 
-void SVG::RecordBase::operator()(void *a1, unint64_t **a2, const SVG::Presentation *a3)
+void SVG::RecordBase::operator()(float *a1, unint64_t ****a2, const SVG::Presentation *a3)
 {
   if ((*(*a1 + 80))(a1))
   {
@@ -5471,59 +5449,55 @@ void SVG::Record::processPresentation(SVG::Record *this, const SVG::Element *a2,
   operator new();
 }
 
-uint64_t SVG::Record::processGElement(SVG::Record *this, const SVG::GElement *a2, const SVG::Presentation *a3)
+void SVG::Record::processGElement(SVG::Record *this, const SVG::GElement *a2, const SVG::Presentation *a3)
 {
   v3 = *(this + 8);
-  v5 = *(a2 + 40);
-  v6 = *(a2 + 41);
-  v7 = *(a2 + 42);
-  v8 = &unk_286EB9490;
+  v4 = *(a2 + 40);
+  v5 = *(a2 + 41);
+  v6 = *(a2 + 42);
+  v7 = &unk_286EB9490;
+  v8 = v4;
   v9 = v5;
   v10 = v6;
-  v11 = v7;
-  v12 = 2;
-  result = SVG::Recorder::append(v3, &v8);
-  if (v12 != -1)
+  v11 = 2;
+  SVG::Recorder::append(v3, &v7);
+  if (v11 != -1)
   {
-    return (off_286EBA928[v12])(&v13, &v8);
+    (off_286EBA928[v11])(&v12, &v7);
   }
-
-  return result;
 }
 
-uint64_t SVG::Record::processUseElement(SVG::Record *this, const SVG::UseElement *a2, const SVG::Presentation *a3)
+void SVG::Record::processUseElement(SVG::Record *this, const SVG::UseElement *a2, const SVG::Presentation *a3)
 {
   v5 = *(a2 + 84);
   v6 = *(a2 + 85);
-  *v15 = *(a2 + 43);
-  v12 = *(a2 + 41);
-  v13 = *(a2 + 40);
-  v7 = SVG::Length::computeValue(v15, *(this + 21));
-  *v15 = *(a2 + 44);
-  v8 = SVG::Length::computeValue(v15, *(this + 22));
-  *&v14[16] = v12;
-  *v14 = v13;
-  *&v14[32] = v5;
-  *&v14[40] = v6;
-  CGAffineTransformTranslate(v15, v14, v7, v8);
+  *v14 = *(a2 + 43);
+  v11 = *(a2 + 41);
+  v12 = *(a2 + 40);
+  v7 = SVG::Length::computeValue(v14, *(this + 21));
+  *v14 = *(a2 + 44);
+  v8 = SVG::Length::computeValue(v14, *(this + 22));
+  *&v13[16] = v11;
+  *v13 = v12;
+  *&v13[32] = v5;
+  *&v13[40] = v6;
+  CGAffineTransformTranslate(v14, v13, v7, v8);
   v9 = *(this + 8);
+  *v13 = &unk_286EB9490;
+  *&v13[8] = *v14;
+  *&v13[24] = *&v14[16];
+  *&v13[40] = *&v14[32];
   *v14 = &unk_286EB9490;
-  *&v14[8] = *v15;
-  *&v14[24] = *&v15[16];
-  *&v14[40] = *&v15[32];
-  *v15 = &unk_286EB9490;
-  v10 = *&v15[16];
-  *&v15[8] = *&v14[8];
-  *&v15[24] = v10;
-  *&v15[40] = *&v14[40];
-  v16 = 2;
-  result = SVG::Recorder::append(v9, v15);
-  if (v16 != -1)
+  v10 = *&v14[16];
+  *&v14[8] = *&v13[8];
+  *&v14[24] = v10;
+  *&v14[40] = *&v13[40];
+  v15 = 2;
+  SVG::Recorder::append(v9, v14);
+  if (v15 != -1)
   {
-    return (off_286EBA928[v16])(&v17, v15);
+    (off_286EBA928[v15])(&v16, v14);
   }
-
-  return result;
 }
 
 void SVG::Record::processImageElement(SVG::Record *this, CGImageRef *a2, const SVG::Presentation *a3)
@@ -5536,27 +5510,25 @@ void SVG::Record::processImageElement(SVG::Record *this, CGImageRef *a2, const S
       {
         *&v5 = -1;
         *(&v5 + 1) = -1;
-        v26 = v5;
-        v27 = v5;
-        v25 = v5;
-        v28 = 0xAAAAAAAAAAAAAAAALL;
+        *&v23.c = v5;
+        *&v23.tx = v5;
+        *&v23.a = v5;
+        v24 = 0xAAAAAAAAAAAAAAAALL;
         *&v5 = *(this + 19);
         v6 = *(this + 20);
         v7 = *(this + 21);
         v8 = *(this + 22);
-        SVG::ImageElement::totalTransform(a2, *&v5, &v25);
-        if (v28 == 1)
+        SVG::ImageElement::totalTransform(&v23, a2, *&v5);
+        if (v24 == 1)
         {
-          v24 = 0xAAAAAAAAAAAAAAAALL;
-          memset(&v23[2], 255, 32);
-          v23[4] = xmmword_25D1D68B8;
-          v23[0] = xmmword_25D1D6878;
-          v23[1] = unk_25D1D6888;
+          v22 = 0xAAAAAAAAAAAAAAAALL;
+          memset(&v21[2], 255, 32);
+          v21[4] = xmmword_25D1D68B8;
+          v21[0] = xmmword_25D1D6878;
+          v21[1] = unk_25D1D6888;
           v9 = *(this + 8);
-          v19 = v25;
-          v20 = v26;
-          v21 = v27;
-          SVG::AffineTransformApplier::AffineTransformApplier(v23, v9, &v19);
+          v19[0] = v23;
+          SVG::AffineTransformApplier::AffineTransformApplier(v21, v9, v19);
           v10 = *(this + 8);
           v11 = a2[96];
           Width = CGImageGetWidth(v11);
@@ -5564,29 +5536,29 @@ void SVG::Record::processImageElement(SVG::Record *this, CGImageRef *a2, const S
           if (v11)
           {
             CFRetain(v11);
-            v14 = v11;
+            v14 = *&v11;
           }
 
           else
           {
-            v14 = 0;
+            v14 = 0.0;
           }
 
           *&v18 = Width;
           *(&v18 + 1) = Height;
-          *&v19 = &unk_286EB9448;
-          *(&v19 + 1) = v14;
-          v20 = 0uLL;
-          v21 = v18;
-          v22 = 3;
-          SVG::Recorder::append(v10, &v19);
-          if (v22 != -1)
+          *&v19[0].a = &unk_286EB9448;
+          v19[0].b = v14;
+          *&v19[0].c = 0uLL;
+          *&v19[0].tx = v18;
+          v20 = 3;
+          SVG::Recorder::append(v10, v19);
+          if (v20 != -1)
           {
-            (off_286EBA928[v22])(&v29, &v19);
+            (off_286EBA928[v20])(&v25, v19);
           }
 
-          v22 = -1;
-          SVG::AffineTransformApplier::~AffineTransformApplier(v23);
+          v20 = -1;
+          SVG::AffineTransformApplier::~AffineTransformApplier(v21);
         }
       }
     }
@@ -6004,15 +5976,15 @@ void std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[
   }
 }
 
-void std::__variant_detail::__visitation::__base::__dispatcher<2ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<SVG::DrawShapeOfType> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,SVG::ApplyPresentationFill::None,std::__variant_detail::_Trait::FillPath,std::__variant_detail::_Trait::Gradient> const&>(uint64_t *a1)
+void std::__variant_detail::__visitation::__base::__dispatcher<2ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<SVG::DrawShapeOfType> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,SVG::ApplyPresentationFill::None,std::__variant_detail::_Trait::FillPath,std::__variant_detail::_Trait::Gradient> const&>(uint64_t *a1, __int128 *a2)
 {
-  v1 = *a1;
-  v2[1] = 0xAAAAAAAAAAAAAA00;
-  v2[0] = *v1;
-  SVG::StateSaverRestorer::save(v2);
-  if (*(v1 + 8))
+  v2 = *a1;
+  v3[1] = 0xAAAAAAAAAAAAAA00;
+  v3[0] = *v2;
+  SVG::StateSaverRestorer::save(v3);
+  if (*(v2 + 8))
   {
-    CFRetain(*(v1 + 8));
+    CFRetain(*(v2 + 8));
   }
 
   operator new();
@@ -6104,7 +6076,7 @@ uint64_t std::__shared_ptr_pointer<SVG::ClipToPaths::LeafClipNode  *>::__get_del
   }
 }
 
-uint64_t ***std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<SVG::Visitor<SVG::DrawShapeOfType::operator()(SVG::ApplyPresentationFill::Gradient const&)::{lambda(std::vector<SVG::DrawLinearGradient> const&)#1},SVG::DrawShapeOfType::operator()(SVG::ApplyPresentationFill::Gradient const&)::{lambda(std::vector<SVG::DrawRadialGradient> const&)#1}>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,std::vector<SVG::DrawLinearGradient>,std::vector<SVG::DrawRadialGradient>> const&>(uint64_t ***result, uint64_t *a2)
+void std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<SVG::Visitor<SVG::DrawShapeOfType::operator()(SVG::ApplyPresentationFill::Gradient const&)::{lambda(std::vector<SVG::DrawLinearGradient> const&)#1},SVG::DrawShapeOfType::operator()(SVG::ApplyPresentationFill::Gradient const&)::{lambda(std::vector<SVG::DrawRadialGradient> const&)#1}>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,std::vector<SVG::DrawLinearGradient>,std::vector<SVG::DrawRadialGradient>> const&>(uint64_t ***result, uint64_t *a2)
 {
   v2 = *a2;
   v3 = a2[1];
@@ -6128,10 +6100,10 @@ uint64_t ***std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__di
       v10 = v7;
       v11 = v8;
       v13 = 5;
-      result = SVG::Recorder::append(v5, v9);
+      SVG::Recorder::append(v5, v9);
       if (v13 != -1)
       {
-        result = (off_286EBA928[v13])(&v14, v9);
+        (off_286EBA928[v13])(&v14, v9);
       }
 
       v2 += 56;
@@ -6139,11 +6111,9 @@ uint64_t ***std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__di
 
     while (v2 != v3);
   }
-
-  return result;
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<SVG::Visitor<SVG::DrawShapeOfType::operator()(SVG::ApplyPresentationFill::Gradient const&)::{lambda(std::vector<SVG::DrawLinearGradient> const&)#1},SVG::DrawShapeOfType::operator()(SVG::ApplyPresentationFill::Gradient const&)::{lambda(std::vector<SVG::DrawRadialGradient> const&)#1}>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,std::vector<SVG::DrawLinearGradient>,std::vector<SVG::DrawRadialGradient>> const&>(uint64_t result, uint64_t *a2)
+void std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<SVG::Visitor<SVG::DrawShapeOfType::operator()(SVG::ApplyPresentationFill::Gradient const&)::{lambda(std::vector<SVG::DrawLinearGradient> const&)#1},SVG::DrawShapeOfType::operator()(SVG::ApplyPresentationFill::Gradient const&)::{lambda(std::vector<SVG::DrawRadialGradient> const&)#1}>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,std::vector<SVG::DrawLinearGradient>,std::vector<SVG::DrawRadialGradient>> const&>(uint64_t *result, uint64_t *a2)
 {
   v2 = *a2;
   v3 = a2[1];
@@ -6169,10 +6139,10 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispa
       v13 = v9;
       v11 = v7;
       v15 = 6;
-      result = SVG::Recorder::append(v5, v10);
+      SVG::Recorder::append(v5, v10);
       if (v15 != -1)
       {
-        result = (off_286EBA928[v15])(&v16, v10);
+        (off_286EBA928[v15])(&v16, v10);
       }
 
       v2 += 72;
@@ -6180,8 +6150,6 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispa
 
     while (v2 != v3);
   }
-
-  return result;
 }
 
 void *std::__hash_table<SVG::Element const*,std::hash<SVG::Element const*>,std::equal_to<SVG::Element const*>,std::allocator<SVG::Element const*>>::find<SVG::Element const*>(void *a1, unint64_t a2)
@@ -6217,45 +6185,37 @@ void *std::__hash_table<SVG::Element const*,std::hash<SVG::Element const*>,std::
     return 0;
   }
 
-  result = *v8;
-  if (*v8)
+  for (result = *v8; result; result = *result)
   {
-    do
+    v10 = result[1];
+    if (v10 == v5)
     {
-      v10 = result[1];
-      if (v10 == v5)
+      if (result[2] == a2)
       {
-        if (result[2] == a2)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v6.u32[0] > 1uLL)
+      {
+        if (v10 >= *&v2)
         {
-          return result;
+          v10 %= *&v2;
         }
       }
 
       else
       {
-        if (v6.u32[0] > 1uLL)
-        {
-          if (v10 >= *&v2)
-          {
-            v10 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v10 &= *&v2 - 1;
-        }
-
-        if (v10 != v7)
-        {
-          return 0;
-        }
+        v10 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v10 != v7)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
@@ -6273,8 +6233,8 @@ __n128 std::__function::__func<SVG::Record::processPresentation(SVG::Element con
 void std::__function::__func<SVG::Record::processPresentation(SVG::Element const&,SVG::Presentation const&)::$_0,std::allocator<SVG::Record::processPresentation(SVG::Element const&,SVG::Presentation const&)::$_0>,void ()(SVG::ApplyPresentationState const&)>::operator()(uint64_t a1, _OWORD *a2)
 {
   v4 = *(a1 + 8);
-  v5 = *(v4 + 11);
-  v6 = *(v4 + 10);
+  v5 = v4[11];
+  v6 = v4[10];
   if (v5 == v6)
   {
     v7 = 0;
@@ -6285,15 +6245,15 @@ void std::__function::__func<SVG::Record::processPresentation(SVG::Element const
     v7 = 32 * (v5 - v6) - 1;
   }
 
-  v8 = *(v4 + 13);
-  v9 = *(v4 + 14) + v8;
+  v8 = v4[13];
+  v9 = v4[14] + v8;
   if (v7 == v9)
   {
     if (v8 < 0x100)
     {
-      v10 = *(v4 + 12);
-      v11 = *(v4 + 9);
-      if (v5 - v6 < (v10 - v11))
+      v10 = v4[12];
+      v11 = v4[9];
+      if (v5 - v6 < v10 - v11)
       {
         operator new();
       }
@@ -6311,19 +6271,19 @@ void std::__function::__func<SVG::Record::processPresentation(SVG::Element const
       std::__allocate_at_least[abi:nn200100]<std::allocator<SVG::Recorder::State *>>(v12);
     }
 
-    *(v4 + 13) = v8 - 256;
+    v4[13] = v8 - 256;
     v18 = *v6;
-    *(v4 + 10) = v6 + 8;
+    v4[10] = (v6 + 8);
     std::__split_buffer<SVG::Recorder::State *>::emplace_back<SVG::Recorder::State *&>(v4 + 9, &v18);
-    v6 = *(v4 + 10);
-    v9 = *(v4 + 14) + *(v4 + 13);
+    v6 = v4[10];
+    v9 = v4[14] + v4[13];
   }
 
   *(*&v6[(v9 >> 5) & 0x7FFFFFFFFFFFFF8] + 16 * v9) = *a2;
-  ++*(v4 + 14);
+  ++v4[14];
   SVG::RecordBase::processSpecificElement(v4, *(a1 + 16), *(a1 + 24));
-  v14 = *(v4 + 10);
-  v13 = *(v4 + 11);
+  v14 = v4[10];
+  v13 = v4[11];
   if (v13 == v14)
   {
     v15 = 0;
@@ -6334,13 +6294,13 @@ void std::__function::__func<SVG::Record::processPresentation(SVG::Element const
     v15 = 32 * (v13 - v14) - 1;
   }
 
-  v16 = *(v4 + 13);
-  v17 = *(v4 + 14) - 1;
-  *(v4 + 14) = v17;
-  if ((v15 - (v17 + v16)) >= 0x200)
+  v16 = v4[13];
+  v17 = v4[14] - 1;
+  v4[14] = v17;
+  if (v15 - (v17 + v16) >= 0x200)
   {
     operator delete(*(v13 - 8));
-    *(v4 + 11) -= 8;
+    v4[11] -= 8;
   }
 }
 
@@ -6356,11 +6316,11 @@ uint64_t std::__function::__func<SVG::Record::processPresentation(SVG::Element c
   }
 }
 
-double SVG::PathElement::PathElement(uint64_t a1, uint64_t x1_0, void *a3)
+double SVG::PathElement::PathElement(uint64_t a1, uint64_t a2, void *a3)
 {
   v3 = a3;
   v4 = a1;
-  v5 = SVG::ShapeElement::ShapeElement(a1, x1_0, a3);
+  v5 = SVG::ShapeElement::ShapeElement(a1, a2, a3);
   *v5 = &unk_286EB9BE0;
   *(v5 + 688) = 0u;
   std::string::basic_string[abi:nn200100]<0>(__p, "d");
@@ -6428,7 +6388,7 @@ LABEL_62:
   v116 = 0xAAAAAAAAAAAAAAAALL;
   v114 = v11;
   v115 = v11;
-  SVG::consumeMovetoDrawtoCommandGroup(&v114, (v6 + 8), v9);
+  SVG::consumeMovetoDrawtoCommandGroup(&v114, v6 + 8, v9);
   if (v116 == 1)
   {
     v51 = (v4 + 688);
@@ -6518,7 +6478,7 @@ LABEL_70:
       }
 
       while ((v35 & 1) != 0);
-      SVG::consumeMovetoDrawtoCommandGroup(__p, (v6 + 8), v34);
+      SVG::consumeMovetoDrawtoCommandGroup(__p, v6 + 8, v34);
       if (v116 == v57)
       {
         if (v116)
@@ -6844,7 +6804,7 @@ void SVG::PathElement::~PathElement(SVG::PathElement *this)
   JUMPOUT(0x25F894240);
 }
 
-_BYTE *SVG::consumeMovetoDrawtoCommandGroup(_BYTE *a1, uint64_t a2, unint64_t a3)
+_BYTE *SVG::consumeMovetoDrawtoCommandGroup(_BYTE *a1, uint64_t *a2, unint64_t a3)
 {
   v10 = *MEMORY[0x277D85DE8];
   *&v4 = 0xAAAAAAAAAAAAAAAALL;
@@ -6866,14 +6826,14 @@ _BYTE *SVG::consumeMovetoDrawtoCommandGroup(_BYTE *a1, uint64_t a2, unint64_t a3
   return result;
 }
 
-_BYTE *SVG::consumeSingleDrawtoCommand<std::vector<CGPoint>>(_BYTE *result, uint64_t a2, unint64_t a3, unsigned __int8 a4, unsigned __int8 a5, void *(*a6)(__int128 *__return_ptr, uint64_t, unint64_t))
+_BYTE *SVG::consumeSingleDrawtoCommand<std::vector<CGPoint>>(_BYTE *result, uint64_t *a2, unint64_t a3, unsigned __int8 a4, unsigned __int8 a5, void *(*a6)(__int128 *__return_ptr, uint64_t *, uint64_t))
 {
   v6 = result;
   v7 = *(a2 + 23);
   v8 = v7;
   if ((v7 & 0x80u) != 0)
   {
-    v7 = *(a2 + 8);
+    v7 = a2[1];
   }
 
   if (v7 > a3 && ((v10 = a5, v8 >= 0) ? (v11 = a2) : (v11 = *a2), (v12 = *(v11 + a3), v12 != a4) ? (v13 = v12 == a5) : (v13 = 1), v13))
@@ -6945,21 +6905,21 @@ void std::__allocate_at_least[abi:nn200100]<std::allocator<CGPoint>>(uint64_t a1
   std::vector<SVG::Length>::__throw_length_error[abi:nn200100]();
 }
 
-void *std::vector<CGPoint>::vector[abi:nn200100](void *result, void *a2)
+uint64_t *std::vector<CGPoint>::vector[abi:nn200100](uint64_t *a1, void *a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   v2 = a2[1];
   if (v2 != *a2)
   {
-    std::vector<CGPoint>::__vallocate[abi:nn200100](result, (v2 - *a2) >> 4);
+    std::vector<CGPoint>::__vallocate[abi:nn200100](a1, (v2 - *a2) >> 4);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<CGPoint>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<CGPoint>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -7135,8 +7095,7 @@ __n128 std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatc
   result = *a2;
   *v2 = *a2;
   *(v2 + 16) = a2[1].n128_u64[0];
-  a2->n128_u64[0] = 0;
-  a2->n128_u64[1] = 0;
+  *a2 = 0uLL;
   a2[1].n128_u64[0] = 0;
   v4 = a2[1].n128_u64[1];
   *(v2 + 32) = a2[2].n128_u8[0];
@@ -7153,8 +7112,7 @@ __n128 std::__variant_detail::__visitation::__base::__dispatcher<2ul>::__dispatc
   result = *a2;
   *v2 = *a2;
   *(v2 + 16) = a2[1].n128_u64[0];
-  a2->n128_u64[0] = 0;
-  a2->n128_u64[1] = 0;
+  *a2 = 0uLL;
   a2[1].n128_u64[0] = 0;
   v4 = a2[1].n128_u64[1];
   *(v2 + 32) = a2[2].n128_u8[0];
@@ -7171,8 +7129,7 @@ __n128 std::__variant_detail::__visitation::__base::__dispatcher<3ul>::__dispatc
   result = *a2;
   *v2 = *a2;
   *(v2 + 16) = a2[1].n128_u64[0];
-  a2->n128_u64[0] = 0;
-  a2->n128_u64[1] = 0;
+  *a2 = 0uLL;
   a2[1].n128_u64[0] = 0;
   v4 = a2[1].n128_u64[1];
   *(v2 + 32) = a2[2].n128_u8[0];
@@ -7189,8 +7146,7 @@ __n128 std::__variant_detail::__visitation::__base::__dispatcher<4ul>::__dispatc
   result = *a2;
   *v2 = *a2;
   *(v2 + 16) = a2[1].n128_u64[0];
-  a2->n128_u64[0] = 0;
-  a2->n128_u64[1] = 0;
+  *a2 = 0uLL;
   a2[1].n128_u64[0] = 0;
   v4 = a2[1].n128_u64[1];
   *(v2 + 32) = a2[2].n128_u8[0];
@@ -7207,8 +7163,7 @@ __n128 std::__variant_detail::__visitation::__base::__dispatcher<5ul>::__dispatc
   result = *a2;
   *v2 = *a2;
   *(v2 + 16) = a2[1].n128_u64[0];
-  a2->n128_u64[0] = 0;
-  a2->n128_u64[1] = 0;
+  *a2 = 0uLL;
   a2[1].n128_u64[0] = 0;
   v4 = a2[1].n128_u64[1];
   *(v2 + 32) = a2[2].n128_u8[0];
@@ -7225,8 +7180,7 @@ __n128 std::__variant_detail::__visitation::__base::__dispatcher<6ul>::__dispatc
   result = *a2;
   *v2 = *a2;
   *(v2 + 16) = a2[1].n128_u64[0];
-  a2->n128_u64[0] = 0;
-  a2->n128_u64[1] = 0;
+  *a2 = 0uLL;
   a2[1].n128_u64[0] = 0;
   v4 = a2[1].n128_u64[1];
   *(v2 + 32) = a2[2].n128_u8[0];
@@ -7243,8 +7197,7 @@ __n128 std::__variant_detail::__visitation::__base::__dispatcher<7ul>::__dispatc
   result = *a2;
   *v2 = *a2;
   *(v2 + 16) = a2[1].n128_u64[0];
-  a2->n128_u64[0] = 0;
-  a2->n128_u64[1] = 0;
+  *a2 = 0uLL;
   a2[1].n128_u64[0] = 0;
   v4 = a2[1].n128_u64[1];
   *(v2 + 32) = a2[2].n128_u8[0];
@@ -7261,8 +7214,7 @@ __n128 std::__variant_detail::__visitation::__base::__dispatcher<8ul>::__dispatc
   result = *a2;
   *v2 = *a2;
   *(v2 + 16) = a2[1].n128_u64[0];
-  a2->n128_u64[0] = 0;
-  a2->n128_u64[1] = 0;
+  *a2 = 0uLL;
   a2[1].n128_u64[0] = 0;
   v4 = a2[1].n128_u64[1];
   *(v2 + 32) = a2[2].n128_u8[0];
@@ -7279,8 +7231,7 @@ __n128 std::__variant_detail::__visitation::__base::__dispatcher<9ul>::__dispatc
   result = *a2;
   *v2 = *a2;
   *(v2 + 16) = a2[1].n128_u64[0];
-  a2->n128_u64[0] = 0;
-  a2->n128_u64[1] = 0;
+  *a2 = 0uLL;
   a2[1].n128_u64[0] = 0;
   v4 = a2[1].n128_u64[1];
   *(v2 + 32) = a2[2].n128_u8[0];
@@ -7322,7 +7273,7 @@ uint64_t std::__split_buffer<std::variant<unsigned long,SVG::Moveto,SVG::Lineto,
 
 void SVG::consumeDrawtoCommand(uint64_t a1, uint64_t a2, unint64_t a3)
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v6 = *(a2 + 23);
   v7 = v6;
   if ((v6 & 0x80u) != 0)
@@ -7336,14 +7287,14 @@ void SVG::consumeDrawtoCommand(uint64_t a1, uint64_t a2, unint64_t a3)
     if ((*(v8 + a3) | 0x20) == 0x7A)
     {
       __dst[0] = (a3 + 1);
-      DWORD2(v42) = 0;
+      DWORD2(v41) = 0;
       *a1 = 0;
       *(a1 + 40) = -1;
       std::__variant_detail::__ctor<std::__variant_detail::__traits<unsigned long,SVG::Moveto,SVG::Lineto,SVG::HorizontalLineto,SVG::VerticalLineto,SVG::Curveto,SVG::SmoothCurveto,SVG::QuadraticBezierCurveto,SVG::SmoothQuadraticBezierCurveto,SVG::EllipticalArc>>::__generic_construct[abi:nn200100]<std::__variant_detail::__move_constructor<std::__variant_detail::__traits<unsigned long,SVG::Moveto,SVG::Lineto,SVG::HorizontalLineto,SVG::VerticalLineto,SVG::Curveto,SVG::SmoothCurveto,SVG::QuadraticBezierCurveto,SVG::SmoothQuadraticBezierCurveto,SVG::EllipticalArc>,(std::__variant_detail::_Trait)1>>(a1, __dst);
       *(a1 + 48) = 1;
-      if (DWORD2(v42) != -1)
+      if (DWORD2(v41) != -1)
       {
-        (*(&off_286EBAA18 + DWORD2(v42)))(v35, __dst);
+        (*(&off_286EBAA18 + DWORD2(v41)))(v35, __dst);
       }
 
       return;
@@ -7352,78 +7303,78 @@ void SVG::consumeDrawtoCommand(uint64_t a1, uint64_t a2, unint64_t a3)
 
   *&v9 = 0xAAAAAAAAAAAAAAAALL;
   *(&v9 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v40 = v9;
   v41 = v9;
-  v42 = v9;
   *__dst = v9;
   SVG::consumeSingleDrawtoCommand<std::vector<CGPoint>>(__dst, a2, a3, 0x4Cu, 0x6Cu, SVG::consumeLinetoArgumentSequence);
-  if (BYTE8(v42) == 1)
+  if (BYTE8(v41) == 1)
   {
     v11 = __dst[0];
     v10 = __dst[1];
-    v35[0] = *(&v41 + 1);
-    LOBYTE(v35[1]) = v42;
+    v35[0] = *(&v40 + 1);
+    LOBYTE(v35[1]) = v41;
     __dst[0] = 0;
     __dst[1] = 0;
-    *&v41 = 0;
+    *&v40 = 0;
     if (v10 != v11)
     {
       std::vector<CGPoint>::__vallocate[abi:nn200100](__dst, (v10 - v11) >> 4);
     }
 
-    *(&v41 + 1) = v35[0];
-    LOBYTE(v42) = v35[1];
+    *(&v40 + 1) = v35[0];
+    LOBYTE(v41) = v35[1];
     v12 = 2;
     goto LABEL_43;
   }
 
   *&v13 = 0xAAAAAAAAAAAAAAAALL;
   *(&v13 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v40 = v13;
   v41 = v13;
-  v42 = v13;
   *__dst = v13;
   SVG::consumeSingleDrawtoCommand<std::vector<CGPoint>>(__dst, a2, a3, 0x48u, 0x68u, SVG::consumeHorizontalLinetoArgumentSequence);
-  if (BYTE8(v42) == 1)
+  if (BYTE8(v41) == 1)
   {
     v11 = __dst[0];
     v14 = __dst[1];
-    v35[0] = *(&v41 + 1);
-    LOBYTE(v35[1]) = v42;
+    v35[0] = *(&v40 + 1);
+    LOBYTE(v35[1]) = v41;
     __dst[0] = 0;
     __dst[1] = 0;
-    *&v41 = 0;
+    *&v40 = 0;
     if (v14 != v11)
     {
       std::vector<double>::__vallocate[abi:nn200100](__dst, (v14 - v11) >> 3);
     }
 
-    *(&v41 + 1) = v35[0];
-    LOBYTE(v42) = v35[1];
+    *(&v40 + 1) = v35[0];
+    LOBYTE(v41) = v35[1];
     v12 = 3;
     goto LABEL_43;
   }
 
   *&v15 = 0xAAAAAAAAAAAAAAAALL;
   *(&v15 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v40 = v15;
   v41 = v15;
-  v42 = v15;
   *__dst = v15;
   SVG::consumeSingleDrawtoCommand<std::vector<CGPoint>>(__dst, a2, a3, 0x56u, 0x76u, SVG::consumeVerticalLinetoArgumentSequence);
-  if (BYTE8(v42) == 1)
+  if (BYTE8(v41) == 1)
   {
     v11 = __dst[0];
     v16 = __dst[1];
-    v35[0] = *(&v41 + 1);
-    LOBYTE(v35[1]) = v42;
+    v35[0] = *(&v40 + 1);
+    LOBYTE(v35[1]) = v41;
     __dst[0] = 0;
     __dst[1] = 0;
-    *&v41 = 0;
+    *&v40 = 0;
     if (v16 != v11)
     {
       std::vector<double>::__vallocate[abi:nn200100](__dst, (v16 - v11) >> 3);
     }
 
-    *(&v41 + 1) = v35[0];
-    LOBYTE(v42) = v35[1];
+    *(&v40 + 1) = v35[0];
+    LOBYTE(v41) = v35[1];
     v12 = 4;
     goto LABEL_43;
   }
@@ -7450,13 +7401,13 @@ void SVG::consumeDrawtoCommand(uint64_t a1, uint64_t a2, unint64_t a3)
       while ((v22 & 1) != 0);
       *&v23 = -1;
       *(&v23 + 1) = -1;
+      v40 = v23;
       v41 = v23;
-      v42 = v23;
       *__dst = v23;
+      v42 = 0xAAAAAAAAAAAAAAAALL;
       v43 = 0xAAAAAAAAAAAAAAAALL;
-      v44 = 0xAAAAAAAAAAAAAAAALL;
       SVG::consumeCurvetoArgument(a2, v21, __dst);
-      if (v44 == 1)
+      if (v43 == 1)
       {
         operator new();
       }
@@ -7465,19 +7416,19 @@ void SVG::consumeDrawtoCommand(uint64_t a1, uint64_t a2, unint64_t a3)
 
   *&v24 = 0xAAAAAAAAAAAAAAAALL;
   *(&v24 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v40 = v24;
   v41 = v24;
-  v42 = v24;
   *__dst = v24;
   SVG::consumeSingleDrawtoCommand<std::vector<CGPoint>>(__dst, a2, a3, 0x53u, 0x73u, SVG::consumeSmoothCurvetoArgumentSequence);
-  if (BYTE8(v42) == 1)
+  if (BYTE8(v41) == 1)
   {
     v11 = __dst[0];
     v25 = __dst[1];
-    v35[0] = *(&v41 + 1);
-    LOBYTE(v35[1]) = v42;
+    v35[0] = *(&v40 + 1);
+    LOBYTE(v35[1]) = v41;
     __dst[0] = 0;
     __dst[1] = 0;
-    *&v41 = 0;
+    *&v40 = 0;
     v26 = v25 - v11;
     if (v25 != v11)
     {
@@ -7489,8 +7440,8 @@ void SVG::consumeDrawtoCommand(uint64_t a1, uint64_t a2, unint64_t a3)
       goto LABEL_60;
     }
 
-    *(&v41 + 1) = v35[0];
-    LOBYTE(v42) = v35[1];
+    *(&v40 + 1) = v35[0];
+    LOBYTE(v41) = v35[1];
     v12 = 6;
   }
 
@@ -7498,19 +7449,19 @@ void SVG::consumeDrawtoCommand(uint64_t a1, uint64_t a2, unint64_t a3)
   {
     *&v27 = 0xAAAAAAAAAAAAAAAALL;
     *(&v27 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v40 = v27;
     v41 = v27;
-    v42 = v27;
     *__dst = v27;
     SVG::consumeSingleDrawtoCommand<std::vector<CGPoint>>(__dst, a2, a3, 0x51u, 0x71u, SVG::consumeQuadraticBezierCurvetoArgumentSequence);
-    if (BYTE8(v42) != 1)
+    if (BYTE8(v41) != 1)
     {
       *&v30 = 0xAAAAAAAAAAAAAAAALL;
       *(&v30 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v40 = v30;
       v41 = v30;
-      v42 = v30;
       *__dst = v30;
       SVG::consumeSmoothQuadraticBezierCurveto(__dst, a2, a3);
-      if (BYTE8(v42) == 1)
+      if (BYTE8(v41) == 1)
       {
         v35[0] = 0;
         v35[1] = 0;
@@ -7521,8 +7472,8 @@ void SVG::consumeDrawtoCommand(uint64_t a1, uint64_t a2, unint64_t a3)
           std::vector<CGPoint>::__vallocate[abi:nn200100](v35, (__dst[1] - __dst[0]) >> 4);
         }
 
-        v37 = *(&v41 + 1);
-        v38 = v42;
+        v37 = *(&v40 + 1);
+        LOBYTE(v38[0]) = v41;
         v31 = 8;
       }
 
@@ -7530,11 +7481,11 @@ void SVG::consumeDrawtoCommand(uint64_t a1, uint64_t a2, unint64_t a3)
       {
         *&v32 = 0xAAAAAAAAAAAAAAAALL;
         *(&v32 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v40 = v32;
         v41 = v32;
-        v42 = v32;
         *__dst = v32;
         SVG::consumeEllipticalArc(__dst, a2, a3);
-        if (BYTE8(v42) != 1)
+        if (BYTE8(v41) != 1)
         {
           *a1 = 0;
           *(a1 + 48) = 0;
@@ -7556,19 +7507,19 @@ void SVG::consumeDrawtoCommand(uint64_t a1, uint64_t a2, unint64_t a3)
           std::vector<SVG::Length>::__throw_length_error[abi:nn200100]();
         }
 
-        v37 = *(&v41 + 1);
-        v38 = v42;
+        v37 = *(&v40 + 1);
+        LOBYTE(v38[0]) = v41;
         v31 = 9;
       }
 
-      v39 = v31;
+      v38[2] = v31;
       *a1 = 0;
       *(a1 + 40) = -1;
       std::__variant_detail::__ctor<std::__variant_detail::__traits<unsigned long,SVG::Moveto,SVG::Lineto,SVG::HorizontalLineto,SVG::VerticalLineto,SVG::Curveto,SVG::SmoothCurveto,SVG::QuadraticBezierCurveto,SVG::SmoothQuadraticBezierCurveto,SVG::EllipticalArc>>::__generic_construct[abi:nn200100]<std::__variant_detail::__move_constructor<std::__variant_detail::__traits<unsigned long,SVG::Moveto,SVG::Lineto,SVG::HorizontalLineto,SVG::VerticalLineto,SVG::Curveto,SVG::SmoothCurveto,SVG::QuadraticBezierCurveto,SVG::SmoothQuadraticBezierCurveto,SVG::EllipticalArc>,(std::__variant_detail::_Trait)1>>(a1, v35);
       *(a1 + 48) = 1;
-      if (v39 != -1)
+      if (v38[2] != -1)
       {
-        (*(&off_286EBAA18 + v39))(&v34, v35);
+        (*(&off_286EBAA18 + v38[2]))(&v34, v35);
       }
 
       goto LABEL_45;
@@ -7576,11 +7527,11 @@ void SVG::consumeDrawtoCommand(uint64_t a1, uint64_t a2, unint64_t a3)
 
     v11 = __dst[0];
     v28 = __dst[1];
-    v35[0] = *(&v41 + 1);
-    LOBYTE(v35[1]) = v42;
+    v35[0] = *(&v40 + 1);
+    LOBYTE(v35[1]) = v41;
     __dst[0] = 0;
     __dst[1] = 0;
-    *&v41 = 0;
+    *&v40 = 0;
     v29 = v28 - v11;
     if (v28 != v11)
     {
@@ -7593,20 +7544,20 @@ LABEL_60:
       std::vector<SVG::Length>::__throw_length_error[abi:nn200100]();
     }
 
-    *(&v41 + 1) = v35[0];
-    LOBYTE(v42) = v35[1];
+    *(&v40 + 1) = v35[0];
+    LOBYTE(v41) = v35[1];
     v12 = 7;
   }
 
 LABEL_43:
-  DWORD2(v42) = v12;
+  DWORD2(v41) = v12;
   *a1 = 0;
   *(a1 + 40) = -1;
   std::__variant_detail::__ctor<std::__variant_detail::__traits<unsigned long,SVG::Moveto,SVG::Lineto,SVG::HorizontalLineto,SVG::VerticalLineto,SVG::Curveto,SVG::SmoothCurveto,SVG::QuadraticBezierCurveto,SVG::SmoothQuadraticBezierCurveto,SVG::EllipticalArc>>::__generic_construct[abi:nn200100]<std::__variant_detail::__move_constructor<std::__variant_detail::__traits<unsigned long,SVG::Moveto,SVG::Lineto,SVG::HorizontalLineto,SVG::VerticalLineto,SVG::Curveto,SVG::SmoothCurveto,SVG::QuadraticBezierCurveto,SVG::SmoothQuadraticBezierCurveto,SVG::EllipticalArc>,(std::__variant_detail::_Trait)1>>(a1, __dst);
   *(a1 + 48) = 1;
-  if (DWORD2(v42) != -1)
+  if (DWORD2(v41) != -1)
   {
-    (*(&off_286EBAA18 + DWORD2(v42)))(&v34, __dst);
+    (*(&off_286EBAA18 + DWORD2(v41)))(&v34, __dst);
   }
 
 LABEL_45:
@@ -7616,7 +7567,7 @@ LABEL_45:
   }
 }
 
-_BYTE *SVG::consumeSmoothQuadraticBezierCurveto(uint64_t a1, uint64_t a2, unint64_t a3)
+_BYTE *SVG::consumeSmoothQuadraticBezierCurveto(uint64_t a1, uint64_t *a2, unint64_t a3)
 {
   *&v4 = 0xAAAAAAAAAAAAAAAALL;
   *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
@@ -7751,23 +7702,22 @@ void std::__allocate_at_least[abi:nn200100]<std::allocator<std::array<CGPoint,3u
   std::vector<SVG::Length>::__throw_length_error[abi:nn200100]();
 }
 
-void *SVG::consumeOneOrMoreGeneric<std::array<CGPoint,2ul>>(_BYTE *a1, uint64_t a2, uint64_t a3, void *(*a4)(_OWORD *__return_ptr, uint64_t, uint64_t))
+void SVG::consumeOneOrMoreGeneric<std::array<CGPoint,2ul>>(_BYTE *a1, uint64_t a2, uint64_t a3, void (*a4)(__int128 *__return_ptr, uint64_t, uint64_t))
 {
   *&v5 = -1;
   *(&v5 + 1) = -1;
-  v7[0] = v5;
-  v7[1] = v5;
+  v6[0] = v5;
+  v6[1] = v5;
+  v7 = 0xAAAAAAAAAAAAAAAALL;
   v8 = 0xAAAAAAAAAAAAAAAALL;
-  v9 = 0xAAAAAAAAAAAAAAAALL;
-  result = a4(v7, a2, a3);
-  if (v9)
+  a4(v6, a2, a3);
+  if (v8)
   {
     operator new();
   }
 
   *a1 = 0;
   a1[32] = 0;
-  return result;
 }
 
 void std::__allocate_at_least[abi:nn200100]<std::allocator<std::array<CGPoint,2ul>>>(unint64_t a1)
@@ -7780,11 +7730,11 @@ void std::__allocate_at_least[abi:nn200100]<std::allocator<std::array<CGPoint,2u
   std::vector<SVG::Length>::__throw_length_error[abi:nn200100]();
 }
 
-void *std::vector<std::array<CGPoint,2ul>>::vector[abi:nn200100](void *result, void *a2)
+void *std::vector<std::array<CGPoint,2ul>>::vector[abi:nn200100](void *a1, void *a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   v2 = a2[1];
   v3 = v2 - *a2;
   if (v2 != *a2)
@@ -7797,7 +7747,7 @@ void *std::vector<std::array<CGPoint,2ul>>::vector[abi:nn200100](void *result, v
     std::vector<SVG::Length>::__throw_length_error[abi:nn200100]();
   }
 
-  return result;
+  return a1;
 }
 
 void SVG::consumeWspCommaList<CGPoint,2ul>(uint64_t a1, uint64_t *a2, unint64_t a3)
@@ -7851,7 +7801,7 @@ void SVG::consumeWspCommaList<CGPoint,2ul>(uint64_t a1, uint64_t *a2, unint64_t 
   *(a1 + 40) = 0;
 }
 
-void SVG::consumeEllipticalArcArgument(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X8>)
+void SVG::consumeEllipticalArcArgument(uint64_t **a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   v49 = *MEMORY[0x277D85DE8];
   v45 = -1;
@@ -7898,7 +7848,7 @@ void SVG::consumeEllipticalArcArgument(uint64_t a1@<X0>, unint64_t a2@<X1>, uint
   v17 = v16;
   if ((v16 & 0x80u) != 0)
   {
-    v16 = *(a1 + 8);
+    v16 = a1[1];
   }
 
   if (v16 <= v13)
@@ -7947,7 +7897,7 @@ void SVG::consumeEllipticalArcArgument(uint64_t a1@<X0>, unint64_t a2@<X1>, uint
   v25 = v24;
   if ((v24 & 0x80u) != 0)
   {
-    v24 = *(a1 + 8);
+    v24 = a1[1];
   }
 
   if (v24 <= v23)
@@ -8034,7 +7984,7 @@ void std::__allocate_at_least[abi:nn200100]<std::allocator<SVG::EllipticalArcArg
   std::vector<SVG::Length>::__throw_length_error[abi:nn200100]();
 }
 
-void SVG::consumeNonnegativeNumber(uint64_t a1, uint64_t *a2, unint64_t a3)
+void SVG::consumeNonnegativeNumber(uint64_t a1, uint64_t **a2, unint64_t a3)
 {
   v9 = -1;
   v10 = 0xAAAAAAAAAAAAAAAALL;
@@ -8064,7 +8014,7 @@ LABEL_5:
   *(a1 + 16) = 0;
 }
 
-uint64_t _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0ELm0EEE10__dispatchB8nn200100IOZNS0_12__assignmentINS0_8__traitsIJmN3SVG6MovetoENS8_6LinetoENS8_16HorizontalLinetoENS8_14VerticalLinetoENS8_7CurvetoENS8_13SmoothCurvetoENS8_22QuadraticBezierCurvetoENS8_28SmoothQuadraticBezierCurvetoENS8_13EllipticalArcEEEEE16__generic_assignB8nn200100INS0_17__move_assignmentISI_LNS0_6_TraitE1EEEEEvOT_EUlRSO_OT0_E_JRNS0_6__baseILSM_1EJmS9_SA_SB_SC_SD_SE_SF_SG_SH_EEEOSW_EEEDcSO_DpT0_(uint64_t result, void *a2, void *a3)
+uint64_t *_ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0ELm0EEE10__dispatchB8nn200100IOZNS0_12__assignmentINS0_8__traitsIJmN3SVG6MovetoENS8_6LinetoENS8_16HorizontalLinetoENS8_14VerticalLinetoENS8_7CurvetoENS8_13SmoothCurvetoENS8_22QuadraticBezierCurvetoENS8_28SmoothQuadraticBezierCurvetoENS8_13EllipticalArcEEEEE16__generic_assignB8nn200100INS0_17__move_assignmentISI_LNS0_6_TraitE1EEEEEvOT_EUlRSO_OT0_E_JRNS0_6__baseILSM_1EJmS9_SA_SB_SC_SD_SE_SF_SG_SH_EEEOSW_EEEDcSO_DpT0_(uint64_t *result, void *a2, void *a3)
 {
   v4 = *result;
   v5 = *(*result + 40);
@@ -8433,7 +8383,7 @@ LABEL_7:
   return result;
 }
 
-void std::vector<std::variant<unsigned long,SVG::Moveto,SVG::Lineto,SVG::HorizontalLineto,SVG::VerticalLineto,SVG::Curveto,SVG::SmoothCurveto,SVG::QuadraticBezierCurveto,SVG::SmoothQuadraticBezierCurveto,SVG::EllipticalArc>>::__init_with_size[abi:nn200100]<std::variant<unsigned long,SVG::Moveto,SVG::Lineto,SVG::HorizontalLineto,SVG::VerticalLineto,SVG::Curveto,SVG::SmoothCurveto,SVG::QuadraticBezierCurveto,SVG::SmoothQuadraticBezierCurveto,SVG::EllipticalArc>*,std::variant<unsigned long,SVG::Moveto,SVG::Lineto,SVG::HorizontalLineto,SVG::VerticalLineto,SVG::Curveto,SVG::SmoothCurveto,SVG::QuadraticBezierCurveto,SVG::SmoothQuadraticBezierCurveto,SVG::EllipticalArc>*>(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
+void std::vector<std::variant<unsigned long,SVG::Moveto,SVG::Lineto,SVG::HorizontalLineto,SVG::VerticalLineto,SVG::Curveto,SVG::SmoothCurveto,SVG::QuadraticBezierCurveto,SVG::SmoothQuadraticBezierCurveto,SVG::EllipticalArc>>::__init_with_size[abi:nn200100]<std::variant<unsigned long,SVG::Moveto,SVG::Lineto,SVG::HorizontalLineto,SVG::VerticalLineto,SVG::Curveto,SVG::SmoothCurveto,SVG::QuadraticBezierCurveto,SVG::SmoothQuadraticBezierCurveto,SVG::EllipticalArc>*,std::variant<unsigned long,SVG::Moveto,SVG::Lineto,SVG::HorizontalLineto,SVG::VerticalLineto,SVG::Curveto,SVG::SmoothCurveto,SVG::QuadraticBezierCurveto,SVG::SmoothQuadraticBezierCurveto,SVG::EllipticalArc>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8446,7 +8396,7 @@ void std::vector<std::variant<unsigned long,SVG::Moveto,SVG::Lineto,SVG::Horizon
   }
 }
 
-void *_ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__ctorINS0_8__traitsIJmN3SVG6MovetoENS8_6LinetoENS8_16HorizontalLinetoENS8_14VerticalLinetoENS8_7CurvetoENS8_13SmoothCurvetoENS8_22QuadraticBezierCurvetoENS8_28SmoothQuadraticBezierCurvetoENS8_13EllipticalArcEEEEE19__generic_constructB8nn200100IRKNS0_18__copy_constructorISI_LNS0_6_TraitE1EEEEEvRSJ_OT_EUlSS_E_JRKNS0_6__baseILSM_1EJmS9_SA_SB_SC_SD_SE_SF_SG_SH_EEEEEEDcSR_DpT0_(void **a1, uint64_t a2)
+uint64_t *_ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__ctorINS0_8__traitsIJmN3SVG6MovetoENS8_6LinetoENS8_16HorizontalLinetoENS8_14VerticalLinetoENS8_7CurvetoENS8_13SmoothCurvetoENS8_22QuadraticBezierCurvetoENS8_28SmoothQuadraticBezierCurvetoENS8_13EllipticalArcEEEEE19__generic_constructB8nn200100IRKNS0_18__copy_constructorISI_LNS0_6_TraitE1EEEEEvRSJ_OT_EUlSS_E_JRKNS0_6__baseILSM_1EJmS9_SA_SB_SC_SD_SE_SF_SG_SH_EEEEEEDcSR_DpT0_(uint64_t **a1, uint64_t a2)
 {
   result = std::vector<CGPoint>::vector[abi:nn200100](*a1, a2);
   v4 = *(a2 + 24);
@@ -8455,7 +8405,7 @@ void *_ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__
   return result;
 }
 
-void *_ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__ctorINS0_8__traitsIJmN3SVG6MovetoENS8_6LinetoENS8_16HorizontalLinetoENS8_14VerticalLinetoENS8_7CurvetoENS8_13SmoothCurvetoENS8_22QuadraticBezierCurvetoENS8_28SmoothQuadraticBezierCurvetoENS8_13EllipticalArcEEEEE19__generic_constructB8nn200100IRKNS0_18__copy_constructorISI_LNS0_6_TraitE1EEEEEvRSJ_OT_EUlSS_E_JRKNS0_6__baseILSM_1EJmS9_SA_SB_SC_SD_SE_SF_SG_SH_EEEEEEDcSR_DpT0_(void **a1, uint64_t a2)
+uint64_t *_ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__ctorINS0_8__traitsIJmN3SVG6MovetoENS8_6LinetoENS8_16HorizontalLinetoENS8_14VerticalLinetoENS8_7CurvetoENS8_13SmoothCurvetoENS8_22QuadraticBezierCurvetoENS8_28SmoothQuadraticBezierCurvetoENS8_13EllipticalArcEEEEE19__generic_constructB8nn200100IRKNS0_18__copy_constructorISI_LNS0_6_TraitE1EEEEEvRSJ_OT_EUlSS_E_JRKNS0_6__baseILSM_1EJmS9_SA_SB_SC_SD_SE_SF_SG_SH_EEEEEEDcSR_DpT0_(uint64_t **a1, uint64_t a2)
 {
   result = std::vector<CGPoint>::vector[abi:nn200100](*a1, a2);
   v4 = *(a2 + 24);
@@ -8464,7 +8414,7 @@ void *_ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__
   return result;
 }
 
-void *_ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm3EEE10__dispatchB8nn200100IOZNS0_6__ctorINS0_8__traitsIJmN3SVG6MovetoENS8_6LinetoENS8_16HorizontalLinetoENS8_14VerticalLinetoENS8_7CurvetoENS8_13SmoothCurvetoENS8_22QuadraticBezierCurvetoENS8_28SmoothQuadraticBezierCurvetoENS8_13EllipticalArcEEEEE19__generic_constructB8nn200100IRKNS0_18__copy_constructorISI_LNS0_6_TraitE1EEEEEvRSJ_OT_EUlSS_E_JRKNS0_6__baseILSM_1EJmS9_SA_SB_SC_SD_SE_SF_SG_SH_EEEEEEDcSR_DpT0_(void **a1, uint64_t a2)
+uint64_t *_ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm3EEE10__dispatchB8nn200100IOZNS0_6__ctorINS0_8__traitsIJmN3SVG6MovetoENS8_6LinetoENS8_16HorizontalLinetoENS8_14VerticalLinetoENS8_7CurvetoENS8_13SmoothCurvetoENS8_22QuadraticBezierCurvetoENS8_28SmoothQuadraticBezierCurvetoENS8_13EllipticalArcEEEEE19__generic_constructB8nn200100IRKNS0_18__copy_constructorISI_LNS0_6_TraitE1EEEEEvRSJ_OT_EUlSS_E_JRKNS0_6__baseILSM_1EJmS9_SA_SB_SC_SD_SE_SF_SG_SH_EEEEEEDcSR_DpT0_(uint64_t **a1, uint64_t a2)
 {
   result = std::vector<double>::vector[abi:nn200100](*a1, a2);
   v4 = *(a2 + 24);
@@ -8473,7 +8423,7 @@ void *_ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm3EEE10__
   return result;
 }
 
-void *_ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm4EEE10__dispatchB8nn200100IOZNS0_6__ctorINS0_8__traitsIJmN3SVG6MovetoENS8_6LinetoENS8_16HorizontalLinetoENS8_14VerticalLinetoENS8_7CurvetoENS8_13SmoothCurvetoENS8_22QuadraticBezierCurvetoENS8_28SmoothQuadraticBezierCurvetoENS8_13EllipticalArcEEEEE19__generic_constructB8nn200100IRKNS0_18__copy_constructorISI_LNS0_6_TraitE1EEEEEvRSJ_OT_EUlSS_E_JRKNS0_6__baseILSM_1EJmS9_SA_SB_SC_SD_SE_SF_SG_SH_EEEEEEDcSR_DpT0_(void **a1, uint64_t a2)
+uint64_t *_ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm4EEE10__dispatchB8nn200100IOZNS0_6__ctorINS0_8__traitsIJmN3SVG6MovetoENS8_6LinetoENS8_16HorizontalLinetoENS8_14VerticalLinetoENS8_7CurvetoENS8_13SmoothCurvetoENS8_22QuadraticBezierCurvetoENS8_28SmoothQuadraticBezierCurvetoENS8_13EllipticalArcEEEEE19__generic_constructB8nn200100IRKNS0_18__copy_constructorISI_LNS0_6_TraitE1EEEEEvRSJ_OT_EUlSS_E_JRKNS0_6__baseILSM_1EJmS9_SA_SB_SC_SD_SE_SF_SG_SH_EEEEEEDcSR_DpT0_(uint64_t **a1, uint64_t a2)
 {
   result = std::vector<double>::vector[abi:nn200100](*a1, a2);
   v4 = *(a2 + 24);
@@ -8524,7 +8474,7 @@ void *_ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm7EEE10__
   return result;
 }
 
-void *_ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm8EEE10__dispatchB8nn200100IOZNS0_6__ctorINS0_8__traitsIJmN3SVG6MovetoENS8_6LinetoENS8_16HorizontalLinetoENS8_14VerticalLinetoENS8_7CurvetoENS8_13SmoothCurvetoENS8_22QuadraticBezierCurvetoENS8_28SmoothQuadraticBezierCurvetoENS8_13EllipticalArcEEEEE19__generic_constructB8nn200100IRKNS0_18__copy_constructorISI_LNS0_6_TraitE1EEEEEvRSJ_OT_EUlSS_E_JRKNS0_6__baseILSM_1EJmS9_SA_SB_SC_SD_SE_SF_SG_SH_EEEEEEDcSR_DpT0_(void **a1, uint64_t a2)
+uint64_t *_ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm8EEE10__dispatchB8nn200100IOZNS0_6__ctorINS0_8__traitsIJmN3SVG6MovetoENS8_6LinetoENS8_16HorizontalLinetoENS8_14VerticalLinetoENS8_7CurvetoENS8_13SmoothCurvetoENS8_22QuadraticBezierCurvetoENS8_28SmoothQuadraticBezierCurvetoENS8_13EllipticalArcEEEEE19__generic_constructB8nn200100IRKNS0_18__copy_constructorISI_LNS0_6_TraitE1EEEEEvRSJ_OT_EUlSS_E_JRKNS0_6__baseILSM_1EJmS9_SA_SB_SC_SD_SE_SF_SG_SH_EEEEEEDcSR_DpT0_(uint64_t **a1, uint64_t a2)
 {
   result = std::vector<CGPoint>::vector[abi:nn200100](*a1, a2);
   v4 = *(a2 + 24);
@@ -9407,7 +9357,7 @@ void SVG::PolyLineElement::~PolyLineElement(SVG::PolyLineElement *this)
   JUMPOUT(0x25F894240);
 }
 
-void *std::vector<CGPoint>::__assign_with_size[abi:nn200100]<CGPoint*,CGPoint*>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<CGPoint>::__assign_with_size[abi:nn200100]<CGPoint*,CGPoint*>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -9506,7 +9456,7 @@ unint64_t SVG::consumeWsp(uint64_t *a1, unint64_t a2)
   return v9 | v10;
 }
 
-void SVG::consumeFloatingPointConstant(uint64_t *a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X8>)
+void SVG::consumeFloatingPointConstant(uint64_t **a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   v47 = 0xAAAAAAAAAAAAAAAALL;
   *&v6 = 0xAAAAAAAAAAAAAAAALL;
@@ -9732,13 +9682,13 @@ LABEL_44:
   }
 }
 
-void SVG::consumeExponent(uint64_t a1, uint64_t a2, unint64_t a3)
+void SVG::consumeExponent(uint64_t a1, uint64_t **a2, unint64_t a3)
 {
   v4 = *(a2 + 23);
   v5 = v4;
   if ((v4 & 0x80u) != 0)
   {
-    v4 = *(a2 + 8);
+    v4 = a2[1];
   }
 
   if (v4 <= a3)
@@ -9814,5 +9764,100 @@ LABEL_19:
   if (v14)
   {
     operator delete(v14);
+  }
+}
+
+void SVG::consumeDigitSequence(uint64_t **a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X8>)
+{
+  memset(v21, 170, sizeof(v21));
+  v4 = *(a1 + 23);
+  v5 = v4;
+  if ((v4 & 0x80u) != 0)
+  {
+    v4 = a1[1];
+  }
+
+  if (v4 <= a2 || (v5 >= 0 ? (v7 = a1) : (v7 = *a1), v8 = *(v7 + a2) - 48, v8 >= 0xA))
+  {
+    *a3 = 0;
+    *(a3 + 32) = 0;
+  }
+
+  else
+  {
+    v9 = a2 + 1;
+    LOBYTE(v21[0]) = v8;
+    v21[1] = a2 + 1;
+    LOBYTE(v21[2]) = 1;
+    v18 = 0;
+    v19 = 0;
+    v20 = 0;
+    std::vector<unsigned char>::push_back[abi:nn200100](&v18, v21);
+    memset(v17, 170, sizeof(v17));
+    v10 = *(a1 + 23);
+    v11 = a1[1];
+    if ((v10 & 0x80000000) == 0)
+    {
+      v11 = *(a1 + 23);
+    }
+
+    if (v11 > v9)
+    {
+      v12 = v10 >> 63;
+      do
+      {
+        if (v12)
+        {
+          v13 = *a1;
+        }
+
+        else
+        {
+          v13 = a1;
+        }
+
+        v14 = *(v13 + v9) - 48;
+        if (v14 >= 0xA)
+        {
+          break;
+        }
+
+        ++v9;
+        LOBYTE(v17[0]) = v14;
+        v17[1] = v9;
+        LOBYTE(v17[2]) = 1;
+        std::vector<unsigned char>::push_back[abi:nn200100](&v18, v17);
+        memset(v17, 170, sizeof(v17));
+        v15 = *(a1 + 23);
+        v12 = v15 >> 63;
+        if ((v15 & 0x80000000) != 0)
+        {
+          v15 = a1[1];
+        }
+      }
+
+      while (v15 > v9);
+    }
+
+    v16 = v18;
+    if (v19 != v18)
+    {
+      if (v19 - v18 >= 0)
+      {
+        operator new();
+      }
+
+      std::vector<SVG::Length>::__throw_length_error[abi:nn200100]();
+    }
+
+    *a3 = 0;
+    *(a3 + 8) = 0;
+    *(a3 + 16) = 0;
+    *(a3 + 24) = v9;
+    *(a3 + 32) = 1;
+    if (v16)
+    {
+      operator delete(v16);
+    }
   }
 }

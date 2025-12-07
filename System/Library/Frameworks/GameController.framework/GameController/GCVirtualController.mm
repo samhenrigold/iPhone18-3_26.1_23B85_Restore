@@ -16,25 +16,25 @@
 
 - (GCVirtualController)initWithConfiguration:(GCVirtualControllerConfiguration *)configuration
 {
-  v18[3] = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v4 = configuration;
-  v13.receiver = self;
-  v13.super_class = GCVirtualController;
-  v5 = [(GCVirtualController *)&v13 init];
-  v6 = VirtualControllerBundle();
+  v12.receiver = self;
+  v12.super_class = GCVirtualController;
+  v5 = [(GCVirtualController *)&v12 init];
+  v6 = VirtualControllerBundle(v5);
   v7 = v6;
   if (!v6)
   {
-    [(GCVirtualController *)v17 initWithConfiguration:v18, v5, &v14];
+    [(GCVirtualController *)v16 initWithConfiguration:v17, v5, &v13];
 LABEL_7:
-    impl = v14;
+    impl = v13;
     goto LABEL_4;
   }
 
   v8 = [v6 classNamed:@"_GCVirtualControllerImpl"];
   if (!v8)
   {
-    [(GCVirtualController *)&v15 initWithConfiguration:v5, &v14];
+    [(GCVirtualController *)v14 initWithConfiguration:v15, v5, &v13];
     goto LABEL_7;
   }
 
@@ -43,7 +43,6 @@ LABEL_7:
   v5->_impl = v9;
 LABEL_4:
 
-  v11 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

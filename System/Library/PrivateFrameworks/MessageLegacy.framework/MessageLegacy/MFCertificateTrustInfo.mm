@@ -105,27 +105,25 @@
 
 - (void)addTrustException
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = +[MFMessageKeychainManager newTrustManager];
   [v3 addSMIMETrust:self->_trust sender:self->_uncommentedSender];
   v4 = MFLogGeneral();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     sender = self->_sender;
-    v8 = 138412290;
-    v9 = sender;
-    _os_log_impl(&dword_258BDA000, v4, OS_LOG_TYPE_INFO, "#SMIMEErrors Added trust exception for %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = sender;
+    _os_log_impl(&dword_258BDA000, v4, OS_LOG_TYPE_INFO, "#SMIMEErrors Added trust exception for %@", &v7, 0xCu);
   }
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter postNotificationName:@"MFCertificateTrustInfoTrustDidChangeNotification" object:self];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeTrustException
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = +[MFMessageKeychainManager newTrustManager];
   [v3 removeSMIMETrust:self->_trust sender:self->_uncommentedSender];
   policies = 0;
@@ -141,14 +139,12 @@
   {
     sender = self->_sender;
     *buf = 138412290;
-    v10 = sender;
+    v9 = sender;
     _os_log_impl(&dword_258BDA000, v4, OS_LOG_TYPE_INFO, "#SMIMEErrors Removed trust exception for %@", buf, 0xCu);
   }
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter postNotificationName:@"MFCertificateTrustInfoTrustDidChangeNotification" object:self];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)keychainStatus
@@ -220,16 +216,14 @@
 
 - (void)keychainStatus
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = *self;
   ef_publicDescription = [a2 ef_publicDescription];
-  v7 = 138412546;
-  v8 = v4;
-  v9 = 2114;
-  v10 = ef_publicDescription;
-  _os_log_error_impl(&dword_258BDA000, a3, OS_LOG_TYPE_ERROR, "#SMIMEErrors Error when retrieving encryption certificate for %@: %{public}@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412546;
+  v7 = v4;
+  v8 = 2114;
+  v9 = ef_publicDescription;
+  _os_log_error_impl(&dword_258BDA000, a3, OS_LOG_TYPE_ERROR, "#SMIMEErrors Error when retrieving encryption certificate for %@: %{public}@", &v6, 0x16u);
 }
 
 @end

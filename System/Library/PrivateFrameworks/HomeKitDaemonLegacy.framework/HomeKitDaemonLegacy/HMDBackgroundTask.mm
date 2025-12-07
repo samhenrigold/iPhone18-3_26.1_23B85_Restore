@@ -7,7 +7,7 @@
 
 - (id)attributeDescriptions
 {
-  v17[3] = *MEMORY[0x277D85DE8];
+  v16[3] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   identifier = [(HMDBackgroundTask *)self identifier];
   v5 = [v3 initWithName:@"identifier" value:identifier];
@@ -15,15 +15,13 @@
   expectedFireDate = [(HMDBackgroundTask *)self expectedFireDate];
   hmf_localTimeDescription = [expectedFireDate hmf_localTimeDescription];
   v9 = [v6 initWithName:@"expected fire date" value:hmf_localTimeDescription];
-  v17[1] = v9;
+  v16[1] = v9;
   v10 = objc_alloc(MEMORY[0x277D0F778]);
   scheduledDate = [(HMDBackgroundTask *)self scheduledDate];
   hmf_localTimeDescription2 = [scheduledDate hmf_localTimeDescription];
   v13 = [v10 initWithName:@"scheduled date" value:hmf_localTimeDescription2];
-  v17[2] = v13;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:3];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v16[2] = v13;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:3];
 
   return v14;
 }

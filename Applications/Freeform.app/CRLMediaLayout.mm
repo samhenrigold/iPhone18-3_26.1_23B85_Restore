@@ -107,7 +107,7 @@
     {
       if (geometryCopy)
       {
-        [geometryCopy transform];
+        objc_msgSend_transform(geometryCopy);
         v8 = v16.f64[1];
         v7 = v16.f64[0];
         v10 = v17.f64[1];
@@ -126,7 +126,7 @@
         v7 = 0.0;
       }
 
-      [v6 transform];
+      objc_msgSend_transform(v6);
       if ((BYTE3(self->_cachedAlignmentFrame.size.width) & 1) == 0)
       {
         v13 = sub_10011F31C(v12 + CGPointZero.y * v9 + v7 * CGPointZero.x, v11 + CGPointZero.y * v10 + v8 * CGPointZero.x, vaddq_f64(v18, vmlaq_n_f64(vmulq_n_f64(v17, CGPointZero.y), v16, CGPointZero.x)).f64[0]);

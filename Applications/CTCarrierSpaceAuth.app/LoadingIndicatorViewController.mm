@@ -5,6 +5,7 @@
 - (UILabel)messageLabel;
 - (UILabel)titleLabel;
 - (void)dealloc;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -49,6 +50,15 @@
   messageText = self->_messageText;
   messageLabel = [(LoadingIndicatorViewController *)self messageLabel];
   [messageLabel setText:messageText];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = LoadingIndicatorViewController;
+  [(LoadingIndicatorViewController *)&v5 viewDidAppear:appear];
+  WeakRetained = objc_loadWeakRetained(&self->_spinnerView);
+  [WeakRetained startAnimating];
 }
 
 - (void)dealloc

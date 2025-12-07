@@ -70,7 +70,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1F109C();
+  sub_1F109C(selfCopy);
 }
 
 - (void)music_inheritedLayoutInsetsDidChange
@@ -86,7 +86,7 @@
 - (void)layoutMarginsDidChange
 {
   selfCopy = self;
-  sub_1F12E8();
+  sub_1F12E8(selfCopy);
 }
 
 @end

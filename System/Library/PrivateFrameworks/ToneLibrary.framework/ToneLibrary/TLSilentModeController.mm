@@ -10,6 +10,7 @@
 - (void)_performBlockOnAccessQueue:(id)queue;
 - (void)_registerRingerSwitchChangedNotifyToken;
 - (void)_setSilentModeStatus:(int64_t)status;
+- (void)_updateSilentModeStatusUsingRingerSwitchChangedNotifyToken:(int)token;
 - (void)dealloc;
 @end
 
@@ -128,11 +129,10 @@ uint64_t __52__TLSilentModeController_sharedSilentModeController__block_invoke()
 
 - (void)_assertRunningOnAccessQueue
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   accessQueue = self->_accessQueue;
   if (accessQueue)
   {
-    v4 = *MEMORY[0x1E69E9840];
 
     dispatch_assert_queue_V2(accessQueue);
   }
@@ -140,58 +140,56 @@ uint64_t __52__TLSilentModeController_sharedSilentModeController__block_invoke()
   else
   {
     label = dispatch_queue_get_label(0);
-    if (strcmp(label, [(NSString *)self->_accessQueueLabel UTF8String]))
+    v5 = strcmp(label, [(NSString *)self->_accessQueueLabel UTF8String]);
+    if (v5)
     {
-      v6 = TLLogGeneral();
-      v7 = os_log_type_enabled(v6, OS_LOG_TYPE_INFO);
+      v7 = TLLogGeneral(v5, v6);
+      v8 = os_log_type_enabled(v7, OS_LOG_TYPE_INFO);
 
-      if (v7)
+      if (v8)
       {
-        v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/ToneLibrary/Library/Utilities/TLSilentModeController.m"];
-        v9 = TLLogGeneral();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/ToneLibrary/Library/Utilities/TLSilentModeController.m"];
+        v13 = TLLogGeneral(v11, v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
-          lastPathComponent = [v8 lastPathComponent];
+          lastPathComponent = [v11 lastPathComponent];
           callStackSymbols = [MEMORY[0x1E696AF00] callStackSymbols];
-          v14 = 136381443;
-          v15 = "[TLSilentModeController _assertRunningOnAccessQueue]";
-          v16 = 2113;
-          v17 = lastPathComponent;
-          v18 = 2049;
-          v19 = 114;
-          v20 = 2113;
-          v21 = callStackSymbols;
-          _os_log_impl(&dword_1D9356000, v9, OS_LOG_TYPE_DEFAULT, "*** Assertion failure in %{private}s, %{private}@:%{private}lu.\n%{private}@", &v14, 0x2Au);
+          v19 = 136381443;
+          v20 = "[TLSilentModeController _assertRunningOnAccessQueue]";
+          v21 = 2113;
+          v22 = lastPathComponent;
+          v23 = 2049;
+          v24 = 114;
+          v25 = 2113;
+          v26 = callStackSymbols;
+          _os_log_impl(&dword_1D9356000, v13, OS_LOG_TYPE_DEFAULT, "*** Assertion failure in %{private}s, %{private}@:%{private}lu.\n%{private}@", &v19, 0x2Au);
         }
       }
 
       else
       {
-        v8 = TLLogGeneral();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        v11 = TLLogGeneral(v9, v10);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           __85__TLVibrationPersistenceUtilities__objectIsValidUserGeneratedVibrationPattern_error___block_invoke_cold_1();
         }
       }
 
-      v12 = TLLogGeneral();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v18 = TLLogGeneral(v16, v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         [TLAttentionAwarenessEffectProcessor _assertRunningOnAccessQueue];
       }
     }
-
-    v13 = *MEMORY[0x1E69E9840];
   }
 }
 
 - (void)_assertNotRunningOnAccessQueue
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   accessQueue = self->_accessQueue;
   if (accessQueue)
   {
-    v4 = *MEMORY[0x1E69E9840];
 
     dispatch_assert_queue_not_V2(accessQueue);
   }
@@ -199,58 +197,55 @@ uint64_t __52__TLSilentModeController_sharedSilentModeController__block_invoke()
   else
   {
     label = dispatch_queue_get_label(0);
-    if (!strcmp(label, [(NSString *)self->_accessQueueLabel UTF8String]))
+    v5 = strcmp(label, [(NSString *)self->_accessQueueLabel UTF8String]);
+    if (!v5)
     {
-      v6 = TLLogGeneral();
-      v7 = os_log_type_enabled(v6, OS_LOG_TYPE_INFO);
+      v7 = TLLogGeneral(v5, v6);
+      v8 = os_log_type_enabled(v7, OS_LOG_TYPE_INFO);
 
-      if (v7)
+      if (v8)
       {
-        v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/ToneLibrary/Library/Utilities/TLSilentModeController.m"];
-        v9 = TLLogGeneral();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/ToneLibrary/Library/Utilities/TLSilentModeController.m"];
+        v13 = TLLogGeneral(v11, v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
-          lastPathComponent = [v8 lastPathComponent];
+          lastPathComponent = [v11 lastPathComponent];
           callStackSymbols = [MEMORY[0x1E696AF00] callStackSymbols];
-          v14 = 136381443;
-          v15 = "[TLSilentModeController _assertNotRunningOnAccessQueue]";
-          v16 = 2113;
-          v17 = lastPathComponent;
-          v18 = 2049;
-          v19 = 122;
-          v20 = 2113;
-          v21 = callStackSymbols;
-          _os_log_impl(&dword_1D9356000, v9, OS_LOG_TYPE_DEFAULT, "*** Assertion failure in %{private}s, %{private}@:%{private}lu.\n%{private}@", &v14, 0x2Au);
+          v19 = 136381443;
+          v20 = "[TLSilentModeController _assertNotRunningOnAccessQueue]";
+          v21 = 2113;
+          v22 = lastPathComponent;
+          v23 = 2049;
+          v24 = 122;
+          v25 = 2113;
+          v26 = callStackSymbols;
+          _os_log_impl(&dword_1D9356000, v13, OS_LOG_TYPE_DEFAULT, "*** Assertion failure in %{private}s, %{private}@:%{private}lu.\n%{private}@", &v19, 0x2Au);
         }
       }
 
       else
       {
-        v8 = TLLogGeneral();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        v11 = TLLogGeneral(v9, v10);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           __85__TLVibrationPersistenceUtilities__objectIsValidUserGeneratedVibrationPattern_error___block_invoke_cold_1();
         }
       }
 
-      v12 = TLLogGeneral();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v18 = TLLogGeneral(v16, v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         [TLAttentionAwarenessEffectProcessor _assertNotRunningOnAccessQueue];
       }
     }
-
-    v13 = *MEMORY[0x1E69E9840];
   }
 }
 
 - (void)_cancelRingerSwitchChangedNotifyToken
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_5_1();
   OUTLINED_FUNCTION_2_0(&dword_1D9356000, v0, v1, "%{public}@: Failed to cancel notify token for notify topic named %{public}s; notifyCancelStatus = %lu.");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_registerRingerSwitchChangedNotifyToken
@@ -258,24 +253,25 @@ uint64_t __52__TLSilentModeController_sharedSilentModeController__block_invoke()
   objc_initWeak(&location, self);
   self->_ringerSwitchChangedNotifyToken = -1;
   accessQueue = self->_accessQueue;
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __65__TLSilentModeController__registerRingerSwitchChangedNotifyToken__block_invoke;
-  v7[3] = &unk_1E8579C30;
-  objc_copyWeak(&v8, &location);
-  v4 = notify_register_dispatch("com.apple.springboard.ringerstate", &self->_ringerSwitchChangedNotifyToken, accessQueue, v7);
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __65__TLSilentModeController__registerRingerSwitchChangedNotifyToken__block_invoke;
+  v9[3] = &unk_1E8579C30;
+  objc_copyWeak(&v10, &location);
+  v4 = notify_register_dispatch("com.apple.springboard.ringerstate", &self->_ringerSwitchChangedNotifyToken, accessQueue, v9);
+  v6 = v4;
   if (v4)
   {
-    v5 = TLLogGeneral();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = TLLogGeneral(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [TLSilentModeController _registerRingerSwitchChangedNotifyToken];
     }
   }
 
-  objc_destroyWeak(&v8);
+  objc_destroyWeak(&v10);
   objc_destroyWeak(&location);
-  return v4 == 0;
+  return v6 == 0;
 }
 
 void __65__TLSilentModeController__registerRingerSwitchChangedNotifyToken__block_invoke(uint64_t a1, uint64_t a2)
@@ -291,131 +287,140 @@ void __65__TLSilentModeController__registerRingerSwitchChangedNotifyToken__block
 
 - (int64_t)_silentModeStatusForRingerSwitchChangedNotifyToken:(int)token
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (token == -1)
   {
-    v6 = TLLogGeneral();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = TLLogGeneral(self, a2);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [(TLSilentModeController *)self _silentModeStatusForRingerSwitchChangedNotifyToken:v6];
+      [(TLSilentModeController *)self _silentModeStatusForRingerSwitchChangedNotifyToken:v8];
     }
 
-    v5 = -1;
+    return -1;
   }
 
   else
   {
     state64 = -1;
-    if (notify_get_state(token, &state64))
+    state = notify_get_state(token, &state64);
+    if (state)
     {
-      v4 = TLLogGeneral();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+      v6 = TLLogGeneral(state, v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         [TLSilentModeController _silentModeStatusForRingerSwitchChangedNotifyToken:];
       }
 
-      v5 = -1;
+      v7 = -1;
     }
 
     else
     {
-      v7 = -1;
-      v8 = @"unknown";
-      v9 = @"silent";
+      v9 = -1;
+      v10 = @"unknown";
+      v11 = @"silent";
       if (state64)
       {
-        v9 = 0;
+        v11 = 0;
       }
 
       else
       {
-        v8 = @"on";
-      }
-
-      if (!state64)
-      {
-        v7 = 1;
+        v10 = @"on";
+        v9 = 1;
       }
 
       if (state64 == 1)
       {
-        v10 = @"tone1";
+        v12 = @"tone1";
       }
 
       else
       {
-        v10 = v9;
+        v12 = v11;
       }
 
       if (state64 == 1)
       {
-        v11 = @"off";
+        v13 = @"off";
       }
 
       else
       {
-        v11 = v8;
+        v13 = v10;
       }
 
       if (state64 == 1)
       {
-        v5 = 0;
+        v7 = 0;
       }
 
       else
       {
-        v5 = v7;
+        v7 = v9;
       }
 
-      v4 = TLLogGeneral();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v6 = TLLogGeneral(state, v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138544386;
         selfCopy = self;
-        v17 = 2048;
-        v18 = state64;
-        v19 = 2114;
-        v20 = v10;
-        v21 = 2082;
-        v22 = "com.apple.springboard.ringerstate";
-        v23 = 2114;
-        v24 = v11;
-        _os_log_impl(&dword_1D9356000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Retrieved ringerSwitchState = %llu (%{public}@) from notify token for topic named %{public}s; converted to silentModeStatus = %{public}@.", buf, 0x34u);
+        v18 = 2048;
+        v19 = state64;
+        v20 = 2114;
+        v21 = v12;
+        v22 = 2082;
+        v23 = "com.apple.springboard.ringerstate";
+        v24 = 2114;
+        v25 = v13;
+        _os_log_impl(&dword_1D9356000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: Retrieved ringerSwitchState = %llu (%{public}@) from notify token for topic named %{public}s; converted to silentModeStatus = %{public}@.", buf, 0x34u);
       }
     }
   }
 
+  return v7;
+}
+
+- (void)_updateSilentModeStatusUsingRingerSwitchChangedNotifyToken:(int)token
+{
+  v3 = *&token;
   v12 = *MEMORY[0x1E69E9840];
-  return v5;
+  _assertRunningOnAccessQueue = [(TLSilentModeController *)self _assertRunningOnAccessQueue];
+  v7 = TLLogGeneral(_assertRunningOnAccessQueue, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = 138543618;
+    selfCopy = self;
+    v10 = 2082;
+    v11 = "com.apple.springboard.ringerstate";
+    _os_log_impl(&dword_1D9356000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: Notify block fired for topic named %{public}s; updating silent mode.", &v8, 0x16u);
+  }
+
+  [(TLSilentModeController *)self _setSilentModeStatus:[(TLSilentModeController *)self _silentModeStatusForRingerSwitchChangedNotifyToken:v3]];
 }
 
 - (void)_registerRingerSwitchChangedNotifyToken
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_5_1();
   OUTLINED_FUNCTION_2_0(&dword_1D9356000, v0, v1, "%{public}@: Failed to register notify token for notify topic named %{public}s; notifyRegisterDispatchStatus = %lu.");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_silentModeStatusForRingerSwitchChangedNotifyToken:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_5_1();
   OUTLINED_FUNCTION_2_0(&dword_1D9356000, v0, v1, "%{public}@: Failed to get state for notify topic named %{public}s; notifyStatus = %lu.");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_silentModeStatusForRingerSwitchChangedNotifyToken:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v3 = 138543618;
-  v4 = a1;
-  v5 = 2082;
-  v6 = "com.apple.springboard.ringerstate";
-  _os_log_error_impl(&dword_1D9356000, a2, OS_LOG_TYPE_ERROR, "%{public}@: Failed to get state for notify topic named %{public}s because ringerSwitchChangedNotifyToken = NOTIFY_TOKEN_INVALID.", &v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = 138543618;
+  v3 = a1;
+  v4 = 2082;
+  v5 = "com.apple.springboard.ringerstate";
+  _os_log_error_impl(&dword_1D9356000, a2, OS_LOG_TYPE_ERROR, "%{public}@: Failed to get state for notify topic named %{public}s because ringerSwitchChangedNotifyToken = NOTIFY_TOKEN_INVALID.", &v2, 0x16u);
 }
 
 @end

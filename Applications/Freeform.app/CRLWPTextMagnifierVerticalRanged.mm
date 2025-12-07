@@ -261,7 +261,7 @@
                 {
                   interactiveCanvasController = v66;
                   v37 = v64;
-                  [v53 transformFromWP];
+                  objc_msgSend_transformFromWP(v53);
                   v55 = v71;
                   v56 = v72;
                   v57 = v73;

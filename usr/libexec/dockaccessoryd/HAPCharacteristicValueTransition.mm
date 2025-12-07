@@ -126,7 +126,7 @@ LABEL_46:
   v14 = bytes + v8;
   while (1)
   {
-    v72 = 0;
+    v72[0] = 0;
     v70[1] = 0;
     v71 = 0;
     v70[0] = 0;
@@ -158,14 +158,14 @@ LABEL_46:
       break;
     }
 
-    if (v72 > 4u)
+    if (v72[0] > 4u)
     {
       v20 = v10;
-      if (v72 > 6u)
+      if (v72[0] > 6u)
       {
-        if (v72 != 7)
+        if (v72[0] != 7)
         {
-          if (v72 != 8)
+          if (v72[0] != 8)
           {
             goto LABEL_31;
           }
@@ -198,9 +198,9 @@ LABEL_46:
 
       else
       {
-        if (v72 != 5)
+        if (v72[0] != 5)
         {
-          if (v72 != 6)
+          if (v72[0] != 6)
           {
             goto LABEL_31;
           }
@@ -240,9 +240,9 @@ LABEL_23:
       goto LABEL_30;
     }
 
-    if (v72 > 2u)
+    if (v72[0] > 2u)
     {
-      if (v72 == 3)
+      if (v72[0] == 3)
       {
         v16 = [NSData dataWithBytesNoCopy:"dataWithBytesNoCopy:length:freeWhenDone:" length:? freeWhenDone:?];
         v66 = v9;
@@ -259,7 +259,7 @@ LABEL_23:
         goto LABEL_28;
       }
 
-      if (v72 == 4)
+      if (v72[0] == 4)
       {
         v65 = v9;
         v16 = sub_100021B74(4, bytes, v14, v70, &v65);
@@ -287,7 +287,7 @@ LABEL_29:
 
     else
     {
-      if (v72 == 1)
+      if (v72[0] == 1)
       {
         v16 = [NSData dataWithBytesNoCopy:"dataWithBytesNoCopy:length:freeWhenDone:" length:? freeWhenDone:?];
         v69 = v9;
@@ -309,7 +309,7 @@ LABEL_28:
         goto LABEL_29;
       }
 
-      if (v72 == 2)
+      if (v72[0] == 2)
       {
         v68 = v9;
         v16 = sub_100021B74(2, bytes, v14, v70, &v68);

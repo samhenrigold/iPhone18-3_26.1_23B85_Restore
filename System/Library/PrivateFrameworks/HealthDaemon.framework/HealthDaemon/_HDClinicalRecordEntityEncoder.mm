@@ -8,24 +8,22 @@
 
 - (id)orderedProperties
 {
-  v9[11] = *MEMORY[0x277D85DE8];
-  v9[0] = @"display_name";
-  v9[1] = @"fhir_resource_fhir_version_major";
-  v9[2] = @"fhir_resource_fhir_version_minor";
-  v9[3] = @"fhir_resource_fhir_version_patch";
-  v9[4] = @"fhir_resource_resource_type";
-  v9[5] = @"fhir_resource_identifier";
-  v9[6] = @"fhir_resource_data";
-  v9[7] = @"fhir_resource_source_url";
-  v9[8] = @"fhir_resource_last_updated_date";
-  v9[9] = @"original_fhir_resource_rowid";
-  v9[10] = @"original_signed_clinical_data_rowid";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:11];
+  v8[11] = *MEMORY[0x277D85DE8];
+  v8[0] = @"display_name";
+  v8[1] = @"fhir_resource_fhir_version_major";
+  v8[2] = @"fhir_resource_fhir_version_minor";
+  v8[3] = @"fhir_resource_fhir_version_patch";
+  v8[4] = @"fhir_resource_resource_type";
+  v8[5] = @"fhir_resource_identifier";
+  v8[6] = @"fhir_resource_data";
+  v8[7] = @"fhir_resource_source_url";
+  v8[8] = @"fhir_resource_last_updated_date";
+  v8[9] = @"original_fhir_resource_rowid";
+  v8[10] = @"original_signed_clinical_data_rowid";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:11];
   superclassEncoder = [(HDEntityEncoder *)self superclassEncoder];
   orderedProperties = [superclassEncoder orderedProperties];
   v6 = [v3 arrayByAddingObjectsFromArray:orderedProperties];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

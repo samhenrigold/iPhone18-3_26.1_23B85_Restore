@@ -139,24 +139,24 @@ LABEL_2:
 
 - (int)run
 {
-  v122[1] = *MEMORY[0x1E69E9840];
+  v124[1] = *MEMORY[0x1E69E9840];
   cf = 0;
   scaledImageWidth = [(MADMLScalingRequest *)self->_request scaledImageWidth];
   scaledImageHeight = [(MADMLScalingRequest *)self->_request scaledImageHeight];
-  v5 = VCPSignPostLog();
+  v5 = VCPSignPostLog(scaledImageHeight);
   v6 = os_signpost_id_generate(v5);
 
-  v7 = VCPSignPostLog();
-  v8 = v7;
-  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
+  v8 = VCPSignPostLog(v7);
+  v9 = v8;
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
   {
     LOWORD(buf.data) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v6, "VCPMADMLScalingTask", "", &buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v6, "VCPMADMLScalingTask", "", &buf, 2u);
   }
 
   texture = 0;
-  v97 = 0;
-  if ([(VCPMADServiceImageAsset *)self->_imageAsset loadPixelBuffer:&texture orientation:&v97])
+  v99 = 0;
+  if ([(VCPMADServiceImageAsset *)self->_imageAsset loadPixelBuffer:&texture orientation:&v99])
   {
     if (MediaAnalysisLogLevel() >= 4 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
@@ -165,13 +165,13 @@ LABEL_2:
     }
 
     request = self->_request;
-    v10 = MEMORY[0x1E696ABC0];
-    v121 = *MEMORY[0x1E696A578];
-    v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to load pixel buffer"];
-    v122[0] = v11;
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v122 forKeys:&v121 count:1];
-    v13 = [v10 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v12];
-    [(MADMLScalingRequest *)request setError:v13];
+    v11 = MEMORY[0x1E696ABC0];
+    v123 = *MEMORY[0x1E696A578];
+    v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to load pixel buffer"];
+    v124[0] = v12;
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v124 forKeys:&v123 count:1];
+    v14 = [v11 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v13];
+    [(MADMLScalingRequest *)request setError:v14];
 
     goto LABEL_9;
   }
@@ -184,74 +184,74 @@ LABEL_2:
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "VCPMADMLScalingTask: Failed to convert pixel format", &buf, 2u);
     }
 
-    v16 = self->_request;
-    v17 = MEMORY[0x1E696ABC0];
-    v119 = *MEMORY[0x1E696A578];
-    v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to convert pixel format"];
-    v120 = v18;
-    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v120 forKeys:&v119 count:1];
-    v20 = [v17 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v19];
-    [(MADMLScalingRequest *)v16 setError:v20];
+    v17 = self->_request;
+    v18 = MEMORY[0x1E696ABC0];
+    v121 = *MEMORY[0x1E696A578];
+    v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to convert pixel format"];
+    v122 = v19;
+    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v122 forKeys:&v121 count:1];
+    v21 = [v18 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v20];
+    [(MADMLScalingRequest *)v17 setError:v21];
 
     goto LABEL_9;
   }
 
   Width = CVPixelBufferGetWidth(texture);
   Height = CVPixelBufferGetHeight(texture);
-  v23 = scaledImageWidth;
-  v92 = scaledImageHeight;
+  v24 = scaledImageWidth;
+  v94 = scaledImageHeight;
   p_outputPixelBufferPool = &self->_outputPixelBufferPool;
-  v25 = self->_outputPixelBufferPool.value_;
-  if (!v25)
+  v26 = self->_outputPixelBufferPool.value_;
+  if (!v26)
   {
     value.data = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
     Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-    v32 = Mutable;
+    v33 = Mutable;
     theDict[0] = Mutable;
     if (value.data && Mutable)
     {
-      valuePtr[0] = v23;
-      v33 = CFNumberCreate(0, kCFNumberSInt32Type, valuePtr);
-      buf.data = v33;
-      if (v33)
+      valuePtr[0] = v24;
+      v34 = CFNumberCreate(0, kCFNumberSInt32Type, valuePtr);
+      buf.data = v34;
+      if (v34)
       {
-        CFDictionarySetValue(v32, *MEMORY[0x1E6966208], v33);
+        CFDictionarySetValue(v33, *MEMORY[0x1E6966208], v34);
       }
 
       CF<__CVBuffer *>::~CF(&buf.data);
-      v34 = theDict[0];
-      valuePtr[0] = v92;
-      v35 = CFNumberCreate(0, kCFNumberSInt32Type, valuePtr);
-      buf.data = v35;
-      if (v35)
+      v35 = theDict[0];
+      valuePtr[0] = v94;
+      v36 = CFNumberCreate(0, kCFNumberSInt32Type, valuePtr);
+      buf.data = v36;
+      if (v36)
       {
-        CFDictionarySetValue(v34, *MEMORY[0x1E69660B8], v35);
+        CFDictionarySetValue(v35, *MEMORY[0x1E69660B8], v36);
       }
 
       CF<__CVBuffer *>::~CF(&buf.data);
-      v36 = theDict[0];
+      v37 = theDict[0];
       valuePtr[0] = 1111970369;
-      v37 = CFNumberCreate(0, kCFNumberSInt32Type, valuePtr);
-      buf.data = v37;
-      if (v37)
+      v38 = CFNumberCreate(0, kCFNumberSInt32Type, valuePtr);
+      buf.data = v38;
+      if (v38)
       {
-        CFDictionarySetValue(v36, *MEMORY[0x1E6966130], v37);
+        CFDictionarySetValue(v37, *MEMORY[0x1E6966130], v38);
       }
 
       CF<__CVBuffer *>::~CF(&buf.data);
       CFDictionarySetValue(theDict[0], *MEMORY[0x1E69660D8], value.data);
-      v38 = theDict[0];
+      v39 = theDict[0];
       if (p_outputPixelBufferPool->value_)
       {
         CFRelease(p_outputPixelBufferPool->value_);
         p_outputPixelBufferPool->value_ = 0;
       }
 
-      if (!CVPixelBufferPoolCreate(0, 0, v38, &self->_outputPixelBufferPool.value_))
+      if (!CVPixelBufferPoolCreate(0, 0, v39, &self->_outputPixelBufferPool.value_))
       {
         CF<__CVBuffer *>::~CF(theDict);
         CF<__CVBuffer *>::~CF(&value.data);
-        v25 = p_outputPixelBufferPool->value_;
+        v26 = p_outputPixelBufferPool->value_;
         goto LABEL_20;
       }
 
@@ -261,14 +261,14 @@ LABEL_2:
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "VCPMADMLScalingTask: Failed to create pixel buffer pool", &buf, 2u);
       }
 
-      v39 = self->_request;
-      v40 = MEMORY[0x1E696ABC0];
-      v115 = *MEMORY[0x1E696A578];
-      v41 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to create pixel buffer pool"];
-      v116 = v41;
-      v42 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v116 forKeys:&v115 count:1];
-      v43 = [v40 errorWithDomain:*MEMORY[0x1E696A768] code:-108 userInfo:v42];
-      [(MADMLScalingRequest *)v39 setError:v43];
+      v40 = self->_request;
+      v41 = MEMORY[0x1E696ABC0];
+      v117 = *MEMORY[0x1E696A578];
+      v42 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to create pixel buffer pool"];
+      v118 = v42;
+      v43 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v118 forKeys:&v117 count:1];
+      v44 = [v41 errorWithDomain:*MEMORY[0x1E696A768] code:-108 userInfo:v43];
+      [(MADMLScalingRequest *)v40 setError:v44];
     }
 
     else
@@ -279,14 +279,14 @@ LABEL_2:
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "VCPMADMLScalingTask: Failed to create pixel buffer pool", &buf, 2u);
       }
 
-      v48 = self->_request;
-      v49 = MEMORY[0x1E696ABC0];
-      v117 = *MEMORY[0x1E696A578];
-      v41 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to create pixel buffer pool"];
-      v118 = v41;
-      v42 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v118 forKeys:&v117 count:1];
-      v43 = [v49 errorWithDomain:*MEMORY[0x1E696A768] code:-108 userInfo:v42];
-      [(MADMLScalingRequest *)v48 setError:v43];
+      v49 = self->_request;
+      v50 = MEMORY[0x1E696ABC0];
+      v119 = *MEMORY[0x1E696A578];
+      v42 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to create pixel buffer pool"];
+      v120 = v42;
+      v43 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v120 forKeys:&v119 count:1];
+      v44 = [v50 errorWithDomain:*MEMORY[0x1E696A768] code:-108 userInfo:v43];
+      [(MADMLScalingRequest *)v49 setError:v44];
     }
 
     CF<__CVBuffer *>::~CF(theDict);
@@ -301,7 +301,7 @@ LABEL_20:
     cf = 0;
   }
 
-  if (CVPixelBufferPoolCreatePixelBuffer(0, v25, &cf))
+  if (CVPixelBufferPoolCreatePixelBuffer(0, v26, &cf))
   {
     if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
@@ -309,52 +309,52 @@ LABEL_20:
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "VCPMADMLScalingTask: Failed to create pixel buffer", &buf, 2u);
     }
 
-    v26 = self->_request;
-    v27 = MEMORY[0x1E696ABC0];
-    v113 = *MEMORY[0x1E696A578];
-    v28 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to create pixel buffer"];
-    v114 = v28;
-    v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v114 forKeys:&v113 count:1];
-    v30 = [v27 errorWithDomain:*MEMORY[0x1E696A768] code:-108 userInfo:v29];
-    [(MADMLScalingRequest *)v26 setError:v30];
+    v27 = self->_request;
+    v28 = MEMORY[0x1E696ABC0];
+    v115 = *MEMORY[0x1E696A578];
+    v29 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to create pixel buffer"];
+    v116 = v29;
+    v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v116 forKeys:&v115 count:1];
+    v31 = [v28 errorWithDomain:*MEMORY[0x1E696A768] code:-108 userInfo:v30];
+    [(MADMLScalingRequest *)v27 setError:v31];
 
     goto LABEL_9;
   }
 
-  if (v23 < Width || v92 < Height)
+  if (v24 < Width || v94 < Height)
   {
     if (!+[VCPMADMLScalingTask getDownsamplingMode])
     {
-      v56 = [MEMORY[0x1E695F658] imageWithCVPixelBuffer:texture];
-      v111 = @"inputScale";
-      *&v57 = v23 / Width;
-      v58 = [MEMORY[0x1E696AD98] numberWithFloat:v57];
-      v112 = v58;
-      v59 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v112 forKeys:&v111 count:1];
-      v60 = [v56 imageByApplyingFilter:@"CILanczosScaleTransform" withInputParameters:v59];
+      v57 = [MEMORY[0x1E695F658] imageWithCVPixelBuffer:texture];
+      v113 = @"inputScale";
+      *&v58 = v24 / Width;
+      v59 = [MEMORY[0x1E696AD98] numberWithFloat:v58];
+      v114 = v59;
+      v60 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v114 forKeys:&v113 count:1];
+      v61 = [v57 imageByApplyingFilter:@"CILanczosScaleTransform" withInputParameters:v60];
 
       context = [MEMORY[0x1E695F620] context];
-      [context render:v60 toCVPixelBuffer:cf];
+      [context render:v61 toCVPixelBuffer:cf];
 
       goto LABEL_86;
     }
 
     if (+[VCPMADMLScalingTask getDownsamplingMode]== 1)
     {
-      v50 = [MEMORY[0x1E695F658] imageWithCVPixelBuffer:texture];
-      v109[0] = @"inputScale";
-      *&v51 = v23 / Width;
-      v52 = [MEMORY[0x1E696AD98] numberWithFloat:v51];
-      v110[0] = v52;
-      v110[1] = &unk_1F49BC1A8;
-      v109[1] = @"inputB";
-      v109[2] = @"inputC";
-      v110[2] = &unk_1F49BB5A8;
-      v53 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v110 forKeys:v109 count:3];
-      v54 = [v50 imageByApplyingFilter:@"CIBicubicScaleTransform" withInputParameters:v53];
+      v51 = [MEMORY[0x1E695F658] imageWithCVPixelBuffer:texture];
+      v111[0] = @"inputScale";
+      *&v52 = v24 / Width;
+      v53 = [MEMORY[0x1E696AD98] numberWithFloat:v52];
+      v112[0] = v53;
+      v112[1] = &unk_1F49BC1A8;
+      v111[1] = @"inputB";
+      v111[2] = @"inputC";
+      v112[2] = &unk_1F49BB5A8;
+      v54 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v112 forKeys:v111 count:3];
+      v55 = [v51 imageByApplyingFilter:@"CIBicubicScaleTransform" withInputParameters:v54];
 
       context2 = [MEMORY[0x1E695F620] context];
-      [context2 render:v54 toCVPixelBuffer:cf];
+      [context2 render:v55 toCVPixelBuffer:cf];
 
 LABEL_86:
       CVBufferPropagateAttachments(texture, cf);
@@ -394,15 +394,15 @@ LABEL_86:
 
     CVPixelBufferLock::~CVPixelBufferLock(theDict);
 LABEL_9:
-    v14 = 0;
+    v15 = 0;
     goto LABEL_10;
   }
 
   if (![(MADMLScalingRequest *)self->_request scalingModelIndex])
   {
-    width = [MEMORY[0x1E696AEC0] stringWithFormat:@"out_res_%dx%d", v23, v92];
-    height = [[CNNMLScalerEspresso alloc] initWithConfig:width modelIndex:[(MADMLScalingRequest *)self->_request scalingModelIndex] scalingFactor:(v23 / Width)];
-    v47 = height;
+    width = [MEMORY[0x1E696AEC0] stringWithFormat:@"out_res_%dx%d", v24, v94];
+    height = [[CNNMLScalerEspresso alloc] initWithConfig:width modelIndex:[(MADMLScalingRequest *)self->_request scalingModelIndex] scalingFactor:(v24 / Width)];
+    v48 = height;
     if (!height)
     {
       if (MediaAnalysisLogLevel() >= 4 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
@@ -411,20 +411,20 @@ LABEL_9:
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "VCPMADMLScalingTask: Failed to initialize model", &buf, 2u);
       }
 
-      v68 = self->_request;
-      v69 = MEMORY[0x1E696ABC0];
-      v107 = *MEMORY[0x1E696A578];
-      v70 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to initialize model"];
-      v108 = v70;
-      v71 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v108 forKeys:&v107 count:1];
-      v72 = [v69 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v71];
-      [(MADMLScalingRequest *)v68 setError:v72];
+      v69 = self->_request;
+      v70 = MEMORY[0x1E696ABC0];
+      v109 = *MEMORY[0x1E696A578];
+      v71 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to initialize model"];
+      v110 = v71;
+      v72 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v110 forKeys:&v109 count:1];
+      v73 = [v70 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v72];
+      [(MADMLScalingRequest *)v69 setError:v73];
 
       goto LABEL_9;
     }
 
 LABEL_59:
-    v62 = [(CNNMLScalerEspresso *)height inferenceWithPixelBuffer:texture toDestinationPixelBuffer:cf];
+    v63 = [(CNNMLScalerEspresso *)height inferenceWithPixelBuffer:texture toDestinationPixelBuffer:cf];
     goto LABEL_60;
   }
 
@@ -434,9 +434,9 @@ LABEL_59:
   }
 
   width = [MEMORY[0x1E696AEC0] stringWithFormat:@"main_input_tensor_1_1_4_%d_%d_", Height, Width];
-  v45 = (v23 / Width);
-  height = [[CNNMLScalerEspressoV2 alloc] initWithConfig:width modelIndex:[(MADMLScalingRequest *)self->_request scalingModelIndex] inputSize:v45 scalingFactor:Width, Height];
-  v47 = height;
+  v46 = (v24 / Width);
+  height = [[CNNMLScalerEspressoV2 alloc] initWithConfig:width modelIndex:[(MADMLScalingRequest *)self->_request scalingModelIndex] inputSize:v46 scalingFactor:Width, Height];
+  v48 = height;
   if (height)
   {
     goto LABEL_59;
@@ -448,10 +448,10 @@ LABEL_59:
     _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "VCPMADMLScalingTask: Failed to initialize E5 model", &buf, 2u);
   }
 
-  v73 = [MEMORY[0x1E696AEC0] stringWithFormat:@"out_res_%dx%d", v23, v92];
-  v74 = [[CNNMLScalerEspresso alloc] initWithConfig:v73 modelIndex:[(MADMLScalingRequest *)self->_request scalingModelIndex] scalingFactor:v45];
-  v75 = v74;
-  if (!v74)
+  v74 = [MEMORY[0x1E696AEC0] stringWithFormat:@"out_res_%dx%d", v24, v94];
+  v75 = [[CNNMLScalerEspresso alloc] initWithConfig:v74 modelIndex:[(MADMLScalingRequest *)self->_request scalingModelIndex] scalingFactor:v46];
+  v76 = v75;
+  if (!v75)
   {
     if (MediaAnalysisLogLevel() >= 4 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
@@ -459,22 +459,22 @@ LABEL_59:
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "VCPMADMLScalingTask: Failed to initialize model", &buf, 2u);
     }
 
-    v76 = self->_request;
-    v77 = MEMORY[0x1E696ABC0];
-    v105 = *MEMORY[0x1E696A578];
-    v78 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to initialize model"];
-    v106 = v78;
-    v79 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v106 forKeys:&v105 count:1];
-    v80 = [v77 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v79];
-    [(MADMLScalingRequest *)v76 setError:v80];
+    v77 = self->_request;
+    v78 = MEMORY[0x1E696ABC0];
+    v107 = *MEMORY[0x1E696A578];
+    v79 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to initialize model"];
+    v108 = v79;
+    v80 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v108 forKeys:&v107 count:1];
+    v81 = [v78 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v80];
+    [(MADMLScalingRequest *)v77 setError:v81];
 
     goto LABEL_9;
   }
 
-  v62 = [(CNNMLScalerEspresso *)v74 inferenceWithPixelBuffer:texture toDestinationPixelBuffer:cf];
+  v63 = [(CNNMLScalerEspresso *)v75 inferenceWithPixelBuffer:texture toDestinationPixelBuffer:cf];
 
 LABEL_60:
-  if (v62)
+  if (v63)
   {
     if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
@@ -482,21 +482,21 @@ LABEL_60:
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "VCPMADMLScalingTask: Failed to inference with model", &buf, 2u);
     }
 
-    v63 = self->_request;
-    v64 = MEMORY[0x1E696ABC0];
-    v103 = *MEMORY[0x1E696A578];
-    v65 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to inference with model"];
-    v104 = v65;
-    v66 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v104 forKeys:&v103 count:1];
-    v67 = [v64 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v66];
-    [(MADMLScalingRequest *)v63 setError:v67];
+    v64 = self->_request;
+    v65 = MEMORY[0x1E696ABC0];
+    v105 = *MEMORY[0x1E696A578];
+    v66 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to inference with model"];
+    v106 = v66;
+    v67 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v106 forKeys:&v105 count:1];
+    v68 = [v65 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v67];
+    [(MADMLScalingRequest *)v64 setError:v68];
 
     goto LABEL_9;
   }
 
 LABEL_87:
-  v81 = CVPixelBufferGetIOSurface(cf);
-  if (!v81)
+  v82 = CVPixelBufferGetIOSurface(cf);
+  if (!v82)
   {
     if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
@@ -510,33 +510,33 @@ LABEL_87:
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "VCPMADMLScalingTask failed creating output IOSurface", &buf, 2u);
     }
 
-    v87 = self->_request;
-    v88 = MEMORY[0x1E696ABC0];
-    v101 = *MEMORY[0x1E696A578];
-    v89 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Creating output IOSurface failed"];
-    v102 = v89;
-    v90 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v102 forKeys:&v101 count:1];
-    v91 = [v88 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v90];
-    [(MADMLScalingRequest *)v87 setError:v91];
+    v89 = self->_request;
+    v90 = MEMORY[0x1E696ABC0];
+    v103 = *MEMORY[0x1E696A578];
+    v91 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Creating output IOSurface failed"];
+    v104 = v91;
+    v92 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v104 forKeys:&v103 count:1];
+    v93 = [v90 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v92];
+    [(MADMLScalingRequest *)v89 setError:v93];
 
     goto LABEL_9;
   }
 
-  v82 = self->_request;
-  v83 = [objc_alloc(MEMORY[0x1E69AE360]) initWithSurface:v81];
-  v100 = v83;
-  v84 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v100 count:1];
-  [(MADMLScalingRequest *)v82 setResults:v84];
+  v83 = self->_request;
+  v84 = [objc_alloc(MEMORY[0x1E69AE360]) initWithSurface:v82];
+  v102 = v84;
+  v85 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v102 count:1];
+  [(MADMLScalingRequest *)v83 setResults:v85];
 
-  v85 = VCPSignPostLog();
-  v86 = v85;
-  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v85))
+  v87 = VCPSignPostLog(v86);
+  v88 = v87;
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v87))
   {
     LOWORD(buf.data) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v86, OS_SIGNPOST_INTERVAL_END, v6, "VCPMADMLScalingTask", "", &buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v88, OS_SIGNPOST_INTERVAL_END, v6, "VCPMADMLScalingTask", "", &buf, 2u);
   }
 
-  v14 = v81;
+  v15 = v82;
 LABEL_10:
   if (texture)
   {

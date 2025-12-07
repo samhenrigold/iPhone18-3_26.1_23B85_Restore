@@ -83,21 +83,21 @@
   return v2;
 }
 
-void __48__ClarityUIAppSelectionTableViewDataSource_init__block_invoke(uint64_t a1)
+void __48__ClarityUIAppSelectionTableViewDataSource_init__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = CLFLogSettings();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = CLFLogSettings();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v6 = 0;
-    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "Reloading app lists because app availability changed.", v6, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "Reloading app lists because app availability changed.", v7, 2u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained _reloadApplications];
 
-  v4 = objc_loadWeakRetained((a1 + 32));
-  v5 = [v4 tableView];
-  [v5 reloadData];
+  v5 = objc_loadWeakRetained((a1 + 32));
+  v6 = [v5 tableView];
+  [v6 reloadData];
 }
 
 - (void)dealloc

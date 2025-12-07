@@ -876,7 +876,7 @@ LABEL_20:
   {
 
 LABEL_7:
-    v5 = [(UIInputViewSet *)self isEqual:setCopy];
+    isEqual = objc_msgSend_isEqual_(self);
     goto LABEL_4;
   }
 
@@ -897,10 +897,10 @@ LABEL_7:
   }
 
 LABEL_3:
-  v5 = 1;
+  isEqual = 1;
 LABEL_4:
 
-  return v5;
+  return isEqual;
 }
 
 - (UIInputViewSet)initWithInputView:(id)view customInputView:(id)inputView accessoryView:(id)accessoryView assistantView:(id)assistantView isKeyboard:(BOOL)keyboard
@@ -1315,53 +1315,53 @@ LABEL_9:
   {
     inputView = [equalCopy inputView];
     inputView2 = [(UIInputViewSet *)self inputView];
-    if (inputView == inputView2 || [inputView isEqual:inputView2])
+    if (inputView == inputView2 || objc_msgSend_isEqual_(inputView))
     {
       hostedCustomInputView = [equalCopy hostedCustomInputView];
       hostedCustomInputView2 = [(UIInputViewSet *)self hostedCustomInputView];
-      if (hostedCustomInputView == hostedCustomInputView2 || [hostedCustomInputView isEqual:hostedCustomInputView2])
+      if (hostedCustomInputView == hostedCustomInputView2 || objc_msgSend_isEqual_(hostedCustomInputView))
       {
         inputAssistantView = [equalCopy inputAssistantView];
         inputAssistantView2 = [(UIInputViewSet *)self inputAssistantView];
-        if (inputAssistantView == inputAssistantView2 || [inputAssistantView isEqual:inputAssistantView2])
+        if (inputAssistantView == inputAssistantView2 || objc_msgSend_isEqual_(inputAssistantView))
         {
           inputAccessoryView = [equalCopy inputAccessoryView];
           inputAccessoryView2 = [(UIInputViewSet *)self inputAccessoryView];
           if (inputAccessoryView == inputAccessoryView2)
           {
-            v6 = 1;
+            isEqual = 1;
           }
 
           else
           {
-            v6 = [inputAccessoryView isEqual:inputAccessoryView2];
+            isEqual = objc_msgSend_isEqual_(inputAccessoryView);
           }
         }
 
         else
         {
-          v6 = 0;
+          isEqual = 0;
         }
       }
 
       else
       {
-        v6 = 0;
+        isEqual = 0;
       }
     }
 
     else
     {
-      v6 = 0;
+      isEqual = 0;
     }
   }
 
   else
   {
-    v6 = 0;
+    isEqual = 0;
   }
 
-  return v6;
+  return isEqual;
 }
 
 - (BOOL)containsResponder:(id)responder
@@ -1385,7 +1385,7 @@ LABEL_9:
 - (BOOL)isStrictSupersetOfViewSet:(id)set
 {
   setCopy = set;
-  if (([setCopy isEqual:self] & 1) == 0)
+  if ((objc_msgSend_isEqual_(setCopy) & 1) == 0)
   {
     inputAccessoryView = [setCopy inputAccessoryView];
     if (!inputAccessoryView || ([setCopy inputAccessoryView], v3 = objc_claimAutoreleasedReturnValue(), -[UIInputViewSet inputAccessoryView](self, "inputAccessoryView"), v4 = objc_claimAutoreleasedReturnValue(), v3 == v4))

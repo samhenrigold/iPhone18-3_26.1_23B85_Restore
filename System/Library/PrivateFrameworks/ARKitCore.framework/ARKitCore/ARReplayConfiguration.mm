@@ -180,7 +180,7 @@
             [v17 device];
             v21 = selfCopy;
             v23 = v22 = v7;
-            v24 = [v15 availableVideoFormatForDeviceType:deviceType position:{objc_msgSend(v23, "position")}];
+            v24 = [v15 availableVideoFormatForDeviceType:deviceType position:objc_msgSend_position(v23)];
 
             v7 = v22;
             selfCopy = v21;
@@ -247,7 +247,7 @@ LABEL_13:
           device2 = [v7 device];
           deviceType = [device2 deviceType];
           device3 = [v7 device];
-          v12 = -[ARReplaySensorProtocol availableVideoFormatForDeviceType:position:](v5, "availableVideoFormatForDeviceType:position:", deviceType, [device3 position]);
+          v12 = [(ARReplaySensorProtocol *)v5 availableVideoFormatForDeviceType:deviceType position:objc_msgSend_position(device3)];
         }
 
         else

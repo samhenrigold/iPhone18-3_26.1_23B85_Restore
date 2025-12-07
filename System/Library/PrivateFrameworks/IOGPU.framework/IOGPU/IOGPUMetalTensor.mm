@@ -37,7 +37,7 @@
 {
   var1 = slice.var1;
   var0 = slice.var0;
-  v29[16] = *MEMORY[0x1E69E9840];
+  v28[16] = *MEMORY[0x1E69E9840];
   if (![(IOGPUMetalTensor *)self buffer])
   {
     if (error)
@@ -46,9 +46,7 @@
       goto LABEL_26;
     }
 
-LABEL_27:
-    v24 = 0;
-    goto LABEL_28;
+    return 0;
   }
 
   rank = [(MTLTensorExtents *)[(IOGPUMetalTensor *)self dimensions] rank];
@@ -61,10 +59,10 @@ LABEL_22:
 LABEL_26:
       v24 = 0;
       *error = errorWithMessage(v25);
-      goto LABEL_28;
+      return v24;
     }
 
-    goto LABEL_27;
+    return 0;
   }
 
   if (rank)
@@ -122,7 +120,7 @@ LABEL_15:
       v21 = 2;
 LABEL_18:
       bufferOffset += v19 * v18 * v21;
-      v29[v16] = [var1 extentAtDimensionIndex:v16];
+      v28[v16] = [var1 extentAtDimensionIndex:v16];
       v16 = ++v17;
       if (rank2 <= v17)
       {
@@ -147,7 +145,7 @@ LABEL_17:
   }
 
 LABEL_19:
-  v22 = [objc_alloc(MEMORY[0x1E69741B0]) initWithRank:rank2 extents:v29];
+  v22 = [objc_alloc(MEMORY[0x1E69741B0]) initWithRank:rank2 extents:v28];
   [v14 setDimensions:v22];
 
   v23 = [(MTLBuffer *)[(IOGPUMetalTensor *)self buffer] newTensorWithDescriptor:v14 offset:bufferOffset error:errorCopy];
@@ -157,8 +155,6 @@ LABEL_19:
     *(v23 + 304) = self;
   }
 
-LABEL_28:
-  v26 = *MEMORY[0x1E69E9840];
   return v24;
 }
 
@@ -256,12 +252,12 @@ LABEL_28:
 
 - (id)newTensorViewWithReshapedDescriptor:(id)descriptor error:(id *)error
 {
-  v24[16] = *MEMORY[0x1E69E9840];
+  v23[16] = *MEMORY[0x1E69E9840];
   if (![(IOGPUMetalTensor *)self buffer])
   {
     if (!error)
     {
-      goto LABEL_25;
+      return 0;
     }
 
     v14 = @"This operation is only permitted for tensors created with a buffer or an IOSurface";
@@ -269,7 +265,7 @@ LABEL_22:
     v22 = errorWithMessage(v14);
     result = 0;
     *error = v22;
-    goto LABEL_26;
+    return result;
   }
 
   usage = [descriptor usage];
@@ -304,7 +300,7 @@ LABEL_22:
       goto LABEL_22;
     }
 
-    goto LABEL_25;
+    return 0;
   }
 
   dataType = [descriptor dataType];
@@ -312,7 +308,7 @@ LABEL_22:
   {
     if (!error)
     {
-      goto LABEL_25;
+      return 0;
     }
 
     v18 = MEMORY[0x1E696AEC0];
@@ -329,27 +325,25 @@ LABEL_22:
       goto LABEL_22;
     }
 
-LABEL_25:
-    result = 0;
-    goto LABEL_26;
+    return 0;
   }
 
-  v24[0] = 1;
+  v23[0] = 1;
   if ([objc_msgSend(descriptor "dimensions")] >= 2)
   {
     v9 = 1;
     v10 = 1;
     do
     {
-      v11 = v24[v9 - 1];
-      v24[v9] = [objc_msgSend(descriptor "dimensions")] * v11;
+      v11 = v23[v9 - 1];
+      v23[v9] = [objc_msgSend(descriptor "dimensions")] * v11;
       v9 = ++v10;
     }
 
     while ([objc_msgSend(descriptor "dimensions")] > v10);
   }
 
-  v12 = [objc_alloc(MEMORY[0x1E69741B0]) initWithRank:objc_msgSend(objc_msgSend(descriptor extents:{"dimensions"), "rank"), v24}];
+  v12 = [objc_alloc(MEMORY[0x1E69741B0]) initWithRank:objc_msgSend(objc_msgSend(descriptor extents:{"dimensions"), "rank"), v23}];
   [descriptor setStrides:v12];
 
   result = [(MTLBuffer *)[(IOGPUMetalTensor *)self buffer] newTensorWithDescriptor:descriptor offset:[(_MTLResource *)self bufferOffset] error:error];
@@ -358,8 +352,6 @@ LABEL_25:
     *(result + 38) = self;
   }
 
-LABEL_26:
-  v23 = *MEMORY[0x1E69E9840];
   return result;
 }
 

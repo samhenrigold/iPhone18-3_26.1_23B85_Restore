@@ -1,25 +1,40 @@
-void quasar::WordPronCache::getPronCache(quasar::WordPronCache *this@<X0>, void *a2@<X8>)
+void sub_1B565AA28(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15)
 {
-  a2[2] = 0;
-  a2[1] = 0;
-  *a2 = a2 + 1;
+  if (v16)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v16);
+  }
+
+  if (v15)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v15);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void quasar::WordPronCache::getPronCache(uint64_t **__return_ptr a1@<X8>, quasar::WordPronCache *this@<X0>)
+{
+  a1[2] = 0;
+  a1[1] = 0;
+  *a1 = (a1 + 1);
   v3 = *(this + 3);
   v4 = this + 32;
   if (v3 != this + 32)
   {
     do
     {
-      quasar::LmePackedWord::unpacked((v3 + 32), (this + 8), v9);
-      std::__tree<quasar::LmeDataFactoryBase::Word,quasar::LmeDataFactoryBase::WordOrthoComparator,std::allocator<quasar::LmeDataFactoryBase::Word>>::__emplace_unique_key_args<quasar::LmeDataFactoryBase::Word,quasar::LmeDataFactoryBase::Word>(a2, v9);
-      std::__tree<std::__value_type<std::pair<quasar::PronType,std::string>,float>,std::__map_value_compare<std::pair<quasar::PronType,std::string>,std::__value_type<std::pair<quasar::PronType,std::string>,float>,std::less<std::pair<quasar::PronType,std::string>>,true>,std::allocator<std::__value_type<std::pair<quasar::PronType,std::string>,float>>>::destroy(v13, v13[1]);
-      if (v12 < 0)
+      quasar::LmePackedWord::unpacked(&v9, (v3 + 32), (this + 8));
+      std::__tree<quasar::LmeDataFactoryBase::Word,quasar::LmeDataFactoryBase::WordOrthoComparator,std::allocator<quasar::LmeDataFactoryBase::Word>>::__emplace_unique_key_args<quasar::LmeDataFactoryBase::Word,quasar::LmeDataFactoryBase::Word>(a1, &v9.__r_.__value_.__l.__data_, &v9);
+      std::__tree<std::__value_type<std::pair<quasar::PronType,std::string>,float>,std::__map_value_compare<std::pair<quasar::PronType,std::string>,std::__value_type<std::pair<quasar::PronType,std::string>,float>,std::less<std::pair<quasar::PronType,std::string>>,true>,std::allocator<std::__value_type<std::pair<quasar::PronType,std::string>,float>>>::destroy(v12, v12[1]);
+      if (v11 < 0)
       {
         operator delete(__p);
       }
 
-      if (v10 < 0)
+      if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v9[0]);
+        operator delete(v9.__r_.__value_.__l.__data_);
       }
 
       v6 = *(v3 + 1);
@@ -90,7 +105,7 @@ void quasar::AmFusionEncoderFe::getLmeContextEmbeddings(uint64_t a1, uint64_t *a
           atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        quasar::WordPronCache::getPronCache((v12 + 88), &v28);
+        quasar::WordPronCache::getPronCache(&v28, (v12 + 88));
         v14 = v28;
         if (v28 == v29)
         {
@@ -102,7 +117,7 @@ LABEL_27:
         {
           while (1)
           {
-            quasar::Bitmap::~Bitmap((v14 + 88));
+            quasar::Bitmap::~Bitmap((v14 + 11));
             v17 = v15 + 1;
             v16 = *v15;
             if (*v15 != v15 + 1)
@@ -111,7 +126,7 @@ LABEL_27:
             }
 
 LABEL_21:
-            v22 = *(v14 + 1);
+            v22 = v14[1];
             if (v22)
             {
               do
@@ -127,7 +142,7 @@ LABEL_21:
             {
               do
               {
-                v23 = *(v14 + 2);
+                v23 = v14[2];
                 v21 = *v23 == v14;
                 v14 = v23;
               }
@@ -254,9 +269,9 @@ uint64_t quasar::AmFusionEncoderFe::preflightCheck(kaldi::quasar::CEFusedAcousti
   return result;
 }
 
-void quasar::AmFusionEncoderFe::createOnlineFeInputImpl(uint64_t a1, uint64_t a2, char **a3, uint64_t a4)
+void quasar::AmFusionEncoderFe::createOnlineFeInputImpl(uint64_t a1, void x1_0, char **a2, uint64_t a3)
 {
-  if (!*a3)
+  if (!*a2)
   {
     v117 = 0u;
     v118 = 0u;
@@ -304,7 +319,7 @@ void quasar::AmFusionEncoderFe::createOnlineFeInputImpl(uint64_t a1, uint64_t a2
     quasar::QuasarExceptionMessage::~QuasarExceptionMessage(v104);
   }
 
-  v6 = a3;
+  v6 = a2;
   v102 = 0u;
   *v101 = 0u;
   v100 = &unk_1F2D0EE38;
@@ -312,11 +327,11 @@ void quasar::AmFusionEncoderFe::createOnlineFeInputImpl(uint64_t a1, uint64_t a2
   v8 = (a1 + 48);
   v7 = *(a1 + 48);
   v99 = *(a1 + 724);
-  if (kaldi::quasar::CEFusedAcousticEncoder::HasContextualBiasing(v7) && (*(a4 + 120) & 1) == 0)
+  if (kaldi::quasar::CEFusedAcousticEncoder::HasContextualBiasing(v7) && (*(a3 + 120) & 1) == 0)
   {
     ContextEmbeddingDim = kaldi::quasar::CEFusedAcousticEncoder::GetContextEmbeddingDim(*v8);
-    NumLmeContextEmbeddings = quasar::AmFusionEncoderFe::getNumLmeContextEmbeddings(a1, (a4 + 72), ContextEmbeddingDim, *(a4 + 112));
-    v36 = *(a4 + 96);
+    NumLmeContextEmbeddings = quasar::AmFusionEncoderFe::getNumLmeContextEmbeddings(a1, (a3 + 72), ContextEmbeddingDim, *(a3 + 112));
+    v36 = *(a3 + 96);
     if (v36 && *(v36 + 16) == ContextEmbeddingDim)
     {
       NumLmeContextEmbeddings += *(v36 + 20);
@@ -421,13 +436,13 @@ void quasar::AmFusionEncoderFe::createOnlineFeInputImpl(uint64_t a1, uint64_t a2
     LODWORD(v95) = v64;
     if (v64 < v56)
     {
-      quasar::AmFusionEncoderFe::getLmeContextEmbeddings(a1, (a4 + 72), &v100, &v95, *(a4 + 112));
+      quasar::AmFusionEncoderFe::getLmeContextEmbeddings(a1, (a3 + 72), &v100, &v95, *(a3 + 112));
       v64 = v95;
     }
 
     if (v64 < v56)
     {
-      v65 = *(a4 + 96);
+      v65 = *(a3 + 96);
       if (v65)
       {
         if (*(v65 + 16) == ContextEmbeddingDim)
@@ -439,7 +454,7 @@ void quasar::AmFusionEncoderFe::createOnlineFeInputImpl(uint64_t a1, uint64_t a2
             do
             {
               memcpy(v101[0] + 4 * v102 * (v64 + v67 - 1), (*(v65 + 8) + 4 * *(v65 + 24) * (v67 - 1)), v66);
-              v65 = *(a4 + 96);
+              v65 = *(a3 + 96);
               v68 = v67 + 1;
               v69 = v67 < *(v65 + 20) && v64 + v67 < v56;
               ++v67;
@@ -507,7 +522,7 @@ void quasar::AmFusionEncoderFe::createOnlineFeInputImpl(uint64_t a1, uint64_t a2
 
     else
     {
-      v70 = std::__tree<std::__value_type<std::string,double>,std::__map_value_compare<std::string,std::__value_type<std::string,double>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,double>>>::find<std::string>(a1 + 752, (a4 + 144));
+      v70 = std::__tree<std::__value_type<std::string,double>,std::__map_value_compare<std::string,std::__value_type<std::string,double>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,double>>>::find<std::string>(a1 + 752, (a3 + 144));
       if (a1 + 760 != v70)
       {
         v71 = *(v70 + 56);
@@ -539,7 +554,7 @@ void quasar::AmFusionEncoderFe::createOnlineFeInputImpl(uint64_t a1, uint64_t a2
         quasar::QuasarInfoMessage::~QuasarInfoMessage(v104);
       }
 
-      v74 = *(a4 + 128);
+      v74 = *(a3 + 128);
       if (v74)
       {
         std::string::basic_string[abi:ne200100]<0>(v104, "numContextualBiasingEmbeddings");
@@ -559,16 +574,16 @@ void quasar::AmFusionEncoderFe::createOnlineFeInputImpl(uint64_t a1, uint64_t a2
     v95 = 0;
     v96 = 0;
     v97 = 0;
-    v9 = *(a4 + 223);
+    v9 = *(a3 + 223);
     if ((v9 & 0x80u) != 0)
     {
-      v9 = *(a4 + 208);
+      v9 = *(a3 + 208);
     }
 
     v92 = v6;
     if (v9)
     {
-      kaldi::SplitStringToVector((a4 + 200), ",", 1, &v95);
+      kaldi::SplitStringToVector((a3 + 200), ",", 1, &v95);
       v11 = v95;
       v10 = v96;
       if (0xAAAAAAAAAAAAAAABLL * ((v10 - v11) >> 3) != kaldi::quasar::CEFusedAcousticEncoder::TaskBiasingDim(*v8))
@@ -604,8 +619,8 @@ void quasar::AmFusionEncoderFe::createOnlineFeInputImpl(uint64_t a1, uint64_t a2
       if (*(a1 + 384) != v39)
       {
         v40 = 0;
-        v41 = (a4 + 144);
-        v42 = (a4 + 176);
+        v41 = (a3 + 144);
+        v42 = (a3 + 176);
         do
         {
           v43 = *(v39 + 4 * v40);
@@ -857,7 +872,7 @@ LABEL_15:
   }
 
   v95 = *v6;
-  std::allocate_shared[abi:ne200100]<kaldi::AmFusionEncoderInput,std::allocator<kaldi::AmFusionEncoderInput>,kaldi::OnlineFeatInputItf *,int &,BOOL &,std::shared_ptr<kaldi::quasar::CEFusedAcousticEncoder> &,std::shared_ptr<kaldi::quasar::CEFusedAcousticEncoder> &,std::shared_ptr<kaldi::Vector<float>> &,int &,kaldi::CuMatrix<float> &,float &,std::vector<int> &,BOOL &,0>();
+  std::allocate_shared[abi:ne200100]<kaldi::AmFusionEncoderInput,std::allocator<kaldi::AmFusionEncoderInput>,kaldi::OnlineFeatInputItf *,int &,BOOL &,std::shared_ptr<kaldi::quasar::CEFusedAcousticEncoder> &,std::shared_ptr<kaldi::quasar::CEFusedAcousticEncoder> &,std::shared_ptr<kaldi::Vector<float>> &,int &,kaldi::CuMatrix<float> &,float &,std::vector<int> &,BOOL &,0>(v93, &v95, a1 + 408, a1 + 412, a1 + 48, a1 + 64, a1 + 80, a1 + 400, &v100, &v99, __p, a1 + 414);
 }
 
 void sub_1B565B9F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void **a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, void *a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, std::locale a31)
@@ -875,8 +890,9 @@ void sub_1B565B9F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_1B565BA0C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char *a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, void *__p, uint64_t a22, uint64_t a23, uint64_t a24, char a25)
+void sub_1B565BA0C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char *a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, void *__p, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
+  va_start(va, a24);
   a15 = &a18;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&a15);
   if (__p)
@@ -885,11 +901,11 @@ void sub_1B565BA0C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(__p);
   }
 
-  kaldi::CuMatrix<float>::~CuMatrix(&a25);
+  kaldi::CuMatrix<float>::~CuMatrix(va);
   _Unwind_Resume(a1);
 }
 
-double quasar::OnlineAcousticEncoderFe::registerParams(quasar::OnlineAcousticEncoderFe *this, const void **a2)
+double quasar::OnlineAcousticEncoderFe::registerParams(quasar::OnlineAcousticEncoderFe *this, quasar::SystemConfig *a2)
 {
   kaldi::nnet1::PdfPriorOptions::Register(this + 168, a2);
   std::string::basic_string[abi:ne200100]<0>(v7, "enable-memory-map");
@@ -1145,9 +1161,9 @@ LABEL_10:
             goto LABEL_23;
           }
 
-          fst::FstReadOptions::FstReadOptions(__p, this + 72, 0, 0, 0);
+          fst::FstReadOptions::FstReadOptions(__p);
           LODWORD(v14) = 2;
-          kaldi::nnet1::Nnet::ReadMapped(this + 216, __p);
+          kaldi::nnet1::Nnet::ReadMapped(this + 27, __p);
         }
 
         if ((v10 & 0x80) != 0)
@@ -1212,138 +1228,142 @@ LABEL_23:
   quasar::QuasarExceptionMessage::~QuasarExceptionMessage(__p);
 }
 
-void quasar::OnlineAcousticEncoderFe::createOnlineFeInputImpl(uint64_t a1, uint64_t a2, void *a3)
+void quasar::OnlineAcousticEncoderFe::createOnlineFeInputImpl(uint64_t a1, void x1_0, uint64_t *a2)
 {
-  if (*a3)
+  v4 = *a2;
+  if (*a2)
   {
-    v4 = *(a1 + 97);
-    if (v4 == 1 && *(a1 + 96) == 1)
+    v6 = *(a1 + 97);
+    if (__PAIR64__(v6, *(a1 + 96)) == 0x100000001)
     {
-      v29 = 0u;
+      v34 = 0u;
+      v35 = 0u;
+      v32 = 0u;
+      v33 = 0u;
       v30 = 0u;
-      v27 = 0u;
+      v31 = 0u;
       v28 = 0u;
-      v25 = 0u;
+      v29 = 0u;
       v26 = 0u;
-      v23 = 0u;
+      v27 = 0u;
       v24 = 0u;
-      v21 = 0u;
+      v25 = 0u;
       v22 = 0u;
-      v19 = 0u;
+      v23 = 0u;
       v20 = 0u;
-      v17 = 0u;
-      v18 = 0u;
-      v15 = 0u;
-      v16 = 0u;
-      v14 = 0u;
-      kaldi::KaldiWarnMessage::KaldiWarnMessage(&v14);
-      std::operator<<[abi:ne200100]<std::char_traits<char>>(&v14, "Nonsense option combination : --apply-log=true and --no-softmax=true");
+      v21 = 0u;
+      v19 = 0u;
+      kaldi::KaldiWarnMessage::KaldiWarnMessage(&v19);
+      std::operator<<[abi:ne200100]<std::char_traits<char>>(&v19, "Nonsense option combination : --apply-log=true and --no-softmax=true");
+      goto LABEL_20;
     }
 
-    else
+    if (*(a1 + 191) < 0)
     {
-      if (*(a1 + 191) < 0)
-      {
-        if (!*(a1 + 176))
-        {
-          goto LABEL_9;
-        }
-      }
-
-      else if (!*(a1 + 191))
-      {
-LABEL_9:
-        if (*(a1 + 112) == *(a1 + 120))
-        {
-          std::vector<int>::push_back[abi:ne200100]((a1 + 112), (a1 + 104));
-          std::vector<int>::push_back[abi:ne200100]((a1 + 112), (a1 + 104));
-          std::vector<int>::push_back[abi:ne200100]((a1 + 112), (a1 + 104));
-        }
-
-        std::allocate_shared[abi:ne200100]<kaldi::OnlineAcousticEncoderInput,std::allocator<kaldi::OnlineAcousticEncoderInput>,kaldi::OnlineFeatInputItf *,kaldi::nnet1::Nnet *,std::shared_ptr<kaldi::quasar::CEAcousticEncoderNet> &,kaldi::nnet1::PdfPriorOptions &,kaldi::nnet1::PdfPrior *,BOOL &,BOOL &,std::vector<int> &,BOOL &,BOOL &,0>();
-      }
-
-      if ((*(a1 + 96) | v4))
+      if (!*(a1 + 176))
       {
         goto LABEL_9;
       }
-
-      v29 = 0u;
-      v30 = 0u;
-      v27 = 0u;
-      v28 = 0u;
-      v25 = 0u;
-      v26 = 0u;
-      v23 = 0u;
-      v24 = 0u;
-      v21 = 0u;
-      v22 = 0u;
-      v19 = 0u;
-      v20 = 0u;
-      v17 = 0u;
-      v18 = 0u;
-      v15 = 0u;
-      v16 = 0u;
-      v14 = 0u;
-      kaldi::KaldiWarnMessage::KaldiWarnMessage(&v14);
-      v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v14, "Option --class-frame-counts has to be used together with ", 57);
-      std::operator<<[abi:ne200100]<std::char_traits<char>>(v13, "--no-softmax or --apply-log");
     }
+
+    else if (!*(a1 + 191))
+    {
+LABEL_9:
+      if (*(a1 + 112) == *(a1 + 120))
+      {
+        std::vector<int>::push_back[abi:ne200100]((a1 + 112), (a1 + 104));
+        std::vector<int>::push_back[abi:ne200100]((a1 + 112), (a1 + 104));
+        std::vector<int>::push_back[abi:ne200100]((a1 + 112), (a1 + 104));
+        v4 = *a2;
+      }
+
+      v17 = a1 + 216;
+      v18 = v4;
+      v16 = *(a1 + 200);
+      std::allocate_shared[abi:ne200100]<kaldi::OnlineAcousticEncoderInput,std::allocator<kaldi::OnlineAcousticEncoderInput>,kaldi::OnlineFeatInputItf *,kaldi::nnet1::Nnet *,std::shared_ptr<kaldi::quasar::CEAcousticEncoderNet> &,kaldi::nnet1::PdfPriorOptions &,kaldi::nnet1::PdfPrior *,BOOL &,BOOL &,std::vector<int> &,BOOL &,BOOL &,0>(&v36, &v18, &v17, a1 + 592, a1 + 168, &v16, a1 + 97, a1 + 96, a1 + 112, a1 + 136, a1 + 137);
+    }
+
+    if ((*(a1 + 96) | v6))
+    {
+      goto LABEL_9;
+    }
+
+    v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
+    v19 = 0u;
+    kaldi::KaldiWarnMessage::KaldiWarnMessage(&v19);
+    v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v19, "Option --class-frame-counts has to be used together with ", 57);
+    std::operator<<[abi:ne200100]<std::char_traits<char>>(v15, "--no-softmax or --apply-log");
   }
 
   else
   {
-    v29 = 0u;
+    v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
     v30 = 0u;
-    v27 = 0u;
+    v31 = 0u;
     v28 = 0u;
-    v25 = 0u;
+    v29 = 0u;
     v26 = 0u;
-    v23 = 0u;
+    v27 = 0u;
     v24 = 0u;
-    v21 = 0u;
+    v25 = 0u;
     v22 = 0u;
-    v19 = 0u;
+    v23 = 0u;
     v20 = 0u;
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
-    v16 = 0u;
-    v14 = 0u;
-    kaldi::KaldiWarnMessage::KaldiWarnMessage(&v14);
-    v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v14, "'", 1);
-    v8 = *(a1 + 8);
-    v7 = a1 + 8;
-    v6 = v8;
-    v9 = *(v7 + 23);
-    if (v9 >= 0)
+    v21 = 0u;
+    v19 = 0u;
+    kaldi::KaldiWarnMessage::KaldiWarnMessage(&v19);
+    v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v19, "'", 1);
+    v10 = *(a1 + 8);
+    v9 = a1 + 8;
+    v8 = v10;
+    v11 = *(v9 + 23);
+    if (v11 >= 0)
     {
-      v10 = v7;
+      v12 = v9;
     }
 
     else
     {
-      v10 = v6;
+      v12 = v8;
     }
 
-    if (v9 >= 0)
+    if (v11 >= 0)
     {
-      v11 = *(v7 + 23);
+      v13 = *(v9 + 23);
     }
 
     else
     {
-      v11 = *(v7 + 8);
+      v13 = *(v9 + 8);
     }
 
-    v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, v10, v11);
-    std::operator<<[abi:ne200100]<std::char_traits<char>>(v12, "' cannot occur at the first stage of feature-extract");
+    v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, v12, v13);
+    std::operator<<[abi:ne200100]<std::char_traits<char>>(v14, "' cannot occur at the first stage of feature-extract");
   }
 
-  quasar::QuasarExceptionMessage::~QuasarExceptionMessage(&v14);
+LABEL_20:
+  quasar::QuasarExceptionMessage::~QuasarExceptionMessage(&v19);
 }
 
-void quasar::OnlineNnetForwardSkipFe::registerParams(quasar::OnlineNnetForwardSkipFe *this, const void **a2)
+void quasar::OnlineNnetForwardSkipFe::registerParams(quasar::OnlineNnetForwardSkipFe *this, quasar::SystemConfig *a2)
 {
   kaldi::nnet1::PdfPriorOptions::Register(this + 176, a2);
   std::string::basic_string[abi:ne200100]<0>(v6, "enable-memory-map");
@@ -1554,7 +1574,7 @@ void sub_1B565CABC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 void quasar::OnlineNnetForwardSkipFe::finishInit(quasar::OnlineNnetForwardSkipFe *this, quasar::SystemConfig *a2)
 {
   ModelLoader = quasar::SystemConfig::getModelLoader(a2);
-  quasar::ModelLoader::requestEmbeddedMlock(ModelLoader, this + 6, __p);
+  quasar::ModelLoader::requestEmbeddedMlock(ModelLoader, this + 6, __p, 1.0);
   v5 = __p[0];
   v4 = __p[1];
   if (quasar::ModelLoader::isParallelLoadingEnabled(ModelLoader, this + 6))
@@ -1587,7 +1607,7 @@ LABEL_5:
   {
     v9 = *(this + 108);
     v10 = *(this + 100);
-    quasar::ModelLoader::isKeepANEModelLoadedEnabled(ModelLoader, this + 48);
+    quasar::ModelLoader::isKeepANEModelLoadedEnabled(ModelLoader, this + 6);
     v39 = v5;
     v40 = v4;
     if (v4)
@@ -1632,9 +1652,9 @@ LABEL_5:
       goto LABEL_24;
     }
 
-    fst::FstReadOptions::FstReadOptions(__p, this + 72, 0, 0, 0);
+    fst::FstReadOptions::FstReadOptions(__p);
     LODWORD(v22) = 2;
-    kaldi::nnet1::Nnet::ReadMapped(this + 224, __p);
+    kaldi::nnet1::Nnet::ReadMapped(this + 28, __p);
   }
 
   if ((*(this + 95) & 0x80) != 0)
@@ -1759,7 +1779,7 @@ void ___ZN6quasar23OnlineNnetForwardSkipFe10finishInitERNS_12SystemConfigE_block
   v2 = a1[5];
   v4 = *(v3 + 108);
   v5 = *(v3 + 100);
-  quasar::ModelLoader::isKeepANEModelLoadedEnabled(v2, v3 + 48);
+  quasar::ModelLoader::isKeepANEModelLoadedEnabled(v2, (v3 + 48));
   v6 = a1[7];
   v9 = a1[6];
   v10 = v6;
@@ -1768,7 +1788,7 @@ void ___ZN6quasar23OnlineNnetForwardSkipFe10finishInitERNS_12SystemConfigE_block
     atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  quasar::ModelLoader::readFeedForwardNetwork(v2, (v3 + 48), v4, v5, 0, &v9, &v11);
+  quasar::ModelLoader::readFeedForwardNetwork(v2, v3 + 48, v4, v5, 0, &v9, &v11);
   v7 = v11;
   v11 = 0uLL;
   v8 = *(v3 + 608);
@@ -1820,103 +1840,114 @@ void __destroy_helper_block_e8_48c70_ZTSNSt3__110shared_ptrIN6quasar11ModelLoade
   }
 }
 
-void quasar::OnlineNnetForwardSkipFe::createOnlineFeInputImpl(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
+void quasar::OnlineNnetForwardSkipFe::createOnlineFeInputImpl(uint64_t a1, void x1_0, uint64_t *a2, uint64_t a3)
 {
-  if (*a3)
+  if (!*a2)
   {
-    v6 = (a1 + 101);
-    v7 = *(a1 + 101);
-    if (v7 != 1 || *(a1 + 100) != 1)
+    v56 = 0u;
+    v57 = 0u;
+    v54 = 0u;
+    v55 = 0u;
+    v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
+    v44 = 0u;
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
+    v41 = 0u;
+    kaldi::KaldiWarnMessage::KaldiWarnMessage(&v41);
+    v24 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v41, "'", 1);
+    v27 = *(a1 + 8);
+    v26 = a1 + 8;
+    v25 = v27;
+    v28 = *(v26 + 23);
+    if (v28 >= 0)
     {
-      v8 = *(a1 + 600);
-      if (v8)
+      v29 = v26;
+    }
+
+    else
+    {
+      v29 = v25;
+    }
+
+    if (v28 >= 0)
+    {
+      v30 = *(v26 + 23);
+    }
+
+    else
+    {
+      v30 = *(v26 + 8);
+    }
+
+    v31 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v24, v29, v30);
+    std::operator<<[abi:ne200100]<std::char_traits<char>>(v31, "' cannot occur at the first stage of feature-extract");
+LABEL_40:
+    quasar::QuasarExceptionMessage::~QuasarExceptionMessage(&v41);
+  }
+
+  v7 = (a1 + 101);
+  v8 = *(a1 + 101);
+  if (__PAIR64__(v8, *(a1 + 100)) == 0x100000001)
+  {
+    v56 = 0u;
+    v57 = 0u;
+    v54 = 0u;
+    v55 = 0u;
+    v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
+    v44 = 0u;
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
+    v41 = 0u;
+    kaldi::KaldiWarnMessage::KaldiWarnMessage(&v41);
+    std::operator<<[abi:ne200100]<std::char_traits<char>>(&v41, "Nonsense option combination : --apply-log=true and --no-softmax=true");
+    goto LABEL_40;
+  }
+
+  v9 = *(a1 + 600);
+  if (v9)
+  {
+    if (v10)
+    {
+      v11 = *(a1 + 608);
+      if (v11)
       {
-        if (v9)
+        atomic_fetch_add_explicit((v11 + 8), 1uLL, memory_order_relaxed);
+        if ((*v7 & 1) == 0)
         {
-          v10 = *(a1 + 608);
-          if (v10)
-          {
-            atomic_fetch_add_explicit((v10 + 8), 1uLL, memory_order_relaxed);
-            if ((*v6 & 1) == 0)
-            {
-              goto LABEL_18;
-            }
-          }
-
-          else if ((v7 & 1) == 0)
-          {
-            goto LABEL_18;
-          }
-
-          Component = kaldi::nnet1::Nnet::GetComponent((v9 + 1), ((v9[2] - v9[1]) >> 3) - 1);
-          if ((*(*Component + 24))(Component) != 513)
-          {
-            v50 = 0u;
-            v51 = 0u;
-            v48 = 0u;
-            v49 = 0u;
-            v46 = 0u;
-            v47 = 0u;
-            v44 = 0u;
-            v45 = 0u;
-            v42 = 0u;
-            v43 = 0u;
-            v40 = 0u;
-            v41 = 0u;
-            v38 = 0u;
-            v39 = 0u;
-            v36 = 0u;
-            v37 = 0u;
-            v35 = 0u;
-            kaldi::KaldiWarnMessage::KaldiWarnMessage(&v35);
-            v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v35, "Used --apply-log=true, but nnet ", 32);
-            v15 = *(a1 + 48);
-            v14 = a1 + 48;
-            v13 = v15;
-            v16 = *(v14 + 23);
-            if (v16 >= 0)
-            {
-              v17 = v14;
-            }
-
-            else
-            {
-              v17 = v13;
-            }
-
-            if (v16 >= 0)
-            {
-              v18 = *(v14 + 23);
-            }
-
-            else
-            {
-              v18 = *(v14 + 8);
-            }
-
-            v19 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, v17, v18);
-            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v19, " does not have <softmax> as last component!", 43);
-            quasar::QuasarExceptionMessage::~QuasarExceptionMessage(&v35);
-          }
+          goto LABEL_18;
         }
       }
 
-LABEL_18:
-      if (*(a1 + 199) < 0)
+      else if ((v8 & 1) == 0)
       {
-        if (!*(a1 + 184))
-        {
-          goto LABEL_24;
-        }
+        goto LABEL_18;
       }
 
-      else if (!*(a1 + 199))
+      Component = kaldi::nnet1::Nnet::GetComponent((v10 + 1), ((v10[2] - v10[1]) >> 3) - 1);
+      if ((*(*Component + 24))(Component) != 513)
       {
-        goto LABEL_24;
-      }
-
-      if ((*(a1 + 100) & 1) == 0 && (*v6 & 1) == 0)
-      {
+        v56 = 0u;
+        v57 = 0u;
+        v54 = 0u;
+        v55 = 0u;
+        v52 = 0u;
+        v53 = 0u;
         v50 = 0u;
         v51 = 0u;
         v48 = 0u;
@@ -1927,147 +1958,139 @@ LABEL_18:
         v45 = 0u;
         v42 = 0u;
         v43 = 0u;
-        v40 = 0u;
         v41 = 0u;
-        v38 = 0u;
-        v39 = 0u;
-        v36 = 0u;
-        v37 = 0u;
-        v35 = 0u;
-        kaldi::KaldiWarnMessage::KaldiWarnMessage(&v35);
-        v30 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v35, "Option --class-frame-counts has to be used together with ", 57);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v30, "--no-softmax or --apply-log", 27);
-        quasar::QuasarExceptionMessage::~QuasarExceptionMessage(&v35);
+        kaldi::KaldiWarnMessage::KaldiWarnMessage(&v41);
+        v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v41, "Used --apply-log=true, but nnet ", 32);
+        v16 = *(a1 + 48);
+        v15 = a1 + 48;
+        v14 = v16;
+        v17 = *(v15 + 23);
+        if (v17 >= 0)
+        {
+          v18 = v15;
+        }
+
+        else
+        {
+          v18 = v14;
+        }
+
+        if (v17 >= 0)
+        {
+          v19 = *(v15 + 23);
+        }
+
+        else
+        {
+          v19 = *(v15 + 8);
+        }
+
+        v20 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, v18, v19);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v20, " does not have <softmax> as last component!", 43);
+        quasar::QuasarExceptionMessage::~QuasarExceptionMessage(&v41);
       }
+    }
+  }
+
+LABEL_18:
+  if (*(a1 + 199) < 0)
+  {
+    if (!*(a1 + 184))
+    {
+      goto LABEL_24;
+    }
+  }
+
+  else if (!*(a1 + 199))
+  {
+    goto LABEL_24;
+  }
+
+  if ((*(a1 + 100) & 1) == 0 && (*v7 & 1) == 0)
+  {
+    v56 = 0u;
+    v57 = 0u;
+    v54 = 0u;
+    v55 = 0u;
+    v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
+    v44 = 0u;
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
+    v41 = 0u;
+    kaldi::KaldiWarnMessage::KaldiWarnMessage(&v41);
+    v32 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v41, "Option --class-frame-counts has to be used together with ", 57);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v32, "--no-softmax or --apply-log", 27);
+    quasar::QuasarExceptionMessage::~QuasarExceptionMessage(&v41);
+  }
 
 LABEL_24:
-      v33 = 0u;
-      v32 = 0u;
-      v31 = &unk_1F2D0EE38;
-      v34 = 0;
-      v20 = *(a4 + 24);
-      if (v20)
-      {
-        kaldi::CuMatrix<float>::operator=(&v31, v20);
-        if (quasar::gLogLevel >= 4)
-        {
-          v50 = 0u;
-          v51 = 0u;
-          v48 = 0u;
-          v49 = 0u;
-          v46 = 0u;
-          v47 = 0u;
-          v44 = 0u;
-          v45 = 0u;
-          v42 = 0u;
-          v43 = 0u;
-          v40 = 0u;
-          v41 = 0u;
-          v38 = 0u;
-          v39 = 0u;
-          v36 = 0u;
-          v37 = 0u;
-          v35 = 0u;
-          kaldi::KaldiWarnMessage::KaldiWarnMessage(&v35);
-          v21 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v35, "Set inference speaker code to: ", 31);
-          kaldi::operator<<<float>(v21, &v31);
-          quasar::QuasarInfoMessage::~QuasarInfoMessage(&v35);
-        }
+  v39 = 0u;
+  v38 = 0u;
+  v37 = &unk_1F2D0EE38;
+  v40 = 0;
+  v21 = *(a3 + 24);
+  if (v21)
+  {
+    kaldi::CuMatrix<float>::operator=(&v37, v21);
+    if (quasar::gLogLevel >= 4)
+    {
+      v56 = 0u;
+      v57 = 0u;
+      v54 = 0u;
+      v55 = 0u;
+      v52 = 0u;
+      v53 = 0u;
+      v50 = 0u;
+      v51 = 0u;
+      v48 = 0u;
+      v49 = 0u;
+      v46 = 0u;
+      v47 = 0u;
+      v44 = 0u;
+      v45 = 0u;
+      v42 = 0u;
+      v43 = 0u;
+      v41 = 0u;
+      kaldi::KaldiWarnMessage::KaldiWarnMessage(&v41);
+      v22 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v41, "Set inference speaker code to: ", 31);
+      kaldi::operator<<<float>(v22, &v37);
+      quasar::QuasarInfoMessage::~QuasarInfoMessage(&v41);
+    }
 
 LABEL_32:
-        std::allocate_shared[abi:ne200100]<kaldi::OnlineNnetForwardSkippedInput,std::allocator<kaldi::OnlineNnetForwardSkippedInput>,kaldi::OnlineFeatInputItf *,kaldi::nnet1::Nnet *,std::shared_ptr<kaldi::FeedForwardNetItf> &,kaldi::nnet1::PdfPriorOptions &,kaldi::nnet1::PdfPrior *,int &,BOOL &,BOOL &,kaldi::InferenceNetItf *,BOOL &,int &,BOOL &,kaldi::CuMatrix<float> &,BOOL &,std::shared_ptr<std::queue<kaldi::CuMatrix<float>>> const&,unsigned int const&,0>();
-      }
-
-      if ((*(a1 + 175) & 0x8000000000000000) != 0)
-      {
-        if (!*(a1 + 160))
-        {
-          goto LABEL_32;
-        }
-      }
-
-      else if (!*(a1 + 175))
-      {
-        goto LABEL_32;
-      }
-
-      std::allocate_shared[abi:ne200100]<std::istringstream,std::allocator<std::istringstream>,std::string &,0>();
-    }
-
-    v50 = 0u;
-    v51 = 0u;
-    v48 = 0u;
-    v49 = 0u;
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
-    v37 = 0u;
-    v35 = 0u;
-    kaldi::KaldiWarnMessage::KaldiWarnMessage(&v35);
-    std::operator<<[abi:ne200100]<std::char_traits<char>>(&v35, "Nonsense option combination : --apply-log=true and --no-softmax=true");
+    v23 = *a2;
+    v35 = a1 + 224;
+    v36 = v23;
+    v34 = *(a1 + 208);
+    v33 = *(a1 + 616);
+    std::allocate_shared[abi:ne200100]<kaldi::OnlineNnetForwardSkippedInput,std::allocator<kaldi::OnlineNnetForwardSkippedInput>,kaldi::OnlineFeatInputItf *,kaldi::nnet1::Nnet *,std::shared_ptr<kaldi::FeedForwardNetItf> &,kaldi::nnet1::PdfPriorOptions &,kaldi::nnet1::PdfPrior *,int &,BOOL &,BOOL &,kaldi::InferenceNetItf *,BOOL &,int &,BOOL &,kaldi::CuMatrix<float> &,BOOL &,std::shared_ptr<std::queue<kaldi::CuMatrix<float>>> const&,unsigned int const&,0>(&v58, &v36, &v35, a1 + 600, a1 + 176, &v34, a1 + 96, a1 + 101, a1 + 100, &v33, a1 + 136, a1 + 140, a1 + 144, &v37, a1 + 145, a3 + 40, a3 + 116);
   }
 
-  else
+  if ((*(a1 + 175) & 0x8000000000000000) != 0)
   {
-    v50 = 0u;
-    v51 = 0u;
-    v48 = 0u;
-    v49 = 0u;
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
-    v37 = 0u;
-    v35 = 0u;
-    kaldi::KaldiWarnMessage::KaldiWarnMessage(&v35);
-    v22 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v35, "'", 1);
-    v25 = *(a1 + 8);
-    v24 = a1 + 8;
-    v23 = v25;
-    v26 = *(v24 + 23);
-    if (v26 >= 0)
+    if (!*(a1 + 160))
     {
-      v27 = v24;
+      goto LABEL_32;
     }
-
-    else
-    {
-      v27 = v23;
-    }
-
-    if (v26 >= 0)
-    {
-      v28 = *(v24 + 23);
-    }
-
-    else
-    {
-      v28 = *(v24 + 8);
-    }
-
-    v29 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v22, v27, v28);
-    std::operator<<[abi:ne200100]<std::char_traits<char>>(v29, "' cannot occur at the first stage of feature-extract");
   }
 
-  quasar::QuasarExceptionMessage::~QuasarExceptionMessage(&v35);
+  else if (!*(a1 + 175))
+  {
+    goto LABEL_32;
+  }
+
+  std::allocate_shared[abi:ne200100]<std::istringstream,std::allocator<std::istringstream>,std::string &,0>();
 }
 
-double quasar::OnlineSpliceFe::registerParams(quasar::OnlineSpliceFe *this, const void **a2)
+double quasar::OnlineSpliceFe::registerParams(quasar::OnlineSpliceFe *this, quasar::SystemConfig *a2)
 {
   std::string::basic_string[abi:ne200100]<0>(v7, "left-context");
   std::string::basic_string[abi:ne200100]<0>(__p, "Number of frames of left context");
@@ -2115,9 +2138,9 @@ void sub_1B565D6CC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void quasar::OnlineSpliceFe::createOnlineFeInputImpl(uint64_t a1, uint64_t a2, void *a3)
+void quasar::OnlineSpliceFe::createOnlineFeInputImpl(uint64_t a1, void x1_0, uint64_t *a2)
 {
-  if (*a3)
+  if (*a2)
   {
     std::allocate_shared[abi:ne200100]<kaldi::OnlineSpliceInput,std::allocator<kaldi::OnlineSpliceInput>,kaldi::OnlineFeatInputItf *,int &,int &,0>();
   }
@@ -2154,7 +2177,7 @@ void quasar::OnlineSpliceFe::createOnlineFeInputImpl(uint64_t a1, uint64_t a2, v
   quasar::QuasarExceptionMessage::~QuasarExceptionMessage(v12);
 }
 
-void quasar::OnlineStaticTransformFe::registerParams(quasar::OnlineStaticTransformFe *this, const void **a2)
+void quasar::OnlineStaticTransformFe::registerParams(quasar::OnlineStaticTransformFe *this, quasar::SystemConfig *a2)
 {
   std::string::basic_string[abi:ne200100]<0>(v6, "transform-file");
   std::string::basic_string[abi:ne200100]<0>(__p, "File for any linear (or affine) feature transformation");
@@ -2185,9 +2208,9 @@ void sub_1B565D88C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void quasar::OnlineStaticTransformFe::createOnlineFeInputImpl(uint64_t a1, uint64_t a2, void *a3)
+void quasar::OnlineStaticTransformFe::createOnlineFeInputImpl(uint64_t a1, void x1_0, uint64_t *a2)
 {
-  if (*a3)
+  if (*a2)
   {
     std::allocate_shared[abi:ne200100]<kaldi::OnlineTransformInput,std::allocator<kaldi::OnlineTransformInput>,kaldi::OnlineFeatInputItf *,kaldi::Matrix<float> &,0>();
   }
@@ -2224,9 +2247,9 @@ void quasar::OnlineStaticTransformFe::createOnlineFeInputImpl(uint64_t a1, uint6
   quasar::QuasarExceptionMessage::~QuasarExceptionMessage(v12);
 }
 
-void quasar::OnlineCacheInputFe::createOnlineFeInputImpl(uint64_t a1, uint64_t a2, void *a3)
+void quasar::OnlineCacheInputFe::createOnlineFeInputImpl(uint64_t a1, void x1_0, uint64_t *a2)
 {
-  if (*a3)
+  if (*a2)
   {
     operator new();
   }
@@ -2263,7 +2286,7 @@ void quasar::OnlineCacheInputFe::createOnlineFeInputImpl(uint64_t a1, uint64_t a
   quasar::QuasarExceptionMessage::~QuasarExceptionMessage(v12);
 }
 
-uint64_t quasar::OnlineComputeAheadInputFe::registerParams(quasar::OnlineComputeAheadInputFe *this, const void **a2)
+uint64_t quasar::OnlineComputeAheadInputFe::registerParams(quasar::OnlineComputeAheadInputFe *this, quasar::SystemConfig *a2)
 {
   std::string::basic_string[abi:ne200100]<0>(v8, "max-queued-frames");
   std::string::basic_string[abi:ne200100]<0>(__p, "Max number of frames to compute ahead. Use this to limit memory. Note this is not a strict limit: If we are at or above the limit, we will wait to fetch the next batch. If we are under the limit, we will fetch the next batch, which may cause us to exceed the limit. Values <= 0: no limit Value = 1 (default): compute ahead only 1 batch");
@@ -2308,89 +2331,89 @@ void sub_1B565DBB0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void quasar::OnlineComputeAheadInputFe::createOnlineFeInputImpl(uint64_t a1, uint64_t a2, void *a3)
+void quasar::OnlineComputeAheadInputFe::createOnlineFeInputImpl(uint64_t a1, void x1_0, void *a2)
 {
-  if (*a3)
+  if (*a2)
   {
     if (quasar::gLogLevel >= 5)
     {
-      v28 = 0u;
       v29 = 0u;
-      v26 = 0u;
+      v30 = 0u;
       v27 = 0u;
-      v24 = 0u;
+      v28 = 0u;
       v25 = 0u;
-      v22 = 0u;
+      v26 = 0u;
       v23 = 0u;
-      v21 = 0u;
-      v19 = 0u;
+      v24 = 0u;
+      v22 = 0u;
       v20 = 0u;
-      v17 = 0u;
+      v21 = 0u;
       v18 = 0u;
-      v15 = 0u;
+      v19 = 0u;
       v16 = 0u;
-      v13 = 0u;
+      v17 = 0u;
       v14 = 0u;
-      kaldi::KaldiWarnMessage::KaldiWarnMessage(&v13);
-      v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v13, "Creating ComputeAheadFeatInput with maxQueuedFrames=", 52);
-      MEMORY[0x1B8C84C00](v4, *(a1 + 44));
-      quasar::QuasarDebugMessage::~QuasarDebugMessage(&v13);
+      v15 = 0u;
+      kaldi::KaldiWarnMessage::KaldiWarnMessage(&v14);
+      v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v14, "Creating ComputeAheadFeatInput with maxQueuedFrames=", 52);
+      MEMORY[0x1B8C84C00](v5, *(a1 + 44));
+      quasar::QuasarDebugMessage::~QuasarDebugMessage(&v14);
     }
 
     std::allocate_shared[abi:ne200100]<quasar::ComputeAheadFeatInput,std::allocator<quasar::ComputeAheadFeatInput>,std::shared_ptr<kaldi::OnlineFeatInputItf> &,BOOL const&,int,int &,0>();
   }
 
-  v28 = 0u;
   v29 = 0u;
-  v26 = 0u;
+  v30 = 0u;
   v27 = 0u;
-  v24 = 0u;
+  v28 = 0u;
   v25 = 0u;
-  v22 = 0u;
+  v26 = 0u;
   v23 = 0u;
-  v21 = 0u;
-  v19 = 0u;
+  v24 = 0u;
+  v22 = 0u;
   v20 = 0u;
-  v17 = 0u;
+  v21 = 0u;
   v18 = 0u;
-  v15 = 0u;
+  v19 = 0u;
   v16 = 0u;
-  v13 = 0u;
+  v17 = 0u;
   v14 = 0u;
-  kaldi::KaldiWarnMessage::KaldiWarnMessage(&v13);
-  v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v13, "'", 1);
-  v8 = *(a1 + 8);
-  v7 = a1 + 8;
-  v6 = v8;
-  v9 = *(v7 + 23);
-  if (v9 >= 0)
+  v15 = 0u;
+  kaldi::KaldiWarnMessage::KaldiWarnMessage(&v14);
+  v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v14, "'", 1);
+  v9 = *(a1 + 8);
+  v8 = a1 + 8;
+  v7 = v9;
+  v10 = *(v8 + 23);
+  if (v10 >= 0)
   {
-    v10 = v7;
+    v11 = v8;
   }
 
   else
   {
-    v10 = v6;
+    v11 = v7;
   }
 
-  if (v9 >= 0)
+  if (v10 >= 0)
   {
-    v11 = *(v7 + 23);
+    v12 = *(v8 + 23);
   }
 
   else
   {
-    v11 = *(v7 + 8);
+    v12 = *(v8 + 8);
   }
 
-  v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, v10, v11);
-  std::operator<<[abi:ne200100]<std::char_traits<char>>(v12, "' cannot occur at the first stage of feature-extract");
-  quasar::QuasarExceptionMessage::~QuasarExceptionMessage(&v13);
+  v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, v11, v12);
+  std::operator<<[abi:ne200100]<std::char_traits<char>>(v13, "' cannot occur at the first stage of feature-extract");
+  quasar::QuasarExceptionMessage::~QuasarExceptionMessage(&v14);
 }
 
-void sub_1B565DD54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1B565DD54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   quasar::QuasarDebugMessage::~QuasarDebugMessage(va);
   _Unwind_Resume(a1);
 }
@@ -3270,7 +3293,7 @@ kaldi::FbankWithPitchOptions *kaldi::FbankWithPitchOptions::FbankWithPitchOption
   *this = xmmword_1B5AE12B0;
   *(this + 4) = 1064849900;
   *(this + 20) = 1;
-  std::string::basic_string[abi:ne200100]<0>(this + 24, "povey");
+  std::string::basic_string[abi:ne200100]<0>(this + 3, "povey");
   *(this + 24) = 257;
   *(this + 52) = 0x17BF800000;
   *(this + 60) = xmmword_1B5AFC250;
@@ -3792,9 +3815,9 @@ void sub_1B5660128(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::__tree<quasar::LmeDataFactoryBase::Word,quasar::LmeDataFactoryBase::WordOrthoComparator,std::allocator<quasar::LmeDataFactoryBase::Word>>::__emplace_unique_key_args<quasar::LmeDataFactoryBase::Word,quasar::LmeDataFactoryBase::Word>(uint64_t a1, const void **a2)
+void *std::__tree<quasar::LmeDataFactoryBase::Word,quasar::LmeDataFactoryBase::WordOrthoComparator,std::allocator<quasar::LmeDataFactoryBase::Word>>::__emplace_unique_key_args<quasar::LmeDataFactoryBase::Word,quasar::LmeDataFactoryBase::Word>(uint64_t **a1, const void **a2, uint64_t a3)
 {
-  result = *std::__tree<std::__value_type<std::string,std::wstring>,std::__map_value_compare<std::string,std::__value_type<std::string,std::wstring>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::wstring>>>::__find_equal<std::string>(a1, &v3, a2);
+  result = *std::__tree<std::__value_type<std::string,std::wstring>,std::__map_value_compare<std::string,std::__value_type<std::string,std::wstring>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::wstring>>>::__find_equal<std::string>(a1, &v4, a2);
   if (!result)
   {
     std::__tree<quasar::LmeDataFactoryBase::Word,quasar::LmeDataFactoryBase::WordOrthoComparator,std::allocator<quasar::LmeDataFactoryBase::Word>>::__construct_node<quasar::LmeDataFactoryBase::Word>();
@@ -4181,7 +4204,7 @@ void std::__shared_ptr_emplace<quasar::OnlineSimpleWaveformFe>::~__shared_ptr_em
   JUMPOUT(0x1B8C85350);
 }
 
-void *std::__shared_ptr_emplace<kaldi::OnlineCmnInput>::__shared_ptr_emplace[abi:ne200100]<kaldi::OnlineFeatInputItf *,int &,int &,kaldi::Matrix<float> *,int &,std::allocator<kaldi::OnlineCmnInput>,0>(void *a1, uint64_t *a2, int *a3, int *a4, uint64_t *a5, int *a6)
+void *std::__shared_ptr_emplace<kaldi::OnlineCmnInput>::__shared_ptr_emplace[abi:ne200100]<kaldi::OnlineFeatInputItf *,int &,int &,kaldi::Matrix<float> *,int &,std::allocator<kaldi::OnlineCmnInput>,0>(void *a1, uint64_t *a2, unsigned int *a3, unsigned int *a4, uint64_t *a5, unsigned int *a6)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -4230,33 +4253,37 @@ uint64_t kaldi::OnlineCmvnInput::OnlineCmvnInput(uint64_t a1, uint64_t a2, int a
     v16 = *(a1 + 136);
     v17 = *(v16 + 12);
     *(a1 + 144) = *(*v16 + 4 * v15);
-    kaldi::SubMatrix<float>::SubMatrix(&v19, v16, 0, v17, 0, v15);
-    kaldi::Matrix<double>::Matrix<float>(v22, &v19, 111);
-    quasar::Bitmap::~Bitmap(&v19);
-    v20 = 0;
-    v21 = 0;
-    v19 = v22[0];
-    LODWORD(v20) = kaldi::MatrixBase<float>::NumCols(v22);
-    kaldi::VectorBase<double>::AddVec<double>();
-    v20 = 0;
-    v21 = 0;
-    v19 = v22[0] + 8 * v23;
-    LODWORD(v20) = kaldi::MatrixBase<float>::NumCols(v22);
-    kaldi::VectorBase<double>::AddVec<double>();
-    kaldi::Matrix<float>::~Matrix(v22);
+    kaldi::SubMatrix<float>::SubMatrix(&v23, v16, 0, v17, 0, v15);
+    kaldi::Matrix<double>::Matrix<float>(v26, &v23, 111);
+    quasar::Bitmap::~Bitmap(&v23);
+    v18 = *(a1 + 152);
+    v19 = *(a1 + 144);
+    v24 = 0;
+    v25 = 0;
+    v23 = v26[0];
+    LODWORD(v24) = kaldi::MatrixBase<float>::NumCols(v26);
+    kaldi::VectorBase<double>::AddVec<double>(a1 + 88, &v23, v18 / v19);
+    v20 = *(a1 + 152);
+    v21 = *(a1 + 144);
+    v24 = 0;
+    v25 = 0;
+    v23 = v26[0] + 8 * v27;
+    LODWORD(v24) = kaldi::MatrixBase<float>::NumCols(v26);
+    kaldi::VectorBase<double>::AddVec<double>(a1 + 112, &v23, v20 / v21);
+    kaldi::Matrix<float>::~Matrix(v26);
   }
 
   return a1;
 }
 
-void sub_1B5662A18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1B5662A18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   kaldi::Matrix<float>::~Matrix(va);
-  kaldi::Vector<float>::Destroy(v6 + 112);
-  kaldi::Vector<float>::Destroy(v6 + 88);
-  kaldi::Matrix<float>::~Matrix(v6 + 32);
-  quasar::Bitmap::~Bitmap(v6);
+  kaldi::Vector<float>::Destroy(v11 + 112);
+  kaldi::Vector<float>::Destroy(v11 + 88);
+  kaldi::Matrix<float>::~Matrix(v11 + 32);
+  quasar::Bitmap::~Bitmap(v11);
   _Unwind_Resume(a1);
 }
 
@@ -4294,7 +4321,7 @@ void std::__shared_ptr_emplace<kaldi::OnlineDeltaInput>::~__shared_ptr_emplace(s
   JUMPOUT(0x1B8C85350);
 }
 
-void *std::__shared_ptr_emplace<kaldi::SimpleWaveformReader>::__shared_ptr_emplace[abi:ne200100]<kaldi::OnlineAudioSourceItf *&,kaldi::ResamplerOptions &,BOOL &,std::allocator<kaldi::SimpleWaveformReader>,0>(void *a1, void *a2, uint64_t a3, unsigned __int8 *a4)
+int32x2_t *std::__shared_ptr_emplace<kaldi::SimpleWaveformReader>::__shared_ptr_emplace[abi:ne200100]<kaldi::OnlineAudioSourceItf *&,kaldi::ResamplerOptions &,BOOL &,std::allocator<kaldi::SimpleWaveformReader>,0>(int32x2_t *a1, uint64_t *a2, float32x2_t *a3, __int8 *a4)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -4319,7 +4346,7 @@ void std::__shared_ptr_emplace<kaldi::Fbank>::~__shared_ptr_emplace(std::__share
   JUMPOUT(0x1B8C85350);
 }
 
-void *std::__shared_ptr_emplace<kaldi::OnlineFeInput<kaldi::Fbank>>::__shared_ptr_emplace[abi:ne200100]<kaldi::OnlineAudioSourceItf *&,kaldi::Fbank*,float,float,float &,int &,kaldi::ResamplerOptions &,std::allocator<kaldi::OnlineFeInput<kaldi::Fbank>>,0>(void *a1, uint64_t *a2, uint64_t *a3, float *a4, float *a5, float *a6, int *a7, float *a8)
+void *std::__shared_ptr_emplace<kaldi::OnlineFeInput<kaldi::Fbank>>::__shared_ptr_emplace[abi:ne200100]<kaldi::OnlineAudioSourceItf *&,kaldi::Fbank*,float,float,float &,int &,kaldi::ResamplerOptions &,std::allocator<kaldi::OnlineFeInput<kaldi::Fbank>>,0>(void *a1, uint64_t *a2, uint64_t *a3, float *a4, float *a5, float *a6, unsigned int *a7, float *a8)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -4336,26 +4363,26 @@ void std::__shared_ptr_emplace<kaldi::OnlineFeInput<kaldi::Fbank>>::~__shared_pt
   JUMPOUT(0x1B8C85350);
 }
 
-uint64_t kaldi::OnlineFeInput<kaldi::Fbank>::OnlineFeInput(uint64_t result, uint64_t a2, uint64_t a3, int a4, int a5, int a6, int a7, float *a8)
+uint64_t kaldi::OnlineFeInput<kaldi::Fbank>::OnlineFeInput(uint64_t a1, uint64_t a2, uint64_t a3, int a4, int a5, int a6, int a7, float *a8)
 {
-  *result = &unk_1F2D23A68;
-  *(result + 8) = a2;
-  *(result + 16) = a3;
-  *(result + 24) = a4;
-  *(result + 28) = a5;
-  *(result + 32) = a6;
-  *(result + 36) = a7;
-  *(result + 40) = 0u;
-  *(result + 88) = 0;
-  *(result + 56) = 0u;
-  *(result + 72) = 0u;
+  *a1 = &unk_1F2D23A68;
+  *(a1 + 8) = a2;
+  *(a1 + 16) = a3;
+  *(a1 + 24) = a4;
+  *(a1 + 28) = a5;
+  *(a1 + 32) = a6;
+  *(a1 + 36) = a7;
+  *(a1 + 40) = 0u;
+  *(a1 + 88) = 0;
+  *(a1 + 56) = 0u;
+  *(a1 + 72) = 0u;
   v8 = a8[1];
   if (v8 > 0.0 && *a8 != v8)
   {
     operator new();
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1B566325C(_Unwind_Exception *a1)
@@ -4398,7 +4425,7 @@ void kaldi::OnlineFeInput<kaldi::Fbank>::~OnlineFeInput(uint64_t **a1)
 
 {
   *a1 = &unk_1F2D23A68;
-  v2 = (a1 + 8);
+  v2 = a1 + 8;
   std::unique_ptr<kaldi::Resampler>::reset[abi:ne200100](a1 + 11, 0);
   kaldi::Vector<float>::Destroy(v2);
   kaldi::Vector<float>::Destroy((a1 + 5));
@@ -4467,7 +4494,7 @@ void std::__shared_ptr_emplace<kaldi::FbankWithPitch>::~__shared_ptr_emplace(std
   JUMPOUT(0x1B8C85350);
 }
 
-void *std::__shared_ptr_emplace<kaldi::OnlineFeInput<kaldi::FbankWithPitch>>::__shared_ptr_emplace[abi:ne200100]<kaldi::OnlineAudioSourceItf *&,kaldi::FbankWithPitch*,float,float,float &,int &,std::allocator<kaldi::OnlineFeInput<kaldi::FbankWithPitch>>,0>(void *a1, uint64_t *a2, uint64_t *a3, float *a4, float *a5, float *a6, int *a7)
+void *std::__shared_ptr_emplace<kaldi::OnlineFeInput<kaldi::FbankWithPitch>>::__shared_ptr_emplace[abi:ne200100]<kaldi::OnlineAudioSourceItf *&,kaldi::FbankWithPitch*,float,float,float &,int &,std::allocator<kaldi::OnlineFeInput<kaldi::FbankWithPitch>>,0>(void *a1, uint64_t *a2, uint64_t *a3, float *a4, float *a5, float *a6, unsigned int *a7)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -4494,26 +4521,26 @@ void std::__shared_ptr_emplace<kaldi::OnlineFeInput<kaldi::FbankWithPitch>>::~__
   JUMPOUT(0x1B8C85350);
 }
 
-uint64_t kaldi::OnlineFeInput<kaldi::FbankWithPitch>::OnlineFeInput(uint64_t result, uint64_t a2, uint64_t a3, int a4, int a5, int a6, int a7, float *a8)
+uint64_t kaldi::OnlineFeInput<kaldi::FbankWithPitch>::OnlineFeInput(uint64_t a1, uint64_t a2, uint64_t a3, int a4, int a5, int a6, int a7, float *a8)
 {
-  *result = &unk_1F2D23B90;
-  *(result + 8) = a2;
-  *(result + 16) = a3;
-  *(result + 24) = a4;
-  *(result + 28) = a5;
-  *(result + 32) = a6;
-  *(result + 36) = a7;
-  *(result + 40) = 0u;
-  *(result + 88) = 0;
-  *(result + 56) = 0u;
-  *(result + 72) = 0u;
+  *a1 = &unk_1F2D23B90;
+  *(a1 + 8) = a2;
+  *(a1 + 16) = a3;
+  *(a1 + 24) = a4;
+  *(a1 + 28) = a5;
+  *(a1 + 32) = a6;
+  *(a1 + 36) = a7;
+  *(a1 + 40) = 0u;
+  *(a1 + 88) = 0;
+  *(a1 + 56) = 0u;
+  *(a1 + 72) = 0u;
   v8 = a8[1];
   if (v8 > 0.0 && *a8 != v8)
   {
     operator new();
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1B56638D0(_Unwind_Exception *a1)
@@ -4525,7 +4552,7 @@ void sub_1B56638D0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t kaldi::OnlineFeInput<kaldi::FbankWithPitch>::Compute(uint64_t a1, uint64_t *a2)
+uint64_t kaldi::OnlineFeInput<kaldi::FbankWithPitch>::Compute(uint64_t a1, char ***a2)
 {
   v4 = *a2;
   v5 = kaldi::MatrixBase<float>::NumRows(*a2);
@@ -4589,7 +4616,7 @@ uint64_t kaldi::OnlineFeInput<kaldi::FbankWithPitch>::Dim(uint64_t a1, uint8x8_t
 void kaldi::OnlineFeInput<kaldi::FbankWithPitch>::~OnlineFeInput(uint64_t **a1)
 {
   *a1 = &unk_1F2D23B90;
-  v2 = (a1 + 8);
+  v2 = a1 + 8;
   std::unique_ptr<kaldi::Resampler>::reset[abi:ne200100](a1 + 11, 0);
   kaldi::Vector<float>::Destroy(v2);
   kaldi::Vector<float>::Destroy((a1 + 5));
@@ -4599,7 +4626,7 @@ void kaldi::OnlineFeInput<kaldi::FbankWithPitch>::~OnlineFeInput(uint64_t **a1)
 
 {
   *a1 = &unk_1F2D23B90;
-  v2 = (a1 + 8);
+  v2 = a1 + 8;
   std::unique_ptr<kaldi::Resampler>::reset[abi:ne200100](a1 + 11, 0);
   kaldi::Vector<float>::Destroy(v2);
   kaldi::Vector<float>::Destroy((a1 + 5));
@@ -4623,7 +4650,7 @@ uint64_t kaldi::OnlineFeInput<kaldi::FbankWithPitch>::getSnrTracker@<X0>(uint64_
   return result;
 }
 
-void kaldi::OnlineFeInput<kaldi::FbankWithPitch>::ExtractFeatures(uint64_t a1, uint64_t a2, char a3, int a4, uint64_t a5, uint64_t a6)
+void kaldi::OnlineFeInput<kaldi::FbankWithPitch>::ExtractFeatures(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, char **a5, uint64_t a6)
 {
   v9 = a2;
   v23 = 0;
@@ -4668,9 +4695,9 @@ void kaldi::OnlineFeInput<kaldi::FbankWithPitch>::ExtractFeatures(uint64_t a1, u
   kaldi::Vector<float>::Destroy(&v23);
 }
 
-void sub_1B5663D50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1B5663D50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   kaldi::Vector<float>::Destroy(va);
   _Unwind_Resume(a1);
 }
@@ -4692,7 +4719,7 @@ void std::__shared_ptr_emplace<kaldi::FbankWithAudioAnalytics>::~__shared_ptr_em
   JUMPOUT(0x1B8C85350);
 }
 
-void *std::__shared_ptr_emplace<kaldi::OnlineFeInput<kaldi::FbankWithAudioAnalytics>>::__shared_ptr_emplace[abi:ne200100]<kaldi::OnlineAudioSourceItf *&,kaldi::FbankWithAudioAnalytics*,float,float,float &,int &,kaldi::ResamplerOptions &,std::allocator<kaldi::OnlineFeInput<kaldi::FbankWithAudioAnalytics>>,0>(void *a1, uint64_t *a2, uint64_t *a3, float *a4, float *a5, float *a6, int *a7, float *a8)
+void *std::__shared_ptr_emplace<kaldi::OnlineFeInput<kaldi::FbankWithAudioAnalytics>>::__shared_ptr_emplace[abi:ne200100]<kaldi::OnlineAudioSourceItf *&,kaldi::FbankWithAudioAnalytics*,float,float,float &,int &,kaldi::ResamplerOptions &,std::allocator<kaldi::OnlineFeInput<kaldi::FbankWithAudioAnalytics>>,0>(void *a1, uint64_t *a2, uint64_t *a3, float *a4, float *a5, float *a6, unsigned int *a7, float *a8)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -4709,26 +4736,26 @@ void std::__shared_ptr_emplace<kaldi::OnlineFeInput<kaldi::FbankWithAudioAnalyti
   JUMPOUT(0x1B8C85350);
 }
 
-uint64_t kaldi::OnlineFeInput<kaldi::FbankWithAudioAnalytics>::OnlineFeInput(uint64_t result, uint64_t a2, uint64_t a3, int a4, int a5, int a6, int a7, float *a8)
+uint64_t kaldi::OnlineFeInput<kaldi::FbankWithAudioAnalytics>::OnlineFeInput(uint64_t a1, uint64_t a2, uint64_t a3, int a4, int a5, int a6, int a7, float *a8)
 {
-  *result = &unk_1F2D23CB8;
-  *(result + 8) = a2;
-  *(result + 16) = a3;
-  *(result + 24) = a4;
-  *(result + 28) = a5;
-  *(result + 32) = a6;
-  *(result + 36) = a7;
-  *(result + 40) = 0u;
-  *(result + 88) = 0;
-  *(result + 56) = 0u;
-  *(result + 72) = 0u;
+  *a1 = &unk_1F2D23CB8;
+  *(a1 + 8) = a2;
+  *(a1 + 16) = a3;
+  *(a1 + 24) = a4;
+  *(a1 + 28) = a5;
+  *(a1 + 32) = a6;
+  *(a1 + 36) = a7;
+  *(a1 + 40) = 0u;
+  *(a1 + 88) = 0;
+  *(a1 + 56) = 0u;
+  *(a1 + 72) = 0u;
   v8 = a8[1];
   if (v8 > 0.0 && *a8 != v8)
   {
     operator new();
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1B5664174(_Unwind_Exception *a1)
@@ -4740,7 +4767,7 @@ void sub_1B5664174(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t kaldi::OnlineFeInput<kaldi::FbankWithAudioAnalytics>::Compute(uint64_t a1, uint64_t *a2)
+uint64_t kaldi::OnlineFeInput<kaldi::FbankWithAudioAnalytics>::Compute(uint64_t a1, char ***a2)
 {
   v4 = *a2;
   v5 = kaldi::MatrixBase<float>::NumRows(*a2);
@@ -4797,7 +4824,7 @@ uint64_t kaldi::OnlineFeInput<kaldi::FbankWithAudioAnalytics>::Compute(uint64_t 
 void kaldi::OnlineFeInput<kaldi::FbankWithAudioAnalytics>::~OnlineFeInput(uint64_t **a1)
 {
   *a1 = &unk_1F2D23CB8;
-  v2 = (a1 + 8);
+  v2 = a1 + 8;
   std::unique_ptr<kaldi::Resampler>::reset[abi:ne200100](a1 + 11, 0);
   kaldi::Vector<float>::Destroy(v2);
   kaldi::Vector<float>::Destroy((a1 + 5));
@@ -4807,7 +4834,7 @@ void kaldi::OnlineFeInput<kaldi::FbankWithAudioAnalytics>::~OnlineFeInput(uint64
 
 {
   *a1 = &unk_1F2D23CB8;
-  v2 = (a1 + 8);
+  v2 = a1 + 8;
   std::unique_ptr<kaldi::Resampler>::reset[abi:ne200100](a1 + 11, 0);
   kaldi::Vector<float>::Destroy(v2);
   kaldi::Vector<float>::Destroy((a1 + 5));
@@ -4818,7 +4845,7 @@ void kaldi::OnlineFeInput<kaldi::FbankWithAudioAnalytics>::~OnlineFeInput(uint64
 
 {
   *a1 = &unk_1F2D23CB8;
-  v2 = (a1 + 8);
+  v2 = a1 + 8;
   std::unique_ptr<kaldi::Resampler>::reset[abi:ne200100](a1 + 11, 0);
   kaldi::Vector<float>::Destroy(v2);
   kaldi::Vector<float>::Destroy((a1 + 5));
@@ -4841,7 +4868,7 @@ uint64_t kaldi::OnlineFeInput<kaldi::FbankWithAudioAnalytics>::getSnrTracker@<X0
   return result;
 }
 
-void kaldi::OnlineFeInput<kaldi::FbankWithAudioAnalytics>::ExtractFeatures(uint64_t a1, uint64_t a2, char a3, int a4, uint64_t a5, uint64_t a6)
+void kaldi::OnlineFeInput<kaldi::FbankWithAudioAnalytics>::ExtractFeatures(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, char **a5, char **a6)
 {
   v9 = a2;
   v23 = 0;
@@ -4886,19 +4913,19 @@ void kaldi::OnlineFeInput<kaldi::FbankWithAudioAnalytics>::ExtractFeatures(uint6
   kaldi::Vector<float>::Destroy(&v23);
 }
 
-void sub_1B56645D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1B56645D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   kaldi::Vector<float>::Destroy(va);
   _Unwind_Resume(a1);
 }
 
-void *std::__shared_ptr_emplace<kaldi::OnlineVadGatedFeInput<kaldi::FbankWithAudioAnalytics>>::__shared_ptr_emplace[abi:ne200100]<kaldi::OnlineAudioSourceItf *&,kaldi::FbankWithAudioAnalytics*,float,float,float &,int &,kaldi::ResamplerOptions &,BOOL &,unsigned int const&,int &,int &,int &,int &,std::allocator<kaldi::OnlineVadGatedFeInput<kaldi::FbankWithAudioAnalytics>>,0>(void *a1, uint64_t *a2, uint64_t *a3, float *a4, float *a5, float *a6, int *a7, float *a8, char *a9, int *a10)
+void *std::__shared_ptr_emplace<kaldi::OnlineVadGatedFeInput<kaldi::FbankWithAudioAnalytics>>::__shared_ptr_emplace[abi:ne200100]<kaldi::OnlineAudioSourceItf *&,kaldi::FbankWithAudioAnalytics*,float,float,float &,int &,kaldi::ResamplerOptions &,BOOL &,unsigned int const&,int &,int &,int &,int &,std::allocator<kaldi::OnlineVadGatedFeInput<kaldi::FbankWithAudioAnalytics>>,0>(void *a1, uint64_t *a2, uint64_t *a3, float *a4, float *a5, float *a6, unsigned int *a7, float *a8, char *a9, int *a10, int *a11, int *a12, int *a13, int *a14)
 {
   a1[1] = 0;
   a1[2] = 0;
   *a1 = &unk_1F2D23D40;
-  kaldi::OnlineVadGatedFeInput<kaldi::FbankWithAudioAnalytics>::OnlineVadGatedFeInput((a1 + 3), *a2, *a3, *a4, *a5, *a6, *a7, a8, *a9, *a10);
+  kaldi::OnlineVadGatedFeInput<kaldi::FbankWithAudioAnalytics>::OnlineVadGatedFeInput((a1 + 3), *a2, *a3, *a4, *a5, *a6, *a7, a8, *a9, *a10, *a11, *a12, *a13, *a14);
   return a1;
 }
 
@@ -4910,17 +4937,17 @@ void std::__shared_ptr_emplace<kaldi::OnlineVadGatedFeInput<kaldi::FbankWithAudi
   JUMPOUT(0x1B8C85350);
 }
 
-uint64_t kaldi::OnlineVadGatedFeInput<kaldi::FbankWithAudioAnalytics>::OnlineVadGatedFeInput(uint64_t a1, uint64_t a2, uint64_t a3, int a4, int a5, int a6, int a7, float *a8, char a9, int a10)
+uint64_t kaldi::OnlineVadGatedFeInput<kaldi::FbankWithAudioAnalytics>::OnlineVadGatedFeInput(uint64_t a1, uint64_t a2, uint64_t a3, int a4, int a5, int a6, int a7, float *a8, char a9, int a10, int a11, int a12, int a13, int a14)
 {
-  v11 = kaldi::OnlineFeInput<kaldi::FbankWithAudioAnalytics>::OnlineFeInput(a1, a2, a3, a4, a5, a6, a7, a8);
-  *v11 = &unk_1F2D23D90;
-  *(v11 + 96) = 0;
-  *(v11 + 104) = 0;
-  *(v11 + 112) = a9;
-  *(v11 + 116) = a10;
-  *(v11 + 120) = 0u;
-  *(v11 + 136) = 0u;
-  *(v11 + 152) = 0;
+  v15 = kaldi::OnlineFeInput<kaldi::FbankWithAudioAnalytics>::OnlineFeInput(a1, a2, a3, a4, a5, a6, a7, a8);
+  *v15 = &unk_1F2D23D90;
+  *(v15 + 96) = 0;
+  *(v15 + 104) = 0;
+  *(v15 + 112) = a9;
+  *(v15 + 116) = a10;
+  *(v15 + 120) = 0u;
+  *(v15 + 136) = 0u;
+  *(v15 + 152) = 0;
   if (a9)
   {
     operator new();
@@ -4929,25 +4956,25 @@ uint64_t kaldi::OnlineVadGatedFeInput<kaldi::FbankWithAudioAnalytics>::OnlineVad
   return a1;
 }
 
-void sub_1B5664AD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1B5664AD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v9 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
+  va_start(va1, a7);
+  va_start(va, a7);
   v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  v14 = va_arg(va1, void);
+  v15 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
   std::__function::__value_func<BOOL ()(kaldi::Matrix<float> &,kaldi::Matrix<float> &)>::~__value_func[abi:ne200100](va1);
-  MEMORY[0x1B8C85350](v7, 0x10A0C40D1F76593);
+  MEMORY[0x1B8C85350](v10, 0x10A0C40D1F76593);
   std::__function::__value_func<BOOL ()(kaldi::Matrix<float> &,kaldi::Matrix<float> &)>::~__value_func[abi:ne200100](va);
-  kaldi::Vector<float>::Destroy((v4 + 16));
-  std::unique_ptr<kaldi::VadGatedBuffer>::reset[abi:ne200100](v6, 0);
-  std::unique_ptr<kaldi::NnVadEvaluator>::reset[abi:ne200100](v5, 0);
-  kaldi::OnlineFeInput<kaldi::FbankWithAudioAnalytics>::~OnlineFeInput(v4);
+  kaldi::Vector<float>::Destroy((v7 + 16));
+  std::unique_ptr<kaldi::VadGatedBuffer>::reset[abi:ne200100](v9, 0);
+  std::unique_ptr<kaldi::NnVadEvaluator>::reset[abi:ne200100](v8, 0);
+  kaldi::OnlineFeInput<kaldi::FbankWithAudioAnalytics>::~OnlineFeInput(v7);
   _Unwind_Resume(a1);
 }
 
-uint64_t kaldi::OnlineVadGatedFeInput<kaldi::FbankWithAudioAnalytics>::ComputeVadScores(uint64_t a1, uint64_t *a2, float **a3)
+uint64_t kaldi::OnlineVadGatedFeInput<kaldi::FbankWithAudioAnalytics>::ComputeVadScores(uint64_t a1, char **a2, char **a3)
 {
   v6 = kaldi::quasar::Vocab::VocabSize(*(a1 + 96));
   v12 = 0;
@@ -4978,14 +5005,14 @@ uint64_t kaldi::OnlineVadGatedFeInput<kaldi::FbankWithAudioAnalytics>::ComputeVa
   return v7;
 }
 
-void sub_1B5664CF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1B5664CF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   kaldi::Vector<float>::Destroy(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t kaldi::OnlineVadGatedFeInput<kaldi::FbankWithAudioAnalytics>::Compute(uint64_t a1, uint64_t *a2)
+uint64_t kaldi::OnlineVadGatedFeInput<kaldi::FbankWithAudioAnalytics>::Compute(uint64_t a1, char ***a2)
 {
   v4 = *a2;
   v5 = kaldi::MatrixBase<float>::NumRows(*a2);
@@ -5049,7 +5076,7 @@ LABEL_35:
             if (*(a1 + 152) >= *(a1 + 136))
             {
               IsInactive = kaldi::VadGatedBuffer::IsInactive(*(a1 + 120));
-              v17 = IsInactive ^ 1u;
+              v17 = IsInactive ^ 1;
               v20 = IsInactive;
               if ((v22 & 1) == 0)
               {
@@ -5094,7 +5121,7 @@ LABEL_39:
 
           v32 = 0;
           v33 = 0;
-          v30 = &v27[4 * v10];
+          v30.__locale_ = &v27[4 * v10];
           v31 = v16;
           v25 = 0;
           v26 = 0;
@@ -5121,7 +5148,7 @@ LABEL_39:
 
         if (!kaldi::VadGatedBuffer::IsInactive(*(a1 + 120)))
         {
-          LODWORD(v30) = 0;
+          LODWORD(v30.__locale_) = 0;
           ActiveFrame = kaldi::VadGatedBuffer::ReadActiveFrame(*(a1 + 120), (a1 + 128), &v30, v10 > 0);
           *(a1 + 152) = 0;
         }
@@ -5259,12 +5286,12 @@ uint64_t std::__function::__func<std::__bind<BOOL (kaldi::OnlineVadGatedFeInput<
   }
 }
 
-void *std::__shared_ptr_emplace<kaldi::OnlineVadGatedFeInput<kaldi::Fbank>>::__shared_ptr_emplace[abi:ne200100]<kaldi::OnlineAudioSourceItf *&,kaldi::Fbank*,float,float,float &,int &,kaldi::ResamplerOptions &,BOOL &,unsigned int const&,int &,int &,int &,int &,std::allocator<kaldi::OnlineVadGatedFeInput<kaldi::Fbank>>,0>(void *a1, uint64_t *a2, uint64_t *a3, float *a4, float *a5, float *a6, int *a7, float *a8, char *a9, int *a10)
+void *std::__shared_ptr_emplace<kaldi::OnlineVadGatedFeInput<kaldi::Fbank>>::__shared_ptr_emplace[abi:ne200100]<kaldi::OnlineAudioSourceItf *&,kaldi::Fbank*,float,float,float &,int &,kaldi::ResamplerOptions &,BOOL &,unsigned int const&,int &,int &,int &,int &,std::allocator<kaldi::OnlineVadGatedFeInput<kaldi::Fbank>>,0>(void *a1, uint64_t *a2, uint64_t *a3, float *a4, float *a5, float *a6, unsigned int *a7, float *a8, char *a9, int *a10, int *a11, int *a12, int *a13, int *a14)
 {
   a1[1] = 0;
   a1[2] = 0;
   *a1 = &unk_1F2D23EB0;
-  kaldi::OnlineVadGatedFeInput<kaldi::Fbank>::OnlineVadGatedFeInput((a1 + 3), *a2, *a3, *a4, *a5, *a6, *a7, a8, *a9, *a10);
+  kaldi::OnlineVadGatedFeInput<kaldi::Fbank>::OnlineVadGatedFeInput((a1 + 3), *a2, *a3, *a4, *a5, *a6, *a7, a8, *a9, *a10, *a11, *a12, *a13, *a14);
   return a1;
 }
 
@@ -5276,17 +5303,17 @@ void std::__shared_ptr_emplace<kaldi::OnlineVadGatedFeInput<kaldi::Fbank>>::~__s
   JUMPOUT(0x1B8C85350);
 }
 
-uint64_t kaldi::OnlineVadGatedFeInput<kaldi::Fbank>::OnlineVadGatedFeInput(uint64_t a1, uint64_t a2, uint64_t a3, int a4, int a5, int a6, int a7, float *a8, char a9, int a10)
+uint64_t kaldi::OnlineVadGatedFeInput<kaldi::Fbank>::OnlineVadGatedFeInput(uint64_t a1, uint64_t a2, uint64_t a3, int a4, int a5, int a6, int a7, float *a8, char a9, int a10, int a11, int a12, int a13, int a14)
 {
-  v11 = kaldi::OnlineFeInput<kaldi::Fbank>::OnlineFeInput(a1, a2, a3, a4, a5, a6, a7, a8);
-  *v11 = &unk_1F2D23F00;
-  *(v11 + 96) = 0;
-  *(v11 + 104) = 0;
-  *(v11 + 112) = a9;
-  *(v11 + 116) = a10;
-  *(v11 + 120) = 0u;
-  *(v11 + 136) = 0u;
-  *(v11 + 152) = 0;
+  v15 = kaldi::OnlineFeInput<kaldi::Fbank>::OnlineFeInput(a1, a2, a3, a4, a5, a6, a7, a8);
+  *v15 = &unk_1F2D23F00;
+  *(v15 + 96) = 0;
+  *(v15 + 104) = 0;
+  *(v15 + 112) = a9;
+  *(v15 + 116) = a10;
+  *(v15 + 120) = 0u;
+  *(v15 + 136) = 0u;
+  *(v15 + 152) = 0;
   if (a9)
   {
     operator new();
@@ -5295,25 +5322,25 @@ uint64_t kaldi::OnlineVadGatedFeInput<kaldi::Fbank>::OnlineVadGatedFeInput(uint6
   return a1;
 }
 
-void sub_1B56658B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1B56658B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v9 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
+  va_start(va1, a7);
+  va_start(va, a7);
   v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  v14 = va_arg(va1, void);
+  v15 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
   std::__function::__value_func<BOOL ()(kaldi::Matrix<float> &,kaldi::Matrix<float> &)>::~__value_func[abi:ne200100](va1);
-  MEMORY[0x1B8C85350](v7, 0x10A0C40D1F76593);
+  MEMORY[0x1B8C85350](v10, 0x10A0C40D1F76593);
   std::__function::__value_func<BOOL ()(kaldi::Matrix<float> &,kaldi::Matrix<float> &)>::~__value_func[abi:ne200100](va);
-  kaldi::Vector<float>::Destroy((v4 + 16));
-  std::unique_ptr<kaldi::VadGatedBuffer>::reset[abi:ne200100](v6, 0);
-  std::unique_ptr<kaldi::NnVadEvaluator>::reset[abi:ne200100](v5, 0);
-  kaldi::OnlineFeInput<kaldi::Fbank>::~OnlineFeInput(v4);
+  kaldi::Vector<float>::Destroy((v7 + 16));
+  std::unique_ptr<kaldi::VadGatedBuffer>::reset[abi:ne200100](v9, 0);
+  std::unique_ptr<kaldi::NnVadEvaluator>::reset[abi:ne200100](v8, 0);
+  kaldi::OnlineFeInput<kaldi::Fbank>::~OnlineFeInput(v7);
   _Unwind_Resume(a1);
 }
 
-uint64_t kaldi::OnlineVadGatedFeInput<kaldi::Fbank>::ComputeVadScores(uint64_t a1, uint64_t *a2, float **a3)
+uint64_t kaldi::OnlineVadGatedFeInput<kaldi::Fbank>::ComputeVadScores(uint64_t a1, char **a2, char **a3)
 {
   v6 = kaldi::quasar::Vocab::VocabSize(*(a1 + 96));
   v12 = 0;
@@ -5344,14 +5371,14 @@ uint64_t kaldi::OnlineVadGatedFeInput<kaldi::Fbank>::ComputeVadScores(uint64_t a
   return v7;
 }
 
-void sub_1B5665AD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1B5665AD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   kaldi::Vector<float>::Destroy(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t kaldi::OnlineVadGatedFeInput<kaldi::Fbank>::Compute(uint64_t a1, uint64_t *a2)
+uint64_t kaldi::OnlineVadGatedFeInput<kaldi::Fbank>::Compute(uint64_t a1, char ***a2)
 {
   v4 = *a2;
   v5 = kaldi::MatrixBase<float>::NumRows(*a2);
@@ -5415,7 +5442,7 @@ LABEL_35:
             if (*(a1 + 152) >= *(a1 + 136))
             {
               IsInactive = kaldi::VadGatedBuffer::IsInactive(*(a1 + 120));
-              v17 = IsInactive ^ 1u;
+              v17 = IsInactive ^ 1;
               v20 = IsInactive;
               if ((v22 & 1) == 0)
               {
@@ -5460,7 +5487,7 @@ LABEL_39:
 
           v32 = 0;
           v33 = 0;
-          v30 = &v27[4 * v10];
+          v30.__locale_ = &v27[4 * v10];
           v31 = v16;
           v25 = 0;
           v26 = 0;
@@ -5487,7 +5514,7 @@ LABEL_39:
 
         if (!kaldi::VadGatedBuffer::IsInactive(*(a1 + 120)))
         {
-          LODWORD(v30) = 0;
+          LODWORD(v30.__locale_) = 0;
           ActiveFrame = kaldi::VadGatedBuffer::ReadActiveFrame(*(a1 + 120), (a1 + 128), &v30, v10 > 0);
           *(a1 + 152) = 0;
         }
@@ -5583,12 +5610,12 @@ uint64_t std::__function::__func<std::__bind<BOOL (kaldi::OnlineVadGatedFeInput<
   }
 }
 
-void *std::__shared_ptr_emplace<kaldi::OnlineLdaInput>::__shared_ptr_emplace[abi:ne200100]<kaldi::OnlineFeatInputItf *,kaldi::Matrix<float> &,int &,int &,std::allocator<kaldi::OnlineLdaInput>,0>(void *a1, void *a2, uint64_t a3, unsigned int *a4, unsigned int *a5)
+void *std::__shared_ptr_emplace<kaldi::OnlineLdaInput>::__shared_ptr_emplace[abi:ne200100]<kaldi::OnlineFeatInputItf *,kaldi::Matrix<float> &,int &,int &,std::allocator<kaldi::OnlineLdaInput>,0>(void *a1, uint64_t *a2, uint64_t a3, int *a4, int *a5)
 {
   a1[1] = 0;
   a1[2] = 0;
   *a1 = &unk_1F2D24020;
-  kaldi::OnlineLdaInput::OnlineLdaInput(a1 + 3, *a2, a3, *a4, *a5);
+  kaldi::OnlineLdaInput::OnlineLdaInput((a1 + 3), *a2, a3, *a4, *a5);
   return a1;
 }
 
@@ -5643,26 +5670,26 @@ void std::__shared_ptr_emplace<kaldi::OnlineFeInput<kaldi::Mfcc>>::~__shared_ptr
   JUMPOUT(0x1B8C85350);
 }
 
-uint64_t kaldi::OnlineFeInput<kaldi::Mfcc>::OnlineFeInput(uint64_t result, uint64_t a2, uint64_t a3, int a4, int a5, int a6, int a7, float *a8)
+uint64_t kaldi::OnlineFeInput<kaldi::Mfcc>::OnlineFeInput(uint64_t a1, uint64_t a2, uint64_t a3, int a4, int a5, int a6, int a7, float *a8)
 {
-  *result = &unk_1F2D24110;
-  *(result + 8) = a2;
-  *(result + 16) = a3;
-  *(result + 24) = a4;
-  *(result + 28) = a5;
-  *(result + 32) = a6;
-  *(result + 36) = a7;
-  *(result + 40) = 0u;
-  *(result + 88) = 0;
-  *(result + 56) = 0u;
-  *(result + 72) = 0u;
+  *a1 = &unk_1F2D24110;
+  *(a1 + 8) = a2;
+  *(a1 + 16) = a3;
+  *(a1 + 24) = a4;
+  *(a1 + 28) = a5;
+  *(a1 + 32) = a6;
+  *(a1 + 36) = a7;
+  *(a1 + 40) = 0u;
+  *(a1 + 88) = 0;
+  *(a1 + 56) = 0u;
+  *(a1 + 72) = 0u;
   v8 = a8[1];
   if (v8 > 0.0 && *a8 != v8)
   {
     operator new();
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1B5666670(_Unwind_Exception *a1)
@@ -5674,7 +5701,7 @@ void sub_1B5666670(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t kaldi::OnlineFeInput<kaldi::Mfcc>::Compute(uint64_t a1, uint64_t *a2)
+uint64_t kaldi::OnlineFeInput<kaldi::Mfcc>::Compute(uint64_t a1, char ***a2)
 {
   v3 = *a2;
   v4 = kaldi::MatrixBase<float>::NumRows(*a2);
@@ -5731,7 +5758,7 @@ uint64_t kaldi::OnlineFeInput<kaldi::Mfcc>::Compute(uint64_t a1, uint64_t *a2)
 void kaldi::OnlineFeInput<kaldi::Mfcc>::~OnlineFeInput(uint64_t **a1)
 {
   *a1 = &unk_1F2D24110;
-  v2 = (a1 + 8);
+  v2 = a1 + 8;
   std::unique_ptr<kaldi::Resampler>::reset[abi:ne200100](a1 + 11, 0);
   kaldi::Vector<float>::Destroy(v2);
   kaldi::Vector<float>::Destroy((a1 + 5));
@@ -5741,7 +5768,7 @@ void kaldi::OnlineFeInput<kaldi::Mfcc>::~OnlineFeInput(uint64_t **a1)
 
 {
   *a1 = &unk_1F2D24110;
-  v2 = (a1 + 8);
+  v2 = a1 + 8;
   std::unique_ptr<kaldi::Resampler>::reset[abi:ne200100](a1 + 11, 0);
   kaldi::Vector<float>::Destroy(v2);
   kaldi::Vector<float>::Destroy((a1 + 5));
@@ -5765,7 +5792,7 @@ uint64_t kaldi::OnlineFeInput<kaldi::Mfcc>::getSnrTracker@<X0>(uint64_t result@<
   return result;
 }
 
-void kaldi::OnlineFeInput<kaldi::Mfcc>::ExtractFeatures(uint64_t a1, uint64_t a2, char a3, int a4, uint64_t a5)
+void kaldi::OnlineFeInput<kaldi::Mfcc>::ExtractFeatures(uint64_t a1, uint64_t *a2, uint64_t a3, int a4, char **a5)
 {
   v7 = a2;
   v21 = 0;
@@ -5814,9 +5841,9 @@ void kaldi::OnlineFeInput<kaldi::Mfcc>::ExtractFeatures(uint64_t a1, uint64_t a2
   kaldi::Vector<float>::Destroy(&v21);
 }
 
-void sub_1B5666AC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1B5666AC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   kaldi::Vector<float>::Destroy(va);
   _Unwind_Resume(a1);
 }
@@ -5845,12 +5872,12 @@ void std::__shared_ptr_emplace<kaldi::quasar::CEFusedAcousticEncoder>::~__shared
   JUMPOUT(0x1B8C85350);
 }
 
-void std::__shared_ptr_emplace<kaldi::SpeechActivityDetector>::__shared_ptr_emplace[abi:ne200100]<kaldi::OnlineFeatInputItf *,int &,BOOL &,std::shared_ptr<kaldi::quasar::CEFusedAcousticEncoder> &,std::shared_ptr<kaldi::Vector<float>> &,BOOL &,BOOL &,std::allocator<kaldi::SpeechActivityDetector>,0>(void *a1, uint64_t *a2, unsigned int *a3, unsigned __int8 *a4, void *a5, uint64_t a6, char *a7, char *a8)
+void std::__shared_ptr_emplace<kaldi::SpeechActivityDetector>::__shared_ptr_emplace[abi:ne200100]<kaldi::OnlineFeatInputItf *,int &,BOOL &,std::shared_ptr<kaldi::quasar::CEFusedAcousticEncoder> &,std::shared_ptr<kaldi::Vector<float>> &,BOOL &,BOOL &,std::allocator<kaldi::SpeechActivityDetector>,0>(void *a1, uint64_t *a2, int *a3, char *a4, void *a5, void *a6, char *a7, char *a8)
 {
   a1[1] = 0;
   a1[2] = 0;
   *a1 = &unk_1F2D24288;
-  kaldi::SpeechActivityDetector::SpeechActivityDetector((a1 + 3), *a2, *a3, *a4, a5, a6, *a7, *a8, 0);
+  kaldi::SpeechActivityDetector::SpeechActivityDetector((a1 + 3), *a2, *a3, *a4, a5, a6, *a7, *a8, 0, 1);
 }
 
 void std::__shared_ptr_emplace<kaldi::SpeechActivityDetector>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
@@ -5861,14 +5888,12 @@ void std::__shared_ptr_emplace<kaldi::SpeechActivityDetector>::~__shared_ptr_emp
   JUMPOUT(0x1B8C85350);
 }
 
-void *std::__shared_ptr_emplace<kaldi::VoiceActivityGating>::__shared_ptr_emplace[abi:ne200100]<kaldi::OnlineFeatInputItf *,int &,BOOL &,std::shared_ptr<kaldi::quasar::CEFusedAcousticEncoder> &,std::shared_ptr<kaldi::Vector<float>> &,BOOL &,BOOL &,BOOL &,BOOL &,float &,int &,int &,int &,int &,BOOL &,BOOL &,std::allocator<kaldi::VoiceActivityGating>,0>(void *a1, uint64_t *a2, unsigned int *a3, unsigned __int8 *a4, void *a5, uint64_t a6, char *a7, unsigned __int8 *a8, char *a9, char *a10, uint64_t a11, uint64_t a12, _DWORD *a13, _DWORD *a14, int *a15, char *a16)
+void *std::__shared_ptr_emplace<kaldi::VoiceActivityGating>::__shared_ptr_emplace[abi:ne200100]<kaldi::OnlineFeatInputItf *,int &,BOOL &,std::shared_ptr<kaldi::quasar::CEFusedAcousticEncoder> &,std::shared_ptr<kaldi::Vector<float>> &,BOOL &,BOOL &,BOOL &,BOOL &,float &,int &,int &,int &,int &,BOOL &,BOOL &,std::allocator<kaldi::VoiceActivityGating>,0>(void *a1, uint64_t *a2, int *a3, char *a4, void *a5, void *a6, char *a7, char *a8, char *a9, char *a10, float *a11, int *a12, int *a13, int *a14, int *a15, char *a16, char *a17)
 {
   a1[1] = 0;
   a1[2] = 0;
   *a1 = &unk_1F2D242D8;
-  HIDWORD(v18) = *a14;
-  LODWORD(v18) = *a13;
-  kaldi::VoiceActivityGating::VoiceActivityGating((a1 + 3), *a2, *a3, *a4, a5, a6, *a7, *a8, *a9, *a10, v18, *a15, *a16);
+  kaldi::VoiceActivityGating::VoiceActivityGating((a1 + 3), *a2, *a3, *a4, a5, a6, *a7, *a8, *a11, *a9, *a10, *a12, *a13, *a14, *a15, *a16, *a17);
   return a1;
 }
 
@@ -5892,8 +5917,7 @@ void *std::__shared_ptr_emplace<kaldi::quasar::CEFusedAcousticEncoder>::__shared
 void std::allocator<kaldi::quasar::CEFusedAcousticEncoder>::construct[abi:ne200100]<kaldi::quasar::CEFusedAcousticEncoder,std::string &,std::shared_ptr<kaldi::ModelInitializeContext>>(uint64_t a1, uint64_t a2, uint64_t a3, __int128 *a4)
 {
   v4 = *a4;
-  *a4 = 0;
-  *(a4 + 1) = 0;
+  *a4 = 0uLL;
   kaldi::quasar::CEFusedAcousticEncoder::CEFusedAcousticEncoder(a2, a3, &v4, 0, 0);
   if (*(&v4 + 1))
   {
@@ -5911,12 +5935,12 @@ void sub_1B5667228(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::__shared_ptr_emplace<kaldi::AmFusionEncoderInput>::__shared_ptr_emplace[abi:ne200100]<kaldi::OnlineFeatInputItf *,int &,BOOL &,std::shared_ptr<kaldi::quasar::CEFusedAcousticEncoder> &,std::shared_ptr<kaldi::quasar::CEFusedAcousticEncoder> &,std::shared_ptr<kaldi::Vector<float>> &,int &,kaldi::CuMatrix<float> &,float &,std::vector<int> &,BOOL &,std::allocator<kaldi::AmFusionEncoderInput>,0>(void *a1, uint64_t *a2, int *a3, char *a4, uint64_t a5, uint64_t a6, void *a7, unsigned int *a8, uint64_t a9, uint64_t a10, uint64_t a11, char *a12)
+void std::__shared_ptr_emplace<kaldi::AmFusionEncoderInput>::__shared_ptr_emplace[abi:ne200100]<kaldi::OnlineFeatInputItf *,int &,BOOL &,std::shared_ptr<kaldi::quasar::CEFusedAcousticEncoder> &,std::shared_ptr<kaldi::quasar::CEFusedAcousticEncoder> &,std::shared_ptr<kaldi::Vector<float>> &,int &,kaldi::CuMatrix<float> &,float &,std::vector<int> &,BOOL &,std::allocator<kaldi::AmFusionEncoderInput>,0>(void *a1, uint64_t *a2, int *a3, char *a4, kaldi::quasar::CEFusedAcousticEncoder **a5, uint64_t *a6, void *a7, int *a8, uint64_t a9, float *a10, uint64_t *a11, char *a12)
 {
   a1[1] = 0;
   a1[2] = 0;
   *a1 = &unk_1F2D24328;
-  kaldi::AmFusionEncoderInput::AmFusionEncoderInput((a1 + 3), *a2, *a3, *a4, a5, a6, a7, *a8, a9, a11, *a12);
+  kaldi::AmFusionEncoderInput::AmFusionEncoderInput((a1 + 3), *a2, *a3, *a4, a5, a6, a7, *a8, *a10, a9, a11, *a12);
 }
 
 void std::__shared_ptr_emplace<kaldi::AmFusionEncoderInput>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
@@ -5927,7 +5951,7 @@ void std::__shared_ptr_emplace<kaldi::AmFusionEncoderInput>::~__shared_ptr_empla
   JUMPOUT(0x1B8C85350);
 }
 
-void *std::__shared_ptr_emplace<kaldi::OnlineAcousticEncoderInput>::__shared_ptr_emplace[abi:ne200100]<kaldi::OnlineFeatInputItf *,kaldi::nnet1::Nnet *,std::shared_ptr<kaldi::quasar::CEAcousticEncoderNet> &,kaldi::nnet1::PdfPriorOptions &,kaldi::nnet1::PdfPrior *,BOOL &,BOOL &,std::vector<int> &,BOOL &,BOOL &,std::allocator<kaldi::OnlineAcousticEncoderInput>,0>(void *a1, uint64_t *a2, uint64_t *a3, void *a4, __int128 *a5, uint64_t *a6, char *a7, char *a8, uint64_t *a9, char *a10, char *a11)
+void *std::__shared_ptr_emplace<kaldi::OnlineAcousticEncoderInput>::__shared_ptr_emplace[abi:ne200100]<kaldi::OnlineFeatInputItf *,kaldi::nnet1::Nnet *,std::shared_ptr<kaldi::quasar::CEAcousticEncoderNet> &,kaldi::nnet1::PdfPriorOptions &,kaldi::nnet1::PdfPrior *,BOOL &,BOOL &,std::vector<int> &,BOOL &,BOOL &,std::allocator<kaldi::OnlineAcousticEncoderInput>,0>(void *a1, uint64_t *a2, uint64_t *a3, void *a4, __int128 *a5, uint64_t *a6, char *a7, char *a8, uint64_t a9, char *a10, char *a11)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -5944,7 +5968,7 @@ void std::__shared_ptr_emplace<kaldi::OnlineAcousticEncoderInput>::~__shared_ptr
   JUMPOUT(0x1B8C85350);
 }
 
-void std::allocator<kaldi::OnlineAcousticEncoderInput>::construct[abi:ne200100]<kaldi::OnlineAcousticEncoderInput,kaldi::OnlineFeatInputItf *,kaldi::nnet1::Nnet *,std::shared_ptr<kaldi::quasar::CEAcousticEncoderNet> &,kaldi::nnet1::PdfPriorOptions &,kaldi::nnet1::PdfPrior *,BOOL &,BOOL &,std::vector<int> &,BOOL &,BOOL &>(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4, void *a5, __int128 *a6, uint64_t *a7, char *a8, char *a9, uint64_t *a10, char *a11, char *a12)
+void std::allocator<kaldi::OnlineAcousticEncoderInput>::construct[abi:ne200100]<kaldi::OnlineAcousticEncoderInput,kaldi::OnlineFeatInputItf *,kaldi::nnet1::Nnet *,std::shared_ptr<kaldi::quasar::CEAcousticEncoderNet> &,kaldi::nnet1::PdfPriorOptions &,kaldi::nnet1::PdfPrior *,BOOL &,BOOL &,std::vector<int> &,BOOL &,BOOL &>(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4, void *a5, __int128 *a6, uint64_t *a7, char *a8, char *a9, uint64_t a10, char *a11, char *a12)
 {
   v15 = *a3;
   v16 = *a4;
@@ -5954,7 +5978,7 @@ void std::allocator<kaldi::OnlineAcousticEncoderInput>::construct[abi:ne200100]<
   v21 = 0;
   v22 = 0;
   __p = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, *a10, a10[1], (a10[1] - *a10) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, *a10, *(a10 + 8), (*(a10 + 8) - *a10) >> 2);
   kaldi::OnlineAcousticEncoderInput::OnlineAcousticEncoderInput(a2, v15, v16, a5, a6, v17, v18, v19, &__p, *a11, *a12);
   if (__p)
   {
@@ -5973,7 +5997,7 @@ void sub_1B566771C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t kaldi::OnlineAcousticEncoderInput::OnlineAcousticEncoderInput(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, __int128 *a5, uint64_t a6, char a7, char a8, int **a9, char a10, char a11)
+uint64_t kaldi::OnlineAcousticEncoderInput::OnlineAcousticEncoderInput(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, __int128 *a5, uint64_t a6, char a7, char a8, void **a9, char a10, char a11)
 {
   v33 = *MEMORY[0x1E69E9840];
   *a1 = &unk_1F2D21DD0;
@@ -6092,7 +6116,7 @@ uint64_t kaldi::OnlineAcousticEncoderInput::OnlineAcousticEncoderInput(uint64_t 
     operator new();
   }
 
-  kaldi::quasar::CEAcousticEncoderNet::InitialStates(*(a1 + 24), &__src);
+  kaldi::quasar::CEAcousticEncoderNet::InitialStates(&__src, *(a1 + 24));
   std::vector<std::unique_ptr<kaldi::quasar::ComputeEngineBufferItf>>::__vdeallocate((a1 + 112));
   *(a1 + 112) = __src;
   *(a1 + 128) = v32;
@@ -6115,7 +6139,7 @@ void sub_1B5667B48(void *a1, int a2)
 
 void sub_1B5667B58(_Unwind_Exception *a1)
 {
-  std::vector<std::unique_ptr<kaldi::quasar::ComputeEngineBufferItf>>::__destroy_vector::operator()[abi:ne200100](&v5);
+  std::vector<std::unique_ptr<kaldi::quasar::ComputeEngineBufferItf>>::__destroy_vector::operator()[abi:ne200100](&v6);
   v4 = *v2;
   *v2 = 0;
   if (v4)
@@ -6128,9 +6152,10 @@ void sub_1B5667B58(_Unwind_Exception *a1)
     operator delete(*(v1 + 40));
   }
 
-  if (*(v1 + 32))
+  v5 = *(v1 + 32);
+  if (v5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100]();
+    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
   }
 
   quasar::Bitmap::~Bitmap(v1);
@@ -6390,12 +6415,12 @@ void std::__shared_ptr_emplace<kaldi::OnlineSpliceInput>::~__shared_ptr_emplace(
   JUMPOUT(0x1B8C85350);
 }
 
-void *std::__shared_ptr_emplace<kaldi::OnlineTransformInput>::__shared_ptr_emplace[abi:ne200100]<kaldi::OnlineFeatInputItf *,kaldi::Matrix<float> &,std::allocator<kaldi::OnlineTransformInput>,0>(void *a1, void *a2)
+void *std::__shared_ptr_emplace<kaldi::OnlineTransformInput>::__shared_ptr_emplace[abi:ne200100]<kaldi::OnlineFeatInputItf *,kaldi::Matrix<float> &,std::allocator<kaldi::OnlineTransformInput>,0>(void *a1, uint64_t *a2, uint64_t a3)
 {
   a1[1] = 0;
   a1[2] = 0;
   *a1 = &unk_1F2D24468;
-  kaldi::OnlineTransformInput::OnlineTransformInput(a1 + 3, *a2);
+  kaldi::OnlineTransformInput::OnlineTransformInput((a1 + 3), *a2, a3);
   return a1;
 }
 
@@ -6415,12 +6440,12 @@ void std::__shared_ptr_emplace<kaldi::OnlineCacheInput>::~__shared_ptr_emplace(s
   JUMPOUT(0x1B8C85350);
 }
 
-void *std::__shared_ptr_emplace<quasar::ComputeAheadFeatInput>::__shared_ptr_emplace[abi:ne200100]<std::shared_ptr<kaldi::OnlineFeatInputItf> &,BOOL const&,int,int &,std::allocator<quasar::ComputeAheadFeatInput>,0>(void *a1, uint64_t a2, unsigned __int8 *a3, int *a4, unsigned int *a5)
+uint64_t std::__shared_ptr_emplace<quasar::ComputeAheadFeatInput>::__shared_ptr_emplace[abi:ne200100]<std::shared_ptr<kaldi::OnlineFeatInputItf> &,BOOL const&,int,int &,std::allocator<quasar::ComputeAheadFeatInput>,0>(uint64_t a1, uint64_t *a2, unsigned __int8 *a3, int *a4, int *a5)
 {
-  a1[1] = 0;
-  a1[2] = 0;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
   *a1 = &unk_1F2D24508;
-  quasar::ComputeAheadFeatInput::ComputeAheadFeatInput(a1 + 3, a2, *a3, *a4, *a5);
+  quasar::ComputeAheadFeatInput::ComputeAheadFeatInput((a1 + 24), a2, *a3, *a4, *a5);
   return a1;
 }
 
@@ -6456,7 +6481,7 @@ uint64_t TNewWords::TNewWords(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t *TNewWords::findAndAddWords(uint64_t a1, int *a2, uint64_t a3, char *a4, char a5)
+uint64_t *TNewWords::findAndAddWords(uint64_t a1, __int32 *a2, uint64_t a3, char *a4, char a5)
 {
   if (TLexicon::checkName(*(a1 + 24), a2, 0, 0xFFFFFFFFFFFFFFFFLL))
   {
@@ -7025,7 +7050,7 @@ LABEL_87:
 
 void sub_1B5669620(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  MEMORY[0x1B8C85350](a10, 0x1070C40ADD13FEBLL);
+  MEMORY[0x1B8C85350](a10, 0x1070C40ADD13FEBLL, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
@@ -7467,7 +7492,7 @@ LABEL_26:
 
 void sub_1B5669F64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
-  MEMORY[0x1B8C85350](v11, 0x1070C40ADD13FEBLL);
+  MEMORY[0x1B8C85350](v11, 0x1070C40ADD13FEBLL, a3, a4, a5, a6, a7, a8);
   if (LOBYTE(STACK[0x428]) == 1 && a11 != v12 && a11)
   {
     MEMORY[0x1B8C85310]();
@@ -7758,72 +7783,72 @@ kaldi::quasar::ErrorRegion *kaldi::quasar::ErrorRegion::ErrorRegion(kaldi::quasa
   return this;
 }
 
-void sub_1B566A574(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B566A574(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  v5 = v2[38];
-  if (v5)
-  {
-    v2[39] = v5;
-    operator delete(v5);
-  }
-
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](va);
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](va);
-  v6 = v2[28];
+  va_start(va, a3);
+  v6 = v3[38];
   if (v6)
   {
-    v2[29] = v6;
+    v3[39] = v6;
     operator delete(v6);
   }
 
-  v7 = v2[25];
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](va);
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](va);
+  v7 = v3[28];
   if (v7)
   {
-    v2[26] = v7;
+    v3[29] = v7;
     operator delete(v7);
   }
 
-  v8 = v2[22];
+  v8 = v3[25];
   if (v8)
   {
-    v2[23] = v8;
+    v3[26] = v8;
     operator delete(v8);
   }
 
-  v9 = v2[19];
+  v9 = v3[22];
   if (v9)
   {
-    v2[20] = v9;
+    v3[23] = v9;
     operator delete(v9);
   }
 
-  v10 = v2[16];
+  v10 = v3[19];
   if (v10)
   {
-    v2[17] = v10;
+    v3[20] = v10;
     operator delete(v10);
   }
 
-  v11 = v2[13];
+  v11 = v3[16];
   if (v11)
   {
-    v2[14] = v11;
+    v3[17] = v11;
     operator delete(v11);
   }
 
-  v12 = v2[10];
+  v12 = v3[13];
   if (v12)
   {
-    v2[11] = v12;
+    v3[14] = v12;
     operator delete(v12);
   }
 
-  v13 = *v3;
-  if (*v3)
+  v13 = v3[10];
+  if (v13)
   {
-    v2[8] = v13;
+    v3[11] = v13;
     operator delete(v13);
+  }
+
+  v14 = *v4;
+  if (*v4)
+  {
+    v3[8] = v14;
+    operator delete(v14);
   }
 
   std::vector<std::unordered_set<kaldi::quasar::AbstractAttribute *,kaldi::quasar::AttributeHash,kaldi::quasar::AttributeEquality,std::allocator<kaldi::quasar::AbstractAttribute *>>>::__destroy_vector::operator()[abi:ne200100](va);
@@ -7847,7 +7872,7 @@ float kaldi::quasar::ErrorRegion::CopyAndAssign(kaldi::quasar::ErrorRegion *this
         {
           v8 = (*(this + 2) + 40 * v6);
           v10 = (*(*v7[2] + 32))(v7[2]);
-          std::__hash_table<kaldi::quasar::AbstractAttribute *,kaldi::quasar::AttributeHash,kaldi::quasar::AttributeEquality,std::allocator<kaldi::quasar::AbstractAttribute *>>::__emplace_unique_key_args<kaldi::quasar::AbstractAttribute *,kaldi::quasar::AbstractAttribute * const&>(v8, &v10);
+          std::__hash_table<kaldi::quasar::AbstractAttribute *,kaldi::quasar::AttributeHash,kaldi::quasar::AttributeEquality,std::allocator<kaldi::quasar::AbstractAttribute *>>::__emplace_unique_key_args<kaldi::quasar::AbstractAttribute *,kaldi::quasar::AbstractAttribute * const&>(v8, &v10, &v10);
           v7 = *v7;
         }
 
@@ -8022,7 +8047,7 @@ void kaldi::quasar::ErrorRegion::~ErrorRegion(kaldi::quasar::ErrorRegion *this)
   JUMPOUT(0x1B8C85350);
 }
 
-uint64_t std::vector<std::unordered_set<kaldi::quasar::AbstractAttribute *,kaldi::quasar::AttributeHash,kaldi::quasar::AttributeEquality,std::allocator<kaldi::quasar::AbstractAttribute *>>>::resize(void *a1, unint64_t a2)
+uint64_t **std::vector<std::unordered_set<kaldi::quasar::AbstractAttribute *,kaldi::quasar::AttributeHash,kaldi::quasar::AttributeEquality,std::allocator<kaldi::quasar::AbstractAttribute *>>>::resize(uint64_t **a1, unint64_t a2)
 {
   result = a1[1];
   v4 = 0xCCCCCCCCCCCCCCCDLL * ((result - *a1) >> 3);
@@ -8036,10 +8061,10 @@ uint64_t std::vector<std::unordered_set<kaldi::quasar::AbstractAttribute *,kaldi
 
   else if (!v5)
   {
-    v7 = *a1 + 40 * a2;
+    v7 = &(*a1)[5 * a2];
     while (result != v7)
     {
-      result = std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::~__hash_table(result - 40);
+      result = std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::~__hash_table((result - 5));
     }
 
     a1[1] = v7;
@@ -8048,7 +8073,7 @@ uint64_t std::vector<std::unordered_set<kaldi::quasar::AbstractAttribute *,kaldi
   return result;
 }
 
-uint64_t kaldi::quasar::ErrorRegion::AddRefArc(uint64_t a1, uint64_t a2, uint64_t a3)
+void *kaldi::quasar::ErrorRegion::AddRefArc(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   std::vector<int>::push_back[abi:ne200100]((a1 + 56), (a2 + 4));
   v9 = *(a2 + 12);
@@ -8057,12 +8082,12 @@ uint64_t kaldi::quasar::ErrorRegion::AddRefArc(uint64_t a1, uint64_t a2, uint64_
   std::vector<float>::push_back[abi:ne200100]((a1 + 152), &v8);
   v7 = *(a2 + 8) - *(a3 + 8);
   std::vector<float>::push_back[abi:ne200100]((a1 + 200), &v7);
-  result = std::vector<std::vector<int>>::push_back[abi:ne200100](a1 + 248, (a2 + 16));
+  result = std::vector<std::vector<int>>::push_back[abi:ne200100](a1 + 248, a2 + 16);
   *(a1 + 48) += (*(a2 + 24) - *(a2 + 16)) >> 2;
   return result;
 }
 
-uint64_t kaldi::quasar::ErrorRegion::AddHypoArc(uint64_t a1, uint64_t a2, uint64_t a3)
+void *kaldi::quasar::ErrorRegion::AddHypoArc(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   std::vector<int>::push_back[abi:ne200100]((a1 + 80), (a2 + 4));
   v9 = *(a2 + 12);
@@ -8071,7 +8096,7 @@ uint64_t kaldi::quasar::ErrorRegion::AddHypoArc(uint64_t a1, uint64_t a2, uint64
   std::vector<float>::push_back[abi:ne200100]((a1 + 176), &v8);
   v7 = *(a2 + 8) - *(a3 + 8);
   std::vector<float>::push_back[abi:ne200100]((a1 + 224), &v7);
-  result = std::vector<std::vector<int>>::push_back[abi:ne200100](a1 + 272, (a2 + 16));
+  result = std::vector<std::vector<int>>::push_back[abi:ne200100](a1 + 272, a2 + 16);
   *(a1 + 52) += (*(a2 + 24) - *(a2 + 16)) >> 2;
   return result;
 }
@@ -8148,7 +8173,7 @@ void sub_1B566AE94(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void kaldi::quasar::ErrorRegion::AddHypoWord(void *a1, void *a2, uint64_t a3, unsigned int *a4)
+void kaldi::quasar::ErrorRegion::AddHypoWord(uint64_t **a1, void *a2, uint64_t a3, unsigned int *a4)
 {
   v8 = *(*(*(a2[1] + 64) + 8 * *a4) + 48);
   v20[0] = *v8;
@@ -8184,7 +8209,7 @@ void kaldi::quasar::ErrorRegion::AddHypoWord(void *a1, void *a2, uint64_t a3, un
   if (v11)
   {
     (*(*a2 + 32))(&v12, a2, *a4, v10);
-    *(a1[29] - 4) = *&v12 + *(a1[29] - 4);
+    *(a1[29] - 1) = *&v12 + *(a1[29] - 1);
     if (__p)
     {
       v14 = __p;
@@ -8221,7 +8246,7 @@ void sub_1B566B0D8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-char **kaldi::quasar::ErrorRegion::AddAcousticOnlyDecoding(uint64_t a1, char **a2, uint64_t a3)
+uint64_t *kaldi::quasar::ErrorRegion::AddAcousticOnlyDecoding(uint64_t a1, char **a2, uint64_t a3)
 {
   v3 = *a3;
   v4 = *(a3 + 8) - *a3;
@@ -8306,9 +8331,9 @@ BOOL kaldi::quasar::ErrorRegion::HasErrors(kaldi::quasar::ErrorRegion *this)
   return !HasAttribute;
 }
 
-void sub_1B566B2A4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B566B2A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   quasar::Bitmap::~Bitmap(va);
   _Unwind_Resume(a1);
 }
@@ -8410,7 +8435,7 @@ uint64_t **kaldi::quasar::ErrorRegion::AddAttribute(kaldi::quasar::ErrorRegion *
   {
     v8 = (*(this + 2) + 40 * v6);
     v14[0] = (*(*a2 + 32))(a2);
-    return std::__hash_table<kaldi::quasar::AbstractAttribute *,kaldi::quasar::AttributeHash,kaldi::quasar::AttributeEquality,std::allocator<kaldi::quasar::AbstractAttribute *>>::__emplace_unique_key_args<kaldi::quasar::AbstractAttribute *,kaldi::quasar::AbstractAttribute * const&>(v8, v14);
+    return std::__hash_table<kaldi::quasar::AbstractAttribute *,kaldi::quasar::AttributeHash,kaldi::quasar::AttributeEquality,std::allocator<kaldi::quasar::AbstractAttribute *>>::__emplace_unique_key_args<kaldi::quasar::AbstractAttribute *,kaldi::quasar::AbstractAttribute * const&>(v8, v14, v14);
   }
 
   return result;
@@ -8454,8 +8479,8 @@ uint64_t kaldi::quasar::ErrorRegion::RemoveAttribute(uint64_t this, kaldi::quasa
 
 BOOL kaldi::quasar::ErrorRegion::IsHomophoneRegion(kaldi::quasar::ErrorRegion *this, const kaldi::TransitionModel *a2)
 {
-  kaldi::quasar::ErrorRegion::GetSequence(a2, this + 31, 2, 0, &v10);
-  kaldi::quasar::ErrorRegion::GetSequence(a2, this + 34, 2, 0, &v8);
+  kaldi::quasar::ErrorRegion::GetSequence(&v10, a2, this + 31, 2, 0);
+  kaldi::quasar::ErrorRegion::GetSequence(&v8, a2, this + 34, 2, 0);
   v4 = v10;
   v5 = v8;
   if (v11 - v10 != v9 - v8)
@@ -8498,14 +8523,14 @@ void sub_1B566B7B8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void kaldi::quasar::ErrorRegion::GetSequence(kaldi::TransitionModel *this@<X2>, uint64_t *a2@<X1>, uint64_t a3@<X3>, int a4@<W4>, uint64_t a5@<X8>)
+void kaldi::quasar::ErrorRegion::GetSequence(const void **__return_ptr a1@<X8>, kaldi::TransitionModel *this@<X2>, uint64_t *a3@<X1>, uint64_t a4@<X3>, int a5@<W4>)
 {
-  *a5 = 0;
-  *(a5 + 8) = 0;
-  *(a5 + 16) = 0;
-  v7 = *a2;
-  v6 = a2[1];
-  if (v6 != *a2)
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  v7 = *a3;
+  v6 = a3[1];
+  if (v6 != *a3)
   {
     v12 = 0;
     do
@@ -8520,20 +8545,20 @@ void kaldi::quasar::ErrorRegion::GetSequence(kaldi::TransitionModel *this@<X2>, 
           v16 = *(v14 + 4 * v15);
           v17 = kaldi::TransitionModel::TransitionIdToTransitionState(this, v16);
           v22[0] = -1;
-          if (a3)
+          if (a4)
           {
-            if (a3 == 1)
+            if (a4 == 1)
             {
               v18 = kaldi::TransitionModel::TransitionStateToForwardPdf(this, v17);
             }
 
             else
             {
-              if (a3 != 2)
+              if (a4 != 2)
               {
                 kaldi::KaldiWarnMessage::KaldiWarnMessage(v21);
                 v20 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v21, "Algorithmic error, do not know what to do with level ", 53);
-                MEMORY[0x1B8C84C00](v20, a3);
+                MEMORY[0x1B8C84C00](v20, a4);
                 kaldi::KaldiErrorMessage::~KaldiErrorMessage(v21);
               }
 
@@ -8544,9 +8569,9 @@ void kaldi::quasar::ErrorRegion::GetSequence(kaldi::TransitionModel *this@<X2>, 
           }
 
           v22[0] = v16;
-          if (!a4 || (v19 = *(a5 + 8), *a5 == v19) || *(v19 - 4) != v16)
+          if (!a5 || (v19 = a1[1], *a1 == v19) || *(v19 - 4) != v16)
           {
-            std::vector<int>::push_back[abi:ne200100](a5, v22);
+            std::vector<int>::push_back[abi:ne200100](a1, v22);
           }
 
           ++v15;
@@ -8554,8 +8579,8 @@ void kaldi::quasar::ErrorRegion::GetSequence(kaldi::TransitionModel *this@<X2>, 
         }
 
         while (v15 < (v13[1] - *v13) >> 2);
-        v7 = *a2;
-        v6 = a2[1];
+        v7 = *a3;
+        v6 = a3[1];
       }
 
       ++v12;
@@ -8845,7 +8870,7 @@ void kaldi::quasar::ErrorRegion::ComputeWordAlignment(uint64_t a1, kaldi::Transi
     {
       if (v36[0] == v36[1])
       {
-        kaldi::quasar::ErrorRegion::GetSequence(a2, 2, 1, v34);
+        kaldi::quasar::ErrorRegion::GetSequence(*(a1 + 248) + 24 * v8, a2, 2, 1, v34);
         if (v41)
         {
           *(&v41 + 1) = v41;
@@ -8877,7 +8902,7 @@ LABEL_18:
       {
         if (v5 > v4)
         {
-          kaldi::quasar::ErrorRegion::GetSequence(a2, 2, 1, v34);
+          kaldi::quasar::ErrorRegion::GetSequence(*(a1 + 248) + 24 * v8, a2, 2, 1, v34);
           std::vector<int>::__insert_with_size[abi:ne200100]<std::__wrap_iter<int *>,std::__wrap_iter<int *>>(&v41, *(&v41 + 1), v34[0], v34[1], (v34[1] - v34[0]) >> 2);
           v19 = (*(a1 + 248) + 24 * v8);
           v21 = *v19;
@@ -8915,7 +8940,7 @@ LABEL_18:
       else
       {
         v31 = v10;
-        kaldi::quasar::ErrorRegion::GetSequence(a2, 2, 1, v34);
+        kaldi::quasar::ErrorRegion::GetSequence(*(a1 + 272) + 24 * v11, a2, 2, 1, v34);
         std::vector<int>::__insert_with_size[abi:ne200100]<std::__wrap_iter<int *>,std::__wrap_iter<int *>>(__p, __p[1], v34[0], v34[1], (v34[1] - v34[0]) >> 2);
         v15 = (*(a1 + 272) + 24 * v11);
         v17 = *v15;
@@ -8972,7 +8997,7 @@ LABEL_36:
       goto LABEL_40;
     }
 
-    kaldi::quasar::ErrorRegion::GetSequence(a2, 2, 1, v34);
+    kaldi::quasar::ErrorRegion::GetSequence(*(a1 + 272) + 24 * v11, a2, 2, 1, v34);
     if (__p[0])
     {
       __p[1] = __p[0];
@@ -9023,8 +9048,8 @@ LABEL_40:
   if (v36[0] == v36[1] || v37[1] == v38)
   {
     v30 = *(a3 + 8);
-    std::vector<int>::__insert_with_size[abi:ne200100]<std::__wrap_iter<int *>,std::__wrap_iter<int *>>(v30 - 48, *(v30 - 40), v36[0], v36[1], (v36[1] - v36[0]) >> 2);
-    std::vector<int>::__insert_with_size[abi:ne200100]<std::__wrap_iter<int *>,std::__wrap_iter<int *>>(v30 - 24, *(v30 - 16), v37[1], v38, (v38 - v37[1]) >> 2);
+    std::vector<int>::__insert_with_size[abi:ne200100]<std::__wrap_iter<int *>,std::__wrap_iter<int *>>((v30 - 48), *(v30 - 40), v36[0], v36[1], (v36[1] - v36[0]) >> 2);
+    std::vector<int>::__insert_with_size[abi:ne200100]<std::__wrap_iter<int *>,std::__wrap_iter<int *>>((v30 - 24), *(v30 - 16), v37[1], v38, (v38 - v37[1]) >> 2);
   }
 
   else
@@ -9057,7 +9082,7 @@ LABEL_40:
   }
 }
 
-void sub_1B566C1B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *__p, uint64_t a24)
+void sub_1B566C1B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *__p, uint64_t a24)
 {
   kaldi::LatticeWordAligner::ComputationState::~ComputationState(&a17);
   if (__p)
@@ -9076,22 +9101,22 @@ void sub_1B566C1B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void kaldi::quasar::ErrorRegion::GetSequence(kaldi::TransitionModel *a1@<X2>, uint64_t a2@<X3>, int a3@<W4>, uint64_t a4@<X8>)
+void kaldi::quasar::ErrorRegion::GetSequence(uint64_t a1@<X1>, kaldi::TransitionModel *a2@<X2>, uint64_t a3@<X3>, int a4@<W4>, const void **a5@<X8>)
 {
-  std::vector<std::vector<int>>::vector[abi:ne200100](v8, 1uLL);
-  kaldi::quasar::ErrorRegion::GetSequence(a1, v8, a2, a3, a4);
-  v9 = v8;
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v9);
+  std::vector<std::vector<int>>::vector[abi:ne200100](v9, 1uLL, a1);
+  kaldi::quasar::ErrorRegion::GetSequence(a5, a2, v9, a3, a4);
+  v10 = v9;
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v10);
 }
 
-void sub_1B566C2AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1B566C2AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t kaldi::LevenshteinEditDistance<int>(uint64_t *a1, int **a2)
+uint64_t kaldi::LevenshteinEditDistance<int>(uint64_t *a1, char **a2)
 {
   v5 = *a1;
   v4 = a1[1];
@@ -9166,7 +9191,8 @@ uint64_t kaldi::LevenshteinEditDistance<int>(uint64_t *a1, int **a2)
         do
         {
           v31 = *(v28 - 1);
-          v32 = *v27++;
+          v32 = *v27;
+          v27 += 4;
           if (*(v26 - 4) != v32)
           {
             ++v31;
@@ -9230,7 +9256,7 @@ void sub_1B566C4C8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<std::pair<std::vector<int>,std::vector<int>>>::push_back[abi:ne200100](uint64_t a1, uint64_t *a2)
+char *std::vector<std::pair<std::vector<int>,std::vector<int>>>::push_back[abi:ne200100](uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 8);
   if (v3 >= *(a1 + 16))
@@ -9241,7 +9267,7 @@ uint64_t std::vector<std::pair<std::vector<int>,std::vector<int>>>::push_back[ab
   else
   {
     std::pair<std::vector<int>,std::vector<int>>::pair[abi:ne200100](*(a1 + 8), a2);
-    result = v3 + 48;
+    result = (v3 + 48);
     *(a1 + 8) = v3 + 48;
   }
 
@@ -9299,7 +9325,7 @@ uint64_t kaldi::quasar::ErrorRegion::PrintDetailedErrorInformation(uint64_t resu
   if (*(result + 88) != *(result + 80))
   {
     v8 = 0;
-    *v105 = *(result + 44);
+    v105 = *(result + 44);
     if (a5)
     {
       v9 = a6 == 0;
@@ -9340,7 +9366,7 @@ uint64_t kaldi::quasar::ErrorRegion::PrintDetailedErrorInformation(uint64_t resu
         std::ostream::put();
         std::ostream::flush();
         v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a2, "\n", 1);
-        kaldi::quasar::ErrorProfile::ToWordString(a4, *(*(v108 + 80) + 4 * v106), &v128);
+        kaldi::quasar::ErrorProfile::ToWordString(&v128, a4, *(*(v108 + 80) + 4 * v106));
         if ((v128.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
           v18 = &v128;
@@ -9367,7 +9393,7 @@ uint64_t kaldi::quasar::ErrorRegion::PrintDetailedErrorInformation(uint64_t resu
           operator delete(v128.__r_.__value_.__l.__data_);
         }
 
-        kaldi::quasar::ErrorRegion::GetTransitionIds(v108, v105[0], v105[0] + ((*(*(v108 + 272) + 24 * v106 + 8) - *(*(v108 + 272) + 24 * v106)) >> 2), *(v108 + 40), (v108 + 248), &v128);
+        kaldi::quasar::ErrorRegion::GetTransitionIds(v108, v105, v105 + ((*(*(v108 + 272) + 24 * v106 + 8) - *(*(v108 + 272) + 24 * v106)) >> 2), *(v108 + 40), (v108 + 248), &v128.__r_.__value_.__l.__data_);
         v20 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a2, " ", 1);
         (*(*v12 + 8))(&v125, v12, a4);
         if ((v127 & 0x80u) == 0)
@@ -9403,9 +9429,9 @@ uint64_t kaldi::quasar::ErrorRegion::PrintDetailedErrorInformation(uint64_t resu
         }
 
         v25 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a2, "From frame ", 11);
-        v26 = MEMORY[0x1B8C84C00](v25, *v105);
+        v26 = MEMORY[0x1B8C84C00](v25, v105);
         v27 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v26, " to ", 4);
-        v28 = MEMORY[0x1B8C84C30](v27, v105[0] + ((*(*(v108 + 272) + 24 * v106 + 8) - *(*(v108 + 272) + 24 * v106)) >> 2));
+        v28 = MEMORY[0x1B8C84C30](v27, v105 + ((*(*(v108 + 272) + 24 * v106 + 8) - *(*(v108 + 272) + 24 * v106)) >> 2));
         std::ios_base::getloc((v28 + *(*v28 - 24)));
         v29 = std::locale::use_facet(&v125, MEMORY[0x1E69E5318]);
         (v29->__vftable[2].~facet_0)(v29, 10);
@@ -9474,10 +9500,10 @@ uint64_t kaldi::quasar::ErrorRegion::PrintDetailedErrorInformation(uint64_t resu
         std::locale::~locale(&v125);
         std::ostream::put();
         std::ostream::flush();
-        kaldi::quasar::ErrorRegion::GetSequence(a3, 1, 0, &v125);
-        kaldi::quasar::ErrorRegion::GetSequence(a3, 1, 0, &v123);
-        kaldi::quasar::ErrorRegion::GetSequence(a3, 2, 0, v122);
-        kaldi::quasar::ErrorRegion::GetSequence(a3, 2, 0, v121);
+        kaldi::quasar::ErrorRegion::GetSequence(&v128, a3, 1, 0, &v125.__locale_);
+        kaldi::quasar::ErrorRegion::GetSequence(*(v108 + 272) + 24 * v106, a3, 1, 0, &v123.__locale_);
+        kaldi::quasar::ErrorRegion::GetSequence(&v128, a3, 2, 0, v122);
+        kaldi::quasar::ErrorRegion::GetSequence(*(v108 + 272) + 24 * v106, a3, 2, 0, v121);
         v118 = 0;
         v119 = 0;
         v120 = 0;
@@ -9494,7 +9520,7 @@ uint64_t kaldi::quasar::ErrorRegion::PrintDetailedErrorInformation(uint64_t resu
           if (v126 != v125.__locale_)
           {
             v46 = 0;
-            v47 = *v105;
+            v47 = v105;
             do
             {
               LODWORD(__p.__r_.__value_.__l.__data_) = kaldi::LatticeScoreCache::GetScore(a5, v47, *(v45 + v46));
@@ -9659,7 +9685,7 @@ uint64_t kaldi::quasar::ErrorRegion::PrintDetailedErrorInformation(uint64_t resu
           do
           {
             v77 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a2, "\t", 1);
-            kaldi::quasar::ErrorProfile::ToPhoneString(a4, *(v122[0] + v76), &__p);
+            kaldi::quasar::ErrorProfile::ToPhoneString(&__p, a4, *(v122[0] + v76));
             if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
               p_p = &__p;
@@ -9701,7 +9727,7 @@ uint64_t kaldi::quasar::ErrorRegion::PrintDetailedErrorInformation(uint64_t resu
           do
           {
             v82 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a2, "\t", 1);
-            kaldi::quasar::ErrorProfile::ToPhoneString(a4, *(v121[0] + v81), &__p);
+            kaldi::quasar::ErrorProfile::ToPhoneString(&__p, a4, *(v121[0] + v81));
             if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
               v83 = &__p;
@@ -9900,7 +9926,7 @@ uint64_t kaldi::quasar::ErrorRegion::PrintDetailedErrorInformation(uint64_t resu
       }
 
       result = v108;
-      *v105 = v105[0] + ((*(*(v108 + 272) + 24 * v106 + 8) - *(*(v108 + 272) + 24 * v106)) >> 2);
+      v105 = v105 + ((*(*(v108 + 272) + 24 * v106 + 8) - *(*(v108 + 272) + 24 * v106)) >> 2);
       v8 = v106 + 1;
     }
 

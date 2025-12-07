@@ -13,11 +13,11 @@
 
 - (RFMapCardSection)initWithProtobuf:(id)protobuf
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
-  v47.receiver = self;
-  v47.super_class = RFMapCardSection;
-  v5 = [(SFCardSection *)&v47 init];
+  v46.receiver = self;
+  v46.super_class = RFMapCardSection;
+  v5 = [(SFCardSection *)&v46 init];
   if (v5)
   {
     if ([protobufCopy sizeFormat])
@@ -36,33 +36,33 @@
       v7 = 0;
     }
 
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
     v44 = 0u;
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
     markers2 = [protobufCopy markers];
-    v9 = [markers2 countByEnumeratingWithState:&v43 objects:v50 count:16];
+    v9 = [markers2 countByEnumeratingWithState:&v42 objects:v49 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v44;
+      v11 = *v43;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v44 != v11)
+          if (*v43 != v11)
           {
             objc_enumerationMutation(markers2);
           }
 
-          v13 = [[RFMapMarker alloc] initWithProtobuf:*(*(&v43 + 1) + 8 * i)];
+          v13 = [[RFMapMarker alloc] initWithProtobuf:*(*(&v42 + 1) + 8 * i)];
           if (v13)
           {
             [v7 addObject:v13];
           }
         }
 
-        v10 = [markers2 countByEnumeratingWithState:&v43 objects:v50 count:16];
+        v10 = [markers2 countByEnumeratingWithState:&v42 objects:v49 count:16];
       }
 
       while (v10);
@@ -80,33 +80,33 @@
       v15 = 0;
     }
 
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
     v40 = 0u;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
     annotations2 = [protobufCopy annotations];
-    v17 = [annotations2 countByEnumeratingWithState:&v39 objects:v49 count:16];
+    v17 = [annotations2 countByEnumeratingWithState:&v38 objects:v48 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v40;
+      v19 = *v39;
       do
       {
         for (j = 0; j != v18; ++j)
         {
-          if (*v40 != v19)
+          if (*v39 != v19)
           {
             objc_enumerationMutation(annotations2);
           }
 
-          v21 = [[RFMapAnnotation alloc] initWithProtobuf:*(*(&v39 + 1) + 8 * j)];
+          v21 = [[RFMapAnnotation alloc] initWithProtobuf:*(*(&v38 + 1) + 8 * j)];
           if (v21)
           {
             [v15 addObject:v21];
           }
         }
 
-        v18 = [annotations2 countByEnumeratingWithState:&v39 objects:v49 count:16];
+        v18 = [annotations2 countByEnumeratingWithState:&v38 objects:v48 count:16];
       }
 
       while (v18);
@@ -114,7 +114,7 @@
 
     [(RFMapCardSection *)v5 setAnnotations:v15];
     polylines = [protobufCopy polylines];
-    v34 = v5;
+    v33 = v5;
     if (polylines)
     {
       v23 = objc_alloc_init(MEMORY[0x1E695DF70]);
@@ -125,56 +125,55 @@
       v23 = 0;
     }
 
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     polylines2 = [protobufCopy polylines];
-    v25 = [polylines2 countByEnumeratingWithState:&v35 objects:v48 count:16];
+    v25 = [polylines2 countByEnumeratingWithState:&v34 objects:v47 count:16];
     if (v25)
     {
       v26 = v25;
-      v27 = *v36;
+      v27 = *v35;
       do
       {
         for (k = 0; k != v26; ++k)
         {
-          if (*v36 != v27)
+          if (*v35 != v27)
           {
             objc_enumerationMutation(polylines2);
           }
 
-          v29 = [[SFLatLng alloc] initWithProtobuf:*(*(&v35 + 1) + 8 * k)];
+          v29 = [[SFLatLng alloc] initWithProtobuf:*(*(&v34 + 1) + 8 * k)];
           if (v29)
           {
             [v23 addObject:v29];
           }
         }
 
-        v26 = [polylines2 countByEnumeratingWithState:&v35 objects:v48 count:16];
+        v26 = [polylines2 countByEnumeratingWithState:&v34 objects:v47 count:16];
       }
 
       while (v26);
     }
 
-    v5 = v34;
-    [(RFMapCardSection *)v34 setPolyline:v23];
+    v5 = v33;
+    [(RFMapCardSection *)v33 setPolyline:v23];
     [protobufCopy cameraDistance];
     if (v30 != 0.0)
     {
       [protobufCopy cameraDistance];
-      [(RFMapCardSection *)v34 setCameraDistance:?];
+      [(RFMapCardSection *)v33 setCameraDistance:?];
     }
 
     if ([protobufCopy showsUserLocation])
     {
-      -[RFMapCardSection setShowsUserLocation:](v34, "setShowsUserLocation:", [protobufCopy showsUserLocation]);
+      -[RFMapCardSection setShowsUserLocation:](v33, "setShowsUserLocation:", [protobufCopy showsUserLocation]);
     }
 
-    v31 = v34;
+    v31 = v33;
   }
 
-  v32 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

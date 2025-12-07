@@ -7,6 +7,7 @@
 - (void)extensionsWithCompletionHandler:(id)handler;
 - (void)getLastUpdatedCallDirectoryInfoWithReply:(id)reply;
 - (void)setDelegate:(id)delegate queue:(id)queue;
+- (void)setEnabled:(BOOL)enabled forExtension:(id)extension completion:(id)completion;
 - (void)setPrioritizedExtensionIdentifiers:(id)identifiers completionHandler:(id)handler;
 @end
 
@@ -136,12 +137,13 @@ void __67__CXCallDirectoryExtensionManager_extensionsWithCompletionHandler___blo
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (!v5)
   {
-    v7 = CXDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = CXDefaultLog(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __67__CXCallDirectoryExtensionManager_extensionsWithCompletionHandler___block_invoke_2_cold_1(v6, v7);
+      __67__CXCallDirectoryExtensionManager_extensionsWithCompletionHandler___block_invoke_2_cold_1(v7, v8);
     }
   }
 
@@ -175,46 +177,157 @@ void __53__CXCallDirectoryExtensionManager__extensionsChanged__block_invoke(uint
 
 - (void)setPrioritizedExtensionIdentifiers:(id)identifiers completionHandler:(id)handler
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   handlerCopy = handler;
-  v8 = CXDefaultLog();
+  v8 = CXDefaultLog(handlerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = identifiersCopy;
-    _os_log_impl(&dword_1B47F3000, v8, OS_LOG_TYPE_DEFAULT, "prioritizedExtensionIdentifiers: %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = identifiersCopy;
+    _os_log_impl(&dword_1B47F3000, v8, OS_LOG_TYPE_DEFAULT, "prioritizedExtensionIdentifiers: %@", &v10, 0xCu);
   }
 
   manager = [(CXCallDirectoryExtensionManager *)self manager];
   [manager setPrioritizedExtensionIdentifiers:identifiersCopy completionHandler:handlerCopy];
+}
 
-  v10 = *MEMORY[0x1E69E9840];
+- (void)setEnabled:(BOOL)enabled forExtension:(id)extension completion:(id)completion
+{
+  enabledCopy = enabled;
+  v25 = *MEMORY[0x1E69E9840];
+  extensionCopy = extension;
+  completionCopy = completion;
+  state = [extensionCopy state];
+  if (state > 3)
+  {
+    if (state == 4)
+    {
+      if (!enabledCopy)
+      {
+        goto LABEL_23;
+      }
+
+      v11 = CXDefaultLog(4);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      {
+        [CXCallDirectoryExtensionManager setEnabled:extensionCopy forExtension:? completion:?];
+      }
+
+      v12 = 101;
+    }
+
+    else
+    {
+      if (state != 5)
+      {
+        goto LABEL_23;
+      }
+
+      v11 = CXDefaultLog(5);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      {
+        [CXCallDirectoryExtensionManager setEnabled:enabledCopy forExtension:extensionCopy completion:?];
+      }
+
+      v12 = 102;
+    }
+  }
+
+  else if ((state - 1) >= 2)
+  {
+    if (state != 3)
+    {
+      goto LABEL_23;
+    }
+
+    v11 = CXDefaultLog(3);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      [CXCallDirectoryExtensionManager setEnabled:enabledCopy forExtension:extensionCopy completion:?];
+    }
+
+    v12 = 7;
+  }
+
+  else
+  {
+    if (enabledCopy)
+    {
+      goto LABEL_23;
+    }
+
+    v11 = CXDefaultLog(state);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      [CXCallDirectoryExtensionManager setEnabled:extensionCopy forExtension:? completion:?];
+    }
+
+    v12 = 6;
+  }
+
+  state = [MEMORY[0x1E696ABC0] cx_callDirectoryManagerErrorWithCode:v12];
+  if (state)
+  {
+    v13 = state;
+    if (completionCopy)
+    {
+      completionCopy[2](completionCopy, state);
+    }
+
+    goto LABEL_26;
+  }
+
+LABEL_23:
+  v14 = CXDefaultLog(state);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109378;
+    v22 = enabledCopy;
+    v23 = 2112;
+    v24 = extensionCopy;
+    _os_log_impl(&dword_1B47F3000, v14, OS_LOG_TYPE_DEFAULT, "Setting enabled to %d for extension %@", buf, 0x12u);
+  }
+
+  manager = [(CXCallDirectoryExtensionManager *)self manager];
+  identifier = [extensionCopy identifier];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __70__CXCallDirectoryExtensionManager_setEnabled_forExtension_completion___block_invoke;
+  v17[3] = &unk_1E7C07578;
+  v18 = extensionCopy;
+  v20 = enabledCopy;
+  v19 = completionCopy;
+  [manager setEnabled:enabledCopy forExtensionWithIdentifier:identifier completionHandler:v17];
+
+  v13 = 0;
+LABEL_26:
 }
 
 void __70__CXCallDirectoryExtensionManager_setEnabled_forExtension_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = CXDefaultLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = CXDefaultLog(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __70__CXCallDirectoryExtensionManager_setEnabled_forExtension_completion___block_invoke_cold_1(a1);
     }
   }
 
-  v5 = *(a1 + 40);
-  if (v5)
+  v6 = *(a1 + 40);
+  if (v6)
   {
-    (*(v5 + 16))(v5, v3);
+    (*(v6 + 16))(v6, v4);
   }
 }
 
 - (void)getLastUpdatedCallDirectoryInfoWithReply:(id)reply
 {
   replyCopy = reply;
-  v5 = CXDefaultLog();
+  v5 = CXDefaultLog(replyCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
@@ -234,52 +347,41 @@ void __70__CXCallDirectoryExtensionManager_setEnabled_forExtension_completion___
 
 void __67__CXCallDirectoryExtensionManager_extensionsWithCompletionHandler___block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B47F3000, a2, OS_LOG_TYPE_ERROR, "Error getting extensions: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B47F3000, a2, OS_LOG_TYPE_ERROR, "Error getting extensions: %@", &v2, 0xCu);
 }
 
 - (void)setEnabled:(uint64_t)a1 forExtension:(void *)a2 completion:.cold.1(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
   [a2 state];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setEnabled:(void *)a1 forExtension:completion:.cold.2(void *a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
   [a1 state];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setEnabled:(void *)a1 forExtension:completion:.cold.4(void *a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
   [a1 state];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __70__CXCallDirectoryExtensionManager_setEnabled_forExtension_completion___block_invoke_cold_1(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v8 = [*(a1 + 32) identifier];
-  v9 = *(a1 + 48);
+  v6 = [*(a1 + 32) identifier];
   OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x1Cu);
-
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
 }
 
 @end

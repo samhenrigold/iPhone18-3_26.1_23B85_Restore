@@ -12,6 +12,14 @@
 - (int64_t)productPageStyleBanner;
 - (int64_t)productPageStylePad;
 - (int64_t)productPageStylePhone;
+- (void)newNativeStorePageRequest;
+- (void)productPageStyle;
+- (void)productPageStyleAutomatic;
+- (void)productPageStyleBanner;
+- (void)productPageStylePad;
+- (void)productPageStylePhone;
+- (void)productParameters;
+- (void)productURL;
 - (void)setProductPageStyle:(int64_t)style;
 - (void)setProductParameters:(id)parameters;
 - (void)setProductURL:(id)l;
@@ -154,19 +162,21 @@
 - (void)setProductParameters:(id)parameters
 {
   parametersCopy = parameters;
-  if (os_variant_has_internal_content())
+  has_internal_content = os_variant_has_internal_content();
+  if (has_internal_content)
   {
-    if (_os_feature_enabled_impl())
+    has_internal_content = _os_feature_enabled_impl();
+    if (has_internal_content)
     {
-      v5 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v5)
+      has_internal_content = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
+      if (has_internal_content)
       {
-        [(SKScriptStoreSheetRequest *)v5 setProductParameters:v6, v7, v8, v9, v10, v11, v12];
+        [(SKScriptStoreSheetRequest *)has_internal_content setProductParameters:v6, v7, v8, v9, v10, v11, v12];
       }
     }
   }
 
-  v13 = SKUIWebCoreFramework();
+  v13 = SKUIWebCoreFramework(has_internal_content, v6);
   v14 = SKUIWeakLinkedClassForString(&cfstr_Webscriptobjec.isa, v13);
   v15 = [(SKScriptStoreSheetRequest *)self _safeValueForValue:parametersCopy];
 
@@ -204,10 +214,10 @@
 
   v13 = [(SKScriptStoreSheetRequest *)self _safeValueForValue:lCopy];
 
-  if (v13 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+  if (v13 && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) == 0))
   {
-    v14 = SKUIWebCoreFramework();
-    [SKUIWeakLinkedClassForString(&cfstr_Webscriptobjec.isa v14)];
+    v16 = SKUIWebCoreFramework(isKindOfClass, v15);
+    [SKUIWeakLinkedClassForString(&cfstr_Webscriptobjec.isa v16)];
   }
 
   else
@@ -294,13 +304,14 @@
 {
   valueCopy = value;
   objc_opt_class();
-  if (objc_opt_isKindOfClass() & 1) != 0 || (v4 = SKUIWebCoreFramework(), SKUIWeakLinkedClassForString(&cfstr_Webundefined.isa, v4), v5 = valueCopy, (objc_opt_isKindOfClass()))
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass & 1) != 0 || (v6 = SKUIWebCoreFramework(isKindOfClass, v5), SKUIWeakLinkedClassForString(&cfstr_Webundefined.isa, v6), v7 = valueCopy, (objc_opt_isKindOfClass()))
   {
 
-    v5 = 0;
+    v7 = 0;
   }
 
-  return v5;
+  return v7;
 }
 
 + (id)webScriptNameForKey:(const char *)key
@@ -345,10 +356,78 @@
 {
   if (objc_opt_class() == self)
   {
-    __KeyMapping = [objc_alloc(MEMORY[0x277CBEAC0]) initWithObjectsAndKeys:{@"sheetStyle", @"productPageStyle", @"productParameters", @"productParameters", @"productURL", @"productURL", @"SHEET_STYLE_AUTOMATIC", @"productPageStyleAutomatic", @"SHEET_STYLE_BANNER", @"productPageStyleBanner", @"SHEET_STYLE_PAD", @"productPageStylePad", @"SHEET_STYLE_PHONE", @"productPageStylePhone", 0}];
+    v2 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithObjectsAndKeys:{@"sheetStyle", @"productPageStyle", @"productParameters", @"productParameters", @"productURL", @"productURL", @"SHEET_STYLE_AUTOMATIC", @"productPageStyleAutomatic", @"SHEET_STYLE_BANNER", @"productPageStyleBanner", @"SHEET_STYLE_PAD", @"productPageStylePad", @"SHEET_STYLE_PHONE", @"productPageStylePhone", 0}];
+    v3 = __KeyMapping;
+    __KeyMapping = v2;
 
-    MEMORY[0x2821F96F8]();
+    MEMORY[0x2821F96F8](v2, v3);
   }
+}
+
+- (void)newNativeStorePageRequest
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKScriptStoreSheetRequest newNativeStorePageRequest]";
+}
+
+- (void)productPageStyle
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKScriptStoreSheetRequest productPageStyle]";
+}
+
+- (void)productParameters
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKScriptStoreSheetRequest productParameters]";
+}
+
+- (void)productURL
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKScriptStoreSheetRequest productURL]";
+}
+
+- (void)setProductPageStyle:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKScriptStoreSheetRequest setProductPageStyle:]";
+}
+
+- (void)setProductParameters:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKScriptStoreSheetRequest setProductParameters:]";
+}
+
+- (void)setProductURL:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKScriptStoreSheetRequest setProductURL:]";
+}
+
+- (void)productPageStyleAutomatic
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKScriptStoreSheetRequest productPageStyleAutomatic]";
+}
+
+- (void)productPageStyleBanner
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKScriptStoreSheetRequest productPageStyleBanner]";
+}
+
+- (void)productPageStylePad
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKScriptStoreSheetRequest productPageStylePad]";
+}
+
+- (void)productPageStylePhone
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKScriptStoreSheetRequest productPageStylePhone]";
 }
 
 @end

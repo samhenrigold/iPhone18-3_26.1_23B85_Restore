@@ -38,7 +38,7 @@
 
 - (id)postSevenDayDoseNotification:(id)notification nowDate:(id)date analyticsInfo:(id)info error:(id *)error
 {
-  v75[3] = *MEMORY[0x277D85DE8];
+  v74[3] = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   dateCopy = date;
   infoCopy = info;
@@ -50,14 +50,14 @@
   }
 
   statistics = [notificationCopy statistics];
-  v70 = 0;
-  v14 = [statistics hk_hearingSevenDayDosePercentageWithError:&v70];
-  v15 = v70;
+  v69 = 0;
+  v14 = [statistics hk_hearingSevenDayDosePercentageWithError:&v69];
+  v15 = v69;
   if (v14)
   {
-    v69 = 0;
-    v16 = [statistics hk_hearingSevenDayDoseDateIntervalEndingBeforeDate:dateCopy error:&v69];
-    v17 = v69;
+    v68 = 0;
+    v16 = [statistics hk_hearingSevenDayDoseDateIntervalEndingBeforeDate:dateCopy error:&v68];
+    v17 = v68;
     v18 = v17;
     if (!v16)
     {
@@ -68,10 +68,10 @@ LABEL_21:
       goto LABEL_22;
     }
 
-    v63 = v17;
-    v64 = v15;
+    v62 = v17;
+    v63 = v15;
     [statistics averageQuantity];
-    v19 = v65 = v16;
+    v19 = v64 = v16;
     decibelAWeightedSoundPressureLevelUnit = [MEMORY[0x277CCDAB0] decibelAWeightedSoundPressureLevelUnit];
     [v19 doubleValueForUnit:decibelAWeightedSoundPressureLevelUnit];
     v22 = v21;
@@ -82,38 +82,38 @@ LABEL_21:
     v26 = v25;
 
     v27 = *MEMORY[0x277D0EEC8];
-    v75[0] = v14;
+    v74[0] = v14;
     v28 = *MEMORY[0x277D0EED0];
-    v74[0] = v27;
-    v74[1] = v28;
+    v73[0] = v27;
+    v73[1] = v28;
     v29 = [MEMORY[0x277CCABB0] numberWithDouble:v26];
-    v75[1] = v29;
-    v74[2] = *MEMORY[0x277D0EED8];
+    v74[1] = v29;
+    v73[2] = *MEMORY[0x277D0EED8];
     v30 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(notificationCopy, "includesPrunableData")}];
-    v75[2] = v30;
-    v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v75 forKeys:v74 count:3];
+    v74[2] = v30;
+    v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v74 forKeys:v73 count:3];
 
-    v16 = v65;
-    v62 = v31;
-    v61 = [objc_alloc(MEMORY[0x277D0EEE8]) initWithEventType:2003133803 exposureLevel:v65 dateInterval:v31 metadata:v22];
+    v16 = v64;
+    v61 = v31;
+    v60 = [objc_alloc(MEMORY[0x277D0EEE8]) initWithEventType:2003133803 exposureLevel:v64 dateInterval:v31 metadata:v22];
     v32 = [HAENotificationCenter addHAENotificationEvent:"addHAENotificationEvent:error:" error:?];
     if (v32)
     {
       v33 = v32;
       WeakRetained = objc_loadWeakRetained(&self->_profile);
       dataManager = [WeakRetained dataManager];
-      v60 = v33;
-      v73 = v33;
-      v36 = [MEMORY[0x277CBEA60] arrayWithObjects:&v73 count:1];
+      v59 = v33;
+      v72 = v33;
+      v36 = [MEMORY[0x277CBEA60] arrayWithObjects:&v72 count:1];
       v37 = [dataManager insertDataObjects:v36 error:error];
 
       if (!v37)
       {
         v56 = 0;
-        v15 = v64;
-        v16 = v65;
-        v18 = v63;
-        v32 = v60;
+        v15 = v63;
+        v16 = v64;
+        v18 = v62;
+        v32 = v59;
         goto LABEL_20;
       }
 
@@ -124,19 +124,19 @@ LABEL_21:
         v39 = v38;
         v40 = objc_opt_class();
         *buf = 138543362;
-        v72 = v40;
+        v71 = v40;
         v41 = v40;
         _os_log_impl(&dword_251764000, v39, OS_LOG_TYPE_DEFAULT, "[%{public}@] Requesting nanoSync due to HAEN delivery.", buf, 0xCu);
       }
 
       v42 = objc_loadWeakRetained(&self->_profile);
       nanoSyncManager = [v42 nanoSyncManager];
-      v68[0] = MEMORY[0x277D85DD0];
-      v68[1] = 3221225472;
-      v68[2] = __98__HDHeadphoneExposureNotificationCenter_postSevenDayDoseNotification_nowDate_analyticsInfo_error___block_invoke;
-      v68[3] = &unk_2796C67D8;
-      v68[4] = self;
-      [nanoSyncManager syncHealthDataWithOptions:0 reason:@"HAEN HKCategorySample Inserted" completion:v68];
+      v67[0] = MEMORY[0x277D85DD0];
+      v67[1] = 3221225472;
+      v67[2] = __98__HDHeadphoneExposureNotificationCenter_postSevenDayDoseNotification_nowDate_analyticsInfo_error___block_invoke;
+      v67[3] = &unk_2796C67D8;
+      v67[4] = self;
+      [nanoSyncManager syncHealthDataWithOptions:0 reason:@"HAEN HKCategorySample Inserted" completion:v67];
 
       _HKInitializeLogging();
       v44 = *MEMORY[0x277CCC2C8];
@@ -148,17 +148,17 @@ LABEL_21:
 
       v45 = [objc_alloc(MEMORY[0x277CCD0C8]) initWithPush:1 pull:0 lite:1];
       cloudSyncManager = self->_cloudSyncManager;
-      v59 = v45;
+      v58 = v45;
       v47 = [objc_alloc(MEMORY[0x277CCD140]) initWithChangesSyncRequest:v45];
-      v67[0] = MEMORY[0x277D85DD0];
-      v67[1] = 3221225472;
-      v67[2] = __98__HDHeadphoneExposureNotificationCenter_postSevenDayDoseNotification_nowDate_analyticsInfo_error___block_invoke_318;
-      v67[3] = &unk_2796C67D8;
-      v67[4] = self;
-      [(HDCloudSyncManager *)cloudSyncManager syncWithRequest:v47 reason:@"HAEN HKCategorySample Inserted" completion:v67];
+      v66[0] = MEMORY[0x277D85DD0];
+      v66[1] = 3221225472;
+      v66[2] = __98__HDHeadphoneExposureNotificationCenter_postSevenDayDoseNotification_nowDate_analyticsInfo_error___block_invoke_318;
+      v66[3] = &unk_2796C67D8;
+      v66[4] = self;
+      [(HDCloudSyncManager *)cloudSyncManager syncWithRequest:v47 reason:@"HAEN HKCategorySample Inserted" completion:v66];
 
-      v16 = v65;
-      [v65 duration];
+      v16 = v64;
+      [v64 duration];
       v49 = v48;
       includesPrunableData = [notificationCopy includesPrunableData];
       v51 = objc_loadWeakRetained(&self->_profile);
@@ -166,9 +166,9 @@ LABEL_21:
       -[HDHeadphoneExposureNotificationCenter _reportHeadphoneNotificationWithNowDate:eventDuration:exposureLevel:exposureDuration:hasPrunableData:isDeviceLocked:analyticsInfo:](self, "_reportHeadphoneNotificationWithNowDate:eventDuration:exposureLevel:exposureDuration:hasPrunableData:isDeviceLocked:analyticsInfo:", dateCopy, includesPrunableData, [database isProtectedDataAvailable] ^ 1, infoCopy, v49, v22, v26);
 
       notificationSyncManager = self->_notificationSyncManager;
-      v66 = 0;
-      LOBYTE(includesPrunableData) = [(HDHeadphoneExposureNotificationSyncManager *)notificationSyncManager notifyHAENotificationAddedWithSample:v60 error:&v66];
-      v54 = v66;
+      v65 = 0;
+      LOBYTE(includesPrunableData) = [(HDHeadphoneExposureNotificationSyncManager *)notificationSyncManager notifyHAENotificationAddedWithSample:v59 error:&v65];
+      v54 = v65;
       if ((includesPrunableData & 1) == 0)
       {
         _HKInitializeLogging();
@@ -179,9 +179,9 @@ LABEL_21:
         }
       }
 
-      v56 = v60;
+      v56 = v59;
 
-      v32 = v60;
+      v32 = v59;
     }
 
     else
@@ -189,8 +189,8 @@ LABEL_21:
       v56 = 0;
     }
 
-    v18 = v63;
-    v15 = v64;
+    v18 = v62;
+    v15 = v63;
 LABEL_20:
 
     goto LABEL_21;
@@ -201,14 +201,13 @@ LABEL_20:
 LABEL_22:
 
 LABEL_23:
-  v57 = *MEMORY[0x277D85DE8];
 
   return v56;
 }
 
 void __98__HDHeadphoneExposureNotificationCenter_postSevenDayDoseNotification_nowDate_analyticsInfo_error___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a3;
   _HKInitializeLogging();
   v6 = *MEMORY[0x277CCC2C8];
@@ -217,12 +216,11 @@ void __98__HDHeadphoneExposureNotificationCenter_postSevenDayDoseNotification_no
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 32);
-      v9 = v6;
-      v12 = 138543362;
-      v13 = objc_opt_class();
-      v10 = v13;
-      _os_log_impl(&dword_251764000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] Successfully nano synced 7-Day HAEN HKCategorySample.", &v12, 0xCu);
+      v8 = v6;
+      v10 = 138543362;
+      v11 = objc_opt_class();
+      v9 = v11;
+      _os_log_impl(&dword_251764000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Successfully nano synced 7-Day HAEN HKCategorySample.", &v10, 0xCu);
     }
   }
 
@@ -230,13 +228,11 @@ void __98__HDHeadphoneExposureNotificationCenter_postSevenDayDoseNotification_no
   {
     __98__HDHeadphoneExposureNotificationCenter_postSevenDayDoseNotification_nowDate_analyticsInfo_error___block_invoke_cold_1(a1, v6);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __98__HDHeadphoneExposureNotificationCenter_postSevenDayDoseNotification_nowDate_analyticsInfo_error___block_invoke_318(uint64_t a1, int a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a3;
   _HKInitializeLogging();
   v6 = *MEMORY[0x277CCC2C8];
@@ -245,12 +241,11 @@ void __98__HDHeadphoneExposureNotificationCenter_postSevenDayDoseNotification_no
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 32);
-      v9 = v6;
-      v12 = 138543362;
-      v13 = objc_opt_class();
-      v10 = v13;
-      _os_log_impl(&dword_251764000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] Successfully cloud synced 7-Day HAEN HKCategorySample.", &v12, 0xCu);
+      v8 = v6;
+      v10 = 138543362;
+      v11 = objc_opt_class();
+      v9 = v11;
+      _os_log_impl(&dword_251764000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Successfully cloud synced 7-Day HAEN HKCategorySample.", &v10, 0xCu);
     }
   }
 
@@ -258,8 +253,6 @@ void __98__HDHeadphoneExposureNotificationCenter_postSevenDayDoseNotification_no
   {
     __98__HDHeadphoneExposureNotificationCenter_postSevenDayDoseNotification_nowDate_analyticsInfo_error___block_invoke_318_cold_1(a1, v6);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_reportHeadphoneNotificationWithNowDate:(id)date eventDuration:(double)duration exposureLevel:(double)level exposureDuration:(double)exposureDuration hasPrunableData:(BOOL)data isDeviceLocked:(BOOL)locked analyticsInfo:(id)info
@@ -298,110 +291,93 @@ void __98__HDHeadphoneExposureNotificationCenter_postSevenDayDoseNotification_no
     v15 = *MEMORY[0x277CCC2C8];
     if (os_log_type_enabled(*MEMORY[0x277CCC2C8], OS_LOG_TYPE_FAULT))
     {
-      [HDHeadphoneExposureNotificationCenter _reportHeadphoneNotificationWithNowDate:v15 eventDuration:? exposureLevel:? exposureDuration:? hasPrunableData:? isDeviceLocked:? analyticsInfo:?];
+      [HDHeadphoneExposureNotificationCenter _reportHeadphoneNotificationWithNowDate:v15 eventDuration:self exposureLevel:? exposureDuration:? hasPrunableData:? isDeviceLocked:? analyticsInfo:?];
     }
   }
 }
 
 id __171__HDHeadphoneExposureNotificationCenter__reportHeadphoneNotificationWithNowDate_eventDuration_exposureLevel_exposureDuration_hasPrunableData_isDeviceLocked_analyticsInfo___block_invoke(uint64_t a1)
 {
-  v17[9] = *MEMORY[0x277D85DE8];
+  v16[9] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEA80] hk_gregorianCalendar];
   v3 = [v2 components:544 fromDate:*(a1 + 32)];
 
-  v16[0] = @"averageSoundLevel";
-  v15 = [HDAudioAnalyticsUtilities boundedIntegerForLEQ:*(a1 + 48)];
-  v17[0] = v15;
-  v16[1] = @"dayOfWeek";
+  v15[0] = @"averageSoundLevel";
+  v14 = [HDAudioAnalyticsUtilities boundedIntegerForLEQ:*(a1 + 48)];
+  v16[0] = v14;
+  v15[1] = @"dayOfWeek";
   v4 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v3, "valueForComponent:", 512)}];
-  v17[1] = v4;
-  v16[2] = @"eventDuration";
+  v16[1] = v4;
+  v15[2] = @"eventDuration";
   v5 = [HDAudioAnalyticsUtilities boundedIntegerForEventDuration:*(a1 + 56)];
-  v17[2] = v5;
-  v16[3] = @"durationActualListeningTime";
+  v16[2] = v5;
+  v15[3] = @"durationActualListeningTime";
   v6 = [HDAudioAnalyticsUtilities boundedIntegerForExposureDuration:*(a1 + 64)];
-  v17[3] = v6;
-  v16[4] = @"hasPrunableData";
+  v16[3] = v6;
+  v15[4] = @"hasPrunableData";
   v7 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 72)];
-  v17[4] = v7;
-  v16[5] = @"hourOfDay";
+  v16[4] = v7;
+  v15[5] = @"hourOfDay";
   v8 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v3, "valueForComponent:", 32)}];
-  v17[5] = v8;
-  v16[6] = @"isDeviceLocked";
+  v16[5] = v8;
+  v15[6] = @"isDeviceLocked";
   v9 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 73)];
-  v17[6] = v9;
-  v16[7] = @"minutesSinceLastUnlock";
+  v16[6] = v9;
+  v15[7] = @"minutesSinceLastUnlock";
   v10 = [*(a1 + 40) boundedIntegerForMinutesSinceLastUnlockWithNowDate:*(a1 + 32)];
-  v17[7] = v10;
-  v16[8] = @"timeSinceLastNotification";
+  v16[7] = v10;
+  v15[8] = @"timeSinceLastNotification";
   v11 = [*(a1 + 40) boundedIntegerForTimeSinceLastNotificationWithNowDate:*(a1 + 32)];
-  v17[8] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:9];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v16[8] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:9];
 
   return v12;
 }
 
 - (void)postSevenDayDoseNotification:(void *)a1 nowDate:analyticsInfo:error:.cold.1(void *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v2 = a1;
-  v3 = OUTLINED_FUNCTION_4();
-  v4 = OUTLINED_FUNCTION_0_2(v3);
-  OUTLINED_FUNCTION_2(&dword_251764000, v5, v6, "[%{public}@] Failure to send HAEN notification sync: %@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  v4 = OUTLINED_FUNCTION_4(v2, v3);
+  v5 = OUTLINED_FUNCTION_0_2(v4);
+  OUTLINED_FUNCTION_2(&dword_251764000, v6, v7, "[%{public}@] Failure to send HAEN notification sync: %@", v8, v9, v10, v11);
 }
 
 void __98__HDHeadphoneExposureNotificationCenter_postSevenDayDoseNotification_nowDate_analyticsInfo_error___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = OUTLINED_FUNCTION_4();
+  v3 = a2;
+  v5 = OUTLINED_FUNCTION_4(v3, v4);
   v6 = OUTLINED_FUNCTION_0_2(v5);
-  OUTLINED_FUNCTION_2(&dword_251764000, v7, v8, "[%{public}@] Failure to nano sync 7-Day HAEN HKCategorySample: %@", v9, v10, v11, v12, v14);
-
-  v13 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_251764000, v7, v8, "[%{public}@] Failure to nano sync 7-Day HAEN HKCategorySample: %@", v9, v10, v11, v12);
 }
 
 void __98__HDHeadphoneExposureNotificationCenter_postSevenDayDoseNotification_nowDate_analyticsInfo_error___block_invoke_318_cold_1(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = OUTLINED_FUNCTION_4();
+  v3 = a2;
+  v5 = OUTLINED_FUNCTION_4(v3, v4);
   v6 = OUTLINED_FUNCTION_0_2(v5);
-  OUTLINED_FUNCTION_2(&dword_251764000, v7, v8, "[%{public}@] Failure to cloud sync 7-Day HAEN HKCategorySample: %@", v9, v10, v11, v12, v14);
-
-  v13 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_251764000, v7, v8, "[%{public}@] Failure to cloud sync 7-Day HAEN HKCategorySample: %@", v9, v10, v11, v12);
 }
 
 - (void)_reportHeadphoneNotificationWithNowDate:(id *)a3 eventDuration:exposureLevel:exposureDuration:hasPrunableData:isDeviceLocked:analyticsInfo:.cold.1(void *a1, uint64_t a2, id *a3)
 {
   v13 = *MEMORY[0x277D85DE8];
   v5 = a1;
-  v6 = OUTLINED_FUNCTION_4();
+  v7 = OUTLINED_FUNCTION_4(v5, v6);
   WeakRetained = objc_loadWeakRetained(a3);
   v9 = 138543618;
-  v10 = v6;
+  v10 = v7;
   v11 = 2048;
   v12 = [WeakRetained profileType];
   _os_log_fault_impl(&dword_251764000, v3, OS_LOG_TYPE_FAULT, "[%{public}@ Only primary profiles should be able to trigger HAENs: %ld.", &v9, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-- (void)_reportHeadphoneNotificationWithNowDate:(void *)a1 eventDuration:exposureLevel:exposureDuration:hasPrunableData:isDeviceLocked:analyticsInfo:.cold.2(void *a1)
+- (void)_reportHeadphoneNotificationWithNowDate:(void *)a1 eventDuration:(uint64_t)a2 exposureLevel:exposureDuration:hasPrunableData:isDeviceLocked:analyticsInfo:.cold.2(void *a1, uint64_t a2)
 {
   v5 = *MEMORY[0x277D85DE8];
-  v1 = a1;
+  v2 = a1;
   v3 = 138543362;
   v4 = objc_opt_class();
-  _os_log_fault_impl(&dword_251764000, v1, OS_LOG_TYPE_FAULT, "[%{public}@ Missing analyticsInfo for 7-Day HAEN analytics.", &v3, 0xCu);
-
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_251764000, v2, OS_LOG_TYPE_FAULT, "[%{public}@ Missing analyticsInfo for 7-Day HAEN analytics.", &v3, 0xCu);
 }
 
 @end

@@ -1,8 +1,8 @@
 @interface AppDelegate
 - (BOOL)application:(id)application didFinishLaunchingWithOptions:(id)options;
 - (_TtC11FTMInternal11AppDelegate)init;
-- (uint64_t)applicationDidEnterBackground:;
-- (void)applicationDidBecomeActive:;
+- (double)applicationDidEnterBackground:(uint64_t)background;
+- (void)applicationDidBecomeActive:(uint64_t)active;
 - (void)applicationWillTerminate:(id)terminate;
 - (void)setWindow:(id)window;
 @end
@@ -21,13 +21,13 @@
   if (options)
   {
     type metadata accessor for LaunchOptionsKey(0);
-    sub_10021FE34(&qword_100377E20, type metadata accessor for LaunchOptionsKey);
+    sub_10021FE34(&qword_100377E20, type metadata accessor for LaunchOptionsKey, &unk_1002EEC8C);
     static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
   applicationCopy = application;
   selfCopy = self;
-  v8 = sub_10021F79C();
+  v8 = sub_10021F79C(selfCopy);
 
   return v8 & 1;
 }
@@ -42,17 +42,18 @@
     swift_once();
   }
 
-  static os_log_type_t.default.getter();
-  os_log(_:dso:log:type:_:)();
+  v6 = qword_100382490;
+  v7 = static os_log_type_t.default.getter();
+  os_log(_:dso:log:type:_:)("Appdelegate - applicationWillTerminate", 38, 2, &_mh_execute_header, v6, v7, _swiftEmptyArrayStorage);
   sharedInstance = [objc_opt_self() sharedInstance];
   if (sharedInstance)
   {
-    v7 = sharedInstance;
-    v8 = String._bridgeToObjectiveC()();
-    [v7 removeAWDConfigForAppid:v8];
+    v9 = sharedInstance;
+    v10 = String._bridgeToObjectiveC()();
+    [v9 removeAWDConfigForAppid:v10];
 
-    terminateCopy = v7;
-    selfCopy = v8;
+    terminateCopy = v9;
+    selfCopy = v10;
   }
 }
 
@@ -65,102 +66,100 @@
   return [(AppDelegate *)&v3 init];
 }
 
-- (uint64_t)applicationDidEnterBackground:
+- (double)applicationDidEnterBackground:(uint64_t)background
 {
   if (qword_100374FA8 != -1)
   {
     swift_once();
   }
 
-  static os_log_type_t.default.getter();
-  os_log(_:dso:log:type:_:)();
+  v1 = qword_100382490;
+  v2 = static os_log_type_t.default.getter();
+  os_log(_:dso:log:type:_:)("Appdelegate - applicationDidEnterBackground", 43, 2, &_mh_execute_header, v1, v2, _swiftEmptyArrayStorage);
   sharedInstance = [objc_opt_self() sharedInstance];
   if (sharedInstance)
   {
-    v1 = sharedInstance;
-    v2 = String._bridgeToObjectiveC()();
-    [v1 removeAWDConfigForAppid:v2];
+    v4 = sharedInstance;
+    v5 = String._bridgeToObjectiveC()();
+    [v4 removeAWDConfigForAppid:v5];
 
     if (qword_100375020 != -1)
     {
       swift_once();
     }
 
-    v3 = qword_100382508;
-    sub_100211D70(0);
+    v6 = qword_100382508;
+    sub_100211D70(0, v7);
 
-    v4 = qword_100382508;
-    v5 = OBJC_IVAR____TtC11FTMInternal25FTMCellMonitorSharedClass_metricModelsArray;
+    v8 = qword_100382508;
+    v9 = OBJC_IVAR____TtC11FTMInternal25FTMCellMonitorSharedClass_metricModelsArray;
     swift_beginAccess();
-    v6 = *&v4[v5];
-    *&v4[v5] = _swiftEmptyArrayStorage;
-    v7 = v4;
+    *&v8[v9] = _swiftEmptyArrayStorage;
+    v10 = v8;
 
     sub_10020D3C0(0);
 
-    v8 = qword_100382508;
-    v9 = *&v8[OBJC_IVAR____TtC11FTMInternal25FTMCellMonitorSharedClass_metricModelsGraphArray];
-    *&v8[OBJC_IVAR____TtC11FTMInternal25FTMCellMonitorSharedClass_metricModelsGraphArray] = _swiftEmptyArrayStorage;
+    v11 = qword_100382508;
+    *&v11[OBJC_IVAR____TtC11FTMInternal25FTMCellMonitorSharedClass_metricModelsGraphArray] = _swiftEmptyArrayStorage;
   }
 
   else
   {
-    static os_log_type_t.default.getter();
+    v13 = static os_log_type_t.default.getter();
 
-    return os_log(_:dso:log:type:_:)();
+    return os_log(_:dso:log:type:_:)("Appdelegate - applicationDidEnterBackground ABMWrapper.sharedInstance  returned nil", 83, 2, &_mh_execute_header, v1, v13, _swiftEmptyArrayStorage);
   }
+
+  return result;
 }
 
-- (void)applicationDidBecomeActive:
+- (void)applicationDidBecomeActive:(uint64_t)active
 {
   if (qword_100374FA8 != -1)
   {
     swift_once();
   }
 
-  static os_log_type_t.default.getter();
-  os_log(_:dso:log:type:_:)();
+  v1 = qword_100382490;
+  v2 = static os_log_type_t.default.getter();
+  os_log(_:dso:log:type:_:)("Appdelegate - applicationDidBecomeActive", 40, 2, &_mh_execute_header, v1, v2, _swiftEmptyArrayStorage);
   sharedInstance = [objc_opt_self() sharedInstance];
   if (sharedInstance)
   {
-    v11 = sharedInstance;
+    v17 = sharedInstance;
     mainBundle = [objc_opt_self() mainBundle];
     if (qword_100375018 != -1)
     {
       swift_once();
     }
 
-    v2 = qword_100382500;
-    v3 = *(qword_100382500 + 176);
-    v4 = *(qword_100382500 + 184);
-
-    v5 = String._bridgeToObjectiveC()();
+    v5 = qword_100382500;
 
     v6 = String._bridgeToObjectiveC()();
-    v7 = [mainBundle pathForResource:v5 ofType:v6];
 
-    if (v7)
+    v7 = String._bridgeToObjectiveC()();
+    v8 = [mainBundle pathForResource:v6 ofType:v7];
+
+    if (v8)
     {
-      v8 = String._bridgeToObjectiveC()();
-      v9 = [v11 addAWDConfigForAppId:v8 andProtofFilePath:v7];
+      v9 = String._bridgeToObjectiveC()();
+      v10 = [v17 addAWDConfigForAppId:v9 andProtofFilePath:v8];
 
-      if (!v9)
+      if (v10)
       {
-LABEL_18:
+        [v17 listen];
+        v11 = String._bridgeToObjectiveC()();
+        [v17 querySpecificMetric:v11 triggerRef:9999 triggerType:0 triggerID:*(v5 + 192) profileID:0 metricID:0];
 
-        return;
+        if (qword_100374F98 != -1)
+        {
+          swift_once();
+        }
+
+        v12 = qword_100382480;
+        v13 = static os_log_type_t.default.getter();
+        os_log(_:dso:log:type:_:)("successfully started listening ABM applicationDidBecomeActive", 61, 2, &_mh_execute_header, v12, v13, _swiftEmptyArrayStorage);
       }
-
-      [v11 listen];
-      v10 = String._bridgeToObjectiveC()();
-      [v11 querySpecificMetric:v10 triggerRef:9999 triggerType:0 triggerID:*(v2 + 192) profileID:0 metricID:0];
-
-      if (qword_100374F98 != -1)
-      {
-        swift_once();
-      }
-
-      static os_log_type_t.default.getter();
     }
 
     else
@@ -170,16 +169,18 @@ LABEL_18:
         swift_once();
       }
 
-      static os_log_type_t.error.getter();
+      v15 = qword_100382480;
+      v16 = static os_log_type_t.error.getter();
+      os_log(_:dso:log:type:_:)("Metric Log File path doesn't exist", 34, 2, &_mh_execute_header, v15, v16, _swiftEmptyArrayStorage);
     }
-
-    os_log(_:dso:log:type:_:)();
-    goto LABEL_18;
   }
 
-  static os_log_type_t.default.getter();
+  else
+  {
+    v14 = static os_log_type_t.default.getter();
 
-  os_log(_:dso:log:type:_:)();
+    os_log(_:dso:log:type:_:)("Appdelegate - applicationDidBecomeActive ABMWrapper.sharedInstance returned nil", 79, 2, &_mh_execute_header, v1, v14, _swiftEmptyArrayStorage);
+  }
 }
 
 @end

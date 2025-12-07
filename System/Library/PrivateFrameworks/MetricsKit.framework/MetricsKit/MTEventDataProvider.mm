@@ -83,33 +83,31 @@ id __44__MTEventDataProvider_flattenAdditionalData__block_invoke(uint64_t a1, vo
     v3 = MEMORY[0x259C9F5D0](v2);
     v4 = v3[2]();
     objc_opt_class();
-    if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
+    if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass))
     {
-      v5 = v4;
+      v6 = v4;
     }
 
     else
     {
-      v6 = MTMetricsKitOSLog();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      v7 = MTMetricsKitOSLog(isKindOfClass);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
         v9 = 138412290;
         v10 = v4;
-        _os_log_impl(&dword_258F4B000, v6, OS_LOG_TYPE_DEBUG, "MetricsKit: A fields block has returned an unrecognized value: %@.", &v9, 0xCu);
+        _os_log_impl(&dword_258F4B000, v7, OS_LOG_TYPE_DEBUG, "MetricsKit: A fields block has returned an unrecognized value: %@.", &v9, 0xCu);
       }
 
-      v5 = MEMORY[0x277CBEC10];
+      v6 = MEMORY[0x277CBEC10];
     }
   }
 
   else
   {
-    v5 = v2;
+    v6 = v2;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-
-  return v5;
+  return v6;
 }
 
 - (NSDictionary)knownFieldMethods
@@ -144,30 +142,30 @@ id __44__MTEventDataProvider_flattenAdditionalData__block_invoke(uint64_t a1, vo
 
 - (id)knownFieldMethodsForKnownFields:(id)fields
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   fieldsCopy = fields;
-  v27 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(fieldsCopy, "count")}];
+  v26 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(fieldsCopy, "count")}];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   v5 = fieldsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v29;
+    v8 = *v28;
     do
     {
       v9 = 0;
       do
       {
-        if (*v29 != v8)
+        if (*v28 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v28 + 1) + 8 * v9);
+        v10 = *(*(&v27 + 1) + 8 * v9);
         v11 = [(MTEventDataProvider *)self knownFieldAccessorForFieldName:v10];
         if (v11)
         {
@@ -177,7 +175,7 @@ id __44__MTEventDataProvider_flattenAdditionalData__block_invoke(uint64_t a1, vo
           if (methodReturnType && *methodReturnType == 64 && !methodReturnType[1])
           {
             v22 = [[MTKnownFieldMethod alloc] initWithIMP:[(MTEventDataProvider *)self methodForSelector:v12] accessor:v12];
-            [v27 setObject:v22 forKey:v10];
+            [v26 setObject:v22 forKey:v10];
           }
 
           else
@@ -190,16 +188,14 @@ id __44__MTEventDataProvider_flattenAdditionalData__block_invoke(uint64_t a1, vo
       }
 
       while (v7 != v9);
-      v23 = [v5 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v23 = [v5 countByEnumeratingWithState:&v27 objects:v31 count:16];
       v7 = v23;
     }
 
     while (v23);
   }
 
-  v24 = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:v27];
-
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:v26];
 
   return v24;
 }
@@ -225,7 +221,7 @@ id __44__MTEventDataProvider_flattenAdditionalData__block_invoke(uint64_t a1, vo
 
 - (id)processMetricsData:(id)data performanceData:(id)performanceData
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   performanceDataCopy = performanceData;
   knownFields = [(MTEventDataProvider *)self knownFields];
@@ -238,26 +234,26 @@ id __44__MTEventDataProvider_flattenAdditionalData__block_invoke(uint64_t a1, vo
 
   v10 = v9;
 
-  v24 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v10, "count")}];
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
+  v23 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v10, "count")}];
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v11 = v10;
-  v12 = [v11 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v12)
   {
-    v13 = *v27;
+    v13 = *v26;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v27 != v13)
+        if (*v26 != v13)
         {
           objc_enumerationMutation(v11);
         }
 
-        v15 = *(*(&v26 + 1) + 8 * i);
+        v15 = *(*(&v25 + 1) + 8 * i);
         knownFieldMethods = [(MTEventDataProvider *)self knownFieldMethods];
         v17 = [knownFieldMethods objectForKeyedSubscript:v15];
 
@@ -283,20 +279,18 @@ id __44__MTEventDataProvider_flattenAdditionalData__block_invoke(uint64_t a1, vo
 
           if (v20)
           {
-            [v24 setValue:v20 forKey:v15];
+            [v23 setValue:v20 forKey:v15];
           }
         }
       }
 
-      v12 = [v11 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v12);
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-
-  return v24;
+  return v23;
 }
 
 - (SEL)knownFieldAccessorForFieldName:(id)name

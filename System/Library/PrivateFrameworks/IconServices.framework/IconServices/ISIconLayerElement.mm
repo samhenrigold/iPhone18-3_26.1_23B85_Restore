@@ -11,6 +11,7 @@
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
 - (void)setFillColor:(id)color forAppearance:(int64_t)appearance;
+- (void)setHasEffects:(BOOL)effects forAppearance:(int64_t)appearance;
 - (void)setOpacity:(double)opacity forAppearance:(int64_t)appearance;
 @end
 
@@ -114,6 +115,24 @@
   }
 
   return v6;
+}
+
+- (void)setHasEffects:(BOOL)effects forAppearance:(int64_t)appearance
+{
+  effectsCopy = effects;
+  effects = self->_effects;
+  if (!effects)
+  {
+    v8 = objc_opt_new();
+    v9 = self->_effects;
+    self->_effects = v8;
+
+    effects = self->_effects;
+  }
+
+  v11 = [MEMORY[0x1E696AD98] numberWithBool:effectsCopy];
+  v10 = [MEMORY[0x1E696AD98] numberWithInteger:appearance];
+  [(NSMutableDictionary *)effects setObject:v11 forKey:v10];
 }
 
 - (BOOL)hasEffectsForAppearance:(int64_t)appearance
@@ -231,37 +250,37 @@ void __33__ISIconLayerElement_description__block_invoke(uint64_t a1, void *a2)
 
 - (NSUUID)digest
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   v3 = 0x1E696A000uLL;
   v4 = MEMORY[0x1E696AEC0];
   opacities = [(ISIconLayerElement *)self opacities];
   effects = [(ISIconLayerElement *)self effects];
   v7 = [v4 stringWithFormat:@"opacities: %@, effects: %@", opacities, effects];
 
-  v43 = v7;
+  v42 = v7;
   v8 = [MEMORY[0x1E696AFB0] _IF_UUIDWithString:v7];
+  v47 = 0u;
   v48 = 0u;
   v49 = 0u;
   v50 = 0u;
-  v51 = 0u;
   selfCopy = self;
   obj = [(ISIconLayerElement *)self fillColors];
-  v47 = [obj countByEnumeratingWithState:&v48 objects:v54 count:16];
-  if (v47)
+  v46 = [obj countByEnumeratingWithState:&v47 objects:v53 count:16];
+  if (v46)
   {
-    v45 = *v49;
+    v44 = *v48;
     do
     {
       v9 = 0;
       v10 = v8;
       do
       {
-        if (*v49 != v45)
+        if (*v48 != v44)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v48 + 1) + 8 * v9);
+        v11 = *(*(&v47 + 1) + 8 * v9);
         v12 = MEMORY[0x1E696AFB0];
         v13 = *(v3 + 3776);
         fillColors = [(ISIconLayerElement *)selfCopy fillColors];
@@ -274,20 +293,20 @@ void __33__ISIconLayerElement_description__block_invoke(uint64_t a1, void *a2)
 
         v3 = v15;
         v21 = MEMORY[0x1E696AFB0];
-        v53[0] = v10;
-        v53[1] = v20;
-        v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v53 count:2];
+        v52[0] = v10;
+        v52[1] = v20;
+        v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v52 count:2];
         v8 = [v21 _IF_UUIDByXORingUUIDs:v22];
 
         ++v9;
         v10 = v8;
       }
 
-      while (v47 != v9);
-      v47 = [obj countByEnumeratingWithState:&v48 objects:v54 count:16];
+      while (v46 != v9);
+      v46 = [obj countByEnumeratingWithState:&v47 objects:v53 count:16];
     }
 
-    while (v47);
+    while (v46);
   }
 
   images = [(ISIconLayerElement *)selfCopy images];
@@ -312,9 +331,9 @@ void __33__ISIconLayerElement_description__block_invoke(uint64_t a1, void *a2)
       v35 = [v31 _IF_UUIDWithString:v34];
 
       v36 = MEMORY[0x1E696AFB0];
-      v52[0] = v8;
-      v52[1] = v35;
-      v37 = [MEMORY[0x1E695DEC8] arrayWithObjects:v52 count:2];
+      v51[0] = v8;
+      v51[1] = v35;
+      v37 = [MEMORY[0x1E695DEC8] arrayWithObjects:v51 count:2];
       v38 = [v36 _IF_UUIDByXORingUUIDs:v37];
 
       ++v25;
@@ -331,8 +350,6 @@ void __33__ISIconLayerElement_description__block_invoke(uint64_t a1, void *a2)
   {
     v38 = v8;
   }
-
-  v41 = *MEMORY[0x1E69E9840];
 
   return v38;
 }

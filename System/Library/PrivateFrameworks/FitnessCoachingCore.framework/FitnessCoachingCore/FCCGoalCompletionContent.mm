@@ -63,41 +63,39 @@
 
 - (id)transportData
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(FCCGoalCompletionProtobuf);
   [(FCCGoalCompletionProtobuf *)v3 setActivitySummaryIndex:self->_activitySummaryIndex];
   [(FCCGoalCompletionProtobuf *)v3 setIdentifier:self->_identifier];
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v4 = self->_completedGoalTypes;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        -[FCCGoalCompletionProtobuf addCompletedGoalTypes:](v3, "addCompletedGoalTypes:", [*(*(&v12 + 1) + 8 * i) unsignedIntValue]);
+        -[FCCGoalCompletionProtobuf addCompletedGoalTypes:](v3, "addCompletedGoalTypes:", [*(*(&v11 + 1) + 8 * i) unsignedIntValue]);
       }
 
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
 
   data = [(FCCGoalCompletionProtobuf *)v3 data];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return data;
 }

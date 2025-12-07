@@ -11,7 +11,6 @@
 - (double)mmgp;
 - (id)_mostSignificantSnapshot:(id)snapshot;
 - (id)activitySummary;
-- (id)description;
 - (void)encodeWithCoder:(id)coder;
 @end
 
@@ -131,15 +130,6 @@ LABEL_5:
   v19 = objc_msgSendSuper2(&v21, sel__newSampleWithType_startDate_endDate_device_metadata_config_, v13, 0, 0, v22, v15, v17);
 
   return v19;
-}
-
-- (id)description
-{
-  energyBurned = self->_energyBurned;
-  mmv = self->_mmv;
-  briskMinutes = self->_briskMinutes;
-  activeHours = self->_activeHours;
-  return [MEMORY[0x1E696AEC0] stringWithFormat:@"FFActivitySnapshot(%f/%f, %f/%f, %f/%f, %f/%f, %lu, %f)", *&energyBurned, *&self->_energyBurnedGoal, *&mmv, *&self->_mmg, *&briskMinutes, *&self->_briskMinutesGoal, *&activeHours, *&self->_activeHoursGoal, self->_stepCount, *&self->_walkingAndRunningDistance];
 }
 
 + (id)snapshotWithActivitySummary:(id)summary
@@ -304,44 +294,42 @@ LABEL_5:
 
 + (id)_mostSignificantSnapshotAmongSnapshots:(id)snapshots
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   snapshotsCopy = snapshots;
   firstObject = [snapshotsCopy firstObject];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = snapshotsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       v9 = 0;
       v10 = firstObject;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        firstObject = [v10 _mostSignificantSnapshot:{*(*(&v13 + 1) + 8 * v9), v13}];
+        firstObject = [v10 _mostSignificantSnapshot:{*(*(&v12 + 1) + 8 * v9), v12}];
 
         ++v9;
         v10 = firstObject;
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return firstObject;
 }
@@ -350,26 +338,9 @@ LABEL_5:
 {
   snapshotCopy = snapshot;
   v5 = snapshotCopy;
-  if (!snapshotCopy)
+  if (!snapshotCopy || ([(_HKFitnessFriendActivitySnapshot *)snapshotCopy mmv], v7 = v6, [(_HKFitnessFriendActivitySnapshot *)self mmv], selfCopy = v5, v7 <= v9) && ([(_HKFitnessFriendActivitySnapshot *)v5 energyBurned], v11 = v10, [(_HKFitnessFriendActivitySnapshot *)self energyBurned], selfCopy = v5, v11 <= v12))
   {
-    goto LABEL_4;
-  }
-
-  [(_HKFitnessFriendActivitySnapshot *)snapshotCopy mmv];
-  v7 = v6;
-  [(_HKFitnessFriendActivitySnapshot *)self mmv];
-  selfCopy = v5;
-  if (v7 <= v9)
-  {
-    [(_HKFitnessFriendActivitySnapshot *)v5 energyBurned];
-    v11 = v10;
-    [(_HKFitnessFriendActivitySnapshot *)self energyBurned];
-    selfCopy = v5;
-    if (v11 <= v12)
-    {
-LABEL_4:
-      selfCopy = self;
-    }
+    selfCopy = self;
   }
 
   v13 = selfCopy;

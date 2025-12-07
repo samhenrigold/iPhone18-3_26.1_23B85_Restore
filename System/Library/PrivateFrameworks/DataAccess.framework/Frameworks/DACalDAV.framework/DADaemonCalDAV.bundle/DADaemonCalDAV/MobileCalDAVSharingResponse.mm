@@ -207,54 +207,53 @@ LABEL_17:
   accountID2 = [(MobileCalDAVDADaemonAccount *)self->_account accountID];
   [dbHelper2 calDatabaseForAccountID:accountID2];
 
-  calendarID = self->_calendarID;
-  v11 = CalDatabaseCopyCalendarWithUUID();
-  if (!v11)
+  v10 = CalDatabaseCopyCalendarWithUUID();
+  if (!v10)
   {
-    v13 = 0;
+    v12 = 0;
 LABEL_8:
     dbHelper3 = [(MobileCalDAVDADaemonAccount *)self->_account dbHelper];
     accountID3 = [(MobileCalDAVDADaemonAccount *)self->_account accountID];
     [dbHelper3 calCloseDatabaseForAccountID:accountID3 save:0];
 
-    v14 = [NSError errorWithDomain:DAErrorDomain code:12 userInfo:0];
-    [(MobileCalDAVSharingResponse *)self finishWithError:v14];
+    v13 = [NSError errorWithDomain:DAErrorDomain code:12 userInfo:0];
+    [(MobileCalDAVSharingResponse *)self finishWithError:v13];
     goto LABEL_9;
   }
 
-  v12 = v11;
-  v13 = CalCalendarCopyExternalIdentificationTag();
-  if (v13)
+  v11 = v10;
+  v12 = CalCalendarCopyExternalIdentificationTag();
+  if (v12)
   {
-    v14 = blockCopy[2](blockCopy, v12);
+    v13 = blockCopy[2](blockCopy, v11);
   }
 
   else
   {
-    v14 = 0;
+    v13 = 0;
   }
 
   CalRemoveCalendar();
-  CFRelease(v12);
-  if (!v14)
+  CFRelease(v11);
+  if (!v13)
   {
     goto LABEL_8;
   }
 
-  objc_initWeak(&location, v14);
-  v17 = _NSConcreteStackBlock;
-  v18 = 3221225472;
-  v19 = sub_EF8C;
-  v20 = &unk_28AD0;
-  objc_copyWeak(&v23, &location);
+  objc_initWeak(&location, v13);
+  v16 = _NSConcreteStackBlock;
+  v17 = 3221225472;
+  v18 = sub_EF8C;
+  v19 = &unk_28AD0;
+  objc_copyWeak(&v22, &location);
   selfCopy = self;
-  v13 = v13;
-  v22 = v13;
-  [v14 setCompletionBlock:&v17];
-  [(MobileCalDAVSharingResponse *)self setCurrentOperation:v14, v17, v18, v19, v20, selfCopy];
-  [v14 startTaskGroup];
+  v12 = v12;
+  v21 = v12;
+  [v13 setCompletionBlock:&v16];
+  [(MobileCalDAVSharingResponse *)self setCurrentOperation:v13, v16, v17, v18, v19, selfCopy];
+  [v13 startTaskGroup];
 
-  objc_destroyWeak(&v23);
+  objc_destroyWeak(&v22);
   objc_destroyWeak(&location);
 LABEL_9:
 }

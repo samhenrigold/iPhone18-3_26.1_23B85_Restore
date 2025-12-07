@@ -1086,107 +1086,107 @@ LABEL_23:
 
 - (id)dictionaryRepresentation
 {
-  v51[19] = *MEMORY[0x277D85DE8];
+  v50[19] = *MEMORY[0x277D85DE8];
   v3 = [WLKPlaybackSummary debugStringForCompletionState:self->_completionState];
   v4 = [WLKPlaybackSummary debugStringForPlaybackState:self->_playbackState];
   v5 = [WLKPlaybackSummary _debugStringForPlaybackType:self->_playbackType];
-  v50[0] = @"bundleID";
+  v49[0] = @"bundleID";
   bundleID = self->_bundleID;
-  v47 = bundleID;
+  v46 = bundleID;
   if (!bundleID)
   {
     bundleID = [MEMORY[0x277CBEB68] null];
   }
 
-  v36 = bundleID;
-  v51[0] = bundleID;
-  v50[1] = @"timestamp";
+  v35 = bundleID;
+  v50[0] = bundleID;
+  v49[1] = @"timestamp";
   timestamp = self->_timestamp;
-  v46 = timestamp;
+  v45 = timestamp;
   if (!timestamp)
   {
     timestamp = [MEMORY[0x277CBEB68] null];
   }
 
-  v35 = timestamp;
-  v51[1] = timestamp;
-  v50[2] = @"duration";
+  v34 = timestamp;
+  v50[1] = timestamp;
+  v49[2] = @"duration";
   duration = self->_duration;
-  v45 = duration;
+  v44 = duration;
   if (!duration)
   {
     duration = [MEMORY[0x277CBEB68] null];
   }
 
-  v34 = duration;
-  v51[2] = duration;
-  v50[3] = @"elapsedTime";
+  v33 = duration;
+  v50[2] = duration;
+  v49[3] = @"elapsedTime";
   elapsedTime = self->_elapsedTime;
-  v44 = elapsedTime;
+  v43 = elapsedTime;
   if (!elapsedTime)
   {
     elapsedTime = [MEMORY[0x277CBEB68] null];
   }
 
-  v33 = elapsedTime;
-  v51[3] = elapsedTime;
-  v50[4] = @"featureDuration";
+  v32 = elapsedTime;
+  v50[3] = elapsedTime;
+  v49[4] = @"featureDuration";
   featureDuration = self->_featureDuration;
-  v43 = featureDuration;
+  v42 = featureDuration;
   if (!featureDuration)
   {
     featureDuration = [MEMORY[0x277CBEB68] null];
   }
 
-  v32 = featureDuration;
-  v51[4] = featureDuration;
-  v50[5] = @"featureElapsedTime";
+  v31 = featureDuration;
+  v50[4] = featureDuration;
+  v49[5] = @"featureElapsedTime";
   featureElapsedTime = self->_featureElapsedTime;
-  v42 = featureElapsedTime;
+  v41 = featureElapsedTime;
   if (!featureElapsedTime)
   {
     featureElapsedTime = [MEMORY[0x277CBEB68] null];
   }
 
-  v31 = featureElapsedTime;
-  v51[5] = featureElapsedTime;
-  v50[6] = @"contentID";
+  v30 = featureElapsedTime;
+  v50[5] = featureElapsedTime;
+  v49[6] = @"contentID";
   contentID = self->_contentID;
-  v41 = contentID;
+  v40 = contentID;
   if (!contentID)
   {
     contentID = [MEMORY[0x277CBEB68] null];
   }
 
-  v30 = contentID;
-  v51[6] = contentID;
-  v51[7] = v4;
-  v50[7] = @"playbackState";
-  v50[8] = @"playbackRate";
+  v29 = contentID;
+  v50[6] = contentID;
+  v50[7] = v4;
+  v49[7] = @"playbackState";
+  v49[8] = @"playbackRate";
   playbackRate = self->_playbackRate;
-  v40 = playbackRate;
+  v39 = playbackRate;
   if (!playbackRate)
   {
     playbackRate = [MEMORY[0x277CBEB68] null];
   }
 
-  v48 = v4;
-  v29 = playbackRate;
-  v51[8] = playbackRate;
-  v51[9] = v3;
-  v50[9] = @"completionState";
-  v50[10] = @"serviceID";
+  v47 = v4;
+  v28 = playbackRate;
+  v50[8] = playbackRate;
+  v50[9] = v3;
+  v49[9] = @"completionState";
+  v49[10] = @"serviceID";
   serviceID = self->_serviceID;
-  v39 = serviceID;
+  v38 = serviceID;
   if (!serviceID)
   {
     serviceID = [MEMORY[0x277CBEB68] null];
   }
 
-  v49 = v3;
-  v28 = serviceID;
-  v51[10] = serviceID;
-  v50[11] = @"currentPlaybackDate";
+  v48 = v3;
+  v27 = serviceID;
+  v50[10] = serviceID;
+  v49[11] = @"currentPlaybackDate";
   currentPlaybackDate = self->_currentPlaybackDate;
   null = currentPlaybackDate;
   if (!currentPlaybackDate)
@@ -1194,20 +1194,20 @@ LABEL_23:
     null = [MEMORY[0x277CBEB68] null];
   }
 
-  v27 = null;
-  v51[11] = null;
-  v50[12] = @"isAlwaysLive";
-  v38 = [MEMORY[0x277CCABB0] numberWithBool:self->_isAlwaysLive];
-  v51[12] = v38;
-  v51[13] = v5;
-  v50[13] = @"playbackType";
-  v50[14] = @"isTimerDerived";
+  v26 = null;
+  v50[11] = null;
+  v49[12] = @"isAlwaysLive";
+  v37 = [MEMORY[0x277CCABB0] numberWithBool:self->_isAlwaysLive];
+  v50[12] = v37;
+  v50[13] = v5;
+  v49[13] = @"playbackType";
+  v49[14] = @"isTimerDerived";
   v17 = [MEMORY[0x277CCABB0] numberWithBool:self->_isTimerDerived];
-  v51[14] = v17;
-  v50[15] = @"isFromActivePlayerPath";
+  v50[14] = v17;
+  v49[15] = @"isFromActivePlayerPath";
   v18 = [MEMORY[0x277CCABB0] numberWithBool:self->_fromActivePlayerPath];
-  v51[15] = v18;
-  v50[16] = @"channelID";
+  v50[15] = v18;
+  v49[16] = @"channelID";
   channelID = self->_channelID;
   null2 = channelID;
   if (!channelID)
@@ -1215,8 +1215,8 @@ LABEL_23:
     null2 = [MEMORY[0x277CBEB68] null];
   }
 
-  v51[16] = null2;
-  v50[17] = @"playablePassthrough";
+  v50[16] = null2;
+  v49[17] = @"playablePassthrough";
   playablePassthrough = self->_playablePassthrough;
   null3 = playablePassthrough;
   if (!playablePassthrough)
@@ -1224,8 +1224,8 @@ LABEL_23:
     null3 = [MEMORY[0x277CBEB68] null];
   }
 
-  v51[17] = null3;
-  v50[18] = @"contentTitle";
+  v50[17] = null3;
+  v49[18] = @"contentTitle";
   contentTitle = self->_contentTitle;
   null4 = contentTitle;
   if (!contentTitle)
@@ -1233,8 +1233,8 @@ LABEL_23:
     null4 = [MEMORY[0x277CBEB68] null];
   }
 
-  v51[18] = null4;
-  v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v51 forKeys:v50 count:19];
+  v50[18] = null4;
+  v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v50 forKeys:v49 count:19];
   if (contentTitle)
   {
     if (playablePassthrough)
@@ -1270,6 +1270,10 @@ LABEL_30:
   {
   }
 
+  if (!v38)
+  {
+  }
+
   if (!v39)
   {
   }
@@ -1302,13 +1306,7 @@ LABEL_30:
   {
   }
 
-  if (!v47)
-  {
-  }
-
-  v25 = *MEMORY[0x277D85DE8];
-
-  return v37;
+  return v36;
 }
 
 + (id)debugStringForPlaybackState:(int64_t)state
@@ -1765,7 +1763,7 @@ void __50__WLKPlaybackSummary_ChannelID__resolveChannelID___block_invoke(uint64_
 {
   if (a2)
   {
-    v9 = [*(a1 + 32) bundleID];
+    v8 = [*(a1 + 32) bundleID];
     v3 = [*(a1 + 40) channelForBundleID:?];
     v4 = v3;
     if (v3)
@@ -1784,10 +1782,9 @@ void __50__WLKPlaybackSummary_ChannelID__resolveChannelID___block_invoke(uint64_
 
   else
   {
-    v7 = *(a1 + 48);
-    v8 = *(*(a1 + 48) + 16);
+    v7 = *(*(a1 + 48) + 16);
 
-    v8();
+    v7();
   }
 }
 

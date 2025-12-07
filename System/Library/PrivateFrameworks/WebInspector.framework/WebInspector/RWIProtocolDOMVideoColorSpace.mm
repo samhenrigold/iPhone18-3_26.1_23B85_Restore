@@ -3,12 +3,20 @@
 - (NSString)matrix;
 - (NSString)primaries;
 - (NSString)transfer;
+- (void)setFullRange:(BOOL)range;
 - (void)setMatrix:(id)matrix;
 - (void)setPrimaries:(id)primaries;
 - (void)setTransfer:(id)transfer;
 @end
 
 @implementation RWIProtocolDOMVideoColorSpace
+
+- (void)setFullRange:(BOOL)range
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolDOMVideoColorSpace;
+  [(RWIProtocolJSONObject *)&v3 setBool:range forKey:@"fullRange"];
+}
 
 - (BOOL)fullRange
 {

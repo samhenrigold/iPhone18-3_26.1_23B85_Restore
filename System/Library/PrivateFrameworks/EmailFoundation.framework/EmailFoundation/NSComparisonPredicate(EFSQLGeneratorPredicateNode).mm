@@ -24,7 +24,7 @@
 
 - (EFSQLGeneratorComparisonPredicateNode)predicateNodeFromPropertyMapper:()EFSQLGeneratorPredicateNode addingTablesUsed:
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = a4;
   leftExpression = [self leftExpression];
@@ -88,8 +88,6 @@
 
     v23 = -[EFSQLGeneratorComparisonPredicateNode initWithValueSource:predicateOperator:constantValue:]([EFSQLGeneratorComparisonPredicateNode alloc], "initWithValueSource:predicateOperator:constantValue:", v12, [self predicateOperatorType], keyPath2);
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 
   return v23;
 }

@@ -10,6 +10,7 @@
 - (void)collectQuadDataInto:(id)into;
 - (void)handleTouchBeganAtPoint:(CGPoint)point;
 - (void)handleTouchEndedAtPoint:(CGPoint)point;
+- (void)setEnabled:(BOOL)enabled;
 @end
 
 @implementation TCSwitch
@@ -121,7 +122,7 @@ LABEL_8:
 
 - (void)collectQuadDataInto:(id)into
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   intoCopy = into;
   if (self->_enabled)
   {
@@ -130,28 +131,28 @@ LABEL_8:
       contents = self->_contents;
     }
 
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
-    v21 = contents;
-    images = [(TCControlContents *)v21 images];
-    v7 = [images countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v20 = contents;
+    images = [(TCControlContents *)v20 images];
+    v7 = [images countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v23;
+      v9 = *v22;
       do
       {
         v10 = 0;
         do
         {
-          if (*v23 != v9)
+          if (*v22 != v9)
           {
             objc_enumerationMutation(images);
           }
 
-          v11 = *(*(&v22 + 1) + 8 * v10);
+          v11 = *(*(&v21 + 1) + 8 * v10);
           v12 = objc_opt_new();
           x = self->_position.x;
           [v11 offset];
@@ -175,14 +176,24 @@ LABEL_8:
         }
 
         while (v8 != v10);
-        v8 = [images countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v8 = [images countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v8);
     }
   }
+}
 
-  v20 = *MEMORY[0x277D85DE8];
+- (void)setEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  WeakRetained = objc_loadWeakRetained(&self->_touchController);
+  [WeakRetained _setButtonValue:self->_label forControl:0.0];
+
+  self->_enabled = enabledCopy;
+  collider = self->_collider;
+
+  [(TCCollider *)collider setEnabled:enabledCopy];
 }
 
 - (CGPoint)offset
@@ -247,31 +258,29 @@ LABEL_8:
 
 - (id)jsonObject
 {
-  v14[7] = *MEMORY[0x277D85DE8];
-  v13[0] = @"size";
+  v13[7] = *MEMORY[0x277D85DE8];
+  v12[0] = @"size";
   v3 = JSONDictionaryFromCGSize(self->_size.width, self->_size.height);
-  v14[0] = v3;
-  v13[1] = @"offset";
+  v13[0] = v3;
+  v12[1] = @"offset";
   v4 = JSONDictionaryFromCGPoint(self->_offset.x, self->_offset.y);
-  v14[1] = v4;
-  v13[2] = @"enabled";
+  v13[1] = v4;
+  v12[2] = @"enabled";
   v5 = [MEMORY[0x277CCABB0] numberWithBool:self->_enabled];
-  v14[2] = v5;
-  v13[3] = @"label";
+  v13[2] = v5;
+  v12[3] = @"label";
   jsonObject = [(TCControlLabel *)self->_label jsonObject];
-  v14[3] = jsonObject;
-  v13[4] = @"anchor";
+  v13[3] = jsonObject;
+  v12[4] = @"anchor";
   v7 = [MEMORY[0x277CCABB0] numberWithInteger:self->_anchor];
-  v14[4] = v7;
-  v13[5] = @"layer";
+  v13[4] = v7;
+  v12[5] = @"layer";
   v8 = [MEMORY[0x277CCABB0] numberWithInteger:self->_zIndex];
-  v14[5] = v8;
-  v13[6] = @"colliderShape";
+  v13[5] = v8;
+  v12[6] = @"colliderShape";
   v9 = [MEMORY[0x277CCABB0] numberWithInteger:{-[TCCollider colliderShape](self->_collider, "colliderShape")}];
-  v14[6] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:7];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v13[6] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:7];
 
   return v10;
 }

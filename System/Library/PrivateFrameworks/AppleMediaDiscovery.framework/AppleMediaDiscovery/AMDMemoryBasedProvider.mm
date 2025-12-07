@@ -76,7 +76,6 @@ uint64_t __40__AMDMemoryBasedProvider_sharedProvider__block_invoke()
   objc_storeStrong(&v14, 0);
   objc_storeStrong(&v16, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v6 = v19;
 
   return v6;
@@ -219,7 +218,6 @@ LABEL_15:
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)storeOutputRemapData:(id)data error:(id *)error
@@ -391,7 +389,6 @@ LABEL_25:
 
   objc_storeStrong(&firstObject, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   return v23 & 1;
 }
 
@@ -569,7 +566,6 @@ LABEL_38:
 LABEL_39:
   objc_storeStrong(&v22, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   return v25 & 1;
 }
 

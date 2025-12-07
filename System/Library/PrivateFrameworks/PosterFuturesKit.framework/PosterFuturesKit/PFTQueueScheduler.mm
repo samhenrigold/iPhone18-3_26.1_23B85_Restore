@@ -8,10 +8,9 @@ uint64_t __63___PFTQueueScheduler_performCancellableBlock_qualityOfService___blo
   result = [*(a1 + 32) isCancelled];
   if ((result & 1) == 0)
   {
-    v3 = *(a1 + 32);
-    v4 = *(*(a1 + 40) + 16);
+    v3 = *(*(a1 + 40) + 16);
 
-    return v4();
+    return v3();
   }
 
   return result;

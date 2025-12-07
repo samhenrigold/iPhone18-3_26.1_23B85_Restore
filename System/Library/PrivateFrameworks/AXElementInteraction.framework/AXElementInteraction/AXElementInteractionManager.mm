@@ -251,13 +251,11 @@ uint64_t __50__AXElementInteractionManager__handleScreenChange__block_invoke(uin
   firstElementInApplicationForFocus = [firstObject firstElementInApplicationForFocus];
   systemWideElement2 = [MEMORY[0x277CE6BA0] systemWideElement];
   systemApplication2 = [systemWideElement2 systemApplication];
-  v16 = self->_focusedElement;
-  LOBYTE(v15) = 1;
-  _AXLogWithFacility();
+  _AXLogWithFacility(3, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Apps: %@\n %@\n %@\n", systemApplication2, firstObject);
 
   if (firstElementInApplicationForFocus)
   {
-    v11 = [(AXElementInteractionManager *)self _allowDelegateToDecideElement:firstElementInApplicationForFocus, v15, @"Apps: %@\n %@\n %@\n", systemApplication2, firstObject, v16];
+    v11 = [(AXElementInteractionManager *)self _allowDelegateToDecideElement:firstElementInApplicationForFocus];
 
     if (v11)
     {
@@ -314,13 +312,9 @@ uint64_t __50__AXElementInteractionManager__handleScreenChange__block_invoke(uin
 - (void)_moveToElement:(id)element
 {
   objc_storeStrong(&self->_focusedElement, element);
-  elementCopy = element;
-  focusedElement = self->_focusedElement;
-  v8 = elementCopy;
-  LOBYTE(v6) = 1;
-  _AXLogWithFacility();
-  [(AXElement *)self->_focusedElement scrollToVisible:v6];
-  [(AXElementInteractionManager *)self _highlightElement:v8];
+  _AXLogWithFacility(3, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Focused: %@", self->_focusedElement, element);
+  [(AXElement *)self->_focusedElement scrollToVisible];
+  [(AXElementInteractionManager *)self _highlightElement:v5];
 }
 
 - (BOOL)_moveFocusByHitTesting:(int64_t)testing
@@ -418,18 +412,8 @@ uint64_t __50__AXElementInteractionManager__handleScreenChange__block_invoke(uin
     v33 = v56;
     v54 = v25;
 LABEL_24:
-    if (!v19 && !v20)
+    if (!v19 && !v20 || (v61.size.width = v57, v61.origin.x = v58.origin.x, v61.origin.y = rect, v61.size.height = v8, v13 <= CGRectGetMinY(v61) - v8) || (v62.size.width = v57, v62.origin.x = v58.origin.x, v62.origin.y = rect, v62.size.height = v8, v13 >= v8 + CGRectGetMaxY(v62)))
     {
-      goto LABEL_105;
-    }
-
-    v61.size.width = v57;
-    v61.origin.x = v58.origin.x;
-    v61.origin.y = rect;
-    v61.size.height = v8;
-    if (v13 <= CGRectGetMinY(v61) - v8 || (v62.size.width = v57, v62.origin.x = v58.origin.x, v62.origin.y = rect, v62.size.height = v8, v13 >= v8 + CGRectGetMaxY(v62)))
-    {
-LABEL_105:
       if (!v27)
       {
         goto LABEL_101;
@@ -579,18 +563,8 @@ LABEL_50:
     v44 = v56;
     v43 = v57;
 LABEL_67:
-    if (!v19 && !v20)
+    if (!v19 && !v20 || (v65.origin.x = v58.origin.x, v65.origin.y = rect, v65.size.width = v43, v65.size.height = v8, v11 <= CGRectGetMinX(v65) - v43) || (v66.origin.x = v58.origin.x, v66.origin.y = rect, v66.size.width = v43, v66.size.height = v8, v11 >= v43 + CGRectGetMaxX(v66)))
     {
-      goto LABEL_106;
-    }
-
-    v65.origin.x = v58.origin.x;
-    v65.origin.y = rect;
-    v65.size.width = v43;
-    v65.size.height = v8;
-    if (v11 <= CGRectGetMinX(v65) - v43 || (v66.origin.x = v58.origin.x, v66.origin.y = rect, v66.size.width = v43, v66.size.height = v8, v11 >= v43 + CGRectGetMaxX(v66)))
-    {
-LABEL_106:
       if (!v37)
       {
         goto LABEL_101;
@@ -766,13 +740,13 @@ void __72__AXElementInteractionManager__sendMessage_withIdentifier_errorHandler_
   if (a3)
   {
     v4 = a3;
-    _AXLogWithFacility();
-    v6 = [MEMORY[0x277CCA9B8] ax_errorWithDomain:@"AXElementInteraction" code:1 description:{@"Could not perform %d action: %@", *(a1 + 40), v4, v4}];
+    _AXLogWithFacility(0, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Error received via SpeakThisServices: %@", v4, v6);
+    v7 = [MEMORY[0x277CCA9B8] ax_errorWithDomain:@"AXElementInteraction" code:1 description:{@"Could not perform %d action: %@", *(a1 + 40), v4}];
 
     v5 = *(a1 + 32);
     if (v5)
     {
-      (*(v5 + 16))(v5, v6);
+      (*(v5 + 16))(v5, v7);
     }
   }
 }

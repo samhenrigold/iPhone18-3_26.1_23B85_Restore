@@ -20,7 +20,7 @@
 
     else
     {
-      v7 = [(TUILayout *)v6 box];
+      v7 = objc_msgSend_box(v6);
       -[TUILayout setHidden:](v6, "setHidden:", [v7 whenUnavailable] == &dword_0 + 1);
     }
   }
@@ -31,7 +31,7 @@
 - (id)newRenderModelCompatibleWithKind:(unint64_t)kind context:(id)context
 {
   contextCopy = context;
-  v7 = [(TUILayout *)self box];
+  v7 = objc_msgSend_box(self);
   regionName = [v7 regionName];
   v9 = [(TUILayout *)self hoverIdentifierWithName:regionName];
 
@@ -41,7 +41,7 @@
     if ([(TUIHoverVisibleLayout *)self hoverAvailable])
     {
       v11 = [contextCopy renderModelForContainerLayout:self kind:6];
-      v12 = [(TUILayout *)self box];
+      v12 = objc_msgSend_box(self);
       identifier = [v12 identifier];
       v10 = [TUIHoverVisibleView renderModelWithSubviewsModel:v11 identifier:identifier hoverIdentifier:v9];
     }

@@ -31,7 +31,7 @@
 
 + (int64_t)actionForAddingNewVehicle:(id *)vehicle withExistingGarageVehicles:(id)vehicles andUnpairedVehicles:(id)unpairedVehicles
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   vehiclesCopy = vehicles;
   unpairedVehiclesCopy = unpairedVehicles;
   v10 = unpairedVehiclesCopy;
@@ -43,14 +43,14 @@
       goto LABEL_13;
     }
 
-    v20 = 136446722;
-    v21 = "+[VGVehicleDeduper actionForAddingNewVehicle:withExistingGarageVehicles:andUnpairedVehicles:]";
-    v22 = 2082;
-    v23 = "newVehicle == nil";
-    v24 = 2082;
-    v25 = "newVehicle cannot be nil";
+    v19 = 136446722;
+    v20 = "+[VGVehicleDeduper actionForAddingNewVehicle:withExistingGarageVehicles:andUnpairedVehicles:]";
+    v21 = 2082;
+    v22 = "newVehicle == nil";
+    v23 = 2082;
+    v24 = "newVehicle cannot be nil";
 LABEL_12:
-    _os_log_impl(&dword_270EC1000, v15, OS_LOG_TYPE_ERROR, "%{public}s forbids: %{public}s. %{public}s", &v20, 0x20u);
+    _os_log_impl(&dword_270EC1000, v15, OS_LOG_TYPE_ERROR, "%{public}s forbids: %{public}s. %{public}s", &v19, 0x20u);
     goto LABEL_13;
   }
 
@@ -62,12 +62,12 @@ LABEL_12:
       goto LABEL_13;
     }
 
-    v20 = 136446722;
-    v21 = "+[VGVehicleDeduper actionForAddingNewVehicle:withExistingGarageVehicles:andUnpairedVehicles:]";
-    v22 = 2082;
-    v23 = "garageVehicles == nil";
-    v24 = 2082;
-    v25 = "garageVehicles cannot be nil";
+    v19 = 136446722;
+    v20 = "+[VGVehicleDeduper actionForAddingNewVehicle:withExistingGarageVehicles:andUnpairedVehicles:]";
+    v21 = 2082;
+    v22 = "garageVehicles == nil";
+    v23 = 2082;
+    v24 = "garageVehicles cannot be nil";
     goto LABEL_12;
   }
 
@@ -76,12 +76,12 @@ LABEL_12:
     v15 = VGGetAssertLog();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v20 = 136446722;
-      v21 = "+[VGVehicleDeduper actionForAddingNewVehicle:withExistingGarageVehicles:andUnpairedVehicles:]";
-      v22 = 2082;
-      v23 = "unpairedVehicles == nil";
-      v24 = 2082;
-      v25 = "unpairedVehicles cannot be nil";
+      v19 = 136446722;
+      v20 = "+[VGVehicleDeduper actionForAddingNewVehicle:withExistingGarageVehicles:andUnpairedVehicles:]";
+      v21 = 2082;
+      v22 = "unpairedVehicles == nil";
+      v23 = 2082;
+      v24 = "unpairedVehicles cannot be nil";
       goto LABEL_12;
     }
 
@@ -117,7 +117,6 @@ LABEL_13:
   }
 
 LABEL_19:
-  v18 = *MEMORY[0x277D85DE8];
   return v14;
 }
 

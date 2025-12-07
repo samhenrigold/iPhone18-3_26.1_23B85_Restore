@@ -22,6 +22,7 @@
 - (void)persistDelayedSyncForRecordName:(id)name withDate:(id)date increasingCount:(BOOL)count;
 - (void)persistRepairRecord:(id)record;
 - (void)persistSyncEngineMetadata:(id)metadata;
+- (void)readDatabase:(id)database async:(BOOL)async withCompletionHandler:(id)handler;
 - (void)readWriteDatabase:(id)database async:(BOOL)async withCompletionHandler:(id)handler;
 - (void)setCurrentUser:(id)user;
 - (void)setLastFetchDate:(id)date;
@@ -537,21 +538,32 @@
   dispatch_sync(v4, block);
 }
 
+- (void)readDatabase:(id)database async:(BOOL)async withCompletionHandler:(id)handler
+{
+  asyncCopy = async;
+  databaseCopy = database;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = sub_188641E04;
+  v11[3] = &unk_1E70BFC48;
+  v12 = databaseCopy;
+  v9 = databaseCopy;
+  objc_msgSend_readWriteDatabase_async_withCompletionHandler_(self, v10, v11, asyncCopy, handler);
+}
+
 - (id)unarchivedObjectOfClass:(Class)class fromData:(id)data error:(id *)error
 {
-  v15[6] = *MEMORY[0x1E69E9840];
+  v14[6] = *MEMORY[0x1E69E9840];
   dataCopy = data;
-  v15[0] = 0;
-  v9 = objc_msgSend_unarchivedObjectOfClass_fromData_error_(MEMORY[0x1E696ACD0], v8, class, dataCopy, v15);
-  v10 = v15[0];
+  v14[0] = 0;
+  v9 = objc_msgSend_unarchivedObjectOfClass_fromData_error_(MEMORY[0x1E696ACD0], v8, class, dataCopy, v14);
+  v10 = v14[0];
   v11 = v10;
   if (error)
   {
     v12 = v10;
     *error = v11;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

@@ -32,9 +32,9 @@
 
 - (_TtC9MusicCore35Music_SSMetricsComponentRenderEvent)init
 {
-  v3.receiver = self;
-  v3.super_class = type metadata accessor for Music_SSMetricsComponentRenderEvent();
-  return [(Music_SSMetricsComponentRenderEvent *)&v3 init];
+  v4.receiver = self;
+  v4.super_class = type metadata accessor for Music_SSMetricsComponentRenderEvent(self, a2, v2);
+  return [(Music_SSMetricsComponentRenderEvent *)&v4 init];
 }
 
 - (_TtC9MusicCore35Music_SSMetricsComponentRenderEvent)initWithBodyDictionary:(id)dictionary
@@ -42,11 +42,11 @@
   sub_1004BBC44();
   isa = sub_1004BBC24().super.isa;
 
-  v7.receiver = self;
-  v7.super_class = type metadata accessor for Music_SSMetricsComponentRenderEvent();
-  v5 = [(Music_SSMetricsComponentRenderEvent *)&v7 initWithBodyDictionary:isa];
+  v10.receiver = self;
+  v10.super_class = type metadata accessor for Music_SSMetricsComponentRenderEvent(v5, v6, v7);
+  v8 = [(Music_SSMetricsComponentRenderEvent *)&v10 initWithBodyDictionary:isa];
 
-  return v5;
+  return v8;
 }
 
 @end

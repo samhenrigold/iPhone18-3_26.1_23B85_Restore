@@ -31,51 +31,51 @@
 
   if (overrideCopy)
   {
-    v17 = sub_100002894();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v18 = sub_100002894(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v27 = lCopy;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Profanity Filter Enabled for URL %@.", buf, 0xCu);
+      v28 = lCopy;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Profanity Filter Enabled for URL %@.", buf, 0xCu);
     }
 
     [v16 setTranscriptionOptions:16];
   }
 
-  v25.receiver = self;
-  v25.super_class = VMSpeechAnalyzerTranscribeOperation;
-  v23 = 1;
-  v18 = [(VMSpeechAnalyzerOperation *)&v25 initWithClientIdentifier:v14 transcriberResultDelegate:self endpointingResultDelegate:0 languageDetectorResultDelegate:0 transcriberOptions:v16 options:0 languageDetectorOptions:0 restrictedLogging:v23 didChangeVolatileRange:&stru_1000EF460];
-  v19 = v18;
-  if (v18)
+  v26.receiver = self;
+  v26.super_class = VMSpeechAnalyzerTranscribeOperation;
+  v24 = 1;
+  v19 = [(VMSpeechAnalyzerOperation *)&v26 initWithClientIdentifier:v14 transcriberResultDelegate:self endpointingResultDelegate:0 languageDetectorResultDelegate:0 transcriberOptions:v16 options:0 languageDetectorOptions:0 restrictedLogging:v24 didChangeVolatileRange:&stru_1000EF460];
+  v20 = v19;
+  if (v19)
   {
-    objc_storeStrong(&v18->_dataURL, l);
-    objc_storeStrong(&v19->_transcriptionControllerQueue, queue);
-    v20 = +[VMConfiguration getVMConcatenationDelimiterforLocale:](VMConfiguration, "getVMConcatenationDelimiterforLocale:", [v16 taskHint]);
-    delimiter = v19->_delimiter;
-    v19->_delimiter = v20;
+    objc_storeStrong(&v19->_dataURL, l);
+    objc_storeStrong(&v20->_transcriptionControllerQueue, queue);
+    v21 = +[VMConfiguration getVMConcatenationDelimiterforLocale:](VMConfiguration, "getVMConcatenationDelimiterforLocale:", [v16 taskHint]);
+    delimiter = v20->_delimiter;
+    v20->_delimiter = v21;
   }
 
-  return v19;
+  return v20;
 }
 
 - (void)cancel
 {
-  v4.receiver = self;
-  v4.super_class = VMSpeechAnalyzerTranscribeOperation;
-  [(VMSpeechAnalyzerTranscribeOperation *)&v4 cancel];
-  v3 = sub_100002894();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v5.receiver = self;
+  v5.super_class = VMSpeechAnalyzerTranscribeOperation;
+  cancel = [(VMSpeechAnalyzerTranscribeOperation *)&v5 cancel];
+  v4 = sub_100002894(cancel);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
     selfCopy = self;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Cancelled Speech Analyzer transcriber operation %@.", buf, 0xCu);
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Cancelled Speech Analyzer transcriber operation %@.", buf, 0xCu);
   }
 }
 
 - (void)main
 {
-  v3 = sub_100002894();
+  v3 = sub_100002894(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     dataURL = [(VMSpeechAnalyzerTranscribeOperation *)self dataURL];
@@ -85,17 +85,17 @@
     v8 = @" not";
     *buf = 138413058;
     selfCopy = self;
-    v41 = 2112;
+    v42 = 2112;
     if (isPluggedIn)
     {
       v8 = &stru_1000F0098;
     }
 
-    v42 = dataURL;
-    v43 = 2048;
-    v44 = queuePriority;
-    v45 = 2112;
-    v46 = v8;
+    v43 = dataURL;
+    v44 = 2048;
+    v45 = queuePriority;
+    v46 = 2112;
+    v47 = v8;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Starting Speech Analyzer transcriber operation %@ for %@. Priority is %ld and device is %@ charging.", buf, 0x2Au);
   }
 
@@ -110,10 +110,10 @@
   if ([(VMSpeechAnalyzerTranscribeOperation *)self isCancelled])
   {
     v11 = kVVErrorDomain;
-    v37 = NSLocalizedDescriptionKey;
-    v38 = @"Speech Analyzer transcriber operation was cancelled.";
-    v12 = &v38;
-    v13 = &v37;
+    v38 = NSLocalizedDescriptionKey;
+    v39 = @"Speech Analyzer transcriber operation was cancelled.";
+    v12 = &v39;
+    v13 = &v38;
     goto LABEL_18;
   }
 
@@ -125,15 +125,15 @@
     if ((isPluggedIn2 & 1) == 0)
     {
       v11 = kVVErrorDomain;
-      v35 = NSLocalizedDescriptionKey;
-      v36 = @"Low priority Speech Analyzer transcriber operation cancelled. The device is no longer connected to a power source.";
-      v12 = &v36;
-      v13 = &v35;
+      v36 = NSLocalizedDescriptionKey;
+      v37 = @"Low priority Speech Analyzer transcriber operation cancelled. The device is no longer connected to a power source.";
+      v12 = &v37;
+      v13 = &v36;
 LABEL_18:
-      v24 = [NSDictionary dictionaryWithObjects:v12 forKeys:v13 count:1];
-      v23 = [NSError errorWithDomain:v11 code:1038 userInfo:v24];
+      v25 = [NSDictionary dictionaryWithObjects:v12 forKeys:v13 count:1];
+      v24 = [NSError errorWithDomain:v11 code:1038 userInfo:v25];
 
-      if (!v23)
+      if (!v24)
       {
         goto LABEL_24;
       }
@@ -147,10 +147,10 @@ LABEL_18:
   if (!transcriptionControllerQueue)
   {
     v11 = kVVErrorDomain;
-    v33 = NSLocalizedDescriptionKey;
-    v34 = @"Speech Analyzer transcriber operation cancelled as transcriptionController queue invalid or not initialized.";
-    v12 = &v34;
-    v13 = &v33;
+    v34 = NSLocalizedDescriptionKey;
+    v35 = @"Speech Analyzer transcriber operation cancelled as transcriptionController queue invalid or not initialized.";
+    v12 = &v35;
+    v13 = &v34;
     goto LABEL_18;
   }
 
@@ -162,44 +162,44 @@ LABEL_18:
 
   if (v19)
   {
-    v20 = sub_100002894();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v21 = sub_100002894(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       dataURL3 = [(VMSpeechAnalyzerTranscribeOperation *)self dataURL];
       *buf = 138412290;
       selfCopy = dataURL3;
-      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "VMSpeechAnalyzerTranscribeOperation: Submitted URL %@ for transcribing", buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "VMSpeechAnalyzerTranscribeOperation: Submitted URL %@ for transcribing", buf, 0xCu);
     }
 
     semaphore = [(VMSpeechAnalyzerTranscribeOperation *)self semaphore];
     dispatch_semaphore_wait(semaphore, 0xFFFFFFFFFFFFFFFFLL);
-    v23 = 0;
+    v24 = 0;
   }
 
   else
   {
-    v25 = kVVErrorDomain;
-    v31 = NSLocalizedDescriptionKey;
-    v32 = @"Audio was not submitted to speech analyzer successfully.";
-    semaphore = [NSDictionary dictionaryWithObjects:&v32 forKeys:&v31 count:1];
-    v23 = [NSError errorWithDomain:v25 code:1039 userInfo:semaphore];
+    v26 = kVVErrorDomain;
+    v32 = NSLocalizedDescriptionKey;
+    v33 = @"Audio was not submitted to speech analyzer successfully.";
+    semaphore = [NSDictionary dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+    v24 = [NSError errorWithDomain:v26 code:1039 userInfo:semaphore];
   }
 
   [(VMSpeechAnalyzerTranscribeOperation *)self cancel];
-  if (v23)
+  if (v24)
   {
 LABEL_22:
     transcribeOperationCompletion = [(VMSpeechAnalyzerTranscribeOperation *)self transcribeOperationCompletion];
 
     if (transcribeOperationCompletion)
     {
-      [(VMSpeechAnalyzerTranscribeOperation *)self duration];
-      v28 = v27;
+      objc_msgSend_duration(self);
+      v29 = v28;
       progress = [(VMSpeechAnalyzerTranscribeOperation *)self progress];
-      [progress setCompletedUnitCount:v28];
+      [progress setCompletedUnitCount:v29];
 
       transcribeOperationCompletion2 = [(VMSpeechAnalyzerTranscribeOperation *)self transcribeOperationCompletion];
-      (transcribeOperationCompletion2)[2](transcribeOperationCompletion2, 0, v23);
+      (transcribeOperationCompletion2)[2](transcribeOperationCompletion2, 0, v24);
     }
   }
 
@@ -214,45 +214,45 @@ LABEL_24:
   firstObject = [transcriptions firstObject];
 
   v7 = +[NSMutableString string];
-  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
   v8 = firstObject;
-  v9 = [v8 countByEnumeratingWithState:&v16 objects:v21 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v17 objects:v22 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v17;
+    v11 = *v18;
     do
     {
       v12 = 0;
       do
       {
-        if (*v17 != v11)
+        if (*v18 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        text = [*(*(&v16 + 1) + 8 * v12) text];
+        text = [*(*(&v17 + 1) + 8 * v12) text];
         [v7 appendString:text];
 
         v12 = v12 + 1;
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v16 objects:v21 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v17 objects:v22 count:16];
     }
 
     while (v10);
   }
 
-  v14 = sub_100002894();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = sub_100002894(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     if (stringCopy)
     {
-      [stringCopy range];
+      objc_msgSend_range(stringCopy);
     }
 
     else
@@ -260,12 +260,12 @@ LABEL_24:
       memset(&range, 0, sizeof(range));
     }
 
-    v15 = CMTimeRangeCopyDescription(0, &range);
+    v16 = CMTimeRangeCopyDescription(0, &range);
     LODWORD(range.start.value) = 138412546;
-    *(&range.start.value + 4) = v15;
+    *(&range.start.value + 4) = v16;
     LOWORD(range.start.flags) = 2112;
     *(&range.start.flags + 2) = v7;
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "time range = %@, text = %@", &range, 0x16u);
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "time range = %@, text = %@", &range, 0x16u);
   }
 }
 

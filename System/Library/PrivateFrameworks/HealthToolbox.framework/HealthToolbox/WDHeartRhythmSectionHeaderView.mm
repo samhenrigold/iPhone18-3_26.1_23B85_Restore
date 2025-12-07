@@ -29,7 +29,7 @@
 
 - (void)setUpUI
 {
-  v41[3] = *MEMORY[0x277D85DE8];
+  v40[3] = *MEMORY[0x277D85DE8];
   titleLabel = [(WDHeartRhythmSectionHeaderView *)self titleLabel];
   [titleLabel setTranslatesAutoresizingMaskIntoConstraints:0];
 
@@ -87,13 +87,11 @@
 
   v37 = self->_bottomToTitleLastBaselineConstraint;
   v38 = MEMORY[0x277CCAAD0];
-  v41[0] = v37;
-  v41[1] = v30;
-  v41[2] = v36;
-  v39 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:3];
+  v40[0] = v37;
+  v40[1] = v30;
+  v40[2] = v36;
+  v39 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:3];
   [v38 activateConstraints:v39];
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateConstraintConstants
@@ -109,19 +107,8 @@
 - (void)traitCollectionDidChange:(id)change
 {
   changeCopy = change;
-  if (!changeCopy)
+  if (!changeCopy || (-[WDHeartRhythmSectionHeaderView traitCollection](self, "traitCollection"), v4 = objc_claimAutoreleasedReturnValue(), [v4 preferredContentSizeCategory], v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(changeCopy, "preferredContentSizeCategory"), v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v5, "isEqualToString:", v6), v6, v5, v4, (v7 & 1) == 0))
   {
-    goto LABEL_3;
-  }
-
-  traitCollection = [(WDHeartRhythmSectionHeaderView *)self traitCollection];
-  preferredContentSizeCategory = [traitCollection preferredContentSizeCategory];
-  preferredContentSizeCategory2 = [changeCopy preferredContentSizeCategory];
-  v7 = [preferredContentSizeCategory isEqualToString:preferredContentSizeCategory2];
-
-  if ((v7 & 1) == 0)
-  {
-LABEL_3:
     [(WDHeartRhythmSectionHeaderView *)self updateConstraintConstants];
   }
 }

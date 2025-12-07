@@ -241,7 +241,7 @@ LABEL_13:
   memset(&slice, 0, sizeof(slice));
   v24 = top;
   v25 = bottom;
-  v37 = v24;
+  v55 = v24;
   remainder.origin.x = v20;
   remainder.origin.y = v21;
   remainder.size.width = v23;
@@ -251,16 +251,22 @@ LABEL_13:
   {
     [(UITextView *)self->_textView sizeThatFits:v19, 3.40282347e38];
     v28 = v27;
-    v41.origin.x = v20;
-    v41.origin.y = v21;
-    v41.size.width = v23;
-    v41.size.height = v26;
-    CGRectDivide(v41, &slice, &remainder, v28, CGRectMinYEdge);
+    v59.origin.x = v20;
+    v59.origin.y = v21;
+    v59.size.width = v23;
+    v59.size.height = v26;
+    CGRectDivide(v59, &slice, &remainder, v28, CGRectMinYEdge);
     if (!layout)
     {
       textView = self->_textView;
-      PKContentAlignmentMake();
-      PKSizeAlignedInRect();
+      v30 = PKContentAlignmentMake();
+      v31.n128_u64[0] = *&slice.origin.x;
+      v32.n128_u64[0] = *&slice.origin.y;
+      v33.n128_u64[0] = *&slice.size.width;
+      v34.n128_u64[0] = *&slice.size.height;
+      v35.n128_f64[0] = v19;
+      v36.n128_f64[0] = v28;
+      PKSizeAlignedInRect(v30, v35, v36, v31, v32, v33, v34, v37);
       [(UITextView *)textView setFrame:?];
     }
   }
@@ -274,29 +280,36 @@ LABEL_13:
   if (additionalView)
   {
     [(UIView *)additionalView sizeThatFits:v19, 3.40282347e38];
-    v32 = v31;
-    CGRectDivide(remainder, &slice, &remainder, v31, CGRectMinYEdge);
+    v40 = v39;
+    v42 = v41;
+    CGRectDivide(remainder, &slice, &remainder, v41, CGRectMinYEdge);
     if (!layout)
     {
-      v33 = self->_additionalView;
-      PKContentAlignmentMake();
-      PKSizeAlignedInRect();
-      [(UIView *)v33 setFrame:?];
+      v43 = self->_additionalView;
+      v44 = PKContentAlignmentMake();
+      v45.n128_u64[0] = *&slice.origin.x;
+      v46.n128_u64[0] = *&slice.origin.y;
+      v47.n128_u64[0] = *&slice.size.width;
+      v48.n128_u64[0] = *&slice.size.height;
+      v49.n128_u64[0] = v40;
+      v50.n128_f64[0] = v42;
+      PKSizeAlignedInRect(v44, v49, v50, v45, v46, v47, v48, v51);
+      [(UIView *)v43 setFrame:?];
     }
 
     CGRectDivide(remainder, &slice, &remainder, 16.0, CGRectMinYEdge);
-    v34 = v32 + 0.0 + 16.0;
+    v52 = v42 + 0.0 + 16.0;
   }
 
   else
   {
-    v34 = 0.0;
+    v52 = 0.0;
   }
 
-  v35 = v25 + v37 + v28 + v34;
-  v36 = v22;
-  result.height = v35;
-  result.width = v36;
+  v53 = v25 + v55 + v28 + v52;
+  v54 = v22;
+  result.height = v53;
+  result.width = v54;
   return result;
 }
 

@@ -7,6 +7,7 @@
 - (void)emergencyCallHostViewControllerDidTerminate:(id)terminate withError:(id)error;
 - (void)handleButtonAction:(id)action;
 - (void)presentEmergencyDialer;
+- (void)setDebugViews:(BOOL)views;
 - (void)setHeaderText:(id)text;
 - (void)setImage:(id)image;
 - (void)setImageWithSystemImageNamed:(id)named andConfiguration:(id)configuration;
@@ -141,6 +142,34 @@
   v34[3] = v16;
   v17 = [NSArray arrayWithObjects:v34 count:4];
   [NSLayoutConstraint activateConstraints:v17];
+}
+
+- (void)setDebugViews:(BOOL)views
+{
+  viewsCopy = views;
+  self->_debugViews = views;
+  if (views)
+  {
+    v5 = +[UIColor greenColor];
+    view = [(IOUIANCriticalUIViewController *)self view];
+    [view setBackgroundColor:v5];
+
+    backdropView = [(IOUIANCriticalUIViewController *)self backdropView];
+    [backdropView removeFromSuperview];
+  }
+
+  else
+  {
+    view2 = [(IOUIANCriticalUIViewController *)self view];
+    [view2 setBackgroundColor:0];
+
+    backdropView = [(IOUIANCriticalUIViewController *)self view];
+    backdropView2 = [(IOUIANCriticalUIViewController *)self backdropView];
+    [backdropView insertSubview:backdropView2 atIndex:0];
+  }
+
+  criticalUIView = [(IOUIANCriticalUIViewController *)self criticalUIView];
+  [criticalUIView setDebugViews:viewsCopy];
 }
 
 + (id)_createBackdropView

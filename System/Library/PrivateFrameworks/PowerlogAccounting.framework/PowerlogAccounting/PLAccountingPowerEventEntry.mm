@@ -84,14 +84,14 @@
   objc_msgSendSuper2(&v2, sel_load);
 }
 
-uint64_t __49__PLAccountingPowerEventEntry_minPowerDifference__block_invoke(uint64_t a1)
+void *__49__PLAccountingPowerEventEntry_minPowerDifference__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] BOOLForKey:*(a1 + 32) ifNotSet:*(a1 + 40)];
   minPowerDifference_objectForKey = result;
   return result;
 }
 
-uint64_t __59__PLAccountingPowerEventEntry_minPowerPercentageDifference__block_invoke(uint64_t a1)
+void *__59__PLAccountingPowerEventEntry_minPowerPercentageDifference__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] BOOLForKey:*(a1 + 32) ifNotSet:*(a1 + 40)];
   minPowerPercentageDifference_objectForKey = result;
@@ -185,21 +185,21 @@ LABEL_18:
   return v18;
 }
 
-uint64_t __58__PLAccountingPowerEventEntry_isValidPower_forRootNodeID___block_invoke(uint64_t a1)
+void *__58__PLAccountingPowerEventEntry_isValidPower_forRootNodeID___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   isValidPower_forRootNodeID__classDebugEnabled = result;
   return result;
 }
 
-uint64_t __58__PLAccountingPowerEventEntry_isValidPower_forRootNodeID___block_invoke_19(uint64_t a1)
+void *__58__PLAccountingPowerEventEntry_isValidPower_forRootNodeID___block_invoke_19(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   isValidPower_forRootNodeID__classDebugEnabled_18 = result;
   return result;
 }
 
-uint64_t __58__PLAccountingPowerEventEntry_isValidPower_forRootNodeID___block_invoke_25(uint64_t a1)
+void *__58__PLAccountingPowerEventEntry_isValidPower_forRootNodeID___block_invoke_25(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   isValidPower_forRootNodeID__classDebugEnabled_24 = result;

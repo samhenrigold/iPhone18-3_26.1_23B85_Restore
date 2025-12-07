@@ -84,7 +84,7 @@
     }
   }
 
-  WebKit::createUIAlertController(v14, v16, &v42);
+  WebKit::createUIAlertController(&v42, v14, v16);
   v18 = MEMORY[0x1E69DC648];
   WebCore::copyLocalizedString(&arg, @"View 3D Object (QuickLook Preview)", v19);
   v20 = arg;

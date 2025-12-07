@@ -54,27 +54,27 @@
   return v7 & 1;
 }
 
-intptr_t __26__ALAssetsGroup_addAsset___block_invoke(uint64_t a1)
+intptr_t __26__ALAssetsGroup_addAsset___block_invoke(uint64_t a1, uint64_t a2)
 {
   *(*(*(a1 + 56) + 8) + 24) = PLPhotosAccessAllowed();
-  if (*(*(*(a1 + 56) + 8) + 24) == 1 && [*(a1 + 32) isEditable] && (v2 = objc_msgSend(objc_msgSend(*(a1 + 40), "defaultRepresentation"), "url"), v3 = objc_msgSend(*(a1 + 32), "_uuid"), v2) && (v4 = v3) != 0)
+  if (*(*(*(a1 + 56) + 8) + 24) == 1 && [*(a1 + 32) isEditable] && (v3 = objc_msgSend(objc_msgSend(*(a1 + 40), "defaultRepresentation"), "url"), v4 = objc_msgSend(*(a1 + 32), "_uuid"), v3) && (v5 = v4) != 0)
   {
-    v5 = [objc_msgSend(MEMORY[0x277D3B220] "sharedSystemLibraryAssetsdClient")];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __26__ALAssetsGroup_addAsset___block_invoke_2;
-    v9[3] = &unk_278A077D0;
-    v6 = *(a1 + 64);
-    v9[4] = *(a1 + 48);
-    v9[5] = v6;
-    return [v5 addAssetWithURL:v2 toAlbumWithUUID:v4 completionHandler:v9];
+    v6 = [objc_msgSend(MEMORY[0x277D3B220] "sharedSystemLibraryAssetsdClient")];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __26__ALAssetsGroup_addAsset___block_invoke_2;
+    v10[3] = &unk_278A077D0;
+    v7 = *(a1 + 64);
+    v10[4] = *(a1 + 48);
+    v10[5] = v7;
+    return [v6 addAssetWithURL:v3 toAlbumWithUUID:v5 completionHandler:v10];
   }
 
   else
   {
-    v8 = *(a1 + 48);
+    v9 = *(a1 + 48);
 
-    return dispatch_semaphore_signal(v8);
+    return dispatch_semaphore_signal(v9);
   }
 }
 
@@ -100,7 +100,7 @@ intptr_t __26__ALAssetsGroup_addAsset___block_invoke(uint64_t a1)
   return v4;
 }
 
-uint64_t __27__ALAssetsGroup_isEditable__block_invoke(uint64_t a1, uint64_t a2, void *a3)
+void *__27__ALAssetsGroup_isEditable__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   if ([a3 isCloudSharedAlbum])
   {
@@ -249,10 +249,9 @@ id __62__ALAssetsGroup__enumerateAssetsAtIndexes_options_usingBlock___block_invo
   return result;
 }
 
-void __62__ALAssetsGroup__enumerateAssetsAtIndexes_options_usingBlock___block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3)
+void __62__ALAssetsGroup__enumerateAssetsAtIndexes_options_usingBlock___block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v6 = -[ALAsset initWithManagedAsset:library:]([ALAsset alloc], "initWithManagedAsset:library:", a2, [*(a1 + 32) library]);
-  v5 = *(*(a1 + 48) + 8 * a3);
+  v3 = -[ALAsset initWithManagedAsset:library:]([ALAsset alloc], "initWithManagedAsset:library:", a2, [*(a1 + 32) library]);
   (*(*(a1 + 40) + 16))();
 }
 
@@ -287,7 +286,7 @@ uint64_t __62__ALAssetsGroup__enumerateAssetsAtIndexes_options_usingBlock___bloc
   return v4;
 }
 
-uint64_t __31__ALAssetsGroup_numberOfAssets__block_invoke(uint64_t a1, uint64_t a2, void *a3)
+void *__31__ALAssetsGroup_numberOfAssets__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   result = [objc_msgSend(a3 "assets")];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -347,7 +346,7 @@ id __28__ALAssetsGroup_posterImage__block_invoke(uint64_t a1, uint64_t a2, void 
 {
   if (*(a1 + 40) == 1)
   {
-    a3 = [MEMORY[0x277D3AC70] unfilteredAlbum:?];
+    a3 = [MEMORY[0x277D3AC70] unfilteredAlbum:a3];
   }
 
   *(*(*(a1 + 32) + 8) + 40) = [a3 posterImage];
@@ -495,7 +494,7 @@ LABEL_8:
   return v3;
 }
 
-uint64_t __22__ALAssetsGroup__uuid__block_invoke(uint64_t a1, uint64_t a2, void *a3)
+void *__22__ALAssetsGroup__uuid__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   result = [objc_msgSend(a3 "uuid")];
   *(*(*(a1 + 32) + 8) + 40) = result;

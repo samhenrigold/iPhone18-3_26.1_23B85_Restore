@@ -3,7 +3,7 @@
 
 @implementation AXSFullKeyboardAccessFocusRingEnabled
 
-uint64_t ___AXSFullKeyboardAccessFocusRingEnabled_block_invoke()
+void *___AXSFullKeyboardAccessFocusRingEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

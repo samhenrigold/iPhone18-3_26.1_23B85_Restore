@@ -13,20 +13,19 @@
 - (BOOL)conformsToDeviceType:(id)type
 {
   typeCopy = type;
-  info = self->super.super._info;
-  if ((objc_opt_respondsToSelector() & 1) != 0 && ([(GCControllerProductInfo *)self->super.super._info uniformTypeIdentifier], (v6 = objc_claimAutoreleasedReturnValue()) != 0))
+  if ((objc_opt_respondsToSelector() & 1) != 0 && ([(GCControllerProductInfo *)self->super.super._info uniformTypeIdentifier], (v5 = objc_claimAutoreleasedReturnValue()) != 0))
   {
-    v7 = v6;
-    v8 = [GCDeviceType deviceTypeWithIdentifier:v6];
-    v9 = [v8 conformsToDeviceType:typeCopy];
+    v6 = v5;
+    v7 = [GCDeviceType deviceTypeWithIdentifier:v5];
+    v8 = [v7 conformsToDeviceType:typeCopy];
   }
 
   else
   {
-    v9 = 0;
+    v8 = 0;
   }
 
-  return v9;
+  return v8;
 }
 
 + (BOOL)isSubclassOfClass:(Class)class

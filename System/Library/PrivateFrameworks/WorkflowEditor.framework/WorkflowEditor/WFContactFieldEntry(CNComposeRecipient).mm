@@ -1,10 +1,10 @@
 @interface WFContactFieldEntry(CNComposeRecipient)
-- (id)composeRecipient;
+- (WFContactComposeRecipient)composeRecipient;
 @end
 
 @implementation WFContactFieldEntry(CNComposeRecipient)
 
-- (id)composeRecipient
+- (WFContactComposeRecipient)composeRecipient
 {
   v22 = *MEMORY[0x277D85DE8];
   selfCopy = self;

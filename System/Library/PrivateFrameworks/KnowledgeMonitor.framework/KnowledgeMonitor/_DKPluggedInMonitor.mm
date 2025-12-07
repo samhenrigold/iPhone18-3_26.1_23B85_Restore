@@ -1,4 +1,7 @@
 @interface _DKPluggedInMonitor
++ (id)_BMEventWithState:(BOOL)state adapterType:(int64_t)type isWireless:(BOOL)wireless;
++ (id)_eventWithState:(BOOL)state adapterType:(int64_t)type isWireless:(BOOL)wireless;
++ (void)setIsPluggedIn:(BOOL)in;
 - (void)deactivate;
 - (void)dealloc;
 - (void)setCurrentState;
@@ -17,10 +20,85 @@
   [(_DKMonitor *)&v3 dealloc];
 }
 
++ (void)setIsPluggedIn:(BOOL)in
+{
+  inCopy = in;
+  v11 = *MEMORY[0x277D85DE8];
+  v4 = _DKPluggedInMonitorLog(self);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = [MEMORY[0x277CCABB0] numberWithBool:inCopy];
+    v9 = 138543362;
+    v10 = v5;
+    _os_log_impl(&dword_22595A000, v4, OS_LOG_TYPE_DEFAULT, "Updating context store with plug in state: %{public}@", &v9, 0xCu);
+  }
+
+  v6 = [MEMORY[0x277CCABB0] numberWithBool:inCopy];
+  userContext = [MEMORY[0x277CFE318] userContext];
+  keyPathForPluginStatus = [MEMORY[0x277CFE338] keyPathForPluginStatus];
+  [userContext setObject:v6 forKeyedSubscript:keyPathForPluginStatus];
+}
+
++ (id)_eventWithState:(BOOL)state adapterType:(int64_t)type isWireless:(BOOL)wireless
+{
+  wirelessCopy = wireless;
+  stateCopy = state;
+  v21[2] = *MEMORY[0x277D85DE8];
+  if (state)
+  {
+    [MEMORY[0x277CFE1A0] yes];
+  }
+
+  else
+  {
+    [MEMORY[0x277CFE1A0] no];
+  }
+  v8 = ;
+  [_DKPluggedInMonitor setIsPluggedIn:stateCopy];
+  if (type)
+  {
+    adapterType = [MEMORY[0x277CFE1C8] adapterType];
+    v20[0] = adapterType;
+    v10 = [MEMORY[0x277CCABB0] numberWithInteger:type];
+    v21[0] = v10;
+    adapterIsWireless = [MEMORY[0x277CFE1C8] adapterIsWireless];
+    v20[1] = adapterIsWireless;
+    v12 = [MEMORY[0x277CCABB0] numberWithBool:wirelessCopy];
+    v21[1] = v12;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
+  }
+
+  else
+  {
+    v13 = 0;
+  }
+
+  v14 = MEMORY[0x277CFE1D8];
+  deviceIsPluggedInStream = [MEMORY[0x277CFE298] deviceIsPluggedInStream];
+  date = [MEMORY[0x277CBEAA8] date];
+  distantFuture = [MEMORY[0x277CBEAA8] distantFuture];
+  v18 = [v14 eventWithStream:deviceIsPluggedInStream startDate:date endDate:distantFuture value:v8 metadata:v13];
+
+  return v18;
+}
+
++ (id)_BMEventWithState:(BOOL)state adapterType:(int64_t)type isWireless:(BOOL)wireless
+{
+  wirelessCopy = wireless;
+  stateCopy = state;
+  v8 = objc_alloc(MEMORY[0x277CF1110]);
+  v9 = [MEMORY[0x277CCABB0] numberWithBool:stateCopy];
+  v10 = [MEMORY[0x277CCABB0] numberWithBool:wirelessCopy];
+  v11 = [MEMORY[0x277CCABB0] numberWithInteger:type];
+  v12 = [v8 initWithStarting:v9 wireless:v10 adapterType:v11];
+
+  return v12;
+}
+
 - (void)setCurrentState
 {
   v30 = *MEMORY[0x277D85DE8];
-  v3 = _DKPluggedInMonitorLog();
+  v3 = _DKPluggedInMonitorLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v24 = 67109120;
@@ -31,8 +109,8 @@
   v4 = IOPSCopyPowerSourcesInfo();
   if (!v4)
   {
-    v9 = _DKPluggedInMonitorLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = _DKPluggedInMonitorLog(0);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [_DKPluggedInMonitor setCurrentState];
     }
@@ -44,7 +122,7 @@
   v6 = IOPSPowerSourceSupported();
   if (!v6)
   {
-    v7 = _DKPluggedInMonitorLog();
+    v7 = _DKPluggedInMonitorLog(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [_DKPluggedInMonitor setCurrentState];
@@ -55,15 +133,15 @@
   CFRelease(v5);
   if (Value)
   {
-    v9 = IOPSCopyExternalPowerAdapterDetails();
-    if (v9)
+    v10 = IOPSCopyExternalPowerAdapterDetails();
+    if (v10)
     {
-      v10 = IOPSDrawingUnlimitedPower();
-      v11 = [v9 objectForKeyedSubscript:@"FamilyCode"];
-      integerValue = [v11 integerValue];
+      v11 = IOPSDrawingUnlimitedPower();
+      v12 = [v10 objectForKeyedSubscript:@"FamilyCode"];
+      integerValue = [v12 integerValue];
 
-      v13 = [v9 objectForKeyedSubscript:@"IsWireless"];
-      bOOLValue = [v13 BOOLValue];
+      v14 = [v10 objectForKeyedSubscript:@"IsWireless"];
+      bOOLValue = [v14 BOOLValue];
 
 LABEL_14:
       goto LABEL_16;
@@ -72,49 +150,46 @@ LABEL_14:
 LABEL_13:
     bOOLValue = 0;
     integerValue = 0;
-    v10 = 0;
+    v11 = 0;
     goto LABEL_14;
   }
 
   bOOLValue = 0;
   integerValue = 0;
-  v10 = 1;
+  v11 = 1;
 LABEL_16:
-  v15 = _DKPluggedInMonitorLog();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v16 = _DKPluggedInMonitorLog(v9);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = [MEMORY[0x277CCABB0] numberWithBool:v10];
-    v17 = [MEMORY[0x277CCABB0] numberWithInteger:integerValue];
-    v18 = [MEMORY[0x277CCABB0] numberWithBool:bOOLValue];
+    v17 = [MEMORY[0x277CCABB0] numberWithBool:v11];
+    v18 = [MEMORY[0x277CCABB0] numberWithInteger:integerValue];
+    v19 = [MEMORY[0x277CCABB0] numberWithBool:bOOLValue];
     v24 = 138543874;
-    v25 = v16;
+    v25 = v17;
     v26 = 2114;
-    v27 = v17;
+    v27 = v18;
     v28 = 2114;
-    v29 = v18;
-    _os_log_impl(&dword_22595A000, v15, OS_LOG_TYPE_DEFAULT, "Setting current state plugin:%{public}@, adapterType:%{public}@, wireless:%{public}@", &v24, 0x20u);
+    v29 = v19;
+    _os_log_impl(&dword_22595A000, v16, OS_LOG_TYPE_DEFAULT, "Setting current state plugin:%{public}@, adapterType:%{public}@, wireless:%{public}@", &v24, 0x20u);
   }
 
   currentEvent = [(_DKMonitor *)self currentEvent];
-  v20 = [_DKPluggedInMonitor _eventWithState:v10 adapterType:integerValue isWireless:bOOLValue];
-  if ([(_DKMonitor *)self historicalStateHasChanged:v20])
+  v21 = [_DKPluggedInMonitor _eventWithState:v11 adapterType:integerValue isWireless:bOOLValue];
+  if ([(_DKMonitor *)self historicalStateHasChanged:v21])
   {
-    v21 = [objc_opt_class() _BMEventWithState:v10 adapterType:integerValue isWireless:bOOLValue];
-    [(BMSource *)self->_source sendEvent:v21];
+    v22 = [objc_opt_class() _BMEventWithState:v11 adapterType:integerValue isWireless:bOOLValue];
+    [(BMSource *)self->_source sendEvent:v22];
   }
 
-  [(_DKMonitor *)self setCurrentEvent:v20 inferHistoricalState:1];
-  v22 = _DKPluggedInMonitorLog();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  v23 = _DKPluggedInMonitorLog([(_DKMonitor *)self setCurrentEvent:v21 inferHistoricalState:1]);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     v24 = 138412546;
-    v25 = v20;
+    v25 = v21;
     v26 = 2112;
     v27 = currentEvent;
-    _os_log_impl(&dword_22595A000, v22, OS_LOG_TYPE_DEFAULT, "Setting current event: %@, previousEvent: %@", &v24, 0x16u);
+    _os_log_impl(&dword_22595A000, v23, OS_LOG_TYPE_DEFAULT, "Setting current event: %@, previousEvent: %@", &v24, 0x16u);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)start
@@ -180,7 +255,7 @@ LABEL_16:
       v5 = IOPSPowerSourceSupported();
       if (!v5)
       {
-        v6 = _DKPluggedInMonitorLog();
+        v6 = _DKPluggedInMonitorLog(0);
         if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
         {
           [_DKPluggedInMonitor setCurrentState];
@@ -192,38 +267,37 @@ LABEL_16:
       if (Value)
       {
         v8 = IOPSDrawingUnlimitedPower();
+        v9 = v8;
       }
 
       else
       {
-        v8 = 1;
+        v9 = 1;
       }
     }
 
     else
     {
-      v9 = _DKPluggedInMonitorLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = _DKPluggedInMonitorLog(0);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         [_DKPluggedInMonitor setCurrentState];
       }
 
-      v8 = 0;
+      v9 = 0;
     }
 
-    v10 = _DKPluggedInMonitorLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = _DKPluggedInMonitorLog(v8);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = [MEMORY[0x277CCABB0] numberWithBool:v8];
+      v12 = [MEMORY[0x277CCABB0] numberWithBool:v9];
       v13 = 138543362;
-      v14 = v11;
-      _os_log_impl(&dword_22595A000, v10, OS_LOG_TYPE_DEFAULT, "Synchronously reflecting current plug in status: %{public}@", &v13, 0xCu);
+      v14 = v12;
+      _os_log_impl(&dword_22595A000, v11, OS_LOG_TYPE_DEFAULT, "Synchronously reflecting current plug in status: %{public}@", &v13, 0xCu);
     }
 
-    [_DKPluggedInMonitor setIsPluggedIn:v8];
+    [_DKPluggedInMonitor setIsPluggedIn:v9];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

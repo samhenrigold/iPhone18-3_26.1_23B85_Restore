@@ -14,11 +14,11 @@
 
 - (void)_xref_dispose
 {
-  _dispatch_queue_xref_dispose(self);
-  _dispatch_channel_xref_dispose(self);
-  v3.receiver = self;
-  v3.super_class = OS_dispatch_channel;
-  [(OS_object *)&v3 _xref_dispose];
+  _dispatch_queue_xref_dispose(self, a2);
+  _dispatch_channel_xref_dispose(self, v3);
+  v4.receiver = self;
+  v4.super_class = OS_dispatch_channel;
+  [(OS_object *)&v4 _xref_dispose];
 }
 
 @end

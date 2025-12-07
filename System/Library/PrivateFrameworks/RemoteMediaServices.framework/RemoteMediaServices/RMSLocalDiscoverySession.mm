@@ -183,18 +183,18 @@
 
 - (void)serviceProvider:(id)provider serviceDidBecomeAvailable:(id)available
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   providerCopy = provider;
   availableCopy = available;
   v8 = availableCopy;
-  if ((self->_discoveryTypes & 8) != 0 && [availableCopy serviceType] == 2 && (objc_msgSend(v8, "isLegacyAppleTV") & 1) == 0 && (objc_msgSend(v8, "isTVRemoteCoreSupported") & 1) == 0)
+  if ((self->_discoveryTypes & 8) != 0 && [availableCopy serviceType] == 2 && (objc_msgSend(v8, "isLegacyAppleTV") & 1) == 0 && (v9 = objc_msgSend(v8, "isTVRemoteCoreSupported"), (v9 & 1) == 0))
   {
-    v10 = RMSLogger();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = RMSLogger(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138412290;
-      v12 = v8;
-      _os_log_impl(&dword_261E98000, v10, OS_LOG_TYPE_DEFAULT, "Ignoring legacy Apple TV service: %@", &v11, 0xCu);
+      v12 = 138412290;
+      v13 = v8;
+      _os_log_impl(&dword_261E98000, v11, OS_LOG_TYPE_DEFAULT, "Ignoring legacy Apple TV service: %@", &v12, 0xCu);
     }
   }
 
@@ -243,7 +243,7 @@
 - (id)_providerForDiscoveryType:(int64_t)type
 {
   v12 = *MEMORY[0x277D85DE8];
-  v5 = RMSLogger();
+  v5 = RMSLogger(self);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
   if (type <= 3)
   {
@@ -318,7 +318,7 @@ LABEL_22:
 
 - (void)_handleHSGroupIDDidChangeNotification:(id)notification
 {
-  v4 = RMSLogger();
+  v4 = RMSLogger(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;

@@ -2,6 +2,7 @@
 - ($E9D0CE23C4879AFD1046A22AEC3FB8EC)_findButtonWithCommand:(unint64_t)command;
 - (BOOL)clearAllStoredCommands:(id *)commands;
 - (BOOL)disableButtonCombination:(id)combination delay:(double)delay error:(id *)error;
+- (BOOL)dispatchButtonEventWithCommand:(unint64_t)command pressed:(BOOL)pressed timestamp:(unint64_t)timestamp toDevice:(id)device;
 - (BOOL)dispatchEventForCommand:(id)command matchingButton:(id *)button timestamp:(unint64_t)timestamp toDevice:(id)device;
 - (BOOL)dispatchEventsForCommand:(id)command toDevice:(id)device;
 - (BOOL)enableButtonCombination:(id)combination delay:(double)delay error:(id *)error;
@@ -14,6 +15,7 @@
 - (BOOL)setMappingWithSession:(id)session error:(id *)error;
 - (BOOL)setOSDName:(id)name error:(id *)error;
 - (BOOL)updateMappingWithSession:(id)session error:(id *)error;
+- (CoreIRDeviceProvider)initWithBus:(id)bus local:(BOOL)local deviceType:(unint64_t)type;
 - (CoreIRDeviceProvider)initWithCoder:(id)coder;
 - (CoreIRDeviceProvider)initWithDevice:(id)device;
 - (NSDictionary)persistentProperties;
@@ -66,6 +68,21 @@
   v6.receiver = self;
   v6.super_class = CoreIRDeviceProvider;
   [(CoreIRDevice *)&v6 dealloc];
+}
+
+- (CoreIRDeviceProvider)initWithBus:(id)bus local:(BOOL)local deviceType:(unint64_t)type
+{
+  v7.receiver = self;
+  v7.super_class = CoreIRDeviceProvider;
+  v5 = [(CoreIRDevice *)&v7 initWithBus:bus local:local deviceType:type];
+  if (v5)
+  {
+    v5->_matchingDict = objc_opt_new();
+    v5->_commandMappings = objc_opt_new();
+    v5->_lastButtonPressed = 0;
+  }
+
+  return v5;
 }
 
 - (CoreIRDeviceProvider)initWithDevice:(id)device
@@ -187,7 +204,7 @@
 {
   if (gLogCategory_CoreRCDevice <= 90 && (gLogCategory_CoreRCDevice != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_CoreRCDevice, "[CoreIRDeviceProvider setExtendedProperty:forKey:error:]", 90, "%@ set property %@ to %@\n", self, key, property);
   }
 
   return 0;
@@ -197,7 +214,7 @@
 {
   if (gLogCategory_CoreRCDevice <= 90 && (gLogCategory_CoreRCDevice != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_CoreRCDevice, "[CoreIRDeviceProvider extendedPropertyForKey:error:]", 90, "%@ get property %@\n", self, key);
   }
 
   return 0;
@@ -205,78 +222,73 @@
 
 - (unsigned)protocolMask
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   commandMappings = self->_commandMappings;
-  v3 = [(NSMutableSet *)commandMappings countByEnumeratingWithState:&v10 objects:v14 count:16];
-  if (v3)
+  v3 = [(NSMutableSet *)commandMappings countByEnumeratingWithState:&v9 objects:v13 count:16];
+  if (!v3)
   {
-    v4 = v3;
-    v5 = 0;
-    v6 = *v11;
-    do
-    {
-      for (i = 0; i != v4; ++i)
-      {
-        if (*v11 != v6)
-        {
-          objc_enumerationMutation(commandMappings);
-        }
+    return 0;
+  }
 
-        v5 |= 1 << [objc_msgSend(objc_msgSend(*(*(&v10 + 1) + 8 * i) objectForKeyedSubscript:{@"Mapping IRCommand", "protocol"), "protocolID"}];
+  v4 = v3;
+  v5 = 0;
+  v6 = *v10;
+  do
+  {
+    for (i = 0; i != v4; ++i)
+    {
+      if (*v10 != v6)
+      {
+        objc_enumerationMutation(commandMappings);
       }
 
-      v4 = [(NSMutableSet *)commandMappings countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 |= 1 << [objc_msgSend(objc_msgSend(*(*(&v9 + 1) + 8 * i) objectForKeyedSubscript:{@"Mapping IRCommand", "protocol"), "protocolID"}];
     }
 
-    while (v4);
+    v4 = [(NSMutableSet *)commandMappings countByEnumeratingWithState:&v9 objects:v13 count:16];
   }
 
-  else
-  {
-    v5 = 0;
-  }
-
-  v8 = *MEMORY[0x277D85DE8];
+  while (v4);
   return v5;
 }
 
 - (id)infraredCommandForCommand:(unint64_t)command
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (gLogCategory_CoreRCDevice <= 10 && (gLogCategory_CoreRCDevice != -1 || _LogCategory_Initialize()))
   {
     [CoreIRDeviceProvider infraredCommandForCommand:?];
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   commandMappings = self->_commandMappings;
-  v6 = [(NSMutableSet *)commandMappings countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [(NSMutableSet *)commandMappings countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     while (2)
     {
       v9 = 0;
       do
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(commandMappings);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * v9);
+        v10 = *(*(&v15 + 1) + 8 * v9);
         v11 = [objc_msgSend(v10 objectForKey:{@"Mapping CoreRCCommand", "integerValue"}];
         if (gLogCategory_CoreRCDevice <= 10 && (gLogCategory_CoreRCDevice != -1 || _LogCategory_Initialize()))
         {
-          [CoreIRDeviceProvider infraredCommandForCommand:];
+          [CoreIRDeviceProvider infraredCommandForCommand:v11];
         }
 
         if (v11 == command)
@@ -284,17 +296,17 @@
           v13 = [v10 objectForKey:@"Mapping IRCommand"];
           if (gLogCategory_CoreRCDevice <= 10 && (gLogCategory_CoreRCDevice != -1 || _LogCategory_Initialize()))
           {
-            [CoreIRDeviceProvider infraredCommandForCommand:];
+            [CoreIRDeviceProvider infraredCommandForCommand:v13];
           }
 
-          goto LABEL_21;
+          return v13;
         }
 
         ++v9;
       }
 
       while (v7 != v9);
-      v12 = [(NSMutableSet *)commandMappings countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v12 = [(NSMutableSet *)commandMappings countByEnumeratingWithState:&v15 objects:v19 count:16];
       v7 = v12;
       if (v12)
       {
@@ -305,17 +317,14 @@
     }
   }
 
-  v13 = 0;
-LABEL_21:
-  v14 = *MEMORY[0x277D85DE8];
-  return v13;
+  return 0;
 }
 
 - (BOOL)setInfraredCommand:(id)command forCommand:(unint64_t)forCommand error:(id *)error
 {
   if (gLogCategory_CoreRCDevice <= 50 && (gLogCategory_CoreRCDevice != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_CoreRCDevice, "[CoreIRDeviceProvider setInfraredCommand:forCommand:error:]", 50, "%@ mapped to %d\n", command, forCommand);
   }
 
   v9 = -6705;
@@ -347,12 +356,16 @@ LABEL_13:
 
 - (BOOL)sendHIDEvent:(id)event target:(id)target error:(id *)error
 {
+  selfCopy = self;
   v13 = 0;
   v12 = 0;
   v11 = 0;
-  if (gLogCategory_CoreRCDevice <= 90 && (gLogCategory_CoreRCDevice != -1 || _LogCategory_Initialize()))
+  if (gLogCategory_CoreRCDevice <= 90)
   {
-    [CoreIRDeviceProvider sendHIDEvent:target:error:];
+    if (gLogCategory_CoreRCDevice != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      [CoreIRDeviceProvider sendHIDEvent:a2 target:event error:?];
+    }
   }
 
   if ([event isRepeat])
@@ -365,7 +378,7 @@ LABEL_13:
     [event getCommand:&v11 pressed:&v12];
     if (v11)
     {
-      result = [(CoreIRDeviceProvider *)self sendCommand:v11 target:target withDuration:0 error:&v13];
+      result = [(CoreIRDeviceProvider *)selfCopy sendCommand:v11 target:target withDuration:0 error:&v13];
       if (!error)
       {
         return result;
@@ -569,7 +582,7 @@ LABEL_6:
   return v6;
 }
 
-uint64_t __52__CoreIRDeviceProvider_setMappingWithSession_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
+void *__52__CoreIRDeviceProvider_setMappingWithSession_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
   result = [*(a1 + 32) _setInfraredCommandPattern:a3 repeatPattern:a4 forCommand:a2];
   if (result)
@@ -591,12 +604,12 @@ uint64_t __52__CoreIRDeviceProvider_setMappingWithSession_error___block_invoke(u
 
   if ([device learningSessionProvider])
   {
-    v39 = [objc_msgSend(device "learningSessionProvider")];
+    v33 = [objc_msgSend(device "learningSessionProvider")];
   }
 
   else
   {
-    v39 = 0;
+    v33 = 0;
   }
 
   buttonCount = self->_buttonCount;
@@ -661,9 +674,9 @@ LABEL_56:
   }
 
 LABEL_23:
-  v36 = a2;
+  v30 = a2;
   deviceCopy = device;
-  v38 = timestamp;
+  v32 = timestamp;
   v17 = 0;
   v18 = 104;
   v19 = 1;
@@ -694,23 +707,17 @@ LABEL_23:
 
     else
     {
-      [(CoreIRDeviceProvider *)v36 dispatchEventsForCommand:v17 toDevice:?];
+      [(CoreIRDeviceProvider *)v30 dispatchEventsForCommand:v17 toDevice:?];
       if (!v24)
       {
 LABEL_51:
-        [(CoreIRDeviceProvider *)v36 dispatchEventsForCommand:v17 toDevice:?];
+        [(CoreIRDeviceProvider *)v30 dispatchEventsForCommand:v17 toDevice:?];
       }
     }
 
     if (gLogCategory_CoreRCDevice <= 10 && (gLogCategory_CoreRCDevice != -1 || _LogCategory_Initialize()))
     {
-      v34 = v24;
-      v35 = *(v23 + 8 * *v20);
-      v32 = self->_lastButtonPressed != 0;
-      v33 = *v20;
-      v30 = v17;
-      v31 = buttonCount;
-      LogPrintF();
+      LogPrintF(&gLogCategory_CoreRCDevice, "[CoreIRDeviceProvider dispatchEventsForCommand:toDevice:]", 10, "buttonIndex = %d/%d isDown %d matchIndex %d count = %d pattern = 0x%llx\n", v17, buttonCount, self->_lastButtonPressed != 0, *v20, v24, *(v23 + 8 * *v20));
     }
 
     v25 = *v20;
@@ -730,7 +737,7 @@ LABEL_47:
     if (buttonCount == v17)
     {
       v19 = 0;
-      timestamp = v38;
+      timestamp = v32;
       goto LABEL_53;
     }
   }
@@ -740,7 +747,7 @@ LABEL_47:
     [CoreIRDeviceProvider dispatchEventsForCommand:? toDevice:?];
   }
 
-  v27 = (*v20 + 1);
+  v27 = *v20 + 1;
   *v20 = v27;
   if (v24 != v27)
   {
@@ -748,9 +755,9 @@ LABEL_47:
   }
 
   *v20 = 0;
-  if (v39)
+  if (v33)
   {
-    if (CoreRCCommandIsBasicButton(v39))
+    if (CoreRCCommandIsBasicButton(v33))
     {
       goto LABEL_47;
     }
@@ -762,8 +769,8 @@ LABEL_47:
     }
   }
 
-  timestamp = v38;
-  [(CoreIRDeviceProvider *)self dispatchEventForCommand:command matchingButton:self + v18 timestamp:v38 toDevice:deviceCopy, v30, v31, v32, v33, v34, v35];
+  timestamp = v32;
+  [(CoreIRDeviceProvider *)self dispatchEventForCommand:command matchingButton:self + v18 timestamp:v32 toDevice:deviceCopy];
 LABEL_53:
   v9 = 0x27EE4F000;
 LABEL_57:
@@ -778,7 +785,7 @@ LABEL_57:
 
 - (unint64_t)findDuplicateIRCommand:(id)command forCommand:(unint64_t)forCommand device:(id *)device
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   if (!device)
   {
     [CoreIRDeviceProvider findDuplicateIRCommand:a2 forCommand:self device:?];
@@ -786,38 +793,37 @@ LABEL_57:
 
   if ([(CoreRCDevice *)self isLocalDevice])
   {
-    v34 = 0uLL;
-    v35 = 0uLL;
-    v32 = 0uLL;
     v33 = 0uLL;
+    v34 = 0uLL;
+    v31 = 0uLL;
+    v32 = 0uLL;
     v9 = [-[CoreIRDeviceProvider busProvider](self "busProvider")];
-    v10 = [v9 countByEnumeratingWithState:&v32 objects:v37 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v31 objects:v36 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v33;
+      v12 = *v32;
       while (2)
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v33 != v12)
+          if (*v32 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v32 + 1) + 8 * i);
+          v14 = *(*(&v31 + 1) + 8 * i);
           if (([v14 isLocalDevice] & 1) == 0 && (objc_msgSend(v14, "isReceiver") & 1) == 0)
           {
             v15 = [v14 findDuplicateIRCommand:command forCommand:forCommand device:device];
             if (v15)
             {
-              v22 = v15;
-              goto LABEL_28;
+              return v15;
             }
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v32 objects:v37 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v31 objects:v36 count:16];
         if (v11)
         {
           continue;
@@ -827,46 +833,44 @@ LABEL_57:
       }
     }
 
-    goto LABEL_25;
+    return 0;
   }
 
-  v30 = 0uLL;
-  v31 = 0uLL;
-  v28 = 0uLL;
   v29 = 0uLL;
+  v30 = 0uLL;
+  v27 = 0uLL;
+  v28 = 0uLL;
   commandMappings = self->_commandMappings;
-  v17 = [(NSMutableSet *)commandMappings countByEnumeratingWithState:&v28 objects:v36 count:16];
+  v17 = [(NSMutableSet *)commandMappings countByEnumeratingWithState:&v27 objects:v35 count:16];
   if (!v17)
   {
-LABEL_25:
-    v22 = 0;
-    goto LABEL_28;
+    return 0;
   }
 
   v18 = v17;
   selfCopy = self;
   deviceCopy = device;
-  v19 = *v29;
+  v19 = *v28;
   while (2)
   {
     for (j = 0; j != v18; ++j)
     {
-      if (*v29 != v19)
+      if (*v28 != v19)
       {
         objc_enumerationMutation(commandMappings);
       }
 
-      v21 = *(*(&v28 + 1) + 8 * j);
+      v21 = *(*(&v27 + 1) + 8 * j);
       v22 = [objc_msgSend(v21 objectForKeyedSubscript:{@"Mapping CoreRCCommand", selfCopy, deviceCopy), "unsignedIntegerValue"}];
       v23 = [v21 objectForKeyedSubscript:@"Mapping IRCommand"];
       if (v22 != forCommand && ([command isEqual:v23] & 1) != 0)
       {
         *deviceCopy = selfCopy;
-        goto LABEL_28;
+        return v22;
       }
     }
 
-    v18 = [(NSMutableSet *)commandMappings countByEnumeratingWithState:&v28 objects:v36 count:16];
+    v18 = [(NSMutableSet *)commandMappings countByEnumeratingWithState:&v27 objects:v35 count:16];
     v22 = 0;
     if (v18)
     {
@@ -876,8 +880,6 @@ LABEL_25:
     break;
   }
 
-LABEL_28:
-  v24 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
@@ -886,24 +888,28 @@ LABEL_28:
   lastButtonPressed = self->_lastButtonPressed;
   if (lastButtonPressed)
   {
+    selfCopy = self;
     if (gLogCategory_CoreRCDevice <= 40)
     {
-      if (gLogCategory_CoreRCDevice != -1 || (v6 = _LogCategory_Initialize(), lastButtonPressed = self->_lastButtonPressed, v6))
+      if (gLogCategory_CoreRCDevice != -1 || (v8 = _LogCategory_Initialize(), lastButtonPressed = selfCopy->_lastButtonPressed, v8))
       {
         var5 = lastButtonPressed->var5;
-        v8 = CoreRCCommandString(var5);
-        LogPrintF();
-        lastButtonPressed = self->_lastButtonPressed;
+        v7 = CoreRCCommandString(var5);
+        LogPrintF(&gLogCategory_CoreRCDevice, "[CoreIRDeviceProvider synthesizeButtonReleaseWithTimestamp:]", 40, "Posting Button Up  %d (%@)\n", var5, v7);
+        lastButtonPressed = selfCopy->_lastButtonPressed;
       }
     }
 
-    -[CoreIRDeviceProvider dispatchButtonEventWithCommand:pressed:timestamp:toDevice:](self, "dispatchButtonEventWithCommand:pressed:timestamp:toDevice:", lastButtonPressed->var5, 0, timestamp, [-[CoreIRDeviceProvider busProvider](self busProvider]);
-    self->_lastButtonPressed = 0;
+    -[CoreIRDeviceProvider dispatchButtonEventWithCommand:pressed:timestamp:toDevice:](selfCopy, "dispatchButtonEventWithCommand:pressed:timestamp:toDevice:", lastButtonPressed->var5, 0, timestamp, [-[CoreIRDeviceProvider busProvider](selfCopy "busProvider")]);
+    selfCopy->_lastButtonPressed = 0;
   }
 
-  else if (gLogCategory_CoreRCDevice <= 90 && (gLogCategory_CoreRCDevice != -1 || _LogCategory_Initialize()))
+  else if (gLogCategory_CoreRCDevice <= 90)
   {
-    [CoreIRDeviceProvider synthesizeButtonReleaseWithTimestamp:];
+    if (gLogCategory_CoreRCDevice != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      [(CoreIRDeviceProvider *)self synthesizeButtonReleaseWithTimestamp:a2, timestamp];
+    }
   }
 }
 
@@ -921,7 +927,7 @@ LABEL_28:
   dispatch_after(v4, v5, v6);
 }
 
-uint64_t __49__CoreIRDeviceProvider_schedulePressAndHoldTimer__block_invoke(uint64_t result)
+void *__49__CoreIRDeviceProvider_schedulePressAndHoldTimer__block_invoke(void *result)
 {
   v1 = result;
   if (gLogCategory_CoreRCDevice <= 10)
@@ -932,9 +938,9 @@ uint64_t __49__CoreIRDeviceProvider_schedulePressAndHoldTimer__block_invoke(uint
     }
   }
 
-  v3 = v1 + 32;
-  v2 = *(v1 + 32);
-  if (*(v3 + 8) == v2[124])
+  v3 = v1 + 4;
+  v2 = v1[4];
+  if (v3[1] == v2[124])
   {
     v4 = mach_absolute_time();
 
@@ -951,8 +957,8 @@ uint64_t __49__CoreIRDeviceProvider_schedulePressAndHoldTimer__block_invoke(uint
   var5 = button->var5;
   if (!var5)
   {
-    [CoreIRDeviceProvider dispatchEventForCommand:&v17 matchingButton:? timestamp:? toDevice:?];
-    return v17;
+    [CoreIRDeviceProvider dispatchEventForCommand:&v16 matchingButton:? timestamp:? toDevice:?];
+    return v16;
   }
 
   if (gLogCategory_CoreRCDevice <= 10)
@@ -960,8 +966,7 @@ uint64_t __49__CoreIRDeviceProvider_schedulePressAndHoldTimer__block_invoke(uint
     if (gLogCategory_CoreRCDevice != -1)
     {
 LABEL_4:
-      v15 = var5;
-      LogPrintF();
+      LogPrintF(&gLogCategory_CoreRCDevice, "[CoreIRDeviceProvider dispatchEventForCommand:matchingButton:timestamp:toDevice:]", 10, "dispatchEventForCommand: %d\n", var5);
       goto LABEL_6;
     }
 
@@ -988,10 +993,10 @@ LABEL_9:
       [CoreIRDeviceProvider dispatchEventForCommand:? matchingButton:? timestamp:? toDevice:?];
     }
 
-    if (![(CoreIRDeviceProvider *)self dispatchButtonEventWithCommand:*p_var5 pressed:1 timestamp:timestamp toDevice:device, v15])
+    if (![(CoreIRDeviceProvider *)self dispatchButtonEventWithCommand:*p_var5 pressed:1 timestamp:timestamp toDevice:device])
     {
       [CoreIRDeviceProvider dispatchEventForCommand:? matchingButton:? timestamp:? toDevice:?];
-      return v16;
+      return v15;
     }
 
     self->_lastButtonPressed = button;
@@ -1005,36 +1010,51 @@ LABEL_15:
   return v13;
 }
 
+- (BOOL)dispatchButtonEventWithCommand:(unint64_t)command pressed:(BOOL)pressed timestamp:(unint64_t)timestamp toDevice:(id)device
+{
+  v10 = [[CoreRCHIDEvent alloc] initWithCommand:command pressed:pressed timestamp:timestamp];
+  if (v10)
+  {
+    [device receivedHIDEvent:v10 fromDevice:self];
+  }
+
+  else
+  {
+    [CoreIRDeviceProvider dispatchButtonEventWithCommand:v8 pressed:v9 timestamp:? toDevice:?];
+  }
+
+  return v10 != 0;
+}
+
 - (void)_removeMappingForCommand:(unint64_t)command
 {
-  v37 = *MEMORY[0x277D85DE8];
   if (command)
   {
     commandMappings = self->_commandMappings;
-    v11 = OUTLINED_FUNCTION_2_7(self, a2, command, v3, v4, v5, v6, v7, 0, 0, 0, 0, 0, 0, 0, 0, v33, v35);
+    v11 = OUTLINED_FUNCTION_2_7(self, a2, command, v3, v4, v5, v6, v7, 0, 0, 0, 0, 0, 0, 0, 0, v32);
     if (v11)
     {
       v12 = v11;
-      v13 = *v27;
+      v13 = *v26;
       while (2)
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v27 != v13)
+          if (*v26 != v13)
           {
             objc_enumerationMutation(commandMappings);
           }
 
-          v15 = *(v26 + 8 * i);
+          v15 = *(v25 + 8 * i);
           v16 = [objc_msgSend(v15 objectForKeyedSubscript:{@"Mapping CoreRCCommand", "unsignedIntegerValue"}];
           if (v16 == command)
           {
             [(NSMutableSet *)self->_commandMappings removeObject:v15];
-            goto LABEL_12;
+            return;
           }
         }
 
-        v12 = OUTLINED_FUNCTION_2_7(v16, v17, v18, v19, v20, v21, v22, v23, v25, v26, v27, v28, v29, v30, v31, v32, v34, v36);
+        v12 = OUTLINED_FUNCTION_2_7(v16, v17, v18, v19, v20, v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31, v33);
         if (v12)
         {
           continue;
@@ -1044,9 +1064,6 @@ LABEL_15:
       }
     }
   }
-
-LABEL_12:
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)updateMappingWithSession:(id)session error:(id *)error
@@ -1255,130 +1272,126 @@ LABEL_15:
 
 - (void)handleIRCommand:(id)command
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   busProvider = [(CoreIRDeviceProvider *)self busProvider];
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
   if (gLogCategory_CoreRCBus <= 10 && (gLogCategory_CoreRCBus != -1 || _LogCategory_Initialize()))
   {
-    commandCopy = command;
-    LogPrintF();
+    LogPrintF(&gLogCategory_CoreRCBus, "[CoreIRDeviceProvider handleIRCommand:]", 10, "Handling incoming IR command %@", command);
   }
 
-  if (isKindOfClass)
+  if ((isKindOfClass & 1) == 0)
   {
-    if ([command isRepeat])
-    {
-      if ([busProvider lastAppleRemote])
-      {
-        [objc_msgSend(busProvider "lastAppleRemote")];
-      }
-    }
-
-    else
-    {
-      v7 = [busProvider appleIRDeviceWithUID:objc_msgSend(command create:{"deviceUID"), 1}];
-      if (!v7)
-      {
-        goto LABEL_26;
-      }
-
-      v8 = v7;
-      if ([v7 dispatchEventsForCommand:command toDevice:self])
-      {
-        [busProvider didDispatchCommandFromAppleRemote:v8];
-      }
-    }
-
-    if (![command isRepeat])
-    {
-      goto LABEL_26;
-    }
+    goto LABEL_13;
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
-  v19 = 0u;
-  thirdPartyRemotes = [busProvider thirdPartyRemotes];
-  v10 = [thirdPartyRemotes countByEnumeratingWithState:&v18 objects:v22 count:16];
-  if (v10)
+  if ([command isRepeat])
   {
-    v11 = v10;
-    v12 = *v19;
-LABEL_15:
-    v13 = 0;
-    while (1)
+    if ([busProvider lastAppleRemote])
     {
-      if (*v19 != v12)
-      {
-        objc_enumerationMutation(thirdPartyRemotes);
-      }
-
-      v14 = *(*(&v18 + 1) + 8 * v13);
-      if (gLogCategory_CoreRCBus <= 10 && (gLogCategory_CoreRCBus != -1 || _LogCategory_Initialize()))
-      {
-        v17 = v14;
-        LogPrintF();
-      }
-
-      if ([v14 dispatchEventsForCommand:command toDevice:{self, v17}])
-      {
-        break;
-      }
-
-      if (v11 == ++v13)
-      {
-        v11 = [thirdPartyRemotes countByEnumeratingWithState:&v18 objects:v22 count:16];
-        if (v11)
-        {
-          goto LABEL_15;
-        }
-
-        goto LABEL_25;
-      }
+      [objc_msgSend(busProvider "lastAppleRemote")];
     }
   }
 
   else
   {
-LABEL_25:
-    [-[CoreIRDeviceProvider learningSessionProvider](self "learningSessionProvider")];
+    v7 = [busProvider appleIRDeviceWithUID:objc_msgSend(command create:{"deviceUID"), 1}];
+    if (!v7)
+    {
+      return;
+    }
+
+    v8 = v7;
+    if ([v7 dispatchEventsForCommand:command toDevice:self])
+    {
+      [busProvider didDispatchCommandFromAppleRemote:v8];
+    }
   }
 
-LABEL_26:
-  v15 = *MEMORY[0x277D85DE8];
+  if ([command isRepeat])
+  {
+LABEL_13:
+    v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
+    thirdPartyRemotes = [busProvider thirdPartyRemotes];
+    v10 = [thirdPartyRemotes countByEnumeratingWithState:&v15 objects:v19 count:16];
+    if (v10)
+    {
+      v11 = v10;
+      v12 = *v16;
+LABEL_15:
+      v13 = 0;
+      while (1)
+      {
+        if (*v16 != v12)
+        {
+          objc_enumerationMutation(thirdPartyRemotes);
+        }
+
+        v14 = *(*(&v15 + 1) + 8 * v13);
+        if (gLogCategory_CoreRCBus <= 10 && (gLogCategory_CoreRCBus != -1 || _LogCategory_Initialize()))
+        {
+          LogPrintF(&gLogCategory_CoreRCBus, "[CoreIRDeviceProvider handleIRCommand:]", 10, "Checking with device %@\n", v14);
+        }
+
+        if ([v14 dispatchEventsForCommand:command toDevice:self])
+        {
+          break;
+        }
+
+        if (v11 == ++v13)
+        {
+          v11 = [thirdPartyRemotes countByEnumeratingWithState:&v15 objects:v19 count:16];
+          if (v11)
+          {
+            goto LABEL_15;
+          }
+
+          goto LABEL_25;
+        }
+      }
+    }
+
+    else
+    {
+LABEL_25:
+      [-[CoreIRDeviceProvider learningSessionProvider](self "learningSessionProvider")];
+    }
+  }
 }
 
-- (uint64_t)setOSDName:(uint64_t *)a1 error:.cold.1(uint64_t *a1)
+- (void)setOSDName:(void *)a1 error:.cold.1(void *a1)
 {
   result = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:-6747 userInfo:0];
   *a1 = result;
   return result;
 }
 
-- (uint64_t)setOSDName:(uint64_t *)a1 error:(const char *)a2 .cold.2(uint64_t *a1, const char *a2)
+- (void)setOSDName:(void *)a1 error:(const char *)a2 .cold.2(void *a1, const char *a2)
 {
   result = OUTLINED_FUNCTION_1_6(MEMORY[0x277CCA9B8], a2, *MEMORY[0x277CCA590]);
   *a1 = result;
   return result;
 }
 
-- (uint64_t)sendHIDEvent:(uint64_t *)a1 target:error:.cold.2(uint64_t *a1)
+- (void)sendHIDEvent:(void *)a1 target:error:.cold.2(void *a1)
 {
   result = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:-6735 userInfo:0];
   *a1 = result;
   return result;
 }
 
-- (uint64_t)setCommand:(uint64_t *)a1 target:forButtonCombination:delay:error:.cold.1(uint64_t *a1)
+- (void)setCommand:(void *)a1 target:forButtonCombination:delay:error:.cold.1(void *a1)
 {
   result = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:-6707 userInfo:0];
   *a1 = result;
   return result;
 }
 
-- (uint64_t)startLearningSessionWithReason:(void *)a1 error:.cold.1(void *a1)
+- (void)startLearningSessionWithReason:(void *)a1 error:.cold.1(void *a1)
 {
   result = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:-6729 userInfo:0];
   if (a1)
@@ -1389,7 +1402,7 @@ LABEL_26:
   return result;
 }
 
-uint64_t __52__CoreIRDeviceProvider_setMappingWithSession_error___block_invoke_cold_1(int a1, uint64_t a2, _BYTE *a3)
+void *__52__CoreIRDeviceProvider_setMappingWithSession_error___block_invoke_cold_1(int a1, uint64_t a2, _BYTE *a3)
 {
   result = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:a1 userInfo:0];
   *(*(*(a2 + 40) + 8) + 40) = result;
@@ -1405,21 +1418,21 @@ uint64_t __52__CoreIRDeviceProvider_setMappingWithSession_error___block_invoke_c
   return [v4 handleFailureInMethod:a1 object:a2 file:@"CoreIRDeviceProvider.m" lineNumber:822 description:{@"CoreIRDeviceProvider** parameter not supplied, aborting."}];
 }
 
-uint64_t __49__CoreIRDeviceProvider_schedulePressAndHoldTimer__block_invoke_cold_1(uint64_t a1)
+- (uint64_t)dispatchEventForCommand:(unint64_t *)a1 matchingButton:timestamp:toDevice:.cold.1(unint64_t *a1)
 {
-  v2 = *(a1 + 40);
-  v3 = *(*(a1 + 32) + 992);
-  return LogPrintF();
+  v1 = *a1;
+  v2 = CoreRCCommandString(*a1);
+  return LogPrintF(&gLogCategory_CoreRCDevice, "[CoreIRDeviceProvider dispatchEventForCommand:matchingButton:timestamp:toDevice:]", 40, "Posting Button Down %d (%@)\n", v1, v2);
 }
 
-- (uint64_t)dispatchEventForCommand:(uint64_t)result matchingButton:timestamp:toDevice:.cold.2(uint64_t result)
+- (_BYTE)dispatchEventForCommand:(_BYTE *)result matchingButton:timestamp:toDevice:.cold.2(_BYTE *result)
 {
   v1 = result;
   if (gLogCategory_CoreRCDevice <= 90)
   {
     if (gLogCategory_CoreRCDevice != -1 || (result = _LogCategory_Initialize(), result))
     {
-      result = LogPrintF();
+      result = LogPrintF(&gLogCategory_CoreRCDevice, "[CoreIRDeviceProvider dispatchEventForCommand:matchingButton:timestamp:toDevice:]", 90, "failed to dispatch HID event!\n");
     }
   }
 
@@ -1433,7 +1446,7 @@ uint64_t __49__CoreIRDeviceProvider_schedulePressAndHoldTimer__block_invoke_cold
   {
     if (result != -1 || (result = _LogCategory_Initialize(), result))
     {
-      result = LogPrintF();
+      result = LogPrintF(&gLogCategory_CoreRCDevice, "[CoreIRDeviceProvider dispatchEventForCommand:matchingButton:timestamp:toDevice:]", 90, "matched button has no associated command!\n");
     }
   }
 
@@ -1441,11 +1454,11 @@ uint64_t __49__CoreIRDeviceProvider_schedulePressAndHoldTimer__block_invoke_cold
   return result;
 }
 
-- (void)dispatchButtonEventWithCommand:pressed:timestamp:toDevice:.cold.1()
+- (void)dispatchButtonEventWithCommand:(uint64_t)a3 pressed:timestamp:toDevice:.cold.1(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (gLogCategory_CoreRCDevice <= 90 && (gLogCategory_CoreRCDevice != -1 || _LogCategory_Initialize()))
   {
-    OUTLINED_FUNCTION_2_0();
+    OUTLINED_FUNCTION_2_0(&gLogCategory_CoreRCDevice, "[CoreIRDeviceProvider dispatchButtonEventWithCommand:pressed:timestamp:toDevice:]", a3, "failed to allocate HID event!\n");
   }
 }
 

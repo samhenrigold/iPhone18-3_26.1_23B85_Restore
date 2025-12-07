@@ -27,27 +27,27 @@
 
 - (id)connectionForConfiguration:(id)configuration
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
-  OspreyLoggingInit();
-  v5 = OspreyLogContextChannel;
+  OspreyLoggingInit(configurationCopy, v5);
+  v6 = OspreyLogContextChannel;
   if (os_log_type_enabled(OspreyLogContextChannel, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v24 = "[OspreyConnectionPool connectionForConfiguration:]";
-    _os_log_impl(&dword_25DDE6000, v5, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
+    v29 = "[OspreyConnectionPool connectionForConfiguration:]";
+    _os_log_impl(&dword_25DDE6000, v6, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
   }
 
-  v6 = [[OspreyRPCPromise alloc] initWithFulfillmentQueue:self->_poolQueue];
+  v7 = [[OspreyRPCPromise alloc] initWithFulfillmentQueue:self->_poolQueue];
   urlSessionConfiguration = [configurationCopy urlSessionConfiguration];
 
   if (!urlSessionConfiguration)
   {
-    OspreyLoggingInit();
-    v8 = OspreyLogContextChannel;
+    OspreyLoggingInit(v9, v10);
+    v11 = OspreyLogContextChannel;
     if (os_log_type_enabled(OspreyLogContextChannel, OS_LOG_TYPE_DEBUG))
     {
-      [OspreyConnectionPool connectionForConfiguration:v8];
+      [OspreyConnectionPool connectionForConfiguration:v11];
     }
 
     defaultSessionConfiguration = [MEMORY[0x277CCAD38] defaultSessionConfiguration];
@@ -63,11 +63,11 @@
     [urlSessionConfiguration3 setTLSMinimumSupportedProtocolVersion:771];
   }
 
-  OspreyLoggingInit();
-  v13 = OspreyLogContextChannel;
+  OspreyLoggingInit(v15, v16);
+  v18 = OspreyLogContextChannel;
   if (os_log_type_enabled(OspreyLogContextChannel, OS_LOG_TYPE_DEBUG))
   {
-    [(OspreyConnectionPool *)v13 connectionForConfiguration:configurationCopy];
+    [(OspreyConnectionPool *)v18 connectionForConfiguration:configurationCopy];
   }
 
   poolQueue = self->_poolQueue;
@@ -76,112 +76,113 @@
   block[2] = __51__OspreyConnectionPool_connectionForConfiguration___block_invoke;
   block[3] = &unk_2799F1D08;
   block[4] = self;
+  v26 = configurationCopy;
+  v20 = v7;
+  v27 = v20;
   v21 = configurationCopy;
-  v15 = v6;
-  v22 = v15;
-  v16 = configurationCopy;
   dispatch_async(poolQueue, block);
-  v17 = v22;
-  v18 = v15;
+  v22 = v27;
+  v23 = v20;
 
-  return v15;
+  return v20;
 }
 
 void __51__OspreyConnectionPool_connectionForConfiguration___block_invoke(id *a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = [*(a1[4] + 2) objectForKey:a1[5]];
+  v4 = v2;
   if (v2)
   {
-    OspreyLoggingInit();
-    v3 = OspreyLogContextChannel;
+    OspreyLoggingInit(v2, v3);
+    v5 = OspreyLogContextChannel;
     if (os_log_type_enabled(OspreyLogContextChannel, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v18 = "[OspreyConnectionPool connectionForConfiguration:]_block_invoke";
-      v19 = 2112;
-      v20 = v2;
-      _os_log_impl(&dword_25DDE6000, v3, OS_LOG_TYPE_INFO, "%s Reused channel %@ from pool", buf, 0x16u);
+      v22 = "[OspreyConnectionPool connectionForConfiguration:]_block_invoke";
+      v23 = 2112;
+      v24 = v4;
+      _os_log_impl(&dword_25DDE6000, v5, OS_LOG_TYPE_INFO, "%s Reused channel %@ from pool", buf, 0x16u);
     }
   }
 
   else
   {
-    v4 = [OspreyChannel alloc];
-    v5 = [a1[5] connectionUrl];
-    v6 = [a1[5] urlSessionConfiguration];
-    v2 = [(OspreyChannel *)v4 initWithURL:v5 configuration:v6];
+    v6 = [OspreyChannel alloc];
+    v7 = [a1[5] connectionUrl];
+    v8 = [a1[5] urlSessionConfiguration];
+    v4 = [(OspreyChannel *)v6 initWithURL:v7 configuration:v8];
 
-    OspreyLoggingInit();
-    v7 = OspreyLogContextChannel;
+    OspreyLoggingInit(v9, v10);
+    v11 = OspreyLogContextChannel;
     if (os_log_type_enabled(OspreyLogContextChannel, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v18 = "[OspreyConnectionPool connectionForConfiguration:]_block_invoke";
-      v19 = 2112;
-      v20 = v2;
-      _os_log_impl(&dword_25DDE6000, v7, OS_LOG_TYPE_INFO, "%s Created channel %@", buf, 0x16u);
+      v22 = "[OspreyConnectionPool connectionForConfiguration:]_block_invoke";
+      v23 = 2112;
+      v24 = v4;
+      _os_log_impl(&dword_25DDE6000, v11, OS_LOG_TYPE_INFO, "%s Created channel %@", buf, 0x16u);
     }
 
     objc_initWeak(buf, a1[4]);
-    v8 = [OspreyConnectionHandle alloc];
-    v9 = a1[5];
-    v11 = MEMORY[0x277D85DD0];
-    v12 = 3221225472;
-    v13 = __51__OspreyConnectionPool_connectionForConfiguration___block_invoke_7;
-    v14 = &unk_2799F2420;
-    objc_copyWeak(&v16, buf);
-    v15 = a1[5];
-    v10 = [(OspreyConnectionHandle *)v8 initWithConnectionKey:v9 willRelease:&v11];
-    [(OspreyChannel *)v2 ocp_setAssociatedHandle:v10, v11, v12, v13, v14];
-    [*(a1[4] + 2) setObject:v2 forKey:a1[5]];
+    v12 = [OspreyConnectionHandle alloc];
+    v13 = a1[5];
+    v15 = MEMORY[0x277D85DD0];
+    v16 = 3221225472;
+    v17 = __51__OspreyConnectionPool_connectionForConfiguration___block_invoke_7;
+    v18 = &unk_2799F2420;
+    objc_copyWeak(&v20, buf);
+    v19 = a1[5];
+    v14 = [(OspreyConnectionHandle *)v12 initWithConnectionKey:v13 willRelease:&v15];
+    [(OspreyChannel *)v4 ocp_setAssociatedHandle:v14, v15, v16, v17, v18];
+    [*(a1[4] + 2) setObject:v4 forKey:a1[5]];
 
-    objc_destroyWeak(&v16);
+    objc_destroyWeak(&v20);
     objc_destroyWeak(buf);
   }
 
-  [a1[6] fulfill:v2];
+  [a1[6] fulfill:v4];
 }
 
-void __51__OspreyConnectionPool_connectionForConfiguration___block_invoke_7(uint64_t a1)
+void __51__OspreyConnectionPool_connectionForConfiguration___block_invoke_7(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  OspreyLoggingInit();
-  v2 = OspreyLogContextChannel;
+  v12 = *MEMORY[0x277D85DE8];
+  OspreyLoggingInit(a1, a2);
+  v3 = OspreyLogContextChannel;
   if (os_log_type_enabled(OspreyLogContextChannel, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v10 = "[OspreyConnectionPool connectionForConfiguration:]_block_invoke";
-    _os_log_impl(&dword_25DDE6000, v2, OS_LOG_TYPE_INFO, "%s OspreyChannel deallocated, removing handle from pool", buf, 0xCu);
+    v11 = "[OspreyConnectionPool connectionForConfiguration:]_block_invoke";
+    _os_log_impl(&dword_25DDE6000, v3, OS_LOG_TYPE_INFO, "%s OspreyChannel deallocated, removing handle from pool", buf, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v4 = WeakRetained[1];
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __51__OspreyConnectionPool_connectionForConfiguration___block_invoke_8;
-  v6[3] = &unk_2799F1F20;
-  v7 = WeakRetained;
-  v8 = *(a1 + 32);
-  v5 = WeakRetained;
-  dispatch_async(v4, v6);
+  v5 = WeakRetained[1];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __51__OspreyConnectionPool_connectionForConfiguration___block_invoke_8;
+  v7[3] = &unk_2799F1F20;
+  v8 = WeakRetained;
+  v9 = *(a1 + 32);
+  v6 = WeakRetained;
+  dispatch_async(v5, v7);
 }
 
 void __51__OspreyConnectionPool_connectionForConfiguration___block_invoke_8(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  [*(*(a1 + 32) + 16) removeObjectForKey:*(a1 + 40)];
-  OspreyLoggingInit();
-  v2 = OspreyLogContextChannel;
+  v11 = *MEMORY[0x277D85DE8];
+  v2 = [*(*(a1 + 32) + 16) removeObjectForKey:*(a1 + 40)];
+  OspreyLoggingInit(v2, v3);
+  v4 = OspreyLogContextChannel;
   if (os_log_type_enabled(OspreyLogContextChannel, OS_LOG_TYPE_INFO))
   {
-    v3 = *(*(a1 + 32) + 16);
-    v4 = v2;
-    v5 = 136315394;
-    v6 = "[OspreyConnectionPool connectionForConfiguration:]_block_invoke";
-    v7 = 2048;
-    v8 = [v3 count];
-    _os_log_impl(&dword_25DDE6000, v4, OS_LOG_TYPE_INFO, "%s Handle removed from pool, current size: %lu", &v5, 0x16u);
+    v5 = *(*(a1 + 32) + 16);
+    v6 = v4;
+    v7 = 136315394;
+    v8 = "[OspreyConnectionPool connectionForConfiguration:]_block_invoke";
+    v9 = 2048;
+    v10 = [v5 count];
+    _os_log_impl(&dword_25DDE6000, v6, OS_LOG_TYPE_INFO, "%s Handle removed from pool, current size: %lu", &v7, 0x16u);
   }
 }
 

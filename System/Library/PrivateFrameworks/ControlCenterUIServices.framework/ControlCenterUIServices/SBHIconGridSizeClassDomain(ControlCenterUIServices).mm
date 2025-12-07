@@ -11,9 +11,9 @@
     +[SBHIconGridSizeClassDomain(ControlCenterUIServices) controlCenterDomain];
   }
 
-  v1 = controlCenterDomain_controlCenterDomain;
+  v2 = controlCenterDomain_controlCenterDomain;
 
-  return v1;
+  return v2;
 }
 
 @end

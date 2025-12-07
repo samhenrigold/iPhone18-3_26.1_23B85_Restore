@@ -10,6 +10,7 @@
 - (void)remote_fetchDoseLimitWithCompletion:(id)completion;
 - (void)remote_fetchInfoDictWithCompletion:(id)completion;
 - (void)remote_fetchInfoWithCompletion:(id)completion;
+- (void)remote_insertQuantityWithExposure:(double)exposure duration:(double)duration startDate:(id)date includesNotificationSample:(BOOL)sample synced:(BOOL)synced completion:(id)completion;
 - (void)remote_overrideDoseLimit:(id)limit completion:(id)completion;
 - (void)remote_rebuildWithCompletion:(id)completion;
 @end
@@ -82,6 +83,61 @@
   completionCopy[2](completionCopy, v6, v7);
 }
 
+- (void)remote_insertQuantityWithExposure:(double)exposure duration:(double)duration startDate:(id)date includesNotificationSample:(BOOL)sample synced:(BOOL)synced completion:(id)completion
+{
+  syncedCopy = synced;
+  sampleCopy = sample;
+  v41[2] = *MEMORY[0x277D85DE8];
+  dateCopy = date;
+  completionCopy = completion;
+  v14 = dateCopy;
+  v15 = v14;
+  if (!v14)
+  {
+    v16 = [MEMORY[0x277CBEAA8] now];
+    v15 = [v16 dateByAddingTimeInterval:-duration];
+  }
+
+  v17 = [v15 dateByAddingTimeInterval:{duration, self}];
+  decibelAWeightedSoundPressureLevelUnit = [MEMORY[0x277CCDAB0] decibelAWeightedSoundPressureLevelUnit];
+  v19 = MEMORY[0x277CCD800];
+  v20 = HKHeadphoneAudioExposureType();
+  v37 = decibelAWeightedSoundPressureLevelUnit;
+  v21 = [MEMORY[0x277CCD7E8] quantityWithUnit:decibelAWeightedSoundPressureLevelUnit doubleValue:exposure];
+  v22 = [v19 quantitySampleWithType:v20 quantity:v21 startDate:v15 endDate:v17];
+
+  if (sampleCopy)
+  {
+    v23 = [v17 dateByAddingTimeInterval:1.0];
+    v24 = [v23 dateByAddingTimeInterval:-604800.0];
+    v25 = MEMORY[0x277CCD0B0];
+    v26 = HKHeadphoneAudioExposureEventType();
+    [v25 categorySampleWithType:v26 value:1 startDate:v24 endDate:v23];
+    v28 = v27 = syncedCopy;
+
+    v41[0] = v28;
+    v41[1] = v22;
+    v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:2];
+
+    syncedCopy = v27;
+  }
+
+  else
+  {
+    v40 = v22;
+    v29 = [MEMORY[0x277CBEA60] arrayWithObjects:&v40 count:1];
+  }
+
+  profile = [v36 profile];
+  dataManager = [profile dataManager];
+  v32 = [v36 _headphoneProvenanceForRemoteDevice:syncedCopy];
+  v39 = 0;
+  v33 = [dataManager insertDataObjects:v29 withProvenance:v32 creationDate:&v39 error:CFAbsoluteTimeGetCurrent()];
+  v34 = v39;
+
+  completionCopy[2](completionCopy, v33, v34);
+}
+
 - (void)remote_fetchDoseLimitWithCompletion:(id)completion
 {
   profileExtension = self->_profileExtension;
@@ -126,32 +182,32 @@
 
 - (id)_headphoneProvenanceForRemoteWatch
 {
-  v43[4] = *MEMORY[0x277D85DE8];
+  v42[4] = *MEMORY[0x277D85DE8];
   _makeAirPods = [(HDHeadphoneAudioExposureControlServer *)self _makeAirPods];
-  v43[0] = _makeAirPods;
+  v42[0] = _makeAirPods;
   _makeEarPods = [(HDHeadphoneAudioExposureControlServer *)self _makeEarPods];
-  v43[1] = _makeEarPods;
+  v42[1] = _makeEarPods;
   _makeBeatsHeadphones = [(HDHeadphoneAudioExposureControlServer *)self _makeBeatsHeadphones];
-  v43[2] = _makeBeatsHeadphones;
+  v42[2] = _makeBeatsHeadphones;
   _makeUnknownHeadphones = [(HDHeadphoneAudioExposureControlServer *)self _makeUnknownHeadphones];
-  v43[3] = _makeUnknownHeadphones;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:4];
+  v42[3] = _makeUnknownHeadphones;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:4];
 
   v8 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:@"AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA"];
   profile = [(HDStandardTaskServer *)self profile];
   sourceManager = [profile sourceManager];
-  v42 = 0;
-  v11 = [sourceManager sourceForAppleDeviceWithUUID:v8 identifier:@"com.apple.health.demo_watch" name:@"Fake Person's Watch" productType:@"Watch1 createIfNecessary:2" error:{1, &v42}];
-  v12 = v42;
+  v41 = 0;
+  v11 = [sourceManager sourceForAppleDeviceWithUUID:v8 identifier:@"com.apple.health.demo_watch" name:@"Fake Person's Watch" productType:@"Watch1 createIfNecessary:2" error:{1, &v41}];
+  v12 = v41;
 
   if (v11)
   {
     profile2 = [(HDStandardTaskServer *)self profile];
     deviceManager = [profile2 deviceManager];
     v15 = [v7 objectAtIndexedSubscript:{arc4random_uniform(objc_msgSend(v7, "count"))}];
-    v41 = v12;
-    v16 = [deviceManager deviceEntityForDevice:v15 error:&v41];
-    v39 = v41;
+    v40 = v12;
+    v16 = [deviceManager deviceEntityForDevice:v15 error:&v40];
+    v38 = v40;
 
     if (v16)
     {
@@ -159,7 +215,7 @@
       daemon = [profile3 daemon];
       behavior = [daemon behavior];
 
-      v35 = MEMORY[0x277D10698];
+      v34 = MEMORY[0x277D10698];
       profile4 = [(HDStandardTaskServer *)self profile];
       currentSyncIdentityPersistentID = [profile4 currentSyncIdentityPersistentID];
       currentOSBuild = [behavior currentOSBuild];
@@ -170,17 +226,17 @@
         v22 = currentOSBuild;
       }
 
-      v33 = v22;
-      v37 = v8;
-      v38 = v7;
+      v32 = v22;
+      v36 = v8;
+      v37 = v7;
       if (behavior)
       {
-        [behavior currentOSVersionStruct];
+        objc_msgSend_currentOSVersionStruct(behavior);
       }
 
       else
       {
-        memset(v40, 0, sizeof(v40));
+        memset(v39, 0, sizeof(v39));
       }
 
       currentOSVersion = [behavior currentOSVersion];
@@ -188,10 +244,10 @@
       name = [localTimeZone name];
       v29 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v11, "persistentID")}];
       v30 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v16, "persistentID")}];
-      v24 = [v35 dataProvenanceWithSyncProvenance:0 syncIdentity:currentSyncIdentityPersistentID productType:@"Watch1 systemBuild:2" operatingSystemVersion:v33 sourceVersion:v40 timeZoneName:currentOSVersion sourceID:name deviceID:v29 contributorReference:{v30, 0}];
+      v24 = [v34 dataProvenanceWithSyncProvenance:0 syncIdentity:currentSyncIdentityPersistentID productType:@"Watch1 systemBuild:2" operatingSystemVersion:v32 sourceVersion:v39 timeZoneName:currentOSVersion sourceID:name deviceID:v29 contributorReference:{v30, 0}];
 
-      v8 = v37;
-      v7 = v38;
+      v8 = v36;
+      v7 = v37;
     }
 
     else
@@ -200,8 +256,8 @@
       v25 = *MEMORY[0x277CCC2B8];
       if (os_log_type_enabled(*MEMORY[0x277CCC2B8], OS_LOG_TYPE_ERROR))
       {
-        v12 = v39;
-        [(HDHeadphoneAudioExposureControlServer *)v39 _headphoneProvenanceForRemoteWatch];
+        v12 = v38;
+        [(HDHeadphoneAudioExposureControlServer *)v38 _headphoneProvenanceForRemoteWatch];
         v24 = 0;
         goto LABEL_15;
       }
@@ -209,7 +265,7 @@
       v24 = 0;
     }
 
-    v12 = v39;
+    v12 = v38;
 LABEL_15:
 
     goto LABEL_16;
@@ -224,8 +280,6 @@ LABEL_15:
 
   v24 = 0;
 LABEL_16:
-
-  v31 = *MEMORY[0x277D85DE8];
 
   return v24;
 }
@@ -272,11 +326,10 @@ LABEL_16:
 
 - (void)_headphoneProvenanceForRemoteWatch
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
   selfCopy = self;
-  _os_log_error_impl(&dword_251764000, a2, OS_LOG_TYPE_ERROR, "Error creating watch source entity %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_251764000, a2, OS_LOG_TYPE_ERROR, "Error creating watch source entity %{public}@", &v2, 0xCu);
 }
 
 @end

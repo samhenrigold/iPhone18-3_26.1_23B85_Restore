@@ -16,6 +16,7 @@
 - (void)setSignature:(id)signature;
 - (void)setSignature:(id)signature forAccount:(id)account;
 - (void)setSignature:(id)signature forEmailAddress:(id)address;
+- (void)setUseAccountSignatures:(BOOL)signatures;
 @end
 
 @implementation MFSignatures
@@ -155,6 +156,14 @@ void __30__MFSignatures_sharedInstance__block_invoke(uint64_t a1)
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setUseAccountSignatures:(BOOL)signatures
+{
+  signaturesCopy = signatures;
+  em_userDefaults = [MEMORY[0x1E695E000] em_userDefaults];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:signaturesCopy];
+  [em_userDefaults setObject:v4 forKey:@"UseAccountSignatures"];
 }
 
 - (id)signatureForAccount:(id)account

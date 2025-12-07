@@ -38,23 +38,24 @@
 - (void)viewWillAppear:(BOOL)appear
 {
   appearCopy = appear;
-  v6.receiver = self;
-  v6.super_class = type metadata accessor for BackdropViewController();
-  v4 = v6.receiver;
-  [(BackdropViewController *)&v6 viewWillAppear:appearCopy];
-  sub_10000CA44();
-  v5 = v4[OBJC_IVAR____TtC13MediaRemoteUI22BackdropViewController_isOnScreen];
+  v10.receiver = self;
+  v10.super_class = type metadata accessor for BackdropViewController();
+  v4 = v10.receiver;
+  v5 = [(BackdropViewController *)&v10 viewWillAppear:appearCopy];
+  sub_10000CA44(v5, v6);
+  v9 = v4[OBJC_IVAR____TtC13MediaRemoteUI22BackdropViewController_isOnScreen];
   v4[OBJC_IVAR____TtC13MediaRemoteUI22BackdropViewController_isOnScreen] = 1;
-  if ((v5 & 1) == 0)
+  if ((v9 & 1) == 0)
   {
-    sub_10000C368();
+    sub_10000C368(v7, v8);
   }
 }
 
 - (void)viewDidDisappear:(BOOL)disappear
 {
+  disappearCopy = disappear;
   selfCopy = self;
-  sub_10000BB3C(disappear);
+  sub_10000BB3C(disappearCopy);
 }
 
 - (void)didMoveToParentViewController:(id)controller
@@ -81,7 +82,7 @@
 {
   imageCopy = image;
   selfCopy = self;
-  sub_10000BF24(image);
+  sub_10000BF24(image, animated);
 }
 
 - (void)traitCollectionDidChange:(id)change

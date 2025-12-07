@@ -28,7 +28,7 @@
 
 - (void)isExtensionPrivileged:(NSString *)privileged completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27DA2D440);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27DA2D440, &qword_22DCEA540);
   MEMORY[0x28223BE20](v7 - 8, v8, v9);
   v11 = &v19 - v10;
   v12 = _Block_copy(handler);
@@ -55,7 +55,7 @@
 
 - (void)handleDeviceHasBecomeActiveWithCompletionHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27DA2D440);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27DA2D440, &qword_22DCEA540);
   MEMORY[0x28223BE20](v5 - 8, v6, v7);
   v9 = &v16 - v8;
   v10 = _Block_copy(handler);
@@ -80,7 +80,7 @@
 
 - (void)shouldWakeAppWithBundleID:(NSString *)d completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27DA2D440);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27DA2D440, &qword_22DCEA540);
   MEMORY[0x28223BE20](v7 - 8, v8, v9);
   v11 = &v19 - v10;
   v12 = _Block_copy(handler);

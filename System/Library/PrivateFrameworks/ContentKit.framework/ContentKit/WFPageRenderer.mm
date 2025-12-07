@@ -174,8 +174,8 @@
   handlerCopy = handler;
   completionHandlerCopy = completionHandler;
   matchInputSize = [(WFPageRenderer *)self matchInputSize];
-  *v24.i64 = width;
-  *&v24.i64[1] = height;
+  v24.n128_f64[0] = width;
+  v24.n128_f64[1] = height;
   v65 = viewCopy;
   v66 = completionHandlerCopy;
   rect = v24;
@@ -249,9 +249,9 @@
     v42 = 0.0;
   }
 
-  v43 = rect.i64[0];
+  v43 = rect.n128_u64[0];
   v44 = 0;
-  v45 = rect.i64[1];
+  v45 = rect.n128_u64[1];
   v103 = CGRectInset(*&v41, v42, v42);
   x = v103.origin.x;
   y = v103.origin.y;
@@ -272,7 +272,7 @@
   v56 = v55;
   if (v55)
   {
-    softLinkUIGraphicsBeginPDFPageWithInfo(0, 0.0, 0.0, *rect.i64, *&rect.i64[1]);
+    softLinkUIGraphicsBeginPDFPageWithInfo(0, 0.0, 0.0, rect, rect.n128_f64[1]);
   }
 
   v84[0] = MEMORY[0x277D85DD0];
@@ -328,100 +328,100 @@ void __174__WFPageRenderer_renderPDFPageIndex_pages_measuredIndicesByFormatter_d
 
   if (*(a1 + 136))
   {
-    v12 = 0;
+    v13 = 0;
   }
 
   else
   {
     DeviceRGB = CGColorSpaceCreateDeviceRGB();
-    v12 = CGBitmapContextCreate(0, 1uLL, 1uLL, 8uLL, 4uLL, DeviceRGB, 1u);
+    v13 = CGBitmapContextCreate(0, 1uLL, 1uLL, 8uLL, 4uLL, DeviceRGB, 1u);
     CGColorSpaceRelease(DeviceRGB);
-    softLinkUIGraphicsPushContext(v12);
+    v12 = softLinkUIGraphicsPushContext(v13);
   }
 
-  v14 = [(objc_class *)getUITraitCollectionClass() currentTraitCollection];
-  UITraitCollectionClass = getUITraitCollectionClass();
-  v16 = [(objc_class *)getUITraitCollectionClass() traitCollectionWithUserInterfaceStyle:1];
-  [(objc_class *)UITraitCollectionClass setCurrentTraitCollection:v16];
+  v15 = [getUITraitCollectionClass(v12) currentTraitCollection];
+  v16 = (getUITraitCollectionClass)();
+  v17 = [(objc_class *)(getUITraitCollectionClass)() traitCollectionWithUserInterfaceStyle:1];
+  [(objc_class *)v16 setCurrentTraitCollection:v17];
 
   if (*(a1 + 64) > 0.0 && *(a1 + 72) > 0.0)
   {
     [v6 drawInRect:v9 forPageAtIndex:{*(a1 + 48), *(a1 + 56)}];
   }
 
-  [(objc_class *)getUITraitCollectionClass() setCurrentTraitCollection:v14];
-  if (v12)
+  v18 = [(objc_class *)(getUITraitCollectionClass)() setCurrentTraitCollection:v15];
+  if (v13)
   {
-    softLinkUIGraphicsPopContext();
-    CGContextRelease(v12);
+    softLinkUIGraphicsPopContext(v18);
+    CGContextRelease(v13);
 LABEL_16:
     v7[2](v7, 0);
     goto LABEL_17;
   }
 
-  getUIViewPrintFormatterClass();
+  getUIViewPrintFormatterClass(v18);
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     goto LABEL_16;
   }
 
-  v17 = [v6 view];
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x2050000000;
-  v18 = getWKWebViewClass_softClass;
-  v42 = getWKWebViewClass_softClass;
+  v19 = [v6 view];
+  v41 = 0;
+  v42 = &v41;
+  v43 = 0x2050000000;
+  v20 = getWKWebViewClass_softClass;
+  v44 = getWKWebViewClass_softClass;
   if (!getWKWebViewClass_softClass)
   {
-    v38[0] = MEMORY[0x277D85DD0];
-    v38[1] = 3221225472;
-    v38[2] = __getWKWebViewClass_block_invoke;
-    v38[3] = &unk_27834A178;
-    v38[4] = &v39;
-    __getWKWebViewClass_block_invoke(v38);
-    v18 = v40[3];
+    v40[0] = MEMORY[0x277D85DD0];
+    v40[1] = 3221225472;
+    v40[2] = __getWKWebViewClass_block_invoke;
+    v40[3] = &unk_27834A178;
+    v40[4] = &v41;
+    __getWKWebViewClass_block_invoke(v40);
+    v20 = v42[3];
   }
 
-  v19 = v18;
-  _Block_object_dispose(&v39, 8);
+  v21 = v20;
+  _Block_object_dispose(&v41, 8);
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
 
     goto LABEL_16;
   }
 
-  v20 = v17;
+  v22 = v19;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __174__WFPageRenderer_renderPDFPageIndex_pages_measuredIndicesByFormatter_drawnIndicesByFormatter_linkMetricsByWebView_y_paperSize_shouldDrawPageAtIndexHandler_completionHandler___block_invoke_2;
   aBlock[3] = &unk_278347370;
-  v21 = *(a1 + 64);
-  v32 = *(a1 + 48);
-  v33 = v21;
-  v34 = *(a1 + 80);
-  v22 = *(a1 + 104);
-  v35 = *(a1 + 88);
-  v36 = v22;
-  v37 = *(a1 + 120);
-  v31 = v7;
-  v23 = _Block_copy(aBlock);
-  v24 = [*(a1 + 40) objectForKey:v20];
-  if (v24)
+  v23 = *(a1 + 64);
+  v34 = *(a1 + 48);
+  v35 = v23;
+  v36 = *(a1 + 80);
+  v24 = *(a1 + 104);
+  v37 = *(a1 + 88);
+  v38 = v24;
+  v39 = *(a1 + 120);
+  v33 = v7;
+  v25 = _Block_copy(aBlock);
+  v26 = [*(a1 + 40) objectForKey:v22];
+  if (v26)
   {
-    v23[2](v23, v24);
+    v25[2](v25, v26);
   }
 
   else
   {
-    v25 = *(a1 + 64);
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __174__WFPageRenderer_renderPDFPageIndex_pages_measuredIndicesByFormatter_drawnIndicesByFormatter_linkMetricsByWebView_y_paperSize_shouldDrawPageAtIndexHandler_completionHandler___block_invoke_3;
-    v26[3] = &unk_278347398;
-    v27 = *(a1 + 40);
-    v28 = v20;
-    v29 = v23;
-    [WFWebViewLinkExtractor extractLinksFromWKWebView:v28 withDestinationWidth:v26 completionHandler:v25];
+    v27 = *(a1 + 64);
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __174__WFPageRenderer_renderPDFPageIndex_pages_measuredIndicesByFormatter_drawnIndicesByFormatter_linkMetricsByWebView_y_paperSize_shouldDrawPageAtIndexHandler_completionHandler___block_invoke_3;
+    v28[3] = &unk_278347398;
+    v29 = *(a1 + 40);
+    v30 = v22;
+    v31 = v25;
+    [WFWebViewLinkExtractor extractLinksFromWKWebView:v30 withDestinationWidth:v28 completionHandler:v27];
   }
 
 LABEL_17:
@@ -519,7 +519,7 @@ void __174__WFPageRenderer_renderPDFPageIndex_pages_measuredIndicesByFormatter_d
   path = [f path];
   renderer = [(WFPageRenderer *)self renderer];
   [renderer paperRect];
-  softLinkUIGraphicsBeginPDFContextToFile(path, 0, v13, v14, v15, v16);
+  softLinkUIGraphicsBeginPDFContextToFile(path, 0);
 
   renderer2 = [(WFPageRenderer *)self renderer];
   numberOfPages = [renderer2 numberOfPages];
@@ -532,22 +532,22 @@ void __174__WFPageRenderer_renderPDFPageIndex_pages_measuredIndicesByFormatter_d
   strongToStrongObjectsMapTable3 = [MEMORY[0x277CCAB00] strongToStrongObjectsMapTable];
   renderer4 = [(WFPageRenderer *)self renderer];
   [renderer4 paperRect];
-  v25 = v24;
-  v27 = v26;
+  v21 = v20;
+  v23 = v22;
 
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = __77__WFPageRenderer__renderToPDF_startingAtPage_endingAtPage_completionHandler___block_invoke;
-  v31[3] = &__block_descriptor_48_e8_B16__0q8l;
-  v31[4] = page;
-  v31[5] = atPage;
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __77__WFPageRenderer__renderToPDF_startingAtPage_endingAtPage_completionHandler___block_invoke_2;
-  v29[3] = &unk_27834A5A8;
-  v30 = handlerCopy;
-  v28 = handlerCopy;
-  [(WFPageRenderer *)self renderPDFPageIndex:0 pages:numberOfPages measuredIndicesByFormatter:strongToStrongObjectsMapTable drawnIndicesByFormatter:strongToStrongObjectsMapTable2 linkMetricsByWebView:strongToStrongObjectsMapTable3 y:v31 paperSize:0.0 shouldDrawPageAtIndexHandler:v25 completionHandler:v27, v29];
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __77__WFPageRenderer__renderToPDF_startingAtPage_endingAtPage_completionHandler___block_invoke;
+  v27[3] = &__block_descriptor_48_e8_B16__0q8l;
+  v27[4] = page;
+  v27[5] = atPage;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __77__WFPageRenderer__renderToPDF_startingAtPage_endingAtPage_completionHandler___block_invoke_2;
+  v25[3] = &unk_27834A5A8;
+  v26 = handlerCopy;
+  v24 = handlerCopy;
+  [(WFPageRenderer *)self renderPDFPageIndex:0 pages:numberOfPages measuredIndicesByFormatter:strongToStrongObjectsMapTable drawnIndicesByFormatter:strongToStrongObjectsMapTable2 linkMetricsByWebView:strongToStrongObjectsMapTable3 y:v27 paperSize:0.0 shouldDrawPageAtIndexHandler:v21 completionHandler:v23, v25];
 }
 
 uint64_t __77__WFPageRenderer__renderToPDF_startingAtPage_endingAtPage_completionHandler___block_invoke_2(uint64_t a1)

@@ -10,15 +10,15 @@
 
 - (id)_contextTitleWithReasons:(unint64_t)reasons
 {
-  v39 = *MEMORY[0x277D85DE8];
-  v5 = __atxlog_handle_context_heuristic();
+  v37 = *MEMORY[0x277D85DE8];
+  v5 = __atxlog_handle_context_heuristic(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     title = self->_title;
     *buf = 136446466;
-    v36 = "[ATXContextNavigationSuggestionProducer _contextTitleWithReasons:]";
-    v37 = 2112;
-    v38 = title;
+    v34 = "[ATXContextNavigationSuggestionProducer _contextTitleWithReasons:]";
+    v35 = 2112;
+    v36 = title;
     _os_log_impl(&dword_23E3EA000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s _eventTitle:%@", buf, 0x16u);
   }
 
@@ -68,16 +68,16 @@ LABEL_12:
   {
     if ((reasons & 0x80000000) != 0)
     {
-      v25 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      title = v25;
-      v26 = @"CONTEXT_UPCOMING_FLIGHT_NO_ARRIVAL_CITY_TITLE";
+      v24 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      title = v24;
+      v25 = @"CONTEXT_UPCOMING_FLIGHT_NO_ARRIVAL_CITY_TITLE";
     }
 
     else if ((reasons & 0x100000000) != 0)
     {
-      v25 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      title = v25;
-      v26 = @"CONTEXT_ONGOING_FLIGHT_NO_ARRIVAL_CITY_TITLE";
+      v24 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      title = v24;
+      v25 = @"CONTEXT_ONGOING_FLIGHT_NO_ARRIVAL_CITY_TITLE";
     }
 
     else
@@ -88,17 +88,18 @@ LABEL_12:
         goto LABEL_20;
       }
 
-      v25 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      title = v25;
-      v26 = @"CONTEXT_CONCLUDED_FLIGHT_NO_ARRIVAL_CITY_TITLE";
+      v24 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      title = v24;
+      v25 = @"CONTEXT_CONCLUDED_FLIGHT_NO_ARRIVAL_CITY_TITLE";
     }
 
-    v23 = [v25 localizedStringForKey:v26 value:&stru_2850AD368 table:0];
+    v22 = [v24 localizedStringForKey:v25 value:&stru_2850AD368 table:0];
     v11 = 0;
     goto LABEL_37;
   }
 
-  v11 = alternateDestinationTitle;
+  event = alternateDestinationTitle;
+  v11 = event;
   if ((reasons & 0x80000000) != 0)
   {
     goto LABEL_15;
@@ -121,8 +122,8 @@ LABEL_9:
     title = v17;
     v19 = @"CONTEXT_CONCLUDED_FLIGHT_TITLE";
 LABEL_26:
-    v24 = [v17 localizedStringForKey:v19 value:&stru_2850AD368 table:0];
-    v23 = [v16 localizedStringWithFormat:v24, v11];
+    v23 = [v17 localizedStringForKey:v19 value:&stru_2850AD368 table:0];
+    v22 = [v16 localizedStringWithFormat:v23, v11];
 
 LABEL_37:
     goto LABEL_38;
@@ -131,55 +132,53 @@ LABEL_37:
 LABEL_20:
   if ((reasons & 0x300000) != 0)
   {
-    v21 = self->_event;
-    if (v21)
+    event = self->_event;
+    if (event)
     {
-      title = [(EKEvent *)v21 title];
-      v22 = title;
+      title = [(EKEvent *)event title];
+      v21 = title;
       if (!title)
       {
-        v22 = self->_title;
+        v21 = self->_title;
       }
 
-      v23 = v22;
+      v22 = v21;
       goto LABEL_37;
     }
   }
 
   if ((reasons & 0x1000000000) != 0)
   {
-    v28 = MEMORY[0x277CCACA8];
-    v29 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v30 = v29;
-    v31 = @"CONTEXT_TITLE_UPCOMING_TO_WORK_COMMUTE";
+    v27 = MEMORY[0x277CCACA8];
+    v28 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v29 = v28;
+    v30 = @"CONTEXT_TITLE_UPCOMING_TO_WORK_COMMUTE";
 LABEL_42:
-    v34 = [v29 localizedStringForKey:v31 value:&stru_2850AD368 table:0];
-    v23 = [v28 localizedStringWithFormat:v34];
+    v32 = [v28 localizedStringForKey:v30 value:&stru_2850AD368 table:0];
+    v22 = [v27 localizedStringWithFormat:v32];
 
     goto LABEL_38;
   }
 
   if ((reasons & 0x2000000000) != 0)
   {
-    v28 = MEMORY[0x277CCACA8];
-    v29 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v30 = v29;
-    v31 = @"CONTEXT_TITLE_UPCOMING_FROM_WORK_COMMUTE";
+    v27 = MEMORY[0x277CCACA8];
+    v28 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v29 = v28;
+    v30 = @"CONTEXT_TITLE_UPCOMING_FROM_WORK_COMMUTE";
     goto LABEL_42;
   }
 
-  v27 = __atxlog_handle_context_heuristic();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
+  v26 = __atxlog_handle_context_heuristic(event);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
   {
-    [(ATXContextNavigationSuggestionProducer *)self _contextTitleWithReasons:reasons, v27];
+    [(ATXContextNavigationSuggestionProducer *)self _contextTitleWithReasons:reasons, v26];
   }
 
-  v23 = self->_title;
+  v22 = self->_title;
 LABEL_38:
 
-  v32 = *MEMORY[0x277D85DE8];
-
-  return v23;
+  return v22;
 }
 
 - (id)_stringsWithPredictionReasons:(unint64_t)reasons
@@ -197,10 +196,10 @@ LABEL_38:
   return v3;
 }
 
-void __72__ATXContextNavigationSuggestionProducer__stringsWithPredictionReasons___block_invoke(uint64_t a1)
+void __72__ATXContextNavigationSuggestionProducer__stringsWithPredictionReasons___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = stringForATXSuggestionPredictionReasonCode();
-  [*(*(*(a1 + 32) + 8) + 40) addObject:v2];
+  v3 = stringForATXSuggestionPredictionReasonCode();
+  [*(*(*(a1 + 32) + 8) + 40) addObject:v3];
 }
 
 - (ATXContextNavigationSuggestionProducer)initWithTitle:(id)title event:(id)event schemaForEvent:(id)forEvent alternateDestinationTitle:(id)destinationTitle
@@ -261,18 +260,16 @@ void __72__ATXContextNavigationSuggestionProducer__stringsWithPredictionReasons_
 
 - (void)_contextTitleWithReasons:(NSObject *)a3 .cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = a1[1];
   v5 = [a1 _stringsWithPredictionReasons:a2];
-  v7 = 136446722;
-  v8 = "[ATXContextNavigationSuggestionProducer _contextTitleWithReasons:]";
-  v9 = 2112;
-  v10 = v4;
-  v11 = 2112;
-  v12 = v5;
-  _os_log_fault_impl(&dword_23E3EA000, a3, OS_LOG_TYPE_FAULT, "%{public}s The predictionReasons for the suggestion for event %@ :%@ was not one of UpcomingFlight, OngoingFlight, ConcludedFlight, CommuteToWork and CommuteFromWork. Falling back on the title", &v7, 0x20u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 136446722;
+  v7 = "[ATXContextNavigationSuggestionProducer _contextTitleWithReasons:]";
+  v8 = 2112;
+  v9 = v4;
+  v10 = 2112;
+  v11 = v5;
+  _os_log_fault_impl(&dword_23E3EA000, a3, OS_LOG_TYPE_FAULT, "%{public}s The predictionReasons for the suggestion for event %@ :%@ was not one of UpcomingFlight, OngoingFlight, ConcludedFlight, CommuteToWork and CommuteFromWork. Falling back on the title", &v6, 0x20u);
 }
 
 @end

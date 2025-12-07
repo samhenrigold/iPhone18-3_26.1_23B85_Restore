@@ -48,16 +48,14 @@ LABEL_7:
 
 + (id)wcErrorWithCode:()WCError underlyingError:
 {
-  v13[1] = *MEMORY[0x277D85DE8];
-  v12 = *MEMORY[0x277CCA7E8];
-  v13[0] = a4;
+  v12[1] = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277CCA7E8];
+  v12[0] = a4;
   v6 = MEMORY[0x277CBEAC0];
   v7 = a4;
-  v8 = [v6 dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v8 = [v6 dictionaryWithObjects:v12 forKeys:&v11 count:1];
 
   v9 = [self wcErrorWithCode:a3 userInfo:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

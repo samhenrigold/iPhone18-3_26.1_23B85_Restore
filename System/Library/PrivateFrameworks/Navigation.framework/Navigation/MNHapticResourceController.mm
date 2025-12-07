@@ -16,7 +16,7 @@
 
 - (BOOL)playHapticSound:(unint64_t)sound andReport:(id *)report
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (sound >= 3)
   {
     if (report)
@@ -54,24 +54,22 @@
     {
       *buf = 134218240;
       soundCopy = sound;
-      v17 = 1024;
-      v18 = v7;
+      v16 = 1024;
+      v17 = v7;
       _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_INFO, "ⓗ Starting haptic playback for id %lu (system id %u)", buf, 0x12u);
     }
 
     self->_isVibrating = 1;
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __56__MNHapticResourceController_playHapticSound_andReport___block_invoke;
-    v14[3] = &unk_1E8430A10;
-    v14[4] = self;
-    v14[5] = sound;
-    AudioServicesPlaySystemSoundWithCompletion(v7, v14);
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __56__MNHapticResourceController_playHapticSound_andReport___block_invoke;
+    v13[3] = &unk_1E8430A10;
+    v13[4] = self;
+    v13[5] = sound;
+    AudioServicesPlaySystemSoundWithCompletion(v7, v13);
   }
 
-  result = sound < 3;
-  v13 = *MEMORY[0x1E69E9840];
-  return result;
+  return sound < 3;
 }
 
 void __56__MNHapticResourceController_playHapticSound_andReport___block_invoke(uint64_t a1)
@@ -88,15 +86,15 @@ void __56__MNHapticResourceController_playHapticSound_andReport___block_invoke(u
 
 void __56__MNHapticResourceController_playHapticSound_andReport___block_invoke_2(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   *(*(a1 + 32) + 8) = 0;
   v2 = GetAudioLogForMNHapticResourceControllerCategory();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 40);
-    v8 = 134217984;
-    v9 = v3;
-    _os_log_impl(&dword_1D311E000, v2, OS_LOG_TYPE_INFO, "ⓗ Finished haptic playback for id %lu", &v8, 0xCu);
+    v7 = 134217984;
+    v8 = v3;
+    _os_log_impl(&dword_1D311E000, v2, OS_LOG_TYPE_INFO, "ⓗ Finished haptic playback for id %lu", &v7, 0xCu);
   }
 
   v4 = [*(a1 + 32) delegate];
@@ -107,8 +105,6 @@ void __56__MNHapticResourceController_playHapticSound_andReport___block_invoke_2
     v6 = [*(a1 + 32) delegate];
     [v6 hapticResourceController:*(a1 + 32) didFinishPlayingHapticIndicator:*(a1 + 40)];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopVibrating
@@ -126,23 +122,23 @@ void __56__MNHapticResourceController_playHapticSound_andReport___block_invoke_2
 
 - (BOOL)triggerVibration
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   [(MNHapticResourceController *)self stopVibrating];
-  v11[0] = *MEMORY[0x1E695E4D0];
-  v11[1] = &unk_1F4EE2398;
-  v12 = *MEMORY[0x1E695E4C0];
-  v13 = &unk_1F4EE23B0;
-  v14 = v11[0];
-  v15 = &unk_1F4EE23C8;
-  v16 = v12;
-  v17 = &unk_1F4EE23E0;
-  v18 = v11[0];
-  v19 = &unk_1F4EE23F8;
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:10];
+  v10[0] = *MEMORY[0x1E695E4D0];
+  v10[1] = &unk_1F4EE2398;
+  v11 = *MEMORY[0x1E695E4C0];
+  v12 = &unk_1F4EE23B0;
+  v13 = v10[0];
+  v14 = &unk_1F4EE23C8;
+  v15 = v11;
+  v16 = &unk_1F4EE23E0;
+  v17 = v10[0];
+  v18 = &unk_1F4EE23F8;
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:10];
   v3 = [objc_alloc(MEMORY[0x1E695DF20]) initWithObjectsAndKeys:{&unk_1F4EE2C80, @"Intensity", v2, @"VibePattern", 0}];
-  v9 = *MEMORY[0x1E695A8E0];
-  v10 = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
+  v8 = *MEMORY[0x1E695A8E0];
+  v9 = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v9 forKeys:&v8 count:1];
   v5 = GetAudioLogForMNHapticResourceControllerCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
@@ -151,7 +147,6 @@ void __56__MNHapticResourceController_playHapticSound_andReport___block_invoke_2
   }
 
   AudioServicesPlaySystemSoundWithOptions();
-  v6 = *MEMORY[0x1E69E9840];
   return 1;
 }
 

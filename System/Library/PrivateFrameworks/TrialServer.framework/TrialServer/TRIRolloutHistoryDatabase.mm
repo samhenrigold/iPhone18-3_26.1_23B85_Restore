@@ -61,56 +61,56 @@
 
 uint64_t __39__TRIRolloutHistoryDatabase_addRecord___block_invoke(uint64_t a1, void *a2)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 db];
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = __39__TRIRolloutHistoryDatabase_addRecord___block_invoke_2;
-  v31[3] = &unk_279DDF860;
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __39__TRIRolloutHistoryDatabase_addRecord___block_invoke_2;
+  v30[3] = &unk_279DDF860;
   v5 = *(a1 + 32);
-  v32 = *(a1 + 40);
+  v31 = *(a1 + 40);
   v6 = [*(*(a1 + 48) + 8) generalErrorHandlerWithOutError:0];
-  LOBYTE(v5) = [v4 prepAndRunQuery:v5 onPrep:v31 onRow:0 onError:v6];
+  LOBYTE(v5) = [v4 prepAndRunQuery:v5 onPrep:v30 onRow:0 onError:v6];
 
   if (v5)
   {
     v7 = [v3 db];
-    v25 = [v7 lastInsertRowId];
+    v24 = [v7 lastInsertRowId];
 
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     obj = [*(a1 + 40) namespaces];
-    v8 = [obj countByEnumeratingWithState:&v27 objects:v37 count:16];
+    v8 = [obj countByEnumeratingWithState:&v26 objects:v36 count:16];
     if (v8)
     {
       v9 = v8;
-      v24 = *v28;
+      v23 = *v27;
       while (2)
       {
         v10 = 0;
         do
         {
-          if (*v28 != v24)
+          if (*v27 != v23)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v27 + 1) + 8 * v10);
+          v11 = *(*(&v26 + 1) + 8 * v10);
           v12 = objc_autoreleasePoolPush();
           v13 = v3;
           v14 = [v3 db];
-          v26[0] = MEMORY[0x277D85DD0];
-          v26[1] = 3221225472;
-          v26[2] = __39__TRIRolloutHistoryDatabase_addRecord___block_invoke_3;
-          v26[3] = &unk_279DE1538;
-          v26[4] = v11;
-          v26[5] = v25;
+          v25[0] = MEMORY[0x277D85DD0];
+          v25[1] = 3221225472;
+          v25[2] = __39__TRIRolloutHistoryDatabase_addRecord___block_invoke_3;
+          v25[3] = &unk_279DE1538;
+          v25[4] = v11;
+          v25[5] = v24;
           v15 = a1;
           v16 = [*(*(a1 + 48) + 8) generalErrorHandlerWithOutError:0];
-          v17 = [v14 prepAndRunQuery:@" INSERT INTO rolloutHistoryNamespaces(    rolloutHistory_rowid onPrep:name) VALUES(    :rollout_rowid onRow::name);" onError:{v26, 0, v16}];
+          v17 = [v14 prepAndRunQuery:@" INSERT INTO rolloutHistoryNamespaces(    rolloutHistory_rowid onPrep:name) VALUES(    :rollout_rowid onRow::name);" onError:{v25, 0, v16}];
 
           if ((v17 & 1) == 0)
           {
@@ -118,9 +118,9 @@ uint64_t __39__TRIRolloutHistoryDatabase_addRecord___block_invoke(uint64_t a1, v
             if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
             {
               *buf = 134218243;
-              v34 = v25;
-              v35 = 2113;
-              v36 = v11;
+              v33 = v24;
+              v34 = 2113;
+              v35 = v11;
               _os_log_impl(&dword_26F567000, v20, OS_LOG_TYPE_INFO, "TRIRolloutHistoryDatabase failed to insert rowId: %lld, namespace name:%{private}@", buf, 0x16u);
             }
 
@@ -138,7 +138,7 @@ uint64_t __39__TRIRolloutHistoryDatabase_addRecord___block_invoke(uint64_t a1, v
         }
 
         while (v9 != v10);
-        v9 = [obj countByEnumeratingWithState:&v27 objects:v37 count:16];
+        v9 = [obj countByEnumeratingWithState:&v26 objects:v36 count:16];
         if (v9)
         {
           continue;
@@ -160,7 +160,6 @@ uint64_t __39__TRIRolloutHistoryDatabase_addRecord___block_invoke(uint64_t a1, v
   v19 = *v18;
 LABEL_16:
 
-  v21 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -337,52 +336,51 @@ uint64_t __77__TRIRolloutHistoryDatabase__enumerateRecordsMatchingWhereClause_bi
   v4 = [v3 getInt64ForColumnName:"rowid" table:"rolloutHistory"];
   if (v4 != *(*(a1[8] + 8) + 24))
   {
-    v5 = *(a1[9] + 8);
     (*(a1[5] + 16))();
     if (*(*(a1[9] + 8) + 24) == 1)
     {
-      v6 = *MEMORY[0x277D42698];
+      v5 = *MEMORY[0x277D42698];
       goto LABEL_12;
     }
 
-    v7 = [v3 getDoubleAsNSNumberForColumnName:"eventLogTime" table:"rolloutHistory"];
-    if (!v7)
+    v6 = [v3 getDoubleAsNSNumberForColumnName:"eventLogTime" table:"rolloutHistory"];
+    if (!v6)
+    {
+      v18 = [MEMORY[0x277CCA890] currentHandler];
+      [v18 handleFailureInMethod:a1[10] object:a1[4] file:@"TRIRolloutHistoryDatabase.m" lineNumber:176 description:@"nil eventLogTime read from NOT NULL column"];
+    }
+
+    v7 = objc_alloc(MEMORY[0x277CBEAA8]);
+    [v6 doubleValue];
+    v8 = [v7 initWithTimeIntervalSince1970:?];
+
+    v9 = [v3 getInt64ForColumnName:"eventType" table:"rolloutHistory"];
+    v10 = [v3 getNSStringForColumnName:"rolloutId" table:"rolloutHistory"];
+    if (!v10)
     {
       v19 = [MEMORY[0x277CCA890] currentHandler];
-      [v19 handleFailureInMethod:a1[10] object:a1[4] file:@"TRIRolloutHistoryDatabase.m" lineNumber:176 description:@"nil eventLogTime read from NOT NULL column"];
+      [v19 handleFailureInMethod:a1[10] object:a1[4] file:@"TRIRolloutHistoryDatabase.m" lineNumber:181 description:@"nil rolloutId read from NOT NULL column"];
     }
 
-    v8 = objc_alloc(MEMORY[0x277CBEAA8]);
-    [v7 doubleValue];
-    v9 = [v8 initWithTimeIntervalSince1970:?];
-
-    v10 = [v3 getInt64ForColumnName:"eventType" table:"rolloutHistory"];
-    v11 = [v3 getNSStringForColumnName:"rolloutId" table:"rolloutHistory"];
-    if (!v11)
-    {
-      v20 = [MEMORY[0x277CCA890] currentHandler];
-      [v20 handleFailureInMethod:a1[10] object:a1[4] file:@"TRIRolloutHistoryDatabase.m" lineNumber:181 description:@"nil rolloutId read from NOT NULL column"];
-    }
-
-    v12 = [v3 getNSStringForColumnName:"rampId" table:"rolloutHistory"];
-    v13 = [v3 getInt64ForColumnName:"deploymentId" table:"rolloutHistory"];
-    v14 = [v3 getNSStringForColumnName:"factorPackSetId" table:"rolloutHistory"];
-    v15 = objc_alloc(MEMORY[0x277D737D0]);
-    v16 = [v15 initWithEventLogTime:v9 eventType:v10 rolloutId:v11 rampId:v12 factorPackSetId:v14 deploymentId:v13 namespaces:MEMORY[0x277CBEBF8]];
+    v11 = [v3 getNSStringForColumnName:"rampId" table:"rolloutHistory"];
+    v12 = [v3 getInt64ForColumnName:"deploymentId" table:"rolloutHistory"];
+    v13 = [v3 getNSStringForColumnName:"factorPackSetId" table:"rolloutHistory"];
+    v14 = objc_alloc(MEMORY[0x277D737D0]);
+    v15 = [v14 initWithEventLogTime:v8 eventType:v9 rolloutId:v10 rampId:v11 factorPackSetId:v13 deploymentId:v12 namespaces:MEMORY[0x277CBEBF8]];
     (*(a1[6] + 16))();
   }
 
-  v17 = [v3 getNSStringForColumnName:"name" table:"rolloutHistoryNamespaces"];
-  if (v17)
+  v16 = [v3 getNSStringForColumnName:"name" table:"rolloutHistoryNamespaces"];
+  if (v16)
   {
     (*(a1[7] + 16))();
   }
 
   *(*(a1[8] + 8) + 24) = v4;
-  v6 = *MEMORY[0x277D42690];
+  v5 = *MEMORY[0x277D42690];
 
 LABEL_12:
-  return v6;
+  return v5;
 }
 
 uint64_t __77__TRIRolloutHistoryDatabase__enumerateRecordsMatchingWhereClause_bind_block___block_invoke_5(void *a1, void *a2)
@@ -406,26 +404,25 @@ uint64_t __77__TRIRolloutHistoryDatabase__enumerateRecordsMatchingWhereClause_bi
 
   if (v9)
   {
-    v12 = *(a1[9] + 8);
     (*(a1[8] + 16))();
     *(*(a1[10] + 8) + 24) = 1;
-    v13 = MEMORY[0x277D42670];
+    v12 = MEMORY[0x277D42670];
   }
 
   else
   {
     *(*(a1[10] + 8) + 24) = 0;
-    v14 = TRILogCategory_Server();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    v13 = TRILogCategory_Server();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_26F567000, v14, OS_LOG_TYPE_INFO, "TRIRolloutHistoryDatabase failed to enumerate records", buf, 2u);
+      _os_log_impl(&dword_26F567000, v13, OS_LOG_TYPE_INFO, "TRIRolloutHistoryDatabase failed to enumerate records", buf, 2u);
     }
 
-    v13 = MEMORY[0x277D42678];
+    v12 = MEMORY[0x277D42678];
   }
 
-  return *v13;
+  return *v12;
 }
 
 - (BOOL)enumerateRecordsNewerThanDate:(id)date block:(id)block
@@ -607,15 +604,15 @@ uint64_t __102__TRIRolloutHistoryDatabase_getAllAllocationStatusesForRolloutId_r
 
 uint64_t __69__TRIRolloutHistoryDatabase_expireRecordsOlderThanDate_deletedCount___block_invoke(uint64_t a1, void *a2)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(*(a1 + 32) + 8);
-  v25 = MEMORY[0x277D85DD0];
-  v26 = 3221225472;
-  v27 = __69__TRIRolloutHistoryDatabase_expireRecordsOlderThanDate_deletedCount___block_invoke_2;
-  v28 = &unk_279DDF860;
-  v29 = *(a1 + 40);
-  v5 = [v4 createTempTableContainingRowsFromQuery:@" SELECT rowid FROM         rolloutHistory WHERE         eventLogTime < :threshold" bind:&v25 namePrefix:@"remove_hist_rowids" transaction:v3];
+  v24 = MEMORY[0x277D85DD0];
+  v25 = 3221225472;
+  v26 = __69__TRIRolloutHistoryDatabase_expireRecordsOlderThanDate_deletedCount___block_invoke_2;
+  v27 = &unk_279DDF860;
+  v28 = *(a1 + 40);
+  v5 = [v4 createTempTableContainingRowsFromQuery:@" SELECT rowid FROM         rolloutHistory WHERE         eventLogTime < :threshold" bind:&v24 namePrefix:@"remove_hist_rowids" transaction:v3];
 
   if (!v5)
   {
@@ -624,7 +621,7 @@ uint64_t __69__TRIRolloutHistoryDatabase_expireRecordsOlderThanDate_deletedCount
     {
       [*(a1 + 40) timeIntervalSince1970];
       *buf = 134217984;
-      v31 = v19;
+      v30 = v19;
       _os_log_impl(&dword_26F567000, v18, OS_LOG_TYPE_INFO, "TRIRolloutHistoryDatabase: failed to expire records for threshold date: %f", buf, 0xCu);
     }
 
@@ -632,7 +629,7 @@ uint64_t __69__TRIRolloutHistoryDatabase_expireRecordsOlderThanDate_deletedCount
   }
 
   v6 = objc_alloc(MEMORY[0x277CCACA8]);
-  v7 = [v6 initWithFormat:@" DELETE FROM     rolloutHistoryNamespaces WHERE     rolloutHistory_rowid IN %@;", v5, v25, v26, v27, v28];
+  v7 = [v6 initWithFormat:@" DELETE FROM     rolloutHistoryNamespaces WHERE     rolloutHistory_rowid IN %@;", v5, v24, v25, v26, v27];
   v8 = [v3 db];
   v9 = [*(*(a1 + 32) + 8) generalErrorHandlerWithOutError:0];
   v10 = [v8 prepAndRunQuery:v7 onPrep:0 onRow:0 onError:v9];
@@ -694,7 +691,6 @@ LABEL_12:
   v20 = *v17;
 LABEL_19:
 
-  v23 = *MEMORY[0x277D85DE8];
   return v20;
 }
 

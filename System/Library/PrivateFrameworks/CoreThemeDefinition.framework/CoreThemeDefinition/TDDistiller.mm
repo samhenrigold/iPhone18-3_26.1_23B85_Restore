@@ -15,6 +15,7 @@
 - (BOOL)distillRenditions;
 - (BOOL)distillThemeAppearances;
 - (BOOL)setAsset:(id)asset withKey:(const _renditionkeytoken *)key fromRenditionSpec:(id)spec;
+- (TDDistiller)initWithDocument:(id)document outputPath:(id)path attemptIncremental:(BOOL)incremental versionString:(id)string;
 - (id)_copyStandardEffectDefinitions;
 - (id)_filterRenditions:(id)renditions;
 - (id)_keyDataFromKey:(const _renditionkeytoken *)key;
@@ -38,7 +39,9 @@
 - (void)_resetDocumentUuid:(id)uuid;
 - (void)cancelDistill;
 - (void)dealloc;
+- (void)finishDistillationWithSuccess:(BOOL)success;
 - (void)markDistillationAsFinished;
+- (void)performSelectorOnCallbackThread:(SEL)thread withObject:(id)object waitUntilDone:(BOOL)done;
 - (void)saveAndDistillWithCompletionHandler:(id)handler;
 - (void)setFileCompression:(int)compression;
 - (void)waitUntilFinished;
@@ -187,38 +190,38 @@ LABEL_9:
 
 - (id)_keySpecsToRemoveFromKeySpecs:(id)specs
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   if ([specs count])
   {
     if ([(CoreThemeDocument *)self->_document countOfRenditionsMatchingRenditionKeySpecs:specs])
     {
-      v15 = 0u;
-      v16 = 0u;
-      v13 = 0u;
       v14 = 0u;
-      v6 = [specs countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v15 = 0u;
+      v12 = 0u;
+      v13 = 0u;
+      v6 = [specs countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v6)
       {
         v7 = v6;
-        v8 = *v14;
+        v8 = *v13;
         do
         {
           for (i = 0; i != v7; ++i)
           {
-            if (*v14 != v8)
+            if (*v13 != v8)
             {
               objc_enumerationMutation(specs);
             }
 
-            v10 = *(*(&v13 + 1) + 8 * i);
+            v10 = *(*(&v12 + 1) + 8 * i);
             if (![(CoreThemeDocument *)self->_document countOfRenditionsMatchingRenditionKeySpec:v10])
             {
               [array addObject:v10];
             }
           }
 
-          v7 = [specs countByEnumeratingWithState:&v13 objects:v17 count:16];
+          v7 = [specs countByEnumeratingWithState:&v12 objects:v16 count:16];
         }
 
         while (v7);
@@ -231,8 +234,31 @@ LABEL_9:
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return array;
+}
+
+- (TDDistiller)initWithDocument:(id)document outputPath:(id)path attemptIncremental:(BOOL)incremental versionString:(id)string
+{
+  incrementalCopy = incremental;
+  v12.receiver = self;
+  v12.super_class = TDDistiller;
+  v10 = [(TDDistiller *)&v12 init];
+  if (v10)
+  {
+    v10->_document = document;
+    if ([(TDDistiller *)v10 _setupWithOutputPath:path attemptIncremental:incrementalCopy])
+    {
+      [(TDDistiller *)v10 setAssetStoreVersionString:string];
+    }
+
+    else
+    {
+      [(TDDistiller *)v10 dealloc];
+      return 0;
+    }
+  }
+
+  return v10;
 }
 
 - (id)documentPath
@@ -256,22 +282,21 @@ LABEL_9:
 
 - (id)keyFormatData
 {
-  renditionKeyFormat = [(CoreThemeDocument *)self->_document renditionKeyFormat];
-  v3 = MEMORY[0x277CBEA90];
-  v4 = renditionKeyFormat->var2 + 3;
+  [(CoreThemeDocument *)self->_document renditionKeyFormat];
+  v2 = MEMORY[0x277CBEA90];
 
-  return [v3 dataWithBytes:? length:?];
+  return [v2 dataWithBytes:? length:?];
 }
 
 - (id)_keyDataFromKey:(const _renditionkeytoken *)key
 {
-  v14 = *MEMORY[0x277D85DE8];
-  *v13 = 0u;
+  v13 = *MEMORY[0x277D85DE8];
+  *v12 = 0u;
   v3 = [(CoreThemeDocument *)self->_document renditionKeyFormat:0];
   var2 = v3->var2;
   if (var2 < 0x16)
   {
-    v5 = &v12;
+    v5 = &v11;
   }
 
   else
@@ -293,14 +318,12 @@ LABEL_9:
     v9 = [v7 initWithBytesNoCopy:v5 length:v8 freeWhenDone:1];
   }
 
-  result = v9;
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return v9;
 }
 
 - (id)_filterRenditions:(id)renditions
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   indexSet = [MEMORY[0x277CCAB58] indexSet];
   v5 = [renditions count];
   if (v5)
@@ -316,26 +339,26 @@ LABEL_9:
         v10 = [mipLevels filteredSetUsingPredicate:{objc_msgSend(MEMORY[0x277CCAC30], "predicateWithFormat:", @"(face != nil) AND (face.identifier != 0)"}];
         if ([v10 count])
         {
-          v21 = 0u;
-          v22 = 0u;
-          v19 = 0u;
           v20 = 0u;
-          v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+          v21 = 0u;
+          v18 = 0u;
+          v19 = 0u;
+          v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
           if (v11)
           {
             v12 = v11;
-            v13 = *v20;
+            v13 = *v19;
             do
             {
               v14 = 0;
               do
               {
-                if (*v20 != v13)
+                if (*v19 != v13)
                 {
                   objc_enumerationMutation(v10);
                 }
 
-                v15 = [renditions indexOfObject:{objc_msgSend(*(*(&v19 + 1) + 8 * v14), "textureImage")}];
+                v15 = [renditions indexOfObject:{objc_msgSend(*(*(&v18 + 1) + 8 * v14), "textureImage")}];
                 if (v15 != 0x7FFFFFFFFFFFFFFFLL)
                 {
                   [indexSet addIndex:v15];
@@ -345,7 +368,7 @@ LABEL_9:
               }
 
               while (v12 != v14);
-              v12 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+              v12 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
             }
 
             while (v12);
@@ -359,10 +382,9 @@ LABEL_9:
   {
     v16 = [renditions mutableCopy];
     [v16 removeObjectsAtIndexes:indexSet];
-    renditions = v16;
+    return v16;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return renditions;
 }
 
@@ -399,41 +421,39 @@ uint64_t __36__TDDistiller__renditionsWithError___block_invoke(uint64_t a1, void
 
 - (id)_renditionsFromProductions:(id)productions error:(id *)error
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v6 = [productions countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [productions countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v17;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(productions);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
+        v10 = *(*(&v16 + 1) + 8 * i);
         v11 = MEMORY[0x277CCA918];
         v12 = [MEMORY[0x277CCA9C0] expressionForKeyPath:@"production"];
         [array addObject:{objc_msgSend(v11, "predicateWithLeftExpression:rightExpression:modifier:type:options:", v12, objc_msgSend(MEMORY[0x277CCA9C0], "expressionForConstantValue:", v10), 0, 4, 0)}];
       }
 
-      v7 = [productions countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [productions countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v7);
   }
 
-  result = -[TDDistiller _filterRenditions:](self, "_filterRenditions:", -[CoreThemeDocument objectsForEntity:withPredicate:sortDescriptors:error:](self->_document, "objectsForEntity:withPredicate:sortDescriptors:error:", @"RenditionSpec", [MEMORY[0x277CCA920] orPredicateWithSubpredicates:array], 0, error));
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  return -[TDDistiller _filterRenditions:](self, "_filterRenditions:", -[CoreThemeDocument objectsForEntity:withPredicate:sortDescriptors:error:](self->_document, "objectsForEntity:withPredicate:sortDescriptors:error:", @"RenditionSpec", [MEMORY[0x277CCA920] orPredicateWithSubpredicates:array], 0, error));
 }
 
 - (BOOL)setAsset:(id)asset withKey:(const _renditionkeytoken *)key fromRenditionSpec:(id)spec
@@ -446,46 +466,41 @@ uint64_t __36__TDDistiller__renditionsWithError___block_invoke(uint64_t a1, void
 
 - (unint64_t)_removeRenditionsWithKeySpecs:(id)specs
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v5 = [specs countByEnumeratingWithState:&v13 objects:v17 count:16];
-  if (v5)
+  v5 = [specs countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (!v5)
   {
-    v6 = v5;
-    v7 = 0;
-    v8 = *v14;
-    do
-    {
-      for (i = 0; i != v6; ++i)
-      {
-        if (*v14 != v8)
-        {
-          objc_enumerationMutation(specs);
-        }
+    return 0;
+  }
 
-        v10 = -[TDDistiller _keyDataFromKey:](self, "_keyDataFromKey:", [*(*(&v13 + 1) + 8 * i) key]);
-        if ([(CUIMutableCommonAssetStorage *)self->_assetStore assetExistsForKey:v10])
-        {
-          ++v7;
-          [(TDDistiller *)self removeRenditionsFromAssetStoreWithKey:v10];
-        }
+  v6 = v5;
+  v7 = 0;
+  v8 = *v13;
+  do
+  {
+    for (i = 0; i != v6; ++i)
+    {
+      if (*v13 != v8)
+      {
+        objc_enumerationMutation(specs);
       }
 
-      v6 = [specs countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v10 = -[TDDistiller _keyDataFromKey:](self, "_keyDataFromKey:", [*(*(&v12 + 1) + 8 * i) key]);
+      if ([(CUIMutableCommonAssetStorage *)self->_assetStore assetExistsForKey:v10])
+      {
+        ++v7;
+        [(TDDistiller *)self removeRenditionsFromAssetStoreWithKey:v10];
+      }
     }
 
-    while (v6);
+    v6 = [specs countByEnumeratingWithState:&v12 objects:v16 count:16];
   }
 
-  else
-  {
-    v7 = 0;
-  }
-
-  v11 = *MEMORY[0x277D85DE8];
+  while (v6);
   return v7;
 }
 
@@ -502,28 +517,28 @@ uint64_t __36__TDDistiller__renditionsWithError___block_invoke(uint64_t a1, void
 
 - (BOOL)distillRenditions
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
-  v26 = 0;
+  v25 = 0;
   v4 = [[TDRenditionsDistiller alloc] initWithDocument:self->_document shouldCompressCSIDataFlag:1];
   [(TDRenditionsDistiller *)v4 setLogger:[(TDDistiller *)self logger]];
   [(TDRenditionsDistiller *)v4 detachDistillationThread];
   [(TDDistiller *)self _logExtra:@"Fetching and distilling renditions"];
-  v5 = [(TDDistiller *)self _renditionsWithError:&v26];
+  v5 = [(TDDistiller *)self _renditionsWithError:&v25];
   v6 = [v5 count];
   [(CoreThemeDocument *)self->_document renditionKeyFormat];
   [(TDDistiller *)self setAssetStoreRenditionCount:v6];
-  if (v26)
+  if (v25)
   {
-    -[TDDistiller _logErrorAndAccumulateDescription:](self, "_logErrorAndAccumulateDescription:", [v26 localizedDescription]);
+    -[TDDistiller _logErrorAndAccumulateDescription:](self, "_logErrorAndAccumulateDescription:", [v25 localizedDescription]);
     [(TDRenditionsDistiller *)v4 enqueueAbortFlag];
     v7 = 0;
   }
 
   else
   {
-    v24 = v3;
-    v25 = v4;
+    v23 = v3;
+    v24 = v4;
     v8 = objc_alloc_init(MEMORY[0x277CBEB58]);
     if (v6)
     {
@@ -532,7 +547,7 @@ uint64_t __36__TDDistiller__renditionsWithError___block_invoke(uint64_t a1, void
       {
         if ([(TDDistiller *)self isCancelled])
         {
-          [(TDRenditionsDistiller *)v25 enqueueAbortFlag];
+          [(TDRenditionsDistiller *)v24 enqueueAbortFlag];
           goto LABEL_21;
         }
 
@@ -549,13 +564,13 @@ uint64_t __36__TDDistiller__renditionsWithError___block_invoke(uint64_t a1, void
         [keySpec key];
         CUIRenditionKeyCopy();
         CUIRenditionKeyStandardize();
-        v13 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:v27 length:4 * CUIRenditionKeyTokenCount()];
+        v13 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:v26 length:4 * CUIRenditionKeyTokenCount()];
         if ([v8 containsObject:v13])
         {
           break;
         }
 
-        [(TDRenditionsDistiller *)v25 enqueueRenditionSpec:v11];
+        [(TDRenditionsDistiller *)v24 enqueueRenditionSpec:v11];
         [v8 addObject:v13];
 
         objc_autoreleasePoolPop(v10);
@@ -568,7 +583,7 @@ uint64_t __36__TDDistiller__renditionsWithError___block_invoke(uint64_t a1, void
       -[TDDistiller _logErrorAndAccumulateDescription:](self, "_logErrorAndAccumulateDescription:", [MEMORY[0x277CCACA8] stringWithFormat:@"ERROR: Identical key for two renditions\n\n%@\n", objc_msgSend(keySpec, "keyDescription")]);
 
 LABEL_20:
-      [(TDRenditionsDistiller *)v25 enqueueAbortFlag];
+      [(TDRenditionsDistiller *)v24 enqueueAbortFlag];
       objc_autoreleasePoolPop(v10);
 LABEL_21:
       v7 = 0;
@@ -578,10 +593,10 @@ LABEL_21:
     {
 LABEL_9:
 
-      v14 = v25;
-      [(TDRenditionsDistiller *)v25 enqueueLastRenditionFlag];
+      v14 = v24;
+      [(TDRenditionsDistiller *)v24 enqueueLastRenditionFlag];
       v15 = [-[CoreThemeDocument mocOrganizer](self->_document "mocOrganizer")];
-      nextCSIDataInfoFromQueue = [(TDRenditionsDistiller *)v25 nextCSIDataInfoFromQueue];
+      nextCSIDataInfoFromQueue = [(TDRenditionsDistiller *)v24 nextCSIDataInfoFromQueue];
       if (nextCSIDataInfoFromQueue && (v17 = nextCSIDataInfoFromQueue, ![(TDDistiller *)self isCancelled]))
       {
         while (1)
@@ -596,8 +611,8 @@ LABEL_9:
           v20 = [v15 objectWithID:{objc_msgSend(v17, "objectForKey:", @"RenditionSpec"}];
           v7 = -[TDDistiller setAsset:withKey:fromRenditionSpec:](self, "setAsset:withKey:fromRenditionSpec:", v19, [objc_msgSend(v20 "keySpec")], v20);
           objc_autoreleasePoolPop(v18);
-          v14 = v25;
-          nextCSIDataInfoFromQueue2 = [(TDRenditionsDistiller *)v25 nextCSIDataInfoFromQueue];
+          v14 = v24;
+          nextCSIDataInfoFromQueue2 = [(TDRenditionsDistiller *)v24 nextCSIDataInfoFromQueue];
           if (nextCSIDataInfoFromQueue2)
           {
             v17 = nextCSIDataInfoFromQueue2;
@@ -612,7 +627,7 @@ LABEL_9:
 
         objc_autoreleasePoolPop(v18);
         v7 = 0;
-        v14 = v25;
+        v14 = v24;
       }
 
       else
@@ -624,21 +639,68 @@ LABEL_12:
       [(TDRenditionsDistiller *)v14 waitUntilFinished];
     }
 
-    v3 = v24;
+    v3 = v23;
   }
 
   objc_autoreleasePoolPop(v3);
-  v22 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (BOOL)distillThemeAppearances
 {
+  v18 = *MEMORY[0x277D85DE8];
+  v3 = objc_autoreleasePoolPush();
+  v16 = 0;
+  [(TDDistiller *)self _logExtra:@"Fetching and distilling appearances"];
+  v4 = [(CoreThemeDocument *)self->_document allObjectsForEntity:@"Appearance" withSortDescriptors:0 error:&v16];
+  v5 = v16;
+  if (v16)
+  {
+    -[TDDistiller _logErrorAndAccumulateDescription:](self, "_logErrorAndAccumulateDescription:", [v16 localizedDescription]);
+  }
+
+  else
+  {
+    v6 = v4;
+    v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
+    v7 = [v4 countByEnumeratingWithState:&v12 objects:v17 count:16];
+    if (v7)
+    {
+      v8 = v7;
+      v9 = *v13;
+      do
+      {
+        for (i = 0; i != v8; ++i)
+        {
+          if (*v13 != v9)
+          {
+            objc_enumerationMutation(v6);
+          }
+
+          -[CUIMutableCommonAssetStorage setAppearanceIdentifier:forName:](self->_assetStore, "setAppearanceIdentifier:forName:", [*(*(&v12 + 1) + 8 * i) identifier], objc_msgSend(*(*(&v12 + 1) + 8 * i), "name"));
+        }
+
+        v8 = [v6 countByEnumeratingWithState:&v12 objects:v17 count:16];
+      }
+
+      while (v8);
+    }
+  }
+
+  objc_autoreleasePoolPop(v3);
+  return v5 == 0;
+}
+
+- (BOOL)distillLocalizationss
+{
   v19 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   v17 = 0;
-  [(TDDistiller *)self _logExtra:@"Fetching and distilling appearances"];
-  v4 = [(CoreThemeDocument *)self->_document allObjectsForEntity:@"Appearance" withSortDescriptors:0 error:&v17];
+  [(TDDistiller *)self _logExtra:@"Fetching and distilling localizations"];
+  v4 = [(CoreThemeDocument *)self->_document allObjectsForEntity:@"Localization" withSortDescriptors:0 error:&v17];
   v5 = v17;
   if (v17)
   {
@@ -666,7 +728,11 @@ LABEL_12:
             objc_enumerationMutation(v6);
           }
 
-          -[CUIMutableCommonAssetStorage setAppearanceIdentifier:forName:](self->_assetStore, "setAppearanceIdentifier:forName:", [*(*(&v13 + 1) + 8 * i) identifier], objc_msgSend(*(*(&v13 + 1) + 8 * i), "name"));
+          v11 = *(*(&v13 + 1) + 8 * i);
+          if ([v11 identifier])
+          {
+            -[CUIMutableCommonAssetStorage setLocalizationIdentifier:forName:](self->_assetStore, "setLocalizationIdentifier:forName:", [v11 identifier], objc_msgSend(v11, "name"));
+          }
         }
 
         v8 = [v6 countByEnumeratingWithState:&v13 objects:v18 count:16];
@@ -677,60 +743,6 @@ LABEL_12:
   }
 
   objc_autoreleasePoolPop(v3);
-  v11 = *MEMORY[0x277D85DE8];
-  return v5 == 0;
-}
-
-- (BOOL)distillLocalizationss
-{
-  v20 = *MEMORY[0x277D85DE8];
-  v3 = objc_autoreleasePoolPush();
-  v18 = 0;
-  [(TDDistiller *)self _logExtra:@"Fetching and distilling localizations"];
-  v4 = [(CoreThemeDocument *)self->_document allObjectsForEntity:@"Localization" withSortDescriptors:0 error:&v18];
-  v5 = v18;
-  if (v18)
-  {
-    -[TDDistiller _logErrorAndAccumulateDescription:](self, "_logErrorAndAccumulateDescription:", [v18 localizedDescription]);
-  }
-
-  else
-  {
-    v6 = v4;
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
-    v15 = 0u;
-    v7 = [v4 countByEnumeratingWithState:&v14 objects:v19 count:16];
-    if (v7)
-    {
-      v8 = v7;
-      v9 = *v15;
-      do
-      {
-        for (i = 0; i != v8; ++i)
-        {
-          if (*v15 != v9)
-          {
-            objc_enumerationMutation(v6);
-          }
-
-          v11 = *(*(&v14 + 1) + 8 * i);
-          if ([v11 identifier])
-          {
-            -[CUIMutableCommonAssetStorage setLocalizationIdentifier:forName:](self->_assetStore, "setLocalizationIdentifier:forName:", [v11 identifier], objc_msgSend(v11, "name"));
-          }
-        }
-
-        v8 = [v6 countByEnumeratingWithState:&v14 objects:v19 count:16];
-      }
-
-      while (v8);
-    }
-  }
-
-  objc_autoreleasePoolPop(v3);
-  v12 = *MEMORY[0x277D85DE8];
   return v5 == 0;
 }
 
@@ -775,28 +787,28 @@ LABEL_3:
 
 - (BOOL)_distillColorDefinitions:(id)definitions
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v4 = [definitions countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v4 = [definitions countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v19;
+    v7 = *v18;
     do
     {
-      v16 = v6;
+      v15 = v6;
       for (i = 0; i != v5; ++i)
       {
-        if (*v19 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(definitions);
         }
 
-        v9 = *(*(&v18 + 1) + 8 * i);
+        v9 = *(*(&v17 + 1) + 8 * i);
         v10 = objc_autoreleasePoolPush();
         v11 = [v9 valueForKey:@"name"];
         v12 = [v11 valueForKey:@"selector"];
@@ -807,8 +819,8 @@ LABEL_3:
         objc_autoreleasePoolPop(v10);
       }
 
-      v6 = v16 + v5;
-      v5 = [definitions countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v6 = v15 + v5;
+      v5 = [definitions countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v5);
@@ -818,7 +830,6 @@ LABEL_3:
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -845,28 +856,28 @@ LABEL_3:
 
 - (BOOL)_distillFonts:(id)fonts
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v4 = [fonts countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v4 = [fonts countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v21;
+    v7 = *v20;
     do
     {
-      v18 = v6;
+      v17 = v6;
       for (i = 0; i != v5; ++i)
       {
-        if (*v21 != v7)
+        if (*v20 != v7)
         {
           objc_enumerationMutation(fonts);
         }
 
-        v9 = *(*(&v20 + 1) + 8 * i);
+        v9 = *(*(&v19 + 1) + 8 * i);
         v10 = objc_autoreleasePoolPush();
         postscriptName = [v9 postscriptName];
         v12 = [objc_msgSend(v9 "selector")];
@@ -878,8 +889,8 @@ LABEL_3:
         objc_autoreleasePoolPop(v10);
       }
 
-      v6 = v18 + v5;
-      v5 = [fonts countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v6 = v17 + v5;
+      v5 = [fonts countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v5);
@@ -889,7 +900,6 @@ LABEL_3:
     }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -916,40 +926,39 @@ LABEL_3:
 
 - (BOOL)distillCustomFontSizes
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v16 = 0;
-  v3 = [(CoreThemeDocument *)self->_document allObjectsForEntity:@"FontSizeDefinition" withSortDescriptors:0 error:&v16];
+  v17 = *MEMORY[0x277D85DE8];
+  v15 = 0;
+  v3 = [(CoreThemeDocument *)self->_document allObjectsForEntity:@"FontSizeDefinition" withSortDescriptors:0 error:&v15];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v17 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
+        v8 = *(*(&v11 + 1) + 8 * i);
         v9 = [objc_msgSend(v8 "selector")];
         [objc_msgSend(v8 "pointSize")];
         [(CUIMutableCommonAssetStorage *)self->_assetStore setFontSize:v9 forFontSizeSelector:?];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v17 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v16 count:16];
     }
 
     while (v5);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -998,27 +1007,27 @@ LABEL_3:
 
 - (BOOL)_distillNamedElements:(id)elements
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v5 = [elements countByEnumeratingWithState:&v17 objects:v22 count:16];
+  v5 = [elements countByEnumeratingWithState:&v16 objects:v21 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v18;
+    v7 = *v17;
     do
     {
       v8 = 0;
       do
       {
-        if (*v18 != v7)
+        if (*v17 != v7)
         {
           objc_enumerationMutation(elements);
         }
 
-        v9 = *(*(&v17 + 1) + 8 * v8);
+        v9 = *(*(&v16 + 1) + 8 * v8);
         v10 = objc_autoreleasePoolPush();
         v11 = [objc_msgSend(v9 "production")];
         [v11 key];
@@ -1028,8 +1037,8 @@ LABEL_3:
         {
           if ([objc_msgSend(v11 "part")] != 181)
           {
-            v16 = 0;
-            if ([-[CoreThemeDocument objectsForEntity:withPredicate:sortDescriptors:error:](self->_document objectsForEntity:@"RenditionKeySpec" withPredicate:objc_msgSend(MEMORY[0x277CCAC30] sortDescriptors:"predicateWithFormat:" error:{@"nameIdentifier == %d AND part.identifier == %d", objc_msgSend(v11, "nameIdentifier"), 181), 0, &v16), "count"}])
+            v15 = 0;
+            if ([-[CoreThemeDocument objectsForEntity:withPredicate:sortDescriptors:error:](self->_document objectsForEntity:@"RenditionKeySpec" withPredicate:objc_msgSend(MEMORY[0x277CCAC30] sortDescriptors:"predicateWithFormat:" error:{@"nameIdentifier == %d AND part.identifier == %d", objc_msgSend(v11, "nameIdentifier"), 181), 0, &v15), "count"}])
             {
               CUIRenditionKeySetValueForAttribute();
             }
@@ -1039,21 +1048,20 @@ LABEL_3:
         MaximumSizeOfFileSystemRepresentation = CFStringGetMaximumSizeOfFileSystemRepresentation([v9 name]);
         v13 = malloc_type_malloc(MaximumSizeOfFileSystemRepresentation, 0xDAA9409FuLL);
         CFStringGetFileSystemRepresentation([v9 name], v13, MaximumSizeOfFileSystemRepresentation);
-        [(CUIMutableCommonAssetStorage *)self->_assetStore setRenditionKey:v21 hotSpot:v13 forName:0.0, 0.0];
+        [(CUIMutableCommonAssetStorage *)self->_assetStore setRenditionKey:v20 hotSpot:v13 forName:0.0, 0.0];
         free(v13);
         objc_autoreleasePoolPop(v10);
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [elements countByEnumeratingWithState:&v17 objects:v22 count:16];
+      v6 = [elements countByEnumeratingWithState:&v16 objects:v21 count:16];
     }
 
     while (v6);
   }
 
   -[TDDistiller _logInfo:](self, "_logInfo:", [MEMORY[0x277CCACA8] stringWithFormat:@"Successfully stored %ld asset name entries.", objc_msgSend(elements, "count")]);
-  v14 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -1196,6 +1204,13 @@ LABEL_22:
   return v6;
 }
 
+- (void)finishDistillationWithSuccess:(BOOL)success
+{
+  [(TDDistiller *)self setSuccessful:success];
+
+  [(TDDistiller *)self performSelectorOnCallbackThread:sel_markDistillationAsFinished withObject:0 waitUntilDone:0];
+}
+
 - (void)markDistillationAsFinished
 {
   [(TDDistiller *)self setFinished:1];
@@ -1280,11 +1295,11 @@ LABEL_22:
   _Block_object_dispose(&v11, 8);
 }
 
-uint64_t __31__TDDistiller__distillChanges___block_invoke(uint64_t a1)
+void *__31__TDDistiller__distillChanges___block_invoke(uint64_t a1)
 {
-  v69 = *MEMORY[0x277D85DE8];
-  v66 = 0;
+  v68 = *MEMORY[0x277D85DE8];
   v65 = 0;
+  v64 = 0;
   v2 = (a1 + 32);
   v3 = [*(a1 + 32) dateOfLastDistill];
   v4 = [*(*v2 + 1) historian];
@@ -1294,7 +1309,7 @@ uint64_t __31__TDDistiller__distillChanges___block_invoke(uint64_t a1)
   *(*(v2[1] + 1) + 24) = result;
   if (!result)
   {
-    goto LABEL_30;
+    return result;
   }
 
   v8 = [v4 fontsChangedSinceDate:v3];
@@ -1304,14 +1319,14 @@ uint64_t __31__TDDistiller__distillChanges___block_invoke(uint64_t a1)
   *(*(*(a1 + 40) + 8) + 24) = result;
   if (!result)
   {
-    goto LABEL_30;
+    return result;
   }
 
   result = [*(a1 + 32) distillCustomFontSizes];
   *(*(*(a1 + 40) + 8) + 24) = result;
   if (!result)
   {
-    goto LABEL_30;
+    return result;
   }
 
   v11 = [v4 namedElementsChangedSinceDate:v3];
@@ -1321,7 +1336,7 @@ uint64_t __31__TDDistiller__distillChanges___block_invoke(uint64_t a1)
   *(*(*(a1 + 40) + 8) + 24) = result;
   if (!result)
   {
-    goto LABEL_30;
+    return result;
   }
 
   v14 = [v4 facetDefinitionsChangedSinceDate:v3];
@@ -1331,7 +1346,7 @@ uint64_t __31__TDDistiller__distillChanges___block_invoke(uint64_t a1)
   *(*(*(a1 + 40) + 8) + 24) = result;
   if (!result)
   {
-    goto LABEL_30;
+    return result;
   }
 
   v17 = [*v2 _removeRenditionsWithKeySpecs:{objc_msgSend(*v2, "_keySpecsToRemoveFromKeySpecs:", objc_msgSend(v4, "keySpecsForRenditionsRemovedSinceDate:", v3))}];
@@ -1345,10 +1360,10 @@ uint64_t __31__TDDistiller__distillChanges___block_invoke(uint64_t a1)
     v18 = v16;
   }
 
-  v66 = v18;
-  *(*v2 + 4) = [v4 productionsChangedSinceDate:v3 uuidNeedsReset:&v66];
+  v65 = v18;
+  *(*v2 + 4) = [v4 productionsChangedSinceDate:v3 uuidNeedsReset:&v65];
   v19 = [*(*v2 + 4) count];
-  v66 |= v19 != 0;
+  v65 |= v19 != 0;
   if (v19)
   {
     v20 = @"s";
@@ -1364,16 +1379,16 @@ uint64_t __31__TDDistiller__distillChanges___block_invoke(uint64_t a1)
   if ([v21 count])
   {
     [*v2 _logWarning:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", @"Removing renditions for %lu inactive productions", objc_msgSend(v21, "count"))}];
-    v22 = [*v2 _renditionsFromProductions:v21 error:&v65];
+    v22 = [*v2 _renditionsFromProductions:v21 error:&v64];
     v23 = *v2;
-    if (v65)
+    if (v64)
     {
-      v24 = [v65 localizedDescription];
+      v24 = [v64 localizedDescription];
       v25 = v23;
 LABEL_29:
       result = [v25 _logErrorAndAccumulateDescription:v24];
       *(*(*(a1 + 40) + 8) + 24) = 0;
-      goto LABEL_30;
+      return result;
     }
 
     v17 += [v23 _removeRenditionsWithKeySpecs:{objc_msgSend(v23, "_keySpecsToRemoveFromKeySpecs:", objc_msgSend(v22, "valueForKey:", @"keySpec"}];
@@ -1383,117 +1398,117 @@ LABEL_29:
   if ([v26 count])
   {
     [*v2 _logInfo:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", @"Active changed productions: %lu", objc_msgSend(v26, "count"))}];
-    v27 = [*v2 _renditionsFromProductions:v26 error:&v65];
-    if (v65)
+    v27 = [*v2 _renditionsFromProductions:v26 error:&v64];
+    if (v64)
     {
       v28 = *(a1 + 32);
-      v24 = [v65 localizedDescription];
+      v24 = [v64 localizedDescription];
       v25 = v28;
       goto LABEL_29;
     }
 
-    v30 = [*(*v2 + 1) countOfRenditionsMatchingRenditionKeySpecs:{objc_msgSend(v27, "valueForKey:", @"keySpec"}];
-    v31 = [v27 count];
-    if (v30 < v31)
+    v29 = [*(*v2 + 1) countOfRenditionsMatchingRenditionKeySpecs:{objc_msgSend(v27, "valueForKey:", @"keySpec"}];
+    v30 = [v27 count];
+    if (v29 < v30)
     {
       __31__TDDistiller__distillChanges___block_invoke_cold_1();
     }
 
-    *(*(*(a1 + 40) + 8) + 24) = v30 == v31;
+    *(*(*(a1 + 40) + 8) + 24) = v29 == v30;
     obj = v27;
-    if (v30 != v31)
+    if (v29 != v30)
     {
-      v63 = 0uLL;
-      v64 = 0uLL;
-      v61 = 0uLL;
       v62 = 0uLL;
-      result = [v27 countByEnumeratingWithState:&v61 objects:v68 count:16];
+      v63 = 0uLL;
+      v60 = 0uLL;
+      v61 = 0uLL;
+      result = [v27 countByEnumeratingWithState:&v60 objects:v67 count:16];
       if (result)
       {
-        v41 = result;
-        v42 = *v62;
-        v52 = *v62;
-        v53 = v2;
+        v40 = result;
+        v41 = *v61;
+        v51 = *v61;
+        v52 = v2;
         do
         {
-          v43 = 0;
-          v55 = v41;
+          v42 = 0;
+          v54 = v40;
           do
           {
-            if (*v62 != v42)
+            if (*v61 != v41)
             {
               objc_enumerationMutation(v27);
             }
 
-            v44 = [*(*(&v61 + 1) + 8 * v43) keySpec];
-            if ([*(*v2 + 1) countOfRenditionsMatchingRenditionKeySpec:v44] >= 2)
+            v43 = [*(*(&v60 + 1) + 8 * v42) keySpec];
+            if ([*(*v2 + 1) countOfRenditionsMatchingRenditionKeySpec:v43] >= 2)
             {
-              v45 = [MEMORY[0x277CCAB68] stringWithCapacity:250];
-              v46 = [*(*v2 + 1) renditionsMatchingRenditionKeySpec:v44];
-              v47 = [v46 count];
-              if (v47)
+              v44 = [MEMORY[0x277CCAB68] stringWithCapacity:250];
+              v45 = [*(*v2 + 1) renditionsMatchingRenditionKeySpec:v43];
+              v46 = [v45 count];
+              if (v46)
               {
-                for (i = 0; i != v47; [v45 appendString:{objc_msgSend(v50, "stringWithFormat:", @"\n\t%lu. %@ Rendition: %@", i, NSStringFromClass(v51), v49)}])
+                for (i = 0; i != v46; [v44 appendString:{objc_msgSend(v49, "stringWithFormat:", @"\n\t%lu. %@ Rendition: %@", i, NSStringFromClass(v50), v48)}])
                 {
-                  v49 = [v46 objectAtIndex:i];
-                  [v49 production];
-                  v50 = MEMORY[0x277CCACA8];
+                  v48 = [v45 objectAtIndex:i];
+                  [v48 production];
+                  v49 = MEMORY[0x277CCACA8];
                   ++i;
-                  v51 = objc_opt_class();
+                  v50 = objc_opt_class();
                 }
               }
 
-              v2 = v53;
-              [*v53 _logErrorAndAccumulateDescription:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", @"ERROR: Identical keys for %lu renditions.\n\t%@%@", v47, objc_msgSend(v44, "keyDescription"), v45)}];
-              v41 = v55;
+              v2 = v52;
+              [*v52 _logErrorAndAccumulateDescription:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", @"ERROR: Identical keys for %lu renditions.\n\t%@%@", v46, objc_msgSend(v43, "keyDescription"), v44)}];
+              v40 = v54;
               v27 = obj;
-              v42 = v52;
+              v41 = v51;
             }
 
-            ++v43;
+            v42 = v42 + 1;
           }
 
-          while (v43 != v41);
-          result = [v27 countByEnumeratingWithState:&v61 objects:v68 count:16];
-          v41 = result;
+          while (v42 != v40);
+          result = [v27 countByEnumeratingWithState:&v60 objects:v67 count:16];
+          v40 = result;
         }
 
         while (result);
       }
 
-      goto LABEL_30;
+      return result;
     }
 
-    v59 = 0uLL;
-    v60 = 0uLL;
-    v57 = 0uLL;
     v58 = 0uLL;
-    v32 = [v27 countByEnumeratingWithState:&v57 objects:v67 count:16];
-    if (v32)
+    v59 = 0uLL;
+    v56 = 0uLL;
+    v57 = 0uLL;
+    v31 = [v27 countByEnumeratingWithState:&v56 objects:v66 count:16];
+    if (v31)
     {
-      v33 = v32;
-      v34 = 0;
-      v35 = *v58;
-      v54 = v17;
+      v32 = v31;
+      v33 = 0;
+      v34 = *v57;
+      v53 = v17;
 LABEL_37:
-      v36 = v2;
-      v37 = 0;
+      v35 = v2;
+      v36 = 0;
       while (1)
       {
-        if (*v58 != v35)
+        if (*v57 != v34)
         {
           objc_enumerationMutation(v27);
         }
 
-        v38 = *(*(&v57 + 1) + 8 * v37);
-        if (([*(*v36 + 2) assetExistsForKey:{objc_msgSend(*v36, "_keyDataFromKey:", objc_msgSend(objc_msgSend(v38, "keySpec"), "key"))}] & 1) == 0)
+        v37 = *(*(&v56 + 1) + 8 * v36);
+        if (([*(*v35 + 2) assetExistsForKey:{objc_msgSend(*v35, "_keyDataFromKey:", objc_msgSend(objc_msgSend(v37, "keySpec"), "key"))}] & 1) == 0)
         {
-          *(*(*(a1 + 40) + 8) + 24) = [*(a1 + 32) setAsset:objc_msgSend(v38 withKey:"createCSIRepresentationWithCompression:colorSpaceID:document:" fromRenditionSpec:{1, objc_msgSend(*(*(a1 + 32) + 8), "colorSpaceID"), *(*(a1 + 32) + 8)), objc_msgSend(objc_msgSend(v38, "keySpec"), "key"), v38}];
+          *(*(*(a1 + 40) + 8) + 24) = [*(a1 + 32) setAsset:objc_msgSend(v37 withKey:"createCSIRepresentationWithCompression:colorSpaceID:document:" fromRenditionSpec:{1, objc_msgSend(*(*(a1 + 32) + 8), "colorSpaceID"), *(*(a1 + 32) + 8)), objc_msgSend(objc_msgSend(v37, "keySpec"), "key"), v37}];
           if (*(*(*(a1 + 40) + 8) + 24) != 1)
           {
-            v2 = v36;
-            v17 = v54;
-            if (v54)
+            v2 = v35;
+            v17 = v53;
+            if (v53)
             {
               goto LABEL_48;
             }
@@ -1501,15 +1516,15 @@ LABEL_37:
             goto LABEL_49;
           }
 
-          ++v34;
+          ++v33;
         }
 
-        if (v33 == ++v37)
+        if (v32 == ++v36)
         {
-          v33 = [v27 countByEnumeratingWithState:&v57 objects:v67 count:16];
-          v2 = v36;
-          v17 = v54;
-          if (v33)
+          v32 = [v27 countByEnumeratingWithState:&v56 objects:v66 count:16];
+          v2 = v35;
+          v17 = v53;
+          if (v32)
           {
             goto LABEL_37;
           }
@@ -1520,7 +1535,7 @@ LABEL_37:
     }
   }
 
-  v34 = 0;
+  v33 = 0;
 LABEL_47:
   if (v17)
   {
@@ -1529,42 +1544,37 @@ LABEL_48:
   }
 
 LABEL_49:
-  if (v34)
+  if (v33)
   {
-    [*v2 _logInfo:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", @"%lu renditions added to the CAR", v34)}];
+    [*v2 _logInfo:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", @"%lu renditions added to the CAR", v33)}];
   }
 
-  [*v2 setAssetStoreRenditionCount:{v34 - v17 + objc_msgSend(*(*v2 + 2), "renditionCount")}];
-  if (v66 == 1)
+  [*v2 setAssetStoreRenditionCount:{v33 - v17 + objc_msgSend(*(*v2 + 2), "renditionCount")}];
+  if (v65 == 1)
   {
-    v39 = objc_alloc_init(MEMORY[0x277CCAD78]);
-    [*v2 setAssetStoreUuid:v39];
+    v38 = objc_alloc_init(MEMORY[0x277CCAD78]);
+    [*v2 setAssetStoreUuid:v38];
     [*v2 setAssetStoreAssociatedChecksum:{objc_msgSend(*(*v2 + 1), "checksum")}];
-    v40 = v39;
+    v39 = v38;
   }
 
   else
   {
-    v39 = 0;
+    v38 = 0;
   }
 
   result = [*(a1 + 32) assetStoreWriteToDisk];
   *(*(*(a1 + 40) + 8) + 24) = result;
-  if (result)
+  if ((result & 1) == 0)
   {
-    if (v66 == 1)
-    {
-      result = [*v2 performSelectorOnCallbackThread:sel__resetDocumentUuid_ withObject:v39 waitUntilDone:1];
-    }
+    return [*v2 _logErrorAndAccumulateDescription:@"Failed to write to CAR"];
   }
 
-  else
+  if (v65 == 1)
   {
-    result = [*v2 _logErrorAndAccumulateDescription:@"Failed to write to CAR"];
+    return [*v2 performSelectorOnCallbackThread:sel__resetDocumentUuid_ withObject:v38 waitUntilDone:1];
   }
 
-LABEL_30:
-  v29 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1612,11 +1622,11 @@ LABEL_18:
 
 - (void)_distill:(id)_distill
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x2020000000;
-  v19 = 1;
+  v20 = *MEMORY[0x277D85DE8];
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2020000000;
+  v18 = 1;
   v5 = objc_autoreleasePoolPush();
   v6 = objc_autoreleasePoolPush();
   if (([MEMORY[0x277CCACC8] isMainThread] & 1) == 0)
@@ -1633,7 +1643,7 @@ LABEL_18:
   if (!assetStore)
   {
     [(TDDistiller *)self _logErrorAndAccumulateDescription:@"ERROR: Each TDDistiller instance can be distilled only one time!"];
-    *(v17 + 24) = 0;
+    *(v16 + 24) = 0;
   }
 
   objc_autoreleasePoolPop(v6);
@@ -1651,33 +1661,32 @@ LABEL_18:
 
     -[TDDistiller setAuthoringTool:](self, "setAuthoringTool:", [MEMORY[0x277CCACA8] stringWithFormat:@"%s [IIO-%s]", __dst, CGGetImageIOVersion()]);
     v13 = [-[CoreThemeDocument mocOrganizer](self->_document "mocOrganizer")];
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __24__TDDistiller__distill___block_invoke;
-    v15[3] = &unk_278EBB678;
-    v15[4] = self;
-    v15[5] = &v16;
-    v15[6] = a2;
-    [v13 performBlockAndWait:v15];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __24__TDDistiller__distill___block_invoke;
+    v14[3] = &unk_278EBB678;
+    v14[4] = self;
+    v14[5] = &v15;
+    v14[6] = a2;
+    [v13 performBlockAndWait:v14];
   }
 
   if ([(TDDistiller *)self isCancelled])
   {
-    *(v17 + 24) = 0;
+    *(v16 + 24) = 0;
     [(TDDistiller *)self _logErrorAndAccumulateDescription:@"Distill aborted. No data written to CAR"];
   }
 
   self->_assetStore = 0;
   self->_renditionEntries = 0;
   objc_autoreleasePoolPop(v5);
-  [(TDDistiller *)self finishDistillationWithSuccess:*(v17 + 24)];
-  _Block_object_dispose(&v16, 8);
-  v14 = *MEMORY[0x277D85DE8];
+  [(TDDistiller *)self finishDistillationWithSuccess:*(v16 + 24)];
+  _Block_object_dispose(&v15, 8);
 }
 
 uint64_t __24__TDDistiller__distill___block_invoke(uint64_t a1)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   result = [*(a1 + 32) distillCatalogGlobals];
   if (!result)
@@ -1768,7 +1777,7 @@ uint64_t __24__TDDistiller__distill___block_invoke(uint64_t a1)
     result = [*v2 _logErrorAndAccumulateDescription:@"distilling Cursor Facet Definitions failed"];
 LABEL_32:
     *(*(*(a1 + 40) + 8) + 24) = 0;
-    goto LABEL_33;
+    return result;
   }
 
   [*v2 setAssetStoreKeyFormatData:{objc_msgSend(*v2, "keyFormatData")}];
@@ -1788,68 +1797,68 @@ LABEL_32:
   [*v2 setAssetStorageVersion:{objc_msgSend(*v2, "assetStoreVersionNumber")}];
   if ([*(*v2 + 1) deviceTraitsUsedForOptimization])
   {
-    v34 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v33 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v32 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v31 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v30 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v29 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v28 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v27 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v34 = 0u;
     v35 = 0u;
     v36 = 0u;
     v37 = 0u;
-    v38 = 0u;
     obj = [*(*v2 + 1) deviceTraitsUsedForOptimization];
-    v6 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+    v6 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v36;
+      v8 = *v35;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v36 != v8)
+          if (*v35 != v8)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v35 + 1) + 8 * i);
-          [v34 addObject:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithInteger:", objc_msgSend(v10, "idiomValue"))}];
-          [v33 addObject:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithInteger:", objc_msgSend(v10, "subtype"))}];
+          v10 = *(*(&v34 + 1) + 8 * i);
+          [v33 addObject:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithInteger:", objc_msgSend(v10, "idiomValue"))}];
+          [v32 addObject:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithInteger:", objc_msgSend(v10, "subtype"))}];
           v11 = MEMORY[0x277CCABB0];
           [v10 scale];
-          [v32 addObject:{objc_msgSend(v11, "numberWithInteger:", llround(v12))}];
-          [v31 addObject:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithInteger:", objc_msgSend(v10, "graphicsFeatureSetClassValue"))}];
-          [v30 addObject:{objc_msgSend(v10, "graphicsFeatureSetFallbackValues")}];
-          [v29 addObject:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithInteger:", objc_msgSend(v10, "memoryPerformanceClass"))}];
+          [v31 addObject:{objc_msgSend(v11, "numberWithInteger:", llround(v12))}];
+          [v30 addObject:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithInteger:", objc_msgSend(v10, "graphicsFeatureSetClassValue"))}];
+          [v29 addObject:{objc_msgSend(v10, "graphicsFeatureSetFallbackValues")}];
+          [v28 addObject:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithInteger:", objc_msgSend(v10, "memoryPerformanceClass"))}];
           [v4 addObject:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithInteger:", objc_msgSend(v10, "displayGamutValue"))}];
           [v5 addObject:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithInteger:", objc_msgSend(v10, "deploymentTargetValue"))}];
           if ([objc_msgSend(v10 "hostedIdiomValues")])
           {
-            [v28 addObject:{objc_msgSend(v10, "hostedIdiomValues")}];
+            [v27 addObject:{objc_msgSend(v10, "hostedIdiomValues")}];
           }
         }
 
-        v7 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+        v7 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
       }
 
       while (v7);
     }
 
     obja = *(*v2 + 2);
-    v25 = MEMORY[0x277CCACA8];
-    v24 = __arrayToString(v34);
+    v24 = MEMORY[0x277CCACA8];
     v23 = __arrayToString(v33);
     v22 = __arrayToString(v32);
-    v21 = __arrayToString(v4);
-    v20 = __arrayToString(v31);
-    v13 = __arrayToString(v30);
-    v14 = __arrayToString(v29);
+    v21 = __arrayToString(v31);
+    v20 = __arrayToString(v4);
+    v19 = __arrayToString(v30);
+    v13 = __arrayToString(v29);
+    v14 = __arrayToString(v28);
     v15 = __arrayToString(v5);
-    [obja setThinningArguments:{objc_msgSend(v25, "stringWithFormat:", @"optimized <idiom %@> <subtype %@> <scale %@> <gamut %@> <graphics %@> <graphicsfallback %@> <memory %@> <deployment %@> <hostedIdioms %@>", v24, v23, v22, v21, v20, v13, v14, v15, __arrayToString(v28))}];
+    [obja setThinningArguments:{objc_msgSend(v24, "stringWithFormat:", @"optimized <idiom %@> <subtype %@> <scale %@> <gamut %@> <graphics %@> <graphicsfallback %@> <memory %@> <deployment %@> <hostedIdioms %@>", v23, v22, v21, v20, v19, v13, v14, v15, __arrayToString(v27))}];
   }
 
   snprintf(__str, 0x100uLL, "%s", [objc_msgSend(*v2 "assetStoreVersionString")]);
@@ -1866,25 +1875,27 @@ LABEL_32:
   }
 
   [*v2 setAssetSchemaVersion:v17];
-  v19 = [*(*v2 + 1) uuid];
-  if (v19)
+  v18 = [*(*v2 + 1) uuid];
+  if (!v18)
   {
-    [*v2 setAssetStoreUuid:v19];
-    [*v2 setAssetStoreAssociatedChecksum:{objc_msgSend(*(*v2 + 1), "checksum")}];
-    [*v2 setAssetColorSpaceID:{objc_msgSend(*(*v2 + 1), "colorSpaceID")}];
-    if (([*v2 isCancelled] & 1) != 0 || (result = objc_msgSend(*(a1 + 32), "assetStoreWriteToDisk"), *(*(*(a1 + 40) + 8) + 24) = result, (result & 1) == 0))
-    {
-      result = [*v2 _logErrorAndAccumulateDescription:@"Failed to write to CAR"];
-    }
+    return __24__TDDistiller__distill___block_invoke_cold_1();
   }
 
-  else
+  [*v2 setAssetStoreUuid:v18];
+  [*v2 setAssetStoreAssociatedChecksum:{objc_msgSend(*(*v2 + 1), "checksum")}];
+  [*v2 setAssetColorSpaceID:{objc_msgSend(*(*v2 + 1), "colorSpaceID")}];
+  if ([*v2 isCancelled])
   {
-    result = __24__TDDistiller__distill___block_invoke_cold_1();
+    return [*v2 _logErrorAndAccumulateDescription:@"Failed to write to CAR"];
   }
 
-LABEL_33:
-  v18 = *MEMORY[0x277D85DE8];
+  result = [*(a1 + 32) assetStoreWriteToDisk];
+  *(*(*(a1 + 40) + 8) + 24) = result;
+  if ((result & 1) == 0)
+  {
+    return [*v2 _logErrorAndAccumulateDescription:@"Failed to write to CAR"];
+  }
+
   return result;
 }
 
@@ -1976,7 +1987,21 @@ LABEL_7:
   [(TDDistiller *)self setCancelled:1];
 }
 
-uint64_t __24__TDDistiller__distill___block_invoke_cold_1()
+- (void)performSelectorOnCallbackThread:(SEL)thread withObject:(id)object waitUntilDone:(BOOL)done
+{
+  doneCopy = done;
+  callbackThread = [(TDDistiller *)self callbackThread];
+  if (!callbackThread)
+  {
+    callbackThread = [MEMORY[0x277CCACC8] mainThread];
+  }
+
+  mainThreadPerformRunLoopModes = self->_mainThreadPerformRunLoopModes;
+
+  [(TDDistiller *)self performSelector:thread onThread:callbackThread withObject:object waitUntilDone:doneCopy modes:mainThreadPerformRunLoopModes];
+}
+
+void *__24__TDDistiller__distill___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_2();
   [objc_msgSend(MEMORY[0x277CCA890] "currentHandler")];

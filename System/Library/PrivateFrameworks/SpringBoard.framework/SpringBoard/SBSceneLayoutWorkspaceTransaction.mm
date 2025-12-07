@@ -155,7 +155,7 @@ void __62__SBSceneLayoutWorkspaceTransaction__captureAppsForTransition__block_in
   v4 = *(a1 + 32);
   v5 = [v10 sceneHandle];
   v6 = [v5 sceneIdentifier];
-  LOBYTE(v4) = [v4 containsObject:v6];
+  LOBYTE(v4) = objc_msgSend_containsObject_(v4);
 
   if ((v4 & 1) == 0)
   {
@@ -1009,7 +1009,7 @@ uint64_t __59__SBSceneLayoutWorkspaceTransaction__beginLayoutTransition__block_i
 
           v14 = *(*(&v34 + 1) + 8 * i);
           identifier = [v14 identifier];
-          if ([v14 isValid] && (objc_msgSend(v8, "containsObject:", identifier) & 1) == 0 && (objc_msgSend(_collectSceneIDsOfExternallyHostedApps, "containsObject:", identifier) & 1) == 0)
+          if ([v14 isValid] && (objc_msgSend_containsObject_(v8) & 1) == 0 && (objc_msgSend_containsObject_(_collectSceneIDsOfExternallyHostedApps) & 1) == 0)
           {
             [v14 updateUISettingsWithBlock:&__block_literal_global_203];
             uiPresentationManager = [v14 uiPresentationManager];
@@ -1151,7 +1151,7 @@ uint64_t __62__SBSceneLayoutWorkspaceTransaction__captureAppsForTransition__bloc
 {
   v3 = a2;
   v4 = [v3 sceneIdentifier];
-  if ([*(a1 + 32) containsObject:v4] & 1) != 0 || (objc_msgSend(*(a1 + 40), "_sceneEntities:hasEntityRepresentingSceneID:", *(*(a1 + 40) + 328), v4))
+  if (objc_msgSend_containsObject_(*(a1 + 32)) & 1) != 0 || ([*(a1 + 40) _sceneEntities:*(*(a1 + 40) + 328) hasEntityRepresentingSceneID:v4])
   {
     v5 = 0;
   }
@@ -1388,25 +1388,26 @@ LABEL_11:
 
 - (BOOL)_shouldKeepSceneForSceneHandleForeground:(id)foreground
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   sceneIfExists = [foreground sceneIfExists];
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   if (sceneIfExists && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    v11 = 0;
-    v6 = [WeakRetained transaction:self shouldKeepSceneForeground:sceneIfExists withReason:&v11];
-    v7 = v11;
+    v12 = 0;
+    v6 = [WeakRetained transaction:self shouldKeepSceneForeground:sceneIfExists withReason:&v12];
+    v7 = v12;
+    v8 = v7;
     if (v7)
     {
-      v8 = SBLogTransaction();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      v9 = SBLogTransaction(v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
         identifier = [sceneIfExists identifier];
         *buf = 138543618;
-        v13 = identifier;
-        v14 = 2114;
-        v15 = v7;
-        _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_INFO, "Keeping scene %{public}@ foreground for reason:\n%{public}@", buf, 0x16u);
+        v14 = identifier;
+        v15 = 2114;
+        v16 = v8;
+        _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_INFO, "Keeping scene %{public}@ foreground for reason:\n%{public}@", buf, 0x16u);
       }
     }
   }
@@ -1508,7 +1509,7 @@ uint64_t __56__SBSceneLayoutWorkspaceTransaction__completeTransition__block_invo
           }
 
           v28 = *(*(&v34 + 1) + 8 * i);
-          if ([v22 containsObject:v28])
+          if (objc_msgSend_containsObject_(v22))
           {
             v29 = 2;
           }
@@ -1705,7 +1706,7 @@ void __73__SBSceneLayoutWorkspaceTransaction__updateScenesForTransitionCompletio
           {
             if (v8 && v8 != sb_effectiveInterfaceOrientation)
             {
-              [SBSceneLayoutWorkspaceTransaction _overrideInterfaceOrientationForOrientationMismatch:];
+              [(SBSceneLayoutWorkspaceTransaction *)v8 _overrideInterfaceOrientationForOrientationMismatch:sb_effectiveInterfaceOrientation];
             }
 
             if ([(SBSceneLayoutWorkspaceTransaction *)selfCopy isAuditHistoryEnabled])
@@ -1798,7 +1799,7 @@ void __73__SBSceneLayoutWorkspaceTransaction__updateScenesForTransitionCompletio
 {
   transactionCopy = transaction;
   processCopy = process;
-  if ([(NSMutableSet *)self->_updateTransactions count]<= 1 && [(NSMutableSet *)self->_updateTransactions containsObject:transactionCopy])
+  if ([(NSMutableSet *)self->_updateTransactions count]<= 1 && objc_msgSend_containsObject_(self->_updateTransactions))
   {
     if ([processCopy isRunning])
     {
@@ -2045,13 +2046,13 @@ void __56__SBSceneLayoutWorkspaceTransaction__completeTransition__block_invoke_2
   *a3 = *(*a2 + 8);
 }
 
-- (void)_overrideInterfaceOrientationForOrientationMismatch:.cold.1()
+- (void)_overrideInterfaceOrientationForOrientationMismatch:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v0 = [MEMORY[0x277CCA890] currentHandler];
-  v1 = BSInterfaceOrientationDescription();
-  v2 = BSInterfaceOrientationDescription();
+  v2 = [MEMORY[0x277CCA890] currentHandler];
+  v3 = BSInterfaceOrientationDescription();
+  v4 = BSInterfaceOrientationDescription();
   OUTLINED_FUNCTION_0_3();
-  [v3 handleFailureInMethod:v1 object:v2 file:? lineNumber:? description:?];
+  [v5 handleFailureInMethod:v3 object:v4 file:? lineNumber:? description:?];
 }
 
 @end

@@ -4,6 +4,8 @@
 - (float)applyL8Trim:(float)trim;
 - (float)satMapI:(float)i Adm:(float)adm;
 - (float)satMapS:(float)s;
+- (float)toneMapI:(float)i;
+- (float)toneMapInterpI:(float)i;
 - (float)toneMapS:(float)s;
 - (id)init:(unint64_t)init;
 - (int)BuildInterpInfo:(int)info Xa:(double *)xa Idxa:(int *)idxa TIdxMax:(int)max X2Interp:(double)interp Alpha:(double *)alpha U16a:(void *)u16a U16L:(void *)self0 U16R:(void *)self1 DmMetaData:(id *)self2;
@@ -34,6 +36,7 @@
 - (void)initColorSpace:(unsigned int)space OutClrSpace:(unsigned int)clrSpace OutTrfFunction:(unsigned int)function;
 - (void)initToneMapMatrices:(float *)matrices tgtRgb2LmsTm:(float *)tm;
 - (void)initToneMapMatrices:(unsigned int)matrices outbits:(unsigned int)outbits srcRgb2LmsTm:(float *)tm tgtRgb2LmsTm:(float *)lmsTm;
+- (void)initToneMapParams:(float)params srcMaxPQ:(float)q tgtMinPQ:(float)pQ tgtMaxPQ:(float)maxPQ srcCrushPQ:(float)crushPQ srcMidPQ:(float)midPQ srcClipPQ:(float)clipPQ targetMaxLinear:(float)self0 DM_MetaData:(id *)self1;
 - (void)initTrimData:(id *)data;
 - (void)setPseudoTrimDataForHLG:(float)g;
 - (void)updateDM4TonemapConfig:(id *)config DMConfig:(id *)mConfig TCControl:(ToneCurve_Control *)control EdrAdaptationParam:(const _EdrAdaptationParam *)param AmbAdaptationParam:(const _AmbAdaptationParam *)adaptationParam;
@@ -47,82 +50,13 @@
   v15.super_class = DolbyVisionDM4;
   v4 = [(DolbyVisionDM4 *)&v15 init];
   v5 = v4;
-  if (!v4)
-  {
-    goto LABEL_7;
-  }
-
-  *(v4 + 170) = init;
-  *(v4 + 219) = -1106788352;
-  *(v4 + 844) = m33Lms2ItpDbl;
-  *(v4 + 860) = unk_2508CF260;
-  *(v4 + 228) = -1096537793;
-  *(v4 + 55) = m33Itp2LmsDbl;
-  *(v4 + 56) = unk_2508CF284;
-  *(v4 + 201) = 1063469056;
-  *(v4 + 772) = P3_Rgb2LMSDbl;
-  *(v4 + 788) = unk_2508CF2A8;
-  *(v4 + 210) = 1063682048;
-  *(v4 + 808) = R2020_Rgb2LMSDbl;
-  *(v4 + 824) = unk_2508CF2CC;
-  *(v4 + 18) = 4;
-  *(v4 + 120) = xmmword_2508CF090;
-  *(v4 + 35) = 0;
-  *(v4 + 104) = xmmword_2508CF0A0;
-  *(v4 + 276) = xmmword_2508CF0B0;
-  *(v4 + 292) = 0x3F8000003F800000;
-  v6.f64[0] = 0.0000305175853;
-  v6.f64[1] = 0.0000305175853;
-  *(v4 + 436) = vnegq_f64(v6);
-  *(v4 + 452) = 1056964608;
-  *(v4 + 356) = 0u;
-  *(v4 + 372) = 0u;
-  *(v4 + 388) = 0u;
-  *(v4 + 404) = 0u;
-  *(v4 + 420) = 0u;
-  v7 = *(v4 + 276);
-  *(v4 + 612) = *(v4 + 292);
-  *(v4 + 596) = v7;
-  v8 = *(v4 + 436);
-  *(v4 + 692) = *(v4 + 452);
-  *(v4 + 676) = v8;
-  *(v4 + 620) = 0;
-  *(v4 + 700) = 0xBF000000BF000000;
-  *(v4 + 644) = 0;
-  *(v4 + 628) = 0u;
-  memset_pattern16(v4 + 708, &unk_2508CF110, 0x18uLL);
-  *(v5 + 668) = 0;
-  *(v5 + 652) = 0u;
-  memset_pattern16(v5 + 732, &unk_2508CF120, 0x18uLL);
-  *(v5 + 1084) = xmmword_2508CF0C0;
-  *(v5 + 275) = 15;
-  *(v5 + 69) = 0u;
-  *(v5 + 70) = 0u;
-  *(v5 + 71) = 0u;
-  *(v5 + 576) = 0;
-  *(v5 + 1156) = xmmword_2508CF0C0;
-  *(v5 + 293) = 15;
-  *(v5 + 1176) = 0u;
-  *(v5 + 1192) = 0u;
-  *(v5 + 1208) = 0u;
-  *(v5 + 612) = 0;
-  v9 = malloc_type_calloc(init, 4uLL, 0x100004052888210uLL);
-  *(v5 + 171) = v9;
-  if (!v9)
-  {
-    goto LABEL_7;
-  }
-
-  v10 = malloc_type_calloc(init, 4uLL, 0x100004052888210uLL);
-  *(v5 + 172) = v10;
-  if (v10 && (v11 = malloc_type_calloc(init, 4uLL, 0x100004052888210uLL), (*(v5 + 173) = v11) != 0) && (v12 = malloc_type_calloc(init, 4uLL, 0x100004052888210uLL), (*(v5 + 174) = v12) != 0))
+  if (v4 && (*(v4 + 170) = init, *(v4 + 219) = -1106788352, *(v4 + 844) = m33Lms2ItpDbl, *(v4 + 860) = unk_2508CF260, *(v4 + 228) = -1096537793, *(v4 + 55) = m33Itp2LmsDbl, *(v4 + 56) = unk_2508CF284, *(v4 + 201) = 1063469056, *(v4 + 772) = P3_Rgb2LMSDbl, *(v4 + 788) = unk_2508CF2A8, *(v4 + 210) = 1063682048, *(v4 + 808) = R2020_Rgb2LMSDbl, *(v4 + 824) = unk_2508CF2CC, *(v4 + 18) = 4, *(v4 + 120) = xmmword_2508CF090, *(v4 + 35) = 0, *(v4 + 104) = xmmword_2508CF0A0, *(v4 + 276) = xmmword_2508CF0B0, *(v4 + 292) = 0x3F8000003F800000, v6.f64[0] = 0.0000305175853, v6.f64[1] = 0.0000305175853, *(v4 + 436) = vnegq_f64(v6), *(v4 + 452) = 1056964608, *(v4 + 356) = 0u, *(v4 + 372) = 0u, *(v4 + 388) = 0u, *(v4 + 404) = 0u, *(v4 + 420) = 0u, v7 = *(v4 + 276), *(v4 + 612) = *(v4 + 292), *(v4 + 596) = v7, v8 = *(v4 + 436), *(v4 + 692) = *(v4 + 452), *(v4 + 676) = v8, *(v4 + 620) = 0, *(v4 + 700) = 0xBF000000BF000000, *(v4 + 644) = 0, *(v4 + 628) = 0u, memset_pattern16(v4 + 708, &unk_2508CF110, 0x18uLL), *(v5 + 668) = 0, *(v5 + 652) = 0u, memset_pattern16(v5 + 732, &unk_2508CF120, 0x18uLL), *(v5 + 1084) = xmmword_2508CF0C0, *(v5 + 275) = 15, *(v5 + 69) = 0u, *(v5 + 70) = 0u, *(v5 + 71) = 0u, *(v5 + 576) = 0, *(v5 + 1156) = xmmword_2508CF0C0, *(v5 + 293) = 15, *(v5 + 1176) = 0u, *(v5 + 1192) = 0u, *(v5 + 1208) = 0u, *(v5 + 612) = 0, v9 = malloc_type_calloc(init, 4uLL, 0x100004052888210uLL), (*(v5 + 171) = v9) != 0) && (v10 = malloc_type_calloc(init, 4uLL, 0x100004052888210uLL), (*(v5 + 172) = v10) != 0) && (v11 = malloc_type_calloc(init, 4uLL, 0x100004052888210uLL), (*(v5 + 173) = v11) != 0) && (v12 = malloc_type_calloc(init, 4uLL, 0x100004052888210uLL), (*(v5 + 174) = v12) != 0))
   {
     v13 = v5;
   }
 
   else
   {
-LABEL_7:
     v13 = 0;
   }
 
@@ -236,7 +170,7 @@ LABEL_7:
 
 - (void)applyL9:(id *)l9
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   if (l9 && l9->var28.var0)
   {
     var2 = l9->var28.var2;
@@ -249,57 +183,57 @@ LABEL_7:
     else
     {
       var4 = l9->var28.var4;
-      v30.i32[0] = l9->var28.var3;
-      v30.i32[1] = var4;
-      v32.i64[0] = __PAIR64__(var4, v30.u32[0]);
+      v29.i32[0] = l9->var28.var3;
+      v29.i32[1] = var4;
+      v31.i64[0] = __PAIR64__(var4, v29.u32[0]);
       var6 = l9->var28.var6;
-      v30.i32[2] = l9->var28.var5;
-      v30.i32[3] = var6;
-      v32.i64[1] = __PAIR64__(var6, v30.u32[2]);
+      v29.i32[2] = l9->var28.var5;
+      v29.i32[3] = var6;
+      v31.i64[1] = __PAIR64__(var6, v29.u32[2]);
       var8 = l9->var28.var8;
-      v31.i32[0] = l9->var28.var7;
-      v31.i32[1] = var8;
-      v33.i64[0] = __PAIR64__(var8, v31.u32[0]);
+      v30.i32[0] = l9->var28.var7;
+      v30.i32[1] = var8;
+      v32.i64[0] = __PAIR64__(var8, v30.u32[0]);
       var10 = l9->var28.var10;
-      v31.i32[2] = l9->var28.var9;
-      v31.i32[3] = var10;
-      v33.i64[1] = __PAIR64__(var10, v31.u32[2]);
+      v30.i32[2] = l9->var28.var9;
+      v30.i32[3] = var10;
+      v32.i64[1] = __PAIR64__(var10, v30.u32[2]);
       self->inputSurface.primariesScale2P = 15;
-      v9 = &v32;
+      v9 = &v31;
+      v31 = vshlq_n_s32(v31, 0xBuLL);
       v32 = vshlq_n_s32(v32, 0xBuLL);
-      v33 = vshlq_n_s32(v33, 0xBuLL);
     }
   }
 
   else
   {
-    v9 = &v32;
-    [(DolbyVisionDM4 *)self GetPrimaries:self->inputSurface.colorPrimaries Primaries:&v32 Count:8];
+    v9 = &v31;
+    [(DolbyVisionDM4 *)self GetPrimaries:self->inputSurface.colorPrimaries Primaries:&v31 Count:8];
     self->inputSurface.primariesScale2P = 26;
   }
 
-  Rgb2LmsByV8PrimsM33Fxp = GetRgb2LmsByV8PrimsM33Fxp(v9->i32, v27);
+  Rgb2LmsByV8PrimsM33Fxp = GetRgb2LmsByV8PrimsM33Fxp(v9, v26);
   m33Rgb2Lms = self->inputSurface.m33Rgb2Lms;
-  self->inputSurface.m33Rgb2LmsScale2P = APPLY_CT2RIGHT(v27, Rgb2LmsByV8PrimsM33Fxp, 1311, self->inputSurface.m33Rgb2Lms);
-  v12 = &v28;
-  [(DolbyVisionDM4 *)self GetPrimaries:self->outputSurface.colorPrimaries Primaries:&v28 Count:8];
+  self->inputSurface.m33Rgb2LmsScale2P = APPLY_CT2RIGHT(v26, Rgb2LmsByV8PrimsM33Fxp, 1311, self->inputSurface.m33Rgb2Lms);
+  v12 = &v27;
+  [(DolbyVisionDM4 *)self GetPrimaries:self->outputSurface.colorPrimaries Primaries:&v27 Count:8];
   if (self->outputSurface.primariesScale2P <= 25)
   {
     v13 = vdupq_n_s32(26 - self->inputSurface.primariesScale2P);
+    v29 = vshlq_u32(v27, v13);
     v30 = vshlq_u32(v28, v13);
-    v31 = vshlq_u32(v29, v13);
-    v12 = &v30;
+    v12 = &v29;
   }
 
-  v14 = GetRgb2LmsByV8PrimsM33Fxp(v12->i32, v27);
-  v15 = APPLY_CT2RIGHT(v27, v14, 1311, self->outputSurface.m33Rgb2Lms);
+  v14 = GetRgb2LmsByV8PrimsM33Fxp(v12, v26);
+  v15 = APPLY_CT2RIGHT(v26, v14, 1311, self->outputSurface.m33Rgb2Lms);
   v16 = 0;
   v17 = 0;
   self->outputSurface.m33Rgb2LmsScale2P = v15;
   v18 = v9[1];
   *self->inputSurface.primaries = *v9;
-  v19 = v29;
-  *self->outputSurface.primaries = v28;
+  v19 = v28;
+  *self->outputSurface.primaries = v27;
   *&self->outputSurface.primaries[4] = v19;
   v20 = (1 << self->inputSurface.m33Rgb2LmsScale2P);
   *&self->inputSurface.primaries[4] = v18;
@@ -310,8 +244,8 @@ LABEL_7:
     v23 = 3;
     do
     {
-      *&v26[v22] = *v21 / v20;
-      *&v25[v22] = (*v21)[36] / (1 << v15);
+      *&v25[v22] = *v21 / v20;
+      *&v24[v22] = (*v21)[36] / (1 << v15);
       v22 += 4;
       v21 = (v21 + 2);
       --v23;
@@ -324,15 +258,65 @@ LABEL_7:
   }
 
   while (v17 != 3);
-  [(DolbyVisionDM4 *)self initToneMapMatrices:v26 tgtRgb2LmsTm:v25];
-  v24 = *MEMORY[0x277D85DE8];
+  [(DolbyVisionDM4 *)self initToneMapMatrices:v25 tgtRgb2LmsTm:v24];
+}
+
+- (void)initToneMapParams:(float)params srcMaxPQ:(float)q tgtMinPQ:(float)pQ tgtMaxPQ:(float)maxPQ srcCrushPQ:(float)crushPQ srcMidPQ:(float)midPQ srcClipPQ:(float)clipPQ targetMaxLinear:(float)self0 DM_MetaData:(id *)self1
+{
+  self->sMinPq = params;
+  self->sMaxPq = q;
+  self->tMinPq = pQ;
+  self->tMaxPq = maxPQ;
+  self->sCrushPq = crushPQ;
+  self->sMidPq = midPQ;
+  self->sClipPq = clipPQ;
+  self->tMaxLinear = linear;
+  v35 = vdup_n_s32(0x354436E8u);
+  v13 = vdup_n_s32(0xB5C436E8);
+  v14 = vcge_f32(*&params, v35);
+  v15 = vdup_n_s32(0xC61C4000);
+  v16 = vbsl_s8(v14, *&params, vneg_f32(vadd_f32(*&params, v13)));
+  v30 = *v16.i32;
+  v17 = vdup_n_s32(0x461C4000u);
+  v34 = vbsl_s8(v14, v17, v15);
+  v32 = powf(*&v16.i32[1], 0.012683);
+  v18.f32[0] = powf(v30, 0.012683);
+  v18.f32[1] = v32;
+  v19 = vdup_n_s32(0xBF560000);
+  v20 = vdup_n_s32(0xC1958000);
+  v21 = vdup_n_s32(0x4196D000u);
+  v22 = vcvt_f32_f64(vmaxnmq_f64(vcvtq_f64_f32(vdiv_f32(vadd_f32(v18, v19), vmla_f32(v21, v20, v18))), 0));
+  v31 = v22.f32[0];
+  v33 = powf(v22.f32[1], 6.2774);
+  v23.f32[0] = powf(v31, 6.2774);
+  v23.f32[1] = v33;
+  *&self->sMinTm = vmul_f32(v34, v23);
+  v24 = vcge_f32(__PAIR64__(LODWORD(maxPQ), LODWORD(pQ)), v35);
+  v25 = vbsl_s8(v24, __PAIR64__(LODWORD(maxPQ), LODWORD(pQ)), vneg_f32(vadd_f32(__PAIR64__(LODWORD(maxPQ), LODWORD(pQ)), v13)));
+  v34.i32[0] = v25.i32[0];
+  v26 = vbsl_s8(v24, v17, v15);
+  v35.i32[0] = powf(*&v25.i32[1], 0.012683);
+  v27.f32[0] = powf(v34.f32[0], 0.012683);
+  v27.i32[1] = v35.i32[0];
+  v28 = vcvt_f32_f64(vmaxnmq_f64(vcvtq_f64_f32(vdiv_f32(vadd_f32(v27, v19), vmla_f32(v21, v20, v27))), 0));
+  v34.i32[0] = v28.i32[0];
+  v35.i32[0] = powf(v28.f32[1], 6.2774);
+  v29.f32[0] = powf(v34.f32[0], 6.2774);
+  v29.i32[1] = v35.i32[0];
+  *&self->tMinTm = vmul_f32(v26, v29);
+  self->sMinPqTm = params;
+  self->sMaxPqTm = q;
+  self->tMinPqTm = pQ;
+  self->tMaxPqTm = maxPQ;
+
+  [(DolbyVisionDM4 *)self initBt1886Param];
 }
 
 - (void)BuildLumaXInfo:(double)info TrimSetAct:(int)act Luma:(double *)luma Idxa:(int *)idxa IdxMax:(int *)max X2Interp:(double *)interp DmMetaData:(id *)data
 {
   v11 = 0;
   v12 = 0;
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   *max = 0;
   *interp = 0.0;
   do
@@ -394,8 +378,8 @@ LABEL_16:
       if (v11 < 1)
       {
 LABEL_22:
-        v37[v16] = v20;
-        v38[v16] = v21;
+        v36[v16] = v20;
+        v37[v16] = v21;
         idxa[v16] = v12;
         v11 = *max + 1;
         *max = v11;
@@ -404,8 +388,8 @@ LABEL_22:
       else
       {
         v22 = v11;
-        v23 = v37;
-        v24 = v38;
+        v23 = v36;
+        v24 = v37;
         while (1)
         {
           v25 = *v24++;
@@ -440,8 +424,8 @@ LABEL_29:
   {
     v27 = v26 * info;
     v28 = v11;
-    v29 = v37;
-    v30 = v38;
+    v29 = v36;
+    v30 = v37;
     while (1)
     {
       v31 = *v30++;
@@ -474,7 +458,6 @@ LABEL_29:
   }
 
   *interp = (v34 * 4095.0);
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)GetPrimaries:(unsigned int)primaries Primaries:(int *)a4 Count:(int)count
@@ -494,14 +477,14 @@ LABEL_29:
 {
   idxaCopy2 = idxa;
   v14 = 0;
-  v79 = *MEMORY[0x277D85DE8];
-  v77 = 0;
-  memset(v76, 0, sizeof(v76));
-  v75 = 0;
+  v78 = *MEMORY[0x277D85DE8];
+  v76 = 0;
+  memset(v75, 0, sizeof(v75));
+  v74 = 0;
   var22 = data->var22;
   var27 = data->var27;
   p_var6 = &data->var29[0].var6;
-  memset(v74, 0, sizeof(v74));
+  memset(v73, 0, sizeof(v73));
   *max = 0;
   *interp = 0.0;
   do
@@ -603,9 +586,9 @@ LABEL_29:
       else
       {
         v42 = vshll_high_n_s16(*v34, 0xBuLL);
-        v78[0] = vshll_n_s16(*v34->i8, 0xBuLL);
-        v78[1] = v42;
-        v43 = v78;
+        v77[0] = vshll_n_s16(*v34->i8, 0xBuLL);
+        v77[1] = v42;
+        v43 = v77;
       }
 
       ChromaDist = FindChromaDist(v43, vcvts_n_u32_f32(flt_2508CD850[v37] * v40, 0x12uLL), v35 << 6);
@@ -619,16 +602,16 @@ LABEL_28:
       if (v44 < 1)
       {
 LABEL_33:
-        *(v74 + v44) = v46;
-        *(v76 + v44) = v47;
+        *(v73 + v44) = v46;
+        *(v75 + v44) = v47;
         idxaCopy2[v44] = v14;
         ++*max;
       }
 
       else
       {
-        v48 = v74;
-        v49 = v76;
+        v48 = v73;
+        v49 = v75;
         v50 = v44;
         while (1)
         {
@@ -676,8 +659,8 @@ LABEL_43:
   else
   {
     v57 = v55 * info;
-    v58 = v74;
-    v59 = v76;
+    v58 = v73;
+    v59 = v75;
     v60 = v56;
     while (1)
     {
@@ -722,7 +705,6 @@ LABEL_43:
   }
 
   *interp = FindChromaDist(self->outputSurface.primaries, v67, vcvts_n_s32_f32(v64, 0x12uLL));
-  v68 = *MEMORY[0x277D85DE8];
 }
 
 - (int)BuildInterpInfo:(int)info Xa:(double *)xa Idxa:(int *)idxa TIdxMax:(int)max X2Interp:(double)interp Alpha:(double *)alpha U16a:(void *)u16a U16L:(void *)self0 U16R:(void *)self1 DmMetaData:(id *)self2
@@ -1108,24 +1090,24 @@ LABEL_17:
 
 - (void)initTrimData:(id *)data
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   if (self->dmAlgVerInCm < 4)
   {
-    v53 = 0;
+    v52 = 0;
+    v50 = 0.0;
     v51 = 0.0;
-    v52 = 0.0;
+    v48 = 0;
     v49 = 0;
-    v50 = 0;
-    [(DolbyVisionDM4 *)self BuildLumaXInfo:0 TrimSetAct:v54 Luma:v55 Idxa:&v53 IdxMax:&v52 X2Interp:data DmMetaData:64.0156288];
-    v19 = [(DolbyVisionDM4 *)self BuildInterpInfo:0 Xa:v54 Idxa:v55 TIdxMax:v53 X2Interp:&v51 Alpha:v56 U16a:v52 U16L:&v50 U16R:&v49 DmMetaData:data];
-    if (v50 == v49 && v19)
+    [(DolbyVisionDM4 *)self BuildLumaXInfo:0 TrimSetAct:v53 Luma:v54 Idxa:&v52 IdxMax:&v51 X2Interp:data DmMetaData:64.0156288];
+    v19 = [(DolbyVisionDM4 *)self BuildInterpInfo:0 Xa:v53 Idxa:v54 TIdxMax:v52 X2Interp:&v50 Alpha:v55 U16a:v51 U16L:&v49 U16R:&v48 DmMetaData:data];
+    if (v49 == v48 && v19)
     {
-      [(DolbyVisionDM4 *)self BuildChromaXInfo:0 TrimSetAct:v54 Luma:v55 Idxa:&v53 IdxMax:&v52 X2Interp:data DmMetaData:1.0];
-      v20 = [(DolbyVisionDM4 *)self BuildInterpInfo:0 Xa:v54 Idxa:v55 TIdxMax:v53 X2Interp:&v51 Alpha:v56 U16a:v52 U16L:&v50 U16R:&v49 DmMetaData:data];
-      v24 = v49;
-      v23 = v50;
+      [(DolbyVisionDM4 *)self BuildChromaXInfo:0 TrimSetAct:v53 Luma:v54 Idxa:&v52 IdxMax:&v51 X2Interp:data DmMetaData:1.0];
+      v20 = [(DolbyVisionDM4 *)self BuildInterpInfo:0 Xa:v53 Idxa:v54 TIdxMax:v52 X2Interp:&v50 Alpha:v55 U16a:v51 U16L:&v49 U16R:&v48 DmMetaData:data];
+      v24 = v48;
+      v23 = v49;
       v12 = 1;
-      if (v50 == v49)
+      if (v49 == v48)
       {
         v18 = 1;
         if (v20)
@@ -1137,13 +1119,13 @@ LABEL_17:
 
     else
     {
-      InterpLumaTrim2(v50, v49, v56, &self->trimData2, v51);
-      [(DolbyVisionDM4 *)self BuildChromaXInfo:0 TrimSetAct:v54 Luma:v55 Idxa:&v53 IdxMax:&v52 X2Interp:data DmMetaData:1.0];
-      v30 = [(DolbyVisionDM4 *)self BuildInterpInfo:0 Xa:v54 Idxa:v55 TIdxMax:v53 X2Interp:&v51 Alpha:v56 U16a:v52 U16L:&v50 U16R:&v49 DmMetaData:data];
+      InterpLumaTrim2(v49, v48, v55, &self->trimData2, v50);
+      [(DolbyVisionDM4 *)self BuildChromaXInfo:0 TrimSetAct:v53 Luma:v54 Idxa:&v52 IdxMax:&v51 X2Interp:data DmMetaData:1.0];
+      v30 = [(DolbyVisionDM4 *)self BuildInterpInfo:0 Xa:v53 Idxa:v54 TIdxMax:v52 X2Interp:&v50 Alpha:v55 U16a:v51 U16L:&v49 U16R:&v48 DmMetaData:data];
       v12 = 0;
-      v24 = v49;
-      v23 = v50;
-      if (v50 == v49 && v30)
+      v24 = v48;
+      v23 = v49;
+      if (v49 == v48 && v30)
       {
         v18 = 1;
         goto LABEL_23;
@@ -1151,12 +1133,12 @@ LABEL_17:
     }
 
     v18 = 0;
-    v31 = v51;
+    v31 = v50;
     LOWORD(v21) = v23[5];
     v32 = v21;
     LOWORD(v22) = v24[5];
     *&v33 = v22 - v32;
-    v34 = v32 + *&v33 * v51;
+    v34 = v32 + *&v33 * v50;
     *&v34 = v34;
     self->trimData2.trimChromaWeight = *&v34;
     LOWORD(v34) = v23[6];
@@ -1176,43 +1158,43 @@ LABEL_17:
   }
 
   while (v6);
-  v53 = 0;
+  v52 = 0;
+  v50 = 0.0;
   v51 = 0.0;
-  v52 = 0.0;
+  v48 = 0;
   v49 = 0;
-  v50 = 0;
-  [(DolbyVisionDM4 *)self BuildLumaXInfo:1 TrimSetAct:v54 Luma:v56 Idxa:&v53 IdxMax:&v52 X2Interp:data DmMetaData:64.0156288];
-  v8 = [(DolbyVisionDM4 *)self BuildInterpInfo:1 Xa:v54 Idxa:v56 TIdxMax:v53 X2Interp:&v51 Alpha:v55 U16a:v52 U16L:&v50 U16R:&v49 DmMetaData:data];
-  if (v50 != v49 || !v8)
+  [(DolbyVisionDM4 *)self BuildLumaXInfo:1 TrimSetAct:v53 Luma:v55 Idxa:&v52 IdxMax:&v51 X2Interp:data DmMetaData:64.0156288];
+  v8 = [(DolbyVisionDM4 *)self BuildInterpInfo:1 Xa:v53 Idxa:v55 TIdxMax:v52 X2Interp:&v50 Alpha:v54 U16a:v51 U16L:&v49 U16R:&v48 DmMetaData:data];
+  if (v49 != v48 || !v8)
   {
-    InterpLumaTrim8(v50, v49, v51, v9, v10, v11, v7, &self->trimData8);
+    InterpLumaTrim8(v49, v48, v50, v9, v10, v11, v7, &self->trimData8);
     v18 = 1;
-    [(DolbyVisionDM4 *)self BuildChromaXInfo:1 TrimSetAct:v54 Luma:v56 Idxa:&v53 IdxMax:&v52 X2Interp:data DmMetaData:1.0];
-    v26 = [(DolbyVisionDM4 *)self BuildInterpInfo:1 Xa:v54 Idxa:v56 TIdxMax:v53 X2Interp:&v51 Alpha:v55 U16a:v52 U16L:&v50 U16R:&v49 DmMetaData:data];
-    if (v50 == v49 && v26)
+    [(DolbyVisionDM4 *)self BuildChromaXInfo:1 TrimSetAct:v53 Luma:v55 Idxa:&v52 IdxMax:&v51 X2Interp:data DmMetaData:1.0];
+    v26 = [(DolbyVisionDM4 *)self BuildInterpInfo:1 Xa:v53 Idxa:v55 TIdxMax:v52 X2Interp:&v50 Alpha:v54 U16a:v51 U16L:&v49 U16R:&v48 DmMetaData:data];
+    if (v49 == v48 && v26)
     {
       v12 = 0;
       goto LABEL_23;
     }
 
-    InterpChromaTrim8(v50, v49, v51, v27, v28, v29, v25, &self->trimData8.trimSlope);
+    InterpChromaTrim8(v49, v48, v50, v27, v28, v29, v25, &self->trimData8.trimSlope);
     v12 = 0;
     goto LABEL_22;
   }
 
   v12 = 1;
-  [(DolbyVisionDM4 *)self BuildChromaXInfo:1 TrimSetAct:v54 Luma:v56 Idxa:&v53 IdxMax:&v52 X2Interp:data DmMetaData:1.0];
-  v14 = [(DolbyVisionDM4 *)self BuildInterpInfo:1 Xa:v54 Idxa:v56 TIdxMax:v53 X2Interp:&v51 Alpha:v55 U16a:v52 U16L:&v50 U16R:&v49 DmMetaData:data];
-  if (v50 != v49 || (v18 = 1, !v14))
+  [(DolbyVisionDM4 *)self BuildChromaXInfo:1 TrimSetAct:v53 Luma:v55 Idxa:&v52 IdxMax:&v51 X2Interp:data DmMetaData:1.0];
+  v14 = [(DolbyVisionDM4 *)self BuildInterpInfo:1 Xa:v53 Idxa:v55 TIdxMax:v52 X2Interp:&v50 Alpha:v54 U16a:v51 U16L:&v49 U16R:&v48 DmMetaData:data];
+  if (v49 != v48 || (v18 = 1, !v14))
   {
-    InterpChromaTrim8(v50, v49, v51, v15, v16, v17, v13, &self->trimData8.trimSlope);
+    InterpChromaTrim8(v49, v48, v50, v15, v16, v17, v13, &self->trimData8.trimSlope);
 LABEL_22:
     v18 = 0;
   }
 
 LABEL_23:
-  LOBYTE(v48) = v18;
-  [(DolbyVisionDM4 *)self DecodeL2L8:&self->trimData2 CodeBias2:&self->codeBias2 TrimData8:&self->trimData8 CodeBias8:&self->codeBias8 Default8:&self->default8 UseDftLuma:v12 UseDftChroma:v48];
+  LOBYTE(v47) = v18;
+  [(DolbyVisionDM4 *)self DecodeL2L8:&self->trimData2 CodeBias2:&self->codeBias2 TrimData8:&self->trimData8 CodeBias8:&self->codeBias8 Default8:&self->default8 UseDftLuma:v12 UseDftChroma:v47];
   if (v18 | v12)
   {
     [(DolbyVisionDM4 *)self SetL2L8L10:&self->trimData2 TrimData8:&self->trimData8 Default8:&self->default8 UseDftLuma:v12 UseDftChroma:v18];
@@ -1279,7 +1261,6 @@ LABEL_23:
   *&self->trimData.saturationVector[4] = v46;
   *&self->trimData.hueVector[2] = *&self->trimData8.hueVector[2];
   *&self->trimData.trimSlope = v45;
-  v47 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setPseudoTrimDataForHLG:(float)g
@@ -1427,6 +1408,122 @@ LABEL_23:
   self->outputSurface.transferFunction = function;
 }
 
+- (float)toneMapInterpI:(float)i
+{
+  sCrushPq = self->sCrushPq;
+  if (sCrushPq >= i)
+  {
+    v9 = self->tCrushPq - ((sCrushPq - i) * self->crushSlope);
+  }
+
+  else
+  {
+    sMidPq = self->sMidPq;
+    if (sMidPq >= i)
+    {
+      *&v3 = self->tCrushPq;
+      *&v4 = self->crushSlope;
+    }
+
+    else
+    {
+      sClipPq = self->sClipPq;
+      if (sClipPq < i)
+      {
+        v9 = self->tClipPq + ((i - sClipPq) * self->clipSlope);
+        goto LABEL_9;
+      }
+
+      *&v3 = self->tMidPq;
+      *&v4 = self->midSlope;
+      sCrushPq = self->sMidPq;
+      sMidPq = self->sClipPq;
+    }
+
+    cubicSplineInterp(*&i, sCrushPq, v3, v4, sMidPq);
+  }
+
+LABEL_9:
+  dmAlgVerInCm = self->dmAlgVerInCm;
+  if (dmAlgVerInCm >= 4)
+  {
+    v9 = (v9 - self->tMinPq) / (self->tMaxPq - self->tMinPq);
+  }
+
+  v11 = self->trimData.trimOffset + (self->trimData.trimSlope * v9);
+  if (v11 <= 0.0)
+  {
+    v12 = 0.0;
+    if (v11 < 0.0)
+    {
+      v12 = -powf(-v11, self->trimData.trimPower);
+    }
+  }
+
+  else
+  {
+    v12 = powf(self->trimData.trimOffset + (self->trimData.trimSlope * v9), self->trimData.trimPower);
+  }
+
+  if (dmAlgVerInCm >= 4)
+  {
+    v12 = self->tMinPq + (v12 * (self->tMaxPq - self->tMinPq));
+  }
+
+  v13 = 1.0;
+  if (v12 <= 1.0)
+  {
+    v13 = v12;
+  }
+
+  v14 = v12 < 0.0;
+  result = 0.0;
+  if (!v14)
+  {
+    return v13;
+  }
+
+  return result;
+}
+
+- (float)toneMapI:(float)i
+{
+  sCrushPq = self->sCrushPq;
+  if (sCrushPq >= i)
+  {
+    mLow = self->mLow;
+    bLow = self->bLow;
+    goto LABEL_6;
+  }
+
+  sMidPq = self->sMidPq;
+  if (sMidPq >= i)
+  {
+    v7 = i - sCrushPq;
+    v8 = (self->cLow[0] + (self->cLow[1] * v7)) + ((v7 * self->cLow[2]) * v7);
+    v9 = self->cLow[3];
+LABEL_10:
+    i = v8 + ((v7 * (v7 * v9)) * v7);
+    goto LABEL_7;
+  }
+
+  if (self->sClipPq >= i)
+  {
+    v7 = i - sMidPq;
+    v8 = (self->cHigh[0] + (self->cHigh[1] * v7)) + ((v7 * self->cHigh[2]) * v7);
+    v9 = self->cHigh[3];
+    goto LABEL_10;
+  }
+
+  mLow = self->mHigh;
+  bLow = self->bHigh;
+LABEL_6:
+  i = bLow + (mLow * i);
+LABEL_7:
+  [(DolbyVisionDM4 *)self applyL8Trim:*&i];
+  return result;
+}
+
 - (float)satMapI:(float)i Adm:(float)adm
 {
   v4 = 0.0;
@@ -1572,7 +1669,7 @@ LABEL_23:
 
 - (void)calcToneMapParams
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   *&v2 = self->sMidPq;
   HIDWORD(v4) = 1060110592;
   if (*&v2 >= 0.000244200244)
@@ -1628,7 +1725,7 @@ LABEL_23:
   v12 = *&v9;
   v13 = *&v2;
   v14 = sCrushPq;
-  v60 = sCrushPq;
+  v59 = sCrushPq;
   v15 = deriveTmidPq(v2, sCrushPq, v9, v4, self->tMaxPq);
   tMinPq = self->tMinPq;
   tMaxPq = self->tMaxPq;
@@ -1656,7 +1753,7 @@ LABEL_23:
   }
 
   self->tCrushPq = tMinPq;
-  v59 = v12;
+  v58 = v12;
   if (((v12 - v13) + v20) <= tMaxPq)
   {
     tMaxPq = (v12 - v13) + v20;
@@ -1724,11 +1821,11 @@ LABEL_23:
   v33 = pow(v29, 0.0126833133);
   v34 = fmax(((v33 + -0.83594) / ((v33 * -18.688) + 18.852)), 0.0);
   v35 = powf(v34, 6.2774);
-  RgbLinear2Itp(fmaxf(v32 * v35, 5.0), 0.0, 0.0, self->SRGB2LMS_TM, self->LMS2ITP, &v61);
-  v37 = v61;
-  v36 = v62;
-  self->clipI = v61;
-  self->clipSat = sqrtf((v63 * v63) + (v36 * v36));
+  RgbLinear2Itp(fmaxf(v32 * v35, 5.0), 0.0, 0.0, self->SRGB2LMS_TM, self->LMS2ITP, &v60);
+  v37 = v60;
+  v36 = v61;
+  self->clipI = v60;
+  self->clipSat = sqrtf((v62 * v62) + (v36 * v36));
   v38 = fminf(self->tMaxPqTm, 1.0);
   if (v38 >= 0.00000073096)
   {
@@ -1743,13 +1840,13 @@ LABEL_23:
   v39 = pow(v38, 0.0126833133);
   v40 = fmax(((v39 + -0.83594) / ((v39 * -18.688) + 18.852)), 0.0);
   v41 = powf(v40, 6.2774);
-  RgbLinear2Itp(fmaxf(v31 * v41, 5.0), 0.0, 0.0, self->TRGB2LMS_TM, self->LMS2ITP, &v61);
-  v42 = v62;
-  self->clipIPred = v61;
-  self->clipSatPred = sqrtf((v63 * v63) + (v42 * v42));
-  self->sCrushPq = v60;
+  RgbLinear2Itp(fmaxf(v31 * v41, 5.0), 0.0, 0.0, self->TRGB2LMS_TM, self->LMS2ITP, &v60);
+  v42 = v61;
+  self->clipIPred = v60;
+  self->clipSatPred = sqrtf((v62 * v62) + (v42 * v42));
+  self->sCrushPq = v59;
   self->sMidPq = v13;
-  self->sClipPq = v59;
+  self->sClipPq = v58;
   *&v43 = v37;
   [(DolbyVisionDM4 *)self toneMapInterpI:v43];
   *&v45 = v44;
@@ -1791,7 +1888,6 @@ LABEL_23:
   clipSlope = self->clipSlope;
   self->mHigh = clipSlope;
   self->bHigh = tClipPq - (v55 * clipSlope);
-  v58 = *MEMORY[0x277D85DE8];
 }
 
 - (void)calcToneMapParamsHDR10
@@ -2067,7 +2163,7 @@ LABEL_23:
 
 - (void)calcToneMapParamsBrightAdapted
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   sMidPq = self->sMidPq;
   HIDWORD(v4) = 1060110592;
   if (sMidPq >= 0.000244200244)
@@ -2123,7 +2219,7 @@ LABEL_23:
   *&v10 = sMidPq;
   v12 = *&v9;
   v13 = sCrushPq;
-  v64 = sCrushPq;
+  v63 = sCrushPq;
   v14 = deriveTmidPq(v10, sCrushPq, v9, v4, self->tMaxPq);
   tMinPq = self->tMinPq;
   tMaxPq = self->tMaxPq;
@@ -2242,11 +2338,11 @@ LABEL_23:
   v38 = pow(v34, 0.0126833133);
   v39 = fmax(((v38 + -0.83594) / ((v38 * -18.688) + 18.852)), 0.0);
   v40 = powf(v39, 6.2774);
-  RgbLinear2Itp(fmaxf(v37 * v40, 5.0), 0.0, 0.0, self->SRGB2LMS_TM, self->LMS2ITP, &v65);
-  v42 = v65;
-  v41 = v66;
-  self->clipI = v65;
-  self->clipSat = sqrtf((v67 * v67) + (v41 * v41));
+  RgbLinear2Itp(fmaxf(v37 * v40, 5.0), 0.0, 0.0, self->SRGB2LMS_TM, self->LMS2ITP, &v64);
+  v42 = v64;
+  v41 = v65;
+  self->clipI = v64;
+  self->clipSat = sqrtf((v66 * v66) + (v41 * v41));
   v43 = fminf(self->tMaxPqTm, 1.0);
   if (v43 >= 0.00000073096)
   {
@@ -2261,11 +2357,11 @@ LABEL_23:
   v44 = pow(v43, 0.0126833133);
   v45 = fmax(((v44 + -0.83594) / ((v44 * -18.688) + 18.852)), 0.0);
   v46 = powf(v45, 6.2774);
-  RgbLinear2Itp(fmaxf(v36 * v46, 5.0), 0.0, 0.0, self->TRGB2LMS_TM, self->LMS2ITP, &v65);
-  v47 = v66;
-  self->clipIPred = v65;
-  self->clipSatPred = sqrtf((v67 * v67) + (v47 * v47));
-  self->sCrushPq = v64;
+  RgbLinear2Itp(fmaxf(v36 * v46, 5.0), 0.0, 0.0, self->TRGB2LMS_TM, self->LMS2ITP, &v64);
+  v47 = v65;
+  self->clipIPred = v64;
+  self->clipSatPred = sqrtf((v66 * v66) + (v47 * v47));
+  self->sCrushPq = v63;
   self->sMidPq = sMidPq;
   self->sClipPq = v12;
   *&v48 = v42;
@@ -2309,12 +2405,11 @@ LABEL_23:
   clipSlope = self->clipSlope;
   self->mHigh = clipSlope;
   self->bHigh = tClipPq - (v60 * clipSlope);
-  v63 = *MEMORY[0x277D85DE8];
 }
 
 - (void)calcToneMapParamsRefWhiteBased:(float)based TgtRefWhiteNits:(float)nits
 {
-  v110 = *MEMORY[0x277D85DE8];
+  v109 = *MEMORY[0x277D85DE8];
   sMidPq = self->sMidPq;
   if (sMidPq >= 0.000244200244)
   {
@@ -2378,13 +2473,13 @@ LABEL_23:
   }
 
   *&v15 = sMidPq;
-  v105 = v12;
+  v104 = v12;
   *&v16 = v12;
   *&v17 = tMinPq;
   mapMid(v15, sCrushPq, v16, v17, tMaxPq);
-  v100 = v20;
+  v99 = v20;
   v21 = -(sCrushPq + -0.0000014619);
-  v106 = sCrushPq;
+  v105 = sCrushPq;
   if (sCrushPq >= 0.00000073096)
   {
     v21 = sCrushPq;
@@ -2401,10 +2496,10 @@ LABEL_23:
     v23 = -10000.0;
   }
 
-  v103 = v23;
+  v102 = v23;
   v24 = powf(v21, 0.012683);
   v25 = fmax(((v24 + -0.83594) / ((v24 * -18.688) + 18.852)), 0.0);
-  v99 = v103 * powf(v25, 6.2774);
+  v98 = v102 * powf(v25, 6.2774);
   v26 = -(sMidPq + -0.0000014619);
   if (sMidPq < 0.00000073096)
   {
@@ -2417,10 +2512,10 @@ LABEL_23:
     v27 = 10000.0;
   }
 
-  v104 = v27;
+  v103 = v27;
   v28 = powf(v26, 0.012683);
   v29 = fmax(((v28 + -0.83594) / ((v28 * -18.688) + 18.852)), 0.0);
-  v98 = v104 * powf(v29, 6.2774);
+  v97 = v103 * powf(v29, 6.2774);
   v30 = -(tMinPq + -0.0000014619);
   if (tMinPq >= 0.00000073096)
   {
@@ -2431,7 +2526,7 @@ LABEL_23:
   v31 = powf(v30, 0.012683);
   v32 = fmax(((v31 + -0.83594) / ((v31 * -18.688) + 18.852)), 0.0);
   v33 = powf(v32, 6.2774);
-  v34 = (v22 * v33) + (((v98 - v99) * (nits - (v22 * v33))) / (based - v99));
+  v34 = (v22 * v33) + (((v97 - v98) * (nits - (v22 * v33))) / (based - v98));
   if (v34 >= 0.0)
   {
     v37 = powf(v34 * 0.0001, 0.1593);
@@ -2455,8 +2550,8 @@ LABEL_23:
     v39 = 0.0;
   }
 
-  v40 = (v36 * v39) + (1.0 - v39) * v100;
-  v41 = v105 - sMidPq;
+  v40 = (v36 * v39) + (1.0 - v39) * v99;
+  v41 = v104 - sMidPq;
   if (v19)
   {
     v42 = tMaxPq - v41;
@@ -2629,7 +2724,7 @@ LABEL_70:
   }
 
   self->clipSlope = v68;
-  v69 = fminf(v105, 1.0);
+  v69 = fminf(v104, 1.0);
   if (v69 >= 0.00000073096)
   {
     v70 = 10000.0;
@@ -2644,11 +2739,11 @@ LABEL_70:
   v71 = pow(v69, 0.0126833133);
   v72 = fmax(((v71 + -0.83594) / ((v71 * -18.688) + 18.852)), 0.0);
   v73 = powf(v72, 6.2774);
-  RgbLinear2Itp(fmaxf(v70 * v73, 5.0), 0.0, 0.0, self->SRGB2LMS_TM, self->LMS2ITP, &v107);
-  v75 = v107;
-  v74 = v108;
-  self->clipI = v107;
-  self->clipSat = sqrtf((v109 * v109) + (v74 * v74));
+  RgbLinear2Itp(fmaxf(v70 * v73, 5.0), 0.0, 0.0, self->SRGB2LMS_TM, self->LMS2ITP, &v106);
+  v75 = v106;
+  v74 = v107;
+  self->clipI = v106;
+  self->clipSat = sqrtf((v108 * v108) + (v74 * v74));
   v76 = fminf(self->tMaxPqTm, 1.0);
   if (v76 >= 0.00000073096)
   {
@@ -2664,13 +2759,13 @@ LABEL_70:
   v78 = pow(v76, 0.0126833133);
   v79 = fmax(((v78 + -0.83594) / ((v78 * -18.688) + 18.852)), 0.0);
   v80 = powf(v79, 6.2774);
-  RgbLinear2Itp(fmaxf(v77 * v80, 5.0), 0.0, 0.0, self->TRGB2LMS_TM, self->LMS2ITP, &v107);
-  v81 = v108;
-  self->clipIPred = v107;
-  self->clipSatPred = sqrtf((v109 * v109) + (v81 * v81));
-  self->sCrushPq = v106;
+  RgbLinear2Itp(fmaxf(v77 * v80, 5.0), 0.0, 0.0, self->TRGB2LMS_TM, self->LMS2ITP, &v106);
+  v81 = v107;
+  self->clipIPred = v106;
+  self->clipSatPred = sqrtf((v108 * v108) + (v81 * v81));
+  self->sCrushPq = v105;
   self->sMidPq = sMidPq;
-  self->sClipPq = v105;
+  self->sClipPq = v104;
   *&v82 = v75;
   [(DolbyVisionDM4 *)self toneMapInterpI:v82];
   *&v84 = v83;
@@ -2712,12 +2807,11 @@ LABEL_70:
   clipSlope = self->clipSlope;
   self->mHigh = clipSlope;
   self->bHigh = tClipPq - (v94 * clipSlope);
-  v97 = *MEMORY[0x277D85DE8];
 }
 
 - (void)calcToneMapParamsRefWhiteBasedStatic:(float)static TgtRefWhiteNits:(float)nits
 {
-  v151 = *MEMORY[0x277D85DE8];
+  v150 = *MEMORY[0x277D85DE8];
   v6 = 0.0;
   v7 = 0.0;
   if (GetConfig())
@@ -2741,23 +2835,23 @@ LABEL_70:
     v12 = *HDRConfig::GetConfigEntryValue(v13, 0x111u, 0);
   }
 
-  v143 = v12;
+  v142 = v12;
   if (GetConfig())
   {
     v14 = GetConfig();
     v11 = *HDRConfig::GetConfigEntryValue(v14, 0x118u, 0);
   }
 
-  v133 = v11;
+  v132 = v11;
   if (GetConfig())
   {
     v15 = GetConfig();
-    v130 = *HDRConfig::GetConfigEntryValue(v15, 0x119u, 0);
+    v129 = *HDRConfig::GetConfigEntryValue(v15, 0x119u, 0);
   }
 
   else
   {
-    v130 = 0;
+    v129 = 0;
   }
 
   v16 = GetConfig();
@@ -2769,14 +2863,14 @@ LABEL_70:
     v18 = *HDRConfig::GetConfigEntryValue(v19, 0x116u, 0);
   }
 
-  v141 = v18;
+  v140 = v18;
   if (GetConfig())
   {
     v20 = GetConfig();
     v17 = *HDRConfig::GetConfigEntryValue(v20, 0x117u, 0);
   }
 
-  v142 = v17;
+  v141 = v17;
   if (GetConfig())
   {
     v21 = GetConfig();
@@ -2791,23 +2885,23 @@ LABEL_70:
   if (GetConfig())
   {
     v23 = GetConfig();
-    v140 = *HDRConfig::GetConfigEntryValue(v23, 0x10Cu, 0);
+    v139 = *HDRConfig::GetConfigEntryValue(v23, 0x10Cu, 0);
   }
 
   else
   {
-    v140 = 0;
+    v139 = 0;
   }
 
   if (GetConfig())
   {
     v24 = GetConfig();
-    v132 = *HDRConfig::GetConfigEntryValue(v24, 0x10Du, 0);
+    v131 = *HDRConfig::GetConfigEntryValue(v24, 0x10Du, 0);
   }
 
   else
   {
-    v132 = 0;
+    v131 = 0;
   }
 
   v25 = GetConfig();
@@ -2819,7 +2913,7 @@ LABEL_70:
     v27 = *HDRConfig::GetConfigEntryValue(v28, 0x10Eu, 0);
   }
 
-  v129 = v27;
+  v128 = v27;
   if (GetConfig())
   {
     v29 = GetConfig();
@@ -2829,12 +2923,12 @@ LABEL_70:
   if (GetConfig())
   {
     v30 = GetConfig();
-    v138 = *HDRConfig::GetConfigEntryValue(v30, 0x11Au, 0);
+    v137 = *HDRConfig::GetConfigEntryValue(v30, 0x11Au, 0);
   }
 
   else
   {
-    v138 = 0;
+    v137 = 0;
   }
 
   v31 = GetConfig();
@@ -2846,7 +2940,7 @@ LABEL_70:
     v33 = *HDRConfig::GetConfigEntryValue(v34, 0x11Bu, 0);
   }
 
-  v131 = v33;
+  v130 = v33;
   if (GetConfig())
   {
     v35 = GetConfig();
@@ -2856,15 +2950,15 @@ LABEL_70:
   if (GetConfig())
   {
     v36 = GetConfig();
-    v136 = *HDRConfig::GetConfigEntryValue(v36, 0x115u, 0);
+    v135 = *HDRConfig::GetConfigEntryValue(v36, 0x115u, 0);
   }
 
   else
   {
-    v136 = 0;
+    v135 = 0;
   }
 
-  v137 = v32;
+  v136 = v32;
   self->sCrushPq = 0.0;
   if (static >= 0.0)
   {
@@ -2880,8 +2974,8 @@ LABEL_70:
 
   self->sMidPq = v38;
   staticCopy = static;
-  v135 = v22;
-  v139 = v26;
+  v134 = v22;
+  v138 = v26;
   if (v38 >= 0.000244200244)
   {
     if (v38 <= 0.9997558)
@@ -2900,12 +2994,12 @@ LABEL_70:
     v40 = 0.0002442;
   }
 
-  v146 = v40;
+  v145 = v40;
   v41 = v40;
   v42 = v41 + -0.000244200244;
   sClipPq = self->sClipPq;
   v44 = v41 + 0.000244200244;
-  v128 = sClipPq;
+  v127 = sClipPq;
   if (sClipPq < 1.0)
   {
     v45 = self->sClipPq;
@@ -2926,7 +3020,7 @@ LABEL_70:
     v46 = v44;
   }
 
-  v147 = v46;
+  v146 = v46;
   if (nits >= 0.0)
   {
     v49 = powf(nits * 0.0001, 0.1593);
@@ -2953,40 +3047,40 @@ LABEL_70:
   }
 
   self->tCrushPq = v53;
-  v54 = v147 - v146;
-  if (((v147 - v146) + v48) > tMaxPq)
+  v54 = v146 - v145;
+  if (((v146 - v145) + v48) > tMaxPq)
   {
     v55 = tMaxPq;
   }
 
   else
   {
-    v55 = (v147 - v146) + v48;
+    v55 = (v146 - v145) + v48;
   }
 
   self->tClipPq = v55;
   if (v48 >= v38)
   {
     nitsCopy2 = nits;
-    if ((v130 & 1) == 0)
+    if ((v129 & 1) == 0)
     {
       goto LABEL_80;
     }
 
-    v64 = v147;
-    if (tMaxPq <= v147)
+    v64 = v146;
+    if (tMaxPq <= v146)
     {
       v64 = tMaxPq;
     }
 
-    if (v146 == 0.75183)
+    if (v145 == 0.75183)
     {
       v65 = 1.0;
     }
 
     else
     {
-      v65 = fmax(fmin(((v48 - v146) / (0.75183 - v146)), 1.0), 0.0);
+      v65 = fmax(fmin(((v48 - v145) / (0.75183 - v145)), 1.0), 0.0);
     }
 
     v55 = v64 + ((tMaxPq - v64) * v65);
@@ -2994,15 +3088,15 @@ LABEL_70:
 
   else
   {
-    v126 = v50;
-    v127 = v7;
-    v56 = -(v147 + -0.0000014619);
-    if (v147 >= 0.00000073096)
+    v125 = v50;
+    v126 = v7;
+    v56 = -(v146 + -0.0000014619);
+    if (v146 >= 0.00000073096)
     {
-      v56 = v147;
+      v56 = v146;
     }
 
-    v57 = flt_2508CD850[v147 < 0.00000073096];
+    v57 = flt_2508CD850[v146 < 0.00000073096];
     v58 = powf(v56, 0.012683);
     v59 = fmax(((v58 + -0.83594) / ((v58 * -18.688) + 18.852)), 0.0);
     v60 = (nits / staticCopy) * (v57 * powf(v59, 6.2774));
@@ -3018,7 +3112,7 @@ LABEL_70:
       v62 = 0.0000014619 - powf(((v61 * 18.852) + 0.83594) / ((v61 * 18.688) + 1.0), 78.844);
     }
 
-    v67 = (v133 * v55) + v62 * (1.0 - v133);
+    v67 = (v132 * v55) + v62 * (1.0 - v132);
     if (v67 <= tMaxPq)
     {
       v55 = v67;
@@ -3029,15 +3123,15 @@ LABEL_70:
       v55 = tMaxPq;
     }
 
-    v7 = v127;
+    v7 = v126;
     nitsCopy2 = nits;
-    v50 = v126;
+    v50 = v125;
   }
 
   self->tClipPq = v55;
 LABEL_80:
   v68 = v50;
-  v145 = v68;
+  v144 = v68;
   if (nitsCopy2 >= 0.0)
   {
     v71 = powf(nitsCopy2 * 0.0001, 0.1593);
@@ -3079,7 +3173,7 @@ LABEL_80:
   }
 
   v77 = v76;
-  v78 = v143 * (v54 / (v147 - v145));
+  v78 = v142 * (v54 / (v146 - v144));
   if ((v55 - ((v55 - v53) * v78)) >= v77)
   {
     v79 = v77;
@@ -3092,29 +3186,29 @@ LABEL_80:
 
   self->tMidPq = v79;
   v80 = (v55 - v79) / v54;
-  v81 = v142;
+  v81 = v141;
   if (v79 < v38)
   {
-    v81 = v141;
+    v81 = v140;
   }
 
-  v82 = 1.0 - v81 + (((v79 - v53) / (v146 - v145)) * v81);
+  v82 = 1.0 - v81 + (((v79 - v53) / (v145 - v144)) * v81);
   v83 = v82 * 3.0;
   v84 = v80 * 3.0;
-  v85 = self->trimData.targetMidContrast + ((v79 - v146) + 1.0);
-  if (v140)
+  v85 = self->trimData.targetMidContrast + ((v79 - v145) + 1.0);
+  if (v139)
   {
-    if (v132 == 2)
+    if (v131 == 2)
     {
-      v85 = (v129 * (v55 / v128)) + (1.0 - v129) * v85;
+      v85 = (v128 * (v55 / v127)) + (1.0 - v128) * v85;
     }
 
-    else if (v132 == 1)
+    else if (v131 == 1)
     {
-      v86 = ((v146 + -0.35) * -0.66667) + 1.0;
+      v86 = ((v145 + -0.35) * -0.66667) + 1.0;
       if (v86 <= 1.0)
       {
-        v87 = ((v146 + -0.35) * -0.66667) + 1.0;
+        v87 = ((v145 + -0.35) * -0.66667) + 1.0;
       }
 
       else
@@ -3136,7 +3230,7 @@ LABEL_80:
     }
   }
 
-  v89 = powf(v85, v139);
+  v89 = powf(v85, v138);
   if (v83 > v84)
   {
     v90 = v80 * 3.0;
@@ -3160,21 +3254,21 @@ LABEL_80:
   }
 
   self->midSlope = v92;
-  v93 = powf(v82, v135);
+  v93 = powf(v82, v134);
   if (v93 > v83)
   {
     v93 = v82 * 3.0;
   }
 
   self->crushSlope = v93;
-  v94 = fminf(powf(v80, v137), 1.0);
+  v94 = fminf(powf(v80, v136), 1.0);
   if (v94 > v84)
   {
     v94 = v80 * 3.0;
   }
 
   self->clipSlope = v94;
-  if ((v136 & (v79 > v38)) == 1)
+  if ((v135 & (v79 > v38)) == 1)
   {
     v95 = pow(v82, 2.4);
     self->crushSlope = v95;
@@ -3182,12 +3276,12 @@ LABEL_80:
     self->midSlope = v80;
   }
 
-  if ((v138 & (v79 > v38)) == 1)
+  if ((v137 & (v79 > v38)) == 1)
   {
-    self->midSlope = v131;
+    self->midSlope = v130;
   }
 
-  v96 = fminf(v147, 1.0);
+  v96 = fminf(v146, 1.0);
   v97 = v96 < 0.00000073096;
   if (v96 < 0.00000073096)
   {
@@ -3208,11 +3302,11 @@ LABEL_80:
   v100 = pow(v96, 0.0126833133);
   v101 = fmax(((v100 + -0.83594) / ((v100 * -18.688) + 18.852)), 0.0);
   v102 = powf(v101, 6.2774);
-  RgbLinear2Itp(fmaxf(v99 * v102, 5.0), 0.0, 0.0, self->SRGB2LMS_TM, self->LMS2ITP, &v148);
-  v104 = v148;
-  v103 = v149;
-  self->clipI = v148;
-  self->clipSat = sqrtf((v150 * v150) + (v103 * v103));
+  RgbLinear2Itp(fmaxf(v99 * v102, 5.0), 0.0, 0.0, self->SRGB2LMS_TM, self->LMS2ITP, &v147);
+  v104 = v147;
+  v103 = v148;
+  self->clipI = v147;
+  self->clipSat = sqrtf((v149 * v149) + (v103 * v103));
   v105 = fminf(self->tMaxPqTm, 1.0);
   if (v105 < 0.00000073096)
   {
@@ -3223,13 +3317,13 @@ LABEL_80:
   v106 = pow(v105, 0.0126833133);
   v107 = fmax(((v106 + -0.83594) / ((v106 * -18.688) + 18.852)), 0.0);
   v108 = powf(v107, 6.2774);
-  RgbLinear2Itp(fmaxf(v98 * v108, 5.0), 0.0, 0.0, self->TRGB2LMS_TM, self->LMS2ITP, &v148);
-  v109 = v149;
-  self->clipIPred = v148;
-  self->clipSatPred = sqrtf((v150 * v150) + (v109 * v109));
-  self->sCrushPq = v145;
-  self->sMidPq = v146;
-  self->sClipPq = v147;
+  RgbLinear2Itp(fmaxf(v98 * v108, 5.0), 0.0, 0.0, self->TRGB2LMS_TM, self->LMS2ITP, &v147);
+  v109 = v148;
+  self->clipIPred = v147;
+  self->clipSatPred = sqrtf((v149 * v149) + (v109 * v109));
+  self->sCrushPq = v144;
+  self->sMidPq = v145;
+  self->sClipPq = v146;
   *&v110 = v104;
   [(DolbyVisionDM4 *)self toneMapInterpI:v110];
   *&v112 = v111;
@@ -3271,7 +3365,6 @@ LABEL_80:
   clipSlope = self->clipSlope;
   self->mHigh = clipSlope;
   self->bHigh = tClipPq - (v122 * clipSlope);
-  v125 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getDM4Params:(id *)params
@@ -4492,7 +4585,7 @@ LABEL_65:
 
 - (void)dumpConfigDataToFile:(int)file
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   snprintf(__str, 0x64uLL, "/tmp/com.apple.hdrprocessing/dm4_config_%d.txt", file);
   v4 = fopen(__str, "w");
   if (v4)
@@ -4501,8 +4594,6 @@ LABEL_65:
     [(DolbyVisionDM4 *)self dumpConfigData:v4];
     fclose(v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)hasDM4TonemapConfigChanged:(id *)changed TonemapConfig:(id *)config TCControl:(ToneCurve_Control *)control EdrAdaptationParam:(const _EdrAdaptationParam *)param AmbAdaptationParam:(const _AmbAdaptationParam *)adaptationParam

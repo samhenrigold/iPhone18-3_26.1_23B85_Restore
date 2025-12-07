@@ -332,115 +332,106 @@ LABEL_13:
 
 + (id)spPlistWithArray:(id)array
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   v4 = objc_alloc_init(SPProtoSockPuppetPlist);
-  v40 = 0u;
-  v41 = 0u;
-  v42 = 0u;
-  v43 = 0u;
+  v33 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   v5 = arrayCopy;
-  v6 = [v5 countByEnumeratingWithState:&v40 objects:v51 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v33 objects:v44 count:16];
   if (v6)
   {
     v8 = v6;
-    v9 = *v41;
-    v10 = 0x277CCA000uLL;
-    v11 = 0x277CCA000uLL;
-    v12 = 0x277CBE000uLL;
+    v9 = *v34;
     *&v7 = 136446722;
-    v34 = v7;
-    v35 = v5;
+    v27 = v7;
+    v28 = v5;
     do
     {
-      v13 = 0;
+      v10 = 0;
       do
       {
-        if (*v41 != v9)
+        if (*v34 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v14 = *(*(&v40 + 1) + 8 * v13);
-        v15 = *(v10 + 3240);
+        v11 = *(*(&v33 + 1) + 8 * v10);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v16 = [SPProtoSerializer protoSPObjectWithString:v14 forKey:0];
+          v12 = [SPProtoSerializer protoSPObjectWithString:v11 forKey:0];
 LABEL_16:
-          v19 = v16;
-          [(SPProtoSockPuppetPlist *)v4 addObject:v16, v34];
+          v13 = v12;
+          [(SPProtoSockPuppetPlist *)v4 addObject:v12, v27];
           goto LABEL_17;
         }
 
-        v17 = *(v11 + 2992);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v16 = [SPProtoSerializer protoSPObjectWithNumber:v14 forKey:0];
-          goto LABEL_16;
-        }
-
-        v18 = *(v12 + 2704);
-        objc_opt_class();
-        if (objc_opt_isKindOfClass())
-        {
-          v16 = [SPProtoSerializer protoSPObjectWithData:v14 forKey:0];
+          v12 = [SPProtoSerializer protoSPObjectWithNumber:v11 forKey:0];
           goto LABEL_16;
         }
 
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v16 = [SPProtoSerializer protoSPObjectWithDictionary:v14 forKey:0];
+          v12 = [SPProtoSerializer protoSPObjectWithData:v11 forKey:0];
           goto LABEL_16;
         }
 
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v16 = [SPProtoSerializer protoSPObjectWithArray:v14 forKey:0];
+          v12 = [SPProtoSerializer protoSPObjectWithDictionary:v11 forKey:0];
           goto LABEL_16;
         }
 
-        v38 = 0u;
-        v39 = 0u;
-        v36 = 0u;
-        v37 = 0u;
+        objc_opt_class();
+        if (objc_opt_isKindOfClass())
+        {
+          v12 = [SPProtoSerializer protoSPObjectWithArray:v11 forKey:0];
+          goto LABEL_16;
+        }
+
+        v31 = 0u;
+        v32 = 0u;
+        v29 = 0u;
+        v30 = 0u;
         if (__allowedClasses_onceToken != -1)
         {
           +[SPProtoSerializer spPlistWithArray:];
         }
 
-        v20 = __allowedClasses___allowedClasses;
-        v21 = [v20 countByEnumeratingWithState:&v36 objects:v50 count:16];
-        if (v21)
+        v14 = __allowedClasses___allowedClasses;
+        v15 = [v14 countByEnumeratingWithState:&v29 objects:v43 count:16];
+        if (v15)
         {
-          v22 = v21;
-          v23 = 0;
-          v24 = *v37;
+          v16 = v15;
+          v17 = 0;
+          v18 = *v30;
           do
           {
-            for (i = 0; i != v22; ++i)
+            for (i = 0; i != v16; ++i)
             {
-              if (*v37 != v24)
+              if (*v30 != v18)
               {
-                objc_enumerationMutation(v20);
+                objc_enumerationMutation(v14);
               }
 
-              v26 = *(*(&v36 + 1) + 8 * i);
-              v23 |= objc_opt_isKindOfClass();
+              v17 |= objc_opt_isKindOfClass();
             }
 
-            v22 = [v20 countByEnumeratingWithState:&v36 objects:v50 count:16];
+            v16 = [v14 countByEnumeratingWithState:&v29 objects:v43 count:16];
           }
 
-          while (v22);
+          while (v16);
 
-          v5 = v35;
-          v10 = 0x277CCA000;
-          v12 = 0x277CBE000;
-          if (v23)
+          v5 = v28;
+          if (v17)
           {
             goto LABEL_34;
           }
@@ -448,158 +439,147 @@ LABEL_16:
 
         else
         {
-
-          v12 = 0x277CBE000;
         }
 
-        v27 = wk_default_log();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+        v21 = wk_default_log(v20);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
-          v29 = objc_opt_class();
-          *buf = v34;
-          v45 = "+[SPProtoSerializer spPlistWithArray:]";
-          v46 = 1024;
-          v47 = 208;
-          v48 = 2114;
-          v49 = v29;
-          v30 = v29;
-          _os_log_error_impl(&dword_23B338000, v27, OS_LOG_TYPE_ERROR, "%{public}s:%d: obj is of class %{public}@ which is not an allowed class", buf, 0x1Cu);
-
-          v12 = 0x277CBE000;
+          v23 = objc_opt_class();
+          *buf = v27;
+          v38 = "+[SPProtoSerializer spPlistWithArray:]";
+          v39 = 1024;
+          v40 = 208;
+          v41 = 2114;
+          v42 = v23;
+          v24 = v23;
+          _os_log_error_impl(&dword_23B338000, v21, OS_LOG_TYPE_ERROR, "%{public}s:%d: obj is of class %{public}@ which is not an allowed class", buf, 0x1Cu);
         }
 
 LABEL_34:
-        v19 = spUtils_serializeObject(v14);
-        v28 = [SPProtoSerializer protoSPObjectWithObject:v19 forKey:0];
-        [(SPProtoSockPuppetPlist *)v4 addObject:v28];
+        v13 = spUtils_serializeObject(v11);
+        v22 = [SPProtoSerializer protoSPObjectWithObject:v13 forKey:0];
+        [(SPProtoSockPuppetPlist *)v4 addObject:v22];
 
-        v11 = 0x277CCA000;
 LABEL_17:
-
-        ++v13;
+        ++v10;
       }
 
-      while (v13 != v8);
-      v31 = [v5 countByEnumeratingWithState:&v40 objects:v51 count:16];
-      v8 = v31;
+      while (v10 != v8);
+      v25 = [v5 countByEnumeratingWithState:&v33 objects:v44 count:16];
+      v8 = v25;
     }
 
-    while (v31);
+    while (v25);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 + (id)spPlistWithDictionary:(id)dictionary
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v4 = objc_alloc_init(SPProtoSockPuppetPlist);
+  v35 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
-  v40 = 0u;
-  v41 = 0u;
   v5 = dictionaryCopy;
-  v6 = [v5 countByEnumeratingWithState:&v38 objects:v49 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v35 objects:v46 count:16];
   if (v6)
   {
     v8 = v6;
-    v9 = *v39;
-    v10 = 0x277CCA000uLL;
+    v9 = *v36;
     *&v7 = 136446722;
-    v31 = v7;
-    v32 = *v39;
-    v33 = v4;
+    v28 = v7;
+    v29 = *v36;
+    v30 = v4;
     do
     {
-      v11 = 0;
+      v10 = 0;
       do
       {
-        if (*v39 != v9)
+        if (*v36 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v12 = *(*(&v38 + 1) + 8 * v11);
-        v13 = [v5 objectForKeyedSubscript:{v12, v31}];
-        v14 = *(v10 + 3240);
+        v11 = *(*(&v35 + 1) + 8 * v10);
+        v12 = [v5 objectForKeyedSubscript:{v11, v28}];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v15 = [SPProtoSerializer protoSPObjectWithString:v13 forKey:v12];
+          v13 = [SPProtoSerializer protoSPObjectWithString:v12 forKey:v11];
 LABEL_16:
-          v16 = v15;
-          [(SPProtoSockPuppetPlist *)v4 addObject:v15];
+          v14 = v13;
+          [(SPProtoSockPuppetPlist *)v4 addObject:v13];
           goto LABEL_17;
         }
 
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v15 = [SPProtoSerializer protoSPObjectWithNumber:v13 forKey:v12];
+          v13 = [SPProtoSerializer protoSPObjectWithNumber:v12 forKey:v11];
           goto LABEL_16;
         }
 
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v15 = [SPProtoSerializer protoSPObjectWithData:v13 forKey:v12];
+          v13 = [SPProtoSerializer protoSPObjectWithData:v12 forKey:v11];
           goto LABEL_16;
         }
 
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v15 = [SPProtoSerializer protoSPObjectWithDictionary:v13 forKey:v12];
+          v13 = [SPProtoSerializer protoSPObjectWithDictionary:v12 forKey:v11];
           goto LABEL_16;
         }
 
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v15 = [SPProtoSerializer protoSPObjectWithArray:v13 forKey:v12];
+          v13 = [SPProtoSerializer protoSPObjectWithArray:v12 forKey:v11];
           goto LABEL_16;
         }
 
-        v36 = 0u;
-        v37 = 0u;
+        v33 = 0u;
         v34 = 0u;
-        v35 = 0u;
+        v31 = 0u;
+        v32 = 0u;
         if (__allowedClasses_onceToken != -1)
         {
           +[SPProtoSerializer spPlistWithArray:];
         }
 
-        v17 = __allowedClasses___allowedClasses;
-        v18 = [v17 countByEnumeratingWithState:&v34 objects:v48 count:16];
-        if (v18)
+        v15 = __allowedClasses___allowedClasses;
+        v16 = [v15 countByEnumeratingWithState:&v31 objects:v45 count:16];
+        if (v16)
         {
-          v19 = v18;
-          v20 = 0;
-          v21 = *v35;
+          v17 = v16;
+          v18 = 0;
+          v19 = *v32;
           do
           {
-            for (i = 0; i != v19; ++i)
+            for (i = 0; i != v17; ++i)
             {
-              if (*v35 != v21)
+              if (*v32 != v19)
               {
-                objc_enumerationMutation(v17);
+                objc_enumerationMutation(v15);
               }
 
-              v23 = *(*(&v34 + 1) + 8 * i);
-              v20 |= objc_opt_isKindOfClass();
+              v18 |= objc_opt_isKindOfClass();
             }
 
-            v19 = [v17 countByEnumeratingWithState:&v34 objects:v48 count:16];
+            v17 = [v15 countByEnumeratingWithState:&v31 objects:v45 count:16];
           }
 
-          while (v19);
+          while (v17);
 
-          v9 = v32;
-          v4 = v33;
-          if (v20)
+          v9 = v29;
+          v4 = v30;
+          if (v18)
           {
             goto LABEL_34;
           }
@@ -609,57 +589,53 @@ LABEL_16:
         {
         }
 
-        v24 = wk_default_log();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+        v22 = wk_default_log(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
-          v26 = objc_opt_class();
-          *buf = v31;
-          v43 = "+[SPProtoSerializer spPlistWithDictionary:]";
-          v44 = 1024;
-          v45 = 254;
-          v46 = 2114;
-          v47 = v26;
-          v27 = v26;
-          _os_log_error_impl(&dword_23B338000, v24, OS_LOG_TYPE_ERROR, "%{public}s:%d: obj is of class %{public}@ which is not an allowed class", buf, 0x1Cu);
+          v24 = objc_opt_class();
+          *buf = v28;
+          v40 = "+[SPProtoSerializer spPlistWithDictionary:]";
+          v41 = 1024;
+          v42 = 254;
+          v43 = 2114;
+          v44 = v24;
+          v25 = v24;
+          _os_log_error_impl(&dword_23B338000, v22, OS_LOG_TYPE_ERROR, "%{public}s:%d: obj is of class %{public}@ which is not an allowed class", buf, 0x1Cu);
         }
 
 LABEL_34:
-        v16 = spUtils_serializeObject(v13);
-        v25 = [SPProtoSerializer protoSPObjectWithObject:v16 forKey:v12];
-        [(SPProtoSockPuppetPlist *)v4 addObject:v25];
+        v14 = spUtils_serializeObject(v12);
+        v23 = [SPProtoSerializer protoSPObjectWithObject:v14 forKey:v11];
+        [(SPProtoSockPuppetPlist *)v4 addObject:v23];
 
-        v10 = 0x277CCA000;
 LABEL_17:
-
-        ++v11;
+        ++v10;
       }
 
-      while (v11 != v8);
-      v28 = [v5 countByEnumeratingWithState:&v38 objects:v49 count:16];
-      v8 = v28;
+      while (v10 != v8);
+      v26 = [v5 countByEnumeratingWithState:&v35 objects:v46 count:16];
+      v8 = v26;
     }
 
-    while (v28);
+    while (v26);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 + (id)dictionaryWithSPPlist:(id)plist
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   plistCopy = plist;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   if ([plistCopy objectsCount])
   {
     v6 = 0;
     *&v5 = 136446466;
-    v28 = v5;
+    v32 = v5;
     do
     {
-      v7 = [plistCopy objectAtIndex:{v6, v28, *buf, *&buf[16], v30}];
+      v7 = [plistCopy objectAtIndex:{v6, v32, *buf, *&buf[8], v34}];
       if ([v7 type] == 2)
       {
         text = [v7 text];
@@ -669,22 +645,22 @@ LABEL_17:
           text2 = [v7 text];
 LABEL_11:
           object5 = text2;
-          v12 = [v7 key];
-          [dictionary setObject:object5 forKey:v12];
+          v14 = [v7 key];
+          [dictionary setObject:object5 forKey:v14];
 LABEL_12:
 
           goto LABEL_14;
         }
 
-        object5 = wk_default_log();
+        object5 = wk_default_log(v9);
         if (os_log_type_enabled(object5, OS_LOG_TYPE_ERROR))
         {
-          *buf = v28;
+          *buf = v32;
           *&buf[4] = "+[SPProtoSerializer dictionaryWithSPPlist:]";
           *&buf[12] = 1024;
           *&buf[14] = 271;
-          v21 = object5;
-          v22 = "%{public}s:%d: SPProtoSerializerTypeString, text field is empty";
+          v25 = object5;
+          v26 = "%{public}s:%d: SPProtoSerializerTypeString, text field is empty";
           goto LABEL_36;
         }
       }
@@ -707,17 +683,17 @@ LABEL_12:
             goto LABEL_11;
           }
 
-          object5 = wk_default_log();
+          object5 = wk_default_log(v12);
           if (os_log_type_enabled(object5, OS_LOG_TYPE_ERROR))
           {
-            *buf = v28;
+            *buf = v32;
             *&buf[4] = "+[SPProtoSerializer dictionaryWithSPPlist:]";
             *&buf[12] = 1024;
             *&buf[14] = 279;
-            v21 = object5;
-            v22 = "%{public}s:%d: SPProtoSerializerTypeData, object field is empty";
+            v25 = object5;
+            v26 = "%{public}s:%d: SPProtoSerializerTypeData, object field is empty";
 LABEL_36:
-            _os_log_error_impl(&dword_23B338000, v21, OS_LOG_TYPE_ERROR, v22, buf, 0x12u);
+            _os_log_error_impl(&dword_23B338000, v25, OS_LOG_TYPE_ERROR, v26, buf, 0x12u);
           }
         }
 
@@ -727,26 +703,26 @@ LABEL_36:
 
           if (object2)
           {
-            v14 = [SPProtoSockPuppetPlist alloc];
+            v17 = [SPProtoSockPuppetPlist alloc];
             object3 = [v7 object];
-            object5 = [(SPProtoSockPuppetPlist *)v14 initWithData:object3];
+            object5 = [(SPProtoSockPuppetPlist *)v17 initWithData:object3];
 
-            v12 = [SPProtoSerializer arrayWithSPPlist:object5];
-            v16 = [v7 key];
-            [dictionary setObject:v12 forKey:v16];
+            v14 = [SPProtoSerializer arrayWithSPPlist:object5];
+            v19 = [v7 key];
+            [dictionary setObject:v14 forKey:v19];
 
             goto LABEL_12;
           }
 
-          object5 = wk_default_log();
+          object5 = wk_default_log(v16);
           if (os_log_type_enabled(object5, OS_LOG_TYPE_ERROR))
           {
-            *buf = v28;
+            *buf = v32;
             *&buf[4] = "+[SPProtoSerializer dictionaryWithSPPlist:]";
             *&buf[12] = 1024;
             *&buf[14] = 287;
-            v21 = object5;
-            v22 = "%{public}s:%d: SPProtoSerializerTypeData, object field is empty";
+            v25 = object5;
+            v26 = "%{public}s:%d: SPProtoSerializerTypeData, object field is empty";
             goto LABEL_36;
           }
         }
@@ -764,18 +740,18 @@ LABEL_36:
 
             if (!object4)
             {
-              object5 = wk_default_log();
+              object5 = wk_default_log(v28);
               if (!os_log_type_enabled(object5, OS_LOG_TYPE_ERROR))
               {
                 goto LABEL_14;
               }
 
-              *buf = v28;
+              *buf = v32;
               *&buf[4] = "+[SPProtoSerializer dictionaryWithSPPlist:]";
               *&buf[12] = 1024;
               *&buf[14] = 301;
-              v21 = object5;
-              v22 = "%{public}s:%d: SPProtoSerializerTypeObject, object field is empty";
+              v25 = object5;
+              v26 = "%{public}s:%d: SPProtoSerializerTypeObject, object field is empty";
               goto LABEL_36;
             }
 
@@ -785,7 +761,7 @@ LABEL_36:
               +[SPProtoSerializer spPlistWithArray:];
             }
 
-            v20 = spUtils_deserializeObject(object5, __allowedClasses___allowedClasses);
+            v24 = spUtils_deserializeObject(object5, __allowedClasses___allowedClasses);
             goto LABEL_30;
           }
 
@@ -793,28 +769,28 @@ LABEL_36:
 
           if (object6)
           {
-            v18 = [SPProtoSockPuppetPlist alloc];
+            v22 = [SPProtoSockPuppetPlist alloc];
             object7 = [v7 object];
-            object5 = [(SPProtoSockPuppetPlist *)v18 initWithData:object7];
+            object5 = [(SPProtoSockPuppetPlist *)v22 initWithData:object7];
 
-            v20 = [SPProtoSerializer dictionaryWithSPPlist:object5];
+            v24 = [SPProtoSerializer dictionaryWithSPPlist:object5];
 LABEL_30:
-            v24 = v20;
-            v25 = [v7 key];
-            [dictionary setObject:v24 forKey:v25];
+            v29 = v24;
+            v30 = [v7 key];
+            [dictionary setObject:v29 forKey:v30];
 
             goto LABEL_14;
           }
 
-          object5 = wk_default_log();
+          object5 = wk_default_log(v21);
           if (os_log_type_enabled(object5, OS_LOG_TYPE_ERROR))
           {
-            *buf = v28;
+            *buf = v32;
             *&buf[4] = "+[SPProtoSerializer dictionaryWithSPPlist:]";
             *&buf[12] = 1024;
             *&buf[14] = 295;
-            v21 = object5;
-            v22 = "%{public}s:%d: SPProtoSerializerTypeData, object field is empty";
+            v25 = object5;
+            v26 = "%{public}s:%d: SPProtoSerializerTypeData, object field is empty";
             goto LABEL_36;
           }
         }
@@ -829,24 +805,22 @@ LABEL_15:
     while (v6 < [plistCopy objectsCount]);
   }
 
-  v26 = *MEMORY[0x277D85DE8];
-
   return dictionary;
 }
 
 + (id)arrayWithSPPlist:(id)plist
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   plistCopy = plist;
   array = [MEMORY[0x277CBEB18] array];
   if ([plistCopy objectsCount])
   {
     v6 = 0;
     *&v5 = 136446466;
-    v25 = v5;
+    v29 = v5;
     while (1)
     {
-      v7 = [plistCopy objectAtIndex:{v6, v25, *buf, *&buf[16], v27}];
+      v7 = [plistCopy objectAtIndex:{v6, v29, *buf, *&buf[8], v31}];
       if ([v7 type] == 2)
       {
         break;
@@ -864,18 +838,18 @@ LABEL_15:
 
         if (!object)
         {
-          object8 = wk_default_log();
+          object8 = wk_default_log(v12);
           if (!os_log_type_enabled(object8, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_34;
           }
 
-          *buf = v25;
+          *buf = v29;
           *&buf[4] = "+[SPProtoSerializer arrayWithSPPlist:]";
           *&buf[12] = 1024;
           *&buf[14] = 326;
-          v12 = object8;
-          v13 = "%{public}s:%d: SPProtoSerializerTypeData, object field is empty";
+          v14 = object8;
+          v15 = "%{public}s:%d: SPProtoSerializerTypeData, object field is empty";
           goto LABEL_14;
         }
 
@@ -889,26 +863,26 @@ LABEL_15:
 
         if (object3)
         {
-          v15 = [SPProtoSockPuppetPlist alloc];
+          v18 = [SPProtoSockPuppetPlist alloc];
           object4 = [v7 object];
-          object8 = [(SPProtoSockPuppetPlist *)v15 initWithData:object4];
+          object8 = [(SPProtoSockPuppetPlist *)v18 initWithData:object4];
 
-          v17 = [SPProtoSerializer arrayWithSPPlist:object8];
+          v20 = [SPProtoSerializer arrayWithSPPlist:object8];
           goto LABEL_28;
         }
 
-        object8 = wk_default_log();
+        object8 = wk_default_log(v17);
         if (!os_log_type_enabled(object8, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_34;
         }
 
-        *buf = v25;
+        *buf = v29;
         *&buf[4] = "+[SPProtoSerializer arrayWithSPPlist:]";
         *&buf[12] = 1024;
         *&buf[14] = 334;
-        v12 = object8;
-        v13 = "%{public}s:%d: SPProtoSerializerTypeData, object field is empty";
+        v14 = object8;
+        v15 = "%{public}s:%d: SPProtoSerializerTypeData, object field is empty";
         goto LABEL_14;
       }
 
@@ -918,15 +892,15 @@ LABEL_15:
 
         if (object5)
         {
-          v19 = [SPProtoSockPuppetPlist alloc];
+          v23 = [SPProtoSockPuppetPlist alloc];
           object6 = [v7 object];
-          object8 = [(SPProtoSockPuppetPlist *)v19 initWithData:object6];
+          object8 = [(SPProtoSockPuppetPlist *)v23 initWithData:object6];
 
-          v17 = [SPProtoSerializer dictionaryWithSPPlist:object8];
+          v20 = [SPProtoSerializer dictionaryWithSPPlist:object8];
           goto LABEL_28;
         }
 
-        object8 = wk_default_log();
+        object8 = wk_default_log(v22);
         if (!os_log_type_enabled(object8, OS_LOG_TYPE_ERROR))
         {
 LABEL_34:
@@ -934,12 +908,12 @@ LABEL_34:
           goto LABEL_35;
         }
 
-        *buf = v25;
+        *buf = v29;
         *&buf[4] = "+[SPProtoSerializer arrayWithSPPlist:]";
         *&buf[12] = 1024;
         *&buf[14] = 342;
-        v12 = object8;
-        v13 = "%{public}s:%d: SPProtoSerializerTypeData, object field is empty";
+        v14 = object8;
+        v15 = "%{public}s:%d: SPProtoSerializerTypeData, object field is empty";
         goto LABEL_14;
       }
 
@@ -955,28 +929,28 @@ LABEL_34:
             +[SPProtoSerializer spPlistWithArray:];
           }
 
-          v17 = spUtils_deserializeObject(object8, __allowedClasses___allowedClasses);
+          v20 = spUtils_deserializeObject(object8, __allowedClasses___allowedClasses);
 LABEL_28:
-          v22 = v17;
-          [array addObject:v17];
+          v27 = v20;
+          [array addObject:v20];
 
           goto LABEL_34;
         }
 
-        object8 = wk_default_log();
+        object8 = wk_default_log(v26);
         if (!os_log_type_enabled(object8, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_34;
         }
 
-        *buf = v25;
+        *buf = v29;
         *&buf[4] = "+[SPProtoSerializer arrayWithSPPlist:]";
         *&buf[12] = 1024;
         *&buf[14] = 348;
-        v12 = object8;
-        v13 = "%{public}s:%d: SPProtoSerializerTypeObject, object field is empty";
+        v14 = object8;
+        v15 = "%{public}s:%d: SPProtoSerializerTypeObject, object field is empty";
 LABEL_14:
-        _os_log_error_impl(&dword_23B338000, v12, OS_LOG_TYPE_ERROR, v13, buf, 0x12u);
+        _os_log_error_impl(&dword_23B338000, v14, OS_LOG_TYPE_ERROR, v15, buf, 0x12u);
         goto LABEL_34;
       }
 
@@ -992,18 +966,18 @@ LABEL_35:
 
     if (!text)
     {
-      object8 = wk_default_log();
+      object8 = wk_default_log(v9);
       if (!os_log_type_enabled(object8, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_34;
       }
 
-      *buf = v25;
+      *buf = v29;
       *&buf[4] = "+[SPProtoSerializer arrayWithSPPlist:]";
       *&buf[12] = 1024;
       *&buf[14] = 318;
-      v12 = object8;
-      v13 = "%{public}s:%d: SPProtoSerializerTypeString, text field is empty";
+      v14 = object8;
+      v15 = "%{public}s:%d: SPProtoSerializerTypeString, text field is empty";
       goto LABEL_14;
     }
 
@@ -1015,8 +989,6 @@ LABEL_11:
   }
 
 LABEL_38:
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return array;
 }

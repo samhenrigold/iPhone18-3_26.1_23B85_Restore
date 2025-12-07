@@ -76,7 +76,7 @@ BOOL __111__HDOnboardingCompletionSyncEntity_generateSyncObjectsForSession_syncA
 
 BOOL __111__HDOnboardingCompletionSyncEntity_generateSyncObjectsForSession_syncAnchorRange_profile_messageHandler_error___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = [*(a1 + 32) codableRepresentationForPersistentID:objc_msgSend(a2 row:"persistentID") error:{a4, a8}];
+  v10 = [*(a1 + 32) codableRepresentationForPersistentID:objc_msgSend(a2 row:"persistentID" error:{a3, a4, a5, a6, a7), a4, a8}];
   if (v10)
   {
     v11 = HDSQLiteColumnWithNameAsInt64();

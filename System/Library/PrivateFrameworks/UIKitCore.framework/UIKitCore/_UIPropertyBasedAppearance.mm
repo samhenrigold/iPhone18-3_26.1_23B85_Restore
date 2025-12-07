@@ -74,35 +74,38 @@
 
 - (BOOL)_isValidAppearanceForCustomizableObject:(id)object
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v12 = 0u;
-  v13 = 0u;
+  v19 = *MEMORY[0x1E69E9840];
   v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   _propertiesToMatch = [(_UIPropertyBasedAppearance *)self _propertiesToMatch];
-  v6 = [(NSDictionary *)_propertiesToMatch countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [(NSDictionary *)_propertiesToMatch countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v15;
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v13 != v8)
+      if (*v15 != v8)
       {
         objc_enumerationMutation(_propertiesToMatch);
       }
 
-      v10 = [objc_msgSend(object valueForKey:{*(*(&v12 + 1) + 8 * v9)), "isEqual:", -[NSDictionary objectForKey:](-[_UIPropertyBasedAppearance _propertiesToMatch](self, "_propertiesToMatch"), "objectForKey:", *(*(&v12 + 1) + 8 * v9))}];
-      if (!v10)
+      v10 = *(*(&v14 + 1) + 8 * v9);
+      v11 = [object valueForKey:v10];
+      [(NSDictionary *)[(_UIPropertyBasedAppearance *)self _propertiesToMatch] objectForKey:v10];
+      isEqual = objc_msgSend_isEqual_(v11);
+      if (!isEqual)
       {
         break;
       }
 
       if (v7 == ++v9)
       {
-        v7 = [(NSDictionary *)_propertiesToMatch countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v7 = [(NSDictionary *)_propertiesToMatch countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -116,10 +119,10 @@ LABEL_3:
   else
   {
 LABEL_9:
-    LOBYTE(v10) = 1;
+    LOBYTE(isEqual) = 1;
   }
 
-  return v10;
+  return isEqual;
 }
 
 @end

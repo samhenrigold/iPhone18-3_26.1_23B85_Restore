@@ -16,7 +16,6 @@
 
   if (name)
   {
-    name = self->_name;
     PBDataWriterWriteStringField();
   }
 }

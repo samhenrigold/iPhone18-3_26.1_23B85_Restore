@@ -61,20 +61,20 @@
 
 - (FCArticleAccessChecker)initWithPaidAccessChecker:(id)checker privateChannelMembershipController:(id)controller
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   checkerCopy = checker;
   controllerCopy = controller;
   if (!checkerCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "paidAccessChecker != nil"];
+    v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "paidAccessChecker != nil"];
     *buf = 136315906;
-    v22 = "[FCArticleAccessChecker initWithPaidAccessChecker:privateChannelMembershipController:]";
-    v23 = 2080;
-    v24 = "FCArticleAccessChecker.m";
-    v25 = 1024;
-    v26 = 36;
-    v27 = 2114;
-    v28 = v15;
+    v21 = "[FCArticleAccessChecker initWithPaidAccessChecker:privateChannelMembershipController:]";
+    v22 = 2080;
+    v23 = "FCArticleAccessChecker.m";
+    v24 = 1024;
+    v25 = 36;
+    v26 = 2114;
+    v27 = v14;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (controllerCopy)
@@ -90,34 +90,33 @@
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "privateChannelMembershipController != nil"];
+    v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "privateChannelMembershipController != nil"];
     *buf = 136315906;
-    v22 = "[FCArticleAccessChecker initWithPaidAccessChecker:privateChannelMembershipController:]";
-    v23 = 2080;
-    v24 = "FCArticleAccessChecker.m";
-    v25 = 1024;
-    v26 = 37;
-    v27 = 2114;
-    v28 = v16;
+    v21 = "[FCArticleAccessChecker initWithPaidAccessChecker:privateChannelMembershipController:]";
+    v22 = 2080;
+    v23 = "FCArticleAccessChecker.m";
+    v24 = 1024;
+    v25 = 37;
+    v26 = 2114;
+    v27 = v15;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_6:
   v8 = MEMORY[0x1E695DEC8];
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __87__FCArticleAccessChecker_initWithPaidAccessChecker_privateChannelMembershipController___block_invoke;
-  v18[3] = &unk_1E7C3B110;
-  v19 = controllerCopy;
-  v20 = checkerCopy;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __87__FCArticleAccessChecker_initWithPaidAccessChecker_privateChannelMembershipController___block_invoke;
+  v17[3] = &unk_1E7C3B110;
+  v18 = controllerCopy;
+  v19 = checkerCopy;
   v9 = checkerCopy;
   v10 = controllerCopy;
-  v11 = [v8 fc_array:v18];
-  v17.receiver = self;
-  v17.super_class = FCArticleAccessChecker;
-  v12 = [(FCMultiAccessChecker *)&v17 initWithAccessCheckers:v11];
+  v11 = [v8 fc_array:v17];
+  v16.receiver = self;
+  v16.super_class = FCArticleAccessChecker;
+  v12 = [(FCMultiAccessChecker *)&v16 initWithAccessCheckers:v11];
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 

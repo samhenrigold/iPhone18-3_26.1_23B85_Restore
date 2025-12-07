@@ -1897,9 +1897,9 @@ void __75__CUCaptureController_stillImageRequest_didCompleteVideoCaptureWithResu
   v42 = 0uLL;
   v43 = 0;
   v5 = *(a1 + 32);
-  if (v5 && ([v5 duration], v6 = *(a1 + 32), v40 = 0uLL, v41 = 0, v6))
+  if (v5 && (objc_msgSend_duration(v5), v6 = *(a1 + 32), v40 = 0uLL, v41 = 0, v6))
   {
-    [v6 stillDisplayTime];
+    objc_msgSend_stillDisplayTime(v6);
     v7 = *(a1 + 32);
   }
 
@@ -2778,7 +2778,7 @@ void __65__CUCaptureController_videoRequest_didCompleteCaptureWithResult___block
   if (v2)
   {
     v3 = 0;
-    v29 = 0;
+    v30 = 0;
   }
 
   else
@@ -2786,28 +2786,28 @@ void __65__CUCaptureController_videoRequest_didCompleteCaptureWithResult___block
     v4 = [CAMOrientationUtilities imageOrientationForVideoRequest:*(a1 + 40)];
     v5 = *(a1 + 48);
     v6 = *(a1 + 32);
-    v40[0] = 0;
-    v29 = [v5 _thumbnailImageFromVideoCaptureResult:v6 previewOrientation:v4 previewImage:v40];
-    v3 = v40[0];
+    v41[0] = 0;
+    v30 = [v5 _thumbnailImageFromVideoCaptureResult:v6 previewOrientation:v4 previewImage:v41];
+    v3 = v41[0];
   }
 
-  v28 = [*(a1 + 40) persistenceUUID];
-  v27 = [*(a1 + 32) localDestinationURL];
+  v29 = [*(a1 + 40) persistenceUUID];
+  v28 = [*(a1 + 32) localDestinationURL];
   v7 = [*(a1 + 32) captureDate];
-  v38 = 0uLL;
-  v39 = 0;
+  v39 = 0uLL;
+  v40 = 0;
   v8 = *(a1 + 32);
-  if (v8 && ([v8 duration], v9 = *(a1 + 32), v36 = 0uLL, v37 = 0, v9))
+  if (v8 && (objc_msgSend_duration(v8), v9 = *(a1 + 32), v37 = 0uLL, v38 = 0, v9))
   {
-    [v9 stillDisplayTime];
+    objc_msgSend_stillDisplayTime(v9);
     v10 = *(a1 + 32);
   }
 
   else
   {
     v10 = 0;
-    v36 = 0uLL;
-    v37 = 0;
+    v37 = 0uLL;
+    v38 = 0;
   }
 
   v11 = [v10 reason];
@@ -2815,26 +2815,25 @@ void __65__CUCaptureController_videoRequest_didCompleteCaptureWithResult___block
   v13 = v12;
   v14 = [*(a1 + 40) sessionIdentifier];
   [CAMOrientationUtilities imageOrientationForVideoRequest:*(a1 + 40)];
-  PLExifOrientationFromImageOrientation();
-  [*(a1 + 32) dimensions];
-  CAMSizeForDimensions();
-  v16 = v15;
-  v18 = v17;
-  v19 = [CAMVideoCaptureResponse alloc];
-  v20 = [*(a1 + 40) captureMode];
-  v21 = [*(a1 + 32) coordinationInfo];
-  v22 = [*(a1 + 32) slowWriterFrameDrops];
-  v34 = v38;
+  v15 = PLExifOrientationFromImageOrientation();
+  CAMSizeForDimensions([*(a1 + 32) dimensions], v15);
+  v17 = v16;
+  v19 = v18;
+  v20 = [CAMVideoCaptureResponse alloc];
+  v21 = [*(a1 + 40) captureMode];
+  v22 = [*(a1 + 32) coordinationInfo];
+  v23 = [*(a1 + 32) slowWriterFrameDrops];
   v35 = v39;
-  v32 = v36;
+  v36 = v40;
   v33 = v37;
-  LOBYTE(v26) = v22;
-  v23 = [(CAMVideoCaptureResponse *)v19 initWithUUID:v28 captureMode:v20 captureSession:v14 url:v27 captureDate:v7 duration:&v34 stillPersistenceUUID:v13 stillDisplayTime:v16 reason:v18 videoZoomFactor:0 finalExpectedPixelSize:&v32 imageWellImage:v11 previewImage:v29 coordinationInfo:v3 slowWriterFrameDrops:v21, v26];
+  v34 = v38;
+  LOBYTE(v27) = v23;
+  v24 = [(CAMVideoCaptureResponse *)v20 initWithUUID:v29 captureMode:v21 captureSession:v14 url:v28 captureDate:v7 duration:&v35 stillPersistenceUUID:v13 stillDisplayTime:v17 reason:v19 videoZoomFactor:0 finalExpectedPixelSize:&v33 imageWellImage:v11 previewImage:v30 coordinationInfo:v3 slowWriterFrameDrops:v22, v27];
 
-  v30 = *(a1 + 40);
-  v31 = v23;
-  v24 = v2;
-  v25 = v23;
+  v31 = *(a1 + 40);
+  v32 = v24;
+  v25 = v2;
+  v26 = v24;
   pl_dispatch_async();
 }
 
@@ -4355,9 +4354,9 @@ LABEL_9:
   [v11 enqueueCommand:v10];
 }
 
-void __63__CUCaptureController_lockFocusAtLensPosition_completionBlock___block_invoke(uint64_t a1)
+void __63__CUCaptureController_lockFocusAtLensPosition_completionBlock___block_invoke(uint64_t a1, float a2)
 {
-  v1 = *(a1 + 40);
+  v2 = *(a1 + 40);
   pl_dispatch_async();
 }
 
@@ -5925,9 +5924,9 @@ LABEL_21:
   [_captureEngine enqueueCommand:v8];
 }
 
-void __63__CUCaptureController_queryVideoDimensionsWithCompletionBlock___block_invoke(uint64_t a1)
+void __63__CUCaptureController_queryVideoDimensionsWithCompletionBlock___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v1 = *(a1 + 32);
+  v3 = *(a1 + 32);
   pl_dispatch_async();
 }
 
@@ -5957,9 +5956,9 @@ uint64_t __63__CUCaptureController_queryVideoDimensionsWithCompletionBlock___blo
   [_captureEngine enqueueCommand:v8];
 }
 
-void __67__CUCaptureController_queryTimelapseDimensionsWithCompletionBlock___block_invoke(uint64_t a1)
+void __67__CUCaptureController_queryTimelapseDimensionsWithCompletionBlock___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, char a6)
 {
-  v1 = *(a1 + 32);
+  v6 = *(a1 + 32);
   pl_dispatch_async();
 }
 

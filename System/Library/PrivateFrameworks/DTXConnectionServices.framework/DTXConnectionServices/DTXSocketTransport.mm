@@ -1,14 +1,41 @@
 @interface DTXSocketTransport
++ (id)addressForHost:(const char *)host port:(int)port;
+- (DTXSocketTransport)initWithConnectedSocket:(int)socket disconnectAction:(id)action;
+- (DTXSocketTransport)initWithLocalPort:(int)port;
 - (DTXSocketTransport)initWithRemoteAddress:(id)address;
 - (id)localAddresses;
 - (unint64_t)transmit:(const void *)transmit ofLength:(unint64_t)length;
 - (void)_commonSocketTransportInit;
+- (void)_setupChannelWithConnectedSocket:(int)socket assumingOwnership:(BOOL)ownership orDisconnectBlock:(id)block;
 - (void)_setupWithLocalPort:(int)port;
 - (void)_signalSocketAccepted;
 - (void)disconnect;
 @end
 
 @implementation DTXSocketTransport
+
++ (id)addressForHost:(const char *)host port:(int)port
+{
+  v4 = *&port;
+  v6 = strnstr(host, ":", 5uLL);
+  v8 = MEMORY[0x277CBEBC0];
+  v9 = "[";
+  v10 = "";
+  if (v6)
+  {
+    v10 = "]";
+  }
+
+  else
+  {
+    v9 = "";
+  }
+
+  v11 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v7, @"%@://%s%s%s:%d", @"tcp", v9, host, v10, v4);
+  v13 = objc_msgSend_URLWithString_(v8, v12, v11);
+
+  return v13;
+}
 
 - (void)_setupWithLocalPort:(int)port
 {
@@ -52,6 +79,56 @@
   dispatch_async(v7, block);
 }
 
+- (void)_setupChannelWithConnectedSocket:(int)socket assumingOwnership:(BOOL)ownership orDisconnectBlock:(id)block
+{
+  ownershipCopy = ownership;
+  v6 = *&socket;
+  blockCopy = block;
+  if (objc_msgSend_status(self, v9, v10) != 2)
+  {
+    sub_247F5A330();
+  }
+
+  self->_port = sub_247F4D6FC(v6);
+  if (!blockCopy && ownershipCopy)
+  {
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = sub_247F4D960;
+    v15[3] = &unk_278EEEF58;
+    v16 = v6;
+    blockCopy = MEMORY[0x24C1C0D80](v15);
+  }
+
+  if ((v6 & 0x80000000) == 0)
+  {
+    v11 = fcntl(v6, 3);
+    if ((v11 & 4) == 0)
+    {
+      fcntl(v6, 4, v11 | 4u);
+LABEL_9:
+      objc_msgSend__signalSocketAccepted(self, v12, v13);
+      v14.receiver = self;
+      v14.super_class = DTXSocketTransport;
+      [(DTXFileDescriptorTransport *)&v14 setupWithIncomingDescriptor:v6 outgoingDescriptor:v6 disconnectBlock:blockCopy];
+      goto LABEL_12;
+    }
+
+    if (v11 != -1)
+    {
+      goto LABEL_9;
+    }
+  }
+
+  NSLog(&cfstr_UnableToSetNon.isa, v6);
+  if (blockCopy)
+  {
+    blockCopy[2](blockCopy);
+  }
+
+LABEL_12:
+}
+
 - (void)_commonSocketTransportInit
 {
   v3 = dispatch_semaphore_create(1);
@@ -71,6 +148,49 @@
 
     dispatch_semaphore_signal(socketAcceptedSem);
   }
+}
+
+- (DTXSocketTransport)initWithConnectedSocket:(int)socket disconnectAction:(id)action
+{
+  v4 = *&socket;
+  actionCopy = action;
+  if ((v4 & 0x80000000) != 0)
+  {
+    sub_247F5A35C(a2, self, v7);
+  }
+
+  v15.receiver = self;
+  v15.super_class = DTXSocketTransport;
+  v9 = [(DTXFileDescriptorTransport *)&v15 init];
+  v12 = v9;
+  if (v9)
+  {
+    objc_msgSend__commonSocketTransportInit(v9, v10, v11);
+    objc_msgSend__setupChannelWithConnectedSocket_assumingOwnership_orDisconnectBlock_(v12, v13, v4, 0, actionCopy);
+  }
+
+  else if (actionCopy)
+  {
+    actionCopy[2](actionCopy);
+  }
+
+  return v12;
+}
+
+- (DTXSocketTransport)initWithLocalPort:(int)port
+{
+  v3 = *&port;
+  v10.receiver = self;
+  v10.super_class = DTXSocketTransport;
+  v4 = [(DTXFileDescriptorTransport *)&v10 init];
+  v7 = v4;
+  if (v4)
+  {
+    objc_msgSend__commonSocketTransportInit(v4, v5, v6);
+    objc_msgSend__setupWithLocalPort_(v7, v8, v3);
+  }
+
+  return v7;
 }
 
 - (DTXSocketTransport)initWithRemoteAddress:(id)address
@@ -174,7 +294,7 @@ LABEL_15:
 
 - (id)localAddresses
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   addresses = self->_addresses;
   if (addresses)
   {
@@ -184,11 +304,11 @@ LABEL_15:
   else
   {
     v4 = objc_msgSend_array(MEMORY[0x277CBEB18], a2, v2);
-    v19 = 0;
-    if (!getifaddrs(&v19))
+    v18 = 0;
+    if (!getifaddrs(&v18))
     {
-      v6 = v19;
-      if (v19)
+      v6 = v18;
+      if (v18)
       {
         do
         {
@@ -197,10 +317,10 @@ LABEL_15:
           if (sa_family == 2 || sa_family == 30 && !*&ifa_addr[1].sa_data[6])
           {
             v9 = sa_family == 2 ? 4 : 8;
-            if (inet_ntop(sa_family, &ifa_addr->sa_len + v9, v20, 0x2Eu) == v20)
+            if (inet_ntop(sa_family, &ifa_addr->sa_len + v9, v19, 0x2Eu) == v19)
             {
               v12 = objc_msgSend_port(self, v10, v11);
-              v14 = objc_msgSend_addressForHost_port_(DTXSocketTransport, v13, v20, v12);
+              v14 = objc_msgSend_addressForHost_port_(DTXSocketTransport, v13, v19, v12);
               objc_msgSend_addObject_(v4, v15, v14);
             }
           }
@@ -209,7 +329,7 @@ LABEL_15:
         }
 
         while (v6);
-        v16 = v19;
+        v16 = v18;
       }
 
       else
@@ -222,8 +342,6 @@ LABEL_15:
 
     objc_storeStrong(&self->_addresses, v4);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

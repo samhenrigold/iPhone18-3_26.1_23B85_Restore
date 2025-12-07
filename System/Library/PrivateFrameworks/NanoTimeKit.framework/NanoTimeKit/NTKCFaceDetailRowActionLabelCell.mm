@@ -31,7 +31,7 @@
   if (v4)
   {
     textLabel = [(NTKCFaceDetailRowActionLabelCell *)v4 textLabel];
-    v7 = NTKCActionColor();
+    v7 = NTKCActionColor(textLabel);
     [textLabel setTextColor:v7];
   }
 

@@ -92,7 +92,7 @@
   remainder.origin.y = v23;
   remainder.size.width = v21 - v20;
   remainder.size.height = v25;
-  memset(&v36, 0, sizeof(v36));
+  memset(&v46, 0, sizeof(v46));
   contentView2 = [(PKFDICTableViewFooterView *)self contentView];
   [contentView2 _shouldReverseLayoutDirection];
 
@@ -101,37 +101,44 @@
   {
     [(UILabel *)footerLabel sizeThatFits:v24, 1.79769313e308];
     v29 = v28;
-    v39.origin.x = v19;
-    v39.origin.y = v23;
-    v39.size.width = v24;
-    v39.size.height = v25;
-    CGRectDivide(v39, &v36, &remainder, v29, CGRectMinYEdge);
+    v49.origin.x = v19;
+    v49.origin.y = v23;
+    v49.size.width = v24;
+    v49.size.height = v25;
+    CGRectDivide(v49, &v46, &remainder, v29, CGRectMinYEdge);
     v30 = v12 + v29;
     if (!layout)
     {
-      [(UILabel *)self->_footerLabel setFrame:*&v36.origin, *&v36.size];
+      [(UILabel *)self->_footerLabel setFrame:*&v46.origin, *&v46.size];
     }
 
-    CGRectDivide(remainder, &v36, &remainder, 16.0, CGRectMinYEdge);
+    CGRectDivide(remainder, &v46, &remainder, 16.0, CGRectMinYEdge);
     v12 = v30 + 16.0;
     v24 = remainder.size.width;
   }
 
   [(PKFDICSignageView *)self->_fdicView sizeThatFits:v24, 1.79769313e308];
   v32 = v31;
-  CGRectDivide(remainder, &v36, &remainder, v31, CGRectMinYEdge);
+  v34 = v33;
+  CGRectDivide(remainder, &v46, &remainder, v33, CGRectMinYEdge);
   if (!layout)
   {
     fdicView = self->_fdicView;
-    PKContentAlignmentMake();
-    PKSizeAlignedInRect();
+    v36 = PKContentAlignmentMake();
+    v38.n128_u64[0] = *&v46.origin.y;
+    v37.n128_u64[0] = *&v46.origin.x;
+    v40.n128_u64[0] = *&v46.size.height;
+    v39.n128_u64[0] = *&v46.size.width;
+    v41.n128_u64[0] = v32;
+    v42.n128_f64[0] = v34;
+    PKSizeAlignedInRect(v36, v41, v42, v37, v38, v39, v40, v43);
     [(PKFDICSignageView *)fdicView setFrame:?];
   }
 
-  v34 = v22 + v12 + v32;
-  v35 = v21;
-  result.height = v34;
-  result.width = v35;
+  v44 = v22 + v12 + v34;
+  v45 = v21;
+  result.height = v44;
+  result.width = v45;
   return result;
 }
 

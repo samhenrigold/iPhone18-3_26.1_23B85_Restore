@@ -383,16 +383,16 @@ LABEL_37:
 
 - (id)descriptionDictionary
 {
-  v34[13] = *MEMORY[0x277D85DE8];
-  v33[0] = @"EventType";
+  v33[13] = *MEMORY[0x277D85DE8];
+  v32[0] = @"EventType";
   v3 = objc_opt_class();
-  v32 = NSStringFromClass(v3);
-  v34[0] = v32;
-  v33[1] = @"SADeviceIdentifier";
+  v31 = NSStringFromClass(v3);
+  v33[0] = v31;
+  v32[1] = @"SADeviceIdentifier";
   identifier = [(SADevice *)self identifier];
-  v30 = [identifier description];
-  v34[1] = v30;
-  v33[2] = @"SADeviceGroupIdentifier";
+  v29 = [identifier description];
+  v33[1] = v29;
+  v32[2] = @"SADeviceGroupIdentifier";
   groupIdentifier = [(SADevice *)self groupIdentifier];
   if (groupIdentifier)
   {
@@ -405,11 +405,11 @@ LABEL_37:
     v5 = &stru_287709218;
   }
 
-  v24 = v5;
-  v34[2] = v5;
-  v33[3] = @"SADeviceMacAddress";
+  v23 = v5;
+  v33[2] = v5;
+  v32[3] = @"SADeviceMacAddress";
   macAddress = [(SADevice *)self macAddress];
-  v29 = groupIdentifier;
+  v28 = groupIdentifier;
   if (macAddress)
   {
     macAddress2 = [(SADevice *)self macAddress];
@@ -420,12 +420,12 @@ LABEL_37:
     macAddress2 = &stru_287709218;
   }
 
-  v23 = macAddress2;
-  v34[3] = macAddress2;
-  v33[4] = @"SADevicePartIdentifier";
-  v27 = [MEMORY[0x277CCABB0] numberWithInteger:{-[SADevice partIdentifier](self, "partIdentifier")}];
-  v34[4] = v27;
-  v33[5] = @"SADeviceName";
+  v22 = macAddress2;
+  v33[3] = macAddress2;
+  v32[4] = @"SADevicePartIdentifier";
+  v26 = [MEMORY[0x277CCABB0] numberWithInteger:{-[SADevice partIdentifier](self, "partIdentifier")}];
+  v33[4] = v26;
+  v32[5] = @"SADeviceName";
   name = [(SADevice *)self name];
   if (name)
   {
@@ -438,33 +438,33 @@ LABEL_37:
     v8 = &stru_287709218;
   }
 
-  v22 = v8;
-  v34[5] = v8;
-  v33[6] = @"SADeviceModel";
+  v21 = v8;
+  v33[5] = v8;
+  v32[6] = @"SADeviceModel";
   model = [(SADevice *)self model];
   v9 = [model description];
-  v34[6] = v9;
-  v33[7] = @"SADeviceSystemVersion";
+  v33[6] = v9;
+  v32[7] = @"SADeviceSystemVersion";
   systemVersion = [(SADevice *)self systemVersion];
   v11 = [systemVersion description];
-  v34[7] = v11;
-  v33[8] = @"SADeviceVendorId";
+  v33[7] = v11;
+  v32[8] = @"SADeviceVendorId";
   v12 = [MEMORY[0x277CCABB0] numberWithInteger:{-[SADevice vendorId](self, "vendorId")}];
-  v34[8] = v12;
-  v33[9] = @"SADeviceProductId";
+  v33[8] = v12;
+  v32[9] = @"SADeviceProductId";
   v13 = [MEMORY[0x277CCABB0] numberWithInteger:{-[SADevice productId](self, "productId")}];
-  v34[9] = v13;
-  v33[10] = @"SADeviceType";
+  v33[9] = v13;
+  v32[10] = @"SADeviceType";
   v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[SADevice deviceType](self, "deviceType")}];
-  v34[10] = v14;
-  v33[11] = @"SADeviceNotifyEnabled";
+  v33[10] = v14;
+  v32[11] = @"SADeviceNotifyEnabled";
   v15 = [MEMORY[0x277CCABB0] numberWithBool:{-[SADevice notifyEnabled](self, "notifyEnabled")}];
-  v34[11] = v15;
-  v33[12] = @"SADeviceDate";
+  v33[11] = v15;
+  v32[12] = @"SADeviceDate";
   date = [(SADevice *)self date];
   getDateString = [date getDateString];
-  v34[12] = getDateString;
-  v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:13];
+  v33[12] = getDateString;
+  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:13];
 
   if (name)
   {
@@ -474,13 +474,11 @@ LABEL_37:
   {
   }
 
-  if (v29)
+  if (v28)
   {
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
-  return v25;
+  return v24;
 }
 
 - (NSString)description

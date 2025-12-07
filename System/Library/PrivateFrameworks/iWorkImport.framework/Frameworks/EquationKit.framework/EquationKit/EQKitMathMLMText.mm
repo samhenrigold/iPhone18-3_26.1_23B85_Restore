@@ -39,16 +39,16 @@
 
 - (id)initFromXMLNode:(_xmlNode *)node parser:(id)parser
 {
-  v5 = objc_msgSend_parseChildrenAsTokenContentFromXMLNode_(parser, a2, node, parser);
+  [parser parseChildrenAsTokenContentFromXMLNode:node];
 
-  return MEMORY[0x2821F9670](self, sel_initWithContent_, v5, v6);
+  return MEMORY[0x2821F9670](self, sel_initWithContent_);
 }
 
 - (const)mathMLAttributes
 {
   if ((atomic_load_explicit(&qword_280A38A58, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_280A38A58))
   {
-    sub_275C8E754(qword_280A38A40, &unk_275D0C150, dword_275D0C158);
+    sub_275C8E754(qword_280A38A40, &unk_275D0C150, &dword_275D0C158);
     __cxa_guard_release(&qword_280A38A58);
   }
 

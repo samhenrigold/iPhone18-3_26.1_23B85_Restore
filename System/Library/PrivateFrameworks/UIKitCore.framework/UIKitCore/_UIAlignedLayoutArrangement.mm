@@ -1241,7 +1241,7 @@ LABEL_19:
   _alignmentPropertySource = [(_UIAlignedLayoutArrangement *)self _alignmentPropertySource];
   alignment = [_alignmentPropertySource alignment];
 
-  if ([nameCopy isEqualToString:@"Top"])
+  if (objc_msgSend_isEqualToString_(nameCopy))
   {
     v8 = (alignment & 8) == 0;
     v9 = 3;
@@ -1249,13 +1249,13 @@ LABEL_19:
     goto LABEL_3;
   }
 
-  if ([nameCopy isEqualToString:@"Leading"])
+  if (objc_msgSend_isEqualToString_(nameCopy))
   {
     v11 = 5;
     goto LABEL_8;
   }
 
-  if ([nameCopy isEqualToString:@"Bottom"])
+  if (objc_msgSend_isEqualToString_(nameCopy))
   {
     v8 = (alignment & 0x10) == 0;
     v9 = 4;
@@ -1274,22 +1274,22 @@ LABEL_3:
     goto LABEL_8;
   }
 
-  if ([nameCopy isEqualToString:@"Trailing"])
+  if (objc_msgSend_isEqualToString_(nameCopy))
   {
     v11 = 6;
   }
 
-  else if ([nameCopy isEqualToString:@"CenterX"])
+  else if (objc_msgSend_isEqualToString_(nameCopy))
   {
     v11 = 9;
   }
 
-  else if ([nameCopy isEqualToString:@"CenterY"])
+  else if (objc_msgSend_isEqualToString_(nameCopy))
   {
     v11 = 10;
   }
 
-  else if (![nameCopy isEqualToString:@"Ambiguity Suppression"] || (v11 = -[_UILayoutArrangement _dimensionAttributeForCurrentAxis](self, "_dimensionAttributeForCurrentAxis")) == 0)
+  else if (!objc_msgSend_isEqualToString_(nameCopy) || (v11 = [(_UILayoutArrangement *)self _dimensionAttributeForCurrentAxis]) == 0)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
     [currentHandler handleFailureInMethod:a2 object:self file:@"_UIAlignedLayoutArrangement.m" lineNumber:521 description:{@"Couldn't find attribute for constraint group %@", nameCopy}];

@@ -3,6 +3,7 @@
 - (id)specifiers;
 - (void)setQuickActionSwitchState:(id)state;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation QuickActionsV2Controller
@@ -10,35 +11,35 @@
 - (id)specifiers
 {
   selfCopy = self;
-  v80 = *MEMORY[0x277D85DE8];
+  v79 = *MEMORY[0x277D85DE8];
   v3 = *(&self->super.super.super.super.super.super.isa + *MEMORY[0x277D3FC48]);
   if (v3)
   {
     goto LABEL_40;
   }
 
-  v62 = *MEMORY[0x277D3FC48];
+  v61 = *MEMORY[0x277D3FC48];
   array = [MEMORY[0x277CBEB18] array];
   emptyGroupSpecifier = [MEMORY[0x277D3FAD8] emptyGroupSpecifier];
   v6 = settingsLocString(@"QUICK_ACTIONS_INSTRUCTIONS_FOOTER", @"AccessibilitySettings-elton");
   v7 = *MEMORY[0x277D3FF88];
   [emptyGroupSpecifier setProperty:v6 forKey:*MEMORY[0x277D3FF88]];
 
-  v69 = array;
-  v61 = emptyGroupSpecifier;
+  v68 = array;
+  v60 = emptyGroupSpecifier;
   [array addObject:emptyGroupSpecifier];
-  v67 = AXActivePairedDeviceIsNapiliBOrLater() && AXActivePairedDeviceHasDoubleTapActivationGesture();
+  v66 = AXActivePairedDeviceIsNapiliBOrLater() && AXActivePairedDeviceHasDoubleTapActivationGesture();
   v8 = AXActivePairedDeviceSupportsQuickActionsAlwaysOnState();
   emptyGroupSpecifier2 = [MEMORY[0x277D3FAD8] emptyGroupSpecifier];
   v10 = emptyGroupSpecifier2;
   v11 = MEMORY[0x277D3FFE8];
   v12 = MEMORY[0x277D3FFB8];
-  v63 = selfCopy;
+  v62 = selfCopy;
   if (v8)
   {
     [emptyGroupSpecifier2 setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D3FFE8]];
     [v10 setProperty:@"QuickActionsStateGroupID" forKey:*v12];
-    if (v67)
+    if (v66)
     {
       v13 = settingsLocString(@"QUICK_ACTIONS_DISABLED_FOOTER_TEXT", @"AccessibilitySettings-quickactions");
       [v10 setProperty:v13 forKey:v7];
@@ -49,34 +50,34 @@
     v15 = [accessibilityDomainAccessor objectForKey:*MEMORY[0x277D81EB8]];
     intValue = [v15 intValue];
 
-    v76 = 0u;
-    v77 = 0u;
-    v74 = 0u;
     v75 = 0u;
-    v17 = [&unk_284E7E748 countByEnumeratingWithState:&v74 objects:v79 count:16];
+    v76 = 0u;
+    v73 = 0u;
+    v74 = 0u;
+    v17 = [&unk_284E7E748 countByEnumeratingWithState:&v73 objects:v78 count:16];
     if (!v17)
     {
       goto LABEL_25;
     }
 
     v18 = v17;
-    v60 = v10;
-    v64 = *v75;
-    v65 = 0;
+    v59 = v10;
+    v63 = *v74;
+    v64 = 0;
     v19 = *MEMORY[0x277D401A8];
     v20 = *MEMORY[0x277D3FD80];
     v21 = *MEMORY[0x277D3FF38];
-    v22 = v67 ? 2 : intValue;
+    v22 = v66 ? 2 : intValue;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v75 != v64)
+        if (*v74 != v63)
         {
           objc_enumerationMutation(&unk_284E7E748);
         }
 
-        v24 = *(*(&v74 + 1) + 8 * i);
+        v24 = *(*(&v73 + 1) + 8 * i);
         intValue2 = [v24 intValue];
         v26 = intValue2;
         v27 = MEMORY[0x277D3FAD8];
@@ -85,38 +86,38 @@
 
         [v29 setProperty:v24 forKey:v19];
         [v29 setProperty:MEMORY[0x277CBEC38] forKey:v20];
-        v30 = [MEMORY[0x277CCABB0] numberWithInt:!v67];
+        v30 = [MEMORY[0x277CCABB0] numberWithInt:!v66];
         [v29 setProperty:v30 forKey:v21];
 
-        [v69 addObject:v29];
+        [v68 addObject:v29];
         if (v26 == v22)
         {
           v31 = v29;
 
-          v65 = v31;
+          v64 = v31;
         }
       }
 
-      v18 = [&unk_284E7E748 countByEnumeratingWithState:&v74 objects:v79 count:16];
+      v18 = [&unk_284E7E748 countByEnumeratingWithState:&v73 objects:v78 count:16];
     }
 
     while (v18);
-    selfCopy = v63;
+    selfCopy = v62;
     v12 = MEMORY[0x277D3FFB8];
     v11 = MEMORY[0x277D3FFE8];
-    v10 = v60;
-    v32 = v65;
-    if (!v65)
+    v10 = v59;
+    v32 = v64;
+    if (!v64)
     {
       goto LABEL_25;
     }
 
-    [v60 setProperty:v65 forKey:*MEMORY[0x277D40090]];
+    [v59 setProperty:v64 forKey:*MEMORY[0x277D40090]];
   }
 
   else
   {
-    if (v67)
+    if (v66)
     {
       v33 = settingsLocString(@"QUICK_ACTIONS_DISABLED_FOOTER_TEXT", @"AccessibilitySettings-quickactions");
       [v10 setProperty:v33 forKey:v7];
@@ -127,7 +128,7 @@
     v35 = settingsLocString(@"QUICK_ACTIONS_ROW_TITLE", @"AccessibilitySettings-quickactions");
     v32 = [v34 preferenceSpecifierNamed:v35 target:selfCopy set:sel_setQuickActionSwitchState_ get:sel_quickActionSwitchState detail:0 cell:6 edit:0];
 
-    v36 = [MEMORY[0x277CCABB0] numberWithInt:!v67];
+    v36 = [MEMORY[0x277CCABB0] numberWithInt:!v66];
     [v32 setProperty:v36 forKey:*MEMORY[0x277D3FF38]];
 
     [array addObject:v32];
@@ -142,34 +143,34 @@ LABEL_25:
 
     [v41 setProperty:MEMORY[0x277CBEC38] forKey:*v11];
     [v41 setProperty:@"QuickActionsBannerAppearanceGroupID" forKey:*v12];
-    v66 = v41;
-    [v69 addObject:v41];
+    v65 = v41;
+    [v68 addObject:v41];
     accessibilityDomainAccessor2 = [(AccessibilityBridgeBaseController *)selfCopy accessibilityDomainAccessor];
     v43 = [accessibilityDomainAccessor2 objectForKey:*MEMORY[0x277D81EB0]];
     intValue3 = [v43 intValue];
 
-    v72 = 0u;
-    v73 = 0u;
-    v70 = 0u;
     v71 = 0u;
-    v44 = [&unk_284E7E760 countByEnumeratingWithState:&v70 objects:v78 count:16];
+    v72 = 0u;
+    v69 = 0u;
+    v70 = 0u;
+    v44 = [&unk_284E7E760 countByEnumeratingWithState:&v69 objects:v77 count:16];
     if (v44)
     {
       v45 = v44;
       v46 = 0;
-      v47 = *v71;
+      v47 = *v70;
       v48 = *MEMORY[0x277D401A8];
       v49 = *MEMORY[0x277D3FD80];
       do
       {
         for (j = 0; j != v45; ++j)
         {
-          if (*v71 != v47)
+          if (*v70 != v47)
           {
             objc_enumerationMutation(&unk_284E7E760);
           }
 
-          v51 = *(*(&v70 + 1) + 8 * j);
+          v51 = *(*(&v69 + 1) + 8 * j);
           intValue4 = [v51 intValue];
           v53 = MEMORY[0x277D3FAD8];
           v54 = AXLocalizedStringForQuickActionBannerAppearance(intValue4);
@@ -177,7 +178,7 @@ LABEL_25:
 
           [v55 setProperty:v51 forKey:v48];
           [v55 setProperty:MEMORY[0x277CBEC38] forKey:v49];
-          [v69 addObject:v55];
+          [v68 addObject:v55];
           if (intValue4 == intValue3)
           {
             v56 = v55;
@@ -186,7 +187,7 @@ LABEL_25:
           }
         }
 
-        v45 = [&unk_284E7E760 countByEnumeratingWithState:&v70 objects:v78 count:16];
+        v45 = [&unk_284E7E760 countByEnumeratingWithState:&v69 objects:v77 count:16];
       }
 
       while (v45);
@@ -197,19 +198,42 @@ LABEL_25:
       v46 = 0;
     }
 
-    [v66 setProperty:v46 forKey:*MEMORY[0x277D40090]];
+    [v65 setProperty:v46 forKey:*MEMORY[0x277D40090]];
 
-    selfCopy = v63;
+    selfCopy = v62;
   }
 
-  v57 = *(&selfCopy->super.super.super.super.super.super.isa + v62);
-  *(&selfCopy->super.super.super.super.super.super.isa + v62) = v69;
+  v57 = *(&selfCopy->super.super.super.super.super.super.isa + v61);
+  *(&selfCopy->super.super.super.super.super.super.isa + v61) = v68;
 
-  v3 = *(&selfCopy->super.super.super.super.super.super.isa + v62);
+  v3 = *(&selfCopy->super.super.super.super.super.super.isa + v61);
 LABEL_40:
-  v58 = *MEMORY[0x277D85DE8];
 
   return v3;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v16[1] = *MEMORY[0x277D85DE8];
+  v15.receiver = self;
+  v15.super_class = QuickActionsV2Controller;
+  [(AccessibilityBridgeBaseController *)&v15 viewWillAppear:appear];
+  v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v4 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
+  bundleURL = [v3 bundleURL];
+  v7 = [v4 initWithKey:@"QUICK_ACTIONS_ROW_TITLE" table:@"AccessibilitySettings-quickactions" locale:currentLocale bundleURL:bundleURL];
+
+  v8 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale2 = [MEMORY[0x277CBEAF8] currentLocale];
+  bundleURL2 = [v3 bundleURL];
+  v11 = [v8 initWithKey:@"ACCESSIBILITY_TITLE" table:@"AccessibilitySettings" locale:currentLocale2 bundleURL:bundleURL2];
+
+  v12 = MEMORY[0x277CF3470];
+  v16[0] = v11;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+  v14 = [MEMORY[0x277CBEBC0] URLWithString:@"bridge:root=ACCESSIBILITY_ID&path=QUICK_ACTIONS"];
+  [v12 emitNavigationEventForSystemSettingWithIconSpecifierIdentifier:@"ACCESSIBILITY_ID" title:v7 localizedNavigationComponents:v13 deepLink:v14];
 }
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path

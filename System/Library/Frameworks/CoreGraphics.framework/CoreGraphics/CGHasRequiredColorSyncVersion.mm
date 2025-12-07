@@ -3,7 +3,7 @@
 
 @implementation CGHasRequiredColorSyncVersion
 
-uint64_t (*__CGHasRequiredColorSyncVersion_block_invoke_2())()
+uint64_t (*__CGHasRequiredColorSyncVersion_block_invoke_2())(void)
 {
   if (CGLibraryLoadColorSyncDYLD_once != -1)
   {

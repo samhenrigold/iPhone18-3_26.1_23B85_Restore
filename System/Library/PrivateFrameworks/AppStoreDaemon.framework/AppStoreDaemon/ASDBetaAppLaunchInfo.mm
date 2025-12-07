@@ -17,87 +17,7 @@
   else
   {
     v5 = objc_opt_class();
-    if (v5 != objc_opt_class())
-    {
-      goto LABEL_16;
-    }
-
-    artistName = self->_artistName;
-    artistName = [(ASDBetaAppLaunchInfo *)equalCopy artistName];
-    LODWORD(artistName) = [(NSString *)artistName isEqualToString:artistName];
-
-    if (!artistName)
-    {
-      goto LABEL_16;
-    }
-
-    displayNames = self->_displayNames;
-    displayNames = [(ASDBetaAppLaunchInfo *)equalCopy displayNames];
-    LODWORD(displayNames) = [(ASDBetaAppDisplayNames *)displayNames isEqual:displayNames];
-
-    if (!displayNames)
-    {
-      goto LABEL_16;
-    }
-
-    expirationDate = self->_expirationDate;
-    expirationDate = [(ASDBetaAppLaunchInfo *)equalCopy expirationDate];
-    LODWORD(expirationDate) = [(NSDate *)expirationDate isEqual:expirationDate];
-
-    if (!expirationDate)
-    {
-      goto LABEL_16;
-    }
-
-    feedbackEnabled = self->_feedbackEnabled;
-    if (feedbackEnabled != [(ASDBetaAppLaunchInfo *)equalCopy isFeedbackEnabled])
-    {
-      goto LABEL_16;
-    }
-
-    iconNeedsMask = self->_iconNeedsMask;
-    if (iconNeedsMask != [(ASDBetaAppLaunchInfo *)equalCopy iconNeedsMask])
-    {
-      goto LABEL_16;
-    }
-
-    iconURLTemplate = self->_iconURLTemplate;
-    iconURLTemplate = [(ASDBetaAppLaunchInfo *)equalCopy iconURLTemplate];
-    LODWORD(iconURLTemplate) = [(NSString *)iconURLTemplate isEqualToString:iconURLTemplate];
-
-    if (!iconURLTemplate)
-    {
-      goto LABEL_16;
-    }
-
-    if (self->_lastWelcomeScreenViewDate)
-    {
-      lastWelcomeScreenViewDate = [(ASDBetaAppLaunchInfo *)equalCopy lastWelcomeScreenViewDate];
-      if (lastWelcomeScreenViewDate)
-      {
-        v17 = lastWelcomeScreenViewDate;
-        lastWelcomeScreenViewDate = self->_lastWelcomeScreenViewDate;
-        lastWelcomeScreenViewDate2 = [(ASDBetaAppLaunchInfo *)equalCopy lastWelcomeScreenViewDate];
-        LODWORD(lastWelcomeScreenViewDate) = [(NSDate *)lastWelcomeScreenViewDate isEqualToDate:lastWelcomeScreenViewDate2];
-
-        if (!lastWelcomeScreenViewDate)
-        {
-          goto LABEL_16;
-        }
-      }
-    }
-
-    localizedTestNotes = self->_localizedTestNotes;
-    localizedTestNotes = [(ASDBetaAppLaunchInfo *)equalCopy localizedTestNotes];
-    LODWORD(localizedTestNotes) = [(NSDictionary *)localizedTestNotes isEqual:localizedTestNotes];
-
-    if (!localizedTestNotes)
-    {
-      goto LABEL_16;
-    }
-
-    sharedFeedback = self->_sharedFeedback;
-    if (sharedFeedback == [(ASDBetaAppLaunchInfo *)equalCopy hasSharedFeedback]&& (testerEmail = self->_testerEmail, [(ASDBetaAppLaunchInfo *)equalCopy testerEmail], v24 = objc_claimAutoreleasedReturnValue(), LODWORD(testerEmail) = [(NSString *)testerEmail isEqualToString:v24], v24, testerEmail))
+    if (v5 == objc_opt_class() && (artistName = self->_artistName, [(ASDBetaAppLaunchInfo *)equalCopy artistName], v7 = objc_claimAutoreleasedReturnValue(), LODWORD(artistName) = [(NSString *)artistName isEqualToString:v7], v7, artistName) && (displayNames = self->_displayNames, [(ASDBetaAppLaunchInfo *)equalCopy displayNames], v9 = objc_claimAutoreleasedReturnValue(), LODWORD(displayNames) = [(ASDBetaAppDisplayNames *)displayNames isEqual:v9], v9, displayNames) && (expirationDate = self->_expirationDate, [(ASDBetaAppLaunchInfo *)equalCopy expirationDate], v11 = objc_claimAutoreleasedReturnValue(), LODWORD(expirationDate) = [(NSDate *)expirationDate isEqual:v11], v11, expirationDate) && (feedbackEnabled = self->_feedbackEnabled, feedbackEnabled == [(ASDBetaAppLaunchInfo *)equalCopy isFeedbackEnabled]) && (iconNeedsMask = self->_iconNeedsMask, iconNeedsMask == [(ASDBetaAppLaunchInfo *)equalCopy iconNeedsMask]) && (iconURLTemplate = self->_iconURLTemplate, [(ASDBetaAppLaunchInfo *)equalCopy iconURLTemplate], v15 = objc_claimAutoreleasedReturnValue(), LODWORD(iconURLTemplate) = [(NSString *)iconURLTemplate isEqualToString:v15], v15, iconURLTemplate) && (!self->_lastWelcomeScreenViewDate || ([(ASDBetaAppLaunchInfo *)equalCopy lastWelcomeScreenViewDate], (v16 = objc_claimAutoreleasedReturnValue()) == 0) || (v17 = v16, lastWelcomeScreenViewDate = self->_lastWelcomeScreenViewDate, [(ASDBetaAppLaunchInfo *)equalCopy lastWelcomeScreenViewDate], v19 = objc_claimAutoreleasedReturnValue(), LODWORD(lastWelcomeScreenViewDate) = [(NSDate *)lastWelcomeScreenViewDate isEqualToDate:v19], v19, v17, lastWelcomeScreenViewDate)) && (localizedTestNotes = self->_localizedTestNotes, [(ASDBetaAppLaunchInfo *)equalCopy localizedTestNotes], v21 = objc_claimAutoreleasedReturnValue(), LODWORD(localizedTestNotes) = [(NSDictionary *)localizedTestNotes isEqual:v21], v21, localizedTestNotes) && (sharedFeedback = self->_sharedFeedback, sharedFeedback == [(ASDBetaAppLaunchInfo *)equalCopy hasSharedFeedback]) && (testerEmail = self->_testerEmail, [(ASDBetaAppLaunchInfo *)equalCopy testerEmail], v24 = objc_claimAutoreleasedReturnValue(), LODWORD(testerEmail) = [(NSString *)testerEmail isEqualToString:v24], v24, testerEmail))
     {
       version = self->_version;
       version = [(ASDBetaAppLaunchInfo *)equalCopy version];
@@ -106,7 +26,6 @@
 
     else
     {
-LABEL_16:
       v27 = 0;
     }
   }

@@ -2,6 +2,8 @@
 - (NNMKSyncServiceIDSTransport)initWithServiceName:(id)name queue:(id)queue delegate:(id)delegate;
 - (NNMKSyncServiceTransportDelegate)delegate;
 - (double)_timeIntervalFromTimeoutCategory:(unint64_t)category;
+- (id)sendProtobufData:(id)data type:(unint64_t)type priority:(unint64_t)priority timeout:(double)timeout allowCloudDelivery:(BOOL)delivery;
+- (id)sendProtobufData:(id)data type:(unint64_t)type priority:(unint64_t)priority timeoutCategory:(unint64_t)category allowCloudDelivery:(BOOL)delivery;
 - (id)sendResourceAtURL:(id)l metadata:(id)metadata priority:(unint64_t)priority timeoutCategory:(unint64_t)category;
 - (unint64_t)_connectivityState;
 - (void)_handleConnectivityChange;
@@ -50,9 +52,80 @@
   [(NNMKSyncServiceIDSTransport *)&v4 dealloc];
 }
 
+- (id)sendProtobufData:(id)data type:(unint64_t)type priority:(unint64_t)priority timeoutCategory:(unint64_t)category allowCloudDelivery:(BOOL)delivery
+{
+  deliveryCopy = delivery;
+  dataCopy = data;
+  [(NNMKSyncServiceIDSTransport *)self _timeIntervalFromTimeoutCategory:category];
+  v13 = [(NNMKSyncServiceIDSTransport *)self sendProtobufData:dataCopy type:type priority:priority timeout:deliveryCopy allowCloudDelivery:?];
+
+  return v13;
+}
+
+- (id)sendProtobufData:(id)data type:(unint64_t)type priority:(unint64_t)priority timeout:(double)timeout allowCloudDelivery:(BOOL)delivery
+{
+  deliveryCopy = delivery;
+  v39[3] = *MEMORY[0x277D85DE8];
+  v12 = MEMORY[0x277D189F0];
+  dataCopy = data;
+  v14 = [[v12 alloc] initWithProtobufData:dataCopy type:type isResponse:0];
+
+  v15 = 200;
+  if (priority == 100)
+  {
+    v15 = 100;
+  }
+
+  if (priority == 300)
+  {
+    v16 = 300;
+  }
+
+  else
+  {
+    v16 = v15;
+  }
+
+  idsService = self->_idsService;
+  v18 = [MEMORY[0x277CBEB98] setWithObject:*MEMORY[0x277D187E8]];
+  v19 = *MEMORY[0x277D18678];
+  v39[0] = MEMORY[0x277CBEC38];
+  v20 = *MEMORY[0x277D18650];
+  v38[0] = v19;
+  v38[1] = v20;
+  v21 = [MEMORY[0x277CCABB0] numberWithDouble:timeout];
+  v39[1] = v21;
+  v38[2] = *MEMORY[0x277D18568];
+  v22 = [MEMORY[0x277CCABB0] numberWithBool:deliveryCopy];
+  v39[2] = v22;
+  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:3];
+  v30 = 0;
+  v31 = 0;
+  [(IDSService *)idsService sendProtobuf:v14 toDestinations:v18 priority:v16 options:v23 identifier:&v31 error:&v30];
+  v24 = v31;
+  v25 = v30;
+
+  v26 = qword_28144D620;
+  if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
+  {
+    serviceName = self->_serviceName;
+    *buf = 138543874;
+    v33 = v24;
+    v34 = 2048;
+    typeCopy = type;
+    v36 = 2114;
+    v37 = serviceName;
+    _os_log_impl(&dword_25B19F000, v26, OS_LOG_TYPE_DEFAULT, "#IDS sent message. (IDS Identifier: %{public}@, Type: %lu, Service: %{public}@)", buf, 0x20u);
+  }
+
+  v28 = v24;
+
+  return v24;
+}
+
 - (id)sendResourceAtURL:(id)l metadata:(id)metadata priority:(unint64_t)priority timeoutCategory:(unint64_t)category
 {
-  v37[2] = *MEMORY[0x277D85DE8];
+  v36[2] = *MEMORY[0x277D85DE8];
   lCopy = l;
   v11 = 200;
   if (priority == 100)
@@ -76,42 +149,40 @@
   metadataCopy = metadata;
   v17 = [v14 setWithObject:v15];
   v18 = *MEMORY[0x277D18650];
-  v36[0] = *MEMORY[0x277D18678];
-  v36[1] = v18;
-  v37[0] = MEMORY[0x277CBEC38];
+  v35[0] = *MEMORY[0x277D18678];
+  v35[1] = v18;
+  v36[0] = MEMORY[0x277CBEC38];
   v19 = MEMORY[0x277CCABB0];
   [(NNMKSyncServiceIDSTransport *)self _timeIntervalFromTimeoutCategory:category];
   v20 = [v19 numberWithDouble:?];
-  v37[1] = v20;
-  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:2];
+  v36[1] = v20;
+  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:v35 count:2];
+  v27 = 0;
   v28 = 0;
-  v29 = 0;
-  [(IDSService *)idsService sendResourceAtURL:lCopy metadata:metadataCopy toDestinations:v17 priority:v12 options:v21 identifier:&v29 error:&v28];
+  [(IDSService *)idsService sendResourceAtURL:lCopy metadata:metadataCopy toDestinations:v17 priority:v12 options:v21 identifier:&v28 error:&v27];
 
-  v22 = v29;
-  v23 = v28;
+  v22 = v28;
+  v23 = v27;
 
   v24 = qword_28144D620;
   if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
   {
     serviceName = self->_serviceName;
     *buf = 138543874;
-    v31 = v22;
-    v32 = 2114;
-    v33 = lCopy;
-    v34 = 2114;
-    v35 = serviceName;
+    v30 = v22;
+    v31 = 2114;
+    v32 = lCopy;
+    v33 = 2114;
+    v34 = serviceName;
     _os_log_impl(&dword_25B19F000, v24, OS_LOG_TYPE_DEFAULT, "#IDS sent resource. (IDS Identifier: %{public}@, URL: %{public}@, Service: %{public}@)", buf, 0x20u);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v22;
 }
 
 - (void)service:(id)service account:(id)account incomingUnhandledProtobuf:(id)protobuf fromID:(id)d context:(id)context
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   protobufCopy = protobuf;
   v10 = qword_28144D620;
   if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
@@ -120,25 +191,23 @@
     outgoingResponseIdentifier = [context outgoingResponseIdentifier];
     type = [protobufCopy type];
     serviceName = self->_serviceName;
-    v18 = 138543874;
-    v19 = outgoingResponseIdentifier;
-    v20 = 1024;
-    v21 = type;
-    v22 = 2114;
-    v23 = serviceName;
-    _os_log_impl(&dword_25B19F000, v11, OS_LOG_TYPE_DEFAULT, "#IDS received message. (IDS Identifier: %{public}@, Type: %d, Service: %{public}@)", &v18, 0x1Cu);
+    v17 = 138543874;
+    v18 = outgoingResponseIdentifier;
+    v19 = 1024;
+    v20 = type;
+    v21 = 2114;
+    v22 = serviceName;
+    _os_log_impl(&dword_25B19F000, v11, OS_LOG_TYPE_DEFAULT, "#IDS received message. (IDS Identifier: %{public}@, Type: %d, Service: %{public}@)", &v17, 0x1Cu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   data = [protobufCopy data];
   [WeakRetained syncServiceTransport:self didReadProtobufData:data type:{objc_msgSend(protobufCopy, "type")}];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)service:(id)service account:(id)account incomingResourceAtURL:(id)l metadata:(id)metadata fromID:(id)d context:(id)context
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   lCopy = l;
   metadataCopy = metadata;
   v13 = qword_28144D620;
@@ -147,19 +216,17 @@
     v14 = v13;
     outgoingResponseIdentifier = [context outgoingResponseIdentifier];
     serviceName = self->_serviceName;
-    v19 = 138543874;
-    v20 = outgoingResponseIdentifier;
-    v21 = 2112;
-    v22 = lCopy;
-    v23 = 2114;
-    v24 = serviceName;
-    _os_log_impl(&dword_25B19F000, v14, OS_LOG_TYPE_DEFAULT, "#IDS received resource. (IDS Identifier: %{public}@, URL: %@, Service: %{public}@)", &v19, 0x20u);
+    v18 = 138543874;
+    v19 = outgoingResponseIdentifier;
+    v20 = 2112;
+    v21 = lCopy;
+    v22 = 2114;
+    v23 = serviceName;
+    _os_log_impl(&dword_25B19F000, v14, OS_LOG_TYPE_DEFAULT, "#IDS received resource. (IDS Identifier: %{public}@, URL: %@, Service: %{public}@)", &v18, 0x20u);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained syncServiceTransport:self didRecieveDataAtURL:lCopy metadata:metadataCopy];
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error
@@ -201,27 +268,27 @@
 
 - (unint64_t)_connectivityState
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   devices = [(IDSService *)self->_idsService devices];
-  v3 = [devices countByEnumeratingWithState:&v21 objects:v31 count:16];
+  v3 = [devices countByEnumeratingWithState:&v20 objects:v30 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v22;
+    v5 = *v21;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v22 != v5)
+        if (*v21 != v5)
         {
           objc_enumerationMutation(devices);
         }
 
-        v7 = *(*(&v21 + 1) + 8 * i);
+        v7 = *(*(&v20 + 1) + 8 * i);
         if ([v7 isDefaultPairedDevice])
         {
           v9 = __connected;
@@ -238,11 +305,11 @@
               isNearby = [v7 isNearby];
               isCloudConnected = [v7 isCloudConnected];
               *buf = 134218496;
-              v26 = isConnected;
-              v27 = 2048;
-              v28 = isNearby;
-              v29 = 2048;
-              v30 = isCloudConnected;
+              v25 = isConnected;
+              v26 = 2048;
+              v27 = isNearby;
+              v28 = 2048;
+              v29 = isCloudConnected;
               _os_log_impl(&dword_25B19F000, v13, OS_LOG_TYPE_DEFAULT, "#Connectivity IDS connectivity state. Connected: %lu, Nearby: %lu, Cloud Connected: %lu", buf, 0x20u);
             }
           }
@@ -276,7 +343,7 @@
         }
       }
 
-      v4 = [devices countByEnumeratingWithState:&v21 objects:v31 count:16];
+      v4 = [devices countByEnumeratingWithState:&v20 objects:v30 count:16];
       if (v4)
       {
         continue;
@@ -289,7 +356,6 @@
   v8 = 0;
 LABEL_22:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

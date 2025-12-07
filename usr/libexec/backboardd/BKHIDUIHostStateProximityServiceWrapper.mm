@@ -32,52 +32,51 @@
   modeCopy = mode;
   v5 = sub_100008AE4(modeCopy, 0);
   senderID = [(BKIOHIDService *)self->_proximityService senderID];
-  previousHostStateDictionary = self->_previousHostStateDictionary;
   if (BSEqualObjects())
   {
-    v8 = BKLogUISensor();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v7 = BKLogUISensor();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 134217984;
-      v20 = senderID;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "  ignoring redundant mode change for proximity service %llX", &v19, 0xCu);
+      v18 = 134217984;
+      v19 = senderID;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "  ignoring redundant mode change for proximity service %llX", &v18, 0xCu);
     }
   }
 
   else
   {
-    v9 = [v5 copy];
-    v10 = self->_previousHostStateDictionary;
-    self->_previousHostStateDictionary = v9;
+    v8 = [v5 copy];
+    previousHostStateDictionary = self->_previousHostStateDictionary;
+    self->_previousHostStateDictionary = v8;
 
     if ([modeCopy postEventWithCurrentDetectionMask])
     {
-      v11 = sub_100008AE4(modeCopy, 1);
-      v12 = BKLogUISensor();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v10 = sub_100008AE4(modeCopy, 1);
+      v11 = BKLogUISensor();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = 138543874;
-        v20 = v11;
-        v21 = 2048;
-        v22 = senderID;
-        v23 = 2114;
-        v24 = modeCopy;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "  send %{public}@ to proximity service %llX for mode %{public}@", &v19, 0x20u);
+        v18 = 138543874;
+        v19 = v10;
+        v20 = 2048;
+        v21 = senderID;
+        v22 = 2114;
+        v23 = modeCopy;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "  send %{public}@ to proximity service %llX for mode %{public}@", &v18, 0x20u);
       }
 
-      [(BKIOHIDService *)self->_proximityService asyncSetProperty:v11 forKey:@"HostStateNotification" andDelayForSeconds:0.06];
+      [(BKIOHIDService *)self->_proximityService asyncSetProperty:v10 forKey:@"HostStateNotification" andDelayForSeconds:0.06];
     }
 
-    v13 = BKLogUISensor();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v12 = BKLogUISensor();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 138543874;
-      v20 = v5;
-      v21 = 2048;
-      v22 = senderID;
-      v23 = 2114;
-      v24 = modeCopy;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "  send %{public}@ to proximity service %llX for mode %{public}@", &v19, 0x20u);
+      v18 = 138543874;
+      v19 = v5;
+      v20 = 2048;
+      v21 = senderID;
+      v22 = 2114;
+      v23 = modeCopy;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "  send %{public}@ to proximity service %llX for mode %{public}@", &v18, 0x20u);
     }
 
     [(BKIOHIDService *)self->_proximityService asyncSetProperty:v5 forKey:@"HostStateNotification"];
@@ -88,12 +87,12 @@
   pocketTouchesExpected2 = [(BKSHIDUISensorMode *)self->_prevailingMode pocketTouchesExpected];
   if (digitizerEnabled && pocketTouchesExpected2 && (pocketTouchesExpected & 1) == 0)
   {
-    v17 = BKLogUISensor();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v16 = BKLogUISensor();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 134217984;
-      v20 = senderID;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "  send ScreenUnlocked to proximity service %llX", &v19, 0xCu);
+      v18 = 134217984;
+      v19 = senderID;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "  send ScreenUnlocked to proximity service %llX", &v18, 0xCu);
     }
 
     [(BKIOHIDService *)self->_proximityService asyncSetProperty:&__kCFBooleanTrue forKey:@"ScreenUnlocked"];

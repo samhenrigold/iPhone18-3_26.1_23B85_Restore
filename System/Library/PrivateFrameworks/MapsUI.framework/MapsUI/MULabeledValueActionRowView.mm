@@ -174,7 +174,7 @@
 
 - (void)_setupSubviews
 {
-  v36[1] = *MEMORY[0x1E69E9840];
+  v35[1] = *MEMORY[0x1E69E9840];
   v3 = [MUInfoCardStyle vibrantLabelForProminence:1];
   [v3 setTranslatesAutoresizingMaskIntoConstraints:0];
   v4 = [MEMORY[0x1E69DB878] _preferredFontForTextStyle:*MEMORY[0x1E69DDCF8] weight:*MEMORY[0x1E69DB970]];
@@ -255,8 +255,8 @@
   valueStackLayout = self->_valueStackLayout;
   self->_valueStackLayout = v22;
 
-  v36[0] = self->_valueLabel;
-  v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:1];
+  v35[0] = self->_valueLabel;
+  v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:1];
   [(MUCompositionalStackLayoutGroup *)self->_valueStackLayout setArrangedLayoutItems:v24];
 
   v25 = [[MUCompositionalStackLayoutGroup alloc] initWithAxis:0];
@@ -264,9 +264,9 @@
   self->_overallStackLayoutGroup = v25;
 
   v27 = self->_valueStackLayout;
-  v35[0] = self->_titleLabel;
-  v35[1] = v27;
-  v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:2];
+  v34[0] = self->_titleLabel;
+  v34[1] = v27;
+  v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:2];
   [(MUCompositionalStackLayoutGroup *)self->_overallStackLayoutGroup setArrangedLayoutItems:v28];
 
   [(MUCompositionalStackLayoutGroup *)self->_overallStackLayoutGroup setSpacing:8.0];
@@ -279,11 +279,9 @@
   self->_overallStackLayout = v29;
 
   v31 = MEMORY[0x1E696ACD8];
-  v34 = self->_overallStackLayout;
-  v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v34 count:1];
+  v33 = self->_overallStackLayout;
+  v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v33 count:1];
   [v31 _mapsui_activateLayouts:v32 constraints:MEMORY[0x1E695E0F0]];
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 - (id)initForDeveloperPlaceCard

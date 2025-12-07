@@ -10,7 +10,7 @@
   if ([className isEqualToString:SACommandFailedClassIdentifier])
   {
     properties = [(SAGenericCommand *)self properties];
-    v5 = [properties objectForKey:SACommandFailedErrorCodePListKey];
+    v5 = objc_msgSend_objectForKey_(properties);
     integerValue = [v5 integerValue];
 
     if (integerValue)
@@ -36,7 +36,7 @@ LABEL_6:
   if ([className isEqualToString:SAPhoneSearchCompletedClassIdentifier])
   {
     properties2 = [(SAGenericCommand *)self properties];
-    v9 = [properties2 objectForKey:SAPhoneSearchCompletedPhoneSearchResultsPListKey];
+    v9 = objc_msgSend_objectForKey_(properties2);
 
     v10 = [v9 count];
     v11 = &SAPhonePhoneSearchHasResultsErrorCode;
@@ -56,7 +56,7 @@ LABEL_6:
     }
 
     properties3 = [(SAGenericCommand *)self properties];
-    v13 = [properties3 objectForKey:SACFAbstractClientCommandCompletedStatusPListKey];
+    v13 = objc_msgSend_objectForKey_(properties3);
     integerValue2 = [v13 integerValue];
 
     if (integerValue2 == SACFSuccessErrorCode)

@@ -1,207 +1,3 @@
-void xpc_create_from_plist_descriptor(dispatch_fd_t a1, dispatch_queue_t queue, uint64_t a3)
-{
-  handler[0] = MEMORY[0x1E69E9820];
-  handler[1] = 0x40000000;
-  handler[2] = __xpc_create_from_plist_descriptor_block_invoke;
-  handler[3] = &unk_1E74AB608;
-  handler[4] = a3;
-  dispatch_read(a1, 0xFFFFFFFFFFFFFFFFLL, queue, handler);
-}
-
-void __xpc_create_from_plist_descriptor_block_invoke(uint64_t a1, dispatch_data_t data, int a3)
-{
-  if (a3 || (v7 = 0, buffer_ptr = 0, (v5 = dispatch_data_create_map(data, &buffer_ptr, &v7)) == 0))
-  {
-    v4 = 0;
-  }
-
-  else
-  {
-    v6 = v5;
-    v4 = xpc_create_from_plist_with_string_cache(buffer_ptr, v7, 0, 0);
-    dispatch_release(v6);
-  }
-
-  (*(*(a1 + 32) + 16))();
-  if (v4)
-  {
-    xpc_release(v4);
-  }
-}
-
-uint64_t _xpc_plist_swap_int(unint64_t *a1, unsigned int *a2, uint64_t a3, unint64_t *a4)
-{
-  if (!a3)
-  {
-    v5 = 0;
-    goto LABEL_10;
-  }
-
-  v4 = a2 + a3 - 1;
-  if (v4 < *a1 || v4 >= *a1 + a1[1])
-  {
-    return 0;
-  }
-
-  if (a3 > 3)
-  {
-    if (a3 == 4)
-    {
-      v5 = bswap32(*a2);
-      goto LABEL_10;
-    }
-
-    if (a3 == 8)
-    {
-      v5 = bswap64(*a2);
-      goto LABEL_10;
-    }
-
-LABEL_14:
-    v5 = 0;
-    do
-    {
-      v7 = *a2;
-      a2 = (a2 + 1);
-      v5 = v7 | (v5 << 8);
-      --a3;
-    }
-
-    while (a3);
-    goto LABEL_10;
-  }
-
-  if (a3 == 1)
-  {
-    v5 = *a2;
-    goto LABEL_10;
-  }
-
-  if (a3 != 2)
-  {
-    goto LABEL_14;
-  }
-
-  v5 = bswap32(*a2) >> 16;
-LABEL_10:
-  *a4 = v5;
-  return 1;
-}
-
-void _xpc_plist_unwind_stack(uint64_t a1)
-{
-  for (i = *(a1 + 48); i; *(a1 + 48) = i)
-  {
-    v3 = i;
-    i = *(i + 40);
-    if (v3[4])
-    {
-      xpc_release(v3[4]);
-      v3 = *(a1 + 48);
-    }
-
-    free(v3);
-  }
-}
-
-uint64_t _xpc_plist_parse_date(unint64_t *a1, uint64_t a2)
-{
-  v2 = *a1;
-  v3 = *a1 + a2;
-  v4 = (v3 + 1);
-  if (v3 + 1 < *a1)
-  {
-    return 0;
-  }
-
-  v6 = v2 + a1[1];
-  if (v4 >= v6)
-  {
-    return 0;
-  }
-
-  v7 = v3 + 9;
-  if (v7 < v2 || v7 >= v6)
-  {
-    return 0;
-  }
-
-  *(a1[6] + 32) = xpc_date_create_absolute(COERCE_DOUBLE(bswap64(*v4)));
-  return 1;
-}
-
-uint64_t _xpc_plist_collapse_stack(uint64_t a1)
-{
-  v2 = *(a1 + 48);
-  v3 = *(v2 + 40);
-  if (v3)
-  {
-    if ((*(v2 + 48) & 8) != 0)
-    {
-      return 1;
-    }
-
-    if ((*(v3 + 48) & 8) != 0)
-    {
-      if (*(v2 + 32))
-      {
-        result = *(v3 + 32);
-        if (!result)
-        {
-          return result;
-        }
-
-        v5 = *(v3 + 40);
-        if (v5)
-        {
-          if ((*(v5 + 48) & 2) != 0 && xpc_get_type(result) == OS_xpc_string)
-          {
-            v6 = *(v5 + 32);
-            string_ptr = xpc_string_get_string_ptr(*(v3 + 32));
-            xpc_dictionary_set_value_with_key_string_cache(v6, string_ptr, *(*(a1 + 48) + 32), *(a1 + 56));
-            xpc_release(*(v3 + 32));
-            xpc_release(*(*(a1 + 48) + 32));
-            free(*(a1 + 48));
-            free(v3);
-LABEL_17:
-            *(a1 + 48) = v5;
-            return 1;
-          }
-        }
-      }
-    }
-
-    else if ((*(v3 + 48) & 4) != 0)
-    {
-      v8 = *(v2 + 32);
-      if (v8)
-      {
-        result = *(v3 + 32);
-        if (!result)
-        {
-          return result;
-        }
-
-        xpc_array_append_value(result, v8);
-        xpc_release(*(*(a1 + 48) + 32));
-        v2 = *(a1 + 48);
-        goto LABEL_16;
-      }
-    }
-
-    else if (*(v3 + 48))
-    {
-      *(v3 + 32) = *(v2 + 32);
-LABEL_16:
-      free(v2);
-      v5 = v3;
-      goto LABEL_17;
-    }
-  }
-
-  return 0;
-}
-
 unint64_t _xpc_plist_offset_of_object(uint64_t a1, unsigned int *a2)
 {
   v4 = *a1;
@@ -1283,7 +1079,7 @@ LABEL_43:
   return 0;
 }
 
-uint64_t _xpc_xml_create_string_no_copy_with_string_cache(char *a1, void *a2)
+void *_xpc_xml_create_string_no_copy_with_string_cache(char *a1, void *a2)
 {
   if (a2)
   {
@@ -1587,7 +1383,7 @@ LABEL_64:
 
 uint64_t _xpc_mach_recv_desc(unsigned int *a1, uint64_t a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v4 = a1[6];
   if (v4 == -1)
   {
@@ -1625,14 +1421,14 @@ uint64_t _xpc_mach_recv_desc(unsigned int *a1, uint64_t a2)
     v7 = a1[6];
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
-  v14 = 0u;
+  v18 = 0u;
   v15 = 0u;
-  *__str = 0u;
+  v16 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  *__str = 0u;
+  v12 = 0u;
   v8 = snprintf(__str, 0x80uLL, "<%s: %p> { name = 0x%x, right = %s }", "mach receive right", a1, v7, v6);
   if (v8 >= 0x7F)
   {
@@ -1644,9 +1440,7 @@ uint64_t _xpc_mach_recv_desc(unsigned int *a1, uint64_t a2)
     v9 = v8;
   }
 
-  result = _xpc_serializer_append(a2, __str, (v9 + 1), 0);
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  return _xpc_serializer_append(a2, __str, (v9 + 1), 0);
 }
 
 uint64_t _xpc_mach_recv_serialize(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, unsigned int a5)
@@ -1654,7 +1448,7 @@ uint64_t _xpc_mach_recv_serialize(uint64_t a1, void *a2, uint64_t a3, uint64_t a
   __swp(a5, (a1 + 24));
   if (a5 == -1)
   {
-    v6 = _xpc_asprintf("Multiple attempts to serialize a receive right.");
+    v6 = _xpc_asprintf("Multiple attempts to serialize a receive right.", a2, a3, a4);
     _xpc_api_misuse(v6);
   }
 
@@ -1728,24 +1522,24 @@ __objc2_class *xpc_mach_recv_extract_right(unsigned int *a1)
 
 uint64_t _xpc_bundle_desc(uint64_t a1, uint64_t a2)
 {
-  v94 = *MEMORY[0x1E69E9840];
+  v93 = *MEMORY[0x1E69E9840];
   _xpc_bundle_resolve(a1);
-  v91 = 0u;
-  v92 = 0u;
-  v89 = 0u;
   v90 = 0u;
-  v87 = 0u;
+  v91 = 0u;
   v88 = 0u;
-  v85 = 0u;
+  v89 = 0u;
   v86 = 0u;
-  v83 = 0u;
+  v87 = 0u;
   v84 = 0u;
-  v81 = 0u;
+  v85 = 0u;
   v82 = 0u;
-  v79 = 0u;
+  v83 = 0u;
   v80 = 0u;
-  *__str = 0u;
+  v81 = 0u;
   v78 = 0u;
+  v79 = 0u;
+  *__str = 0u;
+  v77 = 0u;
   v4 = snprintf(__str, 0x100uLL, "<%s: %p> {\n", "bundle", a1);
   if (v4 >= 0xFF)
   {
@@ -2040,7 +1834,7 @@ uint64_t _xpc_bundle_desc(uint64_t a1, uint64_t a2)
     v61 = *(a1 + 248);
     if (!v61)
     {
-      _xpc_get_extension_vtable_cold_1(&v76, v93);
+      _xpc_get_extension_vtable_cold_1(v75, v92);
     }
 
     if ((v61 & 0x8000000000000000) == 0)
@@ -2105,17 +1899,15 @@ LABEL_98:
     }
 
 LABEL_103:
-    v75 = _xpc_asprintf("Object is not an XPC object");
-    _xpc_api_misuse(v75);
+    v74 = _xpc_asprintf("Object is not an XPC object");
+    _xpc_api_misuse(v74);
   }
 
 LABEL_99:
   v71 = _xpc_serializer_unpad(a2);
   v72 = _xpc_object_pad(__str, 0x100uLL, v71);
   _xpc_serializer_append(a2, __str, v72, 0);
-  result = _xpc_serializer_append(a2, "}", 2uLL, 0);
-  v74 = *MEMORY[0x1E69E9840];
-  return result;
+  return _xpc_serializer_append(a2, "}", 2uLL, 0);
 }
 
 void _xpc_bundle_dispose(uint64_t a1)
@@ -2250,13 +2042,12 @@ uint64_t xpc_bundle_create_from_origin_with_string_cache(int a1, const char *a2,
 
 uint64_t xpc_bundle_create_main()
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   bzero(buf, 0x400uLL);
   bufsize = 1024;
   _NSGetExecutablePath(buf, &bufsize);
   result = xpc_bundle_create_from_origin_with_string_cache(1, buf, 0, 0);
   *(result + 312) |= 1u;
-  v1 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -2271,7 +2062,7 @@ void xpc_bundle_resolve_on_queue(uint64_t a1, NSObject *a2, dispatch_object_t ob
 {
   if ((*(a1 + 312) & 8) != 0)
   {
-    v9 = _xpc_asprintf("Attempt to resolve populated bundle.", a2, object);
+    v9 = _xpc_asprintf("Attempt to resolve populated bundle.", a2, object, a4, a5);
     _xpc_api_misuse(v9);
   }
 
@@ -2304,13 +2095,13 @@ void xpc_bundle_populate(uint64_t a1, xpc_object_t object, void *a3)
 {
   if (*(a1 + 40) == 2)
   {
-    v7 = _xpc_asprintf("Attempt to populate an unknown bundle type.", object);
+    v7 = _xpc_asprintf("Attempt to populate an unknown bundle type.", object, a3);
     goto LABEL_14;
   }
 
   if (*(a1 + 256))
   {
-    v7 = _xpc_asprintf("Attempt to populate a non-inert bundle.", object);
+    v7 = _xpc_asprintf("Attempt to populate a non-inert bundle.", object, a3);
 LABEL_14:
     _xpc_api_misuse(v7);
   }
@@ -2457,20 +2248,18 @@ void *xpc_bundle_copy_services(uint64_t a1)
 
 void xpc_bundle_resolve_sync(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   if ((*(a1 + 312) & 1) == 0)
   {
-    xpc_bundle_resolve_sync_cold_1(*(a1 + 312), &v2, v3);
+    xpc_bundle_resolve_sync_cold_1(*(a1 + 312), &v1, v2);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 
   _xpc_bundle_resolve(a1);
 }
 
 void ___xpc_bundle_resolve_block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if ((*(v2 + 312) & 8) != 0)
   {
@@ -2505,30 +2294,30 @@ LABEL_15:
         if (!**(v2 + 64))
         {
           *(v2 + 304) = "invalid populated entry";
-          v18 = 0;
-          v19 = 0;
-          v16 = 0;
           v17 = 0;
+          v18 = 0;
+          v15 = 0;
+          v16 = 0;
           if ((_dyld_get_image_uuid() & 1) == 0)
           {
+            v17 = 0;
             v18 = 0;
-            v19 = 0;
           }
 
           if (_dyld_get_shared_cache_uuid())
           {
             block[5] = 0;
-            _dyld_get_shared_cache_range();
+            shared_cache_range = _dyld_get_shared_cache_range();
           }
 
           else
           {
+            shared_cache_range = 0;
+            v15 = 0;
             v16 = 0;
-            v17 = 0;
           }
 
-          v14 = *(v2 + 48);
-          _os_log_simple();
+          _os_log_simple(&dword_197263000, &v17, &v15, shared_cache_range, 0, "com.apple.xpc.bundle", "bundle %s tainted with reason %s", *(v2 + 48), "invalid populated entry");
         }
 
         _xpc_bundle_resolve_executable(v2);
@@ -2554,27 +2343,25 @@ LABEL_15:
   }
 
   v3 = *(a1 + 32);
-  if (*(v2 + 312))
+  if ((*(v2 + 312) & 1) == 0)
   {
-    v4 = _xpc_bundle_resolve_sync(v3);
-    v5 = *(a1 + 32);
-    *(v5 + 36) = v4;
-LABEL_26:
-    *(v5 + 312) |= 4u;
-    goto LABEL_27;
+    xpc_retain(v3);
+    v9 = *(a1 + 32);
+    v10 = *(v9 + 256);
+    block[0] = MEMORY[0x1E69E9820];
+    block[1] = 0x40000000;
+    block[2] = ___xpc_bundle_resolve_block_invoke_2;
+    block[3] = &__block_descriptor_tmp_15;
+    block[4] = v9;
+    dispatch_async(v10, block);
+    return;
   }
 
-  xpc_retain(v3);
-  v9 = *(a1 + 32);
-  v10 = *(v9 + 256);
-  block[0] = MEMORY[0x1E69E9820];
-  block[1] = 0x40000000;
-  block[2] = ___xpc_bundle_resolve_block_invoke_2;
-  block[3] = &__block_descriptor_tmp_15;
-  block[4] = v9;
-  dispatch_async(v10, block);
-LABEL_27:
-  v13 = *MEMORY[0x1E69E9840];
+  v4 = _xpc_bundle_resolve_sync(v3);
+  v5 = *(a1 + 32);
+  *(v5 + 36) = v4;
+LABEL_26:
+  *(v5 + 312) |= 4u;
 }
 
 uint64_t _xpc_bundle_resolve_sync(uint64_t a1)
@@ -2591,23 +2378,24 @@ uint64_t _xpc_bundle_resolve_sync(uint64_t a1)
   v4 = *__error();
   if (*(a1 + 40) != 1)
   {
-LABEL_13:
+LABEL_14:
     if (!*v3)
     {
-      goto LABEL_15;
+      goto LABEL_16;
     }
 
-    goto LABEL_14;
+    goto LABEL_15;
   }
 
-  v5 = *(a1 + 48);
-  v6 = _dyld_shared_cache_real_path();
-  if (!v6)
+  v5 = _dyld_shared_cache_real_path();
+  if (!v5)
   {
     *v3 = 0;
 LABEL_8:
     *&v23.st_dev = 0;
     v23.st_ino = 0;
+    v21 = 0;
+    v22 = 0;
     if ((_dyld_get_image_uuid() & 1) == 0)
     {
       *&v23.st_dev = 0;
@@ -2616,29 +2404,35 @@ LABEL_8:
 
     if (_dyld_get_shared_cache_uuid())
     {
-      _dyld_get_shared_cache_range();
+      shared_cache_range = _dyld_get_shared_cache_range();
     }
 
-    v22 = *(a1 + 48);
-    _os_log_simple();
-    goto LABEL_13;
+    else
+    {
+      shared_cache_range = 0;
+      v21 = 0;
+      v22 = 0;
+    }
+
+    _os_log_simple(&dword_197263000, &v23, &v21, shared_cache_range, 0, "com.apple.xpc.bundle", "bundle %s missing from disk and dyld shared cache, error=%d", *(a1 + 48), v4);
+    goto LABEL_14;
   }
 
-  v7 = _xpc_strdup(v6);
-  *v3 = v7;
-  if (!v7)
+  v6 = _xpc_strdup(v5);
+  *v3 = v6;
+  if (!v6)
   {
     goto LABEL_8;
   }
 
 LABEL_2:
   v4 = 0;
-LABEL_14:
-  _xpc_bundle_normalize_cryptex_path((a1 + 56));
 LABEL_15:
+  _xpc_bundle_normalize_cryptex_path((a1 + 56));
+LABEL_16:
   if (v4)
   {
-    goto LABEL_38;
+    return v4;
   }
 
   if ((*(a1 + 312) & 0x10) != 0)
@@ -2661,8 +2455,7 @@ LABEL_15:
 
     if (v9 == 3)
     {
-      v4 = 128;
-      goto LABEL_38;
+      return 128;
     }
   }
 
@@ -2675,8 +2468,7 @@ LABEL_15:
   v10 = _xpc_bundle_resolve_root(a1);
   if (v10)
   {
-    v4 = v10;
-    goto LABEL_38;
+    return v10;
   }
 
   memset(&v23, 0, sizeof(v23));
@@ -2693,37 +2485,37 @@ LABEL_15:
     free(subpath);
     v16 = 0;
     v15 = 0;
-    goto LABEL_35;
+    goto LABEL_36;
   }
 
   v13 = v12;
   if (fstat(v12, &v23))
   {
-LABEL_28:
+LABEL_29:
     v14 = __error();
     v15 = 0;
     v16 = 0;
-LABEL_29:
+LABEL_30:
     v4 = *v14;
-    goto LABEL_30;
+    goto LABEL_31;
   }
 
-  v19 = _xpc_realpath_fd(v13);
-  if (!v19)
+  v18 = _xpc_realpath_fd(v13);
+  if (!v18)
   {
     if (*__error() == 2)
     {
       v15 = 0;
       v16 = 0;
       v4 = 128;
-      goto LABEL_30;
+      goto LABEL_31;
     }
 
-    goto LABEL_28;
+    goto LABEL_29;
   }
 
-  v16 = v19;
-  if (!_xpc_has_prefix(v19, *(a1 + 64)))
+  v16 = v18;
+  if (!_xpc_has_prefix(v18, *(a1 + 64)))
   {
     *(a1 + 304) = "linked info.plist";
   }
@@ -2731,30 +2523,30 @@ LABEL_29:
   v15 = malloc_type_malloc(v23.st_size, 0x100004077774924uLL);
   if (!v15)
   {
-    goto LABEL_50;
+    goto LABEL_51;
   }
 
-  v20 = read(v13, v15, v23.st_size);
-  if (v20 == -1)
+  v19 = read(v13, v15, v23.st_size);
+  if (v19 == -1)
   {
     _xpc_fd_desc_cold_1();
   }
 
-  if (v20 != v23.st_size)
+  if (v19 != v23.st_size)
   {
-LABEL_50:
+LABEL_51:
     v14 = __error();
-    goto LABEL_29;
+    goto LABEL_30;
   }
 
-  v21 = xpc_create_from_plist_with_string_cache(v15, v20, *(a1 + 288), *(a1 + 296));
-  *(a1 + 240) = v21;
-  if (v21)
+  v20 = xpc_create_from_plist_with_string_cache(v15, v19, *(a1 + 288), *(a1 + 296));
+  *(a1 + 240) = v20;
+  if (v20)
   {
-    if (xpc_get_type(v21) == OS_xpc_dictionary)
+    if (xpc_get_type(v20) == OS_xpc_dictionary)
     {
       v4 = 0;
-      goto LABEL_30;
+      goto LABEL_31;
     }
 
     xpc_release(*(a1 + 240));
@@ -2762,10 +2554,10 @@ LABEL_50:
   }
 
   v4 = 109;
-LABEL_30:
+LABEL_31:
   free(subpath);
   _xpc_strict_close(v13);
-LABEL_35:
+LABEL_36:
   free(v16);
   free(v15);
   if (!v4)
@@ -2778,8 +2570,6 @@ LABEL_35:
     }
   }
 
-LABEL_38:
-  v17 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -2803,7 +2593,7 @@ void ___xpc_bundle_resolve_block_invoke_2(uint64_t a1)
 
 uint64_t _xpc_bundle_resolve_executable(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if ((*(a1 + 312) & 8) == 0)
   {
     v2 = _xpc_bundle_resolve_executable_name(*(a1 + 64), *(a1 + 240));
@@ -2815,15 +2605,30 @@ uint64_t _xpc_bundle_resolve_executable(uint64_t a1)
       if (v4 != 2)
       {
         *(a1 + 304) = "failed to resolve executable";
-        _dyld_get_image_uuid();
-        if (_dyld_get_shared_cache_uuid())
+        v14 = 0;
+        v15 = 0;
+        v12 = 0;
+        v13 = 0;
+        if ((_dyld_get_image_uuid() & 1) == 0)
         {
-          _dyld_get_shared_cache_range();
+          v14 = 0;
+          v15 = 0;
         }
 
-        v10 = *(a1 + 48);
-        _os_log_simple();
-        goto LABEL_19;
+        if (_dyld_get_shared_cache_uuid())
+        {
+          shared_cache_range = _dyld_get_shared_cache_range();
+        }
+
+        else
+        {
+          shared_cache_range = 0;
+          v12 = 0;
+          v13 = 0;
+        }
+
+        _os_log_simple(&dword_197263000, &v14, &v12, shared_cache_range, 0, "com.apple.xpc.bundle", "bundle %s tainted with reason %s", *(a1 + 48), "failed to resolve executable");
+        goto LABEL_28;
       }
 
       v6 = _dyld_shared_cache_real_path();
@@ -2831,16 +2636,31 @@ uint64_t _xpc_bundle_resolve_executable(uint64_t a1)
       {
         *(a1 + 232) = _xpc_strdup(subpath);
         *(a1 + 304) = "missing executable";
-        _dyld_get_image_uuid();
-        if (_dyld_get_shared_cache_uuid())
+        v14 = 0;
+        v15 = 0;
+        v12 = 0;
+        v13 = 0;
+        if ((_dyld_get_image_uuid() & 1) == 0)
         {
-          _dyld_get_shared_cache_range();
+          v14 = 0;
+          v15 = 0;
         }
 
-        v11 = *(a1 + 48);
-        _os_log_simple();
+        if (_dyld_get_shared_cache_uuid())
+        {
+          v10 = _dyld_get_shared_cache_range();
+        }
+
+        else
+        {
+          v10 = 0;
+          v12 = 0;
+          v13 = 0;
+        }
+
+        _os_log_simple(&dword_197263000, &v14, &v12, v10, 0, "com.apple.xpc.bundle", "bundle %s tainted with reason %s", *(a1 + 48), "missing executable");
         v5 = 2;
-        goto LABEL_19;
+        goto LABEL_28;
       }
 
       *(a1 + 232) = v7;
@@ -2849,33 +2669,45 @@ uint64_t _xpc_bundle_resolve_executable(uint64_t a1)
     else if (!_xpc_has_prefix(*(a1 + 232), *(a1 + 64)))
     {
       *(a1 + 304) = "linked executable";
-      _dyld_get_image_uuid();
-      if (_dyld_get_shared_cache_uuid())
+      v14 = 0;
+      v15 = 0;
+      v12 = 0;
+      v13 = 0;
+      if ((_dyld_get_image_uuid() & 1) == 0)
       {
-        _dyld_get_shared_cache_range();
+        v14 = 0;
+        v15 = 0;
       }
 
-      v12 = *(a1 + 48);
-      _os_log_simple();
+      if (_dyld_get_shared_cache_uuid())
+      {
+        v8 = _dyld_get_shared_cache_range();
+      }
+
+      else
+      {
+        v8 = 0;
+        v12 = 0;
+        v13 = 0;
+      }
+
+      _os_log_simple(&dword_197263000, &v14, &v12, v8, 0, "com.apple.xpc.bundle", "bundle %s tainted with reason %s", *(a1 + 48), "linked executable");
     }
 
     _xpc_bundle_normalize_cryptex_path((a1 + 232));
     v5 = 0;
-LABEL_19:
+LABEL_28:
     free(v2);
     free(subpath);
-    goto LABEL_20;
+    return v5;
   }
 
   *(a1 + 232) = _xpc_strdup(*(a1 + 48));
   _xpc_bundle_normalize_cryptex_path((a1 + 232));
-  v5 = 0;
-LABEL_20:
-  v8 = *MEMORY[0x1E69E9840];
-  return v5;
+  return 0;
 }
 
-void _xpc_bundle_normalize_cryptex_path(const char **a1)
+void _xpc_bundle_normalize_cryptex_path(char **a1)
 {
   v2 = *a1;
   v3 = _normalize_cryptex_path(*a1);
@@ -2935,11 +2767,11 @@ LABEL_10:
 
 uint64_t _xpc_bundle_resolve_root(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 56);
   if (*v1 != 47 || !*(v1 + 1))
   {
-    goto LABEL_23;
+    return 22;
   }
 
   v3 = *(a1 + 40);
@@ -2951,29 +2783,29 @@ uint64_t _xpc_bundle_resolve_root(uint64_t a1)
       if (v4)
       {
         *(a1 + 304) = "missing root";
-        *&v13.st_dev = 0;
-        v13.st_ino = 0;
+        *&v12.st_dev = 0;
+        v12.st_ino = 0;
+        v13 = 0;
         v14 = 0;
-        v15 = 0;
         if ((_dyld_get_image_uuid() & 1) == 0)
         {
-          *&v13.st_dev = 0;
-          v13.st_ino = 0;
+          *&v12.st_dev = 0;
+          v12.st_ino = 0;
         }
 
         if (_dyld_get_shared_cache_uuid())
         {
-          _dyld_get_shared_cache_range();
+          shared_cache_range = _dyld_get_shared_cache_range();
         }
 
         else
         {
+          shared_cache_range = 0;
+          v13 = 0;
           v14 = 0;
-          v15 = 0;
         }
 
-        v11 = *(a1 + 48);
-        _os_log_simple();
+        _os_log_simple(&dword_197263000, &v12, &v13, shared_cache_range, 0, "com.apple.xpc.bundle", "bundle %s tainted with reason %s", *(a1 + 48), "missing root");
       }
 
       else
@@ -2981,69 +2813,65 @@ uint64_t _xpc_bundle_resolve_root(uint64_t a1)
         _xpc_bundle_normalize_cryptex_path((a1 + 64));
       }
 
-      goto LABEL_24;
+      return v4;
     }
 
-    memset(&v13, 0, sizeof(v13));
-    if (stat(*(a1 + 48), &v13))
+    memset(&v12, 0, sizeof(v12));
+    if (stat(*(a1 + 48), &v12))
     {
-      v4 = *__error();
-      goto LABEL_24;
+      return *__error();
     }
 
     *(a1 + 312) |= 2u;
-    v7 = v13.st_mode & 0xF000;
-    if (v7 == 0x8000)
+    v9 = v12.st_mode & 0xF000;
+    if (v9 == 0x8000)
     {
-      v8 = 1;
+      v10 = 1;
       goto LABEL_32;
     }
 
-    if (v7 == 0x4000)
+    if (v9 == 0x4000)
     {
-      v8 = 0;
+      v10 = 0;
 LABEL_32:
-      *(a1 + 40) = v8;
-      v4 = _xpc_bundle_resolve_root(a1);
-      goto LABEL_24;
+      *(a1 + 40) = v10;
+      return _xpc_bundle_resolve_root(a1);
     }
 
-LABEL_23:
-    v4 = 22;
-    goto LABEL_24;
+    return 22;
   }
 
-  v5 = _xpc_bundle_copy_container(*(a1 + 32), v1);
-  v6 = v5;
-  if (*v5)
+  v6 = _xpc_bundle_copy_container(*(a1 + 32), v1);
+  v7 = v6;
+  if (*v6)
   {
-    v4 = _resolve_and_stat_path(v5, (a1 + 64), (a1 + 80), (a1 + 224));
+    v4 = _resolve_and_stat_path(v6, (a1 + 64), (a1 + 80), (a1 + 224));
     if (v4)
     {
       *(a1 + 304) = "missing root";
-      *&v13.st_dev = 0;
-      v13.st_ino = 0;
+      *&v12.st_dev = 0;
+      v12.st_ino = 0;
+      v13 = 0;
       v14 = 0;
-      v15 = 0;
       if ((_dyld_get_image_uuid() & 1) == 0)
       {
-        *&v13.st_dev = 0;
-        v13.st_ino = 0;
+        *&v12.st_dev = 0;
+        v12.st_ino = 0;
       }
 
       if (_dyld_get_shared_cache_uuid())
       {
-        _dyld_get_shared_cache_range();
+        v8 = _dyld_get_shared_cache_range();
       }
 
       else
       {
+        v8 = 0;
+        v13 = 0;
         v14 = 0;
-        v15 = 0;
       }
 
-      v12 = *(a1 + 48);
-      _os_log_simple();
+      _os_log_simple(&dword_197263000, &v12, &v13, v8, 0, "com.apple.xpc.bundle", "bundle %s tainted with reason %s", *(a1 + 48), "missing root");
     }
 
     else
@@ -3057,15 +2885,13 @@ LABEL_23:
     v4 = 128;
   }
 
-  free(v6);
-LABEL_24:
-  v9 = *MEMORY[0x1E69E9840];
+  free(v7);
   return v4;
 }
 
 void _xpc_bundle_resolve_services(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   *(a1 + 248) = xpc_array_create(0, 0);
   subpath = _xpc_bundle_variant_create_subpath(*(a1 + 64), *(a1 + 32), 2, 0);
   v3 = opendir(subpath);
@@ -3088,38 +2914,53 @@ void _xpc_bundle_resolve_services(uint64_t a1)
             if (!_xpc_has_prefix(v8, *(a1 + 64)))
             {
               *(a1 + 304) = "linked xpc services";
-              _dyld_get_image_uuid();
-              if (_dyld_get_shared_cache_uuid())
+              v16 = 0;
+              v17 = 0;
+              v14 = 0;
+              v15 = 0;
+              if ((_dyld_get_image_uuid() & 1) == 0)
               {
-                _dyld_get_shared_cache_range();
+                v16 = 0;
+                v17 = 0;
               }
 
-              v15 = *(a1 + 48);
-              _os_log_simple();
+              if (_dyld_get_shared_cache_uuid())
+              {
+                shared_cache_range = _dyld_get_shared_cache_range();
+              }
+
+              else
+              {
+                shared_cache_range = 0;
+                v14 = 0;
+                v15 = 0;
+              }
+
+              _os_log_simple(&dword_197263000, &v16, &v14, shared_cache_range, 0, "com.apple.xpc.bundle", "bundle %s tainted with reason %s", *(a1 + 48), "linked xpc services");
             }
 
-            v9 = xpc_bundle_create_from_origin_with_string_cache(0, v8, 0, 0);
-            if (v9)
+            v10 = xpc_bundle_create_from_origin_with_string_cache(0, v8, 0, 0);
+            if (v10)
             {
-              v10 = v9;
-              *(v9 + 312) = *(v9 + 312) & 0xFE | *(a1 + 312) & 1;
-              v12 = *(a1 + 256);
-              v11 = *(a1 + 264);
-              v10[32] = v12;
-              v10[33] = v11;
+              v11 = v10;
+              *(v10 + 312) = *(v10 + 312) & 0xFE | *(a1 + 312) & 1;
+              v13 = *(a1 + 256);
+              v12 = *(a1 + 264);
+              v11[32] = v13;
+              v11[33] = v12;
+              if (v13)
+              {
+                dispatch_retain(v13);
+                v12 = v11[33];
+              }
+
               if (v12)
               {
                 dispatch_retain(v12);
-                v11 = v10[33];
               }
 
-              if (v11)
-              {
-                dispatch_retain(v11);
-              }
-
-              xpc_array_append_value(*(a1 + 248), v10);
-              xpc_release(v10);
+              xpc_array_append_value(*(a1 + 248), v11);
+              xpc_release(v11);
             }
 
             free(v8);
@@ -3137,13 +2978,10 @@ void _xpc_bundle_resolve_services(uint64_t a1)
     {
       _xpc_fd_desc_cold_1();
     }
-
-    v13 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v14 = *MEMORY[0x1E69E9840];
 
     free(subpath);
   }
@@ -3151,39 +2989,53 @@ void _xpc_bundle_resolve_services(uint64_t a1)
 
 void _xpc_bundle_resolve_resources(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   subpath = _xpc_bundle_variant_create_subpath(*(a1 + 64), *(a1 + 32), 3, 0);
   v3 = subpath;
   if ((*(a1 + 312) & 8) != 0)
   {
     v4 = subpath;
-LABEL_8:
-    *(a1 + 72) = v4;
-    goto LABEL_9;
   }
 
-  v4 = _xpc_realpath(subpath);
-  free(v3);
-  if (v4)
+  else
   {
+    v4 = _xpc_realpath(subpath);
+    free(v3);
+    if (!v4)
+    {
+      return;
+    }
+
     if (!_xpc_has_prefix(v4, v4))
     {
       *(a1 + 304) = "linked resources";
-      _dyld_get_image_uuid();
-      if (_dyld_get_shared_cache_uuid())
+      v8 = 0;
+      v9 = 0;
+      v6 = 0;
+      v7 = 0;
+      if ((_dyld_get_image_uuid() & 1) == 0)
       {
-        _dyld_get_shared_cache_range();
+        v8 = 0;
+        v9 = 0;
       }
 
-      v6 = *(a1 + 48);
-      _os_log_simple();
-    }
+      if (_dyld_get_shared_cache_uuid())
+      {
+        shared_cache_range = _dyld_get_shared_cache_range();
+      }
 
-    goto LABEL_8;
+      else
+      {
+        shared_cache_range = 0;
+        v6 = 0;
+        v7 = 0;
+      }
+
+      _os_log_simple(&dword_197263000, &v8, &v6, shared_cache_range, 0, "com.apple.xpc.bundle", "bundle %s tainted with reason %s", *(a1 + 48), "linked resources");
+    }
   }
 
-LABEL_9:
-  v5 = *MEMORY[0x1E69E9840];
+  *(a1 + 72) = v4;
 }
 
 void ___xpc_bundle_invoke_callback_async_block_invoke(uint64_t a1)
@@ -3196,15 +3048,15 @@ void ___xpc_bundle_invoke_callback_async_block_invoke(uint64_t a1)
 
 uint64_t xpc_peer_requirement_create_lwcr(void *a1, size_t *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (xpc_get_type(a1) != OS_xpc_dictionary)
   {
     if (xpc_get_type(a1) != OS_xpc_data)
     {
       type = xpc_get_type(a1);
       name = xpc_type_get_name(type);
-      v14 = _xpc_asprintf("Attempting to create peer requirement with invalid type: %s", name);
-      _xpc_api_misuse(v14);
+      v13 = _xpc_asprintf("Attempting to create peer requirement with invalid type: %s", name);
+      _xpc_api_misuse(v13);
     }
 
     data_from_lwcr_dictionary = xpc_retain(a1);
@@ -3224,18 +3076,18 @@ LABEL_5:
 
     self_audit_token = _xpc_get_self_audit_token();
     v7 = self_audit_token[1];
-    v15[0] = *self_audit_token;
-    v15[1] = v7;
-    bzero(&v16, 0x404uLL);
-    _xpc_token_satisfies_lwcr(v15, data_from_lwcr_dictionary, &v16);
-    if (a2 && v16 >= 2)
+    v14[0] = *self_audit_token;
+    v14[1] = v7;
+    bzero(&v15, 0x404uLL);
+    _xpc_token_satisfies_lwcr(v14, data_from_lwcr_dictionary, &v15);
+    if (a2 && v15 >= 2)
     {
-      v8 = _xpc_asprintf("LWCR invalid: %s", v17);
+      v8 = _xpc_asprintf("LWCR invalid: %s", v16);
       v9 = 0;
       *a2 = xpc_rich_error_create_no_copy(v8, 0);
     }
 
-    else if (v16 > 1)
+    else if (v15 > 1)
     {
       v9 = 0;
     }
@@ -3248,7 +3100,7 @@ LABEL_5:
     }
 
     xpc_release(data_from_lwcr_dictionary);
-    goto LABEL_14;
+    return v9;
   }
 
   v9 = 0;
@@ -3257,8 +3109,6 @@ LABEL_5:
     *a2 = &_xpc_rich_error_peer_requirement_convert_failed;
   }
 
-LABEL_14:
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -3318,7 +3168,7 @@ uint64_t xpc_peer_requirement_create_entitlement_matches_value(const char *a1, v
 
 uint64_t xpc_peer_requirement_create_team_identity(const char *a1, size_t *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   empty = xpc_dictionary_create_empty();
   xpc_dictionary_set_BOOL(empty, "team-identifier-for-current-process", 1);
   if (a1)
@@ -3326,14 +3176,13 @@ uint64_t xpc_peer_requirement_create_team_identity(const char *a1, size_t *a2)
     xpc_dictionary_set_string(empty, "signing-identifier", a1);
   }
 
-  v10 = 6;
-  v9 = xmmword_1972A7DE8;
-  lwcr_query_for_validation_category = xpc_create_lwcr_query_for_validation_category(&v9, 5);
+  v9 = 6;
+  v8 = xmmword_1972A7DE8;
+  lwcr_query_for_validation_category = xpc_create_lwcr_query_for_validation_category(&v8, 5);
   xpc_dictionary_set_value(empty, "validation-category", lwcr_query_for_validation_category);
   xpc_release(lwcr_query_for_validation_category);
   lwcr = xpc_peer_requirement_create_lwcr(empty, a2);
   xpc_release(empty);
-  v7 = *MEMORY[0x1E69E9840];
   return lwcr;
 }
 
@@ -3375,47 +3224,44 @@ uint64_t xpc_peer_requirement_match_received_message(uint64_t a1, uint64_t a2, u
   return (*(a1 + 24))(*(a1 + 16), v8, a3);
 }
 
-BOOL _xpc_peer_requirement_handle_lwcr_match(void *a1, __int128 *a2, size_t *a3)
+BOOL _xpc_peer_requirement_handle_lwcr_match(void *a1, _OWORD *a2, size_t *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  bzero(&v12, 0x404uLL);
+  v13 = *MEMORY[0x1E69E9840];
+  bzero(&v11, 0x404uLL);
   v6 = a2[1];
-  v11[0] = *a2;
-  v11[1] = v6;
-  _xpc_token_satisfies_lwcr(v11, a1, &v12);
-  v7 = v12;
-  if (a3 && v12)
+  v10[0] = *a2;
+  v10[1] = v6;
+  _xpc_token_satisfies_lwcr(v10, a1, &v11);
+  v7 = v11;
+  if (a3 && v11)
   {
-    v8 = _xpc_asprintf("LWCR requirement doesn't match: %s (%d)", v13, v12);
+    v8 = _xpc_asprintf("LWCR requirement doesn't match: %s (%d)", v12, v11);
     *a3 = xpc_rich_error_create_no_copy(v8, 0);
   }
 
-  result = v7 == 0;
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  return v7 == 0;
 }
 
-uint64_t _xpc_token_satisfies_lwcr@<X0>(__int128 *a1@<X0>, void *a2@<X1>, _DWORD *a3@<X8>)
+uint64_t _xpc_token_satisfies_lwcr@<X0>(_OWORD *a1@<X0>, void *a2@<X1>, _DWORD *a3@<X8>)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
+  v8 = 0;
   v9 = 0;
-  v10 = 0;
-  if (!xpc_data_get_bytes_ptr_and_length(a2, &v10, &v9))
+  if (!xpc_data_get_bytes_ptr_and_length(a2, &v9, &v8))
   {
-    _xpc_token_satisfies_lwcr_cold_1(&v8, v11);
+    _xpc_token_satisfies_lwcr_cold_1(&v7, v10);
   }
 
   bzero(a3, 0x404uLL);
   v5 = a1[1];
-  v11[0] = *a1;
-  v11[1] = v5;
-  result = amfi_launch_constraint_matches_process(v11, v10, v9, a3);
+  v10[0] = *a1;
+  v10[1] = v5;
+  result = amfi_launch_constraint_matches_process(v10, v9, v8, a3);
   if (((result ^ (*a3 != 0)) & 1) == 0)
   {
-    _xpc_token_satisfies_lwcr_cold_2(&v8, v11);
+    _xpc_token_satisfies_lwcr_cold_2(&v7, v10);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -3494,15 +3340,15 @@ uint64_t _xpc_peer_requirement_alloc(uint64_t a1)
 
 uint64_t _xpc_file_transfer_desc(uint64_t a1, uint64_t a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
+  v15 = *MEMORY[0x1E69E9840];
   v13 = 0u;
-  v10 = 0u;
+  v14 = 0u;
   v11 = 0u;
-  *__str = 0u;
+  v12 = 0u;
   v9 = 0u;
+  v10 = 0u;
+  *__str = 0u;
+  v8 = 0u;
   v3 = "YES";
   if (!*(a1 + 72))
   {
@@ -3520,22 +3366,20 @@ uint64_t _xpc_file_transfer_desc(uint64_t a1, uint64_t a2)
     v5 = v4;
   }
 
-  result = _xpc_serializer_append(a2, __str, (v5 + 1), 0);
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return _xpc_serializer_append(a2, __str, (v5 + 1), 0);
 }
 
 uint64_t _xpc_file_transfer_debug_desc(uint64_t a1, uint64_t a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
+  v15 = *MEMORY[0x1E69E9840];
   v13 = 0u;
-  v10 = 0u;
+  v14 = 0u;
   v11 = 0u;
-  *__str = 0u;
+  v12 = 0u;
   v9 = 0u;
+  v10 = 0u;
+  *__str = 0u;
+  v8 = 0u;
   v3 = "YES";
   if (!*(a1 + 72))
   {
@@ -3553,17 +3397,15 @@ uint64_t _xpc_file_transfer_debug_desc(uint64_t a1, uint64_t a2)
     v5 = v4;
   }
 
-  result = _xpc_serializer_append(a2, __str, (v5 + 1), 0);
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return _xpc_serializer_append(a2, __str, (v5 + 1), 0);
 }
 
 uint64_t _xpc_file_transfer_serialize(uint64_t a1, uint64_t a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (*(a1 + 88))
   {
-    _xpc_file_transfer_serialize_cold_1(&v19, v20);
+    _xpc_file_transfer_serialize_cold_1(v18, v19);
   }
 
   *(a1 + 88) = 1;
@@ -3572,15 +3414,15 @@ uint64_t _xpc_file_transfer_serialize(uint64_t a1, uint64_t a2)
   _xpc_serializer_append(a2, &__src, 4uLL, 1);
   if (!*(a1 + 24))
   {
-    _xpc_file_transfer_serialize_cold_5(&v19, v20);
+    _xpc_file_transfer_serialize_cold_5(v18, v19);
   }
 
-  v17 = *(a1 + 24);
-  _xpc_serializer_append(a2, &v17, 8uLL, 1);
+  v16 = *(a1 + 24);
+  _xpc_serializer_append(a2, &v16, 8uLL, 1);
   v4 = *(a1 + 32);
   if (!v4)
   {
-    _xpc_base_desc_cold_1(&v19, v20);
+    _xpc_base_desc_cold_1(v18, v19);
   }
 
   if ((v4 & 0x8000000000000000) != 0)
@@ -3621,8 +3463,8 @@ uint64_t _xpc_file_transfer_serialize(uint64_t a1, uint64_t a2)
     {
       if (v9 != 13)
       {
-        v16 = _xpc_asprintf("Object is not an XPC object");
-        _xpc_api_misuse(v16);
+        v15 = _xpc_asprintf("Object is not an XPC object");
+        _xpc_api_misuse(v15);
       }
 
       extension_vtable = &_OS_xpc_type_int64;
@@ -3647,16 +3489,15 @@ uint64_t _xpc_file_transfer_serialize(uint64_t a1, uint64_t a2)
   v13 = *(a2 + 104);
   if (!v13)
   {
-    _xpc_file_transfer_serialize_cold_3(&v19, v20);
+    _xpc_file_transfer_serialize_cold_3(v18, v19);
   }
 
   result = (*(v13 + 16))(v13, a1);
   if ((result & 1) == 0)
   {
-    _xpc_file_transfer_serialize_cold_2(&v19, v20);
+    _xpc_file_transfer_serialize_cold_2(v18, v19);
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -3666,31 +3507,29 @@ uint64_t _xpc_file_transfer_deserialize(uint64_t a1)
   connection = _xpc_received_message_get_connection(a1);
   if (!connection)
   {
-    goto LABEL_12;
+    return 0;
   }
 
   v3 = connection;
   v4 = _xpc_graph_deserializer_read(a1, 8uLL);
   if (!v4)
   {
-    goto LABEL_12;
+    return 0;
   }
 
   v5 = *v4;
   if (!*v4)
   {
-    goto LABEL_12;
+    return 0;
   }
 
   v6 = _xpc_file_transfer_create();
   *(v6 + 24) = v5;
   v7 = _xpc_graph_deserializer_read(a1, 4uLL);
-  if (!v7 || (v8 = *v7, v9 = _xpc_class_id_valid(*v7), v8 != 61440) || !v9 || (depth = _xpc_graph_deserializer_get_depth(a1), !_xpc_graph_deserializer_enter_container(a1)) || (v11 = _xpc_deserialize_from_wire_id(0xF000u), v12 = v11(a1), _xpc_graph_deserializer_restore_depth(a1, depth), !v12))
+  if (!v7 || (v8 = *v7, v9 = _xpc_class_id_valid(*v7), v8 != 61440) || !v9 || (depth = _xpc_graph_deserializer_get_depth(a1), !_xpc_graph_deserializer_enter_container(a1)) || (v12 = _xpc_deserialize_from_wire_id(61440, v11), v13 = v12(a1), _xpc_graph_deserializer_restore_depth(a1, depth), !v13))
   {
     xpc_release(v6);
-LABEL_12:
-    v6 = 0;
-    goto LABEL_13;
+    return 0;
   }
 
   if (xpc_dictionary_get_count(*(v6 + 32)))
@@ -3699,19 +3538,17 @@ LABEL_12:
   }
 
   xpc_release(*(v6 + 32));
-  *(v6 + 32) = v12;
+  *(v6 + 32) = v13;
   (*(v3 + 16))(v3, v6);
-LABEL_13:
-  v13 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 void _xpc_file_transfer_dispose(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (*(a1 + 88) == 1)
   {
-    _xpc_file_transfer_dispose_cold_1(&v9, v10);
+    _xpc_file_transfer_dispose_cold_1(&v8, v9);
   }
 
   v2 = *(a1 + 64);
@@ -3752,36 +3589,32 @@ void _xpc_file_transfer_dispose(uint64_t a1)
   }
 
   v7 = *(a1 + 32);
-  v8 = *MEMORY[0x1E69E9840];
 
   xpc_release(v7);
 }
 
-uint64_t xpc_file_transfer_create_with_fd(int a1, const void *a2)
+uint64_t xpc_file_transfer_create_with_fd(uint64_t a1, const void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  memset(&v8, 0, sizeof(v8));
-  if (fstat(a1, &v8) == -1)
+  v9 = *MEMORY[0x1E69E9840];
+  memset(&v7, 0, sizeof(v7));
+  if (fstat(a1, &v7) == -1)
   {
-    xpc_file_transfer_create_with_fd_cold_1(&v7, v9);
+    xpc_file_transfer_create_with_fd_cold_1(&v6, v8);
   }
 
-  v4 = v8.st_mode & 0xF000;
+  v4 = v7.st_mode & 0xF000;
   if (v4 == 4096 || v4 == 49152 || v4 == 0x8000)
   {
-    result = _xpc_file_transfer_create_with_fd_impl(a1, &v8, a2);
+    return _xpc_file_transfer_create_with_fd_impl(a1, &v7, a2);
   }
 
   else
   {
-    result = 0;
+    return 0;
   }
-
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
-uint64_t _xpc_file_transfer_create_with_fd_impl(dispatch_fd_t a1, uint64_t a2, const void *a3)
+uint64_t _xpc_file_transfer_create_with_fd_impl(uint64_t a1, uint64_t a2, const void *a3)
 {
   v6 = *(a2 + 4) & 0xF000;
   if (v6 != 4096 && v6 != 0x8000 && v6 != 49152)
@@ -3809,32 +3642,26 @@ uint64_t _xpc_file_transfer_create_with_fd_impl(dispatch_fd_t a1, uint64_t a2, c
 
 uint64_t xpc_file_transfer_create_with_path(const char *a1, const void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = open(a1, 0);
-  if (v3 == -1)
+  if (v3 != -1)
   {
-    goto LABEL_6;
-  }
+    v4 = v3;
+    memset(&v7, 0, sizeof(v7));
+    if (fstat(v3, &v7) == -1)
+    {
+      xpc_file_transfer_create_with_fd_cold_1(&v6, v8);
+    }
 
-  v4 = v3;
-  memset(&v8, 0, sizeof(v8));
-  if (fstat(v3, &v8) == -1)
-  {
-    xpc_file_transfer_create_with_fd_cold_1(&v7, v9);
-  }
+    if ((v7.st_mode & 0xF000) == 0x8000)
+    {
+      return _xpc_file_transfer_create_with_fd_impl(v4, &v7, a2);
+    }
 
-  if ((v8.st_mode & 0xF000) != 0x8000)
-  {
     _xpc_strict_close(v4);
-LABEL_6:
-    result = 0;
-    goto LABEL_7;
   }
 
-  result = _xpc_file_transfer_create_with_fd_impl(v4, &v8, a2);
-LABEL_7:
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 void xpc_file_transfer_cancel(void *a1)
@@ -3886,7 +3713,7 @@ uint64_t xpc_file_transfer_get_size(void *a1)
   return xpc_dictionary_get_uint64(v2, "s");
 }
 
-uint64_t xpc_file_transfer_write_to_fd(void *a1, dispatch_fd_t a2, const void *a3)
+uint64_t xpc_file_transfer_write_to_fd(void *a1, uint64_t a2, const void *a3)
 {
   if (xpc_get_type(a1) != OS_xpc_file_transfer)
   {
@@ -3909,32 +3736,31 @@ uint64_t xpc_file_transfer_write_to_fd(void *a1, dispatch_fd_t a2, const void *a
   return _xpc_file_transfer_write_to_fd_impl(a1, a2, a3);
 }
 
-uint64_t _xpc_file_transfer_write_to_fd_impl(uint64_t a1, dispatch_fd_t a2, const void *a3)
+uint64_t _xpc_file_transfer_write_to_fd_impl(uint64_t a1, uint64_t a2, const void *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (*(a1 + 88))
   {
-    _xpc_file_transfer_serialize_cold_1(&v9, v10);
+    _xpc_file_transfer_serialize_cold_1(&v8, v9);
   }
 
   *(a1 + 88) = 1;
   *(a1 + 72) = os_transaction_create("com.apple.xpc.file_transfer.incoming");
   if (!a3)
   {
-    _xpc_file_transfer_write_to_fd_impl_cold_2(&v9, v10);
+    _xpc_file_transfer_write_to_fd_impl_cold_2(&v8, v9);
   }
 
   *(a1 + 64) = _Block_copy(a3);
   *(a1 + 80) = _xpc_file_transfer_create_io_for_fd(a1, a2);
   v6 = *(*(a1 + 40) + 16);
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6();
 }
 
 uint64_t xpc_file_transfer_write_to_path(void *a1, const char *a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (xpc_get_type(a1) != OS_xpc_file_transfer)
   {
     if (a1)
@@ -3948,9 +3774,9 @@ uint64_t xpc_file_transfer_write_to_path(void *a1, const char *a2, void *a3)
       Name = "null";
     }
 
-    v14 = class_getName(OS_xpc_file_transfer);
-    v15 = _xpc_asprintf("Given object not of required type. Given: %s, required: %s", Name, v14);
-    _xpc_api_misuse(v15);
+    v12 = class_getName(OS_xpc_file_transfer);
+    v13 = _xpc_asprintf("Given object not of required type. Given: %s, required: %s", Name, v12);
+    _xpc_api_misuse(v13);
   }
 
   v6 = open(a2, 2561, 438);
@@ -3958,19 +3784,17 @@ uint64_t xpc_file_transfer_write_to_path(void *a1, const char *a2, void *a3)
   {
     if (!*__error())
     {
-      xpc_file_transfer_write_to_path_cold_1(&v16, v17);
+      xpc_file_transfer_write_to_path_cold_1(&v14, v15);
     }
 
-    v9 = *__error();
-    v10 = a3[2];
-    v11 = *MEMORY[0x1E69E9840];
+    v8 = *__error();
+    v9 = a3[2];
 
-    return v10(a3, v9);
+    return v9(a3, v8);
   }
 
   else
   {
-    v7 = *MEMORY[0x1E69E9840];
 
     return _xpc_file_transfer_write_to_fd_impl(a1, v6, a3);
   }
@@ -4025,7 +3849,49 @@ uint64_t xpc_file_transfer_get_transfer_id(void *a1)
 
 void *xpc_file_transfer_set_transport_writing_callbacks(uint64_t a1, const void *a2, const void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  if (xpc_get_type(a1) != OS_xpc_file_transfer)
+  {
+    if (a1)
+    {
+      type = xpc_get_type(a1);
+      Name = class_getName(type);
+    }
+
+    else
+    {
+      Name = "null";
+    }
+
+    v9 = class_getName(OS_xpc_file_transfer);
+    v10 = _xpc_asprintf("Given object not of required type. Given: %s, required: %s", Name, v9);
+    _xpc_api_misuse(v10);
+  }
+
+  if (*(a1 + 88))
+  {
+    _xpc_file_transfer_serialize_cold_1(&v11, v12);
+  }
+
+  if (*(a1 + 40))
+  {
+    xpc_file_transfer_set_transport_writing_callbacks_cold_2(&v11, v12);
+  }
+
+  if (*(a1 + 48))
+  {
+    xpc_file_transfer_set_transport_writing_callbacks_cold_3(&v11, v12);
+  }
+
+  *(a1 + 40) = _Block_copy(a2);
+  result = _Block_copy(a3);
+  *(a1 + 48) = result;
+  return result;
+}
+
+void xpc_file_transfer_write_finished(uint64_t a1, NSObject *a2, int a3)
+{
+  v16 = *MEMORY[0x1E69E9840];
   if (xpc_get_type(a1) != OS_xpc_file_transfer)
   {
     if (a1)
@@ -4044,52 +3910,9 @@ void *xpc_file_transfer_set_transport_writing_callbacks(uint64_t a1, const void 
     _xpc_api_misuse(v11);
   }
 
-  if (*(a1 + 88))
-  {
-    _xpc_file_transfer_serialize_cold_1(&v12, v13);
-  }
-
-  if (*(a1 + 40))
-  {
-    xpc_file_transfer_set_transport_writing_callbacks_cold_2(&v12, v13);
-  }
-
-  if (*(a1 + 48))
-  {
-    xpc_file_transfer_set_transport_writing_callbacks_cold_3(&v12, v13);
-  }
-
-  *(a1 + 40) = _Block_copy(a2);
-  result = _Block_copy(a3);
-  *(a1 + 48) = result;
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void xpc_file_transfer_write_finished(uint64_t a1, NSObject *a2, int a3)
-{
-  v17 = *MEMORY[0x1E69E9840];
-  if (xpc_get_type(a1) != OS_xpc_file_transfer)
-  {
-    if (a1)
-    {
-      type = xpc_get_type(a1);
-      Name = class_getName(type);
-    }
-
-    else
-    {
-      Name = "null";
-    }
-
-    v11 = class_getName(OS_xpc_file_transfer);
-    v12 = _xpc_asprintf("Given object not of required type. Given: %s, required: %s", Name, v11);
-    _xpc_api_misuse(v12);
-  }
-
   if (*(a1 + 88) != 1)
   {
-    xpc_file_transfer_write_finished_cold_1(&v15, v16);
+    xpc_file_transfer_write_finished_cold_1(&v14, v15);
   }
 
   *(a1 + 88) = 2;
@@ -4098,7 +3921,7 @@ void xpc_file_transfer_write_finished(uint64_t a1, NSObject *a2, int a3)
   {
     if (!a2)
     {
-      xpc_file_transfer_write_finished_cold_2(&v15, v16);
+      xpc_file_transfer_write_finished_cold_2(&v14, v15);
     }
 
     block[0] = MEMORY[0x1E69E9820];
@@ -4106,7 +3929,7 @@ void xpc_file_transfer_write_finished(uint64_t a1, NSObject *a2, int a3)
     block[2] = __xpc_file_transfer_write_finished_block_invoke;
     block[3] = &unk_1E74AB728;
     block[4] = v6;
-    v14 = a3;
+    v13 = a3;
     dispatch_async(a2, block);
     *(a1 + 64) = 0;
   }
@@ -4114,26 +3937,24 @@ void xpc_file_transfer_write_finished(uint64_t a1, NSObject *a2, int a3)
   v7 = *(a1 + 72);
   if (!v7)
   {
-    xpc_file_transfer_write_finished_cold_3(&v15, v16);
+    xpc_file_transfer_write_finished_cold_3(&v14, v15);
   }
 
   os_release(v7);
   *(a1 + 72) = 0;
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __xpc_file_transfer_write_finished_block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 40);
   (*(*(a1 + 32) + 16))();
-  v3 = *(a1 + 32);
+  v2 = *(a1 + 32);
 
-  _Block_release(v3);
+  _Block_release(v2);
 }
 
 void xpc_file_transfer_send_finished(uint64_t a1, NSObject *a2, int a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (xpc_get_type(a1) != OS_xpc_file_transfer)
   {
     if (a1)
@@ -4147,14 +3968,14 @@ void xpc_file_transfer_send_finished(uint64_t a1, NSObject *a2, int a3)
       Name = "null";
     }
 
-    v11 = class_getName(OS_xpc_file_transfer);
-    v12 = _xpc_asprintf("Given object not of required type. Given: %s, required: %s", Name, v11);
-    _xpc_api_misuse(v12);
+    v10 = class_getName(OS_xpc_file_transfer);
+    v11 = _xpc_asprintf("Given object not of required type. Given: %s, required: %s", Name, v10);
+    _xpc_api_misuse(v11);
   }
 
   if (*(a1 + 88) != 1)
   {
-    xpc_file_transfer_write_finished_cold_1(&v15, v16);
+    xpc_file_transfer_write_finished_cold_1(&v14, v15);
   }
 
   *(a1 + 88) = 2;
@@ -4163,7 +3984,7 @@ void xpc_file_transfer_send_finished(uint64_t a1, NSObject *a2, int a3)
   {
     if (!a2)
     {
-      xpc_file_transfer_write_finished_cold_2(&v15, v16);
+      xpc_file_transfer_write_finished_cold_2(&v14, v15);
     }
 
     block[0] = MEMORY[0x1E69E9820];
@@ -4171,7 +3992,7 @@ void xpc_file_transfer_send_finished(uint64_t a1, NSObject *a2, int a3)
     block[2] = __xpc_file_transfer_send_finished_block_invoke;
     block[3] = &unk_1E74AB750;
     block[4] = v6;
-    v14 = a3;
+    v13 = a3;
     dispatch_async(a2, block);
     *(a1 + 56) = 0;
   }
@@ -4179,78 +4000,73 @@ void xpc_file_transfer_send_finished(uint64_t a1, NSObject *a2, int a3)
   v7 = *(a1 + 72);
   if (!v7)
   {
-    xpc_file_transfer_write_finished_cold_3(&v15, v16);
+    xpc_file_transfer_write_finished_cold_3(&v14, v15);
   }
 
   os_release(v7);
   *(a1 + 72) = 0;
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __xpc_file_transfer_send_finished_block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 40);
   (*(*(a1 + 32) + 16))();
-  v3 = *(a1 + 32);
+  v2 = *(a1 + 32);
 
-  _Block_release(v3);
+  _Block_release(v2);
 }
 
 uint64_t _xpc_file_transfer_create()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v0 = _xpc_base_create(OS_xpc_file_transfer, 72);
   add_explicit = atomic_fetch_add_explicit(&_file_transfer_id_last, 1uLL, memory_order_relaxed);
   *(v0 + 24) = add_explicit + 1;
   if (add_explicit == -1)
   {
-    _xpc_file_transfer_create_cold_1(&v5, v6);
+    _xpc_file_transfer_create_cold_1(&v4, v5);
   }
 
   v2 = v0;
   *(v0 + 32) = xpc_dictionary_create(0, 0, 0);
-  v3 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
-dispatch_io_t _xpc_file_transfer_create_io_for_fd(uint64_t a1, dispatch_fd_t a2)
+dispatch_io_t _xpc_file_transfer_create_io_for_fd(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v10 = a1;
-  v9 = 0;
+  v2 = a2;
+  v11 = *MEMORY[0x1E69E9840];
+  v9 = a1;
+  v8 = 0;
   if (change_fdguard_np() == -1)
   {
-    _xpc_file_transfer_create_io_for_fd_cold_2(&v8, v11);
+    _xpc_file_transfer_create_io_for_fd_cold_2(&v7, v10);
   }
 
   global_queue = dispatch_get_global_queue(0, 0);
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 0x40000000;
-  v6[2] = ___xpc_file_transfer_create_io_for_fd_block_invoke;
-  v6[3] = &__block_descriptor_tmp_15;
-  v7 = a2;
-  v6[4] = v10;
-  result = dispatch_io_create(0, a2, global_queue, v6);
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 0x40000000;
+  v5[2] = ___xpc_file_transfer_create_io_for_fd_block_invoke;
+  v5[3] = &__block_descriptor_tmp_15;
+  v6 = v2;
+  v5[4] = v9;
+  result = dispatch_io_create(0, v2, global_queue, v5);
   if (!result)
   {
-    _xpc_file_transfer_create_io_for_fd_cold_1(&v8, v11);
+    _xpc_file_transfer_create_io_for_fd_cold_1(&v7, v10);
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t ___xpc_file_transfer_create_io_for_fd_block_invoke(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 40);
+  v4 = *MEMORY[0x1E69E9840];
   result = guarded_close_np();
   if (result == -1)
   {
-    ___xpc_file_transfer_create_io_for_fd_block_invoke_cold_1(&v4, v5);
+    ___xpc_file_transfer_create_io_for_fd_block_invoke_cold_1(&v2, v3);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -4327,13 +4143,13 @@ int64_t _launch_service_stats_copy_impl(const char *a1, unsigned int a2, uint64_
   xdict[10] = *MEMORY[0x1E69E9840];
   if (!a3)
   {
-    _launch_service_stats_copy_impl_cold_1(&v21, xdict);
+    _launch_service_stats_copy_impl_cold_1(v20, xdict);
   }
 
   if ((a4 - 2) >= 5)
   {
-    v19 = _xpc_asprintf("Unsupported service stats version %d", a4);
-    _xpc_api_misuse(v19);
+    v18 = _xpc_asprintf("Unsupported service stats version %d", a4);
+    _xpc_api_misuse(v18);
   }
 
   v6 = qword_1972A7E08[a4 - 2];
@@ -4362,7 +4178,7 @@ int64_t _launch_service_stats_copy_impl(const char *a1, unsigned int a2, uint64_
     if (v14)
     {
       v15 = _xpc_alloc_typed(v6 * v14, 0xFFBF24B8uLL);
-      v20 = v15;
+      v19 = v15;
       v16 = purgable_buffer;
       do
       {
@@ -4373,7 +4189,7 @@ int64_t _launch_service_stats_copy_impl(const char *a1, unsigned int a2, uint64_
       }
 
       while (v14);
-      *(a3 + 8) = v20;
+      *(a3 + 8) = v19;
     }
   }
 
@@ -4383,46 +4199,45 @@ int64_t _launch_service_stats_copy_impl(const char *a1, unsigned int a2, uint64_
   }
 
   xpc_release(v11);
-  _xpc_deallocate_purgable_buffer(purgable_buffer, v7 & v8);
-  v17 = *MEMORY[0x1E69E9840];
+  _xpc_deallocate_purgable_buffer();
   return v12;
 }
 
 uint64_t _xpc_service_instance_desc(_DWORD *a1, uint64_t a2)
 {
-  v39 = *MEMORY[0x1E69E9840];
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
+  v38 = *MEMORY[0x1E69E9840];
   v36 = 0u;
-  v33 = 0u;
+  v37 = 0u;
   v34 = 0u;
-  v31 = 0u;
+  v35 = 0u;
   v32 = 0u;
-  v29 = 0u;
+  v33 = 0u;
   v30 = 0u;
-  v27 = 0u;
+  v31 = 0u;
   v28 = 0u;
-  v25 = 0u;
+  v29 = 0u;
   v26 = 0u;
-  v23 = 0u;
+  v27 = 0u;
   v24 = 0u;
-  v21 = 0u;
+  v25 = 0u;
   v22 = 0u;
-  v19 = 0u;
+  v23 = 0u;
   v20 = 0u;
-  v17 = 0u;
+  v21 = 0u;
   v18 = 0u;
-  v15 = 0u;
+  v19 = 0u;
   v16 = 0u;
-  v13 = 0u;
+  v17 = 0u;
   v14 = 0u;
-  v11 = 0u;
+  v15 = 0u;
   v12 = 0u;
-  v9 = 0u;
+  v13 = 0u;
   v10 = 0u;
-  *__str = 0u;
+  v11 = 0u;
   v8 = 0u;
+  v9 = 0u;
+  *__str = 0u;
+  v7 = 0u;
   v3 = snprintf(__str, 0x200uLL, "<%s: %p> { pid = %d }", "service", a1, a1[12]);
   if (v3 >= 0x1FF)
   {
@@ -4434,9 +4249,7 @@ uint64_t _xpc_service_instance_desc(_DWORD *a1, uint64_t a2)
     v4 = v3;
   }
 
-  result = _xpc_serializer_append(a2, __str, (v4 + 1), 0);
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return _xpc_serializer_append(a2, __str, (v4 + 1), 0);
 }
 
 void _xpc_service_instance_dispose(uint64_t a1)
@@ -4492,13 +4305,13 @@ void xpc_service_instance_set_path(uint64_t a1, const char *a2)
 {
   if ((*(a1 + 57) & 1) == 0)
   {
-    v3 = _xpc_asprintf("Attempt to configure non-configurable service instance.");
+    v3 = _xpc_asprintf("Attempt to configure non-configurable service instance.", a2);
     goto LABEL_10;
   }
 
   if (!*(a1 + 128))
   {
-    v3 = _xpc_asprintf("Attempt to configure a service after it has been run.");
+    v3 = _xpc_asprintf("Attempt to configure a service after it has been run.", a2);
 LABEL_10:
     _xpc_api_misuse(v3);
   }
@@ -4534,17 +4347,17 @@ LABEL_10:
   }
 }
 
-void xpc_service_instance_dup2(uint64_t a1, int a2, int a3)
+void xpc_service_instance_dup2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if ((*(a1 + 57) & 1) == 0)
   {
-    v3 = _xpc_asprintf("Attempt to configure non-configurable service instance.");
+    v3 = _xpc_asprintf("Attempt to configure non-configurable service instance.", a2, a3);
     goto LABEL_6;
   }
 
   if (!*(a1 + 128))
   {
-    v3 = _xpc_asprintf("Attempt to configure a service after it has been run.");
+    v3 = _xpc_asprintf("Attempt to configure a service after it has been run.", a2, a3);
 LABEL_6:
     _xpc_api_misuse(v3);
   }
@@ -4577,13 +4390,13 @@ void xpc_service_instance_set_cwd(uint64_t a1, const char *a2)
 {
   if ((*(a1 + 57) & 1) == 0)
   {
-    v3 = _xpc_asprintf("Attempt to configure non-configurable service instance.");
+    v3 = _xpc_asprintf("Attempt to configure non-configurable service instance.", a2);
     goto LABEL_10;
   }
 
   if (!*(a1 + 128))
   {
-    v3 = _xpc_asprintf("Attempt to configure a service after it has been run.");
+    v3 = _xpc_asprintf("Attempt to configure a service after it has been run.", a2);
 LABEL_10:
     _xpc_api_misuse(v3);
   }
@@ -4753,39 +4566,39 @@ void xpc_service_instance_run(uint64_t a1)
 
 uint64_t _xpc_service_desc(const char *a1, uint64_t a2)
 {
-  v39 = *MEMORY[0x1E69E9840];
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
+  v38 = *MEMORY[0x1E69E9840];
   v36 = 0u;
-  v33 = 0u;
+  v37 = 0u;
   v34 = 0u;
-  v31 = 0u;
+  v35 = 0u;
   v32 = 0u;
-  v29 = 0u;
+  v33 = 0u;
   v30 = 0u;
-  v27 = 0u;
+  v31 = 0u;
   v28 = 0u;
-  v25 = 0u;
+  v29 = 0u;
   v26 = 0u;
-  v23 = 0u;
+  v27 = 0u;
   v24 = 0u;
-  v21 = 0u;
+  v25 = 0u;
   v22 = 0u;
-  v19 = 0u;
+  v23 = 0u;
   v20 = 0u;
-  v17 = 0u;
+  v21 = 0u;
   v18 = 0u;
-  v15 = 0u;
+  v19 = 0u;
   v16 = 0u;
-  v13 = 0u;
+  v17 = 0u;
   v14 = 0u;
-  v11 = 0u;
+  v15 = 0u;
   v12 = 0u;
-  v9 = 0u;
+  v13 = 0u;
   v10 = 0u;
-  *__str = 0u;
+  v11 = 0u;
   v8 = 0u;
+  v9 = 0u;
+  *__str = 0u;
+  v7 = 0u;
   v3 = snprintf(__str, 0x200uLL, "<%s: %p> { name = %s }", "service", a1, a1 + 76);
   if (v3 >= 0x1FF)
   {
@@ -4797,9 +4610,7 @@ uint64_t _xpc_service_desc(const char *a1, uint64_t a2)
     v4 = v3;
   }
 
-  result = _xpc_serializer_append(a2, __str, (v4 + 1), 0);
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return _xpc_serializer_append(a2, __str, (v4 + 1), 0);
 }
 
 void _xpc_service_dispose(uint64_t a1)
@@ -4862,7 +4673,7 @@ uint64_t xpc_service_create(int a1, char *__s, uint64_t a3, NSObject *a4)
 
 uint64_t _xpc_service_create_internal(char *__s, NSObject *global_queue)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (__s)
   {
     v4 = strlen(__s) + 57;
@@ -4889,51 +4700,51 @@ uint64_t _xpc_service_create_internal(char *__s, NSObject *global_queue)
   else
   {
     *uu = 0;
-    v9 = 0;
+    v8 = 0;
     MEMORY[0x19A8DD7E0](uu);
     uuid_unparse(uu, (v5 + 76));
   }
 
   *(v5 + 56) = 0;
-  v6 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 uint64_t xpc_service_create_from_specifier(const char *a1, NSObject *a2)
 {
-  v14 = 0;
+  v16 = 0;
   __s = 0;
-  v13 = 0;
+  v15 = 0;
+  v3 = _xpc_parse_service_specifier(a1, &v16, &v15, &__s);
   internal = 0;
-  v11 = _xpc_parse_service_specifier(a1, &v14, &v13, &__s);
-  if (!v11)
+  v13 = v3;
+  if (!v3)
   {
-    v4 = __s;
+    v6 = __s;
     if (__s)
     {
-      v5 = v14;
-      foreground_uid = v13;
-      if (v14 == 2 && v13 == 4294967294)
+      v7 = v16;
+      foreground_uid = v15;
+      if (v16 == 2 && v15 == 4294967294)
       {
-        if (!xpc_user_sessions_enabled())
+        if (!xpc_user_sessions_enabled(v3, v4))
         {
           syslog(3, "user/foreground/ specifier is not supported on this platform");
           return 0;
         }
 
-        foreground_uid = xpc_user_sessions_get_foreground_uid(&v11);
-        v8 = v11;
-        if (v11)
+        foreground_uid = xpc_user_sessions_get_foreground_uid(&v13);
+        v10 = v13;
+        if (v13)
         {
-          v9 = xpc_strerror(v11);
-          syslog(3, "xpc_user_sessions_get_foreground_uid() failed with error: %d - %s", v8, v9);
+          v11 = xpc_strerror(v13);
+          syslog(3, "xpc_user_sessions_get_foreground_uid() failed with error: %d - %s", v10, v11);
         }
       }
 
-      internal = _xpc_service_create_internal(v4, a2);
-      free(v4);
+      internal = _xpc_service_create_internal(v6, a2);
+      free(v6);
       *(internal + 48) = 3;
-      *(internal + 52) = v5;
+      *(internal + 52) = v7;
       *(internal + 40) = foreground_uid;
     }
   }
@@ -4943,17 +4754,17 @@ uint64_t xpc_service_create_from_specifier(const char *a1, NSObject *a2)
 
 uint64_t _xpc_parse_service_specifier(const char *a1, int *a2, unint64_t *a3, char **a4)
 {
-  v25[1] = *MEMORY[0x1E69E9840];
+  v24[1] = *MEMORY[0x1E69E9840];
   v7 = _xpc_strdup(a1);
   v8 = 0;
-  v21 = v7;
+  v20 = v7;
   __s1 = 0;
   __str = 0;
-  v25[0] = 0;
+  v24[0] = 0;
   p_str = &__str;
   do
   {
-    v10 = strsep(&v21, "/");
+    v10 = strsep(&v20, "/");
     if (!v10)
     {
       break;
@@ -5028,7 +4839,7 @@ LABEL_24:
 
   v16 = 4294967294;
 LABEL_20:
-  p_str = v25;
+  p_str = v24;
 LABEL_21:
   v17 = *p_str;
   *a2 = v13;
@@ -5047,13 +4858,12 @@ LABEL_21:
   *a4 = v18;
 LABEL_27:
   free(v7);
-  v19 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 void xpc_service_set_attach_handler(mach_port_context_t a1, const void *a2)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (a2)
   {
     os_unfair_lock_lock((a1 + 56));
@@ -5066,69 +4876,66 @@ void xpc_service_set_attach_handler(mach_port_context_t a1, const void *a2)
       v6 = _xpc_retain(a1);
       dispatch_set_context(v5, v6);
       dispatch_source_set_event_handler_f(*(a1 + 64), _xpc_service_attach_event);
-      v7 = *(a1 + 64);
       dispatch_source_set_mandatory_cancel_handler_f();
       dispatch_activate(*(a1 + 64));
     }
 
     os_unfair_lock_unlock((a1 + 56));
-    v8 = _xpc_Block_copy_impl(a2);
-    if (v8)
+    v7 = _xpc_Block_copy_impl(a2);
+    if (v7)
     {
-      v9 = v8;
+      v8 = v7;
     }
 
     else
     {
-      v9 = 0;
+      v8 = 0;
     }
 
-    v13 = 0;
-    atomic_compare_exchange_strong_explicit((a1 + 32), &v13, v9, memory_order_release, memory_order_relaxed);
-    if (!v13)
+    v11 = 0;
+    atomic_compare_exchange_strong_explicit((a1 + 32), &v11, v8, memory_order_release, memory_order_relaxed);
+    if (!v11)
     {
       request = _xpc_service_create_request(a1);
       xpc_dictionary_set_mach_send(request, "port", *(a1 + 72));
-      v23 = 0;
-      if (_xpc_mach_port_make_send_once(*(a1 + 72), &v23) || (v23 - 1) >= 0xFFFFFFFE)
+      v20 = 0;
+      if (_xpc_mach_port_make_send_once(*(a1 + 72), &v20) || (v20 - 1) >= 0xFFFFFFFE)
       {
-        xpc_service_set_attach_handler_cold_1(&v22, v24);
+        xpc_service_set_attach_handler_cold_1(v19, v21);
       }
 
-      v15 = xpc_mach_send_once_create(v23);
-      xpc_dictionary_set_value(request, "service-ctl-reply-port", v15);
-      v16 = _xpc_event_routine_async(704, request, 0);
-      if (v16)
+      v13 = xpc_mach_send_once_create(v20);
+      xpc_dictionary_set_value(request, "service-ctl-reply-port", v13);
+      v14 = _xpc_event_routine_async(704, request);
+      if (v14)
       {
-        v17 = v16;
-        v18 = xpc_copy_description(a1);
-        v19 = xpc_strerror(v17);
-        syslog(3, "Could not attach to service: %d: %s:\n%s", v17, v19, v18);
-        free(v18);
+        v15 = v14;
+        v16 = xpc_copy_description(a1);
+        v17 = xpc_strerror(v15);
+        syslog(3, "Could not attach to service: %d: %s:\n%s", v15, v17, v16);
+        free(v16);
       }
 
       xpc_release(request);
-      v20 = *MEMORY[0x1E69E9840];
       return;
     }
 
-    v21 = _xpc_asprintf("Attempt to reset attach handler.");
+    v18 = _xpc_asprintf("Attempt to reset attach handler.");
 LABEL_20:
-    _xpc_api_misuse(v21);
+    _xpc_api_misuse(v18);
   }
 
-  v10 = atomic_exchange_explicit((a1 + 32), 0, memory_order_release);
-  if (!v10)
+  v9 = atomic_exchange_explicit((a1 + 32), 0, memory_order_release);
+  if (!v9)
   {
-    v21 = _xpc_asprintf("Attach handler is already NULL.");
+    v18 = _xpc_asprintf("Attach handler is already NULL.");
     goto LABEL_20;
   }
 
-  _Block_release(v10);
-  v11 = *(a1 + 64);
-  v12 = *MEMORY[0x1E69E9840];
+  _Block_release(v9);
+  v10 = *(a1 + 64);
 
-  dispatch_source_cancel(v11);
+  dispatch_source_cancel(v10);
 }
 
 xpc_object_t _xpc_service_create_request(uint64_t a1)
@@ -5141,11 +4948,11 @@ xpc_object_t _xpc_service_create_request(uint64_t a1)
   return v2;
 }
 
-int64_t xpc_service_kickstart(uint64_t a1, char a2, int a3)
+int64_t xpc_service_kickstart(uint64_t a1, uint64_t a2, int a3)
 {
   if (a3)
   {
-    a2 |= 2u;
+    LOBYTE(a2) = a2 | 2;
   }
 
   return xpc_service_kickstart_with_flags(a1, a2);
@@ -5175,11 +4982,11 @@ int64_t xpc_service_kickstart_with_flags(uint64_t a1, char a2)
   return v5;
 }
 
-int64_t xpc_service_attach(uint64_t a1, char a2, int a3)
+int64_t xpc_service_attach(uint64_t a1, uint64_t a2, int a3)
 {
   if (a3)
   {
-    a2 |= 2u;
+    LOBYTE(a2) = a2 | 2;
   }
 
   return xpc_service_attach_with_flags(a1, a2);
@@ -5317,15 +5124,15 @@ uint64_t _xpc_service_attach_cancel(mach_port_context_t guard)
 
 uint64_t _xpc_activity_desc(uint64_t a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
+  v14 = *MEMORY[0x1E69E9840];
   v12 = 0u;
-  v9 = 0u;
+  v13 = 0u;
   v10 = 0u;
-  *__str = 0u;
+  v11 = 0u;
   v8 = 0u;
+  v9 = 0u;
+  *__str = 0u;
+  v7 = 0u;
   v3 = snprintf(__str, 0x80uLL, "<%s: %s>", "activity", *(a1 + 24));
   if (v3 >= 0x7F)
   {
@@ -5337,22 +5144,20 @@ uint64_t _xpc_activity_desc(uint64_t a1, uint64_t a2)
     v4 = v3;
   }
 
-  result = _xpc_serializer_append(a2, __str, (v4 + 1), 0);
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return _xpc_serializer_append(a2, __str, (v4 + 1), 0);
 }
 
 uint64_t _xpc_activity_debug_desc(const char **a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
+  v14 = *MEMORY[0x1E69E9840];
   v12 = 0u;
-  v9 = 0u;
+  v13 = 0u;
   v10 = 0u;
-  *__str = 0u;
+  v11 = 0u;
   v8 = 0u;
+  v9 = 0u;
+  *__str = 0u;
+  v7 = 0u;
   v3 = snprintf(__str, 0x80uLL, "<%s: %p>: %s", "activity", a1, a1[3]);
   if (v3 >= 0x7F)
   {
@@ -5364,14 +5169,12 @@ uint64_t _xpc_activity_debug_desc(const char **a1, uint64_t a2)
     v4 = v3;
   }
 
-  result = _xpc_serializer_append(a2, __str, (v4 + 1), 0);
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return _xpc_serializer_append(a2, __str, (v4 + 1), 0);
 }
 
 void _xpc_activity_dispose(uint64_t a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (_activity_log_pred != -1)
   {
     _xpc_activity_dispose_cold_1();
@@ -5393,13 +5196,13 @@ void _xpc_activity_dispose(uint64_t a1)
     }
 
     *buf = 136446978;
-    v14 = v3;
+    v12 = v3;
+    v13 = 2048;
+    v14 = a1;
     v15 = 2048;
-    v16 = a1;
-    v17 = 2048;
-    v18 = v4;
-    v19 = 2082;
-    v20 = v5;
+    v16 = v4;
+    v17 = 2082;
+    v18 = v5;
     _os_log_impl(&dword_197263000, v2, OS_LOG_TYPE_DEFAULT, "_xpc_activity_dispose: %{public}s (%p) seqno: %llu, %{public}s", buf, 0x2Au);
   }
 
@@ -5414,34 +5217,31 @@ void _xpc_activity_dispose(uint64_t a1)
   v7 = *(a1 + 48);
   if (v7)
   {
-    v8 = *(a1 + 48);
     _Block_release(v7);
   }
 
-  v9 = *(a1 + 80);
-  if (v9)
+  v8 = *(a1 + 80);
+  if (v8)
   {
-    xpc_connection_cancel(v9);
+    xpc_connection_cancel(v8);
     xpc_release(*(a1 + 80));
   }
 
-  v10 = *(a1 + 32);
-  if (v10)
+  v9 = *(a1 + 32);
+  if (v9)
   {
-    xpc_release(v10);
+    xpc_release(v9);
   }
 
   if (*(a1 + 56))
   {
-    _xpc_activity_dispose_cold_2(&v12, buf);
+    _xpc_activity_dispose_cold_2(&v10, buf);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void xpc_activity_register(const char *identifier, xpc_object_t criteria, xpc_activity_handler_t handler)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (_activity_log_pred != -1)
   {
     _xpc_activity_dispose_cold_1();
@@ -5458,8 +5258,8 @@ void xpc_activity_register(const char *identifier, xpc_object_t criteria, xpc_ac
 
     *buf = 136446466;
     *&buf[4] = identifier;
-    v15 = 2082;
-    v16 = v7;
+    v14 = 2082;
+    v15 = v7;
     _os_log_impl(&dword_197263000, v6, OS_LOG_TYPE_DEFAULT, "xpc_activity_register: %{public}s, criteria: %{public}s", buf, 0x16u);
   }
 
@@ -5502,12 +5302,11 @@ void xpc_activity_register(const char *identifier, xpc_object_t criteria, xpc_ac
   dispatch_sync(_xpc_activity_queue, block);
   xpc_activity_set_criteria(v8, criteria);
   xpc_release(v8);
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 xpc_object_t __xpc_activity_register_block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   registration = _xpc_activity_find_registration(*(v2 + 24));
   v4 = registration;
@@ -5526,13 +5325,13 @@ xpc_object_t __xpc_activity_register_block_invoke(uint64_t a1)
   {
     v6 = *(v2 + 24);
     v7 = v4[2];
-    v13 = 136446722;
-    v14 = v6;
-    v15 = 2048;
-    v16 = v2;
-    v17 = 2048;
-    v18 = v7;
-    _os_log_impl(&dword_197263000, v5, OS_LOG_TYPE_DEFAULT, "_xpc_activity_register: %{public}s (%p), %llu", &v13, 0x20u);
+    v12 = 136446722;
+    v13 = v6;
+    v14 = 2048;
+    v15 = v2;
+    v16 = 2048;
+    v17 = v7;
+    _os_log_impl(&dword_197263000, v5, OS_LOG_TYPE_DEFAULT, "_xpc_activity_register: %{public}s (%p), %llu", &v12, 0x20u);
   }
 
   v10 = v4[3];
@@ -5547,9 +5346,7 @@ xpc_object_t __xpc_activity_register_block_invoke(uint64_t a1)
   *v9 = v2;
   *(v2 + 128) = v9;
   *(v2 + 136) |= 8u;
-  result = xpc_retain(*(a1 + 32));
-  v12 = *MEMORY[0x1E69E9840];
-  return result;
+  return xpc_retain(*(a1 + 32));
 }
 
 xpc_object_t xpc_activity_copy_criteria(xpc_activity_t activity)
@@ -5595,21 +5392,21 @@ void __xpc_activity_copy_criteria_block_invoke(uint64_t a1)
   }
 }
 
-void _xpc_activity_normalize_critiera(void *a1)
+void _xpc_activity_normalize_critiera(void *result)
 {
-  if (a1)
+  if (result)
   {
-    _xpc_activity_normalize_integer(a1, "Delay");
-    _xpc_activity_normalize_integer(a1, "RandomInitialDelay");
-    _xpc_activity_normalize_integer(a1, "GracePeriod");
+    _xpc_activity_normalize_integer(result, "Delay");
+    _xpc_activity_normalize_integer(result, "RandomInitialDelay");
+    _xpc_activity_normalize_integer(result, "GracePeriod");
 
-    _xpc_activity_normalize_integer(a1, "Interval");
+    _xpc_activity_normalize_integer(result, "Interval");
   }
 }
 
 void __xpc_activity_set_criteria_block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   if (_activity_log_pred != -1)
   {
     _xpc_activity_dispose_cold_1();
@@ -5635,7 +5432,7 @@ void __xpc_activity_set_criteria_block_invoke(uint64_t a1)
     *&buf[12] = 2048;
     *&buf[14] = v3;
     *&buf[22] = 2082;
-    v29 = v5;
+    v28 = v5;
     _os_log_impl(&dword_197263000, v2, OS_LOG_TYPE_DEFAULT, "xpc_activity_set_criteria, lower half: %{public}s (%p), %{public}s", buf, 0x20u);
   }
 
@@ -5643,11 +5440,11 @@ void __xpc_activity_set_criteria_block_invoke(uint64_t a1)
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x2000000000;
-  v29 = 0;
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x2000000000;
-  v21 = 0;
+  v28 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2000000000;
+  v20 = 0;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 0x40000000;
   block[2] = __xpc_activity_set_criteria_block_invoke_70;
@@ -5655,7 +5452,7 @@ void __xpc_activity_set_criteria_block_invoke(uint64_t a1)
   block[6] = *(a1 + 32);
   block[7] = v6;
   block[4] = buf;
-  block[5] = &v18;
+  block[5] = &v17;
   dispatch_sync(_xpc_activity_queue, block);
   if (_activity_log_pred != -1)
   {
@@ -5667,13 +5464,13 @@ void __xpc_activity_set_criteria_block_invoke(uint64_t a1)
   {
     v8 = *(a1 + 32);
     v9 = *(v8 + 24);
-    *v22 = 136446722;
-    v23 = v9;
-    v24 = 2048;
-    v25 = v8;
-    v26 = 2048;
-    v27 = v6 != &_xpc_activity_check_in;
-    _os_log_impl(&dword_197263000, v7, OS_LOG_TYPE_DEFAULT, "xpc_activity_set_criteria: %{public}s (%p), setting state now to %ld", v22, 0x20u);
+    *v21 = 136446722;
+    v22 = v9;
+    v23 = 2048;
+    v24 = v8;
+    v25 = 2048;
+    v26 = v6 != &_xpc_activity_check_in;
+    _os_log_impl(&dword_197263000, v7, OS_LOG_TYPE_DEFAULT, "xpc_activity_set_criteria: %{public}s (%p), setting state now to %ld", v21, 0x20u);
   }
 
   _xpc_activity_set_state_with_completion_status(*(a1 + 32), v6 != &_xpc_activity_check_in, 0);
@@ -5690,47 +5487,46 @@ void __xpc_activity_set_criteria_block_invoke(uint64_t a1)
       v11 = *(a1 + 32);
       v12 = *(v11 + 24);
       uint64 = xpc_dictionary_get_uint64(*(*&buf[8] + 24), "_SequenceNumber");
-      *v22 = 136446722;
-      v23 = v12;
-      v24 = 2048;
-      v25 = v11;
-      v26 = 2048;
-      v27 = uint64;
-      _os_log_impl(&dword_197263000, v10, OS_LOG_TYPE_DEFAULT, "xpc_activity_set_criteria: %{public}s (%p), there is a pending event, which contained seqno %llu. If next state is CHECK_IN, it will be dispatched. If next state is WAIT, it will be dropped.", v22, 0x20u);
+      *v21 = 136446722;
+      v22 = v12;
+      v23 = 2048;
+      v24 = v11;
+      v25 = 2048;
+      v26 = uint64;
+      _os_log_impl(&dword_197263000, v10, OS_LOG_TYPE_DEFAULT, "xpc_activity_set_criteria: %{public}s (%p), there is a pending event, which contained seqno %llu. If next state is CHECK_IN, it will be dispatched. If next state is WAIT, it will be dropped.", v21, 0x20u);
     }
 
     if (v6 == &_xpc_activity_check_in)
     {
       global_queue = dispatch_get_global_queue(9, 0);
       xpc_retain(*(*&buf[8] + 24));
-      os_retain(v19[3]);
-      v16[0] = MEMORY[0x1E69E9820];
-      v16[1] = 0x40000000;
-      v16[2] = __xpc_activity_set_criteria_block_invoke_72;
-      v16[3] = &unk_1E74ABBF8;
-      v16[4] = buf;
-      v16[5] = &v18;
-      dispatch_async(global_queue, v16);
+      os_retain(v18[3]);
+      v15[0] = MEMORY[0x1E69E9820];
+      v15[1] = 0x40000000;
+      v15[2] = __xpc_activity_set_criteria_block_invoke_72;
+      v15[3] = &unk_1E74ABBF8;
+      v15[4] = buf;
+      v15[5] = &v17;
+      dispatch_async(global_queue, v15);
     }
 
     xpc_release(*(*&buf[8] + 24));
   }
 
-  os_release(v19[3]);
+  os_release(v18[3]);
   xpc_release(*(a1 + 32));
-  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v17, 8);
   _Block_object_dispose(buf, 8);
-  v15 = *MEMORY[0x1E69E9840];
 }
 
-void __xpc_activity_set_criteria_block_invoke_70(uint64_t a1)
+void __xpc_activity_set_criteria_block_invoke_70(void *a1)
 {
-  v29 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 48);
+  v28 = *MEMORY[0x1E69E9840];
+  v2 = a1[6];
   if ((*(v2 + 136) & 8) != 0)
   {
     registration = _xpc_activity_find_registration(*(v2 + 24));
-    _xpc_activity_set_criteria(registration, *(a1 + 48), *(a1 + 56));
+    _xpc_activity_set_criteria(registration, a1[6], a1[7]);
     v8 = registration[6];
     if (v8 || registration[7])
     {
@@ -5744,31 +5540,31 @@ void __xpc_activity_set_criteria_block_invoke_70(uint64_t a1)
         v9 = _activity_log__log;
         if (os_log_type_enabled(_activity_log__log, OS_LOG_TYPE_DEFAULT))
         {
-          v10 = *(a1 + 48);
+          v10 = a1[6];
           v11 = *(v10 + 24);
           v12 = registration[6];
           v13 = registration[2];
-          v21 = 136446978;
-          v22 = v11;
-          v23 = 2048;
-          v24 = v10;
-          v25 = 2048;
-          v26 = v12;
-          v27 = 2048;
-          v28 = v13;
-          _os_log_impl(&dword_197263000, v9, OS_LOG_TYPE_DEFAULT, "xpc_activity_set_criteria: %{public}s (%p): registration->pending_seqno %llu >= registration->seqno %llu; creating a pending event", &v21, 0x2Au);
+          v20 = 136446978;
+          v21 = v11;
+          v22 = 2048;
+          v23 = v10;
+          v24 = 2048;
+          v25 = v12;
+          v26 = 2048;
+          v27 = v13;
+          _os_log_impl(&dword_197263000, v9, OS_LOG_TYPE_DEFAULT, "xpc_activity_set_criteria: %{public}s (%p): registration->pending_seqno %llu >= registration->seqno %llu; creating a pending event", &v20, 0x2Au);
         }
 
-        *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_create(0, 0, 0);
-        xpc_dictionary_set_string(*(*(*(a1 + 32) + 8) + 24), "XPCEventName", *registration);
-        xpc_dictionary_set_uint64(*(*(*(a1 + 32) + 8) + 24), "_SequenceNumber", registration[6]);
+        *(*(a1[4] + 8) + 24) = xpc_dictionary_create(0, 0, 0);
+        xpc_dictionary_set_string(*(*(a1[4] + 8) + 24), "XPCEventName", *registration);
+        xpc_dictionary_set_uint64(*(*(a1[4] + 8) + 24), "_SequenceNumber", registration[6]);
         v14 = registration[7];
         if (v14)
         {
-          xpc_dictionary_set_value(*(*(*(a1 + 32) + 8) + 24), "_ReplyEndpoint", v14);
+          xpc_dictionary_set_value(*(*(a1[4] + 8) + 24), "_ReplyEndpoint", v14);
         }
 
-        *(*(*(a1 + 40) + 8) + 24) = registration[8];
+        *(*(a1[5] + 8) + 24) = registration[8];
         registration[8] = 0;
       }
 
@@ -5780,16 +5576,16 @@ void __xpc_activity_set_criteria_block_invoke_70(uint64_t a1)
       v15 = _activity_log__log;
       if (os_log_type_enabled(_activity_log__log, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = *(a1 + 48);
+        v16 = a1[6];
         v17 = *(v16 + 24);
         v18 = registration[6];
-        v21 = 136446722;
-        v22 = v17;
-        v23 = 2048;
-        v24 = v16;
-        v25 = 2048;
-        v26 = v18;
-        _os_log_impl(&dword_197263000, v15, OS_LOG_TYPE_DEFAULT, "xpc_activity_set_criteria: %{public}s (%p): clearing pending seqno %llu, endpoint, transaction", &v21, 0x20u);
+        v20 = 136446722;
+        v21 = v17;
+        v22 = 2048;
+        v23 = v16;
+        v24 = 2048;
+        v25 = v18;
+        _os_log_impl(&dword_197263000, v15, OS_LOG_TYPE_DEFAULT, "xpc_activity_set_criteria: %{public}s (%p): clearing pending seqno %llu, endpoint, transaction", &v20, 0x20u);
       }
 
       registration[6] = 0;
@@ -5807,7 +5603,7 @@ void __xpc_activity_set_criteria_block_invoke_70(uint64_t a1)
 
   else
   {
-    v3 = *(a1 + 56);
+    v3 = a1[7];
     if (v3 != &_xpc_activity_check_in)
     {
       xpc_release(v3);
@@ -5821,17 +5617,15 @@ void __xpc_activity_set_criteria_block_invoke_70(uint64_t a1)
     v4 = _activity_log__log;
     if (os_log_type_enabled(_activity_log__log, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(a1 + 48);
+      v5 = a1[6];
       v6 = *(v5 + 24);
-      v21 = 136446466;
-      v22 = v6;
-      v23 = 2048;
-      v24 = v5;
-      _os_log_impl(&dword_197263000, v4, OS_LOG_TYPE_DEFAULT, "xpc_activity_set_criteria: %{public}s (%p): early return", &v21, 0x16u);
+      v20 = 136446466;
+      v21 = v6;
+      v22 = 2048;
+      v23 = v5;
+      _os_log_impl(&dword_197263000, v4, OS_LOG_TYPE_DEFAULT, "xpc_activity_set_criteria: %{public}s (%p): early return", &v20, 0x16u);
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void *_xpc_activity_find_registration(const char *a1)
@@ -5858,7 +5652,7 @@ void *_xpc_activity_find_registration(const char *a1)
 
 xpc_object_t _xpc_activity_set_criteria(uint64_t a1, uint64_t a2, __objc2_class **a3)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   if (_activity_log_pred != -1)
   {
     _xpc_activity_dispose_cold_1();
@@ -5875,11 +5669,11 @@ xpc_object_t _xpc_activity_set_criteria(uint64_t a1, uint64_t a2, __objc2_class 
       v8 = "check-in";
     }
 
-    v33 = v7;
-    v34 = 2048;
-    v35 = a2;
-    v36 = 2082;
-    v37 = v8;
+    v32 = v7;
+    v33 = 2048;
+    v34 = a2;
+    v35 = 2082;
+    v36 = v8;
     _os_log_impl(&dword_197263000, v6, OS_LOG_TYPE_DEFAULT, "_xpc_activity_set_criteria: %{public}s (%p), %{public}s", buf, 0x20u);
   }
 
@@ -5951,9 +5745,9 @@ xpc_object_t _xpc_activity_set_criteria(uint64_t a1, uint64_t a2, __objc2_class 
       v14 = *a1;
       v15 = *(a1 + 16);
       *buf = 136446466;
-      v33 = v14;
-      v34 = 2048;
-      v35 = v15;
+      v32 = v14;
+      v33 = 2048;
+      v34 = v15;
       _os_log_impl(&dword_197263000, v13, OS_LOG_TYPE_DEFAULT, "_xpc_activity_set_criteria: xpc_set_event %{public}s, %llu", buf, 0x16u);
     }
 
@@ -5975,7 +5769,7 @@ xpc_object_t _xpc_activity_set_criteria(uint64_t a1, uint64_t a2, __objc2_class 
 
     if (*(v19 + 3) == 1)
     {
-      _xpc_activity_set_criteria_cold_2(&v31, buf);
+      _xpc_activity_set_criteria_cold_2(v30, buf);
     }
 
     global_queue = dispatch_get_global_queue(9, 0);
@@ -6037,7 +5831,6 @@ LABEL_40:
 
 LABEL_41:
   *(a2 + 96) = *(a1 + 16);
-  v29 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -6052,7 +5845,7 @@ void __xpc_activity_set_criteria_block_invoke_72(uint64_t a1)
 
 void _xpc_activity_dispatch(xpc_object_t xdict, void *a2)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   if (*(MEMORY[0x1E69E99F0] + 16) == -1)
   {
     v4 = *(MEMORY[0x1E69E99F0] + 24);
@@ -6077,22 +5870,22 @@ void _xpc_activity_dispatch(xpc_object_t xdict, void *a2)
     }
 
 LABEL_9:
-    v8 = os_transaction_create(string);
+    v7 = os_transaction_create(string);
     uint64 = xpc_dictionary_get_uint64(xdict, "_SequenceNumber");
     if (_activity_log_pred != -1)
     {
       dispatch_once(&_activity_log_pred, &__block_literal_global_9);
     }
 
-    v10 = v5 ^ 1;
-    v11 = _activity_log__log;
+    v9 = v5 ^ 1;
+    v10 = _activity_log__log;
     if (os_log_type_enabled(_activity_log__log, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446466;
       *&buf[4] = string;
       *&buf[12] = 2048;
       *&buf[14] = uint64;
-      _os_log_impl(&dword_197263000, v11, OS_LOG_TYPE_DEFAULT, "_xpc_activity_dispatch: beginning dispatch, activity name %{public}s, seqno %llu", buf, 0x16u);
+      _os_log_impl(&dword_197263000, v10, OS_LOG_TYPE_DEFAULT, "_xpc_activity_dispatch: beginning dispatch, activity name %{public}s, seqno %llu", buf, 0x16u);
     }
 
     if (v5)
@@ -6105,23 +5898,23 @@ LABEL_9:
       value = 0;
     }
 
-    v25 = 0;
-    v26 = &v25;
-    v27 = 0x2000000000;
-    v28 = 0;
+    v23 = 0;
+    v24 = &v23;
+    v25 = 0x2000000000;
+    v26 = 0;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 0x40000000;
     block[2] = ___xpc_activity_dispatch_block_invoke;
     block[3] = &unk_1E74ABE60;
-    v23 = v5 ^ 1;
+    v21 = v5 ^ 1;
     block[6] = uint64;
     block[7] = a2;
-    block[4] = &v25;
+    block[4] = &v23;
     block[5] = string;
-    block[8] = v8;
+    block[8] = v7;
     block[9] = value;
     dispatch_sync(_xpc_activity_queue, block);
-    if (!v26[3])
+    if (!v24[3])
     {
       goto LABEL_33;
     }
@@ -6140,14 +5933,14 @@ LABEL_9:
     {
       if (v5)
       {
-        v21 = 0;
-        v31 = 0u;
-        v32 = 0u;
+        v19 = 0;
+        v29 = 0u;
         v30 = 0u;
+        v28 = 0u;
         memset(buf, 0, sizeof(buf));
         os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        v24[0] = 134217984;
-        *&v24[1] = 0;
+        v22[0] = 134217984;
+        *&v22[1] = 0;
         _os_log_send_and_compose_impl();
         _os_crash_msg();
         __break(1u);
@@ -6156,24 +5949,24 @@ LABEL_9:
       else if (xdict)
       {
         xpc_retain(a2);
-        v13 = xpc_dictionary_get_value(xdict, "eligible");
-        if (v13)
+        v12 = xpc_dictionary_get_value(xdict, "eligible");
+        if (v12)
         {
-          _xpc_activity_set_eligible(v26[3], v13 == &_xpc_BOOL_true);
+          _xpc_activity_set_eligible(v24[3], v12 == &_xpc_BOOL_true);
         }
 
         goto LABEL_26;
       }
 
-      v21 = 0;
-      v31 = 0u;
-      v32 = 0u;
+      v19 = 0;
+      v29 = 0u;
       v30 = 0u;
+      v28 = 0u;
       memset(buf, 0, sizeof(buf));
       xdict = MEMORY[0x1E69E9C10];
       os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      v24[0] = 134217984;
-      *&v24[1] = 0;
+      v22[0] = 134217984;
+      *&v22[1] = 0;
       _os_log_send_and_compose_impl();
       _os_crash_msg();
       __break(1u);
@@ -6181,26 +5974,25 @@ LABEL_9:
     }
 
 LABEL_26:
-    v5 = v26[3];
+    v5 = v24[3];
     if (*(v5 + 136))
     {
 LABEL_32:
-      v17 = *(v26[3] + 40);
-      v19[0] = MEMORY[0x1E69E9820];
-      v19[1] = 0x40000000;
-      v19[2] = ___xpc_activity_dispatch_block_invoke_115;
-      v19[3] = &unk_1E74ABEA8;
-      v19[4] = &v25;
-      v19[5] = uint64;
-      v20 = v10;
-      v19[6] = value;
-      v19[7] = a2;
-      v19[8] = xdict;
-      dispatch_async(v17, v19);
+      v16 = *(v24[3] + 40);
+      v17[0] = MEMORY[0x1E69E9820];
+      v17[1] = 0x40000000;
+      v17[2] = ___xpc_activity_dispatch_block_invoke_115;
+      v17[3] = &unk_1E74ABEA8;
+      v17[4] = &v23;
+      v17[5] = uint64;
+      v18 = v9;
+      v17[6] = value;
+      v17[7] = a2;
+      v17[8] = xdict;
+      dispatch_async(v16, v17);
 LABEL_33:
-      os_release(v8);
-      _Block_object_dispose(&v25, 8);
-      v18 = *MEMORY[0x1E69E9840];
+      os_release(v7);
+      _Block_object_dispose(&v23, 8);
       return;
     }
 
@@ -6210,22 +6002,22 @@ LABEL_33:
       _os_assumes_log();
     }
 
-    *(v5 + 112) = os_retain(v8);
+    *(v5 + 112) = os_retain(v7);
     if (_activity_log_pred == -1)
     {
 LABEL_30:
-      v14 = _activity_log__log;
+      v13 = _activity_log__log;
       if (os_log_type_enabled(_activity_log__log, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = *(v5 + 24);
-        v16 = *(v5 + 96);
+        v14 = *(v5 + 24);
+        v15 = *(v5 + 96);
         *buf = 136446722;
-        *&buf[4] = v15;
+        *&buf[4] = v14;
         *&buf[12] = 2048;
         *&buf[14] = v5;
         *&buf[22] = 2048;
-        *&buf[24] = v16;
-        _os_log_impl(&dword_197263000, v14, OS_LOG_TYPE_DEFAULT, "_xpc_activity_begin_running: %{public}s (%p) seqno: %llu.", buf, 0x20u);
+        *&buf[24] = v15;
+        _os_log_impl(&dword_197263000, v13, OS_LOG_TYPE_DEFAULT, "_xpc_activity_begin_running: %{public}s (%p) seqno: %llu.", buf, 0x20u);
       }
 
       goto LABEL_32;
@@ -6241,8 +6033,6 @@ LABEL_37:
   {
     goto LABEL_9;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   _xpc_activity_setup_control_channel(xdict);
 }
@@ -6324,12 +6114,11 @@ uint64_t __xpc_activity_add_eligibility_changed_handler_block_invoke(uint64_t re
 
 void __xpc_activity_add_eligibility_changed_handler_block_invoke_2(uint64_t a1)
 {
-  v2 = *(a1 + 40);
   (*(*(a1 + 32) + 16))();
   _Block_release(*(a1 + 32));
-  v3 = *(a1 + 40);
+  v2 = *(a1 + 40);
 
-  xpc_release(v3);
+  xpc_release(v2);
 }
 
 void xpc_activity_remove_eligibility_changed_handler(uint64_t a1)
@@ -6469,7 +6258,7 @@ BOOL __xpc_activity_unregister_block_invoke(uint64_t a1)
 
 BOOL _xpc_activity_unregister(uint64_t a1, uint64_t a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (a2)
   {
     __xpc_activity_unregister(a2);
@@ -6502,13 +6291,13 @@ BOOL _xpc_activity_unregister(uint64_t a1, uint64_t a2)
   {
     v7 = *a1;
     v8 = *(a1 + 16);
-    v16 = 136446722;
-    v17 = v7;
-    v18 = 2048;
-    v19 = v8;
-    v20 = 1024;
-    v21 = v4;
-    _os_log_impl(&dword_197263000, v6, OS_LOG_TYPE_DEFAULT, "_xpc_activity_unregister: %{public}s %llu, last registration: %{BOOL}d", &v16, 0x1Cu);
+    v15 = 136446722;
+    v16 = v7;
+    v17 = 2048;
+    v18 = v8;
+    v19 = 1024;
+    v20 = v4;
+    _os_log_impl(&dword_197263000, v6, OS_LOG_TYPE_DEFAULT, "_xpc_activity_unregister: %{public}s %llu, last registration: %{BOOL}d", &v15, 0x1Cu);
   }
 
   if (v4)
@@ -6567,13 +6356,12 @@ BOOL _xpc_activity_unregister(uint64_t a1, uint64_t a2)
     }
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
 void xpc_activity_run(const char *a1, uint64_t a2)
 {
-  _xpc_activity_create_control_channel();
+  _xpc_activity_create_control_channel(a1);
   v4 = xpc_dictionary_create(0, 0, 0);
   xpc_dictionary_set_string(v4, "Command", "Run");
   xpc_dictionary_set_string(v4, "Identifier", a1);
@@ -6586,7 +6374,7 @@ void xpc_activity_run(const char *a1, uint64_t a2)
   dispatch_async(_control_queue, v5);
 }
 
-void _xpc_activity_create_control_channel()
+void _xpc_activity_create_control_channel(uint64_t result)
 {
   if (_xpc_activity_once != -1)
   {
@@ -6632,7 +6420,7 @@ uint64_t __xpc_activity_run_block_invoke_2(uint64_t a1, xpc_object_t xdict)
 
 void xpc_activity_list(const char *a1, uint64_t a2)
 {
-  _xpc_activity_create_control_channel();
+  _xpc_activity_create_control_channel(a1);
   v4 = xpc_dictionary_create(0, 0, 0);
   xpc_dictionary_set_string(v4, "Command", "List");
   if (a1)
@@ -6672,7 +6460,7 @@ uint64_t __xpc_activity_list_block_invoke_2(uint64_t a1, xpc_object_t xdict)
 
 void xpc_activity_debug(const char *a1, uint64_t a2, uint64_t a3)
 {
-  _xpc_activity_create_control_channel();
+  _xpc_activity_create_control_channel(a1);
   v6 = xpc_dictionary_create(0, 0, 0);
   xpc_dictionary_set_string(v6, "Command", "Debug");
   xpc_dictionary_set_string(v6, "Identifier", a1);
@@ -6719,7 +6507,7 @@ uint64_t __xpc_activity_debug_block_invoke_2(uint64_t a1, xpc_object_t xdict)
 
 void _xpc_activity_end_running(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (*(a1 + 136))
   {
     *(a1 + 136) &= ~1u;
@@ -6738,13 +6526,13 @@ void _xpc_activity_end_running(uint64_t a1)
     {
       v3 = *(a1 + 24);
       v4 = *(a1 + 96);
-      v7 = 136446722;
-      v8 = v3;
-      v9 = 2048;
-      v10 = a1;
-      v11 = 2048;
-      v12 = v4;
-      _os_log_impl(&dword_197263000, v2, OS_LOG_TYPE_DEFAULT, "_xpc_activity_end_running: %{public}s (%p) seqno: %llu.", &v7, 0x20u);
+      v6 = 136446722;
+      v7 = v3;
+      v8 = 2048;
+      v9 = a1;
+      v10 = 2048;
+      v11 = v4;
+      _os_log_impl(&dword_197263000, v2, OS_LOG_TYPE_DEFAULT, "_xpc_activity_end_running: %{public}s (%p) seqno: %llu.", &v6, 0x20u);
     }
 
     v5 = *(a1 + 112);
@@ -6758,8 +6546,6 @@ LABEL_10:
     os_release(v5);
     *(a1 + 112) = 0;
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 os_log_t ___activity_log_block_invoke()
@@ -6867,7 +6653,6 @@ void ___xpc_activity_new_unmanaged_connection_block_invoke(uint64_t a1, __objc2_
 
 void _xpc_activity_setup_control_channel(xpc_object_t xdict)
 {
-  v9 = *MEMORY[0x1E69E9840];
   if (*(MEMORY[0x1E69E99F0] + 16) == -1)
   {
     v2 = *(MEMORY[0x1E69E99F0] + 24);
@@ -6902,7 +6687,6 @@ void _xpc_activity_setup_control_channel(xpc_object_t xdict)
     xpc_connection_activate(v5);
     _control_connection = v5;
     v6 = _control_queue;
-    v7 = *MEMORY[0x1E69E9840];
 
     dispatch_resume(v6);
   }
@@ -6910,13 +6694,12 @@ void _xpc_activity_setup_control_channel(xpc_object_t xdict)
   else
   {
     _control_connection = 0;
-    v8 = *MEMORY[0x1E69E9840];
   }
 }
 
 void ___xpc_activity_dispatch_block_invoke(uint64_t a1)
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   registration = _xpc_activity_find_registration(*(a1 + 40));
   v3 = registration[3];
   if (v3)
@@ -6940,9 +6723,9 @@ void ___xpc_activity_dispatch_block_invoke(uint64_t a1)
           {
             v7 = *(a1 + 40);
             *buf = 136446466;
-            v34 = v7;
-            v35 = 2048;
-            v36 = v5;
+            v33 = v7;
+            v34 = 2048;
+            v35 = v5;
             _os_log_impl(&dword_197263000, v6, OS_LOG_TYPE_DEFAULT, "_xpc_activity_dispatch: %{public}s (%p): state is checking and criteria is checking. Calling _xpc_activity_set_criteria(...CHECK_IN)", buf, 0x16u);
           }
 
@@ -6970,13 +6753,13 @@ void ___xpc_activity_dispatch_block_invoke(uint64_t a1)
             v25 = *(a1 + 40);
             v26 = *(a1 + 48);
             *buf = 136446978;
-            v34 = v25;
-            v35 = 2048;
-            v36 = v5;
-            v37 = 2048;
-            v38 = v24;
-            v39 = 2048;
-            v40 = v26;
+            v33 = v25;
+            v34 = 2048;
+            v35 = v5;
+            v36 = 2048;
+            v37 = v24;
+            v38 = 2048;
+            v39 = v26;
             _os_log_impl(&dword_197263000, v23, OS_LOG_TYPE_DEFAULT, "_xpc_activity_dispatch: %{public}s (%p): found a activity with seqno %llu NEWER THAN than the event's seqno %llu. Doing nothing.", buf, 0x2Au);
           }
 
@@ -7006,13 +6789,13 @@ void ___xpc_activity_dispatch_block_invoke(uint64_t a1)
             v16 = *(a1 + 40);
             v17 = *(a1 + 48);
             *buf = 136446978;
-            v34 = v16;
-            v35 = 2050;
-            v36 = v5;
-            v37 = 2048;
-            v38 = v15;
-            v39 = 2048;
-            v40 = v17;
+            v33 = v16;
+            v34 = 2050;
+            v35 = v5;
+            v36 = 2048;
+            v37 = v15;
+            v38 = 2048;
+            v39 = v17;
             _os_log_impl(&dword_197263000, v14, OS_LOG_TYPE_DEFAULT, "_xpc_activity_dispatch: %{public}s (%{public}p): found an activity with seqno %llu older than the event's seqno %llu. Unregistering it.", buf, 0x2Au);
           }
 
@@ -7031,9 +6814,9 @@ void ___xpc_activity_dispatch_block_invoke(uint64_t a1)
           {
             v19 = *(a1 + 40);
             *buf = 136446466;
-            v34 = v19;
-            v35 = 2050;
-            v36 = v5;
+            v33 = v19;
+            v34 = 2050;
+            v35 = v5;
             _os_log_impl(&dword_197263000, v18, OS_LOG_TYPE_DEFAULT, "_xpc_activity_dispatch: %{public}s (%{public}p): no references remain after unregistering old activity.", buf, 0x16u);
           }
 
@@ -7070,11 +6853,11 @@ void ___xpc_activity_dispatch_block_invoke(uint64_t a1)
         v12 = *(a1 + 40);
         v13 = *(a1 + 48);
         *buf = 136446722;
-        v34 = v12;
-        v35 = 2048;
-        v36 = v5;
-        v37 = 2048;
-        v38 = v13;
+        v33 = v12;
+        v34 = 2048;
+        v35 = v5;
+        v36 = 2048;
+        v37 = v13;
         _os_log_impl(&dword_197263000, v11, OS_LOG_TYPE_DEFAULT, "_xpc_activity_dispatch: %{public}s (%p): ignoring an activity with matching seqno because of reply connection mismatch %llu", buf, 0x20u);
         if (!v3)
         {
@@ -7103,11 +6886,11 @@ LABEL_37:
       v21 = *(a1 + 40);
       v22 = *(a1 + 48);
       *buf = 136446722;
-      v34 = v21;
-      v35 = 2048;
-      v36 = v5;
-      v37 = 2048;
-      v38 = v22;
+      v33 = v21;
+      v34 = 2048;
+      v35 = v5;
+      v36 = 2048;
+      v37 = v22;
       _os_log_impl(&dword_197263000, v20, OS_LOG_TYPE_DEFAULT, "_xpc_activity_dispatch: %{public}s (%p): found an activity with matching seqno %llu", buf, 0x20u);
     }
 
@@ -7124,39 +6907,37 @@ LABEL_46:
       __xpc_activity_set_criteria_block_invoke_cold_2();
     }
 
-    v28 = _activity_log__log;
+    v27 = _activity_log__log;
     if (os_log_type_enabled(_activity_log__log, OS_LOG_TYPE_DEFAULT))
     {
-      v29 = *(a1 + 40);
-      v30 = *(a1 + 48);
+      v28 = *(a1 + 40);
+      v29 = *(a1 + 48);
       *buf = 136446722;
-      v34 = v29;
-      v35 = 2048;
-      v36 = 0;
-      v37 = 2048;
-      v38 = v30;
-      _os_log_impl(&dword_197263000, v28, OS_LOG_TYPE_DEFAULT, "_xpc_activity_dispatch: %{public}s (%p): An event was delivered before the process has checked in. Stashing pending_seqno %llu, transaction, endpoint", buf, 0x20u);
+      v33 = v28;
+      v34 = 2048;
+      v35 = 0;
+      v36 = 2048;
+      v37 = v29;
+      _os_log_impl(&dword_197263000, v27, OS_LOG_TYPE_DEFAULT, "_xpc_activity_dispatch: %{public}s (%p): An event was delivered before the process has checked in. Stashing pending_seqno %llu, transaction, endpoint", buf, 0x20u);
     }
 
     registration[6] = *(a1 + 48);
     os_release(registration[8]);
     registration[8] = os_retain(*(a1 + 64));
-    v31 = registration[7];
-    if (v31)
+    v30 = registration[7];
+    if (v30)
     {
-      xpc_release(v31);
+      xpc_release(v30);
       registration[7] = 0;
     }
 
-    v32 = *(a1 + 72);
-    if (v32)
+    v31 = *(a1 + 72);
+    if (v31)
     {
-      xpc_retain(v32);
+      xpc_retain(v31);
       registration[7] = *(a1 + 72);
     }
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 void _xpc_activity_set_eligible(_BYTE *a1, int a2)
@@ -7187,7 +6968,7 @@ void _xpc_activity_set_eligible(_BYTE *a1, int a2)
 
 void ___xpc_activity_dispatch_block_invoke_115(uint64_t a1)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   if (_activity_log_pred != -1)
   {
     _xpc_activity_dispose_cold_1();
@@ -7200,11 +6981,11 @@ void ___xpc_activity_dispatch_block_invoke_115(uint64_t a1)
     v4 = *(*(*(a1 + 32) + 8) + 24);
     v5 = *(v4 + 24);
     *buf = 136446722;
-    v28 = v5;
-    v29 = 2048;
-    v30 = v4;
-    v31 = 2048;
-    v32 = v3;
+    v27 = v5;
+    v28 = 2048;
+    v29 = v4;
+    v30 = 2048;
+    v31 = v3;
     _os_log_impl(&dword_197263000, v2, OS_LOG_TYPE_DEFAULT, "_xpc_activity_dispatch: lower half, activity name %{public}s (%p), seqno from top half was %llu", buf, 0x20u);
   }
 
@@ -7213,7 +6994,7 @@ void ___xpc_activity_dispatch_block_invoke_115(uint64_t a1)
   {
     if (*(a1 + 72) == 1)
     {
-      ___xpc_activity_dispatch_block_invoke_115_cold_2(&v26, buf);
+      ___xpc_activity_dispatch_block_invoke_115_cold_2(v25, buf);
     }
 
     listener_port = _xpc_endpoint_get_listener_port(v6);
@@ -7237,12 +7018,12 @@ void ___xpc_activity_dispatch_block_invoke_115(uint64_t a1)
   {
     if ((*(a1 + 72) & 1) == 0)
     {
-      ___xpc_activity_dispatch_block_invoke_115_cold_3(&v26, buf);
+      ___xpc_activity_dispatch_block_invoke_115_cold_3(v25, buf);
     }
 
     if (v10 != *(*(*(*(a1 + 32) + 8) + 24) + 80))
     {
-      ___xpc_activity_dispatch_block_invoke_115_cold_4(&v26, buf);
+      ___xpc_activity_dispatch_block_invoke_115_cold_4(v25, buf);
     }
 
     if (xpc_dictionary_get_value(*(a1 + 64), "run") == &_xpc_BOOL_true)
@@ -7259,13 +7040,13 @@ void ___xpc_activity_dispatch_block_invoke_115(uint64_t a1)
     {
       if (*(a1 + 72) == 1)
       {
-        ___xpc_activity_dispatch_block_invoke_115_cold_2(&v26, buf);
+        ___xpc_activity_dispatch_block_invoke_115_cold_2(v25, buf);
       }
 
       v12 = *(a1 + 64);
       if (!v12)
       {
-        ___xpc_activity_dispatch_block_invoke_115_cold_6(&v26, buf);
+        ___xpc_activity_dispatch_block_invoke_115_cold_6(v25, buf);
       }
 
       xpc_retain(v12);
@@ -7279,7 +7060,7 @@ void ___xpc_activity_dispatch_block_invoke_115(uint64_t a1)
       v14 = *(a1 + 40);
       handler[4] = *(a1 + 64);
       handler[5] = v14;
-      v25 = *(a1 + 72);
+      v24 = *(a1 + 72);
       handler[6] = v13;
       xpc_connection_set_event_handler(v13, handler);
       xpc_connection_activate(v13);
@@ -7295,13 +7076,13 @@ void ___xpc_activity_dispatch_block_invoke_115(uint64_t a1)
         v17 = *(*(*(a1 + 32) + 8) + 24);
         v18 = *(v17 + 24);
         *buf = 134218754;
-        v28 = v13;
-        v29 = 2082;
-        v30 = v18;
-        v31 = 2048;
-        v32 = v17;
-        v33 = 2048;
-        v34 = v16;
+        v27 = v13;
+        v28 = 2082;
+        v29 = v18;
+        v30 = 2048;
+        v31 = v17;
+        v32 = 2048;
+        v33 = v16;
         _os_log_impl(&dword_197263000, v15, OS_LOG_TYPE_DEFAULT, "_xpc_activity_dispatch: created connection %p for activity name %{public}s (%p), seqno %llu", buf, 0x2Au);
       }
     }
@@ -7333,13 +7114,22 @@ void ___xpc_activity_dispatch_block_invoke_115(uint64_t a1)
   }
 
   xpc_release(*(*(*(a1 + 32) + 8) + 24));
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void ___xpc_activity_dispatch_block_invoke_117(uint64_t a1, __objc2_class **object)
 {
-  v23 = *MEMORY[0x1E69E9840];
-  if (xpc_get_type(object) != OS_xpc_error)
+  v21 = *MEMORY[0x1E69E9840];
+  if (xpc_get_type(object) == OS_xpc_error)
+  {
+    if (object == &_xpc_error_connection_invalid)
+    {
+      v14 = *(a1 + 32);
+
+      xpc_release(v14);
+    }
+  }
+
+  else
   {
     value = xpc_dictionary_get_value(object, "eligible");
     if (value)
@@ -7392,11 +7182,11 @@ void ___xpc_activity_dispatch_block_invoke_117(uint64_t a1, __objc2_class **obje
             {
               v13 = *(a1 + 40);
               *buf = 136446722;
-              v18 = string;
+              v16 = string;
+              v17 = 2048;
+              v18 = v10;
               v19 = 2048;
-              v20 = v10;
-              v21 = 2048;
-              v22 = v13;
+              v20 = v13;
               _os_log_impl(&dword_197263000, v12, OS_LOG_TYPE_DEFAULT, "_xpc_activity_dispatch: xpc_connection_set_event_handler: %{public}s (%p): found an activity with matching seqno %llu", buf, 0x20u);
             }
 
@@ -7412,21 +7202,7 @@ LABEL_22:
         }
       }
     }
-
-    goto LABEL_24;
   }
-
-  if (object != &_xpc_error_connection_invalid)
-  {
-LABEL_24:
-    v16 = *MEMORY[0x1E69E9840];
-    return;
-  }
-
-  v14 = *(a1 + 32);
-  v15 = *MEMORY[0x1E69E9840];
-
-  xpc_release(v14);
 }
 
 void ___xpc_activity_notify_eligibility_changed_handlers_block_invoke(uint64_t a1)
@@ -7470,17 +7246,16 @@ void ___xpc_activity_notify_eligibility_changed_handlers_block_invoke(uint64_t a
 
 void ___xpc_activity_notify_eligibility_changed_handlers_block_invoke_2(uint64_t a1)
 {
-  v2 = *(a1 + 40);
   (*(*(a1 + 32) + 16))();
   _Block_release(*(a1 + 32));
-  v3 = *(a1 + 40);
+  v2 = *(a1 + 40);
 
-  xpc_release(v3);
+  xpc_release(v2);
 }
 
 void _xpc_activity_set_state_with_completion_status(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (_activity_log_pred != -1)
   {
     _xpc_activity_dispose_cold_1();
@@ -7491,31 +7266,34 @@ void _xpc_activity_set_state_with_completion_status(uint64_t a1, uint64_t a2, ui
   {
     v7 = *(a1 + 24);
     *buf = 136446722;
-    v13 = v7;
-    v14 = 2048;
-    v15 = a1;
-    v16 = 2048;
-    v17 = a2;
+    v12 = v7;
+    v13 = 2048;
+    v14 = a1;
+    v15 = 2048;
+    v16 = a2;
     _os_log_impl(&dword_197263000, v6, OS_LOG_TYPE_DEFAULT, "_xpc_activity_set_state: %{public}s (%p), %ld", buf, 0x20u);
   }
 
   if (a2)
   {
-    if (*(a1 + 80) && *(a1 + 72) != a2)
+    if (*(a1 + 80))
     {
-      *(a1 + 72) = a2;
-      xpc_retain(a1);
-      v8 = *(a1 + 88);
-      v9 = *(a1 + 40);
-      v11[0] = MEMORY[0x1E69E9820];
-      v11[1] = 0x40000000;
-      v11[2] = ___xpc_activity_set_state_with_completion_status_block_invoke;
-      v11[3] = &__block_descriptor_tmp_130;
-      v11[4] = v8;
-      v11[5] = a1;
-      v11[6] = a2;
-      v11[7] = a3;
-      dispatch_async(v9, v11);
+      if (*(a1 + 72) != a2)
+      {
+        *(a1 + 72) = a2;
+        xpc_retain(a1);
+        v8 = *(a1 + 88);
+        v9 = *(a1 + 40);
+        v10[0] = MEMORY[0x1E69E9820];
+        v10[1] = 0x40000000;
+        v10[2] = ___xpc_activity_set_state_with_completion_status_block_invoke;
+        v10[3] = &__block_descriptor_tmp_130;
+        v10[4] = v8;
+        v10[5] = a1;
+        v10[6] = a2;
+        v10[7] = a3;
+        dispatch_async(v9, v10);
+      }
     }
   }
 
@@ -7525,13 +7303,11 @@ void _xpc_activity_set_state_with_completion_status(uint64_t a1, uint64_t a2, ui
     *(a1 + 64) = 0;
     __XPC_ACTIVITY_CALLING_HANDLER__(a1);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __XPC_ACTIVITY_CALLING_HANDLER__(uint64_t a1)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (_activity_log_pred != -1)
   {
     dispatch_once(&_activity_log_pred, &__block_literal_global_9);
@@ -7543,22 +7319,21 @@ uint64_t __XPC_ACTIVITY_CALLING_HANDLER__(uint64_t a1)
     v3 = *(a1 + 24);
     v4 = *(a1 + 64);
     v5 = *(a1 + 72);
-    v16 = 136446978;
-    v17 = v3;
+    v14 = 136446978;
+    v15 = v3;
+    v16 = 2048;
+    v17 = a1;
     v18 = 2048;
-    v19 = a1;
+    v19 = v4;
     v20 = 2048;
-    v21 = v4;
-    v22 = 2048;
-    v23 = v5;
-    _os_log_impl(&dword_197263000, v2, OS_LOG_TYPE_DEFAULT, "__XPC_ACTIVITY_CALLING_HANDLER__: %{public}s (%p), current state %ld, pending state %ld", &v16, 0x2Au);
+    v21 = v5;
+    _os_log_impl(&dword_197263000, v2, OS_LOG_TYPE_DEFAULT, "__XPC_ACTIVITY_CALLING_HANDLER__: %{public}s (%p), current state %ld, pending state %ld", &v14, 0x2Au);
   }
 
   dispatch_assert_queue_V2(*(a1 + 40));
   v6 = *(a1 + 48);
   if (v6)
   {
-    v7 = *(a1 + 48);
     (*(v6 + 16))(v6, a1);
   }
 
@@ -7567,57 +7342,54 @@ uint64_t __XPC_ACTIVITY_CALLING_HANDLER__(uint64_t a1)
     dispatch_once(&_activity_log_pred, &__block_literal_global_9);
   }
 
-  v8 = _activity_log__log;
+  v7 = _activity_log__log;
   if (os_log_type_enabled(_activity_log__log, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = *(a1 + 24);
-    v10 = *(a1 + 64);
-    v11 = *(a1 + 72);
-    v16 = 136446978;
-    v17 = v9;
+    v8 = *(a1 + 24);
+    v9 = *(a1 + 64);
+    v10 = *(a1 + 72);
+    v14 = 136446978;
+    v15 = v8;
+    v16 = 2048;
+    v17 = a1;
     v18 = 2048;
-    v19 = a1;
+    v19 = v9;
     v20 = 2048;
     v21 = v10;
-    v22 = 2048;
-    v23 = v11;
-    _os_log_impl(&dword_197263000, v8, OS_LOG_TYPE_DEFAULT, "__XPC_ACTIVITY_CALLING_HANDLER__ returned from handler: %{public}s (%p), current state %ld, pending state %ld", &v16, 0x2Au);
+    _os_log_impl(&dword_197263000, v7, OS_LOG_TYPE_DEFAULT, "__XPC_ACTIVITY_CALLING_HANDLER__ returned from handler: %{public}s (%p), current state %ld, pending state %ld", &v14, 0x2Au);
   }
 
-  v12 = *(a1 + 72);
-  if (!v12)
+  v11 = *(a1 + 72);
+  if (!v11)
   {
-    v12 = *(a1 + 64);
+    v11 = *(a1 + 64);
   }
 
-  if (v12 > 5)
+  if (v11 > 5)
   {
     abort();
   }
 
-  if (((1 << v12) & 0x29) != 0)
+  if (((1 << v11) & 0x29) != 0)
   {
-    v13 = 1;
+    v12 = 1;
 LABEL_18:
-    _xpc_activity_set_state_with_completion_status(a1, v13, 0);
-    goto LABEL_19;
+    _xpc_activity_set_state_with_completion_status(a1, v12, 0);
+    return _os_avoid_tail_call();
   }
 
-  if (((1 << v12) & 0x12) == 0)
+  if (((1 << v11) & 0x12) == 0)
   {
-    v13 = 5;
+    v12 = 5;
     goto LABEL_18;
   }
 
-LABEL_19:
-  result = _os_avoid_tail_call();
-  v15 = *MEMORY[0x1E69E9840];
-  return result;
+  return _os_avoid_tail_call();
 }
 
 void ___xpc_activity_set_state_with_completion_status_block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
   v2 = *(a1 + 40);
   if (v3 == v2[11])
@@ -7642,23 +7414,23 @@ void ___xpc_activity_set_state_with_completion_status_block_invoke(uint64_t a1)
       v7 = *(a1 + 48);
       v8 = *(v6 + 24);
       *buf = 136446722;
-      v18 = v8;
-      v19 = 2048;
-      v20 = v6;
-      v21 = 2048;
-      v22 = v7;
+      v17 = v8;
+      v18 = 2048;
+      v19 = v6;
+      v20 = 2048;
+      v21 = v7;
       _os_log_impl(&dword_197263000, v5, OS_LOG_TYPE_DEFAULT, "_xpc_activity_set_state: send new state to CTS: %{public}s (%p), %ld", buf, 0x20u);
     }
 
     v9 = *(a1 + 40);
     v10 = *(v9 + 80);
     v11 = *(v9 + 40);
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 0x40000000;
-    v15[2] = ___xpc_activity_set_state_with_completion_status_block_invoke_128;
-    v15[3] = &__block_descriptor_tmp_129_0;
-    v15[4] = v9;
-    xpc_connection_send_message_with_reply(v10, v4, v11, v15);
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 0x40000000;
+    v14[2] = ___xpc_activity_set_state_with_completion_status_block_invoke_128;
+    v14[3] = &__block_descriptor_tmp_129_0;
+    v14[4] = v9;
+    xpc_connection_send_message_with_reply(v10, v4, v11, v14);
     xpc_release(v4);
   }
 
@@ -7676,7 +7448,6 @@ void ___xpc_activity_set_state_with_completion_status_block_invoke(uint64_t a1)
   }
 
   xpc_release(*(a1 + 40));
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void ___xpc_activity_set_state_with_completion_status_block_invoke_2(uint64_t a1)
@@ -7734,12 +7505,12 @@ void ___xpc_activity_set_state_with_completion_status_block_invoke_128(uint64_t 
 
 void _xpc_activity_set_state_from_cts(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(*(a1 + 40));
   int64 = xpc_dictionary_get_int64(a2, "state");
   if (*(a1 + 64) == int64 && *(a1 + 104) == *(a1 + 96))
   {
-    goto LABEL_18;
+    return;
   }
 
   if (_activity_log_pred != -1)
@@ -7752,11 +7523,11 @@ void _xpc_activity_set_state_from_cts(uint64_t a1, void *a2)
   {
     v6 = *(a1 + 24);
     *buf = 136446722;
-    v11 = v6;
-    v12 = 2048;
-    v13 = a1;
-    v14 = 2048;
-    v15 = int64;
+    v10 = v6;
+    v11 = 2048;
+    v12 = a1;
+    v13 = 2048;
+    v14 = int64;
     _os_log_impl(&dword_197263000, v5, OS_LOG_TYPE_DEFAULT, "_xpc_activity_set_state_from_cts: %{public}s (%p), set activity state to %ld", buf, 0x20u);
   }
 
@@ -7769,7 +7540,7 @@ void _xpc_activity_set_state_from_cts(uint64_t a1, void *a2)
     {
       if (int64 != 5)
       {
-        goto LABEL_18;
+        return;
       }
 
       if ((*(a1 + 136) & 4) == 0)
@@ -7783,14 +7554,14 @@ void _xpc_activity_set_state_from_cts(uint64_t a1, void *a2)
       }
     }
 
-LABEL_17:
-    _xpc_activity_end_running(a1);
-    goto LABEL_18;
+    goto LABEL_17;
   }
 
   if (int64 == 1)
   {
-    goto LABEL_17;
+LABEL_17:
+    _xpc_activity_end_running(a1);
+    return;
   }
 
   if (int64 == 2)
@@ -7803,9 +7574,6 @@ LABEL_17:
 
     __XPC_ACTIVITY_CALLING_HANDLER__(a1);
   }
-
-LABEL_18:
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 BOOL ___xpc_activity_set_state_from_cts_block_invoke(uint64_t a1)
@@ -7818,7 +7586,7 @@ BOOL ___xpc_activity_set_state_from_cts_block_invoke(uint64_t a1)
 
 void __xpc_activity_unregister(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (_activity_log_pred != -1)
   {
     _xpc_activity_dispose_cold_1();
@@ -7839,15 +7607,15 @@ void __xpc_activity_unregister(uint64_t a1)
       v5 = "(not registered)";
     }
 
-    v9 = 136446978;
-    v10 = v3;
-    v11 = 2048;
-    v12 = a1;
-    v13 = 2048;
-    v14 = v4;
-    v15 = 2082;
-    v16 = v5;
-    _os_log_impl(&dword_197263000, v2, OS_LOG_TYPE_DEFAULT, "__xpc_activity_unregister: %{public}s (%p) seqno: %llu, %{public}s", &v9, 0x2Au);
+    v8 = 136446978;
+    v9 = v3;
+    v10 = 2048;
+    v11 = a1;
+    v12 = 2048;
+    v13 = v4;
+    v14 = 2082;
+    v15 = v5;
+    _os_log_impl(&dword_197263000, v2, OS_LOG_TYPE_DEFAULT, "__xpc_activity_unregister: %{public}s (%p) seqno: %llu, %{public}s", &v8, 0x2Au);
   }
 
   if ((*(a1 + 136) & 8) != 0)
@@ -7865,8 +7633,6 @@ void __xpc_activity_unregister(uint64_t a1)
     *(a1 + 128) = -1;
     xpc_release(a1);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void ___xpc_activity_create_control_channel_block_invoke()
@@ -7906,47 +7672,47 @@ xpc_object_t _objectForActiveContext(uint64_t *a1)
 {
   v2 = *a1;
   v3 = *(a1 + 1);
-  v23 = *a1;
-  v24 = v3;
-  v25 = *(a1 + 2);
-  v26 = a1[6];
-  v4 = der_vm_CEType_from_context(&v23, 0);
+  v24 = *a1;
+  v25 = v3;
+  v26 = *(a1 + 2);
+  v27 = a1[6];
+  v4 = der_vm_CEType_from_context(&v24, 0);
   if (v4 <= 3)
   {
     switch(v4)
     {
       case 1:
-        v19 = *a1;
-        v20 = *(a1 + 1);
-        v21 = *(a1 + 2);
-        v22 = a1[6];
+        v20 = *a1;
+        v21 = *(a1 + 1);
+        v22 = *(a1 + 2);
+        v23 = a1[6];
         empty = xpc_dictionary_create_empty();
         break;
       case 2:
-        v19 = *a1;
-        v20 = *(a1 + 1);
-        v21 = *(a1 + 2);
-        v22 = a1[6];
+        v20 = *a1;
+        v21 = *(a1 + 1);
+        v22 = *(a1 + 2);
+        v23 = a1[6];
         empty = xpc_array_create_empty();
         break;
       case 3:
         v5 = *(a1 + 1);
-        v23 = *a1;
-        v24 = v5;
-        v25 = *(a1 + 2);
-        v26 = a1[6];
-        v6 = der_vm_integer_from_context(&v23);
+        v24 = *a1;
+        v25 = v5;
+        v26 = *(a1 + 2);
+        v27 = a1[6];
+        v6 = der_vm_integer_from_context(&v24);
         return xpc_int64_create(v6);
       default:
         goto LABEL_17;
     }
 
     v14 = empty;
-    v23 = v19;
     v24 = v20;
     v25 = v21;
     v26 = v22;
-    der_vm_iterate(&v23, empty, _manufacturingCallback);
+    v27 = v23;
+    der_vm_iterate(&v24, empty, _manufacturingCallback);
     return v14;
   }
 
@@ -7954,33 +7720,33 @@ xpc_object_t _objectForActiveContext(uint64_t *a1)
   {
     case 4:
       v15 = *(a1 + 1);
-      v23 = *a1;
-      v24 = v15;
-      v25 = *(a1 + 2);
-      v26 = a1[6];
-      v16 = string_for_context(&v23);
+      v24 = *a1;
+      v25 = v15;
+      v26 = *(a1 + 2);
+      v27 = a1[6];
+      v16 = string_for_context(&v24);
       return xpc_string_create_no_copy(v16);
     case 5:
       v12 = *(a1 + 1);
-      v23 = *a1;
-      v24 = v12;
-      v25 = *(a1 + 2);
-      v26 = a1[6];
-      v13 = der_vm_BOOL_from_context(&v23);
+      v24 = *a1;
+      v25 = v12;
+      v26 = *(a1 + 2);
+      v27 = a1[6];
+      v13 = der_vm_BOOL_from_context(&v24);
       return xpc_BOOL_create(v13);
     case 6:
       v8 = *(a1 + 1);
-      v23 = *a1;
-      v24 = v8;
-      v25 = *(a1 + 2);
-      v26 = a1[6];
-      v9 = der_vm_data_from_context(&v23);
+      v24 = *a1;
+      v25 = v8;
+      v26 = *(a1 + 2);
+      v27 = a1[6];
+      v9 = der_vm_data_from_context(&v24);
       return xpc_data_create(v9, v10);
   }
 
 LABEL_17:
   v18 = (*(v2 + 32))(v2, "[%s]: %s\n", "_objectForActiveContext", "CoreEntitlements: unknown DER type");
-  return xpc_create_from_ce_der(v18);
+  return xpc_create_from_ce_der(v18, v19);
 }
 
 xpc_object_t xpc_create_from_ce_der(unsigned __int8 *a1, uint64_t a2)
@@ -8017,23 +7783,22 @@ xpc_object_t xpc_create_from_ce_der(unsigned __int8 *a1, uint64_t a2)
 
 xpc_object_t xpc_create_from_ce_der_with_key(unsigned __int8 *a1, uint64_t a2, const char *a3)
 {
-  v38 = *MEMORY[0x1E69E9840];
-  v19 = 0uLL;
-  v20 = 0;
-  v4 = CEValidate(_CERuntimeImpl, &v19, a1, &a1[a2]);
+  v37 = *MEMORY[0x1E69E9840];
+  v18 = 0uLL;
+  v19 = 0;
+  v4 = CEValidate(_CERuntimeImpl, &v18, a1, &a1[a2]);
   result = 0;
   if (v4 == &Errors)
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
+    v20 = v18;
     v21 = v19;
-    v22 = v20;
-    if (CEAcquireUnmanagedContext(_CERuntimeImpl, &v21, &v15) == &Errors)
+    if (CEAcquireUnmanagedContext(_CERuntimeImpl, &v20, &v14) == &Errors)
     {
-      v37 = 0;
-      v36 = 0u;
+      v36 = 0;
       v35 = 0u;
       v34 = 0u;
       v33 = 0u;
@@ -8047,38 +7812,38 @@ xpc_object_t xpc_create_from_ce_der_with_key(unsigned __int8 *a1, uint64_t a2, c
       v25 = 0u;
       v24 = 0u;
       v23 = 0u;
-      *&v21 = 0x4000000000000001;
-      *(&v21 + 1) = a3;
-      v22 = strlen(a3);
-      v14 = 0;
-      v12 = 0u;
-      v13 = 0u;
+      v22 = 0u;
+      *&v20 = 0x4000000000000001;
+      *(&v20 + 1) = a3;
+      v21 = strlen(a3);
+      v13 = 0;
       v11 = 0u;
+      v12 = 0u;
+      v10 = 0u;
+      v6 = v14;
       v7 = v15;
       v8 = v16;
       v9 = v17;
-      v10 = v18;
-      der_vm_execute_nocopy(&v7, &v21, &v11);
+      der_vm_execute_nocopy(&v6, &v20, &v10);
+      v6 = v10;
       v7 = v11;
       v8 = v12;
       v9 = v13;
-      v10 = v14;
-      result = _der_vm_context_to_xpc(&v7);
+      return _der_vm_context_to_xpc(&v6);
     }
 
     else
     {
-      result = 0;
+      return 0;
     }
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t _manufacturingCallback(uint64_t *a1)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v2 = *a1;
   v3 = *(a1 + 29);
   if (v3 == 2)
@@ -8086,57 +7851,57 @@ uint64_t _manufacturingCallback(uint64_t *a1)
     if (*(a1 + 28) == 1)
     {
       v7 = a1[15];
-      v15 = *(a1 + 7);
-      v16 = *(a1 + 9);
-      v17 = *(a1 + 11);
-      v18 = a1[13];
-      v26 = 0;
-      v24 = 0u;
-      v25 = 0u;
+      v14 = *(a1 + 7);
+      v15 = *(a1 + 9);
+      v16 = *(a1 + 11);
+      v17 = a1[13];
+      v25 = 0;
       v23 = 0u;
-      memset(v27 + 8, 0, 248);
+      v24 = 0u;
+      v22 = 0u;
+      memset(v26 + 8, 0, 248);
       v8 = *(a1 + 9);
-      v21[0] = *(a1 + 7);
-      v21[1] = v8;
-      v21[2] = *(a1 + 11);
-      v22 = a1[13];
-      *&v27[0] = 2;
-      der_vm_execute(v21, v27, &v23);
-      v27[0] = v23;
-      v27[1] = v24;
-      v27[2] = v25;
-      *&v27[3] = v26;
-      v9 = string_for_context(v27);
-      v19[0] = v15;
-      v19[1] = v16;
-      v19[2] = v17;
-      v20 = v18;
-      v27[0] = xmmword_1972A7E90;
-      memset(&v27[1], 0, 240);
-      der_vm_execute(v19, v27, v21);
-      active = _objectForActiveContext(v21);
-      xpc_dictionary_set_value(v7, v9, active);
+      v20[0] = *(a1 + 7);
+      v20[1] = v8;
+      v20[2] = *(a1 + 11);
+      v21 = a1[13];
+      *&v26[0] = 2;
+      der_vm_execute(v20, v26, &v22);
+      v26[0] = v22;
+      v26[1] = v23;
+      v26[2] = v24;
+      *&v26[3] = v25;
+      v9 = string_for_context(v26);
+      v18[0] = v14;
+      v18[1] = v15;
+      v18[2] = v16;
+      v19 = v17;
+      v26[0] = xmmword_1972A7E90;
+      memset(&v26[1], 0, 240);
+      der_vm_execute(v18, v26, v20);
+      empty = _objectForActiveContext(v20);
+      xpc_dictionary_set_value(v7, v9, empty);
       free(v9);
     }
 
     else
     {
-      active = xpc_array_create_empty();
+      empty = xpc_array_create_empty();
       v11 = *(a1 + 9);
-      v27[0] = *(a1 + 7);
-      v27[1] = v11;
-      v27[2] = *(a1 + 11);
-      *&v27[3] = a1[13];
-      if (der_vm_iterate(v27, active, _manufacturingCallback) != &Errors)
+      v26[0] = *(a1 + 7);
+      v26[1] = v11;
+      v26[2] = *(a1 + 11);
+      *&v26[3] = a1[13];
+      if (der_vm_iterate(v26, empty, _manufacturingCallback) != &Errors)
       {
-        v14 = (*(v2 + 32))(v2, "[%s]: %s\n", "_manufacturingCallback", "CoreEntitlements: Couldn't iterate over DER entitlements\n");
-        return string_for_context(v14);
+        v13 = (*(v2 + 32))(v2, "[%s]: %s\n", "_manufacturingCallback", "CoreEntitlements: Couldn't iterate over DER entitlements\n");
+        return string_for_context(v13);
       }
 
-      xpc_array_set_value(a1[15], 0xFFFFFFFFFFFFFFFFLL, active);
+      xpc_array_set_value(a1[15], 0xFFFFFFFFFFFFFFFFLL, empty);
     }
 
-    v6 = active;
+    v6 = empty;
     goto LABEL_10;
   }
 
@@ -8145,28 +7910,27 @@ uint64_t _manufacturingCallback(uint64_t *a1)
     if (*(a1 + 28) == 2)
     {
       v4 = *(a1 + 9);
-      v27[0] = *(a1 + 7);
-      v27[1] = v4;
-      v27[2] = *(a1 + 11);
-      *&v27[3] = a1[13];
-      v5 = _objectForActiveContext(v27);
+      v26[0] = *(a1 + 7);
+      v26[1] = v4;
+      v26[2] = *(a1 + 11);
+      *&v26[3] = a1[13];
+      v5 = _objectForActiveContext(v26);
       xpc_array_set_value(a1[15], 0xFFFFFFFFFFFFFFFFLL, v5);
       v6 = v5;
 LABEL_10:
       xpc_release(v6);
-      v12 = *MEMORY[0x1E69E9840];
       return 1;
     }
 
-    v14 = (*(v2 + 32))(v2, "[%s]: %s\n", "_manufacturingCallback", "CoreEntitlements: not a sequence");
+    v13 = (*(v2 + 32))(v2, "[%s]: %s\n", "_manufacturingCallback", "CoreEntitlements: not a sequence");
   }
 
   else
   {
-    v14 = (*(v2 + 32))(v2, "[%s]: %s\n", "_manufacturingCallback", "CoreEntitlements: unknown DER type");
+    v13 = (*(v2 + 32))(v2, "[%s]: %s\n", "_manufacturingCallback", "CoreEntitlements: unknown DER type");
   }
 
-  return string_for_context(v14);
+  return string_for_context(v13);
 }
 
 void *string_for_context(uint64_t a1)
@@ -8183,16 +7947,17 @@ void *string_for_context(uint64_t a1)
   return v5;
 }
 
-void _ce_abort(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void _ce_abort(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  vsyslog(2, a2, &a9);
+  va_start(va, a8);
+  vsyslog(2, a2, va);
   qword_1EAF1E800 = "Data corruption: CoreEntitlements has aborted due to an unrecoverable error";
   __break(1u);
 }
 
-unsigned int *xpc_format_specifiers_lookup(const char *a1, int a2)
+unsigned int *xpc_format_specifiers_lookup(const char *a1, unsigned int a2)
 {
-  if ((a2 - 2) > 0x10)
+  if (a2 - 2 > 0x10)
   {
     return 0;
   }
@@ -8211,7 +7976,7 @@ unsigned int *xpc_format_specifiers_lookup(const char *a1, int a2)
   }
 
   v6 = &stringpool_contents[v5];
-  if (*a1 != stringpool_contents[v5] || strncmp(a1 + 1, v6 + 1, (a2 - 1)) || v6[a2])
+  if (*a1 != stringpool_contents[v5] || strncmp(a1 + 1, v6 + 1, a2 - 1) || v6[a2])
   {
     return 0;
   }
@@ -8237,8 +8002,6 @@ _DWORD *_Xmach_notify_port_deleted(_DWORD *result, uint64_t a2)
 {
   if ((*result & 0x80000000) == 0 && result[1] == 36)
   {
-    v2 = result[3];
-    v3 = result[8];
     do_mach_notify_port_deleted();
   }
 
@@ -8281,8 +8044,6 @@ _DWORD *_Xmach_notify_no_senders(_DWORD *result, uint64_t a2)
 
   else
   {
-    v3 = result[3];
-    v4 = result[8];
     result = do_mach_notify_no_senders();
     *(a2 + 32) = result;
   }
@@ -8311,8 +8072,6 @@ _DWORD *_Xmach_notify_dead_name(_DWORD *result, uint64_t a2)
 {
   if ((*result & 0x80000000) == 0 && result[1] == 36)
   {
-    v2 = result[3];
-    v3 = result[8];
     do_mach_notify_dead_name();
   }
 
@@ -8348,7 +8107,7 @@ uint64_t notify_server(_DWORD *a1, uint64_t a2)
   return result;
 }
 
-BOOL ccder_blob_encode_body(void *a1, unint64_t a2, const void *a3)
+BOOL ccder_blob_encode_body(void *a1, size_t a2, const void *a3)
 {
   if (!a3)
   {
@@ -8813,7 +8572,7 @@ uint64_t ccder_blob_encode_tl(uint64_t *a1, unint64_t a2, unint64_t a3)
   return result;
 }
 
-uint64_t ccder_blob_encode_body_tl(uint64_t *a1, unint64_t a2, unint64_t a3, const void *a4)
+uint64_t ccder_blob_encode_body_tl(uint64_t *a1, unint64_t a2, size_t a3, const void *a4)
 {
   result = ccder_blob_encode_body(a1, a3, a4);
   if (result)
@@ -8919,17 +8678,14 @@ uint64_t ccder_sizeof_tag(uint64_t a1)
 
 uint64_t amfi_interface_cdhash_in_trustcache(__int128 *a1, uint64_t a2, void *a3)
 {
-  v9 = *MEMORY[0x1E69E9840];
   result = 22;
   if (a1 && a2 == 20 && a3)
   {
     *a3 = 0;
-    v7 = *a1;
-    v8 = *(a1 + 4);
     result = __sandbox_ms();
     if (result)
     {
-      result = *__error();
+      return *__error();
     }
 
     else
@@ -8938,7 +8694,6 @@ uint64_t amfi_interface_cdhash_in_trustcache(__int128 *a1, uint64_t a2, void *a3
     }
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -8962,101 +8717,73 @@ uint64_t amfi_interface_query_bootarg_state(void *a1)
 
 uint64_t amfi_interface_get_local_signing_private_key(_BYTE *a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v5 = 0;
+  v5 = *MEMORY[0x1E69E9840];
+  v4 = 0;
   memset(__s2, 0, sizeof(__s2));
-  if (a1)
+  if (!a1)
   {
-    a1[144] = 0;
-    *(a1 + 7) = 0uLL;
-    *(a1 + 8) = 0uLL;
-    *(a1 + 5) = 0uLL;
-    *(a1 + 6) = 0uLL;
-    *(a1 + 3) = 0uLL;
-    *(a1 + 4) = 0uLL;
-    *(a1 + 1) = 0uLL;
-    *(a1 + 2) = 0uLL;
-    *a1 = 0uLL;
-    result = __sandbox_ms();
-    if (!result)
-    {
-      result = 2 * (memcmp(a1, __s2, 0x91uLL) == 0);
-    }
+    return 22;
   }
 
-  else
+  a1[144] = 0;
+  *(a1 + 7) = 0uLL;
+  *(a1 + 8) = 0uLL;
+  *(a1 + 5) = 0uLL;
+  *(a1 + 6) = 0uLL;
+  *(a1 + 3) = 0uLL;
+  *(a1 + 4) = 0uLL;
+  *(a1 + 1) = 0uLL;
+  *(a1 + 2) = 0uLL;
+  *a1 = 0uLL;
+  result = __sandbox_ms();
+  if (!result)
   {
-    result = 22;
+    return 2 * (memcmp(a1, __s2, 0x91uLL) == 0);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t amfi_interface_get_local_signing_public_key(_BYTE *a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v5 = 0;
+  v5 = *MEMORY[0x1E69E9840];
+  v4 = 0;
   memset(__s2, 0, sizeof(__s2));
-  if (a1)
+  if (!a1)
   {
-    a1[96] = 0;
-    *(a1 + 4) = 0uLL;
-    *(a1 + 5) = 0uLL;
-    *(a1 + 2) = 0uLL;
-    *(a1 + 3) = 0uLL;
-    *a1 = 0uLL;
-    *(a1 + 1) = 0uLL;
-    result = __sandbox_ms();
-    if (!result)
-    {
-      result = 2 * (memcmp(a1, __s2, 0x61uLL) == 0);
-    }
+    return 22;
   }
 
-  else
+  a1[96] = 0;
+  *(a1 + 4) = 0uLL;
+  *(a1 + 5) = 0uLL;
+  *(a1 + 2) = 0uLL;
+  *(a1 + 3) = 0uLL;
+  *a1 = 0uLL;
+  *(a1 + 1) = 0uLL;
+  result = __sandbox_ms();
+  if (!result)
   {
-    result = 22;
+    return 2 * (memcmp(a1, __s2, 0x61uLL) == 0);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t amfi_interface_set_local_signing_public_key(_OWORD *a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v12 = 0;
+  v4 = *MEMORY[0x1E69E9840];
+  v3 = 0;
   memset(__s2, 0, sizeof(__s2));
   if (!a1 || !memcmp(a1, __s2, 0x61uLL))
   {
-    result = 22;
+    return 22;
   }
 
   else
   {
-    v8 = a1[4];
-    v9 = a1[5];
-    v10 = *(a1 + 96);
-    v4 = *a1;
-    v5 = a1[1];
-    v6 = a1[2];
-    v7 = a1[3];
-    result = __sandbox_ms();
+    return __sandbox_ms();
   }
-
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-uint64_t amfi_interface_authorize_local_signing(__int128 *a1)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = *a1;
-  v4 = *(a1 + 4);
-  result = __sandbox_ms();
-  v2 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 BOOL amfi_developer_mode_status()
@@ -9086,59 +8813,48 @@ uint64_t amfi_launch_constraint_set_spawnattr(uint64_t a1, uint64_t a2, uint64_t
   }
 }
 
-uint64_t amfi_launch_constraint_matches_process(__int128 *a1, uint64_t a2, unint64_t a3, uint64_t a4)
+uint64_t amfi_launch_constraint_matches_process(_OWORD *a1, uint64_t a2, unint64_t a3, uint64_t a4)
 {
   v4 = a4;
-  v11[128] = *MEMORY[0x1E69E9840];
-  if (!a2 || !a3)
+  v7[128] = *MEMORY[0x1E69E9840];
+  if (a2 && a3)
   {
-    if (a4)
+    if (a3 <= 0x4000)
+    {
+      bzero(v7, 0x400uLL);
+      v6 = 5;
+      if (!v4)
+      {
+        v4 = &v6;
+      }
+
+      if (!__sandbox_ms() && !*v4)
+      {
+        return 1;
+      }
+    }
+
+    else if (a4)
     {
       result = 0;
       *a4 = 5;
-      strcpy((a4 + 4), "No Constraint provided");
-      goto LABEL_13;
+      strcpy((a4 + 4), "Constraint too large");
+      return result;
     }
-
-    goto LABEL_12;
   }
 
-  if (a3 <= 0x4000)
+  else if (a4)
   {
-    bzero(v11, 0x400uLL);
-    v10 = 5;
-    if (!v4)
-    {
-      v4 = &v10;
-    }
-
-    v8 = *a1;
-    v9 = a1[1];
-    if (!__sandbox_ms() && !*v4)
-    {
-      result = 1;
-      goto LABEL_13;
-    }
-
-    goto LABEL_12;
-  }
-
-  if (!a4)
-  {
-LABEL_12:
     result = 0;
-    goto LABEL_13;
+    *a4 = 5;
+    strcpy((a4 + 4), "No Constraint provided");
+    return result;
   }
 
-  result = 0;
-  *a4 = 5;
-  strcpy((a4 + 4), "Constraint too large");
-LABEL_13:
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
-char *CESizeSerialization(char *result, unint64_t a2, uint64_t *a3)
+char *CESizeSerialization(char *result, unint64_t a2, unint64_t *a3)
 {
   *a3 = 0;
   v10 = 0;
@@ -9148,7 +8864,7 @@ char *CESizeSerialization(char *result, unint64_t a2, uint64_t *a3)
   }
 
   v3 = &result[32 * a2];
-  v4 = (v3 - 32);
+  v4 = v3 - 32;
   if (v3 < 0x20 || v4 < result)
   {
     goto LABEL_17;
@@ -9160,7 +8876,7 @@ char *CESizeSerialization(char *result, unint64_t a2, uint64_t *a3)
   }
 
   v9 = &result[32 * a2];
-  if ((result + 32) > v3 || result + 32 < result)
+  if (result + 32 > v3 || result + 32 < result)
   {
 LABEL_17:
     __break(0x5519u);
@@ -9352,10 +9068,10 @@ LABEL_43:
   return result;
 }
 
-unint64_t der_vm_execute_nocopy@<X0>(unint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+unint64_t der_vm_execute_nocopy@<X0>(unint64_t result@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
 {
   v3 = result;
-  v100 = *MEMORY[0x1E69E9840];
+  v98 = *MEMORY[0x1E69E9840];
   if ((*(result + 33) & 1) == 0)
   {
     goto LABEL_43;
@@ -9388,27 +9104,27 @@ unint64_t der_vm_execute_nocopy@<X0>(unint64_t result@<X0>, uint64_t a2@<X1>, ui
             *(a3 + 33) = 0;
             *(a3 + 8) = 0;
             *(a3 + 16) = 0;
-            v11 = *(a2 + 8);
-            v96 = 0uLL;
-            *v93 = *(result + 40);
-            result = der_decode_next(v6, 0, 0, &v96, v93);
+            v11 = a2[1];
+            v94 = 0uLL;
+            *v91 = *(result + 40);
+            result = der_decode_next(v6, 0, 0, &v94, v91);
             if (result)
             {
-              v12 = v96 < *(&v96 + 1);
-              if (v96 >= *(&v96 + 1) || v11 < 1)
+              v12 = v94 < *(&v94 + 1);
+              if (v94 >= *(&v94 + 1) || v11 < 1)
               {
                 v13 = v11;
 LABEL_159:
                 if (!v12 || v13 != 0)
                 {
-                  goto LABEL_45;
+                  return result;
                 }
 
                 if (v6 < v7)
                 {
-                  result = der_decode_next(v6, 0, (a3 + 40), 0, &v96);
+                  result = der_decode_next(v6, 0, (a3 + 40), 0, &v94);
                   *(a3 + 33) = result;
-                  goto LABEL_45;
+                  return result;
                 }
               }
 
@@ -9416,29 +9132,29 @@ LABEL_159:
               {
                 while (1)
                 {
-                  result = der_decode_next(v6, 0, 0, 0, &v96);
+                  result = der_decode_next(v6, 0, 0, 0, &v94);
                   if ((result & 1) == 0)
                   {
                     break;
                   }
 
                   v13 = v11 - 1;
-                  v12 = v96 < *(&v96 + 1);
-                  if (v96 >= *(&v96 + 1) || v11-- <= 1)
+                  v12 = v94 < *(&v94 + 1);
+                  if (v94 >= *(&v94 + 1) || v11-- <= 1)
                   {
                     goto LABEL_159;
                   }
                 }
 
-                v51 = *(v6 + 24);
-                if (!v51)
+                v47 = *(v6 + 24);
+                if (!v47)
                 {
-                  goto LABEL_45;
+                  return result;
                 }
 
                 if (v6 < v7)
                 {
-                  v52 = "encountered invalid element in an array";
+                  v48 = "encountered invalid element in an array";
                   goto LABEL_177;
                 }
               }
@@ -9446,18 +9162,18 @@ LABEL_159:
 
             else
             {
-              v51 = *(v6 + 24);
-              if (!v51)
+              v47 = *(v6 + 24);
+              if (!v47)
               {
-                goto LABEL_45;
+                return result;
               }
 
               if (v6 < v7)
               {
-                v52 = "array decoding failure";
+                v48 = "array decoding failure";
 LABEL_177:
-                v65 = "der_vm_execute_select_index";
-                goto LABEL_182;
+                v61 = "der_vm_execute_select_index";
+                return v47(v6, "[%s]: %s\n", v61, v48);
               }
             }
           }
@@ -9470,49 +9186,49 @@ LABEL_177:
           goto LABEL_196;
         }
 
-        v35 = *(result + 16);
-        v96 = *result;
-        v97 = v35;
-        LOBYTE(v98) = *(result + 32);
-        *v93 = *(result + 34);
-        *&v93[14] = *(result + 48);
-        v36 = (a2 + 8);
-        *(&v96 + 1) = 0;
-        *&v97 = 0;
+        v33 = *(result + 16);
+        v94 = *result;
+        v95 = v33;
+        LOBYTE(v96) = *(result + 32);
+        *v91 = *(result + 34);
+        *&v91[14] = *(result + 48);
+        v34 = a2 + 1;
+        *(&v94 + 1) = 0;
+        *&v95 = 0;
         if ((v8 & 0x4000000000000000) != 0)
         {
-          v36 = *v36;
-          v37 = 16;
+          v34 = *v34;
+          v35 = 2;
         }
 
         else
         {
-          v37 = 248;
+          v35 = 31;
         }
 
-        *v86 = *(a2 + v37);
-        v53 = *(result + 16);
-        if (v53)
+        v84 = a2[v35];
+        v49 = *(result + 16);
+        if (v49)
         {
-          v54 = v36;
-          v55 = 0;
+          v50 = v34;
+          v51 = 0;
           v7 = *(result + 40);
           *(a3 + 48) = *(result + 48);
-          v56 = *(result + 32);
+          v52 = *(result + 32);
           *(a3 + 16) = *(result + 16);
-          *(a3 + 32) = v56;
+          *(a3 + 32) = v52;
           *a3 = *result;
           *(a3 + 33) = 0;
           *(a3 + 8) = 0;
           *(a3 + 16) = 0;
-          v57 = v53 - 1;
-          v58 = *(result + 8);
+          v53 = v49 - 1;
+          v54 = *(result + 8);
           while (1)
           {
-            v59 = (v55 + v57) >> 1;
-            v60 = *(v58 + 8 * v59);
-            v6 = HIDWORD(v60);
-            result = CEBuffer_cmp(v54, *v86, (v7 + v60), HIDWORD(v60));
+            v55 = (v51 + v53) >> 1;
+            v56 = *(v54 + 8 * v55);
+            v6 = HIDWORD(v56);
+            result = CEBuffer_cmp(v50, v84, (v7 + v56), HIDWORD(v56));
             if (!result)
             {
               break;
@@ -9520,93 +9236,93 @@ LABEL_177:
 
             if ((result & 0x80000000) != 0)
             {
-              if (v55 + v57 < 2)
+              if (v51 + v53 < 2)
               {
-                goto LABEL_45;
+                return result;
               }
 
-              v57 = v59 - 1;
+              v53 = v55 - 1;
             }
 
             else
             {
-              v55 = v59 + 1;
+              v51 = v55 + 1;
             }
 
-            if (v55 > v57)
+            if (v51 > v53)
             {
-              goto LABEL_45;
+              return result;
             }
           }
 
           *(a3 + 33) = 1;
-          v71 = *(a3 + 40);
-          v72 = v71 + (HIDWORD(v60) + v60);
-          if (v72 <= *(a3 + 48) && v71 <= v72)
+          v67 = *(a3 + 40);
+          v68 = v67 + (HIDWORD(v56) + v56);
+          if (v68 <= *(a3 + 48) && v67 <= v68)
           {
-            *(a3 + 40) = v72;
-            goto LABEL_45;
+            *(a3 + 40) = v68;
+            return result;
           }
 
           goto LABEL_196;
         }
 
         __s1 = 0;
-        v92 = 0;
-        v90 = *(result + 40);
-        result = der_decode_next(v6, 0, 0, &__s1, &v90);
+        v90 = 0;
+        v88 = *(result + 40);
+        result = der_decode_next(v6, 0, 0, &__s1, &v88);
         if (result)
         {
-          if (*v86)
+          if (v84)
           {
             while (1)
             {
-              if (__s1 >= v92)
+              if (__s1 >= v90)
               {
                 goto LABEL_187;
               }
 
-              v88 = 0;
-              v89 = 0;
-              v87 = 0uLL;
+              v86 = 0;
+              v87 = 0;
+              v85 = 0uLL;
               if (v6 >= v7)
               {
                 goto LABEL_196;
               }
 
-              result = der_decode_key_value(v6, &v88, &v87, &__s1);
+              result = der_decode_key_value(v6, &v86, &v85, &__s1);
               if ((result & 1) == 0)
               {
                 break;
               }
 
-              result = CEBuffer_cmp(v36, *v86, v88, v89);
+              result = CEBuffer_cmp(v34, v84, v86, v87);
               if (!result)
               {
-                *&v93[6] = v87;
-                LOBYTE(v66) = 1;
+                *&v91[6] = v85;
+                LOBYTE(v62) = 1;
 LABEL_193:
-                v84 = v97;
-                *a3 = v96;
-                *(a3 + 16) = v84;
-                *(a3 + 32) = v98;
-                *(a3 + 33) = v66;
+                v80 = v95;
+                *a3 = v94;
+                *(a3 + 16) = v80;
+                *(a3 + 32) = v96;
+                *(a3 + 33) = v62;
                 goto LABEL_188;
               }
             }
 
-            v66 = *(v6 + 24);
-            if (v66)
+            v62 = *(v6 + 24);
+            if (v62)
             {
-              result = v66(v6, "[%s]: %s\n", "der_vm_execute_select_key", "invalid dictionary element");
-              LOBYTE(v66) = 0;
+              result = v62(v6, "[%s]: %s\n", "der_vm_execute_select_key", "invalid dictionary element");
+              LOBYTE(v62) = 0;
             }
 
             goto LABEL_193;
           }
 
-          v80 = *(v6 + 24);
-          if (!v80)
+          v76 = *(v6 + 24);
+          if (!v76)
           {
             goto LABEL_187;
           }
@@ -9616,13 +9332,13 @@ LABEL_193:
             goto LABEL_196;
           }
 
-          v81 = "key length is invalid";
+          v77 = "key length is invalid";
         }
 
         else
         {
-          v80 = *(v6 + 24);
-          if (!v80)
+          v76 = *(v6 + 24);
+          if (!v76)
           {
             goto LABEL_187;
           }
@@ -9632,19 +9348,19 @@ LABEL_193:
             goto LABEL_196;
           }
 
-          v81 = "dictionary decoding failure";
+          v77 = "dictionary decoding failure";
         }
 
-        result = v80(v6, "[%s]: %s\n", "der_vm_execute_select_key", v81);
+        result = v76(v6, "[%s]: %s\n", "der_vm_execute_select_key", v77);
 LABEL_187:
-        v82 = v97;
-        *a3 = v96;
-        *(a3 + 16) = v82;
-        *(a3 + 32) = v98;
+        v78 = v95;
+        *a3 = v94;
+        *(a3 + 16) = v78;
+        *(a3 + 32) = v96;
         *(a3 + 33) = 0;
 LABEL_188:
-        *(a3 + 34) = *v93;
-        v26 = *&v93[14];
+        *(a3 + 34) = *v91;
+        v26 = *&v91[14];
         goto LABEL_44;
       }
 
@@ -9667,14 +9383,13 @@ LABEL_43:
       v26 = *(v3 + 48);
 LABEL_44:
       *(a3 + 48) = v26;
-      goto LABEL_45;
+      return result;
     }
 
     if (v9 == 3)
     {
       if (result + 56 >= result)
       {
-        v31 = *MEMORY[0x1E69E9840];
 
         return der_vm_execute_match_string(a3, result, a2);
       }
@@ -9686,7 +9401,6 @@ LABEL_44:
     {
       if (result + 56 >= result)
       {
-        v39 = *MEMORY[0x1E69E9840];
 
         return der_vm_execute_match_string_prefix(a3, result, a2);
       }
@@ -9704,28 +9418,28 @@ LABEL_44:
       *(a3 + 33) = 0;
       *(a3 + 8) = 0;
       *(a3 + 16) = 0;
-      v93[0] = 0;
-      v96 = *(result + 40);
-      result = der_decode_BOOLean(v6, v93, &v96);
+      v91[0] = 0;
+      v94 = *(result + 40);
+      result = der_decode_BOOLean(v6, v91, &v94);
       if ((result & 1) == 0)
       {
-        v51 = *(v6 + 24);
-        if (!v51)
+        v47 = *(v6 + 24);
+        if (!v47)
         {
-          goto LABEL_45;
+          return result;
         }
 
         if (v6 < v7)
         {
-          v52 = "BOOL decode failure";
-          v65 = "der_vm_execute_match_BOOL";
-          goto LABEL_182;
+          v48 = "BOOL decode failure";
+          v61 = "der_vm_execute_match_BOOL";
+          return v47(v6, "[%s]: %s\n", v61, v48);
         }
 
         goto LABEL_196;
       }
 
-      v19 = *(a2 + 8) == v93[0];
+      v19 = a2[1] == v91[0];
       goto LABEL_36;
     }
 
@@ -9738,8 +9452,8 @@ LABEL_197:
     }
 
     while (v6 >= v7);
-    v85 = (*(v6 + 32))(v6, "[%s]: %s\n", "der_vm_execute_nocopy", "unhandled opcode");
-    return der_vm_execute(v85);
+    v81 = (*(v6 + 32))(v6, "[%s]: %s\n", "der_vm_execute_nocopy", "unhandled opcode");
+    return der_vm_execute(v81, v82, v83);
   }
 
   if (v9 <= 8)
@@ -9751,97 +9465,97 @@ LABEL_197:
         goto LABEL_196;
       }
 
-      v28 = *(result + 32);
+      v27 = *(result + 32);
       *(a3 + 16) = *(result + 16);
-      *(a3 + 32) = v28;
+      *(a3 + 32) = v27;
       *a3 = *result;
       *(a3 + 48) = *(result + 48);
       *(a3 + 33) = 0;
-      v29 = (a2 + 8);
+      v28 = a2 + 1;
       *(a3 + 8) = 0;
       *(a3 + 16) = 0;
       if ((v8 & 0x4000000000000000) != 0)
       {
-        v29 = *v29;
-        v30 = 16;
+        v28 = *v28;
+        v29 = 2;
       }
 
       else
       {
-        v30 = 248;
+        v29 = 31;
       }
 
-      v44 = *(a2 + v30);
-      v45 = *(result + 16);
-      v96 = *result;
-      v97 = v45;
-      v98 = *(result + 32);
-      v99 = *(result + 48);
-      result = der_vm_CEType_from_context(&v96, 0);
+      v40 = a2[v29];
+      v41 = *(result + 16);
+      v94 = *result;
+      v95 = v41;
+      v96 = *(result + 32);
+      v97 = *(result + 48);
+      result = der_vm_CEType_from_context(&v94, 0);
       if (result != 2)
       {
         if (result != 4)
         {
-          v51 = *(v6 + 24);
-          if (!v51)
+          v47 = *(v6 + 24);
+          if (!v47)
           {
-            goto LABEL_45;
+            return result;
           }
 
           if (v6 < v7)
           {
-            v52 = "Unexpected type to match against";
-            v65 = "der_vm_execute_string_value_allowed";
-            goto LABEL_182;
+            v48 = "Unexpected type to match against";
+            v61 = "der_vm_execute_string_value_allowed";
+            return v47(v6, "[%s]: %s\n", v61, v48);
           }
 
           goto LABEL_196;
         }
 
-        result = der_vm_execute_match_string(&v96, v3, a2);
-        v23 = BYTE1(v98);
-        if (BYTE1(v98) != 1)
+        result = der_vm_execute_match_string(&v94, v3, a2);
+        v23 = BYTE1(v96);
+        if (BYTE1(v96) != 1)
         {
-          v46 = *(v3 + 16);
-          *v93 = *v3;
-          *&v93[16] = v46;
-          v94 = *(v3 + 32);
-          v95 = *(v3 + 48);
-          result = der_vm_string_from_context(v93);
-          if (!v47)
+          v42 = *(v3 + 16);
+          *v91 = *v3;
+          *&v91[16] = v42;
+          v92 = *(v3 + 32);
+          v93 = *(v3 + 48);
+          result = der_vm_string_from_context(v91);
+          if (!v43)
           {
-            goto LABEL_45;
+            return result;
           }
 
-          v48 = v47 - 1;
-          v49 = (result + v47 - 1);
-          if (v49 >= result + v47 || v49 < result)
+          v44 = v43 - 1;
+          v45 = (result + v43 - 1);
+          if (v45 >= result + v43 || v45 < result)
           {
             goto LABEL_196;
           }
 
-          if (*v49 != 42)
+          if (*v45 != 42)
           {
-            goto LABEL_45;
+            return result;
           }
 
-          if (v48 > v47)
+          if (v44 > v43)
           {
             goto LABEL_196;
           }
 
-          if (v47 != 1)
+          if (v43 != 1)
           {
-            if (v48 > v44)
+            if (v44 > v40)
             {
 LABEL_107:
               v23 = 0;
               goto LABEL_39;
             }
 
-            v50 = v29;
+            v46 = v28;
 LABEL_190:
-            result = memcmp(result, v50, v48);
+            result = memcmp(result, v46, v44);
             v19 = result == 0;
 LABEL_36:
             v23 = v19;
@@ -9854,17 +9568,17 @@ LABEL_178:
 
 LABEL_39:
         *(a3 + 33) = v23;
-        goto LABEL_45;
+        return result;
       }
 
-      *v93 = a3;
-      *&v93[8] = a2;
-      v67 = *(v3 + 16);
-      v96 = *v3;
-      v97 = v67;
-      v98 = *(v3 + 32);
-      v99 = *(v3 + 48);
-      v68 = string_value_allowed_iterate;
+      *v91 = a3;
+      *&v91[8] = a2;
+      v63 = *(v3 + 16);
+      v94 = *v3;
+      v95 = v63;
+      v96 = *(v3 + 32);
+      v97 = *(v3 + 48);
+      v64 = string_value_allowed_iterate;
     }
 
     else
@@ -9873,7 +9587,6 @@ LABEL_39:
       {
         if (result + 56 >= result)
         {
-          v38 = *MEMORY[0x1E69E9840];
 
           return der_vm_execute_match_integer(a3, result, a2);
         }
@@ -9892,68 +9605,68 @@ LABEL_39:
       *a3 = *result;
       *(a3 + 48) = *(result + 48);
       *(a3 + 33) = 0;
-      v16 = (a2 + 8);
+      v16 = a2 + 1;
       *(a3 + 8) = 0;
       *(a3 + 16) = 0;
       if ((v8 & 0x4000000000000000) != 0)
       {
         v16 = *v16;
-        v17 = 16;
+        v17 = 2;
       }
 
       else
       {
-        v17 = 248;
+        v17 = 31;
       }
 
-      v61 = *(a2 + v17);
-      v62 = *(result + 16);
-      v96 = *result;
-      v97 = v62;
-      v98 = *(result + 32);
-      v99 = *(result + 48);
-      result = der_vm_CEType_from_context(&v96, 0);
+      v57 = a2[v17];
+      v58 = *(result + 16);
+      v94 = *result;
+      v95 = v58;
+      v96 = *(result + 32);
+      v97 = *(result + 48);
+      result = der_vm_CEType_from_context(&v94, 0);
       if (result != 2)
       {
         if (result != 4)
         {
-          v51 = *(v6 + 24);
-          if (!v51)
+          v47 = *(v6 + 24);
+          if (!v47)
           {
-            goto LABEL_45;
+            return result;
           }
 
           if (v6 < v7)
           {
-            v52 = "Unexpected type to match against";
-            v65 = "der_vm_execute_string_prefix_value_allowed";
-            goto LABEL_182;
+            v48 = "Unexpected type to match against";
+            v61 = "der_vm_execute_string_prefix_value_allowed";
+            return v47(v6, "[%s]: %s\n", v61, v48);
           }
 
           goto LABEL_196;
         }
 
-        result = der_vm_execute_match_string_prefix(&v96, v3, a2);
-        v23 = BYTE1(v98);
-        if (BYTE1(v98) != 1)
+        result = der_vm_execute_match_string_prefix(&v94, v3, a2);
+        v23 = BYTE1(v96);
+        if (BYTE1(v96) != 1)
         {
-          v63 = *(v3 + 16);
-          *v93 = *v3;
-          *&v93[16] = v63;
-          v94 = *(v3 + 32);
-          v95 = *(v3 + 48);
-          result = der_vm_string_from_context(v93);
-          if (v61)
+          v59 = *(v3 + 16);
+          *v91 = *v3;
+          *&v91[16] = v59;
+          v92 = *(v3 + 32);
+          v93 = *(v3 + 48);
+          result = der_vm_string_from_context(v91);
+          if (v57)
           {
-            if (v61 > v64)
+            if (v57 > v60)
             {
               goto LABEL_107;
             }
 
-            v83 = result;
+            v79 = result;
             result = v16;
-            v50 = v83;
-            v48 = v61;
+            v46 = v79;
+            v44 = v57;
             goto LABEL_190;
           }
 
@@ -9963,19 +9676,17 @@ LABEL_39:
         goto LABEL_39;
       }
 
-      *v93 = a3;
-      *&v93[8] = a2;
-      v70 = *(v3 + 16);
-      v96 = *v3;
-      v97 = v70;
-      v98 = *(v3 + 32);
-      v99 = *(v3 + 48);
-      v68 = string_prefix_allowed_iterate;
+      *v91 = a3;
+      *&v91[8] = a2;
+      v66 = *(v3 + 16);
+      v94 = *v3;
+      v95 = v66;
+      v96 = *(v3 + 32);
+      v97 = *(v3 + 48);
+      v64 = string_prefix_allowed_iterate;
     }
 
-LABEL_121:
-    result = der_vm_iterate(&v96, v93, v68);
-    goto LABEL_45;
+    return der_vm_iterate(&v94, v91, v64);
   }
 
   if (v9 != 9)
@@ -10000,21 +9711,21 @@ LABEL_121:
       *(a3 + 33) = 0;
       *(a3 + 8) = 0;
       *(a3 + 16) = 0;
-      v21 = *(a2 + 8);
+      v21 = a2[1];
       if ((v21 - 7) < 0xFFFFFFFFFFFFFFFALL)
       {
-        goto LABEL_45;
+        return result;
       }
 
       v22 = *(result + 16);
-      v96 = *result;
-      v97 = v22;
-      v98 = *(result + 32);
-      v99 = *(result + 48);
-      result = der_vm_CEType_from_context(&v96, 0);
+      v94 = *result;
+      v95 = v22;
+      v96 = *(result + 32);
+      v97 = *(result + 48);
+      result = der_vm_CEType_from_context(&v94, 0);
       if (!result)
       {
-        goto LABEL_45;
+        return result;
       }
 
       v19 = result == v21;
@@ -10026,61 +9737,61 @@ LABEL_121:
       goto LABEL_196;
     }
 
-    v40 = *(result + 16);
-    v41 = *(result + 32);
-    v42 = *result;
-    v43 = *result;
-    *(a3 + 16) = v40;
-    *(a3 + 32) = v41;
-    *a3 = v42;
+    v36 = *(result + 16);
+    v37 = *(result + 32);
+    v38 = *result;
+    v39 = *result;
+    *(a3 + 16) = v36;
+    *(a3 + 32) = v37;
+    *a3 = v38;
     *(a3 + 48) = *(result + 48);
     *(a3 + 33) = 0;
     *(a3 + 8) = 0;
     *(a3 + 16) = 0;
-    v96 = v43;
-    v97 = v40;
-    v98 = *(result + 32);
-    v99 = *(result + 48);
-    result = der_vm_CEType_from_context(&v96, 0);
+    v94 = v39;
+    v95 = v36;
+    v96 = *(result + 32);
+    v97 = *(result + 48);
+    result = der_vm_CEType_from_context(&v94, 0);
     if (result != 2)
     {
       if (result != 3)
       {
-        v51 = *(v6 + 24);
-        if (!v51)
+        v47 = *(v6 + 24);
+        if (!v47)
         {
-          goto LABEL_45;
+          return result;
         }
 
         if (v6 < v7)
         {
-          v52 = "Unexpected type to match against";
-          v65 = "der_vm_execute_integer_value_allowed";
-          goto LABEL_182;
+          v48 = "Unexpected type to match against";
+          v61 = "der_vm_execute_integer_value_allowed";
+          return v47(v6, "[%s]: %s\n", v61, v48);
         }
 
         goto LABEL_196;
       }
 
-      result = der_vm_execute_match_integer(&v96, v3, a2);
-      v23 = BYTE1(v98);
-      if (BYTE1(v98) != 1)
+      result = der_vm_execute_match_integer(&v94, v3, a2);
+      v23 = BYTE1(v96);
+      if (BYTE1(v96) != 1)
       {
-        goto LABEL_45;
+        return result;
       }
 
       goto LABEL_39;
     }
 
-    *v93 = a3;
-    *&v93[8] = a2;
-    v69 = *(v3 + 16);
-    v96 = *v3;
-    v97 = v69;
-    v98 = *(v3 + 32);
-    v99 = *(v3 + 48);
-    v68 = integer_allowed_iterate;
-    goto LABEL_121;
+    *v91 = a3;
+    *&v91[8] = a2;
+    v65 = *(v3 + 16);
+    v94 = *v3;
+    v95 = v65;
+    v96 = *(v3 + 32);
+    v97 = *(v3 + 48);
+    v64 = integer_allowed_iterate;
+    return der_vm_iterate(&v94, v91, v64);
   }
 
   if (result + 56 < result)
@@ -10088,111 +9799,111 @@ LABEL_121:
     goto LABEL_196;
   }
 
-  v32 = *(result + 32);
+  v30 = *(result + 32);
   *(a3 + 16) = *(result + 16);
-  *(a3 + 32) = v32;
+  *(a3 + 32) = v30;
   *a3 = *result;
   *(a3 + 48) = *(result + 48);
   *(a3 + 33) = 0;
   *(a3 + 8) = 0;
   *(a3 + 16) = 0;
-  v96 = 0uLL;
-  *v93 = *(result + 40);
-  result = der_decode_next(v6, 0, 0, &v96, v93);
+  v94 = 0uLL;
+  *v91 = *(result + 40);
+  result = der_decode_next(v6, 0, 0, &v94, v91);
   if ((result & 1) == 0)
   {
-    v51 = *(v6 + 24);
-    if (!v51)
+    v47 = *(v6 + 24);
+    if (!v47)
     {
-      goto LABEL_45;
+      return result;
     }
 
     if (v6 < v7)
     {
-      v52 = "dictionary decoding failure";
+      v48 = "dictionary decoding failure";
       goto LABEL_181;
     }
 
     goto LABEL_196;
   }
 
-  v33 = (a2 + 8);
+  v31 = a2 + 1;
   if ((*(a2 + 7) & 0x40) != 0)
   {
-    v33 = *v33;
-    v34 = 16;
+    v31 = *v31;
+    v32 = 2;
   }
 
   else
   {
-    v34 = 248;
+    v32 = 31;
   }
 
-  v74 = *(a2 + v34);
-  if (!v74)
+  v70 = a2[v32];
+  if (!v70)
   {
-    v51 = *(v6 + 24);
-    if (!v51)
+    v47 = *(v6 + 24);
+    if (!v47)
     {
-      goto LABEL_45;
+      return result;
     }
 
     if (v6 < v7)
     {
-      v52 = "key length is invalid";
+      v48 = "key length is invalid";
       goto LABEL_181;
     }
 
     goto LABEL_196;
   }
 
-  if (v96 >= *(&v96 + 1))
+  if (v94 >= *(&v94 + 1))
   {
-    v75 = 0;
+    v71 = 0;
 LABEL_173:
-    *(a3 + 33) = v75;
-    goto LABEL_45;
+    *(a3 + 33) = v71;
+    return result;
   }
 
-  v75 = 0;
+  v71 = 0;
   while (1)
   {
     __s1 = 0;
-    v92 = 0;
-    v90 = 0uLL;
+    v90 = 0;
+    v88 = 0uLL;
     if (v6 >= v7)
     {
-      v75 = 0;
+      v71 = 0;
 LABEL_195:
-      *(a3 + 33) = v75;
+      *(a3 + 33) = v71;
       goto LABEL_196;
     }
 
-    result = der_decode_key_value(v6, &__s1, &v90, &v96);
+    result = der_decode_key_value(v6, &__s1, &v88, &v94);
     if ((result & 1) == 0)
     {
       break;
     }
 
-    if (v92)
+    if (v90)
     {
-      v76 = __s1;
-      v77 = __s1 + v92 - 1;
-      if (v77 >= __s1 + v92 || v77 < __s1)
+      v72 = __s1;
+      v73 = __s1 + v90 - 1;
+      if (v73 >= __s1 + v90 || v73 < __s1)
       {
         goto LABEL_195;
       }
 
-      if (*v77 == 42)
+      if (*v73 == 42)
       {
-        if (v92 != 1)
+        if (v90 != 1)
         {
-          if (v92 - 1 > v74)
+          if (v90 - 1 > v70)
           {
             goto LABEL_156;
           }
 
-          result = memcmp(__s1, v33, v92 - 1);
+          result = memcmp(__s1, v31, v90 - 1);
           if (result)
           {
             goto LABEL_156;
@@ -10200,43 +9911,39 @@ LABEL_195:
         }
 
 LABEL_155:
-        *(a3 + 40) = v90;
-        v75 = 1;
+        *(a3 + 40) = v88;
+        v71 = 1;
         goto LABEL_156;
       }
     }
 
     else
     {
-      v76 = __s1;
+      v72 = __s1;
     }
 
-    result = CEBuffer_cmp(v33, v74, v76, v92);
+    result = CEBuffer_cmp(v31, v70, v72, v90);
     if (!result)
     {
       goto LABEL_155;
     }
 
 LABEL_156:
-    if (v96 >= *(&v96 + 1))
+    if (v94 >= *(&v94 + 1))
     {
       goto LABEL_173;
     }
   }
 
-  *(a3 + 33) = v75;
-  v51 = *(v6 + 24);
-  if (!v51)
+  *(a3 + 33) = v71;
+  v47 = *(v6 + 24);
+  if (!v47)
   {
-    goto LABEL_45;
+    return result;
   }
 
-  v52 = "invalid dictionary element";
+  v48 = "invalid dictionary element";
 LABEL_181:
-  v65 = "der_vm_execute_select_longest_matching_key";
-LABEL_182:
-  result = v51(v6, "[%s]: %s\n", v65, v52);
-LABEL_45:
-  v27 = *MEMORY[0x1E69E9840];
-  return result;
+  v61 = "der_vm_execute_select_longest_matching_key";
+  return v47(v6, "[%s]: %s\n", v61, v48);
 }

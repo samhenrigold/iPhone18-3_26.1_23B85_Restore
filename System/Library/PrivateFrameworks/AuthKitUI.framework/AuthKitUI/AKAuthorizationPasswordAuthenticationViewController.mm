@@ -130,7 +130,6 @@
   [defaultCenter4 addObserver:selfCopy selector:sel_keyboardWillChangeFrame_ name:*MEMORY[0x277D76C48] object:0];
   MEMORY[0x277D82BD8](defaultCenter4);
   objc_storeStrong(&v53, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)viewWillDisappear:(BOOL)disappear

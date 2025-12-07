@@ -79,14 +79,14 @@
 
 + (void)_publishEvent:(id)event
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v4 = _ICQGetLogSystem();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = eventCopy;
-    _os_log_impl(&dword_275572000, v4, OS_LOG_TYPE_DEFAULT, "[SUBD] About to publish Biome event=[%@].", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = eventCopy;
+    _os_log_impl(&dword_275572000, v4, OS_LOG_TYPE_DEFAULT, "[SUBD] About to publish Biome event=[%@].", &v10, 0xCu);
   }
 
   v5 = BiomeLibrary();
@@ -98,12 +98,10 @@
   v9 = _ICQGetLogSystem();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = eventCopy;
-    _os_log_impl(&dword_275572000, v9, OS_LOG_TYPE_DEFAULT, "[SUBD] Successfully published Biome event=[%@].", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = eventCopy;
+    _os_log_impl(&dword_275572000, v9, OS_LOG_TYPE_DEFAULT, "[SUBD] Successfully published Biome event=[%@].", &v10, 0xCu);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 + (void)publishEventWithFetchOffersResponse:(id)response
@@ -168,7 +166,7 @@
 
 + (void)publishOfferDisplayActionEventWithBundleId:(id)id
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   idCopy = id;
   if ([idCopy isEqualToString:@"com.apple.iCloudQuota.ICQFollowup"])
   {
@@ -195,21 +193,20 @@
     v5 = 0;
   }
 
-  LODWORD(v9) = 3;
-  HIDWORD(v9) = v5;
-  v6 = [self _createEventWithMlServerScore:0 totalQuota:0 totalUsed:0 totalAvailable:0 bundleQuotaInBytes:0 commerceQuotaInBytes:0 iCloudSubscriptionEventType:v9 displayEntry:?];
+  LODWORD(v8) = 3;
+  HIDWORD(v8) = v5;
+  v6 = [self _createEventWithMlServerScore:0 totalQuota:0 totalUsed:0 totalAvailable:0 bundleQuotaInBytes:0 commerceQuotaInBytes:0 iCloudSubscriptionEventType:v8 displayEntry:?];
   v7 = _ICQGetLogSystem();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v11 = idCopy;
-    v12 = 2112;
-    v13 = v6;
+    v10 = idCopy;
+    v11 = 2112;
+    v12 = v6;
     _os_log_impl(&dword_275572000, v7, OS_LOG_TYPE_DEFAULT, "[SUBD] Biome publishing offer displayed to user. BundleID=[%@] event=[%@]", buf, 0x16u);
   }
 
   [ICQMLBiomePublisher _publishEvent:v6];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (void)publishOfferBuyActionEvent

@@ -368,7 +368,6 @@ LABEL_43:
 
   if (arrivalPlatform)
   {
-    arrivalPlatform = self->_arrivalPlatform;
     PBDataWriterWriteStringField();
   }
 
@@ -376,7 +375,6 @@ LABEL_43:
 
   if (busName)
   {
-    busName = self->_busName;
     PBDataWriterWriteStringField();
   }
 
@@ -384,7 +382,6 @@ LABEL_43:
 
   if (busNumber)
   {
-    busNumber = self->_busNumber;
     PBDataWriterWriteStringField();
   }
 
@@ -400,7 +397,6 @@ LABEL_43:
 
   if (departurePlatform)
   {
-    departurePlatform = self->_departurePlatform;
     PBDataWriterWriteStringField();
   }
 
@@ -408,19 +404,18 @@ LABEL_43:
 
   if (provider)
   {
-    provider = self->_provider;
     PBDataWriterWriteStringField();
   }
 
   tripDuration = [(_INPBBusTrip *)self tripDuration];
 
-  v19 = toCopy;
+  v14 = toCopy;
   if (tripDuration)
   {
     tripDuration2 = [(_INPBBusTrip *)self tripDuration];
     PBDataWriterWriteSubmessage();
 
-    v19 = toCopy;
+    v14 = toCopy;
   }
 }
 

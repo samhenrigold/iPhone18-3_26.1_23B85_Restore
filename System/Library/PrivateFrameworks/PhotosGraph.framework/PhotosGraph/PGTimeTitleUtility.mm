@@ -72,51 +72,51 @@
 
 + (id)significantDateNodesFromMomentNodes:(id)nodes dateFormatterType:(unint64_t)type
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __76__PGTimeTitleUtility_significantDateNodesFromMomentNodes_dateFormatterType___block_invoke;
   aBlock[3] = &__block_descriptor_40_e35___NSString_16__0__PGGraphDateNode_8l;
   aBlock[4] = type;
-  v30 = _Block_copy(aBlock);
+  v29 = _Block_copy(aBlock);
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  v31 = [MEMORY[0x277CBEB58] set];
+  v30 = [MEMORY[0x277CBEB58] set];
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
   obj = nodesCopy;
-  v7 = [obj countByEnumeratingWithState:&v41 objects:v47 count:16];
+  v7 = [obj countByEnumeratingWithState:&v40 objects:v46 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
-    v10 = *v42;
+    v10 = *v41;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v42 != v10)
+        if (*v41 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v41 + 1) + 8 * i);
+        v12 = *(*(&v40 + 1) + 8 * i);
         numberOfAssets = [v12 numberOfAssets];
         v9 += numberOfAssets;
-        v36[0] = MEMORY[0x277D85DD0];
-        v36[1] = 3221225472;
-        v36[2] = __76__PGTimeTitleUtility_significantDateNodesFromMomentNodes_dateFormatterType___block_invoke_2;
-        v36[3] = &unk_278881058;
-        v37 = v31;
-        v39 = v30;
-        v38 = dictionary;
-        v40 = numberOfAssets;
-        [v12 enumerateDateNodesUsingBlock:v36];
+        v35[0] = MEMORY[0x277D85DD0];
+        v35[1] = 3221225472;
+        v35[2] = __76__PGTimeTitleUtility_significantDateNodesFromMomentNodes_dateFormatterType___block_invoke_2;
+        v35[3] = &unk_278881058;
+        v36 = v30;
+        v38 = v29;
+        v37 = dictionary;
+        v39 = numberOfAssets;
+        [v12 enumerateDateNodesUsingBlock:v35];
       }
 
-      v8 = [obj countByEnumeratingWithState:&v41 objects:v47 count:16];
+      v8 = [obj countByEnumeratingWithState:&v40 objects:v46 count:16];
     }
 
     while (v8);
@@ -133,46 +133,44 @@
   if (v16 >= 2)
   {
     v17 = v16;
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
     v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
     v18 = allKeys;
-    v19 = [v18 countByEnumeratingWithState:&v32 objects:v46 count:16];
+    v19 = [v18 countByEnumeratingWithState:&v31 objects:v45 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v33;
+      v21 = *v32;
       do
       {
         for (j = 0; j != v20; ++j)
         {
-          if (*v33 != v21)
+          if (*v32 != v21)
           {
             objc_enumerationMutation(v18);
           }
 
-          v23 = [dictionary objectForKeyedSubscript:*(*(&v32 + 1) + 8 * j)];
+          v23 = [dictionary objectForKeyedSubscript:*(*(&v31 + 1) + 8 * j)];
           v24 = [v23 objectForKeyedSubscript:@"numberOfAssets"];
           unsignedIntegerValue = [v24 unsignedIntegerValue];
 
           if (unsignedIntegerValue / v14 < 0.4 / v17)
           {
             v26 = [v23 objectForKeyedSubscript:@"dateNodes"];
-            [v31 minusSet:v26];
+            [v30 minusSet:v26];
           }
         }
 
-        v20 = [v18 countByEnumeratingWithState:&v32 objects:v46 count:16];
+        v20 = [v18 countByEnumeratingWithState:&v31 objects:v45 count:16];
       }
 
       while (v20);
     }
   }
 
-  v27 = *MEMORY[0x277D85DE8];
-
-  return v31;
+  return v30;
 }
 
 id __76__PGTimeTitleUtility_significantDateNodesFromMomentNodes_dateFormatterType___block_invoke(uint64_t a1, void *a2)
@@ -252,13 +250,13 @@ void __76__PGTimeTitleUtility_significantDateNodesFromMomentNodes_dateFormatterT
 
 + (id)_dateNodesFromMomentNodes:(id)nodes featuredYearNodes:(id)yearNodes momentsLocalStartDate:(id *)date momentsLocalEndDate:(id *)endDate
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   yearNodesCopy = yearNodes;
   if ([nodesCopy count])
   {
     v11 = MEMORY[0x277CBEB98];
-    v37 = yearNodesCopy;
+    v36 = yearNodesCopy;
     if (yearNodesCopy)
     {
       years = [yearNodesCopy years];
@@ -272,27 +270,27 @@ void __76__PGTimeTitleUtility_significantDateNodesFromMomentNodes_dateFormatterT
 
     *date = [MEMORY[0x277CBEAA8] distantFuture];
     *endDate = [MEMORY[0x277CBEAA8] distantPast];
+    v39 = 0u;
     v40 = 0u;
     v41 = 0u;
     v42 = 0u;
-    v43 = 0u;
-    v38 = nodesCopy;
+    v37 = nodesCopy;
     obj = nodesCopy;
-    v15 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
+    v15 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v41;
+      v17 = *v40;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v41 != v17)
+          if (*v40 != v17)
           {
             objc_enumerationMutation(obj);
           }
 
-          v19 = *(*(&v40 + 1) + 8 * i);
+          v19 = *(*(&v39 + 1) + 8 * i);
           localStartDate = [v19 localStartDate];
           localEndDate = [v19 localEndDate];
           if (![v13 count])
@@ -324,7 +322,7 @@ LABEL_17:
 LABEL_18:
         }
 
-        v16 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
+        v16 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
       }
 
       while (v16);
@@ -336,16 +334,16 @@ LABEL_18:
     v31 = [(MAElementCollection *)v28 initWithSet:obj graph:graph];
 
     dateNodes = [(PGGraphMomentNodeCollection *)v31 dateNodes];
-    yearNodesCopy = v37;
-    if (v37)
+    yearNodesCopy = v36;
+    if (v36)
     {
-      dateNodes2 = [v37 dateNodes];
+      dateNodes2 = [v36 dateNodes];
       v34 = [dateNodes collectionByIntersecting:dateNodes2];
 
       dateNodes = v34;
     }
 
-    nodesCopy = v38;
+    nodesCopy = v37;
     v14 = [dateNodes set];
   }
 
@@ -356,36 +354,34 @@ LABEL_18:
     v14 = [MEMORY[0x277CBEB98] set];
   }
 
-  v35 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
 + (id)_commonLocationLabelForLocationNodes:(id)nodes
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v4 = [nodesCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v4 = [nodesCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
     v7 = 0;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(nodesCopy);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         label = [v10 label];
         v12 = [PGCommonTitleUtility dimensionForLabel:label];
 
@@ -398,7 +394,7 @@ LABEL_18:
         }
       }
 
-      v5 = [nodesCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v5 = [nodesCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v5);
@@ -408,8 +404,6 @@ LABEL_18:
   {
     v7 = 0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -545,7 +539,7 @@ void __106__PGTimeTitleUtility__hasReachedNumberVisitsPerYear_inEvents_withLocat
   [v7 enumerateNodesUsingBlock:v10];
 }
 
-uint64_t __106__PGTimeTitleUtility__hasReachedNumberVisitsPerYear_inEvents_withLocationNodes_startDateNode_endDateNode___block_invoke_4(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__106__PGTimeTitleUtility__hasReachedNumberVisitsPerYear_inEvents_withLocationNodes_startDateNode_endDateNode___block_invoke_4(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   result = [*(a1 + 32) containsObject:a2];
   if (*(a1 + 56) == 1 && result != 0)
@@ -673,7 +667,7 @@ void __107__PGTimeTitleUtility__hasReachedNumberVisitsPerMonth_inEvents_withLoca
   _Block_object_dispose(&v14, 8);
 }
 
-uint64_t __107__PGTimeTitleUtility__hasReachedNumberVisitsPerMonth_inEvents_withLocationNodes_startDateNode_endDateNode___block_invoke_3(uint64_t a1, void *a2, _BYTE *a3)
+void *__107__PGTimeTitleUtility__hasReachedNumberVisitsPerMonth_inEvents_withLocationNodes_startDateNode_endDateNode___block_invoke_3(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [a2 month];
   if (result == *(a1 + 40))
@@ -783,48 +777,48 @@ id __76__PGTimeTitleUtility__enumerateNeighborMomentNodesOfMomentNodes_usingBloc
 
 + (BOOL)_momentNodes:(id)nodes coverCompleteMonth:(BOOL)month coverCompleteYear:(BOOL)year
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   if ([nodesCopy count])
   {
-    v32 = 0;
-    v33 = &v32;
-    v34 = 0x2020000000;
-    v35 = 0;
+    v31 = 0;
+    v32 = &v31;
+    v33 = 0x2020000000;
+    v34 = 0;
     indexSet = [MEMORY[0x277CCAB58] indexSet];
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
-    v19 = nodesCopy;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
+    v18 = nodesCopy;
     v9 = nodesCopy;
-    v10 = [v9 countByEnumeratingWithState:&v28 objects:v36 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v27 objects:v35 count:16];
     if (v10)
     {
-      v11 = *v29;
+      v11 = *v28;
 LABEL_4:
       v12 = 0;
       while (1)
       {
-        if (*v29 != v11)
+        if (*v28 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        v13 = *(*(&v28 + 1) + 8 * v12);
-        v21[0] = MEMORY[0x277D85DD0];
-        v21[1] = 3221225472;
-        v21[2] = __72__PGTimeTitleUtility__momentNodes_coverCompleteMonth_coverCompleteYear___block_invoke;
-        v21[3] = &unk_278880EA8;
+        v13 = *(*(&v27 + 1) + 8 * v12);
+        v20[0] = MEMORY[0x277D85DD0];
+        v20[1] = 3221225472;
+        v20[2] = __72__PGTimeTitleUtility__momentNodes_coverCompleteMonth_coverCompleteYear___block_invoke;
+        v20[3] = &unk_278880EA8;
         monthCopy = month;
         yearCopy = year;
-        v22 = indexSet;
+        v21 = indexSet;
         selfCopy = self;
         v14 = v9;
-        v23 = v14;
-        v24 = &v32;
-        [v13 enumerateDateNodesUsingBlock:v21];
-        LOBYTE(v13) = *(v33 + 24);
+        v22 = v14;
+        v23 = &v31;
+        [v13 enumerateDateNodesUsingBlock:v20];
+        LOBYTE(v13) = *(v32 + 24);
 
         if (v13)
         {
@@ -833,7 +827,7 @@ LABEL_4:
 
         if (v10 == ++v12)
         {
-          v10 = [v14 countByEnumeratingWithState:&v28 objects:v36 count:16];
+          v10 = [v14 countByEnumeratingWithState:&v27 objects:v35 count:16];
           if (v10)
           {
             goto LABEL_4;
@@ -844,10 +838,10 @@ LABEL_4:
       }
     }
 
-    v15 = *(v33 + 24);
+    v15 = *(v32 + 24);
     v16 = v15 ^ 1;
-    _Block_object_dispose(&v32, 8);
-    nodesCopy = v19;
+    _Block_object_dispose(&v31, 8);
+    nodesCopy = v18;
   }
 
   else
@@ -855,7 +849,6 @@ LABEL_4:
     v16 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16 & 1;
 }
 
@@ -1074,61 +1067,61 @@ LABEL_7:
 
 + (id)_numberOfYearsAgoWithEventNodes:(id)nodes relativeToDateComponents:(id)components
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   componentsCopy = components;
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x3032000000;
-  v39 = __Block_byref_object_copy__18218;
-  v40 = __Block_byref_object_dispose__18219;
-  v41 = 0;
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x3032000000;
-  v33 = __Block_byref_object_copy__18218;
-  v34 = __Block_byref_object_dispose__18219;
   v35 = 0;
+  v36 = &v35;
+  v37 = 0x3032000000;
+  v38 = __Block_byref_object_copy__18218;
+  v39 = __Block_byref_object_dispose__18219;
+  v40 = 0;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x3032000000;
+  v32 = __Block_byref_object_copy__18218;
+  v33 = __Block_byref_object_dispose__18219;
+  v34 = 0;
   year = [componentsCopy year];
   month = [componentsCopy month];
   v9 = [componentsCopy day];
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   obj = nodesCopy;
-  v10 = [obj countByEnumeratingWithState:&v26 objects:v42 count:16];
+  v10 = [obj countByEnumeratingWithState:&v25 objects:v41 count:16];
   if (v10)
   {
-    v11 = *v27;
+    v11 = *v26;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v27 != v11)
+        if (*v26 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v26 + 1) + 8 * i);
-        v25[0] = MEMORY[0x277D85DD0];
-        v25[1] = 3221225472;
-        v25[2] = __79__PGTimeTitleUtility__numberOfYearsAgoWithEventNodes_relativeToDateComponents___block_invoke;
-        v25[3] = &unk_278880E30;
-        v25[6] = v9;
-        v25[7] = month;
-        v25[4] = &v30;
-        v25[5] = &v36;
-        [v13 enumerateDateNodesUsingBlock:v25];
+        v13 = *(*(&v25 + 1) + 8 * i);
+        v24[0] = MEMORY[0x277D85DD0];
+        v24[1] = 3221225472;
+        v24[2] = __79__PGTimeTitleUtility__numberOfYearsAgoWithEventNodes_relativeToDateComponents___block_invoke;
+        v24[3] = &unk_278880E30;
+        v24[6] = v9;
+        v24[7] = month;
+        v24[4] = &v29;
+        v24[5] = &v35;
+        [v13 enumerateDateNodesUsingBlock:v24];
       }
 
-      v10 = [obj countByEnumeratingWithState:&v26 objects:v42 count:16];
+      v10 = [obj countByEnumeratingWithState:&v25 objects:v41 count:16];
     }
 
     while (v10);
   }
 
-  v14 = v37[5];
+  v14 = v36[5];
   if (v14)
   {
     goto LABEL_12;
@@ -1143,8 +1136,8 @@ LABEL_7:
     _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_INFO, "No matching date node found. Falling back to any date node from event nodes", buf, 2u);
   }
 
-  objc_storeStrong(v37 + 5, v31[5]);
-  v14 = v37[5];
+  objc_storeStrong(v36 + 5, v30[5]);
+  v14 = v36[5];
   if (v14)
   {
 LABEL_12:
@@ -1170,10 +1163,9 @@ LABEL_12:
 
   v18 = 0;
 LABEL_18:
-  _Block_object_dispose(&v30, 8);
+  _Block_object_dispose(&v29, 8);
 
-  _Block_object_dispose(&v36, 8);
-  v21 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v35, 8);
 
   return v18;
 }
@@ -1202,7 +1194,7 @@ void __79__PGTimeTitleUtility__numberOfYearsAgoWithEventNodes_relativeToDateComp
 
 + (id)peopleTimeTitleWithEventNodes:(id)nodes requireMultipleYears:(BOOL)years
 {
-  v38[1] = *MEMORY[0x277D85DE8];
+  v37[1] = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   if (![nodesCopy count])
   {
@@ -1211,8 +1203,8 @@ void __79__PGTimeTitleUtility__numberOfYearsAgoWithEventNodes_relativeToDateComp
   }
 
   v6 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"timestampUTCStart" ascending:1];
-  v38[0] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:1];
+  v37[0] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:1];
   v8 = [nodesCopy sortedArrayUsingDescriptors:v7];
 
   firstObject = [v8 firstObject];
@@ -1245,10 +1237,10 @@ void __79__PGTimeTitleUtility__numberOfYearsAgoWithEventNodes_relativeToDateComp
     }
 
     v19 = v18;
-    v37 = graph;
+    v36 = graph;
     yearNode = [v17 yearNode];
-    v35 = yearNode;
-    v36 = v19;
+    v34 = yearNode;
+    v35 = v19;
     if ([v17 isSameNodeAsNode:v19])
     {
       v21 = yearNode;
@@ -1264,23 +1256,23 @@ void __79__PGTimeTitleUtility__numberOfYearsAgoWithEventNodes_relativeToDateComp
       if (v22 != v21)
       {
         v24 = calendarUnitValue;
-        v31 = lastObject;
+        v30 = lastObject;
         calendarUnitValue2 = [v21 calendarUnitValue];
         v26 = objc_alloc_init(MEMORY[0x277D3AC40]);
         v27 = v26;
         if (v24 != calendarUnitValue2)
         {
-          v33 = [v26 stringFromStartDate:localStartDate endDate:v14 type:3];
+          v32 = [v26 stringFromStartDate:localStartDate endDate:v14 type:3];
           v28 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-          v34 = [v28 localizedStringForKey:@"PGPeopleSubtitleFormatWithYears %@" value:@"PGPeopleSubtitleFormatWithYears %@" table:@"Localizable"];
+          v33 = [v28 localizedStringForKey:@"PGPeopleSubtitleFormatWithYears %@" value:@"PGPeopleSubtitleFormatWithYears %@" table:@"Localizable"];
 
-          v13 = [MEMORY[0x277CCACA8] localizedStringWithFormat:v34, v33];
+          v13 = [MEMORY[0x277CCACA8] localizedStringWithFormat:v33, v32];
 
-          lastObject = v31;
+          lastObject = v30;
           goto LABEL_20;
         }
 
-        lastObject = v31;
+        lastObject = v30;
         if (yearsCopy)
         {
           goto LABEL_18;
@@ -1309,7 +1301,6 @@ LABEL_20:
 LABEL_21:
 
 LABEL_22:
-  v29 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

@@ -7,8 +7,7 @@
 - (void)areHeadphonesNearbyAndEligibleToPlayWithCompletionHandler:(id)handler
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x28223BE20](v5 - 8);
+  MEMORY[0x28223BE20](v5 - 8, v6);
   v8 = &v14 - v7;
   v9 = _Block_copy(handler);
   v10 = swift_allocObject();

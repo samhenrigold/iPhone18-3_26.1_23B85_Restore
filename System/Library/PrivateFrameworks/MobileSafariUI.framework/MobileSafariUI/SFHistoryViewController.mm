@@ -1372,7 +1372,7 @@ LABEL_8:
 
 void __58__SFHistoryViewController_updateClearHistoryButtonEnabled__block_invoke_4(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -1390,52 +1390,53 @@ void __58__SFHistoryViewController_updateClearHistoryButtonEnabled__block_invoke
 
     *(v3 + 1065) = v4 & 1;
     [v3[136] setEnabled:{objc_msgSend(v3[131], "count") != 0}];
-    [v3 _updateMoreMenu];
-    v5 = WBS_LOG_CHANNEL_PREFIXHistoryViewController();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v5 = [v3 _updateMoreMenu];
+    v7 = WBS_LOG_CHANNEL_PREFIXHistoryViewController(v5, v6);
+    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+    if (v8)
     {
       if (*(v3 + 1065))
       {
-        v6 = @"enabled";
+        v10 = @"enabled";
       }
 
       else
       {
-        v6 = @"disabled";
+        v10 = @"disabled";
       }
 
-      v10 = 138412290;
-      v11 = v6;
-      _os_log_impl(&dword_215819000, v5, OS_LOG_TYPE_DEFAULT, "History clearing is %@", &v10, 0xCu);
+      v14 = 138412290;
+      v15 = v10;
+      _os_log_impl(&dword_215819000, v7, OS_LOG_TYPE_DEFAULT, "History clearing is %@", &v14, 0xCu);
     }
 
     if (*(*(*(a1 + 40) + 8) + 24))
     {
-      v7 = 1;
+      v11 = 1;
     }
 
     else
     {
-      v7 = *(*(*(a1 + 48) + 8) + 24);
+      v11 = *(*(*(a1 + 48) + 8) + 24);
     }
 
-    *(v3 + 1161) = v7 & 1;
-    v8 = WBS_LOG_CHANNEL_PREFIXHistoryViewController();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    *(v3 + 1161) = v11 & 1;
+    v12 = WBS_LOG_CHANNEL_PREFIXHistoryViewController(v8, v9);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       if (*(v3 + 1161))
       {
-        v9 = @"on";
+        v13 = @"on";
       }
 
       else
       {
-        v9 = @"off";
+        v13 = @"off";
       }
 
-      v10 = 138412290;
-      v11 = v9;
-      _os_log_impl(&dword_215819000, v8, OS_LOG_TYPE_DEFAULT, "Parental Controls are %@", &v10, 0xCu);
+      v14 = 138412290;
+      v15 = v13;
+      _os_log_impl(&dword_215819000, v12, OS_LOG_TYPE_DEFAULT, "Parental Controls are %@", &v14, 0xCu);
     }
   }
 }

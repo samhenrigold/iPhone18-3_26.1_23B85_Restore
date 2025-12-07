@@ -25,10 +25,10 @@
 {
   nameCopy = name;
   self->_contextName = nameCopy;
-  v73.receiver = self;
-  v73.super_class = BWInferenceEngineController;
-  v54 = -[BWStillImageProcessorController initWithName:type:configuration:](&v73, sel_initWithName_type_configuration_, [MEMORY[0x1E696AEC0] stringWithFormat:@"%@:%@", @"InferenceEngineController", nameCopy], 3, configuration);
-  if (!v54)
+  v75.receiver = self;
+  v75.super_class = BWInferenceEngineController;
+  v56 = -[BWStillImageProcessorController initWithName:type:configuration:](&v75, sel_initWithName_type_configuration_, [MEMORY[0x1E696AEC0] stringWithFormat:@"%@:%@", @"InferenceEngineController", nameCopy], 3, configuration);
+  if (!v56)
   {
     [BWInferenceEngineController initWithConfiguration:contextName:];
 LABEL_53:
@@ -55,7 +55,7 @@ LABEL_53:
   }
 
   v9 = -[BWInferenceEngine initWithScheduler:priority:shareIntermediateBuffer:processingConfiguration:name:]([BWInferenceEngine alloc], "initWithScheduler:priority:shareIntermediateBuffer:processingConfiguration:name:", [configuration inferenceScheduler], figThreadPriority, 1, v8, name);
-  v54->_inferenceEngine = v9;
+  v56->_inferenceEngine = v9;
   if (!v9)
   {
     goto LABEL_53;
@@ -67,15 +67,15 @@ LABEL_53:
   }
 
   inputFormat = [configuration inputFormat];
-  v54->_inputFormat = inputFormat;
+  v56->_inputFormat = inputFormat;
   if (!inputFormat)
   {
     goto LABEL_53;
   }
 
   producesHighQualityInferencesFromZoomRegionWithLargeDigitalZoom = [configuration producesHighQualityInferencesFromZoomRegionWithLargeDigitalZoom];
-  v54->_producesHighQualityInferencesFromZoomRegionWithLargeDigitalZoom = producesHighQualityInferencesFromZoomRegionWithLargeDigitalZoom;
-  v54->_appliesFinalCropRect = producesHighQualityInferencesFromZoomRegionWithLargeDigitalZoom;
+  v56->_producesHighQualityInferencesFromZoomRegionWithLargeDigitalZoom = producesHighQualityInferencesFromZoomRegionWithLargeDigitalZoom;
+  v56->_appliesFinalCropRect = producesHighQualityInferencesFromZoomRegionWithLargeDigitalZoom;
   if ([configuration enabledVisionInferences])
   {
     v12 = [[BWFaceSegmentsWithLandmarksInferenceConfiguration alloc] initWithInferenceType:802];
@@ -109,20 +109,20 @@ LABEL_53:
     }
 
     -[BWVisionInferenceConfiguration setSuppressTimeOutFailure:](v12, "setSuppressTimeOutFailure:", [configuration suppressVisionTimeOutFailure]);
-    v72[0] = 0;
-    v72[1] = v72;
-    v72[2] = 0x3052000000;
-    v72[3] = __Block_byref_object_copy__5;
-    v72[4] = __Block_byref_object_dispose__5;
-    v72[5] = v54;
-    v71[0] = MEMORY[0x1E69E9820];
-    v71[1] = 3221225472;
-    v71[2] = __65__BWInferenceEngineController_initWithConfiguration_contextName___block_invoke;
-    v71[3] = &unk_1E7990408;
-    v71[4] = v72;
-    [(BWVisionInferenceConfiguration *)v12 setShouldPreventRequestForSampleBuffer:v71];
-    v13 = [(BWInferenceEngine *)v54->_inferenceEngine addInferenceOfType:802 version:[(BWLandmarksInferenceConfiguration *)v12 landmarksInferenceVersion]& 0xFFFFFFFFFFFFLL configuration:v12];
-    _Block_object_dispose(v72, 8);
+    v74[0] = 0;
+    v74[1] = v74;
+    v74[2] = 0x3052000000;
+    v74[3] = __Block_byref_object_copy__5;
+    v74[4] = __Block_byref_object_dispose__5;
+    v74[5] = v56;
+    v73[0] = MEMORY[0x1E69E9820];
+    v73[1] = 3221225472;
+    v73[2] = __65__BWInferenceEngineController_initWithConfiguration_contextName___block_invoke;
+    v73[3] = &unk_1E7990408;
+    v73[4] = v74;
+    [(BWVisionInferenceConfiguration *)v12 setShouldPreventRequestForSampleBuffer:v73];
+    v13 = [(BWInferenceEngine *)v56->_inferenceEngine addInferenceOfType:802 version:[(BWLandmarksInferenceConfiguration *)v12 landmarksInferenceVersion]& 0xFFFFFFFFFFFFLL configuration:v12];
+    _Block_object_dispose(v74, 8);
     if (v13)
     {
       goto LABEL_53;
@@ -131,29 +131,29 @@ LABEL_53:
 
   if ([objc_msgSend(configuration "enabledInferenceMasks")])
   {
+    v71 = 0u;
+    v72 = 0u;
     v69 = 0u;
     v70 = 0u;
-    v67 = 0u;
-    v68 = 0u;
     obj = [configuration enabledInferenceMasks];
-    v14 = [obj countByEnumeratingWithState:&v67 objects:v66 count:16];
+    v14 = [obj countByEnumeratingWithState:&v69 objects:v68 count:16];
     if (v14)
     {
       v15 = v14;
       configurationCopy = configuration;
       v17 = 0;
       LODWORD(v18) = 0;
-      v19 = *v68;
+      v19 = *v70;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v68 != v19)
+          if (*v70 != v19)
           {
             objc_enumerationMutation(obj);
           }
 
-          v21 = *(*(&v67 + 1) + 8 * i);
+          v21 = *(*(&v69 + 1) + 8 * i);
           v22 = [BWMattingV2InferenceConfiguration mattingOutputTypeForAttachedMediaKey:v21];
           if (v22)
           {
@@ -175,7 +175,7 @@ LABEL_53:
           v18 = v25 | v18;
         }
 
-        v15 = [obj countByEnumeratingWithState:&v67 objects:v66 count:16];
+        v15 = [obj countByEnumeratingWithState:&v69 objects:v68 count:16];
       }
 
       while (v15);
@@ -211,8 +211,8 @@ LABEL_53:
     v30 = [(BWInferenceConfiguration *)[BWPersonSemanticsConfiguration alloc] initWithInferenceType:104];
     [(BWPersonSemanticsConfiguration *)v30 setEnabledSemantics:v18];
     [(BWInferenceConfiguration *)v30 setPriority:figThreadPriority];
-    [(BWPersonSemanticsConfiguration *)v30 setAppliesFinalCropRect:v54->_appliesFinalCropRect];
-    if ([(BWInferenceEngine *)v54->_inferenceEngine addInferenceOfType:104 version:v29 & 0xFFFFFFFFFFFFLL configuration:v30])
+    [(BWPersonSemanticsConfiguration *)v30 setAppliesFinalCropRect:v56->_appliesFinalCropRect];
+    if ([(BWInferenceEngine *)v56->_inferenceEngine addInferenceOfType:104 version:v29 & 0xFFFFFFFFFFFFLL configuration:v30])
     {
       goto LABEL_53;
     }
@@ -245,89 +245,98 @@ LABEL_53:
       [(BWMattingV2InferenceConfiguration *)v32 setDepthDataDeliveryEnabled:0];
       -[BWMattingV2InferenceConfiguration setMetalCommandQueue:](v32, "setMetalCommandQueue:", [configuration metalCommandQueue]);
       [(BWMattingV2InferenceConfiguration *)v32 setSubmitWithoutSynchronization:0];
-      [(BWMattingV2InferenceConfiguration *)v32 setAppliesFinalCropRect:v54->_appliesFinalCropRect];
-      if ([(BWInferenceEngine *)v54->_inferenceEngine addInferenceOfType:201 version:BWInferenceVersionMakeMajor(2) & 0xFFFFFFFFFFFFLL configuration:v32])
+      [(BWMattingV2InferenceConfiguration *)v32 setAppliesFinalCropRect:v56->_appliesFinalCropRect];
+      if ([(BWInferenceEngine *)v56->_inferenceEngine addInferenceOfType:201 version:BWInferenceVersionMakeMajor(2) & 0xFFFFFFFFFFFFLL configuration:v32])
       {
         goto LABEL_53;
       }
     }
   }
 
-  if ([configuration smartCameraClassificationsEnabled] && -[BWInferenceEngine addInferenceOfType:version:configuration:](v54->_inferenceEngine, "addInferenceOfType:version:configuration:", 101, BWInferenceSmartCameraCurrentVersion() & 0xFFFFFFFFFFFFLL, -[BWInferenceConfiguration initWithInferenceType:]([BWSmartCameraInferenceConfiguration alloc], "initWithInferenceType:", 101)) || -[BWInferenceEngine prepareForInputVideoFormat:attachedMediaKey:](v54->_inferenceEngine, "prepareForInputVideoFormat:attachedMediaKey:", v54->_inputFormat, @"PrimaryFormat"))
+  if ([configuration smartCameraClassificationsEnabled])
+  {
+    v35 = [(BWInferenceConfiguration *)[BWSmartCameraInferenceConfiguration alloc] initWithInferenceType:101];
+    if ([(BWInferenceEngine *)v56->_inferenceEngine addInferenceOfType:101 version:BWInferenceSmartCameraCurrentVersion(v35 configuration:v36) & 0xFFFFFFFFFFFFLL, v35])
+    {
+      goto LABEL_53;
+    }
+  }
+
+  if ([(BWInferenceEngine *)v56->_inferenceEngine prepareForInputVideoFormat:v56->_inputFormat attachedMediaKey:@"PrimaryFormat"])
   {
     goto LABEL_53;
   }
 
-  providedVideoRequirementsByAttachedMediaKey = [(BWInferenceEngine *)v54->_inferenceEngine providedVideoRequirementsByAttachedMediaKey];
+  providedVideoRequirementsByAttachedMediaKey = [(BWInferenceEngine *)v56->_inferenceEngine providedVideoRequirementsByAttachedMediaKey];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
-  v62 = 0u;
-  v63 = 0u;
   v64 = 0u;
   v65 = 0u;
-  v39 = [(NSDictionary *)providedVideoRequirementsByAttachedMediaKey countByEnumeratingWithState:&v62 objects:v61 count:16];
-  if (v39)
+  v66 = 0u;
+  v67 = 0u;
+  v41 = [(NSDictionary *)providedVideoRequirementsByAttachedMediaKey countByEnumeratingWithState:&v64 objects:v63 count:16];
+  if (v41)
   {
-    v40 = v39;
-    v41 = *v63;
+    v42 = v41;
+    v43 = *v65;
     do
     {
-      for (j = 0; j != v40; ++j)
+      for (j = 0; j != v42; ++j)
       {
-        if (*v63 != v41)
+        if (*v65 != v43)
         {
           objc_enumerationMutation(providedVideoRequirementsByAttachedMediaKey);
         }
 
-        v43 = *(*(&v62 + 1) + 8 * j);
-        v44 = [objc_msgSend(-[NSDictionary objectForKeyedSubscript:](providedVideoRequirementsByAttachedMediaKey objectForKeyedSubscript:{v43), "videoFormat"), "underlyingVideoFormat"}];
-        if (v44)
+        v45 = *(*(&v64 + 1) + 8 * j);
+        v46 = [objc_msgSend(-[NSDictionary objectForKeyedSubscript:](providedVideoRequirementsByAttachedMediaKey objectForKeyedSubscript:{v45), "videoFormat"), "underlyingVideoFormat"}];
+        if (v46)
         {
-          [dictionary setObject:v44 forKeyedSubscript:v43];
+          [dictionary setObject:v46 forKeyedSubscript:v45];
         }
       }
 
-      v40 = [(NSDictionary *)providedVideoRequirementsByAttachedMediaKey countByEnumeratingWithState:&v62 objects:v61 count:16];
+      v42 = [(NSDictionary *)providedVideoRequirementsByAttachedMediaKey countByEnumeratingWithState:&v64 objects:v63 count:16];
     }
 
-    while (v40);
+    while (v42);
   }
 
-  v45 = [dictionary count];
-  if (v45 != [(NSDictionary *)providedVideoRequirementsByAttachedMediaKey count])
+  v47 = [dictionary count];
+  if (v47 != [(NSDictionary *)providedVideoRequirementsByAttachedMediaKey count])
   {
     goto LABEL_53;
   }
 
+  v61 = 0u;
+  v62 = 0u;
   v59 = 0u;
   v60 = 0u;
-  v57 = 0u;
-  v58 = 0u;
   enabledInferenceMasks = [configuration enabledInferenceMasks];
-  v47 = [enabledInferenceMasks countByEnumeratingWithState:&v57 objects:v56 count:16];
-  if (v47)
+  v49 = [enabledInferenceMasks countByEnumeratingWithState:&v59 objects:v58 count:16];
+  if (v49)
   {
-    v48 = v47;
-    v49 = *v58;
+    v50 = v49;
+    v51 = *v60;
 LABEL_68:
-    v50 = 0;
+    v52 = 0;
     while (1)
     {
-      if (*v58 != v49)
+      if (*v60 != v51)
       {
         objc_enumerationMutation(enabledInferenceMasks);
       }
 
-      v51 = *(*(&v57 + 1) + 8 * v50);
-      v52 = [(NSDictionary *)providedVideoRequirementsByAttachedMediaKey objectForKeyedSubscript:v51];
-      if (!(v52 | -[NSDictionary objectForKeyedSubscript:](providedVideoRequirementsByAttachedMediaKey, "objectForKeyedSubscript:", [v51 stringByAppendingString:@"Clone"])))
+      v53 = *(*(&v59 + 1) + 8 * v52);
+      v54 = [(NSDictionary *)providedVideoRequirementsByAttachedMediaKey objectForKeyedSubscript:v53];
+      if (!(v54 | -[NSDictionary objectForKeyedSubscript:](providedVideoRequirementsByAttachedMediaKey, "objectForKeyedSubscript:", [v53 stringByAppendingString:@"Clone"])))
       {
         goto LABEL_53;
       }
 
-      if (v48 == ++v50)
+      if (v50 == ++v52)
       {
-        v48 = [enabledInferenceMasks countByEnumeratingWithState:&v57 objects:v56 count:16];
-        if (v48)
+        v50 = [enabledInferenceMasks countByEnumeratingWithState:&v59 objects:v58 count:16];
+        if (v50)
         {
           goto LABEL_68;
         }
@@ -337,35 +346,35 @@ LABEL_68:
     }
   }
 
-  v35 = v54;
-  v54->_inferenceOutputFormatByAttachedMediaKey = dictionary;
-  if (v54->_producesHighQualityInferencesFromZoomRegionWithLargeDigitalZoom)
+  v37 = v56;
+  v56->_inferenceOutputFormatByAttachedMediaKey = dictionary;
+  if (v56->_producesHighQualityInferencesFromZoomRegionWithLargeDigitalZoom)
   {
-    v54->_pixelTransferSessionByMediaKey = objc_alloc_init(MEMORY[0x1E695DF90]);
-    v54->_outputFormatDescriptionByAttachedMediaKey = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v56->_pixelTransferSessionByMediaKey = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v56->_outputFormatDescriptionByAttachedMediaKey = objc_alloc_init(MEMORY[0x1E695DF90]);
   }
 
-  return v35;
+  return v37;
 }
 
-BOOL __65__BWInferenceEngineController_initWithConfiguration_contextName___block_invoke(uint64_t a1)
+BOOL __65__BWInferenceEngineController_initWithConfiguration_contextName___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = [objc_msgSend(objc_msgSend(*(*(*(a1 + 32) + 8) + 40) "currentRequest")];
-  v2 = (v1 & 4) == 0;
-  v3 = (v1 & 0x17) == 0;
+  v2 = [objc_msgSend(objc_msgSend(*(*(*(a1 + 32) + 8) + 40) "currentRequest")];
+  v3 = (v2 & 4) == 0;
+  v4 = (v2 & 0x17) == 0;
   getVNDetectFaceRectanglesRequestClass();
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    return v3;
+    return v4;
   }
 
-  v3 = (v1 & 2) == 0;
+  v4 = (v2 & 2) == 0;
   getVNDetectFaceLandmarksRequestClass();
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    return v3;
+    return v4;
   }
 
   getVNGenerateFaceSegmentsRequestClass();
@@ -374,16 +383,16 @@ BOOL __65__BWInferenceEngineController_initWithConfiguration_contextName___block
   {
     getVNClassifyFaceAttributesRequestClass();
     objc_opt_class();
-    v2 = (v1 & 0x10) == 0;
+    v3 = (v2 & 0x10) == 0;
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
       getVNRecognizeFoodAndDrinkRequestClass();
       objc_opt_class();
-      return objc_opt_isKindOfClass() & ((v1 & 8) == 0);
+      return objc_opt_isKindOfClass() & ((v2 & 8) == 0);
     }
   }
 
-  return v2;
+  return v3;
 }
 
 - (void)dealloc
@@ -447,7 +456,7 @@ BOOL __65__BWInferenceEngineController_initWithConfiguration_contextName___block
 
 - (id)inputInferenceVideoFormatForAttachedMediaKey:(id)key
 {
-  if (![key isEqualToString:@"PrimaryFormat"])
+  if (!objc_msgSend_isEqualToString_(key, a2, @"PrimaryFormat"))
   {
     return 0;
   }
@@ -575,8 +584,8 @@ LABEL_11:
   v10 = [[BWVideoFormatRequirements alloc] initWithPixelBufferAttributes:[(BWVideoFormat *)self->_inputFormat pixelBufferAttributes]];
   [(BWVideoFormatRequirements *)v10 setWidth:v9];
   [(BWVideoFormatRequirements *)v10 setHeight:v9 >> 32];
-  v69 = v10;
-  v11 = +[BWVideoFormat formatByResolvingRequirements:](BWVideoFormat, "formatByResolvingRequirements:", [MEMORY[0x1E695DEC8] arrayWithObjects:&v69 count:1]);
+  v68 = v10;
+  v11 = +[BWVideoFormat formatByResolvingRequirements:](BWVideoFormat, "formatByResolvingRequirements:", [MEMORY[0x1E695DEC8] arrayWithObjects:&v68 count:1]);
   result = [(BWInferenceEngine *)self->_inferenceEngine prepareForReconfigurationWithInputFormat:v11];
   if (!result)
   {
@@ -585,7 +594,7 @@ LABEL_11:
     {
       providedVideoRequirementsByAttachedMediaKey = [(BWInferenceEngine *)self->_inferenceEngine providedVideoRequirementsByAttachedMediaKey];
       v13 = [MEMORY[0x1E695DF90] dictionaryWithDictionary:self->_inferenceOutputFormatByAttachedMediaKey];
-      v21 = OUTLINED_FUNCTION_4_2(v13, v14, v15, v16, v17, v18, v19, v20, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62, v64, v66, 0);
+      v21 = OUTLINED_FUNCTION_4_2(v13, v14, v15, v16, v17, v18, v19, v20, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62, v64, v66);
       if (v21)
       {
         v22 = v21;
@@ -607,7 +616,7 @@ LABEL_11:
             }
           }
 
-          v22 = OUTLINED_FUNCTION_4_2(v26, v27, v28, v29, v30, v31, v32, v33, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, v63, v65, v67, v68);
+          v22 = OUTLINED_FUNCTION_4_2(v26, v27, v28, v29, v30, v31, v32, v33, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, v63, v65, v67);
         }
 
         while (v22);
@@ -672,7 +681,7 @@ LABEL_11:
   currentRequest = [(BWStillImageProcessorController *)self currentRequest];
   input = [(BWStillImageProcessorControllerRequest *)currentRequest input];
   inferenceEngine = self->_inferenceEngine;
-  v61 = currentRequest;
+  v63 = currentRequest;
   if (!inferenceEngine || ![(BWInferenceEngine *)inferenceEngine isConfiguredForInference]|| !self->_inferenceEnginePrepared || (v7 = [(BWStillImageProcessorControllerInput *)input inferenceImage]) == 0 || (v8 = v7, ImageBuffer = CMSampleBufferGetImageBuffer(v7), Width = CVPixelBufferGetWidth(ImageBuffer), CVPixelBufferGetHeight(ImageBuffer), (IOSurface = CVPixelBufferGetIOSurface(ImageBuffer)) == 0))
   {
     v28 = 4294954516;
@@ -680,7 +689,7 @@ LABEL_11:
   }
 
   v12 = IOSurface;
-  v59 = Width;
+  v61 = Width;
   if (![-[BWStillImageProcessorControllerInput enabledInferenceMasks](input "enabledInferenceMasks")] && (-[BWStillImageProcessorControllerInput smartCameraClassificationsEnabled](input, "smartCameraClassificationsEnabled") & 1) == 0 && !-[BWStillImageProcessorControllerInput enabledVisionInferences](input, "enabledVisionInferences"))
   {
     goto LABEL_58;
@@ -690,7 +699,7 @@ LABEL_11:
   IOSurfaceUnlock(v12, 5u, 0);
   v13 = [(BWInferenceEngineController *)self _suppressedInferenceTypesForInput:input];
   v14 = CMGetAttachment(v8, *off_1E798A3C8, 0);
-  FigCaptureMetadataUtilitiesGetFinalCropRect();
+  FigCaptureMetadataUtilitiesGetFinalCropRect(v14);
   if (v15 >= v16)
   {
     v17 = v16;
@@ -733,36 +742,37 @@ LABEL_11:
       {
 LABEL_40:
         v44 = [v14 objectForKeyedSubscript:*off_1E798B540];
-        v45 = (([v44 isEqualToString:*off_1E798A0F8] & 1) != 0 || objc_msgSend(v44, "isEqualToString:", *off_1E798A0E0)) && FigCaptureFrontCameraRotationAngle() % 180 == 90;
-        if ([(FigCaptureStillImageSettings *)[(BWStillImageProcessorControllerInput *)input settings] aspectRatio]|| v45)
+        isEqualToString = objc_msgSend_isEqualToString_(v44);
+        v47 = ((isEqualToString & 1) != 0 || (isEqualToString = objc_msgSend_isEqualToString_(v44), isEqualToString)) && FigCaptureFrontCameraRotationAngle(isEqualToString, v46) % 180 == 90;
+        if ([(FigCaptureStillImageSettings *)[(BWStillImageProcessorControllerInput *)input settings] aspectRatio]|| v47)
         {
           mach_absolute_time();
-          v100 = 0u;
-          v101 = 0u;
           v102 = 0u;
           v103 = 0u;
+          v104 = 0u;
+          v105 = 0u;
           enabledInferenceMasks = [(BWStillImageProcessorControllerConfiguration *)[(BWStillImageProcessorController *)self configuration] enabledInferenceMasks];
-          v47 = [enabledInferenceMasks countByEnumeratingWithState:&v100 objects:&v84 count:16];
-          if (v47)
+          v49 = [enabledInferenceMasks countByEnumeratingWithState:&v102 objects:&v86 count:16];
+          if (v49)
           {
-            v48 = v47;
-            v49 = *v101;
+            v50 = v49;
+            v51 = *v103;
             do
             {
-              for (i = 0; i != v48; ++i)
+              for (i = 0; i != v50; ++i)
               {
-                if (*v101 != v49)
+                if (*v103 != v51)
                 {
                   objc_enumerationMutation(enabledInferenceMasks);
                 }
 
-                [(BWInferenceEngineController *)self _replaceAttachedSampleBuffer:BWSampleBufferGetAttachedMedia(v8 attachedMediaKey:*(*(&v100 + 1) + 8 * i)) primarySampleBuffer:*(*(&v100 + 1) + 8 * i) aspectRatio:v8, [(FigCaptureStillImageSettings *)[(BWStillImageProcessorControllerInput *)input settings] aspectRatio]];
+                [(BWInferenceEngineController *)self _replaceAttachedSampleBuffer:BWSampleBufferGetAttachedMedia(v8 attachedMediaKey:*(*(&v102 + 1) + 8 * i)) primarySampleBuffer:*(*(&v102 + 1) + 8 * i) aspectRatio:v8, [(FigCaptureStillImageSettings *)[(BWStillImageProcessorControllerInput *)input settings] aspectRatio]];
               }
 
-              v48 = [enabledInferenceMasks countByEnumeratingWithState:&v100 objects:&v84 count:16];
+              v50 = [enabledInferenceMasks countByEnumeratingWithState:&v102 objects:&v86 count:16];
             }
 
-            while (v48);
+            while (v50);
           }
 
           if ([-[BWStillImageProcessorControllerConfiguration enabledInferenceMasks](-[BWStillImageProcessorController configuration](self "configuration")])
@@ -776,8 +786,8 @@ LABEL_40:
 
           if (dword_1EB58E320)
           {
-            HIDWORD(v83) = 0;
-            BYTE3(v83) = 0;
+            HIDWORD(v85) = 0;
+            BYTE3(v85) = 0;
             os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
             os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
             fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -792,26 +802,26 @@ LABEL_58:
 
     if (self->_producesHighQualityInferencesFromZoomRegionWithLargeDigitalZoom)
     {
-      v107 = 0u;
       v108 = 0u;
-      v105 = 0u;
+      v109 = 0u;
       v106 = 0u;
+      v107 = 0u;
       inferenceOutputFormatByAttachedMediaKey = self->_inferenceOutputFormatByAttachedMediaKey;
-      v30 = OUTLINED_FUNCTION_3_17(v20, v21, v22, v23, v24, v25, v26, v27, v54, v55, v56, v2, v59, currentRequest, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76, v77, v78, v79, v80, v81, v82, v83, v84, v85, v86, v87, v88, v89, v90, v91, v92, v93, v94, v95, v96, v97, v98, v99, v100, *(&v100 + 1), v101, *(&v101 + 1), v102, *(&v102 + 1), v103, *(&v103 + 1), v104);
+      v30 = OUTLINED_FUNCTION_3_17(v20, v21, v22, v23, v24, v25, v26, v27, v56, v57, v58, v2, v61, currentRequest, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76, v77, v78, v79, v80, v81, v82, v83, v84, v85, v86, v87, v88, v89, v90, v91, v92, v93, v94, v95, v96, v97, v98, v99, v100, v101, v102, *(&v102 + 1), v103, *(&v103 + 1), v104, *(&v104 + 1), v105, *(&v105 + 1));
       if (v30)
       {
         v31 = v30;
-        v32 = *v106;
+        v32 = *v107;
         do
         {
           for (j = 0; j != v31; ++j)
           {
-            if (*v106 != v32)
+            if (*v107 != v32)
             {
               objc_enumerationMutation(inferenceOutputFormatByAttachedMediaKey);
             }
 
-            v34 = BWSampleBufferGetAttachedMedia(v8, *(*(&v105 + 1) + 8 * j));
+            v34 = BWSampleBufferGetAttachedMedia(v8, *(*(&v106 + 1) + 8 * j));
             if (v34)
             {
               if (v19)
@@ -821,9 +831,8 @@ LABEL_58:
                 if (v34)
                 {
                   v28 = v34;
-                  v55 = v58;
-                  LODWORD(v54) = v34;
-                  FigDebugAssert3();
+                  LODWORD(v56) = v34;
+                  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v56, v60, v59, v60, v62, v63, v64, v65);
                   goto LABEL_59;
                 }
               }
@@ -835,7 +844,7 @@ LABEL_58:
             }
           }
 
-          v31 = OUTLINED_FUNCTION_3_17(v34, v35, v36, v37, v38, v39, v40, v41, v54, v55, v57, v58, v60, v61, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76, v77, v78, v79, v80, v81, v82, v83, v84, v85, v86, v87, v88, v89, v90, v91, v92, v93, v94, v95, v96, v97, v98, v99, v100, *(&v100 + 1), v101, *(&v101 + 1), v102, *(&v102 + 1), v103, *(&v103 + 1), v104);
+          v31 = OUTLINED_FUNCTION_3_17(v34, v35, v36, v37, v38, v39, v40, v41, v56, v57, v59, v60, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76, v77, v78, v79, v80, v81, v82, v83, v84, v85, v86, v87, v88, v89, v90, v91, v92, v93, v94, v95, v96, v97, v98, v99, v100, v101, v102, *(&v102 + 1), v103, *(&v103 + 1), v104, *(&v104 + 1), v105, *(&v105 + 1));
         }
 
         while (v31);
@@ -852,14 +861,14 @@ LABEL_58:
 
   v28 = 4294935556;
 LABEL_59:
-  [(BWStillImageProcessorControllerDelegate *)[(BWStillImageProcessorControllerRequest *)v61 delegate:v54] processorController:self didFinishProcessingSampleBuffer:[(BWStillImageProcessorControllerInput *)input inferenceImage] type:16 processorInput:input err:v28];
+  [objc_msgSend(v63 delegate];
   return v28;
 }
 
 - (void)_replaceAttachedSampleBuffer:(opaqueCMSampleBuffer *)buffer attachedMediaKey:(id)key primarySampleBuffer:(opaqueCMSampleBuffer *)sampleBuffer aspectRatio:(int)ratio
 {
   cf = 0;
-  v24 = 0;
+  v27 = 0;
   if (!buffer)
   {
     goto LABEL_13;
@@ -869,7 +878,7 @@ LABEL_59:
   if (!ImageBuffer)
   {
     OUTLINED_FUNCTION_0_6();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v25, cf, v27, v28, v29, v30, v31);
     goto LABEL_13;
   }
 
@@ -913,30 +922,33 @@ LABEL_13:
   }
 
   v19 = [+[BWOnDemandPixelBufferAllocator onDemandAllocatorWithDimensions:pixelFormat:name:memoryPool:](BWOnDemandPixelBufferAllocator onDemandAllocatorWithDimensions:v21 pixelFormat:CVPixelBufferGetPixelFormatType(v11) name:objc_msgSend(MEMORY[0x1E696AEC0] memoryPool:"stringWithFormat:", @"%@ attached media correction", key), +[BWMemoryPool sharedMemoryPool](BWMemoryPool, "sharedMemoryPool")), "newPixelBuffer"];
-  if (!v19)
+  if (v19)
   {
-    goto LABEL_22;
-  }
-
-  if (BWScalePixelBuffer(v11, v19, 0, *MEMORY[0x1E695F050], *(MEMORY[0x1E695F050] + 8), *(MEMORY[0x1E695F050] + 16), *(MEMORY[0x1E695F050] + 24), *MEMORY[0x1E695F050], *(MEMORY[0x1E695F050] + 8), *(MEMORY[0x1E695F050] + 16), *(MEMORY[0x1E695F050] + 24)))
-  {
-    OUTLINED_FUNCTION_0_6();
-  }
-
-  else
-  {
-    v22 = BWCMSampleBufferCreateCopyWithNewPixelBuffer(buffer, v19, &cf, &v24);
-    BWCMSampleBufferCopyReattachAndReturnMutableMetadata(v24);
-    if (!v22)
+    if (BWScalePixelBuffer(v11, v19, 0, *MEMORY[0x1E695F050], *(MEMORY[0x1E695F050] + 8), *(MEMORY[0x1E695F050] + 16), *(MEMORY[0x1E695F050] + 24), *MEMORY[0x1E695F050], *(MEMORY[0x1E695F050] + 8), *(MEMORY[0x1E695F050] + 16), *(MEMORY[0x1E695F050] + 24)))
     {
-      BWSampleBufferSetAttachedMedia(sampleBuffer, key, v24);
-      goto LABEL_22;
+      OUTLINED_FUNCTION_0_6();
+      LODWORD(v24) = v23;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24);
     }
 
-    OUTLINED_FUNCTION_0_6();
+    else
+    {
+      v22 = BWCMSampleBufferCreateCopyWithNewPixelBuffer(buffer, v19, &cf, &v27);
+      BWCMSampleBufferCopyReattachAndReturnMutableMetadata(v27);
+      if (v22)
+      {
+        OUTLINED_FUNCTION_0_6();
+        LODWORD(v24) = v22;
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24);
+      }
+
+      else
+      {
+        BWSampleBufferSetAttachedMedia(sampleBuffer, key, v27);
+      }
+    }
   }
 
-  FigDebugAssert3();
 LABEL_22:
   CVPixelBufferRelease(v19);
   if (cf)
@@ -944,9 +956,9 @@ LABEL_22:
     CFRelease(cf);
   }
 
-  if (v24)
+  if (v27)
   {
-    CFRelease(v24);
+    CFRelease(v27);
   }
 }
 
@@ -964,45 +976,45 @@ LABEL_22:
   }
 
   v14 = ImageBuffer;
-  CVPixelBufferGetWidth(ImageBuffer);
-  CVPixelBufferGetHeight(v14);
-  v15 = [(BWStillImageProcessorControllerDelegate *)[(BWStillImageProcessorControllerRequest *)[(BWStillImageProcessorController *)self currentRequest] delegate] processorController:self newOutputPixelBufferForProcessorInput:[(BWStillImageProcessorControllerRequest *)[(BWStillImageProcessorController *)self currentRequest] input] type:[(BWStillImageProcessorControllerInput *)[(BWStillImageProcessorControllerRequest *)[(BWStillImageProcessorController *)self currentRequest] input] inferenceInputBufferType] attachedMediaKey:key];
-  if (v15)
+  v15 = CVPixelBufferGetWidth(ImageBuffer);
+  v16 = CVPixelBufferGetHeight(v14);
+  v17 = [(BWStillImageProcessorControllerDelegate *)[(BWStillImageProcessorControllerRequest *)[(BWStillImageProcessorController *)self currentRequest] delegate] processorController:self newOutputPixelBufferForProcessorInput:[(BWStillImageProcessorControllerRequest *)[(BWStillImageProcessorController *)self currentRequest] input] type:[(BWStillImageProcessorControllerInput *)[(BWStillImageProcessorControllerRequest *)[(BWStillImageProcessorController *)self currentRequest] input] inferenceInputBufferType] attachedMediaKey:key];
+  if (v17)
   {
-    v16 = v15;
-    FigCaptureMetadataUtilitiesDenormalizeCropRect(x, y, width, height);
-    DictionaryRepresentation = CGRectCreateDictionaryRepresentation(v25);
-    v18 = [(BWInferenceEngineController *)self _ensurePixelTransferSessionForAttachedMediaKey:key];
-    if (v18)
+    v18 = v17;
+    FigCaptureMetadataUtilitiesDenormalizeCropRect(x, y, width, height, v15, v16);
+    DictionaryRepresentation = CGRectCreateDictionaryRepresentation(v27);
+    v20 = [(BWInferenceEngineController *)self _ensurePixelTransferSessionForAttachedMediaKey:key];
+    if (v20)
     {
-      v19 = v18;
-      v20 = VTSessionSetProperty(v18, *MEMORY[0x1E6983DD0], DictionaryRepresentation);
-      if (v20 || (v20 = VTPixelTransferSessionTransferImage(v19, v14, v16)) != 0)
+      v21 = v20;
+      v22 = VTSessionSetProperty(v20, *MEMORY[0x1E6983DD0], DictionaryRepresentation);
+      if (v22 || (v22 = VTPixelTransferSessionTransferImage(v21, v14, v18)) != 0)
       {
-        v22 = v20;
+        v24 = v22;
       }
 
       else
       {
-        v21 = [(NSMutableDictionary *)self->_outputFormatDescriptionByAttachedMediaKey objectForKeyedSubscript:key];
-        if (v21)
+        v23 = [(NSMutableDictionary *)self->_outputFormatDescriptionByAttachedMediaKey objectForKeyedSubscript:key];
+        if (v23)
         {
-          v21 = CFRetain(v21);
+          v23 = CFRetain(v23);
         }
 
-        cf = v21;
-        BWSampleBufferSetAttachedMediaFromPixelBuffer(sbuf, key, v16, &cf, 0, 0, 1);
+        cf = v23;
+        BWSampleBufferSetAttachedMediaFromPixelBuffer(sbuf, key, v18, &cf, 0, 0, 1);
         [(NSMutableDictionary *)self->_outputFormatDescriptionByAttachedMediaKey setObject:cf forKeyedSubscript:key];
-        v22 = 0;
+        v24 = 0;
       }
     }
 
     else
     {
-      v22 = -12783;
+      v24 = -12783;
     }
 
-    CFRelease(v16);
+    CFRelease(v18);
     if (DictionaryRepresentation)
     {
       CFRelease(DictionaryRepresentation);
@@ -1011,7 +1023,7 @@ LABEL_22:
 
   else
   {
-    v22 = -12786;
+    v24 = -12786;
   }
 
   if (cf)
@@ -1019,7 +1031,7 @@ LABEL_22:
     CFRelease(cf);
   }
 
-  return v22;
+  return v24;
 }
 
 - (OpaqueVTPixelTransferSession)_ensurePixelTransferSessionForAttachedMediaKey:(id)key

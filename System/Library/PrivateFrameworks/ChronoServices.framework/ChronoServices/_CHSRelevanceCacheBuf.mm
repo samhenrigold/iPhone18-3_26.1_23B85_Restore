@@ -365,32 +365,25 @@ LABEL_21:
 {
   groups = [(_CHSRelevanceCacheBuf *)self groups];
   v3 = groups;
-  if (!groups)
+  v5 = 1;
+  if (groups)
   {
-    goto LABEL_3;
-  }
-
-  v8 = 0;
-  v9 = &v8;
-  v10 = 0x2020000000;
-  v11 = 1;
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __41___CHSRelevanceCacheBuf_verifyUTF8Fields__block_invoke;
-  v7[3] = &unk_1E7453F88;
-  v7[4] = &v8;
-  [groups enumerateObjectsUsingBlock:v7];
-  v4 = *(v9 + 24);
-  _Block_object_dispose(&v8, 8);
-  if ((v4 & 1) == 0)
-  {
-    v5 = 0;
-  }
-
-  else
-  {
-LABEL_3:
-    v5 = 1;
+    v8 = 0;
+    v9 = &v8;
+    v10 = 0x2020000000;
+    v11 = 1;
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __41___CHSRelevanceCacheBuf_verifyUTF8Fields__block_invoke;
+    v7[3] = &unk_1E7453F88;
+    v7[4] = &v8;
+    [groups enumerateObjectsUsingBlock:v7];
+    v4 = *(v9 + 24);
+    _Block_object_dispose(&v8, 8);
+    if ((v4 & 1) == 0)
+    {
+      v5 = 0;
+    }
   }
 
   return v5;

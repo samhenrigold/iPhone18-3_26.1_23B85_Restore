@@ -541,7 +541,7 @@ LABEL_12:
   return v13;
 }
 
-uint64_t __66__PXFeedSectionInfo_sectionInfoWithCloudFeedEntry_inPhotoLibrary___block_invoke(uint64_t a1)
+void *__66__PXFeedSectionInfo_sectionInfoWithCloudFeedEntry_inPhotoLibrary___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) entryType];
   *(*(*(a1 + 40) + 8) + 24) = result;

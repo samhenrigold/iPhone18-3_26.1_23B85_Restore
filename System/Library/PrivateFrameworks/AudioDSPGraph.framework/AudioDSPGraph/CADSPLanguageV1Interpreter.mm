@@ -44,56 +44,66 @@
 
 - (BOOL)interpretUTF8String:(const char *)string length:(unint64_t)length updating:(id)updating error:(id *)error
 {
-  v88 = *MEMORY[0x1E69E9840];
+  v89 = *MEMORY[0x1E69E9840];
   updatingCopy = updating;
   v7 = updatingCopy;
-  v66 = &unk_1F48CBB80;
+  v67 = &unk_1F48CBB80;
   if (updatingCopy)
   {
     CFRetain(updatingCopy);
   }
 
-  *&v75 = 0;
+  *&v76 = 0;
   cf = v7;
-  CA::DSP::ReferenceCounted<__CADSPGraphModel *>::~ReferenceCounted(&v75);
-  v68[0] = v7;
+  CA::DSP::ReferenceCounted<__CADSPGraphModel *>::~ReferenceCounted(&v76);
+  v69[0] = v7;
   if (!v7)
   {
-    v82.__first_ = 0;
-    memset(v87, 0, 80);
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    v85 = 134217984;
-    v86 = 0;
-    _os_log_send_and_compose_impl();
+    v83.__first_ = 0;
+    memset(v88, 0, 80);
+    v51 = MEMORY[0x1E69E9C10];
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v52 = 3;
+    }
+
+    else
+    {
+      v52 = 2;
+    }
+
+    v86 = 134217984;
+    v87 = 0;
+    _os_log_send_and_compose_impl(v52, &v83, v88, 80, &dword_1C91AE000, v51, 16, "assertion failure: mGraphModel -> %llu", &v86);
     _os_crash_msg();
     __break(1u);
   }
 
   CFRetain(v7);
-  v54 = v7;
-  CA::DSP::ReferenceCounted<__CADSPGraphModel *>::~ReferenceCounted(v68);
-  v62 = 0u;
+  v55 = v7;
+  CA::DSP::ReferenceCounted<__CADSPGraphModel *>::~ReferenceCounted(v69);
   v63 = 0u;
   v64 = 0u;
   v65 = 0u;
+  v66 = 0u;
   v8 = self->_preprocessorMacroDefinitions;
-  v9 = [(NSDictionary *)v8 countByEnumeratingWithState:&v62 objects:v84 count:16];
+  v9 = [(NSDictionary *)v8 countByEnumeratingWithState:&v63 objects:v85 count:16];
   if (!v9)
   {
     goto LABEL_13;
   }
 
-  v10 = *v63;
+  v10 = *v64;
   do
   {
     for (i = 0; i != v9; ++i)
     {
-      if (*v63 != v10)
+      if (*v64 != v10)
       {
         objc_enumerationMutation(v8);
       }
 
-      v12 = *(*(&v62 + 1) + 8 * i);
+      v12 = *(*(&v63 + 1) + 8 * i);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
@@ -121,34 +131,34 @@ LABEL_57:
       }
     }
 
-    v9 = [(NSDictionary *)v8 countByEnumeratingWithState:&v62 objects:v84 count:16];
+    v9 = [(NSDictionary *)v8 countByEnumeratingWithState:&v63 objects:v85 count:16];
   }
 
   while (v9);
 LABEL_13:
 
-  v60 = 0u;
   v61 = 0u;
-  v58 = 0u;
+  v62 = 0u;
   v59 = 0u;
+  v60 = 0u;
   v14 = self->_preprocessorIncludePaths;
-  v15 = [(NSArray *)v14 countByEnumeratingWithState:&v58 objects:v83 count:16];
+  v15 = [(NSArray *)v14 countByEnumeratingWithState:&v59 objects:v84 count:16];
   if (!v15)
   {
     goto LABEL_21;
   }
 
-  v16 = *v59;
+  v16 = *v60;
   do
   {
     for (j = 0; j != v15; ++j)
     {
-      if (*v59 != v16)
+      if (*v60 != v16)
       {
         objc_enumerationMutation(v14);
       }
 
-      v18 = *(*(&v58 + 1) + 8 * j);
+      v18 = *(*(&v59 + 1) + 8 * j);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
@@ -161,44 +171,44 @@ LABEL_13:
       }
     }
 
-    v15 = [(NSArray *)v14 countByEnumeratingWithState:&v58 objects:v83 count:16];
+    v15 = [(NSArray *)v14 countByEnumeratingWithState:&v59 objects:v84 count:16];
   }
 
   while (v15);
 LABEL_21:
 
   *__p = 0u;
-  v80 = 0u;
-  v81 = 1065353216;
-  v75 = 0u;
+  v81 = 0u;
+  v82 = 1065353216;
   v76 = 0u;
   v77 = 0u;
   v78 = 0u;
+  v79 = 0u;
   v19 = self->_preprocessorMacroDefinitions;
-  v53 = v19;
-  v20 = [(NSDictionary *)v19 countByEnumeratingWithState:&v75 objects:v87 count:16];
+  v54 = v19;
+  v20 = [(NSDictionary *)v19 countByEnumeratingWithState:&v76 objects:v88 count:16];
   if (!v20)
   {
     goto LABEL_59;
   }
 
   v21 = 0;
-  v22 = *v76;
-  v56 = *v76;
+  v22 = *v77;
+  v57 = *v77;
   while (2)
   {
-    if (v22 != v56)
+    if (v22 != v57)
     {
       objc_enumerationMutation(v19);
     }
 
-    v23 = *(*(&v75 + 1) + 8 * v21);
+    v23 = *(*(&v76 + 1) + 8 * v21);
     v24 = [(NSDictionary *)self->_preprocessorMacroDefinitions objectForKeyedSubscript:v23];
     v25 = v24;
     uTF8String = [v24 UTF8String];
     v27 = v23;
-    std::string::basic_string[abi:ne200100]<0>(v68, [v23 UTF8String]);
-    v28 = std::__string_hash<char>::operator()[abi:ne200100](v68);
+    std::string::basic_string[abi:ne200100]<0>(v69, [v23 UTF8String]);
+    v28 = std::__string_hash<char>::operator()[abi:ne200100](v69);
     v29 = v28;
     v30 = __p[1];
     if (!__p[1])
@@ -256,7 +266,7 @@ LABEL_41:
         goto LABEL_40;
       }
 
-      if (!AudioDSPGraph::IR::BoxAlias::operator==(v35 + 2, v68))
+      if (!AudioDSPGraph::IR::BoxAlias::operator==(v35 + 2, v69))
       {
 LABEL_40:
         v35 = *v35;
@@ -271,11 +281,11 @@ LABEL_40:
       break;
     }
 
-    v19 = v53;
+    v19 = v54;
     std::string::__assign_external((v35 + 5), uTF8String);
-    if (SBYTE7(v69) < 0)
+    if (SBYTE7(v70) < 0)
     {
-      operator delete(v68[0]);
+      operator delete(v69[0]);
     }
 
     if (++v21 < v20)
@@ -283,12 +293,12 @@ LABEL_40:
       goto LABEL_47;
     }
 
-    v20 = [(NSDictionary *)v53 countByEnumeratingWithState:&v75 objects:v87 count:16];
+    v20 = [(NSDictionary *)v54 countByEnumeratingWithState:&v76 objects:v88 count:16];
     if (v20)
     {
       v21 = 0;
 LABEL_47:
-      v22 = *v76;
+      v22 = *v77;
       continue;
     }
 
@@ -297,102 +307,101 @@ LABEL_47:
 
 LABEL_59:
 
-  v72 = 0;
   v73 = 0;
+  v74 = 0;
   value = 0;
-  *v68 = 0u;
-  v69 = 0u;
+  *v69 = 0u;
   v70 = 0u;
   v71 = 0u;
-  v40 = self->_preprocessorIncludePaths;
-  v41 = [(NSArray *)v40 countByEnumeratingWithState:v68 objects:&v85 count:16];
-  if (v41)
+  v72 = 0u;
+  v39 = self->_preprocessorIncludePaths;
+  v40 = [(NSArray *)v39 countByEnumeratingWithState:v69 objects:&v86 count:16];
+  if (v40)
   {
-    v42 = *v69;
+    v41 = *v70;
     do
     {
-      for (k = 0; k != v41; ++k)
+      for (k = 0; k != v40; ++k)
       {
-        if (*v69 != v42)
+        if (*v70 != v41)
         {
-          objc_enumerationMutation(v40);
+          objc_enumerationMutation(v39);
         }
 
-        uTF8String2 = [*(v68[1] + k) UTF8String];
-        v45 = v73;
-        if (v73 >= value)
+        uTF8String2 = [*(v69[1] + k) UTF8String];
+        v44 = v74;
+        if (v74 >= value)
         {
-          v47 = 0xAAAAAAAAAAAAAAABLL * ((v73 - v72) >> 3) + 1;
-          if (v47 > 0xAAAAAAAAAAAAAAALL)
+          v46 = 0xAAAAAAAAAAAAAAABLL * ((v74 - v73) >> 3) + 1;
+          if (v46 > 0xAAAAAAAAAAAAAAALL)
           {
             std::vector<unsigned char,std::pmr::polymorphic_allocator<unsigned char>>::__throw_length_error[abi:ne200100]();
           }
 
-          if (0x5555555555555556 * ((value - v72) >> 3) > v47)
+          if (0x5555555555555556 * ((value - v73) >> 3) > v46)
           {
-            v47 = 0x5555555555555556 * ((value - v72) >> 3);
+            v46 = 0x5555555555555556 * ((value - v73) >> 3);
           }
 
-          if (0xAAAAAAAAAAAAAAABLL * ((value - v72) >> 3) >= 0x555555555555555)
+          if (0xAAAAAAAAAAAAAAABLL * ((value - v73) >> 3) >= 0x555555555555555)
           {
-            v48 = 0xAAAAAAAAAAAAAAALL;
+            v47 = 0xAAAAAAAAAAAAAAALL;
           }
 
           else
           {
-            v48 = v47;
+            v47 = v46;
           }
 
-          v82.__end_cap_.__value_ = &v72;
-          if (v48)
+          v83.__end_cap_.__value_ = &v73;
+          if (v47)
           {
-            std::allocator<AudioDSPGraph::IR::SubsetModel>::allocate_at_least[abi:ne200100](v48);
+            std::allocator<AudioDSPGraph::IR::SubsetModel>::allocate_at_least[abi:ne200100](v47);
           }
 
-          v82.__first_ = 0;
-          v82.__begin_ = (8 * ((v73 - v72) >> 3));
-          v82.__end_ = v82.__begin_;
-          v82.__end_cap_.__value_ = 0;
-          std::string::basic_string[abi:ne200100]<0>(v82.__begin_, uTF8String2);
-          v46 = v82.__end_ + 1;
-          v49 = (v82.__begin_ - (v73 - v72));
-          memcpy(v49, v72, v73 - v72);
-          v50 = v72;
-          v51 = value;
-          v72 = v49;
-          v73 = v46;
-          value = v82.__end_cap_.__value_;
-          v82.__end_ = v50;
-          v82.__end_cap_.__value_ = v51;
-          v82.__first_ = v50;
-          v82.__begin_ = v50;
-          std::__split_buffer<AudioDSPGraph::IR::SubsetModel>::~__split_buffer(&v82);
+          v83.__first_ = 0;
+          v83.__begin_ = (8 * ((v74 - v73) >> 3));
+          v83.__end_ = v83.__begin_;
+          v83.__end_cap_.__value_ = 0;
+          std::string::basic_string[abi:ne200100]<0>(v83.__begin_->__r_.__value_.__r.__words, uTF8String2);
+          v45 = v83.__end_ + 1;
+          v48 = (v83.__begin_ - (v74 - v73));
+          memcpy(v48, v73, v74 - v73);
+          v49 = v73;
+          v50 = value;
+          v73 = v48;
+          v74 = v45;
+          value = v83.__end_cap_.__value_;
+          v83.__end_ = v49;
+          v83.__end_cap_.__value_ = v50;
+          v83.__first_ = v49;
+          v83.__begin_ = v49;
+          std::__split_buffer<AudioDSPGraph::IR::SubsetModel>::~__split_buffer(&v83);
         }
 
         else
         {
-          std::string::basic_string[abi:ne200100]<0>(v73, uTF8String2);
-          v46 = v45 + 1;
+          std::string::basic_string[abi:ne200100]<0>(v74, uTF8String2);
+          v45 = (v44 + 24);
         }
 
-        v73 = v46;
+        v74 = v45;
       }
 
-      v41 = [(NSArray *)v40 countByEnumeratingWithState:v68 objects:&v85 count:16];
+      v40 = [(NSArray *)v39 countByEnumeratingWithState:v69 objects:&v86 count:16];
     }
 
-    while (v41);
+    while (v40);
   }
 
-  (*(self->_interpreter._vptr$VirtuallyDestructible + 2))(&self->_interpreter, &v66, string, __p, &v72);
-  v82.__first_ = &v72;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v82);
+  (*(self->_interpreter._vptr$VirtuallyDestructible + 2))(&self->_interpreter, &v67, string, __p, &v73);
+  v83.__first_ = &v73;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v83);
   std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::~__hash_table(__p);
   v37 = 1;
 LABEL_58:
   CA::DSP::ReferenceCounted<__CADSPGraphModel *>::~ReferenceCounted(&cf);
 
-  v38 = *MEMORY[0x1E69E9840];
   return v37;
 }
 

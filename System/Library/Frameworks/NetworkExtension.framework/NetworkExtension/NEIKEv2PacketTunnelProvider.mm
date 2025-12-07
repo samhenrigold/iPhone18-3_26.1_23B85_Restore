@@ -31,7 +31,7 @@
 
 - (void)setTunnelNetworkSettings:(id)settings completionHandler:(id)handler
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   settingsCopy = settings;
   handlerCopy = handler;
   v8 = ne_log_obj();
@@ -67,37 +67,36 @@
     *&buf[12] = 2080;
     *&buf[14] = v9;
     *&buf[22] = 2112;
-    v26 = interfaceName;
+    v25 = interfaceName;
     _os_log_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_DEFAULT, "%@: Performing setTunnelNetworkSettings %s (%@)", buf, 0x20u);
   }
 
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v26 = __Block_byref_object_copy__12503;
-  v27 = __Block_byref_object_dispose__12504;
+  v25 = __Block_byref_object_copy__12503;
+  v26 = __Block_byref_object_dispose__12504;
   selfCopy = self;
-  v28 = selfCopy;
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __74__NEIKEv2PacketTunnelProvider_setTunnelNetworkSettings_completionHandler___block_invoke;
-  v21[3] = &unk_1E7F08850;
-  v24 = buf;
+  v27 = selfCopy;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __74__NEIKEv2PacketTunnelProvider_setTunnelNetworkSettings_completionHandler___block_invoke;
+  v20[3] = &unk_1E7F08850;
+  v23 = buf;
   v17 = settingsCopy;
-  v22 = v17;
+  v21 = v17;
   v18 = handlerCopy;
-  v23 = v18;
-  v20.receiver = selfCopy;
-  v20.super_class = NEIKEv2PacketTunnelProvider;
-  [(NEPacketTunnelProvider *)&v20 setTunnelNetworkSettings:v17 completionHandler:v21];
+  v22 = v18;
+  v19.receiver = selfCopy;
+  v19.super_class = NEIKEv2PacketTunnelProvider;
+  [(NEPacketTunnelProvider *)&v19 setTunnelNetworkSettings:v17 completionHandler:v20];
 
   _Block_object_dispose(buf, 8);
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __74__NEIKEv2PacketTunnelProvider_setTunnelNetworkSettings_completionHandler___block_invoke(void *a1, void *a2)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = ne_log_obj();
   v5 = v4;
@@ -155,15 +154,15 @@ void __74__NEIKEv2PacketTunnelProvider_setTunnelNetworkSettings_completionHandle
 
     v22 = v14;
     v23 = [v14 interfaceName];
-    v27 = 138413058;
-    v28 = v7;
-    v29 = 2080;
-    v30 = v8;
-    v31 = 2112;
-    v32 = v23;
-    v33 = 2112;
-    v34 = v3;
-    _os_log_error_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_ERROR, "%@: setTunnelNetworkSettings %s failed (%@): %@", &v27, 0x2Au);
+    v26 = 138413058;
+    v27 = v7;
+    v28 = 2080;
+    v29 = v8;
+    v30 = 2112;
+    v31 = v23;
+    v32 = 2112;
+    v33 = v3;
+    _os_log_error_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_ERROR, "%@: setTunnelNetworkSettings %s failed (%@): %@", &v26, 0x2Au);
   }
 
   else
@@ -220,13 +219,13 @@ void __74__NEIKEv2PacketTunnelProvider_setTunnelNetworkSettings_completionHandle
 
     v22 = v21;
     v23 = [v21 interfaceName];
-    v27 = 138412802;
-    v28 = v16;
-    v29 = 2080;
-    v30 = v17;
-    v31 = 2112;
-    v32 = v23;
-    _os_log_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_DEFAULT, "%@: setTunnelNetworkSettings %s completed (%@)", &v27, 0x20u);
+    v26 = 138412802;
+    v27 = v16;
+    v28 = 2080;
+    v29 = v17;
+    v30 = 2112;
+    v31 = v23;
+    _os_log_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_DEFAULT, "%@: setTunnelNetworkSettings %s completed (%@)", &v26, 0x20u);
   }
 
 LABEL_27:
@@ -236,15 +235,13 @@ LABEL_27:
     if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       v25 = *(*(a1[6] + 8) + 40);
-      v27 = 138412290;
-      v28 = v25;
-      _os_log_impl(&dword_1BA83C000, v24, OS_LOG_TYPE_DEFAULT, "%@: setTunnelNetworkSettings calling completionHandler", &v27, 0xCu);
+      v26 = 138412290;
+      v27 = v25;
+      _os_log_impl(&dword_1BA83C000, v24, OS_LOG_TYPE_DEFAULT, "%@: setTunnelNetworkSettings calling completionHandler", &v26, 0xCu);
     }
 
     (*(a1[5] + 16))();
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
@@ -254,7 +251,7 @@ LABEL_27:
   changeCopy = change;
   if (objectCopy == self)
   {
-    if ([pathCopy isEqualToString:@"protocolConfiguration"])
+    if (objc_msgSend_isEqualToString_(pathCopy))
     {
       queue = self->_queue;
       v18[0] = MEMORY[0x1E69E9820];
@@ -266,7 +263,7 @@ LABEL_27:
       goto LABEL_11;
     }
 
-    if ([pathCopy isEqualToString:@"defaultPath"])
+    if (objc_msgSend_isEqualToString_(pathCopy))
     {
       queue = self->_queue;
       block[0] = MEMORY[0x1E69E9820];
@@ -289,7 +286,7 @@ LABEL_27:
     Property = 0;
   }
 
-  if (Property == objectCopy && [pathCopy isEqualToString:@"path"])
+  if (Property == objectCopy && objc_msgSend_isEqualToString_(pathCopy))
   {
     queue = self->_queue;
     v16[0] = MEMORY[0x1E69E9820];
@@ -305,7 +302,7 @@ LABEL_11:
 
 void __78__NEIKEv2PacketTunnelProvider_observeValueForKeyPath_ofObject_change_context___block_invoke(uint64_t a1)
 {
-  v36[1] = *MEMORY[0x1E69E9840];
+  v35[1] = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   if (v1 && (*(v1 + 77) & 1) == 0)
   {
@@ -324,7 +321,7 @@ void __78__NEIKEv2PacketTunnelProvider_observeValueForKeyPath_ofObject_change_co
       if (*(v1 + 78))
       {
         *(v1 + 77) = 1;
-        objc_initWeak(&v29, v1);
+        objc_initWeak(&v28, v1);
         v6 = ne_log_obj();
         if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
         {
@@ -335,12 +332,12 @@ void __78__NEIKEv2PacketTunnelProvider_observeValueForKeyPath_ofObject_change_co
 
         *&buf = MEMORY[0x1E69E9820];
         *(&buf + 1) = 3221225472;
-        v34 = __49__NEIKEv2PacketTunnelProvider_handleConfigChange__block_invoke;
-        v35 = &unk_1E7F0AA58;
-        objc_copyWeak(v36, &v29);
+        v33 = __49__NEIKEv2PacketTunnelProvider_handleConfigChange__block_invoke;
+        v34 = &unk_1E7F0AA58;
+        objc_copyWeak(v35, &v28);
         [(NEIKEv2PacketTunnelProvider *)v1 stopIKEv2TunnelWithReason:&buf completionHandler:?];
-        objc_destroyWeak(v36);
-        objc_destroyWeak(&v29);
+        objc_destroyWeak(v35);
+        objc_destroyWeak(&v28);
       }
 
       else
@@ -380,9 +377,9 @@ void __78__NEIKEv2PacketTunnelProvider_observeValueForKeyPath_ofObject_change_co
 
         *&buf = MEMORY[0x1E69E9820];
         *(&buf + 1) = 3221225472;
-        v34 = __49__NEIKEv2PacketTunnelProvider_handleConfigChange__block_invoke_169;
-        v35 = &unk_1E7F08740;
-        v36[0] = v1;
+        v33 = __49__NEIKEv2PacketTunnelProvider_handleConfigChange__block_invoke_169;
+        v34 = &unk_1E7F08740;
+        v35[0] = v1;
         [(NEIKEv2PacketTunnelProvider *)v1 resolveServerAddressIfNeeded:?];
         [v1 setReasserting:(~*(v1 + 84) & 0xF) == 0];
         *(v1 + 84) &= 0xFFFFFFF0;
@@ -398,11 +395,11 @@ void __78__NEIKEv2PacketTunnelProvider_observeValueForKeyPath_ofObject_change_co
         v27 = ne_log_obj();
         if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
         {
-          v29 = 138412546;
-          v30 = v1;
-          v31 = 2080;
-          v32 = "[NEIKEv2PacketTunnelProvider handleConfigChange]";
-          _os_log_impl(&dword_1BA83C000, v27, OS_LOG_TYPE_DEFAULT, "%@: %s: bringing up tunnel", &v29, 0x16u);
+          v28 = 138412546;
+          v29 = v1;
+          v30 = 2080;
+          v31 = "[NEIKEv2PacketTunnelProvider handleConfigChange]";
+          _os_log_impl(&dword_1BA83C000, v27, OS_LOG_TYPE_DEFAULT, "%@: %s: bringing up tunnel", &v28, 0x16u);
         }
       }
     }
@@ -418,27 +415,25 @@ void __78__NEIKEv2PacketTunnelProvider_observeValueForKeyPath_ofObject_change_co
       }
     }
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void __78__NEIKEv2PacketTunnelProvider_observeValueForKeyPath_ofObject_change_context___block_invoke_2(uint64_t a1)
 {
-  v113 = *MEMORY[0x1E69E9840];
+  v112 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   if (!v1 || (*(v1 + 77) & 1) != 0)
   {
-    goto LABEL_91;
+    return;
   }
 
   v2 = ne_log_obj();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v104 = [v1 defaultPath];
-    v3 = [v104 scopedInterface];
+    v103 = [v1 defaultPath];
+    v3 = [v103 scopedInterface];
     v4 = [v1 defaultPath];
-    v101 = v4;
-    v102 = v3;
+    v100 = v4;
+    v101 = v3;
     if (v3)
     {
       [v4 scopedInterface];
@@ -467,13 +462,13 @@ void __78__NEIKEv2PacketTunnelProvider_observeValueForKeyPath_ofObject_change_co
     v12 = [v11 interfaceIndex];
     v13 = [v1 defaultPath];
     *buf = 138413058;
-    v107 = v1;
-    v108 = 2112;
-    *v109 = v6;
-    *&v109[8] = 2048;
-    v110 = v12;
-    v111 = 1024;
-    LODWORD(v112) = [v13 status] == 1;
+    v106 = v1;
+    v107 = 2112;
+    *v108 = v6;
+    *&v108[8] = 2048;
+    v109 = v12;
+    v110 = 1024;
+    LODWORD(v111) = [v13 status] == 1;
     _os_log_impl(&dword_1BA83C000, v2, OS_LOG_TYPE_DEFAULT, "%@: New scoped interface %@ (%lu) (SATISFIED: %d)", buf, 0x26u);
   }
 
@@ -520,17 +515,17 @@ void __78__NEIKEv2PacketTunnelProvider_observeValueForKeyPath_ofObject_change_co
         v78 = ;
         v79 = [v78 interfaceIndex];
         *buf = 138412802;
-        v107 = v1;
-        v108 = 2048;
-        *v109 = v26;
-        *&v109[8] = 2048;
-        v110 = v79;
+        v106 = v1;
+        v107 = 2048;
+        *v108 = v26;
+        *&v108[8] = 2048;
+        v109 = v79;
         _os_log_impl(&dword_1BA83C000, v25, OS_LOG_TYPE_INFO, "%@: Ignoring interface change to: %lu --> %lu\n", buf, 0x20u);
       }
 
 LABEL_87:
 
-      goto LABEL_91;
+      return;
     }
   }
 
@@ -543,8 +538,8 @@ LABEL_87:
 
   v33 = &OBJC_IVAR___NEFilterFlow__direction;
   v34 = *(v1 + 248);
-  v103 = *(v1 + 75);
-  v105 = *(v1 + 74);
+  v102 = *(v1 + 75);
+  v104 = *(v1 + 74);
   if ([objc_getProperty(v1 v35] == 1)
   {
     v37 = [objc_getProperty(v1 v36];
@@ -656,7 +651,7 @@ LABEL_87:
           if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v107 = v1;
+            v106 = v1;
             _os_log_impl(&dword_1BA83C000, v25, OS_LOG_TYPE_DEFAULT, "%@: No outbound companion path detected. Ignoring companion path", buf, 0xCu);
           }
 
@@ -670,13 +665,13 @@ LABEL_87:
       v33 = &OBJC_IVAR___NEFilterFlow__direction;
     }
 
-    if ((v105 & 1) != 0 && (*(v1 + 75) & 1) != 0 && (v103 & 1) == 0)
+    if ((v104 & 1) != 0 && (*(v1 + 75) & 1) != 0 && (v102 & 1) == 0)
     {
       v91 = ne_log_obj();
       if (os_log_type_enabled(v91, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v107 = v1;
+        v106 = v1;
         _os_log_impl(&dword_1BA83C000, v91, OS_LOG_TYPE_DEFAULT, "%@: outbound companion path detected", buf, 0xCu);
       }
 
@@ -694,7 +689,7 @@ LABEL_87:
       if (os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v107 = v1;
+        v106 = v1;
         v75 = "%@: No companion outbound path detected. Cancelling companion path";
         v76 = v71;
         v77 = 12;
@@ -714,16 +709,16 @@ LABEL_88:
       {
         v99 = *(v1 + v33[649]);
         *buf = 138412802;
-        v107 = v1;
-        v108 = 2048;
-        *v109 = v34;
-        *&v109[8] = 2048;
-        v110 = v99;
+        v106 = v1;
+        v107 = 2048;
+        *v108 = v34;
+        *&v108[8] = 2048;
+        v109 = v99;
         _os_log_impl(&dword_1BA83C000, v98, OS_LOG_TYPE_INFO, "%@: Scoped interface changed: %lu --> %lu\n", buf, 0x20u);
       }
 
       [(NEIKEv2PacketTunnelProvider *)v1 handleInterfaceChange:?];
-      goto LABEL_91;
+      return;
     }
 
     v68 = objc_getProperty(v1, v67, 232, 1);
@@ -754,11 +749,11 @@ LABEL_88:
         }
 
         *buf = 138412802;
-        v107 = v1;
-        v108 = 1024;
-        *v109 = v74;
-        *&v109[4] = 1024;
-        *&v109[6] = v60;
+        v106 = v1;
+        v107 = 1024;
+        *v108 = v74;
+        *&v108[4] = 1024;
+        *&v108[6] = v60;
         v75 = "%@: MOBIKE tunnel due to Companion network path change %u --> %u";
         v76 = v71;
         v77 = 24;
@@ -799,13 +794,13 @@ LABEL_74:
         v96 = "";
       }
 
-      v107 = v1;
-      v108 = 2048;
-      *v109 = v93;
-      *&v109[8] = 2080;
-      v110 = v94;
-      v111 = 2080;
-      v112 = v96;
+      v106 = v1;
+      v107 = 2048;
+      *v108 = v93;
+      *&v108[8] = 2080;
+      v109 = v94;
+      v110 = 2080;
+      v111 = v96;
       _os_log_impl(&dword_1BA83C000, v92, OS_LOG_TYPE_INFO, "%@: Updated scoped ifIndex %lu (%s%s)", buf, 0x2Au);
     }
 
@@ -815,7 +810,7 @@ LABEL_74:
       if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v107 = v1;
+        v106 = v1;
         _os_log_debug_impl(&dword_1BA83C000, v25, OS_LOG_TYPE_DEBUG, "%@: Scoped interface unchanged, ignore\n", buf, 0xCu);
       }
 
@@ -829,30 +824,28 @@ LABEL_74:
   if (os_log_type_enabled(v80, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v107 = v1;
+    v106 = v1;
     _os_log_impl(&dword_1BA83C000, v80, OS_LOG_TYPE_DEFAULT, "%@: tearing down tunnel due to Companion link loss", buf, 0xCu);
   }
 
   [(NEIKEv2PacketTunnelProvider *)v1 handleInterfaceDown];
-LABEL_91:
-  v100 = *MEMORY[0x1E69E9840];
 }
 
 void __78__NEIKEv2PacketTunnelProvider_observeValueForKeyPath_ofObject_change_context___block_invoke_3(uint64_t a1)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   if (v1 && (v1[77] & 1) == 0)
   {
     v2 = ne_log_obj();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      v31 = [objc_getProperty(v1 v3];
-      v4 = [v31 scopedInterface];
-      v29 = objc_getProperty(v1, v5, 272, 1);
-      v6 = [v29 path];
-      v30 = v4;
-      v28 = v6;
+      v30 = [objc_getProperty(v1 v3];
+      v4 = [v30 scopedInterface];
+      v28 = objc_getProperty(v1, v5, 272, 1);
+      v6 = [v28 path];
+      v29 = v4;
+      v27 = v6;
       if (v4)
       {
         [v6 scopedInterface];
@@ -862,8 +855,8 @@ void __78__NEIKEv2PacketTunnelProvider_observeValueForKeyPath_ofObject_change_co
       {
         [v6 interface];
       }
-      v27 = ;
-      v7 = [v27 interfaceName];
+      v26 = ;
+      v7 = [v26 interfaceName];
       v9 = [objc_getProperty(v1 v8];
       v10 = [v9 scopedInterface];
       v12 = objc_getProperty(v1, v11, 272, 1);
@@ -882,13 +875,13 @@ void __78__NEIKEv2PacketTunnelProvider_observeValueForKeyPath_ofObject_change_co
       v16 = [v15 interfaceIndex];
       v18 = [objc_getProperty(v1 v17];
       *buf = 138413058;
-      v33 = v1;
-      v34 = 2112;
-      v35 = v7;
-      v36 = 2048;
-      v37 = v16;
-      v38 = 1024;
-      v39 = [v18 status] == 1;
+      v32 = v1;
+      v33 = 2112;
+      v34 = v7;
+      v35 = 2048;
+      v36 = v16;
+      v37 = 1024;
+      v38 = [v18 status] == 1;
       _os_log_impl(&dword_1BA83C000, v2, OS_LOG_TYPE_DEFAULT, "%@: Scoped path changed %@ (%lu) (SATISFIED: %d)", buf, 0x26u);
     }
 
@@ -901,7 +894,7 @@ void __78__NEIKEv2PacketTunnelProvider_observeValueForKeyPath_ofObject_change_co
       if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v33 = v1;
+        v32 = v1;
         _os_log_impl(&dword_1BA83C000, v22, OS_LOG_TYPE_INFO, "%@: Scoped path went UNSATISFIED, flap tunnel", buf, 0xCu);
       }
 
@@ -914,17 +907,13 @@ void __78__NEIKEv2PacketTunnelProvider_observeValueForKeyPath_ofObject_change_co
       [(NEIKEv2PacketTunnelProvider *)v1 handleInterfaceChange:?];
     }
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleInterfaceChange:(uint64_t)change
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   if (!change)
   {
-LABEL_39:
-    v39 = *MEMORY[0x1E69E9840];
     return;
   }
 
@@ -943,78 +932,62 @@ LABEL_39:
 
   if (v7)
   {
+
+    goto LABEL_9;
   }
 
-  else if ((*(change + 78) & 1) == 0)
+  if (*(change + 78))
   {
-    v28 = ne_log_obj();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+LABEL_9:
+    if (*(change + 79))
     {
-      v29 = *(change + 248);
-      *buf = 138412546;
-      changeCopy4 = change;
-      v49 = 2048;
-      v50 = v29;
-      _os_log_impl(&dword_1BA83C000, v28, OS_LOG_TYPE_DEFAULT, "%@: Starting tunnel on scoped interface UP (%lu)", buf, 0x16u);
-    }
+      v8 = objc_getProperty(change, v6, 128, 1);
+      Property = objc_getProperty(change, v9, 208, 1);
+      v43 = [(NEIKEv2Server *)v8 getViableServerAddressForPath:?];
 
-    if (*(change + 256) == 1)
-    {
-      protocolConfiguration = [change protocolConfiguration];
-      if (protocolConfiguration)
+      v12 = objc_getProperty(change, v11, 168, 1);
+      if (v12)
       {
-        v31 = protocolConfiguration;
-        protocolConfiguration2 = [change protocolConfiguration];
-        serverAddress = [protocolConfiguration2 serverAddress];
+        objc_setProperty_atomic(v12, v13, 0, 16);
+      }
 
-        if (serverAddress)
+      v14 = objc_getProperty(change, v13, 128, 1);
+      if (v14 && (v14[8] & 1) != 0)
+      {
+        if (*(change + 75))
         {
-          v34 = ne_log_obj();
-          if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+          v16 = objc_getProperty(change, v15, 128, 1);
+          if (v16)
           {
-            v35 = *(change + 248);
-            *buf = 138412546;
-            changeCopy4 = change;
-            v49 = 2048;
-            v50 = v35;
-            _os_log_impl(&dword_1BA83C000, v34, OS_LOG_TYPE_INFO, "%@: Calling startIKEv2TunnelWithOptions on scoped interface UP (%lu)", buf, 0x16u);
+            v16 = objc_getProperty(v16, v17, 56, 1);
           }
 
-          [(NEIKEv2PacketTunnelProvider *)change reset:?];
-          Property = objc_getProperty(change, v36, 112, 1);
-          [(NEIKEv2PacketTunnelProvider *)change startIKEv2TunnelWithOptions:?];
+          v18 = v16;
+          port = [v18 port];
+          v21 = objc_getProperty(change, v20, 168, 1);
+          if (v21)
+          {
+            objc_setProperty_atomic(v21, v22, port, 16);
+          }
+        }
+
+        else
+        {
+          v18 = v43;
+          v43 = 0;
         }
       }
+
+      v39 = objc_getProperty(change, v15, 168, 1);
+      v40 = *(change + 248);
+      v41 = v39;
+      defaultPath = [change defaultPath];
+      -[NEIKEv2MOBIKE initiateMOBIKE:pathStatus:serverAddress:earlyDisconnect:](v41, v40, [defaultPath status], v43, 0);
     }
 
-    goto LABEL_39;
-  }
-
-  if ((*(change + 79) & 1) == 0)
-  {
-    if (v2)
+    else if (v2)
     {
-      if (*(change + 78))
-      {
-        goto LABEL_36;
-      }
-
-      if (*(change + 256) != 1)
-      {
-        goto LABEL_36;
-      }
-
-      protocolConfiguration3 = [change protocolConfiguration];
-      if (!protocolConfiguration3)
-      {
-        goto LABEL_36;
-      }
-
-      v24 = protocolConfiguration3;
-      protocolConfiguration4 = [change protocolConfiguration];
-      serverAddress2 = [protocolConfiguration4 serverAddress];
-
-      if (serverAddress2)
+      if ((*(change + 78) & 1) == 0 && *(change + 256) == 1 && ([change protocolConfiguration], (v23 = objc_claimAutoreleasedReturnValue()) != 0) && (v24 = v23, objc_msgSend(change, "protocolConfiguration"), v25 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v25, "serverAddress"), v26 = objc_claimAutoreleasedReturnValue(), v26, v25, v24, v26))
       {
         v27 = ne_log_obj();
         if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
@@ -1024,17 +997,16 @@ LABEL_39:
           _os_log_impl(&dword_1BA83C000, v27, OS_LOG_TYPE_DEFAULT, "%@: Stopping tunnel before reattempting on new path", buf, 0xCu);
         }
 
-        v46[0] = MEMORY[0x1E69E9820];
-        v46[1] = 3221225472;
-        v46[2] = __53__NEIKEv2PacketTunnelProvider_handleInterfaceChange___block_invoke;
-        v46[3] = &unk_1E7F0B0E8;
-        v46[4] = change;
-        [(NEIKEv2PacketTunnelProvider *)change stopIKEv2TunnelWithReason:v46 completionHandler:?];
+        v44[0] = MEMORY[0x1E69E9820];
+        v44[1] = 3221225472;
+        v44[2] = __53__NEIKEv2PacketTunnelProvider_handleInterfaceChange___block_invoke;
+        v44[3] = &unk_1E7F0B0E8;
+        v44[4] = change;
+        [(NEIKEv2PacketTunnelProvider *)change stopIKEv2TunnelWithReason:v44 completionHandler:?];
       }
 
       else
       {
-LABEL_36:
         v38 = ne_log_obj();
         if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
         {
@@ -1047,58 +1019,53 @@ LABEL_36:
       }
     }
 
-    goto LABEL_39;
+    return;
   }
 
-  v8 = objc_getProperty(change, v6, 128, 1);
-  v10 = objc_getProperty(change, v9, 208, 1);
-  v45 = [(NEIKEv2Server *)v8 getViableServerAddressForPath:v10];
-
-  v12 = objc_getProperty(change, v11, 168, 1);
-  if (v12)
+  v28 = ne_log_obj();
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
   {
-    objc_setProperty_atomic(v12, v13, 0, 16);
+    v29 = *(change + 248);
+    *buf = 138412546;
+    changeCopy4 = change;
+    v47 = 2048;
+    v48 = v29;
+    _os_log_impl(&dword_1BA83C000, v28, OS_LOG_TYPE_DEFAULT, "%@: Starting tunnel on scoped interface UP (%lu)", buf, 0x16u);
   }
 
-  v14 = objc_getProperty(change, v13, 128, 1);
-  if (v14 && (v14[8] & 1) != 0)
+  if (*(change + 256) == 1)
   {
-    if (*(change + 75))
+    protocolConfiguration = [change protocolConfiguration];
+    if (protocolConfiguration)
     {
-      v16 = objc_getProperty(change, v15, 128, 1);
-      if (v16)
-      {
-        v16 = objc_getProperty(v16, v17, 56, 1);
-      }
+      v31 = protocolConfiguration;
+      protocolConfiguration2 = [change protocolConfiguration];
+      serverAddress = [protocolConfiguration2 serverAddress];
 
-      v18 = v16;
-      port = [v18 port];
-      v21 = objc_getProperty(change, v20, 168, 1);
-      if (v21)
+      if (serverAddress)
       {
-        objc_setProperty_atomic(v21, v22, port, 16);
+        v34 = ne_log_obj();
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+        {
+          v35 = *(change + 248);
+          *buf = 138412546;
+          changeCopy4 = change;
+          v47 = 2048;
+          v48 = v35;
+          _os_log_impl(&dword_1BA83C000, v34, OS_LOG_TYPE_INFO, "%@: Calling startIKEv2TunnelWithOptions on scoped interface UP (%lu)", buf, 0x16u);
+        }
+
+        [(NEIKEv2PacketTunnelProvider *)change reset:?];
+        v37 = objc_getProperty(change, v36, 112, 1);
+        [(NEIKEv2PacketTunnelProvider *)change startIKEv2TunnelWithOptions:v37];
       }
     }
-
-    else
-    {
-      v18 = v45;
-      v45 = 0;
-    }
   }
-
-  v40 = objc_getProperty(change, v15, 168, 1);
-  v41 = *(change + 248);
-  v42 = v40;
-  defaultPath = [change defaultPath];
-  -[NEIKEv2MOBIKE initiateMOBIKE:pathStatus:serverAddress:earlyDisconnect:](v42, v41, [defaultPath status], v45, 0);
-
-  v44 = *MEMORY[0x1E69E9840];
 }
 
 - (void)configureProxyPathIfNeeded
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   v3 = [objc_getProperty(self a2];
   if ([v3 subtype] != 5001)
   {
@@ -1113,84 +1080,83 @@ LABEL_36:
 LABEL_20:
     [(NEIKEv2PacketTunnelProvider *)self invalidateCompanionProxyDatapath];
     Property = objc_getProperty(self, v23, 128, 1);
-    v26 = *MEMORY[0x1E69E9840];
 
     [(NEIKEv2Server *)Property resetPathProxyState];
     return;
   }
 
-  v46 = 0u;
-  v47 = 0u;
   v44 = 0u;
   v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
   self = self;
   v7 = [objc_getProperty(self v6];
-  v36 = [v7 countByEnumeratingWithState:&v44 objects:v49 count:16];
-  if (v36)
+  v34 = [v7 countByEnumeratingWithState:&v42 objects:v47 count:16];
+  if (v34)
   {
-    v8 = *v45;
+    v8 = *v43;
     v9 = *MEMORY[0x1E69826E8];
     v10 = *MEMORY[0x1E69826F0];
-    v39 = v7;
-    v35 = *v45;
+    v37 = v7;
+    v33 = *v43;
     do
     {
       v11 = 0;
       do
       {
-        if (*v45 != v8)
+        if (*v43 != v8)
         {
           objc_enumerationMutation(v7);
         }
 
-        v37 = v11;
-        v12 = *(*(&v44 + 1) + 8 * v11);
+        v35 = v11;
+        v12 = *(*(&v42 + 1) + 8 * v11);
+        v38 = 0u;
+        v39 = 0u;
         v40 = 0u;
         v41 = 0u;
-        v42 = 0u;
-        v43 = 0u;
         v13 = v12;
-        v14 = [v13 countByEnumeratingWithState:&v40 objects:v48 count:16];
+        v14 = [v13 countByEnumeratingWithState:&v38 objects:v46 count:16];
         if (v14)
         {
           v15 = v14;
-          v16 = *v41;
+          v16 = *v39;
           while (2)
           {
             for (i = 0; i != v15; ++i)
             {
-              if (*v41 != v16)
+              if (*v39 != v16)
               {
                 objc_enumerationMutation(v13);
               }
 
-              v18 = *(*(&v40 + 1) + 8 * i);
+              v18 = *(*(&v38 + 1) + 8 * i);
               v19 = [v18 objectForKeyedSubscript:v9];
               v20 = [v18 objectForKeyedSubscript:v10];
               v21 = [v18 objectForKeyedSubscript:@"kCFStreamPropertySOCKSVersion"];
-              if ([v21 isEqualToString:@"shoes"])
+              if (objc_msgSend_isEqualToString_(v21))
               {
-                v27 = objc_getProperty(self, v22, 128, 1);
-                if (v27)
+                v26 = objc_getProperty(self, v22, 128, 1);
+                if (v26)
                 {
-                  v27[8] = 1;
+                  v26[8] = 1;
                 }
 
-                v28 = MEMORY[0x1E6977E28];
+                v27 = MEMORY[0x1E6977E28];
                 stringValue = [v19 stringValue];
-                v30 = [v28 endpointWithHostname:v20 port:stringValue];
-                v32 = objc_getProperty(self, v31, 128, 1);
-                if (v32)
+                v29 = [v27 endpointWithHostname:v20 port:stringValue];
+                v31 = objc_getProperty(self, v30, 128, 1);
+                if (v31)
                 {
-                  objc_setProperty_atomic(v32, v33, v30, 56);
+                  objc_setProperty_atomic(v31, v32, v29, 56);
                 }
 
-                v7 = v39;
+                v7 = v37;
                 goto LABEL_28;
               }
             }
 
-            v15 = [v13 countByEnumeratingWithState:&v40 objects:v48 count:16];
+            v15 = [v13 countByEnumeratingWithState:&v38 objects:v46 count:16];
             if (v15)
             {
               continue;
@@ -1200,34 +1166,32 @@ LABEL_20:
           }
         }
 
-        v11 = v37 + 1;
-        v7 = v39;
-        v8 = v35;
+        v11 = v35 + 1;
+        v7 = v37;
+        v8 = v33;
       }
 
-      while (v37 + 1 != v36);
-      v36 = [v39 countByEnumeratingWithState:&v44 objects:v49 count:16];
+      while (v35 + 1 != v34);
+      v34 = [v37 countByEnumeratingWithState:&v42 objects:v47 count:16];
     }
 
-    while (v36);
+    while (v34);
   }
 
 LABEL_28:
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reset:(uint64_t)reset
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (reset)
   {
     v4 = ne_log_obj();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v24 = 138412290;
+      v23 = 138412290;
       resetCopy = reset;
-      _os_log_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_INFO, "%@: Reset", &v24, 0xCu);
+      _os_log_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_INFO, "%@: Reset", &v23, 0xCu);
     }
 
     if (a2 && objc_getProperty(reset, v5, 240, 1))
@@ -1290,13 +1254,11 @@ LABEL_28:
       objc_setProperty_atomic(reset, v22, 0, 272);
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startIKEv2TunnelWithOptions:(uint64_t)options
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (options)
   {
@@ -1359,10 +1321,10 @@ LABEL_31:
         v25 = *(options + 256);
         *buf = 138412802;
         optionsCopy9 = options;
-        v61 = 2048;
-        v62 = v24;
-        v63 = 2048;
-        v64 = v25;
+        v60 = 2048;
+        v61 = v24;
+        v62 = 2048;
+        v63 = v25;
         _os_log_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_DEFAULT, "%@: Start IKEv2 Tunnel Skipped, interface not ready (ifindex %lu, Satisfied %lu)", buf, 0x20u);
       }
 
@@ -1375,24 +1337,14 @@ LABEL_31:
       v10 = *(options + 248);
       *buf = 138412546;
       optionsCopy9 = options;
-      v61 = 2048;
-      v62 = v10;
+      v60 = 2048;
+      v61 = v10;
       _os_log_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_DEFAULT, "%@: Starting IKEv2 Tunnel on scoped ifindex %lu", buf, 0x16u);
     }
 
     protocolConfiguration3 = [options protocolConfiguration];
-    if (!protocolConfiguration3)
+    if (!protocolConfiguration3 || ([options protocolConfiguration], v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "serverAddress"), v13 = objc_claimAutoreleasedReturnValue(), v14 = v13 == 0, v13, v12, protocolConfiguration3, v14))
     {
-      goto LABEL_32;
-    }
-
-    protocolConfiguration4 = [options protocolConfiguration];
-    serverAddress = [protocolConfiguration4 serverAddress];
-    v14 = serverAddress == 0;
-
-    if (v14)
-    {
-LABEL_32:
       v26 = ne_log_obj();
       if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
@@ -1409,15 +1361,15 @@ LABEL_32:
       v15 = ne_log_obj();
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
-        protocolConfiguration5 = [options protocolConfiguration];
+        protocolConfiguration4 = [options protocolConfiguration];
         *buf = 138412546;
         optionsCopy9 = options;
-        v61 = 2112;
-        v62 = protocolConfiguration5;
+        v60 = 2112;
+        v61 = protocolConfiguration4;
         _os_log_debug_impl(&dword_1BA83C000, v15, OS_LOG_TYPE_DEBUG, "%@: Starting IKEv2 Tunnel with configuration %@", buf, 0x16u);
       }
 
-      if (ne_session_disable_restrictions() && ([options protocolConfiguration], v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v16, "serverAddress"), v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v17, "isEqualToString:", @"0.0.0.0"), v17, v16, v18))
+      if (ne_session_disable_restrictions() && ([options protocolConfiguration], v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v16, "serverAddress"), v17 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v17), v17, v16, isEqualToString))
       {
         v19 = ne_log_obj();
         if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
@@ -1436,54 +1388,29 @@ LABEL_32:
         [(NEIPv4Settings *)v21 setIncludedRoutes:v22];
         [(NEPacketTunnelNetworkSettings *)v20 setIPv4Settings:v21];
         objc_initWeak(buf, options);
-        v57[0] = MEMORY[0x1E69E9820];
-        v57[1] = 3221225472;
-        v57[2] = __59__NEIKEv2PacketTunnelProvider_startIKEv2TunnelWithOptions___block_invoke;
-        v57[3] = &unk_1E7F0A2A0;
-        objc_copyWeak(&v58, buf);
-        [options setTunnelNetworkSettings:v20 completionHandler:v57];
-        objc_destroyWeak(&v58);
+        v56[0] = MEMORY[0x1E69E9820];
+        v56[1] = 3221225472;
+        v56[2] = __59__NEIKEv2PacketTunnelProvider_startIKEv2TunnelWithOptions___block_invoke;
+        v56[3] = &unk_1E7F0A2A0;
+        objc_copyWeak(&v57, buf);
+        [options setTunnelNetworkSettings:v20 completionHandler:v56];
+        objc_destroyWeak(&v57);
         objc_destroyWeak(buf);
       }
 
       else
       {
-        protocolConfiguration6 = [options protocolConfiguration];
-        if (![protocolConfiguration6 useExtendedAuthentication])
-        {
-          goto LABEL_39;
-        }
-
-        username = [protocolConfiguration6 username];
-        v29 = [username length] == 0;
-
-        if (v29)
-        {
-          goto LABEL_39;
-        }
-
-        v30 = [v4 objectForKeyedSubscript:@"Password"];
-        v31 = v30 == 0;
-
-        if (!v31)
-        {
-          goto LABEL_39;
-        }
-
-        passwordKeychainItem = [protocolConfiguration6 passwordKeychainItem];
-        persistentReference = [passwordKeychainItem persistentReference];
-        v34 = persistentReference == 0;
-
-        if (v34)
+        protocolConfiguration5 = [options protocolConfiguration];
+        if ([protocolConfiguration5 useExtendedAuthentication] && (objc_msgSend(protocolConfiguration5, "username"), v28 = objc_claimAutoreleasedReturnValue(), v29 = objc_msgSend(v28, "length") == 0, v28, !v29) && (objc_msgSend(v4, "objectForKeyedSubscript:", @"Password"), v30 = objc_claimAutoreleasedReturnValue(), v31 = v30 == 0, v30, v31) && (objc_msgSend(protocolConfiguration5, "passwordKeychainItem"), v32 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v32, "persistentReference"), v33 = objc_claimAutoreleasedReturnValue(), v34 = v33 == 0, v33, v32, v34))
         {
           if (![(NEIKEv2PacketTunnelProvider *)options NEIKEv2ProviderAuthenticate:v4])
           {
-            v55 = ne_log_obj();
-            if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
+            v54 = ne_log_obj();
+            if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
               optionsCopy9 = options;
-              _os_log_error_impl(&dword_1BA83C000, v55, OS_LOG_TYPE_ERROR, "%@: Cancel IKEv2 tunnel, popping prompt for password failed", buf, 0xCu);
+              _os_log_error_impl(&dword_1BA83C000, v54, OS_LOG_TYPE_ERROR, "%@: Cancel IKEv2 tunnel, popping prompt for password failed", buf, 0xCu);
             }
 
             [(NEIKEv2PacketTunnelProvider *)options invokeCancelTunnel:?];
@@ -1492,7 +1419,6 @@ LABEL_32:
 
         else
         {
-LABEL_39:
           v35 = objc_alloc_init(NEIKEv2Server);
           objc_setProperty_atomic(options, v36, v35, 128);
 
@@ -1501,12 +1427,12 @@ LABEL_39:
           v40 = [(NEIKEv2MOBIKE *)&v37->super.isa initWithQueue:options tunnelProvider:?];
           objc_setProperty_atomic(options, v41, v40, 168);
 
-          protocolConfiguration7 = [options protocolConfiguration];
-          serverAddress2 = [protocolConfiguration7 serverAddress];
+          protocolConfiguration6 = [options protocolConfiguration];
+          serverAddress = [protocolConfiguration6 serverAddress];
           v45 = objc_getProperty(options, v44, 128, 1);
           if (v45)
           {
-            objc_setProperty_atomic(v45, v46, serverAddress2, 16);
+            objc_setProperty_atomic(v45, v46, serverAddress, 16);
           }
 
           v48 = [objc_getProperty(options v47];
@@ -1524,20 +1450,18 @@ LABEL_39:
           *(options + 248) = [v51 interfaceIndex];
 
           *(options + 256) = [objc_getProperty(options v52];
-          v56[0] = MEMORY[0x1E69E9820];
-          v56[1] = 3221225472;
-          v56[2] = __59__NEIKEv2PacketTunnelProvider_startIKEv2TunnelWithOptions___block_invoke_114;
-          v56[3] = &unk_1E7F08740;
-          v56[4] = options;
-          [(NEIKEv2PacketTunnelProvider *)options resolveServerAddressIfNeeded:v56];
+          v55[0] = MEMORY[0x1E69E9820];
+          v55[1] = 3221225472;
+          v55[2] = __59__NEIKEv2PacketTunnelProvider_startIKEv2TunnelWithOptions___block_invoke_114;
+          v55[3] = &unk_1E7F08740;
+          v55[4] = options;
+          [(NEIKEv2PacketTunnelProvider *)options resolveServerAddressIfNeeded:v55];
         }
       }
     }
   }
 
 LABEL_46:
-
-  v53 = *MEMORY[0x1E69E9840];
 }
 
 void __53__NEIKEv2PacketTunnelProvider_handleInterfaceChange___block_invoke(uint64_t a1, const char *a2)
@@ -1564,7 +1488,7 @@ void __53__NEIKEv2PacketTunnelProvider_handleInterfaceChange___block_invoke(uint
 
 - (void)stopIKEv2TunnelWithReason:(void *)reason completionHandler:
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   reasonCopy = reason;
   if (self)
   {
@@ -1612,7 +1536,7 @@ void __53__NEIKEv2PacketTunnelProvider_handleInterfaceChange___block_invoke(uint
           *buf = MEMORY[0x1E69E9820];
           *&buf[8] = 3221225472;
           *&buf[16] = __45__NEIKEv2PacketTunnelProvider_tunnelTeardown__block_invoke;
-          v26 = &unk_1E7F0B0E8;
+          v25 = &unk_1E7F0B0E8;
           selfCopy = self;
           [v16 invalidateWithCompletionHandler:1 completionHandler:buf];
         }
@@ -1635,13 +1559,13 @@ void __53__NEIKEv2PacketTunnelProvider_handleInterfaceChange___block_invoke(uint
 
       if (self[42])
       {
-        v23[0] = MEMORY[0x1E69E9820];
-        v23[1] = 3221225472;
-        v23[2] = __75__NEIKEv2PacketTunnelProvider_stopIKEv2TunnelWithReason_completionHandler___block_invoke;
-        v23[3] = &unk_1E7F0B588;
-        v23[4] = self;
-        v24 = reasonCopy;
-        v20 = _Block_copy(v23);
+        v22[0] = MEMORY[0x1E69E9820];
+        v22[1] = 3221225472;
+        v22[2] = __75__NEIKEv2PacketTunnelProvider_stopIKEv2TunnelWithReason_completionHandler___block_invoke;
+        v22[3] = &unk_1E7F0B588;
+        v22[4] = self;
+        v23 = reasonCopy;
+        v20 = _Block_copy(v22);
         objc_setProperty_atomic_copy(self, v21, v20, 184);
 
         goto LABEL_22;
@@ -1658,38 +1582,34 @@ void __53__NEIKEv2PacketTunnelProvider_handleInterfaceChange___block_invoke(uint
   }
 
 LABEL_22:
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleInterfaceDown
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v5[0] = 0;
-  v5[1] = v5;
-  v5[2] = 0x3032000000;
-  v5[3] = __Block_byref_object_copy__12503;
-  v5[4] = __Block_byref_object_dispose__12504;
+  v8 = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
+  v4[1] = v4;
+  v4[2] = 0x3032000000;
+  v4[3] = __Block_byref_object_copy__12503;
+  v4[4] = __Block_byref_object_dispose__12504;
   selfCopy = self;
-  v6 = selfCopy;
+  v5 = selfCopy;
   selfCopy[77] = 1;
   v2 = ne_log_obj();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v8 = selfCopy;
+    v7 = selfCopy;
     _os_log_impl(&dword_1BA83C000, v2, OS_LOG_TYPE_DEFAULT, "%@: Stopping tunnel since interface is down", buf, 0xCu);
   }
 
-  v4[0] = MEMORY[0x1E69E9820];
-  v4[1] = 3221225472;
-  v4[2] = __50__NEIKEv2PacketTunnelProvider_handleInterfaceDown__block_invoke;
-  v4[3] = &unk_1E7F087E0;
-  v4[4] = v5;
-  [selfCopy setTunnelNetworkSettings:0 completionHandler:v4];
-  _Block_object_dispose(v5, 8);
-
-  v3 = *MEMORY[0x1E69E9840];
+  v3[0] = MEMORY[0x1E69E9820];
+  v3[1] = 3221225472;
+  v3[2] = __50__NEIKEv2PacketTunnelProvider_handleInterfaceDown__block_invoke;
+  v3[3] = &unk_1E7F087E0;
+  v3[4] = v4;
+  [selfCopy setTunnelNetworkSettings:0 completionHandler:v3];
+  _Block_object_dispose(v4, 8);
 }
 
 void __50__NEIKEv2PacketTunnelProvider_handleInterfaceDown__block_invoke(uint64_t a1, const char *a2)
@@ -1724,7 +1644,7 @@ void __50__NEIKEv2PacketTunnelProvider_handleInterfaceDown__block_invoke_2(uint6
 
 - (void)invokeCancelTunnel:(_BYTE *)tunnel
 {
-  v13[2] = *MEMORY[0x1E69E9840];
+  v12[2] = *MEMORY[0x1E69E9840];
   if (tunnel)
   {
     v2 = a2;
@@ -1784,11 +1704,11 @@ LABEL_16:
         if (v4 && v8)
         {
           v9 = *MEMORY[0x1E696A578];
-          v12[0] = @"LocalizedHeader";
-          v12[1] = v9;
-          v13[0] = v4;
-          v13[1] = v8;
-          v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
+          v11[0] = @"LocalizedHeader";
+          v11[1] = v9;
+          v12[0] = v4;
+          v12[1] = v8;
+          v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
         }
 
         break;
@@ -1802,13 +1722,11 @@ LABEL_16:
       [tunnel cancelTunnelWithError:v10];
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (uint64_t)invokeStartTunnelCompletionHandler:(uint64_t)handler
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (handler)
   {
@@ -1820,11 +1738,11 @@ LABEL_16:
       v8 = ne_log_obj();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = 138412546;
+        v10 = 138412546;
         handlerCopy = handler;
-        v13 = 2080;
-        v14 = "[NEIKEv2PacketTunnelProvider invokeStartTunnelCompletionHandler:]";
-        _os_log_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_DEFAULT, "%@: %s: Invoked start tunnel completion handler", &v11, 0x16u);
+        v12 = 2080;
+        v13 = "[NEIKEv2PacketTunnelProvider invokeStartTunnelCompletionHandler:]";
+        _os_log_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_DEFAULT, "%@: %s: Invoked start tunnel completion handler", &v10, 0x16u);
       }
 
       handler = 1;
@@ -1836,7 +1754,6 @@ LABEL_16:
     }
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return handler;
 }
 
@@ -1856,7 +1773,7 @@ uint64_t __75__NEIKEv2PacketTunnelProvider_stopIKEv2TunnelWithReason_completionH
 
 - (void)invalidateCompanionProxyDatapath
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (self && objc_getProperty(self, a2, 232, 1))
   {
     Property = objc_getProperty(self, v3, 232, 1);
@@ -1870,9 +1787,9 @@ uint64_t __75__NEIKEv2PacketTunnelProvider_stopIKEv2TunnelWithReason_completionH
         v7 = ne_log_obj();
         if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
-          v10 = 138412290;
-          v11 = v6;
-          _os_log_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_DEFAULT, "%@: cancel", &v10, 0xCu);
+          v8 = 138412290;
+          v9 = v6;
+          _os_log_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_DEFAULT, "%@: cancel", &v8, 0xCu);
         }
 
         [(NEIKEv2CompanionDatapath *)v6 cancelLocked];
@@ -1881,20 +1798,13 @@ uint64_t __75__NEIKEv2PacketTunnelProvider_stopIKEv2TunnelWithReason_completionH
       os_unfair_lock_unlock((v6 + 12));
     }
 
-    v8 = *MEMORY[0x1E69E9840];
-
     objc_setProperty_atomic(self, v5, 0, 232);
-  }
-
-  else
-  {
-    v9 = *MEMORY[0x1E69E9840];
   }
 }
 
 void __45__NEIKEv2PacketTunnelProvider_tunnelTeardown__block_invoke(uint64_t a1, const char *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
   if (v3 && objc_getProperty(v3, a2, 184, 1))
   {
@@ -1926,11 +1836,11 @@ void __45__NEIKEv2PacketTunnelProvider_tunnelTeardown__block_invoke(uint64_t a1,
       v11 = 0;
     }
 
-    v15 = 138412546;
-    v16 = v10;
-    v17 = 2112;
-    v18 = v11;
-    _os_log_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_DEFAULT, "%@: tunnelTeardown (graceful) - Invalidated session (%@)", &v15, 0x16u);
+    v14 = 138412546;
+    v15 = v10;
+    v16 = 2112;
+    v17 = v11;
+    _os_log_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_DEFAULT, "%@: tunnelTeardown (graceful) - Invalidated session (%@)", &v14, 0x16u);
   }
 
   v13 = *(a1 + 32);
@@ -1938,13 +1848,11 @@ void __45__NEIKEv2PacketTunnelProvider_tunnelTeardown__block_invoke(uint64_t a1,
   {
     objc_setProperty_atomic(v13, v12, 0, 240);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __53__NEIKEv2PacketTunnelProvider_handleInterfaceChange___block_invoke_2(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = [NEIKEv2MOBIKE alloc];
   v4 = *(a1 + 32);
   if (v4)
@@ -1973,23 +1881,21 @@ void __53__NEIKEv2PacketTunnelProvider_handleInterfaceChange___block_invoke_2(ui
     v12 = ne_log_obj();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v14 = *(a1 + 32);
-      v15 = 138412546;
-      v16 = v14;
-      v17 = 2080;
-      v18 = "[NEIKEv2PacketTunnelProvider handleInterfaceChange:]_block_invoke_2";
-      _os_log_error_impl(&dword_1BA83C000, v12, OS_LOG_TYPE_ERROR, "%@: %s: Failed tunnel bringup on new path", &v15, 0x16u);
+      v13 = *(a1 + 32);
+      v14 = 138412546;
+      v15 = v13;
+      v16 = 2080;
+      v17 = "[NEIKEv2PacketTunnelProvider handleInterfaceChange:]_block_invoke_2";
+      _os_log_error_impl(&dword_1BA83C000, v12, OS_LOG_TYPE_ERROR, "%@: %s: Failed tunnel bringup on new path", &v14, 0x16u);
     }
 
     [(NEIKEv2PacketTunnelProvider *)*(a1 + 32) invokeCancelTunnel:v11];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (uint64_t)tunnelBringup
 {
-  v282[12] = *MEMORY[0x1E69E9840];
+  v281[12] = *MEMORY[0x1E69E9840];
   if (self)
   {
     packetFlow = [self packetFlow];
@@ -2027,8 +1933,8 @@ void __53__NEIKEv2PacketTunnelProvider_handleInterfaceChange___block_invoke_2(ui
     v10 = objc_getProperty(self, v9, 112, 1);
     v12 = objc_getProperty(self, v11, 128, 1);
     v13 = protocolConfiguration;
-    v245 = v8;
-    v251 = v10;
+    v244 = v8;
+    v250 = v10;
     v14 = v12;
     objc_opt_self();
     if (NEInitCFTypes_onceToken != -1)
@@ -2036,7 +1942,7 @@ void __53__NEIKEv2PacketTunnelProvider_handleInterfaceChange___block_invoke_2(ui
       dispatch_once(&NEInitCFTypes_onceToken, &__block_literal_global_25529);
     }
 
-    v246 = v14;
+    v245 = v14;
     if (!v13)
     {
       log = ne_log_obj();
@@ -2104,8 +2010,8 @@ LABEL_80:
         if (protocolConfiguration2)
         {
 LABEL_89:
-          v252 = objc_alloc_init(NEIKEv2ChildSAConfiguration);
-          [(NEIKEv2ChildSAConfiguration *)v252 setMode:2];
+          v251 = objc_alloc_init(NEIKEv2ChildSAConfiguration);
+          [(NEIKEv2ChildSAConfiguration *)v251 setMode:2];
           loga = objc_alloc_init(MEMORY[0x1E695DF70]);
           v62 = objc_alloc_init(NEIKEv2TrafficSelector);
           v63 = NECreateAddressStructFromString(@"0.0.0.0", 0, 0);
@@ -2138,8 +2044,8 @@ LABEL_89:
           [loga addObject:v67];
           free(v68);
           free(v69);
-          [(NEIKEv2ChildSAConfiguration *)v252 setLocalTrafficSelectors:loga];
-          [(NEIKEv2ChildSAConfiguration *)v252 setRemoteTrafficSelectors:loga];
+          [(NEIKEv2ChildSAConfiguration *)v251 setLocalTrafficSelectors:loga];
+          [(NEIKEv2ChildSAConfiguration *)v251 setRemoteTrafficSelectors:loga];
           v72 = objc_alloc_init(MEMORY[0x1E695DF70]);
           childSecurityAssociationParametersArray = [protocolConfiguration2 childSecurityAssociationParametersArray];
           v74 = [childSecurityAssociationParametersArray count] == 0;
@@ -2157,32 +2063,32 @@ LABEL_89:
 
           else
           {
-            v262 = 0u;
-            v263 = 0u;
-            v260 = 0u;
             v261 = 0u;
+            v262 = 0u;
+            v259 = 0u;
+            v260 = 0u;
             childSecurityAssociationParametersArray2 = [protocolConfiguration2 childSecurityAssociationParametersArray];
-            v76 = [childSecurityAssociationParametersArray2 countByEnumeratingWithState:&v260 objects:buf count:16];
+            v76 = [childSecurityAssociationParametersArray2 countByEnumeratingWithState:&v259 objects:buf count:16];
             if (v76)
             {
-              v77 = *v261;
+              v77 = *v260;
               do
               {
                 for (i = 0; i != v76; ++i)
                 {
-                  if (*v261 != v77)
+                  if (*v260 != v77)
                   {
                     objc_enumerationMutation(childSecurityAssociationParametersArray2);
                   }
 
-                  v79 = [NEIKEv2Helper createIKEv2ChildSAProposalFromProtocol:protocolConfiguration2 saParameters:*(*(&v260 + 1) + 8 * i)];
+                  v79 = [NEIKEv2Helper createIKEv2ChildSAProposalFromProtocol:protocolConfiguration2 saParameters:*(*(&v259 + 1) + 8 * i)];
                   if (v79)
                   {
                     [v72 addObject:v79];
                   }
                 }
 
-                v76 = [childSecurityAssociationParametersArray2 countByEnumeratingWithState:&v260 objects:buf count:16];
+                v76 = [childSecurityAssociationParametersArray2 countByEnumeratingWithState:&v259 objects:buf count:16];
               }
 
               while (v76);
@@ -2194,26 +2100,26 @@ LABEL_89:
             goto LABEL_125;
           }
 
-          v258 = 0u;
-          v259 = 0u;
-          v256 = 0u;
           v257 = 0u;
+          v258 = 0u;
+          v255 = 0u;
+          v256 = 0u;
           v82 = v72;
-          v83 = [v82 countByEnumeratingWithState:&v256 objects:v277 count:16];
+          v83 = [v82 countByEnumeratingWithState:&v255 objects:v276 count:16];
           if (v83)
           {
             v84 = 0;
-            v85 = *v257;
+            v85 = *v256;
             do
             {
               for (j = 0; j != v83; ++j)
               {
-                if (*v257 != v85)
+                if (*v256 != v85)
                 {
                   objc_enumerationMutation(v82);
                 }
 
-                v87 = *(*(&v256 + 1) + 8 * j);
+                v87 = *(*(&v255 + 1) + 8 * j);
                 additionalKEMProtocols = [v87 additionalKEMProtocols];
                 v89 = additionalKEMProtocols == 0;
 
@@ -2233,7 +2139,7 @@ LABEL_89:
                 }
               }
 
-              v83 = [v82 countByEnumeratingWithState:&v256 objects:v277 count:16];
+              v83 = [v82 countByEnumeratingWithState:&v255 objects:v276 count:16];
             }
 
             while (v83);
@@ -2255,10 +2161,10 @@ LABEL_125:
           if ([v72 count])
           {
             v91 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithArray:v72];
-            [(NEIKEv2ChildSAConfiguration *)v252 setProposals:v91];
+            [(NEIKEv2ChildSAConfiguration *)v251 setProposals:v91];
 
-            -[NEIKEv2ChildSAConfiguration setOpportunisticPFS:](v252, "setOpportunisticPFS:", [protocolConfiguration2 opportunisticPFS]);
-            v80 = v252;
+            -[NEIKEv2ChildSAConfiguration setOpportunisticPFS:](v251, "setOpportunisticPFS:", [protocolConfiguration2 opportunisticPFS]);
+            v80 = v251;
           }
 
           else
@@ -2266,8 +2172,8 @@ LABEL_125:
             v92 = ne_log_obj();
             if (os_log_type_enabled(v92, OS_LOG_TYPE_ERROR))
             {
-              *v271 = 0;
-              _os_log_error_impl(&dword_1BA83C000, v92, OS_LOG_TYPE_ERROR, "empty child proposals array", v271, 2u);
+              *v270 = 0;
+              _os_log_error_impl(&dword_1BA83C000, v92, OS_LOG_TYPE_ERROR, "empty child proposals array", v270, 2u);
             }
 
             v80 = 0;
@@ -2277,11 +2183,11 @@ LABEL_125:
         }
       }
 
-      v252 = ne_log_obj();
-      if (os_log_type_enabled(&v252->super, OS_LOG_TYPE_ERROR))
+      v251 = ne_log_obj();
+      if (os_log_type_enabled(&v251->super, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_error_impl(&dword_1BA83C000, &v252->super, OS_LOG_TYPE_ERROR, "createIKEv2ChildSAConfigFromProtocol: null protocol", buf, 2u);
+        _os_log_error_impl(&dword_1BA83C000, &v251->super, OS_LOG_TYPE_ERROR, "createIKEv2ChildSAConfigFromProtocol: null protocol", buf, 2u);
       }
 
       v80 = 0;
@@ -2866,12 +2772,12 @@ LABEL_260:
             v207 = [NEIKEv2Session alloc];
             v208 = *(self + 264);
             v209 = *(self + 120);
-            v253[0] = MEMORY[0x1E69E9820];
-            v253[1] = 3221225472;
-            v253[2] = __44__NEIKEv2PacketTunnelProvider_tunnelBringup__block_invoke;
-            v253[3] = &unk_1E7F08790;
-            objc_copyWeak(&v254, &location);
-            v210 = [(NEIKEv2Session *)v207 initWithIKEConfig:oslog firstChildConfig:v80 sessionConfig:v102 queue:v208 ipsecInterface:v209 ikeSocketHandler:v253 saSession:v206 packetDelegate:0];
+            v252[0] = MEMORY[0x1E69E9820];
+            v252[1] = 3221225472;
+            v252[2] = __44__NEIKEv2PacketTunnelProvider_tunnelBringup__block_invoke;
+            v252[3] = &unk_1E7F08790;
+            objc_copyWeak(&v253, &location);
+            v210 = [(NEIKEv2Session *)v207 initWithIKEConfig:oslog firstChildConfig:v80 sessionConfig:v102 queue:v208 ipsecInterface:v209 ikeSocketHandler:v252 saSession:v206 packetDelegate:0];
             objc_setProperty_atomic(self, v211, v210, 240);
 
             if (!objc_getProperty(self, v212, 240, 1))
@@ -2910,53 +2816,53 @@ LABEL_260:
             *buf = MEMORY[0x1E69E9820];
             *&buf[8] = 3221225472;
             *&buf[16] = __55__NEIKEv2PacketTunnelProvider_setupIKEv2CallbackBlocks__block_invoke;
-            v280 = &unk_1E7F08768;
-            objc_copyWeak(v282, &from);
+            v279 = &unk_1E7F08768;
+            objc_copyWeak(v281, &from);
             selfCopy = self;
             [*(self + 240) setStateUpdateBlock:buf];
-            v277[0] = MEMORY[0x1E69E9820];
-            v277[1] = 3221225472;
-            v277[2] = __55__NEIKEv2PacketTunnelProvider_setupIKEv2CallbackBlocks__block_invoke_132;
-            v277[3] = &unk_1E7F09358;
-            objc_copyWeak(v278, &from);
-            [*(self + 240) setChildStateUpdateBlock:v277];
-            *&v260 = MEMORY[0x1E69E9820];
-            *(&v260 + 1) = 3221225472;
-            *&v261 = __55__NEIKEv2PacketTunnelProvider_setupIKEv2CallbackBlocks__block_invoke_135;
-            *(&v261 + 1) = &unk_1E7F09380;
-            objc_copyWeak(&v262, &from);
-            [*(self + 240) setConfigurationUpdateBlock:&v260];
-            *&v256 = MEMORY[0x1E69E9820];
-            *(&v256 + 1) = 3221225472;
-            *&v257 = __55__NEIKEv2PacketTunnelProvider_setupIKEv2CallbackBlocks__block_invoke_137;
-            *(&v257 + 1) = &unk_1E7F093A8;
-            objc_copyWeak(&v258, &from);
-            [*(self + 240) setTrafficSelectorUpdateBlock:&v256];
-            *v271 = MEMORY[0x1E69E9820];
-            v272 = 3221225472;
-            v273 = __55__NEIKEv2PacketTunnelProvider_setupIKEv2CallbackBlocks__block_invoke_139;
-            v274 = &unk_1E7F0ABE0;
-            objc_copyWeak(&v275, &from);
-            [*(self + 240) setAdditionalAddressesUpdateBlock:v271];
-            *v266 = MEMORY[0x1E69E9820];
-            v267 = 3221225472;
-            v268 = __55__NEIKEv2PacketTunnelProvider_setupIKEv2CallbackBlocks__block_invoke_141;
-            v269 = &unk_1E7F0AA58;
-            objc_copyWeak(v270, &from);
-            [*(self + 240) setShortDPDEventBlock:v266];
-            v264[0] = MEMORY[0x1E69E9820];
-            v264[1] = 3221225472;
-            v264[2] = __55__NEIKEv2PacketTunnelProvider_setupIKEv2CallbackBlocks__block_invoke_142;
-            v264[3] = &unk_1E7F093D0;
-            objc_copyWeak(&v265, &from);
-            [*(self + 240) setRedirectEventBlock:v264];
-            objc_destroyWeak(&v265);
-            objc_destroyWeak(v270);
-            objc_destroyWeak(&v275);
-            objc_destroyWeak(&v258);
-            objc_destroyWeak(&v262);
-            objc_destroyWeak(v278);
-            objc_destroyWeak(v282);
+            v276[0] = MEMORY[0x1E69E9820];
+            v276[1] = 3221225472;
+            v276[2] = __55__NEIKEv2PacketTunnelProvider_setupIKEv2CallbackBlocks__block_invoke_132;
+            v276[3] = &unk_1E7F09358;
+            objc_copyWeak(v277, &from);
+            [*(self + 240) setChildStateUpdateBlock:v276];
+            *&v259 = MEMORY[0x1E69E9820];
+            *(&v259 + 1) = 3221225472;
+            *&v260 = __55__NEIKEv2PacketTunnelProvider_setupIKEv2CallbackBlocks__block_invoke_135;
+            *(&v260 + 1) = &unk_1E7F09380;
+            objc_copyWeak(&v261, &from);
+            [*(self + 240) setConfigurationUpdateBlock:&v259];
+            *&v255 = MEMORY[0x1E69E9820];
+            *(&v255 + 1) = 3221225472;
+            *&v256 = __55__NEIKEv2PacketTunnelProvider_setupIKEv2CallbackBlocks__block_invoke_137;
+            *(&v256 + 1) = &unk_1E7F093A8;
+            objc_copyWeak(&v257, &from);
+            [*(self + 240) setTrafficSelectorUpdateBlock:&v255];
+            *v270 = MEMORY[0x1E69E9820];
+            v271 = 3221225472;
+            v272 = __55__NEIKEv2PacketTunnelProvider_setupIKEv2CallbackBlocks__block_invoke_139;
+            v273 = &unk_1E7F0ABE0;
+            objc_copyWeak(&v274, &from);
+            [*(self + 240) setAdditionalAddressesUpdateBlock:v270];
+            *v265 = MEMORY[0x1E69E9820];
+            v266 = 3221225472;
+            v267 = __55__NEIKEv2PacketTunnelProvider_setupIKEv2CallbackBlocks__block_invoke_141;
+            v268 = &unk_1E7F0AA58;
+            objc_copyWeak(v269, &from);
+            [*(self + 240) setShortDPDEventBlock:v265];
+            v263[0] = MEMORY[0x1E69E9820];
+            v263[1] = 3221225472;
+            v263[2] = __55__NEIKEv2PacketTunnelProvider_setupIKEv2CallbackBlocks__block_invoke_142;
+            v263[3] = &unk_1E7F093D0;
+            objc_copyWeak(&v264, &from);
+            [*(self + 240) setRedirectEventBlock:v263];
+            objc_destroyWeak(&v264);
+            objc_destroyWeak(v269);
+            objc_destroyWeak(&v274);
+            objc_destroyWeak(&v257);
+            objc_destroyWeak(&v261);
+            objc_destroyWeak(v277);
+            objc_destroyWeak(v281);
             objc_destroyWeak(&from);
             v222 = objc_getProperty(self, v221, 240, 1);
             [v222 connect];
@@ -3012,7 +2918,7 @@ LABEL_260:
                 v20 = 0;
 LABEL_301:
 
-                objc_destroyWeak(&v254);
+                objc_destroyWeak(&v253);
                 objc_destroyWeak(&location);
                 goto LABEL_302;
               }
@@ -3051,7 +2957,7 @@ LABEL_303:
 LABEL_304:
 
 LABEL_305:
-          goto LABEL_306;
+          return v20;
         }
 
         v206 = ne_log_obj();
@@ -3100,12 +3006,12 @@ LABEL_305:
       if (objc_getProperty(v14, v16, 56, 1))
       {
         v19 = [objc_getProperty(v14 v18];
-        v244 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(v19, "intValue")}];
+        v243 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(v19, "intValue")}];
       }
 
       else
       {
-        v244 = 0;
+        v243 = 0;
       }
 
       v17 = v14;
@@ -3113,18 +3019,18 @@ LABEL_305:
 
     else
     {
-      v244 = 0;
+      v243 = 0;
     }
 
-    v21 = [(NEIKEv2Server *)v17 getViableServerAddressForPath:v245];
-    v22 = NECreateAddressStructFromString(v21, v244, 0);
+    v21 = [(NEIKEv2Server *)v17 getViableServerAddressForPath:v244];
+    v22 = NECreateAddressStructFromString(v21, v243, 0);
     if (!v22)
     {
       v31 = ne_log_obj();
       if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        *&buf[4] = v245;
+        *&buf[4] = v244;
         _os_log_error_impl(&dword_1BA83C000, v31, OS_LOG_TYPE_ERROR, "no viable server address found for path %@", buf, 0xCu);
       }
 
@@ -3159,7 +3065,7 @@ LABEL_305:
       }
     }
 
-    *v271 = 0;
+    *v270 = 0;
     v32 = objc_alloc_init(MEMORY[0x1E695DF70]);
     iKESecurityAssociationParametersArray = [v13 IKESecurityAssociationParametersArray];
     v34 = [iKESecurityAssociationParametersArray count] == 0;
@@ -3167,7 +3073,7 @@ LABEL_305:
     if (v34)
     {
       iKESecurityAssociationParameters = [v13 IKESecurityAssociationParameters];
-      iKESecurityAssociationParametersArray2 = [NEIKEv2Helper createIKESAProposalFromProtocol:v13 saParameters:iKESecurityAssociationParameters options:v251 nonceSize:v271];
+      iKESecurityAssociationParametersArray2 = [NEIKEv2Helper createIKESAProposalFromProtocol:v13 saParameters:iKESecurityAssociationParameters options:v250 nonceSize:v270];
 
       if (iKESecurityAssociationParametersArray2)
       {
@@ -3177,32 +3083,32 @@ LABEL_305:
 
     else
     {
-      v262 = 0u;
-      v263 = 0u;
-      v260 = 0u;
       v261 = 0u;
+      v262 = 0u;
+      v259 = 0u;
+      v260 = 0u;
       iKESecurityAssociationParametersArray2 = [v13 IKESecurityAssociationParametersArray];
-      v36 = [iKESecurityAssociationParametersArray2 countByEnumeratingWithState:&v260 objects:buf count:16];
+      v36 = [iKESecurityAssociationParametersArray2 countByEnumeratingWithState:&v259 objects:buf count:16];
       if (v36)
       {
-        v37 = *v261;
+        v37 = *v260;
         do
         {
           for (k = 0; k != v36; ++k)
           {
-            if (*v261 != v37)
+            if (*v260 != v37)
             {
               objc_enumerationMutation(iKESecurityAssociationParametersArray2);
             }
 
-            v39 = [NEIKEv2Helper createIKESAProposalFromProtocol:v13 saParameters:*(*(&v260 + 1) + 8 * k) options:v251 nonceSize:v271];
+            v39 = [NEIKEv2Helper createIKESAProposalFromProtocol:v13 saParameters:*(*(&v259 + 1) + 8 * k) options:v250 nonceSize:v270];
             if (v39)
             {
               [v32 addObject:v39];
             }
           }
 
-          v36 = [iKESecurityAssociationParametersArray2 countByEnumeratingWithState:&v260 objects:buf count:16];
+          v36 = [iKESecurityAssociationParametersArray2 countByEnumeratingWithState:&v259 objects:buf count:16];
         }
 
         while (v36);
@@ -3211,26 +3117,26 @@ LABEL_305:
 
     if ([v13 allowPostQuantumKeyExchangeFallback])
     {
-      v258 = 0u;
-      v259 = 0u;
-      v256 = 0u;
       v257 = 0u;
+      v258 = 0u;
+      v255 = 0u;
+      v256 = 0u;
       v41 = v32;
-      v42 = [v41 countByEnumeratingWithState:&v256 objects:v277 count:16];
+      v42 = [v41 countByEnumeratingWithState:&v255 objects:v276 count:16];
       if (v42)
       {
         v43 = 0;
-        v44 = *v257;
+        v44 = *v256;
         do
         {
           for (m = 0; m != v42; ++m)
           {
-            if (*v257 != v44)
+            if (*v256 != v44)
             {
               objc_enumerationMutation(v41);
             }
 
-            v46 = *(*(&v256 + 1) + 8 * m);
+            v46 = *(*(&v255 + 1) + 8 * m);
             additionalKEMProtocols2 = [v46 additionalKEMProtocols];
             v48 = additionalKEMProtocols2 == 0;
 
@@ -3250,7 +3156,7 @@ LABEL_305:
             }
           }
 
-          v42 = [v41 countByEnumeratingWithState:&v256 objects:v277 count:16];
+          v42 = [v41 countByEnumeratingWithState:&v255 objects:v276 count:16];
         }
 
         while (v42);
@@ -3272,7 +3178,7 @@ LABEL_305:
 LABEL_66:
     if ([v32 count])
     {
-      [(NEIKEv2IKESAConfiguration *)log setNonceSize:*v271];
+      [(NEIKEv2IKESAConfiguration *)log setNonceSize:*v270];
       [(NEIKEv2IKESAConfiguration *)log setStrictNonceSizeChecks:1];
       v50 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithArray:v32];
       [(NEIKEv2IKESAConfiguration *)log setProposals:v50];
@@ -3312,8 +3218,8 @@ LABEL_66:
       v58 = ne_log_obj();
       if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
       {
-        *v266 = 0;
-        _os_log_error_impl(&dword_1BA83C000, v58, OS_LOG_TYPE_ERROR, "empty ike proposals array", v266, 2u);
+        *v265 = 0;
+        _os_log_error_impl(&dword_1BA83C000, v58, OS_LOG_TYPE_ERROR, "empty ike proposals array", v265, 2u);
       }
 
       oslog = 0;
@@ -3323,21 +3229,18 @@ LABEL_79:
     goto LABEL_80;
   }
 
-  v20 = 0;
-LABEL_306:
-  v242 = *MEMORY[0x1E69E9840];
-  return v20;
+  return 0;
 }
 
 uint64_t __44__NEIKEv2PacketTunnelProvider_tunnelBringup__block_invoke(uint64_t a1, uint64_t a2, unsigned __int8 *a3, unsigned __int8 *a4, void *a5)
 {
-  v100 = *MEMORY[0x1E69E9840];
+  v98 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
     if (a3)
     {
-      v88 = [MEMORY[0x1E6977E08] endpointWithAddress:a3];
+      v86 = [MEMORY[0x1E6977E08] endpointWithAddress:a3];
       if (a4)
       {
         goto LABEL_4;
@@ -3346,20 +3249,20 @@ uint64_t __44__NEIKEv2PacketTunnelProvider_tunnelBringup__block_invoke(uint64_t 
 
     else
     {
-      v88 = 0;
+      v86 = 0;
       if (a4)
       {
 LABEL_4:
-        v86 = [MEMORY[0x1E6977E08] endpointWithAddress:a4];
+        v84 = [MEMORY[0x1E6977E08] endpointWithAddress:a4];
         if (a5)
         {
 LABEL_5:
-          v87 = [MEMORY[0x1E696AEC0] stringWithUTF8String:a5];
+          v85 = [MEMORY[0x1E696AEC0] stringWithUTF8String:a5];
           goto LABEL_10;
         }
 
 LABEL_9:
-        v87 = 0;
+        v85 = 0;
 LABEL_10:
         Property = objc_getProperty(WeakRetained, v8, 128, 1);
         if (Property)
@@ -3375,7 +3278,7 @@ LABEL_10:
           goto LABEL_76;
         }
 
-        if (!v88)
+        if (!v86)
         {
           v35 = ne_log_obj();
           if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
@@ -3389,7 +3292,7 @@ LABEL_10:
           goto LABEL_78;
         }
 
-        v13 = [v88 port];
+        v13 = [v86 port];
         v15 = objc_getProperty(WeakRetained, v14, 128, 1);
         if (!v15 || (v15[8] & 1) == 0)
         {
@@ -3405,11 +3308,11 @@ LABEL_76:
             *&buf[12] = 1024;
             *&buf[14] = Socket;
             *&buf[18] = 2112;
-            *&buf[20] = v88;
+            *&buf[20] = v86;
+            v94 = 2112;
+            v95 = v84;
             v96 = 2112;
-            v97 = v86;
-            v98 = 2112;
-            v99 = v87;
+            v97 = v85;
             _os_log_impl(&dword_1BA83C000, v35, OS_LOG_TYPE_DEFAULT, "%@: got socket (%d) for local %@ remote %@ interface %@", buf, 0x30u);
           }
 
@@ -3424,8 +3327,8 @@ LABEL_78:
           v17 = objc_getProperty(v17, v18, 16, 1);
         }
 
-        v82 = v13;
-        v83 = v17;
+        v80 = v13;
+        v81 = v17;
         v19 = [MEMORY[0x1E6977E28] endpointWithHostname:? port:?];
         v20 = dispatch_semaphore_create(0);
         v21 = ne_log_obj();
@@ -3440,7 +3343,7 @@ LABEL_78:
 
         [(NEIKEv2PacketTunnelProvider *)WeakRetained invalidateCompanionProxyDatapath];
         v23 = [NEIKEv2CompanionDatapath alloc];
-        v84 = v19;
+        v82 = v19;
         dsema = v20;
         objc_initWeak(location, WeakRetained);
         if (v23)
@@ -3476,8 +3379,8 @@ LABEL_78:
             v30 = ne_log_obj();
             if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
             {
-              *v94 = 0;
-              _os_log_fault_impl(&dword_1BA83C000, v30, OS_LOG_TYPE_FAULT, "[super init] failed", v94, 2u);
+              *v92 = 0;
+              _os_log_fault_impl(&dword_1BA83C000, v30, OS_LOG_TYPE_FAULT, "[super init] failed", v92, 2u);
             }
 
             v24 = 0;
@@ -3525,18 +3428,18 @@ LABEL_78:
           v39 = ne_log_obj();
           if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
           {
-            v80 = objc_getProperty(WeakRetained, v40, 232, 1);
+            v78 = objc_getProperty(WeakRetained, v40, 232, 1);
             *buf = 138412546;
             *&buf[4] = WeakRetained;
             *&buf[12] = 2112;
-            *&buf[14] = v80;
+            *&buf[14] = v78;
             _os_log_error_impl(&dword_1BA83C000, v39, OS_LOG_TYPE_ERROR, "%@: timed out waiting for socket from %@", buf, 0x16u);
           }
 
           Socket = -1;
 LABEL_74:
 
-          v13 = v82;
+          v13 = v80;
           goto LABEL_75;
         }
 
@@ -3547,65 +3450,64 @@ LABEL_74:
           os_unfair_lock_lock(v41 + 3);
           if (BYTE1(v43[2]._os_unfair_lock_opaque) == 2)
           {
-            v44 = *&v43[8]._os_unfair_lock_opaque;
             connected_socket = nw_connection_get_connected_socket();
             Socket = dup(connected_socket);
             os_unfair_lock_unlock(v43 + 3);
             if ((Socket & 0x80000000) == 0)
             {
 LABEL_46:
-              v46 = objc_getProperty(WeakRetained, v42, 232, 1);
-              v48 = v46;
-              if (v46)
+              v45 = objc_getProperty(WeakRetained, v42, 232, 1);
+              v47 = v45;
+              if (v45)
               {
-                os_unfair_lock_lock(v46 + 3);
-                v49 = *&v48[10]._os_unfair_lock_opaque;
-                v50 = v49;
-                if (BYTE1(v48[2]._os_unfair_lock_opaque) == 3)
+                os_unfair_lock_lock(v45 + 3);
+                v48 = *&v47[10]._os_unfair_lock_opaque;
+                v49 = v48;
+                if (BYTE1(v47[2]._os_unfair_lock_opaque) == 3)
                 {
 
-                  v50 = 0;
+                  v49 = 0;
                 }
 
-                os_unfair_lock_unlock(v48 + 3);
+                os_unfair_lock_unlock(v47 + 3);
               }
 
               else
               {
-                v50 = 0;
+                v49 = 0;
               }
 
-              v51 = objc_getProperty(WeakRetained, v47, 128, 1);
-              if (v51)
+              v50 = objc_getProperty(WeakRetained, v46, 128, 1);
+              if (v50)
               {
-                objc_setProperty_atomic(v51, v52, v50, 64);
+                objc_setProperty_atomic(v50, v51, v49, 64);
               }
 
-              v54 = objc_getProperty(WeakRetained, v53, 128, 1);
-              v56 = objc_getProperty(WeakRetained, v55, 128, 1);
-              if (v56)
+              v53 = objc_getProperty(WeakRetained, v52, 128, 1);
+              v55 = objc_getProperty(WeakRetained, v54, 128, 1);
+              if (v55)
               {
-                v56 = objc_getProperty(v56, v57, 64, 1);
+                v55 = objc_getProperty(v55, v56, 64, 1);
               }
 
-              v58 = v56;
-              v60 = objc_getProperty(WeakRetained, v59, 208, 1);
-              [(NEIKEv2Server *)v54 setServerResolvedAddress:v58 path:v60];
+              v57 = v55;
+              v59 = objc_getProperty(WeakRetained, v58, 208, 1);
+              [(NEIKEv2Server *)v53 setServerResolvedAddress:v57 path:v59];
 
-              v62 = objc_getProperty(WeakRetained, v61, 232, 1);
-              v63 = v62;
-              if (v62)
+              v61 = objc_getProperty(WeakRetained, v60, 232, 1);
+              v62 = v61;
+              if (v61)
               {
-                os_unfair_lock_lock(v62 + 3);
-                v64 = *&v63[12]._os_unfair_lock_opaque;
-                v39 = v64;
-                if (BYTE1(v63[2]._os_unfair_lock_opaque) == 3)
+                os_unfair_lock_lock(v61 + 3);
+                v63 = *&v62[12]._os_unfair_lock_opaque;
+                v39 = v63;
+                if (BYTE1(v62[2]._os_unfair_lock_opaque) == 3)
                 {
 
                   v39 = 0;
                 }
 
-                os_unfair_lock_unlock(v63 + 3);
+                os_unfair_lock_unlock(v62 + 3);
               }
 
               else
@@ -3615,46 +3517,46 @@ LABEL_46:
 
               if ([v39 count])
               {
-                v92 = 0u;
-                v93 = 0u;
-                *location = 0u;
+                v90 = 0u;
                 v91 = 0u;
+                *location = 0u;
+                v89 = 0u;
                 v39 = v39;
-                v66 = [v39 countByEnumeratingWithState:location objects:buf count:16];
-                if (v66)
+                v65 = [v39 countByEnumeratingWithState:location objects:buf count:16];
+                if (v65)
                 {
-                  v67 = *v91;
+                  v66 = *v89;
                   do
                   {
-                    for (i = 0; i != v66; ++i)
+                    for (i = 0; i != v65; ++i)
                     {
-                      if (*v91 != v67)
+                      if (*v89 != v66)
                       {
                         objc_enumerationMutation(v39);
                       }
 
-                      v69 = *(location[1] + i);
-                      v70 = objc_getProperty(WeakRetained, v65, 128, 1);
-                      if (v70)
+                      v68 = *(location[1] + i);
+                      v69 = objc_getProperty(WeakRetained, v64, 128, 1);
+                      if (v69)
                       {
-                        v70 = objc_getProperty(v70, v71, 64, 1);
+                        v69 = objc_getProperty(v69, v70, 64, 1);
                       }
 
-                      v72 = v70;
-                      v73 = [v69 isEqualToString:v72];
+                      v71 = v69;
+                      isEqualToString = objc_msgSend_isEqualToString_(v68);
 
-                      if ((v73 & 1) == 0)
+                      if ((isEqualToString & 1) == 0)
                       {
-                        v74 = objc_getProperty(WeakRetained, v65, 128, 1);
-                        v76 = objc_getProperty(WeakRetained, v75, 208, 1);
-                        [(NEIKEv2Server *)v74 setServerResolvedAddress:v69 path:v76];
+                        v73 = objc_getProperty(WeakRetained, v64, 128, 1);
+                        v75 = objc_getProperty(WeakRetained, v74, 208, 1);
+                        [(NEIKEv2Server *)v73 setServerResolvedAddress:v68 path:v75];
                       }
                     }
 
-                    v66 = [v39 countByEnumeratingWithState:location objects:buf count:16];
+                    v65 = [v39 countByEnumeratingWithState:location objects:buf count:16];
                   }
 
-                  while (v66);
+                  while (v65);
                 }
               }
 
@@ -3671,11 +3573,11 @@ LABEL_46:
           v39 = ne_log_obj();
           if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
           {
-            v81 = objc_getProperty(WeakRetained, v77, 232, 1);
+            v79 = objc_getProperty(WeakRetained, v76, 232, 1);
             *buf = 138412546;
             *&buf[4] = WeakRetained;
             *&buf[12] = 2112;
-            *&buf[14] = v81;
+            *&buf[14] = v79;
             _os_log_error_impl(&dword_1BA83C000, v39, OS_LOG_TYPE_ERROR, "%@: invalid socket from %@", buf, 0x16u);
           }
 
@@ -3687,7 +3589,7 @@ LABEL_46:
       }
     }
 
-    v86 = 0;
+    v84 = 0;
     if (a5)
     {
       goto LABEL_5;
@@ -3699,13 +3601,12 @@ LABEL_46:
   Socket = -1;
 LABEL_79:
 
-  v78 = *MEMORY[0x1E69E9840];
   return Socket;
 }
 
 void __55__NEIKEv2PacketTunnelProvider_setupIKEv2CallbackBlocks__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v7 = ne_log_obj();
@@ -3785,10 +3686,10 @@ void __55__NEIKEv2PacketTunnelProvider_setupIKEv2CallbackBlocks__block_invoke(ui
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = __64__NEIKEv2PacketTunnelProvider_sendAnalyticsWithDisconnectError___block_invoke;
-      v43 = &unk_1E7F088A0;
-      v44 = WeakRetained;
-      v45 = v14;
-      v46 = v20;
+      v42 = &unk_1E7F088A0;
+      v43 = WeakRetained;
+      v44 = v14;
+      v45 = v20;
       v23 = v14;
       AnalyticsSendEventLazy();
 
@@ -3842,13 +3743,13 @@ LABEL_43:
           _os_log_impl(&dword_1BA83C000, v37, OS_LOG_TYPE_DEFAULT, "%@: stopping tunnel since IKE disconnected %ld", buf, 0x16u);
         }
 
-        v39[0] = MEMORY[0x1E69E9820];
-        v39[1] = 3221225472;
-        v39[2] = __55__NEIKEv2PacketTunnelProvider_setupIKEv2CallbackBlocks__block_invoke_130;
-        v39[3] = &unk_1E7F0A0E8;
-        v40 = WeakRetained;
-        v41 = v5;
-        [(NEIKEv2PacketTunnelProvider *)v40 stopIKEv2TunnelWithReason:v39 completionHandler:?];
+        v38[0] = MEMORY[0x1E69E9820];
+        v38[1] = 3221225472;
+        v38[2] = __55__NEIKEv2PacketTunnelProvider_setupIKEv2CallbackBlocks__block_invoke_130;
+        v38[3] = &unk_1E7F0A0E8;
+        v39 = WeakRetained;
+        v40 = v5;
+        [(NEIKEv2PacketTunnelProvider *)v39 stopIKEv2TunnelWithReason:v38 completionHandler:?];
 
         goto LABEL_46;
       }
@@ -3907,13 +3808,11 @@ LABEL_43:
   }
 
 LABEL_46:
-
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 void __55__NEIKEv2PacketTunnelProvider_setupIKEv2CallbackBlocks__block_invoke_132(uint64_t a1, int a2, uint64_t a3, void *a4)
 {
-  *&v37[5] = *MEMORY[0x1E69E9840];
+  *&v36[5] = *MEMORY[0x1E69E9840];
   v7 = a4;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v10 = WeakRetained;
@@ -3938,11 +3837,11 @@ void __55__NEIKEv2PacketTunnelProvider_setupIKEv2CallbackBlocks__block_invoke_13
         }
 
         *buf = 138412802;
-        v35 = v10;
-        v36 = 1024;
-        *v37 = a2;
-        v37[2] = 1024;
-        *&v37[3] = v27;
+        v34 = v10;
+        v35 = 1024;
+        *v36 = a2;
+        v36[2] = 1024;
+        *&v36[3] = v27;
         _os_log_impl(&dword_1BA83C000, v21, OS_LOG_TYPE_INFO, "%@: childStateUpdateBlock callback: childID (%X) mismatched provider childID (%X)", buf, 0x18u);
       }
     }
@@ -3953,9 +3852,9 @@ void __55__NEIKEv2PacketTunnelProvider_setupIKEv2CallbackBlocks__block_invoke_13
       if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
         *buf = 138412546;
-        v35 = v10;
-        v36 = 1024;
-        *v37 = a2;
+        v34 = v10;
+        v35 = 1024;
+        *v36 = a2;
         _os_log_impl(&dword_1BA83C000, v15, OS_LOG_TYPE_INFO, "%@: childStateUpdateBlock callback: childID (%X)", buf, 0x12u);
       }
 
@@ -3967,7 +3866,7 @@ void __55__NEIKEv2PacketTunnelProvider_setupIKEv2CallbackBlocks__block_invoke_13
         if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v35 = v10;
+          v34 = v10;
           _os_log_impl(&dword_1BA83C000, v29, OS_LOG_TYPE_INFO, "%@: childStateUpdateBlock callback: got Child Connected", buf, 0xCu);
         }
 
@@ -3983,9 +3882,9 @@ void __55__NEIKEv2PacketTunnelProvider_setupIKEv2CallbackBlocks__block_invoke_13
         if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
         {
           *buf = 138412546;
-          v35 = v10;
-          v36 = 2112;
-          *v37 = v7;
+          v34 = v10;
+          v35 = 2112;
+          *v36 = v7;
           _os_log_impl(&dword_1BA83C000, v16, OS_LOG_TYPE_INFO, "%@: childStateUpdateBlock callback: got Child Disconnected (%@)", buf, 0x16u);
         }
 
@@ -3996,9 +3895,9 @@ void __55__NEIKEv2PacketTunnelProvider_setupIKEv2CallbackBlocks__block_invoke_13
           if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
-            v35 = v10;
-            v36 = 2112;
-            *v37 = v7;
+            v34 = v10;
+            v35 = 2112;
+            *v36 = v7;
             _os_log_impl(&dword_1BA83C000, v18, OS_LOG_TYPE_DEFAULT, "%@: stopping tunnel since Child disconnected %@", buf, 0x16u);
           }
 
@@ -4013,24 +3912,22 @@ void __55__NEIKEv2PacketTunnelProvider_setupIKEv2CallbackBlocks__block_invoke_13
             v20 = dword_1BAA4F8F0[v19 - 3];
           }
 
-          v31[0] = MEMORY[0x1E69E9820];
-          v31[1] = 3221225472;
-          v31[2] = __55__NEIKEv2PacketTunnelProvider_setupIKEv2CallbackBlocks__block_invoke_133;
-          v31[3] = &unk_1E7F086C0;
-          v32 = v10;
-          v33 = v20;
-          [(NEIKEv2PacketTunnelProvider *)v32 stopIKEv2TunnelWithReason:v20 completionHandler:v31];
+          v30[0] = MEMORY[0x1E69E9820];
+          v30[1] = 3221225472;
+          v30[2] = __55__NEIKEv2PacketTunnelProvider_setupIKEv2CallbackBlocks__block_invoke_133;
+          v30[3] = &unk_1E7F086C0;
+          v31 = v10;
+          v32 = v20;
+          [(NEIKEv2PacketTunnelProvider *)v31 stopIKEv2TunnelWithReason:v20 completionHandler:v30];
         }
       }
     }
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 void __55__NEIKEv2PacketTunnelProvider_setupIKEv2CallbackBlocks__block_invoke_135(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
@@ -4038,11 +3935,11 @@ void __55__NEIKEv2PacketTunnelProvider_setupIKEv2CallbackBlocks__block_invoke_13
     v5 = ne_log_obj();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v11 = 138412546;
-      v12 = WeakRetained;
-      v13 = 2112;
-      v14 = v3;
-      _os_log_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_INFO, "%@: configurationUpdateBlock callback: %@", &v11, 0x16u);
+      v10 = 138412546;
+      v11 = WeakRetained;
+      v12 = 2112;
+      v13 = v3;
+      _os_log_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_INFO, "%@: configurationUpdateBlock callback: %@", &v10, 0x16u);
     }
 
     WeakRetained[21] |= 4u;
@@ -4059,13 +3956,11 @@ void __55__NEIKEv2PacketTunnelProvider_setupIKEv2CallbackBlocks__block_invoke_13
     v8 = Property;
     objc_setProperty_atomic(WeakRetained, v9, v8, 88);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __55__NEIKEv2PacketTunnelProvider_setupIKEv2CallbackBlocks__block_invoke_137(uint64_t a1, int a2, void *a3, void *a4)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = a4;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -4090,13 +3985,13 @@ void __55__NEIKEv2PacketTunnelProvider_setupIKEv2CallbackBlocks__block_invoke_13
           v25 = 0;
         }
 
-        v27 = 138412802;
-        v28 = v11;
-        v29 = 1024;
-        v30 = a2;
-        v31 = 1024;
-        LODWORD(v32) = v25;
-        _os_log_impl(&dword_1BA83C000, v19, OS_LOG_TYPE_INFO, "%@: trafficSelectorUpdateBlock callback: childID (%X) mismatched provider childID (%X)", &v27, 0x18u);
+        v26 = 138412802;
+        v27 = v11;
+        v28 = 1024;
+        v29 = a2;
+        v30 = 1024;
+        LODWORD(v31) = v25;
+        _os_log_impl(&dword_1BA83C000, v19, OS_LOG_TYPE_INFO, "%@: trafficSelectorUpdateBlock callback: childID (%X) mismatched provider childID (%X)", &v26, 0x18u);
       }
     }
 
@@ -4105,15 +4000,15 @@ void __55__NEIKEv2PacketTunnelProvider_setupIKEv2CallbackBlocks__block_invoke_13
       v16 = ne_log_obj();
       if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
-        v27 = 138413058;
-        v28 = v11;
-        v29 = 1024;
-        v30 = a2;
-        v31 = 2112;
-        v32 = v7;
-        v33 = 2112;
-        v34 = v8;
-        _os_log_impl(&dword_1BA83C000, v16, OS_LOG_TYPE_INFO, "%@: trafficSelectorUpdateBlock callback: childID (%X) - localTrafficSelectors %@ remoteTrafficSelectors %@", &v27, 0x26u);
+        v26 = 138413058;
+        v27 = v11;
+        v28 = 1024;
+        v29 = a2;
+        v30 = 2112;
+        v31 = v7;
+        v32 = 2112;
+        v33 = v8;
+        _os_log_impl(&dword_1BA83C000, v16, OS_LOG_TYPE_INFO, "%@: trafficSelectorUpdateBlock callback: childID (%X) - localTrafficSelectors %@ remoteTrafficSelectors %@", &v26, 0x26u);
       }
 
       v11[21] |= 8u;
@@ -4121,13 +4016,11 @@ void __55__NEIKEv2PacketTunnelProvider_setupIKEv2CallbackBlocks__block_invoke_13
       objc_setProperty_atomic(v11, v18, v8, 104);
     }
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __55__NEIKEv2PacketTunnelProvider_setupIKEv2CallbackBlocks__block_invoke_139(uint64_t a1, void *a2)
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
@@ -4136,9 +4029,9 @@ void __55__NEIKEv2PacketTunnelProvider_setupIKEv2CallbackBlocks__block_invoke_13
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v34 = WeakRetained;
-      v35 = 2112;
-      v36 = v3;
+      v33 = WeakRetained;
+      v34 = 2112;
+      v35 = v3;
       _os_log_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_INFO, "%@: additionalAddressesUpdateBlock callback: %@", buf, 0x16u);
     }
 
@@ -4147,27 +4040,27 @@ void __55__NEIKEv2PacketTunnelProvider_setupIKEv2CallbackBlocks__block_invoke_13
     {
       v7 = objc_alloc_init(MEMORY[0x1E695DF70]);
       v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v28 = 0u;
       v29 = 0u;
       v30 = 0u;
       v31 = 0u;
-      v32 = 0u;
-      v28 = v6;
+      v27 = v6;
       v9 = v6;
-      v10 = [v9 countByEnumeratingWithState:&v29 objects:buf count:16];
+      v10 = [v9 countByEnumeratingWithState:&v28 objects:buf count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v30;
+        v12 = *v29;
         do
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v30 != v12)
+            if (*v29 != v12)
             {
               objc_enumerationMutation(v9);
             }
 
-            v14 = *(*(&v29 + 1) + 8 * i);
+            v14 = *(*(&v28 + 1) + 8 * i);
             v15 = v7;
             if ([v14 addressFamily] != 2)
             {
@@ -4182,7 +4075,7 @@ void __55__NEIKEv2PacketTunnelProvider_setupIKEv2CallbackBlocks__block_invoke_13
             [v15 addObject:v16];
           }
 
-          v11 = [v9 countByEnumeratingWithState:&v29 objects:buf count:16];
+          v11 = [v9 countByEnumeratingWithState:&v28 objects:buf count:16];
         }
 
         while (v11);
@@ -4222,7 +4115,7 @@ void __55__NEIKEv2PacketTunnelProvider_setupIKEv2CallbackBlocks__block_invoke_13
         objc_setProperty_atomic(v24, v25, v26, 48);
       }
 
-      v6 = v28;
+      v6 = v27;
     }
 
     else
@@ -4231,38 +4124,34 @@ void __55__NEIKEv2PacketTunnelProvider_setupIKEv2CallbackBlocks__block_invoke_13
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         *buf = 138412546;
-        v34 = WeakRetained;
-        v35 = 2080;
-        v36 = "[NEIKEv2PacketTunnelProvider handleAdditionalServerAddressesNotification:]";
+        v33 = WeakRetained;
+        v34 = 2080;
+        v35 = "[NEIKEv2PacketTunnelProvider handleAdditionalServerAddressesNotification:]";
         _os_log_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_INFO, "%@: %s: Empty address array", buf, 0x16u);
       }
     }
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 void __55__NEIKEv2PacketTunnelProvider_setupIKEv2CallbackBlocks__block_invoke_141(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
     v2 = ne_log_obj();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
     {
-      v4 = 138412290;
-      v5 = WeakRetained;
-      _os_log_impl(&dword_1BA83C000, v2, OS_LOG_TYPE_INFO, "%@: shortDPDEventBlock callback:", &v4, 0xCu);
+      v3 = 138412290;
+      v4 = WeakRetained;
+      _os_log_impl(&dword_1BA83C000, v2, OS_LOG_TYPE_INFO, "%@: shortDPDEventBlock callback:", &v3, 0xCu);
     }
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 void __55__NEIKEv2PacketTunnelProvider_setupIKEv2CallbackBlocks__block_invoke_142(uint64_t a1, void *a2)
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
@@ -4270,11 +4159,11 @@ void __55__NEIKEv2PacketTunnelProvider_setupIKEv2CallbackBlocks__block_invoke_14
     v5 = ne_log_obj();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      *v55 = 138412546;
-      *&v55[4] = WeakRetained;
-      *&v55[12] = 2112;
-      *&v55[14] = v3;
-      _os_log_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_INFO, "%@: redirectEventBlock callback: %@", v55, 0x16u);
+      *v54 = 138412546;
+      *&v54[4] = WeakRetained;
+      *&v54[12] = 2112;
+      *&v54[14] = v3;
+      _os_log_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_INFO, "%@: redirectEventBlock callback: %@", v54, 0x16u);
     }
 
     v6 = [WeakRetained protocolConfiguration];
@@ -4289,9 +4178,9 @@ void __55__NEIKEv2PacketTunnelProvider_setupIKEv2CallbackBlocks__block_invoke_14
         v10 = ne_log_obj();
         if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
-          *v55 = 138412290;
-          *&v55[4] = WeakRetained;
-          _os_log_impl(&dword_1BA83C000, v10, OS_LOG_TYPE_INFO, "%@: redirectEventBlock callback: received redirect but redirect is disabled", v55, 0xCu);
+          *v54 = 138412290;
+          *&v54[4] = WeakRetained;
+          _os_log_impl(&dword_1BA83C000, v10, OS_LOG_TYPE_INFO, "%@: redirectEventBlock callback: received redirect but redirect is disabled", v54, 0xCu);
         }
 
         goto LABEL_42;
@@ -4305,9 +4194,9 @@ void __55__NEIKEv2PacketTunnelProvider_setupIKEv2CallbackBlocks__block_invoke_14
       if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
         *buf = 138412546;
-        v59 = WeakRetained;
-        v60 = 2080;
-        v61 = "[NEIKEv2PacketTunnelProvider handleRedirectNotification:]";
+        v58 = WeakRetained;
+        v59 = 2080;
+        v60 = "[NEIKEv2PacketTunnelProvider handleRedirectNotification:]";
         _os_log_impl(&dword_1BA83C000, v15, OS_LOG_TYPE_INFO, "%@: %s: No redirectServer received", buf, 0x16u);
       }
 
@@ -4350,7 +4239,7 @@ LABEL_41:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v59 = WeakRetained;
+      v58 = WeakRetained;
       _os_log_impl(&dword_1BA83C000, v18, OS_LOG_TYPE_DEFAULT, "%@: Stopping tunnel due to Server Redirect", buf, 0xCu);
     }
 
@@ -4406,7 +4295,7 @@ LABEL_41:
       if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v59 = WeakRetained;
+        v58 = WeakRetained;
         _os_log_error_impl(&dword_1BA83C000, v53, OS_LOG_TYPE_ERROR, "%@: Missing redirect information in notification", buf, 0xCu);
       }
 
@@ -4424,12 +4313,12 @@ LABEL_41:
       objc_setProperty_atomic(v47, v48, 0, 24);
     }
 
-    *v55 = MEMORY[0x1E69E9820];
-    *&v55[8] = 3221225472;
-    *&v55[16] = __58__NEIKEv2PacketTunnelProvider_handleRedirectNotification___block_invoke;
-    v56 = &unk_1E7F08740;
-    v57 = WeakRetained;
-    [(NEIKEv2PacketTunnelProvider *)WeakRetained resolveServerAddressIfNeeded:v55];
+    *v54 = MEMORY[0x1E69E9820];
+    *&v54[8] = 3221225472;
+    *&v54[16] = __58__NEIKEv2PacketTunnelProvider_handleRedirectNotification___block_invoke;
+    v55 = &unk_1E7F08740;
+    v56 = WeakRetained;
+    [(NEIKEv2PacketTunnelProvider *)WeakRetained resolveServerAddressIfNeeded:v54];
     v49 = *(WeakRetained + 21);
     if ((~v49 & 0xF) == 0)
     {
@@ -4449,8 +4338,6 @@ LABEL_41:
   }
 
 LABEL_43:
-
-  v54 = *MEMORY[0x1E69E9840];
 }
 
 void __58__NEIKEv2PacketTunnelProvider_handleRedirectNotification___block_invoke(uint64_t a1, char a2)
@@ -4478,7 +4365,7 @@ void __58__NEIKEv2PacketTunnelProvider_handleRedirectNotification___block_invoke
 
 - (void)resolveServerAddressIfNeeded:(void *)needed
 {
-  v74 = *MEMORY[0x1E69E9840];
+  v73 = *MEMORY[0x1E69E9840];
   v3 = a2;
   [(NEIKEv2PacketTunnelProvider *)needed configureProxyPathIfNeeded];
   Property = objc_getProperty(needed, v5, 128, 1);
@@ -4508,13 +4395,13 @@ void __58__NEIKEv2PacketTunnelProvider_handleRedirectNotification___block_invoke
       }
 
       v18 = v16;
-      v68 = 138412802;
+      v67 = 138412802;
       neededCopy5 = needed;
-      v70 = 2112;
-      v71 = v14;
-      v72 = 2112;
-      v73 = v18;
-      _os_log_impl(&dword_1BA83C000, v10, OS_LOG_TYPE_INFO, "%@: skipping resolution as server %@ uses proxy %@", &v68, 0x20u);
+      v69 = 2112;
+      v70 = v14;
+      v71 = 2112;
+      v72 = v18;
+      _os_log_impl(&dword_1BA83C000, v10, OS_LOG_TYPE_INFO, "%@: skipping resolution as server %@ uses proxy %@", &v67, 0x20u);
     }
 
 LABEL_19:
@@ -4536,9 +4423,9 @@ LABEL_19:
     v23 = ne_log_obj();
     if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
     {
-      v68 = 138412290;
+      v67 = 138412290;
       neededCopy5 = needed;
-      _os_log_impl(&dword_1BA83C000, v23, OS_LOG_TYPE_INFO, "%@: serverAddress IP address available", &v68, 0xCu);
+      _os_log_impl(&dword_1BA83C000, v23, OS_LOG_TYPE_INFO, "%@: serverAddress IP address available", &v67, 0xCu);
     }
 
     v25 = objc_getProperty(needed, v24, 128, 1);
@@ -4555,95 +4442,95 @@ LABEL_19:
     goto LABEL_19;
   }
 
-  v33 = _Block_copy(v3);
-  v34 = needed[24];
-  needed[24] = v33;
+  v32 = _Block_copy(v3);
+  v33 = needed[24];
+  needed[24] = v32;
 
-  v35 = MEMORY[0x1E6977E28];
-  v37 = objc_getProperty(needed, v36, 128, 1);
-  if (v37)
+  v34 = MEMORY[0x1E6977E28];
+  v36 = objc_getProperty(needed, v35, 128, 1);
+  if (v36)
   {
-    v37 = objc_getProperty(v37, v38, 16, 1);
+    v36 = objc_getProperty(v36, v37, 16, 1);
   }
 
-  v39 = v37;
-  v40 = [v35 endpointWithHostname:v39 port:@"500"];
+  v38 = v36;
+  v39 = [v34 endpointWithHostname:v38 port:@"500"];
 
-  if (v40)
+  if (v39)
   {
-    v42 = [objc_getProperty(needed v41];
-    v44 = objc_getProperty(needed, v43, 208, 1);
-    if (v42)
+    v41 = [objc_getProperty(needed v40];
+    v43 = objc_getProperty(needed, v42, 208, 1);
+    if (v41)
     {
-      [v44 scopedInterface];
+      [v43 scopedInterface];
     }
 
     else
     {
-      [v44 interface];
+      [v43 interface];
     }
-    v47 = ;
-    interfaceName = [v47 interfaceName];
+    v46 = ;
+    interfaceName = [v46 interfaceName];
 
     if (interfaceName)
     {
-      v49 = objc_alloc_init(MEMORY[0x1E6977E40]);
-      v50 = objc_alloc(MEMORY[0x1E6977E30]);
-      v52 = [objc_getProperty(needed v51];
-      v54 = objc_getProperty(needed, v53, 208, 1);
-      v55 = v54;
-      if (v52)
+      v48 = objc_alloc_init(MEMORY[0x1E6977E40]);
+      v49 = objc_alloc(MEMORY[0x1E6977E30]);
+      v51 = [objc_getProperty(needed v50];
+      v53 = objc_getProperty(needed, v52, 208, 1);
+      v54 = v53;
+      if (v51)
       {
-        [v54 scopedInterface];
+        [v53 scopedInterface];
       }
 
       else
       {
-        [v54 interface];
+        [v53 interface];
       }
-      v56 = ;
-      interfaceName2 = [v56 interfaceName];
-      v58 = [v50 initWithInterfaceName:interfaceName2];
-      [v49 setRequiredInterface:v58];
+      v55 = ;
+      interfaceName2 = [v55 interfaceName];
+      v57 = [v49 initWithInterfaceName:interfaceName2];
+      [v48 setRequiredInterface:v57];
     }
 
     else
     {
-      v49 = 0;
+      v48 = 0;
     }
 
-    [v49 setIgnoreResolverStats:1];
-    v59 = ne_log_obj();
-    if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
+    [v48 setIgnoreResolverStats:1];
+    v58 = ne_log_obj();
+    if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
     {
-      v68 = 138412802;
+      v67 = 138412802;
       neededCopy5 = needed;
-      v70 = 2112;
-      v71 = v40;
-      v72 = 2112;
-      v73 = v49;
-      _os_log_impl(&dword_1BA83C000, v59, OS_LOG_TYPE_DEFAULT, "%@: Resolving %@ (%@)", &v68, 0x20u);
+      v69 = 2112;
+      v70 = v39;
+      v71 = 2112;
+      v72 = v48;
+      _os_log_impl(&dword_1BA83C000, v58, OS_LOG_TYPE_DEFAULT, "%@: Resolving %@ (%@)", &v67, 0x20u);
     }
 
-    v60 = [objc_alloc(MEMORY[0x1E6977E58]) initWithEndpoint:v40 parameters:v49];
-    v61 = needed[17];
-    needed[17] = v60;
+    v59 = [objc_alloc(MEMORY[0x1E6977E58]) initWithEndpoint:v39 parameters:v48];
+    v60 = needed[17];
+    needed[17] = v59;
 
-    v62 = needed[17];
-    if (v62)
+    v61 = needed[17];
+    if (v61)
     {
       context = [needed context];
-      [v62 addObserver:context forKeyPath:@"resolvedEndpoints" options:5 context:0];
+      [v61 addObserver:context forKeyPath:@"resolvedEndpoints" options:5 context:0];
     }
 
     else
     {
-      v64 = ne_log_obj();
-      if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
+      v63 = ne_log_obj();
+      if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
       {
-        v68 = 138412290;
+        v67 = 138412290;
         neededCopy5 = needed;
-        _os_log_error_impl(&dword_1BA83C000, v64, OS_LOG_TYPE_ERROR, "%@: Failed to create NWResolver", &v68, 0xCu);
+        _os_log_error_impl(&dword_1BA83C000, v63, OS_LOG_TYPE_ERROR, "%@: Failed to create NWResolver", &v67, 0xCu);
       }
 
       v3[2](v3, 0);
@@ -4652,33 +4539,32 @@ LABEL_19:
 
   else
   {
-    v45 = ne_log_obj();
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+    v44 = ne_log_obj();
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
     {
-      v65 = objc_getProperty(needed, v46, 128, 1);
-      if (v65)
+      v64 = objc_getProperty(needed, v45, 128, 1);
+      if (v64)
       {
-        v65 = objc_getProperty(v65, v66, 16, 1);
+        v64 = objc_getProperty(v64, v65, 16, 1);
       }
 
-      v67 = v65;
-      v68 = 138412546;
+      v66 = v64;
+      v67 = 138412546;
       neededCopy5 = needed;
-      v70 = 2112;
-      v71 = v67;
-      _os_log_error_impl(&dword_1BA83C000, v45, OS_LOG_TYPE_ERROR, "%@: Failed to create endpoint for resolution, serverAddress %@", &v68, 0x16u);
+      v69 = 2112;
+      v70 = v66;
+      _os_log_error_impl(&dword_1BA83C000, v44, OS_LOG_TYPE_ERROR, "%@: Failed to create endpoint for resolution, serverAddress %@", &v67, 0x16u);
     }
 
     v3[2](v3, 0);
   }
 
 LABEL_20:
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)tryAlternateServerAddresses
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = objc_getProperty(self, a2, 128, 1);
   Property = objc_getProperty(self, v4, 208, 1);
   v6 = [(NEIKEv2Server *)v3 getNextViableServerAddressForPath:?];
@@ -4690,10 +4576,10 @@ LABEL_20:
     {
       *buf = 138412802;
       selfCopy2 = self;
-      v14 = 2080;
-      v15 = "[NEIKEv2PacketTunnelProvider tryAlternateServerAddresses]";
-      v16 = 2112;
-      v17 = v6;
+      v13 = 2080;
+      v14 = "[NEIKEv2PacketTunnelProvider tryAlternateServerAddresses]";
+      v15 = 2112;
+      v16 = v6;
       _os_log_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_INFO, "%@: %s: Alternate server address available (%@), connect again", buf, 0x20u);
     }
 
@@ -4705,21 +4591,20 @@ LABEL_20:
       _os_log_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_DEFAULT, "%@: Stopping tunnel before attempting alternate server address", buf, 0xCu);
     }
 
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __58__NEIKEv2PacketTunnelProvider_tryAlternateServerAddresses__block_invoke;
-    v11[3] = &unk_1E7F0B0E8;
-    v11[4] = self;
-    [(NEIKEv2PacketTunnelProvider *)self stopIKEv2TunnelWithReason:v11 completionHandler:?];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __58__NEIKEv2PacketTunnelProvider_tryAlternateServerAddresses__block_invoke;
+    v10[3] = &unk_1E7F0B0E8;
+    v10[4] = self;
+    [(NEIKEv2PacketTunnelProvider *)self stopIKEv2TunnelWithReason:v10 completionHandler:?];
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v6 != 0;
 }
 
 - (void)setInterfaceAvailability
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (*(self + 120))
   {
     v2 = socket(30, 2, 0);
@@ -4737,13 +4622,13 @@ LABEL_20:
         v5 = 0;
       }
 
+      v15 = 0u;
       v16 = 0u;
-      v17 = 0u;
       [(__CFString *)v5 UTF8String];
       __strlcpy_chk();
-      LOBYTE(v17) = 4;
-      BYTE3(v17) = 0;
-      v6 = ioctl(v3, 0xC02069A9uLL, &v16);
+      LOBYTE(v16) = 4;
+      BYTE3(v16) = 0;
+      v6 = ioctl(v3, 0xC02069A9uLL, &v15);
       v7 = ne_log_obj();
       v8 = v7;
       if (v6 < 0)
@@ -4752,8 +4637,8 @@ LABEL_20:
         {
           *buf = 138412546;
           selfCopy2 = self;
-          v12 = 2112;
-          v13 = v5;
+          v11 = 2112;
+          v12 = v5;
           _os_log_error_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_ERROR, "%@: Failed to set interface availability for %@", buf, 0x16u);
         }
       }
@@ -4762,23 +4647,21 @@ LABEL_20:
       {
         *buf = 138412802;
         selfCopy2 = self;
-        v12 = 2112;
-        v13 = v5;
-        v14 = 1024;
-        v15 = 0;
+        v11 = 2112;
+        v12 = v5;
+        v13 = 1024;
+        v14 = 0;
         _os_log_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_DEFAULT, "%@: Set interface availability on interface %@ to %u (0 implies 'available')", buf, 0x1Cu);
       }
 
       close(v3);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)watchIKESocketChange
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   Property = objc_getProperty(self, a2, 240, 1);
   if (Property)
   {
@@ -4834,28 +4717,28 @@ LABEL_20:
           v20 = ne_log_obj();
           if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
           {
-            v28 = [objc_getProperty(self v21];
-            v30 = objc_getProperty(self, v29, 208, 1);
-            v31 = v30;
-            if (v28)
+            v27 = [objc_getProperty(self v21];
+            v29 = objc_getProperty(self, v28, 208, 1);
+            v30 = v29;
+            if (v27)
             {
-              [v30 scopedInterface];
+              [v29 scopedInterface];
             }
 
             else
             {
-              [v30 interface];
+              [v29 interface];
             }
-            v32 = ;
-            v33 = 136315906;
-            v34 = "[NEIKEv2PacketTunnelProvider watchIKESocketChange]";
-            v35 = 2048;
-            interfaceIndex = [v32 interfaceIndex];
-            v37 = 2112;
-            v38 = v8;
-            v39 = 2112;
-            v40 = v15;
-            _os_log_debug_impl(&dword_1BA83C000, v20, OS_LOG_TYPE_DEBUG, "%s: IKE is scoped on ifIndex %ld (local address %@, remote address %@)\n", &v33, 0x2Au);
+            v31 = ;
+            v32 = 136315906;
+            v33 = "[NEIKEv2PacketTunnelProvider watchIKESocketChange]";
+            v34 = 2048;
+            interfaceIndex = [v31 interfaceIndex];
+            v36 = 2112;
+            v37 = v8;
+            v38 = 2112;
+            v39 = v15;
+            _os_log_debug_impl(&dword_1BA83C000, v20, OS_LOG_TYPE_DEBUG, "%s: IKE is scoped on ifIndex %ld (local address %@, remote address %@)\n", &v32, 0x2Au);
           }
 
           v22 = objc_alloc_init(MEMORY[0x1E6977E40]);
@@ -4871,13 +4754,11 @@ LABEL_20:
       }
     }
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startRekeyTimer:(void *)timer
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   protocolConfiguration = [timer protocolConfiguration];
   if (protocolConfiguration)
   {
@@ -4923,8 +4804,8 @@ LABEL_20:
             v13 = ne_log_obj();
             if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
             {
-              *v25 = 0;
-              _os_log_fault_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_FAULT, "[super init] failed", v25, 2u);
+              *v23 = 0;
+              _os_log_fault_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_FAULT, "[super init] failed", v23, 2u);
             }
 
             v12 = 0;
@@ -4948,33 +4829,30 @@ LABEL_20:
       {
         iKESecurityAssociationParameters = [protocolConfiguration2 IKESecurityAssociationParameters];
         lifetimeMinutes = [iKESecurityAssociationParameters lifetimeMinutes];
-        v24[0] = MEMORY[0x1E69E9820];
-        v24[1] = 3221225472;
-        v24[2] = __47__NEIKEv2PacketTunnelProvider_startRekeyTimer___block_invoke;
-        v24[3] = &unk_1E7F0B0E8;
-        v24[4] = timer;
-        [(NEIKEv2Rekey *)v8 startIKETimer:lifetimeMinutes timeoutHandler:v24];
+        v22[0] = MEMORY[0x1E69E9820];
+        v22[1] = 3221225472;
+        v22[2] = __47__NEIKEv2PacketTunnelProvider_startRekeyTimer___block_invoke;
+        v22[3] = &unk_1E7F0B0E8;
+        v22[4] = timer;
+        [(NEIKEv2Rekey *)v8 startIKETimer:lifetimeMinutes timeoutHandler:v22];
       }
 
       else
       {
         iKESecurityAssociationParameters = [protocolConfiguration2 childSecurityAssociationParameters];
         lifetimeMinutes2 = [iKESecurityAssociationParameters lifetimeMinutes];
-        v23[0] = MEMORY[0x1E69E9820];
-        v23[1] = 3221225472;
-        v23[2] = __47__NEIKEv2PacketTunnelProvider_startRekeyTimer___block_invoke_176;
-        v23[3] = &unk_1E7F0B0E8;
-        v23[4] = timer;
-        [(NEIKEv2Rekey *)v8 startChildTimer:lifetimeMinutes2 timeoutHandler:v23];
+        v21[0] = MEMORY[0x1E69E9820];
+        v21[1] = 3221225472;
+        v21[2] = __47__NEIKEv2PacketTunnelProvider_startRekeyTimer___block_invoke_176;
+        v21[3] = &unk_1E7F0B0E8;
+        v21[4] = timer;
+        [(NEIKEv2Rekey *)v8 startChildTimer:lifetimeMinutes2 timeoutHandler:v21];
       }
     }
-
-    v21 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v22 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -5024,7 +4902,7 @@ void __47__NEIKEv2PacketTunnelProvider_startRekeyTimer___block_invoke_176(uint64
 
 void __47__NEIKEv2PacketTunnelProvider_startRekeyTimer___block_invoke_2_177(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (!v2 || (*(v2 + 77) & 1) == 0)
   {
@@ -5032,9 +4910,9 @@ void __47__NEIKEv2PacketTunnelProvider_startRekeyTimer___block_invoke_2_177(uint
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       v4 = *(a1 + 32);
-      v21 = 138412290;
-      v22 = v4;
-      _os_log_impl(&dword_1BA83C000, v3, OS_LOG_TYPE_INFO, "%@: REKEYING CHILD", &v21, 0xCu);
+      v20 = 138412290;
+      v21 = v4;
+      _os_log_impl(&dword_1BA83C000, v3, OS_LOG_TYPE_INFO, "%@: REKEYING CHILD", &v20, 0xCu);
     }
 
     v6 = *(a1 + 32);
@@ -5051,18 +4929,15 @@ void __47__NEIKEv2PacketTunnelProvider_startRekeyTimer___block_invoke_2_177(uint
         }
 
         v11 = [(NEIKEv2Session *)Property firstChildSA];
-        if (!v11)
+        if (v11)
         {
-          v18 = 0;
-LABEL_18:
+          v12 = v11[4];
 
-          goto LABEL_19;
-        }
+          if (!v12)
+          {
+            return;
+          }
 
-        v12 = v11[4];
-
-        if (v12)
-        {
           v14 = *(a1 + 32);
           if (v14)
           {
@@ -5089,20 +4964,21 @@ LABEL_18:
           }
 
           [v9 forceRekeyChild:v19];
-          goto LABEL_18;
+        }
+
+        else
+        {
+          v18 = 0;
         }
       }
     }
   }
-
-LABEL_19:
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void *__47__NEIKEv2PacketTunnelProvider_startRekeyTimer___block_invoke_2(void *result)
 {
   v1 = result;
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = result[4];
   if (!v2 || (*(v2 + 77) & 1) == 0)
   {
@@ -5110,9 +4986,9 @@ void *__47__NEIKEv2PacketTunnelProvider_startRekeyTimer___block_invoke_2(void *r
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       v4 = v1[4];
-      v9 = 138412290;
-      v10 = v4;
-      _os_log_impl(&dword_1BA83C000, v3, OS_LOG_TYPE_INFO, "%@: REKEYING IKE", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v4;
+      _os_log_impl(&dword_1BA83C000, v3, OS_LOG_TYPE_INFO, "%@: REKEYING IKE", &v8, 0xCu);
     }
 
     result = v1[4];
@@ -5127,12 +5003,11 @@ void *__47__NEIKEv2PacketTunnelProvider_startRekeyTimer___block_invoke_2(void *r
           Property = objc_getProperty(Property, v6, 240, 1);
         }
 
-        result = [Property forceRekeyIKE];
+        return [Property forceRekeyIKE];
       }
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -5160,14 +5035,14 @@ void __58__NEIKEv2PacketTunnelProvider_tryAlternateServerAddresses__block_invoke
 
 void __58__NEIKEv2PacketTunnelProvider_tryAlternateServerAddresses__block_invoke_2(uint64_t a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v2 = ne_log_obj();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v17 = 138412290;
-    v18 = v3;
-    _os_log_impl(&dword_1BA83C000, v2, OS_LOG_TYPE_DEFAULT, "%@: Bringing up tunnel with alternate server address", &v17, 0xCu);
+    v16 = 138412290;
+    v17 = v3;
+    _os_log_impl(&dword_1BA83C000, v2, OS_LOG_TYPE_DEFAULT, "%@: Bringing up tunnel with alternate server address", &v16, 0xCu);
   }
 
   v5 = [NEIKEv2MOBIKE alloc];
@@ -5198,18 +5073,16 @@ void __58__NEIKEv2PacketTunnelProvider_tryAlternateServerAddresses__block_invoke
     v14 = ne_log_obj();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v16 = *(a1 + 32);
-      v17 = 138412546;
-      v18 = v16;
-      v19 = 2080;
-      v20 = "[NEIKEv2PacketTunnelProvider tryAlternateServerAddresses]_block_invoke";
-      _os_log_error_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_ERROR, "%@: %s: Failed tunnel Bringup with alternate server address", &v17, 0x16u);
+      v15 = *(a1 + 32);
+      v16 = 138412546;
+      v17 = v15;
+      v18 = 2080;
+      v19 = "[NEIKEv2PacketTunnelProvider tryAlternateServerAddresses]_block_invoke";
+      _os_log_error_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_ERROR, "%@: %s: Failed tunnel Bringup with alternate server address", &v16, 0x16u);
     }
 
     [(NEIKEv2PacketTunnelProvider *)*(a1 + 32) invokeCancelTunnel:v13];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __55__NEIKEv2PacketTunnelProvider_setupIKEv2CallbackBlocks__block_invoke_130(uint64_t a1)
@@ -5231,8 +5104,8 @@ void __55__NEIKEv2PacketTunnelProvider_setupIKEv2CallbackBlocks__block_invoke_13
 
 id __64__NEIKEv2PacketTunnelProvider_sendAnalyticsWithDisconnectError___block_invoke(void *a1)
 {
-  v16[4] = *MEMORY[0x1E69E9840];
-  v15[0] = @"tunnelType";
+  v15[4] = *MEMORY[0x1E69E9840];
+  v14[0] = @"tunnelType";
   v2 = a1[4];
   if (v2)
   {
@@ -5255,8 +5128,8 @@ id __64__NEIKEv2PacketTunnelProvider_sendAnalyticsWithDisconnectError___block_in
   }
 
   v6 = v2;
-  v16[0] = v6;
-  v15[1] = @"serverAddress";
+  v15[0] = v6;
+  v14[1] = @"serverAddress";
   Property = a1[4];
   if (Property)
   {
@@ -5270,14 +5143,12 @@ id __64__NEIKEv2PacketTunnelProvider_sendAnalyticsWithDisconnectError___block_in
   v9 = Property;
   v10 = a1[5];
   v11 = a1[6];
-  v16[1] = v9;
-  v16[2] = v10;
-  v15[2] = @"interface";
-  v15[3] = @"failReason";
-  v16[3] = v11;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:4];
-
-  v13 = *MEMORY[0x1E69E9840];
+  v15[1] = v9;
+  v15[2] = v10;
+  v14[2] = @"interface";
+  v14[3] = @"failReason";
+  v15[3] = v11;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:4];
 
   return v12;
 }
@@ -5296,21 +5167,19 @@ id __64__NEIKEv2PacketTunnelProvider_sendAnalyticsWithDisconnectError___block_in
 
 void __67__NEIKEv2PacketTunnelProvider_handleCompanionProxyDatapathFailure___block_invoke(uint64_t a1, const char *a2)
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
   if (!v3 || !objc_getProperty(v3, a2, 232, 1))
   {
-    v31 = ne_log_obj();
-    if (!os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+    v30 = ne_log_obj();
+    if (!os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
     {
       goto LABEL_42;
     }
 
     *buf = 0;
-    v32 = "no companion proxy path present, ignoring";
-LABEL_41:
-    _os_log_impl(&dword_1BA83C000, v31, OS_LOG_TYPE_INFO, v32, buf, 2u);
-    goto LABEL_42;
+    v31 = "no companion proxy path present, ignoring";
+    goto LABEL_41;
   }
 
   v5 = *(a1 + 32);
@@ -5325,142 +5194,146 @@ LABEL_41:
     v8 = 0;
   }
 
-  if (v6 != v8)
+  if (v6 == v8)
   {
-    v33 = ne_log_obj();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+    v9 = *(a1 + 32);
+    if (v9)
     {
-      v35 = *(a1 + 32);
-      v36 = *(a1 + 40);
-      if (v35 && (v37 = objc_getProperty(v35, v34, 232, 1)) != 0)
+      Property = objc_getProperty(v9, v4, 128, 1);
+      if (Property)
       {
-        v38 = v37[2];
-      }
+        if (Property[8])
+        {
+          v12 = *(a1 + 32);
+          if (v12 && (v12[75] & 1) != 0)
+          {
+            v14 = objc_getProperty(v12, v11, 232, 1);
+            v15 = *(a1 + 32);
+            if (v15)
+            {
+              v16 = objc_getProperty(v15, v13, 232, 1);
+              v17 = v16;
+              if (v16)
+              {
+                v18 = *(v16 + 12);
+LABEL_15:
+                v19 = [(NEIKEv2CompanionDatapath *)v14 getStopReasonFromConnectionError:v18];
 
-      else
-      {
-        v38 = 0;
-      }
+                v21 = *(a1 + 32);
+                if (v21)
+                {
+                  v21 = objc_getProperty(v21, v20, 240, 1);
+                }
 
-      *buf = 134218240;
-      v44 = v36;
-      v45 = 2048;
-      v46 = v38;
-      _os_log_impl(&dword_1BA83C000, v33, OS_LOG_TYPE_INFO, "companion proxy datapath don't match %llu != %llu, ignoring", buf, 0x16u);
+                v23 = [v21 state];
+                v24 = *(a1 + 32);
+                if (v23 == 2 && v24 && (v24[79] & 1) != 0)
+                {
+                  v25 = objc_getProperty(v24, v22, 168, 1);
+                  if (!v25 || (v25[8] & 1) == 0)
+                  {
+                    v27 = *(a1 + 32);
+                    if (v19 == 4)
+                    {
+                      if (v27 && (v27 = objc_getProperty(v27, v26, 168, 1), (v28 = *(a1 + 32)) != 0))
+                      {
+                        v29 = *(v28 + 248);
+                      }
+
+                      else
+                      {
+                        v29 = 0;
+                      }
+
+                      [(NEIKEv2MOBIKE *)v27 initiateMOBIKE:v29 pathStatus:2 serverAddress:0 earlyDisconnect:0];
+                    }
+
+                    else
+                    {
+
+                      [(NEIKEv2PacketTunnelProvider *)v27 handleInterfaceChange:?];
+                    }
+                  }
+                }
+
+                else
+                {
+                  v38[0] = MEMORY[0x1E69E9820];
+                  v38[1] = 3221225472;
+                  v38[2] = __67__NEIKEv2PacketTunnelProvider_handleCompanionProxyDatapathFailure___block_invoke_160;
+                  v38[3] = &unk_1E7F086C0;
+                  v38[4] = v24;
+                  v39 = v19;
+                  [v24 stopTunnelWithReason:14 completionHandler:v38];
+                }
+
+                return;
+              }
+            }
+
+            else
+            {
+              v17 = 0;
+            }
+
+            v18 = 0;
+            goto LABEL_15;
+          }
+
+          v30 = ne_log_obj();
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+          {
+            *buf = 0;
+            v31 = "no companion outbound datapath detected, ignoring";
+            goto LABEL_41;
+          }
+
+LABEL_42:
+
+          return;
+        }
+      }
     }
 
-    goto LABEL_43;
-  }
-
-  v9 = *(a1 + 32);
-  if (!v9 || (Property = objc_getProperty(v9, v4, 128, 1)) == 0 || (Property[8] & 1) == 0)
-  {
-    v31 = ne_log_obj();
-    if (!os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+    v30 = ne_log_obj();
+    if (!os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
     {
       goto LABEL_42;
     }
 
     *buf = 0;
-    v32 = "no companion proxy present, ignoring";
-    goto LABEL_41;
+    v31 = "no companion proxy present, ignoring";
+LABEL_41:
+    _os_log_impl(&dword_1BA83C000, v30, OS_LOG_TYPE_INFO, v31, buf, 2u);
+    goto LABEL_42;
   }
 
-  v12 = *(a1 + 32);
-  if (!v12 || (v12[75] & 1) == 0)
+  v32 = ne_log_obj();
+  if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
   {
-    v31 = ne_log_obj();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+    v34 = *(a1 + 32);
+    v35 = *(a1 + 40);
+    if (v34 && (v36 = objc_getProperty(v34, v33, 232, 1)) != 0)
     {
-      *buf = 0;
-      v32 = "no companion outbound datapath detected, ignoring";
-      goto LABEL_41;
-    }
-
-LABEL_42:
-
-LABEL_43:
-    v39 = *MEMORY[0x1E69E9840];
-    return;
-  }
-
-  v14 = objc_getProperty(v12, v11, 232, 1);
-  v15 = *(a1 + 32);
-  if (v15)
-  {
-    v16 = objc_getProperty(v15, v13, 232, 1);
-    v17 = v16;
-    if (v16)
-    {
-      v18 = *(v16 + 12);
-      goto LABEL_15;
-    }
-  }
-
-  else
-  {
-    v17 = 0;
-  }
-
-  v18 = 0;
-LABEL_15:
-  v19 = [(NEIKEv2CompanionDatapath *)v14 getStopReasonFromConnectionError:v18];
-
-  v21 = *(a1 + 32);
-  if (v21)
-  {
-    v21 = objc_getProperty(v21, v20, 240, 1);
-  }
-
-  v23 = [v21 state];
-  v24 = *(a1 + 32);
-  if (v23 != 2 || !v24 || (v24[79] & 1) == 0)
-  {
-    v41[0] = MEMORY[0x1E69E9820];
-    v41[1] = 3221225472;
-    v41[2] = __67__NEIKEv2PacketTunnelProvider_handleCompanionProxyDatapathFailure___block_invoke_160;
-    v41[3] = &unk_1E7F086C0;
-    v41[4] = v24;
-    v42 = v19;
-    [v24 stopTunnelWithReason:14 completionHandler:v41];
-    goto LABEL_43;
-  }
-
-  v25 = objc_getProperty(v24, v22, 168, 1);
-  if (v25 && (v25[8] & 1) != 0)
-  {
-    goto LABEL_43;
-  }
-
-  v27 = *(a1 + 32);
-  if (v19 == 4)
-  {
-    if (v27 && (v27 = objc_getProperty(v27, v26, 168, 1), (v28 = *(a1 + 32)) != 0))
-    {
-      v29 = *(v28 + 248);
+      v37 = v36[2];
     }
 
     else
     {
-      v29 = 0;
+      v37 = 0;
     }
 
-    v30 = *MEMORY[0x1E69E9840];
-
-    [(NEIKEv2MOBIKE *)v27 initiateMOBIKE:v29 pathStatus:2 serverAddress:0 earlyDisconnect:0];
-  }
-
-  else
-  {
-    v40 = *MEMORY[0x1E69E9840];
-
-    [(NEIKEv2PacketTunnelProvider *)v27 handleInterfaceChange:?];
+    *buf = 134218240;
+    v41 = v35;
+    v42 = 2048;
+    v43 = v37;
+    _os_log_impl(&dword_1BA83C000, v32, OS_LOG_TYPE_INFO, "companion proxy datapath don't match %llu != %llu, ignoring", buf, 0x16u);
   }
 }
 
 void __59__NEIKEv2PacketTunnelProvider_startIKEv2TunnelWithOptions___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v6 = WeakRetained;
   if (a2)
@@ -5480,10 +5353,10 @@ void __59__NEIKEv2PacketTunnelProvider_startIKEv2TunnelWithOptions___block_invok
     block[2] = __59__NEIKEv2PacketTunnelProvider_startIKEv2TunnelWithOptions___block_invoke_2;
     block[3] = &unk_1E7F0AA58;
     v8 = Property;
-    objc_copyWeak(&v12, (a1 + 32));
+    objc_copyWeak(&v11, (a1 + 32));
     dispatch_async(v8, block);
 
-    objc_destroyWeak(&v12);
+    objc_destroyWeak(&v11);
   }
 
   else
@@ -5494,17 +5367,15 @@ void __59__NEIKEv2PacketTunnelProvider_startIKEv2TunnelWithOptions___block_invok
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v14 = v6;
+      v13 = v6;
       _os_log_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_DEFAULT, "%@: Tunnel Status: UP", buf, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)NEIKEv2ProviderAuthenticate:(_BYTE *)authenticate
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   v5 = 1;
@@ -5519,8 +5390,8 @@ void __59__NEIKEv2PacketTunnelProvider_startIKEv2TunnelWithOptions___block_invok
       [v7 setObject:v8 forKeyedSubscript:*MEMORY[0x1E695EE60]];
 
       v9 = NEResourcesCopyLocalizedNSString(@"PASSWORD", @"PASSWORD");
-      v23 = v9;
-      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v23 count:1];
+      v22 = v9;
+      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v22 count:1];
       [v7 setObject:v10 forKeyedSubscript:*MEMORY[0x1E695EEA0]];
 
       [v7 setObject:&unk_1F38BA808 forKeyedSubscript:*MEMORY[0x1E695EEA8]];
@@ -5529,13 +5400,13 @@ void __59__NEIKEv2PacketTunnelProvider_startIKEv2TunnelWithOptions___block_invok
       [objc_getProperty(authenticate v11];
       v12 = [NEUserNotification alloc];
       Property = objc_getProperty(authenticate, v13, 264, 1);
-      v20[0] = MEMORY[0x1E69E9820];
-      v20[1] = 3221225472;
-      v20[2] = __59__NEIKEv2PacketTunnelProvider_NEIKEv2ProviderAuthenticate___block_invoke;
-      v20[3] = &unk_1E7F08878;
-      v21 = v4;
+      v19[0] = MEMORY[0x1E69E9820];
+      v19[1] = 3221225472;
+      v19[2] = __59__NEIKEv2PacketTunnelProvider_NEIKEv2ProviderAuthenticate___block_invoke;
+      v19[3] = &unk_1E7F08878;
+      v20 = v4;
       authenticateCopy = authenticate;
-      v15 = [(NEUserNotification *)v12 initAndShowAuthenticationWithHeader:v6 options:v7 flags:0x10000 callbackQueue:Property callbackHandler:v20];
+      v15 = [(NEUserNotification *)v12 initAndShowAuthenticationWithHeader:v6 options:v7 flags:0x10000 callbackQueue:Property callbackHandler:v19];
       objc_setProperty_atomic(authenticate, v16, v15, 216);
 
       v5 = objc_getProperty(authenticate, v17, 216, 1) != 0;
@@ -5555,7 +5426,6 @@ void __59__NEIKEv2PacketTunnelProvider_startIKEv2TunnelWithOptions___block_invok
     }
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -5584,7 +5454,7 @@ void __59__NEIKEv2PacketTunnelProvider_startIKEv2TunnelWithOptions___block_invok
 
 void __59__NEIKEv2PacketTunnelProvider_NEIKEv2ProviderAuthenticate___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v4 = a3;
   if ([v4 count])
   {
@@ -5601,10 +5471,10 @@ void __59__NEIKEv2PacketTunnelProvider_NEIKEv2ProviderAuthenticate___block_invok
     v8 = ne_log_obj();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v11 = *(a1 + 40);
-      v12 = 138412290;
-      v13 = v11;
-      _os_log_error_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_ERROR, "%@: Cancel IKEv2 tunnel, no password entered", &v12, 0xCu);
+      v10 = *(a1 + 40);
+      v11 = 138412290;
+      v12 = v10;
+      _os_log_error_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_ERROR, "%@: Cancel IKEv2 tunnel, no password entered", &v11, 0xCu);
     }
 
     [(NEIKEv2PacketTunnelProvider *)*(a1 + 40) invokeCancelTunnel:?];
@@ -5615,19 +5485,17 @@ void __59__NEIKEv2PacketTunnelProvider_NEIKEv2ProviderAuthenticate___block_invok
   {
     *(v9 + 80) = 0;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __59__NEIKEv2PacketTunnelProvider_startIKEv2TunnelWithOptions___block_invoke_2(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = ne_log_obj();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v8 = WeakRetained;
+    v7 = WeakRetained;
     _os_log_error_impl(&dword_1BA83C000, v2, OS_LOG_TYPE_ERROR, "%@: Stopping tunnel due to set tunnel network settings failed", buf, 0xCu);
   }
 
@@ -5636,15 +5504,13 @@ void __59__NEIKEv2PacketTunnelProvider_startIKEv2TunnelWithOptions___block_invok
     WeakRetained[77] = 1;
   }
 
-  v5[0] = MEMORY[0x1E69E9820];
-  v5[1] = 3221225472;
-  v5[2] = __59__NEIKEv2PacketTunnelProvider_startIKEv2TunnelWithOptions___block_invoke_107;
-  v5[3] = &unk_1E7F0B0E8;
-  v6 = WeakRetained;
+  v4[0] = MEMORY[0x1E69E9820];
+  v4[1] = 3221225472;
+  v4[2] = __59__NEIKEv2PacketTunnelProvider_startIKEv2TunnelWithOptions___block_invoke_107;
+  v4[3] = &unk_1E7F0B0E8;
+  v5 = WeakRetained;
   v3 = WeakRetained;
-  [(NEIKEv2PacketTunnelProvider *)v3 stopIKEv2TunnelWithReason:v5 completionHandler:?];
-
-  v4 = *MEMORY[0x1E69E9840];
+  [(NEIKEv2PacketTunnelProvider *)v3 stopIKEv2TunnelWithReason:v4 completionHandler:?];
 }
 
 void __54__NEIKEv2PacketTunnelProvider_handleDefaultPathChange__block_invoke(uint64_t a1, int a2)
@@ -5724,7 +5590,7 @@ void __49__NEIKEv2PacketTunnelProvider_handleConfigChange__block_invoke_169(uint
 
 void __77__NEIKEv2PacketTunnelProvider_observerHelperHandler_ofObject_change_context___block_invoke(uint64_t a1)
 {
-  v75 = *MEMORY[0x1E69E9840];
+  v74 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   if (v1 && (*(v1 + 77) & 1) == 0 && *(v1 + 136))
   {
@@ -5736,16 +5602,16 @@ void __77__NEIKEv2PacketTunnelProvider_observerHelperHandler_ofObject_change_con
       v5 = [*(v1 + 136) status];
       v6 = "In progress";
       *buf = 138412802;
-      v70 = v1;
+      v69 = v1;
       if (v5 == 2)
       {
         v6 = "Complete";
       }
 
-      v71 = 2048;
-      v72 = v4;
-      v73 = 2080;
-      v74 = v6;
+      v70 = 2048;
+      v71 = v4;
+      v72 = 2080;
+      v73 = v6;
       _os_log_impl(&dword_1BA83C000, v2, OS_LOG_TYPE_DEFAULT, "%@: handleDNSResolution (resolvedEndpoints count %lu) (query status %s)", buf, 0x20u);
     }
 
@@ -5761,33 +5627,33 @@ void __77__NEIKEv2PacketTunnelProvider_observerHelperHandler_ofObject_change_con
         Property = objc_getProperty(Property, v12, 16, 1);
       }
 
-      v56 = Property;
+      v55 = Property;
+      v59 = 0u;
       v60 = 0u;
       v61 = 0u;
       v62 = 0u;
-      v63 = 0u;
       obj = [*(v1 + 136) resolvedEndpoints];
-      v13 = [obj countByEnumeratingWithState:&v60 objects:buf count:16];
+      v13 = [obj countByEnumeratingWithState:&v59 objects:buf count:16];
       if (v13)
       {
         v15 = v13;
         v16 = 0;
-        v17 = *v61;
+        v17 = *v60;
         *&v14 = 138413314;
-        v55 = v14;
+        v54 = v14;
         v18 = &OBJC_IVAR___NEFilterFlow__direction;
         do
         {
           v19 = 0;
-          v58 = v15;
+          v57 = v15;
           do
           {
-            if (*v61 != v17)
+            if (*v60 != v17)
             {
               objc_enumerationMutation(obj);
             }
 
-            v20 = *(*(&v60 + 1) + 8 * v19);
+            v20 = *(*(&v59 + 1) + 8 * v19);
             v21 = ne_log_obj();
             if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
             {
@@ -5805,20 +5671,20 @@ void __77__NEIKEv2PacketTunnelProvider_observerHelperHandler_ofObject_change_con
 
               v25 = [v20 hostname];
               v26 = [v20 port];
-              *v64 = v55;
-              *&v64[4] = v1;
-              *&v64[12] = 2112;
-              *&v64[14] = v56;
-              *&v64[22] = 2080;
-              v65 = v24;
+              *v63 = v54;
+              *&v63[4] = v1;
+              *&v63[12] = 2112;
+              *&v63[14] = v55;
+              *&v63[22] = 2080;
+              v64 = v24;
               v10 = v23;
               v17 = v22;
-              v15 = v58;
-              *v66 = 2112;
-              *&v66[2] = v25;
-              v67 = 2112;
-              v68 = v26;
-              _os_log_impl(&dword_1BA83C000, v21, OS_LOG_TYPE_INFO, "%@: Resolved %@: %s address %@:%@", v64, 0x34u);
+              v15 = v57;
+              *v65 = 2112;
+              *&v65[2] = v25;
+              v66 = 2112;
+              v67 = v26;
+              _os_log_impl(&dword_1BA83C000, v21, OS_LOG_TYPE_INFO, "%@: Resolved %@: %s address %@:%@", v63, 0x34u);
 
               v18 = &OBJC_IVAR___NEFilterFlow__direction;
             }
@@ -5833,7 +5699,7 @@ void __77__NEIKEv2PacketTunnelProvider_observerHelperHandler_ofObject_change_con
           }
 
           while (v15 != v19);
-          v15 = [obj countByEnumeratingWithState:&v60 objects:buf count:16];
+          v15 = [obj countByEnumeratingWithState:&v59 objects:buf count:16];
         }
 
         while (v15);
@@ -5862,14 +5728,14 @@ void __77__NEIKEv2PacketTunnelProvider_observerHelperHandler_ofObject_change_con
 
         else if (!objc_getProperty(v1, v38, 144, 1))
         {
-          v49 = objc_getProperty(v1, v48, 264, 1);
-          *v64 = MEMORY[0x1E69E9820];
-          *&v64[8] = 3221225472;
-          *&v64[16] = __50__NEIKEv2PacketTunnelProvider_handleDNSResolution__block_invoke;
-          v65 = &unk_1E7F0B0E8;
-          *v66 = v1;
-          v50 = NECreateTimerSource(v49, 1, v64);
-          objc_setProperty_atomic(v1, v51, v50, 144);
+          v48 = objc_getProperty(v1, v47, 264, 1);
+          *v63 = MEMORY[0x1E69E9820];
+          *&v63[8] = 3221225472;
+          *&v63[16] = __50__NEIKEv2PacketTunnelProvider_handleDNSResolution__block_invoke;
+          v64 = &unk_1E7F0B0E8;
+          *v65 = v1;
+          v49 = NECreateTimerSource(v48, 1, v63);
+          objc_setProperty_atomic(v1, v50, v49, 144);
         }
       }
 
@@ -5889,17 +5755,17 @@ void __77__NEIKEv2PacketTunnelProvider_observerHelperHandler_ofObject_change_con
       v31 = ne_log_obj();
       if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
-        v52 = objc_getProperty(v1, v32, 128, 1);
-        if (v52)
+        v51 = objc_getProperty(v1, v32, 128, 1);
+        if (v51)
         {
-          v52 = objc_getProperty(v52, v53, 16, 1);
+          v51 = objc_getProperty(v51, v52, 16, 1);
         }
 
-        v54 = v52;
+        v53 = v51;
         *buf = 138412546;
-        v70 = v1;
-        v71 = 2112;
-        v72 = v54;
+        v69 = v1;
+        v70 = 2112;
+        v71 = v53;
         _os_log_error_impl(&dword_1BA83C000, v31, OS_LOG_TYPE_ERROR, "%@: Failed to resolve %@", buf, 0x16u);
       }
 
@@ -5914,13 +5780,11 @@ void __77__NEIKEv2PacketTunnelProvider_observerHelperHandler_ofObject_change_con
       if (v36)
       {
         (*(v36 + 16))(v36, 0);
-        v57 = *(v1 + 192);
+        v56 = *(v1 + 192);
         *(v1 + 192) = 0;
       }
     }
   }
-
-  v47 = *MEMORY[0x1E69E9840];
 }
 
 void __50__NEIKEv2PacketTunnelProvider_handleDNSResolution__block_invoke(uint64_t a1, const char *a2)
@@ -5970,7 +5834,7 @@ LABEL_7:
 
 - (void)wake
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = ne_log_obj();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
@@ -5986,12 +5850,11 @@ LABEL_7:
   block[3] = &unk_1E7F0B0E8;
   block[4] = self;
   dispatch_async(queue, block);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __35__NEIKEv2PacketTunnelProvider_wake__block_invoke(uint64_t a1, const char *a2)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (v2 && (*(v2 + 77) & 1) == 0)
   {
@@ -6000,9 +5863,9 @@ void __35__NEIKEv2PacketTunnelProvider_wake__block_invoke(uint64_t a1, const cha
       v7 = ne_log_obj();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
-        LODWORD(v30) = 138412290;
-        *(&v30 + 4) = v2;
-        _os_log_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_INFO, "%@: Wake_up: Session down, ignore WakeUp", &v30, 0xCu);
+        LODWORD(v29) = 138412290;
+        *(&v29 + 4) = v2;
+        _os_log_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_INFO, "%@: Wake_up: Session down, ignore WakeUp", &v29, 0xCu);
       }
 
       goto LABEL_29;
@@ -6029,23 +5892,23 @@ void __35__NEIKEv2PacketTunnelProvider_wake__block_invoke(uint64_t a1, const cha
 LABEL_8:
 
 LABEL_29:
-        goto LABEL_30;
+        return;
       }
 
-      LODWORD(v30) = 138412290;
-      *(&v30 + 4) = v2;
+      LODWORD(v29) = 138412290;
+      *(&v29 + 4) = v2;
       v17 = "%@: Waking, kick off MOBIKE";
 LABEL_7:
-      _os_log_impl(&dword_1BA83C000, v16, OS_LOG_TYPE_INFO, v17, &v30, 0xCu);
+      _os_log_impl(&dword_1BA83C000, v16, OS_LOG_TYPE_INFO, v17, &v29, 0xCu);
       goto LABEL_8;
     }
 
     v18 = ne_log_obj();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
-      LODWORD(v30) = 138412290;
-      *(&v30 + 4) = v2;
-      _os_log_impl(&dword_1BA83C000, v18, OS_LOG_TYPE_INFO, "%@: Waking, kick off DPD", &v30, 0xCu);
+      LODWORD(v29) = 138412290;
+      *(&v29 + 4) = v2;
+      _os_log_impl(&dword_1BA83C000, v18, OS_LOG_TYPE_INFO, "%@: Waking, kick off DPD", &v29, 0xCu);
     }
 
     v19 = [v2 protocolConfiguration];
@@ -6087,8 +5950,8 @@ LABEL_7:
             goto LABEL_8;
           }
 
-          LODWORD(v30) = 138412290;
-          *(&v30 + 4) = v2;
+          LODWORD(v29) = 138412290;
+          *(&v29 + 4) = v2;
           v17 = "%@: Wake_up: failed to get DPD attributes";
           goto LABEL_7;
         }
@@ -6120,22 +5983,19 @@ LABEL_7:
 
     v27 = objc_getProperty(v2, v26, 240, 1);
     v28 = *(v2 + 264);
-    *&v30 = MEMORY[0x1E69E9820];
-    *(&v30 + 1) = 3221225472;
-    v31 = __40__NEIKEv2PacketTunnelProvider_wakeIKEv2__block_invoke;
-    v32 = &unk_1E7F08740;
-    v33 = v2;
-    [v27 sendKeepaliveWithRetries:v23 retryIntervalInMilliseconds:v25 callbackQueue:v28 callback:&v30];
+    *&v29 = MEMORY[0x1E69E9820];
+    *(&v29 + 1) = 3221225472;
+    v30 = __40__NEIKEv2PacketTunnelProvider_wakeIKEv2__block_invoke;
+    v31 = &unk_1E7F08740;
+    v32 = v2;
+    [v27 sendKeepaliveWithRetries:v23 retryIntervalInMilliseconds:v25 callbackQueue:v28 callback:&v29];
     goto LABEL_29;
   }
-
-LABEL_30:
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 void __40__NEIKEv2PacketTunnelProvider_wakeIKEv2__block_invoke(uint64_t a1, int a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v4 = ne_log_obj();
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_INFO);
   if (a2)
@@ -6153,13 +6013,13 @@ void __40__NEIKEv2PacketTunnelProvider_wakeIKEv2__block_invoke(uint64_t a1, int 
         v7 = 0;
       }
 
-      v12 = 138412546;
-      v13 = v6;
-      v14 = 2048;
-      v15 = v7;
+      v11 = 138412546;
+      v12 = v6;
+      v13 = 2048;
+      v14 = v7;
       v8 = "%@: Wake_up: [%lu] WakeUP: DPD succeeded";
 LABEL_10:
-      _os_log_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_INFO, v8, &v12, 0x16u);
+      _os_log_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_INFO, v8, &v11, 0x16u);
     }
   }
 
@@ -6176,20 +6036,18 @@ LABEL_10:
       v10 = 0;
     }
 
-    v12 = 138412546;
-    v13 = v9;
-    v14 = 2048;
-    v15 = v10;
+    v11 = 138412546;
+    v12 = v9;
+    v13 = 2048;
+    v14 = v10;
     v8 = "%@: Wake_up: [%lu] WakeUP: DPD failed";
     goto LABEL_10;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopTunnelWithReason:(int64_t)reason completionHandler:(id)handler
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v7 = ne_log_obj();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -6204,13 +6062,11 @@ LABEL_10:
   block[1] = 3221225472;
   block[2] = __70__NEIKEv2PacketTunnelProvider_stopTunnelWithReason_completionHandler___block_invoke;
   block[3] = &unk_1E7F0AB90;
-  v12 = handlerCopy;
+  v11 = handlerCopy;
   reasonCopy = reason;
   block[4] = self;
   v9 = handlerCopy;
   dispatch_async(queue, block);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __70__NEIKEv2PacketTunnelProvider_stopTunnelWithReason_completionHandler___block_invoke(uint64_t a1)
@@ -6254,7 +6110,7 @@ uint64_t __70__NEIKEv2PacketTunnelProvider_stopTunnelWithReason_completionHandle
 
 - (void)startTunnelWithOptions:(id)options completionHandler:(id)handler
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   handlerCopy = handler;
   v8 = ne_log_obj();
@@ -6270,14 +6126,12 @@ uint64_t __70__NEIKEv2PacketTunnelProvider_stopTunnelWithReason_completionHandle
   block[1] = 3221225472;
   block[2] = __72__NEIKEv2PacketTunnelProvider_startTunnelWithOptions_completionHandler___block_invoke;
   block[3] = &unk_1E7F0AAA0;
-  v14 = optionsCopy;
-  v15 = handlerCopy;
+  v13 = optionsCopy;
+  v14 = handlerCopy;
   block[4] = self;
   v10 = optionsCopy;
   v11 = handlerCopy;
   dispatch_async(queue, block);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __72__NEIKEv2PacketTunnelProvider_startTunnelWithOptions_completionHandler___block_invoke(uint64_t a1, const char *a2)
@@ -6327,14 +6181,14 @@ void __72__NEIKEv2PacketTunnelProvider_startTunnelWithOptions_completionHandler_
 
 - (NEIKEv2PacketTunnelProvider)init
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = [(NEPacketTunnelProvider *)self initWithVirtualInterfaceType:2];
   v3 = ne_log_obj();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    LODWORD(v8.__sigaction_u.__sa_handler) = 138412290;
-    *(&v8.__sigaction_u.__sa_sigaction + 4) = v2;
-    _os_log_impl(&dword_1BA83C000, v3, OS_LOG_TYPE_INFO, "%@: Init with IPSec virtual interface type", &v8, 0xCu);
+    LODWORD(v7.__sigaction_u.__sa_handler) = 138412290;
+    *(&v7.__sigaction_u.__sa_sigaction + 4) = v2;
+    _os_log_impl(&dword_1BA83C000, v3, OS_LOG_TYPE_INFO, "%@: Init with IPSec virtual interface type", &v7, 0xCu);
   }
 
   if (NEIKEv2PacketTunnelProviderCopyQueue_onceToken != -1)
@@ -6350,10 +6204,9 @@ void __72__NEIKEv2PacketTunnelProvider_startTunnelWithOptions_completionHandler_
   objc_setProperty_atomic(v2, v5, defaultPath, 208);
 
   v2->_randomLocalPortFallbackRetryCount = 0;
-  v8.__sigaction_u.__sa_handler = 1;
-  *&v8.sa_mask = 0;
-  sigaction(13, &v8, 0);
-  v6 = *MEMORY[0x1E69E9840];
+  v7.__sigaction_u.__sa_handler = 1;
+  *&v7.sa_mask = 0;
+  sigaction(13, &v7, 0);
   return v2;
 }
 

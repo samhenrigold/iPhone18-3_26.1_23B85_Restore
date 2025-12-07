@@ -65,7 +65,6 @@
     v4 = 0;
     do
     {
-      v5 = p_scores->list[v4];
       PBDataWriterWriteInt64Field();
       ++v4;
     }

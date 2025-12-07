@@ -8,6 +8,8 @@
 - (void)hideLabelsIfNecessary;
 - (void)highlightValue:(float)value;
 - (void)reloadWithSpecifier:(id)specifier animated:(BOOL)animated;
+- (void)removeHighlight:(BOOL)highlight;
+- (void)setCurrentValue:(float)value animated:(BOOL)animated;
 - (void)sliderValueChangedToValue:(float)value;
 - (void)sliderValueChangedWithSlider:(id)slider;
 - (void)sliderValueChangingSlider:(id)slider;
@@ -110,6 +112,18 @@
   }
 }
 
+- (void)setCurrentValue:(float)value animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  slider = [(PLSegmentedLabelSliderCell *)self slider];
+  *&v8 = value;
+  [slider setValue:animatedCopy animated:v8];
+
+  *&v9 = value;
+
+  [(PLSegmentedLabelSliderCell *)self darkenValue:v9];
+}
+
 - (void)darkenValue:(float)value
 {
   labelMap = [(PLSegmentedLabelSliderCell *)self labelMap];
@@ -181,6 +195,17 @@
     v8 = +[UIColor systemGreenColor];
     [v9 setTextColor:v8];
   }
+}
+
+- (void)removeHighlight:(BOOL)highlight
+{
+  labelMap = [(PLSegmentedLabelSliderCell *)self labelMap];
+  v5[0] = _NSConcreteStackBlock;
+  v5[1] = 3221225472;
+  v5[2] = sub_24160;
+  v5[3] = &unk_1648A8;
+  v5[4] = self;
+  [labelMap enumerateKeysAndObjectsUsingBlock:v5];
 }
 
 - (id)createLabelStack

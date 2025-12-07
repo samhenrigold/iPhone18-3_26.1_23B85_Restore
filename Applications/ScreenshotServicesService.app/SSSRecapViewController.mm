@@ -26,7 +26,7 @@
 
 - (void)loadScreenshot
 {
-  if (!sub_100038940())
+  if (!sub_100038940(0))
   {
     exit(0);
   }

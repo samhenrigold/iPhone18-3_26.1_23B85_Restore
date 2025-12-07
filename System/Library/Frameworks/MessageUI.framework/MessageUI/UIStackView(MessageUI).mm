@@ -11,54 +11,54 @@
 
 + (id)mf_baselineAlignedHorizontalStackView
 {
-  v0 = [objc_alloc(objc_opt_class()) initWithFrame:{*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)}];
-  [v0 setTranslatesAutoresizingMaskIntoConstraints:0];
-  [v0 setAxis:0];
-  [v0 setAlignment:2];
-  [v0 setDistribution:2];
+  v2 = [objc_alloc(objc_opt_class()) initWithFrame:{*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)}];
+  [v2 setTranslatesAutoresizingMaskIntoConstraints:0];
+  [v2 setAxis:0];
+  [v2 setAlignment:2];
+  [v2 setDistribution:2];
 
-  return v0;
+  return v2;
 }
 
 + (id)mf_baselineAlignedVerticalStackView
 {
-  v0 = [objc_alloc(objc_opt_class()) initWithFrame:{*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)}];
-  [v0 setTranslatesAutoresizingMaskIntoConstraints:0];
-  [v0 setAxis:1];
-  [v0 setAlignment:0];
-  [v0 setBaselineRelativeArrangement:1];
+  v2 = [objc_alloc(objc_opt_class()) initWithFrame:{*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)}];
+  [v2 setTranslatesAutoresizingMaskIntoConstraints:0];
+  [v2 setAxis:1];
+  [v2 setAlignment:0];
+  [v2 setBaselineRelativeArrangement:1];
 
-  return v0;
+  return v2;
 }
 
 + (id)mf_equallyFilledVerticalStackView
 {
-  v0 = [objc_alloc(objc_opt_class()) initWithFrame:{*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)}];
-  [v0 setAxis:1];
-  [v0 setAlignment:0];
-  [v0 setDistribution:1];
+  v2 = [objc_alloc(objc_opt_class()) initWithFrame:{*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)}];
+  [v2 setAxis:1];
+  [v2 setAlignment:0];
+  [v2 setDistribution:1];
 
-  return v0;
+  return v2;
 }
 
 + (id)mf_equallyFilledHorizontalStackView
 {
-  v0 = [objc_alloc(objc_opt_class()) initWithFrame:{*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)}];
-  [v0 setAxis:0];
-  [v0 setAlignment:0];
-  [v0 setDistribution:1];
+  v2 = [objc_alloc(objc_opt_class()) initWithFrame:{*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)}];
+  [v2 setAxis:0];
+  [v2 setAlignment:0];
+  [v2 setDistribution:1];
 
-  return v0;
+  return v2;
 }
 
 + (id)mf_equalSpacingHorizontalStackView
 {
-  v0 = [objc_alloc(objc_opt_class()) initWithFrame:{*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)}];
-  [v0 setAxis:0];
-  [v0 setDistribution:3];
-  [v0 setTranslatesAutoresizingMaskIntoConstraints:0];
+  v2 = [objc_alloc(objc_opt_class()) initWithFrame:{*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)}];
+  [v2 setAxis:0];
+  [v2 setDistribution:3];
+  [v2 setTranslatesAutoresizingMaskIntoConstraints:0];
 
-  return v0;
+  return v2;
 }
 
 - (void)mf_addArrangedSubviews:()MessageUI

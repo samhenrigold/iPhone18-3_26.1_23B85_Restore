@@ -1,9 +1,66 @@
 @interface PGPublicEventContextualRule
 - (BOOL)canProvideContextualKeyAssetsWithOptions:(id)options;
 - (PGPublicEventContextualRule)initWithGraph:(id)graph photoLibrary:(id)library loggingConnection:(id)connection;
+- (id)highlightNodesMatchingYearHighlight:(id)highlight sharingFilter:(unsigned __int16)filter withOptions:(id)options;
+- (void)enumerateContextualKeyAssetsForYearHighlight:(id)highlight sharingFilter:(unsigned __int16)filter withOptions:(id)options modelReader:(id)reader curationContext:(id)context usingBlock:(id)block;
 @end
 
 @implementation PGPublicEventContextualRule
+
+- (id)highlightNodesMatchingYearHighlight:(id)highlight sharingFilter:(unsigned __int16)filter withOptions:(id)options
+{
+  filterCopy = filter;
+  v7 = [PGContextualRuleUtils onThisDayLocalDateForYearHighlight:highlight withOptions:options];
+  v8 = [v7 dateByAddingTimeInterval:-1209600.0];
+  v9 = [v7 dateByAddingTimeInterval:1209600.0];
+  v10 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v8 endDate:v9];
+  v11 = [(PGGraphMomentNodeCollection *)self->_momentNodesMatchingPublicEvents subsetForLocalDateInterval:v10];
+  highlightNodes = [v11 highlightNodes];
+  v13 = [PGHighlightEnrichmentUtilities filteredHighlightNodesWithHighlightNodes:highlightNodes forSharingFilter:filterCopy];
+
+  return v13;
+}
+
+- (void)enumerateContextualKeyAssetsForYearHighlight:(id)highlight sharingFilter:(unsigned __int16)filter withOptions:(id)options modelReader:(id)reader curationContext:(id)context usingBlock:(id)block
+{
+  filterCopy = filter;
+  v37 = *MEMORY[0x277D85DE8];
+  highlightCopy = highlight;
+  optionsCopy = options;
+  readerCopy = reader;
+  contextCopy = context;
+  blockCopy = block;
+  if (blockCopy && [(MAElementCollection *)self->_publicEventNodes count]&& [(MAElementCollection *)self->_momentNodesMatchingPublicEvents count])
+  {
+    v19 = [(PGPublicEventContextualRule *)self highlightNodesMatchingYearHighlight:highlightCopy sharingFilter:filterCopy withOptions:optionsCopy];
+    loggingConnection = self->_loggingConnection;
+    if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_INFO))
+    {
+      publicEventNodes = self->_publicEventNodes;
+      v22 = loggingConnection;
+      *buf = 138412802;
+      v32 = publicEventNodes;
+      v33 = 2048;
+      v34 = [v19 count];
+      v35 = 2112;
+      v36 = highlightCopy;
+      _os_log_impl(&dword_22F0FC000, v22, OS_LOG_TYPE_INFO, "Public event nodes %@ matched %tu highlight nodes for year %@", buf, 0x20u);
+    }
+
+    v23 = [PGContextualRuleUtils onThisDayLocalDateForYearHighlight:highlightCopy withOptions:optionsCopy];
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __141__PGPublicEventContextualRule_enumerateContextualKeyAssetsForYearHighlight_sharingFilter_withOptions_modelReader_curationContext_usingBlock___block_invoke;
+    v25[3] = &unk_278883AE0;
+    v26 = v23;
+    v30 = filterCopy;
+    v27 = highlightCopy;
+    selfCopy = self;
+    v29 = blockCopy;
+    v24 = v23;
+    [v19 enumerateNodesUsingBlock:v25];
+  }
+}
 
 void __141__PGPublicEventContextualRule_enumerateContextualKeyAssetsForYearHighlight_sharingFilter_withOptions_modelReader_curationContext_usingBlock___block_invoke(uint64_t a1, void *a2)
 {
@@ -27,7 +84,7 @@ void __141__PGPublicEventContextualRule_enumerateContextualKeyAssetsForYearHighl
 
 - (BOOL)canProvideContextualKeyAssetsWithOptions:(id)options
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   localToday = [options localToday];
   v5 = [PGGraphMonthDayNodeCollection monthDayNodesForLocalDate:localToday inGraph:self->_graph];
   dateNodes = [v5 dateNodes];
@@ -51,7 +108,7 @@ void __141__PGPublicEventContextualRule_enumerateContextualKeyAssetsForYearHighl
   {
     categoryNodes = [(PGGraphPublicEventNodeCollection *)self->_publicEventNodes categoryNodes];
     [categoryNodes labels];
-    v31 = localToday;
+    v30 = localToday;
     v18 = publicEventNodes;
     v19 = v12;
     v20 = v11;
@@ -68,7 +125,7 @@ void __141__PGPublicEventContextualRule_enumerateContextualKeyAssetsForYearHighl
     v11 = v20;
     v12 = v19;
     publicEventNodes = v18;
-    localToday = v31;
+    localToday = v30;
   }
 
   loggingConnection = self->_loggingConnection;
@@ -77,18 +134,17 @@ void __141__PGPublicEventContextualRule_enumerateContextualKeyAssetsForYearHighl
     v28 = self->_publicEventNodes;
     *buf = 138413314;
     selfCopy = self;
-    v36 = 1024;
-    v37 = v16 != 0;
-    v38 = 2112;
-    v39 = v28;
-    v40 = 1024;
-    v41 = isEmpty2 ^ 1;
-    v42 = 1024;
-    v43 = isEmpty ^ 1;
+    v35 = 1024;
+    v36 = v16 != 0;
+    v37 = 2112;
+    v38 = v28;
+    v39 = 1024;
+    v40 = isEmpty2 ^ 1;
+    v41 = 1024;
+    v42 = isEmpty ^ 1;
     _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_DEFAULT, "%@: canProvideContextualKeyAssets: %d\n\tMatched public events: %@\n\tRecently at public event: %d\n\tMatched on this day public event: %d", buf, 0x28u);
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return v16 != 0;
 }
 

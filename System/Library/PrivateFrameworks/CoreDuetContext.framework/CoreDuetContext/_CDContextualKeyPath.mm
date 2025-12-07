@@ -1,5 +1,6 @@
 @interface _CDContextualKeyPath
 + (_CDContextualKeyPath)keyPathWithKey:(id)key;
++ (_CDContextualKeyPath)keyPathWithKey:(id)key isUserCentric:(BOOL)centric;
 + (id)ephemeralKeyPathWithKey:(id)key;
 + (id)remoteKeyPathForKeyPath:(id)path forDeviceID:(id)d;
 + (id)remotekeyPathForKeyPath:(id)path forDevice:(unint64_t)device;
@@ -69,6 +70,18 @@
   }
 
   return v14;
+}
+
++ (_CDContextualKeyPath)keyPathWithKey:(id)key isUserCentric:(BOOL)centric
+{
+  centricCopy = centric;
+  keyCopy = key;
+  v6 = objc_alloc(objc_opt_class());
+  v7 = +[_CDDevice localDevice];
+  deviceID = [v7 deviceID];
+  v9 = [v6 initWithKey:keyCopy forDeviceID:deviceID isUserCentric:centricCopy isEphemeral:0];
+
+  return v9;
 }
 
 + (_CDContextualKeyPath)keyPathWithKey:(id)key
@@ -231,18 +244,17 @@ LABEL_12:
 
 - (id)forwardingTargetForSelector:(SEL)selector
 {
-  key = self->_key;
   if (objc_opt_respondsToSelector())
   {
-    v5 = self->_key;
+    v4 = self->_key;
   }
 
   else
   {
-    v5 = 0;
+    v4 = 0;
   }
 
-  return v5;
+  return v4;
 }
 
 @end

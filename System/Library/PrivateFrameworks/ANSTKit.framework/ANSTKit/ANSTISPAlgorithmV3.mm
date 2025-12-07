@@ -16,11 +16,11 @@
 
 - (ANSTISPAlgorithmV3)initWithConfiguration:(id)configuration
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
-  v54.receiver = self;
-  v54.super_class = ANSTISPAlgorithmV3;
-  v6 = [(ANSTISPAlgorithm *)&v54 initWithConfiguration:configurationCopy];
+  v56.receiver = self;
+  v56.super_class = ANSTISPAlgorithmV3;
+  v6 = [(ANSTISPAlgorithm *)&v56 initWithConfiguration:configurationCopy];
   v7 = v6;
   if (v6)
   {
@@ -36,55 +36,55 @@
     v7->_networkInputBufferPixelFormat = objc_msgSend_pixelFormatType(v22, v23, v24);
 
     v25 = [ANSTE5MLNetwork alloc];
-    v53 = 0;
-    v27 = objc_msgSend_initWithInferenceDescriptor_error_(v25, v26, v9, &v53);
-    v28 = v53;
+    v55 = 0;
+    v27 = objc_msgSend_initWithInferenceDescriptor_error_(v25, v26, v9, &v55);
+    v28 = v55;
     network = v7->_network;
     v7->_network = v27;
 
     if (v7->_network)
     {
-      if (!objc_msgSend__requiresPartialNetwork_(ANSTISPAlgorithmV3, v30, configurationCopy))
+      if (!objc_msgSend__requiresPartialNetwork_(ANSTISPAlgorithmV3, v31, configurationCopy))
       {
         p_super = &v7->_partialNetwork->super;
         v7->_partialNetwork = 0;
         goto LABEL_10;
       }
 
-      p_super = objc_msgSend_copy(v7->_config, v31, v32);
-      objc_msgSend_setEnableSkinTone_(p_super, v34, 0);
-      objc_msgSend_setEnableBodyKeypoints_(p_super, v35, 0);
-      objc_msgSend_setEnableDepth_(p_super, v36, 0);
-      v38 = objc_msgSend_networkDescriptorForConfig_(ANSTISPAlgorithmV3, v37, p_super);
-      v39 = [ANSTE5MLNetwork alloc];
-      v52 = v28;
-      v41 = objc_msgSend_initWithInferenceDescriptor_error_(v39, v40, v38, &v52);
-      v42 = v52;
+      p_super = objc_msgSend_copy(v7->_config, v32, v33);
+      objc_msgSend_setEnableSkinTone_(p_super, v35, 0);
+      objc_msgSend_setEnableBodyKeypoints_(p_super, v36, 0);
+      objc_msgSend_setEnableDepth_(p_super, v37, 0);
+      v39 = objc_msgSend_networkDescriptorForConfig_(ANSTISPAlgorithmV3, v38, p_super);
+      v40 = [ANSTE5MLNetwork alloc];
+      v54 = v28;
+      v42 = objc_msgSend_initWithInferenceDescriptor_error_(v40, v41, v39, &v54);
+      v43 = v54;
 
       partialNetwork = v7->_partialNetwork;
-      v7->_partialNetwork = v41;
+      v7->_partialNetwork = v42;
 
       if (v7->_partialNetwork)
       {
 
-        v28 = v42;
+        v28 = v43;
 LABEL_10:
 
         v7->_readyForInference = 0;
-        v44 = _ANSTLoggingGetOSLogForCategoryANSTKit();
-        if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+        v47 = _ANSTLoggingGetOSLogForCategoryANSTKit(v46);
+        if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
         {
-          v47 = objc_msgSend_description(v7->_config, v45, v46);
+          v50 = objc_msgSend_description(v7->_config, v48, v49);
           *buf = 138543362;
-          v56 = v47;
-          _os_log_impl(&dword_22E5D5000, v44, OS_LOG_TYPE_DEFAULT, "ANSTISPAlgorithm v3.5 initialized with config %{public}@.", buf, 0xCu);
+          v58 = v50;
+          _os_log_impl(&dword_22E5D5000, v47, OS_LOG_TYPE_DEFAULT, "ANSTISPAlgorithm v3.5 initialized with config %{public}@.", buf, 0xCu);
         }
 
         goto LABEL_13;
       }
 
-      v49 = _ANSTLoggingGetOSLogForCategoryANSTKit();
-      if (os_log_type_enabled(v49, OS_LOG_TYPE_FAULT))
+      v52 = _ANSTLoggingGetOSLogForCategoryANSTKit(v45);
+      if (os_log_type_enabled(v52, OS_LOG_TYPE_FAULT))
       {
         sub_22E65C540();
       }
@@ -92,25 +92,24 @@ LABEL_10:
 
     else
     {
-      p_super = _ANSTLoggingGetOSLogForCategoryANSTKit();
+      p_super = _ANSTLoggingGetOSLogForCategoryANSTKit(v30);
       if (os_log_type_enabled(p_super, OS_LOG_TYPE_FAULT))
       {
         sub_22E65C540();
       }
 
-      v42 = v28;
+      v43 = v28;
     }
 
-    v48 = 0;
+    v51 = 0;
     goto LABEL_18;
   }
 
 LABEL_13:
-  v48 = v7;
+  v51 = v7;
 LABEL_18:
 
-  v50 = *MEMORY[0x277D85DE8];
-  return v48;
+  return v51;
 }
 
 - (void)dealloc
@@ -130,7 +129,7 @@ LABEL_18:
 
 - (id)resultForPixelBuffer:(__CVBuffer *)buffer orientation:(int64_t)orientation error:(id *)error
 {
-  v9 = _ANSTLoggingGetOSLogForCategoryANSTKit();
+  v9 = _ANSTLoggingGetOSLogForCategoryANSTKit(self);
   v10 = os_signpost_id_make_with_pointer(v9, self);
 
   if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
@@ -153,7 +152,7 @@ LABEL_18:
 
 - (BOOL)prepareWithError:(id *)error
 {
-  v5 = _ANSTLoggingGetOSLogForCategoryANSTKit();
+  v5 = _ANSTLoggingGetOSLogForCategoryANSTKit(self);
   v6 = os_signpost_id_make_with_pointer(v5, self);
 
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
@@ -212,24 +211,26 @@ LABEL_18:
   v4 = [ANSTISPInferenceConfiguration alloc];
   v6 = objc_msgSend_initWithISPAlgorithmConfiguration_(v4, v5, configCopy);
 
-  v14 = 0;
-  v8 = objc_msgSend_descriptorWithConfiguration_error_(ANSTISPInferenceDescriptor, v7, v6, &v14);
-  v10 = v14;
+  v16 = 0;
+  v8 = objc_msgSend_descriptorWithConfiguration_error_(ANSTISPInferenceDescriptor, v7, v6, &v16);
+  v9 = v16;
+  v11 = v9;
   if (!v8)
   {
-    v11 = _ANSTLoggingGetOSLogForCategoryANSTKit();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+    v12 = _ANSTLoggingGetOSLogForCategoryANSTKit(v9);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
       sub_22E65C5B4();
     }
   }
 
-  if ((objc_msgSend_conformsToProtocol_(v8, v9, &unk_28432ED88) & 1) == 0)
+  v13 = objc_msgSend_conformsToProtocol_(v8, v10, &unk_28432ED88);
+  if ((v13 & 1) == 0)
   {
-    v12 = _ANSTLoggingGetOSLogForCategoryANSTKit();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+    v14 = _ANSTLoggingGetOSLogForCategoryANSTKit(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
-      sub_22E65C628(v12);
+      sub_22E65C628(v14);
     }
   }
 
@@ -254,7 +255,7 @@ LABEL_18:
 
 - (BOOL)_prepareWithError:(id *)error
 {
-  v65[1] = *MEMORY[0x277D85DE8];
+  v64[1] = *MEMORY[0x277D85DE8];
   if (!self->_readyForInference)
   {
     v6 = objc_msgSend_networkDescriptorForConfig_(ANSTISPAlgorithmV3, a2, self->_config);
@@ -263,7 +264,7 @@ LABEL_18:
       network = self->_network;
       v12 = objc_msgSend_outputPriorMaskMapDescriptor(v6, v9, v10);
       v15 = objc_msgSend_name(v12, v13, v14);
-      v60 = v6;
+      v59 = v6;
       v18 = objc_msgSend_inputMemoryDescriptor(v6, v16, v17);
       v21 = objc_msgSend_name(v18, v19, v20);
       if (!objc_msgSend_registerNetworkOutputNamed_asDataSourceForNetworkInputNamed_error_(network, v22, v15, v21, error))
@@ -279,17 +280,17 @@ LABEL_27:
       {
 LABEL_28:
         v3 = 0;
-        v6 = v60;
+        v6 = v59;
         goto LABEL_24;
       }
 
-      v6 = v60;
-      if (objc_msgSend__retainIOReferencesWithNetworkDescriptor_error_(self, v25, v60, error) && objc_msgSend__preparePostProcessorWithNetworkDescriptor_error_(self, v26, v60, error) && (!objc_msgSend__requiresPartialNetwork_(ANSTISPAlgorithmV3, v27, self->_config) || objc_msgSend_loadNetworkWithError_(self->_partialNetwork, v28, error) && objc_msgSend_bindNetworkIOToExistingNetwork_error_(self->_partialNetwork, v29, self->_network, error) && objc_msgSend_commitNetworkIOBindingsWithError_(self->_partialNetwork, v30, error)))
+      v6 = v59;
+      if (objc_msgSend__retainIOReferencesWithNetworkDescriptor_error_(self, v25, v59, error) && objc_msgSend__preparePostProcessorWithNetworkDescriptor_error_(self, v26, v59, error) && (!objc_msgSend__requiresPartialNetwork_(ANSTISPAlgorithmV3, v27, self->_config) || objc_msgSend_loadNetworkWithError_(self->_partialNetwork, v28, error) && objc_msgSend_bindNetworkIOToExistingNetwork_error_(self->_partialNetwork, v29, self->_network, error) && objc_msgSend_commitNetworkIOBindingsWithError_(self->_partialNetwork, v30, error)))
       {
         if (VTPixelTransferSessionCreate(0, &self->_pixelTransferSession) || VTSessionSetProperty(self->_pixelTransferSession, *MEMORY[0x277CE28B0], *MEMORY[0x277CE2A78]) || VTSessionSetProperty(self->_pixelTransferSession, *MEMORY[0x277CE28A8], *MEMORY[0x277CBED28]))
         {
           v33 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v31, @"Failed to prepare VTPixelTransferSession");
-          v34 = _ANSTLoggingGetOSLogForCategoryANSTKit();
+          v34 = _ANSTLoggingGetOSLogForCategoryANSTKit(v33);
           if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
           {
             sub_22E65C6AC();
@@ -298,10 +299,10 @@ LABEL_28:
           if (error)
           {
             v36 = MEMORY[0x277CCA9B8];
-            v64 = *MEMORY[0x277CCA068];
-            v65[0] = v33;
-            v37 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v35, v65, &v64, 1);
-            v6 = v60;
+            v63 = *MEMORY[0x277CCA068];
+            v64[0] = v33;
+            v37 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v35, v64, &v63, 1);
+            v6 = v59;
             *error = objc_msgSend_errorWithDomain_code_userInfo_(v36, v38, @"ANSTErrorDomain", 3, v37);
           }
 
@@ -323,38 +324,38 @@ LABEL_32:
           goto LABEL_24;
         }
 
-        v42 = [ANSTFaceAttributeAlgorithmConfiguration alloc];
-        v12 = objc_msgSend_initWithVersion_(v42, v43, 0x10000);
-        v44 = [ANSTFaceAttributeAlgorithm alloc];
-        v46 = objc_msgSend_initWithConfiguration_(v44, v45, v12);
+        v41 = [ANSTFaceAttributeAlgorithmConfiguration alloc];
+        v12 = objc_msgSend_initWithVersion_(v41, v42, 0x10000);
+        v43 = [ANSTFaceAttributeAlgorithm alloc];
+        v45 = objc_msgSend_initWithConfiguration_(v43, v44, v12);
         faceAttributeNetwork = self->_faceAttributeNetwork;
-        self->_faceAttributeNetwork = v46;
+        self->_faceAttributeNetwork = v45;
 
-        v48 = self->_faceAttributeNetwork;
-        v61 = 0;
-        v50 = objc_msgSend_prepareWithError_(v48, v49, &v61);
-        v51 = v61;
-        if (v50)
+        v47 = self->_faceAttributeNetwork;
+        v60 = 0;
+        v49 = objc_msgSend_prepareWithError_(v47, v48, &v60);
+        v50 = v60;
+        if (v49)
         {
 
           goto LABEL_32;
         }
 
-        v53 = v51;
-        v54 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v52, @"Failed to prepare face attribute network - %@", v51);
-        v55 = _ANSTLoggingGetOSLogForCategoryANSTKit();
-        if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
+        v52 = v50;
+        v53 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v51, @"Failed to prepare face attribute network - %@", v50);
+        v54 = _ANSTLoggingGetOSLogForCategoryANSTKit(v53);
+        if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
         {
           sub_22E65C6AC();
         }
 
         if (error)
         {
-          v57 = MEMORY[0x277CCA9B8];
-          v62 = *MEMORY[0x277CCA068];
-          v63 = v54;
-          v58 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v56, &v63, &v62, 1);
-          *error = objc_msgSend_errorWithDomain_code_userInfo_(v57, v59, @"ANSTErrorDomain", 3, v58);
+          v56 = MEMORY[0x277CCA9B8];
+          v61 = *MEMORY[0x277CCA068];
+          v62 = v53;
+          v57 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v55, &v62, &v61, 1);
+          *error = objc_msgSend_errorWithDomain_code_userInfo_(v56, v58, @"ANSTErrorDomain", 3, v57);
         }
 
         goto LABEL_27;
@@ -365,13 +366,10 @@ LABEL_23:
     v3 = 0;
 LABEL_24:
 
-    goto LABEL_25;
+    return v3;
   }
 
-  v3 = 1;
-LABEL_25:
-  v40 = *MEMORY[0x277D85DE8];
-  return v3;
+  return 1;
 }
 
 - (BOOL)_retainIOReferencesWithNetworkDescriptor:(id)descriptor error:(id *)error
@@ -384,66 +382,13 @@ LABEL_25:
   inputImagePixelBuffer = self->_inputImagePixelBuffer;
   self->_inputImagePixelBuffer = v15;
 
-  if (!self->_inputImagePixelBuffer)
+  v69 = 0;
+  if (self->_inputImagePixelBuffer)
   {
-    goto LABEL_9;
-  }
-
-  if (!objc_msgSend_enableSegmentation(self->_config, v17, v18))
-  {
-    goto LABEL_8;
-  }
-
-  v21 = self->_network;
-  v22 = objc_msgSend_outputPersonMapDescriptor(descriptorCopy, v19, v20);
-  v25 = objc_msgSend_name(v22, v23, v24);
-  v27 = objc_msgSend_pixelBufferForNetworkOutputNamed_error_(v21, v26, v25, error);
-  outputPersonMaskPixelBuffer = self->_outputPersonMaskPixelBuffer;
-  self->_outputPersonMaskPixelBuffer = v27;
-
-  v29 = self->_network;
-  v32 = objc_msgSend_outputSalientPersonMapDescriptor(descriptorCopy, v30, v31);
-  v35 = objc_msgSend_name(v32, v33, v34);
-  v37 = objc_msgSend_pixelBufferForNetworkOutputNamed_error_(v29, v36, v35, error);
-  outputSalientPersonMaskPixelBuffer = self->_outputSalientPersonMaskPixelBuffer;
-  self->_outputSalientPersonMaskPixelBuffer = v37;
-
-  v39 = self->_network;
-  v42 = objc_msgSend_outputSkinMapDescriptor(descriptorCopy, v40, v41);
-  v45 = objc_msgSend_name(v42, v43, v44);
-  v47 = objc_msgSend_pixelBufferForNetworkOutputNamed_error_(v39, v46, v45, error);
-  outputSkinMaskPixelBuffer = self->_outputSkinMaskPixelBuffer;
-  self->_outputSkinMaskPixelBuffer = v47;
-
-  v49 = self->_network;
-  v52 = objc_msgSend_outputHairMapDescriptor(descriptorCopy, v50, v51);
-  v55 = objc_msgSend_name(v52, v53, v54);
-  v57 = objc_msgSend_pixelBufferForNetworkOutputNamed_error_(v49, v56, v55, error);
-  outputHairMaskPixelBuffer = self->_outputHairMaskPixelBuffer;
-  self->_outputHairMaskPixelBuffer = v57;
-
-  v59 = self->_network;
-  v62 = objc_msgSend_outputSkyMapDescriptor(descriptorCopy, v60, v61);
-  v65 = objc_msgSend_name(v62, v63, v64);
-  v67 = objc_msgSend_pixelBufferForNetworkOutputNamed_error_(v59, v66, v65, error);
-  outputSkyMaskPixelBuffer = self->_outputSkyMaskPixelBuffer;
-  self->_outputSkyMaskPixelBuffer = v67;
-
-  if (!self->_outputPersonMaskPixelBuffer)
-  {
-    goto LABEL_9;
-  }
-
-  if (self->_outputSalientPersonMaskPixelBuffer && self->_outputSkinMaskPixelBuffer && self->_outputHairMaskPixelBuffer && self->_outputSkyMaskPixelBuffer)
-  {
-LABEL_8:
-    v69 = 1;
-  }
-
-  else
-  {
-LABEL_9:
-    v69 = 0;
+    if (!objc_msgSend_enableSegmentation(self->_config, v17, v18) || (v21 = self->_network, objc_msgSend_outputPersonMapDescriptor(descriptorCopy, v19, v20), v22 = objc_claimAutoreleasedReturnValue(), objc_msgSend_name(v22, v23, v24), v25 = objc_claimAutoreleasedReturnValue(), objc_msgSend_pixelBufferForNetworkOutputNamed_error_(v21, v26, v25, error), v27 = objc_claimAutoreleasedReturnValue(), outputPersonMaskPixelBuffer = self->_outputPersonMaskPixelBuffer, self->_outputPersonMaskPixelBuffer = v27, outputPersonMaskPixelBuffer, v25, v22, v29 = self->_network, objc_msgSend_outputSalientPersonMapDescriptor(descriptorCopy, v30, v31), v32 = objc_claimAutoreleasedReturnValue(), objc_msgSend_name(v32, v33, v34), v35 = objc_claimAutoreleasedReturnValue(), objc_msgSend_pixelBufferForNetworkOutputNamed_error_(v29, v36, v35, error), v37 = objc_claimAutoreleasedReturnValue(), outputSalientPersonMaskPixelBuffer = self->_outputSalientPersonMaskPixelBuffer, self->_outputSalientPersonMaskPixelBuffer = v37, outputSalientPersonMaskPixelBuffer, v35, v32, v39 = self->_network, objc_msgSend_outputSkinMapDescriptor(descriptorCopy, v40, v41), v42 = objc_claimAutoreleasedReturnValue(), objc_msgSend_name(v42, v43, v44), v45 = objc_claimAutoreleasedReturnValue(), objc_msgSend_pixelBufferForNetworkOutputNamed_error_(v39, v46, v45, error), v47 = objc_claimAutoreleasedReturnValue(), outputSkinMaskPixelBuffer = self->_outputSkinMaskPixelBuffer, self->_outputSkinMaskPixelBuffer = v47, outputSkinMaskPixelBuffer, v45, v42, v49 = self->_network, objc_msgSend_outputHairMapDescriptor(descriptorCopy, v50, v51), v52 = objc_claimAutoreleasedReturnValue(), objc_msgSend_name(v52, v53, v54), v55 = objc_claimAutoreleasedReturnValue(), objc_msgSend_pixelBufferForNetworkOutputNamed_error_(v49, v56, v55, error), v57 = objc_claimAutoreleasedReturnValue(), outputHairMaskPixelBuffer = self->_outputHairMaskPixelBuffer, self->_outputHairMaskPixelBuffer = v57, outputHairMaskPixelBuffer, v55, v52, v59 = self->_network, objc_msgSend_outputSkyMapDescriptor(descriptorCopy, v60, v61), v62 = objc_claimAutoreleasedReturnValue(), objc_msgSend_name(v62, v63, v64), v65 = objc_claimAutoreleasedReturnValue(), objc_msgSend_pixelBufferForNetworkOutputNamed_error_(v59, v66, v65, error), v67 = objc_claimAutoreleasedReturnValue(), outputSkyMaskPixelBuffer = self->_outputSkyMaskPixelBuffer, self->_outputSkyMaskPixelBuffer = v67, outputSkyMaskPixelBuffer, v65, v62, self->_outputPersonMaskPixelBuffer) && self->_outputSalientPersonMaskPixelBuffer && self->_outputSkinMaskPixelBuffer && self->_outputHairMaskPixelBuffer && self->_outputSkyMaskPixelBuffer)
+    {
+      v69 = 1;
+    }
   }
 
   return v69;
@@ -503,7 +448,7 @@ LABEL_9:
 
   if (!buffer)
   {
-    v20 = _ANSTLoggingGetOSLogForCategoryANSTKit();
+    v20 = _ANSTLoggingGetOSLogForCategoryANSTKit(self);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       sub_22E65C8A4();
@@ -529,7 +474,7 @@ LABEL_9:
   PixelFormatType = CVPixelBufferGetPixelFormatType(buffer);
   if (Width < Height)
   {
-    v14 = _ANSTLoggingGetOSLogForCategoryANSTKit();
+    v14 = _ANSTLoggingGetOSLogForCategoryANSTKit(PixelFormatType);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_22E65C824();
@@ -547,31 +492,32 @@ LABEL_9:
     goto LABEL_15;
   }
 
-  v26 = PixelFormatType;
-  if (Width == objc_msgSend_networkInputBufferWidth(self, v12, v13) && Height == objc_msgSend_networkInputBufferHeight(self, v27, v28) && v26 == objc_msgSend_networkInputBufferPixelFormat(self, v27, v28))
+  v25 = PixelFormatType;
+  if (Width == objc_msgSend_networkInputBufferWidth(self, v12, v13) && Height == objc_msgSend_networkInputBufferHeight(self, v26, v27) && v25 == objc_msgSend_networkInputBufferPixelFormat(self, v26, v27))
   {
-    v29 = objc_msgSend_pixelBuffer(self->_inputImagePixelBuffer, v27, v28);
-    if (BytesPerRow == CVPixelBufferGetBytesPerRow(v29))
+    v28 = objc_msgSend_pixelBuffer(self->_inputImagePixelBuffer, v26, v27);
+    if (BytesPerRow == CVPixelBufferGetBytesPerRow(v28))
     {
       CVPixelBufferLockBaseAddress(buffer, 1uLL);
-      v32 = objc_msgSend_pixelBuffer(self->_inputImagePixelBuffer, v30, v31);
-      CVPixelBufferLockBaseAddress(v32, 0);
+      v31 = objc_msgSend_pixelBuffer(self->_inputImagePixelBuffer, v29, v30);
+      CVPixelBufferLockBaseAddress(v31, 0);
       BaseAddress = CVPixelBufferGetBaseAddress(buffer);
-      v36 = objc_msgSend_pixelBuffer(self->_inputImagePixelBuffer, v34, v35);
-      v37 = CVPixelBufferGetBaseAddress(v36);
-      memcpy(v37, BaseAddress, BytesPerRow * Height);
-      v40 = objc_msgSend_pixelBuffer(self->_inputImagePixelBuffer, v38, v39);
-      CVPixelBufferUnlockBaseAddress(v40, 0);
+      v35 = objc_msgSend_pixelBuffer(self->_inputImagePixelBuffer, v33, v34);
+      v36 = CVPixelBufferGetBaseAddress(v35);
+      memcpy(v36, BaseAddress, BytesPerRow * Height);
+      v39 = objc_msgSend_pixelBuffer(self->_inputImagePixelBuffer, v37, v38);
+      CVPixelBufferUnlockBaseAddress(v39, 0);
       CVPixelBufferUnlockBaseAddress(buffer, 1uLL);
       goto LABEL_31;
     }
   }
 
   pixelTransferSession = self->_pixelTransferSession;
-  v44 = objc_msgSend_pixelBuffer(self->_inputImagePixelBuffer, v27, v28);
-  if (VTPixelTransferSessionTransferImage(pixelTransferSession, buffer, v44))
+  v43 = objc_msgSend_pixelBuffer(self->_inputImagePixelBuffer, v26, v27);
+  v44 = VTPixelTransferSessionTransferImage(pixelTransferSession, buffer, v43);
+  if (v44)
   {
-    v45 = _ANSTLoggingGetOSLogForCategoryANSTKit();
+    v45 = _ANSTLoggingGetOSLogForCategoryANSTKit(v44);
     if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
     {
       sub_22E65C728();
@@ -592,14 +538,14 @@ LABEL_9:
 LABEL_31:
   if (self->_partialNetwork)
   {
-    if (*(objc_msgSend_acResult(self->_postprocessor, v41, v42) + 33036))
+    if (*(objc_msgSend_acResult(self->_postprocessor, v40, v41) + 33036))
     {
       if (*(objc_msgSend_acResult(self->_postprocessor, v47, v48) + 33036) != 1)
       {
         v81 = MEMORY[0x277CCACA8];
         v82 = objc_msgSend_acResult(self->_postprocessor, v49, v50);
         v84 = objc_msgSend_stringWithFormat_(v81, v83, @"Unexpected sCIspAcANSTNetworkPerformanceType %d", *(v82 + 33036));
-        v85 = _ANSTLoggingGetOSLogForCategoryANSTKit();
+        v85 = _ANSTLoggingGetOSLogForCategoryANSTKit(v84);
         if (os_log_type_enabled(v85, OS_LOG_TYPE_ERROR))
         {
           sub_22E65C7A8();
@@ -633,7 +579,7 @@ LABEL_17:
     }
   }
 
-  else if (!objc_msgSend_executeInferenceWithError_(self->_network, v41, error))
+  else if (!objc_msgSend_executeInferenceWithError_(self->_network, v40, error))
   {
     goto LABEL_17;
   }
@@ -661,7 +607,6 @@ LABEL_39:
   v79 = objc_msgSend_pixelBuffer(self->_outputSkyMaskPixelBuffer, v77, v78);
   v23 = objc_msgSend_initWithAcResult_personMask_salientPersonMask_skinMask_hairMask_skyMask_saliencyMask_(v61, v80, v64, v67, v70, v73, v76, v79, 0);
 LABEL_18:
-  v24 = *MEMORY[0x277D85DE8];
 
   return v23;
 }

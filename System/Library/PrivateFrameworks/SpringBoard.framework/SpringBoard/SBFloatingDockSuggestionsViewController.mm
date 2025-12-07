@@ -640,7 +640,7 @@ void __123__SBFloatingDockSuggestionsViewController_dockSuggestionsModel_didRepl
   else
   {
     v5 = a3;
-    v7 = [*(a1 + 32) _iconForDisplayItem:a2];
+    v7 = [*(a1 + 32) _iconForDisplayItem:{a2, a4}];
     if (v7)
     {
       v14 = v7;
@@ -1142,7 +1142,7 @@ void __83__SBFloatingDockSuggestionsViewController__loadAndPlaceIconsInViewForDi
 
   [v14 setIconImageAndAccessoryAlpha:0.0];
   v15 = [v14 matchingIconViewByAddingConfigurationOptions:4 removingConfigurationOptions:0];
-  [v14 frame];
+  objc_msgSend_frame(v14);
   v17 = v16;
   v19 = v18;
   v21 = v20;
@@ -1212,13 +1212,13 @@ uint64_t __87__SBFloatingDockSuggestionsViewController__fadeOutIcon_atIndex_isRe
       {
         v5 = [*(a1 + 48) objectAtIndex:v3 - 1];
         v6 = [v4 iconViewForIcon:v5];
-        [v6 frame];
+        objc_msgSend_frame(v6);
         v8 = v7;
 
         v9 = *(a1 + 56);
         v10 = [*(a1 + 48) objectAtIndex:*(a1 + 64)];
         v11 = [v9 iconViewForIcon:v10];
-        [v11 frame];
+        objc_msgSend_frame(v11);
         v13 = v12;
 
         MaxX = v8 + (v13 - v8) * 0.5;
@@ -1283,16 +1283,16 @@ LABEL_6:
   v14 = [icons objectAtIndex:v12 - 1];
   v15 = [icons objectAtIndex:v12 + 1];
   v16 = [listView iconViewForIcon:v14];
-  [v16 frame];
+  objc_msgSend_frame(v16);
   v18 = v17;
 
   v19 = [listView iconViewForIcon:v15];
-  [v19 frame];
+  objc_msgSend_frame(v19);
   v21 = v20;
 
   v22 = v18 + (v21 - v18) * 0.5;
 LABEL_7:
-  [v13 frame];
+  objc_msgSend_frame(v13);
   [v13 setFrame:v22 - v24 * 0.5];
   [v13 setIconImageAndAccessoryAlpha:0.0];
   [v13 setIconContentScale:0.01];

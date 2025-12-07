@@ -7,10 +7,7 @@
 
 - (NSString)description
 {
-  v4 = *&self->sMSCTPartSMIL[OBJC_IVAR___BlastDoorSMSCTPartSMIL_sMSCTPartSMIL];
-  v5 = *&self->sMSCTPartSMIL[OBJC_IVAR___BlastDoorSMSCTPartSMIL_sMSCTPartSMIL + 8];
-  v6 = *&self->sMSCTPartSMIL[OBJC_IVAR___BlastDoorSMSCTPartSMIL_sMSCTPartSMIL + 16];
-  sub_214031CA0(*(&self->super.isa + OBJC_IVAR___BlastDoorSMSCTPartSMIL_sMSCTPartSMIL));
+  sub_214031CA0(*(&self->super.isa + OBJC_IVAR___BlastDoorSMSCTPartSMIL_sMSCTPartSMIL), *&self->sMSCTPartSMIL[OBJC_IVAR___BlastDoorSMSCTPartSMIL_sMSCTPartSMIL], *&self->sMSCTPartSMIL[OBJC_IVAR___BlastDoorSMSCTPartSMIL_sMSCTPartSMIL + 8]);
 
   sub_2146D9608();
   v2 = sub_2146D9588();

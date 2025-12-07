@@ -1,7 +1,7 @@
 @interface EKEvent(RTEventManagerAdditions)
 + (__CFString)participationStatusToString:()RTEventManagerAdditions;
+- (char)participantStatus;
 - (id)description;
-- (uint64_t)participantStatus;
 @end
 
 @implementation EKEvent(RTEventManagerAdditions)
@@ -66,7 +66,7 @@
   }
 }
 
-- (uint64_t)participantStatus
+- (char)participantStatus
 {
   result = [self participationStatus];
   if ((result - 1) >= 7)

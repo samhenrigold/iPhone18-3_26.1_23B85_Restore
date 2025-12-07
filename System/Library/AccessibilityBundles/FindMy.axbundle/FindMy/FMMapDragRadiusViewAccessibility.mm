@@ -43,32 +43,30 @@
 
 - (void)_axInitialHandleState
 {
-  LOBYTE(v10) = 0;
+  LOBYTE(v7[0]) = 0;
   objc_opt_class();
   v3 = [(FMMapDragRadiusViewAccessibility *)self safeValueForKey:@"handleImageView"];
   v4 = __UIAccessibilityCastAsClass();
 
   [v4 frame];
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x3010000000;
-  v13 = &unk_29BDE8187;
-  v14 = *MEMORY[0x29EDB90B8];
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3010000000;
-  v8 = &unk_29BDE8187;
-  v9 = v14;
+  v7[0] = 0;
+  v7[1] = v7;
+  v7[2] = 0x3010000000;
+  v7[3] = &unk_29BDE8187;
+  v8 = *MEMORY[0x29EDB90B8];
+  v5[0] = 0;
+  v5[1] = v5;
+  v5[2] = 0x3010000000;
+  v5[3] = &unk_29BDE8187;
+  v6 = v8;
   AXPerformSafeBlock();
-  v11[4];
   AXPerformSafeBlock();
-  v6[4];
   AXPerformSafeBlock();
-  _Block_object_dispose(&v5, 8);
-  _Block_object_dispose(&v10, 8);
+  _Block_object_dispose(v5, 8);
+  _Block_object_dispose(v7, 8);
 }
 
-uint64_t __57__FMMapDragRadiusViewAccessibility__axInitialHandleState__block_invoke(uint64_t a1)
+void *__57__FMMapDragRadiusViewAccessibility__axInitialHandleState__block_invoke(uint64_t a1)
 {
   [*(a1 + 32) maxPoint];
   v2 = *(*(a1 + 40) + 8);

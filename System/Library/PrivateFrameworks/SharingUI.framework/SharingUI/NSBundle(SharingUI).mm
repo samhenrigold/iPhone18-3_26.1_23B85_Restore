@@ -11,9 +11,9 @@
     +[NSBundle(SharingUI) sfui_bundle];
   }
 
-  v1 = sfui_bundle_frameworkBundle;
+  v2 = sfui_bundle_frameworkBundle;
 
-  return v1;
+  return v2;
 }
 
 @end

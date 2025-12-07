@@ -55,9 +55,11 @@
 
 uint64_t __61__PXArrayChangeDetails_changeDetailsWithNoIncrementalChanges__block_invoke()
 {
-  changeDetailsWithNoIncrementalChanges_changeDetails = [(PXArrayChangeDetails *)[_PXArrayNoIncrementalChangeDetails alloc] initWithIncrementalChangeDetailsRemovedIndexes:0 insertedIndexes:0 movesToIndexes:0 movesFromIndexes:0 changedIndexes:0];
+  v0 = [(PXArrayChangeDetails *)[_PXArrayNoIncrementalChangeDetails alloc] initWithIncrementalChangeDetailsRemovedIndexes:0 insertedIndexes:0 movesToIndexes:0 movesFromIndexes:0 changedIndexes:0];
+  v1 = changeDetailsWithNoIncrementalChanges_changeDetails;
+  changeDetailsWithNoIncrementalChanges_changeDetails = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (BOOL)hasMoves
@@ -104,9 +106,11 @@ uint64_t __61__PXArrayChangeDetails_changeDetailsWithNoIncrementalChanges__block
 
 uint64_t __50__PXArrayChangeDetails_changeDetailsWithNoChanges__block_invoke()
 {
-  changeDetailsWithNoChanges__sharedEmptyChangeDetails = [[PXArrayChangeDetails alloc] initWithIncrementalChangeDetailsRemovedIndexes:0 insertedIndexes:0 movesToIndexes:0 movesFromIndexes:0 changedIndexes:0];
+  v0 = [[PXArrayChangeDetails alloc] initWithIncrementalChangeDetailsRemovedIndexes:0 insertedIndexes:0 movesToIndexes:0 movesFromIndexes:0 changedIndexes:0];
+  v1 = changeDetailsWithNoChanges__sharedEmptyChangeDetails;
+  changeDetailsWithNoChanges__sharedEmptyChangeDetails = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)changeDetailsByMergingChangeDetails:(id)details

@@ -680,9 +680,9 @@ LABEL_16:
 
     if (v19 && v20)
     {
-      v22 = [v19 isEqual:v20];
+      isEqual = objc_msgSend_isEqual_(v19);
 
-      if (v22)
+      if (isEqual)
       {
         goto LABEL_25;
       }
@@ -744,7 +744,7 @@ LABEL_25:
 
     if (v33 && v34)
     {
-      v36 = [v33 isEqual:v34];
+      v36 = objc_msgSend_isEqual_(v33);
 
       if (v36)
       {
@@ -758,7 +758,7 @@ LABEL_33:
         {
           if (v39 && v40)
           {
-            v42 = [v39 isEqual:v40];
+            v42 = objc_msgSend_isEqual_(v39);
 
             if (v42)
             {
@@ -1527,7 +1527,7 @@ LABEL_5:
 
   preferredContentSizeCategory = [v8 preferredContentSizeCategory];
   v14 = preferredContentSizeCategory;
-  if (preferredContentSizeCategory && ([preferredContentSizeCategory isEqualToString:@"UICTContentSizeCategoryL"] & 1) == 0)
+  if (preferredContentSizeCategory && (objc_msgSend_isEqualToString_(preferredContentSizeCategory) & 1) == 0)
   {
     v15 = @"UICTContentSizeCategoryL";
   }

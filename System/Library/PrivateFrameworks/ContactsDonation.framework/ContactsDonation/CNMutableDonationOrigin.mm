@@ -13,9 +13,7 @@
 {
   if (self->super._bundleIdentifier != identifier)
   {
-    v5 = [identifier copy];
-    bundleIdentifier = self->super._bundleIdentifier;
-    self->super._bundleIdentifier = v5;
+    self->super._bundleIdentifier = [identifier copy];
 
     MEMORY[0x2821F96F8]();
   }
@@ -25,9 +23,7 @@
 {
   if (self->super._donationIdentifier != identifier)
   {
-    v5 = [identifier copy];
-    donationIdentifier = self->super._donationIdentifier;
-    self->super._donationIdentifier = v5;
+    self->super._donationIdentifier = [identifier copy];
 
     MEMORY[0x2821F96F8]();
   }
@@ -37,9 +33,7 @@
 {
   if (self->super._clusterIdentifier != identifier)
   {
-    v5 = [identifier copy];
-    clusterIdentifier = self->super._clusterIdentifier;
-    self->super._clusterIdentifier = v5;
+    self->super._clusterIdentifier = [identifier copy];
 
     MEMORY[0x2821F96F8]();
   }
@@ -49,9 +43,7 @@
 {
   if (self->super._donationDate != date)
   {
-    v5 = [date copy];
-    donationDate = self->super._donationDate;
-    self->super._donationDate = v5;
+    self->super._donationDate = [date copy];
 
     MEMORY[0x2821F96F8]();
   }
@@ -61,9 +53,7 @@
 {
   if (self->super._expirationDate != date)
   {
-    v5 = [date copy];
-    expirationDate = self->super._expirationDate;
-    self->super._expirationDate = v5;
+    self->super._expirationDate = [date copy];
 
     MEMORY[0x2821F96F8]();
   }

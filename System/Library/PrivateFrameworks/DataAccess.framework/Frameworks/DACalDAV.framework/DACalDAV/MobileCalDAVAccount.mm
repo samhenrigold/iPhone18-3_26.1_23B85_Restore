@@ -66,6 +66,7 @@
 - (void)_reallyPerformSearchQuery:(id)query;
 - (void)_releasePowerAssertion;
 - (void)_retainPowerAssertion;
+- (void)_updateCalendarStore:(BOOL)store;
 - (void)addCalendar:(id)calendar;
 - (void)addPrincipal:(id)principal;
 - (void)calendarsDataclassModified;
@@ -86,16 +87,23 @@
 - (void)setAccountProperty:(id)property forKey:(id)key;
 - (void)setCalendarHomeSyncToken:(id)token;
 - (void)setCollectionSetURL:(id)l;
+- (void)setEnabled:(BOOL)enabled forDADataclass:(int64_t)dataclass;
+- (void)setHaveForcedDefaultCalendarRefetch:(BOOL)refetch;
 - (void)setHost:(id)host;
+- (void)setIsDelegateAccount:(BOOL)account;
+- (void)setIsWritable:(BOOL)writable;
 - (void)setObject:(id)object forKeyedSubscript:(id)subscript;
 - (void)setPassword:(id)password;
 - (void)setPort:(int64_t)port;
 - (void)setPrincipalPath:(id)path;
 - (void)setPrincipalURL:(id)l;
+- (void)setPushDisabled:(BOOL)disabled;
 - (void)setRefreshInterval:(double)interval;
 - (void)setSearchPropertySet:(id)set;
 - (void)setServerVersion:(id)version;
+- (void)setShouldDoInitialAutodiscovery:(BOOL)autodiscovery;
 - (void)setSubscribedCalendars:(id)calendars;
+- (void)setUseSSL:(BOOL)l;
 - (void)setUsername:(id)username;
 - (void)setWasMigrated:(BOOL)migrated;
 - (void)syncEndedWithError:(id)error;
@@ -139,7 +147,7 @@
 
 - (void)ingestBackingAccountInfoProperties
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   [(MobileCalDAVAccount *)self setMPrincipals:0];
   mainPrincipal = [(MobileCalDAVAccount *)self mainPrincipal];
 
@@ -166,27 +174,27 @@
   [(MobileCalDAVAccount *)self setMPrincipals:v7];
 
   [(MobileCalDAVAccount *)self objectForKeyedSubscript:*MEMORY[0x277CF78D8]];
+  v47 = 0u;
   v48 = 0u;
   v49 = 0u;
-  v50 = 0u;
-  v47 = v51 = 0u;
-  allKeys = [v47 allKeys];
-  v9 = [allKeys countByEnumeratingWithState:&v48 objects:v56 count:16];
+  v46 = v50 = 0u;
+  allKeys = [v46 allKeys];
+  v9 = [allKeys countByEnumeratingWithState:&v47 objects:v55 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v49;
+    v11 = *v48;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v49 != v11)
+        if (*v48 != v11)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v13 = *(*(&v48 + 1) + 8 * i);
-        v14 = [v47 valueForKey:v13];
+        v13 = *(*(&v47 + 1) + 8 * i);
+        v14 = [v46 valueForKey:v13];
         v15 = [[MobileCalDAVPrincipal alloc] initWithConfiguration:v14 principalUID:v13 account:self];
         mPrincipals = [(MobileCalDAVAccount *)self mPrincipals];
         [mPrincipals setObject:v15 forKeyedSubscript:v13];
@@ -206,12 +214,12 @@
             [(MobileCalDAVAccount *)self setMainPrincipal:v15];
             mainPrincipal3 = [(MobileCalDAVAccount *)self mainPrincipal];
             v20 = [mainPrincipal3 uid];
-            [(MobileCalDAVAccount *)self setObject:v20 forKeyedSubscript:v46];
+            [(MobileCalDAVAccount *)self setObject:v20 forKeyedSubscript:v45];
           }
         }
       }
 
-      v10 = [allKeys countByEnumeratingWithState:&v48 objects:v56 count:16];
+      v10 = [allKeys countByEnumeratingWithState:&v47 objects:v55 count:16];
     }
 
     while (v10);
@@ -228,9 +236,9 @@
       accountDescription = [(MobileCalDAVAccount *)self accountDescription];
       publicDescription = [(MobileCalDAVAccount *)self publicDescription];
       *buf = 138412546;
-      v53 = accountDescription;
-      v54 = 2114;
-      v55 = publicDescription;
+      v52 = accountDescription;
+      v53 = 2114;
+      v54 = publicDescription;
       _os_log_impl(&dword_2484B2000, v22, v23, "No main principal found in the account properties for %@ (%{public}@). Creating a new one.", buf, 0x16u);
     }
 
@@ -239,7 +247,7 @@
 
     mainPrincipal5 = [(MobileCalDAVAccount *)self mainPrincipal];
     v28 = [mainPrincipal5 uid];
-    [(MobileCalDAVAccount *)self setObject:v28 forKeyedSubscript:v46];
+    [(MobileCalDAVAccount *)self setObject:v28 forKeyedSubscript:v45];
 
     mainPrincipal6 = [(MobileCalDAVAccount *)self mainPrincipal];
     [(MobileCalDAVAccount *)self addPrincipal:mainPrincipal6];
@@ -277,8 +285,6 @@
 
   [(MobileCalDAVAccount *)self setNeedsAccountPropertyRefresh:1];
   self->_wasMigrated = -1;
-
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 - (DALocalDBHelper)dbHelper
@@ -291,13 +297,11 @@
 
 - (NSDictionary)contextDictionary
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"kDACalDAVContextDictionaryKey_DBHelper";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"kDACalDAVContextDictionaryKey_DBHelper";
   dbHelper = [(MobileCalDAVAccount *)self dbHelper];
-  v7[0] = dbHelper;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = dbHelper;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
@@ -537,12 +541,26 @@ LABEL_9:
   return useSSL;
 }
 
+- (void)setUseSSL:(BOOL)l
+{
+  lCopy = l;
+  backingAccount = [(MobileCalDAVAccount *)self backingAccount];
+  [backingAccount setUseSSL:lCopy];
+}
+
 - (void)setAccountProperty:(id)property forKey:(id)key
 {
   keyCopy = key;
   propertyCopy = property;
   backingAccount = [(MobileCalDAVAccount *)self backingAccount];
   [backingAccount setAccountProperty:propertyCopy forKey:keyCopy];
+}
+
+- (void)setEnabled:(BOOL)enabled forDADataclass:(int64_t)dataclass
+{
+  enabledCopy = enabled;
+  backingAccount = [(MobileCalDAVAccount *)self backingAccount];
+  [backingAccount setEnabled:enabledCopy forDADataclass:dataclass];
 }
 
 - (NSURL)collectionSetURL
@@ -585,6 +603,12 @@ LABEL_9:
   return bOOLValue;
 }
 
+- (void)setIsWritable:(BOOL)writable
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:writable];
+  [(MobileCalDAVAccount *)self setObject:v4 forKeyedSubscript:@"CalDAVMobileAccountIsWritable"];
+}
+
 - (BOOL)wasMigrated
 {
   if (self->_wasMigrated == -1)
@@ -620,7 +644,7 @@ LABEL_9:
 
 - (void)addCalendar:(id)calendar
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   calendarCopy = calendar;
   v5 = DALoggingwithCategory();
   v6 = *(MEMORY[0x277D03988] + 6);
@@ -637,13 +661,13 @@ LABEL_9:
     }
 
     calendarURLString = [calendarCopy calendarURLString];
-    v19 = 138412802;
-    v20 = v7;
-    v21 = 2048;
-    v22 = calendarCopy;
-    v23 = 2112;
-    v24 = calendarURLString;
-    _os_log_impl(&dword_2484B2000, v5, v6, "Adding %@calendar %p with url %@", &v19, 0x20u);
+    v18 = 138412802;
+    v19 = v7;
+    v20 = 2048;
+    v21 = calendarCopy;
+    v22 = 2112;
+    v23 = calendarURLString;
+    _os_log_impl(&dword_2484B2000, v5, v6, "Adding %@calendar %p with url %@", &v18, 0x20u);
   }
 
   if ([calendarCopy isSubscribed])
@@ -670,13 +694,11 @@ LABEL_9:
 
   calendars = [(MobileCalDAVAccount *)self calendars];
   [calendars addObject:calendarCopy];
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeCalendar:(id)calendar
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   calendarCopy = calendar;
   v5 = DALoggingwithCategory();
   v6 = *(MEMORY[0x277D03988] + 6);
@@ -693,13 +715,13 @@ LABEL_9:
     }
 
     calendarURLString = [calendarCopy calendarURLString];
-    v18 = 138412802;
-    v19 = v7;
-    v20 = 2048;
-    v21 = calendarCopy;
-    v22 = 2112;
-    v23 = calendarURLString;
-    _os_log_impl(&dword_2484B2000, v5, v6, "Removing %@calendar %p at url %@", &v18, 0x20u);
+    v17 = 138412802;
+    v18 = v7;
+    v19 = 2048;
+    v20 = calendarCopy;
+    v21 = 2112;
+    v22 = calendarURLString;
+    _os_log_impl(&dword_2484B2000, v5, v6, "Removing %@calendar %p at url %@", &v17, 0x20u);
   }
 
   if ([calendarCopy isSubscribed])
@@ -721,48 +743,46 @@ LABEL_9:
   [calendarCopy deleteCalendar];
   calendars = [(MobileCalDAVAccount *)self calendars];
   [calendars removeObject:calendarCopy];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeCalendarWithURL:(id)l
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   lCopy = l;
   v5 = DALoggingwithCategory();
   v6 = *(MEMORY[0x277D03988] + 6);
   if (os_log_type_enabled(v5, v6))
   {
     *buf = 138412290;
-    v27 = lCopy;
+    v26 = lCopy;
     _os_log_impl(&dword_2484B2000, v5, v6, "Removing calendar with url %@", buf, 0xCu);
   }
 
-  v20 = lCopy;
+  v19 = lCopy;
   absoluteString = [lCopy absoluteString];
   calendars = [(MobileCalDAVAccount *)self calendars];
   v9 = [calendars copy];
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v10 = v9;
-  v11 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v22;
+    v13 = *v21;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v22 != v13)
+        if (*v21 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v21 + 1) + 8 * i);
+        v15 = *(*(&v20 + 1) + 8 * i);
         calendarURL = [v15 calendarURL];
         absoluteString2 = [calendarURL absoluteString];
         v18 = [absoluteString2 isEqualToString:absoluteString];
@@ -773,18 +793,16 @@ LABEL_9:
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v12);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (NSSet)calendars
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   mCalendars = [(MobileCalDAVAccount *)selfCopy mCalendars];
@@ -794,8 +812,8 @@ LABEL_9:
     duplicateCalendars = selfCopy->_duplicateCalendars;
     selfCopy->_duplicateCalendars = 0;
 
-    v29 = objc_opt_new();
-    v30 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v28 = objc_opt_new();
+    v29 = objc_alloc_init(MEMORY[0x277CBEB38]);
     dbHelper = [(MobileCalDAVAccount *)selfCopy dbHelper];
     accountID = [(MobileCalDAVAccount *)selfCopy accountID];
     changeTrackingID = [(MobileCalDAVAccount *)selfCopy changeTrackingID];
@@ -820,9 +838,9 @@ LABEL_9:
           {
             calendarURLString = [v15 calendarURLString];
             *buf = 134218242;
-            v32 = v15;
-            v33 = 2112;
-            v34 = calendarURLString;
+            v31 = v15;
+            v32 = 2112;
+            v33 = calendarURLString;
             _os_log_impl(&dword_2484B2000, v16, v12, "Loaded calendar %p with URL %@", buf, 0x16u);
           }
 
@@ -838,7 +856,7 @@ LABEL_9:
               absoluteString = v20;
             }
 
-            v21 = [v30 objectForKeyedSubscript:absoluteString];
+            v21 = [v29 objectForKeyedSubscript:absoluteString];
             if (v21)
             {
               [(MobileCalDAVAccount *)selfCopy _foundDuplicateCalendar:v15 ofCalendar:v21];
@@ -847,14 +865,14 @@ LABEL_9:
 
             else
             {
-              [v29 addObject:v15];
-              [v30 setObject:v15 forKeyedSubscript:absoluteString];
+              [v28 addObject:v15];
+              [v29 setObject:v15 forKeyedSubscript:absoluteString];
             }
           }
 
           else
           {
-            [v29 addObject:v15];
+            [v28 addObject:v15];
           }
         }
 
@@ -865,7 +883,7 @@ LABEL_9:
           {
             UID = CalCalendarGetUID();
             *buf = 67109120;
-            LODWORD(v32) = UID;
+            LODWORD(v31) = UID;
             _os_log_impl(&dword_2484B2000, v15, v12, "Ignoring calendar %d because it isn't a type we care about.", buf, 8u);
           }
         }
@@ -881,7 +899,7 @@ LABEL_9:
       v11 = 0;
     }
 
-    [(MobileCalDAVAccount *)selfCopy setMCalendars:v29];
+    [(MobileCalDAVAccount *)selfCopy setMCalendars:v28];
     dbHelper2 = [(MobileCalDAVAccount *)selfCopy dbHelper];
     accountID2 = [(MobileCalDAVAccount *)selfCopy accountID];
     [dbHelper2 calCloseDatabaseForAccountID:accountID2 save:0];
@@ -895,14 +913,13 @@ LABEL_9:
   objc_sync_exit(selfCopy);
 
   mCalendars2 = [(MobileCalDAVAccount *)selfCopy mCalendars];
-  v26 = *MEMORY[0x277D85DE8];
 
   return mCalendars2;
 }
 
 - (void)_foundDuplicateCalendar:(id)calendar ofCalendar:(id)ofCalendar
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   calendarCopy = calendar;
   ofCalendarCopy = ofCalendar;
   calCalendar = [ofCalendarCopy calCalendar];
@@ -919,17 +936,15 @@ LABEL_9:
     duplicateCalendars = self->_duplicateCalendars;
   }
 
-  v15[0] = ofCalendarCopy;
-  v15[1] = calendarCopy;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+  v14[0] = ofCalendarCopy;
+  v14[1] = calendarCopy;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
   [(NSMutableArray *)duplicateCalendars addObject:v13];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_logDuplicateCalendarDetails:(void *)details
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if (details)
   {
     UID = CalCalendarGetUID();
@@ -943,21 +958,21 @@ LABEL_9:
     v11 = *(MEMORY[0x277D03988] + 3);
     if (os_log_type_enabled(v10, v11))
     {
-      v14[0] = 67110658;
-      v14[1] = UID;
-      v15 = 2112;
-      v16 = v4;
-      v17 = 2112;
-      v18 = v5;
-      v19 = 2114;
-      v20 = v6;
-      v21 = 2114;
-      v22 = v7;
-      v23 = 2114;
-      v24 = v8;
-      v25 = 2114;
-      v26 = v9;
-      _os_log_impl(&dword_2484B2000, v10, v11, "Duplicate Calendar: [rowid=%i, title=%@, external_id=%@, external_mod_tag=%{public}@, external_id_tag=%{public}@, UUID=%{public}@, sync_token=%{public}@]", v14, 0x44u);
+      v13[0] = 67110658;
+      v13[1] = UID;
+      v14 = 2112;
+      v15 = v4;
+      v16 = 2112;
+      v17 = v5;
+      v18 = 2114;
+      v19 = v6;
+      v20 = 2114;
+      v21 = v7;
+      v22 = 2114;
+      v23 = v8;
+      v24 = 2114;
+      v25 = v9;
+      _os_log_impl(&dword_2484B2000, v10, v11, "Duplicate Calendar: [rowid=%i, title=%@, external_id=%@, external_mod_tag=%{public}@, external_id_tag=%{public}@, UUID=%{public}@, sync_token=%{public}@]", v13, 0x44u);
     }
   }
 
@@ -967,27 +982,23 @@ LABEL_9:
     v12 = *(MEMORY[0x277D03988] + 3);
     if (os_log_type_enabled(v4, v12))
     {
-      LOWORD(v14[0]) = 0;
-      _os_log_impl(&dword_2484B2000, v4, v12, "Duplicate calendar doesn't have a calendar ref!", v14, 2u);
+      LOWORD(v13[0]) = 0;
+      _os_log_impl(&dword_2484B2000, v4, v12, "Duplicate calendar doesn't have a calendar ref!", v13, 2u);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_foundDuplicateCalendars:(int)calendars
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v4 = DALoggingwithCategory();
   v5 = *(MEMORY[0x277D03988] + 3);
   if (os_log_type_enabled(v4, v5))
   {
-    v7[0] = 67109120;
-    v7[1] = calendars;
-    _os_log_impl(&dword_2484B2000, v4, v5, "Found %i duplicate calendars", v7, 8u);
+    v6[0] = 67109120;
+    v6[1] = calendars;
+    _os_log_impl(&dword_2484B2000, v4, v5, "Found %i duplicate calendars", v6, 8u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)duplicateCalendars
@@ -1085,7 +1096,7 @@ LABEL_9:
 
 - (void)setServerVersion:(id)version
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   versionCopy = version;
   serverVersion = [(MobileCalDAVAccount *)self serverVersion];
   v7 = [versionCopy isEqual:serverVersion];
@@ -1097,11 +1108,11 @@ LABEL_9:
     if (os_log_type_enabled(v8, v9))
     {
       serverVersion2 = [(MobileCalDAVAccount *)self serverVersion];
-      v14 = 138412546;
-      v15 = versionCopy;
-      v16 = 2112;
-      v17 = serverVersion2;
-      _os_log_impl(&dword_2484B2000, v8, v9, "Setting CalDAV server version to '%@' (currently '%@')", &v14, 0x16u);
+      v13 = 138412546;
+      v14 = versionCopy;
+      v15 = 2112;
+      v16 = serverVersion2;
+      _os_log_impl(&dword_2484B2000, v8, v9, "Setting CalDAV server version to '%@' (currently '%@')", &v13, 0x16u);
     }
 
     objc_storeStrong(&self->_serverVersion, version);
@@ -1111,14 +1122,12 @@ LABEL_9:
     v12 = DALoggingwithCategory();
     if (os_log_type_enabled(v12, v9))
     {
-      LOWORD(v14) = 0;
-      _os_log_impl(&dword_2484B2000, v12, v9, "Updating calendar store and saving account properties since CalDAV server version changed", &v14, 2u);
+      LOWORD(v13) = 0;
+      _os_log_impl(&dword_2484B2000, v12, v9, "Updating calendar store and saving account properties since CalDAV server version changed", &v13, 2u);
     }
 
     [(MobileCalDAVAccount *)self _updateCalendarStore:0];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)shouldFilterEventSyncTimeRange
@@ -1217,6 +1226,12 @@ LABEL_9:
   return bOOLValue;
 }
 
+- (void)setHaveForcedDefaultCalendarRefetch:(BOOL)refetch
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:refetch];
+  [(MobileCalDAVAccount *)self setObject:v4 forKeyedSubscript:@"HaveForcedDefaultCalendarRefetch"];
+}
+
 - (NSString)host
 {
   backingAccount = [(MobileCalDAVAccount *)self backingAccount];
@@ -1270,12 +1285,26 @@ LABEL_9:
   return pushDisabled;
 }
 
+- (void)setPushDisabled:(BOOL)disabled
+{
+  disabledCopy = disabled;
+  backingAccount = [(MobileCalDAVAccount *)self backingAccount];
+  [backingAccount setPushDisabled:disabledCopy];
+}
+
 - (BOOL)shouldDoInitialAutodiscovery
 {
   backingAccount = [(MobileCalDAVAccount *)self backingAccount];
   backingAccountShouldDoInitialAutodiscovery = [backingAccount backingAccountShouldDoInitialAutodiscovery];
 
   return backingAccountShouldDoInitialAutodiscovery;
+}
+
+- (void)setShouldDoInitialAutodiscovery:(BOOL)autodiscovery
+{
+  autodiscoveryCopy = autodiscovery;
+  backingAccount = [(MobileCalDAVAccount *)self backingAccount];
+  [backingAccount setBackingAccountShouldDoInitialAutodiscovery:autodiscoveryCopy];
 }
 
 - (id)_calendarConstraintsName
@@ -1398,7 +1427,7 @@ LABEL_7:
 
 + (id)_defaultAlarmOffsetFromICSString:(id)string
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   v4 = stringCopy;
   if (stringCopy && [stringCopy length])
@@ -1408,27 +1437,27 @@ LABEL_7:
     v7 = MEMORY[0x277D03988];
     if (v5 && ([v5 calendar], v8 = objc_claimAutoreleasedReturnValue(), v8, v8))
     {
-      v26 = 0u;
-      v27 = 0u;
-      v24 = 0u;
       v25 = 0u;
+      v26 = 0u;
+      v23 = 0u;
+      v24 = 0u;
       calendar = [v6 calendar];
       components = [calendar components];
 
-      v11 = [components countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v11 = [components countByEnumeratingWithState:&v23 objects:v27 count:16];
       if (v11)
       {
-        v12 = *v25;
+        v12 = *v24;
         while (2)
         {
           for (i = 0; i != v11; i = i + 1)
           {
-            if (*v25 != v12)
+            if (*v24 != v12)
             {
               objc_enumerationMutation(components);
             }
 
-            v14 = *(*(&v24 + 1) + 8 * i);
+            v14 = *(*(&v23 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -1437,7 +1466,7 @@ LABEL_7:
             }
           }
 
-          v11 = [components countByEnumeratingWithState:&v24 objects:v28 count:16];
+          v11 = [components countByEnumeratingWithState:&v23 objects:v27 count:16];
           if (v11)
           {
             continue;
@@ -1455,7 +1484,7 @@ LABEL_7:
       if (os_log_type_enabled(components, v16))
       {
         *buf = 138412290;
-        v30 = v4;
+        v29 = v4;
         _os_log_impl(&dword_2484B2000, components, v16, "Could not parse the ics containing the default alarms. ICS: %@", buf, 0xCu);
       }
 
@@ -1480,7 +1509,7 @@ LABEL_19:
       if (os_log_type_enabled(value, v21))
       {
         *buf = 138412290;
-        v30 = v4;
+        v29 = v4;
         _os_log_impl(&dword_2484B2000, value, v21, "Date based default alarms are not a thing. ICS: %@", buf, 0xCu);
       }
 
@@ -1493,18 +1522,15 @@ LABEL_19:
     v15 = &unk_285ABBAE0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
 - (BOOL)_updateCalendarStoreProperties:(void *)properties
 {
-  v102 = *MEMORY[0x277D85DE8];
+  v101 = *MEMORY[0x277D85DE8];
   if (!properties)
   {
-    result = 0;
-    goto LABEL_117;
+    return 0;
   }
 
   v4 = CalStoreCopyName();
@@ -1561,30 +1587,30 @@ LABEL_19:
 
   v15 = CalStoreCopyExternalID();
   accountID = [(MobileCalDAVAccount *)self accountID];
-  v97 = v15;
+  v96 = v15;
   if (v15 != accountID && ([v15 isEqualToString:accountID] & 1) == 0)
   {
     CalStoreSetExternalID();
     v6 = 1;
   }
 
-  v98 = v6;
-  v96 = accountID;
+  v97 = v6;
+  v95 = accountID;
   _calendarConstraintsName = [(MobileCalDAVAccount *)self _calendarConstraintsName];
-  v94 = CalStoreCopyConstraintsName();
-  if (([v94 isEqualToString:_calendarConstraintsName] & 1) == 0)
+  v93 = CalStoreCopyConstraintsName();
+  if (([v93 isEqualToString:_calendarConstraintsName] & 1) == 0)
   {
     v18 = DALoggingwithCategory();
     v19 = *(MEMORY[0x277D03988] + 6);
     if (os_log_type_enabled(v18, v19))
     {
       *buf = 138412290;
-      v101 = _calendarConstraintsName;
+      v100 = _calendarConstraintsName;
       _os_log_impl(&dword_2484B2000, v18, v19, "Setting calendar store constraints plist path to '%@'", buf, 0xCu);
     }
 
     CalStoreSetConstraintsName();
-    v98 = 1;
+    v97 = 1;
   }
 
   if ((CalIsReminderBridgeEnabled() & 1) != 0 || ![(MobileCalDAVAccount *)self supportsReminders])
@@ -1604,7 +1630,7 @@ LABEL_19:
   {
 LABEL_30:
     CalStoreSetAllowsTasks();
-    v98 = 1;
+    v97 = 1;
   }
 
 LABEL_31:
@@ -1625,12 +1651,12 @@ LABEL_31:
   {
 LABEL_35:
     CalStoreSetAllowsEvents();
-    v98 = 1;
+    v97 = 1;
   }
 
 LABEL_36:
   mainPrincipal2 = [(MobileCalDAVAccount *)self mainPrincipal];
-  v95 = _calendarConstraintsName;
+  v94 = _calendarConstraintsName;
   if ([mainPrincipal2 canCreateCalendars])
   {
     serverVersion = [(MobileCalDAVAccount *)self serverVersion];
@@ -1652,7 +1678,7 @@ LABEL_36:
     v31 = 0;
   }
 
-  v32 = v98;
+  v32 = v97;
   if (v31 != CalStoreAllowsCalendarAddDeleteModify())
   {
     CalStoreSetAllowsCalendarAddDeleteModify();
@@ -1918,8 +1944,8 @@ LABEL_36:
 
     if (alarmsDirty)
     {
-      v93 = fullName;
-      v99 = v8;
+      v92 = fullName;
+      v98 = v8;
       v77 = accountDescription;
       v78 = v4;
       v79 = objc_opt_class();
@@ -1951,23 +1977,23 @@ LABEL_36:
 
       v4 = v78;
       accountDescription = v77;
-      v8 = v99;
-      fullName = v93;
+      v8 = v98;
+      fullName = v92;
     }
   }
 
   v90 = CalStoreCopyCachedExternalInfo();
   _externalInfoDictionary = [(MobileCalDAVAccount *)self _externalInfoDictionary];
-  if (v90 | _externalInfoDictionary && ([v90 isEqual:_externalInfoDictionary] & 1) == 0)
+  if (v90 | _externalInfoDictionary)
   {
-    CalStoreSetCachedExternalInfo();
-    v32 = 1;
+    if (([v90 isEqual:_externalInfoDictionary] & 1) == 0)
+    {
+      CalStoreSetCachedExternalInfo();
+      v32 = 1;
+    }
   }
 
-  result = v32;
-LABEL_117:
-  v92 = *MEMORY[0x277D85DE8];
-  return result;
+  return v32;
 }
 
 - (BOOL)updateCalendarStoreWithAlreadyOpenDBShouldCreate:(BOOL)create syncingThisAccount:(BOOL)account
@@ -2038,29 +2064,60 @@ LABEL_117:
   return v8;
 }
 
+- (void)_updateCalendarStore:(BOOL)store
+{
+  storeCopy = store;
+  accountID = [(MobileCalDAVAccount *)self accountID];
+
+  if (accountID)
+  {
+    dbHelper = [(MobileCalDAVAccount *)self dbHelper];
+    accountID2 = [(MobileCalDAVAccount *)self accountID];
+    changeTrackingID = [(MobileCalDAVAccount *)self changeTrackingID];
+    [dbHelper calOpenDatabaseForAccountID:accountID2 clientID:changeTrackingID];
+
+    v9 = [(MobileCalDAVAccount *)self updateCalendarStoreWithAlreadyOpenDBShouldCreate:storeCopy syncingThisAccount:1];
+    copyCalStore = [(MobileCalDAVAccount *)self copyCalStore];
+    if (copyCalStore)
+    {
+      dbHelper2 = [(MobileCalDAVAccount *)self dbHelper];
+      accountID3 = [(MobileCalDAVAccount *)self accountID];
+      [dbHelper2 calDatabaseForAccountID:accountID3];
+      changeTrackingID2 = [(MobileCalDAVAccount *)self changeTrackingID];
+      CalDatabaseRegisterClientForPersistentChangeTrackingInStore();
+
+      CFRelease(copyCalStore);
+    }
+
+    dbHelper3 = [(MobileCalDAVAccount *)self dbHelper];
+    accountID4 = [(MobileCalDAVAccount *)self accountID];
+    [dbHelper3 calCloseDatabaseForAccountID:accountID4 save:v9];
+  }
+}
+
 - (id)_externalInfoDictionary
 {
-  v21[3] = *MEMORY[0x277D85DE8];
+  v20[3] = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   host = [(MobileCalDAVAccount *)self host];
   v5 = host;
   if (host)
   {
     v6 = *MEMORY[0x277CF7468];
-    v21[0] = host;
+    v20[0] = host;
     v7 = *MEMORY[0x277CF7480];
-    v20[0] = v6;
-    v20[1] = v7;
+    v19[0] = v6;
+    v19[1] = v7;
     v8 = MEMORY[0x277CCABB0];
     backingAccount = [(MobileCalDAVAccount *)self backingAccount];
     v10 = [v8 numberWithInteger:{objc_msgSend(backingAccount, "port")}];
-    v21[1] = v10;
-    v20[2] = *MEMORY[0x277CF7490];
+    v20[1] = v10;
+    v19[2] = *MEMORY[0x277CF7490];
     v11 = MEMORY[0x277CCABB0];
     backingAccount2 = [(MobileCalDAVAccount *)self backingAccount];
     v13 = [v11 numberWithBool:{objc_msgSend(backingAccount2, "useSSL")}];
-    v21[2] = v13;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:3];
+    v20[2] = v13;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:3];
     [v3 addEntriesFromDictionary:v14];
 
     emailAddresses = [(MobileCalDAVAccount *)self emailAddresses];
@@ -2079,26 +2136,22 @@ LABEL_117:
   v17 = [MEMORY[0x277CCABB0] numberWithBool:{-[MobileCalDAVAccount isPrimaryAppleAccount](self, "isPrimaryAppleAccount")}];
   [v3 setObject:v17 forKeyedSubscript:*MEMORY[0x277CF7470]];
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v3;
 }
 
 - (NSArray)spinnerIdentifiers
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v2 = spinnerIdentifiers_sSpinnerIdentifiers;
   if (!spinnerIdentifiers_sSpinnerIdentifiers)
   {
-    v7[0] = *MEMORY[0x277CF78A0];
-    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
+    v6[0] = *MEMORY[0x277CF78A0];
+    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
     v4 = spinnerIdentifiers_sSpinnerIdentifiers;
     spinnerIdentifiers_sSpinnerIdentifiers = v3;
 
     v2 = spinnerIdentifiers_sSpinnerIdentifiers;
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -2116,7 +2169,7 @@ LABEL_117:
 
 - (void)syncEndedWithError:(id)error
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v5 = errorCopy;
   if (self->_syncInProgress)
@@ -2136,22 +2189,20 @@ LABEL_6:
     v7 = *(MEMORY[0x277D03988] + 3);
     if (os_log_type_enabled(v6, v7))
     {
-      v11 = 138412290;
-      v12 = v5;
-      _os_log_impl(&dword_2484B2000, v6, v7, "syncEndedWithError: called with an error while a sync is not in progress. Recording the error anyway. error = %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v5;
+      _os_log_impl(&dword_2484B2000, v6, v7, "syncEndedWithError: called with an error while a sync is not in progress. Recording the error anyway. error = %@", &v10, 0xCu);
     }
 
     goto LABEL_6;
   }
 
 LABEL_7:
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelRefreshWithCompletion:(id)completion
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = DALoggingwithCategory();
   v6 = *(MEMORY[0x277D03988] + 6);
@@ -2160,21 +2211,21 @@ LABEL_7:
     accountDescription = [(MobileCalDAVAccount *)self accountDescription];
     publicDescription = [(MobileCalDAVAccount *)self publicDescription];
     *buf = 138412546;
-    v21 = accountDescription;
-    v22 = 2114;
-    v23 = publicDescription;
+    v20 = accountDescription;
+    v21 = 2114;
+    v22 = publicDescription;
     _os_log_impl(&dword_2484B2000, v5, v6, "Canceling MobileCalDAVAccount refresh for account %@ (%{public}@)", buf, 0x16u);
   }
 
-  v14 = MEMORY[0x277D85DD0];
-  v15 = 3221225472;
-  v16 = __51__MobileCalDAVAccount_cancelRefreshWithCompletion___block_invoke;
-  v17 = &unk_278F175A0;
+  v13 = MEMORY[0x277D85DD0];
+  v14 = 3221225472;
+  v15 = __51__MobileCalDAVAccount_cancelRefreshWithCompletion___block_invoke;
+  v16 = &unk_278F175A0;
   selfCopy = self;
-  v19 = completionCopy;
+  v18 = completionCopy;
   v9 = completionCopy;
-  v10 = MEMORY[0x24C1D0520](&v14);
-  v11 = [(MobileCalDAVAccount *)self actor:v14];
+  v10 = MEMORY[0x24C1D0520](&v13);
+  v11 = [(MobileCalDAVAccount *)self actor:v13];
 
   if (v11)
   {
@@ -2186,8 +2237,6 @@ LABEL_7:
   {
     v10[2](v10);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __51__MobileCalDAVAccount_cancelRefreshWithCompletion___block_invoke(uint64_t a1)
@@ -2208,7 +2257,7 @@ uint64_t __51__MobileCalDAVAccount_cancelRefreshWithCompletion___block_invoke(ui
 
 - (void)_clearOrphanedCalendarItemChangesOfType:(int)type withContext:(id)context goodCalendarIds:(id)ids
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   idsCopy = ids;
   dbHelper = [(MobileCalDAVAccount *)self dbHelper];
@@ -2231,7 +2280,7 @@ uint64_t __51__MobileCalDAVAccount_cancelRefreshWithCompletion___block_invoke(ui
       }
 
       *buf = 138412290;
-      v21 = v17;
+      v20 = v17;
       _os_log_impl(&dword_2484B2000, v15, v16, "Searching for orhpaned %@ changes", buf, 0xCu);
     }
 
@@ -2248,13 +2297,11 @@ uint64_t __51__MobileCalDAVAccount_cancelRefreshWithCompletion___block_invoke(ui
       _os_log_impl(&dword_2484B2000, v13, v14, "Couldn't get a calendar store to clear orphaned calendar item changes", buf, 2u);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_clearOrphanedChangesWithChangesCall:(void *)call entityType:(int)type withContext:(id)context
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   dbHelper = [(MobileCalDAVAccount *)self dbHelper];
   accountID = [(MobileCalDAVAccount *)self accountID];
@@ -2266,7 +2313,7 @@ uint64_t __51__MobileCalDAVAccount_cancelRefreshWithCompletion___block_invoke(ui
     v12 = copyCalStore;
     theDict = 0;
     (call)(v10, copyCalStore, &theDict);
-    v30 = contextCopy;
+    v29 = contextCopy;
     if (theDict)
     {
       Value = CFDictionaryGetValue(theDict, *MEMORY[0x277CF75E0]);
@@ -2309,7 +2356,7 @@ uint64_t __51__MobileCalDAVAccount_cancelRefreshWithCompletion___block_invoke(ui
             if (os_log_type_enabled(v24, v18))
             {
               *buf = 134217984;
-              v33 = i;
+              v32 = i;
               _os_log_impl(&dword_2484B2000, v24, v18, "Found an orphaned change at index %ld", buf, 0xCu);
             }
 
@@ -2330,7 +2377,7 @@ uint64_t __51__MobileCalDAVAccount_cancelRefreshWithCompletion___block_invoke(ui
           {
             v27 = CFArrayGetCount(Mutable);
             *buf = 134217984;
-            v33 = v27;
+            v32 = v27;
             _os_log_impl(&dword_2484B2000, v26, v18, "Found %ld orphaned changes", buf, 0xCu);
           }
 
@@ -2338,7 +2385,7 @@ uint64_t __51__MobileCalDAVAccount_cancelRefreshWithCompletion___block_invoke(ui
           CalDatabaseClearIndividualChangeRowIDsForClient();
 
           CFRelease(Mutable);
-          [v30 setShouldSave:1];
+          [v29 setShouldSave:1];
         }
       }
     }
@@ -2350,7 +2397,7 @@ uint64_t __51__MobileCalDAVAccount_cancelRefreshWithCompletion___block_invoke(ui
     }
 
     CFRelease(v12);
-    contextCopy = v30;
+    contextCopy = v29;
   }
 
   else
@@ -2363,8 +2410,6 @@ uint64_t __51__MobileCalDAVAccount_cancelRefreshWithCompletion___block_invoke(ui
       _os_log_impl(&dword_2484B2000, v15, v16, "Couldn't get a calendar store to clear orphaned changes", buf, 2u);
     }
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_clearOrphanedChangesWithContext:(id)context
@@ -2419,7 +2464,7 @@ uint64_t __51__MobileCalDAVAccount_cancelRefreshWithCompletion___block_invoke(ui
 
 - (BOOL)_saveModifiedSubscribedCalendarsOnBackingAccount
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   backingAccount = [(MobileCalDAVAccount *)self backingAccount];
   calDAVSubscribedCalendarsKey = [MEMORY[0x277D03970] CalDAVSubscribedCalendarsKey];
   v4 = [backingAccount objectForKeyedSubscript:calDAVSubscribedCalendarsKey];
@@ -2432,39 +2477,39 @@ uint64_t __51__MobileCalDAVAccount_cancelRefreshWithCompletion___block_invoke(ui
   if (os_log_type_enabled(v7, v9))
   {
     *buf = 138412290;
-    v53 = v6;
+    v52 = v6;
     _os_log_impl(&dword_2484B2000, v7, v9, "Existing subscribed calendars are: %@", buf, 0xCu);
   }
 
-  v39 = objc_opt_new();
+  v38 = objc_opt_new();
+  v46 = 0u;
   v47 = 0u;
   v48 = 0u;
   v49 = 0u;
-  v50 = 0u;
   obj = [(MobileCalDAVAccount *)self calendars];
-  v10 = [obj countByEnumeratingWithState:&v47 objects:v56 count:16];
+  v10 = [obj countByEnumeratingWithState:&v46 objects:v55 count:16];
   if (!v10)
   {
-    v40 = 0;
+    v39 = 0;
     goto LABEL_25;
   }
 
   v12 = v10;
-  v40 = 0;
-  v13 = *v48;
+  v39 = 0;
+  v13 = *v47;
   v14 = *(v8 + 3);
   *&v11 = 138412290;
-  v38 = v11;
+  v37 = v11;
   do
   {
     for (i = 0; i != v12; ++i)
     {
-      if (*v48 != v13)
+      if (*v47 != v13)
       {
         objc_enumerationMutation(obj);
       }
 
-      v16 = *(*(&v47 + 1) + 8 * i);
+      v16 = *(*(&v46 + 1) + 8 * i);
       if ([v16 isSubscribed])
       {
         calendarURLString = [v16 calendarURLString];
@@ -2485,20 +2530,20 @@ LABEL_13:
           {
             calendarURLString2 = [v16 calendarURLString];
             *buf = 134218242;
-            v53 = v16;
-            v54 = 2112;
-            v55 = calendarURLString2;
+            v52 = v16;
+            v53 = 2112;
+            v54 = calendarURLString2;
             _os_log_impl(&dword_2484B2000, v20, v9, "Subscribed calendar %p at %@ is dirty", buf, 0x16u);
           }
 
-          v40 = 1;
+          v39 = 1;
         }
 
         [v6 removeObject:calendarURLString];
         if (calendarURLString)
         {
           properties = [v16 properties];
-          [v39 setObject:properties forKeyedSubscript:calendarURLString];
+          [v38 setObject:properties forKeyedSubscript:calendarURLString];
         }
 
         else
@@ -2506,8 +2551,8 @@ LABEL_13:
           properties = DALoggingwithCategory();
           if (os_log_type_enabled(properties, v14))
           {
-            *buf = v38;
-            v53 = v16;
+            *buf = v37;
+            v52 = v16;
             _os_log_impl(&dword_2484B2000, properties, v14, "Subscribed calendar has no URL so its properties cannot be saved: %@", buf, 0xCu);
           }
         }
@@ -2516,60 +2561,60 @@ LABEL_13:
       }
     }
 
-    v12 = [obj countByEnumeratingWithState:&v47 objects:v56 count:16];
+    v12 = [obj countByEnumeratingWithState:&v46 objects:v55 count:16];
   }
 
   while (v12);
 LABEL_25:
 
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
   v44 = 0u;
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
   v23 = v6;
-  v24 = [v23 countByEnumeratingWithState:&v43 objects:v51 count:16];
+  v24 = [v23 countByEnumeratingWithState:&v42 objects:v50 count:16];
   if (v24)
   {
     v25 = v24;
-    v26 = *v44;
+    v26 = *v43;
     do
     {
       for (j = 0; j != v25; ++j)
       {
-        if (*v44 != v26)
+        if (*v43 != v26)
         {
           objc_enumerationMutation(v23);
         }
 
-        v28 = *(*(&v43 + 1) + 8 * j);
+        v28 = *(*(&v42 + 1) + 8 * j);
         v29 = DALoggingwithCategory();
         if (os_log_type_enabled(v29, v9))
         {
           *buf = 138412290;
-          v53 = v28;
+          v52 = v28;
           _os_log_impl(&dword_2484B2000, v29, v9, "Subscribed calendar at %@ was deleted", buf, 0xCu);
         }
       }
 
-      v25 = [v23 countByEnumeratingWithState:&v43 objects:v51 count:16];
+      v25 = [v23 countByEnumeratingWithState:&v42 objects:v50 count:16];
     }
 
     while (v25);
 
 LABEL_36:
     v30 = DALoggingwithCategory();
-    v31 = v39;
+    v31 = v38;
     if (os_log_type_enabled(v30, v9))
     {
-      allKeys2 = [v39 allKeys];
+      allKeys2 = [v38 allKeys];
       *buf = 138412290;
-      v53 = allKeys2;
+      v52 = allKeys2;
       _os_log_impl(&dword_2484B2000, v30, v9, "Subscribed calendars were modified. New calendars are %@", buf, 0xCu);
     }
 
     backingAccount2 = [(MobileCalDAVAccount *)self backingAccount];
     calDAVSubscribedCalendarsKey2 = [MEMORY[0x277D03970] CalDAVSubscribedCalendarsKey];
-    [backingAccount2 setObject:v39 forKeyedSubscript:calDAVSubscribedCalendarsKey2];
+    [backingAccount2 setObject:v38 forKeyedSubscript:calDAVSubscribedCalendarsKey2];
 
     v35 = 1;
   }
@@ -2577,24 +2622,23 @@ LABEL_36:
   else
   {
 
-    if (v40)
+    if (v39)
     {
       goto LABEL_36;
     }
 
     v35 = 0;
-    v31 = v39;
+    v31 = v38;
   }
 
-  v36 = *MEMORY[0x277D85DE8];
   return v35;
 }
 
 - (BOOL)_saveModifiedPrincipalsOnBackingAccount
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   backingAccount = [(MobileCalDAVAccount *)self backingAccount];
-  v35 = *MEMORY[0x277CF78D8];
+  v34 = *MEMORY[0x277CF78D8];
   v4 = [backingAccount objectForKeyedSubscript:?];
   v5 = [v4 mutableCopy];
 
@@ -2606,31 +2650,31 @@ LABEL_36:
   allKeys = [v5 allKeys];
   v7 = [allKeys mutableCopy];
 
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
   v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
   selfCopy = self;
   mPrincipals = [(MobileCalDAVAccount *)self mPrincipals];
   allValues = [mPrincipals allValues];
 
-  v10 = [allValues countByEnumeratingWithState:&v41 objects:v48 count:16];
+  v10 = [allValues countByEnumeratingWithState:&v40 objects:v47 count:16];
   if (v10)
   {
     v11 = v10;
     v12 = 0;
-    v13 = *v42;
+    v13 = *v41;
     v14 = *(MEMORY[0x277D03988] + 6);
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v42 != v13)
+        if (*v41 != v13)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v16 = *(*(&v41 + 1) + 8 * i);
+        v16 = *(*(&v40 + 1) + 8 * i);
         v17 = [v16 uid];
         [v7 removeObject:v17];
 
@@ -2641,7 +2685,7 @@ LABEL_36:
           {
             v19 = [v16 uid];
             *buf = 138412290;
-            v47 = v19;
+            v46 = v19;
             _os_log_impl(&dword_2484B2000, v18, v14, "Principal %@ is dirty", buf, 0xCu);
           }
 
@@ -2653,7 +2697,7 @@ LABEL_36:
         }
       }
 
-      v11 = [allValues countByEnumeratingWithState:&v41 objects:v48 count:16];
+      v11 = [allValues countByEnumeratingWithState:&v40 objects:v47 count:16];
     }
 
     while (v11);
@@ -2664,39 +2708,39 @@ LABEL_36:
     v12 = 0;
   }
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   v22 = v7;
-  v23 = [v22 countByEnumeratingWithState:&v37 objects:v45 count:16];
+  v23 = [v22 countByEnumeratingWithState:&v36 objects:v44 count:16];
   if (v23)
   {
     v24 = v23;
-    v25 = *v38;
+    v25 = *v37;
     v26 = *(MEMORY[0x277D03988] + 6);
     do
     {
       for (j = 0; j != v24; ++j)
       {
-        if (*v38 != v25)
+        if (*v37 != v25)
         {
           objc_enumerationMutation(v22);
         }
 
-        v28 = *(*(&v37 + 1) + 8 * j);
+        v28 = *(*(&v36 + 1) + 8 * j);
         v29 = DALoggingwithCategory();
         if (os_log_type_enabled(v29, v26))
         {
           *buf = 138412290;
-          v47 = v28;
+          v46 = v28;
           _os_log_impl(&dword_2484B2000, v29, v26, "Principal %@ was deleted.", buf, 0xCu);
         }
 
         [v5 removeObjectForKey:v28];
       }
 
-      v24 = [v22 countByEnumeratingWithState:&v37 objects:v45 count:16];
+      v24 = [v22 countByEnumeratingWithState:&v36 objects:v44 count:16];
     }
 
     while (v24);
@@ -2704,7 +2748,7 @@ LABEL_36:
   }
 
   backingAccount2 = [(MobileCalDAVAccount *)selfCopy backingAccount];
-  [backingAccount2 setObject:v5 forKeyedSubscript:v35];
+  [backingAccount2 setObject:v5 forKeyedSubscript:v34];
 
   if (v12)
   {
@@ -2717,13 +2761,12 @@ LABEL_36:
     }
   }
 
-  v33 = *MEMORY[0x277D85DE8];
   return v12 & 1;
 }
 
 - (void)refreshActor:(id)actor didCompleteWithError:(id)error
 {
-  v131 = *MEMORY[0x277D85DE8];
+  v130 = *MEMORY[0x277D85DE8];
   actorCopy = actor;
   errorCopy = error;
   if ([(MobileCalDAVAccount *)self isRefreshing])
@@ -2852,23 +2895,23 @@ LABEL_13:
       accountDescription = [(MobileCalDAVAccount *)self accountDescription];
       publicDescription = [(MobileCalDAVAccount *)self publicDescription];
       [errorCopy domain];
-      v114 = wasMigrated;
+      v113 = wasMigrated;
       v46 = v45 = v39;
       v47 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(errorCopy, "code")}];
       *buf = 138413314;
-      v122 = accountDescription;
-      v123 = 2114;
-      v124 = publicDescription;
-      v125 = 2112;
-      v126 = *&errorCopy;
-      v127 = 2114;
-      v128 = v46;
-      v129 = 2114;
-      v130 = v47;
+      v121 = accountDescription;
+      v122 = 2114;
+      v123 = publicDescription;
+      v124 = 2112;
+      v125 = *&errorCopy;
+      v126 = 2114;
+      v127 = v46;
+      v128 = 2114;
+      v129 = v47;
       _os_log_impl(&dword_2484B2000, context3, v42, "==== CalDAV refresh FAILED for %@ (%{public}@): %@. [Error Domain:%{public}@ Code:%{public}@]", buf, 0x34u);
 
       v39 = v45;
-      wasMigrated = v114;
+      wasMigrated = v113;
     }
 
 LABEL_25:
@@ -2893,9 +2936,9 @@ LABEL_25:
     accountDescription2 = [(MobileCalDAVAccount *)self accountDescription];
     accountID = [(MobileCalDAVAccount *)self accountID];
     *buf = 138412546;
-    v122 = accountDescription2;
-    v123 = 2114;
-    v124 = accountID;
+    v121 = accountDescription2;
+    v122 = 2114;
+    v123 = accountID;
     v56 = "==== CalDAV refresh completed successfully (but some calendars failed to sync) for %@ (%{public}@)";
   }
 
@@ -2909,9 +2952,9 @@ LABEL_25:
     accountDescription2 = [(MobileCalDAVAccount *)self accountDescription];
     accountID = [(MobileCalDAVAccount *)self accountID];
     *buf = 138412546;
-    v122 = accountDescription2;
-    v123 = 2114;
-    v124 = accountID;
+    v121 = accountDescription2;
+    v122 = 2114;
+    v123 = accountID;
     v56 = "==== CalDAV refresh completed successfully for %@ (%{public}@)";
   }
 
@@ -2933,13 +2976,13 @@ LABEL_32:
     refreshContext4 = [(MobileCalDAVAccount *)self refreshContext];
     numDownloadedElements2 = [refreshContext4 numDownloadedElements];
     *buf = 138413058;
-    v122 = accountDescription3;
-    v123 = 2114;
-    v124 = publicDescription2;
-    v125 = 2048;
-    v126 = v66;
-    v127 = 2048;
-    v128 = numDownloadedElements2;
+    v121 = accountDescription3;
+    v122 = 2114;
+    v123 = publicDescription2;
+    v124 = 2048;
+    v125 = v66;
+    v126 = 2048;
+    v127 = numDownloadedElements2;
     _os_log_impl(&dword_2484B2000, v57, v58, "CalDAV refresh finished for account %@ (%{public}@): Total sync time: %0.2f seconds. Number of downloaded items: %lu", buf, 0x2Au);
 
     v51 = MEMORY[0x277D03988];
@@ -2988,29 +3031,29 @@ LABEL_32:
   }
 
 LABEL_36:
-  v117 = 0u;
-  v118 = 0u;
-  v115 = 0u;
   v116 = 0u;
+  v117 = 0u;
+  v114 = 0u;
+  v115 = 0u;
   mCalendars = [(MobileCalDAVAccount *)self mCalendars];
-  v72 = [mCalendars countByEnumeratingWithState:&v115 objects:v120 count:16];
+  v72 = [mCalendars countByEnumeratingWithState:&v114 objects:v119 count:16];
   if (v72)
   {
     v73 = v72;
-    v74 = *v116;
+    v74 = *v115;
     do
     {
       for (i = 0; i != v73; ++i)
       {
-        if (*v116 != v74)
+        if (*v115 != v74)
         {
           objc_enumerationMutation(mCalendars);
         }
 
-        [*(*(&v115 + 1) + 8 * i) flushCaches];
+        [*(*(&v114 + 1) + 8 * i) flushCaches];
       }
 
-      v73 = [mCalendars countByEnumeratingWithState:&v115 objects:v120 count:16];
+      v73 = [mCalendars countByEnumeratingWithState:&v114 objects:v119 count:16];
     }
 
     while (v73);
@@ -3126,13 +3169,13 @@ LABEL_36:
       if (os_log_type_enabled(v108, v109))
       {
         *buf = 138543362;
-        v122 = context10;
+        v121 = context10;
         _os_log_impl(&dword_2484B2000, v108, v109, "DataAccess has determined via a push notification that reminders need syncing. Telling remindd to sync account %{public}@", buf, 0xCu);
       }
 
       v110 = objc_alloc_init(getREMStoreClass());
-      v119 = context10;
-      v111 = [MEMORY[0x277CBEA60] arrayWithObjects:&v119 count:1];
+      v118 = context10;
+      v111 = [MEMORY[0x277CBEA60] arrayWithObjects:&v118 count:1];
       [v110 triggerSyncForDataAccessAccountsWithAccountIDs:v111];
     }
 
@@ -3149,44 +3192,42 @@ LABEL_36:
 
 LABEL_73:
   }
-
-  v113 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_collectActionsFromMoveDictionary:(__CFDictionary *)dictionary forDataclass:(id)dataclass outShouldSave:(BOOL *)save
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   dataclassCopy = dataclass;
   v6 = objc_opt_new();
-  v57 = objc_opt_new();
+  v56 = objc_opt_new();
   Value = CFDictionaryGetValue(dictionary, *MEMORY[0x277CF75F0]);
   theArray = CFDictionaryGetValue(dictionary, *MEMORY[0x277CF75E0]);
-  v53 = CFDictionaryGetValue(dictionary, *MEMORY[0x277CF75F8]);
-  v52 = CFDictionaryGetValue(dictionary, *MEMORY[0x277CF7600]);
-  v47 = v6;
+  v52 = CFDictionaryGetValue(dictionary, *MEMORY[0x277CF75F8]);
+  v51 = CFDictionaryGetValue(dictionary, *MEMORY[0x277CF7600]);
+  v46 = v6;
   if (Value)
   {
     Count = CFArrayGetCount(Value);
     if (Count >= 1)
     {
       v9 = 0;
-      v49 = *MEMORY[0x277CBEEE8];
+      v48 = *MEMORY[0x277CBEEE8];
       type = *(MEMORY[0x277D03988] + 6);
-      v48 = *MEMORY[0x277CB90F0];
-      v56 = *(MEMORY[0x277D03988] + 7);
+      v47 = *MEMORY[0x277CB90F0];
+      v55 = *(MEMORY[0x277D03988] + 7);
       *&v8 = 138412290;
-      v44 = v8;
-      v50 = Value;
+      v43 = v8;
+      v49 = Value;
       while (1)
       {
         ValueAtIndex = CFArrayGetValueAtIndex(Value, v9);
         v11 = [MEMORY[0x277CCABB0] numberWithInt:ValueAtIndex];
         v12 = CFArrayGetValueAtIndex(theArray, v9);
         v13 = [MEMORY[0x277CCABB0] numberWithInt:v12];
-        v14 = CFArrayGetValueAtIndex(v53, v9);
-        v15 = CFArrayGetValueAtIndex(v52, v9);
+        v14 = CFArrayGetValueAtIndex(v52, v9);
+        v15 = CFArrayGetValueAtIndex(v51, v9);
         v16 = v15;
-        if (v15 == v49)
+        if (v15 == v48)
         {
 
           v16 = 0;
@@ -3196,13 +3237,13 @@ LABEL_73:
         if (os_log_type_enabled(v17, type))
         {
           *buf = 67109376;
-          *v66 = ValueAtIndex;
-          *&v66[4] = 1024;
-          *&v66[6] = v14;
+          *v65 = ValueAtIndex;
+          *&v65[4] = 1024;
+          *&v65[6] = v14;
           _os_log_impl(&dword_2484B2000, v17, type, "Found a move for item %d from container %d", buf, 0xEu);
         }
 
-        if (![dataclassCopy isEqualToString:v48])
+        if (![dataclassCopy isEqualToString:v47])
         {
           break;
         }
@@ -3230,54 +3271,54 @@ LABEL_73:
 
           CFRelease(v20);
 LABEL_20:
-          v58 = 2;
-          v6 = v47;
+          v57 = 2;
+          v6 = v46;
 LABEL_21:
           v25 = DALoggingwithCategory();
-          if (os_log_type_enabled(v25, v56))
+          if (os_log_type_enabled(v25, v55))
           {
             *buf = 138413058;
-            *v66 = v11;
-            *&v66[8] = 2112;
-            v67 = v13;
-            v68 = 2112;
-            v69 = v6;
-            v70 = 2112;
-            v71 = v57;
-            _os_log_impl(&dword_2484B2000, v25, v56, "_addChange for move of calendarItem id %@, changeId %@ calendarItemIdsToMoveActions %@, calendarItemChangeIdsToClear %@", buf, 0x2Au);
+            *v65 = v11;
+            *&v65[8] = 2112;
+            v66 = v13;
+            v67 = 2112;
+            v68 = v6;
+            v69 = 2112;
+            v70 = v56;
+            _os_log_impl(&dword_2484B2000, v25, v55, "_addChange for move of calendarItem id %@, changeId %@ calendarItemIdsToMoveActions %@, calendarItemChangeIdsToClear %@", buf, 0x2Au);
           }
 
           v26 = [v6 objectForKeyedSubscript:v11];
           if (v26)
           {
-            [v57 addObject:v13];
+            [v56 addObject:v13];
           }
 
           else
           {
-            v27 = [[CalDAVMove alloc] initWithSourceCalendarID:v14 itemID:ValueAtIndex oldExternalID:v16 changeID:v12 objectType:v58 uniqueIdentifier:v21];
+            v27 = [[CalDAVMove alloc] initWithSourceCalendarID:v14 itemID:ValueAtIndex oldExternalID:v16 changeID:v12 objectType:v57 uniqueIdentifier:v21];
             [v6 setObject:v27 forKeyedSubscript:v11];
           }
 
           goto LABEL_27;
         }
 
-        [v57 addObject:v13];
+        [v56 addObject:v13];
         v24 = DALoggingwithCategory();
         if (os_log_type_enabled(v24, type))
         {
-          *buf = v44;
-          *v66 = v11;
+          *buf = v43;
+          *v65 = v11;
           _os_log_impl(&dword_2484B2000, v24, type, "Ignoring move change for detached event %@", buf, 0xCu);
         }
 
         CFRelease(v23);
         CFRelease(v20);
-        v6 = v47;
+        v6 = v46;
 LABEL_27:
 
         ++v9;
-        Value = v50;
+        Value = v49;
         if (Count == v9)
         {
           goto LABEL_28;
@@ -3285,37 +3326,37 @@ LABEL_27:
       }
 
       v21 = 0;
-      v58 = 3;
+      v57 = 3;
       goto LABEL_21;
     }
   }
 
 LABEL_28:
-  v28 = v57;
-  if ([v57 count])
+  v28 = v56;
+  if ([v56 count])
   {
     Mutable = CFArrayCreateMutable(0, 0, 0);
+    v59 = 0u;
     v60 = 0u;
     v61 = 0u;
     v62 = 0u;
-    v63 = 0u;
-    v30 = v57;
-    v31 = [v30 countByEnumeratingWithState:&v60 objects:v64 count:16];
+    v30 = v56;
+    v31 = [v30 countByEnumeratingWithState:&v59 objects:v63 count:16];
     if (v31)
     {
       v32 = v31;
-      v33 = *v61;
+      v33 = *v60;
       v34 = *(MEMORY[0x277D03988] + 7);
       do
       {
         for (i = 0; i != v32; ++i)
         {
-          if (*v61 != v33)
+          if (*v60 != v33)
           {
             objc_enumerationMutation(v30);
           }
 
-          intValue = [*(*(&v60 + 1) + 8 * i) intValue];
+          intValue = [*(*(&v59 + 1) + 8 * i) intValue];
           if (intValue != -1)
           {
             v37 = intValue;
@@ -3323,7 +3364,7 @@ LABEL_28:
             if (os_log_type_enabled(v38, v34))
             {
               *buf = 67109120;
-              *v66 = v37;
+              *v65 = v37;
               _os_log_impl(&dword_2484B2000, v38, v34, "Clearing change index %d", buf, 8u);
             }
 
@@ -3331,7 +3372,7 @@ LABEL_28:
           }
         }
 
-        v32 = [v30 countByEnumeratingWithState:&v60 objects:v64 count:16];
+        v32 = [v30 countByEnumeratingWithState:&v59 objects:v63 count:16];
       }
 
       while (v32);
@@ -3348,11 +3389,9 @@ LABEL_28:
     }
 
     CFRelease(Mutable);
-    v6 = v47;
-    v28 = v57;
+    v6 = v46;
+    v28 = v56;
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -3473,7 +3512,7 @@ void __42__MobileCalDAVAccount__collectMoveActions__block_invoke(uint64_t a1, ui
 
 - (void)refreshWithContext:(id)context completion:(id)completion
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   completionCopy = completion;
   if ([(MobileCalDAVAccount *)self isRefreshing])
@@ -3557,13 +3596,13 @@ LABEL_4:
     accountDescription = [(MobileCalDAVAccount *)self accountDescription];
     accountID3 = [(MobileCalDAVAccount *)self accountID];
     *buf = 138413058;
-    v39 = v21;
-    v40 = 2112;
-    v41 = v22;
-    v42 = 2112;
-    v43 = accountDescription;
-    v44 = 2114;
-    v45 = accountID3;
+    v38 = v21;
+    v39 = 2112;
+    v40 = v22;
+    v41 = 2112;
+    v42 = accountDescription;
+    v43 = 2114;
+    v44 = accountID3;
     _os_log_impl(&dword_2484B2000, v18, v20, "==== Beginning %@refresh for CalDAV account%@ %@ (%{public}@)", buf, 0x2Au);
   }
 
@@ -3574,7 +3613,7 @@ LABEL_4:
     refreshContext2 = [(MobileCalDAVAccount *)self refreshContext];
     localItems = [refreshContext2 localItems];
     *buf = 134217984;
-    v39 = localItems;
+    v38 = localItems;
     _os_log_impl(&dword_2484B2000, v25, v26, "Our store has %lu items in it.", buf, 0xCu);
   }
 
@@ -3589,20 +3628,18 @@ LABEL_4:
 
   objc_initWeak(buf, self);
   actor2 = [(MobileCalDAVAccount *)self actor];
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __53__MobileCalDAVAccount_refreshWithContext_completion___block_invoke;
-  v35[3] = &unk_278F175F0;
-  objc_copyWeak(&v37, buf);
-  v35[4] = self;
-  v36 = completionCopy;
-  [actor2 refreshWithCompletion:v35];
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __53__MobileCalDAVAccount_refreshWithContext_completion___block_invoke;
+  v34[3] = &unk_278F175F0;
+  objc_copyWeak(&v36, buf);
+  v34[4] = self;
+  v35 = completionCopy;
+  [actor2 refreshWithCompletion:v34];
 
-  objc_destroyWeak(&v37);
+  objc_destroyWeak(&v36);
   objc_destroyWeak(buf);
 LABEL_23:
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 void __53__MobileCalDAVAccount_refreshWithContext_completion___block_invoke(uint64_t a1, void *a2)
@@ -3653,7 +3690,7 @@ void __53__MobileCalDAVAccount_refreshWithContext_completion___block_invoke(uint
 
 - (void)updateDelegatesWithUserInfo:(id)info
 {
-  v86 = *MEMORY[0x277D85DE8];
+  v85 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   v3 = DALoggingwithCategory();
   v4 = v3;
@@ -3669,33 +3706,33 @@ void __53__MobileCalDAVAccount_refreshWithContext_completion___block_invoke(uint
       _os_log_impl(&dword_2484B2000, v4, type, "Updating delegates for account %{public}@", &buf, 0xCu);
     }
 
-    v58 = objc_opt_new();
-    v51 = objc_opt_new();
-    v77 = 0u;
-    v78 = 0u;
-    v75 = 0u;
+    v57 = objc_opt_new();
+    v50 = objc_opt_new();
     v76 = 0u;
+    v77 = 0u;
+    v74 = 0u;
+    v75 = 0u;
     backingAccount = [(MobileCalDAVAccount *)self backingAccount];
     obj = [backingAccount childAccountsWithAccountTypeIdentifier:*MEMORY[0x277CB8BC8]];
 
-    v8 = [obj countByEnumeratingWithState:&v75 objects:v85 count:16];
+    v8 = [obj countByEnumeratingWithState:&v74 objects:v84 count:16];
     if (v8)
     {
-      v9 = *v76;
-      v56 = *(v5 + 1);
-      v53 = *MEMORY[0x277CF78D8];
-      v54 = *MEMORY[0x277CF78C8];
-      v52 = *MEMORY[0x277CF7A10];
+      v9 = *v75;
+      v55 = *(v5 + 1);
+      v52 = *MEMORY[0x277CF78D8];
+      v53 = *MEMORY[0x277CF78C8];
+      v51 = *MEMORY[0x277CF7A10];
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v76 != v9)
+          if (*v75 != v9)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v75 + 1) + 8 * i);
+          v11 = *(*(&v74 + 1) + 8 * i);
           backingAccount2 = [(MobileCalDAVAccount *)self backingAccount];
           identifier = [v11 identifier];
           v14 = [backingAccount2 childAccountWithIdentifier:identifier];
@@ -3706,13 +3743,13 @@ void __53__MobileCalDAVAccount_refreshWithContext_completion___block_invoke(uint
 
           if (principalPath)
           {
-            [v58 setObject:v14 forKeyedSubscript:principalPath];
+            [v57 setObject:v14 forKeyedSubscript:principalPath];
           }
 
           else
           {
             v18 = DALoggingwithCategory();
-            v19 = os_log_type_enabled(v18, v56);
+            v19 = os_log_type_enabled(v18, v55);
             if (v14)
             {
               if (v19)
@@ -3720,7 +3757,7 @@ void __53__MobileCalDAVAccount_refreshWithContext_completion___block_invoke(uint
                 identifier2 = [v11 identifier];
                 LODWORD(buf) = 138543362;
                 *(&buf + 4) = identifier2;
-                _os_log_impl(&dword_2484B2000, v18, v56, "Failed to get main principal path for child account with identifier %{public}@", &buf, 0xCu);
+                _os_log_impl(&dword_2484B2000, v18, v55, "Failed to get main principal path for child account with identifier %{public}@", &buf, 0xCu);
               }
             }
 
@@ -3729,13 +3766,13 @@ void __53__MobileCalDAVAccount_refreshWithContext_completion___block_invoke(uint
               identifier3 = [v11 identifier];
               LODWORD(buf) = 138543362;
               *(&buf + 4) = identifier3;
-              _os_log_impl(&dword_2484B2000, v18, v56, "Failed to find child account with identifier %{public}@", &buf, 0xCu);
+              _os_log_impl(&dword_2484B2000, v18, v55, "Failed to find child account with identifier %{public}@", &buf, 0xCu);
             }
 
-            v22 = [v11 accountPropertyForKey:v54];
+            v22 = [v11 accountPropertyForKey:v53];
             if (v22)
             {
-              v23 = [v11 accountPropertyForKey:v53];
+              v23 = [v11 accountPropertyForKey:v52];
               v24 = v23;
               if (v23)
               {
@@ -3743,10 +3780,10 @@ void __53__MobileCalDAVAccount_refreshWithContext_completion___block_invoke(uint
                 v26 = v25;
                 if (v25)
                 {
-                  v27 = [v25 objectForKeyedSubscript:v52];
+                  v27 = [v25 objectForKeyedSubscript:v51];
                   if (v27)
                   {
-                    [v51 setObject:v11 forKeyedSubscript:v27];
+                    [v50 setObject:v11 forKeyedSubscript:v27];
                   }
                 }
               }
@@ -3754,7 +3791,7 @@ void __53__MobileCalDAVAccount_refreshWithContext_completion___block_invoke(uint
           }
         }
 
-        v8 = [obj countByEnumeratingWithState:&v75 objects:v85 count:16];
+        v8 = [obj countByEnumeratingWithState:&v74 objects:v84 count:16];
       }
 
       while (v8);
@@ -3762,64 +3799,64 @@ void __53__MobileCalDAVAccount_refreshWithContext_completion___block_invoke(uint
 
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v83 = 0x2020000000;
-    v84 = 0;
-    v71 = 0;
-    v72 = &v71;
-    v73 = 0x2020000000;
-    v74 = 0;
-    v65[0] = MEMORY[0x277D85DD0];
-    v65[1] = 3221225472;
-    v65[2] = __51__MobileCalDAVAccount_updateDelegatesWithUserInfo___block_invoke;
-    v65[3] = &unk_278F17618;
-    v57 = v51;
-    v66 = v57;
-    v4 = v58;
-    v67 = v4;
+    v82 = 0x2020000000;
+    v83 = 0;
+    v70 = 0;
+    v71 = &v70;
+    v72 = 0x2020000000;
+    v73 = 0;
+    v64[0] = MEMORY[0x277D85DD0];
+    v64[1] = 3221225472;
+    v64[2] = __51__MobileCalDAVAccount_updateDelegatesWithUserInfo___block_invoke;
+    v64[3] = &unk_278F17618;
+    v56 = v50;
+    v65 = v56;
+    v4 = v57;
+    v66 = v4;
     selfCopy = self;
     p_buf = &buf;
-    v70 = &v71;
-    [infoCopy enumerateKeysAndObjectsUsingBlock:v65];
+    v69 = &v70;
+    [infoCopy enumerateKeysAndObjectsUsingBlock:v64];
     allValues = [v4 allValues];
     v29 = [allValues valueForKey:@"accountInfo"];
     v30 = [v29 mutableCopy];
 
-    allValues2 = [v57 allValues];
+    allValues2 = [v56 allValues];
     [v30 addObjectsFromArray:allValues2];
 
-    v63 = 0u;
-    v64 = 0u;
-    v61 = 0u;
     v62 = 0u;
+    v63 = 0u;
+    v60 = 0u;
+    v61 = 0u;
     v32 = v30;
-    v33 = [v32 countByEnumeratingWithState:&v61 objects:v81 count:16];
+    v33 = [v32 countByEnumeratingWithState:&v60 objects:v80 count:16];
     if (v33)
     {
-      v34 = *v62;
+      v34 = *v61;
       do
       {
         for (j = 0; j != v33; ++j)
         {
-          if (*v62 != v34)
+          if (*v61 != v34)
           {
             objc_enumerationMutation(v32);
           }
 
-          v36 = *(*(&v61 + 1) + 8 * j);
+          v36 = *(*(&v60 + 1) + 8 * j);
           v37 = DALoggingwithCategory();
           if (os_log_type_enabled(v37, type))
           {
             identifier4 = [v36 identifier];
-            *v79 = 138543362;
-            v80 = identifier4;
-            _os_log_impl(&dword_2484B2000, v37, type, "Removing delegate account with identifier %{public}@", v79, 0xCu);
+            *v78 = 138543362;
+            v79 = identifier4;
+            _os_log_impl(&dword_2484B2000, v37, type, "Removing delegate account with identifier %{public}@", v78, 0xCu);
           }
 
           backingAccount3 = [(MobileCalDAVAccount *)self backingAccount];
           [backingAccount3 removeAccount:v36];
         }
 
-        v33 = [v32 countByEnumeratingWithState:&v61 objects:v81 count:16];
+        v33 = [v32 countByEnumeratingWithState:&v60 objects:v80 count:16];
       }
 
       while (v33);
@@ -3841,19 +3878,19 @@ LABEL_42:
         if (os_log_type_enabled(v47, type))
         {
           accountID2 = [(MobileCalDAVAccount *)self accountID];
-          *v79 = 138543362;
-          v80 = accountID2;
-          _os_log_impl(&dword_2484B2000, v47, type, "Finished updating delegates for account %{public}@", v79, 0xCu);
+          *v78 = 138543362;
+          v79 = accountID2;
+          _os_log_impl(&dword_2484B2000, v47, type, "Finished updating delegates for account %{public}@", v78, 0xCu);
         }
 
-        _Block_object_dispose(&v71, 8);
+        _Block_object_dispose(&v70, 8);
         _Block_object_dispose(&buf, 8);
 
         goto LABEL_45;
       }
     }
 
-    if (*(v72 + 24) == 1)
+    if (*(v71 + 24) == 1)
     {
       dbHelper = [(MobileCalDAVAccount *)self dbHelper];
       accountID3 = [(MobileCalDAVAccount *)self accountID];
@@ -3877,13 +3914,11 @@ LABEL_42:
   }
 
 LABEL_45:
-
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 void __51__MobileCalDAVAccount_updateDelegatesWithUserInfo___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) objectForKeyedSubscript:v5];
@@ -3901,13 +3936,13 @@ void __51__MobileCalDAVAccount_updateDelegatesWithUserInfo___block_invoke(uint64
       {
         v13 = [v8 accountIdentifier];
         *buf = 138412546;
-        v68 = v5;
-        v69 = 2114;
-        v70 = v13;
+        v67 = v5;
+        v68 = 2114;
+        v69 = v13;
         _os_log_impl(&dword_2484B2000, v9, v11, "Updating delegate account with principal path %@ and account ID %{public}@", buf, 0x16u);
       }
 
-      v65 = v11;
+      v64 = v11;
 
       v14 = [v8 mobileCalDAVAccount];
       v15 = [v14 isWritable];
@@ -3938,7 +3973,7 @@ void __51__MobileCalDAVAccount_updateDelegatesWithUserInfo___block_invoke(uint64
 
       if (v29)
       {
-        v11 = v65;
+        v11 = v64;
         v10 = MEMORY[0x277D03988];
         if ((v16 & 1) == 0)
         {
@@ -3953,7 +3988,7 @@ void __51__MobileCalDAVAccount_updateDelegatesWithUserInfo___block_invoke(uint64
       v49 = [v48 mainPrincipal];
       [v49 setFullName:v47];
 
-      v11 = v65;
+      v11 = v64;
       v10 = MEMORY[0x277D03988];
     }
 
@@ -3962,7 +3997,7 @@ void __51__MobileCalDAVAccount_updateDelegatesWithUserInfo___block_invoke(uint64
       if (v12)
       {
         *buf = 138412290;
-        v68 = v5;
+        v67 = v5;
         _os_log_impl(&dword_2484B2000, v9, v11, "Adding delegate account with principal path %@", buf, 0xCu);
       }
 
@@ -4009,16 +4044,16 @@ LABEL_16:
     {
       v51 = [v8 accountIdentifier];
       *buf = 138412546;
-      v68 = v5;
-      v69 = 2114;
-      v70 = v51;
+      v67 = v5;
+      v68 = 2114;
+      v69 = v51;
       _os_log_impl(&dword_2484B2000, v50, v11, "Account properties changed for delegate account with principal path %@ and account ID %{public}@. Will save the account.", buf, 0x16u);
     }
 
     [v8 saveModifiedPropertiesOnBackingAccount];
-    v66 = 0;
-    v52 = [v8 saveAccountPropertiesWithError:&v66];
-    v53 = v66;
+    v65 = 0;
+    v52 = [v8 saveAccountPropertiesWithError:&v65];
+    v53 = v65;
     v54 = v53;
     if ((v52 & 1) == 0)
     {
@@ -4027,9 +4062,9 @@ LABEL_16:
       if (os_log_type_enabled(v62, v63))
       {
         *buf = 138412546;
-        v68 = v5;
-        v69 = 2112;
-        v70 = v54;
+        v67 = v5;
+        v68 = 2112;
+        v69 = v54;
         _os_log_impl(&dword_2484B2000, v62, v63, "Failed to save ACAccount for delegate with principal path %@: %@", buf, 0x16u);
       }
 
@@ -4044,9 +4079,9 @@ LABEL_20:
     {
       v56 = [v8 accountIdentifier];
       *buf = 138412546;
-      v68 = v5;
-      v69 = 2114;
-      v70 = v56;
+      v67 = v5;
+      v68 = 2114;
+      v69 = v56;
       _os_log_impl(&dword_2484B2000, v55, v11, "Updating DB properties for delegate account with principal path %@ and account ID %{public}@", buf, 0x16u);
     }
 
@@ -4060,9 +4095,9 @@ LABEL_20:
       {
         v60 = [v8 accountIdentifier];
         *buf = 138412546;
-        v68 = v5;
-        v69 = 2114;
-        v70 = v60;
+        v67 = v5;
+        v68 = 2114;
+        v69 = v60;
         _os_log_impl(&dword_2484B2000, v59, v11, "DB properties changed for delegate account with principal path %@ and account ID %{public}@. Will save the DB.", buf, 0x16u);
       }
 
@@ -4080,13 +4115,11 @@ LABEL_29:
 
   [*(a1 + 32) removeObjectForKey:v5];
 LABEL_30:
-
-  v64 = *MEMORY[0x277D85DE8];
 }
 
 - (void)task:(id)task didFinishWithError:(id)error
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   errorCopy = error;
   objc_opt_class();
@@ -4109,7 +4142,7 @@ LABEL_30:
         if (os_log_type_enabled(array, v15))
         {
           *buf = 134217984;
-          v39 = v8;
+          v38 = v8;
           _os_log_impl(&dword_2484B2000, array, v15, "Search task %p was cancelled", buf, 0xCu);
         }
 
@@ -4130,31 +4163,31 @@ LABEL_23:
     {
     }
 
-    v31 = searchContext;
-    v32 = errorCopy;
+    v30 = searchContext;
+    v31 = errorCopy;
     array = [MEMORY[0x277CBEB18] array];
+    v32 = 0u;
     v33 = 0u;
     v34 = 0u;
     v35 = 0u;
-    v36 = 0u;
     multiStatus = [v8 multiStatus];
     responses = [multiStatus responses];
 
-    v19 = [responses countByEnumeratingWithState:&v33 objects:v37 count:16];
+    v19 = [responses countByEnumeratingWithState:&v32 objects:v36 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v34;
+      v21 = *v33;
       do
       {
         for (i = 0; i != v20; ++i)
         {
-          if (*v34 != v21)
+          if (*v33 != v21)
           {
             objc_enumerationMutation(responses);
           }
 
-          v23 = [CalDAVPrincipalResult resultFromResponse:*(*(&v33 + 1) + 8 * i)];
+          v23 = [CalDAVPrincipalResult resultFromResponse:*(*(&v32 + 1) + 8 * i)];
           convertToDAContactSearchResultElement = [v23 convertToDAContactSearchResultElement];
           if (convertToDAContactSearchResultElement)
           {
@@ -4162,7 +4195,7 @@ LABEL_23:
           }
         }
 
-        v20 = [responses countByEnumeratingWithState:&v33 objects:v37 count:16];
+        v20 = [responses countByEnumeratingWithState:&v32 objects:v36 count:16];
       }
 
       while (v20);
@@ -4172,24 +4205,24 @@ LABEL_23:
     {
       v25 = DALoggingwithCategory();
       v26 = *(MEMORY[0x277D03988] + 6);
-      errorCopy = v32;
-      searchContext = v31;
+      errorCopy = v31;
+      searchContext = v30;
       if (os_log_type_enabled(v25, v26))
       {
         *buf = 134217984;
-        v39 = v31;
+        v38 = v30;
         _os_log_impl(&dword_2484B2000, v25, v26, "CalDAV search query %p returning results", buf, 0xCu);
       }
 
-      v11 = v30;
-      [v30 searchQuery:v31 returnedResults:array];
+      v11 = v29;
+      [v29 searchQuery:v30 returnedResults:array];
     }
 
     else
     {
-      errorCopy = v32;
-      v11 = v30;
-      searchContext = v31;
+      errorCopy = v31;
+      v11 = v29;
+      searchContext = v30;
     }
 
     goto LABEL_23;
@@ -4200,18 +4233,16 @@ LABEL_23:
   if (os_log_type_enabled(v8, v16))
   {
     *buf = 138412290;
-    v39 = taskCopy;
+    v38 = taskCopy;
     _os_log_impl(&dword_2484B2000, v8, v16, "An unknown task just finished. What just happened? %@", buf, 0xCu);
   }
 
 LABEL_24:
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_reallyPerformSearchQuery:(id)query
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   queryCopy = query;
   searchPropertySet = [(MobileCalDAVAccount *)self searchPropertySet];
   if (![searchPropertySet supportsPropertySearch] || (objc_msgSend(searchPropertySet, "supportsWellKnownType:", 6) & 1) == 0)
@@ -4220,8 +4251,8 @@ LABEL_24:
     v24 = *(MEMORY[0x277D03988] + 5);
     if (os_log_type_enabled(v23, v24))
     {
-      LOWORD(v31) = 0;
-      _os_log_impl(&dword_2484B2000, v23, v24, "Refusing to send out search query because the server doesn't support searching", &v31, 2u);
+      LOWORD(v30) = 0;
+      _os_log_impl(&dword_2484B2000, v23, v24, "Refusing to send out search query because the server doesn't support searching", &v30, 2u);
     }
 
     consumer = [queryCopy consumer];
@@ -4237,23 +4268,23 @@ LABEL_24:
   if (os_log_type_enabled(v6, v8))
   {
     searchString = [queryCopy searchString];
-    v31 = 138412546;
-    v32 = searchString;
-    v33 = 2048;
-    v34 = queryCopy;
-    _os_log_impl(&dword_2484B2000, v6, v8, "CalDAV search query %@ (%p) enqueuing", &v31, 0x16u);
+    v30 = 138412546;
+    v31 = searchString;
+    v32 = 2048;
+    v33 = queryCopy;
+    _os_log_impl(&dword_2484B2000, v6, v8, "CalDAV search query %@ (%p) enqueuing", &v30, 0x16u);
   }
 
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v29 = DALoggingwithCategory();
-    v30 = *(v7 + 4);
-    if (os_log_type_enabled(v29, v30))
+    v28 = DALoggingwithCategory();
+    v29 = *(v7 + 4);
+    if (os_log_type_enabled(v28, v29))
     {
-      v31 = 138412290;
-      v32 = queryCopy;
-      _os_log_impl(&dword_2484B2000, v29, v30, "Dropping search query %@ because it is not the right type", &v31, 0xCu);
+      v30 = 138412290;
+      v31 = queryCopy;
+      _os_log_impl(&dword_2484B2000, v28, v29, "Dropping search query %@ because it is not the right type", &v30, 0xCu);
     }
 
     consumer = [queryCopy consumer];
@@ -4292,47 +4323,45 @@ LABEL_10:
   searchTaskSet = [(MobileCalDAVAccount *)self searchTaskSet];
   [searchTaskSet addObject:consumer];
 LABEL_11:
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_reallyCancelSearchQuery:(id)query
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   queryCopy = query;
   v5 = DALoggingwithCategory();
   v6 = *(MEMORY[0x277D03988] + 6);
   if (os_log_type_enabled(v5, v6))
   {
     *buf = 138412290;
-    v26 = queryCopy;
+    v25 = queryCopy;
     _os_log_impl(&dword_2484B2000, v5, v6, "cancelling search query %@", buf, 0xCu);
   }
 
   searchTaskSet = [(MobileCalDAVAccount *)self searchTaskSet];
   v8 = [searchTaskSet copy];
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v9 = v8;
-  v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
   v11 = v9;
   if (v10)
   {
     v12 = v10;
-    v13 = *v21;
+    v13 = *v20;
 LABEL_5:
     v14 = 0;
     while (1)
     {
-      if (*v21 != v13)
+      if (*v20 != v13)
       {
         objc_enumerationMutation(v9);
       }
 
-      v15 = *(*(&v20 + 1) + 8 * v14);
+      v15 = *(*(&v19 + 1) + 8 * v14);
       searchContext = [v15 searchContext];
       v17 = [searchContext isEqual:queryCopy];
 
@@ -4343,7 +4372,7 @@ LABEL_5:
 
       if (v12 == ++v14)
       {
-        v12 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v12 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
         if (v12)
         {
           goto LABEL_5;
@@ -4368,40 +4397,39 @@ LABEL_5:
 LABEL_14:
 
 LABEL_15:
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_reallyCancelAllSearchQueries
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   searchTaskSet = [(MobileCalDAVAccount *)self searchTaskSet];
   v4 = [searchTaskSet copy];
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v5 = v4;
-  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         taskManager = [(MobileCalDAVAccount *)self taskManager];
         [taskManager cancelTask:v10];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
@@ -4411,11 +4439,9 @@ LABEL_15:
   v13 = *(MEMORY[0x277D03988] + 6);
   if (os_log_type_enabled(v12, v13))
   {
-    *v15 = 0;
-    _os_log_impl(&dword_2484B2000, v12, v13, "_reallyCancelAllSearchQueries is complete. All search queries have been cancelled.", v15, 2u);
+    *v14 = 0;
+    _os_log_impl(&dword_2484B2000, v12, v13, "_reallyCancelAllSearchQueries is complete. All search queries have been cancelled.", v14, 2u);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_reallySearchQueriesRunning
@@ -4444,7 +4470,7 @@ LABEL_15:
 
 - (void)_releasePowerAssertion
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   _powerAssertionContext = [(MobileCalDAVAccount *)self _powerAssertionContext];
   mEMORY[0x277D037B0] = [MEMORY[0x277D037B0] sharedPowerAssertionManager];
   v4 = [mEMORY[0x277D037B0] powerAssertionRetainCount:_powerAssertionContext];
@@ -4461,13 +4487,11 @@ LABEL_15:
     v6 = *(MEMORY[0x277D03988] + 6);
     if (os_log_type_enabled(mEMORY[0x277D037B0]2, *(MEMORY[0x277D03988] + 6)))
     {
-      v8 = 138412290;
-      v9 = _powerAssertionContext;
-      _os_log_impl(&dword_2484B2000, mEMORY[0x277D037B0]2, v6, "Dropping power assertion release for %@ since the retain count isn't positive", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = _powerAssertionContext;
+      _os_log_impl(&dword_2484B2000, mEMORY[0x277D037B0]2, v6, "Dropping power assertion release for %@ since the retain count isn't positive", &v7, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isDelegateAccount
@@ -4487,6 +4511,13 @@ LABEL_15:
   }
 
   return bOOLValue;
+}
+
+- (void)setIsDelegateAccount:(BOOL)account
+{
+  v5 = [MEMORY[0x277CCABB0] numberWithBool:account];
+  backingAccount = [(MobileCalDAVAccount *)self backingAccount];
+  [backingAccount setObject:v5 forKeyedSubscript:*MEMORY[0x277CF78D0]];
 }
 
 - (void)calendarsDataclassModified
@@ -4569,7 +4600,7 @@ LABEL_15:
   return v6 & 1;
 }
 
-uint64_t __48__MobileCalDAVAccount_addressURLIsAccountOwner___block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
+void *__48__MobileCalDAVAccount_addressURLIsAccountOwner___block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
   result = [a3 calendarUserAddressIsEquivalentToURL:*(a1 + 32)];
   if (result)

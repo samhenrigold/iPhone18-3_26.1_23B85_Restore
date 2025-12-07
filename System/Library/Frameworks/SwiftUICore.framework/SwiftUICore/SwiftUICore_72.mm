@@ -1,6842 +1,71 @@
-size_t specialized SizeFittingTextCache.withValue<A>(for:onChange:compute:)(unint64_t a1, void (*a2)(void), uint64_t a3, void (*a4)(uint64_t *__return_ptr, _BYTE *), uint64_t a5)
+void specialized $defer #1 <A>() in LazySubviewPrefetcher.update(info:owner:)(_BYTE *a1, uint64_t a2, char a3)
 {
-  v84 = a4;
-  v7 = v5;
-  v83[1] = a5;
-  v89 = a3;
-  v90 = a2;
-  type metadata accessor for SizeFittingTextLayoutComputer.Engine<ResolvedTextHelper, StickyTextSizeFittingLogic>(0, &lazy cache variable for type metadata for SizeFittingTextCache<ResolvedTextHelper, StickyTextSizeFittingLogic>.CacheEntry, type metadata accessor for SizeFittingTextCache.CacheEntry);
-  v10 = *(v9 - 8);
-  v93 = v9;
-  v94 = v10;
-  MEMORY[0x1EEE9AC00](v9);
-  v12 = v83 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v13);
-  v15 = v83 - v14;
-  MEMORY[0x1EEE9AC00](v16);
-  v18 = (v83 - v17);
-  swift_beginAccess();
-  v19 = *(v5 + 40);
-  v20 = *(v19 + 16);
-  v107 = v7;
-  if (v20 > a1)
-  {
-    swift_beginAccess();
-    v22 = *(v7 + 96);
-    v21 = *(v7 + 104);
-    v96 = v19;
-    v23 = v7;
-    v25 = *(v7 + 112);
-    v24 = *(v7 + 120);
-    v26 = *(v7 + 128);
-    *&v100 = *(v7 + 136);
-    v27 = *(v7 + 144);
-    swift_beginAccess();
-    v97 = v21;
-    v98 = v22;
-    v28 = v21;
-    v6 = v96;
-    v92 = v25;
-    v95 = v24;
-    outlined copy of Text?(v22, v28, v25, v24);
-    v15 = v27;
-
-    v99 = v26;
-
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    *(v23 + 40) = v6;
-    if (isUniquelyReferenced_nonNull_native)
-    {
-      v30 = v97;
-      if ((a1 & 0x8000000000000000) == 0)
-      {
-        goto LABEL_4;
-      }
-    }
-
-    else
-    {
-LABEL_38:
-      v6 = specialized _ArrayBuffer._consumeAndCreateNew()(v6);
-      *(v107 + 40) = v6;
-      v30 = v97;
-      if ((a1 & 0x8000000000000000) == 0)
-      {
-LABEL_4:
-        if (*(v6 + 16) > a1)
-        {
-          v31 = v95;
-          v32 = v6 + ((*(v94 + 80) + 32) & ~*(v94 + 80)) + *(v94 + 72) * a1;
-          v101[0] = v98;
-          v101[1] = v30;
-          v33 = v92;
-          v101[2] = v92;
-          v101[3] = v95;
-          v101[4] = v99;
-          v101[5] = v100;
-          v101[6] = v15;
-          if (specialized SizeFittingTextCache.CacheEntry.result(for:)(v105, v101))
-          {
-            v106 = a1;
-            StickyTextSizeFittingLogic.onInvalidation(of:)(&v106);
-            v90();
-          }
-
-          v34 = v85;
-          v84(&v106, v105);
-          outlined consume of Text?(v98, v30, v33, v31);
-
-          if (!v34)
-          {
-            v31 = v106;
-          }
-
-LABEL_35:
-          v81 = v32 + *(v93 + 52);
-          v82 = *v81;
-          *v81 = *v105;
-          *(v81 + 16) = *&v105[16];
-          outlined consume of SizeFittingTextCacheValue<StyledTextLayoutEngine>?(v82);
-          *(v107 + 40) = v6;
-          swift_endAccess();
-          return v31;
-        }
-
-        goto LABEL_40;
-      }
-    }
-
-    __break(1u);
-LABEL_40:
-    __break(1u);
-    goto LABEL_41;
-  }
-
-  swift_beginAccess();
-  if ((*(v7 + 32) & 1) == 0)
-  {
-    v87 = v12;
-    v88 = a1;
-    v86 = v15;
-    v91 = v18;
-    do
-    {
-      v35 = *(v7 + 40);
-      v36 = *(v35 + 16);
-      if (v36 > a1)
-      {
-        break;
-      }
-
-      if (!v36)
-      {
-        __break(1u);
-LABEL_37:
-        __break(1u);
-        goto LABEL_38;
-      }
-
-      v92 = *(v35 + 16);
-      v37 = (*(v94 + 80) + 32) & ~*(v94 + 80);
-      v6 = *(v94 + 72);
-      outlined init with copy of SizeFittingTextCache<ResolvedTextHelper, StickyTextSizeFittingLogic>.CacheEntry(v35 + v37 + v6 * (v36 - 1), v15, &lazy cache variable for type metadata for SizeFittingTextCache<ResolvedTextHelper, StickyTextSizeFittingLogic>.CacheEntry, type metadata accessor for SizeFittingTextCache.CacheEntry, type metadata accessor for SizeFittingTextLayoutComputer.Engine<ResolvedTextHelper, StickyTextSizeFittingLogic>);
-      outlined init with copy of ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>(v15, v18, type metadata accessor for ResolvedTextHelper);
-      v38 = type metadata accessor for ResolvedTextHelper(0);
-      v39 = *(v38 + 64);
-      v40 = *(v18 + v39);
-      v41 = __OFADD__(v40, 1);
-      v42 = v40 + 1;
-      if (v41)
-      {
-        goto LABEL_37;
-      }
-
-      v43 = v38;
-      v95 = v6;
-      v96 = v37;
-      *(v18 + v39) = v42;
-      PropertyList.Tracker.reset()();
-      outlined consume of Text?(v18[6], v18[7], v18[8], v18[9]);
-      *(v18 + 3) = 0u;
-      *(v18 + 4) = 0u;
-      v44 = *(v43 + 60);
-      outlined destroy of _VariadicView.Tree<_LayoutRoot<GeometryReaderLayout>, ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>>(v18 + v44, type metadata accessor for ResolvedTextHelper.NextUpdate);
-      *(v18 + v44) = 0;
-      type metadata accessor for ResolvedTextHelper.NextUpdate(0);
-      swift_storeEnumTagMultiPayload();
-      v45 = v93;
-      v46 = v18 + *(v93 + 52);
-      *v46 = 0u;
-      *(v46 + 1) = 0u;
-      v47 = *(v45 + 56);
-      LOBYTE(v43) = v15[v47];
-      outlined destroy of SizeFittingTextCache<ResolvedTextHelper, StickyTextSizeFittingLogic>.CacheEntry(v15, &lazy cache variable for type metadata for SizeFittingTextCache<ResolvedTextHelper, StickyTextSizeFittingLogic>.CacheEntry, type metadata accessor for SizeFittingTextCache.CacheEntry, type metadata accessor for SizeFittingTextLayoutComputer.Engine<ResolvedTextHelper, StickyTextSizeFittingLogic>);
-      *(v18 + v47) = v43;
-      v49 = *(v7 + 96);
-      v48 = *(v7 + 104);
-      v50 = v7;
-      v51 = *(v7 + 112);
-      v53 = v50[15];
-      v52 = v50[16];
-      v55 = v50[17];
-      v54 = v50[18];
-      outlined copy of Text?(v49, v48, v51, v53);
-      v97 = v49;
-      v98 = v51;
-      v102[0] = v49;
-      v56 = v48;
-      v18 = v91;
-      v102[1] = v56;
-      v102[2] = v51;
-      v102[3] = v53;
-      v102[4] = v52;
-      v102[5] = v55;
-      v102[6] = v54;
-      *&v100 = v52;
-
-      v99 = v55;
-
-      if (specialized SizeFittingTextCache.CacheEntry.result(for:)(v105, v102))
-      {
-        v57 = v107;
-        if ((*(v107 + 89) & 1) == 0 && v92 == *(v107 + 56))
-        {
-          *(v107 + 88) = 0;
-          *(v57 + 72) = 0u;
-          *(v57 + 56) = 0u;
-          *(v57 + 89) = 1;
-        }
-
-        v90();
-      }
-
-      outlined consume of Text?(v97, v56, v98, v53);
-
-      v58 = *v105;
-      v59 = *&v105[24];
-      v60 = *(*v105 + 260);
-      v100 = *&v105[8];
-      outlined consume of SizeFittingTextCacheValue<StyledTextLayoutEngine>?(*v46);
-      *v46 = v58;
-      *(v46 + 8) = v100;
-      *(v46 + 3) = v59;
-      if ((v60 & 0x100) == 0)
-      {
-        outlined destroy of SizeFittingTextCache<ResolvedTextHelper, StickyTextSizeFittingLogic>.CacheEntry(v18, &lazy cache variable for type metadata for SizeFittingTextCache<ResolvedTextHelper, StickyTextSizeFittingLogic>.CacheEntry, type metadata accessor for SizeFittingTextCache.CacheEntry, type metadata accessor for SizeFittingTextLayoutComputer.Engine<ResolvedTextHelper, StickyTextSizeFittingLogic>);
-        v7 = v107;
-        *(v107 + 32) = 1;
-        break;
-      }
-
-      v61 = v87;
-      outlined init with copy of SizeFittingTextCache<ResolvedTextHelper, StickyTextSizeFittingLogic>.CacheEntry(v18, v87, &lazy cache variable for type metadata for SizeFittingTextCache<ResolvedTextHelper, StickyTextSizeFittingLogic>.CacheEntry, type metadata accessor for SizeFittingTextCache.CacheEntry, type metadata accessor for SizeFittingTextLayoutComputer.Engine<ResolvedTextHelper, StickyTextSizeFittingLogic>);
-      v7 = v107;
-      swift_beginAccess();
-      v62 = *(v7 + 40);
-      v63 = swift_isUniquelyReferenced_nonNull_native();
-      *(v7 + 40) = v62;
-      if ((v63 & 1) == 0)
-      {
-        v62 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v62[2] + 1, 1, v62);
-        *(v7 + 40) = v62;
-      }
-
-      v15 = v86;
-      v6 = v62[2];
-      v64 = v62[3];
-      if (v6 >= v64 >> 1)
-      {
-        v62 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v64 > 1, v6 + 1, 1, v62);
-      }
-
-      v62[2] = v6 + 1;
-      outlined init with take of SizeFittingTextCache<ResolvedTextHelper, StickyTextSizeFittingLogic>.CacheEntry(v61, v62 + v96 + v6 * v95);
-      *(v7 + 40) = v62;
-      swift_endAccess();
-      outlined destroy of SizeFittingTextCache<ResolvedTextHelper, StickyTextSizeFittingLogic>.CacheEntry(v18, &lazy cache variable for type metadata for SizeFittingTextCache<ResolvedTextHelper, StickyTextSizeFittingLogic>.CacheEntry, type metadata accessor for SizeFittingTextCache.CacheEntry, type metadata accessor for SizeFittingTextLayoutComputer.Engine<ResolvedTextHelper, StickyTextSizeFittingLogic>);
-      a1 = v88;
-    }
-
-    while ((*(v7 + 32) & 1) == 0);
-  }
-
-  v95 = *(v7 + 40);
-  v96 = *(v95 + 16);
-  swift_beginAccess();
-  v65 = *(v7 + 96);
-  v66 = *(v7 + 104);
-  v67 = v7;
-  v69 = *(v7 + 112);
-  v68 = *(v7 + 120);
-  v70 = *(v7 + 128);
-  v71 = *(v7 + 136);
-  v72 = *(v7 + 144);
-  swift_beginAccess();
-  v97 = v66;
-  v98 = v65;
-  v73 = v66;
-  v6 = v95;
-  v91 = v69;
-  v92 = v68;
-  outlined copy of Text?(v65, v73, v69, v68);
-  v15 = v72;
-
-  *&v100 = v70;
-
-  v99 = v71;
-
-  result = swift_isUniquelyReferenced_nonNull_native();
-  *(v67 + 40) = v6;
-  if ((result & 1) == 0)
-  {
-LABEL_41:
-    result = specialized _ArrayBuffer._consumeAndCreateNew()(v6);
-    v6 = result;
-    *(v107 + 40) = result;
-    v75 = v96;
-    v76 = v97;
-    if (!v96)
-    {
-      goto LABEL_42;
-    }
-
-    goto LABEL_30;
-  }
-
-  v75 = v96;
-  v76 = v97;
-  if (!v96)
-  {
-LABEL_42:
-    __break(1u);
-    goto LABEL_43;
-  }
-
-LABEL_30:
-  if (v75 <= *(v6 + 16))
-  {
-    v77 = v15;
-    v78 = v75 - 1;
-    v32 = v6 + ((*(v94 + 80) + 32) & ~*(v94 + 80)) + *(v94 + 72) * (v75 - 1);
-    v104[0] = v98;
-    v104[1] = v76;
-    v79 = v91;
-    v31 = v92;
-    v104[2] = v91;
-    v104[3] = v92;
-    v104[4] = v100;
-    v104[5] = v99;
-    v104[6] = v77;
-    if (specialized SizeFittingTextCache.CacheEntry.result(for:)(v105, v104))
-    {
-      v103[0] = v78;
-      StickyTextSizeFittingLogic.onInvalidation(of:)(v103);
-      v90();
-    }
-
-    v80 = v85;
-    v84(v103, v105);
-    outlined consume of Text?(v98, v76, v79, v31);
-
-    if (!v80)
-    {
-      v31 = v103[0];
-    }
-
-    goto LABEL_35;
-  }
-
-LABEL_43:
-  __break(1u);
-  return result;
-}
-
-uint64_t specialized SizeFittingTextCache.withValue<A>(for:onChange:compute:)(unint64_t a1, void (*a2)(uint64_t), uint64_t a3, void (*a4)(uint64_t *__return_ptr, __int128 *), uint64_t a5)
-{
-  v7 = v6;
-  v8 = v5;
-  v79 = a3;
-  v80 = a2;
-  v12 = type metadata accessor for ResolvableStringResolutionContext(0);
-  MEMORY[0x1EEE9AC00](v12 - 8);
-  v77 = v72 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v14);
-  v75 = v72 - v15;
-  MEMORY[0x1EEE9AC00](v16);
-  v18 = v72 - v17;
-  swift_beginAccess();
-  v19 = v5[5];
-  v20 = *(v19 + 16);
-  v78 = a1;
-  v74 = v6;
-  v73 = a4;
-  v72[1] = a5;
-  if (v20 > a1)
-  {
-    v5 = *(*v5 + 144);
-    swift_beginAccess();
-    outlined init with copy of ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>(v5 + v8, v18, type metadata accessor for ResolvableStringResolutionContext);
-    swift_beginAccess();
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v8[5] = v19;
-    if (isUniquelyReferenced_nonNull_native)
-    {
-      if ((a1 & 0x8000000000000000) == 0)
-      {
-        goto LABEL_4;
-      }
-    }
-
-    else
-    {
-LABEL_45:
-      v19 = specialized _ArrayBuffer._consumeAndCreateNew()(v19);
-      v8[5] = v19;
-      if ((a1 & 0x8000000000000000) == 0)
-      {
-LABEL_4:
-        if (*(v19 + 16) > a1)
-        {
-          v22 = v19 + 48 * a1;
-          v23 = *(v22 + 40);
-          if (v23 && (*(v22 + 72) & 1) == 0)
-          {
-            v28 = *(v22 + 56);
-            v50 = *(v22 + 64);
-            v26 = *(v22 + 48);
-
-            v51 = v50;
-            v31 = 0;
-            v24 = v23;
-            v30 = v51;
-          }
-
-          else
-          {
-            v24 = DynamicTextView.DynamicTextHelper.value(for:)(v18);
-            v26 = v25;
-            v28 = v27;
-            v30 = v29;
-            v23 = *(v22 + 40);
-            v31 = 1;
-          }
-
-          outlined consume of SizeFittingTextCacheValue<StyledTextLayoutEngine>?(v23);
-          *(v22 + 40) = v24;
-          *(v22 + 48) = v26;
-          *(v22 + 56) = v28;
-          *(v22 + 64) = v30;
-          *(v22 + 72) = 0;
-          *&v81 = v24;
-          *(&v81 + 1) = v26;
-          *&v82 = v28;
-          *(&v82 + 1) = v30;
-          if (v31)
-          {
-            v83[0] = v78;
-            StickyTextSizeFittingLogic.onInvalidation(of:)(v83);
-
-            v80(v52);
-          }
-
-          else
-          {
-          }
-
-          v53 = v74;
-          v73(v83, &v81);
-          if (!v53)
-          {
-            v26 = v83[0];
-          }
-
-          outlined destroy of _VariadicView.Tree<_LayoutRoot<GeometryReaderLayout>, ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>>(v18, type metadata accessor for ResolvableStringResolutionContext);
-          v54 = *(v22 + 40);
-          *(v22 + 40) = v81;
-          *(v22 + 56) = v82;
-          outlined consume of SizeFittingTextCacheValue<StyledTextLayoutEngine>?(v54);
-          v8[5] = v19;
-LABEL_43:
-          swift_endAccess();
-          return v26;
-        }
-
-        goto LABEL_47;
-      }
-    }
-
-    __break(1u);
-LABEL_47:
-    __break(1u);
-    goto LABEL_48;
-  }
-
-  v76 = *(*v5 + 144);
-  swift_beginAccess();
-  if ((v5[4] & 1) == 0)
-  {
-    v7 = 48;
-    do
-    {
-      v32 = v8[5];
-      v33 = *(v32 + 16);
-      if (v33 > a1)
-      {
-        break;
-      }
-
-      if (!v33)
-      {
-        __break(1u);
-        goto LABEL_45;
-      }
-
-      v34 = v32 + 48 * v33;
-      v35 = *(v34 - 16);
-      v36 = *(v34 - 8);
-
-      outlined copy of SizeFittingTextCacheValue<StyledTextLayoutEngine>?(v36);
-      v18 = DynamicTextView.DynamicTextHelper.narrowerVariant.getter(v35);
-
-      outlined consume of SizeFittingTextCacheValue<StyledTextLayoutEngine>?(v36);
-      v83[3] = v18;
-      v37 = v77;
-      outlined init with copy of ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>(v8 + v76, v77, type metadata accessor for ResolvableStringResolutionContext);
-      v19 = DynamicTextView.DynamicTextHelper.value(for:)(v37);
-      v39 = v38;
-      v41 = v40;
-      v43 = v42;
-      if ((*(v8 + 89) & 1) == 0 && v33 == v8[7])
-      {
-        *(v8 + 88) = 0;
-        *(v8 + 9) = 0u;
-        *(v8 + 7) = 0u;
-        *(v8 + 89) = 1;
-      }
-
-      v80(v44);
-      outlined destroy of _VariadicView.Tree<_LayoutRoot<GeometryReaderLayout>, ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>>(v37, type metadata accessor for ResolvableStringResolutionContext);
-      v45 = *(v19 + 260);
-
-      if ((v45 & 0x100) == 0)
-      {
-
-        *(v8 + 32) = 1;
-        break;
-      }
-
-      swift_beginAccess();
-      v5 = v8[5];
-
-      v46 = swift_isUniquelyReferenced_nonNull_native();
-      v8[5] = v5;
-      if ((v46 & 1) == 0)
-      {
-        v5 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v5[2] + 1, 1, v5);
-        v8[5] = v5;
-      }
-
-      v48 = v5[2];
-      v47 = v5[3];
-      if (v48 >= v47 >> 1)
-      {
-        v5 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v47 > 1), v48 + 1, 1, v5);
-      }
-
-      v5[2] = v48 + 1;
-      v49 = &v5[6 * v48];
-      v7 = 48;
-      v49[4] = v18;
-      v49[5] = v19;
-      v49[6] = v39;
-      v49[7] = v41;
-      v49[8] = v43;
-      *(v49 + 72) = 0;
-      v8[5] = v5;
-      swift_endAccess();
-
-      a1 = v78;
-    }
-
-    while ((v8[4] & 1) == 0);
-  }
-
-  v7 = v8[5];
-  v5 = *(v7 + 16);
-  v55 = v76;
-  swift_beginAccess();
-  outlined init with copy of ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>(v8 + v55, v75, type metadata accessor for ResolvableStringResolutionContext);
-  swift_beginAccess();
-  result = swift_isUniquelyReferenced_nonNull_native();
-  v8[5] = v7;
-  if ((result & 1) == 0)
-  {
-LABEL_48:
-    result = specialized _ArrayBuffer._consumeAndCreateNew()(v7);
-    v7 = result;
-    v8[5] = result;
-    if (!v5)
-    {
-      goto LABEL_49;
-    }
-
-    goto LABEL_32;
-  }
-
-  if (!v5)
-  {
-LABEL_49:
-    __break(1u);
-    goto LABEL_50;
-  }
-
-LABEL_32:
-  if (v5 <= *(v7 + 16))
-  {
-    v57 = v5 - 1;
-    v58 = v7 + 48 * (v5 - 1);
-    v59 = *(v58 + 40);
-    if (v59 && (*(v58 + 72) & 1) == 0)
-    {
-      v63 = *(v58 + 56);
-      v67 = *(v58 + 64);
-      v61 = *(v58 + 48);
-
-      v68 = v67;
-      v66 = 0;
-      v26 = v59;
-      v65 = v68;
-    }
-
-    else
-    {
-      v26 = DynamicTextView.DynamicTextHelper.value(for:)(v75);
-      v61 = v60;
-      v63 = v62;
-      v65 = v64;
-      v59 = *(v58 + 40);
-      v66 = 1;
-    }
-
-    outlined consume of SizeFittingTextCacheValue<StyledTextLayoutEngine>?(v59);
-    *(v58 + 40) = v26;
-    *(v58 + 48) = v61;
-    *(v58 + 56) = v63;
-    *(v58 + 64) = v65;
-    *(v58 + 72) = 0;
-    *&v81 = v26;
-    *(&v81 + 1) = v61;
-    *&v82 = v63;
-    *(&v82 + 1) = v65;
-    if (v66)
-    {
-      v84 = v57;
-      StickyTextSizeFittingLogic.onInvalidation(of:)(&v84);
-
-      v80(v69);
-    }
-
-    else
-    {
-    }
-
-    v70 = v74;
-    v73(&v84, &v81);
-    if (!v70)
-    {
-      v26 = v84;
-    }
-
-    outlined destroy of _VariadicView.Tree<_LayoutRoot<GeometryReaderLayout>, ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>>(v75, type metadata accessor for ResolvableStringResolutionContext);
-    v71 = *(v58 + 40);
-    *(v58 + 40) = v81;
-    *(v58 + 56) = v82;
-    outlined consume of SizeFittingTextCacheValue<StyledTextLayoutEngine>?(v71);
-    v8[5] = v7;
-    goto LABEL_43;
-  }
-
-LABEL_50:
-  __break(1u);
-  return result;
-}
-
-uint64_t specialized SizeFittingTextCache.withValue<A>(for:onChange:compute:)(unint64_t a1, void (*a2)(uint64_t), uint64_t a3, void (*a4)(char **__return_ptr, __int128 *), uint64_t a5)
-{
-  v7 = v6;
-  v8 = v5;
-  v79 = a3;
-  v80 = a2;
-  v12 = type metadata accessor for ResolvableStringResolutionContext(0);
-  MEMORY[0x1EEE9AC00](v12 - 8);
-  v77 = v72 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v14);
-  v75 = v72 - v15;
-  MEMORY[0x1EEE9AC00](v16);
-  v18 = v72 - v17;
-  swift_beginAccess();
-  v19 = v5[5];
-  v20 = *(v19 + 16);
-  v78 = a1;
-  v74 = v6;
-  v73 = a4;
-  v72[1] = a5;
-  if (v20 > a1)
-  {
-    v5 = *(*v5 + 144);
-    swift_beginAccess();
-    outlined init with copy of ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>(v5 + v8, v18, type metadata accessor for ResolvableStringResolutionContext);
-    swift_beginAccess();
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v8[5] = v19;
-    if (isUniquelyReferenced_nonNull_native)
-    {
-      if ((a1 & 0x8000000000000000) == 0)
-      {
-        goto LABEL_4;
-      }
-    }
-
-    else
-    {
-LABEL_45:
-      v19 = specialized _ArrayBuffer._consumeAndCreateNew()(v19);
-      v8[5] = v19;
-      if ((a1 & 0x8000000000000000) == 0)
-      {
-LABEL_4:
-        if (*(v19 + 16) > a1)
-        {
-          v22 = v19 + 48 * a1;
-          v23 = *(v22 + 40);
-          if (v23 && (*(v22 + 72) & 1) == 0)
-          {
-            v28 = *(v22 + 56);
-            v50 = *(v22 + 64);
-            v26 = *(v22 + 48);
-
-            v51 = v50;
-            v31 = 0;
-            v24 = v23;
-            v30 = v51;
-          }
-
-          else
-          {
-            v24 = DynamicTextView.DynamicTextHelper.value(for:)(v18);
-            v26 = v25;
-            v28 = v27;
-            v30 = v29;
-            v23 = *(v22 + 40);
-            v31 = 1;
-          }
-
-          outlined consume of SizeFittingTextCacheValue<StyledTextLayoutEngine>?(v23);
-          *(v22 + 40) = v24;
-          *(v22 + 48) = v26;
-          *(v22 + 56) = v28;
-          *(v22 + 64) = v30;
-          *(v22 + 72) = 0;
-          *&v81 = v24;
-          *(&v81 + 1) = v26;
-          *&v82 = v28;
-          *(&v82 + 1) = v30;
-          if (v31)
-          {
-            v83[0] = v78;
-            StickyTextSizeFittingLogic.onInvalidation(of:)(v83);
-
-            v80(v52);
-          }
-
-          else
-          {
-          }
-
-          v53 = v74;
-          v73(v83, &v81);
-          if (!v53)
-          {
-            LOBYTE(v26) = v83[0];
-          }
-
-          outlined destroy of _VariadicView.Tree<_LayoutRoot<GeometryReaderLayout>, ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>>(v18, type metadata accessor for ResolvableStringResolutionContext);
-          v54 = *(v22 + 40);
-          *(v22 + 40) = v81;
-          *(v22 + 56) = v82;
-          outlined consume of SizeFittingTextCacheValue<StyledTextLayoutEngine>?(v54);
-          v8[5] = v19;
-LABEL_43:
-          swift_endAccess();
-          return v26 & 1;
-        }
-
-        goto LABEL_47;
-      }
-    }
-
-    __break(1u);
-LABEL_47:
-    __break(1u);
-    goto LABEL_48;
-  }
-
-  v76 = *(*v5 + 144);
-  swift_beginAccess();
-  if ((v5[4] & 1) == 0)
-  {
-    v7 = 48;
-    do
-    {
-      v32 = v8[5];
-      v33 = *(v32 + 16);
-      if (v33 > a1)
-      {
-        break;
-      }
-
-      if (!v33)
-      {
-        __break(1u);
-        goto LABEL_45;
-      }
-
-      v34 = v32 + 48 * v33;
-      v35 = *(v34 - 16);
-      v36 = *(v34 - 8);
-
-      outlined copy of SizeFittingTextCacheValue<StyledTextLayoutEngine>?(v36);
-      v18 = DynamicTextView.DynamicTextHelper.narrowerVariant.getter(v35);
-
-      outlined consume of SizeFittingTextCacheValue<StyledTextLayoutEngine>?(v36);
-      v83[3] = v18;
-      v37 = v77;
-      outlined init with copy of ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>(v8 + v76, v77, type metadata accessor for ResolvableStringResolutionContext);
-      v19 = DynamicTextView.DynamicTextHelper.value(for:)(v37);
-      v39 = v38;
-      v41 = v40;
-      v43 = v42;
-      if ((*(v8 + 89) & 1) == 0 && v33 == v8[7])
-      {
-        *(v8 + 88) = 0;
-        *(v8 + 9) = 0u;
-        *(v8 + 7) = 0u;
-        *(v8 + 89) = 1;
-      }
-
-      v80(v44);
-      outlined destroy of _VariadicView.Tree<_LayoutRoot<GeometryReaderLayout>, ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>>(v37, type metadata accessor for ResolvableStringResolutionContext);
-      v45 = *(v19 + 260);
-
-      if ((v45 & 0x100) == 0)
-      {
-
-        *(v8 + 32) = 1;
-        break;
-      }
-
-      swift_beginAccess();
-      v5 = v8[5];
-
-      v46 = swift_isUniquelyReferenced_nonNull_native();
-      v8[5] = v5;
-      if ((v46 & 1) == 0)
-      {
-        v5 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v5[2] + 1, 1, v5);
-        v8[5] = v5;
-      }
-
-      v48 = v5[2];
-      v47 = v5[3];
-      if (v48 >= v47 >> 1)
-      {
-        v5 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v47 > 1), v48 + 1, 1, v5);
-      }
-
-      v5[2] = v48 + 1;
-      v49 = &v5[6 * v48];
-      v7 = 48;
-      v49[4] = v18;
-      v49[5] = v19;
-      v49[6] = v39;
-      v49[7] = v41;
-      v49[8] = v43;
-      *(v49 + 72) = 0;
-      v8[5] = v5;
-      swift_endAccess();
-
-      a1 = v78;
-    }
-
-    while ((v8[4] & 1) == 0);
-  }
-
-  v7 = v8[5];
-  v5 = *(v7 + 16);
-  v55 = v76;
-  swift_beginAccess();
-  outlined init with copy of ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>(v8 + v55, v75, type metadata accessor for ResolvableStringResolutionContext);
-  swift_beginAccess();
-  result = swift_isUniquelyReferenced_nonNull_native();
-  v8[5] = v7;
-  if ((result & 1) == 0)
-  {
-LABEL_48:
-    result = specialized _ArrayBuffer._consumeAndCreateNew()(v7);
-    v7 = result;
-    v8[5] = result;
-    if (!v5)
-    {
-      goto LABEL_49;
-    }
-
-    goto LABEL_32;
-  }
-
-  if (!v5)
-  {
-LABEL_49:
-    __break(1u);
-    goto LABEL_50;
-  }
-
-LABEL_32:
-  if (v5 <= *(v7 + 16))
-  {
-    v57 = v5 - 1;
-    v58 = v7 + 48 * (v5 - 1);
-    v59 = *(v58 + 40);
-    if (v59 && (*(v58 + 72) & 1) == 0)
-    {
-      v63 = *(v58 + 56);
-      v67 = *(v58 + 64);
-      v61 = *(v58 + 48);
-
-      v68 = v67;
-      v66 = 0;
-      v26 = v59;
-      v65 = v68;
-    }
-
-    else
-    {
-      v26 = DynamicTextView.DynamicTextHelper.value(for:)(v75);
-      v61 = v60;
-      v63 = v62;
-      v65 = v64;
-      v59 = *(v58 + 40);
-      v66 = 1;
-    }
-
-    outlined consume of SizeFittingTextCacheValue<StyledTextLayoutEngine>?(v59);
-    *(v58 + 40) = v26;
-    *(v58 + 48) = v61;
-    *(v58 + 56) = v63;
-    *(v58 + 64) = v65;
-    *(v58 + 72) = 0;
-    *&v81 = v26;
-    *(&v81 + 1) = v61;
-    *&v82 = v63;
-    *(&v82 + 1) = v65;
-    if (v66)
-    {
-      v84 = v57;
-      StickyTextSizeFittingLogic.onInvalidation(of:)(&v84);
-
-      v80(v69);
-    }
-
-    else
-    {
-    }
-
-    v70 = v74;
-    v73(&v84, &v81);
-    if (!v70)
-    {
-      LOBYTE(v26) = v84;
-    }
-
-    outlined destroy of _VariadicView.Tree<_LayoutRoot<GeometryReaderLayout>, ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>>(v75, type metadata accessor for ResolvableStringResolutionContext);
-    v71 = *(v58 + 40);
-    *(v58 + 40) = v81;
-    *(v58 + 56) = v82;
-    outlined consume of SizeFittingTextCacheValue<StyledTextLayoutEngine>?(v71);
-    v8[5] = v7;
-    goto LABEL_43;
-  }
-
-LABEL_50:
-  __break(1u);
-  return result;
-}
-
-unint64_t specialized SizeFittingTextLayoutComputer.Engine.debugContentDescription.getter(uint64_t a1, uint64_t a2)
-{
-  LOBYTE(v11) = 1;
-  v10 = 1;
-  specialized SizeFittingTextCache.suggestedVariant(for:)(0, 1, 0, 1, &v8);
-  if (v9)
-  {
-    swift_beginAccess();
-
-    LOBYTE(v11) = 1;
-    v10 = 1;
-    specialized ClosestFitCache.callAsFunction(for:makeValue:)(0, 1, 0.0, 1, (a2 + 16), a2, &v11, 0, 1);
-    swift_endAccess();
-    v3 = v11;
-  }
-
-  else
-  {
-    v3 = v8;
-    v11 = v8;
-  }
-
-  v4 = specialized SizeFittingTextCache.withValue<A>(for:onChange:compute:)(v3, _ViewInputs.base.modify, 0, specialized closure #1 in SizeFittingTextLayoutComputer.Engine.debugContentDescription.getter, 0);
-  v6 = v5;
-  v8 = 0;
-  v9 = 0xE000000000000000;
-  _StringGuts.grow(_:)(33);
-
-  v8 = 0xD00000000000001ELL;
-  v9 = 0x800000018DD75B20;
-  MEMORY[0x193ABEDD0](v4, v6);
-
-  MEMORY[0x193ABEDD0](41, 0xE100000000000000);
-  return v8;
-}
-
-uint64_t specialized closure #1 in implicit closure #2 in implicit closure #1 in ChildEnvironment.updateValue()()
-{
-  type metadata accessor for KeyPath<EnvironmentValues, LayoutDirection>(0, &lazy cache variable for type metadata for WritableKeyPath<EnvironmentValues, RedactionReasons>, &type metadata for EnvironmentValues, &type metadata for RedactionReasons, MEMORY[0x1E69E6CE0]);
-  if (dispatch thunk of static Equatable.== infix(_:_:)())
-  {
-    return AGCompareValues() ^ 1;
-  }
-
-  else
-  {
-    return 1;
-  }
-}
-
-{
-  type metadata accessor for KeyPath<EnvironmentValues, LayoutDirection>(0, &lazy cache variable for type metadata for WritableKeyPath<EnvironmentValues, Bool>, &type metadata for EnvironmentValues, MEMORY[0x1E69E6370], MEMORY[0x1E69E6CE0]);
-  if (dispatch thunk of static Equatable.== infix(_:_:)())
-  {
-    return AGCompareValues() ^ 1;
-  }
-
-  else
-  {
-    return 1;
-  }
-}
-
-{
-  type metadata accessor for WritableKeyPath<EnvironmentValues, Font?>();
-  if ((dispatch thunk of static Equatable.== infix(_:_:)() & 1) == 0)
-  {
-    return 1;
-  }
-
-  type metadata accessor for EnvironmentFetch<LayoutDirection>(0, &lazy cache variable for type metadata for Font?, &type metadata for Font, MEMORY[0x1E69E6720]);
-  return AGCompareValues() ^ 1;
-}
-
-BOOL specialized ResettableGestureRule.resetIfNeeded()()
-{
-  v1 = *(v0 + 40);
-  if (v1 == *AGGraphGetValue())
-  {
-    type metadata accessor for EnvironmentFetch<LayoutDirection>(0, &lazy cache variable for type metadata for GesturePhase<TappableEvent>, &type metadata for TappableEvent, type metadata accessor for GesturePhase);
-    OutputValue = AGGraphGetOutputValue();
-    v7 = 1;
-    if (OutputValue)
-    {
-      v3 = OutputValue[2].u8[1];
-      if (v3 == 2 || v3 == 3 && ((v4 = vorrq_s8(*OutputValue, OutputValue[1]), v5 = vorr_s8(*v4.i8, *&vextq_s8(v4, v4, 8uLL)), !OutputValue[2].i8[0]) ? (v6 = *&v5 == 0) : (v6 = 0), v6))
-      {
-        v7 = 0;
-      }
-    }
-  }
-
-  else
-  {
-    *(v0 + 36) = 0;
-    *(v0 + 24) = 0;
-    v7 = 1;
-    *(v0 + 32) = 1;
-  }
-
-  *(v0 + 40) = *AGGraphGetValue();
-  return v7;
-}
-
-{
-  v1 = *(v0 + 48);
-  if (v1 == *AGGraphGetValue())
-  {
-    type metadata accessor for EnvironmentFetch<LayoutDirection>(0, &lazy cache variable for type metadata for GesturePhase<CGFloat>, MEMORY[0x1E69E7DE0], type metadata accessor for GesturePhase);
-    OutputValue = AGGraphGetOutputValue();
-    v5 = 1;
-    if (OutputValue)
-    {
-      v3 = *(OutputValue + 9);
-      if (v3 == 2 || v3 == 3 && (!*(OutputValue + 8) ? (v4 = *OutputValue == 0) : (v4 = 0), v4))
-      {
-        v5 = 0;
-      }
-    }
-  }
-
-  else
-  {
-    *(v0 + 16) = 0;
-    *(v0 + 24) = 0;
-    v5 = 1;
-    *(v0 + 32) = 1;
-    *(v0 + 40) = 0;
-  }
-
-  *(v0 + 48) = *AGGraphGetValue();
-  return v5;
-}
-
-{
-  v1 = *(v0 + 16);
-  v7 = 1;
-  if (v1 == *AGGraphGetValue())
-  {
-    type metadata accessor for EnvironmentFetch<LayoutDirection>(0, &lazy cache variable for type metadata for GesturePhase<TappableEvent>, &type metadata for TappableEvent, type metadata accessor for GesturePhase);
-    OutputValue = AGGraphGetOutputValue();
-    if (OutputValue)
-    {
-      v3 = OutputValue[2].u8[1];
-      if (v3 == 2 || v3 == 3 && ((v4 = vorrq_s8(*OutputValue, OutputValue[1]), v5 = vorr_s8(*v4.i8, *&vextq_s8(v4, v4, 8uLL)), !OutputValue[2].i8[0]) ? (v6 = *&v5 == 0) : (v6 = 0), v6))
-      {
-        v7 = 0;
-      }
-    }
-  }
-
-  *(v0 + 16) = *AGGraphGetValue();
-  return v7;
-}
-
-{
-  v1 = *(v0 + 36);
-  if (v1 == *AGGraphGetValue())
-  {
-    type metadata accessor for EnvironmentFetch<LayoutDirection>(0, &lazy cache variable for type metadata for GesturePhase<Double>, MEMORY[0x1E69E63B0], type metadata accessor for GesturePhase);
-    OutputValue = AGGraphGetOutputValue();
-    v5 = 1;
-    if (OutputValue)
-    {
-      v3 = *(OutputValue + 9);
-      if (v3 == 2 || v3 == 3 && (!*(OutputValue + 8) ? (v4 = *OutputValue == 0) : (v4 = 0), v4))
-      {
-        v5 = 0;
-      }
-    }
-  }
-
-  else
-  {
-    *(v0 + 24) = 0;
-    v5 = 1;
-    *(v0 + 32) = 1;
-  }
-
-  *(v0 + 36) = *AGGraphGetValue();
-  return v5;
-}
-
-{
-  v1 = *(v0 + 12);
-  v7 = 1;
-  if (v1 == *AGGraphGetValue())
-  {
-    type metadata accessor for EnvironmentFetch<LayoutDirection>(0, &lazy cache variable for type metadata for GesturePhase<TappableEvent>, &type metadata for TappableEvent, type metadata accessor for GesturePhase);
-    OutputValue = AGGraphGetOutputValue();
-    if (OutputValue)
-    {
-      v3 = OutputValue[2].u8[1];
-      if (v3 == 2 || v3 == 3 && ((v4 = vorrq_s8(*OutputValue, OutputValue[1]), v5 = vorr_s8(*v4.i8, *&vextq_s8(v4, v4, 8uLL)), !OutputValue[2].i8[0]) ? (v6 = *&v5 == 0) : (v6 = 0), v6))
-      {
-        v7 = 0;
-      }
-    }
-  }
-
-  *(v0 + 12) = *AGGraphGetValue();
-  return v7;
-}
-
-uint64_t specialized ResettableGestureRule.resetIfNeeded()()
-{
-  v21 = *MEMORY[0x1E69E9840];
-  v1 = *(v0 + 40);
-  if (v1 != *AGGraphGetValue())
-  {
-    *(v0 + 24) = 0;
-    *(v0 + 32) = 0;
-    v7 = 1;
-    type metadata accessor for KeyPath<EnvironmentValues, LayoutDirection>(0, &lazy cache variable for type metadata for EventListenerPhase<SpatialEvent>.Value, &type metadata for SpatialEvent, &protocol witness table for SpatialEvent, type metadata accessor for EventListenerPhase.Value);
-    AGGraphSetOutputValue();
-    v12[0] = 0;
-    v12[1] = 0;
-    v12[2] = 1;
-    v13 = 0u;
-    v14 = 0u;
-    memset(v15, 0, sizeof(v15));
-    v16 = v10;
-    v17 = v11;
-    v18 = 0;
-    v19 = 0;
-    v20 = 5;
-    outlined destroy of EventListenerPhase<SpatialEvent>.Value(v12);
-    Value = AGGraphGetValue();
-LABEL_12:
-    *(v0 + 40) = *Value;
-    return v7;
-  }
-
-  type metadata accessor for KeyPath<EnvironmentValues, LayoutDirection>(0, &lazy cache variable for type metadata for EventListenerPhase<SpatialEvent>.Value, &type metadata for SpatialEvent, &protocol witness table for SpatialEvent, type metadata accessor for EventListenerPhase.Value);
-  OutputValue = AGGraphGetOutputValue();
-  if (OutputValue)
-  {
-    v3 = OutputValue[5].u8[1];
-    if (v3 == 2 || v3 == 3 && ((v4 = vorrq_s8(vorrq_s8(OutputValue[1], OutputValue[3]), vorrq_s8(OutputValue[2], OutputValue[4])), v5 = *&vorr_s8(*v4.i8, *&vextq_s8(v4, v4, 8uLL)) | OutputValue->i64[1] | OutputValue->i64[0], !OutputValue[5].i8[0]) ? (v6 = v5 == 0) : (v6 = 0), v6))
-    {
-      Value = AGGraphGetValue();
-      v7 = 0;
-      goto LABEL_12;
-    }
-  }
-
-  *(v0 + 40) = *AGGraphGetValue();
-  return 1;
-}
-
-{
-  v19 = *MEMORY[0x1E69E9840];
-  v1 = *(v0 + 40);
-  if (v1 == *AGGraphGetValue())
-  {
-    type metadata accessor for KeyPath<EnvironmentValues, LayoutDirection>(0, &lazy cache variable for type metadata for EventListenerPhase<TappableEvent>.Value, &type metadata for TappableEvent, &protocol witness table for TappableEvent, type metadata accessor for EventListenerPhase.Value);
-    OutputValue = AGGraphGetOutputValue();
-    if (OutputValue)
-    {
-      v3 = OutputValue[2].u8[1];
-      if (v3 == 2 || v3 == 3 && ((v4 = vorrq_s8(*OutputValue, OutputValue[1]), v5 = vorr_s8(*v4.i8, *&vextq_s8(v4, v4, 8uLL)), !OutputValue[2].i8[0]) ? (v6 = *&v5 == 0) : (v6 = 0), v6))
-      {
-        Value = AGGraphGetValue();
-        result = 0;
-        *(v0 + 40) = *Value;
-        return result;
-      }
-    }
-  }
-
-  else
-  {
-    *(v0 + 24) = 0;
-    *(v0 + 32) = 0;
-    type metadata accessor for KeyPath<EnvironmentValues, LayoutDirection>(0, &lazy cache variable for type metadata for EventListenerPhase<TappableEvent>.Value, &type metadata for TappableEvent, &protocol witness table for TappableEvent, type metadata accessor for EventListenerPhase.Value);
-    AGGraphSetOutputValue();
-    v11[0] = 0;
-    v11[1] = 0;
-    v12 = xmmword_18DD85500;
-    v13 = 0;
-    v14 = v9;
-    v15 = v10;
-    v16 = 0;
-    v17 = 0;
-    v18 = 5;
-    outlined destroy of EventListenerPhase<TappableEvent>.Value(v11);
-  }
-
-  *(v0 + 40) = *AGGraphGetValue();
-  return 1;
-}
-
-uint64_t specialized LazyHVStack<>.lengthAndSpacing(subviews:predecessors:minorGeometry:)(uint64_t result, uint64_t a2, double a3)
-{
-  if (*(result + 16))
-  {
-    result = outlined init with copy of _LazyLayout_Subview(result + 32, v17);
-    if (!a2)
-    {
-      memset(v16, 0, sizeof(v16));
-      goto LABEL_6;
-    }
-
-    if (*(a2 + 16))
-    {
-      outlined init with copy of _LazyLayout_Subview(a2 + 32, v16);
-LABEL_6:
-      v5 = v17[2];
-      v6 = *(LazyLayoutViewCache.item(data:)(v18) + 44);
-
-      v7 = *MEMORY[0x1E698D3F8];
-      v13 = v5;
-      v14 = v6;
-      v15 = v7;
-      v9 = 0;
-      v10 = 1;
-      v11 = a3;
-      v12 = 0;
-      v8 = LayoutProxy.lengthThatFits(_:in:)(&v9, 0);
-      MEMORY[0x1EEE9AC00](v8);
-      _sSq3mapyqd_0_Sgqd_0_xqd__YKXEqd__YKs5ErrorRd__Ri_d_0_r0_lF7SwiftUI19_LazyLayout_SubviewV_s5NeverO12CoreGraphics7CGFloatVTg5(closure #1 in _LazyLayout_Subview.lengthAndSpacing(size:axis:predecessor:uniformSpacing:)partial apply);
-      outlined destroy of GlassEntryView?(v16, &lazy cache variable for type metadata for _LazyLayout_Subview?, &type metadata for _LazyLayout_Subview, MEMORY[0x1E69E6720]);
-      return outlined destroy of _LazyLayout_Subview(v17);
-    }
-  }
-
-  else
-  {
-    __break(1u);
-  }
-
-  __break(1u);
-  return result;
-}
-
-{
-  if (*(result + 16))
-  {
-    result = outlined init with copy of _LazyLayout_Subview(result + 32, v17);
-    if (!a2)
-    {
-      memset(v16, 0, sizeof(v16));
-      goto LABEL_6;
-    }
-
-    if (*(a2 + 16))
-    {
-      outlined init with copy of _LazyLayout_Subview(a2 + 32, v16);
-LABEL_6:
-      v5 = v17[2];
-      v6 = *(LazyLayoutViewCache.item(data:)(v18) + 44);
-
-      v7 = *MEMORY[0x1E698D3F8];
-      v13 = v5;
-      v14 = v6;
-      v15 = v7;
-      v9 = a3;
-      v10 = 0;
-      v11 = 0;
-      v12 = 1;
-      v8 = LayoutProxy.lengthThatFits(_:in:)(&v9, 1);
-      MEMORY[0x1EEE9AC00](v8);
-      _sSq3mapyqd_0_Sgqd_0_xqd__YKXEqd__YKs5ErrorRd__Ri_d_0_r0_lF7SwiftUI19_LazyLayout_SubviewV_s5NeverO12CoreGraphics7CGFloatVTg5(partial apply for closure #1 in _LazyLayout_Subview.lengthAndSpacing(size:axis:predecessor:uniformSpacing:));
-      outlined destroy of GlassEntryView?(v16, &lazy cache variable for type metadata for _LazyLayout_Subview?, &type metadata for _LazyLayout_Subview, MEMORY[0x1E69E6720]);
-      return outlined destroy of _LazyLayout_Subview(v17);
-    }
-  }
-
-  else
-  {
-    __break(1u);
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t specialized LazyStack<>.place(subviews:context:cache:in:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
-{
-  v142 = a4;
-  v144 = a7;
-  v145 = a7 & 0xFFFFFFFF00000000;
-  v141 = type metadata accessor for IndexSet();
-  v140 = *(v141 - 8);
-  MEMORY[0x1EEE9AC00](v141);
-  v139 = &v132 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for ViewLayoutEngine<GeometryReaderLayout>(0, &lazy cache variable for type metadata for StackPlacement<LazyHStackLayout>, lazy protocol witness table accessor for type LazyHStackLayout and conformance LazyHStackLayout, &type metadata for LazyHStackLayout, type metadata accessor for StackPlacement);
-  v138 = v15;
-  MEMORY[0x1EEE9AC00](v15);
-  v17 = &v132 - v16;
-  type metadata accessor for ObservationTracking._AccessList?(0, &lazy cache variable for type metadata for (StackPlacement<LazyHStackLayout>, PlacementProperties<LazyHStackLayout>)?, type metadata accessor for (StackPlacement<LazyHStackLayout>, PlacementProperties<LazyHStackLayout>), MEMORY[0x1E69E6720]);
-  MEMORY[0x1EEE9AC00](v18 - 8);
-  v20 = &v132 - v19;
-  type metadata accessor for (StackPlacement<LazyHStackLayout>, PlacementProperties<LazyHStackLayout>)();
-  v22 = v21;
-  v23 = *(v21 - 8);
-  MEMORY[0x1EEE9AC00](v21);
-  v25 = &v132 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v26);
-  v143 = &v132 - v27;
-  v28 = *(a2 + 280);
-  v29 = *(a2 + 288);
-  v30 = *(a2 + 296);
-  v31 = *(a2 + 104);
-  v32 = *(a2 + 136);
-  v152 = *(a2 + 120);
-  v153 = v32;
-  v154 = *(a2 + 152);
-  v33 = *(a2 + 72);
-  v148 = *(a2 + 56);
-  v34 = *(a2 + 88);
-  v151 = v31;
-  v149 = v33;
-  v150 = v34;
-  if (v30)
-  {
-    v137 = a5;
-    ScrollGeometry.outsetForAX(limit:)(__PAIR128__(v29, v28));
-    a5 = v137;
-  }
-
-  v36 = *(&v153 + 1);
-  v35 = *&v153;
-  v38 = *(&v154 + 1);
-  v37 = *&v154;
-  LOBYTE(v148) = v144 & 1;
-  specialized LazyStack<>.resolvedPlacerProperties(subviews:context:cache:)(a1, a2, a3, a5, a6, v145 | v144 & 1, v20);
-  if ((*(v23 + 48))(v20, 1, v22) == 1)
-  {
-    *&result = COERCE_DOUBLE(outlined destroy of ObservationTracking._AccessList?(v20, &lazy cache variable for type metadata for (StackPlacement<LazyHStackLayout>, PlacementProperties<LazyHStackLayout>)?, type metadata accessor for (StackPlacement<LazyHStackLayout>, PlacementProperties<LazyHStackLayout>), MEMORY[0x1E69E6720], type metadata accessor for ObservationTracking._AccessList?));
-    return result;
-  }
-
-  v40 = v143;
-  outlined init with take of (StackPlacement<LazyVStackLayout>, PlacementProperties<LazyVStackLayout>)(v20, v143, type metadata accessor for (StackPlacement<LazyHStackLayout>, PlacementProperties<LazyHStackLayout>));
-  v41 = v22;
-  outlined init with copy of ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>(v40, v25, type metadata accessor for (StackPlacement<LazyHStackLayout>, PlacementProperties<LazyHStackLayout>));
-  outlined init with take of StackPlacement<LazyHStackLayout>(v25, v17, &lazy cache variable for type metadata for StackPlacement<LazyHStackLayout>, lazy protocol witness table accessor for type LazyHStackLayout and conformance LazyHStackLayout, &type metadata for LazyHStackLayout);
-  outlined init with copy of ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>(v40, v25, type metadata accessor for (StackPlacement<LazyHStackLayout>, PlacementProperties<LazyHStackLayout>));
-  v42 = *(v25 + *(v22 + 48));
-  outlined destroy of StackPlacement<LazyHStackLayout>(v25);
-  outlined init with copy of ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>(v40, v25, type metadata accessor for (StackPlacement<LazyHStackLayout>, PlacementProperties<LazyHStackLayout>));
-  v43 = v25 + *(v22 + 48);
-  v44 = *(v43 + 24);
-  v45 = *(v43 + 32);
-  outlined destroy of StackPlacement<LazyHStackLayout>(v25);
-  outlined init with copy of ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>(v40, v25, type metadata accessor for (StackPlacement<LazyHStackLayout>, PlacementProperties<LazyHStackLayout>));
-  v46 = *(v25 + *(v22 + 48) + 40);
-  outlined destroy of StackPlacement<LazyHStackLayout>(v25);
-  outlined init with copy of ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>(v40, v25, type metadata accessor for (StackPlacement<LazyHStackLayout>, PlacementProperties<LazyHStackLayout>));
-  v47 = *(v25 + *(v22 + 48) + 41);
-  outlined destroy of StackPlacement<LazyHStackLayout>(v25);
-  v144 = v41;
-  v48 = (v40 + *(v41 + 48));
-  v49 = v48[1];
-  v148 = *v48;
-  v50 = v48[2];
-  v151 = v48[3];
-  v149 = v49;
-  v150 = v50;
-  v145 = a1;
-  v51 = _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE23resolveIndexAndPosition33_973C9973BC16DEAF0CF3109FFDE313218subviews7context5cache6placer10propertiesSi5index_12CoreGraphics7CGFloatV8positiontSgAA01_C15Layout_SubviewsV_AA01_cY17_PlacementContextVAFzAA0D9PlacementAJLLVyxGzAA19PlacementPropertiesAJLLVyxGtFAA0c6HStackY0V_Tt4B5(a1, a2, a3, v17, &v148);
-  if (v53)
-  {
-    goto LABEL_118;
-  }
-
-  v54 = v51;
-  v134 = v47;
-  v136 = a3;
-  v55 = v52;
-  specialized StackPlacement.log(_:)(v52, *(v17 + 7), *(v17 + 8), v17, v51);
-  v56 = (v17 + 136);
-  *(v17 + 12) = *&v54;
-  v17[104] = 0;
-  *(v17 + 14) = v55;
-  *(v17 + 15) = 0;
-  v17[128] = 1;
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v58 = *(v17 + 17);
-  if (isUniquelyReferenced_nonNull_native)
-  {
-    v59 = *(v58 + 2);
-    v60 = swift_isUniquelyReferenced_nonNull_native();
-    *v56 = v58;
-    if ((v60 & 1) == 0)
-    {
-      v58 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v59, 1, v58);
-      *v56 = v58;
-    }
-
-    specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:)(0, v59, 0);
-  }
-
-  else
-  {
-    v61 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC7SwiftUI19_LazyLayout_SubviewV_Tt1g5(0, *(v58 + 3) >> 1);
-
-    v58 = v61;
-  }
-
-  *(v17 + 17) = v58;
-
-  *(v17 + 18) = 0;
-  outlined destroy of GlassEntryView?((v17 + 152), &lazy cache variable for type metadata for _LazyLayout_Subview?, &type metadata for _LazyLayout_Subview, MEMORY[0x1E69E6720]);
-  *(v17 + 152) = 0u;
-  *(v17 + 168) = 0u;
-  *(v17 + 184) = 0u;
-  *(v17 + 200) = 0u;
-  *(v17 + 216) = 0u;
-  *(v17 + 232) = 0u;
-  *(v17 + 248) = 0u;
-  v62 = swift_isUniquelyReferenced_nonNull_native();
-  v63 = *(v17 + 33);
-  v137 = v42;
-  v135 = v46;
-  if (v62)
-  {
-    v64 = *(v63 + 2);
-    v65 = swift_isUniquelyReferenced_nonNull_native();
-    *(v17 + 33) = v63;
-    if ((v65 & 1) == 0)
-    {
-      v63 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v64, 1, v63);
-      *(v17 + 33) = v63;
-    }
-
-    specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:)(0, v64, 0);
-  }
-
-  else
-  {
-    v66 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC7SwiftUI25_LazyLayout_PlacedSubviewV_Tt1g5(0, *(v63 + 3) >> 1);
-
-    v63 = v66;
-  }
-
-  *(v17 + 33) = v63;
-  *(v17 + 17) = xmmword_18DDAB4E0;
-  *(v17 + 18) = xmmword_18DDAB4F0;
-  *(v17 + 19) = xmmword_18DDAB4F0;
-  v17[320] = 0;
-  v67 = &v17[*(v138 + 104)];
-  *&v68 = MEMORY[0x1E69E7CC0];
-  v69 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC12CoreGraphics7CGFloatV_SiTt0g5Tf4g_n(MEMORY[0x1E69E7CC0]);
-
-  *v67 = v69;
-  v70 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC12CoreGraphics7CGFloatV_SiTt0g5Tf4g_n(v68);
-
-  v67[1] = v70;
-  v147 = *&v68;
-  lazy protocol witness table accessor for type TouchEvent and conformance TouchEvent(&lazy protocol witness table cache variable for type IndexSet and conformance IndexSet, MEMORY[0x1E6969B50]);
-  type metadata accessor for EnvironmentFetch<LayoutDirection>(0, &lazy cache variable for type metadata for [Int], MEMORY[0x1E69E6530], MEMORY[0x1E69E62F8]);
-  lazy protocol witness table accessor for type [Int] and conformance [A]();
-  v71 = v139;
-  v72 = v141;
-  dispatch thunk of SetAlgebra.init<A>(_:)();
-  v73 = type metadata accessor for EstimationCache();
-  v74 = *(v73 + 24);
-  v75 = (*(v140 + 40))(v67 + v74, v71, v72);
-  v76 = *(v17 + 4);
-  v77 = __OFSUB__(v54, v76);
-  v78 = v54 - v76;
-  if (v78 < 0 == v77)
-  {
-    v17[104] = 1;
-    if (v77)
-    {
-      __break(1u);
-      goto LABEL_127;
-    }
-
-    *(v17 + 12) = v78;
-    v54 = v78;
-  }
-
-  v140 = v73;
-  v141 = v74;
-  v79 = 2 * v137;
-  v147 = *&v54;
-  v146 = 2 * v137;
-  MEMORY[0x1EEE9AC00](v75);
-  *(&v132 - 2) = v17;
-  v80 = _LazyLayout_Subviews.applyNodes(from:style:to:)(&v147, &v146, closure #1 in StackPlacement.place(subviews:from:position:stopping:style:)specialized partial apply, (&v132 - 4));
-  specialized StackPlacement.flushMinorGroup()();
-  v81 = (v80 & 1) != 0 && vabdd_f64(*(v17 + 14), *(v17 + 37)) < 0.01;
-  v82 = v142;
-  if (AGGraphHasDeadlinePassed())
-  {
-    AGGraphCancelUpdate();
-    goto LABEL_24;
-  }
-
-  if (v17[320] == 1)
-  {
-LABEL_24:
-    outlined destroy of StackPlacement<LazyHStackLayout>(v17);
-    *&result = COERCE_DOUBLE(outlined destroy of _VariadicView.Tree<_LayoutRoot<GeometryReaderLayout>, ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>>(v40, type metadata accessor for (StackPlacement<LazyHStackLayout>, PlacementProperties<LazyHStackLayout>)));
-    *(v82 + 64) = 1;
-    return result;
-  }
-
-  v83 = *(v17 + 33);
-
-  v133 = v83;
-  *v82 = v83;
-  v155.origin.x = v35;
-  v155.origin.y = v36;
-  v155.size.width = v37;
-  v155.size.height = v38;
-  IsNull = CGRectIsNull(v155);
-  v85 = 0.0;
-  v86 = 0.0;
-  if (!IsNull)
-  {
-    v86 = v36 + v38;
-    if (v36 + v38 >= v36)
-    {
-      v85 = v36;
-    }
-
-    else
-    {
-      v85 = v36 + v38;
-    }
-
-    if (v36 > v86)
-    {
-      v86 = v36;
-    }
-
-    if (v85 > v86)
-    {
-      v86 = 0.0;
-      v85 = 0.0;
-    }
-  }
-
-  v8 = *(v17 + 36);
-  v7 = *(v17 + 37);
-  v139 = v79;
-  if (v8 >= v7)
-  {
-    v89 = *MEMORY[0x1E695F050];
-    v85 = *(MEMORY[0x1E695F050] + 8);
-    v90 = *(MEMORY[0x1E695F050] + 16);
-    v87 = *(MEMORY[0x1E695F050] + 24);
-  }
-
-  else
-  {
-    v87 = v7 - v8;
-    v88 = v86 - v85;
-    if (v17[24])
-    {
-      v89 = v85;
-    }
-
-    else
-    {
-      v89 = v8;
-    }
-
-    if (v17[24])
-    {
-      v85 = v8;
-      v90 = v88;
-    }
-
-    else
-    {
-      v90 = v7 - v8;
-    }
-
-    if (!v17[24])
-    {
-      v87 = v88;
-    }
-  }
-
-  v156.origin.x = v35;
-  v156.origin.y = v36;
-  v156.size.width = v37;
-  v156.size.height = v38;
-  *(v82 + 8) = CGRectUnion(*(&v85 - 1), v156);
-  outlined init with copy of ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>(v40, v25, type metadata accessor for (StackPlacement<LazyHStackLayout>, PlacementProperties<LazyHStackLayout>));
-  v71 = v144;
-  v91 = v25 + *(v144 + 48);
-  v72 = v136;
-  *v136 = *v91;
-  *(v72 + 8) = *(v91 + 8);
-  *(v72 + 24) = 0;
-  outlined destroy of StackPlacement<LazyHStackLayout>(v25);
-  outlined init with copy of ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>(v40, v25, type metadata accessor for (StackPlacement<LazyHStackLayout>, PlacementProperties<LazyHStackLayout>));
-  *(v72 + 80) = *(v25 + *(v71 + 48) + 24);
-  outlined destroy of StackPlacement<LazyHStackLayout>(v25);
-  outlined init with copy of ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>(v40, v25, type metadata accessor for (StackPlacement<LazyHStackLayout>, PlacementProperties<LazyHStackLayout>));
-  *(v72 + 96) = *(v25 + *(v71 + 48) + 48);
-  outlined destroy of StackPlacement<LazyHStackLayout>(v25);
-  outlined init with copy of ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>(v40, v25, type metadata accessor for (StackPlacement<LazyHStackLayout>, PlacementProperties<LazyHStackLayout>));
-  *(v72 + 104) = *(v25 + *(v71 + 48) + 56);
-  *&result = COERCE_DOUBLE(outlined destroy of StackPlacement<LazyHStackLayout>(v25));
-  v74 = *(v72 + 48);
-  v73 = *(v17 + 34);
-  v92 = *(v17 + 35);
-  if (v74 != *(v72 + 56))
-  {
-    goto LABEL_47;
-  }
-
-  if (v92 >= v73)
-  {
-    if (v92 + 1 < v73)
-    {
-      __break(1u);
-      goto LABEL_133;
-    }
-
-    if (v73 != v92 + 1)
-    {
-LABEL_47:
-      if (v92 >= v73)
-      {
-        v93 = v92 + 1;
-        if (v92 + 1 < v73)
-        {
-          goto LABEL_130;
-        }
-
-        v74 = *(v17 + 34);
-      }
-
-      else
-      {
-        v74 = *(v17 + 12);
-        v93 = v74;
-      }
-
-      *(v72 + 48) = v74;
-      *(v72 + 56) = v93;
-      if (v8 < v7)
-      {
-        v94 = v8;
-        v95 = v7;
-        if (v8 <= v7)
-        {
-LABEL_55:
-          *(v72 + 64) = v94;
-          *(v72 + 72) = v95;
-          if (v81)
-          {
-            if (v92 >= v73)
-            {
-              v96 = v92 + 1;
-              if (v92 + 1 < v73)
-              {
-LABEL_135:
-                __break(1u);
-                goto LABEL_136;
-              }
-            }
-
-            else
-            {
-              v96 = *(v17 + 12);
-            }
-          }
-
-          else
-          {
-            v96 = 0;
-          }
-
-          *(v72 + 32) = v96;
-          *(v72 + 40) = !v81;
-          if (v94 < 0.01 && v95 < 0.01)
-          {
-            v74 = 0;
-            *(v72 + 48) = 0;
-            *(v72 + 56) = 0;
-          }
-
-          goto LABEL_63;
-        }
-
-        __break(1u);
-      }
-
-      v94 = *(v17 + 14);
-      v95 = v94;
-      goto LABEL_55;
-    }
-  }
-
-LABEL_63:
-  v144 = v92;
-  LODWORD(v138) = v81;
-  type metadata accessor for ViewLayoutEngine<GeometryReaderLayout>(0, &lazy cache variable for type metadata for _LazyStack_Cache<LazyHStackLayout>, lazy protocol witness table accessor for type LazyHStackLayout and conformance LazyHStackLayout, &type metadata for LazyHStackLayout, type metadata accessor for _LazyStack_Cache);
-  v98 = (v72 + *(v97 + 60));
-  v99 = *v67;
-
-  v100 = swift_isUniquelyReferenced_nonNull_native();
-  v147 = *v98;
-  specialized _NativeDictionary.merge<A>(_:isUnique:uniquingKeysWith:)(v99, specialized thunk for @escaping @callee_guaranteed (@in_guaranteed A, @in_guaranteed B) -> (@out A, @out B), 0, v100, &v147);
-  v101 = v147;
-  *v98 = v147;
-  v102 = v67[1];
-
-  v103 = swift_isUniquelyReferenced_nonNull_native();
-  v147 = v98[1];
-  specialized _NativeDictionary.merge<A>(_:isUnique:uniquingKeysWith:)(v102, specialized thunk for @escaping @callee_guaranteed (@in_guaranteed A, @in_guaranteed B) -> (@out A, @out B), 0, v103, &v147);
-  v98[1] = v147;
-  v71 = *(v140 + 24);
-  *&result = COERCE_DOUBLE(IndexSet.formUnion(_:)());
-  if (*(*&v101 + 16))
-  {
-    *&result = COERCE_DOUBLE(EstimationCache.average.getter());
-    v105 = *&result;
-    if (v106)
-    {
-      v105 = 0.0;
-    }
-
-    v36 = v104 + v105;
-  }
-
-  else
-  {
-    v36 = 32.0;
-  }
-
-  v25 = v137;
-  LODWORD(v67) = v135;
-  v147 = 0.0;
-  v72 = v136;
-  v107 = *(v136 + 64);
-  v40 = v143;
-  v108 = &protocol conformance descriptor for GestureGraph;
-  if (v137 != 1)
-  {
-    if (v137)
-    {
-      if (v74 != 0x8000000000000000 || v137 != -1)
-      {
-        v74 /= v137;
-        goto LABEL_73;
-      }
-
-LABEL_133:
-      __break(1u);
-LABEL_134:
-      __break(1u);
-      goto LABEL_135;
-    }
-
-LABEL_127:
-    __break(1u);
-    goto LABEL_128;
-  }
-
-LABEL_73:
-  v35 = 0.0;
-  if (v135)
-  {
-    goto LABEL_82;
-  }
-
-  if (!v74)
-  {
-    if (fabs(v107) <= 0.01)
-    {
-      goto LABEL_82;
-    }
-
-    v35 = -v107;
-    goto LABEL_81;
-  }
-
-  if (v107 < 0.01)
-  {
-    if (v74 < 0)
-    {
-LABEL_136:
-      __break(1u);
-      goto LABEL_137;
-    }
-
-    v109 = IndexSet.contains(integersIn:)();
-    v72 = v136;
-    v108 = &protocol conformance descriptor for GestureGraph;
-    if ((v109 & 1) == 0)
-    {
-      v35 = v36 * v74;
-LABEL_81:
-      v147 = v35;
-    }
-  }
-
-LABEL_82:
-  v37 = v108[168];
-  v71 = v142;
-  if (fabs(v35) <= v37)
-  {
-    goto LABEL_91;
-  }
-
-  v110 = v35 + *(v72 + 72);
-  if (v107 + v35 > v110)
-  {
-LABEL_128:
-    __break(1u);
-    __break(1u);
-    goto LABEL_129;
-  }
-
-  *(v72 + 64) = v107 + v35;
-  *(v72 + 72) = v110;
-  *(v71 + 48) = v35;
-  v74 = *(v133 + 2);
-  if (!v74)
-  {
-    goto LABEL_90;
-  }
-
-  if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-  {
-    goto LABEL_131;
-  }
-
-  while (1)
-  {
-    v111 = v74 - 1;
-    v112 = v133;
-    v113 = 0;
-    if (v74 == 1)
-    {
-      goto LABEL_87;
-    }
-
-    v128 = !is_mul_ok(v111, 0x50uLL);
-    if (&v133[80 * v111 + 88] < v133 + 88)
-    {
-      goto LABEL_87;
-    }
-
-    if (v128)
-    {
-      goto LABEL_87;
-    }
-
-    v113 = v74 & 0x7FFFFFFFFFFFFFFELL;
-    v129 = (v133 + 168);
-    v130 = v74 & 0x7FFFFFFFFFFFFFFELL;
-    do
-    {
-      v131 = v35 + *v129;
-      *(v129 - 10) = v35 + *(v129 - 10);
-      *v129 = v131;
-      v129 += 20;
-      v130 -= 2;
-    }
-
-    while (v130);
-    if (v74 != v113)
-    {
-LABEL_87:
-      v114 = &v112[80 * v113 + 88];
-      v115 = v74 - v113;
-      do
-      {
-        *v114 = v35 + *v114;
-        v114 += 10;
-        --v115;
-      }
-
-      while (v115);
-    }
-
-    *v71 = v112;
-LABEL_90:
-    _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE3log33_973C9973BC16DEAF0CF3109FFDE31321LLyySSyXKFAA0C12HStackLayoutV_Tt0g503_s7a3UI9cd11PA2A01_cD6_e54VyxG0E0RtzrlE5place8subviews7context5cache2inyAA01_C15m11_SubviewsV_x26_cK17_PlacementContextVAFzX29_cK11_PlacementsVztFSSyXEfu1_12CoreGraphics7CGFloatVTf1c_n();
-LABEL_91:
-    v116 = v144;
-    if (v8 < v7)
-    {
-      if (v8 <= v7)
-      {
-        goto LABEL_95;
-      }
-
-      __break(1u);
-    }
-
-    v7 = *(v17 + 14);
-LABEL_95:
-    if (v116 < v73)
-    {
-      break;
-    }
-
-    v74 = v116 + 1;
-    v118 = v116 + 1 < v73;
-    v117 = v139;
-    if (!v118)
-    {
-      goto LABEL_98;
-    }
-
-LABEL_129:
-    __break(1u);
-LABEL_130:
-    __break(1u);
-    __break(1u);
-LABEL_131:
-    v133 = specialized _ArrayBuffer._consumeAndCreateNew()(v133);
-  }
-
-  v74 = *(v17 + 12);
-  v117 = v139;
-LABEL_98:
-  v119 = *(a2 + 32);
-  if (v138)
-  {
-    v120 = vabdd_f64(v7, v119);
-    *(v71 + 40) = v120 >= 1.0;
-    if (v120 >= 1.0)
-    {
-      _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE3log33_973C9973BC16DEAF0CF3109FFDE31321LLyySSyXKFAA0C12HStackLayoutV_Tt0g503_s7a3UI9cd11PA2A01_cD6_e54VyxG0E0RtzrlE5place8subviews7context5cache2inyAA01_C15m11_SubviewsV_x26_cK17_PlacementContextVAFzX29_cK11_PlacementsVztFSSyXEfu2_12CoreGraphics7CGFloatVAA01_cM17_PlacementContextVAA4AxisOTf1c_n(a2, 0);
-    }
-
-    goto LABEL_117;
-  }
-
-  if (v119 + v37 < v7)
-  {
-    *(v71 + 40) = 1;
-    _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE3log33_973C9973BC16DEAF0CF3109FFDE31321LLyySSyXKFAA0C12HStackLayoutV_Tt0g503_s7a3UI9cd11PA2A01_cD6_e54VyxG0E0RtzrlE5place8subviews7context5cache2inyAA01_C15m11_SubviewsV_x26_cK17_PlacementContextVAFzX29_cK11_PlacementsVztFSSyXEfu3_12CoreGraphics7CGFloatVAA01_cM17_PlacementContextVAA4AxisOTf1c_n(a2, 0);
-    goto LABEL_117;
-  }
-
-  v147 = *&v117;
-  *&result = COERCE_DOUBLE(_ViewList_Node.estimatedCount(style:)(&v147));
-  if (__OFSUB__(result, v74))
-  {
-    goto LABEL_134;
-  }
-
-  v121 = (result - v74) & ~((result - v74) >> 63);
-  v72 = v136;
-  if (v25 == 1)
-  {
-LABEL_110:
-    v124 = v7 + v36 * v121;
-    if (v124 >= v119)
-    {
-      v125 = v119;
-    }
-
-    else
-    {
-      v125 = v7 + v36 * v121;
-    }
-
-    v126 = v125 * 0.1;
-    if ((v67 & v134) != 0)
-    {
-      v126 = v37;
-    }
-
-    v127 = vabdd_f64(v119, v124);
-    *(v71 + 40) = v126 < v127;
-    if (v126 < v127)
-    {
-      _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE3log33_973C9973BC16DEAF0CF3109FFDE31321LLyySSyXKFAA0C12HStackLayoutV_Tt0g503_s7a3UI9cd11PA2A01_cD6_e54VyxG0E0RtzrlE5place8subviews7context5cache2inyAA01_C15m11_SubviewsV_x26_cK17_PlacementContextVAFzX29_cK11_PlacementsVztFSSyXEfu5_12CoreGraphics7CGFloatVAPTf1c_n();
-    }
-
-LABEL_117:
-    _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE3log33_973C9973BC16DEAF0CF3109FFDE31321LLyySSyXKFAA0C12HStackLayoutV_Tt0g503_s7a3UI9cd11PA2A01_cD6_e54VyxG0E0RtzrlE5place8subviews7context5cache2inyAA01_C15m11_SubviewsV_x26_cK17_PlacementContextVAFzx34_cK11_PlacementsVztFSSyXEfu6_AA0c6L7K0V_Tg5SNy12CoreGraphics7CGFloatVGAEyALGAA01_cM11_PlacementsVTf1c_n(v72, v71, v44, v45);
-LABEL_118:
-    outlined destroy of StackPlacement<LazyHStackLayout>(v17);
-    *&result = COERCE_DOUBLE(outlined destroy of _VariadicView.Tree<_LayoutRoot<GeometryReaderLayout>, ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>>(v40, type metadata accessor for (StackPlacement<LazyHStackLayout>, PlacementProperties<LazyHStackLayout>)));
-    return result;
-  }
-
-  v77 = __OFADD__(v121, v25);
-  v122 = v121 + v25;
-  if (v77)
-  {
-LABEL_137:
-    __break(1u);
-    goto LABEL_138;
-  }
-
-  if (!v25)
-  {
-LABEL_138:
-    __break(1u);
-    goto LABEL_139;
-  }
-
-  v123 = v122 - 1;
-  if (v123 != 0x8000000000000000 || v25 != -1)
-  {
-    v121 = v123 / v25;
-    goto LABEL_110;
-  }
-
-LABEL_139:
-  __break(1u);
-  return result;
-}
-
-{
-  v142 = a4;
-  v144 = a7;
-  v145 = a7 & 0xFFFFFFFF00000000;
-  v141 = type metadata accessor for IndexSet();
-  v140 = *(v141 - 8);
-  MEMORY[0x1EEE9AC00](v141);
-  v139 = &v132 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for ViewLayoutEngine<GeometryReaderLayout>(0, &lazy cache variable for type metadata for StackPlacement<LazyVStackLayout>, lazy protocol witness table accessor for type LazyVStackLayout and conformance LazyVStackLayout, &type metadata for LazyVStackLayout, type metadata accessor for StackPlacement);
-  v138 = v15;
-  MEMORY[0x1EEE9AC00](v15);
-  v17 = &v132 - v16;
-  type metadata accessor for ObservationTracking._AccessList?(0, &lazy cache variable for type metadata for (StackPlacement<LazyVStackLayout>, PlacementProperties<LazyVStackLayout>)?, type metadata accessor for (StackPlacement<LazyVStackLayout>, PlacementProperties<LazyVStackLayout>), MEMORY[0x1E69E6720]);
-  MEMORY[0x1EEE9AC00](v18 - 8);
-  v20 = &v132 - v19;
-  type metadata accessor for (StackPlacement<LazyVStackLayout>, PlacementProperties<LazyVStackLayout>)();
-  v22 = v21;
-  v23 = *(v21 - 8);
-  MEMORY[0x1EEE9AC00](v21);
-  v25 = &v132 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v26);
-  v143 = &v132 - v27;
-  v28 = *(a2 + 280);
-  v29 = *(a2 + 288);
-  v30 = *(a2 + 296);
-  v31 = *(a2 + 104);
-  v32 = *(a2 + 136);
-  v152 = *(a2 + 120);
-  v153 = v32;
-  v154 = *(a2 + 152);
-  v33 = *(a2 + 72);
-  v148 = *(a2 + 56);
-  v34 = *(a2 + 88);
-  v151 = v31;
-  v149 = v33;
-  v150 = v34;
-  if (v30)
-  {
-    v137 = a5;
-    ScrollGeometry.outsetForAX(limit:)(__PAIR128__(v29, v28));
-    a5 = v137;
-  }
-
-  v36 = *(&v153 + 1);
-  v35 = *&v153;
-  v38 = *(&v154 + 1);
-  v37 = *&v154;
-  LOBYTE(v148) = v144 & 1;
-  specialized LazyStack<>.resolvedPlacerProperties(subviews:context:cache:)(a1, a2, a3, a5, a6, v145 | v144 & 1, v20);
-  if ((*(v23 + 48))(v20, 1, v22) == 1)
-  {
-    *&result = COERCE_DOUBLE(outlined destroy of ObservationTracking._AccessList?(v20, &lazy cache variable for type metadata for (StackPlacement<LazyVStackLayout>, PlacementProperties<LazyVStackLayout>)?, type metadata accessor for (StackPlacement<LazyVStackLayout>, PlacementProperties<LazyVStackLayout>), MEMORY[0x1E69E6720], type metadata accessor for ObservationTracking._AccessList?));
-    return result;
-  }
-
-  v40 = v143;
-  outlined init with take of (StackPlacement<LazyVStackLayout>, PlacementProperties<LazyVStackLayout>)(v20, v143, type metadata accessor for (StackPlacement<LazyVStackLayout>, PlacementProperties<LazyVStackLayout>));
-  v41 = v22;
-  outlined init with copy of ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>(v40, v25, type metadata accessor for (StackPlacement<LazyVStackLayout>, PlacementProperties<LazyVStackLayout>));
-  outlined init with take of StackPlacement<LazyHStackLayout>(v25, v17, &lazy cache variable for type metadata for StackPlacement<LazyVStackLayout>, lazy protocol witness table accessor for type LazyVStackLayout and conformance LazyVStackLayout, &type metadata for LazyVStackLayout);
-  outlined init with copy of ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>(v40, v25, type metadata accessor for (StackPlacement<LazyVStackLayout>, PlacementProperties<LazyVStackLayout>));
-  v42 = *(v25 + *(v22 + 48));
-  outlined destroy of StackPlacement<LazyVStackLayout>(v25);
-  outlined init with copy of ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>(v40, v25, type metadata accessor for (StackPlacement<LazyVStackLayout>, PlacementProperties<LazyVStackLayout>));
-  v43 = v25 + *(v22 + 48);
-  v44 = *(v43 + 24);
-  v45 = *(v43 + 32);
-  outlined destroy of StackPlacement<LazyVStackLayout>(v25);
-  outlined init with copy of ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>(v40, v25, type metadata accessor for (StackPlacement<LazyVStackLayout>, PlacementProperties<LazyVStackLayout>));
-  v46 = *(v25 + *(v22 + 48) + 40);
-  outlined destroy of StackPlacement<LazyVStackLayout>(v25);
-  outlined init with copy of ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>(v40, v25, type metadata accessor for (StackPlacement<LazyVStackLayout>, PlacementProperties<LazyVStackLayout>));
-  v47 = *(v25 + *(v22 + 48) + 41);
-  outlined destroy of StackPlacement<LazyVStackLayout>(v25);
-  v144 = v41;
-  v48 = (v40 + *(v41 + 48));
-  v49 = v48[1];
-  v148 = *v48;
-  v50 = v48[2];
-  v151 = v48[3];
-  v149 = v49;
-  v150 = v50;
-  v145 = a1;
-  v51 = _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE23resolveIndexAndPosition33_973C9973BC16DEAF0CF3109FFDE313218subviews7context5cache6placer10propertiesSi5index_12CoreGraphics7CGFloatV8positiontSgAA01_C15Layout_SubviewsV_AA01_cY17_PlacementContextVAFzAA0D9PlacementAJLLVyxGzAA19PlacementPropertiesAJLLVyxGtFAA0c6VStackY0V_Tt4B5(a1, a2, a3, v17, &v148);
-  if (v53)
-  {
-    goto LABEL_118;
-  }
-
-  v54 = v51;
-  v134 = v47;
-  v136 = a3;
-  v55 = v52;
-  specialized StackPlacement.log(_:)(v52, *(v17 + 7), *(v17 + 8), v17, v51);
-  v56 = (v17 + 136);
-  *(v17 + 12) = *&v54;
-  v17[104] = 0;
-  *(v17 + 14) = v55;
-  *(v17 + 15) = 0;
-  v17[128] = 1;
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v58 = *(v17 + 17);
-  if (isUniquelyReferenced_nonNull_native)
-  {
-    v59 = *(v58 + 2);
-    v60 = swift_isUniquelyReferenced_nonNull_native();
-    *v56 = v58;
-    if ((v60 & 1) == 0)
-    {
-      v58 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v59, 1, v58);
-      *v56 = v58;
-    }
-
-    specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:)(0, v59, 0);
-  }
-
-  else
-  {
-    v61 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC7SwiftUI19_LazyLayout_SubviewV_Tt1g5(0, *(v58 + 3) >> 1);
-
-    v58 = v61;
-  }
-
-  *(v17 + 17) = v58;
-
-  *(v17 + 18) = 0;
-  outlined destroy of GlassEntryView?((v17 + 152), &lazy cache variable for type metadata for _LazyLayout_Subview?, &type metadata for _LazyLayout_Subview, MEMORY[0x1E69E6720]);
-  *(v17 + 152) = 0u;
-  *(v17 + 168) = 0u;
-  *(v17 + 184) = 0u;
-  *(v17 + 200) = 0u;
-  *(v17 + 216) = 0u;
-  *(v17 + 232) = 0u;
-  *(v17 + 248) = 0u;
-  v62 = swift_isUniquelyReferenced_nonNull_native();
-  v63 = *(v17 + 33);
-  v137 = v42;
-  v135 = v46;
-  if (v62)
-  {
-    v64 = *(v63 + 2);
-    v65 = swift_isUniquelyReferenced_nonNull_native();
-    *(v17 + 33) = v63;
-    if ((v65 & 1) == 0)
-    {
-      v63 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v64, 1, v63);
-      *(v17 + 33) = v63;
-    }
-
-    specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:)(0, v64, 0);
-  }
-
-  else
-  {
-    v66 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC7SwiftUI25_LazyLayout_PlacedSubviewV_Tt1g5(0, *(v63 + 3) >> 1);
-
-    v63 = v66;
-  }
-
-  *(v17 + 33) = v63;
-  *(v17 + 17) = xmmword_18DDAB4E0;
-  *(v17 + 18) = xmmword_18DDAB4F0;
-  *(v17 + 19) = xmmword_18DDAB4F0;
-  v17[320] = 0;
-  v67 = &v17[*(v138 + 104)];
-  *&v68 = MEMORY[0x1E69E7CC0];
-  v69 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC12CoreGraphics7CGFloatV_SiTt0g5Tf4g_n(MEMORY[0x1E69E7CC0]);
-
-  *v67 = v69;
-  v70 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC12CoreGraphics7CGFloatV_SiTt0g5Tf4g_n(v68);
-
-  v67[1] = v70;
-  v147 = *&v68;
-  lazy protocol witness table accessor for type TouchEvent and conformance TouchEvent(&lazy protocol witness table cache variable for type IndexSet and conformance IndexSet, MEMORY[0x1E6969B50]);
-  type metadata accessor for EnvironmentFetch<LayoutDirection>(0, &lazy cache variable for type metadata for [Int], MEMORY[0x1E69E6530], MEMORY[0x1E69E62F8]);
-  lazy protocol witness table accessor for type [Int] and conformance [A]();
-  v71 = v139;
-  v72 = v141;
-  dispatch thunk of SetAlgebra.init<A>(_:)();
-  v73 = type metadata accessor for EstimationCache();
-  v74 = *(v73 + 24);
-  v75 = (*(v140 + 40))(v67 + v74, v71, v72);
-  v76 = *(v17 + 4);
-  v77 = __OFSUB__(v54, v76);
-  v78 = v54 - v76;
-  if (v78 < 0 == v77)
-  {
-    v17[104] = 1;
-    if (v77)
-    {
-      __break(1u);
-      goto LABEL_127;
-    }
-
-    *(v17 + 12) = v78;
-    v54 = v78;
-  }
-
-  v140 = v73;
-  v141 = v74;
-  v79 = 2 * v137;
-  v147 = *&v54;
-  v146 = 2 * v137;
-  MEMORY[0x1EEE9AC00](v75);
-  *(&v132 - 2) = v17;
-  v80 = _LazyLayout_Subviews.applyNodes(from:style:to:)(&v147, &v146, closure #1 in StackPlacement.place(subviews:from:position:stopping:style:)specialized partial apply, (&v132 - 4));
-  specialized StackPlacement.flushMinorGroup()();
-  v81 = (v80 & 1) != 0 && vabdd_f64(*(v17 + 14), *(v17 + 37)) < 0.01;
-  v82 = v142;
-  if (AGGraphHasDeadlinePassed())
-  {
-    AGGraphCancelUpdate();
-    goto LABEL_24;
-  }
-
-  if (v17[320] == 1)
-  {
-LABEL_24:
-    outlined destroy of StackPlacement<LazyVStackLayout>(v17);
-    *&result = COERCE_DOUBLE(outlined destroy of _VariadicView.Tree<_LayoutRoot<GeometryReaderLayout>, ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>>(v40, type metadata accessor for (StackPlacement<LazyVStackLayout>, PlacementProperties<LazyVStackLayout>)));
-    *(v82 + 64) = 1;
-    return result;
-  }
-
-  v83 = *(v17 + 33);
-
-  v133 = v83;
-  *v82 = v83;
-  v155.origin.x = v35;
-  v155.origin.y = v36;
-  v155.size.width = v37;
-  v155.size.height = v38;
-  IsNull = CGRectIsNull(v155);
-  v85 = 0.0;
-  v86 = 0.0;
-  if (!IsNull)
-  {
-    v86 = v35 + v37;
-    if (v35 + v37 >= v35)
-    {
-      v85 = v35;
-    }
-
-    else
-    {
-      v85 = v35 + v37;
-    }
-
-    if (v35 > v86)
-    {
-      v86 = v35;
-    }
-
-    if (v85 > v86)
-    {
-      v86 = 0.0;
-      v85 = 0.0;
-    }
-  }
-
-  v8 = *(v17 + 36);
-  v7 = *(v17 + 37);
-  v139 = v79;
-  if (v8 >= v7)
-  {
-    v89 = *MEMORY[0x1E695F050];
-    v85 = *(MEMORY[0x1E695F050] + 8);
-    v90 = *(MEMORY[0x1E695F050] + 16);
-    v87 = *(MEMORY[0x1E695F050] + 24);
-  }
-
-  else
-  {
-    v87 = v7 - v8;
-    v88 = v86 - v85;
-    if (v17[24])
-    {
-      v89 = v85;
-    }
-
-    else
-    {
-      v89 = v8;
-    }
-
-    if (v17[24])
-    {
-      v85 = v8;
-      v90 = v88;
-    }
-
-    else
-    {
-      v90 = v7 - v8;
-    }
-
-    if (!v17[24])
-    {
-      v87 = v88;
-    }
-  }
-
-  v156.origin.x = v35;
-  v156.origin.y = v36;
-  v156.size.width = v37;
-  v156.size.height = v38;
-  *(v82 + 8) = CGRectUnion(*(&v85 - 1), v156);
-  outlined init with copy of ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>(v40, v25, type metadata accessor for (StackPlacement<LazyVStackLayout>, PlacementProperties<LazyVStackLayout>));
-  v71 = v144;
-  v91 = v25 + *(v144 + 48);
-  v72 = v136;
-  *v136 = *v91;
-  *(v72 + 8) = *(v91 + 8);
-  *(v72 + 24) = 0;
-  outlined destroy of StackPlacement<LazyVStackLayout>(v25);
-  outlined init with copy of ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>(v40, v25, type metadata accessor for (StackPlacement<LazyVStackLayout>, PlacementProperties<LazyVStackLayout>));
-  *(v72 + 80) = *(v25 + *(v71 + 48) + 24);
-  outlined destroy of StackPlacement<LazyVStackLayout>(v25);
-  outlined init with copy of ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>(v40, v25, type metadata accessor for (StackPlacement<LazyVStackLayout>, PlacementProperties<LazyVStackLayout>));
-  *(v72 + 96) = *(v25 + *(v71 + 48) + 48);
-  outlined destroy of StackPlacement<LazyVStackLayout>(v25);
-  outlined init with copy of ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>(v40, v25, type metadata accessor for (StackPlacement<LazyVStackLayout>, PlacementProperties<LazyVStackLayout>));
-  *(v72 + 104) = *(v25 + *(v71 + 48) + 56);
-  *&result = COERCE_DOUBLE(outlined destroy of StackPlacement<LazyVStackLayout>(v25));
-  v74 = *(v72 + 48);
-  v73 = *(v17 + 34);
-  v92 = *(v17 + 35);
-  if (v74 != *(v72 + 56))
-  {
-    goto LABEL_47;
-  }
-
-  if (v92 >= v73)
-  {
-    if (v92 + 1 < v73)
-    {
-      __break(1u);
-      goto LABEL_133;
-    }
-
-    if (v73 != v92 + 1)
-    {
-LABEL_47:
-      if (v92 >= v73)
-      {
-        v93 = v92 + 1;
-        if (v92 + 1 < v73)
-        {
-          goto LABEL_130;
-        }
-
-        v74 = *(v17 + 34);
-      }
-
-      else
-      {
-        v74 = *(v17 + 12);
-        v93 = v74;
-      }
-
-      *(v72 + 48) = v74;
-      *(v72 + 56) = v93;
-      if (v8 < v7)
-      {
-        v94 = v8;
-        v95 = v7;
-        if (v8 <= v7)
-        {
-LABEL_55:
-          *(v72 + 64) = v94;
-          *(v72 + 72) = v95;
-          if (v81)
-          {
-            if (v92 >= v73)
-            {
-              v96 = v92 + 1;
-              if (v92 + 1 < v73)
-              {
-LABEL_135:
-                __break(1u);
-                goto LABEL_136;
-              }
-            }
-
-            else
-            {
-              v96 = *(v17 + 12);
-            }
-          }
-
-          else
-          {
-            v96 = 0;
-          }
-
-          *(v72 + 32) = v96;
-          *(v72 + 40) = !v81;
-          if (v94 < 0.01 && v95 < 0.01)
-          {
-            v74 = 0;
-            *(v72 + 48) = 0;
-            *(v72 + 56) = 0;
-          }
-
-          goto LABEL_63;
-        }
-
-        __break(1u);
-      }
-
-      v94 = *(v17 + 14);
-      v95 = v94;
-      goto LABEL_55;
-    }
-  }
-
-LABEL_63:
-  v144 = v92;
-  LODWORD(v138) = v81;
-  type metadata accessor for ViewLayoutEngine<GeometryReaderLayout>(0, &lazy cache variable for type metadata for _LazyStack_Cache<LazyVStackLayout>, lazy protocol witness table accessor for type LazyVStackLayout and conformance LazyVStackLayout, &type metadata for LazyVStackLayout, type metadata accessor for _LazyStack_Cache);
-  v98 = (v72 + *(v97 + 60));
-  v99 = *v67;
-
-  v100 = swift_isUniquelyReferenced_nonNull_native();
-  v147 = *v98;
-  specialized _NativeDictionary.merge<A>(_:isUnique:uniquingKeysWith:)(v99, specialized thunk for @escaping @callee_guaranteed (@in_guaranteed A, @in_guaranteed B) -> (@out A, @out B), 0, v100, &v147);
-  v101 = v147;
-  *v98 = v147;
-  v102 = v67[1];
-
-  v103 = swift_isUniquelyReferenced_nonNull_native();
-  v147 = v98[1];
-  specialized _NativeDictionary.merge<A>(_:isUnique:uniquingKeysWith:)(v102, specialized thunk for @escaping @callee_guaranteed (@in_guaranteed A, @in_guaranteed B) -> (@out A, @out B), 0, v103, &v147);
-  v98[1] = v147;
-  v71 = *(v140 + 24);
-  *&result = COERCE_DOUBLE(IndexSet.formUnion(_:)());
-  if (*(*&v101 + 16))
-  {
-    *&result = COERCE_DOUBLE(EstimationCache.average.getter());
-    v105 = *&result;
-    if (v106)
-    {
-      v105 = 0.0;
-    }
-
-    v36 = v104 + v105;
-  }
-
-  else
-  {
-    v36 = 32.0;
-  }
-
-  v25 = v137;
-  LODWORD(v67) = v135;
-  v147 = 0.0;
-  v72 = v136;
-  v107 = *(v136 + 64);
-  v40 = v143;
-  v108 = &protocol conformance descriptor for GestureGraph;
-  if (v137 != 1)
-  {
-    if (v137)
-    {
-      if (v74 != 0x8000000000000000 || v137 != -1)
-      {
-        v74 /= v137;
-        goto LABEL_73;
-      }
-
-LABEL_133:
-      __break(1u);
-LABEL_134:
-      __break(1u);
-      goto LABEL_135;
-    }
-
-LABEL_127:
-    __break(1u);
-    goto LABEL_128;
-  }
-
-LABEL_73:
-  v35 = 0.0;
-  if (v135)
-  {
-    goto LABEL_82;
-  }
-
-  if (!v74)
-  {
-    if (fabs(v107) <= 0.01)
-    {
-      goto LABEL_82;
-    }
-
-    v35 = -v107;
-    goto LABEL_81;
-  }
-
-  if (v107 < 0.01)
-  {
-    if (v74 < 0)
-    {
-LABEL_136:
-      __break(1u);
-      goto LABEL_137;
-    }
-
-    v109 = IndexSet.contains(integersIn:)();
-    v72 = v136;
-    v108 = &protocol conformance descriptor for GestureGraph;
-    if ((v109 & 1) == 0)
-    {
-      v35 = v36 * v74;
-LABEL_81:
-      v147 = v35;
-    }
-  }
-
-LABEL_82:
-  v37 = v108[168];
-  v71 = v142;
-  if (fabs(v35) <= v37)
-  {
-    goto LABEL_91;
-  }
-
-  v110 = v35 + *(v72 + 72);
-  if (v107 + v35 > v110)
-  {
-LABEL_128:
-    __break(1u);
-    __break(1u);
-    goto LABEL_129;
-  }
-
-  *(v72 + 64) = v107 + v35;
-  *(v72 + 72) = v110;
-  *(v71 + 56) = v35;
-  v74 = *(v133 + 2);
-  if (!v74)
-  {
-    goto LABEL_90;
-  }
-
-  if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-  {
-    goto LABEL_131;
-  }
-
-  while (1)
-  {
-    v111 = v74 - 1;
-    v112 = v133;
-    v113 = 0;
-    if (v74 == 1)
-    {
-      goto LABEL_87;
-    }
-
-    v128 = !is_mul_ok(v111, 0x50uLL);
-    if (&v133[80 * v111 + 96] < v133 + 96)
-    {
-      goto LABEL_87;
-    }
-
-    if (v128)
-    {
-      goto LABEL_87;
-    }
-
-    v113 = v74 & 0x7FFFFFFFFFFFFFFELL;
-    v129 = (v133 + 176);
-    v130 = v74 & 0x7FFFFFFFFFFFFFFELL;
-    do
-    {
-      v131 = v35 + *v129;
-      *(v129 - 10) = v35 + *(v129 - 10);
-      *v129 = v131;
-      v129 += 20;
-      v130 -= 2;
-    }
-
-    while (v130);
-    if (v74 != v113)
-    {
-LABEL_87:
-      v114 = &v112[80 * v113 + 96];
-      v115 = v74 - v113;
-      do
-      {
-        *v114 = v35 + *v114;
-        v114 += 10;
-        --v115;
-      }
-
-      while (v115);
-    }
-
-    *v71 = v112;
-LABEL_90:
-    _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE3log33_973C9973BC16DEAF0CF3109FFDE31321LLyySSyXKFAA0C12VStackLayoutV_Tt0g503_s7a3UI9cd11PA2A01_cD6_e54VyxG0E0RtzrlE5place8subviews7context5cache2inyAA01_C15m11_SubviewsV_x26_cK17_PlacementContextVAFzX29_cK11_PlacementsVztFSSyXEfu1_12CoreGraphics7CGFloatVTf1c_n();
-LABEL_91:
-    v116 = v144;
-    if (v8 < v7)
-    {
-      if (v8 <= v7)
-      {
-        goto LABEL_95;
-      }
-
-      __break(1u);
-    }
-
-    v7 = *(v17 + 14);
-LABEL_95:
-    if (v116 < v73)
-    {
-      break;
-    }
-
-    v74 = v116 + 1;
-    v118 = v116 + 1 < v73;
-    v117 = v139;
-    if (!v118)
-    {
-      goto LABEL_98;
-    }
-
-LABEL_129:
-    __break(1u);
-LABEL_130:
-    __break(1u);
-    __break(1u);
-LABEL_131:
-    v133 = specialized _ArrayBuffer._consumeAndCreateNew()(v133);
-  }
-
-  v74 = *(v17 + 12);
-  v117 = v139;
-LABEL_98:
-  v119 = *(a2 + 40);
-  if (v138)
-  {
-    v120 = vabdd_f64(v7, v119);
-    *(v71 + 40) = v120 >= 1.0;
-    if (v120 >= 1.0)
-    {
-      _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE3log33_973C9973BC16DEAF0CF3109FFDE31321LLyySSyXKFAA0C12VStackLayoutV_Tt0g503_s7a3UI9cd11PA2A01_cD6_e54VyxG0E0RtzrlE5place8subviews7context5cache2inyAA01_C15m11_SubviewsV_x26_cK17_PlacementContextVAFzX29_cK11_PlacementsVztFSSyXEfu2_12CoreGraphics7CGFloatVAA01_cM17_PlacementContextVAA4AxisOTf1c_n(a2, 1);
-    }
-
-    goto LABEL_117;
-  }
-
-  if (v119 + v37 < v7)
-  {
-    *(v71 + 40) = 1;
-    _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE3log33_973C9973BC16DEAF0CF3109FFDE31321LLyySSyXKFAA0C12VStackLayoutV_Tt0g503_s7a3UI9cd11PA2A01_cD6_e54VyxG0E0RtzrlE5place8subviews7context5cache2inyAA01_C15m11_SubviewsV_x26_cK17_PlacementContextVAFzX29_cK11_PlacementsVztFSSyXEfu3_12CoreGraphics7CGFloatVAA01_cM17_PlacementContextVAA4AxisOTf1c_n(a2, 1);
-    goto LABEL_117;
-  }
-
-  v147 = *&v117;
-  *&result = COERCE_DOUBLE(_ViewList_Node.estimatedCount(style:)(&v147));
-  if (__OFSUB__(result, v74))
-  {
-    goto LABEL_134;
-  }
-
-  v121 = (result - v74) & ~((result - v74) >> 63);
-  v72 = v136;
-  if (v25 == 1)
-  {
-LABEL_110:
-    v124 = v7 + v36 * v121;
-    if (v124 >= v119)
-    {
-      v125 = v119;
-    }
-
-    else
-    {
-      v125 = v7 + v36 * v121;
-    }
-
-    v126 = v125 * 0.1;
-    if ((v67 & v134) != 0)
-    {
-      v126 = v37;
-    }
-
-    v127 = vabdd_f64(v119, v124);
-    *(v71 + 40) = v126 < v127;
-    if (v126 < v127)
-    {
-      _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE3log33_973C9973BC16DEAF0CF3109FFDE31321LLyySSyXKFAA0C12VStackLayoutV_Tt0g503_s7a3UI9cd11PA2A01_cD6_e54VyxG0E0RtzrlE5place8subviews7context5cache2inyAA01_C15m11_SubviewsV_x26_cK17_PlacementContextVAFzX29_cK11_PlacementsVztFSSyXEfu5_12CoreGraphics7CGFloatVAPTf1c_n();
-    }
-
-LABEL_117:
-    _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE3log33_973C9973BC16DEAF0CF3109FFDE31321LLyySSyXKFAA0C12VStackLayoutV_Tt0g503_s7a3UI9cd11PA2A01_cD6_e54VyxG0E0RtzrlE5place8subviews7context5cache2inyAA01_C15m11_SubviewsV_x26_cK17_PlacementContextVAFzx34_cK11_PlacementsVztFSSyXEfu6_AA0c6L7K0V_Tg5SNy12CoreGraphics7CGFloatVGAEyALGAA01_cM11_PlacementsVTf1c_n(v72, v71, v44, v45);
-LABEL_118:
-    outlined destroy of StackPlacement<LazyVStackLayout>(v17);
-    *&result = COERCE_DOUBLE(outlined destroy of _VariadicView.Tree<_LayoutRoot<GeometryReaderLayout>, ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>>(v40, type metadata accessor for (StackPlacement<LazyVStackLayout>, PlacementProperties<LazyVStackLayout>)));
-    return result;
-  }
-
-  v77 = __OFADD__(v121, v25);
-  v122 = v121 + v25;
-  if (v77)
-  {
-LABEL_137:
-    __break(1u);
-    goto LABEL_138;
-  }
-
-  if (!v25)
-  {
-LABEL_138:
-    __break(1u);
-    goto LABEL_139;
-  }
-
-  v123 = v122 - 1;
-  if (v123 != 0x8000000000000000 || v25 != -1)
-  {
-    v121 = v123 / v25;
-    goto LABEL_110;
-  }
-
-LABEL_139:
-  __break(1u);
-  return result;
-}
-
-uint64_t specialized LazyStack<>.estimatedPlacement(subviews:context:cache:in:)(void *a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
-{
-  v7 = a7;
-  v71 = a5;
-  v72 = a6;
-  v62 = a4;
-  v68 = a2;
-  v69 = a3;
-  v67 = a1;
-  v70 = a7 & 0xFFFFFFFF00000000;
-  v8 = type metadata accessor for IndexSet();
-  v65 = *(v8 - 8);
-  v66 = v8;
-  MEMORY[0x1EEE9AC00](v8);
-  v64 = &v62 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for ViewLayoutEngine<GeometryReaderLayout>(0, &lazy cache variable for type metadata for StackPlacement<LazyHStackLayout>, lazy protocol witness table accessor for type LazyHStackLayout and conformance LazyHStackLayout, &type metadata for LazyHStackLayout, type metadata accessor for StackPlacement);
-  v63 = v10;
-  MEMORY[0x1EEE9AC00](v10);
-  v12 = &v62 - v11;
-  type metadata accessor for ObservationTracking._AccessList?(0, &lazy cache variable for type metadata for (StackPlacement<LazyHStackLayout>, PlacementProperties<LazyHStackLayout>)?, type metadata accessor for (StackPlacement<LazyHStackLayout>, PlacementProperties<LazyHStackLayout>), MEMORY[0x1E69E6720]);
-  MEMORY[0x1EEE9AC00](v13 - 8);
-  v15 = &v62 - v14;
-  type metadata accessor for (StackPlacement<LazyHStackLayout>, PlacementProperties<LazyHStackLayout>)();
-  v17 = v16;
-  v18 = *(v16 - 8);
-  MEMORY[0x1EEE9AC00](v16);
-  v20 = &v62 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v21);
-  v23 = &v62 - v22;
-  type metadata accessor for ViewLayoutEngine<GeometryReaderLayout>(0, &lazy cache variable for type metadata for _LazyStack_Cache<LazyHStackLayout>, lazy protocol witness table accessor for type LazyHStackLayout and conformance LazyHStackLayout, &type metadata for LazyHStackLayout, type metadata accessor for _LazyStack_Cache);
-  MEMORY[0x1EEE9AC00](v24 - 8);
-  v26 = &v62 - v25;
-  v27 = v67;
-  memcpy(v75, v68, 0x129uLL);
-  outlined init with copy of _LazyStack_Cache<LazyHStackLayout>(v69, v26);
-  specialized LazyStack<>.resolvedPlacerProperties(subviews:context:cache:)(v27, v75, v26, v71, v72, v70 | v7 & 1, v15);
-  if ((*(v18 + 48))(v15, 1, v17) == 1)
-  {
-    outlined destroy of _LazyStack_Cache<LazyHStackLayout>(v26);
-    return outlined destroy of ObservationTracking._AccessList?(v15, &lazy cache variable for type metadata for (StackPlacement<LazyHStackLayout>, PlacementProperties<LazyHStackLayout>)?, type metadata accessor for (StackPlacement<LazyHStackLayout>, PlacementProperties<LazyHStackLayout>), MEMORY[0x1E69E6720], type metadata accessor for ObservationTracking._AccessList?);
-  }
-
-  outlined init with take of (StackPlacement<LazyVStackLayout>, PlacementProperties<LazyVStackLayout>)(v15, v23, type metadata accessor for (StackPlacement<LazyHStackLayout>, PlacementProperties<LazyHStackLayout>));
-  v29 = v26;
-  outlined init with copy of ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>(v23, v20, type metadata accessor for (StackPlacement<LazyHStackLayout>, PlacementProperties<LazyHStackLayout>));
-  v30 = *&v20[*(v17 + 48)];
-  outlined destroy of StackPlacement<LazyHStackLayout>(v20);
-  outlined init with copy of ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>(v23, v20, type metadata accessor for (StackPlacement<LazyHStackLayout>, PlacementProperties<LazyHStackLayout>));
-  outlined init with take of StackPlacement<LazyHStackLayout>(v20, v12, &lazy cache variable for type metadata for StackPlacement<LazyHStackLayout>, lazy protocol witness table accessor for type LazyHStackLayout and conformance LazyHStackLayout, &type metadata for LazyHStackLayout);
-  v31 = &v23[*(v17 + 48)];
-  v32 = *(v31 + 1);
-  v76[0] = *v31;
-  v76[1] = v32;
-  v33 = *(v31 + 3);
-  v76[2] = *(v31 + 2);
-  v76[3] = v33;
-  v34 = _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE23resolveIndexAndPosition33_973C9973BC16DEAF0CF3109FFDE313218subviews7context5cache6placer10propertiesSi5index_12CoreGraphics7CGFloatV8positiontSgAA01_C15Layout_SubviewsV_AA01_cY17_PlacementContextVAFzAA0D9PlacementAJLLVyxGzAA19PlacementPropertiesAJLLVyxGtFAA0c6HStackY0V_Tt4B5(v27, v75, v26, v12, v76);
-  if (v36)
-  {
-    outlined destroy of StackPlacement<LazyHStackLayout>(v12);
-    outlined destroy of _VariadicView.Tree<_LayoutRoot<GeometryReaderLayout>, ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>>(v23, type metadata accessor for (StackPlacement<LazyHStackLayout>, PlacementProperties<LazyHStackLayout>));
-    v37 = v26;
-  }
-
-  else
-  {
-    v38 = v34;
-    v72 = v29;
-    v39 = v35;
-    specialized StackPlacement.log(_:)(v35, *(v12 + 7), *(v12 + 8), v12, v34);
-    v40 = (v12 + 136);
-    *(v12 + 12) = v38;
-    v12[104] = 0;
-    *(v12 + 14) = v39;
-    *(v12 + 15) = 0;
-    v12[128] = 1;
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v42 = *(v12 + 17);
-    if (isUniquelyReferenced_nonNull_native)
-    {
-      v43 = *(v42 + 2);
-      v44 = swift_isUniquelyReferenced_nonNull_native();
-      *v40 = v42;
-      if ((v44 & 1) == 0)
-      {
-        v42 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v43, 1, v42);
-        *v40 = v42;
-      }
-
-      specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:)(0, v43, 0);
-    }
-
-    else
-    {
-      v45 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC7SwiftUI19_LazyLayout_SubviewV_Tt1g5(0, *(v42 + 3) >> 1);
-
-      v42 = v45;
-    }
-
-    *(v12 + 17) = v42;
-
-    *(v12 + 18) = 0;
-    outlined destroy of GlassEntryView?((v12 + 152), &lazy cache variable for type metadata for _LazyLayout_Subview?, &type metadata for _LazyLayout_Subview, MEMORY[0x1E69E6720]);
-    *(v12 + 152) = 0u;
-    *(v12 + 168) = 0u;
-    *(v12 + 184) = 0u;
-    *(v12 + 200) = 0u;
-    *(v12 + 216) = 0u;
-    *(v12 + 232) = 0u;
-    *(v12 + 248) = 0u;
-    v46 = swift_isUniquelyReferenced_nonNull_native();
-    v47 = *(v12 + 33);
-    if (v46)
-    {
-      v48 = *(v47 + 2);
-      v49 = swift_isUniquelyReferenced_nonNull_native();
-      *(v12 + 33) = v47;
-      if ((v49 & 1) == 0)
-      {
-        v47 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v48, 1, v47);
-        *(v12 + 33) = v47;
-      }
-
-      specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:)(0, v48, 0);
-    }
-
-    else
-    {
-      v50 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC7SwiftUI25_LazyLayout_PlacedSubviewV_Tt1g5(0, *(v47 + 3) >> 1);
-
-      v47 = v50;
-    }
-
-    *(v12 + 33) = v47;
-    *(v12 + 17) = xmmword_18DDAB4E0;
-    *(v12 + 18) = xmmword_18DDAB4F0;
-    *(v12 + 19) = xmmword_18DDAB4F0;
-    v12[320] = 0;
-    v51 = &v12[*(v63 + 104)];
-    v52 = MEMORY[0x1E69E7CC0];
-    v53 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC12CoreGraphics7CGFloatV_SiTt0g5Tf4g_n(MEMORY[0x1E69E7CC0]);
-
-    *v51 = v53;
-    v54 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC12CoreGraphics7CGFloatV_SiTt0g5Tf4g_n(v52);
-
-    v51[1] = v54;
-    v74 = v52;
-    lazy protocol witness table accessor for type TouchEvent and conformance TouchEvent(&lazy protocol witness table cache variable for type IndexSet and conformance IndexSet, MEMORY[0x1E6969B50]);
-    type metadata accessor for EnvironmentFetch<LayoutDirection>(0, &lazy cache variable for type metadata for [Int], MEMORY[0x1E69E6530], MEMORY[0x1E69E62F8]);
-    lazy protocol witness table accessor for type [Int] and conformance [A]();
-    v55 = v64;
-    v56 = v66;
-    dispatch thunk of SetAlgebra.init<A>(_:)();
-    v57 = type metadata accessor for EstimationCache();
-    result = (*(v65 + 40))(v51 + *(v57 + 24), v55, v56);
-    v58 = *(v12 + 4);
-    v59 = __OFSUB__(v38, v58);
-    v60 = v38 - v58;
-    if (v60 < 0 == v59)
-    {
-      v12[104] = 1;
-      if (v59)
-      {
-        __break(1u);
-        return result;
-      }
-
-      *(v12 + 12) = v60;
-      v38 = v60;
-    }
-
-    v73 = 2 * v30;
-    v74 = v38;
-    MEMORY[0x1EEE9AC00](result);
-    *(&v62 - 2) = v12;
-    _LazyLayout_Subviews.applyNodes(from:style:to:)(&v74, &v73, closure #1 in StackPlacement.place(subviews:from:position:stopping:style:)specialized partial apply, (&v62 - 4));
-    specialized StackPlacement.flushMinorGroup()();
-
-    specialized Array.append<A>(contentsOf:)(v61);
-    outlined destroy of StackPlacement<LazyHStackLayout>(v12);
-    outlined destroy of _VariadicView.Tree<_LayoutRoot<GeometryReaderLayout>, ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>>(v23, type metadata accessor for (StackPlacement<LazyHStackLayout>, PlacementProperties<LazyHStackLayout>));
-    v37 = v72;
-  }
-
-  return outlined destroy of _LazyStack_Cache<LazyHStackLayout>(v37);
-}
-
-{
-  v7 = a7;
-  v71 = a5;
-  v72 = a6;
-  v62 = a4;
-  v68 = a2;
-  v69 = a3;
-  v67 = a1;
-  v70 = a7 & 0xFFFFFFFF00000000;
-  v8 = type metadata accessor for IndexSet();
-  v65 = *(v8 - 8);
-  v66 = v8;
-  MEMORY[0x1EEE9AC00](v8);
-  v64 = &v62 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for ViewLayoutEngine<GeometryReaderLayout>(0, &lazy cache variable for type metadata for StackPlacement<LazyVStackLayout>, lazy protocol witness table accessor for type LazyVStackLayout and conformance LazyVStackLayout, &type metadata for LazyVStackLayout, type metadata accessor for StackPlacement);
-  v63 = v10;
-  MEMORY[0x1EEE9AC00](v10);
-  v12 = &v62 - v11;
-  type metadata accessor for ObservationTracking._AccessList?(0, &lazy cache variable for type metadata for (StackPlacement<LazyVStackLayout>, PlacementProperties<LazyVStackLayout>)?, type metadata accessor for (StackPlacement<LazyVStackLayout>, PlacementProperties<LazyVStackLayout>), MEMORY[0x1E69E6720]);
-  MEMORY[0x1EEE9AC00](v13 - 8);
-  v15 = &v62 - v14;
-  type metadata accessor for (StackPlacement<LazyVStackLayout>, PlacementProperties<LazyVStackLayout>)();
-  v17 = v16;
-  v18 = *(v16 - 8);
-  MEMORY[0x1EEE9AC00](v16);
-  v20 = &v62 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v21);
-  v23 = &v62 - v22;
-  type metadata accessor for ViewLayoutEngine<GeometryReaderLayout>(0, &lazy cache variable for type metadata for _LazyStack_Cache<LazyVStackLayout>, lazy protocol witness table accessor for type LazyVStackLayout and conformance LazyVStackLayout, &type metadata for LazyVStackLayout, type metadata accessor for _LazyStack_Cache);
-  MEMORY[0x1EEE9AC00](v24 - 8);
-  v26 = &v62 - v25;
-  v27 = v67;
-  memcpy(v75, v68, 0x129uLL);
-  outlined init with copy of _LazyStack_Cache<LazyVStackLayout>(v69, v26);
-  specialized LazyStack<>.resolvedPlacerProperties(subviews:context:cache:)(v27, v75, v26, v71, v72, v70 | v7 & 1, v15);
-  if ((*(v18 + 48))(v15, 1, v17) == 1)
-  {
-    outlined destroy of _LazyStack_Cache<LazyVStackLayout>(v26);
-    return outlined destroy of ObservationTracking._AccessList?(v15, &lazy cache variable for type metadata for (StackPlacement<LazyVStackLayout>, PlacementProperties<LazyVStackLayout>)?, type metadata accessor for (StackPlacement<LazyVStackLayout>, PlacementProperties<LazyVStackLayout>), MEMORY[0x1E69E6720], type metadata accessor for ObservationTracking._AccessList?);
-  }
-
-  outlined init with take of (StackPlacement<LazyVStackLayout>, PlacementProperties<LazyVStackLayout>)(v15, v23, type metadata accessor for (StackPlacement<LazyVStackLayout>, PlacementProperties<LazyVStackLayout>));
-  v29 = v26;
-  outlined init with copy of ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>(v23, v20, type metadata accessor for (StackPlacement<LazyVStackLayout>, PlacementProperties<LazyVStackLayout>));
-  v30 = *&v20[*(v17 + 48)];
-  outlined destroy of StackPlacement<LazyVStackLayout>(v20);
-  outlined init with copy of ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>(v23, v20, type metadata accessor for (StackPlacement<LazyVStackLayout>, PlacementProperties<LazyVStackLayout>));
-  outlined init with take of StackPlacement<LazyHStackLayout>(v20, v12, &lazy cache variable for type metadata for StackPlacement<LazyVStackLayout>, lazy protocol witness table accessor for type LazyVStackLayout and conformance LazyVStackLayout, &type metadata for LazyVStackLayout);
-  v31 = &v23[*(v17 + 48)];
-  v32 = *(v31 + 1);
-  v76[0] = *v31;
-  v76[1] = v32;
-  v33 = *(v31 + 3);
-  v76[2] = *(v31 + 2);
-  v76[3] = v33;
-  v34 = _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE23resolveIndexAndPosition33_973C9973BC16DEAF0CF3109FFDE313218subviews7context5cache6placer10propertiesSi5index_12CoreGraphics7CGFloatV8positiontSgAA01_C15Layout_SubviewsV_AA01_cY17_PlacementContextVAFzAA0D9PlacementAJLLVyxGzAA19PlacementPropertiesAJLLVyxGtFAA0c6VStackY0V_Tt4B5(v27, v75, v26, v12, v76);
-  if (v36)
-  {
-    outlined destroy of StackPlacement<LazyVStackLayout>(v12);
-    outlined destroy of _VariadicView.Tree<_LayoutRoot<GeometryReaderLayout>, ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>>(v23, type metadata accessor for (StackPlacement<LazyVStackLayout>, PlacementProperties<LazyVStackLayout>));
-    v37 = v26;
-  }
-
-  else
-  {
-    v38 = v34;
-    v72 = v29;
-    v39 = v35;
-    specialized StackPlacement.log(_:)(v35, *(v12 + 7), *(v12 + 8), v12, v34);
-    v40 = (v12 + 136);
-    *(v12 + 12) = v38;
-    v12[104] = 0;
-    *(v12 + 14) = v39;
-    *(v12 + 15) = 0;
-    v12[128] = 1;
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v42 = *(v12 + 17);
-    if (isUniquelyReferenced_nonNull_native)
-    {
-      v43 = *(v42 + 2);
-      v44 = swift_isUniquelyReferenced_nonNull_native();
-      *v40 = v42;
-      if ((v44 & 1) == 0)
-      {
-        v42 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v43, 1, v42);
-        *v40 = v42;
-      }
-
-      specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:)(0, v43, 0);
-    }
-
-    else
-    {
-      v45 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC7SwiftUI19_LazyLayout_SubviewV_Tt1g5(0, *(v42 + 3) >> 1);
-
-      v42 = v45;
-    }
-
-    *(v12 + 17) = v42;
-
-    *(v12 + 18) = 0;
-    outlined destroy of GlassEntryView?((v12 + 152), &lazy cache variable for type metadata for _LazyLayout_Subview?, &type metadata for _LazyLayout_Subview, MEMORY[0x1E69E6720]);
-    *(v12 + 152) = 0u;
-    *(v12 + 168) = 0u;
-    *(v12 + 184) = 0u;
-    *(v12 + 200) = 0u;
-    *(v12 + 216) = 0u;
-    *(v12 + 232) = 0u;
-    *(v12 + 248) = 0u;
-    v46 = swift_isUniquelyReferenced_nonNull_native();
-    v47 = *(v12 + 33);
-    if (v46)
-    {
-      v48 = *(v47 + 2);
-      v49 = swift_isUniquelyReferenced_nonNull_native();
-      *(v12 + 33) = v47;
-      if ((v49 & 1) == 0)
-      {
-        v47 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v48, 1, v47);
-        *(v12 + 33) = v47;
-      }
-
-      specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:)(0, v48, 0);
-    }
-
-    else
-    {
-      v50 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC7SwiftUI25_LazyLayout_PlacedSubviewV_Tt1g5(0, *(v47 + 3) >> 1);
-
-      v47 = v50;
-    }
-
-    *(v12 + 33) = v47;
-    *(v12 + 17) = xmmword_18DDAB4E0;
-    *(v12 + 18) = xmmword_18DDAB4F0;
-    *(v12 + 19) = xmmword_18DDAB4F0;
-    v12[320] = 0;
-    v51 = &v12[*(v63 + 104)];
-    v52 = MEMORY[0x1E69E7CC0];
-    v53 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC12CoreGraphics7CGFloatV_SiTt0g5Tf4g_n(MEMORY[0x1E69E7CC0]);
-
-    *v51 = v53;
-    v54 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC12CoreGraphics7CGFloatV_SiTt0g5Tf4g_n(v52);
-
-    v51[1] = v54;
-    v74 = v52;
-    lazy protocol witness table accessor for type TouchEvent and conformance TouchEvent(&lazy protocol witness table cache variable for type IndexSet and conformance IndexSet, MEMORY[0x1E6969B50]);
-    type metadata accessor for EnvironmentFetch<LayoutDirection>(0, &lazy cache variable for type metadata for [Int], MEMORY[0x1E69E6530], MEMORY[0x1E69E62F8]);
-    lazy protocol witness table accessor for type [Int] and conformance [A]();
-    v55 = v64;
-    v56 = v66;
-    dispatch thunk of SetAlgebra.init<A>(_:)();
-    v57 = type metadata accessor for EstimationCache();
-    result = (*(v65 + 40))(v51 + *(v57 + 24), v55, v56);
-    v58 = *(v12 + 4);
-    v59 = __OFSUB__(v38, v58);
-    v60 = v38 - v58;
-    if (v60 < 0 == v59)
-    {
-      v12[104] = 1;
-      if (v59)
-      {
-        __break(1u);
-        return result;
-      }
-
-      *(v12 + 12) = v60;
-      v38 = v60;
-    }
-
-    v73 = 2 * v30;
-    v74 = v38;
-    MEMORY[0x1EEE9AC00](result);
-    *(&v62 - 2) = v12;
-    _LazyLayout_Subviews.applyNodes(from:style:to:)(&v74, &v73, closure #1 in StackPlacement.place(subviews:from:position:stopping:style:)specialized partial apply, (&v62 - 4));
-    specialized StackPlacement.flushMinorGroup()();
-
-    specialized Array.append<A>(contentsOf:)(v61);
-    outlined destroy of StackPlacement<LazyVStackLayout>(v12);
-    outlined destroy of _VariadicView.Tree<_LayoutRoot<GeometryReaderLayout>, ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>>(v23, type metadata accessor for (StackPlacement<LazyVStackLayout>, PlacementProperties<LazyVStackLayout>));
-    v37 = v72;
-  }
-
-  return outlined destroy of _LazyStack_Cache<LazyVStackLayout>(v37);
-}
-
-uint64_t _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE12proposeSizes2at8subviews7context5cache2inySi_AA01_C15Layout_SubviewsVAA01_cM17_PlacementContextVAfA01_cm9_ProposedG0VztFAA0c6HStackM0V_Tt1B5(uint64_t result, char *a2, uint64_t a3, char **a4, unint64_t a5)
-{
-  if ((*(a3 + 24) & 1) == 0)
-  {
-    v10 = *(a3 + 16);
-    v11 = *(a3 + 8);
-    v32[0] = *a3;
-    v32[1] = v11;
-    v32[2] = v10;
-    if (v32[0] >= 1)
-    {
-      v22 = a4;
-      v14 = result;
-
-      v31 = MEMORY[0x1E69E7CC0];
-      if ((v14 / v32[0] * v32[0]) >> 64 == (v14 / v32[0] * v32[0]) >> 63)
-      {
-        v29 = v14 / v32[0] * v32[0];
-        v30 = MEMORY[0x1E69E7CC0];
-        v24[0] = 2 * v32[0];
-        MEMORY[0x1EEE9AC00](v15);
-        v19[2] = &v30;
-        v19[3] = v32;
-        v20 = 0;
-        v21 = &v31;
-        _LazyLayout_Subviews.apply(from:style:to:)(&v29, v24, partial apply for specialized closure #1 in LazyStack<>.proposeSizes(at:subviews:context:cache:in:), v19);
-        if (!*(v30 + 16))
-        {
-
-          a2 = v31;
-LABEL_10:
-          *v22 = a2;
-          return result;
-        }
-
-        AlignmentKey.fraction.getter(a5);
-        LOBYTE(v24[0]) = 1;
-        v23 = 0;
-        _LazyLayout_Subview.proposeSize(_:)(0, 1, v10, 0, v24);
-        a5 = v24[0];
-        v5 = v24[1];
-        v6 = v25;
-        v7 = v26;
-        v8 = v27;
-        v9 = v28;
-        a2 = v31;
-        if (swift_isUniquelyReferenced_nonNull_native())
-        {
-LABEL_6:
-          v17 = *(a2 + 2);
-          v16 = *(a2 + 3);
-          if (v17 >= v16 >> 1)
-          {
-            a2 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v16 > 1), v17 + 1, 1, a2);
-          }
-
-          *(a2 + 2) = v17 + 1;
-          v18 = &a2[48 * v17];
-          *(v18 + 4) = a5;
-          *(v18 + 5) = v5;
-          v18[48] = v6;
-          *(v18 + 7) = v7;
-          v18[64] = v8;
-          *(v18 + 9) = v9;
-
-          goto LABEL_10;
-        }
-      }
-
-      else
-      {
-        __break(1u);
-      }
-
-      a2 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(a2 + 2) + 1, 1, a2);
-      goto LABEL_6;
-    }
-  }
-
-  return result;
-}
-
-uint64_t _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE12proposeSizes2at8subviews7context5cache2inySi_AA01_C15Layout_SubviewsVAA01_cM17_PlacementContextVAfA01_cm9_ProposedG0VztFAA0c6VStackM0V_Tt1B5(uint64_t result, char *a2, uint64_t a3, char **a4, unint64_t a5)
-{
-  if ((*(a3 + 24) & 1) == 0)
-  {
-    v10 = *(a3 + 16);
-    v11 = *(a3 + 8);
-    v32[0] = *a3;
-    v32[1] = v11;
-    v32[2] = v10;
-    if (v32[0] >= 1)
-    {
-      v22 = a4;
-      v14 = result;
-
-      v31 = MEMORY[0x1E69E7CC0];
-      if ((v14 / v32[0] * v32[0]) >> 64 == (v14 / v32[0] * v32[0]) >> 63)
-      {
-        v29 = v14 / v32[0] * v32[0];
-        v30 = MEMORY[0x1E69E7CC0];
-        v24[0] = 2 * v32[0];
-        MEMORY[0x1EEE9AC00](v15);
-        v19[2] = &v30;
-        v19[3] = v32;
-        v20 = 1;
-        v21 = &v31;
-        _LazyLayout_Subviews.apply(from:style:to:)(&v29, v24, partial apply for specialized closure #1 in LazyStack<>.proposeSizes(at:subviews:context:cache:in:), v19);
-        if (!*(v30 + 16))
-        {
-
-          a2 = v31;
-LABEL_10:
-          *v22 = a2;
-          return result;
-        }
-
-        AlignmentKey.fraction.getter(a5);
-        LOBYTE(v24[0]) = 0;
-        v23 = 1;
-        _LazyLayout_Subview.proposeSize(_:)(v10, 0, 0, 1, v24);
-        a5 = v24[0];
-        v5 = v24[1];
-        v6 = v25;
-        v7 = v26;
-        v8 = v27;
-        v9 = v28;
-        a2 = v31;
-        if (swift_isUniquelyReferenced_nonNull_native())
-        {
-LABEL_6:
-          v17 = *(a2 + 2);
-          v16 = *(a2 + 3);
-          if (v17 >= v16 >> 1)
-          {
-            a2 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v16 > 1), v17 + 1, 1, a2);
-          }
-
-          *(a2 + 2) = v17 + 1;
-          v18 = &a2[48 * v17];
-          *(v18 + 4) = a5;
-          *(v18 + 5) = v5;
-          v18[48] = v6;
-          *(v18 + 7) = v7;
-          v18[64] = v8;
-          *(v18 + 9) = v9;
-
-          goto LABEL_10;
-        }
-      }
-
-      else
-      {
-        __break(1u);
-      }
-
-      a2 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(a2 + 2) + 1, 1, a2);
-      goto LABEL_6;
-    }
-  }
-
-  return result;
-}
-
-void specialized LazyStack<>.boundingRect(at:subviews:context:cache:)(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X8>)
-{
-  *&v198 = a7;
-  *&v195 = a6;
-  v194 = a5;
-  v196 = a2;
-  type metadata accessor for ViewLayoutEngine<GeometryReaderLayout>(0, &lazy cache variable for type metadata for StackPlacement<LazyHStackLayout>, lazy protocol witness table accessor for type LazyHStackLayout and conformance LazyHStackLayout, &type metadata for LazyHStackLayout, type metadata accessor for StackPlacement);
-  v13 = v12;
-  MEMORY[0x1EEE9AC00](v12);
-  v201 = &v175 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v15);
-  v17 = &v175 - v16;
-  v197 = type metadata accessor for IndexSet();
-  v193 = *(v197 - 8);
-  MEMORY[0x1EEE9AC00](v197);
-  v192 = &v175 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for ViewLayoutEngine<GeometryReaderLayout>(0, &lazy cache variable for type metadata for _LazyStack_Cache<LazyHStackLayout>, lazy protocol witness table accessor for type LazyHStackLayout and conformance LazyHStackLayout, &type metadata for LazyHStackLayout, type metadata accessor for _LazyStack_Cache);
-  v20 = v19;
-  MEMORY[0x1EEE9AC00](v19);
-  v22 = &v175 - v21;
-  *&v23 = *(a3 + 40);
-  if (*&v23 <= 0.0)
-  {
-    v24 = 0uLL;
-    v25 = 0.0;
-LABEL_125:
-    *a8 = v25;
-    *(a8 + 8) = 0;
-    *(a8 + 16) = v24;
-    *(a8 + 32) = *&v23 <= 0.0;
-    return;
-  }
-
-  v200 = v23;
-  v26 = *(a3 + 136);
-  v27 = *(a3 + 144);
-  v28 = *(a3 + 152);
-  v29 = *(a3 + 160);
-  outlined init with copy of _LazyStack_Cache<LazyHStackLayout>(a4, &v175 - v21);
-  v205.origin.x = v26;
-  v205.origin.y = v27;
-  v205.size.width = v28;
-  v205.size.height = v29;
-  IsNull = CGRectIsNull(v205);
-  v31 = 0.0;
-  v32 = v26 + v28;
-  if (v26 + v28 >= v26)
-  {
-    v33 = v26;
-  }
-
-  else
-  {
-    v33 = v26 + v28;
-  }
-
-  if (v26 > v32)
-  {
-    v32 = v26;
-  }
-
-  if (v33 > v32)
-  {
-    v34 = 0.0;
-  }
-
-  else
-  {
-    v34 = v32 - v33;
-  }
-
-  if (IsNull)
-  {
-    v35 = 0.0;
-  }
-
-  else
-  {
-    v35 = v34;
-  }
-
-  v36 = *(a3 + 12) == *MEMORY[0x1E698D3F8];
-  v191 = v13;
-  if (v36)
-  {
-    v37 = 0;
-    v38 = *(v22 + 12);
-    if (v38 > 0.0 && v35 > 0.0)
-    {
-LABEL_21:
-      v39 = vabdd_f64(v38, v35);
-      v40 = *(v22 + 13);
-      if (v40 > 0.0 && v31 > 0.0)
-      {
-        if (v39 < 0.01 && vabdd_f64(v40, v31) < 0.01)
-        {
-          goto LABEL_25;
-        }
-
-        goto LABEL_31;
-      }
-
-      if (v39 >= 0.01)
-      {
-LABEL_31:
-        v42 = *(v20 + 60);
-        *&v199 = a8;
-        v43 = a1;
-        v44 = &v22[v42];
-        v45 = MEMORY[0x1E69E7CC0];
-        v46 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC12CoreGraphics7CGFloatV_SiTt0g5Tf4g_n(MEMORY[0x1E69E7CC0]);
-
-        *v44 = v46;
-        v47 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC12CoreGraphics7CGFloatV_SiTt0g5Tf4g_n(v45);
-
-        v44[1] = v47;
-        v204 = v45;
-        lazy protocol witness table accessor for type TouchEvent and conformance TouchEvent(&lazy protocol witness table cache variable for type IndexSet and conformance IndexSet, MEMORY[0x1E6969B50]);
-        type metadata accessor for EnvironmentFetch<LayoutDirection>(0, &lazy cache variable for type metadata for [Int], MEMORY[0x1E69E6530], MEMORY[0x1E69E62F8]);
-        lazy protocol witness table accessor for type [Int] and conformance [A]();
-        v48 = v192;
-        v49 = v197;
-        dispatch thunk of SetAlgebra.init<A>(_:)();
-        v50 = v44 + *(type metadata accessor for EstimationCache() + 24);
-        a1 = v43;
-        a8 = v199;
-        (*(v193 + 40))(v50, v48, v49);
-        v37 = 1;
-        goto LABEL_32;
-      }
-
-LABEL_25:
-      v37 = 0;
-    }
-  }
-
-  else
-  {
-    v31 = *AGGraphGetValue();
-    v38 = *(v22 + 12);
-    if (v38 > 0.0 && v35 > 0.0)
-    {
-      goto LABEL_21;
-    }
-
-    v37 = 0;
-    v41 = *(v22 + 13);
-    if (v41 > 0.0 && v31 > 0.0)
-    {
-      if (vabdd_f64(v41, v31) >= 0.01)
-      {
-        goto LABEL_31;
-      }
-
-      goto LABEL_25;
-    }
-  }
-
-LABEL_32:
-  v51 = *(v20 + 60);
-  if (!*(*&v22[v51] + 16))
-  {
-    v203 = 0;
-    v204 = 0;
-    v202[0] = v198 & 1;
-    specialized LazyStack<>.measureEstimates(updatingPosition:index:minor:subviews:cache:)(&v204, &v203, 1, v196, v22, v194, v195, v198 & 0xFFFFFFFF00000001, *&v200, *&v200, &lazy cache variable for type metadata for _LazyStack_Cache<LazyHStackLayout>, lazy protocol witness table accessor for type LazyHStackLayout and conformance LazyHStackLayout, &type metadata for LazyHStackLayout, 0, partial apply for specialized closure #1 in LazyStack<>.measureEstimates(updatingPosition:index:minor:subviews:cache:), specialized LazyHVStack<>.lengthAndSpacing(subviews:predecessors:minorGeometry:));
-  }
-
-  v52 = COERCE_DOUBLE(EstimationCache.average.getter());
-  if (v53)
-  {
-    v56 = 0.0;
-  }
-
-  else
-  {
-    v56 = v52;
-  }
-
-  v25 = (v54 + v56) * a1;
-  v57 = *(v22 + 6);
-  if (v57 == *(v22 + 7) || (v22[24] & 1) != 0)
-  {
-    goto LABEL_121;
-  }
-
-  v58 = *&v200 != *(v22 + 1);
-  if (*&v200 != *(v22 + 2))
-  {
-    v58 = 1;
-  }
-
-  v59 = *v22 != 1 || v58;
-  if ((v37 | v59))
-  {
-    goto LABEL_121;
-  }
-
-  if (!((a1 < 1) | v53 & 1))
-  {
-    v25 = v25 - v52;
-  }
-
-  v60 = a1 - v57;
-  if (__OFSUB__(a1, v57))
-  {
-    __break(1u);
-LABEL_127:
-    __break(1u);
-LABEL_128:
-    __break(1u);
-    goto LABEL_129;
-  }
-
-  v61 = a1 - v57;
-  if (v60 < 0)
-  {
-    v61 = v57 - a1;
-    if (__OFSUB__(0, v60))
-    {
-      goto LABEL_128;
-    }
-  }
-
-  *&v199 = a1;
-  v62 = *&v22[v51];
-  v63 = *(v62 + 16);
-  v64 = v61;
-  v190 = v54;
-  v189 = DWORD1(v198);
-  if (v63)
-  {
-    *&v55 = EstimationCache.average.getter();
-    if (v66)
-    {
-      *&v55 = 0.0;
-    }
-
-    v67 = (v65 + *&v55) * v64;
-    v68 = *(v22 + 10);
-    v69 = *(v22 + 11);
-    v70 = *(v22 + 8);
-    if (*(v62 + 16))
-    {
-      *&v55 = EstimationCache.average.getter();
-      if (v72)
-      {
-        *&v55 = 0.0;
-      }
-
-      v73 = v71 + *&v55;
-    }
-
-    else
-    {
-      v73 = 32.0;
-    }
-
-    v54 = v190;
-  }
-
-  else
-  {
-    v73 = 32.0;
-    v67 = v64 * 32.0;
-    v68 = *(v22 + 10);
-    v69 = *(v22 + 11);
-    v70 = *(v22 + 8);
-  }
-
-  a1 = v199;
-  v74 = v70 + v73 * v60;
-  if (v74 >= 0.0)
-  {
-    v25 = v74;
-  }
-
-  v75 = v69 - v68;
-  if (v67 >= v75 * 3.0)
-  {
-    *&v55 = -1.0;
-    if (v57 <= v199)
-    {
-LABEL_115:
-      v25 = v56 + v25;
-      goto LABEL_120;
-    }
-
-    goto LABEL_99;
-  }
-
-  v188 = v57;
-  *(v17 + 152) = 0u;
-  v180 = v17 + 152;
-  *(v17 + 248) = 0u;
-  *(v17 + 232) = 0u;
-  *(v17 + 216) = 0u;
-  *(v17 + 200) = 0u;
-  *(v17 + 184) = 0u;
-  *(v17 + 168) = 0u;
-  v76 = &v17[*(v191 + 104)];
-  v77 = MEMORY[0x1E69E7CC0];
-  v177 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC12CoreGraphics7CGFloatV_SiTt0g5Tf4g_n(MEMORY[0x1E69E7CC0]);
-  *v76 = v177;
-  v178 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC12CoreGraphics7CGFloatV_SiTt0g5Tf4g_n(v77);
-  v76[1] = v178;
-  v78 = type metadata accessor for EstimationCache();
-  v179 = v60;
-  v79 = *(v78 + 24);
-  v204 = v77;
-  v80 = lazy protocol witness table accessor for type TouchEvent and conformance TouchEvent(&lazy protocol witness table cache variable for type IndexSet and conformance IndexSet, MEMORY[0x1E6969B50]);
-  type metadata accessor for EnvironmentFetch<LayoutDirection>(0, &lazy cache variable for type metadata for [Int], MEMORY[0x1E69E6530], MEMORY[0x1E69E62F8]);
-  v82 = v81;
-  v83 = lazy protocol witness table accessor for type [Int] and conformance [A]();
-  v187 = v76;
-  v186 = v79;
-  v84 = MEMORY[0x1E69E7CC0];
-  v184 = v82;
-  v183 = v83;
-  v185 = v80;
-  dispatch thunk of SetAlgebra.init<A>(_:)();
-  v85 = v195;
-  *v17 = v194;
-  *(v17 + 1) = v85;
-  v17[16] = v198 & 1;
-  *(v17 + 5) = v189;
-  *(v17 + 4) = 1;
-  v86 = v200;
-  *(v17 + 5) = v200;
-  *(v17 + 6) = v86;
-  v17[24] = 0;
-  *(v17 + 56) = vdupq_n_s64(0x7FF0000000000000uLL);
-  *(v17 + 18) = 0;
-  *(v17 + 10) = a1;
-  v17[88] = 0;
-  *(v17 + 12) = 0;
-  v17[104] = 0;
-  *(v17 + 14) = 0;
-  *(v17 + 15) = 0;
-  v17[128] = 1;
-  *(v17 + 17) = v84;
-  v87 = (v17 + 136);
-  *(v17 + 18) = 0;
-  *(v17 + 33) = v84;
-  v181 = xmmword_18DDAB4E0;
-  *(v17 + 17) = xmmword_18DDAB4E0;
-  *(v17 + 18) = xmmword_18DDAB4F0;
-  v182 = xmmword_18DDAB4F0;
-  *(v17 + 19) = xmmword_18DDAB4F0;
-  v17[320] = 0;
-  if ((v179 & 0x8000000000000000) == 0)
-  {
-    v88 = v188;
-    specialized StackPlacement.log(_:)(v70, INFINITY, INFINITY, v17, v188);
-    *(v17 + 12) = v88;
-    *(v17 + 14) = v70;
-    v17[104] = 0;
-    *(v17 + 15) = a1;
-    v17[128] = 0;
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v90 = *(v17 + 17);
-    if (isUniquelyReferenced_nonNull_native)
-    {
-      v91 = *(v90 + 2);
-      v92 = swift_isUniquelyReferenced_nonNull_native();
-      *v87 = v90;
-      if ((v92 & 1) == 0)
-      {
-        v90 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v91, 1, v90);
-        *v87 = v90;
-      }
-
-      specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:)(0, v91, 0);
-    }
-
-    else
-    {
-      v101 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC7SwiftUI19_LazyLayout_SubviewV_Tt1g5(0, *(v90 + 3) >> 1);
-
-      v90 = v101;
-    }
-
-    *(v17 + 17) = v90;
-    *(v17 + 18) = 0;
-    v102 = v180;
-    outlined destroy of GlassEntryView?(v180, &lazy cache variable for type metadata for _LazyLayout_Subview?, &type metadata for _LazyLayout_Subview, MEMORY[0x1E69E6720]);
-    *v102 = 0u;
-    *(v102 + 1) = 0u;
-    *(v102 + 2) = 0u;
-    *(v102 + 3) = 0u;
-    *(v102 + 4) = 0u;
-    *(v102 + 5) = 0u;
-    *(v102 + 6) = 0u;
-    v103 = swift_isUniquelyReferenced_nonNull_native();
-    v104 = *(v17 + 33);
-    v176 = v51;
-    if (v103)
-    {
-      v105 = *(v104 + 2);
-      v106 = swift_isUniquelyReferenced_nonNull_native();
-      *(v17 + 33) = v104;
-      if ((v106 & 1) == 0)
-      {
-        v104 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v105, 1, v104);
-        *(v17 + 33) = v104;
-      }
-
-      specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:)(0, v105, 0);
-    }
-
-    else
-    {
-      v107 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC7SwiftUI25_LazyLayout_PlacedSubviewV_Tt1g5(0, *(v104 + 3) >> 1);
-
-      v104 = v107;
-    }
-
-    *(v17 + 33) = v104;
-    v108 = v182;
-    *(v17 + 17) = v181;
-    *(v17 + 18) = v108;
-    *(v17 + 19) = v108;
-    v17[320] = 0;
-    v109 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC12CoreGraphics7CGFloatV_SiTt0g5Tf4g_n(v84);
-
-    v110 = v187;
-    *v187 = v109;
-    v111 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC12CoreGraphics7CGFloatV_SiTt0g5Tf4g_n(v84);
-
-    *(v110 + 1) = v111;
-    v204 = v84;
-    v112 = v192;
-    v113 = v197;
-    dispatch thunk of SetAlgebra.init<A>(_:)();
-    v114 = (*(v193 + 40))(&v110[v186], v112, v113);
-    v115 = v188;
-    if (v57 >= 1)
-    {
-      v17[104] = 1;
-      *(v17 + 12) = v57 - 1;
-      v115 = v57 - 1;
-    }
-
-    v203 = 2;
-    v204 = v115;
-    MEMORY[0x1EEE9AC00](v114);
-    v174 = v17;
-    _LazyLayout_Subviews.applyNodes(from:style:to:)(&v204, &v203, closure #1 in StackPlacement.place(subviews:from:position:stopping:style:)specialized partial apply, &v173);
-    specialized StackPlacement.flushMinorGroup()();
-    v51 = v176;
-LABEL_93:
-    v135 = *(v17 + 38);
-    v136 = *(v17 + 39);
-    a1 = v199;
-    if (v135 >= v136)
-    {
-      outlined destroy of StackPlacement<LazyHStackLayout>(v17);
-      *&v55 = -1.0;
-      if (v57 > a1)
-      {
-LABEL_99:
-        LODWORD(v182) = 0;
-        goto LABEL_100;
-      }
-
-      v54 = v190;
-      v25 = v56 + v25;
-    }
-
-    else
-    {
-      if (v135 > v136)
-      {
-LABEL_129:
-        __break(1u);
-LABEL_130:
-        __break(1u);
-        goto LABEL_131;
-      }
-
-      outlined destroy of StackPlacement<LazyHStackLayout>(v17);
-      if (v135 < 0.0)
-      {
-        *&v55 = -1.0;
-        v54 = v190;
-        if (v57 <= a1)
-        {
-          goto LABEL_115;
-        }
-
-        goto LABEL_99;
-      }
-
-      *&v55 = v136 - v135;
-      v54 = v190;
-      if (v57 > a1)
-      {
-        LODWORD(v182) = 1;
-        v25 = v135;
-LABEL_100:
-        v199 = v55;
-        v137 = v201;
-        if (v75 >= 0.0)
-        {
-          *(v201 + 152) = 0u;
-          v138 = (v137 + 152);
-          *(v137 + 248) = 0u;
-          *(v137 + 232) = 0u;
-          *(v137 + 216) = 0u;
-          *(v137 + 200) = 0u;
-          *(v137 + 184) = 0u;
-          *(v137 + 168) = 0u;
-          v139 = (v137 + *(v191 + 104));
-          v140 = MEMORY[0x1E69E7CC0];
-          v187 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC12CoreGraphics7CGFloatV_SiTt0g5Tf4g_n(MEMORY[0x1E69E7CC0]);
-          *v139 = v187;
-          v141 = v140;
-          v188 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC12CoreGraphics7CGFloatV_SiTt0g5Tf4g_n(v140);
-          v139[1] = v188;
-          v142 = *(type metadata accessor for EstimationCache() + 24);
-          v204 = v141;
-          v143 = lazy protocol witness table accessor for type TouchEvent and conformance TouchEvent(&lazy protocol witness table cache variable for type IndexSet and conformance IndexSet, MEMORY[0x1E6969B50]);
-          type metadata accessor for EnvironmentFetch<LayoutDirection>(0, &lazy cache variable for type metadata for [Int], MEMORY[0x1E69E6530], MEMORY[0x1E69E62F8]);
-          v145 = v144;
-          v146 = lazy protocol witness table accessor for type [Int] and conformance [A]();
-          v191 = v142;
-          v184 = v139;
-          v185 = v145;
-          v183 = v146;
-          v186 = v143;
-          v147 = MEMORY[0x1E69E7CC0];
-          dispatch thunk of SetAlgebra.init<A>(_:)();
-          v148 = v195;
-          *v137 = v194;
-          *(v137 + 8) = v148;
-          *(v137 + 16) = v198 & 1;
-          *(v137 + 20) = v189;
-          *(v201 + 32) = 1;
-          v149 = v200;
-          *(v201 + 40) = v200;
-          *(v201 + 48) = v149;
-          *(v201 + 24) = 0;
-          *(v201 + 56) = 0;
-          *(v201 + 64) = v75;
-          *(v201 + 72) = 0;
-          *(v201 + 80) = a1;
-          *(v201 + 88) = 0;
-          *(v201 + 96) = 0;
-          *(v201 + 104) = 0;
-          *(v201 + 120) = 0;
-          *(v201 + 112) = 0;
-          *(v201 + 128) = 1;
-          v150 = v201;
-          *(v201 + 136) = v147;
-          v151 = (v150 + 136);
-          *(v201 + 144) = 0;
-          *(v201 + 264) = v147;
-          v198 = xmmword_18DDAB4E0;
-          *(v201 + 272) = xmmword_18DDAB4E0;
-          *(v201 + 288) = xmmword_18DDAB4F0;
-          v195 = xmmword_18DDAB4F0;
-          *(v201 + 304) = xmmword_18DDAB4F0;
-          *(v201 + 320) = 0;
-          specialized StackPlacement.log(_:)(0.0, 0.0, v75, v201, 0);
-          *(v201 + 96) = 0;
-          *(v201 + 104) = 0;
-          *(v201 + 120) = 0;
-          *(v201 + 112) = 0;
-          *(v201 + 128) = 1;
-          v152 = v201;
-          v153 = swift_isUniquelyReferenced_nonNull_native();
-          v154 = *v151;
-          if (v153)
-          {
-            v155 = *(v154 + 2);
-            v156 = swift_isUniquelyReferenced_nonNull_native();
-            *v151 = v154;
-            if ((v156 & 1) == 0)
-            {
-              v154 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v155, 1, v154);
-              *v151 = v154;
-            }
-
-            v157 = v184;
-            specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:)(0, v155, 0);
-            v152 = v201;
-          }
-
-          else
-          {
-            v158 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC7SwiftUI19_LazyLayout_SubviewV_Tt1g5(0, *(v154 + 3) >> 1);
-
-            v154 = v158;
-            v157 = v184;
-          }
-
-          *(v152 + 136) = v154;
-          *(v152 + 144) = 0;
-          outlined destroy of GlassEntryView?(v138, &lazy cache variable for type metadata for _LazyLayout_Subview?, &type metadata for _LazyLayout_Subview, MEMORY[0x1E69E6720]);
-          *v138 = 0u;
-          v138[1] = 0u;
-          v138[2] = 0u;
-          v138[3] = 0u;
-          v138[4] = 0u;
-          v138[5] = 0u;
-          v138[6] = 0u;
-          v159 = swift_isUniquelyReferenced_nonNull_native();
-          v160 = *(v152 + 264);
-          if (v159)
-          {
-            v161 = *(v160 + 2);
-            v162 = swift_isUniquelyReferenced_nonNull_native();
-            *(v152 + 264) = v160;
-            if ((v162 & 1) == 0)
-            {
-              v160 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v161, 1, v160);
-              *(v152 + 264) = v160;
-            }
-
-            specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:)(0, v161, 0);
-          }
-
-          else
-          {
-            v163 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC7SwiftUI25_LazyLayout_PlacedSubviewV_Tt1g5(0, *(v160 + 3) >> 1);
-
-            v160 = v163;
-          }
-
-          *(v152 + 264) = v160;
-          v164 = v195;
-          *(v152 + 272) = v198;
-          *(v152 + 288) = v164;
-          *(v152 + 304) = v164;
-          *(v152 + 320) = 0;
-          v165 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC12CoreGraphics7CGFloatV_SiTt0g5Tf4g_n(v147);
-
-          *v157 = v165;
-          v166 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC12CoreGraphics7CGFloatV_SiTt0g5Tf4g_n(v147);
-
-          v157[1] = v166;
-          v204 = v147;
-          v167 = v192;
-          v168 = v197;
-          dispatch thunk of SetAlgebra.init<A>(_:)();
-          v169 = (*(v193 + 40))(v157 + v191, v167, v168);
-          v203 = 2;
-          v204 = 0;
-          MEMORY[0x1EEE9AC00](v169);
-          v174 = v201;
-          _LazyLayout_Subviews.applyNodes(from:style:to:)(&v204, &v203, partial apply for specialized closure #1 in StackPlacement.place(subviews:from:position:stopping:style:), &v173);
-          v170 = v201;
-          specialized StackPlacement.flushMinorGroup()();
-          v171 = *(v170 + 304);
-          v172 = *(v170 + 312);
-          if (v171 >= v172)
-          {
-            outlined destroy of StackPlacement<LazyHStackLayout>(v170);
-            v54 = v190;
-            v55 = v199;
-            if (v182)
-            {
-              goto LABEL_120;
-            }
-
-            goto LABEL_115;
-          }
-
-          if (v171 <= v172)
-          {
-            outlined destroy of StackPlacement<LazyHStackLayout>(v170);
-            *&v55 = v172 - v171;
-            v25 = v171;
-            v54 = v190;
-            goto LABEL_120;
-          }
-
-          goto LABEL_130;
-        }
-
-        goto LABEL_127;
-      }
-
-      v25 = v135;
-    }
-
-LABEL_120:
-    if (*&v55 >= 0.0)
-    {
-LABEL_124:
-      v199 = v55;
-      _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE3log33_973C9973BC16DEAF0CF3109FFDE31321LLyySSyXKFAA0C12HStackLayoutV_Tt0g503_s7a3UI9cd11PA2A01_cD6_e76VyxG0E0RtzrlE12boundingRect2at8subviews7context5cacheSo6CGRectVSgSi_AA01_C15M50_SubviewsVAA01_cM17_PlacementContextVAFtFSSyXEfu0_SiSo0Z0VTf1c_n(a1, v25, 0.0, *&v55, *&v200);
-      outlined destroy of _LazyStack_Cache<LazyHStackLayout>(v22);
-      *&v24 = v199;
-      *&v23 = v200;
-      *(&v24 + 1) = v200;
-      goto LABEL_125;
-    }
-
-LABEL_121:
-    if (*(*&v22[v51] + 16))
-    {
-      *&v55 = v54;
-    }
-
-    else
-    {
-      *&v55 = 0.0;
-    }
-
-    goto LABEL_124;
-  }
-
-  v202[0] = 0;
-  v93 = v188;
-  v94 = _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE16collectBackwards33_973C9973BC16DEAF0CF3109FFDE313214from2to8subviews5style5atEndSaySayAA01_C14Layout_SubviewVGGSi_SiAA01_cS9_SubviewsVAA23_ViewList_IteratorStyleVSbztFAA0c6HStackS0V_Tt4B5Tm(a1, v188, v196, 2uLL, v202, closure #1 in LazyStack<>.collectBackwards(from:to:subviews:style:atEnd:)partial apply);
-  specialized StackPlacement.measureBackwards(subviews:lastIndex:lastPosition:atStart:atEnd:allowBeforeFirst:)(v94, v93, a1 == 0, v202[0], 0, &lazy cache variable for type metadata for StackPlacement<LazyHStackLayout>, lazy protocol witness table accessor for type LazyHStackLayout and conformance LazyHStackLayout, &type metadata for LazyHStackLayout, v70, specialized flushBackwards #1 <A>(includeEmpty:) in StackPlacement.measureBackwards(subviews:lastIndex:lastPosition:atStart:atEnd:allowBeforeFirst:), specialized LazyHVStack<>.lengthAndSpacing(subviews:predecessors:minorGeometry:));
-
-  v95 = *(v17 + 12);
-  v96 = *(v17 + 14);
-  specialized StackPlacement.log(_:)(v96, *(v17 + 7), *(v17 + 8), v17, v95);
-  *(v17 + 12) = v95;
-  *(v17 + 14) = v96;
-  v17[104] = 0;
-  *(v17 + 15) = a1;
-  v17[128] = 0;
-  v97 = swift_isUniquelyReferenced_nonNull_native();
-  v98 = *(v17 + 17);
-  if (v97)
-  {
-    v99 = *(v98 + 2);
-    v100 = swift_isUniquelyReferenced_nonNull_native();
-    *v87 = v98;
-    if ((v100 & 1) == 0)
-    {
-      v98 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v99, 1, v98);
-      *v87 = v98;
-    }
-
-    specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:)(0, v99, 0);
-  }
-
-  else
-  {
-    v116 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC7SwiftUI19_LazyLayout_SubviewV_Tt1g5(0, *(v98 + 3) >> 1);
-
-    v98 = v116;
-  }
-
-  *(v17 + 17) = v98;
-
-  *(v17 + 18) = 0;
-  v117 = v180;
-  outlined destroy of GlassEntryView?(v180, &lazy cache variable for type metadata for _LazyLayout_Subview?, &type metadata for _LazyLayout_Subview, MEMORY[0x1E69E6720]);
-  *v117 = 0u;
-  *(v117 + 1) = 0u;
-  *(v117 + 2) = 0u;
-  *(v117 + 3) = 0u;
-  *(v117 + 4) = 0u;
-  *(v117 + 5) = 0u;
-  *(v117 + 6) = 0u;
-  v118 = swift_isUniquelyReferenced_nonNull_native();
-  v119 = *(v17 + 33);
-  if (v118)
-  {
-    v120 = *(v119 + 2);
-    v121 = swift_isUniquelyReferenced_nonNull_native();
-    *(v17 + 33) = v119;
-    if ((v121 & 1) == 0)
-    {
-      v119 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v120, 1, v119);
-      *(v17 + 33) = v119;
-    }
-
-    v122 = v51;
-    specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:)(0, v120, 0);
-  }
-
-  else
-  {
-    v122 = v51;
-    v123 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC7SwiftUI25_LazyLayout_PlacedSubviewV_Tt1g5(0, *(v119 + 3) >> 1);
-
-    v119 = v123;
-  }
-
-  *(v17 + 33) = v119;
-  v124 = v182;
-  *(v17 + 17) = v181;
-  *(v17 + 18) = v124;
-  *(v17 + 19) = v124;
-  v17[320] = 0;
-  v125 = MEMORY[0x1E69E7CC0];
-  v126 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC12CoreGraphics7CGFloatV_SiTt0g5Tf4g_n(MEMORY[0x1E69E7CC0]);
-  v127 = v187;
-
-  *v127 = v126;
-  v128 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC12CoreGraphics7CGFloatV_SiTt0g5Tf4g_n(v125);
-
-  v127[1] = v128;
-  v204 = v125;
-  v129 = v192;
-  v130 = v197;
-  dispatch thunk of SetAlgebra.init<A>(_:)();
-  v131 = (*(v193 + 40))(v127 + v186, v129, v130);
-  v132 = *(v17 + 4);
-  v133 = __OFSUB__(v95, v132);
-  v134 = v95 - v132;
-  v51 = v122;
-  if (v134 < 0 != v133)
-  {
-LABEL_92:
-    v203 = 2;
-    v204 = v95;
-    MEMORY[0x1EEE9AC00](v131);
-    v174 = v17;
-    _LazyLayout_Subviews.applyNodes(from:style:to:)(&v204, &v203, closure #1 in StackPlacement.place(subviews:from:position:stopping:style:)specialized partial apply, &v173);
-    specialized StackPlacement.flushMinorGroup()();
-    goto LABEL_93;
-  }
-
-  v17[104] = 1;
-  if (!v133)
-  {
-    *(v17 + 12) = v134;
-    v95 = v134;
-    goto LABEL_92;
-  }
-
-LABEL_131:
-  __break(1u);
-}
-
-{
-  *&v200 = a7;
-  *&v197 = a6;
-  v196 = a5;
-  v198 = a2;
-  type metadata accessor for ViewLayoutEngine<GeometryReaderLayout>(0, &lazy cache variable for type metadata for StackPlacement<LazyVStackLayout>, lazy protocol witness table accessor for type LazyVStackLayout and conformance LazyVStackLayout, &type metadata for LazyVStackLayout, type metadata accessor for StackPlacement);
-  v13 = v12;
-  MEMORY[0x1EEE9AC00](v12);
-  v202 = &v175 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v15);
-  v17 = &v175 - v16;
-  v199 = type metadata accessor for IndexSet();
-  v195 = *(v199 - 8);
-  MEMORY[0x1EEE9AC00](v199);
-  v194 = &v175 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for ViewLayoutEngine<GeometryReaderLayout>(0, &lazy cache variable for type metadata for _LazyStack_Cache<LazyVStackLayout>, lazy protocol witness table accessor for type LazyVStackLayout and conformance LazyVStackLayout, &type metadata for LazyVStackLayout, type metadata accessor for _LazyStack_Cache);
-  v20 = v19;
-  MEMORY[0x1EEE9AC00](v19);
-  v22 = &v175 - v21;
-  *&v23 = *(a3 + 32);
-  if (*&v23 <= 0.0)
-  {
-    v24 = 0uLL;
-    v25 = 0.0;
-LABEL_128:
-    *a8 = 0;
-    *(a8 + 8) = v24;
-    *(a8 + 24) = v25;
-    *(a8 + 32) = *&v23 <= 0.0;
-    return;
-  }
-
-  v201 = v23;
-  v26 = *(a3 + 136);
-  v27 = *(a3 + 144);
-  v28 = *(a3 + 152);
-  v29 = *(a3 + 160);
-  outlined init with copy of _LazyStack_Cache<LazyVStackLayout>(a4, &v175 - v21);
-  v206.origin.x = v26;
-  v206.origin.y = v27;
-  v206.size.width = v28;
-  v206.size.height = v29;
-  IsNull = CGRectIsNull(v206);
-  v31 = 0.0;
-  v32 = v27 + v29;
-  if (v27 + v29 >= v27)
-  {
-    v33 = v27;
-  }
-
-  else
-  {
-    v33 = v27 + v29;
-  }
-
-  if (v27 > v32)
-  {
-    v32 = v27;
-  }
-
-  if (v33 > v32)
-  {
-    v34 = 0.0;
-  }
-
-  else
-  {
-    v34 = v32 - v33;
-  }
-
-  if (IsNull)
-  {
-    v35 = 0.0;
-  }
-
-  else
-  {
-    v35 = v34;
-  }
-
-  v36 = *(a3 + 12) == *MEMORY[0x1E698D3F8];
-  v192 = v13;
-  if (v36)
-  {
-    v37 = 0;
-    v38 = *(v22 + 12);
-    if (v38 > 0.0 && v35 > 0.0)
-    {
-LABEL_21:
-      v39 = vabdd_f64(v38, v35);
-      v40 = *(v22 + 13);
-      if (v40 > 0.0 && v31 > 0.0)
-      {
-        if (v39 < 0.01 && vabdd_f64(v40, v31) < 0.01)
-        {
-          goto LABEL_25;
-        }
-
-        goto LABEL_31;
-      }
-
-      if (v39 >= 0.01)
-      {
-LABEL_31:
-        v42 = *(v20 + 60);
-        *&v193 = a8;
-        v43 = a1;
-        v44 = &v22[v42];
-        v45 = MEMORY[0x1E69E7CC0];
-        v46 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC12CoreGraphics7CGFloatV_SiTt0g5Tf4g_n(MEMORY[0x1E69E7CC0]);
-
-        *v44 = v46;
-        v47 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC12CoreGraphics7CGFloatV_SiTt0g5Tf4g_n(v45);
-
-        v44[1] = v47;
-        *&v205[0] = v45;
-        lazy protocol witness table accessor for type TouchEvent and conformance TouchEvent(&lazy protocol witness table cache variable for type IndexSet and conformance IndexSet, MEMORY[0x1E6969B50]);
-        type metadata accessor for EnvironmentFetch<LayoutDirection>(0, &lazy cache variable for type metadata for [Int], MEMORY[0x1E69E6530], MEMORY[0x1E69E62F8]);
-        lazy protocol witness table accessor for type [Int] and conformance [A]();
-        v48 = v194;
-        v49 = v199;
-        dispatch thunk of SetAlgebra.init<A>(_:)();
-        v50 = v44 + *(type metadata accessor for EstimationCache() + 24);
-        a1 = v43;
-        a8 = v193;
-        (*(v195 + 40))(v50, v48, v49);
-        v37 = 1;
-        goto LABEL_32;
-      }
-
-LABEL_25:
-      v37 = 0;
-    }
-  }
-
-  else
-  {
-    v31 = *(AGGraphGetValue() + 8);
-    v38 = *(v22 + 12);
-    if (v38 > 0.0 && v35 > 0.0)
-    {
-      goto LABEL_21;
-    }
-
-    v37 = 0;
-    v41 = *(v22 + 13);
-    if (v41 > 0.0 && v31 > 0.0)
-    {
-      if (vabdd_f64(v41, v31) >= 0.01)
-      {
-        goto LABEL_31;
-      }
-
-      goto LABEL_25;
-    }
-  }
-
-LABEL_32:
-  v51 = *(v20 + 60);
-  if (!*(*&v22[v51] + 16))
-  {
-    v204 = 0;
-    v205[0] = 0.0;
-    v203[0] = v200 & 1;
-    specialized LazyStack<>.measureEstimates(updatingPosition:index:minor:subviews:cache:)(v205, &v204, 1, v198, v22, v196, v197, v200 & 0xFFFFFFFF00000001, *&v201, *&v201, &lazy cache variable for type metadata for _LazyStack_Cache<LazyVStackLayout>, lazy protocol witness table accessor for type LazyVStackLayout and conformance LazyVStackLayout, &type metadata for LazyVStackLayout, 1u, partial apply for specialized closure #1 in LazyStack<>.measureEstimates(updatingPosition:index:minor:subviews:cache:), specialized LazyHVStack<>.lengthAndSpacing(subviews:predecessors:minorGeometry:));
-  }
-
-  v52 = COERCE_DOUBLE(EstimationCache.average.getter());
-  if (v53)
-  {
-    v56 = 0.0;
-  }
-
-  else
-  {
-    v56 = v52;
-  }
-
-  *&v55 = (v54 + v56) * a1;
-  v57 = *(v22 + 6);
-  if (v57 == *(v22 + 7) || (v22[24] & 1) != 0)
-  {
-    goto LABEL_124;
-  }
-
-  v58 = *&v201 != *(v22 + 1);
-  if (*&v201 != *(v22 + 2))
-  {
-    v58 = 1;
-  }
-
-  v59 = *v22 != 1 || v58;
-  if ((v37 | v59))
-  {
-    goto LABEL_124;
-  }
-
-  if ((a1 < 1) | v53 & 1)
-  {
-    v60 = (v54 + v56) * a1;
-  }
-
-  else
-  {
-    v60 = *&v55 - v52;
-  }
-
-  v61 = a1 - v57;
-  if (__OFSUB__(a1, v57))
-  {
-    __break(1u);
-LABEL_132:
-    __break(1u);
-LABEL_133:
-    __break(1u);
-    goto LABEL_134;
-  }
-
-  v62 = a1 - v57;
-  if (v61 < 0)
-  {
-    v62 = v57 - a1;
-    if (__OFSUB__(0, v61))
-    {
-      goto LABEL_133;
-    }
-  }
-
-  v191 = a1;
-  v63 = *&v22[v51];
-  v64 = *(v63 + 16);
-  v65 = v62;
-  v190 = v54;
-  v189 = DWORD1(v200);
-  if (v64)
-  {
-    *&v55 = EstimationCache.average.getter();
-    if (v67)
-    {
-      *&v55 = 0.0;
-    }
-
-    v68 = (v66 + *&v55) * v65;
-    v69 = *(v22 + 10);
-    v70 = *(v22 + 11);
-    v71 = *(v22 + 8);
-    if (*(v63 + 16))
-    {
-      *&v55 = EstimationCache.average.getter();
-      if (v73)
-      {
-        *&v55 = 0.0;
-      }
-
-      v74 = v72 + *&v55;
-    }
-
-    else
-    {
-      v74 = 32.0;
-    }
-
-    v54 = v190;
-  }
-
-  else
-  {
-    v74 = 32.0;
-    v68 = v65 * 32.0;
-    v69 = *(v22 + 10);
-    v70 = *(v22 + 11);
-    v71 = *(v22 + 8);
-  }
-
-  a1 = v191;
-  *&v55 = v71 + v74 * v61;
-  if (*&v55 < 0.0)
-  {
-    *&v55 = v60;
-  }
-
-  v75 = v70 - v69;
-  if (v68 >= (v70 - v69) * 3.0)
-  {
-    v25 = -1.0;
-    if (v57 <= v191)
-    {
-      goto LABEL_122;
-    }
-
-    LODWORD(v183) = 0;
-    goto LABEL_106;
-  }
-
-  v193 = v55;
-  v188 = v57;
-  *(v17 + 152) = 0u;
-  v180 = v17 + 152;
-  *(v17 + 248) = 0u;
-  *(v17 + 232) = 0u;
-  *(v17 + 216) = 0u;
-  *(v17 + 200) = 0u;
-  *(v17 + 184) = 0u;
-  *(v17 + 168) = 0u;
-  v76 = &v17[*(v192 + 104)];
-  v77 = MEMORY[0x1E69E7CC0];
-  v177 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC12CoreGraphics7CGFloatV_SiTt0g5Tf4g_n(MEMORY[0x1E69E7CC0]);
-  *v76 = v177;
-  v178 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC12CoreGraphics7CGFloatV_SiTt0g5Tf4g_n(v77);
-  v76[1] = v178;
-  v78 = type metadata accessor for EstimationCache();
-  v179 = v61;
-  v79 = *(v78 + 24);
-  *&v205[0] = v77;
-  v80 = lazy protocol witness table accessor for type TouchEvent and conformance TouchEvent(&lazy protocol witness table cache variable for type IndexSet and conformance IndexSet, MEMORY[0x1E6969B50]);
-  type metadata accessor for EnvironmentFetch<LayoutDirection>(0, &lazy cache variable for type metadata for [Int], MEMORY[0x1E69E6530], MEMORY[0x1E69E62F8]);
-  v82 = v81;
-  v83 = lazy protocol witness table accessor for type [Int] and conformance [A]();
-  v187 = v76;
-  v186 = v79;
-  v84 = MEMORY[0x1E69E7CC0];
-  v184 = v82;
-  v183 = v83;
-  v185 = v80;
-  dispatch thunk of SetAlgebra.init<A>(_:)();
-  v85 = v197;
-  *v17 = v196;
-  *(v17 + 1) = v85;
-  v17[16] = v200 & 1;
-  *(v17 + 5) = v189;
-  *(v17 + 4) = 1;
-  v86 = v201;
-  *(v17 + 5) = v201;
-  *(v17 + 6) = v86;
-  v17[24] = 1;
-  *(v17 + 56) = vdupq_n_s64(0x7FF0000000000000uLL);
-  *(v17 + 18) = 0;
-  *(v17 + 10) = a1;
-  v17[88] = 0;
-  *(v17 + 12) = 0;
-  v17[104] = 0;
-  *(v17 + 14) = 0;
-  *(v17 + 15) = 0;
-  v17[128] = 1;
-  *(v17 + 17) = v84;
-  v87 = (v17 + 136);
-  *(v17 + 18) = 0;
-  *(v17 + 33) = v84;
-  v181 = xmmword_18DDAB4E0;
-  *(v17 + 17) = xmmword_18DDAB4E0;
-  *(v17 + 18) = xmmword_18DDAB4F0;
-  v182 = xmmword_18DDAB4F0;
-  *(v17 + 19) = xmmword_18DDAB4F0;
-  v17[320] = 0;
-  if ((v179 & 0x8000000000000000) == 0)
-  {
-    v88 = v188;
-    specialized StackPlacement.log(_:)(v71, INFINITY, INFINITY, v17, v188);
-    *(v17 + 12) = v88;
-    *(v17 + 14) = v71;
-    v17[104] = 0;
-    *(v17 + 15) = a1;
-    v17[128] = 0;
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v90 = *(v17 + 17);
-    if (isUniquelyReferenced_nonNull_native)
-    {
-      v91 = *(v90 + 2);
-      v92 = swift_isUniquelyReferenced_nonNull_native();
-      *v87 = v90;
-      if ((v92 & 1) == 0)
-      {
-        v90 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v91, 1, v90);
-        *v87 = v90;
-      }
-
-      specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:)(0, v91, 0);
-    }
-
-    else
-    {
-      v101 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC7SwiftUI19_LazyLayout_SubviewV_Tt1g5(0, *(v90 + 3) >> 1);
-
-      v90 = v101;
-    }
-
-    *(v17 + 17) = v90;
-    *(v17 + 18) = 0;
-    v102 = v180;
-    outlined destroy of GlassEntryView?(v180, &lazy cache variable for type metadata for _LazyLayout_Subview?, &type metadata for _LazyLayout_Subview, MEMORY[0x1E69E6720]);
-    *v102 = 0u;
-    *(v102 + 1) = 0u;
-    *(v102 + 2) = 0u;
-    *(v102 + 3) = 0u;
-    *(v102 + 4) = 0u;
-    *(v102 + 5) = 0u;
-    *(v102 + 6) = 0u;
-    v103 = swift_isUniquelyReferenced_nonNull_native();
-    v104 = *(v17 + 33);
-    v176 = v51;
-    if (v103)
-    {
-      v105 = *(v104 + 2);
-      v106 = swift_isUniquelyReferenced_nonNull_native();
-      *(v17 + 33) = v104;
-      if ((v106 & 1) == 0)
-      {
-        v104 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v105, 1, v104);
-        *(v17 + 33) = v104;
-      }
-
-      specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:)(0, v105, 0);
-    }
-
-    else
-    {
-      v107 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC7SwiftUI25_LazyLayout_PlacedSubviewV_Tt1g5(0, *(v104 + 3) >> 1);
-
-      v104 = v107;
-    }
-
-    *(v17 + 33) = v104;
-    v108 = v182;
-    *(v17 + 17) = v181;
-    *(v17 + 18) = v108;
-    *(v17 + 19) = v108;
-    v17[320] = 0;
-    v109 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC12CoreGraphics7CGFloatV_SiTt0g5Tf4g_n(v84);
-
-    v110 = v187;
-    *v187 = v109;
-    v111 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC12CoreGraphics7CGFloatV_SiTt0g5Tf4g_n(v84);
-
-    *(v110 + 1) = v111;
-    *&v205[0] = v84;
-    v112 = v194;
-    v113 = v199;
-    dispatch thunk of SetAlgebra.init<A>(_:)();
-    v114 = (*(v195 + 40))(&v110[v186], v112, v113);
-    v115 = *&v188;
-    if (v57 >= 1)
-    {
-      v17[104] = 1;
-      *(v17 + 12) = v57 - 1;
-      *&v115 = v57 - 1;
-    }
-
-    v204 = 2;
-    v205[0] = v115;
-    MEMORY[0x1EEE9AC00](v114);
-    v174 = v17;
-    _LazyLayout_Subviews.applyNodes(from:style:to:)(v205, &v204, closure #1 in StackPlacement.place(subviews:from:position:stopping:style:)specialized partial apply, &v173);
-    specialized StackPlacement.flushMinorGroup()();
-    v51 = v176;
-    goto LABEL_94;
-  }
-
-  v203[0] = 0;
-  v93 = v188;
-  v94 = _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE16collectBackwards33_973C9973BC16DEAF0CF3109FFDE313214from2to8subviews5style5atEndSaySayAA01_C14Layout_SubviewVGGSi_SiAA01_cS9_SubviewsVAA23_ViewList_IteratorStyleVSbztFAA0c6HStackS0V_Tt4B5Tm(a1, v188, v198, 2uLL, v203, partial apply for closure #1 in LazyStack<>.collectBackwards(from:to:subviews:style:atEnd:));
-  specialized StackPlacement.measureBackwards(subviews:lastIndex:lastPosition:atStart:atEnd:allowBeforeFirst:)(v94, v93, a1 == 0, v203[0], 0, &lazy cache variable for type metadata for StackPlacement<LazyVStackLayout>, lazy protocol witness table accessor for type LazyVStackLayout and conformance LazyVStackLayout, &type metadata for LazyVStackLayout, v71, specialized flushBackwards #1 <A>(includeEmpty:) in StackPlacement.measureBackwards(subviews:lastIndex:lastPosition:atStart:atEnd:allowBeforeFirst:), specialized LazyHVStack<>.lengthAndSpacing(subviews:predecessors:minorGeometry:));
-
-  v95 = *(v17 + 12);
-  v96 = *(v17 + 14);
-  specialized StackPlacement.log(_:)(v96, *(v17 + 7), *(v17 + 8), v17, v95);
-  *(v17 + 12) = v95;
-  *(v17 + 14) = v96;
-  v17[104] = 0;
-  *(v17 + 15) = a1;
-  v17[128] = 0;
-  v97 = swift_isUniquelyReferenced_nonNull_native();
-  v98 = *(v17 + 17);
-  if (v97)
-  {
-    v99 = *(v98 + 2);
-    v100 = swift_isUniquelyReferenced_nonNull_native();
-    *v87 = v98;
-    if ((v100 & 1) == 0)
-    {
-      v98 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v99, 1, v98);
-      *v87 = v98;
-    }
-
-    specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:)(0, v99, 0);
-  }
-
-  else
-  {
-    v116 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC7SwiftUI19_LazyLayout_SubviewV_Tt1g5(0, *(v98 + 3) >> 1);
-
-    v98 = v116;
-  }
-
-  *(v17 + 17) = v98;
-
-  *(v17 + 18) = 0;
-  v117 = v180;
-  outlined destroy of GlassEntryView?(v180, &lazy cache variable for type metadata for _LazyLayout_Subview?, &type metadata for _LazyLayout_Subview, MEMORY[0x1E69E6720]);
-  *v117 = 0u;
-  *(v117 + 1) = 0u;
-  *(v117 + 2) = 0u;
-  *(v117 + 3) = 0u;
-  *(v117 + 4) = 0u;
-  *(v117 + 5) = 0u;
-  *(v117 + 6) = 0u;
-  v118 = swift_isUniquelyReferenced_nonNull_native();
-  v119 = *(v17 + 33);
-  if (v118)
-  {
-    v120 = *(v119 + 2);
-    v121 = swift_isUniquelyReferenced_nonNull_native();
-    *(v17 + 33) = v119;
-    if ((v121 & 1) == 0)
-    {
-      v119 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v120, 1, v119);
-      *(v17 + 33) = v119;
-    }
-
-    v122 = v51;
-    specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:)(0, v120, 0);
-  }
-
-  else
-  {
-    v122 = v51;
-    v123 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC7SwiftUI25_LazyLayout_PlacedSubviewV_Tt1g5(0, *(v119 + 3) >> 1);
-
-    v119 = v123;
-  }
-
-  *(v17 + 33) = v119;
-  v124 = v182;
-  *(v17 + 17) = v181;
-  *(v17 + 18) = v124;
-  *(v17 + 19) = v124;
-  v17[320] = 0;
-  v125 = MEMORY[0x1E69E7CC0];
-  v126 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC12CoreGraphics7CGFloatV_SiTt0g5Tf4g_n(MEMORY[0x1E69E7CC0]);
-  v127 = v187;
-
-  *v127 = v126;
-  v128 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC12CoreGraphics7CGFloatV_SiTt0g5Tf4g_n(v125);
-
-  v127[1] = v128;
-  *&v205[0] = v125;
-  v129 = v194;
-  v130 = v199;
-  dispatch thunk of SetAlgebra.init<A>(_:)();
-  v131 = (*(v195 + 40))(v127 + v186, v129, v130);
-  v132 = *(v17 + 4);
-  v133 = __OFSUB__(v95, v132);
-  v134 = v95 - v132;
-  v51 = v122;
-  if (v134 < 0 != v133)
-  {
-LABEL_93:
-    v204 = 2;
-    *&v205[0] = v95;
-    MEMORY[0x1EEE9AC00](v131);
-    v174 = v17;
-    _LazyLayout_Subviews.applyNodes(from:style:to:)(v205, &v204, closure #1 in StackPlacement.place(subviews:from:position:stopping:style:)specialized partial apply, &v173);
-    specialized StackPlacement.flushMinorGroup()();
-LABEL_94:
-    v136 = *(v17 + 38);
-    v135 = *(v17 + 39);
-    a1 = v191;
-    if (v136 >= v135)
-    {
-      outlined destroy of StackPlacement<LazyVStackLayout>(v17);
-      v25 = -1.0;
-      if (v57 <= a1)
-      {
-        v54 = v190;
-        goto LABEL_102;
-      }
-
-      goto LABEL_100;
-    }
-
-    if (v136 > v135)
-    {
-LABEL_134:
-      __break(1u);
-LABEL_135:
-      __break(1u);
-      goto LABEL_136;
-    }
-
-    outlined destroy of StackPlacement<LazyVStackLayout>(v17);
-    if (v136 < 0.0)
-    {
-      v25 = -1.0;
-      v54 = v190;
-      if (v57 <= a1)
-      {
-LABEL_102:
-        *(&v55 + 1) = *(&v193 + 1);
-        *&v55 = v56 + *&v193;
-        if (v25 >= 0.0)
-        {
-          goto LABEL_127;
-        }
-
-        goto LABEL_124;
-      }
-
-LABEL_100:
-      LODWORD(v183) = 0;
-      v55 = v193;
-      goto LABEL_106;
-    }
-
-    v25 = v135 - v136;
-    v54 = v190;
-    if (v57 <= a1)
-    {
-      *&v55 = v136;
-      if (v25 >= 0.0)
-      {
-        goto LABEL_127;
-      }
-
-      goto LABEL_124;
-    }
-
-    LODWORD(v183) = 1;
-    *&v55 = v136;
-LABEL_106:
-    v193 = v55;
-    v137 = v202;
-    if (v75 >= 0.0)
-    {
-      *(v202 + 152) = 0u;
-      v138 = (v137 + 152);
-      *(v137 + 248) = 0u;
-      *(v137 + 232) = 0u;
-      *(v137 + 216) = 0u;
-      *(v137 + 200) = 0u;
-      *(v137 + 184) = 0u;
-      *(v137 + 168) = 0u;
-      v139 = (v137 + *(v192 + 104));
-      v140 = MEMORY[0x1E69E7CC0];
-      v188 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC12CoreGraphics7CGFloatV_SiTt0g5Tf4g_n(MEMORY[0x1E69E7CC0]);
-      *v139 = v188;
-      v141 = *&v140;
-      v191 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC12CoreGraphics7CGFloatV_SiTt0g5Tf4g_n(v140);
-      v139[1] = v191;
-      v142 = *(type metadata accessor for EstimationCache() + 24);
-      v205[0] = v141;
-      v143 = lazy protocol witness table accessor for type TouchEvent and conformance TouchEvent(&lazy protocol witness table cache variable for type IndexSet and conformance IndexSet, MEMORY[0x1E6969B50]);
-      type metadata accessor for EnvironmentFetch<LayoutDirection>(0, &lazy cache variable for type metadata for [Int], MEMORY[0x1E69E6530], MEMORY[0x1E69E62F8]);
-      v145 = v144;
-      v146 = lazy protocol witness table accessor for type [Int] and conformance [A]();
-      v192 = v142;
-      v185 = v139;
-      v186 = v145;
-      v184 = v146;
-      v187 = v143;
-      v147 = MEMORY[0x1E69E7CC0];
-      dispatch thunk of SetAlgebra.init<A>(_:)();
-      v148 = v197;
-      *v137 = v196;
-      *(v137 + 8) = v148;
-      *(v137 + 16) = v200 & 1;
-      *(v137 + 20) = v189;
-      *(v202 + 32) = 1;
-      v149 = v201;
-      *(v202 + 40) = v201;
-      *(v202 + 48) = v149;
-      *(v202 + 24) = 1;
-      *(v202 + 56) = 0;
-      *(v202 + 64) = v75;
-      *(v202 + 72) = 0;
-      *(v202 + 80) = a1;
-      *(v202 + 88) = 0;
-      *(v202 + 96) = 0;
-      *(v202 + 104) = 0;
-      *(v202 + 120) = 0;
-      *(v202 + 112) = 0;
-      *(v202 + 128) = 1;
-      v150 = v202;
-      *(v202 + 136) = v147;
-      v151 = (v150 + 136);
-      *(v202 + 144) = 0;
-      *(v202 + 264) = v147;
-      v200 = xmmword_18DDAB4E0;
-      *(v202 + 272) = xmmword_18DDAB4E0;
-      *(v202 + 288) = xmmword_18DDAB4F0;
-      v197 = xmmword_18DDAB4F0;
-      *(v202 + 304) = xmmword_18DDAB4F0;
-      *(v202 + 320) = 0;
-      specialized StackPlacement.log(_:)(0.0, 0.0, v70 - v69, v202, 0);
-      *(v202 + 96) = 0;
-      *(v202 + 104) = 0;
-      *(v202 + 120) = 0;
-      *(v202 + 112) = 0;
-      *(v202 + 128) = 1;
-      v152 = v202;
-      v153 = swift_isUniquelyReferenced_nonNull_native();
-      v154 = *v151;
-      if (v153)
-      {
-        v155 = *(v154 + 2);
-        v156 = swift_isUniquelyReferenced_nonNull_native();
-        *v151 = v154;
-        if ((v156 & 1) == 0)
-        {
-          v154 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v155, 1, v154);
-          *v151 = v154;
-        }
-
-        v157 = v185;
-        specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:)(0, v155, 0);
-        v152 = v202;
-      }
-
-      else
-      {
-        v158 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC7SwiftUI19_LazyLayout_SubviewV_Tt1g5(0, *(v154 + 3) >> 1);
-
-        v154 = v158;
-        v157 = v185;
-      }
-
-      *(v152 + 136) = v154;
-      *(v152 + 144) = 0;
-      outlined destroy of GlassEntryView?(v138, &lazy cache variable for type metadata for _LazyLayout_Subview?, &type metadata for _LazyLayout_Subview, MEMORY[0x1E69E6720]);
-      *v138 = 0u;
-      v138[1] = 0u;
-      v138[2] = 0u;
-      v138[3] = 0u;
-      v138[4] = 0u;
-      v138[5] = 0u;
-      v138[6] = 0u;
-      v159 = swift_isUniquelyReferenced_nonNull_native();
-      v160 = *(v152 + 264);
-      if (v159)
-      {
-        v161 = *(v160 + 2);
-        v162 = swift_isUniquelyReferenced_nonNull_native();
-        *(v152 + 264) = v160;
-        if ((v162 & 1) == 0)
-        {
-          v160 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v161, 1, v160);
-          *(v152 + 264) = v160;
-        }
-
-        specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:)(0, v161, 0);
-      }
-
-      else
-      {
-        v163 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC7SwiftUI25_LazyLayout_PlacedSubviewV_Tt1g5(0, *(v160 + 3) >> 1);
-
-        v160 = v163;
-      }
-
-      *(v152 + 264) = v160;
-      v164 = v197;
-      *(v152 + 272) = v200;
-      *(v152 + 288) = v164;
-      *(v152 + 304) = v164;
-      *(v152 + 320) = 0;
-      v165 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC12CoreGraphics7CGFloatV_SiTt0g5Tf4g_n(v147);
-
-      *v157 = v165;
-      v166 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC12CoreGraphics7CGFloatV_SiTt0g5Tf4g_n(v147);
-
-      v157[1] = v166;
-      *&v205[0] = v147;
-      v167 = v194;
-      v168 = v199;
-      dispatch thunk of SetAlgebra.init<A>(_:)();
-      v169 = (*(v195 + 40))(v157 + v192, v167, v168);
-      v204 = 2;
-      v205[0] = 0.0;
-      MEMORY[0x1EEE9AC00](v169);
-      v174 = v202;
-      _LazyLayout_Subviews.applyNodes(from:style:to:)(v205, &v204, partial apply for specialized closure #1 in StackPlacement.place(subviews:from:position:stopping:style:), &v173);
-      v170 = v202;
-      specialized StackPlacement.flushMinorGroup()();
-      v171 = *(v170 + 304);
-      v172 = *(v170 + 312);
-      if (v171 < v172)
-      {
-        if (v171 <= v172)
-        {
-          outlined destroy of StackPlacement<LazyVStackLayout>(v170);
-          v25 = v172 - v171;
-          *&v55 = v171;
-          v54 = v190;
-          if (v172 - v171 >= 0.0)
-          {
-            goto LABEL_127;
-          }
-
-          goto LABEL_124;
-        }
-
-        goto LABEL_135;
-      }
-
-      outlined destroy of StackPlacement<LazyVStackLayout>(v170);
-      v54 = v190;
-      v55 = v193;
-      if (v183)
-      {
-LABEL_123:
-        if (v25 >= 0.0)
-        {
-LABEL_127:
-          v193 = v55;
-          _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE3log33_973C9973BC16DEAF0CF3109FFDE31321LLyySSyXKFAA0C12VStackLayoutV_Tt0g503_s7a3UI9cd11PA2A01_cD6_e76VyxG0E0RtzrlE12boundingRect2at8subviews7context5cacheSo6CGRectVSgSi_AA01_C15M50_SubviewsVAA01_cM17_PlacementContextVAFtFSSyXEfu0_SiSo0Z0VTf1c_n(a1, 0.0, *&v55, *&v201, v25);
-          outlined destroy of _LazyStack_Cache<LazyVStackLayout>(v22);
-          *&v24 = v193;
-          *&v23 = v201;
-          *(&v24 + 1) = v201;
-          goto LABEL_128;
-        }
-
-LABEL_124:
-        if (*(*&v22[v51] + 16))
-        {
-          v25 = v54;
-        }
-
-        else
-        {
-          v25 = 0.0;
-        }
-
-        goto LABEL_127;
-      }
-
-LABEL_122:
-      *&v55 = v56 + *&v55;
-      goto LABEL_123;
-    }
-
-    goto LABEL_132;
-  }
-
-  v17[104] = 1;
-  if (!v133)
-  {
-    *(v17 + 12) = v134;
-    v95 = v134;
-    goto LABEL_93;
-  }
-
-LABEL_136:
-  __break(1u);
-}
-
-void specialized LazySubviewPrefetcher.updateValue()()
-{
-  v1 = v0;
-  type metadata accessor for ObservationTracking._AccessList?(0, &lazy cache variable for type metadata for Logger?, MEMORY[0x1E69E9420], MEMORY[0x1E69E6720]);
-  v3 = v2;
-  MEMORY[0x1EEE9AC00](v2);
-  v5 = &v26 - v4;
-  Value = AGGraphGetValue();
-  v7 = *Value;
-  if (*(v0 + 32) != *Value)
-  {
-    v8 = *(Value + 8);
-    v9 = *(Value + 16);
-    v10 = *(v0 + 40);
-    *(v0 + 32) = v7;
-    *(v0 + 40) = v9;
-    if (v9 != v10)
-    {
-      type metadata accessor for LazyLayoutViewCache();
-      AGGraphGetValue();
-
-      LazyLayoutViewCache.resetPrefetchPhases()();
-    }
-
-    type metadata accessor for LazyLayoutViewCache();
-    if ((*(*AGGraphGetValue() + 312) & v9) != 0)
-    {
-      if (one-time initialization token for lazyLayoutPrefetch != -1)
-      {
-        swift_once();
-      }
-
-      v11 = __swift_project_value_buffer(v3, static Log.lazyLayoutPrefetch);
-      outlined init with copy of ObservationTracking._AccessList?(v11, v5, &lazy cache variable for type metadata for Logger?, MEMORY[0x1E69E9420], MEMORY[0x1E69E6720]);
-      v12 = type metadata accessor for Logger();
-      v13 = *(v12 - 8);
-      if ((*(v13 + 48))(v5, 1, v12) == 1)
-      {
-        outlined destroy of ObservationTracking._AccessList?(v5, &lazy cache variable for type metadata for Logger?, MEMORY[0x1E69E9420], MEMORY[0x1E69E6720], type metadata accessor for ObservationTracking._AccessList?);
-      }
-
-      else
-      {
-        v14 = Logger.logObject.getter();
-        v15 = static os_log_type_t.default.getter();
-        if (os_log_type_enabled(v14, v15))
-        {
-          v16 = swift_slowAlloc();
-          v27 = v15;
-          v17 = v16;
-          v28 = swift_slowAlloc();
-          v29 = v28;
-          *v17 = 136446466;
-          *(v17 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000010, 0x800000018DD75AB0, &v29);
-          *(v17 + 12) = 2082;
-          v18 = AGAttribute.description.getter();
-          v20 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v18, v19, &v29);
-          v26 = v14;
-          v21 = v8;
-          v22 = v20;
-
-          *(v17 + 14) = v22;
-          v8 = v21;
-          v23 = v26;
-          _os_log_impl(&dword_18D018000, v26, v27, "%{public}s %{public}s start prefetch", v17, 0x16u);
-          v24 = v28;
-          swift_arrayDestroy();
-          MEMORY[0x193AC4820](v24, -1, -1);
-          MEMORY[0x193AC4820](v17, -1, -1);
-        }
-
-        else
-        {
-        }
-
-        (*(v13 + 8))(v5, v12);
-      }
-
-      if (AGGraphGetCurrentAttribute() == *MEMORY[0x1E698D3F8])
-      {
-        __break(1u);
-      }
-
-      else
-      {
-        v25 = AGGraphGetAttributeGraph();
-        AGGraphGetDeadline();
-        AGGraphSetDeadline();
-        specialized closure #1 in LazySubviewPrefetcher.updateValue()(v1, v7, v8, v9, outlined init with copy of LazySubviewPrefetcher<LazyHStackLayout>, outlined destroy of LazySubviewPrefetcher<LazyHStackLayout>, specialized LazySubviewPrefetcher.makeLayoutPrefetchResult(info:offset:owner:));
-        AGGraphSetDeadline();
-      }
-    }
-  }
-}
-
-{
-  v1 = v0;
-  type metadata accessor for ObservationTracking._AccessList?(0, &lazy cache variable for type metadata for Logger?, MEMORY[0x1E69E9420], MEMORY[0x1E69E6720]);
-  v3 = v2;
-  MEMORY[0x1EEE9AC00](v2);
-  v5 = &v26 - v4;
-  Value = AGGraphGetValue();
-  v7 = *Value;
-  if (*(v0 + 32) != *Value)
-  {
-    v8 = *(Value + 8);
-    v9 = *(Value + 16);
-    v10 = *(v0 + 40);
-    *(v0 + 32) = v7;
-    *(v0 + 40) = v9;
-    if (v9 != v10)
-    {
-      type metadata accessor for LazyLayoutViewCache();
-      AGGraphGetValue();
-
-      LazyLayoutViewCache.resetPrefetchPhases()();
-    }
-
-    type metadata accessor for LazyLayoutViewCache();
-    if ((*(*AGGraphGetValue() + 312) & v9) != 0)
-    {
-      if (one-time initialization token for lazyLayoutPrefetch != -1)
-      {
-        swift_once();
-      }
-
-      v11 = __swift_project_value_buffer(v3, static Log.lazyLayoutPrefetch);
-      outlined init with copy of ObservationTracking._AccessList?(v11, v5, &lazy cache variable for type metadata for Logger?, MEMORY[0x1E69E9420], MEMORY[0x1E69E6720]);
-      v12 = type metadata accessor for Logger();
-      v13 = *(v12 - 8);
-      if ((*(v13 + 48))(v5, 1, v12) == 1)
-      {
-        outlined destroy of ObservationTracking._AccessList?(v5, &lazy cache variable for type metadata for Logger?, MEMORY[0x1E69E9420], MEMORY[0x1E69E6720], type metadata accessor for ObservationTracking._AccessList?);
-      }
-
-      else
-      {
-        v14 = Logger.logObject.getter();
-        v15 = static os_log_type_t.default.getter();
-        if (os_log_type_enabled(v14, v15))
-        {
-          v16 = swift_slowAlloc();
-          v27 = v15;
-          v17 = v16;
-          v28 = swift_slowAlloc();
-          v29 = v28;
-          *v17 = 136446466;
-          *(v17 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000010, 0x800000018DD758E0, &v29);
-          *(v17 + 12) = 2082;
-          v18 = AGAttribute.description.getter();
-          v20 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v18, v19, &v29);
-          v26 = v14;
-          v21 = v8;
-          v22 = v20;
-
-          *(v17 + 14) = v22;
-          v8 = v21;
-          v23 = v26;
-          _os_log_impl(&dword_18D018000, v26, v27, "%{public}s %{public}s start prefetch", v17, 0x16u);
-          v24 = v28;
-          swift_arrayDestroy();
-          MEMORY[0x193AC4820](v24, -1, -1);
-          MEMORY[0x193AC4820](v17, -1, -1);
-        }
-
-        else
-        {
-        }
-
-        (*(v13 + 8))(v5, v12);
-      }
-
-      if (AGGraphGetCurrentAttribute() == *MEMORY[0x1E698D3F8])
-      {
-        __break(1u);
-      }
-
-      else
-      {
-        v25 = AGGraphGetAttributeGraph();
-        AGGraphGetDeadline();
-        AGGraphSetDeadline();
-        specialized closure #1 in LazySubviewPrefetcher.updateValue()(v1, v7, v8, v9, outlined init with copy of LazySubviewPrefetcher<LazyVStackLayout>, outlined destroy of LazySubviewPrefetcher<LazyVStackLayout>, specialized LazySubviewPrefetcher.makeLayoutPrefetchResult(info:offset:owner:));
-        AGGraphSetDeadline();
-      }
-    }
-  }
-}
-
-void specialized closure #1 in LazySubviewPrefetcher.updateValue()(uint64_t a1, void (*a2)(char *, void (**)(char *, uint64_t), uint64_t), uint64_t (*a3)(char *, uint64_t, uint64_t), int a4, void (*a5)(_OWORD *, _OWORD *), void (*a6)(_OWORD *), uint64_t a7)
-{
-  v14 = *(a1 + 44);
-  v15 = *(a1 + 48);
-  v28[2] = *(a1 + 32);
-  v29[0] = v15;
-  *(v29 + 9) = *(a1 + 57);
-  v16 = *(a1 + 16);
-  v28[0] = *a1;
-  v28[1] = v16;
-  type metadata accessor for LazyLayoutViewCache();
-  a5(v28, v26);
-  v17 = *AGGraphGetValue();
-
-  v24 = a6;
-  a6(v28);
-  LODWORD(a6) = *(v17 + 228);
-
-  if (v14 != a6)
-  {
-    v18 = *(a1 + 48);
-    v26[2] = *(a1 + 32);
-    v27[0] = v18;
-    *(v27 + 9) = *(a1 + 57);
-    v19 = *(a1 + 16);
-    v26[0] = *a1;
-    v26[1] = v19;
-    a5(v26, v25);
-    v20 = *AGGraphGetValue();
-
-    v24(v26);
-    v21 = *(v20 + 228);
-
-    *(a1 + 44) = v21;
-    LazyPrefetchState.reset()();
-  }
-
-  v22 = *MEMORY[0x1E698D3F8];
-  while (1)
-  {
-    CurrentAttribute = AGGraphGetCurrentAttribute();
-    if (CurrentAttribute == v22)
-    {
-      break;
-    }
-
-    specialized LazySubviewPrefetcher.update(info:owner:)(a2, a3, a4, CurrentAttribute, a7);
-    if ((*(a1 + 72) & 1) == 0)
-    {
-      return;
-    }
-  }
-
-  __break(1u);
-}
-
-void specialized LazySubviewPrefetcher.update(info:owner:)(void (*a1)(char *, void (**)(char *, uint64_t), uint64_t), uint64_t (*a2)(char *, uint64_t, uint64_t), int a3, int a4, uint64_t a5)
-{
-  v268 = a5;
-  v6 = v5;
-  LODWORD(v267) = a3;
-  v265 = a1;
-  v266 = a2;
-  v286 = *MEMORY[0x1E69E9840];
-  v8 = type metadata accessor for OSSignpostID();
-  v276 = *(v8 - 8);
-  v277 = v8;
-  MEMORY[0x1EEE9AC00](v8);
-  v10 = &v250 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v11);
-  v13 = &v250 - v12;
-  MEMORY[0x1EEE9AC00](v14);
-  v16 = &v250 - v15;
-  MEMORY[0x1EEE9AC00](v17);
-  v19 = &v250 - v18;
-  MEMORY[0x1EEE9AC00](v20);
-  v275 = &v250 - v21;
-  MEMORY[0x1EEE9AC00](v22);
-  MEMORY[0x1EEE9AC00](v23);
-  v272 = &v250 - v24;
-  MEMORY[0x1EEE9AC00](v25);
-  v27 = &v250 - v26;
-  MEMORY[0x1EEE9AC00](v28);
-  v271 = &v250 - v29;
-  MEMORY[0x1EEE9AC00](v30);
-  MEMORY[0x1EEE9AC00](v31);
-  v33 = &v250 - v32;
-  MEMORY[0x1EEE9AC00](v34);
-  MEMORY[0x1EEE9AC00](v35);
-  v274 = &v250 - v36;
-  MEMORY[0x1EEE9AC00](v37);
-  *(v6 + 72) = 0;
-  v42 = *(v6 + 48);
-  if (*(v42 + 2))
-  {
-    v258 = &v250 - v38;
-    v264 = v41;
-    v255 = v40;
-    v256 = v39;
-    if (swift_isUniquelyReferenced_nonNull_native())
-    {
-      v43 = *(v42 + 2);
-      if (v43)
-      {
-        goto LABEL_4;
-      }
-    }
-
-    else
-    {
-      v42 = specialized _ArrayBuffer._consumeAndCreateNew()(v42);
-      v43 = *(v42 + 2);
-      if (v43)
-      {
-LABEL_4:
-        v44 = v43 - 1;
-        v45 = v42[v44 + 32];
-        *(v42 + 2) = v44;
-        *(v6 + 48) = v42;
-        v280[0] = 1;
-        v270 = v6;
-        v269 = v45;
-        if (v45 > 1)
-        {
-          LOBYTE(v281) = 0;
-          if (v45 == 2)
-          {
-            type metadata accessor for LazyLayoutViewCache();
-            AGGraphGetValue();
-
-            specialized LazyLayoutViewCache.advancePrefetchPhaseForRemoval(notify:)(v57, a4, &v281, &v279);
-          }
-
-          else
-          {
-            type metadata accessor for LazyLayoutViewCache();
-            AGGraphGetValue();
-
-            specialized LazyLayoutViewCache.advancePrefetchPhaseForDisplay(notify:)(v65, a4, &v281, &v279);
-          }
-
-          if (v279 == 1)
-          {
-            v280[0] = 0;
-          }
-
-          if ((v281 & 1) == 0)
-          {
-            *(v6 + 72) = 1;
-          }
-
-          goto LABEL_271;
-        }
-
-        v253 = v42;
-        v257 = a4;
-        if (v45)
-        {
-          v262 = v16;
-          v263 = v10;
-          v260 = v19;
-          v261 = v13;
-          if (one-time initialization token for prefetchOutputs != -1)
-          {
-            swift_once();
-          }
-
-          v10 = &static Signpost.prefetchOutputs;
-          v58 = *(&static Signpost.prefetchOutputs + 1);
-          v51 = static Signpost.prefetchOutputs;
-          v59 = word_1EAB0EAE0;
-          LOBYTE(v49) = HIBYTE(word_1EAB0EAE0);
-          v60 = byte_1EAB0EAE2;
-          LOBYTE(v46) = static os_signpost_type_t.begin.getter();
-          v281 = v51;
-          v282 = v58;
-          v283 = v59;
-          v284 = v49;
-          v285 = v60;
-          if ((Signpost.isEnabled.getter() & 1) == 0)
-          {
-LABEL_58:
-            type metadata accessor for LazyLayoutViewCache();
-            AGGraphGetValue();
-
-            LazyLayoutViewCache.prefetchOutputs()();
-
-            v85 = v281;
-            v86 = *v10;
-            v87 = *(v10 + 8);
-            v88 = *(v10 + 0x10);
-            LOBYTE(v89) = *(v10 + 0x11);
-            v90 = *(v10 + 0x12);
-            LOBYTE(v10) = static os_signpost_type_t.end.getter();
-            if (v85 == 1)
-            {
-              v281 = v86;
-              v282 = v87;
-              v283 = v88;
-              v284 = v89;
-              v285 = v90;
-              v91 = Signpost.isEnabled.getter();
-              v92 = v257;
-              if ((v91 & 1) == 0)
-              {
-                goto LABEL_207;
-              }
-
-              static OSSignpostID.exclusive.getter();
-              type metadata accessor for TappableEventType?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<CVarArg>, &lazy cache variable for type metadata for CVarArg, MEMORY[0x1E69E7740], MEMORY[0x1E69E6F90]);
-              inited = swift_initStackObject();
-              *(inited + 16) = xmmword_18DDAB4C0;
-              *(inited + 32) = v92;
-              v94 = (inited + 32);
-              v95 = MEMORY[0x1E69E76D0];
-              *(inited + 56) = MEMORY[0x1E69E7668];
-              *(inited + 64) = v95;
-              v96 = MEMORY[0x1E69E7358];
-              *(inited + 96) = MEMORY[0x1E69E72F0];
-              *(inited + 104) = v96;
-              v278 = inited;
-              *(inited + 72) = 0;
-              if (one-time initialization token for _signpostLog == -1)
-              {
-                if ((v89 & 1) == 0)
-                {
-                  goto LABEL_114;
-                }
-
-                goto LABEL_62;
-              }
-
-LABEL_113:
-              swift_once();
-              if ((v89 & 1) == 0)
-              {
-LABEL_114:
-                if (v86 == 20)
-                {
-                  v145 = 3;
-                }
-
-                else
-                {
-                  v145 = 4;
-                }
-
-                v6 = bswap32(v86) | (4 * (v86 >> 16));
-                v147 = v276 + 16;
-                v146 = *(v276 + 16);
-                v266 = v94;
-                v267 = v146;
-                v146(v262, v260, v277);
-                LOBYTE(v281) = 1;
-                v275 = v145;
-                v276 = v147;
-                v272 = (16 * v145);
-                v273 = (v147 - 8);
-
-                v149 = 0;
-                v271 = (v148 + 32);
-                v268 = v86;
-                do
-                {
-                  v274 = &v250;
-                  MEMORY[0x1EEE9AC00](v148);
-                  v89 = &v250 - ((v150 + 15) & 0xFFFFFFFFFFFFFFF0);
-                  v86 = (v89 + 8);
-                  v151 = v275;
-                  v152 = (v89 + 8);
-                  do
-                  {
-                    *(v152 - 1) = 0;
-                    *v152 = 0;
-                    v152 += 16;
-                    --v151;
-                  }
-
-                  while (v151);
-                  v153 = &v271[40 * v149];
-                  v101 = v275;
-                  while (1)
-                  {
-                    v154 = *(v278 + 16);
-                    if (v149 == v154)
-                    {
-                      break;
-                    }
-
-                    if (v149 >= v154)
-                    {
-                      __break(1u);
-                      goto LABEL_143;
-                    }
-
-                    ++v149;
-                    v155 = *(v153 + 3);
-                    __swift_project_boxed_opaque_existential_1(v153, v155);
-                    *(v86 - 1) = CVarArg.kdebugValue(_:)(v6 | v10, v155);
-                    *v86 = v156 & 1;
-                    v86 += 16;
-                    v153 += 40;
-                    if (!--v101)
-                    {
-                      goto LABEL_126;
-                    }
-                  }
-
-                  LOBYTE(v281) = 0;
-LABEL_126:
-                  v157 = v268;
-                  if (v268 == 20)
-                  {
-                    v158 = v262;
-                    OSSignpostID.rawValue.getter();
-                    kdebug_trace();
-                  }
-
-                  else
-                  {
-                    kdebug_trace();
-                    v158 = v262;
-                  }
-
-                  if (*(v89 + 8) == 1)
-                  {
-                    kdebug_trace_string();
-                  }
-
-                  if (*(v89 + 24) == 1)
-                  {
-                    kdebug_trace_string();
-                  }
-
-                  if (*(v89 + 40) == 1)
-                  {
-                    kdebug_trace_string();
-                  }
-
-                  if (v157 != 20 && *(v89 + 56) == 1)
-                  {
-                    kdebug_trace_string();
-                  }
-
-                  if (one-time initialization token for continuation != -1)
-                  {
-                    swift_once();
-                  }
-
-                  v159 = *v273;
-                  v160 = v277;
-                  (*v273)(v158, v277);
-                  v161 = __swift_project_value_buffer(v160, static OSSignpostID.continuation);
-                  v148 = (v267)(v158, v161, v160);
-                }
-
-                while ((v281 & 1) != 0);
-
-                v162 = v277;
-                v159(v158, v277);
-                v159(v260, v162);
-                swift_setDeallocating();
-                type metadata accessor for AnyTrackedValue(0, &lazy cache variable for type metadata for CVarArg);
-LABEL_206:
-                swift_arrayDestroy();
-                goto LABEL_207;
-              }
-
-LABEL_62:
-              swift_setDeallocating();
-              type metadata accessor for AnyTrackedValue(0, &lazy cache variable for type metadata for CVarArg);
-              swift_arrayDestroy();
-              v97 = v260;
-LABEL_103:
-              os_signpost(_:dso:log:name:signpostID:)();
-              (*(v276 + 8))(v97, v277);
-              v280[0] = 0;
-LABEL_271:
-              specialized $defer #1 <A>() in LazySubviewPrefetcher.update(info:owner:)(v280, v270, v269);
-              return;
-            }
-
-            v281 = v86;
-            v282 = v87;
-            v283 = v88;
-            v284 = v89;
-            v285 = v90;
-            v98 = Signpost.isEnabled.getter();
-            v99 = v257;
-            if ((v98 & 1) == 0)
-            {
-LABEL_172:
-              v169 = v253;
-              if (swift_isUniquelyReferenced_nonNull_native())
-              {
-LABEL_173:
-                v185 = *(v169 + 2);
-                v184 = *(v169 + 3);
-                if (v185 >= v184 >> 1)
-                {
-                  v169 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v184 > 1), v185 + 1, 1, v169);
-                }
-
-                *(v169 + 2) = v185 + 1;
-                v169[v185 + 32] = 3;
-                *(v6 + 48) = v169;
-                goto LABEL_271;
-              }
-
-LABEL_177:
-              v169 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v169 + 2) + 1, 1, v169);
-              goto LABEL_173;
-            }
-
-            static OSSignpostID.exclusive.getter();
-            type metadata accessor for TappableEventType?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<CVarArg>, &lazy cache variable for type metadata for CVarArg, MEMORY[0x1E69E7740], MEMORY[0x1E69E6F90]);
-            v100 = swift_initStackObject();
-            *(v100 + 32) = v99;
-            v101 = (v100 + 32);
-            *(v100 + 16) = xmmword_18DDAB4C0;
-            v102 = MEMORY[0x1E69E76D0];
-            *(v100 + 56) = MEMORY[0x1E69E7668];
-            *(v100 + 64) = v102;
-            v103 = MEMORY[0x1E69E7358];
-            *(v100 + 96) = MEMORY[0x1E69E72F0];
-            *(v100 + 104) = v103;
-            v278 = v100;
-            *(v100 + 72) = 1;
-            if (one-time initialization token for _signpostLog == -1)
-            {
-              if (v89)
-              {
-LABEL_66:
-                swift_setDeallocating();
-                type metadata accessor for AnyTrackedValue(0, &lazy cache variable for type metadata for CVarArg);
-                swift_arrayDestroy();
-                v104 = v261;
-                os_signpost(_:dso:log:name:signpostID:)();
-                (*(v276 + 8))(v104, v277);
-                goto LABEL_172;
-              }
-            }
-
-            else
-            {
-LABEL_143:
-              swift_once();
-              if (v89)
-              {
-                goto LABEL_66;
-              }
-            }
-
-            if (v86 == 20)
-            {
-              v163 = 3;
-            }
-
-            else
-            {
-              v163 = 4;
-            }
-
-            v6 = bswap32(v86) | (4 * (v86 >> 16));
-            v165 = v276 + 16;
-            v164 = *(v276 + 16);
-            v266 = v101;
-            v267 = v164;
-            v164(v263, v261, v277);
-            LOBYTE(v281) = 1;
-            v275 = v163;
-            v276 = v165;
-            v272 = (16 * v163);
-            v273 = (v165 - 8);
-
-            v167 = 0;
-            v271 = (v166 + 32);
-            v268 = v86;
-LABEL_148:
-            v274 = &v250;
-            MEMORY[0x1EEE9AC00](v166);
-            v169 = &v250 - ((v168 + 15) & 0xFFFFFFFFFFFFFFF0);
-            v170 = v169 + 8;
-            v171 = v275;
-            v172 = v169 + 8;
-            do
-            {
-              *(v172 - 1) = 0;
-              *v172 = 0;
-              v172 += 16;
-              --v171;
-            }
-
-            while (v171);
-            v173 = &v271[40 * v167];
-            v174 = v275;
-            while (1)
-            {
-              v175 = *(v278 + 16);
-              if (v167 == v175)
-              {
-                LOBYTE(v281) = 0;
-LABEL_156:
-                v178 = v268;
-                if (v268 == 20)
-                {
-                  v179 = v263;
-                  OSSignpostID.rawValue.getter();
-                  kdebug_trace();
-                }
-
-                else
-                {
-                  kdebug_trace();
-                  v179 = v263;
-                }
-
-                if (v169[8] == 1)
-                {
-                  kdebug_trace_string();
-                }
-
-                if (v169[24] == 1)
-                {
-                  kdebug_trace_string();
-                }
-
-                if (v169[40] == 1)
-                {
-                  kdebug_trace_string();
-                }
-
-                if (v178 != 20 && v169[56] == 1)
-                {
-                  kdebug_trace_string();
-                }
-
-                if (one-time initialization token for continuation != -1)
-                {
-                  swift_once();
-                }
-
-                v180 = *v273;
-                v181 = v277;
-                (*v273)(v179, v277);
-                v182 = __swift_project_value_buffer(v181, static OSSignpostID.continuation);
-                v166 = (v267)(v179, v182, v181);
-                if ((v281 & 1) == 0)
-                {
-
-                  v183 = v277;
-                  v180(v179, v277);
-                  v180(v261, v183);
-                  swift_setDeallocating();
-                  type metadata accessor for AnyTrackedValue(0, &lazy cache variable for type metadata for CVarArg);
-                  swift_arrayDestroy();
-                  v6 = v270;
-                  goto LABEL_172;
-                }
-
-                goto LABEL_148;
-              }
-
-              if (v167 >= v175)
-              {
-                break;
-              }
-
-              ++v167;
-              v176 = *(v173 + 3);
-              __swift_project_boxed_opaque_existential_1(v173, v176);
-              *(v170 - 1) = CVarArg.kdebugValue(_:)(v6 | v10, v176);
-              *v170 = v177 & 1;
-              v170 += 16;
-              v173 += 40;
-              if (!--v174)
-              {
-                goto LABEL_156;
-              }
-            }
-
-            __break(1u);
-            goto LABEL_177;
-          }
-
-          static OSSignpostID.exclusive.getter();
-          type metadata accessor for TappableEventType?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<CVarArg>, &lazy cache variable for type metadata for CVarArg, MEMORY[0x1E69E7740], MEMORY[0x1E69E6F90]);
-          v61 = swift_initStackObject();
-          *(v61 + 32) = v257;
-          v259 = (v61 + 32);
-          v62 = MEMORY[0x1E69E7668];
-          v63 = MEMORY[0x1E69E76D0];
-          *(v61 + 16) = xmmword_18DDA6EB0;
-          *(v61 + 56) = v62;
-          *(v61 + 64) = v63;
-          v278 = v61;
-          if (one-time initialization token for _signpostLog == -1)
-          {
-            if ((v49 & 1) == 0)
-            {
-LABEL_31:
-              if (v51 == 20)
-              {
-                v66 = 3;
-              }
-
-              else
-              {
-                v66 = 4;
-              }
-
-              v67 = bswap32(v51) | (4 * WORD1(v51));
-              v10 = v46;
-              v68 = (v276 + 16);
-              v265 = *(v276 + 16);
-              v265(v275, v264, v277);
-              LOBYTE(v281) = 1;
-              v274 = v66;
-              v266 = v68;
-              v271 = (16 * v66);
-              v272 = v68 - 8;
-
-              v70 = 0;
-              v267 = v51;
-              v268 = v69 + 32;
-LABEL_35:
-              v273 = &v250;
-              MEMORY[0x1EEE9AC00](v69);
-              v49 = &v250 - ((v71 + 15) & 0xFFFFFFFFFFFFFFF0);
-              v53 = v49 + 8;
-              v72 = v274;
-              v73 = v49 + 8;
-              do
-              {
-                *(v73 - 1) = 0;
-                *v73 = 0;
-                v73 += 16;
-                --v72;
-              }
-
-              while (v72);
-              v74 = (v268 + 40 * v70);
-              v75 = v274;
-              while (1)
-              {
-                v76 = *(v278 + 16);
-                if (v70 == v76)
-                {
-                  LOBYTE(v281) = 0;
-LABEL_43:
-                  v79 = v267;
-                  if (v267 == 20)
-                  {
-                    OSSignpostID.rawValue.getter();
-                  }
-
-                  kdebug_trace();
-                  if (v49[8] == 1)
-                  {
-                    kdebug_trace_string();
-                  }
-
-                  if (v49[24] == 1)
-                  {
-                    kdebug_trace_string();
-                  }
-
-                  if (v49[40] == 1)
-                  {
-                    kdebug_trace_string();
-                  }
-
-                  if (v79 != 20 && v49[56] == 1)
-                  {
-                    kdebug_trace_string();
-                  }
-
-                  if (one-time initialization token for continuation != -1)
-                  {
-                    swift_once();
-                  }
-
-                  v80 = *v272;
-                  v81 = v275;
-                  v82 = v277;
-                  (*v272)(v275, v277);
-                  v83 = __swift_project_value_buffer(v82, static OSSignpostID.continuation);
-                  v69 = (v265)(v81, v83, v82);
-                  if ((v281 & 1) == 0)
-                  {
-
-                    v84 = v277;
-                    v80(v275, v277);
-                    v80(v264, v84);
-                    swift_setDeallocating();
-                    type metadata accessor for AnyTrackedValue(0, &lazy cache variable for type metadata for CVarArg);
-                    swift_arrayDestroy();
-                    v6 = v270;
-                    v10 = &static Signpost.prefetchOutputs;
-                    goto LABEL_58;
-                  }
-
-                  goto LABEL_35;
-                }
-
-                if (v70 >= v76)
-                {
-                  break;
-                }
-
-                ++v70;
-                v77 = v74[3];
-                __swift_project_boxed_opaque_existential_1(v74, v77);
-                *(v53 - 1) = CVarArg.kdebugValue(_:)(v67 | v10, v77);
-                *v53 = v78 & 1;
-                v53 += 16;
-                v74 += 5;
-                if (!--v75)
-                {
-                  goto LABEL_43;
-                }
-              }
-
-              __break(1u);
-              goto LABEL_68;
-            }
-
-            goto LABEL_20;
-          }
-
-LABEL_30:
-          swift_once();
-          if ((v49 & 1) == 0)
-          {
-            goto LABEL_31;
-          }
-
-LABEL_20:
-          swift_setDeallocating();
-          type metadata accessor for AnyTrackedValue(0, &lazy cache variable for type metadata for CVarArg);
-          swift_arrayDestroy();
-          v64 = v264;
-          os_signpost(_:dso:log:name:signpostID:)();
-          (*(v276 + 8))(v64, v277);
-          goto LABEL_58;
-        }
-
-        v251 = v27;
-        v10 = *(v6 + 56);
-        if (one-time initialization token for prefetchMakeView == -1)
-        {
-LABEL_7:
-          v49 = *(&static Signpost.prefetchMakeView + 1);
-          v6 = static Signpost.prefetchMakeView;
-          v46 = word_1EAB0EAB8;
-          v47 = HIBYTE(word_1EAB0EAB8);
-          v48 = byte_1EAB0EABA;
-          LODWORD(v275) = static os_signpost_type_t.begin.getter();
-          v273 = v6;
-          v281 = v6;
-          v282 = v49;
-          v263 = v49;
-          LOBYTE(v49) = v47;
-          LODWORD(v264) = v46;
-          v283 = v46;
-          v284 = v47;
-          v285 = v48;
-          v50 = Signpost.isEnabled.getter();
-          v254 = v33;
-          v51 = v257;
-          v252 = v10;
-          if ((v50 & 1) == 0)
-          {
-LABEL_97:
-            AGGraphClearUpdate();
-            (v268)(&v281, v265, v266, v267, v10, v51);
-            AGGraphSetUpdate();
-            v124 = v281;
-            v125 = *(&static Signpost.prefetchMakeView + 1);
-            v126 = static Signpost.prefetchMakeView;
-            v127 = word_1EAB0EAB8;
-            LOBYTE(v128) = HIBYTE(word_1EAB0EAB8);
-            v129 = byte_1EAB0EABA;
-            LOBYTE(v130) = static os_signpost_type_t.end.getter();
-            if (!v124)
-            {
-              v281 = v126;
-              v282 = v125;
-              v283 = v127;
-              v284 = v128;
-              v285 = v129;
-              if ((Signpost.isEnabled.getter() & 1) == 0)
-              {
-                goto LABEL_271;
-              }
-
-              static OSSignpostID.exclusive.getter();
-              type metadata accessor for TappableEventType?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<CVarArg>, &lazy cache variable for type metadata for CVarArg, MEMORY[0x1E69E7740], MEMORY[0x1E69E6F90]);
-              v135 = swift_initStackObject();
-              *(v135 + 16) = xmmword_18DDAB4C0;
-              *(v135 + 32) = v51;
-              v136 = v135 + 32;
-              v137 = MEMORY[0x1E69E76D0];
-              *(v135 + 56) = MEMORY[0x1E69E7668];
-              *(v135 + 64) = v137;
-              v138 = MEMORY[0x1E69E7358];
-              *(v135 + 96) = MEMORY[0x1E69E72F0];
-              *(v135 + 104) = v138;
-              v278 = v135;
-              *(v135 + 72) = 0;
-              if (one-time initialization token for _signpostLog == -1)
-              {
-                if ((v128 & 1) == 0)
-                {
-LABEL_210:
-                  v204 = v126;
-                  if (v126 == 20)
-                  {
-                    v205 = 3;
-                  }
-
-                  else
-                  {
-                    v205 = 4;
-                  }
-
-                  v128 = bswap32(v126) | (4 * WORD1(v126));
-                  LODWORD(v126) = v130;
-                  v207 = v276 + 16;
-                  v206 = *(v276 + 16);
-                  v266 = v136;
-                  v267 = v206;
-                  v206(v254, v255, v277);
-                  LOBYTE(v281) = 1;
-                  v275 = v205;
-                  v276 = v207;
-                  v272 = (16 * v205);
-                  v273 = (v207 - 8);
-
-                  v209 = 0;
-                  v271 = (v208 + 32);
-                  v268 = v204;
-LABEL_214:
-                  v274 = &v250;
-                  MEMORY[0x1EEE9AC00](v208);
-                  v142 = &v250 - ((v210 + 15) & 0xFFFFFFFFFFFFFFF0);
-                  v211 = v142 + 8;
-                  v212 = v275;
-                  v213 = v142 + 8;
-                  do
-                  {
-                    *(v213 - 1) = 0;
-                    *v213 = 0;
-                    v213 += 16;
-                    --v212;
-                  }
-
-                  while (v212);
-                  v214 = &v271[40 * v209];
-                  v140 = v275;
-                  while (1)
-                  {
-                    v215 = *(v278 + 16);
-                    if (v209 == v215)
-                    {
-                      LOBYTE(v281) = 0;
-LABEL_222:
-                      v218 = v268;
-                      if (v268 == 20)
-                      {
-                        v219 = v254;
-                        OSSignpostID.rawValue.getter();
-                        kdebug_trace();
-                      }
-
-                      else
-                      {
-                        kdebug_trace();
-                        v219 = v254;
-                      }
-
-                      if (v142[8] == 1)
-                      {
-                        kdebug_trace_string();
-                      }
-
-                      if (v142[24] == 1)
-                      {
-                        kdebug_trace_string();
-                      }
-
-                      if (v142[40] == 1)
-                      {
-                        kdebug_trace_string();
-                      }
-
-                      if (v218 != 20 && v142[56] == 1)
-                      {
-                        kdebug_trace_string();
-                      }
-
-                      if (one-time initialization token for continuation != -1)
-                      {
-                        swift_once();
-                      }
-
-                      v220 = *v273;
-                      v221 = v277;
-                      (*v273)(v219, v277);
-                      v222 = __swift_project_value_buffer(v221, static OSSignpostID.continuation);
-                      v208 = (v267)(v219, v222, v221);
-                      if ((v281 & 1) == 0)
-                      {
-
-                        v223 = v277;
-                        v220(v219, v277);
-                        v220(v255, v223);
-                        swift_setDeallocating();
-                        type metadata accessor for AnyTrackedValue(0, &lazy cache variable for type metadata for CVarArg);
-                        swift_arrayDestroy();
-                        goto LABEL_271;
-                      }
-
-                      goto LABEL_214;
-                    }
-
-                    if (v209 >= v215)
-                    {
-                      break;
-                    }
-
-                    ++v209;
-                    v216 = *(v214 + 3);
-                    v130 = *(v214 + 4);
-                    __swift_project_boxed_opaque_existential_1(v214, v216);
-                    *(v211 - 1) = CVarArg.kdebugValue(_:)(v128 | v126, v216);
-                    *v211 = v217 & 1;
-                    v211 += 16;
-                    v214 += 40;
-                    if (!--v140)
-                    {
-                      goto LABEL_222;
-                    }
-                  }
-
-                  __break(1u);
-                  goto LABEL_239;
-                }
-
-LABEL_107:
-                swift_setDeallocating();
-                type metadata accessor for AnyTrackedValue(0, &lazy cache variable for type metadata for CVarArg);
-                swift_arrayDestroy();
-                v139 = v255;
-                os_signpost(_:dso:log:name:signpostID:)();
-                (*(v276 + 8))(v139, v277);
-                goto LABEL_271;
-              }
-
-LABEL_209:
-              swift_once();
-              if ((v128 & 1) == 0)
-              {
-                goto LABEL_210;
-              }
-
-              goto LABEL_107;
-            }
-
-            if (v124 != 1)
-            {
-              v281 = v126;
-              v282 = v125;
-              v283 = v127;
-              v284 = v128;
-              v285 = v129;
-              if ((Signpost.isEnabled.getter() & 1) == 0)
-              {
-                goto LABEL_267;
-              }
-
-              v140 = v251;
-              static OSSignpostID.exclusive.getter();
-              type metadata accessor for TappableEventType?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<CVarArg>, &lazy cache variable for type metadata for CVarArg, MEMORY[0x1E69E7740], MEMORY[0x1E69E6F90]);
-              v141 = swift_initStackObject();
-              *(v141 + 32) = v51;
-              v142 = (v141 + 32);
-              *(v141 + 16) = xmmword_18DDAB4C0;
-              v143 = MEMORY[0x1E69E76D0];
-              *(v141 + 56) = MEMORY[0x1E69E7668];
-              *(v141 + 64) = v143;
-              v144 = MEMORY[0x1E69E7358];
-              *(v141 + 96) = MEMORY[0x1E69E72F0];
-              *(v141 + 104) = v144;
-              v278 = v141;
-              *(v141 + 72) = 1;
-              if (one-time initialization token for _signpostLog == -1)
-              {
-                if ((v128 & 1) == 0)
-                {
-LABEL_240:
-                  v224 = v126;
-                  if (v126 == 20)
-                  {
-                    v225 = 3;
-                  }
-
-                  else
-                  {
-                    v225 = 4;
-                  }
-
-                  v226 = (bswap32(v126) | (4 * WORD1(v126)));
-                  v227 = v130;
-                  v229 = v276 + 16;
-                  v228 = *(v276 + 16);
-                  v265 = v142;
-                  v266 = v228;
-                  v228(v272, v140, v277);
-                  LOBYTE(v281) = 1;
-                  v275 = v225;
-                  v276 = v229;
-                  v271 = (16 * v225);
-                  v273 = (v229 - 8);
-
-                  v231 = 0;
-                  v267 = v224;
-                  v268 = v230 + 32;
-LABEL_244:
-                  v274 = &v250;
-                  MEMORY[0x1EEE9AC00](v230);
-                  v233 = &v250 - ((v232 + 15) & 0xFFFFFFFFFFFFFFF0);
-                  v234 = v233 + 8;
-                  v235 = v275;
-                  v236 = v233 + 8;
-                  do
-                  {
-                    *(v236 - 1) = 0;
-                    *v236 = 0;
-                    v236 += 16;
-                    --v235;
-                  }
-
-                  while (v235);
-                  v237 = (v268 + 40 * v231);
-                  v238 = v275;
-                  while (1)
-                  {
-                    v239 = *(v278 + 16);
-                    if (v231 == v239)
-                    {
-                      LOBYTE(v281) = 0;
-LABEL_252:
-                      v242 = v267;
-                      if (v267 == 20)
-                      {
-                        OSSignpostID.rawValue.getter();
-                      }
-
-                      kdebug_trace();
-                      if (v233[8] == 1)
-                      {
-                        kdebug_trace_string();
-                      }
-
-                      if (v233[24] == 1)
-                      {
-                        kdebug_trace_string();
-                      }
-
-                      if (v233[40] == 1)
-                      {
-                        kdebug_trace_string();
-                      }
-
-                      if (v242 != 20 && v233[56] == 1)
-                      {
-                        kdebug_trace_string();
-                      }
-
-                      if (one-time initialization token for continuation != -1)
-                      {
-                        swift_once();
-                      }
-
-                      v243 = v272;
-                      v244 = *v273;
-                      v245 = v277;
-                      (*v273)(v272, v277);
-                      v246 = __swift_project_value_buffer(v245, static OSSignpostID.continuation);
-                      v230 = v266(v243, v246, v245);
-                      if ((v281 & 1) == 0)
-                      {
-
-                        v247 = v277;
-                        v244(v272, v277);
-                        v244(v251, v247);
-                        swift_setDeallocating();
-                        type metadata accessor for AnyTrackedValue(0, &lazy cache variable for type metadata for CVarArg);
-                        swift_arrayDestroy();
-                        goto LABEL_267;
-                      }
-
-                      goto LABEL_244;
-                    }
-
-                    if (v231 >= v239)
-                    {
-                      break;
-                    }
-
-                    ++v231;
-                    v240 = v237[3];
-                    __swift_project_boxed_opaque_existential_1(v237, v240);
-                    *(v234 - 1) = CVarArg.kdebugValue(_:)(v226 | v227, v240);
-                    *v234 = v241 & 1;
-                    v234 += 16;
-                    v237 += 5;
-                    if (!--v238)
-                    {
-                      goto LABEL_252;
-                    }
-                  }
-
-                  __break(1u);
-                  goto LABEL_274;
-                }
-
-                goto LABEL_111;
-              }
-
-LABEL_239:
-              swift_once();
-              if ((v128 & 1) == 0)
-              {
-                goto LABEL_240;
-              }
-
-LABEL_111:
-              swift_setDeallocating();
-              type metadata accessor for AnyTrackedValue(0, &lazy cache variable for type metadata for CVarArg);
-              swift_arrayDestroy();
-              os_signpost(_:dso:log:name:signpostID:)();
-              (*(v276 + 8))(v140, v277);
-LABEL_267:
-              v226 = v253;
-              v233 = v270;
-              *(v270 + 7) = v252 + 1;
-              if (swift_isUniquelyReferenced_nonNull_native())
-              {
-LABEL_268:
-                v249 = *(v226 + 2);
-                v248 = *(v226 + 3);
-                if (v249 >= v248 >> 1)
-                {
-                  v226 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v248 > 1), v249 + 1, 1, v226);
-                }
-
-                *(v226 + 2) = v249 + 1;
-                v226[v249 + 32] = 1;
-                *(v233 + 6) = v226;
-                goto LABEL_271;
-              }
-
-LABEL_274:
-              v226 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v226 + 2) + 1, 1, v226);
-              goto LABEL_268;
-            }
-
-            v281 = v126;
-            v282 = v125;
-            v283 = v127;
-            v284 = v128;
-            v285 = v129;
-            if (Signpost.isEnabled.getter())
-            {
-              static OSSignpostID.exclusive.getter();
-              type metadata accessor for TappableEventType?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<CVarArg>, &lazy cache variable for type metadata for CVarArg, MEMORY[0x1E69E7740], MEMORY[0x1E69E6F90]);
-              v131 = swift_initStackObject();
-              *(v131 + 16) = xmmword_18DDAB4C0;
-              *(v131 + 32) = v51;
-              v132 = (v131 + 32);
-              v133 = MEMORY[0x1E69E76D0];
-              *(v131 + 56) = MEMORY[0x1E69E7668];
-              *(v131 + 64) = v133;
-              v134 = MEMORY[0x1E69E7358];
-              *(v131 + 96) = MEMORY[0x1E69E72F0];
-              *(v131 + 104) = v134;
-              v278 = v131;
-              *(v131 + 72) = 0;
-              if (one-time initialization token for _signpostLog == -1)
-              {
-                if (v128)
-                {
-LABEL_102:
-                  swift_setDeallocating();
-                  type metadata accessor for AnyTrackedValue(0, &lazy cache variable for type metadata for CVarArg);
-                  swift_arrayDestroy();
-                  v97 = v256;
-                  goto LABEL_103;
-                }
-              }
-
-              else
-              {
-                swift_once();
-                if (v128)
-                {
-                  goto LABEL_102;
-                }
-              }
-
-              v268 = v126;
-              if (v126 == 20)
-              {
-                v186 = 3;
-              }
-
-              else
-              {
-                v186 = 4;
-              }
-
-              v128 = bswap32(v126) | (4 * WORD1(v126));
-              LODWORD(v126) = v130;
-              v188 = v276 + 16;
-              v187 = *(v276 + 16);
-              v265 = v132;
-              v266 = v187;
-              v187(v271, v256, v277);
-              LOBYTE(v281) = 1;
-              v276 = v188;
-              v273 = (16 * v186);
-              v274 = (v188 - 8);
-
-              v136 = 0;
-              v272 = (v189 + 32);
-              v267 = v186;
-LABEL_183:
-              v275 = &v250;
-              MEMORY[0x1EEE9AC00](v189);
-              v191 = &v250 - ((v190 + 15) & 0xFFFFFFFFFFFFFFF0);
-              v192 = v191 + 8;
-              v193 = v186;
-              v194 = v191 + 8;
-              do
-              {
-                *(v194 - 1) = 0;
-                *v194 = 0;
-                v194 += 16;
-                --v193;
-              }
-
-              while (v193);
-              v130 = &v272[40 * v136];
-              while (1)
-              {
-                v195 = *(v278 + 16);
-                if (v136 == v195)
-                {
-                  LOBYTE(v281) = 0;
-LABEL_191:
-                  v198 = v268;
-                  if (v268 == 20)
-                  {
-                    OSSignpostID.rawValue.getter();
-                  }
-
-                  kdebug_trace();
-                  if (v191[8] == 1)
-                  {
-                    kdebug_trace_string();
-                  }
-
-                  if (v191[24] == 1)
-                  {
-                    kdebug_trace_string();
-                  }
-
-                  if (v191[40] == 1)
-                  {
-                    kdebug_trace_string();
-                  }
-
-                  if (v198 != 20 && v191[56] == 1)
-                  {
-                    kdebug_trace_string();
-                  }
-
-                  if (one-time initialization token for continuation != -1)
-                  {
-                    swift_once();
-                  }
-
-                  v199 = *v274;
-                  v200 = v271;
-                  v201 = v277;
-                  (*v274)(v271, v277);
-                  v202 = __swift_project_value_buffer(v201, static OSSignpostID.continuation);
-                  v189 = v266(v200, v202, v201);
-                  v186 = v267;
-                  if ((v281 & 1) == 0)
-                  {
-
-                    v203 = v277;
-                    v199(v271, v277);
-                    v199(v256, v203);
-                    swift_setDeallocating();
-                    type metadata accessor for AnyTrackedValue(0, &lazy cache variable for type metadata for CVarArg);
-                    goto LABEL_206;
-                  }
-
-                  goto LABEL_183;
-                }
-
-                if (v136 >= v195)
-                {
-                  break;
-                }
-
-                ++v136;
-                v196 = *(v130 + 3);
-                __swift_project_boxed_opaque_existential_1(v130, v196);
-                *(v192 - 1) = CVarArg.kdebugValue(_:)(v128 | v126, v196);
-                *v192 = v197 & 1;
-                v192 += 16;
-                v130 += 40;
-                if (!--v186)
-                {
-                  goto LABEL_191;
-                }
-              }
-
-              __break(1u);
-              goto LABEL_209;
-            }
-
-LABEL_207:
-            v280[0] = 0;
-            goto LABEL_271;
-          }
-
-          static OSSignpostID.exclusive.getter();
-          type metadata accessor for TappableEventType?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<CVarArg>, &lazy cache variable for type metadata for CVarArg, MEMORY[0x1E69E7740], MEMORY[0x1E69E6F90]);
-          v52 = swift_initStackObject();
-          *(v52 + 16) = xmmword_18DDAB4C0;
-          *(v52 + 32) = v51;
-          v53 = (v52 + 32);
-          v54 = MEMORY[0x1E69E76D0];
-          *(v52 + 56) = MEMORY[0x1E69E7668];
-          *(v52 + 64) = v54;
-          v55 = MEMORY[0x1E69E7358];
-          *(v52 + 96) = MEMORY[0x1E69E72F0];
-          *(v52 + 104) = v55;
-          v278 = v52;
-          if (v10 >= 0xFFFFFFFF80000000)
-          {
-            if (v10 <= 0x7FFFFFFF)
-            {
-              *(v278 + 72) = v10;
-              if (one-time initialization token for _signpostLog == -1)
-              {
-                if (v49)
-                {
-LABEL_12:
-                  swift_setDeallocating();
-                  type metadata accessor for AnyTrackedValue(0, &lazy cache variable for type metadata for CVarArg);
-                  swift_arrayDestroy();
-                  v56 = v258;
-                  os_signpost(_:dso:log:name:signpostID:)();
-                  (*(v276 + 8))(v56, v277);
-                  v51 = v257;
-                  goto LABEL_97;
-                }
-
-                goto LABEL_70;
-              }
-
-LABEL_69:
-              swift_once();
-              if (v49)
-              {
-                goto LABEL_12;
-              }
-
-LABEL_70:
-              v250 = v53;
-              v105 = v273;
-              if (v273 == 20)
-              {
-                v106 = 3;
-              }
-
-              else
-              {
-                v106 = 4;
-              }
-
-              v107 = bswap32(v273) | (4 * (v273 >> 16));
-              v108 = v275;
-              v109 = (v276 + 16);
-              v259 = *(v276 + 16);
-              v259(v274, v258, v277);
-              LOBYTE(v281) = 1;
-              v275 = v106;
-              v260 = v109;
-              v263 = 16 * v106;
-              v264 = (v109 - 8);
-
-              v89 = 0;
-              v261 = v105;
-              v262 = (v110 + 32);
-LABEL_74:
-              v273 = &v250;
-              MEMORY[0x1EEE9AC00](v110);
-              v86 = &v250 - ((v111 + 15) & 0xFFFFFFFFFFFFFFF0);
-              v112 = v86 + 8;
-              v113 = v275;
-              v114 = v86 + 8;
-              do
-              {
-                *(v114 - 1) = 0;
-                *v114 = 0;
-                v114 += 16;
-                --v113;
-              }
-
-              while (v113);
-              v94 = &v262[40 * v89];
-              v10 = v275;
-              while (1)
-              {
-                v115 = *(v278 + 16);
-                if (v89 == v115)
-                {
-                  LOBYTE(v281) = 0;
-LABEL_82:
-                  v118 = v261;
-                  if (v261 == 20)
-                  {
-                    OSSignpostID.rawValue.getter();
-                  }
-
-                  kdebug_trace();
-                  if (v86[8] == 1)
-                  {
-                    kdebug_trace_string();
-                  }
-
-                  if (v86[24] == 1)
-                  {
-                    kdebug_trace_string();
-                  }
-
-                  if (v86[40] == 1)
-                  {
-                    kdebug_trace_string();
-                  }
-
-                  if (v118 != 20 && v86[56] == 1)
-                  {
-                    kdebug_trace_string();
-                  }
-
-                  if (one-time initialization token for continuation != -1)
-                  {
-                    swift_once();
-                  }
-
-                  v119 = *v264;
-                  v120 = v274;
-                  v121 = v277;
-                  (*v264)(v274, v277);
-                  v122 = __swift_project_value_buffer(v121, static OSSignpostID.continuation);
-                  v110 = (v259)(v120, v122, v121);
-                  if ((v281 & 1) == 0)
-                  {
-
-                    v123 = v277;
-                    v119(v274, v277);
-                    v119(v258, v123);
-                    swift_setDeallocating();
-                    type metadata accessor for AnyTrackedValue(0, &lazy cache variable for type metadata for CVarArg);
-                    swift_arrayDestroy();
-                    v51 = v257;
-                    v10 = v252;
-                    goto LABEL_97;
-                  }
-
-                  goto LABEL_74;
-                }
-
-                if (v89 >= v115)
-                {
-                  break;
-                }
-
-                ++v89;
-                v116 = *(v94 + 3);
-                __swift_project_boxed_opaque_existential_1(v94, v116);
-                *(v112 - 1) = CVarArg.kdebugValue(_:)(v107 | v108, v116);
-                *v112 = v117 & 1;
-                v112 += 16;
-                v94 += 40;
-                if (!--v10)
-                {
-                  goto LABEL_82;
-                }
-              }
-
-              __break(1u);
-              goto LABEL_113;
-            }
-
-LABEL_68:
-            __break(1u);
-            goto LABEL_69;
-          }
-
-          __break(1u);
-          goto LABEL_30;
-        }
-
-LABEL_28:
-        swift_once();
-        goto LABEL_7;
-      }
-    }
-
-    __break(1u);
-    goto LABEL_28;
-  }
-}
-
-uint64_t specialized $defer #1 <A>() in LazySubviewPrefetcher.update(info:owner:)(uint64_t result, uint64_t a2, char a3)
-{
-  if ((*result & 1) == 0)
+  if ((*a1 & 1) == 0)
   {
     v5 = *(a2 + 48);
-    result = swift_isUniquelyReferenced_nonNull_native();
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
     *(a2 + 48) = v5;
-    if ((result & 1) == 0)
+    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
     {
-      v8 = *(v5 + 16);
+      v9 = *(v5 + 2);
 
-      *(a2 + 48) = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v8 + 1, 1, v5);
+      *(a2 + 48) = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v9 + 1, 1, v5);
 
       v5 = *(a2 + 48);
     }
 
-    v7 = *(v5 + 16);
-    v6 = *(v5 + 24);
-    if (v7 >= v6 >> 1)
+    v8 = *(v5 + 2);
+    v7 = *(v5 + 3);
+    if (v8 >= v7 >> 1)
     {
-      result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v6 > 1), v7 + 1, 1, v5);
-      v5 = result;
-      *(a2 + 48) = result;
+      v5 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v7 > 1), v8 + 1, 1, v5);
+      *(a2 + 48) = v5;
     }
 
-    *(v5 + 16) = v7 + 1;
-    *(*(a2 + 48) + v7 + 32) = a3;
+    *(v5 + 2) = v8 + 1;
+    *(*(a2 + 48) + v8 + 32) = a3;
   }
-
-  return result;
 }
 
-uint64_t specialized LazySubviewPrefetcher.makeLayoutPrefetchResult(info:offset:owner:)@<X0>(uint64_t result@<X0>, char a2@<W2>, uint64_t a3@<X3>, _BYTE *a4@<X8>)
+void specialized LazySubviewPrefetcher.makeLayoutPrefetchResult(info:offset:owner:)(char a2@<W2>, _BYTE *a3@<X8>, uint64_t x3_0@<X3>)
 {
   v5 = a2 & 0xA;
-  if ((byte_1F00451C8 & 1) != 0 || (a2 & 0xA) == 0 || (LOBYTE(v10) = 1, v6 = result, v7 = a2, v8 = a3, specialized LazySubviewPrefetcher.makeLayoutPrefetchResult(info:offset:axis:owner:)(a2, a3, 0, &lazy cache variable for type metadata for _LazyStack_Cache<LazyHStackLayout>, lazy protocol witness table accessor for type LazyHStackLayout and conformance LazyHStackLayout, &v11, &type metadata for LazyHStackLayout, v10, _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE12proposeSizes2at8subviews7context5cache2inySi_AA01_C15Layout_SubviewsVAA01_cM17_PlacementContextVAfA01_cm9_ProposedG0VztFAA0c6HStackM0V_Tt1B5, outlined destroy of _LazyStack_Cache<LazyHStackLayout>, COERCE_DOUBLE(&unk_1F004C5E0), closure #1 in LazyLayoutViewCache.signalPrefetch()partial apply), result = v6, a2 = v7, a3 = v8, (v9 = v11) == 0))
+  if ((byte_1F00451C8 & 1) != 0 || (a2 & 0xA) == 0 || (LOBYTE(v9) = 1, v6 = a2, v7 = x3_0, specialized LazySubviewPrefetcher.makeLayoutPrefetchResult(info:offset:axis:owner:)(a2, x3_0, 0, &lazy cache variable for type metadata for _LazyStack_Cache<LazyHStackLayout>, lazy protocol witness table accessor for type LazyHStackLayout and conformance LazyHStackLayout, &v10, &type metadata for LazyHStackLayout, v9, _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE12proposeSizes2at8subviews7context5cache2inySi_AA01_C15Layout_SubviewsVAA01_cM17_PlacementContextVAfA01_cm9_ProposedG0VztFAA0c6HStackM0V_Tt1B5, outlined destroy of _LazyStack_Cache<LazyHStackLayout>, COERCE_CGFLOAT(&unk_1F004C5E0), closure #1 in LazyLayoutViewCache.signalPrefetch()partial apply), a2 = v6, x3_0 = v7, (v8 = v10) == 0))
   {
-    v9 = 0;
+    v8 = 0;
     if ((byte_1F00451C9 & 1) == 0 && v5)
     {
-      LOBYTE(v10) = 1;
-      result = specialized LazySubviewPrefetcher.makeLayoutPrefetchResult(info:offset:axis:owner:)(a2, a3, 0, &lazy cache variable for type metadata for _LazyStack_Cache<LazyHStackLayout>, lazy protocol witness table accessor for type LazyHStackLayout and conformance LazyHStackLayout, &v11, &type metadata for LazyHStackLayout, v10, _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE12proposeSizes2at8subviews7context5cache2inySi_AA01_C15Layout_SubviewsVAA01_cM17_PlacementContextVAfA01_cm9_ProposedG0VztFAA0c6HStackM0V_Tt1B5, outlined destroy of _LazyStack_Cache<LazyHStackLayout>, COERCE_DOUBLE(&unk_1F004C5E0), closure #1 in LazyLayoutViewCache.signalPrefetch()partial apply);
-      v9 = v11;
+      LOBYTE(v9) = 1;
+      specialized LazySubviewPrefetcher.makeLayoutPrefetchResult(info:offset:axis:owner:)(a2, x3_0, 0, &lazy cache variable for type metadata for _LazyStack_Cache<LazyHStackLayout>, lazy protocol witness table accessor for type LazyHStackLayout and conformance LazyHStackLayout, &v10, &type metadata for LazyHStackLayout, v9, _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE12proposeSizes2at8subviews7context5cache2inySi_AA01_C15Layout_SubviewsVAA01_cM17_PlacementContextVAfA01_cm9_ProposedG0VztFAA0c6HStackM0V_Tt1B5, outlined destroy of _LazyStack_Cache<LazyHStackLayout>, COERCE_CGFLOAT(&unk_1F004C5E0), closure #1 in LazyLayoutViewCache.signalPrefetch()partial apply);
+      v8 = v10;
     }
   }
 
-  *a4 = v9;
-  return result;
+  *a3 = v8;
 }
 
 {
   v5 = a2 & 5;
   v6 = byte_1F00451F0 != 1 || v5 == 0;
-  if (v6 || (LOBYTE(v12) = 2, v7 = result, v8 = a2, v9 = a3, specialized LazySubviewPrefetcher.makeLayoutPrefetchResult(info:offset:axis:owner:)(a2, a3, 1, &lazy cache variable for type metadata for _LazyStack_Cache<LazyVStackLayout>, lazy protocol witness table accessor for type LazyVStackLayout and conformance LazyVStackLayout, &v13, &type metadata for LazyVStackLayout, v12, _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE12proposeSizes2at8subviews7context5cache2inySi_AA01_C15Layout_SubviewsVAA01_cM17_PlacementContextVAfA01_cm9_ProposedG0VztFAA0c6VStackM0V_Tt1B5, outlined destroy of _LazyStack_Cache<LazyVStackLayout>, COERCE_DOUBLE(&unk_1F004C4A0), partial apply for closure #1 in LazyLayoutViewCache.signalPrefetch()), result = v7, a2 = v8, a3 = v9, (v10 = v13) == 0))
+  if (v6 || (LOBYTE(v11) = 2, v7 = a2, v8 = x3_0, specialized LazySubviewPrefetcher.makeLayoutPrefetchResult(info:offset:axis:owner:)(a2, x3_0, 1, &lazy cache variable for type metadata for _LazyStack_Cache<LazyVStackLayout>, lazy protocol witness table accessor for type LazyVStackLayout and conformance LazyVStackLayout, &v12, &type metadata for LazyVStackLayout, v11, _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE12proposeSizes2at8subviews7context5cache2inySi_AA01_C15Layout_SubviewsVAA01_cM17_PlacementContextVAfA01_cm9_ProposedG0VztFAA0c6VStackM0V_Tt1B5, outlined destroy of _LazyStack_Cache<LazyVStackLayout>, COERCE_CGFLOAT(&unk_1F004C4A0), partial apply for closure #1 in LazyLayoutViewCache.signalPrefetch()), a2 = v7, x3_0 = v8, (v9 = v12) == 0))
   {
     if (byte_1F00451F1 != 1 || v5 == 0)
     {
-      v10 = 0;
+      v9 = 0;
     }
 
     else
     {
-      LOBYTE(v12) = 2;
-      result = specialized LazySubviewPrefetcher.makeLayoutPrefetchResult(info:offset:axis:owner:)(a2, a3, 1, &lazy cache variable for type metadata for _LazyStack_Cache<LazyVStackLayout>, lazy protocol witness table accessor for type LazyVStackLayout and conformance LazyVStackLayout, &v13, &type metadata for LazyVStackLayout, v12, _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE12proposeSizes2at8subviews7context5cache2inySi_AA01_C15Layout_SubviewsVAA01_cM17_PlacementContextVAfA01_cm9_ProposedG0VztFAA0c6VStackM0V_Tt1B5, outlined destroy of _LazyStack_Cache<LazyVStackLayout>, COERCE_DOUBLE(&unk_1F004C4A0), partial apply for closure #1 in LazyLayoutViewCache.signalPrefetch());
-      v10 = v13;
+      LOBYTE(v11) = 2;
+      specialized LazySubviewPrefetcher.makeLayoutPrefetchResult(info:offset:axis:owner:)(a2, x3_0, 1, &lazy cache variable for type metadata for _LazyStack_Cache<LazyVStackLayout>, lazy protocol witness table accessor for type LazyVStackLayout and conformance LazyVStackLayout, &v12, &type metadata for LazyVStackLayout, v11, _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE12proposeSizes2at8subviews7context5cache2inySi_AA01_C15Layout_SubviewsVAA01_cM17_PlacementContextVAfA01_cm9_ProposedG0VztFAA0c6VStackM0V_Tt1B5, outlined destroy of _LazyStack_Cache<LazyVStackLayout>, COERCE_CGFLOAT(&unk_1F004C4A0), partial apply for closure #1 in LazyLayoutViewCache.signalPrefetch());
+      v9 = v12;
     }
   }
 
-  *a4 = v10;
-  return result;
+  *a3 = v9;
 }
 
-uint64_t specialized LazySubviewPrefetcher.makeLayoutPrefetchResult(info:offset:axis:owner:)@<X0>(char a1@<W2>, uint64_t a2@<X3>, int a3@<W4>, unint64_t *a4@<X6>, uint64_t (*a5)(void)@<X7>, _BYTE *a6@<X8>, uint64_t a7, uint64_t a8, uint64_t (*a9)(uint64_t, __int128 *, char *, uint64_t *, uint64_t, uint64_t, unint64_t), void (*a10)(char *), double a11, uint64_t a12)
+void specialized LazySubviewPrefetcher.makeLayoutPrefetchResult(info:offset:axis:owner:)(char a1@<W2>, uint64_t a2@<X3>, int a3@<W4>, unint64_t *a4@<X6>, uint64_t (*a5)(void)@<X7>, _BYTE *a6@<X8>, uint64_t a7, uint64_t a8, void (*a9)(uint64_t, __int128 *, char *, uint64_t *, uint64_t, uint64_t, unint64_t), void (*a10)(char *), CGFloat a11, uint64_t a12)
 {
   LODWORD(v155) = a3;
   v156 = a2;
@@ -6849,15 +78,14 @@ uint64_t specialized LazySubviewPrefetcher.makeLayoutPrefetchResult(info:offset:
   Value = AGGraphGetValue();
   v20 = *(*Value + 280);
   v158 = *(*Value + 288);
-  result = AGGraphGetValue();
-  v22 = floor(*(*result + 296));
-  if ((*&v22 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
+  v21 = floor(*(*AGGraphGetValue() + 296));
+  if ((*&v21 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
   {
     __break(1u);
     goto LABEL_163;
   }
 
-  if (v22 <= -9.22337204e18)
+  if (v21 <= -9.22337204e18)
   {
 LABEL_163:
     __break(1u);
@@ -6870,7 +98,7 @@ LABEL_166:
     goto LABEL_167;
   }
 
-  if (v22 >= 9.22337204e18)
+  if (v21 >= 9.22337204e18)
   {
     goto LABEL_164;
   }
@@ -6885,40 +113,39 @@ LABEL_166:
     goto LABEL_166;
   }
 
-  v23 = v22 * 0.75;
-  if ((*&v23 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
+  v22 = v21 * 0.75;
+  if ((*&v22 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
   {
 LABEL_167:
     __break(1u);
     goto LABEL_168;
   }
 
-  if (v23 <= -9.22337204e18)
+  if (v22 <= -9.22337204e18)
   {
 LABEL_168:
     __break(1u);
     goto LABEL_169;
   }
 
-  if (v23 >= 9.22337204e18)
+  if (v22 >= 9.22337204e18)
   {
 LABEL_169:
     __break(1u);
     goto LABEL_170;
   }
 
-  if (v156 * v157 > v23)
+  if (v156 * v157 > v22)
   {
 LABEL_11:
     *a6 = 0;
-    return result;
+    return;
   }
 
   v149 = v156 * v157;
   if (v155)
   {
-    result = Axis.Set.contains(_:)(SwiftUI_Axis_vertical);
-    if ((result & 1) == 0 || (a1 & 5) == 0)
+    if (!Axis.Set.contains(_:)(SwiftUI_Axis_vertical) || (a1 & 5) == 0)
     {
       goto LABEL_11;
     }
@@ -6926,13 +153,12 @@ LABEL_11:
     v151 = v18;
     v152 = a7;
     v132 = a6;
-    v24 = SwiftUI_Edge_bottom;
+    v23 = SwiftUI_Edge_bottom;
   }
 
   else
   {
-    result = Axis.Set.contains(_:)(SwiftUI_Axis_horizontal);
-    if ((result & 1) == 0 || (a1 & 0xA) == 0)
+    if (!Axis.Set.contains(_:)(SwiftUI_Axis_horizontal) || (a1 & 0xA) == 0)
     {
       goto LABEL_11;
     }
@@ -6940,74 +166,85 @@ LABEL_11:
     v151 = v18;
     v152 = a7;
     v132 = a6;
-    v24 = SwiftUI_Edge_trailing;
+    v23 = SwiftUI_Edge_trailing;
   }
 
-  v150 = Edge.Set.contains(_:)(v24);
+  v150 = Edge.Set.contains(_:)(v23);
   AGGraphGetValue();
 
   v148 = *AGGraphGetValue();
 
   type metadata accessor for CGPoint(0);
-  v25 = AGGraphGetValue();
-  v26 = *v25;
-  v27 = v25[1];
-  v28 = AGGraphGetValue();
-  v29 = *v28;
-  v30 = v28[1];
-  v31 = AGGraphGetValue();
-  v32 = *v31;
-  v33 = *(v31 + 8);
-  v34 = *(v31 + 16);
-  v35 = *(v31 + 24);
-  v36 = *(v31 + 32);
-  v37 = *(v31 + 40);
+  v24 = AGGraphGetValue();
+  v25 = *v24;
+  v26 = v24[1];
+  v27 = AGGraphGetValue();
+  v28 = *v27;
+  v29 = v27[1];
+  v30 = AGGraphGetValue();
+  v31 = *v30;
+  v32 = *(v30 + 8);
+  v33 = *(v30 + 16);
+  v34 = *(v30 + 24);
+  v35 = *(v30 + 32);
+  v36 = *(v30 + 40);
 
   AGGraphGetValue();
 
-  v38 = *AGGraphGetValue();
+  v37 = *AGGraphGetValue();
 
   v131[1] = *v12;
   AGGraphGetValue();
   v180 = 1;
-  v39 = v36 - (v26 - v34);
+  v38 = v35 - (v25 - v33);
   v166 = 0u;
   v167 = 0u;
-  v40 = v37 - (v27 - v35);
+  v39 = v36 - (v26 - v34);
   v168 = 0u;
   v169 = 0u;
   v170 = 0u;
   v171 = 0u;
   v172 = 0u;
   v173 = 1;
-  v174 = v32;
-  v175 = v33;
-  v145 = v33;
-  v144 = v26;
-  v176 = v26;
-  v177 = v27;
-  v142 = v27;
-  v178 = v39;
-  v179 = v40;
-  specialized ViewTransform.forEach(inverted:_:)(0, &v174, &v166);
-  v41 = *&v167;
+  v174 = v31;
+  v175 = v32;
+  v145 = v32;
+  v144 = v25;
+  v176 = v25;
+  v177 = v26;
+  v142 = v26;
+  v178 = v38;
+  v179 = v39;
+  specialized ViewTransform.forEach(inverted:_:)(0, &v174, &v166, 0.0);
+  v40 = *&v167;
+  if (v173)
+  {
+    v40 = v28;
+  }
+
+  v140 = v40;
   if (v173)
   {
     v41 = v29;
   }
 
-  v140 = v41;
+  else
+  {
+    v41 = *(&v167 + 1);
+  }
+
+  v139 = v41;
   if (v173)
   {
-    v42 = v30;
+    v42 = 0.0;
   }
 
   else
   {
-    v42 = *(&v167 + 1);
+    v42 = *&v168;
   }
 
-  v139 = v42;
+  v138 = v42;
   if (v173)
   {
     v43 = 0.0;
@@ -7015,10 +252,9 @@ LABEL_11:
 
   else
   {
-    v43 = *&v168;
+    v43 = *(&v168 + 1);
   }
 
-  v138 = v43;
   if (v173)
   {
     v44 = 0.0;
@@ -7026,9 +262,11 @@ LABEL_11:
 
   else
   {
-    v44 = *(&v168 + 1);
+    v44 = *&v169;
   }
 
+  v136 = v44;
+  v137 = v43;
   if (v173)
   {
     v45 = 0.0;
@@ -7036,22 +274,20 @@ LABEL_11:
 
   else
   {
-    v45 = *&v169;
+    v45 = *(&v169 + 1);
   }
 
-  v136 = v45;
-  v137 = v44;
+  v135 = v45;
   if (v173)
   {
-    v46 = 0.0;
+    v46 = v28;
   }
 
   else
   {
-    v46 = *(&v169 + 1);
+    v46 = *&v172;
   }
 
-  v135 = v46;
   if (v173)
   {
     v47 = v29;
@@ -7059,21 +295,21 @@ LABEL_11:
 
   else
   {
-    v47 = *&v172;
+    v47 = *(&v172 + 1);
   }
 
+  v153 = v47;
+  v154 = v46;
   if (v173)
   {
-    v48 = v30;
+    v48 = 0.0;
   }
 
   else
   {
-    v48 = *(&v172 + 1);
+    v48 = *(&v171 + 1);
   }
 
-  v153 = v48;
-  v154 = v47;
   if (v173)
   {
     v49 = 0.0;
@@ -7081,69 +317,59 @@ LABEL_11:
 
   else
   {
-    v49 = *(&v171 + 1);
+    v49 = *&v171;
   }
 
+  v50 = *(&v170 + 1);
   if (v173)
   {
-    v50 = 0.0;
+    v51 = v28;
   }
 
   else
   {
-    v50 = *&v171;
+    v51 = *&v170;
   }
 
-  v51 = *(&v170 + 1);
+  v146 = v29;
+  v147 = v28;
   if (v173)
   {
-    v52 = v29;
+    v50 = v29;
+    v52 = 0.0;
   }
 
   else
   {
-    v52 = *&v170;
+    v52 = *&v166;
   }
 
-  v146 = v30;
-  v147 = v29;
   if (v173)
   {
-    v51 = v30;
     v53 = 0.0;
   }
 
   else
   {
-    v53 = *&v166;
+    v53 = *(&v166 + 1);
   }
 
-  if (v173)
+  v133 = v50;
+  v134 = v51;
+  if (v37 == 1)
   {
-    v54 = 0.0;
-  }
-
-  else
-  {
-    v54 = *(&v166 + 1);
-  }
-
-  v133 = v51;
-  v134 = v52;
-  if (v38 == 1)
-  {
+    v54 = v52;
     v55 = v53;
-    v56 = v54;
-    v57 = v29 - CGRectGetMaxX(*(&v51 - 3));
-    v141 = v50 + v57 - v53;
-    v143 = v49 + v54 - v54;
-    v53 = v57;
+    v56 = v28 - CGRectGetMaxX(*(&v50 - 3));
+    v141 = v49 + v56 - v52;
+    v143 = v48 + v53 - v53;
+    v52 = v56;
   }
 
   else
   {
-    v141 = v50;
-    v143 = v49;
+    v141 = v49;
+    v143 = v48;
   }
 
   v171 = 0u;
@@ -7154,37 +380,37 @@ LABEL_11:
   v168 = 0u;
   v166 = 0u;
   v173 = 1;
-  v174 = v32;
+  v174 = v31;
   v175 = v145;
   v176 = v144;
   v177 = v142;
-  v178 = v39;
-  v179 = v40;
-  specialized ViewTransform.forEach(inverted:_:)(0, &v174, &v166);
-  if (v38)
+  v178 = v38;
+  v179 = v39;
+  specialized ViewTransform.forEach(inverted:_:)(0, &v174, &v166, v142);
+  if (v37)
   {
-    v59 = *(&v166 + 1);
-    v58 = *&v166;
-    v61 = *(&v170 + 1);
-    v60 = *&v170;
+    v58 = *(&v166 + 1);
+    v57 = *&v166;
+    v60 = *(&v170 + 1);
+    v59 = *&v170;
     if (v173)
     {
-      v59 = 0.0;
       v58 = 0.0;
-      v61 = v146;
-      v60 = v147;
+      v57 = 0.0;
+      v60 = v146;
+      v59 = v147;
     }
 
-    CGRectGetMaxX(*&v58);
+    CGRectGetMaxX(*&v57);
   }
 
-  v62 = AGGraphGetValue();
-  v63 = *(*v62 + 232);
-  v64 = *(*v62 + 240);
-  v66 = *(*v62 + 248);
-  v65 = *(*v62 + 256);
-  *&v166 = v53;
-  *(&v166 + 1) = v54;
+  v61 = AGGraphGetValue();
+  v62 = *(*v61 + 232);
+  v63 = *(*v61 + 240);
+  v65 = *(*v61 + 248);
+  v64 = *(*v61 + 256);
+  *&v166 = v52;
+  *(&v166 + 1) = v53;
   *&v167 = v140;
   *(&v167 + 1) = v139;
   *&v168 = v138;
@@ -7193,8 +419,8 @@ LABEL_11:
   *(&v169 + 1) = v135;
   *&v170 = v134;
   *(&v170 + 1) = v133;
-  v67 = v141;
-  v68 = v143;
+  v66 = v141;
+  v67 = v143;
   *&v171 = v141;
   *(&v171 + 1) = v143;
   *&v172 = v154;
@@ -7202,118 +428,117 @@ LABEL_11:
   if (v148)
   {
     ScrollGeometry.outsetForAX(limit:)(__PAIR128__(*&v146, *&v147));
-    v68 = *(&v171 + 1);
-    v67 = *&v171;
+    v67 = *(&v171 + 1);
+    v66 = *&v171;
     v153 = *(&v172 + 1);
     v154 = *&v172;
   }
 
-  v181.origin.x = v63;
-  v181.origin.y = v64;
-  v181.size.width = v66;
-  v181.size.height = v65;
+  v181.origin.x = v62;
+  v181.origin.y = v63;
+  v181.size.width = v65;
+  v181.size.height = v64;
   IsNull = CGRectIsNull(v181);
+  v69 = 0.0;
   v70 = 0.0;
-  v71 = 0.0;
   if (v150)
   {
     if (!IsNull)
     {
       if (v155)
       {
-        v72 = v65;
+        v71 = v64;
       }
 
       else
       {
-        v72 = v66;
+        v71 = v65;
       }
 
       if (v155)
       {
-        v73 = v64;
+        v72 = v63;
       }
 
       else
       {
-        v73 = v63;
+        v72 = v62;
       }
 
-      v74 = v73 + v72;
-      if (v74 >= v73)
+      v73 = v72 + v71;
+      if (v73 >= v72)
       {
-        v75 = v73;
+        v74 = v72;
       }
 
       else
-      {
-        v75 = v74;
-      }
-
-      if (v73 > v74)
       {
         v74 = v73;
       }
 
-      if (v75 <= v74)
+      if (v72 > v73)
       {
-        v71 = v74;
+        v73 = v72;
+      }
+
+      if (v74 <= v73)
+      {
+        v70 = v73;
       }
     }
 
-    v182.origin.x = v67;
-    v182.origin.y = v68;
-    v77 = v153;
-    v76 = v154;
+    v182.origin.x = v66;
+    v182.origin.y = v67;
+    v76 = v153;
+    v75 = v154;
     v182.size.width = v154;
     v182.size.height = v153;
-    result = CGRectIsNull(v182);
-    v78 = v12;
-    if ((result & 1) == 0)
+    v77 = v12;
+    if (!CGRectIsNull(v182))
     {
       if (v155)
       {
-        v79 = v77;
+        v78 = v76;
       }
 
       else
       {
-        v79 = v76;
+        v78 = v75;
       }
 
       if (v155)
       {
-        v80 = v68;
+        v79 = v67;
       }
 
       else
       {
-        v80 = v67;
+        v79 = v66;
       }
 
-      v81 = v80 + v79;
-      if (v81 >= v80)
+      v80 = v79 + v78;
+      if (v80 >= v79)
       {
-        v82 = v80;
+        v81 = v79;
       }
 
       else
-      {
-        v82 = v81;
-      }
-
-      if (v80 > v81)
       {
         v81 = v80;
       }
 
-      if (v82 <= v81)
+      if (v79 > v80)
       {
-        v70 = v81;
+        v80 = v79;
+      }
+
+      if (v81 <= v80)
+      {
+        v69 = v80;
       }
     }
 
-    if (v70 >= v71)
+    if (v69 >= v70)
     {
       goto LABEL_161;
     }
@@ -7325,174 +550,173 @@ LABEL_11:
     {
       if (v155)
       {
-        v83 = v65;
+        v82 = v64;
       }
 
       else
       {
-        v83 = v66;
+        v82 = v65;
       }
 
       if (v155)
       {
-        v84 = v64;
+        v83 = v63;
       }
 
       else
       {
-        v84 = v63;
+        v83 = v62;
       }
 
-      v85 = v84 + v83;
-      if (v84 + v83 >= v84)
+      v84 = v83 + v82;
+      if (v83 + v82 >= v83)
       {
-        v86 = v84;
+        v85 = v83;
       }
 
       else
       {
-        v86 = v84 + v83;
+        v85 = v83 + v82;
       }
 
-      if (v84 <= v85)
+      if (v83 <= v84)
       {
-        v84 = v85;
+        v83 = v84;
       }
 
-      if (v86 <= v84)
+      if (v85 <= v83)
       {
-        v71 = v86;
+        v70 = v85;
       }
     }
 
-    v183.origin.x = v67;
-    v183.origin.y = v68;
-    v88 = v153;
-    v87 = v154;
+    v183.origin.x = v66;
+    v183.origin.y = v67;
+    v87 = v153;
+    v86 = v154;
     v183.size.width = v154;
     v183.size.height = v153;
-    result = CGRectIsNull(v183);
-    if ((result & 1) == 0)
+    if (!CGRectIsNull(v183))
     {
       if (v155)
       {
-        v89 = v88;
+        v88 = v87;
       }
 
       else
       {
-        v89 = v87;
+        v88 = v86;
       }
 
       if (v155)
       {
-        v90 = v68;
+        v89 = v67;
       }
 
       else
       {
-        v90 = v67;
+        v89 = v66;
       }
 
-      v91 = v90 + v89;
-      if (v90 + v89 >= v90)
+      v90 = v89 + v88;
+      if (v89 + v88 >= v89)
       {
-        v92 = v90;
+        v91 = v89;
       }
 
       else
       {
-        v92 = v90 + v89;
+        v91 = v89 + v88;
       }
 
-      if (v90 <= v91)
+      if (v89 <= v90)
       {
-        v90 = v91;
+        v89 = v90;
       }
 
-      if (v92 <= v90)
+      if (v91 <= v89)
       {
-        v70 = v92;
+        v69 = v91;
       }
     }
 
-    v78 = v12;
-    if (v71 >= v70)
+    v77 = v12;
+    if (v70 >= v69)
     {
       goto LABEL_161;
     }
   }
 
   v155 = a10;
-  v93 = *MEMORY[0x1E698D3F8];
+  v92 = *MEMORY[0x1E698D3F8];
   AGGraphGetValue();
 
-  LazyLayoutViewCache.subviews(context:)(v93, &v166);
+  LazyLayoutViewCache.subviews(context:)(v92, &v166);
 
-  v94 = *(**AGGraphGetValue() + 400);
+  v93 = *(**AGGraphGetValue() + 400);
 
-  v94(v16, v16);
+  v93(v16, v16);
 
   if (v150)
   {
-    v95 = v149 + v158 + 1;
-    v96 = v78;
-    v97 = v151;
+    v94 = v149 + v158 + 1;
+    v95 = v77;
+    v96 = v151;
     goto LABEL_131;
   }
 
-  v98 = (v156 + 1) * v157;
-  if (((v156 + 1) * v157) >> 64 == v98 >> 63)
+  v97 = (v156 + 1) * v157;
+  if (((v156 + 1) * v157) >> 64 == v97 >> 63)
   {
-    v95 = v20 - v98;
-    v99 = v20 - v98 < 0;
-    v97 = v151;
-    if (v99)
+    v94 = v20 - v97;
+    v98 = v20 - v97 < 0;
+    v96 = v151;
+    if (v98)
     {
       goto LABEL_160;
     }
 
-    v96 = v78;
+    v95 = v77;
 LABEL_131:
     v165 = MEMORY[0x1E69E7CC0];
-    v100 = AGGraphGetValue();
-    v101 = *v100;
-    v102 = *(v100 + 8);
-    v103 = *(v100 + 20);
-    LOBYTE(v174) = *(v100 + 16);
-    result = a9(v95, &v166, v97, &v165, v101, v102, v174 | (v103 << 32));
-    v104 = v165;
-    v105 = *(v165 + 16);
-    if (v105)
+    v99 = AGGraphGetValue();
+    v100 = *v99;
+    v101 = *(v99 + 8);
+    v102 = *(v99 + 20);
+    LOBYTE(v174) = *(v99 + 16);
+    a9(v94, &v166, v96, &v165, v100, v101, v174 | (v102 << 32));
+    v103 = v165;
+    v104 = *(v165 + 16);
+    if (v104)
     {
-      v151 = v97;
+      v151 = v96;
       v156 = a12;
       v154 = a11;
-      if (v157 != v105)
+      if (v157 != v104)
       {
-        *(v96 + 64) = v105;
+        *(v95 + 64) = v104;
       }
 
-      v106 = 0;
-      v107 = (v104 + 64);
-      v158 = v104;
+      v105 = 0;
+      v106 = (v103 + 64);
+      v158 = v103;
       while (1)
       {
-        if (v106 >= *(v104 + 16))
+        if (v105 >= *(v103 + 16))
         {
           goto LABEL_165;
         }
 
-        v109 = *(v107 - 4);
-        if (*(v109 + 224) == 1)
+        v108 = *(v106 - 4);
+        if (*(v108 + 224) == 1)
         {
           break;
         }
 
 LABEL_138:
-        ++v106;
-        v107 += 48;
-        if (v105 == v106)
+        ++v105;
+        v106 += 48;
+        if (v104 == v105)
         {
 
           v126 = AGGraphGetValue();
@@ -7510,64 +734,64 @@ LABEL_138:
           static Update.enqueueAction(reason:_:)(v159, v156, v130);
 
           v155(v151);
-          result = outlined destroy of _LazyLayout_Subviews(&v166);
+          outlined destroy of _LazyLayout_Subviews(&v166);
           *v132 = 2;
-          return result;
+          return;
         }
       }
 
-      v110 = (v109 + 264);
-      v111 = (v109 + 257);
+      v109 = (v108 + 264);
+      v110 = (v108 + 257);
+      v111 = 0uLL;
       v112 = 0uLL;
-      v113 = 0uLL;
-      if ((*(v109 + 296) & 1) == 0)
+      if ((*(v108 + 296) & 1) == 0)
       {
-        v112 = *v110;
-        v113 = *(v109 + 280);
-        v163[0] = *(v109 + 241);
-        *(v163 + 3) = *(v109 + 244);
-        v161[0] = *v111;
-        *(v161 + 3) = *(v109 + 260);
+        v111 = *v109;
+        v112 = *(v108 + 280);
+        v163[0] = *(v108 + 241);
+        *(v163 + 3) = *(v108 + 244);
+        v161[0] = *v110;
+        *(v161 + 3) = *(v108 + 260);
       }
 
-      v114 = *(v107 - 3);
-      v116 = *(v107 - 1);
-      v117 = *v107;
-      v164 = *(v107 - 16);
-      v115 = v164;
-      v162 = v117;
+      v113 = *(v106 - 3);
+      v115 = *(v106 - 1);
+      v116 = *v106;
+      v164 = *(v106 - 16);
+      v114 = v164;
+      v162 = v116;
       v160 = 0;
-      *(v109 + 232) = v114;
-      *(v109 + 240) = v115;
-      *(v109 + 241) = v163[0];
-      *(v109 + 244) = *(v163 + 3);
-      *(v109 + 248) = v116;
-      *(v109 + 256) = v117;
-      *v111 = v161[0];
-      *(v109 + 260) = *(v161 + 3);
-      *v110 = v112;
-      *(v109 + 280) = v113;
-      *(v109 + 296) = 0;
+      *(v108 + 232) = v113;
+      *(v108 + 240) = v114;
+      *(v108 + 241) = v163[0];
+      *(v108 + 244) = *(v163 + 3);
+      *(v108 + 248) = v115;
+      *(v108 + 256) = v116;
+      *v110 = v161[0];
+      *(v108 + 260) = *(v161 + 3);
+      *v109 = v111;
+      *(v108 + 280) = v112;
+      *(v108 + 296) = 0;
       swift_beginAccess();
-      v118 = *(v109 + 16);
-      result = swift_unownedRetainStrong();
-      if (!v118)
+      v117 = *(v108 + 16);
+      swift_unownedRetainStrong();
+      if (!v117)
       {
         goto LABEL_171;
       }
 
-      v119 = *(v118 + 228);
+      v118 = *(v117 + 228);
       swift_retain_n();
 
-      *(v109 + 208) = v119;
-      v120 = *(v109 + 16);
-      result = swift_unownedRetainStrong();
-      if (!v120)
+      *(v108 + 208) = v118;
+      v119 = *(v108 + 16);
+      v120 = swift_unownedRetainStrong();
+      if (!v119)
       {
         goto LABEL_172;
       }
 
-      if (((*(*v120 + 360))(result) & 1) == 0)
+      if (((*(*v119 + 360))(v120) & 1) == 0)
       {
         goto LABEL_152;
       }
@@ -7587,20 +811,20 @@ LABEL_138:
       if (byte_1ED53C51C == 1)
       {
         v122 = dyld_program_sdk_at_least();
-        v104 = v158;
+        v103 = v158;
         if ((v122 & 1) == 0)
         {
 LABEL_152:
 
 LABEL_153:
-          v108 = 0;
+          v107 = 0;
           goto LABEL_137;
         }
       }
 
       else
       {
-        v104 = v158;
+        v103 = v158;
         if (static Semantics.forced < v121)
         {
           goto LABEL_152;
@@ -7608,7 +832,7 @@ LABEL_153:
       }
 
       swift_beginAccess();
-      v123 = v120[4];
+      v123 = v119[4];
       BloomFilter.init(hashValue:)(&type metadata for UsingGraphicsRenderer);
       v124 = _s7SwiftUI5find133_D64CE6C88E7413721C59A34C0C940F2CLL_3key6filters9UnmanagedVyAA12TypedElementACLLCyxGGSgAGyAA12PropertyListV0Q0CGSg_xmAA11BloomFilterVtAA0R3KeyRzlFAA21UsingGraphicsRendererV_Tt0B5(v123, v159[0]);
       if (v124)
@@ -7625,19 +849,19 @@ LABEL_153:
       {
       }
 
-      v108 = 1;
+      v107 = 1;
 LABEL_137:
-      *(v109 + 212) = v108;
+      *(v108 + 212) = v107;
 
       goto LABEL_138;
     }
 
 LABEL_160:
-    v155(v97);
-    result = outlined destroy of _LazyLayout_Subviews(&v166);
+    v155(v96);
+    outlined destroy of _LazyLayout_Subviews(&v166);
 LABEL_161:
     *v132 = 0;
-    return result;
+    return;
   }
 
 LABEL_170:
@@ -7646,18 +870,17 @@ LABEL_171:
   __break(1u);
 LABEL_172:
   __break(1u);
-  return result;
 }
 
 uint64_t specialized closure #1 in ViewBodyAccessor.updateBody(of:changed:)(double a1, double a2, double a3, double a4)
 {
-  v71 = *MEMORY[0x1E69E9840];
-  v55 = type metadata accessor for OSSignpostID();
-  v56 = *(v55 - 8);
-  MEMORY[0x1EEE9AC00](v55);
-  v57 = &v47[-((v8 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v72 = *MEMORY[0x1E69E9840];
+  v57 = type metadata accessor for OSSignpostID();
+  v58 = *(v57 - 8);
+  MEMORY[0x1EEE9AC00](v57);
+  v59 = &v49[-((v8 + 15) & 0xFFFFFFFFFFFFFFF0)];
   MEMORY[0x1EEE9AC00](v9);
-  v48 = &v47[-v10];
+  v50 = &v49[-v10];
   if (one-time initialization token for bodyInvoke != -1)
   {
     goto LABEL_37;
@@ -7670,17 +893,17 @@ uint64_t specialized closure #1 in ViewBodyAccessor.updateBody(of:changed:)(doub
     v13 = HIBYTE(word_1ED539040);
     v14 = byte_1ED539042;
     v15 = static os_signpost_type_t.begin.getter();
-    v67 = v11;
-    LOBYTE(v68) = v12;
-    BYTE1(v68) = v13;
-    BYTE2(v68) = v14;
+    v68 = v11;
+    LOBYTE(v69) = v12;
+    BYTE1(v69) = v13;
+    BYTE2(v69) = v14;
     if ((Signpost.isEnabled.getter() & 1) == 0)
     {
       break;
     }
 
-    v54 = *(&v11 + 1);
-    LODWORD(v58) = v15;
+    v56 = *(&v11 + 1);
+    LODWORD(v60) = v15;
     static OSSignpostID.exclusive.getter();
     type metadata accessor for TappableEventType?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<CVarArg>, &lazy cache variable for type metadata for CVarArg, MEMORY[0x1E69E7740], MEMORY[0x1E69E6F90]);
     v16 = swift_allocObject();
@@ -7689,16 +912,17 @@ uint64_t specialized closure #1 in ViewBodyAccessor.updateBody(of:changed:)(doub
     v19 = v18;
     v20 = MEMORY[0x1E69E6158];
     *(v16 + 56) = MEMORY[0x1E69E6158];
-    v21 = lazy protocol witness table accessor for type String and conformance String();
+    lazy protocol witness table accessor for type String and conformance String();
+    v22 = v21;
     *(v16 + 64) = v21;
     *(v16 + 32) = v17;
     *(v16 + 40) = v19;
-    v22 = specialized static Tracing.libraryName(defining:)();
+    v23 = specialized static Tracing.libraryName(defining:)();
     *(v16 + 96) = v20;
-    *(v16 + 104) = v21;
-    *(v16 + 72) = v22;
-    *(v16 + 80) = v23;
-    v59 = v16;
+    *(v16 + 104) = v22;
+    *(v16 + 72) = v23;
+    *(v16 + 80) = v24;
+    v61 = v16;
     if (one-time initialization token for _signpostLog != -1)
     {
       swift_once();
@@ -7706,19 +930,19 @@ uint64_t specialized closure #1 in ViewBodyAccessor.updateBody(of:changed:)(doub
 
     if (v13)
     {
-      v66 = v58;
-      v64 = _signpostLog;
-      v65 = &dword_18D018000;
-      *&v67 = v11;
-      *(&v67 + 1) = v54;
-      LOBYTE(v68) = v12;
-      v61 = "%{public}@.body [in %{public}@]";
-      v62 = 31;
-      v63 = 2;
-      v60 = v59;
-      v24 = v48;
-      specialized thunk for @escaping @callee_guaranteed (@unowned os_signpost_type_t, @unowned UnsafeRawPointer, @guaranteed OS_os_log, @unowned StaticString, @in_guaranteed OSSignpostID, @unowned StaticString, @guaranteed [CVarArg]) -> ()();
-      (*(v56 + 8))(v24, v55);
+      v67 = v60;
+      v65 = _signpostLog;
+      v66 = &dword_18D018000;
+      *&v68 = v11;
+      *(&v68 + 1) = v56;
+      LOBYTE(v69) = v12;
+      v63[0] = "%{public}@.body [in %{public}@]";
+      v63[1] = 31;
+      v64 = 2;
+      v62 = v61;
+      v25 = v50;
+      specialized thunk for @escaping @callee_guaranteed (@unowned os_signpost_type_t, @unowned UnsafeRawPointer, @guaranteed OS_os_log, @unowned StaticString, @in_guaranteed OSSignpostID, @unowned StaticString, @guaranteed [CVarArg]) -> ()(&v67, &v66, &v65, &v68, v50, v63, &v62);
+      (*(v58 + 8))(v25, v57);
 LABEL_34:
 
       break;
@@ -7726,74 +950,74 @@ LABEL_34:
 
     if (v11 == 20)
     {
-      v25 = 3;
+      v26 = 3;
     }
 
     else
     {
-      v25 = 4;
+      v26 = 4;
     }
 
-    v26 = bswap32(v11) | (4 * WORD1(v11));
-    v27 = v58;
-    v28 = v56 + 16;
-    v49 = *(v56 + 16);
-    v29 = v49(v57, v48, v55);
-    v30 = 0;
-    LOBYTE(v61) = 1;
-    v53 = 16 * *(&v11 + 1);
-    v56 = v28;
-    v54 = (v28 - 8);
-    v52 = v59 + 32;
-    v51 = v11;
-    v50 = *(&v11 + 1);
+    v27 = bswap32(v11) | (4 * WORD1(v11));
+    v28 = v60;
+    v29 = v58 + 16;
+    v51 = *(v58 + 16);
+    v30 = v51(v59, v50, v57);
+    v31 = 0;
+    LOBYTE(v63[0]) = 1;
+    v55 = 16 * *(&v11 + 1);
+    v58 = v29;
+    v56 = (v29 - 8);
+    v54 = v61 + 32;
+    v53 = v11;
+    v52 = *(&v11 + 1);
 LABEL_11:
-    v58 = v47;
-    MEMORY[0x1EEE9AC00](v29);
-    v32 = &v47[-((v31 + 15) & 0xFFFFFFFFFFFFFFF0)];
-    v33 = v32 + 8;
-    v34 = v25;
-    v35 = v32 + 8;
+    v60 = v49;
+    MEMORY[0x1EEE9AC00](v30);
+    v33 = &v49[-((v32 + 15) & 0xFFFFFFFFFFFFFFF0)];
+    v34 = v33 + 8;
+    v35 = v26;
+    v36 = v33 + 8;
     do
     {
-      *(v35 - 1) = 0;
-      *v35 = 0;
-      v35 += 16;
-      --v34;
+      *(v36 - 1) = 0;
+      *v36 = 0;
+      v36 += 16;
+      --v35;
     }
 
-    while (v34);
-    v36 = v52 + 40 * v30;
+    while (v35);
+    v37 = v54 + 40 * v31;
     while (1)
     {
-      v37 = *(v59 + 16);
-      if (v30 == v37)
+      v38 = *(v61 + 16);
+      if (v31 == v38)
       {
-        LOBYTE(v61) = 0;
+        LOBYTE(v63[0]) = 0;
 LABEL_19:
-        v40 = v51;
-        if (v51 == 20)
+        v42 = v53;
+        if (v53 == 20)
         {
           OSSignpostID.rawValue.getter();
         }
 
         kdebug_trace();
-        if (v32[8] == 1)
+        if (v33[8] == 1)
         {
           kdebug_trace_string();
         }
 
-        if (v32[24] == 1)
+        if (v33[24] == 1)
         {
           kdebug_trace_string();
         }
 
-        if (v32[40] == 1)
+        if (v33[40] == 1)
         {
           kdebug_trace_string();
         }
 
-        if (v40 != 20 && v32[56] == 1)
+        if (v42 != 20 && v33[56] == 1)
         {
           kdebug_trace_string();
         }
@@ -7803,39 +1027,40 @@ LABEL_19:
           swift_once();
         }
 
-        v41 = *v54;
-        v42 = v57;
-        v43 = v55;
-        (*v54)(v57, v55);
-        v44 = __swift_project_value_buffer(v43, static OSSignpostID.continuation);
-        v29 = v49(v42, v44, v43);
-        v25 = v50;
-        if ((v61 & 1) == 0)
+        v43 = *v56;
+        v44 = v59;
+        v45 = v57;
+        (*v56)(v59, v57);
+        v46 = __swift_project_value_buffer(v45, static OSSignpostID.continuation);
+        v30 = v51(v44, v46, v45);
+        v26 = v52;
+        if ((v63[0] & 1) == 0)
         {
-          v45 = v55;
-          v41(v57, v55);
-          v41(v48, v45);
+          v47 = v57;
+          v43(v59, v57);
+          v43(v50, v47);
           goto LABEL_34;
         }
 
         goto LABEL_11;
       }
 
-      if (v30 >= v37)
+      if (v31 >= v38)
       {
         break;
       }
 
-      ++v30;
-      outlined init with copy of AnyTrackedValue(v36, &v67);
-      v38 = v69;
-      __swift_project_boxed_opaque_existential_1(&v67, v69);
-      *(v33 - 1) = CVarArg.kdebugValue(_:)(v26 | v27, v38);
-      *v33 = v39 & 1;
-      v33 += 16;
-      __swift_destroy_boxed_opaque_existential_1(&v67);
-      v36 += 40;
-      if (!--v25)
+      ++v31;
+      outlined init with copy of AnyTrackedValue(v37, &v68);
+      v39 = v70;
+      v40 = v71;
+      __swift_project_boxed_opaque_existential_1(&v68, v70);
+      *(v34 - 1) = CVarArg.kdebugValue(_:)(v27 | v28, v39, v40);
+      *v34 = v41 & 1;
+      v34 += 16;
+      __swift_destroy_boxed_opaque_existential_1(&v68);
+      v37 += 40;
+      if (!--v26)
       {
         goto LABEL_19;
       }
@@ -7847,21 +1072,2011 @@ LABEL_37:
   }
 
   AGGraphClearUpdate();
-  *&v67 = a1;
-  *(&v67 + 1) = a2;
-  v68 = a3;
-  v69 = *&a4;
-  LOWORD(v70) = 256;
+  *&v68 = a1;
+  *(&v68 + 1) = a2;
+  v69 = a3;
+  v70 = *&a4;
+  LOWORD(v71) = 256;
   AGGraphSetUpdate();
   $defer #1 <A>() in traceRuleBody<A>(_:body:)();
-  type metadata accessor for _ShapeView<Rectangle.AsymmetricalInset, ForegroundStyle>();
+  type metadata accessor for _ShapeView<Rectangle.AsymmetricalInset, ForegroundStyle>(0);
+  return AGGraphSetOutputValue();
+}
+
+double specialized closure #1 in ViewBodyAccessor.updateBody(of:changed:)(_OWORD *a1)
+{
+  v47 = a1;
+  v72 = *MEMORY[0x1E69E9840];
+  v54 = type metadata accessor for OSSignpostID();
+  v55 = *(v54 - 8);
+  MEMORY[0x1EEE9AC00](v54);
+  v56 = &v46[-((v1 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  MEMORY[0x1EEE9AC00](v2);
+  v48 = &v46[-v3];
+  if (one-time initialization token for bodyInvoke != -1)
+  {
+    goto LABEL_37;
+  }
+
+  while (1)
+  {
+    v4 = static Signpost.bodyInvoke;
+    v5 = word_1ED539040;
+    v6 = HIBYTE(word_1ED539040);
+    v7 = byte_1ED539042;
+    v8 = static os_signpost_type_t.begin.getter();
+    v66 = v4;
+    v67 = v5;
+    v68 = v6;
+    v69 = v7;
+    if ((Signpost.isEnabled.getter() & 1) == 0)
+    {
+      break;
+    }
+
+    v57 = *(&v4 + 1);
+    LODWORD(v58) = v8;
+    static OSSignpostID.exclusive.getter();
+    type metadata accessor for TappableEventType?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<CVarArg>, &lazy cache variable for type metadata for CVarArg, MEMORY[0x1E69E7740], MEMORY[0x1E69E6F90]);
+    v9 = swift_allocObject();
+    *(v9 + 16) = xmmword_18DDAB4C0;
+    v10 = AGTypeID.description.getter();
+    v12 = v11;
+    v13 = MEMORY[0x1E69E6158];
+    *(v9 + 56) = MEMORY[0x1E69E6158];
+    lazy protocol witness table accessor for type String and conformance String();
+    v15 = v14;
+    *(v9 + 64) = v14;
+    *(v9 + 32) = v10;
+    *(v9 + 40) = v12;
+    v16 = specialized static Tracing.libraryName(defining:)();
+    *(v9 + 96) = v13;
+    *(v9 + 104) = v15;
+    *(v9 + 72) = v16;
+    *(v9 + 80) = v17;
+    v59 = v9;
+    if (one-time initialization token for _signpostLog != -1)
+    {
+      swift_once();
+    }
+
+    if (v6)
+    {
+      v65 = v58;
+      v63 = _signpostLog;
+      v64 = &dword_18D018000;
+      *&v66 = v4;
+      *(&v66 + 1) = v57;
+      v67 = v5;
+      v61[0] = "%{public}@.body [in %{public}@]";
+      v61[1] = 31;
+      v62 = 2;
+      v60 = v59;
+      v18 = v48;
+      specialized thunk for @escaping @callee_guaranteed (@unowned os_signpost_type_t, @unowned UnsafeRawPointer, @guaranteed OS_os_log, @unowned StaticString, @in_guaranteed OSSignpostID, @unowned StaticString, @guaranteed [CVarArg]) -> ()(&v65, &v64, &v63, &v66, v48, v61, &v60);
+      (*(v55 + 8))(v18, v54);
+LABEL_34:
+
+      break;
+    }
+
+    if (v4 == 20)
+    {
+      v19 = 3;
+    }
+
+    else
+    {
+      v19 = 4;
+    }
+
+    v20 = bswap32(v4) | (4 * WORD1(v4));
+    v21 = v58;
+    v22 = v55 + 16;
+    v49 = *(v55 + 16);
+    v23 = v49(v56, v48, v54);
+    v24 = 0;
+    LOBYTE(v61[0]) = 1;
+    v58 = v19;
+    v52 = 16 * v19;
+    v55 = v22;
+    v53 = (v22 - 8);
+    v51 = v59 + 32;
+    v50 = v4;
+LABEL_11:
+    v57 = v46;
+    MEMORY[0x1EEE9AC00](v23);
+    v26 = &v46[-((v25 + 15) & 0xFFFFFFFFFFFFFFF0)];
+    v27 = v26 + 8;
+    v28 = v58;
+    v29 = v26 + 8;
+    do
+    {
+      *(v29 - 1) = 0;
+      *v29 = 0;
+      v29 += 16;
+      --v28;
+    }
+
+    while (v28);
+    v30 = v51 + 40 * v24;
+    v31 = v58;
+    while (1)
+    {
+      v32 = *(v59 + 16);
+      if (v24 == v32)
+      {
+        LOBYTE(v61[0]) = 0;
+LABEL_19:
+        v36 = v50;
+        if (v50 == 20)
+        {
+          OSSignpostID.rawValue.getter();
+        }
+
+        kdebug_trace();
+        if (v26[8] == 1)
+        {
+          kdebug_trace_string();
+        }
+
+        if (v26[24] == 1)
+        {
+          kdebug_trace_string();
+        }
+
+        if (v26[40] == 1)
+        {
+          kdebug_trace_string();
+        }
+
+        if (v36 != 20 && v26[56] == 1)
+        {
+          kdebug_trace_string();
+        }
+
+        if (one-time initialization token for continuation != -1)
+        {
+          swift_once();
+        }
+
+        v37 = *v53;
+        v38 = v56;
+        v39 = v54;
+        (*v53)(v56, v54);
+        v40 = __swift_project_value_buffer(v39, static OSSignpostID.continuation);
+        v23 = v49(v38, v40, v39);
+        if ((v61[0] & 1) == 0)
+        {
+          v41 = v54;
+          v37(v56, v54);
+          v37(v48, v41);
+          goto LABEL_34;
+        }
+
+        goto LABEL_11;
+      }
+
+      if (v24 >= v32)
+      {
+        break;
+      }
+
+      ++v24;
+      outlined init with copy of AnyTrackedValue(v30, &v66);
+      v33 = v70;
+      v34 = v71;
+      __swift_project_boxed_opaque_existential_1(&v66, v70);
+      *(v27 - 1) = CVarArg.kdebugValue(_:)(v20 | v21, v33, v34);
+      *v27 = v35 & 1;
+      v27 += 16;
+      __swift_destroy_boxed_opaque_existential_1(&v66);
+      v30 += 40;
+      if (!--v31)
+      {
+        goto LABEL_19;
+      }
+    }
+
+    __break(1u);
+LABEL_37:
+    swift_once();
+  }
+
+  AGGraphClearUpdate();
+  v42 = swift_allocObject();
+  v43 = v47;
+  v44 = v47[1];
+  v42[1] = *v47;
+  v42[2] = v44;
+  v42[3] = *(v43 + 32);
+  *(v42 + 57) = *(v43 + 41);
+  outlined init with copy of UncheckedSendable<GlassEffectShapeModifier>(v43, &v66, &lazy cache variable for type metadata for UncheckedSendable<_GlassContainerStorageView>, &type metadata for _GlassContainerStorageView, type metadata accessor for UncheckedSendable);
+  AGGraphSetUpdate();
+  *&v66 = partial apply for closure #1 in _GlassContainerStorageView.body.getter;
+  *(&v66 + 1) = v42;
+  $defer #1 <A>() in traceRuleBody<A>(_:body:)();
+  type metadata accessor for ModifiedContent<_VariadicView.Tree<_LayoutRoot<GlassEntryLayout>, ForEach<[GlassContainer.Item], GlassContainer.Item.ID, GlassItemView>>, GlassEffectShapeModifier>(0, &lazy cache variable for type metadata for ModifiedContent<GeometryReader<ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>>, _GeometryGroupEffect>, type metadata accessor for GeometryReader<ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>>, &type metadata for _GeometryGroupEffect, type metadata accessor for ModifiedContent);
+  AGGraphSetOutputValue();
+
+  return result;
+}
+
+double specialized closure #1 in ViewBodyAccessor.updateBody(of:changed:)(const void *a1)
+{
+  v75 = *MEMORY[0x1E69E9840];
+  v2 = type metadata accessor for OSSignpostID();
+  v3 = *(v2 - 8);
+  v56 = v2;
+  v57 = v3;
+  MEMORY[0x1EEE9AC00](v2);
+  v58 = &v49 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v5);
+  v7 = &v49 - v6;
+  if (one-time initialization token for bodyInvoke != -1)
+  {
+    swift_once();
+  }
+
+  v8 = static Signpost.bodyInvoke;
+  v9 = word_1ED539040;
+  v10 = HIBYTE(word_1ED539040);
+  v11 = byte_1ED539042;
+  v12 = static os_signpost_type_t.begin.getter();
+  v62 = v8;
+  v69 = v8;
+  LODWORD(v60) = v9;
+  v70 = v9;
+  v71 = v10;
+  v72 = v11;
+  if (Signpost.isEnabled.getter())
+  {
+    v55 = *(&v8 + 1);
+    LODWORD(v59) = v12;
+    v49 = a1;
+    v50 = v7;
+    static OSSignpostID.exclusive.getter();
+    type metadata accessor for TappableEventType?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<CVarArg>, &lazy cache variable for type metadata for CVarArg, MEMORY[0x1E69E7740], MEMORY[0x1E69E6F90]);
+    v13 = swift_allocObject();
+    *(v13 + 16) = xmmword_18DDAB4C0;
+    v14 = AGTypeID.description.getter();
+    v16 = v15;
+    v17 = MEMORY[0x1E69E6158];
+    *(v13 + 56) = MEMORY[0x1E69E6158];
+    lazy protocol witness table accessor for type String and conformance String();
+    v19 = v18;
+    *(v13 + 64) = v18;
+    *(v13 + 32) = v14;
+    *(v13 + 40) = v16;
+    v20 = specialized static Tracing.libraryName(defining:)();
+    *(v13 + 96) = v17;
+    *(v13 + 104) = v19;
+    *(v13 + 72) = v20;
+    *(v13 + 80) = v21;
+    v61 = v13;
+    if (one-time initialization token for _signpostLog == -1)
+    {
+      v22 = v55;
+      if (v10)
+      {
+LABEL_6:
+        v68 = v59;
+        v66 = _signpostLog;
+        v67 = &dword_18D018000;
+        *&v69 = v62;
+        *(&v69 + 1) = v22;
+        v70 = v60;
+        v64[0] = "%{public}@.body [in %{public}@]";
+        v64[1] = 31;
+        v65 = 2;
+        v63 = v61;
+        v23 = v50;
+        specialized thunk for @escaping @callee_guaranteed (@unowned os_signpost_type_t, @unowned UnsafeRawPointer, @guaranteed OS_os_log, @unowned StaticString, @in_guaranteed OSSignpostID, @unowned StaticString, @guaranteed [CVarArg]) -> ()(&v68, &v67, &v66, &v69, v50, v64, &v63);
+        (*(v57 + 8))(v23, v56);
+LABEL_35:
+
+        a1 = v49;
+        goto LABEL_36;
+      }
+    }
+
+    else
+    {
+      swift_once();
+      v22 = v55;
+      if (v10)
+      {
+        goto LABEL_6;
+      }
+    }
+
+    v24 = v62;
+    if (v62 == 20)
+    {
+      v25 = 3;
+    }
+
+    else
+    {
+      v25 = 4;
+    }
+
+    v26 = bswap32(v62) | (4 * WORD1(v62));
+    LODWORD(v62) = v59;
+    v27 = v57 + 16;
+    v51 = *(v57 + 16);
+    v28 = v51(v58, v50, v56);
+    v29 = 0;
+    LOBYTE(v64[0]) = 1;
+    v60 = v25;
+    v57 = v27;
+    v54 = 16 * v25;
+    v55 = (v27 - 8);
+    v52 = v24;
+    v53 = v61 + 32;
+    do
+    {
+      v59 = &v49;
+      MEMORY[0x1EEE9AC00](v28);
+      v31 = &v49 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v32 = v31 + 8;
+      v33 = v60;
+      v34 = v31 + 8;
+      do
+      {
+        *(v34 - 1) = 0;
+        *v34 = 0;
+        v34 += 16;
+        --v33;
+      }
+
+      while (v33);
+      v35 = v53 + 40 * v29;
+      v36 = v60;
+      while (1)
+      {
+        v37 = *(v61 + 16);
+        if (v29 == v37)
+        {
+          break;
+        }
+
+        if (v29 >= v37)
+        {
+          __break(1u);
+        }
+
+        ++v29;
+        outlined init with copy of AnyTrackedValue(v35, &v69);
+        v38 = v73;
+        v39 = v74;
+        __swift_project_boxed_opaque_existential_1(&v69, v73);
+        *(v32 - 1) = CVarArg.kdebugValue(_:)(v26 | v62, v38, v39);
+        *v32 = v40 & 1;
+        v32 += 16;
+        __swift_destroy_boxed_opaque_existential_1(&v69);
+        v35 += 40;
+        if (!--v36)
+        {
+          goto LABEL_20;
+        }
+      }
+
+      LOBYTE(v64[0]) = 0;
+LABEL_20:
+      v41 = v52;
+      if (v52 == 20)
+      {
+        OSSignpostID.rawValue.getter();
+      }
+
+      kdebug_trace();
+      if (v31[8] == 1)
+      {
+        kdebug_trace_string();
+      }
+
+      if (v31[24] == 1)
+      {
+        kdebug_trace_string();
+      }
+
+      if (v31[40] == 1)
+      {
+        kdebug_trace_string();
+      }
+
+      if (v41 != 20 && v31[56] == 1)
+      {
+        kdebug_trace_string();
+      }
+
+      if (one-time initialization token for continuation != -1)
+      {
+        swift_once();
+      }
+
+      v42 = v56;
+      v43 = *v55;
+      v44 = v58;
+      (*v55)(v58, v56);
+      v45 = __swift_project_value_buffer(v42, static OSSignpostID.continuation);
+      v28 = v51(v44, v45, v42);
+    }
+
+    while ((v64[0] & 1) != 0);
+    v46 = v56;
+    v43(v58, v56);
+    v43(v50, v46);
+    goto LABEL_35;
+  }
+
+LABEL_36:
+  AGGraphClearUpdate();
+  v47 = swift_allocObject();
+  memcpy((v47 + 16), a1, 0x230uLL);
+  outlined init with copy of UncheckedSendable<GlassEffectShapeModifier>(a1, &v69, &lazy cache variable for type metadata for UncheckedSendable<GlassEntryContainerView>, &type metadata for GlassEntryContainerView, type metadata accessor for UncheckedSendable);
+  AGGraphSetUpdate();
+  *&v69 = partial apply for closure #1 in GlassEntryContainerView.body.getter;
+  *(&v69 + 1) = v47;
+  $defer #1 <A>() in traceRuleBody<A>(_:body:)();
+  type metadata accessor for ViewLayoutEngine<GeometryReaderLayout>(0, &lazy cache variable for type metadata for GeometryReader<GlassEntryView>, lazy protocol witness table accessor for type GlassEntryView and conformance GlassEntryView, &type metadata for GlassEntryView, type metadata accessor for GeometryReader);
+  AGGraphSetOutputValue();
+
+  return result;
+}
+
+uint64_t specialized closure #1 in ViewBodyAccessor.updateBody(of:changed:)(const void *a1)
+{
+  v69 = *MEMORY[0x1E69E9840];
+  v2 = type metadata accessor for OSSignpostID();
+  v3 = *(v2 - 8);
+  v56 = v2;
+  v57 = v3;
+  MEMORY[0x1EEE9AC00](v2);
+  v58 = &v48 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v5);
+  v7 = &v48 - v6;
+  if (one-time initialization token for bodyInvoke != -1)
+  {
+    swift_once();
+  }
+
+  v8 = static Signpost.bodyInvoke;
+  v9 = word_1ED539040;
+  v10 = HIBYTE(word_1ED539040);
+  v11 = byte_1ED539042;
+  v12 = static os_signpost_type_t.begin.getter();
+  v62 = v8;
+  *v68 = v8;
+  LODWORD(v60) = v9;
+  v68[16] = v9;
+  v68[17] = v10;
+  v68[18] = v11;
+  if (Signpost.isEnabled.getter())
+  {
+    v55 = *(&v8 + 1);
+    LODWORD(v59) = v12;
+    v49 = a1;
+    v50 = v7;
+    static OSSignpostID.exclusive.getter();
+    type metadata accessor for TappableEventType?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<CVarArg>, &lazy cache variable for type metadata for CVarArg, MEMORY[0x1E69E7740], MEMORY[0x1E69E6F90]);
+    v13 = swift_allocObject();
+    *(v13 + 16) = xmmword_18DDAB4C0;
+    v14 = AGTypeID.description.getter();
+    v16 = v15;
+    v17 = MEMORY[0x1E69E6158];
+    *(v13 + 56) = MEMORY[0x1E69E6158];
+    lazy protocol witness table accessor for type String and conformance String();
+    v19 = v18;
+    *(v13 + 64) = v18;
+    *(v13 + 32) = v14;
+    *(v13 + 40) = v16;
+    v20 = specialized static Tracing.libraryName(defining:)();
+    *(v13 + 96) = v17;
+    *(v13 + 104) = v19;
+    *(v13 + 72) = v20;
+    *(v13 + 80) = v21;
+    v61 = v13;
+    if (one-time initialization token for _signpostLog == -1)
+    {
+      v22 = v55;
+      if (v10)
+      {
+LABEL_6:
+        v66 = v59;
+        v64 = _signpostLog;
+        v65 = &dword_18D018000;
+        *v68 = v62;
+        *&v68[8] = v22;
+        v68[16] = v60;
+        v67[0] = "%{public}@.body [in %{public}@]";
+        v67[1] = 31;
+        LOBYTE(v67[2]) = 2;
+        v63 = v61;
+        v23 = v50;
+        specialized thunk for @escaping @callee_guaranteed (@unowned os_signpost_type_t, @unowned UnsafeRawPointer, @guaranteed OS_os_log, @unowned StaticString, @in_guaranteed OSSignpostID, @unowned StaticString, @guaranteed [CVarArg]) -> ()(&v66, &v65, &v64, v68, v50, v67, &v63);
+        (*(v57 + 8))(v23, v56);
+LABEL_35:
+
+        a1 = v49;
+        goto LABEL_36;
+      }
+    }
+
+    else
+    {
+      swift_once();
+      v22 = v55;
+      if (v10)
+      {
+        goto LABEL_6;
+      }
+    }
+
+    v24 = v62;
+    if (v62 == 20)
+    {
+      v25 = 3;
+    }
+
+    else
+    {
+      v25 = 4;
+    }
+
+    v26 = bswap32(v62) | (4 * WORD1(v62));
+    LODWORD(v62) = v59;
+    v27 = v57 + 16;
+    v51 = *(v57 + 16);
+    v28 = v51(v58, v50, v56);
+    v29 = 0;
+    LOBYTE(v67[0]) = 1;
+    v60 = v25;
+    v57 = v27;
+    v54 = 16 * v25;
+    v55 = (v27 - 8);
+    v52 = v24;
+    v53 = v61 + 32;
+    do
+    {
+      v59 = &v48;
+      MEMORY[0x1EEE9AC00](v28);
+      v31 = &v48 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v32 = v31 + 8;
+      v33 = v60;
+      v34 = v31 + 8;
+      do
+      {
+        *(v34 - 1) = 0;
+        *v34 = 0;
+        v34 += 16;
+        --v33;
+      }
+
+      while (v33);
+      v35 = v53 + 40 * v29;
+      v36 = v60;
+      while (1)
+      {
+        v37 = *(v61 + 16);
+        if (v29 == v37)
+        {
+          break;
+        }
+
+        if (v29 >= v37)
+        {
+          __break(1u);
+        }
+
+        ++v29;
+        outlined init with copy of AnyTrackedValue(v35, v68);
+        v38 = *&v68[24];
+        v39 = *&v68[32];
+        __swift_project_boxed_opaque_existential_1(v68, *&v68[24]);
+        *(v32 - 1) = CVarArg.kdebugValue(_:)(v26 | v62, v38, v39);
+        *v32 = v40 & 1;
+        v32 += 16;
+        __swift_destroy_boxed_opaque_existential_1(v68);
+        v35 += 40;
+        if (!--v36)
+        {
+          goto LABEL_20;
+        }
+      }
+
+      LOBYTE(v67[0]) = 0;
+LABEL_20:
+      v41 = v52;
+      if (v52 == 20)
+      {
+        OSSignpostID.rawValue.getter();
+      }
+
+      kdebug_trace();
+      if (v31[8] == 1)
+      {
+        kdebug_trace_string();
+      }
+
+      if (v31[24] == 1)
+      {
+        kdebug_trace_string();
+      }
+
+      if (v31[40] == 1)
+      {
+        kdebug_trace_string();
+      }
+
+      if (v41 != 20 && v31[56] == 1)
+      {
+        kdebug_trace_string();
+      }
+
+      if (one-time initialization token for continuation != -1)
+      {
+        swift_once();
+      }
+
+      v42 = v56;
+      v43 = *v55;
+      v44 = v58;
+      (*v55)(v58, v56);
+      v45 = __swift_project_value_buffer(v42, static OSSignpostID.continuation);
+      v28 = v51(v44, v45, v42);
+    }
+
+    while ((v67[0] & 1) != 0);
+    v46 = v56;
+    v43(v58, v56);
+    v43(v50, v46);
+    goto LABEL_35;
+  }
+
+LABEL_36:
+  AGGraphClearUpdate();
+  memcpy(v67, a1, 0x11CuLL);
+  GlassEffectView.body.getter(v68);
+  AGGraphSetUpdate();
+  $defer #1 <A>() in traceRuleBody<A>(_:body:)();
+  type metadata accessor for ModifiedContent<_VariadicView.Tree<_LayoutRoot<GlassEntryLayout>, ForEach<[GlassContainer.Item], GlassContainer.Item.ID, GlassItemView>>, GlassEffectShapeModifier>(0, &lazy cache variable for type metadata for ModifiedContent<_VariadicView.Tree<_LayoutRoot<GlassEffectLayout>, ForEach<[GlassContainer.Entry], GlassContainer.Entry.StableID, ModifiedContent<ModifiedContent<ZStack<GlassEntryContainerView>, _TraitWritingModifier<_LayoutTrait<GlassEffectLayout.Key>>>, _TraitWritingModifier<TransitionTraitKey>>>>, GlassMaterialEffect>, type metadata accessor for _VariadicView.Tree<_LayoutRoot<GlassEffectLayout>, ForEach<[GlassContainer.Entry], GlassContainer.Entry.StableID, ModifiedContent<ModifiedContent<ZStack<GlassEntryContainerView>, _TraitWritingModifier<_LayoutTrait<GlassEffectLayout.Key>>>, _TraitWritingModifier<TransitionTraitKey>>>>, &type metadata for GlassMaterialEffect, type metadata accessor for ModifiedContent);
+  AGGraphSetOutputValue();
+  memcpy(v67, v68, 0x194uLL);
+  return outlined destroy of ModifiedContent<ModifiedContent<_ViewModifier_Content<GlassEffectLocalModifier>, GlassEffectContainerModifier>, GlassEffectContainerModifier>(v67, &lazy cache variable for type metadata for ModifiedContent<_VariadicView.Tree<_LayoutRoot<GlassEffectLayout>, ForEach<[GlassContainer.Entry], GlassContainer.Entry.StableID, ModifiedContent<ModifiedContent<ZStack<GlassEntryContainerView>, _TraitWritingModifier<_LayoutTrait<GlassEffectLayout.Key>>>, _TraitWritingModifier<TransitionTraitKey>>>>, GlassMaterialEffect>, type metadata accessor for _VariadicView.Tree<_LayoutRoot<GlassEffectLayout>, ForEach<[GlassContainer.Entry], GlassContainer.Entry.StableID, ModifiedContent<ModifiedContent<ZStack<GlassEntryContainerView>, _TraitWritingModifier<_LayoutTrait<GlassEffectLayout.Key>>>, _TraitWritingModifier<TransitionTraitKey>>>>, &type metadata for GlassMaterialEffect, type metadata accessor for ModifiedContent);
+}
+
+{
+  v72 = *MEMORY[0x1E69E9840];
+  v2 = type metadata accessor for OSSignpostID();
+  v3 = *(v2 - 8);
+  v57 = v2;
+  v58 = v3;
+  MEMORY[0x1EEE9AC00](v2);
+  v59 = &v49 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v5);
+  v7 = &v49 - v6;
+  if (one-time initialization token for bodyInvoke != -1)
+  {
+    swift_once();
+  }
+
+  v8 = static Signpost.bodyInvoke;
+  v9 = word_1ED539040;
+  v10 = HIBYTE(word_1ED539040);
+  v11 = byte_1ED539042;
+  v12 = static os_signpost_type_t.begin.getter();
+  v63 = v8;
+  v70[0] = v8;
+  LODWORD(v61) = v9;
+  LOBYTE(v70[1]) = v9;
+  v13 = v10;
+  BYTE1(v70[1]) = v10;
+  BYTE2(v70[1]) = v11;
+  if (Signpost.isEnabled.getter())
+  {
+    v56 = *(&v8 + 1);
+    LODWORD(v60) = v12;
+    v50 = a1;
+    v51 = v7;
+    static OSSignpostID.exclusive.getter();
+    type metadata accessor for TappableEventType?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<CVarArg>, &lazy cache variable for type metadata for CVarArg, MEMORY[0x1E69E7740], MEMORY[0x1E69E6F90]);
+    v14 = swift_allocObject();
+    *(v14 + 16) = xmmword_18DDAB4C0;
+    v15 = AGTypeID.description.getter();
+    v17 = v16;
+    v18 = MEMORY[0x1E69E6158];
+    *(v14 + 56) = MEMORY[0x1E69E6158];
+    lazy protocol witness table accessor for type String and conformance String();
+    v20 = v19;
+    *(v14 + 64) = v19;
+    *(v14 + 32) = v15;
+    *(v14 + 40) = v17;
+    v21 = specialized static Tracing.libraryName(defining:)();
+    *(v14 + 96) = v18;
+    *(v14 + 104) = v20;
+    *(v14 + 72) = v21;
+    *(v14 + 80) = v22;
+    v62 = v14;
+    if (one-time initialization token for _signpostLog == -1)
+    {
+      v23 = v56;
+      if (v13)
+      {
+LABEL_6:
+        v69 = v60;
+        v67 = _signpostLog;
+        v68 = &dword_18D018000;
+        *&v70[0] = v63;
+        *(&v70[0] + 1) = v23;
+        LOBYTE(v70[1]) = v61;
+        v65[0] = "%{public}@.body [in %{public}@]";
+        v65[1] = 31;
+        v66 = 2;
+        v64 = v62;
+        v24 = v51;
+        specialized thunk for @escaping @callee_guaranteed (@unowned os_signpost_type_t, @unowned UnsafeRawPointer, @guaranteed OS_os_log, @unowned StaticString, @in_guaranteed OSSignpostID, @unowned StaticString, @guaranteed [CVarArg]) -> ()(&v69, &v68, &v67, v70, v51, v65, &v64);
+        (*(v58 + 8))(v24, v57);
+LABEL_35:
+
+        a1 = v50;
+        goto LABEL_36;
+      }
+    }
+
+    else
+    {
+      swift_once();
+      v23 = v56;
+      if (v13)
+      {
+        goto LABEL_6;
+      }
+    }
+
+    v25 = v63;
+    if (v63 == 20)
+    {
+      v26 = 3;
+    }
+
+    else
+    {
+      v26 = 4;
+    }
+
+    v27 = bswap32(v63) | (4 * WORD1(v63));
+    LODWORD(v63) = v60;
+    v28 = v58 + 16;
+    v52 = *(v58 + 16);
+    v29 = v52(v59, v51, v57);
+    v30 = 0;
+    LOBYTE(v65[0]) = 1;
+    v61 = v26;
+    v58 = v28;
+    v55 = 16 * v26;
+    v56 = (v28 - 8);
+    v53 = v25;
+    v54 = v62 + 32;
+    do
+    {
+      v60 = &v49;
+      MEMORY[0x1EEE9AC00](v29);
+      v32 = &v49 - ((v31 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v33 = v32 + 8;
+      v34 = v61;
+      v35 = v32 + 8;
+      do
+      {
+        *(v35 - 1) = 0;
+        *v35 = 0;
+        v35 += 16;
+        --v34;
+      }
+
+      while (v34);
+      v36 = v54 + 40 * v30;
+      v37 = v61;
+      while (1)
+      {
+        v38 = *(v62 + 16);
+        if (v30 == v38)
+        {
+          break;
+        }
+
+        if (v30 >= v38)
+        {
+          __break(1u);
+        }
+
+        ++v30;
+        outlined init with copy of AnyTrackedValue(v36, v70);
+        v39 = *(&v70[1] + 1);
+        v40 = *&v70[2];
+        __swift_project_boxed_opaque_existential_1(v70, *(&v70[1] + 1));
+        *(v33 - 1) = CVarArg.kdebugValue(_:)(v27 | v63, v39, v40);
+        *v33 = v41 & 1;
+        v33 += 16;
+        __swift_destroy_boxed_opaque_existential_1(v70);
+        v36 += 40;
+        if (!--v37)
+        {
+          goto LABEL_20;
+        }
+      }
+
+      LOBYTE(v65[0]) = 0;
+LABEL_20:
+      v42 = v53;
+      if (v53 == 20)
+      {
+        OSSignpostID.rawValue.getter();
+      }
+
+      kdebug_trace();
+      if (v32[8] == 1)
+      {
+        kdebug_trace_string();
+      }
+
+      if (v32[24] == 1)
+      {
+        kdebug_trace_string();
+      }
+
+      if (v32[40] == 1)
+      {
+        kdebug_trace_string();
+      }
+
+      if (v42 != 20 && v32[56] == 1)
+      {
+        kdebug_trace_string();
+      }
+
+      if (one-time initialization token for continuation != -1)
+      {
+        swift_once();
+      }
+
+      v43 = v57;
+      v44 = *v56;
+      v45 = v59;
+      (*v56)(v59, v57);
+      v46 = __swift_project_value_buffer(v43, static OSSignpostID.continuation);
+      v29 = v52(v45, v46, v43);
+    }
+
+    while ((v65[0] & 1) != 0);
+    v47 = v57;
+    v44(v59, v57);
+    v44(v51, v47);
+    goto LABEL_35;
+  }
+
+LABEL_36:
+  AGGraphClearUpdate();
+  memcpy(v70, a1, sizeof(v70));
+  v71 = 256;
+  AGGraphSetUpdate();
+  $defer #1 <A>() in traceRuleBody<A>(_:body:)();
+  type metadata accessor for _ShapeView<ConcentricRectangle, ForegroundStyle>(0);
+  return AGGraphSetOutputValue();
+}
+
+void specialized closure #1 in ViewBodyAccessor.updateBody(of:changed:)(uint64_t a1, double a2)
+{
+  v47 = a1;
+  v71 = *MEMORY[0x1E69E9840];
+  v54 = type metadata accessor for OSSignpostID();
+  v55 = *(v54 - 8);
+  MEMORY[0x1EEE9AC00](v54);
+  v56 = &v46 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v4);
+  v48 = &v46 - v5;
+  if (one-time initialization token for bodyInvoke != -1)
+  {
+    goto LABEL_39;
+  }
+
+  while (1)
+  {
+    v6 = static Signpost.bodyInvoke;
+    v7 = word_1ED539040;
+    v8 = HIBYTE(word_1ED539040);
+    v9 = byte_1ED539042;
+    v10 = static os_signpost_type_t.begin.getter();
+    v67 = v6;
+    LOBYTE(v68) = v7;
+    BYTE1(v68) = v8;
+    BYTE2(v68) = v9;
+    if ((Signpost.isEnabled.getter() & 1) == 0)
+    {
+      break;
+    }
+
+    v57 = *(&v6 + 1);
+    LODWORD(v58) = v10;
+    static OSSignpostID.exclusive.getter();
+    type metadata accessor for TappableEventType?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<CVarArg>, &lazy cache variable for type metadata for CVarArg, MEMORY[0x1E69E7740], MEMORY[0x1E69E6F90]);
+    v11 = swift_allocObject();
+    *(v11 + 16) = xmmword_18DDAB4C0;
+    v12 = AGTypeID.description.getter();
+    v14 = v13;
+    v15 = MEMORY[0x1E69E6158];
+    *(v11 + 56) = MEMORY[0x1E69E6158];
+    lazy protocol witness table accessor for type String and conformance String();
+    v17 = v16;
+    *(v11 + 64) = v16;
+    *(v11 + 32) = v12;
+    *(v11 + 40) = v14;
+    v18 = specialized static Tracing.libraryName(defining:)();
+    *(v11 + 96) = v15;
+    *(v11 + 104) = v17;
+    *(v11 + 72) = v18;
+    *(v11 + 80) = v19;
+    v59 = v11;
+    if (one-time initialization token for _signpostLog != -1)
+    {
+      swift_once();
+    }
+
+    if (v8)
+    {
+      v63 = v58;
+      v61 = _signpostLog;
+      v62 = &dword_18D018000;
+      *&v67 = v6;
+      *(&v67 + 1) = v57;
+      LOBYTE(v68) = v7;
+      v64 = "%{public}@.body [in %{public}@]";
+      *&v65 = 31;
+      BYTE8(v65) = 2;
+      v60 = v59;
+      v20 = v48;
+      specialized thunk for @escaping @callee_guaranteed (@unowned os_signpost_type_t, @unowned UnsafeRawPointer, @guaranteed OS_os_log, @unowned StaticString, @in_guaranteed OSSignpostID, @unowned StaticString, @guaranteed [CVarArg]) -> ()(&v63, &v62, &v61, &v67, v48, &v64, &v60);
+      (*(v55 + 8))(v20, v54);
+LABEL_34:
+
+      break;
+    }
+
+    if (v6 == 20)
+    {
+      v21 = 3;
+    }
+
+    else
+    {
+      v21 = 4;
+    }
+
+    v22 = bswap32(v6) | (4 * WORD1(v6));
+    v23 = v58;
+    v24 = v55 + 16;
+    v49 = *(v55 + 16);
+    v25 = v49(v56, v48, v54);
+    v26 = 0;
+    LOBYTE(v64) = 1;
+    v58 = v21;
+    v52 = 16 * v21;
+    v55 = v24;
+    v53 = (v24 - 8);
+    v51 = v59 + 32;
+    v50 = v6;
+LABEL_11:
+    v57 = &v46;
+    MEMORY[0x1EEE9AC00](v25);
+    v28 = &v46 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v29 = v28 + 8;
+    v30 = v58;
+    v31 = v28 + 8;
+    do
+    {
+      *(v31 - 1) = 0;
+      *v31 = 0;
+      v31 += 16;
+      --v30;
+    }
+
+    while (v30);
+    v32 = v51 + 40 * v26;
+    v33 = v58;
+    while (1)
+    {
+      v34 = *(v59 + 16);
+      if (v26 == v34)
+      {
+        LOBYTE(v64) = 0;
+LABEL_19:
+        v38 = v50;
+        if (v50 == 20)
+        {
+          OSSignpostID.rawValue.getter();
+        }
+
+        kdebug_trace();
+        if (v28[8] == 1)
+        {
+          kdebug_trace_string();
+        }
+
+        if (v28[24] == 1)
+        {
+          kdebug_trace_string();
+        }
+
+        if (v28[40] == 1)
+        {
+          kdebug_trace_string();
+        }
+
+        if (v38 != 20 && v28[56] == 1)
+        {
+          kdebug_trace_string();
+        }
+
+        if (one-time initialization token for continuation != -1)
+        {
+          swift_once();
+        }
+
+        v39 = *v53;
+        v40 = v56;
+        v41 = v54;
+        (*v53)(v56, v54);
+        v42 = __swift_project_value_buffer(v41, static OSSignpostID.continuation);
+        v25 = v49(v40, v42, v41);
+        if ((v64 & 1) == 0)
+        {
+          v43 = v54;
+          v39(v56, v54);
+          v39(v48, v43);
+          goto LABEL_34;
+        }
+
+        goto LABEL_11;
+      }
+
+      if (v26 >= v34)
+      {
+        break;
+      }
+
+      ++v26;
+      outlined init with copy of AnyTrackedValue(v32, &v67);
+      v35 = *(&v68 + 1);
+      v36 = v69;
+      __swift_project_boxed_opaque_existential_1(&v67, *(&v68 + 1));
+      *(v29 - 1) = CVarArg.kdebugValue(_:)(v22 | v23, v35, v36);
+      *v29 = v37 & 1;
+      v29 += 16;
+      __swift_destroy_boxed_opaque_existential_1(&v67);
+      v32 += 40;
+      if (!--v33)
+      {
+        goto LABEL_19;
+      }
+    }
+
+    __break(1u);
+LABEL_39:
+    swift_once();
+  }
+
+  AGGraphClearUpdate();
+  if (one-time initialization token for symbolImage != -1)
+  {
+    swift_once();
+  }
+
+  v44 = static SummarySymbol.symbolImage;
+  v45 = v47;
+  SummarySymbol.gradient.getter(v47, &v64, a2);
+  *&v67 = v44;
+  *(&v67 + 1) = v64;
+  v68 = v65;
+  v69 = v66;
+  v70 = v45;
+
+  AGGraphSetUpdate();
+  $defer #1 <A>() in traceRuleBody<A>(_:body:)();
+  type metadata accessor for ModifiedContent<Text, _OverlayPreferenceModifier<Text.LayoutKey, ForEach<Range<Int>, Int, ModifiedContent<ModifiedContent<SummarySymbol, _ValueTransactionModifier<Double>>, _OffsetEffect>>>>(0, &lazy cache variable for type metadata for ModifiedContent<Image, _ForegroundStyleModifier2<AngularGradient, Color>>, type metadata accessor for _ForegroundStyleModifier2<AngularGradient, Color>, &type metadata for Image);
+  AGGraphSetOutputValue();
+}
+
+double specialized closure #1 in ViewBodyAccessor.updateBody(of:changed:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v53 = a4;
+  v52 = a3;
+  *(&v51 + 1) = a2;
+  *&v51 = a1;
+  v76 = *MEMORY[0x1E69E9840];
+  v4 = type metadata accessor for OSSignpostID();
+  v5 = *(v4 - 8);
+  v60 = v4;
+  v61 = v5;
+  MEMORY[0x1EEE9AC00](v4);
+  v62 = &v50[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  MEMORY[0x1EEE9AC00](v7);
+  v54 = &v50[-v8];
+  if (one-time initialization token for bodyInvoke != -1)
+  {
+    swift_once();
+  }
+
+  v9 = static Signpost.bodyInvoke;
+  v10 = word_1ED539040;
+  v11 = HIBYTE(word_1ED539040);
+  v12 = byte_1ED539042;
+  v13 = static os_signpost_type_t.begin.getter();
+  v72 = v9;
+  LOBYTE(v73) = v10;
+  BYTE1(v73) = v11;
+  BYTE2(v73) = v12;
+  if (Signpost.isEnabled.getter())
+  {
+    v63 = *(&v9 + 1);
+    LODWORD(v64) = v13;
+    static OSSignpostID.exclusive.getter();
+    type metadata accessor for TappableEventType?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<CVarArg>, &lazy cache variable for type metadata for CVarArg, MEMORY[0x1E69E7740], MEMORY[0x1E69E6F90]);
+    v14 = swift_allocObject();
+    *(v14 + 16) = xmmword_18DDAB4C0;
+    v15 = AGTypeID.description.getter();
+    v17 = v16;
+    v18 = MEMORY[0x1E69E6158];
+    *(v14 + 56) = MEMORY[0x1E69E6158];
+    lazy protocol witness table accessor for type String and conformance String();
+    v20 = v19;
+    *(v14 + 64) = v19;
+    *(v14 + 32) = v15;
+    *(v14 + 40) = v17;
+    v21 = specialized static Tracing.libraryName(defining:)();
+    *(v14 + 96) = v18;
+    *(v14 + 104) = v20;
+    *(v14 + 72) = v21;
+    *(v14 + 80) = v22;
+    v65 = v14;
+    if (one-time initialization token for _signpostLog == -1)
+    {
+      v23 = v63;
+      if (v11)
+      {
+LABEL_6:
+        v71 = v64;
+        v69 = _signpostLog;
+        v70 = &dword_18D018000;
+        *&v72 = v9;
+        *(&v72 + 1) = v23;
+        LOBYTE(v73) = v10;
+        v67[0] = "%{public}@.body [in %{public}@]";
+        v67[1] = 31;
+        v68 = 2;
+        v66 = v65;
+        v24 = v54;
+        specialized thunk for @escaping @callee_guaranteed (@unowned os_signpost_type_t, @unowned UnsafeRawPointer, @guaranteed OS_os_log, @unowned StaticString, @in_guaranteed OSSignpostID, @unowned StaticString, @guaranteed [CVarArg]) -> ()(&v71, &v70, &v69, &v72, v54, v67, &v66);
+        (*(v61 + 8))(v24, v60);
+LABEL_35:
+
+        goto LABEL_36;
+      }
+    }
+
+    else
+    {
+      swift_once();
+      v23 = v63;
+      if (v11)
+      {
+        goto LABEL_6;
+      }
+    }
+
+    if (v9 == 20)
+    {
+      v25 = 3;
+    }
+
+    else
+    {
+      v25 = 4;
+    }
+
+    v26 = bswap32(v9) | (4 * WORD1(v9));
+    v27 = v64;
+    v28 = v61 + 16;
+    v55 = *(v61 + 16);
+    v29 = v55(v62, v54, v60);
+    v30 = 0;
+    LOBYTE(v67[0]) = 1;
+    v64 = v25;
+    v61 = v28;
+    v58 = 16 * v25;
+    v59 = (v28 - 8);
+    v57 = v65 + 32;
+    v56 = v9;
+    do
+    {
+      v63 = v50;
+      MEMORY[0x1EEE9AC00](v29);
+      v32 = &v50[-((v31 + 15) & 0xFFFFFFFFFFFFFFF0)];
+      v33 = v32 + 8;
+      v34 = v64;
+      v35 = v32 + 8;
+      do
+      {
+        *(v35 - 1) = 0;
+        *v35 = 0;
+        v35 += 16;
+        --v34;
+      }
+
+      while (v34);
+      v36 = v57 + 40 * v30;
+      v37 = v64;
+      while (1)
+      {
+        v38 = *(v65 + 16);
+        if (v30 == v38)
+        {
+          break;
+        }
+
+        if (v30 >= v38)
+        {
+          __break(1u);
+        }
+
+        ++v30;
+        outlined init with copy of AnyTrackedValue(v36, &v72);
+        v39 = v74;
+        v40 = v75;
+        __swift_project_boxed_opaque_existential_1(&v72, v74);
+        *(v33 - 1) = CVarArg.kdebugValue(_:)(v26 | v27, v39, v40);
+        *v33 = v41 & 1;
+        v33 += 16;
+        __swift_destroy_boxed_opaque_existential_1(&v72);
+        v36 += 40;
+        if (!--v37)
+        {
+          goto LABEL_20;
+        }
+      }
+
+      LOBYTE(v67[0]) = 0;
+LABEL_20:
+      v42 = v56;
+      if (v56 == 20)
+      {
+        OSSignpostID.rawValue.getter();
+      }
+
+      kdebug_trace();
+      if (v32[8] == 1)
+      {
+        kdebug_trace_string();
+      }
+
+      if (v32[24] == 1)
+      {
+        kdebug_trace_string();
+      }
+
+      if (v32[40] == 1)
+      {
+        kdebug_trace_string();
+      }
+
+      if (v42 != 20 && v32[56] == 1)
+      {
+        kdebug_trace_string();
+      }
+
+      if (one-time initialization token for continuation != -1)
+      {
+        swift_once();
+      }
+
+      v43 = v60;
+      v44 = *v59;
+      v45 = v62;
+      (*v59)(v62, v60);
+      v46 = __swift_project_value_buffer(v43, static OSSignpostID.continuation);
+      v29 = v55(v45, v46, v43);
+    }
+
+    while ((v67[0] & 1) != 0);
+    v47 = v60;
+    v44(v62, v60);
+    v44(v54, v47);
+    goto LABEL_35;
+  }
+
+LABEL_36:
+  AGGraphClearUpdate();
+  v72 = v51;
+  v73 = v52;
+  v74 = v53;
+  _TestApp.RootView.body.getter(v67);
+  v48 = v67[0];
+  AGGraphSetUpdate();
+  *&v72 = v48;
+  $defer #1 <A>() in traceRuleBody<A>(_:body:)();
+  AGGraphSetOutputValue();
+
+  return result;
+}
+
+uint64_t specialized closure #1 in ViewBodyAccessor.updateBody(of:changed:)(int a1)
+{
+  v46 = a1;
+  v71 = *MEMORY[0x1E69E9840];
+  v1 = type metadata accessor for OSSignpostID();
+  v2 = *(v1 - 8);
+  v53 = v1;
+  v54 = v2;
+  MEMORY[0x1EEE9AC00](v1);
+  v55 = &v45[-((v3 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  MEMORY[0x1EEE9AC00](v4);
+  v47 = &v45[-v5];
+  if (one-time initialization token for bodyInvoke != -1)
+  {
+    goto LABEL_37;
+  }
+
+  while (1)
+  {
+    v6 = static Signpost.bodyInvoke;
+    v7 = word_1ED539040;
+    v8 = HIBYTE(word_1ED539040);
+    v9 = byte_1ED539042;
+    v10 = static os_signpost_type_t.begin.getter();
+    v65 = v6;
+    v66 = v7;
+    v67 = v8;
+    v68 = v9;
+    if ((Signpost.isEnabled.getter() & 1) == 0)
+    {
+      break;
+    }
+
+    v56 = *(&v6 + 1);
+    LODWORD(v57) = v10;
+    static OSSignpostID.exclusive.getter();
+    type metadata accessor for TappableEventType?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<CVarArg>, &lazy cache variable for type metadata for CVarArg, MEMORY[0x1E69E7740], MEMORY[0x1E69E6F90]);
+    v11 = swift_allocObject();
+    *(v11 + 16) = xmmword_18DDAB4C0;
+    v12 = AGTypeID.description.getter();
+    v14 = v13;
+    v15 = MEMORY[0x1E69E6158];
+    *(v11 + 56) = MEMORY[0x1E69E6158];
+    lazy protocol witness table accessor for type String and conformance String();
+    v17 = v16;
+    *(v11 + 64) = v16;
+    *(v11 + 32) = v12;
+    *(v11 + 40) = v14;
+    v18 = specialized static Tracing.libraryName(defining:)();
+    *(v11 + 96) = v15;
+    *(v11 + 104) = v17;
+    *(v11 + 72) = v18;
+    *(v11 + 80) = v19;
+    v58 = v11;
+    if (one-time initialization token for _signpostLog != -1)
+    {
+      swift_once();
+    }
+
+    if (v8)
+    {
+      v64 = v57;
+      v62 = _signpostLog;
+      v63 = &dword_18D018000;
+      *&v65 = v6;
+      *(&v65 + 1) = v56;
+      v66 = v7;
+      v60[0] = "%{public}@.body [in %{public}@]";
+      v60[1] = 31;
+      v61 = 2;
+      v59 = v58;
+      v20 = v47;
+      specialized thunk for @escaping @callee_guaranteed (@unowned os_signpost_type_t, @unowned UnsafeRawPointer, @guaranteed OS_os_log, @unowned StaticString, @in_guaranteed OSSignpostID, @unowned StaticString, @guaranteed [CVarArg]) -> ()(&v64, &v63, &v62, &v65, v47, v60, &v59);
+      (*(v54 + 8))(v20, v53);
+LABEL_34:
+
+      break;
+    }
+
+    if (v6 == 20)
+    {
+      v21 = 3;
+    }
+
+    else
+    {
+      v21 = 4;
+    }
+
+    v22 = bswap32(v6) | (4 * WORD1(v6));
+    v23 = v57;
+    v24 = v54 + 16;
+    v48 = *(v54 + 16);
+    v25 = v48(v55, v47, v53);
+    v26 = 0;
+    LOBYTE(v60[0]) = 1;
+    v57 = v21;
+    v54 = v24;
+    v51 = 16 * v21;
+    v52 = (v24 - 8);
+    v50 = v58 + 32;
+    v49 = v6;
+LABEL_11:
+    v56 = v45;
+    MEMORY[0x1EEE9AC00](v25);
+    v28 = &v45[-((v27 + 15) & 0xFFFFFFFFFFFFFFF0)];
+    v29 = v28 + 8;
+    v30 = v57;
+    v31 = v28 + 8;
+    do
+    {
+      *(v31 - 1) = 0;
+      *v31 = 0;
+      v31 += 16;
+      --v30;
+    }
+
+    while (v30);
+    v32 = v50 + 40 * v26;
+    v33 = v57;
+    while (1)
+    {
+      v34 = *(v58 + 16);
+      if (v26 == v34)
+      {
+        LOBYTE(v60[0]) = 0;
+LABEL_19:
+        v38 = v49;
+        if (v49 == 20)
+        {
+          OSSignpostID.rawValue.getter();
+        }
+
+        kdebug_trace();
+        if (v28[8] == 1)
+        {
+          kdebug_trace_string();
+        }
+
+        if (v28[24] == 1)
+        {
+          kdebug_trace_string();
+        }
+
+        if (v28[40] == 1)
+        {
+          kdebug_trace_string();
+        }
+
+        if (v38 != 20 && v28[56] == 1)
+        {
+          kdebug_trace_string();
+        }
+
+        if (one-time initialization token for continuation != -1)
+        {
+          swift_once();
+        }
+
+        v39 = v53;
+        v40 = *v52;
+        v41 = v55;
+        (*v52)(v55, v53);
+        v42 = __swift_project_value_buffer(v39, static OSSignpostID.continuation);
+        v25 = v48(v41, v42, v39);
+        if ((v60[0] & 1) == 0)
+        {
+          v43 = v53;
+          v40(v55, v53);
+          v40(v47, v43);
+          goto LABEL_34;
+        }
+
+        goto LABEL_11;
+      }
+
+      if (v26 >= v34)
+      {
+        break;
+      }
+
+      ++v26;
+      outlined init with copy of AnyTrackedValue(v32, &v65);
+      v35 = v69;
+      v36 = v70;
+      __swift_project_boxed_opaque_existential_1(&v65, v69);
+      *(v29 - 1) = CVarArg.kdebugValue(_:)(v22 | v23, v35, v36);
+      *v29 = v37 & 1;
+      v29 += 16;
+      __swift_destroy_boxed_opaque_existential_1(&v65);
+      v32 += 40;
+      if (!--v33)
+      {
+        goto LABEL_19;
+      }
+    }
+
+    __break(1u);
+LABEL_37:
+    swift_once();
+  }
+
+  AGGraphClearUpdate();
+  LOBYTE(v65) = v46 & 1;
+  *(&v65 + 1) = 256;
+  AGGraphSetUpdate();
+  $defer #1 <A>() in traceRuleBody<A>(_:body:)();
+  type metadata accessor for _ShapeView<Capsule, ForegroundStyle>(0);
+  return AGGraphSetOutputValue();
+}
+
+{
+  v46 = a1;
+  v71 = *MEMORY[0x1E69E9840];
+  v1 = type metadata accessor for OSSignpostID();
+  v2 = *(v1 - 8);
+  v53 = v1;
+  v54 = v2;
+  MEMORY[0x1EEE9AC00](v1);
+  v55 = &v45[-((v3 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  MEMORY[0x1EEE9AC00](v4);
+  v47 = &v45[-v5];
+  if (one-time initialization token for bodyInvoke != -1)
+  {
+    goto LABEL_37;
+  }
+
+  while (1)
+  {
+    v6 = static Signpost.bodyInvoke;
+    v7 = word_1ED539040;
+    v8 = HIBYTE(word_1ED539040);
+    v9 = byte_1ED539042;
+    v10 = static os_signpost_type_t.begin.getter();
+    v65 = v6;
+    v66 = v7;
+    v67 = v8;
+    v68 = v9;
+    if ((Signpost.isEnabled.getter() & 1) == 0)
+    {
+      break;
+    }
+
+    v56 = *(&v6 + 1);
+    LODWORD(v57) = v10;
+    static OSSignpostID.exclusive.getter();
+    type metadata accessor for TappableEventType?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<CVarArg>, &lazy cache variable for type metadata for CVarArg, MEMORY[0x1E69E7740], MEMORY[0x1E69E6F90]);
+    v11 = swift_allocObject();
+    *(v11 + 16) = xmmword_18DDAB4C0;
+    v12 = AGTypeID.description.getter();
+    v14 = v13;
+    v15 = MEMORY[0x1E69E6158];
+    *(v11 + 56) = MEMORY[0x1E69E6158];
+    lazy protocol witness table accessor for type String and conformance String();
+    v17 = v16;
+    *(v11 + 64) = v16;
+    *(v11 + 32) = v12;
+    *(v11 + 40) = v14;
+    v18 = specialized static Tracing.libraryName(defining:)();
+    *(v11 + 96) = v15;
+    *(v11 + 104) = v17;
+    *(v11 + 72) = v18;
+    *(v11 + 80) = v19;
+    v58 = v11;
+    if (one-time initialization token for _signpostLog != -1)
+    {
+      swift_once();
+    }
+
+    if (v8)
+    {
+      v64 = v57;
+      v62 = _signpostLog;
+      v63 = &dword_18D018000;
+      *&v65 = v6;
+      *(&v65 + 1) = v56;
+      v66 = v7;
+      v60[0] = "%{public}@.body [in %{public}@]";
+      v60[1] = 31;
+      v61 = 2;
+      v59 = v58;
+      v20 = v47;
+      specialized thunk for @escaping @callee_guaranteed (@unowned os_signpost_type_t, @unowned UnsafeRawPointer, @guaranteed OS_os_log, @unowned StaticString, @in_guaranteed OSSignpostID, @unowned StaticString, @guaranteed [CVarArg]) -> ()(&v64, &v63, &v62, &v65, v47, v60, &v59);
+      (*(v54 + 8))(v20, v53);
+LABEL_34:
+
+      break;
+    }
+
+    if (v6 == 20)
+    {
+      v21 = 3;
+    }
+
+    else
+    {
+      v21 = 4;
+    }
+
+    v22 = bswap32(v6) | (4 * WORD1(v6));
+    v23 = v57;
+    v24 = v54 + 16;
+    v48 = *(v54 + 16);
+    v25 = v48(v55, v47, v53);
+    v26 = 0;
+    LOBYTE(v60[0]) = 1;
+    v57 = v21;
+    v54 = v24;
+    v51 = 16 * v21;
+    v52 = (v24 - 8);
+    v50 = v58 + 32;
+    v49 = v6;
+LABEL_11:
+    v56 = v45;
+    MEMORY[0x1EEE9AC00](v25);
+    v28 = &v45[-((v27 + 15) & 0xFFFFFFFFFFFFFFF0)];
+    v29 = v28 + 8;
+    v30 = v57;
+    v31 = v28 + 8;
+    do
+    {
+      *(v31 - 1) = 0;
+      *v31 = 0;
+      v31 += 16;
+      --v30;
+    }
+
+    while (v30);
+    v32 = v50 + 40 * v26;
+    v33 = v57;
+    while (1)
+    {
+      v34 = *(v58 + 16);
+      if (v26 == v34)
+      {
+        LOBYTE(v60[0]) = 0;
+LABEL_19:
+        v38 = v49;
+        if (v49 == 20)
+        {
+          OSSignpostID.rawValue.getter();
+        }
+
+        kdebug_trace();
+        if (v28[8] == 1)
+        {
+          kdebug_trace_string();
+        }
+
+        if (v28[24] == 1)
+        {
+          kdebug_trace_string();
+        }
+
+        if (v28[40] == 1)
+        {
+          kdebug_trace_string();
+        }
+
+        if (v38 != 20 && v28[56] == 1)
+        {
+          kdebug_trace_string();
+        }
+
+        if (one-time initialization token for continuation != -1)
+        {
+          swift_once();
+        }
+
+        v39 = v53;
+        v40 = *v52;
+        v41 = v55;
+        (*v52)(v55, v53);
+        v42 = __swift_project_value_buffer(v39, static OSSignpostID.continuation);
+        v25 = v48(v41, v42, v39);
+        if ((v60[0] & 1) == 0)
+        {
+          v43 = v53;
+          v40(v55, v53);
+          v40(v47, v43);
+          goto LABEL_34;
+        }
+
+        goto LABEL_11;
+      }
+
+      if (v26 >= v34)
+      {
+        break;
+      }
+
+      ++v26;
+      outlined init with copy of AnyTrackedValue(v32, &v65);
+      v35 = v69;
+      v36 = v70;
+      __swift_project_boxed_opaque_existential_1(&v65, v69);
+      *(v29 - 1) = CVarArg.kdebugValue(_:)(v22 | v23, v35, v36);
+      *v29 = v37 & 1;
+      v29 += 16;
+      __swift_destroy_boxed_opaque_existential_1(&v65);
+      v32 += 40;
+      if (!--v33)
+      {
+        goto LABEL_19;
+      }
+    }
+
+    __break(1u);
+LABEL_37:
+    swift_once();
+  }
+
+  AGGraphClearUpdate();
+  LOBYTE(v65) = v46 & 1;
+  *(&v65 + 1) = 256;
+  AGGraphSetUpdate();
+  $defer #1 <A>() in traceRuleBody<A>(_:body:)();
+  type metadata accessor for _ShapeView<DefaultGlassEffectShape, ForegroundStyle>(0);
   return AGGraphSetOutputValue();
 }
 
 uint64_t specialized closure #1 in ViewBodyAccessor.updateBody(of:changed:)(_OWORD *a1)
 {
+  v94 = *MEMORY[0x1E69E9840];
+  v2 = type metadata accessor for OSSignpostID();
+  v3 = *(v2 - 8);
+  v65 = v2;
+  v66 = v3;
+  MEMORY[0x1EEE9AC00](v2);
+  v67 = &v58 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v5);
+  v7 = &v58 - v6;
+  if (one-time initialization token for bodyInvoke != -1)
+  {
+    swift_once();
+  }
+
+  v8 = static Signpost.bodyInvoke;
+  v9 = word_1ED539040;
+  v10 = HIBYTE(word_1ED539040);
+  v11 = byte_1ED539042;
+  v12 = static os_signpost_type_t.begin.getter();
+  v71 = v8;
+  v78 = v8;
+  LODWORD(v69) = v9;
+  LOBYTE(v79) = v9;
+  BYTE1(v79) = v10;
+  BYTE2(v79) = v11;
+  if (Signpost.isEnabled.getter())
+  {
+    v64 = *(&v8 + 1);
+    LODWORD(v68) = v12;
+    v58 = a1;
+    v59 = v7;
+    static OSSignpostID.exclusive.getter();
+    type metadata accessor for TappableEventType?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<CVarArg>, &lazy cache variable for type metadata for CVarArg, MEMORY[0x1E69E7740], MEMORY[0x1E69E6F90]);
+    v13 = swift_allocObject();
+    *(v13 + 16) = xmmword_18DDAB4C0;
+    v14 = AGTypeID.description.getter();
+    v16 = v15;
+    v17 = MEMORY[0x1E69E6158];
+    *(v13 + 56) = MEMORY[0x1E69E6158];
+    lazy protocol witness table accessor for type String and conformance String();
+    v19 = v18;
+    *(v13 + 64) = v18;
+    *(v13 + 32) = v14;
+    *(v13 + 40) = v16;
+    v20 = specialized static Tracing.libraryName(defining:)();
+    *(v13 + 96) = v17;
+    *(v13 + 104) = v19;
+    *(v13 + 72) = v20;
+    *(v13 + 80) = v21;
+    v70 = v13;
+    if (one-time initialization token for _signpostLog == -1)
+    {
+      v22 = v64;
+      if (v10)
+      {
+LABEL_6:
+        v77 = v68;
+        v75 = _signpostLog;
+        v76 = &dword_18D018000;
+        *&v78 = v71;
+        *(&v78 + 1) = v22;
+        LOBYTE(v79) = v69;
+        v73[0] = "%{public}@.body [in %{public}@]";
+        v73[1] = 31;
+        v74 = 2;
+        v72 = v70;
+        v23 = v59;
+        specialized thunk for @escaping @callee_guaranteed (@unowned os_signpost_type_t, @unowned UnsafeRawPointer, @guaranteed OS_os_log, @unowned StaticString, @in_guaranteed OSSignpostID, @unowned StaticString, @guaranteed [CVarArg]) -> ()(&v77, &v76, &v75, &v78, v59, v73, &v72);
+        (*(v66 + 8))(v23, v65);
+LABEL_35:
+
+        a1 = v58;
+        goto LABEL_36;
+      }
+    }
+
+    else
+    {
+      swift_once();
+      v22 = v64;
+      if (v10)
+      {
+        goto LABEL_6;
+      }
+    }
+
+    v24 = v71;
+    if (v71 == 20)
+    {
+      v25 = 3;
+    }
+
+    else
+    {
+      v25 = 4;
+    }
+
+    v26 = bswap32(v71) | (4 * WORD1(v71));
+    LODWORD(v71) = v68;
+    v27 = v66 + 16;
+    v60 = *(v66 + 16);
+    v28 = v60(v67, v59, v65);
+    v29 = 0;
+    LOBYTE(v73[0]) = 1;
+    v69 = v25;
+    v66 = v27;
+    v63 = 16 * v25;
+    v64 = (v27 - 8);
+    v61 = v24;
+    v62 = v70 + 32;
+    do
+    {
+      v68 = &v58;
+      MEMORY[0x1EEE9AC00](v28);
+      v31 = &v58 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v32 = v31 + 8;
+      v33 = v69;
+      v34 = v31 + 8;
+      do
+      {
+        *(v34 - 1) = 0;
+        *v34 = 0;
+        v34 += 16;
+        --v33;
+      }
+
+      while (v33);
+      v35 = v62 + 40 * v29;
+      v36 = v69;
+      while (1)
+      {
+        v37 = *(v70 + 16);
+        if (v29 == v37)
+        {
+          break;
+        }
+
+        if (v29 >= v37)
+        {
+          __break(1u);
+        }
+
+        ++v29;
+        outlined init with copy of AnyTrackedValue(v35, &v78);
+        v38 = *(&v79 + 1);
+        v39 = v80;
+        __swift_project_boxed_opaque_existential_1(&v78, *(&v79 + 1));
+        *(v32 - 1) = CVarArg.kdebugValue(_:)(v26 | v71, v38, v39);
+        *v32 = v40 & 1;
+        v32 += 16;
+        __swift_destroy_boxed_opaque_existential_1(&v78);
+        v35 += 40;
+        if (!--v36)
+        {
+          goto LABEL_20;
+        }
+      }
+
+      LOBYTE(v73[0]) = 0;
+LABEL_20:
+      v41 = v61;
+      if (v61 == 20)
+      {
+        OSSignpostID.rawValue.getter();
+      }
+
+      kdebug_trace();
+      if (v31[8] == 1)
+      {
+        kdebug_trace_string();
+      }
+
+      if (v31[24] == 1)
+      {
+        kdebug_trace_string();
+      }
+
+      if (v31[40] == 1)
+      {
+        kdebug_trace_string();
+      }
+
+      if (v41 != 20 && v31[56] == 1)
+      {
+        kdebug_trace_string();
+      }
+
+      if (one-time initialization token for continuation != -1)
+      {
+        swift_once();
+      }
+
+      v42 = v65;
+      v43 = *v64;
+      v44 = v67;
+      (*v64)(v67, v65);
+      v45 = __swift_project_value_buffer(v42, static OSSignpostID.continuation);
+      v28 = v60(v44, v45, v42);
+    }
+
+    while ((v73[0] & 1) != 0);
+    v46 = v65;
+    v43(v67, v65);
+    v43(v59, v46);
+    goto LABEL_35;
+  }
+
+LABEL_36:
+  AGGraphClearUpdate();
+  v47 = a1[12];
+  v48 = a1[13];
+  v49 = a1[10];
+  v89 = a1[11];
+  v90 = v47;
+  v50 = a1[14];
+  v91 = v48;
+  v92 = v50;
+  v51 = a1[8];
+  v52 = a1[9];
+  v53 = a1[6];
+  v85 = a1[7];
+  v86 = v51;
+  v87 = v52;
+  v88 = v49;
+  v54 = a1[4];
+  v83 = a1[5];
+  v84 = v53;
+  v55 = a1[1];
+  v78 = *a1;
+  v79 = v55;
+  v56 = a1[2];
+  v81 = a1[3];
+  v82 = v54;
+  v80 = v56;
+  v93 = 256;
+  AGGraphSetUpdate();
+  $defer #1 <A>() in traceRuleBody<A>(_:body:)();
+  type metadata accessor for _ShapeView<PartialContainerRelativeShape, ForegroundStyle>(0);
+  return AGGraphSetOutputValue();
+}
+
+uint64_t specialized closure #1 in ViewBodyAccessor.updateBody(of:changed:)(__int128 *a1)
+{
   v45 = a1;
-  v70 = *MEMORY[0x1E69E9840];
+  v68 = *MEMORY[0x1E69E9840];
   v52 = type metadata accessor for OSSignpostID();
   v53 = *(v52 - 8);
   MEMORY[0x1EEE9AC00](v52);
@@ -7880,10 +3095,10 @@ uint64_t specialized closure #1 in ViewBodyAccessor.updateBody(of:changed:)(_OWO
     v6 = HIBYTE(word_1ED539040);
     v7 = byte_1ED539042;
     v8 = static os_signpost_type_t.begin.getter();
-    v65 = v4;
-    v66 = v5;
-    v67 = v6;
-    v68 = v7;
+    v64 = v4;
+    LOBYTE(v65) = v5;
+    BYTE1(v65) = v6;
+    BYTE2(v65) = v7;
     if ((Signpost.isEnabled.getter() & 1) == 0)
     {
       break;
@@ -7899,15 +3114,16 @@ uint64_t specialized closure #1 in ViewBodyAccessor.updateBody(of:changed:)(_OWO
     v12 = v11;
     v13 = MEMORY[0x1E69E6158];
     *(v9 + 56) = MEMORY[0x1E69E6158];
-    v14 = lazy protocol witness table accessor for type String and conformance String();
+    lazy protocol witness table accessor for type String and conformance String();
+    v15 = v14;
     *(v9 + 64) = v14;
     *(v9 + 32) = v10;
     *(v9 + 40) = v12;
-    v15 = specialized static Tracing.libraryName(defining:)();
+    v16 = specialized static Tracing.libraryName(defining:)();
     *(v9 + 96) = v13;
-    *(v9 + 104) = v14;
-    *(v9 + 72) = v15;
-    *(v9 + 80) = v16;
+    *(v9 + 104) = v15;
+    *(v9 + 72) = v16;
+    *(v9 + 80) = v17;
     v57 = v9;
     if (one-time initialization token for _signpostLog != -1)
     {
@@ -7916,19 +3132,19 @@ uint64_t specialized closure #1 in ViewBodyAccessor.updateBody(of:changed:)(_OWO
 
     if (v6)
     {
-      v64 = v56;
-      v62 = _signpostLog;
-      v63 = &dword_18D018000;
-      *&v65 = v4;
-      *(&v65 + 1) = v55;
-      v66 = v5;
-      v59 = "%{public}@.body [in %{public}@]";
-      v60 = 31;
-      v61 = 2;
+      v63 = v56;
+      v61 = _signpostLog;
+      v62 = &dword_18D018000;
+      *&v64 = v4;
+      *(&v64 + 1) = v55;
+      LOBYTE(v65) = v5;
+      v59[0] = "%{public}@.body [in %{public}@]";
+      v59[1] = 31;
+      v60 = 2;
       v58 = v57;
-      v17 = v46;
-      specialized thunk for @escaping @callee_guaranteed (@unowned os_signpost_type_t, @unowned UnsafeRawPointer, @guaranteed OS_os_log, @unowned StaticString, @in_guaranteed OSSignpostID, @unowned StaticString, @guaranteed [CVarArg]) -> ()();
-      (*(v53 + 8))(v17, v52);
+      v18 = v46;
+      specialized thunk for @escaping @callee_guaranteed (@unowned os_signpost_type_t, @unowned UnsafeRawPointer, @guaranteed OS_os_log, @unowned StaticString, @in_guaranteed OSSignpostID, @unowned StaticString, @guaranteed [CVarArg]) -> ()(&v63, &v62, &v61, &v64, v46, v59, &v58);
+      (*(v53 + 8))(v18, v52);
 LABEL_34:
 
       break;
@@ -7936,75 +3152,75 @@ LABEL_34:
 
     if (v4 == 20)
     {
-      v18 = 3;
+      v19 = 3;
     }
 
     else
     {
-      v18 = 4;
+      v19 = 4;
     }
 
-    v19 = bswap32(v4) | (4 * WORD1(v4));
-    v20 = v56;
-    v21 = v53 + 16;
+    v20 = bswap32(v4) | (4 * WORD1(v4));
+    v21 = v56;
+    v22 = v53 + 16;
     v47 = *(v53 + 16);
-    v22 = v47(v54, v46, v52);
-    v23 = 0;
-    LOBYTE(v59) = 1;
-    v56 = v18;
-    v50 = 16 * v18;
-    v53 = v21;
-    v51 = (v21 - 8);
+    v23 = v47(v54, v46, v52);
+    v24 = 0;
+    LOBYTE(v59[0]) = 1;
+    v56 = v19;
+    v50 = 16 * v19;
+    v53 = v22;
+    v51 = (v22 - 8);
     v49 = v57 + 32;
     v48 = v4;
 LABEL_11:
     v55 = v44;
-    MEMORY[0x1EEE9AC00](v22);
-    v25 = &v44[-((v24 + 15) & 0xFFFFFFFFFFFFFFF0)];
-    v26 = v25 + 8;
-    v27 = v56;
-    v28 = v25 + 8;
+    MEMORY[0x1EEE9AC00](v23);
+    v26 = &v44[-((v25 + 15) & 0xFFFFFFFFFFFFFFF0)];
+    v27 = v26 + 8;
+    v28 = v56;
+    v29 = v26 + 8;
     do
     {
-      *(v28 - 1) = 0;
-      *v28 = 0;
-      v28 += 16;
-      --v27;
+      *(v29 - 1) = 0;
+      *v29 = 0;
+      v29 += 16;
+      --v28;
     }
 
-    while (v27);
-    v29 = v49 + 40 * v23;
-    v30 = v56;
+    while (v28);
+    v30 = v49 + 40 * v24;
+    v31 = v56;
     while (1)
     {
-      v31 = *(v57 + 16);
-      if (v23 == v31)
+      v32 = *(v57 + 16);
+      if (v24 == v32)
       {
-        LOBYTE(v59) = 0;
+        LOBYTE(v59[0]) = 0;
 LABEL_19:
-        v34 = v48;
+        v36 = v48;
         if (v48 == 20)
         {
           OSSignpostID.rawValue.getter();
         }
 
         kdebug_trace();
-        if (v25[8] == 1)
+        if (v26[8] == 1)
         {
           kdebug_trace_string();
         }
 
-        if (v25[24] == 1)
+        if (v26[24] == 1)
         {
           kdebug_trace_string();
         }
 
-        if (v25[40] == 1)
+        if (v26[40] == 1)
         {
           kdebug_trace_string();
         }
 
-        if (v34 != 20 && v25[56] == 1)
+        if (v36 != 20 && v26[56] == 1)
         {
           kdebug_trace_string();
         }
@@ -8014,38 +3230,39 @@ LABEL_19:
           swift_once();
         }
 
-        v35 = *v51;
-        v36 = v54;
-        v37 = v52;
+        v37 = *v51;
+        v38 = v54;
+        v39 = v52;
         (*v51)(v54, v52);
-        v38 = __swift_project_value_buffer(v37, static OSSignpostID.continuation);
-        v22 = v47(v36, v38, v37);
-        if ((v59 & 1) == 0)
+        v40 = __swift_project_value_buffer(v39, static OSSignpostID.continuation);
+        v23 = v47(v38, v40, v39);
+        if ((v59[0] & 1) == 0)
         {
-          v39 = v52;
-          v35(v54, v52);
-          v35(v46, v39);
+          v41 = v52;
+          v37(v54, v52);
+          v37(v46, v41);
           goto LABEL_34;
         }
 
         goto LABEL_11;
       }
 
-      if (v23 >= v31)
+      if (v24 >= v32)
       {
         break;
       }
 
-      ++v23;
-      outlined init with copy of AnyTrackedValue(v29, &v65);
-      v32 = v69;
-      __swift_project_boxed_opaque_existential_1(&v65, v69);
-      *(v26 - 1) = CVarArg.kdebugValue(_:)(v19 | v20, v32);
-      *v26 = v33 & 1;
-      v26 += 16;
-      __swift_destroy_boxed_opaque_existential_1(&v65);
-      v29 += 40;
-      if (!--v30)
+      ++v24;
+      outlined init with copy of AnyTrackedValue(v30, &v64);
+      v33 = *(&v65 + 1);
+      v34 = v66;
+      __swift_project_boxed_opaque_existential_1(&v64, *(&v65 + 1));
+      *(v27 - 1) = CVarArg.kdebugValue(_:)(v20 | v21, v33, v34);
+      *v27 = v35 & 1;
+      v27 += 16;
+      __swift_destroy_boxed_opaque_existential_1(&v64);
+      v30 += 40;
+      if (!--v31)
       {
         goto LABEL_19;
       }
@@ -8057,994 +3274,96 @@ LABEL_37:
   }
 
   AGGraphClearUpdate();
-  v40 = swift_allocObject();
-  v41 = v45;
   v42 = v45[1];
-  v40[1] = *v45;
-  v40[2] = v42;
-  v40[3] = *(v41 + 32);
-  *(v40 + 57) = *(v41 + 41);
-  outlined init with copy of UncheckedSendable<GlassEffectShapeModifier>(v41, &v65, &lazy cache variable for type metadata for UncheckedSendable<_GlassContainerStorageView>, &type metadata for _GlassContainerStorageView, type metadata accessor for UncheckedSendable);
-  AGGraphSetUpdate();
-  *&v65 = partial apply for closure #1 in _GlassContainerStorageView.body.getter;
-  *(&v65 + 1) = v40;
-  $defer #1 <A>() in traceRuleBody<A>(_:body:)();
-  type metadata accessor for ModifiedContent<_VariadicView.Tree<_LayoutRoot<GlassEntryLayout>, ForEach<[GlassContainer.Item], GlassContainer.Item.ID, GlassItemView>>, GlassEffectShapeModifier>(0, &lazy cache variable for type metadata for ModifiedContent<GeometryReader<ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>>, _GeometryGroupEffect>, type metadata accessor for GeometryReader<ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>>, &type metadata for _GeometryGroupEffect, type metadata accessor for ModifiedContent);
-  AGGraphSetOutputValue();
-}
-
-{
-  v93 = *MEMORY[0x1E69E9840];
-  v2 = type metadata accessor for OSSignpostID();
-  v3 = *(v2 - 8);
-  v63 = v2;
-  v64 = v3;
-  MEMORY[0x1EEE9AC00](v2);
-  v65 = &v56 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v5);
-  v7 = &v56 - v6;
-  if (one-time initialization token for bodyInvoke != -1)
-  {
-    swift_once();
-  }
-
-  v8 = static Signpost.bodyInvoke;
-  v9 = word_1ED539040;
-  v10 = HIBYTE(word_1ED539040);
-  v11 = byte_1ED539042;
-  v12 = static os_signpost_type_t.begin.getter();
-  v69 = v8;
-  v77 = v8;
-  LODWORD(v67) = v9;
-  LOBYTE(v78) = v9;
-  BYTE1(v78) = v10;
-  BYTE2(v78) = v11;
-  if (Signpost.isEnabled.getter())
-  {
-    v62 = *(&v8 + 1);
-    LODWORD(v66) = v12;
-    v56 = a1;
-    v57 = v7;
-    static OSSignpostID.exclusive.getter();
-    type metadata accessor for TappableEventType?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<CVarArg>, &lazy cache variable for type metadata for CVarArg, MEMORY[0x1E69E7740], MEMORY[0x1E69E6F90]);
-    v13 = swift_allocObject();
-    *(v13 + 16) = xmmword_18DDAB4C0;
-    v14 = AGTypeID.description.getter();
-    v16 = v15;
-    v17 = MEMORY[0x1E69E6158];
-    *(v13 + 56) = MEMORY[0x1E69E6158];
-    v18 = lazy protocol witness table accessor for type String and conformance String();
-    *(v13 + 64) = v18;
-    *(v13 + 32) = v14;
-    *(v13 + 40) = v16;
-    v19 = specialized static Tracing.libraryName(defining:)();
-    *(v13 + 96) = v17;
-    *(v13 + 104) = v18;
-    *(v13 + 72) = v19;
-    *(v13 + 80) = v20;
-    v68 = v13;
-    if (one-time initialization token for _signpostLog == -1)
-    {
-      v21 = v62;
-      if (v10)
-      {
-LABEL_6:
-        v76 = v66;
-        v74 = _signpostLog;
-        v75 = &dword_18D018000;
-        *&v77 = v69;
-        *(&v77 + 1) = v21;
-        LOBYTE(v78) = v67;
-        v71 = "%{public}@.body [in %{public}@]";
-        v72 = 31;
-        v73 = 2;
-        v70 = v68;
-        v22 = v57;
-        specialized thunk for @escaping @callee_guaranteed (@unowned os_signpost_type_t, @unowned UnsafeRawPointer, @guaranteed OS_os_log, @unowned StaticString, @in_guaranteed OSSignpostID, @unowned StaticString, @guaranteed [CVarArg]) -> ()();
-        (*(v64 + 8))(v22, v63);
-LABEL_35:
-
-        a1 = v56;
-        goto LABEL_36;
-      }
-    }
-
-    else
-    {
-      swift_once();
-      v21 = v62;
-      if (v10)
-      {
-        goto LABEL_6;
-      }
-    }
-
-    v23 = v69;
-    if (v69 == 20)
-    {
-      v24 = 3;
-    }
-
-    else
-    {
-      v24 = 4;
-    }
-
-    v25 = bswap32(v69) | (4 * WORD1(v69));
-    LODWORD(v69) = v66;
-    v26 = v64 + 16;
-    v58 = *(v64 + 16);
-    v27 = v58(v65, v57, v63);
-    v28 = 0;
-    LOBYTE(v71) = 1;
-    v67 = v24;
-    v64 = v26;
-    v61 = 16 * v24;
-    v62 = (v26 - 8);
-    v59 = v23;
-    v60 = v68 + 32;
-    do
-    {
-      v66 = &v56;
-      MEMORY[0x1EEE9AC00](v27);
-      v30 = &v56 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
-      v31 = v30 + 8;
-      v32 = v67;
-      v33 = v30 + 8;
-      do
-      {
-        *(v33 - 1) = 0;
-        *v33 = 0;
-        v33 += 16;
-        --v32;
-      }
-
-      while (v32);
-      v34 = v60 + 40 * v28;
-      v35 = v67;
-      while (1)
-      {
-        v36 = *(v68 + 16);
-        if (v28 == v36)
-        {
-          break;
-        }
-
-        if (v28 >= v36)
-        {
-          __break(1u);
-        }
-
-        ++v28;
-        outlined init with copy of AnyTrackedValue(v34, &v77);
-        v37 = *(&v78 + 1);
-        __swift_project_boxed_opaque_existential_1(&v77, *(&v78 + 1));
-        *(v31 - 1) = CVarArg.kdebugValue(_:)(v25 | v69, v37);
-        *v31 = v38 & 1;
-        v31 += 16;
-        __swift_destroy_boxed_opaque_existential_1(&v77);
-        v34 += 40;
-        if (!--v35)
-        {
-          goto LABEL_20;
-        }
-      }
-
-      LOBYTE(v71) = 0;
-LABEL_20:
-      v39 = v59;
-      if (v59 == 20)
-      {
-        OSSignpostID.rawValue.getter();
-      }
-
-      kdebug_trace();
-      if (v30[8] == 1)
-      {
-        kdebug_trace_string();
-      }
-
-      if (v30[24] == 1)
-      {
-        kdebug_trace_string();
-      }
-
-      if (v30[40] == 1)
-      {
-        kdebug_trace_string();
-      }
-
-      if (v39 != 20 && v30[56] == 1)
-      {
-        kdebug_trace_string();
-      }
-
-      if (one-time initialization token for continuation != -1)
-      {
-        swift_once();
-      }
-
-      v40 = v63;
-      v41 = *v62;
-      v42 = v65;
-      (*v62)(v65, v63);
-      v43 = __swift_project_value_buffer(v40, static OSSignpostID.continuation);
-      v27 = v58(v42, v43, v40);
-    }
-
-    while ((v71 & 1) != 0);
-    v44 = v63;
-    v41(v65, v63);
-    v41(v57, v44);
-    goto LABEL_35;
-  }
-
-LABEL_36:
-  AGGraphClearUpdate();
-  v45 = a1[12];
-  v46 = a1[13];
-  v47 = a1[10];
-  v88 = a1[11];
-  v89 = v45;
-  v48 = a1[14];
-  v90 = v46;
-  v91 = v48;
-  v49 = a1[8];
-  v50 = a1[9];
-  v51 = a1[6];
-  v84 = a1[7];
-  v85 = v49;
-  v86 = v50;
-  v87 = v47;
-  v52 = a1[4];
-  v82 = a1[5];
-  v83 = v51;
-  v53 = a1[1];
-  v77 = *a1;
-  v78 = v53;
-  v54 = a1[2];
-  v80 = a1[3];
-  v81 = v52;
-  v79 = v54;
-  v92 = 256;
+  v64 = *v45;
+  v65 = v42;
+  v66 = v45[2];
+  v67 = 256;
   AGGraphSetUpdate();
   $defer #1 <A>() in traceRuleBody<A>(_:body:)();
-  type metadata accessor for _ShapeView<PartialContainerRelativeShape, ForegroundStyle>();
+  type metadata accessor for _ShapeView<UnevenRoundedRectangle._Inset, ForegroundStyle>(0);
   return AGGraphSetOutputValue();
 }
 
-uint64_t specialized closure #1 in ViewBodyAccessor.updateBody(of:changed:)(const void *a1)
+uint64_t specialized closure #1 in ViewBodyAccessor.updateBody(of:changed:)()
 {
-  v73 = *MEMORY[0x1E69E9840];
-  v2 = type metadata accessor for OSSignpostID();
-  v3 = *(v2 - 8);
-  v54 = v2;
-  v55 = v3;
-  MEMORY[0x1EEE9AC00](v2);
-  v56 = &v47 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v5);
-  v7 = &v47 - v6;
+  v68 = *MEMORY[0x1E69E9840];
+  v0 = type metadata accessor for OSSignpostID();
+  v1 = *(v0 - 8);
+  v51 = v0;
+  v52 = v1;
+  MEMORY[0x1EEE9AC00](v0);
+  v53 = &v43[-((v2 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  MEMORY[0x1EEE9AC00](v3);
+  v44 = &v43[-v4];
   if (one-time initialization token for bodyInvoke != -1)
   {
-    swift_once();
-  }
-
-  v8 = static Signpost.bodyInvoke;
-  v9 = word_1ED539040;
-  v10 = HIBYTE(word_1ED539040);
-  v11 = byte_1ED539042;
-  v12 = static os_signpost_type_t.begin.getter();
-  v60 = v8;
-  v68 = v8;
-  LODWORD(v58) = v9;
-  v69 = v9;
-  v70 = v10;
-  v71 = v11;
-  if (Signpost.isEnabled.getter())
-  {
-    v53 = *(&v8 + 1);
-    LODWORD(v57) = v12;
-    v47 = a1;
-    v48 = v7;
-    static OSSignpostID.exclusive.getter();
-    type metadata accessor for TappableEventType?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<CVarArg>, &lazy cache variable for type metadata for CVarArg, MEMORY[0x1E69E7740], MEMORY[0x1E69E6F90]);
-    v13 = swift_allocObject();
-    *(v13 + 16) = xmmword_18DDAB4C0;
-    v14 = AGTypeID.description.getter();
-    v16 = v15;
-    v17 = MEMORY[0x1E69E6158];
-    *(v13 + 56) = MEMORY[0x1E69E6158];
-    v18 = lazy protocol witness table accessor for type String and conformance String();
-    *(v13 + 64) = v18;
-    *(v13 + 32) = v14;
-    *(v13 + 40) = v16;
-    v19 = specialized static Tracing.libraryName(defining:)();
-    *(v13 + 96) = v17;
-    *(v13 + 104) = v18;
-    *(v13 + 72) = v19;
-    *(v13 + 80) = v20;
-    v59 = v13;
-    if (one-time initialization token for _signpostLog == -1)
-    {
-      v21 = v53;
-      if (v10)
-      {
-LABEL_6:
-        v67 = v57;
-        v65 = _signpostLog;
-        v66 = &dword_18D018000;
-        *&v68 = v60;
-        *(&v68 + 1) = v21;
-        v69 = v58;
-        v62 = "%{public}@.body [in %{public}@]";
-        v63 = 31;
-        v64 = 2;
-        v61 = v59;
-        v22 = v48;
-        specialized thunk for @escaping @callee_guaranteed (@unowned os_signpost_type_t, @unowned UnsafeRawPointer, @guaranteed OS_os_log, @unowned StaticString, @in_guaranteed OSSignpostID, @unowned StaticString, @guaranteed [CVarArg]) -> ()();
-        (*(v55 + 8))(v22, v54);
-LABEL_35:
-
-        a1 = v47;
-        goto LABEL_36;
-      }
-    }
-
-    else
-    {
-      swift_once();
-      v21 = v53;
-      if (v10)
-      {
-        goto LABEL_6;
-      }
-    }
-
-    v23 = v60;
-    if (v60 == 20)
-    {
-      v24 = 3;
-    }
-
-    else
-    {
-      v24 = 4;
-    }
-
-    v25 = bswap32(v60) | (4 * WORD1(v60));
-    LODWORD(v60) = v57;
-    v26 = v55 + 16;
-    v49 = *(v55 + 16);
-    v27 = v49(v56, v48, v54);
-    v28 = 0;
-    LOBYTE(v62) = 1;
-    v58 = v24;
-    v55 = v26;
-    v52 = 16 * v24;
-    v53 = (v26 - 8);
-    v50 = v23;
-    v51 = v59 + 32;
-    do
-    {
-      v57 = &v47;
-      MEMORY[0x1EEE9AC00](v27);
-      v30 = &v47 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
-      v31 = v30 + 8;
-      v32 = v58;
-      v33 = v30 + 8;
-      do
-      {
-        *(v33 - 1) = 0;
-        *v33 = 0;
-        v33 += 16;
-        --v32;
-      }
-
-      while (v32);
-      v34 = v51 + 40 * v28;
-      v35 = v58;
-      while (1)
-      {
-        v36 = *(v59 + 16);
-        if (v28 == v36)
-        {
-          break;
-        }
-
-        if (v28 >= v36)
-        {
-          __break(1u);
-        }
-
-        ++v28;
-        outlined init with copy of AnyTrackedValue(v34, &v68);
-        v37 = v72;
-        __swift_project_boxed_opaque_existential_1(&v68, v72);
-        *(v31 - 1) = CVarArg.kdebugValue(_:)(v25 | v60, v37);
-        *v31 = v38 & 1;
-        v31 += 16;
-        __swift_destroy_boxed_opaque_existential_1(&v68);
-        v34 += 40;
-        if (!--v35)
-        {
-          goto LABEL_20;
-        }
-      }
-
-      LOBYTE(v62) = 0;
-LABEL_20:
-      v39 = v50;
-      if (v50 == 20)
-      {
-        OSSignpostID.rawValue.getter();
-      }
-
-      kdebug_trace();
-      if (v30[8] == 1)
-      {
-        kdebug_trace_string();
-      }
-
-      if (v30[24] == 1)
-      {
-        kdebug_trace_string();
-      }
-
-      if (v30[40] == 1)
-      {
-        kdebug_trace_string();
-      }
-
-      if (v39 != 20 && v30[56] == 1)
-      {
-        kdebug_trace_string();
-      }
-
-      if (one-time initialization token for continuation != -1)
-      {
-        swift_once();
-      }
-
-      v40 = v54;
-      v41 = *v53;
-      v42 = v56;
-      (*v53)(v56, v54);
-      v43 = __swift_project_value_buffer(v40, static OSSignpostID.continuation);
-      v27 = v49(v42, v43, v40);
-    }
-
-    while ((v62 & 1) != 0);
-    v44 = v54;
-    v41(v56, v54);
-    v41(v48, v44);
-    goto LABEL_35;
-  }
-
-LABEL_36:
-  AGGraphClearUpdate();
-  v45 = swift_allocObject();
-  memcpy((v45 + 16), a1, 0x230uLL);
-  outlined init with copy of UncheckedSendable<GlassEffectShapeModifier>(a1, &v68, &lazy cache variable for type metadata for UncheckedSendable<GlassEntryContainerView>, &type metadata for GlassEntryContainerView, type metadata accessor for UncheckedSendable);
-  AGGraphSetUpdate();
-  *&v68 = partial apply for closure #1 in GlassEntryContainerView.body.getter;
-  *(&v68 + 1) = v45;
-  $defer #1 <A>() in traceRuleBody<A>(_:body:)();
-  type metadata accessor for ViewLayoutEngine<GeometryReaderLayout>(0, &lazy cache variable for type metadata for GeometryReader<GlassEntryView>, lazy protocol witness table accessor for type GlassEntryView and conformance GlassEntryView, &type metadata for GlassEntryView, type metadata accessor for GeometryReader);
-  AGGraphSetOutputValue();
-}
-
-{
-  v67 = *MEMORY[0x1E69E9840];
-  v2 = type metadata accessor for OSSignpostID();
-  v3 = *(v2 - 8);
-  v54 = v2;
-  v55 = v3;
-  MEMORY[0x1EEE9AC00](v2);
-  v56 = &v46 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v5);
-  v7 = &v46 - v6;
-  if (one-time initialization token for bodyInvoke != -1)
-  {
-    swift_once();
-  }
-
-  v8 = static Signpost.bodyInvoke;
-  v9 = word_1ED539040;
-  v10 = HIBYTE(word_1ED539040);
-  v11 = byte_1ED539042;
-  v12 = static os_signpost_type_t.begin.getter();
-  v60 = v8;
-  *v66 = v8;
-  LODWORD(v58) = v9;
-  v66[16] = v9;
-  v66[17] = v10;
-  v66[18] = v11;
-  if (Signpost.isEnabled.getter())
-  {
-    v53 = *(&v8 + 1);
-    LODWORD(v57) = v12;
-    v47 = a1;
-    v48 = v7;
-    static OSSignpostID.exclusive.getter();
-    type metadata accessor for TappableEventType?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<CVarArg>, &lazy cache variable for type metadata for CVarArg, MEMORY[0x1E69E7740], MEMORY[0x1E69E6F90]);
-    v13 = swift_allocObject();
-    *(v13 + 16) = xmmword_18DDAB4C0;
-    v14 = AGTypeID.description.getter();
-    v16 = v15;
-    v17 = MEMORY[0x1E69E6158];
-    *(v13 + 56) = MEMORY[0x1E69E6158];
-    v18 = lazy protocol witness table accessor for type String and conformance String();
-    *(v13 + 64) = v18;
-    *(v13 + 32) = v14;
-    *(v13 + 40) = v16;
-    v19 = specialized static Tracing.libraryName(defining:)();
-    *(v13 + 96) = v17;
-    *(v13 + 104) = v18;
-    *(v13 + 72) = v19;
-    *(v13 + 80) = v20;
-    v59 = v13;
-    if (one-time initialization token for _signpostLog == -1)
-    {
-      v21 = v53;
-      if (v10)
-      {
-LABEL_6:
-        v64 = v57;
-        v62 = _signpostLog;
-        v63 = &dword_18D018000;
-        *v66 = v60;
-        *&v66[8] = v21;
-        v66[16] = v58;
-        v65[0] = "%{public}@.body [in %{public}@]";
-        v65[1] = 31;
-        LOBYTE(v65[2]) = 2;
-        v61 = v59;
-        v22 = v48;
-        specialized thunk for @escaping @callee_guaranteed (@unowned os_signpost_type_t, @unowned UnsafeRawPointer, @guaranteed OS_os_log, @unowned StaticString, @in_guaranteed OSSignpostID, @unowned StaticString, @guaranteed [CVarArg]) -> ()();
-        (*(v55 + 8))(v22, v54);
-LABEL_35:
-
-        a1 = v47;
-        goto LABEL_36;
-      }
-    }
-
-    else
-    {
-      swift_once();
-      v21 = v53;
-      if (v10)
-      {
-        goto LABEL_6;
-      }
-    }
-
-    v23 = v60;
-    if (v60 == 20)
-    {
-      v24 = 3;
-    }
-
-    else
-    {
-      v24 = 4;
-    }
-
-    v25 = bswap32(v60) | (4 * WORD1(v60));
-    LODWORD(v60) = v57;
-    v26 = v55 + 16;
-    v49 = *(v55 + 16);
-    v27 = v49(v56, v48, v54);
-    v28 = 0;
-    LOBYTE(v65[0]) = 1;
-    v58 = v24;
-    v55 = v26;
-    v52 = 16 * v24;
-    v53 = (v26 - 8);
-    v50 = v23;
-    v51 = v59 + 32;
-    do
-    {
-      v57 = &v46;
-      MEMORY[0x1EEE9AC00](v27);
-      v30 = &v46 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
-      v31 = v30 + 8;
-      v32 = v58;
-      v33 = v30 + 8;
-      do
-      {
-        *(v33 - 1) = 0;
-        *v33 = 0;
-        v33 += 16;
-        --v32;
-      }
-
-      while (v32);
-      v34 = v51 + 40 * v28;
-      v35 = v58;
-      while (1)
-      {
-        v36 = *(v59 + 16);
-        if (v28 == v36)
-        {
-          break;
-        }
-
-        if (v28 >= v36)
-        {
-          __break(1u);
-        }
-
-        ++v28;
-        outlined init with copy of AnyTrackedValue(v34, v66);
-        v37 = *&v66[24];
-        __swift_project_boxed_opaque_existential_1(v66, *&v66[24]);
-        *(v31 - 1) = CVarArg.kdebugValue(_:)(v25 | v60, v37);
-        *v31 = v38 & 1;
-        v31 += 16;
-        __swift_destroy_boxed_opaque_existential_1(v66);
-        v34 += 40;
-        if (!--v35)
-        {
-          goto LABEL_20;
-        }
-      }
-
-      LOBYTE(v65[0]) = 0;
-LABEL_20:
-      v39 = v50;
-      if (v50 == 20)
-      {
-        OSSignpostID.rawValue.getter();
-      }
-
-      kdebug_trace();
-      if (v30[8] == 1)
-      {
-        kdebug_trace_string();
-      }
-
-      if (v30[24] == 1)
-      {
-        kdebug_trace_string();
-      }
-
-      if (v30[40] == 1)
-      {
-        kdebug_trace_string();
-      }
-
-      if (v39 != 20 && v30[56] == 1)
-      {
-        kdebug_trace_string();
-      }
-
-      if (one-time initialization token for continuation != -1)
-      {
-        swift_once();
-      }
-
-      v40 = v54;
-      v41 = *v53;
-      v42 = v56;
-      (*v53)(v56, v54);
-      v43 = __swift_project_value_buffer(v40, static OSSignpostID.continuation);
-      v27 = v49(v42, v43, v40);
-    }
-
-    while ((v65[0] & 1) != 0);
-    v44 = v54;
-    v41(v56, v54);
-    v41(v48, v44);
-    goto LABEL_35;
-  }
-
-LABEL_36:
-  AGGraphClearUpdate();
-  memcpy(v65, a1, 0x11CuLL);
-  GlassEffectView.body.getter(v66);
-  AGGraphSetUpdate();
-  $defer #1 <A>() in traceRuleBody<A>(_:body:)();
-  type metadata accessor for ModifiedContent<_VariadicView.Tree<_LayoutRoot<GlassEntryLayout>, ForEach<[GlassContainer.Item], GlassContainer.Item.ID, GlassItemView>>, GlassEffectShapeModifier>(0, &lazy cache variable for type metadata for ModifiedContent<_VariadicView.Tree<_LayoutRoot<GlassEffectLayout>, ForEach<[GlassContainer.Entry], GlassContainer.Entry.StableID, ModifiedContent<ModifiedContent<ZStack<GlassEntryContainerView>, _TraitWritingModifier<_LayoutTrait<GlassEffectLayout.Key>>>, _TraitWritingModifier<TransitionTraitKey>>>>, GlassMaterialEffect>, type metadata accessor for _VariadicView.Tree<_LayoutRoot<GlassEffectLayout>, ForEach<[GlassContainer.Entry], GlassContainer.Entry.StableID, ModifiedContent<ModifiedContent<ZStack<GlassEntryContainerView>, _TraitWritingModifier<_LayoutTrait<GlassEffectLayout.Key>>>, _TraitWritingModifier<TransitionTraitKey>>>>, &type metadata for GlassMaterialEffect, type metadata accessor for ModifiedContent);
-  AGGraphSetOutputValue();
-  memcpy(v65, v66, 0x194uLL);
-  return outlined destroy of ModifiedContent<ModifiedContent<_ViewModifier_Content<GlassEffectLocalModifier>, GlassEffectContainerModifier>, GlassEffectContainerModifier>(v65, &lazy cache variable for type metadata for ModifiedContent<_VariadicView.Tree<_LayoutRoot<GlassEffectLayout>, ForEach<[GlassContainer.Entry], GlassContainer.Entry.StableID, ModifiedContent<ModifiedContent<ZStack<GlassEntryContainerView>, _TraitWritingModifier<_LayoutTrait<GlassEffectLayout.Key>>>, _TraitWritingModifier<TransitionTraitKey>>>>, GlassMaterialEffect>, type metadata accessor for _VariadicView.Tree<_LayoutRoot<GlassEffectLayout>, ForEach<[GlassContainer.Entry], GlassContainer.Entry.StableID, ModifiedContent<ModifiedContent<ZStack<GlassEntryContainerView>, _TraitWritingModifier<_LayoutTrait<GlassEffectLayout.Key>>>, _TraitWritingModifier<TransitionTraitKey>>>>, &type metadata for GlassMaterialEffect, type metadata accessor for ModifiedContent);
-}
-
-{
-  v71 = *MEMORY[0x1E69E9840];
-  v2 = type metadata accessor for OSSignpostID();
-  v3 = *(v2 - 8);
-  v55 = v2;
-  v56 = v3;
-  MEMORY[0x1EEE9AC00](v2);
-  v57 = &v47 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v5);
-  v7 = &v47 - v6;
-  if (one-time initialization token for bodyInvoke != -1)
-  {
-    swift_once();
-  }
-
-  v8 = static Signpost.bodyInvoke;
-  v9 = word_1ED539040;
-  v10 = HIBYTE(word_1ED539040);
-  v11 = byte_1ED539042;
-  v12 = static os_signpost_type_t.begin.getter();
-  v61 = v8;
-  v69[0] = v8;
-  LODWORD(v59) = v9;
-  LOBYTE(v69[1]) = v9;
-  v13 = v10;
-  BYTE1(v69[1]) = v10;
-  BYTE2(v69[1]) = v11;
-  if (Signpost.isEnabled.getter())
-  {
-    v54 = *(&v8 + 1);
-    LODWORD(v58) = v12;
-    v48 = a1;
-    v49 = v7;
-    static OSSignpostID.exclusive.getter();
-    type metadata accessor for TappableEventType?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<CVarArg>, &lazy cache variable for type metadata for CVarArg, MEMORY[0x1E69E7740], MEMORY[0x1E69E6F90]);
-    v14 = swift_allocObject();
-    *(v14 + 16) = xmmword_18DDAB4C0;
-    v15 = AGTypeID.description.getter();
-    v17 = v16;
-    v18 = MEMORY[0x1E69E6158];
-    *(v14 + 56) = MEMORY[0x1E69E6158];
-    v19 = lazy protocol witness table accessor for type String and conformance String();
-    *(v14 + 64) = v19;
-    *(v14 + 32) = v15;
-    *(v14 + 40) = v17;
-    v20 = specialized static Tracing.libraryName(defining:)();
-    *(v14 + 96) = v18;
-    *(v14 + 104) = v19;
-    *(v14 + 72) = v20;
-    *(v14 + 80) = v21;
-    v60 = v14;
-    if (one-time initialization token for _signpostLog == -1)
-    {
-      v22 = v54;
-      if (v13)
-      {
-LABEL_6:
-        v68 = v58;
-        v66 = _signpostLog;
-        v67 = &dword_18D018000;
-        *&v69[0] = v61;
-        *(&v69[0] + 1) = v22;
-        LOBYTE(v69[1]) = v59;
-        v63 = "%{public}@.body [in %{public}@]";
-        v64 = 31;
-        v65 = 2;
-        v62 = v60;
-        v23 = v49;
-        specialized thunk for @escaping @callee_guaranteed (@unowned os_signpost_type_t, @unowned UnsafeRawPointer, @guaranteed OS_os_log, @unowned StaticString, @in_guaranteed OSSignpostID, @unowned StaticString, @guaranteed [CVarArg]) -> ()();
-        (*(v56 + 8))(v23, v55);
-LABEL_35:
-
-        a1 = v48;
-        goto LABEL_36;
-      }
-    }
-
-    else
-    {
-      swift_once();
-      v22 = v54;
-      if (v13)
-      {
-        goto LABEL_6;
-      }
-    }
-
-    v24 = v61;
-    if (v61 == 20)
-    {
-      v25 = 3;
-    }
-
-    else
-    {
-      v25 = 4;
-    }
-
-    v26 = bswap32(v61) | (4 * WORD1(v61));
-    LODWORD(v61) = v58;
-    v27 = v56 + 16;
-    v50 = *(v56 + 16);
-    v28 = v50(v57, v49, v55);
-    v29 = 0;
-    LOBYTE(v63) = 1;
-    v59 = v25;
-    v56 = v27;
-    v53 = 16 * v25;
-    v54 = (v27 - 8);
-    v51 = v24;
-    v52 = v60 + 32;
-    do
-    {
-      v58 = &v47;
-      MEMORY[0x1EEE9AC00](v28);
-      v31 = &v47 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
-      v32 = v31 + 8;
-      v33 = v59;
-      v34 = v31 + 8;
-      do
-      {
-        *(v34 - 1) = 0;
-        *v34 = 0;
-        v34 += 16;
-        --v33;
-      }
-
-      while (v33);
-      v35 = v52 + 40 * v29;
-      v36 = v59;
-      while (1)
-      {
-        v37 = *(v60 + 16);
-        if (v29 == v37)
-        {
-          break;
-        }
-
-        if (v29 >= v37)
-        {
-          __break(1u);
-        }
-
-        ++v29;
-        outlined init with copy of AnyTrackedValue(v35, v69);
-        v38 = *(&v69[1] + 1);
-        __swift_project_boxed_opaque_existential_1(v69, *(&v69[1] + 1));
-        *(v32 - 1) = CVarArg.kdebugValue(_:)(v26 | v61, v38);
-        *v32 = v39 & 1;
-        v32 += 16;
-        __swift_destroy_boxed_opaque_existential_1(v69);
-        v35 += 40;
-        if (!--v36)
-        {
-          goto LABEL_20;
-        }
-      }
-
-      LOBYTE(v63) = 0;
-LABEL_20:
-      v40 = v51;
-      if (v51 == 20)
-      {
-        OSSignpostID.rawValue.getter();
-      }
-
-      kdebug_trace();
-      if (v31[8] == 1)
-      {
-        kdebug_trace_string();
-      }
-
-      if (v31[24] == 1)
-      {
-        kdebug_trace_string();
-      }
-
-      if (v31[40] == 1)
-      {
-        kdebug_trace_string();
-      }
-
-      if (v40 != 20 && v31[56] == 1)
-      {
-        kdebug_trace_string();
-      }
-
-      if (one-time initialization token for continuation != -1)
-      {
-        swift_once();
-      }
-
-      v41 = v55;
-      v42 = *v54;
-      v43 = v57;
-      (*v54)(v57, v55);
-      v44 = __swift_project_value_buffer(v41, static OSSignpostID.continuation);
-      v28 = v50(v43, v44, v41);
-    }
-
-    while ((v63 & 1) != 0);
-    v45 = v55;
-    v42(v57, v55);
-    v42(v49, v45);
-    goto LABEL_35;
-  }
-
-LABEL_36:
-  AGGraphClearUpdate();
-  memcpy(v69, a1, sizeof(v69));
-  v70 = 256;
-  AGGraphSetUpdate();
-  $defer #1 <A>() in traceRuleBody<A>(_:body:)();
-  type metadata accessor for _ShapeView<ConcentricRectangle, ForegroundStyle>();
-  return AGGraphSetOutputValue();
-}
-
-uint64_t specialized closure #1 in ViewBodyAccessor.updateBody(of:changed:)(uint64_t a1, double a2)
-{
-  v46 = a1;
-  v70 = *MEMORY[0x1E69E9840];
-  v53 = type metadata accessor for OSSignpostID();
-  v54 = *(v53 - 8);
-  MEMORY[0x1EEE9AC00](v53);
-  v55 = &v45 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v4);
-  v47 = &v45 - v5;
-  if (one-time initialization token for bodyInvoke != -1)
-  {
-    goto LABEL_39;
+    goto LABEL_37;
   }
 
   while (1)
   {
-    v6 = static Signpost.bodyInvoke;
-    v7 = word_1ED539040;
-    v8 = HIBYTE(word_1ED539040);
-    v9 = byte_1ED539042;
-    v10 = static os_signpost_type_t.begin.getter();
-    v66 = v6;
-    LOBYTE(v67) = v7;
-    BYTE1(v67) = v8;
-    BYTE2(v67) = v9;
+    v5 = static Signpost.bodyInvoke;
+    v6 = word_1ED539040;
+    v7 = HIBYTE(word_1ED539040);
+    v8 = byte_1ED539042;
+    v9 = static os_signpost_type_t.begin.getter();
+    v62 = v5;
+    v63 = v6;
+    v64 = v7;
+    v65 = v8;
     if ((Signpost.isEnabled.getter() & 1) == 0)
     {
       break;
     }
 
-    v56 = *(&v6 + 1);
-    LODWORD(v57) = v10;
+    v50 = *(&v5 + 1);
+    LODWORD(v54) = v9;
     static OSSignpostID.exclusive.getter();
     type metadata accessor for TappableEventType?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<CVarArg>, &lazy cache variable for type metadata for CVarArg, MEMORY[0x1E69E7740], MEMORY[0x1E69E6F90]);
-    v11 = swift_allocObject();
-    *(v11 + 16) = xmmword_18DDAB4C0;
-    v12 = AGTypeID.description.getter();
-    v14 = v13;
-    v15 = MEMORY[0x1E69E6158];
-    *(v11 + 56) = MEMORY[0x1E69E6158];
-    v16 = lazy protocol witness table accessor for type String and conformance String();
-    *(v11 + 64) = v16;
-    *(v11 + 32) = v12;
-    *(v11 + 40) = v14;
+    v10 = swift_allocObject();
+    *(v10 + 16) = xmmword_18DDAB4C0;
+    v11 = AGTypeID.description.getter();
+    v13 = v12;
+    v14 = MEMORY[0x1E69E6158];
+    *(v10 + 56) = MEMORY[0x1E69E6158];
+    lazy protocol witness table accessor for type String and conformance String();
+    v16 = v15;
+    *(v10 + 64) = v15;
+    *(v10 + 32) = v11;
+    *(v10 + 40) = v13;
     v17 = specialized static Tracing.libraryName(defining:)();
-    *(v11 + 96) = v15;
-    *(v11 + 104) = v16;
-    *(v11 + 72) = v17;
-    *(v11 + 80) = v18;
-    v58 = v11;
+    *(v10 + 96) = v14;
+    *(v10 + 104) = v16;
+    *(v10 + 72) = v17;
+    *(v10 + 80) = v18;
+    v55 = v10;
     if (one-time initialization token for _signpostLog != -1)
     {
       swift_once();
     }
 
-    if (v8)
+    if (v7)
     {
-      v62 = v57;
-      v60 = _signpostLog;
-      v61 = &dword_18D018000;
-      *&v66 = v6;
-      *(&v66 + 1) = v56;
-      LOBYTE(v67) = v7;
-      v63 = "%{public}@.body [in %{public}@]";
-      *&v64 = 31;
-      BYTE8(v64) = 2;
-      v59 = v58;
-      v19 = v47;
-      specialized thunk for @escaping @callee_guaranteed (@unowned os_signpost_type_t, @unowned UnsafeRawPointer, @guaranteed OS_os_log, @unowned StaticString, @in_guaranteed OSSignpostID, @unowned StaticString, @guaranteed [CVarArg]) -> ()();
-      (*(v54 + 8))(v19, v53);
+      v61 = v54;
+      v59 = _signpostLog;
+      v60 = &dword_18D018000;
+      *&v62 = v5;
+      *(&v62 + 1) = v50;
+      v63 = v6;
+      v57[0] = "%{public}@.body [in %{public}@]";
+      v57[1] = 31;
+      v58 = 2;
+      v56 = v55;
+      v19 = v44;
+      specialized thunk for @escaping @callee_guaranteed (@unowned os_signpost_type_t, @unowned UnsafeRawPointer, @guaranteed OS_os_log, @unowned StaticString, @in_guaranteed OSSignpostID, @unowned StaticString, @guaranteed [CVarArg]) -> ()(&v61, &v60, &v59, &v62, v44, v57, &v56);
+      (*(v52 + 8))(v19, v51);
 LABEL_34:
 
       break;
     }
 
-    if (v6 == 20)
+    if (v5 == 20)
     {
       v20 = 3;
     }
@@ -9054,25 +3373,25 @@ LABEL_34:
       v20 = 4;
     }
 
-    v21 = bswap32(v6) | (4 * WORD1(v6));
-    v22 = v57;
-    v23 = v54 + 16;
-    v48 = *(v54 + 16);
-    v24 = v48(v55, v47, v53);
+    v21 = bswap32(v5) | (4 * WORD1(v5));
+    v22 = v54;
+    v23 = v52 + 16;
+    v45 = *(v52 + 16);
+    v24 = v45(v53, v44, v51);
     v25 = 0;
-    LOBYTE(v63) = 1;
-    v57 = v20;
-    v51 = 16 * v20;
-    v54 = v23;
-    v52 = (v23 - 8);
-    v50 = v58 + 32;
-    v49 = v6;
+    LOBYTE(v57[0]) = 1;
+    v52 = v23;
+    v49 = 16 * *(&v5 + 1);
+    v50 = (v23 - 8);
+    v48 = v55 + 32;
+    v47 = v5;
+    v46 = *(&v5 + 1);
 LABEL_11:
-    v56 = &v45;
+    v54 = v43;
     MEMORY[0x1EEE9AC00](v24);
-    v27 = &v45 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v27 = &v43[-((v26 + 15) & 0xFFFFFFFFFFFFFFF0)];
     v28 = v27 + 8;
-    v29 = v57;
+    v29 = v20;
     v30 = v27 + 8;
     do
     {
@@ -9083,17 +3402,16 @@ LABEL_11:
     }
 
     while (v29);
-    v31 = v50 + 40 * v25;
-    v32 = v57;
+    v31 = v48 + 40 * v25;
     while (1)
     {
-      v33 = *(v58 + 16);
-      if (v25 == v33)
+      v32 = *(v55 + 16);
+      if (v25 == v32)
       {
-        LOBYTE(v63) = 0;
+        LOBYTE(v57[0]) = 0;
 LABEL_19:
-        v36 = v49;
-        if (v49 == 20)
+        v36 = v47;
+        if (v47 == 20)
         {
           OSSignpostID.rawValue.getter();
         }
@@ -9124,84 +3442,70 @@ LABEL_19:
           swift_once();
         }
 
-        v37 = *v52;
-        v38 = v55;
+        v37 = v51;
+        v38 = *v50;
         v39 = v53;
-        (*v52)(v55, v53);
-        v40 = __swift_project_value_buffer(v39, static OSSignpostID.continuation);
-        v24 = v48(v38, v40, v39);
-        if ((v63 & 1) == 0)
+        (*v50)(v53, v51);
+        v40 = __swift_project_value_buffer(v37, static OSSignpostID.continuation);
+        v24 = v45(v39, v40, v37);
+        v20 = v46;
+        if ((v57[0] & 1) == 0)
         {
-          v41 = v53;
-          v37(v55, v53);
-          v37(v47, v41);
+          v41 = v51;
+          v38(v53, v51);
+          v38(v44, v41);
           goto LABEL_34;
         }
 
         goto LABEL_11;
       }
 
-      if (v25 >= v33)
+      if (v25 >= v32)
       {
         break;
       }
 
       ++v25;
-      outlined init with copy of AnyTrackedValue(v31, &v66);
-      v34 = *(&v67 + 1);
-      __swift_project_boxed_opaque_existential_1(&v66, *(&v67 + 1));
-      *(v28 - 1) = CVarArg.kdebugValue(_:)(v21 | v22, v34);
+      outlined init with copy of AnyTrackedValue(v31, &v62);
+      v33 = v66;
+      v34 = v67;
+      __swift_project_boxed_opaque_existential_1(&v62, v66);
+      *(v28 - 1) = CVarArg.kdebugValue(_:)(v21 | v22, v33, v34);
       *v28 = v35 & 1;
       v28 += 16;
-      __swift_destroy_boxed_opaque_existential_1(&v66);
+      __swift_destroy_boxed_opaque_existential_1(&v62);
       v31 += 40;
-      if (!--v32)
+      if (!--v20)
       {
         goto LABEL_19;
       }
     }
 
     __break(1u);
-LABEL_39:
+LABEL_37:
     swift_once();
   }
 
   AGGraphClearUpdate();
-  if (one-time initialization token for symbolImage != -1)
-  {
-    swift_once();
-  }
-
-  v42 = static SummarySymbol.symbolImage;
-  v43 = v46;
-  SummarySymbol.gradient.getter(v46, &v63, a2);
-  *&v66 = v42;
-  *(&v66 + 1) = v63;
-  v67 = v64;
-  v68 = v65;
-  v69 = v43;
-
+  LOWORD(v62) = 256;
   AGGraphSetUpdate();
   $defer #1 <A>() in traceRuleBody<A>(_:body:)();
-  type metadata accessor for ModifiedContent<Text, _OverlayPreferenceModifier<Text.LayoutKey, ForEach<Range<Int>, Int, ModifiedContent<ModifiedContent<SummarySymbol, _ValueTransactionModifier<Double>>, _OffsetEffect>>>>(0, &lazy cache variable for type metadata for ModifiedContent<Image, _ForegroundStyleModifier2<AngularGradient, Color>>, type metadata accessor for _ForegroundStyleModifier2<AngularGradient, Color>);
-  AGGraphSetOutputValue();
+  type metadata accessor for _ShapeView<ImplicitContainerShape, ForegroundStyle>(0);
+  return AGGraphSetOutputValue();
 }
 
-uint64_t specialized closure #1 in ViewBodyAccessor.updateBody(of:changed:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t specialized closure #1 in ViewBodyAccessor.updateBody(of:changed:)(uint64_t a1, void (*a2)(void), double a3)
 {
-  v51 = a4;
-  v50 = a3;
-  *(&v49 + 1) = a2;
-  *&v49 = a1;
-  v73 = *MEMORY[0x1E69E9840];
+  v49 = a2;
+  v74 = *MEMORY[0x1E69E9840];
   v4 = type metadata accessor for OSSignpostID();
   v5 = *(v4 - 8);
-  v58 = v4;
-  v59 = v5;
+  v56 = v4;
+  v57 = v5;
   MEMORY[0x1EEE9AC00](v4);
-  v60 = &v48[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v58 = &v48 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v7);
-  v52 = &v48[-v8];
+  v50 = &v48 - v8;
   if (one-time initialization token for bodyInvoke != -1)
   {
     swift_once();
@@ -9212,14 +3516,13 @@ uint64_t specialized closure #1 in ViewBodyAccessor.updateBody(of:changed:)(uint
   v11 = HIBYTE(word_1ED539040);
   v12 = byte_1ED539042;
   v13 = static os_signpost_type_t.begin.getter();
-  v70 = v9;
-  LOBYTE(v71) = v10;
-  BYTE1(v71) = v11;
-  BYTE2(v71) = v12;
+  v68 = v9;
+  v69 = v10;
+  v70 = v11;
+  v71 = v12;
   if (Signpost.isEnabled.getter())
   {
-    v61 = *(&v9 + 1);
-    LODWORD(v62) = v13;
+    LODWORD(v60) = v13;
     static OSSignpostID.exclusive.getter();
     type metadata accessor for TappableEventType?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<CVarArg>, &lazy cache variable for type metadata for CVarArg, MEMORY[0x1E69E7740], MEMORY[0x1E69E6F90]);
     v14 = swift_allocObject();
@@ -9228,35 +3531,34 @@ uint64_t specialized closure #1 in ViewBodyAccessor.updateBody(of:changed:)(uint
     v17 = v16;
     v18 = MEMORY[0x1E69E6158];
     *(v14 + 56) = MEMORY[0x1E69E6158];
-    v19 = lazy protocol witness table accessor for type String and conformance String();
+    lazy protocol witness table accessor for type String and conformance String();
+    v20 = v19;
     *(v14 + 64) = v19;
     *(v14 + 32) = v15;
     *(v14 + 40) = v17;
-    v20 = specialized static Tracing.libraryName(defining:)();
+    v21 = specialized static Tracing.libraryName(defining:)();
     *(v14 + 96) = v18;
-    *(v14 + 104) = v19;
-    *(v14 + 72) = v20;
-    *(v14 + 80) = v21;
-    v63 = v14;
+    *(v14 + 104) = v20;
+    *(v14 + 72) = v21;
+    *(v14 + 80) = v22;
+    v61 = v14;
     if (one-time initialization token for _signpostLog == -1)
     {
-      v22 = v61;
       if (v11)
       {
 LABEL_6:
-        v69 = v62;
-        v67 = _signpostLog;
-        v68 = &dword_18D018000;
-        *&v70 = v9;
-        *(&v70 + 1) = v22;
-        LOBYTE(v71) = v10;
-        v65[0] = "%{public}@.body [in %{public}@]";
-        v65[1] = 31;
-        v66 = 2;
-        v64 = v63;
-        v23 = v52;
-        specialized thunk for @escaping @callee_guaranteed (@unowned os_signpost_type_t, @unowned UnsafeRawPointer, @guaranteed OS_os_log, @unowned StaticString, @in_guaranteed OSSignpostID, @unowned StaticString, @guaranteed [CVarArg]) -> ()();
-        (*(v59 + 8))(v23, v58);
+        v67 = v60;
+        v65 = _signpostLog;
+        v66 = &dword_18D018000;
+        v68 = v9;
+        v69 = v10;
+        v63[0] = "%{public}@.body [in %{public}@]";
+        v63[1] = 31;
+        v64 = 2;
+        v62 = v61;
+        v23 = v50;
+        specialized thunk for @escaping @callee_guaranteed (@unowned os_signpost_type_t, @unowned UnsafeRawPointer, @guaranteed OS_os_log, @unowned StaticString, @in_guaranteed OSSignpostID, @unowned StaticString, @guaranteed [CVarArg]) -> ()(&v67, &v66, &v65, &v68, v50, v63, &v62);
+        (*(v57 + 8))(v23, v56);
 LABEL_35:
 
         goto LABEL_36;
@@ -9266,7 +3568,6 @@ LABEL_35:
     else
     {
       swift_once();
-      v22 = v61;
       if (v11)
       {
         goto LABEL_6;
@@ -9284,25 +3585,25 @@ LABEL_35:
     }
 
     v25 = bswap32(v9) | (4 * WORD1(v9));
-    v26 = v62;
-    v27 = v59 + 16;
-    v53 = *(v59 + 16);
-    v28 = v53(v60, v52, v58);
+    v26 = v60;
+    v27 = v57 + 16;
+    v51 = *(v57 + 16);
+    v28 = v51(v58, v50, v56);
     v29 = 0;
-    LOBYTE(v65[0]) = 1;
-    v62 = v24;
-    v59 = v27;
-    v56 = 16 * v24;
-    v57 = (v27 - 8);
-    v55 = v63 + 32;
-    v54 = v9;
+    LOBYTE(v63[0]) = 1;
+    v60 = v24;
+    v57 = v27;
+    v54 = 16 * v24;
+    v55 = (v27 - 8);
+    v53 = v61 + 32;
+    v52 = v9;
     do
     {
-      v61 = v48;
+      v59 = &v48;
       MEMORY[0x1EEE9AC00](v28);
-      v31 = &v48[-((v30 + 15) & 0xFFFFFFFFFFFFFFF0)];
+      v31 = &v48 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
       v32 = v31 + 8;
-      v33 = v62;
+      v33 = v60;
       v34 = v31 + 8;
       do
       {
@@ -9313,11 +3614,11 @@ LABEL_35:
       }
 
       while (v33);
-      v35 = v55 + 40 * v29;
-      v36 = v62;
+      v35 = v53 + 40 * v29;
+      v36 = v60;
       while (1)
       {
-        v37 = *(v63 + 16);
+        v37 = *(v61 + 16);
         if (v29 == v37)
         {
           break;
@@ -9329,13 +3630,14 @@ LABEL_35:
         }
 
         ++v29;
-        outlined init with copy of AnyTrackedValue(v35, &v70);
+        outlined init with copy of AnyTrackedValue(v35, &v68);
         v38 = v72;
-        __swift_project_boxed_opaque_existential_1(&v70, v72);
-        *(v32 - 1) = CVarArg.kdebugValue(_:)(v25 | v26, v38);
-        *v32 = v39 & 1;
+        v39 = v73;
+        __swift_project_boxed_opaque_existential_1(&v68, v72);
+        *(v32 - 1) = CVarArg.kdebugValue(_:)(v25 | v26, v38, v39);
+        *v32 = v40 & 1;
         v32 += 16;
-        __swift_destroy_boxed_opaque_existential_1(&v70);
+        __swift_destroy_boxed_opaque_existential_1(&v68);
         v35 += 40;
         if (!--v36)
         {
@@ -9343,10 +3645,10 @@ LABEL_35:
         }
       }
 
-      LOBYTE(v65[0]) = 0;
+      LOBYTE(v63[0]) = 0;
 LABEL_20:
-      v40 = v54;
-      if (v54 == 20)
+      v41 = v52;
+      if (v52 == 20)
       {
         OSSignpostID.rawValue.getter();
       }
@@ -9367,7 +3669,7 @@ LABEL_20:
         kdebug_trace_string();
       }
 
-      if (v40 != 20 && v31[56] == 1)
+      if (v41 != 20 && v31[56] == 1)
       {
         kdebug_trace_string();
       }
@@ -9377,183 +3679,425 @@ LABEL_20:
         swift_once();
       }
 
-      v41 = v58;
-      v42 = *v57;
-      v43 = v60;
-      (*v57)(v60, v58);
-      v44 = __swift_project_value_buffer(v41, static OSSignpostID.continuation);
-      v28 = v53(v43, v44, v41);
+      v42 = v56;
+      v43 = *v55;
+      v44 = v58;
+      (*v55)(v58, v56);
+      v45 = __swift_project_value_buffer(v42, static OSSignpostID.continuation);
+      v28 = v51(v44, v45, v42);
     }
 
-    while ((v65[0] & 1) != 0);
-    v45 = v58;
-    v42(v60, v58);
-    v42(v52, v45);
+    while ((v63[0] & 1) != 0);
+    v46 = v56;
+    v43(v58, v56);
+    v43(v50, v46);
     goto LABEL_35;
   }
 
 LABEL_36:
   AGGraphClearUpdate();
-  v70 = v49;
-  v71 = v50;
-  v72 = v51;
-  _TestApp.RootView.body.getter(v65);
-  v46 = v65[0];
   AGGraphSetUpdate();
-  *&v70 = v46;
+  *&v68 = a3;
+  WORD4(v68) = 256;
   $defer #1 <A>() in traceRuleBody<A>(_:body:)();
+  v49(0);
+  return AGGraphSetOutputValue();
+}
+
+void specialized closure #1 in ViewBodyAccessor.updateBody(of:changed:)(int a1, void *a2, void *a3)
+{
+  v56 = a3;
+  v57 = a2;
+  v55 = a1;
+  v84 = *MEMORY[0x1E69E9840];
+  v3 = type metadata accessor for OSSignpostID();
+  v4 = *(v3 - 8);
+  v65 = v3;
+  v66 = v4;
+  MEMORY[0x1EEE9AC00](v3);
+  v67 = &v54[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  MEMORY[0x1EEE9AC00](v6);
+  v58 = &v54[-v7];
+  if (one-time initialization token for bodyInvoke != -1)
+  {
+    goto LABEL_40;
+  }
+
+  while (1)
+  {
+    v8 = static Signpost.bodyInvoke;
+    v9 = word_1ED539040;
+    v10 = HIBYTE(word_1ED539040);
+    v11 = byte_1ED539042;
+    v12 = static os_signpost_type_t.begin.getter();
+    v76 = v8;
+    v77 = v9;
+    v78 = v10;
+    v79 = v11;
+    if ((Signpost.isEnabled.getter() & 1) == 0)
+    {
+      break;
+    }
+
+    v64 = *(&v8 + 1);
+    LODWORD(v68) = v12;
+    static OSSignpostID.exclusive.getter();
+    type metadata accessor for TappableEventType?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<CVarArg>, &lazy cache variable for type metadata for CVarArg, MEMORY[0x1E69E7740], MEMORY[0x1E69E6F90]);
+    v13 = swift_allocObject();
+    *(v13 + 16) = xmmword_18DDAB4C0;
+    v14 = AGTypeID.description.getter();
+    v16 = v15;
+    v17 = MEMORY[0x1E69E6158];
+    *(v13 + 56) = MEMORY[0x1E69E6158];
+    lazy protocol witness table accessor for type String and conformance String();
+    v19 = v18;
+    *(v13 + 64) = v18;
+    *(v13 + 32) = v14;
+    *(v13 + 40) = v16;
+    v20 = specialized static Tracing.libraryName(defining:)();
+    *(v13 + 96) = v17;
+    *(v13 + 104) = v19;
+    *(v13 + 72) = v20;
+    *(v13 + 80) = v21;
+    v69 = v13;
+    if (one-time initialization token for _signpostLog != -1)
+    {
+      swift_once();
+    }
+
+    if (v10)
+    {
+      v75 = v68;
+      v73 = _signpostLog;
+      v74 = &dword_18D018000;
+      *&v76 = v8;
+      *(&v76 + 1) = v64;
+      v77 = v9;
+      v71[0] = "%{public}@.body [in %{public}@]";
+      v71[1] = 31;
+      v72 = 2;
+      v70 = v69;
+      v22 = v58;
+      specialized thunk for @escaping @callee_guaranteed (@unowned os_signpost_type_t, @unowned UnsafeRawPointer, @guaranteed OS_os_log, @unowned StaticString, @in_guaranteed OSSignpostID, @unowned StaticString, @guaranteed [CVarArg]) -> ()(&v75, &v74, &v73, &v76, v58, v71, &v70);
+      (*(v66 + 8))(v22, v65);
+LABEL_34:
+
+      break;
+    }
+
+    if (v8 == 20)
+    {
+      v23 = 3;
+    }
+
+    else
+    {
+      v23 = 4;
+    }
+
+    v24 = bswap32(v8) | (4 * WORD1(v8));
+    v25 = v68;
+    v26 = v66 + 16;
+    v59 = *(v66 + 16);
+    v27 = v59(v67, v58, v65);
+    v28 = 0;
+    LOBYTE(v71[0]) = 1;
+    v63 = 16 * v23;
+    v66 = v26;
+    v64 = (v26 - 8);
+    v62 = v69 + 32;
+    v61 = *(&v8 + 1);
+    v60 = v23;
+LABEL_11:
+    v68 = v54;
+    MEMORY[0x1EEE9AC00](v27);
+    v30 = &v54[-((v29 + 15) & 0xFFFFFFFFFFFFFFF0)];
+    v31 = v30 + 8;
+    v32 = v23;
+    v33 = v30 + 8;
+    do
+    {
+      *(v33 - 1) = 0;
+      *v33 = 0;
+      v33 += 16;
+      --v32;
+    }
+
+    while (v32);
+    v34 = v62 + 40 * v28;
+    while (1)
+    {
+      v35 = *(v69 + 16);
+      if (v28 == v35)
+      {
+        LOBYTE(v71[0]) = 0;
+LABEL_19:
+        v39 = v61;
+        if (v61 == 20)
+        {
+          OSSignpostID.rawValue.getter();
+        }
+
+        kdebug_trace();
+        v23 = v60;
+        if (v30[8] == 1)
+        {
+          kdebug_trace_string();
+        }
+
+        if (v30[24] == 1)
+        {
+          kdebug_trace_string();
+        }
+
+        if (v30[40] == 1)
+        {
+          kdebug_trace_string();
+        }
+
+        if (v39 != 20 && v30[56] == 1)
+        {
+          kdebug_trace_string();
+        }
+
+        if (one-time initialization token for continuation != -1)
+        {
+          swift_once();
+        }
+
+        v40 = v65;
+        v41 = *v64;
+        v42 = v67;
+        (*v64)(v67, v65);
+        v43 = __swift_project_value_buffer(v40, static OSSignpostID.continuation);
+        v27 = v59(v42, v43, v40);
+        if ((v71[0] & 1) == 0)
+        {
+          v44 = v65;
+          v41(v67, v65);
+          v41(v58, v44);
+          goto LABEL_34;
+        }
+
+        goto LABEL_11;
+      }
+
+      if (v28 >= v35)
+      {
+        break;
+      }
+
+      ++v28;
+      outlined init with copy of AnyTrackedValue(v34, &v76);
+      v36 = v80;
+      v37 = v81;
+      __swift_project_boxed_opaque_existential_1(&v76, v80);
+      *(v31 - 1) = CVarArg.kdebugValue(_:)(v24 | v25, v36, v37);
+      *v31 = v38 & 1;
+      v31 += 16;
+      __swift_destroy_boxed_opaque_existential_1(&v76);
+      v34 += 40;
+      if (!--v23)
+      {
+        goto LABEL_19;
+      }
+    }
+
+    __break(1u);
+LABEL_40:
+    swift_once();
+  }
+
+  AGGraphClearUpdate();
+  v45 = v55 & 1;
+  if (v55)
+  {
+    v46 = 1.0;
+  }
+
+  else
+  {
+    v46 = 0.0;
+  }
+
+  type metadata accessor for ColorBox<CGColorRef>(0);
+  v47 = swift_allocObject();
+  v48 = v56;
+  *(v47 + 16) = v56;
+  type metadata accessor for ViewLayoutEngine<GeometryReaderLayout>(0, &lazy cache variable for type metadata for FontBox<Font.PlatformFontProvider>, lazy protocol witness table accessor for type Font.PlatformFontProvider and conformance Font.PlatformFontProvider, &type metadata for Font.PlatformFontProvider, type metadata accessor for FontBox);
+  v49 = swift_allocObject();
+  v50 = v57;
+  *(v49 + 16) = v57;
+  KeyPath = swift_getKeyPath();
+  v52 = v48;
+  v53 = v50;
+  AGGraphSetUpdate();
+  *&v76 = v46;
+  *(&v76 + 1) = v47;
+  v77 = v45;
+  v80 = closure #1 in _IntelligenceSupport.AnimatingSummarySymbol.body.getter;
+  v81 = 0;
+  v82 = KeyPath;
+  v83 = v49;
+  $defer #1 <A>() in traceRuleBody<A>(_:body:)();
+  type metadata accessor for ModifiedContent<ModifiedContent<SummarySymbol, _ValueTransactionModifier<Bool>>, _EnvironmentKeyWritingModifier<Font?>>(0);
   AGGraphSetOutputValue();
 }
 
-uint64_t specialized closure #1 in ViewBodyAccessor.updateBody(of:changed:)(int a1)
+void specialized closure #1 in ViewBodyAccessor.updateBody(of:changed:)(uint64_t a1, uint64_t a2, int a3, char *a4)
 {
-  v44 = a1;
-  v69 = *MEMORY[0x1E69E9840];
-  v1 = type metadata accessor for OSSignpostID();
-  v2 = *(v1 - 8);
-  v51 = v1;
-  v52 = v2;
-  MEMORY[0x1EEE9AC00](v1);
-  v53 = &v43[-((v3 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  MEMORY[0x1EEE9AC00](v4);
-  v45 = &v43[-v5];
+  v5 = v4;
+  v51 = a3;
+  v53 = a2;
+  v52 = a1;
+  v80 = *MEMORY[0x1E69E9840];
+  v60 = type metadata accessor for OSSignpostID();
+  v61 = *(v60 - 8);
+  MEMORY[0x1EEE9AC00](v60);
+  v62 = v50 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v8);
+  v54 = v50 - v9;
   if (one-time initialization token for bodyInvoke != -1)
   {
-    goto LABEL_37;
+    goto LABEL_39;
   }
 
   while (1)
   {
-    v6 = static Signpost.bodyInvoke;
-    v7 = word_1ED539040;
-    v8 = HIBYTE(word_1ED539040);
-    v9 = byte_1ED539042;
-    v10 = static os_signpost_type_t.begin.getter();
-    v64 = v6;
-    v65 = v7;
-    v66 = v8;
-    v67 = v9;
+    v10 = static Signpost.bodyInvoke;
+    v11 = word_1ED539040;
+    v12 = HIBYTE(word_1ED539040);
+    v13 = byte_1ED539042;
+    v14 = static os_signpost_type_t.begin.getter();
+    v72 = v10;
+    v73 = v11;
+    v74 = v12;
+    v75 = v13;
     if ((Signpost.isEnabled.getter() & 1) == 0)
     {
       break;
     }
 
-    v54 = *(&v6 + 1);
-    LODWORD(v55) = v10;
+    v63 = *(&v10 + 1);
+    LODWORD(v64) = v14;
+    v50[0] = a4;
+    v50[1] = v5;
     static OSSignpostID.exclusive.getter();
     type metadata accessor for TappableEventType?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<CVarArg>, &lazy cache variable for type metadata for CVarArg, MEMORY[0x1E69E7740], MEMORY[0x1E69E6F90]);
-    v11 = swift_allocObject();
-    *(v11 + 16) = xmmword_18DDAB4C0;
-    v12 = AGTypeID.description.getter();
-    v14 = v13;
-    v15 = MEMORY[0x1E69E6158];
-    *(v11 + 56) = MEMORY[0x1E69E6158];
-    v16 = lazy protocol witness table accessor for type String and conformance String();
-    *(v11 + 64) = v16;
-    *(v11 + 32) = v12;
-    *(v11 + 40) = v14;
-    v17 = specialized static Tracing.libraryName(defining:)();
-    *(v11 + 96) = v15;
-    *(v11 + 104) = v16;
-    *(v11 + 72) = v17;
-    *(v11 + 80) = v18;
-    v56 = v11;
+    v15 = swift_allocObject();
+    *(v15 + 16) = xmmword_18DDAB4C0;
+    v16 = AGTypeID.description.getter();
+    v18 = v17;
+    v19 = MEMORY[0x1E69E6158];
+    *(v15 + 56) = MEMORY[0x1E69E6158];
+    lazy protocol witness table accessor for type String and conformance String();
+    v5 = v20;
+    *(v15 + 64) = v20;
+    *(v15 + 32) = v16;
+    *(v15 + 40) = v18;
+    v21 = specialized static Tracing.libraryName(defining:)();
+    *(v15 + 96) = v19;
+    *(v15 + 104) = v5;
+    *(v15 + 72) = v21;
+    *(v15 + 80) = v22;
+    v65 = v15;
     if (one-time initialization token for _signpostLog != -1)
     {
       swift_once();
     }
 
-    if (v8)
+    if (v12)
     {
-      v63 = v55;
-      v61 = _signpostLog;
-      v62 = &dword_18D018000;
-      *&v64 = v6;
-      *(&v64 + 1) = v54;
-      v65 = v7;
-      v58 = "%{public}@.body [in %{public}@]";
-      v59 = 31;
-      v60 = 2;
-      v57 = v56;
-      v19 = v45;
-      specialized thunk for @escaping @callee_guaranteed (@unowned os_signpost_type_t, @unowned UnsafeRawPointer, @guaranteed OS_os_log, @unowned StaticString, @in_guaranteed OSSignpostID, @unowned StaticString, @guaranteed [CVarArg]) -> ()();
-      (*(v52 + 8))(v19, v51);
+      v71 = v64;
+      v69 = _signpostLog;
+      v70 = &dword_18D018000;
+      *&v72 = v10;
+      *(&v72 + 1) = v63;
+      v73 = v11;
+      v67[0] = "%{public}@.body [in %{public}@]";
+      v67[1] = 31;
+      v68 = 2;
+      v66 = v65;
+      v23 = v54;
+      specialized thunk for @escaping @callee_guaranteed (@unowned os_signpost_type_t, @unowned UnsafeRawPointer, @guaranteed OS_os_log, @unowned StaticString, @in_guaranteed OSSignpostID, @unowned StaticString, @guaranteed [CVarArg]) -> ()(&v71, &v70, &v69, &v72, v54, v67, &v66);
+      (*(v61 + 8))(v23, v60);
 LABEL_34:
 
+      a4 = v50[0];
       break;
     }
 
-    if (v6 == 20)
+    if (v10 == 20)
     {
-      v20 = 3;
+      v24 = 3;
     }
 
     else
     {
-      v20 = 4;
+      v24 = 4;
     }
 
-    v21 = bswap32(v6) | (4 * WORD1(v6));
-    v22 = v55;
-    v23 = v52 + 16;
-    v46 = *(v52 + 16);
-    v24 = v46(v53, v45, v51);
-    v25 = 0;
-    LOBYTE(v58) = 1;
-    v55 = v20;
-    v52 = v23;
-    v49 = 16 * v20;
-    v50 = (v23 - 8);
-    v48 = v56 + 32;
-    v47 = v6;
+    v25 = bswap32(v10) | (4 * WORD1(v10));
+    v26 = v64;
+    v27 = v61 + 16;
+    v55 = *(v61 + 16);
+    v28 = v55(v62, v54, v60);
+    v29 = 0;
+    LOBYTE(v67[0]) = 1;
+    v64 = v24;
+    v58 = 16 * v24;
+    v61 = v27;
+    v59 = (v27 - 8);
+    v57 = v65 + 32;
+    v56 = *(&v10 + 1);
 LABEL_11:
-    v54 = v43;
-    MEMORY[0x1EEE9AC00](v24);
-    v27 = &v43[-((v26 + 15) & 0xFFFFFFFFFFFFFFF0)];
-    v28 = v27 + 8;
-    v29 = v55;
-    v30 = v27 + 8;
+    v63 = v50;
+    MEMORY[0x1EEE9AC00](v28);
+    a4 = v50 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v31 = a4 + 8;
+    v32 = v64;
+    v33 = a4 + 8;
     do
     {
-      *(v30 - 1) = 0;
-      *v30 = 0;
-      v30 += 16;
-      --v29;
+      *(v33 - 1) = 0;
+      *v33 = 0;
+      v33 += 16;
+      --v32;
     }
 
-    while (v29);
-    v31 = v48 + 40 * v25;
-    v32 = v55;
+    while (v32);
+    v34 = v57 + 40 * v29;
+    v35 = v64;
     while (1)
     {
-      v33 = *(v56 + 16);
-      if (v25 == v33)
+      v36 = *(v65 + 16);
+      if (v29 == v36)
       {
-        LOBYTE(v58) = 0;
+        LOBYTE(v67[0]) = 0;
 LABEL_19:
-        v36 = v47;
-        if (v47 == 20)
+        v39 = v56;
+        if (v56 == 20)
         {
           OSSignpostID.rawValue.getter();
         }
 
         kdebug_trace();
-        if (v27[8] == 1)
+        if (a4[8] == 1)
         {
           kdebug_trace_string();
         }
 
-        if (v27[24] == 1)
+        if (a4[24] == 1)
         {
           kdebug_trace_string();
         }
 
-        if (v27[40] == 1)
+        if (a4[40] == 1)
         {
           kdebug_trace_string();
         }
 
-        if (v36 != 20 && v27[56] == 1)
+        if (v39 != 20 && a4[56] == 1)
         {
           kdebug_trace_string();
         }
@@ -9563,38 +4107,269 @@ LABEL_19:
           swift_once();
         }
 
-        v37 = v51;
-        v38 = *v50;
-        v39 = v53;
-        (*v50)(v53, v51);
-        v40 = __swift_project_value_buffer(v37, static OSSignpostID.continuation);
-        v24 = v46(v39, v40, v37);
-        if ((v58 & 1) == 0)
+        v40 = *v59;
+        v41 = v62;
+        v42 = v60;
+        (*v59)(v62, v60);
+        v43 = __swift_project_value_buffer(v42, static OSSignpostID.continuation);
+        v28 = v55(v41, v43, v42);
+        if ((v67[0] & 1) == 0)
         {
-          v41 = v51;
-          v38(v53, v51);
-          v38(v45, v41);
+          v44 = v60;
+          v40(v62, v60);
+          v40(v54, v44);
           goto LABEL_34;
         }
 
         goto LABEL_11;
       }
 
-      if (v25 >= v33)
+      if (v29 >= v36)
       {
         break;
       }
 
-      ++v25;
-      outlined init with copy of AnyTrackedValue(v31, &v64);
-      v34 = v68;
-      __swift_project_boxed_opaque_existential_1(&v64, v68);
-      *(v28 - 1) = CVarArg.kdebugValue(_:)(v21 | v22, v34);
-      *v28 = v35 & 1;
-      v28 += 16;
-      __swift_destroy_boxed_opaque_existential_1(&v64);
-      v31 += 40;
-      if (!--v32)
+      ++v29;
+      outlined init with copy of AnyTrackedValue(v34, &v72);
+      v37 = v76;
+      v5 = v77;
+      __swift_project_boxed_opaque_existential_1(&v72, v76);
+      *(v31 - 1) = CVarArg.kdebugValue(_:)(v25 | v26, v37, v5);
+      *v31 = v38 & 1;
+      v31 += 16;
+      __swift_destroy_boxed_opaque_existential_1(&v72);
+      v34 += 40;
+      if (!--v35)
+      {
+        goto LABEL_19;
+      }
+    }
+
+    __break(1u);
+LABEL_39:
+    swift_once();
+  }
+
+  AGGraphClearUpdate();
+  v45 = v51 & 1;
+  v46 = v52;
+  v47 = v53;
+  outlined copy of Text.Storage(v52, v53, v51 & 1);
+  v48 = one-time initialization token for topLeading;
+
+  if (v48 != -1)
+  {
+    swift_once();
+  }
+
+  v49 = static Alignment.topLeading;
+  LOBYTE(v67[0]) = v45;
+  AGGraphSetUpdate();
+  *&v72 = v46;
+  *(&v72 + 1) = v47;
+  v73 = v67[0];
+  v76 = a4;
+  v77 = closure #1 in _IntelligenceSupport.AnimatingText.body.getter;
+  v78 = 0;
+  v79 = v49;
+  $defer #1 <A>() in traceRuleBody<A>(_:body:)();
+  type metadata accessor for ModifiedContent<Text, _OverlayPreferenceModifier<Text.LayoutKey, ForEach<Range<Int>, Int, ModifiedContent<ModifiedContent<SummarySymbol, _ValueTransactionModifier<Double>>, _OffsetEffect>>>>(0, &lazy cache variable for type metadata for ModifiedContent<Text, _OverlayPreferenceModifier<Text.LayoutKey, ForEach<Range<Int>, Int, ModifiedContent<ModifiedContent<SummarySymbol, _ValueTransactionModifier<Double>>, _OffsetEffect>>>>, type metadata accessor for _OverlayPreferenceModifier<Text.LayoutKey, ForEach<Range<Int>, Int, ModifiedContent<ModifiedContent<SummarySymbol, _ValueTransactionModifier<Double>>, _OffsetEffect>>>, &type metadata for Text);
+  AGGraphSetOutputValue();
+  outlined consume of Text.Storage(v72, *(&v72 + 1), v73);
+}
+
+uint64_t specialized closure #1 in ViewBodyAccessor.updateBody(of:changed:)(int a1, double a2, double a3, double a4)
+{
+  v52 = a1;
+  v77 = *MEMORY[0x1E69E9840];
+  v7 = type metadata accessor for OSSignpostID();
+  v8 = *(v7 - 8);
+  v59 = v7;
+  v60 = v8;
+  MEMORY[0x1EEE9AC00](v7);
+  v61 = &v51[-((v9 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  MEMORY[0x1EEE9AC00](v10);
+  v53 = &v51[-v11];
+  if (one-time initialization token for bodyInvoke != -1)
+  {
+    goto LABEL_37;
+  }
+
+  while (1)
+  {
+    v12 = static Signpost.bodyInvoke;
+    v13 = word_1ED539040;
+    v14 = HIBYTE(word_1ED539040);
+    v15 = byte_1ED539042;
+    v16 = static os_signpost_type_t.begin.getter();
+    v71 = v12;
+    v72 = v13;
+    v73 = v14;
+    v74 = v15;
+    if ((Signpost.isEnabled.getter() & 1) == 0)
+    {
+      break;
+    }
+
+    v62 = *(&v12 + 1);
+    LODWORD(v63) = v16;
+    static OSSignpostID.exclusive.getter();
+    type metadata accessor for TappableEventType?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<CVarArg>, &lazy cache variable for type metadata for CVarArg, MEMORY[0x1E69E7740], MEMORY[0x1E69E6F90]);
+    v17 = swift_allocObject();
+    *(v17 + 16) = xmmword_18DDAB4C0;
+    v18 = AGTypeID.description.getter();
+    v20 = v19;
+    v21 = MEMORY[0x1E69E6158];
+    *(v17 + 56) = MEMORY[0x1E69E6158];
+    lazy protocol witness table accessor for type String and conformance String();
+    v23 = v22;
+    *(v17 + 64) = v22;
+    *(v17 + 32) = v18;
+    *(v17 + 40) = v20;
+    v24 = specialized static Tracing.libraryName(defining:)();
+    *(v17 + 96) = v21;
+    *(v17 + 104) = v23;
+    *(v17 + 72) = v24;
+    *(v17 + 80) = v25;
+    v64 = v17;
+    if (one-time initialization token for _signpostLog != -1)
+    {
+      swift_once();
+    }
+
+    if (v14)
+    {
+      v70 = v63;
+      v68 = _signpostLog;
+      v69 = &dword_18D018000;
+      *&v71 = v12;
+      *(&v71 + 1) = v62;
+      v72 = v13;
+      v66[0] = "%{public}@.body [in %{public}@]";
+      v66[1] = 31;
+      v67 = 2;
+      v65 = v64;
+      v26 = v53;
+      specialized thunk for @escaping @callee_guaranteed (@unowned os_signpost_type_t, @unowned UnsafeRawPointer, @guaranteed OS_os_log, @unowned StaticString, @in_guaranteed OSSignpostID, @unowned StaticString, @guaranteed [CVarArg]) -> ()(&v70, &v69, &v68, &v71, v53, v66, &v65);
+      (*(v60 + 8))(v26, v59);
+LABEL_34:
+
+      break;
+    }
+
+    if (v12 == 20)
+    {
+      v27 = 3;
+    }
+
+    else
+    {
+      v27 = 4;
+    }
+
+    v28 = bswap32(v12) | (4 * WORD1(v12));
+    v29 = v63;
+    v30 = v60 + 16;
+    v54 = *(v60 + 16);
+    v31 = v54(v61, v53, v59);
+    v32 = 0;
+    LOBYTE(v66[0]) = 1;
+    v63 = v27;
+    v57 = 16 * v27;
+    v60 = v30;
+    v58 = (v30 - 8);
+    v56 = v64 + 32;
+    v55 = v12;
+LABEL_11:
+    v62 = v51;
+    MEMORY[0x1EEE9AC00](v31);
+    v34 = &v51[-((v33 + 15) & 0xFFFFFFFFFFFFFFF0)];
+    v35 = v34 + 8;
+    v36 = v63;
+    v37 = v34 + 8;
+    do
+    {
+      *(v37 - 1) = 0;
+      *v37 = 0;
+      v37 += 16;
+      --v36;
+    }
+
+    while (v36);
+    v38 = v56 + 40 * v32;
+    v39 = v63;
+    while (1)
+    {
+      v40 = *(v64 + 16);
+      if (v32 == v40)
+      {
+        LOBYTE(v66[0]) = 0;
+LABEL_19:
+        v44 = v55;
+        if (v55 == 20)
+        {
+          OSSignpostID.rawValue.getter();
+        }
+
+        kdebug_trace();
+        if (v34[8] == 1)
+        {
+          kdebug_trace_string();
+        }
+
+        if (v34[24] == 1)
+        {
+          kdebug_trace_string();
+        }
+
+        if (v34[40] == 1)
+        {
+          kdebug_trace_string();
+        }
+
+        if (v44 != 20 && v34[56] == 1)
+        {
+          kdebug_trace_string();
+        }
+
+        if (one-time initialization token for continuation != -1)
+        {
+          swift_once();
+        }
+
+        v45 = *v58;
+        v46 = v61;
+        v47 = v59;
+        (*v58)(v61, v59);
+        v48 = __swift_project_value_buffer(v47, static OSSignpostID.continuation);
+        v31 = v54(v46, v48, v47);
+        if ((v66[0] & 1) == 0)
+        {
+          v49 = v59;
+          v45(v61, v59);
+          v45(v53, v49);
+          goto LABEL_34;
+        }
+
+        goto LABEL_11;
+      }
+
+      if (v32 >= v40)
+      {
+        break;
+      }
+
+      ++v32;
+      outlined init with copy of AnyTrackedValue(v38, &v71);
+      v41 = v75;
+      v42 = v76;
+      __swift_project_boxed_opaque_existential_1(&v71, v75);
+      *(v35 - 1) = CVarArg.kdebugValue(_:)(v28 | v29, v41, v42);
+      *v35 = v43 & 1;
+      v35 += 16;
+      __swift_destroy_boxed_opaque_existential_1(&v71);
+      v38 += 40;
+      if (!--v39)
       {
         goto LABEL_19;
       }
@@ -9606,232 +4381,249 @@ LABEL_37:
   }
 
   AGGraphClearUpdate();
-  LOBYTE(v64) = v44 & 1;
-  *(&v64 + 1) = 256;
+  *&v71 = a2;
+  *(&v71 + 1) = a3;
+  v72 = v52 & 1;
+  v75 = *&a4;
+  LOWORD(v76) = 256;
   AGGraphSetUpdate();
   $defer #1 <A>() in traceRuleBody<A>(_:body:)();
-  type metadata accessor for _ShapeView<Capsule, ForegroundStyle>();
+  type metadata accessor for _ShapeView<RoundedRectangle._Inset, ForegroundStyle>(0);
   return AGGraphSetOutputValue();
 }
 
+double specialized closure #1 in ViewBodyAccessor.updateBody(of:changed:)(uint64_t a1, uint64_t a2, unint64_t *a3, void (*a4)(void))
 {
-  v44 = a1;
-  v69 = *MEMORY[0x1E69E9840];
-  v1 = type metadata accessor for OSSignpostID();
-  v2 = *(v1 - 8);
-  v51 = v1;
-  v52 = v2;
-  MEMORY[0x1EEE9AC00](v1);
-  v53 = &v43[-((v3 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  MEMORY[0x1EEE9AC00](v4);
-  v45 = &v43[-v5];
+  v51 = a4;
+  v53 = a2;
+  v50 = a1;
+  v75 = *MEMORY[0x1E69E9840];
+  v59 = type metadata accessor for OSSignpostID();
+  v60 = *(v59 - 8);
+  MEMORY[0x1EEE9AC00](v59);
+  v61 = v49 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v6);
+  v52 = v49 - v7;
   if (one-time initialization token for bodyInvoke != -1)
   {
-    goto LABEL_37;
+    swift_once();
   }
 
-  while (1)
+  v8 = static Signpost.bodyInvoke;
+  v9 = word_1ED539040;
+  v10 = HIBYTE(word_1ED539040);
+  v11 = byte_1ED539042;
+  v12 = static os_signpost_type_t.begin.getter();
+  v71 = v8;
+  LOBYTE(v72) = v9;
+  BYTE1(v72) = v10;
+  BYTE2(v72) = v11;
+  if (Signpost.isEnabled.getter())
   {
-    v6 = static Signpost.bodyInvoke;
-    v7 = word_1ED539040;
-    v8 = HIBYTE(word_1ED539040);
-    v9 = byte_1ED539042;
-    v10 = static os_signpost_type_t.begin.getter();
-    v64 = v6;
-    v65 = v7;
-    v66 = v8;
-    v67 = v9;
-    if ((Signpost.isEnabled.getter() & 1) == 0)
-    {
-      break;
-    }
-
-    v54 = *(&v6 + 1);
-    LODWORD(v55) = v10;
+    v62 = *(&v8 + 1);
+    LODWORD(v63) = v12;
+    v49[0] = a3;
     static OSSignpostID.exclusive.getter();
     type metadata accessor for TappableEventType?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<CVarArg>, &lazy cache variable for type metadata for CVarArg, MEMORY[0x1E69E7740], MEMORY[0x1E69E6F90]);
-    v11 = swift_allocObject();
-    *(v11 + 16) = xmmword_18DDAB4C0;
-    v12 = AGTypeID.description.getter();
-    v14 = v13;
-    v15 = MEMORY[0x1E69E6158];
-    *(v11 + 56) = MEMORY[0x1E69E6158];
-    v16 = lazy protocol witness table accessor for type String and conformance String();
-    *(v11 + 64) = v16;
-    *(v11 + 32) = v12;
-    *(v11 + 40) = v14;
-    v17 = specialized static Tracing.libraryName(defining:)();
-    *(v11 + 96) = v15;
-    *(v11 + 104) = v16;
-    *(v11 + 72) = v17;
-    *(v11 + 80) = v18;
-    v56 = v11;
-    if (one-time initialization token for _signpostLog != -1)
+    v13 = swift_allocObject();
+    *(v13 + 16) = xmmword_18DDAB4C0;
+    v14 = AGTypeID.description.getter();
+    v16 = v15;
+    v17 = MEMORY[0x1E69E6158];
+    *(v13 + 56) = MEMORY[0x1E69E6158];
+    lazy protocol witness table accessor for type String and conformance String();
+    v19 = v18;
+    *(v13 + 64) = v18;
+    *(v13 + 32) = v14;
+    *(v13 + 40) = v16;
+    v20 = specialized static Tracing.libraryName(defining:)();
+    *(v13 + 96) = v17;
+    *(v13 + 104) = v19;
+    *(v13 + 72) = v20;
+    *(v13 + 80) = v21;
+    v64 = v13;
+    if (one-time initialization token for _signpostLog == -1)
     {
-      swift_once();
-    }
+      v22 = v62;
+      if (v10)
+      {
+LABEL_6:
+        v68 = v63;
+        v66 = _signpostLog;
+        v67 = &dword_18D018000;
+        *&v71 = v8;
+        *(&v71 + 1) = v22;
+        LOBYTE(v72) = v9;
+        v69[0] = "%{public}@.body [in %{public}@]";
+        v69[1] = 31;
+        v70 = 2;
+        v65 = v64;
+        v23 = v52;
+        specialized thunk for @escaping @callee_guaranteed (@unowned os_signpost_type_t, @unowned UnsafeRawPointer, @guaranteed OS_os_log, @unowned StaticString, @in_guaranteed OSSignpostID, @unowned StaticString, @guaranteed [CVarArg]) -> ()(&v68, &v67, &v66, &v71, v52, v69, &v65);
+        (*(v60 + 8))(v23, v59);
+LABEL_35:
 
-    if (v8)
-    {
-      v63 = v55;
-      v61 = _signpostLog;
-      v62 = &dword_18D018000;
-      *&v64 = v6;
-      *(&v64 + 1) = v54;
-      v65 = v7;
-      v58 = "%{public}@.body [in %{public}@]";
-      v59 = 31;
-      v60 = 2;
-      v57 = v56;
-      v19 = v45;
-      specialized thunk for @escaping @callee_guaranteed (@unowned os_signpost_type_t, @unowned UnsafeRawPointer, @guaranteed OS_os_log, @unowned StaticString, @in_guaranteed OSSignpostID, @unowned StaticString, @guaranteed [CVarArg]) -> ()();
-      (*(v52 + 8))(v19, v51);
-LABEL_34:
-
-      break;
-    }
-
-    if (v6 == 20)
-    {
-      v20 = 3;
+        a3 = v49[0];
+        goto LABEL_36;
+      }
     }
 
     else
     {
-      v20 = 4;
+      swift_once();
+      v22 = v62;
+      if (v10)
+      {
+        goto LABEL_6;
+      }
     }
 
-    v21 = bswap32(v6) | (4 * WORD1(v6));
-    v22 = v55;
-    v23 = v52 + 16;
-    v46 = *(v52 + 16);
-    v24 = v46(v53, v45, v51);
-    v25 = 0;
-    LOBYTE(v58) = 1;
-    v55 = v20;
-    v52 = v23;
-    v49 = 16 * v20;
-    v50 = (v23 - 8);
-    v48 = v56 + 32;
-    v47 = v6;
-LABEL_11:
-    v54 = v43;
-    MEMORY[0x1EEE9AC00](v24);
-    v27 = &v43[-((v26 + 15) & 0xFFFFFFFFFFFFFFF0)];
-    v28 = v27 + 8;
-    v29 = v55;
-    v30 = v27 + 8;
+    if (v8 == 20)
+    {
+      v24 = 3;
+    }
+
+    else
+    {
+      v24 = 4;
+    }
+
+    v25 = bswap32(v8) | (4 * WORD1(v8));
+    v26 = v63;
+    v27 = v60 + 16;
+    v54 = *(v60 + 16);
+    v28 = v54(v61, v52, v59);
+    v29 = 0;
+    LOBYTE(v69[0]) = 1;
+    v63 = v24;
+    v57 = 16 * v24;
+    v60 = v27;
+    v58 = (v27 - 8);
+    v56 = v64 + 32;
+    v55 = v8;
     do
     {
-      *(v30 - 1) = 0;
-      *v30 = 0;
-      v30 += 16;
-      --v29;
+      v62 = v49;
+      MEMORY[0x1EEE9AC00](v28);
+      v31 = v49 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v32 = v31 + 8;
+      v33 = v63;
+      v34 = v31 + 8;
+      do
+      {
+        *(v34 - 1) = 0;
+        *v34 = 0;
+        v34 += 16;
+        --v33;
+      }
+
+      while (v33);
+      v35 = v56 + 40 * v29;
+      v36 = v63;
+      while (1)
+      {
+        v37 = *(v64 + 16);
+        if (v29 == v37)
+        {
+          break;
+        }
+
+        if (v29 >= v37)
+        {
+          __break(1u);
+        }
+
+        ++v29;
+        outlined init with copy of AnyTrackedValue(v35, &v71);
+        v38 = *(&v72 + 1);
+        v39 = v73;
+        __swift_project_boxed_opaque_existential_1(&v71, *(&v72 + 1));
+        *(v32 - 1) = CVarArg.kdebugValue(_:)(v25 | v26, v38, v39);
+        *v32 = v40 & 1;
+        v32 += 16;
+        __swift_destroy_boxed_opaque_existential_1(&v71);
+        v35 += 40;
+        if (!--v36)
+        {
+          goto LABEL_20;
+        }
+      }
+
+      LOBYTE(v69[0]) = 0;
+LABEL_20:
+      v41 = v55;
+      if (v55 == 20)
+      {
+        OSSignpostID.rawValue.getter();
+      }
+
+      kdebug_trace();
+      if (v31[8] == 1)
+      {
+        kdebug_trace_string();
+      }
+
+      if (v31[24] == 1)
+      {
+        kdebug_trace_string();
+      }
+
+      if (v31[40] == 1)
+      {
+        kdebug_trace_string();
+      }
+
+      if (v41 != 20 && v31[56] == 1)
+      {
+        kdebug_trace_string();
+      }
+
+      if (one-time initialization token for continuation != -1)
+      {
+        swift_once();
+      }
+
+      v42 = *v58;
+      v43 = v61;
+      v44 = v59;
+      (*v58)(v61, v59);
+      v45 = __swift_project_value_buffer(v44, static OSSignpostID.continuation);
+      v28 = v54(v43, v45, v44);
     }
 
-    while (v29);
-    v31 = v48 + 40 * v25;
-    v32 = v55;
-    while (1)
-    {
-      v33 = *(v56 + 16);
-      if (v25 == v33)
-      {
-        LOBYTE(v58) = 0;
-LABEL_19:
-        v36 = v47;
-        if (v47 == 20)
-        {
-          OSSignpostID.rawValue.getter();
-        }
-
-        kdebug_trace();
-        if (v27[8] == 1)
-        {
-          kdebug_trace_string();
-        }
-
-        if (v27[24] == 1)
-        {
-          kdebug_trace_string();
-        }
-
-        if (v27[40] == 1)
-        {
-          kdebug_trace_string();
-        }
-
-        if (v36 != 20 && v27[56] == 1)
-        {
-          kdebug_trace_string();
-        }
-
-        if (one-time initialization token for continuation != -1)
-        {
-          swift_once();
-        }
-
-        v37 = v51;
-        v38 = *v50;
-        v39 = v53;
-        (*v50)(v53, v51);
-        v40 = __swift_project_value_buffer(v37, static OSSignpostID.continuation);
-        v24 = v46(v39, v40, v37);
-        if ((v58 & 1) == 0)
-        {
-          v41 = v51;
-          v38(v53, v51);
-          v38(v45, v41);
-          goto LABEL_34;
-        }
-
-        goto LABEL_11;
-      }
-
-      if (v25 >= v33)
-      {
-        break;
-      }
-
-      ++v25;
-      outlined init with copy of AnyTrackedValue(v31, &v64);
-      v34 = v68;
-      __swift_project_boxed_opaque_existential_1(&v64, v68);
-      *(v28 - 1) = CVarArg.kdebugValue(_:)(v21 | v22, v34);
-      *v28 = v35 & 1;
-      v28 += 16;
-      __swift_destroy_boxed_opaque_existential_1(&v64);
-      v31 += 40;
-      if (!--v32)
-      {
-        goto LABEL_19;
-      }
-    }
-
-    __break(1u);
-LABEL_37:
-    swift_once();
+    while ((v69[0] & 1) != 0);
+    v46 = v59;
+    v42(v61, v59);
+    v42(v52, v46);
+    goto LABEL_35;
   }
 
+LABEL_36:
   AGGraphClearUpdate();
-  LOBYTE(v64) = v44 & 1;
-  *(&v64 + 1) = 256;
+  v47 = *(v50 + 16);
+  v71 = *v50;
+  v72 = v47;
+  v73 = *(v50 + 32);
+  v74 = 256;
+  outlined init with copy of UncheckedSendable<GlassEffectShapeModifier>(v50, v69, a3, v53, type metadata accessor for UncheckedSendable);
   AGGraphSetUpdate();
   $defer #1 <A>() in traceRuleBody<A>(_:body:)();
-  type metadata accessor for _ShapeView<DefaultGlassEffectShape, ForegroundStyle>();
-  return AGGraphSetOutputValue();
+  v51(0);
+  AGGraphSetOutputValue();
+
+  return result;
 }
 
-uint64_t specialized closure #1 in ViewBodyAccessor.updateBody(of:changed:)(__int128 *a1)
+double specialized closure #1 in ViewBodyAccessor.updateBody(of:changed:)(__int128 *a1)
 {
-  v43 = a1;
-  v67 = *MEMORY[0x1E69E9840];
-  v50 = type metadata accessor for OSSignpostID();
-  v51 = *(v50 - 8);
-  MEMORY[0x1EEE9AC00](v50);
-  v52 = &v42[-((v1 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v45 = a1;
+  v68 = *MEMORY[0x1E69E9840];
+  v52 = type metadata accessor for OSSignpostID();
+  v53 = *(v52 - 8);
+  MEMORY[0x1EEE9AC00](v52);
+  v54 = &v44 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v2);
-  v44 = &v42[-v3];
+  v46 = &v44 - v3;
   if (one-time initialization token for bodyInvoke != -1)
   {
     goto LABEL_37;
@@ -9844,17 +4636,17 @@ uint64_t specialized closure #1 in ViewBodyAccessor.updateBody(of:changed:)(__in
     v6 = HIBYTE(word_1ED539040);
     v7 = byte_1ED539042;
     v8 = static os_signpost_type_t.begin.getter();
-    v63 = v4;
-    LOBYTE(v64) = v5;
-    BYTE1(v64) = v6;
-    BYTE2(v64) = v7;
+    v64 = v4;
+    LOBYTE(v65) = v5;
+    BYTE1(v65) = v6;
+    BYTE2(v65) = v7;
     if ((Signpost.isEnabled.getter() & 1) == 0)
     {
       break;
     }
 
-    v53 = *(&v4 + 1);
-    LODWORD(v54) = v8;
+    v55 = *(&v4 + 1);
+    LODWORD(v56) = v8;
     static OSSignpostID.exclusive.getter();
     type metadata accessor for TappableEventType?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<CVarArg>, &lazy cache variable for type metadata for CVarArg, MEMORY[0x1E69E7740], MEMORY[0x1E69E6F90]);
     v9 = swift_allocObject();
@@ -9863,16 +4655,17 @@ uint64_t specialized closure #1 in ViewBodyAccessor.updateBody(of:changed:)(__in
     v12 = v11;
     v13 = MEMORY[0x1E69E6158];
     *(v9 + 56) = MEMORY[0x1E69E6158];
-    v14 = lazy protocol witness table accessor for type String and conformance String();
+    lazy protocol witness table accessor for type String and conformance String();
+    v15 = v14;
     *(v9 + 64) = v14;
     *(v9 + 32) = v10;
     *(v9 + 40) = v12;
-    v15 = specialized static Tracing.libraryName(defining:)();
+    v16 = specialized static Tracing.libraryName(defining:)();
     *(v9 + 96) = v13;
-    *(v9 + 104) = v14;
-    *(v9 + 72) = v15;
-    *(v9 + 80) = v16;
-    v55 = v9;
+    *(v9 + 104) = v15;
+    *(v9 + 72) = v16;
+    *(v9 + 80) = v17;
+    v57 = v9;
     if (one-time initialization token for _signpostLog != -1)
     {
       swift_once();
@@ -9880,19 +4673,19 @@ uint64_t specialized closure #1 in ViewBodyAccessor.updateBody(of:changed:)(__in
 
     if (v6)
     {
-      v62 = v54;
-      v60 = _signpostLog;
-      v61 = &dword_18D018000;
-      *&v63 = v4;
-      *(&v63 + 1) = v53;
-      LOBYTE(v64) = v5;
-      v57 = "%{public}@.body [in %{public}@]";
-      v58 = 31;
-      v59 = 2;
-      v56 = v55;
-      v17 = v44;
-      specialized thunk for @escaping @callee_guaranteed (@unowned os_signpost_type_t, @unowned UnsafeRawPointer, @guaranteed OS_os_log, @unowned StaticString, @in_guaranteed OSSignpostID, @unowned StaticString, @guaranteed [CVarArg]) -> ()();
-      (*(v51 + 8))(v17, v50);
+      v61 = v56;
+      v59 = _signpostLog;
+      v60 = &dword_18D018000;
+      *&v64 = v4;
+      *(&v64 + 1) = v55;
+      LOBYTE(v65) = v5;
+      v62[0] = "%{public}@.body [in %{public}@]";
+      v62[1] = 31;
+      v63 = 2;
+      v58 = v57;
+      v18 = v46;
+      specialized thunk for @escaping @callee_guaranteed (@unowned os_signpost_type_t, @unowned UnsafeRawPointer, @guaranteed OS_os_log, @unowned StaticString, @in_guaranteed OSSignpostID, @unowned StaticString, @guaranteed [CVarArg]) -> ()(&v61, &v60, &v59, &v64, v46, v62, &v58);
+      (*(v53 + 8))(v18, v52);
 LABEL_34:
 
       break;
@@ -9900,75 +4693,75 @@ LABEL_34:
 
     if (v4 == 20)
     {
-      v18 = 3;
+      v19 = 3;
     }
 
     else
     {
-      v18 = 4;
+      v19 = 4;
     }
 
-    v19 = bswap32(v4) | (4 * WORD1(v4));
-    v20 = v54;
-    v21 = v51 + 16;
-    v45 = *(v51 + 16);
-    v22 = v45(v52, v44, v50);
-    v23 = 0;
-    LOBYTE(v57) = 1;
-    v54 = v18;
-    v48 = 16 * v18;
-    v51 = v21;
-    v49 = (v21 - 8);
-    v47 = v55 + 32;
-    v46 = v4;
+    v20 = bswap32(v4) | (4 * WORD1(v4));
+    v21 = v56;
+    v22 = v53 + 16;
+    v47 = *(v53 + 16);
+    v23 = v47(v54, v46, v52);
+    v24 = 0;
+    LOBYTE(v62[0]) = 1;
+    v56 = v19;
+    v50 = 16 * v19;
+    v53 = v22;
+    v51 = (v22 - 8);
+    v49 = v57 + 32;
+    v48 = v4;
 LABEL_11:
-    v53 = v42;
-    MEMORY[0x1EEE9AC00](v22);
-    v25 = &v42[-((v24 + 15) & 0xFFFFFFFFFFFFFFF0)];
-    v26 = v25 + 8;
-    v27 = v54;
-    v28 = v25 + 8;
+    v55 = &v44;
+    MEMORY[0x1EEE9AC00](v23);
+    v26 = &v44 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v27 = v26 + 8;
+    v28 = v56;
+    v29 = v26 + 8;
     do
     {
-      *(v28 - 1) = 0;
-      *v28 = 0;
-      v28 += 16;
-      --v27;
+      *(v29 - 1) = 0;
+      *v29 = 0;
+      v29 += 16;
+      --v28;
     }
 
-    while (v27);
-    v29 = v47 + 40 * v23;
-    v30 = v54;
+    while (v28);
+    v30 = v49 + 40 * v24;
+    v31 = v56;
     while (1)
     {
-      v31 = *(v55 + 16);
-      if (v23 == v31)
+      v32 = *(v57 + 16);
+      if (v24 == v32)
       {
-        LOBYTE(v57) = 0;
+        LOBYTE(v62[0]) = 0;
 LABEL_19:
-        v34 = v46;
-        if (v46 == 20)
+        v36 = v48;
+        if (v48 == 20)
         {
           OSSignpostID.rawValue.getter();
         }
 
         kdebug_trace();
-        if (v25[8] == 1)
+        if (v26[8] == 1)
         {
           kdebug_trace_string();
         }
 
-        if (v25[24] == 1)
+        if (v26[24] == 1)
         {
           kdebug_trace_string();
         }
 
-        if (v25[40] == 1)
+        if (v26[40] == 1)
         {
           kdebug_trace_string();
         }
 
-        if (v34 != 20 && v25[56] == 1)
+        if (v36 != 20 && v26[56] == 1)
         {
           kdebug_trace_string();
         }
@@ -9978,38 +4771,39 @@ LABEL_19:
           swift_once();
         }
 
-        v35 = *v49;
-        v36 = v52;
-        v37 = v50;
-        (*v49)(v52, v50);
-        v38 = __swift_project_value_buffer(v37, static OSSignpostID.continuation);
-        v22 = v45(v36, v38, v37);
-        if ((v57 & 1) == 0)
+        v37 = *v51;
+        v38 = v54;
+        v39 = v52;
+        (*v51)(v54, v52);
+        v40 = __swift_project_value_buffer(v39, static OSSignpostID.continuation);
+        v23 = v47(v38, v40, v39);
+        if ((v62[0] & 1) == 0)
         {
-          v39 = v50;
-          v35(v52, v50);
-          v35(v44, v39);
+          v41 = v52;
+          v37(v54, v52);
+          v37(v46, v41);
           goto LABEL_34;
         }
 
         goto LABEL_11;
       }
 
-      if (v23 >= v31)
+      if (v24 >= v32)
       {
         break;
       }
 
-      ++v23;
-      outlined init with copy of AnyTrackedValue(v29, &v63);
-      v32 = *(&v64 + 1);
-      __swift_project_boxed_opaque_existential_1(&v63, *(&v64 + 1));
-      *(v26 - 1) = CVarArg.kdebugValue(_:)(v19 | v20, v32);
-      *v26 = v33 & 1;
-      v26 += 16;
-      __swift_destroy_boxed_opaque_existential_1(&v63);
-      v29 += 40;
-      if (!--v30)
+      ++v24;
+      outlined init with copy of AnyTrackedValue(v30, &v64);
+      v33 = *(&v65 + 1);
+      v34 = *v66;
+      __swift_project_boxed_opaque_existential_1(&v64, *(&v65 + 1));
+      *(v27 - 1) = CVarArg.kdebugValue(_:)(v20 | v21, v33, v34);
+      *v27 = v35 & 1;
+      v27 += 16;
+      __swift_destroy_boxed_opaque_existential_1(&v64);
+      v30 += 40;
+      if (!--v31)
       {
         goto LABEL_19;
       }
@@ -10021,224 +4815,5091 @@ LABEL_37:
   }
 
   AGGraphClearUpdate();
-  v40 = v43[1];
-  v63 = *v43;
-  v64 = v40;
-  v65 = v43[2];
-  v66 = 256;
+  v42 = v45[1];
+  v64 = *v45;
+  v65 = v42;
+  *v66 = v45[2];
+  *&v66[10] = *(v45 + 42);
+  v67 = 256;
+  outlined init with copy of UncheckedSendable<GlassEffectShapeModifier>(v45, v62, &lazy cache variable for type metadata for UncheckedSendable<MeshGradient>, &type metadata for MeshGradient, type metadata accessor for UncheckedSendable);
   AGGraphSetUpdate();
   $defer #1 <A>() in traceRuleBody<A>(_:body:)();
-  type metadata accessor for _ShapeView<UnevenRoundedRectangle._Inset, ForegroundStyle>();
-  return AGGraphSetOutputValue();
+  type metadata accessor for _ShapeView<Rectangle, MeshGradient>(0);
+  AGGraphSetOutputValue();
+
+  return result;
+}
+
+uint64_t specialized EventListenerPhase.updateValue()()
+{
+  v1 = v0;
+  v109[6] = *MEMORY[0x1E69E9840];
+  result = specialized ResettableGestureRule.resetIfNeeded()();
+  if ((result & 1) == 0)
+  {
+    return result;
+  }
+
+  v108 = 0;
+  memset(v107, 0, sizeof(v107));
+  type metadata accessor for [EventID : EventType](0);
+  v3 = *AGGraphGetValue();
+  v4 = v3 + 64;
+  v5 = 1 << *(v3 + 32);
+  v6 = -1;
+  if (v5 < 64)
+  {
+    v6 = ~(-1 << v5);
+  }
+
+  v7 = v6 & *(v3 + 64);
+  v8 = (v5 + 63) >> 6;
+  v73 = v3;
+
+  v9 = 0;
+  v75 = v0;
+  if (!v7)
+  {
+    goto LABEL_7;
+  }
+
+  do
+  {
+    while (1)
+    {
+      v12 = v9;
+LABEL_17:
+      v13 = __clz(__rbit64(v7));
+      v7 &= v7 - 1;
+      v14 = v13 | (v12 << 6);
+      v15 = (*(v73 + 48) + 16 * v14);
+      v16 = *v15;
+      v17 = v15[1];
+      outlined init with copy of AnyTrackedValue(*(v73 + 56) + 40 * v14, &v87);
+      *&v93[0] = v16;
+      *(&v93[0] + 1) = v17;
+      outlined init with take of AnyTrackedValue(&v87, &v93[1]);
+LABEL_18:
+      v104 = v93[0];
+      v105[0] = v93[1];
+      v105[1] = v93[2];
+      v106 = v94;
+      v18 = *&v93[0];
+      if (!*&v93[0])
+      {
+
+        outlined init with copy of Scrollable?(v107, v93, &lazy cache variable for type metadata for EventType?, &lazy cache variable for type metadata for EventType, &protocol descriptor for EventType);
+        if (!*(&v93[1] + 1))
+        {
+          outlined destroy of ViewList?(v93, &lazy cache variable for type metadata for EventType?, &lazy cache variable for type metadata for EventType, &protocol descriptor for EventType);
+          type metadata accessor for KeyPath<EnvironmentValues, LayoutDirection>(0, &lazy cache variable for type metadata for EventListenerPhase<SpatialEvent>.Value, &type metadata for SpatialEvent, &protocol witness table for SpatialEvent, type metadata accessor for EventListenerPhase.Value);
+          if (!AGGraphGetOutputValue())
+          {
+            v94 = 0uLL;
+            v95 = 0uLL;
+            memset(v93, 0, sizeof(v93));
+            v96 = -256;
+            outlined destroy of _VariadicView.Tree<_LayoutRoot<GeometryReaderLayout>, ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>>(v93, type metadata accessor for GesturePhase<SpatialEvent>?);
+            v60 = 0;
+            v49 = 0;
+            v50 = 0;
+            v52 = 0;
+            v53 = 0;
+            v61 = 0;
+            v62 = 0;
+            v63 = 0;
+            v58 = 0;
+            v59 = 0;
+            v74 = 5;
+            v51 = 1;
+            goto LABEL_68;
+          }
+
+          v94 = 0uLL;
+          v95 = 0uLL;
+          memset(v93, 0, sizeof(v93));
+          v96 = -256;
+          outlined destroy of _VariadicView.Tree<_LayoutRoot<GeometryReaderLayout>, ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>>(v93, type metadata accessor for GesturePhase<SpatialEvent>?);
+          return outlined destroy of ViewList?(v107, &lazy cache variable for type metadata for EventType?, &lazy cache variable for type metadata for EventType, &protocol descriptor for EventType);
+        }
+
+        outlined init with take of AnyTrackedValue(v93, v101);
+        if ((*(v1 + 20) & 1) == 0)
+        {
+          AGGraphClearUpdate();
+          Value = AGGraphGetValue();
+          v30 = v1;
+          v31 = *Value;
+          v32 = *(Value + 8);
+          v34 = *(Value + 16);
+          v33 = *(Value + 24);
+          v35 = *(Value + 32);
+          v36 = *(Value + 40);
+          type metadata accessor for CGPoint(0);
+
+          v37 = AGGraphGetValue();
+          v38 = *v37;
+          v39 = v37[1];
+          result = AGGraphSetUpdate();
+          v40 = *(v30 + 24);
+          if (!v40)
+          {
+            __break(1u);
+            return result;
+          }
+
+          v41 = *(v30 + 32);
+          type metadata accessor for ObservationTracking._AccessList?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<(EventID, EventType)>, type metadata accessor for (EventID, EventType), MEMORY[0x1E69E6F90]);
+          v42 = swift_allocObject();
+          *(v42 + 16) = xmmword_18DDA6EB0;
+          *(v42 + 32) = v40;
+          *(v42 + 40) = v41;
+          outlined init with copy of AnyTrackedValue(v101, v42 + 48);
+          v43 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC7SwiftUI7EventIDV_AC0E4Type_pTt0g5Tf4g_n(v42);
+          swift_setDeallocating();
+          outlined destroy of _VariadicView.Tree<_LayoutRoot<GeometryReaderLayout>, ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>>(v42 + 32, type metadata accessor for (EventID, EventType));
+          swift_deallocClassInstance();
+          *&v87 = v43;
+          *&v93[0] = 1;
+          memset(v93 + 8, 0, 32);
+          BYTE8(v93[2]) = 2;
+          v109[0] = v31;
+          v109[1] = v32;
+          *&v109[2] = v38;
+          *&v109[3] = v39;
+          *&v109[4] = v35 - (v38 - v34);
+          *&v109[5] = v36 - (v39 - v33);
+
+          specialized defaultConvertEventLocations<A>(_:coordinateSpace:transform:)(&v87, v93, v109);
+
+          outlined destroy of GlassEntryView?(v93, &lazy cache variable for type metadata for CoordinateSpace?, &type metadata for CoordinateSpace, MEMORY[0x1E69E6720]);
+          v44 = v87;
+          if (*(v87 + 16))
+          {
+            v45 = specialized __RawDictionaryStorage.find<A>(_:)(v40, v41);
+            if (v46)
+            {
+              outlined init with copy of AnyTrackedValue(*(v44 + 56) + 40 * v45, v93);
+
+              __swift_destroy_boxed_opaque_existential_1(v101);
+              outlined init with take of AnyTrackedValue(v93, v101);
+
+              v1 = v75;
+              goto LABEL_50;
+            }
+          }
+
+          else
+          {
+            __break(1u);
+          }
+
+          __break(1u);
+        }
+
+LABEL_50:
+        outlined init with copy of AnyTrackedValue(v101, v93);
+        SpatialEvent.init(_:)(v93, &v87);
+        if (v88 == 1)
+        {
+          v94 = 0u;
+          v95 = 0u;
+          memset(v93, 0, sizeof(v93));
+          v96 = -256;
+          outlined destroy of _VariadicView.Tree<_LayoutRoot<GeometryReaderLayout>, ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>>(v93, type metadata accessor for GesturePhase<SpatialEvent>?);
+          outlined destroy of ViewList?(v107, &lazy cache variable for type metadata for EventType?, &lazy cache variable for type metadata for EventType, &protocol descriptor for EventType);
+          v84 = v90;
+          v85 = v91;
+          LOBYTE(v86) = v92;
+          v81 = v87;
+          v82 = v88;
+          v83 = v89;
+          outlined destroy of GlassEntryView?(&v81, &lazy cache variable for type metadata for SpatialEvent?, &type metadata for SpatialEvent, MEMORY[0x1E69E6720]);
+          return __swift_destroy_boxed_opaque_existential_1(v101);
+        }
+
+        v81 = v87;
+        v82 = v88;
+        v83 = v89;
+        v84 = v90;
+        v85 = v91;
+        v48 = v92;
+        LOBYTE(v86) = v92;
+        v49 = *(&v87 + 1);
+        v50 = *(&v88 + 1);
+        v51 = v88;
+        v53 = *(&v89 + 1);
+        v52 = v89;
+        v54 = v90;
+        v68 = v91;
+        v70 = v87;
+        v56 = v102;
+        v55 = v103;
+        __swift_project_boxed_opaque_existential_1(v101, v102);
+        (*(v55 + 8))(v80, v56, v55);
+        v94 = 0u;
+        v95 = 0u;
+        memset(v93, 0, sizeof(v93));
+        v96 = -256;
+        outlined destroy of _VariadicView.Tree<_LayoutRoot<GeometryReaderLayout>, ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>>(v93, type metadata accessor for GesturePhase<SpatialEvent>?);
+        if (LOBYTE(v80[0]) >= 2u)
+        {
+          if (LOBYTE(v80[0]) != 2)
+          {
+            outlined destroy of GlassEntryView?(&v81, &lazy cache variable for type metadata for SpatialEvent?, &type metadata for SpatialEvent, MEMORY[0x1E69E6720]);
+            v60 = 0;
+            v49 = 0;
+            v51 = 0;
+            v50 = 0;
+            v52 = 0;
+            v53 = 0;
+            v61 = 0;
+            v62 = 0;
+            v63 = 0;
+            *(&v68 + 1) = 0;
+            v71 = 768;
+            v74 = 4;
+LABEL_67:
+            __swift_destroy_boxed_opaque_existential_1(v101);
+            v58 = *(&v68 + 1);
+            v59 = v71;
+            goto LABEL_68;
+          }
+
+          v57 = v48 | 0x200;
+        }
+
+        else
+        {
+          v57 = v48 | 0x100;
+        }
+
+        v71 = v57;
+        v74 = 5;
+        v60 = v70;
+        v62 = *(&v54 + 1);
+        v61 = v54;
+        v63 = v68;
+        goto LABEL_67;
+      }
+
+      v19 = *(&v104 + 1);
+      outlined init with take of AnyTrackedValue(v105, &v81);
+      v20 = *(&v82 + 1);
+      v21 = v83;
+      __swift_project_boxed_opaque_existential_1(&v81, *(&v82 + 1));
+      (*(v21 + 24))(v93, v20, v21);
+      if (*&v93[0])
+      {
+        break;
+      }
+
+      v1 = v75;
+      v28 = *(v75 + 24);
+      if (v28 && v18 == v28 && *(v75 + 32) == v19)
+      {
+
+        __swift_destroy_boxed_opaque_existential_1(&v81);
+        v74 = 0;
+        goto LABEL_66;
+      }
+
+      __swift_destroy_boxed_opaque_existential_1(&v81);
+      if (!v7)
+      {
+        goto LABEL_7;
+      }
+    }
+
+    v1 = v75;
+    if ((*(v75 + 21) & 1) == 0)
+    {
+      v22 = *(v75 + 24);
+      if (!v22 || v18 != v22 || *(v75 + 32) != v19)
+      {
+        v23 = *(&v82 + 1);
+        v24 = v83;
+        __swift_project_boxed_opaque_existential_1(&v81, *(&v82 + 1));
+        v25 = *(v24 + 8);
+        v26 = v24;
+        v1 = v75;
+        v25(v93, v23, v26);
+        if (LOBYTE(v93[0]))
+        {
+          if (!*(v75 + 24) || (type metadata accessor for KeyPath<EnvironmentValues, LayoutDirection>(0, &lazy cache variable for type metadata for EventListener<SpatialEvent>, &type metadata for SpatialEvent, &protocol witness table for SpatialEvent, type metadata accessor for EventListener), (*AGGraphGetValue() & 1) == 0))
+          {
+
+            __swift_destroy_boxed_opaque_existential_1(&v81);
+            v47 = 1;
+            goto LABEL_65;
+          }
+        }
+      }
+    }
+
+    outlined init with copy of AnyTrackedValue(&v81, v109);
+    outlined init with copy of AnyTrackedValue(v109, v80);
+    type metadata accessor for AnyTrackedValue(0, &lazy cache variable for type metadata for EventType, &protocol descriptor for EventType);
+    type metadata accessor for AnyTrackedValue(0, &lazy cache variable for type metadata for SpatialEventType, &protocol descriptor for SpatialEventType);
+    if (swift_dynamicCast())
+    {
+      outlined init with take of AnyTrackedValue(v78, v101);
+      outlined init with copy of AnyTrackedValue(v101, v77);
+      SpatialEvent.init(_:)(v77, &v87);
+      __swift_destroy_boxed_opaque_existential_1(v101);
+      __swift_destroy_boxed_opaque_existential_1(v109);
+      v93[2] = v89;
+      v94 = v90;
+      v95 = v91;
+      LOBYTE(v96) = v92;
+      v93[0] = v87;
+      v93[1] = v88;
+      outlined destroy of SpatialEvent(v93);
+      v27 = *(v1 + 24);
+      if (v27)
+      {
+        if (*(v1 + 32) != v19 || v18 != v27)
+        {
+          type metadata accessor for KeyPath<EnvironmentValues, LayoutDirection>(0, &lazy cache variable for type metadata for EventListener<SpatialEvent>, &type metadata for SpatialEvent, &protocol witness table for SpatialEvent, type metadata accessor for EventListener);
+          if (*AGGraphGetValue() != 1)
+          {
+            goto LABEL_64;
+          }
+        }
+
+        outlined destroy of ViewList?(v107, &lazy cache variable for type metadata for EventType?, &lazy cache variable for type metadata for EventType, &protocol descriptor for EventType);
+      }
+
+      else
+      {
+        outlined destroy of ViewList?(v107, &lazy cache variable for type metadata for EventType?, &lazy cache variable for type metadata for EventType, &protocol descriptor for EventType);
+        *(v1 + 24) = v18;
+        *(v1 + 32) = v19;
+      }
+
+      outlined init with copy of AnyTrackedValue(&v81, v107);
+    }
+
+    else
+    {
+      v79 = 0;
+      memset(v78, 0, sizeof(v78));
+      __swift_destroy_boxed_opaque_existential_1(v109);
+      outlined destroy of ViewList?(v78, &lazy cache variable for type metadata for SpatialEventType?, &lazy cache variable for type metadata for SpatialEventType, &protocol descriptor for SpatialEventType);
+      if (!*(v1 + 24) || (type metadata accessor for KeyPath<EnvironmentValues, LayoutDirection>(0, &lazy cache variable for type metadata for EventListener<SpatialEvent>, &type metadata for SpatialEvent, &protocol witness table for SpatialEvent, type metadata accessor for EventListener), (*AGGraphGetValue() & 1) == 0))
+      {
+
+        __swift_destroy_boxed_opaque_existential_1(&v81);
+        v47 = 3;
+        goto LABEL_65;
+      }
+    }
+
+    __swift_destroy_boxed_opaque_existential_1(&v81);
+  }
+
+  while (v7);
+LABEL_7:
+  if (v8 <= v9 + 1)
+  {
+    v10 = v9 + 1;
+  }
+
+  else
+  {
+    v10 = v8;
+  }
+
+  v11 = v10 - 1;
+  while (1)
+  {
+    v12 = v9 + 1;
+    if (__OFADD__(v9, 1))
+    {
+      break;
+    }
+
+    if (v12 >= v8)
+    {
+      v7 = 0;
+      *&v94 = 0;
+      v9 = v11;
+      memset(v93, 0, sizeof(v93));
+      goto LABEL_18;
+    }
+
+    v7 = *(v4 + 8 * v12);
+    ++v9;
+    if (v7)
+    {
+      v9 = v12;
+      goto LABEL_17;
+    }
+  }
+
+  __break(1u);
+LABEL_64:
+
+  __swift_destroy_boxed_opaque_existential_1(&v81);
+  v47 = 2;
+LABEL_65:
+  v74 = v47;
+LABEL_66:
+  v94 = 0u;
+  v95 = 0u;
+  memset(v93, 0, sizeof(v93));
+  v96 = -256;
+  outlined destroy of _VariadicView.Tree<_LayoutRoot<GeometryReaderLayout>, ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>>(v93, type metadata accessor for GesturePhase<SpatialEvent>?);
+  v60 = 0;
+  v49 = 0;
+  v51 = 0;
+  v50 = 0;
+  v52 = 0;
+  v53 = 0;
+  v61 = 0;
+  v62 = 0;
+  v63 = 0;
+  v58 = 0;
+  v59 = 768;
+LABEL_68:
+  v76 = v61;
+  v69 = *(v1 + 24);
+  *&v93[0] = v60;
+  *(&v93[0] + 1) = v49;
+  *&v93[1] = v51;
+  *(&v93[1] + 1) = v50;
+  *&v93[2] = v52;
+  *(&v93[2] + 1) = v53;
+  *&v94 = v61;
+  *(&v94 + 1) = v62;
+  *&v95 = v63;
+  *(&v95 + 1) = v58;
+  v96 = v59;
+  v99 = v69;
+  v100 = v74;
+  v64 = v63;
+  v65 = v58;
+  v66 = v62;
+  v67 = v59;
+  v72 = v59;
+  type metadata accessor for KeyPath<EnvironmentValues, LayoutDirection>(0, &lazy cache variable for type metadata for EventListenerPhase<SpatialEvent>.Value, &type metadata for SpatialEvent, &protocol witness table for SpatialEvent, type metadata accessor for EventListenerPhase.Value);
+  *&v81 = v60;
+  *(&v81 + 1) = v49;
+  *&v82 = v51;
+  *(&v82 + 1) = v50;
+  *&v83 = v52;
+  *(&v83 + 1) = v53;
+  *&v84 = v76;
+  *(&v84 + 1) = v66;
+  *&v85 = v64;
+  *(&v85 + 1) = v65;
+  v86 = v67;
+  outlined init with copy of UncheckedSendable<GlassEffectShapeModifier>(&v81, &v87, &lazy cache variable for type metadata for GesturePhase<SpatialEvent>, &type metadata for SpatialEvent, type metadata accessor for GesturePhase);
+  AGGraphSetOutputValue();
+  *&v87 = v60;
+  *(&v87 + 1) = v49;
+  *&v88 = v51;
+  *(&v88 + 1) = v50;
+  *&v89 = v52;
+  *(&v89 + 1) = v53;
+  *&v90 = v76;
+  *(&v90 + 1) = v66;
+  *&v91 = v64;
+  *(&v91 + 1) = v65;
+  v92 = v72;
+  outlined destroy of _VariadicView.Tree<_LayoutRoot<GeometryReaderLayout>, ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>>(&v87, type metadata accessor for GesturePhase<SpatialEvent>?);
+  outlined destroy of ViewList?(v107, &lazy cache variable for type metadata for EventType?, &lazy cache variable for type metadata for EventType, &protocol descriptor for EventType);
+  *&v93[0] = v60;
+  *(&v93[0] + 1) = v49;
+  *&v93[1] = v51;
+  *(&v93[1] + 1) = v50;
+  *&v93[2] = v52;
+  *(&v93[2] + 1) = v53;
+  *&v94 = v76;
+  *(&v94 + 1) = v66;
+  *&v95 = v64;
+  *(&v95 + 1) = v65;
+  v96 = v72;
+  v97 = v101[0];
+  v98 = WORD2(v101[0]);
+  v99 = v69;
+  v100 = v74;
+  return outlined destroy of EventListenerPhase<SpatialEvent>.Value(v93);
 }
 
 {
-  v43 = a1;
-  v66 = *MEMORY[0x1E69E9840];
-  v50 = type metadata accessor for OSSignpostID();
-  v51 = *(v50 - 8);
-  MEMORY[0x1EEE9AC00](v50);
-  v52 = &v42 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v2);
-  v44 = &v42 - v3;
-  if (one-time initialization token for bodyInvoke != -1)
+  v1 = v0;
+  v91 = *MEMORY[0x1E69E9840];
+  result = specialized ResettableGestureRule.resetIfNeeded()();
+  if ((result & 1) == 0)
   {
-    goto LABEL_37;
+    return result;
   }
 
-  while (1)
+  v90 = 0;
+  memset(v89, 0, sizeof(v89));
+  type metadata accessor for [EventID : EventType](0);
+  v3 = *AGGraphGetValue();
+  v4 = v3 + 64;
+  v5 = 1 << *(v3 + 32);
+  v6 = -1;
+  if (v5 < 64)
   {
-    v4 = static Signpost.bodyInvoke;
-    v5 = word_1ED539040;
-    v6 = HIBYTE(word_1ED539040);
-    v7 = byte_1ED539042;
-    v8 = static os_signpost_type_t.begin.getter();
-    v62 = v4;
-    LOBYTE(v63) = v5;
-    BYTE1(v63) = v6;
-    BYTE2(v63) = v7;
-    if ((Signpost.isEnabled.getter() & 1) == 0)
-    {
-      break;
-    }
+    v6 = ~(-1 << v5);
+  }
 
-    v53 = *(&v4 + 1);
-    LODWORD(v54) = v8;
-    static OSSignpostID.exclusive.getter();
-    type metadata accessor for TappableEventType?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<CVarArg>, &lazy cache variable for type metadata for CVarArg, MEMORY[0x1E69E7740], MEMORY[0x1E69E6F90]);
-    v9 = swift_allocObject();
-    *(v9 + 16) = xmmword_18DDAB4C0;
-    v10 = AGTypeID.description.getter();
-    v12 = v11;
-    v13 = MEMORY[0x1E69E6158];
-    *(v9 + 56) = MEMORY[0x1E69E6158];
-    v14 = lazy protocol witness table accessor for type String and conformance String();
-    *(v9 + 64) = v14;
-    *(v9 + 32) = v10;
-    *(v9 + 40) = v12;
-    v15 = specialized static Tracing.libraryName(defining:)();
-    *(v9 + 96) = v13;
-    *(v9 + 104) = v14;
-    *(v9 + 72) = v15;
-    *(v9 + 80) = v16;
-    v55 = v9;
-    if (one-time initialization token for _signpostLog != -1)
-    {
-      swift_once();
-    }
+  v7 = v6 & *(v3 + 64);
+  v8 = (v5 + 63) >> 6;
+  v67 = v3;
 
-    if (v6)
-    {
-      v59 = v54;
-      v57 = _signpostLog;
-      v58 = &dword_18D018000;
-      *&v62 = v4;
-      *(&v62 + 1) = v53;
-      LOBYTE(v63) = v5;
-      v60[0] = "%{public}@.body [in %{public}@]";
-      v60[1] = 31;
-      v61 = 2;
-      v56 = v55;
-      v17 = v44;
-      specialized thunk for @escaping @callee_guaranteed (@unowned os_signpost_type_t, @unowned UnsafeRawPointer, @guaranteed OS_os_log, @unowned StaticString, @in_guaranteed OSSignpostID, @unowned StaticString, @guaranteed [CVarArg]) -> ()();
-      (*(v51 + 8))(v17, v50);
-LABEL_34:
+  v9 = 0;
+  v10 = &lazy cache variable for type metadata for TappableEventType;
+  if (!v7)
+  {
+    goto LABEL_7;
+  }
 
-      break;
-    }
-
-    if (v4 == 20)
-    {
-      v18 = 3;
-    }
-
-    else
-    {
-      v18 = 4;
-    }
-
-    v19 = bswap32(v4) | (4 * WORD1(v4));
-    v20 = v54;
-    v21 = v51 + 16;
-    v45 = *(v51 + 16);
-    v22 = v45(v52, v44, v50);
-    v23 = 0;
-    LOBYTE(v60[0]) = 1;
-    v54 = v18;
-    v48 = 16 * v18;
-    v51 = v21;
-    v49 = (v21 - 8);
-    v47 = v55 + 32;
-    v46 = v4;
-LABEL_11:
-    v53 = &v42;
-    MEMORY[0x1EEE9AC00](v22);
-    v25 = &v42 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
-    v26 = v25 + 8;
-    v27 = v54;
-    v28 = v25 + 8;
-    do
-    {
-      *(v28 - 1) = 0;
-      *v28 = 0;
-      v28 += 16;
-      --v27;
-    }
-
-    while (v27);
-    v29 = v47 + 40 * v23;
-    v30 = v54;
+  do
+  {
     while (1)
     {
-      v31 = *(v55 + 16);
-      if (v23 == v31)
+      v13 = v9;
+LABEL_17:
+      v14 = __clz(__rbit64(v7));
+      v7 &= v7 - 1;
+      v15 = v14 | (v13 << 6);
+      v16 = (*(v67 + 48) + 16 * v15);
+      v17 = *v16;
+      v18 = v16[1];
+      outlined init with copy of AnyTrackedValue(*(v67 + 56) + 40 * v15, &v82);
+      *&v85 = v17;
+      *(&v85 + 1) = v18;
+      outlined init with take of AnyTrackedValue(&v82, &v86);
+LABEL_18:
+      *v79 = v85;
+      *&v79[16] = v86;
+      *&v79[32] = v87;
+      v80 = v88;
+      v19 = v85;
+      if (!v85)
       {
-        LOBYTE(v60[0]) = 0;
-LABEL_19:
-        v34 = v46;
-        if (v46 == 20)
+
+        outlined init with copy of Scrollable?(v89, v79, &lazy cache variable for type metadata for EventType?, &lazy cache variable for type metadata for EventType, &protocol descriptor for EventType);
+        if (!*&v79[24])
         {
-          OSSignpostID.rawValue.getter();
+          outlined destroy of ViewList?(v79, &lazy cache variable for type metadata for EventType?, &lazy cache variable for type metadata for EventType, &protocol descriptor for EventType);
+          type metadata accessor for KeyPath<EnvironmentValues, LayoutDirection>(0, &lazy cache variable for type metadata for EventListenerPhase<TappableEvent>.Value, &type metadata for TappableEvent, &protocol witness table for TappableEvent, type metadata accessor for EventListenerPhase.Value);
+          OutputValue = AGGraphGetOutputValue();
+          outlined consume of GesturePhase<TappableEvent>?(0, 0, 0, 0, 65280);
+          if (!OutputValue)
+          {
+            v56 = 0;
+            v58 = 0;
+            v64 = 0;
+            v63 = 5;
+            v54 = 1;
+            goto LABEL_67;
+          }
+
+          return outlined destroy of ViewList?(v89, &lazy cache variable for type metadata for EventType?, &lazy cache variable for type metadata for EventType, &protocol descriptor for EventType);
         }
 
-        kdebug_trace();
-        if (v25[8] == 1)
+        outlined init with take of AnyTrackedValue(v79, &v82);
+        if ((*(v1 + 20) & 1) == 0)
         {
-          kdebug_trace_string();
+          AGGraphClearUpdate();
+          Value = AGGraphGetValue();
+          v38 = *Value;
+          v39 = *(Value + 8);
+          v41 = *(Value + 16);
+          v40 = *(Value + 24);
+          v42 = *(Value + 32);
+          v43 = *(Value + 40);
+          type metadata accessor for CGPoint(0);
+
+          v44 = AGGraphGetValue();
+          v45 = *v44;
+          v46 = v44[1];
+          result = AGGraphSetUpdate();
+          v47 = *(v1 + 24);
+          if (!v47)
+          {
+            __break(1u);
+            return result;
+          }
+
+          v48 = *(v1 + 32);
+          type metadata accessor for ObservationTracking._AccessList?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<(EventID, EventType)>, type metadata accessor for (EventID, EventType), MEMORY[0x1E69E6F90]);
+          v49 = swift_allocObject();
+          *(v49 + 16) = xmmword_18DDA6EB0;
+          *(v49 + 32) = v47;
+          *(v49 + 40) = v48;
+          outlined init with copy of AnyTrackedValue(&v82, v49 + 48);
+          v50 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC7SwiftUI7EventIDV_AC0E4Type_pTt0g5Tf4g_n(v49);
+          swift_setDeallocating();
+          outlined destroy of _VariadicView.Tree<_LayoutRoot<GeometryReaderLayout>, ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>>(v49 + 32, type metadata accessor for (EventID, EventType));
+          swift_deallocClassInstance();
+          v74 = v50;
+          *v79 = 1;
+          memset(&v79[8], 0, 32);
+          v79[40] = 2;
+          *&v85 = v38;
+          *(&v85 + 1) = v39;
+          *&v86 = v45;
+          *(&v86 + 1) = v46;
+          *&v87 = v42 - (v45 - v41);
+          *(&v87 + 1) = v43 - (v46 - v40);
+
+          specialized defaultConvertEventLocations<A>(_:coordinateSpace:transform:)(&v74, v79, &v85);
+
+          outlined destroy of GlassEntryView?(v79, &lazy cache variable for type metadata for CoordinateSpace?, &type metadata for CoordinateSpace, MEMORY[0x1E69E6720]);
+          v51 = v74;
+          if (*(v74 + 16))
+          {
+            v52 = specialized __RawDictionaryStorage.find<A>(_:)(v47, v48);
+            if (v53)
+            {
+              outlined init with copy of AnyTrackedValue(*(v51 + 56) + 40 * v52, v79);
+
+              __swift_destroy_boxed_opaque_existential_1(&v82);
+              outlined init with take of AnyTrackedValue(v79, &v82);
+
+              goto LABEL_50;
+            }
+          }
+
+          else
+          {
+            __break(1u);
+          }
+
+          __break(1u);
         }
 
-        if (v25[24] == 1)
+LABEL_50:
+        outlined init with copy of AnyTrackedValue(&v82, v79);
+        TappableEvent.init(_:)(v79, &v74);
+        v54 = v76;
+        if (v76 == 1)
         {
-          kdebug_trace_string();
+          outlined consume of GesturePhase<TappableEvent>?(0, 0, 0, 0, 65280);
+          outlined destroy of ViewList?(v89, &lazy cache variable for type metadata for EventType?, &lazy cache variable for type metadata for EventType, &protocol descriptor for EventType);
+          outlined consume of PhysicalButtonEvent?(v74, v75, 1);
+          return __swift_destroy_boxed_opaque_existential_1(&v82);
         }
 
-        if (v25[40] == 1)
+        v57 = v74;
+        v56 = v75;
+        v58 = v77;
+        v59 = v78;
+        v60 = v83;
+        v61 = v84;
+        __swift_project_boxed_opaque_existential_1(&v82, v83);
+        (*(v61 + 8))(v79, v60, v61);
+        outlined consume of GesturePhase<TappableEvent>?(0, 0, 0, 0, 65280);
+        if (v79[0] >= 2u)
         {
-          kdebug_trace_string();
+          if (v79[0] != 2)
+          {
+            outlined consume of PhysicalButtonEvent?(v57, v56, v54);
+            OutputValue = 0;
+            v56 = 0;
+            v54 = 0;
+            v58 = 0;
+            v63 = 4;
+            v64 = 768;
+LABEL_66:
+            __swift_destroy_boxed_opaque_existential_1(&v82);
+            goto LABEL_67;
+          }
+
+          OutputValue = v57;
+          v62 = 512;
         }
 
-        if (v34 != 20 && v25[56] == 1)
+        else
         {
-          kdebug_trace_string();
+          OutputValue = v57;
+          v62 = 256;
         }
 
-        if (one-time initialization token for continuation != -1)
-        {
-          swift_once();
-        }
-
-        v35 = *v49;
-        v36 = v52;
-        v37 = v50;
-        (*v49)(v52, v50);
-        v38 = __swift_project_value_buffer(v37, static OSSignpostID.continuation);
-        v22 = v45(v36, v38, v37);
-        if ((v60[0] & 1) == 0)
-        {
-          v39 = v50;
-          v35(v52, v50);
-          v35(v44, v39);
-          goto LABEL_34;
-        }
-
-        goto LABEL_11;
+        v64 = v62 & 0xFFFFFFFE | v59 & 1;
+        v63 = 5;
+        goto LABEL_66;
       }
 
-      if (v23 >= v31)
+      v20 = v10;
+      v21 = v1;
+      v68 = *&v79[8];
+      outlined init with take of AnyTrackedValue(&v79[16], &v85);
+      v22 = *(&v86 + 1);
+      v23 = v87;
+      __swift_project_boxed_opaque_existential_1(&v85, *(&v86 + 1));
+      (*(v23 + 24))(&v82, v22, v23);
+      if (v82)
       {
         break;
       }
 
-      ++v23;
-      outlined init with copy of AnyTrackedValue(v29, &v62);
-      v32 = *(&v63 + 1);
-      __swift_project_boxed_opaque_existential_1(&v62, *(&v63 + 1));
-      *(v26 - 1) = CVarArg.kdebugValue(_:)(v19 | v20, v32);
-      *v26 = v33 & 1;
-      v26 += 16;
-      __swift_destroy_boxed_opaque_existential_1(&v62);
-      v29 += 40;
-      if (!--v30)
+      v1 = v21;
+      v36 = *(v21 + 24);
+      if (v36 && v19 == v36 && *(v21 + 32) == v68)
       {
-        goto LABEL_19;
+
+        __swift_destroy_boxed_opaque_existential_1(&v85);
+        v63 = 0;
+        goto LABEL_65;
+      }
+
+      __swift_destroy_boxed_opaque_existential_1(&v85);
+      v10 = v20;
+      if (!v7)
+      {
+        goto LABEL_7;
+      }
+    }
+
+    v1 = v21;
+    if ((*(v21 + 21) & 1) == 0)
+    {
+      v24 = *(v21 + 24);
+      if (!v24 || v19 != v24 || *(v21 + 32) != v68)
+      {
+        v25 = *(&v86 + 1);
+        v26 = v87;
+        __swift_project_boxed_opaque_existential_1(&v85, *(&v86 + 1));
+        v27 = *(v26 + 8);
+        v28 = v26;
+        v1 = v21;
+        v27(&v82, v25, v28);
+        if (v82)
+        {
+          if (!*(v21 + 24) || (type metadata accessor for KeyPath<EnvironmentValues, LayoutDirection>(0, &lazy cache variable for type metadata for EventListener<TappableEvent>, &type metadata for TappableEvent, &protocol witness table for TappableEvent, type metadata accessor for EventListener), (*AGGraphGetValue() & 1) == 0))
+          {
+
+            __swift_destroy_boxed_opaque_existential_1(&v85);
+            v63 = 1;
+            goto LABEL_65;
+          }
+        }
+      }
+    }
+
+    outlined init with copy of AnyTrackedValue(&v85, &v82);
+    outlined init with copy of AnyTrackedValue(&v82, v71);
+    type metadata accessor for AnyTrackedValue(0, &lazy cache variable for type metadata for EventType, &protocol descriptor for EventType);
+    v10 = v20;
+    type metadata accessor for AnyTrackedValue(0, v20, &protocol descriptor for TappableEventType);
+    if (swift_dynamicCast())
+    {
+      outlined init with take of AnyTrackedValue(v69, &v74);
+      outlined init with copy of AnyTrackedValue(&v74, v71);
+      v30 = v72;
+      v29 = v73;
+      __swift_project_boxed_opaque_existential_1(v71, v72);
+      (*(*(v29 + 8) + 8))(v69, v30);
+      v32 = v72;
+      v31 = v73;
+      __swift_project_boxed_opaque_existential_1(v71, v72);
+      (*(*(v31 + 8) + 16))(v69, v32);
+      v34 = v72;
+      v33 = v73;
+      __swift_project_boxed_opaque_existential_1(v71, v72);
+      (*(*(v33 + 8) + 48))(v69, v34);
+      __swift_destroy_boxed_opaque_existential_1(&v74);
+      __swift_destroy_boxed_opaque_existential_1(&v82);
+      __swift_destroy_boxed_opaque_existential_1(v71);
+      v35 = *(v1 + 24);
+      if (v35)
+      {
+        if (*(v1 + 32) != v68 || v19 != v35)
+        {
+          type metadata accessor for KeyPath<EnvironmentValues, LayoutDirection>(0, &lazy cache variable for type metadata for EventListener<TappableEvent>, &type metadata for TappableEvent, &protocol witness table for TappableEvent, type metadata accessor for EventListener);
+          if (*AGGraphGetValue() != 1)
+          {
+            goto LABEL_64;
+          }
+        }
+
+        outlined destroy of ViewList?(v89, &lazy cache variable for type metadata for EventType?, &lazy cache variable for type metadata for EventType, &protocol descriptor for EventType);
+      }
+
+      else
+      {
+        outlined destroy of ViewList?(v89, &lazy cache variable for type metadata for EventType?, &lazy cache variable for type metadata for EventType, &protocol descriptor for EventType);
+        *(v1 + 24) = v19;
+        *(v1 + 32) = v68;
+      }
+
+      outlined init with copy of AnyTrackedValue(&v85, v89);
+    }
+
+    else
+    {
+      __swift_destroy_boxed_opaque_existential_1(&v82);
+      v70 = 0;
+      memset(v69, 0, sizeof(v69));
+      outlined destroy of ViewList?(v69, &lazy cache variable for type metadata for TappableEventType?, v20, &protocol descriptor for TappableEventType);
+      if (!*(v1 + 24) || (type metadata accessor for KeyPath<EnvironmentValues, LayoutDirection>(0, &lazy cache variable for type metadata for EventListener<TappableEvent>, &type metadata for TappableEvent, &protocol witness table for TappableEvent, type metadata accessor for EventListener), (*AGGraphGetValue() & 1) == 0))
+      {
+
+        __swift_destroy_boxed_opaque_existential_1(&v85);
+        v63 = 3;
+        goto LABEL_65;
+      }
+    }
+
+    __swift_destroy_boxed_opaque_existential_1(&v85);
+  }
+
+  while (v7);
+LABEL_7:
+  if (v8 <= v9 + 1)
+  {
+    v11 = v9 + 1;
+  }
+
+  else
+  {
+    v11 = v8;
+  }
+
+  v12 = v11 - 1;
+  while (1)
+  {
+    v13 = v9 + 1;
+    if (__OFADD__(v9, 1))
+    {
+      break;
+    }
+
+    if (v13 >= v8)
+    {
+      v7 = 0;
+      v88 = 0;
+      v86 = 0u;
+      v87 = 0u;
+      v9 = v12;
+      v85 = 0u;
+      goto LABEL_18;
+    }
+
+    v7 = *(v4 + 8 * v13);
+    ++v9;
+    if (v7)
+    {
+      v9 = v13;
+      goto LABEL_17;
+    }
+  }
+
+  __break(1u);
+LABEL_64:
+
+  __swift_destroy_boxed_opaque_existential_1(&v85);
+  v63 = 2;
+LABEL_65:
+  outlined consume of GesturePhase<TappableEvent>?(0, 0, 0, 0, 65280);
+  OutputValue = 0;
+  v56 = 0;
+  v54 = 0;
+  v58 = 0;
+  v64 = 768;
+LABEL_67:
+  v65 = *(v1 + 24);
+  v66 = *(v1 + 32);
+  *v79 = OutputValue;
+  *&v79[8] = v56;
+  *&v79[16] = v54;
+  *&v79[24] = v58;
+  *&v79[32] = v64;
+  *&v79[40] = v65;
+  v80 = v66;
+  v81 = v63;
+  type metadata accessor for KeyPath<EnvironmentValues, LayoutDirection>(0, &lazy cache variable for type metadata for EventListenerPhase<TappableEvent>.Value, &type metadata for TappableEvent, &protocol witness table for TappableEvent, type metadata accessor for EventListenerPhase.Value);
+  outlined copy of GesturePhase<TappableEvent>(OutputValue, v56, v54, v58, v64, SBYTE1(v64));
+  AGGraphSetOutputValue();
+  outlined consume of GesturePhase<TappableEvent>?(OutputValue, v56, v54, v58, v64);
+  outlined destroy of ViewList?(v89, &lazy cache variable for type metadata for EventType?, &lazy cache variable for type metadata for EventType, &protocol descriptor for EventType);
+  *v79 = OutputValue;
+  *&v79[8] = v56;
+  *&v79[16] = v54;
+  *&v79[24] = v58;
+  *&v79[32] = v64;
+  *&v79[34] = v82;
+  *&v79[38] = WORD2(v82);
+  *&v79[40] = v65;
+  v80 = v66;
+  v81 = v63;
+  return outlined destroy of EventListenerPhase<TappableEvent>.Value(v79);
+}
+
+id specialized GestureComponentResponder.init(modifier:inputs:)(int a1, uint64_t a2)
+{
+  v5 = *(*v2 + 416);
+  type metadata accessor for TapComponent<TouchEvent>(0);
+  (*(*(v6 - 8) + 56))(v2 + v5, 1, 1, v6);
+  *(v2 + *(*v2 + 424)) = 0;
+  *(v2 + *(*v2 + 432)) = 0;
+  *(v2 + *(*v2 + 440)) = 0;
+  v7 = (v2 + *(*v2 + 456));
+  *v7 = 0;
+  v7[1] = 0;
+  *(v2 + *(*v2 + 448)) = a1;
+  v8 = *(a2 + 48);
+  *(v2 + 120) = *(a2 + 32);
+  *(v2 + 136) = v8;
+  *(v2 + 152) = *(a2 + 64);
+  v9 = *(a2 + 16);
+  *(v2 + 88) = *a2;
+  *(v2 + 200) = 0u;
+  *(v2 + 184) = 0u;
+  *(v2 + 168) = *(a2 + 80);
+  *(v2 + 104) = v9;
+  result = AGSubgraphGetCurrent();
+  if (result)
+  {
+    v11 = MEMORY[0x1E69E7CC0];
+    *(v2 + 176) = result;
+    *(v2 + 40) = v11;
+    *(v2 + 48) = 0u;
+    *(v2 + 64) = 0u;
+    *(v2 + 80) = v11;
+    *(v2 + 24) = 0;
+    swift_unknownObjectWeakInit();
+    swift_weakInit();
+    specialized static GraphHost.currentHost.getter();
+    type metadata accessor for ViewGraph();
+    v12 = swift_dynamicCastClassUnconditional();
+    swift_beginAccess();
+    swift_unknownObjectWeakLoadStrong();
+    v13 = *(v12 + 208);
+
+    swift_beginAccess();
+    *(v2 + 24) = v13;
+    swift_unknownObjectWeakAssign();
+    swift_unknownObjectRelease();
+    return v2;
+  }
+
+  else
+  {
+    __break(1u);
+  }
+
+  return result;
+}
+
+uint64_t specialized _LazyStack_Cache.reset()(unint64_t *a1, uint64_t (*a2)(void), uint64_t a3)
+{
+  v7 = type metadata accessor for IndexSet();
+  v8 = *(v7 - 8);
+  MEMORY[0x1EEE9AC00](v7);
+  v10 = v23 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  *v3 = 0;
+  *(v3 + 8) = 0;
+  *(v3 + 16) = 0;
+  *(v3 + 24) = 1;
+  *(v3 + 32) = 0;
+  *(v3 + 40) = 1;
+  *(v3 + 48) = 0u;
+  *(v3 + 64) = 0u;
+  __asm { FMOV            V1.2D, #-1.0 }
+
+  *(v3 + 80) = 0u;
+  *(v3 + 96) = _Q1;
+  type metadata accessor for ViewLayoutEngine<GeometryReaderLayout>(0, a1, a2, a3, type metadata accessor for _LazyStack_Cache);
+  v17 = (v3 + *(v16 + 60));
+  v18 = MEMORY[0x1E69E7CC0];
+  v19 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC12CoreGraphics7CGFloatV_SiTt0g5Tf4g_n(MEMORY[0x1E69E7CC0]);
+
+  *v17 = v19;
+  v20 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC12CoreGraphics7CGFloatV_SiTt0g5Tf4g_n(v18);
+
+  v17[1] = v20;
+  v23[1] = v18;
+  lazy protocol witness table accessor for type TouchEvent and conformance TouchEvent(&lazy protocol witness table cache variable for type IndexSet and conformance IndexSet, MEMORY[0x1E6969B50], MEMORY[0x1E6969B90]);
+  type metadata accessor for EnvironmentFetch<LayoutDirection>(0, &lazy cache variable for type metadata for [Int], MEMORY[0x1E69E6530], MEMORY[0x1E69E62F8]);
+  lazy protocol witness table accessor for type [Int] and conformance [A]();
+  dispatch thunk of SetAlgebra.init<A>(_:)();
+  v21 = type metadata accessor for EstimationCache(0);
+  return (*(v8 + 40))(v17 + *(v21 + 24), v10, v7);
+}
+
+void specialized LazyStack<>.measureEstimates(updatingPosition:index:minor:subviews:cache:)(double *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __n128 a9, double a10)
+{
+  specialized LazyStack<>.measureEstimates(updatingPosition:index:minor:subviews:cache:)(a1, a2, a3, a4, a5, a6, a7, a8, a9.n128_f64[0], a10, &lazy cache variable for type metadata for _LazyStack_Cache<LazyHStackLayout>, lazy protocol witness table accessor for type LazyHStackLayout and conformance LazyHStackLayout, &type metadata for LazyHStackLayout, 0, partial apply for specialized closure #1 in LazyStack<>.measureEstimates(updatingPosition:index:minor:subviews:cache:), specialized LazyHVStack<>.lengthAndSpacing(subviews:predecessors:minorGeometry:));
+}
+
+{
+  specialized LazyStack<>.measureEstimates(updatingPosition:index:minor:subviews:cache:)(a1, a2, a3, a4, a5, a6, a7, a8, a9.n128_f64[0], a10, &lazy cache variable for type metadata for _LazyStack_Cache<LazyVStackLayout>, lazy protocol witness table accessor for type LazyVStackLayout and conformance LazyVStackLayout, &type metadata for LazyVStackLayout, 1u, partial apply for specialized closure #1 in LazyStack<>.measureEstimates(updatingPosition:index:minor:subviews:cache:), specialized LazyHVStack<>.lengthAndSpacing(subviews:predecessors:minorGeometry:));
+}
+
+void specialized LazyStack<>.measureEstimates(updatingPosition:index:minor:subviews:cache:)(double *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, double a9, double a10, unint64_t *a11, uint64_t (*a12)(void), uint64_t a13, unsigned __int8 a14, uint64_t *a15, double (*a16)(double))
+{
+  v102 = a4;
+  v97 = a16;
+  v101 = a15;
+  v100 = a14;
+  v108 = a6;
+  v109 = a7;
+  v110 = a8;
+  v22 = type metadata accessor for EstimationCache(0);
+  MEMORY[0x1EEE9AC00](v22);
+  v99 = (&v82 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v111[0] = a3;
+  *&v111[1] = a9;
+  *&v111[2] = a10;
+  v107 = 0;
+  v24 = swift_allocObject();
+  *(v24 + 16) = 0;
+  v25 = *a1;
+  type metadata accessor for ViewLayoutEngine<GeometryReaderLayout>(0, a11, a12, a13, type metadata accessor for _LazyStack_Cache);
+  v27 = (a5 + *(v26 + 60));
+  v28 = *(*v27 + 16);
+  v30 = *(a5 + 48);
+  v29 = *(a5 + 56);
+  if (v30 != v29 && *(a5 + 24) != 1 && *a5 == a3 && *(a5 + 8) == a9 && *(a5 + 16) == a10)
+  {
+    *a2 = v30;
+    v107 = v29;
+    v25 = *(a5 + 64);
+    v31 = v30;
+    if (v30 >= a3)
+    {
+      *(v24 + 16) = 1;
+      if (__OFSUB__(v30, a3))
+      {
+LABEL_53:
+        __break(1u);
+        goto LABEL_54;
+      }
+
+      *a2 = v30 - a3;
+      v31 = v30 - a3;
+    }
+
+    if (__OFSUB__(v29, v31))
+    {
+      goto LABEL_51;
+    }
+
+    if (v29 - v31 <= 1)
+    {
+      v49 = __OFADD__(v29, a3);
+      v29 += a3;
+      if (v49)
+      {
+LABEL_54:
+        __break(1u);
+        return;
+      }
+
+      v107 = v29;
+    }
+  }
+
+  else
+  {
+    if (v28)
+    {
+      v31 = *a2;
+      if (*a2 < 0)
+      {
+        goto LABEL_11;
+      }
+
+      goto LABEL_5;
+    }
+
+    if (a3 + 0x4000000000000000 < 0)
+    {
+      __break(1u);
+      goto LABEL_48;
+    }
+
+    v29 = 2 * a3;
+    v107 = 2 * a3;
+    v31 = *a2;
+  }
+
+  if (v31 < v29)
+  {
+LABEL_11:
+    v83 = (v24 + 16);
+    v91 = v28;
+    v85 = v27;
+    v84 = v30;
+    v92 = a1;
+    v32 = swift_allocObject();
+    v95 = a2;
+    v33 = v32;
+    *(v32 + 16) = 0;
+    v82 = (v32 + 16);
+    v34 = a3;
+    v35 = swift_allocObject();
+    v36 = MEMORY[0x1E69E7CC0];
+    v37 = v22;
+    *(v35 + 16) = MEMORY[0x1E69E7CC0];
+    v38 = (v35 + 16);
+    v39 = swift_allocObject();
+    v93 = v39;
+    *(v39 + 16) = 0;
+    v94 = (v39 + 16);
+    v96 = swift_allocBox();
+    v41 = v40;
+    *v40 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC12CoreGraphics7CGFloatV_SiTt0g5Tf4g_n(v36);
+    v41[1] = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC12CoreGraphics7CGFloatV_SiTt0g5Tf4g_n(v36);
+    v86 = v37;
+    type metadata accessor for IndexSet();
+    v105 = v36;
+    lazy protocol witness table accessor for type TouchEvent and conformance TouchEvent(&lazy protocol witness table cache variable for type IndexSet and conformance IndexSet, MEMORY[0x1E6969B50], MEMORY[0x1E6969B90]);
+    v98 = v24;
+    type metadata accessor for EnvironmentFetch<LayoutDirection>(0, &lazy cache variable for type metadata for [Int], MEMORY[0x1E69E6530], MEMORY[0x1E69E62F8]);
+    lazy protocol witness table accessor for type [Int] and conformance [A]();
+    v87 = v41;
+    v42 = v98;
+    dispatch thunk of SetAlgebra.init<A>(_:)();
+    v43 = swift_allocObject();
+    *(v43 + 16) = 0;
+    v44 = (v43 + 16);
+    v106 = v31;
+    v45 = v34;
+    v105 = 2 * v34;
+    MEMORY[0x1EEE9AC00](v43);
+    v89 = v35;
+    *(&v82 - 12) = v35;
+    *(&v82 - 11) = v111;
+    v88 = v46;
+    *(&v82 - 10) = v46;
+    *(&v82 - 9) = v42;
+    *(&v82 - 8) = &v108;
+    *(&v82 - 7) = v33;
+    v90 = v33;
+    v47 = v96;
+    *(&v82 - 6) = v93;
+    *(&v82 - 5) = v47;
+    *(&v82 - 4) = v95;
+    *(&v82 - 24) = v100;
+    *(&v82 - 2) = &v107;
+    _LazyLayout_Subviews.apply(from:style:to:)(&v106, &v105, v101, (&v82 - 14));
+    swift_beginAccess();
+    if (*v44 == 1)
+    {
+      if (v91)
+      {
+        v48 = v94;
+        swift_beginAccess();
+        *v92 = v25 + *v48;
+        goto LABEL_45;
+      }
+
+      HasDeadlinePassed = 1;
+      v57 = v92;
+    }
+
+    else
+    {
+      v51 = v108;
+      v50 = v109;
+      v52 = v110;
+      v53 = HIDWORD(v110);
+      swift_beginAccess();
+      if (*(*v38 + 16))
+      {
+        v102 = v50;
+        v54 = v83;
+        swift_beginAccess();
+        if (*v54)
+        {
+          *v54 = 0;
+          v55 = v82;
+        }
+
+        else
+        {
+          v55 = v82;
+          swift_beginAccess();
+          v101 = v38;
+          v58 = v51;
+          v59 = *v55;
+
+          v104[0] = v52;
+          v61 = (v97)(v60, v59, v58, v102, v52 | (v53 << 32), a10);
+          v63 = v62;
+
+          v64 = v94;
+          swift_beginAccess();
+          *v64 = v63 + v61 + *v64;
+          v65 = v59 == 0;
+          if (v59)
+          {
+            v66 = *&v63;
+          }
+
+          else
+          {
+            v66 = 0;
+          }
+
+          swift_beginAccess();
+          v38 = v101;
+          EstimationCache.add(length:spacing:count:)(v66, v65, 1, v61);
+          swift_endAccess();
+        }
+
+        if (__OFADD__(*v95, v45))
+        {
+          goto LABEL_50;
+        }
+
+        *v95 += v45;
+        swift_beginAccess();
+        swift_beginAccess();
+        swapSubviews(_:_:)(v55, v38);
+        swift_endAccess();
+        swift_endAccess();
+      }
+
+      HasDeadlinePassed = AGGraphHasDeadlinePassed();
+      *v44 = HasDeadlinePassed;
+      v57 = v92;
+      if (v91)
+      {
+        goto LABEL_44;
+      }
+    }
+
+    v67 = v87;
+    swift_beginAccess();
+    v68 = v45;
+    v69 = v99;
+    outlined init with copy of ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>(v67, v99, type metadata accessor for EstimationCache);
+    v70 = *v69;
+
+    v71 = v85;
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    v103[0] = *v71;
+    specialized _NativeDictionary.merge<A>(_:isUnique:uniquingKeysWith:)(v70, specialized thunk for @escaping @callee_guaranteed (@in_guaranteed A, @in_guaranteed B) -> (@out A, @out B), 0, isUniquelyReferenced_nonNull_native, v103);
+    *v71 = v103[0];
+    v73 = v69[1];
+
+    v74 = swift_isUniquelyReferenced_nonNull_native();
+    v103[0] = v71[1];
+    specialized _NativeDictionary.merge<A>(_:isUnique:uniquingKeysWith:)(v73, specialized thunk for @escaping @callee_guaranteed (@in_guaranteed A, @in_guaranteed B) -> (@out A, @out B), 0, v74, v103);
+    v71[1] = v103[0];
+    IndexSet.formUnion(_:)();
+    outlined destroy of _VariadicView.Tree<_LayoutRoot<GeometryReaderLayout>, ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>>(v69, type metadata accessor for EstimationCache);
+    v75 = COERCE_DOUBLE(EstimationCache.average.getter());
+    if (v68)
+    {
+      if (v84 == 0x8000000000000000 && v68 == -1)
+      {
+        goto LABEL_52;
+      }
+
+      v78 = v84 / v68 * v68;
+      if ((v84 / v68 * v68) >> 64 == v78 >> 63)
+      {
+        v79 = 0.0;
+        if ((v76 & 1) == 0)
+        {
+          v79 = v75;
+        }
+
+        v80 = (v77 + v79) * v78;
+        if ((v84 / v68 < 1) | v76 & 1)
+        {
+          v25 = v80;
+        }
+
+        else
+        {
+          v25 = v80 - v75;
+        }
+
+LABEL_44:
+        v81 = v94;
+        swift_beginAccess();
+        *v57 = v25 + *v81;
+        if ((HasDeadlinePassed & 1) == 0)
+        {
+LABEL_46:
+
+          return;
+        }
+
+LABEL_45:
+        AGGraphCancelUpdate();
+        goto LABEL_46;
+      }
+
+      goto LABEL_49;
+    }
+
+LABEL_48:
+    __break(1u);
+LABEL_49:
+    __break(1u);
+LABEL_50:
+    __break(1u);
+LABEL_51:
+    __break(1u);
+LABEL_52:
+    __break(1u);
+    goto LABEL_53;
+  }
+
+LABEL_5:
+}
+
+void specialized closure #1 in LazyStack<>.measureEstimates(updatingPosition:index:minor:subviews:cache:)(uint64_t a1, BOOL *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, double a7, double a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, char a16, void *a17, double (*a18)(uint64_t, uint64_t, uint64_t, uint64_t, unint64_t, double), void (*a19)(uint64_t *__return_ptr, _OWORD *))
+{
+  if ((*(a1 + 101) & 1) != 0 || *(a1 + 102) == 1)
+  {
+    type metadata accessor for EstimationCache(0);
+    swift_projectBox();
+    swift_beginAccess();
+    if (*(*(a3 + 16) + 16))
+    {
+      swift_beginAccess();
+      if (*(a6 + 16))
+      {
+        swift_beginAccess();
+        *(a6 + 16) = 0;
+      }
+
+      else
+      {
+        swift_beginAccess();
+        v26 = *(a12 + 16);
+
+        LOBYTE(v71) = a11 & 1;
+        v28 = a18(v27, v26, a9, a10, a11 & 0xFFFFFFFF00000001, a8);
+        v30 = v29;
+
+        swift_beginAccess();
+        *(a13 + 16) = v30 + v28 + *(a13 + 16);
+        swift_beginAccess();
+        v31 = *(a12 + 16) == 0;
+        if (*(a12 + 16))
+        {
+          v32 = *&v30;
+        }
+
+        else
+        {
+          v32 = 0;
+        }
+
+        swift_beginAccess();
+        EstimationCache.add(length:spacing:count:)(v32, v31, 1, v28);
+        swift_endAccess();
+      }
+
+      if (__OFADD__(*a15, a4))
+      {
+        goto LABEL_55;
+      }
+
+      *a15 += a4;
+      swift_beginAccess();
+      swift_beginAccess();
+      swapSubviews(_:_:)((a12 + 16), (a3 + 16));
+      swift_endAccess();
+      swift_endAccess();
+    }
+
+    HasDeadlinePassed = AGGraphHasDeadlinePassed();
+    swift_beginAccess();
+    *(a5 + 16) = HasDeadlinePassed;
+    swift_beginAccess();
+    if (*(a6 + 16))
+    {
+      swift_beginAccess();
+      *(a6 + 16) = 0;
+    }
+
+    else
+    {
+      if (a16)
+      {
+        v34 = *&a7;
+      }
+
+      else
+      {
+        v34 = 0;
+      }
+
+      if (a16)
+      {
+        v35 = 0.0;
+      }
+
+      else
+      {
+        v35 = a7;
+      }
+
+      swift_beginAccess();
+      v36 = *(a12 + 16);
+      if (v36)
+      {
+        if (!*(v36 + 16))
+        {
+LABEL_56:
+          __break(1u);
+LABEL_57:
+          __break(1u);
+          return;
+        }
+
+        outlined init with copy of _LazyLayout_Subview(v36 + 32, &v71);
+      }
+
+      else
+      {
+        v76 = 0u;
+        v77 = 0u;
+        v74 = 0u;
+        v75 = 0u;
+        v72 = 0u;
+        v73 = 0u;
+        v71 = 0u;
+      }
+
+      LazyLayoutViewCache.item(data:)((a1 + 16));
+
+      v67 = v34;
+      v68 = (a16 & 1) == 0;
+      v69 = v35;
+      v70 = a16 & 1;
+      LayoutProxy.lengthThatFits(_:in:)(&v67, a16 & 1);
+      v38 = v37;
+      MEMORY[0x1EEE9AC00](v39);
+      *&v40 = COERCE_DOUBLE(_sSq3mapyqd_0_Sgqd_0_xqd__YKXEqd__YKs5ErrorRd__Ri_d_0_r0_lF7SwiftUI19_LazyLayout_SubviewV_s5NeverO12CoreGraphics7CGFloatVTg5(a19));
+      v42 = v41;
+      outlined destroy of GlassEntryView?(&v71, &lazy cache variable for type metadata for _LazyLayout_Subview?, &type metadata for _LazyLayout_Subview, MEMORY[0x1E69E6720]);
+      v43 = *&v40;
+      if (v42)
+      {
+        v43 = 0.0;
+      }
+
+      v44 = v38 + v43;
+      swift_beginAccess();
+      *(a13 + 16) = v44 + *(a13 + 16);
+    }
+
+    if (__OFADD__(*a15, a4))
+    {
+      __break(1u);
+    }
+
+    else
+    {
+      *a15 += a4;
+      if ((a4 & 0x8000000000000000) == 0)
+      {
+        if (a4)
+        {
+          swift_beginAccess();
+          do
+          {
+            outlined init with copy of _LazyLayout_Subview(a1, &v71);
+            v45 = *(a3 + 16);
+            isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+            *(a3 + 16) = v45;
+            if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+            {
+              v45 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v45 + 2) + 1, 1, v45);
+              *(a3 + 16) = v45;
+            }
+
+            v48 = *(v45 + 2);
+            v47 = *(v45 + 3);
+            if (v48 >= v47 >> 1)
+            {
+              v45 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v47 > 1), v48 + 1, 1, v45);
+            }
+
+            *(v45 + 2) = v48 + 1;
+            v49 = &v45[112 * v48];
+            v50 = v71;
+            v51 = v73;
+            *(v49 + 3) = v72;
+            *(v49 + 4) = v51;
+            *(v49 + 2) = v50;
+            v52 = v74;
+            v53 = v75;
+            v54 = v77;
+            *(v49 + 7) = v76;
+            *(v49 + 8) = v54;
+            *(v49 + 5) = v52;
+            *(v49 + 6) = v53;
+            *(a3 + 16) = v45;
+            --a4;
+          }
+
+          while (a4);
+          swift_endAccess();
+        }
+
+        swift_beginAccess();
+        swift_beginAccess();
+        swapSubviews(_:_:)((a12 + 16), (a3 + 16));
+        swift_endAccess();
+        swift_endAccess();
+        goto LABEL_42;
       }
     }
 
     __break(1u);
-LABEL_37:
-    swift_once();
+LABEL_55:
+    __break(1u);
+    goto LABEL_56;
   }
 
-  AGGraphClearUpdate();
-  v40 = v43[1];
-  v62 = *v43;
-  v63 = v40;
-  *v64 = v43[2];
-  *&v64[10] = *(v43 + 42);
-  v65 = 256;
-  outlined init with copy of UncheckedSendable<GlassEffectShapeModifier>(v43, v60, &lazy cache variable for type metadata for UncheckedSendable<MeshGradient>, &type metadata for MeshGradient, type metadata accessor for UncheckedSendable);
-  AGGraphSetUpdate();
-  $defer #1 <A>() in traceRuleBody<A>(_:body:)();
-  type metadata accessor for _ShapeView<Rectangle, MeshGradient>();
-  AGGraphSetOutputValue();
+  outlined init with copy of _LazyLayout_Subview(a1, &v71);
+  swift_beginAccess();
+  specialized Array.append(_:)(&v71);
+  swift_endAccess();
+  swift_beginAccess();
+  if (*(*(a3 + 16) + 16) == a4)
+  {
+    type metadata accessor for EstimationCache(0);
+    swift_projectBox();
+    if (a4)
+    {
+      swift_beginAccess();
+      if (*(a6 + 16))
+      {
+        swift_beginAccess();
+        *(a6 + 16) = 0;
+      }
+
+      else
+      {
+        swift_beginAccess();
+        v56 = *(a12 + 16);
+
+        LOBYTE(v67) = a11 & 1;
+        v58 = a18(v57, v56, a9, a10, a11 & 0xFFFFFFFF00000001, a8);
+        v60 = v59;
+
+        swift_beginAccess();
+        *(a13 + 16) = v60 + v58 + *(a13 + 16);
+        swift_beginAccess();
+        v61 = *(a12 + 16) == 0;
+        if (*(a12 + 16))
+        {
+          v62 = *&v60;
+        }
+
+        else
+        {
+          v62 = 0;
+        }
+
+        swift_beginAccess();
+        EstimationCache.add(length:spacing:count:)(v62, v61, 1, v58);
+        swift_endAccess();
+      }
+
+      if (__OFADD__(*a15, a4))
+      {
+        goto LABEL_57;
+      }
+
+      *a15 += a4;
+      swift_beginAccess();
+      swift_beginAccess();
+      swapSubviews(_:_:)((a12 + 16), (a3 + 16));
+      swift_endAccess();
+      swift_endAccess();
+    }
+
+    v63 = AGGraphHasDeadlinePassed();
+    swift_beginAccess();
+    *(a5 + 16) = v63;
+  }
+
+LABEL_42:
+  swift_beginAccess();
+  v55 = (*(a5 + 16) & 1) != 0 || *a15 >= *a17;
+  *a2 = v55;
+}
+
+uint64_t specialized LazyStack<>.resolvedPlacerProperties(subviews:context:cache:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X8>)
+{
+  v66 = a3;
+  v67 = a7;
+  v12 = a6 & 0xFFFFFFFF00000000;
+  v59 = type metadata accessor for IndexSet();
+  v57 = *(v59 - 8);
+  MEMORY[0x1EEE9AC00](v59);
+  v56 = &v52 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v55 = type metadata accessor for EstimationCache(0);
+  MEMORY[0x1EEE9AC00](v55);
+  v65 = &v52 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  type metadata accessor for StackPlacement<LazyHStackLayout>?(0);
+  MEMORY[0x1EEE9AC00](v15 - 8);
+  v17 = &v52 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  type metadata accessor for ViewLayoutEngine<GeometryReaderLayout>(0, &lazy cache variable for type metadata for StackPlacement<LazyHStackLayout>, lazy protocol witness table accessor for type LazyHStackLayout and conformance LazyHStackLayout, &type metadata for LazyHStackLayout, type metadata accessor for StackPlacement);
+  v19 = v18;
+  v20 = *(v18 - 8);
+  MEMORY[0x1EEE9AC00](v18);
+  v22 = &v52 - v21;
+  v60 = a6;
+  v61 = v12;
+  LOBYTE(v21) = a6 & 1;
+  v23 = v66;
+  LOBYTE(v70[0]) = v21;
+  v62 = a1;
+  v63 = a4;
+  v64 = a5;
+  specialized LazyStack<>.placer(subviews:context:cache:)(a2, v66, a4, a5, v12 | v21, v17);
+  if ((*(v20 + 48))(v17, 1, v19) == 1)
+  {
+    outlined destroy of _VariadicView.Tree<_LayoutRoot<GeometryReaderLayout>, ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>>(v17, type metadata accessor for StackPlacement<LazyHStackLayout>?);
+    type metadata accessor for (StackPlacement<LazyHStackLayout>, PlacementProperties<LazyHStackLayout>)(0);
+    return (*(*(v24 - 8) + 56))(v67, 1, 1, v24);
+  }
+
+  outlined init with take of StackPlacement<LazyHStackLayout>(v17, v22, &lazy cache variable for type metadata for StackPlacement<LazyHStackLayout>, lazy protocol witness table accessor for type LazyHStackLayout and conformance LazyHStackLayout, &type metadata for LazyHStackLayout);
+  v26 = *(v22 + 4);
+  v54 = *(v22 + 56);
+  v58 = *(v22 + 40);
+  v27 = *(a2 + 152);
+  v28 = 0.0;
+  if (*(a2 + 12) != *MEMORY[0x1E698D3F8])
+  {
+    v28 = *AGGraphGetValue();
+  }
+
+  v29 = *(v23 + 96);
+  v30 = v65;
+  if (v29 <= 0.0 || v27 <= 0.0)
+  {
+    v33 = 0;
+    v34 = *(v23 + 104);
+    if (v34 > 0.0 && v28 > 0.0)
+    {
+      v33 = vabdd_f64(v34, v28) >= 0.01;
+    }
+
+    goto LABEL_17;
+  }
+
+  v31 = vabdd_f64(v29, v27);
+  v32 = *(v23 + 104);
+  if (v32 <= 0.0 || v28 <= 0.0)
+  {
+    if (v31 < 0.01)
+    {
+      v33 = 0;
+      goto LABEL_17;
+    }
+  }
+
+  else
+  {
+    v33 = vabdd_f64(v32, v28) >= 0.01;
+    if (v31 < 0.01)
+    {
+      goto LABEL_17;
+    }
+  }
+
+  v33 = 1;
+LABEL_17:
+  type metadata accessor for ViewLayoutEngine<GeometryReaderLayout>(0, &lazy cache variable for type metadata for _LazyStack_Cache<LazyHStackLayout>, lazy protocol witness table accessor for type LazyHStackLayout and conformance LazyHStackLayout, &type metadata for LazyHStackLayout, type metadata accessor for _LazyStack_Cache);
+  v36 = (v23 + *(v35 + 60));
+  v37 = *v36;
+  if (*(*v36 + 16))
+  {
+    v38 = !v33;
+  }
+
+  else
+  {
+    v38 = 0;
+  }
+
+  if (v38)
+  {
+    v47 = 0;
+    LOBYTE(v33) = 0;
+  }
+
+  else
+  {
+    v53 = v22;
+    outlined init with copy of ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>(v36, v30, type metadata accessor for EstimationCache);
+    v39 = MEMORY[0x1E69E7CC0];
+    *v36 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC12CoreGraphics7CGFloatV_SiTt0g5Tf4g_n(MEMORY[0x1E69E7CC0]);
+    v40 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC12CoreGraphics7CGFloatV_SiTt0g5Tf4g_n(v39);
+
+    v36[1] = v40;
+    *&v70[0] = v39;
+    lazy protocol witness table accessor for type TouchEvent and conformance TouchEvent(&lazy protocol witness table cache variable for type IndexSet and conformance IndexSet, MEMORY[0x1E6969B50], MEMORY[0x1E6969B90]);
+    type metadata accessor for EnvironmentFetch<LayoutDirection>(0, &lazy cache variable for type metadata for [Int], MEMORY[0x1E69E6530], MEMORY[0x1E69E62F8]);
+    lazy protocol witness table accessor for type [Int] and conformance [A]();
+    v41 = v56;
+    v42 = v59;
+    dispatch thunk of SetAlgebra.init<A>(_:)();
+    (*(v57 + 40))(v36 + *(v55 + 24), v41, v42);
+    v69 = 0;
+    v70[0] = 0.0;
+    v68 = v60 & 1;
+    specialized LazyStack<>.measureEstimates(updatingPosition:index:minor:subviews:cache:)(v70, &v69, v26, v62, v23, v63, v64, v61 | v60 & 1, *&v58, *(&v58 + 1), &lazy cache variable for type metadata for _LazyStack_Cache<LazyHStackLayout>, lazy protocol witness table accessor for type LazyHStackLayout and conformance LazyHStackLayout, &type metadata for LazyHStackLayout, 0, partial apply for specialized closure #1 in LazyStack<>.measureEstimates(updatingPosition:index:minor:subviews:cache:), specialized LazyHVStack<>.lengthAndSpacing(subviews:predecessors:minorGeometry:));
+    _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE3log33_973C9973BC16DEAF0CF3109FFDE31321LLyySSyXKFAA0C12HStackLayoutV_Tt0g503_s7a3UI9cd11PA2A01_cD6_e45VyxG0E0RtzrlE24resolvedPlacerProperties33_973ghijk738subviews7context5cacheAA0D9PlacementAJLLVyxG_AA0qH0AJLLVyxGtSgAA01_C15m49_SubviewsV_AA01_cr1_Q7ContextVAFztFSSyXEfu0_AA0c6L7R0V_Tg5AEyALGTf1c_n(v23, v43);
+    if (*(v23 + 104) > v28)
+    {
+      v44 = *(v23 + 104);
+    }
+
+    else
+    {
+      v44 = v28;
+    }
+
+    specialized sufficientlyDiffers<A, B, C>(lhs:rhs:ratio:baseline:)(v45, v37, 0.9, v44);
+    v47 = v46;
+
+    if (v47)
+    {
+      outlined destroy of _VariadicView.Tree<_LayoutRoot<GeometryReaderLayout>, ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>>(v30, type metadata accessor for EstimationCache);
+    }
+
+    else
+    {
+      outlined assign with take of EstimationCache(v30, v36);
+      LOBYTE(v33) = 0;
+    }
+
+    v22 = v53;
+  }
+
+  type metadata accessor for (StackPlacement<LazyHStackLayout>, PlacementProperties<LazyHStackLayout>)(0);
+  v49 = v48;
+  v50 = v67;
+  v51 = v67 + *(v48 + 48);
+  outlined init with take of StackPlacement<LazyHStackLayout>(v22, v67, &lazy cache variable for type metadata for StackPlacement<LazyHStackLayout>, lazy protocol witness table accessor for type LazyHStackLayout and conformance LazyHStackLayout, &type metadata for LazyHStackLayout);
+  *v51 = v26;
+  *(v51 + 24) = v54;
+  *(v51 + 8) = v58;
+  *(v51 + 40) = v33;
+  *(v51 + 41) = v47 & 1;
+  *(v51 + 48) = v27;
+  *(v51 + 56) = v28;
+  return (*(*(v49 - 8) + 56))(v50, 0, 1, v49);
+}
+
+{
+  v66 = a3;
+  v67 = a7;
+  v12 = a6 & 0xFFFFFFFF00000000;
+  v59 = type metadata accessor for IndexSet();
+  v57 = *(v59 - 8);
+  MEMORY[0x1EEE9AC00](v59);
+  v56 = &v52 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v55 = type metadata accessor for EstimationCache(0);
+  MEMORY[0x1EEE9AC00](v55);
+  v65 = &v52 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  type metadata accessor for StackPlacement<LazyVStackLayout>?(0);
+  MEMORY[0x1EEE9AC00](v15 - 8);
+  v17 = &v52 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  type metadata accessor for ViewLayoutEngine<GeometryReaderLayout>(0, &lazy cache variable for type metadata for StackPlacement<LazyVStackLayout>, lazy protocol witness table accessor for type LazyVStackLayout and conformance LazyVStackLayout, &type metadata for LazyVStackLayout, type metadata accessor for StackPlacement);
+  v19 = v18;
+  v20 = *(v18 - 8);
+  MEMORY[0x1EEE9AC00](v18);
+  v22 = &v52 - v21;
+  v60 = a6;
+  v61 = v12;
+  LOBYTE(v21) = a6 & 1;
+  v23 = v66;
+  LOBYTE(v70[0]) = v21;
+  v62 = a1;
+  v63 = a4;
+  v64 = a5;
+  specialized LazyStack<>.placer(subviews:context:cache:)(a2, v66, a4, a5, v12 | v21, v17);
+  if ((*(v20 + 48))(v17, 1, v19) == 1)
+  {
+    outlined destroy of _VariadicView.Tree<_LayoutRoot<GeometryReaderLayout>, ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>>(v17, type metadata accessor for StackPlacement<LazyVStackLayout>?);
+    type metadata accessor for (StackPlacement<LazyVStackLayout>, PlacementProperties<LazyVStackLayout>)(0);
+    return (*(*(v24 - 8) + 56))(v67, 1, 1, v24);
+  }
+
+  outlined init with take of StackPlacement<LazyHStackLayout>(v17, v22, &lazy cache variable for type metadata for StackPlacement<LazyVStackLayout>, lazy protocol witness table accessor for type LazyVStackLayout and conformance LazyVStackLayout, &type metadata for LazyVStackLayout);
+  v26 = *(v22 + 4);
+  v54 = *(v22 + 56);
+  v58 = *(v22 + 40);
+  v27 = *(a2 + 160);
+  v28 = 0.0;
+  if (*(a2 + 12) != *MEMORY[0x1E698D3F8])
+  {
+    v28 = *(AGGraphGetValue() + 8);
+  }
+
+  v29 = *(v23 + 96);
+  v30 = v65;
+  if (v29 <= 0.0 || v27 <= 0.0)
+  {
+    v33 = 0;
+    v34 = *(v23 + 104);
+    if (v34 > 0.0 && v28 > 0.0)
+    {
+      v33 = vabdd_f64(v34, v28) >= 0.01;
+    }
+
+    goto LABEL_17;
+  }
+
+  v31 = vabdd_f64(v29, v27);
+  v32 = *(v23 + 104);
+  if (v32 <= 0.0 || v28 <= 0.0)
+  {
+    if (v31 < 0.01)
+    {
+      v33 = 0;
+      goto LABEL_17;
+    }
+  }
+
+  else
+  {
+    v33 = vabdd_f64(v32, v28) >= 0.01;
+    if (v31 < 0.01)
+    {
+      goto LABEL_17;
+    }
+  }
+
+  v33 = 1;
+LABEL_17:
+  type metadata accessor for ViewLayoutEngine<GeometryReaderLayout>(0, &lazy cache variable for type metadata for _LazyStack_Cache<LazyVStackLayout>, lazy protocol witness table accessor for type LazyVStackLayout and conformance LazyVStackLayout, &type metadata for LazyVStackLayout, type metadata accessor for _LazyStack_Cache);
+  v36 = (v23 + *(v35 + 60));
+  v37 = *v36;
+  if (*(*v36 + 16))
+  {
+    v38 = !v33;
+  }
+
+  else
+  {
+    v38 = 0;
+  }
+
+  if (v38)
+  {
+    v47 = 0;
+    LOBYTE(v33) = 0;
+  }
+
+  else
+  {
+    v53 = v22;
+    outlined init with copy of ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>(v36, v30, type metadata accessor for EstimationCache);
+    v39 = MEMORY[0x1E69E7CC0];
+    *v36 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC12CoreGraphics7CGFloatV_SiTt0g5Tf4g_n(MEMORY[0x1E69E7CC0]);
+    v40 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC12CoreGraphics7CGFloatV_SiTt0g5Tf4g_n(v39);
+
+    v36[1] = v40;
+    *&v70[0] = v39;
+    lazy protocol witness table accessor for type TouchEvent and conformance TouchEvent(&lazy protocol witness table cache variable for type IndexSet and conformance IndexSet, MEMORY[0x1E6969B50], MEMORY[0x1E6969B90]);
+    type metadata accessor for EnvironmentFetch<LayoutDirection>(0, &lazy cache variable for type metadata for [Int], MEMORY[0x1E69E6530], MEMORY[0x1E69E62F8]);
+    lazy protocol witness table accessor for type [Int] and conformance [A]();
+    v41 = v56;
+    v42 = v59;
+    dispatch thunk of SetAlgebra.init<A>(_:)();
+    (*(v57 + 40))(v36 + *(v55 + 24), v41, v42);
+    v69 = 0;
+    v70[0] = 0.0;
+    v68 = v60 & 1;
+    specialized LazyStack<>.measureEstimates(updatingPosition:index:minor:subviews:cache:)(v70, &v69, v26, v62, v23, v63, v64, v61 | v60 & 1, *&v58, *(&v58 + 1), &lazy cache variable for type metadata for _LazyStack_Cache<LazyVStackLayout>, lazy protocol witness table accessor for type LazyVStackLayout and conformance LazyVStackLayout, &type metadata for LazyVStackLayout, 1u, partial apply for specialized closure #1 in LazyStack<>.measureEstimates(updatingPosition:index:minor:subviews:cache:), specialized LazyHVStack<>.lengthAndSpacing(subviews:predecessors:minorGeometry:));
+    _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE3log33_973C9973BC16DEAF0CF3109FFDE31321LLyySSyXKFAA0C12VStackLayoutV_Tt0g503_s7a3UI9cd11PA2A01_cD6_e45VyxG0E0RtzrlE24resolvedPlacerProperties33_973ghijk738subviews7context5cacheAA0D9PlacementAJLLVyxG_AA0qH0AJLLVyxGtSgAA01_C15m49_SubviewsV_AA01_cr1_Q7ContextVAFztFSSyXEfu0_AA0c6L7R0V_Tg5AEyALGTf1c_n(v23, v43);
+    if (*(v23 + 104) > v28)
+    {
+      v44 = *(v23 + 104);
+    }
+
+    else
+    {
+      v44 = v28;
+    }
+
+    specialized sufficientlyDiffers<A, B, C>(lhs:rhs:ratio:baseline:)(v45, v37, 0.9, v44);
+    v47 = v46;
+
+    if (v47)
+    {
+      outlined destroy of _VariadicView.Tree<_LayoutRoot<GeometryReaderLayout>, ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>>(v30, type metadata accessor for EstimationCache);
+    }
+
+    else
+    {
+      outlined assign with take of EstimationCache(v30, v36);
+      LOBYTE(v33) = 0;
+    }
+
+    v22 = v53;
+  }
+
+  type metadata accessor for (StackPlacement<LazyVStackLayout>, PlacementProperties<LazyVStackLayout>)(0);
+  v49 = v48;
+  v50 = v67;
+  v51 = v67 + *(v48 + 48);
+  outlined init with take of StackPlacement<LazyHStackLayout>(v22, v67, &lazy cache variable for type metadata for StackPlacement<LazyVStackLayout>, lazy protocol witness table accessor for type LazyVStackLayout and conformance LazyVStackLayout, &type metadata for LazyVStackLayout);
+  *v51 = v26;
+  *(v51 + 24) = v54;
+  *(v51 + 8) = v58;
+  *(v51 + 40) = v33;
+  *(v51 + 41) = v47 & 1;
+  *(v51 + 48) = v27;
+  *(v51 + 56) = v28;
+  return (*(*(v49 - 8) + 56))(v50, 0, 1, v49);
+}
+
+uint64_t _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE23resolveIndexAndPosition33_973C9973BC16DEAF0CF3109FFDE31321LL8subviews7context5cache6placer10propertiesSi5index_12CoreGraphics7CGFloatV8positiontSgAA01_C15Layout_SubviewsV_AA01_cY17_PlacementContextVAFzAA0D9PlacementAJLLVyxGzAA19PlacementPropertiesAJLLVyxGtFAA0c6HStackY0V_Tt4B5(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v105 = a4;
+  v109 = a1;
+  v123 = *MEMORY[0x1E69E9840];
+  v8 = *(a2 + 8);
+  v9 = 0.0;
+  if (*(a2 + 12) != *MEMORY[0x1E698D3F8])
+  {
+    v9 = *AGGraphGetValue();
+  }
+
+  v10 = *a5;
+  v12 = *(a5 + 8);
+  v11 = *(a5 + 16);
+  type metadata accessor for ViewLayoutEngine<GeometryReaderLayout>(0, &lazy cache variable for type metadata for _LazyStack_Cache<LazyHStackLayout>, lazy protocol witness table accessor for type LazyHStackLayout and conformance LazyHStackLayout, &type metadata for LazyHStackLayout, type metadata accessor for _LazyStack_Cache);
+  v14 = *(a3 + *(v13 + 60));
+  v15 = *(v14 + 16);
+  v106 = *(v13 + 60);
+  if (v15)
+  {
+    v17 = COERCE_DOUBLE(EstimationCache.average.getter());
+    if (v18)
+    {
+      v17 = 0.0;
+    }
+
+    v19 = v16 + v17;
+    v20 = *(v14 + 16) == 0;
+  }
+
+  else
+  {
+    v20 = 1;
+    v19 = 32.0;
+  }
+
+  v108 = 2 * v10;
+  if (v19 <= 0.0)
+  {
+    v20 = 1;
+  }
+
+  v107 = v20;
+  v21 = *(a5 + 24);
+  v22 = *(a5 + 32);
+  LODWORD(v118) = v8;
+  KeyPath = swift_getKeyPath();
+  v23 = MEMORY[0x1E69E7DE0];
+  type metadata accessor for EnvironmentFetch<LayoutDirection>(0, &lazy cache variable for type metadata for EnvironmentFetch<CGFloat>, MEMORY[0x1E69E7DE0], type metadata accessor for EnvironmentFetch);
+  Hasher.init(_seed:)();
+  Hasher._combine(_:)(v8);
+  v117[0] = KeyPath;
+  type metadata accessor for KeyPath<EnvironmentValues, LayoutDirection>(0, &lazy cache variable for type metadata for KeyPath<EnvironmentValues, CGFloat>, &type metadata for EnvironmentValues, v23, MEMORY[0x1E69E77A8]);
+
+  dispatch thunk of Hashable.hash(into:)();
+  Hasher._finalize()();
+  lazy protocol witness table accessor for type EnvironmentFetch<CGFloat> and conformance EnvironmentFetch<A>();
+  lazy protocol witness table accessor for type EnvironmentFetch<CGFloat> and conformance EnvironmentFetch<A>();
+  v122 = 0;
+  v90 = v24;
+  v25 = *static Rule<>._cachedValue(options:owner:hashValue:bodyPtr:update:)();
+
+  if (*(a3 + 24) & 1) != 0 || v10 != *a3 || v12 != *(a3 + 8) || v11 != *(a3 + 16) || (*(a5 + 40))
+  {
+    goto LABEL_11;
+  }
+
+  v35 = *(a3 + 64);
+  if (v25 == 1.0)
+  {
+    v36 = round(v35);
+    v37 = *(a3 + 72);
+    v38 = round(v37);
+    if (v36 <= v38)
+    {
+      goto LABEL_37;
+    }
+
+LABEL_53:
+    __break(1u);
+    goto LABEL_54;
+  }
+
+  v36 = v25 * round(v35 / v25);
+  v37 = *(a3 + 72);
+  v38 = v25 * round(v37 / v25);
+  if (v36 > v38)
+  {
+    goto LABEL_53;
+  }
+
+LABEL_37:
+  a5 = *(a3 + 48);
+  if (v36 <= v21 && (v22 <= v38 || v21 <= v38 && (*(a3 + 40) & 1) == 0 && *(a3 + 32) == *(a3 + 56)))
+  {
+    return a5;
+  }
+
+  v38 = v21 - v37;
+  v12 = 0.01;
+  v36 = v9 + v9;
+  if (v21 - v37 + 0.01 > 0.0 && v38 < v36)
+  {
+    return *(a3 + 56);
+  }
+
+LABEL_54:
+  v41 = v21 - v35;
+  if (v21 - v35 + v12 > 0.0 && v41 < v36)
+  {
+    return a5;
+  }
+
+  if (v41 >= 0.0)
+  {
+    v42 = v38;
+  }
+
+  else
+  {
+    v42 = v21 - v35;
+    if (v38 < 0.0)
+    {
+      if (v41 > v38)
+      {
+        v42 = v21 - v35;
+      }
+
+      else
+      {
+        v42 = v38;
+      }
+    }
+  }
+
+  if (v42 >= 0.0 || v9 * 3.0 <= -v42)
+  {
+    if (!v107)
+    {
+LABEL_99:
+      v118 = v108;
+      v77 = _ViewList_Node.estimatedCount(style:)(&v118);
+      if (v10 != 1)
+      {
+        if (!v10)
+        {
+LABEL_145:
+          __break(1u);
+          goto LABEL_146;
+        }
+
+        if (v77 == 0x8000000000000000 && v10 == -1)
+        {
+LABEL_150:
+          __break(1u);
+        }
+
+        v77 /= v10;
+      }
+
+      v78 = v77 - 1;
+      if (__OFSUB__(v77, 1))
+      {
+        goto LABEL_138;
+      }
+
+      v79 = round(v41 / v19);
+      if ((*&v79 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
+      {
+LABEL_139:
+        __break(1u);
+        goto LABEL_140;
+      }
+
+      if (v79 <= -9.22337204e18)
+      {
+LABEL_140:
+        __break(1u);
+        goto LABEL_141;
+      }
+
+      if (v79 >= 9.22337204e18)
+      {
+LABEL_141:
+        __break(1u);
+        goto LABEL_142;
+      }
+
+      v80 = v78 & ~(v78 >> 63);
+      v81 = v80 * v10;
+      if ((v80 * v10) >> 64 != (v80 * v10) >> 63)
+      {
+LABEL_142:
+        __break(1u);
+LABEL_143:
+        __break(1u);
+        goto LABEL_144;
+      }
+
+      if (v78 >= v79)
+      {
+        v78 = v79;
+      }
+
+      v82 = v78 & ~(v78 >> 63);
+      v83 = v82 * v10;
+      if ((v82 * v10) >> 64 != (v82 * v10) >> 63)
+      {
+        goto LABEL_143;
+      }
+
+      v39 = __OFADD__(a5, v83);
+      v84 = a5 + v83;
+      if (v39)
+      {
+LABEL_144:
+        __break(1u);
+        goto LABEL_145;
+      }
+
+      v85 = v35 + v19 * v82;
+      if (v85 + v12 >= 0.0 && v85 + -0.01 <= v21)
+      {
+        v87 = v84 & ~(v84 >> 63);
+        if (v81 >= v87)
+        {
+          return v87;
+        }
+
+        else
+        {
+          return v81;
+        }
+      }
+    }
+
+LABEL_11:
+    v118 = v108;
+    v26 = _ViewList_Node.estimatedCount(style:)(&v118);
+    if (v10 != 1)
+    {
+      if (!v10)
+      {
+LABEL_127:
+        __break(1u);
+LABEL_128:
+        __break(1u);
+        goto LABEL_129;
+      }
+
+      if (v26 == 0x8000000000000000 && v10 == -1)
+      {
+        goto LABEL_128;
+      }
+
+      v26 /= v10;
+    }
+
+    v27 = *(a2 + 32);
+    v28 = 0.0;
+    if (v27 > 0.0)
+    {
+      v29 = v21 / v27;
+      v28 = 1.0;
+      if (v29 < 1.0)
+      {
+        v28 = 0.0;
+        if (v29 >= 0.0)
+        {
+          v28 = v29;
+        }
+      }
+    }
+
+    if (__OFSUB__(v26, 1))
+    {
+      __break(1u);
+    }
+
+    else
+    {
+      v30 = (v26 - 1) & ~((v26 - 1) >> 63);
+      v31 = v30 * v10;
+      if ((v30 * v10) >> 64 == (v30 * v10) >> 63)
+      {
+        v32 = v28 * v26 + 0.5;
+        if ((*&v32 & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL)
+        {
+          if (v32 > -9.22337204e18)
+          {
+            if (v32 < 9.22337204e18)
+            {
+              v33 = v32 * v10;
+              if ((v32 * v10) >> 64 == v33 >> 63)
+              {
+                v34 = v33 & ~(v33 >> 63);
+                if (v34 >= v31)
+                {
+                  a5 = v31;
+                }
+
+                else
+                {
+                  a5 = v34;
+                }
+
+                if (a5 < 1 || v107)
+                {
+                  return a5;
+                }
+
+                EstimationCache.average.getter();
+                if (v10 == -1 && v31 == 0x8000000000000000)
+                {
+                  goto LABEL_130;
+                }
+
+                if (a5 < v10)
+                {
+                  return a5;
+                }
+
+                if (*(a2 + 208) <= 0.0)
+                {
+                  return a5;
+                }
+
+                v39 = __OFSUB__(a5, v10);
+                a5 -= v10;
+                if (!v39)
+                {
+                  return a5;
+                }
+
+LABEL_129:
+                __break(1u);
+LABEL_130:
+                __break(1u);
+LABEL_131:
+                __break(1u);
+LABEL_132:
+                __break(1u);
+LABEL_133:
+                __break(1u);
+LABEL_134:
+                __break(1u);
+LABEL_135:
+                __break(1u);
+LABEL_136:
+                __break(1u);
+LABEL_137:
+                __break(1u);
+LABEL_138:
+                __break(1u);
+                goto LABEL_139;
+              }
+
+              goto LABEL_126;
+            }
+
+LABEL_125:
+            __break(1u);
+LABEL_126:
+            __break(1u);
+            goto LABEL_127;
+          }
+
+LABEL_124:
+          __break(1u);
+          goto LABEL_125;
+        }
+
+LABEL_123:
+        __break(1u);
+        goto LABEL_124;
+      }
+    }
+
+    __break(1u);
+    goto LABEL_123;
+  }
+
+  if (v107)
+  {
+    goto LABEL_11;
+  }
+
+  v43 = *(a3 + 56);
+  v44 = v43 - a5;
+  if (__OFSUB__(v43, a5))
+  {
+LABEL_146:
+    __break(1u);
+    goto LABEL_147;
+  }
+
+  v45 = ceil(v9 / v19);
+  if ((*&v45 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
+  {
+LABEL_147:
+    __break(1u);
+    goto LABEL_148;
+  }
+
+  if (v45 <= -9.22337204e18)
+  {
+LABEL_148:
+    __break(1u);
+    goto LABEL_149;
+  }
+
+  if (v45 >= 9.22337204e18)
+  {
+LABEL_149:
+    __break(1u);
+    goto LABEL_150;
+  }
+
+  if (v44 <= v45)
+  {
+    v44 = v45;
+  }
+
+  v96 = v44;
+  if (v41 >= 0.0)
+  {
+    v46 = v43;
+  }
+
+  else
+  {
+    v46 = a5;
+  }
+
+  if (v41 >= 0.0)
+  {
+    v47 = v37;
+  }
+
+  else
+  {
+    v47 = v35;
+  }
+
+  v48 = v10 & 0x7FFFFFFFFFFFFFFFLL;
+  v95 = (v10 & 0x7FFFFFFFFFFFFFFFLL) - 1;
+  v94 = v109[17];
+  v49 = v109[15];
+  v93 = v109[14];
+  v92 = v49;
+  v50 = 2;
+  v91 = v10 & 0x7FFFFFFFFFFFFFFFLL;
+  while (1)
+  {
+    v51 = v50 * v96;
+    if ((v50 * v96) >> 64 != (v50 * v96) >> 63)
+    {
+      goto LABEL_131;
+    }
+
+    v39 = __OFSUB__(v46, v51);
+    v52 = v46 - v51;
+    v53 = v108;
+    if (v39)
+    {
+      goto LABEL_132;
+    }
+
+    v101 = v52;
+    v54 = v52 & ~(v52 >> 63);
+    v55 = swift_allocObject();
+    v104 = v55;
+    v56 = MEMORY[0x1E69E7CC0];
+    *(v55 + 16) = MEMORY[0x1E69E7CC0];
+    v103 = (v55 + 16);
+    v113 = v54;
+    v115 = 0;
+    v116 = 1;
+    v114 = 3;
+    v57 = swift_allocObject();
+    *(v57 + 16) = v56;
+    v102 = (v57 + 16);
+    v112 = v46;
+    v58 = v46;
+    if (v48 != 1)
+    {
+      if (!v48)
+      {
+        goto LABEL_135;
+      }
+
+      v59 = v46 % v48;
+      v58 = v46;
+      if (v46 % v48)
+      {
+        v60 = v48 - v59;
+        if (__OFSUB__(v48, v59))
+        {
+          goto LABEL_136;
+        }
+
+        v39 = __OFADD__(v46, v60);
+        v58 = v46 + v60;
+        if (v39)
+        {
+          goto LABEL_137;
+        }
+      }
+    }
+
+    v98 = v50;
+    v39 = __OFADD__(v58, v95);
+    v61 = v58 + v95;
+    if (v39)
+    {
+      goto LABEL_133;
+    }
+
+    v112 = v61;
+    v111 = v54;
+    MEMORY[0x1EEE9AC00](v57);
+    v89[2] = &v115;
+    v89[3] = &v114;
+    v89[4] = v53;
+    v89[5] = &v113;
+    v89[6] = &v112;
+    v89[7] = v62;
+    v100 = v62;
+    v90 = v104;
+    v63 = swift_allocObject();
+    if (__OFADD__(v54, v94))
+    {
+      goto LABEL_134;
+    }
+
+    v64 = v63;
+    v99 = v89;
+    *(v63 + 16) = v54 + v94;
+    v118 = v93;
+    KeyPath = v92;
+    v110 = v53;
+    v120 = &v118;
+    v121 = 1;
+    MEMORY[0x1EEE9AC00](v93);
+    v88[2] = v109;
+    v88[3] = v64;
+    v88[4] = closure #1 in LazyStack<>.collectBackwards(from:to:subviews:style:atEnd:)partial apply;
+    v88[5] = v89;
+
+    _ViewList_Node.applyNodes(from:style:transform:to:)(&v111, &v110, &v120, closure #1 in closure #1 in _LazyLayout_Subviews.apply(from:style:to:)partial apply, v88);
+    v66 = v65;
+
+    v67 = v102;
+    swift_beginAccess();
+    v68 = *v67;
+    v69 = v101;
+    v70 = v103;
+    if (*(v68 + 16))
+    {
+      swift_beginAccess();
+      v71 = *v70;
+
+      isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+      v97 = v66;
+      if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+      {
+        v71 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v71[2] + 1, 1, v71);
+      }
+
+      v74 = v71[2];
+      v73 = v71[3];
+      if (v74 >= v73 >> 1)
+      {
+        v71 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v73 > 1), v74 + 1, 1, v71);
+      }
+
+      v71[2] = v74 + 1;
+      v71[v74 + 4] = v68;
+      *v103 = v71;
+      swift_endAccess();
+      *v102 = MEMORY[0x1E69E7CC0];
+
+      LOBYTE(v66) = v97;
+    }
+
+    swift_beginAccess();
+    v75 = *(v104 + 16);
+
+    v76 = v105;
+    specialized StackPlacement.measureBackwards(subviews:lastIndex:lastPosition:atStart:atEnd:allowBeforeFirst:)(v75, v46, v69 < 1, v66 & 1, 0, &lazy cache variable for type metadata for StackPlacement<LazyHStackLayout>, lazy protocol witness table accessor for type LazyHStackLayout and conformance LazyHStackLayout, &type metadata for LazyHStackLayout, v47, specialized flushBackwards #1 <A>(includeEmpty:) in StackPlacement.measureBackwards(subviews:lastIndex:lastPosition:atStart:atEnd:allowBeforeFirst:), specialized LazyHVStack<>.lengthAndSpacing(subviews:predecessors:minorGeometry:));
+
+    if (*(v76 + 112) <= v21 + v12)
+    {
+      return *(v105 + 96);
+    }
+
+    v48 = v91;
+    if (v69 >= 1)
+    {
+      v50 = 2 * v98;
+      if (v98 <= 7)
+      {
+        continue;
+      }
+    }
+
+    goto LABEL_99;
+  }
+}
+
+uint64_t _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE23resolveIndexAndPosition33_973C9973BC16DEAF0CF3109FFDE31321LL8subviews7context5cache6placer10propertiesSi5index_12CoreGraphics7CGFloatV8positiontSgAA01_C15Layout_SubviewsV_AA01_cY17_PlacementContextVAFzAA0D9PlacementAJLLVyxGzAA19PlacementPropertiesAJLLVyxGtFAA0c6VStackY0V_Tt4B5(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v105 = a4;
+  v109 = a1;
+  v123 = *MEMORY[0x1E69E9840];
+  v8 = *(a2 + 8);
+  v9 = 0.0;
+  if (*(a2 + 12) != *MEMORY[0x1E698D3F8])
+  {
+    v9 = *(AGGraphGetValue() + 8);
+  }
+
+  v10 = *a5;
+  v12 = *(a5 + 8);
+  v11 = *(a5 + 16);
+  type metadata accessor for ViewLayoutEngine<GeometryReaderLayout>(0, &lazy cache variable for type metadata for _LazyStack_Cache<LazyVStackLayout>, lazy protocol witness table accessor for type LazyVStackLayout and conformance LazyVStackLayout, &type metadata for LazyVStackLayout, type metadata accessor for _LazyStack_Cache);
+  v14 = *(a3 + *(v13 + 60));
+  v15 = *(v14 + 16);
+  v106 = *(v13 + 60);
+  if (v15)
+  {
+    v17 = COERCE_DOUBLE(EstimationCache.average.getter());
+    if (v18)
+    {
+      v17 = 0.0;
+    }
+
+    v19 = v16 + v17;
+    v20 = *(v14 + 16) == 0;
+  }
+
+  else
+  {
+    v20 = 1;
+    v19 = 32.0;
+  }
+
+  v108 = 2 * v10;
+  if (v19 <= 0.0)
+  {
+    v20 = 1;
+  }
+
+  v107 = v20;
+  v21 = *(a5 + 24);
+  v22 = *(a5 + 32);
+  LODWORD(v118) = v8;
+  KeyPath = swift_getKeyPath();
+  v23 = MEMORY[0x1E69E7DE0];
+  type metadata accessor for EnvironmentFetch<LayoutDirection>(0, &lazy cache variable for type metadata for EnvironmentFetch<CGFloat>, MEMORY[0x1E69E7DE0], type metadata accessor for EnvironmentFetch);
+  Hasher.init(_seed:)();
+  Hasher._combine(_:)(v8);
+  v117[0] = KeyPath;
+  type metadata accessor for KeyPath<EnvironmentValues, LayoutDirection>(0, &lazy cache variable for type metadata for KeyPath<EnvironmentValues, CGFloat>, &type metadata for EnvironmentValues, v23, MEMORY[0x1E69E77A8]);
+
+  dispatch thunk of Hashable.hash(into:)();
+  Hasher._finalize()();
+  lazy protocol witness table accessor for type EnvironmentFetch<CGFloat> and conformance EnvironmentFetch<A>();
+  lazy protocol witness table accessor for type EnvironmentFetch<CGFloat> and conformance EnvironmentFetch<A>();
+  v122 = 0;
+  v90 = v24;
+  v25 = *static Rule<>._cachedValue(options:owner:hashValue:bodyPtr:update:)();
+
+  if (*(a3 + 24) & 1) != 0 || v10 != *a3 || v12 != *(a3 + 8) || v11 != *(a3 + 16) || (*(a5 + 40))
+  {
+    goto LABEL_11;
+  }
+
+  v35 = *(a3 + 64);
+  if (v25 == 1.0)
+  {
+    v36 = round(v35);
+    v37 = *(a3 + 72);
+    v38 = round(v37);
+    if (v36 <= v38)
+    {
+      goto LABEL_37;
+    }
+
+LABEL_53:
+    __break(1u);
+    goto LABEL_54;
+  }
+
+  v36 = v25 * round(v35 / v25);
+  v37 = *(a3 + 72);
+  v38 = v25 * round(v37 / v25);
+  if (v36 > v38)
+  {
+    goto LABEL_53;
+  }
+
+LABEL_37:
+  a5 = *(a3 + 48);
+  if (v36 <= v21 && (v22 <= v38 || v21 <= v38 && (*(a3 + 40) & 1) == 0 && *(a3 + 32) == *(a3 + 56)))
+  {
+    return a5;
+  }
+
+  v38 = v21 - v37;
+  v12 = 0.01;
+  v36 = v9 + v9;
+  if (v21 - v37 + 0.01 > 0.0 && v38 < v36)
+  {
+    return *(a3 + 56);
+  }
+
+LABEL_54:
+  v41 = v21 - v35;
+  if (v21 - v35 + v12 > 0.0 && v41 < v36)
+  {
+    return a5;
+  }
+
+  if (v41 >= 0.0)
+  {
+    v42 = v38;
+  }
+
+  else
+  {
+    v42 = v21 - v35;
+    if (v38 < 0.0)
+    {
+      if (v41 > v38)
+      {
+        v42 = v21 - v35;
+      }
+
+      else
+      {
+        v42 = v38;
+      }
+    }
+  }
+
+  if (v42 >= 0.0 || v9 * 3.0 <= -v42)
+  {
+    if (!v107)
+    {
+LABEL_99:
+      v118 = v108;
+      v77 = _ViewList_Node.estimatedCount(style:)(&v118);
+      if (v10 != 1)
+      {
+        if (!v10)
+        {
+LABEL_145:
+          __break(1u);
+          goto LABEL_146;
+        }
+
+        if (v77 == 0x8000000000000000 && v10 == -1)
+        {
+LABEL_150:
+          __break(1u);
+        }
+
+        v77 /= v10;
+      }
+
+      v78 = v77 - 1;
+      if (__OFSUB__(v77, 1))
+      {
+        goto LABEL_138;
+      }
+
+      v79 = round(v41 / v19);
+      if ((*&v79 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
+      {
+LABEL_139:
+        __break(1u);
+        goto LABEL_140;
+      }
+
+      if (v79 <= -9.22337204e18)
+      {
+LABEL_140:
+        __break(1u);
+        goto LABEL_141;
+      }
+
+      if (v79 >= 9.22337204e18)
+      {
+LABEL_141:
+        __break(1u);
+        goto LABEL_142;
+      }
+
+      v80 = v78 & ~(v78 >> 63);
+      v81 = v80 * v10;
+      if ((v80 * v10) >> 64 != (v80 * v10) >> 63)
+      {
+LABEL_142:
+        __break(1u);
+LABEL_143:
+        __break(1u);
+        goto LABEL_144;
+      }
+
+      if (v78 >= v79)
+      {
+        v78 = v79;
+      }
+
+      v82 = v78 & ~(v78 >> 63);
+      v83 = v82 * v10;
+      if ((v82 * v10) >> 64 != (v82 * v10) >> 63)
+      {
+        goto LABEL_143;
+      }
+
+      v39 = __OFADD__(a5, v83);
+      v84 = a5 + v83;
+      if (v39)
+      {
+LABEL_144:
+        __break(1u);
+        goto LABEL_145;
+      }
+
+      v85 = v35 + v19 * v82;
+      if (v85 + v12 >= 0.0 && v85 + -0.01 <= v21)
+      {
+        v87 = v84 & ~(v84 >> 63);
+        if (v81 >= v87)
+        {
+          return v87;
+        }
+
+        else
+        {
+          return v81;
+        }
+      }
+    }
+
+LABEL_11:
+    v118 = v108;
+    v26 = _ViewList_Node.estimatedCount(style:)(&v118);
+    if (v10 != 1)
+    {
+      if (!v10)
+      {
+LABEL_127:
+        __break(1u);
+LABEL_128:
+        __break(1u);
+        goto LABEL_129;
+      }
+
+      if (v26 == 0x8000000000000000 && v10 == -1)
+      {
+        goto LABEL_128;
+      }
+
+      v26 /= v10;
+    }
+
+    v27 = *(a2 + 40);
+    v28 = 0.0;
+    if (v27 > 0.0)
+    {
+      v29 = v21 / v27;
+      v28 = 1.0;
+      if (v29 < 1.0)
+      {
+        v28 = 0.0;
+        if (v29 >= 0.0)
+        {
+          v28 = v29;
+        }
+      }
+    }
+
+    if (__OFSUB__(v26, 1))
+    {
+      __break(1u);
+    }
+
+    else
+    {
+      v30 = (v26 - 1) & ~((v26 - 1) >> 63);
+      v31 = v30 * v10;
+      if ((v30 * v10) >> 64 == (v30 * v10) >> 63)
+      {
+        v32 = v28 * v26 + 0.5;
+        if ((*&v32 & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL)
+        {
+          if (v32 > -9.22337204e18)
+          {
+            if (v32 < 9.22337204e18)
+            {
+              v33 = v32 * v10;
+              if ((v32 * v10) >> 64 == v33 >> 63)
+              {
+                v34 = v33 & ~(v33 >> 63);
+                if (v34 >= v31)
+                {
+                  a5 = v31;
+                }
+
+                else
+                {
+                  a5 = v34;
+                }
+
+                if (a5 < 1 || v107)
+                {
+                  return a5;
+                }
+
+                EstimationCache.average.getter();
+                if (v10 == -1 && v31 == 0x8000000000000000)
+                {
+                  goto LABEL_130;
+                }
+
+                if (a5 < v10)
+                {
+                  return a5;
+                }
+
+                if (*(a2 + 200) <= 0.0)
+                {
+                  return a5;
+                }
+
+                v39 = __OFSUB__(a5, v10);
+                a5 -= v10;
+                if (!v39)
+                {
+                  return a5;
+                }
+
+LABEL_129:
+                __break(1u);
+LABEL_130:
+                __break(1u);
+LABEL_131:
+                __break(1u);
+LABEL_132:
+                __break(1u);
+LABEL_133:
+                __break(1u);
+LABEL_134:
+                __break(1u);
+LABEL_135:
+                __break(1u);
+LABEL_136:
+                __break(1u);
+LABEL_137:
+                __break(1u);
+LABEL_138:
+                __break(1u);
+                goto LABEL_139;
+              }
+
+              goto LABEL_126;
+            }
+
+LABEL_125:
+            __break(1u);
+LABEL_126:
+            __break(1u);
+            goto LABEL_127;
+          }
+
+LABEL_124:
+          __break(1u);
+          goto LABEL_125;
+        }
+
+LABEL_123:
+        __break(1u);
+        goto LABEL_124;
+      }
+    }
+
+    __break(1u);
+    goto LABEL_123;
+  }
+
+  if (v107)
+  {
+    goto LABEL_11;
+  }
+
+  v43 = *(a3 + 56);
+  v44 = v43 - a5;
+  if (__OFSUB__(v43, a5))
+  {
+LABEL_146:
+    __break(1u);
+    goto LABEL_147;
+  }
+
+  v45 = ceil(v9 / v19);
+  if ((*&v45 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
+  {
+LABEL_147:
+    __break(1u);
+    goto LABEL_148;
+  }
+
+  if (v45 <= -9.22337204e18)
+  {
+LABEL_148:
+    __break(1u);
+    goto LABEL_149;
+  }
+
+  if (v45 >= 9.22337204e18)
+  {
+LABEL_149:
+    __break(1u);
+    goto LABEL_150;
+  }
+
+  if (v44 <= v45)
+  {
+    v44 = v45;
+  }
+
+  v96 = v44;
+  if (v41 >= 0.0)
+  {
+    v46 = v43;
+  }
+
+  else
+  {
+    v46 = a5;
+  }
+
+  if (v41 >= 0.0)
+  {
+    v47 = v37;
+  }
+
+  else
+  {
+    v47 = v35;
+  }
+
+  v48 = v10 & 0x7FFFFFFFFFFFFFFFLL;
+  v95 = (v10 & 0x7FFFFFFFFFFFFFFFLL) - 1;
+  v94 = v109[17];
+  v49 = v109[15];
+  v93 = v109[14];
+  v92 = v49;
+  v50 = 2;
+  v91 = v10 & 0x7FFFFFFFFFFFFFFFLL;
+  while (1)
+  {
+    v51 = v50 * v96;
+    if ((v50 * v96) >> 64 != (v50 * v96) >> 63)
+    {
+      goto LABEL_131;
+    }
+
+    v39 = __OFSUB__(v46, v51);
+    v52 = v46 - v51;
+    v53 = v108;
+    if (v39)
+    {
+      goto LABEL_132;
+    }
+
+    v101 = v52;
+    v54 = v52 & ~(v52 >> 63);
+    v55 = swift_allocObject();
+    v104 = v55;
+    v56 = MEMORY[0x1E69E7CC0];
+    *(v55 + 16) = MEMORY[0x1E69E7CC0];
+    v103 = (v55 + 16);
+    v113 = v54;
+    v115 = 0;
+    v116 = 1;
+    v114 = 3;
+    v57 = swift_allocObject();
+    *(v57 + 16) = v56;
+    v102 = (v57 + 16);
+    v112 = v46;
+    v58 = v46;
+    if (v48 != 1)
+    {
+      if (!v48)
+      {
+        goto LABEL_135;
+      }
+
+      v59 = v46 % v48;
+      v58 = v46;
+      if (v46 % v48)
+      {
+        v60 = v48 - v59;
+        if (__OFSUB__(v48, v59))
+        {
+          goto LABEL_136;
+        }
+
+        v39 = __OFADD__(v46, v60);
+        v58 = v46 + v60;
+        if (v39)
+        {
+          goto LABEL_137;
+        }
+      }
+    }
+
+    v98 = v50;
+    v39 = __OFADD__(v58, v95);
+    v61 = v58 + v95;
+    if (v39)
+    {
+      goto LABEL_133;
+    }
+
+    v112 = v61;
+    v111 = v54;
+    MEMORY[0x1EEE9AC00](v57);
+    v89[2] = &v115;
+    v89[3] = &v114;
+    v89[4] = v53;
+    v89[5] = &v113;
+    v89[6] = &v112;
+    v89[7] = v62;
+    v100 = v62;
+    v90 = v104;
+    v63 = swift_allocObject();
+    if (__OFADD__(v54, v94))
+    {
+      goto LABEL_134;
+    }
+
+    v64 = v63;
+    v99 = v89;
+    *(v63 + 16) = v54 + v94;
+    v118 = v93;
+    KeyPath = v92;
+    v110 = v53;
+    v120 = &v118;
+    v121 = 1;
+    MEMORY[0x1EEE9AC00](v93);
+    v88[2] = v109;
+    v88[3] = v64;
+    v88[4] = closure #1 in LazyStack<>.collectBackwards(from:to:subviews:style:atEnd:)partial apply;
+    v88[5] = v89;
+
+    _ViewList_Node.applyNodes(from:style:transform:to:)(&v111, &v110, &v120, partial apply for closure #1 in closure #1 in _LazyLayout_Subviews.apply(from:style:to:), v88);
+    v66 = v65;
+
+    v67 = v102;
+    swift_beginAccess();
+    v68 = *v67;
+    v69 = v101;
+    v70 = v103;
+    if (*(v68 + 16))
+    {
+      swift_beginAccess();
+      v71 = *v70;
+
+      isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+      v97 = v66;
+      if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+      {
+        v71 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v71[2] + 1, 1, v71);
+      }
+
+      v74 = v71[2];
+      v73 = v71[3];
+      if (v74 >= v73 >> 1)
+      {
+        v71 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v73 > 1), v74 + 1, 1, v71);
+      }
+
+      v71[2] = v74 + 1;
+      v71[v74 + 4] = v68;
+      *v103 = v71;
+      swift_endAccess();
+      *v102 = MEMORY[0x1E69E7CC0];
+
+      LOBYTE(v66) = v97;
+    }
+
+    swift_beginAccess();
+    v75 = *(v104 + 16);
+
+    v76 = v105;
+    specialized StackPlacement.measureBackwards(subviews:lastIndex:lastPosition:atStart:atEnd:allowBeforeFirst:)(v75, v46, v69 < 1, v66 & 1, 0, &lazy cache variable for type metadata for StackPlacement<LazyVStackLayout>, lazy protocol witness table accessor for type LazyVStackLayout and conformance LazyVStackLayout, &type metadata for LazyVStackLayout, v47, specialized flushBackwards #1 <A>(includeEmpty:) in StackPlacement.measureBackwards(subviews:lastIndex:lastPosition:atStart:atEnd:allowBeforeFirst:), specialized LazyHVStack<>.lengthAndSpacing(subviews:predecessors:minorGeometry:));
+
+    if (*(v76 + 112) <= v21 + v12)
+    {
+      return *(v105 + 96);
+    }
+
+    v48 = v91;
+    if (v69 >= 1)
+    {
+      v50 = 2 * v98;
+      if (v98 <= 7)
+      {
+        continue;
+      }
+    }
+
+    goto LABEL_99;
+  }
+}
+
+uint64_t specialized LazyStack<>.placer(subviews:context:cache:)@<X0>(uint64_t a1@<X1>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X4>, uint64_t a5@<X5>, uint64_t a6@<X8>)
+{
+  v28 = *(a1 + 136);
+  v29 = *(a1 + 152);
+  if (*(a1 + 296))
+  {
+    ScrollGeometry.outsetForAX(limit:)(*(a1 + 280));
+  }
+
+  v31.origin.y = *(&v28 + 1);
+  v31.size.height = *(&v29 + 1);
+  *&v31.origin.x = v28;
+  *&v31.size.width = v29;
+  result = CGRectIsNull(v31);
+  v13 = 0.0;
+  v14 = 0.0;
+  if (result)
+  {
+    goto LABEL_18;
+  }
+
+  v15 = *&v28 + *&v29;
+  if (*&v28 + *&v29 >= *&v28)
+  {
+    v14 = *&v28;
+  }
+
+  else
+  {
+    v14 = *&v28 + *&v29;
+  }
+
+  if (*&v28 > v15)
+  {
+    v15 = *&v28;
+  }
+
+  if (v14 > v15)
+  {
+    v13 = 0.0;
+  }
+
+  else
+  {
+    v13 = v15;
+  }
+
+  if (v14 > v15)
+  {
+    v14 = 0.0;
+  }
+
+  v16 = v14 > 0.0 ? v14 : 0.0;
+  if (v16 >= v13)
+  {
+LABEL_18:
+    _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE3log33_973C9973BC16DEAF0CF3109FFDE31321LLyySSyXKFAA0C12HStackLayoutV_Tt0g503_s7a3UI9cd11PA2A01_cD6_e26VyxG0E0RtzrlE6placer33_973ghijk578subviews7context5cacheAA0D9PlacementAJLLVyxGSgAA01_C15M43_SubviewsV_AA01_cp1_O7ContextVAFztFSSyXEfu_SNy12CoreGraphics7CGFloatVGTf1c_n(v14, v13);
+LABEL_19:
+    specialized _LazyStack_Cache.reset()(&lazy cache variable for type metadata for _LazyStack_Cache<LazyHStackLayout>, lazy protocol witness table accessor for type LazyHStackLayout and conformance LazyHStackLayout, &type metadata for LazyHStackLayout);
+    type metadata accessor for ViewLayoutEngine<GeometryReaderLayout>(0, &lazy cache variable for type metadata for StackPlacement<LazyHStackLayout>, lazy protocol witness table accessor for type LazyHStackLayout and conformance LazyHStackLayout, &type metadata for LazyHStackLayout, type metadata accessor for StackPlacement);
+    v18 = *(*(v17 - 8) + 56);
+
+    return v18(a6, 1, 1, v17);
+  }
+
+  if (v16 > v13)
+  {
+    __break(1u);
+    return result;
+  }
+
+  v19 = *(a1 + 40);
+  if (v19 <= 0.0 || *(a1 + 32) <= 0.0)
+  {
+    _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE3log33_973C9973BC16DEAF0CF3109FFDE31321LLyySSyXKFAA0C12HStackLayoutV_Tt0g503_s7a3UI9cd11PA2A01_cD6_e26VyxG0E0RtzrlE6placer33_973ghijk578subviews7context5cacheAA0D9PlacementAJLLVyxGSgAA01_C15M44_SubviewsV_AA01_cp1_O7ContextVAFztFSSyXEfu0_SNy12CoreGraphics7CGFloatVGTf1c_n(v16, v13);
+    goto LABEL_19;
+  }
+
+  v20 = v16;
+  v21 = v13;
+  if ((*(a2 + 24) & 1) != 0 || *a2 != 1 || v19 != *(a2 + 8) || v19 != *(a2 + 16))
+  {
+    specialized _LazyStack_Cache.reset()(&lazy cache variable for type metadata for _LazyStack_Cache<LazyHStackLayout>, lazy protocol witness table accessor for type LazyHStackLayout and conformance LazyHStackLayout, &type metadata for LazyHStackLayout);
+  }
+
+  v27 = *(a1 + 48);
+  type metadata accessor for ViewLayoutEngine<GeometryReaderLayout>(0, &lazy cache variable for type metadata for StackPlacement<LazyHStackLayout>, lazy protocol witness table accessor for type LazyHStackLayout and conformance LazyHStackLayout, &type metadata for LazyHStackLayout, type metadata accessor for StackPlacement);
+  v23 = v22;
+  *(a6 + 152) = 0u;
+  *(a6 + 168) = 0u;
+  *(a6 + 184) = 0u;
+  *(a6 + 200) = 0u;
+  *(a6 + 216) = 0u;
+  *(a6 + 232) = 0u;
+  *(a6 + 248) = 0u;
+  v24 = (a6 + *(v22 + 104));
+  v25 = MEMORY[0x1E69E7CC0];
+  *v24 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC12CoreGraphics7CGFloatV_SiTt0g5Tf4g_n(MEMORY[0x1E69E7CC0]);
+  v24[1] = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC12CoreGraphics7CGFloatV_SiTt0g5Tf4g_n(v25);
+  type metadata accessor for EstimationCache(0);
+  type metadata accessor for IndexSet();
+  lazy protocol witness table accessor for type TouchEvent and conformance TouchEvent(&lazy protocol witness table cache variable for type IndexSet and conformance IndexSet, MEMORY[0x1E6969B50], MEMORY[0x1E6969B90]);
+  type metadata accessor for EnvironmentFetch<LayoutDirection>(0, &lazy cache variable for type metadata for [Int], MEMORY[0x1E69E6530], MEMORY[0x1E69E62F8]);
+  lazy protocol witness table accessor for type [Int] and conformance [A]();
+  dispatch thunk of SetAlgebra.init<A>(_:)();
+  *a6 = a3;
+  *(a6 + 8) = a4;
+  *(a6 + 16) = a5 & 1;
+  *(a6 + 20) = HIDWORD(a5);
+  *(a6 + 32) = 1;
+  *(a6 + 40) = v19;
+  *(a6 + 48) = v19;
+  *(a6 + 24) = 0;
+  *(a6 + 56) = v20;
+  *(a6 + 64) = v21;
+  *(a6 + 72) = v27;
+  *(a6 + 80) = 0;
+  *(a6 + 88) = 1;
+  *(a6 + 96) = 0;
+  *(a6 + 104) = 0;
+  *(a6 + 112) = 0;
+  *(a6 + 120) = 0;
+  *(a6 + 128) = 1;
+  v26 = MEMORY[0x1E69E7CC0];
+  *(a6 + 136) = MEMORY[0x1E69E7CC0];
+  *(a6 + 144) = 0;
+  *(a6 + 264) = v26;
+  *(a6 + 272) = xmmword_18DDAB4E0;
+  *(a6 + 288) = xmmword_18DDAB4F0;
+  *(a6 + 304) = xmmword_18DDAB4F0;
+  *(a6 + 320) = 0;
+  return (*(*(v23 - 8) + 56))(a6, 0, 1, v23);
+}
+
+{
+  v28 = *(a1 + 136);
+  v29 = *(a1 + 152);
+  if (*(a1 + 296))
+  {
+    ScrollGeometry.outsetForAX(limit:)(*(a1 + 280));
+  }
+
+  *&v31.origin.x = v28;
+  *&v31.size.width = v29;
+  v31.origin.y = *(&v28 + 1);
+  v31.size.height = *(&v29 + 1);
+  result = CGRectIsNull(v31);
+  v13 = 0.0;
+  v14 = 0.0;
+  if (result)
+  {
+    goto LABEL_18;
+  }
+
+  v15 = *(&v28 + 1) + *(&v29 + 1);
+  if (*(&v28 + 1) + *(&v29 + 1) >= *(&v28 + 1))
+  {
+    v14 = *(&v28 + 1);
+  }
+
+  else
+  {
+    v14 = *(&v28 + 1) + *(&v29 + 1);
+  }
+
+  if (*(&v28 + 1) > v15)
+  {
+    v15 = *(&v28 + 1);
+  }
+
+  if (v14 > v15)
+  {
+    v13 = 0.0;
+  }
+
+  else
+  {
+    v13 = v15;
+  }
+
+  if (v14 > v15)
+  {
+    v14 = 0.0;
+  }
+
+  v16 = v14 > 0.0 ? v14 : 0.0;
+  if (v16 >= v13)
+  {
+LABEL_18:
+    _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE3log33_973C9973BC16DEAF0CF3109FFDE31321LLyySSyXKFAA0C12VStackLayoutV_Tt0g503_s7a3UI9cd11PA2A01_cD6_e26VyxG0E0RtzrlE6placer33_973ghijk578subviews7context5cacheAA0D9PlacementAJLLVyxGSgAA01_C15M43_SubviewsV_AA01_cp1_O7ContextVAFztFSSyXEfu_SNy12CoreGraphics7CGFloatVGTf1c_n(v14, v13);
+LABEL_19:
+    specialized _LazyStack_Cache.reset()(&lazy cache variable for type metadata for _LazyStack_Cache<LazyVStackLayout>, lazy protocol witness table accessor for type LazyVStackLayout and conformance LazyVStackLayout, &type metadata for LazyVStackLayout);
+    type metadata accessor for ViewLayoutEngine<GeometryReaderLayout>(0, &lazy cache variable for type metadata for StackPlacement<LazyVStackLayout>, lazy protocol witness table accessor for type LazyVStackLayout and conformance LazyVStackLayout, &type metadata for LazyVStackLayout, type metadata accessor for StackPlacement);
+    v18 = *(*(v17 - 8) + 56);
+
+    return v18(a6, 1, 1, v17);
+  }
+
+  if (v16 > v13)
+  {
+    __break(1u);
+    return result;
+  }
+
+  v19 = *(a1 + 32);
+  if (v19 <= 0.0 || *(a1 + 40) <= 0.0)
+  {
+    _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE3log33_973C9973BC16DEAF0CF3109FFDE31321LLyySSyXKFAA0C12VStackLayoutV_Tt0g503_s7a3UI9cd11PA2A01_cD6_e26VyxG0E0RtzrlE6placer33_973ghijk578subviews7context5cacheAA0D9PlacementAJLLVyxGSgAA01_C15M44_SubviewsV_AA01_cp1_O7ContextVAFztFSSyXEfu0_SNy12CoreGraphics7CGFloatVGTf1c_n(v16, v13);
+    goto LABEL_19;
+  }
+
+  v20 = v16;
+  v21 = v13;
+  if ((*(a2 + 24) & 1) != 0 || *a2 != 1 || v19 != *(a2 + 8) || v19 != *(a2 + 16))
+  {
+    specialized _LazyStack_Cache.reset()(&lazy cache variable for type metadata for _LazyStack_Cache<LazyVStackLayout>, lazy protocol witness table accessor for type LazyVStackLayout and conformance LazyVStackLayout, &type metadata for LazyVStackLayout);
+  }
+
+  v27 = *(a1 + 48);
+  type metadata accessor for ViewLayoutEngine<GeometryReaderLayout>(0, &lazy cache variable for type metadata for StackPlacement<LazyVStackLayout>, lazy protocol witness table accessor for type LazyVStackLayout and conformance LazyVStackLayout, &type metadata for LazyVStackLayout, type metadata accessor for StackPlacement);
+  v23 = v22;
+  *(a6 + 152) = 0u;
+  *(a6 + 168) = 0u;
+  *(a6 + 184) = 0u;
+  *(a6 + 200) = 0u;
+  *(a6 + 216) = 0u;
+  *(a6 + 232) = 0u;
+  *(a6 + 248) = 0u;
+  v24 = (a6 + *(v22 + 104));
+  v25 = MEMORY[0x1E69E7CC0];
+  *v24 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC12CoreGraphics7CGFloatV_SiTt0g5Tf4g_n(MEMORY[0x1E69E7CC0]);
+  v24[1] = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC12CoreGraphics7CGFloatV_SiTt0g5Tf4g_n(v25);
+  type metadata accessor for EstimationCache(0);
+  type metadata accessor for IndexSet();
+  lazy protocol witness table accessor for type TouchEvent and conformance TouchEvent(&lazy protocol witness table cache variable for type IndexSet and conformance IndexSet, MEMORY[0x1E6969B50], MEMORY[0x1E6969B90]);
+  type metadata accessor for EnvironmentFetch<LayoutDirection>(0, &lazy cache variable for type metadata for [Int], MEMORY[0x1E69E6530], MEMORY[0x1E69E62F8]);
+  lazy protocol witness table accessor for type [Int] and conformance [A]();
+  dispatch thunk of SetAlgebra.init<A>(_:)();
+  *a6 = a3;
+  *(a6 + 8) = a4;
+  *(a6 + 16) = a5 & 1;
+  *(a6 + 20) = HIDWORD(a5);
+  *(a6 + 32) = 1;
+  *(a6 + 40) = v19;
+  *(a6 + 48) = v19;
+  *(a6 + 24) = 1;
+  *(a6 + 56) = v20;
+  *(a6 + 64) = v21;
+  *(a6 + 72) = v27;
+  *(a6 + 80) = 0;
+  *(a6 + 88) = 1;
+  *(a6 + 96) = 0;
+  *(a6 + 104) = 0;
+  *(a6 + 112) = 0;
+  *(a6 + 120) = 0;
+  *(a6 + 128) = 1;
+  v26 = MEMORY[0x1E69E7CC0];
+  *(a6 + 136) = MEMORY[0x1E69E7CC0];
+  *(a6 + 144) = 0;
+  *(a6 + 264) = v26;
+  *(a6 + 272) = xmmword_18DDAB4E0;
+  *(a6 + 288) = xmmword_18DDAB4F0;
+  *(a6 + 304) = xmmword_18DDAB4F0;
+  *(a6 + 320) = 0;
+  return (*(*(v23 - 8) + 56))(a6, 0, 1, v23);
+}
+
+void specialized sufficientlyDiffers<A, B, C>(lhs:rhs:ratio:baseline:)(uint64_t a1, uint64_t a2, double a3, double a4)
+{
+  v6 = a1 + 64;
+  v7 = 1.0 / a3 * a4;
+  v8 = 1 << *(a1 + 32);
+  if (v8 < 64)
+  {
+    v9 = ~(-1 << v8);
+  }
+
+  else
+  {
+    v9 = -1;
+  }
+
+  v10 = v9 & *(a1 + 64);
+  v11 = (v8 + 63) >> 6;
+  v12 = a2 + 64;
+
+  v14 = 0;
+LABEL_5:
+  if (v10)
+  {
+    v15 = v14;
+LABEL_10:
+    v16 = 0;
+    v17 = __clz(__rbit64(v10));
+    v10 &= v10 - 1;
+    v18 = *(*(v13 + 48) + ((v15 << 9) | (8 * v17)));
+    v19 = 1 << *(a2 + 32);
+    if (v19 < 64)
+    {
+      v20 = ~(-1 << v19);
+    }
+
+    else
+    {
+      v20 = -1;
+    }
+
+    v21 = v20 & *(a2 + 64);
+    v22 = (v19 + 63) >> 6;
+    while (v21)
+    {
+LABEL_20:
+      v24 = *(a2 + 48);
+      v25 = (v16 << 9) | (8 * __clz(__rbit64(v21)));
+      v26 = *(v24 + v25);
+      v21 &= v21 - 1;
+      if (v26 >= v18)
+      {
+        v27 = v18;
+      }
+
+      else
+      {
+        v27 = *(v24 + v25);
+      }
+
+      if (v18 > v26)
+      {
+        v26 = v18;
+      }
+
+      if (v26 == 0.0)
+      {
+        v14 = v15;
+        goto LABEL_5;
+      }
+
+      if (v26 <= v7)
+      {
+        if (v27 == v26)
+        {
+          v14 = v15;
+          goto LABEL_5;
+        }
+      }
+
+      else if (v27 / v26 > a3)
+      {
+        v14 = v15;
+        goto LABEL_5;
+      }
+    }
+
+    while (1)
+    {
+      v23 = v16 + 1;
+      if (__OFADD__(v16, 1))
+      {
+        break;
+      }
+
+      if (v23 >= v22)
+      {
+        goto LABEL_31;
+      }
+
+      v21 = *(v12 + 8 * v23);
+      ++v16;
+      if (v21)
+      {
+        v16 = v23;
+        goto LABEL_20;
+      }
+    }
+
+    __break(1u);
+  }
+
+  else
+  {
+    while (1)
+    {
+      v15 = v14 + 1;
+      if (__OFADD__(v14, 1))
+      {
+        break;
+      }
+
+      if (v15 >= v11)
+      {
+LABEL_31:
+
+        return;
+      }
+
+      v10 = *(v6 + 8 * v15);
+      ++v14;
+      if (v10)
+      {
+        goto LABEL_10;
+      }
+    }
+  }
+
+  __break(1u);
+}
+
+uint64_t _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE16collectBackwards33_973C9973BC16DEAF0CF3109FFDE31321LL4from2to8subviews5style5atEndSaySayAA01_C14Layout_SubviewVGGSi_SiAA01_cS9_SubviewsVAA23_ViewList_IteratorStyleVSbztFAA0c6HStackS0V_Tt4B5Tm(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, _BYTE *a5, uint64_t a6)
+{
+  v28 = a5;
+  v10 = swift_allocObject();
+  v11 = MEMORY[0x1E69E7CC0];
+  *(v10 + 16) = MEMORY[0x1E69E7CC0];
+  v12 = (v10 + 16);
+  v35 = a1;
+  v33 = 0;
+  v34 = 1;
+  v32 = 3;
+  result = swift_allocObject();
+  v14 = result;
+  *(result + 16) = v11;
+  v15 = (result + 16);
+  v16 = a4 >> 1;
+  v17 = (a4 >> 1) - 1;
+  if (a4 >> 1 == 1)
+  {
+LABEL_6:
+    v19 = __OFADD__(a2, v17);
+    v21 = a2 + v17;
+    if (v19)
+    {
+      __break(1u);
+    }
+
+    else
+    {
+      v30 = a1;
+      v31 = v21;
+      v29[0] = a4;
+      MEMORY[0x1EEE9AC00](result);
+      v27[2] = &v33;
+      v27[3] = &v32;
+      v27[4] = a4;
+      v27[5] = &v35;
+      v27[6] = &v31;
+      v27[7] = v14;
+      v27[8] = v10;
+      v22 = _LazyLayout_Subviews.apply(from:style:to:)(&v30, v29, a6, v27);
+      *v28 = v22 & 1;
+      swift_beginAccess();
+      a6 = *(v14 + 16);
+      if (!*(a6 + 16))
+      {
+LABEL_12:
+        swift_beginAccess();
+        v26 = *(v10 + 16);
+
+        return v26;
+      }
+
+      swift_beginAccess();
+      v11 = *v12;
+
+      if (swift_isUniquelyReferenced_nonNull_native())
+      {
+LABEL_9:
+        v23 = MEMORY[0x1E69E7CC0];
+        v25 = v11[2];
+        v24 = v11[3];
+        if (v25 >= v24 >> 1)
+        {
+          v11 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v24 > 1), v25 + 1, 1, v11);
+        }
+
+        v11[2] = v25 + 1;
+        v11[v25 + 4] = a6;
+        *v12 = v11;
+        swift_endAccess();
+        *v15 = v23;
+
+        goto LABEL_12;
+      }
+    }
+
+    v11 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v11[2] + 1, 1, v11);
+    goto LABEL_9;
+  }
+
+  if (!v16)
+  {
+    __break(1u);
+LABEL_16:
+    __break(1u);
+    goto LABEL_17;
+  }
+
+  v18 = a2 % v16;
+  if (!(a2 % v16))
+  {
+    goto LABEL_6;
+  }
+
+  v19 = __OFSUB__(v16, v18);
+  v20 = v16 - v18;
+  if (v19)
+  {
+    goto LABEL_16;
+  }
+
+  v19 = __OFADD__(a2, v20);
+  a2 += v20;
+  if (!v19)
+  {
+    goto LABEL_6;
+  }
+
+LABEL_17:
+  __break(1u);
+  return result;
+}
+
+void specialized StackPlacement.measureBackwards(subviews:lastIndex:lastPosition:atStart:atEnd:allowBeforeFirst:)(uint64_t a1, unint64_t a2, int a3, unsigned int a4, int a5, unint64_t *a6, uint64_t (*a7)(void), uint64_t a8, double a9, void (*a10)(void, unint64_t *, char *, void, char *, _WORD *, __n128), double (*a11)(unint64_t, unint64_t, unint64_t, unint64_t, unint64_t, double))
+{
+  v144 = a8;
+  v142 = a6;
+  v13 = v11;
+  v139 = a5;
+  v19 = type metadata accessor for IndexSet();
+  v20 = *(v19 - 8);
+  MEMORY[0x1EEE9AC00](v19);
+  v22 = &v133 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v148 = *(a1 + 16);
+  if (v148)
+  {
+    v146 = a4;
+    v135 = a3;
+    v147 = a2;
+    v13[12] = a2;
+    *(v13 + 14) = a9;
+    *(v13 + 104) = 1;
+    v13[15] = 0;
+    *(v13 + 128) = 1;
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    v24 = v13[17];
+    v143 = (v13 + 17);
+    if (isUniquelyReferenced_nonNull_native)
+    {
+      specialized Array.replaceSubrange<A>(_:with:)(0, *(v24 + 16));
+    }
+
+    else
+    {
+      v25 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC7SwiftUI19_LazyLayout_SubviewV_Tt1g5(0, *(v24 + 24) >> 1);
+
+      v13[17] = v25;
+    }
+
+    v13[18] = 0;
+    outlined destroy of GlassEntryView?((v13 + 19), &lazy cache variable for type metadata for _LazyLayout_Subview?, &type metadata for _LazyLayout_Subview, MEMORY[0x1E69E6720]);
+    *(v13 + 19) = 0u;
+    *(v13 + 21) = 0u;
+    *(v13 + 23) = 0u;
+    *(v13 + 25) = 0u;
+    *(v13 + 27) = 0u;
+    *(v13 + 29) = 0u;
+    *(v13 + 31) = 0u;
+    v26 = swift_isUniquelyReferenced_nonNull_native();
+    v27 = v13[33];
+    if (v26)
+    {
+      specialized Array.replaceSubrange<A>(_:with:)(0, *(v27 + 16));
+    }
+
+    else
+    {
+      v28 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC7SwiftUI25_LazyLayout_PlacedSubviewV_Tt1g5(0, *(v27 + 24) >> 1);
+
+      v13[33] = v28;
+    }
+
+    v29 = v144;
+    v30 = v142;
+    *(v13 + 17) = xmmword_18DDAB4E0;
+    *(v13 + 18) = xmmword_18DDAB4F0;
+    *(v13 + 19) = xmmword_18DDAB4F0;
+    *(v13 + 320) = 0;
+    type metadata accessor for ViewLayoutEngine<GeometryReaderLayout>(0, v30, a7, v29, type metadata accessor for StackPlacement);
+    v32 = (v13 + *(v31 + 104));
+    v33 = MEMORY[0x1E69E7CC0];
+    v34 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC12CoreGraphics7CGFloatV_SiTt0g5Tf4g_n(MEMORY[0x1E69E7CC0]);
+
+    *v32 = v34;
+    v35 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC12CoreGraphics7CGFloatV_SiTt0g5Tf4g_n(v33);
+
+    v32[1] = v35;
+    v169 = v33;
+    lazy protocol witness table accessor for type TouchEvent and conformance TouchEvent(&lazy protocol witness table cache variable for type IndexSet and conformance IndexSet, MEMORY[0x1E6969B50], MEMORY[0x1E6969B90]);
+    type metadata accessor for EnvironmentFetch<LayoutDirection>(0, &lazy cache variable for type metadata for [Int], MEMORY[0x1E69E6530], MEMORY[0x1E69E62F8]);
+    lazy protocol witness table accessor for type [Int] and conformance [A]();
+    dispatch thunk of SetAlgebra.init<A>(_:)();
+    v36 = type metadata accessor for EstimationCache(0);
+    (*(v20 + 40))(v32 + *(v36 + 24), v22, v19);
+    v175[0] = 0;
+    v174 = 0;
+    if ((v146 & 1) == 0)
+    {
+      v39 = v143;
+      goto LABEL_12;
+    }
+
+    v37 = v13[4];
+    v38 = v147 - v37;
+    v39 = v143;
+    if (!__OFSUB__(v147, v37))
+    {
+      v147 -= v37;
+      v13[12] = v38;
+      v174 = 1;
+LABEL_12:
+      v136 = a11;
+      v134 = a10;
+
+      swift_beginAccess();
+      swift_beginAccess();
+      v40 = 0;
+      v41 = 0;
+      v42 = 0;
+      LODWORD(v144) = *MEMORY[0x1E698D3F8];
+      v43 = 8 * v148 + 24;
+      v145 = a1;
+      v142 = v13;
+      while (1)
+      {
+        v44 = *(a1 + v43);
+
+        *v39 = v44;
+        if (v40 == 1)
+        {
+          v41 = 1;
+          LOBYTE(v175[0]) = 1;
+          if (!*(v44 + 16))
+          {
+            v44 = v42;
+            goto LABEL_138;
+          }
+
+          if (!v42)
+          {
+            goto LABEL_154;
+          }
+
+          if (!*(v42 + 16))
+          {
+            goto LABEL_148;
+          }
+
+          outlined init with copy of _LazyLayout_Subview(v42 + 32, &v169);
+          if (v172 == 1)
+          {
+
+            outlined destroy of _LazyLayout_Subview(&v169);
+            goto LABEL_40;
+          }
+
+          v58 = v173;
+
+          outlined destroy of _LazyLayout_Subview(&v169);
+          if (v58 == 1)
+          {
+LABEL_40:
+            outlined init with copy of _LazyLayout_Subview(v42 + 32, &v169);
+
+            v59 = *(v13 + 24);
+            v60 = v13[5];
+            v61 = v13;
+            if (*(v13 + 24))
+            {
+              v62 = v13[5];
+            }
+
+            else
+            {
+              v62 = 0;
+            }
+
+            if (v59)
+            {
+              v63 = 0;
+            }
+
+            else
+            {
+              v63 = v60;
+            }
+
+            if (!*(v44 + 16))
+            {
+              goto LABEL_151;
+            }
+
+            outlined init with copy of _LazyLayout_Subview(v44 + 32, v168);
+
+            v141 = *(v61 + 1);
+            v140 = *(v61 + 16);
+            v64 = v170;
+            v137 = v169;
+            v65 = *(LazyLayoutViewCache.item(data:)(v171) + 44);
+
+            v138 = v64;
+            if (v65 == v144)
+            {
+              InputValue = &static LayoutComputer.defaultValue;
+              if (one-time initialization token for defaultValue != -1)
+              {
+                swift_once();
+                InputValue = &static LayoutComputer.defaultValue;
+              }
+            }
+
+            else
+            {
+              InputValue = AGGraphGetInputValue();
+            }
+
+            v75 = *InputValue;
+            v76 = one-time initialization token for lockAssertionsAreEnabled;
+
+            if (v76 != -1)
+            {
+              swift_once();
+            }
+
+            a1 = v145;
+            if (lockAssertionsAreEnabled)
+            {
+              if (one-time initialization token for _lock != -1)
+              {
+                swift_once();
+              }
+
+              if (!_MovableLockIsOwner(static Update._lock))
+              {
+                goto LABEL_156;
+              }
+            }
+
+            *&v161 = v62;
+            BYTE8(v161) = v59 ^ 1;
+            *&v162 = v63;
+            BYTE8(v162) = v59;
+            v77 = (*(*v75 + 128))(&v161, v59);
+
+            outlined init with copy of UncheckedSendable<GlassEffectShapeModifier>(v168, &v161, &lazy cache variable for type metadata for _LazyLayout_Subview?, &type metadata for _LazyLayout_Subview, MEMORY[0x1E69E6720]);
+            if (v161)
+            {
+              v157 = v164;
+              v158 = v165;
+              v159 = v166;
+              v160 = v167;
+              v154 = v161;
+              v155 = v162;
+              v156 = v163;
+              *&v78 = v141;
+              v13 = v142;
+              if (v140)
+              {
+                v79 = DWORD2(v154);
+                v80 = *(LazyLayoutViewCache.item(data:)(&v155) + 44);
+
+                v151 = v79;
+                v152 = v80;
+                v81 = v144;
+                v153 = v144;
+                LayoutProxy.spacing()();
+                v150 = *AGGraphGetValue();
+                v82 = *(LazyLayoutViewCache.item(data:)(v171) + 44);
+
+                v151 = v138;
+                v152 = v82;
+                v153 = v81;
+                LayoutProxy.spacing()();
+                *&v78 = COERCE_DOUBLE(Spacing.distanceToSuccessorView(along:layoutDirection:preferring:)(v59, &v150, &v149));
+                LOBYTE(v82) = v83;
+
+                if (v82)
+                {
+                  swift_beginAccess();
+                  v84 = &dbl_1EAB21528;
+                  if (!v59)
+                  {
+                    v84 = static Spacing.defaultValue;
+                  }
+
+                  v78 = *v84;
+                }
+              }
+
+              outlined destroy of _LazyLayout_Subview(&v154);
+              v85 = *&v78;
+            }
+
+            else
+            {
+              v85 = 0.0;
+              v13 = v142;
+            }
+
+            outlined destroy of GlassEntryView?(v168, &lazy cache variable for type metadata for _LazyLayout_Subview?, &type metadata for _LazyLayout_Subview, MEMORY[0x1E69E6720]);
+            outlined destroy of _LazyLayout_Subview(&v169);
+            v39 = v143;
+          }
+
+          else
+          {
+            v97 = *v13;
+            v98 = v13[1];
+            v99 = *(v13 + 6);
+            v100 = *(v13 + 5);
+            v168[0] = *(v13 + 16);
+            v77 = v136(v42, v44, v97, v98, v168[0] | (v100 << 32), v99);
+            v85 = v101;
+          }
+
+          v102 = a9 - v77;
+          if (v146)
+          {
+            v103 = a9 - v77;
+          }
+
+          else
+          {
+            v103 = a9;
+          }
+
+          v104 = v103 - v85;
+          v105 = v147;
+          if (v147)
+          {
+            v102 = v104;
+          }
+
+          if (v146)
+          {
+            a9 = v102;
+            *(v13 + 14) = v102;
+          }
+
+          if (v85 + a9 <= *(v13 + 7) && (v139 & 1) == 0)
+          {
+LABEL_141:
+            v13[17] = v42;
+            v13[18] = v44;
+            v130 = swift_isUniquelyReferenced_nonNull_native();
+            v131 = v13[17];
+            if (v130)
+            {
+              specialized Array.replaceSubrange<A>(_:with:)(0, *(v131 + 16));
+            }
+
+            else
+            {
+              v132 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC7SwiftUI19_LazyLayout_SubviewV_Tt1g5(0, *(v131 + 24) >> 1);
+
+              *v39 = v132;
+            }
+
+            return;
+          }
+
+          v106 = v13[4];
+          v107 = __OFSUB__(v105, v106);
+          v108 = v105 - v106;
+          if (v107)
+          {
+            goto LABEL_150;
+          }
+
+          if ((v108 & 0x8000000000000000) == 0)
+          {
+            v13[12] = v108;
+            v105 = v108;
+          }
+
+          v147 = v105;
+          v13[17] = v42;
+          v13[18] = v44;
+          v109 = swift_isUniquelyReferenced_nonNull_native();
+          v53 = v13[17];
+          if (v109)
+          {
+            v110 = *(v53 + 2);
+            if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+            {
+              v53 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v110, 1, v53);
+            }
+
+            swift_arrayDestroy();
+            if (v110)
+            {
+              v111 = &v53[112 * v110];
+              v112 = *(v53 + 2) - v110;
+              memmove(v53 + 32, v111 + 32, 112 * v112);
+              *(v53 + 2) = v112;
+            }
+
+            v41 = 1;
+          }
+
+          else
+          {
+            v113 = MEMORY[0x1E69E7CC0];
+            if (*(v53 + 3) >= 2uLL)
+            {
+              type metadata accessor for EnvironmentFetch<LayoutDirection>(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<_LazyLayout_Subview>, &type metadata for _LazyLayout_Subview, MEMORY[0x1E69E6F90]);
+              v113 = swift_allocObject();
+              v114 = _swift_stdlib_malloc_size(v113);
+              v113[2] = 0;
+              v113[3] = 2 * ((v114 - 32) / 112);
+            }
+
+            v53 = v113;
+            v41 = 1;
+          }
+
+          goto LABEL_137;
+        }
+
+        if (v40)
+        {
+          break;
+        }
+
+        v45 = v13;
+        v46 = v39;
+        v47 = a1;
+        v48 = v41;
+        v49 = MEMORY[0x1E69E7CC0];
+        if (v42)
+        {
+          v50 = v42;
+        }
+
+        else
+        {
+          v50 = MEMORY[0x1E69E7CC0];
+        }
+
+        v45[17] = v50;
+        v45[18] = v44;
+        v51 = swift_isUniquelyReferenced_nonNull_native();
+        v52 = v45;
+        v53 = v45[17];
+        if (v51)
+        {
+          v54 = *(v53 + 2);
+          if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+          {
+            v53 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v54, 1, v53);
+          }
+
+          swift_arrayDestroy();
+          if (v54)
+          {
+            v55 = &v53[112 * v54];
+            v56 = *(v53 + 2) - v54;
+            memmove(v53 + 32, v55 + 32, 112 * v56);
+            *(v53 + 2) = v56;
+          }
+        }
+
+        else
+        {
+          if (*(v53 + 3) >= 2uLL)
+          {
+            type metadata accessor for EnvironmentFetch<LayoutDirection>(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<_LazyLayout_Subview>, &type metadata for _LazyLayout_Subview, MEMORY[0x1E69E6F90]);
+            v49 = swift_allocObject();
+            v57 = _swift_stdlib_malloc_size(v49);
+            v49[2] = 0;
+            v49[3] = 2 * ((v57 - 32) / 112);
+          }
+
+          v53 = v49;
+        }
+
+        v41 = v48;
+        a1 = v47;
+        v39 = v46;
+        v13 = v52;
+LABEL_137:
+        *v39 = v53;
+LABEL_138:
+        if (__OFADD__(v40, 1))
+        {
+          __break(1u);
+LABEL_146:
+
+          swift_beginAccess();
+          LOBYTE(v175[0]) = 1;
+          swift_beginAccess();
+          v174 = 1;
+          (v134)(v135 & 1, v13, &v174, v139 & 1, v175 + 1, v175);
+          return;
+        }
+
+        ++v40;
+        v43 -= 8;
+        v42 = v44;
+        if (v148 == v40)
+        {
+          goto LABEL_146;
+        }
+      }
+
+      v174 = 1;
+      if (!*(v44 + 16))
+      {
+        v146 = 1;
+        v44 = v42;
+        goto LABEL_138;
+      }
+
+      if (!v42)
+      {
+        goto LABEL_155;
+      }
+
+      if (!*(v42 + 16))
+      {
+        __break(1u);
+LABEL_148:
+        __break(1u);
+LABEL_149:
+        __break(1u);
+LABEL_150:
+        __break(1u);
+LABEL_151:
+        __break(1u);
+LABEL_152:
+        __break(1u);
+        goto LABEL_153;
+      }
+
+      outlined init with copy of _LazyLayout_Subview(v42 + 32, &v169);
+      if (v172 == 1)
+      {
+
+        outlined destroy of _LazyLayout_Subview(&v169);
+      }
+
+      else
+      {
+        v67 = v173;
+
+        outlined destroy of _LazyLayout_Subview(&v169);
+        if (v67 != 1)
+        {
+          v115 = *v13;
+          v116 = v13[1];
+          v117 = *(v13 + 6);
+          v118 = *(v13 + 5);
+          v168[0] = *(v13 + 16);
+          v88 = v136(v42, v44, v115, v116, v168[0] | (v118 << 32), v117);
+          v96 = v119;
+
+          v39 = v143;
+LABEL_119:
+          v120 = v147;
+          if (v147)
+          {
+            a9 = a9 - v88 - v96;
+          }
+
+          else
+          {
+            a9 = a9 - v88;
+          }
+
+          *(v13 + 14) = a9;
+          if (v96 + a9 <= *(v13 + 7) && (v139 & 1) == 0)
+          {
+            goto LABEL_141;
+          }
+
+          v121 = v13[4];
+          v107 = __OFSUB__(v120, v121);
+          v122 = v120 - v121;
+          if (v107)
+          {
+            goto LABEL_149;
+          }
+
+          if ((v41 & (v122 >= 0)) == 1)
+          {
+            v13[12] = v122;
+            v120 = v122;
+          }
+
+          v123 = v41;
+          v147 = v120;
+          v13[17] = v42;
+          v13[18] = v44;
+          v124 = swift_isUniquelyReferenced_nonNull_native();
+          v53 = v13[17];
+          if (v124)
+          {
+            v125 = *(v53 + 2);
+            if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+            {
+              v53 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v125, 1, v53);
+            }
+
+            swift_arrayDestroy();
+            if (v125)
+            {
+              v126 = &v53[112 * v125];
+              v127 = *(v53 + 2) - v125;
+              memmove(v53 + 32, v126 + 32, 112 * v127);
+              *(v53 + 2) = v127;
+            }
+
+            v146 = 1;
+          }
+
+          else
+          {
+            v128 = MEMORY[0x1E69E7CC0];
+            if (*(v53 + 3) >= 2uLL)
+            {
+              type metadata accessor for EnvironmentFetch<LayoutDirection>(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<_LazyLayout_Subview>, &type metadata for _LazyLayout_Subview, MEMORY[0x1E69E6F90]);
+              v128 = swift_allocObject();
+              v129 = _swift_stdlib_malloc_size(v128);
+              v128[2] = 0;
+              v128[3] = 2 * ((v129 - 32) / 112);
+            }
+
+            v146 = 1;
+            v53 = v128;
+          }
+
+          v41 = v123;
+          a1 = v145;
+          goto LABEL_137;
+        }
+      }
+
+      v146 = v41;
+      outlined init with copy of _LazyLayout_Subview(v42 + 32, &v169);
+
+      v68 = v13;
+      v69 = *(v13 + 24);
+      if (v69)
+      {
+        v70 = v68[5];
+      }
+
+      else
+      {
+        v70 = 0;
+      }
+
+      if (v69)
+      {
+        v71 = 0;
+      }
+
+      else
+      {
+        v71 = v68[5];
+      }
+
+      if (!*(v44 + 16))
+      {
+        goto LABEL_152;
+      }
+
+      outlined init with copy of _LazyLayout_Subview(v44 + 32, v168);
+
+      v141 = *(v68 + 1);
+      v140 = *(v68 + 16);
+      v72 = v170;
+      v137 = v169;
+      v73 = *(LazyLayoutViewCache.item(data:)(v171) + 44);
+
+      v138 = v72;
+      if (v73 == v144)
+      {
+        v74 = &static LayoutComputer.defaultValue;
+        if (one-time initialization token for defaultValue != -1)
+        {
+          swift_once();
+          v74 = &static LayoutComputer.defaultValue;
+        }
+      }
+
+      else
+      {
+        v74 = AGGraphGetInputValue();
+      }
+
+      v86 = *v74;
+      v87 = one-time initialization token for lockAssertionsAreEnabled;
+
+      if (v87 != -1)
+      {
+        swift_once();
+      }
+
+      if (lockAssertionsAreEnabled)
+      {
+        if (one-time initialization token for _lock != -1)
+        {
+          swift_once();
+        }
+
+        if (!_MovableLockIsOwner(static Update._lock))
+        {
+          goto LABEL_156;
+        }
+      }
+
+      *&v161 = v70;
+      BYTE8(v161) = v69 ^ 1;
+      *&v162 = v71;
+      BYTE8(v162) = v69;
+      v88 = (*(*v86 + 128))(&v161, v69);
+
+      outlined init with copy of UncheckedSendable<GlassEffectShapeModifier>(v168, &v161, &lazy cache variable for type metadata for _LazyLayout_Subview?, &type metadata for _LazyLayout_Subview, MEMORY[0x1E69E6720]);
+      if (v161)
+      {
+        v157 = v164;
+        v158 = v165;
+        v159 = v166;
+        v160 = v167;
+        v154 = v161;
+        v155 = v162;
+        v156 = v163;
+        v39 = v143;
+        v41 = v146;
+        if (v140)
+        {
+          v89 = DWORD2(v154);
+          v90 = *(LazyLayoutViewCache.item(data:)(&v155) + 44);
+
+          v151 = v89;
+          v152 = v90;
+          v91 = v144;
+          v153 = v144;
+          LayoutProxy.spacing()();
+          v150 = *AGGraphGetValue();
+          v92 = *(LazyLayoutViewCache.item(data:)(v171) + 44);
+
+          v151 = v138;
+          v152 = v92;
+          v153 = v91;
+          LayoutProxy.spacing()();
+          v93 = Spacing.distanceToSuccessorView(along:layoutDirection:preferring:)(v69, &v150, &v149);
+          LOBYTE(v92) = v94;
+
+          if (v92)
+          {
+            swift_beginAccess();
+            v95 = &dbl_1EAB21528;
+            if (!v69)
+            {
+              v95 = static Spacing.defaultValue;
+            }
+
+            v141 = *v95;
+          }
+
+          else
+          {
+            v141 = *&v93;
+          }
+
+          v41 = v146;
+        }
+
+        outlined destroy of _LazyLayout_Subview(&v154);
+        v96 = v141;
+      }
+
+      else
+      {
+        v96 = 0.0;
+        v39 = v143;
+        v41 = v146;
+      }
+
+      outlined destroy of GlassEntryView?(v168, &lazy cache variable for type metadata for _LazyLayout_Subview?, &type metadata for _LazyLayout_Subview, MEMORY[0x1E69E6720]);
+      outlined destroy of _LazyLayout_Subview(&v169);
+      v13 = v142;
+      goto LABEL_119;
+    }
+
+LABEL_153:
+    __break(1u);
+LABEL_154:
+    __break(1u);
+LABEL_155:
+    __break(1u);
+LABEL_156:
+    _assertionFailure(_:_:file:line:flags:)();
+    __break(1u);
+  }
+}
+
+void specialized Sequence.min(by:)(uint64_t a1@<X0>, uint64_t a2@<X1>, _OWORD *a3@<X8>)
+{
+  v3 = *(a1 + 16);
+  if (!v3)
+  {
+
+    a3[3] = 0u;
+    a3[4] = 0u;
+    a3[1] = 0u;
+    a3[2] = 0u;
+    *a3 = 0u;
+    return;
+  }
+
+  v4 = *(a1 + 80);
+  v101 = *(a1 + 64);
+  v102 = v4;
+  v103 = *(a1 + 96);
+  v5 = *(a1 + 48);
+  v99 = *(a1 + 32);
+  v100 = v5;
+
+  outlined init with copy of _LazyLayout_PlacedSubview(&v99, &v94);
+  v96 = v101;
+  v97 = v102;
+  v98 = v103;
+  v94 = v99;
+  v95 = v100;
+  v6 = v3 - 1;
+  if (v3 == 1)
+  {
+LABEL_3:
+
+    v7 = v97;
+    a3[2] = v96;
+    a3[3] = v7;
+    a3[4] = v98;
+    v8 = v95;
+    *a3 = v94;
+    a3[1] = v8;
+    return;
+  }
+
+  v104 = *MEMORY[0x1E698D3F8];
+  v10 = (a1 + 112);
+  while (1)
+  {
+    v11 = v10[1];
+    v89 = *v10;
+    v90 = v11;
+    v12 = v10[3];
+    v91 = v10[2];
+    v92 = v12;
+    v93 = v10[4];
+    v13 = v89;
+    if ((*(v89 + 173) & 1) != 0 || *(v89 + 174) == 1)
+    {
+      outlined init with copy of _LazyLayout_PlacedSubview(&v89, &v85);
+LABEL_11:
+      v14 = INFINITY;
+      goto LABEL_12;
+    }
+
+    if (*(v89 + 44) == v104)
+    {
+      outlined init with copy of _LazyLayout_PlacedSubview(&v89, &v85);
+      Value = &static LayoutComputer.defaultValue;
+      if (one-time initialization token for defaultValue != -1)
+      {
+        swift_once();
+        Value = &static LayoutComputer.defaultValue;
+      }
+    }
+
+    else
+    {
+      outlined init with copy of _LazyLayout_PlacedSubview(&v89, &v85);
+      Value = AGGraphGetValue();
+    }
+
+    v18 = *Value;
+    v19 = *(&v89 + 1);
+    v20 = v90;
+    v21 = *(&v90 + 1);
+    v22 = v91;
+    v23 = *(&v91 + 1);
+    v25 = v92;
+    v24 = *&v93;
+    v26 = one-time initialization token for lockAssertionsAreEnabled;
+
+    if (v26 != -1)
+    {
+      swift_once();
+    }
+
+    v27 = lockAssertionsAreEnabled;
+    if (lockAssertionsAreEnabled)
+    {
+      if (one-time initialization token for _lock != -1)
+      {
+        swift_once();
+      }
+
+      if (!_MovableLockIsOwner(static Update._lock))
+      {
+        break;
+      }
+    }
+
+    v85 = v19;
+    v86 = v20;
+    v87 = v21;
+    v88 = v22;
+    v28 = (*(*v18 + 120))(&v85);
+    v30 = v29;
+
+    if (*(v13 + 44) == v104)
+    {
+      v31 = &static LayoutComputer.defaultValue;
+      if (one-time initialization token for defaultValue != -1)
+      {
+        swift_once();
+        v31 = &static LayoutComputer.defaultValue;
+      }
+    }
+
+    else
+    {
+      v31 = AGGraphGetValue();
+    }
+
+    v46 = *v31;
+    if (v27)
+    {
+      v47 = one-time initialization token for _lock;
+
+      if (v47 != -1)
+      {
+        swift_once();
+      }
+
+      if (!_MovableLockIsOwner(static Update._lock))
+      {
+        break;
+      }
+    }
+
+    else
+    {
+    }
+
+    v85 = v19;
+    v86 = v20;
+    v87 = v21;
+    v88 = v22;
+    v48 = (*(*v46 + 120))(&v85);
+    v50 = v49;
+
+    swift_beginAccess();
+    v105.origin.x = *(&v25 + 1) - v23 * v28;
+    v105.origin.y = v24 - *&v25 * v30;
+    v105.size.width = v48;
+    v105.size.height = v50;
+    v106 = CGRectIntersection(v105, *(a2 + 16));
+    if (!CGRectIsEmpty(v106))
+    {
+      goto LABEL_11;
+    }
+
+    if (*(v13 + 44) == v104)
+    {
+      v51 = &static LayoutComputer.defaultValue;
+      if (one-time initialization token for defaultValue != -1)
+      {
+        swift_once();
+        v51 = &static LayoutComputer.defaultValue;
+      }
+    }
+
+    else
+    {
+      v51 = AGGraphGetValue();
+    }
+
+    v65 = *v51;
+    if (v27)
+    {
+      v66 = one-time initialization token for _lock;
+
+      if (v66 != -1)
+      {
+        swift_once();
+      }
+
+      if (!_MovableLockIsOwner(static Update._lock))
+      {
+        break;
+      }
+    }
+
+    else
+    {
+    }
+
+    v85 = v19;
+    v86 = v20;
+    v87 = v21;
+    v88 = v22;
+    v67 = (*(*v65 + 120))(&v85);
+    v69 = v68;
+
+    if (*(v13 + 44) == v104)
+    {
+      v70 = &static LayoutComputer.defaultValue;
+      if (one-time initialization token for defaultValue != -1)
+      {
+        swift_once();
+        v70 = &static LayoutComputer.defaultValue;
+      }
+    }
+
+    else
+    {
+      v70 = AGGraphGetValue();
+    }
+
+    v77 = *v70;
+    if (v27)
+    {
+      v78 = one-time initialization token for _lock;
+
+      if (v78 != -1)
+      {
+        swift_once();
+      }
+
+      if (!_MovableLockIsOwner(static Update._lock))
+      {
+        break;
+      }
+    }
+
+    else
+    {
+    }
+
+    v85 = v19;
+    v86 = v20;
+    v87 = v21;
+    v88 = v22;
+    (*(*v77 + 120))(&v85);
+
+    v14 = sqrt((*(&v25 + 1) - v23 * v67) * (*(&v25 + 1) - v23 * v67) + (v24 - *&v25 * v69) * (v24 - *&v25 * v69));
+LABEL_12:
+    v15 = v94;
+    if ((*(v94 + 173) & 1) != 0 || *(v94 + 174) == 1)
+    {
+      if (v14 != INFINITY)
+      {
+        goto LABEL_15;
+      }
+    }
+
+    else
+    {
+      if (*(v94 + 44) == v104)
+      {
+        v17 = &static LayoutComputer.defaultValue;
+        if (one-time initialization token for defaultValue != -1)
+        {
+          swift_once();
+          v17 = &static LayoutComputer.defaultValue;
+        }
+      }
+
+      else
+      {
+        v17 = AGGraphGetValue();
+      }
+
+      v32 = *v17;
+      v33 = *(&v94 + 1);
+      v34 = v95;
+      v35 = *(&v95 + 1);
+      v36 = v96;
+      v37 = *(&v96 + 1);
+      v39 = *&v97;
+      v38 = *&v98;
+      v83 = *(&v97 + 1);
+      v40 = one-time initialization token for lockAssertionsAreEnabled;
+
+      if (v40 != -1)
+      {
+        swift_once();
+      }
+
+      v41 = lockAssertionsAreEnabled;
+      if (lockAssertionsAreEnabled)
+      {
+        if (one-time initialization token for _lock != -1)
+        {
+          swift_once();
+        }
+
+        if (!_MovableLockIsOwner(static Update._lock))
+        {
+          break;
+        }
+      }
+
+      v85 = v33;
+      v86 = v34;
+      v87 = v35;
+      v88 = v36;
+      v42 = (*(*v32 + 120))(&v85);
+      v44 = v43;
+
+      if (*(v15 + 44) == v104)
+      {
+        v45 = &static LayoutComputer.defaultValue;
+        if (one-time initialization token for defaultValue != -1)
+        {
+          swift_once();
+          v45 = &static LayoutComputer.defaultValue;
+        }
+      }
+
+      else
+      {
+        v45 = AGGraphGetValue();
+      }
+
+      v52 = *v45;
+      if (v41)
+      {
+        v53 = one-time initialization token for _lock;
+
+        if (v53 != -1)
+        {
+          swift_once();
+        }
+
+        if (!_MovableLockIsOwner(static Update._lock))
+        {
+          break;
+        }
+      }
+
+      else
+      {
+      }
+
+      v54 = v37;
+      v55 = v39;
+      v56 = v39 * v44;
+      v57 = v83 - v37 * v42;
+      v58 = v38;
+      v59 = v38 - v56;
+      v85 = v33;
+      v86 = v34;
+      v87 = v35;
+      v88 = v36;
+      v60 = (*(*v52 + 120))(&v85);
+      v62 = v61;
+
+      swift_beginAccess();
+      v107.origin.x = v57;
+      v107.origin.y = v59;
+      v107.size.width = v60;
+      v107.size.height = v62;
+      v108 = CGRectIntersection(v107, *(a2 + 16));
+      if (CGRectIsEmpty(v108))
+      {
+        if (*(v15 + 44) == v104)
+        {
+          v63 = &static LayoutComputer.defaultValue;
+          v64 = v58;
+          if (one-time initialization token for defaultValue != -1)
+          {
+            swift_once();
+            v63 = &static LayoutComputer.defaultValue;
+          }
+        }
+
+        else
+        {
+          v63 = AGGraphGetValue();
+          v64 = v58;
+        }
+
+        v71 = *v63;
+        if (v41)
+        {
+          v72 = one-time initialization token for _lock;
+
+          if (v72 != -1)
+          {
+            swift_once();
+          }
+
+          if (!_MovableLockIsOwner(static Update._lock))
+          {
+            break;
+          }
+        }
+
+        else
+        {
+        }
+
+        v85 = v33;
+        v86 = v34;
+        v87 = v35;
+        v88 = v36;
+        v73 = (*(*v71 + 120))(&v85);
+        v75 = v74;
+
+        if (*(v15 + 44) == v104)
+        {
+          v76 = &static LayoutComputer.defaultValue;
+          if (one-time initialization token for defaultValue != -1)
+          {
+            swift_once();
+            v76 = &static LayoutComputer.defaultValue;
+          }
+        }
+
+        else
+        {
+          v76 = AGGraphGetValue();
+        }
+
+        v79 = *v76;
+        if (v41)
+        {
+          v80 = one-time initialization token for _lock;
+
+          if (v80 != -1)
+          {
+            swift_once();
+          }
+
+          if (!_MovableLockIsOwner(static Update._lock))
+          {
+            break;
+          }
+        }
+
+        else
+        {
+        }
+
+        v85 = v33;
+        v86 = v34;
+        v87 = v35;
+        v88 = v36;
+        (*(*v79 + 120))(&v85);
+
+        if (v14 < sqrt((v83 - v54 * v73) * (v83 - v54 * v73) + (v64 - v55 * v75) * (v64 - v55 * v75)))
+        {
+LABEL_15:
+          outlined destroy of _LazyLayout_PlacedSubview(&v94);
+          v96 = v91;
+          v97 = v92;
+          v98 = v93;
+          v94 = v89;
+          v95 = v90;
+          goto LABEL_7;
+        }
+      }
+
+      else if (v14 != INFINITY)
+      {
+        goto LABEL_15;
+      }
+    }
+
+    outlined destroy of _LazyLayout_PlacedSubview(&v89);
+LABEL_7:
+    v10 += 5;
+    if (!--v6)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  _assertionFailure(_:_:file:line:flags:)();
+  __break(1u);
+}
+
+void specialized Sequence.min(by:)(uint64_t a1@<X0>, void (*a2)(float64x2_t *__return_ptr, uint64_t, __int128 *)@<X1>, uint64_t a3@<X8>)
+{
+  v40 = 0;
+  v41 = 0;
+  v39 = a1;
+  specialized EnumeratedSequence.Iterator.next()(&v33);
+  if (*(&v33 + 1))
+  {
+    v22 = a3;
+    v46 = v3;
+    *&v32[32] = v35;
+    *&v32[48] = v36;
+    *&v32[64] = v37;
+    *&v32[80] = v38;
+    *v32 = v33;
+    *&v32[16] = v34;
+    v6 = v39;
+    v7 = v40;
+    v8 = v41;
+    v9 = *(v39 + 16);
+
+    if (v7 == v9)
+    {
+LABEL_3:
+
+      v10 = *&v32[48];
+      *(v22 + 32) = *&v32[32];
+      *(v22 + 48) = v10;
+      *(v22 + 64) = *&v32[64];
+      *(v22 + 80) = *&v32[80];
+      v11 = *&v32[16];
+      *v22 = *v32;
+      *(v22 + 16) = v11;
+    }
+
+    else
+    {
+      v15 = (v6 + 80 * v7 + 32);
+      while (v7 < v9)
+      {
+        v30[0] = *v15;
+        v16 = v15[1];
+        v17 = v15[2];
+        v18 = v15[4];
+        v30[3] = v15[3];
+        v30[4] = v18;
+        v30[1] = v16;
+        v30[2] = v17;
+        v19 = v15[3];
+        v27 = v15[2];
+        v28 = v19;
+        v29 = v15[4];
+        v20 = v15[1];
+        v25 = *v15;
+        v26 = v20;
+        if (__OFADD__(v8, 1))
+        {
+          goto LABEL_15;
+        }
+
+        *v31 = v8;
+        *&v31[24] = v26;
+        *&v31[40] = v27;
+        *&v31[56] = v28;
+        *&v31[72] = v29;
+        *&v31[8] = v25;
+        outlined init with copy of _LazyLayout_PlacedSubview(v30, v24);
+        a2(v42, v8, &v25);
+        if (v43 & 1) != 0 || (v23 = v42[0], v27 = *&v32[40], v28 = *&v32[56], v29 = *&v32[72], v25 = *&v32[8], v26 = *&v32[24], a2(v44, *v32, &v25), (v45) || (v21 = vsqrtq_f64(vpaddq_f64(vmulq_f64(v23, v23), vmulq_f64(v44[0], v44[0]))), (vmovn_s64(vcgtq_f64(vdupq_laneq_s64(v21, 1), v21)).u8[0] & 1) == 0))
+        {
+          outlined destroy of (offset: Int, element: _LazyLayout_PlacedSubview)(v31);
+        }
+
+        else
+        {
+          outlined destroy of (offset: Int, element: _LazyLayout_PlacedSubview)(v32);
+          *&v32[32] = *&v31[32];
+          *&v32[48] = *&v31[48];
+          *&v32[64] = *&v31[64];
+          *&v32[80] = *&v31[80];
+          *v32 = *v31;
+          *&v32[16] = *&v31[16];
+        }
+
+        ++v7;
+        v9 = *(v6 + 16);
+        v15 += 5;
+        ++v8;
+        if (v7 == v9)
+        {
+          goto LABEL_3;
+        }
+      }
+
+      __break(1u);
+LABEL_15:
+      __break(1u);
+    }
+  }
+
+  else
+  {
+    v12 = v33;
+
+    *&v32[32] = v35;
+    *&v32[48] = v36;
+    *&v32[64] = v37;
+    *&v32[80] = v38;
+    *v32 = v33;
+    *&v32[16] = v34;
+    outlined destroy of _VariadicView.Tree<_LayoutRoot<GeometryReaderLayout>, ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>>(v32, type metadata accessor for (offset: Int, element: _LazyLayout_PlacedSubview)?);
+    *a3 = v12;
+    *(a3 + 8) = 0;
+    v13 = v37;
+    *(a3 + 48) = v36;
+    *(a3 + 64) = v13;
+    *(a3 + 80) = v38;
+    v14 = v35;
+    *(a3 + 16) = v34;
+    *(a3 + 32) = v14;
+  }
 }

@@ -31,9 +31,9 @@
 - (SNTimeDurationConstraint)windowDurationConstraint
 {
   selfCopy = self;
-  v3 = sub_1C9931F5C();
+  v4 = sub_1C9931F5C(v3);
 
-  return v3;
+  return v4;
 }
 
 - (NSArray)knownClassifications
@@ -97,7 +97,7 @@
   requestCopy = request;
   sub_1C993351C(v7);
 
-  sub_1C97A5A8C(v7, v7[3]);
+  sub_1C97A5A8C(v7, v8);
   v5 = sub_1C9A93B08();
   sub_1C97A592C(v7);
 

@@ -10,46 +10,45 @@
 
 - (BOOL)wakeHostForVoiceTrigger
 {
-  v3 = +[CSUtils deviceIdentifier];
-  v4 = [v3 dataUsingEncoding:4];
+  v2 = +[CSUtils deviceIdentifier];
+  v3 = [v2 dataUsingEncoding:4];
 
-  if (v4)
+  if (v3)
   {
-    v12 = 1;
-    v5 = [NSMutableData dataWithBytes:&v12 length:1];
-    [v5 appendBytes:objc_msgSend(v4 length:{"bytes"), 25}];
-    v6 = CSLogContextFacilityCoreSpeech;
+    v10 = 1;
+    v4 = [NSMutableData dataWithBytes:&v10 length:1];
+    [v4 appendBytes:objc_msgSend(v3 length:{"bytes"), 25}];
+    v5 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = v6;
-      v8 = [v5 length];
+      v6 = v5;
+      v7 = [v4 length];
       *buf = 136315650;
-      v14 = "[CSHostLauncherDarwin wakeHostForVoiceTrigger]";
-      v15 = 2050;
-      v16 = v8;
-      v17 = 2114;
-      v18 = v4;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%s Sending HID report (length = %{public}lu) to host with deviceId info (%{public}@)", buf, 0x20u);
+      v12 = "[CSHostLauncherDarwin wakeHostForVoiceTrigger]";
+      v13 = 2050;
+      v14 = v7;
+      v15 = 2114;
+      v16 = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%s Sending HID report (length = %{public}lu) to host with deviceId info (%{public}@)", buf, 0x20u);
     }
 
-    device = self->_device;
-    [v5 bytes];
-    [v5 length];
+    [v4 bytes];
+    [v4 length];
     IOHIDUserDeviceHandleReport();
   }
 
   else
   {
-    v10 = CSLogContextFacilityCoreSpeech;
+    v8 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v14 = "[CSHostLauncherDarwin wakeHostForVoiceTrigger]";
-      _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%s Failed to fetch local deviceId, abort", buf, 0xCu);
+      v12 = "[CSHostLauncherDarwin wakeHostForVoiceTrigger]";
+      _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "%s Failed to fetch local deviceId, abort", buf, 0xCu);
     }
   }
 
-  return v4 != 0;
+  return v3 != 0;
 }
 
 - (void)dealloc

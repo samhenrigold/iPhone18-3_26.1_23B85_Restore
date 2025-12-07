@@ -114,104 +114,107 @@
 
 - (void)_reevaluateStateForReason:(id)reason
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
+  v5 = reasonCopy;
   if (self->_isCurrentState)
   {
-    v5 = SBLogContinuitySession();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = SBLogContinuitySession(reasonCopy);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 138543362;
-      v15 = reasonCopy;
-      _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "[State.Blocked] Re-evaluating state for reason: %{public}@", &v14, 0xCu);
+      v17 = 138543362;
+      v18 = v5;
+      _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "[State.Blocked] Re-evaluating state for reason: %{public}@", &v17, 0xCu);
     }
 
-    v6 = [(NSSet *)self->_blockedReasons_client mutableCopy];
-    v7 = v6;
+    v7 = [(NSSet *)self->_blockedReasons_client mutableCopy];
+    v8 = v7;
     if (!self->_clientConnected)
     {
-      [v6 addObject:@"block.session.client-connected"];
+      [v7 addObject:@"block.session.client-connected"];
     }
 
     if (self->_uiBlocked)
     {
-      [v7 addObject:@"block.embedded-display.uiBlocked"];
+      [v8 addObject:@"block.embedded-display.uiBlocked"];
     }
 
     if (!self->_uiLocked)
     {
-      [v7 addObject:@"block.embedded-display.uiUnlocked"];
+      [v8 addObject:@"block.embedded-display.uiUnlocked"];
     }
 
     if (self->_inCall)
     {
-      [v7 addObject:@"block.inCall"];
+      [v8 addObject:@"block.inCall"];
     }
 
     if (self->_sosActive)
     {
-      [v7 addObject:@"block.sos.active"];
+      [v8 addObject:@"block.sos.active"];
     }
 
     if (self->_lockScreenSearchPresented)
     {
-      [v7 addObject:@"block.lockScreen.searchPresented"];
+      [v8 addObject:@"block.lockScreen.searchPresented"];
     }
 
     if (self->_usingSecureApp)
     {
-      [v7 addObject:@"block.embedded-display.secureAppUsage"];
+      [v8 addObject:@"block.embedded-display.secureAppUsage"];
     }
 
     if (self->_isAirplayMirroring)
     {
-      [v7 addObject:@"block.airplayMirroring"];
+      [v8 addObject:@"block.airplayMirroring"];
     }
 
     if (self->_isUserInitiatedRemoteTransientOverlayPresented)
     {
-      [v7 addObject:@"block.userInitiatedRemoteTransientOverlayPresented"];
+      [v8 addObject:@"block.userInitiatedRemoteTransientOverlayPresented"];
     }
 
-    if ([v7 count])
+    v9 = [v8 count];
+    if (v9)
     {
-      v8 = SBLogContinuitySession();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v10 = SBLogContinuitySession(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        bs_array = [v7 bs_array];
-        v14 = 138543362;
-        v15 = bs_array;
-        _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "[State.Blocked] still blocked by %{public}@", &v14, 0xCu);
+        bs_array = [v8 bs_array];
+        v17 = 138543362;
+        v18 = bs_array;
+        _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "[State.Blocked] still blocked by %{public}@", &v17, 0xCu);
       }
 
-      v10 = *(self->_stateUpdateHandler + 2);
+      v12 = *(self->_stateUpdateHandler + 2);
     }
 
     else
     {
-      if ([(SBContinuitySessionSystemEventMonitor *)self->_systemEventMonitor isInStoreDemoMode])
+      isInStoreDemoMode = [(SBContinuitySessionSystemEventMonitor *)self->_systemEventMonitor isInStoreDemoMode];
+      if (isInStoreDemoMode)
       {
-        v11 = 5;
+        v14 = 5;
       }
 
       else
       {
-        v11 = 3;
+        v14 = 3;
       }
 
-      v12 = SBLogContinuitySession();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v15 = SBLogContinuitySession(isInStoreDemoMode);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = NSStringFromSBContinuitySessionState(v11);
-        v14 = 138412290;
-        v15 = v13;
-        _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEFAULT, "[State.Blocked] --> moving to %@", &v14, 0xCu);
+        v16 = NSStringFromSBContinuitySessionState(v14);
+        v17 = 138412290;
+        v18 = v16;
+        _os_log_impl(&dword_21ED4E000, v15, OS_LOG_TYPE_DEFAULT, "[State.Blocked] --> moving to %@", &v17, 0xCu);
       }
 
-      v10 = *(self->_stateTransitionHandler + 2);
+      v12 = *(self->_stateTransitionHandler + 2);
     }
 
-    v10();
+    v12();
   }
 }
 

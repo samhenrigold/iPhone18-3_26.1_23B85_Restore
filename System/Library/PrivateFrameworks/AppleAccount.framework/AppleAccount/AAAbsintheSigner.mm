@@ -159,18 +159,17 @@ void __48__AAAbsintheSigner_signatureForData_completion___block_invoke(uint64_t 
   if (a2)
   {
     v3 = *(a1 + 32);
-    v8 = 0;
-    v4 = [a2 cao1NI5PNJBn:v3 error:&v8];
-    v5 = v8;
+    v7 = 0;
+    v4 = [a2 cao1NI5PNJBn:v3 error:&v7];
+    v5 = v7;
     (*(*(a1 + 40) + 16))();
   }
 
   else
   {
-    v6 = *(a1 + 40);
-    v7 = *(*(a1 + 40) + 16);
+    v6 = *(*(a1 + 40) + 16);
 
-    v7();
+    v6();
   }
 }
 
@@ -198,8 +197,8 @@ void __48__AAAbsintheSigner_signatureForData_completion___block_invoke(uint64_t 
 
   if (v5 < v6)
   {
-    v7 = _AALogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = _AALogSystem(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       [AAAbsintheSigner _contextLock_contextInvalidatingIfNecessary];
     }
@@ -288,7 +287,7 @@ uint64_t __31__AAAbsintheSigner_setContext___block_invoke(uint64_t a1)
 
 void __54__AAAbsintheSigner__contextLock_enqueueContextCleanup__block_invoke(uint64_t a1)
 {
-  v2 = _AALogSystem();
+  v2 = _AALogSystem(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __54__AAAbsintheSigner__contextLock_enqueueContextCleanup__block_invoke_cold_1();
@@ -339,7 +338,7 @@ void __54__AAAbsintheSigner__contextLock_enqueueContextCleanup__block_invoke(uin
 
 - (void)_contextQueue_contextWithCompletion:(id)completion
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   if (!completionCopy)
   {
@@ -355,99 +354,97 @@ void __54__AAAbsintheSigner__contextLock_enqueueContextCleanup__block_invoke(uin
 
   else
   {
-    v6 = _AASignpostLogSystem();
+    v6 = _AASignpostLogSystem(0);
     v7 = _AASignpostCreate(v6);
     v9 = v8;
 
-    v10 = _AASignpostLogSystem();
-    v11 = v10;
-    if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+    v11 = _AASignpostLogSystem(v10);
+    v12 = v11;
+    if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v7, "InitializeAbsinthe", " enableTelemetry=YES ", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v7, "InitializeAbsinthe", " enableTelemetry=YES ", buf, 2u);
     }
 
-    v12 = _AASignpostLogSystem();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = _AASignpostLogSystem(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v25 = v7;
-      _os_log_impl(&dword_1B6F6A000, v12, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: InitializeAbsinthe  enableTelemetry=YES ", buf, 0xCu);
+      v26 = v7;
+      _os_log_impl(&dword_1B6F6A000, v14, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: InitializeAbsinthe  enableTelemetry=YES ", buf, 0xCu);
     }
 
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
     aBlock[2] = __56__AAAbsintheSigner__contextQueue_contextWithCompletion___block_invoke;
     aBlock[3] = &unk_1E7C9BCA0;
-    v22 = v7;
-    v23 = v9;
+    v23 = v7;
+    v24 = v9;
     aBlock[4] = self;
-    v13 = completionCopy;
-    v21 = v13;
-    v14 = _Block_copy(aBlock);
+    v15 = completionCopy;
+    v22 = v15;
+    v16 = _Block_copy(aBlock);
     dispatch_suspend(self->_contextQueue);
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __56__AAAbsintheSigner__contextQueue_contextWithCompletion___block_invoke_58;
-    v17[3] = &unk_1E7C9BCF0;
-    v17[4] = self;
-    v18 = v14;
-    v19 = v13;
-    v15 = v14;
-    [(AAAbsintheSigner *)self _fetchCertificateDataWithCompletion:v17];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __56__AAAbsintheSigner__contextQueue_contextWithCompletion___block_invoke_58;
+    v18[3] = &unk_1E7C9BCF0;
+    v18[4] = self;
+    v19 = v16;
+    v20 = v15;
+    v17 = v16;
+    [(AAAbsintheSigner *)self _fetchCertificateDataWithCompletion:v18];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __56__AAAbsintheSigner__contextQueue_contextWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v5;
   v8 = v6;
   if ((v7 != 0) != (v8 == 0))
   {
-    v23 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:@"Invalid exclusivity not satisfying: context ^ error" userInfo:0];
-    objc_exception_throw(v23);
+    v24 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:@"Invalid exclusivity not satisfying: context ^ error" userInfo:0];
+    objc_exception_throw(v24);
   }
 
   v9 = v8;
 
   Nanoseconds = _AASignpostGetNanoseconds(*(a1 + 48), *(a1 + 56));
-  v11 = _AASignpostLogSystem();
+  v11 = _AASignpostLogSystem(Nanoseconds);
   v12 = v11;
   v13 = *(a1 + 48);
   if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
   {
     v14 = _AAErrorUnderlyingError(v9);
-    v24 = 67240192;
-    LODWORD(v25) = [v14 code];
-    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v12, OS_SIGNPOST_INTERVAL_END, v13, "InitializeAbsinthe", " Error=%{public,signpost.telemetry:number2,name=Error}d ", &v24, 8u);
+    v25 = 67240192;
+    LODWORD(v26) = [v14 code];
+    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v12, OS_SIGNPOST_INTERVAL_END, v13, "InitializeAbsinthe", " Error=%{public,signpost.telemetry:number2,name=Error}d ", &v25, 8u);
   }
 
-  v15 = _AASignpostLogSystem();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v16 = _AASignpostLogSystem(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = Nanoseconds / 1000000000.0;
-    v17 = *(a1 + 48);
-    v18 = _AAErrorUnderlyingError(v9);
-    v19 = [v18 code];
-    v24 = 134218496;
-    v25 = v17;
-    v26 = 2048;
-    v27 = v16;
-    v28 = 1026;
-    v29 = v19;
-    _os_log_impl(&dword_1B6F6A000, v15, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: InitializeAbsinthe  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v24, 0x1Cu);
+    v17 = Nanoseconds / 1000000000.0;
+    v18 = *(a1 + 48);
+    v19 = _AAErrorUnderlyingError(v9);
+    v20 = [v19 code];
+    v25 = 134218496;
+    v26 = v18;
+    v27 = 2048;
+    v28 = v17;
+    v29 = 1026;
+    v30 = v20;
+    _os_log_impl(&dword_1B6F6A000, v16, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: InitializeAbsinthe  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v25, 0x1Cu);
   }
 
-  v20 = _AALogSystem();
-  v21 = v20;
+  v22 = _AALogSystem(v21);
+  v23 = v22;
   if (v7)
   {
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
     {
       __56__AAAbsintheSigner__contextQueue_contextWithCompletion___block_invoke_cold_2();
     }
@@ -457,7 +454,7 @@ void __56__AAAbsintheSigner__contextQueue_contextWithCompletion___block_invoke(u
 
   else
   {
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       __56__AAAbsintheSigner__contextQueue_contextWithCompletion___block_invoke_cold_1();
     }
@@ -465,50 +462,49 @@ void __56__AAAbsintheSigner__contextQueue_contextWithCompletion___block_invoke(u
 
   dispatch_resume(*(*(a1 + 32) + 16));
   (*(*(a1 + 40) + 16))();
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __56__AAAbsintheSigner__contextQueue_contextWithCompletion___block_invoke_58(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v5)
   {
-    v7 = _AALogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = _AALogSystem(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       __56__AAAbsintheSigner__contextQueue_contextWithCompletion___block_invoke_58_cold_1();
     }
 
-    v8 = +[AAAbsintheSigner _contextCreationBlock];
-    v9 = v8[2]();
+    v9 = +[AAAbsintheSigner _contextCreationBlock];
+    v10 = v9[2]();
 
-    v21 = 0;
-    v10 = [v9 TgBfoO2wtF5L:v5 error:&v21];
-    v11 = v21;
-    v12 = _AALogSystem();
-    v13 = v12;
-    if (v10)
+    v22 = 0;
+    v11 = [v10 TgBfoO2wtF5L:v5 error:&v22];
+    v12 = v22;
+    v13 = _AALogSystem(v12);
+    v14 = v13;
+    if (v11)
     {
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         __56__AAAbsintheSigner__contextQueue_contextWithCompletion___block_invoke_58_cold_2();
       }
 
-      v14 = *(a1 + 32);
-      v18[0] = MEMORY[0x1E69E9820];
-      v18[1] = 3221225472;
-      v18[2] = __56__AAAbsintheSigner__contextQueue_contextWithCompletion___block_invoke_59;
-      v18[3] = &unk_1E7C9BCC8;
-      v19 = v9;
-      v20 = *(a1 + 40);
-      [v14 _fetchSessionInfoWithRequestInfo:v10 completion:v18];
+      v15 = *(a1 + 32);
+      v19[0] = MEMORY[0x1E69E9820];
+      v19[1] = 3221225472;
+      v19[2] = __56__AAAbsintheSigner__contextQueue_contextWithCompletion___block_invoke_59;
+      v19[3] = &unk_1E7C9BCC8;
+      v20 = v10;
+      v21 = *(a1 + 40);
+      [v15 _fetchSessionInfoWithRequestInfo:v11 completion:v19];
     }
 
     else
     {
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         __56__AAAbsintheSigner__contextQueue_contextWithCompletion___block_invoke_58_cold_3();
       }
@@ -520,22 +516,22 @@ LABEL_16:
     goto LABEL_17;
   }
 
-  v15 = _AALogSystem();
-  v16 = os_log_type_enabled(v15, OS_LOG_TYPE_ERROR);
-  if (!v6)
+  v16 = _AALogSystem(v6);
+  v17 = os_log_type_enabled(v16, OS_LOG_TYPE_ERROR);
+  if (!v7)
   {
-    if (v16)
+    if (v17)
     {
       __56__AAAbsintheSigner__contextQueue_contextWithCompletion___block_invoke_58_cold_5();
     }
 
-    v17 = *(a1 + 48);
-    v9 = [MEMORY[0x1E696ABC0] aa_errorWithCode:-4402];
-    (*(v17 + 16))(v17, 0, v9);
+    v18 = *(a1 + 48);
+    v10 = [MEMORY[0x1E696ABC0] aa_errorWithCode:-4402];
+    (*(v18 + 16))(v18, 0, v10);
     goto LABEL_16;
   }
 
-  if (v16)
+  if (v17)
   {
     __56__AAAbsintheSigner__contextQueue_contextWithCompletion___block_invoke_58_cold_4();
   }
@@ -548,7 +544,7 @@ void __56__AAAbsintheSigner__contextQueue_contextWithCompletion___block_invoke_5
 {
   v5 = a2;
   v6 = a3;
-  v7 = _AALogSystem();
+  v7 = _AALogSystem(v6);
   v8 = v7;
   if (v5)
   {
@@ -558,10 +554,10 @@ void __56__AAAbsintheSigner__contextQueue_contextWithCompletion___block_invoke_5
     }
 
     v9 = *(a1 + 32);
-    v16 = 0;
-    v10 = [v9 R6XtwiyjL3q2:v5 error:&v16];
-    v11 = v16;
-    v12 = _AALogSystem();
+    v14 = 0;
+    v10 = [v9 R6XtwiyjL3q2:v5 error:&v14];
+    v11 = v14;
+    v12 = _AALogSystem(v11);
     v13 = v12;
     if (v10)
     {
@@ -569,22 +565,14 @@ void __56__AAAbsintheSigner__contextQueue_contextWithCompletion___block_invoke_5
       {
         __56__AAAbsintheSigner__contextQueue_contextWithCompletion___block_invoke_59_cold_3();
       }
-
-      v14 = *(a1 + 32);
-      v15 = *(*(a1 + 40) + 16);
     }
 
-    else
+    else if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-      {
-        __56__AAAbsintheSigner__contextQueue_contextWithCompletion___block_invoke_59_cold_2();
-      }
-
-      v15 = *(*(a1 + 40) + 16);
+      __56__AAAbsintheSigner__contextQueue_contextWithCompletion___block_invoke_59_cold_2();
     }
 
-    v15();
+    (*(*(a1 + 40) + 16))();
   }
 
   else
@@ -618,7 +606,7 @@ void __56__AAAbsintheSigner__fetchCertificateDataWithCompletion___block_invoke(u
   v7 = a2;
   v8 = a3;
   v9 = a4;
-  v10 = _AALogSystem();
+  v10 = _AALogSystem(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     __56__AAAbsintheSigner__fetchCertificateDataWithCompletion___block_invoke_cold_1();
@@ -701,7 +689,7 @@ void __64__AAAbsintheSigner__fetchSessionInfoWithRequestInfo_completion___block_
   v7 = a2;
   v8 = a3;
   v9 = a4;
-  v10 = _AALogSystem();
+  v10 = _AALogSystem(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     __64__AAAbsintheSigner__fetchSessionInfoWithRequestInfo_completion___block_invoke_cold_1();
@@ -801,62 +789,6 @@ LABEL_18:
   v1 = [MEMORY[0x1E696AAA8] currentHandler];
   OUTLINED_FUNCTION_1_3();
   [v0 handleFailureInMethod:@"completion" object:? file:? lineNumber:? description:?];
-}
-
-void __56__AAAbsintheSigner__contextQueue_contextWithCompletion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1B6F6A000, v0, v1, "Failed to initialize NAC session, error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __56__AAAbsintheSigner__contextQueue_contextWithCompletion___block_invoke_58_cold_3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1B6F6A000, v0, v1, "Failed to fetch request info %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __56__AAAbsintheSigner__contextQueue_contextWithCompletion___block_invoke_58_cold_4()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1B6F6A000, v0, v1, "Failed to fetch certificate with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __56__AAAbsintheSigner__contextQueue_contextWithCompletion___block_invoke_59_cold_2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1B6F6A000, v0, v1, "Failed to establish key with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __56__AAAbsintheSigner__contextQueue_contextWithCompletion___block_invoke_59_cold_4()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1B6F6A000, v0, v1, "Failed to fetch session info with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __56__AAAbsintheSigner__fetchCertificateDataWithCompletion___block_invoke_cold_1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_1B6F6A000, v0, v1, "Certificate fetch responded with %@ - %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-void __64__AAAbsintheSigner__fetchSessionInfoWithRequestInfo_completion___block_invoke_cold_1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_1B6F6A000, v0, v1, "Session fetch responded with %@ - %@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 @end

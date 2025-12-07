@@ -131,11 +131,11 @@ WFHKUnitSubstitutableState *__53__WFQuantityUnitPickerParameter_updatePossibleSt
 
 - (WFQuantityUnitPickerParameter)initWithDefinition:(id)definition
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   definitionCopy = definition;
-  v19.receiver = self;
-  v19.super_class = WFQuantityUnitPickerParameter;
-  v5 = [(WFQuantityUnitPickerParameter *)&v19 initWithDefinition:definitionCopy];
+  v18.receiver = self;
+  v18.super_class = WFQuantityUnitPickerParameter;
+  v5 = [(WFQuantityUnitPickerParameter *)&v18 initWithDefinition:definitionCopy];
   if (v5)
   {
     v6 = [definitionCopy objectForKey:@"QuantityTypeIdentifier"];
@@ -148,13 +148,13 @@ WFHKUnitSubstitutableState *__53__WFQuantityUnitPickerParameter_updatePossibleSt
       {
         v11 = objc_opt_class();
         *buf = 136315906;
-        v21 = "WFEnforceClass";
-        v22 = 2114;
-        v23 = v8;
-        v24 = 2114;
-        v25 = v11;
-        v26 = 2114;
-        v27 = v7;
+        v20 = "WFEnforceClass";
+        v21 = 2114;
+        v22 = v8;
+        v23 = 2114;
+        v24 = v11;
+        v25 = 2114;
+        v26 = v7;
         v12 = v11;
         _os_log_impl(&dword_23DE30000, v10, OS_LOG_TYPE_FAULT, "%s Warning: %{public}@ is of type %{public}@, not %{public}@! Falling back to nil.", buf, 0x2Au);
       }
@@ -190,7 +190,6 @@ WFHKUnitSubstitutableState *__53__WFQuantityUnitPickerParameter_updatePossibleSt
     v16 = v5;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

@@ -649,31 +649,31 @@ void __62__CKQueryController_hasDetailsResultsForChatGUIDs_completion___block_in
   [v1 addObject:v2];
 }
 
-void __62__CKQueryController_hasDetailsResultsForChatGUIDs_completion___block_invoke_5(void *a1)
+void __62__CKQueryController_hasDetailsResultsForChatGUIDs_completion___block_invoke_5(void *a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if ((*(*(a1[6] + 8) + 24) & 1) == 0)
   {
     if (IMOSLoggingEnabled())
     {
-      v2 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+      v3 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
       {
-        v3 = objc_opt_class();
-        v4 = NSStringFromClass(v3);
+        v4 = objc_opt_class();
+        v5 = NSStringFromClass(v4);
         *buf = 138412290;
-        v8 = v4;
-        _os_log_impl(&dword_19020E000, v2, OS_LOG_TYPE_INFO, "Query result validation timed out for query controller %@. Cancelling.", buf, 0xCu);
+        v9 = v5;
+        _os_log_impl(&dword_19020E000, v3, OS_LOG_TYPE_INFO, "Query result validation timed out for query controller %@. Cancelling.", buf, 0xCu);
       }
     }
 
-    v5 = a1[5];
+    v6 = a1[5];
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __62__CKQueryController_hasDetailsResultsForChatGUIDs_completion___block_invoke_53;
     block[3] = &unk_1E72EB968;
     block[4] = a1[7];
-    dispatch_async(v5, block);
+    dispatch_async(v6, block);
   }
 }
 

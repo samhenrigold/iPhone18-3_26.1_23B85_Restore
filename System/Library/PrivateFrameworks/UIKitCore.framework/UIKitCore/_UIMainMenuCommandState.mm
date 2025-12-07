@@ -222,9 +222,9 @@ LABEL_8:
           goto LABEL_16;
         }
 
-        v12 = [(_UIMenuLeaf *)v9 isEqual:v10];
+        isEqual = objc_msgSend_isEqual_(v9);
 
-        if (!v12)
+        if (!isEqual)
         {
           goto LABEL_17;
         }
@@ -244,7 +244,7 @@ LABEL_19:
 
       if (v9 && v15)
       {
-        v16 = [(_UIMenuLeaf *)v9 isEqual:v15];
+        v16 = objc_msgSend_isEqual_(v9);
 
         if (v16)
         {

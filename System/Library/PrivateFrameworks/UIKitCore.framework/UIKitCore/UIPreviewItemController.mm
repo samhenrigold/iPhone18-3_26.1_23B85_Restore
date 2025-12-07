@@ -145,7 +145,7 @@
     v3 = [(NSDictionary *)self->_previewData objectForKeyedSubscript:UIPreviewDataLink[0]];
     scheme = [v3 scheme];
     lowercaseString = [scheme lowercaseString];
-    if ([lowercaseString isEqualToString:@"http"])
+    if (objc_msgSend_isEqualToString_(lowercaseString))
     {
     }
 
@@ -153,9 +153,9 @@
     {
       scheme2 = [v3 scheme];
       lowercaseString2 = [scheme2 lowercaseString];
-      v9 = [lowercaseString2 isEqualToString:@"https"];
+      isEqualToString = objc_msgSend_isEqualToString_(lowercaseString2);
 
-      if (!v9)
+      if (!isEqualToString)
       {
         goto LABEL_11;
       }

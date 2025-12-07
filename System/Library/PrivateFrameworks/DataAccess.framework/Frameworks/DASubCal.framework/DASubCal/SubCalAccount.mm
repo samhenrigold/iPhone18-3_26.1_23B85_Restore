@@ -21,10 +21,12 @@
 - (id)localizedIdenticalAccountFailureMessage;
 - (id)localizedInvalidPasswordMessage;
 - (int)currentAccountVersion;
+- (void)_checkValidityWithConsumer:(id)consumer quickValidate:(BOOL)validate;
 - (void)clearTmpICSData;
 - (void)removeDBSyncDataForAccountChange:(id)change;
 - (void)saveTmpICSData;
 - (void)setAccountDescription:(id)description;
+- (void)setAllowInsecureConnection:(BOOL)connection;
 - (void)setCalDAVURLPath:(id)path;
 - (void)setHost:(id)host;
 - (void)setRefreshInterval:(double)interval;
@@ -247,6 +249,37 @@ void __44__SubCalAccount_initWithBackingAccountInfo___block_invoke()
   return v4;
 }
 
+- (void)_checkValidityWithConsumer:(id)consumer quickValidate:(BOOL)validate
+{
+  validateCopy = validate;
+  consumerCopy = consumer;
+  if ([(SubCalAccount *)self isManagedCalendar])
+  {
+    [consumerCopy account:self isValid:1 validationError:0];
+  }
+
+  else
+  {
+    subscriptionURL = [(SubCalAccount *)self subscriptionURL];
+    v7 = objc_opt_new();
+    statusReport = [(SubCalAccount *)self statusReport];
+    [v7 setStatusReport:statusReport];
+
+    [v7 setDelegate:self];
+    [v7 setSubscriptionURL:subscriptionURL];
+    username = [(SubCalAccount *)self username];
+    [v7 setUsername:username];
+
+    password = [(SubCalAccount *)self password];
+    [v7 setPassword:password];
+
+    [v7 setPerformQuickValidation:validateCopy];
+    [(SubCalAccount *)self setConsumer:consumerCopy forTask:v7];
+    taskManager = [(SubCalAccount *)self taskManager];
+    [taskManager submitQueuedTask:v7];
+  }
+}
+
 - (void)subCalValidationTask:(id)task finishedWithError:(id)error calendarName:(id)name document:(id)document calendarData:(id)data
 {
   taskCopy = task;
@@ -333,12 +366,12 @@ void __44__SubCalAccount_initWithBackingAccountInfo___block_invoke()
 
 - (void)clearTmpICSData
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   _tmpICSCalendarPath = [(SubCalAccount *)self _tmpICSCalendarPath];
-  v10 = 0;
-  [defaultManager removeItemAtPath:_tmpICSCalendarPath error:&v10];
-  v5 = v10;
+  v9 = 0;
+  [defaultManager removeItemAtPath:_tmpICSCalendarPath error:&v9];
+  v5 = v9;
 
   if (v5)
   {
@@ -348,16 +381,14 @@ void __44__SubCalAccount_initWithBackingAccountInfo___block_invoke()
     {
       _tmpICSCalendarPath2 = [(SubCalAccount *)self _tmpICSCalendarPath];
       *buf = 138412546;
-      v12 = _tmpICSCalendarPath2;
-      v13 = 2112;
-      v14 = v5;
+      v11 = _tmpICSCalendarPath2;
+      v12 = 2112;
+      v13 = v5;
       _os_log_impl(&dword_248587000, v6, v7, "Error removing temporary ics file %@ : %@", buf, 0x16u);
     }
   }
 
   [(SubCalAccount *)self setTmpICSData:0];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)allowInsecureConnection
@@ -366,6 +397,13 @@ void __44__SubCalAccount_initWithBackingAccountInfo___block_invoke()
   LOBYTE(self) = [(SubCalAccount *)self accountBoolPropertyForKey:subCalInsecureConnectionApproved];
 
   return self;
+}
+
+- (void)setAllowInsecureConnection:(BOOL)connection
+{
+  connectionCopy = connection;
+  subCalInsecureConnectionApproved = [MEMORY[0x277D03970] SubCalInsecureConnectionApproved];
+  [(SubCalAccount *)self setAccountBoolProperty:connectionCopy forKey:subCalInsecureConnectionApproved];
 }
 
 - (int)currentAccountVersion
@@ -389,17 +427,17 @@ void __44__SubCalAccount_initWithBackingAccountInfo___block_invoke()
 
 - (BOOL)upgradeAccount
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   currentAccountVersion = [(SubCalAccount *)self currentAccountVersion];
   v4 = currentAccountVersion;
-  if (currentAccountVersion <= 16000)
+  if (currentAccountVersion > 16000)
   {
-    v5 = MEMORY[0x277D03988];
-    if (currentAccountVersion > 11200)
-    {
-      goto LABEL_15;
-    }
+    goto LABEL_28;
+  }
 
+  v5 = MEMORY[0x277D03988];
+  if (currentAccountVersion <= 11200)
+  {
     v6 = DALoggingwithCategory();
     v7 = v5[7];
     if (os_log_type_enabled(v6, v7))
@@ -407,88 +445,27 @@ void __44__SubCalAccount_initWithBackingAccountInfo___block_invoke()
       accountDescription = [(SubCalAccount *)self accountDescription];
       publicDescription = [(SubCalAccount *)self publicDescription];
       *buf = 138412546;
-      v45 = accountDescription;
-      v46 = 2114;
-      v47 = publicDescription;
+      v44 = accountDescription;
+      v45 = 2114;
+      v46 = publicDescription;
       _os_log_impl(&dword_248587000, v6, v7, "Sanitizing subscription URL for account %@ (%{public}@)", buf, 0x16u);
     }
 
     backingAccountInfo = [(SubCalAccount *)self backingAccountInfo];
     parentAccount = [backingAccountInfo parentAccount];
 
-    if (!parentAccount || ([parentAccount accountType], v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "identifier"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "isEqualToString:", *MEMORY[0x277CB8BC8]), v13, v12, !v14))
+    if (!parentAccount)
     {
-LABEL_14:
+      goto LABEL_14;
+    }
 
-LABEL_15:
-      [(SubCalAccount *)self removeAccountPropertyForKey:*MEMORY[0x277CF7B08]];
-      backingAccountInfo2 = [(SubCalAccount *)self backingAccountInfo];
-      v28 = *MEMORY[0x277CF7AB0];
-      v29 = [backingAccountInfo2 objectForKeyedSubscript:*MEMORY[0x277CF7AB0]];
+    accountType = [parentAccount accountType];
+    identifier = [accountType identifier];
+    v14 = [identifier isEqualToString:*MEMORY[0x277CB8BC8]];
 
-      v30 = [MEMORY[0x277CBEBC0] URLWithString:v29];
-      v31 = v30;
-      if (v29)
-      {
-        v32 = v30 == 0;
-      }
-
-      else
-      {
-        v32 = 0;
-      }
-
-      if (v32)
-      {
-        da_appendSlashIfNeeded = DALoggingwithCategory();
-        v39 = v5[3];
-        if (!os_log_type_enabled(da_appendSlashIfNeeded, v39))
-        {
-LABEL_26:
-
-          goto LABEL_27;
-        }
-
-        accountID = [(SubCalAccount *)self accountID];
-        *buf = 138543618;
-        v45 = accountID;
-        v46 = 2112;
-        v47 = v29;
-        _os_log_impl(&dword_248587000, da_appendSlashIfNeeded, v39, "Account %{public}@ has a bad CalDAV URL, %@", buf, 0x16u);
-      }
-
-      else
-      {
-        if (!v30)
-        {
-LABEL_27:
-
-          [(SubCalAccount *)self setCurrentAccountVersion:16001];
-          goto LABEL_28;
-        }
-
-        path = [v30 path];
-        da_appendSlashIfNeeded = [path da_appendSlashIfNeeded];
-
-        v35 = DALoggingwithCategory();
-        v36 = v5[6];
-        if (os_log_type_enabled(v35, v36))
-        {
-          accountID2 = [(SubCalAccount *)self accountID];
-          *buf = 138543874;
-          v45 = accountID2;
-          v46 = 2112;
-          v47 = v29;
-          v48 = 2112;
-          v49 = da_appendSlashIfNeeded;
-          _os_log_impl(&dword_248587000, v35, v36, "Updating CalDAV URL for account %{public}@: %@ -> %@", buf, 0x20u);
-        }
-
-        accountID = [(SubCalAccount *)self backingAccountInfo];
-        [accountID setObject:da_appendSlashIfNeeded forKeyedSubscript:v28];
-      }
-
-      goto LABEL_26;
+    if (!v14)
+    {
+      goto LABEL_14;
     }
 
     username = [parentAccount username];
@@ -503,7 +480,8 @@ LABEL_27:
       {
 LABEL_13:
 
-        goto LABEL_14;
+LABEL_14:
+        goto LABEL_15;
       }
 
       da_urlByRemovingUsername = [subscriptionURL da_urlByRemovingUsername];
@@ -516,44 +494,110 @@ LABEL_13:
         accountDescription2 = [(SubCalAccount *)self accountDescription];
         publicDescription2 = [(SubCalAccount *)self publicDescription];
         *buf = 138413314;
-        v45 = username;
-        v46 = 2112;
-        v47 = accountDescription2;
-        v48 = 2114;
-        v49 = publicDescription2;
+        v44 = username;
+        v45 = 2112;
+        v46 = accountDescription2;
+        v47 = 2114;
+        v48 = publicDescription2;
         v24 = publicDescription2;
-        v50 = 2112;
-        v51 = subscriptionURL;
-        v52 = 2112;
-        v53 = password;
+        v49 = 2112;
+        v50 = subscriptionURL;
+        v51 = 2112;
+        v52 = password;
         _os_log_impl(&dword_248587000, v21, v22, "Removing username %@ from URL for subscribed account %@ (%{public}@): %@ -> %@", buf, 0x34u);
       }
 
       [(SubCalAccount *)self setUsername:0];
-      backingAccountInfo3 = [(SubCalAccount *)self backingAccountInfo];
+      backingAccountInfo2 = [(SubCalAccount *)self backingAccountInfo];
       subCalSubscriptionURLKey = [MEMORY[0x277D03970] SubCalSubscriptionURLKey];
-      [backingAccountInfo3 setObject:password forKeyedSubscript:subCalSubscriptionURLKey];
+      [backingAccountInfo2 setObject:password forKeyedSubscript:subCalSubscriptionURLKey];
     }
 
     goto LABEL_13;
   }
 
-LABEL_28:
-  v43.receiver = self;
-  v43.super_class = SubCalAccount;
-  result = [(SubCalAccount *)&v43 upgradeAccount];
-  if (v4 < 16001)
+LABEL_15:
+  [(SubCalAccount *)self removeAccountPropertyForKey:*MEMORY[0x277CF7B08]];
+  backingAccountInfo3 = [(SubCalAccount *)self backingAccountInfo];
+  v28 = *MEMORY[0x277CF7AB0];
+  v29 = [backingAccountInfo3 objectForKeyedSubscript:*MEMORY[0x277CF7AB0]];
+
+  v30 = [MEMORY[0x277CBEBC0] URLWithString:v29];
+  v31 = v30;
+  if (v29)
   {
-    result = 1;
+    v32 = v30 == 0;
   }
 
-  v41 = *MEMORY[0x277D85DE8];
+  else
+  {
+    v32 = 0;
+  }
+
+  if (v32)
+  {
+    da_appendSlashIfNeeded = DALoggingwithCategory();
+    v39 = v5[3];
+    if (!os_log_type_enabled(da_appendSlashIfNeeded, v39))
+    {
+LABEL_26:
+
+      goto LABEL_27;
+    }
+
+    accountID = [(SubCalAccount *)self accountID];
+    *buf = 138543618;
+    v44 = accountID;
+    v45 = 2112;
+    v46 = v29;
+    _os_log_impl(&dword_248587000, da_appendSlashIfNeeded, v39, "Account %{public}@ has a bad CalDAV URL, %@", buf, 0x16u);
+LABEL_25:
+
+    goto LABEL_26;
+  }
+
+  if (v30)
+  {
+    path = [v30 path];
+    da_appendSlashIfNeeded = [path da_appendSlashIfNeeded];
+
+    v35 = DALoggingwithCategory();
+    v36 = v5[6];
+    if (os_log_type_enabled(v35, v36))
+    {
+      accountID2 = [(SubCalAccount *)self accountID];
+      *buf = 138543874;
+      v44 = accountID2;
+      v45 = 2112;
+      v46 = v29;
+      v47 = 2112;
+      v48 = da_appendSlashIfNeeded;
+      _os_log_impl(&dword_248587000, v35, v36, "Updating CalDAV URL for account %{public}@: %@ -> %@", buf, 0x20u);
+    }
+
+    accountID = [(SubCalAccount *)self backingAccountInfo];
+    [accountID setObject:da_appendSlashIfNeeded forKeyedSubscript:v28];
+    goto LABEL_25;
+  }
+
+LABEL_27:
+
+  [(SubCalAccount *)self setCurrentAccountVersion:16001];
+LABEL_28:
+  v42.receiver = self;
+  v42.super_class = SubCalAccount;
+  result = [(SubCalAccount *)&v42 upgradeAccount];
+  if (v4 < 16001)
+  {
+    return 1;
+  }
+
   return result;
 }
 
 - (void)upgradeAccountSpecificPropertiesOnAccount:(id)account inStore:(id)store parentAccount:(id)parentAccount
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   v7 = objc_opt_new();
   externalRepresentation = [(SubCalAccount *)self externalRepresentation];
@@ -565,37 +609,35 @@ LABEL_28:
   v10 = [MEMORY[0x277CCABB0] numberWithBool:{-[SubCalAccount shouldRemoveAlarms](self, "shouldRemoveAlarms")}];
   [v7 setValue:v10 forKey:*MEMORY[0x277CF7AF0]];
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   allKeys = [v7 allKeys];
-  v12 = [allKeys countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v12 = [allKeys countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v20;
+    v14 = *v19;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v20 != v14)
+        if (*v19 != v14)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v16 = *(*(&v19 + 1) + 8 * i);
+        v16 = *(*(&v18 + 1) + 8 * i);
         v17 = [v7 objectForKeyedSubscript:v16];
         [accountCopy setObject:v17 forKeyedSubscript:v16];
       }
 
-      v13 = [allKeys countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v13 = [allKeys countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v13);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setHost:(id)host
@@ -859,33 +901,19 @@ LABEL_30:
   infoCopy = info;
   v20.receiver = self;
   v20.super_class = SubCalAccount;
-  if ([(SubCalAccount *)&v20 accountHasSignificantPropertyChangesWithChangeInfo:infoCopy])
+  if (!-[SubCalAccount accountHasSignificantPropertyChangesWithChangeInfo:](&v20, sel_accountHasSignificantPropertyChangesWithChangeInfo_, infoCopy) && (-[SubCalAccount backingAccountInfo](self, "backingAccountInfo"), v5 = objc_claimAutoreleasedReturnValue(), v6 = *MEMORY[0x277CF7AF0], [v5 objectForKeyedSubscript:*MEMORY[0x277CF7AF0]], v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "BOOLValue"), objc_msgSend(infoCopy, "oldAccountProperties"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "objectForKeyedSubscript:", v6), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v10, "BOOLValue"), v10, v9, v7, v5, v8 == v11))
   {
-    goto LABEL_3;
-  }
-
-  backingAccountInfo = [(SubCalAccount *)self backingAccountInfo];
-  v6 = *MEMORY[0x277CF7AF0];
-  v7 = [backingAccountInfo objectForKeyedSubscript:*MEMORY[0x277CF7AF0]];
-  bOOLValue = [v7 BOOLValue];
-  oldAccountProperties = [infoCopy oldAccountProperties];
-  v10 = [oldAccountProperties objectForKeyedSubscript:v6];
-  bOOLValue2 = [v10 BOOLValue];
-
-  if (bOOLValue == bOOLValue2)
-  {
-    backingAccountInfo2 = [(SubCalAccount *)self backingAccountInfo];
+    backingAccountInfo = [(SubCalAccount *)self backingAccountInfo];
     v14 = *MEMORY[0x277CF7AC8];
-    v15 = [backingAccountInfo2 objectForKeyedSubscript:*MEMORY[0x277CF7AC8]];
-    bOOLValue3 = [v15 BOOLValue];
-    oldAccountProperties2 = [infoCopy oldAccountProperties];
-    v18 = [oldAccountProperties2 objectForKeyedSubscript:v14];
-    v12 = bOOLValue3 ^ [v18 BOOLValue];
+    v15 = [backingAccountInfo objectForKeyedSubscript:*MEMORY[0x277CF7AC8]];
+    bOOLValue = [v15 BOOLValue];
+    oldAccountProperties = [infoCopy oldAccountProperties];
+    v18 = [oldAccountProperties objectForKeyedSubscript:v14];
+    v12 = bOOLValue ^ [v18 BOOLValue];
   }
 
   else
   {
-LABEL_3:
     LOBYTE(v12) = 1;
   }
 
@@ -894,33 +922,33 @@ LABEL_3:
 
 - (void)removeDBSyncDataForAccountChange:(id)change
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   changeTrackingID = [(SubCalAccount *)self changeTrackingID];
   v5 = [SubCalLocalDBHelper eventStoreWithClientId:changeTrackingID];
 
   v6 = [v5 calendarsForEntityType:0];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v24 objects:v30 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v23 objects:v29 count:16];
   if (v7)
   {
     v8 = v7;
-    v21 = v5;
+    v20 = v5;
     v9 = 0;
-    v10 = *v25;
+    v10 = *v24;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v25 != v10)
+        if (*v24 != v10)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v24 + 1) + 8 * i);
+        v12 = *(*(&v23 + 1) + 8 * i);
         subcalAccountID = [v12 subcalAccountID];
         accountID = [(SubCalAccount *)self accountID];
         v15 = [subcalAccountID isEqualToString:accountID];
@@ -931,16 +959,16 @@ LABEL_3:
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v24 objects:v30 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v23 objects:v29 count:16];
     }
 
     while (v8);
-    v5 = v21;
+    v5 = v20;
     if (v9)
     {
-      v23 = 0;
-      v16 = [v21 commit:&v23];
-      v17 = v23;
+      v22 = 0;
+      v16 = [v20 commit:&v22];
+      v17 = v22;
       if ((v16 & 1) == 0)
       {
         v18 = DALoggingwithCategory();
@@ -948,19 +976,17 @@ LABEL_3:
         if (os_log_type_enabled(v18, v19))
         {
           *buf = 138412290;
-          v29 = v17;
+          v28 = v17;
           _os_log_impl(&dword_248587000, v18, v19, "Error committing store. Error: %@", buf, 0xCu);
         }
       }
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)removeDataFromCalendar:(id)calendar forAccountChange:(id)change
 {
-  v85 = *MEMORY[0x277D85DE8];
+  v84 = *MEMORY[0x277D85DE8];
   calendarCopy = calendar;
   changeCopy = change;
   backingAccountInfo = [(SubCalAccount *)self backingAccountInfo];
@@ -992,11 +1018,11 @@ LABEL_3:
     v22 = 1;
   }
 
-  v79.receiver = self;
-  v79.super_class = SubCalAccount;
-  v23 = [(SubCalAccount *)&v79 accountHasSignificantPropertyChangesWithChangeInfo:v15];
+  v78.receiver = self;
+  v78.super_class = SubCalAccount;
+  v23 = [(SubCalAccount *)&v78 accountHasSignificantPropertyChangesWithChangeInfo:v15];
   v24 = calendarCopy;
-  v58 = v15;
+  v57 = v15;
   if (v15)
   {
     v25 = bOOLValue2 ^ bOOLValue3;
@@ -1026,9 +1052,9 @@ LABEL_3:
   v26 = 1;
 LABEL_13:
   eventStore = [calendarCopy eventStore];
-  v78 = 0;
-  v30 = [eventStore saveCalendar:calendarCopy commit:0 error:&v78];
-  v31 = v78;
+  v77 = 0;
+  v30 = [eventStore saveCalendar:calendarCopy commit:0 error:&v77];
+  v31 = v77;
   if ((v30 & 1) == 0)
   {
     v51 = DALoggingwithCategory();
@@ -1036,7 +1062,7 @@ LABEL_13:
     if (os_log_type_enabled(v51, v52))
     {
       *buf = 138412290;
-      v84 = v31;
+      v83 = v31;
       _os_log_impl(&dword_248587000, v51, v52, "Error removing tag/digest from calendar: %@", buf, 0xCu);
     }
 
@@ -1048,67 +1074,67 @@ LABEL_54:
 
   if ((v18 | v25))
   {
-    v57 = [eventStore predicateForEventsInSubscribedCalendar:calendarCopy];
+    v56 = [eventStore predicateForEventsInSubscribedCalendar:calendarCopy];
     [eventStore eventsMatchingPredicate:?];
+    v73 = 0u;
     v74 = 0u;
     v75 = 0u;
-    v76 = 0u;
-    obj = v77 = 0u;
-    v64 = [obj countByEnumeratingWithState:&v74 objects:v82 count:16];
-    if (v64)
+    obj = v76 = 0u;
+    v63 = [obj countByEnumeratingWithState:&v73 objects:v81 count:16];
+    if (v63)
     {
-      v32 = *v75;
-      v63 = v18 & bOOLValue;
-      v62 = v25 & bOOLValue2;
-      v60 = *v75;
+      v32 = *v74;
+      v62 = v18 & bOOLValue;
+      v61 = v25 & bOOLValue2;
+      v59 = *v74;
       while (2)
       {
         v33 = 0;
         v34 = v31;
         do
         {
-          if (*v75 != v32)
+          if (*v74 != v32)
           {
             objc_enumerationMutation(obj);
           }
 
-          v35 = *(*(&v74 + 1) + 8 * v33);
+          v35 = *(*(&v73 + 1) + 8 * v33);
           if (v26)
           {
-            [*(*(&v74 + 1) + 8 * v33) setExternalID:0];
+            [*(*(&v73 + 1) + 8 * v33) setExternalID:0];
           }
 
-          if (v63)
+          if (v62)
           {
             v36 = v26;
             v37 = eventStore;
             alarms = [v35 alarms];
+            v69 = 0u;
             v70 = 0u;
             v71 = 0u;
             v72 = 0u;
-            v73 = 0u;
-            v39 = [alarms countByEnumeratingWithState:&v70 objects:v81 count:16];
+            v39 = [alarms countByEnumeratingWithState:&v69 objects:v80 count:16];
             if (v39)
             {
               v40 = v39;
-              v41 = *v71;
+              v41 = *v70;
               do
               {
                 for (i = 0; i != v40; ++i)
                 {
-                  if (*v71 != v41)
+                  if (*v70 != v41)
                   {
                     objc_enumerationMutation(alarms);
                   }
 
-                  v43 = *(*(&v70 + 1) + 8 * i);
+                  v43 = *(*(&v69 + 1) + 8 * i);
                   if (([v43 isDefaultAlarm] & 1) == 0)
                   {
                     [v35 removeAlarm:v43];
                   }
                 }
 
-                v40 = [alarms countByEnumeratingWithState:&v70 objects:v81 count:16];
+                v40 = [alarms countByEnumeratingWithState:&v69 objects:v80 count:16];
               }
 
               while (v40);
@@ -1116,43 +1142,43 @@ LABEL_54:
 
             eventStore = v37;
             v26 = v36;
-            v32 = v60;
+            v32 = v59;
           }
 
-          if (v62)
+          if (v61)
           {
             attachments = [v35 attachments];
+            v65 = 0u;
             v66 = 0u;
             v67 = 0u;
             v68 = 0u;
-            v69 = 0u;
-            v45 = [attachments countByEnumeratingWithState:&v66 objects:v80 count:16];
+            v45 = [attachments countByEnumeratingWithState:&v65 objects:v79 count:16];
             if (v45)
             {
               v46 = v45;
-              v47 = *v67;
+              v47 = *v66;
               do
               {
                 for (j = 0; j != v46; ++j)
                 {
-                  if (*v67 != v47)
+                  if (*v66 != v47)
                   {
                     objc_enumerationMutation(attachments);
                   }
 
-                  [v35 removeAttachment:*(*(&v66 + 1) + 8 * j)];
+                  [v35 removeAttachment:*(*(&v65 + 1) + 8 * j)];
                 }
 
-                v46 = [attachments countByEnumeratingWithState:&v66 objects:v80 count:16];
+                v46 = [attachments countByEnumeratingWithState:&v65 objects:v79 count:16];
               }
 
               while (v46);
             }
           }
 
-          v65 = v34;
-          v49 = [eventStore saveEvent:v35 span:3 commit:0 error:&v65];
-          v31 = v65;
+          v64 = v34;
+          v49 = [eventStore saveEvent:v35 span:3 commit:0 error:&v64];
+          v31 = v64;
 
           if ((v49 & 1) == 0)
           {
@@ -1161,7 +1187,7 @@ LABEL_54:
             if (os_log_type_enabled(v53, v54))
             {
               *buf = 138412290;
-              v84 = v31;
+              v83 = v31;
               _os_log_impl(&dword_248587000, v53, v54, "Error removing external ID from event: %@", buf, 0xCu);
             }
 
@@ -1174,9 +1200,9 @@ LABEL_54:
           v34 = v31;
         }
 
-        while (v33 != v64);
-        v64 = [obj countByEnumeratingWithState:&v74 objects:v82 count:16];
-        if (v64)
+        while (v33 != v63);
+        v63 = [obj countByEnumeratingWithState:&v73 objects:v81 count:16];
+        if (v63)
         {
           continue;
         }
@@ -1188,14 +1214,13 @@ LABEL_54:
     v50 = 1;
 LABEL_53:
     v24 = calendarCopy;
-    v51 = v57;
+    v51 = v56;
     goto LABEL_54;
   }
 
   v50 = 1;
 LABEL_55:
 
-  v55 = *MEMORY[0x277D85DE8];
   return v50;
 }
 

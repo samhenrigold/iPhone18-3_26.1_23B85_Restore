@@ -127,7 +127,7 @@ void __32__MTReachability_sharedInstance__block_invoke(uint64_t a1)
 
 - (void)_updateReachability
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v3 = _MTLogCategoryNetwork();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -172,7 +172,7 @@ LABEL_10:
     reachability2 = [(MTReachability *)self reachability];
     currentReachabilityStatus = [reachability2 currentReachabilityStatus];
     *buf = 134217984;
-    *v31 = currentReachabilityStatus;
+    *v30 = currentReachabilityStatus;
     _os_log_impl(&dword_25E9F0000, v8, OS_LOG_TYPE_DEFAULT, "\treachability status <%ld>", buf, 0xCu);
   }
 
@@ -181,7 +181,7 @@ LABEL_10:
   {
     isGlobalCellularEnabled2 = [(MTReachability *)self isGlobalCellularEnabled];
     *buf = 67109120;
-    *v31 = isGlobalCellularEnabled2;
+    *v30 = isGlobalCellularEnabled2;
     _os_log_impl(&dword_25E9F0000, v11, OS_LOG_TYPE_DEFAULT, "\tcellular enabled <%x>", buf, 8u);
   }
 
@@ -190,7 +190,7 @@ LABEL_10:
   {
     hasDeterminedActualGlobalCellularState = [(MTReachability *)self hasDeterminedActualGlobalCellularState];
     *buf = 67109120;
-    *v31 = !hasDeterminedActualGlobalCellularState;
+    *v30 = !hasDeterminedActualGlobalCellularState;
     _os_log_impl(&dword_25E9F0000, v13, OS_LOG_TYPE_DEFAULT, "\tis using cached global cellular setting <%x>", buf, 8u);
   }
 
@@ -199,9 +199,9 @@ LABEL_10:
   {
     isReachable2 = [(MTReachability *)self isReachable];
     *buf = 67109376;
-    *v31 = isReachable;
-    *&v31[4] = 1024;
-    *&v31[6] = isReachable2;
+    *v30 = isReachable;
+    *&v30[4] = 1024;
+    *&v30[6] = isReachable2;
     _os_log_impl(&dword_25E9F0000, v15, OS_LOG_TYPE_DEFAULT, "\treachability changing from %i to %i", buf, 0xEu);
   }
 
@@ -211,36 +211,34 @@ LABEL_10:
   v19 = [callbacks2 copy];
 
   objc_sync_exit(callbacks);
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v20 = v19;
-  v21 = [v20 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v21 = [v20 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v21)
   {
-    v22 = *v26;
+    v22 = *v25;
     do
     {
       v23 = 0;
       do
       {
-        if (*v26 != v22)
+        if (*v25 != v22)
         {
           objc_enumerationMutation(v20);
         }
 
-        [*(*(&v25 + 1) + 8 * v23++) reachabilityChangedFrom:isReachable to:{-[MTReachability isReachable](self, "isReachable", v25)}];
+        [*(*(&v24 + 1) + 8 * v23++) reachabilityChangedFrom:isReachable to:{-[MTReachability isReachable](self, "isReachable", v24)}];
       }
 
       while (v21 != v23);
-      v21 = [v20 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v21 = [v20 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v21);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setHasDeterminedActualGlobalCellularState:(BOOL)state
@@ -383,7 +381,7 @@ LABEL_12:
 
 - (void)_showAlertForInternetUnavailableReason:(unint64_t)reason completion:(id)completion
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   preferencesURL = 0;
   if (reason > 1)
@@ -454,34 +452,31 @@ LABEL_14:
   v21 = _MTLogCategoryNetwork();
   if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
   {
-    v23 = 138412546;
-    v24 = v8;
-    v25 = 2112;
-    v26 = v7;
-    _os_log_impl(&dword_25E9F0000, v21, OS_LOG_TYPE_ERROR, "Unable to show Internet Unavailable dialog. Title = [%@], Message = [%@]", &v23, 0x16u);
+    v22 = 138412546;
+    v23 = v8;
+    v24 = 2112;
+    v25 = v7;
+    _os_log_impl(&dword_25E9F0000, v21, OS_LOG_TYPE_ERROR, "Unable to show Internet Unavailable dialog. Title = [%@], Message = [%@]", &v22, 0x16u);
   }
 
 LABEL_17:
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateGlobalCellularWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = *MEMORY[0x277CBECE8];
-  cellularQueue = self->_cellularQueue;
-  v7 = _CTServerConnectionCreateOnTargetQueue();
-  if (v7)
+  v5 = _CTServerConnectionCreateOnTargetQueue();
+  if (v5)
   {
-    v8 = self->_cellularQueue;
+    cellularQueue = self->_cellularQueue;
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __54__MTReachability__updateGlobalCellularWithCompletion___block_invoke;
     block[3] = &unk_279A44A20;
-    v11 = v7;
+    v9 = v5;
     block[4] = self;
-    v10 = completionCopy;
-    dispatch_async(v8, block);
+    v8 = completionCopy;
+    dispatch_async(cellularQueue, block);
   }
 }
 
@@ -491,17 +486,16 @@ void __54__MTReachability__updateGlobalCellularWithCompletion___block_invoke(uin
   v2 = [MEMORY[0x277CCA8D8] mainBundle];
   v3 = [v2 bundleIdentifier];
 
-  v4 = *(a1 + 48);
   _CTServerConnectionCopyCellularUsagePolicy();
   CFRelease(*(a1 + 48));
   if ([MEMORY[0x277D3F9B0] isEnabled])
   {
-    v5 = MGGetBoolAnswer();
+    v4 = MGGetBoolAnswer();
   }
 
   else
   {
-    v5 = 0;
+    v4 = 0;
   }
 
   objc_initWeak(location, *(a1 + 32));
@@ -509,13 +503,13 @@ void __54__MTReachability__updateGlobalCellularWithCompletion___block_invoke(uin
   block[1] = 3221225472;
   block[2] = __54__MTReachability__updateGlobalCellularWithCompletion___block_invoke_2;
   block[3] = &unk_279A449F8;
-  objc_copyWeak(&v8, location);
-  v9 = 0;
-  v10 = v5;
-  v7 = *(a1 + 40);
+  objc_copyWeak(&v7, location);
+  v8 = 0;
+  v9 = v4;
+  v6 = *(a1 + 40);
   dispatch_async(MEMORY[0x277D85CD0], block);
 
-  objc_destroyWeak(&v8);
+  objc_destroyWeak(&v7);
   objc_destroyWeak(location);
 }
 

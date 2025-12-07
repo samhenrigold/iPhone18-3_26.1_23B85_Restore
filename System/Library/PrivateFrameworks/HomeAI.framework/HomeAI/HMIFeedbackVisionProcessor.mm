@@ -11,98 +11,96 @@
 
 + (BOOL)reencodeAssetURL:(id)l outputURL:(id)rL bitRate:(int64_t)rate duration:(id *)duration analysisFPS:(float)s sampleFrameHandler:(id)handler dropFrameHandler:(id)frameHandler
 {
-  v90 = *MEMORY[0x277D85DE8];
+  v105 = *MEMORY[0x277D85DE8];
   lCopy = l;
   rLCopy = rL;
   handlerCopy = handler;
   frameHandlerCopy = frameHandler;
-  v57 = lCopy;
-  v62 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:lCopy options:1 error:0];
-  if (v62)
+  v52 = lCopy;
+  v57 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:? options:? error:?];
+  if (v57)
   {
-    v16 = [[HMIVideoFragment alloc] initWithData:v62];
-    v17 = [HMIMemoryAVAsset alloc];
-    v55 = v16;
-    data = [(HMIVideoFragment *)v16 data];
-    v19 = [(HMIMemoryAVAsset *)v17 initWithData:data];
+    v14 = [[HMIVideoFragment alloc] initWithData:?];
+    v15 = [HMIMemoryAVAsset alloc];
+    v50 = v14;
+    data = [(HMIVideoFragment *)v14 data];
+    v17 = [(HMIMemoryAVAsset *)v15 initWithData:?];
 
-    v54 = v19;
-    v20 = [[HMIVideoAssetReader alloc] initWithAsset:v19];
+    v49 = v17;
+    v18 = [[HMIVideoAssetReader alloc] initWithAsset:?];
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v87 = __Block_byref_object_copy__8;
-    v88 = __Block_byref_object_dispose__8;
-    v89 = 0;
-    v21 = objc_opt_new();
-    v78 = 0;
-    v79 = &v78;
-    v80 = 0x3032000000;
-    v81 = __Block_byref_object_copy__8;
-    v82 = __Block_byref_object_dispose__8;
-    v83 = 0;
-    v77[0] = MEMORY[0x277D85DD0];
-    v77[1] = 3221225472;
-    v77[2] = __122__HMIFeedbackVisionProcessor_reencodeAssetURL_outputURL_bitRate_duration_analysisFPS_sampleFrameHandler_dropFrameHandler___block_invoke;
-    v77[3] = &unk_278755490;
-    v77[4] = &v78;
-    [v21 setAssetWriterDidOutputInitializationSegment:v77];
-    v76[0] = MEMORY[0x277D85DD0];
-    v76[1] = 3221225472;
-    v76[2] = __122__HMIFeedbackVisionProcessor_reencodeAssetURL_outputURL_bitRate_duration_analysisFPS_sampleFrameHandler_dropFrameHandler___block_invoke_2;
-    v76[3] = &unk_2787554B8;
-    v76[4] = &v78;
-    [v21 setAssetWriterDidOutputSeparableSegment:v76];
-    v22 = [[HMIVideoEncoder alloc] initWithDimensions:CMVideoFormatDescriptionGetDimensions([(HMIVideoFragment *)v55 videoFormatDescription]) codecType:1635148593 useHardwareAcceleration:1 error:0];
-    [(HMIVideoEncoder *)v22 setAverageBitRate:rate];
-    v59 = objc_opt_new();
-    v23 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v24 = dispatch_queue_create("Encoder Queue", v23);
-    [(HMIVideoEncoder *)v22 setDelegate:v59 queue:v24];
+    v102 = __Block_byref_object_copy__8;
+    v103 = __Block_byref_object_dispose__8;
+    v104 = 0;
+    v19 = objc_opt_new();
+    v93 = 0;
+    v94 = &v93;
+    v95 = 0x3032000000;
+    v96 = __Block_byref_object_copy__8;
+    v97 = __Block_byref_object_dispose__8;
+    v98 = 0;
+    v88 = MEMORY[0x277D85DD0];
+    v89 = 3221225472;
+    v90 = __122__HMIFeedbackVisionProcessor_reencodeAssetURL_outputURL_bitRate_duration_analysisFPS_sampleFrameHandler_dropFrameHandler___block_invoke;
+    v91 = &unk_278755490;
+    v92 = &v93;
+    [v19 setAssetWriterDidOutputInitializationSegment:?];
+    v83 = MEMORY[0x277D85DD0];
+    v84 = 3221225472;
+    v85 = __122__HMIFeedbackVisionProcessor_reencodeAssetURL_outputURL_bitRate_duration_analysisFPS_sampleFrameHandler_dropFrameHandler___block_invoke_2;
+    v86 = &unk_2787554B8;
+    v87 = &v93;
+    [v19 setAssetWriterDidOutputSeparableSegment:?];
+    CMVideoFormatDescriptionGetDimensions([(HMIVideoFragment *)v50 videoFormatDescription]);
+    v20 = [HMIVideoEncoder initWithDimensions:"initWithDimensions:codecType:useHardwareAcceleration:error:" codecType:? useHardwareAcceleration:? error:?];
+    [(HMIVideoEncoder *)v20 setAverageBitRate:?];
+    v54 = objc_opt_new();
+    v21 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v22 = dispatch_queue_create("Encoder Queue", v21);
+    [HMIVideoEncoder setDelegate:v20 queue:"setDelegate:queue:"];
 
-    v73[0] = MEMORY[0x277D85DD0];
-    v73[1] = 3221225472;
-    v73[2] = __122__HMIFeedbackVisionProcessor_reencodeAssetURL_outputURL_bitRate_duration_analysisFPS_sampleFrameHandler_dropFrameHandler___block_invoke_3;
-    v73[3] = &unk_2787554E0;
-    v75 = buf;
-    v53 = v21;
-    v74 = v53;
-    [v59 setEncoderDidEncodeSampleBuffer:v73];
-    v25 = [HMIVideoFrameIntervalSampler alloc];
-    *&v26 = s;
-    v27 = [(HMIVideoFrameIntervalSampler *)v25 initWithFrameRate:v26];
-    v28 = objc_opt_new();
-    [(HMIVideoFrameSampler *)v27 setDelegate:v28];
-    v70[0] = MEMORY[0x277D85DD0];
-    v70[1] = 3221225472;
-    v70[2] = __122__HMIFeedbackVisionProcessor_reencodeAssetURL_outputURL_bitRate_duration_analysisFPS_sampleFrameHandler_dropFrameHandler___block_invoke_4;
-    v70[3] = &unk_278755508;
-    v72 = handlerCopy;
-    v29 = v22;
-    v71 = v29;
-    [v28 setFrameSamplerDidSampleFrame:v70];
-    v67[0] = MEMORY[0x277D85DD0];
-    v67[1] = 3221225472;
-    v67[2] = __122__HMIFeedbackVisionProcessor_reencodeAssetURL_outputURL_bitRate_duration_analysisFPS_sampleFrameHandler_dropFrameHandler___block_invoke_5;
-    v67[3] = &unk_278755508;
-    v69 = frameHandlerCopy;
-    v30 = v29;
-    v68 = v30;
-    [v28 setFrameSamplerDidDropFrame:v67];
-    v31 = objc_alloc_init(HMIVideoDecoder);
-    v32 = objc_opt_new();
-    [(HMIVideoDecoder *)v31 setDelegate:v32];
-    v65[0] = MEMORY[0x277D85DD0];
-    v65[1] = 3221225472;
-    v65[2] = __122__HMIFeedbackVisionProcessor_reencodeAssetURL_outputURL_bitRate_duration_analysisFPS_sampleFrameHandler_dropFrameHandler___block_invoke_6;
-    v65[3] = &unk_278755530;
-    v33 = v27;
-    v66 = v33;
-    [v32 setDecoderDidDecodeSampleBuffer:v65];
+    v77 = MEMORY[0x277D85DD0];
+    v78 = 3221225472;
+    v79 = __122__HMIFeedbackVisionProcessor_reencodeAssetURL_outputURL_bitRate_duration_analysisFPS_sampleFrameHandler_dropFrameHandler___block_invoke_3;
+    v80 = &unk_2787554E0;
+    v82 = buf;
+    v48 = v19;
+    v81 = v48;
+    [v54 setEncoderDidEncodeSampleBuffer:?];
+    v23 = [[HMIVideoFrameIntervalSampler alloc] initWithFrameRate:?];
+    v24 = objc_opt_new();
+    [(HMIVideoFrameSampler *)v23 setDelegate:?];
+    v71 = MEMORY[0x277D85DD0];
+    v72 = 3221225472;
+    v73 = __122__HMIFeedbackVisionProcessor_reencodeAssetURL_outputURL_bitRate_duration_analysisFPS_sampleFrameHandler_dropFrameHandler___block_invoke_4;
+    v74 = &unk_278755508;
+    v76 = handlerCopy;
+    v75 = v20;
+    [v24 setFrameSamplerDidSampleFrame:?];
+    v65 = MEMORY[0x277D85DD0];
+    v66 = 3221225472;
+    v67 = __122__HMIFeedbackVisionProcessor_reencodeAssetURL_outputURL_bitRate_duration_analysisFPS_sampleFrameHandler_dropFrameHandler___block_invoke_5;
+    v68 = &unk_278755508;
+    v70 = frameHandlerCopy;
+    v25 = v75;
+    v69 = v25;
+    [v24 setFrameSamplerDidDropFrame:?];
+    v26 = objc_alloc_init(HMIVideoDecoder);
+    v27 = objc_opt_new();
+    [(HMIVideoDecoder *)v26 setDelegate:?];
+    v60 = MEMORY[0x277D85DD0];
+    v61 = 3221225472;
+    v62 = __122__HMIFeedbackVisionProcessor_reencodeAssetURL_outputURL_bitRate_duration_analysisFPS_sampleFrameHandler_dropFrameHandler___block_invoke_6;
+    v63 = &unk_278755530;
+    v28 = v23;
+    v64 = v28;
+    [v27 setDecoderDidDecodeSampleBuffer:?];
     while (1)
     {
-      copyNextSampleBuffer = [(HMIVideoAssetReader *)v20 copyNextSampleBuffer];
-      v35 = copyNextSampleBuffer;
+      copyNextSampleBuffer = [(HMIVideoAssetReader *)v18 copyNextSampleBuffer];
+      v30 = copyNextSampleBuffer;
       if (!copyNextSampleBuffer)
       {
         break;
@@ -110,33 +108,33 @@
 
       if (HMICMSampleBufferIsVideo(copyNextSampleBuffer))
       {
-        [(HMIVideoDecoder *)v31 handleSampleBuffer:v35 outputFrame:1];
+        [HMIVideoDecoder handleSampleBuffer:v26 outputFrame:"handleSampleBuffer:outputFrame:"];
       }
 
-      memset(&v64, 0, sizeof(v64));
-      CMSampleBufferGetPresentationTimeStamp(&v64, v35);
-      CFRelease(v35);
-      time1 = v64;
+      memset(&v59, 0, sizeof(v59));
+      CMSampleBufferGetPresentationTimeStamp(&v59, v30);
+      CFRelease(v30);
+      time1 = v59;
       time2 = *duration;
       if (CMTimeCompare(&time1, &time2) >= 1)
       {
         context = objc_autoreleasePoolPush();
         selfCopy = self;
-        v37 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+        v32 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
         {
-          v38 = HMFGetLogIdentifier();
-          time2 = v64;
+          v33 = HMFGetLogIdentifier();
+          time2 = v59;
           Seconds = CMTimeGetSeconds(&time2);
           time2 = *duration;
-          v40 = CMTimeGetSeconds(&time2);
+          v35 = CMTimeGetSeconds(&time2);
           LODWORD(time1.value) = 138543874;
-          *(&time1.value + 4) = v38;
+          *(&time1.value + 4) = v33;
           LOWORD(time1.flags) = 2048;
           *(&time1.flags + 2) = Seconds;
           HIWORD(time1.epoch) = 2048;
-          v85 = v40;
-          _os_log_impl(&dword_22D12F000, v37, OS_LOG_TYPE_INFO, "%{public}@Finish re-encoding %.3f > %.3f", &time1, 0x20u);
+          v100 = v35;
+          _os_log_impl(&dword_22D12F000, v32, OS_LOG_TYPE_INFO, "%{public}@Finish re-encoding %.3f > %.3f", &time1, 0x20u);
         }
 
         objc_autoreleasePoolPop(context);
@@ -144,58 +142,58 @@
       }
     }
 
-    [(HMIVideoDecoder *)v31 flush];
-    [(HMIVideoEncoder *)v30 flush];
+    [(HMIVideoDecoder *)v26 flush];
+    [(HMIVideoEncoder *)v25 flush];
     [*(*&buf[8] + 40) flush];
-    v41 = v79[5];
-    if (v41)
+    v36 = v94[5];
+    if (v36)
     {
-      v42 = [v41 writeToURL:rLCopy atomically:1];
+      v37 = [v36 writeToURL:? atomically:?];
     }
 
     else
     {
-      v47 = objc_autoreleasePoolPush();
+      v42 = objc_autoreleasePoolPush();
       selfCopy2 = self;
-      v49 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+      v44 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
       {
-        v50 = HMFGetLogIdentifier();
+        v45 = HMFGetLogIdentifier();
         LODWORD(time1.value) = 138543618;
-        *(&time1.value + 4) = v50;
+        *(&time1.value + 4) = v45;
         LOWORD(time1.flags) = 2112;
-        *(&time1.flags + 2) = v57;
-        _os_log_impl(&dword_22D12F000, v49, OS_LOG_TYPE_ERROR, "%{public}@Unable to get fragment %@ from AssetWriter", &time1, 0x16u);
+        *(&time1.flags + 2) = v52;
+        _os_log_impl(&dword_22D12F000, v44, OS_LOG_TYPE_ERROR, "%{public}@Unable to get fragment %@ from AssetWriter", &time1, 0x16u);
       }
 
-      objc_autoreleasePoolPop(v47);
-      v42 = 0;
+      objc_autoreleasePoolPop(v42);
+      v37 = 0;
     }
 
-    _Block_object_dispose(&v78, 8);
+    _Block_object_dispose(&v93, 8);
     _Block_object_dispose(buf, 8);
   }
 
   else
   {
-    v43 = objc_autoreleasePoolPush();
+    v38 = objc_autoreleasePoolPush();
     selfCopy3 = self;
-    v45 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+    v40 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
     {
-      v46 = HMFGetLogIdentifier();
+      v41 = HMFGetLogIdentifier();
       *buf = 138543618;
-      *&buf[4] = v46;
+      *&buf[4] = v41;
       *&buf[12] = 2112;
       *&buf[14] = lCopy;
-      _os_log_impl(&dword_22D12F000, v45, OS_LOG_TYPE_ERROR, "%{public}@Unable to read the asset %@", buf, 0x16u);
+      _os_log_impl(&dword_22D12F000, v40, OS_LOG_TYPE_ERROR, "%{public}@Unable to read the asset %@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v43);
-    v42 = 0;
+    objc_autoreleasePoolPop(v38);
+    v37 = 0;
   }
 
-  return v42;
+  return v37;
 }
 
 uint64_t __122__HMIFeedbackVisionProcessor_reencodeAssetURL_outputURL_bitRate_duration_analysisFPS_sampleFrameHandler_dropFrameHandler___block_invoke(uint64_t result, uint64_t a2, void *a3)
@@ -214,63 +212,63 @@ uint64_t __122__HMIFeedbackVisionProcessor_reencodeAssetURL_outputURL_bitRate_du
   return result;
 }
 
-uint64_t __122__HMIFeedbackVisionProcessor_reencodeAssetURL_outputURL_bitRate_duration_analysisFPS_sampleFrameHandler_dropFrameHandler___block_invoke_3(uint64_t a1, uint64_t a2, opaqueCMSampleBuffer *a3)
+void *__122__HMIFeedbackVisionProcessor_reencodeAssetURL_outputURL_bitRate_duration_analysisFPS_sampleFrameHandler_dropFrameHandler___block_invoke_3(uint64_t a1, uint64_t a2, opaqueCMSampleBuffer *a3)
 {
   v5 = *(*(*(a1 + 40) + 8) + 40);
   if (!v5)
   {
     v6 = [HMIVideoAssetWriter alloc];
-    FormatDescription = CMSampleBufferGetFormatDescription(a3);
-    v12 = *MEMORY[0x277CC0888];
-    v13 = *(MEMORY[0x277CC0888] + 16);
-    v8 = [(HMIVideoAssetWriter *)v6 initWithVideoFormat:FormatDescription audioFormat:0 initialFragmentSequenceNumber:1 preferredOutputSegmentInterval:&v12];
-    v9 = *(*(a1 + 40) + 8);
-    v10 = *(v9 + 40);
-    *(v9 + 40) = v8;
+    CMSampleBufferGetFormatDescription(a3);
+    v11 = *MEMORY[0x277CC0888];
+    v12 = *(MEMORY[0x277CC0888] + 16);
+    v7 = [HMIVideoAssetWriter initWithVideoFormat:v6 audioFormat:"initWithVideoFormat:audioFormat:initialFragmentSequenceNumber:preferredOutputSegmentInterval:" initialFragmentSequenceNumber:v11 preferredOutputSegmentInterval:v12];
+    v8 = *(*(a1 + 40) + 8);
+    v9 = *(v8 + 40);
+    *(v8 + 40) = v7;
 
-    [*(*(*(a1 + 40) + 8) + 40) setDelegate:*(a1 + 32)];
+    [*(*(*(a1 + 40) + 8) + 40) setDelegate:?];
     v5 = *(*(*(a1 + 40) + 8) + 40);
   }
 
-  return [v5 handleSampleBuffer:a3];
+  return [v5 handleSampleBuffer:?];
 }
 
 - (BOOL)blurFacesFromAssetURL:(id)l outputURL:(id)rL duration:(id *)duration analysisFPS:(float)s windowSize:(unint64_t)size faceDetected:(BOOL *)detected
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   lCopy = l;
   rLCopy = rL;
-  v16 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:lCopy options:1 error:0];
-  if (v16)
+  v15 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:? options:? error:?];
+  if (v15)
   {
     durationCopy = duration;
-    v40 = rLCopy;
-    v17 = [HMICameraVideoFrameAnalyzerSignificantActivity alloc];
+    v39 = rLCopy;
+    v16 = [HMICameraVideoFrameAnalyzerSignificantActivity alloc];
+    v17 = +[HMIVideoAnalyzerEvent defaultConfidenceThresholdsFeedback];
     v18 = +[HMIVideoAnalyzerEvent defaultConfidenceThresholdsFeedback];
-    v19 = +[HMIVideoAnalyzerEvent defaultConfidenceThresholdsFeedback];
-    v20 = objc_alloc_init(HMIVideoAnalyzerConfiguration);
-    v49 = 0;
-    v21 = [(HMICameraVideoFrameAnalyzerSignificantActivity *)v17 initWithMediumConfidenceThresholds:v18 highConfidenceThresholds:v19 analyzerConfiguration:v20 error:&v49];
-    v22 = v49;
+    v19 = objc_alloc_init(HMIVideoAnalyzerConfiguration);
+    v48 = 0;
+    v20 = [HMICameraVideoFrameAnalyzerSignificantActivity initWithMediumConfidenceThresholds:v16 highConfidenceThresholds:"initWithMediumConfidenceThresholds:highConfidenceThresholds:analyzerConfiguration:error:" analyzerConfiguration:? error:?];
+    v21 = 0;
 
-    if (v22)
+    if (v21)
     {
-      v23 = objc_autoreleasePoolPush();
+      v22 = objc_autoreleasePoolPush();
       selfCopy = self;
-      v25 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v24 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
-        v26 = HMFGetLogIdentifier();
+        v25 = HMFGetLogIdentifier();
         *buf = 138543618;
-        *&buf[4] = v26;
+        *&buf[4] = v25;
         *&buf[12] = 2112;
-        *&buf[14] = v22;
-        _os_log_impl(&dword_22D12F000, v25, OS_LOG_TYPE_ERROR, "%{public}@Unable to init face detector %@", buf, 0x16u);
+        *&buf[14] = v21;
+        _os_log_impl(&dword_22D12F000, v24, OS_LOG_TYPE_ERROR, "%{public}@Unable to init face detector %@", buf, 0x16u);
       }
 
-      objc_autoreleasePoolPop(v23);
-      v27 = 0;
-      rLCopy = v40;
+      objc_autoreleasePoolPop(v22);
+      v26 = 0;
+      rLCopy = v39;
     }
 
     else
@@ -281,82 +279,80 @@ uint64_t __122__HMIFeedbackVisionProcessor_reencodeAssetURL_outputURL_bitRate_du
       }
 
       array = [MEMORY[0x277CBEB18] array];
-      v43[0] = MEMORY[0x277D85DD0];
-      v43[1] = 3221225472;
-      v43[2] = __107__HMIFeedbackVisionProcessor_blurFacesFromAssetURL_outputURL_duration_analysisFPS_windowSize_faceDetected___block_invoke;
-      v43[3] = &unk_278755558;
-      v44 = v21;
+      v42[0] = MEMORY[0x277D85DD0];
+      v42[1] = 3221225472;
+      v42[2] = __107__HMIFeedbackVisionProcessor_blurFacesFromAssetURL_outputURL_duration_analysisFPS_windowSize_faceDetected___block_invoke;
+      v42[3] = &unk_278755558;
+      v43 = v20;
       selfCopy2 = self;
-      v33 = array;
-      v46 = v33;
+      v32 = array;
+      v45 = v32;
       sizeCopy = size;
       detectedCopy = detected;
-      v34 = MEMORY[0x2318CB8E0](v43);
-      v41[0] = MEMORY[0x277D85DD0];
-      v41[1] = 3221225472;
-      v41[2] = __107__HMIFeedbackVisionProcessor_blurFacesFromAssetURL_outputURL_duration_analysisFPS_windowSize_faceDetected___block_invoke_22;
-      v41[3] = &unk_278755580;
-      v41[4] = self;
-      v42 = v33;
-      v35 = v33;
-      v36 = MEMORY[0x2318CB8E0](v41);
-      rLCopy = v40;
-      *buf = *v39;
-      *&buf[16] = *(v39 + 16);
-      v27 = [HMIFeedbackVisionProcessor reencodeAssetURL:lCopy outputURL:v40 bitRate:2000000 duration:buf analysisFPS:v34 sampleFrameHandler:v36 dropFrameHandler:COERCE_DOUBLE(__PAIR64__(*&buf[4], LODWORD(s)))];
+      v33 = MEMORY[0x2318CB8E0](v42);
+      v40[0] = MEMORY[0x277D85DD0];
+      v40[1] = 3221225472;
+      v40[2] = __107__HMIFeedbackVisionProcessor_blurFacesFromAssetURL_outputURL_duration_analysisFPS_windowSize_faceDetected___block_invoke_22;
+      v40[3] = &unk_278755580;
+      v40[4] = self;
+      v41 = v32;
+      v34 = v32;
+      v35 = MEMORY[0x2318CB8E0](v40);
+      rLCopy = v39;
+      *buf = *v38;
+      *&buf[16] = *(v38 + 16);
+      v26 = [HMIFeedbackVisionProcessor reencodeAssetURL:"reencodeAssetURL:outputURL:bitRate:duration:analysisFPS:sampleFrameHandler:dropFrameHandler:" outputURL:? bitRate:? duration:? analysisFPS:? sampleFrameHandler:? dropFrameHandler:?];
     }
   }
 
   else
   {
-    v28 = objc_autoreleasePoolPush();
+    v27 = objc_autoreleasePoolPush();
     selfCopy3 = self;
-    v30 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    v29 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
-      v31 = HMFGetLogIdentifier();
+      v30 = HMFGetLogIdentifier();
       *buf = 138543618;
-      *&buf[4] = v31;
+      *&buf[4] = v30;
       *&buf[12] = 2112;
       *&buf[14] = lCopy;
-      _os_log_impl(&dword_22D12F000, v30, OS_LOG_TYPE_ERROR, "%{public}@Unable to read the asset %@", buf, 0x16u);
+      _os_log_impl(&dword_22D12F000, v29, OS_LOG_TYPE_ERROR, "%{public}@Unable to read the asset %@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v28);
-    v27 = 0;
+    objc_autoreleasePoolPop(v27);
+    v26 = 0;
   }
 
-  return v27;
+  return v26;
 }
 
 void __107__HMIFeedbackVisionProcessor_blurFacesFromAssetURL_outputURL_duration_analysisFPS_windowSize_faceDetected___block_invoke(uint64_t a1, void *a2, void *a3, opaqueCMSampleBuffer *a4)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
-  ImageBuffer = CMSampleBufferGetImageBuffer(a4);
-  v10 = *(a1 + 32);
-  v23 = 0;
-  v11 = [v10 analyzePixelBuffer:ImageBuffer regionOfInterest:&v23 error:{0.0, 0.0, 1.0, 1.0}];
-  v12 = v23;
-  if (v12)
+  CMSampleBufferGetImageBuffer(a4);
+  v9 = [*(a1 + 32) analyzePixelBuffer:? regionOfInterest:? error:?];
+  v10 = 0;
+  if (v10)
   {
-    v13 = objc_autoreleasePoolPush();
-    v14 = *(a1 + 40);
-    v15 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v11 = objc_autoreleasePoolPush();
+    v12 = *(a1 + 40);
+    v13 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v16 = HMFGetLogIdentifier();
+      v14 = HMFGetLogIdentifier();
       CMSampleBufferGetPresentationTimeStamp(&time, a4);
       Seconds = CMTimeGetSeconds(&time);
       LODWORD(time.value) = 138543618;
-      *(&time.value + 4) = v16;
+      *(&time.value + 4) = v14;
       LOWORD(time.flags) = 2048;
       *(&time.flags + 2) = Seconds;
-      _os_log_impl(&dword_22D12F000, v15, OS_LOG_TYPE_ERROR, "%{public}@Skip the frame @ %.3fs due to analyzer failure", &time, 0x16u);
+      _os_log_impl(&dword_22D12F000, v13, OS_LOG_TYPE_ERROR, "%{public}@Skip the frame @ %.3fs due to analyzer failure", &time, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v13);
+    objc_autoreleasePoolPop(v11);
   }
 
   else
@@ -366,29 +362,28 @@ void __107__HMIFeedbackVisionProcessor_blurFacesFromAssetURL_outputURL_duration_
       [*(a1 + 48) hmf_removeFirstObject];
     }
 
-    v18 = *(a1 + 40);
-    v19 = *(a1 + 48);
-    v20 = [v11 allObjects];
-    [v18 _addEventsToEventQueue:v19 events:v20];
+    v16 = *(a1 + 40);
+    v17 = [v9 allObjects];
+    [v16 _addEventsToEventQueue:? events:?];
 
     if (*(a1 + 64))
     {
-      **(a1 + 64) |= [v11 count] != 0;
+      **(a1 + 64) |= [v9 count] != 0;
     }
 
-    v21 = *(a1 + 40);
-    v22 = [*(a1 + 48) na_arrayByFlattening];
-    [v21 _blurSampleBufferWithEncoder:v8 sampleBuffer:a4 events:v22];
+    v18 = *(a1 + 40);
+    v19 = [*(a1 + 48) na_arrayByFlattening];
+    [v18 _blurSampleBufferWithEncoder:? sampleBuffer:? events:?];
   }
 }
 
 void __107__HMIFeedbackVisionProcessor_blurFacesFromAssetURL_outputURL_duration_analysisFPS_windowSize_faceDetected___block_invoke_22(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
 {
-  v5 = *(a1 + 32);
-  v6 = *(a1 + 40);
-  v7 = a3;
-  v8 = [v6 na_arrayByFlattening];
-  [v5 _blurSampleBufferWithEncoder:v7 sampleBuffer:a4 events:v8];
+  v4 = *(a1 + 32);
+  v5 = *(a1 + 40);
+  v6 = a3;
+  v7 = [v5 na_arrayByFlattening];
+  [v4 _blurSampleBufferWithEncoder:? sampleBuffer:? events:?];
 }
 
 - (void)_addEventsToEventQueue:(id)queue events:(id)events
@@ -398,31 +393,31 @@ void __107__HMIFeedbackVisionProcessor_blurFacesFromAssetURL_outputURL_duration_
   if (([queueCopy hmf_isEmpty] & 1) == 0)
   {
     lastObject = [queueCopy lastObject];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __60__HMIFeedbackVisionProcessor__addEventsToEventQueue_events___block_invoke;
-    v9[3] = &unk_278755120;
-    v10 = eventsCopy;
-    v8 = [lastObject na_filter:v9];
+    v9 = MEMORY[0x277D85DD0];
+    v10 = 3221225472;
+    v11 = __60__HMIFeedbackVisionProcessor__addEventsToEventQueue_events___block_invoke;
+    v12 = &unk_278755120;
+    v13 = eventsCopy;
+    v8 = [lastObject na_filter:?];
 
     [queueCopy removeLastObject];
-    [queueCopy addObject:v8];
+    [queueCopy addObject:?];
   }
 
-  [queueCopy addObject:eventsCopy];
+  [queueCopy addObject:?];
 }
 
 uint64_t __60__HMIFeedbackVisionProcessor__addEventsToEventQueue_events___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = *(a1 + 32);
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __60__HMIFeedbackVisionProcessor__addEventsToEventQueue_events___block_invoke_2;
-  v7[3] = &unk_278755120;
-  v8 = v3;
+  v7 = MEMORY[0x277D85DD0];
+  v8 = 3221225472;
+  v9 = __60__HMIFeedbackVisionProcessor__addEventsToEventQueue_events___block_invoke_2;
+  v10 = &unk_278755120;
+  v11 = v3;
   v5 = v3;
-  LODWORD(v4) = [v4 na_any:v7];
+  LODWORD(v4) = [v4 na_any:?];
 
   return v4 ^ 1;
 }
@@ -448,60 +443,60 @@ BOOL __60__HMIFeedbackVisionProcessor__addEventsToEventQueue_events___block_invo
 
 - (void)_blurSampleBufferWithEncoder:(id)encoder sampleBuffer:(opaqueCMSampleBuffer *)buffer events:(id)events
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   encoderCopy = encoder;
   eventsCopy = events;
-  memset(&v19, 0, sizeof(v19));
-  CMSampleBufferGetPresentationTimeStamp(&v19, buffer);
-  ImageBuffer = CMSampleBufferGetImageBuffer(buffer);
+  memset(&v18, 0, sizeof(v18));
+  CMSampleBufferGetPresentationTimeStamp(&v18, buffer);
+  CMSampleBufferGetImageBuffer(buffer);
   if ([eventsCopy hmf_isEmpty])
   {
-    [encoderCopy handleSampleBuffer:buffer];
+    [encoderCopy handleSampleBuffer:?];
   }
 
   else
   {
-    v11 = [(HMIFeedbackVisionProcessor *)self _createBlurredPixelBuffer:ImageBuffer events:eventsCopy];
-    if (v11)
+    v10 = [HMIFeedbackVisionProcessor _createBlurredPixelBuffer:"_createBlurredPixelBuffer:events:" events:?];
+    if (v10)
     {
-      v12 = v11;
-      CopyWithPixelBuffer = HMICMSampleBufferCreateCopyWithPixelBuffer(buffer, v11);
-      [encoderCopy handleSampleBuffer:CopyWithPixelBuffer];
+      v11 = v10;
+      CopyWithPixelBuffer = HMICMSampleBufferCreateCopyWithPixelBuffer(buffer, v10);
+      [encoderCopy handleSampleBuffer:?];
       CFRelease(CopyWithPixelBuffer);
-      CVPixelBufferRelease(v12);
+      CVPixelBufferRelease(v11);
     }
 
     else
     {
-      v14 = objc_autoreleasePoolPush();
+      v13 = objc_autoreleasePoolPush();
       selfCopy = self;
-      v16 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v15 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        v17 = HMFGetLogIdentifier();
-        time = v19;
+        v16 = HMFGetLogIdentifier();
+        time = v18;
         Seconds = CMTimeGetSeconds(&time);
         LODWORD(time.value) = 138543618;
-        *(&time.value + 4) = v17;
+        *(&time.value + 4) = v16;
         LOWORD(time.flags) = 2048;
         *(&time.flags + 2) = Seconds;
-        _os_log_impl(&dword_22D12F000, v16, OS_LOG_TYPE_ERROR, "%{public}@Skip the frame @ %.3fs due to blurring failure", &time, 0x16u);
+        _os_log_impl(&dword_22D12F000, v15, OS_LOG_TYPE_ERROR, "%{public}@Skip the frame @ %.3fs due to blurring failure", &time, 0x16u);
       }
 
-      objc_autoreleasePoolPop(v14);
+      objc_autoreleasePoolPop(v13);
     }
   }
 }
 
 - (__CVBuffer)_createBlurredPixelBuffer:(__CVBuffer *)buffer events:(id)events
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   Size = HMICVPixelBufferGetSize(buffer);
   v9 = v8;
-  v57 = 0;
-  v10 = [HMIVisionUtilities transferPixelBuffer:buffer pixelFormat:32 options:4 error:&v57];
-  v11 = v57;
+  v56 = 0;
+  v10 = [HMIVisionUtilities transferPixelBuffer:"transferPixelBuffer:pixelFormat:options:error:" pixelFormat:? options:? error:?];
+  v11 = 0;
   if (!v10)
   {
     v16 = objc_autoreleasePoolPush();
@@ -526,7 +521,8 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  v12 = [HMIVisionUtilities createPixelBufferWithSize:CVPixelBufferGetPixelFormatType(v10) pixelFormat:0 useIOSurface:Size, v9];
+  CVPixelBufferGetPixelFormatType(v10);
+  v12 = [HMIVisionUtilities createPixelBufferWithSize:"createPixelBufferWithSize:pixelFormat:useIOSurface:" pixelFormat:? useIOSurface:?];
   if (!v12)
   {
     CVPixelBufferRelease(v10);
@@ -549,7 +545,7 @@ LABEL_12:
   }
 
   v13 = v12;
-  v14 = [(HMIFeedbackVisionProcessor *)self _blurRadiusForEvents:eventsCopy imageSize:Size, v9];
+  v14 = [HMIFeedbackVisionProcessor _blurRadiusForEvents:"_blurRadiusForEvents:imageSize:" imageSize:?];
   CVPixelBufferLockBaseAddress(v13, 0);
   CVPixelBufferLockBaseAddress(v10, 1uLL);
   dest.data = CVPixelBufferGetBaseAddressOfPlane(v13, 0);
@@ -573,12 +569,12 @@ LABEL_12:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       v19 = HMFGetLogIdentifier();
-      LODWORD(v62.data) = 138543618;
-      *(&v62.data + 4) = v19;
-      WORD2(v62.height) = 2048;
-      *(&v62.height + 6) = v15;
+      LODWORD(v61.data) = 138543618;
+      *(&v61.data + 4) = v19;
+      WORD2(v61.height) = 2048;
+      *(&v61.height + 6) = v15;
       v20 = "%{public}@Failed to blur entire image (vImage_Error = %zd)";
-      p_dest = &v62;
+      p_dest = &v61;
 LABEL_8:
       v22 = v18;
       v23 = 22;
@@ -596,7 +592,7 @@ LABEL_11:
     v26 = 0;
     while (1)
     {
-      v27 = [eventsCopy objectAtIndexedSubscript:v26];
+      v27 = [eventsCopy objectAtIndexedSubscript:?];
       [v27 boundingBox];
       HMICGRectPixelFromNormalized(v28, v29, v30, v31, Size, v9);
       v33 = v32;
@@ -611,15 +607,15 @@ LABEL_11:
       CVPixelBufferLockBaseAddress(v13, 1uLL);
       CVPixelBufferLockBaseAddress(v10, 0);
       v47 = dest.rowBytes * v42 + 4 * v40;
-      v62.width = v44;
-      v62.rowBytes = dest.rowBytes;
-      v62.data = dest.data + v47;
-      v62.height = v46;
-      v55.data = src.data + v47;
-      v55.height = v46;
-      v55.width = v44;
-      v55.rowBytes = src.rowBytes;
-      v48 = vImageCopyBuffer(&v62, &v55, 4uLL, 0);
+      v61.width = v44;
+      v61.rowBytes = dest.rowBytes;
+      v61.data = dest.data + v47;
+      v61.height = v46;
+      v54.data = src.data + v47;
+      v54.height = v46;
+      v54.width = v44;
+      v54.rowBytes = src.rowBytes;
+      v48 = vImageCopyBuffer(&v61, &v54, 4uLL, 0);
       CVPixelBufferUnlockBaseAddress(v13, 1uLL);
       CVPixelBufferUnlockBaseAddress(v10, 0);
       if (v48)
@@ -644,20 +640,20 @@ LABEL_11:
     }
 
     v19 = HMFGetLogIdentifier();
-    v58 = 138543618;
-    v59 = v19;
-    v60 = 2048;
-    v61 = v48;
+    v57 = 138543618;
+    v58 = v19;
+    v59 = 2048;
+    v60 = v48;
     v20 = "%{public}@Failed to copy blurred patch (vImage_Error = %zd)";
-    p_dest = &v58;
+    p_dest = &v57;
     goto LABEL_8;
   }
 
 LABEL_18:
   CVPixelBufferRelease(v13);
-  v54 = v11;
-  v24 = [HMIVisionUtilities transferPixelBuffer:v10 pixelFormat:CVPixelBufferGetPixelFormatType(buffer) options:5 error:&v54];
-  v49 = v54;
+  CVPixelBufferGetPixelFormatType(buffer);
+  v24 = [HMIVisionUtilities transferPixelBuffer:"transferPixelBuffer:pixelFormat:options:error:" pixelFormat:? options:? error:?];
+  v49 = v11;
 
   CVPixelBufferRelease(v10);
   if (!v24)
@@ -668,11 +664,11 @@ LABEL_18:
     if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
     {
       v53 = HMFGetLogIdentifier();
-      LODWORD(v62.data) = 138543618;
-      *(&v62.data + 4) = v53;
-      WORD2(v62.height) = 2112;
-      *(&v62.height + 6) = v49;
-      _os_log_impl(&dword_22D12F000, v52, OS_LOG_TYPE_ERROR, "%{public}@Failed to convert RGBA to YCbCr (%@)", &v62, 0x16u);
+      LODWORD(v61.data) = 138543618;
+      *(&v61.data + 4) = v53;
+      WORD2(v61.height) = 2112;
+      *(&v61.height + 6) = v49;
+      _os_log_impl(&dword_22D12F000, v52, OS_LOG_TYPE_ERROR, "%{public}@Failed to convert RGBA to YCbCr (%@)", &v61, 0x16u);
     }
 
     objc_autoreleasePoolPop(v50);
@@ -687,12 +683,7 @@ LABEL_13:
 
 - (unsigned)_blurRadiusForEvents:(id)events imageSize:(CGSize)size
 {
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __61__HMIFeedbackVisionProcessor__blurRadiusForEvents_imageSize___block_invoke;
-  v8[3] = &__block_descriptor_48_e54___NSNumber_24__0__HMIVideoAnalyzerEvent_8__NSNumber_16l;
-  sizeCopy = size;
-  v4 = [events na_reduceWithInitialValue:&unk_284075330 reducer:v8];
+  v4 = [events na_reduceWithInitialValue:MEMORY[0x277D85DD0] reducer:3221225472];
   v5 = [v4 intValue] / 8;
   if (v5 >= 64)
   {
@@ -709,36 +700,17 @@ LABEL_13:
   return v6;
 }
 
-uint64_t __61__HMIFeedbackVisionProcessor__blurRadiusForEvents_imageSize___block_invoke(uint64_t a1, void *a2, void *a3)
+void *__61__HMIFeedbackVisionProcessor__blurRadiusForEvents_imageSize___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v5 = a3;
-  v6 = a2;
-  [v6 boundingBox];
-  v8 = *(a1 + 32) * v7;
-  [v6 boundingBox];
-  v10 = v9;
+  v4 = a3;
+  v5 = a2;
+  [v5 boundingBox];
+  [v5 boundingBox];
 
-  v11 = *(a1 + 40) * v10;
-  v12 = MEMORY[0x277CCABB0];
-  [v5 floatValue];
-  v14 = v13;
+  v6 = MEMORY[0x277CCABB0];
+  [v4 floatValue];
 
-  if (v8 >= v11)
-  {
-    *&v15 = v8;
-  }
-
-  else
-  {
-    *&v15 = v11;
-  }
-
-  if (v14 >= *&v15)
-  {
-    *&v15 = v14;
-  }
-
-  return [v12 numberWithFloat:v15];
+  return [v6 numberWithFloat:?];
 }
 
 @end

@@ -1247,7 +1247,7 @@ LABEL_57:
   return v59;
 }
 
-uint64_t __75__PFParallaxLayerStackArchiver_saveCompoundLayerStack_toURL_options_error___block_invoke(uint64_t a1, void *a2)
+unint64_t __75__PFParallaxLayerStackArchiver_saveCompoundLayerStack_toURL_options_error___block_invoke(uint64_t a1, void *a2)
 {
   v3 = [a2 identifier];
   v4 = LayerIDMatchesOptions(v3, *(a1 + 32), 1);
@@ -1255,7 +1255,7 @@ uint64_t __75__PFParallaxLayerStackArchiver_saveCompoundLayerStack_toURL_options
   return v4;
 }
 
-uint64_t __75__PFParallaxLayerStackArchiver_saveCompoundLayerStack_toURL_options_error___block_invoke_2(uint64_t a1, void *a2)
+unint64_t __75__PFParallaxLayerStackArchiver_saveCompoundLayerStack_toURL_options_error___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = *(a1 + 32);
   v3 = [a2 identifier];

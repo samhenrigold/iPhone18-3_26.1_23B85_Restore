@@ -71,8 +71,8 @@
   if (state == 2)
   {
     p_currentTransformedPoint = &self->_currentTransformedPoint;
-    v15 = [(HKPointLabelEngine *)self _slopeForPoint:self->_currentTransformedPoint.x otherPoint:self->_currentTransformedPoint.y, self->_previousTransformedPoint.x, self->_previousTransformedPoint.y];
-    v16 = [(HKPointLabelEngine *)self _slopeForPoint:p_currentTransformedPoint->x otherPoint:self->_currentTransformedPoint.y, v7, v6];
+    [(HKPointLabelEngine *)self _slopeForPoint:self->_currentTransformedPoint.x otherPoint:self->_currentTransformedPoint.y, self->_previousTransformedPoint.x, self->_previousTransformedPoint.y];
+    [(HKPointLabelEngine *)self _slopeForPoint:p_currentTransformedPoint->x otherPoint:self->_currentTransformedPoint.y, v7, v6];
     if (!self->_lastRenderOverlapped)
     {
       size = self->_currentRenderingData.transformedRect.size;
@@ -82,13 +82,13 @@
     }
 
     p_y = &self->_currentUntransformedPoint.y;
-    [(HKPointLabelEngine *)self _computeRenderingDataForValue:v15 transformedPoint:v16 previousSlope:self->_previousRenderingData.options nextSlope:self->_currentUntransformedPoint.y previousOptions:self->_currentTransformedPoint.x, self->_currentTransformedPoint.y];
-    self->_currentRenderingData.transformedRect.origin = v20;
-    self->_currentRenderingData.transformedRect.size = v21;
-    *&self->_currentRenderingData.labelValue = v22;
-    v18 = CGRectIntersectsRect(self->_currentRenderingData.transformedRect, self->_previousRenderingData.transformedRect);
-    self->_lastRenderOverlapped = v18;
-    v10 = !v18;
+    objc_msgSend__computeRenderingDataForValue_transformedPoint_previousSlope_nextSlope_previousOptions_(self, self->_currentUntransformedPoint.y, self->_currentTransformedPoint.x, self->_currentTransformedPoint.y);
+    self->_currentRenderingData.transformedRect.origin = v18;
+    self->_currentRenderingData.transformedRect.size = v19;
+    *&self->_currentRenderingData.labelValue = v20;
+    v16 = CGRectIntersectsRect(self->_currentRenderingData.transformedRect, self->_previousRenderingData.transformedRect);
+    self->_lastRenderOverlapped = v16;
+    v10 = !v16;
     self->_previousTransformedPoint = *p_currentTransformedPoint;
     self->_previousUntransformedPoint = self->_currentUntransformedPoint;
     self->_currentTransformedPoint.x = v7;
@@ -99,13 +99,14 @@
 
   if (state == 1)
   {
+    [(HKPointLabelEngine *)self _slopeForPoint:self->_previousTransformedPoint.x otherPoint:self->_previousTransformedPoint.y, point.x, point.y];
     v10 = 1;
-    [(HKPointLabelEngine *)self _computeRenderingDataForValue:1 transformedPoint:[(HKPointLabelEngine *)self _slopeForPoint:self->_previousTransformedPoint.x otherPoint:self->_previousTransformedPoint.y previousSlope:point.x nextSlope:point.y] previousOptions:1, self->_previousUntransformedPoint.y, self->_previousTransformedPoint.x, self->_previousTransformedPoint.y];
-    self->_currentRenderingData.transformedRect.size = v21;
-    *&self->_currentRenderingData.labelValue = v22;
+    objc_msgSend__computeRenderingDataForValue_transformedPoint_previousSlope_nextSlope_previousOptions_(self, self->_previousUntransformedPoint.y, self->_previousTransformedPoint.x, self->_previousTransformedPoint.y);
+    self->_currentRenderingData.transformedRect.size = v19;
+    *&self->_currentRenderingData.labelValue = v20;
     v13 = self->_currentRenderingData.transformedRect.size;
     *&self->_previousRenderingData.labelValue = *&self->_currentRenderingData.labelValue;
-    self->_currentRenderingData.transformedRect.origin = v20;
+    self->_currentRenderingData.transformedRect.origin = v18;
     self->_previousRenderingData.transformedRect.origin = self->_currentRenderingData.transformedRect.origin;
     self->_previousRenderingData.transformedRect.size = v13;
     self->_currentTransformedPoint.x = v7;
@@ -137,7 +138,7 @@ LABEL_10:
   state = self->_state;
   if (state == 2)
   {
-    v5 = [(HKPointLabelEngine *)self _slopeForPoint:self->_currentTransformedPoint.x otherPoint:self->_currentTransformedPoint.y, self->_previousTransformedPoint.x, self->_previousTransformedPoint.y];
+    [(HKPointLabelEngine *)self _slopeForPoint:self->_currentTransformedPoint.x otherPoint:self->_currentTransformedPoint.y, self->_previousTransformedPoint.x, self->_previousTransformedPoint.y];
     if (!self->_lastRenderOverlapped)
     {
       size = self->_currentRenderingData.transformedRect.size;
@@ -146,22 +147,22 @@ LABEL_10:
       *&self->_previousRenderingData.labelValue = *&self->_currentRenderingData.labelValue;
     }
 
-    [(HKPointLabelEngine *)self _computeRenderingDataForValue:v5 transformedPoint:1 previousSlope:self->_previousRenderingData.options nextSlope:self->_currentUntransformedPoint.y previousOptions:self->_currentTransformedPoint.x, self->_currentTransformedPoint.y];
-    self->_currentRenderingData.transformedRect.origin = v9;
-    self->_currentRenderingData.transformedRect.size = v10;
-    *&self->_currentRenderingData.labelValue = v11;
-    v7 = CGRectIntersectsRect(self->_currentRenderingData.transformedRect, self->_previousRenderingData.transformedRect);
-    self->_lastRenderOverlapped = v7;
-    return !v7;
+    objc_msgSend__computeRenderingDataForValue_transformedPoint_previousSlope_nextSlope_previousOptions_(self, self->_currentUntransformedPoint.y, self->_currentTransformedPoint.x, self->_currentTransformedPoint.y);
+    self->_currentRenderingData.transformedRect.origin = v8;
+    self->_currentRenderingData.transformedRect.size = v9;
+    *&self->_currentRenderingData.labelValue = v10;
+    v6 = CGRectIntersectsRect(self->_currentRenderingData.transformedRect, self->_previousRenderingData.transformedRect);
+    self->_lastRenderOverlapped = v6;
+    return !v6;
   }
 
   else if (state == 1)
   {
     v4 = 1;
-    [(HKPointLabelEngine *)self _computeRenderingDataForValue:1 transformedPoint:1 previousSlope:1 nextSlope:self->_previousUntransformedPoint.y previousOptions:self->_previousTransformedPoint.x, self->_previousTransformedPoint.y];
-    self->_currentRenderingData.transformedRect.origin = v9;
-    self->_currentRenderingData.transformedRect.size = v10;
-    *&self->_currentRenderingData.labelValue = v11;
+    objc_msgSend__computeRenderingDataForValue_transformedPoint_previousSlope_nextSlope_previousOptions_(self, a2, 1, 1, 1, self->_previousUntransformedPoint.y, self->_previousTransformedPoint.x, self->_previousTransformedPoint.y);
+    self->_currentRenderingData.transformedRect.origin = v8;
+    self->_currentRenderingData.transformedRect.size = v9;
+    *&self->_currentRenderingData.labelValue = v10;
   }
 
   else

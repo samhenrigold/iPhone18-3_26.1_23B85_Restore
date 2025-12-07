@@ -30,16 +30,16 @@
 
 - (void)setShortcutButtons:(NSArray *)shortcutButtons
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = shortcutButtons;
-  v5 = CarPlayFrameworkGeneralLogging();
+  v5 = CarPlayFrameworkGeneralLogging(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412546;
+    v9 = 138412546;
     selfCopy = self;
-    v12 = 2112;
-    v13 = v4;
-    _os_log_impl(&dword_236ED4000, v5, OS_LOG_TYPE_DEFAULT, "%@: Setting shortcut buttons: %@", &v10, 0x16u);
+    v11 = 2112;
+    v12 = v4;
+    _os_log_impl(&dword_236ED4000, v5, OS_LOG_TYPE_DEFAULT, "%@: Setting shortcut buttons: %@", &v9, 0x16u);
   }
 
   v6 = [(NSArray *)v4 copy];
@@ -48,46 +48,43 @@
 
   dashboardProvider = [(CPDashboardController *)self dashboardProvider];
   [dashboardProvider hostSetShortcutButtons:v4 completion:&__block_literal_global_18];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sceneConnect:(id)connect
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   connectCopy = connect;
   _FBSScene = [connectCopy _FBSScene];
-  if (CPCurrentProcessHasMapsEntitlement() && ([_FBSScene settings], v6 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v6, (isKindOfClass & 1) != 0))
+  HasMapsEntitlement = CPCurrentProcessHasMapsEntitlement();
+  if (HasMapsEntitlement && ([_FBSScene settings], v7 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v7, (isKindOfClass & 1) != 0))
   {
     settings = [_FBSScene settings];
     templateEndpoint = [settings templateEndpoint];
 
-    v10 = CarPlayFrameworkGeneralLogging();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = CarPlayFrameworkGeneralLogging(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       _identifier = [connectCopy _identifier];
-      v21 = 138543618;
-      v22 = _identifier;
-      v23 = 2112;
-      v24 = templateEndpoint;
-      _os_log_impl(&dword_236ED4000, v10, OS_LOG_TYPE_DEFAULT, "Connecting to dashboard listener endpoint for scene identifier: %{public}@ endpoint %@", &v21, 0x16u);
+      v22 = 138543618;
+      v23 = _identifier;
+      v24 = 2112;
+      v25 = templateEndpoint;
+      _os_log_impl(&dword_236ED4000, v12, OS_LOG_TYPE_DEFAULT, "Connecting to dashboard listener endpoint for scene identifier: %{public}@ endpoint %@", &v22, 0x16u);
     }
 
-    v12 = objc_alloc_init(MEMORY[0x277CCAEA0]);
-    [v12 _setEndpoint:templateEndpoint];
-    [(CPDashboardController *)self _connectToListenerEndpoint:v12];
+    v14 = objc_alloc_init(MEMORY[0x277CCAEA0]);
+    [v14 _setEndpoint:templateEndpoint];
+    [(CPDashboardController *)self _connectToListenerEndpoint:v14];
   }
 
   else
   {
-    templateEndpoint = CarPlayFrameworkGeneralLogging();
+    templateEndpoint = CarPlayFrameworkGeneralLogging(HasMapsEntitlement);
     if (os_log_type_enabled(templateEndpoint, OS_LOG_TYPE_ERROR))
     {
-      [(CPDashboardController *)templateEndpoint _sceneConnect:v13, v14, v15, v16, v17, v18, v19];
+      [(CPDashboardController *)templateEndpoint _sceneConnect:v15, v16, v17, v18, v19, v20, v21];
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_connectToListenerEndpoint:(id)endpoint
@@ -124,7 +121,7 @@
 
 void __52__CPDashboardController__connectToListenerEndpoint___block_invoke(uint64_t a1)
 {
-  v2 = CarPlayFrameworkGeneralLogging();
+  v2 = CarPlayFrameworkGeneralLogging(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __52__CPDashboardController__connectToListenerEndpoint___block_invoke_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
@@ -136,7 +133,7 @@ void __52__CPDashboardController__connectToListenerEndpoint___block_invoke(uint6
 
 void __52__CPDashboardController__connectToListenerEndpoint___block_invoke_57(uint64_t a1)
 {
-  v2 = CarPlayFrameworkGeneralLogging();
+  v2 = CarPlayFrameworkGeneralLogging(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __52__CPDashboardController__connectToListenerEndpoint___block_invoke_57_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
@@ -189,19 +186,19 @@ void __58__CPDashboardController_handleActionForControlIdentifier___block_invoke
 
   if (v18[5])
   {
-    v3 = CarPlayFrameworkGeneralLogging();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    v4 = CarPlayFrameworkGeneralLogging(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v4 = v18[5];
-      v5 = *(a1 + 32);
-      v6 = *(a1 + 40);
+      v5 = v18[5];
+      v6 = *(a1 + 32);
+      v7 = *(a1 + 40);
       *buf = 138412802;
-      v24 = v5;
+      v24 = v6;
       v25 = 2112;
-      v26 = v4;
+      v26 = v5;
       v27 = 2112;
-      v28 = v6;
-      _os_log_impl(&dword_236ED4000, v3, OS_LOG_TYPE_INFO, "%@: Activated button: %@ for control identifier: %@", buf, 0x20u);
+      v28 = v7;
+      _os_log_impl(&dword_236ED4000, v4, OS_LOG_TYPE_INFO, "%@: Activated button: %@ for control identifier: %@", buf, 0x20u);
     }
 
     [v18[5] handlePrimaryAction];
@@ -209,21 +206,20 @@ void __58__CPDashboardController_handleActionForControlIdentifier___block_invoke
 
   else
   {
-    v7 = CarPlayFrameworkGeneralLogging();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = CarPlayFrameworkGeneralLogging(v3);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v8 = *(a1 + 32);
-      v9 = *(a1 + 40);
+      v9 = *(a1 + 32);
+      v10 = *(a1 + 40);
       *buf = 138412546;
-      v24 = v8;
+      v24 = v9;
       v25 = 2112;
-      v26 = v9;
-      _os_log_impl(&dword_236ED4000, v7, OS_LOG_TYPE_INFO, "%@: No button found for control identifier: %@", buf, 0x16u);
+      v26 = v10;
+      _os_log_impl(&dword_236ED4000, v8, OS_LOG_TYPE_INFO, "%@: No button found for control identifier: %@", buf, 0x16u);
     }
   }
 
   _Block_object_dispose(&v17, 8);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __58__CPDashboardController_handleActionForControlIdentifier___block_invoke_58(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)

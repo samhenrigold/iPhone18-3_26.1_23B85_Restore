@@ -188,9 +188,9 @@ LABEL_5:
 
       v11 = *(*(&v25 + 1) + 8 * v10);
       identifier = [v11 identifier];
-      v13 = [identifier isEqualToString:identifierCopy];
+      isEqualToString = objc_msgSend_isEqualToString_(identifier);
 
-      if (v13)
+      if (isEqualToString)
       {
         break;
       }
@@ -235,7 +235,7 @@ LABEL_13:
 
       v11 = *(*(&v21 + 1) + 8 * v16);
       identifier2 = [v11 identifier];
-      v18 = [identifier2 isEqualToString:identifierCopy];
+      v18 = objc_msgSend_isEqualToString_(identifier2);
 
       if (v18)
       {

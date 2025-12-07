@@ -15,8 +15,8 @@ void __47__NSDictionary_ContactsFoundation___cn_filter___block_invoke(uint64_t a
 
 void __44__NSDictionary_ContactsFoundation___cn_map___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v25[1] = *MEMORY[0x1E69E9840];
-  v19 = a2;
+  v24[1] = *MEMORY[0x1E69E9840];
+  v18 = a2;
   v5 = a3;
   v6 = (*(*(a1 + 40) + 16))();
   v7 = [v6 allKeys];
@@ -24,12 +24,12 @@ void __44__NSDictionary_ContactsFoundation___cn_map___block_invoke(uint64_t a1, 
 
   if (!v8)
   {
-    v13 = MEMORY[0x1E695DF30];
-    v14 = *MEMORY[0x1E695D930];
-    v24 = @"originalKey";
-    v25[0] = v19;
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
-    v16 = @"nil key during transform";
+    v12 = MEMORY[0x1E695DF30];
+    v13 = *MEMORY[0x1E695D930];
+    v23 = @"originalKey";
+    v24[0] = v18;
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+    v15 = @"nil key during transform";
     goto LABEL_10;
   }
 
@@ -37,12 +37,12 @@ void __44__NSDictionary_ContactsFoundation___cn_map___block_invoke(uint64_t a1, 
 
   if (v8 == v9)
   {
-    v13 = MEMORY[0x1E695DF30];
-    v14 = *MEMORY[0x1E695D930];
-    v22 = @"originalKey";
-    v23 = v19;
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
-    v16 = @"null key during transform";
+    v12 = MEMORY[0x1E695DF30];
+    v13 = *MEMORY[0x1E695D930];
+    v21 = @"originalKey";
+    v22 = v18;
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+    v15 = @"null key during transform";
     goto LABEL_10;
   }
 
@@ -50,41 +50,39 @@ void __44__NSDictionary_ContactsFoundation___cn_map___block_invoke(uint64_t a1, 
 
   if (v10)
   {
-    v13 = MEMORY[0x1E695DF30];
-    v14 = *MEMORY[0x1E695D930];
-    v20[0] = @"originalKey";
-    v20[1] = @"transformedKey";
-    v21[0] = v19;
-    v21[1] = v8;
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:2];
-    v16 = @"duplicated key during transform";
+    v12 = MEMORY[0x1E695DF30];
+    v13 = *MEMORY[0x1E695D930];
+    v19[0] = @"originalKey";
+    v19[1] = @"transformedKey";
+    v20[0] = v18;
+    v20[1] = v8;
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:2];
+    v15 = @"duplicated key during transform";
 LABEL_10:
-    v17 = [v13 exceptionWithName:v14 reason:v16 userInfo:{v15, v19}];
-    v18 = v17;
+    v16 = [v12 exceptionWithName:v13 reason:v15 userInfo:{v14, v18}];
+    v17 = v16;
 
-    objc_exception_throw(v17);
+    objc_exception_throw(v16);
   }
 
   v11 = [v6 objectForKeyedSubscript:v8];
   [*(a1 + 32) setObject:v11 forKeyedSubscript:v8];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __48__NSDictionary_ContactsFoundation___cn_mapKeys___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v28[1] = *MEMORY[0x1E69E9840];
-  v22 = a2;
+  v27[1] = *MEMORY[0x1E69E9840];
+  v21 = a2;
   v5 = a3;
   v6 = (*(*(a1 + 40) + 16))();
   if (!v6)
   {
-    v11 = MEMORY[0x1E695DF30];
-    v12 = *MEMORY[0x1E695D930];
-    v27 = @"originalKey";
-    v28[0] = v22;
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
-    v14 = @"nil key during transform";
+    v10 = MEMORY[0x1E695DF30];
+    v11 = *MEMORY[0x1E695D930];
+    v26 = @"originalKey";
+    v27[0] = v21;
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
+    v13 = @"nil key during transform";
     goto LABEL_9;
   }
 
@@ -93,39 +91,37 @@ void __48__NSDictionary_ContactsFoundation___cn_mapKeys___block_invoke(uint64_t 
 
   if (v7 == v8)
   {
-    v11 = MEMORY[0x1E695DF30];
-    v12 = *MEMORY[0x1E695D930];
-    v25 = @"originalKey";
-    v26 = v22;
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
-    v14 = @"null key during transform";
+    v10 = MEMORY[0x1E695DF30];
+    v11 = *MEMORY[0x1E695D930];
+    v24 = @"originalKey";
+    v25 = v21;
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+    v13 = @"null key during transform";
 LABEL_9:
-    v15 = [v11 exceptionWithName:v12 reason:v14 userInfo:{v13, v22}];
-    v16 = v15;
+    v14 = [v10 exceptionWithName:v11 reason:v13 userInfo:{v12, v21}];
+    v15 = v14;
 
-    objc_exception_throw(v15);
+    objc_exception_throw(v14);
   }
 
   v9 = [*(a1 + 32) objectForKeyedSubscript:v7];
 
   if (v9)
   {
-    v17 = MEMORY[0x1E695DF30];
-    v18 = *MEMORY[0x1E695D930];
-    v23[0] = @"originalKey";
-    v23[1] = @"transformedKey";
-    v24[0] = v22;
-    v24[1] = v7;
-    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:2];
-    v20 = [v17 exceptionWithName:v18 reason:@"duplicated key during transform" userInfo:v19];
-    v21 = v20;
+    v16 = MEMORY[0x1E695DF30];
+    v17 = *MEMORY[0x1E695D930];
+    v22[0] = @"originalKey";
+    v22[1] = @"transformedKey";
+    v23[0] = v21;
+    v23[1] = v7;
+    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:2];
+    v19 = [v16 exceptionWithName:v17 reason:@"duplicated key during transform" userInfo:v18];
+    v20 = v19;
 
-    objc_exception_throw(v20);
+    objc_exception_throw(v19);
   }
 
   [*(a1 + 32) setObject:v5 forKeyedSubscript:v7];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __50__NSDictionary_ContactsFoundation___cn_mapValues___block_invoke(uint64_t a1, void *a2, uint64_t a3)

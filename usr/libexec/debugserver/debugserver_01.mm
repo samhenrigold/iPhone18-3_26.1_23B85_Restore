@@ -253,7 +253,7 @@ uint64_t sub_100012090(uint64_t a1, unsigned int a2)
   return 1;
 }
 
-void sub_1000120B8(const char *a1@<X0>, const char *a2@<X1>, int a3@<W2>, int a4@<W3>, int a5@<W4>, int a6@<W5>, void *a7@<X8>)
+void sub_1000120B8(const char *a1@<X0>, const char *a2@<X1>, int a3@<W2>, int a4@<W3>, int a5@<W4>, int a6@<W5>, char **a7@<X8>)
 {
   *a7 = 0;
   a7[1] = 0;
@@ -331,20 +331,20 @@ void sub_1000120B8(const char *a1@<X0>, const char *a2@<X1>, int a3@<W2>, int a4
         do
         {
           v21 = *v19;
-          v22 = v19[1];
-          v23 = v19[3];
-          v20[2] = v19[2];
+          v22 = *(v19 + 1);
+          v23 = *(v19 + 3);
+          v20[2] = *(v19 + 2);
           v20[3] = v23;
           *v20 = v21;
           v20[1] = v22;
-          v24 = v19[4];
-          v25 = v19[5];
-          v26 = v19[7];
-          v20[6] = v19[6];
+          v24 = *(v19 + 4);
+          v25 = *(v19 + 5);
+          v26 = *(v19 + 7);
+          v20[6] = *(v19 + 6);
           v20[7] = v26;
           v20[4] = v24;
           v20[5] = v25;
-          v19 += 8;
+          v19 += 128;
           v20 += 8;
         }
 
@@ -443,7 +443,7 @@ BOOL sub_1000123DC(uint64_t a1)
 BOOL sub_100012420(unsigned __int8 *a1, unsigned __int8 *a2)
 {
   v2 = a1[1];
-  if (v2 != a2[1] || *a1 != *a2)
+  if (__PAIR64__(v2, *a1) != __PAIR64__(a2[1], *a2))
   {
     return 0;
   }
@@ -1022,18 +1022,18 @@ LABEL_13:
   return a1;
 }
 
-void sub_100012C44(uint64_t a1, int a2)
+void sub_100012C44(uint64_t result, int a2)
 {
-  if (*(a1 + 12))
+  if (*(result + 12))
   {
-    sub_1000131D8(a1);
+    sub_1000131D8(result);
   }
 
-  *(a1 + 12) = a2;
+  *(result + 12) = a2;
   if (a2)
   {
 
-    sub_1000132E0(a1);
+    sub_1000132E0(result);
   }
 }
 
@@ -1460,7 +1460,7 @@ uint64_t sub_1000133EC(const void *a1)
         sub_100010668("RNBContext::%s calling DNBProcessWaitForEvent(pid, eEventProcessRunningStateChanged | eEventProcessStoppedStateChanged | eEventStdioAvailable | eEventProfileDataAvailable, true)...", "ThreadFunctionProcessStatus");
       }
 
-      v7 = sub_10000B214(v4, 0x1Bu, 1, 0);
+      v7 = sub_10000B214(v4, 27, 1, 0);
       if (sub_100010524(0x400000))
       {
         sub_100010668("RNBContext::%s calling DNBProcessWaitForEvent(pid, eEventProcessRunningStateChanged | eEventProcessStoppedStateChanged | eEventStdioAvailable | eEventProfileDataAvailable, true) => 0x%8.8x", "ThreadFunctionProcessStatus", v7);
@@ -1785,7 +1785,7 @@ void sub_100013A1C(uint64_t a1)
   sub_100013918(a1 + 448, &v2);
 }
 
-_BYTE *sub_100013A80(_BYTE *a1, char *__s)
+void *sub_100013A80(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -1799,46 +1799,43 @@ _BYTE *sub_100013A80(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
-uint64_t sub_100013B38(uint64_t result, unsigned __int8 *a2, uint64_t a3, char a4)
+uint64_t *sub_100013B38(uint64_t *result, unsigned __int8 *a2, uint64_t a3, char a4)
 {
   v4 = a3;
-  v5 = a2;
   v6 = result;
   if (a4)
   {
     if (a3 >= 1)
     {
       v7 = a3 & 0x7FFFFFFF;
-      v8 = result + 8;
-      v9 = a2 - 1;
+      v8 = result + 1;
       do
       {
-        v11 = *v6;
-        v12 = v6 + *(*v6 - 24);
-        if (*(v12 + 36) == -1)
+        v9 = *v6;
+        v10 = v6 + *(*v6 - 24);
+        if (*(v10 + 36) == -1)
         {
           std::ios_base::getloc((v6 + *(*v6 - 24)));
-          v13 = std::locale::use_facet(&v19, &std::ctype<char>::id);
-          (v13->__vftable[2].~facet_0)(v13, 32);
-          std::locale::~locale(&v19);
-          v11 = *v6;
+          v11 = std::locale::use_facet(&v16, &std::ctype<char>::id);
+          (v11->__vftable[2].~facet_0)(v11, 32);
+          std::locale::~locale(&v16);
+          v9 = *v6;
         }
 
-        *(v12 + 36) = 48;
-        *(v8 + *(v11 - 24)) = *(v8 + *(v11 - 24)) & 0xFFFFFFB5 | 8;
-        *(v8 + *(v11 - 24)) = *(v8 + *(v11 - 24)) & 0xFFFFFF4F | 0x80;
-        *(v6 + *(v11 - 24) + 24) = 2;
-        v10 = v9[v7];
+        *(v10 + 36) = 48;
+        *(v8 + *(v9 - 24)) = *(v8 + *(v9 - 24)) & 0xFFFFFFB5 | 8;
+        *(v8 + *(v9 - 24)) = *(v8 + *(v9 - 24)) & 0xFFFFFF4F | 0x80;
+        *(v6 + *(v9 - 24) + 24) = 2;
         result = std::ostream::operator<<();
         --v7;
       }
@@ -1849,25 +1846,25 @@ uint64_t sub_100013B38(uint64_t result, unsigned __int8 *a2, uint64_t a3, char a
 
   else if (a3)
   {
-    v14 = result + 8;
+    v12 = result + 1;
     do
     {
-      v16 = *v6;
-      v17 = v6 + *(*v6 - 24);
-      if (*(v17 + 36) == -1)
+      v13 = *v6;
+      v14 = v6 + *(*v6 - 24);
+      if (*(v14 + 36) == -1)
       {
         std::ios_base::getloc((v6 + *(*v6 - 24)));
-        v18 = std::locale::use_facet(&v19, &std::ctype<char>::id);
-        (v18->__vftable[2].~facet_0)(v18, 32);
-        std::locale::~locale(&v19);
-        v16 = *v6;
+        v15 = std::locale::use_facet(&v16, &std::ctype<char>::id);
+        (v15->__vftable[2].~facet_0)(v15, 32);
+        std::locale::~locale(&v16);
+        v13 = *v6;
       }
 
-      *(v17 + 36) = 48;
-      *(v14 + *(v16 - 24)) = *(v14 + *(v16 - 24)) & 0xFFFFFFB5 | 8;
-      *(v14 + *(v16 - 24)) = *(v14 + *(v16 - 24)) & 0xFFFFFF4F | 0x80;
-      *(v6 + *(v16 - 24) + 24) = 2;
-      v15 = *v5++;
+      *(v14 + 36) = 48;
+      *(v12 + *(v13 - 24)) = *(v12 + *(v13 - 24)) & 0xFFFFFFB5 | 8;
+      *(v12 + *(v13 - 24)) = *(v12 + *(v13 - 24)) & 0xFFFFFF4F | 0x80;
+      *(v6 + *(v13 - 24) + 24) = 2;
+      ++a2;
       result = std::ostream::operator<<();
       --v4;
     }
@@ -1878,7 +1875,7 @@ uint64_t sub_100013B38(uint64_t result, unsigned __int8 *a2, uint64_t a3, char a
   return result;
 }
 
-uint64_t sub_100013DDC(uint64_t result, unsigned __int8 *a2)
+uint64_t *sub_100013DDC(uint64_t *result, unsigned __int8 *a2)
 {
   v2 = a2[23];
   if (v2 >= 0)
@@ -1904,26 +1901,26 @@ uint64_t sub_100013DDC(uint64_t result, unsigned __int8 *a2)
   if (v3)
   {
     v5 = result;
-    v6 = result + 24;
-    v7 = result + 8;
+    v6 = result + 3;
+    v7 = result + 1;
     do
     {
-      v9 = *v5;
-      v10 = v5 + *(*v5 - 24);
-      if (*(v10 + 36) == -1)
+      v8 = *v5;
+      v9 = v5 + *(*v5 - 24);
+      if (*(v9 + 36) == -1)
       {
         std::ios_base::getloc((v5 + *(*v5 - 24)));
-        v11 = std::locale::use_facet(&v12, &std::ctype<char>::id);
-        (v11->__vftable[2].~facet_0)(v11, 32);
-        std::locale::~locale(&v12);
-        v9 = *v5;
+        v10 = std::locale::use_facet(&v11, &std::ctype<char>::id);
+        (v10->__vftable[2].~facet_0)(v10, 32);
+        std::locale::~locale(&v11);
+        v8 = *v5;
       }
 
-      *(v10 + 36) = 48;
-      *(v7 + *(v9 - 24)) = *(v7 + *(v9 - 24)) & 0xFFFFFFB5 | 8;
-      *(v7 + *(v9 - 24)) = *(v7 + *(v9 - 24)) & 0xFFFFFF4F | 0x80;
-      *(v6 + *(v9 - 24)) = 2;
-      v8 = *v4++;
+      *(v9 + 36) = 48;
+      *(v7 + *(v8 - 24)) = *(v7 + *(v8 - 24)) & 0xFFFFFFB5 | 8;
+      *(v7 + *(v8 - 24)) = *(v7 + *(v8 - 24)) & 0xFFFFFF4F | 0x80;
+      *(v6 + *(v8 - 24)) = 2;
+      ++v4;
       result = std::ostream::operator<<();
       --v3;
     }
@@ -2027,12 +2024,12 @@ uint64_t sub_100013F58(uint64_t a1)
   return a1;
 }
 
-void sub_100014128(uint64_t *a1)
+void sub_100014128(uint64_t a1)
 {
   sub_100033910(&v640, 1, 0, 0, 0, 0, "+", "ACK");
-  v2 = a1 + 85;
-  v3 = a1[85];
-  if (v3 < a1[86])
+  v2 = (a1 + 680);
+  v3 = *(a1 + 680);
+  if (v3 < *(a1 + 688))
   {
     v4 = v640;
     v5 = v641;
@@ -2060,7 +2057,7 @@ void sub_100014128(uint64_t *a1)
     goto LABEL_6;
   }
 
-  v8 = sub_100034FCC(a1 + 84, &v640);
+  v8 = sub_100034FCC((a1 + 672), &v640);
   v9 = SHIBYTE(v646);
   *v2 = v8;
   if ((v9 & 0x80000000) == 0)
@@ -2082,8 +2079,8 @@ LABEL_6:
 
 LABEL_7:
   sub_100033910(&v640, 2, 0, 0, 0, 0, "-", "!ACK");
-  v10 = a1[85];
-  if (v10 < a1[86])
+  v10 = *(a1 + 680);
+  if (v10 < *(a1 + 688))
   {
     v11 = v640;
     v12 = v641;
@@ -2111,7 +2108,7 @@ LABEL_7:
     goto LABEL_12;
   }
 
-  v15 = sub_100034FCC(a1 + 84, &v640);
+  v15 = sub_100034FCC((a1 + 672), &v640);
   v16 = SHIBYTE(v646);
   *v2 = v15;
   if ((v16 & 0x80000000) == 0)
@@ -2133,8 +2130,8 @@ LABEL_12:
 
 LABEL_13:
   sub_100033910(&v640, 17, sub_100019250, 0, 0, 0, "m", "Read memory");
-  v17 = a1[85];
-  if (v17 < a1[86])
+  v17 = *(a1 + 680);
+  if (v17 < *(a1 + 688))
   {
     v18 = v640;
     v19 = v641;
@@ -2162,7 +2159,7 @@ LABEL_13:
     goto LABEL_18;
   }
 
-  v22 = sub_100034FCC(a1 + 84, &v640);
+  v22 = sub_100034FCC((a1 + 672), &v640);
   v23 = SHIBYTE(v646);
   *v2 = v22;
   if ((v23 & 0x80000000) == 0)
@@ -2184,8 +2181,8 @@ LABEL_18:
 
 LABEL_19:
   sub_100033910(&v640, 19, sub_10001965C, 0, 0, 0, "p", "Read one register");
-  v24 = a1[85];
-  if (v24 < a1[86])
+  v24 = *(a1 + 680);
+  if (v24 < *(a1 + 688))
   {
     v25 = v640;
     v26 = v641;
@@ -2213,7 +2210,7 @@ LABEL_19:
     goto LABEL_24;
   }
 
-  v29 = sub_100034FCC(a1 + 84, &v640);
+  v29 = sub_100034FCC((a1 + 672), &v640);
   v30 = SHIBYTE(v646);
   *v2 = v29;
   if ((v30 & 0x80000000) == 0)
@@ -2235,8 +2232,8 @@ LABEL_24:
 
 LABEL_25:
   sub_100033910(&v640, 11, sub_100019BD4, 0, 0, 0, "g", "Read registers");
-  v31 = a1[85];
-  if (v31 < a1[86])
+  v31 = *(a1 + 680);
+  if (v31 < *(a1 + 688))
   {
     v32 = v640;
     v33 = v641;
@@ -2264,7 +2261,7 @@ LABEL_25:
     goto LABEL_30;
   }
 
-  v36 = sub_100034FCC(a1 + 84, &v640);
+  v36 = sub_100034FCC((a1 + 672), &v640);
   v37 = SHIBYTE(v646);
   *v2 = v36;
   if ((v37 & 0x80000000) == 0)
@@ -2286,8 +2283,8 @@ LABEL_30:
 
 LABEL_31:
   sub_100033910(&v640, 18, sub_10001A040, 0, 0, 0, "M", "Write memory");
-  v38 = a1[85];
-  if (v38 < a1[86])
+  v38 = *(a1 + 680);
+  if (v38 < *(a1 + 688))
   {
     v39 = v640;
     v40 = v641;
@@ -2315,7 +2312,7 @@ LABEL_31:
     goto LABEL_36;
   }
 
-  v43 = sub_100034FCC(a1 + 84, &v640);
+  v43 = sub_100034FCC((a1 + 672), &v640);
   v44 = SHIBYTE(v646);
   *v2 = v43;
   if ((v44 & 0x80000000) == 0)
@@ -2337,8 +2334,8 @@ LABEL_36:
 
 LABEL_37:
   sub_100033910(&v640, 20, sub_10001A42C, 0, 0, 0, "P", "Write one register");
-  v45 = a1[85];
-  if (v45 < a1[86])
+  v45 = *(a1 + 680);
+  if (v45 < *(a1 + 688))
   {
     v46 = v640;
     v47 = v641;
@@ -2366,7 +2363,7 @@ LABEL_37:
     goto LABEL_42;
   }
 
-  v50 = sub_100034FCC(a1 + 84, &v640);
+  v50 = sub_100034FCC((a1 + 672), &v640);
   v51 = SHIBYTE(v646);
   *v2 = v50;
   if ((v51 & 0x80000000) == 0)
@@ -2388,8 +2385,8 @@ LABEL_42:
 
 LABEL_43:
   sub_100033910(&v640, 12, sub_10001A868, 0, 0, 0, "G", "Write registers");
-  v52 = a1[85];
-  if (v52 < a1[86])
+  v52 = *(a1 + 680);
+  if (v52 < *(a1 + 688))
   {
     v53 = v640;
     v54 = v641;
@@ -2417,7 +2414,7 @@ LABEL_43:
     goto LABEL_48;
   }
 
-  v57 = sub_100034FCC(a1 + 84, &v640);
+  v57 = sub_100034FCC((a1 + 672), &v640);
   v58 = SHIBYTE(v646);
   *v2 = v57;
   if ((v58 & 0x80000000) == 0)
@@ -2439,8 +2436,8 @@ LABEL_48:
 
 LABEL_49:
   sub_100033910(&v640, 34, sub_10001AB84, 0, 0, 0, "Z0", "Insert memory breakpoint");
-  v59 = a1[85];
-  if (v59 < a1[86])
+  v59 = *(a1 + 680);
+  if (v59 < *(a1 + 688))
   {
     v60 = v640;
     v61 = v641;
@@ -2468,7 +2465,7 @@ LABEL_49:
     goto LABEL_54;
   }
 
-  v64 = sub_100034FCC(a1 + 84, &v640);
+  v64 = sub_100034FCC((a1 + 672), &v640);
   v65 = SHIBYTE(v646);
   *v2 = v64;
   if ((v65 & 0x80000000) == 0)
@@ -2490,8 +2487,8 @@ LABEL_54:
 
 LABEL_55:
   sub_100033910(&v640, 35, sub_10001AB84, 0, 0, 0, "z0", "Remove memory breakpoint");
-  v66 = a1[85];
-  if (v66 < a1[86])
+  v66 = *(a1 + 680);
+  if (v66 < *(a1 + 688))
   {
     v67 = v640;
     v68 = v641;
@@ -2519,7 +2516,7 @@ LABEL_55:
     goto LABEL_60;
   }
 
-  v71 = sub_100034FCC(a1 + 84, &v640);
+  v71 = sub_100034FCC((a1 + 672), &v640);
   v72 = SHIBYTE(v646);
   *v2 = v71;
   if ((v72 & 0x80000000) == 0)
@@ -2541,8 +2538,8 @@ LABEL_60:
 
 LABEL_61:
   sub_100033910(&v640, 22, sub_10001AF9C, 0, 0, 0, "s", "Single step");
-  v73 = a1[85];
-  if (v73 < a1[86])
+  v73 = *(a1 + 680);
+  if (v73 < *(a1 + 688))
   {
     v74 = v640;
     v75 = v641;
@@ -2570,7 +2567,7 @@ LABEL_61:
     goto LABEL_66;
   }
 
-  v78 = sub_100034FCC(a1 + 84, &v640);
+  v78 = sub_100034FCC((a1 + 672), &v640);
   v79 = SHIBYTE(v646);
   *v2 = v78;
   if ((v79 & 0x80000000) == 0)
@@ -2592,8 +2589,8 @@ LABEL_66:
 
 LABEL_67:
   sub_100033910(&v640, 8, sub_10001B13C, 0, 0, 0, "c", "continue");
-  v80 = a1[85];
-  if (v80 < a1[86])
+  v80 = *(a1 + 680);
+  if (v80 < *(a1 + 688))
   {
     v81 = v640;
     v82 = v641;
@@ -2621,7 +2618,7 @@ LABEL_67:
     goto LABEL_72;
   }
 
-  v85 = sub_100034FCC(a1 + 84, &v640);
+  v85 = sub_100034FCC((a1 + 672), &v640);
   v86 = SHIBYTE(v646);
   *v2 = v85;
   if ((v86 & 0x80000000) == 0)
@@ -2643,8 +2640,8 @@ LABEL_72:
 
 LABEL_73:
   sub_100033910(&v640, 23, sub_10001B2E0, 0, 0, 0, "S", "Single step with signal");
-  v87 = a1[85];
-  if (v87 < a1[86])
+  v87 = *(a1 + 680);
+  if (v87 < *(a1 + 688))
   {
     v88 = v640;
     v89 = v641;
@@ -2672,7 +2669,7 @@ LABEL_73:
     goto LABEL_78;
   }
 
-  v92 = sub_100034FCC(a1 + 84, &v640);
+  v92 = sub_100034FCC((a1 + 672), &v640);
   v93 = SHIBYTE(v646);
   *v2 = v92;
   if ((v93 & 0x80000000) == 0)
@@ -2694,8 +2691,8 @@ LABEL_78:
 
 LABEL_79:
   sub_100033910(&v640, 13, sub_10001B578, 0, 0, 0, "H", "Set thread");
-  v94 = a1[85];
-  if (v94 < a1[86])
+  v94 = *(a1 + 680);
+  if (v94 < *(a1 + 688))
   {
     v95 = v640;
     v96 = v641;
@@ -2723,7 +2720,7 @@ LABEL_79:
     goto LABEL_84;
   }
 
-  v99 = sub_100034FCC(a1 + 84, &v640);
+  v99 = sub_100034FCC((a1 + 672), &v640);
   v100 = SHIBYTE(v646);
   *v2 = v99;
   if ((v100 & 0x80000000) == 0)
@@ -2745,8 +2742,8 @@ LABEL_84:
 
 LABEL_85:
   sub_100033910(&v640, 3, sub_10001B6A4, 0, sub_10001BE0C, 0, "\x03", "^C");
-  v101 = a1[85];
-  if (v101 < a1[86])
+  v101 = *(a1 + 680);
+  if (v101 < *(a1 + 688))
   {
     v102 = v640;
     v103 = v641;
@@ -2774,7 +2771,7 @@ LABEL_85:
     goto LABEL_90;
   }
 
-  v106 = sub_100034FCC(a1 + 84, &v640);
+  v106 = sub_100034FCC((a1 + 672), &v640);
   v107 = SHIBYTE(v646);
   *v2 = v106;
   if ((v107 & 0x80000000) == 0)
@@ -2796,8 +2793,8 @@ LABEL_90:
 
 LABEL_91:
   sub_100033910(&v640, 5, sub_10001B6A4, 0, 0, 0, "?", "Why did target halt");
-  v108 = a1[85];
-  if (v108 < a1[86])
+  v108 = *(a1 + 680);
+  if (v108 < *(a1 + 688))
   {
     v109 = v640;
     v110 = v641;
@@ -2825,7 +2822,7 @@ LABEL_91:
     goto LABEL_96;
   }
 
-  v113 = sub_100034FCC(a1 + 84, &v640);
+  v113 = sub_100034FCC((a1 + 672), &v640);
   v114 = SHIBYTE(v646);
   *v2 = v113;
   if ((v114 & 0x80000000) == 0)
@@ -2847,8 +2844,8 @@ LABEL_96:
 
 LABEL_97:
   sub_100033910(&v640, 6, sub_10001BE58, 0, 0, 0, "A", "Set argv");
-  v115 = a1[85];
-  if (v115 < a1[86])
+  v115 = *(a1 + 680);
+  if (v115 < *(a1 + 688))
   {
     v116 = v640;
     v117 = v641;
@@ -2876,7 +2873,7 @@ LABEL_97:
     goto LABEL_102;
   }
 
-  v120 = sub_100034FCC(a1 + 84, &v640);
+  v120 = sub_100034FCC((a1 + 672), &v640);
   v121 = SHIBYTE(v646);
   *v2 = v120;
   if ((v121 & 0x80000000) == 0)
@@ -2898,8 +2895,8 @@ LABEL_102:
 
 LABEL_103:
   sub_100033910(&v640, 9, sub_10001C138, 0, 0, 0, "C", "Continue with signal");
-  v122 = a1[85];
-  if (v122 < a1[86])
+  v122 = *(a1 + 680);
+  if (v122 < *(a1 + 688))
   {
     v123 = v640;
     v124 = v641;
@@ -2927,7 +2924,7 @@ LABEL_103:
     goto LABEL_108;
   }
 
-  v127 = sub_100034FCC(a1 + 84, &v640);
+  v127 = sub_100034FCC((a1 + 672), &v640);
   v128 = SHIBYTE(v646);
   *v2 = v127;
   if ((v128 & 0x80000000) == 0)
@@ -2949,8 +2946,8 @@ LABEL_108:
 
 LABEL_109:
   sub_100033910(&v640, 10, sub_10001C394, 0, 0, 0, "D", "Detach gdb from remote system");
-  v129 = a1[85];
-  if (v129 < a1[86])
+  v129 = *(a1 + 680);
+  if (v129 < *(a1 + 688))
   {
     v130 = v640;
     v131 = v641;
@@ -2978,7 +2975,7 @@ LABEL_109:
     goto LABEL_114;
   }
 
-  v134 = sub_100034FCC(a1 + 84, &v640);
+  v134 = sub_100034FCC((a1 + 672), &v640);
   v135 = SHIBYTE(v646);
   *v2 = v134;
   if ((v135 & 0x80000000) == 0)
@@ -3000,8 +2997,8 @@ LABEL_114:
 
 LABEL_115:
   sub_100033910(&v640, 16, sub_10001C4BC, 0, 0, 0, "k", "Kill");
-  v136 = a1[85];
-  if (v136 < a1[86])
+  v136 = *(a1 + 680);
+  if (v136 < *(a1 + 688))
   {
     v137 = v640;
     v138 = v641;
@@ -3029,7 +3026,7 @@ LABEL_115:
     goto LABEL_120;
   }
 
-  v141 = sub_100034FCC(a1 + 84, &v640);
+  v141 = sub_100034FCC((a1 + 672), &v640);
   v142 = SHIBYTE(v646);
   *v2 = v141;
   if ((v142 & 0x80000000) == 0)
@@ -3051,8 +3048,8 @@ LABEL_120:
 
 LABEL_121:
   sub_100033910(&v640, 25, sub_10001C53C, 0, 0, 0, "T", "Is thread alive");
-  v143 = a1[85];
-  if (v143 < a1[86])
+  v143 = *(a1 + 680);
+  if (v143 < *(a1 + 688))
   {
     v144 = v640;
     v145 = v641;
@@ -3080,7 +3077,7 @@ LABEL_121:
     goto LABEL_126;
   }
 
-  v148 = sub_100034FCC(a1 + 84, &v640);
+  v148 = sub_100034FCC((a1 + 672), &v640);
   v149 = SHIBYTE(v646);
   *v2 = v148;
   if ((v149 & 0x80000000) == 0)
@@ -3102,8 +3099,8 @@ LABEL_126:
 
 LABEL_127:
   sub_100033910(&v640, 58, sub_10001C6CC, 0, 0, 0, "qSupported", "Query about supported features");
-  v150 = a1[85];
-  if (v150 < a1[86])
+  v150 = *(a1 + 680);
+  if (v150 < *(a1 + 688))
   {
     v151 = v640;
     v152 = v641;
@@ -3131,7 +3128,7 @@ LABEL_127:
     goto LABEL_132;
   }
 
-  v155 = sub_100034FCC(a1 + 84, &v640);
+  v155 = sub_100034FCC((a1 + 672), &v640);
   v156 = SHIBYTE(v646);
   *v2 = v155;
   if ((v156 & 0x80000000) == 0)
@@ -3153,8 +3150,8 @@ LABEL_132:
 
 LABEL_133:
   sub_100033910(&v640, 26, sub_10001CC34, 0, 0, 0, "vAttach", "Attach to a new process");
-  v157 = a1[85];
-  if (v157 < a1[86])
+  v157 = *(a1 + 680);
+  if (v157 < *(a1 + 688))
   {
     v158 = v640;
     v159 = v641;
@@ -3182,7 +3179,7 @@ LABEL_133:
     goto LABEL_138;
   }
 
-  v162 = sub_100034FCC(a1 + 84, &v640);
+  v162 = sub_100034FCC((a1 + 672), &v640);
   v163 = SHIBYTE(v646);
   *v2 = v162;
   if ((v163 & 0x80000000) == 0)
@@ -3204,8 +3201,8 @@ LABEL_138:
 
 LABEL_139:
   sub_100033910(&v640, 27, sub_10001CC34, 0, 0, 0, "vAttachWait", "Wait for a process to start up then attach to it");
-  v164 = a1[85];
-  if (v164 < a1[86])
+  v164 = *(a1 + 680);
+  if (v164 < *(a1 + 688))
   {
     v165 = v640;
     v166 = v641;
@@ -3233,7 +3230,7 @@ LABEL_139:
     goto LABEL_144;
   }
 
-  v169 = sub_100034FCC(a1 + 84, &v640);
+  v169 = sub_100034FCC((a1 + 672), &v640);
   v170 = SHIBYTE(v646);
   *v2 = v169;
   if ((v170 & 0x80000000) == 0)
@@ -3255,8 +3252,8 @@ LABEL_144:
 
 LABEL_145:
   sub_100033910(&v640, 28, sub_10001CC34, 0, 0, 0, "vAttachOrWait", "Attach to the process or if it doesn't exist, wait for the process to start up then attach to it");
-  v171 = a1[85];
-  if (v171 < a1[86])
+  v171 = *(a1 + 680);
+  if (v171 < *(a1 + 688))
   {
     v172 = v640;
     v173 = v641;
@@ -3284,7 +3281,7 @@ LABEL_145:
     goto LABEL_150;
   }
 
-  v176 = sub_100034FCC(a1 + 84, &v640);
+  v176 = sub_100034FCC((a1 + 672), &v640);
   v177 = SHIBYTE(v646);
   *v2 = v176;
   if ((v177 & 0x80000000) == 0)
@@ -3306,8 +3303,8 @@ LABEL_150:
 
 LABEL_151:
   sub_100033910(&v640, 29, sub_10001CC34, 0, 0, 0, "vAttachName", "Attach to an existing process by name");
-  v178 = a1[85];
-  if (v178 < a1[86])
+  v178 = *(a1 + 680);
+  if (v178 < *(a1 + 688))
   {
     v179 = v640;
     v180 = v641;
@@ -3335,7 +3332,7 @@ LABEL_151:
     goto LABEL_156;
   }
 
-  v183 = sub_100034FCC(a1 + 84, &v640);
+  v183 = sub_100034FCC((a1 + 672), &v640);
   v184 = SHIBYTE(v646);
   *v2 = v183;
   if ((v184 & 0x80000000) == 0)
@@ -3357,8 +3354,8 @@ LABEL_156:
 
 LABEL_157:
   sub_100033910(&v640, 31, sub_10001CC34, 0, 0, 0, "vCont;", "Verbose resume with thread actions");
-  v185 = a1[85];
-  if (v185 < a1[86])
+  v185 = *(a1 + 680);
+  if (v185 < *(a1 + 688))
   {
     v186 = v640;
     v187 = v641;
@@ -3386,7 +3383,7 @@ LABEL_157:
     goto LABEL_162;
   }
 
-  v190 = sub_100034FCC(a1 + 84, &v640);
+  v190 = sub_100034FCC((a1 + 672), &v640);
   v191 = SHIBYTE(v646);
   *v2 = v190;
   if ((v191 & 0x80000000) == 0)
@@ -3408,8 +3405,8 @@ LABEL_162:
 
 LABEL_163:
   sub_100033910(&v640, 31, sub_10001CC34, 0, 0, 0, "vCont?", "List valid continue-with-thread-actions actions");
-  v192 = a1[85];
-  if (v192 < a1[86])
+  v192 = *(a1 + 680);
+  if (v192 < *(a1 + 688))
   {
     v193 = v640;
     v194 = v641;
@@ -3437,7 +3434,7 @@ LABEL_163:
     goto LABEL_168;
   }
 
-  v197 = sub_100034FCC(a1 + 84, &v640);
+  v197 = sub_100034FCC((a1 + 672), &v640);
   v198 = SHIBYTE(v646);
   *v2 = v197;
   if ((v198 & 0x80000000) == 0)
@@ -3459,8 +3456,8 @@ LABEL_168:
 
 LABEL_169:
   sub_100033910(&v640, 32, sub_10001DA20, 0, 0, 0, "x", "Read data from memory");
-  v199 = a1[85];
-  if (v199 < a1[86])
+  v199 = *(a1 + 680);
+  if (v199 < *(a1 + 688))
   {
     v200 = v640;
     v201 = v641;
@@ -3488,7 +3485,7 @@ LABEL_169:
     goto LABEL_174;
   }
 
-  v204 = sub_100034FCC(a1 + 84, &v640);
+  v204 = sub_100034FCC((a1 + 672), &v640);
   v205 = SHIBYTE(v646);
   *v2 = v204;
   if ((v205 & 0x80000000) == 0)
@@ -3510,8 +3507,8 @@ LABEL_174:
 
 LABEL_175:
   sub_100033910(&v640, 33, sub_10001DF14, 0, 0, 0, "X", "Write data to memory");
-  v206 = a1[85];
-  if (v206 < a1[86])
+  v206 = *(a1 + 680);
+  if (v206 < *(a1 + 688))
   {
     v207 = v640;
     v208 = v641;
@@ -3539,7 +3536,7 @@ LABEL_175:
     goto LABEL_180;
   }
 
-  v211 = sub_100034FCC(a1 + 84, &v640);
+  v211 = sub_100034FCC((a1 + 672), &v640);
   v212 = SHIBYTE(v646);
   *v2 = v211;
   if ((v212 & 0x80000000) == 0)
@@ -3561,8 +3558,8 @@ LABEL_180:
 
 LABEL_181:
   sub_100033910(&v640, 36, sub_10001AB84, 0, 0, 0, "Z1", "Insert hardware breakpoint");
-  v213 = a1[85];
-  if (v213 < a1[86])
+  v213 = *(a1 + 680);
+  if (v213 < *(a1 + 688))
   {
     v214 = v640;
     v215 = v641;
@@ -3590,7 +3587,7 @@ LABEL_181:
     goto LABEL_186;
   }
 
-  v218 = sub_100034FCC(a1 + 84, &v640);
+  v218 = sub_100034FCC((a1 + 672), &v640);
   v219 = SHIBYTE(v646);
   *v2 = v218;
   if ((v219 & 0x80000000) == 0)
@@ -3612,8 +3609,8 @@ LABEL_186:
 
 LABEL_187:
   sub_100033910(&v640, 37, sub_10001AB84, 0, 0, 0, "z1", "Remove hardware breakpoint");
-  v220 = a1[85];
-  if (v220 < a1[86])
+  v220 = *(a1 + 680);
+  if (v220 < *(a1 + 688))
   {
     v221 = v640;
     v222 = v641;
@@ -3641,7 +3638,7 @@ LABEL_187:
     goto LABEL_192;
   }
 
-  v225 = sub_100034FCC(a1 + 84, &v640);
+  v225 = sub_100034FCC((a1 + 672), &v640);
   v226 = SHIBYTE(v646);
   *v2 = v225;
   if ((v226 & 0x80000000) == 0)
@@ -3663,8 +3660,8 @@ LABEL_192:
 
 LABEL_193:
   sub_100033910(&v640, 38, sub_10001AB84, 0, 0, 0, "Z2", "Insert write watchpoint");
-  v227 = a1[85];
-  if (v227 < a1[86])
+  v227 = *(a1 + 680);
+  if (v227 < *(a1 + 688))
   {
     v228 = v640;
     v229 = v641;
@@ -3692,7 +3689,7 @@ LABEL_193:
     goto LABEL_198;
   }
 
-  v232 = sub_100034FCC(a1 + 84, &v640);
+  v232 = sub_100034FCC((a1 + 672), &v640);
   v233 = SHIBYTE(v646);
   *v2 = v232;
   if ((v233 & 0x80000000) == 0)
@@ -3714,8 +3711,8 @@ LABEL_198:
 
 LABEL_199:
   sub_100033910(&v640, 39, sub_10001AB84, 0, 0, 0, "z2", "Remove write watchpoint");
-  v234 = a1[85];
-  if (v234 < a1[86])
+  v234 = *(a1 + 680);
+  if (v234 < *(a1 + 688))
   {
     v235 = v640;
     v236 = v641;
@@ -3743,7 +3740,7 @@ LABEL_199:
     goto LABEL_204;
   }
 
-  v239 = sub_100034FCC(a1 + 84, &v640);
+  v239 = sub_100034FCC((a1 + 672), &v640);
   v240 = SHIBYTE(v646);
   *v2 = v239;
   if ((v240 & 0x80000000) == 0)
@@ -3765,8 +3762,8 @@ LABEL_204:
 
 LABEL_205:
   sub_100033910(&v640, 40, sub_10001AB84, 0, 0, 0, "Z3", "Insert read watchpoint");
-  v241 = a1[85];
-  if (v241 < a1[86])
+  v241 = *(a1 + 680);
+  if (v241 < *(a1 + 688))
   {
     v242 = v640;
     v243 = v641;
@@ -3794,7 +3791,7 @@ LABEL_205:
     goto LABEL_210;
   }
 
-  v246 = sub_100034FCC(a1 + 84, &v640);
+  v246 = sub_100034FCC((a1 + 672), &v640);
   v247 = SHIBYTE(v646);
   *v2 = v246;
   if ((v247 & 0x80000000) == 0)
@@ -3816,8 +3813,8 @@ LABEL_210:
 
 LABEL_211:
   sub_100033910(&v640, 41, sub_10001AB84, 0, 0, 0, "z3", "Remove read watchpoint");
-  v248 = a1[85];
-  if (v248 < a1[86])
+  v248 = *(a1 + 680);
+  if (v248 < *(a1 + 688))
   {
     v249 = v640;
     v250 = v641;
@@ -3845,7 +3842,7 @@ LABEL_211:
     goto LABEL_216;
   }
 
-  v253 = sub_100034FCC(a1 + 84, &v640);
+  v253 = sub_100034FCC((a1 + 672), &v640);
   v254 = SHIBYTE(v646);
   *v2 = v253;
   if ((v254 & 0x80000000) == 0)
@@ -3867,8 +3864,8 @@ LABEL_216:
 
 LABEL_217:
   sub_100033910(&v640, 42, sub_10001AB84, 0, 0, 0, "Z4", "Insert access watchpoint");
-  v255 = a1[85];
-  if (v255 < a1[86])
+  v255 = *(a1 + 680);
+  if (v255 < *(a1 + 688))
   {
     v256 = v640;
     v257 = v641;
@@ -3896,7 +3893,7 @@ LABEL_217:
     goto LABEL_222;
   }
 
-  v260 = sub_100034FCC(a1 + 84, &v640);
+  v260 = sub_100034FCC((a1 + 672), &v640);
   v261 = SHIBYTE(v646);
   *v2 = v260;
   if ((v261 & 0x80000000) == 0)
@@ -3918,8 +3915,8 @@ LABEL_222:
 
 LABEL_223:
   sub_100033910(&v640, 43, sub_10001AB84, 0, 0, 0, "z4", "Remove access watchpoint");
-  v262 = a1[85];
-  if (v262 < a1[86])
+  v262 = *(a1 + 680);
+  if (v262 < *(a1 + 688))
   {
     v263 = v640;
     v264 = v641;
@@ -3947,7 +3944,7 @@ LABEL_223:
     goto LABEL_228;
   }
 
-  v267 = sub_100034FCC(a1 + 84, &v640);
+  v267 = sub_100034FCC((a1 + 672), &v640);
   v268 = SHIBYTE(v646);
   *v2 = v267;
   if ((v268 & 0x80000000) == 0)
@@ -3969,8 +3966,8 @@ LABEL_228:
 
 LABEL_229:
   sub_100033910(&v640, 44, sub_10001E2DC, 0, 0, 0, "qRcmd", "Monitor command");
-  v269 = a1[85];
-  if (v269 < a1[86])
+  v269 = *(a1 + 680);
+  if (v269 < *(a1 + 688))
   {
     v270 = v640;
     v271 = v641;
@@ -3998,7 +3995,7 @@ LABEL_229:
     goto LABEL_234;
   }
 
-  v274 = sub_100034FCC(a1 + 84, &v640);
+  v274 = sub_100034FCC((a1 + 672), &v640);
   v275 = SHIBYTE(v646);
   *v2 = v274;
   if ((v275 & 0x80000000) == 0)
@@ -4020,8 +4017,8 @@ LABEL_234:
 
 LABEL_235:
   sub_100033910(&v640, 45, sub_10001E960, 0, 0, 0, "qC", "Query current thread ID");
-  v276 = a1[85];
-  if (v276 < a1[86])
+  v276 = *(a1 + 680);
+  if (v276 < *(a1 + 688))
   {
     v277 = v640;
     v278 = v641;
@@ -4049,7 +4046,7 @@ LABEL_235:
     goto LABEL_240;
   }
 
-  v281 = sub_100034FCC(a1 + 84, &v640);
+  v281 = sub_100034FCC((a1 + 672), &v640);
   v282 = SHIBYTE(v646);
   *v2 = v281;
   if ((v282 & 0x80000000) == 0)
@@ -4071,8 +4068,8 @@ LABEL_240:
 
 LABEL_241:
   sub_100033910(&v640, 47, sub_10001EC7C, 0, 0, 0, "qEcho:", "Echo the packet back to allow the debugger to sync up with this server");
-  v283 = a1[85];
-  if (v283 < a1[86])
+  v283 = *(a1 + 680);
+  if (v283 < *(a1 + 688))
   {
     v284 = v640;
     v285 = v641;
@@ -4100,7 +4097,7 @@ LABEL_241:
     goto LABEL_246;
   }
 
-  v288 = sub_100034FCC(a1 + 84, &v640);
+  v288 = sub_100034FCC((a1 + 672), &v640);
   v289 = SHIBYTE(v646);
   *v2 = v288;
   if ((v289 & 0x80000000) == 0)
@@ -4122,8 +4119,8 @@ LABEL_246:
 
 LABEL_247:
   sub_100033910(&v640, 46, sub_10001ED60, 0, 0, 0, "qGetPid", "Query process id");
-  v290 = a1[85];
-  if (v290 < a1[86])
+  v290 = *(a1 + 680);
+  if (v290 < *(a1 + 688))
   {
     v291 = v640;
     v292 = v641;
@@ -4151,7 +4148,7 @@ LABEL_247:
     goto LABEL_252;
   }
 
-  v295 = sub_100034FCC(a1 + 84, &v640);
+  v295 = sub_100034FCC((a1 + 672), &v640);
   v296 = SHIBYTE(v646);
   *v2 = v295;
   if ((v296 & 0x80000000) == 0)
@@ -4173,8 +4170,8 @@ LABEL_252:
 
 LABEL_253:
   sub_100033910(&v640, 48, sub_10001F038, 0, 0, 0, "qfThreadInfo", "Get list of active threads (first req)");
-  v297 = a1[85];
-  if (v297 < a1[86])
+  v297 = *(a1 + 680);
+  if (v297 < *(a1 + 688))
   {
     v298 = v640;
     v299 = v641;
@@ -4202,7 +4199,7 @@ LABEL_253:
     goto LABEL_258;
   }
 
-  v302 = sub_100034FCC(a1 + 84, &v640);
+  v302 = sub_100034FCC((a1 + 672), &v640);
   v303 = SHIBYTE(v646);
   *v2 = v302;
   if ((v303 & 0x80000000) == 0)
@@ -4224,8 +4221,8 @@ LABEL_258:
 
 LABEL_259:
   sub_100033910(&v640, 49, sub_10001F038, 0, 0, 0, "qsThreadInfo", "Get list of active threads (subsequent req)");
-  v304 = a1[85];
-  if (v304 < a1[86])
+  v304 = *(a1 + 680);
+  if (v304 < *(a1 + 688))
   {
     v305 = v640;
     v306 = v641;
@@ -4253,7 +4250,7 @@ LABEL_259:
     goto LABEL_264;
   }
 
-  v309 = sub_100034FCC(a1 + 84, &v640);
+  v309 = sub_100034FCC((a1 + 672), &v640);
   v310 = SHIBYTE(v646);
   *v2 = v309;
   if ((v310 & 0x80000000) == 0)
@@ -4275,8 +4272,8 @@ LABEL_264:
 
 LABEL_265:
   sub_100033910(&v640, 51, sub_10001F434, 0, 0, 0, "qThreadStopInfo", "Get detailed info on why the specified thread stopped");
-  v311 = a1[85];
-  if (v311 < a1[86])
+  v311 = *(a1 + 680);
+  if (v311 < *(a1 + 688))
   {
     v312 = v640;
     v313 = v641;
@@ -4304,7 +4301,7 @@ LABEL_265:
     goto LABEL_270;
   }
 
-  v316 = sub_100034FCC(a1 + 84, &v640);
+  v316 = sub_100034FCC((a1 + 672), &v640);
   v317 = SHIBYTE(v646);
   *v2 = v316;
   if ((v317 & 0x80000000) == 0)
@@ -4326,8 +4323,8 @@ LABEL_270:
 
 LABEL_271:
   sub_100033910(&v640, 50, sub_10001F47C, 0, 0, 0, "qThreadExtraInfo", "Get printable status of a thread");
-  v318 = a1[85];
-  if (v318 < a1[86])
+  v318 = *(a1 + 680);
+  if (v318 < *(a1 + 688))
   {
     v319 = v640;
     v320 = v641;
@@ -4355,7 +4352,7 @@ LABEL_271:
     goto LABEL_276;
   }
 
-  v323 = sub_100034FCC(a1 + 84, &v640);
+  v323 = sub_100034FCC((a1 + 672), &v640);
   v324 = SHIBYTE(v646);
   *v2 = v323;
   if ((v324 & 0x80000000) == 0)
@@ -4377,8 +4374,8 @@ LABEL_276:
 
 LABEL_277:
   sub_100033910(&v640, 54, sub_10001F5F0, 0, 0, 0, "qLaunchSuccess", "Report the success or failure of the launch attempt");
-  v325 = a1[85];
-  if (v325 < a1[86])
+  v325 = *(a1 + 680);
+  if (v325 < *(a1 + 688))
   {
     v326 = v640;
     v327 = v641;
@@ -4406,7 +4403,7 @@ LABEL_277:
     goto LABEL_282;
   }
 
-  v330 = sub_100034FCC(a1 + 84, &v640);
+  v330 = sub_100034FCC((a1 + 672), &v640);
   v331 = SHIBYTE(v646);
   *v2 = v330;
   if ((v331 & 0x80000000) == 0)
@@ -4428,8 +4425,8 @@ LABEL_282:
 
 LABEL_283:
   sub_100033910(&v640, 55, sub_10001F76C, 0, 0, 0, "qRegisterInfo", "Dynamically discover remote register context information.");
-  v332 = a1[85];
-  if (v332 < a1[86])
+  v332 = *(a1 + 680);
+  if (v332 < *(a1 + 688))
   {
     v333 = v640;
     v334 = v641;
@@ -4457,7 +4454,7 @@ LABEL_283:
     goto LABEL_288;
   }
 
-  v337 = sub_100034FCC(a1 + 84, &v640);
+  v337 = sub_100034FCC((a1 + 672), &v640);
   v338 = SHIBYTE(v646);
   *v2 = v337;
   if ((v338 & 0x80000000) == 0)
@@ -4479,8 +4476,8 @@ LABEL_288:
 
 LABEL_289:
   sub_100033910(&v640, 56, sub_10002050C, 0, 0, 0, "qShlibInfoAddr", "Returns the address that contains info needed for getting shared library notifications");
-  v339 = a1[85];
-  if (v339 < a1[86])
+  v339 = *(a1 + 680);
+  if (v339 < *(a1 + 688))
   {
     v340 = v640;
     v341 = v641;
@@ -4508,7 +4505,7 @@ LABEL_289:
     goto LABEL_294;
   }
 
-  v344 = sub_100034FCC(a1 + 84, &v640);
+  v344 = sub_100034FCC((a1 + 672), &v640);
   v345 = SHIBYTE(v646);
   *v2 = v344;
   if ((v345 & 0x80000000) == 0)
@@ -4530,8 +4527,8 @@ LABEL_294:
 
 LABEL_295:
   sub_100033910(&v640, 57, sub_10002090C, 0, 0, 0, "qStepPacketSupported", "Replys with OK if the 's' packet is supported.");
-  v346 = a1[85];
-  if (v346 < a1[86])
+  v346 = *(a1 + 680);
+  if (v346 < *(a1 + 688))
   {
     v347 = v640;
     v348 = v641;
@@ -4559,7 +4556,7 @@ LABEL_295:
     goto LABEL_300;
   }
 
-  v351 = sub_100034FCC(a1 + 84, &v640);
+  v351 = sub_100034FCC((a1 + 672), &v640);
   v352 = SHIBYTE(v646);
   *v2 = v351;
   if ((v352 & 0x80000000) == 0)
@@ -4581,8 +4578,8 @@ LABEL_300:
 
 LABEL_301:
   sub_100033910(&v640, 59, sub_100020968, 0, 0, 0, "qVAttachOrWaitSupported", "Replys with OK if the 'vAttachOrWait' packet is supported.");
-  v353 = a1[85];
-  if (v353 < a1[86])
+  v353 = *(a1 + 680);
+  if (v353 < *(a1 + 688))
   {
     v354 = v640;
     v355 = v641;
@@ -4610,7 +4607,7 @@ LABEL_301:
     goto LABEL_306;
   }
 
-  v358 = sub_100034FCC(a1 + 84, &v640);
+  v358 = sub_100034FCC((a1 + 672), &v640);
   v359 = SHIBYTE(v646);
   *v2 = v358;
   if ((v359 & 0x80000000) == 0)
@@ -4632,8 +4629,8 @@ LABEL_306:
 
 LABEL_307:
   sub_100033910(&v640, 60, sub_1000209C4, 0, 0, 0, "qSyncThreadStateSupported", "Replys with OK if the 'QSyncThreadState:' packet is supported.");
-  v360 = a1[85];
-  if (v360 < a1[86])
+  v360 = *(a1 + 680);
+  if (v360 < *(a1 + 688))
   {
     v361 = v640;
     v362 = v641;
@@ -4661,7 +4658,7 @@ LABEL_307:
     goto LABEL_312;
   }
 
-  v365 = sub_100034FCC(a1 + 84, &v640);
+  v365 = sub_100034FCC((a1 + 672), &v640);
   v366 = SHIBYTE(v646);
   *v2 = v365;
   if ((v366 & 0x80000000) == 0)
@@ -4683,8 +4680,8 @@ LABEL_312:
 
 LABEL_313:
   sub_100033910(&v640, 61, sub_100020A20, 0, 0, 0, "qHostInfo", "Replies with multiple 'key:value;' tuples appended to each other.");
-  v367 = a1[85];
-  if (v367 < a1[86])
+  v367 = *(a1 + 680);
+  if (v367 < *(a1 + 688))
   {
     v368 = v640;
     v369 = v641;
@@ -4712,7 +4709,7 @@ LABEL_313:
     goto LABEL_318;
   }
 
-  v372 = sub_100034FCC(a1 + 84, &v640);
+  v372 = sub_100034FCC((a1 + 672), &v640);
   v373 = SHIBYTE(v646);
   *v2 = v372;
   if ((v373 & 0x80000000) == 0)
@@ -4734,8 +4731,8 @@ LABEL_318:
 
 LABEL_319:
   sub_100033910(&v640, 62, sub_1000211B0, 0, 0, 0, "qGDBServerVersion", "Replies with multiple 'key:value;' tuples appended to each other.");
-  v374 = a1[85];
-  if (v374 < a1[86])
+  v374 = *(a1 + 680);
+  if (v374 < *(a1 + 688))
   {
     v375 = v640;
     v376 = v641;
@@ -4763,7 +4760,7 @@ LABEL_319:
     goto LABEL_324;
   }
 
-  v379 = sub_100034FCC(a1 + 84, &v640);
+  v379 = sub_100034FCC((a1 + 672), &v640);
   v380 = SHIBYTE(v646);
   *v2 = v379;
   if ((v380 & 0x80000000) == 0)
@@ -4785,8 +4782,8 @@ LABEL_324:
 
 LABEL_325:
   sub_100033910(&v640, 63, sub_100021498, 0, 0, 0, "qProcessInfo", "Replies with multiple 'key:value;' tuples appended to each other.");
-  v381 = a1[85];
-  if (v381 < a1[86])
+  v381 = *(a1 + 680);
+  if (v381 < *(a1 + 688))
   {
     v382 = v640;
     v383 = v641;
@@ -4814,7 +4811,7 @@ LABEL_325:
     goto LABEL_330;
   }
 
-  v386 = sub_100034FCC(a1 + 84, &v640);
+  v386 = sub_100034FCC((a1 + 672), &v640);
   v387 = SHIBYTE(v646);
   *v2 = v386;
   if ((v387 & 0x80000000) == 0)
@@ -4836,8 +4833,8 @@ LABEL_330:
 
 LABEL_331:
   sub_100033910(&v640, 53, sub_100021E68, 0, 0, 0, "qSymbol:", "Notify that host debugger is ready to do symbol lookups");
-  v388 = a1[85];
-  if (v388 < a1[86])
+  v388 = *(a1 + 680);
+  if (v388 < *(a1 + 688))
   {
     v389 = v640;
     v390 = v641;
@@ -4865,7 +4862,7 @@ LABEL_331:
     goto LABEL_336;
   }
 
-  v393 = sub_100034FCC(a1 + 84, &v640);
+  v393 = sub_100034FCC((a1 + 672), &v640);
   v394 = SHIBYTE(v646);
   *v2 = v393;
   if ((v394 & 0x80000000) == 0)
@@ -4887,8 +4884,8 @@ LABEL_336:
 
 LABEL_337:
   sub_100033910(&v640, 99, sub_100022550, 0, 0, 0, "QEnableErrorStrings", "Tell debugserver it can append descriptive error messages in replies.");
-  v395 = a1[85];
-  if (v395 < a1[86])
+  v395 = *(a1 + 680);
+  if (v395 < *(a1 + 688))
   {
     v396 = v640;
     v397 = v641;
@@ -4916,7 +4913,7 @@ LABEL_337:
     goto LABEL_342;
   }
 
-  v400 = sub_100034FCC(a1 + 84, &v640);
+  v400 = sub_100034FCC((a1 + 672), &v640);
   v401 = SHIBYTE(v646);
   *v2 = v400;
   if ((v401 & 0x80000000) == 0)
@@ -4938,8 +4935,8 @@ LABEL_342:
 
 LABEL_343:
   sub_100033910(&v640, 64, sub_1000225B4, 0, 0, 0, "jThreadExtendedInfo", "Replies with JSON data of thread extended information.");
-  v402 = a1[85];
-  if (v402 < a1[86])
+  v402 = *(a1 + 680);
+  if (v402 < *(a1 + 688))
   {
     v403 = v640;
     v404 = v641;
@@ -4967,7 +4964,7 @@ LABEL_343:
     goto LABEL_348;
   }
 
-  v407 = sub_100034FCC(a1 + 84, &v640);
+  v407 = sub_100034FCC((a1 + 672), &v640);
   v408 = SHIBYTE(v646);
   *v2 = v407;
   if ((v408 & 0x80000000) == 0)
@@ -4989,8 +4986,8 @@ LABEL_348:
 
 LABEL_349:
   sub_100033910(&v640, 65, sub_100023884, 0, 0, 0, "jGetLoadedDynamicLibrariesInfos", "Replies with JSON data of all the shared libraries loaded in this process.");
-  v409 = a1[85];
-  if (v409 < a1[86])
+  v409 = *(a1 + 680);
+  if (v409 < *(a1 + 688))
   {
     v410 = v640;
     v411 = v641;
@@ -5018,7 +5015,7 @@ LABEL_349:
     goto LABEL_354;
   }
 
-  v414 = sub_100034FCC(a1 + 84, &v640);
+  v414 = sub_100034FCC((a1 + 672), &v640);
   v415 = SHIBYTE(v646);
   *v2 = v414;
   if ((v415 & 0x80000000) == 0)
@@ -5040,8 +5037,8 @@ LABEL_354:
 
 LABEL_355:
   sub_100033910(&v640, 66, sub_100023DB0, 0, 0, 0, "jThreadsInfo", "Replies with JSON data with information about all threads.");
-  v416 = a1[85];
-  if (v416 < a1[86])
+  v416 = *(a1 + 680);
+  if (v416 < *(a1 + 688))
   {
     v417 = v640;
     v418 = v641;
@@ -5069,7 +5066,7 @@ LABEL_355:
     goto LABEL_360;
   }
 
-  v421 = sub_100034FCC(a1 + 84, &v640);
+  v421 = sub_100034FCC((a1 + 672), &v640);
   v422 = SHIBYTE(v646);
   *v2 = v421;
   if ((v422 & 0x80000000) == 0)
@@ -5091,8 +5088,8 @@ LABEL_360:
 
 LABEL_361:
   sub_100033910(&v640, 67, sub_100024590, 0, 0, 0, "jGetSharedCacheInfo", "Replies with JSON data about the location and uuid of the shared cache in the inferior process.");
-  v423 = a1[85];
-  if (v423 < a1[86])
+  v423 = *(a1 + 680);
+  if (v423 < *(a1 + 688))
   {
     v424 = v640;
     v425 = v641;
@@ -5120,7 +5117,7 @@ LABEL_361:
     goto LABEL_366;
   }
 
-  v428 = sub_100034FCC(a1 + 84, &v640);
+  v428 = sub_100034FCC((a1 + 672), &v640);
   v429 = SHIBYTE(v646);
   *v2 = v428;
   if ((v429 & 0x80000000) == 0)
@@ -5142,8 +5139,8 @@ LABEL_366:
 
 LABEL_367:
   sub_100033910(&v640, 69, sub_100024A28, 0, 0, 0, "QStartNoAckMode", "Request that debugserver stop acking remote protocol packets");
-  v430 = a1[85];
-  if (v430 < a1[86])
+  v430 = *(a1 + 680);
+  if (v430 < *(a1 + 688))
   {
     v431 = v640;
     v432 = v641;
@@ -5171,7 +5168,7 @@ LABEL_367:
     goto LABEL_372;
   }
 
-  v435 = sub_100034FCC(a1 + 84, &v640);
+  v435 = sub_100034FCC((a1 + 672), &v640);
   v436 = SHIBYTE(v646);
   *v2 = v435;
   if ((v436 & 0x80000000) == 0)
@@ -5193,8 +5190,8 @@ LABEL_372:
 
 LABEL_373:
   sub_100033910(&v640, 70, sub_100024A90, 0, 0, 0, "QThreadSuffixSupported", "Check if thread specific packets (register packets 'g', 'G', 'p', and 'P') support having the thread ID appended to the end of the command");
-  v437 = a1[85];
-  if (v437 < a1[86])
+  v437 = *(a1 + 680);
+  if (v437 < *(a1 + 688))
   {
     v438 = v640;
     v439 = v641;
@@ -5222,7 +5219,7 @@ LABEL_373:
     goto LABEL_378;
   }
 
-  v442 = sub_100034FCC(a1 + 84, &v640);
+  v442 = sub_100034FCC((a1 + 672), &v640);
   v443 = SHIBYTE(v646);
   *v2 = v442;
   if ((v443 & 0x80000000) == 0)
@@ -5244,8 +5241,8 @@ LABEL_378:
 
 LABEL_379:
   sub_100033910(&v640, 71, sub_100024AF4, 0, 0, 0, "QSetLogging:", "Turn on log channels in debugserver");
-  v444 = a1[85];
-  if (v444 < a1[86])
+  v444 = *(a1 + 680);
+  if (v444 < *(a1 + 688))
   {
     v445 = v640;
     v446 = v641;
@@ -5273,7 +5270,7 @@ LABEL_379:
     goto LABEL_384;
   }
 
-  v449 = sub_100034FCC(a1 + 84, &v640);
+  v449 = sub_100034FCC((a1 + 672), &v640);
   v450 = SHIBYTE(v646);
   *v2 = v449;
   if ((v450 & 0x80000000) == 0)
@@ -5295,8 +5292,8 @@ LABEL_384:
 
 LABEL_385:
   sub_100033910(&v640, 72, sub_100024B60, 0, 0, 0, "QSetIgnoredExceptions:", "Set the exception types debugserver won't wait for, allowing them to be turned into the equivalent BSD signals by the normal means.");
-  v451 = a1[85];
-  if (v451 < a1[86])
+  v451 = *(a1 + 680);
+  if (v451 < *(a1 + 688))
   {
     v452 = v640;
     v453 = v641;
@@ -5324,7 +5321,7 @@ LABEL_385:
     goto LABEL_390;
   }
 
-  v456 = sub_100034FCC(a1 + 84, &v640);
+  v456 = sub_100034FCC((a1 + 672), &v640);
   v457 = SHIBYTE(v646);
   *v2 = v456;
   if ((v457 & 0x80000000) == 0)
@@ -5346,8 +5343,8 @@ LABEL_390:
 
 LABEL_391:
   sub_100033910(&v640, 73, sub_100024D78, 0, 0, 0, "QSetMaxPacketSize:", "Tell debugserver the max sized packet gdb can handle");
-  v458 = a1[85];
-  if (v458 < a1[86])
+  v458 = *(a1 + 680);
+  if (v458 < *(a1 + 688))
   {
     v459 = v640;
     v460 = v641;
@@ -5375,7 +5372,7 @@ LABEL_391:
     goto LABEL_396;
   }
 
-  v463 = sub_100034FCC(a1 + 84, &v640);
+  v463 = sub_100034FCC((a1 + 672), &v640);
   v464 = SHIBYTE(v646);
   *v2 = v463;
   if ((v464 & 0x80000000) == 0)
@@ -5397,8 +5394,8 @@ LABEL_396:
 
 LABEL_397:
   sub_100033910(&v640, 74, sub_100024E58, 0, 0, 0, "QSetMaxPayloadSize:", "Tell debugserver the max sized payload gdb can handle");
-  v465 = a1[85];
-  if (v465 < a1[86])
+  v465 = *(a1 + 680);
+  if (v465 < *(a1 + 688))
   {
     v466 = v640;
     v467 = v641;
@@ -5426,7 +5423,7 @@ LABEL_397:
     goto LABEL_402;
   }
 
-  v470 = sub_100034FCC(a1 + 84, &v640);
+  v470 = sub_100034FCC((a1 + 672), &v640);
   v471 = SHIBYTE(v646);
   *v2 = v470;
   if ((v471 & 0x80000000) == 0)
@@ -5448,8 +5445,8 @@ LABEL_402:
 
 LABEL_403:
   sub_100033910(&v640, 75, sub_100024F34, 0, 0, 0, "QEnvironment:", "Add an environment variable to the inferior's environment");
-  v472 = a1[85];
-  if (v472 < a1[86])
+  v472 = *(a1 + 680);
+  if (v472 < *(a1 + 688))
   {
     v473 = v640;
     v474 = v641;
@@ -5477,7 +5474,7 @@ LABEL_403:
     goto LABEL_408;
   }
 
-  v477 = sub_100034FCC(a1 + 84, &v640);
+  v477 = sub_100034FCC((a1 + 672), &v640);
   v478 = SHIBYTE(v646);
   *v2 = v477;
   if ((v478 & 0x80000000) == 0)
@@ -5499,8 +5496,8 @@ LABEL_408:
 
 LABEL_409:
   sub_100033910(&v640, 76, sub_10002503C, 0, 0, 0, "QEnvironmentHexEncoded:", "Add an environment variable to the inferior's environment");
-  v479 = a1[85];
-  if (v479 < a1[86])
+  v479 = *(a1 + 680);
+  if (v479 < *(a1 + 688))
   {
     v480 = v640;
     v481 = v641;
@@ -5528,7 +5525,7 @@ LABEL_409:
     goto LABEL_414;
   }
 
-  v484 = sub_100034FCC(a1 + 84, &v640);
+  v484 = sub_100034FCC((a1 + 672), &v640);
   v485 = SHIBYTE(v646);
   *v2 = v484;
   if ((v485 & 0x80000000) == 0)
@@ -5550,8 +5547,8 @@ LABEL_414:
 
 LABEL_415:
   sub_100033910(&v640, 77, sub_10002523C, 0, 0, 0, "QLaunchArch:", "Set the architecture to use when launching a process for hosts that can run multiple architecture slices from universal files.");
-  v486 = a1[85];
-  if (v486 < a1[86])
+  v486 = *(a1 + 680);
+  if (v486 < *(a1 + 688))
   {
     v487 = v640;
     v488 = v641;
@@ -5579,7 +5576,7 @@ LABEL_415:
     goto LABEL_420;
   }
 
-  v491 = sub_100034FCC(a1 + 84, &v640);
+  v491 = sub_100034FCC((a1 + 672), &v640);
   v492 = SHIBYTE(v646);
   *v2 = v491;
   if ((v492 & 0x80000000) == 0)
@@ -5601,8 +5598,8 @@ LABEL_420:
 
 LABEL_421:
   sub_100033910(&v640, 78, sub_1000252E8, 0, 0, 0, "QSetDisableASLR:", "Set whether to disable ASLR when launching the process with the set argv ('A') packet");
-  v493 = a1[85];
-  if (v493 < a1[86])
+  v493 = *(a1 + 680);
+  if (v493 < *(a1 + 688))
   {
     v494 = v640;
     v495 = v641;
@@ -5630,7 +5627,7 @@ LABEL_421:
     goto LABEL_426;
   }
 
-  v498 = sub_100034FCC(a1 + 84, &v640);
+  v498 = sub_100034FCC((a1 + 672), &v640);
   v499 = SHIBYTE(v646);
   *v2 = v498;
   if ((v499 & 0x80000000) == 0)
@@ -5652,8 +5649,8 @@ LABEL_426:
 
 LABEL_427:
   sub_100033910(&v640, 79, sub_1000253A8, 0, 0, 0, "QSetSTDIN:", "Set the standard input for a process to be launched with the 'A' packet");
-  v500 = a1[85];
-  if (v500 < a1[86])
+  v500 = *(a1 + 680);
+  if (v500 < *(a1 + 688))
   {
     v501 = v640;
     v502 = v641;
@@ -5681,7 +5678,7 @@ LABEL_427:
     goto LABEL_432;
   }
 
-  v505 = sub_100034FCC(a1 + 84, &v640);
+  v505 = sub_100034FCC((a1 + 672), &v640);
   v506 = SHIBYTE(v646);
   *v2 = v505;
   if ((v506 & 0x80000000) == 0)
@@ -5703,8 +5700,8 @@ LABEL_432:
 
 LABEL_433:
   sub_100033910(&v640, 80, sub_1000253A8, 0, 0, 0, "QSetSTDOUT:", "Set the standard output for a process to be launched with the 'A' packet");
-  v507 = a1[85];
-  if (v507 < a1[86])
+  v507 = *(a1 + 680);
+  if (v507 < *(a1 + 688))
   {
     v508 = v640;
     v509 = v641;
@@ -5732,7 +5729,7 @@ LABEL_433:
     goto LABEL_438;
   }
 
-  v512 = sub_100034FCC(a1 + 84, &v640);
+  v512 = sub_100034FCC((a1 + 672), &v640);
   v513 = SHIBYTE(v646);
   *v2 = v512;
   if ((v513 & 0x80000000) == 0)
@@ -5754,8 +5751,8 @@ LABEL_438:
 
 LABEL_439:
   sub_100033910(&v640, 81, sub_1000253A8, 0, 0, 0, "QSetSTDERR:", "Set the standard error for a process to be launched with the 'A' packet");
-  v514 = a1[85];
-  if (v514 < a1[86])
+  v514 = *(a1 + 680);
+  if (v514 < *(a1 + 688))
   {
     v515 = v640;
     v516 = v641;
@@ -5783,7 +5780,7 @@ LABEL_439:
     goto LABEL_444;
   }
 
-  v519 = sub_100034FCC(a1 + 84, &v640);
+  v519 = sub_100034FCC((a1 + 672), &v640);
   v520 = SHIBYTE(v646);
   *v2 = v519;
   if ((v520 & 0x80000000) == 0)
@@ -5805,8 +5802,8 @@ LABEL_444:
 
 LABEL_445:
   sub_100033910(&v640, 82, sub_10002554C, 0, 0, 0, "QSetWorkingDir:", "Set the working directory for a process to be launched with the 'A' packet");
-  v521 = a1[85];
-  if (v521 < a1[86])
+  v521 = *(a1 + 680);
+  if (v521 < *(a1 + 688))
   {
     v522 = v640;
     v523 = v641;
@@ -5834,7 +5831,7 @@ LABEL_445:
     goto LABEL_450;
   }
 
-  v526 = sub_100034FCC(a1 + 84, &v640);
+  v526 = sub_100034FCC((a1 + 672), &v640);
   v527 = SHIBYTE(v646);
   *v2 = v526;
   if ((v527 & 0x80000000) == 0)
@@ -5856,8 +5853,8 @@ LABEL_450:
 
 LABEL_451:
   sub_100033910(&v640, 83, sub_100025764, 0, 0, 0, "QListThreadsInStopReply", "Set if the 'threads' key should be added to the stop reply packets with a list of all thread IDs.");
-  v528 = a1[85];
-  if (v528 < a1[86])
+  v528 = *(a1 + 680);
+  if (v528 < *(a1 + 688))
   {
     v529 = v640;
     v530 = v641;
@@ -5885,7 +5882,7 @@ LABEL_451:
     goto LABEL_456;
   }
 
-  v533 = sub_100034FCC(a1 + 84, &v640);
+  v533 = sub_100034FCC((a1 + 672), &v640);
   v534 = SHIBYTE(v646);
   *v2 = v533;
   if ((v534 & 0x80000000) == 0)
@@ -5907,8 +5904,8 @@ LABEL_456:
 
 LABEL_457:
   sub_100033910(&v640, 84, sub_1000257CC, 0, 0, 0, "QSyncThreadState:", "Do whatever is necessary to make sure 'thread' is in a safe state to call functions on.");
-  v535 = a1[85];
-  if (v535 < a1[86])
+  v535 = *(a1 + 680);
+  if (v535 < *(a1 + 688))
   {
     v536 = v640;
     v537 = v641;
@@ -5936,7 +5933,7 @@ LABEL_457:
     goto LABEL_462;
   }
 
-  v540 = sub_100034FCC(a1 + 84, &v640);
+  v540 = sub_100034FCC((a1 + 672), &v640);
   v541 = SHIBYTE(v646);
   *v2 = v540;
   if ((v541 & 0x80000000) == 0)
@@ -5958,8 +5955,8 @@ LABEL_462:
 
 LABEL_463:
   sub_100033910(&v640, 90, sub_1000258FC, 0, 0, 0, "_M", "Allocate memory in the inferior process.");
-  v542 = a1[85];
-  if (v542 < a1[86])
+  v542 = *(a1 + 680);
+  if (v542 < *(a1 + 688))
   {
     v543 = v640;
     v544 = v641;
@@ -5987,7 +5984,7 @@ LABEL_463:
     goto LABEL_468;
   }
 
-  v547 = sub_100034FCC(a1 + 84, &v640);
+  v547 = sub_100034FCC((a1 + 672), &v640);
   v548 = SHIBYTE(v646);
   *v2 = v547;
   if ((v548 & 0x80000000) == 0)
@@ -6009,8 +6006,8 @@ LABEL_468:
 
 LABEL_469:
   sub_100033910(&v640, 91, sub_100025DA4, 0, 0, 0, "_m", "Deallocate memory in the inferior process.");
-  v549 = a1[85];
-  if (v549 < a1[86])
+  v549 = *(a1 + 680);
+  if (v549 < *(a1 + 688))
   {
     v550 = v640;
     v551 = v641;
@@ -6038,7 +6035,7 @@ LABEL_469:
     goto LABEL_474;
   }
 
-  v554 = sub_100034FCC(a1 + 84, &v640);
+  v554 = sub_100034FCC((a1 + 672), &v640);
   v555 = SHIBYTE(v646);
   *v2 = v554;
   if ((v555 & 0x80000000) == 0)
@@ -6060,8 +6057,8 @@ LABEL_474:
 
 LABEL_475:
   sub_100033910(&v640, 93, sub_100025E84, 0, 0, 0, "QSaveRegisterState", "Save the register state for the current thread and return a decimal save ID.");
-  v556 = a1[85];
-  if (v556 < a1[86])
+  v556 = *(a1 + 680);
+  if (v556 < *(a1 + 688))
   {
     v557 = v640;
     v558 = v641;
@@ -6089,7 +6086,7 @@ LABEL_475:
     goto LABEL_480;
   }
 
-  v561 = sub_100034FCC(a1 + 84, &v640);
+  v561 = sub_100034FCC((a1 + 672), &v640);
   v562 = SHIBYTE(v646);
   *v2 = v561;
   if ((v562 & 0x80000000) == 0)
@@ -6111,8 +6108,8 @@ LABEL_480:
 
 LABEL_481:
   sub_100033910(&v640, 94, sub_1000260D4, 0, 0, 0, "QRestoreRegisterState:", "Restore the register state given a save ID previously returned from a call to QSaveRegisterState.");
-  v563 = a1[85];
-  if (v563 < a1[86])
+  v563 = *(a1 + 680);
+  if (v563 < *(a1 + 688))
   {
     v564 = v640;
     v565 = v641;
@@ -6140,7 +6137,7 @@ LABEL_481:
     goto LABEL_486;
   }
 
-  v568 = sub_100034FCC(a1 + 84, &v640);
+  v568 = sub_100034FCC((a1 + 672), &v640);
   v569 = SHIBYTE(v646);
   *v2 = v568;
   if ((v569 & 0x80000000) == 0)
@@ -6162,8 +6159,8 @@ LABEL_486:
 
 LABEL_487:
   sub_100033910(&v640, 85, sub_1000262BC, 0, 0, 0, "qMemoryRegionInfo", "Return size and attributes of a memory region that contains the given address");
-  v570 = a1[85];
-  if (v570 < a1[86])
+  v570 = *(a1 + 680);
+  if (v570 < *(a1 + 688))
   {
     v571 = v640;
     v572 = v641;
@@ -6191,7 +6188,7 @@ LABEL_487:
     goto LABEL_492;
   }
 
-  v575 = sub_100034FCC(a1 + 84, &v640);
+  v575 = sub_100034FCC((a1 + 672), &v640);
   v576 = SHIBYTE(v646);
   *v2 = v575;
   if ((v576 & 0x80000000) == 0)
@@ -6213,8 +6210,8 @@ LABEL_492:
 
 LABEL_493:
   sub_100033910(&v640, 86, sub_100026A2C, 0, 0, 0, "qGetProfileData", "Return profiling data of the current target.");
-  v577 = a1[85];
-  if (v577 < a1[86])
+  v577 = *(a1 + 680);
+  if (v577 < *(a1 + 688))
   {
     v578 = v640;
     v579 = v641;
@@ -6242,7 +6239,7 @@ LABEL_493:
     goto LABEL_498;
   }
 
-  v582 = sub_100034FCC(a1 + 84, &v640);
+  v582 = sub_100034FCC((a1 + 672), &v640);
   v583 = SHIBYTE(v646);
   *v2 = v582;
   if ((v583 & 0x80000000) == 0)
@@ -6264,8 +6261,8 @@ LABEL_498:
 
 LABEL_499:
   sub_100033910(&v640, 87, sub_100026EDC, 0, 0, 0, "QSetEnableAsyncProfiling", "Enable or disable the profiling of current target.");
-  v584 = a1[85];
-  if (v584 < a1[86])
+  v584 = *(a1 + 680);
+  if (v584 < *(a1 + 688))
   {
     v585 = v640;
     v586 = v641;
@@ -6293,7 +6290,7 @@ LABEL_499:
     goto LABEL_504;
   }
 
-  v589 = sub_100034FCC(a1 + 84, &v640);
+  v589 = sub_100034FCC((a1 + 672), &v640);
   v590 = SHIBYTE(v646);
   *v2 = v589;
   if ((v590 & 0x80000000) == 0)
@@ -6315,8 +6312,8 @@ LABEL_504:
 
 LABEL_505:
   sub_100033910(&v640, 88, sub_1000274B4, 0, 0, 0, "QEnableCompression:", "Enable compression for the remainder of the connection");
-  v591 = a1[85];
-  if (v591 < a1[86])
+  v591 = *(a1 + 680);
+  if (v591 < *(a1 + 688))
   {
     v592 = v640;
     v593 = v641;
@@ -6344,7 +6341,7 @@ LABEL_505:
     goto LABEL_510;
   }
 
-  v596 = sub_100034FCC(a1 + 84, &v640);
+  v596 = sub_100034FCC((a1 + 672), &v640);
   v597 = SHIBYTE(v646);
   *v2 = v596;
   if ((v597 & 0x80000000) == 0)
@@ -6366,8 +6363,8 @@ LABEL_510:
 
 LABEL_511:
   sub_100033910(&v640, 89, sub_100027600, 0, 0, 0, "qWatchpointSupportInfo", "Return the number of supported hardware watchpoints");
-  v598 = a1[85];
-  if (v598 < a1[86])
+  v598 = *(a1 + 680);
+  if (v598 < *(a1 + 688))
   {
     v599 = v640;
     v600 = v641;
@@ -6395,7 +6392,7 @@ LABEL_511:
     goto LABEL_516;
   }
 
-  v603 = sub_100034FCC(a1 + 84, &v640);
+  v603 = sub_100034FCC((a1 + 672), &v640);
   v604 = SHIBYTE(v646);
   *v2 = v603;
   if ((v604 & 0x80000000) == 0)
@@ -6417,8 +6414,8 @@ LABEL_516:
 
 LABEL_517:
   sub_100033910(&v640, 92, sub_100027994, 0, 0, 0, "QSetProcessEvent:", "Set a process event, to be passed to the process, can be set before the process is started, or after.");
-  v605 = a1[85];
-  if (v605 < a1[86])
+  v605 = *(a1 + 680);
+  if (v605 < *(a1 + 688))
   {
     v606 = v640;
     v607 = v641;
@@ -6446,7 +6443,7 @@ LABEL_517:
     goto LABEL_522;
   }
 
-  v610 = sub_100034FCC(a1 + 84, &v640);
+  v610 = sub_100034FCC((a1 + 672), &v640);
   v611 = SHIBYTE(v646);
   *v2 = v610;
   if ((v611 & 0x80000000) == 0)
@@ -6468,8 +6465,8 @@ LABEL_522:
 
 LABEL_523:
   sub_100033910(&v640, 96, sub_100027A54, 0, 0, 0, "QSetDetachOnError:", "Set whether debugserver will detach (1) or kill (0) from the process it is controlling if it loses connection to lldb.");
-  v612 = a1[85];
-  if (v612 < a1[86])
+  v612 = *(a1 + 680);
+  if (v612 < *(a1 + 688))
   {
     v613 = v640;
     v614 = v641;
@@ -6497,7 +6494,7 @@ LABEL_523:
     goto LABEL_528;
   }
 
-  v617 = sub_100034FCC(a1 + 84, &v640);
+  v617 = sub_100034FCC((a1 + 672), &v640);
   v618 = SHIBYTE(v646);
   *v2 = v617;
   if ((v618 & 0x80000000) == 0)
@@ -6519,8 +6516,8 @@ LABEL_528:
 
 LABEL_529:
   sub_100033910(&v640, 95, sub_100027AF4, 0, 0, 0, "qSpeedTest:", "Test the maximum speed at which packet can be sent/received.");
-  v619 = a1[85];
-  if (v619 < a1[86])
+  v619 = *(a1 + 680);
+  if (v619 < *(a1 + 688))
   {
     v620 = v640;
     v621 = v641;
@@ -6548,7 +6545,7 @@ LABEL_529:
     goto LABEL_534;
   }
 
-  v624 = sub_100034FCC(a1 + 84, &v640);
+  v624 = sub_100034FCC((a1 + 672), &v640);
   v625 = SHIBYTE(v646);
   *v2 = v624;
   if ((v625 & 0x80000000) == 0)
@@ -6570,8 +6567,8 @@ LABEL_534:
 
 LABEL_535:
   sub_100033910(&v640, 97, sub_100027CB8, 0, 0, 0, "qXfer:", "Support the qXfer packet.");
-  v626 = a1[85];
-  if (v626 < a1[86])
+  v626 = *(a1 + 680);
+  if (v626 < *(a1 + 688))
   {
     v627 = v640;
     v628 = v641;
@@ -6599,7 +6596,7 @@ LABEL_535:
     goto LABEL_540;
   }
 
-  v631 = sub_100034FCC(a1 + 84, &v640);
+  v631 = sub_100034FCC((a1 + 672), &v640);
   v632 = SHIBYTE(v646);
   *v2 = v631;
   if ((v632 & 0x80000000) == 0)
@@ -6621,8 +6618,8 @@ LABEL_540:
 
 LABEL_541:
   sub_100033910(&v640, 98, sub_1000284A8, 0, 0, 0, "jGetDyldProcessState", "Query the process state from dyld.");
-  v633 = a1[85];
-  if (v633 < a1[86])
+  v633 = *(a1 + 680);
+  if (v633 < *(a1 + 688))
   {
     v634 = v640;
     v635 = v641;
@@ -6650,7 +6647,7 @@ LABEL_541:
     goto LABEL_546;
   }
 
-  v638 = sub_100034FCC(a1 + 84, &v640);
+  v638 = sub_100034FCC((a1 + 672), &v640);
   v639 = SHIBYTE(v646);
   *v2 = v638;
   if ((v639 & 0x80000000) == 0)
@@ -6772,12 +6769,12 @@ uint64_t sub_1000190F4(uint64_t a1)
       pthread_mutex_lock(*(a1 + 488));
     }
 
-    gettimeofday(&v16, 0);
-    tv_sec = v16.tv_sec;
-    tv_usec = v16.tv_usec;
+    gettimeofday(&v9, 0);
+    tv_sec = v9.tv_sec;
+    tv_usec = v9.tv_usec;
     v5 = *(a1 + 496);
     v6 = *(a1 + 504);
-    *(a1 + 496) = v16;
+    *(a1 + 496) = v9;
     if (v2)
     {
       pthread_mutex_unlock(v2);
@@ -6791,14 +6788,14 @@ uint64_t sub_1000190F4(uint64_t a1)
   {
     if (sub_100010510())
     {
-      sub_100010544(0, "debugserver about to shut down packet communications to lldb.", v8, v9, v10, v11, v12, v13, v14);
+      sub_100010544(0, "debugserver about to shut down packet communications to lldb.");
     }
 
     sub_100037CA4(a1 + 472);
-    gettimeofday(&v16, 0);
-    v15.tv_sec = v16.tv_sec + v16.tv_usec / 1000000 + 2;
-    v15.tv_nsec = 1000 * v16.tv_usec % 1000000000;
-    return sub_1000128FC(a1 + 120, 0x80u, &v15);
+    gettimeofday(&v9, 0);
+    v8.tv_sec = v9.tv_sec + v9.tv_usec / 1000000 + 2;
+    v8.tv_nsec = 1000 * v9.tv_usec % 1000000000;
+    return sub_1000128FC(a1 + 120, 0x80u, &v8);
   }
 
   return result;
@@ -6849,10 +6846,10 @@ BOOL sub_100019250(uint64_t a1, char *__s)
         {
           sub_100013A80(__p, &unk_10005B2EA);
           v13 = sub_100029084(v3, __p);
-          if (v27 < 0)
+          if (v25 < 0)
           {
             v14 = __p[0];
-LABEL_46:
+LABEL_43:
             operator delete(v14);
           }
 
@@ -6860,105 +6857,94 @@ LABEL_46:
         }
 
         sub_100035F50(&__b, v10, 0);
-        v11 = v33;
-        if ((v33 & 0x8000000000000000) != 0)
+        v11 = v31;
+        if ((v31 & 0x8000000000000000) != 0)
         {
-          v11 = v32;
-          if (v32)
+          v11 = v30;
+          if (v30)
           {
-            v12 = __b;
+            p_b = __b;
 LABEL_24:
-            v15 = sub_10000D364(*(v3 + 12), v8, v11, v12);
+            v15 = sub_10000D364(*(v3 + 12), v8, v11, p_b);
             if (v15)
             {
               v16 = v15;
               sub_100028EE0(__p);
               for (i = 0; i != v16; ++i)
               {
-                v20 = __p[0];
-                v21 = __p + *(__p[0] - 3);
-                if (*(v21 + 36) == -1)
+                v18 = __p[0];
+                v19 = __p + *(__p[0] - 3);
+                if (*(v19 + 36) == -1)
                 {
                   std::ios_base::getloc((__p + *(__p[0] - 3)));
-                  v22 = std::locale::use_facet(&v24, &std::ctype<char>::id);
-                  (v22->__vftable[2].~facet_0)(v22, 32);
-                  std::locale::~locale(&v24);
-                  v20 = __p[0];
+                  v20 = std::locale::use_facet(&v22, &std::ctype<char>::id);
+                  (v20->__vftable[2].~facet_0)(v20, 32);
+                  std::locale::~locale(&v22);
+                  v18 = __p[0];
                 }
 
-                *(v21 + 36) = 48;
-                *(&__p[1] + *(v20 - 3)) = *(&__p[1] + *(v20 - 3)) & 0xFFFFFFB5 | 8;
-                *(&__p[1] + *(v20 - 3)) = *(&__p[1] + *(v20 - 3)) & 0xFFFFFF4F | 0x80;
-                *&v28[*(v20 - 3)] = 2;
-                if (v33 >= 0)
-                {
-                  p_b = &__b;
-                }
-
-                else
-                {
-                  p_b = __b;
-                }
-
-                v19 = *(p_b + i);
+                *(v19 + 36) = 48;
+                *(&__p[1] + *(v18 - 3)) = *(&__p[1] + *(v18 - 3)) & 0xFFFFFFB5 | 8;
+                *(&__p[1] + *(v18 - 3)) = *(&__p[1] + *(v18 - 3)) & 0xFFFFFF4F | 0x80;
+                *&v26[*(v18 - 3)] = 2;
                 std::ostream::operator<<();
               }
 
               std::stringbuf::str();
-              v13 = sub_100029084(v3, &v24);
-              if (v25 < 0)
+              v13 = sub_100029084(v3, &v22);
+              if (v23 < 0)
               {
-                operator delete(v24.__locale_);
+                operator delete(v22.__locale_);
               }
 
               sub_1000294EC(__p);
-              goto LABEL_44;
+              goto LABEL_41;
             }
 
-            sub_100013A80(&v29, "E08");
+            sub_100013A80(&v27, "E08");
             sub_100013A80(__p, &unk_10005B2EA);
-            v13 = sub_100029BE8(v3, &v29, __p);
-            if (v27 < 0)
+            v13 = sub_100029BE8(v3, &v27, __p);
+            if (v25 < 0)
             {
               operator delete(__p[0]);
             }
 
-            if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
+            if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
             {
-              v23 = v29.__r_.__value_.__r.__words[0];
-              goto LABEL_43;
+              v21 = v27.__r_.__value_.__r.__words[0];
+              goto LABEL_40;
             }
 
-            goto LABEL_44;
+            goto LABEL_41;
           }
         }
 
-        else if (v33)
+        else if (v31)
         {
-          v12 = &__b;
+          p_b = &__b;
           goto LABEL_24;
         }
 
-        sub_100013A80(&v30, "E78");
+        sub_100013A80(&v28, "E78");
         sub_100013A80(__p, &unk_10005B2EA);
-        v13 = sub_100029BE8(v3, &v30, __p);
-        if (v27 < 0)
+        v13 = sub_100029BE8(v3, &v28, __p);
+        if (v25 < 0)
         {
           operator delete(__p[0]);
         }
 
-        if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
         {
-          v23 = v30.__r_.__value_.__r.__words[0];
-LABEL_43:
-          operator delete(v23);
+          v21 = v28.__r_.__value_.__r.__words[0];
+LABEL_40:
+          operator delete(v21);
         }
 
-LABEL_44:
-        if (v33 < 0)
+LABEL_41:
+        if (v31 < 0)
         {
           v14 = __b;
-          goto LABEL_46;
+          goto LABEL_43;
         }
 
         return v13;
@@ -6973,7 +6959,7 @@ LABEL_5:
   return sub_10002A394(a1, "/Library/Caches/com.apple.xbs/Sources/lldb/llvm-project/lldb/tools/debugserver/source/RNBRemote.cpp", v5, v6);
 }
 
-BOOL sub_10001965C(uint64_t a1, const char *a2)
+uint64_t sub_10001965C(uint64_t a1, const char *a2)
 {
   if (qword_10007DAF0)
   {
@@ -7065,14 +7051,14 @@ LABEL_22:
         sub_100034D34(&v30);
         if (v6 < v23 && v22)
         {
-          v16 = v22 + (v6 << 7);
-          if (*(v16 + 12) == -1)
+          v16 = (v22 + (v6 << 7));
+          if (v16[3] == -1)
           {
-            v21 = *(v16 + 36);
+            v21 = v16[9];
             if (v21)
             {
               v25 = 0;
-              sub_100035ED0(&__p, v21);
+              sub_100035ED0(&__p, v21, &v25);
               sub_100013B38(&v29, __p, v27 - __p, 0);
               if (__p)
               {
@@ -7082,7 +7068,7 @@ LABEL_22:
             }
           }
 
-          else if ((sub_10002DECC(&v29, v4, v13, v16) & 1) == 0)
+          else if ((sub_10002DECC(&v29, v4, v13, v16, 0, 0) & 1) == 0)
           {
             sub_100013A80(&v24, "E97");
             sub_100013A80(&__p, &unk_10005B2EA);
@@ -7327,7 +7313,7 @@ LABEL_35:
     goto LABEL_29;
   }
 
-  __chkstk_darwin();
+  __chkstk_darwin(v12);
   v14 = &v24 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   bzero(v14, v13);
   v15 = *v11;
@@ -7409,7 +7395,7 @@ LABEL_31:
   return result;
 }
 
-BOOL sub_10001A42C(uint64_t a1, const char *a2)
+BOOL sub_10001A42C(uint64_t a1, std::string::value_type *a2)
 {
   if (qword_10007DAF0)
   {
@@ -7545,7 +7531,7 @@ LABEL_14:
   return v13;
 }
 
-BOOL sub_10001A868(uint64_t a1, uint64_t a2)
+uint64_t sub_10001A868(uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 12);
   if (!v3)
@@ -7637,7 +7623,7 @@ LABEL_18:
   return sub_10002A394(a1, "/Library/Caches/com.apple.xbs/Sources/lldb/llvm-project/lldb/tools/debugserver/source/RNBRemote.cpp", 3348, v5);
 }
 
-BOOL sub_10001AB84(uint64_t a1, const char *a2)
+uint64_t sub_10001AB84(uint64_t a1, const char *a2)
 {
   if (!a2 || (v3 = *a2, !*a2))
   {
@@ -8003,7 +7989,7 @@ LABEL_15:
   return v7;
 }
 
-BOOL sub_10001B2E0(uint64_t a1, const char *a2)
+uint64_t sub_10001B2E0(uint64_t a1, const char *a2)
 {
   v2 = *(a1 + 12);
   if (!v2)
@@ -8133,7 +8119,7 @@ LABEL_30:
   return result;
 }
 
-BOOL sub_10001B578(uint64_t a1, uint64_t a2)
+uint64_t sub_10001B578(uint64_t a1, uint64_t a2)
 {
   v2 = a1;
   v3 = (a2 + 1);
@@ -8196,17 +8182,17 @@ BOOL sub_10001B6A4(uint64_t a1)
   v1 = *(a1 + 12);
   if (!v1)
   {
-    *(&v37.__r_.__value_.__s + 23) = 3;
-    LODWORD(v37.__r_.__value_.__l.__data_) = 3289157;
-    HIBYTE(v29.__locale_) = 0;
+    *(&v36.__r_.__value_.__s + 23) = 3;
+    LODWORD(v36.__r_.__value_.__l.__data_) = 3289157;
+    HIBYTE(v28.__locale_) = 0;
     LOBYTE(__dst) = 0;
-    result = sub_100029BE8(a1, &v37, &__dst);
-    if ((SHIBYTE(v37.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    result = sub_100029BE8(a1, &v36, &__dst);
+    if ((SHIBYTE(v36.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       return result;
     }
 
-    v6 = v37.__r_.__value_.__r.__words[0];
+    v6 = v36.__r_.__value_.__r.__words[0];
     goto LABEL_41;
   }
 
@@ -8225,7 +8211,7 @@ BOOL sub_10001B6A4(uint64_t a1)
       v5 = sub_10000DE24(v1);
       sub_10000DFE4(*(a1 + 12), v5);
       *(a1 + 544) = v5;
-      sub_10002BACC();
+      sub_10002BACC(a1);
       return 0;
     }
 
@@ -8233,21 +8219,21 @@ BOOL sub_10001B6A4(uint64_t a1)
   }
 
   *__str = 0;
-  v39 = 0;
-  v36 = 0;
-  if (sub_10000BFB8(v1, &v36))
+  v38 = 0;
+  v35 = 0;
+  if (sub_10000BFB8(v1, &v35))
   {
-    if (v36)
+    if (v35)
     {
-      if ((v36 & 0x7F) == 0x7F)
+      if ((v35 & 0x7F) == 0x7F)
       {
-        if (v36 >> 8 != 19)
+        if (v35 >> 8 != 19)
         {
           snprintf(__str, 0x10uLL, "S%02x");
         }
       }
 
-      else if ((v36 & 0x7F) != 0)
+      else if ((v35 & 0x7F) != 0)
       {
         snprintf(__str, 0x10uLL, "X%02x");
       }
@@ -8261,13 +8247,13 @@ BOOL sub_10001B6A4(uint64_t a1)
 
   else
   {
-    v36 = 0;
+    v35 = 0;
   }
 
   if (!__str[0])
   {
     strcpy(__str, "W00");
-    HIBYTE(v39) = 0;
+    HIBYTE(v38) = 0;
   }
 
   v7 = sub_10000C0B8(v1);
@@ -8276,30 +8262,30 @@ BOOL sub_10001B6A4(uint64_t a1)
     v8 = v7;
     if (*v7)
     {
-      v35 = 0;
+      v34 = 0;
       *(&__dst + *(__dst - 3)) = v9;
       v10 = (&__dst + *(__dst - 3));
-      std::ios_base::init(v10, &v28);
+      std::ios_base::init(v10, &v27);
       v10[1].__vftable = 0;
       v10[1].__fmtflags_ = -1;
-      std::locale::locale(&v29);
-      memset(v30, 0, sizeof(v30));
+      std::locale::locale(&v28);
+      memset(v29, 0, sizeof(v29));
       *__p = 0u;
-      v32 = 0u;
-      v33 = 16;
-      sub_100034D34(&v28);
+      v31 = 0u;
+      v32 = 16;
+      sub_100034D34(&v27);
       v11 = strlen(__str);
       sub_100034978(&__dst, __str, v11);
-      LOBYTE(v25.__locale_) = 59;
-      sub_100034978(&__dst, &v25, 1);
+      LOBYTE(v24.__locale_) = 59;
+      sub_100034978(&__dst, &v24, 1);
       v12 = __dst;
       v13 = &__dst + *(__dst - 3);
       if (*(v13 + 36) == -1)
       {
         std::ios_base::getloc((&__dst + *(__dst - 3)));
-        v14 = std::locale::use_facet(&v25, &std::ctype<char>::id);
+        v14 = std::locale::use_facet(&v24, &std::ctype<char>::id);
         (v14->__vftable[2].~facet_0)(v14, 32);
-        std::locale::~locale(&v25);
+        std::locale::~locale(&v24);
         v12 = __dst;
       }
 
@@ -8307,83 +8293,82 @@ BOOL sub_10001B6A4(uint64_t a1)
       *(&__dst + *(v12 - 3) + 8) = *(&__dst + *(v12 - 3) + 8) & 0xFFFFFFB5 | 8;
       *(&__dst + *(v12 - 3) + 8) = *(&__dst + *(v12 - 3) + 8) & 0xFFFFFF4F | 0x80;
       sub_100034978(&__dst, "description", 11);
-      LOBYTE(v25.__locale_) = 58;
-      sub_100034978(&__dst, &v25, 1);
+      LOBYTE(v24.__locale_) = 58;
+      sub_100034978(&__dst, &v24, 1);
       if (*v8)
       {
         v15 = v8 + 1;
         do
         {
-          v18 = __dst;
-          v19 = &__dst + *(__dst - 3);
-          if (*(v19 + 36) == -1)
+          v17 = __dst;
+          v18 = &__dst + *(__dst - 3);
+          if (*(v18 + 36) == -1)
           {
             std::ios_base::getloc((&__dst + *(__dst - 3)));
-            v20 = std::locale::use_facet(&v25, &std::ctype<char>::id);
-            (v20->__vftable[2].~facet_0)(v20, 32);
-            std::locale::~locale(&v25);
-            v18 = __dst;
+            v19 = std::locale::use_facet(&v24, &std::ctype<char>::id);
+            (v19->__vftable[2].~facet_0)(v19, 32);
+            std::locale::~locale(&v24);
+            v17 = __dst;
           }
 
-          *(v19 + 36) = 48;
-          *(&v28 + *(v18 - 3)) = *(&v28 + *(v18 - 3)) & 0xFFFFFFB5 | 8;
-          *(&v28 + *(v18 - 3)) = *(&v28 + *(v18 - 3)) & 0xFFFFFF4F | 0x80;
-          *(v30 + *(v18 - 3)) = 2;
-          v16 = *(v15 - 1);
+          *(v18 + 36) = 48;
+          *(&v27 + *(v17 - 3)) = *(&v27 + *(v17 - 3)) & 0xFFFFFFB5 | 8;
+          *(&v27 + *(v17 - 3)) = *(&v27 + *(v17 - 3)) & 0xFFFFFF4F | 0x80;
+          *(v29 + *(v17 - 3)) = 2;
           std::ostream::operator<<();
         }
 
         while (*v15++);
       }
 
-      LOBYTE(v25.__locale_) = 59;
-      sub_100034978(&__dst, &v25, 1);
+      LOBYTE(v24.__locale_) = 59;
+      sub_100034978(&__dst, &v24, 1);
       std::stringbuf::str();
-      v23 = sub_100029084(a1, &v25);
-      if (v26 < 0)
+      v22 = sub_100029084(a1, &v24);
+      if (v25 < 0)
       {
-        operator delete(v25.__locale_);
+        operator delete(v24.__locale_);
       }
 
-      if (SBYTE7(v32) < 0)
+      if (SBYTE7(v31) < 0)
       {
         operator delete(__p[0]);
       }
 
-      std::locale::~locale(&v29);
+      std::locale::~locale(&v28);
       std::ostream::~ostream();
       std::ios::~ios();
-      return v23;
+      return v22;
     }
   }
 
-  v21 = strlen(__str);
-  if (v21 >= 0x7FFFFFFFFFFFFFF8)
+  v20 = strlen(__str);
+  if (v20 >= 0x7FFFFFFFFFFFFFF8)
   {
     sub_100008888();
   }
 
-  v22 = v21;
-  if (v21 >= 0x17)
+  v21 = v20;
+  if (v20 >= 0x17)
   {
     operator new();
   }
 
-  HIBYTE(v29.__locale_) = v21;
-  if (v21)
+  HIBYTE(v28.__locale_) = v20;
+  if (v20)
   {
-    memcpy(&__dst, __str, v21);
+    memcpy(&__dst, __str, v20);
   }
 
-  *(&__dst + v22) = 0;
+  *(&__dst + v21) = 0;
   result = sub_100029084(a1, &__dst);
-  if (SHIBYTE(v29.__locale_) < 0)
+  if (SHIBYTE(v28.__locale_) < 0)
   {
     v6 = __dst;
 LABEL_41:
-    v23 = result;
+    v22 = result;
     operator delete(v6);
-    return v23;
+    return v22;
   }
 
   return result;
@@ -8563,7 +8548,7 @@ LABEL_11:
   return 0;
 }
 
-BOOL sub_10001C138(uint64_t a1, const char *a2)
+uint64_t sub_10001C138(uint64_t a1, const char *a2)
 {
   v2 = *(a1 + 12);
   if (!v2)
@@ -8618,7 +8603,7 @@ BOOL sub_10001C138(uint64_t a1, const char *a2)
   else
   {
     v5 = a1;
-    v6 = -1;
+    v6 = 0xFFFFFFFFLL;
   }
 
   sub_100010998(__endptr);
@@ -8687,19 +8672,19 @@ uint64_t sub_10001C394(uint64_t a1)
   {
     if (sub_100010510())
     {
-      sub_100010544(0, "detaching from pid %u due to D packet", v2, v3, v4, v5, v6, v7, *(a1 + 12));
+      sub_100010544(0, "detaching from pid %u due to D packet", *(a1 + 12));
     }
 
     if (sub_10000BAF8(*(a1 + 12)))
     {
-      v19 = 2;
-      strcpy(v18, "OK");
-      sub_100029084(a1, v18);
-      if (v19 < 0)
+      v7 = 2;
+      strcpy(v6, "OK");
+      sub_100029084(a1, v6);
+      if (v7 < 0)
       {
-        v8 = *v18;
+        v2 = *v6;
 LABEL_13:
-        operator delete(v8);
+        operator delete(v2);
       }
     }
 
@@ -8707,17 +8692,17 @@ LABEL_13:
     {
       if (sub_100010510())
       {
-        sub_100010544(0, "error while detaching from pid %u due to D packet", v9, v10, v11, v12, v13, v14, *(a1 + 12));
+        sub_100010544(0, "error while detaching from pid %u due to D packet", *(a1 + 12));
       }
 
       *(&__p.__r_.__value_.__s + 23) = 3;
       LODWORD(__p.__r_.__value_.__l.__data_) = 3223621;
-      v19 = 0;
-      v18[0] = 0;
-      sub_100029BE8(a1, &__p, v18);
+      v7 = 0;
+      v6[0] = 0;
+      sub_100029BE8(a1, &__p, v6);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
-        v8 = __p.__r_.__value_.__r.__words[0];
+        v2 = __p.__r_.__value_.__r.__words[0];
         goto LABEL_13;
       }
     }
@@ -8725,14 +8710,14 @@ LABEL_13:
 
   else
   {
-    *(&v16.__r_.__value_.__s + 23) = 3;
-    LODWORD(v16.__r_.__value_.__l.__data_) = 3420229;
-    v19 = 0;
-    v18[0] = 0;
-    sub_100029BE8(a1, &v16, v18);
-    if (SHIBYTE(v16.__r_.__value_.__r.__words[2]) < 0)
+    *(&v4.__r_.__value_.__s + 23) = 3;
+    LODWORD(v4.__r_.__value_.__l.__data_) = 3420229;
+    v7 = 0;
+    v6[0] = 0;
+    sub_100029BE8(a1, &v4, v6);
+    if (SHIBYTE(v4.__r_.__value_.__r.__words[2]) < 0)
     {
-      v8 = v16.__r_.__value_.__r.__words[0];
+      v2 = v4.__r_.__value_.__r.__words[0];
       goto LABEL_13;
     }
   }
@@ -8744,19 +8729,19 @@ uint64_t sub_10001C4BC(uint64_t a1)
 {
   if (sub_100010510())
   {
-    sub_100010544(0, "Got a 'k' packet, killing the inferior process.", v2, v3, v4, v5, v6, v7, v10);
+    sub_100010544(0, "Got a 'k' packet, killing the inferior process.");
   }
 
-  v8 = *(a1 + 12);
-  if (v8)
+  v2 = *(a1 + 12);
+  if (v2)
   {
-    sub_10000BC18(v8);
+    sub_10000BC18(v2);
   }
 
-  v12 = 3;
+  v5 = 3;
   LODWORD(__p) = 3747928;
   sub_100029084(a1, &__p);
-  if (v12 < 0)
+  if (v5 < 0)
   {
     operator delete(__p);
   }
@@ -8764,7 +8749,7 @@ uint64_t sub_10001C4BC(uint64_t a1)
   return 0;
 }
 
-BOOL sub_10001C53C(uint64_t a1, uint64_t a2)
+uint64_t sub_10001C53C(uint64_t a1, uint64_t a2)
 {
   v2 = (a2 + 1);
   if (!*(a2 + 1))
@@ -8952,28 +8937,34 @@ BOOL sub_10001CC34(uint64_t a1, char *__s1)
           v16 = __s1[12];
           v15 = __s1 + 12;
           v14 = v16;
-          v107 = v15;
+          v80 = v15;
           if (!v16)
           {
 LABEL_54:
             if (sub_100010510())
             {
               v20 = getpid();
-              sub_100010544(0, "[LaunchAttach] START %d vAttachWait for process name '%s'", v21, v22, v23, v24, v25, v26, v20);
+              p_p = &__p;
+              if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+              {
+                p_p = __p.__r_.__value_.__r.__words[0];
+              }
+
+              sub_100010544(0, "[LaunchAttach] START %d vAttachWait for process name '%s'", v20, p_p);
             }
 
             if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              p_p = &__p;
+              v22 = &__p;
             }
 
             else
             {
-              p_p = __p.__r_.__value_.__r.__words[0];
+              v22 = __p.__r_.__value_.__r.__words[0];
             }
 
-            v28 = sub_10000B780(a1, p_p, 1, 0, 0x3E8u, __s, 0x400uLL, sub_10003054C, 0);
-            goto LABEL_73;
+            v23 = sub_10000B780(a1, v22, 1, 0, 0x3E8u, __s, 0x400uLL, sub_10003054C, 0);
+            goto LABEL_77;
           }
 
           while (1)
@@ -8993,13 +8984,13 @@ LABEL_54:
             v14 = v19;
             if (!v19)
             {
-              v107 = v15;
+              v80 = v15;
               goto LABEL_54;
             }
           }
 
-          v59 = a1;
-          v60 = 3790;
+          v38 = a1;
+          v39 = 3790;
         }
 
         else
@@ -9011,76 +9002,76 @@ LABEL_54:
               if (strncmp(__s1, "vAttach;", 8uLL))
               {
                 v7 = sub_10002A294(a1, __s1);
-                goto LABEL_194;
+                goto LABEL_200;
               }
 
-              v61 = __s1 + 8;
-              v107 = __s1 + 8;
-              v99.__r_.__value_.__r.__words[0] = 0;
-              v43 = strtoul(__s1 + 8, &v99.__r_.__value_.__l.__data_, 16);
-              if (v61 == v99.__r_.__value_.__l.__data_ || *v99.__r_.__value_.__l.__data_)
+              v40 = __s1 + 8;
+              v80 = __s1 + 8;
+              v72.__r_.__value_.__r.__words[0] = 0;
+              v33 = strtoul(__s1 + 8, &v72.__r_.__value_.__l.__data_, 16);
+              if (v40 == v72.__r_.__value_.__l.__data_ || *v72.__r_.__value_.__l.__data_)
               {
-                v42 = 0;
+                v32 = 0;
               }
 
               else
               {
                 gettimeofday(&__endptr, 0);
-                v100.__r_.__value_.__r.__words[0] = __endptr.__r_.__value_.__r.__words[0] + SLODWORD(__endptr.__r_.__value_.__r.__words[1]) / 1000000 + 30;
-                v100.__r_.__value_.__l.__size_ = 1000 * LODWORD(__endptr.__r_.__value_.__r.__words[1]) % 1000000000;
+                v73.__r_.__value_.__r.__words[0] = __endptr.__r_.__value_.__r.__words[0] + SLODWORD(__endptr.__r_.__value_.__r.__words[1]) / 1000000 + 30;
+                v73.__r_.__value_.__l.__size_ = 1000 * LODWORD(__endptr.__r_.__value_.__r.__words[1]) % 1000000000;
                 if (sub_100010510())
                 {
-                  v87 = getpid();
-                  sub_100010544(0, "[LaunchAttach] START %d vAttach to pid %d", v88, v89, v90, v91, v92, v93, v87);
+                  v66 = getpid();
+                  sub_100010544(0, "[LaunchAttach] START %d vAttach to pid %d", v66, v33);
                 }
 
-                v42 = sub_10000AD08(v43, &v100, a1 + 448, __s, 1024);
+                v32 = sub_10000AD08(v33, &v73, a1 + 448, __s, 0x400uLL);
               }
 
-LABEL_74:
-              if (v42)
+LABEL_78:
+              if (v32)
               {
-                if (v42 == -1)
+                if (v32 == -1)
                 {
                   if (sub_100010510())
                   {
                     sub_1000107A0("debugserver is x86_64 binary running in translation, attach failed.");
                   }
 
-                  sub_100013A80(&v105, "E96");
+                  sub_100013A80(&v78, "E96");
                   sub_100013A80(&__endptr, "debugserver is x86_64 binary running in translation, attach failed.");
-                  v7 = sub_100029BE8(a1, &v105, &__endptr);
+                  v7 = sub_100029BE8(a1, &v78, &__endptr);
                   if (SHIBYTE(__endptr.__r_.__value_.__r.__words[2]) < 0)
                   {
                     operator delete(__endptr.__r_.__value_.__l.__data_);
                   }
 
-                  if (SHIBYTE(v105.__r_.__value_.__r.__words[2]) < 0)
+                  if (SHIBYTE(v78.__r_.__value_.__r.__words[2]) < 0)
                   {
-                    v44 = v105.__r_.__value_.__r.__words[0];
-LABEL_193:
-                    operator delete(v44);
-                    goto LABEL_194;
+                    v34 = v78.__r_.__value_.__r.__words[0];
+LABEL_199:
+                    operator delete(v34);
+                    goto LABEL_200;
                   }
                 }
 
                 else
                 {
-                  if (*(a1 + 12) != v42)
+                  if (*(a1 + 12) != v32)
                   {
-                    sub_100012C44(a1, v42);
+                    sub_100012C44(a1, v32);
                   }
 
                   if (sub_100010510())
                   {
-                    sub_100010544(0, "Successfully attached to pid %d", v45, v46, v47, v48, v49, v50, v42);
+                    sub_100010544(0, "Successfully attached to pid %d", v32);
                   }
 
                   sub_10001B6A4(a1);
                   v7 = 0;
                 }
 
-                goto LABEL_194;
+                goto LABEL_200;
               }
 
               if (sub_100010510())
@@ -9103,140 +9094,140 @@ LABEL_193:
 
               if (__s[0])
               {
-                v63 = __s;
+                v42 = __s;
               }
 
               else
               {
-                v63 = "attach failed";
+                v42 = "attach failed";
               }
 
-              sub_1000305EC((a1 + 312), v63);
-              if (!v43)
+              sub_1000305EC((a1 + 312), v42);
+              if (!v33)
               {
                 if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
                 {
                   if (!__p.__r_.__value_.__l.__size_)
                   {
-                    goto LABEL_160;
+                    goto LABEL_166;
                   }
 
-                  v64 = __p.__r_.__value_.__r.__words[0];
+                  v43 = __p.__r_.__value_.__r.__words[0];
                 }
 
                 else
                 {
                   if (!*(&__p.__r_.__value_.__s + 23))
                   {
-                    goto LABEL_160;
+                    goto LABEL_166;
                   }
 
-                  v64 = &__p;
+                  v43 = &__p;
                 }
 
-                v43 = sub_10000A9CC(v64);
-                if (!v43)
+                LODWORD(v33) = sub_10000A9CC(v43);
+                if (!v33)
                 {
-                  goto LABEL_160;
+                  goto LABEL_166;
                 }
               }
 
-              if (sub_100030624(v43))
+              if (sub_100030624(v33))
               {
                 if (sub_100010510())
                 {
                   sub_1000107A0("Tried to attach to pid that doesn't exist");
                 }
 
-                sub_100013A80(&v103, "E96");
+                sub_100013A80(&v76, "E96");
                 sub_100013A80(&__endptr, "no such process");
-                v7 = sub_100029BE8(a1, &v103, &__endptr);
+                v7 = sub_100029BE8(a1, &v76, &__endptr);
                 if (SHIBYTE(__endptr.__r_.__value_.__r.__words[2]) < 0)
                 {
                   operator delete(__endptr.__r_.__value_.__l.__data_);
                 }
 
-                if (SHIBYTE(v103.__r_.__value_.__r.__words[2]) < 0)
+                if (SHIBYTE(v76.__r_.__value_.__r.__words[2]) < 0)
                 {
-                  v44 = v103.__r_.__value_.__r.__words[0];
-                  goto LABEL_193;
+                  v34 = v76.__r_.__value_.__r.__words[0];
+                  goto LABEL_199;
                 }
 
-LABEL_194:
+LABEL_200:
                 if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
                 {
                   v13 = __p.__r_.__value_.__r.__words[0];
-                  goto LABEL_196;
+                  goto LABEL_202;
                 }
 
                 return v7;
               }
 
-              if (sub_1000306E4(v43))
+              if (sub_1000306E4())
               {
                 if (sub_100010510())
                 {
                   sub_1000107A0("Tried to attach to process already being debugged");
                 }
 
-                sub_100013A80(&v102, "E96");
+                sub_100013A80(&v75, "E96");
                 sub_100013A80(&__endptr, "tried to attach to process already being debugged");
-                v7 = sub_100029BE8(a1, &v102, &__endptr);
+                v7 = sub_100029BE8(a1, &v75, &__endptr);
                 if (SHIBYTE(__endptr.__r_.__value_.__r.__words[2]) < 0)
                 {
                   operator delete(__endptr.__r_.__value_.__l.__data_);
                 }
 
-                if (SHIBYTE(v102.__r_.__value_.__r.__words[2]) < 0)
+                if (SHIBYTE(v75.__r_.__value_.__r.__words[2]) < 0)
                 {
-                  v44 = v102.__r_.__value_.__r.__words[0];
-                  goto LABEL_193;
+                  v34 = v75.__r_.__value_.__r.__words[0];
+                  goto LABEL_199;
                 }
 
-                goto LABEL_194;
+                goto LABEL_200;
               }
 
               *__val = 0;
-              if (sub_100030730(v43, &__val[1], __val))
+              if (sub_100030730(v33, &__val[1], __val))
               {
-                v65 = __val[1];
-                std::to_string(&v100, __val[1]);
-                v66 = std::string::insert(&v100, 0, "uid ");
-                v67 = v66->__r_.__value_.__r.__words[2];
-                *&__endptr.__r_.__value_.__l.__data_ = *&v66->__r_.__value_.__l.__data_;
-                __endptr.__r_.__value_.__r.__words[2] = v67;
-                v66->__r_.__value_.__l.__size_ = 0;
-                v66->__r_.__value_.__r.__words[2] = 0;
-                v66->__r_.__value_.__r.__words[0] = 0;
-                if (SHIBYTE(v100.__r_.__value_.__r.__words[2]) < 0)
+                v44 = __val[1];
+                std::to_string(&v73, __val[1]);
+                v45 = std::string::insert(&v73, 0, "uid ");
+                v46 = v45->__r_.__value_.__r.__words[2];
+                *&__endptr.__r_.__value_.__l.__data_ = *&v45->__r_.__value_.__l.__data_;
+                __endptr.__r_.__value_.__r.__words[2] = v46;
+                v45->__r_.__value_.__l.__size_ = 0;
+                v45->__r_.__value_.__r.__words[2] = 0;
+                v45->__r_.__value_.__r.__words[0] = 0;
+                if (SHIBYTE(v73.__r_.__value_.__r.__words[2]) < 0)
                 {
-                  operator delete(v100.__r_.__value_.__l.__data_);
+                  operator delete(v73.__r_.__value_.__l.__data_);
                 }
 
-                v68 = __val[0];
-                std::to_string(&v99, __val[0]);
-                v69 = std::string::insert(&v99, 0, "uid ");
-                v70 = v69->__r_.__value_.__r.__words[2];
-                *&v100.__r_.__value_.__l.__data_ = *&v69->__r_.__value_.__l.__data_;
-                v100.__r_.__value_.__r.__words[2] = v70;
-                v69->__r_.__value_.__l.__size_ = 0;
-                v69->__r_.__value_.__r.__words[2] = 0;
-                v69->__r_.__value_.__r.__words[0] = 0;
-                if (SHIBYTE(v99.__r_.__value_.__r.__words[2]) < 0)
+                v47 = __val[0];
+                std::to_string(&v72, __val[0]);
+                v48 = std::string::insert(&v72, 0, "uid ");
+                v49 = v48->__r_.__value_.__r.__words[2];
+                *&v73.__r_.__value_.__l.__data_ = *&v48->__r_.__value_.__l.__data_;
+                v73.__r_.__value_.__r.__words[2] = v49;
+                v48->__r_.__value_.__l.__size_ = 0;
+                v48->__r_.__value_.__r.__words[2] = 0;
+                v48->__r_.__value_.__r.__words[0] = 0;
+                if (SHIBYTE(v72.__r_.__value_.__r.__words[2]) < 0)
                 {
-                  operator delete(v99.__r_.__value_.__l.__data_);
+                  operator delete(v72.__r_.__value_.__l.__data_);
                 }
 
-                v71 = getpwuid(v65);
-                if (v71 && v71->pw_name)
+                v50 = getpwuid(v44);
+                if (v50 && v50->pw_name)
                 {
-                  std::string::assign(&__endptr, v71->pw_name);
+                  std::string::assign(&__endptr, v50->pw_name);
                 }
 
-                v72 = getpwuid(v68);
-                if (v72 && v72->pw_name)
+                v51 = getpwuid(v47);
+                if (v51 && v51->pw_name)
                 {
-                  std::string::assign(&v100, v72->pw_name);
+                  std::string::assign(&v73, v51->pw_name);
                 }
 
                 if (sub_100010510())
@@ -9245,118 +9236,118 @@ LABEL_194:
                 }
 
                 std::operator+<char>();
-                v73 = std::string::append(&v96, "' and process is running as user '");
-                v74 = v73->__r_.__value_.__r.__words[2];
-                *&v97.__r_.__value_.__l.__data_ = *&v73->__r_.__value_.__l.__data_;
-                v97.__r_.__value_.__r.__words[2] = v74;
-                v73->__r_.__value_.__l.__size_ = 0;
-                v73->__r_.__value_.__r.__words[2] = 0;
-                v73->__r_.__value_.__r.__words[0] = 0;
-                if ((v100.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+                v52 = std::string::append(&v69, "' and process is running as user '");
+                v53 = v52->__r_.__value_.__r.__words[2];
+                *&v70.__r_.__value_.__l.__data_ = *&v52->__r_.__value_.__l.__data_;
+                v70.__r_.__value_.__r.__words[2] = v53;
+                v52->__r_.__value_.__l.__size_ = 0;
+                v52->__r_.__value_.__r.__words[2] = 0;
+                v52->__r_.__value_.__r.__words[0] = 0;
+                if ((v73.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
                 {
-                  v75 = &v100;
+                  v54 = &v73;
                 }
 
                 else
                 {
-                  v75 = v100.__r_.__value_.__r.__words[0];
+                  v54 = v73.__r_.__value_.__r.__words[0];
                 }
 
-                if ((v100.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+                if ((v73.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
                 {
-                  size = HIBYTE(v100.__r_.__value_.__r.__words[2]);
+                  size = HIBYTE(v73.__r_.__value_.__r.__words[2]);
                 }
 
                 else
                 {
-                  size = v100.__r_.__value_.__l.__size_;
+                  size = v73.__r_.__value_.__l.__size_;
                 }
 
-                v77 = std::string::append(&v97, v75, size);
-                v78 = v77->__r_.__value_.__r.__words[2];
-                *&v98.__r_.__value_.__l.__data_ = *&v77->__r_.__value_.__l.__data_;
-                v98.__r_.__value_.__r.__words[2] = v78;
-                v77->__r_.__value_.__l.__size_ = 0;
-                v77->__r_.__value_.__r.__words[2] = 0;
-                v77->__r_.__value_.__r.__words[0] = 0;
-                v79 = std::string::append(&v98, "'");
-                v80 = v79->__r_.__value_.__r.__words[2];
-                *&v99.__r_.__value_.__l.__data_ = *&v79->__r_.__value_.__l.__data_;
-                v99.__r_.__value_.__r.__words[2] = v80;
-                v79->__r_.__value_.__l.__size_ = 0;
-                v79->__r_.__value_.__r.__words[2] = 0;
-                v79->__r_.__value_.__r.__words[0] = 0;
-                if (SHIBYTE(v98.__r_.__value_.__r.__words[2]) < 0)
+                v56 = std::string::append(&v70, v54, size);
+                v57 = v56->__r_.__value_.__r.__words[2];
+                *&v71.__r_.__value_.__l.__data_ = *&v56->__r_.__value_.__l.__data_;
+                v71.__r_.__value_.__r.__words[2] = v57;
+                v56->__r_.__value_.__l.__size_ = 0;
+                v56->__r_.__value_.__r.__words[2] = 0;
+                v56->__r_.__value_.__r.__words[0] = 0;
+                v58 = std::string::append(&v71, "'");
+                v59 = v58->__r_.__value_.__r.__words[2];
+                *&v72.__r_.__value_.__l.__data_ = *&v58->__r_.__value_.__l.__data_;
+                v72.__r_.__value_.__r.__words[2] = v59;
+                v58->__r_.__value_.__l.__size_ = 0;
+                v58->__r_.__value_.__r.__words[2] = 0;
+                v58->__r_.__value_.__r.__words[0] = 0;
+                if (SHIBYTE(v71.__r_.__value_.__r.__words[2]) < 0)
                 {
-                  operator delete(v98.__r_.__value_.__l.__data_);
-                  if ((SHIBYTE(v97.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+                  operator delete(v71.__r_.__value_.__l.__data_);
+                  if ((SHIBYTE(v70.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
                   {
-LABEL_149:
-                    if ((SHIBYTE(v96.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+LABEL_155:
+                    if ((SHIBYTE(v69.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
                     {
-                      goto LABEL_150;
+                      goto LABEL_156;
                     }
 
-LABEL_186:
-                    operator delete(v96.__r_.__value_.__l.__data_);
-LABEL_150:
-                    sub_100013A80(&v95, "E96");
-                    v7 = sub_100029BE8(a1, &v95, &v99);
-                    if (SHIBYTE(v95.__r_.__value_.__r.__words[2]) < 0)
+LABEL_192:
+                    operator delete(v69.__r_.__value_.__l.__data_);
+LABEL_156:
+                    sub_100013A80(&v68, "E96");
+                    v7 = sub_100029BE8(a1, &v68, &v72);
+                    if (SHIBYTE(v68.__r_.__value_.__r.__words[2]) < 0)
                     {
-                      operator delete(v95.__r_.__value_.__l.__data_);
-                      if ((SHIBYTE(v99.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+                      operator delete(v68.__r_.__value_.__l.__data_);
+                      if ((SHIBYTE(v72.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
                       {
-LABEL_152:
-                        if (SHIBYTE(v100.__r_.__value_.__r.__words[2]) < 0)
+LABEL_158:
+                        if (SHIBYTE(v73.__r_.__value_.__r.__words[2]) < 0)
                         {
-                          goto LABEL_189;
+                          goto LABEL_195;
                         }
 
-                        goto LABEL_191;
+                        goto LABEL_197;
                       }
                     }
 
-                    else if ((SHIBYTE(v99.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+                    else if ((SHIBYTE(v72.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
                     {
-                      goto LABEL_152;
+                      goto LABEL_158;
                     }
 
-                    operator delete(v99.__r_.__value_.__l.__data_);
-                    if (SHIBYTE(v100.__r_.__value_.__r.__words[2]) < 0)
+                    operator delete(v72.__r_.__value_.__l.__data_);
+                    if (SHIBYTE(v73.__r_.__value_.__r.__words[2]) < 0)
                     {
-LABEL_189:
-                      v86 = v100.__r_.__value_.__r.__words[0];
-LABEL_190:
-                      operator delete(v86);
+LABEL_195:
+                      v65 = v73.__r_.__value_.__r.__words[0];
+LABEL_196:
+                      operator delete(v65);
                     }
 
-LABEL_191:
+LABEL_197:
                     if ((SHIBYTE(__endptr.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
                     {
-                      goto LABEL_194;
+                      goto LABEL_200;
                     }
 
-                    v44 = __endptr.__r_.__value_.__r.__words[0];
-                    goto LABEL_193;
+                    v34 = __endptr.__r_.__value_.__r.__words[0];
+                    goto LABEL_199;
                   }
                 }
 
-                else if ((SHIBYTE(v97.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+                else if ((SHIBYTE(v70.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
                 {
-                  goto LABEL_149;
+                  goto LABEL_155;
                 }
 
-                operator delete(v97.__r_.__value_.__l.__data_);
-                if ((SHIBYTE(v96.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+                operator delete(v70.__r_.__value_.__l.__data_);
+                if ((SHIBYTE(v69.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
                 {
-                  goto LABEL_150;
+                  goto LABEL_156;
                 }
 
-                goto LABEL_186;
+                goto LABEL_192;
               }
 
-LABEL_160:
+LABEL_166:
               sub_100013A80(&__endptr, "attach failed");
               if (__s[0])
               {
@@ -9376,111 +9367,123 @@ LABEL_160:
                 sub_1000107A0("Attach failed: %s.", __s);
               }
 
-              sub_100013A80(&v94, "E96");
-              v7 = sub_100029BE8(a1, &v94, &__endptr);
-              if ((SHIBYTE(v94.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+              sub_100013A80(&v67, "E96");
+              v7 = sub_100029BE8(a1, &v67, &__endptr);
+              if ((SHIBYTE(v67.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
               {
-                goto LABEL_191;
+                goto LABEL_197;
               }
 
-              v86 = v94.__r_.__value_.__r.__words[0];
-              goto LABEL_190;
+              v65 = v67.__r_.__value_.__r.__words[0];
+              goto LABEL_196;
             }
 
-            v107 = __s1 + 12;
-            if (sub_10003049C(&v107, &__p))
+            v80 = __s1 + 12;
+            if (sub_10003049C(&v80, &__p))
             {
               if (sub_100010510())
               {
-                v51 = getpid();
-                sub_100010544(0, "[LaunchAttach] START %d vAttachName attach to process name '%s'", v52, v53, v54, v55, v56, v57, v51);
+                v35 = getpid();
+                v36 = &__p;
+                if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+                {
+                  v36 = __p.__r_.__value_.__r.__words[0];
+                }
+
+                sub_100010544(0, "[LaunchAttach] START %d vAttachName attach to process name '%s'", v35, v36);
               }
 
               if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
               {
-                v58 = &__p;
+                v37 = &__p;
               }
 
               else
               {
-                v58 = __p.__r_.__value_.__r.__words[0];
+                v37 = __p.__r_.__value_.__r.__words[0];
               }
 
-              v28 = sub_10000ABE0(v58, 0, a1 + 448, __s, 1024);
-LABEL_73:
-              v42 = v28;
-              v43 = 0;
-              goto LABEL_74;
+              v23 = sub_10000ABE0(v37, 0, a1 + 448, __s, 0x400uLL);
+LABEL_77:
+              v32 = v23;
+              LODWORD(v33) = 0;
+              goto LABEL_78;
             }
 
-            v62 = v107;
-            v59 = a1;
-            v60 = 3817;
-LABEL_105:
-            v7 = sub_10002A394(v59, "/Library/Caches/com.apple.xbs/Sources/lldb/llvm-project/lldb/tools/debugserver/source/RNBRemote.cpp", v60, v62);
-            goto LABEL_194;
+            v41 = v80;
+            v38 = a1;
+            v39 = 3817;
+LABEL_111:
+            v7 = sub_10002A394(v38, "/Library/Caches/com.apple.xbs/Sources/lldb/llvm-project/lldb/tools/debugserver/source/RNBRemote.cpp", v39, v41);
+            goto LABEL_200;
           }
 
-          v30 = __s1[14];
+          v25 = __s1[14];
           v15 = __s1 + 14;
-          v29 = v30;
-          v107 = v15;
-          if (!v30)
+          v24 = v25;
+          v80 = v15;
+          if (!v25)
           {
-LABEL_67:
+LABEL_69:
             if (sub_100010510())
             {
-              v34 = getpid();
-              sub_100010544(0, "[LaunchAttach] START %d vAttachWaitOrWait for process name '%s'", v35, v36, v37, v38, v39, v40, v34);
+              v29 = getpid();
+              v30 = &__p;
+              if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+              {
+                v30 = __p.__r_.__value_.__r.__words[0];
+              }
+
+              sub_100010544(0, "[LaunchAttach] START %d vAttachWaitOrWait for process name '%s'", v29, v30);
             }
 
             if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v41 = &__p;
+              v31 = &__p;
             }
 
             else
             {
-              v41 = __p.__r_.__value_.__r.__words[0];
+              v31 = __p.__r_.__value_.__r.__words[0];
             }
 
-            v28 = sub_10000B780(a1, v41, 0, 0, 0x3E8u, __s, 0x400uLL, sub_10003054C, 0);
-            goto LABEL_73;
+            v23 = sub_10000B780(a1, v31, 0, 0, 0x3E8u, __s, 0x400uLL, sub_10003054C, 0);
+            goto LABEL_77;
           }
 
           while (1)
           {
-            __endptr.__r_.__value_.__s.__data_[0] = v29;
+            __endptr.__r_.__value_.__s.__data_[0] = v24;
             *(&__endptr.__r_.__value_.__l.__data_ + 1) = v15[1];
             *__error() = 0;
-            v31 = strtoul(&__endptr, 0, 16);
-            if (*__error() && v31 == 0)
+            v26 = strtoul(&__endptr, 0, 16);
+            if (*__error() && v26 == 0)
             {
               break;
             }
 
-            std::string::push_back(&__p, v31);
-            v33 = v15[2];
+            std::string::push_back(&__p, v26);
+            v28 = v15[2];
             v15 += 2;
-            v29 = v33;
-            if (!v33)
+            v24 = v28;
+            if (!v28)
             {
-              v107 = v15;
-              goto LABEL_67;
+              v80 = v15;
+              goto LABEL_69;
             }
           }
 
-          v59 = a1;
-          v60 = 3803;
+          v38 = a1;
+          v39 = 3803;
         }
 
-        v62 = v15;
-        goto LABEL_105;
+        v41 = v15;
+        goto LABEL_111;
       }
 
       sub_100010998(__s);
       v5 = __s1 + 5;
-      v107 = __s1 + 5;
+      v80 = __s1 + 5;
       __endptr.__r_.__value_.__r.__words[0] = (__s1 + 5);
       v6 = strlen(__s1 + 5);
       if (__s1[5] == 63)
@@ -9499,7 +9502,7 @@ LABEL_45:
             if (*__s)
             {
               *&__s[8] = *__s;
-LABEL_196:
+LABEL_202:
               operator delete(v13);
             }
 
@@ -9570,8 +9573,8 @@ LABEL_36:
               HIDWORD(__p.__r_.__value_.__r.__words[1]) = strtoul(v10 + 2, &__endptr.__r_.__value_.__l.__data_, 16);
               if (*__error())
               {
-                v81 = 3747;
-                goto LABEL_155;
+                v60 = 3747;
+                goto LABEL_161;
               }
 
 LABEL_35:
@@ -9586,9 +9589,9 @@ LABEL_35:
           HIDWORD(__p.__r_.__value_.__r.__words[1]) = strtoul(v10 + 2, &__endptr.__r_.__value_.__l.__data_, 16);
           if (*__error())
           {
-            v81 = 3734;
-LABEL_155:
-            v7 = sub_10002A394(a1, "/Library/Caches/com.apple.xbs/Sources/lldb/llvm-project/lldb/tools/debugserver/source/RNBRemote.cpp", v81, v5);
+            v60 = 3734;
+LABEL_161:
+            v7 = sub_10002A394(a1, "/Library/Caches/com.apple.xbs/Sources/lldb/llvm-project/lldb/tools/debugserver/source/RNBRemote.cpp", v60, v5);
             v8 = *&__s[24];
             if (*&__s[24])
             {
@@ -9609,8 +9612,8 @@ LABEL_39:
           __p.__r_.__value_.__r.__words[0] = strtoul(v10 + 1, &__endptr.__r_.__value_.__l.__data_, 16);
           if (*__error())
           {
-            v81 = 3765;
-            goto LABEL_155;
+            v60 = 3765;
+            goto LABEL_161;
           }
 
           v10 = __endptr.__r_.__value_.__r.__words[0];

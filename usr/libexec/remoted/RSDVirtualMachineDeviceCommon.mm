@@ -11,21 +11,21 @@
 
 - (const)remote_address
 {
-  result = _os_crash();
+  result = _os_crash("Not supported on virtualmachine devices", a2);
   __break(1u);
   return result;
 }
 
 - (const)local_address
 {
-  result = _os_crash();
+  result = _os_crash("Not supported on virtualmachine devices", a2);
   __break(1u);
   return result;
 }
 
 - (unsigned)interface_index
 {
-  result = _os_crash();
+  result = _os_crash("Not supported on virtualmachine devices", a2);
   __break(1u);
   return result;
 }

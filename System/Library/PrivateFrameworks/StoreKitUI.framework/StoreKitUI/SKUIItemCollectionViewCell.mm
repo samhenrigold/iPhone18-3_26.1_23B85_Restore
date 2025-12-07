@@ -13,20 +13,8 @@
 
 - (void)setCellLayoutNeedsLayout
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUIItemCollectionViewCell *)v3 setCellLayoutNeedsLayout:v4];
-      }
-    }
-  }
-
-  self->_layoutNeedsLayout = 1;
-  [(SKUIItemCollectionViewCell *)self setNeedsLayout];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIItemCollectionViewCell setCellLayoutNeedsLayout]";
 }
 
 - (void)applyLayoutAttributes:(id)attributes
@@ -55,24 +43,8 @@
 
 - (void)prepareForReuse
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUIItemCollectionViewCell *)v3 prepareForReuse:v4];
-      }
-    }
-  }
-
-  layout = [(SKUIItemCollectionViewCell *)self layout];
-  [layout prepareForReuse];
-
-  v12.receiver = self;
-  v12.super_class = SKUIItemCollectionViewCell;
-  [(SKUIItemCollectionViewCell *)&v12 prepareForReuse];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIItemCollectionViewCell prepareForReuse]";
 }
 
 - (void)setHighlighted:(BOOL)highlighted
@@ -123,28 +95,8 @@
 
 - (void)layoutSubviews
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUIItemCollectionViewCell *)v3 layoutSubviews:v4];
-      }
-    }
-  }
-
-  v12.receiver = self;
-  v12.super_class = SKUIItemCollectionViewCell;
-  [(SKUICollectionViewCell *)&v12 layoutSubviews];
-  if (self->_layoutNeedsLayout)
-  {
-    layout = [(SKUIItemCollectionViewCell *)self layout];
-    [layout layoutSubviews];
-  }
-
-  self->_layoutNeedsLayout = 0;
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIItemCollectionViewCell layoutSubviews]";
 }
 
 - (void)setBounds:(CGRect)bounds
@@ -203,6 +155,36 @@
   v19.receiver = self;
   v19.super_class = SKUIItemCollectionViewCell;
   [(SKUIItemCollectionViewCell *)&v19 setFrame:x, y, width, height];
+}
+
+- (void)applyLayoutAttributes:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIItemCollectionViewCell applyLayoutAttributes:]";
+}
+
+- (void)setHighlighted:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIItemCollectionViewCell setHighlighted:]";
+}
+
+- (void)setSelected:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIItemCollectionViewCell setSelected:]";
+}
+
+- (void)setBounds:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIItemCollectionViewCell setBounds:]";
+}
+
+- (void)setFrame:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIItemCollectionViewCell setFrame:]";
 }
 
 @end

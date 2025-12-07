@@ -2,10 +2,13 @@
 + (BOOL)_shouldSuppressMigrationFailureAlert;
 + (id)sharedInstance;
 - (BOOL)_showIgnoreTapToRadarAlertOption;
+- (BOOL)isMigrationNeededWithBuildVersion:(id)version lastBuildVersion:(id)buildVersion clientPID:(int)d;
 - (BOOL)startMigrationAndOrBlockIfNecessaryWithClientInvocation:(id)invocation buildVersion:(id)version migrationStarterBlock:(id)block;
 - (DMMigrationState)initWithMigrationSentinelManager:(id)manager;
 - (NSDictionary)pluginResults;
 - (NSString)migrationPhaseDescription;
+- (id)_telemetryDictionaryForPluginIdentifier:(id)identifier duration:(double)duration incident:(id)incident countOfAttempts:(unint64_t)attempts previousBuildVersion:(id)version userDataDisposition:(unsigned int)disposition userCategory:(unsigned int)category;
+- (id)_telemetryDictionaryMigrationDidCompleteWithDuration:(double)duration fastPluginDuration:(double)pluginDuration pluginCrashCount:(unsigned int)count pluginWatchdogCount:(unsigned int)watchdogCount pluginReturnedFalseCount:(unsigned int)falseCount previousBuildVersion:(id)version userDataDisposition:(unsigned int)disposition pluginCategories:(unsigned int)self0 userCategory:(unsigned int)self1 inAppleStore:(BOOL)self2 isFromFactory:(BOOL)self3;
 - (void)_clearPluginResults;
 - (void)_createRecursiveMutex;
 - (void)_releaseMigrationFailureNotification;
@@ -19,7 +22,9 @@
 - (void)progressHostIsReady;
 - (void)progressWindowHadIncident:(id)incident;
 - (void)reportTelemetryForPluginIdentifier:(id)identifier duration:(double)duration incident:(id)incident countOfAttempts:(unint64_t)attempts userDataDisposition:(id)disposition userCategory:(unsigned int)category;
+- (void)reportTelemetryWithMigrationDuration:(double)duration userDataDisposition:(id)disposition pluginCategories:(unsigned int)categories userCategory:(unsigned int)category inAppleStore:(BOOL)store isFromFactory:(BOOL)factory startInterval:(double)interval firstPluginStartInterval:(double)self0 endInterval:(double)self1;
 - (void)sendMigrationResultsToClientInvocationsInterestedInEarlyResultsForPluginIdentifier:(id)identifier;
+- (void)sendMigrationResultsToClientInvocationsWithSuccess:(BOOL)success buildVersion:(id)version;
 - (void)setMigrationPhaseDescription:(id)description;
 - (void)setNeedsMigrationFailureReport;
 - (void)willRunPlugins:(id)plugins;
@@ -245,6 +250,44 @@ LABEL_20:
   self->_migrationPhaseDescription = v5;
 
   pthread_mutex_unlock(&self->_recursiveMutex);
+}
+
+- (BOOL)isMigrationNeededWithBuildVersion:(id)version lastBuildVersion:(id)buildVersion clientPID:(int)d
+{
+  v5 = *&d;
+  versionCopy = version;
+  buildVersionCopy = buildVersion;
+  if (versionCopy)
+  {
+    if (([DMEnvironment isBuildVersion:versionCopy equalToBuildVersion:buildVersionCopy]& 1) == 0)
+    {
+      goto LABEL_6;
+    }
+  }
+
+  else
+  {
+    v15 = [NSNumber numberWithInt:v5];
+    _DMLogFunc();
+  }
+
+  migrationSentinelManager = [(DMMigrationState *)self migrationSentinelManager];
+  isSentinelPresent = [migrationSentinelManager isSentinelPresent];
+
+  if (!isSentinelPresent)
+  {
+    v13 = 0;
+    goto LABEL_8;
+  }
+
+LABEL_6:
+  v12 = [NSNumber numberWithInt:v5];
+  _DMLogFunc();
+
+  v13 = 1;
+LABEL_8:
+
+  return v13;
 }
 
 - (BOOL)startMigrationAndOrBlockIfNecessaryWithClientInvocation:(id)invocation buildVersion:(id)version migrationStarterBlock:(id)block
@@ -529,6 +572,84 @@ LABEL_16:
     while (v7);
   }
 
+  pthread_mutex_unlock(&self->_recursiveMutex);
+}
+
+- (void)sendMigrationResultsToClientInvocationsWithSuccess:(BOOL)success buildVersion:(id)version
+{
+  successCopy = success;
+  versionCopy = version;
+  pthread_mutex_lock(&self->_recursiveMutex);
+  [(DMMigrationState *)self _firstPointAfterEnteringEndOfMigrationCriticalSection];
+  migrationSentinelManager = [(DMMigrationState *)self migrationSentinelManager];
+  [migrationSentinelManager removeSentinelIfPresent];
+
+  if (versionCopy)
+  {
+    v8 = +[DMEnvironment sharedInstance];
+    [v8 setLastBuildVersionPref:versionCopy];
+
+    v9 = [NSDictionary dmlmr_lastMigrationResultsWithSuccess:successCopy buildVersion:versionCopy];
+    v10 = +[DMEnvironment sharedInstance];
+    [v10 setLastMigrationResultsPref:v9];
+  }
+
+  v26 = versionCopy;
+  v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  v11 = self->_waitingClientInvocations;
+  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v27 objects:v31 count:16];
+  if (v12)
+  {
+    v13 = v12;
+    v14 = *v28;
+    do
+    {
+      for (i = 0; i != v13; i = i + 1)
+      {
+        if (*v28 != v14)
+        {
+          objc_enumerationMutation(v11);
+        }
+
+        v16 = *(*(&v27 + 1) + 8 * i);
+        resultsHandler = [v16 resultsHandler];
+
+        if (resultsHandler)
+        {
+          earlyResultsPluginIdentifier = [v16 earlyResultsPluginIdentifier];
+          if (earlyResultsPluginIdentifier)
+          {
+            v19 = earlyResultsPluginIdentifier;
+            completedPluginIdentifiers = self->_completedPluginIdentifiers;
+            earlyResultsPluginIdentifier2 = [v16 earlyResultsPluginIdentifier];
+            LOBYTE(completedPluginIdentifiers) = [(NSMutableSet *)completedPluginIdentifiers containsObject:earlyResultsPluginIdentifier2];
+
+            if ((completedPluginIdentifiers & 1) == 0)
+            {
+              v22 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v16 pid]);
+              [v16 earlyResultsPluginIdentifier];
+              v25 = v24 = v22;
+              _DMLogFunc();
+            }
+          }
+
+          resultsHandler2 = [v16 resultsHandler];
+          resultsHandler2[2](resultsHandler2, successCopy);
+        }
+      }
+
+      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    }
+
+    while (v13);
+  }
+
+  [(NSMutableArray *)self->_waitingClientInvocations removeAllObjects];
+  [(NSMutableSet *)self->_completedPluginIdentifiers removeAllObjects];
+  [(DMMigrationState *)self _reportMigrationFailureIfApplicable];
   pthread_mutex_unlock(&self->_recursiveMutex);
 }
 
@@ -948,6 +1069,83 @@ LABEL_11:
   return v7;
 }
 
+- (id)_telemetryDictionaryForPluginIdentifier:(id)identifier duration:(double)duration incident:(id)incident countOfAttempts:(unint64_t)attempts previousBuildVersion:(id)version userDataDisposition:(unsigned int)disposition userCategory:(unsigned int)category
+{
+  v9 = *&disposition;
+  identifierCopy = identifier;
+  incidentCopy = incident;
+  versionCopy = version;
+  v17 = @"(null)";
+  if (versionCopy)
+  {
+    v17 = versionCopy;
+  }
+
+  v37 = v17;
+  v18 = [DMUserDataDispositionManager basicDispositionFlagsFromDispositionFlags:v9];
+  v19 = [DMUserDataDispositionManager backupSourceDispositionFlagsFromDispositionFlags:v9];
+  v36 = identifierCopy;
+  v47[0] = identifierCopy;
+  v38[0] = @"pluginIdentifier";
+  v38[1] = @"durationInSeconds";
+  v35 = [NSNumber numberWithUnsignedInt:duration];
+  v47[1] = v35;
+  v38[2] = @"attempts";
+  v20 = [NSNumber numberWithUnsignedInteger:attempts];
+  v47[2] = v20;
+  v38[3] = @"didSucceed";
+  v21 = [NSNumber numberWithInt:incidentCopy == 0];
+  v47[3] = v21;
+  v38[4] = @"didReportFailure";
+  if (incidentCopy)
+  {
+    v33 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [incidentCopy kind] == 1);
+    v48 = v33;
+    v39 = @"didHaveTooManyXPCFailures";
+    v32 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [incidentCopy kind] == 2);
+    v49 = v32;
+    v40 = @"didExceedAllowableTime";
+    v22 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [incidentCopy kind] == 3);
+  }
+
+  else
+  {
+    v22 = &__kCFBooleanFalse;
+    v48 = &__kCFBooleanFalse;
+    v49 = &__kCFBooleanFalse;
+    v39 = @"didHaveTooManyXPCFailures";
+    v40 = @"didExceedAllowableTime";
+  }
+
+  v23 = (v9 >> 7) & 1;
+  v24 = (v9 >> 3) & 1;
+  v50 = v22;
+  v51 = v37;
+  v41 = @"previousBuildVersion";
+  v42 = @"userDataDispositionBasic";
+  v25 = [NSNumber numberWithUnsignedInt:v18];
+  v52 = v25;
+  v43 = @"userDataDispositionBackupSource";
+  v26 = [NSNumber numberWithUnsignedInt:v19];
+  v53 = v26;
+  v44 = @"userDataDispositionBackupSourceWasDifferentDevice";
+  v27 = [NSNumber numberWithBool:v24];
+  v54 = v27;
+  v45 = @"userDataDispositionBackupSourceIsMegaBackup";
+  v28 = [NSNumber numberWithBool:v23];
+  v55 = v28;
+  v46 = @"userCategory";
+  v29 = [NSNumber numberWithUnsignedInt:category];
+  v56 = v29;
+  v30 = [NSDictionary dictionaryWithObjects:v47 forKeys:v38 count:13];
+
+  if (incidentCopy)
+  {
+  }
+
+  return v30;
+}
+
 - (void)reportTelemetryForPluginIdentifier:(id)identifier duration:(double)duration incident:(id)incident countOfAttempts:(unint64_t)attempts userDataDisposition:(id)disposition userCategory:(unsigned int)category
 {
   identifierCopy = identifier;
@@ -973,6 +1171,167 @@ LABEL_11:
   v21 = incidentCopy;
   v22 = identifierCopy;
   [v19 sendLazyEventWithName:@"com.apple.migration.pluginDidComplete" payloadBuilder:v23];
+}
+
+- (id)_telemetryDictionaryMigrationDidCompleteWithDuration:(double)duration fastPluginDuration:(double)pluginDuration pluginCrashCount:(unsigned int)count pluginWatchdogCount:(unsigned int)watchdogCount pluginReturnedFalseCount:(unsigned int)falseCount previousBuildVersion:(id)version userDataDisposition:(unsigned int)disposition pluginCategories:(unsigned int)self0 userCategory:(unsigned int)self1 inAppleStore:(BOOL)self2 isFromFactory:(BOOL)self3
+{
+  v13 = *&disposition;
+  v14 = *&falseCount;
+  v15 = *&watchdogCount;
+  v16 = *&count;
+  versionCopy = version;
+  if (versionCopy)
+  {
+    v20 = versionCopy;
+  }
+
+  else
+  {
+    v20 = @"(null)";
+  }
+
+  v36 = v20;
+  v21 = [DMUserDataDispositionManager basicDispositionFlagsFromDispositionFlags:v13];
+  v22 = [DMUserDataDispositionManager backupSourceDispositionFlagsFromDispositionFlags:v13];
+  v40[0] = @"durationInSeconds";
+  v39 = [NSNumber numberWithUnsignedInt:duration];
+  v41[0] = v39;
+  v40[1] = @"fastPluginDurationInSeconds";
+  v38 = [NSNumber numberWithUnsignedInt:pluginDuration];
+  v41[1] = v38;
+  v40[2] = @"countOfPluginsCrashing";
+  v37 = [NSNumber numberWithUnsignedInt:v16];
+  v41[2] = v37;
+  v40[3] = @"countOfPluginsExceedingAllowableTime";
+  v35 = [NSNumber numberWithUnsignedInt:v15];
+  v41[3] = v35;
+  v40[4] = @"countOfPluginsReportingFailure";
+  v33 = [NSNumber numberWithUnsignedInt:v14];
+  v41[4] = v33;
+  v41[5] = v20;
+  v40[5] = @"previousBuildVersion";
+  v40[6] = @"userDataDispositionBasic";
+  v23 = [NSNumber numberWithUnsignedInt:v21];
+  v41[6] = v23;
+  v40[7] = @"userDataDispositionBackupSource";
+  v24 = [NSNumber numberWithUnsignedInt:v22];
+  v41[7] = v24;
+  v40[8] = @"userDataDispositionBackupSourceWasDifferentDevice";
+  v25 = [NSNumber numberWithBool:(v13 >> 3) & 1];
+  v41[8] = v25;
+  v40[9] = @"userDataDispositionBackupSourceIsMegaBackup";
+  v26 = [NSNumber numberWithBool:(v13 >> 7) & 1];
+  v41[9] = v26;
+  v40[10] = @"pluginCategories";
+  v27 = [NSNumber numberWithUnsignedInt:categories];
+  v41[10] = v27;
+  v40[11] = @"userCategory";
+  v28 = [NSNumber numberWithUnsignedInt:category];
+  v41[11] = v28;
+  v40[12] = @"inAppleStore";
+  v29 = [NSNumber numberWithBool:store];
+  v41[12] = v29;
+  v40[13] = @"isFromFactory";
+  v30 = [NSNumber numberWithBool:factory];
+  v41[13] = v30;
+  v31 = [NSDictionary dictionaryWithObjects:v41 forKeys:v40 count:14];
+
+  return v31;
+}
+
+- (void)reportTelemetryWithMigrationDuration:(double)duration userDataDisposition:(id)disposition pluginCategories:(unsigned int)categories userCategory:(unsigned int)category inAppleStore:(BOOL)store isFromFactory:(BOOL)factory startInterval:(double)interval firstPluginStartInterval:(double)self0 endInterval:(double)self1
+{
+  v33 = *&categories;
+  v34 = *&category;
+  dispositionCopy = disposition;
+  pthread_mutex_lock(&self->_recursiveMutex);
+  _DMLogFunc();
+  v50 = 0u;
+  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
+  v17 = self->_incidents;
+  v18 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v48 objects:v52 count:16];
+  if (v18)
+  {
+    v19 = v18;
+    v20 = 0;
+    v21 = 0;
+    v22 = 0;
+    v23 = *v49;
+    do
+    {
+      for (i = 0; i != v19; i = i + 1)
+      {
+        if (*v49 != v23)
+        {
+          objc_enumerationMutation(v17);
+        }
+
+        kind = [*(*(&v48 + 1) + 8 * i) kind];
+        switch(kind)
+        {
+          case 3u:
+            v21 = (v21 + 1);
+            break;
+          case 2u:
+            v22 = (v22 + 1);
+            break;
+          case 1u:
+            v20 = (v20 + 1);
+            break;
+        }
+      }
+
+      v19 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v48 objects:v52 count:16];
+    }
+
+    while (v19);
+  }
+
+  else
+  {
+    v20 = 0;
+    v21 = 0;
+    v22 = 0;
+  }
+
+  v26 = [dispositionCopy objectForKeyedSubscript:@"previousBuildVersion"];
+  v27 = [DMUserDataDispositionManager dispositionFlagsFromDispositionDict:dispositionCopy];
+  fastPluginMigrationDuration = self->_fastPluginMigrationDuration;
+  if (v26)
+  {
+    uTF8String = [v26 UTF8String];
+  }
+
+  else
+  {
+    uTF8String = "(null)";
+  }
+
+  v32 = uTF8String;
+  _DMLogFunc();
+  v30 = [DMAnalytics sharedInstance:duration];
+  v37[0] = _NSConcreteStackBlock;
+  v37[1] = 3221225472;
+  v37[2] = sub_10000924C;
+  v37[3] = &unk_100024958;
+  durationCopy = duration;
+  v40 = v22;
+  v41 = v21;
+  v37[4] = self;
+  v38 = v26;
+  v42 = v20;
+  v43 = v27;
+  v44 = v33;
+  v45 = v34;
+  storeCopy = store;
+  factoryCopy = factory;
+  v31 = v26;
+  [v30 sendLazyEventWithName:@"com.apple.migration.didComplete" payloadBuilder:v37];
+
+  _DMLogFunc();
+  pthread_mutex_unlock(&self->_recursiveMutex);
 }
 
 @end

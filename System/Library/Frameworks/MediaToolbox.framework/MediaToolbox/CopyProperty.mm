@@ -113,7 +113,7 @@ CFTypeRef __remoteXPCItem_CopyProperty_block_invoke(uint64_t a1)
   return result;
 }
 
-const void *__airplayRoute_CopyProperty_block_invoke(uint64_t a1)
+CFTypeRef __airplayRoute_CopyProperty_block_invoke(uint64_t a1)
 {
   result = FigCFDictionaryGetBooleanIfPresent();
   v3 = *(a1 + 40);
@@ -360,24 +360,24 @@ CFTypeRef __videoQueueRemote_CopyProperty_block_invoke_2(uint64_t a1)
   return result;
 }
 
-uint64_t __fpic_CopyProperty_block_invoke(uint64_t a1)
+void __fpic_CopyProperty_block_invoke(void *a1)
 {
   if (!FigCFEqual())
   {
     if (FigCFEqual())
     {
-      result = fpic_copyInterstitialPlayer(*(a1 + 48), *(a1 + 64), *(a1 + 56));
+      fpic_copyInterstitialPlayer(a1[6], a1[8], a1[7]);
       goto LABEL_13;
     }
 
     if (FigCFEqual())
     {
-      v3 = *(a1 + 56);
+      v3 = a1[7];
       DerivedStorage = CMBaseObjectGetDerivedStorage();
       if (!v3)
       {
         __fpic_CopyProperty_block_invoke_cold_1(&v8);
-        result = v8;
+        v2 = v8;
         goto LABEL_13;
       }
 
@@ -387,7 +387,7 @@ uint64_t __fpic_CopyProperty_block_invoke(uint64_t a1)
 LABEL_7:
         v6 = CFRetain(v5);
 LABEL_12:
-        result = 0;
+        v2 = 0;
         *v3 = v6;
         goto LABEL_13;
       }
@@ -397,16 +397,16 @@ LABEL_12:
     {
       if (!FigCFEqual())
       {
-        result = 4294951626;
+        v2 = -15670;
         goto LABEL_13;
       }
 
-      v3 = *(a1 + 56);
+      v3 = a1[7];
       v7 = CMBaseObjectGetDerivedStorage();
       if (!v3)
       {
         __fpic_CopyProperty_block_invoke_cold_2(&v9);
-        result = v9;
+        v2 = v9;
         goto LABEL_13;
       }
 
@@ -421,35 +421,33 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  result = fpic_copyPrimaryPlayer(*(a1 + 48), *(a1 + 56));
+  v2 = fpic_copyPrimaryPlayer(a1[6], a1[7]);
 LABEL_13:
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  return result;
+  *(*(a1[4] + 8) + 24) = v2;
 }
 
-uint64_t __papc_CopyProperty_block_invoke_2(uint64_t result)
+void __papc_CopyProperty_block_invoke_2(uint64_t a1)
 {
-  if (*(*(result + 48) + 72) == 1)
+  if (*(*(a1 + 48) + 72) == 1)
   {
-    v1 = result;
-    if (CFEqual(*(result + 56), @"AllowsAirPlayVideo"))
+    if (CFEqual(*(a1 + 56), @"AllowsAirPlayVideo"))
     {
       v2 = MEMORY[0x1E695E4D0];
-      v3 = *(*(v1 + 48) + 76);
+      v3 = *(*(a1 + 48) + 76);
       goto LABEL_8;
     }
 
     if (FigCFEqual())
     {
       v2 = MEMORY[0x1E695E4D0];
-      v3 = *(*(v1 + 48) + 77);
+      v3 = *(*(a1 + 48) + 77);
       goto LABEL_8;
     }
 
-    if (CFEqual(*(v1 + 56), @"UsesAirPlayVideoWhileAirPlayScreenIsActive"))
+    if (CFEqual(*(a1 + 56), @"UsesAirPlayVideoWhileAirPlayScreenIsActive"))
     {
       v2 = MEMORY[0x1E695E4D0];
-      v3 = *(*(v1 + 48) + 79);
+      v3 = *(*(a1 + 48) + 79);
 LABEL_8:
       if (v3)
       {
@@ -461,7 +459,7 @@ LABEL_8:
         v4 = MEMORY[0x1E695E4C0];
       }
 
-      result = *v4;
+      v5 = *v4;
       if (!*v4)
       {
         goto LABEL_13;
@@ -470,75 +468,56 @@ LABEL_8:
       goto LABEL_12;
     }
 
-    result = CFEqual(*(v1 + 56), @"IsAirPlayVideoActive");
-    if (result)
+    if (CFEqual(*(a1 + 56), @"IsAirPlayVideoActive"))
     {
-      *(*(*(v1 + 32) + 8) + 24) = *(*(v1 + 48) + 72) != 1;
-      if (!*(*(*(v1 + 32) + 8) + 24))
+      *(*(*(a1 + 32) + 8) + 24) = *(*(a1 + 48) + 72) != 1;
+      if (!*(*(*(a1 + 32) + 8) + 24))
       {
-        IsAirPlayVideoActive = papc_getIsAirPlayVideoActive();
-        v6 = MEMORY[0x1E695E4D0];
+        IsAirPlayVideoActive = papc_getIsAirPlayVideoActive(*(a1 + 72));
+        v7 = MEMORY[0x1E695E4D0];
         if (!IsAirPlayVideoActive)
         {
-          v6 = MEMORY[0x1E695E4C0];
+          v7 = MEMORY[0x1E695E4C0];
         }
 
-        result = CFRetain(*v6);
-        **(v1 + 64) = result;
+        **(a1 + 64) = CFRetain(*v7);
       }
     }
 
     else
     {
-      if (CFEqual(*(v1 + 56), @"UseAirPlayVideoAudioOnlyMode"))
+      if (CFEqual(*(a1 + 56), @"UseAirPlayVideoAudioOnlyMode"))
       {
         goto LABEL_22;
       }
 
-      if (CFEqual(*(v1 + 56), @"EnableBufferedAirPlayLocalPlayback") || CFEqual(*(v1 + 56), @"BufferedAirPlayLocalPlaybackVolume"))
+      if (CFEqual(*(a1 + 56), @"EnableBufferedAirPlayLocalPlayback") || CFEqual(*(a1 + 56), @"BufferedAirPlayLocalPlaybackVolume"))
       {
         OUTLINED_FUNCTION_303();
-        result = FigSignalErrorAtGM();
-        *(*(*(v1 + 40) + 8) + 24) = result;
+        FigSignalErrorAtGM("%s signalled err=%d at <>:%d");
+        *(*(*(a1 + 40) + 8) + 24) = v8;
         goto LABEL_14;
       }
 
-      result = CFEqual(*(v1 + 56), @"AirPlayVideoScrubbingCAContextID");
-      if (result)
+      if (CFEqual(*(a1 + 56), @"AirPlayVideoScrubbingCAContextID"))
       {
-        *(*(*(v1 + 40) + 8) + 24) = -12787;
+        *(*(*(a1 + 40) + 8) + 24) = -12787;
         goto LABEL_14;
       }
 
-      if (CFEqual(*(v1 + 56), @"IsSetupForAirPlayVideo") || (result = CFEqual(*(v1 + 56), @"IsBufferedAirPlayActive"), result))
+      if (CFEqual(*(a1 + 56), @"IsSetupForAirPlayVideo") || CFEqual(*(a1 + 56), @"IsBufferedAirPlayActive"))
       {
 LABEL_22:
-        result = *MEMORY[0x1E695E4C0];
+        v5 = *MEMORY[0x1E695E4C0];
 LABEL_12:
-        result = CFRetain(result);
+        v5 = CFRetain(v5);
 LABEL_13:
-        **(v1 + 64) = result;
+        **(a1 + 64) = v5;
 LABEL_14:
-        *(*(*(v1 + 32) + 8) + 24) = 0;
+        *(*(*(a1 + 32) + 8) + 24) = 0;
       }
     }
   }
-
-  return result;
-}
-
-uint64_t __fpic_CopyProperty_block_invoke_cold_1(_DWORD *a1)
-{
-  result = FigSignalErrorAtGM();
-  *a1 = result;
-  return result;
-}
-
-uint64_t __fpic_CopyProperty_block_invoke_cold_2(_DWORD *a1)
-{
-  result = FigSignalErrorAtGM();
-  *a1 = result;
-  return result;
 }
 
 @end

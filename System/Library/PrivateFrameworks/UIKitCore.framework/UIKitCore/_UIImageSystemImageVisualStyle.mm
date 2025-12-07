@@ -17,9 +17,9 @@
     dispatch_once(&_MergedGlobals_1326, &__block_literal_global_610);
   }
 
-  v0 = qword_1ED4A2298;
+  v1 = qword_1ED4A2298;
 
-  return v0;
+  return v1;
 }
 
 - (void)actionsImage

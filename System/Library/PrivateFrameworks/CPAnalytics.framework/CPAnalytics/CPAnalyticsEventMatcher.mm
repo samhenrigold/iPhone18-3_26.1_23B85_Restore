@@ -13,17 +13,17 @@
 
 + (id)eventMatcherWithEventName:(id)name properties:(id)properties
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   propertiesCopy = properties;
   if ([nameCopy length])
   {
     v8 = [self alloc];
-    v13[0] = @"key";
-    v13[1] = @"properties";
-    v14[0] = nameCopy;
-    v14[1] = propertiesCopy;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
+    v12[0] = @"key";
+    v12[1] = @"properties";
+    v13[0] = nameCopy;
+    v13[1] = propertiesCopy;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
     v10 = [v8 initWithConfig:v9];
   }
 
@@ -33,28 +33,26 @@
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v16 = nameCopy;
+      v15 = nameCopy;
       _os_log_error_impl(&dword_24260A000, v9, OS_LOG_TYPE_ERROR, "Invalid event name for event matcher: %@", buf, 0xCu);
     }
 
     v10 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 + (id)eventMatcherWithEventName:(id)name
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   if ([nameCopy length])
   {
     v5 = [self alloc];
-    v10 = @"key";
-    v11 = nameCopy;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
+    v9 = @"key";
+    v10 = nameCopy;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
     v7 = [v5 initWithConfig:v6];
   }
 
@@ -64,21 +62,19 @@
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v13 = nameCopy;
+      v12 = nameCopy;
       _os_log_error_impl(&dword_24260A000, v6, OS_LOG_TYPE_ERROR, "Invalid event name for event matcher: %@", buf, 0xCu);
     }
 
     v7 = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 + (id)eventMatcherWithConfiguration:(id)configuration
 {
-  v29[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   if ([configurationCopy count] != 1)
   {
@@ -120,8 +116,8 @@
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v29[0] = v10;
-        v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
+        v28[0] = v10;
+        v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
 
         v10 = v11;
       }
@@ -138,28 +134,28 @@ LABEL_25:
     goto LABEL_26;
   }
 
-  v23 = v8;
+  v22 = v8;
   v12 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v13 = v10;
-  v14 = [v13 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v25;
+    v16 = *v24;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v25 != v16)
+        if (*v24 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v24 + 1) + 8 * i);
+        v18 = *(*(&v23 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -171,13 +167,13 @@ LABEL_25:
         }
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v15);
   }
 
-  v20 = [[CPAnalyticsCompoundEventMatcher alloc] initWithType:v23 subEventMatchers:v12];
+  v20 = [[CPAnalyticsCompoundEventMatcher alloc] initWithType:v22 subEventMatchers:v12];
   if (!v20)
   {
     goto LABEL_25;
@@ -185,48 +181,46 @@ LABEL_25:
 
 LABEL_26:
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v20;
 }
 
 - (id)_validateAndParseConditionalChecks:(id)checks
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   checksCopy = checks;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     v5 = checksCopy;
-    v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v17;
+      v8 = *v16;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v17 != v8)
+          if (*v16 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v16 + 1) + 8 * i);
+          v10 = *(*(&v15 + 1) + 8 * i);
           v11 = [CPAnalyticsConditional alloc];
-          v12 = [(CPAnalyticsConditional *)v11 initWithConfig:v10, v16];
+          v12 = [(CPAnalyticsConditional *)v11 initWithConfig:v10, v15];
           if (v12)
           {
             [v4 addObject:v12];
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v7);
@@ -248,39 +242,37 @@ LABEL_26:
     v13 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 - (id)_validateAndParseEventProperties:(id)properties
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     allKeys = [propertiesCopy allKeys];
-    v6 = [allKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v6 = [allKeys countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v16;
+      v8 = *v15;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v16 != v8)
+          if (*v15 != v8)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v10 = *(*(&v15 + 1) + 8 * i);
+          v10 = *(*(&v14 + 1) + 8 * i);
           v11 = [propertiesCopy objectForKey:v10];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
@@ -289,7 +281,7 @@ LABEL_26:
           }
         }
 
-        v7 = [allKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v7 = [allKeys countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v7);
@@ -302,8 +294,6 @@ LABEL_26:
   {
     v12 = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -327,7 +317,7 @@ LABEL_26:
 
 - (BOOL)doesMatch:(id)match
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   matchCopy = match;
   eventKeyToMatch = [(CPAnalyticsEventMatcher *)self eventKeyToMatch];
   if (eventKeyToMatch && ([matchCopy name], v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "isEqualToString:", eventKeyToMatch), v6, !v7))
@@ -338,47 +328,46 @@ LABEL_26:
   else
   {
     [(CPAnalyticsEventMatcher *)self eventPropertiesToMatch];
+    v34 = 0u;
     v35 = 0u;
     v36 = 0u;
-    v37 = 0u;
-    v30 = v38 = 0u;
-    allKeys = [v30 allKeys];
-    v9 = [allKeys countByEnumeratingWithState:&v35 objects:v40 count:16];
+    v29 = v37 = 0u;
+    allKeys = [v29 allKeys];
+    v9 = [allKeys countByEnumeratingWithState:&v34 objects:v39 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v36;
+      v11 = *v35;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v36 != v11)
+          if (*v35 != v11)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v13 = *(*(&v35 + 1) + 8 * i);
+          v13 = *(*(&v34 + 1) + 8 * i);
           v14 = [matchCopy propertyForKey:v13];
-          if (!v14)
+          if (v14)
           {
-            goto LABEL_23;
+            v15 = v14;
+            eventPropertiesToMatch = [(CPAnalyticsEventMatcher *)self eventPropertiesToMatch];
+            v17 = [eventPropertiesToMatch valueForKey:v13];
+
+            LODWORD(eventPropertiesToMatch) = [v17 isEqual:v15];
+            if (eventPropertiesToMatch)
+            {
+              continue;
+            }
           }
 
-          v15 = v14;
-          eventPropertiesToMatch = [(CPAnalyticsEventMatcher *)self eventPropertiesToMatch];
-          v17 = [eventPropertiesToMatch valueForKey:v13];
-
-          LODWORD(eventPropertiesToMatch) = [v17 isEqual:v15];
-          if (!eventPropertiesToMatch)
-          {
-LABEL_23:
-            v27 = 0;
-            v18 = v30;
-            goto LABEL_27;
-          }
+          v27 = 0;
+          v18 = v29;
+          goto LABEL_27;
         }
 
-        v10 = [allKeys countByEnumeratingWithState:&v35 objects:v40 count:16];
+        v10 = [allKeys countByEnumeratingWithState:&v34 objects:v39 count:16];
         if (v10)
         {
           continue;
@@ -388,29 +377,29 @@ LABEL_23:
       }
     }
 
-    v18 = v30;
-    if (eventKeyToMatch || [v30 count])
+    v18 = v29;
+    if (eventKeyToMatch || [v29 count])
     {
-      v33 = 0u;
-      v34 = 0u;
-      v31 = 0u;
       v32 = 0u;
+      v33 = 0u;
+      v30 = 0u;
+      v31 = 0u;
       allKeys = [(CPAnalyticsEventMatcher *)self conditionalChecks];
-      v19 = [allKeys countByEnumeratingWithState:&v31 objects:v39 count:16];
+      v19 = [allKeys countByEnumeratingWithState:&v30 objects:v38 count:16];
       if (v19)
       {
         v20 = v19;
-        v21 = *v32;
+        v21 = *v31;
         while (2)
         {
           for (j = 0; j != v20; ++j)
           {
-            if (*v32 != v21)
+            if (*v31 != v21)
             {
               objc_enumerationMutation(allKeys);
             }
 
-            v23 = *(*(&v31 + 1) + 8 * j);
+            v23 = *(*(&v30 + 1) + 8 * j);
             property = [v23 property];
             v25 = [matchCopy propertyForKey:property];
 
@@ -424,7 +413,7 @@ LABEL_23:
             }
           }
 
-          v20 = [allKeys countByEnumeratingWithState:&v31 objects:v39 count:16];
+          v20 = [allKeys countByEnumeratingWithState:&v30 objects:v38 count:16];
           v27 = 1;
           if (v20)
           {
@@ -449,7 +438,6 @@ LABEL_27:
     }
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return v27;
 }
 

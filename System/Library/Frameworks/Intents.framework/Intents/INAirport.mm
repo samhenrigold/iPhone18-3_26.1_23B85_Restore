@@ -14,8 +14,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v13[3] = *MEMORY[0x1E69E9840];
-  v12[0] = @"name";
+  v12[3] = *MEMORY[0x1E69E9840];
+  v11[0] = @"name";
   name = self->_name;
   null = name;
   if (!name)
@@ -23,8 +23,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[0] = null;
-  v12[1] = @"iataCode";
+  v12[0] = null;
+  v11[1] = @"iataCode";
   iataCode = self->_iataCode;
   null2 = iataCode;
   if (!iataCode)
@@ -32,8 +32,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[1] = null2;
-  v12[2] = @"icaoCode";
+  v12[1] = null2;
+  v11[2] = @"icaoCode";
   icaoCode = self->_icaoCode;
   null3 = icaoCode;
   if (!icaoCode)
@@ -41,8 +41,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[2] = null3;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:3];
+  v12[2] = null3;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:3];
   if (icaoCode)
   {
     if (iataCode)
@@ -74,7 +74,6 @@ LABEL_9:
 LABEL_15:
 
 LABEL_10:
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

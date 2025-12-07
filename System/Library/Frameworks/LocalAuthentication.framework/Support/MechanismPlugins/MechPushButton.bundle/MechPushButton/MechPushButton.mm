@@ -1,13 +1,13 @@
-id sub_14EC()
+id sub_14EC(uint64_t a1)
 {
   if (qword_8730 != -1)
   {
     sub_22F0();
   }
 
-  v1 = qword_8738;
+  v2 = qword_8738;
 
-  return v1;
+  return v2;
 }
 
 void sub_22B4(id a1)

@@ -73,7 +73,7 @@
 - (BOOL)rollOverCoreAnalyticsLogs
 {
   v2 = AnalyticsRolloverEvents();
-  v3 = sub_100063A54();
+  v3 = sub_100063A54(v2);
   v4 = v3;
   if (v2)
   {
@@ -96,7 +96,7 @@
 {
   v2 = objc_alloc_init(OSASubmissionClient);
   submit = [v2 submit];
-  v4 = sub_100063A54();
+  v4 = sub_100063A54(submit);
   v5 = v4;
   if (submit)
   {
@@ -118,7 +118,7 @@
 - (BOOL)disableCoreAnalticsTransformSampling
 {
   v2 = AnalyticsDisableAllTransformSampling();
-  v3 = sub_100063A54();
+  v3 = sub_100063A54(v2);
   v4 = v3;
   if (v2)
   {

@@ -57,7 +57,7 @@ void __62__PPNotificationHandler_addObserverBlock_forLifetimeOfObject___block_in
 
 void __41__PPNotificationHandler_fireWithObjects___block_invoke(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (*(a1 + 32))
@@ -66,16 +66,16 @@ void __41__PPNotificationHandler_fireWithObjects___block_invoke(uint64_t a1, voi
     v5 = pp_default_log_handle();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v20 = *(a1 + 40);
-      v21 = [*(a1 + 32) count];
-      v22 = [v4[4] count];
-      v23 = 138412802;
-      v24 = v20;
-      v25 = 2048;
-      v26 = v21;
-      v27 = 2048;
-      v28 = v22;
-      _os_log_debug_impl(&dword_1A7FD3000, v5, OS_LOG_TYPE_DEBUG, "%@ added %tu objects. Queue now has %tu.", &v23, 0x20u);
+      v19 = *(a1 + 40);
+      v20 = [*(a1 + 32) count];
+      v21 = [v4[4] count];
+      v22 = 138412802;
+      v23 = v19;
+      v24 = 2048;
+      v25 = v20;
+      v26 = 2048;
+      v27 = v21;
+      _os_log_debug_impl(&dword_1A7FD3000, v5, OS_LOG_TYPE_DEBUG, "%@ added %tu objects. Queue now has %tu.", &v22, 0x20u);
     }
   }
 
@@ -83,9 +83,9 @@ void __41__PPNotificationHandler_fireWithObjects___block_invoke(uint64_t a1, voi
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = *(a1 + 40);
-    v23 = 138412290;
-    v24 = v7;
-    _os_log_impl(&dword_1A7FD3000, v6, OS_LOG_TYPE_DEFAULT, "%@ is trying to fire", &v23, 0xCu);
+    v22 = 138412290;
+    v23 = v7;
+    _os_log_impl(&dword_1A7FD3000, v6, OS_LOG_TYPE_DEFAULT, "%@ is trying to fire", &v22, 0xCu);
   }
 
   if (*(v4 + 8) == 1)
@@ -94,9 +94,9 @@ void __41__PPNotificationHandler_fireWithObjects___block_invoke(uint64_t a1, voi
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = *(a1 + 40);
-      v23 = 138412290;
-      v24 = v9;
-      _os_log_impl(&dword_1A7FD3000, v8, OS_LOG_TYPE_DEFAULT, "%@ delayedFiringInProgress was YES so doing nothing", &v23, 0xCu);
+      v22 = 138412290;
+      v23 = v9;
+      _os_log_impl(&dword_1A7FD3000, v8, OS_LOG_TYPE_DEFAULT, "%@ delayedFiringInProgress was YES so doing nothing", &v22, 0xCu);
     }
   }
 
@@ -115,9 +115,9 @@ void __41__PPNotificationHandler_fireWithObjects___block_invoke(uint64_t a1, voi
       if (v16)
       {
         v18 = *(a1 + 40);
-        v23 = 138412290;
-        v24 = v18;
-        _os_log_impl(&dword_1A7FD3000, v15, OS_LOG_TYPE_DEFAULT, "%@ is firing immediately", &v23, 0xCu);
+        v22 = 138412290;
+        v23 = v18;
+        _os_log_impl(&dword_1A7FD3000, v15, OS_LOG_TYPE_DEFAULT, "%@ is firing immediately", &v22, 0xCu);
       }
 
       [*(a1 + 40) _executeBlocksWithGuardedData:v4];
@@ -128,17 +128,15 @@ void __41__PPNotificationHandler_fireWithObjects___block_invoke(uint64_t a1, voi
       if (v16)
       {
         v17 = *(a1 + 40);
-        v23 = 138412290;
-        v24 = v17;
-        _os_log_impl(&dword_1A7FD3000, v15, OS_LOG_TYPE_DEFAULT, "%@ waitSeconds has not elapsed, scheduling delayed execution", &v23, 0xCu);
+        v22 = 138412290;
+        v23 = v17;
+        _os_log_impl(&dword_1A7FD3000, v15, OS_LOG_TYPE_DEFAULT, "%@ waitSeconds has not elapsed, scheduling delayed execution", &v22, 0xCu);
       }
 
       *(v4 + 8) = 1;
       [*(a1 + 40) _delayedExecutionAfterSeconds:*(*(a1 + 40) + 24) - v13];
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_delayedExecutionAfterSeconds:(double)seconds
@@ -174,26 +172,24 @@ void __55__PPNotificationHandler__delayedExecutionAfterSeconds___block_invoke(ui
 
 void __55__PPNotificationHandler__delayedExecutionAfterSeconds___block_invoke_2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = pp_default_log_handle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v7 = 138412290;
-    v8 = v5;
-    _os_log_impl(&dword_1A7FD3000, v4, OS_LOG_TYPE_DEFAULT, "%@ is done waiting to fire", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v5;
+    _os_log_impl(&dword_1A7FD3000, v4, OS_LOG_TYPE_DEFAULT, "%@ is done waiting to fire", &v6, 0xCu);
   }
 
   [*(a1 + 32) _executeBlocksWithGuardedData:v3];
   v3[8] = 0;
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_executeBlocksWithGuardedData:(id)data
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v5 = objc_autoreleasePoolPush();
   objectEnumerator = [dataCopy[3] objectEnumerator];
@@ -202,38 +198,38 @@ void __55__PPNotificationHandler__delayedExecutionAfterSeconds___block_invoke_2(
   v8 = pp_default_log_handle();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v23 = [allObjects count];
-    v24 = [dataCopy[4] count];
+    v22 = [allObjects count];
+    v23 = [dataCopy[4] count];
     *buf = 138412802;
     selfCopy2 = self;
-    v32 = 2048;
-    v33 = v23;
-    v34 = 2048;
-    v35 = v24;
+    v31 = 2048;
+    v32 = v22;
+    v33 = 2048;
+    v34 = v23;
     _os_log_debug_impl(&dword_1A7FD3000, v8, OS_LOG_TYPE_DEBUG, "%@ is executing %tu blocks for %tu objects", buf, 0x20u);
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v9 = allObjects;
-  v10 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v26;
+    v12 = *v25;
     do
     {
       v13 = 0;
       do
       {
-        if (*v26 != v12)
+        if (*v25 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v25 + 1) + 8 * v13);
+        v14 = *(*(&v24 + 1) + 8 * v13);
         v15 = objc_autoreleasePoolPush();
         allObjects2 = [dataCopy[4] allObjects];
         (*(v14 + 16))(v14, allObjects2);
@@ -243,7 +239,7 @@ void __55__PPNotificationHandler__delayedExecutionAfterSeconds___block_invoke_2(
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v11);
@@ -266,7 +262,6 @@ void __55__PPNotificationHandler__delayedExecutionAfterSeconds___block_invoke_2(
   dataCopy[2] = v21;
 
   objc_autoreleasePoolPop(v5);
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (PPNotificationHandler)initWithName:(id)name waitSeconds:(double)seconds

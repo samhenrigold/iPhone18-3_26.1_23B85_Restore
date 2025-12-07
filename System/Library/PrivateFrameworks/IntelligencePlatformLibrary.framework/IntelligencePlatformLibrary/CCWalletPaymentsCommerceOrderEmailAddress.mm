@@ -308,7 +308,6 @@ LABEL_36:
 
       v27 = objc_opt_class();
       v26 = NSStringFromClass(v27);
-      v28 = *&v6[*v9];
       v10 = CCSkipFieldErrorForMessage();
 LABEL_37:
 
@@ -331,22 +330,21 @@ LABEL_38:
 LABEL_43:
   if (!*&v6[*v9])
   {
-    v32 = 1;
+    v30 = 1;
     goto LABEL_47;
   }
 
 LABEL_44:
-  v29 = objc_opt_class();
-  v10 = NSStringFromClass(v29);
-  v30 = *&v6[*v9];
-  v31 = CCInvalidBufferErrorForMessage();
+  v28 = objc_opt_class();
+  v10 = NSStringFromClass(v28);
+  v29 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
 LABEL_45:
-  v32 = 0;
+  v30 = 0;
 LABEL_47:
 
-  return v32;
+  return v30;
 }
 
 - (CCWalletPaymentsCommerceOrderEmailAddress)initWithStreet:(id)street city:(id)city state:(id)state postalCode:(id)code country:(id)country rawAddress:(id)address error:(id *)error
@@ -358,18 +356,16 @@ LABEL_47:
   countryCopy = country;
   addressCopy = address;
   v20 = objc_opt_new();
-  v21 = 0x1E696A000uLL;
   if (!streetCopy)
   {
-    v23 = 0;
+    v22 = 0;
 LABEL_5:
     selfCopy = self;
     if (cityCopy)
     {
-      v24 = *(v21 + 3776);
       objc_opt_class();
       IsInstanceOfExpectedClass = CCValidateIsInstanceOfExpectedClass();
-      v26 = v23;
+      v24 = v22;
 
       if (!IsInstanceOfExpectedClass)
       {
@@ -377,11 +373,10 @@ LABEL_5:
       }
 
       CCPBDataWriterWriteStringField();
-      v21 = 0x1E696A000uLL;
       if (!stateCopy)
       {
 LABEL_8:
-        v23 = v26;
+        v22 = v24;
         if (codeCopy)
         {
           goto LABEL_9;
@@ -393,61 +388,56 @@ LABEL_8:
 
     else
     {
-      v26 = v23;
+      v24 = v22;
       if (!stateCopy)
       {
         goto LABEL_8;
       }
     }
 
-    v30 = *(v21 + 3776);
     objc_opt_class();
-    v31 = CCValidateIsInstanceOfExpectedClass();
-    v23 = v26;
+    v27 = CCValidateIsInstanceOfExpectedClass();
+    v22 = v24;
 
-    if (!v31)
+    if (!v27)
     {
       goto LABEL_24;
     }
 
     CCPBDataWriterWriteStringField();
-    v21 = 0x1E696A000uLL;
     if (codeCopy)
     {
 LABEL_9:
-      v27 = *(v21 + 3776);
       objc_opt_class();
-      v28 = CCValidateIsInstanceOfExpectedClass();
-      v26 = v23;
+      v25 = CCValidateIsInstanceOfExpectedClass();
+      v24 = v22;
 
-      if (v28)
+      if (v25)
       {
         CCPBDataWriterWriteStringField();
-        v21 = 0x1E696A000;
         if (!countryCopy)
         {
 LABEL_11:
-          v23 = v26;
+          v22 = v24;
 LABEL_19:
           if (!addressCopy)
           {
 LABEL_22:
             immutableData = [v20 immutableData];
-            v29 = [v39 initWithData:immutableData error:error];
+            v26 = [v33 initWithData:immutableData error:error];
 
-            self = v29;
+            self = v26;
             goto LABEL_26;
           }
 
-          v34 = *(v21 + 3776);
           objc_opt_class();
-          v35 = CCValidateIsInstanceOfExpectedClass();
-          v26 = v23;
+          v29 = CCValidateIsInstanceOfExpectedClass();
+          v24 = v22;
 
-          if (v35)
+          if (v29)
           {
             CCPBDataWriterWriteStringField();
-            v23 = v26;
+            v22 = v24;
             goto LABEL_22;
           }
 
@@ -459,54 +449,51 @@ LABEL_22:
 
 LABEL_23:
       CCSetError();
-      v29 = 0;
-      v23 = v26;
+      v26 = 0;
+      v22 = v24;
 LABEL_25:
       self = selfCopy;
       goto LABEL_26;
     }
 
 LABEL_16:
-    v26 = v23;
+    v24 = v22;
     if (!countryCopy)
     {
       goto LABEL_11;
     }
 
 LABEL_17:
-    v32 = *(v21 + 3776);
     objc_opt_class();
-    v33 = CCValidateIsInstanceOfExpectedClass();
-    v23 = v26;
+    v28 = CCValidateIsInstanceOfExpectedClass();
+    v22 = v24;
 
-    if (v33)
+    if (v28)
     {
       CCPBDataWriterWriteStringField();
-      v21 = 0x1E696A000uLL;
       goto LABEL_19;
     }
 
 LABEL_24:
     CCSetError();
-    v29 = 0;
+    v26 = 0;
     goto LABEL_25;
   }
 
   objc_opt_class();
-  v22 = CCValidateIsInstanceOfExpectedClass();
-  v23 = 0;
-  if (v22)
+  v21 = CCValidateIsInstanceOfExpectedClass();
+  v22 = 0;
+  if (v21)
   {
     CCPBDataWriterWriteStringField();
-    v21 = 0x1E696A000;
     goto LABEL_5;
   }
 
   CCSetError();
-  v29 = 0;
+  v26 = 0;
 LABEL_26:
 
-  return v29;
+  return v26;
 }
 
 @end

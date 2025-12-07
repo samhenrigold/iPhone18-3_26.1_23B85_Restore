@@ -130,6 +130,7 @@
 - (void)_forceInboxButtonCreationIfNeeded;
 - (void)_identityChanged:(id)changed;
 - (void)_initializeCalendarsButton;
+- (void)_invalidateNavBarDateStringCache;
 - (void)_meContactChangedNoticationReceived:(id)received;
 - (void)_monthWeekScaleChanged:(id)changed;
 - (void)_notificationCountChanged:(id)changed;
@@ -919,13 +920,15 @@ LABEL_15:
     v5 = [(UIButton *)calendarsButton titleForState:0];
     v6 = [v5 isEqualToString:v7];
 
+    calendarsButtonTitle = v7;
     if ((v6 & 1) == 0)
     {
-      [(RootNavigationController *)self _updateCalendarsButtonConfiguration];
+      calendarsButton = [(RootNavigationController *)self _updateCalendarsButtonConfiguration];
+      calendarsButtonTitle = v7;
     }
   }
 
-  _objc_release_x1();
+  _objc_release_x1(calendarsButton, calendarsButtonTitle);
 }
 
 - (id)calendarsButtonTitle
@@ -4679,7 +4682,7 @@ LABEL_10:
   [(AdaptiveSearchController *)v16 setPreferredContentSize:v18, v19];
 
   view2 = [(RootNavigationController *)self view];
-  [(AdaptiveSearchController *)v16 _setShouldRespectPreferredContentSize:EKUICurrentWindowInterfaceParadigm_ShouldUseLargeFormatInterface()];
+  [(AdaptiveSearchController *)v16 _setShouldRespectPreferredContentSize:EKUICurrentWindowInterfaceParadigm_ShouldUseLargeFormatInterface(view2)];
 
   presentationController = [(AdaptiveSearchController *)v16 presentationController];
   [presentationController setDelegate:self];
@@ -6451,7 +6454,7 @@ LABEL_11:
   [(RootNavigationController *)&v19 viewWillTransitionToSize:coordinatorCopy withTransitionCoordinator:width, height];
   if (coordinatorCopy)
   {
-    [coordinatorCopy targetTransform];
+    objc_msgSend_targetTransform(coordinatorCopy);
   }
 
   else
@@ -8032,6 +8035,13 @@ LABEL_10:
 LABEL_11:
 
   return v7;
+}
+
+- (void)_invalidateNavBarDateStringCache
+{
+  navBarDateStringCache = self->_navBarDateStringCache;
+  self->_navBarDateStringCache = 0;
+  _objc_release_x1(self, navBarDateStringCache);
 }
 
 - (void)setNavBarStringFromDate:(id)date includeMonth:(BOOL)month includeYear:(BOOL)year

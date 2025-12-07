@@ -56,7 +56,7 @@
   result = self->_internal;
   if (result)
   {
-    return [(CMTime *)result compositionTime];
+    return objc_msgSend_compositionTime(result, a3);
   }
 
   retstr->value = 0;
@@ -75,7 +75,7 @@
     internal = self->_internal;
     if (internal)
     {
-      [(AVAsynchronousVideoCompositionRequestInternal *)internal compositionTime];
+      objc_msgSend_compositionTime(internal);
     }
 
     FigVCPGetTimedSampleAtTimeFromOrderedArray();
@@ -109,7 +109,7 @@
     internal = self->_internal;
     if (internal)
     {
-      [(AVAsynchronousVideoCompositionRequestInternal *)internal compositionTime];
+      objc_msgSend_compositionTime(internal);
     }
 
     FigVCPGetTimedSampleAtTimeFromOrderedArray();
@@ -143,7 +143,7 @@
     internal = self->_internal;
     if (internal)
     {
-      [(AVAsynchronousVideoCompositionRequestInternal *)internal compositionTime];
+      objc_msgSend_compositionTime(internal);
     }
 
     FigVCPGetTimedSampleAtTimeFromOrderedArray();

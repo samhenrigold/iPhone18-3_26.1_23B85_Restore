@@ -8,16 +8,16 @@
 
 - (FluidSpring)init
 {
-  v10.receiver = self;
-  v10.super_class = FluidSpring;
-  v2 = [(FluidSpring *)&v10 init];
+  v6.receiver = self;
+  v6.super_class = FluidSpring;
+  v2 = [(FluidSpring *)&v6 init];
   if (v2)
   {
     v3 = [[FLSpring alloc] initWithValue:0.0];
     internalSpring = v2->_internalSpring;
     v2->_internalSpring = v3;
 
-    nullsub_1(v5, v6, v7, v8);
+    nullsub_1();
     [(FLSpring *)v2->_internalSpring setTrackingParameters:?];
     [(FLSpring *)v2->_internalSpring setTracking:1];
     v2->_lastUpdate = 0.0;

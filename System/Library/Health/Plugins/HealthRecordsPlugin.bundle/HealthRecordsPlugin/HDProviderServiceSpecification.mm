@@ -34,8 +34,8 @@
 
   if (v3 == self)
   {
-    v5 = HDHealthRecordsPluginBundle();
-    resourceURL = [v5 resourceURL];
+    v6 = HDHealthRecordsPluginBundle(v4);
+    resourceURL = [v6 resourceURL];
     [HKJSONValidator registerSearchPath:resourceURL];
   }
 }
@@ -393,47 +393,48 @@ LABEL_16:
 {
   dCopy = d;
   v8 = [HDProviderServiceSpecification _resultsArrayFromJSONObject:object error:error];
+  v9 = v8;
   if (v8)
   {
-    v9 = HDHealthRecordsPluginBundle();
-    v10 = [HKJSONValidator validateJSONObject:v8 withSchemaNamed:@"ProviderListSchema" bundle:v9 error:error];
+    v10 = HDHealthRecordsPluginBundle(v8);
+    v11 = [HKJSONValidator validateJSONObject:v9 withSchemaNamed:@"ProviderListSchema" bundle:v10 error:error];
 
-    if (v10)
+    if (v11)
     {
       errorCopy = error;
-      v24 = 0u;
       v25 = 0u;
-      v22 = 0u;
+      v26 = 0u;
       v23 = 0u;
-      v11 = v8;
-      v12 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
-      if (v12)
+      v24 = 0u;
+      v12 = v9;
+      v13 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      if (v13)
       {
-        v13 = v12;
-        v14 = *v23;
+        v14 = v13;
+        v15 = *v24;
         while (2)
         {
-          for (i = 0; i != v13; i = i + 1)
+          for (i = 0; i != v14; i = i + 1)
           {
-            if (*v23 != v14)
+            if (*v24 != v15)
             {
-              objc_enumerationMutation(v11);
+              objc_enumerationMutation(v12);
             }
 
-            v16 = *(*(&v22 + 1) + 8 * i);
-            v17 = [v16 objectForKeyedSubscript:@"providerID"];
-            v18 = [v17 isEqualToString:dCopy];
+            v17 = *(*(&v23 + 1) + 8 * i);
+            v18 = [v17 objectForKeyedSubscript:@"providerID"];
+            v19 = [v18 isEqualToString:dCopy];
 
-            if (v18)
+            if (v19)
             {
-              v19 = v16;
+              v20 = v17;
 
               goto LABEL_13;
             }
           }
 
-          v13 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
-          if (v13)
+          v14 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
+          if (v14)
           {
             continue;
           }
@@ -446,16 +447,16 @@ LABEL_16:
     }
   }
 
-  v19 = 0;
+  v20 = 0;
 LABEL_13:
 
-  return v19;
+  return v20;
 }
 
 + (id)searchResultsPageFromFetchedJSONObject:(id)object error:(id *)error
 {
   objectCopy = object;
-  v7 = HDHealthRecordsPluginBundle();
+  v7 = HDHealthRecordsPluginBundle(objectCopy);
   v22 = 0;
   v8 = [HKJSONValidator validateJSONObject:objectCopy withSchemaNamed:@"ProviderSearchResultPageSchema" bundle:v7 error:&v22];
   v9 = v22;
@@ -962,17 +963,18 @@ LABEL_20:
 + (id)_encodedBrandLogosFromFetchedJSONObject:(id)object error:(id *)error
 {
   v5 = [HDProviderServiceSpecification _resultsArrayFromJSONObject:object error:?];
-  if (v5 && (HDHealthRecordsPluginBundle(), v6 = objc_claimAutoreleasedReturnValue(), v7 = [HKJSONValidator validateJSONObject:v5 withSchemaNamed:@"BrandLogoListSchema" bundle:v6 error:error], v6, v7))
+  v6 = v5;
+  if (v5 && (HDHealthRecordsPluginBundle(v5), v7 = objc_claimAutoreleasedReturnValue(), v8 = [HKJSONValidator validateJSONObject:v6 withSchemaNamed:@"BrandLogoListSchema" bundle:v7 error:error], v7, v8))
   {
-    v8 = v5;
+    v9 = v6;
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  return v8;
+  return v9;
 }
 
 + (NSURL)baseURL

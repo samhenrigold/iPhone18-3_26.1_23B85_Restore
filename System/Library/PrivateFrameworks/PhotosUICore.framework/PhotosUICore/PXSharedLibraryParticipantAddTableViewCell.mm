@@ -7,6 +7,7 @@
 
 - (PXSharedLibraryParticipantAddTableViewCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier
 {
+  selfCopy = self;
   if (identifier)
   {
     sub_1A524C674();
@@ -18,8 +19,8 @@
     v6 = 0;
   }
 
-  v10.receiver = self;
-  v10.super_class = type metadata accessor for SharedLibraryParticipantAddTableViewCell();
+  v10.receiver = selfCopy;
+  v10.super_class = type metadata accessor for SharedLibraryParticipantAddTableViewCell(self, a2);
   v7 = [(PXSharedLibraryParticipantAddTableViewCell *)&v10 initWithStyle:style reuseIdentifier:v6];
 
   v8 = v7;

@@ -7,7 +7,7 @@
 
 - (id)resultsTriggeredWithContext:(id)context inGraph:(id)graph progressReporter:(id)reporter
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   graphCopy = graph;
   reporterCopy = reporter;
@@ -16,9 +16,9 @@
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 67109378;
-      v36 = 48;
-      v37 = 2080;
-      v38 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/MemoryTriggers/PGMemoryTriggerUpcomingAnniversary.m";
+      v35 = 48;
+      v36 = 2080;
+      v37 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/MemoryTriggers/PGMemoryTriggerUpcomingAnniversary.m";
       _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
     }
 
@@ -35,29 +35,29 @@
     v17 = [anniversaryPersonNodes collectionBySubtracting:v15];
 
     v18 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v25 = MEMORY[0x277D85DD0];
-    v26 = 3221225472;
-    v27 = __91__PGMemoryTriggerUpcomingAnniversary_resultsTriggeredWithContext_inGraph_progressReporter___block_invoke;
-    v28 = &unk_278884CE8;
-    v29 = v15;
-    v30 = graphCopy;
+    v24 = MEMORY[0x277D85DD0];
+    v25 = 3221225472;
+    v26 = __91__PGMemoryTriggerUpcomingAnniversary_resultsTriggeredWithContext_inGraph_progressReporter___block_invoke;
+    v27 = &unk_278884CE8;
+    v28 = v15;
+    v29 = graphCopy;
     selfCopy = self;
-    v32 = localDate;
-    v33 = timeZone;
+    v31 = localDate;
+    v32 = timeZone;
     v19 = v18;
-    v34 = v19;
+    v33 = v19;
     v20 = v15;
     v21 = localDate;
     v22 = timeZone;
-    [v17 enumerateNodesUsingBlock:&v25];
-    if ([reporterCopy isCancelledWithProgress:{1.0, v25, v26, v27, v28}])
+    [v17 enumerateNodesUsingBlock:&v24];
+    if ([reporterCopy isCancelledWithProgress:{1.0, v24, v25, v26, v27}])
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 67109378;
-        v36 = 79;
-        v37 = 2080;
-        v38 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/MemoryTriggers/PGMemoryTriggerUpcomingAnniversary.m";
+        v35 = 79;
+        v36 = 2080;
+        v37 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/MemoryTriggers/PGMemoryTriggerUpcomingAnniversary.m";
         _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
       }
 
@@ -70,8 +70,6 @@
     }
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
@@ -81,12 +79,12 @@ void __91__PGMemoryTriggerUpcomingAnniversary_resultsTriggeredWithContext_inGrap
   v4 = [v3 collection];
   v5 = [v4 momentNodes];
 
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __91__PGMemoryTriggerUpcomingAnniversary_resultsTriggeredWithContext_inGraph_progressReporter___block_invoke_2;
-  v21[3] = &unk_278888AE0;
-  v22 = *(a1 + 32);
-  v6 = [v5 filteredCollectionUsingBlock:v21];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __91__PGMemoryTriggerUpcomingAnniversary_resultsTriggeredWithContext_inGraph_progressReporter___block_invoke_2;
+  v19[3] = &unk_278888AE0;
+  v20 = *(a1 + 32);
+  v6 = [v5 filteredCollectionUsingBlock:v19];
 
   v7 = [v6 memoryNodes];
   v8 = [PGGraphMemoryNodeCollection memoryNodesOfCategory:1 inGraph:*(a1 + 40)];
@@ -99,12 +97,10 @@ void __91__PGMemoryTriggerUpcomingAnniversary_resultsTriggeredWithContext_inGrap
 
   v14 = [v13 dateByAddingTimeInterval:-86400.0];
   v15 = [v13 dateByAddingTimeInterval:-259200.0];
-  v16 = *(a1 + 48);
-  v17 = [objc_opt_class() validityIntervalForLocalStartDate:v15 localEndDate:v14 timeZone:*(a1 + 64)];
-  v18 = *(a1 + 72);
-  v19 = *(a1 + 48);
-  v20 = [objc_opt_class() memoryTriggerResultsForMemoryNodes:v9 withValidityInterval:v17];
-  [v18 addObjectsFromArray:v20];
+  v16 = [objc_opt_class() validityIntervalForLocalStartDate:v15 localEndDate:v14 timeZone:*(a1 + 64)];
+  v17 = *(a1 + 72);
+  v18 = [objc_opt_class() memoryTriggerResultsForMemoryNodes:v9 withValidityInterval:v16];
+  [v17 addObjectsFromArray:v18];
 }
 
 BOOL __91__PGMemoryTriggerUpcomingAnniversary_resultsTriggeredWithContext_inGraph_progressReporter___block_invoke_2(uint64_t a1, void *a2)

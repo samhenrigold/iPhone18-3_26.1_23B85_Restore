@@ -81,7 +81,7 @@
 
 - (void)residentSyncContextualizeConditions:(id)conditions userContext:(id)context
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   conditionsCopy = conditions;
   contextCopy = context;
   v8 = contextCopy;
@@ -111,9 +111,9 @@
       v20 = [v14 predicateWithFormat:@"(%K == %@) && (%K == %@)", v19, targetUser2, @"deviceIdsIdentifier", idsIdentifier];
       [v11 setPredicate:v20];
 
-      v41 = 0;
-      v21 = [v11 execute:&v41];
-      v22 = v41;
+      v40 = 0;
+      v21 = [v11 execute:&v40];
+      v22 = v40;
       v23 = objc_autoreleasePoolPush();
       selfCopy = self;
       v25 = HMFGetOSLogHandle();
@@ -123,17 +123,17 @@
         if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
         {
           HMFGetLogIdentifier();
-          v27 = v40 = v22;
+          v27 = v39 = v22;
           targetDeviceAddress3 = [v8 targetDeviceAddress];
           *buf = 138543874;
-          v43 = v27;
-          v44 = 2114;
-          v45 = v21;
-          v46 = 2112;
-          v47 = targetDeviceAddress3;
+          v42 = v27;
+          v43 = 2114;
+          v44 = v21;
+          v45 = 2112;
+          v46 = targetDeviceAddress3;
           _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_DEBUG, "%{public}@Setting context->_relevantBulletinRegistrations to: %{public}@ for targetDeviceAddress: %@", buf, 0x20u);
 
-          v22 = v40;
+          v22 = v39;
         }
 
         objc_autoreleasePoolPop(v23);
@@ -146,9 +146,9 @@
         {
           v35 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v43 = v35;
-          v44 = 2114;
-          v45 = v22;
+          v42 = v35;
+          v43 = 2114;
+          v44 = v22;
           _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch relevant bulletin registrations: %{public}@", buf, 0x16u);
         }
 
@@ -169,7 +169,7 @@
       {
         v33 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v43 = v33;
+        v42 = v33;
         _os_log_impl(&dword_229538000, v32, OS_LOG_TYPE_DEBUG, "%{public}@No targetDeviceAddress when trying to set context->_relevantBulletinRegistrations", buf, 0xCu);
       }
 
@@ -189,8 +189,6 @@
   {
     [conditionsCopy addCondition:@"deviceIsTargetDevice"];
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)shouldIncludeForRestrictedGuestWithContext:(id)context

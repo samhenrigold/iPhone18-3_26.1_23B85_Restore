@@ -40,7 +40,7 @@
 
 - (id)impressionItems
 {
-  sub_24E69A5C4(0, &unk_27F24E880);
+  sub_24E69A5C4(0, &unk_27F24E880, 0x277CEE8B0);
 
   v2 = sub_24F92B588();
 

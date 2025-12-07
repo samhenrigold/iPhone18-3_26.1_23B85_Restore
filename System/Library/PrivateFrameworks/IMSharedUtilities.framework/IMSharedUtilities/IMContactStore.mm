@@ -1736,8 +1736,7 @@ LABEL_29:
 
   [(IMContactStore *)self _fetchContactsWithIdentifiers:array2 usingCNID:0];
 LABEL_41:
-  [v30 stopTimingForKey:@"Fetch CNContacts For HandleIDs"];
-  v24 = IMChatRegistryLogHandle();
+  v24 = IMChatRegistryLogHandle([v30 stopTimingForKey:@"Fetch CNContacts For HandleIDs"]);
   if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
     if (batchCopy)
@@ -1811,11 +1810,11 @@ LABEL_9:
 - (void)_fetchContactsWithIdentifiers:(id)identifiers usingCNID:(BOOL)d
 {
   dCopy = d;
-  v42 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   if ([identifiersCopy count])
   {
-    v36 = +[IMContactStore keysForCNContact];
+    v40 = +[IMContactStore keysForCNContact];
     v8 = [objc_alloc(+[IMContactStore IMCNContactFetchRequestClass](IMContactStore "IMCNContactFetchRequestClass"))];
     [v8 setUnifyResults:0];
     v9 = IMOSLoggingEnabled();
@@ -1850,29 +1849,29 @@ LABEL_9:
     }
 
     v14 = v11;
-    [v8 setPredicate:v11];
-    if ((IMIsRunningInUnitTesting() & dCopy) == 1)
+    v15 = [v8 setPredicate:v11];
+    if ((IMIsRunningInUnitTesting(v15, v16) & dCopy) == 1)
     {
       objc_storeStrong(&self->_CNIDsForBatchFetch, identifiers);
     }
 
-    v15 = objc_alloc_init(MEMORY[0x1E69A6170]);
-    [v15 startTimingForKey:@"Contacts Batch Fetch"];
+    v17 = objc_alloc_init(MEMORY[0x1E69A6170]);
+    [v17 startTimingForKey:@"Contacts Batch Fetch"];
     contactStore = self->_contactStore;
-    v37 = 0;
-    v17 = [(CNContactStore *)contactStore executeFetchRequest:v8 error:&v37];
-    v35 = v37;
-    value = [v17 value];
-    [v15 stopTimingForKey:@"Contacts Batch Fetch"];
+    v41 = 0;
+    v19 = [(CNContactStore *)contactStore executeFetchRequest:v8 error:&v41];
+    v39 = v41;
+    value = [v19 value];
+    [v17 stopTimingForKey:@"Contacts Batch Fetch"];
     if (IMOSLoggingEnabled())
     {
-      v19 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+      v21 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
       {
-        [v15 totalTimeForKey:@"Contacts Batch Fetch"];
+        [v17 totalTimeForKey:@"Contacts Batch Fetch"];
         *buf = 134217984;
-        v39 = v20;
-        _os_log_impl(&dword_1A85E5000, v19, OS_LOG_TYPE_INFO, "Contacts batch fetch from Contact Store completed. Took %f seconds.", buf, 0xCu);
+        v43 = v22;
+        _os_log_impl(&dword_1A85E5000, v21, OS_LOG_TYPE_INFO, "Contacts batch fetch from Contact Store completed. Took %f seconds.", buf, 0xCu);
       }
     }
 
@@ -1880,23 +1879,23 @@ LABEL_9:
     {
       if (IMOSLoggingEnabled())
       {
-        v21 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+        v23 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
         {
-          v22 = [value count];
-          v23 = [identifiersCopy count];
+          v24 = [value count];
+          v25 = [identifiersCopy count];
           *buf = 134218240;
-          v39 = v22;
-          v40 = 2048;
-          v41 = v23;
-          _os_log_impl(&dword_1A85E5000, v21, OS_LOG_TYPE_INFO, "Got results for %lu/%lu IDs from Contacts Batch Fetch", buf, 0x16u);
+          v43 = v24;
+          v44 = 2048;
+          v45 = v25;
+          _os_log_impl(&dword_1A85E5000, v23, OS_LOG_TYPE_INFO, "Got results for %lu/%lu IDs from Contacts Batch Fetch", buf, 0x16u);
         }
       }
 
-      [IMContactStore logContactFetchRequestResults:v17];
-      v24 = objc_alloc_init(MEMORY[0x1E69A6170]);
-      [v24 startTimingForKey:@"Contacts Caching"];
-      value2 = [v17 value];
+      [IMContactStore logContactFetchRequestResults:v19];
+      v26 = objc_alloc_init(MEMORY[0x1E69A6170]);
+      [v26 startTimingForKey:@"Contacts Caching"];
+      value2 = [v19 value];
       objc_opt_class();
       isKindOfClass = objc_opt_isKindOfClass();
 
@@ -1908,11 +1907,11 @@ LABEL_9:
 
       else
       {
-        value3 = [v17 value];
+        value3 = [v19 value];
         objc_opt_class();
-        v29 = objc_opt_isKindOfClass();
+        v31 = objc_opt_isKindOfClass();
 
-        if (v29)
+        if (v31)
         {
           [(IMContactStore *)self _cacheBatchFetchResults:value handleIDsWithoutCNID:identifiersCopy];
         }
@@ -1924,34 +1923,38 @@ LABEL_9:
         [IMContactStore logDictionary:getIDToCNContactMap];
       }
 
-      [v24 stopTimingForKey:@"Contacts Caching"];
+      [v26 stopTimingForKey:@"Contacts Caching"];
       if (IMOSLoggingEnabled())
       {
-        v31 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+        v33 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
         {
-          [v24 totalTimeForKey:@"Contacts Caching"];
+          [v26 totalTimeForKey:@"Contacts Caching"];
           *buf = 134217984;
-          v39 = v32;
-          _os_log_impl(&dword_1A85E5000, v31, OS_LOG_TYPE_INFO, "IMContact Store caching completed. Took %f seconds", buf, 0xCu);
+          v43 = v34;
+          _os_log_impl(&dword_1A85E5000, v33, OS_LOG_TYPE_INFO, "IMContact Store caching completed. Took %f seconds", buf, 0xCu);
         }
       }
     }
 
-    else if (IMOSLoggingEnabled())
+    else
     {
-      v33 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+      v35 = IMOSLoggingEnabled();
+      if (v35)
       {
-        *buf = 138412290;
-        v39 = v35;
-        _os_log_impl(&dword_1A85E5000, v33, OS_LOG_TYPE_INFO, "No results obtained from the CN fetch request. Error: %@", buf, 0xCu);
+        v37 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+        {
+          *buf = 138412290;
+          v43 = v39;
+          _os_log_impl(&dword_1A85E5000, v37, OS_LOG_TYPE_INFO, "No results obtained from the CN fetch request. Error: %@", buf, 0xCu);
+        }
       }
     }
 
-    if ((IMIsRunningInUnitTesting() & 1) == 0)
+    if ((IMIsRunningInUnitTesting(v35, v36) & 1) == 0)
     {
-      currentHistoryToken = [v17 currentHistoryToken];
+      currentHistoryToken = [v19 currentHistoryToken];
       [(IMContactStore *)self setCurrentHistoryToken:currentHistoryToken];
     }
   }
@@ -2413,7 +2416,7 @@ LABEL_18:
 {
   completedCopy = completed;
   v12 = *MEMORY[0x1E69E9840];
-  v5 = IMIsRunningInUnitTesting();
+  v5 = IMIsRunningInUnitTesting(self, a2);
   v6 = IMOSLoggingEnabled();
   if (v5)
   {
@@ -3883,7 +3886,7 @@ LABEL_13:
 
 - (id)getCNIDToHandleIDsMap
 {
-  if (!self->_CNIDToHandleIDsMap && IMIsRunningInUnitTesting())
+  if (!self->_CNIDToHandleIDsMap && IMIsRunningInUnitTesting(self, a2))
   {
     [(IMContactStore *)self generateCNIDToHandleIDMap];
   }

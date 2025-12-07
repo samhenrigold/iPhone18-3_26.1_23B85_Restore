@@ -80,31 +80,31 @@ void __64__SCLInterruptBehaviorResolution_resolutionForClientIdentifier___block_
   v12.receiver = self;
   v12.super_class = SCLInterruptBehaviorResolution;
   v6 = [(SCLInterruptBehaviorResolution *)&v12 init];
+  v7 = v6;
   if (v6)
   {
-    v7 = scl_interrupt_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = scl_interrupt_log(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
       v14 = identifierCopy;
-      _os_log_impl(&dword_264829000, v7, OS_LOG_TYPE_INFO, "Creating SCLInterruptBehaviorResolution for client %@", buf, 0xCu);
+      _os_log_impl(&dword_264829000, v8, OS_LOG_TYPE_INFO, "Creating SCLInterruptBehaviorResolution for client %@", buf, 0xCu);
     }
 
-    objc_storeStrong(&v6->_clientIdentifier, identifier);
-    v8 = dispatch_queue_create("com.apple.schooltime.behaviorResolutionConnection", 0);
-    connectionQueue = v6->_connectionQueue;
-    v6->_connectionQueue = v8;
+    objc_storeStrong(&v7->_clientIdentifier, identifier);
+    v9 = dispatch_queue_create("com.apple.schooltime.behaviorResolutionConnection", 0);
+    connectionQueue = v7->_connectionQueue;
+    v7->_connectionQueue = v9;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-  return v6;
+  return v7;
 }
 
 - (id)resolveBehaviorForEvent:(id)event error:(id *)error
 {
   v28 = *MEMORY[0x277D85DE8];
   eventCopy = event;
-  v7 = scl_interrupt_log();
+  v7 = scl_interrupt_log(eventCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     clientIdentifier = self->_clientIdentifier;
@@ -145,25 +145,25 @@ void __64__SCLInterruptBehaviorResolution_resolutionForClientIdentifier___block_
 
   if (error)
   {
-    *error = *(*&buf[8] + 40);
+    v12 = *(*&buf[8] + 40);
+    *error = v12;
   }
 
   if (*(*&buf[8] + 40))
   {
-    v12 = scl_interrupt_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = scl_interrupt_log(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [(SCLInterruptBehaviorResolution *)eventCopy resolveBehaviorForEvent:v12 error:?];
+      [(SCLInterruptBehaviorResolution *)eventCopy resolveBehaviorForEvent:v13 error:?];
     }
   }
 
-  v13 = v19[5];
+  v14 = v19[5];
   _Block_object_dispose(&v18, 8);
 
   _Block_object_dispose(buf, 8);
-  v14 = *MEMORY[0x277D85DE8];
 
-  return v13;
+  return v14;
 }
 
 void __64__SCLInterruptBehaviorResolution_resolveBehaviorForEvent_error___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -175,17 +175,15 @@ void __64__SCLInterruptBehaviorResolution_resolveBehaviorForEvent_error___block_
   objc_storeStrong((*(*(a1 + 40) + 8) + 40), a3);
   if (!v7)
   {
-    v8 = scl_interrupt_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v9 = scl_interrupt_log(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v9 = *(*(*(a1 + 32) + 8) + 40);
+      v10 = *(*(*(a1 + 32) + 8) + 40);
       v11 = 138412290;
-      v12 = v9;
-      _os_log_impl(&dword_264829000, v8, OS_LOG_TYPE_INFO, "Resolved behavior %@", &v11, 0xCu);
+      v12 = v10;
+      _os_log_impl(&dword_264829000, v9, OS_LOG_TYPE_INFO, "Resolved behavior %@", &v11, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)serverConnection
@@ -237,7 +235,7 @@ void __50__SCLInterruptBehaviorResolution_serverConnection__block_invoke(uint64_
 
 void __50__SCLInterruptBehaviorResolution_serverConnection__block_invoke_2(uint64_t a1)
 {
-  v2 = scl_interrupt_log();
+  v2 = scl_interrupt_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -250,7 +248,7 @@ void __50__SCLInterruptBehaviorResolution_serverConnection__block_invoke_2(uint6
 
 void __50__SCLInterruptBehaviorResolution_serverConnection__block_invoke_7(uint64_t a1)
 {
-  v2 = scl_interrupt_log();
+  v2 = scl_interrupt_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -287,14 +285,13 @@ void __54__SCLInterruptBehaviorResolution_setServerConnection___block_invoke(uin
 
 - (void)resolveBehaviorForEvent:(os_log_t)log error:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *(*a2 + 40);
-  v5 = 138412546;
-  v6 = a1;
-  v7 = 2112;
-  v8 = v3;
-  _os_log_error_impl(&dword_264829000, log, OS_LOG_TYPE_ERROR, "Could not resolve behavior for event %@ (error:%@)", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412546;
+  v5 = a1;
+  v6 = 2112;
+  v7 = v3;
+  _os_log_error_impl(&dword_264829000, log, OS_LOG_TYPE_ERROR, "Could not resolve behavior for event %@ (error:%@)", &v4, 0x16u);
 }
 
 @end

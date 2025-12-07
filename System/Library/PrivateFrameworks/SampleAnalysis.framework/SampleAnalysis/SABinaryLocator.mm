@@ -1,7 +1,7 @@
 @interface SABinaryLocator
 + (id)sharedBinaryLocator;
 - (SABinaryLocator)init;
-- (_BYTE)addURLForSymbolOwner:(_BYTE *)owner;
+- (_BYTE)addURLForSymbolOwner:(uint64_t)owner;
 - (id)mappings;
 - (id)urlForUUID:(_BYTE *)d;
 - (uint64_t)addURL:(uint64_t)l ForUUID:;
@@ -49,7 +49,7 @@
 
 - (void)_saveMappings
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   if (self)
   {
     selfCopy = self;
@@ -63,16 +63,16 @@
     {
       v2 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(selfCopy[1], "count") + 1}];
       v3 = selfCopy[1];
-      v29[0] = MEMORY[0x1E69E9820];
-      v29[1] = 3221225472;
-      v29[2] = __32__SABinaryLocator__saveMappings__block_invoke;
-      v29[3] = &unk_1E86F8790;
+      v28[0] = MEMORY[0x1E69E9820];
+      v28[1] = 3221225472;
+      v28[2] = __32__SABinaryLocator__saveMappings__block_invoke;
+      v28[3] = &unk_1E86F8790;
       v4 = v2;
-      v30 = v4;
-      [v3 enumerateKeysAndObjectsUsingBlock:v29];
+      v29 = v4;
+      [v3 enumerateKeysAndObjectsUsingBlock:v28];
       [v4 setObject:selfCopy[2] forKeyedSubscript:@"build_number"];
-      memset(&v28, 0, sizeof(v28));
-      if (stat("/var/db/spindump", &v28))
+      memset(&v27, 0, sizeof(v27));
+      if (stat("/var/db/spindump", &v27))
       {
         if (*__error() != 2)
         {
@@ -80,15 +80,15 @@
           v14 = _sa_logt();
           if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
           {
-            v20 = *__error();
-            v21 = __error();
-            v22 = strerror(*v21);
+            v19 = *__error();
+            v20 = __error();
+            v21 = strerror(*v20);
             *buf = 136315650;
-            v32 = "/var/db/spindump";
-            v33 = 1024;
-            v34 = v20;
-            v35 = 2080;
-            v36 = v22;
+            v31 = "/var/db/spindump";
+            v32 = 1024;
+            v33 = v19;
+            v34 = 2080;
+            v35 = v21;
             _os_log_error_impl(&dword_1E0E2F000, v14, OS_LOG_TYPE_ERROR, "Unable to stat %s: %d %s", buf, 0x1Cu);
           }
 
@@ -101,7 +101,7 @@
         if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315138;
-          v32 = "/var/db/spindump";
+          v31 = "/var/db/spindump";
           _os_log_debug_impl(&dword_1E0E2F000, v6, OS_LOG_TYPE_DEBUG, "Creating nugget directory %s", buf, 0xCu);
         }
 
@@ -112,15 +112,15 @@
           v8 = _sa_logt();
           if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
           {
-            v23 = *__error();
-            v24 = __error();
-            v25 = strerror(*v24);
+            v22 = *__error();
+            v23 = __error();
+            v24 = strerror(*v23);
             *buf = 136315650;
-            v32 = "/var/db/spindump";
-            v33 = 1024;
-            v34 = v23;
-            v35 = 2080;
-            v36 = v25;
+            v31 = "/var/db/spindump";
+            v32 = 1024;
+            v33 = v22;
+            v34 = 2080;
+            v35 = v24;
             _os_log_error_impl(&dword_1E0E2F000, v8, OS_LOG_TYPE_ERROR, "Unable to create %s: %d %s", buf, 0x1Cu);
           }
 
@@ -149,9 +149,9 @@ LABEL_20:
       }
 
       [v10 open];
-      v27 = 0;
-      v12 = [MEMORY[0x1E696AE40] writePropertyList:v4 toStream:v11 format:200 options:0 error:&v27];
-      v13 = v27;
+      v26 = 0;
+      v12 = [MEMORY[0x1E696AE40] writePropertyList:v4 toStream:v11 format:200 options:0 error:&v26];
+      v13 = v26;
       [v11 close];
       if (!v12)
       {
@@ -159,9 +159,9 @@ LABEL_20:
         v18 = _sa_logt();
         if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
-          v26 = [v13 debugDescription];
+          v25 = [v13 debugDescription];
           *buf = 138412290;
-          v32 = v26;
+          v31 = v25;
           _os_log_error_impl(&dword_1E0E2F000, v18, OS_LOG_TYPE_ERROR, "Unable to save mappings: %@", buf, 0xCu);
         }
 
@@ -174,13 +174,11 @@ LABEL_20:
 LABEL_27:
     objc_sync_exit(selfCopy);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __32__SABinaryLocator__saveMappings__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (a3)
   {
     v6 = [MEMORY[0x1E695DFB0] null];
@@ -201,17 +199,15 @@ void __32__SABinaryLocator__saveMappings__block_invoke(uint64_t a1, void *a2, vo
         v11 = _sa_logt();
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
-          v13 = 136315138;
-          v14 = [a3 fileSystemRepresentation];
-          _os_log_impl(&dword_1E0E2F000, v11, OS_LOG_TYPE_DEFAULT, "WARNING: Unable to get path for %s", &v13, 0xCu);
+          v12 = 136315138;
+          v13 = [a3 fileSystemRepresentation];
+          _os_log_impl(&dword_1E0E2F000, v11, OS_LOG_TYPE_DEFAULT, "WARNING: Unable to get path for %s", &v12, 0xCu);
         }
 
         *__error() = v10;
       }
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (SABinaryLocator)init
@@ -240,7 +236,7 @@ void __38__SABinaryLocator_sharedBinaryLocator__block_invoke()
 
 - (id)mappings
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v2 = selfCopy[1];
@@ -264,7 +260,6 @@ void __38__SABinaryLocator_sharedBinaryLocator__block_invoke()
       v9 = selfCopy[2];
       selfCopy[2] = v8;
 
-      v10 = selfCopy[2];
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
@@ -281,29 +276,29 @@ LABEL_7:
         }
 
 LABEL_8:
-        v11 = [v3 objectForKeyedSubscript:@"build_number"];
+        v10 = [v3 objectForKeyedSubscript:@"build_number"];
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
           break;
         }
 
-        v12 = selfCopy[2];
-        if (!v12)
+        v11 = selfCopy[2];
+        if (!v11)
         {
           goto LABEL_12;
         }
 
-        if (!v11)
+        if (!v10)
         {
-          v13 = 0;
+          v12 = 0;
 LABEL_14:
-          v11 = @"unknown";
+          v10 = @"unknown";
           goto LABEL_15;
         }
 
-        v13 = v11;
-        if ([v12 isEqualToString:v11])
+        v12 = v10;
+        if ([v11 isEqualToString:v10])
         {
           goto LABEL_12;
         }
@@ -314,41 +309,41 @@ LABEL_15:
         {
           if (unlink(uTF8String))
           {
-            v16 = *__error();
-            v17 = _sa_logt();
-            if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+            v15 = *__error();
+            v16 = _sa_logt();
+            if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
             {
-              v26 = *__error();
+              v24 = *__error();
               *buf = 138412546;
-              v44 = @"/var/db/spindump/UUIDToBinaryLocations";
-              v45 = 1024;
-              LODWORD(v46) = v26;
-              _os_log_error_impl(&dword_1E0E2F000, v17, OS_LOG_TYPE_ERROR, "Unable to unlink old binary locator file %@: %{errno}d", buf, 0x12u);
+              v35 = @"/var/db/spindump/UUIDToBinaryLocations";
+              v36 = 1024;
+              LODWORD(v37) = v24;
+              _os_log_error_impl(&dword_1E0E2F000, v16, OS_LOG_TYPE_ERROR, "Unable to unlink old binary locator file %@: %{errno}d", buf, 0x12u);
             }
 
-            v18 = __error();
+            v17 = __error();
           }
 
           else
           {
-            v16 = *__error();
-            v25 = _sa_logt();
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+            v15 = *__error();
+            v23 = _sa_logt();
+            if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
             {
-              v27 = [v3 count];
+              v25 = [v3 count];
               *buf = 138412546;
-              v44 = v11;
-              v45 = 2048;
-              v46 = v27;
-              _os_log_debug_impl(&dword_1E0E2F000, v25, OS_LOG_TYPE_DEBUG, "Deleted old binary locator file from old build %@ with %ld items", buf, 0x16u);
+              v35 = v10;
+              v36 = 2048;
+              v37 = v25;
+              _os_log_debug_impl(&dword_1E0E2F000, v23, OS_LOG_TYPE_DEBUG, "Deleted old binary locator file from old build %@ with %ld items", buf, 0x16u);
             }
 
-            v18 = __error();
+            v17 = __error();
           }
 
-          *v18 = v16;
+          *v17 = v15;
 
-          v14 = selfCopy[1];
+          v13 = selfCopy[1];
           goto LABEL_34;
         }
 
@@ -361,50 +356,50 @@ LABEL_15:
         }
 
         *__error() = v7;
-        _SASetCrashLogMessage(112, "No cstring path for nsstring path", v30, v31, v32, v33, v34, v35, v41);
+        _SASetCrashLogMessage(112, "No cstring path for nsstring path");
         _os_crash();
         __break(1u);
 LABEL_42:
-        v36 = *__error();
-        v37 = _sa_logt();
-        if (os_log_type_enabled(v37, OS_LOG_TYPE_FAULT))
+        v28 = *__error();
+        v29 = _sa_logt();
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
         {
           ClassName = object_getClassName(selfCopy[2]);
           *buf = 136315138;
-          v44 = ClassName;
-          _os_log_fault_impl(&dword_1E0E2F000, v37, OS_LOG_TYPE_FAULT, "Version dict provided invalid build number (class %s)", buf, 0xCu);
+          v35 = ClassName;
+          _os_log_fault_impl(&dword_1E0E2F000, v29, OS_LOG_TYPE_FAULT, "Version dict provided invalid build number (class %s)", buf, 0xCu);
         }
 
-        *__error() = v36;
-        v38 = selfCopy[2];
+        *__error() = v28;
+        v30 = selfCopy[2];
         selfCopy[2] = 0;
       }
 
-      v28 = *__error();
-      v29 = _sa_logt();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
+      v26 = *__error();
+      v27 = _sa_logt();
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
       {
-        v39 = object_getClassName(v11);
+        v31 = object_getClassName(v10);
         *buf = 136315138;
-        v44 = v39;
-        _os_log_fault_impl(&dword_1E0E2F000, v29, OS_LOG_TYPE_FAULT, "Invalid build number class %s", buf, 0xCu);
+        v35 = v31;
+        _os_log_fault_impl(&dword_1E0E2F000, v27, OS_LOG_TYPE_FAULT, "Invalid build number class %s", buf, 0xCu);
       }
 
-      *__error() = v28;
-      v13 = 0;
+      *__error() = v26;
+      v12 = 0;
       if (!selfCopy[2])
       {
-        v11 = 0;
+        v10 = 0;
 LABEL_12:
-        v42[0] = MEMORY[0x1E69E9820];
-        v42[1] = 3221225472;
-        v42[2] = __27__SABinaryLocator_mappings__block_invoke;
-        v42[3] = &unk_1E86F5AC0;
-        v42[4] = selfCopy;
-        [v3 enumerateKeysAndObjectsUsingBlock:v42];
-        v14 = selfCopy[1];
+        v33[0] = MEMORY[0x1E69E9820];
+        v33[1] = 3221225472;
+        v33[2] = __27__SABinaryLocator_mappings__block_invoke;
+        v33[3] = &unk_1E86F5AC0;
+        v33[4] = selfCopy;
+        [v3 enumerateKeysAndObjectsUsingBlock:v33];
+        v13 = selfCopy[1];
 
-        v13 = v11;
+        v12 = v10;
 LABEL_34:
 
         goto LABEL_27;
@@ -413,83 +408,77 @@ LABEL_34:
       goto LABEL_14;
     }
 
-    v19 = *__error();
-    v20 = _sa_logt();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+    v18 = *__error();
+    v19 = _sa_logt();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
     {
       *buf = 0;
-      _os_log_fault_impl(&dword_1E0E2F000, v20, OS_LOG_TYPE_FAULT, "No system version", buf, 2u);
+      _os_log_fault_impl(&dword_1E0E2F000, v19, OS_LOG_TYPE_FAULT, "No system version", buf, 2u);
     }
 
-    *__error() = v19;
+    *__error() = v18;
     if (v3)
     {
       goto LABEL_8;
     }
 
 LABEL_23:
-    v21 = *__error();
-    v22 = _sa_logt();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v20 = *__error();
+    v21 = _sa_logt();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1E0E2F000, v22, OS_LOG_TYPE_DEFAULT, "WARNING: Unable to open binary locator database", buf, 2u);
+      _os_log_impl(&dword_1E0E2F000, v21, OS_LOG_TYPE_DEFAULT, "WARNING: Unable to open binary locator database", buf, 2u);
     }
 
-    *__error() = v21;
+    *__error() = v20;
     v2 = selfCopy[1];
   }
 
-  v14 = v2;
+  v13 = v2;
 LABEL_27:
   objc_sync_exit(selfCopy);
 
-  v23 = *MEMORY[0x1E69E9840];
-
-  return v14;
+  return v13;
 }
 
 void __27__SABinaryLocator_mappings__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+  if (objc_opt_isKindOfClass() & 1) != 0 && (objc_opt_class(), (objc_opt_isKindOfClass()))
   {
-    v9 = *__error();
-    v10 = _sa_logt();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    if (([a2 isEqualToString:@"build_number"] & 1) == 0)
+    {
+      v9 = [MEMORY[0x1E695DFF8] fileURLWithPath:a3 isDirectory:0];
+      v6 = uuidForString(a2);
+      if (v6)
+      {
+        [*(*(a1 + 32) + 8) setObject:v9 forKey:v6];
+      }
+    }
+  }
+
+  else
+  {
+    v7 = *__error();
+    v8 = _sa_logt();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315394;
       ClassName = object_getClassName(a2);
-      v14 = 2080;
-      v15 = object_getClassName(a3);
-      _os_log_fault_impl(&dword_1E0E2F000, v10, OS_LOG_TYPE_FAULT, "Invalid entry in UUIDToBinaryLocations: %s -> %s", buf, 0x16u);
+      v12 = 2080;
+      v13 = object_getClassName(a3);
+      _os_log_fault_impl(&dword_1E0E2F000, v8, OS_LOG_TYPE_FAULT, "Invalid entry in UUIDToBinaryLocations: %s -> %s", buf, 0x16u);
     }
 
-    *__error() = v9;
-    goto LABEL_4;
+    *__error() = v7;
   }
-
-  if ([a2 isEqualToString:@"build_number"])
-  {
-LABEL_4:
-    v6 = *MEMORY[0x1E69E9840];
-    return;
-  }
-
-  v11 = [MEMORY[0x1E695DFF8] fileURLWithPath:a3 isDirectory:0];
-  v7 = uuidForString(a2);
-  if (v7)
-  {
-    [*(*(a1 + 32) + 8) setObject:v11 forKey:v7];
-  }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (id)urlForUUID:(_BYTE *)d
 {
-  v33[2] = *MEMORY[0x1E69E9840];
+  v32[2] = *MEMORY[0x1E69E9840];
   if (!d || d[25] != 1)
   {
     v11 = 0;
@@ -516,28 +505,18 @@ LABEL_4:
   }
 
   path = [v5 path];
-  if (!path)
+  if (!path || ([MEMORY[0x1E696AC08] defaultManager], v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "path"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v8, "fileExistsAtPath:", v9), v9, v8, path, !v10))
   {
-    goto LABEL_9;
-  }
-
-  defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  path2 = [v5 path];
-  v10 = [defaultManager fileExistsAtPath:path2];
-
-  if (!v10)
-  {
-LABEL_9:
     v12 = *__error();
     v13 = _sa_logt();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       uUIDString = [a2 UUIDString];
-      path3 = [v5 path];
+      path2 = [v5 path];
       *buf = 138412546;
-      v30 = uUIDString;
-      v31 = 2112;
-      v32[0] = path3;
+      v29 = uUIDString;
+      v30 = 2112;
+      v31[0] = path2;
       _os_log_impl(&dword_1E0E2F000, v13, OS_LOG_TYPE_INFO, "Found stale entry for UUID %@, mapping to non-existent path %@. This will be ignored and evicted from the cache.", buf, 0x16u);
     }
 
@@ -550,9 +529,9 @@ LABEL_9:
 
     objc_sync_exit(v16);
 LABEL_12:
-    v33[0] = 0;
-    v33[1] = 0;
-    [a2 getUUIDBytes:v33];
+    v32[0] = 0;
+    v32[1] = 0;
+    [a2 getUUIDBytes:v32];
     OSLogLookupPathWithUUID();
     v18 = SAFilepathForCString(0);
     if ([v18 isAbsolutePath])
@@ -562,17 +541,17 @@ LABEL_12:
       if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412802;
-        v30 = v18;
-        v31 = 1040;
-        LODWORD(v32[0]) = 16;
-        WORD2(v32[0]) = 2096;
-        *(v32 + 6) = v33;
+        v29 = v18;
+        v30 = 1040;
+        LODWORD(v31[0]) = 16;
+        WORD2(v31[0]) = 2096;
+        *(v31 + 6) = v32;
         _os_log_debug_impl(&dword_1E0E2F000, v20, OS_LOG_TYPE_DEBUG, "Got %@ for %{uuid_t}.16P from libtrace", buf, 0x1Cu);
       }
 
       *__error() = v19;
-      defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
-      v22 = [defaultManager2 fileExistsAtPath:v18];
+      defaultManager = [MEMORY[0x1E696AC08] defaultManager];
+      v22 = [defaultManager fileExistsAtPath:v18];
 
       if (v22)
       {
@@ -591,9 +570,9 @@ LABEL_12:
         {
           uUIDString2 = [a2 UUIDString];
           *buf = 138412546;
-          v30 = uUIDString2;
-          v31 = 2080;
-          v32[0] = 0;
+          v29 = uUIDString2;
+          v30 = 2080;
+          v31[0] = 0;
           _os_log_impl(&dword_1E0E2F000, v25, OS_LOG_TYPE_INFO, "OSLogLookupPathWithUUID returned stale entry for UUID %@; path %s doesn't exist. This will be ignored.", buf, 0x16u);
         }
 
@@ -615,29 +594,28 @@ LABEL_12:
 LABEL_23:
 
 LABEL_24:
-  v27 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 - (uint64_t)addURL:(uint64_t)l ForUUID:
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if (!result)
   {
-    goto LABEL_18;
+    return result;
   }
 
   v3 = result;
   if (*(result + 25) != 1)
   {
-    goto LABEL_17;
+    return 0;
   }
 
   result = 0;
   if (!a2 || !l)
   {
-    goto LABEL_18;
+    return result;
   }
 
   fileSystemRepresentation = [a2 fileSystemRepresentation];
@@ -654,35 +632,32 @@ LABEL_15:
       [mappings setObject:a2 forKey:l];
 
       objc_sync_exit(v13);
-      result = 1;
-      goto LABEL_18;
+      return 1;
     }
 
     objc_sync_exit(v13);
-    goto LABEL_17;
+    return 0;
   }
 
   v7 = fileSystemRepresentation;
-  memset(&v18, 0, sizeof(v18));
-  if (stat(fileSystemRepresentation, &v18))
+  memset(&v17, 0, sizeof(v17));
+  if (stat(fileSystemRepresentation, &v17))
   {
-LABEL_17:
-    result = 0;
-    goto LABEL_18;
+    return 0;
   }
 
-  memset(&v23, 0, 512);
-  if (statfs(v7, &v23))
+  memset(&v22, 0, 512);
+  if (statfs(v7, &v22))
   {
     v8 = *__error();
     v9 = _sa_logt();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v17 = *__error();
+      v16 = *__error();
       *buf = 136315394;
-      v20 = v7;
-      v21 = 1024;
-      v22 = v17;
+      v19 = v7;
+      v20 = 1024;
+      v21 = v16;
       _os_log_debug_impl(&dword_1E0E2F000, v9, OS_LOG_TYPE_DEBUG, "Unable to statfs %s: %{errno}d", buf, 0x12u);
     }
 
@@ -690,7 +665,7 @@ LABEL_17:
     goto LABEL_15;
   }
 
-  if (v23.f_type != 22)
+  if (v22.f_type != 22)
   {
     goto LABEL_15;
   }
@@ -700,49 +675,47 @@ LABEL_17:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v20 = v7;
+    v19 = v7;
     _os_log_debug_impl(&dword_1E0E2F000, v11, OS_LOG_TYPE_DEBUG, "Not caching translocated path %s", buf, 0xCu);
   }
 
   v12 = __error();
   result = 0;
   *v12 = v10;
-LABEL_18:
-  v16 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-- (_BYTE)addURLForSymbolOwner:(_BYTE *)owner
+- (_BYTE)addURLForSymbolOwner:(uint64_t)owner
 {
-  ownerCopy = owner;
-  if (owner)
+  selfCopy = self;
+  if (self)
   {
-    if (owner[25] == 1)
+    if (self[25] == 1)
     {
       CFUUIDBytes = CSSymbolOwnerGetCFUUIDBytes();
       Path = CSSymbolOwnerGetPath();
-      v4 = SAFilepathForCString(Path);
-      v5 = v4;
-      if (CFUUIDBytes && [v4 isAbsolutePath])
+      v6 = SAFilepathForCString(Path);
+      v7 = v6;
+      if (CFUUIDBytes && [v6 isAbsolutePath])
       {
-        v6 = uuidForBytes(CFUUIDBytes);
-        v7 = [(SABinaryLocator *)ownerCopy urlForUUID:v6];
+        v8 = uuidForBytes(CFUUIDBytes);
+        v9 = [(SABinaryLocator *)selfCopy urlForUUID:v8];
 
-        if (v7)
+        if (v9)
         {
-          ownerCopy = 0;
+          selfCopy = 0;
         }
 
         else
         {
-          v8 = [objc_alloc(MEMORY[0x1E695DFF8]) initFileURLWithPath:v5 isDirectory:0];
-          ownerCopy = [(SABinaryLocator *)ownerCopy addURL:v8 ForUUID:v6];
+          v10 = [objc_alloc(MEMORY[0x1E695DFF8]) initFileURLWithPath:v7 isDirectory:0];
+          selfCopy = [(SABinaryLocator *)selfCopy addURL:v10 ForUUID:v8];
         }
       }
 
       else
       {
-        ownerCopy = 0;
+        selfCopy = 0;
       }
     }
 
@@ -752,12 +725,12 @@ LABEL_18:
     }
   }
 
-  return ownerCopy;
+  return selfCopy;
 }
 
 - (uint64_t)removeURLForUUID:(uint64_t)result
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v3 = result;
@@ -793,18 +766,17 @@ LABEL_18:
           [mappings removeObjectForKey:a2];
 
           objc_sync_exit(v3);
-          result = 1;
+          return 1;
         }
 
         else
         {
-          result = 0;
+          return 0;
         }
       }
     }
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return result;
 }
 

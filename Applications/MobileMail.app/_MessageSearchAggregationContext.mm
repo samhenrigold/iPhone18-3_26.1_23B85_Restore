@@ -25,7 +25,7 @@
 - (void)webProcessDidBlockLoadingResourceWithURL:(id)l
 {
   lCopy = l;
-  v5 = sub_100053E68();
+  v5 = sub_100053E68(lCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     if (self)
@@ -54,7 +54,7 @@
 - (void)webProcessDidFailLoadingResourceWithURL:(id)l
 {
   lCopy = l;
-  v5 = sub_100053E68();
+  v5 = sub_100053E68(lCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     if (self)
@@ -83,7 +83,7 @@
 - (void)webProcessDidFinishDocumentLoadForURL:(id)l andRequestedRemoteURLs:(id)ls
 {
   lCopy = l;
-  v6 = sub_100053E68();
+  v6 = sub_100053E68(lCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     if (self)
@@ -112,7 +112,7 @@
 - (void)webProcessFailedToLoadResourceWithProxyForURL:(id)l failureReason:(int64_t)reason
 {
   lCopy = l;
-  v7 = sub_100053E68();
+  v7 = sub_100053E68(lCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     if (self)
@@ -268,8 +268,8 @@
     v7 = loadingController;
     webView = [(MFWebViewLoadingController *)v7 webView];
 
-    v9 = sub_100053E68();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100053E68(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       if (self)
       {
@@ -281,32 +281,32 @@
         itemID = 0;
       }
 
-      v11 = itemID;
+      v12 = itemID;
       absoluteString = [lCopy absoluteString];
-      v13 = [EFPrivacy fullyRedactedStringForString:absoluteString];
-      *v18 = 136315906;
+      v14 = [EFPrivacy fullyRedactedStringForString:absoluteString];
+      *v19 = 136315906;
       sub_100007E94();
-      *&v18[7] = v11;
-      v18[11] = v14;
-      v19 = v15;
-      v20 = 2112;
-      v21 = webView;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%s: itemID:%{public}@, url:%{public}@, webview: %@", v18, 0x2Au);
+      *&v19[7] = v12;
+      v19[11] = v15;
+      v20 = v16;
+      v21 = 2112;
+      v22 = webView;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%s: itemID:%{public}@, url:%{public}@, webview: %@", v19, 0x2Au);
     }
 
     if (self)
     {
-      v16 = self->_searchString;
+      v17 = self->_searchString;
       searchOptions = self->_searchOptions;
     }
 
     else
     {
-      v16 = 0;
+      v17 = 0;
       searchOptions = 0;
     }
 
-    [webView performTextSearchWithQueryString:v16 usingOptions:searchOptions resultAggregator:{self, *v18}];
+    [webView performTextSearchWithQueryString:v17 usingOptions:searchOptions resultAggregator:{self, *v19}];
   }
 }
 

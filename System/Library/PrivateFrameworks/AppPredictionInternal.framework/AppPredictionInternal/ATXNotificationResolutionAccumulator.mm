@@ -113,8 +113,8 @@ void __77__ATXNotificationResolutionAccumulator_computeTimeToLaunchAppForNotific
 
   if (v3)
   {
-    v4 = __atxlog_handle_notification_categorization();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = __atxlog_handle_notification_categorization(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __77__ATXNotificationResolutionAccumulator_computeTimeToLaunchAppForNotification__block_invoke_cold_1(v2);
     }
@@ -225,7 +225,7 @@ LABEL_12:
 
 - (void)cacheAppLaunchDataFromStartTime:(id)time toEndTime:(id)endTime
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   timeCopy = time;
   endTimeCopy = endTime;
   v8 = objc_alloc_init(MEMORY[0x277CBEB38]);
@@ -234,41 +234,41 @@ LABEL_12:
   inFocus = [v10 InFocus];
   v12 = [inFocus atx_publisherWithStartDate:timeCopy endDate:endTimeCopy maxEvents:0 lastN:0 reversed:0];
 
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __82__ATXNotificationResolutionAccumulator_cacheAppLaunchDataFromStartTime_toEndTime___block_invoke_55;
-  v28[3] = &unk_278596F60;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __82__ATXNotificationResolutionAccumulator_cacheAppLaunchDataFromStartTime_toEndTime___block_invoke_55;
+  v27[3] = &unk_278596F60;
   v13 = v8;
-  v29 = v13;
-  v14 = [v12 sinkWithCompletion:&__block_literal_global_54 receiveInput:v28];
+  v28 = v13;
+  v14 = [v12 sinkWithCompletion:&__block_literal_global_54 receiveInput:v27];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v15 = v13;
-  v16 = [(NSDictionary *)v15 countByEnumeratingWithState:&v24 objects:v30 count:16];
+  v16 = [(NSDictionary *)v15 countByEnumeratingWithState:&v23 objects:v29 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v25;
+    v18 = *v24;
     do
     {
       v19 = 0;
       do
       {
-        if (*v25 != v18)
+        if (*v24 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = [(NSDictionary *)v15 objectForKeyedSubscript:*(*(&v24 + 1) + 8 * v19), v24];
+        v20 = [(NSDictionary *)v15 objectForKeyedSubscript:*(*(&v23 + 1) + 8 * v19), v23];
         [v20 sortUsingComparator:&__block_literal_global_60];
 
         ++v19;
       }
 
       while (v17 != v19);
-      v17 = [(NSDictionary *)v15 countByEnumeratingWithState:&v24 objects:v30 count:16];
+      v17 = [(NSDictionary *)v15 countByEnumeratingWithState:&v23 objects:v29 count:16];
     }
 
     while (v17);
@@ -277,8 +277,6 @@ LABEL_12:
   cacheHistoricalAppLaunches = self->_cacheHistoricalAppLaunches;
   self->_cacheHistoricalAppLaunches = v15;
   v22 = v15;
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __82__ATXNotificationResolutionAccumulator_cacheAppLaunchDataFromStartTime_toEndTime___block_invoke(uint64_t a1, void *a2)
@@ -288,8 +286,8 @@ void __82__ATXNotificationResolutionAccumulator_cacheAppLaunchDataFromStartTime_
 
   if (v3)
   {
-    v4 = __atxlog_handle_notification_categorization();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = __atxlog_handle_notification_categorization(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __77__ATXNotificationResolutionAccumulator_computeTimeToLaunchAppForNotification__block_invoke_cold_1(v2);
     }
@@ -531,8 +529,8 @@ uint64_t __75__ATXNotificationResolutionAccumulator_historicalResolutionForNotif
     goto LABEL_13;
   }
 
-  v15 = __atxlog_handle_notification_categorization();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+  v16 = __atxlog_handle_notification_categorization(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
     __75__ATXNotificationResolutionAccumulator_historicalResolutionForNotification__block_invoke_cold_1();
   }
@@ -540,27 +538,27 @@ uint64_t __75__ATXNotificationResolutionAccumulator_historicalResolutionForNotif
   if (!v14)
   {
 LABEL_13:
-    v16 = __atxlog_handle_notification_categorization();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = __atxlog_handle_notification_categorization(v15);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       __75__ATXNotificationResolutionAccumulator_historicalResolutionForNotification__block_invoke_cold_1();
     }
   }
 
 LABEL_16:
-  v17 = [v10 startDate];
-  [v17 timeIntervalSinceReferenceDate];
-  v19 = v18;
+  v18 = [v10 startDate];
+  [v18 timeIntervalSinceReferenceDate];
+  v20 = v19;
 
-  v20 = [v14 startDate];
-  [v20 timeIntervalSinceReferenceDate];
-  v22 = v21;
+  v21 = [v14 startDate];
+  [v21 timeIntervalSinceReferenceDate];
+  v23 = v22;
 
-  v23 = [MEMORY[0x277CCABB0] numberWithDouble:v19];
-  v24 = [MEMORY[0x277CCABB0] numberWithDouble:v22];
-  v25 = [v23 compare:v24];
+  v24 = [MEMORY[0x277CCABB0] numberWithDouble:v20];
+  v25 = [MEMORY[0x277CCABB0] numberWithDouble:v23];
+  v26 = [v24 compare:v25];
 
-  return v25;
+  return v26;
 }
 
 void __75__ATXNotificationResolutionAccumulator_historicalResolutionForNotification__block_invoke_64(uint64_t a1, void *a2)
@@ -570,8 +568,8 @@ void __75__ATXNotificationResolutionAccumulator_historicalResolutionForNotificat
 
   if (v3)
   {
-    v4 = __atxlog_handle_notification_categorization();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = __atxlog_handle_notification_categorization(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __75__ATXNotificationResolutionAccumulator_historicalResolutionForNotification__block_invoke_64_cold_1(v2);
     }
@@ -763,18 +761,7 @@ LABEL_24:
                   [v56 addObject:v57];
 
                   v58 = a1 + 13;
-                  if (!*(*(a1[26] + 1) + 40))
-                  {
-                    goto LABEL_68;
-                  }
-
-                  v59 = [v9 absoluteTimestamp];
-                  v60 = a1[28];
-                  v61 = [*(*(a1[26] + 1) + 40) startTime];
-                  v62 = [*(*(a1[26] + 1) + 40) endTime];
-                  LOBYTE(v60) = isTimeRangeWithinTimeRange(v59, v60, v61, v62);
-
-                  if ((v60 & 1) == 0)
+                  if (!*(*(a1[26] + 1) + 40) || ([v9 absoluteTimestamp], v59 = objc_claimAutoreleasedReturnValue(), v60 = a1[28], objc_msgSend(*(*(a1[26] + 1) + 40), "startTime"), v61 = objc_claimAutoreleasedReturnValue(), objc_msgSend(*(*(a1[26] + 1) + 40), "endTime"), v62 = objc_claimAutoreleasedReturnValue(), LOBYTE(v60) = isTimeRangeWithinTimeRange(v59, v60, v61, v62), v62, v61, v59, (v60 & 1) == 0))
                   {
 LABEL_68:
                     v101 = [MEMORY[0x277CCABB0] numberWithInteger:v47];
@@ -1046,30 +1033,30 @@ LABEL_73:
 
 - (void)removeOldestEntry
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   distantFuture = [MEMORY[0x277CBEAA8] distantFuture];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   allKeys = [(NSMutableDictionary *)self->_cachedHistoricalResolutionsForNotifications allKeys];
-  v5 = [allKeys countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v5 = [allKeys countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v20;
+    v8 = *v19;
     obj = allKeys;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
+        v10 = *(*(&v18 + 1) + 8 * i);
         v11 = [(NSMutableDictionary *)self->_cachedHistoricalResolutionsForNotifications objectForKeyedSubscript:v10];
         v12 = MEMORY[0x277CBEAA8];
         userNotification = [v11 userNotification];
@@ -1086,7 +1073,7 @@ LABEL_73:
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v6 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v6);
@@ -1102,8 +1089,6 @@ LABEL_73:
 
     v7 = 0;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unloadHistoricalResolutionsForNotifications
@@ -1118,30 +1103,23 @@ LABEL_73:
 
 void __77__ATXNotificationResolutionAccumulator_computeTimeToLaunchAppForNotification__block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 error];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_2263AA000, v2, v3, "ATXNotificationResolutionAccumulator: Error reading App.InFocus stream: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_2263AA000, v2, v3, "ATXNotificationResolutionAccumulator: Error reading App.InFocus stream: %@", v4, v5, v6, v7);
 }
 
 void __75__ATXNotificationResolutionAccumulator_historicalResolutionForNotification__block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(&dword_2263AA000, v0, OS_LOG_TYPE_ERROR, "ATXNotificationResolutionAccumulator: During ordered merge, encountered unknown event: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2263AA000, v0, OS_LOG_TYPE_ERROR, "ATXNotificationResolutionAccumulator: During ordered merge, encountered unknown event: %@", v1, 0xCu);
 }
 
 void __75__ATXNotificationResolutionAccumulator_historicalResolutionForNotification__block_invoke_64_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 error];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_2263AA000, v2, v3, "ATXNotificationResolutionAccumulator: Error from merged publishers: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_2263AA000, v2, v3, "ATXNotificationResolutionAccumulator: Error from merged publishers: %@", v4, v5, v6, v7);
 }
 
 @end

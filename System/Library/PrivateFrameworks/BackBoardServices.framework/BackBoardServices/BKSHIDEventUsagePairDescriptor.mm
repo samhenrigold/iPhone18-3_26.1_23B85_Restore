@@ -1,23 +1,17 @@
 @interface BKSHIDEventUsagePairDescriptor
++ (id)descriptorForHIDEventType:(unsigned int)type page:(unsigned __int16)page usage:(unsigned __int16)usage;
 - (BKSHIDEventUsagePairDescriptor)initWithCoder:(id)coder;
 - (BOOL)_page:(unsigned int)_page usage:(unsigned int)usage matchesHIDEvent:(__IOHIDEvent *)event;
 - (BOOL)describes:(id)describes;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)matchesHIDEvent:(__IOHIDEvent *)event;
+- (id)_initWithPage:(unsigned int)page usage:(unsigned int)usage eventType:(unsigned int)type;
 - (int64_t)compare:(id)compare;
-- (unint64_t)hash;
 - (void)appendDescriptionToStream:(id)stream;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation BKSHIDEventUsagePairDescriptor
-
-- (unint64_t)hash
-{
-  v2 = *(&self->super._hidEventType + 1);
-  page = self->_page;
-  return BSHashPurifyNS();
-}
 
 - (int64_t)compare:(id)compare
 {
@@ -106,7 +100,7 @@ LABEL_15:
     }
 
 LABEL_6:
-    v9 = [(BKSHIDEventUsagePairDescriptor *)self isEqual:describesCopy];
+    v9 = [(BKSHIDEventUsagePairDescriptor *)self isEqual:?];
     goto LABEL_12;
   }
 
@@ -126,15 +120,15 @@ LABEL_12:
 
 - (BOOL)matchesHIDEvent:(__IOHIDEvent *)event
 {
-  v7.receiver = self;
-  v7.super_class = BKSHIDEventUsagePairDescriptor;
-  v5 = [(BKSHIDEventDescriptor *)&v7 matchesHIDEvent:?];
-  if (v5)
+  v6.receiver = self;
+  v6.super_class = BKSHIDEventUsagePairDescriptor;
+  v4 = [(BKSHIDEventDescriptor *)&v6 matchesHIDEvent:?];
+  if (v4)
   {
-    LOBYTE(v5) = [(BKSHIDEventUsagePairDescriptor *)self _page:*(&self->super._hidEventType + 1) usage:self->_page matchesHIDEvent:event];
+    LOBYTE(v4) = [BKSHIDEventUsagePairDescriptor _page:"_page:usage:matchesHIDEvent:" usage:? matchesHIDEvent:?];
   }
 
-  return v5;
+  return v4;
 }
 
 - (BOOL)_page:(unsigned int)_page usage:(unsigned int)usage matchesHIDEvent:(__IOHIDEvent *)event
@@ -172,34 +166,38 @@ LABEL_12:
 - (BKSHIDEventUsagePairDescriptor)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_page"];
-  unsignedIntValue = [v5 unsignedIntValue];
+  objc_opt_class();
+  v5 = [coderCopy decodeObjectOfClass:? forKey:?];
+  [v5 unsignedIntValue];
 
-  v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_usage"];
-  unsignedIntValue2 = [v7 unsignedIntValue];
+  objc_opt_class();
+  v6 = [coderCopy decodeObjectOfClass:? forKey:?];
+  [v6 unsignedIntValue];
 
-  v9 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_type"];
+  objc_opt_class();
+  v7 = [coderCopy decodeObjectOfClass:? forKey:?];
 
-  unsignedIntValue3 = [v9 unsignedIntValue];
+  [v7 unsignedIntValue];
 
-  return [(BKSHIDEventUsagePairDescriptor *)self _initWithPage:unsignedIntValue usage:unsignedIntValue2 eventType:unsignedIntValue3];
+  return [BKSHIDEventUsagePairDescriptor _initWithPage:"_initWithPage:usage:eventType:" usage:? eventType:?];
 }
 
 - (void)encodeWithCoder:(id)coder
 {
   v4 = MEMORY[0x1E696AD98];
-  v5 = *(&self->super._hidEventType + 1);
   coderCopy = coder;
-  v7 = [v4 numberWithUnsignedInt:v5];
-  [coderCopy encodeObject:v7 forKey:@"_page"];
+  v6 = [v4 numberWithUnsignedInt:?];
+  [coderCopy encodeObject:? forKey:?];
 
-  v8 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_page];
-  [coderCopy encodeObject:v8 forKey:@"_usage"];
+  v7 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:?];
+  [coderCopy encodeObject:? forKey:?];
 
+  v8 = MEMORY[0x1E696AD98];
   v10.receiver = self;
   v10.super_class = BKSHIDEventUsagePairDescriptor;
-  v9 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{-[BKSHIDEventDescriptor hidEventType](&v10, sel_hidEventType)}];
-  [coderCopy encodeObject:v9 forKey:@"_type"];
+  [(BKSHIDEventDescriptor *)&v10 hidEventType];
+  v9 = [v8 numberWithUnsignedInt:?];
+  [coderCopy encodeObject:? forKey:?];
 }
 
 - (void)appendDescriptionToStream:(id)stream
@@ -207,7 +205,7 @@ LABEL_12:
   streamCopy = stream;
   style = [streamCopy style];
   clientInformation = [style clientInformation];
-  if ([clientInformation containsObject:@"OmitName"])
+  if ([clientInformation containsObject:?])
   {
     Name = 0;
   }
@@ -222,33 +220,28 @@ LABEL_12:
 
   if (*(&self->super._hidEventType + 1))
   {
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __60__BKSHIDEventUsagePairDescriptor_appendDescriptionToStream___block_invoke;
-    v9[3] = &unk_1E6F477E8;
-    v9[4] = self;
-    [streamCopy appendCustomFormatWithName:v8 block:v9];
+    [streamCopy appendCustomFormatWithName:? block:?];
   }
 
   else
   {
-    [streamCopy appendString:@"(*)" withName:v8];
+    [streamCopy appendString:? withName:?];
   }
 }
 
-uint64_t __60__BKSHIDEventUsagePairDescriptor_appendDescriptionToStream___block_invoke(uint64_t a1, void *a2)
+void *__60__BKSHIDEventUsagePairDescriptor_appendDescriptionToStream___block_invoke(uint64_t a1, void *a2)
 {
   v2 = *(a1 + 32);
   v3 = *(v2 + 16);
   v4 = *(v2 + 12);
   if (v3)
   {
-    return [a2 appendFormat:@"(%X, %X)", v4, v3];
+    return [a2 appendFormat:v4, v3];
   }
 
   else
   {
-    return [a2 appendFormat:@"(%X, *)", v4, v6];
+    return [a2 appendFormat:v4, v6];
   }
 }
 
@@ -270,6 +263,52 @@ uint64_t __60__BKSHIDEventUsagePairDescriptor_appendDescriptionToStream___block_
   v7 = v6 && (v9.receiver = self, v9.super_class = BKSHIDEventUsagePairDescriptor, [(BKSHIDEventDescriptor *)&v9 isEqual:v6]) && v6[3] == *(&self->super._hidEventType + 1) && v6[4] == self->_page;
 
   return v7;
+}
+
+- (id)_initWithPage:(unsigned int)page usage:(unsigned int)usage eventType:(unsigned int)type
+{
+  v11.receiver = self;
+  v11.super_class = BKSHIDEventUsagePairDescriptor;
+  v7 = [(BKSHIDEventDescriptor *)&v11 _initWithEventType:*&type];
+  v8 = v7;
+  if (v7)
+  {
+    v7[3] = page;
+    v7[4] = usage;
+    if (!page)
+    {
+      if (usage)
+      {
+        currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+        [currentHandler handleFailureInMethod:@"usage == kHIDUsage_Undefined" object:? file:? lineNumber:? description:?];
+      }
+    }
+  }
+
+  return v8;
+}
+
++ (id)descriptorForHIDEventType:(unsigned int)type page:(unsigned __int16)page usage:(unsigned __int16)usage
+{
+  switch(type)
+  {
+    case 0x25u:
+      v7 = off_1E6F45E58;
+LABEL_7:
+      v8 = [(__objc2_class *)*v7 descriptorWithPage:v5 usage:?];
+
+      return v8;
+    case 3u:
+      v7 = off_1E6F45FA0;
+      goto LABEL_7;
+    case 1u:
+      v7 = off_1E6F46000;
+      goto LABEL_7;
+  }
+
+  v8 = 0;
+
+  return v8;
 }
 
 @end

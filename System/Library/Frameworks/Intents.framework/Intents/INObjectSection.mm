@@ -21,7 +21,7 @@
 
 - (INObjectSection)initWithCoder:(id)coder
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E695DFD8];
   coderCopy = coder;
   v6 = objc_opt_class();
@@ -35,16 +35,16 @@
 
   v13 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"image"];
   v14 = +[INSchema _supportedClasses];
+  v24 = objc_opt_class();
   v25 = objc_opt_class();
   v26 = objc_opt_class();
-  v27 = objc_opt_class();
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v25 count:3];
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v24 count:3];
   v16 = [v14 setByAddingObjectsFromArray:v15];
   v17 = [coderCopy decodeObjectOfClasses:v16 forKey:@"items"];
 
   v18 = MEMORY[0x1E695DFD8];
   v19 = objc_opt_class();
-  v20 = [v18 setWithObjects:{v19, objc_opt_class(), 0, v25, v26}];
+  v20 = [v18 setWithObjects:{v19, objc_opt_class(), 0, v24, v25}];
   v21 = [coderCopy decodeObjectOfClasses:v20 forKey:@"_identifier"];
 
   if (v17)
@@ -58,7 +58,6 @@
     selfCopy = 0;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

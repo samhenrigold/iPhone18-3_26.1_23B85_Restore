@@ -10,36 +10,35 @@
 - (void)main
 {
   v3 = objc_autoreleasePoolPush();
-  playlistPersistentID = self->_playlistPersistentID;
-  v5 = [NSString stringWithFormat:@"SagaCreateGeniusPlaylistOperation - (playlist_persistent_id  = %lld / playlist_name = %@)", playlistPersistentID, self->_playlistName];
-  v6 = [[MSVXPCTransaction alloc] initWithName:v5];
-  [v6 beginTransaction];
+  v4 = [NSString stringWithFormat:@"SagaCreateGeniusPlaylistOperation - (playlist_persistent_id  = %lld / playlist_name = %@)", self->_playlistPersistentID, self->_playlistName];
+  v5 = [[MSVXPCTransaction alloc] initWithName:v4];
+  [v5 beginTransaction];
   musicLibrary = [(CloudLibraryOperation *)self musicLibrary];
   clientIdentity = [(CloudLibraryOperation *)self clientIdentity];
   [musicLibrary setClientIdentity:clientIdentity];
 
-  v9 = self->_playlistPersistentID;
+  playlistPersistentID = self->_playlistPersistentID;
   musicLibrary2 = [(CloudLibraryOperation *)self musicLibrary];
-  v11 = [ML3Container newWithPersistentID:v9 inLibrary:musicLibrary2];
+  v10 = [ML3Container newWithPersistentID:playlistPersistentID inLibrary:musicLibrary2];
 
-  if ([v11 existsInLibrary])
+  if ([v10 existsInLibrary])
   {
     connection = [(CloudLibraryOperation *)self connection];
-    v13 = [ICCreateGeniusContainerRequest requestWithDatabaseID:[connection databaseID] playlistName:self->_playlistName seedItemIDs:self->_seedItemIDs itemIDs:self->_itemIDs];
-    [v13 setVerificationInteractionLevel:2];
-    v19[0] = _NSConcreteStackBlock;
-    v19[1] = 3221225472;
-    v19[2] = sub_100060C08;
-    v19[3] = &unk_1001DF838;
-    v19[4] = self;
-    v14 = dispatch_semaphore_create(0);
-    v20 = v14;
-    [connection sendRequest:v13 withResponseHandler:v19];
-    dispatch_semaphore_wait(v14, 0xFFFFFFFFFFFFFFFFLL);
+    v12 = [ICCreateGeniusContainerRequest requestWithDatabaseID:[connection databaseID] playlistName:self->_playlistName seedItemIDs:self->_seedItemIDs itemIDs:self->_itemIDs];
+    [v12 setVerificationInteractionLevel:2];
+    v18[0] = _NSConcreteStackBlock;
+    v18[1] = 3221225472;
+    v18[2] = sub_100060C08;
+    v18[3] = &unk_1001DF838;
+    v18[4] = self;
+    v13 = dispatch_semaphore_create(0);
+    v19 = v13;
+    [connection sendRequest:v12 withResponseHandler:v18];
+    dispatch_semaphore_wait(v13, 0xFFFFFFFFFFFFFFFFLL);
     if (self->_playlistSagaID)
     {
-      v15 = [NSNumber numberWithUnsignedLongLong:?];
-      [v11 setValue:v15 forProperty:ML3ContainerPropertyStoreCloudID];
+      v14 = [NSNumber numberWithUnsignedLongLong:?];
+      [v10 setValue:v14 forProperty:ML3ContainerPropertyStoreCloudID];
     }
   }
 
@@ -48,18 +47,18 @@
     connection = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
     if (os_log_type_enabled(connection, OS_LOG_TYPE_FAULT))
     {
-      v16 = self->_playlistPersistentID;
+      v15 = self->_playlistPersistentID;
       *buf = 134217984;
-      v22 = v16;
+      v21 = v15;
       _os_log_impl(&_mh_execute_header, connection, OS_LOG_TYPE_FAULT, "Playlist with pid = %lld is not in the database, skipping add to cloud library.", buf, 0xCu);
     }
   }
 
   musicLibrary3 = [(CloudLibraryOperation *)self musicLibrary];
-  v18 = MSVTCCIdentityForCurrentProcess();
-  [musicLibrary3 setClientIdentity:v18];
+  v17 = MSVTCCIdentityForCurrentProcess();
+  [musicLibrary3 setClientIdentity:v17];
 
-  [v6 endTransaction];
+  [v5 endTransaction];
   objc_autoreleasePoolPop(v3);
 }
 

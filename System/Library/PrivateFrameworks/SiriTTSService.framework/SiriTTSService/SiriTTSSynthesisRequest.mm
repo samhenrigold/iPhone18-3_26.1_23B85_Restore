@@ -21,7 +21,10 @@
 - (void)setCustomResourceURLs:(id)ls;
 - (void)setDidGenerateAudio:(id)audio;
 - (void)setDidGenerateWordTimings:(id)timings;
+- (void)setDisableCompactVoice:(BOOL)voice;
+- (void)setMinimizeDeviceUsage:(BOOL)usage;
 - (void)setPitch:(float)pitch;
+- (void)setPrivacySensitive:(BOOL)sensitive;
 - (void)setProsodyProperties:(id)properties;
 - (void)setRate:(float)rate;
 - (void)setSynthesisContext:(id)context;
@@ -30,13 +33,14 @@
 - (void)setText:(id)text;
 - (void)setVoice:(id)voice;
 - (void)setVolume:(float)volume;
+- (void)setWhisper:(BOOL)whisper;
 @end
 
 @implementation SiriTTSSynthesisRequest
 
 - (SiriTTSSynthesisContext)synthesisContext
 {
-  v2 = sub_1B1A93FE8();
+  v2 = sub_1B1A93FE8(self);
 
   return v2;
 }
@@ -45,14 +49,21 @@
 {
   coderCopy = coder;
   selfCopy = self;
-  sub_1B1A9CD00(coderCopy);
+  sub_1B1A9CD00(coderCopy, selfCopy);
 }
 
 - (void)setSynthesisContext:(id)context
 {
   contextCopy = context;
   selfCopy = self;
-  sub_1B1B112AC();
+  sub_1B1B112AC(contextCopy);
+}
+
+- (void)setWhisper:(BOOL)whisper
+{
+  whisperCopy = whisper;
+  synthesisContext = [(SiriTTSSynthesisRequest *)self synthesisContext];
+  [synthesisContext setWhisper:whisperCopy];
 }
 
 - (BOOL)whisper
@@ -134,6 +145,13 @@
   synthesisProfile = [synthesisContext synthesisProfile];
 
   return synthesisProfile;
+}
+
+- (void)setDisableCompactVoice:(BOOL)voice
+{
+  voiceCopy = voice;
+  synthesisContext = [(SiriTTSSynthesisRequest *)self synthesisContext];
+  [synthesisContext setDisableCompactVoice:voiceCopy];
 }
 
 - (BOOL)disableCompactVoice
@@ -222,12 +240,26 @@
   return contextInfo;
 }
 
+- (void)setMinimizeDeviceUsage:(BOOL)usage
+{
+  usageCopy = usage;
+  synthesisContext = [(SiriTTSSynthesisRequest *)self synthesisContext];
+  [synthesisContext setMinimizeDeviceUsage:usageCopy];
+}
+
 - (BOOL)minimizeDeviceUsage
 {
   synthesisContext = [(SiriTTSSynthesisRequest *)self synthesisContext];
   minimizeDeviceUsage = [synthesisContext minimizeDeviceUsage];
 
   return minimizeDeviceUsage;
+}
+
+- (void)setPrivacySensitive:(BOOL)sensitive
+{
+  sensitiveCopy = sensitive;
+  synthesisContext = [(SiriTTSSynthesisRequest *)self synthesisContext];
+  [synthesisContext setPrivacySensitive:sensitiveCopy];
 }
 
 - (BOOL)privacySensitive

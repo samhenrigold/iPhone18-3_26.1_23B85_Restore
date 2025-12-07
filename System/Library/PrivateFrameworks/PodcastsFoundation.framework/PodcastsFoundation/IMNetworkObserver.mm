@@ -61,9 +61,8 @@
   return sharedInstance_sObserver;
 }
 
-id __35__IMNetworkObserver_sharedInstance__block_invoke(uint64_t a1)
+id __35__IMNetworkObserver_sharedInstance__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
   result = objc_alloc_init(objc_opt_class());
   sharedInstance_sObserver = result;
   return result;
@@ -176,31 +175,26 @@ LABEL_19:
   self->_telephonyServer = v3;
   if (v3)
   {
-    dispatchQueue = self->_dispatchQueue;
     _CTServerConnectionSetTargetQueue();
-    telephonyServer = self->_telephonyServer;
-    v6 = *MEMORY[0x1E69653E8];
     _CTServerConnectionRegisterForNotification();
-    v7 = self->_telephonyServer;
-    v8 = *MEMORY[0x1E69653F8];
     _CTServerConnectionRegisterForNotification();
   }
 }
 
 - (void)_withLockInitializeWiFiNetworkReachability
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   address = xmmword_1D9187400;
   v3 = SCNetworkReachabilityCreateWithAddress(0, &address);
   self->_reachability = v3;
   if (v3)
   {
-    v7.version = 0;
-    v7.info = self;
-    v7.retain = 0;
-    v7.release = 0;
-    v7.copyDescription = MEMORY[0x1E695D768];
-    SCNetworkReachabilitySetCallback(v3, __ReachabilityCallback, &v7);
+    v6.version = 0;
+    v6.info = self;
+    v6.retain = 0;
+    v6.release = 0;
+    v6.copyDescription = MEMORY[0x1E695D768];
+    SCNetworkReachabilitySetCallback(v3, __ReachabilityCallback, &v6);
     SCNetworkReachabilitySetDispatchQueue(self->_reachability, self->_dispatchQueue);
   }
 
@@ -209,15 +203,14 @@ LABEL_19:
     v4 = _MTLogCategoryNetwork();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v7.version) = 0;
-      _os_log_impl(&dword_1D8CEC000, v4, OS_LOG_TYPE_ERROR, "Unable to start SCNetworkReachability.", &v7, 2u);
+      LOWORD(v6.version) = 0;
+      _os_log_impl(&dword_1D8CEC000, v4, OS_LOG_TYPE_ERROR, "Unable to start SCNetworkReachability.", &v6, 2u);
     }
   }
 
   _currentNetworkReachabilityFlags = [(IMNetworkObserver *)self _currentNetworkReachabilityFlags];
   self->_networkReachabilityFlags = _currentNetworkReachabilityFlags;
   self->_networkType = [(IMNetworkObserver *)self _networkTypeForReachabilityFlags:_currentNetworkReachabilityFlags];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (unsigned)_currentNetworkReachabilityFlags
@@ -235,7 +228,7 @@ LABEL_19:
 
 - (void)_withLockUpdateObservingStatus
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = self->_telephonyServer || (os_feature_enabled_core_telephony_reachability() & 1) != 0 || self->_reachability != 0;
   self->_observing = v3;
   v4 = _MTLogCategoryNetwork();
@@ -245,23 +238,21 @@ LABEL_19:
     v6 = os_feature_enabled_core_telephony_reachability();
     v7 = self->_telephonyServer != 0;
     reachability = self->_reachability;
-    v10[0] = 67109888;
-    v10[1] = observing;
-    v11 = 1024;
-    v12 = v6;
-    v13 = 1024;
-    v14 = v7;
-    v15 = 1024;
-    v16 = reachability != 0;
-    _os_log_impl(&dword_1D8CEC000, v4, OS_LOG_TYPE_INFO, "IMNetworkObserver observation status changed: %{BOOL}d (use core telephony: %{BOOL}d, has server: %{BOOL}d, has reachability: %{BOOL}d)", v10, 0x1Au);
+    v9[0] = 67109888;
+    v9[1] = observing;
+    v10 = 1024;
+    v11 = v6;
+    v12 = 1024;
+    v13 = v7;
+    v14 = 1024;
+    v15 = reachability != 0;
+    _os_log_impl(&dword_1D8CEC000, v4, OS_LOG_TYPE_INFO, "IMNetworkObserver observation status changed: %{BOOL}d (use core telephony: %{BOOL}d, has server: %{BOOL}d, has reachability: %{BOOL}d)", v9, 0x1Au);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (NSString)connectionTypeHeader
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   string = [MEMORY[0x1E696AD60] string];
   networkType = [(IMNetworkObserver *)self networkType];
   v5 = [(IMNetworkObserver *)self stringForNetworkType:networkType];
@@ -282,11 +273,10 @@ LABEL_19:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v11 = string;
+    v10 = string;
     _os_log_impl(&dword_1D8CEC000, v7, OS_LOG_TYPE_DEBUG, "Observer indicating connection header: %@", buf, 0xCu);
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return string;
 }
 
@@ -432,10 +422,7 @@ LABEL_17:
 {
   if (self->_telephonyServer)
   {
-    v3 = *MEMORY[0x1E69653E8];
     _CTServerConnectionUnregisterForNotification();
-    telephonyServer = self->_telephonyServer;
-    v5 = *MEMORY[0x1E69653F8];
     _CTServerConnectionUnregisterForNotification();
     CFRelease(self->_telephonyServer);
     self->_telephonyServer = 0;
@@ -612,21 +599,19 @@ LABEL_17:
 
 + (BOOL)isLikelyToReachRemoteServerWithReachabilityFlags:(unsigned int)flags
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = flags & 6;
   v5 = _MTLogCategoryNetwork();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v8[0] = 67109376;
-    v8[1] = v4 == 2;
-    v9 = 1024;
+    v7[0] = 67109376;
+    v7[1] = v4 == 2;
+    v8 = 1024;
     flagsCopy = flags;
-    _os_log_impl(&dword_1D8CEC000, v5, OS_LOG_TYPE_DEBUG, "Determined is likely to reach network: %{BOOL}d (networkReachabilityFlags: %d", v8, 0xEu);
+    _os_log_impl(&dword_1D8CEC000, v5, OS_LOG_TYPE_DEBUG, "Determined is likely to reach network: %{BOOL}d (networkReachabilityFlags: %d", v7, 0xEu);
   }
 
-  result = v4 == 2;
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return v4 == 2;
 }
 
 - (id)dataStatusIndicator
@@ -640,7 +625,7 @@ LABEL_17:
 
 - (id)operatorName
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_lock);
   operatorName = self->_operatorName;
   if (!operatorName)
@@ -654,14 +639,12 @@ LABEL_17:
   v5 = _MTLogCategoryNetwork();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v8 = 138412290;
-    v9 = v4;
-    _os_log_impl(&dword_1D8CEC000, v5, OS_LOG_TYPE_DEBUG, "Observer indicating operator name: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v4;
+    _os_log_impl(&dword_1D8CEC000, v5, OS_LOG_TYPE_DEBUG, "Observer indicating operator name: %@", &v7, 0xCu);
   }
 
-  result = v4;
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return v4;
 }
 
 - (void)_withLockReloadOperatorName
@@ -706,7 +689,7 @@ LABEL_17:
 
 - (void)_telephonyServer_withLockUpdateOperatorName
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (self->_telephonyServer)
   {
     v3 = _CTServerConnectionCopyOperatorName();
@@ -723,75 +706,70 @@ LABEL_17:
       v7 = _MTLogCategoryNetwork();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        v9[0] = 67109376;
-        v9[1] = v4;
-        v10 = 1024;
-        v11 = v5;
-        _os_log_impl(&dword_1D8CEC000, v7, OS_LOG_TYPE_ERROR, "Unable to determine operator name: { domain: %d, error code: %d", v9, 0xEu);
+        v8[0] = 67109376;
+        v8[1] = v4;
+        v9 = 1024;
+        v10 = v5;
+        _os_log_impl(&dword_1D8CEC000, v7, OS_LOG_TYPE_ERROR, "Unable to determine operator name: { domain: %d, error code: %d", v8, 0xEu);
       }
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_telephonyClient_withLockUpdateOperatorNameWithContext:(id)context
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v17 = 0;
+  v19 = *MEMORY[0x1E69E9840];
+  v16 = 0;
   operatorName = self->_operatorName;
-  v5 = [(CoreTelephonyClient *)self->_telephonyClient getOperatorName:context error:&v17];
-  if (v17)
+  v5 = [(CoreTelephonyClient *)self->_telephonyClient getOperatorName:context error:&v16];
+  if (v16)
   {
     v6 = _MTLogCategoryNetwork();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      *buf = 138412290;
-      v19 = v17;
-      v7 = "Unable to determine operator name: %@";
-      v8 = v6;
-      v9 = OS_LOG_TYPE_ERROR;
+      return;
+    }
+
+    *buf = 138412290;
+    v18 = v16;
+    v7 = "Unable to determine operator name: %@";
+    v8 = v6;
+    v9 = OS_LOG_TYPE_ERROR;
 LABEL_7:
-      _os_log_impl(&dword_1D8CEC000, v8, v9, v7, buf, 0xCu);
-    }
+    _os_log_impl(&dword_1D8CEC000, v8, v9, v7, buf, 0xCu);
+    return;
   }
 
-  else
+  v10 = v5;
+  v11 = [(NSString *)v5 isEqualToString:operatorName];
+  v12 = _MTLogCategoryNetwork();
+  v13 = v12;
+  if (v11)
   {
-    v10 = v5;
-    v11 = [(NSString *)v5 isEqualToString:operatorName];
-    v12 = _MTLogCategoryNetwork();
-    v13 = v12;
-    if (v11)
+    if (!os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
-      {
-        v14 = self->_operatorName;
-        *buf = 138412290;
-        v19 = v14;
-        v7 = "Operator name has not changed: %@";
-        v8 = v13;
-        v9 = OS_LOG_TYPE_INFO;
-        goto LABEL_7;
-      }
+      return;
     }
 
-    else
-    {
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
-      {
-        v15 = self->_operatorName;
-        *buf = 138412290;
-        v19 = v15;
-        _os_log_impl(&dword_1D8CEC000, v13, OS_LOG_TYPE_DEFAULT, "Identified new operator name: %@", buf, 0xCu);
-      }
-
-      self->_operatorName = v10;
-      [objc_msgSend(MEMORY[0x1E696AD88] "defaultCenter")];
-    }
+    v14 = self->_operatorName;
+    *buf = 138412290;
+    v18 = v14;
+    v7 = "Operator name has not changed: %@";
+    v8 = v13;
+    v9 = OS_LOG_TYPE_INFO;
+    goto LABEL_7;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  {
+    v15 = self->_operatorName;
+    *buf = 138412290;
+    v18 = v15;
+    _os_log_impl(&dword_1D8CEC000, v13, OS_LOG_TYPE_DEFAULT, "Identified new operator name: %@", buf, 0xCu);
+  }
+
+  self->_operatorName = v10;
+  [objc_msgSend(MEMORY[0x1E696AD88] "defaultCenter")];
 }
 
 - (void)reloadNetworkType
@@ -841,7 +819,7 @@ void __56__IMNetworkObserver__applicationForegroundNotification___block_invoke(u
 
 - (void)_handleTelephonyNotificationWithName:(__CFString *)name userInfo:(__CFDictionary *)info
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_lock);
   if (CFStringCompare(name, *MEMORY[0x1E69653E8], 0))
   {
@@ -896,7 +874,6 @@ void __56__IMNetworkObserver__applicationForegroundNotification___block_invoke(u
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __67__IMNetworkObserver__handleTelephonyNotificationWithName_userInfo___block_invoke(uint64_t a1)
@@ -984,45 +961,41 @@ uint64_t __67__IMNetworkObserver__handleTelephonyNotificationWithName_userInfo__
 - (int64_t)_networkTypeFromDataIndicator:(id)indicator
 {
   v4 = 0;
-  v7[24] = *MEMORY[0x1E69E9840];
-  v7[0] = *MEMORY[0x1E6965388];
-  v7[1] = 1;
-  v7[2] = *MEMORY[0x1E6965390];
-  v7[3] = 1;
-  v7[4] = *MEMORY[0x1E6965398];
-  v7[5] = 2;
-  v7[6] = *MEMORY[0x1E69653A0];
-  v7[7] = 2;
-  v7[8] = *MEMORY[0x1E69653A8];
-  v7[9] = 2;
-  v7[10] = *MEMORY[0x1E69653E0];
-  v7[11] = 3;
-  v7[12] = *MEMORY[0x1E69653B0];
-  v7[13] = 3;
-  v7[14] = *MEMORY[0x1E69653B8];
-  v7[15] = 4;
-  v7[16] = *MEMORY[0x1E69653C0];
-  v7[17] = 5;
-  v7[18] = *MEMORY[0x1E69653C8];
-  v7[19] = 6;
-  v7[20] = *MEMORY[0x1E69653D0];
-  v7[21] = 7;
-  v7[22] = *MEMORY[0x1E69653D8];
-  v7[23] = 8;
-  while (![indicator isEqualToString:v7[v4]])
+  v6[24] = *MEMORY[0x1E69E9840];
+  v6[0] = *MEMORY[0x1E6965388];
+  v6[1] = 1;
+  v6[2] = *MEMORY[0x1E6965390];
+  v6[3] = 1;
+  v6[4] = *MEMORY[0x1E6965398];
+  v6[5] = 2;
+  v6[6] = *MEMORY[0x1E69653A0];
+  v6[7] = 2;
+  v6[8] = *MEMORY[0x1E69653A8];
+  v6[9] = 2;
+  v6[10] = *MEMORY[0x1E69653E0];
+  v6[11] = 3;
+  v6[12] = *MEMORY[0x1E69653B0];
+  v6[13] = 3;
+  v6[14] = *MEMORY[0x1E69653B8];
+  v6[15] = 4;
+  v6[16] = *MEMORY[0x1E69653C0];
+  v6[17] = 5;
+  v6[18] = *MEMORY[0x1E69653C8];
+  v6[19] = 6;
+  v6[20] = *MEMORY[0x1E69653D0];
+  v6[21] = 7;
+  v6[22] = *MEMORY[0x1E69653D8];
+  v6[23] = 8;
+  while (![indicator isEqualToString:v6[v4]])
   {
     v4 += 2;
     if (v4 == 24)
     {
-      result = 0;
-      goto LABEL_6;
+      return 0;
     }
   }
 
-  result = v7[v4 + 1];
-LABEL_6:
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return v6[v4 + 1];
 }
 
 - (int64_t)_networkTypeFromCTDataIndicator:(int)indicator
@@ -1040,7 +1013,7 @@ LABEL_6:
 
 - (int64_t)_networkTypeForReachabilityFlags:(unsigned int)flags
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if ((flags & 2) == 0)
   {
     v3 = 0;
@@ -1055,10 +1028,10 @@ LABEL_6:
 
   if (os_feature_enabled_core_telephony_reachability())
   {
-    *v10 = 0;
-    v5 = [(CoreTelephonyClient *)self->_telephonyClient getInternetDataStatusSync:v10];
+    *v9 = 0;
+    v5 = [(CoreTelephonyClient *)self->_telephonyClient getInternetDataStatusSync:v9];
     v3 = 0;
-    if (*v10)
+    if (*v9)
     {
       goto LABEL_10;
     }
@@ -1076,24 +1049,23 @@ LABEL_10:
   v7 = _MTLogCategoryNetwork();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    *v10 = 134217984;
-    *&v10[4] = v3;
-    _os_log_impl(&dword_1D8CEC000, v7, OS_LOG_TYPE_DEFAULT, "Determined network type: %ld", v10, 0xCu);
+    *v9 = 134217984;
+    *&v9[4] = v3;
+    _os_log_impl(&dword_1D8CEC000, v7, OS_LOG_TYPE_DEFAULT, "Determined network type: %ld", v9, 0xCu);
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
 - (void)_postReachabilityFlagsChangedNotificationFromValue:(unsigned int)value toValue:(unsigned int)toValue
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v7 = _MTLogCategoryNetwork();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109376;
     valueCopy = value;
-    v16 = 1024;
+    v15 = 1024;
     toValueCopy = toValue;
     _os_log_impl(&dword_1D8CEC000, v7, OS_LOG_TYPE_DEFAULT, "Notifying of new reachability flags (%d -> %d)", buf, 0xEu);
   }
@@ -1104,19 +1076,17 @@ LABEL_10:
   v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:toValue];
   v12 = [v8 initWithObjectsAndKeys:{v9, v10, v11, *MEMORY[0x1E696A4F0], 0}];
   [objc_msgSend(MEMORY[0x1E696AD88] "defaultCenter")];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_postTypeChangedNotificationFromValue:(int64_t)value toValue:(int64_t)toValue
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v7 = _MTLogCategoryNetwork();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218240;
     valueCopy = value;
-    v16 = 2048;
+    v15 = 2048;
     toValueCopy = toValue;
     _os_log_impl(&dword_1D8CEC000, v7, OS_LOG_TYPE_DEFAULT, "Notifying of new network type (%ld -> %ld)", buf, 0x16u);
   }
@@ -1127,8 +1097,6 @@ LABEL_10:
   v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:toValue];
   v12 = [v8 initWithObjectsAndKeys:{v9, v10, v11, *MEMORY[0x1E696A4F0], 0}];
   [objc_msgSend(MEMORY[0x1E696AD88] "defaultCenter")];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_reloadNetworkTypeWithReachabilityFlags:(unsigned int)flags
@@ -1155,19 +1123,19 @@ LABEL_10:
   }
 }
 
-uint64_t __61__IMNetworkObserver__reloadNetworkTypeWithReachabilityFlags___block_invoke(uint64_t result)
+id *__61__IMNetworkObserver__reloadNetworkTypeWithReachabilityFlags___block_invoke(id *result)
 {
   v1 = result;
   if (*(result + 64) == 1)
   {
-    result = [*(result + 32) _postTypeChangedNotificationFromValue:*(result + 40) toValue:*(result + 48)];
+    result = [result[4] _postTypeChangedNotificationFromValue:result[5] toValue:result[6]];
   }
 
   if (*(v1 + 65) == 1)
   {
-    v2 = *(v1 + 32);
-    v3 = *(v1 + 56);
-    v4 = *(v1 + 60);
+    v2 = v1[4];
+    v3 = *(v1 + 14);
+    v4 = *(v1 + 15);
 
     return [v2 _postReachabilityFlagsChangedNotificationFromValue:v3 toValue:v4];
   }
@@ -1177,7 +1145,7 @@ uint64_t __61__IMNetworkObserver__reloadNetworkTypeWithReachabilityFlags___block
 
 - (int64_t)_setNetworkType:(int64_t)type
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   networkType = self->_networkType;
   if (networkType != type)
   {
@@ -1187,15 +1155,14 @@ uint64_t __61__IMNetworkObserver__reloadNetworkTypeWithReachabilityFlags___block
     {
       v6 = objc_opt_class();
       v7 = [(IMNetworkObserver *)self stringForNetworkType:self->_networkType];
-      v10 = 138412546;
-      v11 = v6;
-      v12 = 2112;
-      v13 = v7;
-      _os_log_impl(&dword_1D8CEC000, v5, OS_LOG_TYPE_DEFAULT, "%@: Set network type %@", &v10, 0x16u);
+      v9 = 138412546;
+      v10 = v6;
+      v11 = 2112;
+      v12 = v7;
+      _os_log_impl(&dword_1D8CEC000, v5, OS_LOG_TYPE_DEFAULT, "%@: Set network type %@", &v9, 0x16u);
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return networkType;
 }
 

@@ -92,7 +92,7 @@ void __75___SBFullScreenAppFloorSwitcherModifier_handleSwitcherShortcutActionEve
     if ([v9 count] == 1)
     {
       v10 = [*(a1 + 32) maximizedCenteredAndUnoccludedDisplayItemsInAppLayout:*(*(a1 + 32) + 128) ignoreOcclusion:1 ignoreCentering:1];
-      BYTE2(v35) = [v10 containsObject:*(a1 + 40)];
+      BYTE2(v35) = objc_msgSend_containsObject_(v10);
     }
 
     else
@@ -325,7 +325,7 @@ void __75___SBFullScreenAppFloorSwitcherModifier_handleSwitcherShortcutActionEve
   v3 = [(SBHomeScreenConfigurationServer *)v2 connections];
   v4 = [*(a1 + 32) layoutRestrictionInfoForItem:*(a1 + 40)];
   v5 = [v4 layoutRestrictions];
-  if (SBFIsFullScreenLetterboxingAvailable() && (v5 & 0x10) != 0 && (v6 = [(SBDisplayItemLayoutAttributes *)v2 attributedSize], v53 == 3))
+  if (SBFIsFullScreenLetterboxingAvailable() && (v5 & 0x10) != 0 && (v6 = [(SBDisplayItemLayoutAttributes *)v2 attributedSize], v54 == 3))
   {
     v7 = *(a1 + 32);
     v8 = *(a1 + 40);
@@ -343,10 +343,10 @@ void __75___SBFullScreenAppFloorSwitcherModifier_handleSwitcherShortcutActionEve
     v23 = v22;
     v25 = v24;
 
-    v51 = 0;
-    v49 = 0u;
+    v52 = 0;
     v50 = 0u;
-    v48 = 0u;
+    v51 = 0u;
+    v49 = 0u;
     [*(a1 + 48) containerBounds];
     v27 = v26;
     v29 = v28;
@@ -354,38 +354,38 @@ void __75___SBFullScreenAppFloorSwitcherModifier_handleSwitcherShortcutActionEve
     v33 = v32;
     [*(a1 + 48) defaultWindowSize];
     [*(a1 + 48) screenEdgePadding];
-    SBDisplayItemAttributedSizeInfer(&v48, v23, v25, v27, v29, v31, v33);
-    v44 = v48;
+    SBDisplayItemAttributedSizeInfer(&v49, v23, v25, v27, v29, v31, v33, v34);
     v45 = v49;
     v46 = v50;
     v47 = v51;
-    v34 = [SBDisplayItemLayoutAttributes attributesByModifyingAttributedSize:v2];
+    v48 = v52;
+    v35 = [SBDisplayItemLayoutAttributes attributesByModifyingAttributedSize:v2];
 
-    v2 = [(SBDisplayItemLayoutAttributes *)v34 attributesByModifyingNormalizedCenter:0.5];
+    v2 = [(SBDisplayItemLayoutAttributes *)v35 attributesByModifyingNormalizedCenter:0.5];
   }
 
   else
   {
     if ((v3 - 1) <= 1)
     {
-      v35 = [SBDisplayItemLayoutAttributes attributesByModifyingSizingPolicy:v2];
+      v36 = [SBDisplayItemLayoutAttributes attributesByModifyingSizingPolicy:v2];
 
-      v2 = v35;
+      v2 = v36;
     }
 
     [(SBDisplayItemLayoutAttributes *)v2 attributedSize];
-    if (v43 == 3 && [(SBDisplayItemLayoutAttributes *)v2 normalizedCenter]== 0.5 && v36 == 0.5)
+    if (v44 == 3 && [(SBDisplayItemLayoutAttributes *)v2 normalizedCenter]== 0.5 && v37 == 0.5)
     {
-      v38 = [*(a1 + 32) defaultMultitaskingLayoutAttributesForDisplayItem:*(a1 + 40) layoutAttributes:v2 layoutGrid:*(*(a1 + 32) + 144)];
+      v39 = [*(a1 + 32) defaultMultitaskingLayoutAttributesForDisplayItem:*(a1 + 40) layoutAttributes:v2 layoutGrid:*(*(a1 + 32) + 144)];
 
-      v2 = v38;
+      v2 = v39;
     }
   }
 
-  v39 = objc_alloc_init(SBMutableSwitcherTransitionRequest);
-  v40 = *(*(a1 + 56) + 8);
-  v41 = *(v40 + 40);
-  *(v40 + 40) = v39;
+  v40 = objc_alloc_init(SBMutableSwitcherTransitionRequest);
+  v41 = *(*(a1 + 56) + 8);
+  v42 = *(v41 + 40);
+  *(v41 + 40) = v40;
 
   [*(a1 + 32) updateLayoutAttributes:v2 ofDisplayItem:*(a1 + 40)];
   [*(*(*(a1 + 56) + 8) + 40) setAppLayout:*(*(a1 + 32) + 128)];

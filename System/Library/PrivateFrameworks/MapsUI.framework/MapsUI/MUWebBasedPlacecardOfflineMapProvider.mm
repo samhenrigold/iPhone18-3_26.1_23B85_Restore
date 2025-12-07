@@ -11,12 +11,10 @@
 
 - (MUOfflineMapProvider)nativeOfflineMapProvider
 {
-  v3 = OBJC_IVAR____TtC6MapsUI37MUWebBasedPlacecardOfflineMapProvider_nativeOfflineMapProvider;
   swift_beginAccess();
-  v4 = *(&self->super.isa + v3);
-  v5 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v5;
+  return v2;
 }
 
 - (void)setNativeOfflineMapProvider:(id)provider

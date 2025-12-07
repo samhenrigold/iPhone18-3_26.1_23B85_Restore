@@ -22,18 +22,19 @@
 
 - (void)music_inheritedLayoutInsetsDidChange
 {
-  v4.receiver = self;
-  v4.super_class = type metadata accessor for HorizontalLockupCollectionViewCell();
-  v2 = v4.receiver;
-  [(HorizontalLockupCollectionViewCell *)&v4 music_inheritedLayoutInsetsDidChange];
+  v5.receiver = self;
+  v5.super_class = type metadata accessor for HorizontalLockupCollectionViewCell(0);
+  v2 = v5.receiver;
+  [(HorizontalLockupCollectionViewCell *)&v5 music_inheritedLayoutInsetsDidChange];
   [v2 setNeedsLayout];
   v3 = *&v2[OBJC_IVAR____TtC12NowPlayingUI34HorizontalLockupCollectionViewCell_layoutInvalidationHandler];
   if (v3)
   {
+    v4 = *&v2[OBJC_IVAR____TtC12NowPlayingUI34HorizontalLockupCollectionViewCell_layoutInvalidationHandler + 8];
 
     v3(v2);
 
-    sub_2173C(v3);
+    sub_2173C(v3, v4);
   }
 
   else
@@ -55,10 +56,11 @@
   v3 = *&selfCopy->_anon_0[OBJC_IVAR____TtC12NowPlayingUI34HorizontalLockupCollectionViewCell_layoutInvalidationHandler];
   if (v3)
   {
+    v4 = *&selfCopy->artworkEdgeInsets[OBJC_IVAR____TtC12NowPlayingUI34HorizontalLockupCollectionViewCell_layoutInvalidationHandler];
 
     v3(selfCopy);
 
-    sub_2173C(v3);
+    sub_2173C(v3, v4);
   }
 
   else

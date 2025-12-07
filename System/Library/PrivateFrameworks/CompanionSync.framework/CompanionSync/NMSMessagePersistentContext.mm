@@ -9,9 +9,9 @@
 - (NMSMessagePersistentContext)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v17.receiver = self;
-  v17.super_class = NMSMessagePersistentContext;
-  v5 = [(NMSMessagePersistentContext *)&v17 init];
+  v19.receiver = self;
+  v19.super_class = NMSMessagePersistentContext;
+  v5 = [(NMSMessagePersistentContext *)&v19 init];
   if (v5)
   {
     v5->_messageID = [coderCopy decodeIntegerForKey:@"m"];
@@ -19,20 +19,21 @@
     idsIdentifier = v5->_idsIdentifier;
     v5->_idsIdentifier = v6;
 
-    v8 = allowedClasses();
-    v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"u"];
+    v9 = allowedClasses(v8);
+    v10 = [coderCopy decodeObjectOfClasses:v9 forKey:@"u"];
     userInfo = v5->_userInfo;
-    v5->_userInfo = v9;
+    v5->_userInfo = v10;
 
-    v11 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"d"];
+    v12 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"d"];
     date = v5->_date;
-    v5->_date = v11;
+    v5->_date = v12;
 
-    v5->_fromRequest = [coderCopy decodeBoolForKey:@"r"];
-    v13 = allowedClasses();
-    v14 = [coderCopy decodeObjectOfClasses:v13 forKey:@"f"];
+    v14 = [coderCopy decodeBoolForKey:@"r"];
+    v5->_fromRequest = v14;
+    v15 = allowedClasses(v14);
+    v16 = [coderCopy decodeObjectOfClasses:v15 forKey:@"f"];
     idsOptions = v5->_idsOptions;
-    v5->_idsOptions = v14;
+    v5->_idsOptions = v16;
 
     v5->_sendAcked = [coderCopy decodeBoolForKey:@"sa"];
     v5->_processAcked = [coderCopy decodeBoolForKey:@"pa"];
@@ -91,10 +92,9 @@
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  idsOptions = self->_idsOptions;
-  v7 = [v3 stringWithFormat:@"<%@:%p id:%hu ids:%@ date:%@ fromRequest:%d sendAcked:%d processAcked:%d idsOptions:%@ userInfo:%@>", v5, self, self->_messageID, self->_idsIdentifier, self->_date, self->_fromRequest, self->_sendAcked, self->_processAcked, idsOptions, self->_userInfo];
+  v6 = [v3 stringWithFormat:@"<%@:%p id:%hu ids:%@ date:%@ fromRequest:%d sendAcked:%d processAcked:%d idsOptions:%@ userInfo:%@>", v5, self, self->_messageID, self->_idsIdentifier, self->_date, self->_fromRequest, self->_sendAcked, self->_processAcked, self->_idsOptions, self->_userInfo];
 
-  return v7;
+  return v6;
 }
 
 @end

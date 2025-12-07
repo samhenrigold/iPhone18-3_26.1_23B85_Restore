@@ -754,7 +754,7 @@ void __67__ICCRTombstoneOrderedSet_moveObjectFromIndex_toIndex_mutableSafe___blo
   }
 }
 
-unint64_t __63__ICCRTombstoneOrderedSet__removeObjectsFromOrderingAtIndices___block_invoke_2(uint64_t a1, unint64_t a2)
+void *__63__ICCRTombstoneOrderedSet__removeObjectsFromOrderingAtIndices___block_invoke_2(uint64_t a1, unint64_t a2)
 {
   result = [*(a1 + 32) lastIndex];
   if (result >= a2)

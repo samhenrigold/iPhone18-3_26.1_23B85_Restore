@@ -95,7 +95,7 @@
 
 - (void)handleIdleTimeout
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (TICanLogMessageAtLevel_onceToken != -1)
   {
     dispatch_once(&TICanLogMessageAtLevel_onceToken, &__block_literal_global_24093);
@@ -106,9 +106,9 @@
     v3 = TIOSLogFacility();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Closing user dictionary due to lack of activity", "-[TIUserDictionaryServer handleIdleTimeout]"];
+      v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Closing user dictionary due to lack of activity", "-[TIUserDictionaryServer handleIdleTimeout]"];
       *buf = 138412290;
-      v8 = v6;
+      v7 = v5;
       _os_log_debug_impl(&dword_22CA55000, v3, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
   }
@@ -117,15 +117,12 @@
   [textReplacementServer cleanup];
 
   [(TIUserDictionaryServer *)self resetCache];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)keyboardActivityDidTransition:(id)transition
 {
   transitionCopy = transition;
-  dispatchQueue = self->_dispatchQueue;
-  v7 = transitionCopy;
-  v6 = transitionCopy;
+  v3 = transitionCopy;
   TIDispatchAsync();
 }
 
@@ -212,27 +209,27 @@ void *__62__TIUserDictionaryServer_decrementRecentClientCountAfterDelay__block_i
 
 void __50__TIUserDictionaryServer_loadPhraseShortcutPairs___block_invoke(uint64_t a1, void *a2, int a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = a2;
+  v20 = 0u;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v23;
+    v8 = *v21;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v23 != v8)
+        if (*v21 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v22 + 1) + 8 * i);
+        v10 = *(*(&v20 + 1) + 8 * i);
         v11 = [v10 phrase];
 
         if (v11)
@@ -255,7 +252,7 @@ void __50__TIUserDictionaryServer_loadPhraseShortcutPairs___block_invoke(uint64_
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v7);
@@ -263,13 +260,10 @@ void __50__TIUserDictionaryServer_loadPhraseShortcutPairs___block_invoke(uint64_
 
   if (a3)
   {
-    v18 = *(*(a1 + 40) + 8);
-    v21 = *(a1 + 48);
-    v20 = *(a1 + 32);
+    v19 = *(a1 + 48);
+    v18 = *(a1 + 32);
     TIDispatchAsync();
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetCache
@@ -283,7 +277,7 @@ void __50__TIUserDictionaryServer_loadPhraseShortcutPairs___block_invoke(uint64_
 
 void __37__TIUserDictionaryServer_updateCache__block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = [MEMORY[0x277CCAD78] UUID];
   [*(a1 + 32) setUserDictionaryUUID:v5];
@@ -291,33 +285,32 @@ void __37__TIUserDictionaryServer_updateCache__block_invoke(uint64_t a1, void *a
   if ([*(*(a1 + 32) + 16) count])
   {
     objc_storeStrong((*(a1 + 32) + 24), a2);
-    v16 = 0u;
-    v17 = 0u;
     v14 = 0u;
     v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v6 = *(*(a1 + 32) + 16);
-    v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v13;
       do
       {
         v10 = 0;
         do
         {
-          if (*v15 != v9)
+          if (*v13 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(a1 + 32) + 24);
-          (*(*(*(&v14 + 1) + 8 * v10) + 16))(*(*(&v14 + 1) + 8 * v10));
+          (*(*(*(&v12 + 1) + 8 * v10) + 16))(*(*(&v12 + 1) + 8 * v10));
           ++v10;
         }
 
         while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v8);
@@ -326,21 +319,17 @@ void __37__TIUserDictionaryServer_updateCache__block_invoke(uint64_t a1, void *a
 
   *(*(a1 + 32) + 32) = 0;
   [*(a1 + 32) decrementRecentClientCountAfterDelay];
-  v12 = *(a1 + 32);
-  if (v12[9])
+  v11 = *(a1 + 32);
+  if (v11[9])
   {
-    [v12 updateCache];
+    [v11 updateCache];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getPhraseShortcutPairs:(id)pairs
 {
   pairsCopy = pairs;
-  dispatchQueue = self->_dispatchQueue;
-  v7 = pairsCopy;
-  v6 = pairsCopy;
+  v3 = pairsCopy;
   TIDispatchAsync();
 }
 
@@ -362,9 +351,7 @@ uint64_t __49__TIUserDictionaryServer_getPhraseShortcutPairs___block_invoke(uint
 - (void)removeObserver:(id)observer
 {
   observerCopy = observer;
-  dispatchQueue = self->_dispatchQueue;
-  v7 = observerCopy;
-  v6 = observerCopy;
+  v3 = observerCopy;
   TIDispatchAsync();
 }
 
@@ -384,14 +371,12 @@ void __41__TIUserDictionaryServer_removeObserver___block_invoke(uint64_t a1)
 
 - (id)addObserver:(id)observer
 {
-  v4 = [observer copy];
-  dispatchQueue = self->_dispatchQueue;
-  v9 = v4;
-  v6 = v4;
+  v6 = [observer copy];
+  v3 = v6;
   TIDispatchAsync();
-  v7 = _Block_copy(v6);
+  v4 = _Block_copy(v3);
 
-  return v7;
+  return v4;
 }
 
 uint64_t __38__TIUserDictionaryServer_addObserver___block_invoke(uint64_t a1)
@@ -419,24 +404,24 @@ uint64_t __38__TIUserDictionaryServer_addObserver___block_invoke(uint64_t a1)
 
 void __37__TIUserDictionaryServer_startServer__block_invoke(uint64_t a1)
 {
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x2050000000;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2050000000;
   v2 = get_KSTextReplacementServerClass_softClass;
-  v25 = get_KSTextReplacementServerClass_softClass;
+  v26 = get_KSTextReplacementServerClass_softClass;
   if (!get_KSTextReplacementServerClass_softClass)
   {
-    v17 = MEMORY[0x277D85DD0];
-    v18 = 3221225472;
-    v19 = __get_KSTextReplacementServerClass_block_invoke;
-    v20 = &unk_278733760;
-    v21 = &v22;
-    __get_KSTextReplacementServerClass_block_invoke(&v17);
-    v2 = v23[3];
+    v18 = MEMORY[0x277D85DD0];
+    v19 = 3221225472;
+    v20 = __get_KSTextReplacementServerClass_block_invoke;
+    v21 = &unk_278733760;
+    v22 = &v23;
+    __get_KSTextReplacementServerClass_block_invoke(&v18);
+    v2 = v24[3];
   }
 
   v3 = v2;
-  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(&v23, 8);
   v4 = [v2 textReplacementServer];
   v5 = *(a1 + 32);
   v6 = *(v5 + 64);
@@ -444,26 +429,26 @@ void __37__TIUserDictionaryServer_startServer__block_invoke(uint64_t a1)
 
   v7 = [MEMORY[0x277CCAB98] defaultCenter];
   v8 = *(a1 + 32);
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x2020000000;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2020000000;
   v9 = getMCKeyboardSettingsChangedNotificationSymbolLoc_ptr;
-  v25 = getMCKeyboardSettingsChangedNotificationSymbolLoc_ptr;
+  v26 = getMCKeyboardSettingsChangedNotificationSymbolLoc_ptr;
   if (!getMCKeyboardSettingsChangedNotificationSymbolLoc_ptr)
   {
-    v17 = MEMORY[0x277D85DD0];
-    v18 = 3221225472;
-    v19 = __getMCKeyboardSettingsChangedNotificationSymbolLoc_block_invoke;
-    v20 = &unk_278733760;
-    v21 = &v22;
+    v18 = MEMORY[0x277D85DD0];
+    v19 = 3221225472;
+    v20 = __getMCKeyboardSettingsChangedNotificationSymbolLoc_block_invoke;
+    v21 = &unk_278733760;
+    v22 = &v23;
     v10 = ManagedConfigurationLibrary_15006();
     v11 = dlsym(v10, "MCKeyboardSettingsChangedNotification");
-    *(v21[1] + 24) = v11;
-    getMCKeyboardSettingsChangedNotificationSymbolLoc_ptr = *(v21[1] + 24);
-    v9 = v23[3];
+    *(v22[1] + 24) = v11;
+    getMCKeyboardSettingsChangedNotificationSymbolLoc_ptr = *(v22[1] + 24);
+    v9 = v24[3];
   }
 
-  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(&v23, 8);
   if (v9)
   {
     [v7 addObserver:v8 selector:sel_managedKeyboardSettingsDidChange_ name:*v9 object:0];
@@ -479,9 +464,9 @@ void __37__TIUserDictionaryServer_startServer__block_invoke(uint64_t a1)
 
   else
   {
-    dlerror();
-    v16 = abort_report_np();
-    __get_KSTextReplacementServerClass_block_invoke(v16);
+    v16 = dlerror();
+    v17 = abort_report_np("%s", v16);
+    __get_KSTextReplacementServerClass_block_invoke(v17);
   }
 }
 
@@ -527,7 +512,7 @@ void __37__TIUserDictionaryServer_startServer__block_invoke(uint64_t a1)
 
 void __46__TIUserDictionaryServer_decrementClientDelay__block_invoke()
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   decrementClientDelay_result = 0x4066800000000000;
   if (TI_IS_INTERNAL_INSTALL::once_token != -1)
   {
@@ -554,17 +539,15 @@ void __46__TIUserDictionaryServer_decrementClientDelay__block_invoke()
           v2 = TIOSLogFacility();
           if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
           {
-            v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Setting decrement client delay to %ld seconds", "+[TIUserDictionaryServer decrementClientDelay]_block_invoke", v1];
+            v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Setting decrement client delay to %ld seconds", "+[TIUserDictionaryServer decrementClientDelay]_block_invoke", v1];
             *buf = 138412290;
-            v7 = v4;
+            v6 = v3;
             _os_log_debug_impl(&dword_22CA55000, v2, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
           }
         }
       }
     }
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __43__TIUserDictionaryServer_singletonInstance__block_invoke()

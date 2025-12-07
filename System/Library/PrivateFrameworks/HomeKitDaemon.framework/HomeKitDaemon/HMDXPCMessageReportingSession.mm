@@ -44,11 +44,11 @@ LABEL_9:
   v12 = [(HMDXPCMessageReportingSession *)&v22 init];
   if (v12)
   {
-    v13 = [dCopy copy];
+    v13 = objc_msgSend_copy(dCopy);
     UUID = v12->_UUID;
     v12->_UUID = v13;
 
-    v15 = [contextCopy copy];
+    v15 = objc_msgSend_copy(contextCopy);
     reportContext = v12->_reportContext;
     v12->_reportContext = v15;
 

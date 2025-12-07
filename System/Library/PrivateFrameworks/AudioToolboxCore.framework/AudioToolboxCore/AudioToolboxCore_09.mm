@@ -1,3 +1,4750 @@
+uint64_t DSPGraph::SRCBox::reset(DSPGraph::SRCBox *this)
+{
+  DSPGraph::RingBufferBox::reset(this);
+  result = *(this + 111);
+  if (result)
+  {
+    v3 = *(*result + 40);
+
+    return v3();
+  }
+
+  return result;
+}
+
+uint64_t DSPGraph::ResamplerSRCKernel::reset(uint64_t this)
+{
+  v1 = *(this + 8);
+  v2 = *(this + 16);
+  while (v1 != v2)
+  {
+    v3 = *v1++;
+    this = (*(*v3 + 88))(v3);
+  }
+
+  return this;
+}
+
+uint64_t Resampler2::Reset(void **this)
+{
+  bzero(this[10], 4 * *(this + 19));
+  bzero(this[11], 4 * *(this + 19));
+  *(this + 18) = 0;
+  this[20] = 0;
+  *(this + 26) = 0;
+  *(this + 132) = 0;
+  result = (*(*this + 12))(this, *(this + 30));
+  v3 = 0.0;
+  if ((this[33] & 1) == 0)
+  {
+    v4 = *(this + 20);
+    result = (*(*this + 19))(this, 0.0);
+    v3 = -1.0 - (v4 + (result >> 1));
+  }
+
+  *(this + 17) = v3;
+  this[34] = 0;
+  return result;
+}
+
+float DSPGraph::GenericGainBox<DSPGraph::LinearGainPolicy>::reset(uint64_t a1)
+{
+  v1 = 1.0;
+  if (*(a1 + 780))
+  {
+    v1 = 0.0;
+  }
+
+  result = *(a1 + 776) * v1;
+  *(a1 + 804) = result;
+  *(a1 + 812) = 257;
+  return result;
+}
+
+uint64_t DSPGraph::Graph::setSliceDuration(uint64_t result, int a2, int a3, int a4)
+{
+  if (*(result + 761) == 1)
+  {
+    std::string::basic_string[abi:ne200100]<0>(&v6, "/Library/Caches/com.apple.xbs/Sources/CoreAudioServices_AudioToolboxCore/CoreAudioUtility/Source/CADSP/DSPGraph/DSPGraph_Graph.cpp");
+    std::string::basic_string[abi:ne200100]<0>(&v5, "setSliceDuration");
+    std::string::basic_string[abi:ne200100]<0>(&v4, "cannot set slice duration if graph is already configured.");
+    DSPGraph::ThrowException(1667655457, &v6, 236, &v5, &v4);
+  }
+
+  *(result + 688) = a2;
+  *(result + 692) = a3;
+  *(result + 760) = a4 == 1;
+  return result;
+}
+
+void sub_18F671188(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a21 < 0)
+  {
+    operator delete(a16);
+  }
+
+  if (*(v21 - 17) < 0)
+  {
+    operator delete(*(v21 - 40));
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t APAC::MetadataBitStreamPacker::pack(uint64_t a1, uint64_t a2, unsigned int a3, __int16 *a4)
+{
+  v20 = a2;
+  v21 = a2;
+  v5 = a2 + a3;
+  v22 = v5;
+  v23 = 0x2000000000;
+  v6 = a2 & 3;
+  v24 = v6;
+  if (*(a4 + 4) != 1 || (*(a4 + 5) & 0xFE) != 2)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v19 = "Metadata version mismatch";
+    goto LABEL_28;
+  }
+
+  if (*a4 != -1)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v19 = "metadata.header.syncWords has an incorrect value";
+    goto LABEL_28;
+  }
+
+  if (a3 <= 1)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v19 = "Cannot pack metadata.header.syncWords";
+    goto LABEL_28;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(&v20, 0xFFFF, 0x10u);
+  if (HIDWORD(v23) + 8 * (v22 - v21) - 32 <= 15)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v19 = "Cannot pack metadata.header.chunkSize";
+    goto LABEL_28;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(&v20, a4[1], 0x10u);
+  if (HIDWORD(v23) + 8 * (v22 - v21) - 32 <= 7)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v19 = "Cannot pack metadata.header.version.major";
+    goto LABEL_28;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(&v20, *(a4 + 4), 8u);
+  if (HIDWORD(v23) + 8 * (v22 - v21) - 32 <= 7)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v19 = "Cannot pack metadata.header.version.minor";
+    goto LABEL_28;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(&v20, *(a4 + 5), 8u);
+  if (HIDWORD(v23) + 8 * (v22 - v21) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v19 = "Cannot pack metadata.header.informationFrame";
+    goto LABEL_28;
+  }
+
+  v9 = AT::TBitstreamWriter<unsigned int>::PutBits(&v20, *(a4 + 6), 1u);
+  v10 = *(a4 + 5);
+  if (v10 == 3)
+  {
+    APAC::MetadataBitStreamPacker::packMetadataFrame(a1, (a4 + 725540), *(a4 + 6), &v20);
+  }
+
+  else if (v10 == 2)
+  {
+    if (*(a4 + 6) == 1)
+    {
+      APAC::MetadataBitStreamPacker::packStaticMetadata(v9, a4 + 8, &v20);
+    }
+
+    APAC::MetadataBitStreamPacker::packDynamicMetadata(a1, a4 + 174192, &v20);
+  }
+
+  v12 = v20;
+  v11 = v21;
+  v13 = HIDWORD(v23);
+  AT::TBitstreamWriter<unsigned int>::Flush(&v20);
+  v20 = a2;
+  v21 = a2;
+  v22 = v5;
+  v23 = 0x2000000000;
+  v24 = v6;
+  AT::TBitstreamWriter<unsigned int>::PutBits(&v20, *a4, 0x10u);
+  if (HIDWORD(v23) + 8 * (v22 - v21) - 32 <= 15)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v19 = "Cannot pack actualChunkSize";
+LABEL_28:
+    *exception = v19;
+    __cxa_throw(exception, MEMORY[0x1E69E53D8], 0);
+  }
+
+  v14 = 8 * (v11 - v12) - v13;
+  v15 = (v14 + 32) >> 3;
+  if ((v14 & 7) != 0)
+  {
+    v16 = v15 + 1;
+  }
+
+  else
+  {
+    v16 = v15;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(&v20, (v16 - 4), 0x10u);
+  AT::TBitstreamWriter<unsigned int>::Flush(&v20);
+  return v16;
+}
+
+uint64_t AT::TBitstreamWriter<unsigned int>::PutBits(uint64_t result, int a2, unsigned int a3)
+{
+  if (a3 < 0x20)
+  {
+    v3 = ~(-1 << a3);
+  }
+
+  else
+  {
+    v3 = -1;
+  }
+
+  v4 = v3 & a2;
+  v5 = *(result + 28);
+  if (*(result + 32))
+  {
+    v6 = v5 - 24;
+    if (v5 - 24 <= a3)
+    {
+      v7 = *(result + 24);
+      do
+      {
+        a3 -= v6;
+        v8 = (v7 << v6) | (v4 >> a3);
+        v9 = *(result + 8);
+        *(result + 8) = v9 + 1;
+        *v9 = v8;
+        v10 = *(result + 32) - 1;
+        *(result + 32) = v10;
+        *(result + 24) = 0x2000000000;
+        v4 &= ~(-1 << a3);
+        v5 = 32;
+        if (a3 < 8)
+        {
+          break;
+        }
+
+        v7 = 0;
+        v6 = 8;
+      }
+
+      while (v10);
+    }
+
+    if (a3)
+    {
+      *(result + 24) = (*(result + 24) << a3) | v4;
+      *(result + 28) = v5 - a3;
+    }
+  }
+
+  else
+  {
+    *(result + 28) = v5 - a3;
+    if ((v5 - a3) < 1)
+    {
+      v11 = *(result + 24);
+      v12 = (v11 << v5) | (v4 >> (a3 - v5));
+      v13 = (v11 << a3) | v4;
+      if (v5 == a3)
+      {
+        v12 = v13;
+      }
+
+      *(result + 24) = v12;
+      v14 = *(result + 8);
+      if ((*(result + 16) - v14) >= 4)
+      {
+        *v14 = bswap32(v12);
+        v15 = *(result + 28);
+        *(result + 24) = v4 & ~(-1 << -v15);
+        *(result + 28) = v15 + 32;
+        v14 = *(result + 8);
+      }
+
+      *(result + 8) = v14 + 1;
+    }
+
+    else
+    {
+      *(result + 24) = (*(result + 24) << a3) | v4;
+    }
+  }
+
+  return result;
+}
+
+uint64_t APAC::MetadataBitStreamPacker::packStaticMetadata(uint64_t a1, unsigned __int8 *a2, _DWORD *a3)
+{
+  v5 = APAC::MetadataBitStreamPacker::packReferenceScreen(a1, a2, a3);
+  v6 = APAC::MetadataBitStreamPacker::packCodeBookData(v5, a2 + 424, a3);
+  v7 = APAC::MetadataBitStreamPacker::packGroupStaticData(v6, a2 + 428, a3);
+  v8 = APAC::MetadataBitStreamPacker::packSceneComponenentStaticData(v7, a2 + 27864, a3);
+
+  return APAC::MetadataBitStreamPacker::packExtendedData(v8, a2 + 173156, a3);
+}
+
+uint64_t APAC::MetadataBitStreamPacker::packDynamicMetadata(uint64_t a1, unsigned __int8 *a2, _DWORD *a3)
+{
+  APAC::MetadataBitStreamPacker::packGroupDynamicData(a1, a2, a3);
+  v6 = APAC::MetadataBitStreamPacker::packSceneComponenentDynamicData(a1, a2 + 32516, a3);
+
+  return APAC::MetadataBitStreamPacker::packExtendedData(v6, a2 + 1271024, a3);
+}
+
+uint64_t APAC::MetadataBitStreamPacker::packMetadataFrame(uint64_t a1, uint64_t a2, int a3, _DWORD *a4)
+{
+  if (a4[7] + 8 * (a4[4] - a4[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v16 = "Cannot pack mdFrame.mRendererMetadataPresent";
+    goto LABEL_17;
+  }
+
+  result = AT::TBitstreamWriter<unsigned int>::PutBits(a4, *(a2 + 1), 1u);
+  if (*(a2 + 1) == 1)
+  {
+    if (a3)
+    {
+      if (a4[7] + 8 * (a4[4] - a4[2]) - 32 <= 0)
+      {
+        exception = __cxa_allocate_exception(8uLL);
+        v16 = "Cannot pack glbCfg.mHasData";
+        goto LABEL_17;
+      }
+
+      v9 = AT::TBitstreamWriter<unsigned int>::PutBits(a4, *(a2 + 16), 1u);
+      if (*(a2 + 16) == 1)
+      {
+        APAC::MetadataBitStreamPacker::packGlobalConfig(v9, a2 + 16, a4);
+      }
+
+      if (a4[7] + 8 * (a4[4] - a4[2]) - 32 <= 10)
+      {
+        exception = __cxa_allocate_exception(8uLL);
+        v16 = "Cannot pack mdFrame.mRendererMetadata.mGroupCount";
+        goto LABEL_17;
+      }
+
+      v10 = AT::TBitstreamWriter<unsigned int>::PutBits(a4, *(a2 + 8), 0xBu);
+      if (*(a2 + 8))
+      {
+        v11 = 0;
+        v12 = 0;
+        v13 = 48 * *(a2 + 8);
+        while (1)
+        {
+          v14 = *(a2 + 4784);
+          if (0xAAAAAAAAAAAAAAABLL * ((*(a2 + 4792) - v14) >> 4) <= v12)
+          {
+            break;
+          }
+
+          v10 = APAC::MetadataBitStreamPacker::packGroupConfig(v10, (v14 + v11), a4);
+          ++v12;
+          v11 += 48;
+          if (v13 == v11)
+          {
+            goto LABEL_12;
+          }
+        }
+
+        exception = __cxa_allocate_exception(8uLL);
+        v16 = "metadata.mMetadataFrame.mRendererMetadata.mGroupConfig does not have enough elements";
+LABEL_17:
+        *exception = v16;
+        __cxa_throw(exception, MEMORY[0x1E69E53D8], 0);
+      }
+    }
+
+LABEL_12:
+
+    return APAC::MetadataBitStreamPacker::packRendererMetadata(a1, (a2 + 8), a4);
+  }
+
+  return result;
+}
+
+uint64_t AT::TBitstreamWriter<unsigned int>::Flush(uint64_t result)
+{
+  v1 = result;
+  v2 = *(result + 28);
+  if ((v2 & 7) != 0)
+  {
+    result = AT::TBitstreamWriter<unsigned int>::PutBits(result, 0, *(result + 28) & 7);
+    v2 = *(v1 + 28);
+  }
+
+  if (v2 == 32)
+  {
+    v3 = *(v1 + 8);
+  }
+
+  else
+  {
+    v3 = *(v1 + 8);
+    v4 = 24 - v2;
+    do
+    {
+      *v3 = *(v1 + 24) >> v4;
+      v3 = *(v1 + 8) + 1;
+      *(v1 + 8) = v3;
+      v4 -= 8;
+    }
+
+    while (v4 != -8);
+  }
+
+  *(v1 + 28) = 32;
+  *(v1 + 32) = v3 & 3;
+  return result;
+}
+
+uint64_t APAC::MetadataBitStreamPacker::packGlobalConfig(uint64_t a1, uint64_t a2, _DWORD *a3)
+{
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 10)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v12 = "Cannot pack glbCfg.mNumParameters";
+LABEL_36:
+    *exception = v12;
+    __cxa_throw(exception, MEMORY[0x1E69E53D8], 0);
+  }
+
+  result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 2), 0xBu);
+  v6 = *(a2 + 2);
+  if (*(a2 + 2))
+  {
+    v7 = (a2 + 4);
+    while (1)
+    {
+      if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 10)
+      {
+        exception = __cxa_allocate_exception(8uLL);
+        v12 = "Cannot pack glbCfg.mParamIndexList[n]";
+        goto LABEL_36;
+      }
+
+      result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, *v7, 0xBu);
+      switch(*v7)
+      {
+        case 0:
+          if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+          {
+            exception = __cxa_allocate_exception(8uLL);
+            v12 = "Cannot pack glbCfg.mApplyPostProcReverb";
+            goto LABEL_36;
+          }
+
+          v8 = *(a2 + 4100);
+LABEL_22:
+          v9 = a3;
+          v10 = 1;
+LABEL_32:
+          result = AT::TBitstreamWriter<unsigned int>::PutBits(v9, v8, v10);
+LABEL_33:
+          ++v7;
+          if (!--v6)
+          {
+            return result;
+          }
+
+          break;
+        case 1:
+          if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+          {
+            exception = __cxa_allocate_exception(8uLL);
+            v12 = "Cannot pack glbCfg.mIs6DoF";
+            goto LABEL_36;
+          }
+
+          v8 = *(a2 + 4101);
+          goto LABEL_22;
+        case 2:
+          if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+          {
+            exception = __cxa_allocate_exception(8uLL);
+            v12 = "Cannot pack glbCfg.mHasSceneRadiationPattern";
+            goto LABEL_36;
+          }
+
+          v8 = *(a2 + 4102);
+          goto LABEL_22;
+        case 3:
+          if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 4)
+          {
+            exception = __cxa_allocate_exception(8uLL);
+            v12 = "Cannot pack glbCfg.mTargetPlaybackSystemIndex";
+            goto LABEL_36;
+          }
+
+          v8 = *(a2 + 4103);
+          v9 = a3;
+          v10 = 5;
+          goto LABEL_32;
+        case 4:
+          result = APAC::MetadataBitStreamPacker::packAuthoringInformation(result, (a2 + 4106), a3);
+          goto LABEL_33;
+        case 5:
+          result = APAC::MetadataBitStreamPacker::packReferenceScreen(result, a2 + 4116, a3);
+          goto LABEL_33;
+        case 6:
+          result = APAC::MetadataBitStreamPacker::packDBMD(result, (a2 + 4156), a3);
+          goto LABEL_33;
+        case 7:
+          result = APAC::MetadataBitStreamPacker::packBinauralization(result, (a2 + 4480), a3);
+          goto LABEL_33;
+        case 8:
+          if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 1)
+          {
+            exception = __cxa_allocate_exception(8uLL);
+            v12 = "Cannot pack glbCfg.mHCFilter.mDataLocationIndex";
+            goto LABEL_36;
+          }
+
+          AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 4496), 2u);
+          if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 8)
+          {
+            exception = __cxa_allocate_exception(8uLL);
+            v12 = "Cannot pack glbCfg.mHCFilter.mCustomData_TableID";
+            goto LABEL_36;
+          }
+
+          AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 4498), 9u);
+          if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 8)
+          {
+            exception = __cxa_allocate_exception(8uLL);
+            v12 = "Cannot pack glbCfg.mHCFilter.mCustomData_EntryID";
+            goto LABEL_36;
+          }
+
+          v8 = *(a2 + 4500);
+          v9 = a3;
+          v10 = 9;
+          goto LABEL_32;
+        case 9:
+          result = APAC::MetadataBitStreamPacker::packSPAD(result, (a2 + 4504), a3);
+          goto LABEL_33;
+        case 0xA:
+          result = APAC::MetadataBitStreamPacker::packDistanceAttenuation(result, (a2 + 4648), a3);
+          goto LABEL_33;
+        case 0xB:
+          result = APAC::MetadataBitStreamPacker::packPosition(result, (a2 + 4668), a3);
+          goto LABEL_33;
+        case 0xC:
+          result = APAC::MetadataBitStreamPacker::packGenericRenderingConfig(result, (a2 + 4716), a3);
+          goto LABEL_33;
+        case 0xD:
+          if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 5)
+          {
+            exception = __cxa_allocate_exception(8uLL);
+            v12 = "Cannot pack glbCfg.mContentKind";
+            goto LABEL_36;
+          }
+
+          v8 = *(a2 + 4104);
+          v9 = a3;
+          v10 = 6;
+          goto LABEL_32;
+        case 0xE:
+          AT::TBitstreamWriter<unsigned int>::PutBits(a3, 0, 4u);
+          if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 7)
+          {
+            exception = __cxa_allocate_exception(8uLL);
+            v12 = "Cannot pack glbCfg.mMaxNumBlocks";
+            goto LABEL_36;
+          }
+
+          v8 = *(a2 + 4105);
+          v9 = a3;
+          v10 = 8;
+          goto LABEL_32;
+        case 0xF:
+          result = APAC::MetadataBitStreamPacker::packChannelBedHeadphoneMetadata(result, (a2 + 4736), a3);
+          goto LABEL_33;
+        default:
+          goto LABEL_33;
+      }
+    }
+  }
+
+  return result;
+}
+
+uint64_t APAC::MetadataBitStreamPacker::packGroupConfig(uint64_t a1, unsigned __int16 *a2, _DWORD *a3)
+{
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 10)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v13 = "Cannot pack gpCfg.mGroupID";
+    goto LABEL_48;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, *a2, 0xBu);
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v13 = "Cannot pack gpCfg.mIsGlobal";
+    goto LABEL_48;
+  }
+
+  result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 2), 1u);
+  if (a2[1])
+  {
+    return result;
+  }
+
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v13 = "Cannot pack gpCfg.mIsPerASC";
+    goto LABEL_48;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 3), 1u);
+  v6 = a3[7] + 8 * (a3[4] - a3[2]) - 32;
+  if (*(a2 + 3) != 1)
+  {
+    if (v6 <= 10)
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      v13 = "Cannot pack gpCfg.mMemberCount";
+    }
+
+    else
+    {
+      AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[9], 0xBu);
+      if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+      {
+        exception = __cxa_allocate_exception(8uLL);
+        v13 = "Cannot pack gpCfg.mHasConjunctMembers";
+      }
+
+      else
+      {
+        result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 20), 1u);
+        if (*(a2 + 20) == 1)
+        {
+          if (a3[7] + 8 * (a3[4] - a3[2]) - 32 > 10)
+          {
+            v8 = 11;
+            goto LABEL_31;
+          }
+
+          exception = __cxa_allocate_exception(8uLL);
+          v13 = "Cannot pack gpCfg.mStartASCID";
+        }
+
+        else
+        {
+          if (!a2[9])
+          {
+            return result;
+          }
+
+          v9 = 0;
+          v10 = 2 * a2[9];
+          while (a3[7] + 8 * (a3[4] - a3[2]) - 32 > 10)
+          {
+            result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(*(a2 + 3) + v9), 0xBu);
+            v9 += 2;
+            if (v10 == v9)
+            {
+              return result;
+            }
+          }
+
+          exception = __cxa_allocate_exception(8uLL);
+          v13 = "Cannot pack gpCfg.mASCIDList[n]";
+        }
+      }
+    }
+
+LABEL_48:
+    *exception = v13;
+    __cxa_throw(exception, MEMORY[0x1E69E53D8], 0);
+  }
+
+  if (v6 <= 10)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v13 = "Cannot pack gpCfg.mASCID";
+    goto LABEL_48;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[2], 0xBu);
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 2)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v13 = "Cannot pack gpCfg.mASCType";
+    goto LABEL_48;
+  }
+
+  result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 6), 3u);
+  v7 = *(a2 + 6);
+  if (v7 == 2)
+  {
+    if (a3[7] + 8 * (a3[4] - a3[2]) - 32 > 10)
+    {
+      v8 = 7;
+      goto LABEL_31;
+    }
+
+    exception = __cxa_allocate_exception(8uLL);
+    v13 = "Cannot pack gpCfg.mHOAID";
+    goto LABEL_48;
+  }
+
+  if (v7 == 1)
+  {
+    if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 10)
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      v13 = "Cannot pack gpCfg.mObjectID";
+    }
+
+    else
+    {
+      AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[4], 0xBu);
+      if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+      {
+        exception = __cxa_allocate_exception(8uLL);
+        v13 = "Cannot pack gpCfg.mIsObjectInBed";
+      }
+
+      else
+      {
+        result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 10), 1u);
+        if (*(a2 + 10) != 1)
+        {
+          return result;
+        }
+
+        if (a3[7] + 8 * (a3[4] - a3[2]) - 32 > 10)
+        {
+          v8 = 6;
+          goto LABEL_31;
+        }
+
+        exception = __cxa_allocate_exception(8uLL);
+        v13 = "Cannot pack gpCfg.mBedASCID";
+      }
+    }
+
+    goto LABEL_48;
+  }
+
+  if (*(a2 + 6))
+  {
+    return result;
+  }
+
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 10)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v13 = "Cannot pack gpCfg.mChBedID";
+    goto LABEL_48;
+  }
+
+  v8 = 8;
+LABEL_31:
+  v11 = a2[v8];
+
+  return AT::TBitstreamWriter<unsigned int>::PutBits(a3, v11, 0xBu);
+}
+
+uint64_t APAC::MetadataBitStreamPacker::packRendererMetadata(uint64_t a1, unsigned __int16 *a2, _DWORD *a3)
+{
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 10)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    *exception = "Cannot pack rMd.mGroupCount";
+    __cxa_throw(exception, MEMORY[0x1E69E53D8], 0);
+  }
+
+  result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, *a2, 0xBu);
+  if (*a2)
+  {
+    v7 = 0;
+    v8 = 40200 * *a2;
+    do
+    {
+      result = APAC::MetadataBitStreamPacker::packGroupData(a1, (*(a2 + 600) + v7), a3);
+      v7 += 40200;
+    }
+
+    while (v8 != v7);
+  }
+
+  return result;
+}
+
+uint64_t APAC::MetadataBitStreamPacker::packGroupData(uint64_t a1, unsigned __int8 *a2, _DWORD *a3)
+{
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v10 = "Cannot pack gpData.mHasData";
+    goto LABEL_12;
+  }
+
+  result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, *a2, 1u);
+  if (*a2 != 1)
+  {
+    return result;
+  }
+
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 10)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v10 = "Cannot pack gpData.mGroupID";
+    goto LABEL_12;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 1), 0xBu);
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 5)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v10 = "Cannot pack gpData.mNumBlocks";
+LABEL_12:
+    *exception = v10;
+    __cxa_throw(exception, MEMORY[0x1E69E53D8], 0);
+  }
+
+  result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[4], 6u);
+  v7 = a2[4];
+  if (a2[4])
+  {
+    v8 = (a2 + 8);
+    do
+    {
+      result = APAC::MetadataBitStreamPacker::packBlockData(a1, v8, a3);
+      v8 += 628;
+      --v7;
+    }
+
+    while (v7);
+  }
+
+  return result;
+}
+
+uint64_t APAC::MetadataBitStreamPacker::packBlockData(uint64_t a1, unsigned __int16 *a2, _DWORD *a3)
+{
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 9)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack blkMd.mRtime";
+    goto LABEL_12;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, *a2, 0xAu);
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack blkMd.mHasInterpolationLength";
+    goto LABEL_12;
+  }
+
+  v5 = AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 2), 1u);
+  if (*(a2 + 2) != 1)
+  {
+    goto LABEL_6;
+  }
+
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 10)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack blkMd.mInterpolationLength";
+LABEL_12:
+    *exception = v8;
+    __cxa_throw(exception, MEMORY[0x1E69E53D8], 0);
+  }
+
+  v5 = AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[2], 0xBu);
+LABEL_6:
+
+  return APAC::MetadataBitStreamPacker::packRendererData(v5, (a2 + 4), a3);
+}
+
+uint64_t APAC::MetadataBitStreamPacker::packRendererData(uint64_t a1, uint64_t a2, _DWORD *a3)
+{
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 10)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v13 = "Cannot pack rData.mNumParameters";
+    goto LABEL_58;
+  }
+
+  result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 2), 0xBu);
+  v6 = *(a2 + 2);
+  if (v6 > 0x20)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v13 = "error in packing RendererData -- numParams > ParamIndexList size";
+    goto LABEL_58;
+  }
+
+  if (*(a2 + 2))
+  {
+    v7 = (a2 + 4);
+    do
+    {
+      if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 10)
+      {
+        exception = __cxa_allocate_exception(8uLL);
+        v13 = "Cannot pack rData.mParamIndexList[n]";
+        goto LABEL_58;
+      }
+
+      result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, *v7, 0xBu);
+      switch(*v7)
+      {
+        case 0:
+          v8 = (a2 + 68);
+          goto LABEL_43;
+        case 1:
+          result = APAC::MetadataBitStreamPacker::packObjectSpread(result, (a2 + 116), a3);
+          goto LABEL_55;
+        case 2:
+          if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+          {
+            exception = __cxa_allocate_exception(8uLL);
+            v13 = "Cannot pack rData.mGain";
+            goto LABEL_58;
+          }
+
+          v9 = *(a2 + 132);
+          break;
+        case 3:
+          if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+          {
+            exception = __cxa_allocate_exception(8uLL);
+            v13 = "Cannot pack rData.mObjectDiffuse";
+            goto LABEL_58;
+          }
+
+          v9 = *(a2 + 136);
+          break;
+        case 4:
+          result = APAC::MetadataBitStreamPacker::packObjectChannelLock(result, a2 + 140, a3);
+          goto LABEL_55;
+        case 5:
+          result = APAC::MetadataBitStreamPacker::packObjectDivergence(result, a2 + 148, a3);
+          goto LABEL_55;
+        case 6:
+          if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+          {
+            exception = __cxa_allocate_exception(8uLL);
+            v13 = "Cannot pack rData.mIsScreenSizeAdaptationEnabled";
+            goto LABEL_58;
+          }
+
+          v9 = *(a2 + 168);
+LABEL_41:
+          v10 = a3;
+          v11 = 1;
+          goto LABEL_54;
+        case 7:
+          result = APAC::MetadataBitStreamPacker::packZoneExclusion(result, (a2 + 172), a3);
+          goto LABEL_55;
+        case 8:
+          if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 2)
+          {
+            exception = __cxa_allocate_exception(8uLL);
+            v13 = "Cannot pack rData.mBinauralizationPreset";
+            goto LABEL_58;
+          }
+
+          v9 = *(a2 + 1037);
+LABEL_47:
+          v10 = a3;
+          v11 = 3;
+          goto LABEL_54;
+        case 9:
+          result = APAC::MetadataBitStreamPacker::packSceneReverb(result, (a2 + 568), a3);
+          goto LABEL_55;
+        case 0xA:
+          result = APAC::MetadataBitStreamPacker::packPostProcReverb(result, (a2 + 780), a3);
+          goto LABEL_55;
+        case 0xB:
+          result = APAC::MetadataBitStreamPacker::packRadiationPattern(result, (a2 + 792), a3);
+          goto LABEL_55;
+        case 0xC:
+          if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+          {
+            exception = __cxa_allocate_exception(8uLL);
+            v13 = "Cannot pack rData.mHPVirtualize.mBypass";
+            goto LABEL_58;
+          }
+
+          AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 1024), 1u);
+          if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+          {
+            exception = __cxa_allocate_exception(8uLL);
+            v13 = "Cannot pack rData.mHPVirtualize.mHasDRR";
+            goto LABEL_58;
+          }
+
+          result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 1025), 1u);
+          if (*(a2 + 1025) != 1)
+          {
+            goto LABEL_55;
+          }
+
+          if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+          {
+            exception = __cxa_allocate_exception(8uLL);
+            v13 = "Cannot pack rData.mHPVirtualize.mDRR";
+LABEL_58:
+            *exception = v13;
+            __cxa_throw(exception, MEMORY[0x1E69E53D8], 0);
+          }
+
+          v9 = *(a2 + 1028);
+          break;
+        case 0xD:
+          if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+          {
+            exception = __cxa_allocate_exception(8uLL);
+            v13 = "Cannot pack rData.mHeadLock.mHeadLocked";
+            goto LABEL_58;
+          }
+
+          AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 1032), 1u);
+          if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+          {
+            exception = __cxa_allocate_exception(8uLL);
+            v13 = "Cannot pack rData.mHeadLock.mIsExternalized";
+            goto LABEL_58;
+          }
+
+          AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 1033), 1u);
+          if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 2)
+          {
+            exception = __cxa_allocate_exception(8uLL);
+            v13 = "Cannot pack rData.mHeadLock.mReference";
+            goto LABEL_58;
+          }
+
+          v9 = *(a2 + 1034);
+          goto LABEL_47;
+        case 0xE:
+          if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+          {
+            exception = __cxa_allocate_exception(8uLL);
+            v13 = "Cannot pack rData.mParallax";
+            goto LABEL_58;
+          }
+
+          v9 = *(a2 + 1035);
+          goto LABEL_41;
+        case 0xF:
+          if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 2)
+          {
+            exception = __cxa_allocate_exception(8uLL);
+            v13 = "Cannot pack rData.mPreferredDoF.mDoFIndex";
+            goto LABEL_58;
+          }
+
+          v9 = *(a2 + 1036);
+          goto LABEL_47;
+        case 0x10:
+          if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+          {
+            exception = __cxa_allocate_exception(8uLL);
+            v13 = "Cannot pack rData.mFieldOfView.mAzimuth";
+            goto LABEL_58;
+          }
+
+          v9 = *(a2 + 1040);
+          break;
+        case 0x11:
+          result = APAC::MetadataBitStreamPacker::packMaskingZone(result, (a2 + 1044), a3);
+          goto LABEL_55;
+        case 0x12:
+          v8 = (a2 + 1096);
+          goto LABEL_43;
+        case 0x13:
+          if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+          {
+            exception = __cxa_allocate_exception(8uLL);
+            v13 = "Cannot pack rData.mHOA_Radius";
+            goto LABEL_58;
+          }
+
+          v9 = *(a2 + 1144);
+          break;
+        case 0x14:
+          v8 = (a2 + 1148);
+LABEL_43:
+          result = APAC::MetadataBitStreamPacker::packPosition(result, v8, a3);
+          goto LABEL_55;
+        case 0x15:
+          if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+          {
+            exception = __cxa_allocate_exception(8uLL);
+            v13 = "Cannot pack rData.mHOA_InteriorOrExterior";
+            goto LABEL_58;
+          }
+
+          v9 = *(a2 + 1196);
+          goto LABEL_41;
+        case 0x16:
+          result = APAC::MetadataBitStreamPacker::packHOARenderingMatrix(result, (a2 + 1200), a3);
+          goto LABEL_55;
+        case 0x17:
+          if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+          {
+            exception = __cxa_allocate_exception(8uLL);
+            v13 = "Cannot pack rData.mNFCRefDist";
+            goto LABEL_58;
+          }
+
+          v9 = *(a2 + 1240);
+          break;
+        case 0x18:
+          if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 1)
+          {
+            exception = __cxa_allocate_exception(8uLL);
+            v13 = "Cannot pack rData.mPropagationDelay.mProcessingIndex";
+            goto LABEL_58;
+          }
+
+          v9 = *(a2 + 1244);
+          v10 = a3;
+          v11 = 2;
+          goto LABEL_54;
+        default:
+          goto LABEL_55;
+      }
+
+      v10 = a3;
+      v11 = 32;
+LABEL_54:
+      result = AT::TBitstreamWriter<unsigned int>::PutBits(v10, v9, v11);
+LABEL_55:
+      ++v7;
+      --v6;
+    }
+
+    while (v6);
+  }
+
+  return result;
+}
+
+uint64_t APAC::MetadataBitStreamPacker::packPosition(uint64_t a1, unsigned __int8 *a2, _DWORD *a3)
+{
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v10 = "Cannot pack pos.mPositionPresent";
+    goto LABEL_21;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, *a2, 1u);
+  if (*a2 == 1)
+  {
+    if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      v10 = "Cannot pack pos.mIsCartesian";
+      goto LABEL_21;
+    }
+
+    AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[1], 1u);
+    if (a2[1] == 1)
+    {
+      v5 = 0;
+      while (a3[7] + 8 * (a3[4] - a3[2]) - 32 > 31)
+      {
+        AT::TBitstreamWriter<unsigned int>::PutBits(a3, *&a2[v5 + 20], 0x20u);
+        v5 += 4;
+        if (v5 == 12)
+        {
+          goto LABEL_13;
+        }
+      }
+
+      exception = __cxa_allocate_exception(8uLL);
+      v10 = "Cannot pack pos.mCoordinate[n]";
+LABEL_21:
+      *exception = v10;
+      __cxa_throw(exception, MEMORY[0x1E69E53D8], 0);
+    }
+
+    if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      v10 = "Cannot pack pos.mAzimuth";
+      goto LABEL_21;
+    }
+
+    AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 1), 0x20u);
+    if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      v10 = "Cannot pack pos.mElevation";
+      goto LABEL_21;
+    }
+
+    AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 2), 0x20u);
+    if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      v10 = "Cannot pack pos.mRadius";
+      goto LABEL_21;
+    }
+
+    AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 3), 0x20u);
+  }
+
+LABEL_13:
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v10 = "Cannot pack pos.mRotationPresent";
+    goto LABEL_21;
+  }
+
+  result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[16], 1u);
+  if (a2[16] == 1)
+  {
+    v7 = 0;
+    v8 = a2 + 32;
+    while (a3[7] + 8 * (a3[4] - a3[2]) - 32 > 31)
+    {
+      result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, *&v8[v7], 0x20u);
+      v7 += 4;
+      if (v7 == 16)
+      {
+        return result;
+      }
+    }
+
+    exception = __cxa_allocate_exception(8uLL);
+    v10 = "Cannot pack pos.mQuaternion[n]";
+    goto LABEL_21;
+  }
+
+  return result;
+}
+
+uint64_t APAC::MetadataBitStreamPacker::packObjectSpread(uint64_t a1, unsigned __int8 *a2, _DWORD *a3)
+{
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack spread.mIsCartesian";
+    goto LABEL_16;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, *a2, 1u);
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack spread.mWidth";
+    goto LABEL_16;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 1), 0x20u);
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack spread.mHeight";
+    goto LABEL_16;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 2), 0x20u);
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack spread.mHasDepth";
+    goto LABEL_16;
+  }
+
+  result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[1], 1u);
+  if (a2[1] != 1)
+  {
+    return result;
+  }
+
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack spread.mDepth";
+LABEL_16:
+    *exception = v8;
+    __cxa_throw(exception, MEMORY[0x1E69E53D8], 0);
+  }
+
+  v6 = *(a2 + 3);
+
+  return AT::TBitstreamWriter<unsigned int>::PutBits(a3, v6, 0x20u);
+}
+
+uint64_t APAC::MetadataBitStreamPacker::packObjectChannelLock(uint64_t a1, uint64_t a2, _DWORD *a3)
+{
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack chLock.mHasMaxDistance";
+    goto LABEL_10;
+  }
+
+  result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 1), 1u);
+  if (*(a2 + 1) != 1)
+  {
+    return result;
+  }
+
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack chLock.mMaxDistance";
+LABEL_10:
+    *exception = v8;
+    __cxa_throw(exception, MEMORY[0x1E69E53D8], 0);
+  }
+
+  v6 = *(a2 + 4);
+
+  return AT::TBitstreamWriter<unsigned int>::PutBits(a3, v6, 0x20u);
+}
+
+uint64_t APAC::MetadataBitStreamPacker::packObjectDivergence(uint64_t a1, uint64_t a2, _DWORD *a3)
+{
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v10 = "Cannot pack objDiv.mDivergence";
+    goto LABEL_15;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, *a2, 0x20u);
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v10 = "Cannot pack objDiv.mIsCartesian";
+    goto LABEL_15;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 4), 1u);
+  v5 = a3[7] + 8 * (a3[4] - a3[2]) - 32;
+  if (*(a2 + 4) == 1)
+  {
+    if (v5 > 31)
+    {
+      v6 = 12;
+      goto LABEL_8;
+    }
+
+    exception = __cxa_allocate_exception(8uLL);
+    v10 = "Cannot pack objDiv.mPositionRange";
+LABEL_15:
+    *exception = v10;
+    __cxa_throw(exception, MEMORY[0x1E69E53D8], 0);
+  }
+
+  if (v5 <= 31)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v10 = "Cannot pack objDiv.mAzimuthRange";
+    goto LABEL_15;
+  }
+
+  v6 = 16;
+LABEL_8:
+  v7 = *(a2 + v6);
+
+  return AT::TBitstreamWriter<unsigned int>::PutBits(a3, v7, 0x20u);
+}
+
+uint64_t APAC::MetadataBitStreamPacker::packZoneExclusion(uint64_t a1, unsigned __int8 *a2, _DWORD *a3)
+{
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v14 = "Cannot pack zoneExclusion.mIsZoneDefined";
+    goto LABEL_45;
+  }
+
+  result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, *a2, 1u);
+  if (*a2 != 1)
+  {
+    return result;
+  }
+
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v14 = "Cannot pack zoneExclusion.mKeepPreviousZone";
+    goto LABEL_45;
+  }
+
+  result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[1], 1u);
+  if (a2[1])
+  {
+    return result;
+  }
+
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v14 = "Cannot pack zoneExclusion.mIsCartesian";
+    goto LABEL_45;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[2], 1u);
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 3)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v14 = "Cannot pack zoneExclusion.mNumZones";
+LABEL_45:
+    *exception = v14;
+    __cxa_throw(exception, MEMORY[0x1E69E53D8], 0);
+  }
+
+  result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[3], 4u);
+  v6 = a2[3];
+  if (a2[3])
+  {
+    v7 = (a2 + 36);
+    v8 = a2 + 19;
+    do
+    {
+      if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+      {
+        exception = __cxa_allocate_exception(8uLL);
+        v14 = "Cannot pack zoneExclusion.mUsePreDefinedZone[n]";
+        goto LABEL_45;
+      }
+
+      AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(v8 - 15), 1u);
+      if (*(v8 - 15) == 1)
+      {
+        if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 3)
+        {
+          exception = __cxa_allocate_exception(8uLL);
+          v14 = "Cannot pack zoneExclusion.mZoneIndex[n]";
+          goto LABEL_45;
+        }
+
+        v9 = *v8;
+        v10 = a3;
+        v11 = 4;
+      }
+
+      else
+      {
+        v12 = a3[7] + 8 * (a3[4] - a3[2]) - 32;
+        if (a2[2] == 1)
+        {
+          if (v12 <= 31)
+          {
+            exception = __cxa_allocate_exception(8uLL);
+            v14 = "Cannot pack zoneExclusion.mZone[n].co_tu.cartesian.mMinX";
+            goto LABEL_45;
+          }
+
+          AT::TBitstreamWriter<unsigned int>::PutBits(a3, *v7, 0x20u);
+          if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+          {
+            exception = __cxa_allocate_exception(8uLL);
+            v14 = "Cannot pack zoneExclusion.mZone[n].co_tu.cartesian.mMaxX";
+            goto LABEL_45;
+          }
+
+          AT::TBitstreamWriter<unsigned int>::PutBits(a3, v7[1], 0x20u);
+          if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+          {
+            exception = __cxa_allocate_exception(8uLL);
+            v14 = "Cannot pack zoneExclusion.mZone[n].co_tu.cartesian.mMinY";
+            goto LABEL_45;
+          }
+
+          AT::TBitstreamWriter<unsigned int>::PutBits(a3, v7[2], 0x20u);
+          if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+          {
+            exception = __cxa_allocate_exception(8uLL);
+            v14 = "Cannot pack zoneExclusion.mZone[n].co_tu.cartesian.mMaxY";
+            goto LABEL_45;
+          }
+
+          AT::TBitstreamWriter<unsigned int>::PutBits(a3, v7[3], 0x20u);
+          if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+          {
+            exception = __cxa_allocate_exception(8uLL);
+            v14 = "Cannot pack zoneExclusion.mZone[n].co_tu.cartesian.mMinZ";
+            goto LABEL_45;
+          }
+
+          AT::TBitstreamWriter<unsigned int>::PutBits(a3, v7[4], 0x20u);
+          if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+          {
+            exception = __cxa_allocate_exception(8uLL);
+            v14 = "Cannot pack zoneExclusion.mZone[n].co_tu.cartesian.mMaxZ";
+            goto LABEL_45;
+          }
+
+          v9 = v7[5];
+        }
+
+        else
+        {
+          if (v12 <= 31)
+          {
+            exception = __cxa_allocate_exception(8uLL);
+            v14 = "Cannot pack zoneExclusion.mZone[n].co_tu.spherical.mMinAzimuth";
+            goto LABEL_45;
+          }
+
+          AT::TBitstreamWriter<unsigned int>::PutBits(a3, *v7, 0x20u);
+          if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+          {
+            exception = __cxa_allocate_exception(8uLL);
+            v14 = "Cannot pack zoneExclusion.mZone[n].co_tu.spherical.mMaxAzimuth";
+            goto LABEL_45;
+          }
+
+          AT::TBitstreamWriter<unsigned int>::PutBits(a3, v7[1], 0x20u);
+          if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+          {
+            exception = __cxa_allocate_exception(8uLL);
+            v14 = "Cannot pack zoneExclusion.mZone[n].co_tu.spherical.mMinElevation";
+            goto LABEL_45;
+          }
+
+          AT::TBitstreamWriter<unsigned int>::PutBits(a3, v7[2], 0x20u);
+          if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+          {
+            exception = __cxa_allocate_exception(8uLL);
+            v14 = "Cannot pack zoneExclusion.mZone[n].co_tu.spherical.mMaxElevation";
+            goto LABEL_45;
+          }
+
+          v9 = v7[3];
+        }
+
+        v10 = a3;
+        v11 = 32;
+      }
+
+      result = AT::TBitstreamWriter<unsigned int>::PutBits(v10, v9, v11);
+      ++v8;
+      v7 += 6;
+      --v6;
+    }
+
+    while (v6);
+  }
+
+  return result;
+}
+
+uint64_t APAC::MetadataBitStreamPacker::packMaskingZone(uint64_t a1, unsigned __int8 *a2, _DWORD *a3)
+{
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v12 = "Cannot pack maskingZone.mIsZoneDefined";
+    goto LABEL_44;
+  }
+
+  result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, *a2, 1u);
+  if (*a2 != 1)
+  {
+    return result;
+  }
+
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v12 = "Cannot pack maskingZone.mUsePreDefinedZone";
+    goto LABEL_44;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[1], 1u);
+  v6 = a3[7] + 8 * (a3[4] - a3[2]) - 32;
+  if (a2[1] != 1)
+  {
+    if (v6 <= 0)
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      v12 = "Cannot pack maskingZone.mIsCartesian";
+    }
+
+    else
+    {
+      AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[2], 1u);
+      v10 = a3[7] + 8 * (a3[4] - a3[2]) - 32;
+      if (a2[2] == 1)
+      {
+        if (v10 <= 31)
+        {
+          exception = __cxa_allocate_exception(8uLL);
+          v12 = "Cannot pack maskingZone.mZone.mMinX";
+        }
+
+        else
+        {
+          AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 1), 0x20u);
+          if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+          {
+            exception = __cxa_allocate_exception(8uLL);
+            v12 = "Cannot pack maskingZone.mZone.mMaxX";
+          }
+
+          else
+          {
+            AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 2), 0x20u);
+            if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+            {
+              exception = __cxa_allocate_exception(8uLL);
+              v12 = "Cannot pack maskingZone.mZone.mMinY";
+            }
+
+            else
+            {
+              AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 3), 0x20u);
+              if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+              {
+                exception = __cxa_allocate_exception(8uLL);
+                v12 = "Cannot pack maskingZone.mZone.mMaxY";
+              }
+
+              else
+              {
+                AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 4), 0x20u);
+                if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+                {
+                  exception = __cxa_allocate_exception(8uLL);
+                  v12 = "Cannot pack maskingZone.mZone.mMinZ";
+                }
+
+                else
+                {
+                  AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 5), 0x20u);
+                  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 > 31)
+                  {
+                    v7 = *(a2 + 6);
+LABEL_24:
+                    v8 = a3;
+                    v9 = 32;
+                    goto LABEL_25;
+                  }
+
+                  exception = __cxa_allocate_exception(8uLL);
+                  v12 = "Cannot pack maskingZone.mZone.mMaxZ";
+                }
+              }
+            }
+          }
+        }
+      }
+
+      else if (v10 <= 31)
+      {
+        exception = __cxa_allocate_exception(8uLL);
+        v12 = "Cannot pack maskingZone.mZone.mMinAzimuth";
+      }
+
+      else
+      {
+        AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 7), 0x20u);
+        if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+        {
+          exception = __cxa_allocate_exception(8uLL);
+          v12 = "Cannot pack maskingZone.mZone.mMaxAzimuth";
+        }
+
+        else
+        {
+          AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 8), 0x20u);
+          if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+          {
+            exception = __cxa_allocate_exception(8uLL);
+            v12 = "Cannot pack maskingZone.mZone.mMinElevation";
+          }
+
+          else
+          {
+            AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 9), 0x20u);
+            if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+            {
+              exception = __cxa_allocate_exception(8uLL);
+              v12 = "Cannot pack maskingZone.mZone.mMaxElevation";
+            }
+
+            else
+            {
+              AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 10), 0x20u);
+              if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+              {
+                exception = __cxa_allocate_exception(8uLL);
+                v12 = "Cannot pack maskingZone.mZone.mMinDistance";
+              }
+
+              else
+              {
+                AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 11), 0x20u);
+                if (a3[7] + 8 * (a3[4] - a3[2]) - 32 > 31)
+                {
+                  v7 = *(a2 + 12);
+                  goto LABEL_24;
+                }
+
+                exception = __cxa_allocate_exception(8uLL);
+                v12 = "Cannot pack maskingZone.mZone.mMaxDistance";
+              }
+            }
+          }
+        }
+      }
+    }
+
+LABEL_44:
+    *exception = v12;
+    __cxa_throw(exception, MEMORY[0x1E69E53D8], 0);
+  }
+
+  if (v6 <= 3)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v12 = "Cannot pack maskingZone.mZoneIndex";
+    goto LABEL_44;
+  }
+
+  v7 = a2[3];
+  v8 = a3;
+  v9 = 4;
+LABEL_25:
+
+  return AT::TBitstreamWriter<unsigned int>::PutBits(v8, v7, v9);
+}
+
+uint64_t APAC::MetadataBitStreamPacker::packSceneReverb(uint64_t a1, unsigned __int8 *a2, _DWORD *a3)
+{
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 2)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v11 = "Cannot pack reverb.mReverbProcIndex";
+    goto LABEL_28;
+  }
+
+  result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, *a2, 3u);
+  v6 = *a2;
+  if (v6 != 3)
+  {
+    if (v6 != 2)
+    {
+      if (v6 != 1)
+      {
+        return result;
+      }
+
+      if (a3[7] + 8 * (a3[4] - a3[2]) - 32 > 9)
+      {
+        v7 = *(a2 + 1);
+LABEL_12:
+        v8 = AT::TBitstreamWriter<unsigned int>::PutBits(a3, v7, 0xAu);
+
+        return APAC::MetadataBitStreamPacker::packParametricReverb(v8, (a2 + 144), a3);
+      }
+
+      exception = __cxa_allocate_exception(8uLL);
+      v11 = "Cannot pack reverb.mAUSMReverbPreset";
+      goto LABEL_28;
+    }
+
+    if (a3[7] + 8 * (a3[4] - a3[2]) - 32 > 1)
+    {
+      AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[4], 2u);
+      if (a3[7] + 8 * (a3[4] - a3[2]) - 32 > 8)
+      {
+        AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 3), 9u);
+        if (a3[7] + 8 * (a3[4] - a3[2]) - 32 >= 9)
+        {
+          AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 4), 9u);
+          if (a3[7] + 8 * (a3[4] - a3[2]) - 32 > 9)
+          {
+            v7 = *(a2 + 5);
+            goto LABEL_12;
+          }
+
+          exception = __cxa_allocate_exception(8uLL);
+          v11 = "Cannot pack reverb.mFallbackCustomeIR.mAUSMReverbPreset";
+LABEL_28:
+          *exception = v11;
+          __cxa_throw(exception, MEMORY[0x1E69E53D8], 0);
+        }
+
+LABEL_25:
+        exception = __cxa_allocate_exception(8uLL);
+        v11 = "Cannot pack reverb.mCustomData_EntryID";
+        goto LABEL_28;
+      }
+
+LABEL_24:
+      exception = __cxa_allocate_exception(8uLL);
+      v11 = "Cannot pack reverb.mCustomData_TableID";
+      goto LABEL_28;
+    }
+
+LABEL_23:
+    exception = __cxa_allocate_exception(8uLL);
+    v11 = "Cannot pack reverb.mDataLocationIndex";
+    goto LABEL_28;
+  }
+
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 1)
+  {
+    goto LABEL_23;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[4], 2u);
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 8)
+  {
+    goto LABEL_24;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 3), 9u);
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 8)
+  {
+    goto LABEL_25;
+  }
+
+  v9 = AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 4), 9u);
+
+  return APAC::MetadataBitStreamPacker::packFallbackRoomGeometry(v9, a2 + 3, a3);
+}
+
+{
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 2)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v10 = "Cannot pack sR.reverbProcIndex";
+    goto LABEL_19;
+  }
+
+  result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, *a2, 3u);
+  v6 = *a2;
+  if (v6 != 2)
+  {
+    if (v6 != 1)
+    {
+      return result;
+    }
+
+    if (a3[7] + 8 * (a3[4] - a3[2]) - 32 > 9)
+    {
+      v7 = *(a2 + 1);
+      goto LABEL_9;
+    }
+
+    exception = __cxa_allocate_exception(8uLL);
+    v10 = "Cannot pack sR.reverbProcPreset";
+LABEL_19:
+    *exception = v10;
+    __cxa_throw(exception, MEMORY[0x1E69E53D8], 0);
+  }
+
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 3)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v10 = "Cannot pack sR.codeBookID";
+    goto LABEL_19;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[5], 4u);
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 9)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v10 = "Cannot pack sR.IRFilterID";
+    goto LABEL_19;
+  }
+
+  v7 = *(a2 + 3);
+LABEL_9:
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, v7, 0xAu);
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 6)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v10 = "Cannot pack sR.mixLevel";
+    goto LABEL_19;
+  }
+
+  v8 = a2[4];
+
+  return AT::TBitstreamWriter<unsigned int>::PutBits(a3, v8, 7u);
+}
+
+uint64_t APAC::MetadataBitStreamPacker::packPostProcReverb(uint64_t a1, unsigned __int8 *a2, _DWORD *a3)
+{
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 2)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack ppReverb.mReverbProcIndex";
+    goto LABEL_13;
+  }
+
+  result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, *a2, 3u);
+  if (*a2 != 1)
+  {
+    return result;
+  }
+
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack ppReverb.mEarlyReflectionTimeProvided";
+    goto LABEL_13;
+  }
+
+  result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[1], 1u);
+  if (a2[1] != 1)
+  {
+    return result;
+  }
+
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack ppReverb.mEarlyReflectionTime";
+LABEL_13:
+    *exception = v8;
+    __cxa_throw(exception, MEMORY[0x1E69E53D8], 0);
+  }
+
+  v6 = *(a2 + 1);
+
+  return AT::TBitstreamWriter<unsigned int>::PutBits(a3, v6, 0x20u);
+}
+
+uint64_t APAC::MetadataBitStreamPacker::packRadiationPattern(uint64_t a1, unsigned __int8 *a2, _DWORD *a3)
+{
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 2)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v9 = "Cannot pack radPattern.mAuSMProcIndex";
+    goto LABEL_25;
+  }
+
+  result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, *a2, 3u);
+  v6 = *a2;
+  if (v6 <= 2)
+  {
+    if (v6 == 1)
+    {
+      if (a3[7] + 8 * (a3[4] - a3[2]) - 32 > 9)
+      {
+        v7 = *(a2 + 1);
+        goto LABEL_18;
+      }
+
+      exception = __cxa_allocate_exception(8uLL);
+      v9 = "Cannot pack radPattern.mSourceType";
+    }
+
+    else
+    {
+      if (v6 != 2)
+      {
+        return result;
+      }
+
+      if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 1)
+      {
+        exception = __cxa_allocate_exception(8uLL);
+        v9 = "Cannot pack radPattern.mDataLocationIndex";
+      }
+
+      else
+      {
+        AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[4], 2u);
+        if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 8)
+        {
+          exception = __cxa_allocate_exception(8uLL);
+          v9 = "Cannot pack radPattern.mCustomData_TableID";
+        }
+
+        else
+        {
+          AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 3), 9u);
+          if (a3[7] + 8 * (a3[4] - a3[2]) - 32 < 9)
+          {
+            exception = __cxa_allocate_exception(8uLL);
+            v9 = "Cannot pack radPattern.mCustomData_EntryID";
+          }
+
+          else
+          {
+            AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 4), 9u);
+            if (a3[7] + 8 * (a3[4] - a3[2]) - 32 > 9)
+            {
+              v7 = *(a2 + 5);
+LABEL_18:
+
+              return AT::TBitstreamWriter<unsigned int>::PutBits(a3, v7, 0xAu);
+            }
+
+            exception = __cxa_allocate_exception(8uLL);
+            v9 = "Cannot pack radPattern.mFallbackCustomIR.mSourceType";
+          }
+        }
+      }
+    }
+
+LABEL_25:
+    *exception = v9;
+    __cxa_throw(exception, MEMORY[0x1E69E53D8], 0);
+  }
+
+  if (v6 == 3)
+  {
+
+    return APAC::MetadataBitStreamPacker::packParametricRadiationPattern(result, a2 + 16, a3);
+  }
+
+  else if (v6 == 4)
+  {
+
+    return APAC::MetadataBitStreamPacker::packHOADirectivityModel(result, a2 + 22, a3);
+  }
+
+  return result;
+}
+
+{
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack rP.isPHASE";
+    goto LABEL_13;
+  }
+
+  result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, *a2, 1u);
+  if (*a2)
+  {
+    return result;
+  }
+
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 2)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack rP.AuSMProcIndex";
+    goto LABEL_13;
+  }
+
+  result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[1], 3u);
+  if (a2[1] != 1)
+  {
+    return result;
+  }
+
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 9)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack rP.sourceType";
+LABEL_13:
+    *exception = v8;
+    __cxa_throw(exception, MEMORY[0x1E69E53D8], 0);
+  }
+
+  v6 = *(a2 + 1);
+
+  return AT::TBitstreamWriter<unsigned int>::PutBits(a3, v6, 0xAu);
+}
+
+uint64_t APAC::MetadataBitStreamPacker::packHOARenderingMatrix(uint64_t a1, unsigned __int8 *a2, _DWORD *a3)
+{
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 1)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v15 = "Cannot pack matrix.mDataLocationIndex";
+    goto LABEL_19;
+  }
+
+  result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, *a2, 2u);
+  v6 = *a2;
+  if (v6 != 2)
+  {
+    if (v6 == 1)
+    {
+      if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 3)
+      {
+        exception = __cxa_allocate_exception(8uLL);
+        v15 = "Cannot pack matrix.mHOAOrder";
+      }
+
+      else
+      {
+        AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[6], 4u);
+        if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+        {
+          exception = __cxa_allocate_exception(8uLL);
+          v15 = "Cannot pack matrix.mChannelLayoutTag";
+        }
+
+        else
+        {
+          result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 2), 0x20u);
+          v8 = 0;
+          v9 = 0;
+          v10 = (a2[6] + 1) * (a2[6] + 1);
+          v11 = *(a2 + 4);
+          while (1)
+          {
+            v12 = v8;
+            v13 = v11;
+            if (v11)
+            {
+              break;
+            }
+
+LABEL_16:
+            ++v9;
+            v8 += 4 * v11;
+            if (v9 == v10)
+            {
+              return result;
+            }
+          }
+
+          while (a3[7] + 8 * (a3[4] - a3[2]) - 32 > 31)
+          {
+            result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(*(a2 + 2) + v12), 0x20u);
+            v12 += 4;
+            if (!--v13)
+            {
+              goto LABEL_16;
+            }
+          }
+
+          exception = __cxa_allocate_exception(8uLL);
+          v15 = "Cannot pack matrix.mCoeff[idx]";
+        }
+      }
+
+LABEL_19:
+      *exception = v15;
+      __cxa_throw(exception, MEMORY[0x1E69E53D8], 0);
+    }
+
+    if (*a2)
+    {
+      return result;
+    }
+  }
+
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 8)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v15 = "Cannot pack matrix.mCustomData_TableID";
+    goto LABEL_19;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 1), 9u);
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 8)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v15 = "Cannot pack matrix.mCustomData_EntryID";
+    goto LABEL_19;
+  }
+
+  v7 = *(a2 + 2);
+
+  return AT::TBitstreamWriter<unsigned int>::PutBits(a3, v7, 9u);
+}
+
+uint64_t APAC::MetadataBitStreamPacker::packParametricRadiationPattern(uint64_t a1, unsigned __int8 *a2, _DWORD *a3)
+{
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 4)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v15 = "Cannot pack parametric.mDirectivityModel";
+    goto LABEL_33;
+  }
+
+  result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, *a2, 5u);
+  v6 = *a2;
+  if (v6 == 3)
+  {
+    if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      v15 = "Cannot pack parametric.mSphereRadius";
+      goto LABEL_33;
+    }
+
+    AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 38), 0x20u);
+    if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      v15 = "Cannot pack parametric.mCapOpeningAngle";
+      goto LABEL_33;
+    }
+
+    v13 = *(a2 + 39);
+
+    return AT::TBitstreamWriter<unsigned int>::PutBits(a3, v13, 0x20u);
+  }
+
+  if (v6 != 2)
+  {
+    if (v6 != 1)
+    {
+      return result;
+    }
+
+    if (a3[7] + 8 * (a3[4] - a3[2]) - 32 > 9)
+    {
+      v7 = *(a2 + 1);
+      result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, (v7 - 1), 0xAu);
+      if (v7)
+      {
+        v8 = 0;
+        v9 = 4 * v7;
+        while (1)
+        {
+          if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 17)
+          {
+            goto LABEL_27;
+          }
+
+          AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(*(a2 + 1) + v8) - 1, 0x12u);
+          if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+          {
+            exception = __cxa_allocate_exception(8uLL);
+            v15 = "Cannot pack parametric.mPattern[sb]";
+            goto LABEL_33;
+          }
+
+          AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(*(a2 + 4) + v8), 0x20u);
+          if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+          {
+            break;
+          }
+
+          result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(*(a2 + 7) + v8), 0x20u);
+          v8 += 4;
+          if (v9 == v8)
+          {
+            return result;
+          }
+        }
+
+        exception = __cxa_allocate_exception(8uLL);
+        v15 = "Cannot pack parametric.mSharpness[sb]";
+        goto LABEL_33;
+      }
+
+      return result;
+    }
+
+LABEL_35:
+    exception = __cxa_allocate_exception(8uLL);
+    v15 = "Cannot pack tmpInt";
+    goto LABEL_33;
+  }
+
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 17)
+  {
+    goto LABEL_35;
+  }
+
+  v10 = *(a2 + 1);
+  result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, v10 - 1, 0x12u);
+  if (v10)
+  {
+    v11 = 0;
+    v12 = 4 * v10;
+    while (1)
+    {
+      if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 17)
+      {
+LABEL_27:
+        exception = __cxa_allocate_exception(8uLL);
+        v15 = "Cannot pack tmpFreq";
+        goto LABEL_33;
+      }
+
+      AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(*(a2 + 1) + v11) - 1, 0x12u);
+      if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+      {
+        exception = __cxa_allocate_exception(8uLL);
+        v15 = "Cannot pack parametric.mInnerAngle[sb]";
+        goto LABEL_33;
+      }
+
+      AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(*(a2 + 10) + v11), 0x20u);
+      if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+      {
+        exception = __cxa_allocate_exception(8uLL);
+        v15 = "Cannot pack parametric.mOuterAngle[sb]";
+        goto LABEL_33;
+      }
+
+      AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(*(a2 + 13) + v11), 0x20u);
+      if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+      {
+        break;
+      }
+
+      result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(*(a2 + 16) + v11), 0x20u);
+      v11 += 4;
+      if (v12 == v11)
+      {
+        return result;
+      }
+    }
+
+    exception = __cxa_allocate_exception(8uLL);
+    v15 = "Cannot pack parametric.mOuterGain[sb]";
+LABEL_33:
+    *exception = v15;
+    __cxa_throw(exception, MEMORY[0x1E69E53D8], 0);
+  }
+
+  return result;
+}
+
+uint64_t APAC::MetadataBitStreamPacker::packHOADirectivityModel(uint64_t a1, void *a2, _DWORD *a3)
+{
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 9)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v13 = "Cannot pack tmpUI10";
+    goto LABEL_13;
+  }
+
+  v5 = *a2;
+  result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, (v5 - 1), 0xAu);
+  if (v5)
+  {
+    v7 = 0;
+    v8 = 2 * v5;
+    while (a3[7] + 8 * (a3[4] - a3[2]) - 32 > 12)
+    {
+      result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, (*(a2[1] + v7) - 1), 0xDu);
+      v7 += 2;
+      if (v8 == v7)
+      {
+        goto LABEL_6;
+      }
+    }
+
+    exception = __cxa_allocate_exception(8uLL);
+    v13 = "Cannot pack tmpUI13";
+LABEL_13:
+    *exception = v13;
+    __cxa_throw(exception, MEMORY[0x1E69E53D8], 0);
+  }
+
+LABEL_6:
+  v9 = a2[4];
+  if (a2[5] != v9)
+  {
+    v10 = 0;
+    v11 = 1;
+    while (a3[7] + 8 * (a3[4] - a3[2]) - 32 > 31)
+    {
+      result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(v9 + 4 * v10), 0x20u);
+      v10 = v11;
+      v9 = a2[4];
+      ++v11;
+      if (v10 >= (a2[5] - v9) >> 2)
+      {
+        return result;
+      }
+    }
+
+    exception = __cxa_allocate_exception(8uLL);
+    v13 = "Cannot pack hoaModel.mCoeffs[n]";
+    goto LABEL_13;
+  }
+
+  return result;
+}
+
+uint64_t APAC::MetadataBitStreamPacker::packParametricReverb(uint64_t a1, uint64_t a2, _DWORD *a3)
+{
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack reverbParams.mPreDelay.mHasData";
+    goto LABEL_54;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 4), 1u);
+  if (*(a2 + 4) == 1)
+  {
+    if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      v8 = "Cannot pack reverbParams.mPreDelay.mValue";
+      goto LABEL_54;
+    }
+
+    AT::TBitstreamWriter<unsigned int>::PutBits(a3, *a2, 0x20u);
+  }
+
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack reverbParams.mRT60.mHasData";
+    goto LABEL_54;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 12), 1u);
+  if (*(a2 + 12) == 1)
+  {
+    if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      v8 = "Cannot pack reverbParams.mRT60.mValue";
+      goto LABEL_54;
+    }
+
+    AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 8), 0x20u);
+  }
+
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack reverbParams.mWetDryMix.mHasData";
+    goto LABEL_54;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 20), 1u);
+  if (*(a2 + 20) == 1)
+  {
+    if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      v8 = "Cannot pack reverbParams.mWetDryMix.mValue";
+      goto LABEL_54;
+    }
+
+    AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 16), 0x20u);
+  }
+
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack reverbParams.mReverbWidth.mHasData";
+    goto LABEL_54;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 28), 1u);
+  if (*(a2 + 28) == 1)
+  {
+    if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      v8 = "Cannot pack reverbParams.mReverbWidth.mValue";
+      goto LABEL_54;
+    }
+
+    AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 24), 0x20u);
+  }
+
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack reverbParams.mHFDampingCutoffFreq.mHasData";
+    goto LABEL_54;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 36), 1u);
+  if (*(a2 + 36) == 1)
+  {
+    if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      v8 = "Cannot pack reverbParams.mHFDampingCutoffFreq.mValue";
+      goto LABEL_54;
+    }
+
+    AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 32), 0x20u);
+  }
+
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack reverbParams.mEarlyReflectionOnly";
+    goto LABEL_54;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 40), 1u);
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack reverbParams.mEarlyReflectionLevel.mHasData";
+    goto LABEL_54;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 48), 1u);
+  if (*(a2 + 48) == 1)
+  {
+    if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      v8 = "Cannot pack reverbParams.mEarlyReflectionLevel.mValue";
+      goto LABEL_54;
+    }
+
+    AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 44), 0x20u);
+  }
+
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack reverbParams.mEarlyReflectionTime.mHasData";
+    goto LABEL_54;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 56), 1u);
+  if (*(a2 + 56) == 1)
+  {
+    if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      v8 = "Cannot pack reverbParams.mEarlyReflectionTime.mValue";
+      goto LABEL_54;
+    }
+
+    AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 52), 0x20u);
+  }
+
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack reverbParams.mLateReverbLevel.mHasData";
+    goto LABEL_54;
+  }
+
+  result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 64), 1u);
+  if (*(a2 + 64) != 1)
+  {
+    return result;
+  }
+
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack reverbParams.mLateReverbLevel.mValue";
+LABEL_54:
+    *exception = v8;
+    __cxa_throw(exception, MEMORY[0x1E69E53D8], 0);
+  }
+
+  v6 = *(a2 + 60);
+
+  return AT::TBitstreamWriter<unsigned int>::PutBits(a3, v6, 0x20u);
+}
+
+uint64_t APAC::MetadataBitStreamPacker::packFallbackRoomGeometry(uint64_t a1, int *a2, _DWORD *a3)
+{
+  v5 = a2 + 11;
+  v6 = 10;
+  do
+  {
+    if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      v10 = "Cannot pack fallbackRoomGeometry.mOctaveBandRt60[n]";
+      goto LABEL_14;
+    }
+
+    AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(v5 - 10), 0x20u);
+    if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      v10 = "Cannot pack fallbackRoomGeometry.mOctaveBandEarlyRoomEnergy[n]";
+      goto LABEL_14;
+    }
+
+    AT::TBitstreamWriter<unsigned int>::PutBits(a3, *v5, 0x20u);
+    if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      v10 = "Cannot pack fallbackRoomGeometry.mOctaveBandLateRoomEnergy[n]";
+      goto LABEL_14;
+    }
+
+    AT::TBitstreamWriter<unsigned int>::PutBits(a3, v5[10], 0x20u);
+    ++v5;
+    --v6;
+  }
+
+  while (v6);
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 < 32)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v10 = "Cannot pack fallbackRoomGeometry.mRoomVolume";
+    goto LABEL_14;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[31], 0x20u);
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v10 = "Cannot pack fallbackRoomGeometry.mRoomSurface";
+LABEL_14:
+    *exception = v10;
+    __cxa_throw(exception, MEMORY[0x1E69E53D8], 0);
+  }
+
+  v7 = a2[32];
+
+  return AT::TBitstreamWriter<unsigned int>::PutBits(a3, v7, 0x20u);
+}
+
+uint64_t APAC::MetadataBitStreamPacker::packAuthoringInformation(uint64_t a1, unsigned __int8 *a2, _DWORD *a3)
+{
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 2)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack authorInfo.mAuthoringToolNameIndex";
+    goto LABEL_20;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, *a2, 3u);
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 7)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack authorInfo.mAuthoringToolVersion.mMajor";
+    goto LABEL_20;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[1], 8u);
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 7)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack authorInfo.mAuthoringToolVersion.mMinor";
+    goto LABEL_20;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[2], 8u);
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 7)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack authorInfo.mAuthoringToolVersion.mPatch";
+    goto LABEL_20;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[3], 8u);
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 2)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack authorInfo.mRendererNameIndex";
+    goto LABEL_20;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[4], 3u);
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 7)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack authorInfo.mRendererVersion.mMajor";
+    goto LABEL_20;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[5], 8u);
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 7)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack authorInfo.mRendererVersion.mMinor";
+    goto LABEL_20;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[6], 8u);
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 7)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack authorInfo.mRendererVersion.mPatch";
+LABEL_20:
+    *exception = v8;
+    __cxa_throw(exception, MEMORY[0x1E69E53D8], 0);
+  }
+
+  v5 = a2[7];
+
+  return AT::TBitstreamWriter<unsigned int>::PutBits(a3, v5, 8u);
+}
+
+uint64_t APAC::MetadataBitStreamPacker::packReferenceScreen(uint64_t a1, uint64_t a2, _DWORD *a3)
+{
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack refScreen.mAspectRatio";
+    goto LABEL_26;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, *a2, 0x20u);
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack refScreen.mIsCartesian";
+    goto LABEL_26;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 4), 1u);
+  v5 = a3[7] + 8 * (a3[4] - a3[2]) - 32;
+  if (*(a2 + 4) != 1)
+  {
+    if (v5 <= 31)
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      v8 = "Cannot pack refScreen.mScreenCentrePosition.mAzimuth";
+    }
+
+    else
+    {
+      AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 20), 0x20u);
+      if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+      {
+        exception = __cxa_allocate_exception(8uLL);
+        v8 = "Cannot pack refScreen.mScreenCentrePosition.mElevation";
+      }
+
+      else
+      {
+        AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 24), 0x20u);
+        if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+        {
+          exception = __cxa_allocate_exception(8uLL);
+          v8 = "Cannot pack refScreen.mScreenCentrePosition.mRadius";
+        }
+
+        else
+        {
+          AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 28), 0x20u);
+          if (a3[7] + 8 * (a3[4] - a3[2]) - 32 > 31)
+          {
+            v6 = 36;
+            goto LABEL_14;
+          }
+
+          exception = __cxa_allocate_exception(8uLL);
+          v8 = "Cannot pack refScreen.mScreenWidth.mAzimuth";
+        }
+      }
+    }
+
+LABEL_26:
+    *exception = v8;
+    __cxa_throw(exception, MEMORY[0x1E69E53D8], 0);
+  }
+
+  if (v5 <= 31)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack refScreen.mScreenCentrePosition.mX";
+    goto LABEL_26;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 8), 0x20u);
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack refScreen.mScreenCentrePosition.mY";
+    goto LABEL_26;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 12), 0x20u);
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack refScreen.mScreenCentrePosition.mZ";
+    goto LABEL_26;
+  }
+
+  v6 = 32;
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 16), 0x20u);
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack refScreen.mScreenWidth.mX";
+    goto LABEL_26;
+  }
+
+LABEL_14:
+  v9 = *(a2 + v6);
+
+  return AT::TBitstreamWriter<unsigned int>::PutBits(a3, v9, 0x20u);
+}
+
+uint64_t APAC::MetadataBitStreamPacker::packDBMD(uint64_t a1, unsigned __int8 *a2, _DWORD *a3)
+{
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 1)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v13 = "Cannot pack dbmd.mSurroundDownmix";
+    goto LABEL_25;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, *a2, 2u);
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 < 2)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v13 = "Cannot pack dbmd.mSurroundToStereoDownmix";
+    goto LABEL_25;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[1], 2u);
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 2)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v13 = "Cannot pack dbmd.mPositionAdjustment";
+    goto LABEL_25;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[2], 3u);
+  v5 = 0;
+  v6 = a2 + 3;
+  v7 = (a2 + 16);
+  do
+  {
+    if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      v13 = "Cannot pack dbmd.mIsAutoTrim[cfg]";
+      goto LABEL_25;
+    }
+
+    AT::TBitstreamWriter<unsigned int>::PutBits(a3, v6[v5], 1u);
+    if ((v6[v5] & 1) == 0)
+    {
+      if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+      {
+        exception = __cxa_allocate_exception(8uLL);
+        v13 = "Cannot pack dbmd.mMixingGains[cfg].mFrontGain";
+        goto LABEL_25;
+      }
+
+      AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(v7 - 1), 0x20u);
+      if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+      {
+        exception = __cxa_allocate_exception(8uLL);
+        v13 = "Cannot pack dbmd.mMixingGains[cfg].mBackGain";
+        goto LABEL_25;
+      }
+
+      AT::TBitstreamWriter<unsigned int>::PutBits(a3, *v7, 0x20u);
+      if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+      {
+        exception = __cxa_allocate_exception(8uLL);
+        v13 = "Cannot pack dbmd.mMixingGains[cfg].mTopGain";
+        goto LABEL_25;
+      }
+
+      AT::TBitstreamWriter<unsigned int>::PutBits(a3, v7[1], 0x20u);
+      if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+      {
+        exception = __cxa_allocate_exception(8uLL);
+        v13 = "Cannot pack dbmd.mMixingGains[cfg].mEarLevelBalance";
+        goto LABEL_25;
+      }
+
+      AT::TBitstreamWriter<unsigned int>::PutBits(a3, v7[2], 0x20u);
+      if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+      {
+        exception = __cxa_allocate_exception(8uLL);
+        v13 = "Cannot pack dbmd.mMixingGains[cfg].mHeightBalance";
+        goto LABEL_25;
+      }
+
+      AT::TBitstreamWriter<unsigned int>::PutBits(a3, v7[3], 0x20u);
+    }
+
+    ++v5;
+    v7 += 5;
+  }
+
+  while (v5 != 9);
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 < 7)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v13 = "Cannot pack tmp";
+LABEL_25:
+    *exception = v13;
+    __cxa_throw(exception, MEMORY[0x1E69E53D8], 0);
+  }
+
+  v8 = a2[192];
+  result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, (v8 - 1), 7u);
+  if (v8)
+  {
+    v10 = a2 + 193;
+    do
+    {
+      v11 = *v10++;
+      result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, v11, 1u);
+      --v8;
+    }
+
+    while (v8);
+  }
+
+  return result;
+}
+
+uint64_t APAC::MetadataBitStreamPacker::packBinauralization(uint64_t a1, unsigned __int8 *a2, _DWORD *a3)
+{
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v11 = "Cannot pack binaural.mIsDirectBinauralization";
+    goto LABEL_27;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, *a2, 1u);
+  if (*a2 == 1)
+  {
+    if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      v11 = "Cannot pack binaural.mChannelLayoutTag";
+      goto LABEL_27;
+    }
+
+    AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 1), 0x20u);
+  }
+
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 2)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v11 = "Cannot pack binaural.mHRTFType";
+    goto LABEL_27;
+  }
+
+  result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[8], 3u);
+  v6 = a2[8];
+  if (v6 == 2)
+  {
+    if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 1)
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      v11 = "Cannot pack binaural.mDataLocationIndex";
+    }
+
+    else
+    {
+      AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[14], 2u);
+      if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 8)
+      {
+        exception = __cxa_allocate_exception(8uLL);
+        v11 = "Cannot pack binaural.mCustomData_TableID";
+      }
+
+      else
+      {
+        AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 5), 9u);
+        if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 8)
+        {
+          exception = __cxa_allocate_exception(8uLL);
+          v11 = "Cannot pack binaural.mCustomData_EntryID";
+        }
+
+        else
+        {
+          AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 6), 9u);
+          if (a3[7] + 8 * (a3[4] - a3[2]) - 32 > 2)
+          {
+            v7 = 3;
+            v8 = 15;
+            goto LABEL_15;
+          }
+
+          exception = __cxa_allocate_exception(8uLL);
+          v11 = "Cannot pack binaural.mFallbackCustomHRTF.mHRTFType";
+        }
+      }
+    }
+
+LABEL_27:
+    *exception = v11;
+    __cxa_throw(exception, MEMORY[0x1E69E53D8], 0);
+  }
+
+  if (v6 != 1)
+  {
+    return result;
+  }
+
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 7)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v11 = "Cannot pack binaural.mPredefinedIR_ID";
+    goto LABEL_27;
+  }
+
+  v7 = 8;
+  v8 = 9;
+LABEL_15:
+  v9 = a2[v8];
+
+  return AT::TBitstreamWriter<unsigned int>::PutBits(a3, v9, v7);
+}
+
+{
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack binaural.isDirectBinauralization";
+    goto LABEL_16;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, *a2, 1u);
+  if ((*a2 & 1) == 0)
+  {
+    if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      v8 = "Cannot pack binaural.channelLayoutTag";
+      goto LABEL_16;
+    }
+
+    AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 1), 0x20u);
+  }
+
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 2)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack binaural.HRTFType";
+    goto LABEL_16;
+  }
+
+  result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[8], 3u);
+  if (a2[8] != 1)
+  {
+    return result;
+  }
+
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 3)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack binaural.codeBookID";
+LABEL_16:
+    *exception = v8;
+    __cxa_throw(exception, MEMORY[0x1E69E53D8], 0);
+  }
+
+  v6 = a2[9];
+
+  return AT::TBitstreamWriter<unsigned int>::PutBits(a3, v6, 4u);
+}
+
+uint64_t APAC::MetadataBitStreamPacker::packSPAD(uint64_t a1, unsigned __int8 *a2, _DWORD *a3)
+{
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 1)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack spad.mDataLocationIndex";
+    goto LABEL_10;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, *a2, 2u);
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 8)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack spad.mCustomData_TableID";
+    goto LABEL_10;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 1), 9u);
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 8)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack spad.mCustomData_EntryID";
+LABEL_10:
+    *exception = v8;
+    __cxa_throw(exception, MEMORY[0x1E69E53D8], 0);
+  }
+
+  v5 = AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 2), 9u);
+
+  return APAC::MetadataBitStreamPacker::packFallbackSPAD(v5, a2 + 8, a3);
+}
+
+uint64_t APAC::MetadataBitStreamPacker::packDistanceAttenuation(uint64_t a1, unsigned __int8 *a2, _DWORD *a3)
+{
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 2)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack distAttnParams.mAttnLawIndex";
+    goto LABEL_14;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, *a2, 3u);
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack distAttnParams.mDistNorm";
+    goto LABEL_14;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 1), 0x20u);
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack distAttnParams.mRefDistance";
+    goto LABEL_14;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 2), 0x20u);
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack distAttnParams.mMaxDistance";
+    goto LABEL_14;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 3), 0x20u);
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack distAttnParams.mAttnNormIndex";
+LABEL_14:
+    *exception = v8;
+    __cxa_throw(exception, MEMORY[0x1E69E53D8], 0);
+  }
+
+  v5 = a2[16];
+
+  return AT::TBitstreamWriter<unsigned int>::PutBits(a3, v5, 1u);
+}
+
+uint64_t APAC::MetadataBitStreamPacker::packGenericRenderingConfig(uint64_t a1, unsigned __int8 *a2, _DWORD *a3)
+{
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v11 = "Cannot pack cfg.mHasPreset";
+    goto LABEL_21;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, *a2, 1u);
+  v5 = a3[7] + 8 * (a3[4] - a3[2]) - 32;
+  if (*a2 == 1)
+  {
+    if (v5 > 10)
+    {
+      v6 = *(a2 + 1);
+      v7 = a3;
+      v8 = 11;
+      goto LABEL_11;
+    }
+
+    exception = __cxa_allocate_exception(8uLL);
+    v11 = "Cannot pack cfg.mPresetIndex";
+LABEL_21:
+    *exception = v11;
+    __cxa_throw(exception, MEMORY[0x1E69E53D8], 0);
+  }
+
+  if (v5 <= 1)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v11 = "Cannot pack cfg.mDataLocationIndex";
+    goto LABEL_21;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[4], 2u);
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 8)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v11 = "Cannot pack cfg.mCustomData_TableID";
+    goto LABEL_21;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 3), 9u);
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 8)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v11 = "Cannot pack cfg.mCustomData_EntryID";
+    goto LABEL_21;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 4), 9u);
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 10)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v11 = "Cannot pack cfg.mFallbackIndex";
+    goto LABEL_21;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 5), 0xBu);
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 16)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v11 = "Cannot pack cfg.mDataByteSize";
+    goto LABEL_21;
+  }
+
+  v6 = *(a2 + 3);
+  v7 = a3;
+  v8 = 17;
+LABEL_11:
+
+  return AT::TBitstreamWriter<unsigned int>::PutBits(v7, v6, v8);
+}
+
+uint64_t APAC::MetadataBitStreamPacker::packChannelBedHeadphoneMetadata(uint64_t a1, unsigned __int8 *a2, uint64_t a3)
+{
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, *a2 - 1, 4u);
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[1] - 1, 8u);
+  if (a2[1])
+  {
+    v5 = 0;
+    do
+    {
+      AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(*(a2 + 1) + v5++), 3u);
+      v6 = a2[1];
+    }
+
+    while (v5 < v6);
+    v7 = -3 * v6 - 8;
+  }
+
+  else
+  {
+    v7 = -8;
+  }
+
+  v8 = v7 + 8 * *a2;
+
+  return AT::TBitstreamWriter<unsigned int>::PutBits(a3, 0, v8);
+}
+
+uint64_t APAC::MetadataBitStreamPacker::packFallbackSPAD(uint64_t a1, unsigned __int8 *a2, _DWORD *a3)
+{
+  v5 = 2;
+  do
+  {
+    if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 7)
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      v11 = "Cannot pack fallback.mDeviceID[n]";
+      goto LABEL_25;
+    }
+
+    AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[v5], 8u);
+    if (a2[v5])
+    {
+      v6 = v5 == 9;
+    }
+
+    else
+    {
+      v6 = 1;
+    }
+
+    ++v5;
+  }
+
+  while (!v6);
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 3)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v11 = "Cannot pack fallback.mOrientation";
+    goto LABEL_25;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, *a2, 4u);
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 7)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v11 = "Cannot pack fallback.mNumMicrophones";
+    goto LABEL_25;
+  }
+
+  result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[1], 8u);
+  v8 = a2[1];
+  if (a2[1])
+  {
+    v9 = 0;
+    while (1)
+    {
+      if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 3)
+      {
+        exception = __cxa_allocate_exception(8uLL);
+        v11 = "Cannot pack fallback.mMicType[n]";
+        goto LABEL_25;
+      }
+
+      AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(*(a2 + 2) + v9), 4u);
+      if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+      {
+        exception = __cxa_allocate_exception(8uLL);
+        v11 = "Cannot pack fallback.mMicPosAzimuth[n]";
+        goto LABEL_25;
+      }
+
+      AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(*(a2 + 5) + 4 * v9), 0x20u);
+      if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+      {
+        exception = __cxa_allocate_exception(8uLL);
+        v11 = "Cannot pack fallback.mMicPosElevation[n]";
+        goto LABEL_25;
+      }
+
+      AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(*(a2 + 8) + 4 * v9), 0x20u);
+      if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+      {
+        exception = __cxa_allocate_exception(8uLL);
+        v11 = "Cannot pack fallback.mMicPosRadius[n]";
+        goto LABEL_25;
+      }
+
+      AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(*(a2 + 11) + 4 * v9), 0x20u);
+      if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 2)
+      {
+        break;
+      }
+
+      result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(*(a2 + 14) + v9++), 3u);
+      if (v8 == v9)
+      {
+        return result;
+      }
+    }
+
+    exception = __cxa_allocate_exception(8uLL);
+    v11 = "Cannot pack fallback.mMicDirection[n]";
+LABEL_25:
+    *exception = v11;
+    __cxa_throw(exception, MEMORY[0x1E69E53D8], 0);
+  }
+
+  return result;
+}
+
+uint64_t APAC::MetadataBitStreamPacker::packGroupDynamicData(uint64_t a1, unsigned __int8 *a2, _DWORD *a3)
+{
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v9 = "Cannot pack grpDD.hasData";
+    goto LABEL_10;
+  }
+
+  result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, *a2, 1u);
+  if (*a2 != 1)
+  {
+    return result;
+  }
+
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 6)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v9 = "Cannot pack grpDD.groupCount";
+LABEL_10:
+    *exception = v9;
+    __cxa_throw(exception, MEMORY[0x1E69E53D8], 0);
+  }
+
+  result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[1], 7u);
+  if (a2[1])
+  {
+    v6 = 0;
+    v7 = a2 + 4;
+    do
+    {
+      result = APAC::MetadataBitStreamPacker::packDynamicGroup(result, v7, a3);
+      ++v6;
+      v7 += 256;
+    }
+
+    while (v6 < a2[1]);
+  }
+
+  return result;
+}
+
+uint64_t APAC::MetadataBitStreamPacker::packSceneComponenentDynamicData(uint64_t a1, unsigned __int8 *a2, _DWORD *a3)
+{
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 6)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v15 = "Cannot pack scDD.ASCCount";
+LABEL_15:
+    *exception = v15;
+    __cxa_throw(exception, MEMORY[0x1E69E53D8], 0);
+  }
+
+  result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, *a2, 7u);
+  if (*a2)
+  {
+    v6 = 0;
+    v7 = a2 + 8728;
+    for (i = a2; ; i += 9752)
+    {
+      if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 1)
+      {
+        exception = __cxa_allocate_exception(8uLL);
+        v15 = "Cannot pack scDD.ASCData[n].ASCType";
+        goto LABEL_15;
+      }
+
+      v9 = AT::TBitstreamWriter<unsigned int>::PutBits(a3, i[4], 2u);
+      v10 = i[4];
+      if (v10 == 2)
+      {
+        break;
+      }
+
+      if (v10 == 1)
+      {
+        APAC::MetadataBitStreamPacker::packObjectMetadata(v9, i + 72, a3);
+      }
+
+      else if (!i[4])
+      {
+        v11 = i + 8;
+LABEL_11:
+        v9 = APAC::MetadataBitStreamPacker::packCommonDynamicMetadata(v9, v11, a3);
+      }
+
+      v12 = APAC::MetadataBitStreamPacker::packProprietaryDynamicData(v9, v7 - 1152, a3);
+      v13 = APAC::MetadataBitStreamPacker::packExtendedData(v12, v7 - 1028, a3);
+      result = APAC::MetadataBitStreamPacker::packExtendedData(v13, v7, a3);
+      ++v6;
+      v7 += 9752;
+      if (v6 >= *a2)
+      {
+        return result;
+      }
+    }
+
+    v11 = i + 40;
+    goto LABEL_11;
+  }
+
+  return result;
+}
+
+uint64_t APAC::MetadataBitStreamPacker::packExtendedData(uint64_t a1, unsigned __int8 *a2, _DWORD *a3)
+{
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v11 = "Cannot pack extData.hasData";
+    goto LABEL_9;
+  }
+
+  result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, *a2, 1u);
+  if (*a2 == 1)
+  {
+    if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 9)
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      v11 = "Cannot pack extData.chunkSize";
+    }
+
+    else
+    {
+      AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 1), 0xAu);
+      v6 = *(a2 + 1);
+      v7 = a2 + 4;
+      v8 = v6 + 1;
+      while (a3[7] + 8 * (a3[4] - a3[2]) - 32 > 7)
+      {
+        v9 = *v7++;
+        result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, v9, 8u);
+        if (!--v8)
+        {
+          return result;
+        }
+      }
+
+      exception = __cxa_allocate_exception(8uLL);
+      v11 = "Cannot pack extData.dataChunk[n]";
+    }
+
+LABEL_9:
+    *exception = v11;
+    __cxa_throw(exception, MEMORY[0x1E69E53D8], 0);
+  }
+
+  return result;
+}
+
+uint64_t APAC::MetadataBitStreamPacker::packCommonDynamicMetadata(uint64_t a1, unsigned __int8 *a2, _DWORD *a3)
+{
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack cmmMd.hasADMMetadata";
+    goto LABEL_31;
+  }
+
+  result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, *a2, 1u);
+  if (*a2 != 1)
+  {
+    return result;
+  }
+
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack cmmMd.absoluteDistance.hasData";
+    goto LABEL_31;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[4], 1u);
+  if (a2[4] == 1)
+  {
+    if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      v8 = "Cannot pack cmmMd.absoluteDistance.distance";
+      goto LABEL_31;
+    }
+
+    AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 2), 0x20u);
+  }
+
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack cmmMd.gain.hasData";
+    goto LABEL_31;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[12], 1u);
+  if (a2[12] == 1)
+  {
+    if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      v8 = "Cannot pack cmmMd.gain.isDB";
+      goto LABEL_31;
+    }
+
+    AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[13], 1u);
+    if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      v8 = "Cannot pack cmmMd.gain.gain";
+      goto LABEL_31;
+    }
+
+    AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 4), 0x20u);
+  }
+
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack cmmMd.headLocked";
+    goto LABEL_31;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[22], 1u);
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack cmmMd.headphoneVirtualize.hasData";
+    goto LABEL_31;
+  }
+
+  result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[24], 1u);
+  if (a2[24] != 1)
+  {
+    return result;
+  }
+
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack cmmMd.headphoneVirtualize.bypass";
+    goto LABEL_31;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[25], 1u);
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack cmmMd.headphoneVirtualize.DRR";
+LABEL_31:
+    *exception = v8;
+    __cxa_throw(exception, MEMORY[0x1E69E53D8], 0);
+  }
+
+  v6 = *(a2 + 7);
+
+  return AT::TBitstreamWriter<unsigned int>::PutBits(a3, v6, 0x20u);
+}
+
+void APAC::MetadataBitStreamPacker::packObjectMetadata(uint64_t a1, unsigned __int8 *a2, _DWORD *a3)
+{
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 6)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v9 = "Cannot pack objMd.objectID";
+    goto LABEL_14;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, *a2, 7u);
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 3)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v9 = "Cannot pack objMd.numBlocks";
+LABEL_14:
+    *exception = v9;
+    __cxa_throw(exception, MEMORY[0x1E69E53D8], 0);
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[1], 4u);
+  if (a2[1])
+  {
+    v5 = 0;
+    v6 = a2 + 4;
+    do
+    {
+      if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+      {
+        exception = __cxa_allocate_exception(8uLL);
+        v9 = "Cannot pack objMd.blockData[n].isNewBlk";
+        goto LABEL_14;
+      }
+
+      v7 = AT::TBitstreamWriter<unsigned int>::PutBits(a3, *v6, 1u);
+      if (v5 && v5 < a2[1] - 1)
+      {
+        if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 9)
+        {
+          exception = __cxa_allocate_exception(8uLL);
+          v9 = "Cannot pack objMd.blockData[n].rtime";
+          goto LABEL_14;
+        }
+
+        v7 = AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(v6 + 1), 0xAu);
+      }
+
+      APAC::MetadataBitStreamPacker::packBlockData(v7, v6, 513, a3);
+      ++v5;
+      v6 += 500;
+    }
+
+    while (v5 < a2[1]);
+  }
+}
+
+uint64_t APAC::MetadataBitStreamPacker::packProprietaryDynamicData(uint64_t a1, unsigned __int8 *a2, _DWORD *a3)
+{
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v13 = "Cannot pack pDD.hasData";
+    goto LABEL_30;
+  }
+
+  result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, *a2, 1u);
+  if (*a2 != 1)
+  {
+    return result;
+  }
+
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 4)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v13 = "Cannot pack pDD.numParameters";
+LABEL_30:
+    *exception = v13;
+    __cxa_throw(exception, MEMORY[0x1E69E53D8], 0);
+  }
+
+  result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[1], 5u);
+  if (a2[1])
+  {
+    v6 = 0;
+    v7 = a2 + 90;
+    do
+    {
+      if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 4)
+      {
+        exception = __cxa_allocate_exception(8uLL);
+        v13 = "Cannot pack pDD.paramIndexList[n]";
+        goto LABEL_30;
+      }
+
+      result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, v7[v6], 5u);
+      v8 = v7[v6];
+      if (v8 > 2)
+      {
+        switch(v8)
+        {
+          case 3u:
+            result = APAC::MetadataBitStreamPacker::packParametricReverb(result, a2 + 48, a3);
+            break;
+          case 4u:
+            if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+            {
+              exception = __cxa_allocate_exception(8uLL);
+              v13 = "Cannot pack pDD.headLocked";
+              goto LABEL_30;
+            }
+
+            v9 = a2[88];
+LABEL_25:
+            v10 = a3;
+            v11 = 1;
+LABEL_26:
+            result = AT::TBitstreamWriter<unsigned int>::PutBits(v10, v9, v11);
+            break;
+          case 5u:
+            if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+            {
+              exception = __cxa_allocate_exception(8uLL);
+              v13 = "Cannot pack pDD.parallax";
+              goto LABEL_30;
+            }
+
+            v9 = a2[89];
+            goto LABEL_25;
+        }
+      }
+
+      else
+      {
+        if (!v7[v6])
+        {
+          if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+          {
+            exception = __cxa_allocate_exception(8uLL);
+            v13 = "Cannot pack pDD.lookDirection.azimuth";
+            goto LABEL_30;
+          }
+
+          AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 1), 0x20u);
+          if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+          {
+            exception = __cxa_allocate_exception(8uLL);
+            v13 = "Cannot pack pDD.lookDirection.elevation";
+            goto LABEL_30;
+          }
+
+          v9 = *(a2 + 2);
+          v10 = a3;
+          v11 = 32;
+          goto LABEL_26;
+        }
+
+        if (v8 == 1)
+        {
+          result = APAC::MetadataBitStreamPacker::packAudioSceneMaskingZone(result, a2 + 12, a3);
+        }
+
+        else if (v8 == 2)
+        {
+          if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 2)
+          {
+            exception = __cxa_allocate_exception(8uLL);
+            v13 = "Cannot pack pDD.preferredDoF";
+            goto LABEL_30;
+          }
+
+          v9 = a2[44];
+          v10 = a3;
+          v11 = 3;
+          goto LABEL_26;
+        }
+      }
+
+      ++v6;
+    }
+
+    while (v6 < a2[1]);
+  }
+
+  return result;
+}
+
+uint64_t APAC::MetadataBitStreamPacker::packAudioSceneMaskingZone(uint64_t a1, unsigned __int8 *a2, _DWORD *a3)
+{
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v12 = "Cannot pack mZ.isZoneDefined";
+    goto LABEL_45;
+  }
+
+  result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, *a2, 1u);
+  if (*a2 != 1)
+  {
+    return result;
+  }
+
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v12 = "Cannot pack mZ.keepPreviousZone";
+    goto LABEL_45;
+  }
+
+  result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[1], 1u);
+  if (a2[1])
+  {
+    return result;
+  }
+
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v12 = "Cannot pack mZ.usePreDefinedZone";
+    goto LABEL_45;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[2], 1u);
+  v6 = a3[7] + 8 * (a3[4] - a3[2]) - 32;
+  if (a2[2] != 1)
+  {
+    if (v6 <= 0)
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      v12 = "Cannot pack mZ.cartesian";
+    }
+
+    else
+    {
+      AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[3], 1u);
+      v10 = a3[7] + 8 * (a3[4] - a3[2]) - 32;
+      if (a2[3] == 1)
+      {
+        if (v10 <= 31)
+        {
+          exception = __cxa_allocate_exception(8uLL);
+          v12 = "Cannot pack mZ.co_tu.cartesian.minX";
+        }
+
+        else
+        {
+          AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 2), 0x20u);
+          if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+          {
+            exception = __cxa_allocate_exception(8uLL);
+            v12 = "Cannot pack mZ.co_tu.cartesian.maxX";
+          }
+
+          else
+          {
+            AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 3), 0x20u);
+            if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+            {
+              exception = __cxa_allocate_exception(8uLL);
+              v12 = "Cannot pack mZ.co_tu.cartesian.minY";
+            }
+
+            else
+            {
+              AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 4), 0x20u);
+              if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+              {
+                exception = __cxa_allocate_exception(8uLL);
+                v12 = "Cannot pack mZ.co_tu.cartesian.maxY";
+              }
+
+              else
+              {
+                AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 5), 0x20u);
+                if (a3[7] + 8 * (a3[4] - a3[2]) - 32 > 31)
+                {
+                  AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 6), 0x20u);
+                  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+                  {
+                    exception = __cxa_allocate_exception(8uLL);
+                    v12 = "Cannot pack mZ.co_tu.cartesian.maxZ";
+                    goto LABEL_45;
+                  }
+
+LABEL_25:
+                  v7 = *(a2 + 7);
+                  v8 = a3;
+                  v9 = 32;
+                  goto LABEL_26;
+                }
+
+                exception = __cxa_allocate_exception(8uLL);
+                v12 = "Cannot pack mZ.co_tu.cartesian.minZ";
+              }
+            }
+          }
+        }
+      }
+
+      else if (v10 <= 31)
+      {
+        exception = __cxa_allocate_exception(8uLL);
+        v12 = "Cannot pack mZ.co_tu.spherical.minAzimuth";
+      }
+
+      else
+      {
+        AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 2), 0x20u);
+        if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+        {
+          exception = __cxa_allocate_exception(8uLL);
+          v12 = "Cannot pack mZ.co_tu.spherical.maxAzimuth";
+        }
+
+        else
+        {
+          AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 3), 0x20u);
+          if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+          {
+            exception = __cxa_allocate_exception(8uLL);
+            v12 = "Cannot pack mZ.co_tu.spherical.minElevation";
+          }
+
+          else
+          {
+            AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 4), 0x20u);
+            if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+            {
+              exception = __cxa_allocate_exception(8uLL);
+              v12 = "Cannot pack mZ.co_tu.spherical.maxElevation";
+            }
+
+            else
+            {
+              AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 5), 0x20u);
+              if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+              {
+                exception = __cxa_allocate_exception(8uLL);
+                v12 = "Cannot pack mZ.co_tu.spherical.minDistance";
+              }
+
+              else
+              {
+                AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 6), 0x20u);
+                if (a3[7] + 8 * (a3[4] - a3[2]) - 32 > 31)
+                {
+                  goto LABEL_25;
+                }
+
+                exception = __cxa_allocate_exception(8uLL);
+                v12 = "Cannot pack mZ.co_tu.spherical.maxDistance";
+              }
+            }
+          }
+        }
+      }
+    }
+
+LABEL_45:
+    *exception = v12;
+    __cxa_throw(exception, MEMORY[0x1E69E53D8], 0);
+  }
+
+  if (v6 <= 3)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v12 = "Cannot pack mZ.zoneIndex";
+    goto LABEL_45;
+  }
+
+  v7 = a2[4];
+  v8 = a3;
+  v9 = 4;
+LABEL_26:
+
+  return AT::TBitstreamWriter<unsigned int>::PutBits(v8, v7, v9);
+}
+
+uint64_t APAC::MetadataBitStreamPacker::packParametricReverb(uint64_t a1, unsigned __int8 *a2, _DWORD *a3)
+{
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack pR.hasPreDelay";
+    goto LABEL_52;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, *a2, 1u);
+  if (*a2 == 1)
+  {
+    if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      v8 = "Cannot pack pR.preDelayMSec";
+      goto LABEL_52;
+    }
+
+    AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 2), 0x20u);
+  }
+
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack pR.hasEarlyReflectionLevel";
+    goto LABEL_52;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[1], 1u);
+  if (a2[1] == 1)
+  {
+    if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      v8 = "Cannot pack pR.earlyReflectionLevel";
+      goto LABEL_52;
+    }
+
+    AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 3), 0x20u);
+  }
+
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack pR.hasRT60";
+    goto LABEL_52;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[2], 1u);
+  if (a2[2] == 1)
+  {
+    if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      v8 = "Cannot pack pR.RT60Msec";
+      goto LABEL_52;
+    }
+
+    AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 4), 0x20u);
+  }
+
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack pR.hasWetDryMix";
+    goto LABEL_52;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[3], 1u);
+  if (a2[3] == 1)
+  {
+    if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      v8 = "Cannot pack pR.wetDryMix";
+      goto LABEL_52;
+    }
+
+    AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 5), 0x20u);
+  }
+
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack pR.hasReverbWidth";
+    goto LABEL_52;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[4], 1u);
+  if (a2[4] == 1)
+  {
+    if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      v8 = "Cannot pack pR.reverbWidth";
+      goto LABEL_52;
+    }
+
+    AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 6), 0x20u);
+  }
+
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack pR.hasHighFrequencyDamping";
+    goto LABEL_52;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[5], 1u);
+  if (a2[5] == 1)
+  {
+    if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      v8 = "Cannot pack pR.highFrequencyDamping";
+      goto LABEL_52;
+    }
+
+    AT::TBitstreamWriter<unsigned int>::PutBits(a3, *(a2 + 7), 0x20u);
+  }
+
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack pR.hasEarlyReflectionOnly";
+    goto LABEL_52;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[6], 1u);
+  if (a2[6] == 1)
+  {
+    if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      v8 = "Cannot pack pR.earlyReflectionOnly";
+      goto LABEL_52;
+    }
+
+    AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[32], 1u);
+  }
+
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack pR.hasEarlyReflectionTime";
+    goto LABEL_52;
+  }
+
+  result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[7], 1u);
+  if (a2[7] != 1)
+  {
+    return result;
+  }
+
+  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 31)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v8 = "Cannot pack pR.earlyReflectionTimeMsec";
+LABEL_52:
+    *exception = v8;
+    __cxa_throw(exception, MEMORY[0x1E69E53D8], 0);
+  }
+
+  v6 = *(a2 + 9);
+
+  return AT::TBitstreamWriter<unsigned int>::PutBits(a3, v6, 0x20u);
+}
+
+void APAC::MetadataBitStreamPacker::packBlockData(uint64_t a1, uint64_t a2, __int16 a3, _DWORD *a4)
+{
+  if (*a2 != 1)
+  {
+    return;
+  }
+
+  if (a4[7] + 8 * (a4[4] - a4[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v9 = "Cannot pack blkData.cartesian";
+    goto LABEL_156;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a4, *(a2 + 4), 1u);
+  v7 = a4[7] + 8 * (a4[4] - a4[2]) - 32;
+  if (*(a2 + 4) == 1)
+  {
+    if (v7 <= 31)
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      v9 = "Cannot pack blkData.position.co_ut.cartesian.X";
+      goto LABEL_156;
+    }
+
+    AT::TBitstreamWriter<unsigned int>::PutBits(a4, *(a2 + 8), 0x20u);
+    if (a4[7] + 8 * (a4[4] - a4[2]) - 32 <= 31)
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      v9 = "Cannot pack blkData.position.co_ut.cartesian.Y";
+      goto LABEL_156;
+    }
+
+    AT::TBitstreamWriter<unsigned int>::PutBits(a4, *(a2 + 12), 0x20u);
+    if (a4[7] + 8 * (a4[4] - a4[2]) - 32 <= 31)
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      v9 = "Cannot pack blkData.position.co_ut.cartesian.Z";
+      goto LABEL_156;
+    }
+  }
+
+  else
+  {
+    if (v7 <= 31)
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      v9 = "Cannot pack blkData.position.co_ut.spherical.azimuth";
+      goto LABEL_156;
+    }
+
+    AT::TBitstreamWriter<unsigned int>::PutBits(a4, *(a2 + 8), 0x20u);
+    if (a4[7] + 8 * (a4[4] - a4[2]) - 32 <= 31)
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      v9 = "Cannot pack blkData.position.co_ut.spherical.elevation";
+      goto LABEL_156;
+    }
+
+    AT::TBitstreamWriter<unsigned int>::PutBits(a4, *(a2 + 12), 0x20u);
+    if (a4[7] + 8 * (a4[4] - a4[2]) - 32 <= 31)
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      v9 = "Cannot pack blkData.position.co_ut.spherical.distance";
+      goto LABEL_156;
+    }
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a4, *(a2 + 16), 0x20u);
+  if (a4[7] + 8 * (a4[4] - a4[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v9 = "Cannot pack blkData.hasADMMetadata";
+    goto LABEL_156;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a4, *(a2 + 20), 1u);
+  if (*(a2 + 20) != 1)
+  {
+    return;
+  }
+
+  if (a4[7] + 8 * (a4[4] - a4[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v9 = "Cannot pack blkData.absoluteDistance.hasData";
+    goto LABEL_156;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a4, *(a2 + 24), 1u);
+  if (*(a2 + 24) == 1)
+  {
+    if (a4[7] + 8 * (a4[4] - a4[2]) - 32 <= 31)
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      v9 = "Cannot pack blkData.absoluteDistance.distance";
+      goto LABEL_156;
+    }
+
+    AT::TBitstreamWriter<unsigned int>::PutBits(a4, *(a2 + 28), 0x20u);
+  }
+
+  if (a4[7] + 8 * (a4[4] - a4[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v9 = "Cannot pack blkData.spread.hasData";
+    goto LABEL_156;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a4, *(a2 + 32), 1u);
+  if (*(a2 + 32) == 1)
+  {
+    if (a4[7] + 8 * (a4[4] - a4[2]) - 32 <= 31)
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      v9 = "Cannot pack blkData.spread.width";
+      goto LABEL_156;
+    }
+
+    AT::TBitstreamWriter<unsigned int>::PutBits(a4, *(a2 + 36), 0x20u);
+    if (a4[7] + 8 * (a4[4] - a4[2]) - 32 <= 31)
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      v9 = "Cannot pack blkData.spread.height";
+      goto LABEL_156;
+    }
+
+    AT::TBitstreamWriter<unsigned int>::PutBits(a4, *(a2 + 40), 0x20u);
+    if (a4[7] + 8 * (a4[4] - a4[2]) - 32 <= 31)
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      v9 = "Cannot pack blkData.spread.depth";
+      goto LABEL_156;
+    }
+
+    AT::TBitstreamWriter<unsigned int>::PutBits(a4, *(a2 + 44), 0x20u);
+  }
+
+  if (a4[7] + 8 * (a4[4] - a4[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v9 = "Cannot pack blkData.gain.hasData";
+    goto LABEL_156;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a4, *(a2 + 48), 1u);
+  if (*(a2 + 48) == 1)
+  {
+    if (a4[7] + 8 * (a4[4] - a4[2]) - 32 <= 0)
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      v9 = "Cannot pack blkData.gain.isDB";
+      goto LABEL_156;
+    }
+
+    AT::TBitstreamWriter<unsigned int>::PutBits(a4, *(a2 + 49), 1u);
+    if (a4[7] + 8 * (a4[4] - a4[2]) - 32 <= 31)
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      v9 = "Cannot pack blkData.gain.gain";
+      goto LABEL_156;
+    }
+
+    AT::TBitstreamWriter<unsigned int>::PutBits(a4, *(a2 + 52), 0x20u);
+  }
+
+  if (a4[7] + 8 * (a4[4] - a4[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v9 = "Cannot pack blkData.diffuse.hasData";
+    goto LABEL_156;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a4, *(a2 + 56), 1u);
+  if (*(a2 + 56) == 1)
+  {
+    if (a4[7] + 8 * (a4[4] - a4[2]) - 32 <= 31)
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      v9 = "Cannot pack blkData.diffuse.diffuse";
+      goto LABEL_156;
+    }
+
+    AT::TBitstreamWriter<unsigned int>::PutBits(a4, *(a2 + 60), 0x20u);
+  }
+
+  if (a4[7] + 8 * (a4[4] - a4[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v9 = "Cannot pack blkData.channelLock.channelLock";
+    goto LABEL_156;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a4, *(a2 + 64), 1u);
+  if (*(a2 + 64) == 1)
+  {
+    if (a4[7] + 8 * (a4[4] - a4[2]) - 32 <= 0)
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      v9 = "Cannot pack blkData.channelLock.hasMaxDistance";
+      goto LABEL_156;
+    }
+
+    AT::TBitstreamWriter<unsigned int>::PutBits(a4, *(a2 + 65), 1u);
+    if (*(a2 + 65) == 1)
+    {
+      if (a4[7] + 8 * (a4[4] - a4[2]) - 32 <= 31)
+      {
+        exception = __cxa_allocate_exception(8uLL);
+        v9 = "Cannot pack blkData.channelLock.maxDistance";
+        goto LABEL_156;
+      }
+
+      AT::TBitstreamWriter<unsigned int>::PutBits(a4, *(a2 + 68), 0x20u);
+    }
+  }
+
+  if (a4[7] + 8 * (a4[4] - a4[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v9 = "Cannot pack blkData.objectDivergence.hasData";
+    goto LABEL_156;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a4, *(a2 + 72), 1u);
+  if (*(a2 + 72) == 1)
+  {
+    if (a4[7] + 8 * (a4[4] - a4[2]) - 32 <= 31)
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      v9 = "Cannot pack blkData.objectDivergence.objectDivergence";
+      goto LABEL_156;
+    }
+
+    AT::TBitstreamWriter<unsigned int>::PutBits(a4, *(a2 + 76), 0x20u);
+    if (a4[7] + 8 * (a4[4] - a4[2]) - 32 <= 31)
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      v9 = "Cannot pack blkData.objectDivergence.positionOrAzimuthRange";
+      goto LABEL_156;
+    }
+
+    AT::TBitstreamWriter<unsigned int>::PutBits(a4, *(a2 + 88), 0x20u);
+  }
+
+  if (a4[7] + 8 * (a4[4] - a4[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v9 = "Cannot pack blkData.screenRef";
+    goto LABEL_156;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a4, *(a2 + 92), 1u);
+  v10 = a3;
+  v12 = a3 == 1;
+  v11 = HIBYTE(a3);
+  v12 = v12 && v11 == 1;
+  v13 = v12;
+  if (v12)
+  {
+    if (a4[7] + 8 * (a4[4] - a4[2]) - 32 <= 0)
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      v9 = "Cannot pack blkData.importance.hasData";
+      goto LABEL_156;
+    }
+
+    AT::TBitstreamWriter<unsigned int>::PutBits(a4, *(a2 + 93), 1u);
+    if (*(a2 + 93) == 1)
+    {
+      if (a4[7] + 8 * (a4[4] - a4[2]) - 32 <= 3)
+      {
+        exception = __cxa_allocate_exception(8uLL);
+        v9 = "Cannot pack blkData.importance.importance";
+        goto LABEL_156;
+      }
+
+      AT::TBitstreamWriter<unsigned int>::PutBits(a4, *(a2 + 94), 4u);
+    }
+  }
+
+  if (a4[7] + 8 * (a4[4] - a4[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v9 = "Cannot pack blkData.headLocked";
+    goto LABEL_156;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a4, *(a2 + 95), 1u);
+  if (a4[7] + 8 * (a4[4] - a4[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v9 = "Cannot pack blkData.headphoneVirtualize.hasData";
+    goto LABEL_156;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a4, *(a2 + 96), 1u);
+  if (*(a2 + 96) == 1)
+  {
+    if (a4[7] + 8 * (a4[4] - a4[2]) - 32 <= 0)
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      v9 = "Cannot pack blkData.headphoneVirtualize.bypass";
+      goto LABEL_156;
+    }
+
+    AT::TBitstreamWriter<unsigned int>::PutBits(a4, *(a2 + 97), 1u);
+    if (a4[7] + 8 * (a4[4] - a4[2]) - 32 <= 31)
+    {
+      exception = __cxa_allocate_exception(8uLL);
+      v9 = "Cannot pack blkData.headphoneVirtualize.DRR";
+      goto LABEL_156;
+    }
+
+    AT::TBitstreamWriter<unsigned int>::PutBits(a4, *(a2 + 100), 0x20u);
+  }
+
+  if (v13)
+  {
+    if (a4[7] + 8 * (a4[4] - a4[2]) - 32 > 3)
+    {
+      AT::TBitstreamWriter<unsigned int>::PutBits(a4, *(a2 + 106), 4u);
+      if (*(a2 + 106))
+      {
+        v14 = 0;
+        for (i = (a2 + 140); ; i += 6)
+        {
+          v16 = a4[7] + 8 * (a4[4] - a4[2]) - 32;
+          if (*(a2 + 4) == 1)
+          {
+            if (v16 <= 31)
+            {
+              goto LABEL_111;
+            }
+
+            AT::TBitstreamWriter<unsigned int>::PutBits(a4, *i, 0x20u);
+            if (a4[7] + 8 * (a4[4] - a4[2]) - 32 <= 31)
+            {
+              goto LABEL_116;
+            }
+
+            AT::TBitstreamWriter<unsigned int>::PutBits(a4, i[1], 0x20u);
+            if (a4[7] + 8 * (a4[4] - a4[2]) - 32 <= 31)
+            {
+              goto LABEL_110;
+            }
+
+            AT::TBitstreamWriter<unsigned int>::PutBits(a4, i[2], 0x20u);
+            if (a4[7] + 8 * (a4[4] - a4[2]) - 32 <= 31)
+            {
+              goto LABEL_115;
+            }
+
+            AT::TBitstreamWriter<unsigned int>::PutBits(a4, i[3], 0x20u);
+            if (a4[7] + 8 * (a4[4] - a4[2]) - 32 <= 31)
+            {
+              goto LABEL_114;
+            }
+
+            AT::TBitstreamWriter<unsigned int>::PutBits(a4, i[4], 0x20u);
+            if (a4[7] + 8 * (a4[4] - a4[2]) - 32 <= 31)
+            {
+              goto LABEL_119;
+            }
+
+            v17 = (a2 + 140 + 24 * v14 + 20);
+          }
+
+          else
+          {
+            if (v16 <= 31)
+            {
+              goto LABEL_113;
+            }
+
+            AT::TBitstreamWriter<unsigned int>::PutBits(a4, *i, 0x20u);
+            if (a4[7] + 8 * (a4[4] - a4[2]) - 32 <= 31)
+            {
+              goto LABEL_118;
+            }
+
+            AT::TBitstreamWriter<unsigned int>::PutBits(a4, i[1], 0x20u);
+            if (a4[7] + 8 * (a4[4] - a4[2]) - 32 <= 31)
+            {
+              goto LABEL_112;
+            }
+
+            AT::TBitstreamWriter<unsigned int>::PutBits(a4, i[2], 0x20u);
+            if (a4[7] + 8 * (a4[4] - a4[2]) - 32 <= 31)
+            {
+              goto LABEL_117;
+            }
+
+            v17 = i + 3;
+          }
+
+          AT::TBitstreamWriter<unsigned int>::PutBits(a4, *v17, 0x20u);
+          if (++v14 >= *(a2 + 106))
+          {
+            return;
+          }
+        }
+      }
+
+      return;
+    }
+
+    goto LABEL_138;
+  }
+
+  if (v10 != 1 || v11 != 2)
+  {
+    return;
+  }
+
+  if (a4[7] + 8 * (a4[4] - a4[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v9 = "Cannot pack blkData.zoneExclusion.isZoneDefined";
+    goto LABEL_156;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a4, *(a2 + 104), 1u);
+  if (*(a2 + 104) != 1)
+  {
+    return;
+  }
+
+  if (a4[7] + 8 * (a4[4] - a4[2]) - 32 <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v9 = "Cannot pack blkData.zoneExclusion.keepPreviousZone";
+LABEL_156:
+    *exception = v9;
+    __cxa_throw(exception, MEMORY[0x1E69E53D8], 0);
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a4, *(a2 + 105), 1u);
+  if (*(a2 + 105))
+  {
+    return;
+  }
+
+  if (a4[7] + 8 * (a4[4] - a4[2]) - 32 <= 3)
+  {
+LABEL_138:
+    exception = __cxa_allocate_exception(8uLL);
+    v9 = "Cannot pack blkData.zoneExclusion.numZones";
+    goto LABEL_156;
+  }
+
+  AT::TBitstreamWriter<unsigned int>::PutBits(a4, *(a2 + 106), 4u);
+  if (*(a2 + 106))
+  {
+    v18 = (a2 + 140);
+    v19 = a2 + 160;
+    v20 = 122;
+    do
+    {
+      if (a4[7] + 8 * (a4[4] - a4[2]) - 32 <= 0)
+      {
+        exception = __cxa_allocate_exception(8uLL);
+        v9 = "Cannot pack blkData.zoneExclusion.usePreDefinedZone[w]";
+        goto LABEL_156;
+      }
+
+      AT::TBitstreamWriter<unsigned int>::PutBits(a4, *(v19 + v20 - 175), 1u);
+      if (*(v19 + v20 - 175) == 1)
+      {
+        if (a4[7] + 8 * (a4[4] - a4[2]) - 32 <= 3)
+        {
+          exception = __cxa_allocate_exception(8uLL);
+          v9 = "Cannot pack blkData.zoneExclusion.zoneIndex[w]";
+          goto LABEL_156;
+        }
+
+        v21 = *(a2 + v20);
+        v22 = a4;
+        v23 = 4;
+      }
+
+      else
+      {
+        v24 = a4[7] + 8 * (a4[4] - a4[2]) - 32;
+        if (*(a2 + 4) == 1)
+        {
+          if (v24 <= 31)
+          {
+LABEL_111:
+            exception = __cxa_allocate_exception(8uLL);
+            v9 = "Cannot pack blkData.zoneExclusion.zone[w].co_tu.cartesian.minX";
+            goto LABEL_156;
+          }
+
+          AT::TBitstreamWriter<unsigned int>::PutBits(a4, *v18, 0x20u);
+          if (a4[7] + 8 * (a4[4] - a4[2]) - 32 <= 31)
+          {
+LABEL_116:
+            exception = __cxa_allocate_exception(8uLL);
+            v9 = "Cannot pack blkData.zoneExclusion.zone[w].co_tu.cartesian.maxX";
+            goto LABEL_156;
+          }
+
+          AT::TBitstreamWriter<unsigned int>::PutBits(a4, v18[1], 0x20u);
+          if (a4[7] + 8 * (a4[4] - a4[2]) - 32 <= 31)
+          {
+LABEL_110:
+            exception = __cxa_allocate_exception(8uLL);
+            v9 = "Cannot pack blkData.zoneExclusion.zone[w].co_tu.cartesian.minY";
+            goto LABEL_156;
+          }
+
+          AT::TBitstreamWriter<unsigned int>::PutBits(a4, v18[2], 0x20u);
+          if (a4[7] + 8 * (a4[4] - a4[2]) - 32 <= 31)
+          {
+LABEL_115:
+            exception = __cxa_allocate_exception(8uLL);
+            v9 = "Cannot pack blkData.zoneExclusion.zone[w].co_tu.cartesian.maxY";
+            goto LABEL_156;
+          }
+
+          AT::TBitstreamWriter<unsigned int>::PutBits(a4, v18[3], 0x20u);
+          if (a4[7] + 8 * (a4[4] - a4[2]) - 32 <= 31)
+          {
+LABEL_114:
+            exception = __cxa_allocate_exception(8uLL);
+            v9 = "Cannot pack blkData.zoneExclusion.zone[w].co_tu.cartesian.minZ";
+            goto LABEL_156;
+          }
+
+          AT::TBitstreamWriter<unsigned int>::PutBits(a4, v18[4], 0x20u);
+          if (a4[7] + 8 * (a4[4] - a4[2]) - 32 <= 31)
+          {
+LABEL_119:
+            exception = __cxa_allocate_exception(8uLL);
+            v9 = "Cannot pack blkData.zoneExclusion.zone[w].co_tu.cartesian.maxZ";
+            goto LABEL_156;
+          }
+
+          v21 = v18[5];
+        }
+
+        else
+        {
+          if (v24 <= 31)
+          {
+LABEL_113:
+            exception = __cxa_allocate_exception(8uLL);
+            v9 = "Cannot pack blkData.zoneExclusion.zone[w].co_tu.spherical.minAzimuth";
+            goto LABEL_156;
+          }
+
+          AT::TBitstreamWriter<unsigned int>::PutBits(a4, *v18, 0x20u);
+          if (a4[7] + 8 * (a4[4] - a4[2]) - 32 <= 31)
+          {
+LABEL_118:
+            exception = __cxa_allocate_exception(8uLL);
+            v9 = "Cannot pack blkData.zoneExclusion.zone[w].co_tu.spherical.maxAzimuth";
+            goto LABEL_156;
+          }
+
+          AT::TBitstreamWriter<unsigned int>::PutBits(a4, v18[1], 0x20u);
+          if (a4[7] + 8 * (a4[4] - a4[2]) - 32 <= 31)
+          {
+LABEL_112:
+            exception = __cxa_allocate_exception(8uLL);
+            v9 = "Cannot pack blkData.zoneExclusion.zone[w].co_tu.spherical.minElevation";
+            goto LABEL_156;
+          }
+
+          AT::TBitstreamWriter<unsigned int>::PutBits(a4, v18[2], 0x20u);
+          if (a4[7] + 8 * (a4[4] - a4[2]) - 32 <= 31)
+          {
+LABEL_117:
+            exception = __cxa_allocate_exception(8uLL);
+            v9 = "Cannot pack blkData.zoneExclusion.zone[w].co_tu.spherical.maxElevation";
+            goto LABEL_156;
+          }
+
+          v21 = v18[3];
+        }
+
+        v22 = a4;
+        v23 = 32;
+      }
+
+      AT::TBitstreamWriter<unsigned int>::PutBits(v22, v21, v23);
+      v25 = v20 - 121;
+      ++v20;
+      v18 += 6;
+    }
+
+    while (v25 < *(a2 + 106));
+  }
+}
+
 uint64_t APAC::MetadataBitStreamPacker::packDynamicGroup(uint64_t a1, unsigned __int8 *a2, _DWORD *a3)
 {
   if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 6)
@@ -519,67 +5266,6 @@ LABEL_10:
   return AT::TBitstreamWriter<unsigned int>::PutBits(a3, v6, 2u);
 }
 
-uint64_t APAC::MetadataBitStreamPacker::packSceneReverb(uint64_t a1, unsigned __int8 *a2, _DWORD *a3)
-{
-  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 2)
-  {
-    exception = __cxa_allocate_exception(8uLL);
-    v10 = "Cannot pack sR.reverbProcIndex";
-    goto LABEL_19;
-  }
-
-  result = AT::TBitstreamWriter<unsigned int>::PutBits(a3, *a2, 3u);
-  v6 = *a2;
-  if (v6 != 2)
-  {
-    if (v6 != 1)
-    {
-      return result;
-    }
-
-    if (a3[7] + 8 * (a3[4] - a3[2]) - 32 > 9)
-    {
-      v7 = *(a2 + 1);
-      goto LABEL_9;
-    }
-
-    exception = __cxa_allocate_exception(8uLL);
-    v10 = "Cannot pack sR.reverbProcPreset";
-LABEL_19:
-    *exception = v10;
-    __cxa_throw(exception, MEMORY[0x1E69E53D8], 0);
-  }
-
-  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 3)
-  {
-    exception = __cxa_allocate_exception(8uLL);
-    v10 = "Cannot pack sR.codeBookID";
-    goto LABEL_19;
-  }
-
-  AT::TBitstreamWriter<unsigned int>::PutBits(a3, a2[5], 4u);
-  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 9)
-  {
-    exception = __cxa_allocate_exception(8uLL);
-    v10 = "Cannot pack sR.IRFilterID";
-    goto LABEL_19;
-  }
-
-  v7 = *(a2 + 3);
-LABEL_9:
-  AT::TBitstreamWriter<unsigned int>::PutBits(a3, v7, 0xAu);
-  if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 6)
-  {
-    exception = __cxa_allocate_exception(8uLL);
-    v10 = "Cannot pack sR.mixLevel";
-    goto LABEL_19;
-  }
-
-  v8 = a2[4];
-
-  return AT::TBitstreamWriter<unsigned int>::PutBits(a3, v8, 7u);
-}
-
 uint64_t APAC::MetadataBitStreamPacker::packStaticGroup(uint64_t a1, unsigned __int8 *a2, _DWORD *a3)
 {
   if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 6)
@@ -815,11 +5501,11 @@ void APAC::MetadataBitStreamPacker::packMetadataConfig(uint64_t a1, uint64_t a2,
 
 void APAC::MetadataBitStreamPacker::packRendererMetadataConfig(uint64_t a1, unsigned __int16 *a2, _DWORD *a3)
 {
-  v72 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 0)
   {
     exception = __cxa_allocate_exception(8uLL);
-    v32 = "Cannot pack rMdCfg.mGlobalConfig.mHasData";
+    v31 = "Cannot pack rMdCfg.mGlobalConfig.mHasData";
     goto LABEL_36;
   }
 
@@ -833,7 +5519,7 @@ void APAC::MetadataBitStreamPacker::packRendererMetadataConfig(uint64_t a1, unsi
   if (a3[7] + 8 * (a3[4] - a3[2]) - 32 <= 10)
   {
     exception = __cxa_allocate_exception(8uLL);
-    v32 = "Cannot pack rMdCfg.mGroupCount";
+    v31 = "Cannot pack rMdCfg.mGroupCount";
     goto LABEL_36;
   }
 
@@ -843,7 +5529,7 @@ void APAC::MetadataBitStreamPacker::packRendererMetadataConfig(uint64_t a1, unsi
     v8 = 0;
     v9 = 0;
     v10 = 1248 * *a2;
-    v33 = v10;
+    v32 = v10;
     while (1)
     {
       APAC::MetadataBitStreamPacker::packGroupConfig(v7, (*(a2 + 597) + v8), a3);
@@ -859,12 +5545,12 @@ void APAC::MetadataBitStreamPacker::packRendererMetadataConfig(uint64_t a1, unsi
       {
         memcpy(__dst, (v11 + v9), 0x314uLL);
         v13 = *(v12 + 792);
-        v36 = *(v12 + 800);
-        v35 = v13;
-        v37 = *(v12 + 808);
-        v39 = 0;
-        v40 = 0;
+        v35 = *(v12 + 800);
+        v34 = v13;
+        v36 = *(v12 + 808);
         v38 = 0;
+        v39 = 0;
+        v37 = 0;
         v14 = *(v12 + 816);
         v15 = *(v12 + 824);
         v16 = v15 - v14;
@@ -878,23 +5564,23 @@ void APAC::MetadataBitStreamPacker::packRendererMetadataConfig(uint64_t a1, unsi
           std::vector<APAC::UI18>::__throw_length_error[abi:ne200100]();
         }
 
+        memset(v40, 0, sizeof(v40));
+        std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v40, *(v11 + v9 + 840), *(v11 + v9 + 848), (*(v11 + v9 + 848) - *(v11 + v9 + 840)) >> 2);
         memset(v41, 0, sizeof(v41));
-        std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v41, *(v11 + v9 + 840), *(v11 + v9 + 848), (*(v11 + v9 + 848) - *(v11 + v9 + 840)) >> 2);
+        std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v41, *(v11 + v9 + 864), *(v11 + v9 + 872), (*(v11 + v9 + 872) - *(v11 + v9 + 864)) >> 2);
         memset(v42, 0, sizeof(v42));
-        std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v42, *(v11 + v9 + 864), *(v11 + v9 + 872), (*(v11 + v9 + 872) - *(v11 + v9 + 864)) >> 2);
+        std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v42, *(v11 + v9 + 888), *(v11 + v9 + 896), (*(v11 + v9 + 896) - *(v11 + v9 + 888)) >> 2);
         memset(v43, 0, sizeof(v43));
-        std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v43, *(v11 + v9 + 888), *(v11 + v9 + 896), (*(v11 + v9 + 896) - *(v11 + v9 + 888)) >> 2);
-        memset(v44, 0, sizeof(v44));
-        std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v44, *(v11 + v9 + 912), *(v11 + v9 + 920), (*(v11 + v9 + 920) - *(v11 + v9 + 912)) >> 2);
+        std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v43, *(v11 + v9 + 912), *(v11 + v9 + 920), (*(v11 + v9 + 920) - *(v11 + v9 + 912)) >> 2);
+        v44 = 0;
         v45 = 0;
         v46 = 0;
-        v47 = 0;
-        std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v45, *(v11 + v9 + 936), *(v11 + v9 + 944), (*(v11 + v9 + 944) - *(v11 + v9 + 936)) >> 2);
-        v48 = *(v11 + v9 + 960);
-        v49 = *(v11 + v9 + 968);
-        v51 = 0;
-        v52 = 0;
+        std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v44, *(v11 + v9 + 936), *(v11 + v9 + 944), (*(v11 + v9 + 944) - *(v11 + v9 + 936)) >> 2);
+        v47 = *(v11 + v9 + 960);
+        v48 = *(v11 + v9 + 968);
         v50 = 0;
+        v51 = 0;
+        v49 = 0;
         v17 = *(v11 + v9 + 976);
         v18 = *(v11 + v9 + 984);
         v19 = v18 - v17;
@@ -908,66 +5594,61 @@ void APAC::MetadataBitStreamPacker::packRendererMetadataConfig(uint64_t a1, unsi
           std::vector<APAC::UI18>::__throw_length_error[abi:ne200100]();
         }
 
+        v52 = 0;
         v53 = 0;
         v54 = 0;
-        v55 = 0;
-        std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v53, *(v11 + v9 + 1000), *(v11 + v9 + 1008), (*(v11 + v9 + 1008) - *(v11 + v9 + 1000)) >> 2);
+        std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v52, *(v11 + v9 + 1000), *(v11 + v9 + 1008), (*(v11 + v9 + 1008) - *(v11 + v9 + 1000)) >> 2);
         v20 = *(v11 + v9 + 1024);
         v21 = *(v11 + v9 + 1056);
-        v57 = *(v11 + v9 + 1040);
-        v58 = v21;
-        v56 = v20;
+        v56 = *(v11 + v9 + 1040);
+        v57 = v21;
+        v55 = v20;
         v22 = *(v11 + v9 + 1072);
         v23 = *(v11 + v9 + 1088);
         v24 = *(v11 + v9 + 1120);
-        v61 = *(v11 + v9 + 1104);
-        v62 = v24;
-        v59 = v22;
-        v60 = v23;
+        v60 = *(v11 + v9 + 1104);
+        v61 = v24;
+        v58 = v22;
+        v59 = v23;
         v25 = *(v11 + v9 + 1136);
         v26 = *(v11 + v9 + 1152);
         v27 = *(v11 + v9 + 1168);
-        *(v65 + 13) = *(v11 + v9 + 1181);
-        v64 = v26;
-        v65[0] = v27;
-        v63 = v25;
+        *(v64 + 13) = *(v11 + v9 + 1181);
+        v63 = v26;
+        v64[0] = v27;
+        v62 = v25;
         v28 = *(v11 + v9 + 1200);
-        v67 = *(v11 + v9 + 1208);
-        v66 = v28;
+        v66 = *(v11 + v9 + 1208);
+        v65 = v28;
+        v68 = 0;
         v69 = 0;
-        v70 = 0;
         __p = 0;
         v29 = std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&__p, *(v11 + v9 + 1216), *(v11 + v9 + 1224), (*(v11 + v9 + 1224) - *(v11 + v9 + 1216)) >> 2);
-        v10 = v33;
-        v71 = *(v11 + v9 + 1240);
+        v10 = v32;
+        v70 = *(v11 + v9 + 1240);
         APAC::MetadataBitStreamPacker::packRendererData(v29, __dst, a3);
         if (__p)
         {
-          v69 = __p;
+          v68 = __p;
           operator delete(__p);
         }
 
-        if (v53)
+        if (v52)
         {
-          v54 = v53;
-          operator delete(v53);
+          v53 = v52;
+          operator delete(v52);
         }
 
-        if (v50)
+        if (v49)
         {
-          v51 = v50;
-          operator delete(v50);
+          v50 = v49;
+          operator delete(v49);
         }
 
-        if (v45)
+        if (v44)
         {
-          v46 = v45;
-          operator delete(v45);
-        }
-
-        if (v44[0])
-        {
-          operator delete(v44[0]);
+          v45 = v44;
+          operator delete(v44);
         }
 
         if (v43[0])
@@ -985,10 +5666,15 @@ void APAC::MetadataBitStreamPacker::packRendererMetadataConfig(uint64_t a1, unsi
           operator delete(v41[0]);
         }
 
-        v7 = v38;
-        if (v38)
+        if (v40[0])
         {
-          operator delete(v38);
+          operator delete(v40[0]);
+        }
+
+        v7 = v37;
+        if (v37)
+        {
+          operator delete(v37);
         }
       }
 
@@ -996,19 +5682,16 @@ void APAC::MetadataBitStreamPacker::packRendererMetadataConfig(uint64_t a1, unsi
       v8 += 48;
       if (v10 == v9)
       {
-        goto LABEL_34;
+        return;
       }
     }
 
     exception = __cxa_allocate_exception(8uLL);
-    v32 = "Cannot pack rMdCfg.mRendererData[gp].mHasData";
+    v31 = "Cannot pack rMdCfg.mRendererData[gp].mHasData";
 LABEL_36:
-    *exception = v32;
+    *exception = v31;
     __cxa_throw(exception, MEMORY[0x1E69E53D8], 0);
   }
-
-LABEL_34:
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 void sub_18F67B0CC(_Unwind_Exception *a1)
@@ -1021,7 +5704,7 @@ void sub_18F67B0CC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1314,10 +5997,10 @@ uint64_t AALoudnessInfoAnalyzer::CompleteFinal(AALoudnessInfoAnalyzer *this, flo
   return 0;
 }
 
-uint64_t AALoudnessInfoAnalyzer::PushAudio(BufferedSoundCheckAnalyzer **this, unsigned int a2, const AudioBufferList *a3)
+uint64_t AALoudnessInfoAnalyzer::PushAudio(BufferedSoundCheckAnalyzer **this, int a2, const AudioBufferList *a3)
 {
   BufferedSoundCheckAnalyzer::ProcessBuffer(this[12], a2, a3, 0);
-  v5 = this[9] + a2;
+  v5 = (this[9] + a2);
   v6 = this[7];
   if (v5 >= v6)
   {
@@ -2759,7 +7442,7 @@ LABEL_360:
           v157 = v151[6];
           memset(&v289, 0, sizeof(v289));
           memset(&__p, 0, sizeof(__p));
-          if (*(v157 + 6))
+          if (*(v157 + 24))
           {
             v158 = 0;
             do
@@ -2817,7 +7500,7 @@ LABEL_360:
               ++v158;
             }
 
-            while (v158 < *(v157 + 6));
+            while (v158 < *(v157 + 24));
           }
 
           v291.__r_.__value_.__s.__data_[0] = (*(v157 + 96) << 6) + 4 * *(v157 + 97);
@@ -2911,9 +7594,9 @@ LABEL_360:
         goto LABEL_615;
       }
 
-      *(v9 + v171) = HIBYTE(v172);
+      v171[v9] = HIBYTE(v172);
       *v253 = v174;
-      *(v173 + 2) = v172;
+      v173[2] = v172;
       if (*(v169 + 40) != 2)
       {
         break;
@@ -2988,7 +7671,7 @@ LABEL_504:
             goto LABEL_615;
           }
 
-          *(a4 + v201) = HIBYTE(v202);
+          v201[a4] = HIBYTE(v202);
           v203[2] = BYTE2(v202);
           v203[3] = BYTE1(v202);
           *v253 = v204;
@@ -3063,7 +7746,7 @@ LABEL_563:
                   goto LABEL_615;
                 }
 
-                *(a4 + v222) = *(v220 + 35);
+                v222[a4] = *(v220 + 35);
                 v223[2] = *(v220 + 17);
                 v223[3] = BYTE1(*(v220 + 8));
                 v223[4] = *(v220 + 8);
@@ -3081,9 +7764,9 @@ LABEL_563:
 
                 v226 = v220[6];
                 memset(&v290, 0, sizeof(v290));
-                if (v226[2])
+                if (*(v226 + 16))
                 {
-                  v227 = v226[2];
+                  v227 = *(v226 + 16);
                 }
 
                 else
@@ -3092,9 +7775,9 @@ LABEL_563:
                 }
 
                 std::string::basic_string[abi:ne200100]<0>(&__p, v227);
-                if (v226[3])
+                if (*(v226 + 24))
                 {
-                  v228 = v226[3];
+                  v228 = *(v226 + 24);
                 }
 
                 else
@@ -3228,9 +7911,9 @@ LABEL_592:
 
         v205 = v199[6];
         memset(&v288, 0, sizeof(v288));
-        if (v205[2])
+        if (*(v205 + 16))
         {
-          v206 = v205[2];
+          v206 = *(v205 + 16);
         }
 
         else
@@ -3239,9 +7922,9 @@ LABEL_592:
         }
 
         std::string::basic_string[abi:ne200100]<0>(&__p, v206);
-        if (v205[3])
+        if (*(v205 + 24))
         {
-          v207 = v205[3];
+          v207 = *(v205 + 24);
         }
 
         else
@@ -3307,11 +7990,11 @@ LABEL_525:
         v290.__r_.__value_.__s.__data_[0] = 0;
         std::vector<unsigned char>::push_back[abi:ne200100](&v288, &v290);
 LABEL_526:
-        v209 = v205[4];
+        v209 = *(v205 + 32);
         if (v209 && *v209)
         {
           std::string::basic_string[abi:ne200100]<0>(&v290, "AC_");
-          std::string::basic_string[abi:ne200100]<0>(&v289, *v205[4]);
+          std::string::basic_string[abi:ne200100]<0>(&v289, **(v205 + 32));
           if (SHIBYTE(v289.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(v289.__r_.__value_.__l.__data_);
@@ -3850,7 +8533,7 @@ LABEL_615:
   return v103;
 }
 
-void sub_18F67DEBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, void *__p, uint64_t a60, int a61, __int16 a62, char a63)
+void sub_18F67DEBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, void *__p, uint64_t a60, int a61, __int16 a62, char a63)
 {
   if (*(v64 - 137) < 0)
   {
@@ -3873,9 +8556,9 @@ void sub_18F67DEBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 uint64_t anonymous namespace::parse_content_id(const void **a1, const std::string *a2)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v4 = a1 + 23;
-  v5 = (a1 + 1);
+  v5 = a1 + 1;
   if (*(a1 + 23) >= 0)
   {
     v6 = *(a1 + 23);
@@ -3886,27 +8569,27 @@ uint64_t anonymous namespace::parse_content_id(const void **a1, const std::strin
     v6 = a1[1];
   }
 
-  v25 = 0;
-  v7 = std::string::basic_string(v27, a2, 0, v6, &v24);
-  v8 = v27[23];
-  if (v27[23] >= 0)
+  v24 = 0;
+  v7 = std::string::basic_string(v26, a2, 0, v6, &v23);
+  v8 = v26[23];
+  if (v26[23] >= 0)
   {
-    v9 = v27[23];
+    v9 = v26[23];
   }
 
   else
   {
-    v9 = *&v27[8];
+    v9 = *&v26[8];
   }
 
   v10 = *v4;
   v11 = v10;
-  if ((v10 & 0x80u) != 0)
+  if (v10 < 0)
   {
     v10 = *v5;
   }
 
-  if (v9 != v10 || (v27[23] >= 0 ? (v12 = v27) : (v12 = *v27), v11 >= 0 ? (v13 = a1) : (v13 = *a1), v7 = memcmp(v12, v13, v9), v7))
+  if (v9 != v10 || (v26[23] >= 0 ? (v12 = v26) : (v12 = *v26), v11 >= 0 ? (v13 = a1) : (v13 = *a1), v7 = memcmp(v12, v13, v9), v7))
   {
     v14 = 1;
     if ((v8 & 0x80) == 0)
@@ -3915,38 +8598,38 @@ uint64_t anonymous namespace::parse_content_id(const void **a1, const std::strin
     }
 
 LABEL_34:
-    operator delete(*v27);
+    operator delete(*v26);
     if (v14)
     {
       goto LABEL_19;
     }
 
 LABEL_35:
-    v19 = v25 & 0xFF00;
-    v18 = v25;
+    v19 = v24 & 0xFF00;
+    v18 = v24;
     v20 = 0x10000;
-    goto LABEL_36;
+    return v19 | v18 | v20;
   }
 
-  std::string::basic_string(&v24, a2, v6, 0xFFFFFFFFFFFFFFFFLL, &v26);
-  if ((v24.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  std::string::basic_string(&v23, a2, v6, 0xFFFFFFFFFFFFFFFFLL, &v25);
+  if ((v23.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v21 = &v24;
+    v21 = &v23;
   }
 
   else
   {
-    v21 = v24.__r_.__value_.__r.__words[0];
+    v21 = v23.__r_.__value_.__r.__words[0];
   }
 
-  v7 = sscanf(v21, "%04hx", &v25);
+  v7 = sscanf(v21, "%04hx", &v24);
   v14 = v7 != 1;
-  if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v24.__r_.__value_.__l.__data_);
+    operator delete(v23.__r_.__value_.__l.__data_);
   }
 
-  if ((v27[23] & 0x80) != 0)
+  if ((v26[23] & 0x80) != 0)
   {
     goto LABEL_34;
   }
@@ -3980,22 +8663,20 @@ LABEL_19:
       v17 = *a1;
     }
 
-    *v27 = 136315906;
-    *&v27[4] = "AudioMetadataSerializer.cpp";
-    *&v27[12] = 1024;
-    *&v27[14] = 2119;
-    *&v27[18] = 2080;
-    *&v27[20] = v16;
-    v28 = 2080;
-    v29 = v17;
-    _os_log_impl(&dword_18F5DF000, v15, OS_LOG_TYPE_ERROR, "%25s:%-5d Content ID '%s' does not match expected pattern '%snnnn'", v27, 0x26u);
+    *v26 = 136315906;
+    *&v26[4] = "AudioMetadataSerializer.cpp";
+    *&v26[12] = 1024;
+    *&v26[14] = 2119;
+    *&v26[18] = 2080;
+    *&v26[20] = v16;
+    v27 = 2080;
+    v28 = v17;
+    _os_log_impl(&dword_18F5DF000, v15, OS_LOG_TYPE_ERROR, "%25s:%-5d Content ID '%s' does not match expected pattern '%snnnn'", v26, 0x26u);
   }
 
   v18 = 0;
   v19 = 0;
   v20 = 0;
-LABEL_36:
-  v22 = *MEMORY[0x1E69E9840];
   return v19 | v18 | v20;
 }
 
@@ -4070,7 +8751,48 @@ uint64_t anonymous namespace::determine_element_status(int a1, uint64_t a2, char
   }
 }
 
-uint64_t *std::map<unsigned short,anonymous namespace::ElementRef<AudioMetadataContent>>::operator[](uint64_t a1, unsigned __int16 *a2)
+uint64_t *std::map<unsigned short,anonymous namespace::ElementRef<AudioMetadataContent>>::operator[](uint64_t **a1, _WORD *a2)
+{
+  v2 = a1[1];
+  if (!v2)
+  {
+LABEL_8:
+    operator new();
+  }
+
+  v3 = *a2;
+  while (1)
+  {
+    while (1)
+    {
+      v4 = v2;
+      v5 = *(v2 + 16);
+      if (v3 >= v5)
+      {
+        break;
+      }
+
+      v2 = *v4;
+      if (!*v4)
+      {
+        goto LABEL_8;
+      }
+    }
+
+    if (v5 >= v3)
+    {
+      return v4 + 5;
+    }
+
+    v2 = v4[1];
+    if (!v2)
+    {
+      goto LABEL_8;
+    }
+  }
+}
+
+uint64_t *std::map<unsigned short,anonymous namespace::ElementRef<AudioMetadataObject>>::operator[](uint64_t a1, _WORD *a2)
 {
   v2 = *(a1 + 8);
   if (!v2)
@@ -4111,48 +8833,7 @@ LABEL_8:
   }
 }
 
-uint64_t *std::map<unsigned short,anonymous namespace::ElementRef<AudioMetadataObject>>::operator[](uint64_t a1, unsigned __int16 *a2)
-{
-  v2 = *(a1 + 8);
-  if (!v2)
-  {
-LABEL_8:
-    operator new();
-  }
-
-  v3 = *a2;
-  while (1)
-  {
-    while (1)
-    {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
-      {
-        break;
-      }
-
-      v2 = *v4;
-      if (!*v4)
-      {
-        goto LABEL_8;
-      }
-    }
-
-    if (v5 >= v3)
-    {
-      return v4 + 5;
-    }
-
-    v2 = v4[1];
-    if (!v2)
-    {
-      goto LABEL_8;
-    }
-  }
-}
-
-uint64_t anonymous namespace::gather_elements_from_object(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned int a5, double a6, double a7, double a8)
+uint64_t anonymous namespace::gather_elements_from_object(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned int a5, double a6, double a7, double a8)
 {
   v17 = a3;
   v18 = a1;
@@ -4174,14 +8855,14 @@ uint64_t anonymous namespace::gather_elements_from_object(void *a1, uint64_t a2,
   if (v21)
   {
     v9 = 0;
-    v22 = a1 + 16;
-    v188 = a1 + 22;
-    v190 = (a1 + 13);
+    v22 = (a1 + 128);
+    v188 = (a1 + 176);
+    v190 = a1 + 104;
     v12 = a6 + a7;
     v23 = a6 - a8;
-    v183 = a1 + 25;
-    v184 = a1 + 10;
-    v186 = a1 + 19;
+    v183 = (a1 + 200);
+    v184 = (a1 + 80);
+    v186 = (a1 + 152);
     v8 = "ATU_";
     v10 = 255;
     while (1)
@@ -5409,4538 +10090,4 @@ LABEL_324:
   }
 
   return v189 & 1;
-}
-
-void sub_18F67F780(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *__p, uint64_t a32, int a33, __int16 a34, char a35, char a36)
-{
-  if (*(v36 - 161) < 0)
-  {
-    operator delete(*(v36 - 184));
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t anonymous namespace::parse_format_id(const void **a1, const std::string *a2)
-{
-  v30 = *MEMORY[0x1E69E9840];
-  v4 = a1 + 23;
-  v5 = (a1 + 1);
-  if (*(a1 + 23) >= 0)
-  {
-    v6 = *(a1 + 23);
-  }
-
-  else
-  {
-    v6 = a1[1];
-  }
-
-  v25 = 0;
-  v7 = std::string::basic_string(v27, a2, 0, v6, &v24);
-  v8 = v27[23];
-  if (v27[23] >= 0)
-  {
-    v9 = v27[23];
-  }
-
-  else
-  {
-    v9 = *&v27[8];
-  }
-
-  v10 = *v4;
-  v11 = v10;
-  if ((v10 & 0x80u) != 0)
-  {
-    v10 = *v5;
-  }
-
-  if (v9 != v10 || (v27[23] >= 0 ? (v12 = v27) : (v12 = *v27), v11 >= 0 ? (v13 = a1) : (v13 = *a1), v7 = memcmp(v12, v13, v9), v7))
-  {
-    v14 = 1;
-    if ((v8 & 0x80) == 0)
-    {
-      goto LABEL_18;
-    }
-
-LABEL_34:
-    operator delete(*v27);
-    if (v14)
-    {
-      goto LABEL_19;
-    }
-
-LABEL_35:
-    v19 = v25 & 0xFFFFFF00;
-    v18 = v25;
-    v20 = 0x100000000;
-    goto LABEL_36;
-  }
-
-  std::string::basic_string(&v24, a2, v6, 0xFFFFFFFFFFFFFFFFLL, &v26);
-  if ((v24.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    v21 = &v24;
-  }
-
-  else
-  {
-    v21 = v24.__r_.__value_.__r.__words[0];
-  }
-
-  v7 = sscanf(v21, "%08x", &v25);
-  v14 = v7 != 1;
-  if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v24.__r_.__value_.__l.__data_);
-  }
-
-  if ((v27[23] & 0x80) != 0)
-  {
-    goto LABEL_34;
-  }
-
-LABEL_18:
-  if (!v14)
-  {
-    goto LABEL_35;
-  }
-
-LABEL_19:
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
-  {
-    if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v16 = a2;
-    }
-
-    else
-    {
-      v16 = a2->__r_.__value_.__r.__words[0];
-    }
-
-    if (*(a1 + 23) >= 0)
-    {
-      v17 = a1;
-    }
-
-    else
-    {
-      v17 = *a1;
-    }
-
-    *v27 = 136315906;
-    *&v27[4] = "AudioMetadataSerializer.cpp";
-    *&v27[12] = 1024;
-    *&v27[14] = 2133;
-    *&v27[18] = 2080;
-    *&v27[20] = v16;
-    v28 = 2080;
-    v29 = v17;
-    _os_log_impl(&dword_18F5DF000, v15, OS_LOG_TYPE_ERROR, "%25s:%-5d Format ID '%s' does not match expected pattern '%sxxxxyyyy'", v27, 0x26u);
-  }
-
-  v18 = 0;
-  v19 = 0;
-  v20 = 0;
-LABEL_36:
-  v22 = *MEMORY[0x1E69E9840];
-  return v20 | v19 | v18;
-}
-
-void sub_18F67FA24(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20)
-{
-  if (a20 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-unint64_t anonymous namespace::parse_track_format_id(const void **a1, const std::string *a2)
-{
-  v30 = *MEMORY[0x1E69E9840];
-  v4 = a1 + 23;
-  v5 = (a1 + 1);
-  if (*(a1 + 23) >= 0)
-  {
-    v6 = *(a1 + 23);
-  }
-
-  else
-  {
-    v6 = a1[1];
-  }
-
-  v25 = 0;
-  v24 = 0;
-  v7 = std::string::basic_string(v27, a2, 0, v6, &v23);
-  v8 = v27[23];
-  if (v27[23] >= 0)
-  {
-    v9 = v27[23];
-  }
-
-  else
-  {
-    v9 = *&v27[8];
-  }
-
-  v10 = *v4;
-  v11 = v10;
-  if ((v10 & 0x80u) != 0)
-  {
-    v10 = *v5;
-  }
-
-  if (v9 != v10 || (v27[23] >= 0 ? (v12 = v27) : (v12 = *v27), v11 >= 0 ? (v13 = a1) : (v13 = *a1), v7 = memcmp(v12, v13, v9), v7))
-  {
-    v14 = 1;
-    if ((v8 & 0x80) == 0)
-    {
-      goto LABEL_18;
-    }
-
-LABEL_34:
-    operator delete(*v27);
-    if (v14)
-    {
-      goto LABEL_19;
-    }
-
-LABEL_35:
-    v19 = v25 & 0xFFFFFF00 | (v24 << 32);
-    v18 = v25;
-    goto LABEL_36;
-  }
-
-  std::string::basic_string(&v23, a2, v6, 0xFFFFFFFFFFFFFFFFLL, &v26);
-  if ((v23.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    v20 = &v23;
-  }
-
-  else
-  {
-    v20 = v23.__r_.__value_.__r.__words[0];
-  }
-
-  v7 = sscanf(v20, "%08x_%02hhx", &v25, &v24);
-  v14 = v7 != 2;
-  if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v23.__r_.__value_.__l.__data_);
-  }
-
-  if ((v27[23] & 0x80) != 0)
-  {
-    goto LABEL_34;
-  }
-
-LABEL_18:
-  if (!v14)
-  {
-    goto LABEL_35;
-  }
-
-LABEL_19:
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
-  {
-    if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v16 = a2;
-    }
-
-    else
-    {
-      v16 = a2->__r_.__value_.__r.__words[0];
-    }
-
-    if (*(a1 + 23) >= 0)
-    {
-      v17 = a1;
-    }
-
-    else
-    {
-      v17 = *a1;
-    }
-
-    *v27 = 136315906;
-    *&v27[4] = "AudioMetadataSerializer.cpp";
-    *&v27[12] = 1024;
-    *&v27[14] = 2148;
-    *&v27[18] = 2080;
-    *&v27[20] = v16;
-    v28 = 2080;
-    v29 = v17;
-    _os_log_impl(&dword_18F5DF000, v15, OS_LOG_TYPE_ERROR, "%25s:%-5d Format ID '%s' does not match expected pattern '%sxxxxyyyy_zz'", v27, 0x26u);
-  }
-
-  v18 = 0;
-  v19 = 0;
-LABEL_36:
-  v21 = *MEMORY[0x1E69E9840];
-  return v19 | v18;
-}
-
-void sub_18F67FC78(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22)
-{
-  if (a22 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t *std::map<std::tuple<unsigned int,unsigned char>,anonymous namespace::ElementRef<AudioMetadataTrackFormat>>::operator[](uint64_t a1, unsigned int *a2)
-{
-  v2 = *(a1 + 8);
-  if (!v2)
-  {
-LABEL_20:
-    operator new();
-  }
-
-  v3 = *a2;
-  v4 = *(a2 + 4);
-  while (1)
-  {
-    v5 = v2;
-    v6 = *(v2 + 8);
-    if (v3 != v6)
-    {
-      break;
-    }
-
-    v7 = *(v5 + 36);
-    if (v4 < v7)
-    {
-LABEL_13:
-      v2 = *v5;
-      if (!*v5)
-      {
-        goto LABEL_20;
-      }
-    }
-
-    else
-    {
-      v8 = v7 == v4;
-      if (v7 >= v4)
-      {
-        v9 = 1;
-      }
-
-      else
-      {
-        v9 = -1;
-      }
-
-      if (v8)
-      {
-        v9 = 0;
-      }
-
-      if ((v9 & 0x80) == 0)
-      {
-        return (v5 + 5);
-      }
-
-LABEL_19:
-      v2 = v5[1];
-      if (!v2)
-      {
-        goto LABEL_20;
-      }
-    }
-  }
-
-  if (v3 < v6)
-  {
-    goto LABEL_13;
-  }
-
-  if (v6 >= v3)
-  {
-    v10 = 1;
-  }
-
-  else
-  {
-    v10 = -1;
-  }
-
-  if (v10 < 0)
-  {
-    goto LABEL_19;
-  }
-
-  return (v5 + 5);
-}
-
-uint64_t *std::map<unsigned int,anonymous namespace::ElementRef<AudioMetadataTrackUID>>::operator[](uint64_t a1, unsigned int *a2)
-{
-  v2 = *(a1 + 8);
-  if (!v2)
-  {
-LABEL_8:
-    operator new();
-  }
-
-  v3 = *a2;
-  while (1)
-  {
-    while (1)
-    {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
-      {
-        break;
-      }
-
-      v2 = *v4;
-      if (!*v4)
-      {
-        goto LABEL_8;
-      }
-    }
-
-    if (v5 >= v3)
-    {
-      return v4 + 5;
-    }
-
-    v2 = v4[1];
-    if (!v2)
-    {
-      goto LABEL_8;
-    }
-  }
-}
-
-BOOL anonymous namespace::encode_var_uint(unint64_t this, uint64_t a2, unsigned __int8 *a3, unint64_t *a4)
-{
-  v19 = 0u;
-  memset(v18, 0, sizeof(v18));
-  do
-  {
-    v17 = this & 0x7F;
-    std::deque<unsigned char>::push_back(v18, &v17);
-    v8 = this > 0x7F;
-    this >>= 7;
-  }
-
-  while (v8);
-  v9 = *(&v19 + 1);
-  if (*(&v19 + 1))
-  {
-    while (1)
-    {
-      v10 = v9 - 1;
-      v11 = *(*(*(&v18[0] + 1) + (((v19 + v10) >> 9) & 0x7FFFFFFFFFFFF8)) + ((v19 + v10) & 0xFFF));
-      *(&v19 + 1) = v10;
-      std::deque<unsigned char>::__maybe_remove_back_spare[abi:ne200100](v18);
-      v12 = *a3;
-      v13 = *a3 + 1;
-      v14 = v13 <= a4;
-      if (v13 > a4)
-      {
-        break;
-      }
-
-      v9 = *(&v19 + 1);
-      v15 = v11 | 0x80;
-      if (!*(&v19 + 1))
-      {
-        v15 = v11;
-      }
-
-      *a3 = v13;
-      *(a2 + v12) = v15;
-      if (!v9)
-      {
-        goto LABEL_8;
-      }
-    }
-  }
-
-  else
-  {
-LABEL_8:
-    v14 = 1;
-  }
-
-  std::deque<unsigned char>::~deque[abi:ne200100](v18);
-  return v14;
-}
-
-void sub_18F67FF8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
-{
-  va_start(va, a3);
-  std::deque<unsigned char>::~deque[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-void anonymous namespace::encode_string(const char *a1, uint64_t a2)
-{
-  if (a1)
-  {
-    v3 = a1;
-    v4 = strlen(a1);
-    for (; v4; --v4)
-    {
-      v5 = *v3++;
-      v6 = v5;
-      std::vector<unsigned char>::push_back[abi:ne200100](a2, &v6);
-    }
-  }
-
-  else
-  {
-  }
-}
-
-void anonymous namespace::encode_content_ids(__int16 **a1, uint64_t a2)
-{
-  v5 = *a1;
-  v4 = a1[1];
-  while (v5 != v4)
-  {
-    v6 = *v5++;
-    v8 = HIBYTE(v6);
-    std::vector<unsigned char>::push_back[abi:ne200100](a2, &v8);
-    v7 = v6;
-    std::vector<unsigned char>::push_back[abi:ne200100](a2, &v7);
-  }
-}
-
-void std::vector<unsigned short>::push_back[abi:ne200100](uint64_t a1, _WORD *a2)
-{
-  v5 = *(a1 + 8);
-  v4 = *(a1 + 16);
-  if (v5 >= v4)
-  {
-    v7 = *a1;
-    v8 = v5 - *a1;
-    v9 = v8 >> 1;
-    if (v8 >> 1 <= -2)
-    {
-      std::vector<APAC::UI18>::__throw_length_error[abi:ne200100]();
-    }
-
-    v10 = v4 - v7;
-    if (v10 <= v9 + 1)
-    {
-      v11 = v9 + 1;
-    }
-
-    else
-    {
-      v11 = v10;
-    }
-
-    if (v10 >= 0x7FFFFFFFFFFFFFFELL)
-    {
-      v12 = 0x7FFFFFFFFFFFFFFFLL;
-    }
-
-    else
-    {
-      v12 = v11;
-    }
-
-    if (v12)
-    {
-      std::allocator<APAC::UI13>::allocate_at_least[abi:ne200100](v12);
-    }
-
-    v13 = (2 * v9);
-    v14 = *a2;
-    v15 = &v13[-(v8 >> 1)];
-    *v13 = v14;
-    v6 = v13 + 1;
-    memcpy(v15, v7, v8);
-    v16 = *a1;
-    *a1 = v15;
-    *(a1 + 8) = v6;
-    *(a1 + 16) = 0;
-    if (v16)
-    {
-      operator delete(v16);
-    }
-  }
-
-  else
-  {
-    *v5 = *a2;
-    v6 = v5 + 1;
-  }
-
-  *(a1 + 8) = v6;
-}
-
-void std::vector<unsigned char>::push_back[abi:ne200100](uint64_t a1, _BYTE *a2)
-{
-  v4 = *(a1 + 8);
-  v3 = *(a1 + 16);
-  if (v4 >= v3)
-  {
-    v6 = *a1;
-    v7 = &v4[-*a1];
-    v8 = (v7 + 1);
-    if ((v7 + 1) < 0)
-    {
-      std::vector<APAC::UI18>::__throw_length_error[abi:ne200100]();
-    }
-
-    v9 = v3 - v6;
-    if (2 * v9 > v8)
-    {
-      v8 = 2 * v9;
-    }
-
-    if (v9 >= 0x3FFFFFFFFFFFFFFFLL)
-    {
-      v10 = 0x7FFFFFFFFFFFFFFFLL;
-    }
-
-    else
-    {
-      v10 = v8;
-    }
-
-    if (v10)
-    {
-      operator new();
-    }
-
-    v11 = &v4[-*a1];
-    *v7 = *a2;
-    v5 = v7 + 1;
-    memcpy(0, v6, v11);
-    *a1 = 0;
-    *(a1 + 8) = v7 + 1;
-    *(a1 + 16) = 0;
-    if (v6)
-    {
-      operator delete(v6);
-    }
-  }
-
-  else
-  {
-    *v4 = *a2;
-    v5 = v4 + 1;
-  }
-
-  *(a1 + 8) = v5;
-}
-
-void anonymous namespace::encode_loudness_metadata(uint64_t a1, uint64_t a2)
-{
-  v4 = *(a1 + 40) << 6;
-  v11 = v4;
-  if (*(a1 + 16) != 0.0)
-  {
-    v4 |= 0x20u;
-    v11 = v4;
-  }
-
-  if (*(a1 + 20) != 0.0)
-  {
-    v4 += 16;
-    v11 = v4;
-  }
-
-  if (*(a1 + 24) != 0.0)
-  {
-    v4 += 8;
-    v11 = v4;
-  }
-
-  if (*(a1 + 28) != 0.0)
-  {
-    v4 += 4;
-    v11 = v4;
-  }
-
-  if (*(a1 + 32) != 0.0)
-  {
-    v4 += 2;
-    v11 = v4;
-  }
-
-  if (*(a1 + 36) != 0.0)
-  {
-    v11 = v4 + 1;
-  }
-
-  std::vector<unsigned char>::push_back[abi:ne200100](a2, &v11);
-  v5 = *(a1 + 16);
-  if (v5 != 0.0)
-  {
-  }
-
-  v6 = *(a1 + 20);
-  if (v6 != 0.0)
-  {
-  }
-
-  v7 = *(a1 + 24);
-  if (v7 != 0.0)
-  {
-  }
-
-  v8 = *(a1 + 28);
-  if (v8 != 0.0)
-  {
-  }
-
-  v9 = *(a1 + 32);
-  if (v9 != 0.0)
-  {
-  }
-
-  v10 = *(a1 + 36);
-  if (v10 != 0.0)
-  {
-  }
-}
-
-void anonymous namespace::encode_float_32(uint64_t a1, float a2)
-{
-  v7 = HIBYTE(a2);
-  std::vector<unsigned char>::push_back[abi:ne200100](a1, &v7);
-  v6 = BYTE2(a2);
-  std::vector<unsigned char>::push_back[abi:ne200100](a1, &v6);
-  v5 = BYTE1(a2);
-  std::vector<unsigned char>::push_back[abi:ne200100](a1, &v5);
-  v4 = LOBYTE(a2);
-  std::vector<unsigned char>::push_back[abi:ne200100](a1, &v4);
-}
-
-void anonymous namespace::encode_float_64(uint64_t a1, double a2)
-{
-  v11 = HIBYTE(a2);
-  std::vector<unsigned char>::push_back[abi:ne200100](a1, &v11);
-  v10 = BYTE6(a2);
-  std::vector<unsigned char>::push_back[abi:ne200100](a1, &v10);
-  v9 = BYTE5(a2);
-  std::vector<unsigned char>::push_back[abi:ne200100](a1, &v9);
-  v8 = BYTE4(a2);
-  std::vector<unsigned char>::push_back[abi:ne200100](a1, &v8);
-  v7 = BYTE3(a2);
-  std::vector<unsigned char>::push_back[abi:ne200100](a1, &v7);
-  v6 = BYTE2(a2);
-  std::vector<unsigned char>::push_back[abi:ne200100](a1, &v6);
-  v5 = BYTE1(a2);
-  std::vector<unsigned char>::push_back[abi:ne200100](a1, &v5);
-  v4 = LOBYTE(a2);
-  std::vector<unsigned char>::push_back[abi:ne200100](a1, &v4);
-}
-
-BOOL anonymous namespace::encode_bytes(uint64_t a1, uint64_t a2, unsigned __int8 *a3, unint64_t *a4)
-{
-  v8 = *(a1 + 8) - *a1;
-  if (result)
-  {
-    v10 = *a3 + v8;
-    if (v10 <= a4)
-    {
-      v11 = *(a1 + 8);
-      if (v11 != *a1)
-      {
-        memmove((a2 + *a3), *a1, v11 - *a1);
-        v10 = *a3 + v8;
-      }
-
-      *a3 = v10;
-      return 1;
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-void anonymous namespace::encode_format_ids(int **a1, uint64_t a2)
-{
-  v5 = *a1;
-  v4 = a1[1];
-  while (v5 != v4)
-  {
-    v6 = *v5++;
-    v10 = HIBYTE(v6);
-    std::vector<unsigned char>::push_back[abi:ne200100](a2, &v10);
-    v9 = BYTE2(v6);
-    std::vector<unsigned char>::push_back[abi:ne200100](a2, &v9);
-    v8 = BYTE1(v6);
-    std::vector<unsigned char>::push_back[abi:ne200100](a2, &v8);
-    v7 = v6;
-    std::vector<unsigned char>::push_back[abi:ne200100](a2, &v7);
-  }
-}
-
-void anonymous namespace::encode_string(uint64_t a1, uint64_t a2)
-{
-  v3 = a1;
-  if (*(a1 + 23) >= 0)
-  {
-    v4 = *(a1 + 23);
-  }
-
-  else
-  {
-    v4 = *(a1 + 8);
-  }
-
-  v5 = *(v3 + 1);
-  if (v3[23] >= 0)
-  {
-    v6 = v3[23];
-  }
-
-  else
-  {
-    v3 = *v3;
-    v6 = v5;
-  }
-
-  for (; v6; --v6)
-  {
-    v7 = *v3++;
-    v8 = v7;
-    std::vector<unsigned char>::push_back[abi:ne200100](a2, &v8);
-  }
-}
-
-void anonymous namespace::encode_format_id(int a1, uint64_t a2)
-{
-  v7 = HIBYTE(a1);
-  std::vector<unsigned char>::push_back[abi:ne200100](a2, &v7);
-  v6 = BYTE2(a1);
-  std::vector<unsigned char>::push_back[abi:ne200100](a2, &v6);
-  v5 = BYTE1(a1);
-  std::vector<unsigned char>::push_back[abi:ne200100](a2, &v5);
-  v4 = a1;
-  std::vector<unsigned char>::push_back[abi:ne200100](a2, &v4);
-}
-
-uint64_t anonymous namespace::encode_track_uids(uint64_t a1, int a2, uint64_t a3, unint64_t *a4, unint64_t *a5)
-{
-  v5 = *(a1 + 120);
-  v6 = (a1 + 128);
-  result = 1;
-  v35 = v6;
-  if (v5 != v6)
-  {
-    while (1)
-    {
-      if (a2 == 2)
-      {
-        v11 = *a4;
-        v12 = *a4 + 1;
-        if (v12 > a5)
-        {
-          return 0;
-        }
-
-        v13 = *(v5 + 40) << 6;
-        *a4 = v12;
-        *(a3 + v11) = v13;
-      }
-
-      if (!result)
-      {
-        return result;
-      }
-
-      if (*(v5 + 40) == 2)
-      {
-        {
-          return 0;
-        }
-      }
-
-      else
-      {
-        v14 = v5[6];
-        memset(v37, 0, sizeof(v37));
-        LOBYTE(v41) = 0;
-        v42 = 0;
-        v15 = *(v14 + 12);
-        if (v15 && *v15)
-        {
-          std::string::basic_string[abi:ne200100]<0>(v39, "AT_");
-          std::string::basic_string[abi:ne200100]<0>(&__p, **(v14 + 12));
-          v18 = v17 != 0;
-          if (v17)
-          {
-            v41 = v16;
-            v42 = 1;
-          }
-
-          if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-          {
-            operator delete(__p.__r_.__value_.__l.__data_);
-          }
-
-          if (v40 < 0)
-          {
-            operator delete(v39[0]);
-          }
-        }
-
-        else
-        {
-          v18 = 0;
-        }
-
-        v19 = *(v14 + 20);
-        if (v19 && *v19)
-        {
-          std::string::basic_string[abi:ne200100]<0>(v39, "AC_");
-          std::string::basic_string[abi:ne200100]<0>(&__p, **(v14 + 20));
-          if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-          {
-            operator delete(__p.__r_.__value_.__l.__data_);
-          }
-
-          if (v40 < 0)
-          {
-            operator delete(v39[0]);
-          }
-
-          v21 = HIDWORD(v20) != 0;
-        }
-
-        else
-        {
-          LODWORD(v20) = 0;
-          v21 = 0;
-        }
-
-        v22 = *(v14 + 28);
-        if (v22 && *v22)
-        {
-          std::string::basic_string[abi:ne200100]<0>(v39, "AP_");
-          std::string::basic_string[abi:ne200100]<0>(&__p, **(v14 + 28));
-          if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-          {
-            operator delete(__p.__r_.__value_.__l.__data_);
-          }
-
-          if (v40 < 0)
-          {
-            operator delete(v39[0]);
-          }
-
-          v24 = HIDWORD(v23) != 0;
-        }
-
-        else
-        {
-          LODWORD(v23) = 0;
-          v24 = 0;
-        }
-
-        __p.__r_.__value_.__s.__data_[0] = 0;
-        if (*(v14 + 8) == 0.0)
-        {
-          v25 = 0;
-        }
-
-        else
-        {
-          v25 = 0x80;
-          __p.__r_.__value_.__s.__data_[0] = 0x80;
-        }
-
-        v26 = *(v14 + 36);
-        if (v26)
-        {
-          v27 = 1;
-        }
-
-        else
-        {
-          v27 = v18;
-        }
-
-        if (((v24 || v21) | v27) == 1)
-        {
-          if (v26)
-          {
-            v25 |= 0x40u;
-          }
-
-          if (v18)
-          {
-            v25 |= 0x20u;
-          }
-
-          if (v21)
-          {
-            v25 |= 0x10u;
-          }
-
-          if (v24)
-          {
-            v25 += 8;
-          }
-
-          __p.__r_.__value_.__s.__data_[0] = v25;
-        }
-
-        std::vector<unsigned char>::push_back[abi:ne200100](v37, &__p);
-        v28 = *(v14 + 8);
-        if (v28 != 0.0)
-        {
-        }
-
-        v29 = *(v14 + 36);
-        if (v29)
-        {
-        }
-
-        if (v18)
-        {
-          v30 = v41;
-          LOBYTE(v39[0]) = BYTE3(v41);
-          std::vector<unsigned char>::push_back[abi:ne200100](v37, v39);
-          LOBYTE(v39[0]) = BYTE2(v30);
-          std::vector<unsigned char>::push_back[abi:ne200100](v37, v39);
-          LOBYTE(v39[0]) = BYTE1(v30);
-          std::vector<unsigned char>::push_back[abi:ne200100](v37, v39);
-          LOBYTE(v39[0]) = v30;
-          std::vector<unsigned char>::push_back[abi:ne200100](v37, v39);
-          std::vector<unsigned char>::push_back[abi:ne200100](v37, &v41 + 4);
-        }
-
-        if (v21)
-        {
-        }
-
-        if (v24)
-        {
-        }
-
-        if (v37[0])
-        {
-          operator delete(v37[0]);
-        }
-
-        if (!v31)
-        {
-          return 0;
-        }
-      }
-
-      v32 = v5[1];
-      if (v32)
-      {
-        do
-        {
-          v33 = v32;
-          v32 = *v32;
-        }
-
-        while (v32);
-      }
-
-      else
-      {
-        do
-        {
-          v33 = v5[2];
-          v34 = *v33 == v5;
-          v5 = v33;
-        }
-
-        while (!v34);
-      }
-
-      v5 = v33;
-      if (v33 == v35)
-      {
-        return 1;
-      }
-    }
-  }
-
-  return result;
-}
-
-void sub_18F680B2C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26)
-{
-  if (a20 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (a26 < 0)
-  {
-    operator delete(a21);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t anonymous namespace::encode_pack_formats(uint64_t a1, int a2, uint64_t a3, unint64_t *a4, unint64_t *a5)
-{
-  v5 = *(a1 + 144);
-  v6 = (a1 + 152);
-  if (v5 == (a1 + 152))
-  {
-    return 1;
-  }
-
-  v10 = a2;
-  v48 = (a1 + 152);
-  while (1)
-  {
-    if (v10 == 2)
-    {
-      v11 = *a4;
-      v12 = *a4 + 1;
-      if (v12 > a5)
-      {
-        return 0;
-      }
-
-      v13 = *(v5 + 40) << 6;
-      *a4 = v12;
-      *(a3 + v11) = v13;
-    }
-
-    if (!result)
-    {
-      return result;
-    }
-
-    if (*(v5 + 40) == 2)
-    {
-      {
-        return 0;
-      }
-
-      goto LABEL_107;
-    }
-
-    v15 = v5[6];
-    memset(v50, 0, sizeof(v50));
-    LOBYTE(v59[0]) = 32 * v61;
-    std::vector<unsigned char>::push_back[abi:ne200100](v50, v59);
-    if (!v61)
-    {
-    }
-
-    memset(v59, 0, sizeof(v59));
-    if (*(v15 + 28))
-    {
-      v16 = 0;
-      while (1)
-      {
-        v17 = *(*(v15 + 32) + 8 * v16);
-        std::string::basic_string[abi:ne200100]<0>(v57, "AC_");
-        std::string::basic_string[abi:ne200100]<0>(&__p, *v17);
-        LODWORD(v55.__r_.__value_.__l.__data_) = v18;
-        v19 = HIDWORD(v18);
-        v55.__r_.__value_.__s.__data_[4] = BYTE4(v18);
-        if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(__p.__r_.__value_.__l.__data_);
-        }
-
-        if ((SHIBYTE(v58) & 0x80000000) == 0)
-        {
-          break;
-        }
-
-        operator delete(v57[0]);
-        if (v19)
-        {
-          goto LABEL_20;
-        }
-
-LABEL_21:
-        if (++v16 >= *(v15 + 28))
-        {
-          goto LABEL_22;
-        }
-      }
-
-      if (!v19)
-      {
-        goto LABEL_21;
-      }
-
-LABEL_20:
-      std::vector<unsigned int>::push_back[abi:ne200100](v59, &v55);
-      goto LABEL_21;
-    }
-
-LABEL_22:
-    v57[0] = 0;
-    v57[1] = 0;
-    v58 = 0;
-    if (*(v15 + 40))
-    {
-      v20 = 0;
-      while (1)
-      {
-        v21 = *(*(v15 + 44) + 8 * v20);
-        std::string::basic_string[abi:ne200100]<0>(&__p, "AP_");
-        std::string::basic_string[abi:ne200100]<0>(&v55, *v21);
-        LODWORD(v51.__r_.__value_.__l.__data_) = v22;
-        v23 = HIDWORD(v22);
-        v51.__r_.__value_.__s.__data_[4] = BYTE4(v22);
-        if (SHIBYTE(v55.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v55.__r_.__value_.__l.__data_);
-        }
-
-        if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-        {
-          break;
-        }
-
-        operator delete(__p.__r_.__value_.__l.__data_);
-        if (v23)
-        {
-          goto LABEL_30;
-        }
-
-LABEL_31:
-        if (++v20 >= *(v15 + 40))
-        {
-          goto LABEL_32;
-        }
-      }
-
-      if (!v23)
-      {
-        goto LABEL_31;
-      }
-
-LABEL_30:
-      std::vector<unsigned int>::push_back[abi:ne200100](v57, &v51);
-      goto LABEL_31;
-    }
-
-LABEL_32:
-    v24 = *(v15 + 96);
-    if (v24 >= 0xA)
-    {
-      LOBYTE(v24) = 10;
-    }
-
-    v25 = (8 * v24) | ((*(v15 + 52) != 0.0) << 7);
-    v54 = v25;
-    if (v61 != 2)
-    {
-      if (v61 != 4)
-      {
-LABEL_60:
-        std::vector<unsigned char>::push_back[abi:ne200100](v50, &v54);
-        v10 = a2;
-        v6 = v48;
-        goto LABEL_96;
-      }
-
-      v26 = *(v15 + 60);
-      switch(v26)
-      {
-        case 3:
-          v25 |= 6u;
-          break;
-        case 2:
-          v25 |= 4u;
-          break;
-        case 1:
-          v25 |= 2u;
-          break;
-        default:
-          goto LABEL_58;
-      }
-
-      v54 = v25;
-LABEL_58:
-      if (*(v15 + 61) == 1)
-      {
-        v54 = v25 + 1;
-      }
-
-      goto LABEL_60;
-    }
-
-    v27 = *(v15 + 80);
-    if (v27 && *v27)
-    {
-      std::string::basic_string[abi:ne200100]<0>(&__p, "AP_");
-      std::string::basic_string[abi:ne200100]<0>(&v55, *v27);
-      if (SHIBYTE(v55.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v55.__r_.__value_.__l.__data_);
-      }
-
-      if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(__p.__r_.__value_.__l.__data_);
-      }
-
-      v47 = HIDWORD(v28) != 0;
-    }
-
-    else
-    {
-      LODWORD(v28) = 0;
-      v47 = 0;
-    }
-
-    v29 = *(v15 + 88);
-    v46 = v28;
-    if (!v29)
-    {
-      goto LABEL_62;
-    }
-
-    if (!*v29)
-    {
-      LODWORD(v29) = 0;
-LABEL_62:
-      v30 = 0;
-      goto LABEL_63;
-    }
-
-    std::string::basic_string[abi:ne200100]<0>(&__p, "AP_");
-    std::string::basic_string[abi:ne200100]<0>(&v55, *v29);
-    if (SHIBYTE(v55.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v55.__r_.__value_.__l.__data_);
-    }
-
-    if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(__p.__r_.__value_.__l.__data_);
-    }
-
-    v30 = HIDWORD(v29) != 0;
-LABEL_63:
-    if (v47 || v30)
-    {
-      v31 = v25 | 4;
-      if (!v47)
-      {
-        v31 = v25;
-      }
-
-      if (v30)
-      {
-        v31 |= 2u;
-      }
-
-      v54 = v31;
-    }
-
-    std::vector<unsigned char>::push_back[abi:ne200100](v50, &v54);
-    v45 = v29;
-    memset(&__p, 0, sizeof(__p));
-    if (*(v15 + 56))
-    {
-      v32 = 0;
-      while (1)
-      {
-        v33 = *(*(v15 + 60) + 8 * v32);
-        std::string::basic_string[abi:ne200100]<0>(&v55, "AP_");
-        std::string::basic_string[abi:ne200100]<0>(&v51, *v33);
-        v52 = v34;
-        v35 = HIDWORD(v34);
-        v53 = BYTE4(v34);
-        if (SHIBYTE(v51.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v51.__r_.__value_.__l.__data_);
-        }
-
-        if ((SHIBYTE(v55.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-        {
-          break;
-        }
-
-        operator delete(v55.__r_.__value_.__l.__data_);
-        if (v35)
-        {
-          goto LABEL_77;
-        }
-
-LABEL_78:
-        if (++v32 >= *(v15 + 56))
-        {
-          goto LABEL_79;
-        }
-      }
-
-      if (!v35)
-      {
-        goto LABEL_78;
-      }
-
-LABEL_77:
-      std::vector<unsigned int>::push_back[abi:ne200100](&__p, &v52);
-      goto LABEL_78;
-    }
-
-LABEL_79:
-    __p.__r_.__value_.__l.__size_ = __p.__r_.__value_.__r.__words[0];
-    if (*(v15 + 68))
-    {
-      v36 = 0;
-      while (1)
-      {
-        v37 = *(*(v15 + 72) + 8 * v36);
-        std::string::basic_string[abi:ne200100]<0>(&v55, "AP_");
-        std::string::basic_string[abi:ne200100]<0>(&v51, *v37);
-        v52 = v38;
-        v39 = HIDWORD(v38);
-        v53 = BYTE4(v38);
-        if (SHIBYTE(v51.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v51.__r_.__value_.__l.__data_);
-        }
-
-        if ((SHIBYTE(v55.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-        {
-          break;
-        }
-
-        operator delete(v55.__r_.__value_.__l.__data_);
-        if (v39)
-        {
-          goto LABEL_87;
-        }
-
-LABEL_88:
-        if (++v36 >= *(v15 + 68))
-        {
-          goto LABEL_89;
-        }
-      }
-
-      if (!v39)
-      {
-        goto LABEL_88;
-      }
-
-LABEL_87:
-      std::vector<unsigned int>::push_back[abi:ne200100](&__p, &v52);
-      goto LABEL_88;
-    }
-
-LABEL_89:
-    if (v47)
-    {
-    }
-
-    if (v30)
-    {
-    }
-
-    if (__p.__r_.__value_.__r.__words[0])
-    {
-      operator delete(__p.__r_.__value_.__l.__data_);
-    }
-
-    v10 = a2;
-    v6 = v48;
-LABEL_96:
-    v40 = *(v15 + 52);
-    if (v40 != 0.0)
-    {
-    }
-
-    if (v57[0])
-    {
-      operator delete(v57[0]);
-    }
-
-    if (v59[0])
-    {
-      operator delete(v59[0]);
-    }
-
-    if (SHIBYTE(v60.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v60.__r_.__value_.__l.__data_);
-    }
-
-    if (v50[0])
-    {
-      operator delete(v50[0]);
-    }
-
-    if (!v41)
-    {
-      return 0;
-    }
-
-LABEL_107:
-    v42 = v5[1];
-    if (v42)
-    {
-      do
-      {
-        v43 = v42;
-        v42 = *v42;
-      }
-
-      while (v42);
-    }
-
-    else
-    {
-      do
-      {
-        v43 = v5[2];
-        v44 = *v43 == v5;
-        v5 = v43;
-      }
-
-      while (!v44);
-    }
-
-    v5 = v43;
-    if (v43 == v6)
-    {
-      return 1;
-    }
-  }
-}
-
-void sub_18F6811F4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30, void *a31, uint64_t a32, int a33, __int16 a34, char a35, char a36, void *a37, uint64_t a38, int a39, __int16 a40, char a41, char a42)
-{
-  if (a30 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (a36 < 0)
-  {
-    operator delete(a31);
-  }
-
-  if (a37)
-  {
-    operator delete(a37);
-  }
-
-  v44 = *(v42 - 144);
-  if (v44)
-  {
-    operator delete(v44);
-  }
-
-  if (*(v42 - 97) < 0)
-  {
-    operator delete(*(v42 - 120));
-  }
-
-  if (a14)
-  {
-    operator delete(a14);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t anonymous namespace::encode_channel_formats(uint64_t a1, int a2, uint64_t a3, unsigned __int8 *a4, unint64_t *a5, double a6, double a7, double a8)
-{
-  v8 = *(a1 + 168);
-  v9 = (a1 + 176);
-  if (v8 == (a1 + 176))
-  {
-    return 1;
-  }
-
-  v13 = a5;
-  v14 = *&a4;
-  v15 = a3;
-  v76 = (a1 + 176);
-  while (1)
-  {
-    if (a2 == 2)
-    {
-      v17 = **&v14;
-      v18 = **&v14 + 1;
-      if (v18 > v13)
-      {
-        return 0;
-      }
-
-      v19 = *(v8 + 40) << 6;
-      **&v14 = v18;
-      *(v15 + v17) = v19;
-    }
-
-    if (!result)
-    {
-      return result;
-    }
-
-    if (*(v8 + 40) == 2)
-    {
-      break;
-    }
-
-    v21 = v8[6];
-    v22 = *(v8 + 8);
-    v23 = *(v8 + 7);
-    v81 = 0;
-    v82 = 0;
-    __src = 0;
-    __p.__r_.__value_.__s.__data_[0] = 32 * v91;
-    std::vector<unsigned char>::push_back[abi:ne200100](&__src, &__p);
-    if (!v91)
-    {
-    }
-
-    v24 = 0;
-    v25 = 0;
-    v26 = 0;
-    v27 = 0.0;
-    v28 = 0.0;
-    do
-    {
-      while (1)
-      {
-        v29 = v24;
-        v30 = v21 + 36 + 8 * v24;
-        v31 = *(v30 + 4);
-        if (v31 != 2)
-        {
-          break;
-        }
-
-        v28 = *v30;
-        v24 = 1;
-        v26 = 1;
-        if (v29)
-        {
-          if (v25)
-          {
-            v33 = 0x80;
-          }
-
-          else
-          {
-            v33 = 0;
-          }
-
-LABEL_27:
-          v33 |= 0x40u;
-          v32 = 1;
-          goto LABEL_28;
-        }
-      }
-
-      if (v31 == 1)
-      {
-        LODWORD(v27) = *v30;
-        v25 = 1;
-      }
-
-      v24 = 1;
-    }
-
-    while (!v29);
-    v32 = 0;
-    if (v25)
-    {
-      v33 = 0x80;
-    }
-
-    else
-    {
-      v33 = 0;
-    }
-
-    if (v26)
-    {
-      goto LABEL_27;
-    }
-
-LABEL_28:
-    v89 = v33;
-    std::vector<unsigned char>::push_back[abi:ne200100](&__src, &v89);
-    if (v25)
-    {
-    }
-
-    if (v32)
-    {
-    }
-
-    v86 = 0;
-    v87 = 0;
-    v88 = 0;
-    if (!*(v21 + 24))
-    {
-      v55 = 0;
-      goto LABEL_71;
-    }
-
-    v34 = 0;
-    do
-    {
-      v35 = *(*(v21 + 28) + 8 * v34);
-      std::string::basic_string[abi:ne200100]<0>(&__p, *v35);
-      if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(__p.__r_.__value_.__l.__data_);
-      }
-
-      v37 = 0.0;
-      if (*(v35 + 8) == 1)
-      {
-        v37 = *(v35 + 12);
-      }
-
-      v38 = *(v35 + 20);
-      if (v38 == 1)
-      {
-        v27 = *(v35 + 24);
-      }
-
-      else
-      {
-        *&v27 &= 0xFFFFFFFFFFFFFF00;
-      }
-
-      v39 = v23 + v37;
-      if (*(v35 + 20))
-      {
-        v40 = v39 + v27;
-      }
-
-      else
-      {
-        v40 = 0.0;
-      }
-
-      v41 = v34 + 1;
-      v42 = *(v21 + 24);
-      if (v34 + 1 >= v42)
-      {
-        v45 = 0;
-        *&v14 &= 0xFFFFFFFFFFFFFF00;
-      }
-
-      else
-      {
-        v43 = *(*(v21 + 28) + 8 * v34 + 8);
-        v44 = 0.0;
-        if (*(v43 + 8) == 1)
-        {
-          v44 = *(v43 + 12);
-        }
-
-        if (*(v43 + 20) == 1)
-        {
-          v14 = v23 + v44 + *(v43 + 24);
-          v45 = 1;
-        }
-
-        else
-        {
-          v14 = 0.0;
-          v45 = 0;
-        }
-      }
-
-      {
-        if (v85 == 1)
-        {
-          v46 = v87;
-          if (v87 < v88)
-          {
-            *v87 = 0;
-            *(v46 + 8) = 0;
-            *(v46 + 16) = 0;
-            std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(v46, v83, v84, v84 - v83);
-            v87 = (v46 + 24);
-            goto LABEL_65;
-          }
-
-          v47 = 0xAAAAAAAAAAAAAAABLL * ((v87 - v86) >> 3);
-          v48 = v47 + 1;
-          if (v47 + 1 > 0xAAAAAAAAAAAAAAALL)
-          {
-            std::vector<APAC::UI18>::__throw_length_error[abi:ne200100]();
-          }
-
-          if (0x5555555555555556 * ((v88 - v86) >> 3) > v48)
-          {
-            v48 = 0x5555555555555556 * ((v88 - v86) >> 3);
-          }
-
-          if (0xAAAAAAAAAAAAAAABLL * ((v88 - v86) >> 3) >= 0x555555555555555)
-          {
-            v49 = 0xAAAAAAAAAAAAAAALL;
-          }
-
-          else
-          {
-            v49 = v48;
-          }
-
-          v94 = &v86;
-          if (v49)
-          {
-            std::allocator<std::vector<unsigned char>>::allocate_at_least[abi:ne200100](v49);
-          }
-
-          v50 = (8 * ((v87 - v86) >> 3));
-          __p.__r_.__value_.__r.__words[0] = 0;
-          __p.__r_.__value_.__l.__size_ = v50;
-          __p.__r_.__value_.__r.__words[2] = v50;
-          v93 = 0;
-          *v50 = 0;
-          v50[1] = 0;
-          v50[2] = 0;
-          std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(24 * v47, v83, v84, v84 - v83);
-          v51 = __p.__r_.__value_.__r.__words[2] + 24;
-          v52 = (__p.__r_.__value_.__l.__size_ - (v87 - v86));
-          memcpy(v52, v86, v87 - v86);
-          v53 = v86;
-          v54 = v88;
-          v86 = v52;
-          v87 = v51;
-          v88 = v93;
-          __p.__r_.__value_.__r.__words[2] = v53;
-          v93 = v54;
-          __p.__r_.__value_.__r.__words[0] = v53;
-          __p.__r_.__value_.__l.__size_ = v53;
-          std::__split_buffer<std::vector<unsigned char>>::~__split_buffer(&__p);
-          v87 = v51;
-          if (v85)
-          {
-LABEL_65:
-            if (v83)
-            {
-              operator delete(v83);
-            }
-          }
-        }
-
-        v42 = *(v21 + 24);
-      }
-
-      ++v34;
-    }
-
-    while (v41 < v42);
-    v55 = 0xAAAAAAAAAAAAAAABLL * ((v87 - v86) >> 3);
-LABEL_71:
-    v56 = v86;
-    v57 = v87;
-    while (v56 != v57)
-    {
-      v59 = *v56;
-      v58 = *(v56 + 1);
-      v60 = &v58[-*v56];
-      if (v60 >= 1)
-      {
-        v61 = v81;
-        if (v82 - v81 >= v60)
-        {
-          while (v59 != v58)
-          {
-            v65 = *v59++;
-            *v61++ = v65;
-          }
-
-          v81 = v61;
-        }
-
-        else
-        {
-          v62 = v81 - __src + v60;
-          if (v62 < 0)
-          {
-            std::vector<APAC::UI18>::__throw_length_error[abi:ne200100]();
-          }
-
-          v63 = v82 - __src;
-          if (2 * (v82 - __src) > v62)
-          {
-            v62 = 2 * v63;
-          }
-
-          if (v63 >= 0x3FFFFFFFFFFFFFFFLL)
-          {
-            v64 = 0x7FFFFFFFFFFFFFFFLL;
-          }
-
-          else
-          {
-            v64 = v62;
-          }
-
-          if (v64)
-          {
-            operator new();
-          }
-
-          v66 = v81 - __src;
-          v67 = v81 - __src + v60;
-          v68 = (v81 - __src);
-          do
-          {
-            v69 = *v59++;
-            *v68++ = v69;
-            --v60;
-          }
-
-          while (v60);
-          v70 = __src;
-          v71 = (v66 + __src - v61);
-          memcpy(v71, __src, v61 - __src);
-          __src = v71;
-          v81 = v67;
-          v82 = 0;
-          if (v70)
-          {
-            operator delete(v70);
-          }
-        }
-      }
-
-      v56 += 24;
-    }
-
-    __p.__r_.__value_.__r.__words[0] = &v86;
-    std::vector<std::vector<unsigned char>>::__destroy_vector::operator()[abi:ne200100](&__p);
-    if (SHIBYTE(v90.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v90.__r_.__value_.__l.__data_);
-    }
-
-    v15 = a3;
-    v14 = *&a4;
-    v13 = a5;
-    v9 = v76;
-    if (__src)
-    {
-      operator delete(__src);
-    }
-
-    if (!v72)
-    {
-      return 0;
-    }
-
-LABEL_96:
-    v73 = v8[1];
-    if (v73)
-    {
-      do
-      {
-        v74 = v73;
-        v73 = *v73;
-      }
-
-      while (v73);
-    }
-
-    else
-    {
-      do
-      {
-        v74 = v8[2];
-        v75 = *v74 == v8;
-        v8 = v74;
-      }
-
-      while (!v75);
-    }
-
-    v8 = v74;
-    if (v74 == v9)
-    {
-      return 1;
-    }
-  }
-
-  {
-    goto LABEL_96;
-  }
-
-  return 0;
-}
-
-void sub_18F681994(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, uint64_t a19, char a20, int a21, __int16 a22, char a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, void *__p, uint64_t a29, int a30, __int16 a31, char a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, int a37, __int16 a38, char a39, char a40)
-{
-  if (a33 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (a14)
-  {
-    operator delete(a14);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t anonymous namespace::encode_block_formats_stand_alone(uint64_t a1, uint64_t a2, unsigned __int8 *a3, unint64_t *a4)
-{
-  v4 = *(a1 + 192);
-  v5 = (a1 + 200);
-  if (v4 == (a1 + 200))
-  {
-    return 1;
-  }
-
-  while (1)
-  {
-    v9 = *a3;
-    v10 = *a3 + 1;
-    if (v10 > a4)
-    {
-      break;
-    }
-
-    v11 = *(v4 + 40) << 6;
-    *a3 = v10;
-    *(a2 + v9) = v11;
-    v12 = *a3;
-    v13 = *a3 + 1;
-    if (v13 > a4)
-    {
-      break;
-    }
-
-    *a3 = v13;
-    *(a2 + v12) = 0x80;
-    v14 = *a3;
-    if (*a3 + 8 >= a4)
-    {
-      break;
-    }
-
-    v15 = *(v4 + 35);
-    *a3 = v14 + 1;
-    *(a2 + v14) = v15;
-    v16 = *(v4 + 17);
-    v17 = (*a3)++;
-    *(a2 + v17) = v16;
-    v18 = *(v4 + 8) >> 8;
-    v19 = (*a3)++;
-    *(a2 + v19) = v18;
-    LOBYTE(v18) = *(v4 + 8);
-    v20 = (*a3)++;
-    *(a2 + v20) = v18;
-    LOBYTE(v18) = *(v4 + 39);
-    v21 = (*a3)++;
-    *(a2 + v21) = v18;
-    LOBYTE(v18) = *(v4 + 19);
-    v22 = (*a3)++;
-    *(a2 + v22) = v18;
-    v23 = *(v4 + 9) >> 8;
-    v24 = (*a3)++;
-    *(a2 + v24) = v23;
-    LOBYTE(v23) = *(v4 + 9);
-    v25 = (*a3)++;
-    *(a2 + v25) = v23;
-    if (*(v4 + 40) == 2)
-    {
-      {
-        return 0;
-      }
-    }
-
-    else
-    {
-      if (v31 == 1)
-      {
-        {
-          if (__p[0])
-          {
-            operator delete(__p[0]);
-          }
-
-          return 0;
-        }
-
-        if (__p[0])
-        {
-          __p[1] = __p[0];
-          operator delete(__p[0]);
-        }
-      }
-    }
-
-    v26 = v4[1];
-    if (v26)
-    {
-      do
-      {
-        v27 = v26;
-        v26 = *v26;
-      }
-
-      while (v26);
-    }
-
-    else
-    {
-      do
-      {
-        v27 = v4[2];
-        v28 = *v27 == v4;
-        v4 = v27;
-      }
-
-      while (!v28);
-    }
-
-    v4 = v27;
-    if (v27 == v5)
-    {
-      return 1;
-    }
-  }
-
-  return 0;
-}
-
-void sub_18F681C54(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void std::__tree<std::__value_type<std::tuple<unsigned int,unsigned int>,anonymous namespace::BlockFormatRef>,std::__map_value_compare<std::tuple<unsigned int,unsigned int>,std::__value_type<std::tuple<unsigned int,unsigned int>,anonymous namespace::BlockFormatRef>,std::less<std::tuple<unsigned int,unsigned int>>,true>,std::allocator<std::__value_type<std::tuple<unsigned int,unsigned int>,anonymous namespace::BlockFormatRef>>>::destroy(void *a1)
-{
-  if (a1)
-  {
-
-    operator delete(a1);
-  }
-}
-
-void anonymous namespace::PacketBuilder::~PacketBuilder(_anonymous_namespace_::PacketBuilder *this)
-{
-}
-
-void anonymous namespace::encode_block_format(uint64_t a1, uint64_t a2, uint64_t a3, int a4, int a5)
-{
-  v48 = *MEMORY[0x1E69E9840];
-  v42[0] = 0;
-  v42[1] = 0;
-  v43 = 0;
-  if ((a3 & 0x100000000) != 0)
-  {
-  }
-
-  if (a5)
-  {
-    buf[0] = 32 * a4;
-    std::vector<unsigned char>::push_back[abi:ne200100](v42, buf);
-  }
-
-  v8 = 16 * *(a2 + 157);
-  v41 = v8;
-  v9 = *(a2 + 32);
-  if (*(a2 + 156))
-  {
-    v10 = 1;
-  }
-
-  else
-  {
-    v10 = v9 == 1.0;
-  }
-
-  if (!v10 || (LODWORD(v11) = 0, *(a2 + 156) == 1) && v9 != 0.0)
-  {
-    v8 |= 8u;
-    v41 = v8;
-    LODWORD(v11) = 1;
-  }
-
-  if (*(a2 + 158) == 1)
-  {
-    v8 += 4;
-    v41 = v8;
-  }
-
-  if (*(a2 + 41) == 1)
-  {
-    v41 = v8 + 1;
-    if (*(a2 + 40) == 1)
-    {
-      v41 = v8 + 3;
-    }
-  }
-
-  std::vector<unsigned char>::push_back[abi:ne200100](v42, &v41);
-  if (v11)
-  {
-    buf[0] = *(a2 + 156) << 7;
-    std::vector<unsigned char>::push_back[abi:ne200100](v42, buf);
-  }
-
-  if (*(a2 + 41) == 1)
-  {
-  }
-
-  if (a4 > 2)
-  {
-    if (a4 == 3)
-    {
-      v19 = 16 * *(a2 + 121);
-      v41 = v19;
-      if (*(a2 + 120) == 1)
-      {
-        v19 |= 8u;
-        v41 = v19;
-      }
-
-      if (*(a2 + 56) == 1)
-      {
-        v19 += 4;
-        v41 = v19;
-      }
-
-      if (*(a2 + 72) == 1)
-      {
-        v19 += 2;
-        v41 = v19;
-      }
-
-      if (*(a2 + 76) != 0.0)
-      {
-        v41 = v19 + 1;
-      }
-
-      std::vector<unsigned char>::push_back[abi:ne200100](v42, &v41);
-      if (*(a2 + 84))
-      {
-        v20 = 0x80;
-      }
-
-      else
-      {
-        v20 = 0;
-      }
-
-      v41 = v20;
-      if (*(a2 + 96) == 1)
-      {
-        v41 = v20 | 0x40;
-      }
-
-      std::vector<unsigned char>::push_back[abi:ne200100](v42, &v41);
-      if (*(a2 + 72) == 1)
-      {
-      }
-
-      v21 = *(a2 + 76);
-      if (v21 != 0.0)
-      {
-      }
-
-      if (*(a2 + 84) == 1)
-      {
-      }
-
-      if (*(a2 + 96) == 1)
-      {
-      }
-
-      if (*(a2 + 104) == 1)
-      {
-        buf[0] = -64;
-        std::vector<unsigned char>::push_back[abi:ne200100](v42, buf);
-      }
-
-      else
-      {
-        buf[0] = 0;
-        std::vector<unsigned char>::push_back[abi:ne200100](v42, buf);
-      }
-
-      if (*(a2 + 116))
-      {
-        v33 = 0;
-        do
-        {
-          v34 = *(*(a2 + 108) + 8 * v33);
-          v35 = *(v34 + 12);
-          if (*(v34 + 32) == 1)
-          {
-            v36 = 24;
-          }
-
-          else
-          {
-            v36 = 16;
-          }
-
-          ++v33;
-        }
-
-        while (v33 < *(a2 + 116));
-      }
-
-      goto LABEL_143;
-    }
-
-    if (a4 != 4)
-    {
-LABEL_143:
-      if (*(a2 + 8) == 1)
-      {
-        buf[0] = 0;
-        std::vector<unsigned char>::push_back[abi:ne200100](v42, buf);
-      }
-
-      if (*(a2 + 20) == 1)
-      {
-        buf[0] = 1;
-        std::vector<unsigned char>::push_back[abi:ne200100](v42, buf);
-      }
-
-      *a1 = *v42;
-      *(a1 + 16) = v43;
-      *(a1 + 24) = 1;
-      goto LABEL_148;
-    }
-
-    if (*(a2 + 96))
-    {
-      v14 = 0x80;
-    }
-
-    else
-    {
-      v14 = 0;
-    }
-
-    v41 = v14;
-    v15 = *(a2 + 98);
-    switch(v15)
-    {
-      case 3:
-        v14 |= 0x60u;
-        break;
-      case 2:
-        v14 |= 0x40u;
-        break;
-      case 1:
-        v14 |= 0x20u;
-        break;
-      default:
-        goto LABEL_133;
-    }
-
-    v41 = v14;
-LABEL_133:
-    if (*(a2 + 52) == 1)
-    {
-      v14 += 16;
-      v41 = v14;
-    }
-
-    if (*(a2 + 53) == 1)
-    {
-      v14 += 8;
-      v41 = v14;
-    }
-
-    if (*(a2 + 54) == 1)
-    {
-      v14 += 4;
-      v41 = v14;
-    }
-
-    if (*(a2 + 92) != 0.0)
-    {
-      v41 = v14 + 2;
-    }
-
-    std::vector<unsigned char>::push_back[abi:ne200100](v42, &v41);
-    v18 = *(a2 + 92);
-    if (v18 == 0.0)
-    {
-      goto LABEL_143;
-    }
-
-LABEL_142:
-    goto LABEL_143;
-  }
-
-  if (a4 == 1)
-  {
-    v16 = 16 * *(a2 + 108);
-    v41 = v16;
-    if (*(a2 + 52) == 1)
-    {
-      v16 |= 0xAu;
-      v41 = v16;
-    }
-
-    if (*(a2 + 53) == 1)
-    {
-      v41 = v16 + 5;
-    }
-
-    std::vector<unsigned char>::push_back[abi:ne200100](v42, &v41);
-    if (*(a2 + 52))
-    {
-      v17 = 0x80;
-    }
-
-    else
-    {
-      v17 = 0;
-    }
-
-    v41 = v17;
-    if (*(a2 + 53) == 1)
-    {
-      v41 = v17 | 0x40;
-    }
-
-    std::vector<unsigned char>::push_back[abi:ne200100](v42, &v41);
-    if (*(a2 + 52) == 1)
-    {
-    }
-
-    if (*(a2 + 53) == 1)
-    {
-    }
-
-    if (*(a2 + 52) == 1)
-    {
-    }
-
-    if (*(a2 + 53) == 1)
-    {
-    }
-
-    if (*(a2 + 52) == 1)
-    {
-    }
-
-    if (*(a2 + 53) != 1)
-    {
-      goto LABEL_143;
-    }
-
-    v18 = *(a2 + 80);
-    goto LABEL_142;
-  }
-
-  if (a4 != 2)
-  {
-    goto LABEL_143;
-  }
-
-  v12 = *(a2 + 44);
-  if (!v12 || !*v12)
-  {
-    goto LABEL_32;
-  }
-
-  std::string::basic_string[abi:ne200100]<0>(buf, "AC_");
-  std::string::basic_string[abi:ne200100]<0>(&__p, *v12);
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-
-  if (v47 < 0)
-  {
-    operator delete(*buf);
-  }
-
-  if (HIDWORD(v13))
-  {
-    buf[0] = 0x80;
-    std::vector<unsigned char>::push_back[abi:ne200100](v42, buf);
-  }
-
-  else
-  {
-LABEL_32:
-    buf[0] = 0;
-    std::vector<unsigned char>::push_back[abi:ne200100](v42, buf);
-  }
-
-  if (*(a2 + 56) == 1)
-  {
-    buf[0] = -64;
-    std::vector<unsigned char>::push_back[abi:ne200100](v42, buf);
-  }
-
-  else
-  {
-    buf[0] = 0;
-    std::vector<unsigned char>::push_back[abi:ne200100](v42, buf);
-  }
-
-  if (!*(a2 + 60))
-  {
-    goto LABEL_143;
-  }
-
-  v22 = 0;
-  while (1)
-  {
-    v23 = *(*(a2 + 64) + 8 * v22);
-    v24 = *(v23 + 12);
-    if (v24)
-    {
-      v25 = 64;
-    }
-
-    else
-    {
-      v25 = (*(v23 + 44) << 7) | 0x20;
-    }
-
-    v26 = *(v23 + 28);
-    if (v26)
-    {
-      v27 = 16;
-    }
-
-    else
-    {
-      v27 = 8;
-    }
-
-    v28 = v27 + v25;
-    v29 = *(v23 + 20);
-    if (v29)
-    {
-      v30 = 4;
-    }
-
-    else
-    {
-      v30 = 2;
-    }
-
-    v41 = v30 + v28;
-    std::vector<unsigned char>::push_back[abi:ne200100](v42, &v41);
-    if (v24)
-    {
-    }
-
-    else
-    {
-    }
-
-    if (v26)
-    {
-    }
-
-    else
-    {
-    }
-
-    if (v29)
-    {
-    }
-
-    else
-    {
-    }
-
-    v11 = v11 & 0xFFFFFF00;
-    v32 = *(v23 + 36);
-    if (v32 && *v32)
-    {
-      std::string::basic_string[abi:ne200100]<0>(buf, "AC_");
-      std::string::basic_string[abi:ne200100]<0>(&__p, **(v23 + 36));
-      v11 = v31;
-      if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(__p.__r_.__value_.__l.__data_);
-      }
-
-      if (v47 < 0)
-      {
-        operator delete(*buf);
-      }
-    }
-
-    if ((v11 & 0x100000000) == 0)
-    {
-      break;
-    }
-
-    ++v22;
-    if (!*(a2 + 60))
-    {
-      goto LABEL_143;
-    }
-  }
-
-  if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
-  {
-    *buf = 136315394;
-    *&buf[4] = "AudioMetadataSerializer.cpp";
-    v45 = 1024;
-    v46 = 387;
-    _os_log_impl(&dword_18F5DF000, v37, OS_LOG_TYPE_ERROR, "%25s:%-5d Encountered Matrix block format with missing coefficient input channel", buf, 0x12u);
-  }
-
-  *a1 = 0;
-  *(a1 + 24) = 0;
-  if (v42[0])
-  {
-    operator delete(v42[0]);
-  }
-
-LABEL_148:
-  v38 = *MEMORY[0x1E69E9840];
-}
-
-void sub_18F682638(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *__p, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t anonymous namespace::encode_var_uint(unint64_t a1, uint64_t a2)
-{
-  v9 = 0u;
-  memset(v8, 0, sizeof(v8));
-  do
-  {
-    v7 = a1 & 0x7F;
-    std::deque<unsigned char>::push_back(v8, &v7);
-    v4 = a1 > 0x7F;
-    a1 >>= 7;
-  }
-
-  while (v4);
-  while (*(&v9 + 1))
-  {
-    v5 = *(*(*(&v8[0] + 1) + (((v9 + *(&v9 + 1) - 1) >> 9) & 0x7FFFFFFFFFFFF8)) + ((v9 + *(&v9 + 1) - 1) & 0xFFF));
-    v7 = v5;
-    --*(&v9 + 1);
-    std::deque<unsigned char>::__maybe_remove_back_spare[abi:ne200100](v8);
-    if (*(&v9 + 1))
-    {
-      v7 = v5 | 0x80;
-    }
-
-    std::vector<unsigned char>::push_back[abi:ne200100](a2, &v7);
-  }
-
-  return std::deque<unsigned char>::~deque[abi:ne200100](v8);
-}
-
-void sub_18F68278C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
-{
-  va_start(va, a3);
-  std::deque<unsigned char>::~deque[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t anonymous namespace::log(_anonymous_namespace_ *this)
-{
-  v1 = &unk_1EAD30000;
-  {
-    v1 = &unk_1EAD30000;
-    if (v3)
-    {
-      v1 = &unk_1EAD30000;
-    }
-  }
-
-  return v1[407];
-}
-
-void *std::deque<unsigned char>::push_back(void *result, _BYTE *a2)
-{
-  v3 = result;
-  v4 = *(result + 1);
-  v5 = result[2];
-  v6 = result[1];
-  if (v5 == v6)
-  {
-    v7 = 0;
-  }
-
-  else
-  {
-    v7 = ((v5 - v6) << 9) - 1;
-  }
-
-  v8 = result[4];
-  v9 = result[5] + v8;
-  if (v7 == v9)
-  {
-    if (v8 < 0x1000)
-    {
-      v10 = result[3];
-      v11 = v10 - *result;
-      if (v5 - v6 < v11)
-      {
-        operator new();
-      }
-
-      v12 = v11 >> 2;
-      if (v10 == *result)
-      {
-        v13 = 1;
-      }
-
-      else
-      {
-        v13 = v12;
-      }
-
-      std::allocator<unsigned char *>::allocate_at_least[abi:ne200100](v13);
-    }
-
-    result[4] = v8 - 4096;
-    v14 = *v6;
-    result[1] = v6 + 8;
-    result = std::__split_buffer<unsigned char *>::emplace_back<unsigned char *&>(result, &v14);
-    v6 = v3[1];
-    v9 = v3[5] + v3[4];
-  }
-
-  *(*&v6[(v9 >> 9) & 0x7FFFFFFFFFFFF8] + (v9 & 0xFFF)) = *a2;
-  ++v3[5];
-  return result;
-}
-
-void sub_18F682CE0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, __int128 a11)
-{
-  operator delete(v11);
-  if (a11)
-  {
-    operator delete(a11);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void std::deque<unsigned char>::__maybe_remove_back_spare[abi:ne200100](void *a1)
-{
-  v2 = a1[1];
-  v1 = a1[2];
-  if (v1 == v2)
-  {
-    v3 = 0;
-  }
-
-  else
-  {
-    v3 = ((v1 - v2) << 9) - 1;
-  }
-
-  if ((v3 - (a1[5] + a1[4])) >= 0x2000)
-  {
-    operator delete(*(v1 - 8));
-    a1[2] -= 8;
-  }
-}
-
-uint64_t std::deque<unsigned char>::~deque[abi:ne200100](uint64_t a1)
-{
-  v2 = *(a1 + 8);
-  v3 = *(a1 + 16);
-  *(a1 + 40) = 0;
-  v4 = v3 - v2;
-  if (v4 >= 3)
-  {
-    do
-    {
-      operator delete(*v2);
-      v3 = *(a1 + 16);
-      v2 = (*(a1 + 8) + 8);
-      *(a1 + 8) = v2;
-      v4 = v3 - v2;
-    }
-
-    while (v4 > 2);
-  }
-
-  if (v4 == 1)
-  {
-    v5 = 2048;
-    goto LABEL_7;
-  }
-
-  if (v4 == 2)
-  {
-    v5 = 4096;
-LABEL_7:
-    *(a1 + 32) = v5;
-  }
-
-  if (v2 != v3)
-  {
-    do
-    {
-      v6 = *v2++;
-      operator delete(v6);
-    }
-
-    while (v2 != v3);
-    v8 = *(a1 + 8);
-    v7 = *(a1 + 16);
-    if (v7 != v8)
-    {
-      *(a1 + 16) = v7 + ((v8 - v7 + 7) & 0xFFFFFFFFFFFFFFF8);
-    }
-  }
-
-  if (*a1)
-  {
-    operator delete(*a1);
-  }
-
-  return a1;
-}
-
-void *std::__split_buffer<unsigned char *>::emplace_back<unsigned char *&>(void *result, void *a2)
-{
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
-  {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
-    {
-      if (v4 == *result)
-      {
-        v11 = 1;
-      }
-
-      else
-      {
-        v11 = &v4[-*result] >> 2;
-      }
-
-      std::allocator<unsigned char *>::allocate_at_least[abi:ne200100](v11);
-    }
-
-    v7 = ((v6 >> 3) + 1) / -2;
-    v8 = ((v6 >> 3) + 1) / 2;
-    v9 = &v5[-8 * v8];
-    v10 = v4 - v5;
-    if (v4 != v5)
-    {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
-    }
-
-    v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
-  }
-
-  *v4 = *a2;
-  v3[2] += 8;
-  return result;
-}
-
-void std::allocator<unsigned char *>::allocate_at_least[abi:ne200100](unint64_t a1)
-{
-  if (!(a1 >> 61))
-  {
-    operator new();
-  }
-
-  std::__throw_bad_array_new_length[abi:ne200100]();
-}
-
-uint64_t anonymous namespace::encode_format_element_id(char a1, int a2, uint64_t a3, unint64_t *a4, unint64_t a5)
-{
-  v5 = *a4;
-  v6 = *a4 + 1;
-  if (v6 > a5)
-  {
-    return 0;
-  }
-
-  *a4 = v6;
-  *(a3 + v5) = 16 * a1;
-  v7 = *a4;
-  if (*a4 + 4 >= a5)
-  {
-    return 0;
-  }
-
-  *a4 = v7 + 1;
-  *(a3 + v7) = HIBYTE(a2);
-  v8 = (*a4)++;
-  *(a3 + v8) = BYTE2(a2);
-  v9 = (*a4)++;
-  *(a3 + v9) = BYTE1(a2);
-  v10 = (*a4)++;
-  *(a3 + v10) = a2;
-  return 1;
-}
-
-std::string *anonymous namespace::determine_channel_type(std::string *this, const std::string::value_type *a2, std::string::value_type *a3)
-{
-  v4 = this;
-  *&this->__r_.__value_.__l.__data_ = 0uLL;
-  this->__r_.__value_.__r.__words[2] = 0;
-  if (a2)
-  {
-    this = std::string::__assign_external(this, a2);
-  }
-
-  if (*a3)
-  {
-    v4[1].__r_.__value_.__s.__data_[0] = *a3;
-  }
-
-  v5 = HIBYTE(v4->__r_.__value_.__r.__words[2]);
-  if (SHIBYTE(v4->__r_.__value_.__r.__words[2]) < 0)
-  {
-    if (v4->__r_.__value_.__l.__size_ != 4)
-    {
-LABEL_13:
-      v8 = v4[1].__r_.__value_.__s.__data_[0];
-      goto LABEL_14;
-    }
-
-    v6 = v4->__r_.__value_.__r.__words[0];
-  }
-
-  else
-  {
-    v6 = v4;
-    if (v5 != 4)
-    {
-      goto LABEL_13;
-    }
-  }
-
-  data = v6->__r_.__value_.__l.__data_;
-  v8 = v4[1].__r_.__value_.__s.__data_[0];
-  if (data == 825241648 && v8 == 1)
-  {
-    v9 = 1;
-    goto LABEL_47;
-  }
-
-LABEL_14:
-  if ((v5 & 0x80) != 0)
-  {
-    if (v4->__r_.__value_.__l.__size_ != 4)
-    {
-      goto LABEL_46;
-    }
-
-    v10 = v4->__r_.__value_.__r.__words[0];
-  }
-
-  else
-  {
-    v10 = v4;
-    if (v5 != 4)
-    {
-      goto LABEL_46;
-    }
-  }
-
-  if (LODWORD(v10->__r_.__value_.__l.__data_) == 842018864 && v8 == 2)
-  {
-    v9 = 2;
-    goto LABEL_47;
-  }
-
-  if ((v5 & 0x80) != 0)
-  {
-    if (v4->__r_.__value_.__l.__size_ != 4)
-    {
-      goto LABEL_46;
-    }
-
-    v11 = v4->__r_.__value_.__r.__words[0];
-  }
-
-  else
-  {
-    v11 = v4;
-    if (v5 != 4)
-    {
-      goto LABEL_46;
-    }
-  }
-
-  if (LODWORD(v11->__r_.__value_.__l.__data_) == 858796080 && v8 == 3)
-  {
-    v9 = 3;
-    goto LABEL_47;
-  }
-
-  if ((v5 & 0x80) != 0)
-  {
-    if (v4->__r_.__value_.__l.__size_ != 4)
-    {
-      goto LABEL_46;
-    }
-
-    v12 = v4->__r_.__value_.__r.__words[0];
-  }
-
-  else
-  {
-    v12 = v4;
-    if (v5 != 4)
-    {
-      goto LABEL_46;
-    }
-  }
-
-  if (LODWORD(v12->__r_.__value_.__l.__data_) == 875573296 && v8 == 4)
-  {
-    v9 = 4;
-    goto LABEL_47;
-  }
-
-  if ((v5 & 0x80) == 0)
-  {
-    v13 = v4;
-    if (v5 != 4)
-    {
-      goto LABEL_46;
-    }
-
-    goto LABEL_43;
-  }
-
-  if (v4->__r_.__value_.__l.__size_ != 4)
-  {
-LABEL_46:
-    v9 = 0;
-    goto LABEL_47;
-  }
-
-  v13 = v4->__r_.__value_.__r.__words[0];
-LABEL_43:
-  if (LODWORD(v13->__r_.__value_.__l.__data_) != 892350512 || v8 != 5)
-  {
-    goto LABEL_46;
-  }
-
-  v9 = 5;
-LABEL_47:
-  v4[1].__r_.__value_.__s.__data_[1] = v9;
-  return this;
-}
-
-void sub_18F6831D4(_Unwind_Exception *exception_object)
-{
-  if (*(v1 + 23) < 0)
-  {
-    operator delete(*v1);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t anonymous namespace::parse_block_format_id(int a1, const std::string *a2)
-{
-  v28 = *MEMORY[0x1E69E9840];
-  v22 = 0;
-  v23 = 0;
-  v4 = std::string::basic_string(v25, a2, 0, 3uLL, &v21);
-  if ((v25[23] & 0x80000000) != 0)
-  {
-    if (*&v25[8] != 3 || (**v25 == 16961 ? (v6 = *(*v25 + 2) == 95) : (v6 = 0), !v6))
-    {
-      operator delete(*v25);
-LABEL_25:
-      if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-      {
-LABEL_31:
-        v10 = 0;
-        v9 = 0;
-        v11 = 0;
-        goto LABEL_32;
-      }
-
-      if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-      {
-        v13 = a2;
-      }
-
-      else
-      {
-        v13 = a2->__r_.__value_.__r.__words[0];
-      }
-
-      *v25 = 136315650;
-      *&v25[4] = "AudioMetadataSerializer.cpp";
-      *&v25[12] = 1024;
-      *&v25[14] = 2100;
-      *&v25[18] = 2080;
-      *&v25[20] = v13;
-      v14 = "%25s:%-5d Block format ID '%s' does not match expected pattern 'AB_xxxxyyyy_zz'";
-      v15 = v12;
-      v16 = 28;
-LABEL_30:
-      _os_log_impl(&dword_18F5DF000, v15, OS_LOG_TYPE_ERROR, v14, v25, v16);
-      goto LABEL_31;
-    }
-  }
-
-  else
-  {
-    if (v25[23] != 3)
-    {
-      goto LABEL_25;
-    }
-
-    if (*v25 != 16961 || v25[2] != 95)
-    {
-      goto LABEL_25;
-    }
-  }
-
-  std::string::basic_string(&v21, a2, 3uLL, 0xFFFFFFFFFFFFFFFFLL, &v24);
-  if ((v21.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    v7 = &v21;
-  }
-
-  else
-  {
-    v7 = v21.__r_.__value_.__r.__words[0];
-  }
-
-  v4 = sscanf(v7, "%08x_%08x", &v23, &v22);
-  v8 = v4;
-  if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v21.__r_.__value_.__l.__data_);
-  }
-
-  if ((v25[23] & 0x80000000) != 0)
-  {
-    operator delete(*v25);
-  }
-
-  if (v8 != 2)
-  {
-    goto LABEL_25;
-  }
-
-  if (v23 != a1)
-  {
-    if (!os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_31;
-    }
-
-    if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v20 = a2;
-    }
-
-    else
-    {
-      v20 = a2->__r_.__value_.__r.__words[0];
-    }
-
-    *v25 = 136315906;
-    *&v25[4] = "AudioMetadataSerializer.cpp";
-    *&v25[12] = 1024;
-    *&v25[14] = 2105;
-    *&v25[18] = 2080;
-    *&v25[20] = v20;
-    v26 = 1024;
-    v27 = a1;
-    v14 = "%25s:%-5d Block format ID '%s' does not match containing channel format ID 'AC_%08x'";
-    v15 = v19;
-    v16 = 34;
-    goto LABEL_30;
-  }
-
-  v9 = v22 & 0xFFFFFF00;
-  v10 = v22;
-  v11 = 0x100000000;
-LABEL_32:
-  v17 = *MEMORY[0x1E69E9840];
-  return v11 | v9 | v10;
-}
-
-void sub_18F68346C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22)
-{
-  if (a22 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void std::vector<std::vector<unsigned char>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
-{
-  v1 = *a1;
-  v2 = **a1;
-  if (v2)
-  {
-    v4 = v1[1];
-    v5 = **a1;
-    if (v4 != v2)
-    {
-      v6 = v1[1];
-      do
-      {
-        v8 = *(v6 - 3);
-        v6 -= 24;
-        v7 = v8;
-        if (v8)
-        {
-          *(v4 - 2) = v7;
-          operator delete(v7);
-        }
-
-        v4 = v6;
-      }
-
-      while (v6 != v2);
-      v5 = **a1;
-    }
-
-    v1[1] = v2;
-
-    operator delete(v5);
-  }
-}
-
-void std::allocator<std::vector<unsigned char>>::allocate_at_least[abi:ne200100](unint64_t a1)
-{
-  if (a1 < 0xAAAAAAAAAAAAAABLL)
-  {
-    operator new();
-  }
-
-  std::__throw_bad_array_new_length[abi:ne200100]();
-}
-
-uint64_t std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  if (a4)
-  {
-    std::vector<unsigned char>::__vallocate[abi:ne200100](result, a4);
-  }
-
-  return result;
-}
-
-void sub_18F6835D8(_Unwind_Exception *exception_object)
-{
-  v3 = *v1;
-  if (*v1)
-  {
-    *(v1 + 8) = v3;
-    operator delete(v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t std::__split_buffer<std::vector<unsigned char>>::~__split_buffer(uint64_t a1)
-{
-  v3 = *(a1 + 8);
-  v2 = *(a1 + 16);
-  while (v2 != v3)
-  {
-    v4 = *(v2 - 24);
-    *(a1 + 16) = v2 - 24;
-    if (v4)
-    {
-      *(v2 - 16) = v4;
-      operator delete(v4);
-      v2 = *(a1 + 16);
-    }
-
-    else
-    {
-      v2 -= 24;
-    }
-  }
-
-  if (*a1)
-  {
-    operator delete(*a1);
-  }
-
-  return a1;
-}
-
-void std::__throw_out_of_range[abi:ne200100](const char *a1)
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::out_of_range::out_of_range[abi:ne200100](exception, a1);
-}
-
-std::logic_error *std::out_of_range::out_of_range[abi:ne200100](std::logic_error *a1, const char *a2)
-{
-  result = std::logic_error::logic_error(a1, a2);
-  result->__vftable = (MEMORY[0x1E69E55B8] + 16);
-  return result;
-}
-
-void anonymous namespace::gather_elements_from_pack_format(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
-{
-  v8 = *(a2 + 28);
-  if (v8)
-  {
-    v9 = 0;
-    v10 = (a1 + 176);
-    while (1)
-    {
-      v11 = *(a2 + 32);
-      if (**(v11 + 8 * v9))
-      {
-        break;
-      }
-
-LABEL_32:
-      if (++v9 >= v8)
-      {
-        goto LABEL_33;
-      }
-    }
-
-    std::string::basic_string[abi:ne200100]<0>(&v100, "AC_");
-    std::string::basic_string[abi:ne200100]<0>(&__p, **(v11 + 8 * v9));
-    v13 = v12;
-    LODWORD(v97.__r_.__value_.__l.__data_) = v12;
-    v14 = HIDWORD(v12);
-    v97.__r_.__value_.__s.__data_[4] = BYTE4(v12);
-    if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(__p.__r_.__value_.__l.__data_);
-    }
-
-    if (SHIBYTE(v100.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v100.__r_.__value_.__l.__data_);
-      if (!v14)
-      {
-LABEL_31:
-        v8 = *(a2 + 28);
-        goto LABEL_32;
-      }
-    }
-
-    else if (!v14)
-    {
-      goto LABEL_31;
-    }
-
-    std::string::basic_string[abi:ne200100]<0>(&v100, **(v11 + 8 * v9));
-    if (SHIBYTE(v100.__r_.__value_.__r.__words[2]) < 0)
-    {
-      if (v100.__r_.__value_.__l.__size_ < 8)
-      {
-        goto LABEL_18;
-      }
-
-      v15 = v100.__r_.__value_.__r.__words[0];
-    }
-
-    else
-    {
-      if (SHIBYTE(v100.__r_.__value_.__r.__words[2]) < 8)
-      {
-        goto LABEL_18;
-      }
-
-      v15 = &v100;
-    }
-
-    if (v15->__r_.__value_.__s.__data_[7] == 48)
-    {
-      v16 = 0;
-      if ((SHIBYTE(v100.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-      {
-        goto LABEL_29;
-      }
-
-      goto LABEL_28;
-    }
-
-LABEL_18:
-    v17 = *v10;
-    if (!*v10)
-    {
-      goto LABEL_26;
-    }
-
-    v18 = (a1 + 176);
-    do
-    {
-      v19 = *(v17 + 32);
-      v20 = v19 >= v13;
-      v21 = v19 < v13;
-      if (v20)
-      {
-        v18 = v17;
-      }
-
-      v17 = *(v17 + 8 * v21);
-    }
-
-    while (v17);
-    if (v18 == v10 || *(v18 + 8) > v13)
-    {
-LABEL_26:
-      v18 = (a1 + 176);
-    }
-
-    v16 = v18 == v10;
-    if ((SHIBYTE(v100.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-    {
-      goto LABEL_29;
-    }
-
-LABEL_28:
-    operator delete(v100.__r_.__value_.__l.__data_);
-LABEL_29:
-    if (v16)
-    {
-      v22 = *(v11 + 8 * v9);
-      v23 = *a4;
-      *v24 = a3;
-      v24[1] = v22;
-      v24[2] = v23;
-    }
-
-    goto LABEL_31;
-  }
-
-LABEL_33:
-  v25 = *(a2 + 40);
-  if (v25)
-  {
-    v26 = 0;
-    v27 = (a1 + 152);
-    while (1)
-    {
-      v28 = *(a2 + 44);
-      if (**(v28 + 8 * v26))
-      {
-        break;
-      }
-
-LABEL_64:
-      if (++v26 >= v25)
-      {
-        goto LABEL_65;
-      }
-    }
-
-    std::string::basic_string[abi:ne200100]<0>(&v100, "AP_");
-    std::string::basic_string[abi:ne200100]<0>(&__p, **(v28 + 8 * v26));
-    v30 = v29;
-    LODWORD(v97.__r_.__value_.__l.__data_) = v29;
-    v31 = HIDWORD(v29);
-    v97.__r_.__value_.__s.__data_[4] = BYTE4(v29);
-    if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(__p.__r_.__value_.__l.__data_);
-    }
-
-    if (SHIBYTE(v100.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v100.__r_.__value_.__l.__data_);
-      if (!v31)
-      {
-LABEL_63:
-        v25 = *(a2 + 40);
-        goto LABEL_64;
-      }
-    }
-
-    else if (!v31)
-    {
-      goto LABEL_63;
-    }
-
-    std::string::basic_string[abi:ne200100]<0>(&v100, **(v28 + 8 * v26));
-    if (SHIBYTE(v100.__r_.__value_.__r.__words[2]) < 0)
-    {
-      if (v100.__r_.__value_.__l.__size_ < 8)
-      {
-        goto LABEL_50;
-      }
-
-      v32 = v100.__r_.__value_.__r.__words[0];
-    }
-
-    else
-    {
-      if (SHIBYTE(v100.__r_.__value_.__r.__words[2]) < 8)
-      {
-        goto LABEL_50;
-      }
-
-      v32 = &v100;
-    }
-
-    if (v32->__r_.__value_.__s.__data_[7] == 48)
-    {
-      v33 = 0;
-      if ((SHIBYTE(v100.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-      {
-        goto LABEL_61;
-      }
-
-      goto LABEL_60;
-    }
-
-LABEL_50:
-    v34 = *v27;
-    if (!*v27)
-    {
-      goto LABEL_58;
-    }
-
-    v35 = (a1 + 152);
-    do
-    {
-      v36 = *(v34 + 32);
-      v20 = v36 >= v30;
-      v37 = v36 < v30;
-      if (v20)
-      {
-        v35 = v34;
-      }
-
-      v34 = *(v34 + 8 * v37);
-    }
-
-    while (v34);
-    if (v35 == v27 || *(v35 + 8) > v30)
-    {
-LABEL_58:
-      v35 = (a1 + 152);
-    }
-
-    v33 = v35 == v27;
-    if ((SHIBYTE(v100.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-    {
-      goto LABEL_61;
-    }
-
-LABEL_60:
-    operator delete(v100.__r_.__value_.__l.__data_);
-LABEL_61:
-    if (v33)
-    {
-      v38 = *(v28 + 8 * v26);
-      v39 = *a4;
-      *v40 = a3;
-      v40[1] = v38;
-      v40[2] = v39;
-    }
-
-    goto LABEL_63;
-  }
-
-LABEL_65:
-  if (v101 == 2)
-  {
-    v41 = *(a2 + 56);
-    if (v41)
-    {
-      v42 = 0;
-      v43 = (a1 + 152);
-      do
-      {
-        v44 = *(*(a2 + 60) + 8 * v42);
-        if (!v44 || !*v44)
-        {
-          goto LABEL_99;
-        }
-
-        std::string::basic_string[abi:ne200100]<0>(&__p, "AP_");
-        std::string::basic_string[abi:ne200100]<0>(&v97, *v44);
-        v46 = v45;
-        v98 = v45;
-        v47 = HIDWORD(v45);
-        v99 = BYTE4(v45);
-        if (SHIBYTE(v97.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v97.__r_.__value_.__l.__data_);
-        }
-
-        if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(__p.__r_.__value_.__l.__data_);
-          if (!v47)
-          {
-            goto LABEL_98;
-          }
-        }
-
-        else if (!v47)
-        {
-          goto LABEL_98;
-        }
-
-        std::string::basic_string[abi:ne200100]<0>(&__p, *v44);
-        if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-        {
-          if (__p.__r_.__value_.__l.__size_ < 8)
-          {
-            goto LABEL_84;
-          }
-
-          p_p = __p.__r_.__value_.__r.__words[0];
-        }
-
-        else
-        {
-          if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 8)
-          {
-            goto LABEL_84;
-          }
-
-          p_p = &__p;
-        }
-
-        if (p_p->__r_.__value_.__s.__data_[7] != 48)
-        {
-LABEL_84:
-          v50 = *v43;
-          if (!*v43)
-          {
-            goto LABEL_92;
-          }
-
-          v51 = (a1 + 152);
-          do
-          {
-            v52 = *(v50 + 32);
-            v20 = v52 >= v46;
-            v53 = v52 < v46;
-            if (v20)
-            {
-              v51 = v50;
-            }
-
-            v50 = *(v50 + 8 * v53);
-          }
-
-          while (v50);
-          if (v51 == v43 || *(v51 + 8) > v46)
-          {
-LABEL_92:
-            v51 = (a1 + 152);
-          }
-
-          v49 = v51 == v43;
-          if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-          {
-LABEL_94:
-            if (!v49)
-            {
-              goto LABEL_98;
-            }
-
-LABEL_97:
-            v54 = *a4;
-            *v55 = a3;
-            v55[1] = v44;
-            v55[2] = v54;
-            goto LABEL_98;
-          }
-
-          goto LABEL_96;
-        }
-
-        v49 = 0;
-        if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-        {
-          goto LABEL_94;
-        }
-
-LABEL_96:
-        operator delete(__p.__r_.__value_.__l.__data_);
-        if (v49)
-        {
-          goto LABEL_97;
-        }
-
-LABEL_98:
-        v41 = *(a2 + 56);
-LABEL_99:
-        ++v42;
-      }
-
-      while (v42 < v41);
-    }
-
-    v56 = *(a2 + 68);
-    if (v56)
-    {
-      v57 = 0;
-      v58 = (a1 + 152);
-      do
-      {
-        v59 = *(*(a2 + 72) + 8 * v57);
-        if (!v59 || !*v59)
-        {
-          goto LABEL_133;
-        }
-
-        std::string::basic_string[abi:ne200100]<0>(&__p, "AP_");
-        std::string::basic_string[abi:ne200100]<0>(&v97, *v59);
-        v61 = v60;
-        v98 = v60;
-        v62 = HIDWORD(v60);
-        v99 = BYTE4(v60);
-        if (SHIBYTE(v97.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v97.__r_.__value_.__l.__data_);
-        }
-
-        if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(__p.__r_.__value_.__l.__data_);
-          if (!v62)
-          {
-            goto LABEL_132;
-          }
-        }
-
-        else if (!v62)
-        {
-          goto LABEL_132;
-        }
-
-        std::string::basic_string[abi:ne200100]<0>(&__p, *v59);
-        if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-        {
-          if (__p.__r_.__value_.__l.__size_ < 8)
-          {
-            goto LABEL_118;
-          }
-
-          v63 = __p.__r_.__value_.__r.__words[0];
-        }
-
-        else
-        {
-          if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 8)
-          {
-            goto LABEL_118;
-          }
-
-          v63 = &__p;
-        }
-
-        if (v63->__r_.__value_.__s.__data_[7] != 48)
-        {
-LABEL_118:
-          v65 = *v58;
-          if (!*v58)
-          {
-            goto LABEL_126;
-          }
-
-          v66 = (a1 + 152);
-          do
-          {
-            v67 = *(v65 + 32);
-            v20 = v67 >= v61;
-            v68 = v67 < v61;
-            if (v20)
-            {
-              v66 = v65;
-            }
-
-            v65 = *(v65 + 8 * v68);
-          }
-
-          while (v65);
-          if (v66 == v58 || *(v66 + 8) > v61)
-          {
-LABEL_126:
-            v66 = (a1 + 152);
-          }
-
-          v64 = v66 == v58;
-          if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-          {
-LABEL_128:
-            if (!v64)
-            {
-              goto LABEL_132;
-            }
-
-LABEL_131:
-            v69 = *a4;
-            *v70 = a3;
-            v70[1] = v59;
-            v70[2] = v69;
-            goto LABEL_132;
-          }
-
-          goto LABEL_130;
-        }
-
-        v64 = 0;
-        if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-        {
-          goto LABEL_128;
-        }
-
-LABEL_130:
-        operator delete(__p.__r_.__value_.__l.__data_);
-        if (v64)
-        {
-          goto LABEL_131;
-        }
-
-LABEL_132:
-        v56 = *(a2 + 68);
-LABEL_133:
-        ++v57;
-      }
-
-      while (v57 < v56);
-    }
-
-    v71 = *(a2 + 80);
-    if (!v71 || !*v71)
-    {
-      goto LABEL_164;
-    }
-
-    std::string::basic_string[abi:ne200100]<0>(&__p, "AP_");
-    std::string::basic_string[abi:ne200100]<0>(&v97, *v71);
-    v73 = v72;
-    v98 = v72;
-    v74 = HIDWORD(v72);
-    v99 = BYTE4(v72);
-    if (SHIBYTE(v97.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v97.__r_.__value_.__l.__data_);
-    }
-
-    if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(__p.__r_.__value_.__l.__data_);
-      if (!v74)
-      {
-        goto LABEL_164;
-      }
-    }
-
-    else if (!v74)
-    {
-      goto LABEL_164;
-    }
-
-    std::string::basic_string[abi:ne200100]<0>(&__p, *v71);
-    if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-    {
-      if (__p.__r_.__value_.__l.__size_ < 8)
-      {
-        goto LABEL_149;
-      }
-
-      v75 = __p.__r_.__value_.__r.__words[0];
-    }
-
-    else
-    {
-      if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 8)
-      {
-        goto LABEL_149;
-      }
-
-      v75 = &__p;
-    }
-
-    if (v75->__r_.__value_.__s.__data_[7] == 48)
-    {
-      v76 = 0;
-LABEL_159:
-      if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-      {
-        if (!v76)
-        {
-          goto LABEL_164;
-        }
-
-        goto LABEL_163;
-      }
-
-      operator delete(__p.__r_.__value_.__l.__data_);
-      if (v76)
-      {
-LABEL_163:
-        v82 = *a4;
-        *v83 = a3;
-        v83[1] = v71;
-        v83[2] = v82;
-      }
-
-LABEL_164:
-      v84 = *(a2 + 88);
-      if (!v84 || !*v84)
-      {
-        goto LABEL_194;
-      }
-
-      std::string::basic_string[abi:ne200100]<0>(&__p, "AP_");
-      std::string::basic_string[abi:ne200100]<0>(&v97, *v84);
-      v86 = v85;
-      v98 = v85;
-      v87 = HIDWORD(v85);
-      v99 = BYTE4(v85);
-      if (SHIBYTE(v97.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v97.__r_.__value_.__l.__data_);
-      }
-
-      if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(__p.__r_.__value_.__l.__data_);
-        if (!v87)
-        {
-          goto LABEL_194;
-        }
-      }
-
-      else if (!v87)
-      {
-        goto LABEL_194;
-      }
-
-      std::string::basic_string[abi:ne200100]<0>(&__p, *v84);
-      if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-      {
-        if (__p.__r_.__value_.__l.__size_ < 8)
-        {
-          goto LABEL_179;
-        }
-
-        v88 = __p.__r_.__value_.__r.__words[0];
-      }
-
-      else
-      {
-        if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 8)
-        {
-          goto LABEL_179;
-        }
-
-        v88 = &__p;
-      }
-
-      if (v88->__r_.__value_.__s.__data_[7] == 48)
-      {
-        v89 = 0;
-        goto LABEL_189;
-      }
-
-LABEL_179:
-      v90 = a1 + 152;
-      v91 = *(a1 + 152);
-      if (!v91)
-      {
-        goto LABEL_187;
-      }
-
-      v92 = a1 + 152;
-      do
-      {
-        v93 = *(v91 + 32);
-        v20 = v93 >= v86;
-        v94 = v93 < v86;
-        if (v20)
-        {
-          v92 = v91;
-        }
-
-        v91 = *(v91 + 8 * v94);
-      }
-
-      while (v91);
-      if (v92 == v90 || *(v92 + 32) > v86)
-      {
-LABEL_187:
-        v92 = a1 + 152;
-      }
-
-      v89 = v92 == v90;
-LABEL_189:
-      if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(__p.__r_.__value_.__l.__data_);
-        if (!v89)
-        {
-          goto LABEL_194;
-        }
-      }
-
-      else if (!v89)
-      {
-        goto LABEL_194;
-      }
-
-      v95 = *a4;
-      *v96 = a3;
-      v96[1] = v84;
-      v96[2] = v95;
-      goto LABEL_194;
-    }
-
-LABEL_149:
-    v77 = a1 + 152;
-    v78 = *(a1 + 152);
-    if (!v78)
-    {
-      goto LABEL_157;
-    }
-
-    v79 = a1 + 152;
-    do
-    {
-      v80 = *(v78 + 32);
-      v20 = v80 >= v73;
-      v81 = v80 < v73;
-      if (v20)
-      {
-        v79 = v78;
-      }
-
-      v78 = *(v78 + 8 * v81);
-    }
-
-    while (v78);
-    if (v79 == v77 || *(v79 + 32) > v73)
-    {
-LABEL_157:
-      v79 = a1 + 152;
-    }
-
-    v76 = v79 == v77;
-    goto LABEL_159;
-  }
-
-LABEL_194:
-  if (SHIBYTE(v100.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v100.__r_.__value_.__l.__data_);
-  }
-}
-
-void sub_18F683FF4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22, uint64_t a23, void *a24, uint64_t a25, int a26, __int16 a27, char a28, char a29)
-{
-  if (a22 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t *std::__tree<std::__value_type<unsigned short,anonymous namespace::ElementRef<AudioMetadataObject>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,anonymous namespace::ElementRef<AudioMetadataObject>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,anonymous namespace::ElementRef<AudioMetadataObject>>>>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
-{
-  *a4 = 0;
-  a4[1] = 0;
-  a4[2] = a2;
-  *a3 = a4;
-  v5 = **a1;
-  if (v5)
-  {
-    *a1 = v5;
-    a4 = *a3;
-  }
-
-  result = std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<void *> *>(a1[1], a4);
-  a1[2] = (a1[2] + 1);
-  return result;
-}
-
-void sub_18F6850F0(_Unwind_Exception *a1)
-{
-  v6 = v5;
-
-  _Unwind_Resume(a1);
-}
-
-void DecoderConfigDescr::DecoderConfigDescr(DecoderConfigDescr *this)
-{
-  *(this + 2) = 0;
-  *(this + 5) = 0;
-  *(this + 7) = 0;
-  *(this + 24) = 0;
-  MP4AudioProgramConfig::Clear((this + 88));
-  *(this + 1192) = 0u;
-  *(this + 1208) = 0u;
-  DecoderConfigDescr::cleanup(this);
-}
-
-void MP4AudioESDS::SetDecoderConfigDescriptor(uint64_t a1, __int128 *a2)
-{
-  if ((a1 + 296) != a2)
-  {
-    v5 = *a2;
-    v6 = a2[1];
-    *(a1 + 324) = *(a2 + 28);
-    *(a1 + 296) = v5;
-    *(a1 + 312) = v6;
-    *(a1 + 340) = *(a2 + 11);
-    v7 = *(a2 + 6);
-    *(a1 + 352) = *(a2 + 14);
-    *(a1 + 344) = v7;
-    *(a1 + 356) = *(a2 + 15);
-    v8 = a2[4];
-    *(a1 + 376) = *(a2 + 10);
-    *(a1 + 360) = v8;
-    *(a1 + 384) = *(a2 + 11);
-    *(a1 + 392) = *(a2 + 24);
-    memcpy((a1 + 396), a2 + 100, 0x440uLL);
-    v9 = *(a2 + 149);
-    v10 = *(a2 + 150);
-    if (v10)
-    {
-      atomic_fetch_add_explicit((v10 + 8), 1uLL, memory_order_relaxed);
-    }
-
-    *(a1 + 1488) = v9;
-    v11 = *(a1 + 1496);
-    *(a1 + 1496) = v10;
-    if (v11)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v11);
-    }
-
-    v12 = *(a2 + 151);
-    v13 = *(a2 + 152);
-    if (v13)
-    {
-      atomic_fetch_add_explicit((v13 + 8), 1uLL, memory_order_relaxed);
-    }
-
-    *(a1 + 1504) = v12;
-    v14 = *(a1 + 1512);
-    *(a1 + 1512) = v13;
-    if (v14)
-    {
-
-      std::__shared_weak_count::__release_shared[abi:ne200100](v14);
-    }
-  }
-}
-
-void MP4AudioESDS::~MP4AudioESDS(MP4AudioESDS *this)
-{
-  v2 = *(this + 189);
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  v3 = *(this + 187);
-  if (v3)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
-  }
-}
-
-void DecoderConfigDescr::~DecoderConfigDescr(DecoderConfigDescr *this)
-{
-  v2 = *(this + 152);
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  v3 = *(this + 150);
-  if (v3)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
-  }
-}
-
-void MP4AudioProgramConfig::Clear(MP4AudioProgramConfig *this)
-{
-  *this = 0;
-  bzero(this + 8, 4uLL);
-  bzero(this + 12, 0x84uLL);
-  bzero(this + 144, 0x84uLL);
-  bzero(this + 276, 0x84uLL);
-  bzero(this + 408, 0x84uLL);
-  bzero(this + 540, 0x84uLL);
-  bzero(this + 672, 0x84uLL);
-  bzero(this + 804, 0xCuLL);
-  bzero(this + 816, 0xCuLL);
-  bzero(this + 828, 0xCuLL);
-  *(this + 210) = 0;
-
-  bzero(this + 844, 0x100uLL);
-}
-
-void DecoderConfigDescr::cleanup(DecoderConfigDescr *this)
-{
-  v2 = this + 1192;
-  *(this + 6) = 0;
-  *(this + 8) = 0;
-  *(this + 72) = 0u;
-  *this = 0u;
-  *(this + 1) = 0u;
-  *(this + 4) = 0;
-  bzero(this + 88, 0x44CuLL);
-  v3 = *(this + 150);
-  *v2 = 0u;
-  if (v3)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
-  }
-
-  v4 = *(this + 152);
-  *(v2 + 2) = 0;
-  *(v2 + 3) = 0;
-  if (v4)
-  {
-
-    std::__shared_weak_count::__release_shared[abi:ne200100](v4);
-  }
-}
-
-unint64_t caulk::numeric::exceptional_cast<unsigned int,unsigned long>(unint64_t result)
-{
-  if (HIDWORD(result))
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::overflow_error::overflow_error[abi:ne200100](exception, "numerical cast overflow: could not retain value in conversion type");
-  }
-
-  return result;
-}
-
-void *std::__list_imp<ID3FrameInfo>::clear(void *result)
-{
-  if (result[2])
-  {
-    v1 = result;
-    result = result[1];
-    v2 = *(*v1 + 8);
-    v3 = *result;
-    *(v3 + 8) = v2;
-    *v2 = v3;
-    v1[2] = 0;
-    if (result != v1)
-    {
-      do
-      {
-        v4 = result[1];
-        operator delete(result);
-        result = v4;
-      }
-
-      while (v4 != v1);
-    }
-  }
-
-  return result;
-}
-
-uint64_t AudioFormatEncryptedFormatTranslator::EncryptFormatInFlavor(signed int a1, int a2)
-{
-  v17 = *MEMORY[0x1E69E9840];
-  if (a2 == 1667392371)
-  {
-    result = 1902207331;
-    if (a1 > 1634754914)
-    {
-      if (a1 <= 1700998450)
-      {
-        if (a1 == 1634754915)
-        {
-          goto LABEL_51;
-        }
-
-        if (a1 == 1700997939)
-        {
-          result = 1902324531;
-          goto LABEL_64;
-        }
-      }
-
-      else
-      {
-        switch(a1)
-        {
-          case 1700998451:
-            result = 1902469939;
-            goto LABEL_64;
-          case 1718378851:
-            result = 1902537827;
-            goto LABEL_64;
-          case 1970495843:
-            result = 1903522657;
-            goto LABEL_64;
-        }
-      }
-    }
-
-    else if (a1 <= 1633772399)
-    {
-      if (a1 == 1633772320)
-      {
-        goto LABEL_64;
-      }
-
-      if (a1 == 1633772392)
-      {
-        goto LABEL_47;
-      }
-    }
-
-    else
-    {
-      switch(a1)
-      {
-        case 1633772400:
-          goto LABEL_41;
-        case 1633889587:
-          goto LABEL_40;
-        case 1634492771:
-          result = 1902928227;
-          goto LABEL_64;
-      }
-    }
-
-    v8 = CADefaultLog();
-    result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
-    if (result)
-    {
-      CAX4CCString::CAX4CCString(v10, a1);
-      *buf = 136315650;
-      v12 = "AudioFormatEncryptedFormatTranslator.h";
-      v13 = 1024;
-      v14 = 222;
-      v15 = 2080;
-      v16 = v10;
-      v5 = "%25s:%-5d Unknown format ID: %s";
-      goto LABEL_62;
-    }
-
-    goto LABEL_64;
-  }
-
-  if (a2 != 2053467747)
-  {
-    if (a2 != 1885695587)
-    {
-      v4 = CADefaultLog();
-      result = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
-      if (result)
-      {
-        *buf = 136315394;
-        v12 = "AudioFormatEncryptedFormatTranslator.h";
-        v13 = 1024;
-        v14 = 229;
-        v5 = "%25s:%-5d Invalid encryption flavor";
-        v6 = v4;
-        v7 = 18;
-LABEL_63:
-        _os_log_impl(&dword_18F5DF000, v6, OS_LOG_TYPE_ERROR, v5, buf, v7);
-        result = 0;
-        goto LABEL_64;
-      }
-
-      goto LABEL_64;
-    }
-
-    result = 1885430115;
-    if (a1 <= 1634754914)
-    {
-      if (a1 <= 1633772399)
-      {
-        if (a1 == 1633772320)
-        {
-          goto LABEL_64;
-        }
-
-        if (a1 != 1633772392)
-        {
-          goto LABEL_56;
-        }
-
-LABEL_47:
-        result = (result + 517);
-        goto LABEL_64;
-      }
-
-      if (a1 != 1633772400)
-      {
-        if (a1 == 1633889587)
-        {
-          goto LABEL_40;
-        }
-
-LABEL_56:
-        v8 = CADefaultLog();
-        result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
-        if (result)
-        {
-          CAX4CCString::CAX4CCString(v10, a1);
-          *buf = 136315650;
-          v12 = "AudioFormatEncryptedFormatTranslator.h";
-          v13 = 1024;
-          v14 = 191;
-          v15 = 2080;
-          v16 = v10;
-          v5 = "%25s:%-5d Unknown format ID: %s";
-          goto LABEL_62;
-        }
-
-        goto LABEL_64;
-      }
-
-LABEL_41:
-      result = (result + 525);
-      goto LABEL_64;
-    }
-
-    if (a1 > 1700998450)
-    {
-      if (a1 == 1700998451)
-      {
-        result = 1885692723;
-        goto LABEL_64;
-      }
-
-      if (a1 == 1970495843)
-      {
-        result = 1886745441;
-        goto LABEL_64;
-      }
-
-      goto LABEL_56;
-    }
-
-    if (a1 != 1634754915)
-    {
-      if (a1 == 1700997939)
-      {
-        result = 1885547315;
-        goto LABEL_64;
-      }
-
-      goto LABEL_56;
-    }
-
-LABEL_51:
-    result = (result + 3840);
-    goto LABEL_64;
-  }
-
-  result = 2053202275;
-  if (a1 <= 1633889586)
-  {
-    switch(a1)
-    {
-      case 1633772320:
-        goto LABEL_64;
-      case 1633772392:
-        goto LABEL_47;
-      case 1633772400:
-        goto LABEL_41;
-    }
-  }
-
-  else
-  {
-    if (a1 <= 1700997938)
-    {
-      if (a1 != 1633889587)
-      {
-        if (a1 == 1634492771)
-        {
-          result = 2053923171;
-          goto LABEL_64;
-        }
-
-        goto LABEL_52;
-      }
-
-LABEL_40:
-      result = (result + 464);
-      goto LABEL_64;
-    }
-
-    if (a1 == 1700997939)
-    {
-      result = 2053319475;
-      goto LABEL_64;
-    }
-
-    if (a1 == 1700998451)
-    {
-      result = 2053464883;
-      goto LABEL_64;
-    }
-  }
-
-LABEL_52:
-  v8 = CADefaultLog();
-  result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
-  if (result)
-  {
-    CAX4CCString::CAX4CCString(v10, a1);
-    *buf = 136315650;
-    v12 = "AudioFormatEncryptedFormatTranslator.h";
-    v13 = 1024;
-    v14 = 204;
-    v15 = 2080;
-    v16 = v10;
-    v5 = "%25s:%-5d Unknown format ID: %s";
-LABEL_62:
-    v6 = v8;
-    v7 = 28;
-    goto LABEL_63;
-  }
-
-LABEL_64:
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
 }

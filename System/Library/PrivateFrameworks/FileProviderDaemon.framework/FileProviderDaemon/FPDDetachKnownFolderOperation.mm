@@ -26,35 +26,35 @@
 
 - (void)main
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
-  v20 = 304;
+  v19 = 304;
   obj = self->_knownFolders;
-  v3 = [(NSArray *)obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v3 = [(NSArray *)obj countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v25;
+    v6 = *v24;
     while (2)
     {
       v7 = 0;
       v8 = v5;
       do
       {
-        if (*v25 != v6)
+        if (*v24 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v24 + 1) + 8 * v7);
-        v23 = 0;
+        v9 = *(*(&v23 + 1) + 8 * v7);
+        v22 = 0;
         extensionManager = [(FPDServer *)self->_server extensionManager];
         logicalLocation = [v9 logicalLocation];
-        v5 = [extensionManager domainForURL:logicalLocation reason:&v23];
+        v5 = [extensionManager domainForURL:logicalLocation reason:&v22];
 
         if (v8 && v5 != v8)
         {
@@ -70,7 +70,7 @@
       }
 
       while (v4 != v7);
-      v4 = [(NSArray *)obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v4 = [(NSArray *)obj countByEnumeratingWithState:&v23 objects:v27 count:16];
       if (v4)
       {
         continue;
@@ -91,14 +91,14 @@
   if (v15)
   {
     defaultBackend2 = [v5 defaultBackend];
-    v17 = *(&self->super.super.super.isa + v20);
+    v17 = *(&self->super.super.super.isa + v19);
     request = self->_request;
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __37__FPDDetachKnownFolderOperation_main__block_invoke;
-    v22[3] = &unk_1E83BDFC8;
-    v22[4] = self;
-    [defaultBackend2 detachKnownFolders:v17 request:request completionHandler:v22];
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __37__FPDDetachKnownFolderOperation_main__block_invoke;
+    v21[3] = &unk_1E83BDFC8;
+    v21[4] = self;
+    [defaultBackend2 detachKnownFolders:v17 request:request completionHandler:v21];
   }
 
   else
@@ -109,8 +109,6 @@
 
   v8 = v5;
 LABEL_17:
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 @end

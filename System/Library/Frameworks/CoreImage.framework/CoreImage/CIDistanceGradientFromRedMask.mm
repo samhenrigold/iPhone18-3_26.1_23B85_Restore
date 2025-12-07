@@ -8,96 +8,97 @@
 
 - (id)outputImage
 {
-  v41[2] = *MEMORY[0x1E69E9840];
+  v45[2] = *MEMORY[0x1E69E9840];
   [(CIImage *)self->inputImage extent];
-  IsEmpty = CGRectIsEmpty(v42);
+  IsEmpty = CGRectIsEmpty(v46);
   result = self->inputImage;
   if (!IsEmpty)
   {
     [result extent];
-    x = v43.origin.x;
-    y = v43.origin.y;
-    width = v43.size.width;
-    height = v43.size.height;
-    if (CGRectIsInfinite(v43))
+    x = v47.origin.x;
+    y = v47.origin.y;
+    width = v47.size.width;
+    height = v47.size.height;
+    IsInfinite = CGRectIsInfinite(v47);
+    if (IsInfinite)
     {
-      v9 = ci_logger_filter();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = ci_logger_filter(IsInfinite, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        [CIDistanceGradientFromRedMask outputImage];
+        [(CIDistanceGradientFromRedMask *)self outputImage];
       }
 
       return 0;
     }
 
     height = [CIVector vectorWithCGRect:x, y, width, height];
-    [(NSNumber *)self->inputMaximumDistance floatValue];
-    v12 = v11;
-    if (v11 < 1.0 || v11 > 1000.0)
+    floatValue = [(NSNumber *)self->inputMaximumDistance floatValue];
+    v16 = v15;
+    if (v15 < 1.0 || v15 > 1000.0)
     {
-      v14 = ci_logger_filter();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v18 = ci_logger_filter(floatValue, v14);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        [CIDistanceGradientFromRedMask outputImage];
+        [(CIDistanceGradientFromRedMask *)self outputImage];
       }
 
       return 0;
     }
 
-    v15 = [(CIKernel *)CIColorKernel kernelWithInternalRepresentation:&CI::_distanceMaskPrep];
-    v41[0] = self->inputImage;
-    v41[1] = height;
-    v16 = -[CIImage imageBySamplingNearest](-[CIColorKernel applyWithExtent:arguments:](v15, "applyWithExtent:arguments:", [MEMORY[0x1E695DEC8] arrayWithObjects:v41 count:2], x, y, width, height), "imageBySamplingNearest");
-    v17 = [CIKernel kernelWithInternalRepresentation:&CI::_distanceMask];
-    v18 = vcvtpd_s64_f64(log2(ceilf(v12) + 1.0));
-    v35 = v12;
-    if (v18 >= 1)
+    v19 = [(CIKernel *)CIColorKernel kernelWithInternalRepresentation:&CI::_distanceMaskPrep];
+    v45[0] = self->inputImage;
+    v45[1] = height;
+    v20 = -[CIImage imageBySamplingNearest](-[CIColorKernel applyWithExtent:arguments:](v19, "applyWithExtent:arguments:", [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:2], x, y, width, height), "imageBySamplingNearest");
+    v21 = [CIKernel kernelWithInternalRepresentation:&CI::_distanceMask];
+    v22 = vcvtpd_s64_f64(log2(ceilf(v16) + 1.0));
+    v39 = v16;
+    if (v22 >= 1)
     {
-      v19 = (1 << (v18 - 1));
+      v23 = (1 << (v22 - 1));
       do
       {
-        [(CIImage *)v16 extent];
-        v45 = CGRectInset(v44, -v19, -v19);
-        v20 = v45.origin.x;
-        v21 = v45.origin.y;
-        v22 = v45.size.width;
-        v23 = v45.size.height;
+        [(CIImage *)v20 extent];
+        v49 = CGRectInset(v48, -v23, -v23);
+        v24 = v49.origin.x;
+        v25 = v49.origin.y;
+        v26 = v49.size.width;
+        v27 = v49.size.height;
         *&recta.origin.y = MEMORY[0x1E69E9820];
         *&recta.size.width = 3221225472;
         *&recta.size.height = __44__CIDistanceGradientFromRedMask_outputImage__block_invoke;
-        v37 = &__block_descriptor_36_e73__CGRect__CGPoint_dd__CGSize_dd__44__0i8_CGRect__CGPoint_dd__CGSize_dd__12l;
-        v38 = v19;
-        v40[0] = v16;
-        v40[1] = height;
-        v40[2] = [MEMORY[0x1E696AD98] numberWithInt:v19];
-        v16 = -[CIImage imageBySamplingNearest](-[CIKernel applyWithExtent:roiCallback:arguments:](v17, "applyWithExtent:roiCallback:arguments:", &recta.origin.y, [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:3], v20, v21, v22, v23), "imageBySamplingNearest");
-        v19 = (v19 / 2);
-        --v18;
+        v41 = &__block_descriptor_36_e73__CGRect__CGPoint_dd__CGSize_dd__44__0i8_CGRect__CGPoint_dd__CGSize_dd__12l;
+        v42 = v23;
+        v44[0] = v20;
+        v44[1] = height;
+        v44[2] = [MEMORY[0x1E696AD98] numberWithInt:v23];
+        v20 = -[CIImage imageBySamplingNearest](-[CIKernel applyWithExtent:roiCallback:arguments:](v21, "applyWithExtent:roiCallback:arguments:", &recta.origin.y, [MEMORY[0x1E695DEC8] arrayWithObjects:v44 count:3], v24, v25, v26, v27), "imageBySamplingNearest");
+        v23 = (v23 / 2);
+        --v22;
       }
 
-      while (v18);
+      while (v22);
     }
 
-    v24 = [(CIKernel *)CIColorKernel kernelWithInternalRepresentation:&CI::_distanceMaskPost];
-    [(CIImage *)v16 extent];
-    v26 = v25;
-    v28 = v27;
+    v28 = [(CIKernel *)CIColorKernel kernelWithInternalRepresentation:&CI::_distanceMaskPost];
+    [(CIImage *)v20 extent];
     v30 = v29;
     v32 = v31;
+    v34 = v33;
+    v36 = v35;
     inputImage = self->inputImage;
-    v39[0] = v16;
-    v39[1] = inputImage;
-    v39[2] = height;
-    *&v25 = v35;
-    v39[3] = [MEMORY[0x1E696AD98] numberWithFloat:v25];
-    v34 = -[CIColorKernel applyWithExtent:arguments:](v24, "applyWithExtent:arguments:", [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:4], v26, v28, v30, v32);
-    v46.origin.x = x;
-    v46.origin.y = y;
-    v46.size.width = width;
-    v46.size.height = height;
-    v47 = CGRectInset(v46, -v35, -v35);
-    v48 = CGRectIntegral(v47);
-    return [(CIImage *)v34 imageByClampingToRect:v48.origin.x, v48.origin.y, v48.size.width, v48.size.height];
+    v43[0] = v20;
+    v43[1] = inputImage;
+    v43[2] = height;
+    *&v29 = v39;
+    v43[3] = [MEMORY[0x1E696AD98] numberWithFloat:v29];
+    v38 = -[CIColorKernel applyWithExtent:arguments:](v28, "applyWithExtent:arguments:", [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:4], v30, v32, v34, v36);
+    v50.origin.x = x;
+    v50.origin.y = y;
+    v50.size.width = width;
+    v50.size.height = height;
+    v51 = CGRectInset(v50, -v39, -v39);
+    v52 = CGRectIntegral(v51);
+    return [(CIImage *)v38 imageByClampingToRect:v52.origin.x, v52.origin.y, v52.size.width, v52.size.height];
   }
 
   return result;
@@ -137,7 +138,7 @@
 {
   [objc_opt_class() description];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_19CC36000, v0, v1, "%{public}@: inputImage must be an image with finite extent.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0(&dword_19CC36000, v2, v3, "%{public}@: inputImage must be an image with finite extent.", v4, v5, v6, v7);
 }
 
 @end

@@ -17,6 +17,7 @@
 - (void)setupPPE;
 - (void)submitHPDeviceAnalyticsWithPid:(int64_t)pid lsrValue:(BOOL)value;
 - (void)userDidTapLoudSoundReductionLink:(id)link;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 @end
 
@@ -305,6 +306,14 @@ LABEL_10:
   [(HMHearingProtectionViewController *)&v13 viewDidLoad];
 }
 
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = HMHearingProtectionViewController;
+  [(HMHearingProtectionViewController *)&v4 viewDidDisappear:disappear];
+  [(HMHearingProtectionViewController *)self submitHPDeviceAnalyticsWithPid:[(BluetoothDevice *)self->_btDevice productId] lsrValue:[(HMHearingProtectionViewController *)self reduceLoudNoiseEnabled]];
+}
+
 - (void)userDidTapLoudSoundReductionLink:(id)link
 {
   defaultWorkspace = [MEMORY[0x277CC1E80] defaultWorkspace];
@@ -336,28 +345,27 @@ LABEL_10:
 {
   deviceCopy = device;
   selfCopy = self;
-  HMHearingProtectionViewController.setupListener(device:)(v14);
+  HMHearingProtectionViewController.setupListener(device:)(v13);
 
-  v6 = v15;
-  if (v15)
+  v6 = v14;
+  if (v14)
   {
-    v7 = __swift_project_boxed_opaque_existential_1(v14, v15);
+    v7 = __swift_project_boxed_opaque_existential_1(v13, v14);
     v8 = *(v6 - 8);
-    v9 = *(v8 + 64);
     MEMORY[0x28223BE20](v7, v7);
-    v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v8 + 16))(v11);
-    v12 = sub_252004B70();
-    (*(v8 + 8))(v11, v6);
-    __swift_destroy_boxed_opaque_existential_1Tm(v14);
+    v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v8 + 16))(v10);
+    v11 = sub_252004B70();
+    (*(v8 + 8))(v10, v6);
+    __swift_destroy_boxed_opaque_existential_1Tm(v13);
   }
 
   else
   {
-    v12 = 0;
+    v11 = 0;
   }
 
-  return v12;
+  return v11;
 }
 
 - (void)openSafetyInformation
@@ -368,7 +376,7 @@ LABEL_10:
 
 - (void)setupPPE
 {
-  type metadata accessor for HMHearingProtectionPPEEnrollmentViewController();
+  type metadata accessor for HMHearingProtectionPPEEnrollmentViewController(0, a2);
   v7 = sub_251FD6770(0, &qword_27F4C6940, off_2796F16C8);
   v8 = &off_28643AF98;
   *&v6 = self;

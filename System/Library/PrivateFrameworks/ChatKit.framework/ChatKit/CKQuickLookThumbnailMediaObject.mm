@@ -48,62 +48,62 @@
 - (id)previewForWidth:(double)width orientation:(char)orientation
 {
   orientationCopy = orientation;
-  v40 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   v6 = [(CKMediaObject *)self previewCacheKeyWithOrientation:width];
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x3032000000;
-  v35 = __Block_byref_object_copy__53;
-  v36 = __Block_byref_object_dispose__53;
-  v37 = 0;
+  v43 = 0;
+  v44 = &v43;
+  v45 = 0x3032000000;
+  v46 = __Block_byref_object_copy__53;
+  v47 = __Block_byref_object_dispose__53;
+  v48 = 0;
   transfer = [(CKMediaObject *)self transfer];
   if (-[CKQuickLookThumbnailMediaObject isPreviewable](self, "isPreviewable") && (([transfer isFileDataReady] & 1) != 0 || (objc_msgSend(transfer, "isRestoring") & 1) != 0))
   {
     previewDispatchCache = [(CKMediaObject *)self previewDispatchCache];
     v9 = [previewDispatchCache cachedPreviewForKey:v6];
-    v10 = v33[5];
-    v33[5] = v9;
+    v10 = v44[5];
+    v44[5] = v9;
 
-    v11 = v33[5];
+    v11 = v44[5];
     if (!v11)
     {
       v12 = [(CKQuickLookThumbnailMediaObject *)self diskCachedThumbnailForOrientation:orientationCopy];
-      v13 = v33[5];
-      v33[5] = v12;
+      v13 = v44[5];
+      v44[5] = v12;
 
       mEMORY[0x1E69A8168] = [MEMORY[0x1E69A8168] sharedInstance];
       [mEMORY[0x1E69A8168] trackEvent:*MEMORY[0x1E69A7578]];
 
-      if (!v33[5])
+      if (!v44[5])
       {
-        v19 = +[CKUIBehavior sharedBehaviors];
-        [v19 attachmentBalloonSize];
-        v21 = v20;
-        v23 = v22;
+        v31 = +[CKUIBehavior sharedBehaviors];
+        [v31 attachmentBalloonSize];
+        v33 = v32;
+        v35 = v34;
 
         if (([previewDispatchCache isGeneratingPreviewForKey:v6] & 1) == 0)
         {
-          v31[0] = MEMORY[0x1E69E9820];
-          v31[1] = 3221225472;
-          v31[2] = __63__CKQuickLookThumbnailMediaObject_previewForWidth_orientation___block_invoke;
-          v31[3] = &unk_1E72F5AD8;
-          v31[6] = v21;
-          v31[7] = v23;
-          v31[4] = self;
-          v31[5] = &v32;
-          v25[0] = MEMORY[0x1E69E9820];
-          v25[1] = 3221225472;
-          v25[2] = __63__CKQuickLookThumbnailMediaObject_previewForWidth_orientation___block_invoke_66;
-          v25[3] = &unk_1E72F5B00;
-          v29 = &v32;
-          v26 = previewDispatchCache;
-          v27 = v6;
+          v42[0] = MEMORY[0x1E69E9820];
+          v42[1] = 3221225472;
+          v42[2] = __63__CKQuickLookThumbnailMediaObject_previewForWidth_orientation___block_invoke;
+          v42[3] = &unk_1E72F5AD8;
+          v42[6] = v33;
+          v42[7] = v35;
+          v42[4] = self;
+          v42[5] = &v43;
+          v36[0] = MEMORY[0x1E69E9820];
+          v36[1] = 3221225472;
+          v36[2] = __63__CKQuickLookThumbnailMediaObject_previewForWidth_orientation___block_invoke_66;
+          v36[3] = &unk_1E72F5B00;
+          v40 = &v43;
+          v37 = previewDispatchCache;
+          v38 = v6;
           selfCopy = self;
-          v30 = orientationCopy;
-          [v26 enqueueGenerationBlock:v31 completion:v25 withPriority:-1 forKey:v27];
+          v41 = orientationCopy;
+          [v37 enqueueGenerationBlock:v42 completion:v36 withPriority:-1 forKey:v38];
         }
 
-        v16 = 0;
+        v22 = 0;
         goto LABEL_15;
       }
 
@@ -114,22 +114,21 @@
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          selfCopy4 = self;
+          selfCopy3 = self;
           _os_log_impl(&dword_19020E000, v15, OS_LOG_TYPE_DEBUG, "%@ quicklook preview read from disk.", buf, 0xCu);
         }
       }
 
       if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
       {
-        selfCopy3 = self;
-        _CKLog();
+        _CKLog(2u, @"%@ quicklook preview read from disk.", v16, v17, v18, v19, v20, v21, self);
       }
 
-      [previewDispatchCache setCachedPreview:v33[5] key:{v6, selfCopy3}];
-      v11 = v33[5];
+      [previewDispatchCache setCachedPreview:v44[5] key:v6];
+      v11 = v44[5];
     }
 
-    v16 = v11;
+    v22 = v11;
 LABEL_15:
 
     goto LABEL_24;
@@ -138,26 +137,26 @@ LABEL_15:
   if (IMOSLoggingEnabled())
   {
     CKLogCStringForType(2);
-    v17 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    v23 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      selfCopy4 = self;
-      _os_log_impl(&dword_19020E000, v17, OS_LOG_TYPE_DEBUG, "%@ isn't previewable.", buf, 0xCu);
+      selfCopy3 = self;
+      _os_log_impl(&dword_19020E000, v23, OS_LOG_TYPE_DEBUG, "%@ isn't previewable.", buf, 0xCu);
     }
   }
 
   if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
   {
-    _CKLog();
+    _CKLog(2u, @"%@ isn't previewable.", v24, v25, v26, v27, v28, v29, self);
   }
 
-  v16 = v33[5];
+  v22 = v44[5];
 LABEL_24:
 
-  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v43, 8);
 
-  return v16;
+  return v22;
 }
 
 void *__63__CKQuickLookThumbnailMediaObject_previewForWidth_orientation___block_invoke(uint64_t a1)
@@ -265,26 +264,26 @@ void __63__CKQuickLookThumbnailMediaObject_previewForWidth_orientation___block_i
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __63__CKQuickLookThumbnailMediaObject_previewForWidth_orientation___block_invoke_2(uint64_t result)
+void *__63__CKQuickLookThumbnailMediaObject_previewForWidth_orientation___block_invoke_2(void *result)
 {
-  v1 = *(*(*(result + 56) + 8) + 40);
+  v1 = *(*(*(result + 7) + 8) + 40);
   if (v1)
   {
     v2 = result;
-    [*(result + 32) setCachedPreview:v1 key:*(result + 40)];
+    [*(result + 4) setCachedPreview:v1 key:*(result + 5)];
     if (CKIsRunningInFullCKClient())
     {
-      v3 = *(v2 + 32);
+      v3 = *(v2 + 4);
       v4[0] = MEMORY[0x1E69E9820];
       v4[1] = 3221225472;
       v4[2] = __63__CKQuickLookThumbnailMediaObject_previewForWidth_orientation___block_invoke_3;
       v4[3] = &unk_1E72F0B68;
       v6 = *(v2 + 64);
-      v5 = *(v2 + 48);
+      v5 = *(v2 + 3);
       [v3 enqueueSaveBlock:v4 forMediaObject:v5 withPriority:0];
     }
 
-    return [*(v2 + 48) postPreviewDidChangeNotifications];
+    return [*(v2 + 6) postPreviewDidChangeNotifications];
   }
 
   return result;

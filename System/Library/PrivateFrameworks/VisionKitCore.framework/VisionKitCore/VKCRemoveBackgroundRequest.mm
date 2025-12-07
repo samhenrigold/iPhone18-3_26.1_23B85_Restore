@@ -42,48 +42,49 @@
   resizeCopy = resize;
   imageCopy = image;
   Width = CGImageGetWidth(image);
-  v9 = Width * CGImageGetHeight(imageCopy);
-  if (v9 > 12582912.0 && resizeCopy)
+  Height = CGImageGetHeight(imageCopy);
+  v10 = Width * Height;
+  if (v10 > 12582912.0 && resizeCopy)
   {
-    v11 = _VKSignpostLog();
-    if (os_signpost_enabled(v11))
+    v12 = _VKSignpostLog(Height);
+    if (os_signpost_enabled(v12))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1B4335000, v11, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "VisionKit Remove Background Resize", &unk_1B4435C0E, buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1B4335000, v12, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "VisionKit Remove Background Resize", &unk_1B4435C0E, buf, 2u);
     }
 
-    v12 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit");
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v13 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit");
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      *v20 = 0;
-      _os_log_impl(&dword_1B4335000, v12, OS_LOG_TYPE_INFO, "Signpost Begin: VisionKit Remove Background Resize", v20, 2u);
+      *v21 = 0;
+      _os_log_impl(&dword_1B4335000, v13, OS_LOG_TYPE_INFO, "Signpost Begin: VisionKit Remove Background Resize", v21, 2u);
     }
 
-    ScaledCGImage = vk_createScaledCGImage(imageCopy, floor(sqrt(12582912.0 / v9) * 100.0) / 100.0);
+    ScaledCGImage = vk_createScaledCGImage(imageCopy, floor(sqrt(12582912.0 / v10) * 100.0) / 100.0);
     imageCopy = ScaledCGImage;
     if (ScaledCGImage)
     {
-      CFAutorelease(ScaledCGImage);
+      ScaledCGImage = CFAutorelease(ScaledCGImage);
     }
 
-    v14 = _VKSignpostLog();
-    if (os_signpost_enabled(v14))
+    v15 = _VKSignpostLog(ScaledCGImage);
+    if (os_signpost_enabled(v15))
+    {
+      *v20 = 0;
+      _os_signpost_emit_with_name_impl(&dword_1B4335000, v15, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "VisionKit Remove Background Resize", &unk_1B4435C0E, v20, 2u);
+    }
+
+    v16 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit");
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       *v19 = 0;
-      _os_signpost_emit_with_name_impl(&dword_1B4335000, v14, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "VisionKit Remove Background Resize", &unk_1B4435C0E, v19, 2u);
-    }
-
-    v15 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit");
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
-    {
-      *v18 = 0;
-      _os_log_impl(&dword_1B4335000, v15, OS_LOG_TYPE_INFO, "Signpost End: VisionKit Remove Background Resize", v18, 2u);
+      _os_log_impl(&dword_1B4335000, v16, OS_LOG_TYPE_INFO, "Signpost End: VisionKit Remove Background Resize", v19, 2u);
     }
   }
 
-  v16 = [[VKCRemoveBackgroundRequest alloc] initWithCGImage:imageCopy orientation:orientation];
+  v17 = [[VKCRemoveBackgroundRequest alloc] initWithCGImage:imageCopy orientation:orientation];
 
-  return v16;
+  return v17;
 }
 
 - (VKCRemoveBackgroundRequest)initWithCGImage:(CGImage *)image orientation:(int64_t)orientation

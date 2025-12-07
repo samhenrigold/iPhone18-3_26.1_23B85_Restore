@@ -42,7 +42,7 @@ id __62__BYAnalyticsEventRecommendedLocale_initWithAnalyticsManager___block_invo
 
 - (id)eventPayload
 {
-  v12[3] = *MEMORY[0x1E69E9840];
+  v11[3] = *MEMORY[0x1E69E9840];
   source = [(BYAnalyticsEventRecommendedLocale *)self source];
   if (source > 5)
   {
@@ -54,19 +54,17 @@ id __62__BYAnalyticsEventRecommendedLocale_initWithAnalyticsManager___block_invo
     v4 = off_1E7D03DC0[source];
   }
 
-  v12[0] = v4;
-  v11[0] = @"source";
-  v11[1] = @"durationOfWiFiScan";
+  v11[0] = v4;
+  v10[0] = @"source";
+  v10[1] = @"durationOfWiFiScan";
   v5 = MEMORY[0x1E696AD98];
   [(BYAnalyticsEventRecommendedLocale *)self durationOfWiFiScan];
   v6 = [v5 numberWithDouble:?];
-  v12[1] = v6;
-  v11[2] = @"userSawRecommendedLocale";
+  v11[1] = v6;
+  v10[2] = @"userSawRecommendedLocale";
   v7 = [MEMORY[0x1E696AD98] numberWithBool:{-[BYAnalyticsEventRecommendedLocale userSawRecommendedLocale](self, "userSawRecommendedLocale")}];
-  v12[2] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:3];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v11[2] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:3];
 
   return v8;
 }

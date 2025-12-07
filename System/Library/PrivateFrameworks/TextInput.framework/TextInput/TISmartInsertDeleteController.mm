@@ -355,7 +355,7 @@ LABEL_92:
   return v9;
 }
 
-uint64_t __72__TISmartInsertDeleteController__numberOfCharactersInSet_atEndOfString___block_invoke(uint64_t a1, unsigned __int16 a2, _BYTE *a3)
+void *__72__TISmartInsertDeleteController__numberOfCharactersInSet_atEndOfString___block_invoke(uint64_t a1, unsigned __int16 a2, _BYTE *a3)
 {
   result = [*(a1 + 32) characterIsMember:a2];
   if (result)
@@ -394,7 +394,7 @@ uint64_t __72__TISmartInsertDeleteController__numberOfCharactersInSet_atEndOfStr
   return v9;
 }
 
-uint64_t __78__TISmartInsertDeleteController__numberOfCharactersInSet_atBeginningOfString___block_invoke(uint64_t a1, unsigned __int16 a2, _BYTE *a3)
+void *__78__TISmartInsertDeleteController__numberOfCharactersInSet_atBeginningOfString___block_invoke(uint64_t a1, unsigned __int16 a2, _BYTE *a3)
 {
   result = [*(a1 + 32) characterIsMember:a2];
   if (result)

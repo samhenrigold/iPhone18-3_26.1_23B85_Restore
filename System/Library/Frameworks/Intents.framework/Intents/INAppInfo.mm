@@ -221,11 +221,11 @@
 
 + (id)_appInfoWithApplicationRecord:(id)record applicationExtensionRecords:(id)records userActivityTypes:(id)types
 {
-  v75 = *MEMORY[0x1E69E9840];
+  v74 = *MEMORY[0x1E69E9840];
   recordCopy = record;
   recordsCopy = records;
   typesCopy = types;
-  v62 = recordCopy;
+  v61 = recordCopy;
   if (!typesCopy)
   {
     typesCopy = [MEMORY[0x1E695DFD8] set];
@@ -233,41 +233,41 @@
 
   v9 = MEMORY[0x1E695DFD8];
   supportedIntents = [recordCopy supportedIntents];
-  v60 = [v9 setWithArray:supportedIntents];
+  v59 = [v9 setWithArray:supportedIntents];
 
   v11 = MEMORY[0x1E695DFD8];
   intentsRestrictedWhileLocked = [recordCopy intentsRestrictedWhileLocked];
-  v58 = [v11 setWithArray:intentsRestrictedWhileLocked];
+  v57 = [v11 setWithArray:intentsRestrictedWhileLocked];
 
   v13 = MEMORY[0x1E695DFD8];
   intentsRestrictedWhileProtectedDataUnavailable = [recordCopy intentsRestrictedWhileProtectedDataUnavailable];
-  v59 = [v13 setWithArray:intentsRestrictedWhileProtectedDataUnavailable];
+  v58 = [v13 setWithArray:intentsRestrictedWhileProtectedDataUnavailable];
 
   v15 = MEMORY[0x1E695DFD8];
   supportedIntentMediaCategories = [recordCopy supportedIntentMediaCategories];
-  v57 = [v15 setWithArray:supportedIntentMediaCategories];
+  v56 = [v15 setWithArray:supportedIntentMediaCategories];
 
-  v64 = [MEMORY[0x1E695DFA8] set];
+  v63 = [MEMORY[0x1E695DFA8] set];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
-  v67 = 0u;
-  v68 = 0u;
-  v65 = 0u;
   v66 = 0u;
+  v67 = 0u;
+  v64 = 0u;
+  v65 = 0u;
   obj = recordsCopy;
-  v18 = [obj countByEnumeratingWithState:&v65 objects:v74 count:16];
+  v18 = [obj countByEnumeratingWithState:&v64 objects:v73 count:16];
   if (v18)
   {
-    v19 = *v66;
+    v19 = *v65;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v66 != v19)
+        if (*v65 != v19)
         {
           objc_enumerationMutation(obj);
         }
 
-        v21 = *(*(&v65 + 1) + 8 * i);
+        v21 = *(*(&v64 + 1) + 8 * i);
         if_extensionAttributesDictionary = [v21 if_extensionAttributesDictionary];
         v23 = [if_extensionAttributesDictionary objectForKeyedSubscript:@"IntentsSupported"];
         if ([v23 count])
@@ -278,11 +278,11 @@
           v26 = [MEMORY[0x1E695DFD8] setWithArray:v23];
           [dictionary setObject:v26 forKeyedSubscript:identifier];
 
-          [v64 addObjectsFromArray:v23];
+          [v63 addObjectsFromArray:v23];
         }
       }
 
-      v18 = [obj countByEnumeratingWithState:&v65 objects:v74 count:16];
+      v18 = [obj countByEnumeratingWithState:&v64 objects:v73 count:16];
     }
 
     while (v18);
@@ -301,82 +301,80 @@
   v35 = [v33 setWithArray:v34];
 
   v36 = objc_alloc_init(objc_opt_class());
-  v37 = v62;
-  if (v62)
+  v37 = v61;
+  if (v61)
   {
-    bundleIdentifier = [v62 bundleIdentifier];
+    bundleIdentifier = [v61 bundleIdentifier];
     [v36 setApplicationIdentifier:bundleIdentifier];
 
-    infoDictionary = [v62 infoDictionary];
+    infoDictionary = [v61 infoDictionary];
     v40 = [infoDictionary objectForKey:*MEMORY[0x1E695E4E0] ofClass:objc_opt_class()];
     [v36 setDevelopmentRegion:v40];
 
-    [v36 setSupportsMultiwindow:{objc_msgSend(v62, "supportsMultiwindow")}];
-    v70 = 0;
-    v71 = &v70;
-    v72 = 0x2050000000;
+    [v36 setSupportsMultiwindow:{objc_msgSend(v61, "supportsMultiwindow")}];
+    v69 = 0;
+    v70 = &v69;
+    v71 = 0x2050000000;
     v41 = getPDCPreflightManagerClass_softClass;
-    v73 = getPDCPreflightManagerClass_softClass;
+    v72 = getPDCPreflightManagerClass_softClass;
     if (!getPDCPreflightManagerClass_softClass)
     {
-      v69[0] = MEMORY[0x1E69E9820];
-      v69[1] = 3221225472;
-      v69[2] = __getPDCPreflightManagerClass_block_invoke;
-      v69[3] = &unk_1E72888B8;
-      v69[4] = &v70;
-      __getPDCPreflightManagerClass_block_invoke(v69);
-      v41 = v71[3];
+      v68[0] = MEMORY[0x1E69E9820];
+      v68[1] = 3221225472;
+      v68[2] = __getPDCPreflightManagerClass_block_invoke;
+      v68[3] = &unk_1E72888B8;
+      v68[4] = &v69;
+      __getPDCPreflightManagerClass_block_invoke(v68);
+      v41 = v70[3];
     }
 
     v42 = v41;
-    _Block_object_dispose(&v70, 8);
+    _Block_object_dispose(&v69, 8);
     v43 = [[v41 alloc] initWithTargetQueue:0];
-    [v36 setRequiresAppLaunchPreflight:{objc_msgSend(v43, "requiresPreflightForApplicationRecord:", v62)}];
+    [v36 setRequiresAppLaunchPreflight:{objc_msgSend(v43, "requiresPreflightForApplicationRecord:", v61)}];
 
-    counterpartIdentifiers = [v62 counterpartIdentifiers];
+    counterpartIdentifiers = [v61 counterpartIdentifiers];
     [v36 setCounterpartIdentifiers:counterpartIdentifiers];
 
-    v37 = v62;
+    v37 = v61;
   }
 
   v45 = v37 == 0;
-  [v36 setSupportedIntentsByApp:v60];
+  [v36 setSupportedIntentsByApp:v59];
   v46 = [typesCopy mutableCopy];
-  [v46 unionSet:v64];
+  [v46 unionSet:v63];
   [v36 setSupportedActions:v46];
 
-  in_supportedIntents = [v62 in_supportedIntents];
+  in_supportedIntents = [v61 in_supportedIntents];
   [v36 setSupportedIntents:in_supportedIntents];
 
-  [v36 setSupportedActionsByExtensions:v64];
+  [v36 setSupportedActionsByExtensions:v63];
   [v36 setSupportedIntentsGroupedByExtensionPoints:dictionary];
   v48 = [typesCopy mutableCopy];
-  [v48 minusSet:v64];
-  [v48 minusSet:v60];
+  [v48 minusSet:v63];
+  [v48 minusSet:v59];
   [v48 unionSet:v29];
   [v48 unionSet:v32];
+  [v48 unionSet:v57];
   [v48 unionSet:v58];
-  [v48 unionSet:v59];
   [v36 setActionsRestrictedWhileLocked:v48];
 
   v49 = [v32 mutableCopy];
-  [v49 unionSet:v59];
+  [v49 unionSet:v58];
   [v36 setActionsRestrictedWhileProtectedDataUnavailable:v49];
 
   if (!v45)
   {
     v50 = MEMORY[0x1E695DFD8];
-    intentDefinitionURLs = [v62 intentDefinitionURLs];
+    intentDefinitionURLs = [v61 intentDefinitionURLs];
     allKeys = [intentDefinitionURLs allKeys];
     v53 = [v50 setWithArray:allKeys];
     [v36 setDefinedIntents:v53];
   }
 
   v54 = [v35 mutableCopy];
-  [v54 unionSet:v57];
+  [v54 unionSet:v56];
   [v36 setSupportedMediaCategories:v54];
-
-  v55 = *MEMORY[0x1E69E9840];
 
   return v36;
 }
@@ -443,7 +441,7 @@ void *__89__INAppInfo__appInfoWithApplicationRecord_applicationExtensionRecords_
 
 + (id)appInfoWithIntent:(id)intent
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   intentCopy = intent;
   extensionBundleId = [intentCopy extensionBundleId];
   v6 = [extensionBundleId length];
@@ -451,19 +449,19 @@ void *__89__INAppInfo__appInfoWithApplicationRecord_applicationExtensionRecords_
   if (!v6)
   {
     launchId = [intentCopy launchId];
-    v23 = 0;
-    INExtractAppInfoFromSiriLaunchId(launchId, &v23, 0);
-    v10 = v23;
-
     v22 = 0;
-    v12 = [objc_alloc(MEMORY[0x1E69635F8]) initWithBundleIdentifier:v10 allowPlaceholder:0 error:&v22];
-    v9 = v22;
+    INExtractAppInfoFromSiriLaunchId(launchId, &v22, 0);
+    v10 = v22;
+
+    v21 = 0;
+    v12 = [objc_alloc(MEMORY[0x1E69635F8]) initWithBundleIdentifier:v10 allowPlaceholder:0 error:&v21];
+    v9 = v21;
     if (v9 && (v15 = INSiriLogContextIntents, os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR)))
     {
       *buf = 136315394;
-      v26 = "+[INAppInfo appInfoWithIntent:]";
-      v27 = 2112;
-      v28 = v9;
+      v25 = "+[INAppInfo appInfoWithIntent:]";
+      v26 = 2112;
+      v27 = v9;
       _os_log_error_impl(&dword_18E991000, v15, OS_LOG_TYPE_ERROR, "%s Unable to create application record: %@", buf, 0x16u);
       if (v12)
       {
@@ -495,20 +493,20 @@ LABEL_9:
 
   v7 = objc_alloc(MEMORY[0x1E69635D0]);
   extensionBundleId2 = [intentCopy extensionBundleId];
-  v21 = 0;
-  v9 = [v7 initWithBundleIdentifier:extensionBundleId2 error:&v21];
-  v10 = v21;
+  v20 = 0;
+  v9 = [v7 initWithBundleIdentifier:extensionBundleId2 error:&v20];
+  v10 = v20;
 
   if (v10 && (v11 = INSiriLogContextIntents, os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR)))
   {
     v17 = v11;
     extensionBundleId3 = [intentCopy extensionBundleId];
     *buf = 136315650;
-    v26 = "+[INAppInfo appInfoWithIntent:]";
-    v27 = 2112;
-    v28 = extensionBundleId3;
-    v29 = 2112;
-    v30 = v10;
+    v25 = "+[INAppInfo appInfoWithIntent:]";
+    v26 = 2112;
+    v27 = extensionBundleId3;
+    v28 = 2112;
+    v29 = v10;
     _os_log_error_impl(&dword_18E991000, v17, OS_LOG_TYPE_ERROR, "%s Unable to create application extension record <%@>: %@", buf, 0x20u);
 
     if (v9)
@@ -520,8 +518,8 @@ LABEL_9:
   else if (v9)
   {
 LABEL_5:
-    v24 = v9;
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v24 count:1];
+    v23 = v9;
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v23 count:1];
     v13 = [self _appInfoWithApplicationRecord:0 applicationExtensionRecords:v12 userActivityTypes:0];
 LABEL_10:
     v16 = v13;
@@ -532,8 +530,6 @@ LABEL_11:
 
   v16 = 0;
 LABEL_14:
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -600,7 +596,7 @@ uint64_t __42__INAppInfo_appInfoWithApplicationRecord___block_invoke(uint64_t a1
 
 + (id)appInfoWithAppProxy:(id)proxy
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   proxyCopy = proxy;
   bundleRecordForCurrentProcess = [MEMORY[0x1E6963620] bundleRecordForCurrentProcess];
   bundleIdentifier = [bundleRecordForCurrentProcess bundleIdentifier];
@@ -636,9 +632,9 @@ uint64_t __42__INAppInfo_appInfoWithApplicationRecord___block_invoke(uint64_t a1
   {
     v11 = objc_alloc(MEMORY[0x1E69635F8]);
     applicationIdentifier2 = [proxyCopy applicationIdentifier];
-    v18 = 0;
-    v13 = [v11 initWithBundleIdentifier:applicationIdentifier2 allowPlaceholder:0 error:&v18];
-    v9 = v18;
+    v17 = 0;
+    v13 = [v11 initWithBundleIdentifier:applicationIdentifier2 allowPlaceholder:0 error:&v17];
+    v9 = v17;
 
     if (!v9)
     {
@@ -649,9 +645,9 @@ uint64_t __42__INAppInfo_appInfoWithApplicationRecord___block_invoke(uint64_t a1
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v20 = "+[INAppInfo appInfoWithAppProxy:]";
-      v21 = 2112;
-      v22 = v9;
+      v19 = "+[INAppInfo appInfoWithAppProxy:]";
+      v20 = 2112;
+      v21 = v9;
       _os_log_error_impl(&dword_18E991000, v14, OS_LOG_TYPE_ERROR, "%s Unable to create app info with application record: %@", buf, 0x16u);
     }
   }
@@ -666,8 +662,6 @@ LABEL_12:
   {
     v15 = 0;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }

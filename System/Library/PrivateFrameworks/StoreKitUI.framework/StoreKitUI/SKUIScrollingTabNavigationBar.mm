@@ -1,5 +1,6 @@
 @interface SKUIScrollingTabNavigationBar
 - (UIOffset)positionOffset;
+- (void)positionOffset;
 - (void)setCenter:(CGPoint)center;
 - (void)setFrame:(CGRect)frame;
 - (void)setPositionOffset:(UIOffset)offset;
@@ -104,6 +105,30 @@
     v20.super_class = SKUIScrollingTabNavigationBar;
     [(SKUIScrollingTabNavigationBar *)&v20 setCenter:horizontal + v18, vertical + v19 - v16];
   }
+}
+
+- (void)setCenter:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIScrollingTabNavigationBar setCenter:]";
+}
+
+- (void)setFrame:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIScrollingTabNavigationBar setFrame:]";
+}
+
+- (void)positionOffset
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIScrollingTabNavigationBar positionOffset]";
+}
+
+- (void)setPositionOffset:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIScrollingTabNavigationBar setPositionOffset:]";
 }
 
 @end

@@ -8,12 +8,12 @@
 
 - (MCWAPIIdentityCertificatePayload)initWithDictionary:(id)dictionary profile:(id)profile outError:(id *)error
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   profileCopy = profile;
-  v28.receiver = self;
-  v28.super_class = MCWAPIIdentityCertificatePayload;
-  v10 = [(MCCertificatePayload *)&v28 initWithDictionary:dictionaryCopy profile:profileCopy outError:error];
+  v27.receiver = self;
+  v27.super_class = MCWAPIIdentityCertificatePayload;
+  v10 = [(MCCertificatePayload *)&v27 initWithDictionary:dictionaryCopy profile:profileCopy outError:error];
   if (v10)
   {
     if ([profileCopy isStub])
@@ -23,9 +23,9 @@
 
     else
     {
-      v27 = 0;
-      v12 = [MCProfile removeRequiredObjectInDictionary:dictionaryCopy key:@"PEMData" type:objc_opt_class() errorDomain:@"MCProfileErrorDomain" missingDataCode:1002 missingDataErrorString:@"ERROR_PROFILE_REQUIRED_FIELD_MISSING_P_FIELD" invalidDataCode:1003 invalidDataErrorString:@"ERROR_PROFILE_FIELD_INVALID_P_FIELD" outError:&v27];
-      v11 = v27;
+      v26 = 0;
+      v12 = [MCProfile removeRequiredObjectInDictionary:dictionaryCopy key:@"PEMData" type:objc_opt_class() errorDomain:@"MCProfileErrorDomain" missingDataCode:1002 missingDataErrorString:@"ERROR_PROFILE_REQUIRED_FIELD_MISSING_P_FIELD" invalidDataCode:1003 invalidDataErrorString:@"ERROR_PROFILE_FIELD_INVALID_P_FIELD" outError:&v26];
+      v11 = v26;
       pemData = v10->_pemData;
       v10->_pemData = v12;
     }
@@ -38,9 +38,9 @@
         v15 = v14;
         friendlyName = [(MCPayload *)v10 friendlyName];
         *buf = 138543618;
-        v30 = friendlyName;
-        v31 = 2114;
-        v32 = dictionaryCopy;
+        v29 = friendlyName;
+        v30 = 2114;
+        v31 = dictionaryCopy;
         _os_log_impl(&dword_1A795B000, v15, OS_LOG_TYPE_INFO, "Payload “%{public}@” has fields that we are ignoring. They are: %{public}@", buf, 0x16u);
       }
     }
@@ -63,9 +63,9 @@
         v23 = v22;
         mCVerboseDescription = [v18 MCVerboseDescription];
         *buf = 138543618;
-        v30 = v22;
-        v31 = 2114;
-        v32 = mCVerboseDescription;
+        v29 = v22;
+        v30 = 2114;
+        v31 = mCVerboseDescription;
         _os_log_impl(&dword_1A795B000, v21, OS_LOG_TYPE_ERROR, "%{public}@ Can't parse payload: %{public}@", buf, 0x16u);
       }
 
@@ -73,7 +73,6 @@
     }
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

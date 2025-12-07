@@ -166,7 +166,13 @@ uint64_t __55__ENRegionMonitorCoreLocationDataSource_stopMonitoring__block_invok
 
   if (gLogCategory_ENRegionMonitorCoreLocationDataSource <= 30 && (gLogCategory_ENRegionMonitorCoreLocationDataSource != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF_safe();
+    v6 = "no";
+    if (v5 >= 86400.0)
+    {
+      v6 = "yes";
+    }
+
+    LogPrintF_safe(&gLogCategory_ENRegionMonitorCoreLocationDataSource, "[ENRegionMonitorCoreLocationDataSource updateRegionAllowed]", 30, "force update region allowed, %s, lastForcedSubdivisionRegionUpdate, %@, interval until next permitted attempt, %.2f", v6, v2, 86400.0 - v5);
   }
 
   return v5 >= 86400.0;
@@ -255,7 +261,7 @@ void __58__ENRegionMonitorCoreLocationDataSource__processLocation___block_invoke
   v5 = a3;
   if (v5 && gLogCategory__ENRegionMonitorCoreLocationDataSource <= 90 && (gLogCategory__ENRegionMonitorCoreLocationDataSource != -1 || _LogCategory_Initialize()))
   {
-    __58__ENRegionMonitorCoreLocationDataSource__processLocation___block_invoke_cold_1();
+    __58__ENRegionMonitorCoreLocationDataSource__processLocation___block_invoke_cold_1(v5);
   }
 
   [*(a1 + 32) processLocation:*(a1 + 40) locationsOfInterest:v6];
@@ -283,7 +289,7 @@ void __58__ENRegionMonitorCoreLocationDataSource__processLocation___block_invoke
 
 void __55__ENRegionMonitorCoreLocationDataSource__processVisit___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v18 = a2;
+  v17 = a2;
   v5 = a3;
   if (v5)
   {
@@ -294,8 +300,7 @@ void __55__ENRegionMonitorCoreLocationDataSource__processVisit___block_invoke(ui
     {
       if (gLogCategory_ENRegionMonitorCoreLocationDataSource <= 90 && (gLogCategory_ENRegionMonitorCoreLocationDataSource != -1 || _LogCategory_Initialize()))
       {
-        v17 = *(a1 + 32);
-        LogPrintF_safe();
+        LogPrintF_safe(&gLogCategory_ENRegionMonitorCoreLocationDataSource, "[ENRegionMonitorCoreLocationDataSource _processVisit:]_block_invoke", 90, "Error fetching Location Of Interest for visit %@: %@", *(a1 + 32), v5);
       }
     }
   }
@@ -309,7 +314,7 @@ void __55__ENRegionMonitorCoreLocationDataSource__processVisit___block_invoke(ui
   v15 = [*(a1 + 32) detectionDate];
   v16 = [v8 initWithCoordinate:v15 altitude:v10 horizontalAccuracy:v12 verticalAccuracy:0.0 timestamp:{v14, 0.0}];
 
-  [*(a1 + 40) processLocation:v16 locationOfInterest:v18];
+  [*(a1 + 40) processLocation:v16 locationOfInterest:v17];
 }
 
 - (void)processLocation:(id)location locationOfInterest:(id)interest
@@ -341,7 +346,7 @@ void __55__ENRegionMonitorCoreLocationDataSource__processVisit___block_invoke(ui
 
   if (isSensitiveLoggingAllowed && gLogCategory_ENRegionMonitorCoreLocationDataSource <= 30 && (gLogCategory_ENRegionMonitorCoreLocationDataSource != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF_safe();
+    LogPrintF_safe(&gLogCategory_ENRegionMonitorCoreLocationDataSource, "[ENRegionMonitorCoreLocationDataSource _processLocation:locationOfInterest:]", 30, "process location, %@, locationOfInterest, %@", locationCopy, interestCopy);
   }
 
   if (interestCopy)
@@ -382,7 +387,7 @@ void __55__ENRegionMonitorCoreLocationDataSource__processVisit___block_invoke(ui
 
       if (isSensitiveLoggingAllowed2 && gLogCategory_ENRegionMonitorCoreLocationDataSource <= 30 && (gLogCategory_ENRegionMonitorCoreLocationDataSource != -1 || _LogCategory_Initialize()))
       {
-        [ENRegionMonitorCoreLocationDataSource _processLocation:locationOfInterest:];
+        [ENRegionMonitorCoreLocationDataSource _processLocation:interestCopy locationOfInterest:?];
       }
     }
   }
@@ -412,38 +417,38 @@ void __55__ENRegionMonitorCoreLocationDataSource__processVisit___block_invoke(ui
 
 - (void)_processLocation:(id)location locationsOfInterest:(id)interest
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   locationCopy = location;
   interestCopy = interest;
   queue = [(ENRegionMonitorCoreLocationDataSource *)self queue];
   dispatch_assert_queue_V2(queue);
 
   v9 = [MEMORY[0x277CCAC28] predicateWithBlock:&__block_literal_global_1];
-  v34 = interestCopy;
+  v30 = interestCopy;
   v10 = [interestCopy filteredArrayUsingPredicate:v9];
 
   v11 = *MEMORY[0x277CE41D8];
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
-  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   obj = v10;
-  v12 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
+  v12 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
   if (v12)
   {
     v13 = v12;
     v14 = 0;
-    v15 = *v37;
+    v15 = *v33;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v37 != v15)
+        if (*v33 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v36 + 1) + 8 * i);
+        v17 = *(*(&v32 + 1) + 8 * i);
         v18 = objc_alloc(MEMORY[0x277CE41F0]);
         location = [v17 location];
         [location latitude];
@@ -463,7 +468,7 @@ void __55__ENRegionMonitorCoreLocationDataSource__processVisit___block_invoke(ui
         }
       }
 
-      v13 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
+      v13 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
     }
 
     while (v13);
@@ -479,15 +484,10 @@ void __55__ENRegionMonitorCoreLocationDataSource__processVisit___block_invoke(ui
 
   if (isSensitiveLoggingAllowed && gLogCategory_ENRegionMonitorCoreLocationDataSource <= 30 && (gLogCategory_ENRegionMonitorCoreLocationDataSource != -1 || _LogCategory_Initialize()))
   {
-    v33 = v11;
-    v31 = v14;
-    v32 = locationCopy;
-    LogPrintF_safe();
+    LogPrintF_safe(&gLogCategory_ENRegionMonitorCoreLocationDataSource, "[ENRegionMonitorCoreLocationDataSource _processLocation:locationsOfInterest:]", 30, "nearest locationOfInterest, %@, location: %@, distance, %.2f", v14, locationCopy, *&v11);
   }
 
-  [(ENRegionMonitorCoreLocationDataSource *)self _processLocation:locationCopy locationOfInterest:v14, v31, v32, *&v33];
-
-  v30 = *MEMORY[0x277D85DE8];
+  [(ENRegionMonitorCoreLocationDataSource *)self _processLocation:locationCopy locationOfInterest:v14];
 }
 
 BOOL __78__ENRegionMonitorCoreLocationDataSource__processLocation_locationsOfInterest___block_invoke(uint64_t a1, void *a2)
@@ -508,7 +508,7 @@ BOOL __78__ENRegionMonitorCoreLocationDataSource__processLocation_locationsOfInt
 
   if (isSensitiveLoggingAllowed && gLogCategory_ENRegionMonitorCoreLocationDataSource <= 30 && (gLogCategory_ENRegionMonitorCoreLocationDataSource != -1 || _LogCategory_Initialize()))
   {
-    [ENRegionMonitorCoreLocationDataSource locationManager:didUpdateLocations:];
+    [ENRegionMonitorCoreLocationDataSource locationManager:locationsCopy didUpdateLocations:?];
   }
 
   lastObject = [locationsCopy lastObject];
@@ -526,7 +526,7 @@ BOOL __78__ENRegionMonitorCoreLocationDataSource__processLocation_locationsOfInt
 
   if (isSensitiveLoggingAllowed && gLogCategory_ENRegionMonitorCoreLocationDataSource <= 30 && (gLogCategory_ENRegionMonitorCoreLocationDataSource != -1 || _LogCategory_Initialize()))
   {
-    [ENRegionMonitorCoreLocationDataSource locationManager:didVisit:];
+    [ENRegionMonitorCoreLocationDataSource locationManager:visitCopy didVisit:?];
   }
 
   if (([visitCopy hasDepartureDate] & 1) == 0)
@@ -541,7 +541,7 @@ BOOL __78__ENRegionMonitorCoreLocationDataSource__processLocation_locationsOfInt
   errorCopy = error;
   if (gLogCategory__ENRegionMonitorCoreLocationDataSource <= 90 && (gLogCategory__ENRegionMonitorCoreLocationDataSource != -1 || _LogCategory_Initialize()))
   {
-    [ENRegionMonitorCoreLocationDataSource locationManager:didFailWithError:];
+    [ENRegionMonitorCoreLocationDataSource locationManager:errorCopy didFailWithError:?];
   }
 }
 
@@ -564,24 +564,22 @@ BOOL __78__ENRegionMonitorCoreLocationDataSource__processLocation_locationsOfInt
   [v4 handleFailureInMethod:a1 object:a2 file:@"ENRegionMonitorCoreLocationDataSource.m" lineNumber:44 description:{@"Invalid parameter not satisfying: %@", @"routineManager"}];
 }
 
-void __56__ENRegionMonitorCoreLocationDataSource_startMonitoring__block_invoke_cold_1(uint64_t a1)
+void __56__ENRegionMonitorCoreLocationDataSource_startMonitoring__block_invoke_cold_1(SEL *a1)
 {
-  v2 = *(a1 + 32);
-  v3 = objc_opt_class();
-  v15 = NSStringFromClass(v3);
-  v4 = NSStringFromSelector(*(a1 + 40));
-  OUTLINED_FUNCTION_0_1(v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15);
-  LogPrintF_safe();
+  v2 = objc_opt_class();
+  v14 = NSStringFromClass(v2);
+  v3 = NSStringFromSelector(a1[5]);
+  OUTLINED_FUNCTION_0_1(v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14);
+  LogPrintF_safe(&gLogCategory_ENRegionMonitorCoreLocationDataSource, "[ENRegionMonitorCoreLocationDataSource startMonitoring]_block_invoke", 30, "%@, %@");
 }
 
-void __55__ENRegionMonitorCoreLocationDataSource_stopMonitoring__block_invoke_cold_1(uint64_t a1)
+void __55__ENRegionMonitorCoreLocationDataSource_stopMonitoring__block_invoke_cold_1(SEL *a1)
 {
-  v2 = *(a1 + 32);
-  v3 = objc_opt_class();
-  v15 = NSStringFromClass(v3);
-  v4 = NSStringFromSelector(*(a1 + 40));
-  OUTLINED_FUNCTION_0_1(v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15);
-  LogPrintF_safe();
+  v2 = objc_opt_class();
+  v14 = NSStringFromClass(v2);
+  v3 = NSStringFromSelector(a1[5]);
+  OUTLINED_FUNCTION_0_1(v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14);
+  LogPrintF_safe(&gLogCategory_ENRegionMonitorCoreLocationDataSource, "[ENRegionMonitorCoreLocationDataSource stopMonitoring]_block_invoke", 30, "%@, %@");
 }
 
 @end

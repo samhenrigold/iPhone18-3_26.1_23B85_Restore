@@ -67,27 +67,26 @@ void __55__ATXVerticalModelsCache_writeWebsiteSuggestionsCache___block_invoke(vo
 
   if (v7)
   {
-    v8 = __atxlog_handle_lock_screen();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = __atxlog_handle_lock_screen(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       v14 = v7;
-      _os_log_impl(&dword_2263AA000, v8, OS_LOG_TYPE_DEFAULT, "Error while writing website suggestions cache: %@", buf, 0xCu);
+      _os_log_impl(&dword_2263AA000, v9, OS_LOG_TYPE_DEFAULT, "Error while writing website suggestions cache: %@", buf, 0xCu);
     }
 
-    v9 = 0;
+    v10 = 0;
   }
 
   else
   {
-    v10 = a1[5];
-    v8 = v3[1];
-    v3[1] = v10;
-    v9 = 1;
+    v11 = a1[5];
+    v9 = v3[1];
+    v3[1] = v11;
+    v10 = 1;
   }
 
-  *(*(a1[6] + 8) + 24) = v9;
-  v11 = *MEMORY[0x277D85DE8];
+  *(*(a1[6] + 8) + 24) = v10;
 }
 
 - (BOOL)writeWebsiteTitlesAndSubtitlesCache:(id)cache
@@ -126,27 +125,26 @@ void __62__ATXVerticalModelsCache_writeWebsiteTitlesAndSubtitlesCache___block_in
 
   if (v7)
   {
-    v8 = __atxlog_handle_lock_screen();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = __atxlog_handle_lock_screen(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       v14 = v7;
-      _os_log_impl(&dword_2263AA000, v8, OS_LOG_TYPE_DEFAULT, "Error while writing website suggestions cache: %@", buf, 0xCu);
+      _os_log_impl(&dword_2263AA000, v9, OS_LOG_TYPE_DEFAULT, "Error while writing website suggestions cache: %@", buf, 0xCu);
     }
 
-    v9 = 0;
+    v10 = 0;
   }
 
   else
   {
-    v10 = a1[5];
-    v8 = v3[2];
-    v3[2] = v10;
-    v9 = 1;
+    v11 = a1[5];
+    v9 = v3[2];
+    v3[2] = v11;
+    v10 = 1;
   }
 
-  *(*(a1[6] + 8) + 24) = v9;
-  v11 = *MEMORY[0x277D85DE8];
+  *(*(a1[6] + 8) + 24) = v10;
 }
 
 - (id)fetchWebsiteSuggestionsCache
@@ -196,28 +194,26 @@ void __54__ATXVerticalModelsCache_fetchWebsiteSuggestionsCache__block_invoke(uin
 
     if (v11)
     {
-      v13 = __atxlog_handle_lock_screen();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v14 = __atxlog_handle_lock_screen(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
         v20 = v11;
-        _os_log_impl(&dword_2263AA000, v13, OS_LOG_TYPE_DEFAULT, "Error while reading website suggestions cache: %@", buf, 0xCu);
+        _os_log_impl(&dword_2263AA000, v14, OS_LOG_TYPE_DEFAULT, "Error while reading website suggestions cache: %@", buf, 0xCu);
       }
 
-      v14 = MEMORY[0x277CBEC10];
+      v15 = MEMORY[0x277CBEC10];
     }
 
     else
     {
-      v14 = [v3[1] copy];
+      v15 = [v3[1] copy];
     }
 
-    v15 = *(*(a1 + 40) + 8);
-    v16 = *(v15 + 40);
-    *(v15 + 40) = v14;
+    v16 = *(*(a1 + 40) + 8);
+    v17 = *(v16 + 40);
+    *(v16 + 40) = v15;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)fetchWebsiteTitlesAndSubtitlesCache
@@ -267,28 +263,26 @@ void __61__ATXVerticalModelsCache_fetchWebsiteTitlesAndSubtitlesCache__block_inv
 
     if (v11)
     {
-      v13 = __atxlog_handle_lock_screen();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v14 = __atxlog_handle_lock_screen(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
         v20 = v11;
-        _os_log_impl(&dword_2263AA000, v13, OS_LOG_TYPE_DEFAULT, "Error while reading website titles and subtitles cache: %@", buf, 0xCu);
+        _os_log_impl(&dword_2263AA000, v14, OS_LOG_TYPE_DEFAULT, "Error while reading website titles and subtitles cache: %@", buf, 0xCu);
       }
 
-      v14 = MEMORY[0x277CBEC10];
+      v15 = MEMORY[0x277CBEC10];
     }
 
     else
     {
-      v14 = [v3[2] copy];
+      v15 = [v3[2] copy];
     }
 
-    v15 = *(*(a1 + 40) + 8);
-    v16 = *(v15 + 40);
-    *(v15 + 40) = v14;
+    v16 = *(*(a1 + 40) + 8);
+    v17 = *(v16 + 40);
+    *(v16 + 40) = v15;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_writeCache:(id)cache path:(id)path withError:(id *)error
@@ -297,7 +291,7 @@ void __61__ATXVerticalModelsCache_fetchWebsiteTitlesAndSubtitlesCache__block_inv
   pathCopy = path;
   cacheCopy = cache;
   v10 = [v7 alloc];
-  v11 = __atxlog_handle_action_prediction();
+  v11 = __atxlog_handle_action_prediction(v10);
   v12 = [v10 initWithCacheFilePath:pathCopy loggingHandle:v11 debugName:@"webSuggestions"];
 
   LOBYTE(error) = [v12 storeSecureCodedObject:cacheCopy error:error];
@@ -308,7 +302,7 @@ void __61__ATXVerticalModelsCache_fetchWebsiteTitlesAndSubtitlesCache__block_inv
 {
   pathCopy = path;
   v6 = objc_alloc(MEMORY[0x277CEBC68]);
-  v7 = __atxlog_handle_action_prediction();
+  v7 = __atxlog_handle_action_prediction(v6);
   v8 = [v6 initWithCacheFilePath:pathCopy loggingHandle:v7 debugName:@"webSuggestions"];
 
   v9 = objc_autoreleasePoolPush();
@@ -339,7 +333,7 @@ void __61__ATXVerticalModelsCache_fetchWebsiteTitlesAndSubtitlesCache__block_inv
 {
   pathCopy = path;
   v6 = objc_alloc(MEMORY[0x277CEBC68]);
-  v7 = __atxlog_handle_action_prediction();
+  v7 = __atxlog_handle_action_prediction(v6);
   v8 = [v6 initWithCacheFilePath:pathCopy loggingHandle:v7 debugName:@"webSuggestions"];
 
   v9 = objc_autoreleasePoolPush();

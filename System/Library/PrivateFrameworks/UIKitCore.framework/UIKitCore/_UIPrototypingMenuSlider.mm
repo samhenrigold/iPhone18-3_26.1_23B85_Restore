@@ -52,7 +52,7 @@
     [(UILabel *)v3->_currentValueLabel setFont:v16];
 
     [(UILabel *)v3->_currentValueLabel setTextAlignment:1];
-    v17 = +[UIColor blackColor];
+    v17 = objc_msgSend_blackColor(UIColor);
     [(UILabel *)v3->_currentValueLabel setTextColor:v17];
 
     [(UIView *)v3->_knobView addSubview:v3->_currentValueLabel];

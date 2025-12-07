@@ -81,16 +81,15 @@
     error = 0;
     _secKey = [keyCopy _secKey];
     _secKeyECDSAAlgorithm = [*(self->_x962SigningOperationInternal + 2) _secKeyECDSAAlgorithm];
-    v12 = *(self->_x962SigningOperationInternal + 2);
-    v13 = [objc_opt_class() digest:signCopy];
-    v14 = SecKeyCreateSignature(_secKey, _secKeyECDSAAlgorithm, v13, &error);
+    v12 = [objc_opt_class() digest:signCopy];
+    v13 = SecKeyCreateSignature(_secKey, _secKeyECDSAAlgorithm, v12, &error);
     errorCopy = error;
     if (error)
     {
       if (!error)
       {
         CFRelease(error);
-        v16 = 0;
+        v15 = 0;
         error = 0;
         goto LABEL_11;
       }
@@ -98,22 +97,22 @@
 
     else
     {
-      if (v14)
+      if (v13)
       {
-        v16 = [[_SFSignedData alloc] initWithData:signCopy signature:v14];
+        v15 = [[_SFSignedData alloc] initWithData:signCopy signature:v13];
         goto LABEL_11;
       }
 
       if (!error)
       {
-        v16 = 0;
+        v15 = 0;
         goto LABEL_11;
       }
 
       errorCopy = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:-67688 userInfo:0];
     }
 
-    v16 = 0;
+    v15 = 0;
     *error = errorCopy;
 LABEL_11:
 
@@ -123,17 +122,17 @@ LABEL_11:
   if (error)
   {
     [MEMORY[0x277CCA9B8] errorWithDomain:@"SFCryptoServicesErrorDomain" code:9 userInfo:0];
-    *error = v16 = 0;
+    *error = v15 = 0;
   }
 
   else
   {
-    v16 = 0;
+    v15 = 0;
   }
 
 LABEL_12:
 
-  return v16;
+  return v15;
 }
 
 - (id)verify:(id)verify withKey:(id)key error:(id *)error
@@ -155,25 +154,24 @@ LABEL_12:
   error = 0;
   _secKey = [keyCopy _secKey];
   _secKeyECDSAAlgorithm = [*(self->_x962SigningOperationInternal + 2) _secKeyECDSAAlgorithm];
-  v12 = *(self->_x962SigningOperationInternal + 2);
-  v13 = objc_opt_class();
+  v12 = objc_opt_class();
   data = [verifyCopy data];
-  v15 = [v13 digest:data];
+  v14 = [v12 digest:data];
   signature = [verifyCopy signature];
-  LODWORD(v15) = SecKeyVerifySignature(_secKey, _secKeyECDSAAlgorithm, v15, signature, &error);
+  LODWORD(v14) = SecKeyVerifySignature(_secKey, _secKeyECDSAAlgorithm, v14, signature, &error);
 
   errorCopy = error;
-  if (v15)
+  if (v14)
   {
-    v18 = error == 0;
+    v17 = error == 0;
   }
 
   else
   {
-    v18 = 0;
+    v17 = 0;
   }
 
-  if (!v18)
+  if (!v17)
   {
     if (!error)
     {
@@ -204,10 +202,7 @@ LABEL_13:
 
 - (void)setSigningKeySpecifier:(id)specifier
 {
-  v4 = [specifier copy];
-  x962SigningOperationInternal = self->_x962SigningOperationInternal;
-  v6 = x962SigningOperationInternal[1];
-  x962SigningOperationInternal[1] = v4;
+  *(self->_x962SigningOperationInternal + 1) = [specifier copy];
 
   MEMORY[0x2821F96F8]();
 }

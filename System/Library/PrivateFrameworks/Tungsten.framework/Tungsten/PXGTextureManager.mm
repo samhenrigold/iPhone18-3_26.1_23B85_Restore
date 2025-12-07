@@ -226,16 +226,16 @@ void __51__PXGTextureManager__processTextureProviderResults__block_invoke_2(uint
   }
 }
 
-uint64_t __51__PXGTextureManager__processTextureProviderResults__block_invoke_3(uint64_t a1, int a2, unsigned int a3)
+uint64_t __51__PXGTextureManager__processTextureProviderResults__block_invoke_3(uint64_t a1, unsigned int a2, unsigned int a3)
 {
   v30 = a2;
   v6 = *(a1 + 32);
-  if (std::__hash_table<std::__hash_value_type<int,unsigned int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,unsigned int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,unsigned int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,unsigned int>>>::find<int>(v6 + 20, a2))
+  if (std::__hash_table<std::__hash_value_type<int,unsigned int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,unsigned int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,unsigned int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,unsigned int>>>::find<int>((v6 + 160), a2))
   {
     v31 = &v30;
-    v7 = *(std::__hash_table<std::__hash_value_type<int,unsigned int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,unsigned int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,unsigned int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,unsigned int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(v6 + 20, a2) + 5);
+    v7 = *(std::__hash_table<std::__hash_value_type<int,unsigned int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,unsigned int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,unsigned int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,unsigned int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>((v6 + 160), a2, &v31) + 5);
     v6 = *(a1 + 32);
-    v8 = (v6[26] + 66 * v7);
+    v8 = (*(v6 + 208) + 66 * v7);
     if (v8[11] < a3)
     {
       v9 = *(a1 + 40);
@@ -364,7 +364,7 @@ LABEL_30:
 
   v7 = 0xFFFFFFFFLL;
 LABEL_32:
-  v23 = v6[14];
+  v23 = *(v6 + 112);
   v24 = [MEMORY[0x277CCABB0] numberWithInt:{v30, *&v28}];
   [v23 removeObjectForKey:v24];
 
@@ -378,7 +378,7 @@ uint64_t __51__PXGTextureManager__processTextureProviderResults__block_invoke_4(
   if (std::__hash_table<std::__hash_value_type<int,unsigned int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,unsigned int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,unsigned int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,unsigned int>>>::find<int>((v10 + 160), a2))
   {
     v28 = &v27;
-    v11 = *(std::__hash_table<std::__hash_value_type<int,unsigned int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,unsigned int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,unsigned int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,unsigned int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>((v10 + 160), a2) + 5);
+    v11 = *(std::__hash_table<std::__hash_value_type<int,unsigned int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,unsigned int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,unsigned int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,unsigned int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>((v10 + 160), a2, &v28) + 5);
     v12 = (*(*(a1 + 32) + 208) + 66 * v11);
     if (v12[15] < a4)
     {
@@ -607,13 +607,13 @@ uint64_t __72__PXGTextureManager_textureProviderNeedsToRegisterToDisplayLinkUpda
 
 void __77__PXGTextureManager_textureProvider_didProvideFailureWithError_forRequestID___block_invoke(uint64_t a1)
 {
-  v3 = a1 + 48;
+  v3 = (a1 + 48);
   v2 = *(a1 + 48);
   v4 = *(a1 + 32);
   if (std::__hash_table<std::__hash_value_type<int,unsigned int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,unsigned int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,unsigned int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,unsigned int>>>::find<int>((v4 + 160), v2))
   {
     v12 = v3;
-    v5 = *(std::__hash_table<std::__hash_value_type<int,unsigned int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,unsigned int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,unsigned int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,unsigned int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>((v4 + 160), v2) + 5);
+    v5 = *(std::__hash_table<std::__hash_value_type<int,unsigned int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,unsigned int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,unsigned int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,unsigned int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>((v4 + 160), v2, &v12) + 5);
     v6 = [*(a1 + 32) entityManager];
     v7 = [v6 loadingStatus];
     v9[0] = MEMORY[0x277D85DD0];
@@ -746,7 +746,7 @@ LABEL_24:
       v26 = 0;
       if (providerCopy)
       {
-        [providerCopy imageDataSpecAtIndex:index];
+        objc_msgSend_imageDataSpecAtIndex_(providerCopy);
       }
 
       v23 = v25;
@@ -1115,7 +1115,7 @@ LABEL_16:
   }
 
   v18 = &dCopy;
-  v14 = std::__hash_table<std::__hash_value_type<int,PXGRequestDetails>,std::__unordered_map_hasher<int,std::__hash_value_type<int,PXGRequestDetails>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,PXGRequestDetails>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,PXGRequestDetails>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&self->_lookupLock_requestDetailsByRequestID.__table_.__bucket_list_.__ptr_, d);
+  v14 = std::__hash_table<std::__hash_value_type<int,PXGRequestDetails>,std::__unordered_map_hasher<int,std::__hash_value_type<int,PXGRequestDetails>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,PXGRequestDetails>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,PXGRequestDetails>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&self->_lookupLock_requestDetailsByRequestID, d, &v18);
   v15 = *(v14 + 5);
   LOBYTE(details->var1) = *(v14 + 24);
   *&details->var0 = v15;
@@ -2099,12 +2099,12 @@ void __51__PXGTextureManager_textureSnapshotForSpriteIndex___block_invoke(uint64
       v41 = (&infos->var0.var0 + 66 * range.location);
       v42 = sprites->var4 + 40 * range.location;
       *(mutableStates + *v41) = v42[1] != 0;
-      v72 = &v65;
-      *(std::__hash_table<std::__hash_value_type<int,unsigned int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,unsigned int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,unsigned int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,unsigned int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&self->_spriteIndexByRequestID.__table_.__bucket_list_.__ptr_, v39) + 5) = range.location;
+      v72[0] = &v65;
+      *(std::__hash_table<std::__hash_value_type<int,unsigned int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,unsigned int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,unsigned int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,unsigned int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&self->_spriteIndexByRequestID, v39, v72) + 5) = range.location;
       v43 = *v42;
       v44 = *(effectIds + 4 * *v41);
-      v72 = &v65;
-      v45 = std::__hash_table<std::__hash_value_type<int,PXGRequestDetails>,std::__unordered_map_hasher<int,std::__hash_value_type<int,PXGRequestDetails>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,PXGRequestDetails>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,PXGRequestDetails>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&self->_lookupLock_requestDetailsByRequestID.__table_.__bucket_list_.__ptr_, v65);
+      v72[0] = &v65;
+      v45 = std::__hash_table<std::__hash_value_type<int,PXGRequestDetails>,std::__unordered_map_hasher<int,std::__hash_value_type<int,PXGRequestDetails>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,PXGRequestDetails>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,PXGRequestDetails>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&self->_lookupLock_requestDetailsByRequestID, v65, v72);
       *(v45 + 20) = v43;
       *(v45 + 21) = v44;
       v41[1] = v65;
@@ -2461,7 +2461,7 @@ uint64_t __98__PXGTextureManager__blockOnThumbnailsIfNeededWithGeometries_visibl
   v185 = 0u;
   if (storeCopy)
   {
-    [storeCopy sprites];
+    objc_msgSend_sprites(storeCopy);
     v109 = v186;
     v55 = v187;
   }
@@ -2474,8 +2474,8 @@ uint64_t __98__PXGTextureManager__blockOnThumbnailsIfNeededWithGeometries_visibl
 
   if (isInactive)
   {
-    indexSet = [MEMORY[0x277CCAA78] indexSet];
-    indexSet2 = [MEMORY[0x277CCAA78] indexSet];
+    v56 = objc_msgSend_indexSet(MEMORY[0x277CCAA78]);
+    v117 = objc_msgSend_indexSet(MEMORY[0x277CCAA78]);
     v57 = PXGTungstenGetLog();
     if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
     {
@@ -2491,27 +2491,27 @@ uint64_t __98__PXGTextureManager__blockOnThumbnailsIfNeededWithGeometries_visibl
     v58 = [storeCopy spriteIndexesInRect:{v23, v25, v27, v29}];
     if (CGRectIsNull(state->var8))
     {
-      indexSet2 = 0;
+      v117 = 0;
     }
 
     else
     {
-      indexSet2 = [storeCopy spriteIndexesInRect:{state->var8.origin.x, state->var8.origin.y, state->var8.size.width, state->var8.size.height}];
+      v117 = [storeCopy spriteIndexesInRect:{state->var8.origin.x, state->var8.origin.y, state->var8.size.width, state->var8.size.height}];
     }
 
     v59 = [storeCopy spriteIndexesWithSpriteInfoFlags:1];
     [v57 addIndexes:v58];
     [v57 addIndexes:v59];
-    indexSet = [v57 copy];
+    v56 = [v57 copy];
   }
 
-  v119 = [indexSet mutableCopy];
+  v119 = [v56 mutableCopy];
   [v119 removeIndexes:v114];
   v122 = [(NSIndexSet *)v114 mutableCopy];
-  [v122 removeIndexes:indexSet];
+  [v122 removeIndexes:v56];
   if (self->_didSwitchTextureConverter)
   {
-    v120 = [indexSet mutableCopy];
+    v120 = [v56 mutableCopy];
   }
 
   else
@@ -2528,13 +2528,13 @@ uint64_t __98__PXGTextureManager__blockOnThumbnailsIfNeededWithGeometries_visibl
     if ([v62 count])
     {
       [v122 removeIndexes:v62];
-      v63 = [indexSet mutableCopy];
+      v63 = [v56 mutableCopy];
       [v63 addIndexes:v62];
     }
 
     else
     {
-      v63 = indexSet;
+      v63 = v56;
     }
 
     v61 = v63;
@@ -2542,7 +2542,7 @@ uint64_t __98__PXGTextureManager__blockOnThumbnailsIfNeededWithGeometries_visibl
 
   else
   {
-    v61 = indexSet;
+    v61 = v56;
   }
 
   v103 = v61;
@@ -2618,17 +2618,17 @@ uint64_t __98__PXGTextureManager__blockOnThumbnailsIfNeededWithGeometries_visibl
   v100 = v66;
   v162 = v100;
   [v120 enumerateRangesUsingBlock:v159];
-  if (indexSet2)
+  if (v117)
   {
-    indexSet3 = [MEMORY[0x277CCAB58] indexSet];
+    v70 = objc_msgSend_indexSet(MEMORY[0x277CCAB58]);
     v156[0] = MEMORY[0x277D85DD0];
     v156[1] = 3221225472;
     v156[2] = __132__PXGTextureManager__streamTexturesForSpritesInDataStore_presentationDataStore_changeDetails_layout_interactionState_loadingStatus___block_invoke_59;
     v156[3] = &unk_2782ABFE0;
     v158 = streamInfoBySpriteIndex;
-    v130 = indexSet3;
+    v130 = v70;
     v157 = v130;
-    [indexSet2 enumerateRangesUsingBlock:v156];
+    [v117 enumerateRangesUsingBlock:v156];
   }
 
   else
@@ -2700,7 +2700,7 @@ uint64_t __98__PXGTextureManager__blockOnThumbnailsIfNeededWithGeometries_visibl
   v149 = v99;
   v150 = buf;
   v104 = MEMORY[0x21CEE40A0](v148);
-  indexSet4 = [MEMORY[0x277CCAB58] indexSet];
+  v95 = objc_msgSend_indexSet(MEMORY[0x277CCAB58]);
   v96 = self->_emptyTexture;
   v80 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v142[0] = MEMORY[0x277D85DD0];
@@ -2711,13 +2711,13 @@ uint64_t __98__PXGTextureManager__blockOnThumbnailsIfNeededWithGeometries_visibl
   v143 = v97;
   v81 = v104;
   v147 = v81;
-  v128 = indexSet4;
+  v128 = v95;
   v144 = v128;
   selfCopy2 = self;
   v82 = v80;
   v146 = v82;
   v110 = v82;
-  [(PXGTextureManager *)self _enumerateSpriteTextures:v142, indexSet4, v96];
+  [(PXGTextureManager *)self _enumerateSpriteTextures:v142, v95, v96];
   if ([v82 count])
   {
     layoutQueue = [(PXGTextureManager *)self layoutQueue];
@@ -3173,7 +3173,7 @@ LABEL_83:
   }
 }
 
-void __132__PXGTextureManager__streamTexturesForSpritesInDataStore_presentationDataStore_changeDetails_layout_interactionState_loadingStatus___block_invoke_3(void *a1, uint64_t a2, uint64_t a3)
+void __132__PXGTextureManager__streamTexturesForSpritesInDataStore_presentationDataStore_changeDetails_layout_interactionState_loadingStatus___block_invoke_3(void *a1, unint64_t a2, uint64_t a3)
 {
   os_unfair_lock_assert_owner((a1[4] + 48));
   v6 = a2 + a3;
@@ -3267,7 +3267,7 @@ void __132__PXGTextureManager__streamTexturesForSpritesInDataStore_presentationD
   _Block_object_dispose(v17, 8);
 }
 
-uint64_t __132__PXGTextureManager__streamTexturesForSpritesInDataStore_presentationDataStore_changeDetails_layout_interactionState_loadingStatus___block_invoke_4_44(uint64_t result, unint64_t a2, uint64_t a3)
+id *__132__PXGTextureManager__streamTexturesForSpritesInDataStore_presentationDataStore_changeDetails_layout_interactionState_loadingStatus___block_invoke_4_44(id *result, unint64_t a2, uint64_t a3)
 {
   if (a2 < a2 + a3)
   {
@@ -3277,9 +3277,9 @@ uint64_t __132__PXGTextureManager__streamTexturesForSpritesInDataStore_presentat
     v6 = 66 * a2 + 65;
     do
     {
-      if (*(*(v5 + 40) + v6) == 1)
+      if (*(v5[5] + v6) == 1)
       {
-        result = [*(v5 + 32) addIndex:v4];
+        result = [v5[4] addIndex:v4];
       }
 
       ++v4;
@@ -3477,7 +3477,7 @@ LABEL_18:
   }
 }
 
-uint64_t __132__PXGTextureManager__streamTexturesForSpritesInDataStore_presentationDataStore_changeDetails_layout_interactionState_loadingStatus___block_invoke_59(uint64_t result, unint64_t a2, uint64_t a3)
+void *__132__PXGTextureManager__streamTexturesForSpritesInDataStore_presentationDataStore_changeDetails_layout_interactionState_loadingStatus___block_invoke_59(void *result, unint64_t a2, uint64_t a3)
 {
   if (a2 >= a2 + a3)
   {
@@ -3491,7 +3491,7 @@ uint64_t __132__PXGTextureManager__streamTexturesForSpritesInDataStore_presentat
   v7 = 0x7FFFFFFFFFFFFFFFLL;
   do
   {
-    v8 = *(*(v4 + 40) + v6);
+    v8 = *(*(v4 + 5) + v6);
     if (!v8)
     {
       goto LABEL_10;
@@ -3505,7 +3505,7 @@ uint64_t __132__PXGTextureManager__streamTexturesForSpritesInDataStore_presentat
         goto LABEL_10;
       }
 
-      result = [*(v4 + 32) addIndexesInRange:?];
+      result = [*(v4 + 4) addIndexesInRange:?];
     }
 
     v7 = v8;
@@ -3518,7 +3518,7 @@ LABEL_10:
   while (v3);
   if (v5)
   {
-    v9 = *(v4 + 32);
+    v9 = *(v4 + 4);
 
     return [v9 addIndexesInRange:v7];
   }
@@ -4302,9 +4302,9 @@ void __32__PXGTextureManager_description__block_invoke(uint64_t a1, void *a2)
     textureAtlasManagers = v10->_textureAtlasManagers;
     v10->_textureAtlasManagers = MEMORY[0x277CBEBF8];
 
-    indexSet = [MEMORY[0x277CCAA78] indexSet];
+    v26 = objc_msgSend_indexSet(MEMORY[0x277CCAA78]);
     loadedSpriteIndexes = v10->_loadedSpriteIndexes;
-    v10->_loadedSpriteIndexes = indexSet;
+    v10->_loadedSpriteIndexes = v26;
 
     [(PXGTextureManager *)v10 _updatePreheatingStrategy];
     v28 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);

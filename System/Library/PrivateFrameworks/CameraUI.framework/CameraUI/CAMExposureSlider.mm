@@ -65,7 +65,7 @@ void __33__CAMExposureSlider_minimumValue__block_invoke(uint64_t a1)
   [v1 enumerateObjectsUsingBlock:&__block_literal_global_31];
 }
 
-uint64_t __33__CAMExposureSlider_minimumValue__block_invoke_2(uint64_t a1, void *a2)
+void *__33__CAMExposureSlider_minimumValue__block_invoke_2(uint64_t a1, void *a2)
 {
   result = [a2 doubleValue];
   if (v3 < *&minimumValue_minimumValue)
@@ -98,7 +98,7 @@ void __33__CAMExposureSlider_maximumValue__block_invoke(uint64_t a1)
   [v1 enumerateObjectsUsingBlock:&__block_literal_global_33];
 }
 
-uint64_t __33__CAMExposureSlider_maximumValue__block_invoke_2(uint64_t a1, void *a2)
+void *__33__CAMExposureSlider_maximumValue__block_invoke_2(uint64_t a1, void *a2)
 {
   result = [a2 doubleValue];
   if (v3 > *&maximumValue_maximumValue)
@@ -264,7 +264,7 @@ void __37__CAMExposureSlider_decimalFormatter__block_invoke()
   return v5;
 }
 
-uint64_t __63__CAMExposureSlider__indexOfClosestValidValueForExposureValue___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__63__CAMExposureSlider__indexOfClosestValidValueForExposureValue___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 doubleValue];
   v9 = vabdd_f64(v8, *(a1 + 48));

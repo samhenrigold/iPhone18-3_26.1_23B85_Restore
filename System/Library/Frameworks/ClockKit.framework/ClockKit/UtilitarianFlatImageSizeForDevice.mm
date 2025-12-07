@@ -41,7 +41,7 @@ void ___UtilitarianFlatImageSizeForDevice_block_invoke_3(uint64_t a1, uint64_t a
   v4 = [CLKDeviceMetrics metricsWithDevice:a2 identitySizeClass:2];
   *&xmmword_27DE91920 = ___UtilitarianFlatImageSizeForDevice_block_invoke_4(v4, v4);
   *(&xmmword_27DE91920 + 1) = v2;
-  _UtilitarianFlatImageSizeForDevice__imageSize = ___UtilitarianFlatImageSizeForDevice_block_invoke_4([v4 setNewestAllowedSizeClass:&unk_284A34128], v4);
+  _UtilitarianFlatImageSizeForDevice__imageSize[0] = ___UtilitarianFlatImageSizeForDevice_block_invoke_4([v4 setNewestAllowedSizeClass:&unk_284A34128], v4);
   *algn_27DE91918 = v3;
 }
 

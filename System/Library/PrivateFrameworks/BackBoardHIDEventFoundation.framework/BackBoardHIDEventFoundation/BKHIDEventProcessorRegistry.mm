@@ -34,74 +34,72 @@
 
 - (void)addEventProcessor:(id)processor
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   processorCopy = processor;
   if (!processorCopy)
   {
-    v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"eventProcessor"];
+    v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"eventProcessor"];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v11 = NSStringFromSelector(a2);
-      v12 = objc_opt_class();
-      v13 = NSStringFromClass(v12);
+      v10 = NSStringFromSelector(a2);
+      v11 = objc_opt_class();
+      v12 = NSStringFromClass(v11);
       *buf = 138544642;
-      v20 = v11;
-      v21 = 2114;
-      v22 = v13;
-      v23 = 2048;
+      v19 = v10;
+      v20 = 2114;
+      v21 = v12;
+      v22 = 2048;
       selfCopy2 = self;
-      v25 = 2114;
-      v26 = @"BKHIDEventProcessorRegistry.m";
-      v27 = 1024;
-      v28 = 36;
-      v29 = 2114;
-      v30 = v10;
+      v24 = 2114;
+      v25 = @"BKHIDEventProcessorRegistry.m";
+      v26 = 1024;
+      v27 = 36;
+      v28 = 2114;
+      v29 = v9;
       _os_log_error_impl(&dword_223CBE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v10 UTF8String];
+    [v9 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x223CE55A4);
   }
 
-  v18 = processorCopy;
+  v17 = processorCopy;
   v6 = objc_opt_class();
   v7 = NSStringFromClass(v6);
   v8 = [(NSMutableDictionary *)self->_eventProcessorsByClassName objectForKeyedSubscript:v7];
 
   if (v8)
   {
-    v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"Cannot replace an existing event processor"];
+    v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"Cannot replace an existing event processor"];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v15 = NSStringFromSelector(a2);
-      v16 = objc_opt_class();
-      v17 = NSStringFromClass(v16);
+      v14 = NSStringFromSelector(a2);
+      v15 = objc_opt_class();
+      v16 = NSStringFromClass(v15);
       *buf = 138544642;
-      v20 = v15;
-      v21 = 2114;
-      v22 = v17;
-      v23 = 2048;
+      v19 = v14;
+      v20 = 2114;
+      v21 = v16;
+      v22 = 2048;
       selfCopy2 = self;
-      v25 = 2114;
-      v26 = @"BKHIDEventProcessorRegistry.m";
-      v27 = 1024;
-      v28 = 39;
-      v29 = 2114;
-      v30 = v14;
+      v24 = 2114;
+      v25 = @"BKHIDEventProcessorRegistry.m";
+      v26 = 1024;
+      v27 = 39;
+      v28 = 2114;
+      v29 = v13;
       _os_log_error_impl(&dword_223CBE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v14 UTF8String];
+    [v13 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x223CE5690);
   }
 
-  [(NSMutableDictionary *)self->_eventProcessorsByClassName setObject:v18 forKeyedSubscript:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
+  [(NSMutableDictionary *)self->_eventProcessorsByClassName setObject:v17 forKeyedSubscript:v7];
 }
 
 - (BKHIDEventProcessorRegistry)init

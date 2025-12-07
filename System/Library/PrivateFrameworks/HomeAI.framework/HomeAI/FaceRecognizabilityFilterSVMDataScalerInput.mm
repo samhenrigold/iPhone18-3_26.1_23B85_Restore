@@ -22,11 +22,11 @@
 
 - (id)featureValueForName:(id)name
 {
-  if ([name isEqualToString:@"input"])
+  if ([name isEqualToString:?])
   {
     v4 = MEMORY[0x277CBFEF8];
     input = [(FaceRecognizabilityFilterSVMDataScalerInput *)self input];
-    v6 = [v4 featureValueWithMultiArray:input];
+    v6 = [v4 featureValueWithMultiArray:?];
   }
 
   else

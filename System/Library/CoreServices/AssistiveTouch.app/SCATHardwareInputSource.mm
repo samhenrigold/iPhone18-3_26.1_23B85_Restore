@@ -146,7 +146,7 @@
     IOHIDManagerScheduleWithRunLoop(v3, Current, kCFRunLoopDefaultMode);
     if (IOHIDManagerOpen(v3, 0))
     {
-      _AXLogWithFacility();
+      _AXLogWithFacility(0, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Could not start detecting devices");
     }
 
     else

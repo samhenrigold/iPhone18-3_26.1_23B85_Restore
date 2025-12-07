@@ -10,36 +10,35 @@
 
 + (id)extractLRNNFaturesFrom:(id)from
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = SLLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(SLLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
   {
-    v6 = 136315138;
-    v7 = "+[SLASRFeatureExtractor extractLRNNFaturesFrom:]";
-    _os_log_error_impl(&dword_26754E000, v3, OS_LOG_TYPE_ERROR, "%s Unimplemented method called", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "+[SLASRFeatureExtractor extractLRNNFaturesFrom:]";
+    _os_log_error_impl(&dword_26754E000, v3, OS_LOG_TYPE_ERROR, "%s Unimplemented method called", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 + (id)getBestSpeechRecognitionTextFromPackage:(id)package
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   packageCopy = package;
   recognition = [packageCopy recognition];
   v4 = objc_alloc_init(MEMORY[0x277CCAB68]);
   utterances = [recognition utterances];
   firstObject = [utterances firstObject];
 
-  v31 = recognition;
+  v30 = recognition;
   phrases = [recognition phrases];
   v8 = 0;
   if ([phrases count])
   {
     v9 = 0;
-    v33 = phrases;
-    v34 = firstObject;
+    v32 = phrases;
+    v33 = firstObject;
     do
     {
       interpretationIndices = [firstObject interpretationIndices];
@@ -65,32 +64,32 @@
         goto LABEL_19;
       }
 
-      v36 = v12;
+      v35 = v12;
       interpretations2 = [v12 interpretations];
       v19 = [interpretations2 objectAtIndex:unsignedIntegerValue];
 
-      v39 = 0u;
-      v40 = 0u;
-      v37 = 0u;
       v38 = 0u;
-      v35 = v19;
+      v39 = 0u;
+      v36 = 0u;
+      v37 = 0u;
+      v34 = v19;
       tokens = [v19 tokens];
-      v21 = [tokens countByEnumeratingWithState:&v37 objects:v41 count:16];
+      v21 = [tokens countByEnumeratingWithState:&v36 objects:v40 count:16];
       if (v21)
       {
         v22 = v21;
-        v23 = *v38;
+        v23 = *v37;
         do
         {
           for (i = 0; i != v22; ++i)
           {
             v25 = v8;
-            if (*v38 != v23)
+            if (*v37 != v23)
             {
               objc_enumerationMutation(tokens);
             }
 
-            v26 = *(*(&v37 + 1) + 8 * i);
+            v26 = *(*(&v36 + 1) + 8 * i);
             if (([v26 removeSpaceBefore] & 1) == 0 && (objc_msgSend(v25, "removeSpaceAfter") & 1) == 0 && v25)
             {
               [v4 appendString:@" "];
@@ -101,31 +100,29 @@
             v8 = v26;
           }
 
-          v22 = [tokens countByEnumeratingWithState:&v37 objects:v41 count:16];
+          v22 = [tokens countByEnumeratingWithState:&v36 objects:v40 count:16];
         }
 
         while (v22);
       }
 
       ++v9;
-      phrases = v33;
-      firstObject = v34;
+      phrases = v32;
+      firstObject = v33;
     }
 
-    while (v9 < [v33 count]);
+    while (v9 < [v32 count]);
   }
 
   v28 = v4;
 LABEL_19:
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v28;
 }
 
 + (id)_getTokenConfidenceForPath:(id)path fromPhrases:(id)phrases
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   phrasesCopy = phrases;
   v7 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(phrasesCopy, "count")}];
@@ -136,32 +133,31 @@ LABEL_19:
     v10 = v9;
     dictionaryRepresentation = [pathCopy dictionaryRepresentation];
     *buf = 136315394;
-    v25 = "+[SLASRFeatureExtractor _getTokenConfidenceForPath:fromPhrases:]";
-    v26 = 2114;
-    v27 = dictionaryRepresentation;
+    v24 = "+[SLASRFeatureExtractor _getTokenConfidenceForPath:fromPhrases:]";
+    v25 = 2114;
+    v26 = dictionaryRepresentation;
     _os_log_impl(&dword_26754E000, v10, OS_LOG_TYPE_INFO, "%s Constructing tokens for speech path %{public}@", buf, 0x16u);
   }
 
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __64__SLASRFeatureExtractor__getTokenConfidenceForPath_fromPhrases___block_invoke;
-  v21[3] = &unk_279C0E970;
-  v22 = pathCopy;
-  v23 = array;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __64__SLASRFeatureExtractor__getTokenConfidenceForPath_fromPhrases___block_invoke;
+  v20[3] = &unk_279C0E970;
+  v21 = pathCopy;
+  v22 = array;
   v12 = array;
   v13 = pathCopy;
-  [phrasesCopy enumerateObjectsUsingBlock:v21];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __64__SLASRFeatureExtractor__getTokenConfidenceForPath_fromPhrases___block_invoke_2;
-  v19[3] = &unk_279C0E998;
+  [phrasesCopy enumerateObjectsUsingBlock:v20];
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __64__SLASRFeatureExtractor__getTokenConfidenceForPath_fromPhrases___block_invoke_2;
+  v18[3] = &unk_279C0E998;
   v14 = v7;
-  v20 = v14;
-  [v12 enumerateObjectsUsingBlock:v19];
-  v15 = v20;
+  v19 = v14;
+  [v12 enumerateObjectsUsingBlock:v18];
+  v15 = v19;
   v16 = v14;
 
-  v17 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -188,7 +184,7 @@ void __64__SLASRFeatureExtractor__getTokenConfidenceForPath_fromPhrases___block_
 
 void __64__SLASRFeatureExtractor__getTokenConfidenceForPath_fromPhrases___block_invoke_2(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v3, "confidenceScore")}];
   [*(a1 + 32) addObject:v4];
@@ -198,16 +194,14 @@ void __64__SLASRFeatureExtractor__getTokenConfidenceForPath_fromPhrases___block_
     v6 = v5;
     v7 = [v3 confidenceScore];
     v8 = [v3 text];
-    v10 = 136315650;
-    v11 = "+[SLASRFeatureExtractor _getTokenConfidenceForPath:fromPhrases:]_block_invoke_2";
-    v12 = 2050;
-    v13 = v7;
-    v14 = 2112;
-    v15 = v8;
-    _os_log_impl(&dword_26754E000, v6, OS_LOG_TYPE_INFO, "%s Adding score %{public}ld for token %@", &v10, 0x20u);
+    v9 = 136315650;
+    v10 = "+[SLASRFeatureExtractor _getTokenConfidenceForPath:fromPhrases:]_block_invoke_2";
+    v11 = 2050;
+    v12 = v7;
+    v13 = 2112;
+    v14 = v8;
+    _os_log_impl(&dword_26754E000, v6, OS_LOG_TYPE_INFO, "%s Adding score %{public}ld for token %@", &v9, 0x20u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_getLastTokenForPath:(id)path fromPhrases:(id)phrases
@@ -230,7 +224,7 @@ void __64__SLASRFeatureExtractor__getTokenConfidenceForPath_fromPhrases___block_
 
 + (id)extractASRFaturesFrom:(id)from
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   v5 = objc_alloc_init(SLASRFeatures);
   if (fromCopy)
@@ -250,36 +244,36 @@ void __64__SLASRFeatureExtractor__getTokenConfidenceForPath_fromPhrases___block_
     v12 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v8];
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v45 = 0x3032000000;
-    v46 = __Block_byref_object_copy__213;
-    v47 = __Block_byref_object_dispose__214;
-    v48 = 0;
-    v38 = 0;
-    v39 = &v38;
-    v40 = 0x3032000000;
-    v41 = __Block_byref_object_copy__213;
-    v42 = __Block_byref_object_dispose__214;
-    v43 = 0;
+    v44 = 0x3032000000;
+    v45 = __Block_byref_object_copy__213;
+    v46 = __Block_byref_object_dispose__214;
+    v47 = 0;
+    v37 = 0;
+    v38 = &v37;
+    v39 = 0x3032000000;
+    v40 = __Block_byref_object_copy__213;
+    v41 = __Block_byref_object_dispose__214;
+    v42 = 0;
     utterances2 = [recognition utterances];
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __47__SLASRFeatureExtractor_extractASRFaturesFrom___block_invoke;
-    v28[3] = &unk_279C0E948;
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __47__SLASRFeatureExtractor_extractASRFaturesFrom___block_invoke;
+    v27[3] = &unk_279C0E948;
     selfCopy = self;
     v13 = recognition;
-    v29 = v13;
+    v28 = v13;
     v14 = v9;
-    v30 = v14;
+    v29 = v14;
     v15 = v10;
-    v31 = v15;
+    v30 = v15;
     v16 = v11;
-    v32 = v16;
+    v31 = v16;
     v17 = v12;
-    v37 = -8388608;
-    v33 = v17;
+    v36 = -8388608;
+    v32 = v17;
     p_buf = &buf;
-    v35 = &v38;
-    [utterances2 enumerateObjectsUsingBlock:v28];
+    v34 = &v37;
+    [utterances2 enumerateObjectsUsingBlock:v27];
     [(SLASRFeatures *)v5 setLatticePathMaxScores:v14];
     [(SLASRFeatures *)v5 setLatticePathMeanScores:v16];
     [(SLASRFeatures *)v5 setLatticePathMinScores:v15];
@@ -291,14 +285,14 @@ void __64__SLASRFeatureExtractor__getTokenConfidenceForPath_fromPhrases___block_
     *&v19 = v19;
     [(SLASRFeatures *)v5 setSnr:v19];
 
-    [v39[5] endTime];
+    [v38[5] endTime];
     v21 = v20;
-    [v39[5] silenceStartTime];
+    [v38[5] silenceStartTime];
     v23 = v21 - v22;
     *&v23 = v23;
     [(SLASRFeatures *)v5 setTrailingSilence:v23];
 
-    _Block_object_dispose(&v38, 8);
+    _Block_object_dispose(&v37, 8);
     _Block_object_dispose(&buf, 8);
   }
 
@@ -312,8 +306,6 @@ void __64__SLASRFeatureExtractor__getTokenConfidenceForPath_fromPhrases___block_
       _os_log_error_impl(&dword_26754E000, v24, OS_LOG_TYPE_ERROR, "%s Received nil recog candidate, nothing to extract", &buf, 0xCu);
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

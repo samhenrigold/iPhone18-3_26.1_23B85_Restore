@@ -22,7 +22,7 @@
   if (options)
   {
     type metadata accessor for LaunchOptionsKey(0);
-    sub_10000A4B0(&qword_1006AF350, type metadata accessor for LaunchOptionsKey);
+    sub_10000A4B0(&qword_1006AF350, type metadata accessor for LaunchOptionsKey, &unk_100551F08);
     optionsCopy = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
@@ -71,9 +71,10 @@ LABEL_3:
 LABEL_4:
   applicationCopy = application;
   selfCopy = self;
-  v13 = sub_10012277C(application, v8, v10, optionsCopy);
+  sub_10012277C(application, v8, v10, optionsCopy);
+  v14 = v13;
 
-  return v13 & 1;
+  return v14 & 1;
 }
 
 - (void)setWindow:(id)window
@@ -123,7 +124,7 @@ LABEL_4:
 {
   activeCopy = active;
   selfCopy = self;
-  sub_1003E0ED8(activeCopy);
+  sub_1003E0ED8(activeCopy, selfCopy, v5);
 }
 
 - (void)applicationWillTerminate:(id)terminate

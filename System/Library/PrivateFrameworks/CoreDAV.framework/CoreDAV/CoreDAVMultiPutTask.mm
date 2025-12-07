@@ -86,31 +86,31 @@
 
 - (void)fillOutDataWithUUIDsToAddActions:(id)actions hrefsToModDeleteActions:(id)deleteActions
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   actionsCopy = actions;
   deleteActionsCopy = deleteActions;
   [CoreDAVXMLData startElement:"startElement:inNamespace:withAttributes:" inNamespace:? withAttributes:?];
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
-  v26 = actionsCopy;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
+  v25 = actionsCopy;
   obj = [actionsCopy allKeys];
-  v27 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
-  if (v27)
+  v26 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
+  if (v26)
   {
-    v23 = *v37;
+    v22 = *v36;
     do
     {
-      for (i = 0; i != v27; ++i)
+      for (i = 0; i != v26; ++i)
       {
-        if (*v37 != v23)
+        if (*v36 != v22)
         {
           objc_enumerationMutation(obj);
         }
 
-        v30 = [v26 objectForKey:*(*(&v36 + 1) + 8 * i)];
-        context = [v30 context];
+        v29 = [v25 objectForKey:*(*(&v35 + 1) + 8 * i)];
+        context = [v29 context];
         [(CoreDAVXMLData *)self->_pushedData startElement:@"resource" inNamespace:@"http://me.com/_namespace/" withAttributes:0];
         [(CoreDAVXMLData *)self->_pushedData startElement:@"set" inNamespace:@"DAV:" withAttributes:0];
         [(CoreDAVXMLData *)self->_pushedData startElement:@"prop" inNamespace:@"DAV:" withAttributes:0];
@@ -124,32 +124,32 @@
         [(CoreDAVXMLData *)self->_pushedData endElement:@"resource" inNamespace:@"http://me.com/_namespace/"];
       }
 
-      v27 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
+      v26 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
     }
 
-    while (v27);
+    while (v26);
   }
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   v11 = deleteActionsCopy;
   allKeys = [deleteActionsCopy allKeys];
-  v31 = [allKeys countByEnumeratingWithState:&v32 objects:v40 count:16];
-  if (v31)
+  v30 = [allKeys countByEnumeratingWithState:&v31 objects:v39 count:16];
+  if (v30)
   {
-    v29 = *v33;
+    v28 = *v32;
     do
     {
-      for (j = 0; j != v31; ++j)
+      for (j = 0; j != v30; ++j)
       {
-        if (*v33 != v29)
+        if (*v32 != v28)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v13 = *(*(&v32 + 1) + 8 * j);
+        v13 = *(*(&v31 + 1) + 8 * j);
         v14 = [v11 objectForKey:v13];
         [(CoreDAVXMLData *)self->_pushedData startElement:@"resource" inNamespace:@"http://me.com/_namespace/" withAttributes:0];
         pushedData = self->_pushedData;
@@ -180,14 +180,13 @@
         [(CoreDAVXMLData *)self->_pushedData endElement:@"resource" inNamespace:@"http://me.com/_namespace/"];
       }
 
-      v31 = [allKeys countByEnumeratingWithState:&v32 objects:v40 count:16];
+      v30 = [allKeys countByEnumeratingWithState:&v31 objects:v39 count:16];
     }
 
-    while (v31);
+    while (v30);
   }
 
   [(CoreDAVXMLData *)self->_pushedData endElement:@"multiput" inNamespace:@"http://me.com/_namespace/"];
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (id)copyDefaultParserForContentType:(id)type
@@ -209,7 +208,7 @@
 
 - (void)finishCoreDAVTaskWithError:(id)error
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   if (!errorCopy)
   {
@@ -226,40 +225,40 @@
       nextCTag = self->_nextCTag;
       self->_nextCTag = v9;
 
-      v46 = 0u;
-      v47 = 0u;
-      v44 = 0u;
       v45 = 0u;
-      v34 = rootElement;
+      v46 = 0u;
+      v43 = 0u;
+      v44 = 0u;
+      v33 = rootElement;
       obj = [rootElement responses];
       selfCopy = self;
-      v39 = [obj countByEnumeratingWithState:&v44 objects:v48 count:16];
-      if (!v39)
+      v38 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
+      if (!v38)
       {
         goto LABEL_43;
       }
 
-      v38 = *v45;
+      v37 = *v44;
       selfCopy2 = self;
       while (1)
       {
         v12 = 0;
         do
         {
-          if (*v45 != v38)
+          if (*v44 != v37)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = *(*(&v44 + 1) + 8 * v12);
+          v13 = *(*(&v43 + 1) + 8 * v12);
           firstHref = [v13 firstHref];
           payloadAsFullURL = [firstHref payloadAsFullURL];
 
           successfulPropertiesToValues = [v13 successfulPropertiesToValues];
-          v41 = [successfulPropertiesToValues CDVObjectForKeyWithNameSpace:@"DAV:" andName:@"getetag"];
-          payloadAsString = [v41 payloadAsString];
-          v40 = [successfulPropertiesToValues CDVObjectForKeyWithNameSpace:@"http://calendarserver.org/ns/" andName:@"uid"];
-          payloadAsString2 = [v40 payloadAsString];
+          v40 = [successfulPropertiesToValues CDVObjectForKeyWithNameSpace:@"DAV:" andName:@"getetag"];
+          payloadAsString = [v40 payloadAsString];
+          v39 = [successfulPropertiesToValues CDVObjectForKeyWithNameSpace:@"http://calendarserver.org/ns/" andName:@"uid"];
+          payloadAsString2 = [v39 payloadAsString];
           status = [v13 status];
           payloadAsString3 = [status payloadAsString];
 
@@ -388,9 +387,9 @@ LABEL_38:
           ++v12;
         }
 
-        while (v39 != v12);
-        v32 = [obj countByEnumeratingWithState:&v44 objects:v48 count:16];
-        v39 = v32;
+        while (v38 != v12);
+        v32 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
+        v38 = v32;
         if (!v32)
         {
 LABEL_43:
@@ -403,11 +402,9 @@ LABEL_43:
     }
   }
 
-  v42.receiver = self;
-  v42.super_class = CoreDAVMultiPutTask;
-  [(CoreDAVTask *)&v42 finishCoreDAVTaskWithError:errorCopy];
-
-  v33 = *MEMORY[0x277D85DE8];
+  v41.receiver = self;
+  v41.super_class = CoreDAVMultiPutTask;
+  [(CoreDAVTask *)&v41 finishCoreDAVTaskWithError:errorCopy];
 }
 
 @end

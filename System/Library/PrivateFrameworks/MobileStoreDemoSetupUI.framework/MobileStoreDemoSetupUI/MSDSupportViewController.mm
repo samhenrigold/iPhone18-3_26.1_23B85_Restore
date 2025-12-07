@@ -11,10 +11,10 @@
 
 - (MSDSupportViewController)init
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v17.receiver = self;
-  v17.super_class = MSDSupportViewController;
-  v2 = [(MSDSupportViewController *)&v17 init];
+  v19 = *MEMORY[0x277D85DE8];
+  v16.receiver = self;
+  v16.super_class = MSDSupportViewController;
+  v2 = [(MSDSupportViewController *)&v16 init];
   if (v2)
   {
     if (_os_feature_enabled_impl())
@@ -27,13 +27,12 @@
       v3 = 0;
     }
 
-    [(MSDSupportViewController *)v2 setSolariumEnabled:v3];
-    v4 = defaultLogHandle();
+    v4 = defaultLogHandle([(MSDSupportViewController *)v2 setSolariumEnabled:v3]);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       solariumEnabled = [(MSDSupportViewController *)v2 solariumEnabled];
       *buf = 67109120;
-      v19 = solariumEnabled;
+      v18 = solariumEnabled;
       _os_log_impl(&dword_259BCA000, v4, OS_LOG_TYPE_DEFAULT, "OBK/Solarium feature flag is toggled to %d", buf, 8u);
     }
 
@@ -57,16 +56,15 @@
     [(MSDSupportViewController *)v2 setCountryCode:getCurrentDeviceRegion];
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 - (void)viewDidLoad
 {
-  v121[4] = *MEMORY[0x277D85DE8];
-  v114.receiver = self;
-  v114.super_class = MSDSupportViewController;
-  [(MSDSupportViewController *)&v114 viewDidLoad];
+  v120[4] = *MEMORY[0x277D85DE8];
+  v113.receiver = self;
+  v113.super_class = MSDSupportViewController;
+  [(MSDSupportViewController *)&v113 viewDidLoad];
   contentViewController = [(MSDSupportViewController *)self contentViewController];
   buttonTray = [contentViewController buttonTray];
   [buttonTray setHidden:1];
@@ -88,31 +86,31 @@
   view3 = [(MSDSupportViewController *)self view];
   safeAreaLayoutGuide = [view3 safeAreaLayoutGuide];
   topAnchor2 = [safeAreaLayoutGuide topAnchor];
-  v101 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v121[0] = v101;
+  v100 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v120[0] = v100;
   bottomAnchor = [view bottomAnchor];
   view4 = [(MSDSupportViewController *)self view];
   safeAreaLayoutGuide2 = [view4 safeAreaLayoutGuide];
   bottomAnchor2 = [safeAreaLayoutGuide2 bottomAnchor];
-  v88 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v121[1] = v88;
+  v87 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+  v120[1] = v87;
   leftAnchor = [view leftAnchor];
   view5 = [(MSDSupportViewController *)self view];
   safeAreaLayoutGuide3 = [view5 safeAreaLayoutGuide];
   leftAnchor2 = [safeAreaLayoutGuide3 leftAnchor];
   v12 = [leftAnchor constraintEqualToAnchor:leftAnchor2];
-  v121[2] = v12;
-  v113 = view;
+  v120[2] = v12;
+  v112 = view;
   rightAnchor = [view rightAnchor];
   view6 = [(MSDSupportViewController *)self view];
   safeAreaLayoutGuide4 = [view6 safeAreaLayoutGuide];
   rightAnchor2 = [safeAreaLayoutGuide4 rightAnchor];
   v17 = [rightAnchor constraintEqualToAnchor:rightAnchor2];
-  v121[3] = v17;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v121 count:4];
+  v120[3] = v17;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v120 count:4];
 
   v19 = contentView;
-  v109 = v18;
+  v108 = v18;
   [MEMORY[0x277CCAAD0] activateConstraints:v18];
   contentViewController5 = [(MSDSupportViewController *)self contentViewController];
   [contentViewController5 didMoveToParentViewController:self];
@@ -127,27 +125,27 @@
   v25 = v24;
   if (rightAnchor2)
   {
-    v120[0] = v24;
+    v119[0] = v24;
     leftAnchor3 = [_currentCountryStackView leftAnchor];
     leftAnchor4 = [contentView leftAnchor];
-    v28 = [leftAnchor3 constraintEqualToAnchor:leftAnchor4];
-    v120[1] = v28;
-    v29 = v120;
-  }
-
-  else
-  {
-    v119[0] = v24;
-    leftAnchor3 = [_currentCountryStackView centerXAnchor];
-    leftAnchor4 = [contentView centerXAnchor];
     v28 = [leftAnchor3 constraintEqualToAnchor:leftAnchor4];
     v119[1] = v28;
     v29 = v119;
   }
 
+  else
+  {
+    v118[0] = v24;
+    leftAnchor3 = [_currentCountryStackView centerXAnchor];
+    leftAnchor4 = [contentView centerXAnchor];
+    v28 = [leftAnchor3 constraintEqualToAnchor:leftAnchor4];
+    v118[1] = v28;
+    v29 = v118;
+  }
+
   v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:2];
 
-  v105 = v30;
+  v104 = v30;
   [MEMORY[0x277CCAAD0] activateConstraints:v30];
   v31 = objc_alloc_init(MEMORY[0x277D756B8]);
   [v31 setTextAlignment:{-[MSDSupportViewController solariumEnabled](self, "solariumEnabled") ^ 1}];
@@ -171,35 +169,35 @@
   bottomAnchor3 = [_currentCountryStackView bottomAnchor];
   v39 = [topAnchor5 constraintEqualToAnchor:30.0 constant:?];
   v40 = v39;
-  v107 = _currentCountryStackView;
-  v111 = v31;
+  v106 = _currentCountryStackView;
+  v110 = v31;
   if (v35)
   {
-    v118[0] = v39;
+    v117[0] = v39;
     leadingAnchor = [v31 leadingAnchor];
     leadingAnchor2 = [contentView leadingAnchor];
     v43 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v118[1] = v43;
+    v117[1] = v43;
     trailingAnchor = [v31 trailingAnchor];
     trailingAnchor2 = [contentView trailingAnchor];
     v46 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-    v118[2] = v46;
-    v47 = [MEMORY[0x277CBEA60] arrayWithObjects:v118 count:3];
+    v117[2] = v46;
+    v47 = [MEMORY[0x277CBEA60] arrayWithObjects:v117 count:3];
 
     v33 = 0x277D74000;
     v19 = contentView;
 
-    v31 = v111;
+    v31 = v110;
   }
 
   else
   {
-    v117[0] = v39;
+    v116[0] = v39;
     leadingAnchor = [v31 centerXAnchor];
     leadingAnchor2 = [contentView centerXAnchor];
     v43 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v117[1] = v43;
-    v47 = [MEMORY[0x277CBEA60] arrayWithObjects:v117 count:2];
+    v116[1] = v43;
+    v47 = [MEMORY[0x277CBEA60] arrayWithObjects:v116 count:2];
   }
 
   [MEMORY[0x277CCAAD0] activateConstraints:v47];
@@ -215,7 +213,7 @@
     [MEMORY[0x277D75348] labelColor];
   }
   v49 = ;
-  v103 = v47;
+  v102 = v47;
   [v48 setTextColor:v49];
 
   if ([(MSDSupportViewController *)self solariumEnabled])
@@ -249,57 +247,55 @@
   [optionsTableView4 setTranslatesAutoresizingMaskIntoConstraints:0];
 
   optionsTableView5 = [(MSDSupportViewController *)self optionsTableView];
-  [v113 addSubview:optionsTableView5];
+  [v112 addSubview:optionsTableView5];
 
   topAnchor6 = [v48 topAnchor];
   bottomAnchor4 = [v31 bottomAnchor];
-  v89 = [topAnchor6 constraintEqualToAnchor:bottomAnchor4 constant:30.0];
-  v116[0] = v89;
+  v88 = [topAnchor6 constraintEqualToAnchor:bottomAnchor4 constant:30.0];
+  v115[0] = v88;
   leadingAnchor3 = [v48 leadingAnchor];
   leadingAnchor4 = [v19 leadingAnchor];
   v59 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
-  v116[1] = v59;
+  v115[1] = v59;
   trailingAnchor3 = [v48 trailingAnchor];
   v61 = v19;
   v62 = trailingAnchor3;
   trailingAnchor4 = [v61 trailingAnchor];
   v64 = [v62 constraintEqualToAnchor:trailingAnchor4];
-  v116[2] = v64;
+  v115[2] = v64;
   [v48 bottomAnchor];
-  v65 = v100 = v48;
+  v65 = v99 = v48;
   optionsTableView6 = [(MSDSupportViewController *)self optionsTableView];
   topAnchor7 = [optionsTableView6 topAnchor];
   v68 = [v65 constraintEqualToAnchor:topAnchor7];
-  v116[3] = v68;
-  v98 = [MEMORY[0x277CBEA60] arrayWithObjects:v116 count:4];
+  v115[3] = v68;
+  v97 = [MEMORY[0x277CBEA60] arrayWithObjects:v115 count:4];
 
-  [MEMORY[0x277CCAAD0] activateConstraints:v98];
+  [MEMORY[0x277CCAAD0] activateConstraints:v97];
   optionsTableView7 = [(MSDSupportViewController *)self optionsTableView];
   bottomAnchor5 = [optionsTableView7 bottomAnchor];
-  bottomAnchor6 = [v113 bottomAnchor];
-  v87 = [bottomAnchor5 constraintEqualToAnchor:bottomAnchor6 constant:-30.0];
-  v115[0] = v87;
+  bottomAnchor6 = [v112 bottomAnchor];
+  v86 = [bottomAnchor5 constraintEqualToAnchor:bottomAnchor6 constant:-30.0];
+  v114[0] = v86;
   optionsTableView8 = [(MSDSupportViewController *)self optionsTableView];
   leadingAnchor5 = [optionsTableView8 leadingAnchor];
-  leadingAnchor6 = [v113 leadingAnchor];
+  leadingAnchor6 = [v112 leadingAnchor];
   v69 = [leadingAnchor5 constraintEqualToAnchor:leadingAnchor6];
-  v115[1] = v69;
+  v114[1] = v69;
   optionsTableView9 = [(MSDSupportViewController *)self optionsTableView];
   trailingAnchor5 = [optionsTableView9 trailingAnchor];
-  trailingAnchor6 = [v113 trailingAnchor];
+  trailingAnchor6 = [v112 trailingAnchor];
   v73 = [trailingAnchor5 constraintEqualToAnchor:trailingAnchor6];
-  v115[2] = v73;
+  v114[2] = v73;
   optionsTableView10 = [(MSDSupportViewController *)self optionsTableView];
   heightAnchor = [optionsTableView10 heightAnchor];
   v76 = [heightAnchor constraintEqualToConstant:180.0];
-  v115[3] = v76;
-  v77 = [MEMORY[0x277CBEA60] arrayWithObjects:v115 count:4];
+  v114[3] = v76;
+  v77 = [MEMORY[0x277CBEA60] arrayWithObjects:v114 count:4];
 
   [MEMORY[0x277CCAAD0] activateConstraints:v77];
   optionsTableView11 = [(MSDSupportViewController *)self optionsTableView];
   [optionsTableView11 registerClass:objc_opt_class() forCellReuseIdentifier:@"SupportViewTableCell"];
-
-  v79 = *MEMORY[0x277D85DE8];
 }
 
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path
@@ -391,7 +387,7 @@ LABEL_9:
 
 - (id)_currentCountryStackView
 {
-  v32[2] = *MEMORY[0x277D85DE8];
+  v31[2] = *MEMORY[0x277D85DE8];
   currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
   countryCode = [(MSDSupportViewController *)self countryCode];
   v5 = [currentLocale localizedStringForCountryCode:countryCode];
@@ -442,22 +438,21 @@ LABEL_9:
 
   heightAnchor = [v15 heightAnchor];
   v20 = [heightAnchor constraintEqualToConstant:35.0];
-  v32[0] = v20;
+  v31[0] = v20;
   widthAnchor = [v15 widthAnchor];
   heightAnchor2 = [v15 heightAnchor];
   v23 = [widthAnchor constraintEqualToAnchor:heightAnchor2 multiplier:1.0];
-  v32[1] = v23;
-  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:2];
+  v31[1] = v23;
+  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:2];
 
   [MEMORY[0x277CCAAD0] activateConstraints:v24];
   centerYAnchor = [v17 centerYAnchor];
   centerYAnchor2 = [v15 centerYAnchor];
   v27 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-  v31 = v27;
-  v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v31 count:1];
+  v30 = v27;
+  v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:1];
 
   [MEMORY[0x277CCAAD0] activateConstraints:v28];
-  v29 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

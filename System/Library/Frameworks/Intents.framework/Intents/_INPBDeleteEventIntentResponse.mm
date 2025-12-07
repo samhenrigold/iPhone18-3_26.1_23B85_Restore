@@ -1,6 +1,7 @@
 @interface _INPBDeleteEventIntentResponse
 - (BOOL)isEqual:(id)equal;
 - (_INPBDeleteEventIntentResponse)initWithCoder:(id)coder;
+- (id)confirmationReasonAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
 - (unint64_t)hash;
@@ -105,9 +106,23 @@
   toCopy = to;
   if ([(_INPBDeleteEventIntentResponse *)self hasConfirmationReason])
   {
-    confirmationReason = self->_confirmationReason;
     PBDataWriterWriteInt32Field();
   }
+}
+
+- (id)confirmationReasonAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"DELETE_ALL_RECURRENCES";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
 }
 
 - (void)setConfirmationReason:(int)reason

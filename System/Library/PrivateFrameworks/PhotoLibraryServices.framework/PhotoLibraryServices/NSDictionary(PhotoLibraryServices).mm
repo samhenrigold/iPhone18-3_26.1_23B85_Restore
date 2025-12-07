@@ -6,7 +6,7 @@
 
 - (id)_pl_prettyDescriptionWithIndent:()PhotoLibraryServices
 {
-  if ([self count])
+  if (objc_msgSend_count(self, a2))
   {
     pl_result_with_autoreleasepool();
   }
@@ -15,9 +15,9 @@
   {
     PLEmptyContainerDescription();
   }
-  v1 = ;
+  v3 = ;
 
-  return v1;
+  return v3;
 }
 
 @end

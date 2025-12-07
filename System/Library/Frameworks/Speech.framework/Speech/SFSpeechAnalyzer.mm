@@ -13,6 +13,7 @@
 - (SFSpeechAnalyzer)initWithConfiguration:(id)configuration options:(id)options restrictedLogging:(BOOL)logging contextualNamedEntities:(id)entities didChangeVolatileRange:(id)range;
 - (SFSpeechAnalyzer)initWithConfiguration:(id)configuration options:(id)options restrictedLogging:(BOOL)logging didChangeVolatileRange:(id)range;
 - (SFSpeechAnalyzer)initWithConfiguration:(id)configuration options:(id)options restrictedLogging:(BOOL)logging geoLMRegionID:(id)d contextualNamedEntities:(id)entities didChangeVolatileRange:(id)range;
+- (id)initForAudioFileWithConfiguration:(id)configuration options:(id)options restrictedLogging:(BOOL)logging didChangeVolatileRange:(id)range;
 - (void)addAudio:(id)audio;
 - (void)finalizeThrough:(id *)through completion:(id)completion;
 - (void)finishAudio;
@@ -54,11 +55,10 @@
   loggingCopy = logging;
   v13 = sub_1AC79F7F8();
   v14 = *(v13 - 8);
-  v15 = *(v14 + 64);
   MEMORY[0x1EEE9AC00](v13);
-  v17 = &v24 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v18 = _Block_copy(range);
-  v19 = _Block_copy(completion);
+  v16 = &v23 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v17 = _Block_copy(range);
+  v18 = _Block_copy(completion);
   sub_1AC79F7A8();
   if (entities)
   {
@@ -66,27 +66,27 @@
     entities = sub_1AC7A0158();
   }
 
-  if (v18)
+  if (v17)
   {
-    v20 = swift_allocObject();
-    *(v20 + 16) = v18;
-    v18 = sub_1AC658ED0;
+    v19 = swift_allocObject();
+    *(v19 + 16) = v17;
+    v17 = sub_1AC658ED0;
   }
 
   else
   {
-    v20 = 0;
+    v19 = 0;
   }
 
-  v21 = swift_allocObject();
-  *(v21 + 16) = v19;
+  v20 = swift_allocObject();
+  *(v20 + 16) = v18;
   configurationCopy = configuration;
   optionsCopy = options;
-  sub_1AC651694(configurationCopy, v17, options, loggingCopy, entities, v18, v20, sub_1AC658CF8, v21);
+  sub_1AC651694(configurationCopy, v16, options, loggingCopy, entities, v17, v19, sub_1AC658CF8, v20);
 
-  sub_1AC5C3958(v18);
+  sub_1AC5C3958(v17, v19);
 
-  (*(v14 + 8))(v17, v13);
+  (*(v14 + 8))(v16, v13);
 }
 
 - (SFSpeechAnalyzer)initWithClientIdentifier:(id)identifier audioFormat:(id)format formatForNewLines:(BOOL)lines transcriberResultDelegate:(id)delegate endpointingResultDelegate:(id)resultDelegate languageDetectorResultDelegate:(id)detectorResultDelegate speechDetectorResultDelegate:(id)speechDetectorResultDelegate queue:(id)self0 transcriberOptions:(id)self1 options:(id)self2 languageDetectorOptions:(id)self3 speechDetectorOptions:(id)self4 restrictedLogging:(BOOL)self5 contextualNamedEntities:(id)self6 didChangeVolatileRange:(id)self7
@@ -479,6 +479,27 @@
   configurationCopy = configuration;
   optionsCopy = options;
   return sub_1AC654470(configurationCopy, options, logging, v9, v10);
+}
+
+- (id)initForAudioFileWithConfiguration:(id)configuration options:(id)options restrictedLogging:(BOOL)logging didChangeVolatileRange:(id)range
+{
+  loggingCopy = logging;
+  v9 = _Block_copy(range);
+  if (v9)
+  {
+    v10 = swift_allocObject();
+    *(v10 + 16) = v9;
+    v9 = sub_1AC658ED0;
+  }
+
+  else
+  {
+    v10 = 0;
+  }
+
+  configurationCopy = configuration;
+  optionsCopy = options;
+  return sub_1AC654608(configurationCopy, options, loggingCopy, v9, v10);
 }
 
 - (void)addAudio:(id)audio

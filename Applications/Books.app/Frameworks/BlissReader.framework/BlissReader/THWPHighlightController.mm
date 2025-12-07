@@ -391,29 +391,27 @@ LABEL_25:
 
 - (CGRect)p_repRectForHighlight:(_NSRange)highlight lineHasAttachment:(BOOL)attachment
 {
-  length = highlight.length;
-  location = highlight.location;
   [(THWPRep *)[(THWPHighlightController *)self parentRep] rectForHighlight:highlight.location lineHasAttachment:highlight.length, attachment];
+  v9 = v8;
   v11 = v10;
-  v13 = v12;
   if (!attachment)
   {
-    v14 = [(THWPHighlightController *)self parentRep:0];
-    if (v14)
+    v12 = [(THWPHighlightController *)self parentRep:0];
+    if (v12)
     {
-      [(THWPRep *)v14 lineMetricsAtCharIndex:location + (length >> 1)];
+      objc_msgSend_lineMetricsAtCharIndex_(v12);
     }
 
-    v8 = 0.0 - 0.0;
-    v9 = 0.0 + 0.0;
+    v6 = 0.0 - 0.0;
+    v7 = 0.0 + 0.0;
   }
 
-  v15 = v11;
-  v16 = v13;
-  result.size.height = v9;
-  result.size.width = v16;
-  result.origin.y = v8;
-  result.origin.x = v15;
+  v13 = v9;
+  v14 = v11;
+  result.size.height = v7;
+  result.size.width = v14;
+  result.origin.y = v6;
+  result.origin.x = v13;
   return result;
 }
 
@@ -878,7 +876,7 @@ LABEL_16:
   parentRep = [(THWPHighlightController *)self parentRep];
   if (parentRep)
   {
-    [(THWPRep *)parentRep transformToConvertNaturalToLayerRelative];
+    objc_msgSend_transformToConvertNaturalToLayerRelative(parentRep);
     b = v52.b;
     d = v52.d;
     ty = v52.ty;
@@ -1507,7 +1505,7 @@ LABEL_38:
   v2 = [-[THWPRep layout](-[THWPHighlightController parentRep](self "parentRep")];
   if (v2)
   {
-    [v2 fullTransform];
+    objc_msgSend_fullTransform(v2);
     LOBYTE(v2) = 0;
     if (0.0 >= 1.0e-11)
     {
@@ -1862,68 +1860,68 @@ LABEL_11:
 {
   annotationController = [(THWPHighlightController *)self annotationController];
   v6 = [annotationController annotationWithUuid:d];
-  v21[0] = _NSConcreteStackBlock;
-  v21[1] = 3221225472;
-  v21[2] = sub_B7000;
-  v21[3] = &unk_45CE40;
-  v21[4] = v6;
-  v24 = +[UIAction actionWithTitle:image:identifier:handler:](UIAction, "actionWithTitle:image:identifier:handler:", [THBundle() localizedStringForKey:@"Copy" value:&stru_471858 table:0], +[UIImage systemImageNamed:](UIImage, "systemImageNamed:", @"doc.on.doc"), 0, v21);
-  v14 = [UIMenu menuWithTitle:&stru_471858 image:0 identifier:@"com.apple.iBooks.EditMenuGroup" options:17 children:[NSArray arrayWithObjects:&v24 count:1]];
-  v7 = [_TtC8BookCore23BECustomViewMenuElement createHighlightMenuElementFor:4 annotationUUID:d delegate:self];
-  v20[0] = _NSConcreteStackBlock;
-  v20[1] = 3221225472;
-  v20[2] = sub_B7068;
-  v20[3] = &unk_45CE90;
-  v20[4] = v6;
-  v20[5] = annotationController;
-  v20[6] = self;
-  v8 = +[UIAction actionWithTitle:image:identifier:handler:](UIAction, "actionWithTitle:image:identifier:handler:", [THBundle() localizedStringForKey:@"Remove" value:&stru_471858 table:0], +[UIImage systemImageNamed:](UIImage, "systemImageNamed:", @"trash"), 0, v20);
-  [(UIAction *)v8 setAttributes:2];
-  v19[0] = _NSConcreteStackBlock;
-  v19[1] = 3221225472;
-  v19[2] = sub_B7254;
-  v19[3] = &unk_45CEB8;
-  v19[4] = self;
-  v19[5] = v6;
-  v9 = +[UIAction actionWithTitle:image:identifier:handler:](UIAction, "actionWithTitle:image:identifier:handler:", [THBundle() localizedStringForKey:@"Add Note" value:&stru_471858 table:0], +[UIImage systemImageNamed:](UIImage, "systemImageNamed:", @"note.text"), 0, v19);
-  v23[0] = v7;
-  v23[1] = v8;
-  v23[2] = v9;
-  v10 = [UIMenu menuWithTitle:&stru_471858 image:0 identifier:@"com.apple.iBooks.AnnotationMenuGroup" options:17 children:[NSArray arrayWithObjects:v23 count:3]];
-  v11 = +[NSMutableArray array];
-  v18[0] = _NSConcreteStackBlock;
-  v18[1] = 3221225472;
-  v18[2] = sub_B7260;
-  v18[3] = &unk_45CEB8;
-  v18[4] = self;
-  v18[5] = v6;
-  [v11 addObject:{+[UIAction actionWithTitle:image:identifier:handler:](UIAction, "actionWithTitle:image:identifier:handler:", objc_msgSend(THBundle(), "localizedStringForKey:value:table:", @"Look Up", &stru_471858, 0), +[UIImage systemImageNamed:](UIImage, "systemImageNamed:", @"magnifyingglass.circle", 0, v18)}];
-  v17[0] = _NSConcreteStackBlock;
-  v17[1] = 3221225472;
-  v17[2] = sub_B72DC;
-  v17[3] = &unk_45CEB8;
-  v17[4] = self;
-  v17[5] = v6;
-  [v11 addObject:{+[UIAction actionWithTitle:image:identifier:handler:](UIAction, "actionWithTitle:image:identifier:handler:", objc_msgSend(THBundle(), "localizedStringForKey:value:table:", @"Translate", &stru_471858, 0), +[UIImage _systemImageNamed:](UIImage, "_systemImageNamed:", @"translate", 0, v17)}];
-  v16[0] = _NSConcreteStackBlock;
-  v16[1] = 3221225472;
-  v16[2] = sub_B7358;
-  v16[3] = &unk_45CEB8;
-  v16[4] = self;
-  v16[5] = v6;
-  [v11 addObject:{+[UIAction actionWithTitle:image:identifier:handler:](UIAction, "actionWithTitle:image:identifier:handler:", objc_msgSend(THBundle(), "localizedStringForKey:value:table:", @"Search", &stru_471858, 0), +[UIImage systemImageNamed:](UIImage, "systemImageNamed:", @"doc.text.magnifyingglass", 0, v16)}];
-  v15[0] = _NSConcreteStackBlock;
-  v15[1] = 3221225472;
-  v15[2] = sub_B73C8;
-  v15[3] = &unk_45CEB8;
-  v15[4] = self;
-  v15[5] = v6;
-  [v11 addObject:{+[UIAction actionWithTitle:image:identifier:handler:](UIAction, "actionWithTitle:image:identifier:handler:", objc_msgSend(THBundle(), "localizedStringForKey:value:table:", @"Share", &stru_471858, 0), +[UIImage systemImageNamed:](UIImage, "systemImageNamed:", @"square.and.arrow.up", 0, v15)}];
-  v12 = [UIMenu menuWithTitle:&stru_471858 image:0 identifier:@"com.apple.iBooks.OtherMenuGroup" options:17 children:v11];
-  v22[0] = v14;
-  v22[1] = v10;
-  v22[2] = v12;
-  return [UIMenu menuWithTitle:&stru_471858 image:0 identifier:0 options:17 children:[NSArray arrayWithObjects:v22 count:3]];
+  v32[0] = _NSConcreteStackBlock;
+  v32[1] = 3221225472;
+  v32[2] = sub_B7000;
+  v32[3] = &unk_45CE40;
+  v32[4] = v6;
+  v35 = +[UIAction actionWithTitle:image:identifier:handler:](UIAction, "actionWithTitle:image:identifier:handler:", [THBundle(v6 v7)], +[UIImage systemImageNamed:](UIImage, "systemImageNamed:", @"doc.on.doc"), 0, v32);
+  v25 = [UIMenu menuWithTitle:&stru_471858 image:0 identifier:@"com.apple.iBooks.EditMenuGroup" options:17 children:[NSArray arrayWithObjects:&v35 count:1]];
+  v8 = [_TtC8BookCore23BECustomViewMenuElement createHighlightMenuElementFor:4 annotationUUID:d delegate:self];
+  v31[0] = _NSConcreteStackBlock;
+  v31[1] = 3221225472;
+  v31[2] = sub_B7068;
+  v31[3] = &unk_45CE90;
+  v31[4] = v6;
+  v31[5] = annotationController;
+  v31[6] = self;
+  v10 = +[UIAction actionWithTitle:image:identifier:handler:](UIAction, "actionWithTitle:image:identifier:handler:", [THBundle(v8 v9)], +[UIImage systemImageNamed:](UIImage, "systemImageNamed:", @"trash"), 0, v31);
+  v11 = [(UIAction *)v10 setAttributes:2];
+  v30[0] = _NSConcreteStackBlock;
+  v30[1] = 3221225472;
+  v30[2] = sub_B7254;
+  v30[3] = &unk_45CEB8;
+  v30[4] = self;
+  v30[5] = v6;
+  v13 = +[UIAction actionWithTitle:image:identifier:handler:](UIAction, "actionWithTitle:image:identifier:handler:", [THBundle(v11 v12)], +[UIImage systemImageNamed:](UIImage, "systemImageNamed:", @"note.text"), 0, v30);
+  v34[0] = v8;
+  v34[1] = v10;
+  v34[2] = v13;
+  v14 = [UIMenu menuWithTitle:&stru_471858 image:0 identifier:@"com.apple.iBooks.AnnotationMenuGroup" options:17 children:[NSArray arrayWithObjects:v34 count:3]];
+  v15 = +[NSMutableArray array];
+  v29[0] = _NSConcreteStackBlock;
+  v29[1] = 3221225472;
+  v29[2] = sub_B7260;
+  v29[3] = &unk_45CEB8;
+  v29[4] = self;
+  v29[5] = v6;
+  v17 = [v15 addObject:{+[UIAction actionWithTitle:image:identifier:handler:](UIAction, "actionWithTitle:image:identifier:handler:", objc_msgSend(THBundle(v15, v16), "localizedStringForKey:value:table:", @"Look Up", &stru_471858, 0), +[UIImage systemImageNamed:](UIImage, "systemImageNamed:", @"magnifyingglass.circle", 0, v29)}];
+  v28[0] = _NSConcreteStackBlock;
+  v28[1] = 3221225472;
+  v28[2] = sub_B72DC;
+  v28[3] = &unk_45CEB8;
+  v28[4] = self;
+  v28[5] = v6;
+  v19 = [v15 addObject:{+[UIAction actionWithTitle:image:identifier:handler:](UIAction, "actionWithTitle:image:identifier:handler:", objc_msgSend(THBundle(v17, v18), "localizedStringForKey:value:table:", @"Translate", &stru_471858, 0), +[UIImage _systemImageNamed:](UIImage, "_systemImageNamed:", @"translate", 0, v28)}];
+  v27[0] = _NSConcreteStackBlock;
+  v27[1] = 3221225472;
+  v27[2] = sub_B7358;
+  v27[3] = &unk_45CEB8;
+  v27[4] = self;
+  v27[5] = v6;
+  v21 = [v15 addObject:{+[UIAction actionWithTitle:image:identifier:handler:](UIAction, "actionWithTitle:image:identifier:handler:", objc_msgSend(THBundle(v19, v20), "localizedStringForKey:value:table:", @"Search", &stru_471858, 0), +[UIImage systemImageNamed:](UIImage, "systemImageNamed:", @"doc.text.magnifyingglass", 0, v27)}];
+  v26[0] = _NSConcreteStackBlock;
+  v26[1] = 3221225472;
+  v26[2] = sub_B73C8;
+  v26[3] = &unk_45CEB8;
+  v26[4] = self;
+  v26[5] = v6;
+  [v15 addObject:{+[UIAction actionWithTitle:image:identifier:handler:](UIAction, "actionWithTitle:image:identifier:handler:", objc_msgSend(THBundle(v21, v22), "localizedStringForKey:value:table:", @"Share", &stru_471858, 0), +[UIImage systemImageNamed:](UIImage, "systemImageNamed:", @"square.and.arrow.up", 0, v26)}];
+  v23 = [UIMenu menuWithTitle:&stru_471858 image:0 identifier:@"com.apple.iBooks.OtherMenuGroup" options:17 children:v15];
+  v33[0] = v25;
+  v33[1] = v14;
+  v33[2] = v23;
+  return [UIMenu menuWithTitle:&stru_471858 image:0 identifier:0 options:17 children:[NSArray arrayWithObjects:v33 count:3]];
 }
 
 - (id)editMenuInteraction:(id)interaction menuForConfiguration:(id)configuration suggestedActions:(id)actions

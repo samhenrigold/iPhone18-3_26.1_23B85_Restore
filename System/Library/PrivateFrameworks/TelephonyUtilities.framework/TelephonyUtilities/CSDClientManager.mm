@@ -25,6 +25,7 @@
 - (void)filterClientsEntitledForCapability:(id)capability andPerformBlock:(id)block;
 - (void)filterClientsUsingPredicate:(id)predicate andPerformBlock:(id)block;
 - (void)filterClientsUsingPredicate:(id)predicate andPerformBlock:(id)block coalescedByIdentifier:(id)identifier;
+- (void)handleInvocation:(id)invocation synchronously:(BOOL)synchronously;
 - (void)invalidate;
 - (void)performBlockOnClients:(id)clients;
 - (void)performBlockOnClients:(id)clients coalescedByIdentifier:(id)identifier;
@@ -727,11 +728,26 @@ LABEL_18:
   return v5;
 }
 
+- (void)handleInvocation:(id)invocation synchronously:(BOOL)synchronously
+{
+  synchronouslyCopy = synchronously;
+  v8 = _NSConcreteStackBlock;
+  v9 = 3221225472;
+  v10 = sub_100261040;
+  v11 = &unk_100619D88;
+  selfCopy = self;
+  invocationCopy = invocation;
+  v6 = invocationCopy;
+  v7 = [(CSDClientManager *)selfCopy _updatedQOSBlockForBlock:&v8];
+  [v6 retainArguments];
+  [(CSDClientManager *)self performBlockOnQueue:v7 andWait:synchronouslyCopy];
+}
+
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
   listenerCopy = listener;
   connectionCopy = connection;
-  v8 = sub_100004778();
+  v8 = sub_100004778(connectionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     machServiceName = [(CSDClientManager *)self machServiceName];

@@ -3,6 +3,7 @@
 - (id)autoJoinCellAtIndexPath:(id)path;
 - (id)autoLoginCellAtIndexPath:(id)path;
 - (id)contentCachesCellAtIndexPath:(id)path;
+- (id)credentialsViewerCellAtIndexPath:(id)path credentails:(id)credentails hideCredentials:(BOOL)credentials isPassword:(BOOL)password;
 - (id)dhcpClientIDCellAtIndexPath:(id)path;
 - (id)dhcpClientIDTextCellAtIndexPath:(id)path;
 - (id)dnsConfigureCellAtIndexPath:(id)path;
@@ -310,6 +311,39 @@
   [textLabel setText:v5];
 
   return v3;
+}
+
+- (id)credentialsViewerCellAtIndexPath:(id)path credentails:(id)credentails hideCredentials:(BOOL)credentials isPassword:(BOOL)password
+{
+  passwordCopy = password;
+  credentialsCopy = credentials;
+  credentailsCopy = credentails;
+  pathCopy = path;
+  tableView = [(WFNetworkSettingsCellFactory *)self tableView];
+  v13 = [tableView dequeueReusableCellWithIdentifier:@"kWFCredentialsCellIdentifier" forIndexPath:pathCopy];
+
+  contentConfiguration = [v13 contentConfiguration];
+  v15 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v16 = v15;
+  if (passwordCopy)
+  {
+    v17 = @"kWFLocSettingPasswordViewerTitle";
+  }
+
+  else
+  {
+    v17 = @"kWFLocSettingUsernameViewerTitle";
+  }
+
+  v18 = [v15 localizedStringForKey:v17 value:&stru_288308678 table:@"WiFiKitUILocalizableStrings"];
+  [contentConfiguration setText:v18];
+
+  [v13 setContentConfiguration:contentConfiguration];
+  [v13 setCredentials:credentailsCopy];
+
+  [v13 setHideSecureText:credentialsCopy];
+
+  return v13;
 }
 
 - (id)wifiModeCellAtIndexPath:(id)path

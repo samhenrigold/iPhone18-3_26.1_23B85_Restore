@@ -169,7 +169,7 @@ void __85___UIWindowSceneActivationAnimator__sendCompletionActionCallingAlongsid
   dispatch_async(MEMORY[0x1E69E96A0], v1);
 }
 
-uint64_t __85___UIWindowSceneActivationAnimator__sendCompletionActionCallingAlongsideCompletions___block_invoke_3(uint64_t a1)
+void *__85___UIWindowSceneActivationAnimator__sendCompletionActionCallingAlongsideCompletions___block_invoke_3(uint64_t a1)
 {
   result = [*(a1 + 32) _cleanUp];
   if (*(a1 + 40) == 1)

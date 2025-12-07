@@ -362,31 +362,31 @@ uint64_t __51__DDScannerService_scanString_range_configuration___block_invoke(ui
 
 void __47__DDScannerService_appendWatchOSLinksToString___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   [v6 setNoObjC:1];
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
-  v22 = v5;
-  v23 = v6;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  v21 = v5;
+  v22 = v6;
   v7 = -[DDScannerObject scanString:range:query:configuration:completionBlock:](v5, *(a1 + 32), 0, [*(a1 + 32) length], 0, v6, 0);
-  v8 = [v7 countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v8)
   {
-    v9 = *v30;
+    v9 = *v29;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v30 != v9)
+        if (*v29 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v29 + 1) + 8 * i);
+        v11 = *(*(&v28 + 1) + 8 * i);
         if (DDResultGetCategory(v11) - 1 <= 2)
         {
           v12 = DDResultCopyExtractedURLWithOptions(v11, 2);
@@ -405,23 +405,23 @@ void __47__DDScannerService_appendWatchOSLinksToString___block_invoke(uint64_t a
 
                 RangeForURLification = DDResultGetRangeForURLification(v11);
                 v19 = v18;
-                v25 = 0;
-                v26 = &v25;
-                v27 = 0x2020000000;
-                v28 = 0;
+                v24 = 0;
+                v25 = &v24;
+                v26 = 0x2020000000;
+                v27 = 0;
                 v20 = *(a1 + 40);
-                v24[0] = MEMORY[0x1E69E9820];
-                v24[1] = 3221225472;
-                v24[2] = __47__DDScannerService_appendWatchOSLinksToString___block_invoke_2;
-                v24[3] = &unk_1E8001BF8;
-                v24[4] = &v25;
-                [v20 enumerateAttribute:@"NSLink" inRange:RangeForURLification options:v18 usingBlock:{0x100000, v24}];
-                if ((v26[3] & 1) == 0)
+                v23[0] = MEMORY[0x1E69E9820];
+                v23[1] = 3221225472;
+                v23[2] = __47__DDScannerService_appendWatchOSLinksToString___block_invoke_2;
+                v23[3] = &unk_1E8001BF8;
+                v23[4] = &v24;
+                [v20 enumerateAttribute:@"NSLink" inRange:RangeForURLification options:v18 usingBlock:{0x100000, v23}];
+                if ((v25[3] & 1) == 0)
                 {
                   [*(a1 + 40) addAttribute:@"NSLink" value:v14 range:{RangeForURLification, v19}];
                 }
 
-                _Block_object_dispose(&v25, 8);
+                _Block_object_dispose(&v24, 8);
               }
 
               else
@@ -434,13 +434,11 @@ void __47__DDScannerService_appendWatchOSLinksToString___block_invoke(uint64_t a
         }
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v8);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __47__DDScannerService_appendWatchOSLinksToString___block_invoke_2(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)

@@ -1,15 +1,15 @@
 @interface _UITableViewSubviewManager
 - (id)indexPathForPrefetchedCell:(id *)cell;
+- (id)initWithTableView:(void *)view;
 - (id)prefetchedCellAtIndexPath:(id *)path;
-- (uint64_t)preventReuseOfCell:(uint64_t)result;
-- (uint64_t)shouldDeferReuseOfCell:(uint64_t)result;
 - (void)cellReadyForReuse:(void *)reuse withIndexPath:(char)path didEndDisplaying:;
 - (void)filterPrefetchedCells:(id *)cells;
-- (void)initWithTableView:(void *)view;
+- (void)preventReuseOfCell:(void *)result;
 - (void)rebasePrefetchedCellIndexPathsWithMapping:(id *)mapping;
 - (void)removeAllPrefetchedCells;
-- (void)resumeReuseOfCell:(id *)cell;
-- (void)setReorderingCell:(id *)cell;
+- (void)resumeReuseOfCell:(uint64_t)cell;
+- (void)setReorderingCell:(uint64_t)cell;
+- (void)shouldDeferReuseOfCell:(void *)result;
 - (void)storePrefetchedCell:(void *)cell forIndexPath:;
 @end
 
@@ -96,7 +96,7 @@ LABEL_6:
   }
 }
 
-- (void)initWithTableView:(void *)view
+- (id)initWithTableView:(void *)view
 {
   if (!view)
   {
@@ -130,7 +130,7 @@ LABEL_6:
   return v4;
 }
 
-- (uint64_t)shouldDeferReuseOfCell:(uint64_t)result
+- (void)shouldDeferReuseOfCell:(void *)result
 {
   if (result)
   {
@@ -142,7 +142,7 @@ LABEL_6:
       [currentHandler handleFailureInMethod:sel_shouldDeferReuseOfCell_ object:v3 file:@"_UITableViewSubviewManager.m" lineNumber:81 description:{@"UITableView internal inconsistency: cell should not be nil in %@", v6}];
     }
 
-    v4 = *(v3 + 24);
+    v4 = v3[3];
 
     return [v4 containsObject:a2];
   }
@@ -184,7 +184,7 @@ LABEL_6:
   }
 }
 
-- (uint64_t)preventReuseOfCell:(uint64_t)result
+- (void)preventReuseOfCell:(void *)result
 {
   if (result)
   {
@@ -196,7 +196,7 @@ LABEL_6:
       [currentHandler handleFailureInMethod:sel_preventReuseOfCell_ object:v3 file:@"_UITableViewSubviewManager.m" lineNumber:95 description:{@"UITableView internal inconsistency: cell should not be nil in %@", v6}];
     }
 
-    v4 = *(v3 + 24);
+    v4 = v3[3];
 
     return [v4 addObject:a2];
   }
@@ -204,7 +204,7 @@ LABEL_6:
   return result;
 }
 
-- (void)resumeReuseOfCell:(id *)cell
+- (void)resumeReuseOfCell:(uint64_t)cell
 {
   if (cell)
   {
@@ -221,15 +221,15 @@ LABEL_6:
       [currentHandler2 handleFailureInMethod:sel_resumeReuseOfCell_ object:cell file:@"_UITableViewSubviewManager.m" lineNumber:102 description:{@"UITableView internal inconsistency: attempted to resume reuse of a cell that was never prevented from being reused: %@", a2}];
     }
 
-    [cell[3] removeObject:a2];
-    if (([cell[3] containsObject:a2] & 1) == 0)
+    [*(cell + 24) removeObject:a2];
+    if (([*(cell + 24) containsObject:a2] & 1) == 0)
     {
-      v4 = [cell[4] objectForKey:a2];
+      v4 = [*(cell + 32) objectForKey:a2];
       if (v4)
       {
         v9 = v4;
-        [cell[4] removeObjectForKey:a2];
-        WeakRetained = objc_loadWeakRetained(cell + 2);
+        [*(cell + 32) removeObjectForKey:a2];
+        WeakRetained = objc_loadWeakRetained((cell + 16));
         [WeakRetained _reuseTableViewCell:a2 withIndexPath:v9[2] didEndDisplaying:*(v9 + 8)];
 
         v4 = v9;
@@ -238,12 +238,12 @@ LABEL_6:
   }
 }
 
-- (void)setReorderingCell:(id *)cell
+- (void)setReorderingCell:(uint64_t)cell
 {
   if (cell)
   {
-    v4 = cell + 1;
-    v5 = cell[1];
+    v4 = (cell + 8);
+    v5 = *(cell + 8);
     if (v5 != a2)
     {
       v6 = v5;
@@ -256,7 +256,7 @@ LABEL_6:
       v5 = v6;
       if (a2)
       {
-        [cell[3] addObject:a2];
+        [*(cell + 24) addObject:a2];
         v5 = v6;
       }
     }

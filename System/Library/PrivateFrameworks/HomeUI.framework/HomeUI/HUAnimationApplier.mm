@@ -299,7 +299,7 @@ void __62__HUAnimationApplier__startEffectiveProgressTimerForObserver___block_in
     {
       v5 = MEMORY[0x277D75D18];
       animationSettings = [(HUAnimationApplier *)self animationSettings];
-      [animationSettings duration];
+      objc_msgSend_duration(animationSettings);
       v8 = v7;
       animationSettings2 = [(HUAnimationApplier *)self animationSettings];
       [animationSettings2 delay];

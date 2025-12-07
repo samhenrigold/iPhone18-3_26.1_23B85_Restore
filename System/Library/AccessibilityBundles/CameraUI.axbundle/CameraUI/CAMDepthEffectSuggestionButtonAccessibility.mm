@@ -51,10 +51,10 @@ LABEL_9:
   return *MEMORY[0x29EDC7F70] | [(CAMDepthEffectSuggestionButtonAccessibility *)&v3 accessibilityTraits];
 }
 
-void __68__CAMDepthEffectSuggestionButtonAccessibility_accessibilityActivate__block_invoke()
+void __68__CAMDepthEffectSuggestionButtonAccessibility_accessibilityActivate__block_invoke(uint64_t a1)
 {
-  v0 = __UIAccessibilitySafeClass();
-  [v0 sendActionsForControlEvents:64];
+  v1 = __UIAccessibilitySafeClass();
+  [v1 sendActionsForControlEvents:64];
 }
 
 - (void)accessibilityValue

@@ -10,6 +10,7 @@
 - (void)bestHandleForContact:(id)contact service:(id)service callback:(id)callback;
 - (void)birthdaysWithCallback:(id)callback;
 - (void)calendarEventsFromStartDate:(id)date toEndDate:(id)endDate callback:(id)callback;
+- (void)callNewerThan:(double)than showIncoming:(BOOL)incoming showOutgoing:(BOOL)outgoing missedOnly:(BOOL)only callback:(id)callback;
 - (void)contactsWithEmail:(id)email callback:(id)callback;
 - (void)contactsWithIdentifiers:(id)identifiers callback:(id)callback;
 - (void)contactsWithName:(id)name callback:(id)callback;
@@ -34,6 +35,7 @@
 - (void)preferredAppForIntentName:(id)name andParameterCombination:(id)combination callback:(id)callback;
 - (void)scheduledBedTimeWithCallback:(id)callback;
 - (void)timeIntervalSinceUserWakeupWithCallback:(id)callback;
+- (void)travelTimeInfoForEventID:(id)d location:(id)location expectedArrivalDate:(id)date transportType:(id)type localOnlyAfterFirstUpdate:(BOOL)update callback:(id)callback;
 - (void)unreadMessagesWithLimit:(int64_t)limit callback:(id)callback;
 - (void)vipsWithCallback:(id)callback;
 - (void)visibleCalendarsWithCallback:(id)callback;
@@ -98,66 +100,66 @@
 - (id)_queryProxySynchronouslyWithTimeout:(double)timeout queryHandler:(id)handler
 {
   handlerCopy = handler;
+  v36 = 0;
+  v37 = &v36;
+  v38 = 0x3032000000;
+  v39 = sub_1000045EC;
+  v40 = sub_1000045FC;
+  v41 = 0;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x2020000000;
   v35 = 0;
-  v36 = &v35;
-  v37 = 0x3032000000;
-  v38 = sub_1000045EC;
-  v39 = sub_1000045FC;
-  v40 = 0;
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x2020000000;
-  v34 = 0;
   v7 = dispatch_semaphore_create(0);
   xpcConnection = self->_xpcConnection;
-  v27[0] = _NSConcreteStackBlock;
-  v27[1] = 3221225472;
-  v27[2] = sub_100004604;
-  v27[3] = &unk_100024C58;
-  v27[4] = self;
-  v29 = &v31;
-  v30 = &v35;
+  v28[0] = _NSConcreteStackBlock;
+  v28[1] = 3221225472;
+  v28[2] = sub_100004604;
+  v28[3] = &unk_100024C58;
+  v28[4] = self;
+  v30 = &v32;
+  v31 = &v36;
   v9 = v7;
-  v28 = v9;
-  v10 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v27];
-  v19 = _NSConcreteStackBlock;
-  v20 = 3221225472;
-  v21 = sub_1000046AC;
-  v22 = &unk_100024C58;
+  v29 = v9;
+  v10 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v28];
+  v20 = _NSConcreteStackBlock;
+  v21 = 3221225472;
+  v22 = sub_1000046AC;
+  v23 = &unk_100024C58;
   selfCopy = self;
-  v25 = &v31;
-  v26 = &v35;
+  v26 = &v32;
+  v27 = &v36;
   v11 = v9;
-  v24 = v11;
-  v12 = objc_retainBlock(&v19);
+  v25 = v11;
+  v12 = objc_retainBlock(&v20);
   (handlerCopy)[2](handlerCopy, v10, v12);
-  if ([_PASDispatch waitForSemaphore:v11 timeoutSeconds:timeout, v19, v20, v21, v22, selfCopy]== 1)
+  if ([_PASDispatch waitForSemaphore:v11 timeoutSeconds:timeout, v20, v21, v22, v23, selfCopy]== 1)
   {
     selfCopy2 = self;
-    objc_sync_enter(selfCopy2);
-    if ((v32[3] & 1) == 0)
+    v14 = objc_sync_enter(selfCopy2);
+    if ((v33[3] & 1) == 0)
     {
-      *(v32 + 24) = 1;
-      v14 = sub_100001940();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      *(v33 + 24) = 1;
+      v15 = sub_100001940(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        sub_100006BE8(v14);
+        sub_100006BE8(v15);
       }
 
-      v15 = [NSError errorWithDomain:NSCocoaErrorDomain code:1 userInfo:0];
-      v16 = v36[5];
-      v36[5] = v15;
+      v16 = [NSError errorWithDomain:NSCocoaErrorDomain code:1 userInfo:0];
+      v17 = v37[5];
+      v37[5] = v16;
     }
 
     objc_sync_exit(selfCopy2);
   }
 
-  v17 = v36[5];
+  v18 = v37[5];
 
-  _Block_object_dispose(&v31, 8);
-  _Block_object_dispose(&v35, 8);
+  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v36, 8);
 
-  return v17;
+  return v18;
 }
 
 - (void)getEventsWithProminentFeature:(id)feature callback:(id)callback
@@ -303,6 +305,25 @@
   [v7 bestAppSuggestionWithCallback:v6];
 }
 
+- (void)travelTimeInfoForEventID:(id)d location:(id)location expectedArrivalDate:(id)date transportType:(id)type localOnlyAfterFirstUpdate:(BOOL)update callback:(id)callback
+{
+  updateCopy = update;
+  callbackCopy = callback;
+  xpcConnection = self->_xpcConnection;
+  v22[0] = _NSConcreteStackBlock;
+  v22[1] = 3221225472;
+  v22[2] = sub_1000053FC;
+  v22[3] = &unk_100024D20;
+  v23 = callbackCopy;
+  v16 = callbackCopy;
+  typeCopy = type;
+  dateCopy = date;
+  locationCopy = location;
+  dCopy = d;
+  v21 = [(NSXPCConnection *)xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v22];
+  [v21 travelTimeInfoForEventID:dCopy location:locationCopy expectedArrivalDate:dateCopy transportType:typeCopy localOnlyAfterFirstUpdate:updateCopy callback:v16];
+}
+
 - (void)preferredAppForIntentName:(id)name andParameterCombination:(id)combination callback:(id)callback
 {
   callbackCopy = callback;
@@ -345,6 +366,23 @@
   v6 = callbackCopy;
   v7 = [(NSXPCConnection *)xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v8];
   [v7 vipsWithCallback:v6];
+}
+
+- (void)callNewerThan:(double)than showIncoming:(BOOL)incoming showOutgoing:(BOOL)outgoing missedOnly:(BOOL)only callback:(id)callback
+{
+  onlyCopy = only;
+  outgoingCopy = outgoing;
+  incomingCopy = incoming;
+  callbackCopy = callback;
+  xpcConnection = self->_xpcConnection;
+  v16[0] = _NSConcreteStackBlock;
+  v16[1] = 3221225472;
+  v16[2] = sub_10000577C;
+  v16[3] = &unk_100024D20;
+  v17 = callbackCopy;
+  v14 = callbackCopy;
+  v15 = [(NSXPCConnection *)xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v16];
+  [v15 callNewerThan:incomingCopy showIncoming:outgoingCopy showOutgoing:onlyCopy missedOnly:v14 callback:than];
 }
 
 - (void)nlEventsWithCallback:(id)callback

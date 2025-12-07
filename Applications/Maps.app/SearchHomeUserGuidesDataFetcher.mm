@@ -30,7 +30,7 @@
   if (*(self + OBJC_IVAR____TtC4Maps31SearchHomeUserGuidesDataFetcher_dataProviders))
   {
 
-    sub_1000CE6B8(&unk_10190C500);
+    sub_1000CE6B8(&unk_10190C500, &unk_1011E8B50);
     v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
   }
 
@@ -46,7 +46,7 @@
 {
   if (providers)
   {
-    sub_1000CE6B8(&unk_10190C500);
+    sub_1000CE6B8(&unk_10190C500, &unk_1011E8B50);
     v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   }
 

@@ -619,16 +619,17 @@ LABEL_4:
   plannerCopy = planner;
   handlerCopy = handler;
   requestedSharedCKRecordIDs = [plannerCopy requestedSharedCKRecordIDs];
-  if ([requestedSharedCKRecordIDs count])
+  v10 = [requestedSharedCKRecordIDs count];
+  if (v10)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v10 = sub_100003A74();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = sub_100003A74(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v19 = requestedSharedCKRecordIDs;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Will fetch %@ before upload", buf, 0xCu);
+        v20 = requestedSharedCKRecordIDs;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Will fetch %@ before upload", buf, 0xCu);
       }
     }
 
@@ -641,14 +642,14 @@ LABEL_4:
 
     sharedZoneIdentification2 = [plannerCopy sharedZoneIdentification];
     operationType = [sharedZoneIdentification2 operationType];
-    v14[0] = _NSConcreteStackBlock;
-    v14[1] = 3221225472;
-    v14[2] = sub_100092528;
-    v14[3] = &unk_100276410;
-    v17 = handlerCopy;
-    v15 = plannerCopy;
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = sub_100092528;
+    v15[3] = &unk_100276410;
+    v18 = handlerCopy;
+    v16 = plannerCopy;
     selfCopy = self;
-    [(CPLCloudKitTransportTask *)self fetchRecordsFollowRemappingWithIDs:requestedSharedCKRecordIDs wantsAllRecords:1 type:operationType completionHandler:v14];
+    [(CPLCloudKitTransportTask *)self fetchRecordsFollowRemappingWithIDs:requestedSharedCKRecordIDs wantsAllRecords:1 type:operationType completionHandler:v15];
   }
 
   else
@@ -662,16 +663,17 @@ LABEL_4:
   plannerCopy = planner;
   handlerCopy = handler;
   requestedPrivateCKRecordIDs = [plannerCopy requestedPrivateCKRecordIDs];
-  if ([requestedPrivateCKRecordIDs count])
+  v10 = [requestedPrivateCKRecordIDs count];
+  if (v10)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v10 = sub_100003A74();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = sub_100003A74(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v19 = requestedPrivateCKRecordIDs;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Will fetch %@ before upload", buf, 0xCu);
+        v20 = requestedPrivateCKRecordIDs;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Will fetch %@ before upload", buf, 0xCu);
       }
     }
 
@@ -684,14 +686,14 @@ LABEL_4:
 
     destinationZoneIdentification = [plannerCopy destinationZoneIdentification];
     operationType = [destinationZoneIdentification operationType];
-    v14[0] = _NSConcreteStackBlock;
-    v14[1] = 3221225472;
-    v14[2] = sub_100092A1C;
-    v14[3] = &unk_100276410;
-    v17 = handlerCopy;
-    v15 = plannerCopy;
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = sub_100092A1C;
+    v15[3] = &unk_100276410;
+    v18 = handlerCopy;
+    v16 = plannerCopy;
     selfCopy = self;
-    [(CPLCloudKitTransportTask *)self fetchRecordsFollowRemappingWithIDs:requestedPrivateCKRecordIDs wantsAllRecords:1 type:operationType completionHandler:v14];
+    [(CPLCloudKitTransportTask *)self fetchRecordsFollowRemappingWithIDs:requestedPrivateCKRecordIDs wantsAllRecords:1 type:operationType completionHandler:v15];
   }
 
   else

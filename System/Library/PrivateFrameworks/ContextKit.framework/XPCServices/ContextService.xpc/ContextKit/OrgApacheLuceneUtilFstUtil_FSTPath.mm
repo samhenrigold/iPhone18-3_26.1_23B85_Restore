@@ -26,10 +26,7 @@
   }
 
   [(OrgApacheLuceneUtilIntsRefBuilder *)input get];
-  boost = self->boost_;
-  context = self->context_;
-  cost = self->cost_;
-  return JreStrcat("$@$@$@$F", v4, v5, v6, v7, v8, v9, v10, @"input=");
+  return JreStrcat("$@$@$@$F", v3, v4, v5, v6, v7, v8, v9, @"input=");
 }
 
 - (void)dealloc

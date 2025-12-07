@@ -1,7 +1,8 @@
-void OUTLINED_FUNCTION_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 void sub_25AE24EC8(_Unwind_Exception *a1)
@@ -18,7 +19,7 @@ void sub_25AE2505C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_25AE25240(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
+void sub_25AE25240(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
 {
   _Block_object_dispose(&a19, 8);
 
@@ -55,11 +56,11 @@ void sub_25AE25AAC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_25AE25DF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_25AE25DF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v15 - 96), 8);
+  _Block_object_dispose((v22 - 96), 8);
 
   _Unwind_Resume(a1);
 }
@@ -75,17 +76,17 @@ void nlp::CFScopedPtr<void *>::reset(const void **a1, const void *a2)
   *a1 = a2;
 }
 
-void *std::vector<float>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<float>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, __int32 *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<float>::__vallocate[abi:ne200100](result, a2);
+    std::vector<float>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_25AE264F0(_Unwind_Exception *exception_object)
@@ -100,7 +101,7 @@ void sub_25AE264F0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<float>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<float>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -141,10 +142,11 @@ void std::__throw_bad_array_new_length[abi:ne200100]()
   __cxa_throw(v1, MEMORY[0x277D82778], MEMORY[0x277D82620]);
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_25AE267A4(_Unwind_Exception *a1)
@@ -154,49 +156,51 @@ void sub_25AE267A4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_25AE26E3C(_Unwind_Exception *a1, void *a2, uint64_t a3, void *a4, void *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_25AE26E3C(_Unwind_Exception *a1, void *a2, uint64_t a3, void *a4, void *a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, void *a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
 
   nlp::CFScopedPtr<void *>::reset(va, 0);
   _Unwind_Resume(a1);
 }
 
-void sub_25AE285EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36, uint64_t a37, uint64_t a38, uint64_t a39, char a40)
+void sub_25AE285EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, ...)
 {
+  va_start(va, a39);
   _Block_object_dispose(&a24, 8);
   _Block_object_dispose(&a28, 8);
   _Block_object_dispose(&a32, 8);
   _Block_object_dispose(&a36, 8);
-  _Block_object_dispose(&a40, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_25AE28940(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34)
+void sub_25AE28940(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, ...)
 {
+  va_start(va, a33);
   _Block_object_dispose(&a22, 8);
   _Block_object_dispose(&a26, 8);
   _Block_object_dispose(&a30, 8);
-  _Block_object_dispose(&a34, 8);
-  _Block_object_dispose((v34 - 168), 8);
-  _Block_object_dispose((v34 - 136), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v33 - 168), 8);
+  _Block_object_dispose((v33 - 136), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_25AE293D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_25AE293D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_25AE29B7C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *__p, uint64_t a25)
+void sub_25AE29B7C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *__p, uint64_t a25)
 {
   _Block_object_dispose(&a18, 8);
   if (__p)
@@ -210,14 +214,12 @@ void sub_25AE29B7C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 __n128 __Block_byref_object_copy__0(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
@@ -238,7 +240,6 @@ void std::vector<unsigned int>::reserve(std::vector<unsigned int> *this, std::ve
   {
     if (!(__n >> 62))
     {
-      v2 = this->__end_ - this->__begin_;
       std::__allocate_at_least[abi:ne200100]<std::allocator<float>>(this, __n);
     }
 
@@ -246,7 +247,7 @@ void std::vector<unsigned int>::reserve(std::vector<unsigned int> *this, std::ve
   }
 }
 
-void sub_25AE29EF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
+void sub_25AE29EF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
 {
   _Block_object_dispose(&a19, 8);
 
@@ -254,7 +255,7 @@ void sub_25AE29EF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<unsigned int>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
+void std::vector<unsigned int>::push_back[abi:ne200100](const void **a1, int *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -303,16 +304,17 @@ void std::vector<unsigned int>::push_back[abi:ne200100](const void **a1, _DWORD 
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 4;
   }
 
   a1[1] = v6;
 }
 
-void sub_25AE2A4F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, const void *a13)
+void sub_25AE2A4F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, ...)
 {
-  __cxa_free_exception(v17);
-  applesauce::CF::ObjectRef<__CFArray const*>::~ObjectRef(&a13);
+  va_start(va, a12);
+  __cxa_free_exception(v16);
+  applesauce::CF::ObjectRef<__CFArray const*>::~ObjectRef(va);
 
   _Unwind_Resume(a1);
 }
@@ -357,9 +359,9 @@ LABEL_8:
   }
 }
 
-void sub_25AE2B3D8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25AE2B3D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   _Unwind_Resume(a1);
@@ -479,7 +481,7 @@ void applesauce::CF::details::CFArray_get_value_to<std::vector<float>>(const __C
         }
 
         *(4 * v14) = v8;
-        v11 = 4 * v14 + 4;
+        v11 = (4 * v14 + 4);
         memcpy(0, begin, v13);
         v18 = a2->__begin_;
         a2->__begin_ = 0;
@@ -494,7 +496,7 @@ void applesauce::CF::details::CFArray_get_value_to<std::vector<float>>(const __C
       else
       {
         *end = v8;
-        v11 = (end + 1);
+        v11 = end + 1;
       }
 
       a2->__end_ = v11;
@@ -529,7 +531,7 @@ float applesauce::CF::convert_to<float,0>(const __CFNumber *a1)
   return *&v1;
 }
 
-uint64_t applesauce::CF::convert_as<float,0>(const __CFNumber *a1)
+unint64_t applesauce::CF::convert_as<float,0>(const __CFNumber *a1)
 {
   if (a1 && (TypeID = CFNumberGetTypeID(), TypeID == CFGetTypeID(a1)))
   {
@@ -686,7 +688,7 @@ LABEL_26:
 
 id trainMLPModelForDES(void *a1, void *a2, void *a3, void *a4)
 {
-  v122[1] = *MEMORY[0x277D85DE8];
+  v121[1] = *MEMORY[0x277D85DE8];
   v7 = a1;
   v8 = a2;
   v9 = [v7 attachments];
@@ -746,8 +748,8 @@ LABEL_10:
       goto LABEL_83;
     }
 
-    v113 = a3;
-    v120 = v22;
+    v112 = a3;
+    v119 = v22;
     v23 = [v7 recipeUserInfo];
     v24 = [v23 objectForKey:@"task"];
     v25 = [NLPLearnerTaskWrapper taskFromRecipe:v24];
@@ -757,16 +759,16 @@ LABEL_10:
     switch(v25)
     {
       case 1:
-        v119 = v12;
+        v118 = v12;
         v28 = v26;
         v29 = [v7 attachments];
         v30 = @"emojiClasses.plist";
         break;
       case 3:
-        v119 = v12;
-        v116 = v13;
+        v118 = v12;
+        v115 = v13;
         [v7 attachments];
-        v117 = v10;
+        v116 = v10;
         v31 = v8;
         v33 = v32 = v27;
         v34 = [v33 firstObject];
@@ -775,12 +777,12 @@ LABEL_10:
         v28 = v32;
         v37 = v32;
         v8 = v31;
-        v10 = v117;
+        v10 = v116;
         [v37 addResource:v36];
 
         goto LABEL_21;
       case 2:
-        v119 = v12;
+        v118 = v12;
         v28 = v26;
         v29 = [v7 attachments];
         v30 = @"montrealidmap.dat";
@@ -806,14 +808,14 @@ LABEL_10:
     {
       v16 = 0;
       v27 = v28;
-      v12 = v119;
+      v12 = v118;
 LABEL_82:
 
 LABEL_83:
       goto LABEL_84;
     }
 
-    v116 = v13;
+    v115 = v13;
     v34 = [v33 path];
     [v28 addResource:v34];
 LABEL_21:
@@ -843,10 +845,10 @@ LABEL_21:
       v48 = v46;
     }
 
-    v118 = v48;
+    v117 = v48;
 
     v49 = [v7 recipeUserInfo];
-    v111 = [v49 objectForKey:@"noSDP"];
+    v110 = [v49 objectForKey:@"noSDP"];
 
     v50 = [QuickTypePFLTrainerMLP alloc];
     v51 = [NLPLearnerTaskWrapper privacyIdentifierForTask:v25];
@@ -855,13 +857,13 @@ LABEL_21:
     v53 = [v7 recipeUserInfo];
     v54 = [v53 objectForKey:@"batchSize"];
 
-    v12 = v119;
+    v12 = v118;
     if (v54)
     {
       -[QuickTypePFLTrainerMLP setBatchSize:](v52, "setBatchSize:", [v54 unsignedIntegerValue]);
     }
 
-    v115 = v54;
+    v114 = v54;
     v55 = [v7 recipeUserInfo];
     v56 = [v55 objectForKey:@"minTrainingSamples"];
     v57 = v56;
@@ -874,10 +876,10 @@ LABEL_21:
     v59 = v58;
 
     v60 = [v27 numSamples];
-    v114 = v59;
+    v113 = v59;
     if (v60 < [v59 intValue] || (v61 = objc_msgSend(v27, "numSamples"), v61 < -[QuickTypePFLTrainerMLP batchSize](v52, "batchSize")))
     {
-      v13 = v116;
+      v13 = v115;
       if (a4)
       {
         [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.QuickTypeDESPlugin" code:2 userInfo:&unk_286C3AB08];
@@ -889,8 +891,8 @@ LABEL_21:
         v16 = 0;
       }
 
-      v22 = v120;
-      v62 = v114;
+      v22 = v119;
+      v62 = v113;
       goto LABEL_81;
     }
 
@@ -918,7 +920,7 @@ LABEL_21:
       [(QuickTypePFLTrainerMLP *)v52 setClippingNorm:v70];
     }
 
-    v109 = v70;
+    v108 = v70;
     v71 = [v7 recipeUserInfo];
     v72 = [v71 objectForKey:@"normBinCount"];
 
@@ -927,16 +929,16 @@ LABEL_21:
       -[QuickTypePFLTrainerMLP setNormBinCount:](v52, "setNormBinCount:", [v72 unsignedIntegerValue]);
     }
 
-    v108 = v72;
+    v107 = v72;
     v73 = objc_autoreleasePoolPush();
-    v74 = -[QuickTypePFLTrainerMLP trainOn:forNEpochs:](v52, "trainOn:forNEpochs:", v27, [v118 unsignedIntegerValue]);
+    v74 = -[QuickTypePFLTrainerMLP trainOn:forNEpochs:](v52, "trainOn:forNEpochs:", v27, [v117 unsignedIntegerValue]);
     objc_autoreleasePoolPop(v73);
-    v110 = v64;
+    v109 = v64;
     if (!v74)
     {
       if (a4)
       {
-        [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.QuickTypeDESPlugin" code:4 userInfo:{&unk_286C3AB30, v108}];
+        [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.QuickTypeDESPlugin" code:4 userInfo:{&unk_286C3AB30, v107}];
         *a4 = v16 = 0;
       }
 
@@ -945,9 +947,9 @@ LABEL_21:
         v16 = 0;
       }
 
-      v13 = v116;
-      v22 = v120;
-      v62 = v114;
+      v13 = v115;
+      v22 = v119;
+      v62 = v113;
 LABEL_80:
 
 LABEL_81:
@@ -967,17 +969,17 @@ LABEL_81:
       {
 LABEL_54:
         v84 = objc_autoreleasePoolPush();
-        v85 = [(QuickTypePFLTrainerMLP *)v52 getWeightUpdatesAddNoise:v111 == 0 encryptionKey:v116 recipe:v7];
+        v85 = [(QuickTypePFLTrainerMLP *)v52 getWeightUpdatesAddNoise:v110 == 0 encryptionKey:v115 recipe:v7];
         objc_autoreleasePoolPop(v84);
-        v112 = v85;
+        v111 = v85;
         if (v85)
         {
-          *v113 = [v85 weightUpdates];
-          v121 = @"NumberOfTrainingSamples";
+          *v112 = [v85 weightUpdates];
+          v120 = @"NumberOfTrainingSamples";
           v27 = v76;
           v86 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v76, "numSamples")}];
-          v122[0] = v86;
-          v87 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v122 forKeys:&v121 count:1];
+          v121[0] = v86;
+          v87 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v121 forKeys:&v120 count:1];
           v16 = [v87 mutableCopy];
 
           v88 = [(QuickTypePFLTrainerMLP *)v52 initialLoss];
@@ -998,7 +1000,7 @@ LABEL_54:
           }
 
           v94 = [(QuickTypePFLTrainerMLP *)v52 trainingLoss];
-          v62 = v114;
+          v62 = v113;
           if (v94)
           {
             v95 = v94;
@@ -1015,35 +1017,35 @@ LABEL_54:
             }
           }
 
-          v100 = [v112 privacyDiagnosticReport];
+          v100 = [v111 privacyDiagnosticReport];
 
           if (v100)
           {
-            v101 = [v112 privacyDiagnosticReport];
+            v101 = [v111 privacyDiagnosticReport];
             [v16 setObject:v101 forKeyedSubscript:@"localPrivacyParameters"];
           }
 
-          v102 = [v112 weightUpdatesDiagnosticReport];
+          v102 = [v111 weightUpdatesDiagnosticReport];
 
-          v13 = v116;
+          v13 = v115;
           v8 = v75;
           if (v102)
           {
-            v103 = [v112 weightUpdatesDiagnosticReport];
+            v103 = [v111 weightUpdatesDiagnosticReport];
             [v16 setObject:v103 forKeyedSubscript:@"$local_only.QuickTypeModelUpdate"];
           }
 
-          v12 = v119;
+          v12 = v118;
           if (+[NLPLearnerUtils isInternalInstall])
           {
-            v104 = [v112 l2Norm];
+            v104 = [v111 l2Norm];
             [v16 setObject:v104 forKeyedSubscript:@"L2Norm"];
 
-            v105 = [v112 maxNorm];
+            v105 = [v111 maxNorm];
             [v16 setObject:v105 forKeyedSubscript:@"MaxNorm"];
           }
 
-          v22 = v120;
+          v22 = v119;
         }
 
         else
@@ -1060,11 +1062,11 @@ LABEL_54:
             v16 = 0;
           }
 
-          v13 = v116;
+          v13 = v115;
           v8 = v75;
-          v12 = v119;
-          v22 = v120;
-          v62 = v114;
+          v12 = v118;
+          v22 = v119;
+          v62 = v113;
         }
 
         goto LABEL_80;
@@ -1099,30 +1101,29 @@ LABEL_39:
 LABEL_84:
 
 LABEL_85:
-  v106 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
 
-void sub_25AE2D260(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_25AE2D260(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va1, a14);
-  va_start(va, a14);
-  v16 = va_arg(va1, const void *);
+  va_start(va1, a21);
+  va_start(va, a21);
+  v23 = va_arg(va1, const void *);
   nlp::CFScopedPtr<MLPModelTrainer *>::reset(va, 0);
   nlp::CFScopedPtr<void *>::reset(va1, 0);
 
   _Unwind_Resume(a1);
 }
 
-void sub_25AE2DB0C(_Unwind_Exception *a1, void *a2, void *a3, void *a4, void *a5, uint64_t a6, ...)
+void sub_25AE2DB0C(_Unwind_Exception *a1, void *a2, void *a3, void *a4, void *a5, uint64_t a6, void *a7, void *a8, void *a9, void *a10, uint64_t a11, ...)
 {
-  va_start(va2, a6);
-  va_start(va1, a6);
-  va_start(va, a6);
-  v9 = va_arg(va1, const void *);
+  va_start(va2, a11);
+  va_start(va1, a11);
+  va_start(va, a11);
+  v14 = va_arg(va1, const void *);
   va_copy(va2, va1);
-  v11 = va_arg(va2, const void *);
+  v16 = va_arg(va2, const void *);
 
   nlp::CFScopedPtr<__CFData *>::reset(va, 0);
   nlp::CFScopedPtr<__CFData const*>::reset(va1, 0);
@@ -1164,15 +1165,16 @@ void nlp::CFScopedPtr<MLPModelTrainer *>::reset(const void **a1, const void *a2)
   *a1 = a2;
 }
 
-void OUTLINED_FUNCTION_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
-void sub_25AE2ECE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_25AE2ECE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1184,21 +1186,21 @@ void OUTLINED_FUNCTION_2_0(void *a1, uint64_t a2, os_log_t log, const char *a4, 
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-id supportedMetrics()
+id supportedMetrics(uint64_t a1)
 {
   if (supportedMetrics_onceToken != -1)
   {
     supportedMetrics_cold_1();
   }
 
-  v1 = supportedMetrics_supportedMetrics;
+  v2 = supportedMetrics_supportedMetrics;
 
-  return v1;
+  return v2;
 }
 
-void sub_25AE30528(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25AE30528(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1224,19 +1226,17 @@ void __overrideWordErrorCountForMetrics_block_invoke()
 
 void __reporterKeysToKeep_block_invoke()
 {
-  v5[5] = *MEMORY[0x277D85DE8];
+  v4[5] = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277D6FF70];
-  v5[0] = *MEMORY[0x277D6FF68];
-  v5[1] = v0;
+  v4[0] = *MEMORY[0x277D6FF68];
+  v4[1] = v0;
   v1 = *MEMORY[0x277D6FF80];
-  v5[2] = *MEMORY[0x277D6FF78];
-  v5[3] = v1;
-  v5[4] = *MEMORY[0x277D6FF88];
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:5];
+  v4[2] = *MEMORY[0x277D6FF78];
+  v4[3] = v1;
+  v4[4] = *MEMORY[0x277D6FF88];
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:5];
   v3 = reporterKeysToKeep_keysForCASchema;
   reporterKeysToKeep_keysForCASchema = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void operator delete(void *__p)

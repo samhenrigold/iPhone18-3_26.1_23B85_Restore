@@ -70,30 +70,30 @@
 
 - (IPMessage)initWithSGIPMessage:(id)message
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v5 = objc_opt_new();
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   recipients = [messageCopy recipients];
-  v7 = [recipients countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v7 = [recipients countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v29;
+    v9 = *v28;
     do
     {
       v10 = 0;
       do
       {
-        if (*v29 != v9)
+        if (*v28 != v9)
         {
           objc_enumerationMutation(recipients);
         }
 
-        v11 = [[IPPerson alloc] initWithSGIPPerson:*(*(&v28 + 1) + 8 * v10)];
+        v11 = [[IPPerson alloc] initWithSGIPPerson:*(*(&v27 + 1) + 8 * v10)];
         if (v11)
         {
           [v5 addObject:v11];
@@ -103,7 +103,7 @@
       }
 
       while (v8 != v10);
-      v8 = [recipients countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v8 = [recipients countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
     while (v8);
@@ -124,15 +124,14 @@
   -[IPMessage setIsGroupConversation:](v20, "setIsGroupConversation:", [messageCopy isGroupConversation]);
   -[IPMessage setIsSenderSignificant:](v20, "setIsSenderSignificant:", [messageCopy isSenderSignificant]);
   messageUnits = [messageCopy messageUnits];
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __33__IPMessage_initWithSGIPMessage___block_invoke;
-  v26[3] = &unk_278F22E28;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __33__IPMessage_initWithSGIPMessage___block_invoke;
+  v25[3] = &unk_278F22E28;
   v22 = v20;
-  v27 = v22;
-  [messageUnits enumerateObjectsUsingBlock:v26];
+  v26 = v22;
+  [messageUnits enumerateObjectsUsingBlock:v25];
 
-  v23 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
@@ -208,7 +207,7 @@ void __33__IPMessage_initWithSGIPMessage___block_invoke(uint64_t a1, void *a2, u
 
 - (NSArray)messageUnits
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   messageUnits = self->_messageUnits;
   if (!messageUnits)
   {
@@ -219,8 +218,8 @@ void __33__IPMessage_initWithSGIPMessage___block_invoke(uint64_t a1, void *a2, u
     v7 = _MDPlainTextFromHTMLData();
 
     v8 = [[IPMessageUnit alloc] initWithText:v7 originalMessage:self index:0];
-    v14[0] = v8;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+    v13[0] = v8;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
     v10 = [v9 mutableCopy];
     v11 = self->_messageUnits;
     self->_messageUnits = v10;
@@ -228,49 +227,45 @@ void __33__IPMessage_initWithSGIPMessage___block_invoke(uint64_t a1, void *a2, u
     messageUnits = self->_messageUnits;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return messageUnits;
 }
 
 - (void)setMessageUnits:(id)units
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   unitsCopy = units;
   messageUnits = self->_messageUnits;
   self->_messageUnits = 0;
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v6 = unitsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [(IPMessage *)self addMessageUnit:*(*(&v12 + 1) + 8 * v10++), v12];
+        [(IPMessage *)self addMessageUnit:*(*(&v11 + 1) + 8 * v10++), v11];
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)lowercaseSubject

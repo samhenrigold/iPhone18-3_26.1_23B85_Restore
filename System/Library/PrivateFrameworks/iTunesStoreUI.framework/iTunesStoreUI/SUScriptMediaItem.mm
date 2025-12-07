@@ -147,7 +147,7 @@ LABEL_11:
   return v6;
 }
 
-uint64_t __46__SUScriptMediaItem_imageURLWithWidth_height___block_invoke(uint64_t a1)
+void *__46__SUScriptMediaItem_imageURLWithWidth_height___block_invoke(uint64_t a1)
 {
   v2 = [objc_msgSend(*(a1 + 32) "nativeObject")];
   result = [v2 valueForProperty:*MEMORY[0x1E696FA98]];

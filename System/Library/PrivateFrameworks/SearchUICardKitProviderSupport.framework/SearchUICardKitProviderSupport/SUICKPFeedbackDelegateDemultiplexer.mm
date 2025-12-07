@@ -4,6 +4,7 @@
 - (VRXInteractionDelegate)snippetUIDelegate;
 - (id)_delegateForFeedback:(id)feedback;
 - (id)_delegateForView:(id)view;
+- (void)cardSectionViewDidInvalidateSize:(id)size animate:(BOOL)animate;
 - (void)cardSectionViewDidSelectPreferredPunchoutIndex:(int64_t)index;
 - (void)cardViewDidAppear:(id)appear;
 - (void)cardViewDidDisappear:(id)disappear;
@@ -147,176 +148,160 @@ void __64__SUICKPFeedbackDelegateDemultiplexer_emitInstrumentationEvent___block_
 
 - (void)reportFeedback:(id)feedback queryId:(int64_t)id
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   feedbackCopy = feedback;
   v7 = [(SUICKPFeedbackDelegateDemultiplexer *)self _delegateForFeedback:feedbackCopy];
   v8 = *MEMORY[0x277CF93F0];
   if (os_log_type_enabled(*MEMORY[0x277CF93F0], OS_LOG_TYPE_INFO))
   {
-    v10 = 138412546;
-    v11 = feedbackCopy;
-    v12 = 2048;
+    v9 = 138412546;
+    v10 = feedbackCopy;
+    v11 = 2048;
     idCopy = id;
-    _os_log_impl(&dword_264EDF000, v8, OS_LOG_TYPE_INFO, "Report feedback: %@ with queryId %lld", &v10, 0x16u);
+    _os_log_impl(&dword_264EDF000, v8, OS_LOG_TYPE_INFO, "Report feedback: %@ with queryId %lld", &v9, 0x16u);
   }
 
   if (objc_opt_respondsToSelector())
   {
     [v7 reportFeedback:feedbackCopy queryId:id];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cardViewDidDisappear:(id)disappear
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   disappearCopy = disappear;
   v5 = [(SUICKPFeedbackDelegateDemultiplexer *)self _delegateForFeedback:disappearCopy];
   v6 = *MEMORY[0x277CF93F0];
   if (os_log_type_enabled(*MEMORY[0x277CF93F0], OS_LOG_TYPE_INFO))
   {
-    v8 = 138412290;
-    v9 = disappearCopy;
-    _os_log_impl(&dword_264EDF000, v6, OS_LOG_TYPE_INFO, "Card did disappear with feedback: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = disappearCopy;
+    _os_log_impl(&dword_264EDF000, v6, OS_LOG_TYPE_INFO, "Card did disappear with feedback: %@", &v7, 0xCu);
   }
 
   if (objc_opt_respondsToSelector())
   {
     [v5 cardViewDidDisappear:disappearCopy];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cardViewDidAppear:(id)appear
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   appearCopy = appear;
   v5 = [(SUICKPFeedbackDelegateDemultiplexer *)self _delegateForFeedback:appearCopy];
   v6 = *MEMORY[0x277CF93F0];
   if (os_log_type_enabled(*MEMORY[0x277CF93F0], OS_LOG_TYPE_INFO))
   {
-    v8 = 138412290;
-    v9 = appearCopy;
-    _os_log_impl(&dword_264EDF000, v6, OS_LOG_TYPE_INFO, "Card did appear with feedback: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = appearCopy;
+    _os_log_impl(&dword_264EDF000, v6, OS_LOG_TYPE_INFO, "Card did appear with feedback: %@", &v7, 0xCu);
   }
 
   if (objc_opt_respondsToSelector())
   {
     [v5 cardViewDidAppear:appearCopy];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didEngageCardSection:(id)section
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   sectionCopy = section;
   v5 = [(SUICKPFeedbackDelegateDemultiplexer *)self _delegateForFeedback:sectionCopy];
   v6 = *MEMORY[0x277CF93F0];
   if (os_log_type_enabled(*MEMORY[0x277CF93F0], OS_LOG_TYPE_INFO))
   {
-    v8 = 138412546;
-    v9 = sectionCopy;
-    v10 = 2112;
-    v11 = v5;
-    _os_log_impl(&dword_264EDF000, v6, OS_LOG_TYPE_INFO, "Card section engaged with feedback: %@  listener: %@", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = sectionCopy;
+    v9 = 2112;
+    v10 = v5;
+    _os_log_impl(&dword_264EDF000, v6, OS_LOG_TYPE_INFO, "Card section engaged with feedback: %@  listener: %@", &v7, 0x16u);
   }
 
   if (objc_opt_respondsToSelector())
   {
     [v5 didEngageCardSection:sectionCopy];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didPerformCommand:(id)command
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   commandCopy = command;
   v5 = [(SUICKPFeedbackDelegateDemultiplexer *)self _delegateForFeedback:commandCopy];
   v6 = *MEMORY[0x277CF93F0];
   if (os_log_type_enabled(*MEMORY[0x277CF93F0], OS_LOG_TYPE_INFO))
   {
-    v8 = 138412546;
-    v9 = commandCopy;
-    v10 = 2112;
-    v11 = v5;
-    _os_log_impl(&dword_264EDF000, v6, OS_LOG_TYPE_INFO, "Command performed with feedback: %@  listener: %@", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = commandCopy;
+    v9 = 2112;
+    v10 = v5;
+    _os_log_impl(&dword_264EDF000, v6, OS_LOG_TYPE_INFO, "Command performed with feedback: %@  listener: %@", &v7, 0x16u);
   }
 
   if (objc_opt_respondsToSelector())
   {
     [v5 didPerformCommand:commandCopy];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didReportUserResponseFeedback:(id)feedback
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   feedbackCopy = feedback;
   v5 = [(SUICKPFeedbackDelegateDemultiplexer *)self _delegateForFeedback:feedbackCopy];
   v6 = *MEMORY[0x277CF93F0];
   if (os_log_type_enabled(*MEMORY[0x277CF93F0], OS_LOG_TYPE_INFO))
   {
-    v8 = 138412290;
-    v9 = feedbackCopy;
-    _os_log_impl(&dword_264EDF000, v6, OS_LOG_TYPE_INFO, "Report user response feedback: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = feedbackCopy;
+    _os_log_impl(&dword_264EDF000, v6, OS_LOG_TYPE_INFO, "Report user response feedback: %@", &v7, 0xCu);
   }
 
   if (objc_opt_respondsToSelector())
   {
     [v5 didReportUserResponseFeedback:feedbackCopy];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didErrorOccur:(id)occur
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   occurCopy = occur;
   v5 = [(SUICKPFeedbackDelegateDemultiplexer *)self _delegateForFeedback:occurCopy];
   v6 = *MEMORY[0x277CF93F0];
   if (os_log_type_enabled(*MEMORY[0x277CF93F0], OS_LOG_TYPE_INFO))
   {
-    v8 = 138412290;
-    v9 = occurCopy;
-    _os_log_impl(&dword_264EDF000, v6, OS_LOG_TYPE_INFO, "Error occured: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = occurCopy;
+    _os_log_impl(&dword_264EDF000, v6, OS_LOG_TYPE_INFO, "Error occured: %@", &v7, 0xCu);
   }
 
   if (objc_opt_respondsToSelector())
   {
     [v5 didErrorOccur:occurCopy];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendCustomFeedback:(id)feedback
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   feedbackCopy = feedback;
   v5 = [(SUICKPFeedbackDelegateDemultiplexer *)self _delegateForFeedback:feedbackCopy];
   v6 = *MEMORY[0x277CF93F0];
   if (os_log_type_enabled(*MEMORY[0x277CF93F0], OS_LOG_TYPE_INFO))
   {
-    v8 = 138412290;
-    v9 = feedbackCopy;
-    _os_log_impl(&dword_264EDF000, v6, OS_LOG_TYPE_INFO, "Sending custom feedback: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = feedbackCopy;
+    _os_log_impl(&dword_264EDF000, v6, OS_LOG_TYPE_INFO, "Sending custom feedback: %@", &v7, 0xCu);
   }
 
   if (objc_opt_respondsToSelector())
   {
     [v5 sendCustomFeedback:feedbackCopy];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)shouldHandleCardSectionEngagement:(id)engagement
@@ -336,10 +321,20 @@ void __64__SUICKPFeedbackDelegateDemultiplexer_emitInstrumentationEvent___block_
   return v6;
 }
 
+- (void)cardSectionViewDidInvalidateSize:(id)size animate:(BOOL)animate
+{
+  animateCopy = animate;
+  sizeCopy = size;
+  v6 = [(SUICKPFeedbackDelegateDemultiplexer *)self _delegateForView:?];
+  if (objc_opt_respondsToSelector())
+  {
+    [v6 cardSectionViewDidInvalidateSize:sizeCopy animate:animateCopy];
+  }
+}
+
 - (void)presentViewController:(id)controller
 {
   controllerCopy = controller;
-  defaultDelegate = self->_defaultDelegate;
   if (objc_opt_respondsToSelector())
   {
     [(SearchUIFeedbackDelegate *)self->_defaultDelegate presentViewController:controllerCopy];
@@ -349,7 +344,6 @@ void __64__SUICKPFeedbackDelegateDemultiplexer_emitInstrumentationEvent___block_
 - (void)willDismissViewController:(id)controller
 {
   controllerCopy = controller;
-  defaultDelegate = self->_defaultDelegate;
   if (objc_opt_respondsToSelector())
   {
     [(SearchUIFeedbackDelegate *)self->_defaultDelegate willDismissViewController:controllerCopy];
@@ -358,19 +352,17 @@ void __64__SUICKPFeedbackDelegateDemultiplexer_emitInstrumentationEvent___block_
 
 - (void)cardSectionViewDidSelectPreferredPunchoutIndex:(int64_t)index
 {
-  defaultDelegate = self->_defaultDelegate;
   if (objc_opt_respondsToSelector())
   {
-    v6 = self->_defaultDelegate;
+    defaultDelegate = self->_defaultDelegate;
 
-    [(SearchUIFeedbackDelegate *)v6 cardSectionViewDidSelectPreferredPunchoutIndex:index];
+    [(SearchUIFeedbackDelegate *)defaultDelegate cardSectionViewDidSelectPreferredPunchoutIndex:index];
   }
 }
 
 - (void)presentViewControllerForCard:(id)card animate:(BOOL)animate
 {
   cardCopy = card;
-  defaultDelegate = self->_defaultDelegate;
   if (objc_opt_respondsToSelector())
   {
     [(SearchUIFeedbackDelegate *)self->_defaultDelegate presentViewControllerForCard:cardCopy animate:1];

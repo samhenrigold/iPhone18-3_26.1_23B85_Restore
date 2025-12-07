@@ -20,7 +20,7 @@
   {
     if (trackCopy)
     {
-      [trackCopy timeRange];
+      objc_msgSend_timeRange(trackCopy);
     }
 
     else

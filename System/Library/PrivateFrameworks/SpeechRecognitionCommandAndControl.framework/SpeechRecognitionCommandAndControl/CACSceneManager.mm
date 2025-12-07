@@ -198,63 +198,63 @@
 {
   overlaysCopy = overlays;
   animatedCopy = animated;
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v7 = self->_registeredPresentationManagers;
   objc_sync_enter(v7);
   v8 = [(NSMutableArray *)self->_registeredPresentationManagers copy];
   objc_sync_exit(v7);
 
-  v9 = CACLogGeneral();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v10 = CACLogGeneral(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
-    v10 = @"excluding";
+    v11 = @"excluding";
     if (overlaysCopy)
     {
-      v10 = @"including";
+      v11 = @"including";
     }
 
     *buf = 138412290;
-    v22 = v10;
-    _os_log_impl(&dword_26B354000, v9, OS_LOG_TYPE_INFO, "Hiding all overlays %@ interactive", buf, 0xCu);
+    v23 = v11;
+    _os_log_impl(&dword_26B354000, v10, OS_LOG_TYPE_INFO, "Hiding all overlays %@ interactive", buf, 0xCu);
   }
 
-  v18 = 0u;
   v19 = 0u;
-  v16 = 0u;
+  v20 = 0u;
   v17 = 0u;
-  v11 = v8;
-  v12 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
-  if (v12)
+  v18 = 0u;
+  v12 = v8;
+  v13 = [v12 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  if (v13)
   {
-    v13 = *v17;
+    v14 = *v18;
     do
     {
-      for (i = 0; i != v12; ++i)
+      for (i = 0; i != v13; ++i)
       {
-        if (*v17 != v13)
+        if (*v18 != v14)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v12);
         }
 
-        v15 = *(*(&v16 + 1) + 8 * i);
-        if ([v15 isShowing] && objc_msgSend(v15, "isOverlay") && (overlaysCopy || (objc_msgSend(v15, "isPhysicallyInteractiveOverlay") & 1) == 0))
+        v16 = *(*(&v17 + 1) + 8 * i);
+        if ([v16 isShowing] && objc_msgSend(v16, "isOverlay") && (overlaysCopy || (objc_msgSend(v16, "isPhysicallyInteractiveOverlay") & 1) == 0))
         {
           if (animatedCopy)
           {
-            [v15 hide];
+            [v16 hide];
           }
 
           else
           {
-            [v15 hideWithoutAnimation];
+            [v16 hideWithoutAnimation];
           }
         }
       }
 
-      v12 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
-    while (v12);
+    while (v13);
   }
 }
 
@@ -262,63 +262,63 @@
 {
   presentationsCopy = presentations;
   animatedCopy = animated;
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v7 = self->_registeredPresentationManagers;
   objc_sync_enter(v7);
   v8 = [(NSMutableArray *)self->_registeredPresentationManagers copy];
   objc_sync_exit(v7);
 
-  v9 = CACLogGeneral();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v10 = CACLogGeneral(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
-    v10 = @"excluding";
+    v11 = @"excluding";
     if (presentationsCopy)
     {
-      v10 = @"including";
+      v11 = @"including";
     }
 
     *buf = 138412290;
-    v22 = v10;
-    _os_log_impl(&dword_26B354000, v9, OS_LOG_TYPE_INFO, "Hiding all presentations %@ out of process", buf, 0xCu);
+    v23 = v11;
+    _os_log_impl(&dword_26B354000, v10, OS_LOG_TYPE_INFO, "Hiding all presentations %@ out of process", buf, 0xCu);
   }
 
-  v18 = 0u;
   v19 = 0u;
-  v16 = 0u;
+  v20 = 0u;
   v17 = 0u;
-  v11 = v8;
-  v12 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
-  if (v12)
+  v18 = 0u;
+  v12 = v8;
+  v13 = [v12 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  if (v13)
   {
-    v13 = *v17;
+    v14 = *v18;
     do
     {
-      for (i = 0; i != v12; ++i)
+      for (i = 0; i != v13; ++i)
       {
-        if (*v17 != v13)
+        if (*v18 != v14)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v12);
         }
 
-        v15 = *(*(&v16 + 1) + 8 * i);
-        if (([v15 isOverlay] & 1) == 0 && (presentationsCopy || (objc_msgSend(v15, "isOutOfProcess") & 1) == 0))
+        v16 = *(*(&v17 + 1) + 8 * i);
+        if (([v16 isOverlay] & 1) == 0 && (presentationsCopy || (objc_msgSend(v16, "isOutOfProcess") & 1) == 0))
         {
           if (animatedCopy)
           {
-            [v15 hide];
+            [v16 hide];
           }
 
           else
           {
-            [v15 hideWithoutAnimation];
+            [v16 hideWithoutAnimation];
           }
         }
       }
 
-      v12 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
-    while (v12);
+    while (v13);
   }
 }
 

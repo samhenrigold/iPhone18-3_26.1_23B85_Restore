@@ -111,7 +111,7 @@
   if (defaultValue && firstObject)
   {
     v9 = objc_alloc(MEMORY[0x1E696AB90]);
-    [defaultValue decimalValue];
+    objc_msgSend_decimalValue(defaultValue);
     v10 = [v9 initWithDecimal:v12];
     v8 = [[INCurrencyAmount alloc] initWithAmount:v10 currencyCode:firstObject];
   }
@@ -121,12 +121,12 @@
 
 - (id)dictionaryRepresentationWithLocalizer:(id)localizer
 {
-  v18[2] = *MEMORY[0x1E69E9840];
-  v16.receiver = self;
-  v16.super_class = INCodableCurrencyAmountAttributeMetadata;
-  v4 = [(INCodableNumberAttributeMetadata *)&v16 dictionaryRepresentationWithLocalizer:localizer];
+  v17[2] = *MEMORY[0x1E69E9840];
+  v15.receiver = self;
+  v15.super_class = INCodableCurrencyAmountAttributeMetadata;
+  v4 = [(INCodableNumberAttributeMetadata *)&v15 dictionaryRepresentationWithLocalizer:localizer];
   __INCodableDescriptionCurrencyCodesKey = [(INCodableCurrencyAmountAttributeMetadata *)self __INCodableDescriptionCurrencyCodesKey];
-  v17[0] = __INCodableDescriptionCurrencyCodesKey;
+  v16[0] = __INCodableDescriptionCurrencyCodesKey;
   currencyCodes = [(INCodableCurrencyAmountAttributeMetadata *)self currencyCodes];
   null = currencyCodes;
   if (!currencyCodes)
@@ -134,9 +134,9 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[0] = null;
+  v17[0] = null;
   __INCodableDescriptionCurrencyCodeKey = [(INCodableCurrencyAmountAttributeMetadata *)self __INCodableDescriptionCurrencyCodeKey];
-  v17[1] = __INCodableDescriptionCurrencyCodeKey;
+  v16[1] = __INCodableDescriptionCurrencyCodeKey;
   currencyCode = [(INCodableCurrencyAmountAttributeMetadata *)self currencyCode];
   null2 = currencyCode;
   if (!currencyCode)
@@ -144,8 +144,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[1] = null2;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:2];
+  v17[1] = null2;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:2];
   v12 = [v4 if_dictionaryByAddingEntriesFromDictionary:v11];
 
   if (!currencyCode)
@@ -158,18 +158,16 @@
 
   if_dictionaryWithNonEmptyValues = [v12 if_dictionaryWithNonEmptyValues];
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return if_dictionaryWithNonEmptyValues;
 }
 
 - (void)updateWithDictionary:(id)dictionary
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v27.receiver = self;
-  v27.super_class = INCodableCurrencyAmountAttributeMetadata;
-  [(INCodableNumberAttributeMetadata *)&v27 updateWithDictionary:dictionaryCopy];
+  v26.receiver = self;
+  v26.super_class = INCodableCurrencyAmountAttributeMetadata;
+  [(INCodableNumberAttributeMetadata *)&v26 updateWithDictionary:dictionaryCopy];
   selfCopy = self;
   __INCodableDescriptionCurrencyCodesKey = [(INCodableCurrencyAmountAttributeMetadata *)self __INCodableDescriptionCurrencyCodesKey];
   v6 = [dictionaryCopy objectForKeyedSubscript:__INCodableDescriptionCurrencyCodesKey];
@@ -196,26 +194,26 @@
   v8 = v7;
 
   v9 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v10 = v8;
-  v11 = [v10 countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v22 objects:v27 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v24;
+    v13 = *v23;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v24 != v13)
+        if (*v23 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v23 + 1) + 8 * i);
+        v15 = *(*(&v22 + 1) + 8 * i);
         if (v15)
         {
           objc_opt_class();
@@ -249,7 +247,7 @@
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
     while (v12);
@@ -258,8 +256,6 @@
   v19 = [v9 copy];
   currencyCodes = selfCopy->_currencyCodes;
   selfCopy->_currencyCodes = v19;
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 + (id)makeFromWidgetPlistableRepresentation:(id)representation error:(id *)error

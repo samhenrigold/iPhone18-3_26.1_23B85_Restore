@@ -41,11 +41,11 @@
 
 - (WFWorkoutTrigger)initWithCoder:(id)coder
 {
-  v21[2] = *MEMORY[0x1E69E9840];
+  v20[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v20.receiver = self;
-  v20.super_class = WFWorkoutTrigger;
-  v5 = [(WFTrigger *)&v20 initWithCoder:coderCopy];
+  v19.receiver = self;
+  v19.super_class = WFWorkoutTrigger;
+  v5 = [(WFTrigger *)&v19 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"selection"];
@@ -62,9 +62,9 @@
 
     v5->_selection = unsignedIntegerValue;
     v9 = MEMORY[0x1E695DFD8];
-    v21[0] = objc_opt_class();
-    v21[1] = objc_opt_class();
-    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:2];
+    v20[0] = objc_opt_class();
+    v20[1] = objc_opt_class();
+    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:2];
     v11 = [v9 setWithArray:v10];
     v12 = [coderCopy decodeObjectOfClasses:v11 forKey:@"selectedWorkouts"];
     v13 = v12;
@@ -89,7 +89,6 @@
     v17 = v5;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -114,7 +113,7 @@
 
 - (id)localizedPastTenseDescription
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if ([(WFWorkoutTrigger *)self selection])
   {
     selectedWorkoutTypes = [(WFWorkoutTrigger *)self selectedWorkoutTypes];
@@ -148,8 +147,8 @@
           if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
           {
             *buf = 136315394;
-            v24 = "[WFWorkoutTrigger localizedPastTenseDescription]";
-            v25 = 2114;
+            v23 = "[WFWorkoutTrigger localizedPastTenseDescription]";
+            v24 = 2114;
             selfCopy2 = self;
             _os_log_impl(&dword_1CA256000, v20, OS_LOG_TYPE_FAULT, "%s Invalid config for %{public}@", buf, 0x16u);
           }
@@ -229,8 +228,8 @@ LABEL_20:
   {
 LABEL_34:
     *buf = 136315394;
-    v24 = "[WFWorkoutTrigger localizedPastTenseDescription]";
-    v25 = 2114;
+    v23 = "[WFWorkoutTrigger localizedPastTenseDescription]";
+    v24 = 2114;
     selfCopy2 = self;
     _os_log_impl(&dword_1CA256000, v19, OS_LOG_TYPE_FAULT, "%s Invalid config for %{public}@", buf, 0x16u);
   }
@@ -239,14 +238,13 @@ LABEL_35:
 
   v15 = &stru_1F4A1C408;
 LABEL_36:
-  v21 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
 
 - (id)localizedDescriptionWithConfigurationSummary
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if ([(WFWorkoutTrigger *)self selection])
   {
     selectedWorkoutTypes = [(WFWorkoutTrigger *)self selectedWorkoutTypes];
@@ -280,8 +278,8 @@ LABEL_36:
           if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
           {
             *buf = 136315394;
-            v24 = "[WFWorkoutTrigger localizedDescriptionWithConfigurationSummary]";
-            v25 = 2114;
+            v23 = "[WFWorkoutTrigger localizedDescriptionWithConfigurationSummary]";
+            v24 = 2114;
             selfCopy2 = self;
             _os_log_impl(&dword_1CA256000, v20, OS_LOG_TYPE_FAULT, "%s Invalid config for %{public}@", buf, 0x16u);
           }
@@ -361,8 +359,8 @@ LABEL_20:
   {
 LABEL_34:
     *buf = 136315394;
-    v24 = "[WFWorkoutTrigger localizedDescriptionWithConfigurationSummary]";
-    v25 = 2114;
+    v23 = "[WFWorkoutTrigger localizedDescriptionWithConfigurationSummary]";
+    v24 = 2114;
     selfCopy2 = self;
     _os_log_impl(&dword_1CA256000, v19, OS_LOG_TYPE_FAULT, "%s Invalid config for %{public}@", buf, 0x16u);
   }
@@ -371,7 +369,6 @@ LABEL_35:
 
   v15 = &stru_1F4A1C408;
 LABEL_36:
-  v21 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -412,33 +409,29 @@ LABEL_36:
 
 + (id)workoutColors
 {
-  v8[3] = *MEMORY[0x1E69E9840];
+  v7[3] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E69E09E0] colorWithWhite:0.0 alpha:1.0];
   v3 = [MEMORY[0x1E69E09E0] colorWithRed:0.725490212 green:0.992156863 blue:0.313725501 alpha:{1.0, v2}];
-  v8[1] = v3;
+  v7[1] = v3;
   v4 = [MEMORY[0x1E69E09E0] colorWithRed:0.725490212 green:0.992156863 blue:0.313725501 alpha:1.0];
-  v8[2] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:3];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v7[2] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:3];
 
   return v5;
 }
 
 + (id)offIcon
 {
-  v12[3] = *MEMORY[0x1E69E9840];
+  v11[3] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E69E0B58];
   stopColor = [self stopColor];
   v5 = [MEMORY[0x1E69E09E0] colorWithWhite:1.0 alpha:{1.0, stopColor}];
-  v12[1] = v5;
+  v11[1] = v5;
   stopColor2 = [self stopColor];
   v7 = [stopColor2 colorWithAlphaComponent:0.140000001];
-  v12[2] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:3];
+  v11[2] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:3];
   v9 = [v3 triggerConfigurationSymbolNamed:@"xmark.circle.fill" hierarchicalColors:v8];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -463,36 +456,36 @@ LABEL_36:
 
 + (BOOL)isSupportedOnThisDevice
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  sharedInstance = [(objc_class *)getNRPairedDeviceRegistryClass() sharedInstance];
-  getPairedDevices = [sharedInstance getPairedDevices];
+  v2 = [getNRPairedDeviceRegistryClass(self a2)];
+  getPairedDevices = [v2 getPairedDevices];
 
-  v4 = [getPairedDevices countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [getPairedDevices countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
-    v5 = *v11;
+    v5 = *v10;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(getPairedDevices);
         }
 
-        v7 = (softLinkNRWatchOSVersionForRemoteDevice)(*(*(&v10 + 1) + 8 * i));
-        if ((softLinkNRVersionIsGreaterThanOrEqual)(v7, 393216))
+        v7 = softLinkNRWatchOSVersionForRemoteDevice(*(*(&v9 + 1) + 8 * i));
+        if (softLinkNRVersionIsGreaterThanOrEqual(v7, 393216))
         {
           LOBYTE(v4) = 1;
           goto LABEL_11;
         }
       }
 
-      v4 = [getPairedDevices countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [getPairedDevices countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v4)
       {
         continue;
@@ -504,7 +497,6 @@ LABEL_36:
 
 LABEL_11:
 
-  v8 = *MEMORY[0x1E69E9840];
   return v4;
 }
 

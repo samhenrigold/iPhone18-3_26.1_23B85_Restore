@@ -21,38 +21,37 @@
 - (_MessageList)initWithPersistencePath:(id)path
 {
   pathCopy = path;
-  v21.receiver = self;
-  v21.super_class = _MessageList;
-  v16 = [(_MessageList *)&v21 init];
-  if (v16)
+  v20.receiver = self;
+  v20.super_class = _MessageList;
+  v15 = [(_MessageList *)&v20 init];
+  if (v15)
   {
-    objc_storeStrong(&v16->_persistencePath, path);
-    v5 = [NSArray arrayWithContentsOfFile:v16->_persistencePath];
+    objc_storeStrong(&v15->_persistencePath, path);
+    v5 = [NSArray arrayWithContentsOfFile:v15->_persistencePath];
     if (v5)
     {
       objc_opt_class();
       NTKValidateArray();
     }
 
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v6 = v5;
-    v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v17 objects:v22 count:16];
+    v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v16 objects:v21 count:16];
     if (v7)
     {
-      v8 = *v18;
+      v8 = *v17;
       do
       {
-        for (i = 0; i != v7; i = i + 1)
+        for (i = 0; i != v7; ++i)
         {
-          if (*v18 != v8)
+          if (*v17 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          v10 = *(*(&v17 + 1) + 8 * i);
           objc_opt_class();
           NTKValidateDictionaryValue();
           objc_opt_class();
@@ -67,7 +66,7 @@
           NTKValidateDictionaryValue();
         }
 
-        v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v17 objects:v22 count:16];
+        v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v16 objects:v21 count:16];
       }
 
       while (v7);
@@ -75,20 +74,20 @@
 
     if (v5)
     {
-      v11 = [(NSMutableArray *)v6 mutableCopy];
-      messageDictionaries = v16->_messageDictionaries;
-      v16->_messageDictionaries = v11;
+      v10 = [(NSMutableArray *)v6 mutableCopy];
+      messageDictionaries = v15->_messageDictionaries;
+      v15->_messageDictionaries = v10;
     }
 
     else
     {
-      v13 = +[NSMutableArray array];
-      v6 = v16->_messageDictionaries;
-      v16->_messageDictionaries = v13;
+      v12 = +[NSMutableArray array];
+      v6 = v15->_messageDictionaries;
+      v15->_messageDictionaries = v12;
     }
   }
 
-  return v16;
+  return v15;
 }
 
 - (void)enqueueMessage:(id)message

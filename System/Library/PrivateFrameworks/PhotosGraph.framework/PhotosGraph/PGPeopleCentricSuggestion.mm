@@ -22,20 +22,19 @@
 
 - (PGPeopleCentricSuggestion)initWithPersonLocalIdentifier:(id)identifier asset:(id)asset
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
-  v12.receiver = self;
-  v12.super_class = PGPeopleCentricSuggestion;
-  v7 = [(PGSingleAssetSuggestion *)&v12 initWithType:3 subtype:304 asset:asset];
+  v11.receiver = self;
+  v11.super_class = PGPeopleCentricSuggestion;
+  v7 = [(PGSingleAssetSuggestion *)&v11 initWithType:3 subtype:304 asset:asset];
   if (v7)
   {
-    v13[0] = identifierCopy;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+    v12[0] = identifierCopy;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
     suggestedPersonLocalIdentifiers = v7->_suggestedPersonLocalIdentifiers;
     v7->_suggestedPersonLocalIdentifiers = v8;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

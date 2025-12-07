@@ -38,25 +38,26 @@
   {
     if (error)
     {
-      goto LABEL_8;
+      ENErrorF(2, "super init failed");
+LABEL_9:
+      *error = v8 = 0;
+      goto LABEL_4;
     }
 
-    goto LABEL_9;
+LABEL_10:
+    v8 = 0;
+    goto LABEL_4;
   }
 
   if (MEMORY[0x2383EE9C0](objectCopy) != MEMORY[0x277D86468])
   {
     if (error)
     {
-LABEL_8:
-      ENErrorF(2);
-      *error = v8 = 0;
-      goto LABEL_4;
+      ENErrorF(2, "XPC non-dict");
+      goto LABEL_9;
     }
 
-LABEL_9:
-    v8 = 0;
-    goto LABEL_4;
+    goto LABEL_10;
   }
 
   [(ENExposureDetectionClientSession *)objectCopy initWithXPCObject:error error:v7, &v10];
@@ -155,31 +156,31 @@ uint64_t __46__ENExposureDetectionClientSession_invalidate__block_invoke(uint64_
 
 - (BOOL)_runActivateStart
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
   mainFileURLs = self->_mainFileURLs;
   self->_mainFileURLs = v3;
 
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
   v53 = 0u;
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
   v5 = self->_diagnosisKeyURLs;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v52 objects:v58 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v51 objects:v57 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v53;
+    v8 = *v52;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v53 != v8)
+        if (*v52 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v52 + 1) + 8 * i);
+        v10 = *(*(&v51 + 1) + 8 * i);
         pathExtension = [v10 pathExtension];
         v12 = [pathExtension caseInsensitiveCompare:@"sig"];
 
@@ -189,7 +190,7 @@ uint64_t __46__ENExposureDetectionClientSession_invalidate__block_invoke(uint64_
         }
       }
 
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v52 objects:v58 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v51 objects:v57 count:16];
     }
 
     while (v7);
@@ -199,30 +200,30 @@ uint64_t __46__ENExposureDetectionClientSession_invalidate__block_invoke(uint64_
   signatureURLMap = self->_signatureURLMap;
   self->_signatureURLMap = v13;
 
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
   v49 = 0u;
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
   obj = self->_diagnosisKeyURLs;
-  v15 = [(NSArray *)obj countByEnumeratingWithState:&v48 objects:v57 count:16];
+  v15 = [(NSArray *)obj countByEnumeratingWithState:&v47 objects:v56 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v49;
+    v17 = *v48;
     selfCopy = self;
-    v39 = *v49;
+    v38 = *v48;
     do
     {
       v18 = 0;
-      v40 = v16;
+      v39 = v16;
       do
       {
-        if (*v49 != v17)
+        if (*v48 != v17)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = *(*(&v48 + 1) + 8 * v18);
+        v19 = *(*(&v47 + 1) + 8 * v18);
         pathExtension2 = [v19 pathExtension];
         v21 = [pathExtension2 caseInsensitiveCompare:@"sig"];
 
@@ -231,26 +232,26 @@ uint64_t __46__ENExposureDetectionClientSession_invalidate__block_invoke(uint64_
           uRLByDeletingPathExtension = [v19 URLByDeletingPathExtension];
           absoluteString = [uRLByDeletingPathExtension absoluteString];
 
-          v46 = 0u;
-          v47 = 0u;
-          v44 = 0u;
           v45 = 0u;
+          v46 = 0u;
+          v43 = 0u;
+          v44 = 0u;
           v24 = self->_mainFileURLs;
-          v25 = [(NSMutableArray *)v24 countByEnumeratingWithState:&v44 objects:v56 count:16];
+          v25 = [(NSMutableArray *)v24 countByEnumeratingWithState:&v43 objects:v55 count:16];
           if (v25)
           {
             v26 = v25;
-            v27 = *v45;
+            v27 = *v44;
             while (2)
             {
               for (j = 0; j != v26; ++j)
               {
-                if (*v45 != v27)
+                if (*v44 != v27)
                 {
                   objc_enumerationMutation(v24);
                 }
 
-                v29 = *(*(&v44 + 1) + 8 * j);
+                v29 = *(*(&v43 + 1) + 8 * j);
                 uRLByDeletingPathExtension2 = [v29 URLByDeletingPathExtension];
                 absoluteString2 = [uRLByDeletingPathExtension2 absoluteString];
 
@@ -262,7 +263,7 @@ uint64_t __46__ENExposureDetectionClientSession_invalidate__block_invoke(uint64_
                 }
               }
 
-              v26 = [(NSMutableArray *)v24 countByEnumeratingWithState:&v44 objects:v56 count:16];
+              v26 = [(NSMutableArray *)v24 countByEnumeratingWithState:&v43 objects:v55 count:16];
               if (v26)
               {
                 continue;
@@ -275,15 +276,15 @@ uint64_t __46__ENExposureDetectionClientSession_invalidate__block_invoke(uint64_
 LABEL_26:
 
           self = selfCopy;
-          v17 = v39;
-          v16 = v40;
+          v17 = v38;
+          v16 = v39;
         }
 
         ++v18;
       }
 
       while (v18 != v16);
-      v16 = [(NSArray *)obj countByEnumeratingWithState:&v48 objects:v57 count:16];
+      v16 = [(NSArray *)obj countByEnumeratingWithState:&v47 objects:v56 count:16];
     }
 
     while (v16);
@@ -305,21 +306,20 @@ LABEL_26:
       mainFileCount = self->_mainFileCount;
     }
 
-    v37 = mainFileCount;
-    v38 = [(NSMutableDictionary *)self->_signatureURLMap count];
+    v36 = mainFileCount;
+    v37 = [(NSMutableDictionary *)self->_signatureURLMap count];
     LogPrintF_safe();
   }
 
 LABEL_33:
   self->_guardActivateDone = 0;
   manager = self->_manager;
-  v43[0] = MEMORY[0x277D85DD0];
-  v43[1] = 3221225472;
-  v43[2] = __53__ENExposureDetectionClientSession__runActivateStart__block_invoke;
-  v43[3] = &unk_278A4B210;
-  v43[4] = self;
-  [(ENManager *)manager exposureDetectionFileActivate:self completion:v43, v37, v38];
-  v35 = *MEMORY[0x277D85DE8];
+  v42[0] = MEMORY[0x277D85DD0];
+  v42[1] = 3221225472;
+  v42[2] = __53__ENExposureDetectionClientSession__runActivateStart__block_invoke;
+  v42[3] = &unk_278A4B210;
+  v42[4] = self;
+  [(ENManager *)manager exposureDetectionFileActivate:self completion:v42, v36, v37];
   return 1;
 }
 
@@ -504,17 +504,6 @@ LABEL_19:
 
       if (gLogCategory_ENExposureDetection <= 30 && (gLogCategory_ENExposureDetection != -1 || _LogCategory_Initialize()))
       {
-        if (runState <= 0x12)
-        {
-          v6 = off_278A4B310[runState];
-        }
-
-        v7 = self->_runState;
-        if (v7 <= 0x12)
-        {
-          v8 = off_278A4B310[v7];
-        }
-
         LogPrintF_safe();
       }
     }
@@ -549,8 +538,6 @@ LABEL_5:
 
 - (void)_runAddFile
 {
-  v5 = *self;
-  v6 = *(a2 + 48);
   lastPathComponent = [a3 lastPathComponent];
   lastPathComponent2 = [a4 lastPathComponent];
   LogPrintF_safe();

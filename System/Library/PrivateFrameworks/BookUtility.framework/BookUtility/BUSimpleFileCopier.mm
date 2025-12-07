@@ -103,24 +103,24 @@
   v18 = objc_msgSend_path(lCopy, v16, v17);
 
   v21 = objc_msgSend_fromURL(self, v19, v20);
-  v39 = 0;
+  v41 = 0;
   v22 = *MEMORY[0x277CBE868];
-  v38 = 0;
-  ResourceValue_forKey_error = objc_msgSend_getResourceValue_forKey_error_(v21, v23, &v39, v22, &v38);
-  v25 = v39;
-  v26 = v38;
+  v40 = 0;
+  ResourceValue_forKey_error = objc_msgSend_getResourceValue_forKey_error_(v21, v23, &v41, v22, &v40);
+  v25 = v41;
+  v26 = v40;
 
   if (ResourceValue_forKey_error)
   {
-    v37 = v26;
-    v28 = objc_msgSend_copyItemAtPath_toPath_error_(v8, v27, v15, v18, &v37);
-    v29 = v37;
+    v39 = v26;
+    v29 = objc_msgSend_copyItemAtPath_toPath_error_(v8, v28, v15, v18, &v39);
+    v30 = v39;
 
-    objc_msgSend__finishCurrentCopyItem(self, v30, v31);
-    if (v28)
+    v33 = objc_msgSend__finishCurrentCopyItem(self, v31, v32);
+    if (v29)
     {
-      v32 = 1;
-      v26 = v29;
+      v34 = 1;
+      v26 = v30;
       if (!error)
       {
         goto LABEL_13;
@@ -129,35 +129,35 @@
       goto LABEL_12;
     }
 
-    v26 = v29;
+    v26 = v30;
   }
 
   else
   {
-    v33 = BookUtilityLog();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+    v35 = BookUtilityLog(v27);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
     {
-      sub_241DD0264(self, v26, v33);
+      sub_241DD0264(self, v26, v35);
     }
   }
 
-  v34 = BookUtilityLog();
-  if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+  v36 = BookUtilityLog(v33);
+  if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
   {
-    sub_241DD0324(v26, v34);
+    sub_241DD0324(v26, v36);
   }
 
-  v32 = 0;
+  v34 = 0;
   if (error)
   {
 LABEL_12:
-    v35 = v26;
+    v37 = v26;
     *error = v26;
   }
 
 LABEL_13:
 
-  return v32;
+  return v34;
 }
 
 + (BOOL)countFilesAndSizesInDirectory:(id)directory totalFileSize:(unint64_t *)size totalFileCount:(unint64_t *)count totalFileCountExcludeDir:(unint64_t *)dir

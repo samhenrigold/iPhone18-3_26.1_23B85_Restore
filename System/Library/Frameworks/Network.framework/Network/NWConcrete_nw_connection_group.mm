@@ -1,8 +1,8 @@
 @interface NWConcrete_nw_connection_group
 - (NSString)description;
 - (id)redactedDescription;
+- (unsigned)initWithDescriptor:(void *)descriptor connection:(void *)connection parameters:;
 - (void)dealloc;
-- (void)initWithDescriptor:(void *)descriptor connection:(void *)connection parameters:;
 @end
 
 @implementation NWConcrete_nw_connection_group
@@ -27,7 +27,7 @@
 
 - (void)dealloc
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (!*(self + 3))
   {
     v3 = *(self + 20);
@@ -52,14 +52,12 @@
 
   v6 = __nwlog_obj();
   *buf = 136446210;
-  v20 = "[NWConcrete_nw_connection_group dealloc]";
-  v15 = 12;
-  v14 = buf;
-  v7 = _os_log_send_and_compose_impl();
+  v18 = "[NWConcrete_nw_connection_group dealloc]";
+  v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v6, 16, "%{public}s over-release of nw_connection_group_t! Object should not be internally retained and deallocating", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
-  v17 = 0;
-  if (__nwlog_fault(v7, &type, &v17))
+  v15 = 0;
+  if (__nwlog_fault(v7, &type, &v15))
   {
     if (type == OS_LOG_TYPE_FAULT)
     {
@@ -68,12 +66,12 @@
       if (os_log_type_enabled(v8, type))
       {
         *buf = 136446210;
-        v20 = "[NWConcrete_nw_connection_group dealloc]";
+        v18 = "[NWConcrete_nw_connection_group dealloc]";
         _os_log_impl(&dword_181A37000, v8, v9, "%{public}s over-release of nw_connection_group_t! Object should not be internally retained and deallocating", buf, 0xCu);
       }
     }
 
-    else if (v17 == 1)
+    else if (v15 == 1)
     {
       backtrace_string = __nw_create_backtrace_string();
       v8 = __nwlog_obj();
@@ -84,9 +82,9 @@
         if (v12)
         {
           *buf = 136446466;
-          v20 = "[NWConcrete_nw_connection_group dealloc]";
-          v21 = 2082;
-          v22 = backtrace_string;
+          v18 = "[NWConcrete_nw_connection_group dealloc]";
+          v19 = 2082;
+          v20 = backtrace_string;
           _os_log_impl(&dword_181A37000, v8, v11, "%{public}s over-release of nw_connection_group_t! Object should not be internally retained and deallocating, dumping backtrace:%{public}s", buf, 0x16u);
         }
 
@@ -97,7 +95,7 @@
       if (v12)
       {
         *buf = 136446210;
-        v20 = "[NWConcrete_nw_connection_group dealloc]";
+        v18 = "[NWConcrete_nw_connection_group dealloc]";
         _os_log_impl(&dword_181A37000, v8, v11, "%{public}s over-release of nw_connection_group_t! Object should not be internally retained and deallocating, no backtrace", buf, 0xCu);
       }
     }
@@ -109,7 +107,7 @@
       if (os_log_type_enabled(v8, type))
       {
         *buf = 136446210;
-        v20 = "[NWConcrete_nw_connection_group dealloc]";
+        v18 = "[NWConcrete_nw_connection_group dealloc]";
         _os_log_impl(&dword_181A37000, v8, v13, "%{public}s over-release of nw_connection_group_t! Object should not be internally retained and deallocating, backtrace limit exceeded", buf, 0xCu);
       }
     }
@@ -122,12 +120,12 @@ LABEL_24:
   }
 
 LABEL_7:
-  v16.receiver = self;
-  v16.super_class = NWConcrete_nw_connection_group;
-  [(NWConcrete_nw_connection_group *)&v16 dealloc:v14];
+  v14.receiver = self;
+  v14.super_class = NWConcrete_nw_connection_group;
+  [(NWConcrete_nw_connection_group *)&v14 dealloc];
 }
 
-- (void)initWithDescriptor:(void *)descriptor connection:(void *)connection parameters:
+- (unsigned)initWithDescriptor:(void *)descriptor connection:(void *)connection parameters:
 {
   v166 = *MEMORY[0x1E69E9840];
   v7 = a2;
@@ -147,7 +145,7 @@ LABEL_7:
     if (v10)
     {
       self = v10;
-      v10[44] = nw_connection_group_get_next_log_id();
+      *(v10 + 44) = nw_connection_group_get_next_log_id();
       os_unfair_lock_lock(&nw_uuid_generate_insecure(unsigned char *)::uuid_lock);
       if (uuid_is_null(&nw_uuid_generate_insecure(unsigned char *)::last_used_uuid))
       {
@@ -177,7 +175,7 @@ LABEL_10:
       os_unfair_lock_unlock(&nw_uuid_generate_insecure(unsigned char *)::uuid_lock);
       if (connectionCopy)
       {
-        v12 = _nw_parameters_copy_context(connectionCopy);
+        v12 = _nw_parameters_copy_context();
         is_inline = nw_context_is_inline(v12);
 
         if (is_inline)
@@ -187,7 +185,7 @@ LABEL_10:
           v14 = gLogObj;
           *buf = 136446210;
           v161 = "[NWConcrete_nw_connection_group initWithDescriptor:connection:parameters:]";
-          v15 = _os_log_send_and_compose_impl();
+          v15 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v14, 16, "%{public}s Cannot use nw_connection_group on inline contexts", buf, 12);
 
           type[0] = OS_LOG_TYPE_ERROR;
           LOBYTE(v151) = 0;
@@ -291,7 +289,7 @@ LABEL_25:
         v23 = descriptorCopy;
         v24 = v23[2];
 
-        v25 = _nw_parameters_copy(v24);
+        v25 = _nw_parameters_copy();
         v26 = *(v11 + 7);
         *(v11 + 7) = v25;
 
@@ -302,7 +300,7 @@ LABEL_25:
       {
         if (connectionCopy)
         {
-          v27 = _nw_parameters_copy(connectionCopy);
+          v27 = _nw_parameters_copy();
         }
 
         else
@@ -394,7 +392,7 @@ LABEL_37:
         v43 = v41;
         port = _nw_endpoint_get_port(v43);
 
-        *(v11 + 98) = port;
+        v11[98] = port;
       }
 
       v45 = *(v11 + 8);
@@ -451,7 +449,7 @@ LABEL_37:
           }
         }
 
-        v49 = _nw_parameters_copy(self[7]);
+        v49 = _nw_parameters_copy();
         v50 = v49;
         if (*(v156 + 12))
         {
@@ -801,7 +799,7 @@ LABEL_109:
         v91 = gLogObj;
         *buf = 136446210;
         v161 = "[NWConcrete_nw_connection_group initWithDescriptor:connection:parameters:]";
-        v92 = _os_log_send_and_compose_impl();
+        v92 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v91, 16, "%{public}s Group descriptor is not set", buf, 12);
 
         type[0] = OS_LOG_TYPE_ERROR;
         LOBYTE(v151) = 0;
@@ -895,7 +893,7 @@ LABEL_127:
       v161 = "[NWConcrete_nw_connection_group initWithDescriptor:connection:parameters:]";
       v162 = 2080;
       *v163 = v90;
-      v92 = _os_log_send_and_compose_impl();
+      v92 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v88, 16, "%{public}s Unsupported group descriptor type: %s", buf, 22);
 
       type[0] = OS_LOG_TYPE_ERROR;
       LOBYTE(v151) = 0;
@@ -1023,7 +1021,7 @@ LABEL_126:
     v125 = __nwlog_obj();
     *buf = 136446210;
     v161 = "[NWConcrete_nw_connection_group initWithDescriptor:connection:parameters:]";
-    v126 = _os_log_send_and_compose_impl();
+    v126 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v125, 16, "%{public}s [super init] failed", buf, 12);
 
     type[0] = OS_LOG_TYPE_ERROR;
     LOBYTE(v151) = 0;
@@ -1096,7 +1094,7 @@ LABEL_213:
   v123 = __nwlog_obj();
   *buf = 136446210;
   v161 = "[NWConcrete_nw_connection_group initWithDescriptor:connection:parameters:]";
-  v15 = _os_log_send_and_compose_impl();
+  v15 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v123, 16, "%{public}s called with null _descriptor", buf, 12);
 
   type[0] = OS_LOG_TYPE_ERROR;
   LOBYTE(v151) = 0;

@@ -24,7 +24,7 @@
 
 - (ISSoftwareApplication)initWithLaunchServicesApplication:(id)application containerPath:(id)path
 {
-  __ISRecordSPIClassUsage(self);
+  __ISRecordSPIClassUsage(self, "/Library/Caches/com.apple.xbs/Sources/iTunesStore/src/ISSoftwareApplication.m", 89, a2);
   v9.receiver = self;
   v9.super_class = ISSoftwareApplication;
   v7 = [(ISSoftwareApplication *)&v9 init];
@@ -216,36 +216,22 @@ LABEL_20:
 - (id)copyXPCEncoding
 {
   v3 = xpc_dictionary_create(0, 0, 0);
-  accountDSID = self->_accountDSID;
   SSXPCDictionarySetCFObject();
-  accountIdentifier = self->_accountIdentifier;
   SSXPCDictionarySetCFObject();
-  bundleIdentifier = self->_bundleIdentifier;
   SSXPCDictionarySetCFObject();
-  bundleShortVersionString = self->_bundleShortVersionString;
   SSXPCDictionarySetCFObject();
-  bundleVersion = self->_bundleVersion;
   SSXPCDictionarySetCFObject();
-  containerPath = self->_containerPath;
   SSXPCDictionarySetCFObject();
-  contentRating = self->_contentRating;
   SSXPCDictionarySetCFObject();
-  familyAccountIdentifier = self->_familyAccountIdentifier;
   SSXPCDictionarySetCFObject();
   xpc_dictionary_set_BOOL(v3, "15", self->_hasMIDBasedSINF);
-  itemIdentifier = self->_itemIdentifier;
   SSXPCDictionarySetCFObject();
-  itemName = self->_itemName;
   SSXPCDictionarySetCFObject();
   xpc_dictionary_set_BOOL(v3, "16", self->_missingRequiredSINF);
   xpc_dictionary_set_BOOL(v3, "9", self->_profileValidated);
-  softwareType = self->_softwareType;
   SSXPCDictionarySetCFObject();
-  storeFrontIdentifier = self->_storeFrontIdentifier;
   SSXPCDictionarySetCFObject();
-  versionIdentifier = self->_versionIdentifier;
   SSXPCDictionarySetCFObject();
-  versionOrdering = self->_versionOrdering;
   SSXPCDictionarySetCFObject();
   return v3;
 }

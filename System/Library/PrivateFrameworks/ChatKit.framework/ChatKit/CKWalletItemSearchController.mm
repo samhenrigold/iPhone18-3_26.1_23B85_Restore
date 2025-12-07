@@ -25,7 +25,7 @@
 
 + (id)sectionTitle
 {
-  v2 = CKFrameworkBundle();
+  v2 = CKFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"SEARCH_WALLET_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
 
   return v3;
@@ -33,7 +33,7 @@
 
 + (id)indexingString
 {
-  v2 = CKFrameworkBundle();
+  v2 = CKFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"WALLET_ITEMS_INDEXING_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
 
   return v3;
@@ -325,41 +325,41 @@ void __62__CKWalletItemSearchController__addOrderViewControllerForURL___block_in
     v15 = [viewCopy dequeueReusableSupplementaryViewOfKind:v13 withReuseIdentifier:v14 forIndexPath:pathCopy];
 
     v16 = MEMORY[0x1E696AEC0];
-    v17 = CKFrameworkBundle();
-    v18 = [v17 localizedStringForKey:@"SEE_ALL_LINKS_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
-    v19 = [v16 stringWithFormat:v18];
+    v18 = CKFrameworkBundle(v17);
+    v19 = [v18 localizedStringForKey:@"SEE_ALL_LINKS_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+    v20 = [v16 stringWithFormat:v19];
 
     mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
     userInterfaceLayoutDirection = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection];
 
     if (userInterfaceLayoutDirection == 1)
     {
-      v22 = @"\u200F";
+      v23 = @"\u200F";
     }
 
     else
     {
-      v22 = @"\u200E";
+      v23 = @"\u200E";
     }
 
-    v23 = [(__CFString *)v22 stringByAppendingString:v19];
+    v24 = [(__CFString *)v23 stringByAppendingString:v20];
 
-    [v15 setTitle:v23];
+    [v15 setTitle:v24];
     sectionIdentifier = [objc_opt_class() sectionIdentifier];
     [v15 setSectionIdentifier:sectionIdentifier];
   }
 
   else
   {
-    v25 = +[CKSearchAvatarSupplementryView supplementaryViewType];
-    v26 = +[CKSearchAvatarSupplementryView reuseIdentifier];
-    v15 = [viewCopy dequeueReusableSupplementaryViewOfKind:v25 withReuseIdentifier:v26 forIndexPath:pathCopy];
+    v26 = +[CKSearchAvatarSupplementryView supplementaryViewType];
+    v27 = +[CKSearchAvatarSupplementryView reuseIdentifier];
+    v15 = [viewCopy dequeueReusableSupplementaryViewOfKind:v26 withReuseIdentifier:v27 forIndexPath:pathCopy];
 
-    v27 = [pathCopy row];
+    v28 = [pathCopy row];
     results = [(CKSearchController *)self results];
-    v29 = [results count];
+    v30 = [results count];
 
-    if (v27 >= v29)
+    if (v28 >= v30)
     {
       goto LABEL_9;
     }
@@ -367,8 +367,8 @@ void __62__CKWalletItemSearchController__addOrderViewControllerForURL___block_in
     results2 = [(CKSearchController *)self results];
     sectionIdentifier = [results2 objectAtIndex:{objc_msgSend(pathCopy, "row")}];
 
-    v31 = [CKSpotlightQueryResultUtilities contactForResult:sectionIdentifier];
-    [v15 setContact:v31];
+    v32 = [CKSpotlightQueryResultUtilities contactForResult:sectionIdentifier];
+    [v15 setContact:v32];
     [v15 setAssociatedResult:sectionIdentifier];
     [v15 setParentContentType:2];
   }
@@ -413,19 +413,25 @@ LABEL_9:
 - (void)previewViewControllerForResult:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 pathExtension];
-  OUTLINED_FUNCTION_0_5(&dword_19020E000, v2, v3, "Unknown wallet file with extension .%@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_5(&dword_19020E000, v2, v3, "Unknown wallet file with extension .%@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)_addOrderViewControllerForURL:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 absoluteString];
-  OUTLINED_FUNCTION_0_5(&dword_19020E000, v2, v3, "Failed to create Add to Wallet VC for order at %@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_5(&dword_19020E000, v2, v3, "Failed to create Add to Wallet VC for order at %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void __62__CKWalletItemSearchController__addOrderViewControllerForURL___block_invoke_cold_1(id *a1)
 {
   v1 = [*a1 localizedDescription];
-  OUTLINED_FUNCTION_0_5(&dword_19020E000, v2, v3, "Failed to add order file to Wallet: %@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_5(&dword_19020E000, v2, v3, "Failed to add order file to Wallet: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

@@ -139,12 +139,12 @@ LABEL_8:
     goto LABEL_13;
   }
 
-  v35 = [v4 categoryEnterEvents];
-  v36 = [v35 count];
+  v34 = [v4 categoryEnterEvents];
+  v35 = [v34 count];
 
-  if (!v36)
+  if (!v35)
   {
-    v44 = __atxlog_handle_anchor();
+    v44 = __atxlog_handle_anchor(v36);
     if (os_log_type_enabled(v44, OS_LOG_TYPE_FAULT))
     {
       __86__ATXPOICategoryEventAggregator_groupVisitsFromPublisher_startTimestamp_endTimestamp___block_invoke_2_cold_1(v44);
@@ -208,14 +208,13 @@ LABEL_14:
   v23 = [(ATXPOICategoryEnterAndExitEvents *)v25 initWithCategoryEvents:v26 exitEvent:v27];
 
 LABEL_15:
-  v33 = *MEMORY[0x277D85DE8];
 
   return v23;
 }
 
 BOOL __86__ATXPOICategoryEventAggregator_groupVisitsFromPublisher_startTimestamp_endTimestamp___block_invoke_11(uint64_t a1, void *a2)
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = [v4 visitEvent];
   v6 = [v4 exitEvent];
@@ -234,8 +233,8 @@ BOOL __86__ATXPOICategoryEventAggregator_groupVisitsFromPublisher_startTimestamp
   {
     v12 = [ATXPOICategoryEnterAndExitEvents alloc];
     v13 = [v4 exitEvent];
-    v20[0] = v13;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
+    v19[0] = v13;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
     v15 = [(ATXPOICategoryEnterAndExitEvents *)v12 initWithCategoryEvents:v14 exitEvent:0];
     v16 = *(*(a1 + 32) + 8);
     v17 = *(v16 + 40);
@@ -247,16 +246,15 @@ BOOL __86__ATXPOICategoryEventAggregator_groupVisitsFromPublisher_startTimestamp
     objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v5 != 0;
 }
 
 void __86__ATXPOICategoryEventAggregator_groupVisitsFromPublisher_startTimestamp_endTimestamp___block_invoke_3(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 state];
-  v5 = __atxlog_handle_anchor();
+  v5 = __atxlog_handle_anchor(v4);
   v6 = v5;
   if (v4)
   {
@@ -271,23 +269,21 @@ void __86__ATXPOICategoryEventAggregator_groupVisitsFromPublisher_startTimestamp
     v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(*(a1 + 32), "count")}];
     v8 = *(a1 + 40);
     v9 = *(a1 + 48);
-    v11 = 138412802;
-    v12 = v7;
-    v13 = 2048;
-    v14 = v8;
-    v15 = 2048;
-    v16 = v9;
-    _os_log_impl(&dword_260C9F000, v6, OS_LOG_TYPE_INFO, "Successfully fetched %@ Biome events for POI Category between %f and %f", &v11, 0x20u);
+    v10 = 138412802;
+    v11 = v7;
+    v12 = 2048;
+    v13 = v8;
+    v14 = 2048;
+    v15 = v9;
+    _os_log_impl(&dword_260C9F000, v6, OS_LOG_TYPE_INFO, "Successfully fetched %@ Biome events for POI Category between %f and %f", &v10, 0x20u);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __86__ATXPOICategoryEventAggregator_groupVisitsFromPublisher_startTimestamp_endTimestamp___block_invoke_19(uint64_t result, uint64_t a2)
+id *__86__ATXPOICategoryEventAggregator_groupVisitsFromPublisher_startTimestamp_endTimestamp___block_invoke_19(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) addObject:a2];
+    return [result[4] addObject:a2];
   }
 
   return result;
@@ -295,19 +291,17 @@ uint64_t __86__ATXPOICategoryEventAggregator_groupVisitsFromPublisher_startTimes
 
 void __86__ATXPOICategoryEventAggregator_groupVisitsFromPublisher_startTimestamp_endTimestamp___block_invoke_3_cold_1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 40);
   v5 = *(a1 + 48);
   v6 = [a2 error];
-  v8 = 134218498;
-  v9 = v4;
-  v10 = 2048;
-  v11 = v5;
-  v12 = 2112;
-  v13 = v6;
-  _os_log_error_impl(&dword_260C9F000, a3, OS_LOG_TYPE_ERROR, "Error encountered while fetching events from Biome for POI Category between %f and %f: %@", &v8, 0x20u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 134218498;
+  v8 = v4;
+  v9 = 2048;
+  v10 = v5;
+  v11 = 2112;
+  v12 = v6;
+  _os_log_error_impl(&dword_260C9F000, a3, OS_LOG_TYPE_ERROR, "Error encountered while fetching events from Biome for POI Category between %f and %f: %@", &v7, 0x20u);
 }
 
 @end

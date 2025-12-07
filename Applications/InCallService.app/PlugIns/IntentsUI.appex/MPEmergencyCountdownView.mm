@@ -87,7 +87,7 @@
 - (void)startCountdownFromNumber:(unint64_t)number withTimeInterval:(float)interval completion:(id)completion
 {
   completionCopy = completion;
-  v9 = PHDefaultLog();
+  v9 = PHDefaultLog(completionCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 134217984;

@@ -15,12 +15,16 @@
 - (void)emitNavigationEventForListUserWordsController;
 - (void)inlineUserDictionaryDoneEditing;
 - (void)loadView;
+- (void)navigationController:(id)controller willShowViewController:(id)viewController animated:(BOOL)animated;
 - (void)reloadSections;
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated;
 - (void)tableView:(id)view commitEditingStyle:(int64_t)style forRowAtIndexPath:(id)path;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)userWordDidUpdate:(id)update;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 - (void)viewSafeAreaInsetsDidChange;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)willPresentSearchController:(id)controller;
 @end
 
@@ -117,7 +121,7 @@
 
 - (void)reloadSections
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   currentCollation = [MEMORY[0x277D75700] currentCollation];
   v4 = [objc_msgSend(currentCollation "sectionTitles")];
   v5 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v4];
@@ -136,28 +140,28 @@
   }
 
   entries = [(KSUserWordsManager *)[(KSListUserWordsController *)self dictionaryController] entries];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v9 = [(NSArray *)entries countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v9 = [(NSArray *)entries countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v20;
+    v11 = *v19;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v20 != v11)
+        if (*v19 != v11)
         {
           objc_enumerationMutation(entries);
         }
 
-        [objc_msgSend(v5 objectAtIndex:{objc_msgSend(currentCollation, "sectionForObject:collationStringSelector:", *(*(&v19 + 1) + 8 * i), sel_shortcutForSorting)), "addObject:", *(*(&v19 + 1) + 8 * i)}];
+        [objc_msgSend(v5 objectAtIndex:{objc_msgSend(currentCollation, "sectionForObject:collationStringSelector:", *(*(&v18 + 1) + 8 * i), sel_shortcutForSorting)), "addObject:", *(*(&v18 + 1) + 8 * i)}];
       }
 
-      v10 = [(NSArray *)entries countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v10 = [(NSArray *)entries countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v10);
@@ -214,8 +218,6 @@ LABEL_22:
       [(KSListUserWordsController *)self setEditing:1 animated:0];
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)viewDidLoad
@@ -282,6 +284,22 @@ uint64_t __40__KSListUserWordsController_viewDidLoad__block_invoke(uint64_t a1)
   }
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = KSListUserWordsController;
+  [(KSListUserWordsController *)&v4 viewWillAppear:appear];
+  [(KSListUserWordsController *)self reloadSections];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = KSListUserWordsController;
+  [(KSListUserWordsController *)&v4 viewDidAppear:appear];
+  [(KSListUserWordsController *)self emitNavigationEventForListUserWordsController];
+}
+
 - (void)dealloc
 {
   [(KSUserWordsManager *)[(KSListUserWordsController *)self dictionaryController] removeObserver:self->_observerToken];
@@ -314,9 +332,19 @@ uint64_t __40__KSListUserWordsController_viewDidLoad__block_invoke(uint64_t a1)
   return v4 < v5;
 }
 
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  editingCopy = editing;
+  v7.receiver = self;
+  v7.super_class = KSListUserWordsController;
+  [KSListUserWordsController setEditing:sel_setEditing_animated_ animated:?];
+  [(UITableView *)[(KSListUserWordsController *)self tableView] setEditing:editingCopy animated:animatedCopy];
+}
+
 - (void)tableView:(id)view commitEditingStyle:(int64_t)style forRowAtIndexPath:(id)path
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   if (style == 1)
   {
     if ([(KSListUserWordsController *)self isEditing])
@@ -333,16 +361,14 @@ uint64_t __40__KSListUserWordsController_viewDidLoad__block_invoke(uint64_t a1)
     [view deselectRowAtIndexPath:path animated:1];
     v9 = [-[NSArray objectAtIndex:](-[KSListUserWordsController sections](self "sections")];
     dictionaryController = [(KSListUserWordsController *)self dictionaryController];
-    v12[0] = v9;
-    -[KSUserWordsManager addEntries:removeEntries:withCompletionHandler:](dictionaryController, "addEntries:removeEntries:withCompletionHandler:", 0, [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1], &__block_literal_global_6);
+    v11[0] = v9;
+    -[KSUserWordsManager addEntries:removeEntries:withCompletionHandler:](dictionaryController, "addEntries:removeEntries:withCompletionHandler:", 0, [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1], &__block_literal_global_6);
     self->_manualEditing = 0;
     if (!v8)
     {
       [(KSListUserWordsController *)self setEditing:0 animated:1];
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path
@@ -489,7 +515,53 @@ LABEL_8:
   [navigationController popViewControllerAnimated:1];
 }
 
-uint64_t __82__KSListUserWordsController_navigationController_willShowViewController_animated___block_invoke_2(uint64_t a1, void *a2)
+- (void)navigationController:(id)controller willShowViewController:(id)viewController animated:(BOOL)animated
+{
+  if ([(KSListUserWordsController *)self searchNavControllerChanges:controller])
+  {
+    v8 = [objc_msgSend(controller "viewControllers")];
+    transitionCoordinator = [controller transitionCoordinator];
+    superview = [(UISearchBar *)[(UISearchController *)self->_searchController searchBar] superview];
+    if (v8 == viewController)
+    {
+      v28 = MEMORY[0x277D85DD0];
+      v29 = 3221225472;
+      v30 = __82__KSListUserWordsController_navigationController_willShowViewController_animated___block_invoke;
+      v31 = &unk_2797FA258;
+      selfCopy = self;
+      v23 = MEMORY[0x277D85DD0];
+      v24 = 3221225472;
+      v25 = __82__KSListUserWordsController_navigationController_willShowViewController_animated___block_invoke_2;
+      v26 = &unk_2797FA258;
+      selfCopy2 = self;
+      v11 = &v28;
+      v12 = &v23;
+    }
+
+    else
+    {
+      selfCopy3 = self;
+      v18 = MEMORY[0x277D85DD0];
+      v19 = 3221225472;
+      v20 = __82__KSListUserWordsController_navigationController_willShowViewController_animated___block_invoke_3;
+      v21 = &unk_2797FA258;
+      selfCopy4 = self;
+      v13 = MEMORY[0x277D85DD0];
+      v14 = 3221225472;
+      v15 = __82__KSListUserWordsController_navigationController_willShowViewController_animated___block_invoke_4;
+      v16 = &unk_2797FA258;
+      v11 = &v18;
+      v12 = &v13;
+    }
+
+    [transitionCoordinator animateAlongsideTransitionInView:superview animation:v11 completion:{v12, v13, v14, v15, v16, selfCopy3, v18, v19, v20, v21, selfCopy4, v23, v24, v25, v26, selfCopy2, v28, v29, v30, v31, selfCopy}];
+    [controller setNavigationBarHidden:v8 == viewController animated:1];
+  }
+
+  [(KSListUserWordsController *)self setSearchNavControllerChanges:[(KSListUserWordsController *)self searchNavControllerChanges]+ 1];
+}
+
+void *__82__KSListUserWordsController_navigationController_willShowViewController_animated___block_invoke_2(uint64_t a1, void *a2)
 {
   result = [a2 isCancelled];
   if (result)
@@ -560,15 +632,13 @@ uint64_t __43__KSListUserWordsController__showSearchBar__block_invoke(double *a1
 
 - (void)emitNavigationEventForListUserWordsController
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v7[2] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEBC0] URLWithString:@"settings-navigation://com.apple.Settings.General/Keyboard/USER_DICTIONARY"];
   v4 = +[KSKeyboardController localizedStringForGeneralKeyboardSpecifier];
   v5 = objc_alloc(MEMORY[0x277CCAEB8]);
   currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
-  v8 = v4;
-  v9 = [v5 initWithKey:@"SHORTCUTS" table:@"Keyboard" locale:currentLocale bundleURL:{objc_msgSend(objc_msgSend(MEMORY[0x277CCA8D8], "bundleForClass:", objc_opt_class()), "bundleURL")}];
-  -[KSListUserWordsController pe_emitNavigationEventForSystemSettingsWithGraphicIconIdentifier:title:localizedNavigationComponents:deepLink:](self, "pe_emitNavigationEventForSystemSettingsWithGraphicIconIdentifier:title:localizedNavigationComponents:deepLink:", @"com.apple.graphic-icon.keyboard", v9, [MEMORY[0x277CBEA60] arrayWithObjects:&v8 count:2], v3);
-  v7 = *MEMORY[0x277D85DE8];
+  v7[0] = v4;
+  -[KSListUserWordsController pe_emitNavigationEventForSystemSettingsWithGraphicIconIdentifier:title:localizedNavigationComponents:deepLink:](self, "pe_emitNavigationEventForSystemSettingsWithGraphicIconIdentifier:title:localizedNavigationComponents:deepLink:", @"com.apple.graphic-icon.keyboard", [v5 initWithKey:@"SHORTCUTS" table:@"Keyboard" locale:currentLocale bundleURL:{objc_msgSend(objc_msgSend(MEMORY[0x277CCA8D8], "bundleForClass:", objc_opt_class()), "bundleURL")}], objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v7, 2), v3);
 }
 
 @end

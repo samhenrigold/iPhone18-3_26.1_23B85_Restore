@@ -17,7 +17,7 @@
 
 + (Class)layerClass
 {
-  sub_100005744(0, &qword_100978A80);
+  sub_100005744(0, &qword_100978A80, CAGradientLayer_ptr);
 
   return swift_getObjCClassFromMetadata();
 }

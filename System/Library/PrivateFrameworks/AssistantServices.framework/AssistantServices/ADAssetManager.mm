@@ -425,7 +425,7 @@
 
       if (AFUODStatusSupportedFull())
       {
-        v7 = [(NSMutableDictionary *)self->_assetFetchIntervalBeginDates objectForKey:v4];
+        v7 = objc_msgSend_objectForKey_(self->_assetFetchIntervalBeginDates);
         if (v7)
         {
           [(NSMutableDictionary *)self->_assetFetchIntervalBeginDates removeObjectForKey:v4];
@@ -543,7 +543,7 @@ LABEL_12:
   {
     if (AFIsNano() && AFDeviceSupportsFullSiriUOD())
     {
-      v8 = [(NSDictionary *)self->_speechAssetTasksForLocale objectForKey:v7, v35];
+      v8 = objc_msgSend_objectForKey_(self->_speechAssetTasksForLocale, v35);
       supportsAssistant = [v8 supportsAssistant];
       if ((supportsAssistant & 1) == 0)
       {

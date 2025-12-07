@@ -13,7 +13,7 @@
 
 - (void)joinAccessoryHotspotWithoutSecurity:(id)security completionHandler:(id)handler
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   sSID = [security SSID];
   if (sSID)
@@ -29,16 +29,14 @@
     v9 = ne_log_obj();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v12 = 138412290;
-      v13 = objc_opt_class();
-      v11 = v13;
-      _os_log_error_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_ERROR, "%@ ASAccessory object not provided", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = objc_opt_class();
+      v10 = v12;
+      _os_log_error_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_ERROR, "%@ ASAccessory object not provided", &v11, 0xCu);
     }
 
     [(NEHotspotConfigurationManager *)self reportError:handlerCopy completionHandler:?];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reportError:(void *)error completionHandler:
@@ -60,7 +58,7 @@
 
 void __63__NEHotspotConfigurationManager_reportError_completionHandler___block_invoke(void *a1)
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   v1 = a1[5];
   if (a1[4])
   {
@@ -191,12 +189,12 @@ LABEL_43:
           v5 = 9;
 LABEL_44:
           v6 = MEMORY[0x1E696ABC0];
-          v11 = *MEMORY[0x1E696A578];
-          v12[0] = v4;
-          v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
-          v9 = [v6 errorWithDomain:@"NEHotspotConfigurationErrorDomain" code:v5 userInfo:v7];
+          v10 = *MEMORY[0x1E696A578];
+          v11[0] = v4;
+          v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+          v8 = [v6 errorWithDomain:@"NEHotspotConfigurationErrorDomain" code:v5 userInfo:v7];
 
-          v2 = v9;
+          v2 = v8;
           goto LABEL_45;
         }
 
@@ -225,14 +223,13 @@ LABEL_33:
 
   v2 = 0;
 LABEL_45:
-  v10 = v2;
+  v9 = v2;
   (*(v1 + 16))(v1);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)joinAccessoryHotspot:(id)hotspot passphrase:(id)passphrase completionHandler:(id)handler
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   passphraseCopy = passphrase;
   handlerCopy = handler;
   sSID = [hotspot SSID];
@@ -241,10 +238,10 @@ LABEL_45:
     v12 = ne_log_obj();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v19 = 138412290;
-      v20 = objc_opt_class();
-      v17 = v20;
-      _os_log_error_impl(&dword_1BA83C000, v12, OS_LOG_TYPE_ERROR, "%@ ASAccessory object not provided", &v19, 0xCu);
+      v18 = 138412290;
+      v19 = objc_opt_class();
+      v16 = v19;
+      _os_log_error_impl(&dword_1BA83C000, v12, OS_LOG_TYPE_ERROR, "%@ ASAccessory object not provided", &v18, 0xCu);
     }
 
     selfCopy2 = self;
@@ -257,10 +254,10 @@ LABEL_45:
     v15 = ne_log_obj();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v19 = 138412290;
-      v20 = objc_opt_class();
-      v18 = v20;
-      _os_log_error_impl(&dword_1BA83C000, v15, OS_LOG_TYPE_ERROR, "%@ passphrase string not provided", &v19, 0xCu);
+      v18 = 138412290;
+      v19 = objc_opt_class();
+      v17 = v19;
+      _os_log_error_impl(&dword_1BA83C000, v15, OS_LOG_TYPE_ERROR, "%@ passphrase string not provided", &v18, 0xCu);
     }
 
     selfCopy2 = self;
@@ -276,25 +273,24 @@ LABEL_10:
   [(NEHotspotConfigurationManager *)self applyConfiguration:v11 completionHandler:handlerCopy];
 
 LABEL_11:
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getConfiguredSSIDsWithCompletionHandler:(void *)completionHandler
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = completionHandler;
   if (v3)
   {
     v4 = +[NEHotspotConfigurationHelper sharedManager];
     if (v4)
     {
-      v8[0] = MEMORY[0x1E69E9820];
-      v8[1] = 3221225472;
-      v8[2] = __73__NEHotspotConfigurationManager_getConfiguredSSIDsWithCompletionHandler___block_invoke;
-      v8[3] = &unk_1E7F07AF8;
-      v9 = v3;
-      [(NEHotspotConfigurationHelper *)v4 sendRequest:2 requestType:v8 resultHandler:?];
-      v5 = v9;
+      v7[0] = MEMORY[0x1E69E9820];
+      v7[1] = 3221225472;
+      v7[2] = __73__NEHotspotConfigurationManager_getConfiguredSSIDsWithCompletionHandler___block_invoke;
+      v7[3] = &unk_1E7F07AF8;
+      v8 = v3;
+      [(NEHotspotConfigurationHelper *)v4 sendRequest:2 requestType:v7 resultHandler:?];
+      v5 = v8;
     }
 
     else
@@ -303,8 +299,8 @@ LABEL_11:
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v11 = objc_opt_class();
-        v7 = v11;
+        v10 = objc_opt_class();
+        v6 = v10;
         _os_log_error_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_ERROR, "%@ Failed to instantiate NEHotspotConfigurationHelper.", buf, 0xCu);
       }
     }
@@ -319,8 +315,6 @@ LABEL_11:
       _os_log_debug_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEBUG, "no completion handler providd.", buf, 2u);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __73__NEHotspotConfigurationManager_getConfiguredSSIDsWithCompletionHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -341,20 +335,17 @@ uint64_t __73__NEHotspotConfigurationManager_getConfiguredSSIDsWithCompletionHan
   if (*(a1 + 32))
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      v2 = *(a1 + 32);
-    }
+    objc_opt_isKindOfClass();
   }
 
-  v3 = *(*(a1 + 40) + 16);
+  v2 = *(*(a1 + 40) + 16);
 
-  return v3();
+  return v2();
 }
 
 - (void)removeConfigurationForHS20DomainName:(NSString *)domainName
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = domainName;
   v4 = +[NEHotspotConfigurationHelper sharedManager];
   v5 = v4;
@@ -368,19 +359,17 @@ uint64_t __73__NEHotspotConfigurationManager_getConfiguredSSIDsWithCompletionHan
     v6 = ne_log_obj();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138412290;
-      v10 = objc_opt_class();
-      v8 = v10;
-      _os_log_error_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_ERROR, "%@ failed to instantiate hotspot configuration helper.", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = objc_opt_class();
+      v7 = v9;
+      _os_log_error_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_ERROR, "%@ failed to instantiate hotspot configuration helper.", &v8, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeConfigurationForSSID:(NSString *)SSID
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = SSID;
   v4 = +[NEHotspotConfigurationHelper sharedManager];
   v5 = v4;
@@ -394,19 +383,17 @@ uint64_t __73__NEHotspotConfigurationManager_getConfiguredSSIDsWithCompletionHan
     v6 = ne_log_obj();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138412290;
-      v10 = objc_opt_class();
-      v8 = v10;
-      _os_log_error_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_ERROR, "%@ failed to instantiate hotspot configuration helper.", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = objc_opt_class();
+      v7 = v9;
+      _os_log_error_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_ERROR, "%@ failed to instantiate hotspot configuration helper.", &v8, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)applyConfiguration:(NEHotspotConfiguration *)configuration completionHandler:(void *)completionHandler
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v6 = configuration;
   v7 = completionHandler;
   validate = [(NEHotspotConfiguration *)v6 validate];
@@ -419,28 +406,14 @@ LABEL_11:
     goto LABEL_17;
   }
 
-  if (!self)
+  if (!self || (v9 = MEMORY[0x1E696ACC8], v10 = v6, v11 = [[v9 alloc] initRequiringSecureCoding:1], objc_msgSend(v11, "encodeObject:forKey:", v10, @"NEHotspotConfigurationKey"), v10, objc_msgSend(v11, "finishEncoding"), objc_msgSend(v11, "encodedData"), v12 = objc_claimAutoreleasedReturnValue(), v11, !v12))
   {
-    goto LABEL_8;
-  }
-
-  v9 = MEMORY[0x1E696ACC8];
-  v10 = v6;
-  v11 = [[v9 alloc] initRequiringSecureCoding:1];
-  [v11 encodeObject:v10 forKey:@"NEHotspotConfigurationKey"];
-
-  [v11 finishEncoding];
-  encodedData = [v11 encodedData];
-
-  if (!encodedData)
-  {
-LABEL_8:
     v17 = ne_log_obj();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v25 = objc_opt_class();
-      v20 = v25;
+      v24 = objc_opt_class();
+      v19 = v24;
       _os_log_error_impl(&dword_1BA83C000, v17, OS_LOG_TYPE_ERROR, "%@ failed to serialize configuration object", buf, 0xCu);
     }
 
@@ -455,18 +428,18 @@ LABEL_8:
   {
     if (v7)
     {
-      v22[0] = MEMORY[0x1E69E9820];
-      v22[1] = 3221225472;
-      v22[2] = __70__NEHotspotConfigurationManager_applyConfiguration_completionHandler___block_invoke;
-      v22[3] = &unk_1E7F07AD0;
-      v22[4] = self;
-      v23 = v7;
-      [(NEHotspotConfigurationHelper *)v14 sendRequest:encodedData requestType:0 resultHandler:v22];
+      v21[0] = MEMORY[0x1E69E9820];
+      v21[1] = 3221225472;
+      v21[2] = __70__NEHotspotConfigurationManager_applyConfiguration_completionHandler___block_invoke;
+      v21[3] = &unk_1E7F07AD0;
+      v21[4] = self;
+      v22 = v7;
+      [(NEHotspotConfigurationHelper *)v14 sendRequest:v12 requestType:0 resultHandler:v21];
     }
 
     else
     {
-      [(NEHotspotConfigurationHelper *)v13 sendRequest:encodedData requestType:0 resultHandler:0];
+      [(NEHotspotConfigurationHelper *)v13 sendRequest:v12 requestType:0 resultHandler:0];
     }
   }
 
@@ -476,8 +449,8 @@ LABEL_8:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v25 = objc_opt_class();
-      v21 = v25;
+      v24 = objc_opt_class();
+      v20 = v24;
       _os_log_error_impl(&dword_1BA83C000, v18, OS_LOG_TYPE_ERROR, "%@ failed to instantiate hotspot configuration helper.", buf, 0xCu);
     }
 
@@ -485,26 +458,23 @@ LABEL_8:
   }
 
 LABEL_17:
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __70__NEHotspotConfigurationManager_applyConfiguration_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = ne_log_obj();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v6 = *(a1 + 32);
-    v8 = 138412546;
-    v9 = objc_opt_class();
-    v10 = 2048;
-    v11 = a2;
-    v7 = v9;
-    _os_log_debug_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEBUG, "%@ received result code %lld", &v8, 0x16u);
+    v6 = 138412546;
+    v7 = objc_opt_class();
+    v8 = 2048;
+    v9 = a2;
+    v5 = v7;
+    _os_log_debug_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEBUG, "%@ received result code %lld", &v6, 0x16u);
   }
 
   [(NEHotspotConfigurationManager *)*(a1 + 32) reportError:a2 completionHandler:*(a1 + 40)];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (NEHotspotConfigurationManager)sharedManager
@@ -521,9 +491,11 @@ void __70__NEHotspotConfigurationManager_applyConfiguration_completionHandler___
 
 uint64_t __46__NEHotspotConfigurationManager_sharedManager__block_invoke()
 {
-  sharedManager_g_manager_7713 = objc_alloc_init(NEHotspotConfigurationManager);
+  v0 = objc_alloc_init(NEHotspotConfigurationManager);
+  v1 = sharedManager_g_manager_7713;
+  sharedManager_g_manager_7713 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

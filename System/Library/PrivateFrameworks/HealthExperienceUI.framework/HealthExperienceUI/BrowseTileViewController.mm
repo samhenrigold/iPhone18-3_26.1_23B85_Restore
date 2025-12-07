@@ -15,7 +15,7 @@
 - (void)viewDidLayoutSubviews
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for BrowseTileViewController();
+  v3.super_class = type metadata accessor for BrowseTileViewController(0);
   v2 = v3.receiver;
   [(BrowseTileViewController *)&v3 viewDidLayoutSubviews];
   sub_1BA1C7B8C();

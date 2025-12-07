@@ -101,15 +101,15 @@
 
 - (id)_decodeComponentsForPersistenceWithCoder:(id)coder key:(id)key
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CBEB98];
   keyCopy = key;
   coderCopy = coder;
+  v21 = objc_opt_class();
   v22 = objc_opt_class();
   v23 = objc_opt_class();
-  v24 = objc_opt_class();
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:3];
-  v9 = [v5 setWithArray:{v8, v22, v23}];
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:3];
+  v9 = [v5 setWithArray:{v8, v21, v22}];
   v10 = [coderCopy decodeObjectOfClasses:v9 forKey:keyCopy];
 
   v11 = objc_alloc_init(MEMORY[0x277CBEAB8]);
@@ -142,8 +142,6 @@
     v19 = [v10 objectForKeyedSubscript:@"HKSPDayOccurrenceDay"];
     [v11 setDay:{objc_msgSend(v19, "integerValue")}];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

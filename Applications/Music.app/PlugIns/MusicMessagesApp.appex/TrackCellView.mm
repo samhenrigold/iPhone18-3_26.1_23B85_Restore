@@ -48,13 +48,13 @@
 - (void)prepareForReuse
 {
   selfCopy = self;
-  sub_10001FF40();
+  sub_10001FF40(selfCopy);
 }
 
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_100020294();
+  sub_100020294(selfCopy);
 }
 
 - (void)traitCollectionDidChange:(id)change

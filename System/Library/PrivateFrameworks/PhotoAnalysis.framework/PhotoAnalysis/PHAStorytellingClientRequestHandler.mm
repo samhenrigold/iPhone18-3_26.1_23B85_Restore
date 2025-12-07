@@ -5845,8 +5845,8 @@ uint64_t __55__PHAStorytellingClientRequestHandler_handleOperation___block_invok
   v14 = [PHAPrivateFederatedLearningRecipeDecoder decodeRecipeUserInfo:infoCopy attachmentURLs:attachmentsCopy photoLibrary:photoLibrary graphManager:graphManager decodingError:&v26];
 
   v15 = v26;
-  options = [v14 options];
-  learningFramework = [options learningFramework];
+  v16 = objc_msgSend_options(v14);
+  learningFramework = [v16 learningFramework];
   LODWORD(infoCopy) = [learningFramework isEqualToString:@"coreML"];
 
   if (infoCopy)

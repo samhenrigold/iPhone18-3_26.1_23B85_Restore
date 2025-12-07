@@ -32,7 +32,7 @@
 
 + (id)processName
 {
-  v2 = processInfoDict();
+  v2 = processInfoDict(self);
   v3 = [v2 objectForKeyedSubscript:*MEMORY[0x277CBED38]];
 
   return v3;
@@ -40,7 +40,7 @@
 
 + (id)processVersion
 {
-  v2 = processInfoDict();
+  v2 = processInfoDict(self);
   v3 = [v2 objectForKeyedSubscript:*MEMORY[0x277CBEC50]];
 
   return v3;

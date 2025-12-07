@@ -70,40 +70,40 @@
     while (v23);
   }
 
-  if ([v20 count] < 3)
+  v34 = [v20 count];
+  if (v34 < 3)
   {
-    v35 = [v20 copy];
-    v40 = sessionsCopy;
-    v39 = cCopy;
+    v36 = [v20 copy];
+    v41 = sessionsCopy;
+    v40 = cCopy;
     selfCopy = self;
-    v38 = mapCopy;
-    v41 = numberCopy;
+    v39 = mapCopy;
+    v42 = numberCopy;
     LOBYTE(v45) = my;
-    v37 = nameCopy;
-    v36 = groupIdentifierCopy;
-    selfCopy2 = [(SPPeripheral *)selfCopy initWithUserIdentifier:identifierCopy beaconIdentifier:beaconIdentifierCopy groupIdentifier:groupIdentifierCopy name:nameCopy partIdentifier:partIdentifierCopy serialNumber:numberCopy managedByFindMy:v45 primaryIndex:index ltkIndexMap:mapCopy lastConnectedLEMAC:cCopy allowedSessions:sessionsCopy longTermKeyMap:v35];
+    v38 = nameCopy;
+    v37 = groupIdentifierCopy;
+    selfCopy2 = [(SPPeripheral *)selfCopy initWithUserIdentifier:identifierCopy beaconIdentifier:beaconIdentifierCopy groupIdentifier:groupIdentifierCopy name:nameCopy partIdentifier:partIdentifierCopy serialNumber:numberCopy managedByFindMy:v45 primaryIndex:index ltkIndexMap:mapCopy lastConnectedLEMAC:cCopy allowedSessions:sessionsCopy longTermKeyMap:v36];
     v47 = selfCopy2;
   }
 
   else
   {
     selfCopy2 = self;
-    v35 = LogCategory_CBPeripheralManagement();
-    v37 = nameCopy;
-    v36 = groupIdentifierCopy;
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+    v36 = LogCategory_CBPeripheralManagement(v34);
+    v38 = nameCopy;
+    v37 = groupIdentifierCopy;
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
-      [SPPeripheral initWithUserIdentifier:v20 beaconIdentifier:v35 groupIdentifier:? name:? partIdentifier:? serialNumber:? managedByFindMy:? primaryIndex:? ltkIndexMap:? lastConnectedLEMAC:? allowedSessions:? keyAddressPairs:?];
+      [SPPeripheral initWithUserIdentifier:v20 beaconIdentifier:v36 groupIdentifier:? name:? partIdentifier:? serialNumber:? managedByFindMy:? primaryIndex:? ltkIndexMap:? lastConnectedLEMAC:? allowedSessions:? keyAddressPairs:?];
     }
 
     v47 = 0;
-    v39 = cCopy;
-    v38 = mapCopy;
-    v40 = sessionsCopy;
-    v41 = numberCopy;
+    v40 = cCopy;
+    v39 = mapCopy;
+    v41 = sessionsCopy;
+    v42 = numberCopy;
   }
 
-  v43 = *MEMORY[0x277D85DE8];
   return v47;
 }
 
@@ -217,7 +217,7 @@
 
 - (SPPeripheral)initWithCoder:(id)coder
 {
-  v38[4] = *MEMORY[0x277D85DE8];
+  v37[4] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"userIdentifier"];
   userIdentifier = self->_userIdentifier;
@@ -243,11 +243,11 @@
   self->_managedByFindMy = [coderCopy decodeBoolForKey:@"managedByFindMy"];
   self->_primaryIndex = [coderCopy decodeInt64ForKey:@"primaryIndex"];
   v15 = MEMORY[0x277CBEB98];
-  v38[0] = objc_opt_class();
-  v38[1] = objc_opt_class();
-  v38[2] = objc_opt_class();
-  v38[3] = objc_opt_class();
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:4];
+  v37[0] = objc_opt_class();
+  v37[1] = objc_opt_class();
+  v37[2] = objc_opt_class();
+  v37[3] = objc_opt_class();
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:4];
   v17 = [v15 setWithArray:v16];
   v18 = [coderCopy decodeObjectOfClasses:v17 forKey:@"ltkIndexMap"];
   ltkIndexMap = self->_ltkIndexMap;
@@ -258,26 +258,25 @@
   self->_lastConnectedLEMAC = v20;
 
   v22 = MEMORY[0x277CBEB98];
-  v37[0] = objc_opt_class();
-  v37[1] = objc_opt_class();
-  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:2];
+  v36[0] = objc_opt_class();
+  v36[1] = objc_opt_class();
+  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:2];
   v24 = [v22 setWithArray:v23];
   v25 = [coderCopy decodeObjectOfClasses:v24 forKey:@"allowedSessions"];
   allowedSessions = self->_allowedSessions;
   self->_allowedSessions = v25;
 
   v27 = MEMORY[0x277CBEB98];
+  v33 = objc_opt_class();
   v34 = objc_opt_class();
   v35 = objc_opt_class();
-  v36 = objc_opt_class();
-  v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v34 count:3];
-  v29 = [v27 setWithArray:{v28, v34, v35}];
+  v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v33 count:3];
+  v29 = [v27 setWithArray:{v28, v33, v34}];
   v30 = [coderCopy decodeObjectOfClasses:v29 forKey:@"longTermKeyMap"];
 
   longTermKeyMap = self->_longTermKeyMap;
   self->_longTermKeyMap = v30;
 
-  v32 = *MEMORY[0x277D85DE8];
   return self;
 }
 
@@ -331,72 +330,70 @@
 
 - (NSArray)keyAddressPairs
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
   selfCopy = self;
   longTermKeyMap = [(SPPeripheral *)self longTermKeyMap];
   allKeys = [longTermKeyMap allKeys];
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   obj = allKeys;
-  v6 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
+  v6 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
   if (v6)
   {
     v7 = v6;
-    v21 = *v28;
+    v20 = *v27;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v28 != v21)
+        if (*v27 != v20)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v27 + 1) + 8 * i);
+        v9 = *(*(&v26 + 1) + 8 * i);
         longTermKeyMap2 = [(SPPeripheral *)selfCopy longTermKeyMap];
         v11 = [longTermKeyMap2 objectForKeyedSubscript:v9];
 
-        v25 = 0u;
-        v26 = 0u;
-        v23 = 0u;
         v24 = 0u;
+        v25 = 0u;
+        v22 = 0u;
+        v23 = 0u;
         v12 = v11;
-        v13 = [v12 countByEnumeratingWithState:&v23 objects:v31 count:16];
+        v13 = [v12 countByEnumeratingWithState:&v22 objects:v30 count:16];
         if (v13)
         {
           v14 = v13;
-          v15 = *v24;
+          v15 = *v23;
           do
           {
             for (j = 0; j != v14; ++j)
             {
-              if (*v24 != v15)
+              if (*v23 != v15)
               {
                 objc_enumerationMutation(v12);
               }
 
-              v17 = [[SPCBPeripheralKeyAddressPair alloc] initWithLEMACAddress:v9 longTermKey:*(*(&v23 + 1) + 8 * j)];
+              v17 = [[SPCBPeripheralKeyAddressPair alloc] initWithLEMACAddress:v9 longTermKey:*(*(&v22 + 1) + 8 * j)];
               [v3 addObject:v17];
             }
 
-            v14 = [v12 countByEnumeratingWithState:&v23 objects:v31 count:16];
+            v14 = [v12 countByEnumeratingWithState:&v22 objects:v30 count:16];
           }
 
           while (v14);
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v7 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
     }
 
     while (v7);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -417,18 +414,18 @@
 
 - (id)description
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   groupIdentifier = [(SPPeripheral *)self groupIdentifier];
 
   if (groupIdentifier)
   {
     groupIdentifier2 = [(SPPeripheral *)self groupIdentifier];
-    v53 = [groupIdentifier2 description];
+    v52 = [groupIdentifier2 description];
   }
 
   else
   {
-    v53 = @"<nil>";
+    v52 = @"<nil>";
   }
 
   lastConnectedLEMAC = [(SPPeripheral *)self lastConnectedLEMAC];
@@ -436,66 +433,66 @@
   if (lastConnectedLEMAC)
   {
     lastConnectedLEMAC2 = [(SPPeripheral *)self lastConnectedLEMAC];
-    v52 = [(SPPeripheral *)self descriptionForLEMAC:lastConnectedLEMAC2];
+    v51 = [(SPPeripheral *)self descriptionForLEMAC:lastConnectedLEMAC2];
   }
 
   else
   {
-    v52 = &stru_2875DB468;
+    v51 = &stru_2875DB468;
   }
 
-  v58 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v57 = objc_alloc_init(MEMORY[0x277CBEB18]);
   longTermKeyMap = [(SPPeripheral *)self longTermKeyMap];
   allKeys = [longTermKeyMap allKeys];
 
-  v69 = 0u;
-  v70 = 0u;
-  v67 = 0u;
   v68 = 0u;
+  v69 = 0u;
+  v66 = 0u;
+  v67 = 0u;
   obj = allKeys;
-  v9 = [obj countByEnumeratingWithState:&v67 objects:v73 count:16];
+  v9 = [obj countByEnumeratingWithState:&v66 objects:v72 count:16];
   if (v9)
   {
     v10 = v9;
-    v55 = *v68;
+    v54 = *v67;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v68 != v55)
+        if (*v67 != v54)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v67 + 1) + 8 * i);
+        v12 = *(*(&v66 + 1) + 8 * i);
         longTermKeyMap2 = [(SPPeripheral *)self longTermKeyMap];
         v14 = [longTermKeyMap2 objectForKeyedSubscript:v12];
 
         v15 = objc_alloc_init(MEMORY[0x277CBEB18]);
+        v62 = 0u;
         v63 = 0u;
         v64 = 0u;
         v65 = 0u;
-        v66 = 0u;
         v16 = v14;
-        v17 = [v16 countByEnumeratingWithState:&v63 objects:v72 count:16];
+        v17 = [v16 countByEnumeratingWithState:&v62 objects:v71 count:16];
         if (v17)
         {
           v18 = v17;
-          v19 = *v64;
+          v19 = *v63;
           do
           {
             for (j = 0; j != v18; ++j)
             {
-              if (*v64 != v19)
+              if (*v63 != v19)
               {
                 objc_enumerationMutation(v16);
               }
 
-              fm_hexString = [*(*(&v63 + 1) + 8 * j) fm_hexString];
+              fm_hexString = [*(*(&v62 + 1) + 8 * j) fm_hexString];
               [v15 addObject:fm_hexString];
             }
 
-            v18 = [v16 countByEnumeratingWithState:&v63 objects:v72 count:16];
+            v18 = [v16 countByEnumeratingWithState:&v62 objects:v71 count:16];
           }
 
           while (v18);
@@ -505,36 +502,36 @@
         v23 = MEMORY[0x277CCACA8];
         v24 = [(SPPeripheral *)self descriptionForLEMAC:v12];
         v25 = [v23 stringWithFormat:@"LEMAC: %@ -- LTKs: [%@]", v24, v22];
-        [v58 addObject:v25];
+        [v57 addObject:v25];
       }
 
-      v10 = [obj countByEnumeratingWithState:&v67 objects:v73 count:16];
+      v10 = [obj countByEnumeratingWithState:&v66 objects:v72 count:16];
     }
 
     while (v10);
   }
 
   v26 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v58 = 0u;
   v59 = 0u;
   v60 = 0u;
   v61 = 0u;
-  v62 = 0u;
   ltkIndexMap = [(SPPeripheral *)self ltkIndexMap];
-  v27 = [ltkIndexMap countByEnumeratingWithState:&v59 objects:v71 count:16];
+  v27 = [ltkIndexMap countByEnumeratingWithState:&v58 objects:v70 count:16];
   if (v27)
   {
     v28 = v27;
-    v29 = *v60;
+    v29 = *v59;
     do
     {
       for (k = 0; k != v28; ++k)
       {
-        if (*v60 != v29)
+        if (*v59 != v29)
         {
           objc_enumerationMutation(ltkIndexMap);
         }
 
-        v31 = *(*(&v59 + 1) + 8 * k);
+        v31 = *(*(&v58 + 1) + 8 * k);
         v32 = MEMORY[0x277CCACA8];
         fm_hexString2 = [v31 fm_hexString];
         ltkIndexMap2 = [(SPPeripheral *)self ltkIndexMap];
@@ -543,18 +540,18 @@
         [v26 addObject:v36];
       }
 
-      v28 = [ltkIndexMap countByEnumeratingWithState:&v59 objects:v71 count:16];
+      v28 = [ltkIndexMap countByEnumeratingWithState:&v58 objects:v70 count:16];
     }
 
     while (v28);
   }
 
   v37 = MEMORY[0x277CCACA8];
-  v51 = v26;
+  v50 = v26;
   v38 = [v26 componentsJoinedByString:@"\n"];
   v39 = [v37 stringWithFormat:@"\n%@\n", v38];
 
-  v57 = MEMORY[0x277CCACA8];
+  v56 = MEMORY[0x277CCACA8];
   userIdentifier = [(SPPeripheral *)self userIdentifier];
   beaconIdentifier = [(SPPeripheral *)self beaconIdentifier];
   partIdentifier = [(SPPeripheral *)self partIdentifier];
@@ -563,20 +560,17 @@
   managedByFindMy = [(SPPeripheral *)self managedByFindMy];
   primaryIndex = [(SPPeripheral *)self primaryIndex];
   allowedSessions = [(SPPeripheral *)self allowedSessions];
-  v47 = [v57 stringWithFormat:@"<Uid: %@ Bid: %@ group: %@ part: %u name: [%@] S/N: [%@] managed: %d index: %llu lastConnectedMAC: [%@] acl: %@ ltkMap: %@ ltkIndexMap: %@>", userIdentifier, beaconIdentifier, v53, partIdentifier, name, serialNumber, managedByFindMy, primaryIndex, v52, allowedSessions, v58, v39];
-
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = [v56 stringWithFormat:@"<Uid: %@ Bid: %@ group: %@ part: %u name: [%@] S/N: [%@] managed: %d index: %llu lastConnectedMAC: [%@] acl: %@ ltkMap: %@ ltkIndexMap: %@>", userIdentifier, beaconIdentifier, v52, partIdentifier, name, serialNumber, managedByFindMy, primaryIndex, v51, allowedSessions, v57, v39];
 
   return v47;
 }
 
 - (void)initWithUserIdentifier:(void *)a1 beaconIdentifier:(NSObject *)a2 groupIdentifier:name:partIdentifier:serialNumber:managedByFindMy:primaryIndex:ltkIndexMap:lastConnectedLEMAC:allowedSessions:keyAddressPairs:.cold.1(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v4 = 134217984;
-  v5 = [a1 count];
-  _os_log_error_impl(&dword_2643D0000, a2, OS_LOG_TYPE_ERROR, "Too many MAC addresses: %lu", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v3 = 134217984;
+  v4 = [a1 count];
+  _os_log_error_impl(&dword_2643D0000, a2, OS_LOG_TYPE_ERROR, "Too many MAC addresses: %lu", &v3, 0xCu);
 }
 
 @end

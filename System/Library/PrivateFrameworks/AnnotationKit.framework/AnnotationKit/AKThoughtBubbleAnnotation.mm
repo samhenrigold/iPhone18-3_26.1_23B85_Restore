@@ -175,14 +175,14 @@
 {
   height = size.height;
   width = size.width;
-  v12.receiver = self;
-  v12.super_class = AKThoughtBubbleAnnotation;
+  v11.receiver = self;
+  v11.super_class = AKThoughtBubbleAnnotation;
   [AKRectangularShapeAnnotation flattenModelExifOrientation:sel_flattenModelExifOrientation_withModelSize_ withModelSize:?];
   [(AKThoughtBubbleAnnotation *)self pointyBitPoint];
-  v10 = v9;
-  v11 = v8;
-  [AKGeometryHelper affineTransformFlatteningOriginalModelExif:orientation withOriginalModelSize:width, height];
-  [(AKThoughtBubbleAnnotation *)self setPointyBitPoint:vaddq_f64(0, vmlaq_n_f64(vmulq_n_f64(0, v10), 0, v11))];
+  v9 = v8;
+  v10 = v7;
+  objc_msgSend_affineTransformFlatteningOriginalModelExif_withOriginalModelSize_(AKGeometryHelper, width, height);
+  [(AKThoughtBubbleAnnotation *)self setPointyBitPoint:vaddq_f64(0, vmlaq_n_f64(vmulq_n_f64(0, v9), 0, v10))];
 }
 
 - (void)translateBy:(CGPoint)by

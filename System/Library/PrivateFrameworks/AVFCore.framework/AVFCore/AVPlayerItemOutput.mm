@@ -15,16 +15,16 @@
 
 - (AVPlayerItemOutput)init
 {
-  v10.receiver = self;
-  v10.super_class = AVPlayerItemOutput;
-  v3 = [(AVPlayerItemOutput *)&v10 init];
+  v11.receiver = self;
+  v11.super_class = AVPlayerItemOutput;
+  v3 = [(AVPlayerItemOutput *)&v11 init];
   if (v3)
   {
     v4 = objc_opt_class();
     AVRequireConcreteObject(v3, a2, v4);
     v5 = objc_alloc_init(AVPlayerItemOutputInternal);
     v3->_outputInternal = v5;
-    if (v5 && (CFRetain(v5), v6 = MEMORY[0x1E696AEC0], v7 = objc_opt_class(), v8 = [objc_msgSend(v6 stringWithFormat:@"<%@: %p> timebase read/write queue", NSStringFromClass(v7), v3), "UTF8String"], (v3->_outputInternal->timebaseReadWriteQueue = av_readwrite_dispatch_queue_create(v8)) != 0))
+    if (v5 && (CFRetain(v5), v6 = MEMORY[0x1E696AEC0], v7 = objc_opt_class(), v8 = [objc_msgSend(v6 stringWithFormat:@"<%@: %p> timebase read/write queue", NSStringFromClass(v7), v3), "UTF8String"], (v3->_outputInternal->timebaseReadWriteQueue = av_readwrite_dispatch_queue_create(v8, v9)) != 0))
     {
       v3->_outputInternal->weakReference = [[AVWeakReference alloc] initWithReferencedObject:v3];
     }

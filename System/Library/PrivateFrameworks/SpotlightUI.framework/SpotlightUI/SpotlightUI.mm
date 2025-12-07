@@ -1,6 +1,6 @@
 void sendAppsInfoWithData(void *a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = a2;
   v7 = a3;
@@ -15,50 +15,48 @@ void sendAppsInfoWithData(void *a1, void *a2, void *a3)
       [v5 sendMessage:v9];
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v11 = 134218240;
-        v12 = [v6 count];
-        v13 = 2048;
-        v14 = [v7 count];
-        _os_log_impl(&dword_26B824000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Send apps:%ld hidden:%ld", &v11, 0x16u);
+        v10 = 134218240;
+        v11 = [v6 count];
+        v12 = 2048;
+        v13 = [v7 count];
+        _os_log_impl(&dword_26B824000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Send apps:%ld hidden:%ld", &v10, 0x16u);
       }
     }
 
     else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v11) = 0;
-      _os_log_impl(&dword_26B824000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "No app data to send", &v11, 2u);
+      LOWORD(v10) = 0;
+      _os_log_impl(&dword_26B824000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "No app data to send", &v10, 2u);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 id prepareApps(void *a1, void *a2)
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   v3 = a1;
-  v36 = a2;
+  v35 = a2;
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v41 objects:v56 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v40 objects:v55 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v42;
+    v7 = *v41;
     v8 = MEMORY[0x277D86220];
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v42 != v7)
+        if (*v41 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v10 = *(*(&v41 + 1) + 8 * i);
+        v10 = *(*(&v40 + 1) + 8 * i);
         v11 = [v3 objectForKeyedSubscript:v10];
         if (([v11 displayNameLoaded] & 1) == 0)
         {
@@ -66,9 +64,9 @@ id prepareApps(void *a1, void *a2)
           if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412546;
-            v53 = v10;
-            v54 = 2112;
-            v55 = v12;
+            v52 = v10;
+            v53 = 2112;
+            v54 = v12;
             _os_log_debug_impl(&dword_26B824000, v8, OS_LOG_TYPE_DEBUG, "app %@ display name %@", buf, 0x16u);
           }
 
@@ -89,7 +87,7 @@ id prepareApps(void *a1, void *a2)
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v41 objects:v56 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v40 objects:v55 count:16];
     }
 
     while (v5);
@@ -103,26 +101,26 @@ id prepareApps(void *a1, void *a2)
   v13 = [v3 count];
   if (v13)
   {
-    v14 = v36;
-    if ([v36 count])
+    v14 = v35;
+    if ([v35 count])
     {
-      v50[0] = @"apps";
-      v50[1] = @"hiddenApps";
-      v51[0] = v3;
-      v51[1] = v36;
+      v49[0] = @"apps";
+      v49[1] = @"hiddenApps";
+      v50[0] = v3;
+      v50[1] = v35;
       v15 = MEMORY[0x277CBEAC0];
-      v16 = v51;
-      v17 = v50;
+      v16 = v50;
+      v17 = v49;
       v18 = 2;
     }
 
     else
     {
-      v48 = @"apps";
-      v49 = v3;
+      v47 = @"apps";
+      v48 = v3;
       v15 = MEMORY[0x277CBEAC0];
-      v16 = &v49;
-      v17 = &v48;
+      v16 = &v48;
+      v17 = &v47;
       v18 = 1;
     }
 
@@ -131,7 +129,7 @@ id prepareApps(void *a1, void *a2)
 
   else
   {
-    v14 = v36;
+    v14 = v35;
   }
 
   v19 = v13;
@@ -156,31 +154,31 @@ id prepareApps(void *a1, void *a2)
 
     v27 = v26;
 
-    v39 = 0u;
-    v40 = 0u;
-    v37 = 0u;
     v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
     v28 = v6;
-    v29 = [v28 countByEnumeratingWithState:&v37 objects:v47 count:16];
+    v29 = [v28 countByEnumeratingWithState:&v36 objects:v46 count:16];
     if (v29)
     {
       v30 = v29;
-      v31 = *v38;
+      v31 = *v37;
       do
       {
         for (j = 0; j != v30; ++j)
         {
-          if (*v38 != v31)
+          if (*v37 != v31)
           {
             objc_enumerationMutation(v28);
           }
 
-          v33 = *(*(&v37 + 1) + 8 * j);
+          v33 = *(*(&v36 + 1) + 8 * j);
           [v22 removeObjectForKey:v33];
           [v27 addObject:v33];
         }
 
-        v30 = [v28 countByEnumeratingWithState:&v37 objects:v47 count:16];
+        v30 = [v28 countByEnumeratingWithState:&v36 objects:v46 count:16];
       }
 
       while (v30);
@@ -192,18 +190,16 @@ id prepareApps(void *a1, void *a2)
       v20 = v19;
       if (v27)
       {
-        v45[0] = @"apps";
-        v45[1] = @"hiddenApps";
-        v46[0] = v22;
-        v46[1] = v27;
-        v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:v45 count:2];
+        v44[0] = @"apps";
+        v44[1] = @"hiddenApps";
+        v45[0] = v22;
+        v45[1] = v27;
+        v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:v44 count:2];
       }
     }
 
-    v14 = v36;
+    v14 = v35;
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
@@ -215,7 +211,7 @@ void sub_26B825FD0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void SPUIInitLogging()
+void SPUIInitLogging(uint64_t result, uint64_t a2)
 {
   if (SPUIInitLogging_once != -1)
   {
@@ -426,24 +422,9 @@ void sub_26B82BD5C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
-}
-
-void SPTransactionCreate_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void SPTransactionDone_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }

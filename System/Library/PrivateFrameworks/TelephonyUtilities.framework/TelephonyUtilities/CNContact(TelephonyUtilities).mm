@@ -13,29 +13,29 @@
 
 - (id)tu_labeledValueForEmailAddress:()TelephonyUtilities
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v4 = a3;
   if ([self isKeyAvailable:*MEMORY[0x1E695C208]])
   {
     [self emailAddresses];
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
-    v5 = v17 = 0u;
-    v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v5 = v16 = 0u;
+    v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v6)
     {
-      v7 = *v15;
+      v7 = *v14;
       while (2)
       {
         for (i = 0; i != v6; i = i + 1)
         {
-          if (*v15 != v7)
+          if (*v14 != v7)
           {
             objc_enumerationMutation(v5);
           }
 
-          v9 = *(*(&v14 + 1) + 8 * i);
+          v9 = *(*(&v13 + 1) + 8 * i);
           if (([v9 tuIsSuggested] & 1) == 0)
           {
             value = [v9 value];
@@ -49,7 +49,7 @@
           }
         }
 
-        v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v6)
         {
           continue;
@@ -66,8 +66,6 @@ LABEL_14:
   {
     v6 = 0;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -136,11 +134,70 @@ LABEL_17:
 
 - (id)tu_labeledValueForPhoneNumber:()TelephonyUtilities
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v4 = a3;
   if ([self isKeyAvailable:*MEMORY[0x1E695C330]])
   {
     [self phoneNumbers];
+    v13 = 0u;
+    v14 = 0u;
+    v15 = 0u;
+    v5 = v16 = 0u;
+    v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    if (v6)
+    {
+      v7 = *v14;
+      while (2)
+      {
+        for (i = 0; i != v6; i = i + 1)
+        {
+          if (*v14 != v7)
+          {
+            objc_enumerationMutation(v5);
+          }
+
+          v9 = *(*(&v13 + 1) + 8 * i);
+          if (([v9 tuIsSuggested] & 1) == 0)
+          {
+            value = [v9 value];
+            v11 = [value isLikePhoneNumber:v4];
+
+            if (v11)
+            {
+              v6 = v9;
+              goto LABEL_14;
+            }
+          }
+        }
+
+        v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        if (v6)
+        {
+          continue;
+        }
+
+        break;
+      }
+    }
+
+LABEL_14:
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  return v6;
+}
+
+- (id)tu_labeledValueForSocialProfileWithUsername:()TelephonyUtilities
+{
+  v19 = *MEMORY[0x1E69E9840];
+  v4 = a3;
+  if ([self isKeyAvailable:*MEMORY[0x1E695C3D0]])
+  {
+    [self socialProfiles];
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
@@ -159,67 +216,6 @@ LABEL_17:
           }
 
           v9 = *(*(&v14 + 1) + 8 * i);
-          if (([v9 tuIsSuggested] & 1) == 0)
-          {
-            value = [v9 value];
-            v11 = [value isLikePhoneNumber:v4];
-
-            if (v11)
-            {
-              v6 = v9;
-              goto LABEL_14;
-            }
-          }
-        }
-
-        v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
-        if (v6)
-        {
-          continue;
-        }
-
-        break;
-      }
-    }
-
-LABEL_14:
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  v12 = *MEMORY[0x1E69E9840];
-
-  return v6;
-}
-
-- (id)tu_labeledValueForSocialProfileWithUsername:()TelephonyUtilities
-{
-  v20 = *MEMORY[0x1E69E9840];
-  v4 = a3;
-  if ([self isKeyAvailable:*MEMORY[0x1E695C3D0]])
-  {
-    [self socialProfiles];
-    v15 = 0u;
-    v16 = 0u;
-    v17 = 0u;
-    v5 = v18 = 0u;
-    v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
-    if (v6)
-    {
-      v7 = *v16;
-      while (2)
-      {
-        for (i = 0; i != v6; i = i + 1)
-        {
-          if (*v16 != v7)
-          {
-            objc_enumerationMutation(v5);
-          }
-
-          v9 = *(*(&v15 + 1) + 8 * i);
           value = [v9 value];
           username = [value username];
           v12 = [username isEqualToString:v4];
@@ -232,7 +228,7 @@ LABEL_14:
           }
         }
 
-        v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v6)
         {
           continue;
@@ -249,8 +245,6 @@ LABEL_13:
   {
     v6 = 0;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -395,28 +389,28 @@ LABEL_32:
 
 - (id)tuHandlesForPhoneNumbers
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(MEMORY[0x1E695DFA0]);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   phoneNumbers = [self phoneNumbers];
-  v4 = [phoneNumbers countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v4 = [phoneNumbers countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v17;
+    v6 = *v16;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v17 != v6)
+        if (*v16 != v6)
         {
           objc_enumerationMutation(phoneNumbers);
         }
 
-        value = [*(*(&v16 + 1) + 8 * i) value];
+        value = [*(*(&v15 + 1) + 8 * i) value];
         v9 = value;
         if (value)
         {
@@ -431,7 +425,7 @@ LABEL_32:
         }
       }
 
-      v5 = [phoneNumbers countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v5 = [phoneNumbers countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v5);
@@ -439,35 +433,33 @@ LABEL_32:
 
   array = [v2 array];
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return array;
 }
 
 - (id)tuHandlesForEmailAddresses
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(MEMORY[0x1E695DFA0]);
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   emailAddresses = [self emailAddresses];
-  v4 = [emailAddresses countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [emailAddresses countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v13;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(emailAddresses);
         }
 
-        value = [*(*(&v13 + 1) + 8 * i) value];
+        value = [*(*(&v12 + 1) + 8 * i) value];
         if ([value length])
         {
           v9 = [TUHandle normalizedEmailAddressHandleForValue:value];
@@ -478,15 +470,13 @@ LABEL_32:
         }
       }
 
-      v5 = [emailAddresses countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [emailAddresses countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v5);
   }
 
   array = [v2 array];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return array;
 }

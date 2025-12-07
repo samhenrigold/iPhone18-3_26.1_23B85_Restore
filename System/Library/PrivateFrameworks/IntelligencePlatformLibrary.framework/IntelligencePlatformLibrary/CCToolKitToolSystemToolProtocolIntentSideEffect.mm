@@ -124,7 +124,7 @@
   v12 = &OBJC_IVAR___CCToolKitToolTypeInstance__kindType;
   v13 = &OBJC_IVAR___CCToolKitToolTypeInstance__kindType;
   v14 = MEMORY[0x1E6993AA0];
-  v56 = dataCopy;
+  v54 = dataCopy;
   while (2)
   {
     if (*&v6[*v9])
@@ -303,10 +303,9 @@ LABEL_59:
             {
               v48 = objc_opt_class();
               v49 = NSStringFromClass(v48);
-              v50 = *&v6[*v9];
               v10 = CCSkipFieldErrorForMessage();
 
-              dataCopy = v56;
+              dataCopy = v54;
             }
 
             v11 = &OBJC_IVAR___CCToolKitToolTypeInstance__kindType;
@@ -383,22 +382,21 @@ LABEL_50:
 LABEL_65:
   if (!*&v6[*v9])
   {
-    v54 = 1;
+    v52 = 1;
     goto LABEL_69;
   }
 
 LABEL_66:
-  v51 = objc_opt_class();
-  v10 = NSStringFromClass(v51);
-  v52 = *&v6[*v9];
-  v53 = CCInvalidBufferErrorForMessage();
+  v50 = objc_opt_class();
+  v10 = NSStringFromClass(v50);
+  v51 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
 LABEL_67:
-  v54 = 0;
+  v52 = 0;
 LABEL_69:
 
-  return v54;
+  return v52;
 }
 
 - (CCToolKitToolSystemToolProtocolIntentSideEffect)initWithKind:(id)kind kindType:(unsigned int)type error:(id *)error

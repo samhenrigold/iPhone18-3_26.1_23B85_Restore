@@ -11,9 +11,9 @@
     +[NSXPCInterface(IL) il_messageFilterHostInterface];
   }
 
-  v1 = il_messageFilterHostInterface_interface;
+  v2 = il_messageFilterHostInterface_interface;
 
-  return v1;
+  return v2;
 }
 
 @end

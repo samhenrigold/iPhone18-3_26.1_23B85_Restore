@@ -6,7 +6,6 @@
 - (void)checkInWithReply:(id)reply;
 - (void)dealloc;
 - (void)motionBegan:(int64_t)began withEvent:(id)event;
-- (void)motionCancelled:(int64_t)cancelled withEvent:(id)event;
 - (void)motionEnded:(int64_t)ended withEvent:(id)event;
 - (void)noteEditorRequestsDismissal:(id)dismissal cancelled:(BOOL)cancelled;
 - (void)presentationControllerDidAttemptToDismiss:(id)dismiss;
@@ -54,7 +53,7 @@
 - (void)viewWillLayoutSubviews
 {
   selfCopy = self;
-  sub_100003D54();
+  sub_100003D54(selfCopy);
 }
 
 - (void)viewDidAppear:(BOOL)appear
@@ -75,13 +74,6 @@
   eventCopy = event;
   selfCopy = self;
   sub_100009DF0();
-}
-
-- (void)motionCancelled:(int64_t)cancelled withEvent:(id)event
-{
-  v4 = *(&self->super.super.super.isa + OBJC_IVAR___ICEditorExtensionViewController_feedbackGenerator);
-  *(&self->super.super.super.isa + OBJC_IVAR___ICEditorExtensionViewController_feedbackGenerator) = 0;
-  _objc_release_x1();
 }
 
 - (BOOL)presentationControllerShouldDismiss:(id)dismiss

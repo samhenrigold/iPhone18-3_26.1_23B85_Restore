@@ -74,22 +74,22 @@
     {
       [(LACAnalyticsSession *)v13 mergeEvaluationAnalytics:analyticsData];
 
-      v16 = LACLogAnalytics();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v17 = LACLogAnalytics(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         analyticsData2 = [(LACAnalyticsSession *)self->_analyticsSession analyticsData];
         biomeDialogEvent = [analyticsData2 biomeDialogEvent];
-        v19 = self->_analyticsSession;
+        v20 = self->_analyticsSession;
         v23 = 138543618;
         v24 = biomeDialogEvent;
         v25 = 2114;
-        v26 = v19;
-        _os_log_impl(&dword_1B0233000, v16, OS_LOG_TYPE_DEFAULT, "Delaying donation of %{public}@ until %{public}@ is finished.", &v23, 0x16u);
+        v26 = v20;
+        _os_log_impl(&dword_1B0233000, v17, OS_LOG_TYPE_DEFAULT, "Delaying donation of %{public}@ until %{public}@ is finished.", &v23, 0x16u);
       }
 
-      v20 = self->_analyticsSession;
+      v21 = self->_analyticsSession;
       analyticsData = [requestCopy analyticsData];
-      v15 = v20;
+      v15 = v21;
     }
 
     [(LACAnalyticsSession *)v15 untrackEvaluationAnalytics:analyticsData];
@@ -97,11 +97,9 @@
 
   else
   {
-    v21 = +[LACBiomeDialogDonationHelper sharedInstance];
-    [v21 donateEvent:eventCopy];
+    v22 = +[LACBiomeDialogDonationHelper sharedInstance];
+    [v22 donateEvent:eventCopy];
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 @end

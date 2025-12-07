@@ -131,44 +131,42 @@ id __38__SWActiveSystemActivityRegistry_init__block_invoke(uint64_t a1)
 
 - (void)notifyObserversWithBlock:(uint64_t)block
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (block)
   {
     os_unfair_lock_lock((block + 40));
     allObjects = [*(block + 24) allObjects];
     os_unfair_lock_unlock((block + 40));
-    v12 = 0u;
-    v13 = 0u;
-    v10 = 0u;
     v11 = 0u;
+    v12 = 0u;
+    v9 = 0u;
+    v10 = 0u;
     v5 = allObjects;
-    v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (v6)
     {
-      v7 = *v11;
+      v7 = *v10;
       do
       {
         v8 = 0;
         do
         {
-          if (*v11 != v7)
+          if (*v10 != v7)
           {
             objc_enumerationMutation(v5);
           }
 
-          v3[2](v3, *(*(&v10 + 1) + 8 * v8++));
+          v3[2](v3, *(*(&v9 + 1) + 8 * v8++));
         }
 
         while (v6 != v8);
-        v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v6 = [v5 countByEnumeratingWithState:&v9 objects:v13 count:16];
       }
 
       while (v6);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unregisterInactiveSystemActivity:(id)activity
@@ -193,33 +191,33 @@ id __38__SWActiveSystemActivityRegistry_init__block_invoke(uint64_t a1)
 
 - (void)addObserver:(id)observer
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
   if (!observerCopy)
   {
-    v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"observer != nil"];
+    v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"observer != nil"];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v7 = NSStringFromSelector(a2);
-      v8 = objc_opt_class();
-      v9 = NSStringFromClass(v8);
+      v6 = NSStringFromSelector(a2);
+      v7 = objc_opt_class();
+      v8 = NSStringFromClass(v7);
       *buf = 138544642;
-      v13 = v7;
-      v14 = 2114;
-      v15 = v9;
-      v16 = 2048;
+      v12 = v6;
+      v13 = 2114;
+      v14 = v8;
+      v15 = 2048;
       selfCopy = self;
-      v18 = 2114;
-      v19 = @"SWSystemSleepMonitor.m";
-      v20 = 1024;
-      v21 = 764;
-      v22 = 2114;
-      v23 = v6;
+      v17 = 2114;
+      v18 = @"SWSystemSleepMonitor.m";
+      v19 = 1024;
+      v20 = 764;
+      v21 = 2114;
+      v22 = v5;
       _os_log_error_impl(&dword_26C657000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v10 = v6;
-    [v6 UTF8String];
+    v9 = v5;
+    [v5 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x26C65D634);
@@ -228,38 +226,37 @@ id __38__SWActiveSystemActivityRegistry_init__block_invoke(uint64_t a1)
   os_unfair_lock_lock(&self->_lock);
   [(NSHashTable *)self->_lock_observers addObject:observerCopy];
   os_unfair_lock_unlock(&self->_lock);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeObserver:(id)observer
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
   if (!observerCopy)
   {
-    v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"observer != nil"];
+    v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"observer != nil"];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v7 = NSStringFromSelector(a2);
-      v8 = objc_opt_class();
-      v9 = NSStringFromClass(v8);
+      v6 = NSStringFromSelector(a2);
+      v7 = objc_opt_class();
+      v8 = NSStringFromClass(v7);
       *buf = 138544642;
-      v13 = v7;
-      v14 = 2114;
-      v15 = v9;
-      v16 = 2048;
+      v12 = v6;
+      v13 = 2114;
+      v14 = v8;
+      v15 = 2048;
       selfCopy = self;
-      v18 = 2114;
-      v19 = @"SWSystemSleepMonitor.m";
-      v20 = 1024;
-      v21 = 771;
-      v22 = 2114;
-      v23 = v6;
+      v17 = 2114;
+      v18 = @"SWSystemSleepMonitor.m";
+      v19 = 1024;
+      v20 = 771;
+      v21 = 2114;
+      v22 = v5;
       _os_log_error_impl(&dword_26C657000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v10 = v6;
-    [v6 UTF8String];
+    v9 = v5;
+    [v5 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x26C65D814);
@@ -268,7 +265,6 @@ id __38__SWActiveSystemActivityRegistry_init__block_invoke(uint64_t a1)
   os_unfair_lock_lock(&self->_lock);
   [(NSHashTable *)self->_lock_observers removeObject:observerCopy];
   os_unfair_lock_unlock(&self->_lock);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

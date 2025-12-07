@@ -37,7 +37,7 @@
 
 - (NSOrderedSet)lastOrdering
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   lastOrderingData = [(WFCloudKitSyncToken *)self lastOrderingData];
   v4 = [lastOrderingData length];
 
@@ -48,9 +48,9 @@
     v7 = objc_opt_class();
     v8 = [v6 setWithObjects:{v7, objc_opt_class(), 0}];
     lastOrderingData2 = [(WFCloudKitSyncToken *)self lastOrderingData];
-    v17 = 0;
-    v10 = [v5 unarchivedObjectOfClasses:v8 fromData:lastOrderingData2 error:&v17];
-    v11 = v17;
+    v16 = 0;
+    v10 = [v5 unarchivedObjectOfClasses:v8 fromData:lastOrderingData2 error:&v16];
+    v11 = v16;
 
     if (v10)
     {
@@ -63,9 +63,9 @@
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v19 = "[WFCloudKitSyncToken lastOrdering]";
-        v20 = 2114;
-        v21 = v11;
+        v18 = "[WFCloudKitSyncToken lastOrdering]";
+        v19 = 2114;
+        v20 = v11;
         _os_log_impl(&dword_1CA256000, v14, OS_LOG_TYPE_ERROR, "%s Error unarchving lastOrderingData: %{public}@", buf, 0x16u);
       }
 
@@ -81,14 +81,12 @@
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v19 = "[WFCloudKitSyncToken lastOrdering]";
+      v18 = "[WFCloudKitSyncToken lastOrdering]";
       _os_log_impl(&dword_1CA256000, v11, OS_LOG_TYPE_DEFAULT, "%s lastOrderingData is empty", buf, 0xCu);
     }
 
     v13 = 0;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -121,7 +119,7 @@
 
 - (CKServerChangeToken)serverChangeToken
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   serverChangeTokenData = [(WFCloudKitSyncToken *)self serverChangeTokenData];
   v4 = [serverChangeTokenData length];
 
@@ -130,9 +128,9 @@
     v5 = MEMORY[0x1E696ACD0];
     v6 = objc_opt_class();
     serverChangeTokenData2 = [(WFCloudKitSyncToken *)self serverChangeTokenData];
-    v14 = 0;
-    v8 = [v5 unarchivedObjectOfClass:v6 fromData:serverChangeTokenData2 error:&v14];
-    v9 = v14;
+    v13 = 0;
+    v8 = [v5 unarchivedObjectOfClass:v6 fromData:serverChangeTokenData2 error:&v13];
+    v9 = v13;
 
     if (v8)
     {
@@ -145,9 +143,9 @@
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v16 = "[WFCloudKitSyncToken serverChangeToken]";
-        v17 = 2114;
-        v18 = v9;
+        v15 = "[WFCloudKitSyncToken serverChangeToken]";
+        v16 = 2114;
+        v17 = v9;
         _os_log_impl(&dword_1CA256000, v11, OS_LOG_TYPE_ERROR, "%s Error unarchving serverChangeTokenData: %{public}@", buf, 0x16u);
       }
     }
@@ -159,14 +157,12 @@
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v16 = "[WFCloudKitSyncToken serverChangeToken]";
+      v15 = "[WFCloudKitSyncToken serverChangeToken]";
       _os_log_impl(&dword_1CA256000, v9, OS_LOG_TYPE_DEFAULT, "%s serverChangeTokenData is empty", buf, 0xCu);
     }
 
     v8 = 0;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

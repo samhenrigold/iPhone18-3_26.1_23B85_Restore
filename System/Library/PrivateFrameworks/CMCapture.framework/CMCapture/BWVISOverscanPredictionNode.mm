@@ -1,6 +1,5 @@
 @interface BWVISOverscanPredictionNode
 - (BWVISOverscanPredictionNode)initWithCameraInfoByPortType:(id)type visInputAspectRatio:(float)ratio delegate:(id)delegate;
-- (uint64_t)prepareForCurrentConfigurationToBecomeLive;
 - (void)dealloc;
 - (void)prepareForCurrentConfigurationToBecomeLive;
 - (void)renderSampleBuffer:(opaqueCMSampleBuffer *)buffer forInput:(id)input;
@@ -138,23 +137,24 @@
       ImageBuffer = CMSampleBufferGetImageBuffer(buffer);
       Width = CVPixelBufferGetWidth(ImageBuffer);
       v10 = CMSampleBufferGetImageBuffer(buffer);
+      Height = CVPixelBufferGetHeight(v10);
       rect.origin.x = 0.0;
       rect.origin.y = 0.0;
       rect.size.width = Width;
-      rect.size.height = CVPixelBufferGetHeight(v10);
-      v11 = *off_1E798B7A0;
+      rect.size.height = Height;
+      v12 = *off_1E798B7A0;
       if ([v7 objectForKeyedSubscript:*off_1E798B7A0])
       {
-        CGRectMakeWithDictionaryRepresentation([v7 objectForKeyedSubscript:v11], &rect);
+        CGRectMakeWithDictionaryRepresentation([v7 objectForKeyedSubscript:v12], &rect);
       }
 
-      CGRectMakeWithDictionaryRepresentation([v7 objectForKeyedSubscript:{*off_1E798A5C8, *MEMORY[0x1E695F050], *(MEMORY[0x1E695F050] + 8), *(MEMORY[0x1E695F050] + 16), *(MEMORY[0x1E695F050] + 24)}], &v16);
-      FigCaptureMetadataUtilitiesDenormalizeCropRect(v16.origin.x, v16.origin.y, v16.size.width, v16.size.height);
-      v16.origin.x = v12;
-      v16.origin.y = v13;
-      v16.size.width = v14;
-      v16.size.height = v15;
-      [(BWVISOverscanPredictionDelegate *)self->_delegate visOverscanPredictor:self allowsReducedOverscan:[(GVSOverscanPredictor *)self->_visOverscanPredictor predictOverscanFitsFromMetadata:v7 finalCropRect:*&v12 boundingRect:*&v13, *&v14, *&v15]];
+      CGRectMakeWithDictionaryRepresentation([v7 objectForKeyedSubscript:{*off_1E798A5C8, *MEMORY[0x1E695F050], *(MEMORY[0x1E695F050] + 8), *(MEMORY[0x1E695F050] + 16), *(MEMORY[0x1E695F050] + 24)}], &v17);
+      FigCaptureMetadataUtilitiesDenormalizeCropRect(v17.origin.x, v17.origin.y, v17.size.width, v17.size.height, Width, Height);
+      v17.origin.x = v13;
+      v17.origin.y = v14;
+      v17.size.width = v15;
+      v17.size.height = v16;
+      [(BWVISOverscanPredictionDelegate *)self->_delegate visOverscanPredictor:self allowsReducedOverscan:[(GVSOverscanPredictor *)self->_visOverscanPredictor predictOverscanFitsFromMetadata:v7 finalCropRect:*&v13 boundingRect:*&v14, *&v15, *&v16]];
     }
 
     else
@@ -165,38 +165,10 @@
 
   else
   {
-    [BWVISOverscanPredictionNode renderSampleBuffer:forInput:];
+    [(BWVISOverscanPredictionNode *)self renderSampleBuffer:a2 forInput:0, input];
   }
 
   [(BWNodeOutput *)self->super._output emitSampleBuffer:buffer];
-}
-
-- (void)initWithCameraInfoByPortType:(void *)a1 visInputAspectRatio:delegate:.cold.1(void *a1)
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  FigDebugAssert3();
-}
-
-- (uint64_t)prepareForCurrentConfigurationToBecomeLive
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
 }
 
 @end

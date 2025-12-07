@@ -10,7 +10,7 @@
 
 - (id)destinationArrayDescriptorForSourceArrays:(id)arrays sourceState:(id)state
 {
-  v15[4] = *MEMORY[0x277D85DE8];
+  v14[4] = *MEMORY[0x277D85DE8];
   v6 = [arrays objectAtIndexedSubscript:{0, state}];
   v7 = [arrays objectAtIndexedSubscript:1];
   v8 = *MEMORY[0x277CD7410];
@@ -18,13 +18,11 @@
   v10 = *(v7 + v8 + 4 * (*(v7 + v9 + 1) & 0xF));
   v11 = *&v6[4 * (v6[v9 + 2] & 0xF) + v8];
   resizeHeight = self->_resizeHeight;
-  v15[0] = self->_resizeWidth;
-  v15[1] = resizeHeight;
-  v15[2] = v11;
-  v15[3] = v10;
-  result = [MEMORY[0x277CD7268] descriptorWithDataType:objc_msgSend(v6 dimensionCount:"dataType") dimensionSizes:{4, v15}];
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  v14[0] = self->_resizeWidth;
+  v14[1] = resizeHeight;
+  v14[2] = v11;
+  v14[3] = v10;
+  return [MEMORY[0x277CD7268] descriptorWithDataType:objc_msgSend(v6 dimensionCount:"dataType") dimensionSizes:{4, v14}];
 }
 
 - (MPSNDArrayCropResize)initWithDevice:(id)device

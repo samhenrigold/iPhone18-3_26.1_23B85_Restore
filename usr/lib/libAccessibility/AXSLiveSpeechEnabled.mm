@@ -3,7 +3,7 @@
 
 @implementation AXSLiveSpeechEnabled
 
-uint64_t ___AXSLiveSpeechEnabled_block_invoke()
+void *___AXSLiveSpeechEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

@@ -17,12 +17,9 @@
 
 - (void)createPermanent
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = getDBLErrorCodeAsString(*self);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1C3E90000, v2, v3, "Got error code: %{public}@ while getting permanent data store database location", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0(&dword_1C3E90000, v2, v3, "Got error code: %{public}@ while getting permanent data store database location", v4, v5, v6, v7);
 }
 
 - (void)handlePermanentCreated
@@ -311,7 +308,7 @@ void __45__CallDBManagerClient_createHelperConnection__block_invoke_64(uint64_t 
 
 - (void)createTemporary
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v3 = +[CHLogServer sharedInstance];
   v4 = [v3 logHandleForDomain:"ch.calldbm"];
 
@@ -320,13 +317,13 @@ void __45__CallDBManagerClient_createHelperConnection__block_invoke_64(uint64_t 
   {
     v6 = [(CallDBManagerClient *)self tempDBLocation:0];
     *buf = 138543362;
-    v31 = v6;
+    v30 = v6;
     _os_log_impl(&dword_1C3E90000, v5, OS_LOG_TYPE_DEFAULT, "createTemporary client: %{public}@", buf, 0xCu);
   }
 
-  v29 = 0;
-  v7 = [(CallDBManagerClient *)self tempDBLocation:&v29];
-  if (v29 == 1)
+  v28 = 0;
+  v7 = [(CallDBManagerClient *)self tempDBLocation:&v28];
+  if (v28 == 1)
   {
     v16 = +[CHLogServer sharedInstance];
     v17 = [v16 logHandleForDomain:"ch.calldbm"];
@@ -334,13 +331,13 @@ void __45__CallDBManagerClient_createHelperConnection__block_invoke_64(uint64_t 
     v18 = v17;
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      [(CallDBManagerClient *)&v29 createPermanent];
+      [(CallDBManagerClient *)&v28 createPermanent];
     }
 
     [(CallDBManagerClient *)self pokeSyncHelperToInitDB];
   }
 
-  else if (v29)
+  else if (v28)
   {
     v19 = +[CHLogServer sharedInstance];
     v20 = [v19 logHandleForDomain:"ch.calldbm"];
@@ -348,9 +345,9 @@ void __45__CallDBManagerClient_createHelperConnection__block_invoke_64(uint64_t 
     v21 = v20;
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = getDBLErrorCodeAsString(v29);
+      v22 = getDBLErrorCodeAsString(v28);
       *buf = 138543362;
-      v31 = v22;
+      v30 = v22;
       _os_log_impl(&dword_1C3E90000, v21, OS_LOG_TYPE_DEFAULT, "Got error code: %{public}@ while getting temporary data store database location", buf, 0xCu);
     }
   }
@@ -381,9 +378,9 @@ void __45__CallDBManagerClient_createHelperConnection__block_invoke_64(uint64_t 
       else
       {
         dbManager = [(CallDBManager *)self dbManager];
-        v28 = [dbManager addDataStoreAtLocation:v7 isEncrypted:0];
+        v27 = [dbManager addDataStoreAtLocation:v7 isEncrypted:0];
 
-        if (v28)
+        if (v27)
         {
           [(CallDBManager *)self handleTemporaryCreated];
         }
@@ -399,9 +396,9 @@ void __45__CallDBManagerClient_createHelperConnection__block_invoke_64(uint64_t 
       if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218240;
-        v31 = v23;
-        v32 = 2048;
-        v33 = 42;
+        v30 = v23;
+        v31 = 2048;
+        v32 = 42;
         _os_log_impl(&dword_1C3E90000, v25, OS_LOG_TYPE_DEFAULT, "Temporary database version: %ld is not the same as current version: %ld", buf, 0x16u);
       }
 
@@ -409,8 +406,6 @@ void __45__CallDBManagerClient_createHelperConnection__block_invoke_64(uint64_t 
       [(CallDBManager *)self setNotifyDataStoreChangeReason:1];
     }
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)validatePermDatabase
@@ -473,24 +468,25 @@ void __45__CallDBManagerClient_createHelperConnection__block_invoke_64(uint64_t 
   objc_destroyWeak(buf);
 }
 
-void __45__CallDBManagerClient_pokeSyncHelperToInitDB__block_invoke(uint64_t a1, unsigned int a2)
+void __45__CallDBManagerClient_pokeSyncHelperToInitDB__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v2 = a2;
+  v17 = *MEMORY[0x1E69E9840];
   v4 = +[CHLogServer sharedInstance];
   v5 = [v4 logHandleForDomain:"ch.calldbm"];
 
   v6 = v5;
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = getBootUpResultAsString(a2);
-    v16 = 138543362;
-    v17 = v7;
-    _os_log_impl(&dword_1C3E90000, v6, OS_LOG_TYPE_DEFAULT, "Boot up result: %{public}@", &v16, 0xCu);
+    v7 = getBootUpResultAsString(v2);
+    v15 = 138543362;
+    v16 = v7;
+    _os_log_impl(&dword_1C3E90000, v6, OS_LOG_TYPE_DEFAULT, "Boot up result: %{public}@", &v15, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v9 = WeakRetained;
-  if (!a2)
+  if (!v2)
   {
     v11 = WeakRetained;
     objc_sync_enter(v11);
@@ -516,7 +512,7 @@ void __45__CallDBManagerClient_pokeSyncHelperToInitDB__block_invoke(uint64_t a1,
     goto LABEL_15;
   }
 
-  if (a2 == 1)
+  if (v2 == 1)
   {
     v10 = WeakRetained;
     objc_sync_enter(v10);
@@ -548,20 +544,18 @@ LABEL_15:
   }
 
 LABEL_17:
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (id)permDBLocation:(unsigned __int8 *)location
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v4 = +[CHLogServer sharedInstance];
   v5 = [v4 logHandleForDomain:"ch.calldbm"];
 
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v11) = 0;
-    _os_log_impl(&dword_1C3E90000, v5, OS_LOG_TYPE_DEFAULT, "CallDBManagerClient: fetching permDBURL", &v11, 2u);
+    LOWORD(v10) = 0;
+    _os_log_impl(&dword_1C3E90000, v5, OS_LOG_TYPE_DEFAULT, "CallDBManagerClient: fetching permDBURL", &v10, 2u);
   }
 
   v6 = [CallDBManager getDBLocationIsSandboxed:1 isTemporary:0 error:location];
@@ -570,31 +564,19 @@ LABEL_17:
 
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = v6;
-    _os_log_impl(&dword_1C3E90000, v8, OS_LOG_TYPE_DEFAULT, "CallDBManagerClient: permDBURL: %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v6;
+    _os_log_impl(&dword_1C3E90000, v8, OS_LOG_TYPE_DEFAULT, "CallDBManagerClient: permDBURL: %@", &v10, 0xCu);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 - (void)willMoveCallsFromTempDatabase
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __45__CallDBManagerClient_createHelperConnection__block_invoke_cold_2()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

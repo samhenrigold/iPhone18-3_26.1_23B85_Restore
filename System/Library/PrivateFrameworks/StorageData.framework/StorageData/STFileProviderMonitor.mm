@@ -46,36 +46,36 @@ uint64_t __38__STFileProviderMonitor_sharedMonitor__block_invoke()
 
 void __37__STFileProviderMonitor_startMonitor__block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = [a2 allValues];
   v4 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v3, "count")}];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * i);
+        v10 = *(*(&v11 + 1) + 8 * i);
         if ([v10 isEnabled] && objc_msgSend(v10, "supportsEnumeration") && objc_msgSend(v10, "isAvailableSystemWide") && (objc_msgSend(v10, "isHidden") & 1) == 0)
         {
           [v4 addObject:v10];
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
@@ -83,8 +83,6 @@ void __37__STFileProviderMonitor_startMonitor__block_invoke(uint64_t a1, void *a
 
   [*(a1 + 32) setFpDomains:v4];
   [*(a1 + 32) postNotify];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopMonitor
@@ -148,36 +146,36 @@ uint64_t __35__STFileProviderMonitor_postNotify__block_invoke(uint64_t a1)
 
 void __29__STFileProviderMonitor_sync__block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = [a2 allValues];
   v4 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v3, "count")}];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * i);
+        v10 = *(*(&v11 + 1) + 8 * i);
         if ([v10 isEnabled] && objc_msgSend(v10, "supportsEnumeration") && objc_msgSend(v10, "isAvailableSystemWide") && (objc_msgSend(v10, "isHidden") & 1) == 0)
         {
           [v4 addObject:v10];
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
@@ -185,8 +183,6 @@ void __29__STFileProviderMonitor_sync__block_invoke(uint64_t a1, void *a2)
 
   [*(a1 + 32) setFpDomains:v4];
   dispatch_semaphore_signal(*(a1 + 40));
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

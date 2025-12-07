@@ -27,7 +27,7 @@
     processInfo = [MEMORY[0x1E696AE30] processInfo];
     processName = [processInfo processName];
 
-    if ([processName isEqualToString:@"tvremoted"])
+    if (objc_msgSend_isEqualToString_(processName))
     {
       [infoCopy setBundleIdentifier:@"com.apple.tvremotecore.xpc"];
     }

@@ -13,7 +13,7 @@
   v2 = [(WRM_SpeedTestConfigIOS *)&v10 init];
   v2->inProgress = 0;
   [WCM_Logging logLevel:22 message:@"CellularThroughput: CellularTest init"];
-  if (!sub_10009D964())
+  if (!sub_10009D964(0))
   {
     v8 = @"CellularThroughput: runtime check for presence of NPTKit.framework failed";
     goto LABEL_11;

@@ -4,6 +4,7 @@
 + (id)defaultDisplayString;
 + (id)indexableConceptKeyPaths;
 + (id)vaccinationRecordWithType:(id)type note:(id)note enteredInError:(BOOL)error modifiedDate:(id)date originIdentifier:(id)identifier locale:(id)locale extractionVersion:(int64_t)version device:(id)self0 metadata:(id)self1 country:(id)self2 state:(unint64_t)self3 vaccinationCodings:(id)self4 expirationDate:(id)self5 doseNumber:(id)self6 doseQuantity:(id)self7 lotNumber:(id)self8 performer:(id)self9 bodySiteCodings:(id)siteCodings reaction:(id)reaction notGiven:(BOOL)given administrationDate:(id)administrationDate statusCoding:(id)coding patientReported:(BOOL)reported routeCodings:(id)routeCodings reasonsCodings:(id)reasonsCodings reasonsNotGivenCodings:(id)givenCodings;
++ (id)vaccinationRecordWithType:(id)type note:(id)note enteredInError:(BOOL)error modifiedDate:(id)date originIdentifier:(id)identifier locale:(id)locale extractionVersion:(int64_t)version device:(id)self0 metadata:(id)self1 sortDate:(id)self2 country:(id)self3 state:(unint64_t)self4 vaccinationCodings:(id)self5 expirationDate:(id)self6 doseNumber:(id)self7 doseQuantity:(id)self8 lotNumber:(id)self9 performer:(id)performer bodySiteCodings:(id)siteCodings reaction:(id)reaction notGiven:(BOOL)given administrationDate:(id)administrationDate statusCoding:(id)coding patientReported:(BOOL)reported routeCodings:(id)routeCodings reasonsCodings:(id)reasonsCodings reasonsNotGivenCodings:(id)givenCodings;
 - (BOOL)applyConcepts:(id)concepts forKeyPath:(id)path error:(id *)error;
 - (BOOL)isEquivalent:(id)equivalent;
 - (HKConcept)bodySite;
@@ -83,7 +84,7 @@
 
 - (id)codingsForKeyPath:(id)path error:(id *)error
 {
-  v27[1] = *MEMORY[0x1E69E9840];
+  v26[1] = *MEMORY[0x1E69E9840];
   pathCopy = path;
   v7 = [HKConceptIndexUtilities firstComponentForKeyPath:pathCopy error:error];
   v8 = v7;
@@ -98,9 +99,9 @@
     vaccinationCodings = [(HKVaccinationRecord *)self vaccinationCodings];
     v10 = [HKMedicalCodingCollection collectionWithCodings:vaccinationCodings];
     v11 = [HKIndexableObject indexableObjectWithObject:v10];
-    v27[0] = v11;
+    v26[0] = v11;
     v12 = MEMORY[0x1E695DEC8];
-    v13 = v27;
+    v13 = v26;
 LABEL_14:
     v14 = [v12 arrayWithObjects:v13 count:1];
 
@@ -117,9 +118,9 @@ LABEL_15:
       vaccinationCodings = [(HKVaccinationRecord *)self bodySiteCodings];
       v10 = [HKMedicalCodingCollection collectionWithCodings:vaccinationCodings];
       v11 = [HKIndexableObject indexableObjectWithObject:v10];
-      v26 = v11;
+      v25 = v11;
       v12 = MEMORY[0x1E695DEC8];
-      v13 = &v26;
+      v13 = &v25;
       goto LABEL_14;
     }
 
@@ -135,9 +136,9 @@ LABEL_15:
       vaccinationCodings = [(HKVaccinationRecord *)self statusCoding];
       v10 = [HKMedicalCodingCollection collectionWithCoding:vaccinationCodings];
       v11 = [HKIndexableObject indexableObjectWithObject:v10];
-      v25 = v11;
+      v24 = v11;
       v12 = MEMORY[0x1E695DEC8];
-      v13 = &v25;
+      v13 = &v24;
       goto LABEL_14;
     }
 
@@ -153,9 +154,9 @@ LABEL_15:
       vaccinationCodings = [(HKVaccinationRecord *)self routeCodings];
       v10 = [HKMedicalCodingCollection collectionWithCodings:vaccinationCodings];
       v11 = [HKIndexableObject indexableObjectWithObject:v10];
-      v24 = v11;
+      v23 = v11;
       v12 = MEMORY[0x1E695DEC8];
-      v13 = &v24;
+      v13 = &v23;
       goto LABEL_14;
     }
 
@@ -193,12 +194,10 @@ LABEL_26:
     goto LABEL_16;
   }
 
-  v23.receiver = self;
-  v23.super_class = HKVaccinationRecord;
-  v14 = [(HKMedicalRecord *)&v23 codingsForKeyPath:pathCopy error:error];
+  v22.receiver = self;
+  v22.super_class = HKVaccinationRecord;
+  v14 = [(HKMedicalRecord *)&v22 codingsForKeyPath:pathCopy error:error];
 LABEL_16:
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -372,6 +371,15 @@ LABEL_16:
   return v50;
 }
 
++ (id)vaccinationRecordWithType:(id)type note:(id)note enteredInError:(BOOL)error modifiedDate:(id)date originIdentifier:(id)identifier locale:(id)locale extractionVersion:(int64_t)version device:(id)self0 metadata:(id)self1 sortDate:(id)self2 country:(id)self3 state:(unint64_t)self4 vaccinationCodings:(id)self5 expirationDate:(id)self6 doseNumber:(id)self7 doseQuantity:(id)self8 lotNumber:(id)self9 performer:(id)performer bodySiteCodings:(id)siteCodings reaction:(id)reaction notGiven:(BOOL)given administrationDate:(id)administrationDate statusCoding:(id)coding patientReported:(BOOL)reported routeCodings:(id)routeCodings reasonsCodings:(id)reasonsCodings reasonsNotGivenCodings:(id)givenCodings
+{
+  LOBYTE(v32) = reported;
+  LOBYTE(v31) = given;
+  v29 = [self _newVaccinationRecordWithType:type note:note enteredInError:error modifiedDate:date originIdentifier:identifier locale:locale extractionVersion:version device:device metadata:metadata sortDate:sortDate country:country state:state vaccinationCodings:codings expirationDate:expirationDate doseNumber:number doseQuantity:quantity lotNumber:lotNumber performer:performer bodySiteCodings:siteCodings reaction:reaction notGiven:v31 administrationDate:administrationDate statusCoding:coding patientReported:v32 routeCodings:routeCodings reasonsCodings:reasonsCodings reasonsNotGivenCodings:givenCodings config:0];
+
+  return v29;
+}
+
 + (id)_newVaccinationRecordWithType:(id)type note:(id)note enteredInError:(BOOL)error modifiedDate:(id)date originIdentifier:(id)identifier locale:(id)locale extractionVersion:(int64_t)version device:(id)self0 metadata:(id)self1 sortDate:(id)self2 country:(id)self3 state:(unint64_t)self4 vaccinationCodings:(id)self5 expirationDate:(id)self6 doseNumber:(id)self7 doseQuantity:(id)self8 lotNumber:(id)self9 performer:(id)performer bodySiteCodings:(id)siteCodings reaction:(id)reaction notGiven:(BOOL)given administrationDate:(id)administrationDate statusCoding:(id)coding patientReported:(BOOL)reported routeCodings:(id)routeCodings reasonsCodings:(id)reasonsCodings reasonsNotGivenCodings:(id)givenCodings config:(id)type0
 {
   errorCopy = error;
@@ -519,13 +527,12 @@ void __385__HKVaccinationRecord__newVaccinationRecordWithType_note_enteredInErro
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  v10.receiver = self;
-  v10.super_class = HKVaccinationRecord;
-  v6 = [(HKSample *)&v10 description];
-  reasonsCodings = self->_reasonsCodings;
-  v8 = [v3 stringWithFormat:@"<%@:%p super=%@vaccinationCodings = %@expirationDate = %@doseNumber = %@doseQuantity = %@lotNumber = %@performer = %@bodySiteCodings = %@reaction = %@notGiven = %ldadministrationDate = %@statusCoding = %@patientReported = %ldrouteCodings = %@reasonsCodings = %@reasonsNotGivenCodings = %@>", v5, self, v6, self->_vaccinationCodings, self->_expirationDate, self->_doseNumber, self->_doseQuantity, self->_lotNumber, self->_performer, self->_bodySiteCodings, self->_reaction, self->_notGiven, self->_administrationDate, self->_statusCoding, self->_patientReported, self->_routeCodings, reasonsCodings, self->_reasonsNotGivenCodings];
+  v9.receiver = self;
+  v9.super_class = HKVaccinationRecord;
+  v6 = [(HKSample *)&v9 description];
+  v7 = [v3 stringWithFormat:@"<%@:%p super=%@vaccinationCodings = %@expirationDate = %@doseNumber = %@doseQuantity = %@lotNumber = %@performer = %@bodySiteCodings = %@reaction = %@notGiven = %ldadministrationDate = %@statusCoding = %@patientReported = %ldrouteCodings = %@reasonsCodings = %@reasonsNotGivenCodings = %@>", v5, self, v6, self->_vaccinationCodings, self->_expirationDate, self->_doseNumber, self->_doseQuantity, self->_lotNumber, self->_performer, self->_bodySiteCodings, self->_reaction, self->_notGiven, self->_administrationDate, self->_statusCoding, self->_patientReported, self->_routeCodings, self->_reasonsCodings, self->_reasonsNotGivenCodings];
 
-  return v8;
+  return v7;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -1500,17 +1507,17 @@ LABEL_103:
   vaccinationCopy = vaccination;
   if (!vaccinationCopy)
   {
-    _HKInitializeLogging();
-    v5 = HKLogHealthRecords;
+    _HKInitializeLogging(0, v4);
+    v6 = HKLogHealthRecords;
     if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_FAULT))
     {
-      [HKVaccinationRecord _setVaccination:v5];
+      [HKVaccinationRecord _setVaccination:v6];
     }
   }
 
-  v6 = [vaccinationCopy copy];
+  v7 = [vaccinationCopy copy];
   vaccination = self->_vaccination;
-  self->_vaccination = v6;
+  self->_vaccination = v7;
 }
 
 - (HKConcept)bodySite

@@ -9,7 +9,7 @@
 - (void)pregnancyModelDidChangeWithProvider:(id)provider model:(id)model
 {
   selfCopy = self;
-  sub_100069D98(0x32u);
+  sub_100069D98(50);
 }
 
 - (void)logCardConfigurationAnalytics

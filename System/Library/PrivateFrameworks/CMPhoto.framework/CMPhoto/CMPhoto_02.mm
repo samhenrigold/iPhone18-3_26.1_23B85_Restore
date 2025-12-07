@@ -1,25 +1,25 @@
-uint64_t CMPhotoDecompressionContainerCopyColorInfoFromFormatDescription(const opaqueCMFormatDescription *a1, int a2, int a3, int a4, int a5, int a6, CFTypeRef *a7, CFTypeRef *a8, CFTypeRef *a9, CFTypeRef *a10, _DWORD *a11, _DWORD *a12, char *a13)
+uint64_t CMPhotoDecompressionContainerCopyColorInfoFromFormatDescription(const opaqueCMFormatDescription *a1, uint64_t a2, int a3, uint64_t a4, int a5, int a6, CFTypeRef *a7, CFTypeRef *a8, CFTypeRef *a9, CFTypeRef *a10, _DWORD *a11, _DWORD *a12, char *a13)
 {
-  v55[0] = 0;
-  v53 = 0;
+  v58[0] = 0;
+  v56 = 0;
   cf = 0;
-  v52 = 0;
-  v51 = -1;
-  HIBYTE(v49) = a5 == 0;
+  v55 = 0;
+  v54 = -1;
+  HIBYTE(v52) = a5 == 0;
   OUTLINED_FUNCTION_42_2();
-  v42 = v20;
-  v44 = v19;
-  *&v39 = &v51 + 4;
-  *(&v39 + 1) = &v51;
+  v44 = v20;
+  v47 = v19;
+  *&v39 = &v54 + 4;
+  *(&v39 + 1) = &v54;
   OUTLINED_FUNCTION_21();
-  InfoFromFormatDescription = CMPhotoGetInfoFromFormatDescription(v21, v22, v23, v24, v25, v26, v27, 0, v39, v42, v44, v46);
+  InfoFromFormatDescription = CMPhotoGetInfoFromFormatDescription(v21, v22, v23, v24, v25, v26, v27, 0, v39, v44, v47, v49);
   if (InfoFromFormatDescription)
   {
     goto LABEL_45;
   }
 
   Extensions = CMFormatDescriptionGetExtensions(a1);
-  CMPhotoCreateColorSpaceFromPixelBufferAttachments(Extensions, a4, v55, 1, 1, v30, v31, v32, v40, v41, v43, v45, v47, v48, v49, v51, v52, v53, cf, v55[0], v55[1], v55[2]);
+  CMPhotoCreateColorSpaceFromPixelBufferAttachments(Extensions, a4, v58, 1, 1, v30, v31, v32, v40, v42, v45, v48, v50, v51, v52, v54, v55, v56, cf, v58[0], v58[1], v58[2]);
   if (InfoFromFormatDescription)
   {
     goto LABEL_45;
@@ -32,13 +32,13 @@ uint64_t CMPhotoDecompressionContainerCopyColorInfoFromFormatDescription(const o
 
   else
   {
-    v33 = v52 == 0;
+    v33 = v55 == 0;
   }
 
   v34 = !v33;
   if (!a3 || (v34 & 1) != 0)
   {
-    if (v50)
+    if (v53)
     {
       v34 = 1;
     }
@@ -46,27 +46,27 @@ uint64_t CMPhotoDecompressionContainerCopyColorInfoFromFormatDescription(const o
     v35 = 0;
     if ((v34 & 1) == 0)
     {
-      v52 = CFRetain(*MEMORY[0x1E6965FD0]);
+      v55 = CFRetain(*MEMORY[0x1E6965FD0]);
     }
   }
 
   else
   {
-    v52 = CFRetain(*MEMORY[0x1E6965FC8]);
+    v55 = CFRetain(*MEMORY[0x1E6965FC8]);
     v35 = 1;
   }
 
-  v36 = v55[0];
-  if (!(a6 | a4) && !v55[0])
+  v36 = v58[0];
+  if (!(a6 | a4) && !v58[0])
   {
     v36 = CGColorSpaceCreateWithName(*MEMORY[0x1E695F1C0]);
-    v55[0] = v36;
+    v58[0] = v36;
   }
 
   if (v36 && CGColorSpaceGetModel(v36) >= kCGColorSpaceModelCMYK)
   {
     fig_log_get_emitter();
-    InfoFromFormatDescription = FigSignalErrorAtGM();
+    InfoFromFormatDescription = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v41, v43, v46);
 LABEL_45:
     v37 = InfoFromFormatDescription;
     goto LABEL_35;
@@ -74,8 +74,8 @@ LABEL_45:
 
   if (a7)
   {
-    *a7 = v55[0];
-    v55[0] = 0;
+    *a7 = v58[0];
+    v58[0] = 0;
   }
 
   if (a8)
@@ -86,24 +86,24 @@ LABEL_45:
 
   if (a9)
   {
-    *a9 = v53;
-    v53 = 0;
+    *a9 = v56;
+    v56 = 0;
   }
 
   if (a10)
   {
-    *a10 = v52;
-    v52 = 0;
+    *a10 = v55;
+    v55 = 0;
   }
 
   if (a11)
   {
-    *a11 = HIDWORD(v51);
+    *a11 = HIDWORD(v54);
   }
 
   if (a12)
   {
-    *a12 = v51;
+    *a12 = v54;
   }
 
   v37 = 0;
@@ -113,9 +113,9 @@ LABEL_45:
   }
 
 LABEL_35:
-  if (v55[0])
+  if (v58[0])
   {
-    CFRelease(v55[0]);
+    CFRelease(v58[0]);
   }
 
   if (cf)
@@ -123,37 +123,37 @@ LABEL_35:
     CFRelease(cf);
   }
 
-  if (v53)
+  if (v56)
   {
-    CFRelease(v53);
+    CFRelease(v56);
   }
 
-  if (v52)
+  if (v55)
   {
-    CFRelease(v52);
+    CFRelease(v55);
   }
 
   return v37;
 }
 
-uint64_t _copyColorInfoForItem(_BYTE *a1, const void *a2, const void *a3, int a4, CMVideoFormatDescriptionRef *a5, int a6, CFTypeRef *a7, CFTypeRef *a8, CFTypeRef *a9, CFTypeRef *a10, int *a11, int *a12, _BYTE *a13)
+uint64_t _copyColorInfoForItem(unsigned __int8 *a1, const void *a2, const void *a3, unsigned int a4, const opaqueCMFormatDescription **a5, int a6, CFTypeRef *a7, CFTypeRef *a8, CFTypeRef *a9, CFTypeRef *a10, int *a11, int *a12, _BYTE *a13)
 {
-  v73 = 0;
-  v74 = 0;
-  v71 = 0;
-  v72 = 0;
-  v69 = 0;
+  v85 = 0;
+  v86 = 0;
+  v83 = 0;
+  v84 = 0;
+  v81 = 0;
   cf = 0;
-  v68 = 0;
-  v66 = -1;
-  v67 = -1;
-  v65 = 0;
-  v64 = 0;
+  v80 = 0;
+  v78 = -1;
+  v79 = -1;
+  v77 = 0;
+  v76 = 0;
   v20 = CFGetAllocator(a1);
-  ItemTypeFromReader = CMPhotoPictureReaderGetItemTypeFromReader(a2, &v64);
+  ItemTypeFromReader = CMPhotoPictureReaderGetItemTypeFromReader(a2, &v76);
   if (ItemTypeFromReader)
   {
-    goto LABEL_96;
+    goto LABEL_104;
   }
 
   FigBaseObject = FigPictureReaderGetFigBaseObject();
@@ -165,30 +165,30 @@ LABEL_51:
     goto LABEL_52;
   }
 
-  ItemTypeFromReader = v23(FigBaseObject, *MEMORY[0x1E69722F8], v20, &v74);
+  ItemTypeFromReader = v23(FigBaseObject, *MEMORY[0x1E69722F8], v20, &v86);
   if (ItemTypeFromReader)
   {
-    goto LABEL_96;
+    goto LABEL_104;
   }
 
-  v24 = v74;
-  v76[0] = 0;
-  ItemTypeFromReader = _verifyPixelInformationFromPictureReader(a2, v76);
+  v24 = v86;
+  v88[0] = 0;
+  ItemTypeFromReader = _verifyPixelInformationFromPictureReader(a2, v88);
   if (ItemTypeFromReader)
   {
-    goto LABEL_96;
+    goto LABEL_104;
   }
 
-  v25 = v76[0];
-  if (a3 && !v76[0])
+  v25 = v88[0];
+  if (a3 && !v88[0])
   {
-    ItemTypeFromReader = _verifyPixelInformationFromPictureReader(a3, v76);
+    ItemTypeFromReader = _verifyPixelInformationFromPictureReader(a3, v88);
     if (ItemTypeFromReader)
     {
-      goto LABEL_96;
+      goto LABEL_104;
     }
 
-    v25 = v76[0];
+    v25 = v88[0];
   }
 
   if (v25)
@@ -210,26 +210,26 @@ LABEL_51:
       goto LABEL_15;
     }
 
-    v75 = 0;
+    v87 = 0;
     OUTLINED_FUNCTION_14_9();
     OUTLINED_FUNCTION_42();
     OUTLINED_FUNCTION_31_0();
-    if (CMPhotoGetInfoFromFormatDescription(v44, v45, v46, v47, v48, v49, v50, v51, v57, v58, v59, v60))
+    if (CMPhotoGetInfoFromFormatDescription(v44, v45, v46, v47, v48, v49, v50, v51, v65, v68, v70, v72))
     {
       v26 = 0;
     }
 
     else
     {
-      v26 = v75 == 6;
+      v26 = v87 == 6;
     }
   }
 
   v27 = v26;
 LABEL_15:
-  if (v64 == 1635135537)
+  if (v76 == 1635135537)
   {
-    v76[0] = 0;
+    v88[0] = 0;
     if (a4)
     {
       v28 = a1[28] == 0;
@@ -241,24 +241,24 @@ LABEL_15:
     }
 
     v29 = !v28;
-    v63[0] = MEMORY[0x1E69E9820];
-    v63[1] = *"";
-    v63[2] = ___copyColorInfoForItem_block_invoke;
-    v63[3] = &__block_descriptor_tmp_15;
-    v63[4] = a2;
-    v63[5] = v74;
-    ItemTypeFromReader = CMPhotoDecompressionContainerCreateCorrectedAV1FormatDescription(v74, v63, v29, v76);
+    v75[0] = MEMORY[0x1E69E9820];
+    v75[1] = 0x40000000;
+    v75[2] = ___copyColorInfoForItem_block_invoke;
+    v75[3] = &__block_descriptor_tmp_15;
+    v75[4] = a2;
+    v75[5] = v86;
+    ItemTypeFromReader = CMPhotoDecompressionContainerCreateCorrectedAV1FormatDescription(v86, v75, v29, v88);
     if (ItemTypeFromReader)
     {
-      goto LABEL_96;
+      goto LABEL_104;
     }
 
-    if (v74)
+    if (v86)
     {
-      CFRelease(v74);
+      CFRelease(v86);
     }
 
-    v74 = v76[0];
+    v86 = v88[0];
   }
 
   if (_checkForInterestingBrands(a1))
@@ -271,14 +271,14 @@ LABEL_15:
     v30 = a1[163];
   }
 
-  v62 = 0;
-  ItemTypeFromReader = CMPhotoDecompressionContainerCopyColorInfoFromFormatDescription(v74, a1[28], v30, v27, 0, a6, &v65, &cf, &v69, &v68, &v67, &v66, &v62);
+  v74 = 0;
+  ItemTypeFromReader = CMPhotoDecompressionContainerCopyColorInfoFromFormatDescription(v86, a1[28], v30, v27, 0, a6, &v77, &cf, &v81, &v80, &v79, &v78, &v74);
   if (ItemTypeFromReader)
   {
-    goto LABEL_96;
+    goto LABEL_104;
   }
 
-  if (v65)
+  if (v77)
   {
     v31 = 1;
   }
@@ -287,7 +287,7 @@ LABEL_15:
   {
     if (cf)
     {
-      v32 = v69 == 0;
+      v32 = v81 == 0;
     }
 
     else
@@ -298,7 +298,7 @@ LABEL_15:
     v31 = !v32;
   }
 
-  if (v31 && v68 && !v62)
+  if (v31 && v80 && !v74)
   {
     goto LABEL_71;
   }
@@ -313,7 +313,7 @@ LABEL_15:
       goto LABEL_70;
     }
 
-LABEL_96:
+LABEL_104:
     v38 = ItemTypeFromReader;
     goto LABEL_52;
   }
@@ -330,23 +330,23 @@ LABEL_96:
     goto LABEL_51;
   }
 
-  ItemTypeFromReader = v33(a2, &v72);
+  ItemTypeFromReader = v33(a2, &v84);
   if (ItemTypeFromReader)
   {
-    goto LABEL_96;
+    goto LABEL_104;
   }
 
-  v34 = v72;
+  v34 = v84;
   v35 = *(*(CMBaseObjectGetVTable() + 16) + 8);
   if (!v35)
   {
     goto LABEL_51;
   }
 
-  ItemTypeFromReader = v35(v34, &v71);
+  ItemTypeFromReader = v35(v34, &v83);
   if (ItemTypeFromReader)
   {
-    goto LABEL_96;
+    goto LABEL_104;
   }
 
   CMBaseObject = FigPictureTileCursorGetCMBaseObject();
@@ -356,40 +356,70 @@ LABEL_96:
     goto LABEL_51;
   }
 
-  ItemTypeFromReader = v37(CMBaseObject, *MEMORY[0x1E69723A0], v20, &v73);
+  ItemTypeFromReader = v37(CMBaseObject, *MEMORY[0x1E69723A0], v20, &v85);
   if (ItemTypeFromReader)
   {
-    goto LABEL_96;
+    goto LABEL_104;
   }
 
 LABEL_70:
-  if (v73)
+  if (v85)
   {
-    if (v62 && v68)
+    v52 = v80;
+    if (v74 && v80)
     {
-      CFRelease(v68);
-      v68 = 0;
+      CFRelease(v80);
+      v52 = 0;
+      v80 = 0;
     }
 
+    v53 = &v81;
+    if (v31)
+    {
+      v53 = 0;
+    }
+
+    v54 = &v80;
+    if (v52)
+    {
+      v54 = 0;
+    }
+
+    v55 = &v79;
+    if (v79 != -1)
+    {
+      v55 = 0;
+    }
+
+    v56 = &v78;
+    if (v78 != -1)
+    {
+      v56 = 0;
+    }
+
+    v71 = v56;
+    v67 = v54;
+    v69 = v55;
+    v66 = v53;
     OUTLINED_FUNCTION_26_2();
-    ItemTypeFromReader = _copyColorInfoForItem(v52, v53, v54, v55, v56);
+    ItemTypeFromReader = _copyColorInfoForItem(v57, v58, v59, v60, v61, v62, v63, v64, v66, v67, v69, v71, &v74);
     if (ItemTypeFromReader)
     {
-      goto LABEL_96;
+      goto LABEL_104;
     }
   }
 
 LABEL_71:
   if (a5)
   {
-    *a5 = v74;
-    v74 = 0;
+    *a5 = v86;
+    v86 = 0;
   }
 
   if (a7)
   {
-    *a7 = v65;
-    v65 = 0;
+    *a7 = v77;
+    v77 = 0;
   }
 
   if (a8)
@@ -400,36 +430,36 @@ LABEL_71:
 
   if (a9)
   {
-    *a9 = v69;
-    v69 = 0;
+    *a9 = v81;
+    v81 = 0;
   }
 
   if (a10)
   {
-    *a10 = v68;
-    v68 = 0;
+    *a10 = v80;
+    v80 = 0;
   }
 
   if (a11)
   {
-    *a11 = v67;
+    *a11 = v79;
   }
 
   if (a12)
   {
-    *a12 = v66;
+    *a12 = v78;
   }
 
   v38 = 0;
   if (a13)
   {
-    *a13 = v62;
+    *a13 = v74;
   }
 
 LABEL_52:
-  if (v74)
+  if (v86)
   {
-    CFRelease(v74);
+    CFRelease(v86);
   }
 
   if (cf)
@@ -437,34 +467,34 @@ LABEL_52:
     CFRelease(cf);
   }
 
-  if (v69)
+  if (v81)
   {
-    CFRelease(v69);
+    CFRelease(v81);
   }
 
-  if (v68)
+  if (v80)
   {
-    CFRelease(v68);
+    CFRelease(v80);
   }
 
-  if (v65)
+  if (v77)
   {
-    CFRelease(v65);
+    CFRelease(v77);
   }
 
-  if (v73)
+  if (v85)
   {
-    CFRelease(v73);
+    CFRelease(v85);
   }
 
-  if (v72)
+  if (v84)
   {
-    CFRelease(v72);
+    CFRelease(v84);
   }
 
-  if (v71)
+  if (v83)
   {
-    CFRelease(v71);
+    CFRelease(v83);
   }
 
   return v38;
@@ -495,10 +525,10 @@ uint64_t OUTLINED_FUNCTION_13_6(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t 
   return CMPhotoGetSlimPixelFormatAndFlavorFromFormatDescription(v27, &a27, 0);
 }
 
-uint64_t OUTLINED_FUNCTION_13_8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, int a20, unsigned __int16 a21, unsigned __int16 a22, int a23, int a24)
+uint64_t OUTLINED_FUNCTION_13_8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, double d0_0, double d1_0, double d2_0, double d3_0, double d4_0, double d5_0, double d6_0, double d7_0, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, int a20, unsigned __int16 a21, unsigned __int16 a23, float a25, float a27)
 {
 
-  return _extractInformationAboutTheData(v24, &a24, &a23, &a22, &a21);
+  return _extractInformationAboutTheData(v32, &a27, &a25, &a23, &a21);
 }
 
 uint64_t OUTLINED_FUNCTION_13_11@<X0>(int a1@<W8>)
@@ -617,7 +647,7 @@ void _canvasItemDecodeCallback(int a1, int a2, CVBufferRef buffer, uint64_t a4, 
   if (*(v17 + 72) != 1936484717 || *(v17 + 76) != 5)
   {
     block[0] = MEMORY[0x1E69E9820];
-    block[1] = *"";
+    block[1] = 0x40000000;
     block[2] = ___canvasItemDecodeCallback_block_invoke;
     block[3] = &__block_descriptor_tmp_16;
     block[4] = a5;
@@ -719,11 +749,11 @@ uint64_t VTTileDecompressionOutputCallback_Gateway(uint64_t a1)
   }
 }
 
-uint64_t _decodeItem(_BOOL8 *a1, void *a2, unint64_t DefaultTripletsForTransfer, uint64_t a4, unsigned __int8 *a5, unint64_t a6, uint64_t a7, unint64_t a8, void *a9)
+uint64_t _decodeItem(_BOOL8 *a1, void *a2, unint64_t DefaultTripletsForTransfer, uint64_t a4, unsigned __int8 *a5, uint64_t a6, uint64_t a7, unint64_t a8, void *a9)
 {
   v10 = a9;
-  v1354 = *MEMORY[0x1E69E9840];
-  v1312 = 0;
+  v1363 = *MEMORY[0x1E69E9840];
+  v1321 = 0;
   pixelBuffer = 0;
   if ((a7 != 0) != (a9 == 0))
   {
@@ -738,10 +768,10 @@ uint64_t _decodeItem(_BOOL8 *a1, void *a2, unint64_t DefaultTripletsForTransfer,
   }
 
   *size = 0;
-  LODWORD(v1338[0]) = 0;
+  LODWORD(v1347[0]) = 0;
   LODWORD(__src[0]) = 0;
   DictionaryRepresentation = CFGetAllocator(a2);
-  v1297 = a2;
+  v1306 = a2;
   FigBaseObject = FigPictureReaderGetFigBaseObject();
   v19 = *(*(CMBaseObjectGetVTable() + 8) + 48);
   if (!v19)
@@ -756,12 +786,12 @@ uint64_t _decodeItem(_BOOL8 *a1, void *a2, unint64_t DefaultTripletsForTransfer,
   {
     OutputFromConstituents = 0;
 LABEL_9:
-    v22 = v1297;
+    v22 = v1306;
     goto LABEL_10;
   }
 
   OutputFromConstituents = v20;
-  v22 = v1297;
+  v22 = v1306;
   if (!v20)
   {
     if (CMPhotoCFDictionaryGetInt32IfPresent() && CMPhotoCFDictionaryGetInt32IfPresent())
@@ -773,7 +803,7 @@ LABEL_9:
     {
       fig_log_get_emitter();
       OUTLINED_FUNCTION_0_19();
-      OutputFromConstituents = FigSignalErrorAtGM();
+      OutputFromConstituents = FigSignalErrorAtGM("%s signalled err=%d at <>:%d");
     }
   }
 
@@ -789,60 +819,60 @@ LABEL_10:
   }
 
   ItemTypeFromReader = _verifyPixelInformationFromPictureReader(v22, 0);
-  if (ItemTypeFromReader || (ItemTypeFromReader = CMPhotoPictureReaderGetItemTypeFromReader(v22, &v1312), ItemTypeFromReader))
+  if (ItemTypeFromReader || (ItemTypeFromReader = CMPhotoPictureReaderGetItemTypeFromReader(v22, &v1321), ItemTypeFromReader))
   {
     OutputFromConstituents = ItemTypeFromReader;
     goto LABEL_1070;
   }
 
-  OutputFromConstituents = &v1342;
-  DictionaryRepresentation = v1338;
-  v1310 = 1;
+  OutputFromConstituents = &v1351;
+  DictionaryRepresentation = v1347;
+  v1319 = 1;
   OUTLINED_FUNCTION_28_3();
-  v1293 = v12;
+  v1302 = v12;
   if (v30)
   {
-    v72 = v17;
+    v71 = v17;
     v10 = *v17;
     v17 = *(v17 + 8);
-    memcpy(__src, (v72 + 16), 0x50uLL);
+    memcpy(__src, (v71 + 16), 0x50uLL);
     a6 = *a5;
     DefaultTripletsForTransfer = *(a5 + 1);
-    v73 = *(a5 + 2);
-    v74 = a5;
-    v75 = *(a5 + 3);
-    v76 = *(v74 + 4);
-    v77 = *(v74 + 56);
-    __dst[0] = *(v74 + 40);
-    __dst[1] = v77;
-    v78 = *(v74 + 88);
-    __dst[2] = *(v74 + 72);
-    __dst[3] = v78;
-    v1280 = *(v74 + 26);
-    DictionaryRepresentation = v74[112];
-    v1283 = v74[114];
-    v1266 = v74;
-    v79 = v22;
-    v80 = *(v74 + 15);
+    v72 = *(a5 + 2);
+    v73 = a5;
+    v74 = *(a5 + 3);
+    v75 = *(v73 + 4);
+    v76 = *(v73 + 56);
+    __dst[0] = *(v73 + 40);
+    __dst[1] = v76;
+    v77 = *(v73 + 88);
+    __dst[2] = *(v73 + 72);
+    __dst[3] = v77;
+    v1289 = *(v73 + 26);
+    DictionaryRepresentation = v73[112];
+    v1292 = v73[114];
+    v1275 = v73;
+    v78 = v22;
+    v79 = *(v73 + 15);
     cf[0] = 0;
-    *&v1342 = 0;
     *&v1351 = 0;
-    *&v1328 = 0;
-    *&v1323 = 0;
-    *&v1346 = 0;
-    LODWORD(v1344) = -1;
-    LODWORD(v1331) = -1;
-    memset(v1340, 0, 32);
-    v81 = CMPhotoPictureReaderCopyBaseReaderAndPropertiesForDerivedPicture(v79, cf, v1340, &v1310);
-    if (!v81)
+    *&v1360 = 0;
+    *&v1337 = 0;
+    *&v1332 = 0;
+    *&v1355 = 0;
+    LODWORD(v1353) = -1;
+    LODWORD(v1340) = -1;
+    memset(v1349, 0, 32);
+    v80 = CMPhotoPictureReaderCopyBaseReaderAndPropertiesForDerivedPicture(v78, cf, v1349, &v1319);
+    if (!v80)
     {
-      if (!(DefaultTripletsForTransfer | v73))
+      if (!(DefaultTripletsForTransfer | v72))
       {
-        if (!(v75 | v76) || (v75 == *&v1340[16] ? (v82 = v76 == *&v1340[24]) : (v82 = 0), v82))
+        if (!(v74 | v75) || (v74 == *&v1349[16] ? (v81 = v75 == *&v1349[24]) : (v81 = 0), v81))
         {
           if (a6)
           {
-            memset(v1340, 0, 32);
+            memset(v1349, 0, 32);
           }
 
           goto LABEL_72;
@@ -851,60 +881,60 @@ LABEL_10:
 
       if (a6)
       {
-        *v1340 = DefaultTripletsForTransfer;
-        *&v1340[8] = v73;
-        *&v1340[16] = v75;
-        *&v1340[24] = v76;
+        *v1349 = DefaultTripletsForTransfer;
+        *&v1349[8] = v72;
+        *&v1349[16] = v74;
+        *&v1349[24] = v75;
         goto LABEL_72;
       }
 
       *size = DefaultTripletsForTransfer;
-      *&size[8] = v73;
-      *&size[16] = v75;
-      *&size[24] = v76;
-      v81 = CMPhotoApplyCropCMPhotoRectToRect(v1340, size);
-      if (!v81)
+      *&size[8] = v72;
+      *&size[16] = v74;
+      *&size[24] = v75;
+      v80 = CMPhotoApplyCropCMPhotoRectToRect(v1349, size);
+      if (!v80)
       {
 LABEL_72:
-        *(v1348 + 5) = *v1340;
-        BYTE4(v1348[0]) = 0;
-        LODWORD(v1348[0]) = 0;
+        *(v1357 + 5) = *v1349;
+        BYTE4(v1357[0]) = 0;
+        LODWORD(v1357[0]) = 0;
         size[119] = 0;
         *&size[115] = 0;
         *&size[129] = 0;
         *&size[132] = 0;
-        *(&v1348[2] + 5) = *&v1340[16];
+        *(&v1357[2] + 5) = *&v1349[16];
         *&size[88] = __dst[3];
-        v1338[0] = v10;
-        v1338[1] = v17;
-        memcpy(&v1338[2], __src, 0x50uLL);
-        *&size[3] = *v1348;
+        v1347[0] = v10;
+        v1347[1] = v17;
+        memcpy(&v1347[2], __src, 0x50uLL);
+        *&size[3] = *v1357;
         *size = 1;
         size[2] = 0;
-        *&size[19] = *&v1348[2];
-        *&size[32] = *&v1340[24];
+        *&size[19] = *&v1357[2];
+        *&size[32] = *&v1349[24];
         memset(&size[40], 0, 48);
-        *&size[104] = v1280;
+        *&size[104] = v1289;
         *&size[112] = DictionaryRepresentation;
-        size[114] = v1283;
-        *&size[120] = v80;
+        size[114] = v1292;
+        *&size[120] = v79;
         size[128] = 0;
         OUTLINED_FUNCTION_17_6();
         OUTLINED_FUNCTION_31_0();
-        v83 = (_decodeItem)();
-        a5 = v1266;
-        if (!v83)
+        v90 = _decodeItem(v82, v83, v84, v85, v86, v87, v88, v89, v652);
+        a5 = v1275;
+        if (!v90)
         {
-          CMPhotoRemoveColorPropertiesFromBuffer(v1342);
+          CMPhotoRemoveColorPropertiesFromBuffer(v1351);
           OUTLINED_FUNCTION_26_2();
-          OutputFromConstituents = _copyColorInfoForItem(v84, v85, v86, v87, v88, v89, v90, v91, &v1323, &v1346, &v1344, &v1331, 0);
+          OutputFromConstituents = _copyColorInfoForItem(v91, v92, v93, v94, v95, v96, v97, v98, &v1332, &v1355, &v1353, &v1340, 0);
           OUTLINED_FUNCTION_69_0();
-          if (!v92)
+          if (!v99)
           {
-            CMPhotoAddColorInformationToPixelBufferAccordingToFormat(v1351, v1328, v1323, v1346, v1342);
-            CMPhotoAddChromaLocationToPixelBufferAccordingToFormat(v1344, v1331, v1342);
-            pixelBuffer = v1342;
-            *&v1342 = 0;
+            CMPhotoAddColorInformationToPixelBufferAccordingToFormat(v1360, v1337, v1332, v1355, v1351);
+            CMPhotoAddChromaLocationToPixelBufferAccordingToFormat(v1353, v1340, v1351);
+            pixelBuffer = v1351;
+            *&v1351 = 0;
           }
 
 LABEL_75:
@@ -913,28 +943,28 @@ LABEL_75:
             CFRelease(cf[0]);
           }
 
-          if (v1342)
-          {
-            CFRelease(v1342);
-          }
-
           if (v1351)
           {
             CFRelease(v1351);
           }
 
-          if (v1328)
+          if (v1360)
           {
-            CFRelease(v1328);
+            CFRelease(v1360);
           }
 
-          if (v1323)
+          if (v1337)
           {
-            CFRelease(v1323);
+            CFRelease(v1337);
           }
 
-          v93 = v1346;
-          if (v1346)
+          if (v1332)
+          {
+            CFRelease(v1332);
+          }
+
+          v100 = v1355;
+          if (v1355)
           {
             goto LABEL_362;
           }
@@ -942,56 +972,56 @@ LABEL_75:
           goto LABEL_363;
         }
 
-        OutputFromConstituents = v83;
+        OutputFromConstituents = v90;
 LABEL_551:
         OUTLINED_FUNCTION_69_0();
         goto LABEL_75;
       }
     }
 
-    OutputFromConstituents = v81;
-    a5 = v1266;
+    OutputFromConstituents = v80;
+    a5 = v1275;
     goto LABEL_551;
   }
 
   if (v24 == 1768912492)
   {
-    v1263 = *(v17 + 16);
-    v1274 = *(v17 + 24);
-    v1277 = *v17;
-    v1344 = *(v17 + 32);
-    v1345 = *(v17 + 48);
-    v1281 = *(v17 + 49);
-    v94 = *(v17 + 66);
-    v1342 = *(v17 + 50);
-    v1343[0] = v94;
-    *(v1343 + 14) = *(v17 + 80);
-    HIDWORD(v1184) = *a5;
+    v1272 = *(v17 + 16);
+    v1283 = *(v17 + 24);
+    v1286 = *v17;
+    v1353 = *(v17 + 32);
+    v1354 = *(v17 + 48);
+    v1290 = *(v17 + 49);
+    v101 = *(v17 + 66);
+    v1351 = *(v17 + 50);
+    v1352[0] = v101;
+    *(v1352 + 14) = *(v17 + 80);
+    HIDWORD(v1193) = *a5;
     LODWORD(theArray) = a5[1];
     OUTLINED_FUNCTION_96_0();
-    v95 = *(a5 + 1);
-    v96 = *(a5 + 2);
+    v102 = *(a5 + 1);
+    v103 = *(a5 + 2);
     OutputFromConstituents = *(a5 + 3);
-    v1198 = *(a5 + 4);
-    v97 = *(a5 + 40);
-    v98 = *(a5 + 88);
-    *&v1340[32] = *(a5 + 72);
-    v1341 = v98;
-    v99 = *(a5 + 56);
-    *v1340 = v97;
-    *&v1340[16] = v99;
-    *&v97 = *(a5 + 13);
-    v1114 = v97;
-    LODWORD(v1171) = a5[112];
-    LODWORD(v1101) = a5[113];
-    LODWORD(v1256) = a5[114];
-    v1307 = a5[119];
-    v1306 = *(a5 + 115);
-    v1249 = *(a5 + 15);
-    v1087 = *(a5 + 16);
-    v1316 = 0;
-    v1291 = v100;
-    DefaultTripletsForTransfer = CFGetAllocator(v100);
+    v1207 = *(a5 + 4);
+    v104 = *(a5 + 40);
+    v105 = *(a5 + 88);
+    *&v1349[32] = *(a5 + 72);
+    v1350 = v105;
+    v106 = *(a5 + 56);
+    *v1349 = v104;
+    *&v1349[16] = v106;
+    *&v104 = *(a5 + 13);
+    v1123 = v104;
+    LODWORD(v1180) = a5[112];
+    LODWORD(v1110) = a5[113];
+    LODWORD(v1265) = a5[114];
+    v1316 = a5[119];
+    v1315 = *(a5 + 115);
+    v1258 = *(a5 + 15);
+    v1096 = *(a5 + 16);
+    v1325 = 0;
+    v1300 = v107;
+    DefaultTripletsForTransfer = CFGetAllocator(v107);
     DictionaryRepresentation = FigPictureReaderGetFigBaseObject();
     if (!*(*(CMBaseObjectGetVTable() + 8) + 48))
     {
@@ -999,130 +1029,130 @@ LABEL_551:
       goto LABEL_1028;
     }
 
-    v982 = OutputFromConstituents;
-    *&v996 = v96;
-    *(&v996 + 1) = v95;
-    v101 = OUTLINED_FUNCTION_75_0();
-    if (v102(v101))
+    v991 = OutputFromConstituents;
+    *&v1005 = v103;
+    *(&v1005 + 1) = v102;
+    v108 = OUTLINED_FUNCTION_75_0();
+    if (v109(v108))
     {
       OUTLINED_FUNCTION_47_0();
       goto LABEL_1028;
     }
 
-    DictionaryRepresentation = v1338;
+    DictionaryRepresentation = v1347;
     memset(__dst, 0, 64);
-    v103 = v1316;
-    v1338[0] = 0;
+    v110 = v1325;
+    v1347[0] = 0;
     *&__src[0] = 0;
-    v1348[0] = 0;
-    v1270 = CFGetAllocator(v1316);
-    CFDictionaryGetValue(v103, *MEMORY[0x1E69722E8]);
-    v104 = FigCFEqual();
+    v1357[0] = 0;
+    v1279 = CFGetAllocator(v1325);
+    CFDictionaryGetValue(v110, *MEMORY[0x1E69722E8]);
+    v111 = FigCFEqual();
     OutputFromConstituents = MEMORY[0x1E69722E0];
-    v1286 = v17;
-    if (v104)
+    v1295 = v17;
+    if (v111)
     {
-      v105 = CFDictionaryGetValue(v103, *MEMORY[0x1E69722D8]);
-      if (!v105)
+      v112 = CFDictionaryGetValue(v110, *MEMORY[0x1E69722D8]);
+      if (!v112)
       {
 LABEL_582:
-        v210 = 1;
+        v217 = 1;
         goto LABEL_327;
       }
 
-      v106 = v105;
+      v113 = v112;
       *size = *MEMORY[0x1E695F060];
-      v971 = *MEMORY[0x1E6972358];
+      v980 = *MEMORY[0x1E6972358];
       if (FigCFDictionaryGetCGSizeIfPresent())
       {
-        *&v107 = OUTLINED_FUNCTION_91_0(*size);
-        v1042 = v107;
-        if (!v107 || (v1031 = *(&v107 + 1)) == 0)
+        *&v114 = OUTLINED_FUNCTION_91_0(*size);
+        v1051 = v114;
+        if (!v114 || (v1040 = *(&v114 + 1)) == 0)
         {
           fig_log_get_emitter();
           OUTLINED_FUNCTION_0_19();
-          FigSignalErrorAtGM();
-          v105 = 0;
-          v210 = 1;
+          FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v652, v669, v682);
+          v112 = 0;
+          v217 = 1;
           goto LABEL_326;
         }
 
-        *v1066 = v107;
-        v108 = CFDictionaryGetValue(v106, *MEMORY[0x1E6972350]);
-        if (v108)
+        *v1075 = v114;
+        v115 = CFDictionaryGetValue(v113, *MEMORY[0x1E6972350]);
+        if (v115)
         {
-          v22 = v108;
-          Count = CFArrayGetCount(v108);
-          v110 = OUTLINED_FUNCTION_80_0(Count);
-          v1146 = v110;
+          v22 = v115;
+          Count = CFArrayGetCount(v115);
+          v117 = OUTLINED_FUNCTION_80_0(Count);
+          v1155 = v117;
           if (!Count)
           {
 LABEL_101:
-            v113 = CFDictionaryGetValue(v103, *OutputFromConstituents);
-            if (!v113)
+            v120 = CFDictionaryGetValue(v110, *OutputFromConstituents);
+            if (!v120)
             {
-              v210 = 1;
+              v217 = 1;
               goto LABEL_603;
             }
 
-            v103 = v113;
-            v114 = CFArrayGetCount(v113);
-            if (Count != 2 * v114)
+            v110 = v120;
+            v121 = CFArrayGetCount(v120);
+            if (Count != 2 * v121)
             {
 LABEL_601:
               fig_log_get_emitter();
               OUTLINED_FUNCTION_0_19();
-              FigSignalErrorAtGM();
+              FigSignalErrorAtGM("%s signalled err=%d at <>:%d");
               goto LABEL_602;
             }
 
-            v115 = v114;
-            v105 = v1146;
-            v116 = *v1066;
-            if (!v115)
+            v122 = v121;
+            v112 = v1155;
+            v123 = *v1075;
+            if (!v122)
             {
-              v151 = 0;
-              v152 = 0;
-              v149 = 0;
-              v150 = 0;
-              v148 = 0;
-              v147 = 0;
+              v158 = 0;
+              v159 = 0;
+              v156 = 0;
+              v157 = 0;
+              v155 = 0;
+              v154 = 0;
               goto LABEL_325;
             }
 
             v22 = 0;
-            v1211 = 0;
-            v950 = 0;
-            v961 = 0;
-            v117 = 0;
-            LODWORD(v1019) = 0;
+            v1220 = 0;
+            v959 = 0;
+            v970 = 0;
+            v124 = 0;
+            LODWORD(v1028) = 0;
             OutputFromConstituents = 0;
-            v890 = 0;
-            v920 = 0;
-            v930 = 0;
-            v940 = 0;
-            v1235 = *MEMORY[0x1E69722B8];
-            v900 = (v1031 - 1);
-            v910 = (v1042 - 1);
+            v899 = 0;
+            v929 = 0;
+            v939 = 0;
+            v949 = 0;
+            v1244 = *MEMORY[0x1E69722B8];
+            v909 = (v1040 - 1);
+            v919 = (v1051 - 1);
             while (1)
             {
-              ValueAtIndex = CFArrayGetValueAtIndex(v103, v117);
+              ValueAtIndex = CFArrayGetValueAtIndex(v110, v124);
               if (!ValueAtIndex)
               {
                 goto LABEL_601;
               }
 
-              v119 = ValueAtIndex;
+              v126 = ValueAtIndex;
               cf[0] = 0;
-              v120 = *(*(CMBaseObjectGetVTable() + 16) + 32);
-              if (!v120 || v120(v119, cf))
+              v127 = *(*(CMBaseObjectGetVTable() + 16) + 32);
+              if (!v127 || v127(v126, cf))
               {
                 goto LABEL_602;
               }
 
               if (cf[0] >= 1)
               {
-                v121 = 0;
+                v128 = 0;
                 while (1)
                 {
                   if (*&__src[0])
@@ -1131,87 +1161,87 @@ LABEL_601:
                     *&__src[0] = 0;
                   }
 
-                  if (v1348[0])
+                  if (v1357[0])
                   {
-                    CFRelease(v1348[0]);
-                    v1348[0] = 0;
+                    CFRelease(v1357[0]);
+                    v1357[0] = 0;
                   }
 
-                  v122 = *(*(CMBaseObjectGetVTable() + 16) + 40);
-                  if (!v122)
-                  {
-                    break;
-                  }
-
-                  if (v122(v119, v121, __src))
+                  v129 = *(*(CMBaseObjectGetVTable() + 16) + 40);
+                  if (!v129)
                   {
                     break;
                   }
 
-                  v96 = FigPictureReaderGetFigBaseObject();
-                  v123 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-                  if (!v123 || v123(v96, v1235, v1270, v1348) || CMPhotoGetAuxiliaryImageTypeFromURN() == 3)
+                  if (v129(v126, v128, __src))
                   {
                     break;
                   }
 
-                  if (++v121 >= cf[0])
+                  v103 = FigPictureReaderGetFigBaseObject();
+                  v130 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+                  if (!v130 || v130(v103, v1244, v1279, v1357) || CMPhotoGetAuxiliaryImageTypeFromURN(v1357[0]) == 3)
+                  {
+                    break;
+                  }
+
+                  if (++v128 >= cf[0])
                   {
                     goto LABEL_120;
                   }
                 }
 
-                v210 = 1;
-                v17 = v1286;
+                v217 = 1;
+                v17 = v1295;
                 OUTLINED_FUNCTION_45_0();
-                v211 = v1291;
-                DictionaryRepresentation = v1338;
+                v218 = v1300;
+                DictionaryRepresentation = v1347;
                 goto LABEL_604;
               }
 
 LABEL_120:
-              if (v1338[0])
+              if (v1347[0])
               {
-                CFRelease(v1338[0]);
-                v1338[0] = 0;
+                CFRelease(v1347[0]);
+                v1347[0] = 0;
               }
 
-              v124 = FigPictureReaderGetFigBaseObject();
-              v125 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-              DictionaryRepresentation = v1338;
-              if (!v125 || v125(v124, v971, v1270, v1338))
+              v131 = FigPictureReaderGetFigBaseObject();
+              v132 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+              DictionaryRepresentation = v1347;
+              if (!v132 || v132(v131, v980, v1279, v1347))
               {
                 goto LABEL_602;
               }
 
-              if (!CGSizeMakeWithDictionaryRepresentation(v1338[0], size))
+              if (!CGSizeMakeWithDictionaryRepresentation(v1347[0], size))
               {
                 goto LABEL_601;
               }
 
-              v126 = vcvtad_u64_f64(*size);
-              if (!v126)
+              v133 = vcvtad_u64_f64(*size);
+              if (!v133)
               {
                 goto LABEL_601;
               }
 
-              v127 = vcvtad_u64_f64(*&size[8]);
-              if (!v127)
+              v134 = vcvtad_u64_f64(*&size[8]);
+              if (!v134)
               {
                 goto LABEL_601;
               }
 
-              if (v117)
+              if (v124)
               {
-                v128 = v22 - 1;
-                v116 = *v1066;
-                if (OutputFromConstituents >= v22 - 1 || (OUTLINED_FUNCTION_90_0(), v129 == v130))
+                v135 = v22 - 1;
+                v123 = *v1075;
+                if (OutputFromConstituents >= v22 - 1 || (OUTLINED_FUNCTION_90_0(), v136 == v137))
                 {
-                  if (OutputFromConstituents == v128 && !v1019)
+                  if (OutputFromConstituents == v135 && !v1028)
                   {
-                    v133 = v961 >= v126 && v930 <= v126 && v950 == v127;
-                    v940 = v126;
-                    if (!v133)
+                    v140 = v970 >= v133 && v939 <= v133 && v959 == v134;
+                    v949 = v133;
+                    if (!v140)
                     {
                       goto LABEL_602;
                     }
@@ -1224,10 +1254,10 @@ LABEL_120:
                     OUTLINED_FUNCTION_90_0();
                     if (v30)
                     {
-                      v140 = v961 == v126 && v950 >= v127;
-                      v141 = !v140 || v890 > v127;
-                      v920 = v127;
-                      if (v141)
+                      v147 = v970 == v133 && v959 >= v134;
+                      v148 = !v147 || v899 > v134;
+                      v929 = v134;
+                      if (v148)
                       {
                         goto LABEL_602;
                       }
@@ -1236,10 +1266,10 @@ LABEL_120:
                     }
                   }
 
-                  if (OutputFromConstituents == v128)
+                  if (OutputFromConstituents == v135)
                   {
-                    v131 = v940;
-                    if (v1019 != v1211 - 1)
+                    v138 = v949;
+                    if (v1028 != v1220 - 1)
                     {
                       goto LABEL_166;
                     }
@@ -1247,13 +1277,13 @@ LABEL_120:
 
                   else
                   {
-                    v131 = v961;
+                    v138 = v970;
                   }
 
-                  v142 = v131 == v126;
-                  v143 = v920;
+                  v149 = v138 == v133;
+                  v150 = v929;
 LABEL_169:
-                  if (!v142 || v143 != v127)
+                  if (!v149 || v150 != v134)
                   {
                     goto LABEL_602;
                   }
@@ -1261,35 +1291,35 @@ LABEL_169:
                   goto LABEL_174;
                 }
 
-                v131 = v961;
+                v138 = v970;
 LABEL_166:
-                v142 = v131 == v126;
-                v143 = v950;
+                v149 = v138 == v133;
+                v150 = v959;
                 goto LABEL_169;
               }
 
-              v22 = ((v910 + v126) / v126);
-              v1211 = ((v900 + v127) / v127);
-              v116 = *v1066;
-              if (v115 != v1211 * v22)
+              v22 = ((v919 + v133) / v133);
+              v1220 = ((v909 + v134) / v134);
+              v123 = *v1075;
+              if (v122 != v1220 * v22)
               {
                 goto LABEL_602;
               }
 
-              if (((v900 + v127) / v127))
+              if (((v909 + v134) / v134))
               {
                 break;
               }
 
 LABEL_151:
-              v930 = v1042 - (v22 - 1) * v126;
-              v940 = v126;
-              v890 = (v1031 - (v1211 - 1) * v127);
-              v920 = v127;
-              v950 = v127;
-              v961 = v126;
+              v939 = v1051 - (v22 - 1) * v133;
+              v949 = v133;
+              v899 = (v1040 - (v1220 - 1) * v134);
+              v929 = v134;
+              v959 = v134;
+              v970 = v133;
 LABEL_174:
-              v145 = OutputFromConstituents + 1 == v22;
+              v152 = OutputFromConstituents + 1 == v22;
               if (OutputFromConstituents + 1 == v22)
               {
                 OutputFromConstituents = 0;
@@ -1300,86 +1330,86 @@ LABEL_174:
                 OutputFromConstituents = (OutputFromConstituents + 1);
               }
 
-              v146 = v1019;
-              if (v145)
+              v153 = v1028;
+              if (v152)
               {
-                v146 = v1019 + 1;
+                v153 = v1028 + 1;
               }
 
-              LODWORD(v1019) = v146;
-              if (++v117 == v115)
+              LODWORD(v1028) = v153;
+              if (++v124 == v122)
               {
-                v147 = v22;
-                v148 = v1211;
-                v105 = v1146;
-                v149 = v950;
-                v150 = v961;
-                v151 = v940;
-                v152 = v920;
+                v154 = v22;
+                v155 = v1220;
+                v112 = v1155;
+                v156 = v959;
+                v157 = v970;
+                v158 = v949;
+                v159 = v929;
 LABEL_325:
-                v210 = 0;
-                *&__dst[0] = v147;
-                *(&__dst[0] + 1) = v148;
-                *&__dst[1] = v150;
-                *(&__dst[1] + 1) = v149;
-                *&__dst[2] = v151;
-                *(&__dst[2] + 1) = v152;
-                __dst[3] = v116;
-                v17 = v1286;
+                v217 = 0;
+                *&__dst[0] = v154;
+                *(&__dst[0] + 1) = v155;
+                *&__dst[1] = v157;
+                *(&__dst[1] + 1) = v156;
+                *&__dst[2] = v158;
+                *(&__dst[2] + 1) = v159;
+                __dst[3] = v123;
+                v17 = v1295;
 LABEL_326:
-                v22 = v1297;
+                v22 = v1306;
 LABEL_327:
-                OutputFromConstituents = &v1342;
-                v211 = v1291;
+                OutputFromConstituents = &v1351;
+                v218 = v1300;
                 goto LABEL_605;
               }
             }
 
-            v134 = 0;
-            v135 = 0;
-            v136 = 0;
-            while (!((v910 + v126) / v126))
+            v141 = 0;
+            v142 = 0;
+            v143 = 0;
+            while (!((v919 + v133) / v133))
             {
 LABEL_150:
-              v136 += v127;
-              if (++v134 >= v1211)
+              v143 += v134;
+              if (++v141 >= v1220)
               {
                 goto LABEL_151;
               }
             }
 
-            v137 = 0;
-            v138 = (v1146 + 4 + 4 * v135);
-            v139 = -v126;
+            v144 = 0;
+            v145 = (v1155 + 4 + 4 * v142);
+            v146 = -v133;
             while (1)
             {
-              v139 += v126;
-              if (v139 != *(v138 - 1) || *v138 != v136)
+              v146 += v133;
+              if (v146 != *(v145 - 1) || *v145 != v143)
               {
                 break;
               }
 
-              v135 += 2;
-              v138 += 2;
-              if (++v137 >= v22)
+              v142 += 2;
+              v145 += 2;
+              if (++v144 >= v22)
               {
                 goto LABEL_150;
               }
             }
 
 LABEL_602:
-            v210 = 1;
-            v17 = v1286;
+            v217 = 1;
+            v17 = v1295;
 LABEL_603:
             OUTLINED_FUNCTION_45_0();
-            v211 = v1291;
+            v218 = v1300;
 LABEL_604:
-            v105 = v1146;
+            v112 = v1155;
 LABEL_605:
-            free(v105);
-            if (v1338[0])
+            free(v112);
+            if (v1347[0])
             {
-              CFRelease(v1338[0]);
+              CFRelease(v1347[0]);
             }
 
             if (*&__src[0])
@@ -1387,73 +1417,73 @@ LABEL_605:
               CFRelease(*&__src[0]);
             }
 
-            if (v1348[0])
+            if (v1357[0])
             {
-              CFRelease(v1348[0]);
+              CFRelease(v1357[0]);
             }
 
-            v1296 = a6;
-            if (v210)
+            v1305 = a6;
+            if (v217)
             {
-              LODWORD(v1235) = 0;
+              LODWORD(v1244) = 0;
 LABEL_613:
-              DefaultTripletsForTransfer = v1316;
+              DefaultTripletsForTransfer = v1325;
               *(OutputFromConstituents + 80) = *(OutputFromConstituents + 48);
-              v1347 = v1345;
-              v355 = *(OutputFromConstituents + 16);
+              v1356 = v1354;
+              v363 = *(OutputFromConstituents + 16);
               *(OutputFromConstituents + 176) = *OutputFromConstituents;
-              *(OutputFromConstituents + 192) = v355;
+              *(OutputFromConstituents + 192) = v363;
               *(OutputFromConstituents + 206) = *(OutputFromConstituents + 30);
               OUTLINED_FUNCTION_49();
-              v1178 = CFGetAllocator(v211);
-              *&v356 = OUTLINED_FUNCTION_51_0();
-              *(v357 + 48) = v356;
-              *(v357 + 64) = v356;
-              v1331 = 0uLL;
-              if (CMPhotoPictureReaderGetImageGeometryFromPictureReader(v22, v211[28], &v1351, &v1331) || OUTLINED_FUNCTION_115())
+              v1187 = CFGetAllocator(v218);
+              *&v364 = OUTLINED_FUNCTION_51_0();
+              *(v365 + 48) = v364;
+              *(v365 + 64) = v364;
+              v1340 = 0uLL;
+              if (CMPhotoPictureReaderGetImageGeometryFromPictureReader(v22, v218[28], &v1360, &v1340) || OUTLINED_FUNCTION_115())
               {
                 OUTLINED_FUNCTION_101_0();
                 v10 = a9;
-                LOBYTE(v22) = v1235;
+                LOBYTE(v22) = v1244;
               }
 
               else
               {
-                v358 = CFDictionaryGetValue(DefaultTripletsForTransfer, *MEMORY[0x1E69722D8]);
-                DictionaryRepresentation = v358;
+                v366 = CFDictionaryGetValue(DefaultTripletsForTransfer, *MEMORY[0x1E69722D8]);
+                DictionaryRepresentation = v366;
                 v10 = a9;
-                LOBYTE(v22) = v1235;
-                if (v358)
+                LOBYTE(v22) = v1244;
+                if (v366)
                 {
-                  v359 = CFDictionaryGetValue(v358, *MEMORY[0x1E6972358]);
-                  if (!v359 || (value = 0uLL, !CMPhotoSizeMakeWithDictionaryRepresentation(v359, &value)) || (value.i64[0] == v1331 ? (v360 = value.i64[1] == *(&v1331 + 1)) : (v360 = 0), !v360))
+                  v367 = CFDictionaryGetValue(v366, *MEMORY[0x1E6972358]);
+                  if (!v367 || (value = 0uLL, !CMPhotoSizeMakeWithDictionaryRepresentation(v367, &value)) || (value.i64[0] == v1340 ? (v368 = value.i64[1] == *(&v1340 + 1)) : (v368 = 0), !v368))
                   {
                     fig_log_get_emitter();
                     OUTLINED_FUNCTION_0_19();
-                    FigSignalErrorAtGM();
+                    FigSignalErrorAtGM("%s signalled err=%d at <>:%d");
                     OUTLINED_FUNCTION_101_0();
                     goto LABEL_1011;
                   }
 
-                  v361 = CFDictionaryGetValue(DictionaryRepresentation, *MEMORY[0x1E6972348]);
-                  if (v361 && (v1270 = CFRetain(v361)) != 0)
+                  v369 = CFDictionaryGetValue(DictionaryRepresentation, *MEMORY[0x1E6972348]);
+                  if (v369 && (v1279 = CFRetain(v369)) != 0)
                   {
-                    v362 = CFDictionaryGetValue(DictionaryRepresentation, *MEMORY[0x1E6972350]);
-                    if (v362)
+                    v370 = CFDictionaryGetValue(DictionaryRepresentation, *MEMORY[0x1E6972350]);
+                    if (v370)
                     {
-                      v363 = v17;
-                      v364 = CFArrayGetCount(v362);
-                      if (v364)
+                      v371 = v17;
+                      v372 = CFArrayGetCount(v370);
+                      if (v372)
                       {
-                        v365 = v364;
-                        v17 = OUTLINED_FUNCTION_80_0(v364);
-                        v366 = 0;
+                        v373 = v372;
+                        v17 = OUTLINED_FUNCTION_80_0(v372);
+                        v374 = 0;
                         DictionaryRepresentation = v17;
                         while (FigCFArrayGetInt32AtIndex())
                         {
-                          ++v366;
+                          ++v374;
                           v17 += 4;
-                          if (v365 == v366)
+                          if (v373 == v374)
                           {
                             goto LABEL_935;
                           }
@@ -1468,143 +1498,143 @@ LABEL_613:
 
                     else
                     {
-                      v363 = v17;
+                      v371 = v17;
                       DictionaryRepresentation = 0;
                     }
 
                     fig_log_get_emitter();
                     OUTLINED_FUNCTION_0_19();
-                    OutputFromConstituents = FigSignalErrorAtGM();
-                    CFRelease(v1270);
+                    OutputFromConstituents = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v652, v669, v682);
+                    CFRelease(v1279);
                     v10 = a9;
-                    v17 = v363;
-                    LOBYTE(v22) = v1235;
-                    v367 = DictionaryRepresentation;
+                    v17 = v371;
+                    LOBYTE(v22) = v1244;
+                    v375 = DictionaryRepresentation;
                   }
 
                   else
                   {
                     fig_log_get_emitter();
                     OUTLINED_FUNCTION_0_19();
-                    OutputFromConstituents = FigSignalErrorAtGM();
-                    v367 = 0;
+                    OutputFromConstituents = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v652, v669, v682);
+                    v375 = 0;
                   }
 
-                  free(v367);
-                  v1270 = 0;
+                  free(v375);
+                  v1279 = 0;
                   DictionaryRepresentation = 0;
-                  v96 = 0;
+                  v103 = 0;
                   if (OutputFromConstituents)
                   {
                     goto LABEL_1011;
                   }
 
 LABEL_935:
-                  v508 = v1331;
-                  v1338[0] = 0;
-                  v1348[0] = 0;
+                  v516 = v1340;
+                  v1347[0] = 0;
+                  v1357[0] = 0;
                   cf[0] = 0;
-                  *&v1328 = 0;
-                  LODWORD(v1322) = -1;
-                  LODWORD(v1321[0]) = -1;
-                  *&v1323 = 0;
-                  *&v1327 = 0;
-                  v509 = _copyColorInfoForItem(v1291, v1297, 0, 0, &v1327, 0, v1338, v1348, cf, &v1328, &v1322, v1321, 0);
-                  if (v509)
+                  *&v1337 = 0;
+                  LODWORD(v1331) = -1;
+                  LODWORD(v1330[0]) = -1;
+                  *&v1332 = 0;
+                  *&v1336 = 0;
+                  v517 = _copyColorInfoForItem(v1300, v1306, 0, 0, &v1336, 0, v1347, v1357, cf, &v1337, &v1331, v1330, 0);
+                  if (v517)
                   {
-                    OutputFromConstituents = v509;
+                    OutputFromConstituents = v517;
                     goto LABEL_1094;
                   }
 
-                  *&v510 = OUTLINED_FUNCTION_51_0();
-                  *(v511 + 96) = v510;
-                  *(v511 + 112) = v510;
+                  *&v518 = OUTLINED_FUNCTION_51_0();
+                  *(v519 + 96) = v518;
+                  *(v519 + 112) = v518;
                   OUTLINED_FUNCTION_55_0();
-                  v514 = _createPixelBuffer(v512, v513, v1281, 1111970369, v508, *(&v508 + 1), v508, *(&v508 + 1), v653, v667, v683, v699);
-                  v515 = v1323;
-                  if (v514)
+                  v522 = _createPixelBuffer(v520, v521, v1290, 0x42475241u, v516, *(&v516 + 1), v516, *(&v516 + 1), v662, v677, v692, v708);
+                  v523 = v1332;
+                  if (v522)
                   {
-                    OutputFromConstituents = v514;
-                    if (v1323)
+                    OutputFromConstituents = v522;
+                    if (v1332)
                     {
                       goto LABEL_1093;
                     }
 
-                    v96 = 0;
+                    v103 = 0;
                   }
 
-                  else if (v1323)
+                  else if (v1332)
                   {
-                    v516 = DictionaryRepresentation;
-                    v517 = OUTLINED_FUNCTION_5_2();
-                    v519 = CVPixelBufferLockBaseAddress(v517, v518);
-                    if (v519)
+                    v524 = DictionaryRepresentation;
+                    v525 = OUTLINED_FUNCTION_5_2();
+                    v527 = CVPixelBufferLockBaseAddress(v525, v526);
+                    if (v527)
                     {
-                      OutputFromConstituents = v519;
+                      OutputFromConstituents = v527;
                     }
 
                     else
                     {
-                      BytesPerRow = CVPixelBufferGetBytesPerRow(v515);
-                      CVPixelBufferGetHeight(v515);
-                      v521 = OUTLINED_FUNCTION_106_0();
-                      Width = CVPixelBufferGetWidth(v521);
-                      BaseAddress = CVPixelBufferGetBaseAddress(v515);
-                      v524 = CGBitmapContextCreate(BaseAddress, Width, v17, 8uLL, BytesPerRow, v1338[0], 0x2006u);
-                      if (v524)
+                      BytesPerRow = CVPixelBufferGetBytesPerRow(v523);
+                      CVPixelBufferGetHeight(v523);
+                      v529 = OUTLINED_FUNCTION_106_0();
+                      Width = CVPixelBufferGetWidth(v529);
+                      BaseAddress = CVPixelBufferGetBaseAddress(v523);
+                      v532 = CGBitmapContextCreate(BaseAddress, Width, v17, 8uLL, BytesPerRow, v1347[0], 0x2006u);
+                      if (v532)
                       {
-                        v17 = v524;
-                        CGContextSetFillColorWithColor(v524, v1270);
-                        v1356.size.width = v508;
-                        v1356.size.height = *(&v508 + 1);
-                        v1356.origin.x = 0.0;
-                        v1356.origin.y = 0.0;
-                        CGContextFillRect(v17, v1356);
-                        CMPhotoAddColorInformationToPixelBufferAccordingToFormat(v1338[0], v1348[0], cf[0], v1328, v515);
-                        CMPhotoAddChromaLocationToPixelBufferAccordingToFormat(v1322, v1321[0], v515);
-                        CMPhotoAddHDRMetadataToPixelBufferFromFormatDescription(v1327, v515);
+                        v17 = v532;
+                        CGContextSetFillColorWithColor(v532, v1279);
+                        v1365.size.width = v516;
+                        v1365.size.height = *(&v516 + 1);
+                        v1365.origin.x = 0.0;
+                        v1365.origin.y = 0.0;
+                        CGContextFillRect(v17, v1365);
+                        CMPhotoAddColorInformationToPixelBufferAccordingToFormat(v1347[0], v1357[0], cf[0], v1337, v523);
+                        CMPhotoAddChromaLocationToPixelBufferAccordingToFormat(v1331, LODWORD(v1330[0]), v523);
+                        CMPhotoAddHDRMetadataToPixelBufferFromFormatDescription(v1336, v523);
                         OutputFromConstituents = 0;
-                        *&v1323 = 0;
-                        DictionaryRepresentation = v516;
-                        v96 = v17;
+                        *&v1332 = 0;
+                        DictionaryRepresentation = v524;
+                        v103 = v17;
                         goto LABEL_941;
                       }
 
                       fig_log_get_emitter();
                       OUTLINED_FUNCTION_0_19();
-                      OutputFromConstituents = FigSignalErrorAtGM();
-                      v642 = OUTLINED_FUNCTION_5_2();
-                      CVPixelBufferUnlockBaseAddress(v642, v643);
+                      OutputFromConstituents = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v662, v677, v692);
+                      v650 = OUTLINED_FUNCTION_5_2();
+                      CVPixelBufferUnlockBaseAddress(v650, v651);
                     }
 
-                    DictionaryRepresentation = v516;
+                    DictionaryRepresentation = v524;
 LABEL_1093:
-                    CFRelease(v515);
+                    CFRelease(v523);
 LABEL_1094:
-                    v96 = 0;
-                    v515 = 0;
+                    v103 = 0;
+                    v523 = 0;
                   }
 
                   else
                   {
-                    v96 = 0;
+                    v103 = 0;
                     OutputFromConstituents = 4294950305;
                   }
 
 LABEL_941:
-                  if (v1327)
+                  if (v1336)
                   {
-                    CFRelease(v1327);
+                    CFRelease(v1336);
                   }
 
-                  if (v1338[0])
+                  if (v1347[0])
                   {
-                    CFRelease(v1338[0]);
+                    CFRelease(v1347[0]);
                   }
 
-                  if (v1348[0])
+                  if (v1357[0])
                   {
-                    CFRelease(v1348[0]);
+                    CFRelease(v1357[0]);
                   }
 
                   if (cf[0])
@@ -1612,225 +1642,225 @@ LABEL_941:
                     CFRelease(cf[0]);
                   }
 
-                  if (v1328)
+                  if (v1337)
                   {
-                    CFRelease(v1328);
+                    CFRelease(v1337);
                   }
 
                   if (!OutputFromConstituents)
                   {
-                    LODWORD(v1146) = CVPixelBufferGetPixelFormatType(v515);
-                    v525 = CFDictionaryGetValue(DefaultTripletsForTransfer, *MEMORY[0x1E69722E0]);
-                    if (v525)
+                    LODWORD(v1155) = CVPixelBufferGetPixelFormatType(v523);
+                    v533 = CFDictionaryGetValue(DefaultTripletsForTransfer, *MEMORY[0x1E69722E0]);
+                    if (v533)
                     {
-                      memset(v1348, 0, 37);
-                      v1325 = 0;
-                      v1326 = 0;
+                      memset(v1357, 0, 37);
+                      v1334 = 0;
+                      v1335 = 0;
                       LODWORD(BOOLean) = 0;
                       *(&BOOLean + 3) = 0;
-                      v1328 = 0u;
-                      v1329 = 0u;
-                      v1327 = 0uLL;
+                      v1337 = 0u;
+                      v1338 = 0u;
+                      v1336 = 0uLL;
                       memset(cf, 0, 37);
-                      v1320 = 0;
-                      v1319 = 0;
-                      *(v1318 + 3) = 0;
-                      v1318[0] = 0;
+                      v1329 = 0;
+                      v1328 = 0;
+                      *(v1327 + 3) = 0;
+                      v1327[0] = 0;
                       DefaultTripletsForTransfer = cf;
-                      v1323 = 0u;
-                      v1324 = 0u;
-                      v1322 = 0uLL;
-                      v1321[0] = 0;
-                      v1321[1] = 0;
-                      theArrayc = v525;
-                      v1061 = CFArrayGetCount(v525);
-                      if (v1061)
+                      v1332 = 0u;
+                      v1333 = 0u;
+                      v1331 = 0uLL;
+                      v1330[0] = 0;
+                      v1330[1] = 0;
+                      theArrayc = v533;
+                      v1070 = CFArrayGetCount(v533);
+                      if (v1070)
                       {
-                        v526 = 0;
+                        v534 = 0;
                         a6 = size;
-                        *&v1114 = &size[3];
+                        *&v1123 = &size[3];
                         v17 = *MEMORY[0x1E69722B8];
-                        LODWORD(v1101) = v1281 == 0;
-                        v1066[0] = DictionaryRepresentation;
-                        v1094 = v96;
+                        LODWORD(v1110) = v1290 == 0;
+                        v1075[0] = DictionaryRepresentation;
+                        v1103 = v103;
                         while (1)
                         {
-                          if (v1337)
+                          if (v1346)
                           {
-                            CFRelease(v1337);
-                            v1337 = 0;
+                            CFRelease(v1346);
+                            v1346 = 0;
                           }
 
-                          if (v1333)
+                          if (v1342)
                           {
-                            CFRelease(v1333);
-                            v1333 = 0;
+                            CFRelease(v1342);
+                            v1342 = 0;
                           }
 
-                          if (v1336)
+                          if (v1345)
                           {
-                            CFRelease(v1336);
-                            v1336 = 0;
+                            CFRelease(v1345);
+                            v1345 = 0;
                           }
 
-                          if (v1332)
+                          if (v1341)
                           {
-                            CFRelease(v1332);
-                            v1332 = 0;
+                            CFRelease(v1341);
+                            v1341 = 0;
                           }
 
-                          v527 = (DictionaryRepresentation + 8 * v526);
-                          v528 = *v527;
-                          *v1219 = v1331;
-                          v529 = CFArrayGetValueAtIndex(theArrayc, v526);
-                          if (!v529)
+                          v535 = (DictionaryRepresentation + 8 * v534);
+                          v536 = *v535;
+                          *v1228 = v1340;
+                          v537 = CFArrayGetValueAtIndex(theArrayc, v534);
+                          if (!v537)
                           {
                             break;
                           }
 
-                          v537 = v529;
-                          *&v1338[4] = v1346;
-                          *(&v1338[6] + 2) = __src[0];
-                          *(&v1338[8] + 2) = __src[1];
-                          *&v1338[10] = *(&__src[1] + 14);
-                          v538 = *&v1348[2];
-                          *v1114 = *v1348;
-                          *(v1114 + 16) = v538;
-                          *&size[40] = v1328;
-                          *&size[56] = v1329;
-                          OUTLINED_FUNCTION_25_3(v529, v530, v531, v532, v533, v534, v535, v536, v653, v667, v683, v699, v713, v718, v728, v739, v750, v760, v770, v780, v790, v800, v810, v820, v830, v840, v850, v860, object, v880, v890, v900, v910, v920, v930, v940, v950, v961, v971, v982, v996, *(&v996 + 1), v1019, v1031, v1042, v1061, v1066[0], v1066[1], v1094, v1101, v1114, *(&v1114 + 1), v1136, v1146, theArrayc, v1178, v1184, v1198, v1219[0], v1219[1], v1235, v1249, v1256);
-                          *(v540 + 48) = v539;
-                          BYTE1(v1338[6]) = v1281;
+                          v545 = v537;
+                          *&v1347[4] = v1355;
+                          *(&v1347[6] + 2) = __src[0];
+                          *(&v1347[8] + 2) = __src[1];
+                          *&v1347[10] = *(&__src[1] + 14);
+                          v546 = *&v1357[2];
+                          *v1123 = *v1357;
+                          *(v1123 + 16) = v546;
+                          *&size[40] = v1337;
+                          *&size[56] = v1338;
+                          OUTLINED_FUNCTION_25_3(v537, v538, v539, v540, v541, v542, v543, v544, v662, v677, v692, v708, v722, v727, v737, v748, v759, v769, v779, v789, v799, v809, v819, v829, v839, v849, v859, v869, object, v889, v899, v909, v919, v929, v939, v949, v959, v970, v980, v991, v1005, *(&v1005 + 1), v1028, v1040, v1051, v1070, v1075[0], v1075[1], v1103, v1110, v1123, *(&v1123 + 1), v1145, v1155, theArrayc, v1187, v1193, v1207, v1228[0], v1228[1], v1244, v1258, v1265);
+                          *(v548 + 48) = v547;
+                          BYTE1(v1347[6]) = v1290;
                           OUTLINED_FUNCTION_23_2();
-                          *(v541 + 29) = *(&v1348[3] + 5);
-                          *&size[72] = vsubw_s32(v1220, v528);
-                          *&size[88] = v542;
-                          *&size[104] = v1154;
+                          *(v549 + 29) = *(&v1357[3] + 5);
+                          *&size[72] = vsubw_s32(v1229, v536);
+                          *&size[88] = v550;
+                          *&size[104] = v1163;
                           *&size[112] = 0;
-                          OUTLINED_FUNCTION_107_0(v543, v544, v545, v546, v547, v548, v549, v550, v654, v668, v684, v700, v714, v724, v735, v746, v756, v766, v776, v786, v796, v806, v816, v826, v836, v846, v856, v866, objectf, v886, v896, v906, v916, v926, v936, v946, v957, v967, v977, v990, v1003, v1015, v1027, v1038, v1050, v1062, v1073, v1082, v1095, v1107, v1122, v1132, v1142, v1154, theArrayi, v1180, v1190, v1205, v1220.i64[0], v1220.i64[1], v1242, v1252, v1258);
-                          size[119] = v1326;
-                          *&size[115] = v1325;
-                          OUTLINED_FUNCTION_56_0(v551, v552, v553, v554, v555, v556, v557, v558, v655, v669, v685, v701, v715, v725, v736, v747, v757, v767, v777, v787, v797, v807, v817, v827, v837, v847, v857, v867, objectg, v887, v897, v907, v917, v927, v937, v947, v958, v968, v978, v991, v1004, v1016, v1028, v1039, v1051, v1063, v1074, v1083, v1096, v1108, v1123, v1133, v1143, v1155, theArrayj, v1181, v1191, v1206, v1221, v1231, v1243, v1253);
+                          OUTLINED_FUNCTION_107_0(v551, v552, v553, v554, v555, v556, v557, v558, v663, v678, v693, v709, v723, v733, v744, v755, v765, v775, v785, v795, v805, v815, v825, v835, v845, v855, v865, v875, objectf, v895, v905, v915, v925, v935, v945, v955, v966, v976, v986, v999, v1012, v1024, v1036, v1047, v1059, v1071, v1082, v1091, v1104, v1116, v1131, v1141, v1151, v1163, theArrayi, v1189, v1199, v1214, v1229.i64[0], v1229.i64[1], v1251, v1261, v1267);
+                          size[119] = v1335;
+                          *&size[115] = v1334;
+                          OUTLINED_FUNCTION_56_0(v559, v560, v561, v562, v563, v564, v565, v566, v664, v679, v694, v710, v724, v734, v745, v756, v766, v776, v786, v796, v806, v816, v826, v836, v846, v856, v866, v876, objectg, v896, v906, v916, v926, v936, v946, v956, v967, v977, v987, v1000, v1013, v1025, v1037, v1048, v1060, v1072, v1083, v1092, v1105, v1117, v1132, v1142, v1152, v1164, theArrayj, v1190, v1200, v1215, v1230, v1240, v1252, v1262);
                           *&size[132] = *(&BOOLean + 3);
                           *&size[129] = BOOLean;
                           OUTLINED_FUNCTION_17_6();
                           OUTLINED_FUNCTION_31_0();
-                          WrappedPixelBufferForType = _decodeItem(v559, v560, v561, v562, v563, v564, v565, v566);
+                          WrappedPixelBufferForType = _decodeItem(v567, v568, v569, v570, v571, v572, v573, v574, v665);
                           if (WrappedPixelBufferForType)
                           {
                             goto LABEL_1098;
                           }
 
-                          v568 = v1178;
-                          WrappedPixelBufferForType = CMPhotoCreateWrappedPixelBufferForType(v1178, v1337, v1101, 4, &v1333);
+                          v576 = v1187;
+                          WrappedPixelBufferForType = CMPhotoCreateWrappedPixelBufferForType(v1187, v1346, v1110, 4, &v1342);
                           if (WrappedPixelBufferForType)
                           {
                             goto LABEL_1098;
                           }
 
-                          v1317 = 0;
-                          v569 = *(*(CMBaseObjectGetVTable() + 16) + 32);
-                          if (!v569)
+                          v1326 = 0;
+                          v577 = *(*(CMBaseObjectGetVTable() + 16) + 32);
+                          if (!v577)
                           {
 LABEL_991:
                             OutputFromConstituents = 4294954514;
                             goto LABEL_992;
                           }
 
-                          WrappedPixelBufferForType = v569(v537, &v1317);
+                          WrappedPixelBufferForType = v577(v545, &v1326);
                           if (WrappedPixelBufferForType)
                           {
                             goto LABEL_1098;
                           }
 
-                          if (v1317 >= 1)
+                          if (v1326 >= 1)
                           {
                             DefaultTripletsForTransfer = 0;
                             while (1)
                             {
-                              if (v1335)
+                              if (v1344)
                               {
-                                CFRelease(v1335);
-                                v1335 = 0;
+                                CFRelease(v1344);
+                                v1344 = 0;
                               }
 
-                              if (v1334)
+                              if (v1343)
                               {
-                                CFRelease(v1334);
-                                v1334 = 0;
+                                CFRelease(v1343);
+                                v1343 = 0;
                               }
 
-                              v570 = *(*(CMBaseObjectGetVTable() + 16) + 40);
-                              if (!v570)
+                              v578 = *(*(CMBaseObjectGetVTable() + 16) + 40);
+                              if (!v578)
                               {
                                 goto LABEL_991;
                               }
 
-                              WrappedPixelBufferForType = v570(v537, DefaultTripletsForTransfer, &v1335);
+                              WrappedPixelBufferForType = v578(v545, DefaultTripletsForTransfer, &v1344);
                               if (WrappedPixelBufferForType)
                               {
                                 goto LABEL_1098;
                               }
 
-                              v571 = FigPictureReaderGetFigBaseObject();
-                              v572 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-                              if (!v572)
+                              v579 = FigPictureReaderGetFigBaseObject();
+                              v580 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+                              if (!v580)
                               {
                                 goto LABEL_991;
                               }
 
-                              WrappedPixelBufferForType = v572(v571, v17, v1178, &v1334);
+                              WrappedPixelBufferForType = v580(v579, v17, v1187, &v1343);
                               if (WrappedPixelBufferForType)
                               {
                                 goto LABEL_1098;
                               }
 
-                              AuxiliaryImageTypeFromURN = CMPhotoGetAuxiliaryImageTypeFromURN();
+                              AuxiliaryImageTypeFromURN = CMPhotoGetAuxiliaryImageTypeFromURN(v1343);
                               if (AuxiliaryImageTypeFromURN == 3)
                               {
                                 break;
                               }
 
-                              if (++DefaultTripletsForTransfer >= v1317)
+                              if (++DefaultTripletsForTransfer >= v1326)
                               {
                                 goto LABEL_980;
                               }
                             }
 
-                            *&v1338[4] = v1346;
-                            *(&v1338[6] + 2) = __src[0];
-                            *(&v1338[8] + 2) = __src[1];
-                            *&v1338[10] = *(&__src[1] + 14);
-                            v582 = *&cf[2];
-                            *v1114 = *cf;
-                            *(v1114 + 16) = v582;
-                            *&size[40] = v1323;
-                            *&size[56] = v1324;
-                            *&size[72] = v1322;
-                            OUTLINED_FUNCTION_25_3(AuxiliaryImageTypeFromURN, v1335, v574, v575, v576, v577, v578, v579, v653, v667, v683, v699, v713, v718, v728, v739, v750, v760, v770, v780, v790, v800, v810, v820, v830, v840, v850, v860, object, v880, v890, v900, v910, v920, v930, v940, v950, v961, v971, v982, v996, *(&v996 + 1), v1019, v1031, v1042, v1061, v1066[0], v1066[1], v1094, v1101, v1114, *(&v1114 + 1), v1136, v1146, theArrayc, v1178, v1184, v1198, v1222, v1232, v1235, v1249, v1256);
-                            *(v584 + 48) = v583;
-                            BYTE1(v1338[6]) = v1281;
+                            *&v1347[4] = v1355;
+                            *(&v1347[6] + 2) = __src[0];
+                            *(&v1347[8] + 2) = __src[1];
+                            *&v1347[10] = *(&__src[1] + 14);
+                            v590 = *&cf[2];
+                            *v1123 = *cf;
+                            *(v1123 + 16) = v590;
+                            *&size[40] = v1332;
+                            *&size[56] = v1333;
+                            *&size[72] = v1331;
+                            OUTLINED_FUNCTION_25_3(AuxiliaryImageTypeFromURN, v1344, v582, v583, v584, v585, v586, v587, v662, v677, v692, v708, v722, v727, v737, v748, v759, v769, v779, v789, v799, v809, v819, v829, v839, v849, v859, v869, object, v889, v899, v909, v919, v929, v939, v949, v959, v970, v980, v991, v1005, *(&v1005 + 1), v1028, v1040, v1051, v1070, v1075[0], v1075[1], v1103, v1110, v1123, *(&v1123 + 1), v1145, v1155, theArrayc, v1187, v1193, v1207, v1231, v1241, v1244, v1258, v1265);
+                            *(v592 + 48) = v591;
+                            BYTE1(v1347[6]) = v1290;
                             OUTLINED_FUNCTION_23_2();
-                            *(v586 + 29) = *(v585 + 29);
-                            *&size[88] = v587;
+                            *(v594 + 29) = *(v593 + 29);
+                            *&size[88] = v595;
                             *&size[104] = 1278226488;
                             *&size[112] = 1;
-                            OUTLINED_FUNCTION_107_0(v588, v589, v590, v591, v592, v593, v594, v595, v656, v670, v686, v702, v716, v726, v737, v748, v758, v768, v778, v788, v798, v808, v818, v828, v838, v848, v858, v868, objecth, v888, v898, v908, v918, v928, v938, v948, v959, v969, v979, v992, v1005, v1017, v1029, v1040, v1052, v1064, v1075, v1084, v1097, v1109, v1124, v1134, v1144, v1156, theArrayk, v1182, v1192, v1207, v1223, v1233, v1244, v1254, v1259);
-                            size[119] = v1320;
-                            *&size[115] = v1319;
-                            OUTLINED_FUNCTION_56_0(v596, v597, v598, v599, v600, v601, v602, v603, v657, v671, v687, v703, v717, v727, v738, v749, v759, v769, v779, v789, v799, v809, v819, v829, v839, v849, v859, v869, objecti, v889, v899, v909, v919, v929, v939, v949, v960, v970, v980, v993, v1006, v1018, v1030, v1041, v1053, v1065, v1076, v1085, v1098, v1110, v1125, v1135, v1145, v1157, theArrayl, v1183, v1193, v1208, v1224, v1234, v1245, v1255);
-                            *&size[132] = *(v604 + 35);
-                            *&size[129] = v1318[0];
+                            OUTLINED_FUNCTION_107_0(v596, v597, v598, v599, v600, v601, v602, v603, v666, v680, v695, v711, v725, v735, v746, v757, v767, v777, v787, v797, v807, v817, v827, v837, v847, v857, v867, v877, objecth, v897, v907, v917, v927, v937, v947, v957, v968, v978, v988, v1001, v1014, v1026, v1038, v1049, v1061, v1073, v1084, v1093, v1106, v1118, v1133, v1143, v1153, v1165, theArrayk, v1191, v1201, v1216, v1232, v1242, v1253, v1263, v1268);
+                            size[119] = v1329;
+                            *&size[115] = v1328;
+                            OUTLINED_FUNCTION_56_0(v604, v605, v606, v607, v608, v609, v610, v611, v667, v681, v696, v712, v726, v736, v747, v758, v768, v778, v788, v798, v808, v818, v828, v838, v848, v858, v868, v878, objecti, v898, v908, v918, v928, v938, v948, v958, v969, v979, v989, v1002, v1015, v1027, v1039, v1050, v1062, v1074, v1085, v1094, v1107, v1119, v1134, v1144, v1154, v1166, theArrayl, v1192, v1202, v1217, v1233, v1243, v1254, v1264);
+                            *&size[132] = *(v612 + 35);
+                            *&size[129] = v1327[0];
                             OUTLINED_FUNCTION_17_6();
                             OUTLINED_FUNCTION_10_0();
                             OUTLINED_FUNCTION_31_0();
-                            WrappedPixelBufferForType = _decodeItem(v605, v606, v607, v608, v609, v610, v611, v612);
+                            WrappedPixelBufferForType = _decodeItem(v613, v614, v615, v616, v617, v618, v619, v620, v668);
                             if (WrappedPixelBufferForType)
                             {
                               goto LABEL_1098;
                             }
 
-                            WrappedPixelBufferForType = CMPhotoCreateWrappedPixelBufferForType(v568, v1336, v1101, 4, &v1332);
+                            WrappedPixelBufferForType = CMPhotoCreateWrappedPixelBufferForType(v576, v1345, v1110, 4, &v1341);
                             if (WrappedPixelBufferForType)
                             {
                               goto LABEL_1098;
@@ -1838,40 +1868,40 @@ LABEL_991:
                           }
 
 LABEL_980:
-                          DefaultTripletsForTransfer = v1333;
-                          if (v1332)
+                          DefaultTripletsForTransfer = v1342;
+                          if (v1341)
                           {
-                            v580 = CGImageCreateWithMask(v1333, v1332);
-                            v96 = v1094;
-                            if (!v580)
+                            v588 = CGImageCreateWithMask(v1342, v1341);
+                            v103 = v1103;
+                            if (!v588)
                             {
                               break;
                             }
 
-                            DefaultTripletsForTransfer = v580;
-                            if (v1333)
+                            DefaultTripletsForTransfer = v588;
+                            if (v1342)
                             {
-                              CFRelease(v1333);
+                              CFRelease(v1342);
                             }
 
-                            v1333 = DefaultTripletsForTransfer;
+                            v1342 = DefaultTripletsForTransfer;
                           }
 
                           else
                           {
-                            v96 = v1094;
+                            v103 = v1103;
                           }
 
-                          v581 = CGImageGetWidth(DefaultTripletsForTransfer);
-                          v1357.size.height = CGImageGetHeight(v1333);
-                          v1357.origin.x = v527->i32[0];
-                          DictionaryRepresentation = v1066[0];
-                          v1357.origin.y = (*(&v1331 + 1) - *(v1066[0] + 4 * ((2 * v526) | 1))) - v1357.size.height;
-                          v1357.size.width = v581;
-                          CGContextDrawImage(v96, v1357, v1333);
-                          ++v526;
+                          v589 = CGImageGetWidth(DefaultTripletsForTransfer);
+                          v1366.size.height = CGImageGetHeight(v1342);
+                          v1366.origin.x = v535->i32[0];
+                          DictionaryRepresentation = v1075[0];
+                          v1366.origin.y = (*(&v1340 + 1) - *(v1075[0] + 4 * ((2 * v534) | 1))) - v1366.size.height;
+                          v1366.size.width = v589;
+                          CGContextDrawImage(v103, v1366, v1342);
+                          ++v534;
                           DefaultTripletsForTransfer = cf;
-                          if (v526 == v1061)
+                          if (v534 == v1070)
                           {
                             goto LABEL_995;
                           }
@@ -1879,20 +1909,20 @@ LABEL_980:
 
                         fig_log_get_emitter();
                         OUTLINED_FUNCTION_0_19();
-                        WrappedPixelBufferForType = FigSignalErrorAtGM();
+                        WrappedPixelBufferForType = FigSignalErrorAtGM("%s signalled err=%d at <>:%d");
 LABEL_1098:
                         OutputFromConstituents = WrappedPixelBufferForType;
 LABEL_992:
                         OUTLINED_FUNCTION_41_1();
-                        LOBYTE(v22) = v1235;
-                        DictionaryRepresentation = v1066[0];
-                        v96 = v1094;
+                        LOBYTE(v22) = v1244;
+                        DictionaryRepresentation = v1075[0];
+                        v103 = v1103;
 LABEL_993:
-                        if (v515)
+                        if (v523)
                         {
-                          v613 = OUTLINED_FUNCTION_5_2();
-                          CVPixelBufferUnlockBaseAddress(v613, v614);
-                          CFRelease(v515);
+                          v621 = OUTLINED_FUNCTION_5_2();
+                          CVPixelBufferUnlockBaseAddress(v621, v622);
+                          CFRelease(v523);
                         }
 
 LABEL_1010:
@@ -1901,299 +1931,299 @@ LABEL_1010:
                       }
 
 LABEL_995:
-                      CGContextFlush(v96);
-                      if (v96)
+                      CGContextFlush(v103);
+                      if (v103)
                       {
-                        CFRelease(v96);
+                        CFRelease(v103);
                       }
 
-                      v615 = OUTLINED_FUNCTION_5_2();
-                      CVPixelBufferUnlockBaseAddress(v615, v616);
+                      v623 = OUTLINED_FUNCTION_5_2();
+                      CVPixelBufferUnlockBaseAddress(v623, v624);
                       OUTLINED_FUNCTION_41_1();
-                      LOBYTE(v22) = v1235;
-                      if (HIDWORD(v1184))
+                      LOBYTE(v22) = v1244;
+                      if (HIDWORD(v1193))
                       {
-                        v1351 = 0uLL;
-                        *v1352 = v1331;
+                        v1360 = 0uLL;
+                        *v1361 = v1340;
                       }
 
-                      if (v996 == 0 && (!(v982 | v1198) || (v982 == *v1352 ? (v618 = v1198 == *&v1352[8]) : (v618 = 0), v618)) || (*size = *(&v996 + 1), *&size[8] = v996, *&size[16] = v982, *&size[24] = v1198, v617 = CMPhotoApplyCropCMPhotoRectToRect(&v1351, size), !v617))
+                      if (v1005 == 0 && (!(v991 | v1207) || (v991 == *v1361 ? (v626 = v1207 == *&v1361[8]) : (v626 = 0), v626)) || (*size = *(&v1005 + 1), *&size[8] = v1005, *&size[16] = v991, *&size[24] = v1207, v625 = CMPhotoApplyCropCMPhotoRectToRect(&v1360, size), !v625))
                       {
-                        v619 = OUTLINED_FUNCTION_14_5(*&v1351);
-                        OutputFromConstituents = OUTLINED_FUNCTION_77_0(v515, v619, v620, *v1352, *&v1352[8]);
+                        v627 = OUTLINED_FUNCTION_14_5(*&v1360);
+                        OutputFromConstituents = OUTLINED_FUNCTION_77_0(v523, v627, v628, *v1361, *&v1361[8]);
                         if (!OutputFromConstituents)
                         {
-                          v96 = 0;
-                          pixelBuffer = v515;
+                          v103 = 0;
+                          pixelBuffer = v523;
                           goto LABEL_1010;
                         }
                       }
 
                       else
                       {
-                        OutputFromConstituents = v617;
+                        OutputFromConstituents = v625;
                       }
 
-                      v96 = 0;
+                      v103 = 0;
                       goto LABEL_993;
                     }
 
                     fig_log_get_emitter();
                     OUTLINED_FUNCTION_0_19();
-                    OutputFromConstituents = FigSignalErrorAtGM();
+                    OutputFromConstituents = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v662, v677, v692);
                   }
 
                   OUTLINED_FUNCTION_41_1();
-                  LOBYTE(v22) = v1235;
+                  LOBYTE(v22) = v1244;
                   goto LABEL_993;
                 }
 
-                v1270 = 0;
-                v96 = 0;
+                v1279 = 0;
+                v103 = 0;
                 OutputFromConstituents = 4294950304;
               }
 
 LABEL_1011:
-              if (v1337)
+              if (v1346)
               {
-                CFRelease(v1337);
+                CFRelease(v1346);
               }
 
-              if (v1336)
+              if (v1345)
               {
-                CFRelease(v1336);
+                CFRelease(v1345);
               }
 
-              if (v96)
+              if (v103)
               {
-                CFRelease(v96);
+                CFRelease(v103);
               }
 
-              if (v1270)
+              if (v1279)
               {
-                CFRelease(v1270);
+                CFRelease(v1279);
               }
 
-              if (v1335)
+              if (v1344)
               {
-                CFRelease(v1335);
+                CFRelease(v1344);
               }
 
-              if (v1334)
+              if (v1343)
               {
-                CFRelease(v1334);
+                CFRelease(v1343);
               }
 
-              if (v1333)
+              if (v1342)
               {
-                CFRelease(v1333);
+                CFRelease(v1342);
               }
 
-              if (v1332)
+              if (v1341)
               {
-                CFRelease(v1332);
+                CFRelease(v1341);
               }
 
               free(DictionaryRepresentation);
               goto LABEL_1028;
             }
 
-            DefaultTripletsForTransfer = v1316;
-            *&__src[0] = v1277;
-            *(&__src[0] + 1) = v211;
-            *&__src[1] = v1263;
-            *(&__src[1] + 1) = v1274;
+            DefaultTripletsForTransfer = v1325;
+            *&__src[0] = v1286;
+            *(&__src[0] + 1) = v218;
+            *&__src[1] = v1272;
+            *(&__src[1] + 1) = v1283;
             *(OutputFromConstituents + 208) = *(OutputFromConstituents + 48);
-            LOBYTE(__src[3]) = v1345;
-            BYTE1(__src[3]) = v1281;
-            v368 = *(OutputFromConstituents + 16);
+            LOBYTE(__src[3]) = v1354;
+            BYTE1(__src[3]) = v1290;
+            v376 = *(OutputFromConstituents + 16);
             *(OutputFromConstituents + 226) = *OutputFromConstituents;
-            *(OutputFromConstituents + 242) = v368;
+            *(OutputFromConstituents + 242) = v376;
             *(OutputFromConstituents + 256) = *(OutputFromConstituents + 30);
-            LODWORD(v1335) = v1308;
-            WORD2(v1335) = v1309;
-            v369 = *&v1340[16];
-            *(OutputFromConstituents + 112) = *v1340;
-            *(OutputFromConstituents + 128) = v369;
-            v370 = v1341;
-            *(OutputFromConstituents + 144) = *&v1340[32];
-            *(OutputFromConstituents + 160) = v370;
-            LODWORD(v1333) = v1306;
-            BYTE4(v1333) = v1307;
-            *&v1327 = 0;
-            *&v1322 = 0;
-            if (v1277)
+            LODWORD(v1344) = v1317;
+            WORD2(v1344) = v1318;
+            v377 = *&v1349[16];
+            *(OutputFromConstituents + 112) = *v1349;
+            *(OutputFromConstituents + 128) = v377;
+            v378 = v1350;
+            *(OutputFromConstituents + 144) = *&v1349[32];
+            *(OutputFromConstituents + 160) = v378;
+            LODWORD(v1342) = v1315;
+            BYTE4(v1342) = v1316;
+            *&v1336 = 0;
+            *&v1331 = 0;
+            if (v1286)
             {
-              v371 = v1277;
+              v379 = v1286;
             }
 
             else
             {
-              v371 = v211;
+              v379 = v218;
             }
 
-            v850 = v371;
-            v1321[0] = 0;
+            v859 = v379;
+            v1330[0] = 0;
             if (OUTLINED_FUNCTION_115())
             {
               OUTLINED_FUNCTION_92_0();
               goto LABEL_902;
             }
 
-            v372 = __dst[0];
-            v96 = *(&__dst[1] + 1);
-            v1146 = *&__dst[1];
-            v930 = *(&__dst[2] + 1);
-            v971 = *&__dst[2];
+            v380 = __dst[0];
+            v103 = *(&__dst[1] + 1);
+            v1155 = *&__dst[1];
+            v939 = *(&__dst[2] + 1);
+            v980 = *&__dst[2];
             *(OutputFromConstituents + 80) = __dst[3];
-            v1328 = 0u;
-            v1329 = 0u;
-            if (CMPhotoPictureReaderGetImageGeometryFromPictureReader(v22, *(*(&__src[0] + 1) + 28), &v1328, 0))
+            v1337 = 0u;
+            v1338 = 0u;
+            if (CMPhotoPictureReaderGetImageGeometryFromPictureReader(v22, *(*(&__src[0] + 1) + 28), &v1337, 0))
             {
               goto LABEL_1101;
             }
 
-            v860 = v372;
-            v373 = v372 - 1;
-            DictionaryRepresentation = *(&v372 + 1) - 1;
-            if (HIDWORD(v1184))
+            v869 = v380;
+            v381 = v380 - 1;
+            DictionaryRepresentation = *(&v380 + 1) - 1;
+            if (HIDWORD(v1193))
             {
-              v1328 = 0uLL;
-              *&v1329 = v971 + v1146 * v373;
-              *(&v1329 + 1) = v930 + v96 * DictionaryRepresentation;
+              v1337 = 0uLL;
+              *&v1338 = v980 + v1155 * v381;
+              *(&v1338 + 1) = v939 + v103 * DictionaryRepresentation;
             }
 
-            object = *(&v372 + 1);
-            if (v996 != 0 || v982 | v1198 && (v982 == v1329 ? (v374 = v1198 == *(&v1329 + 1)) : (v374 = 0), !v374))
+            object = *(&v380 + 1);
+            if (v1005 != 0 || v991 | v1207 && (v991 == v1338 ? (v382 = v1207 == *(&v1338 + 1)) : (v382 = 0), !v382))
             {
-              *size = *(&v996 + 1);
-              *&size[8] = v996;
-              *&size[16] = v982;
-              *&size[24] = v1198;
-              if (CMPhotoApplyCropCMPhotoRectToRect(&v1328, size))
+              *size = *(&v1005 + 1);
+              *&size[8] = v1005;
+              *&size[16] = v991;
+              *&size[24] = v1207;
+              if (CMPhotoApplyCropCMPhotoRectToRect(&v1337, size))
               {
 LABEL_1101:
                 OUTLINED_FUNCTION_92_0();
 LABEL_1105:
-                a6 = v1296;
+                a6 = v1305;
                 goto LABEL_902;
               }
             }
 
-            v375 = v1328 / v1146;
-            v1270 = *(&v1328 + 1) / v96;
-            *&v1328 = v1328 % v1146;
-            *(&v1328 + 1) %= v96;
-            *&v1346 = v1329 + v1328;
-            *(&v1346 + 1) = *(&v1329 + 1) + *(&v1328 + 1);
-            v1031 = *(&v1329 + 1) + *(&v1328 + 1);
-            v1042 = v1329 + v1328;
-            v950 = v1329 + v1328 + v1146 + ~((v1329 + v1328 - 1) % v1146);
-            *&v1331 = v1146;
-            *(&v1331 + 1) = v96;
-            v376 = v950 / v1146 * v1146;
-            v1019 = *(&v1329 + 1) + *(&v1328 + 1) + v96 + ~((*(&v1329 + 1) + *(&v1328 + 1) - 1) % v96);
-            v1059 = v1019 / v96;
-            v1066[0] = v950 / v1146;
-            v377 = v1019 / v96 * v96;
-            *&v1323 = v376;
-            *(&v1323 + 1) = v377;
-            v1235 = v375;
-            if (v950 / v1146 + v375 == v372)
+            v383 = v1337 / v1155;
+            v1279 = *(&v1337 + 1) / v103;
+            *&v1337 = v1337 % v1155;
+            *(&v1337 + 1) %= v103;
+            *&v1355 = v1338 + v1337;
+            *(&v1355 + 1) = *(&v1338 + 1) + *(&v1337 + 1);
+            v1040 = *(&v1338 + 1) + *(&v1337 + 1);
+            v1051 = v1338 + v1337;
+            v959 = v1338 + v1337 + v1155 + ~((v1338 + v1337 - 1) % v1155);
+            *&v1340 = v1155;
+            *(&v1340 + 1) = v103;
+            v384 = v959 / v1155 * v1155;
+            v1028 = *(&v1338 + 1) + *(&v1337 + 1) + v103 + ~((*(&v1338 + 1) + *(&v1337 + 1) - 1) % v103);
+            v1068 = v1028 / v103;
+            v1075[0] = v959 / v1155;
+            v385 = v1028 / v103 * v103;
+            *&v1332 = v384;
+            *(&v1332 + 1) = v385;
+            v1244 = v383;
+            if (v959 / v1155 + v383 == v380)
             {
-              v376 = v376 - v1146 + v971;
-              *&v1323 = v376;
+              v384 = v384 - v1155 + v980;
+              *&v1332 = v384;
             }
 
-            if (v1059 + v1270 == *(&v372 + 1))
+            if (v1068 + v1279 == *(&v380 + 1))
             {
-              v377 = v377 - v96 + v930;
-              *(&v1323 + 1) = v377;
+              v385 = v385 - v103 + v939;
+              *(&v1332 + 1) = v385;
             }
 
-            if (v375 == v373)
+            if (v383 == v381)
             {
-              *&v1331 = v971;
+              *&v1340 = v980;
             }
 
-            v830 = v377;
-            a6 = v1293;
-            if (v1270 == DictionaryRepresentation)
+            v839 = v385;
+            a6 = v1302;
+            if (v1279 == DictionaryRepresentation)
             {
-              *(&v1331 + 1) = v930;
+              *(&v1340 + 1) = v939;
             }
 
-            v378 = CFDictionaryGetValue(DefaultTripletsForTransfer, *MEMORY[0x1E69722E0]);
-            if (!v378)
+            v386 = CFDictionaryGetValue(DefaultTripletsForTransfer, *MEMORY[0x1E69722E0]);
+            if (!v386)
             {
-              LODWORD(v1235) = 0;
-              LODWORD(v103) = 0;
+              LODWORD(v1244) = 0;
+              LODWORD(v110) = 0;
               goto LABEL_1105;
             }
 
-            v1337 = 0;
-            v1217 = v378;
-            if (_getLayerReaderAtPosition(v378, v1235, v1270, __dst, &v1337))
+            v1346 = 0;
+            v1226 = v386;
+            if (_getLayerReaderAtPosition(v386, v1244, v1279, __dst, &v1346))
             {
               goto LABEL_1101;
             }
 
-            DefaultTripletsForTransfer = v1337;
+            DefaultTripletsForTransfer = v1346;
             DictionaryRepresentation = *(&__src[0] + 1);
             OUTLINED_FUNCTION_88_0();
             value.i32[0] = -1;
-            LODWORD(v1336) = -1;
-            LOBYTE(v1334) = 0;
+            LODWORD(v1345) = -1;
+            LOBYTE(v1343) = 0;
             OUTLINED_FUNCTION_26_2();
-            v387 = _copyColorInfoForItem(v379, v380, v381, v382, v383, v384, v385, v386, cf, &v1351, value.i32, &v1336, &v1334);
-            if (v387)
+            v395 = _copyColorInfoForItem(v387, v388, v389, v390, v391, v392, v393, v394, cf, &v1360, value.i32, &v1345, &v1343);
+            if (v395)
             {
-              LODWORD(v103) = v387;
-              v507 = *size;
+              LODWORD(v110) = v395;
+              v515 = *size;
               if (*size)
               {
 LABEL_919:
-                CFRelease(v507);
+                CFRelease(v515);
               }
 
 LABEL_920:
-              v880 = 0;
-              v890 = 0;
-              v900 = 0;
-              v910 = 0;
-              v390 = -1;
-              HIDWORD(v840) = -1;
+              v889 = 0;
+              v899 = 0;
+              v909 = 0;
+              v919 = 0;
+              v398 = -1;
+              HIDWORD(v849) = -1;
             }
 
             else
             {
-              v388 = v1351;
-              if (v1334 && v1351)
+              v396 = v1360;
+              if (v1343 && v1360)
               {
-                CFRelease(v1351);
-                v388 = 0;
-                *&v1351 = 0;
+                CFRelease(v1360);
+                v396 = 0;
+                *&v1360 = 0;
               }
 
-              v389 = *size;
-              if (*size && v1338[0] && cf[0] && v388)
+              v397 = *size;
+              if (*size && v1347[0] && cf[0] && v396)
               {
-                v890 = v1338[0];
-                v900 = cf[0];
-                v910 = v388;
+                v899 = v1347[0];
+                v909 = cf[0];
+                v919 = v396;
                 goto LABEL_667;
               }
 
-              v495 = cf;
+              v503 = cf;
               if (cf[0])
               {
-                v495 = 0;
+                v503 = 0;
               }
 
-              v496 = &v1351;
-              if (v388)
+              v504 = &v1360;
+              if (v396)
               {
-                v496 = 0;
+                v504 = 0;
               }
 
               p_value = &value;
@@ -2202,21 +2232,21 @@ LABEL_920:
                 p_value = 0;
               }
 
-              v498 = &v1336;
-              if (v1336 != -1)
+              v506 = &v1345;
+              if (v1345 != -1)
               {
-                v498 = 0;
+                v506 = 0;
               }
 
-              v698 = v498;
-              v666 = v496;
-              v682 = p_value;
-              v652 = v495;
+              v707 = v506;
+              v676 = v504;
+              v691 = p_value;
+              v661 = v503;
               OUTLINED_FUNCTION_21_5();
               OUTLINED_FUNCTION_26_2();
-              LODWORD(v103) = _copyColorInfoForItem(v499, v500, v501, v502, v503, v504, v505, v506, v652, v666, v682, v698, 0);
-              v507 = *size;
-              if (v103)
+              LODWORD(v110) = _copyColorInfoForItem(v507, v508, v509, v510, v511, v512, v513, v514, v661, v676, v691, v707, 0);
+              v515 = *size;
+              if (v110)
               {
                 if (*size)
                 {
@@ -2226,22 +2256,22 @@ LABEL_920:
                 goto LABEL_920;
               }
 
-              v890 = v1338[0];
-              v900 = cf[0];
-              v910 = v1351;
-              v389 = *size;
+              v899 = v1347[0];
+              v909 = cf[0];
+              v919 = v1360;
+              v397 = *size;
 LABEL_667:
-              v880 = v389;
-              LODWORD(v103) = 0;
+              v889 = v397;
+              LODWORD(v110) = 0;
               OUTLINED_FUNCTION_88_0();
-              HIDWORD(v840) = value.i32[0];
-              v390 = v1336;
+              HIDWORD(v849) = value.i32[0];
+              v398 = v1345;
             }
 
-            LODWORD(v840) = v390;
-            if (v1338[0])
+            LODWORD(v849) = v398;
+            if (v1347[0])
             {
-              CFRelease(v1338[0]);
+              CFRelease(v1347[0]);
             }
 
             if (cf[0])
@@ -2249,107 +2279,107 @@ LABEL_667:
               CFRelease(cf[0]);
             }
 
-            if (v1351)
+            if (v1360)
             {
-              CFRelease(v1351);
+              CFRelease(v1360);
             }
 
-            if (!v103)
+            if (!v110)
             {
-              LODWORD(v1332) = 0;
-              ImageCodecTypeFromReader = CMPhotoPictureReaderGetImageCodecTypeFromReader(v1337, &v1332);
+              LODWORD(v1341) = 0;
+              ImageCodecTypeFromReader = CMPhotoPictureReaderGetImageCodecTypeFromReader(v1346, &v1341);
               if (!ImageCodecTypeFromReader)
               {
-                if (v1332 == 1936484717 && (v1066[0] != 1 || v1059 > 4))
+                if (v1341 == 1936484717 && (v1075[0] != 1 || v1068 > 4))
                 {
-                  LODWORD(v1235) = 0;
-                  LODWORD(v103) = -16999;
+                  LODWORD(v1244) = 0;
+                  LODWORD(v110) = -16999;
                   goto LABEL_696;
                 }
 
-                v393 = ((v996 % v96) | (*(&v996 + 1) % v1146)) == 0;
+                v401 = ((v1005 % v103) | (*(&v1005 + 1) % v1155)) == 0;
                 if (theArray)
                 {
-                  v394 = v1310 == 1;
+                  v402 = v1319 == 1;
                 }
 
                 else
                 {
-                  v394 = 1;
+                  v402 = 1;
                 }
 
-                v395 = !v394 || v1293 == 0;
-                v396 = !v395;
-                if (v395)
+                v403 = !v402 || v1302 == 0;
+                v404 = !v403;
+                if (v403)
                 {
-                  v393 = 0;
+                  v401 = 0;
                 }
 
-                LODWORD(v920) = v393;
-                if (v393 && (!*v1293 || *(v1293 + 8) != 0 || *(v1293 + 24) != 0 || !*(v1293 + 40)))
+                LODWORD(v929) = v401;
+                if (v401 && (!*v1302 || *(v1302 + 8) != 0 || *(v1302 + 24) != 0 || !*(v1302 + 40)))
                 {
-                  LODWORD(v1235) = 0;
-                  LODWORD(v103) = -16992;
+                  LODWORD(v1244) = 0;
+                  LODWORD(v110) = -16992;
                   goto LABEL_696;
                 }
 
-                HIDWORD(v770) = v396;
+                HIDWORD(v779) = v404;
                 cf[0] = 0;
-                *&v1351 = 0;
+                *&v1360 = 0;
                 memset(size, 0, 24);
-                memset(v1338, 0, 24);
-                v397 = CFGetAllocator(v1217);
-                v940 = v96;
-                v800 = v376;
-                if (v96 > v1019)
+                memset(v1347, 0, 24);
+                v405 = CFGetAllocator(v1226);
+                v949 = v103;
+                v809 = v384;
+                if (v103 > v1028)
                 {
-                  LODWORD(v961) = 1;
+                  LODWORD(v970) = 1;
                   goto LABEL_738;
                 }
 
-                DefaultTripletsForTransfer = v397;
-                v398 = 0;
-                LODWORD(v961) = 0;
+                DefaultTripletsForTransfer = v405;
+                v406 = 0;
+                LODWORD(v970) = 0;
                 DictionaryRepresentation = *MEMORY[0x1E69722F8];
                 while (1)
                 {
                   OUTLINED_FUNCTION_59_0();
-                  if (v30 || !v140)
+                  if (v30 || !v147)
                   {
                     break;
                   }
 
 LABEL_704:
-                  if (++v398 == v1059)
+                  if (++v406 == v1068)
                   {
-                    LODWORD(v961) = 1;
+                    LODWORD(v970) = 1;
                     goto LABEL_737;
                   }
                 }
 
-                v399 = 0;
+                v407 = 0;
                 while (2)
                 {
                   value.i64[0] = 0;
-                  if (_getLayerReaderAtPosition(v1217, v399 + v1235, v398 + v1270, __dst, &value))
+                  if (_getLayerReaderAtPosition(v1226, v407 + v1244, v406 + v1279, __dst, &value))
                   {
                     goto LABEL_737;
                   }
 
-                  LODWORD(v1336) = 0;
-                  if (CMPhotoPictureReaderGetItemTypeFromReader(value.i64[0], &v1336))
+                  LODWORD(v1345) = 0;
+                  if (CMPhotoPictureReaderGetItemTypeFromReader(value.i64[0], &v1345))
                   {
                     goto LABEL_737;
                   }
 
                   OUTLINED_FUNCTION_24_1();
-                  v401 = v30 || v400 == 1768187246;
-                  if (v401 || v400 == 1768912492)
+                  v409 = v30 || v408 == 1768187246;
+                  if (v409 || v408 == 1768912492)
                   {
                     goto LABEL_737;
                   }
 
-                  if (!(v399 | v398))
+                  if (!(v407 | v406))
                   {
                     FigPictureReaderGetFigBaseObject();
                     if (!*(*(CMBaseObjectGetVTable() + 8) + 48))
@@ -2357,14 +2387,14 @@ LABEL_704:
                       goto LABEL_736;
                     }
 
-                    v409 = OUTLINED_FUNCTION_108();
-                    if (v410(v409))
+                    v417 = OUTLINED_FUNCTION_108();
+                    if (v418(v417))
                     {
                       goto LABEL_736;
                     }
 
-                    v96 = v940;
-                    if (v1336 == 1936484717 && _getDecoderReusableInfoForOverlay())
+                    v103 = v949;
+                    if (v1345 == 1936484717 && _getDecoderReusableInfoForOverlay())
                     {
                       goto LABEL_737;
                     }
@@ -2379,25 +2409,25 @@ LABEL_704:
                   }
 
                   FigPictureReaderGetFigBaseObject();
-                  if (!*(*(CMBaseObjectGetVTable() + 8) + 48) || (v403 = OUTLINED_FUNCTION_108(), v404(v403)))
+                  if (!*(*(CMBaseObjectGetVTable() + 8) + 48) || (v411 = OUTLINED_FUNCTION_108(), v412(v411)))
                   {
 LABEL_736:
-                    v96 = v940;
+                    v103 = v949;
                     goto LABEL_737;
                   }
 
-                  v96 = v940;
-                  if (v1336 != 1936484717)
+                  v103 = v949;
+                  if (v1345 != 1936484717)
                   {
                     OUTLINED_FUNCTION_10_0();
-                    LODWORD(v961) = CMFormatDescriptionEqualIgnoringExtensionKeys(v405, v406, v407, v408);
-                    if (!v961)
+                    LODWORD(v970) = CMFormatDescriptionEqualIgnoringExtensionKeys(v413, v414, v415, v416);
+                    if (!v970)
                     {
                       goto LABEL_1102;
                     }
 
 LABEL_726:
-                    if (v1066[0] == ++v399)
+                    if (v1075[0] == ++v407)
                     {
                       goto LABEL_704;
                     }
@@ -2413,49 +2443,49 @@ LABEL_726:
                   goto LABEL_737;
                 }
 
-                v411 = v1338[0];
-                if (LODWORD(v1338[0]) == *size)
+                v419 = v1347[0];
+                if (LODWORD(v1347[0]) == *size)
                 {
-                  v412 = FigCFEqual();
-                  LODWORD(v961) = 0;
-                  if (v411 != 1936484717)
+                  v420 = FigCFEqual();
+                  LODWORD(v970) = 0;
+                  if (v419 != 1936484717)
                   {
                     goto LABEL_1122;
                   }
 
-                  v376 = v800;
-                  if (!v412)
+                  v384 = v809;
+                  if (!v420)
                   {
                     goto LABEL_737;
                   }
 
-                  if (LODWORD(v1338[2]) != *&size[16])
+                  if (LODWORD(v1347[2]) != *&size[16])
                   {
 LABEL_1102:
-                    LODWORD(v961) = 0;
+                    LODWORD(v970) = 0;
                     goto LABEL_737;
                   }
 
-                  LODWORD(v961) = 1;
+                  LODWORD(v970) = 1;
                   goto LABEL_726;
                 }
 
-                LODWORD(v961) = 0;
+                LODWORD(v970) = 0;
 LABEL_1122:
-                v376 = v800;
+                v384 = v809;
 LABEL_737:
-                v17 = v1286;
-                a6 = v1293;
-                v22 = v1297;
+                v17 = v1295;
+                a6 = v1302;
+                v22 = v1306;
 LABEL_738:
                 if (cf[0])
                 {
                   CFRelease(cf[0]);
                 }
 
-                if (v1351)
+                if (v1360)
                 {
-                  CFRelease(v1351);
+                  CFRelease(v1360);
                 }
 
                 if (*&size[8])
@@ -2463,291 +2493,291 @@ LABEL_738:
                   CFRelease(*&size[8]);
                 }
 
-                if (v1338[1])
+                if (v1347[1])
                 {
-                  CFRelease(v1338[1]);
+                  CFRelease(v1347[1]);
                 }
 
-                if (v1332 != 1936484717 || v961)
+                if (v1341 != 1936484717 || v970)
                 {
-                  if (v961)
+                  if (v970)
                   {
-                    v414 = v1146 != v971 && v1066[0] == v372;
-                    LODWORD(v971) = v414;
-                    v416 = v96 != v930 && v1059 == *(&v372 + 1);
-                    HIDWORD(v820) = v416;
+                    v422 = v1155 != v980 && v1075[0] == v380;
+                    LODWORD(v980) = v422;
+                    v424 = v103 != v939 && v1068 == *(&v380 + 1);
+                    HIDWORD(v829) = v424;
                   }
 
                   else
                   {
-                    HIDWORD(v820) = 0;
-                    LODWORD(v971) = 0;
+                    HIDWORD(v829) = 0;
+                    LODWORD(v980) = 0;
                   }
 
-                  if (v96 > v1019)
+                  if (v103 > v1028)
                   {
                     DefaultTripletsForTransfer = 0;
                     goto LABEL_799;
                   }
 
-                  v417 = 0;
-                  v418 = *MEMORY[0x1E6965D70];
-                  v930 = *MEMORY[0x1E6972368];
+                  v425 = 0;
+                  v426 = *MEMORY[0x1E6965D70];
+                  v939 = *MEMORY[0x1E6972368];
                   object = *MEMORY[0x1E6972338];
                   while (1)
                   {
                     OUTLINED_FUNCTION_59_0();
-                    if (v30 || !v140)
+                    if (v30 || !v147)
                     {
                       break;
                     }
 
 LABEL_794:
-                    if (++v417 == v1059)
+                    if (++v425 == v1068)
                     {
                       DefaultTripletsForTransfer = 0;
                       goto LABEL_797;
                     }
                   }
 
-                  v419 = 0;
-                  v420 = v950 / v1146;
+                  v427 = 0;
+                  v428 = v959 / v1155;
                   while (1)
                   {
                     OutputFromConstituents = v17;
                     cf[0] = 0;
-                    if (_getLayerReaderAtPosition(v1217, v419 + v1235, v417 + v1270, __dst, cf))
+                    if (_getLayerReaderAtPosition(v1226, v427 + v1244, v425 + v1279, __dst, cf))
                     {
                       DefaultTripletsForTransfer = 1;
-                      a6 = v1293;
+                      a6 = v1302;
                       OUTLINED_FUNCTION_45_0();
                       goto LABEL_798;
                     }
 
-                    v421 = cf[0];
+                    v429 = cf[0];
                     *size = 0;
-                    v1338[0] = 0;
+                    v1347[0] = 0;
                     CFGetAllocator(cf[0]);
                     OUTLINED_FUNCTION_106_0();
-                    v422 = FigPictureReaderGetFigBaseObject();
-                    v423 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-                    if (!v423)
+                    v430 = FigPictureReaderGetFigBaseObject();
+                    v431 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+                    if (!v431)
                     {
                       break;
                     }
 
-                    v423(v422, v418, v17, size);
+                    v431(v430, v426, v17, size);
                     OUTLINED_FUNCTION_35_1();
                     if (!v30)
                     {
                       break;
                     }
 
-                    CFGetAllocator(v421);
+                    CFGetAllocator(v429);
                     OUTLINED_FUNCTION_106_0();
-                    v424 = FigPictureReaderGetFigBaseObject();
-                    v425 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-                    if (v425)
+                    v432 = FigPictureReaderGetFigBaseObject();
+                    v433 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+                    if (v433)
                     {
-                      v426 = v425(v424, v930, v17, v1338);
-                      v427 = v1338[0];
-                      if (!v426)
+                      v434 = v433(v432, v939, v17, v1347);
+                      v435 = v1347[0];
+                      if (!v434)
                       {
-                        if (CMPhotoCFNumberGetInt(v1338[0]))
+                        if (CMPhotoCFNumberGetInt(v1347[0]))
                         {
                           break;
                         }
 
-                        v427 = v1338[0];
+                        v435 = v1347[0];
                       }
 
-                      if (v427)
+                      if (v435)
                       {
-                        CFRelease(v427);
-                        v1338[0] = 0;
+                        CFRelease(v435);
+                        v1347[0] = 0;
                       }
                     }
 
-                    CFGetAllocator(v421);
+                    CFGetAllocator(v429);
                     OUTLINED_FUNCTION_106_0();
-                    v428 = FigPictureReaderGetFigBaseObject();
-                    v429 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-                    if (v429)
+                    v436 = FigPictureReaderGetFigBaseObject();
+                    v437 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+                    if (v437)
                     {
-                      if (!v429(v428, object, v17, v1338) && CMPhotoCFNumberGetInt32(v1338[0]) != -1)
+                      if (!v437(v436, object, v17, v1347) && CMPhotoCFNumberGetInt32(v1347[0]) != -1)
                       {
                         break;
                       }
                     }
 
-                    LODWORD(v1351) = 0;
-                    if (CMPhotoPictureReaderGetItemTypeFromReader(v421, &v1351))
+                    LODWORD(v1360) = 0;
+                    if (CMPhotoPictureReaderGetItemTypeFromReader(v429, &v1360))
                     {
-                      v430 = 1;
+                      v438 = 1;
                     }
 
                     else
                     {
-                      v430 = v1351 == 1768187246;
+                      v438 = v1360 == 1768187246;
                     }
 
-                    v431 = !v430;
+                    v439 = !v438;
 LABEL_788:
-                    v22 = v1297;
+                    v22 = v1306;
                     if (*size)
                     {
                       CFRelease(*size);
                     }
 
-                    OutputFromConstituents = &v1342;
-                    if (v1338[0])
+                    OutputFromConstituents = &v1351;
+                    if (v1347[0])
                     {
-                      CFRelease(v1338[0]);
+                      CFRelease(v1347[0]);
                     }
 
-                    if ((v431 & 1) == 0)
+                    if ((v439 & 1) == 0)
                     {
                       DefaultTripletsForTransfer = 1;
 LABEL_797:
-                      a6 = v1293;
+                      a6 = v1302;
 LABEL_798:
-                      v96 = v940;
-                      v376 = v800;
+                      v103 = v949;
+                      v384 = v809;
 LABEL_799:
-                      if (v1328 % v1146)
+                      if (v1337 % v1155)
                       {
                         DictionaryRepresentation = 1;
                       }
 
                       else
                       {
-                        DictionaryRepresentation = *(&v1328 + 1) % v96 != 0;
+                        DictionaryRepresentation = *(&v1337 + 1) % v103 != 0;
                       }
 
-                      if (v1329 + v1328 == v376 && *(&v1329 + 1) + *(&v1328 + 1) == v830)
+                      if (v1338 + v1337 == v384 && *(&v1338 + 1) + *(&v1337 + 1) == v839)
                       {
-                        v433 = 0;
+                        v441 = 0;
                       }
 
-                      else if (v1329 % v1146)
+                      else if (v1338 % v1155)
                       {
-                        v433 = 1;
+                        v441 = 1;
                       }
 
                       else
                       {
-                        v433 = *(&v1329 + 1) % v96 != 0;
+                        v441 = *(&v1338 + 1) % v103 != 0;
                       }
 
-                      if (v920)
+                      if (v929)
                       {
                         dispatch_retain(*(a6 + 40));
-                        v434 = *(a6 + 40);
+                        v442 = *(a6 + 40);
                       }
 
                       else
                       {
-                        v434 = dispatch_queue_create("com.apple.cmphoto.canvasTransferQueue", 0);
+                        v442 = dispatch_queue_create("com.apple.cmphoto.canvasTransferQueue", 0);
                       }
 
-                      if (v434)
+                      if (v442)
                       {
-                        LODWORD(v103) = 822280225;
-                        BYTE4(v1351) = 0;
-                        LODWORD(v1351) = 0;
-                        LODWORD(v1334) = 0;
-                        BYTE4(v1334) = 0;
-                        LODWORD(v1336) = 0;
-                        *(&v1336 + 3) = 0;
-                        *&v437 = OUTLINED_FUNCTION_51_0();
-                        *(v438 + 53) = v437;
-                        *(v438 + 69) = v437;
+                        LODWORD(v110) = 822280225;
+                        BYTE4(v1360) = 0;
+                        LODWORD(v1360) = 0;
+                        LODWORD(v1343) = 0;
+                        BYTE4(v1343) = 0;
+                        LODWORD(v1345) = 0;
+                        *(&v1345 + 3) = 0;
+                        *&v445 = OUTLINED_FUNCTION_51_0();
+                        *(v446 + 53) = v445;
+                        *(v446 + 69) = v445;
                         value = 0uLL;
-                        object = v435;
-                        if (v96 > v1019)
+                        object = v443;
+                        if (v103 > v1028)
                         {
-                          v439 = 0;
+                          v447 = 0;
 LABEL_816:
-                          dispatch_barrier_sync(v435, &__block_literal_global_29);
-                          v440 = *MEMORY[0x1E695FF58];
-                          a6 = v1296;
-                          if (v439 && v440 == 1)
+                          dispatch_barrier_sync(v443, &__block_literal_global_29);
+                          v448 = *MEMORY[0x1E695FF58];
+                          a6 = v1305;
+                          if (v447 && v448 == 1)
                           {
                             OUTLINED_FUNCTION_6();
                             kdebug_trace();
-                            v440 = *MEMORY[0x1E695FF58];
+                            v448 = *MEMORY[0x1E695FF58];
                           }
 
-                          if (v440 == 1)
+                          if (v448 == 1)
                           {
                             OUTLINED_FUNCTION_6();
                             kdebug_trace();
                           }
 
-                          if (v1327)
+                          if (v1336)
                           {
-                            v441 = OUTLINED_FUNCTION_14_5(*&v1328);
-                            OUTLINED_FUNCTION_42_1(v442, v441, v443, *&v1329, *(&v1329 + 1));
+                            v449 = OUTLINED_FUNCTION_14_5(*&v1337);
+                            OUTLINED_FUNCTION_42_1(v450, v449, v451, *&v1338, *(&v1338 + 1));
                             OUTLINED_FUNCTION_94_0();
-                            v446 = v920;
+                            v454 = v929;
                             if (!v30)
                             {
-                              v446 = 1;
+                              v454 = 1;
                             }
 
-                            if (v446)
+                            if (v454)
                             {
-                              LODWORD(v103) = v444;
-                              LODWORD(v1235) = v445 & HIDWORD(v770);
+                              LODWORD(v110) = v452;
+                              LODWORD(v1244) = v453 & HIDWORD(v779);
                             }
 
                             else
                             {
-                              LODWORD(v1235) = 0;
-                              LODWORD(v103) = 0;
-                              pixelBuffer = v1327;
-                              *&v1327 = 0;
+                              LODWORD(v1244) = 0;
+                              LODWORD(v110) = 0;
+                              pixelBuffer = v1336;
+                              *&v1336 = 0;
                             }
                           }
 
                           else
                           {
-                            LODWORD(v1235) = 0;
-                            LODWORD(v103) = -16991;
+                            LODWORD(v1244) = 0;
+                            LODWORD(v110) = -16991;
                           }
 
                           goto LABEL_893;
                         }
 
-                        v96 = 0;
-                        HIDWORD(v790) = DefaultTripletsForTransfer | (DictionaryRepresentation | v433) & 1;
-                        v1019 = v1066[0] - 1;
-                        v860 = v1059 - 1;
-                        LODWORD(v820) = v971 | HIDWORD(v820);
-                        v810 = *v436;
-                        v760 = &size[3];
-                        v447 = v1114;
-                        if (!v1114)
+                        v103 = 0;
+                        HIDWORD(v799) = DefaultTripletsForTransfer | (DictionaryRepresentation | v441) & 1;
+                        v1028 = v1075[0] - 1;
+                        v869 = v1068 - 1;
+                        LODWORD(v829) = v980 | HIDWORD(v829);
+                        v819 = *v444;
+                        v769 = &size[3];
+                        v455 = v1123;
+                        if (!v1123)
                         {
-                          v447 = 875704422;
+                          v455 = 875704422;
                         }
 
-                        HIDWORD(v750) = v447;
-                        v780 = &size[2];
+                        HIDWORD(v759) = v455;
+                        v789 = &size[2];
                         while (1)
                         {
                           OUTLINED_FUNCTION_59_0();
-                          if (v30 || !v140)
+                          if (v30 || !v147)
                           {
                             break;
                           }
 
 LABEL_831:
-                          if (++v96 >= v1059)
+                          if (++v103 >= v1068)
                           {
-                            if (v1322)
+                            if (v1331)
                             {
-                              if (HEIFItemDecoderWaitForFinishAndReturnStatus(v1322, &v1346, &v1331, &v1331))
+                              if (HEIFItemDecoderWaitForFinishAndReturnStatus(v1331, &v1355, &v1340, &v1340))
                               {
                                 OUTLINED_FUNCTION_92_0();
                                 OUTLINED_FUNCTION_41_1();
@@ -2755,53 +2785,53 @@ LABEL_831:
                                 goto LABEL_893;
                               }
 
-                              v439 = 1;
-                              v17 = v1286;
+                              v447 = 1;
+                              v17 = v1295;
                               OUTLINED_FUNCTION_45_0();
                             }
 
                             else
                             {
-                              v439 = 0;
-                              v17 = v1286;
+                              v447 = 0;
+                              v17 = v1295;
                             }
 
-                            v435 = object;
+                            v443 = object;
                             goto LABEL_816;
                           }
                         }
 
                         OUTLINED_FUNCTION_70();
                         v17 = 0;
-                        v930 = v96 * v940;
-                        v448 = HIDWORD(v820);
-                        if (v96 != v860)
+                        v939 = v103 * v949;
+                        v456 = HIDWORD(v829);
+                        if (v103 != v869)
                         {
-                          v448 = 0;
+                          v456 = 0;
                         }
 
-                        LODWORD(v770) = v448;
+                        LODWORD(v779) = v456;
                         while (2)
                         {
-                          v449 = v1322;
-                          if (v1322)
+                          v457 = v1331;
+                          if (v1331)
                           {
-                            LODWORD(v103) = *(v1322 + 14580);
-                            if (v103)
+                            LODWORD(v110) = *(v1331 + 14580);
+                            if (v110)
                             {
                               goto LABEL_888;
                             }
                           }
 
-                          LayerReaderAtPosition = _getLayerReaderAtPosition(v1217, v17 + v1235, v96 + v1270, __dst, &v1337);
+                          LayerReaderAtPosition = _getLayerReaderAtPosition(v1226, v17 + v1244, v103 + v1279, __dst, &v1346);
                           if (LayerReaderAtPosition)
                           {
                             goto LABEL_887;
                           }
 
-                          if (v1019 == v17)
+                          if (v1028 == v17)
                           {
-                            a6 = v971;
+                            a6 = v980;
                           }
 
                           else
@@ -2809,70 +2839,70 @@ LABEL_831:
                             a6 = 0;
                           }
 
-                          if (!v1327)
+                          if (!v1336)
                           {
-                            if (v920)
+                            if (v929)
                             {
-                              LayerReaderAtPosition = *v1293;
-                              if (*v1293)
+                              LayerReaderAtPosition = *v1302;
+                              if (*v1302)
                               {
                                 LayerReaderAtPosition = CFRetain(LayerReaderAtPosition);
                               }
 
-                              *&v1327 = LayerReaderAtPosition;
-                              if (!v961 || v449)
+                              *&v1336 = LayerReaderAtPosition;
+                              if (!v970 || v457)
                               {
                                 goto LABEL_855;
                               }
 
 LABEL_851:
-                              v1338[0] = 0;
-                              if (v820)
+                              v1347[0] = 0;
+                              if (v829)
                               {
-                                LayerReaderAtPosition = _getLayerReaderAtPosition(v1217, v1019 + v1235, v860 + v1270, __dst, v1338);
+                                LayerReaderAtPosition = _getLayerReaderAtPosition(v1226, v1028 + v1244, v869 + v1279, __dst, v1347);
                                 if (LayerReaderAtPosition)
                                 {
                                   goto LABEL_887;
                                 }
 
-                                v456 = v1338[0];
+                                v464 = v1347[0];
                               }
 
                               else
                               {
-                                v456 = 0;
+                                v464 = 0;
                               }
 
-                              v457 = *(OutputFromConstituents + 128);
+                              v465 = *(OutputFromConstituents + 128);
                               *&size[40] = *(OutputFromConstituents + 112);
-                              *&size[56] = v457;
-                              v458 = *(OutputFromConstituents + 160);
+                              *&size[56] = v465;
+                              v466 = *(OutputFromConstituents + 160);
                               *&size[72] = *(OutputFromConstituents + 144);
-                              v459 = v1337;
-                              size[0] = BYTE4(v1184);
+                              v467 = v1346;
+                              size[0] = BYTE4(v1193);
                               size[1] = theArray;
-                              *v780 = v1335;
-                              *(v780 + 2) = WORD2(v1335);
-                              *&size[8] = *(&v996 + 1);
-                              *&size[16] = v996;
-                              *&size[24] = v982;
-                              *&size[32] = v1198;
-                              *&size[88] = v458;
-                              *&size[104] = v1114;
-                              size[112] = v1171;
-                              size[113] = v1101;
-                              OUTLINED_FUNCTION_107_0(LayerReaderAtPosition, v451, v459, v456, v452, v453, v454, v455, v650, v664, v680, v696, v711, v718, v728, v739, v750, v760, v770, v780, v790, v800, v810, v820, v830, v840, v850, v860, object, v880, v890, v900, v910, v920, v930, v940, v950, v961, v971, v982, v996, *(&v996 + 1), v1019, v1031, v1042, v1059, v1066[0], v1066[1], v1087, v1101, v1114, *(&v1114 + 1), v1136, v1146, theArray, v1171, v1184, v1198, v1217, v1225, v1235, v1249, v1256);
-                              *(v460 + 119) = BYTE4(v1333);
-                              *(v460 + 115) = v1333;
-                              *&size[120] = v1249;
-                              *&size[128] = v1087;
-                              LODWORD(LayerReaderAtPosition) = HEIFItemDecoderCreate(__src, v22, v461, v462, size, BYTE4(v790) ^ 1u, v1066[0], v1059, &v1346, &v1323, &v1331, &v1322, &v1327);
+                              *v789 = v1344;
+                              *(v789 + 2) = WORD2(v1344);
+                              *&size[8] = *(&v1005 + 1);
+                              *&size[16] = v1005;
+                              *&size[24] = v991;
+                              *&size[32] = v1207;
+                              *&size[88] = v466;
+                              *&size[104] = v1123;
+                              size[112] = v1180;
+                              size[113] = v1110;
+                              OUTLINED_FUNCTION_107_0(LayerReaderAtPosition, v459, v467, v464, v460, v461, v462, v463, v652, v669, v682, v705, v720, v727, v737, v748, v759, v769, v779, v789, v799, v809, v819, v829, v839, v849, v859, v869, object, v889, v899, v909, v919, v929, v939, v949, v959, v970, v980, v991, v1005, *(&v1005 + 1), v1028, v1040, v1051, v1068, v1075[0], v1075[1], v1096, v1110, v1123, *(&v1123 + 1), v1145, v1155, theArray, v1180, v1193, v1207, v1226, v1234, v1244, v1258, v1265);
+                              *(v468 + 119) = BYTE4(v1342);
+                              *(v468 + 115) = v1342;
+                              *&size[120] = v1258;
+                              *&size[128] = v1096;
+                              LODWORD(LayerReaderAtPosition) = HEIFItemDecoderCreate(__src, v22, v469, v470, size, BYTE4(v799) ^ 1u, v1075[0], v1068, &v1355, &v1332, &v1340, &v1331, &v1336);
                               if (LayerReaderAtPosition)
                               {
 LABEL_887:
-                                LODWORD(v103) = LayerReaderAtPosition;
+                                LODWORD(v110) = LayerReaderAtPosition;
 LABEL_888:
-                                LODWORD(v1235) = 0;
+                                LODWORD(v1244) = 0;
 LABEL_889:
                                 OUTLINED_FUNCTION_41_1();
                                 goto LABEL_893;
@@ -2881,17 +2911,17 @@ LABEL_889:
 
                             else
                             {
-                              if (v961 && !v449)
+                              if (v970 && !v457)
                               {
                                 goto LABEL_851;
                               }
 
                               *size = 0;
                               *&size[8] = 0;
-                              *&size[16] = v1042;
-                              *&size[24] = v1031;
+                              *&size[16] = v1051;
+                              *&size[24] = v1040;
                               OUTLINED_FUNCTION_55_0();
-                              LODWORD(LayerReaderAtPosition) = _createPixelBuffer(v491, v850, v492, SHIDWORD(v750), v493, v494, v800, v830, v650, v664, v680, v696);
+                              LODWORD(LayerReaderAtPosition) = _createPixelBuffer(v499, v859, v500, HIDWORD(v759), v501, v502, v809, v839, v652, v669, v682, v705);
                               if (LayerReaderAtPosition)
                               {
                                 goto LABEL_887;
@@ -2904,7 +2934,7 @@ LABEL_855:
                               OUTLINED_FUNCTION_22_2();
                               OUTLINED_FUNCTION_6();
                               kdebug_trace();
-                              if (v1322)
+                              if (v1331)
                               {
                                 if (*MEMORY[0x1E695FF58] == 1)
                                 {
@@ -2914,146 +2944,145 @@ LABEL_855:
                               }
                             }
 
-                            if (!v1327)
+                            if (!v1336)
                             {
-                              LODWORD(v1235) = 0;
-                              LODWORD(v103) = -16991;
+                              LODWORD(v1244) = 0;
+                              LODWORD(v110) = -16991;
                               goto LABEL_889;
                             }
 
-                            CMPhotoAddColorInformationToPixelBufferAccordingToFormat(v880, v890, v900, v910, v1327);
-                            CMPhotoAddChromaLocationToPixelBufferAccordingToFormat(HIDWORD(v840), v840, v1327);
-                            v103 = CFGetAllocator(*(&__src[0] + 1));
-                            v463 = FigPictureReaderGetFigBaseObject();
-                            v464 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-                            if (!v464)
+                            CMPhotoAddColorInformationToPixelBufferAccordingToFormat(v889, v899, v909, v919, v1336);
+                            CMPhotoAddChromaLocationToPixelBufferAccordingToFormat(HIDWORD(v849), v849, v1336);
+                            v110 = CFGetAllocator(*(&__src[0] + 1));
+                            v471 = FigPictureReaderGetFigBaseObject();
+                            v472 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+                            if (!v472)
                             {
-                              LODWORD(v1235) = 0;
-                              LODWORD(v103) = -12782;
+                              LODWORD(v1244) = 0;
+                              LODWORD(v110) = -12782;
                               goto LABEL_892;
                             }
 
-                            if (v464(v463, v810, v103, v1321))
+                            if (v472(v471, v819, v110, v1330))
                             {
                               OUTLINED_FUNCTION_92_0();
 LABEL_892:
                               OUTLINED_FUNCTION_41_1();
-                              v22 = v1297;
+                              v22 = v1306;
 LABEL_893:
-                              HEIFItemDecoderRelease(v1322);
+                              HEIFItemDecoderRelease(v1331);
                               dispatch_release(object);
 LABEL_894:
-                              if (v880)
+                              if (v889)
                               {
-                                CFRelease(v880);
+                                CFRelease(v889);
                               }
 
-                              if (v890)
+                              if (v899)
                               {
-                                CFRelease(v890);
+                                CFRelease(v899);
                               }
 
-                              if (v900)
+                              if (v909)
                               {
-                                CFRelease(v900);
+                                CFRelease(v909);
                               }
 
-                              if (v910)
+                              if (v919)
                               {
-                                CFRelease(v910);
+                                CFRelease(v919);
                               }
 
 LABEL_902:
-                              if (v1327)
+                              if (v1336)
                               {
-                                CFRelease(v1327);
+                                CFRelease(v1336);
                               }
 
-                              if (v1321[0])
+                              if (v1330[0])
                               {
-                                CFRelease(v1321[0]);
+                                CFRelease(v1330[0]);
                               }
 
-                              if (v103)
+                              if (v110)
                               {
-                                v211 = v1291;
+                                v218 = v1300;
                                 goto LABEL_613;
                               }
 
                               OutputFromConstituents = 0;
                               v10 = a9;
-                              LOBYTE(v22) = v1235;
+                              LOBYTE(v22) = v1244;
 LABEL_1028:
-                              v209 = v1316;
-                              if (!v1316)
+                              v216 = v1325;
+                              if (!v1325)
                               {
                                 goto LABEL_1030;
                               }
 
 LABEL_1029:
-                              CFRelease(v209);
+                              CFRelease(v216);
                               goto LABEL_1030;
                             }
 
-                            CMPhotoAddHDRMetadataToPixelBufferFromFormatDescription(v1321[0], v1327);
-                            v1031 = *(&v1346 + 1);
-                            v1042 = v1346;
-                            v22 = v1297;
+                            CMPhotoAddHDRMetadataToPixelBufferFromFormatDescription(v1330[0], v1336);
+                            v1040 = *(&v1355 + 1);
+                            v1051 = v1355;
+                            v22 = v1306;
                           }
 
-                          if (DictionaryRepresentation != v1042 && v1031 != v930)
+                          if (DictionaryRepresentation != v1051 && v1040 != v939)
                           {
-                            LODWORD(v750) = (a6 | v770) & 1;
-                            LODWORD(v103) = a5;
-                            v466 = v940;
-                            if (v940 >= v1031 - v930)
+                            LODWORD(v759) = (a6 | v779) & 1;
+                            LODWORD(v110) = a5;
+                            v474 = v949;
+                            if (v949 >= v1040 - v939)
                             {
-                              v466 = (v1031 - v930);
+                              v474 = (v1040 - v939);
                             }
 
-                            a6 = v1042 + DefaultTripletsForTransfer;
-                            v467 = v1146;
-                            if (v1146 >= v1042 + DefaultTripletsForTransfer)
+                            a6 = v1051 + DefaultTripletsForTransfer;
+                            v475 = v1155;
+                            if (v1155 >= v1051 + DefaultTripletsForTransfer)
                             {
-                              v467 = (v1042 + DefaultTripletsForTransfer);
+                              v475 = (v1051 + DefaultTripletsForTransfer);
                             }
 
-                            v468 = v1331 == v467 && *(&v1331 + 1) == v466;
-                            v469 = v468 ? 0 : v467;
-                            v470 = v468 ? 0 : v466;
-                            cf[0] = v1327;
+                            v476 = v1340 == v475 && *(&v1340 + 1) == v474;
+                            v477 = v476 ? 0 : v475;
+                            v478 = v476 ? 0 : v474;
+                            cf[0] = v1336;
                             cf[1] = DictionaryRepresentation;
-                            cf[2] = v930;
-                            cf[3] = v467;
-                            cf[4] = v466;
+                            cf[2] = v939;
+                            cf[3] = v475;
+                            cf[4] = v474;
                             cf[5] = object;
-                            v733 = v1337;
-                            v744 = v1322;
-                            memcpy(v1338, __src, sizeof(v1338));
+                            v742 = v1346;
+                            v753 = v1331;
+                            memcpy(v1347, __src, sizeof(v1347));
                             OUTLINED_FUNCTION_23_2();
-                            v471 = *v1352;
-                            *v760 = v1351;
-                            *(v760 + 1) = v471;
-                            *(v760 + 29) = *&v1352[13];
+                            v479 = *v1361;
+                            *v769 = v1360;
+                            *(v769 + 1) = v479;
+                            *(v769 + 29) = *&v1361[13];
                             *&size[40] = 0;
                             *&size[48] = 0;
-                            *&size[56] = v469;
-                            *&size[64] = v470;
-                            v22 = v1297;
-                            *&size[72] = v1042 + DefaultTripletsForTransfer;
-                            *&size[80] = v1031 - v930;
+                            *&size[56] = v477;
+                            *&size[64] = v478;
+                            v22 = v1306;
+                            *&size[72] = v1051 + DefaultTripletsForTransfer;
+                            *&size[80] = v1040 - v939;
                             *&size[88] = value;
                             *&size[104] = 0;
-                            size[112] = v1171;
-                            size[113] = v750;
-                            OUTLINED_FUNCTION_107_0(v472, v473, v474, v475, v476, v477, v478, v479, v650, v664, v680, v696, v711, v718, v733, v744, v750, v760, v770, v780, v790, v800, v810, v820, v830, v840, v850, v860, object, v880, v890, v900, v910, v920, v930, v940, v950, v961, v971, v982, v996, *(&v996 + 1), v1019, v1031, v1042, v1059, v1066[0], v1066[1], v1087, v1101, v1114, *(&v1114 + 1), v1136, v1146, theArray, v1171, v1184, v1198, v1217, v1225, v1235, v1249, v1256);
-                            *(v480 + 115) = v1334;
-                            *(v480 + 119) = BYTE4(v1334);
-                            OUTLINED_FUNCTION_56_0(v481, v482, v483, v484, v485, v486, v487, v488, v651, v665, v681, v697, v712, v723, v734, v745, v755, v765, v775, v785, v795, v805, v815, v825, v835, v845, v855, v865, objecte, v885, v895, v905, v915, v925, v935, v945, v956, v966, v976, v989, v1002, v1014, v1026, v1037, v1049, v1060, v1072, v1081, v1093, v1106, v1121, v1131, v1141, v1153, theArrayh, v1179, v1189, v1204, v1218, v1230, v1241, v1251);
-                            *(v489 + 129) = v1336;
-                            *(v489 + 132) = *(v490 + 243);
-                            v650 = 0;
-                            LODWORD(LayerReaderAtPosition) = _decodeItem(v1338, v728, v1297, v739, size, 0, cf, 0);
+                            size[112] = v1180;
+                            size[113] = v759;
+                            OUTLINED_FUNCTION_107_0(v480, v481, v482, v483, v484, v485, v486, v487, v652, v669, v682, v705, v720, v727, v742, v753, v759, v769, v779, v789, v799, v809, v819, v829, v839, v849, v859, v869, object, v889, v899, v909, v919, v929, v939, v949, v959, v970, v980, v991, v1005, *(&v1005 + 1), v1028, v1040, v1051, v1068, v1075[0], v1075[1], v1096, v1110, v1123, *(&v1123 + 1), v1145, v1155, theArray, v1180, v1193, v1207, v1226, v1234, v1244, v1258, v1265);
+                            *(v488 + 115) = v1343;
+                            *(v488 + 119) = BYTE4(v1343);
+                            OUTLINED_FUNCTION_56_0(v489, v490, v491, v492, v493, v494, v495, v496, v660, v675, v690, v706, v721, v732, v743, v754, v764, v774, v784, v794, v804, v814, v824, v834, v844, v854, v864, v874, objecte, v894, v904, v914, v924, v934, v944, v954, v965, v975, v985, v998, v1011, v1023, v1035, v1046, v1058, v1069, v1081, v1090, v1102, v1115, v1130, v1140, v1150, v1162, theArrayh, v1188, v1198, v1213, v1227, v1239, v1250, v1260);
+                            *(v497 + 129) = v1345;
+                            *(v497 + 132) = *(v498 + 243);
+                            LODWORD(LayerReaderAtPosition) = _decodeItem(v1347, v737, v1306, v748, size, 0, cf, 0, 0);
                             if (LayerReaderAtPosition)
                             {
                               goto LABEL_887;
@@ -3061,9 +3090,9 @@ LABEL_1029:
                           }
 
                           ++v17;
-                          DictionaryRepresentation += v1146;
-                          DefaultTripletsForTransfer -= v1146;
-                          if (v17 >= v1066[0])
+                          DictionaryRepresentation += v1155;
+                          DefaultTripletsForTransfer -= v1155;
+                          if (v17 >= v1075[0])
                           {
                             goto LABEL_831;
                           }
@@ -3072,39 +3101,39 @@ LABEL_1029:
                         }
                       }
 
-                      LODWORD(v1235) = 0;
-                      LODWORD(v103) = -16991;
+                      LODWORD(v1244) = 0;
+                      LODWORD(v110) = -16991;
 LABEL_696:
-                      a6 = v1296;
+                      a6 = v1305;
                       goto LABEL_894;
                     }
 
-                    ++v419;
-                    if (!--v420)
+                    ++v427;
+                    if (!--v428)
                     {
                       goto LABEL_794;
                     }
                   }
 
-                  v431 = 0;
+                  v439 = 0;
                   goto LABEL_788;
                 }
 
                 fig_log_get_emitter();
                 OUTLINED_FUNCTION_0_19();
-                ImageCodecTypeFromReader = FigSignalErrorAtGM();
+                ImageCodecTypeFromReader = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v652, v669, v682);
               }
 
-              LODWORD(v103) = ImageCodecTypeFromReader;
+              LODWORD(v110) = ImageCodecTypeFromReader;
             }
 
-            LODWORD(v1235) = 0;
+            LODWORD(v1244) = 0;
             goto LABEL_696;
           }
 
-          v111 = v17;
-          v96 = 0;
-          v112 = v110;
+          v118 = v17;
+          v103 = 0;
+          v119 = v117;
           do
           {
             OUTLINED_FUNCTION_89_0();
@@ -3113,46 +3142,46 @@ LABEL_696:
               goto LABEL_585;
             }
 
-            ++v96;
-            v112 += 4;
+            ++v103;
+            v119 += 4;
           }
 
-          while (Count != v96);
-          v17 = v111;
+          while (Count != v103);
+          v17 = v118;
         }
 
         else
         {
-          v111 = v17;
-          v1146 = 0;
+          v118 = v17;
+          v1155 = 0;
 LABEL_585:
           fig_log_get_emitter();
           OUTLINED_FUNCTION_0_19();
-          v354 = FigSignalErrorAtGM();
-          free(v1146);
-          v17 = v111;
-          if (v354)
+          v362 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v652, v669, v682);
+          free(v1155);
+          v17 = v118;
+          if (v362)
           {
-            v210 = 1;
+            v217 = 1;
             OUTLINED_FUNCTION_45_0();
-            v211 = v1291;
-            DictionaryRepresentation = v1338;
+            v218 = v1300;
+            DictionaryRepresentation = v1347;
             goto LABEL_605;
           }
 
           Count = 0;
-          v1146 = 0;
+          v1155 = 0;
         }
 
-        DictionaryRepresentation = v1338;
+        DictionaryRepresentation = v1347;
         goto LABEL_101;
       }
     }
 
     fig_log_get_emitter();
     OUTLINED_FUNCTION_0_19();
-    FigSignalErrorAtGM();
-    v105 = 0;
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d");
+    v112 = 0;
     goto LABEL_582;
   }
 
@@ -3161,12 +3190,12 @@ LABEL_585:
   {
     v42 = a6;
     a6 = a9;
-    v1294 = v42;
+    v1303 = v42;
     DictionaryRepresentation = *(v17 + 68);
-    LODWORD(v1197) = *(v17 + 69);
+    LODWORD(v1206) = *(v17 + 69);
     v43 = *(v17 + 70);
-    v1290 = *(v17 + 56);
-    if (v1290 == 6)
+    v1299 = *(v17 + 56);
+    if (v1299 == 6)
     {
       DefaultTripletsForTransfer = a8;
     }
@@ -3179,38 +3208,38 @@ LABEL_585:
     v44 = v17;
     v17 = *v17;
     v45 = *(v44 + 8);
-    v1262 = *(v44 + 24);
-    v1279 = *(v44 + 32);
-    v995 = *(v44 + 40);
-    v1008 = *(v44 + 16);
-    LODWORD(v1113) = *(v44 + 48);
-    v1269 = *(v44 + 49);
-    LODWORD(v1101) = *(v44 + 50);
-    LODWORD(v1086) = *(v44 + 51);
-    LODWORD(v1066[0]) = *(v44 + 52);
-    LOWORD(v1336) = *(v44 + 53);
-    BYTE2(v1336) = *(v44 + 55);
+    v1271 = *(v44 + 24);
+    v1288 = *(v44 + 32);
+    v1004 = *(v44 + 40);
+    v1017 = *(v44 + 16);
+    LODWORD(v1122) = *(v44 + 48);
+    v1278 = *(v44 + 49);
+    LODWORD(v1110) = *(v44 + 50);
+    LODWORD(v1095) = *(v44 + 51);
+    LODWORD(v1075[0]) = *(v44 + 52);
+    LOWORD(v1345) = *(v44 + 53);
+    BYTE2(v1345) = *(v44 + 55);
     v46 = *(v44 + 60);
-    LODWORD(v1256) = *(v44 + 61);
-    LODWORD(v1248) = *(v44 + 62);
-    LODWORD(v1235) = *(v44 + 63);
+    LODWORD(v1265) = *(v44 + 61);
+    LODWORD(v1257) = *(v44 + 62);
+    LODWORD(v1244) = *(v44 + 63);
     v47 = *(v44 + 64);
-    LODWORD(v1031) = *(v44 + 68);
-    v1210 = *(v44 + 72);
-    v1273 = *(v44 + 80);
-    v1285 = v44;
-    v1020 = *(v44 + 88);
-    HIDWORD(v1184) = a5[1];
+    LODWORD(v1040) = *(v44 + 68);
+    v1219 = *(v44 + 72);
+    v1282 = *(v44 + 80);
+    v1294 = v44;
+    v1029 = *(v44 + 88);
+    HIDWORD(v1193) = a5[1];
     v48 = a5[2];
     v49 = *(a5 + 19);
-    *v1348 = *(a5 + 3);
-    *&v1348[2] = v49;
-    *(&v1348[3] + 5) = *(a5 + 4);
-    LODWORD(v1054) = a5[114];
-    v1043 = *(a5 + 15);
+    *v1357 = *(a5 + 3);
+    *&v1357[2] = v49;
+    *(&v1357[3] + 5) = *(a5 + 4);
+    LODWORD(v1063) = a5[114];
+    v1052 = *(a5 + 15);
     v50 = CFGetAllocator(v45);
-    *&v1351 = 0;
-    v1276 = v45;
+    *&v1360 = 0;
+    v1285 = v45;
     if (v17)
     {
       v51 = v17;
@@ -3221,53 +3250,53 @@ LABEL_585:
       v51 = v45;
     }
 
-    *&v1328 = 0;
-    *&v1323 = 0;
-    *&v1346 = 0;
-    *&v1344 = 0;
-    *&v1331 = 0;
+    *&v1337 = 0;
+    *&v1332 = 0;
+    *&v1355 = 0;
+    *&v1353 = 0;
+    *&v1340 = 0;
     value.i64[0] = 0;
-    *&v1327 = 0;
-    *&v1322 = 0;
+    *&v1336 = 0;
+    *&v1331 = 0;
     if (v46)
     {
       fig_log_get_emitter();
       OUTLINED_FUNCTION_0_19();
-      OutputFromConstituents = FigSignalErrorAtGM();
+      OutputFromConstituents = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v652, v669, v682);
       OUTLINED_FUNCTION_40_1();
-      v17 = v1285;
+      v17 = v1294;
       v10 = a9;
-      a6 = v1294;
+      a6 = v1303;
 LABEL_340:
-      if (v1351)
+      if (v1360)
       {
-        CFRelease(v1351);
+        CFRelease(v1360);
       }
 
 LABEL_342:
-      if (v1328)
+      if (v1337)
       {
-        CFRelease(v1328);
+        CFRelease(v1337);
       }
 
-      if (v1323)
+      if (v1332)
       {
-        CFRelease(v1323);
+        CFRelease(v1332);
       }
 
-      if (v1346)
+      if (v1355)
       {
-        CFRelease(v1346);
+        CFRelease(v1355);
       }
 
-      if (v1344)
+      if (v1353)
       {
-        CFRelease(v1344);
+        CFRelease(v1353);
       }
 
-      if (v1331)
+      if (v1340)
       {
-        CFRelease(v1331);
+        CFRelease(v1340);
       }
 
       if (DefaultTripletsForTransfer)
@@ -3280,21 +3309,21 @@ LABEL_342:
         CFRelease(value.i64[0]);
       }
 
-      if (v1327)
+      if (v1336)
       {
-        CFRelease(v1327);
+        CFRelease(v1336);
       }
 
-      if (v1322)
+      if (v1331)
       {
-        CFRelease(v1322);
+        CFRelease(v1331);
       }
 
       if (DictionaryRepresentation)
       {
-        v93 = DictionaryRepresentation;
+        v100 = DictionaryRepresentation;
 LABEL_362:
-        CFRelease(v93);
+        CFRelease(v100);
       }
 
 LABEL_363:
@@ -3307,22 +3336,22 @@ LABEL_363:
 LABEL_1031:
       if (!*v17 || !CMPhotoDecompressionSessionAsyncRequestCancelled(*(*(v17 + 8) + 16), *v17))
       {
-        DictionaryRepresentation = v1310;
+        DictionaryRepresentation = v1319;
         if (a5[1])
         {
-          v621 = v1310 == 1;
+          v629 = v1319 == 1;
         }
 
         else
         {
-          v621 = 1;
+          v629 = 1;
         }
 
-        v622 = !v621;
-        v623 = 1;
-        if (v621)
+        v630 = !v629;
+        v631 = 1;
+        if (v629)
         {
-          v623 = v1310;
+          v631 = v1319;
           DictionaryRepresentation = 1;
           if (!a6)
           {
@@ -3332,11 +3361,11 @@ LABEL_1031:
 
         else
         {
-          v1310 = 1;
+          v1319 = 1;
           if (!a6)
           {
 LABEL_1044:
-            v624 = pixelBuffer;
+            v632 = pixelBuffer;
             if (!pixelBuffer)
             {
               return 0;
@@ -3350,23 +3379,23 @@ LABEL_1044:
                 *&size[8] = size;
                 *&size[16] = 0x2000000000;
                 *&size[24] = 0;
-                PixelFormatType = CVPixelBufferGetPixelFormatType(*v1293);
-                DefaultTripletsForTransfer = CMPhotoCreateDefaultTripletsForTransfer(v624, PixelFormatType);
-                v639 = v638;
-                v640 = *(v1293 + 40);
+                PixelFormatType = CVPixelBufferGetPixelFormatType(*v1302);
+                DefaultTripletsForTransfer = CMPhotoCreateDefaultTripletsForTransfer(v632, PixelFormatType);
+                v647 = v646;
+                v648 = *(v1302 + 40);
                 block[0] = MEMORY[0x1E69E9820];
-                block[1] = *"";
+                block[1] = 0x40000000;
                 block[2] = ___decodeItem_block_invoke;
                 block[3] = &unk_1E77A2368;
                 block[4] = size;
-                OUTLINED_FUNCTION_120(v1300);
-                v1300[12] = pixelBuffer;
-                memcpy(v1301, a5, sizeof(v1301));
-                v1303 = DictionaryRepresentation;
-                v1302 = v1293;
-                v1304 = DefaultTripletsForTransfer;
-                v1305 = v639;
-                dispatch_sync(v640, block);
+                OUTLINED_FUNCTION_120(v1309);
+                v1309[12] = pixelBuffer;
+                memcpy(v1310, a5, sizeof(v1310));
+                v1312 = DictionaryRepresentation;
+                v1311 = v1302;
+                v1313 = DefaultTripletsForTransfer;
+                v1314 = v647;
+                dispatch_sync(v648, block);
                 OutputFromConstituents = *(*&size[8] + 24);
                 _Block_object_dispose(size, 8);
                 goto LABEL_1070;
@@ -3382,20 +3411,20 @@ LABEL_1044:
             {
               DefaultTripletsForTransfer = CVPixelBufferGetPixelFormatType(pixelBuffer);
               *(a5 + 26) = DefaultTripletsForTransfer;
-              v624 = pixelBuffer;
+              v632 = pixelBuffer;
             }
 
-            if (DefaultTripletsForTransfer == CVPixelBufferGetPixelFormatType(v624))
+            if (DefaultTripletsForTransfer == CVPixelBufferGetPixelFormatType(v632))
             {
-              v625 = v622;
+              v633 = v630;
             }
 
             else
             {
-              v625 = 1;
+              v633 = 1;
             }
 
-            if (v625 == 1)
+            if (v633 == 1)
             {
               ScaleAndRotateOptionsWithHWIfNeeded = CMPhotoCreateScaleAndRotateOptionsWithHWIfNeeded(0, *(v17 + 48), *(v17 + 50), *(v17 + 51), *(v17 + 52));
               DefaultTripletsForTransfer = ScaleAndRotateOptionsWithHWIfNeeded;
@@ -3412,29 +3441,29 @@ LABEL_1044:
               }
 
               memcpy(size, a5, sizeof(size));
-              v627 = _fillEdgesIfNeeded(pixelBuffer, size, DictionaryRepresentation);
-              if (v627)
+              v635 = _fillEdgesIfNeeded(pixelBuffer, size, DictionaryRepresentation);
+              if (v635)
               {
-                OutputFromConstituents = v627;
+                OutputFromConstituents = v635;
                 DictionaryRepresentation = 0;
                 goto LABEL_1071;
               }
 
-              v628 = CMPhotoCreateDefaultTripletsForTransfer(pixelBuffer, *(a5 + 26));
-              v630 = v629;
+              v636 = CMPhotoCreateDefaultTripletsForTransfer(pixelBuffer, *(a5 + 26));
+              v638 = v637;
               CMPhotoCFDictionarySetBoolean(DefaultTripletsForTransfer, @"DestinationBackedByIOSurface", *(v17 + 49) == 0);
               CMPhotoCFDictionarySetInt(DefaultTripletsForTransfer, @"SourceExifOrientation", DictionaryRepresentation);
               CMPhotoCFDictionarySetInt(DefaultTripletsForTransfer, @"DestinationPixelFormat", *(a5 + 26));
               CMPhotoCFDictionarySetBoolean(DefaultTripletsForTransfer, @"ExactDimensions", 1);
-              DictionaryRepresentation = CMPhotoColorTripletCreateDictionaryRepresentation(v628, v630);
+              DictionaryRepresentation = CMPhotoColorTripletCreateDictionaryRepresentation(v636, v638);
               if (DictionaryRepresentation)
               {
                 CFDictionarySetValue(DefaultTripletsForTransfer, @"DestinationColorTripletDictionary", DictionaryRepresentation);
               }
 
               *size = 0;
-              v631 = CMPhotoScaleAndRotateSessionTransformImage(*(v17 + 32), pixelBuffer, DefaultTripletsForTransfer, size);
-              if (v631)
+              v639 = CMPhotoScaleAndRotateSessionTransformImage(*(v17 + 32), pixelBuffer, DefaultTripletsForTransfer, size);
+              if (v639)
               {
                 goto LABEL_1080;
               }
@@ -3452,7 +3481,7 @@ LABEL_1044:
               OUTLINED_FUNCTION_40_1();
             }
 
-            if (*(a5 + 40) == 0 && *(a5 + 56) == 0 || (v632 = OUTLINED_FUNCTION_27_0(*(a5 + 5)), v631 = OUTLINED_FUNCTION_77_0(v633, v632, v634, v635, v636), !v631))
+            if (*(a5 + 40) == 0 && *(a5 + 56) == 0 || (v640 = OUTLINED_FUNCTION_27_0(*(a5 + 5)), v639 = OUTLINED_FUNCTION_77_0(v641, v640, v642, v643, v644), !v639))
             {
               OutputFromConstituents = 0;
               *v10 = pixelBuffer;
@@ -3461,12 +3490,12 @@ LABEL_1044:
             }
 
 LABEL_1080:
-            OutputFromConstituents = v631;
+            OutputFromConstituents = v639;
             goto LABEL_1071;
           }
         }
 
-        *a6 = v623;
+        *a6 = v631;
         goto LABEL_1044;
       }
 
@@ -3476,12 +3505,12 @@ LABEL_1078:
       goto LABEL_1071;
     }
 
-    v1172 = v51;
-    v1342 = 0uLL;
+    v1181 = v51;
+    v1351 = 0uLL;
     memset(__src, 0, 80);
-    HEIFOrientation = _copyFlexRangeDetails(v50, v1297, &v1342, __src, &v1344, 0, &v1323, &v1346);
+    HEIFOrientation = _copyFlexRangeDetails(v50, v1306, &v1351, __src, &v1353, 0, &v1332, &v1355);
     v10 = a9;
-    if (HEIFOrientation || (LODWORD(v1321[0]) = 1, LODWORD(v1337) = 1, HEIFOrientation = CMPhotoPictureReaderGetHEIFOrientation(v1346, 0, &v1337), HEIFOrientation) || (HEIFOrientation = CMPhotoPictureReaderGetHEIFOrientation(v1323, 0, v1321), HEIFOrientation) || (*&v53 = OUTLINED_FUNCTION_51_0(), *(v54 + 96) = v53, *(v54 + 112) = v53, HEIFOrientation = CMPhotoPictureReaderGetImageGeometryFromPictureReader(v1346, 0, size, 0), HEIFOrientation) || (v55 = *&size[16], a6 = *&size[24], HEIFOrientation = CMPhotoPictureReaderGetImageGeometryFromPictureReader(v1323, 0, size, 0), HEIFOrientation))
+    if (HEIFOrientation || (LODWORD(v1330[0]) = 1, LODWORD(v1346) = 1, HEIFOrientation = CMPhotoPictureReaderGetHEIFOrientation(v1355, 0, &v1346), HEIFOrientation) || (HEIFOrientation = CMPhotoPictureReaderGetHEIFOrientation(v1332, 0, v1330), HEIFOrientation) || (*&v53 = OUTLINED_FUNCTION_51_0(), *(v54 + 96) = v53, *(v54 + 112) = v53, HEIFOrientation = CMPhotoPictureReaderGetImageGeometryFromPictureReader(v1355, 0, size, 0), HEIFOrientation) || (v55 = *&size[16], a6 = *&size[24], HEIFOrientation = CMPhotoPictureReaderGetImageGeometryFromPictureReader(v1332, 0, size, 0), HEIFOrientation))
     {
       OutputFromConstituents = HEIFOrientation;
     }
@@ -3491,73 +3520,51 @@ LABEL_1078:
       theArraya = DefaultTripletsForTransfer;
       v10 = *&size[16];
       DefaultTripletsForTransfer = *&size[24];
-      *v1338 = *size;
-      *&v1338[2] = *&size[16];
+      *v1347 = *size;
+      *&v1347[2] = *&size[16];
       v56 = OUTLINED_FUNCTION_99_0();
       CropPostOrientation = CMPhotoGetCropPostOrientation(v56, v57, v58, v59, v60, v61, v62, v63);
       if (!CropPostOrientation)
       {
         v68 = *&size[16];
         v69 = *&size[24];
-        if (v1342 != *&size[16] || *(&v1342 + 1) != *&size[24])
+        if (v1351 != *&size[16] || *(&v1351 + 1) != *&size[24])
         {
-          goto LABEL_558;
+          goto LABEL_58;
         }
 
-        v1147 = a6;
-        memset(v1340, 0, 32);
+        v1156 = a6;
+        memset(v1349, 0, 32);
         if (v48)
         {
-          *size = *(v1348 + 5);
-          *&size[16] = *(&v1348[2] + 5);
-          CropPreOrientation = CMPhotoGetCropPreOrientation(v68, v69, size, v1321[0], v1340, v65, v66, v67);
+          *size = *(v1357 + 5);
+          *&size[16] = *(&v1357[2] + 5);
+          CropPreOrientation = CMPhotoGetCropPreOrientation(v68, v69, size, LODWORD(v1330[0]), v1349, v65, v66, v67);
           if (CropPreOrientation)
           {
             goto LABEL_382;
           }
         }
 
-        a6 = v1290;
+        a6 = v1299;
         if (v43)
         {
-          v1310 = v1321[0];
+          v1319 = v1330[0];
         }
 
         else
         {
-          HIDWORD(v1184) = 1;
+          HIDWORD(v1193) = 1;
         }
 
         if (DictionaryRepresentation)
         {
-          if (v1290 != 6)
+          if (v1299 != 6)
           {
-LABEL_558:
+LABEL_58:
             fig_log_get_emitter();
             OUTLINED_FUNCTION_0_19();
-            CropPreOrientation = FigSignalErrorAtGM();
-            goto LABEL_382;
-          }
-        }
-
-        else
-        {
-          OUTLINED_FUNCTION_38_0();
-          *(__dst + 5) = *v1340;
-          *(&__dst[1] + 5) = *&v1340[16];
-          v1338[0] = v17;
-          OUTLINED_FUNCTION_68_0(v1276, v644, v658, v672, v688, v704, v718, v728, v739, v750, v760, v770, v780, v790, v800, v810, v820, v830, v840, v850, v860, object, v880, v890, v900, v910, v920, v930, v940, v950, v961, v971, v981, v995, v1008, v1020, v1031, v1043, v1054, v1066[0], v1066[1], v1086, v1101, v1113, v1126, v1136, v1147, theArraya, v1172, v1184, v1197, v1210, v1225, v1235, v1248, v1256, v1260, v1262);
-          v1338[4] = v1279;
-          OUTLINED_FUNCTION_12_12(v243, v244, v245, v246, v247, v248, v249, v250, v645, v659, v675, v691, v707, v719, v729, v740, v751, v761, v771, v781, v791, v801, v811, v821, v831, v841, v851, v861, objecta, v881, v891, v901, v911, v921, v931, v941, v951, v962, v972, v984, v997, v1009, v1021, v1032, v1044, v1055, v1067, v1077, v1088, v1099, v1102, v1111, v1115, v1127, v1137, v1148, theArrayd, v1173, v1185, v1200, v1213, v1226, v1237);
-          LODWORD(v1338[7]) = v1290;
-          OUTLINED_FUNCTION_5_14(v251, v252, v253, v254, v255, v256, v257, v258, v646, v660, v676, v692, v708, v720, v730, v741, v752, v762, v772, v782, v792, v802, v812, v822, v832, v842, v852, v862, objectb, v882, v892, v902, v912, v922, v932, v942, v952, v963, v973, v985, v998, v1010, v1022, v1033, v1045, v1056, v1068, v1078, v1089, v1103, v1116, v1128, v1138, v1149, theArraye, v1174, v1186, v1195, v1201, v1214, v1227, v1238, v1246);
-          size[128] = 0;
-          OUTLINED_FUNCTION_17_6();
-          OUTLINED_FUNCTION_10_0();
-          OUTLINED_FUNCTION_31_0();
-          CropPreOrientation = _decodeItem(v259, v260, v261, v262, v263, v264, v265, v266);
-          if (CropPreOrientation)
-          {
+            CropPreOrientation = FigSignalErrorAtGM("%s signalled err=%d at <>:%d");
 LABEL_382:
             OutputFromConstituents = CropPreOrientation;
             OUTLINED_FUNCTION_40_1();
@@ -3569,18 +3576,40 @@ LABEL_384:
           }
         }
 
-        v190 = v1290 - 3 < 3;
-        if (*(__src + 2) == 0.0)
+        else
         {
-          v190 = v1290 == 2;
+          OUTLINED_FUNCTION_38_0();
+          *(__dst + 5) = *v1349;
+          *(&__dst[1] + 5) = *&v1349[16];
+          v1347[0] = v17;
+          OUTLINED_FUNCTION_68_0(v1285, v652, v669, v682, v697, v713, v727, v737, v748, v759, v769, v779, v789, v799, v809, v819, v829, v839, v849, v859, v869, object, v889, v899, v909, v919, v929, v939, v949, v959, v970, v980, v990, v1004, v1017, v1029, v1040, v1052, v1063, v1075[0], v1075[1], v1095, v1110, v1122, v1135, v1145, v1156, theArraya, v1181, v1193, v1206, v1219, v1234, v1244, v1257, v1265, v1269, v1271);
+          v1347[4] = v1288;
+          OUTLINED_FUNCTION_12_12(v250, v251, v252, v253, v254, v255, v256, v257, v653, v670, v685, v700, v716, v728, v738, v749, v760, v770, v780, v790, v800, v810, v820, v830, v840, v850, v860, v870, objecta, v890, v900, v910, v920, v930, v940, v950, v960, v971, v981, v993, v1006, v1018, v1030, v1041, v1053, v1064, v1076, v1086, v1097, v1108, v1111, v1120, v1124, v1136, v1146, v1157, theArrayd, v1182, v1194, v1209, v1222, v1235, v1246);
+          LODWORD(v1347[7]) = v1299;
+          OUTLINED_FUNCTION_5_14(v258, v259, v260, v261, v262, v263, v264, v265, v654, v671, v686, v701, v717, v729, v739, v750, v761, v771, v781, v791, v801, v811, v821, v831, v841, v851, v861, v871, objectb, v891, v901, v911, v921, v931, v941, v951, v961, v972, v982, v994, v1007, v1019, v1031, v1042, v1054, v1065, v1077, v1087, v1098, v1112, v1125, v1137, v1147, v1158, theArraye, v1183, v1195, v1204, v1210, v1223, v1236, v1247, v1255);
+          size[128] = 0;
+          OUTLINED_FUNCTION_17_6();
+          OUTLINED_FUNCTION_10_0();
+          OUTLINED_FUNCTION_31_0();
+          CropPreOrientation = _decodeItem(v266, v267, v268, v269, v270, v271, v272, v273, v655);
+          if (CropPreOrientation)
+          {
+            goto LABEL_382;
+          }
         }
 
-        if (v190)
+        v197 = v1299 - 3 < 3;
+        if (*(__src + 2) == 0.0)
+        {
+          v197 = v1299 == 2;
+        }
+
+        if (v197)
         {
           OUTLINED_FUNCTION_70();
           OutputFromConstituents = 0;
-          pixelBuffer = v1351;
-          *&v1351 = 0;
+          pixelBuffer = v1360;
+          *&v1360 = 0;
           OUTLINED_FUNCTION_69_0();
           goto LABEL_342;
         }
@@ -3594,17 +3623,17 @@ LABEL_384:
           goto LABEL_383;
         }
 
-        v192 = Mutable;
+        v199 = Mutable;
         if (DictionaryRepresentation)
         {
-          v983 = 0;
-          a6 = v1294;
+          v992 = 0;
+          a6 = v1303;
         }
 
         else
         {
-          v212 = CMPhotoCreateScaleAndRotateOptionsWithHWIfNeeded(0, v1113, v1101, v1086, v1066[0]);
-          if (!v212)
+          v219 = CMPhotoCreateScaleAndRotateOptionsWithHWIfNeeded(0, v1122, v1110, v1095, v1075[0]);
+          if (!v219)
           {
             OUTLINED_FUNCTION_70();
             OutputFromConstituents = 4294950305;
@@ -3612,17 +3641,17 @@ LABEL_384:
             goto LABEL_339;
           }
 
-          v983 = v212;
-          if (CMPhotoScaleAndRotateSessionBakeInCLAPIfNeeded(v1279, v212, &v1351))
+          v992 = v219;
+          if (CMPhotoScaleAndRotateSessionBakeInCLAPIfNeeded(v1288, v219, &v1360))
           {
             OUTLINED_FUNCTION_46_0();
-            v17 = v1285;
+            v17 = v1294;
             v10 = a9;
             goto LABEL_1100;
           }
 
           FigCFDictionarySetValue();
-          a6 = v1294;
+          a6 = v1303;
           if (FigCFDictionarySetInt())
           {
             goto LABEL_572;
@@ -3630,33 +3659,33 @@ LABEL_384:
         }
 
         FigCFDictionarySetValue();
-        *&v213 = OUTLINED_FUNCTION_51_0();
-        *v214 = v213;
-        v214[1] = v213;
-        if (*v1340 == 0 && *&v1340[16] == 0)
+        *&v220 = OUTLINED_FUNCTION_51_0();
+        *v221 = v220;
+        v221[1] = v220;
+        if (*v1349 == 0 && *&v1349[16] == 0)
         {
           goto LABEL_310;
         }
 
-        *size = *v1340;
-        *&size[16] = *&v1340[16];
-        v215 = OUTLINED_FUNCTION_99_0();
-        if (!CMPhotoTranslateAndScalePreOrientationCrop(v215, v216, v217, v218, v55, v1147, v219, v220, 0))
+        *size = *v1349;
+        *&size[16] = *&v1349[16];
+        v222 = OUTLINED_FUNCTION_99_0();
+        if (!CMPhotoTranslateAndScalePreOrientationCrop(v222, v223, v224, v225, v55, v1156, v226, v227, 0))
         {
           DefaultTripletsForTransfer = 0;
           OutputFromConstituents = 4294950306;
           if (cf[2] && cf[3])
           {
 LABEL_310:
-            if (v1197)
+            if (v1206)
             {
-              v17 = v1285;
+              v17 = v1294;
               v10 = a9;
-              if (v1290 != 6)
+              if (v1299 != 6)
               {
                 fig_log_get_emitter();
                 OUTLINED_FUNCTION_0_19();
-                FigSignalErrorAtGM();
+                FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v652, v669, v682);
                 goto LABEL_579;
               }
 
@@ -3664,25 +3693,25 @@ LABEL_310:
             }
 
             OUTLINED_FUNCTION_38_0();
-            v268 = v267[1];
-            *(__dst + 5) = *v267;
-            *(&__dst[1] + 5) = v268;
-            v1338[0] = v17;
-            DefaultTripletsForTransfer = v1279;
-            OUTLINED_FUNCTION_68_0(v1276, v644, v658, v672, v688, v704, v718, v728, v739, v750, v760, v770, v780, v790, v800, v810, v820, v830, v840, v850, v860, object, v880, v890, v900, v910, v920, v930, v940, v950, v961, v971, v983, v995, v1008, v1020, v1031, v1043, v1054, v1066[0], v1066[1], v1086, v1101, v1113, v1126, v1136, v1147, theArraya, v1172, v1184, v1197, v1210, v1225, v1235, v1248, v1256, v1260, v1262);
-            v1338[4] = v1279;
-            OUTLINED_FUNCTION_12_12(v269, v270, v271, v272, v273, v274, v275, v276, v647, v661, v677, v693, v709, v721, v731, v742, v753, v763, v773, v783, v793, v803, v813, v823, v833, v843, v853, v863, objectc, v883, v893, v903, v913, v923, v933, v943, v953, v964, v974, v986, v999, v1011, v1023, v1034, v1046, v1057, v1069, v1079, v1090, v1100, v1104, v1112, v1117, v1129, v1139, v1150, theArrayf, v1175, v1187, v1202, v1215, v1228, v1239);
-            LODWORD(v1338[7]) = v1290;
-            OUTLINED_FUNCTION_5_14(v277, v278, v279, v280, v281, v282, v283, v284, v648, v662, v678, v694, v710, v722, v732, v743, v754, v764, v774, v784, v794, v804, v814, v824, v834, v844, v854, v864, objectd, v884, v894, v904, v914, v924, v934, v944, v954, v965, v975, v987, v1000, v1012, v1024, v1035, v1047, v1058, v1070, v1080, v1091, v1105, v1118, v1130, v1140, v1151, theArrayg, v1176, v1188, v1196, v1203, v1216, v1229, v1240, v1247);
+            v275 = v274[1];
+            *(__dst + 5) = *v274;
+            *(&__dst[1] + 5) = v275;
+            v1347[0] = v17;
+            DefaultTripletsForTransfer = v1288;
+            OUTLINED_FUNCTION_68_0(v1285, v652, v669, v682, v697, v713, v727, v737, v748, v759, v769, v779, v789, v799, v809, v819, v829, v839, v849, v859, v869, object, v889, v899, v909, v919, v929, v939, v949, v959, v970, v980, v992, v1004, v1017, v1029, v1040, v1052, v1063, v1075[0], v1075[1], v1095, v1110, v1122, v1135, v1145, v1156, theArraya, v1181, v1193, v1206, v1219, v1234, v1244, v1257, v1265, v1269, v1271);
+            v1347[4] = v1288;
+            OUTLINED_FUNCTION_12_12(v276, v277, v278, v279, v280, v281, v282, v283, v656, v672, v687, v702, v718, v730, v740, v751, v762, v772, v782, v792, v802, v812, v822, v832, v842, v852, v862, v872, objectc, v892, v902, v912, v922, v932, v942, v952, v962, v973, v983, v995, v1008, v1020, v1032, v1043, v1055, v1066, v1078, v1088, v1099, v1109, v1113, v1121, v1126, v1138, v1148, v1159, theArrayf, v1184, v1196, v1211, v1224, v1237, v1248);
+            LODWORD(v1347[7]) = v1299;
+            OUTLINED_FUNCTION_5_14(v284, v285, v286, v287, v288, v289, v290, v291, v657, v673, v688, v703, v719, v731, v741, v752, v763, v773, v783, v793, v803, v813, v823, v833, v843, v853, v863, v873, objectd, v893, v903, v913, v923, v933, v943, v953, v963, v974, v984, v996, v1009, v1021, v1033, v1044, v1056, v1067, v1079, v1089, v1100, v1114, v1127, v1139, v1149, v1160, theArrayg, v1185, v1197, v1205, v1212, v1225, v1238, v1249, v1256);
             size[128] = 1;
             OUTLINED_FUNCTION_17_6();
             OUTLINED_FUNCTION_10_0();
             OUTLINED_FUNCTION_31_0();
             v10 = a9;
-            if (!_decodeItem(v285, v286, v287, v288, v289, v290, v291, v292))
+            if (!_decodeItem(v292, v293, v294, v295, v296, v297, v298, v299, v658))
             {
-              v17 = v1285;
-              if (CMPhotoScaleAndRotateSessionBakeInCLAPIfNeeded(v1279, v983, &v1328))
+              v17 = v1294;
+              if (CMPhotoScaleAndRotateSessionBakeInCLAPIfNeeded(v1288, v992, &v1337))
               {
                 goto LABEL_579;
               }
@@ -3692,59 +3721,59 @@ LABEL_312:
               if (!FigCFDictionarySetInt())
               {
                 OUTLINED_FUNCTION_10_15();
-                if (!_copyColorInfoForItem(v221, v222, v223, v224, v225, v226, v227, v228, &v1327, &v1322, 0, 0, 0))
+                if (!_copyColorInfoForItem(v228, v229, v230, v231, v232, v233, v234, v235, &v1336, &v1331, 0, 0, 0))
                 {
-                  if (v1273)
+                  if (v1282)
                   {
                     FigCFDictionarySetValue();
-                    if (v1322)
+                    if (v1331)
                     {
-                      v229 = OUTLINED_FUNCTION_53();
-                      DefaultTripletsForTransfer = CFDictionaryCreateMutable(v229, v230, v231, v232);
+                      v236 = OUTLINED_FUNCTION_53();
+                      DefaultTripletsForTransfer = CFDictionaryCreateMutable(v236, v237, v238, v239);
                       if (DefaultTripletsForTransfer)
                       {
-                        v233 = v1322;
+                        v240 = v1331;
 LABEL_335:
-                        CFDictionarySetValue(DefaultTripletsForTransfer, @"YCbCrMatrix", v233);
+                        CFDictionarySetValue(DefaultTripletsForTransfer, @"YCbCrMatrix", v240);
 LABEL_336:
-                        CFDictionarySetValue(v192, @"NclxColor", DefaultTripletsForTransfer);
+                        CFDictionarySetValue(v199, @"NclxColor", DefaultTripletsForTransfer);
                         goto LABEL_337;
                       }
 
 LABEL_1099:
                       fig_log_get_emitter();
                       OUTLINED_FUNCTION_0_19();
-                      OutputFromConstituents = FigSignalErrorAtGM();
+                      OutputFromConstituents = FigSignalErrorAtGM("%s signalled err=%d at <>:%d");
                       goto LABEL_1100;
                     }
                   }
 
                   else
                   {
-                    if (v1331)
+                    if (v1340)
                     {
                       FigCFDictionarySetValue();
                     }
 
-                    if (value.i64[0] || v1327 || v1322)
+                    if (value.i64[0] || v1336 || v1331)
                     {
-                      v234 = OUTLINED_FUNCTION_53();
-                      v238 = CFDictionaryCreateMutable(v234, v235, v236, v237);
-                      DefaultTripletsForTransfer = v238;
-                      if (v238)
+                      v241 = OUTLINED_FUNCTION_53();
+                      v245 = CFDictionaryCreateMutable(v241, v242, v243, v244);
+                      DefaultTripletsForTransfer = v245;
+                      if (v245)
                       {
                         if (value.i64[0])
                         {
-                          CFDictionarySetValue(v238, @"ColorPrimaries", value.i64[0]);
+                          CFDictionarySetValue(v245, @"ColorPrimaries", value.i64[0]);
                         }
 
-                        if (v1327)
+                        if (v1336)
                         {
-                          CFDictionarySetValue(DefaultTripletsForTransfer, @"TransferFunction", v1327);
+                          CFDictionarySetValue(DefaultTripletsForTransfer, @"TransferFunction", v1336);
                         }
 
-                        v233 = v1322;
-                        if (!v1322)
+                        v240 = v1331;
+                        if (!v1331)
                         {
                           goto LABEL_336;
                         }
@@ -3758,18 +3787,18 @@ LABEL_1099:
 
                   DefaultTripletsForTransfer = 0;
 LABEL_337:
-                  a6 = v1294;
-                  OutputFromConstituents = CMPhotoGainMapCreateOutputFromConstituents(v1279, v1262, v1269, v1273, v1172, v192, v1290, 0, v47, v1256, v1248, v1235, v1210, &pixelBuffer, theArraya);
+                  a6 = v1303;
+                  OutputFromConstituents = CMPhotoGainMapCreateOutputFromConstituents(v1288, v1271, v1278, v1282, v1181, v199, v1299, 0, v47, v1265, v1257, v1244, v1219, &pixelBuffer, theArraya);
 LABEL_338:
-                  DictionaryRepresentation = v983;
+                  DictionaryRepresentation = v992;
 LABEL_339:
-                  CFRelease(v192);
+                  CFRelease(v199);
                   goto LABEL_340;
                 }
 
                 OUTLINED_FUNCTION_46_0();
 LABEL_1100:
-                a6 = v1294;
+                a6 = v1303;
                 goto LABEL_338;
               }
 
@@ -3780,7 +3809,7 @@ LABEL_579:
 
             OUTLINED_FUNCTION_46_0();
 LABEL_391:
-            v17 = v1285;
+            v17 = v1294;
             goto LABEL_338;
           }
 
@@ -3806,23 +3835,23 @@ LABEL_572:
   if (!v30)
   {
     OUTLINED_FUNCTION_120(__src);
-    LODWORD(v1268) = *a5;
-    LODWORD(v1346) = *(a5 + 1);
-    *(&v1346 + 3) = *(a5 + 1);
-    v1288 = *(a5 + 2);
-    v1272 = *(a5 + 24);
-    v1278 = *(a5 + 1);
+    LODWORD(v1277) = *a5;
+    LODWORD(v1355) = *(a5 + 1);
+    *(&v1355 + 3) = *(a5 + 1);
+    v1297 = *(a5 + 2);
+    v1281 = *(a5 + 24);
+    v1287 = *(a5 + 1);
     memcpy(__dst, a5 + 40, 0x49uLL);
     LODWORD(v22) = a5[113];
-    *v1340 = *(a5 + 114);
-    *&v1340[14] = *(a5 + 16);
-    OUTLINED_FUNCTION_120(v1338);
-    *&v1351 = 0;
-    *&v1328 = 0;
+    *v1349 = *(a5 + 114);
+    *&v1349[14] = *(a5 + 16);
+    OUTLINED_FUNCTION_120(v1347);
+    *&v1360 = 0;
+    *&v1337 = 0;
     v25 = *(&__src[0] + 1);
     if (*&__src[0])
     {
-      v1261 = *&__src[0];
+      v1270 = *&__src[0];
       if (CMPhotoDecompressionSessionAsyncRequestCancelled(*(*(&__src[0] + 1) + 16), *&__src[0]))
       {
         DefaultTripletsForTransfer = 0;
@@ -3835,10 +3864,10 @@ LABEL_572:
 
     else
     {
-      v1261 = *(&__src[0] + 1);
+      v1270 = *(&__src[0] + 1);
     }
 
-    if (!_getImageOrientation(v25, v1297, DefaultTripletsForTransfer, &v1310))
+    if (!_getImageOrientation(v25, v1306, DefaultTripletsForTransfer, &v1319))
     {
       if (a4)
       {
@@ -3853,7 +3882,7 @@ LABEL_572:
         *&size[8] = 0;
         PixelBufferSize = CMPhotoGetPixelBufferSize(*v12);
         v28 = v27;
-        if (CMPhotoPictureReaderGetImageGeometryFromPictureReader(v1297, *(*(&__src[0] + 1) + 28), 0, size))
+        if (CMPhotoPictureReaderGetImageGeometryFromPictureReader(v1306, *(*(&__src[0] + 1) + 28), 0, size))
         {
           goto LABEL_544;
         }
@@ -3868,18 +3897,18 @@ LABEL_572:
         DictionaryRepresentation = 0;
       }
 
-      size[0] = v1268;
+      size[0] = v1277;
       OutputFromConstituents = cf;
-      *&size[1] = v1346;
-      OUTLINED_FUNCTION_33_0(*(&v1346 + 3), v644, v658, v672, v688, v704, v718, v728, v739, v750, v760, v770, v780, v790, v800, v810, v820, v830, v840, v850, v860, object, v880, v890, v900, v910, v920, v930, v940, v950, v961, v971, v981, v994, v1007, v1019, v1031, v1042, v1054, v1066[0], v1066[1], v1086, v1101, v1113, v1126, v1136, v1146, theArray, v1171, v1184, v1197, v1209, v1225, v1235, v1248, v1256, v1260, v1261, v1265, v1268, v1272, *(&v1272 + 1), v1278);
+      *&size[1] = v1355;
+      OUTLINED_FUNCTION_33_0(*(&v1355 + 3), v652, v669, v682, v697, v713, v727, v737, v748, v759, v769, v779, v789, v799, v809, v819, v829, v839, v849, v859, v869, object, v889, v899, v909, v919, v929, v939, v949, v959, v970, v980, v990, v1003, v1016, v1028, v1040, v1051, v1063, v1075[0], v1075[1], v1095, v1110, v1122, v1135, v1145, v1155, theArray, v1180, v1193, v1206, v1218, v1234, v1244, v1257, v1265, v1269, v1270, v1274, v1277, v1281, *(&v1281 + 1), v1287);
       size[113] = v22;
-      *&size[114] = *v1340;
-      *&size[128] = *&v1340[14];
+      *&size[114] = *v1349;
+      *&size[128] = *&v1349[14];
       OUTLINED_FUNCTION_43();
       OUTLINED_FUNCTION_84_0();
-      if (!HEIFItemDecoderCreate(v31, v32, v33, v34, v35, v36, v37, v38, 0, 0, v673, v689, v705))
+      if (!HEIFItemDecoderCreate(v31, v32, v33, v34, v35, v36, v37, v38, 0, 0, v683, v698, v714))
       {
-        DictionaryRepresentation = v1328;
+        DictionaryRepresentation = v1337;
         OUTLINED_FUNCTION_109();
         if (v30)
         {
@@ -3896,45 +3925,45 @@ LABEL_572:
 
         v39 = DictionaryRepresentation;
 LABEL_39:
-        LOBYTE(v1344) = 0;
+        LOBYTE(v1353) = 0;
         if (v22)
         {
-          v41 = v1297;
+          v41 = v1306;
           v40 = 0;
         }
 
         else
         {
           v40 = *(v39 + 24);
-          v41 = v1297;
+          v41 = v1306;
         }
 
-        v153 = _createSampleBufferFromPictureReader(v41, v40, &v1351, &v1344);
-        if (!v153)
+        v160 = _createSampleBufferFromPictureReader(v41, v40, &v1360, &v1353);
+        if (!v160)
         {
-          if (!v1344 || *(v39 + 88))
+          if (!v1353 || *(v39 + 88))
           {
-            DictionaryRepresentation = v1338;
+            DictionaryRepresentation = v1347;
 LABEL_195:
             if (v12)
             {
-              v1295 = a6;
-              v1298 = v1310;
-              LODWORD(v1323) = v1346;
-              *(&v1323 + 3) = *(&v1346 + 3);
+              v1304 = a6;
+              v1307 = v1319;
+              LODWORD(v1332) = v1355;
+              *(&v1332 + 3) = *(&v1355 + 3);
               memcpy(size, __dst, 0x49uLL);
-              *v1348 = *v1340;
-              *(&v1348[1] + 6) = *&v1340[14];
+              *v1357 = *v1349;
+              *(&v1357[1] + 6) = *&v1349[14];
               cf[0] = 0;
-              *&v1342 = 0;
+              *&v1351 = 0;
               if (*&__src[0])
               {
-                v162 = __src[0];
+                v169 = __src[0];
               }
 
               else
               {
-                v162 = DWORD2(__src[0]);
+                v169 = DWORD2(__src[0]);
               }
 
               OUTLINED_FUNCTION_103_0();
@@ -3955,9 +3984,9 @@ LABEL_195:
               }
 
               os_unfair_lock_lock((v39 + 14576));
-              v163 = CFArrayGetCount(*(v39 + 14584));
-              v164 = CFArrayGetCount(*(v39 + 14592));
-              if (v163 || v164 < 1)
+              v170 = CFArrayGetCount(*(v39 + 14584));
+              v171 = CFArrayGetCount(*(v39 + 14592));
+              if (v170 || v171 < 1)
               {
 LABEL_210:
                 os_unfair_lock_unlock((v39 + 14576));
@@ -3967,37 +3996,37 @@ LABEL_210:
               {
                 while (1)
                 {
-                  v165 = CFArrayGetValueAtIndex(*(v39 + 14592), 0);
+                  v172 = CFArrayGetValueAtIndex(*(v39 + 14592), 0);
                   CFArrayRemoveValueAtIndex(*(v39 + 14592), 0);
                   CFSetGetCount(*(v39 + 14600));
                   os_unfair_lock_unlock((v39 + 14576));
-                  if (!v165)
+                  if (!v172)
                   {
                     break;
                   }
 
-                  dispatch_block_wait(v165, 0xFFFFFFFFFFFFFFFFLL);
-                  _Block_release(v165);
+                  dispatch_block_wait(v172, 0xFFFFFFFFFFFFFFFFLL);
+                  _Block_release(v172);
                   os_unfair_lock_lock((v39 + 14576));
-                  v166 = CFArrayGetCount(*(v39 + 14584));
-                  v167 = CFArrayGetCount(*(v39 + 14592));
-                  if (v166 || v167 <= 0)
+                  v173 = CFArrayGetCount(*(v39 + 14584));
+                  v174 = CFArrayGetCount(*(v39 + 14592));
+                  if (v173 || v174 <= 0)
                   {
                     goto LABEL_210;
                   }
                 }
               }
 
-              v168 = v17;
+              v175 = v17;
               os_unfair_lock_lock((v39 + 14576));
-              v169 = CFArrayGetCount(*(v39 + 14584)) - 1;
-              DictionaryRepresentation = CFArrayGetValueAtIndex(*(v39 + 14584), v169);
-              CFArrayRemoveValueAtIndex(*(v39 + 14584), v169);
+              v176 = CFArrayGetCount(*(v39 + 14584)) - 1;
+              DictionaryRepresentation = CFArrayGetValueAtIndex(*(v39 + 14584), v176);
+              CFArrayRemoveValueAtIndex(*(v39 + 14584), v176);
               CFSetAddValue(*(v39 + 14600), DictionaryRepresentation);
               CFSetGetCount(*(v39 + 14600));
-              v170 = *(v39 + 14608) + 1;
-              *(v39 + 14608) = v170;
-              *(DictionaryRepresentation + 200) = v170;
+              v177 = *(v39 + 14608) + 1;
+              *(v39 + 14608) = v177;
+              *(DictionaryRepresentation + 200) = v177;
               os_unfair_lock_unlock((v39 + 14576));
               if (*MEMORY[0x1E695FF58] == 1)
               {
@@ -4011,121 +4040,121 @@ LABEL_210:
                 if (!*(v39 + 158))
                 {
                   OUTLINED_FUNCTION_83_0();
-                  BufferAndOptionsForTileDecoding = _createBufferAndOptionsForTileDecoding(v171, v162, v172, v173, v174, v175, v39 + 92, v176, &v1342, cf, v672, v688, v704, v718, v728, v739, v750, v760, v770, v780, v790, v800, v810, v820, v830, v840, v850, v860, object, v880);
+                  BufferAndOptionsForTileDecoding = _createBufferAndOptionsForTileDecoding(v178, v169, v179, v180, v181, v182, v39 + 92, v183, &v1351, cf, v682, v697, v713, v727, v737, v748, v759, v769, v779, v789, v799, v809, v819, v829, v839, v849, v859, v869, object, v889);
                   if (BufferAndOptionsForTileDecoding)
                   {
                     OutputFromConstituents = BufferAndOptionsForTileDecoding;
-                    v178 = 0;
+                    v185 = 0;
                     goto LABEL_277;
                   }
 
-                  v178 = 0;
-                  v179 = v1342;
+                  v185 = 0;
+                  v186 = v1351;
                   goto LABEL_270;
                 }
               }
 
               else if (!*(v39 + 158))
               {
-                v179 = 0;
-                v178 = 0;
+                v186 = 0;
+                v185 = 0;
                 goto LABEL_270;
               }
 
-              v193 = CFGetAllocator(*(&__src[0] + 1));
-              v194 = CFDictionaryCreateMutable(v193, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-              cf[0] = v194;
-              if (v194)
+              v200 = CFGetAllocator(*(&__src[0] + 1));
+              v201 = CFDictionaryCreateMutable(v200, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+              cf[0] = v201;
+              if (v201)
               {
-                v195 = v194;
-                v1355.origin.x = OUTLINED_FUNCTION_14_5(*(v1293 + 8));
-                v1355.size.width = *(v1293 + 24);
-                v1355.size.height = *(v1293 + 32);
-                v178 = CGRectCreateDictionaryRepresentation(v1355);
-                if (v178)
+                v202 = v201;
+                v1364.origin.x = OUTLINED_FUNCTION_14_5(*(v1302 + 8));
+                v1364.size.width = *(v1302 + 24);
+                v1364.size.height = *(v1302 + 32);
+                v185 = CGRectCreateDictionaryRepresentation(v1364);
+                if (v185)
                 {
-                  CFDictionaryAddValue(v195, @"CanvasPixelBuffer", *v1293);
-                  CFDictionaryAddValue(v195, @"CanvasOrigin", v178);
-                  if (*v1293)
+                  CFDictionaryAddValue(v202, @"CanvasPixelBuffer", *v1302);
+                  CFDictionaryAddValue(v202, @"CanvasOrigin", v185);
+                  if (*v1302)
                   {
-                    v179 = CFRetain(*v1293);
+                    v186 = CFRetain(*v1302);
                   }
 
                   else
                   {
-                    v179 = 0;
+                    v186 = 0;
                   }
 
-                  *&v1342 = v179;
+                  *&v1351 = v186;
 LABEL_270:
-                  v196 = *v1293;
-                  v197 = *(v1293 + 32);
-                  *(DictionaryRepresentation + 16) = *(v1293 + 16);
-                  *(DictionaryRepresentation + 32) = v197;
-                  *DictionaryRepresentation = v196;
-                  *(DictionaryRepresentation + 48) = v1268;
-                  *(DictionaryRepresentation + 49) = v1323;
-                  *(DictionaryRepresentation + 52) = *(&v1323 + 3);
-                  *(DictionaryRepresentation + 56) = v1278;
-                  *(DictionaryRepresentation + 64) = v1288;
-                  *(DictionaryRepresentation + 72) = v1272;
+                  v203 = *v1302;
+                  v204 = *(v1302 + 32);
+                  *(DictionaryRepresentation + 16) = *(v1302 + 16);
+                  *(DictionaryRepresentation + 32) = v204;
+                  *DictionaryRepresentation = v203;
+                  *(DictionaryRepresentation + 48) = v1277;
+                  *(DictionaryRepresentation + 49) = v1332;
+                  *(DictionaryRepresentation + 52) = *(&v1332 + 3);
+                  *(DictionaryRepresentation + 56) = v1287;
+                  *(DictionaryRepresentation + 64) = v1297;
+                  *(DictionaryRepresentation + 72) = v1281;
                   memcpy((DictionaryRepresentation + 88), size, 0x49uLL);
                   *(DictionaryRepresentation + 161) = v22;
-                  *(DictionaryRepresentation + 162) = *v1348;
-                  *(DictionaryRepresentation + 176) = *(&v1348[1] + 6);
-                  *(DictionaryRepresentation + 184) = v1298;
+                  *(DictionaryRepresentation + 162) = *v1357;
+                  *(DictionaryRepresentation + 176) = *(&v1357[1] + 6);
+                  *(DictionaryRepresentation + 184) = v1307;
                   *(DictionaryRepresentation + 192) = *&__src[0];
-                  if (v179)
+                  if (v186)
                   {
-                    v198 = CFRetain(v179);
+                    v205 = CFRetain(v186);
                   }
 
                   else
                   {
-                    v198 = 0;
+                    v205 = 0;
                   }
 
-                  *(DictionaryRepresentation + 208) = v198;
+                  *(DictionaryRepresentation + 208) = v205;
                   if (cf[0])
                   {
-                    v199 = CFRetain(cf[0]);
+                    v206 = CFRetain(cf[0]);
                   }
 
                   else
                   {
-                    v199 = 0;
+                    v206 = 0;
                   }
 
-                  *(DictionaryRepresentation + 216) = v199;
+                  *(DictionaryRepresentation + 216) = v206;
                   OutputFromConstituents = CMPhotoDecompressionPluginDecode(*(v39 + 16));
                   if (!OutputFromConstituents)
                   {
-                    v17 = v168;
+                    v17 = v175;
                     goto LABEL_282;
                   }
 
 LABEL_277:
-                  v17 = v168;
-                  v200 = OUTLINED_FUNCTION_108();
-                  _asyncCanvasDecodeFinished(v200, v201, OutputFromConstituents, 0);
-                  v202 = *(DictionaryRepresentation + 208);
-                  if (v202)
+                  v17 = v175;
+                  v207 = OUTLINED_FUNCTION_108();
+                  _asyncCanvasDecodeFinished(v207, v208, OutputFromConstituents, 0);
+                  v209 = *(DictionaryRepresentation + 208);
+                  if (v209)
                   {
-                    CFRelease(v202);
+                    CFRelease(v209);
                     *(DictionaryRepresentation + 208) = 0;
                   }
 
-                  v203 = *(DictionaryRepresentation + 216);
-                  if (v203)
+                  v210 = *(DictionaryRepresentation + 216);
+                  if (v210)
                   {
-                    CFRelease(v203);
+                    CFRelease(v210);
                     *(DictionaryRepresentation + 216) = 0;
                   }
 
 LABEL_282:
-                  if (v1342)
+                  if (v1351)
                   {
-                    CFRelease(v1342);
+                    CFRelease(v1351);
                   }
 
                   if (cf[0])
@@ -4133,13 +4162,13 @@ LABEL_282:
                     CFRelease(cf[0]);
                   }
 
-                  if (v178)
+                  if (v185)
                   {
-                    CFRelease(v178);
+                    CFRelease(v185);
                   }
 
-                  v12 = v1293;
-                  a6 = v1295;
+                  v12 = v1302;
+                  a6 = v1304;
                   if (!OutputFromConstituents)
                   {
                     goto LABEL_289;
@@ -4151,23 +4180,23 @@ LABEL_282:
 
               else
               {
-                v178 = 0;
+                v185 = 0;
               }
 
               OutputFromConstituents = 4294950305;
               goto LABEL_277;
             }
 
-            v1348[0] = 0;
+            v1357[0] = 0;
             cf[0] = 0;
-            *&v180 = OUTLINED_FUNCTION_51_0();
-            *(v181 + 96) = v180;
-            *(v181 + 112) = v180;
+            *&v187 = OUTLINED_FUNCTION_51_0();
+            *(v188 + 96) = v187;
+            *(v188 + 112) = v187;
             if (*(v39 + 156))
             {
               OUTLINED_FUNCTION_83_0();
-              v186 = _createBufferAndOptionsForTileDecoding(v293, v294, v295, v296, v297, v298, v39 + 92, v299, cf, v1348, v672, v688, v704, v718, v728, v739, v750, v760, v770, v780, v790, v800, v810, v820, v830, v840, v850, v860, object, v880);
-              if (v186)
+              v193 = _createBufferAndOptionsForTileDecoding(v300, v301, v302, v303, v304, v305, v39 + 92, v306, cf, v1357, v682, v697, v713, v727, v737, v748, v759, v769, v779, v789, v799, v809, v819, v829, v839, v849, v859, v869, object, v889);
+              if (v193)
               {
                 goto LABEL_596;
               }
@@ -4175,18 +4204,18 @@ LABEL_282:
 
             else
             {
-              v182 = *(v39 + 152);
-              if (v182 == 825306677 || v182 == 1932996149 || v182 == 825437747)
+              v189 = *(v39 + 152);
+              if (v189 == 825306677 || v189 == 1932996149 || v189 == 825437747)
               {
-                v185 = CFGetAllocator(*(&__src[0] + 1));
-                v1348[0] = CFDictionaryCreateMutable(v185, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-                if (!v1348[0])
+                v192 = CFGetAllocator(*(&__src[0] + 1));
+                v1357[0] = CFDictionaryCreateMutable(v192, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+                if (!v1357[0])
                 {
                   goto LABEL_580;
                 }
 
-                v186 = FigCFDictionarySetInt();
-                if (v186)
+                v193 = FigCFDictionarySetInt();
+                if (v193)
                 {
                   goto LABEL_596;
                 }
@@ -4196,8 +4225,8 @@ LABEL_282:
             *&size[24] = *&__src[0];
             if (*(v39 + 208) || (*&size[8] = dispatch_semaphore_create(0)) != 0)
             {
-              v186 = CMPhotoDecompressionPluginDecode(*(v39 + 16));
-              if (!v186)
+              v193 = CMPhotoDecompressionPluginDecode(*(v39 + 16));
+              if (!v193)
               {
                 if (!*(v39 + 208))
                 {
@@ -4215,12 +4244,12 @@ LABEL_282:
                 {
                   fig_log_get_emitter();
                   OUTLINED_FUNCTION_0_19();
-                  v186 = FigSignalErrorAtGM();
+                  v193 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v652, v669, v682);
                 }
 
                 else
                 {
-                  if (v1268)
+                  if (v1277)
                   {
 LABEL_239:
                     OutputFromConstituents = 0;
@@ -4228,9 +4257,9 @@ LABEL_239:
                     goto LABEL_240;
                   }
 
-                  v187 = OUTLINED_FUNCTION_14_5(*(v39 + 176));
-                  v186 = OUTLINED_FUNCTION_77_0(DefaultTripletsForTransfer, v187, v188, *(v39 + 192), *(v39 + 200));
-                  if (!v186)
+                  v194 = OUTLINED_FUNCTION_14_5(*(v39 + 176));
+                  v193 = OUTLINED_FUNCTION_77_0(DefaultTripletsForTransfer, v194, v195, *(v39 + 192), *(v39 + 200));
+                  if (!v193)
                   {
                     DefaultTripletsForTransfer = *size;
                     goto LABEL_239;
@@ -4239,7 +4268,7 @@ LABEL_239:
               }
 
 LABEL_596:
-              OutputFromConstituents = v186;
+              OutputFromConstituents = v193;
 LABEL_597:
               DefaultTripletsForTransfer = 0;
 LABEL_240:
@@ -4248,9 +4277,9 @@ LABEL_240:
                 CFRelease(cf[0]);
               }
 
-              if (v1348[0])
+              if (v1357[0])
               {
-                CFRelease(v1348[0]);
+                CFRelease(v1357[0]);
               }
 
               if (*size)
@@ -4265,7 +4294,7 @@ LABEL_240:
 
               if (!OutputFromConstituents)
               {
-                if (!(v1278 | v1288) && v1272 == 0 || (v189 = OUTLINED_FUNCTION_77_0(DefaultTripletsForTransfer, v1278, v1288, v1272, *(&v1272 + 1)), !v189))
+                if (!(v1287 | v1297) && v1281 == 0 || (v196 = OUTLINED_FUNCTION_77_0(DefaultTripletsForTransfer, v1287, v1297, v1281, *(&v1281 + 1)), !v196))
                 {
                   pixelBuffer = DefaultTripletsForTransfer;
 LABEL_289:
@@ -4273,11 +4302,11 @@ LABEL_289:
                   LOBYTE(v22) = v12 != 0;
 LABEL_290:
                   DefaultTripletsForTransfer = 0;
-                  v204 = OutputFromConstituents != 0;
+                  v211 = OutputFromConstituents != 0;
                   goto LABEL_291;
                 }
 
-                OutputFromConstituents = v189;
+                OutputFromConstituents = v196;
               }
 
               goto LABEL_547;
@@ -4292,47 +4321,47 @@ LABEL_580:
           if (DictionaryRepresentation)
           {
             HEIFItemDecoderRelease(DictionaryRepresentation);
-            *&v1328 = 0;
+            *&v1337 = 0;
           }
 
-          HIDWORD(v1338[5]) = 1;
-          size[0] = v1268;
-          *&size[1] = v1346;
-          OUTLINED_FUNCTION_33_0(*(&v1346 + 3), v644, v658, v672, v688, v704, v718, v728, v739, v750, v760, v770, v780, v790, v800, v810, v820, v830, v840, v850, v860, object, v880, v890, v900, v910, v920, v930, v940, v950, v961, v971, v981, v994, v1007, v1019, v1031, v1042, v1054, v1066[0], v1066[1], v1086, v1101, v1113, v1126, v1136, v1146, theArray, v1171, v1184, v1197, v1209, v1225, v1235, v1248, v1256, v1260, v1261, v1265, v1268, v1272, *(&v1272 + 1), v1278);
+          HIDWORD(v1347[5]) = 1;
+          size[0] = v1277;
+          *&size[1] = v1355;
+          OUTLINED_FUNCTION_33_0(*(&v1355 + 3), v652, v669, v682, v697, v713, v727, v737, v748, v759, v769, v779, v789, v799, v809, v819, v829, v839, v849, v859, v869, object, v889, v899, v909, v919, v929, v939, v949, v959, v970, v980, v990, v1003, v1016, v1028, v1040, v1051, v1063, v1075[0], v1075[1], v1095, v1110, v1122, v1135, v1145, v1155, theArray, v1180, v1193, v1206, v1218, v1234, v1244, v1257, v1265, v1269, v1270, v1274, v1277, v1281, *(&v1281 + 1), v1287);
           size[113] = v22;
-          *&size[114] = *v1340;
-          DictionaryRepresentation = v1338;
-          *&size[128] = *&v1340[14];
+          *&size[114] = *v1349;
+          DictionaryRepresentation = v1347;
+          *&size[128] = *&v1349[14];
           OUTLINED_FUNCTION_43();
           OUTLINED_FUNCTION_84_0();
-          v153 = HEIFItemDecoderCreate(v154, v155, v156, v157, v158, v159, v160, v161, 0, 0, v674, v690, v706);
-          if (!v153)
+          v160 = HEIFItemDecoderCreate(v161, v162, v163, v164, v165, v166, v167, v168, 0, 0, v684, v699, v715);
+          if (!v160)
           {
-            v39 = v1328;
+            v39 = v1337;
             goto LABEL_195;
           }
         }
 
-        OutputFromConstituents = v153;
+        OutputFromConstituents = v160;
 LABEL_546:
         DefaultTripletsForTransfer = 0;
 LABEL_547:
-        v347 = a4;
+        v354 = a4;
 LABEL_555:
         LOBYTE(v22) = 0;
-        if (v347)
+        if (v354)
         {
-          *(v347 + 14580) = OutputFromConstituents;
+          *(v354 + 14580) = OutputFromConstituents;
         }
 
-        v204 = 1;
+        v211 = 1;
 LABEL_291:
-        if (v1328)
+        if (v1337)
         {
           OUTLINED_FUNCTION_10_0();
-          DictionaryRepresentation = HEIFItemDecoderWaitForFinishAndReturnStatus(v205, v206, v207, v208);
-          HEIFItemDecoderRelease(v1328);
-          OutputFromConstituents = v204 ? OutputFromConstituents : DictionaryRepresentation;
+          DictionaryRepresentation = HEIFItemDecoderWaitForFinishAndReturnStatus(v212, v213, v214, v215);
+          HEIFItemDecoderRelease(v1337);
+          OutputFromConstituents = v211 ? OutputFromConstituents : DictionaryRepresentation;
           if (*MEMORY[0x1E695FF58] == 1)
           {
             OUTLINED_FUNCTION_22_2();
@@ -4346,8 +4375,8 @@ LABEL_291:
           CFRelease(DefaultTripletsForTransfer);
         }
 
-        v209 = v1351;
-        if (!v1351)
+        v216 = v1360;
+        if (!v1360)
         {
           goto LABEL_1030;
         }
@@ -4362,7 +4391,7 @@ LABEL_544:
 
     OUTLINED_FUNCTION_46_0();
 LABEL_554:
-    v347 = a4;
+    v354 = a4;
     goto LABEL_555;
   }
 
@@ -4370,32 +4399,32 @@ LABEL_554:
   LODWORD(v22) = *a5;
   DefaultTripletsForTransfer = a5[1];
   OUTLINED_FUNCTION_96_0();
-  v239 = *(a5 + 1);
+  v246 = *(a5 + 1);
   v10 = *(a5 + 2);
-  v240 = *(a5 + 4);
-  v1292 = *(a5 + 3);
-  v241 = *(a5 + 56);
-  *v1348 = *(a5 + 40);
-  *&v1348[2] = v241;
-  *&v1348[4] = *(a5 + 72);
-  *(&v1275 + 1) = *(a5 + 11);
-  v1282 = v240;
-  *&v1275 = *(a5 + 12);
-  v1257 = *(a5 + 13);
-  v1271 = a5[112];
-  v1212 = a5[113];
-  v1250 = a5[114];
-  v1320 = a5[119];
-  v1319 = *(a5 + 115);
-  *v1236 = *(a5 + 15);
-  v1199 = *(a5 + 16);
-  *&v1322 = 0;
-  v1321[0] = 0;
+  v247 = *(a5 + 4);
+  v1301 = *(a5 + 3);
+  v248 = *(a5 + 56);
+  *v1357 = *(a5 + 40);
+  *&v1357[2] = v248;
+  *&v1357[4] = *(a5 + 72);
+  *(&v1284 + 1) = *(a5 + 11);
+  v1291 = v247;
+  *&v1284 = *(a5 + 12);
+  v1266 = *(a5 + 13);
+  v1280 = a5[112];
+  v1221 = a5[113];
+  v1259 = a5[114];
+  v1329 = a5[119];
+  v1328 = *(a5 + 115);
+  *v1245 = *(a5 + 15);
+  v1208 = *(a5 + 16);
+  *&v1331 = 0;
+  v1330[0] = 0;
   OUTLINED_FUNCTION_49();
-  v1317 = 0;
-  v1306 = -1;
+  v1326 = 0;
   v1315 = -1;
-  v1316 = 0;
+  v1324 = -1;
+  v1325 = 0;
   BOOLean = 0;
   if (*&__src[0])
   {
@@ -4407,30 +4436,30 @@ LABEL_554:
     DictionaryRepresentation = *(&__src[0] + 1);
   }
 
-  v1313 = 0;
-  v1264 = CFGetAllocator(*(&__src[0] + 1));
-  if (_getImageOrientation(*(&__src[0] + 1), v1297, 0, &v1310))
+  v1322 = 0;
+  v1273 = CFGetAllocator(*(&__src[0] + 1));
+  if (_getImageOrientation(*(&__src[0] + 1), v1306, 0, &v1319))
   {
     goto LABEL_1096;
   }
 
-  v242 = *(*(CMBaseObjectGetVTable() + 16) + 8);
-  if (!v242)
+  v249 = *(*(CMBaseObjectGetVTable() + 16) + 8);
+  if (!v249)
   {
     goto LABEL_447;
   }
 
-  if (v242(v1297, v1321))
+  if (v249(v1306, v1330))
   {
     goto LABEL_1096;
   }
 
-  v1328 = 0uLL;
-  v1323 = 0uLL;
-  v1346 = 0uLL;
-  v1344 = 0uLL;
+  v1337 = 0uLL;
+  v1332 = 0uLL;
+  v1355 = 0uLL;
+  v1353 = 0uLL;
   memset(cf, 0, 32);
-  if (CMPhotoPictureReaderGetImageGeometryFromPictureReader(v1297, *(*(&__src[0] + 1) + 28), cf, &v1344) || _getTileGeometryFromPictureTileCursorService(v1321[0], &v1328, &v1323, &v1346) || CMPhotoPictureReaderGetImageCodecTypeFromReader(v1297, &v1313))
+  if (CMPhotoPictureReaderGetImageGeometryFromPictureReader(v1306, *(*(&__src[0] + 1) + 28), cf, &v1353) || _getTileGeometryFromPictureTileCursorService(v1330[0], &v1337, &v1332, &v1355) || CMPhotoPictureReaderGetImageCodecTypeFromReader(v1306, &v1322))
   {
     goto LABEL_1096;
   }
@@ -4439,136 +4468,136 @@ LABEL_554:
   {
     cf[1] = 0;
     cf[0] = 0;
-    *&cf[2] = v1346;
+    *&cf[2] = v1355;
   }
 
-  v1194 = DefaultTripletsForTransfer;
-  if (v239 | v10 || v1292 | v1282 && (v1292 == cf[2] ? (v300 = v1282 == cf[3]) : (v300 = 0), !v300))
+  v1203 = DefaultTripletsForTransfer;
+  if (v246 | v10 || v1301 | v1291 && (v1301 == cf[2] ? (v307 = v1291 == cf[3]) : (v307 = 0), !v307))
   {
-    *size = v239;
+    *size = v246;
     *&size[8] = v10;
-    *&size[16] = v1292;
-    *&size[24] = v1282;
+    *&size[16] = v1301;
+    *&size[24] = v1291;
     if (CMPhotoApplyCropCMPhotoRectToRect(cf, size))
     {
       goto LABEL_378;
     }
   }
 
-  OutputFromConstituents = *(&v1323 + 1);
-  DefaultTripletsForTransfer = v1323;
-  v301 = cf[0] / v1323 * v1323;
-  v302 = cf[1] / *(&v1323 + 1) * *(&v1323 + 1);
-  cf[0] = (cf[0] % v1323);
-  cf[1] = (cf[1] % *(&v1323 + 1));
-  *&v1344 = cf[2] + cf[0];
-  *(&v1344 + 1) = cf[3] + cf[1];
-  v303 = (cf[2] + cf[0] + v1323 + ~((cf[2] + cf[0] - 1) % v1323)) / v1323;
-  v304 = (cf[3] + cf[1] + *(&v1323 + 1) + ~((cf[3] + cf[1] - 1) % *(&v1323 + 1))) / *(&v1323 + 1);
-  *&v1328 = v303;
-  *(&v1328 + 1) = v304;
-  if (v1313 == 1936484717 && (v304 > 4 || v303 != 1))
+  OutputFromConstituents = *(&v1332 + 1);
+  DefaultTripletsForTransfer = v1332;
+  v308 = cf[0] / v1332 * v1332;
+  v309 = cf[1] / *(&v1332 + 1) * *(&v1332 + 1);
+  cf[0] = (cf[0] % v1332);
+  cf[1] = (cf[1] % *(&v1332 + 1));
+  *&v1353 = cf[2] + cf[0];
+  *(&v1353 + 1) = cf[3] + cf[1];
+  v310 = (cf[2] + cf[0] + v1332 + ~((cf[2] + cf[0] - 1) % v1332)) / v1332;
+  v311 = (cf[3] + cf[1] + *(&v1332 + 1) + ~((cf[3] + cf[1] - 1) % *(&v1332 + 1))) / *(&v1332 + 1);
+  *&v1337 = v310;
+  *(&v1337 + 1) = v311;
+  if (v1322 == 1936484717 && (v311 > 4 || v310 != 1))
   {
     LOBYTE(v22) = 0;
     OutputFromConstituents = 4294950297;
     goto LABEL_450;
   }
 
-  *&v1346 = v303 * v1323;
-  *(&v1346 + 1) = v304 * *(&v1323 + 1);
+  *&v1355 = v310 * v1332;
+  *(&v1355 + 1) = v311 * *(&v1332 + 1);
   if (v12)
   {
-    v306 = ((v10 % *(&v1323 + 1)) | (v239 % v1323)) == 0;
+    v313 = ((v10 % *(&v1332 + 1)) | (v246 % v1332)) == 0;
   }
 
   else
   {
-    v306 = 0;
+    v313 = 0;
   }
 
-  v307 = v306;
-  if (v1194)
+  v314 = v313;
+  if (v1203)
   {
-    v308 = v1310 == 1;
+    v315 = v1319 == 1;
   }
 
   else
   {
-    v308 = 1;
+    v315 = 1;
   }
 
-  if (v308)
+  if (v315)
   {
-    v309 = v307;
+    v316 = v314;
   }
 
   else
   {
-    v309 = 0;
+    v316 = 0;
   }
 
-  if (v309 == 1 && (!*v12 || *(v12 + 8) != 0 || *(v12 + 24) != 0 || !*(v12 + 40)))
+  if (v316 == 1 && (!*v12 || *(v12 + 8) != 0 || *(v12 + 24) != 0 || !*(v12 + 40)))
   {
     LOBYTE(v22) = 0;
     OutputFromConstituents = 4294950304;
     goto LABEL_450;
   }
 
-  v1092 = v22;
-  v22 = v1338;
-  v1287 = v17;
-  DictionaryRepresentation = *(&v1275 + 1);
-  v310 = v1275;
-  v1152 = v309;
-  theArrayb = v302;
-  *v1177 = v301;
-  if (v1275 == 0 || (v1323 == *(&v1275 + 1) ? (v311 = *(&v1323 + 1) == v1275) : (v311 = 0), v311))
+  v1101 = v22;
+  v22 = v1347;
+  v1296 = v17;
+  DictionaryRepresentation = *(&v1284 + 1);
+  v317 = v1284;
+  v1161 = v316;
+  theArrayb = v309;
+  *v1186 = v308;
+  if (v1284 == 0 || (v1332 == *(&v1284 + 1) ? (v318 = *(&v1332 + 1) == v1284) : (v318 = 0), v318))
   {
-    v1331 = v1323;
-    v1119 = 1;
-    v310 = *(&v1323 + 1);
-    DictionaryRepresentation = v1323;
+    v1340 = v1332;
+    v1128 = 1;
+    v317 = *(&v1332 + 1);
+    DictionaryRepresentation = v1332;
   }
 
   else
   {
-    v1119 = 0;
-    *&v1331 = *(&v1275 + 1);
-    *(&v1331 + 1) = v1275;
+    v1128 = 0;
+    *&v1340 = *(&v1284 + 1);
+    *(&v1340 + 1) = v1284;
   }
 
-  v1071 = DictionaryRepresentation * v303;
-  value.i64[0] = DictionaryRepresentation * v303;
-  value.i64[1] = v310 * v304;
+  v1080 = DictionaryRepresentation * v310;
+  value.i64[0] = DictionaryRepresentation * v310;
+  value.i64[1] = v317 * v311;
   *size = 0;
   *&size[8] = 0;
   *&size[16] = cf[2] + cf[0];
   *&size[24] = cf[3] + cf[1];
-  OUTLINED_FUNCTION_79_0(&v1342);
-  v1327 = v1343[0];
-  v1351 = 0u;
-  *v1352 = 0u;
+  OUTLINED_FUNCTION_79_0(&v1351);
+  v1336 = v1352[0];
+  v1360 = 0u;
+  *v1361 = 0u;
   *size = *cf;
   *&size[16] = *&cf[2];
-  OUTLINED_FUNCTION_79_0(&v1351);
-  if (_copyColorInfoForItem(*(&__src[0] + 1), v1297, 0, v1271, &v1316, 0, &v1334, &v1333, &v1332, &v1317, &v1306, &v1315, 0))
+  OUTLINED_FUNCTION_79_0(&v1360);
+  if (_copyColorInfoForItem(*(&__src[0] + 1), v1306, 0, v1280, &v1325, 0, &v1343, &v1342, &v1341, &v1326, &v1315, &v1324, 0))
   {
     OUTLINED_FUNCTION_47_0();
-    v17 = v1287;
+    v17 = v1296;
     v10 = a9;
     goto LABEL_451;
   }
 
   DefaultTripletsForTransfer = FigPictureReaderGetFigBaseObject();
-  v312 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-  v17 = v1287;
-  if (!v312)
+  v319 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+  v17 = v1296;
+  if (!v319)
   {
     OUTLINED_FUNCTION_86_0();
     goto LABEL_450;
   }
 
-  if (v312(DefaultTripletsForTransfer, *MEMORY[0x1E6972308], v1264, &BOOLean))
+  if (v319(DefaultTripletsForTransfer, *MEMORY[0x1E6972308], v1273, &BOOLean))
   {
 LABEL_378:
     OUTLINED_FUNCTION_47_0();
@@ -4577,14 +4606,14 @@ LABEL_450:
     goto LABEL_451;
   }
 
-  v313 = CFBooleanGetValue(BOOLean);
-  LODWORD(v22) = v313;
+  v320 = CFBooleanGetValue(BOOLean);
+  LODWORD(v22) = v320;
   DefaultTripletsForTransfer = &BOOLean;
-  if (v1313 == 1936484717 && !v313)
+  if (v1322 == 1936484717 && !v320)
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_0_19();
-    OutputFromConstituents = FigSignalErrorAtGM();
+    OutputFromConstituents = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v659, v674, v689);
     goto LABEL_450;
   }
 
@@ -4595,8 +4624,8 @@ LABEL_450:
   }
 
   DictionaryRepresentation = FigPictureReaderGetFigBaseObject();
-  v314 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-  if (!v314)
+  v321 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+  if (!v321)
   {
 LABEL_447:
     OUTLINED_FUNCTION_86_0();
@@ -4605,7 +4634,7 @@ LABEL_448:
     goto LABEL_451;
   }
 
-  if (v314(DictionaryRepresentation, *MEMORY[0x1E6972300], v1264, &BOOLean))
+  if (v321(DictionaryRepresentation, *MEMORY[0x1E6972300], v1273, &BOOLean))
   {
 LABEL_1096:
     OUTLINED_FUNCTION_47_0();
@@ -4619,87 +4648,87 @@ LABEL_1096:
 
   else
   {
-    OutputFromConstituents = v1119;
+    OutputFromConstituents = v1128;
   }
 
-  if (v1152)
+  if (v1161)
   {
     dispatch_retain(*(v12 + 40));
-    v315 = *(v12 + 40);
+    v322 = *(v12 + 40);
   }
 
   else
   {
-    v315 = dispatch_queue_create("com.apple.cmphoto.canvasTransferQueue", 0);
+    v322 = dispatch_queue_create("com.apple.cmphoto.canvasTransferQueue", 0);
   }
 
-  if (!v315)
+  if (!v322)
   {
     LOBYTE(v22) = 0;
     OutputFromConstituents = 4294950305;
     goto LABEL_448;
   }
 
-  DictionaryRepresentation = v1321[0];
-  v316 = *(*(CMBaseObjectGetVTable() + 16) + 8);
-  if (!v316)
+  DictionaryRepresentation = v1330[0];
+  v323 = *(*(CMBaseObjectGetVTable() + 16) + 8);
+  if (!v323)
   {
     LOBYTE(v22) = 0;
-    v346 = 0;
+    v353 = 0;
     OutputFromConstituents = 4294954514;
 LABEL_542:
     v10 = a9;
     goto LABEL_593;
   }
 
-  v988 = OutputFromConstituents;
-  if (v316(DictionaryRepresentation, &v1337))
+  v997 = OutputFromConstituents;
+  if (v323(DictionaryRepresentation, &v1346))
   {
     OUTLINED_FUNCTION_47_0();
-    v346 = 0;
+    v353 = 0;
     goto LABEL_542;
   }
 
-  v1025 = v22;
-  v1013 = v315;
-  memset(v1340, 0, 37);
-  v1325 = 0;
-  v1326 = 0;
-  v1318[0] = 0;
-  *(v1318 + 3) = 0;
-  v317 = *(&v1328 + 1);
-  v1267 = a5;
-  if (!*(&v1328 + 1))
+  v1034 = v22;
+  v1022 = v322;
+  memset(v1349, 0, 37);
+  v1334 = 0;
+  v1335 = 0;
+  v1327[0] = 0;
+  *(v1327 + 3) = 0;
+  v324 = *(&v1337 + 1);
+  v1276 = a5;
+  if (!*(&v1337 + 1))
   {
     goto LABEL_561;
   }
 
-  v1001 = 0;
+  v1010 = 0;
   v22 = 0;
-  v318 = 0;
-  v319 = v1257;
-  if (!v1257)
+  v325 = 0;
+  v326 = v1266;
+  if (!v1266)
   {
-    v319 = 875704422;
+    v326 = 875704422;
   }
 
-  v955 = v319;
-  v1120 = v1327;
-  v1036 = *MEMORY[0x1E69723A0];
-  v1048 = *(&v1327 + 1);
-  v320 = v1328;
+  v964 = v326;
+  v1129 = v1336;
+  v1045 = *MEMORY[0x1E69723A0];
+  v1057 = *(&v1336 + 1);
+  v327 = v1337;
   do
   {
-    if (v320)
+    if (v327)
     {
       DefaultTripletsForTransfer = 0;
-      v1284 = v318;
+      v1293 = v325;
       while (1)
       {
-        if (v1336)
+        if (v1345)
         {
-          CFRelease(v1336);
-          v1336 = 0;
+          CFRelease(v1345);
+          v1345 = 0;
         }
 
         if (v22)
@@ -4711,132 +4740,131 @@ LABEL_542:
           }
         }
 
-        v321 = v1323;
-        DictionaryRepresentation = v1337;
-        v322 = *(*(CMBaseObjectGetVTable() + 16) + 24);
-        if (!v322)
+        v328 = v1332;
+        DictionaryRepresentation = v1346;
+        v329 = *(*(CMBaseObjectGetVTable() + 16) + 24);
+        if (!v329)
         {
           goto LABEL_559;
         }
 
-        a6 = v321 * DefaultTripletsForTransfer;
-        v17 = *(&v321 + 1) * v1284;
-        v318 = v1284;
-        v323 = v322(DictionaryRepresentation, *v1177 + v321 * DefaultTripletsForTransfer, theArrayb + *(&v321 + 1) * v1284);
-        if (v323)
+        a6 = v328 * DefaultTripletsForTransfer;
+        v17 = *(&v328 + 1) * v1293;
+        v325 = v1293;
+        v330 = v329(DictionaryRepresentation, *v1186 + v328 * DefaultTripletsForTransfer, theArrayb + *(&v328 + 1) * v1293);
+        if (v330)
         {
           goto LABEL_1117;
         }
 
         DictionaryRepresentation = FigPictureTileCursorGetCMBaseObject();
-        v324 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-        if (!v324)
+        v331 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+        if (!v331)
         {
 LABEL_559:
           OUTLINED_FUNCTION_86_0();
           goto LABEL_592;
         }
 
-        v323 = v324(DictionaryRepresentation, v1036, v1264, &v1336);
-        if (v323)
+        v330 = v331(DictionaryRepresentation, v1045, v1273, &v1345);
+        if (v330)
         {
           goto LABEL_1117;
         }
 
-        if (!v1322)
+        if (!v1331)
         {
           break;
         }
 
 LABEL_507:
-        v326 = *(&v1331 + 1) * v1284;
-        v327 = v1120 - v1331 * DefaultTripletsForTransfer;
-        if (v1331 >= v327)
+        v333 = *(&v1340 + 1) * v1293;
+        v334 = v1129 - v1340 * DefaultTripletsForTransfer;
+        if (v1340 >= v334)
         {
-          v328 = v1120 - v1331 * DefaultTripletsForTransfer;
+          v335 = v1129 - v1340 * DefaultTripletsForTransfer;
         }
 
         else
         {
-          v328 = v1331;
+          v335 = v1340;
         }
 
-        if (*(&v1331 + 1) >= (v1048 - v326))
+        if (*(&v1340 + 1) >= (v1057 - v333))
         {
-          v329 = v1048 - v326;
+          v336 = v1057 - v333;
         }
 
         else
         {
-          v329 = *(&v1331 + 1);
+          v336 = *(&v1340 + 1);
         }
 
-        if (v328 && v329)
+        if (v335 && v336)
         {
-          v330 = v1344 - a6;
-          v331 = *(&v1344 + 1) - v17;
-          v332 = v1331 > v327 || *(&v1331 + 1) > (v1048 - v326);
-          v333 = v332;
-          a6 = v333 ? v329 : 0;
-          v17 = v333 ? v328 : 0;
-          *&__dst[0] = v1322;
-          *(&__dst[0] + 1) = v1331 * DefaultTripletsForTransfer;
-          *&__dst[1] = *(&v1331 + 1) * v1284;
-          *(&__dst[1] + 1) = v328;
-          *&__dst[2] = v329;
-          *(&__dst[2] + 1) = v1013;
-          DictionaryRepresentation = v1336;
-          memcpy(v1338, __src, sizeof(v1338));
+          v337 = v1353 - a6;
+          v338 = *(&v1353 + 1) - v17;
+          v339 = v1340 > v334 || *(&v1340 + 1) > (v1057 - v333);
+          v340 = v339;
+          a6 = v340 ? v336 : 0;
+          v17 = v340 ? v335 : 0;
+          *&__dst[0] = v1331;
+          *(&__dst[0] + 1) = v1340 * DefaultTripletsForTransfer;
+          *&__dst[1] = *(&v1340 + 1) * v1293;
+          *(&__dst[1] + 1) = v335;
+          *&__dst[2] = v336;
+          *(&__dst[2] + 1) = v1022;
+          DictionaryRepresentation = v1345;
+          memcpy(v1347, __src, sizeof(v1347));
           OUTLINED_FUNCTION_23_2();
-          *&size[3] = *v1340;
-          *&size[19] = *&v1340[16];
-          *&size[32] = *&v1340[29];
+          *&size[3] = *v1349;
+          *&size[19] = *&v1349[16];
+          *&size[32] = *&v1349[29];
           *&size[40] = 0;
           *&size[48] = 0;
           *&size[56] = v17;
           *&size[64] = a6;
-          *&size[72] = v330;
-          *&size[80] = v331;
-          v318 = v1284;
-          *&size[88] = *(&v1275 + 1);
-          *&size[96] = v1275;
-          *&size[112] = v1271;
-          size[114] = v1250;
-          *&size[115] = v1325;
-          size[119] = v1326;
-          *&size[120] = *v1236;
+          *&size[72] = v337;
+          *&size[80] = v338;
+          v325 = v1293;
+          *&size[88] = *(&v1284 + 1);
+          *&size[96] = v1284;
+          *&size[112] = v1280;
+          size[114] = v1259;
+          *&size[115] = v1334;
+          size[119] = v1335;
+          *&size[120] = *v1245;
           size[128] = 0;
-          *&size[129] = v1318[0];
-          *&size[132] = *(v1318 + 3);
-          v649 = 0;
+          *&size[129] = v1327[0];
+          *&size[132] = *(v1327 + 3);
           OUTLINED_FUNCTION_44();
-          v22 = v1001;
-          v323 = _decodeItem(v334, v335, v336, v1001, v337, 0, v338, 0);
-          if (v323)
+          v22 = v1010;
+          v330 = _decodeItem(v341, v342, v343, v1010, v344, 0, v345, 0, 0);
+          if (v330)
           {
             goto LABEL_1117;
           }
         }
 
         ++DefaultTripletsForTransfer;
-        v320 = v1328;
-        if (DefaultTripletsForTransfer >= v1328)
+        v327 = v1337;
+        if (DefaultTripletsForTransfer >= v1337)
         {
-          v317 = *(&v1328 + 1);
+          v324 = *(&v1337 + 1);
           goto LABEL_537;
         }
       }
 
-      if (v1152)
+      if (v1161)
       {
-        v325 = *v1293;
-        if (*v1293)
+        v332 = *v1302;
+        if (*v1302)
         {
-          v325 = CFRetain(v325);
+          v332 = CFRetain(v332);
         }
 
-        *&v1322 = v325;
-        if (!v1025 || v22)
+        *&v1331 = v332;
+        if (!v1034 || v22)
         {
 LABEL_499:
           OUTLINED_FUNCTION_103_0();
@@ -4845,8 +4873,8 @@ LABEL_499:
             OUTLINED_FUNCTION_22_2();
             OUTLINED_FUNCTION_6();
             kdebug_trace();
-            v22 = v1335;
-            if (v1335)
+            v22 = v1344;
+            if (v1344)
             {
               OUTLINED_FUNCTION_103_0();
               if (v30)
@@ -4859,31 +4887,31 @@ LABEL_499:
 
           else
           {
-            v22 = v1335;
+            v22 = v1344;
           }
 
-          if (!v1322)
+          if (!v1331)
           {
             goto LABEL_1123;
           }
 
-          CMPhotoAddColorInformationToPixelBufferAccordingToFormat(v1334, v1333, v1332, v1317, v1322);
-          CMPhotoAddChromaLocationToPixelBufferAccordingToFormat(v1306, v1315, v1322);
-          CMPhotoAddHDRMetadataToPixelBufferFromFormatDescription(v1316, v1322);
-          v1001 = v22;
+          CMPhotoAddColorInformationToPixelBufferAccordingToFormat(v1343, v1342, v1341, v1326, v1331);
+          CMPhotoAddChromaLocationToPixelBufferAccordingToFormat(v1315, v1324, v1331);
+          CMPhotoAddHDRMetadataToPixelBufferFromFormatDescription(v1325, v1331);
+          v1010 = v22;
           goto LABEL_507;
         }
       }
 
-      else if (!v1025 || v22)
+      else if (!v1034 || v22)
       {
         *size = 0;
         *&size[8] = 0;
-        *&size[16] = v1120;
-        *&size[24] = v1048;
+        *&size[16] = v1129;
+        *&size[24] = v1057;
         OUTLINED_FUNCTION_55_0();
-        v323 = _createPixelBuffer(v339, v340, v341, v955, v342, v343, v1071, v344, v649, v663, v679, v695);
-        if (v323)
+        v330 = _createPixelBuffer(v346, v347, v348, v964, v349, v350, v1080, v351, v659, v674, v689, v704);
+        if (v330)
         {
           goto LABEL_1117;
         }
@@ -4891,29 +4919,29 @@ LABEL_499:
         goto LABEL_499;
       }
 
-      *&size[40] = *v1348;
-      size[0] = v1092;
-      size[1] = v1194;
-      *&size[2] = v1308;
-      *&size[6] = v1309;
-      *&size[8] = v239;
+      *&size[40] = *v1357;
+      size[0] = v1101;
+      size[1] = v1203;
+      *&size[2] = v1317;
+      *&size[6] = v1318;
+      *&size[8] = v246;
       *&size[16] = v10;
-      *&size[24] = v1292;
-      *&size[32] = v1282;
-      *&size[56] = *&v1348[2];
-      *&size[72] = *&v1348[4];
-      *&size[88] = *(&v1275 + 1);
-      *&size[96] = v1275;
-      *&size[104] = v1257;
-      size[112] = v1271;
-      size[113] = v1212;
-      size[114] = v1250;
-      size[119] = v1320;
-      *&size[115] = v1319;
-      *&size[120] = *v1236;
-      *&size[128] = v1199;
-      v323 = HEIFItemDecoderCreate(__src, v1297, v1336, 0, size, v988, v1328, *(&v1328 + 1), &v1327, &value, &v1331, &v1335, &v1322);
-      if (v323)
+      *&size[24] = v1301;
+      *&size[32] = v1291;
+      *&size[56] = *&v1357[2];
+      *&size[72] = *&v1357[4];
+      *&size[88] = *(&v1284 + 1);
+      *&size[96] = v1284;
+      *&size[104] = v1266;
+      size[112] = v1280;
+      size[113] = v1221;
+      size[114] = v1259;
+      size[119] = v1329;
+      *&size[115] = v1328;
+      *&size[120] = *v1245;
+      *&size[128] = v1208;
+      v330 = HEIFItemDecoderCreate(__src, v1306, v1345, 0, size, v997, v1337, *(&v1337 + 1), &v1336, &value, &v1340, &v1344, &v1331);
+      if (v330)
       {
         goto LABEL_1117;
       }
@@ -4922,54 +4950,54 @@ LABEL_499:
     }
 
 LABEL_537:
-    ++v318;
+    ++v325;
   }
 
-  while (v318 < v317);
-  if (!v1001)
+  while (v325 < v324);
+  if (!v1010)
   {
 LABEL_561:
-    v345 = 0;
+    v352 = 0;
 LABEL_562:
-    dispatch_barrier_sync(v1013, &__block_literal_global_13);
-    v348 = *MEMORY[0x1E695FF58];
-    if (v345 && v348 == 1)
+    dispatch_barrier_sync(v1022, &__block_literal_global_13);
+    v356 = *MEMORY[0x1E695FF58];
+    if (v352 && v356 == 1)
     {
       OUTLINED_FUNCTION_22_2();
       OUTLINED_FUNCTION_6();
       kdebug_trace();
-      v348 = *MEMORY[0x1E695FF58];
+      v356 = *MEMORY[0x1E695FF58];
     }
 
-    if (v348 == 1)
+    if (v356 == 1)
     {
       OUTLINED_FUNCTION_22_2();
       OUTLINED_FUNCTION_6();
       kdebug_trace();
     }
 
-    if (v1322)
+    if (v1331)
     {
-      v349 = OUTLINED_FUNCTION_14_5(*&v1351);
-      v352 = OUTLINED_FUNCTION_42_1(v350, v349, v351, *v1352, *&v1352[8]);
-      LOBYTE(v22) = v352 == 0;
-      v353 = v1152;
-      if (v352)
+      v357 = OUTLINED_FUNCTION_14_5(*&v1360);
+      v360 = OUTLINED_FUNCTION_42_1(v358, v357, v359, *v1361, *&v1361[8]);
+      LOBYTE(v22) = v360 == 0;
+      v361 = v1161;
+      if (v360)
       {
-        v353 = 1;
+        v361 = 1;
       }
 
-      if (v353)
+      if (v361)
       {
-        OutputFromConstituents = v352;
+        OutputFromConstituents = v360;
       }
 
       else
       {
         LOBYTE(v22) = 0;
         OutputFromConstituents = 0;
-        pixelBuffer = v1322;
-        *&v1322 = 0;
+        pixelBuffer = v1331;
+        *&v1331 = 0;
       }
     }
 
@@ -4983,72 +5011,72 @@ LABEL_1123:
     goto LABEL_592;
   }
 
-  v323 = HEIFItemDecoderWaitForFinishAndReturnStatus(v1001, &v1344, &v1323, &v1331);
-  if (!v323)
+  v330 = HEIFItemDecoderWaitForFinishAndReturnStatus(v1010, &v1353, &v1332, &v1340);
+  if (!v330)
   {
-    v345 = 1;
+    v352 = 1;
     goto LABEL_562;
   }
 
 LABEL_1117:
-  OutputFromConstituents = v323;
+  OutputFromConstituents = v330;
 LABEL_1118:
   LOBYTE(v22) = 0;
 LABEL_592:
-  a5 = v1267;
+  a5 = v1276;
   OUTLINED_FUNCTION_69_0();
-  v315 = v1013;
-  v346 = v1335;
+  v322 = v1022;
+  v353 = v1344;
 LABEL_593:
-  HEIFItemDecoderRelease(v346);
-  dispatch_release(v315);
+  HEIFItemDecoderRelease(v353);
+  dispatch_release(v322);
 LABEL_451:
-  if (v1316)
+  if (v1325)
   {
-    CFRelease(v1316);
+    CFRelease(v1325);
   }
 
-  if (v1334)
+  if (v1343)
   {
-    CFRelease(v1334);
+    CFRelease(v1343);
   }
 
-  if (v1333)
+  if (v1342)
   {
-    CFRelease(v1333);
+    CFRelease(v1342);
   }
 
-  if (v1332)
+  if (v1341)
   {
-    CFRelease(v1332);
+    CFRelease(v1341);
   }
 
-  if (v1317)
+  if (v1326)
   {
-    CFRelease(v1317);
+    CFRelease(v1326);
   }
 
-  if (v1321[0])
+  if (v1330[0])
   {
-    CFRelease(v1321[0]);
+    CFRelease(v1330[0]);
   }
 
-  if (v1337)
+  if (v1346)
   {
-    CFRelease(v1337);
+    CFRelease(v1346);
   }
 
-  if (v1322)
+  if (v1331)
   {
-    CFRelease(v1322);
+    CFRelease(v1331);
   }
 
-  if (v1336)
+  if (v1345)
   {
-    CFRelease(v1336);
+    CFRelease(v1345);
   }
 
-  v209 = BOOLean;
+  v216 = BOOLean;
   if (BOOLean)
   {
     goto LABEL_1029;
@@ -5063,11 +5091,11 @@ LABEL_1030:
 LABEL_1070:
   OUTLINED_FUNCTION_40_1();
 LABEL_1071:
-  v624 = pixelBuffer;
+  v632 = pixelBuffer;
   if (pixelBuffer)
   {
 LABEL_1072:
-    CFRelease(v624);
+    CFRelease(v632);
   }
 
 LABEL_1073:
@@ -5084,77 +5112,77 @@ LABEL_1073:
   return OutputFromConstituents;
 }
 
-void _applyDecodeStrategy()
+void _applyDecodeStrategy(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   OUTLINED_FUNCTION_122();
-  v111 = v0;
-  v112 = v2;
-  v4 = v3;
-  v6 = v5;
-  v8 = v7;
-  v10 = v9;
-  v12 = v11;
-  v13 = v1;
+  v118 = v7;
+  v119 = v9;
+  v11 = v10;
+  v13 = v12;
   v15 = v14;
-  v110 = *MEMORY[0x1E69E9840];
-  v104 = 0;
-  v105 = 0;
-  v16 = *(v1 + 88);
-  if (*(v1 + 105))
+  v17 = v16;
+  v19 = v18;
+  v20 = v8;
+  v22 = v21;
+  v117 = *MEMORY[0x1E69E9840];
+  v111 = 0;
+  v112 = 0;
+  v23 = *(v8 + 88);
+  if (*(v8 + 105))
   {
-    if (v16)
+    if (v23)
     {
-      DictionaryRepresentation = v2;
-      if (CVPixelBufferGetIOSurface(*(v1 + 88)))
+      DictionaryRepresentation = v9;
+      if (CVPixelBufferGetIOSurface(*(v8 + 88)))
       {
         fig_log_get_emitter();
-        FigSignalErrorAtGM();
+        FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v73, v74, v75);
         goto LABEL_83;
       }
     }
   }
 
-  HIDWORD(v74) = v8;
-  v75 = v12;
-  v18 = 1;
-  if (!*(v13 + 309))
+  HIDWORD(v81) = v15;
+  v82 = v19;
+  v25 = 1;
+  if (!*(v20 + 309))
   {
-    v18 = *(v13 + 308) != 0;
+    v25 = *(v20 + 308) != 0;
   }
 
-  v103 = 1;
-  v106 = 0;
-  v107 = 0;
-  LODWORD(v73) = *(v13 + 306);
-  HIDWORD(v73) = *(v13 + 305);
-  LODWORD(v74) = *(v13 + 21);
-  v108 = *(v13 + 24);
-  v109 = *(v13 + 40);
-  cf = v16;
-  if (*(v13 + 304))
+  v110 = 1;
+  v113 = 0;
+  v114 = 0;
+  LODWORD(v80) = *(v20 + 306);
+  HIDWORD(v80) = *(v20 + 305);
+  LODWORD(v81) = *(v20 + 21);
+  v115 = *(v20 + 24);
+  v116 = *(v20 + 40);
+  cf = v23;
+  if (*(v20 + 304))
   {
-    v102 = *(v13 + 16);
+    v109 = *(v20 + 16);
   }
 
   else
   {
-    v102 = 0uLL;
+    v109 = 0uLL;
   }
 
-  v12 = *(v13 + 31);
-  DictionaryRepresentation = *(v13 + 3);
-  v19 = *(v13 + 14);
-  HIDWORD(v71) = v18;
-  if (v16 == 0 || v18 || *(v13 + 307))
+  v19 = *(v20 + 31);
+  DictionaryRepresentation = *(v20 + 3);
+  v26 = *(v20 + 14);
+  HIDWORD(v78) = v25;
+  if (v23 == 0 || v25 || *(v20 + 307))
   {
-    v57 = memcpy(__dst, v15, sizeof(__dst));
-    OUTLINED_FUNCTION_11_12(v57, v58, v59, v60, v61, v62, v63, v64, v66, v67, v68, v71, v73, v74, v75, v10, v16, v82[0], v82[1], v82[2], v82[3], v82[4], v83, v84, v85, v86, v87, v88, v89, v90, v91, v92, v93, v94, v95, v96, v97, v98, v99, v100, __dst[0], __dst[1], __dst[2], __dst[3], __dst[4], __dst[5], __dst[6], __dst[7], __dst[8], __dst[9], __dst[10], __dst[11], v102);
-    BYTE2(v98) = DictionaryRepresentation;
-    HIBYTE(v98) = 0;
-    *(v65 + 115) = 0;
-    v99 = v19;
-    v100 = 0;
-    if (!_decodeItem(__dst, v77, v79, 0, &v84, &v103, 0, v6, &v105))
+    v64 = memcpy(__dst, v22, sizeof(__dst));
+    OUTLINED_FUNCTION_11_12(v64, v65, v66, v67, v68, v69, v70, v71, v73, v74, v75, v78, v80, v81, v82, v17, v23, v89[0], v89[1], v89[2], v89[3], v89[4], v90, v91, v92, v93, v94, v95, v96, v97, v98, v99, v100, v101, v102, v103, v104, v105, v106, v107, __dst[0], __dst[1], __dst[2], __dst[3], __dst[4], __dst[5], __dst[6], __dst[7], __dst[8], __dst[9], __dst[10], __dst[11], v109);
+    BYTE2(v105) = DictionaryRepresentation;
+    HIBYTE(v105) = 0;
+    *(v72 + 115) = 0;
+    v106 = v26;
+    v107 = 0;
+    if (!_decodeItem(__dst, v84, v86, 0, &v91, &v110, 0, v13, &v112))
     {
       goto LABEL_13;
     }
@@ -5164,116 +5192,116 @@ LABEL_83:
     goto LABEL_64;
   }
 
-  v20 = v6;
-  v21 = *(v13 + 3);
-  v69 = v4;
+  v27 = v13;
+  v28 = *(v20 + 3);
+  v76 = v11;
   DictionaryRepresentation = cf;
-  v105 = CFRetain(cf);
-  v22 = dispatch_queue_create("bufferQueue", 0);
-  if (!v22)
+  v112 = CFRetain(cf);
+  v29 = dispatch_queue_create("bufferQueue", 0);
+  if (!v29)
   {
     OUTLINED_FUNCTION_29_3();
     goto LABEL_64;
   }
 
-  v23 = v22;
-  v83 = v22;
-  v24 = memcpy(__dst, v15, sizeof(__dst));
-  OUTLINED_FUNCTION_11_12(v24, v25, v26, v27, v28, v29, v30, v31, v66, v67, v69, v71, v73, v74, v75, v10, cf, cf, 0, 0, 0, 0, v83, v84, v85, v86, v87, v88, v89, v90, v91, v92, v93, v94, v95, v96, v97, v98, v99, v100, __dst[0], __dst[1], __dst[2], __dst[3], __dst[4], __dst[5], __dst[6], __dst[7], __dst[8], __dst[9], __dst[10], __dst[11], v102);
-  DictionaryRepresentation = v21;
-  BYTE2(v98) = v21;
-  HIBYTE(v98) = 0;
-  *(v32 + 115) = 0;
-  v99 = v19;
-  v100 = 0;
-  v33 = _decodeItem(__dst, v76, v78, 0, &v84, &v103, v82, v20, 0);
-  dispatch_barrier_sync(v23, &__block_literal_global_9);
-  dispatch_release(v23);
-  v4 = v70;
-  if (v33)
+  v30 = v29;
+  v90 = v29;
+  v31 = memcpy(__dst, v22, sizeof(__dst));
+  OUTLINED_FUNCTION_11_12(v31, v32, v33, v34, v35, v36, v37, v38, v73, v74, v76, v78, v80, v81, v82, v17, cf, cf, 0, 0, 0, 0, v90, v91, v92, v93, v94, v95, v96, v97, v98, v99, v100, v101, v102, v103, v104, v105, v106, v107, __dst[0], __dst[1], __dst[2], __dst[3], __dst[4], __dst[5], __dst[6], __dst[7], __dst[8], __dst[9], __dst[10], __dst[11], v109);
+  DictionaryRepresentation = v28;
+  BYTE2(v105) = v28;
+  HIBYTE(v105) = 0;
+  *(v39 + 115) = 0;
+  v106 = v26;
+  v107 = 0;
+  v40 = _decodeItem(__dst, v83, v85, 0, &v91, &v110, v89, v27, 0);
+  dispatch_barrier_sync(v30, &__block_literal_global_9);
+  dispatch_release(v30);
+  v11 = v77;
+  if (v40)
   {
     goto LABEL_83;
   }
 
 LABEL_13:
-  if (*(v13 + 307))
+  if (*(v20 + 307))
   {
-    v34 = OUTLINED_FUNCTION_14_5(*(v13 + 34));
-    if (OUTLINED_FUNCTION_42_1(v35, v34, v36, *(v13 + 36), *(v13 + 37)))
+    v41 = OUTLINED_FUNCTION_14_5(*(v20 + 34));
+    if (OUTLINED_FUNCTION_42_1(v42, v41, v43, *(v20 + 36), *(v20 + 37)))
     {
       goto LABEL_83;
     }
   }
 
-  v37 = CMPhotoPixelBufferHasCLAP(v105) && *(v13 + 317) == 0;
-  v12 = CMPhotoPixelBufferHasUnhandledIdentityMatrix(v105);
-  if (*v15)
+  v44 = CMPhotoPixelBufferHasCLAP(v112) && *(v20 + 317) == 0;
+  v19 = CMPhotoPixelBufferHasUnhandledIdentityMatrix(v112);
+  if (*v22)
   {
-    if (CMPhotoDecompressionSessionAsyncRequestCancelled(*(v15[1] + 16), *v15))
+    if (CMPhotoDecompressionSessionAsyncRequestCancelled(*(v22[1] + 16), *v22))
     {
       goto LABEL_83;
     }
   }
 
-  PixelFormatType = CVPixelBufferGetPixelFormatType(v105);
-  v39 = PixelFormatType;
-  v40 = *(v15 + 22);
-  if (v40)
+  PixelFormatType = CVPixelBufferGetPixelFormatType(v112);
+  v46 = PixelFormatType;
+  v47 = *(v22 + 22);
+  if (v47)
   {
-    v41 = v40 == PixelFormatType;
+    v48 = v47 == PixelFormatType;
   }
 
   else
   {
-    v41 = 1;
+    v48 = 1;
   }
 
-  v42 = v41;
-  v43 = *(v13 + 8);
-  if (*(v13 + 8))
+  v49 = v48;
+  v50 = *(v20 + 8);
+  if (*(v20 + 8))
   {
-    v43 = *(v13 + 1) == PixelFormatType;
+    v50 = *(v20 + 1) == PixelFormatType;
   }
 
-  if (((v42 | v43) & 1) == 0)
+  if (((v49 | v50) & 1) == 0)
   {
     FullRangeForPixelFormat = CMPhotoGetFullRangeForPixelFormat(PixelFormatType);
-    v45 = *(v15 + 22);
-    if ((FullRangeForPixelFormat == v45 || CMPhotoGetFullRangeForPixelFormat(v45) == v39) && !CMPhotoCreateOtherRangePixelBufferWithBacking(v105))
+    v52 = *(v22 + 22);
+    if ((FullRangeForPixelFormat == v52 || CMPhotoGetFullRangeForPixelFormat(v52) == v46) && !CMPhotoCreateOtherRangePixelBufferWithBacking(v112))
     {
-      if (v105)
+      if (v112)
       {
-        CFRelease(v105);
+        CFRelease(v112);
       }
 
-      v46 = v104;
-      v104 = 0;
-      v105 = v46;
+      v53 = v111;
+      v111 = 0;
+      v112 = v53;
     }
   }
 
   if (cfa)
   {
-    v47 = cfa == v105;
+    v54 = cfa == v112;
   }
 
   else
   {
-    v47 = 1;
+    v54 = 1;
   }
 
-  v48 = !v47;
-  if (((v37 | v72) & 1) == 0 && (v48 & 1) == 0 && !v12 && !*(v13 + 78))
+  v55 = !v54;
+  if (((v44 | v79) & 1) == 0 && (v55 & 1) == 0 && !v19 && !*(v20 + 78))
   {
     OUTLINED_FUNCTION_29_3();
 LABEL_63:
-    *v4 = v56;
-    v105 = 0;
+    *v11 = v63;
+    v112 = 0;
     goto LABEL_64;
   }
 
-  ScaleAndRotateOptionsWithHWIfNeeded = CMPhotoCreateScaleAndRotateOptionsWithHWIfNeeded(0, *(v15 + 48), *(v15 + 50), *(v15 + 51), *(v15 + 52));
-  v12 = ScaleAndRotateOptionsWithHWIfNeeded;
+  ScaleAndRotateOptionsWithHWIfNeeded = CMPhotoCreateScaleAndRotateOptionsWithHWIfNeeded(0, *(v22 + 48), *(v22 + 50), *(v22 + 51), *(v22 + 52));
+  v19 = ScaleAndRotateOptionsWithHWIfNeeded;
   if (ScaleAndRotateOptionsWithHWIfNeeded)
   {
     if (DictionaryRepresentation)
@@ -5281,76 +5309,76 @@ LABEL_63:
       CMPhotoCFDictionarySetBoolean(ScaleAndRotateOptionsWithHWIfNeeded, @"PreferLowMemory", DictionaryRepresentation);
     }
 
-    if (!*(v13 + 308))
+    if (!*(v20 + 308))
     {
-      v103 = 1;
+      v110 = 1;
     }
 
-    v50 = v105;
-    v51 = CVPixelBufferGetPixelFormatType(v105);
-    DefaultTripletsForTransfer = CMPhotoCreateDefaultTripletsForTransfer(v50, v51);
-    v54 = v53;
-    CMPhotoCFDictionarySetBoolean(v12, @"DestinationBackedByIOSurface", *(v15 + 49) == 0);
-    CMPhotoCFDictionarySetInt(v12, @"SourceExifOrientation", v103);
-    v55 = *(v13 + 78);
-    if (!v55)
+    v57 = v112;
+    v58 = CVPixelBufferGetPixelFormatType(v112);
+    DefaultTripletsForTransfer = CMPhotoCreateDefaultTripletsForTransfer(v57, v58);
+    v61 = v60;
+    CMPhotoCFDictionarySetBoolean(v19, @"DestinationBackedByIOSurface", *(v22 + 49) == 0);
+    CMPhotoCFDictionarySetInt(v19, @"SourceExifOrientation", v110);
+    v62 = *(v20 + 78);
+    if (!v62)
     {
-      v55 = CVPixelBufferGetPixelFormatType(v105);
+      v62 = CVPixelBufferGetPixelFormatType(v112);
     }
 
-    CMPhotoCFDictionarySetInt(v12, @"DestinationPixelFormat", v55);
-    CMPhotoCFDictionarySetBoolean(v12, @"ExactDimensions", 1);
-    DictionaryRepresentation = CMPhotoColorTripletCreateDictionaryRepresentation(DefaultTripletsForTransfer, v54);
+    CMPhotoCFDictionarySetInt(v19, @"DestinationPixelFormat", v62);
+    CMPhotoCFDictionarySetBoolean(v19, @"ExactDimensions", 1);
+    DictionaryRepresentation = CMPhotoColorTripletCreateDictionaryRepresentation(DefaultTripletsForTransfer, v61);
     if (DictionaryRepresentation)
     {
-      CFDictionarySetValue(v12, @"DestinationColorTripletDictionary", DictionaryRepresentation);
+      CFDictionarySetValue(v19, @"DestinationColorTripletDictionary", DictionaryRepresentation);
     }
 
-    v113.width = OUTLINED_FUNCTION_14_5(*(v13 + 26));
-    v13 = CGSizeCreateDictionaryRepresentation(v113);
-    if (v13)
+    v120.width = OUTLINED_FUNCTION_14_5(*(v20 + 26));
+    v20 = CGSizeCreateDictionaryRepresentation(v120);
+    if (v20)
     {
-      CFDictionarySetValue(v12, @"DestinationSizeDictionary", v13);
+      CFDictionarySetValue(v19, @"DestinationSizeDictionary", v20);
     }
 
-    v84 = cfa;
-    if (!CMPhotoScaleAndRotateSessionTransformImage(v15[4], v105, v12, &v84))
+    v91 = cfa;
+    if (!CMPhotoScaleAndRotateSessionTransformImage(v22[4], v112, v19, &v91))
     {
-      if (cfa && v84)
+      if (cfa && v91)
       {
-        CFRetain(v84);
+        CFRetain(v91);
       }
 
-      if (v105)
+      if (v112)
       {
-        CFRelease(v105);
+        CFRelease(v112);
       }
 
-      v56 = v84;
+      v63 = v91;
       goto LABEL_63;
     }
   }
 
   else
   {
-    v13 = 0;
+    v20 = 0;
     DictionaryRepresentation = 0;
   }
 
 LABEL_64:
-  if (v104)
+  if (v111)
   {
-    CFRelease(v104);
+    CFRelease(v111);
   }
 
-  if (v105)
+  if (v112)
   {
-    CFRelease(v105);
+    CFRelease(v112);
   }
 
-  if (v12)
+  if (v19)
   {
-    CFRelease(v12);
+    CFRelease(v19);
   }
 
   if (DictionaryRepresentation)
@@ -5358,9 +5386,9 @@ LABEL_64:
     CFRelease(DictionaryRepresentation);
   }
 
-  if (v13)
+  if (v20)
   {
-    CFRelease(v13);
+    CFRelease(v20);
   }
 
   OUTLINED_FUNCTION_121();
@@ -5609,8 +5637,9 @@ void OUTLINED_FUNCTION_38_0()
   *(v0 - 124) = 0;
 }
 
-uint64_t CMPhotoDecompressionPluginCreate(const void *a1, const void *a2, const void *a3, const void *a4, int a5, const void *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13)
+uint64_t CMPhotoDecompressionPluginCreate(const void *a1, const void *a2, const void *a3, const void *a4, uint64_t a5, const void *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13)
 {
+  v14 = a5;
   IsTileDecoderAvailable = CMPhotoIsTileDecoderAvailable(a5);
   v20 = 0;
   v21 = 4294950306;
@@ -5633,7 +5662,7 @@ uint64_t CMPhotoDecompressionPluginCreate(const void *a1, const void *a2, const 
     goto LABEL_36;
   }
 
-  switch(a5)
+  switch(v14)
   {
     case 1635135537:
     case 1635148593:
@@ -5648,7 +5677,7 @@ LABEL_18:
       goto LABEL_19;
   }
 
-  if (a5 != 1752589105)
+  if (v14 != 1752589105)
   {
     v21 = 4294950298;
     goto LABEL_36;
@@ -5724,7 +5753,7 @@ LABEL_19:
 
   v20[4] = v31;
   v20[7] = a12;
-  *(v20 + 18) = a5;
+  *(v20 + 18) = v14;
   *(v20 + 19) = 1;
   v20[10] = a9;
   v20[11] = a8;
@@ -5740,9 +5769,9 @@ LABEL_36:
   return v21;
 }
 
-uint64_t HEIFItemDecoderCreate(uint64_t a1, const void *a2, const void *a3, const void *a4, uint64_t a5, char a6, unint64_t a7, unint64_t a8, __int128 *a9, size_t *a10, uint64_t *a11, void *a12, __CVBuffer **a13)
+uint64_t HEIFItemDecoderCreate(uint64_t *a1, const void *a2, const void *a3, const void *a4, uint64_t a5, char a6, unint64_t a7, unint64_t a8, __int128 *a9, size_t *a10, uint64_t *a11, void *a12, __CVBuffer **a13)
 {
-  v19 = CFGetAllocator(*(a1 + 8));
+  v19 = CFGetAllocator(a1[1]);
   v149 = 0;
   v150 = 0;
   v148[0] = 0;
@@ -5796,38 +5825,37 @@ LABEL_162:
   }
 
   *(v22 + 5) = v24;
-  ImageGeometryFromPictureReader = CMPhotoPictureReaderGetImageGeometryFromPictureReader(v24, *(*(a1 + 8) + 28), (v22 + 176), (v22 + 160));
+  ImageGeometryFromPictureReader = CMPhotoPictureReaderGetImageGeometryFromPictureReader(v24, *(a1[1] + 28), (v22 + 176), (v22 + 160));
   if (ImageGeometryFromPictureReader)
   {
-    goto LABEL_168;
+    goto LABEL_167;
   }
 
-  ImageGeometryFromPictureReader = _copyColorInfoForItem(*(a1 + 8), *(v22 + 5), 0, v136, v22 + 3, *(a5 + 128), v22 + 6, v22 + 7, v22 + 8, v22 + 9, v22 + 20, v22 + 21, 0);
+  ImageGeometryFromPictureReader = _copyColorInfoForItem(a1[1], *(v22 + 5), 0, v136, v22 + 3, *(a5 + 128), v22 + 6, v22 + 7, v22 + 8, v22 + 9, v22 + 20, v22 + 21, 0);
   if (ImageGeometryFromPictureReader)
   {
-    goto LABEL_168;
+    goto LABEL_167;
   }
 
   ImageGeometryFromPictureReader = CMPhotoPictureReaderGetImageCodecTypeFromReader(*(v22 + 5), &v147);
   if (ImageGeometryFromPictureReader)
   {
-    goto LABEL_168;
+    goto LABEL_167;
   }
 
   v145 = 0;
-  ImageGeometryFromPictureReader = CMPhotoDecompressionContainerIsCodecAllowed(*(a1 + 8), v147, &v145);
+  ImageGeometryFromPictureReader = CMPhotoDecompressionContainerIsCodecAllowed(a1[1], v147, &v145);
   if (ImageGeometryFromPictureReader)
   {
-    goto LABEL_168;
+    goto LABEL_167;
   }
 
   if (!v145 || v147 == 1936484717 && (v26 = FigCFArrayContainsInt(), IsInternalBuild = FigDebugIsInternalBuild(), !CMPhotoAllowExperimentalCodecsOverride(IsInternalBuild | v26)))
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_2_16();
-LABEL_167:
-    ImageGeometryFromPictureReader = FigSignalErrorAtGM();
-    goto LABEL_168;
+    ImageGeometryFromPictureReader = FigSignalErrorAtGM("%s signalled err=%d at <>:%d");
+    goto LABEL_167;
   }
 
   if (!a2)
@@ -5849,13 +5877,13 @@ LABEL_167:
     ImageGeometryFromPictureReader = _copyMultilayerProperties(v29, v30, v31, v32, v33, v34);
     if (ImageGeometryFromPictureReader)
     {
-      goto LABEL_168;
+      goto LABEL_167;
     }
 
     v28 = v147;
   }
 
-  v35 = *(a1 + 44);
+  v35 = *(a1 + 11);
   v36 = v35 == 1;
   if (!v35)
   {
@@ -5909,7 +5937,7 @@ LABEL_167:
     OUTLINED_FUNCTION_119(v37, @"PreferSoftwareCodec");
   }
 
-  if (*(a1 + 44) == 2)
+  if (*(a1 + 11) == 2)
   {
     OUTLINED_FUNCTION_119(v37, @"RequireHardwareCodec");
   }
@@ -5952,15 +5980,15 @@ LABEL_167:
   ImageGeometryFromPictureReader = CMPhotoDecompressionPluginCreate(v19, v48, v49, v50, v51, v52, v53, v54, 0, Mutable, v46, v22, v22 + 2);
   if (ImageGeometryFromPictureReader)
   {
-    goto LABEL_168;
+    goto LABEL_167;
   }
 
   if (a4)
   {
-    ImageGeometryFromPictureReader = CMPhotoPictureReaderGetImageGeometryFromPictureReader(a4, *(*(a1 + 8) + 28), 0, v148);
+    ImageGeometryFromPictureReader = CMPhotoPictureReaderGetImageGeometryFromPictureReader(a4, *(a1[1] + 28), 0, v148);
     if (ImageGeometryFromPictureReader)
     {
-      goto LABEL_168;
+      goto LABEL_167;
     }
 
     v55 = CFGetAllocator(a4);
@@ -5975,14 +6003,14 @@ LABEL_167:
     ImageGeometryFromPictureReader = v57(FigBaseObject, *MEMORY[0x1E69722F8], v55, &v149);
     if (ImageGeometryFromPictureReader)
     {
-      goto LABEL_168;
+      goto LABEL_167;
     }
   }
 
   ImageGeometryFromPictureReader = CMPhotoDecompressionPluginGetDecoderRestrictions(*(v22 + 2), v149, (v22 + 92));
   if (ImageGeometryFromPictureReader)
   {
-    goto LABEL_168;
+    goto LABEL_167;
   }
 
   v58 = CMPhotoDecompressionPluginSupportsNativeTiling(*(v22 + 2));
@@ -5990,13 +6018,14 @@ LABEL_167:
   v59 = *(v22 + 21);
   if (v59 < *(v22 + 35) || (v60 = *(v22 + 20), v60 < *(v22 + 34)) || v59 > *(v22 + 37) || v60 > *(v22 + 36))
   {
-    if (v36 || *(a1 + 44))
+    if (v36 || *(a1 + 11))
     {
       if (v58)
       {
 LABEL_166:
         fig_log_get_emitter();
         OUTLINED_FUNCTION_2_16();
+        ImageGeometryFromPictureReader = FigSignalErrorAtGM("%s signalled err=%d at <>:%d");
         goto LABEL_167;
       }
 
@@ -6042,13 +6071,13 @@ LABEL_166:
     ImageGeometryFromPictureReader = CMPhotoDecompressionPluginCreate(v19, v69, v70, v71, v72, v73, v74, v75, 0, Mutable, v46, v22, v22 + 2);
     if (ImageGeometryFromPictureReader)
     {
-      goto LABEL_168;
+      goto LABEL_167;
     }
 
     ImageGeometryFromPictureReader = CMPhotoDecompressionPluginGetDecoderRestrictions(*v47, v149, (v22 + 92));
     if (ImageGeometryFromPictureReader)
     {
-      goto LABEL_168;
+      goto LABEL_167;
     }
 
     v58 = v22[156];
@@ -6073,7 +6102,7 @@ LABEL_166:
       goto LABEL_95;
     }
 
-LABEL_168:
+LABEL_167:
     v78 = ImageGeometryFromPictureReader;
     goto LABEL_152;
   }
@@ -6123,10 +6152,10 @@ LABEL_95:
       v94 = *a1;
       if (!*a1)
       {
-        v94 = *(a1 + 8);
+        v94 = a1[1];
       }
 
-      v95 = *(a1 + 24);
+      v95 = a1[3];
       v96 = *(a1 + 49);
       if (!v76)
       {
@@ -6155,7 +6184,7 @@ LABEL_95:
       ImageGeometryFromPictureReader = _createPixelBuffer(v95, v94, v96, v76, *a11, a11[1], *a10, a10[1], v141, v98, v97, &v150);
       if (ImageGeometryFromPictureReader)
       {
-        goto LABEL_168;
+        goto LABEL_167;
       }
 
       v90 = v150;
@@ -6338,10 +6367,10 @@ LABEL_152:
   return v78;
 }
 
-unint64_t OUTLINED_FUNCTION_8_1(uint64_t a1, uint64_t a2, double a3, double a4, double a5, double a6, double a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, unsigned __int8 a15, uint64_t a16)
+unint64_t OUTLINED_FUNCTION_8_1(uint64_t a1, uint64_t a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6, __n128 a7, __n128 a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, unsigned __int8 a16, uint64_t a17)
 {
 
-  return CMPhotoScaleAndRotateSessionTransformForSize(a1, a2, 1, 1, 1919365990, 0, 0, 1, a3, a4, a5, a6, a7, v17, a14, a15, a16);
+  return CMPhotoScaleAndRotateSessionTransformForSize(a1, a2, 1, 1, 1919365990, 0, 0, 1, a3.n128_f64[0], a4.n128_f64[0], a5.n128_f64[0], a6.n128_f64[0], a7.n128_f64[0], v18, a15, a16, a17);
 }
 
 void OUTLINED_FUNCTION_8_3(int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
@@ -6351,10 +6380,10 @@ void OUTLINED_FUNCTION_8_3(int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64
   bzero(&a9, 0xA8uLL);
 }
 
-uint64_t OUTLINED_FUNCTION_8_11()
+uint64_t OUTLINED_FUNCTION_8_11(__n128 a1)
 {
 
-  return CMPhotoCFArrayAppendDouble(v0, 0.0);
+  return CMPhotoCFArrayAppendDouble(v1, 0.0);
 }
 
 void OUTLINED_FUNCTION_8_15(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31)
@@ -6372,12 +6401,12 @@ uint64_t OUTLINED_FUNCTION_8_16(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t 
   return _decodePixelBufferForImageIndex(v11, v8, v7, a4, v9, v6, v5, v4);
 }
 
-uint64_t OUTLINED_FUNCTION_8_19(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, CMTime *time2, uint64_t a6, uint64_t a7, uint64_t a8, __n128 a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, __n128 time2a, uint64_t time2_16, uint64_t a16, uint64_t a17, uint64_t a18)
+uint64_t OUTLINED_FUNCTION_8_19(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, CMTime *time2, uint64_t a6, uint64_t a7, uint64_t a8, __n128 a9, __n128 time2a, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, __n128 time2_16, uint64_t a17, uint64_t a18, uint64_t _40, uint64_t a19)
 {
-  time2a = a9;
-  time2_16 = a18;
+  time2_16 = a9;
+  a17 = a19;
 
-  return CMTimeCompare((v18 - 64), &time2a);
+  return CMTimeCompare((v19 - 64), &time2_16);
 }
 
 uint64_t CMPhotoPixelFormatIsPackedYUV(int a1)
@@ -6622,7 +6651,7 @@ uint64_t VTDecompressionPluginClass_getDecoderRestrictions(uint64_t a1, uint64_t
   return result;
 }
 
-uint64_t VTDecompressionPluginClass_copyPixelBufferAttributes(uint64_t a1, _DWORD *a2, __CFDictionary **a3)
+uint64_t VTDecompressionPluginClass_copyPixelBufferAttributes(uint64_t a1, int *a2, __CFDictionary **a3)
 {
   v6 = *(a1 + 64);
   propertyValueOut = 0;
@@ -7009,7 +7038,7 @@ uint64_t CMPhotoPixelBufferAttributesGetExtendedPixelsStruct(uint64_t result, vo
   return result;
 }
 
-uint64_t _createPixelBuffer(__CVBuffer *a1, uint64_t a2, unsigned int a3, int a4, uint64_t a5, uint64_t a6, size_t a7, size_t a8, unint64_t *a9, int *a10, const __CFDictionary *a11, void *a12)
+uint64_t _createPixelBuffer(__CVBuffer *a1, uint64_t a2, unsigned int a3, unsigned int a4, uint64_t a5, uint64_t a6, size_t a7, size_t a8, void *a9, int *a10, const __CFDictionary *a11, void *a12)
 {
   v63 = 0;
   *v60 = 0u;
@@ -7036,7 +7065,7 @@ uint64_t _createPixelBuffer(__CVBuffer *a1, uint64_t a2, unsigned int a3, int a4
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_1();
-    IsSubsampled = FigSignalErrorAtGM();
+    IsSubsampled = FigSignalErrorAtGM("%s signalled err=%d at <>:%d");
     goto LABEL_43;
   }
 
@@ -7192,7 +7221,7 @@ LABEL_27:
   return v35;
 }
 
-uint64_t CMPhotoPixelFormatIsSubsampled(uint64_t a1, _BYTE *a2, _BYTE *a3, _BYTE *a4, uint64_t *a5)
+uint64_t CMPhotoPixelFormatIsSubsampled(uint64_t a1, BOOL *a2, BOOL *a3, BOOL *a4, uint64_t *a5)
 {
   DescriptionWithPixelFormatType = CVPixelFormatDescriptionGetDescriptionWithPixelFormatType();
   if (!DescriptionWithPixelFormatType)
@@ -7390,11 +7419,11 @@ uint64_t CMPhotoExifOrientationFromHEIFRotationCCWAndMirroring(int a1, int a2, i
 {
   if (!a1 && a2 == -1)
   {
-    v3 = 1;
+    v4 = 1;
 LABEL_9:
     if (a3)
     {
-      *a3 = v3;
+      *a3 = v4;
     }
 
     return 0;
@@ -7402,52 +7431,52 @@ LABEL_9:
 
   if (!a1 && a2 == 1 || a1 == 180 && !a2)
   {
-    v3 = 2;
+    v4 = 2;
     goto LABEL_9;
   }
 
   if (a1 == 180 && a2 == -1)
   {
-    v3 = 3;
+    v4 = 3;
     goto LABEL_9;
   }
 
-  v6 = a1 == 180 && a2 == 1;
-  v3 = 4;
-  if (!(a2 | a1) || v6)
+  v7 = a1 == 180 && a2 == 1;
+  v4 = 4;
+  if (!(a2 | a1) || v7)
   {
     goto LABEL_9;
   }
 
   if (a1 == 90 && !a2 || a1 == 270 && a2 == 1)
   {
-    v3 = 5;
+    v4 = 5;
     goto LABEL_9;
   }
 
   if (a1 == 270 && a2 == -1)
   {
-    v3 = 6;
+    v4 = 6;
     goto LABEL_9;
   }
 
-  v8 = a1 == 270 && a2 == 0;
-  v9 = a2 == 1 && a1 == 90;
-  v3 = 7;
-  if (v9 || v8)
+  v9 = a1 == 270 && a2 == 0;
+  v10 = a2 == 1 && a1 == 90;
+  v4 = 7;
+  if (v10 || v9)
   {
     goto LABEL_9;
   }
 
   if (a1 == 90 && a2 == -1)
   {
-    v3 = 8;
+    v4 = 8;
     goto LABEL_9;
   }
 
-  fig_log_get_emitter();
+  emitter = fig_log_get_emitter();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294950306, "(Fig)", 259, v3);
 }
 
 CGColorSpaceRef CMPhotoCreateColorSpaceFromTriplets(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
@@ -7628,10 +7657,10 @@ uint64_t _copyImageSubsamplingForIndex(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 
   OUTLINED_FUNCTION_21_3();
-  result = OUTLINED_FUNCTION_4_8(v5, v6);
+  result = OUTLINED_FUNCTION_4_8(v5, v6, v7);
   if (!result)
   {
-    result = _parseImageSizeAndTypeIfNeeded();
+    result = _parseImageSizeAndTypeIfNeeded(v4 + 40);
     if (!result)
     {
       *v3 = *(v4 + 128);
@@ -7667,7 +7696,7 @@ uint64_t _copyImageSubsamplingForIndex_0(uint64_t a1, uint64_t a2, int *a3)
   fig_log_get_emitter();
   OUTLINED_FUNCTION_1();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d");
 }
 
 uint64_t _copyImageSubsamplingForIndex_1(void *a1, uint64_t a2, uint64_t a3)
@@ -7967,14 +7996,14 @@ uint64_t _createDescription(uint64_t a1, CFDictionaryRef *a2)
   v5 = a1 + 40;
   v4 = *(a1 + 40);
   cf = 0;
-  v6 = _parseImageSizeAndTypeIfNeeded();
+  v6 = _parseImageSizeAndTypeIfNeeded(a1 + 40);
   if (v6)
   {
     return v6;
   }
 
   MainImageDescription = _parseICCProfileIfNeeded(v5);
-  if (MainImageDescription || (MainImageDescription = _parseExifIfNeeded(v5, 0), MainImageDescription) || (MainImageDescription = _parseXMPIfNeeded(), MainImageDescription) || (MainImageDescription = _parseDebugMetadataIfNeeded(), MainImageDescription) || (MainImageDescription = _parseCustomMetadataIfNeeded(), MainImageDescription) || (MainImageDescription = _parseMPOIfNeeded(v5), MainImageDescription) || (MainImageDescription = _createMainImageDescription(a1, 0xFFFFFFFFFFFFFFFFLL, &cf), MainImageDescription))
+  if (MainImageDescription || (MainImageDescription = _parseExifIfNeeded(v5, 0), MainImageDescription) || (MainImageDescription = _parseXMPIfNeeded(v5), MainImageDescription) || (MainImageDescription = _parseDebugMetadataIfNeeded(v5), MainImageDescription) || (MainImageDescription = _parseCustomMetadataIfNeeded(v5), MainImageDescription) || (MainImageDescription = _parseMPOIfNeeded(v5), MainImageDescription) || (MainImageDescription = _createMainImageDescription(a1, 0xFFFFFFFFFFFFFFFFLL, &cf), MainImageDescription))
   {
     v14 = MainImageDescription;
     v12 = 0;
@@ -8386,7 +8415,7 @@ LABEL_14:
   return v19;
 }
 
-uint64_t _createDescription_2(uint64_t *a1, CFMutableDictionaryRef *a2)
+uint64_t _createDescription_2(void *a1, CFMutableDictionaryRef *a2)
 {
   v6 = CFGetAllocator(a1);
   v24 = 0;
@@ -9102,7 +9131,7 @@ LABEL_14:
   }
 }
 
-unint64_t ___sanityCheckAllowOptionsValue_block_invoke(unint64_t result, uint64_t a2, const void *a3)
+unint64_t ___sanityCheckAllowOptionsValue_block_invoke(unint64_t result, uint64_t a2, const __CFArray *a3)
 {
   if (!*(*(*(result + 32) + 8) + 24))
   {
@@ -9136,7 +9165,7 @@ unint64_t ___sanityCheckAllowOptionsValue_block_invoke(unint64_t result, uint64_
 
       fig_log_get_emitter();
       OUTLINED_FUNCTION_19();
-      result = FigSignalErrorAtGM();
+      result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d");
       *(*(*(v4 + 32) + 8) + 24) = result;
     }
   }
@@ -9148,7 +9177,7 @@ uint64_t CMPhotoGetContainerFormatFromFormatString(uint64_t a1, int *a2)
 {
   if (FigCFEqual())
   {
-    v3 = 0;
+    v4 = 0;
     if (!a2)
     {
       return 0;
@@ -9159,7 +9188,7 @@ uint64_t CMPhotoGetContainerFormatFromFormatString(uint64_t a1, int *a2)
 
   if (FigCFEqual())
   {
-    v3 = 1;
+    v4 = 1;
     if (!a2)
     {
       return 0;
@@ -9170,20 +9199,20 @@ uint64_t CMPhotoGetContainerFormatFromFormatString(uint64_t a1, int *a2)
 
   if (FigCFEqual())
   {
-    v3 = 2;
+    v4 = 2;
     if (!a2)
     {
       return 0;
     }
 
 LABEL_9:
-    *a2 = v3;
+    *a2 = v4;
     return 0;
   }
 
   if (FigCFEqual())
   {
-    v3 = 3;
+    v4 = 3;
     if (!a2)
     {
       return 0;
@@ -9192,7 +9221,7 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 4294950303, "(Fig)", 300, v2);
 }
 
 int64_t ___isContainerAllowedByDictionary_block_invoke(uint64_t a1, uint64_t a2, const void *a3)
@@ -9235,7 +9264,7 @@ uint64_t OUTLINED_FUNCTION_26_0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t 
   return CMPhotoCFDictionarySetInt32(v20, a20, 1785750887);
 }
 
-uint64_t CMPhotoGetYUVPixelFormatForParameters(int a1, int a2, int a3, int a4, int a5, uint64_t a6, int a7, int *a8)
+uint64_t CMPhotoGetYUVPixelFormatForParameters(uint64_t a1, int a2, int a3, int a4, int a5, uint64_t a6, int a7, int *a8)
 {
   v8 = 1111573574;
   v9 = 1111573574;
@@ -9561,7 +9590,7 @@ LABEL_56:
           v18 = a5 - 2;
           if ((a5 - 2) < 4)
           {
-            v19 = "80L&80L|80L/80L-21L&FDABFDABFDAB01L&FDABFDABFDAB61L&FDABFDABFDAB";
+            v19 = &unk_1A5AAD180;
             goto LABEL_72;
           }
 
@@ -9577,7 +9606,7 @@ LABEL_56:
           v18 = a5 - 2;
           if ((a5 - 2) < 4)
           {
-            v19 = "01L&FDABFDABFDAB61L&FDABFDABFDAB";
+            v19 = &unk_1A5AAD1A0;
             goto LABEL_72;
           }
 
@@ -9594,9 +9623,9 @@ LABEL_56:
 
           else
           {
-            v19 = "21L&FDABFDABFDAB01L&FDABFDABFDAB61L&FDABFDABFDAB";
+            v19 = &unk_1A5AAD190;
 LABEL_72:
-            v9 = *&v19[4 * v18];
+            v9 = v19[v18];
           }
 
           break;
@@ -9614,7 +9643,7 @@ LABEL_72:
 
           else
           {
-            v9 = *&a80l80l80l80l21[4 * (v37 - 2) + 48];
+            v9 = dword_1A5AAD1B0[v37 - 2];
           }
 
           break;
@@ -9647,7 +9676,7 @@ LABEL_103:
       fig_log_get_emitter();
       OUTLINED_FUNCTION_1();
 
-      return FigSignalErrorAtGM();
+      return FigSignalErrorAtGM("%s signalled err=%d at <>:%d");
     }
   }
 
@@ -9774,7 +9803,7 @@ uint64_t _copyFormatDescriptionForIndex_2(uint64_t a1, unint64_t a2, uint64_t a3
   cf = 0;
   formatDescriptionOut = 0;
   v11 = CFGetAllocator(a1);
-  v12 = _parseImageSizeAndTypeIfNeeded();
+  v12 = _parseImageSizeAndTypeIfNeeded(a1 + 40);
   if (!v12)
   {
     v13 = _parseICCProfileIfNeeded(a1 + 40);

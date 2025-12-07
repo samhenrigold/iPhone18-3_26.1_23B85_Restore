@@ -18,18 +18,19 @@
 
 - (_UNNotificationContentExtensionManager)init
 {
-  v6.receiver = self;
-  v6.super_class = _UNNotificationContentExtensionManager;
-  v2 = [(_UNNotificationContentExtensionManager *)&v6 init];
+  v8.receiver = self;
+  v8.super_class = _UNNotificationContentExtensionManager;
+  v2 = [(_UNNotificationContentExtensionManager *)&v8 init];
+  v4 = v2;
   if (v2)
   {
-    UNRegisterUserNotificationsUILogging();
-    v3 = objc_alloc_init(_UNNotificationContentExtensionCache);
-    extensionsCache = v2->_extensionsCache;
-    v2->_extensionsCache = v3;
+    UNRegisterUserNotificationsUILogging(v2, v3);
+    v5 = objc_alloc_init(_UNNotificationContentExtensionCache);
+    extensionsCache = v4->_extensionsCache;
+    v4->_extensionsCache = v5;
   }
 
-  return v2;
+  return v4;
 }
 
 + (id)sharedInstance

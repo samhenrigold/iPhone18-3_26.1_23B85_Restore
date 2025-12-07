@@ -25,24 +25,24 @@
     {
       self->_outputSpecification = [specification copy];
       self->_receiverState.stateQueue = dispatch_queue_create("com.apple.avfoundation.avplayervideooutput.state", 0);
-      self->_iVarAccessQueue = av_readwrite_dispatch_queue_create("com.apple.avfoundation.avplayervideooutput.ivars");
+      self->_iVarAccessQueue = av_readwrite_dispatch_queue_create("com.apple.avfoundation.avplayervideooutput.ivars", v12);
       return 1;
     }
 
     if (out)
     {
-      v13 = @"AVPlayerVideoOutput: Received malformed outputSpecification";
+      v14 = @"AVPlayerVideoOutput: Received malformed outputSpecification";
 LABEL_9:
-      v14 = AVMethodExceptionReasonWithObjectAndSelector(self, a2, v13, out, v4, v5, v6, v7, v15);
+      v15 = AVMethodExceptionReasonWithObjectAndSelector(self, a2, v14, out, v4, v5, v6, v7, v16);
       result = 0;
-      *out = v14;
+      *out = v15;
       return result;
     }
   }
 
   else if (out)
   {
-    v13 = @"AVPlayerVideoOutput: outputSpecification cannot be nil.";
+    v14 = @"AVPlayerVideoOutput: outputSpecification cannot be nil.";
     goto LABEL_9;
   }
 
@@ -735,7 +735,7 @@ LABEL_12:
   return v3;
 }
 
-uint64_t __47__AVPlayerVideoOutput_resourceLifeCycleHandler__block_invoke(uint64_t a1)
+void *__47__AVPlayerVideoOutput_resourceLifeCycleHandler__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 72) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;

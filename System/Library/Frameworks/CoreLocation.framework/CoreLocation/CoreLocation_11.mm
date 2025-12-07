@@ -16,63 +16,63 @@ void sub_19B9E4D64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_19B9E4F38(void *a1, uint64_t *a2, char a3, void *a4, uint64_t **a5, __int128 ***a6, uint64_t *a7)
+void sub_19B9E4F38(void *a1, const char *a2, char a3, void *a4, uint64_t **a5, __int128 ***a6, id **a7)
 {
-  v205 = *MEMORY[0x1E69E9840];
+  v220 = *MEMORY[0x1E69E9840];
   if (*a7)
   {
-    v158 = 0u;
-    v159 = 0u;
-    v156 = 0u;
-    v157 = 0u;
-    v12 = [a4 countByEnumeratingWithState:&v156 objects:v183 count:16];
-    if (v12)
+    v173 = 0u;
+    v174 = 0u;
+    v171 = 0u;
+    v172 = 0u;
+    v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(a4, a2, &v171, v198, 16);
+    if (v15)
     {
-      v13 = *v157;
+      v16 = *v172;
       do
       {
-        for (i = 0; i != v12; ++i)
+        for (i = 0; i != v15; ++i)
         {
-          if (*v157 != v13)
+          if (*v172 != v16)
           {
             objc_enumerationMutation(a4);
           }
 
-          v15 = *(*(&v156 + 1) + 8 * i);
-          [v15 course];
-          [v15 courseAccuracy];
-          [v15 horizontalAccuracy];
-          [v15 course];
-          [v15 updateCourse:? andCourseAccuracy:?];
+          v18 = *(*(&v171 + 1) + 8 * i);
+          objc_msgSend_course(v18, v12, v13, v14);
+          objc_msgSend_courseAccuracy(v18, v19, v20, v21);
+          objc_msgSend_horizontalAccuracy(v18, v22, v23, v24);
+          objc_msgSend_course(v18, v25, v26, v27);
+          objc_msgSend_updateCourse_andCourseAccuracy_(v18, v28, v29, v30);
         }
 
-        v12 = [a4 countByEnumeratingWithState:&v156 objects:v183 count:16];
+        v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(a4, v12, &v171, v198, 16);
       }
 
-      while (v12);
+      while (v15);
     }
 
-    v150 = 0;
-    v151 = 0;
-    v149 = xmmword_19BA89490;
-    v152 = 0x3FF0000000000000;
-    v153 = 0;
-    v154 = 0;
-    v155 = 0;
-    sub_19B948DC0(&v149, a4);
-    v146 = 0;
-    v147 = 0;
-    v148 = 0;
-    if (v154 - v153 == 16)
+    v165 = 0;
+    v166 = 0;
+    v164 = xmmword_19BA89490;
+    v167 = 0x3FF0000000000000;
+    v168 = 0;
+    v169 = 0;
+    v170 = 0;
+    sub_19B948DC0(&v164, a4);
+    v161 = 0;
+    v162 = 0;
+    v163 = 0;
+    if (v169 - v168 == 16)
     {
-      v16 = *(*v153 + 22);
-      v17 = v16 > 0xD;
-      v18 = (1 << v16) & 0x2810;
-      if (!v17 && v18 != 0)
+      v31 = *(*v168 + 22);
+      v32 = v31 > 0xD;
+      v33 = (1 << v31) & 0x2810;
+      if (!v32 && v33 != 0)
       {
-        v20 = *a5;
-        v21 = a5[1];
-        if (*a5 == v21)
+        v35 = *a5;
+        v36 = a5[1];
+        if (*a5 == v36)
         {
 LABEL_18:
           *&buf[8] = 0;
@@ -83,33 +83,33 @@ LABEL_18:
         {
           while (1)
           {
-            v22 = *v20;
-            if (*v20)
+            v37 = *v35;
+            if (*v35)
             {
-              if (vabdd_f64(*(v22 + 16), **v153) < 0.001)
+              if (vabdd_f64(*(v37 + 16), **v168) < 0.001)
               {
                 break;
               }
             }
 
-            v20 += 2;
-            if (v20 == v21)
+            v35 += 2;
+            if (v35 == v36)
             {
               goto LABEL_18;
             }
           }
 
-          v46 = v20[1];
-          *buf = v22;
-          *&buf[8] = v46;
-          if (v46)
+          v62 = v35[1];
+          *buf = v37;
+          *&buf[8] = v62;
+          if (v62)
           {
-            atomic_fetch_add_explicit((v46 + 8), 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit((v62 + 8), 1uLL, memory_order_relaxed);
           }
 
-          if (*v22)
+          if (*v37)
           {
-            sub_19B8EAB68(&v146, buf);
+            sub_19B8EAB68(&v161, buf);
           }
         }
 
@@ -118,58 +118,58 @@ LABEL_18:
           sub_19B8750F8(*&buf[8]);
         }
 
-        if (v146 != v147)
+        if (v161 != v162)
         {
-LABEL_91:
-          v181 = 0uLL;
-          v182 = 0;
-          v47 = v146;
-          v48 = v147;
-          v49 = "est11objc_objectU13block_pointerFvP7NSErrorEEEE";
-          if (v146 == v147)
+LABEL_93:
+          v196 = 0uLL;
+          v197 = 0;
+          v63 = v161;
+          v64 = v162;
+          v65 = "est11objc_objectU13block_pointerFvP7NSErrorEEEE";
+          if (v161 == v162)
           {
-            v87 = 0;
-            v88 = a1;
-            v90 = a6;
+            v103 = 0;
+            v104 = a1;
+            v106 = a6;
           }
 
           else
           {
-            v50 = a1[6];
-            v51 = -1.0;
-            if (a1[5] != v50)
+            v66 = a1[6];
+            v67 = -1.0;
+            if (a1[5] != v66)
             {
-              v53 = *(v50 - 24);
-              v52 = *(v50 - 16);
-              if (v53 != v52)
+              v69 = *(v66 - 24);
+              v68 = *(v66 - 16);
+              if (v69 != v68)
               {
-                v54 = *(v52 - 16);
-                if (v54)
+                v70 = *(v68 - 16);
+                if (v70)
                 {
-                  v51 = *(v54 + 16);
+                  v67 = *(v70 + 16);
                 }
               }
             }
 
             do
             {
-              v55 = *v47;
-              if (*v47)
+              v71 = *v63;
+              if (*v63)
               {
-                if (*(v55 + 64) == 1 && (v56 = *(v55 + 16), v56 > 0.0) && *v55 && ((v57 = *(v55 + 32), v58 = fabs(*(v55 + 24)), v58 >= 0.00003) || fabs(v57) >= 0.00003))
+                if (*(v71 + 64) == 1 && (v72 = *(v71 + 16), v72 > 0.0) && *v71 && ((v73 = *(v71 + 32), v74 = fabs(*(v71 + 24)), v74 >= 0.00003) || fabs(v73) >= 0.00003))
                 {
-                  v85 = fmax(v56, 0.0) > v51;
-                  v59 = -1;
-                  if (v57 >= -180.0 && v58 <= 90.0 && v57 <= 180.0 && v85)
+                  v101 = fmax(v72, 0.0) > v67;
+                  v75 = -1;
+                  if (v73 >= -180.0 && v74 <= 90.0 && v73 <= 180.0 && v101)
                   {
-                    sub_19B8EAB68(&v181, v47);
-                    v59 = *(**v47 + 20);
+                    sub_19B8EAB68(&v196, v63);
+                    v75 = *(**v63 + 20);
                   }
                 }
 
                 else
                 {
-                  v59 = -1;
+                  v75 = -1;
                 }
 
                 if (qword_1EAFE46B8 != -1)
@@ -177,58 +177,58 @@ LABEL_91:
                   dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
                 }
 
-                v60 = qword_1EAFE46E8;
+                v76 = qword_1EAFE46E8;
                 if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_DEBUG))
                 {
-                  if (*(a2 + 23) >= 0)
+                  if (a2[23] >= 0)
                   {
-                    v61 = a2;
+                    v77 = a2;
                   }
 
                   else
                   {
-                    v61 = *a2;
+                    v77 = *a2;
                   }
 
-                  v62 = *(*v47 + 16);
-                  v63 = *(*v47 + 24);
-                  v64 = *(*v47 + 32);
-                  v65 = *(*v47 + 40);
-                  v66 = *(*v47 + 48);
-                  v67 = *(*v47 + 56);
-                  v69 = *(*v47 + 72);
-                  v68 = *(*v47 + 80);
-                  v70 = *(*v47 + 88);
-                  v71 = *(*v47 + 64);
+                  v78 = *(*v63 + 16);
+                  v79 = *(*v63 + 24);
+                  v80 = *(*v63 + 32);
+                  v81 = *(*v63 + 40);
+                  v82 = *(*v63 + 48);
+                  v83 = *(*v63 + 56);
+                  v85 = *(*v63 + 72);
+                  v84 = *(*v63 + 80);
+                  v86 = *(*v63 + 88);
+                  v87 = *(*v63 + 64);
                   *buf = 136449027;
-                  *&buf[4] = v61;
+                  *&buf[4] = v77;
                   *&buf[12] = 2050;
-                  *&buf[14] = v62;
-                  v185 = 2053;
-                  v186 = v63;
-                  v187 = 2053;
-                  v188 = v64;
-                  v189 = 2049;
-                  v190 = v65;
-                  v191 = 2050;
-                  v192 = v66;
-                  v193 = 2050;
-                  v194 = v67;
-                  v195 = 2050;
-                  v196 = v68;
-                  v197 = 2050;
-                  v198 = v69;
-                  v199 = 2050;
-                  v200 = v70;
-                  v201 = 1026;
-                  v202 = v71;
-                  v203 = 1026;
-                  v204 = v59;
-                  _os_log_impl(&dword_19B873000, v60, OS_LOG_TYPE_DEBUG, "CLTSP,MI,snappedGPSLocation,id,%{public}s,time,%{public}.3lf,snapLL,%{sensitive}.7lf,%{sensitive}.7lf,rawCourse,%{private}.3lf,projection,%{public}.8lf,score,%{public}.12lf,dE,%{public}.2lf,dN,%{public}.2lf,dCourse,%{public}.2lf,valid,%{public}d,frc,%{public}d", buf, 0x72u);
+                  *&buf[14] = v78;
+                  v200 = 2053;
+                  v201 = v79;
+                  v202 = 2053;
+                  v203 = v80;
+                  v204 = 2049;
+                  v205 = v81;
+                  v206 = 2050;
+                  v207 = v82;
+                  v208 = 2050;
+                  v209 = v83;
+                  v210 = 2050;
+                  v211 = v84;
+                  v212 = 2050;
+                  v213 = v85;
+                  v214 = 2050;
+                  v215 = v86;
+                  v216 = 1026;
+                  v217 = v87;
+                  v218 = 1026;
+                  v219 = v75;
+                  _os_log_impl(&dword_19B873000, v76, OS_LOG_TYPE_DEBUG, "CLTSP,MI,snappedGPSLocation,id,%{public}s,time,%{public}.3lf,snapLL,%{sensitive}.7lf,%{sensitive}.7lf,rawCourse,%{private}.3lf,projection,%{public}.8lf,score,%{public}.12lf,dE,%{public}.2lf,dN,%{public}.2lf,dCourse,%{public}.2lf,valid,%{public}d,frc,%{public}d", buf, 0x72u);
                 }
 
-                v72 = sub_19B87DD40();
-                if (*(v72 + 160) > 1 || *(v72 + 164) > 1 || *(v72 + 168) > 1 || *(v72 + 152))
+                v88 = sub_19B87DD40();
+                if (*(v88 + 160) > 1 || *(v88 + 164) > 1 || *(v88 + 168) > 1 || *(v88 + 152))
                 {
                   bzero(buf, 0x65CuLL);
                   if (qword_1EAFE46B8 != -1)
@@ -236,194 +236,194 @@ LABEL_91:
                     dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
                   }
 
-                  if (*(a2 + 23) >= 0)
+                  if (a2[23] >= 0)
                   {
-                    v73 = a2;
+                    v89 = a2;
                   }
 
                   else
                   {
-                    v73 = *a2;
+                    v89 = *a2;
                   }
 
-                  v74 = *(*v47 + 16);
-                  v75 = *(*v47 + 24);
-                  v76 = *(*v47 + 32);
-                  v77 = *(*v47 + 40);
-                  v78 = *(*v47 + 48);
-                  v79 = *(*v47 + 56);
-                  v81 = *(*v47 + 72);
-                  v80 = *(*v47 + 80);
-                  v82 = *(*v47 + 88);
-                  v83 = *(*v47 + 64);
-                  *v160 = 136449027;
-                  *&v160[4] = v73;
-                  *&v160[12] = 2050;
-                  *&v160[14] = v74;
-                  v161 = 2053;
-                  v162 = v75;
-                  v163 = 2053;
-                  v164 = v76;
-                  v165 = 2049;
-                  v166 = v77;
-                  v167 = 2050;
-                  v168 = v78;
-                  v169 = 2050;
-                  v170 = v79;
-                  v171 = 2050;
-                  v172 = v80;
-                  v173 = 2050;
-                  v174 = v81;
-                  v175 = 2050;
-                  v176 = v82;
-                  v177 = 1026;
-                  v178 = v83;
-                  v179 = 1026;
-                  v180 = v59;
-                  v84 = _os_log_send_and_compose_impl();
-                  sub_19B885924("Generic", 1, 0, 2, "void CLTripLocationFilter::processLocationChunk(const std::string &, const CLTripSegmentModeOfTransport, const BOOL, NSMutableArray<CLTripSegmentLocation *> * _Nonnull, const std::vector<CLGeoMapSnapDataPtr> &, const std::vector<std::vector<CLGeoMapSnapDataPtr>> &, std::shared_ptr<CLGeoMapFeatureRoadGeometryBuffer>)", "CoreLocation: %s\n", v84);
-                  if (v84 != buf)
+                  v90 = *(*v63 + 16);
+                  v91 = *(*v63 + 24);
+                  v92 = *(*v63 + 32);
+                  v93 = *(*v63 + 40);
+                  v94 = *(*v63 + 48);
+                  v95 = *(*v63 + 56);
+                  v97 = *(*v63 + 72);
+                  v96 = *(*v63 + 80);
+                  v98 = *(*v63 + 88);
+                  v99 = *(*v63 + 64);
+                  *v175 = 136449027;
+                  *&v175[4] = v89;
+                  *&v175[12] = 2050;
+                  *&v175[14] = v90;
+                  v176 = 2053;
+                  v177 = v91;
+                  v178 = 2053;
+                  v179 = v92;
+                  v180 = 2049;
+                  v181 = v93;
+                  v182 = 2050;
+                  v183 = v94;
+                  v184 = 2050;
+                  v185 = v95;
+                  v186 = 2050;
+                  v187 = v96;
+                  v188 = 2050;
+                  v189 = v97;
+                  v190 = 2050;
+                  v191 = v98;
+                  v192 = 1026;
+                  v193 = v99;
+                  v194 = 1026;
+                  v195 = v75;
+                  v100 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE46E8, 2, "CLTSP,MI,snappedGPSLocation,id,%{public}s,time,%{public}.3lf,snapLL,%{sensitive}.7lf,%{sensitive}.7lf,rawCourse,%{private}.3lf,projection,%{public}.8lf,score,%{public}.12lf,dE,%{public}.2lf,dN,%{public}.2lf,dCourse,%{public}.2lf,valid,%{public}d,frc,%{public}d", v175, 114);
+                  sub_19B885924("Generic", 1, 0, 2, "void CLTripLocationFilter::processLocationChunk(const std::string &, const CLTripSegmentModeOfTransport, const BOOL, NSMutableArray<CLTripSegmentLocation *> * _Nonnull, const std::vector<CLGeoMapSnapDataPtr> &, const std::vector<std::vector<CLGeoMapSnapDataPtr>> &, std::shared_ptr<CLGeoMapFeatureRoadGeometryBuffer>)", "CoreLocation: %s\n", v100);
+                  if (v100 != buf)
                   {
-                    free(v84);
+                    free(v100);
                   }
                 }
               }
 
-              ++v47;
+              ++v63;
             }
 
-            while (v47 != v48);
-            v87 = v181;
-            v88 = a1;
-            if (v181 != *(&v181 + 1))
+            while (v63 != v64);
+            v103 = v196;
+            v104 = a1;
+            if (v196 != *(&v196 + 1))
             {
-              v89 = 0;
-              v90 = a6;
-              v49 = "NSt3__110__function6__funcIZN36CLGeoFeatureAccess3dBuildingGeometry23buildingsWithinDistanceERNS_6vectorI25ExtrudedBuildingFootprintNS_9allocatorIS4_EEEERKdSA_SA_E3$_0NS5_ISB_EEFPU37objcproto26GEOMapFeatureAccessRequest11objc_objectU13block_pointerFvP7NSErrorEEEE" + 216;
-              goto LABEL_136;
+              v105 = 0;
+              v106 = a6;
+              v65 = "NSt3__110__function6__funcIZN36CLGeoFeatureAccess3dBuildingGeometry23buildingsWithinDistanceERNS_6vectorI25ExtrudedBuildingFootprintNS_9allocatorIS4_EEEERKdSA_SA_E3$_0NS5_ISB_EEFPU37objcproto26GEOMapFeatureAccessRequest11objc_objectU13block_pointerFvP7NSErrorEEEE" + 216;
+              goto LABEL_138;
             }
 
-            v90 = a6;
-            v49 = "est11objc_objectU13block_pointerFvP7NSErrorEEEE";
+            v106 = a6;
+            v65 = "est11objc_objectU13block_pointerFvP7NSErrorEEEE";
           }
 
-          if (*v90 == v90[1])
+          if (*v106 == v106[1])
           {
-            if (v154 != v153)
+            if (v169 != v168)
             {
               operator new();
             }
 
-            goto LABEL_184;
+            goto LABEL_186;
           }
 
-          v89 = 1;
-LABEL_136:
-          v136 = (v88 + 5);
-          v91 = v88[6];
-          v92 = -1.0;
-          v93 = -1.0;
-          if (v88[5] != v91)
+          v105 = 1;
+LABEL_138:
+          v151 = (v104 + 5);
+          v107 = v104[6];
+          v108 = -1.0;
+          v109 = -1.0;
+          if (v104[5] != v107)
           {
-            v95 = *(v91 - 24);
-            v94 = *(v91 - 16);
-            if (v95 != v94)
+            v111 = *(v107 - 24);
+            v110 = *(v107 - 16);
+            if (v111 != v110)
             {
-              v96 = *(v94 - 16);
-              if (v96)
+              v112 = *(v110 - 16);
+              if (v112)
               {
-                v93 = *(v96 + 16);
+                v109 = *(v112 + 16);
               }
             }
           }
 
-          if ((v89 & 1) == 0)
+          if ((v105 & 1) == 0)
           {
-            v92 = *(*v87 + 16);
+            v108 = *(*v103 + 16);
           }
 
-          v97 = *v90;
-          v139 = v90[1];
-          if (*v90 != v139)
+          v113 = *v106;
+          v154 = v106[1];
+          if (*v106 != v154)
           {
-            v140 = *(v49 + 50);
+            v155 = *(v65 + 50);
             do
             {
-              v141 = 0;
-              v142 = 0;
-              v143 = 0;
-              v99 = *v97;
-              v98 = v97[1];
-              if (*v97 != v98)
+              v156 = 0;
+              v157 = 0;
+              v158 = 0;
+              v115 = *v113;
+              v114 = v113[1];
+              if (*v113 != v114)
               {
                 do
                 {
-                  v100 = *v99;
-                  if (*v99 && *v100)
+                  v116 = *v115;
+                  if (*v115 && *v116)
                   {
-                    v101 = *(v100 + 16);
-                    v102 = v101 < v92 + -1.0 || v92 == -1.0;
-                    v103 = v101 > v93 + 1.0 || v93 == -1.0;
-                    if (v103 && v102)
+                    v117 = *(v116 + 16);
+                    v118 = v117 < v108 + -1.0 || v108 == -1.0;
+                    v119 = v117 > v109 + 1.0 || v109 == -1.0;
+                    if (v119 && v118)
                     {
                       if (qword_1EAFE46B8 != -1)
                       {
                         dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
                       }
 
-                      v105 = qword_1EAFE46E8;
+                      v121 = qword_1EAFE46E8;
                       if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_DEBUG))
                       {
-                        if (*(a2 + 23) >= 0)
+                        if (a2[23] >= 0)
                         {
-                          v106 = a2;
+                          v122 = a2;
                         }
 
                         else
                         {
-                          v106 = *a2;
+                          v122 = *a2;
                         }
 
-                        v107 = *(*v99 + 16);
-                        v108 = *(*v99 + 24);
-                        v109 = *(*v99 + 32);
-                        v110 = *(*v99 + 40);
-                        v111 = *(*v99 + 48);
-                        v112 = *(*v99 + 56);
-                        v114 = *(*v99 + 72);
-                        v113 = *(*v99 + 80);
-                        v115 = *(*v99 + 88);
-                        v116 = *(*v99 + 64);
-                        v117 = *(**v99 + 20);
-                        *buf = v140;
-                        *&buf[4] = v106;
+                        v123 = *(*v115 + 16);
+                        v124 = *(*v115 + 24);
+                        v125 = *(*v115 + 32);
+                        v126 = *(*v115 + 40);
+                        v127 = *(*v115 + 48);
+                        v128 = *(*v115 + 56);
+                        v130 = *(*v115 + 72);
+                        v129 = *(*v115 + 80);
+                        v131 = *(*v115 + 88);
+                        v132 = *(*v115 + 64);
+                        v133 = *(**v115 + 20);
+                        *buf = v155;
+                        *&buf[4] = v122;
                         *&buf[12] = 2050;
-                        *&buf[14] = v107;
-                        v185 = 2053;
-                        v186 = v108;
-                        v187 = 2053;
-                        v188 = v109;
-                        v189 = 2049;
-                        v190 = v110;
-                        v191 = 2050;
-                        v192 = v111;
-                        v193 = 2050;
-                        v194 = v112;
-                        v195 = 2050;
-                        v196 = v113;
-                        v197 = 2050;
-                        v198 = v114;
-                        v199 = 2050;
-                        v200 = v115;
-                        v201 = 1026;
-                        v202 = v116;
-                        v203 = 1026;
-                        v204 = v117;
-                        _os_log_impl(&dword_19B873000, v105, OS_LOG_TYPE_DEBUG, "CLTSP,MI,snappedIILocation,id,%{public}s,time,%{public}.3lf,snapLL,%{sensitive}.7lf,%{sensitive}.7lf,rawCourse,%{private}.3lf,projection,%{public}.8lf,score,%{public}.12lf,dE,%{public}.2lf,dN,%{public}.2lf,dCourse,%{public}.2lf,valid,%{public}d,frc,%{public}d", buf, 0x72u);
+                        *&buf[14] = v123;
+                        v200 = 2053;
+                        v201 = v124;
+                        v202 = 2053;
+                        v203 = v125;
+                        v204 = 2049;
+                        v205 = v126;
+                        v206 = 2050;
+                        v207 = v127;
+                        v208 = 2050;
+                        v209 = v128;
+                        v210 = 2050;
+                        v211 = v129;
+                        v212 = 2050;
+                        v213 = v130;
+                        v214 = 2050;
+                        v215 = v131;
+                        v216 = 1026;
+                        v217 = v132;
+                        v218 = 1026;
+                        v219 = v133;
+                        _os_log_impl(&dword_19B873000, v121, OS_LOG_TYPE_DEBUG, "CLTSP,MI,snappedIILocation,id,%{public}s,time,%{public}.3lf,snapLL,%{sensitive}.7lf,%{sensitive}.7lf,rawCourse,%{private}.3lf,projection,%{public}.8lf,score,%{public}.12lf,dE,%{public}.2lf,dN,%{public}.2lf,dCourse,%{public}.2lf,valid,%{public}d,frc,%{public}d", buf, 0x72u);
                       }
 
-                      v118 = sub_19B87DD40();
-                      if (*(v118 + 160) > 1 || *(v118 + 164) > 1 || *(v118 + 168) > 1 || *(v118 + 152))
+                      v134 = sub_19B87DD40();
+                      if (*(v134 + 160) > 1 || *(v134 + 164) > 1 || *(v134 + 168) > 1 || *(v134 + 152))
                       {
                         bzero(buf, 0x65CuLL);
                         if (qword_1EAFE46B8 != -1)
@@ -431,144 +431,144 @@ LABEL_136:
                           dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
                         }
 
-                        if (*(a2 + 23) >= 0)
+                        if (a2[23] >= 0)
                         {
-                          v119 = a2;
+                          v135 = a2;
                         }
 
                         else
                         {
-                          v119 = *a2;
+                          v135 = *a2;
                         }
 
-                        v120 = *(*v99 + 16);
-                        v121 = *(*v99 + 24);
-                        v122 = *(*v99 + 32);
-                        v123 = *(*v99 + 40);
-                        v124 = *(*v99 + 48);
-                        v125 = *(*v99 + 56);
-                        v127 = *(*v99 + 72);
-                        v126 = *(*v99 + 80);
-                        v128 = *(*v99 + 88);
-                        v129 = *(*v99 + 64);
-                        v130 = *(**v99 + 20);
-                        *v160 = v140;
-                        *&v160[4] = v119;
-                        *&v160[12] = 2050;
-                        *&v160[14] = v120;
-                        v161 = 2053;
-                        v162 = v121;
-                        v163 = 2053;
-                        v164 = v122;
-                        v165 = 2049;
-                        v166 = v123;
-                        v167 = 2050;
-                        v168 = v124;
-                        v169 = 2050;
-                        v170 = v125;
-                        v171 = 2050;
-                        v172 = v126;
-                        v173 = 2050;
-                        v174 = v127;
-                        v175 = 2050;
-                        v176 = v128;
-                        v177 = 1026;
-                        v178 = v129;
-                        v179 = 1026;
-                        v180 = v130;
-                        v131 = _os_log_send_and_compose_impl();
-                        sub_19B885924("Generic", 1, 0, 2, "void CLTripLocationFilter::processLocationChunk(const std::string &, const CLTripSegmentModeOfTransport, const BOOL, NSMutableArray<CLTripSegmentLocation *> * _Nonnull, const std::vector<CLGeoMapSnapDataPtr> &, const std::vector<std::vector<CLGeoMapSnapDataPtr>> &, std::shared_ptr<CLGeoMapFeatureRoadGeometryBuffer>)", "CoreLocation: %s\n", v131);
-                        if (v131 != buf)
+                        v136 = *(*v115 + 16);
+                        v137 = *(*v115 + 24);
+                        v138 = *(*v115 + 32);
+                        v139 = *(*v115 + 40);
+                        v140 = *(*v115 + 48);
+                        v141 = *(*v115 + 56);
+                        v143 = *(*v115 + 72);
+                        v142 = *(*v115 + 80);
+                        v144 = *(*v115 + 88);
+                        v145 = *(*v115 + 64);
+                        v146 = *(**v115 + 20);
+                        *v175 = v155;
+                        *&v175[4] = v135;
+                        *&v175[12] = 2050;
+                        *&v175[14] = v136;
+                        v176 = 2053;
+                        v177 = v137;
+                        v178 = 2053;
+                        v179 = v138;
+                        v180 = 2049;
+                        v181 = v139;
+                        v182 = 2050;
+                        v183 = v140;
+                        v184 = 2050;
+                        v185 = v141;
+                        v186 = 2050;
+                        v187 = v142;
+                        v188 = 2050;
+                        v189 = v143;
+                        v190 = 2050;
+                        v191 = v144;
+                        v192 = 1026;
+                        v193 = v145;
+                        v194 = 1026;
+                        v195 = v146;
+                        v147 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE46E8, 2, "CLTSP,MI,snappedIILocation,id,%{public}s,time,%{public}.3lf,snapLL,%{sensitive}.7lf,%{sensitive}.7lf,rawCourse,%{private}.3lf,projection,%{public}.8lf,score,%{public}.12lf,dE,%{public}.2lf,dN,%{public}.2lf,dCourse,%{public}.2lf,valid,%{public}d,frc,%{public}d", v175, 114);
+                        sub_19B885924("Generic", 1, 0, 2, "void CLTripLocationFilter::processLocationChunk(const std::string &, const CLTripSegmentModeOfTransport, const BOOL, NSMutableArray<CLTripSegmentLocation *> * _Nonnull, const std::vector<CLGeoMapSnapDataPtr> &, const std::vector<std::vector<CLGeoMapSnapDataPtr>> &, std::shared_ptr<CLGeoMapFeatureRoadGeometryBuffer>)", "CoreLocation: %s\n", v147);
+                        if (v147 != buf)
                         {
-                          free(v131);
+                          free(v147);
                         }
                       }
 
-                      sub_19B8EAB68(&v141, v99);
+                      sub_19B8EAB68(&v156, v115);
                     }
                   }
 
-                  ++v99;
+                  ++v115;
                 }
 
-                while (v99 != v98);
-                if (v141 != v142)
+                while (v115 != v114);
+                if (v156 != v157)
                 {
-                  v132 = *(v142 - 2);
-                  if (v132)
+                  v148 = *(v157 - 2);
+                  if (v148)
                   {
-                    v93 = *(v132 + 16);
-                    v133 = a1[6];
-                    if (v133 >= a1[7])
+                    v109 = *(v148 + 16);
+                    v149 = a1[6];
+                    if (v149 >= a1[7])
                     {
-                      v134 = sub_19B9A2EF8(v136, &v141);
+                      v150 = sub_19B9A2EF8(v151, &v156);
                     }
 
                     else
                     {
-                      sub_19B9A2EA4(v136, &v141);
-                      v134 = v133 + 24;
+                      sub_19B9A2EA4(v151, &v156);
+                      v150 = (v149 + 24);
                     }
 
-                    a1[6] = v134;
+                    a1[6] = v150;
                   }
                 }
               }
 
-              *buf = &v141;
+              *buf = &v156;
               sub_19B8F0E84(buf);
-              v97 += 3;
+              v113 += 3;
             }
 
-            while (v97 != v139);
+            while (v113 != v154);
           }
 
-LABEL_184:
-          *buf = &v181;
+LABEL_186:
+          *buf = &v196;
           sub_19B8F0E84(buf);
-          *buf = &v146;
+          *buf = &v161;
           sub_19B8F0E84(buf);
-          *buf = &v153;
+          *buf = &v168;
           sub_19B8F0E84(buf);
-          goto LABEL_185;
+          return;
         }
       }
     }
 
     if (a3)
     {
-      v23 = a7[1];
-      v144 = *a7;
-      v145 = v23;
-      if (v23)
+      v38 = a7[1];
+      v159 = *a7;
+      v160 = v38;
+      if (v38)
       {
-        atomic_fetch_add_explicit(&v23->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v38->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v24 = sub_19B9AECDC(&v153, &v146, &v144);
-      if (v145)
+      v39 = sub_19B9AECDC(&v168, &v161, &v159);
+      if (v160)
       {
-        sub_19B8750F8(v145);
+        sub_19B8750F8(v160);
       }
 
-      if ((v24 & 1) == 0)
+      if ((v39 & 1) == 0)
       {
         if (qword_1EAFE46B8 != -1)
         {
           dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
         }
 
-        v25 = qword_1EAFE46E8;
+        v40 = qword_1EAFE46E8;
         if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
         {
-          v26 = **v153;
+          v41 = **v168;
           *buf = 134349056;
-          *&buf[4] = v26;
-          _os_log_impl(&dword_19B873000, v25, OS_LOG_TYPE_ERROR, "CLTSP,MI,%{public}.1lf,unable to compute snap using particle mapmatcher", buf, 0xCu);
+          *&buf[4] = v41;
+          _os_log_impl(&dword_19B873000, v40, OS_LOG_TYPE_ERROR, "CLTSP,MI,%{public}.1lf,unable to compute snap using particle mapmatcher", buf, 0xCu);
         }
 
-        v27 = sub_19B87DD40();
-        if ((*(v27 + 160) & 0x80000000) == 0 || (*(v27 + 164) & 0x80000000) == 0 || (*(v27 + 168) & 0x80000000) == 0 || *(v27 + 152))
+        v42 = sub_19B87DD40();
+        if ((*(v42 + 160) & 0x80000000) == 0 || (*(v42 + 164) & 0x80000000) == 0 || (*(v42 + 168) & 0x80000000) == 0 || *(v42 + 152))
         {
           bzero(buf, 0x65CuLL);
           if (qword_1EAFE46B8 != -1)
@@ -576,102 +576,94 @@ LABEL_184:
             dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
           }
 
-          v28 = **v153;
-          *v160 = 134349056;
-          *&v160[4] = v28;
-          v29 = _os_log_send_and_compose_impl();
-          sub_19B885924("Generic", 1, 0, 0, "void CLTripLocationFilter::processLocationChunk(const std::string &, const CLTripSegmentModeOfTransport, const BOOL, NSMutableArray<CLTripSegmentLocation *> * _Nonnull, const std::vector<CLGeoMapSnapDataPtr> &, const std::vector<std::vector<CLGeoMapSnapDataPtr>> &, std::shared_ptr<CLGeoMapFeatureRoadGeometryBuffer>)", "CoreLocation: %s\n", v29);
-          if (v29 != buf)
+          v43 = **v168;
+          *v175 = 134349056;
+          *&v175[4] = v43;
+          v44 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE46E8, 16, "CLTSP,MI,%{public}.1lf,unable to compute snap using particle mapmatcher", v175, 12);
+          sub_19B885924("Generic", 1, 0, 0, "void CLTripLocationFilter::processLocationChunk(const std::string &, const CLTripSegmentModeOfTransport, const BOOL, NSMutableArray<CLTripSegmentLocation *> * _Nonnull, const std::vector<CLGeoMapSnapDataPtr> &, const std::vector<std::vector<CLGeoMapSnapDataPtr>> &, std::shared_ptr<CLGeoMapFeatureRoadGeometryBuffer>)", "CoreLocation: %s\n", v44);
+          if (v44 != buf)
           {
-            free(v29);
+            free(v44);
           }
         }
       }
 
-      goto LABEL_91;
+      goto LABEL_93;
     }
 
-    v33 = v153;
-    v34 = v154;
-    if (v153 == v154)
+    v48 = v168;
+    v49 = v169;
+    if (v168 == v169)
     {
-      goto LABEL_91;
+      goto LABEL_93;
     }
 
     while (1)
     {
-      *v160 = 0;
-      *&v160[8] = 0;
-      if (!sub_19B8E8210(*a7, v160, 1, **v33, (*v33)[1], (*v33)[2], (*v33)[4], (*v33)[3], (*v33)[5]))
+      *v175 = 0;
+      *&v175[8] = 0;
+      if (!sub_19B8E8210(*a7, v175, 1, **v48, (*v48)[1], (*v48)[2], (*v48)[4], (*v48)[3], (*v48)[5]))
       {
         break;
       }
 
-      v35 = *v160;
-      if (!*v160)
+      v50 = *v175;
+      if (!*v175)
       {
         if (qword_1EAFE46B8 != -1)
         {
           dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
         }
 
-        v41 = qword_1EAFE46E8;
+        v58 = qword_1EAFE46E8;
         if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
         {
-          v42 = **v33;
+          v59 = **v48;
           *buf = 134349056;
-          *&buf[4] = v42;
-          _os_log_impl(&dword_19B873000, v41, OS_LOG_TYPE_ERROR, "CLTSP,MI,%{public}.1lf,destination snap is nullptr", buf, 0xCu);
+          *&buf[4] = v59;
+          _os_log_impl(&dword_19B873000, v58, OS_LOG_TYPE_ERROR, "CLTSP,MI,%{public}.1lf,destination snap is nullptr", buf, 0xCu);
         }
 
-        v43 = sub_19B87DD40();
-        if ((*(v43 + 160) & 0x80000000) != 0 && (*(v43 + 164) & 0x80000000) != 0 && (*(v43 + 168) & 0x80000000) != 0 && !*(v43 + 152))
+        v60 = sub_19B87DD40();
+        if ((*(v60 + 160) & 0x80000000) != 0 && (*(v60 + 164) & 0x80000000) != 0 && (*(v60 + 168) & 0x80000000) != 0 && !*(v60 + 152))
         {
-          goto LABEL_75;
+          goto LABEL_78;
         }
 
         bzero(buf, 0x65CuLL);
-        if (qword_1EAFE46B8 == -1)
+        if (qword_1EAFE46B8 != -1)
         {
-          goto LABEL_73;
+          dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
         }
 
-LABEL_83:
-        dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
-LABEL_73:
-        v44 = **v33;
-        LODWORD(v181) = 134349056;
-        *(&v181 + 4) = v44;
-        v45 = _os_log_send_and_compose_impl();
-        sub_19B885924("Generic", 1, 0, 0, "void CLTripLocationFilter::processLocationChunk(const std::string &, const CLTripSegmentModeOfTransport, const BOOL, NSMutableArray<CLTripSegmentLocation *> * _Nonnull, const std::vector<CLGeoMapSnapDataPtr> &, const std::vector<std::vector<CLGeoMapSnapDataPtr>> &, std::shared_ptr<CLGeoMapFeatureRoadGeometryBuffer>)", "CoreLocation: %s\n", v45);
-        if (v45 != buf)
-        {
-          free(v45);
-        }
-
-        goto LABEL_75;
+        v61 = **v48;
+        LODWORD(v196) = 134349056;
+        *(&v196 + 4) = v61;
+        v57 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE46E8, 16, "CLTSP,MI,%{public}.1lf,destination snap is nullptr", &v196, 12);
+        sub_19B885924("Generic", 1, 0, 0, "void CLTripLocationFilter::processLocationChunk(const std::string &, const CLTripSegmentModeOfTransport, const BOOL, NSMutableArray<CLTripSegmentLocation *> * _Nonnull, const std::vector<CLGeoMapSnapDataPtr> &, const std::vector<std::vector<CLGeoMapSnapDataPtr>> &, std::shared_ptr<CLGeoMapFeatureRoadGeometryBuffer>)", "CoreLocation: %s\n", v57);
+        goto LABEL_76;
       }
 
-      v36 = *v33;
-      v37 = -1.0;
-      if ((*v33)[7] > 0.0)
+      v51 = *v48;
+      v52 = -1.0;
+      if ((*v48)[7] > 0.0)
       {
-        v37 = v36[6];
+        v52 = v51[6];
       }
 
-      *(*v160 + 104) = v37;
-      *(v35 + 120) = *(v36 + 22);
-      sub_19B8EAB68(&v146, v160);
-LABEL_75:
-      if (*&v160[8])
+      *(*v175 + 104) = v52;
+      *(v50 + 120) = *(v51 + 22);
+      sub_19B8EAB68(&v161, v175);
+LABEL_78:
+      if (*&v175[8])
       {
-        sub_19B8750F8(*&v160[8]);
+        sub_19B8750F8(*&v175[8]);
       }
 
-      v33 += 2;
-      if (v33 == v34)
+      v48 += 2;
+      if (v48 == v49)
       {
-        goto LABEL_91;
+        goto LABEL_93;
       }
     }
 
@@ -680,28 +672,39 @@ LABEL_75:
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
     }
 
-    v38 = qword_1EAFE46E8;
+    v53 = qword_1EAFE46E8;
     if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
     {
-      v39 = **v33;
+      v54 = **v48;
       *buf = 134349056;
-      *&buf[4] = v39;
-      _os_log_impl(&dword_19B873000, v38, OS_LOG_TYPE_ERROR, "CLTSP,MI,%{public}.1lf,unable to compute Snap", buf, 0xCu);
+      *&buf[4] = v54;
+      _os_log_impl(&dword_19B873000, v53, OS_LOG_TYPE_ERROR, "CLTSP,MI,%{public}.1lf,unable to compute Snap", buf, 0xCu);
     }
 
-    v40 = sub_19B87DD40();
-    if ((*(v40 + 160) & 0x80000000) != 0 && (*(v40 + 164) & 0x80000000) != 0 && (*(v40 + 168) & 0x80000000) != 0 && !*(v40 + 152))
+    v55 = sub_19B87DD40();
+    if ((*(v55 + 160) & 0x80000000) != 0 && (*(v55 + 164) & 0x80000000) != 0 && (*(v55 + 168) & 0x80000000) != 0 && !*(v55 + 152))
     {
-      goto LABEL_75;
+      goto LABEL_78;
     }
 
     bzero(buf, 0x65CuLL);
     if (qword_1EAFE46B8 != -1)
     {
-      goto LABEL_83;
+      dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
     }
 
-    goto LABEL_73;
+    v56 = **v48;
+    LODWORD(v196) = 134349056;
+    *(&v196 + 4) = v56;
+    v57 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE46E8, 16, "CLTSP,MI,%{public}.1lf,unable to compute Snap", &v196, 12);
+    sub_19B885924("Generic", 1, 0, 0, "void CLTripLocationFilter::processLocationChunk(const std::string &, const CLTripSegmentModeOfTransport, const BOOL, NSMutableArray<CLTripSegmentLocation *> * _Nonnull, const std::vector<CLGeoMapSnapDataPtr> &, const std::vector<std::vector<CLGeoMapSnapDataPtr>> &, std::shared_ptr<CLGeoMapFeatureRoadGeometryBuffer>)", "CoreLocation: %s\n", v57);
+LABEL_76:
+    if (v57 != buf)
+    {
+      free(v57);
+    }
+
+    goto LABEL_78;
   }
 
   if (qword_1EAFE46B8 != -1)
@@ -709,15 +712,15 @@ LABEL_75:
     dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
   }
 
-  v30 = qword_1EAFE46E8;
+  v45 = qword_1EAFE46E8;
   if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
-    _os_log_impl(&dword_19B873000, v30, OS_LOG_TYPE_ERROR, "CLTSP,Unexpected,invalid geometry pointer,processLocationChunk", buf, 2u);
+    _os_log_impl(&dword_19B873000, v45, OS_LOG_TYPE_ERROR, "CLTSP,Unexpected,invalid geometry pointer,processLocationChunk", buf, 2u);
   }
 
-  v31 = sub_19B87DD40();
-  if ((*(v31 + 160) & 0x80000000) == 0 || (*(v31 + 164) & 0x80000000) == 0 || (*(v31 + 168) & 0x80000000) == 0 || *(v31 + 152))
+  v46 = sub_19B87DD40();
+  if ((*(v46 + 160) & 0x80000000) == 0 || (*(v46 + 164) & 0x80000000) == 0 || (*(v46 + 168) & 0x80000000) == 0 || *(v46 + 152))
   {
     bzero(buf, 0x65CuLL);
     if (qword_1EAFE46B8 != -1)
@@ -725,17 +728,14 @@ LABEL_75:
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
     }
 
-    *v160 = 0;
-    v32 = _os_log_send_and_compose_impl();
-    sub_19B885924("Generic", 1, 0, 0, "void CLTripLocationFilter::processLocationChunk(const std::string &, const CLTripSegmentModeOfTransport, const BOOL, NSMutableArray<CLTripSegmentLocation *> * _Nonnull, const std::vector<CLGeoMapSnapDataPtr> &, const std::vector<std::vector<CLGeoMapSnapDataPtr>> &, std::shared_ptr<CLGeoMapFeatureRoadGeometryBuffer>)", "CoreLocation: %s\n", v32);
-    if (v32 != buf)
+    *v175 = 0;
+    v47 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE46E8, 16, "CLTSP,Unexpected,invalid geometry pointer,processLocationChunk", v175, 2);
+    sub_19B885924("Generic", 1, 0, 0, "void CLTripLocationFilter::processLocationChunk(const std::string &, const CLTripSegmentModeOfTransport, const BOOL, NSMutableArray<CLTripSegmentLocation *> * _Nonnull, const std::vector<CLGeoMapSnapDataPtr> &, const std::vector<std::vector<CLGeoMapSnapDataPtr>> &, std::shared_ptr<CLGeoMapFeatureRoadGeometryBuffer>)", "CoreLocation: %s\n", v47);
+    if (v47 != buf)
     {
-      free(v32);
+      free(v47);
     }
   }
-
-LABEL_185:
-  v135 = *MEMORY[0x1E69E9840];
 }
 
 void sub_19B9E6114(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, unint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22)
@@ -752,9 +752,9 @@ void sub_19B9E6114(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-BOOL sub_19B9E61E4(uint64_t a1, uint64_t a2, uint64_t a3, int a4, char a5, int a6, void *a7, void *a8, uint64_t *a9, uint64_t *a10)
+BOOL sub_19B9E61E4(float64x2_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5, int a6, void *a7, void *a8, uint64_t *a9, uint64_t *a10)
 {
-  v419 = *MEMORY[0x1E69E9840];
+  v680 = *MEMORY[0x1E69E9840];
   if (!*a9)
   {
     if (qword_1EAFE46B8 != -1)
@@ -762,15 +762,15 @@ BOOL sub_19B9E61E4(uint64_t a1, uint64_t a2, uint64_t a3, int a4, char a5, int a
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
     }
 
-    v22 = qword_1EAFE46E8;
+    v23 = qword_1EAFE46E8;
     if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B873000, v22, OS_LOG_TYPE_ERROR, "CLTSP,Unexpected,invalid geometry pointer,makeSegmentsForRouteConstruction", buf, 2u);
+      _os_log_impl(&dword_19B873000, v23, OS_LOG_TYPE_ERROR, "CLTSP,Unexpected,invalid geometry pointer,makeSegmentsForRouteConstruction", buf, 2u);
     }
 
-    v23 = sub_19B87DD40();
-    if ((*(v23 + 160) & 0x80000000) == 0 || (*(v23 + 164) & 0x80000000) == 0 || (*(v23 + 168) & 0x80000000) == 0 || *(v23 + 152))
+    v24 = sub_19B87DD40();
+    if ((*(v24 + 160) & 0x80000000) == 0 || (*(v24 + 164) & 0x80000000) == 0 || (*(v24 + 168) & 0x80000000) == 0 || *(v24 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE46B8 != -1)
@@ -778,146 +778,150 @@ BOOL sub_19B9E61E4(uint64_t a1, uint64_t a2, uint64_t a3, int a4, char a5, int a
         dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
       }
 
-      LOWORD(v366[0]) = 0;
-      v24 = _os_log_send_and_compose_impl();
-      sub_19B885924("Generic", 1, 0, 0, "BOOL CLTripLocationFilter::makeSegmentsForRouteConstruction(const std::string &, const CLTripSegmentModeOfTransport, const BOOL, const BOOL, const BOOL, NSArray<CLTripSegmentLocation *> * _Nonnull, NSArray<CLTripSegmentLocation *> * _Nonnull, std::shared_ptr<CLGeoMapFeatureRoadGeometryBuffer>, std::shared_ptr<CLTripSegmentRouteBuilder>)", "CoreLocation: %s\n", v24);
-      if (v24 != buf)
+      LOWORD(v627[0]) = 0;
+      v25 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE46E8, 16, "CLTSP,Unexpected,invalid geometry pointer,makeSegmentsForRouteConstruction", v627, 2);
+      sub_19B885924("Generic", 1, 0, 0, "BOOL CLTripLocationFilter::makeSegmentsForRouteConstruction(const std::string &, const CLTripSegmentModeOfTransport, const BOOL, const BOOL, const BOOL, NSArray<CLTripSegmentLocation *> * _Nonnull, NSArray<CLTripSegmentLocation *> * _Nonnull, std::shared_ptr<CLGeoMapFeatureRoadGeometryBuffer>, std::shared_ptr<CLTripSegmentRouteBuilder>)", "CoreLocation: %s\n", v25);
+      if (v25 != buf)
       {
-        free(v24);
+        free(v25);
       }
     }
 
-    v21 = 0;
-    goto LABEL_450;
+    return 0;
   }
 
-  v12 = *(a1 + 40);
-  v318 = a1 + 40;
-  v13 = *(a1 + 48);
-  while (v13 != v12)
+  v10 = a4;
+  v12 = a1[2].f64[1];
+  v578 = &a1[2].f64[1];
+  v13 = a1[3].f64[0];
+  while (*&v13 != *&v12)
   {
-    v13 -= 24;
+    *&v13 -= 24;
     *buf = v13;
     sub_19B8F0E84(buf);
   }
 
-  *(a1 + 48) = v12;
-  v354 = 0;
-  v353 = 0;
-  v352 = xmmword_19BA89490;
-  v355 = 0x3FF0000000000000;
-  v356 = 0;
-  v358 = 0;
-  v357 = 0;
+  a1[3].f64[0] = v12;
+  v615 = 0;
+  v614 = 0;
+  v613 = xmmword_19BA89490;
+  v616 = 0x3FF0000000000000;
+  v617 = 0;
+  v619 = 0;
+  v618 = 0;
   if (a3 != 1)
   {
-    v25 = *a9;
-    v26 = a9[1];
-    if (v26)
+    v26 = *a9;
+    v27 = a9[1];
+    if (v27)
     {
-      atomic_fetch_add_explicit(&v26->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v27->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    sub_19B9E2EF8(&v352, a2, a8, v25, v26, a3);
-    if (v26)
+    sub_19B9E2EF8(&v613, a2, a8, v26, v27, a3);
+    if (v27)
     {
-      sub_19B8750F8(v26);
+      sub_19B8750F8(v27);
     }
 
-    v327 = [MEMORY[0x1E695DF70] array];
-    v27 = 0;
-    v362 = 0;
-    v361 = 0;
-    v363 = 0;
-    v359 = 0uLL;
-    v360 = 0;
-    v344 = 0uLL;
-    v345 = 0;
-    v342 = 0uLL;
-    v343 = 0;
-    v340 = 0xBFF0000000000000;
-    v341 = 0;
-    while ([a7 count] > v27)
+    v588 = objc_msgSend_array(MEMORY[0x1E695DF70], v28, v29, v30);
+    v34 = 0;
+    v623 = 0;
+    v622 = 0;
+    v624 = 0;
+    v620 = 0uLL;
+    v621 = 0;
+    v605 = 0uLL;
+    v606 = 0;
+    v603 = 0uLL;
+    v604 = 0;
+    v601 = 0xBFF0000000000000;
+    v602 = 0;
+    while (objc_msgSend_count(a7, v31, v32, v33) > v34)
     {
-      if (v27)
+      if (v34)
       {
-        [a7 count];
+        objc_msgSend_count(a7, v35, v36, v37);
       }
 
-      v339 = [a7 objectAtIndexedSubscript:v27];
-      if (v339)
+      v600 = objc_msgSend_objectAtIndexedSubscript_(a7, v35, v34, v37);
+      if (v600)
       {
-        [a7 objectAtIndexedSubscript:v27];
-        if (!v27)
+        objc_msgSend_objectAtIndexedSubscript_(a7, v38, v34, v39);
+        if (v34)
         {
-          [v339 course];
-          v32 = v31;
-          [v339 courseAccuracy];
-          v34 = v33;
-          memset(v366, 0, sizeof(v366));
-          v35 = [a7 countByEnumeratingWithState:v366 objects:buf count:16];
-          if (!v35)
-          {
-            goto LABEL_77;
-          }
-
-          v36 = 0;
-          v37 = **&v366[1];
-          do
-          {
-            for (i = 0; i != v35; ++i)
-            {
-              if (**&v366[1] != v37)
-              {
-                objc_enumerationMutation(a7);
-              }
-
-              v39 = *(*(&v366[0] + 1) + 8 * i);
-              if (!v36 && (v36 = *(*(&v366[0] + 1) + 8 * i), ([v36 isCourseValid] & 1) != 0) || objc_msgSend(v39, "isGPSLocationType") && objc_msgSend(v39, "isCourseValid") && (objc_msgSend(v39, "courseAccuracy"), v40 < 135.0))
-              {
-                [v39 course];
-                v32 = v56;
-                [v39 courseAccuracy];
-                v34 = v57;
-                goto LABEL_77;
-              }
-
-              [v36 latitude];
-              v42 = v41;
-              [v36 longitude];
-              v44 = v43;
-              [v39 latitude];
-              v46 = v45;
-              [v39 longitude];
-              v48 = sub_19BA0C01C(a1, v42, v44, v46, v47, 0.0);
-              if (v48 > 10.0)
-              {
-                [v36 latitude];
-                v50 = v49;
-                [v36 longitude];
-                v52 = v51;
-                [v39 latitude];
-                v54 = v53;
-                [v39 longitude];
-                v32 = sub_19BA0C44C(a1, v50, v52, v54, v55);
-                v34 = 90.0;
-                if (v48 > 75.0)
-                {
-                  v34 = 90.0;
-                  goto LABEL_77;
-                }
-              }
-            }
-
-            v35 = [a7 countByEnumeratingWithState:v366 objects:buf count:16];
-          }
-
-          while (v35);
-LABEL_77:
-          [v339 updateCourse:v32 andCourseAccuracy:v34];
+          goto LABEL_78;
         }
 
-        sub_19B94948C();
+        objc_msgSend_course(v600, v43, v44, v45);
+        v47 = v46;
+        objc_msgSend_courseAccuracy(v600, v48, v49, v50);
+        v52 = v51;
+        memset(v627, 0, sizeof(v627));
+        v57 = objc_msgSend_countByEnumeratingWithState_objects_count_(a7, v53, v627, buf, 16);
+        if (!v57)
+        {
+          goto LABEL_77;
+        }
+
+        v58 = 0;
+        v59 = **&v627[1];
+        while (1)
+        {
+          for (i = 0; i != v57; ++i)
+          {
+            if (**&v627[1] != v59)
+            {
+              objc_enumerationMutation(a7);
+            }
+
+            v61 = *(*(&v627[0] + 1) + 8 * i);
+            if (!v58 && (v58 = *(*(&v627[0] + 1) + 8 * i), (objc_msgSend_isCourseValid(v58, v54, v55, v56) & 1) != 0) || objc_msgSend_isGPSLocationType(v61, v54, v55, v56) && objc_msgSend_isCourseValid(v61, v54, v55, v56) && (objc_msgSend_courseAccuracy(v61, v54, v55, v56), v62 < 135.0))
+            {
+              objc_msgSend_course(v61, v54, v55, v56);
+              v98 = v97;
+              objc_msgSend_courseAccuracy(v61, v99, v100, v101);
+              objc_msgSend_updateCourse_andCourseAccuracy_(v600, v102, v103, v104, v98, v105);
+              goto LABEL_78;
+            }
+
+            objc_msgSend_latitude(v58, v54, v55, v56);
+            v64 = v63;
+            objc_msgSend_longitude(v58, v65, v66, v67);
+            v69 = v68;
+            objc_msgSend_latitude(v61, v70, v71, v72);
+            v74 = v73;
+            objc_msgSend_longitude(v61, v75, v76, v77);
+            sub_19BA0C01C(a1, v64, v69, v74, v78, 0.0);
+            v80 = v79;
+            if (v79 > 10.0)
+            {
+              objc_msgSend_latitude(v58, v54, v55, v56);
+              v82 = v81;
+              objc_msgSend_longitude(v58, v83, v84, v85);
+              v87 = v86;
+              objc_msgSend_latitude(v61, v88, v89, v90);
+              v92 = v91;
+              objc_msgSend_longitude(v61, v93, v94, v95);
+              v47 = sub_19BA0C44C(a1, v82, v87, v92, v96);
+              v52 = 90.0;
+              if (v80 > 75.0)
+              {
+                v52 = 90.0;
+                goto LABEL_77;
+              }
+            }
+          }
+
+          v57 = objc_msgSend_countByEnumeratingWithState_objects_count_(a7, v54, v627, buf, 16);
+          if (!v57)
+          {
+LABEL_77:
+            objc_msgSend_updateCourse_andCourseAccuracy_(v600, v54, v55, v56, v47, v52);
+LABEL_78:
+            sub_19B94948C();
+          }
+        }
       }
 
       if (qword_1EAFE46B8 != -1)
@@ -925,18 +929,18 @@ LABEL_77:
         dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
       }
 
-      v28 = qword_1EAFE46E8;
+      v40 = qword_1EAFE46E8;
       if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
       {
         *buf = 67240448;
-        *&buf[4] = v27;
+        *&buf[4] = v34;
         *&buf[8] = 1026;
         *&buf[10] = a3;
-        _os_log_impl(&dword_19B873000, v28, OS_LOG_TYPE_ERROR, "CLTSP,MI,loc is unexpectedly nil,i,%{public}d,mode,%{public}d", buf, 0xEu);
+        _os_log_impl(&dword_19B873000, v40, OS_LOG_TYPE_ERROR, "CLTSP,MI,loc is unexpectedly nil,i,%{public}d,mode,%{public}d", buf, 0xEu);
       }
 
-      v29 = sub_19B87DD40();
-      if ((*(v29 + 160) & 0x80000000) == 0 || (*(v29 + 164) & 0x80000000) == 0 || (*(v29 + 168) & 0x80000000) == 0 || *(v29 + 152))
+      v41 = sub_19B87DD40();
+      if ((*(v41 + 160) & 0x80000000) == 0 || (*(v41 + 164) & 0x80000000) == 0 || (*(v41 + 168) & 0x80000000) == 0 || *(v41 + 152))
       {
         bzero(buf, 0x65CuLL);
         if (qword_1EAFE46B8 != -1)
@@ -944,53 +948,53 @@ LABEL_77:
           dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
         }
 
-        LODWORD(v366[0]) = 67240448;
-        DWORD1(v366[0]) = v27;
-        WORD4(v366[0]) = 1026;
-        *(v366 + 10) = a3;
-        v30 = _os_log_send_and_compose_impl();
-        sub_19B885924("Generic", 1, 0, 0, "BOOL CLTripLocationFilter::makeSegmentsForRouteConstruction(const std::string &, const CLTripSegmentModeOfTransport, const BOOL, const BOOL, const BOOL, NSArray<CLTripSegmentLocation *> * _Nonnull, NSArray<CLTripSegmentLocation *> * _Nonnull, std::shared_ptr<CLGeoMapFeatureRoadGeometryBuffer>, std::shared_ptr<CLTripSegmentRouteBuilder>)", "CoreLocation: %s\n", v30);
-        if (v30 != buf)
+        LODWORD(v627[0]) = 67240448;
+        DWORD1(v627[0]) = v34;
+        WORD4(v627[0]) = 1026;
+        *(v627 + 10) = a3;
+        v42 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE46E8, 16, "CLTSP,MI,loc is unexpectedly nil,i,%{public}d,mode,%{public}d", v627, 14);
+        sub_19B885924("Generic", 1, 0, 0, "BOOL CLTripLocationFilter::makeSegmentsForRouteConstruction(const std::string &, const CLTripSegmentModeOfTransport, const BOOL, const BOOL, const BOOL, NSArray<CLTripSegmentLocation *> * _Nonnull, NSArray<CLTripSegmentLocation *> * _Nonnull, std::shared_ptr<CLGeoMapFeatureRoadGeometryBuffer>, std::shared_ptr<CLTripSegmentRouteBuilder>)", "CoreLocation: %s\n", v42);
+        if (v42 != buf)
         {
-          free(v30);
+          free(v42);
         }
       }
 
-      ++v27;
+      ++v34;
     }
 
-    if (![v327 count])
+    if (!objc_msgSend_count(v588, v35, v36, v37))
     {
       if (qword_1EAFE46B8 != -1)
       {
         dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
       }
 
-      v145 = qword_1EAFE46E8;
+      v317 = qword_1EAFE46E8;
       if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_DEFAULT))
       {
-        v146 = *(a2 + 23);
-        v147 = *a2;
-        v148 = [a7 count];
-        if (v146 >= 0)
+        v321 = *(a2 + 23);
+        v322 = *a2;
+        v323 = objc_msgSend_count(a7, v318, v319, v320);
+        if (v321 >= 0)
         {
-          v149 = a2;
+          v324 = a2;
         }
 
         else
         {
-          v149 = v147;
+          v324 = v322;
         }
 
         *buf = 136446466;
-        *&buf[4] = v149;
+        *&buf[4] = v324;
         *&buf[12] = 2048;
-        *&buf[14] = v148;
-        _os_log_impl(&dword_19B873000, v145, OS_LOG_TYPE_DEFAULT, "CLTSP,MI,data not available for segment creation after filtering,id,%{public}s,count,%lu", buf, 0x16u);
+        *&buf[14] = v323;
+        _os_log_impl(&dword_19B873000, v317, OS_LOG_TYPE_DEFAULT, "CLTSP,MI,data not available for segment creation after filtering,id,%{public}s,count,%lu", buf, 0x16u);
       }
 
-      v150 = sub_19B87DD40();
-      if (*(v150 + 160) > 1 || *(v150 + 164) > 1 || *(v150 + 168) > 1 || *(v150 + 152))
+      v325 = sub_19B87DD40();
+      if (*(v325 + 160) > 1 || *(v325 + 164) > 1 || *(v325 + 168) > 1 || *(v325 + 152))
       {
         bzero(buf, 0x65CuLL);
         if (qword_1EAFE46B8 != -1)
@@ -998,94 +1002,95 @@ LABEL_77:
           dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
         }
 
-        v151 = *(a2 + 23);
-        v152 = *a2;
-        v153 = [a7 count];
-        if (v151 >= 0)
+        v329 = qword_1EAFE46E8;
+        v330 = *(a2 + 23);
+        v331 = *a2;
+        v332 = objc_msgSend_count(a7, v326, v327, v328);
+        if (v330 >= 0)
         {
-          v154 = a2;
+          v333 = a2;
         }
 
         else
         {
-          v154 = v152;
+          v333 = v331;
         }
 
-        LODWORD(v366[0]) = 136446466;
-        *(v366 + 4) = v154;
-        WORD6(v366[0]) = 2048;
-        *(v366 + 14) = v153;
-        v155 = _os_log_send_and_compose_impl();
-        sub_19B885924("Generic", 1, 0, 2, "BOOL CLTripLocationFilter::makeSegmentsForRouteConstruction(const std::string &, const CLTripSegmentModeOfTransport, const BOOL, const BOOL, const BOOL, NSArray<CLTripSegmentLocation *> * _Nonnull, NSArray<CLTripSegmentLocation *> * _Nonnull, std::shared_ptr<CLGeoMapFeatureRoadGeometryBuffer>, std::shared_ptr<CLTripSegmentRouteBuilder>)", "CoreLocation: %s\n", v155);
-        if (v155 != buf)
+        LODWORD(v627[0]) = 136446466;
+        *(v627 + 4) = v333;
+        WORD6(v627[0]) = 2048;
+        *(v627 + 14) = v332;
+        v334 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v329, 0, "CLTSP,MI,data not available for segment creation after filtering,id,%{public}s,count,%lu", v627, 22);
+        sub_19B885924("Generic", 1, 0, 2, "BOOL CLTripLocationFilter::makeSegmentsForRouteConstruction(const std::string &, const CLTripSegmentModeOfTransport, const BOOL, const BOOL, const BOOL, NSArray<CLTripSegmentLocation *> * _Nonnull, NSArray<CLTripSegmentLocation *> * _Nonnull, std::shared_ptr<CLGeoMapFeatureRoadGeometryBuffer>, std::shared_ptr<CLTripSegmentRouteBuilder>)", "CoreLocation: %s\n", v334);
+        if (v334 != buf)
         {
-          free(v155);
+          free(v334);
         }
       }
 
-      v21 = 0;
+      v22 = 0;
       goto LABEL_262;
     }
 
-    v319 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v337 = 0u;
-    v338 = 0u;
-    v335 = 0u;
-    v336 = 0u;
-    v58 = [v327 countByEnumeratingWithState:&v335 objects:v365 count:16];
-    if (v58)
+    v579 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v598 = 0u;
+    v599 = 0u;
+    v596 = 0u;
+    v597 = 0u;
+    v110 = objc_msgSend_countByEnumeratingWithState_objects_count_(v588, v106, &v596, v626, 16);
+    if (v110)
     {
-      v59 = 0;
-      v60 = -1;
-      v61 = *v336;
-      v62 = -1;
+      v111 = 0;
+      v112 = -1;
+      v113 = *v597;
+      v114 = -1;
       do
       {
-        v63 = 0;
+        v115 = 0;
         do
         {
-          if (*v336 != v61)
+          if (*v597 != v113)
           {
-            objc_enumerationMutation(v327);
+            objc_enumerationMutation(v588);
           }
 
-          v64 = *(*(&v335 + 1) + 8 * v63);
-          if (([v64 isGPSLocationType] & 1) == 0)
+          v116 = *(*(&v596 + 1) + 8 * v115);
+          if ((objc_msgSend_isGPSLocationType(v116, v107, v108, v109) & 1) == 0)
           {
-            if (v62 < 0)
+            if (v114 < 0)
             {
-              v62 = [v64 mapsRoadClass];
+              v114 = objc_msgSend_mapsRoadClass(v116, v107, v108, v109);
             }
 
             else
             {
-              if (v60 != -1)
+              if (v112 != -1)
               {
-                if ([v64 mapsRoadClass] == v62 || objc_msgSend(v64, "mapsRoadClass") != v60)
+                if (objc_msgSend_mapsRoadClass(v116, v107, v108, v109) == v114 || objc_msgSend_mapsRoadClass(v116, v117, v118, v119) != v112)
                 {
-                  [v319 addObject:v59];
-                  v59 = 0;
+                  objc_msgSend_addObject_(v579, v117, v111, v119);
+                  v111 = 0;
                 }
 
                 else
                 {
-                  v59 = 0;
-                  if ([v64 mapsRoadClass] == v60)
+                  v111 = 0;
+                  if (objc_msgSend_mapsRoadClass(v116, v117, v120, v119) == v112)
                   {
-                    v62 = v60;
+                    v114 = v112;
                   }
                 }
               }
 
-              if ([v64 mapsRoadClass] == v62)
+              if (objc_msgSend_mapsRoadClass(v116, v107, v108, v109) == v114)
               {
-                v60 = -1;
+                v112 = -1;
               }
 
               else
               {
-                v60 = [v64 mapsRoadClass];
-                v59 = v64;
+                v112 = objc_msgSend_mapsRoadClass(v116, v121, v122, v123);
+                v111 = v116;
               }
 
               if (qword_1EAFE46B8 != -1)
@@ -1093,25 +1098,26 @@ LABEL_77:
                 dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
               }
 
-              v65 = qword_1EAFE46E8;
+              v124 = qword_1EAFE46E8;
               if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_INFO))
               {
-                [objc_msgSend(v64 "timestamp")];
-                v67 = v66;
-                v68 = [v64 mapsRoadClass];
+                v128 = objc_msgSend_timestamp(v116, v125, v126, v127);
+                objc_msgSend_timeIntervalSinceReferenceDate(v128, v129, v130, v131);
+                v133 = v132;
+                v137 = objc_msgSend_mapsRoadClass(v116, v134, v135, v136);
                 *buf = 134349824;
-                *&buf[4] = v67;
+                *&buf[4] = v133;
                 *&buf[12] = 1026;
-                *&buf[14] = v68;
+                *&buf[14] = v137;
                 *&buf[18] = 1026;
-                *&buf[20] = v62;
-                LOWORD(v391) = 1026;
-                *(&v391 + 2) = v60;
-                _os_log_impl(&dword_19B873000, v65, OS_LOG_TYPE_INFO, "CLTSP,WiFiFiltering,%{public}.2lf,locFRC,%{public}d,currentFRC,%{public}d,outlierFRC,%{public}d", buf, 0x1Eu);
+                *&buf[20] = v114;
+                LOWORD(v652) = 1026;
+                *(&v652 + 2) = v112;
+                _os_log_impl(&dword_19B873000, v124, OS_LOG_TYPE_INFO, "CLTSP,WiFiFiltering,%{public}.2lf,locFRC,%{public}d,currentFRC,%{public}d,outlierFRC,%{public}d", buf, 0x1Eu);
               }
 
-              v69 = sub_19B87DD40();
-              if (*(v69 + 160) > 1 || *(v69 + 164) > 1 || *(v69 + 168) > 1 || *(v69 + 152))
+              v138 = sub_19B87DD40();
+              if (*(v138 + 160) > 1 || *(v138 + 164) > 1 || *(v138 + 168) > 1 || *(v138 + 152))
               {
                 bzero(buf, 0x65CuLL);
                 if (qword_1EAFE46B8 != -1)
@@ -1119,77 +1125,80 @@ LABEL_77:
                   dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
                 }
 
-                [objc_msgSend(v64 "timestamp")];
-                v71 = v70;
-                v72 = [v64 mapsRoadClass];
-                LODWORD(v366[0]) = 134349824;
-                *(v366 + 4) = v71;
-                WORD6(v366[0]) = 1026;
-                *(v366 + 14) = v72;
-                WORD1(v366[1]) = 1026;
-                DWORD1(v366[1]) = v62;
-                WORD4(v366[1]) = 1026;
-                *(&v366[1] + 10) = v60;
-                v73 = _os_log_send_and_compose_impl();
-                sub_19B885924("Generic", 1, 0, 2, "BOOL CLTripLocationFilter::makeSegmentsForRouteConstruction(const std::string &, const CLTripSegmentModeOfTransport, const BOOL, const BOOL, const BOOL, NSArray<CLTripSegmentLocation *> * _Nonnull, NSArray<CLTripSegmentLocation *> * _Nonnull, std::shared_ptr<CLGeoMapFeatureRoadGeometryBuffer>, std::shared_ptr<CLTripSegmentRouteBuilder>)", "CoreLocation: %s\n", v73);
-                if (v73 != buf)
+                v142 = qword_1EAFE46E8;
+                v143 = objc_msgSend_timestamp(v116, v139, v140, v141);
+                objc_msgSend_timeIntervalSinceReferenceDate(v143, v144, v145, v146);
+                v148 = v147;
+                v152 = objc_msgSend_mapsRoadClass(v116, v149, v150, v151);
+                LODWORD(v627[0]) = 134349824;
+                *(v627 + 4) = v148;
+                WORD6(v627[0]) = 1026;
+                *(v627 + 14) = v152;
+                WORD1(v627[1]) = 1026;
+                DWORD1(v627[1]) = v114;
+                WORD4(v627[1]) = 1026;
+                *(&v627[1] + 10) = v112;
+                v153 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v142, 1, "CLTSP,WiFiFiltering,%{public}.2lf,locFRC,%{public}d,currentFRC,%{public}d,outlierFRC,%{public}d", v627, 30);
+                sub_19B885924("Generic", 1, 0, 2, "BOOL CLTripLocationFilter::makeSegmentsForRouteConstruction(const std::string &, const CLTripSegmentModeOfTransport, const BOOL, const BOOL, const BOOL, NSArray<CLTripSegmentLocation *> * _Nonnull, NSArray<CLTripSegmentLocation *> * _Nonnull, std::shared_ptr<CLGeoMapFeatureRoadGeometryBuffer>, std::shared_ptr<CLTripSegmentRouteBuilder>)", "CoreLocation: %s\n", v153);
+                if (v153 != buf)
                 {
-                  free(v73);
+                  free(v153);
                 }
               }
             }
           }
 
-          ++v63;
+          ++v115;
         }
 
-        while (v58 != v63);
-        v58 = [v327 countByEnumeratingWithState:&v335 objects:v365 count:16];
+        while (v110 != v115);
+        v110 = objc_msgSend_countByEnumeratingWithState_objects_count_(v588, v107, &v596, v626, 16);
       }
 
-      while (v58);
+      while (v110);
     }
 
-    v333 = 0u;
-    v334 = 0u;
-    v331 = 0u;
-    v332 = 0u;
-    v74 = [v319 countByEnumeratingWithState:&v331 objects:v364 count:16];
-    if (v74)
+    v594 = 0u;
+    v595 = 0u;
+    v592 = 0u;
+    v593 = 0u;
+    v157 = objc_msgSend_countByEnumeratingWithState_objects_count_(v579, v107, &v592, v625, 16);
+    if (v157)
     {
-      v75 = *v332;
+      v158 = *v593;
       do
       {
-        v76 = 0;
+        v159 = 0;
         do
         {
-          if (*v332 != v75)
+          if (*v593 != v158)
           {
-            objc_enumerationMutation(v319);
+            objc_enumerationMutation(v579);
           }
 
-          v77 = *(*(&v331 + 1) + 8 * v76);
-          [v327 removeObject:v77];
+          v160 = *(*(&v592 + 1) + 8 * v159);
+          objc_msgSend_removeObject_(v588, v154, v160, v156);
           if (qword_1EAFE46B8 != -1)
           {
             dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
           }
 
-          v78 = qword_1EAFE46E8;
+          v161 = qword_1EAFE46E8;
           if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_INFO))
           {
-            [objc_msgSend(v77 "timestamp")];
-            v80 = v79;
-            v81 = [v77 mapsRoadClass];
+            v165 = objc_msgSend_timestamp(v160, v162, v163, v164);
+            objc_msgSend_timeIntervalSinceReferenceDate(v165, v166, v167, v168);
+            v170 = v169;
+            v174 = objc_msgSend_mapsRoadClass(v160, v171, v172, v173);
             *buf = 134349312;
-            *&buf[4] = v80;
+            *&buf[4] = v170;
             *&buf[12] = 1026;
-            *&buf[14] = v81;
-            _os_log_impl(&dword_19B873000, v78, OS_LOG_TYPE_INFO, "CLTSP,WiFiFiltering,erased,%{public}.2lf,locFRC,%{public}d", buf, 0x12u);
+            *&buf[14] = v174;
+            _os_log_impl(&dword_19B873000, v161, OS_LOG_TYPE_INFO, "CLTSP,WiFiFiltering,erased,%{public}.2lf,locFRC,%{public}d", buf, 0x12u);
           }
 
-          v82 = sub_19B87DD40();
-          if (*(v82 + 160) > 1 || *(v82 + 164) > 1 || *(v82 + 168) > 1 || *(v82 + 152))
+          v175 = sub_19B87DD40();
+          if (*(v175 + 160) > 1 || *(v175 + 164) > 1 || *(v175 + 168) > 1 || *(v175 + 152))
           {
             bzero(buf, 0x65CuLL);
             if (qword_1EAFE46B8 != -1)
@@ -1197,100 +1206,102 @@ LABEL_77:
               dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
             }
 
-            [objc_msgSend(v77 "timestamp")];
-            v84 = v83;
-            v85 = [v77 mapsRoadClass];
-            LODWORD(v366[0]) = 134349312;
-            *(v366 + 4) = v84;
-            WORD6(v366[0]) = 1026;
-            *(v366 + 14) = v85;
-            v86 = _os_log_send_and_compose_impl();
-            sub_19B885924("Generic", 1, 0, 2, "BOOL CLTripLocationFilter::makeSegmentsForRouteConstruction(const std::string &, const CLTripSegmentModeOfTransport, const BOOL, const BOOL, const BOOL, NSArray<CLTripSegmentLocation *> * _Nonnull, NSArray<CLTripSegmentLocation *> * _Nonnull, std::shared_ptr<CLGeoMapFeatureRoadGeometryBuffer>, std::shared_ptr<CLTripSegmentRouteBuilder>)", "CoreLocation: %s\n", v86);
-            if (v86 != buf)
+            v179 = qword_1EAFE46E8;
+            v180 = objc_msgSend_timestamp(v160, v176, v177, v178);
+            objc_msgSend_timeIntervalSinceReferenceDate(v180, v181, v182, v183);
+            v185 = v184;
+            v189 = objc_msgSend_mapsRoadClass(v160, v186, v187, v188);
+            LODWORD(v627[0]) = 134349312;
+            *(v627 + 4) = v185;
+            WORD6(v627[0]) = 1026;
+            *(v627 + 14) = v189;
+            v190 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v179, 1, "CLTSP,WiFiFiltering,erased,%{public}.2lf,locFRC,%{public}d", v627, 18);
+            sub_19B885924("Generic", 1, 0, 2, "BOOL CLTripLocationFilter::makeSegmentsForRouteConstruction(const std::string &, const CLTripSegmentModeOfTransport, const BOOL, const BOOL, const BOOL, NSArray<CLTripSegmentLocation *> * _Nonnull, NSArray<CLTripSegmentLocation *> * _Nonnull, std::shared_ptr<CLGeoMapFeatureRoadGeometryBuffer>, std::shared_ptr<CLTripSegmentRouteBuilder>)", "CoreLocation: %s\n", v190);
+            if (v190 != buf)
             {
-              free(v86);
+              free(v190);
             }
           }
 
-          ++v76;
+          ++v159;
         }
 
-        while (v74 != v76);
-        v74 = [v319 countByEnumeratingWithState:&v331 objects:v364 count:16];
+        while (v157 != v159);
+        v157 = objc_msgSend_countByEnumeratingWithState_objects_count_(v579, v154, &v592, v625, 16);
       }
 
-      while (v74);
+      while (v157);
     }
 
-    v87 = [MEMORY[0x1E695DF70] array];
-    v88 = 0;
-    v89 = 0;
+    v194 = objc_msgSend_array(MEMORY[0x1E695DF70], v154, v155, v156);
+    v195 = 0;
+    v196 = 0;
     while (1)
     {
-      if ([v327 count] <= v88)
+      if (objc_msgSend_count(v588, v191, v192, v193) <= v195)
       {
-        v118 = *(a1 + 48);
-        if (*(a1 + 40) != v118)
+        v277 = a1[3].f64[0];
+        if (*&a1[2].f64[1] != *&v277)
         {
-          v120 = *(v118 - 24);
-          v119 = *(v118 - 16);
-          if (v120 != v119)
+          v279 = *(*&v277 - 24);
+          v278 = *(*&v277 - 16);
+          if (v279 != v278)
           {
-            v121 = *(v119 - 16);
-            if (v121)
+            v280 = *(v278 - 16);
+            if (v280)
             {
-              v122 = v356;
-              v123 = v357;
-              if (v356 != v357)
+              v281 = v617;
+              v282 = v618;
+              if (v617 != v618)
               {
-                v124 = *(v121 + 16);
+                v283 = *(v280 + 16);
                 do
                 {
                   memset(buf, 0, sizeof(buf));
-                  v125 = *v122;
-                  v126 = v122[1];
-                  if (*v122 != v126)
+                  v284 = *v281;
+                  v285 = v281[1];
+                  if (*v281 != v285)
                   {
                     do
                     {
-                      if (*v125 && *(*v125 + 16) > v124 + 1.0)
+                      if (*v284 && *(*v284 + 16) > v283 + 1.0)
                       {
-                        sub_19B8EAB68(buf, v125);
+                        sub_19B8EAB68(buf, v284);
                       }
 
-                      ++v125;
+                      ++v284;
                     }
 
-                    while (v125 != v126);
+                    while (v284 != v285);
                     if (*buf != *&buf[8])
                     {
-                      v127 = *(*&buf[8] - 16);
-                      if (v127)
+                      v286 = *(*&buf[8] - 16);
+                      if (v286)
                       {
-                        v124 = *(v127 + 16);
-                        v128 = *(a1 + 48);
-                        if (v128 >= *(a1 + 56))
+                        v283 = *(v286 + 16);
+                        v287 = a1[3].f64[0];
+                        if (*&v287 >= *&a1[3].f64[1])
                         {
-                          v129 = sub_19B9A2EF8(v318, buf);
+                          v288 = sub_19B9A2EF8(v578, buf);
                         }
 
                         else
                         {
-                          sub_19B9A2EA4(v318, buf);
-                          v129 = v128 + 24;
+                          sub_19B9A2EA4(v578, buf);
+                          v288 = (*&v287 + 24);
                         }
 
-                        *(a1 + 48) = v129;
+                        *&a1[3].f64[0] = v288;
                       }
                     }
                   }
 
-                  *&v366[0] = buf;
-                  sub_19B8F0E84(v366);
-                  v122 += 3;
+                  *&v627[0] = buf;
+                  sub_19B8F0E84(v627);
+                  v281 += 3;
                 }
 
-                while (v122 != v123);
+                while (v281 != v282);
               }
             }
           }
@@ -1301,41 +1312,41 @@ LABEL_77:
           dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
         }
 
-        v130 = qword_1EAFE46E8;
+        v289 = qword_1EAFE46E8;
         if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_INFO))
         {
           if (*(a2 + 23) >= 0)
           {
-            v131 = a2;
+            v293 = a2;
           }
 
           else
           {
-            v131 = *a2;
+            v293 = *a2;
           }
 
-          v132 = [v327 count];
-          v133 = [a7 count];
-          v134 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 48) - *(a1 + 40)) >> 3);
-          v135 = *(*a9 + 116);
-          v136 = *(*a9 + 152);
+          v294 = objc_msgSend_count(v588, v290, v291, v292);
+          v298 = objc_msgSend_count(a7, v295, v296, v297);
+          v299 = 0xAAAAAAAAAAAAAAABLL * ((*&a1[3].f64[0] - *&a1[2].f64[1]) >> 3);
+          v300 = *(*a9 + 116);
+          v301 = *(*a9 + 152);
           *buf = 136447490;
-          *&buf[4] = v131;
+          *&buf[4] = v293;
           *&buf[12] = 2050;
-          *&buf[14] = v132;
+          *&buf[14] = v294;
           *&buf[22] = 2048;
-          v391 = v133;
-          *v392 = 2050;
-          *&v392[2] = v134;
-          v393 = 1026;
-          *v394 = v135;
-          *&v394[4] = 1026;
-          *&v394[6] = v136;
-          _os_log_impl(&dword_19B873000, v130, OS_LOG_TYPE_INFO, "CLTSP,MI,makeSegmentsForRouteConstruction,id,%{public}s,filteredCount,%{public}lu,inputCount,%lu,segments,%{public}lu,mapsAPICalls,%{public}d,geometry,%{public}d", buf, 0x36u);
+          v652 = v298;
+          *v653 = 2050;
+          *&v653[2] = v299;
+          v654 = 1026;
+          *v655 = v300;
+          *&v655[4] = 1026;
+          *&v655[6] = v301;
+          _os_log_impl(&dword_19B873000, v289, OS_LOG_TYPE_INFO, "CLTSP,MI,makeSegmentsForRouteConstruction,id,%{public}s,filteredCount,%{public}lu,inputCount,%lu,segments,%{public}lu,mapsAPICalls,%{public}d,geometry,%{public}d", buf, 0x36u);
         }
 
-        v137 = sub_19B87DD40();
-        if (*(v137 + 160) > 1 || *(v137 + 164) > 1 || *(v137 + 168) > 1 || *(v137 + 152))
+        v302 = sub_19B87DD40();
+        if (*(v302 + 160) > 1 || *(v302 + 164) > 1 || *(v302 + 168) > 1 || *(v302 + 152))
         {
           bzero(buf, 0x65CuLL);
           if (qword_1EAFE46B8 != -1)
@@ -1343,78 +1354,81 @@ LABEL_77:
             dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
           }
 
+          v306 = qword_1EAFE46E8;
           if (*(a2 + 23) >= 0)
           {
-            v138 = a2;
+            v307 = a2;
           }
 
           else
           {
-            v138 = *a2;
+            v307 = *a2;
           }
 
-          v139 = [v327 count];
-          v140 = [a7 count];
-          v141 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 48) - *(a1 + 40)) >> 3);
-          v142 = *(*a9 + 116);
-          v143 = *(*a9 + 152);
-          LODWORD(v366[0]) = 136447490;
-          *(v366 + 4) = v138;
-          WORD6(v366[0]) = 2050;
-          *(v366 + 14) = v139;
-          WORD3(v366[1]) = 2048;
-          *(&v366[1] + 1) = v140;
-          LOWORD(v366[2]) = 2050;
-          *(&v366[2] + 2) = v141;
-          WORD5(v366[2]) = 1026;
-          HIDWORD(v366[2]) = v142;
-          LOWORD(v366[3]) = 1026;
-          *(&v366[3] + 2) = v143;
-          v144 = _os_log_send_and_compose_impl();
-          sub_19B885924("Generic", 1, 0, 2, "BOOL CLTripLocationFilter::makeSegmentsForRouteConstruction(const std::string &, const CLTripSegmentModeOfTransport, const BOOL, const BOOL, const BOOL, NSArray<CLTripSegmentLocation *> * _Nonnull, NSArray<CLTripSegmentLocation *> * _Nonnull, std::shared_ptr<CLGeoMapFeatureRoadGeometryBuffer>, std::shared_ptr<CLTripSegmentRouteBuilder>)", "CoreLocation: %s\n", v144);
-          if (v144 != buf)
+          v308 = objc_msgSend_count(v588, v303, v304, v305);
+          v312 = objc_msgSend_count(a7, v309, v310, v311);
+          v313 = 0xAAAAAAAAAAAAAAABLL * ((*&a1[3].f64[0] - *&a1[2].f64[1]) >> 3);
+          v314 = *(*a9 + 116);
+          v315 = *(*a9 + 152);
+          LODWORD(v627[0]) = 136447490;
+          *(v627 + 4) = v307;
+          WORD6(v627[0]) = 2050;
+          *(v627 + 14) = v308;
+          WORD3(v627[1]) = 2048;
+          *(&v627[1] + 1) = v312;
+          LOWORD(v627[2]) = 2050;
+          *(&v627[2] + 2) = v313;
+          WORD5(v627[2]) = 1026;
+          HIDWORD(v627[2]) = v314;
+          LOWORD(v627[3]) = 1026;
+          *(&v627[3] + 2) = v315;
+          v316 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v306, 1, "CLTSP,MI,makeSegmentsForRouteConstruction,id,%{public}s,filteredCount,%{public}lu,inputCount,%lu,segments,%{public}lu,mapsAPICalls,%{public}d,geometry,%{public}d", v627, 54);
+          sub_19B885924("Generic", 1, 0, 2, "BOOL CLTripLocationFilter::makeSegmentsForRouteConstruction(const std::string &, const CLTripSegmentModeOfTransport, const BOOL, const BOOL, const BOOL, NSArray<CLTripSegmentLocation *> * _Nonnull, NSArray<CLTripSegmentLocation *> * _Nonnull, std::shared_ptr<CLGeoMapFeatureRoadGeometryBuffer>, std::shared_ptr<CLTripSegmentRouteBuilder>)", "CoreLocation: %s\n", v316);
+          if (v316 != buf)
           {
-            free(v144);
+            free(v316);
           }
         }
 
-        v21 = *(a1 + 40) != *(a1 + 48);
+        v22 = *&a1[2].f64[1] != *&a1[3].f64[0];
 LABEL_262:
-        *buf = &v342;
+        *buf = &v603;
         sub_19B8F0E84(buf);
-        *buf = &v344;
+        *buf = &v605;
         sub_19B8F0E84(buf);
-        *buf = &v359;
+        *buf = &v620;
         sub_19B8F0E84(buf);
-        *buf = &v361;
+        *buf = &v622;
         sub_19B8F0E84(buf);
         goto LABEL_449;
       }
 
-      v90 = [v327 objectAtIndexedSubscript:v88];
-      v91 = v90;
-      if (v90)
+      v199 = objc_msgSend_objectAtIndexedSubscript_(v588, v197, v195, v198);
+      v203 = v199;
+      if (v199)
       {
-        if (!v89)
+        if (!v196)
         {
-          [v87 addObject:v90];
-          v89 = v91;
+          objc_msgSend_addObject_(v194, v200, v199, v202);
+          v196 = v203;
           goto LABEL_194;
         }
 
-        if ([v90 timestamp] && objc_msgSend(v89, "timestamp"))
+        if (objc_msgSend_timestamp(v199, v200, v201, v202) && objc_msgSend_timestamp(v196, v204, v205, v206))
         {
-          [objc_msgSend(v91 "timestamp")];
-          v93 = 1;
-          if (v92 >= 0.0 && v92 < 3.0)
+          v210 = objc_msgSend_timestamp(v203, v207, v208, v209);
+          v214 = objc_msgSend_timestamp(v196, v211, v212, v213);
+          objc_msgSend_timeIntervalSinceDate_(v210, v215, v214, v216);
+          v218 = 1;
+          if (v217 >= 0.0 && v217 < 3.0)
           {
-            [v87 addObject:v91];
-            if (v88 != [v327 count] - 1)
+            objc_msgSend_addObject_(v194, v191, v203, v193);
+            if (v195 != objc_msgSend_count(v588, v219, v220, v221) - 1)
             {
               goto LABEL_193;
             }
 
-            v93 = 0;
+            v218 = 0;
           }
         }
 
@@ -1425,20 +1439,20 @@ LABEL_262:
             dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
           }
 
-          v97 = qword_1EAFE46E8;
+          v225 = qword_1EAFE46E8;
           if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
           {
-            v98 = [v91 timestamp];
-            v99 = [v89 timestamp];
+            v229 = objc_msgSend_timestamp(v203, v226, v227, v228);
+            v233 = objc_msgSend_timestamp(v196, v230, v231, v232);
             *buf = 67240448;
-            *&buf[4] = v98 == 0;
+            *&buf[4] = v229 == 0;
             *&buf[8] = 1026;
-            *&buf[10] = v99 == 0;
-            _os_log_impl(&dword_19B873000, v97, OS_LOG_TYPE_ERROR, "CLTSP,CLTripLocationFilter,makeSegmentsForRouteConstruction,timeSincePrev cannot be set,loc.timestamp is nil,%{public}d,prevLocation.timestamp is nil,%{public}d", buf, 0xEu);
+            *&buf[10] = v233 == 0;
+            _os_log_impl(&dword_19B873000, v225, OS_LOG_TYPE_ERROR, "CLTSP,CLTripLocationFilter,makeSegmentsForRouteConstruction,timeSincePrev cannot be set,loc.timestamp is nil,%{public}d,prevLocation.timestamp is nil,%{public}d", buf, 0xEu);
           }
 
-          v100 = sub_19B87DD40();
-          if ((*(v100 + 160) & 0x80000000) == 0 || (*(v100 + 164) & 0x80000000) == 0 || (*(v100 + 168) & 0x80000000) == 0 || *(v100 + 152))
+          v234 = sub_19B87DD40();
+          if ((*(v234 + 160) & 0x80000000) == 0 || (*(v234 + 164) & 0x80000000) == 0 || (*(v234 + 168) & 0x80000000) == 0 || *(v234 + 152))
           {
             bzero(buf, 0x65CuLL);
             if (qword_1EAFE46B8 != -1)
@@ -1446,55 +1460,56 @@ LABEL_262:
               dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
             }
 
-            v101 = [v91 timestamp];
-            v102 = [v89 timestamp];
-            LODWORD(v366[0]) = 67240448;
-            DWORD1(v366[0]) = v101 == 0;
-            WORD4(v366[0]) = 1026;
-            *(v366 + 10) = v102 == 0;
-            v103 = _os_log_send_and_compose_impl();
-            sub_19B885924("Generic", 1, 0, 0, "BOOL CLTripLocationFilter::makeSegmentsForRouteConstruction(const std::string &, const CLTripSegmentModeOfTransport, const BOOL, const BOOL, const BOOL, NSArray<CLTripSegmentLocation *> * _Nonnull, NSArray<CLTripSegmentLocation *> * _Nonnull, std::shared_ptr<CLGeoMapFeatureRoadGeometryBuffer>, std::shared_ptr<CLTripSegmentRouteBuilder>)", "CoreLocation: %s\n", v103);
-            if (v103 != buf)
+            v238 = qword_1EAFE46E8;
+            v239 = objc_msgSend_timestamp(v203, v235, v236, v237);
+            v243 = objc_msgSend_timestamp(v196, v240, v241, v242);
+            LODWORD(v627[0]) = 67240448;
+            DWORD1(v627[0]) = v239 == 0;
+            WORD4(v627[0]) = 1026;
+            *(v627 + 10) = v243 == 0;
+            v244 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v238, 16, "CLTSP,CLTripLocationFilter,makeSegmentsForRouteConstruction,timeSincePrev cannot be set,loc.timestamp is nil,%{public}d,prevLocation.timestamp is nil,%{public}d", v627, 14);
+            sub_19B885924("Generic", 1, 0, 0, "BOOL CLTripLocationFilter::makeSegmentsForRouteConstruction(const std::string &, const CLTripSegmentModeOfTransport, const BOOL, const BOOL, const BOOL, NSArray<CLTripSegmentLocation *> * _Nonnull, NSArray<CLTripSegmentLocation *> * _Nonnull, std::shared_ptr<CLGeoMapFeatureRoadGeometryBuffer>, std::shared_ptr<CLTripSegmentRouteBuilder>)", "CoreLocation: %s\n", v244);
+            if (v244 != buf)
             {
-              free(v103);
+              free(v244);
             }
           }
 
-          v93 = 1;
+          v218 = 1;
         }
 
-        if (![v87 count])
+        if (!objc_msgSend_count(v194, v191, v192, v193))
         {
           if (qword_1EAFE46B8 != -1)
           {
             dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
           }
 
-          v106 = qword_1EAFE46E8;
+          v255 = qword_1EAFE46E8;
           if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
           {
-            v107 = *(a2 + 23);
-            v108 = *a2;
-            v109 = [a7 count];
+            v259 = *(a2 + 23);
+            v260 = *a2;
+            v261 = objc_msgSend_count(a7, v256, v257, v258);
             *buf = 136446466;
-            if (v107 >= 0)
+            if (v259 >= 0)
             {
-              v110 = a2;
+              v262 = a2;
             }
 
             else
             {
-              v110 = v108;
+              v262 = v260;
             }
 
-            *&buf[4] = v110;
+            *&buf[4] = v262;
             *&buf[12] = 2050;
-            *&buf[14] = v109;
-            _os_log_impl(&dword_19B873000, v106, OS_LOG_TYPE_ERROR, "CLTSP,MI,unexpected,location chunk empty,id,%{public}s,sparseCount,%{public}lu", buf, 0x16u);
+            *&buf[14] = v261;
+            _os_log_impl(&dword_19B873000, v255, OS_LOG_TYPE_ERROR, "CLTSP,MI,unexpected,location chunk empty,id,%{public}s,sparseCount,%{public}lu", buf, 0x16u);
           }
 
-          v111 = sub_19B87DD40();
-          if ((*(v111 + 160) & 0x80000000) == 0 || (*(v111 + 164) & 0x80000000) == 0 || (*(v111 + 168) & 0x80000000) == 0 || *(v111 + 152))
+          v263 = sub_19B87DD40();
+          if ((*(v263 + 160) & 0x80000000) == 0 || (*(v263 + 164) & 0x80000000) == 0 || (*(v263 + 168) & 0x80000000) == 0 || *(v263 + 152))
           {
             bzero(buf, 0x65CuLL);
             if (qword_1EAFE46B8 != -1)
@@ -1502,85 +1517,86 @@ LABEL_262:
               dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
             }
 
-            v112 = *(a2 + 23);
-            v113 = *a2;
-            v114 = [a7 count];
-            LODWORD(v366[0]) = 136446466;
-            if (v112 >= 0)
+            v267 = qword_1EAFE46E8;
+            v268 = *(a2 + 23);
+            v269 = *a2;
+            v270 = objc_msgSend_count(a7, v264, v265, v266);
+            LODWORD(v627[0]) = 136446466;
+            if (v268 >= 0)
             {
-              v115 = a2;
+              v271 = a2;
             }
 
             else
             {
-              v115 = v113;
+              v271 = v269;
             }
 
-            *(v366 + 4) = v115;
-            WORD6(v366[0]) = 2050;
-            *(v366 + 14) = v114;
-            v116 = _os_log_send_and_compose_impl();
-            sub_19B885924("Generic", 1, 0, 0, "BOOL CLTripLocationFilter::makeSegmentsForRouteConstruction(const std::string &, const CLTripSegmentModeOfTransport, const BOOL, const BOOL, const BOOL, NSArray<CLTripSegmentLocation *> * _Nonnull, NSArray<CLTripSegmentLocation *> * _Nonnull, std::shared_ptr<CLGeoMapFeatureRoadGeometryBuffer>, std::shared_ptr<CLTripSegmentRouteBuilder>)", "CoreLocation: %s\n", v116);
-            if (v116 != buf)
+            *(v627 + 4) = v271;
+            WORD6(v627[0]) = 2050;
+            *(v627 + 14) = v270;
+            v272 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v267, 16, "CLTSP,MI,unexpected,location chunk empty,id,%{public}s,sparseCount,%{public}lu", v627, 22);
+            sub_19B885924("Generic", 1, 0, 0, "BOOL CLTripLocationFilter::makeSegmentsForRouteConstruction(const std::string &, const CLTripSegmentModeOfTransport, const BOOL, const BOOL, const BOOL, NSArray<CLTripSegmentLocation *> * _Nonnull, NSArray<CLTripSegmentLocation *> * _Nonnull, std::shared_ptr<CLGeoMapFeatureRoadGeometryBuffer>, std::shared_ptr<CLTripSegmentRouteBuilder>)", "CoreLocation: %s\n", v272);
+            if (v272 != buf)
             {
-              free(v116);
+              free(v272);
             }
           }
 
 LABEL_193:
-          v89 = v91;
+          v196 = v203;
           goto LABEL_194;
         }
 
-        v104 = a9[1];
-        v330[0] = *a9;
-        v330[1] = v104;
-        if (v104)
+        v245 = a9[1];
+        v591[0] = *a9;
+        v591[1] = &v245->__vftable;
+        if (v245)
         {
-          atomic_fetch_add_explicit(&v104->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v245->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        sub_19B9E4F38(a1, a2, a5, v87, &v342, &v356, v330);
-        if (v104)
+        sub_19B9E4F38(a1, a2, a5, v194, &v603, &v617, v591);
+        if (v245)
         {
-          sub_19B8750F8(v104);
+          sub_19B8750F8(v245);
         }
 
-        [v87 removeAllObjects];
-        [v87 addObject:v91];
-        v105 = [v91 isGPSLocationType];
-        if ((v93 & v105) == 1)
+        objc_msgSend_removeAllObjects(v194, v246, v247, v248);
+        objc_msgSend_addObject_(v194, v249, v203, v250);
+        isGPSLocationType = objc_msgSend_isGPSLocationType(v203, v251, v252, v253);
+        if ((v218 & isGPSLocationType) == 1)
         {
-          if (v88 != [v327 count] - 1)
+          if (v195 != objc_msgSend_count(v588, v191, v192, v193) - 1)
           {
             goto LABEL_193;
           }
         }
 
-        else if (v105)
+        else if (isGPSLocationType)
         {
           goto LABEL_193;
         }
 
-        v89 = v91;
-        if ([v87 count])
+        v196 = v203;
+        if (objc_msgSend_count(v194, v191, v192, v193))
         {
-          v117 = a9[1];
-          v329[0] = *a9;
-          v329[1] = v117;
-          if (v117)
+          v273 = a9[1];
+          v590[0] = *a9;
+          v590[1] = &v273->__vftable;
+          if (v273)
           {
-            atomic_fetch_add_explicit(&v117->__shared_owners_, 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit(&v273->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          sub_19B9E4F38(a1, a2, a5, v87, &v342, &v356, v329);
-          if (v117)
+          sub_19B9E4F38(a1, a2, a5, v194, &v603, &v617, v590);
+          if (v273)
           {
-            sub_19B8750F8(v117);
+            sub_19B8750F8(v273);
           }
 
-          [v87 removeAllObjects];
-          v89 = 0;
+          objc_msgSend_removeAllObjects(v194, v274, v275, v276);
+          v196 = 0;
         }
       }
 
@@ -1591,15 +1607,15 @@ LABEL_193:
           dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
         }
 
-        v94 = qword_1EAFE46E8;
+        v222 = qword_1EAFE46E8;
         if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_impl(&dword_19B873000, v94, OS_LOG_TYPE_ERROR, "CLTSP,CLTripLocationFilter,makeSegmentsForRouteConstruction,loc is nil", buf, 2u);
+          _os_log_impl(&dword_19B873000, v222, OS_LOG_TYPE_ERROR, "CLTSP,CLTripLocationFilter,makeSegmentsForRouteConstruction,loc is nil", buf, 2u);
         }
 
-        v95 = sub_19B87DD40();
-        if ((*(v95 + 160) & 0x80000000) == 0 || (*(v95 + 164) & 0x80000000) == 0 || (*(v95 + 168) & 0x80000000) == 0 || *(v95 + 152))
+        v223 = sub_19B87DD40();
+        if ((*(v223 + 160) & 0x80000000) == 0 || (*(v223 + 164) & 0x80000000) == 0 || (*(v223 + 168) & 0x80000000) == 0 || *(v223 + 152))
         {
           bzero(buf, 0x65CuLL);
           if (qword_1EAFE46B8 != -1)
@@ -1607,38 +1623,38 @@ LABEL_193:
             dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
           }
 
-          LOWORD(v366[0]) = 0;
-          v96 = _os_log_send_and_compose_impl();
-          sub_19B885924("Generic", 1, 0, 0, "BOOL CLTripLocationFilter::makeSegmentsForRouteConstruction(const std::string &, const CLTripSegmentModeOfTransport, const BOOL, const BOOL, const BOOL, NSArray<CLTripSegmentLocation *> * _Nonnull, NSArray<CLTripSegmentLocation *> * _Nonnull, std::shared_ptr<CLGeoMapFeatureRoadGeometryBuffer>, std::shared_ptr<CLTripSegmentRouteBuilder>)", "CoreLocation: %s\n", v96);
-          if (v96 != buf)
+          LOWORD(v627[0]) = 0;
+          v224 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE46E8, 16, "CLTSP,CLTripLocationFilter,makeSegmentsForRouteConstruction,loc is nil", v627, 2);
+          sub_19B885924("Generic", 1, 0, 0, "BOOL CLTripLocationFilter::makeSegmentsForRouteConstruction(const std::string &, const CLTripSegmentModeOfTransport, const BOOL, const BOOL, const BOOL, NSArray<CLTripSegmentLocation *> * _Nonnull, NSArray<CLTripSegmentLocation *> * _Nonnull, std::shared_ptr<CLGeoMapFeatureRoadGeometryBuffer>, std::shared_ptr<CLTripSegmentRouteBuilder>)", "CoreLocation: %s\n", v224);
+          if (v224 != buf)
           {
-            free(v96);
+            free(v224);
           }
         }
       }
 
 LABEL_194:
-      ++v88;
+      ++v195;
     }
   }
 
   v14 = *a10;
-  v15 = v318;
+  v15 = v578;
   if (*a10)
   {
-    v16 = [a7 mutableCopy];
+    v16 = objc_msgSend_mutableCopy(a7, a2, a3, a4);
     v17 = a9[1];
-    v350 = *a9;
-    v351 = v17;
+    v611 = *a9;
+    v612 = v17;
     if (v17)
     {
       atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    sub_19B99C3DC(v14, a2, 1, a4, v16, &v350);
-    if (v351)
+    sub_19B99C3DC(v14, a2, 1, v10, v16, &v611);
+    if (v612)
     {
-      sub_19B8750F8(v351);
+      sub_19B8750F8(v612);
     }
 
     if (qword_1EAFE5B00 != -1)
@@ -1653,15 +1669,15 @@ LABEL_194:
         dispatch_once(&qword_1EAFE46D0, &unk_1F0E6EA10);
       }
 
-      v18 = off_1EAFE4708;
+      v19 = off_1EAFE4708;
       if (os_log_type_enabled(off_1EAFE4708, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_19B873000, v18, OS_LOG_TYPE_INFO, "CLTSP,CLTripSegmentMapIntegratorSparse,processingTime exceeded max allowed,after generateSnapCandidates", buf, 2u);
+        _os_log_impl(&dword_19B873000, v19, OS_LOG_TYPE_INFO, "CLTSP,CLTripSegmentMapIntegratorSparse,processingTime exceeded max allowed,after generateSnapCandidates", buf, 2u);
       }
 
-      v19 = sub_19B87DD40();
-      if (*(v19 + 160) > 1 || *(v19 + 164) > 1 || *(v19 + 168) > 1 || *(v19 + 152))
+      v20 = sub_19B87DD40();
+      if (*(v20 + 160) > 1 || *(v20 + 164) > 1 || *(v20 + 168) > 1 || *(v20 + 152))
       {
         bzero(buf, 0x65CuLL);
         if (qword_1EAFE46D0 != -1)
@@ -1669,626 +1685,633 @@ LABEL_194:
           dispatch_once(&qword_1EAFE46D0, &unk_1F0E6EA10);
         }
 
-        LOWORD(v366[0]) = 0;
-        v20 = _os_log_send_and_compose_impl();
-        sub_19B885924("Generic", 1, 0, 2, "BOOL CLTripLocationFilter::makeSegmentsForRouteConstruction(const std::string &, const CLTripSegmentModeOfTransport, const BOOL, const BOOL, const BOOL, NSArray<CLTripSegmentLocation *> * _Nonnull, NSArray<CLTripSegmentLocation *> * _Nonnull, std::shared_ptr<CLGeoMapFeatureRoadGeometryBuffer>, std::shared_ptr<CLTripSegmentRouteBuilder>)", "CoreLocation: %s\n", v20);
-        if (v20 != buf)
+        LOWORD(v627[0]) = 0;
+        v21 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, off_1EAFE4708, 1, "CLTSP,CLTripSegmentMapIntegratorSparse,processingTime exceeded max allowed,after generateSnapCandidates", v627, 2);
+        sub_19B885924("Generic", 1, 0, 2, "BOOL CLTripLocationFilter::makeSegmentsForRouteConstruction(const std::string &, const CLTripSegmentModeOfTransport, const BOOL, const BOOL, const BOOL, NSArray<CLTripSegmentLocation *> * _Nonnull, NSArray<CLTripSegmentLocation *> * _Nonnull, std::shared_ptr<CLGeoMapFeatureRoadGeometryBuffer>, std::shared_ptr<CLTripSegmentRouteBuilder>)", "CoreLocation: %s\n", v21);
+        if (v21 != buf)
         {
-          free(v20);
+          free(v21);
         }
       }
 
-      v21 = 0;
+      v22 = 0;
       goto LABEL_449;
     }
 
-    v348 = 0u;
-    v349 = 0u;
-    v346 = 0u;
-    v347 = 0u;
-    v156 = [a7 countByEnumeratingWithState:&v346 objects:v389 count:16];
-    if (v156)
+    v609 = 0u;
+    v610 = 0u;
+    v607 = 0u;
+    v608 = 0u;
+    v337 = objc_msgSend_countByEnumeratingWithState_objects_count_(a7, v18, &v607, v650, 16);
+    if (v337)
     {
-      v320 = 0;
-      v157 = &OBJC_IVAR___CLTripSegmentOutputData__tripSegmentID;
-      v314 = *v347;
+      v580 = 0;
+      v338 = &OBJC_IVAR___CLTripSegmentOutputData__tripSegmentID;
+      v574 = *v608;
       do
       {
-        v158 = 0;
-        v312 = v156;
+        v339 = 0;
+        v572 = v337;
         do
         {
-          if (*v347 != v314)
+          if (*v608 != v574)
           {
             objc_enumerationMutation(a7);
           }
 
-          v159 = *(*(&v346 + 1) + 8 * v158);
-          if (v159)
+          v340 = *(*(&v607 + 1) + 8 * v339);
+          if (v340)
           {
-            if (v159 == [a7 objectAtIndexedSubscript:0])
+            if (v340 == objc_msgSend_objectAtIndexedSubscript_(a7, v335, 0, v336))
             {
-              v160 = *a10;
-              [objc_msgSend(v159 "timestamp")];
-              sub_19B9A27FC(v160, &v344, v161);
-              if (v344)
+              v344 = *a10;
+              v345 = objc_msgSend_timestamp(v340, v341, v342, v343);
+              objc_msgSend_timeIntervalSinceReferenceDate(v345, v346, v347, v348);
+              sub_19B9A27FC(v344, &v605, v349);
+              if (v605)
               {
-                v362 = 0;
-                v361 = 0;
-                v363 = 0;
-                sub_19B8EAB68(&v361, &v344);
-                v162 = *(a1 + 48);
-                if (v162 >= *(a1 + 56))
+                v623 = 0;
+                v622 = 0;
+                v624 = 0;
+                sub_19B8EAB68(&v622, &v605);
+                v350 = a1[3].f64[0];
+                if (*&v350 >= *&a1[3].f64[1])
                 {
-                  v163 = sub_19B9A2EF8(v15, &v361);
+                  v354 = sub_19B9A2EF8(v15, &v622);
                 }
 
                 else
                 {
-                  sub_19B9A2EA4(v15, &v361);
-                  v163 = v162 + 24;
+                  sub_19B9A2EA4(v15, &v622);
+                  v354 = (*&v350 + 24);
                 }
 
-                v167 = v159;
-                v315 = v158;
-                *(a1 + 48) = v163;
-                [objc_msgSend(objc_msgSend(a8 "firstObject")];
-                v169 = v168;
+                v358 = v340;
+                v575 = v339;
+                *&a1[3].f64[0] = v354;
+                Object = objc_msgSend_firstObject(a8, v351, v352, v353);
+                v363 = objc_msgSend_timestamp(Object, v360, v361, v362);
+                objc_msgSend_timeIntervalSinceReferenceDate(v363, v364, v365, v366);
+                v368 = v367;
                 do
                 {
-                  v170 = *(v344 + 16);
-                  if (v170 <= v169)
+                  v369 = *(v605 + 16);
+                  if (v369 <= v368)
                   {
                     break;
                   }
 
-                  sub_19B9A27FC(*a10, &v342, v170);
-                  v171 = v342;
-                  if (v342)
+                  sub_19B9A27FC(*a10, &v603, v369);
+                  v370 = v603;
+                  if (v603)
                   {
-                    v359 = 0uLL;
-                    v360 = 0;
-                    sub_19B8EAB68(&v359, &v342);
-                    v173 = *(a1 + 40);
-                    v172 = *(a1 + 48);
-                    v174 = *(a1 + 56);
-                    if (v172 >= v174)
+                    v620 = 0uLL;
+                    v621 = 0;
+                    sub_19B8EAB68(&v620, &v603);
+                    v372 = *&a1[2].f64[1];
+                    v371 = *&a1[3].f64[0];
+                    v373 = *&a1[3].f64[1];
+                    if (v371 >= v373)
                     {
-                      v178 = 1 - 0x5555555555555555 * ((v172 - v173) >> 3);
-                      if (v178 <= 0xAAAAAAAAAAAAAAALL)
+                      v377 = 1 - 0x5555555555555555 * ((v371 - v372) >> 3);
+                      if (v377 <= 0xAAAAAAAAAAAAAAALL)
                       {
-                        v179 = 0xAAAAAAAAAAAAAAABLL * ((v174 - v173) >> 3);
-                        if (2 * v179 > v178)
+                        v378 = 0xAAAAAAAAAAAAAAABLL * ((v373 - v372) >> 3);
+                        if (2 * v378 > v377)
                         {
-                          v178 = 2 * v179;
+                          v377 = 2 * v378;
                         }
 
-                        if (v179 >= 0x555555555555555)
+                        if (v378 >= 0x555555555555555)
                         {
-                          v180 = 0xAAAAAAAAAAAAAAALL;
+                          v379 = 0xAAAAAAAAAAAAAAALL;
                         }
 
                         else
                         {
-                          v180 = v178;
+                          v379 = v377;
                         }
 
-                        *&v366[2] = v15;
-                        if (v180)
+                        *&v627[2] = v15;
+                        if (v379)
                         {
-                          sub_19B9A3170(v15, v180);
+                          sub_19B9A3170(v15, v379);
                         }
 
-                        memset(v366, 0, 32);
-                        *v392 = v15;
+                        memset(v627, 0, 32);
+                        *v653 = v15;
                         sub_19B9A3170(v15, 1uLL);
                       }
 
                       sub_19B8B8A40();
                     }
 
-                    if (v173 == v172)
+                    if (v372 == v371)
                     {
-                      sub_19B9A2EA4(v15, &v359);
+                      sub_19B9A2EA4(v15, &v620);
                     }
 
                     else
                     {
-                      sub_19B9A3988(v15, *(a1 + 40), v172, (v173 + 3));
-                      v175 = 24;
-                      if (v173 > &v359 || *(a1 + 48) <= &v359)
+                      sub_19B9A3988(v15, *&a1[2].f64[1], v371, (v372 + 3));
+                      v374 = 24;
+                      if (v372 > &v620 || *&a1[3].f64[0] <= &v620)
                       {
-                        v175 = 0;
+                        v374 = 0;
                       }
 
-                      v176 = (&v359 + v175);
-                      if (v173 != v176)
+                      v375 = (&v620 + v374);
+                      if (v372 != v375)
                       {
-                        v177 = 8;
-                        if (v173 <= &v359 && *(a1 + 48) > &v359)
+                        v376 = 8;
+                        if (v372 <= &v620 && *&a1[3].f64[0] > &v620)
                         {
-                          v177 = 32;
+                          v376 = 32;
                         }
 
-                        sub_19B9A3250(v173, *v176, *(&v359 + v177), (*(&v359 + v177) - *v176) >> 4);
+                        sub_19B9A3250(v372, *v375, *(&v620 + v376), (*(&v620 + v376) - *v375) >> 4);
                       }
                     }
 
-                    v181 = v342;
-                    if (*(&v342 + 1))
+                    v380 = v603;
+                    if (*(&v603 + 1))
                     {
-                      atomic_fetch_add_explicit((*(&v342 + 1) + 8), 1uLL, memory_order_relaxed);
+                      atomic_fetch_add_explicit((*(&v603 + 1) + 8), 1uLL, memory_order_relaxed);
                     }
 
-                    v182 = *(&v344 + 1);
-                    v344 = v181;
-                    if (v182)
+                    v381 = *(&v605 + 1);
+                    v605 = v380;
+                    if (v381)
                     {
-                      sub_19B8750F8(v182);
+                      sub_19B8750F8(v381);
                     }
 
-                    if (*(v157 + 215) != -1)
+                    if (*(v338 + 215) != -1)
                     {
                       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
                     }
 
-                    v183 = qword_1EAFE46E8;
+                    v382 = qword_1EAFE46E8;
                     if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_DEBUG))
                     {
-                      v184 = *(v344 + 16);
+                      v383 = *(v605 + 16);
                       *buf = 134349312;
-                      *&buf[4] = v169;
+                      *&buf[4] = v368;
                       *&buf[12] = 2050;
-                      *&buf[14] = v184;
-                      _os_log_impl(&dword_19B873000, v183, OS_LOG_TYPE_DEBUG, "CLTSP,makeSegmentsForRouteConstruction,prior snap added,firstUpsampledTime,%{public}.1lf,snapTime,%{public}.1lf", buf, 0x16u);
+                      *&buf[14] = v383;
+                      _os_log_impl(&dword_19B873000, v382, OS_LOG_TYPE_DEBUG, "CLTSP,makeSegmentsForRouteConstruction,prior snap added,firstUpsampledTime,%{public}.1lf,snapTime,%{public}.1lf", buf, 0x16u);
                     }
 
-                    v185 = sub_19B87DD40();
-                    if (*(v185 + 160) > 1 || *(v185 + 164) > 1 || *(v185 + 168) > 1 || *(v185 + 152))
+                    v384 = sub_19B87DD40();
+                    if (*(v384 + 160) > 1 || *(v384 + 164) > 1 || *(v384 + 168) > 1 || *(v384 + 152))
                     {
                       bzero(buf, 0x65CuLL);
-                      if (*(v157 + 215) != -1)
+                      if (*(v338 + 215) != -1)
                       {
                         dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
                       }
 
-                      v186 = *(v344 + 16);
-                      LODWORD(v366[0]) = 134349312;
-                      *(v366 + 4) = v169;
-                      WORD6(v366[0]) = 2050;
-                      *(v366 + 14) = v186;
-                      v187 = _os_log_send_and_compose_impl();
-                      sub_19B885924("Generic", 1, 0, 2, "BOOL CLTripLocationFilter::makeSegmentsForRouteConstruction(const std::string &, const CLTripSegmentModeOfTransport, const BOOL, const BOOL, const BOOL, NSArray<CLTripSegmentLocation *> * _Nonnull, NSArray<CLTripSegmentLocation *> * _Nonnull, std::shared_ptr<CLGeoMapFeatureRoadGeometryBuffer>, std::shared_ptr<CLTripSegmentRouteBuilder>)", "CoreLocation: %s\n", v187);
-                      if (v187 != buf)
+                      v385 = *(v605 + 16);
+                      LODWORD(v627[0]) = 134349312;
+                      *(v627 + 4) = v368;
+                      WORD6(v627[0]) = 2050;
+                      *(v627 + 14) = v385;
+                      v386 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE46E8, 2, "CLTSP,makeSegmentsForRouteConstruction,prior snap added,firstUpsampledTime,%{public}.1lf,snapTime,%{public}.1lf", v627, 22);
+                      sub_19B885924("Generic", 1, 0, 2, "BOOL CLTripLocationFilter::makeSegmentsForRouteConstruction(const std::string &, const CLTripSegmentModeOfTransport, const BOOL, const BOOL, const BOOL, NSArray<CLTripSegmentLocation *> * _Nonnull, NSArray<CLTripSegmentLocation *> * _Nonnull, std::shared_ptr<CLGeoMapFeatureRoadGeometryBuffer>, std::shared_ptr<CLTripSegmentRouteBuilder>)", "CoreLocation: %s\n", v386);
+                      if (v386 != buf)
                       {
-                        free(v187);
+                        free(v386);
                       }
                     }
 
-                    *buf = &v359;
+                    *buf = &v620;
                     sub_19B8F0E84(buf);
                   }
 
-                  if (*(&v342 + 1))
+                  if (*(&v603 + 1))
                   {
-                    sub_19B8750F8(*(&v342 + 1));
+                    sub_19B8750F8(*(&v603 + 1));
                   }
                 }
 
-                while (v171);
-                *buf = &v361;
+                while (v370);
+                *buf = &v622;
                 sub_19B8F0E84(buf);
-                v158 = v315;
-                v159 = v167;
-                v156 = v312;
+                v339 = v575;
+                v340 = v358;
+                v337 = v572;
               }
 
-              if (*(&v344 + 1))
+              if (*(&v605 + 1))
               {
-                sub_19B8750F8(*(&v344 + 1));
+                sub_19B8750F8(*(&v605 + 1));
               }
             }
 
-            if (([v159 isGPSLocationType] & 1) != 0 || (objc_msgSend(v159, "isWiFiLocationType") & 1) != 0 || objc_msgSend(v159, "isLoiLocationType"))
+            if ((objc_msgSend_isGPSLocationType(v340, v341, v342, v343) & 1) != 0 || (objc_msgSend_isWiFiLocationType(v340, v335, v387, v336) & 1) != 0 || objc_msgSend_isLoiLocationType(v340, v335, v387, v336))
             {
-              v188 = *a10;
-              [objc_msgSend(v159 "timestamp")];
-              sub_19B9A271C(v188, &v359, v189);
-              if (!v320 || v159 == [a7 lastObject] || (objc_msgSend(v159, "distanceFromLocation:", v320), v190 >= 10.0))
+              v388 = *a10;
+              v389 = objc_msgSend_timestamp(v340, v335, v387, v336);
+              objc_msgSend_timeIntervalSinceReferenceDate(v389, v390, v391, v392);
+              sub_19B9A271C(v388, &v620, v393);
+              if (!v580 || v340 == objc_msgSend_lastObject(a7, v335, v394, v336) || (objc_msgSend_distanceFromLocation_(v340, v335, v580, v336), v395 >= 10.0))
               {
-                if (v359)
+                if (v620)
                 {
-                  v362 = 0;
-                  v361 = 0;
-                  v363 = 0;
-                  sub_19B8EAB68(&v361, &v359);
-                  v191 = *(a1 + 48);
-                  if (v191 >= *(a1 + 56))
+                  v623 = 0;
+                  v622 = 0;
+                  v624 = 0;
+                  sub_19B8EAB68(&v622, &v620);
+                  v396 = a1[3].f64[0];
+                  if (*&v396 >= *&a1[3].f64[1])
                   {
-                    v192 = sub_19B9A2EF8(v15, &v361);
+                    v397 = sub_19B9A2EF8(v15, &v622);
                   }
 
                   else
                   {
-                    sub_19B9A2EA4(v15, &v361);
-                    v192 = v191 + 24;
+                    sub_19B9A2EA4(v15, &v622);
+                    v397 = (*&v396 + 24);
                   }
 
-                  *(a1 + 48) = v192;
-                  if (*(v157 + 215) != -1)
+                  *&a1[3].f64[0] = v397;
+                  if (*(v338 + 215) != -1)
                   {
                     dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
                   }
 
-                  v193 = qword_1EAFE46E8;
-                  v316 = v158;
+                  v398 = qword_1EAFE46E8;
+                  v576 = v339;
                   if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_DEBUG))
                   {
-                    v321 = v193;
-                    v194 = [v159 isGPSLocationType];
-                    v195 = "wifi";
-                    if (v194)
+                    v581 = v398;
+                    v402 = objc_msgSend_isGPSLocationType(v340, v399, v400, v401);
+                    v406 = "wifi";
+                    if (v402)
                     {
-                      v195 = "gps";
+                      v406 = "gps";
                     }
 
-                    v310 = v195;
+                    v570 = v406;
                     if (*(a2 + 23) >= 0)
                     {
-                      v196 = a2;
+                      v407 = a2;
                     }
 
                     else
                     {
-                      v196 = *a2;
+                      v407 = *a2;
                     }
 
-                    [objc_msgSend(v159 "timestamp")];
-                    v198 = v197;
-                    [v159 latitude];
-                    v200 = v199;
-                    [v159 longitude];
-                    v202 = v201;
-                    [v159 course];
-                    v204 = v203;
-                    v205 = *(v359 + 24);
-                    v206 = *(v359 + 32);
-                    v207 = *(v359 + 40);
-                    [v159 horizontalAccuracy];
-                    v209 = v208;
-                    [v159 courseAccuracy];
-                    v211 = v210;
-                    v212 = *(v359 + 48);
-                    v213 = *(v359 + 56);
-                    v215 = *(v359 + 72);
-                    v214 = *(v359 + 80);
-                    v216 = *(v359 + 88);
-                    v217 = [v159 locType];
+                    v408 = objc_msgSend_timestamp(v340, v403, v404, v405);
+                    objc_msgSend_timeIntervalSinceReferenceDate(v408, v409, v410, v411);
+                    v413 = v412;
+                    objc_msgSend_latitude(v340, v414, v415, v416);
+                    v418 = v417;
+                    objc_msgSend_longitude(v340, v419, v420, v421);
+                    v423 = v422;
+                    objc_msgSend_course(v340, v424, v425, v426);
+                    v428 = v427;
+                    v429 = *(v620 + 24);
+                    v430 = *(v620 + 32);
+                    v431 = *(v620 + 40);
+                    objc_msgSend_horizontalAccuracy(v340, v432, v433, v434);
+                    v436 = v435;
+                    objc_msgSend_courseAccuracy(v340, v437, v438, v439);
+                    v441 = v440;
+                    v442 = *(v620 + 48);
+                    v443 = *(v620 + 56);
+                    v445 = *(v620 + 72);
+                    v444 = *(v620 + 80);
+                    v446 = *(v620 + 88);
+                    v450 = objc_msgSend_locType(v340, v447, v448, v449);
                     *buf = 136450563;
-                    *&buf[4] = v310;
+                    *&buf[4] = v570;
                     *&buf[12] = 2082;
-                    *&buf[14] = v196;
+                    *&buf[14] = v407;
                     *&buf[22] = 2050;
-                    v391 = v198;
-                    *v392 = 2053;
-                    *&v392[2] = v200;
-                    v393 = 2053;
-                    *v394 = v202;
-                    *&v394[8] = 2049;
-                    v395 = v204;
-                    v396 = 2053;
-                    v397 = v205;
-                    v398 = 2053;
-                    v399 = v206;
-                    v400 = 2049;
-                    v401 = v207;
-                    v402 = 2049;
-                    v403 = v209;
-                    v404 = 2049;
-                    *v405 = v211;
-                    *&v405[8] = 2050;
-                    v406 = v212;
-                    v407 = 2050;
-                    v408 = v213;
-                    v409 = 2050;
-                    v410 = v214;
-                    v411 = 2050;
-                    v412 = v215;
-                    v413 = 2050;
-                    v414 = v216;
-                    v415 = 1026;
-                    v416 = 1;
-                    v417 = 1026;
-                    v418 = v217;
-                    _os_log_impl(&dword_19B873000, v321, OS_LOG_TYPE_DEBUG, "CLTSP,MI,%{public}sLocation,filtered,1,id,%{public}s,time,%{public}.3lf,rawLL,%{sensitive}.7lf,%{sensitive}.7lf,rawCourse,%{private}.3lf,snapLL,%{sensitive}.7lf,%{sensitive}.7lf,snapCourse,%{private}.3lf,hunc,%{private}.3lf,cunc,%{private}.3lf,projection,%{public}.8lf,score,%{public}.12lf,dE,%{public}.2lf,dN,%{public}.2lf,dCourse,%{public}.2lf,mode,%{public}d,type,%{public}d", buf, 0xAEu);
-                    v15 = v318;
-                    v156 = v312;
-                    v157 = &OBJC_IVAR___CLTripSegmentOutputData__tripSegmentID;
-                    v158 = v316;
+                    v652 = v413;
+                    *v653 = 2053;
+                    *&v653[2] = v418;
+                    v654 = 2053;
+                    *v655 = v423;
+                    *&v655[8] = 2049;
+                    v656 = v428;
+                    v657 = 2053;
+                    v658 = v429;
+                    v659 = 2053;
+                    v660 = v430;
+                    v661 = 2049;
+                    v662 = v431;
+                    v663 = 2049;
+                    v664 = v436;
+                    v665 = 2049;
+                    *v666 = v441;
+                    *&v666[8] = 2050;
+                    v667 = v442;
+                    v668 = 2050;
+                    v669 = v443;
+                    v670 = 2050;
+                    v671 = v444;
+                    v672 = 2050;
+                    v673 = v445;
+                    v674 = 2050;
+                    v675 = v446;
+                    v676 = 1026;
+                    v677 = 1;
+                    v678 = 1026;
+                    v679 = v450;
+                    _os_log_impl(&dword_19B873000, v581, OS_LOG_TYPE_DEBUG, "CLTSP,MI,%{public}sLocation,filtered,1,id,%{public}s,time,%{public}.3lf,rawLL,%{sensitive}.7lf,%{sensitive}.7lf,rawCourse,%{private}.3lf,snapLL,%{sensitive}.7lf,%{sensitive}.7lf,snapCourse,%{private}.3lf,hunc,%{private}.3lf,cunc,%{private}.3lf,projection,%{public}.8lf,score,%{public}.12lf,dE,%{public}.2lf,dN,%{public}.2lf,dCourse,%{public}.2lf,mode,%{public}d,type,%{public}d", buf, 0xAEu);
+                    v15 = v578;
+                    v337 = v572;
+                    v338 = &OBJC_IVAR___CLTripSegmentOutputData__tripSegmentID;
+                    v339 = v576;
                   }
 
-                  v218 = sub_19B87DD40();
-                  if (*(v218 + 160) > 1 || *(v218 + 164) > 1 || *(v218 + 168) > 1 || *(v218 + 152))
+                  v451 = sub_19B87DD40();
+                  if (*(v451 + 160) > 1 || *(v451 + 164) > 1 || *(v451 + 168) > 1 || *(v451 + 152))
                   {
                     bzero(buf, 0x65CuLL);
-                    if (*(v157 + 215) != -1)
+                    if (*(v338 + 215) != -1)
                     {
                       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
                     }
 
-                    v219 = [v159 isGPSLocationType];
-                    v220 = "wifi";
-                    if (v219)
+                    v582 = qword_1EAFE46E8;
+                    v455 = objc_msgSend_isGPSLocationType(v340, v452, v453, v454);
+                    v459 = "wifi";
+                    if (v455)
                     {
-                      v220 = "gps";
+                      v459 = "gps";
                     }
 
-                    v311 = v220;
+                    v571 = v459;
                     if (*(a2 + 23) >= 0)
                     {
-                      v221 = a2;
+                      v460 = a2;
                     }
 
                     else
                     {
-                      v221 = *a2;
+                      v460 = *a2;
                     }
 
-                    [objc_msgSend(v159 "timestamp")];
-                    v223 = v222;
-                    [v159 latitude];
-                    v225 = v224;
-                    [v159 longitude];
-                    v227 = v226;
-                    [v159 course];
-                    v229 = v228;
-                    v230 = *(v359 + 24);
-                    v231 = *(v359 + 32);
-                    v232 = *(v359 + 40);
-                    [v159 horizontalAccuracy];
-                    v234 = v233;
-                    [v159 courseAccuracy];
-                    v236 = v235;
-                    v238 = *(v359 + 48);
-                    v237 = *(v359 + 56);
-                    v239 = *(v359 + 72);
-                    v240 = *(v359 + 80);
-                    v241 = *(v359 + 88);
-                    v242 = [v159 locType];
-                    LODWORD(v366[0]) = 136450563;
-                    *(v366 + 4) = v311;
-                    WORD6(v366[0]) = 2082;
-                    *(v366 + 14) = v221;
-                    WORD3(v366[1]) = 2050;
-                    *(&v366[1] + 1) = v223;
-                    LOWORD(v366[2]) = 2053;
-                    *(&v366[2] + 2) = v225;
-                    WORD5(v366[2]) = 2053;
-                    *(&v366[2] + 12) = v227;
-                    WORD2(v366[3]) = 2049;
-                    *(&v366[3] + 6) = v229;
-                    HIWORD(v366[3]) = 2053;
-                    v367 = v230;
-                    v368 = 2053;
-                    v369 = v231;
-                    v370 = 2049;
-                    v371 = v232;
-                    v372 = 2049;
-                    v373 = v234;
-                    v374 = 2049;
-                    *v375 = v236;
-                    *&v375[8] = 2050;
-                    v376 = v238;
-                    v377 = 2050;
-                    v378 = v237;
-                    v379 = 2050;
-                    v380 = v240;
-                    v381 = 2050;
-                    v382 = v239;
-                    v383 = 2050;
-                    v384 = v241;
-                    v385 = 1026;
-                    v386 = 1;
-                    v387 = 1026;
-                    v388 = v242;
-                    v243 = _os_log_send_and_compose_impl();
-                    sub_19B885924("Generic", 1, 0, 2, "BOOL CLTripLocationFilter::makeSegmentsForRouteConstruction(const std::string &, const CLTripSegmentModeOfTransport, const BOOL, const BOOL, const BOOL, NSArray<CLTripSegmentLocation *> * _Nonnull, NSArray<CLTripSegmentLocation *> * _Nonnull, std::shared_ptr<CLGeoMapFeatureRoadGeometryBuffer>, std::shared_ptr<CLTripSegmentRouteBuilder>)", "CoreLocation: %s\n", v243);
-                    v15 = v318;
-                    v156 = v312;
-                    v157 = &OBJC_IVAR___CLTripSegmentOutputData__tripSegmentID;
-                    v158 = v316;
-                    if (v243 != buf)
+                    v461 = objc_msgSend_timestamp(v340, v456, v457, v458);
+                    objc_msgSend_timeIntervalSinceReferenceDate(v461, v462, v463, v464);
+                    v466 = v465;
+                    objc_msgSend_latitude(v340, v467, v468, v469);
+                    v471 = v470;
+                    objc_msgSend_longitude(v340, v472, v473, v474);
+                    v476 = v475;
+                    objc_msgSend_course(v340, v477, v478, v479);
+                    v481 = v480;
+                    v482 = *(v620 + 24);
+                    v483 = *(v620 + 32);
+                    v484 = *(v620 + 40);
+                    objc_msgSend_horizontalAccuracy(v340, v485, v486, v487);
+                    v489 = v488;
+                    objc_msgSend_courseAccuracy(v340, v490, v491, v492);
+                    v494 = v493;
+                    v496 = *(v620 + 48);
+                    v495 = *(v620 + 56);
+                    v497 = *(v620 + 72);
+                    v498 = *(v620 + 80);
+                    v499 = *(v620 + 88);
+                    v503 = objc_msgSend_locType(v340, v500, v501, v502);
+                    LODWORD(v627[0]) = 136450563;
+                    *(v627 + 4) = v571;
+                    WORD6(v627[0]) = 2082;
+                    *(v627 + 14) = v460;
+                    WORD3(v627[1]) = 2050;
+                    *(&v627[1] + 1) = v466;
+                    LOWORD(v627[2]) = 2053;
+                    *(&v627[2] + 2) = v471;
+                    WORD5(v627[2]) = 2053;
+                    *(&v627[2] + 12) = v476;
+                    WORD2(v627[3]) = 2049;
+                    *(&v627[3] + 6) = v481;
+                    HIWORD(v627[3]) = 2053;
+                    v628 = v482;
+                    v629 = 2053;
+                    v630 = v483;
+                    v631 = 2049;
+                    v632 = v484;
+                    v633 = 2049;
+                    v634 = v489;
+                    v635 = 2049;
+                    *v636 = v494;
+                    *&v636[8] = 2050;
+                    v637 = v496;
+                    v638 = 2050;
+                    v639 = v495;
+                    v640 = 2050;
+                    v641 = v498;
+                    v642 = 2050;
+                    v643 = v497;
+                    v644 = 2050;
+                    v645 = v499;
+                    v646 = 1026;
+                    v647 = 1;
+                    v648 = 1026;
+                    v649 = v503;
+                    v504 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v582, 2, "CLTSP,MI,%{public}sLocation,filtered,1,id,%{public}s,time,%{public}.3lf,rawLL,%{sensitive}.7lf,%{sensitive}.7lf,rawCourse,%{private}.3lf,snapLL,%{sensitive}.7lf,%{sensitive}.7lf,snapCourse,%{private}.3lf,hunc,%{private}.3lf,cunc,%{private}.3lf,projection,%{public}.8lf,score,%{public}.12lf,dE,%{public}.2lf,dN,%{public}.2lf,dCourse,%{public}.2lf,mode,%{public}d,type,%{public}d", v627, 174);
+                    sub_19B885924("Generic", 1, 0, 2, "BOOL CLTripLocationFilter::makeSegmentsForRouteConstruction(const std::string &, const CLTripSegmentModeOfTransport, const BOOL, const BOOL, const BOOL, NSArray<CLTripSegmentLocation *> * _Nonnull, NSArray<CLTripSegmentLocation *> * _Nonnull, std::shared_ptr<CLGeoMapFeatureRoadGeometryBuffer>, std::shared_ptr<CLTripSegmentRouteBuilder>)", "CoreLocation: %s\n", v504);
+                    v15 = v578;
+                    v337 = v572;
+                    v338 = &OBJC_IVAR___CLTripSegmentOutputData__tripSegmentID;
+                    v339 = v576;
+                    if (v504 != buf)
                     {
-                      free(v243);
+                      free(v504);
                     }
                   }
 
-                  *buf = &v361;
+                  *buf = &v622;
                   sub_19B8F0E84(buf);
-                  v320 = v159;
+                  v580 = v340;
                 }
               }
 
-              if (*(&v359 + 1))
+              if (*(&v620 + 1))
               {
-                sub_19B8750F8(*(&v359 + 1));
+                sub_19B8750F8(*(&v620 + 1));
               }
             }
           }
 
           else
           {
-            if (*(v157 + 215) != -1)
+            if (*(v338 + 215) != -1)
             {
               dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
             }
 
-            v164 = qword_1EAFE46E8;
+            v355 = qword_1EAFE46E8;
             if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              _os_log_impl(&dword_19B873000, v164, OS_LOG_TYPE_ERROR, "CLTSP,MI,makeSegmentsForRouteConstruction,loc is unexpectedly nil", buf, 2u);
+              _os_log_impl(&dword_19B873000, v355, OS_LOG_TYPE_ERROR, "CLTSP,MI,makeSegmentsForRouteConstruction,loc is unexpectedly nil", buf, 2u);
             }
 
-            v165 = sub_19B87DD40();
-            if ((*(v165 + 160) & 0x80000000) == 0 || (*(v165 + 164) & 0x80000000) == 0 || (*(v165 + 168) & 0x80000000) == 0 || *(v165 + 152))
+            v356 = sub_19B87DD40();
+            if ((*(v356 + 160) & 0x80000000) == 0 || (*(v356 + 164) & 0x80000000) == 0 || (*(v356 + 168) & 0x80000000) == 0 || *(v356 + 152))
             {
               bzero(buf, 0x65CuLL);
-              if (*(v157 + 215) != -1)
+              if (*(v338 + 215) != -1)
               {
                 dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
               }
 
-              LOWORD(v366[0]) = 0;
-              v166 = _os_log_send_and_compose_impl();
-              sub_19B885924("Generic", 1, 0, 0, "BOOL CLTripLocationFilter::makeSegmentsForRouteConstruction(const std::string &, const CLTripSegmentModeOfTransport, const BOOL, const BOOL, const BOOL, NSArray<CLTripSegmentLocation *> * _Nonnull, NSArray<CLTripSegmentLocation *> * _Nonnull, std::shared_ptr<CLGeoMapFeatureRoadGeometryBuffer>, std::shared_ptr<CLTripSegmentRouteBuilder>)", "CoreLocation: %s\n", v166);
-              if (v166 != buf)
+              LOWORD(v627[0]) = 0;
+              v357 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE46E8, 16, "CLTSP,MI,makeSegmentsForRouteConstruction,loc is unexpectedly nil", v627, 2);
+              sub_19B885924("Generic", 1, 0, 0, "BOOL CLTripLocationFilter::makeSegmentsForRouteConstruction(const std::string &, const CLTripSegmentModeOfTransport, const BOOL, const BOOL, const BOOL, NSArray<CLTripSegmentLocation *> * _Nonnull, NSArray<CLTripSegmentLocation *> * _Nonnull, std::shared_ptr<CLGeoMapFeatureRoadGeometryBuffer>, std::shared_ptr<CLTripSegmentRouteBuilder>)", "CoreLocation: %s\n", v357);
+              if (v357 != buf)
               {
-                free(v166);
+                free(v357);
               }
             }
           }
 
-          ++v158;
+          ++v339;
         }
 
-        while (v158 != v156);
-        v244 = [a7 countByEnumeratingWithState:&v346 objects:v389 count:16];
-        v156 = v244;
+        while (v339 != v337);
+        v505 = objc_msgSend_countByEnumeratingWithState_objects_count_(a7, v335, &v607, v650, 16);
+        v337 = v505;
       }
 
-      while (v244);
+      while (v505);
     }
   }
 
   if (a6)
   {
-    v245 = *a9;
-    v246 = a9[1];
-    if (v246)
+    v506 = *a9;
+    v507 = a9[1];
+    if (v507)
     {
-      atomic_fetch_add_explicit(&v246->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v507->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    sub_19B9E2EF8(&v352, a2, a8, v245, v246, 1);
-    if (v246)
+    sub_19B9E2EF8(&v613, a2, a8, v506, v507, 1);
+    if (v507)
     {
-      sub_19B8750F8(v246);
+      sub_19B8750F8(v507);
     }
   }
 
-  v247 = *(a1 + 40);
-  v248 = *(a1 + 48);
-  if (v356 == v357)
+  v508 = *&a1[2].f64[1];
+  v509 = a1[3].f64[0];
+  if (v617 == v618)
   {
     goto LABEL_448;
   }
 
-  v362 = 0;
-  v361 = 0;
-  v363 = 0;
-  v249 = v248 - v247;
-  if (v248 == v247)
+  v623 = 0;
+  v622 = 0;
+  v624 = 0;
+  v510 = *&v509 - v508;
+  if (*&v509 == v508)
   {
-    v291 = 0;
-    v250 = 0;
+    v552 = 0;
+    v511 = 0;
     goto LABEL_428;
   }
 
-  v317 = v248 - v247;
-  v250 = 0;
-  v251 = -1.0;
-  v322 = v248;
+  v577 = *&v509 - v508;
+  v511 = 0;
+  v512 = -1.0;
+  v583 = v509;
   do
   {
-    v252 = v247[1];
-    if (*v247 == v252)
+    v513 = v508[1];
+    if (*v508 == v513)
     {
       goto LABEL_425;
     }
 
-    if (v251 >= 0.0 || (v253 = *(v252 - 16)) == 0)
+    if (v512 >= 0.0 || (v514 = *(v513 - 16)) == 0)
     {
-      obja = v247;
-      v254 = v356;
-      v326 = v357;
-      if (v356 != v357)
+      obja = v508;
+      v515 = v617;
+      v587 = v618;
+      if (v617 != v618)
       {
-        v255 = *(**v247 + 16);
+        v516 = *(**v508 + 16);
         do
         {
-          v359 = 0uLL;
-          v360 = 0;
-          v257 = *v254;
-          v256 = v254[1];
-          if (*v254 != v256)
+          v620 = 0uLL;
+          v621 = 0;
+          v518 = *v515;
+          v517 = v515[1];
+          if (*v515 != v517)
           {
             do
             {
-              v258 = *v257;
-              if (*v257 && *v258)
+              v519 = *v518;
+              if (*v518 && *v519)
               {
-                v259 = *(v258 + 16);
-                if (v259 > v251 && v259 < v255)
+                v520 = *(v519 + 16);
+                if (v520 > v512 && v520 < v516)
                 {
                   if (qword_1EAFE46B8 != -1)
                   {
                     dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
                   }
 
-                  v261 = qword_1EAFE46E8;
+                  v522 = qword_1EAFE46E8;
                   if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_DEBUG))
                   {
                     if (*(a2 + 23) >= 0)
                     {
-                      v262 = a2;
+                      v523 = a2;
                     }
 
                     else
                     {
-                      v262 = *a2;
+                      v523 = *a2;
                     }
 
-                    v263 = *(*v257 + 16);
-                    v264 = *(*v257 + 24);
-                    v265 = *(*v257 + 32);
-                    v266 = *(*v257 + 40);
-                    v267 = *(*v257 + 48);
-                    v268 = *(*v257 + 56);
-                    v270 = *(*v257 + 72);
-                    v269 = *(*v257 + 80);
-                    v271 = *(*v257 + 88);
-                    v272 = *(*v257 + 64);
-                    v273 = *(**v257 + 20);
+                    v524 = *(*v518 + 16);
+                    v525 = *(*v518 + 24);
+                    v526 = *(*v518 + 32);
+                    v527 = *(*v518 + 40);
+                    v528 = *(*v518 + 48);
+                    v529 = *(*v518 + 56);
+                    v531 = *(*v518 + 72);
+                    v530 = *(*v518 + 80);
+                    v532 = *(*v518 + 88);
+                    v533 = *(*v518 + 64);
+                    v534 = *(**v518 + 20);
                     *buf = 136449027;
-                    *&buf[4] = v262;
+                    *&buf[4] = v523;
                     *&buf[12] = 2050;
-                    *&buf[14] = v263;
+                    *&buf[14] = v524;
                     *&buf[22] = 2053;
-                    v391 = v264;
-                    *v392 = 2053;
-                    *&v392[2] = v265;
-                    v393 = 2049;
-                    *v394 = v266;
-                    *&v394[8] = 2050;
-                    v395 = v267;
-                    v396 = 2050;
-                    v397 = v268;
-                    v398 = 2050;
-                    v399 = v269;
-                    v400 = 2050;
-                    v401 = v270;
-                    v402 = 2050;
-                    v403 = v271;
-                    v404 = 1026;
-                    *v405 = v272;
-                    *&v405[4] = 1026;
-                    *&v405[6] = v273;
-                    _os_log_impl(&dword_19B873000, v261, OS_LOG_TYPE_DEBUG, "CLTSP,MI,snappedIILocation,id,%{public}s,time,%{public}.3lf,snapLL,%{sensitive}.7lf,%{sensitive}.7lf,rawCourse,%{private}.3lf,projection,%{public}.8lf,score,%{public}.12lf,dE,%{public}.2lf,dN,%{public}.2lf,dCourse,%{public}.2lf,valid,%{public}d,frc,%{public}d", buf, 0x72u);
+                    v652 = v525;
+                    *v653 = 2053;
+                    *&v653[2] = v526;
+                    v654 = 2049;
+                    *v655 = v527;
+                    *&v655[8] = 2050;
+                    v656 = v528;
+                    v657 = 2050;
+                    v658 = v529;
+                    v659 = 2050;
+                    v660 = v530;
+                    v661 = 2050;
+                    v662 = v531;
+                    v663 = 2050;
+                    v664 = v532;
+                    v665 = 1026;
+                    *v666 = v533;
+                    *&v666[4] = 1026;
+                    *&v666[6] = v534;
+                    _os_log_impl(&dword_19B873000, v522, OS_LOG_TYPE_DEBUG, "CLTSP,MI,snappedIILocation,id,%{public}s,time,%{public}.3lf,snapLL,%{sensitive}.7lf,%{sensitive}.7lf,rawCourse,%{private}.3lf,projection,%{public}.8lf,score,%{public}.12lf,dE,%{public}.2lf,dN,%{public}.2lf,dCourse,%{public}.2lf,valid,%{public}d,frc,%{public}d", buf, 0x72u);
                   }
 
-                  v274 = sub_19B87DD40();
-                  if (*(v274 + 160) > 1 || *(v274 + 164) > 1 || *(v274 + 168) > 1 || *(v274 + 152))
+                  v535 = sub_19B87DD40();
+                  if (*(v535 + 160) > 1 || *(v535 + 164) > 1 || *(v535 + 168) > 1 || *(v535 + 152))
                   {
                     bzero(buf, 0x65CuLL);
                     if (qword_1EAFE46B8 != -1)
@@ -2298,231 +2321,229 @@ LABEL_194:
 
                     if (*(a2 + 23) >= 0)
                     {
-                      v275 = a2;
+                      v536 = a2;
                     }
 
                     else
                     {
-                      v275 = *a2;
+                      v536 = *a2;
                     }
 
-                    v276 = *(*v257 + 16);
-                    v277 = *(*v257 + 24);
-                    v278 = *(*v257 + 32);
-                    v279 = *(*v257 + 40);
-                    v280 = *(*v257 + 48);
-                    v281 = *(*v257 + 56);
-                    v283 = *(*v257 + 72);
-                    v282 = *(*v257 + 80);
-                    v284 = *(*v257 + 88);
-                    v285 = *(*v257 + 64);
-                    v286 = *(**v257 + 20);
-                    LODWORD(v366[0]) = 136449027;
-                    *(v366 + 4) = v275;
-                    WORD6(v366[0]) = 2050;
-                    *(v366 + 14) = v276;
-                    WORD3(v366[1]) = 2053;
-                    *(&v366[1] + 1) = v277;
-                    LOWORD(v366[2]) = 2053;
-                    *(&v366[2] + 2) = v278;
-                    WORD5(v366[2]) = 2049;
-                    *(&v366[2] + 12) = v279;
-                    WORD2(v366[3]) = 2050;
-                    *(&v366[3] + 6) = v280;
-                    HIWORD(v366[3]) = 2050;
-                    v367 = v281;
-                    v368 = 2050;
-                    v369 = v282;
-                    v370 = 2050;
-                    v371 = v283;
-                    v372 = 2050;
-                    v373 = v284;
-                    v374 = 1026;
-                    *v375 = v285;
-                    *&v375[4] = 1026;
-                    *&v375[6] = v286;
-                    v287 = _os_log_send_and_compose_impl();
-                    sub_19B885924("Generic", 1, 0, 2, "void CLTripLocationFilter::insertUpsampledFilteredSnap(const std::string &, const std::vector<std::vector<CLGeoMapSnapDataPtr>> &)", "CoreLocation: %s\n", v287);
-                    if (v287 != buf)
+                    v537 = *(*v518 + 16);
+                    v538 = *(*v518 + 24);
+                    v539 = *(*v518 + 32);
+                    v540 = *(*v518 + 40);
+                    v541 = *(*v518 + 48);
+                    v542 = *(*v518 + 56);
+                    v544 = *(*v518 + 72);
+                    v543 = *(*v518 + 80);
+                    v545 = *(*v518 + 88);
+                    v546 = *(*v518 + 64);
+                    v547 = *(**v518 + 20);
+                    LODWORD(v627[0]) = 136449027;
+                    *(v627 + 4) = v536;
+                    WORD6(v627[0]) = 2050;
+                    *(v627 + 14) = v537;
+                    WORD3(v627[1]) = 2053;
+                    *(&v627[1] + 1) = v538;
+                    LOWORD(v627[2]) = 2053;
+                    *(&v627[2] + 2) = v539;
+                    WORD5(v627[2]) = 2049;
+                    *(&v627[2] + 12) = v540;
+                    WORD2(v627[3]) = 2050;
+                    *(&v627[3] + 6) = v541;
+                    HIWORD(v627[3]) = 2050;
+                    v628 = v542;
+                    v629 = 2050;
+                    v630 = v543;
+                    v631 = 2050;
+                    v632 = v544;
+                    v633 = 2050;
+                    v634 = v545;
+                    v635 = 1026;
+                    *v636 = v546;
+                    *&v636[4] = 1026;
+                    *&v636[6] = v547;
+                    v548 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE46E8, 2, "CLTSP,MI,snappedIILocation,id,%{public}s,time,%{public}.3lf,snapLL,%{sensitive}.7lf,%{sensitive}.7lf,rawCourse,%{private}.3lf,projection,%{public}.8lf,score,%{public}.12lf,dE,%{public}.2lf,dN,%{public}.2lf,dCourse,%{public}.2lf,valid,%{public}d,frc,%{public}d", v627, 114);
+                    sub_19B885924("Generic", 1, 0, 2, "void CLTripLocationFilter::insertUpsampledFilteredSnap(const std::string &, const std::vector<std::vector<CLGeoMapSnapDataPtr>> &)", "CoreLocation: %s\n", v548);
+                    if (v548 != buf)
                     {
-                      free(v287);
+                      free(v548);
                     }
                   }
 
-                  sub_19B8EAB68(&v359, v257);
+                  sub_19B8EAB68(&v620, v518);
                 }
               }
 
-              ++v257;
+              ++v518;
             }
 
-            while (v257 != v256);
-            if (v359 != *(&v359 + 1))
+            while (v518 != v517);
+            if (v620 != *(&v620 + 1))
             {
-              v251 = *(*(*(&v359 + 1) - 16) + 16);
-              v288 = v362;
-              if (v362 >= v363)
+              v512 = *(*(*(&v620 + 1) - 16) + 16);
+              v549 = v623;
+              if (v623 >= v624)
               {
-                v289 = sub_19B9A2EF8(&v361, &v359);
+                v550 = sub_19B9A2EF8(&v622, &v620);
               }
 
               else
               {
-                *v362 = 0;
-                *(v288 + 8) = 0;
-                *(v288 + 16) = 0;
-                sub_19B9A3028(v288, v359, *(&v359 + 1), (*(&v359 + 1) - v359) >> 4);
-                v289 = v288 + 24;
+                *v623 = 0;
+                v549[1] = 0;
+                v549[2] = 0;
+                sub_19B9A3028(v549, v620, *(&v620 + 1), (*(&v620 + 1) - v620) >> 4);
+                v550 = v549 + 3;
               }
 
-              v362 = v289;
+              v623 = v550;
             }
           }
 
-          *buf = &v359;
+          *buf = &v620;
           sub_19B8F0E84(buf);
-          v254 += 3;
+          v515 += 3;
         }
 
-        while (v254 != v326);
-        v250 = v362;
+        while (v515 != v587);
+        v511 = v623;
       }
 
-      v248 = v322;
-      v247 = obja;
-      if (v250 < v363)
+      v509 = v583;
+      v508 = obja;
+      if (v511 < v624)
       {
         goto LABEL_420;
       }
 
-      v290 = sub_19B9A2EF8(&v361, obja);
+      v551 = sub_19B9A2EF8(&v622, obja);
 LABEL_423:
-      v250 = v290;
+      v511 = v551;
       goto LABEL_424;
     }
 
-    v251 = *(v253 + 16);
-    if (v250 >= v363)
+    v512 = *(v514 + 16);
+    if (v511 >= v624)
     {
-      v290 = sub_19B9A2EF8(&v361, v247);
+      v551 = sub_19B9A2EF8(&v622, v508);
       goto LABEL_423;
     }
 
 LABEL_420:
-    *v250 = 0;
-    *(v250 + 8) = 0;
-    *(v250 + 16) = 0;
-    sub_19B9A3028(v250, *v247, v247[1], (v247[1] - *v247) >> 4);
-    v250 += 24;
+    *v511 = 0;
+    v511[1] = 0;
+    v511[2] = 0;
+    sub_19B9A3028(v511, *v508, v508[1], (v508[1] - *v508) >> 4);
+    v511 += 3;
 LABEL_424:
-    v362 = v250;
+    v623 = v511;
 LABEL_425:
-    v247 += 3;
+    v508 += 3;
   }
 
-  while (v247 != v248);
-  v291 = v361;
-  v249 = v317;
+  while (v508 != *&v509);
+  v552 = v622;
+  v510 = v577;
 LABEL_428:
-  if (v318 != &v361)
+  if (v578 != &v622)
   {
-    v292 = v250 - v291;
-    if (v250 - v291 > v249)
+    v553 = v511 - v552;
+    if (v511 - v552 > v510)
     {
-      v293 = *(a1 + 56);
-      v294 = *(a1 + 40);
-      if (v293 - v294 < v292)
+      v554 = *&a1[3].f64[1];
+      v555 = a1[2].f64[1];
+      if (v554 - *&v555 < v553)
       {
-        v295 = 0xAAAAAAAAAAAAAAABLL * (v292 >> 3);
-        if (v294)
+        v556 = 0xAAAAAAAAAAAAAAABLL * (v553 >> 3);
+        if (v555 != 0.0)
         {
-          v296 = *(a1 + 48);
-          v297 = *(a1 + 40);
-          if (v296 != v294)
+          v557 = a1[3].f64[0];
+          v558 = *&a1[2].f64[1];
+          if (*&v557 != *&v555)
           {
             do
             {
-              v296 -= 24;
-              *buf = v296;
+              *&v557 -= 24;
+              *buf = v557;
               sub_19B8F0E84(buf);
             }
 
-            while (v296 != v294);
-            v297 = *v318;
+            while (*&v557 != *&v555);
+            v558 = *v578;
           }
 
-          *(a1 + 48) = v294;
-          operator delete(v297);
-          v293 = 0;
-          *v318 = 0;
-          *(v318 + 8) = 0;
-          *(v318 + 16) = 0;
+          a1[3].f64[0] = v555;
+          operator delete(v558);
+          v554 = 0;
+          *v578 = 0;
+          v578[1] = 0;
+          v578[2] = 0;
         }
 
-        if (v295 <= 0xAAAAAAAAAAAAAAALL)
+        if (v556 <= 0xAAAAAAAAAAAAAAALL)
         {
-          v298 = 0xAAAAAAAAAAAAAAABLL * (v293 >> 3);
-          v299 = 2 * v298;
-          if (2 * v298 <= v295)
+          v559 = 0xAAAAAAAAAAAAAAABLL * (v554 >> 3);
+          v560 = 2 * v559;
+          if (2 * v559 <= v556)
           {
-            v299 = v295;
+            v560 = v556;
           }
 
-          if (v298 >= 0x555555555555555)
+          if (v559 >= 0x555555555555555)
           {
-            v300 = 0xAAAAAAAAAAAAAAALL;
+            v561 = 0xAAAAAAAAAAAAAAALL;
           }
 
           else
           {
-            v300 = v299;
+            v561 = v560;
           }
 
-          if (v300 <= 0xAAAAAAAAAAAAAAALL)
+          if (v561 <= 0xAAAAAAAAAAAAAAALL)
           {
-            sub_19B9A3170(v318, v300);
+            sub_19B9A3170(v578, v561);
           }
         }
 
         sub_19B8B8A40();
       }
 
-      v301 = *(a1 + 48) - v294;
-      if (v301 >= v292)
+      v562 = *&a1[3].f64[0] - *&v555;
+      if (v562 >= v553)
       {
-        sub_19B9A3BB4(v366, v291, v250, *(a1 + 40));
-        v303 = v306;
-        v307 = *(a1 + 48);
-        while (v307 != v303)
+        sub_19B9A3BB4(v627, v552, v511, *&a1[2].f64[1]);
+        v564 = v566;
+        v567 = a1[3].f64[0];
+        while (*&v567 != v564)
         {
-          v307 -= 3;
-          *buf = v307;
+          *&v567 -= 24;
+          *buf = v567;
           sub_19B8F0E84(buf);
         }
       }
 
       else
       {
-        v302 = sub_19B9A3BB4(v366, v291, (v291 + v301), *(a1 + 40));
-        v303 = sub_19B9A3A08(v318, v302, v250, *(a1 + 48));
+        v563 = sub_19B9A3BB4(v627, v552, (v552 + v562), *&a1[2].f64[1]);
+        v564 = sub_19B9A3A08(v578, v563, v511, *&a1[3].f64[0]);
       }
 
-      *(a1 + 48) = v303;
+      *&a1[3].f64[0] = v564;
     }
   }
 
-  *buf = &v361;
+  *buf = &v622;
   sub_19B8F1C84(buf);
-  v247 = *(a1 + 40);
-  v248 = *(a1 + 48);
+  v508 = *&a1[2].f64[1];
+  v509 = a1[3].f64[0];
 LABEL_448:
-  v21 = v247 != v248;
+  v22 = v508 != *&v509;
 LABEL_449:
-  *buf = &v356;
+  *buf = &v617;
   sub_19B8F1C84(buf);
-LABEL_450:
-  v304 = *MEMORY[0x1E69E9840];
-  return v21;
+  return v22;
 }
 
 void sub_19B9E9B50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, unint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36)
@@ -2535,234 +2556,239 @@ void sub_19B9E9B50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_19B9E9E38(uint64_t a1, uint64_t *a2, void *a3, int a4)
+void *sub_19B9E9E38(uint64_t a1, const char *a2, void *a3, int a4)
 {
-  v180 = *MEMORY[0x1E69E9840];
-  v99 = 0u;
-  v100 = 0u;
-  v101 = 0u;
-  v102 = 0u;
-  result = [a3 countByEnumeratingWithState:&v99 objects:v179 count:16];
-  v88 = result;
+  v337 = *MEMORY[0x1E69E9840];
+  v256 = 0u;
+  v257 = 0u;
+  v258 = 0u;
+  v259 = 0u;
+  result = objc_msgSend_countByEnumeratingWithState_objects_count_(a3, a2, &v256, v336, 16);
+  v245 = result;
   if (result)
   {
-    v87 = *v100;
+    v244 = *v257;
     do
     {
-      v6 = 0;
+      v9 = 0;
       do
       {
-        if (*v100 != v87)
+        if (*v257 != v244)
         {
           objc_enumerationMutation(a3);
         }
 
-        v7 = *(*(&v99 + 1) + 8 * v6);
-        [objc_msgSend(v7 "timestamp")];
-        v9 = v8;
+        v10 = *(*(&v256 + 1) + 8 * v9);
+        v11 = objc_msgSend_timestamp(v10, v6, v7, v8);
+        objc_msgSend_timeIntervalSinceReferenceDate(v11, v12, v13, v14);
+        v19 = v18;
         for (i = *(a1 + 48); ; i += 2)
         {
           if (i == *(a1 + 56))
           {
-            v11 = 0;
-            v12 = 0;
+            v21 = 0;
+            v22 = 0;
             goto LABEL_12;
           }
 
-          v11 = *i;
+          v21 = *i;
           if (*i)
           {
-            if (vabdd_f64(v11[2], v8) < 0.001)
+            if (vabdd_f64(v21[2], v18) < 0.001)
             {
               break;
             }
           }
         }
 
-        v12 = i[1];
-        if (v12)
+        v22 = i[1];
+        if (v22)
         {
-          atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
 LABEL_12:
-        [v7 latitude];
-        v93 = v13;
-        [v7 longitude];
-        v92 = v14;
-        [v7 course];
-        v91 = v15;
-        [v7 latitude];
-        v96 = v16;
-        [v7 longitude];
-        v94 = v17;
-        [v7 course];
-        v19 = v18;
-        if (!v11 || *(v11 + 64) != 1)
+        objc_msgSend_latitude(v10, v15, v16, v17);
+        v250 = v23;
+        objc_msgSend_longitude(v10, v24, v25, v26);
+        v249 = v27;
+        objc_msgSend_course(v10, v28, v29, v30);
+        v248 = v31;
+        objc_msgSend_latitude(v10, v32, v33, v34);
+        v253 = v35;
+        objc_msgSend_longitude(v10, v36, v37, v38);
+        v251 = v39;
+        objc_msgSend_course(v10, v40, v41, v42);
+        v46 = v45;
+        if (v21 && *(v21 + 64) == 1)
         {
-          [*(a1 + 40) addObject:v7];
-          v90 = 0;
-          goto LABEL_34;
-        }
+          v47 = [CLTripSegmentLocation alloc];
+          v51 = objc_msgSend_timestamp(v10, v48, v49, v50);
+          v252 = v21[4];
+          v254 = v21[3];
+          objc_msgSend_horizontalAccuracy(v10, v52, v53, v54);
+          v56 = v55;
+          v57 = v21[5];
+          objc_msgSend_courseAccuracy(v10, v58, v59, v60);
+          v62 = v61;
+          objc_msgSend_speed(v10, v63, v64, v65);
+          v67 = v66;
+          objc_msgSend_speedAccuracy(v10, v68, v69, v70);
+          v72 = v71;
+          objc_msgSend_altitude(v10, v73, v74, v75);
+          v77 = v76;
+          objc_msgSend_altitudeAccuracy(v10, v78, v79, v80);
+          v82 = v81;
+          v86 = objc_msgSend_locType(v10, v83, v84, v85);
+          v90 = objc_msgSend_referenceFrame(v10, v87, v88, v89);
+          v92 = objc_msgSend_initWithTime_latitude_longitude_horizontalAccuracy_course_courseAccuracy_speed_speedAccuracy_altitude_altitudeAccuracy_locType_referenceFrame_(v47, v91, v51, v86, v90, v254, v252, v56, v57, v62, v67, v72, v77, v82);
+          v96 = v92;
+          v251 = *(v21 + 4);
+          v253 = *(v21 + 3);
+          v46 = *(v21 + 5);
+          v97 = *v21;
+          if (*v21)
+          {
+            v247 = *(v97 + 8);
+            objc_msgSend_setMapsRoadClass_(v92, v93, *(v97 + 20), v95);
+            objc_msgSend_setMapsFormOfWay_(v96, v98, *(*v21 + 24), v99);
+            objc_msgSend_setCLRoadID_(v96, v100, *(*v21 + 8), v101);
+          }
 
-        v20 = [CLTripSegmentLocation alloc];
-        v21 = [v7 timestamp];
-        v95 = v11[4];
-        v97 = v11[3];
-        [v7 horizontalAccuracy];
-        v23 = v22;
-        v24 = v11[5];
-        [v7 courseAccuracy];
-        v26 = v25;
-        [v7 speed];
-        v28 = v27;
-        [v7 speedAccuracy];
-        v30 = v29;
-        [v7 altitude];
-        v32 = v31;
-        [v7 altitudeAccuracy];
-        v34 = -[CLTripSegmentLocation initWithTime:latitude:longitude:horizontalAccuracy:course:courseAccuracy:speed:speedAccuracy:altitude:altitudeAccuracy:locType:referenceFrame:](v20, "initWithTime:latitude:longitude:horizontalAccuracy:course:courseAccuracy:speed:speedAccuracy:altitude:altitudeAccuracy:locType:referenceFrame:", v21, [v7 locType], objc_msgSend(v7, "referenceFrame"), v97, v95, v23, v24, v26, v28, v30, v32, v33);
-        v35 = v34;
-        v94 = *(v11 + 4);
-        v96 = *(v11 + 3);
-        v19 = *(v11 + 5);
-        v36 = *v11;
-        if (*v11)
-        {
-          v90 = *(*&v36 + 8);
-          [(CLTripSegmentLocation *)v34 setMapsRoadClass:*(*&v36 + 20)];
-          [(CLTripSegmentLocation *)v35 setMapsFormOfWay:*(*v11 + 24)];
-          [(CLTripSegmentLocation *)v35 setCLRoadID:*(*v11 + 8)];
+          else
+          {
+            v247 = 0;
+          }
+
+          objc_msgSend_rawLatitude(v10, v93, v94, v95);
+          v103 = v102;
+          objc_msgSend_rawLongitude(v10, v104, v105, v106);
+          v108 = v107;
+          v112 = objc_msgSend_rawReferenceFrame(v10, v109, v110, v111);
+          objc_msgSend_setRawLatitude_longitude_referenceFrame_(v96, v113, v112, v114, v103, v108);
+          if (objc_msgSend_isOriginalLocationType(v10, v115, v116, v117))
+          {
+            objc_msgSend_setLocationReconstructionType_(v96, v118, 1, v120);
+          }
+
+          if (objc_msgSend_isInertialIntegrated(v10, v118, v119, v120))
+          {
+            objc_msgSend_setLocationReconstructionType_(v96, v121, 2, v123);
+          }
+
+          if (objc_msgSend_isLinearInterpolated(v10, v121, v122, v123))
+          {
+            objc_msgSend_setLocationReconstructionType_(v96, v124, 4, v126);
+          }
+
+          if (objc_msgSend_isOriginalLocationType(v96, v124, v125, v126) && objc_msgSend_isGPSLocationType(v96, v127, v128, v129) && (objc_msgSend_altitudeAccuracy(v96, v127, v128, v129), v130 > 0.0) || !*v21)
+          {
+            objc_msgSend_altitudeAccuracy(v96, v127, v128, v129);
+            v137 = v136;
+            v133 = 0.0;
+            v138 = v137 > 0.0;
+            v134 = 250.0;
+            if (!v138)
+            {
+              objc_msgSend_updateAltitude_andAltitudeAccuracy_(v96, v131, v135, v132, 0.0, 250.0);
+            }
+          }
+
+          else
+          {
+            objc_msgSend_updateAltitude_andAltitudeAccuracy_(v96, v127, v128, v129, v21[6] * *(*v21 + 128) + *(*v21 + 120) * (1.0 - v21[6]), 50.0);
+          }
+
+          objc_msgSend_setLocationReconstructionType_(v96, v131, 8, v132, v133, v134);
+          objc_msgSend_setSignalEnvironmentType_(v96, v139, *(v21 + 42), v140);
+          v144 = objc_msgSend_locTypeStart(v10, v141, v142, v143);
+          objc_msgSend_setStartLocationType_(v96, v145, v144, v146);
+          v150 = objc_msgSend_locTypeStop(v10, v147, v148, v149);
+          objc_msgSend_setStopLocationType_(v96, v151, v150, v152);
+          objc_msgSend_addObject_(*(a1 + 40), v153, v96, v154);
         }
 
         else
         {
-          v90 = 0;
+          objc_msgSend_addObject_(*(a1 + 40), v43, v10, v44);
+          v247 = 0;
         }
 
-        [v7 rawLatitude];
-        v38 = v37;
-        [v7 rawLongitude];
-        -[CLTripSegmentLocation setRawLatitude:longitude:referenceFrame:](v35, "setRawLatitude:longitude:referenceFrame:", [v7 rawReferenceFrame], v38, v39);
-        if ([v7 isOriginalLocationType])
-        {
-          [(CLTripSegmentLocation *)v35 setLocationReconstructionType:1];
-        }
-
-        if ([v7 isInertialIntegrated])
-        {
-          [(CLTripSegmentLocation *)v35 setLocationReconstructionType:2];
-        }
-
-        if ([v7 isLinearInterpolated])
-        {
-          [(CLTripSegmentLocation *)v35 setLocationReconstructionType:4];
-        }
-
-        if (![(CLTripSegmentLocation *)v35 isOriginalLocationType]|| ![(CLTripSegmentLocation *)v35 isGPSLocationType]|| ([(CLTripSegmentLocation *)v35 altitudeAccuracy], v40 <= 0.0))
-        {
-          if (*v11)
-          {
-            v41 = v11[6] * *(*v11 + 128) + *(*v11 + 120) * (1.0 - v11[6]);
-            v42 = 50.0;
-LABEL_32:
-            [(CLTripSegmentLocation *)v35 updateAltitude:v41 andAltitudeAccuracy:v42];
-            goto LABEL_33;
-          }
-        }
-
-        [(CLTripSegmentLocation *)v35 altitudeAccuracy];
-        v44 = v43;
-        v41 = 0.0;
-        v45 = v44 > 0.0;
-        v42 = 250.0;
-        if (!v45)
-        {
-          goto LABEL_32;
-        }
-
-LABEL_33:
-        [(CLTripSegmentLocation *)v35 setLocationReconstructionType:8, v41, v42];
-        [(CLTripSegmentLocation *)v35 setSignalEnvironmentType:*(v11 + 42)];
-        -[CLTripSegmentLocation setStartLocationType:](v35, "setStartLocationType:", [v7 locTypeStart]);
-        -[CLTripSegmentLocation setStopLocationType:](v35, "setStopLocationType:", [v7 locTypeStop]);
-        [*(a1 + 40) addObject:v35];
-LABEL_34:
         if (qword_1EAFE46B8 != -1)
         {
           dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
         }
 
-        v46 = qword_1EAFE46E8;
-        v47 = v12;
+        v155 = qword_1EAFE46E8;
+        v159 = v22;
         if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_DEBUG))
         {
-          [v7 horizontalAccuracy];
-          v49 = v48;
-          [v7 courseAccuracy];
-          v51 = v50;
-          [v7 speed];
-          v53 = v52;
-          [v7 speedAccuracy];
-          v55 = v54;
-          [v7 altitude];
-          v57 = v56;
-          [v7 altitudeAccuracy];
-          v59 = v58;
-          v60 = [v7 locType];
-          v61 = *(a2 + 23);
-          v62 = *a2;
-          v63 = [v7 reconstructionType];
+          objc_msgSend_horizontalAccuracy(v10, v156, v157, v158);
+          v161 = v160;
+          objc_msgSend_courseAccuracy(v10, v162, v163, v164);
+          v166 = v165;
+          objc_msgSend_speed(v10, v167, v168, v169);
+          v171 = v170;
+          objc_msgSend_speedAccuracy(v10, v172, v173, v174);
+          v176 = v175;
+          objc_msgSend_altitude(v10, v177, v178, v179);
+          v181 = v180;
+          objc_msgSend_altitudeAccuracy(v10, v182, v183, v184);
+          v186 = v185;
+          v190 = objc_msgSend_locType(v10, v187, v188, v189);
+          v191 = a2[23];
+          v192 = *a2;
+          v196 = objc_msgSend_reconstructionType(v10, v193, v194, v195);
           *buf = 134353667;
-          v64 = a2;
-          if (v61 < 0)
+          v197 = a2;
+          if (v191 < 0)
           {
-            v64 = v62;
+            v197 = v192;
           }
 
-          v142 = v9;
-          v143 = 2053;
-          v144 = v96;
-          v145 = 2053;
-          v146 = v94;
-          v147 = 2050;
-          v148 = v19;
-          v149 = 2053;
-          v150 = v93;
-          v151 = 2053;
-          v152 = v92;
-          v153 = 2050;
-          v154 = v91;
-          v155 = 2050;
-          v156 = v49;
-          v157 = 2050;
-          v158 = v51;
-          v159 = 2050;
-          v160 = v53;
-          v161 = 2050;
-          v162 = v55;
-          v163 = 2050;
-          v164 = v57;
-          v165 = 2050;
-          v166 = v59;
-          v167 = 2049;
-          v168 = v90;
-          v169 = 1026;
-          v170 = v11 != 0;
-          v171 = 1026;
-          v172 = v60;
-          v173 = 2082;
-          v174 = v64;
-          v175 = 1026;
-          v176 = a4;
-          v177 = 1026;
-          v178 = v63;
-          _os_log_impl(&dword_19B873000, v46, OS_LOG_TYPE_DEBUG, "CLTSP,MI,snapSolution,time,%{public}.1lf,snapLL,%{sensitive}.7lf,%{sensitive}.7lf,snapCourse,%{public}.2lf,rawLL,%{sensitive}.7lf,%{sensitive}.7lf,rawCourse,%{public}.2lf,hunc,%{public}.2lf,cunc,%{public}.2lf,speed,%{public}.2lf,sunc,%{public}.2lf,alt,%{public}.2lf,vunc,%{public}.2lf,roadID,%{private}lld,snapValid,%{public}d,type,%{public}d,id,%{public}s,mode,%{public}d,reconstructedType,%{public}d", buf, 0xB0u);
-          v12 = v47;
+          v299 = v19;
+          v300 = 2053;
+          v301 = v253;
+          v302 = 2053;
+          v303 = v251;
+          v304 = 2050;
+          v305 = v46;
+          v306 = 2053;
+          v307 = v250;
+          v308 = 2053;
+          v309 = v249;
+          v310 = 2050;
+          v311 = v248;
+          v312 = 2050;
+          v313 = v161;
+          v314 = 2050;
+          v315 = v166;
+          v316 = 2050;
+          v317 = v171;
+          v318 = 2050;
+          v319 = v176;
+          v320 = 2050;
+          v321 = v181;
+          v322 = 2050;
+          v323 = v186;
+          v324 = 2049;
+          v325 = v247;
+          v326 = 1026;
+          v327 = v21 != 0;
+          v328 = 1026;
+          v329 = v190;
+          v330 = 2082;
+          v331 = v197;
+          v332 = 1026;
+          v333 = a4;
+          v334 = 1026;
+          v335 = v196;
+          _os_log_impl(&dword_19B873000, v155, OS_LOG_TYPE_DEBUG, "CLTSP,MI,snapSolution,time,%{public}.1lf,snapLL,%{sensitive}.7lf,%{sensitive}.7lf,snapCourse,%{public}.2lf,rawLL,%{sensitive}.7lf,%{sensitive}.7lf,rawCourse,%{public}.2lf,hunc,%{public}.2lf,cunc,%{public}.2lf,speed,%{public}.2lf,sunc,%{public}.2lf,alt,%{public}.2lf,vunc,%{public}.2lf,roadID,%{private}lld,snapValid,%{public}d,type,%{public}d,id,%{public}s,mode,%{public}d,reconstructedType,%{public}d", buf, 0xB0u);
+          v22 = v159;
         }
 
-        v65 = sub_19B87DD40();
-        if (*(v65 + 160) > 1 || *(v65 + 164) > 1 || *(v65 + 168) > 1 || *(v65 + 152))
+        v198 = sub_19B87DD40();
+        if (*(v198 + 160) > 1 || *(v198 + 164) > 1 || *(v198 + 168) > 1 || *(v198 + 152))
         {
           bzero(buf, 0x65CuLL);
           if (qword_1EAFE46B8 != -1)
@@ -2770,93 +2796,93 @@ LABEL_34:
             dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
           }
 
-          [v7 horizontalAccuracy];
-          v67 = v66;
-          [v7 courseAccuracy];
-          v69 = v68;
-          [v7 speed];
-          v71 = v70;
-          [v7 speedAccuracy];
-          v73 = v72;
-          [v7 altitude];
-          v75 = v74;
-          [v7 altitudeAccuracy];
-          v77 = v76;
-          v78 = v11 != 0;
-          v79 = [v7 locType];
-          v80 = *(a2 + 23);
-          v81 = *a2;
-          v82 = [v7 reconstructionType];
-          v103 = 134353667;
-          v83 = a2;
-          if (v80 < 0)
+          v202 = qword_1EAFE46E8;
+          objc_msgSend_horizontalAccuracy(v10, v199, v200, v201);
+          v204 = v203;
+          objc_msgSend_courseAccuracy(v10, v205, v206, v207);
+          v209 = v208;
+          objc_msgSend_speed(v10, v210, v211, v212);
+          v214 = v213;
+          objc_msgSend_speedAccuracy(v10, v215, v216, v217);
+          v219 = v218;
+          objc_msgSend_altitude(v10, v220, v221, v222);
+          v224 = v223;
+          objc_msgSend_altitudeAccuracy(v10, v225, v226, v227);
+          v229 = v228;
+          v230 = v21 != 0;
+          v234 = objc_msgSend_locType(v10, v231, v232, v233);
+          v235 = a2[23];
+          v236 = *a2;
+          v240 = objc_msgSend_reconstructionType(v10, v237, v238, v239);
+          v260 = 134353667;
+          v241 = a2;
+          if (v235 < 0)
           {
-            v83 = v81;
+            v241 = v236;
           }
 
-          v104 = v9;
-          v105 = 2053;
-          v106 = v96;
-          v107 = 2053;
-          v108 = v94;
-          v109 = 2050;
-          v110 = v19;
-          v111 = 2053;
-          v112 = v93;
-          v113 = 2053;
-          v114 = v92;
-          v115 = 2050;
-          v116 = v91;
-          v117 = 2050;
-          v118 = v67;
-          v119 = 2050;
-          v120 = v69;
-          v121 = 2050;
-          v122 = v71;
-          v123 = 2050;
-          v124 = v73;
-          v125 = 2050;
-          v126 = v75;
-          v127 = 2050;
-          v128 = v77;
-          v129 = 2049;
-          v130 = v90;
-          v131 = 1026;
-          v132 = v78;
-          v133 = 1026;
-          v134 = v79;
-          v135 = 2082;
-          v136 = v83;
-          v137 = 1026;
-          v138 = a4;
-          v139 = 1026;
-          v140 = v82;
-          v84 = _os_log_send_and_compose_impl();
-          sub_19B885924("Generic", 1, 0, 2, "void CLTripSegmentMapIntegrationBase::updateOutputLocations(const std::string &, NSArray<CLTripSegmentLocation *> * _Nonnull, const CLTripSegmentModeOfTransport)", "CoreLocation: %s\n", v84);
-          v12 = v47;
-          if (v84 != buf)
+          v261 = v19;
+          v262 = 2053;
+          v263 = v253;
+          v264 = 2053;
+          v265 = v251;
+          v266 = 2050;
+          v267 = v46;
+          v268 = 2053;
+          v269 = v250;
+          v270 = 2053;
+          v271 = v249;
+          v272 = 2050;
+          v273 = v248;
+          v274 = 2050;
+          v275 = v204;
+          v276 = 2050;
+          v277 = v209;
+          v278 = 2050;
+          v279 = v214;
+          v280 = 2050;
+          v281 = v219;
+          v282 = 2050;
+          v283 = v224;
+          v284 = 2050;
+          v285 = v229;
+          v286 = 2049;
+          v287 = v247;
+          v288 = 1026;
+          v289 = v230;
+          v290 = 1026;
+          v291 = v234;
+          v292 = 2082;
+          v293 = v241;
+          v294 = 1026;
+          v295 = a4;
+          v296 = 1026;
+          v297 = v240;
+          v242 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v202, 2, "CLTSP,MI,snapSolution,time,%{public}.1lf,snapLL,%{sensitive}.7lf,%{sensitive}.7lf,snapCourse,%{public}.2lf,rawLL,%{sensitive}.7lf,%{sensitive}.7lf,rawCourse,%{public}.2lf,hunc,%{public}.2lf,cunc,%{public}.2lf,speed,%{public}.2lf,sunc,%{public}.2lf,alt,%{public}.2lf,vunc,%{public}.2lf,roadID,%{private}lld,snapValid,%{public}d,type,%{public}d,id,%{public}s,mode,%{public}d,reconstructedType,%{public}d", &v260, 176);
+          sub_19B885924("Generic", 1, 0, 2, "void CLTripSegmentMapIntegrationBase::updateOutputLocations(const std::string &, NSArray<CLTripSegmentLocation *> * _Nonnull, const CLTripSegmentModeOfTransport)", "CoreLocation: %s\n", v242);
+          v22 = v159;
+          if (v242 != buf)
           {
-            free(v84);
+            free(v242);
           }
         }
 
-        if (v12)
+        if (v22)
         {
-          sub_19B8750F8(v12);
+          sub_19B8750F8(v22);
         }
 
-        ++v6;
+        v9 = v9 + 1;
       }
 
-      while (v6 != v88);
-      result = [a3 countByEnumeratingWithState:&v99 objects:v179 count:16];
-      v88 = result;
+      while (v9 != v245);
+      result = objc_msgSend_countByEnumeratingWithState_objects_count_(a3, v6, &v256, v336, 16);
+      v245 = result;
     }
 
     while (result);
   }
 
-  v85 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -2870,34 +2896,34 @@ void sub_19B9EA6AC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t sub_19B9EA700(double a1, double a2, double a3, uint64_t a4, uint64_t *a5, uint64_t *a6)
+uint64_t sub_19B9EA700(uint64_t a1, double ***a2, uint64_t *a3, const void **a4, double a5, double a6, double a7)
 {
-  v85 = *MEMORY[0x1E69E9840];
-  v9 = *a5;
-  v10 = a5[1];
-  if (v9 == v10 || a1 > 1.0 || ((v12 = *a6, v11 = a6[1], a1 >= 0.0) ? (v13 = v12 == v11) : (v13 = 1), v13))
+  v91 = *MEMORY[0x1E69E9840];
+  v10 = *a2;
+  v11 = a2[1];
+  if (v10 == v11 || a5 > 1.0 || ((v13 = *a3, v12 = a3[1], a5 >= 0.0) ? (v14 = v13 == v12) : (v14 = 1), v14))
   {
     if (qword_1EAFE46B8 != -1)
     {
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
     }
 
-    v56 = qword_1EAFE46E8;
+    v54 = qword_1EAFE46E8;
     if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
     {
-      v57 = (a5[1] - *a5) >> 4;
-      v58 = (a6[1] - *a6) >> 4;
+      v55 = (a2[1] - *a2) >> 4;
+      v56 = (a3[1] - *a3) >> 4;
       *buf = 67240704;
-      *&buf[4] = v57;
-      v83 = 1026;
-      *v84 = v58;
-      *&v84[4] = 2050;
-      *&v84[6] = a1;
-      _os_log_impl(&dword_19B873000, v56, OS_LOG_TYPE_ERROR, "CLTSP,MI,snapLocationsOnRoads,invalid input,inputLocations,%{public}d,roadVectors,%{public}d,firstSnapProjection,%{public}.3lf", buf, 0x18u);
+      *&buf[4] = v55;
+      v89 = 1026;
+      *v90 = v56;
+      *&v90[4] = 2050;
+      *&v90[6] = a5;
+      _os_log_impl(&dword_19B873000, v54, OS_LOG_TYPE_ERROR, "CLTSP,MI,snapLocationsOnRoads,invalid input,inputLocations,%{public}d,roadVectors,%{public}d,firstSnapProjection,%{public}.3lf", buf, 0x18u);
     }
 
-    v59 = sub_19B87DD40();
-    if ((*(v59 + 160) & 0x80000000) == 0 || (*(v59 + 164) & 0x80000000) == 0 || (*(v59 + 168) & 0x80000000) == 0 || *(v59 + 152))
+    v57 = sub_19B87DD40();
+    if ((*(v57 + 160) & 0x80000000) == 0 || (*(v57 + 164) & 0x80000000) == 0 || (*(v57 + 168) & 0x80000000) == 0 || *(v57 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE46B8 != -1)
@@ -2905,9 +2931,15 @@ uint64_t sub_19B9EA700(double a1, double a2, double a3, uint64_t a4, uint64_t *a
         dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
       }
 
-      v77 = (a5[1] - *a5) >> 4;
-      v78 = (a6[1] - *a6) >> 4;
-      v60 = _os_log_send_and_compose_impl();
+      v58 = (a2[1] - *a2) >> 4;
+      v59 = (a3[1] - *a3) >> 4;
+      LODWORD(v81) = 67240704;
+      DWORD1(v81) = v58;
+      WORD4(v81) = 1026;
+      *(&v81 + 10) = v59;
+      HIWORD(v81) = 2050;
+      v82 = a5;
+      v60 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE46E8, 16, "CLTSP,MI,snapLocationsOnRoads,invalid input,inputLocations,%{public}d,roadVectors,%{public}d,firstSnapProjection,%{public}.3lf", &v81, 24);
       sub_19B885924("Generic", 1, 0, 0, "BOOL CLTripSegmentMapIntegrationBase::snapLocationsOnRoads(const std::vector<CLGeoMapLocationPtr> &, const std::vector<CLRouteRoadPtr> &, const double, std::vector<CLGeoMapSnapDataPtr> &, double, double) const", "CoreLocation: %s\n", v60);
       if (v60 != buf)
       {
@@ -2915,58 +2947,60 @@ uint64_t sub_19B9EA700(double a1, double a2, double a3, uint64_t a4, uint64_t *a
       }
     }
 
-    v15 = 0;
-    goto LABEL_124;
+    return 0;
   }
 
-  v79 = 0;
-  v80 = 0;
-  v81 = 0;
-  if (&v79 != a5)
+  v82 = 0.0;
+  v83 = 0;
+  v81 = xmmword_19BA89490;
+  v84 = 0x3FF0000000000000;
+  v85 = 0;
+  v86 = 0;
+  v87 = 0;
+  if (&v85 != a2)
   {
-    sub_19B9F1EC8(&v79, v9, v10, (v10 - v9) >> 4);
-    v12 = *a6;
-    v11 = a6[1];
-    v9 = *a5;
-    v10 = a5[1];
+    sub_19B9F1EC8(&v85, v10, v11, (v11 - v10) >> 4);
+    v13 = *a3;
+    v12 = a3[1];
+    v10 = *a2;
+    v11 = a2[1];
   }
 
-  v15 = 1;
-  if (v10 == v9)
+  v16 = 1;
+  if (v11 == v10)
   {
-    goto LABEL_123;
+    goto LABEL_122;
   }
 
-  v16 = 0;
-  v17 = (v11 - v12) >> 4;
+  v17 = 0;
+  v18 = (v12 - v13) >> 4;
   while (1)
   {
-    v18 = &v9[2 * v16];
-    if (*v18)
+    v19 = &v10[16 * v17];
+    if (*v19)
     {
-      if (*v9)
+      if (*v10)
       {
         break;
       }
     }
 
-    ++v16;
-    v9 = *a5;
-    if (v16 >= (a5[1] - *a5) >> 4)
+    ++v17;
+    v10 = *a2;
+    if (v17 >= (a2[1] - *a2) >> 4)
     {
-      v15 = 1;
-      goto LABEL_123;
+      v16 = 1;
+      goto LABEL_122;
     }
   }
 
-  v19 = v79;
-  v20 = 0.0;
-  for (i = 0.0; v19 != v80; v19 += 2)
+  v20 = v85;
+  for (i = 0.0; v20 != v86; v20 += 2)
   {
-    v22 = *v19;
-    if (*v19)
+    v22 = *v20;
+    if (*v20)
     {
-      if (*v22 > **v9 && *v22 <= **v18)
+      if (*v22 > **v10 && *v22 <= **v19)
       {
         i = i + v22[10];
       }
@@ -2974,11 +3008,11 @@ uint64_t sub_19B9EA700(double a1, double a2, double a3, uint64_t a4, uint64_t *a
   }
 
   v24 = 0;
-  v25 = i * a2;
-  v26 = a1;
+  v25 = i * a6;
+  v26 = a5;
   do
   {
-    v27 = *a6;
+    v27 = *a3;
     if (v25 <= 0.0)
     {
       goto LABEL_84;
@@ -2990,18 +3024,18 @@ uint64_t sub_19B9EA700(double a1, double a2, double a3, uint64_t a4, uint64_t *a
     if (v29)
     {
       atomic_fetch_add_explicit(&v29->__shared_owners_, 1uLL, memory_order_relaxed);
-      v28 = *(*a6 + 16 * v24);
+      v28 = *(*a3 + 16 * v24);
     }
 
     v31 = sub_19B96D7D8(v28, 1);
     v32 = v31;
-    if (((a6[1] - *a6) >> 4) - 1 > v24)
+    if (((a3[1] - *a3) >> 4) - 1 > v24)
     {
-      v31 = sub_19B96D7D8(*(*a6 + 16 * v24 + 16), 0);
+      v31 = sub_19B96D7D8(*(*a3 + 16 * v24 + 16), 0);
     }
 
     v33 = 0.0;
-    if (a3 != 0.0)
+    if (a7 != 0.0)
     {
       v34 = fmod(v32 + -90.0 + 90.0 - v31 + 180.0, 360.0);
       if (v34 < 0.0)
@@ -3017,16 +3051,16 @@ uint64_t sub_19B9EA700(double a1, double a2, double a3, uint64_t a4, uint64_t *a
       v35 = fabs(v34);
       if (v35 > 5.0 && v35 < 180.0)
       {
-        v33 = a3 / tan(v34 * 0.0174532925 * 0.5);
+        v33 = a7 / tan(v34 * 0.0174532925 * 0.5);
       }
     }
 
     if (v30)
     {
       sub_19B9F5AA8(v30);
-      v36 = *(v30 + 40);
+      v36 = v30[5];
       v37 = 1.0 - v26;
-      if (!*(*(*a6 + 16 * v24) + 24))
+      if (!*(*(*a3 + 16 * v24) + 24))
       {
         v37 = v26;
       }
@@ -3044,26 +3078,26 @@ uint64_t sub_19B9EA700(double a1, double a2, double a3, uint64_t a4, uint64_t *a
       else
       {
         v39 = v24 + 1;
-        if (v24 + 1 >= v17)
+        if (v24 + 1 >= v18)
         {
           if (qword_1EAFE46B8 != -1)
           {
             dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
           }
 
-          v46 = qword_1EAFE46E8;
+          v47 = qword_1EAFE46E8;
           if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
           {
-            v47 = **v18;
+            v48 = **v19;
             *buf = 67240448;
-            *&buf[4] = v17;
-            v83 = 2050;
-            *v84 = v47;
-            _os_log_impl(&dword_19B873000, v46, OS_LOG_TYPE_ERROR, "CLTSP,currentRoadIndex over candidate road size,count,%{public}d,locationTime,%{public}.3lf", buf, 0x12u);
+            *&buf[4] = v18;
+            v89 = 2050;
+            *v90 = v48;
+            _os_log_impl(&dword_19B873000, v47, OS_LOG_TYPE_ERROR, "CLTSP,currentRoadIndex over candidate road size,count,%{public}d,locationTime,%{public}.3lf", buf, 0x12u);
           }
 
-          v48 = sub_19B87DD40();
-          if ((*(v48 + 160) & 0x80000000) == 0 || (*(v48 + 164) & 0x80000000) == 0 || (*(v48 + 168) & 0x80000000) == 0 || *(v48 + 152))
+          v49 = sub_19B87DD40();
+          if ((*(v49 + 160) & 0x80000000) == 0 || (*(v49 + 164) & 0x80000000) == 0 || (*(v49 + 168) & 0x80000000) == 0 || *(v49 + 152))
           {
             bzero(buf, 0x65CuLL);
             if (qword_1EAFE46B8 != -1)
@@ -3071,26 +3105,29 @@ uint64_t sub_19B9EA700(double a1, double a2, double a3, uint64_t a4, uint64_t *a
               dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
             }
 
-            v76 = **v18;
-            v49 = _os_log_send_and_compose_impl();
-            sub_19B885924("Generic", 1, 0, 0, "BOOL CLTripSegmentMapIntegrationBase::snapLocationsOnRoads(const std::vector<CLGeoMapLocationPtr> &, const std::vector<CLRouteRoadPtr> &, const double, std::vector<CLGeoMapSnapDataPtr> &, double, double) const", "CoreLocation: %s\n", v49);
-            if (v49 != buf)
+            v50 = **v19;
+            __y = 67240448;
+            __y_4 = v18;
+            v77 = 2050;
+            v78 = v50;
+            v51 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE46E8, 16, "CLTSP,currentRoadIndex over candidate road size,count,%{public}d,locationTime,%{public}.3lf", &__y, 18);
+            sub_19B885924("Generic", 1, 0, 0, "BOOL CLTripSegmentMapIntegrationBase::snapLocationsOnRoads(const std::vector<CLGeoMapLocationPtr> &, const std::vector<CLRouteRoadPtr> &, const double, std::vector<CLGeoMapSnapDataPtr> &, double, double) const", "CoreLocation: %s\n", v51);
+            if (v51 != buf)
             {
-              free(v49);
+              free(v51);
             }
           }
 
           sub_19B9F5AA8(v30);
           v41 = 0;
-          v20 = v33 / *(v30 + 40);
-          if (*(*(*a6 + 16 * v24) + 24))
+          if (*(*(*a3 + 16 * v24) + 24))
           {
-            v26 = 1.0 - v20;
+            v26 = 1.0 - v33 / v30[5];
           }
 
           else
           {
-            v26 = v33 / *(v30 + 40);
+            v26 = v33 / v30[5];
           }
 
           v25 = 0.0;
@@ -3102,19 +3139,18 @@ uint64_t sub_19B9EA700(double a1, double a2, double a3, uint64_t a4, uint64_t *a
 
         else
         {
-          v40 = **(*a6 + 16 * v39);
+          v40 = **(*a3 + 16 * v39);
           sub_19B9F5AA8(v40);
           v41 = 0;
           v25 = v25 - v38;
-          v20 = v33 / *(v40 + 40);
-          if (*(*(*a6 + 16 * v39) + 24))
+          if (*(*(*a3 + 16 * v39) + 24))
           {
-            v26 = v33 / *(v40 + 40);
+            v26 = v33 / v40[5];
           }
 
           else
           {
-            v26 = 1.0 - v20;
+            v26 = 1.0 - v33 / v40[5];
           }
 
           ++v24;
@@ -3136,11 +3172,11 @@ uint64_t sub_19B9EA700(double a1, double a2, double a3, uint64_t a4, uint64_t *a
       v42 = qword_1EAFE46E8;
       if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
       {
-        v43 = **v18;
+        v43 = **v19;
         *buf = 67240448;
-        *&buf[4] = v17;
-        v83 = 2050;
-        *v84 = v43;
+        *&buf[4] = v18;
+        v89 = 2050;
+        *v90 = v43;
         _os_log_impl(&dword_19B873000, v42, OS_LOG_TYPE_ERROR, "CLTSP,MI,road pointer invalid,count,%{public}d,locationTime,%{public}.3lf", buf, 0x12u);
       }
 
@@ -3153,12 +3189,16 @@ uint64_t sub_19B9EA700(double a1, double a2, double a3, uint64_t a4, uint64_t *a
           dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
         }
 
-        v75 = **v18;
-        v45 = _os_log_send_and_compose_impl();
-        sub_19B885924("Generic", 1, 0, 0, "BOOL CLTripSegmentMapIntegrationBase::snapLocationsOnRoads(const std::vector<CLGeoMapLocationPtr> &, const std::vector<CLRouteRoadPtr> &, const double, std::vector<CLGeoMapSnapDataPtr> &, double, double) const", "CoreLocation: %s\n", v45);
-        if (v45 != buf)
+        v45 = **v19;
+        __y = 67240448;
+        __y_4 = v18;
+        v77 = 2050;
+        v78 = v45;
+        v46 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE46E8, 16, "CLTSP,MI,road pointer invalid,count,%{public}d,locationTime,%{public}.3lf", &__y, 18);
+        sub_19B885924("Generic", 1, 0, 0, "BOOL CLTripSegmentMapIntegrationBase::snapLocationsOnRoads(const std::vector<CLGeoMapLocationPtr> &, const std::vector<CLRouteRoadPtr> &, const double, std::vector<CLGeoMapSnapDataPtr> &, double, double) const", "CoreLocation: %s\n", v46);
+        if (v46 != buf)
         {
-          free(v45);
+          free(v46);
         }
       }
 
@@ -3174,27 +3214,19 @@ LABEL_57:
   while (!v41);
   if (v41 != 12)
   {
-    goto LABEL_126;
+    goto LABEL_125;
   }
 
-  v27 = *a6;
+  v27 = *a3;
 LABEL_84:
-  v50 = *(v27 + 16 * v24);
-  v51 = *v50;
-  if (*v50)
+  v52 = *(v27 + 16 * v24);
+  v53 = *v52;
+  if (*v52)
   {
-    sub_19B9F5AA8(*v50);
-    if (*(v51 + 40) != 0.0)
+    sub_19B9F5AA8(*v52);
+    if (v53[5] != 0.0)
     {
-      v52 = 16 * v24;
-      v53 = **(*a6 + v52);
-      sub_19B9F5AA8(v53);
-      v54 = v20 + v25 / *(v53 + 40);
-      if (*(*(*a6 + v52) + 24))
-      {
-        v55 = v20 + v25 / *(v53 + 40);
-      }
-
+      sub_19B9F5AA8(**(*a3 + 16 * v24));
       operator new();
     }
   }
@@ -3207,13 +3239,13 @@ LABEL_84:
   v61 = qword_1EAFE46E8;
   if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
   {
-    v62 = **v18;
-    v63 = *(*a6 + 16 * v24);
+    v62 = **v19;
+    v63 = *(*a3 + 16 * v24);
     v64 = *v63;
     if (*v63)
     {
       sub_19B9F5AA8(*v63);
-      v65 = *(v64 + 40);
+      v65 = *(v64 + 5);
     }
 
     else
@@ -3222,20 +3254,20 @@ LABEL_84:
     }
 
     *buf = 67240704;
-    *&buf[4] = v17;
-    v83 = 2050;
-    *v84 = v62;
-    *&v84[8] = 2050;
-    *&v84[10] = v65;
+    *&buf[4] = v18;
+    v89 = 2050;
+    *v90 = v62;
+    *&v90[8] = 2050;
+    *&v90[10] = v65;
     _os_log_impl(&dword_19B873000, v61, OS_LOG_TYPE_ERROR, "CLTSP,MI,road pointer invalid or zero length,count,%{public}d,locationTime,%{public}.3lf,roadLength,%{public}.2lf", buf, 0x1Cu);
   }
 
   v66 = sub_19B87DD40();
   if ((*(v66 + 160) & 0x80000000) != 0 && (*(v66 + 164) & 0x80000000) != 0 && (*(v66 + 168) & 0x80000000) != 0 && !*(v66 + 152))
   {
-LABEL_126:
-    v15 = 0;
-    goto LABEL_123;
+LABEL_125:
+    v16 = 0;
+    goto LABEL_122;
   }
 
   bzero(buf, 0x65CuLL);
@@ -3244,29 +3276,39 @@ LABEL_126:
     dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
   }
 
-  v67 = **v18;
-  v68 = *(*a6 + 16 * v24);
-  v69 = *v68;
-  if (*v68)
+  v67 = qword_1EAFE46E8;
+  v68 = **v19;
+  v69 = *(*a3 + 16 * v24);
+  v70 = *v69;
+  if (*v69)
   {
-    sub_19B9F5AA8(*v68);
-    v70 = *(v69 + 40);
+    sub_19B9F5AA8(*v69);
+    v71 = *(v70 + 5);
   }
 
-  v71 = _os_log_send_and_compose_impl();
-  sub_19B885924("Generic", 1, 0, 0, "BOOL CLTripSegmentMapIntegrationBase::snapLocationsOnRoads(const std::vector<CLGeoMapLocationPtr> &, const std::vector<CLRouteRoadPtr> &, const double, std::vector<CLGeoMapSnapDataPtr> &, double, double) const", "CoreLocation: %s\n", v71);
-  if (v71 != buf)
+  else
   {
-    free(v71);
+    v71 = 0xBFF0000000000000;
   }
 
-  v15 = 0;
-LABEL_123:
-  *buf = &v79;
+  __y = 67240704;
+  __y_4 = v18;
+  v77 = 2050;
+  v78 = v68;
+  v79 = 2050;
+  v80 = v71;
+  v72 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v67, 16, "CLTSP,MI,road pointer invalid or zero length,count,%{public}d,locationTime,%{public}.3lf,roadLength,%{public}.2lf", &__y, 28);
+  sub_19B885924("Generic", 1, 0, 0, "BOOL CLTripSegmentMapIntegrationBase::snapLocationsOnRoads(const std::vector<CLGeoMapLocationPtr> &, const std::vector<CLRouteRoadPtr> &, const double, std::vector<CLGeoMapSnapDataPtr> &, double, double) const", "CoreLocation: %s\n", v72);
+  if (v72 != buf)
+  {
+    free(v72);
+  }
+
+  v16 = 0;
+LABEL_122:
+  *buf = &v85;
   sub_19B8F0E84(buf);
-LABEL_124:
-  v72 = *MEMORY[0x1E69E9840];
-  return v15;
+  return v16;
 }
 
 void sub_19B9EC1E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void **a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, void **a33)
@@ -3276,40 +3318,42 @@ void sub_19B9EC1E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_19B9EC27C(uint64_t a1, void *a2, uint64_t a3, int a4, uint64_t *a5, void *a6, void *a7)
+uint64_t sub_19B9EC27C(uint64_t a1, void *a2, uint32_t *a3, uint64_t a4, uint64_t *a5, void *a6, void *a7)
 {
-  v162 = *MEMORY[0x1E69E9840];
+  v229 = *MEMORY[0x1E69E9840];
   if (*(a1 + 136))
   {
     v14 = mach_continuous_time();
     v15 = sub_19B994BF4(v14);
-    sub_19B8759E8(__p, [objc_msgSend(a2 "UUIDString")]);
-    if (![a6 count])
+    v19 = objc_msgSend_UUIDString(a2, v16, v17, v18);
+    v23 = objc_msgSend_UTF8String(v19, v20, v21, v22);
+    sub_19B8759E8(__p, v23);
+    if (!objc_msgSend_count(a6, v24, v25, v26))
     {
       if (qword_1EAFE46B8 != -1)
       {
         dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
       }
 
-      v30 = qword_1EAFE46E8;
+      v45 = qword_1EAFE46E8;
       if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_INFO))
       {
-        v31 = [a7 count];
-        v32 = __p;
-        if (v143 < 0)
+        v49 = objc_msgSend_count(a7, v46, v47, v48);
+        v50 = __p;
+        if (v210 < 0)
         {
-          v32 = __p[0];
+          v50 = __p[0];
         }
 
         *buf = 134349314;
-        v154 = v31;
-        v155 = 2082;
-        *v156 = v32;
-        _os_log_impl(&dword_19B873000, v30, OS_LOG_TYPE_INFO, "CLTSP,MI,integrateWithMapData,empty sparseLocations,upsampledLocations,%{public}lu,id,%{public}s", buf, 0x16u);
+        v221 = v49;
+        v222 = 2082;
+        *v223 = v50;
+        _os_log_impl(&dword_19B873000, v45, OS_LOG_TYPE_INFO, "CLTSP,MI,integrateWithMapData,empty sparseLocations,upsampledLocations,%{public}lu,id,%{public}s", buf, 0x16u);
       }
 
-      v33 = sub_19B87DD40();
-      if (*(v33 + 160) <= 1 && *(v33 + 164) <= 1 && *(v33 + 168) <= 1 && !*(v33 + 152))
+      v51 = sub_19B87DD40();
+      if (*(v51 + 160) <= 1 && *(v51 + 164) <= 1 && *(v51 + 168) <= 1 && !*(v51 + 152))
       {
         goto LABEL_72;
       }
@@ -3320,92 +3364,93 @@ uint64_t sub_19B9EC27C(uint64_t a1, void *a2, uint64_t a3, int a4, uint64_t *a5,
         dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
       }
 
-      v34 = [a7 count];
-      v35 = __p;
-      if (v143 < 0)
+      v55 = qword_1EAFE46E8;
+      v56 = objc_msgSend_count(a7, v52, v53, v54);
+      v57 = __p;
+      if (v210 < 0)
       {
-        v35 = __p[0];
+        v57 = __p[0];
       }
 
-      v144 = 134349314;
-      v145 = v34;
-      v146 = 2082;
-      *v147 = v35;
-      v25 = _os_log_send_and_compose_impl();
-      sub_19B885924("Generic", 1, 0, 2, "BOOL CLTripSegmentMapIntegratorSparse::integrateWithMapData(NSUUID * _Nonnull, const CLTripSegmentModeOfTransport, const BOOL, std::shared_ptr<CLTripSegmentRouteBuilder> &, NSArray<CLTripSegmentLocation *> * _Nonnull, NSArray<CLTripSegmentLocation *> * _Nonnull)", "CoreLocation: %s\n", v25);
+      v211 = 134349314;
+      v212 = v56;
+      v213 = 2082;
+      *v214 = v57;
+      v40 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v55, 1, "CLTSP,MI,integrateWithMapData,empty sparseLocations,upsampledLocations,%{public}lu,id,%{public}s", &v211, 22);
+      sub_19B885924("Generic", 1, 0, 2, "BOOL CLTripSegmentMapIntegratorSparse::integrateWithMapData(NSUUID * _Nonnull, const CLTripSegmentModeOfTransport, const BOOL, std::shared_ptr<CLTripSegmentRouteBuilder> &, NSArray<CLTripSegmentLocation *> * _Nonnull, NSArray<CLTripSegmentLocation *> * _Nonnull)", "CoreLocation: %s\n", v40);
       goto LABEL_53;
     }
 
     sub_19B8E5AC0(*(a1 + 136));
-    v16 = *(a1 + 176);
-    v17 = *(a1 + 177);
-    v18 = *(a1 + 144);
-    v141[0] = *(a1 + 136);
-    v141[1] = v18;
-    if (v18)
+    v27 = *(a1 + 176);
+    v28 = *(a1 + 177);
+    v29 = *(a1 + 144);
+    v208[0] = *(a1 + 136);
+    v208[1] = v29;
+    if (v29)
     {
-      atomic_fetch_add_explicit(&v18->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v29->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v19 = *a5;
-    v20 = a5[1];
-    v140[0] = v19;
-    v140[1] = v20;
-    if (v20)
+    v30 = *a5;
+    v31 = a5[1];
+    v207[0] = v30;
+    v207[1] = v31;
+    if (v31)
     {
-      atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v31->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v21 = sub_19B9E61E4(a1 + 184, __p, a3, a4, v16, v17, a6, a7, v141, v140);
-    if (v20)
+    v34 = sub_19B9E61E4((a1 + 184), __p, a3, a4, v27, v28, a6, a7, v208, v207);
+    if (v31)
     {
-      sub_19B8750F8(v20);
+      sub_19B8750F8(v31);
     }
 
-    if (v18)
+    if (v29)
     {
-      sub_19B8750F8(v18);
+      sub_19B8750F8(v29);
     }
 
-    if (!v21)
+    if (!v34)
     {
       if (qword_1EAFE46B8 != -1)
       {
         dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
       }
 
-      v36 = qword_1EAFE46E8;
+      v58 = qword_1EAFE46E8;
       if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_INFO))
       {
-        v37 = [a6 count];
-        v38 = [a7 count];
-        v39 = __p;
-        if (v143 < 0)
+        v62 = objc_msgSend_count(a6, v59, v60, v61);
+        v66 = objc_msgSend_count(a7, v63, v64, v65);
+        v67 = __p;
+        if (v210 < 0)
         {
-          v39 = __p[0];
+          v67 = __p[0];
         }
 
-        v40 = *(a1 + 136);
-        v41 = *(v40 + 116);
-        v42 = *(v40 + 320);
-        LODWORD(v40) = *(v40 + 152);
+        v68 = *(a1 + 136);
+        v69 = *(v68 + 116);
+        v70 = *(v68 + 320);
+        LODWORD(v68) = *(v68 + 152);
         *buf = 134350338;
-        v154 = v37;
-        v155 = 2050;
-        *v156 = v38;
-        *&v156[8] = 2082;
-        *v157 = v39;
-        *&v157[8] = 1026;
-        *v158 = v41;
-        *&v158[4] = 2050;
-        *&v158[6] = v42;
-        LOWORD(v159) = 1026;
-        *(&v159 + 2) = v40;
-        _os_log_impl(&dword_19B873000, v36, OS_LOG_TYPE_INFO, "CLTSP,MI,integrateWithMapData,segments not available for reconstruction,sparseLocations,%{public}lu,upsampledLocations,%{public}lu,id,%{public}s,mapsAPICalls,%{public}d,connectionBufferUsedCount,%{public}lu,geometry,%{public}d", buf, 0x36u);
+        v221 = v62;
+        v222 = 2050;
+        *v223 = v66;
+        *&v223[8] = 2082;
+        *v224 = v67;
+        *&v224[8] = 1026;
+        *v225 = v69;
+        *&v225[4] = 2050;
+        *&v225[6] = v70;
+        LOWORD(v226) = 1026;
+        *(&v226 + 2) = v68;
+        _os_log_impl(&dword_19B873000, v58, OS_LOG_TYPE_INFO, "CLTSP,MI,integrateWithMapData,segments not available for reconstruction,sparseLocations,%{public}lu,upsampledLocations,%{public}lu,id,%{public}s,mapsAPICalls,%{public}d,connectionBufferUsedCount,%{public}lu,geometry,%{public}d", buf, 0x36u);
       }
 
-      v43 = sub_19B87DD40();
-      if (*(v43 + 160) > 1 || *(v43 + 164) > 1 || *(v43 + 168) > 1 || *(v43 + 152))
+      v71 = sub_19B87DD40();
+      if (*(v71 + 160) > 1 || *(v71 + 164) > 1 || *(v71 + 168) > 1 || *(v71 + 152))
       {
         bzero(buf, 0x65CuLL);
         if (qword_1EAFE46B8 != -1)
@@ -3413,35 +3458,36 @@ uint64_t sub_19B9EC27C(uint64_t a1, void *a2, uint64_t a3, int a4, uint64_t *a5,
           dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
         }
 
-        v44 = [a6 count];
-        v45 = [a7 count];
-        v46 = __p;
-        if (v143 < 0)
+        v75 = qword_1EAFE46E8;
+        v76 = objc_msgSend_count(a6, v72, v73, v74);
+        v80 = objc_msgSend_count(a7, v77, v78, v79);
+        v81 = __p;
+        if (v210 < 0)
         {
-          v46 = __p[0];
+          v81 = __p[0];
         }
 
-        v47 = *(a1 + 136);
-        v48 = *(v47 + 116);
-        v49 = *(v47 + 320);
-        LODWORD(v47) = *(v47 + 152);
-        v144 = 134350338;
-        v145 = v44;
-        v146 = 2050;
-        *v147 = v45;
-        *&v147[8] = 2082;
-        *v148 = v46;
-        *&v148[8] = 1026;
-        *v149 = v48;
-        *&v149[4] = 2050;
-        *&v149[6] = v49;
-        LOWORD(v150) = 1026;
-        *(&v150 + 2) = v47;
-        v50 = _os_log_send_and_compose_impl();
-        sub_19B885924("Generic", 1, 0, 2, "BOOL CLTripSegmentMapIntegratorSparse::integrateWithMapData(NSUUID * _Nonnull, const CLTripSegmentModeOfTransport, const BOOL, std::shared_ptr<CLTripSegmentRouteBuilder> &, NSArray<CLTripSegmentLocation *> * _Nonnull, NSArray<CLTripSegmentLocation *> * _Nonnull)", "CoreLocation: %s\n", v50);
-        if (v50 != buf)
+        v82 = *(a1 + 136);
+        v83 = *(v82 + 116);
+        v84 = *(v82 + 320);
+        LODWORD(v82) = *(v82 + 152);
+        v211 = 134350338;
+        v212 = v76;
+        v213 = 2050;
+        *v214 = v80;
+        *&v214[8] = 2082;
+        *v215 = v81;
+        *&v215[8] = 1026;
+        *v216 = v83;
+        *&v216[4] = 2050;
+        *&v216[6] = v84;
+        LOWORD(v217) = 1026;
+        *(&v217 + 2) = v82;
+        v85 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v75, 1, "CLTSP,MI,integrateWithMapData,segments not available for reconstruction,sparseLocations,%{public}lu,upsampledLocations,%{public}lu,id,%{public}s,mapsAPICalls,%{public}d,connectionBufferUsedCount,%{public}lu,geometry,%{public}d", &v211, 54);
+        sub_19B885924("Generic", 1, 0, 2, "BOOL CLTripSegmentMapIntegratorSparse::integrateWithMapData(NSUUID * _Nonnull, const CLTripSegmentModeOfTransport, const BOOL, std::shared_ptr<CLTripSegmentRouteBuilder> &, NSArray<CLTripSegmentLocation *> * _Nonnull, NSArray<CLTripSegmentLocation *> * _Nonnull)", "CoreLocation: %s\n", v85);
+        if (v85 != buf)
         {
-          free(v50);
+          free(v85);
         }
       }
 
@@ -3455,22 +3501,22 @@ uint64_t sub_19B9EC27C(uint64_t a1, void *a2, uint64_t a3, int a4, uint64_t *a5,
       dispatch_once(&qword_1EAFE5B00, &unk_1F0E6D570);
     }
 
-    if (sub_19B9EDDA0(qword_1EAFE5B10, a2))
+    if (sub_19B9EDDA0(qword_1EAFE5B10, a2, v32, v33))
     {
       if (qword_1EAFE46D0 != -1)
       {
         dispatch_once(&qword_1EAFE46D0, &unk_1F0E6EA10);
       }
 
-      v23 = off_1EAFE4708;
+      v38 = off_1EAFE4708;
       if (os_log_type_enabled(off_1EAFE4708, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_19B873000, v23, OS_LOG_TYPE_INFO, "CLTSP,CLTripSegmentMapIntegratorSparse,processingTime exceeded max allowed,after makeSegmentsForRouteConstruction", buf, 2u);
+        _os_log_impl(&dword_19B873000, v38, OS_LOG_TYPE_INFO, "CLTSP,CLTripSegmentMapIntegratorSparse,processingTime exceeded max allowed,after makeSegmentsForRouteConstruction", buf, 2u);
       }
 
-      v24 = sub_19B87DD40();
-      if (*(v24 + 160) <= 1 && *(v24 + 164) <= 1 && *(v24 + 168) <= 1 && !*(v24 + 152))
+      v39 = sub_19B87DD40();
+      if (*(v39 + 160) <= 1 && *(v39 + 164) <= 1 && *(v39 + 168) <= 1 && !*(v39 + 152))
       {
         goto LABEL_72;
       }
@@ -3481,24 +3527,24 @@ uint64_t sub_19B9EC27C(uint64_t a1, void *a2, uint64_t a3, int a4, uint64_t *a5,
         dispatch_once(&qword_1EAFE46D0, &unk_1F0E6EA10);
       }
 
-      LOWORD(v144) = 0;
-      v25 = _os_log_send_and_compose_impl();
-      sub_19B885924("Generic", 1, 0, 2, "BOOL CLTripSegmentMapIntegratorSparse::integrateWithMapData(NSUUID * _Nonnull, const CLTripSegmentModeOfTransport, const BOOL, std::shared_ptr<CLTripSegmentRouteBuilder> &, NSArray<CLTripSegmentLocation *> * _Nonnull, NSArray<CLTripSegmentLocation *> * _Nonnull)", "CoreLocation: %s\n", v25);
+      LOWORD(v211) = 0;
+      v40 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, off_1EAFE4708, 1, "CLTSP,CLTripSegmentMapIntegratorSparse,processingTime exceeded max allowed,after makeSegmentsForRouteConstruction", &v211, 2);
+      sub_19B885924("Generic", 1, 0, 2, "BOOL CLTripSegmentMapIntegratorSparse::integrateWithMapData(NSUUID * _Nonnull, const CLTripSegmentModeOfTransport, const BOOL, std::shared_ptr<CLTripSegmentRouteBuilder> &, NSArray<CLTripSegmentLocation *> * _Nonnull, NSArray<CLTripSegmentLocation *> * _Nonnull)", "CoreLocation: %s\n", v40);
 LABEL_53:
-      if (v25 != buf)
+      if (v40 != buf)
       {
-        free(v25);
+        free(v40);
       }
 
 LABEL_72:
-      v29 = 0;
+      v44 = 0;
 LABEL_73:
-      if (v143 < 0)
+      if (v210 < 0)
       {
         operator delete(__p[0]);
       }
 
-      goto LABEL_75;
+      return v44;
     }
 
     if (qword_1EAFE5B00 != -1)
@@ -3506,16 +3552,16 @@ LABEL_73:
       dispatch_once(&qword_1EAFE5B00, &unk_1F0E6D570);
     }
 
-    sub_19B9EDE20(qword_1EAFE5B10, a2, &v138);
-    if (v138)
+    sub_19B9EDE20(qword_1EAFE5B10, a2, v36, v37, &v205);
+    if (v205)
     {
-      *(v138 + 72) -= 1431655765 * ((*(a1 + 232) - *(a1 + 224)) >> 3);
+      *(v205 + 72) -= 1431655765 * ((*(a1 + 232) - *(a1 + 224)) >> 3);
     }
 
-    v53 = *(*(a1 + 136) + 88);
-    if (v53)
+    v90 = *(*(a1 + 136) + 88);
+    if (v90)
     {
-      [v53 clearRoadTiles];
+      objc_msgSend_clearRoadTiles(v90, v87, v88, v89);
     }
 
     if (sub_19B948DC0(a1 + 72, a7) && **(a1 + 112))
@@ -3525,34 +3571,34 @@ LABEL_73:
         dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
       }
 
-      v54 = qword_1EAFE46E8;
-      v137 = a3;
+      v91 = qword_1EAFE46E8;
+      v204 = a3;
       if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_DEFAULT))
       {
-        v56 = *(a1 + 224);
-        v55 = *(a1 + 232);
-        v57 = [a6 count];
-        v58 = [a7 count];
-        v59 = __p;
+        v96 = *(a1 + 224);
+        v95 = *(a1 + 232);
+        v97 = objc_msgSend_count(a6, v92, v93, v94);
+        v101 = objc_msgSend_count(a7, v98, v99, v100);
+        v102 = __p;
         *buf = 134349826;
-        if (v143 < 0)
+        if (v210 < 0)
         {
-          v59 = __p[0];
+          v102 = __p[0];
         }
 
-        v154 = 0xAAAAAAAAAAAAAAABLL * ((v55 - v56) >> 3);
-        v155 = 2050;
-        *v156 = v57;
-        *&v156[8] = 2050;
-        *v157 = v58;
-        *&v157[8] = 2082;
-        *v158 = v59;
-        _os_log_impl(&dword_19B873000, v54, OS_LOG_TYPE_DEFAULT, "CLTSP,MI,integrateWithMapData,segments,%{public}lu,sparseLocations,%{public}lu,upsampledLocations,%{public}lu,id,%{public}s", buf, 0x2Au);
+        v221 = 0xAAAAAAAAAAAAAAABLL * ((v95 - v96) >> 3);
+        v222 = 2050;
+        *v223 = v97;
+        *&v223[8] = 2050;
+        *v224 = v101;
+        *&v224[8] = 2082;
+        *v225 = v102;
+        _os_log_impl(&dword_19B873000, v91, OS_LOG_TYPE_DEFAULT, "CLTSP,MI,integrateWithMapData,segments,%{public}lu,sparseLocations,%{public}lu,upsampledLocations,%{public}lu,id,%{public}s", buf, 0x2Au);
         p_cb = &OBJC_PROTOCOL___CLHarvesterServerInterface.cb;
       }
 
-      v60 = sub_19B87DD40();
-      if (*(v60 + 160) > 1 || *(v60 + 164) > 1 || *(v60 + 168) > 1 || *(v60 + 152))
+      v103 = sub_19B87DD40();
+      if (*(v103 + 160) > 1 || *(v103 + 164) > 1 || *(v103 + 168) > 1 || *(v103 + 152))
       {
         bzero(buf, 0x65CuLL);
         if (qword_1EAFE46B8 != -1)
@@ -3560,39 +3606,40 @@ LABEL_73:
           dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
         }
 
-        v62 = *(a1 + 224);
-        v61 = *(a1 + 232);
-        v63 = [a6 count];
-        v64 = [a7 count];
-        v65 = __p;
-        v144 = 134349826;
-        if (v143 < 0)
+        v110 = qword_1EAFE46E8;
+        v112 = *(a1 + 224);
+        v111 = *(a1 + 232);
+        v113 = objc_msgSend_count(a6, v107, v108, v109);
+        v117 = objc_msgSend_count(a7, v114, v115, v116);
+        v118 = __p;
+        v211 = 134349826;
+        if (v210 < 0)
         {
-          v65 = __p[0];
+          v118 = __p[0];
         }
 
-        v145 = 0xAAAAAAAAAAAAAAABLL * ((v61 - v62) >> 3);
-        v146 = 2050;
-        *v147 = v63;
-        *&v147[8] = 2050;
-        *v148 = v64;
-        *&v148[8] = 2082;
-        *v149 = v65;
-        v66 = _os_log_send_and_compose_impl();
-        sub_19B885924("Generic", 1, 0, 2, "BOOL CLTripSegmentMapIntegratorSparse::integrateWithMapData(NSUUID * _Nonnull, const CLTripSegmentModeOfTransport, const BOOL, std::shared_ptr<CLTripSegmentRouteBuilder> &, NSArray<CLTripSegmentLocation *> * _Nonnull, NSArray<CLTripSegmentLocation *> * _Nonnull)", "CoreLocation: %s\n", v66);
-        if (v66 != buf)
+        v212 = 0xAAAAAAAAAAAAAAABLL * ((v111 - v112) >> 3);
+        v213 = 2050;
+        *v214 = v113;
+        *&v214[8] = 2050;
+        *v215 = v117;
+        *&v215[8] = 2082;
+        *v216 = v118;
+        v119 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v110, 0, "CLTSP,MI,integrateWithMapData,segments,%{public}lu,sparseLocations,%{public}lu,upsampledLocations,%{public}lu,id,%{public}s", &v211, 42);
+        sub_19B885924("Generic", 1, 0, 2, "BOOL CLTripSegmentMapIntegratorSparse::integrateWithMapData(NSUUID * _Nonnull, const CLTripSegmentModeOfTransport, const BOOL, std::shared_ptr<CLTripSegmentRouteBuilder> &, NSArray<CLTripSegmentLocation *> * _Nonnull, NSArray<CLTripSegmentLocation *> * _Nonnull)", "CoreLocation: %s\n", v119);
+        if (v119 != buf)
         {
-          free(v66);
+          free(v119);
         }
       }
 
-      v67 = *(a1 + 224);
-      v68 = *(a1 + 232);
-      if (0xAAAAAAAAAAAAAAABLL * ((v68 - v67) >> 3) >= 2)
+      v120 = *(a1 + 224);
+      v121 = *(a1 + 232);
+      if (0xAAAAAAAAAAAAAAABLL * ((v121 - v120) >> 3) >= 2)
       {
-        v135 = a7;
-        v69 = 1;
-        v70 = 1;
+        v202 = a7;
+        v122 = 1;
+        v123 = 1;
         while (1)
         {
           if (*(p_cb + 352) != -1)
@@ -3600,23 +3647,23 @@ LABEL_73:
             dispatch_once(&qword_1EAFE5B00, &unk_1F0E6D570);
           }
 
-          if (sub_19B9EDDA0(qword_1EAFE5B10, a2))
+          if (sub_19B9EDDA0(qword_1EAFE5B10, a2, v105, v106))
           {
             if (qword_1EAFE46D0 != -1)
             {
               dispatch_once(&qword_1EAFE46D0, &unk_1F0E6EA10);
             }
 
-            v109 = off_1EAFE4708;
+            v169 = off_1EAFE4708;
             if (os_log_type_enabled(off_1EAFE4708, OS_LOG_TYPE_INFO))
             {
               *buf = 67240192;
-              LODWORD(v154) = v70;
-              _os_log_impl(&dword_19B873000, v109, OS_LOG_TYPE_INFO, "CLTSP,CLTripSegmentMapIntegratorSparse,processingTime exceeded max allowed,constructSegment loop,iteration,%{public}d", buf, 8u);
+              LODWORD(v221) = v123;
+              _os_log_impl(&dword_19B873000, v169, OS_LOG_TYPE_INFO, "CLTSP,CLTripSegmentMapIntegratorSparse,processingTime exceeded max allowed,constructSegment loop,iteration,%{public}d", buf, 8u);
             }
 
-            v110 = sub_19B87DD40();
-            if (*(v110 + 160) > 1 || *(v110 + 164) > 1 || *(v110 + 168) > 1 || *(v110 + 152))
+            v170 = sub_19B87DD40();
+            if (*(v170 + 160) > 1 || *(v170 + 164) > 1 || *(v170 + 168) > 1 || *(v170 + 152))
             {
               bzero(buf, 0x65CuLL);
               if (qword_1EAFE46D0 != -1)
@@ -3624,13 +3671,13 @@ LABEL_73:
                 dispatch_once(&qword_1EAFE46D0, &unk_1F0E6EA10);
               }
 
-              v144 = 67240192;
-              LODWORD(v145) = v70;
-              v111 = _os_log_send_and_compose_impl();
-              sub_19B885924("Generic", 1, 0, 2, "BOOL CLTripSegmentMapIntegratorSparse::integrateWithMapData(NSUUID * _Nonnull, const CLTripSegmentModeOfTransport, const BOOL, std::shared_ptr<CLTripSegmentRouteBuilder> &, NSArray<CLTripSegmentLocation *> * _Nonnull, NSArray<CLTripSegmentLocation *> * _Nonnull)", "CoreLocation: %s\n", v111);
-              if (v111 != buf)
+              v211 = 67240192;
+              LODWORD(v212) = v123;
+              v171 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, off_1EAFE4708, 1, "CLTSP,CLTripSegmentMapIntegratorSparse,processingTime exceeded max allowed,constructSegment loop,iteration,%{public}d", &v211, 8);
+              sub_19B885924("Generic", 1, 0, 2, "BOOL CLTripSegmentMapIntegratorSparse::integrateWithMapData(NSUUID * _Nonnull, const CLTripSegmentModeOfTransport, const BOOL, std::shared_ptr<CLTripSegmentRouteBuilder> &, NSArray<CLTripSegmentLocation *> * _Nonnull, NSArray<CLTripSegmentLocation *> * _Nonnull)", "CoreLocation: %s\n", v171);
+              if (v171 != buf)
               {
-                free(v111);
+                free(v171);
               }
             }
 
@@ -3638,70 +3685,70 @@ LABEL_73:
           }
 
           a3 = p_cb;
-          v71 = *(a1 + 224);
-          v72 = v71 + 24 * v70;
-          v73 = (v72 - 24);
-          v74 = v71 + 24 * v69;
-          if (*(v72 - 24) == *(v72 - 16) || *v74 == *(v74 + 8))
+          v124 = *(a1 + 224);
+          v125 = v124 + 24 * v123;
+          v126 = (v125 - 24);
+          v127 = v124 + 24 * v122;
+          if (*(v125 - 24) == *(v125 - 16) || *v127 == *(v127 + 8))
           {
             if (qword_1EAFE46B8 != -1)
             {
               dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
             }
 
-            v76 = qword_1EAFE46E8;
+            v129 = qword_1EAFE46E8;
             if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
             {
-              v77 = (*(v72 - 16) - *(v72 - 24)) >> 4;
-              v78 = (*(v74 + 8) - *v74) >> 4;
+              v130 = (*(v125 - 16) - *(v125 - 24)) >> 4;
+              v131 = (*(v127 + 8) - *v127) >> 4;
               *buf = 134349312;
-              v154 = v77;
-              v155 = 2050;
-              *v156 = v78;
-              _os_log_impl(&dword_19B873000, v76, OS_LOG_TYPE_ERROR, "CLTSP,MI,constructSegment,invalid size,start,%{public}lu,end,%{public}lu", buf, 0x16u);
+              v221 = v130;
+              v222 = 2050;
+              *v223 = v131;
+              _os_log_impl(&dword_19B873000, v129, OS_LOG_TYPE_ERROR, "CLTSP,MI,constructSegment,invalid size,start,%{public}lu,end,%{public}lu", buf, 0x16u);
             }
 
-            v79 = sub_19B87DD40();
-            if ((*(v79 + 160) & 0x80000000) == 0 || (*(v79 + 164) & 0x80000000) == 0 || (*(v79 + 168) & 0x80000000) == 0 || *(v79 + 152))
+            v132 = sub_19B87DD40();
+            if ((*(v132 + 160) & 0x80000000) == 0 || (*(v132 + 164) & 0x80000000) == 0 || (*(v132 + 168) & 0x80000000) == 0 || *(v132 + 152))
             {
               bzero(buf, 0x65CuLL);
-              LODWORD(a3) = v137;
+              LODWORD(a3) = v204;
               if (qword_1EAFE46B8 != -1)
               {
                 dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
               }
 
-              v80 = (*(v72 - 16) - *(v72 - 24)) >> 4;
-              v81 = (*(v74 + 8) - *v74) >> 4;
-              v144 = 134349312;
-              v145 = v80;
-              v146 = 2050;
-              *v147 = v81;
-              v82 = _os_log_send_and_compose_impl();
-              sub_19B885924("Generic", 1, 0, 0, "BOOL CLTripSegmentMapIntegratorSparse::integrateWithMapData(NSUUID * _Nonnull, const CLTripSegmentModeOfTransport, const BOOL, std::shared_ptr<CLTripSegmentRouteBuilder> &, NSArray<CLTripSegmentLocation *> * _Nonnull, NSArray<CLTripSegmentLocation *> * _Nonnull)", "CoreLocation: %s\n", v82);
-              if (v82 == buf)
+              v133 = (*(v125 - 16) - *(v125 - 24)) >> 4;
+              v134 = (*(v127 + 8) - *v127) >> 4;
+              v211 = 134349312;
+              v212 = v133;
+              v213 = 2050;
+              *v214 = v134;
+              v135 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE46E8, 16, "CLTSP,MI,constructSegment,invalid size,start,%{public}lu,end,%{public}lu", &v211, 22);
+              sub_19B885924("Generic", 1, 0, 0, "BOOL CLTripSegmentMapIntegratorSparse::integrateWithMapData(NSUUID * _Nonnull, const CLTripSegmentModeOfTransport, const BOOL, std::shared_ptr<CLTripSegmentRouteBuilder> &, NSArray<CLTripSegmentLocation *> * _Nonnull, NSArray<CLTripSegmentLocation *> * _Nonnull)", "CoreLocation: %s\n", v135);
+              if (v135 == buf)
               {
                 goto LABEL_165;
               }
 
 LABEL_164:
-              free(v82);
+              free(v135);
               goto LABEL_165;
             }
           }
 
           else
           {
-            v75 = -1 - 0x5555555555555555 * ((*(a1 + 232) - v71) >> 3);
-            if (!sub_19B9EDEA0(a1, a2, v73, v74, v75 == v69, v137))
+            v128 = -1 - 0x5555555555555555 * ((*(a1 + 232) - v124) >> 3);
+            if (!sub_19B9EDEA0(a1, a2, v126, v127, v128 == v122, v204))
             {
-              if (v137 != 1)
+              if (v204 != 1)
               {
                 goto LABEL_150;
               }
 
-              v136 = v70 + 1;
-              if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 232) - *(a1 + 224)) >> 3) <= v136)
+              v203 = v123 + 1;
+              if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 232) - *(a1 + 224)) >> 3) <= v203)
               {
                 goto LABEL_150;
               }
@@ -3714,19 +3761,19 @@ LABEL_164:
               log = qword_1EAFE46E8;
               if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_DEBUG))
               {
-                v83 = __p;
-                if (v143 < 0)
+                v136 = __p;
+                if (v210 < 0)
                 {
-                  v83 = __p[0];
+                  v136 = __p[0];
                 }
 
                 *buf = 136446210;
-                v154 = v83;
+                v221 = v136;
                 _os_log_impl(&dword_19B873000, log, OS_LOG_TYPE_DEBUG, "CLTSP,MI,integrateWithMapDataSparse,errorReported,trying with next snap,%{public}s", buf, 0xCu);
               }
 
-              v84 = sub_19B87DD40();
-              if (*(v84 + 160) > 1 || *(v84 + 164) > 1 || *(v84 + 168) > 1 || *(v84 + 152))
+              v137 = sub_19B87DD40();
+              if (*(v137 + 160) > 1 || *(v137 + 164) > 1 || *(v137 + 168) > 1 || *(v137 + 152))
               {
                 bzero(buf, 0x65CuLL);
                 if (qword_1EAFE46B8 != -1)
@@ -3734,50 +3781,50 @@ LABEL_164:
                   dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
                 }
 
-                v85 = __p;
-                if (v143 < 0)
+                v138 = __p;
+                if (v210 < 0)
                 {
-                  v85 = __p[0];
+                  v138 = __p[0];
                 }
 
-                v144 = 136446210;
-                v145 = v85;
-                v86 = _os_log_send_and_compose_impl();
-                sub_19B885924("Generic", 1, 0, 2, "BOOL CLTripSegmentMapIntegratorSparse::integrateWithMapData(NSUUID * _Nonnull, const CLTripSegmentModeOfTransport, const BOOL, std::shared_ptr<CLTripSegmentRouteBuilder> &, NSArray<CLTripSegmentLocation *> * _Nonnull, NSArray<CLTripSegmentLocation *> * _Nonnull)", "CoreLocation: %s\n", v86);
-                if (v86 != buf)
+                v211 = 136446210;
+                v212 = v138;
+                v139 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE46E8, 2, "CLTSP,MI,integrateWithMapDataSparse,errorReported,trying with next snap,%{public}s", &v211, 12);
+                sub_19B885924("Generic", 1, 0, 2, "BOOL CLTripSegmentMapIntegratorSparse::integrateWithMapData(NSUUID * _Nonnull, const CLTripSegmentModeOfTransport, const BOOL, std::shared_ptr<CLTripSegmentRouteBuilder> &, NSArray<CLTripSegmentLocation *> * _Nonnull, NSArray<CLTripSegmentLocation *> * _Nonnull)", "CoreLocation: %s\n", v139);
+                if (v139 != buf)
                 {
-                  free(v86);
+                  free(v139);
                 }
               }
 
-              if (!sub_19B9EDEA0(a1, a2, v73, (*(a1 + 224) + 24 * v136), v75 == v69, 1))
+              if (!sub_19B9EDEA0(a1, a2, v126, (*(a1 + 224) + 24 * v203), v128 == v122, 1))
               {
 LABEL_150:
-                sub_19B9F22AC((a1 + 48), *(a1 + 56), *(v72 - 24), *(v72 - 16), (*(v72 - 16) - *(v72 - 24)) >> 4);
-                sub_19B9F22AC((a1 + 48), *(a1 + 56), *v74, *(v74 + 8), (*(v74 + 8) - *v74) >> 4);
+                sub_19B9F22AC((a1 + 48), *(a1 + 56), *(v125 - 24), *(v125 - 16), (*(v125 - 16) - *(v125 - 24)) >> 4);
+                sub_19B9F22AC((a1 + 48), *(a1 + 56), *v127, *(v127 + 8), (*(v127 + 8) - *v127) >> 4);
                 p_cb = a3;
-                LODWORD(a3) = v137;
+                LODWORD(a3) = v204;
                 if (qword_1EAFE46B8 != -1)
                 {
                   dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
                 }
 
-                v90 = qword_1EAFE46E8;
+                v143 = qword_1EAFE46E8;
                 if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
                 {
-                  v91 = __p;
-                  if (v143 < 0)
+                  v144 = __p;
+                  if (v210 < 0)
                   {
-                    v91 = __p[0];
+                    v144 = __p[0];
                   }
 
                   *buf = 136446210;
-                  v154 = v91;
-                  _os_log_impl(&dword_19B873000, v90, OS_LOG_TYPE_ERROR, "CLTSP,MI,integrateWithMapDataSparse,errorReported,id,%{public}s", buf, 0xCu);
+                  v221 = v144;
+                  _os_log_impl(&dword_19B873000, v143, OS_LOG_TYPE_ERROR, "CLTSP,MI,integrateWithMapDataSparse,errorReported,id,%{public}s", buf, 0xCu);
                 }
 
-                v92 = sub_19B87DD40();
-                if ((*(v92 + 160) & 0x80000000) != 0 && (*(v92 + 164) & 0x80000000) != 0 && (*(v92 + 168) & 0x80000000) != 0 && !*(v92 + 152))
+                v145 = sub_19B87DD40();
+                if ((*(v145 + 160) & 0x80000000) != 0 && (*(v145 + 164) & 0x80000000) != 0 && (*(v145 + 168) & 0x80000000) != 0 && !*(v145 + 152))
                 {
                   goto LABEL_165;
                 }
@@ -3788,17 +3835,17 @@ LABEL_150:
                   dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
                 }
 
-                v93 = __p;
-                if (v143 < 0)
+                v146 = __p;
+                if (v210 < 0)
                 {
-                  v93 = __p[0];
+                  v146 = __p[0];
                 }
 
-                v144 = 136446210;
-                v145 = v93;
-                v82 = _os_log_send_and_compose_impl();
-                sub_19B885924("Generic", 1, 0, 0, "BOOL CLTripSegmentMapIntegratorSparse::integrateWithMapData(NSUUID * _Nonnull, const CLTripSegmentModeOfTransport, const BOOL, std::shared_ptr<CLTripSegmentRouteBuilder> &, NSArray<CLTripSegmentLocation *> * _Nonnull, NSArray<CLTripSegmentLocation *> * _Nonnull)", "CoreLocation: %s\n", v82);
-                if (v82 == buf)
+                v211 = 136446210;
+                v212 = v146;
+                v135 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE46E8, 16, "CLTSP,MI,integrateWithMapDataSparse,errorReported,id,%{public}s", &v211, 12);
+                sub_19B885924("Generic", 1, 0, 0, "BOOL CLTripSegmentMapIntegratorSparse::integrateWithMapData(NSUUID * _Nonnull, const CLTripSegmentModeOfTransport, const BOOL, std::shared_ptr<CLTripSegmentRouteBuilder> &, NSArray<CLTripSegmentLocation *> * _Nonnull, NSArray<CLTripSegmentLocation *> * _Nonnull)", "CoreLocation: %s\n", v135);
+                if (v135 == buf)
                 {
                   goto LABEL_165;
                 }
@@ -3811,25 +3858,25 @@ LABEL_150:
                 dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
               }
 
-              v87 = qword_1EAFE46E8;
+              v140 = qword_1EAFE46E8;
               if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_DEBUG))
               {
-                v88 = __p;
-                if (v143 < 0)
+                v141 = __p;
+                if (v210 < 0)
                 {
-                  v88 = __p[0];
+                  v141 = __p[0];
                 }
 
                 *buf = 136446466;
-                v154 = v88;
-                v155 = 1026;
-                *v156 = v70 + 1;
-                _os_log_impl(&dword_19B873000, v87, OS_LOG_TYPE_DEBUG, "CLTSP,MI,integrateWithMapDataSparse,constructSegment with next snap success,%{public}s,nextIndex,%{public}d", buf, 0x12u);
+                v221 = v141;
+                v222 = 1026;
+                *v223 = v123 + 1;
+                _os_log_impl(&dword_19B873000, v140, OS_LOG_TYPE_DEBUG, "CLTSP,MI,integrateWithMapDataSparse,constructSegment with next snap success,%{public}s,nextIndex,%{public}d", buf, 0x12u);
               }
 
-              v89 = sub_19B87DD40();
+              v142 = sub_19B87DD40();
               p_cb = a3;
-              if (*(v89 + 160) > 1 || *(v89 + 164) > 1 || *(v89 + 168) > 1 || *(v89 + 152))
+              if (*(v142 + 160) > 1 || *(v142 + 164) > 1 || *(v142 + 168) > 1 || *(v142 + 152))
               {
                 bzero(buf, 0x65CuLL);
                 LODWORD(a3) = 1;
@@ -3838,107 +3885,107 @@ LABEL_150:
                   dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
                 }
 
-                v94 = __p;
-                if (v143 < 0)
+                v147 = __p;
+                if (v210 < 0)
                 {
-                  v94 = __p[0];
+                  v147 = __p[0];
                 }
 
-                v144 = 136446466;
-                v145 = v94;
-                v146 = 1026;
-                *v147 = v70 + 1;
-                v95 = _os_log_send_and_compose_impl();
-                sub_19B885924("Generic", 1, 0, 2, "BOOL CLTripSegmentMapIntegratorSparse::integrateWithMapData(NSUUID * _Nonnull, const CLTripSegmentModeOfTransport, const BOOL, std::shared_ptr<CLTripSegmentRouteBuilder> &, NSArray<CLTripSegmentLocation *> * _Nonnull, NSArray<CLTripSegmentLocation *> * _Nonnull)", "CoreLocation: %s\n", v95);
-                if (v95 != buf)
+                v211 = 136446466;
+                v212 = v147;
+                v213 = 1026;
+                *v214 = v123 + 1;
+                v148 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE46E8, 2, "CLTSP,MI,integrateWithMapDataSparse,constructSegment with next snap success,%{public}s,nextIndex,%{public}d", &v211, 18);
+                sub_19B885924("Generic", 1, 0, 2, "BOOL CLTripSegmentMapIntegratorSparse::integrateWithMapData(NSUUID * _Nonnull, const CLTripSegmentModeOfTransport, const BOOL, std::shared_ptr<CLTripSegmentRouteBuilder> &, NSArray<CLTripSegmentLocation *> * _Nonnull, NSArray<CLTripSegmentLocation *> * _Nonnull)", "CoreLocation: %s\n", v148);
+                if (v148 != buf)
                 {
-                  free(v95);
+                  free(v148);
                 }
 
-                ++v70;
+                ++v123;
                 goto LABEL_165;
               }
 
-              ++v70;
+              ++v123;
             }
           }
 
-          LODWORD(a3) = v137;
+          LODWORD(a3) = v204;
 LABEL_165:
-          v69 = ++v70;
-          v67 = *(a1 + 224);
-          v68 = *(a1 + 232);
-          if (0xAAAAAAAAAAAAAAABLL * ((v68 - v67) >> 3) <= v70)
+          v122 = ++v123;
+          v120 = *(a1 + 224);
+          v121 = *(a1 + 232);
+          if (0xAAAAAAAAAAAAAAABLL * ((v121 - v120) >> 3) <= v123)
           {
-            a7 = v135;
+            a7 = v202;
             break;
           }
         }
       }
 
-      if (v68 - v67 == 24)
+      if (v121 - v120 == 24)
       {
-        sub_19B9F22AC((a1 + 48), *(a1 + 56), *v67, v67[1], (v67[1] - *v67) >> 4);
+        sub_19B9F22AC((a1 + 48), *(a1 + 56), *v120, v120[1], (v120[1] - *v120) >> 4);
       }
 
-      v112 = *(a1 + 136);
-      if (*(v112 + 88))
+      v172 = *(a1 + 136);
+      if (*(v172 + 88))
       {
-        [*(v112 + 88) clearRoadTiles];
-        v112 = *(a1 + 136);
+        objc_msgSend_clearRoadTiles(*(v172 + 88), v104, v105, v106);
+        v172 = *(a1 + 136);
       }
 
-      sub_19B8E5C90(v112);
+      sub_19B8E5C90(v172);
       sub_19B9E9E38(a1, __p, a7, a3);
       if (qword_1EAFE46B8 != -1)
       {
         dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
       }
 
-      v113 = qword_1EAFE46E8;
+      v173 = qword_1EAFE46E8;
       if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_DEFAULT))
       {
-        v114 = 0.0;
+        v177 = 0.0;
         if (v15 >= 0.0)
         {
-          v115 = mach_continuous_time();
-          v114 = vabdd_f64(sub_19B994BF4(v115), v15) * 1000.0;
+          v178 = mach_continuous_time();
+          v177 = vabdd_f64(sub_19B994BF4(v178), v15) * 1000.0;
         }
 
-        v116 = [a7 count];
-        v117 = (*(a1 + 56) - *(a1 + 48)) >> 4;
-        v118 = __p;
-        if (v143 < 0)
+        v179 = objc_msgSend_count(a7, v174, v175, v176);
+        v180 = (*(a1 + 56) - *(a1 + 48)) >> 4;
+        v181 = __p;
+        if (v210 < 0)
         {
-          v118 = __p[0];
+          v181 = __p[0];
         }
 
-        v119 = *(a1 + 136);
-        v121 = *(v119 + 112);
-        v120 = *(v119 + 116);
-        v122 = *(v119 + 320);
-        LODWORD(v119) = *(v119 + 152);
+        v182 = *(a1 + 136);
+        v184 = *(v182 + 112);
+        v183 = *(v182 + 116);
+        v185 = *(v182 + 320);
+        LODWORD(v182) = *(v182 + 152);
         *buf = 134350850;
-        v154 = *&v114;
-        v155 = 1026;
-        *v156 = v116;
-        *&v156[4] = 1026;
-        *&v156[6] = v117;
-        *v157 = 2082;
-        *&v157[2] = v118;
-        *v158 = 1026;
-        *&v158[2] = v120;
-        *&v158[6] = 1026;
-        *&v158[8] = v121;
-        *&v158[12] = 2050;
-        v159 = v122;
-        v160 = 1026;
-        v161 = v119;
-        _os_log_impl(&dword_19B873000, v113, OS_LOG_TYPE_DEFAULT, "CLTSP,MI,integrateWithMapDataSparse,timeTakenInMS,%{public}.3lf,inputLocations,%{public}d,snapLocations,%{public}d,id,%{public}s,mapsAPICalls,%{public}d,bufferCalls,%{public}d,connectionUsed,%{public}lu,geometry,%{public}d", buf, 0x3Eu);
+        v221 = *&v177;
+        v222 = 1026;
+        *v223 = v179;
+        *&v223[4] = 1026;
+        *&v223[6] = v180;
+        *v224 = 2082;
+        *&v224[2] = v181;
+        *v225 = 1026;
+        *&v225[2] = v183;
+        *&v225[6] = 1026;
+        *&v225[8] = v184;
+        *&v225[12] = 2050;
+        v226 = v185;
+        v227 = 1026;
+        v228 = v182;
+        _os_log_impl(&dword_19B873000, v173, OS_LOG_TYPE_DEFAULT, "CLTSP,MI,integrateWithMapDataSparse,timeTakenInMS,%{public}.3lf,inputLocations,%{public}d,snapLocations,%{public}d,id,%{public}s,mapsAPICalls,%{public}d,bufferCalls,%{public}d,connectionUsed,%{public}lu,geometry,%{public}d", buf, 0x3Eu);
       }
 
-      v123 = sub_19B87DD40();
-      if (*(v123 + 160) > 1 || *(v123 + 164) > 1 || *(v123 + 168) > 1 || *(v123 + 152))
+      v186 = sub_19B87DD40();
+      if (*(v186 + 160) > 1 || *(v186 + 164) > 1 || *(v186 + 168) > 1 || *(v186 + 152))
       {
         bzero(buf, 0x65CuLL);
         if (qword_1EAFE46B8 != -1)
@@ -3946,52 +3993,53 @@ LABEL_165:
           dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
         }
 
-        v124 = 0.0;
+        v190 = qword_1EAFE46E8;
+        v191 = 0.0;
         if (v15 >= 0.0)
         {
-          v125 = mach_continuous_time();
-          v124 = vabdd_f64(sub_19B994BF4(v125), v15) * 1000.0;
+          v192 = mach_continuous_time();
+          v191 = vabdd_f64(sub_19B994BF4(v192), v15) * 1000.0;
         }
 
-        v126 = [a7 count];
-        v127 = (*(a1 + 56) - *(a1 + 48)) >> 4;
-        v128 = __p;
-        if (v143 < 0)
+        v193 = objc_msgSend_count(a7, v187, v188, v189);
+        v194 = (*(a1 + 56) - *(a1 + 48)) >> 4;
+        v195 = __p;
+        if (v210 < 0)
         {
-          v128 = __p[0];
+          v195 = __p[0];
         }
 
-        v129 = *(a1 + 136);
-        v131 = *(v129 + 112);
-        v130 = *(v129 + 116);
-        v132 = *(v129 + 320);
-        LODWORD(v129) = *(v129 + 152);
-        v144 = 134350850;
-        v145 = *&v124;
-        v146 = 1026;
-        *v147 = v126;
-        *&v147[4] = 1026;
-        *&v147[6] = v127;
-        *v148 = 2082;
-        *&v148[2] = v128;
-        *v149 = 1026;
-        *&v149[2] = v130;
-        *&v149[6] = 1026;
-        *&v149[8] = v131;
-        *&v149[12] = 2050;
-        v150 = v132;
-        v151 = 1026;
-        v152 = v129;
-        v133 = _os_log_send_and_compose_impl();
-        sub_19B885924("Generic", 1, 0, 2, "BOOL CLTripSegmentMapIntegratorSparse::integrateWithMapData(NSUUID * _Nonnull, const CLTripSegmentModeOfTransport, const BOOL, std::shared_ptr<CLTripSegmentRouteBuilder> &, NSArray<CLTripSegmentLocation *> * _Nonnull, NSArray<CLTripSegmentLocation *> * _Nonnull)", "CoreLocation: %s\n", v133);
-        if (v133 != buf)
+        v196 = *(a1 + 136);
+        v198 = *(v196 + 112);
+        v197 = *(v196 + 116);
+        v199 = *(v196 + 320);
+        LODWORD(v196) = *(v196 + 152);
+        v211 = 134350850;
+        v212 = *&v191;
+        v213 = 1026;
+        *v214 = v193;
+        *&v214[4] = 1026;
+        *&v214[6] = v194;
+        *v215 = 2082;
+        *&v215[2] = v195;
+        *v216 = 1026;
+        *&v216[2] = v197;
+        *&v216[6] = 1026;
+        *&v216[8] = v198;
+        *&v216[12] = 2050;
+        v217 = v199;
+        v218 = 1026;
+        v219 = v196;
+        v200 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v190, 0, "CLTSP,MI,integrateWithMapDataSparse,timeTakenInMS,%{public}.3lf,inputLocations,%{public}d,snapLocations,%{public}d,id,%{public}s,mapsAPICalls,%{public}d,bufferCalls,%{public}d,connectionUsed,%{public}lu,geometry,%{public}d", &v211, 62);
+        sub_19B885924("Generic", 1, 0, 2, "BOOL CLTripSegmentMapIntegratorSparse::integrateWithMapData(NSUUID * _Nonnull, const CLTripSegmentModeOfTransport, const BOOL, std::shared_ptr<CLTripSegmentRouteBuilder> &, NSArray<CLTripSegmentLocation *> * _Nonnull, NSArray<CLTripSegmentLocation *> * _Nonnull)", "CoreLocation: %s\n", v200);
+        if (v200 != buf)
         {
-          free(v133);
+          free(v200);
         }
       }
 
       sub_19B9E008C(*(a1 + 136));
-      v29 = 1;
+      v44 = 1;
     }
 
     else
@@ -4002,37 +4050,37 @@ LABEL_165:
         dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
       }
 
-      v96 = qword_1EAFE46E8;
+      v149 = qword_1EAFE46E8;
       if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
       {
-        v97 = 0.0;
+        v153 = 0.0;
         if (v15 >= 0.0)
         {
-          v98 = mach_continuous_time();
-          v97 = vabdd_f64(sub_19B994BF4(v98), v15) * 1000.0;
+          v154 = mach_continuous_time();
+          v153 = vabdd_f64(sub_19B994BF4(v154), v15) * 1000.0;
         }
 
-        v99 = [a7 count];
-        v100 = (*(a1 + 56) - *(a1 + 48)) >> 4;
-        v101 = __p;
-        if (v143 < 0)
+        v155 = objc_msgSend_count(a7, v150, v151, v152);
+        v156 = (*(a1 + 56) - *(a1 + 48)) >> 4;
+        v157 = __p;
+        if (v210 < 0)
         {
-          v101 = __p[0];
+          v157 = __p[0];
         }
 
         *buf = 134349826;
-        v154 = *&v97;
-        v155 = 1026;
-        *v156 = v99;
-        *&v156[4] = 1026;
-        *&v156[6] = v100;
-        *v157 = 2082;
-        *&v157[2] = v101;
-        _os_log_impl(&dword_19B873000, v96, OS_LOG_TYPE_ERROR, "CLTSP,MI,integrateWithMapDataSparse failed, tripLocations count not be initialized,timeTakenInMS,%{public}.3lf,inputLocations,%{public}d,snapLocations,%{public}d,id,%{public}s", buf, 0x22u);
+        v221 = *&v153;
+        v222 = 1026;
+        *v223 = v155;
+        *&v223[4] = 1026;
+        *&v223[6] = v156;
+        *v224 = 2082;
+        *&v224[2] = v157;
+        _os_log_impl(&dword_19B873000, v149, OS_LOG_TYPE_ERROR, "CLTSP,MI,integrateWithMapDataSparse failed, tripLocations count not be initialized,timeTakenInMS,%{public}.3lf,inputLocations,%{public}d,snapLocations,%{public}d,id,%{public}s", buf, 0x22u);
       }
 
-      v102 = sub_19B87DD40();
-      if ((*(v102 + 160) & 0x80000000) == 0 || (*(v102 + 164) & 0x80000000) == 0 || (*(v102 + 168) & 0x80000000) == 0 || *(v102 + 152))
+      v158 = sub_19B87DD40();
+      if ((*(v158 + 160) & 0x80000000) == 0 || (*(v158 + 164) & 0x80000000) == 0 || (*(v158 + 168) & 0x80000000) == 0 || *(v158 + 152))
       {
         bzero(buf, 0x65CuLL);
         if (qword_1EAFE46B8 != -1)
@@ -4040,45 +4088,46 @@ LABEL_165:
           dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
         }
 
-        v103 = 0.0;
+        v162 = qword_1EAFE46E8;
+        v163 = 0.0;
         if (v15 >= 0.0)
         {
-          v104 = mach_continuous_time();
-          v103 = vabdd_f64(sub_19B994BF4(v104), v15) * 1000.0;
+          v164 = mach_continuous_time();
+          v163 = vabdd_f64(sub_19B994BF4(v164), v15) * 1000.0;
         }
 
-        v105 = [a7 count];
-        v106 = (*(a1 + 56) - *(a1 + 48)) >> 4;
-        v107 = __p;
-        if (v143 < 0)
+        v165 = objc_msgSend_count(a7, v159, v160, v161);
+        v166 = (*(a1 + 56) - *(a1 + 48)) >> 4;
+        v167 = __p;
+        if (v210 < 0)
         {
-          v107 = __p[0];
+          v167 = __p[0];
         }
 
-        v144 = 134349826;
-        v145 = *&v103;
-        v146 = 1026;
-        *v147 = v105;
-        *&v147[4] = 1026;
-        *&v147[6] = v106;
-        *v148 = 2082;
-        *&v148[2] = v107;
-        v108 = _os_log_send_and_compose_impl();
-        sub_19B885924("Generic", 1, 0, 0, "BOOL CLTripSegmentMapIntegratorSparse::integrateWithMapData(NSUUID * _Nonnull, const CLTripSegmentModeOfTransport, const BOOL, std::shared_ptr<CLTripSegmentRouteBuilder> &, NSArray<CLTripSegmentLocation *> * _Nonnull, NSArray<CLTripSegmentLocation *> * _Nonnull)", "CoreLocation: %s\n", v108);
-        if (v108 != buf)
+        v211 = 134349826;
+        v212 = *&v163;
+        v213 = 1026;
+        *v214 = v165;
+        *&v214[4] = 1026;
+        *&v214[6] = v166;
+        *v215 = 2082;
+        *&v215[2] = v167;
+        v168 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v162, 16, "CLTSP,MI,integrateWithMapDataSparse failed, tripLocations count not be initialized,timeTakenInMS,%{public}.3lf,inputLocations,%{public}d,snapLocations,%{public}d,id,%{public}s", &v211, 34);
+        sub_19B885924("Generic", 1, 0, 0, "BOOL CLTripSegmentMapIntegratorSparse::integrateWithMapData(NSUUID * _Nonnull, const CLTripSegmentModeOfTransport, const BOOL, std::shared_ptr<CLTripSegmentRouteBuilder> &, NSArray<CLTripSegmentLocation *> * _Nonnull, NSArray<CLTripSegmentLocation *> * _Nonnull)", "CoreLocation: %s\n", v168);
+        if (v168 != buf)
         {
-          free(v108);
+          free(v168);
         }
       }
 
       sub_19B8E5C90(*(a1 + 136));
 LABEL_198:
-      v29 = 0;
+      v44 = 0;
     }
 
-    if (v139)
+    if (v206)
     {
-      sub_19B8750F8(v139);
+      sub_19B8750F8(v206);
     }
 
     goto LABEL_73;
@@ -4089,15 +4138,15 @@ LABEL_198:
     dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
   }
 
-  v26 = qword_1EAFE46E8;
+  v41 = qword_1EAFE46E8;
   if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
-    _os_log_impl(&dword_19B873000, v26, OS_LOG_TYPE_ERROR, "CLTSP,MI,integrateWithMapData,geometry pointer is nullptr", buf, 2u);
+    _os_log_impl(&dword_19B873000, v41, OS_LOG_TYPE_ERROR, "CLTSP,MI,integrateWithMapData,geometry pointer is nullptr", buf, 2u);
   }
 
-  v27 = sub_19B87DD40();
-  if ((*(v27 + 160) & 0x80000000) == 0 || (*(v27 + 164) & 0x80000000) == 0 || (*(v27 + 168) & 0x80000000) == 0 || *(v27 + 152))
+  v42 = sub_19B87DD40();
+  if ((*(v42 + 160) & 0x80000000) == 0 || (*(v42 + 164) & 0x80000000) == 0 || (*(v42 + 168) & 0x80000000) == 0 || *(v42 + 152))
   {
     bzero(buf, 0x65CuLL);
     if (qword_1EAFE46B8 != -1)
@@ -4105,19 +4154,16 @@ LABEL_198:
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
     }
 
-    LOWORD(v144) = 0;
-    v28 = _os_log_send_and_compose_impl();
-    sub_19B885924("Generic", 1, 0, 0, "BOOL CLTripSegmentMapIntegratorSparse::integrateWithMapData(NSUUID * _Nonnull, const CLTripSegmentModeOfTransport, const BOOL, std::shared_ptr<CLTripSegmentRouteBuilder> &, NSArray<CLTripSegmentLocation *> * _Nonnull, NSArray<CLTripSegmentLocation *> * _Nonnull)", "CoreLocation: %s\n", v28);
-    if (v28 != buf)
+    LOWORD(v211) = 0;
+    v43 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE46E8, 16, "CLTSP,MI,integrateWithMapData,geometry pointer is nullptr", &v211, 2);
+    sub_19B885924("Generic", 1, 0, 0, "BOOL CLTripSegmentMapIntegratorSparse::integrateWithMapData(NSUUID * _Nonnull, const CLTripSegmentModeOfTransport, const BOOL, std::shared_ptr<CLTripSegmentRouteBuilder> &, NSArray<CLTripSegmentLocation *> * _Nonnull, NSArray<CLTripSegmentLocation *> * _Nonnull)", "CoreLocation: %s\n", v43);
+    if (v43 != buf)
     {
-      free(v28);
+      free(v43);
     }
   }
 
-  v29 = 0;
-LABEL_75:
-  v51 = *MEMORY[0x1E69E9840];
-  return v29;
+  return 0;
 }
 
 void sub_19B9EDCD0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, std::__shared_weak_count *a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, void *__p, uint64_t a31, int a32, __int16 a33, char a34, char a35)
@@ -4135,16 +4181,18 @@ void sub_19B9EDCD0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t sub_19B9EDDA0(std::mutex *a1, void *a2)
+uint64_t sub_19B9EDDA0(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  sub_19B8759E8(__p, [objc_msgSend(a2 "UUIDString")]);
-  v3 = sub_19B99F500(a1, __p);
-  if (v6 < 0)
+  v5 = objc_msgSend_UUIDString(a2, a2, a3, a4);
+  v9 = objc_msgSend_UTF8String(v5, v6, v7, v8);
+  sub_19B8759E8(__p, v9);
+  v10 = sub_19B99F500(a1, __p);
+  if (v13 < 0)
   {
     operator delete(__p[0]);
   }
 
-  return v3;
+  return v10;
 }
 
 void sub_19B9EDE04(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -4157,11 +4205,13 @@ void sub_19B9EDE04(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_19B9EDE20(uint64_t a1@<X0>, void *a2@<X1>, void *a3@<X8>)
+void sub_19B9EDE20(uint64_t a1@<X0>, void *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, void *a5@<X8>)
 {
-  sub_19B8759E8(__p, [objc_msgSend(a2 "UUIDString")]);
-  sub_19B9F2000(a1, __p, a3);
-  if (v6 < 0)
+  v7 = objc_msgSend_UUIDString(a2, a2, a3, a4);
+  v11 = objc_msgSend_UTF8String(v7, v8, v9, v10);
+  sub_19B8759E8(__p, v11);
+  sub_19B9F2000(a1, __p, a5);
+  if (v13 < 0)
   {
     operator delete(__p[0]);
   }
@@ -4177,9 +4227,9 @@ void sub_19B9EDE84(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-BOOL sub_19B9EDEA0(uint64_t a1, void *a2, double ***a3, uint64_t **a4, int a5, uint64_t a6)
+BOOL sub_19B9EDEA0(uint64_t a1, void *a2, uint64_t ***a3, uint64_t ***a4, int a5, uint64_t a6)
 {
-  v272 = *MEMORY[0x1E69E9840];
+  v305 = *MEMORY[0x1E69E9840];
   v8 = a3[1];
   if (*a3 == v8 || *a4 == a4[1])
   {
@@ -4203,16 +4253,24 @@ BOOL sub_19B9EDEA0(uint64_t a1, void *a2, double ***a3, uint64_t **a4, int a5, u
     v34 = sub_19B87DD40();
     if ((*(v34 + 160) & 0x80000000) != 0 && (*(v34 + 164) & 0x80000000) != 0 && (*(v34 + 168) & 0x80000000) != 0 && !*(v34 + 152))
     {
-      goto LABEL_75;
+      return 0;
     }
 
     bzero(buf, 0x65CuLL);
-    if (qword_1EAFE46B8 == -1)
+    if (qword_1EAFE46B8 != -1)
     {
-      goto LABEL_53;
+      dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
     }
 
-    goto LABEL_107;
+    v35 = (a3[1] - *a3) >> 4;
+    v36 = (a4[1] - *a4) >> 4;
+    *v266 = 134349312;
+    *&v266[4] = v35;
+    *&v266[12] = 2050;
+    *&v266[14] = v36;
+    v37 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE46E8, 16, "CLTSP,MI,constructSegment,invalid size,start,%{public}lu,end,%{public}lu", v266, 22);
+    sub_19B885924("Generic", 1, 0, 0, "BOOL CLTripSegmentMapIntegratorSparse::constructSegment(NSUUID * _Nonnull, const std::vector<CLGeoMapSnapDataPtr> &, const std::vector<CLGeoMapSnapDataPtr> &, BOOL, BOOL, const CLTripSegmentModeOfTransport)", "CoreLocation: %s\n", v37);
+    goto LABEL_75;
   }
 
   v9 = *(v8 - 2);
@@ -4238,31 +4296,28 @@ BOOL sub_19B9EDEA0(uint64_t a1, void *a2, double ***a3, uint64_t **a4, int a5, u
     v41 = sub_19B87DD40();
     if ((*(v41 + 160) & 0x80000000) != 0 && (*(v41 + 164) & 0x80000000) != 0 && (*(v41 + 168) & 0x80000000) != 0 && !*(v41 + 152))
     {
-      goto LABEL_75;
+      return 0;
     }
 
     bzero(buf, 0x65CuLL);
-    if (qword_1EAFE46B8 == -1)
+    if (qword_1EAFE46B8 != -1)
     {
-      goto LABEL_53;
+      dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
     }
 
-LABEL_107:
-    dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
-LABEL_53:
-    v35 = (a3[1] - *a3) >> 4;
-    v36 = (a4[1] - *a4) >> 4;
-    *v233 = 134349312;
-    *&v233[4] = v35;
-    *&v233[12] = 2050;
-    *&v233[14] = v36;
-    v37 = _os_log_send_and_compose_impl();
+    v42 = (a3[1] - *a3) >> 4;
+    v43 = (a4[1] - *a4) >> 4;
+    *v266 = 134349312;
+    *&v266[4] = v42;
+    *&v266[12] = 2050;
+    *&v266[14] = v43;
+    v37 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE46E8, 16, "CLTSP,MI,constructSegment,null pointers,start,%{public}lu,end,%{public}lu", v266, 22);
     sub_19B885924("Generic", 1, 0, 0, "BOOL CLTripSegmentMapIntegratorSparse::constructSegment(NSUUID * _Nonnull, const std::vector<CLGeoMapSnapDataPtr> &, const std::vector<CLGeoMapSnapDataPtr> &, BOOL, BOOL, const CLTripSegmentModeOfTransport)", "CoreLocation: %s\n", v37);
-    goto LABEL_73;
+    goto LABEL_75;
   }
 
   v13 = *(v9 + 16);
-  v14 = *(v10 + 16);
+  v14 = *(v10 + 2);
   if (qword_1EAFE46B8 != -1)
   {
     dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
@@ -4287,11 +4342,11 @@ LABEL_53:
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
     }
 
-    *v233 = 134349312;
-    *&v233[4] = v13;
-    *&v233[12] = 2050;
-    *&v233[14] = v14;
-    v17 = _os_log_send_and_compose_impl();
+    *v266 = 134349312;
+    *&v266[4] = v13;
+    *&v266[12] = 2050;
+    *&v266[14] = v14;
+    v17 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE46E8, 1, "CLTSP,MI,constructSegment,start,%{public}.3lf,end,%{public}.3lf", v266, 22);
     sub_19B885924("Generic", 1, 0, 2, "BOOL CLTripSegmentMapIntegratorSparse::constructSegment(NSUUID * _Nonnull, const std::vector<CLGeoMapSnapDataPtr> &, const std::vector<CLGeoMapSnapDataPtr> &, BOOL, BOOL, const CLTripSegmentModeOfTransport)", "CoreLocation: %s\n", v17);
     if (v17 != buf)
     {
@@ -4307,18 +4362,18 @@ LABEL_53:
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
     }
 
-    v42 = qword_1EAFE46E8;
+    v44 = qword_1EAFE46E8;
     if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
     {
       *buf = 134349056;
       *&buf[4] = v13;
-      _os_log_impl(&dword_19B873000, v42, OS_LOG_TYPE_ERROR, "CLTSP,MI,%{public}.1lf,start or stop snap road is empty", buf, 0xCu);
+      _os_log_impl(&dword_19B873000, v44, OS_LOG_TYPE_ERROR, "CLTSP,MI,%{public}.1lf,start or stop snap road is empty", buf, 0xCu);
     }
 
-    v43 = sub_19B87DD40();
-    if ((*(v43 + 160) & 0x80000000) != 0 && (*(v43 + 164) & 0x80000000) != 0 && (*(v43 + 168) & 0x80000000) != 0 && !*(v43 + 152))
+    v45 = sub_19B87DD40();
+    if ((*(v45 + 160) & 0x80000000) != 0 && (*(v45 + 164) & 0x80000000) != 0 && (*(v45 + 168) & 0x80000000) != 0 && !*(v45 + 152))
     {
-      goto LABEL_75;
+      return 0;
     }
 
     bzero(buf, 0x65CuLL);
@@ -4327,19 +4382,17 @@ LABEL_53:
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
     }
 
-    *v233 = 134349056;
-    *&v233[4] = v13;
-    v37 = _os_log_send_and_compose_impl();
+    *v266 = 134349056;
+    *&v266[4] = v13;
+    v37 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE46E8, 16, "CLTSP,MI,%{public}.1lf,start or stop snap road is empty", v266, 12);
     sub_19B885924("Generic", 1, 0, 0, "BOOL CLTripSegmentMapIntegratorSparse::constructSegment(NSUUID * _Nonnull, const std::vector<CLGeoMapSnapDataPtr> &, const std::vector<CLGeoMapSnapDataPtr> &, BOOL, BOOL, const CLTripSegmentModeOfTransport)", "CoreLocation: %s\n", v37);
-LABEL_73:
+LABEL_75:
     if (v37 != buf)
     {
       free(v37);
     }
 
-LABEL_75:
-    v30 = 0;
-    goto LABEL_76;
+    return 0;
   }
 
   v20 = *(v18 - 2);
@@ -4357,8 +4410,8 @@ LABEL_75:
     atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v185 = v22;
-  if (*(v20 + 64) != 1 || v20[2] <= 0.0 || (v24 = *v20) == 0 || (v25 = v20[4], v26 = fabs(v20[3]), v26 < 0.00003) && fabs(v25) < 0.00003 || v25 < -180.0 || v26 > 90.0 || v25 > 180.0 || *(v23 + 64) != 1 || *(v23 + 16) <= 0.0 || (v46 = *v23, !*v23) || (v47 = *(v23 + 32), v48 = fabs(*(v23 + 24)), v48 < 0.00003) && fabs(v47) < 0.00003 || v47 < -180.0 || v48 > 90.0 || v47 > 180.0)
+  v218 = v22;
+  if (*(v20 + 64) != 1 || v20[2] <= 0.0 || (v24 = *v20) == 0 || (v25 = v20[4], v26 = fabs(v20[3]), v26 < 0.00003) && fabs(v25) < 0.00003 || v25 < -180.0 || v26 > 90.0 || v25 > 180.0 || *(v23 + 64) != 1 || *(v23 + 2) <= 0.0 || (v47 = *v23) == 0 || (v48 = *(v23 + 4), v49 = fabs(*(v23 + 3)), v49 < 0.00003) && fabs(v48) < 0.00003 || v48 < -180.0 || v49 > 90.0 || v48 > 180.0)
   {
     if (qword_1EAFE46B8 != -1)
     {
@@ -4382,9 +4435,9 @@ LABEL_75:
         dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
       }
 
-      *v233 = 134349056;
-      *&v233[4] = v13;
-      v29 = _os_log_send_and_compose_impl();
+      *v266 = 134349056;
+      *&v266[4] = v13;
+      v29 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE46E8, 0, "CLTSP,MI,%{public}.1lf,start or destination snap is not valid. Skipping constructing this segment", v266, 12);
       sub_19B885924("Generic", 1, 0, 2, "BOOL CLTripSegmentMapIntegratorSparse::constructSegment(NSUUID * _Nonnull, const std::vector<CLGeoMapSnapDataPtr> &, const std::vector<CLGeoMapSnapDataPtr> &, BOOL, BOOL, const CLTripSegmentModeOfTransport)", "CoreLocation: %s\n", v29);
       if (v29 != buf)
       {
@@ -4396,56 +4449,59 @@ LABEL_75:
     goto LABEL_41;
   }
 
-  v183 = v23;
-  v180 = v21;
-  v49 = *(v24 + 144);
-  v50 = 0.0;
+  v216 = v23;
+  v213 = v21;
+  v50 = *(v24 + 144);
   v51 = 0.0;
   v52 = 0.0;
-  if (v49 != *(v24 + 136))
+  v53 = 0.0;
+  if (v50 != *(v24 + 136))
   {
-    v51 = *(v49 - 16);
-    v52 = *(v49 - 8);
+    v52 = *(v50 - 16);
+    v53 = *(v50 - 8);
   }
 
-  v53 = *(*&v46 + 136);
-  v54 = 0.0;
-  if (*(*&v46 + 144) != v53)
+  v54 = *(v47 + 136);
+  v55 = 0.0;
+  if (*(v47 + 144) != v54)
   {
-    v50 = *v53;
-    v54 = v53[1];
+    v51 = *v54;
+    v55 = v54[1];
   }
 
-  v55 = sub_19BA0C01C(a1, v51, v52, v50, v54, 0.0);
+  sub_19BA0C01C(a1, v52, v53, v51, v55, 0.0);
+  v59 = v58;
   if (qword_1EAFE5B00 != -1)
   {
     dispatch_once(&qword_1EAFE5B00, &unk_1F0E6D570);
   }
 
-  sub_19B9EDE20(qword_1EAFE5B10, a2, &v219);
-  if (!v219)
+  sub_19B9EDE20(qword_1EAFE5B10, a2, v56, v57, &v252);
+  if (!v252)
   {
     if (qword_1EAFE46B8 != -1)
     {
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
     }
 
-    v60 = qword_1EAFE46E8;
+    v64 = qword_1EAFE46E8;
     if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_DEFAULT))
     {
-      sub_19B8759E8(buf, [objc_msgSend(a2 "UUIDString")]);
-      v61 = v254 >= 0 ? buf : *buf;
-      *v233 = 136446210;
-      *&v233[4] = v61;
-      _os_log_impl(&dword_19B873000, v60, OS_LOG_TYPE_DEFAULT, "CLTSP,constructSegment,tripID,%{public}s is not in CLTripSegmentSharedData", v233, 0xCu);
-      if (SHIBYTE(v254) < 0)
+      v68 = objc_msgSend_UUIDString(a2, v65, v66, v67);
+      v72 = objc_msgSend_UTF8String(v68, v69, v70, v71);
+      sub_19B8759E8(buf, v72);
+      v73 = v287 >= 0 ? buf : *buf;
+      *v266 = 136446210;
+      *&v266[4] = v73;
+      _os_log_impl(&dword_19B873000, v64, OS_LOG_TYPE_DEFAULT, "CLTSP,constructSegment,tripID,%{public}s is not in CLTripSegmentSharedData", v266, 0xCu);
+      if (SHIBYTE(v287) < 0)
       {
         operator delete(*buf);
       }
     }
 
-    v62 = sub_19B87DD40();
-    if (*(v62 + 160) > 1 || *(v62 + 164) > 1 || *(v62 + 168) > 1 || *(v62 + 152))
+    v74 = sub_19B87DD40();
+    if (*(v74 + 160) > 1 || *(v74 + 164) > 1 || *(v74 + 168) > 1 || *(v74 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE46B8 != -1)
@@ -4453,45 +4509,48 @@ LABEL_75:
         dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
       }
 
-      sub_19B8759E8(v233, [objc_msgSend(a2 "UUIDString")]);
-      if ((v233[23] & 0x80u) == 0)
+      v78 = qword_1EAFE46E8;
+      v79 = objc_msgSend_UUIDString(a2, v75, v76, v77);
+      v83 = objc_msgSend_UTF8String(v79, v80, v81, v82);
+      sub_19B8759E8(v266, v83);
+      if ((v266[23] & 0x80u) == 0)
       {
-        v63 = v233;
+        v84 = v266;
       }
 
       else
       {
-        v63 = *v233;
+        v84 = *v266;
       }
 
-      LODWORD(v245) = 136446210;
-      *(&v245 + 4) = v63;
-      v64 = _os_log_send_and_compose_impl();
-      if (v233[23] < 0)
+      LODWORD(v278) = 136446210;
+      *(&v278 + 4) = v84;
+      v85 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v78, 0, "CLTSP,constructSegment,tripID,%{public}s is not in CLTripSegmentSharedData", &v278, 12);
+      if (v266[23] < 0)
       {
-        operator delete(*v233);
+        operator delete(*v266);
       }
 
-      sub_19B885924("Generic", 1, 0, 2, "BOOL CLTripSegmentMapIntegratorSparse::constructSegment(NSUUID * _Nonnull, const std::vector<CLGeoMapSnapDataPtr> &, const std::vector<CLGeoMapSnapDataPtr> &, BOOL, BOOL, const CLTripSegmentModeOfTransport)", "CoreLocation: %s\n", v64);
-      if (v64 != buf)
+      sub_19B885924("Generic", 1, 0, 2, "BOOL CLTripSegmentMapIntegratorSparse::constructSegment(NSUUID * _Nonnull, const std::vector<CLGeoMapSnapDataPtr> &, const std::vector<CLGeoMapSnapDataPtr> &, BOOL, BOOL, const CLTripSegmentModeOfTransport)", "CoreLocation: %s\n", v85);
+      if (v85 != buf)
       {
-        free(v64);
+        free(v85);
       }
     }
 
     v30 = 0;
-    goto LABEL_370;
+    goto LABEL_374;
   }
 
-  ++*(v219 + 76);
-  v248 = 0.0;
-  v252 = 0;
-  v245 = 0u;
-  v246 = 0u;
-  v247 = 0;
-  v251 = 0;
-  v250 = 0;
-  v249 = *(a1 + 178);
+  ++*(v252 + 76);
+  v281 = 0.0;
+  v285 = 0;
+  v278 = 0u;
+  v279 = 0u;
+  v280 = 0;
+  v284 = 0;
+  v283 = 0;
+  v282 = *(a1 + 178);
   if (a6 == 2)
   {
     if (qword_1EAFE46B8 != -1)
@@ -4499,54 +4558,54 @@ LABEL_75:
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
     }
 
-    v56 = qword_1EAFE46E8;
+    v60 = qword_1EAFE46E8;
     if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_INFO))
     {
-      v57 = *(*v20 + 144);
-      if (v57 == *(*v20 + 136))
+      v61 = *(*v20 + 144);
+      if (v61 == *(*v20 + 136))
       {
-        v58 = 0;
-        v59 = 0;
+        v62 = 0;
+        v63 = 0;
       }
 
       else
       {
-        v58 = *(v57 - 16);
-        v59 = *(v57 - 8);
+        v62 = *(v61 - 16);
+        v63 = *(v61 - 8);
       }
 
-      v81 = *(*v183 + 136);
-      if (*(*v183 + 144) == v81)
+      v102 = *(*v216 + 136);
+      if (*(*v216 + 144) == v102)
       {
-        v82 = 0;
-        v83 = 0;
+        v103 = 0;
+        v104 = 0;
       }
 
       else
       {
-        v82 = *v81;
-        v83 = v81[1];
+        v103 = *v102;
+        v104 = v102[1];
       }
 
       *buf = 134350593;
       *&buf[4] = v13;
       *&buf[12] = 2053;
-      *&buf[14] = v58;
-      v254 = 2053;
-      v255 = v59;
-      v256 = 2053;
-      v257 = v82;
-      v258 = 2053;
-      v259 = v83;
-      v260 = 2050;
-      v261 = v55;
-      v262 = 2050;
-      v263 = v14;
-      _os_log_impl(&dword_19B873000, v56, OS_LOG_TYPE_INFO, "CLTSP,MI,%{public}.3lf,constructing astar route between,startPoint,%{sensitive}.7lf,%{sensitive}.7lf,endPoint,%{sensitive}.7lf,%{sensitive}.7lf,distance,%{public}.3lf,endTime,%{public}.3lf", buf, 0x48u);
+      *&buf[14] = v62;
+      v287 = 2053;
+      v288 = v63;
+      v289 = 2053;
+      v290 = v103;
+      v291 = 2053;
+      v292 = v104;
+      v293 = 2050;
+      v294 = v59;
+      v295 = 2050;
+      v296 = v14;
+      _os_log_impl(&dword_19B873000, v60, OS_LOG_TYPE_INFO, "CLTSP,MI,%{public}.3lf,constructing astar route between,startPoint,%{sensitive}.7lf,%{sensitive}.7lf,endPoint,%{sensitive}.7lf,%{sensitive}.7lf,distance,%{public}.3lf,endTime,%{public}.3lf", buf, 0x48u);
     }
 
-    v87 = sub_19B87DD40();
-    if (*(v87 + 160) > 1 || *(v87 + 164) > 1 || *(v87 + 168) > 1 || *(v87 + 152))
+    v108 = sub_19B87DD40();
+    if (*(v108 + 160) > 1 || *(v108 + 164) > 1 || *(v108 + 168) > 1 || *(v108 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE46B8 != -1)
@@ -4554,157 +4613,157 @@ LABEL_75:
         dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
       }
 
-      v88 = *(*v20 + 144);
-      if (v88 == *(*v20 + 136))
+      v111 = *(*v20 + 144);
+      if (v111 == *(*v20 + 136))
       {
-        v89 = 0;
-        v90 = 0;
+        v112 = 0;
+        v113 = 0;
       }
 
       else
       {
-        v89 = *(v88 - 16);
-        v90 = *(v88 - 8);
+        v112 = *(v111 - 16);
+        v113 = *(v111 - 8);
       }
 
-      v91 = *(*v183 + 136);
-      if (*(*v183 + 144) == v91)
+      v114 = *(*v216 + 136);
+      if (*(*v216 + 144) == v114)
       {
-        v92 = 0;
-        v93 = 0;
+        v115 = 0;
+        v116 = 0;
       }
 
       else
       {
-        v92 = *v91;
-        v93 = v91[1];
+        v115 = *v114;
+        v116 = v114[1];
       }
 
-      *v233 = 134350593;
-      *&v233[4] = v13;
-      *&v233[12] = 2053;
-      *&v233[14] = v89;
-      *&v233[22] = 2053;
-      v234 = v90;
-      *v235 = 2053;
-      *&v235[2] = v92;
-      *&v235[10] = 2053;
-      *&v235[12] = v93;
-      *&v235[20] = 2050;
-      *&v235[22] = v55;
-      *&v235[30] = 2050;
-      v236 = v14;
-      v94 = _os_log_send_and_compose_impl();
-      sub_19B885924("Generic", 1, 0, 2, "BOOL CLTripSegmentMapIntegratorSparse::constructSegment(NSUUID * _Nonnull, const std::vector<CLGeoMapSnapDataPtr> &, const std::vector<CLGeoMapSnapDataPtr> &, BOOL, BOOL, const CLTripSegmentModeOfTransport)", "CoreLocation: %s\n", v94);
-      if (v94 != buf)
+      *v266 = 134350593;
+      *&v266[4] = v13;
+      *&v266[12] = 2053;
+      *&v266[14] = v112;
+      *&v266[22] = 2053;
+      v267 = v113;
+      *v268 = 2053;
+      *&v268[2] = v115;
+      *&v268[10] = 2053;
+      *&v268[12] = v116;
+      *&v268[20] = 2050;
+      *&v268[22] = v59;
+      *&v268[30] = 2050;
+      v269 = v14;
+      v117 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE46E8, 1, "CLTSP,MI,%{public}.3lf,constructing astar route between,startPoint,%{sensitive}.7lf,%{sensitive}.7lf,endPoint,%{sensitive}.7lf,%{sensitive}.7lf,distance,%{public}.3lf,endTime,%{public}.3lf", v266, 72);
+      sub_19B885924("Generic", 1, 0, 2, "BOOL CLTripSegmentMapIntegratorSparse::constructSegment(NSUUID * _Nonnull, const std::vector<CLGeoMapSnapDataPtr> &, const std::vector<CLGeoMapSnapDataPtr> &, BOOL, BOOL, const CLTripSegmentModeOfTransport)", "CoreLocation: %s\n", v117);
+      if (v117 != buf)
       {
-        free(v94);
+        free(v117);
       }
     }
 
-    *buf = *(v183 + 3);
+    *buf = *(v216 + 3);
     if (qword_1EAFE5B00 != -1)
     {
       dispatch_once(&qword_1EAFE5B00, &unk_1F0E6D570);
     }
 
-    sub_19B9F081C(qword_1EAFE5B10, a2, &v217);
-    v95 = *(a1 + 144);
-    v215 = *(a1 + 136);
-    v216 = v95;
-    if (v95)
+    sub_19B9F081C(qword_1EAFE5B10, a2, &v250, v109, v110);
+    v124 = *(a1 + 144);
+    v248 = *(a1 + 136);
+    v249 = v124;
+    if (v124)
     {
-      atomic_fetch_add_explicit(&v95->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v124->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v96 = sub_19B9A95C8(&v245, v13, v20[6], v183[6], a1, &v217, v20, v183, &v215);
-    if (v216)
+    v125 = sub_19B9A95C8(&v278, a1, &v250, v20, v216, &v248, buf, v13, v20[6], *(v216 + 6), v118, v119, v120, v121, v122, v123, 0.0, 0);
+    if (v249)
     {
-      sub_19B8750F8(v216);
+      sub_19B8750F8(v249);
     }
 
-    if (v218)
+    if (v251)
     {
-      sub_19B8750F8(v218);
+      sub_19B8750F8(v251);
     }
 
-    if ((v96 & 1) == 0)
+    if ((v125 & 1) == 0)
     {
       goto LABEL_189;
     }
 
-    goto LABEL_301;
+    goto LABEL_305;
   }
 
-  v65 = *v20;
-  v66 = 53.0;
+  v86 = *v20;
+  v87 = 53.0;
   if (*v20)
   {
-    v67 = *(v65 + 20);
-    if (v67 >= 4 && (*(v65 + 24) - 1) >= 2)
+    v88 = *(v86 + 20);
+    if (v88 >= 4 && (*(v86 + 24) - 1) >= 2)
     {
-      v66 = dbl_19BA8D180[v67 - 5 < 2];
+      v87 = dbl_19BA8D180[v88 - 5 < 2];
     }
   }
 
-  v68 = v20[13];
-  v69 = v183[13];
-  if (v68 >= 0.0)
+  v89 = v20[13];
+  v90 = *(v216 + 13);
+  if (v89 >= 0.0)
   {
-    if (v69 < 0.0)
+    if (v90 < 0.0)
     {
-      v70 = v68 * 2.5;
+      v91 = v89 * 2.5;
       goto LABEL_142;
     }
 
-    v69 = (v68 + v69) * 0.5;
+    v90 = (v89 + v90) * 0.5;
     goto LABEL_141;
   }
 
-  v70 = v66;
-  if (v69 >= 0.0)
+  v91 = v87;
+  if (v90 >= 0.0)
   {
 LABEL_141:
-    v70 = v69 * 2.5;
+    v91 = v90 * 2.5;
   }
 
 LABEL_142:
-  if (v66 >= v70)
+  if (v87 >= v91)
   {
-    v66 = v70;
+    v87 = v91;
   }
 
-  if (v70 >= 20.0)
+  if (v91 >= 20.0)
   {
-    v71 = v66;
-  }
-
-  else
-  {
-    v71 = 20.0;
-  }
-
-  v72 = fabs(v14 - v13) * v71;
-  if (v72 >= 250.0)
-  {
-    v73 = v72;
+    v92 = v87;
   }
 
   else
   {
-    v73 = 250.0;
+    v92 = 20.0;
   }
 
-  v74 = sub_19BA0C01C(a1, v20[3], v20[4], v183[3], v183[4], 0.0);
-  v75 = v74 + v74;
-  if (v74 + v74 >= v73)
+  v93 = fabs(v14 - v13) * v92;
+  if (v93 >= 250.0)
   {
-    v76 = v74 + v74;
+    v94 = v93;
   }
 
   else
   {
-    v76 = v73;
+    v94 = 250.0;
+  }
+
+  sub_19BA0C01C(a1, v20[3], v20[4], *(v216 + 3), *(v216 + 4), 0.0);
+  v96 = v95 + v95;
+  if (v95 + v95 >= v94)
+  {
+    v97 = v95 + v95;
+  }
+
+  else
+  {
+    v97 = v94;
   }
 
   if (qword_1EAFE46B8 != -1)
@@ -4712,62 +4771,62 @@ LABEL_142:
     dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
   }
 
-  v77 = qword_1EAFE46E8;
+  v98 = qword_1EAFE46E8;
   if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_INFO))
   {
-    v78 = *(*v20 + 144);
-    if (v78 == *(*v20 + 136))
+    v99 = *(*v20 + 144);
+    if (v99 == *(*v20 + 136))
     {
-      v79 = 0;
-      v80 = 0;
+      v100 = 0;
+      v101 = 0;
     }
 
     else
     {
-      v79 = *(v78 - 16);
-      v80 = *(v78 - 8);
+      v100 = *(v99 - 16);
+      v101 = *(v99 - 8);
     }
 
-    v84 = *(*v183 + 136);
-    if (*(*v183 + 144) == v84)
+    v105 = *(*v216 + 136);
+    if (*(*v216 + 144) == v105)
     {
-      v85 = 0;
-      v86 = 0;
+      v106 = 0;
+      v107 = 0;
     }
 
     else
     {
-      v85 = *v84;
-      v86 = v84[1];
+      v106 = *v105;
+      v107 = v105[1];
     }
 
     *buf = 134351617;
     *&buf[4] = v13;
     *&buf[12] = 2053;
-    *&buf[14] = v79;
-    v254 = 2053;
-    v255 = v80;
-    v256 = 2053;
-    v257 = v85;
-    v258 = 2053;
-    v259 = v86;
-    v260 = 2050;
-    v261 = v55;
-    v262 = 2050;
-    v263 = v14;
-    v264 = 2050;
-    v265 = v76;
-    v266 = 2050;
-    v267 = v71;
-    v268 = 2050;
-    v269 = v73;
-    v270 = 2050;
-    v271 = v75;
-    _os_log_impl(&dword_19B873000, v77, OS_LOG_TYPE_INFO, "CLTSP,MI,%{public}.3lf,constructing astar route between,startPoint,%{sensitive}.7lf,%{sensitive}.7lf,endPoint,%{sensitive}.7lf,%{sensitive}.7lf,distance,%{public}.3lf,endTime,%{public}.3lf,maxDistance,%{public}.3lf,speed,%{public}.3lf,maxSpeedBasedDistance,%{public}.1lf,maxLOSBasedDistance,%{public}.1lf", buf, 0x70u);
+    *&buf[14] = v100;
+    v287 = 2053;
+    v288 = v101;
+    v289 = 2053;
+    v290 = v106;
+    v291 = 2053;
+    v292 = v107;
+    v293 = 2050;
+    v294 = v59;
+    v295 = 2050;
+    v296 = v14;
+    v297 = 2050;
+    v298 = v97;
+    v299 = 2050;
+    v300 = v92;
+    v301 = 2050;
+    v302 = v94;
+    v303 = 2050;
+    v304 = v96;
+    _os_log_impl(&dword_19B873000, v98, OS_LOG_TYPE_INFO, "CLTSP,MI,%{public}.3lf,constructing astar route between,startPoint,%{sensitive}.7lf,%{sensitive}.7lf,endPoint,%{sensitive}.7lf,%{sensitive}.7lf,distance,%{public}.3lf,endTime,%{public}.3lf,maxDistance,%{public}.3lf,speed,%{public}.3lf,maxSpeedBasedDistance,%{public}.1lf,maxLOSBasedDistance,%{public}.1lf", buf, 0x70u);
   }
 
-  v109 = sub_19B87DD40();
-  if (*(v109 + 160) > 1 || *(v109 + 164) > 1 || *(v109 + 168) > 1 || *(v109 + 152))
+  v138 = sub_19B87DD40();
+  if (*(v138 + 160) > 1 || *(v138 + 164) > 1 || *(v138 + 168) > 1 || *(v138 + 152))
   {
     bzero(buf, 0x65CuLL);
     if (qword_1EAFE46B8 != -1)
@@ -4775,59 +4834,59 @@ LABEL_142:
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
     }
 
-    v110 = *(*v20 + 144);
-    if (v110 == *(*v20 + 136))
+    v141 = *(*v20 + 144);
+    if (v141 == *(*v20 + 136))
     {
-      v111 = 0;
-      v112 = 0;
+      v142 = 0;
+      v143 = 0;
     }
 
     else
     {
-      v111 = *(v110 - 16);
-      v112 = *(v110 - 8);
+      v142 = *(v141 - 16);
+      v143 = *(v141 - 8);
     }
 
-    v113 = *(*v183 + 136);
-    if (*(*v183 + 144) == v113)
+    v144 = *(*v216 + 136);
+    if (*(*v216 + 144) == v144)
     {
-      v114 = 0;
-      v115 = 0;
+      v145 = 0;
+      v146 = 0;
     }
 
     else
     {
-      v114 = *v113;
-      v115 = v113[1];
+      v145 = *v144;
+      v146 = v144[1];
     }
 
-    *v233 = 134351617;
-    *&v233[4] = v13;
-    *&v233[12] = 2053;
-    *&v233[14] = v111;
-    *&v233[22] = 2053;
-    v234 = v112;
-    *v235 = 2053;
-    *&v235[2] = v114;
-    *&v235[10] = 2053;
-    *&v235[12] = v115;
-    *&v235[20] = 2050;
-    *&v235[22] = v55;
-    *&v235[30] = 2050;
-    v236 = v14;
-    v237 = 2050;
-    v238 = v76;
-    v239 = 2050;
-    v240 = v71;
-    v241 = 2050;
-    v242 = v73;
-    v243 = 2050;
-    v244 = v75;
-    v116 = _os_log_send_and_compose_impl();
-    sub_19B885924("Generic", 1, 0, 2, "BOOL CLTripSegmentMapIntegratorSparse::constructSegment(NSUUID * _Nonnull, const std::vector<CLGeoMapSnapDataPtr> &, const std::vector<CLGeoMapSnapDataPtr> &, BOOL, BOOL, const CLTripSegmentModeOfTransport)", "CoreLocation: %s\n", v116);
-    if (v116 != buf)
+    *v266 = 134351617;
+    *&v266[4] = v13;
+    *&v266[12] = 2053;
+    *&v266[14] = v142;
+    *&v266[22] = 2053;
+    v267 = v143;
+    *v268 = 2053;
+    *&v268[2] = v145;
+    *&v268[10] = 2053;
+    *&v268[12] = v146;
+    *&v268[20] = 2050;
+    *&v268[22] = v59;
+    *&v268[30] = 2050;
+    v269 = v14;
+    v270 = 2050;
+    v271 = v97;
+    v272 = 2050;
+    v273 = v92;
+    v274 = 2050;
+    v275 = v94;
+    v276 = 2050;
+    v277 = v96;
+    v147 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE46E8, 1, "CLTSP,MI,%{public}.3lf,constructing astar route between,startPoint,%{sensitive}.7lf,%{sensitive}.7lf,endPoint,%{sensitive}.7lf,%{sensitive}.7lf,distance,%{public}.3lf,endTime,%{public}.3lf,maxDistance,%{public}.3lf,speed,%{public}.3lf,maxSpeedBasedDistance,%{public}.1lf,maxLOSBasedDistance,%{public}.1lf", v266, 112);
+    sub_19B885924("Generic", 1, 0, 2, "BOOL CLTripSegmentMapIntegratorSparse::constructSegment(NSUUID * _Nonnull, const std::vector<CLGeoMapSnapDataPtr> &, const std::vector<CLGeoMapSnapDataPtr> &, BOOL, BOOL, const CLTripSegmentModeOfTransport)", "CoreLocation: %s\n", v147);
+    if (v147 != buf)
     {
-      free(v116);
+      free(v147);
     }
   }
 
@@ -4836,157 +4895,74 @@ LABEL_142:
     dispatch_once(&qword_1EAFE5B00, &unk_1F0E6D570);
   }
 
-  sub_19B9F081C(qword_1EAFE5B10, a2, &v213);
-  v211 = v20;
-  v212 = v180;
-  if (v180)
+  sub_19B9F081C(qword_1EAFE5B10, a2, &v246, v139, v140);
+  v244 = v20;
+  v245 = v213;
+  if (v213)
   {
-    atomic_fetch_add_explicit(&v180->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v213->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v209 = v183;
-  v210 = v185;
-  if (v185)
+  v242 = v216;
+  v243 = v218;
+  if (v218)
   {
-    atomic_fetch_add_explicit(&v185->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v218->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v117 = *(a1 + 144);
-  v207 = *(a1 + 136);
-  v208 = v117;
-  if (v117)
+  v148 = *(a1 + 144);
+  v240 = *(a1 + 136);
+  v241 = v148;
+  if (v148)
   {
-    atomic_fetch_add_explicit(&v117->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v148->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v205 = 0;
-  v206 = 0;
-  v118 = sub_19B9A4AC0(&v245, a1, &v213, &v211, &v209, &v207, v13, v76);
-  if (v208)
+  v238 = 0;
+  v239 = 0;
+  v149 = sub_19B9A4AC0(&v278, a1, &v246, &v244, &v242, &v240, 1, &v238, v13, v97, 5.0);
+  if (v239)
   {
-    sub_19B8750F8(v208);
+    sub_19B8750F8(v239);
   }
 
-  if (v210)
+  if (v241)
   {
-    sub_19B8750F8(v210);
+    sub_19B8750F8(v241);
   }
 
-  if (v212)
+  if (v243)
   {
-    sub_19B8750F8(v212);
+    sub_19B8750F8(v243);
   }
 
-  if (v214)
+  if (v245)
   {
-    sub_19B8750F8(v214);
+    sub_19B8750F8(v245);
   }
 
-  if ((v118 & 1) == 0)
+  if (v247)
   {
-    v184 = *a3;
-    v119 = a4[1];
-    v120 = v119 - *a4;
-    v121 = v120 >= 0x11 || (a3[1] - *a3) >= 0x11;
-    if (!v121 || v119 == *a4)
+    sub_19B8750F8(v247);
+  }
+
+  if ((v149 & 1) == 0)
+  {
+    v217 = *a3;
+    v150 = a4[1];
+    v151 = v150 - *a4;
+    v152 = v151 >= 0x11 || (a3[1] - *a3) >= 0x11;
+    if (!v152 || v150 == *a4)
     {
 LABEL_189:
-      v97 = v219;
-      v98.i32[0] = 1;
-      v98.i32[1] = DWORD2(v246);
-      *(v219 + 80) = vadd_s32(*(v219 + 80), v98);
-      v99 = v247;
-      *(v97 + 88) += HIDWORD(v246);
-      sub_19B9988CC((v97 + 128), v99);
-      *(v219 + 96) = v248 + *(v219 + 96);
-      if (qword_1EAFE46B8 != -1)
-      {
-        dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
-      }
-
-      v100 = qword_1EAFE46E8;
-      if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_INFO))
-      {
-        v101 = (a3[1] - *a3) >> 4;
-        v102 = (a4[1] - *a4) >> 4;
-        v103 = (*(a1 + 56) - *(a1 + 48)) >> 4;
-        *buf = 134350080;
-        *&buf[4] = v13;
-        *&buf[12] = 2050;
-        *&buf[14] = v14;
-        v254 = 2050;
-        v255 = v101;
-        v256 = 2050;
-        v257 = v102;
-        v258 = 2050;
-        v259 = v103;
-        _os_log_impl(&dword_19B873000, v100, OS_LOG_TYPE_INFO, "CLTSP,MI,unable to construct route,added snap solutions,startTime,%{public}.3lf,endTime,%{public}.3lf,startSnap,%{public}lu,constructed,0,endSnap,%{public}lu,total,%{public}lu", buf, 0x34u);
-      }
-
-      v104 = sub_19B87DD40();
-      if (*(v104 + 160) > 1 || *(v104 + 164) > 1 || *(v104 + 168) > 1 || *(v104 + 152))
-      {
-        bzero(buf, 0x65CuLL);
-        if (qword_1EAFE46B8 != -1)
-        {
-          dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
-        }
-
-        v105 = (a3[1] - *a3) >> 4;
-        v106 = (a4[1] - *a4) >> 4;
-        v107 = (*(a1 + 56) - *(a1 + 48)) >> 4;
-        *v233 = 134350080;
-        *&v233[4] = v13;
-        *&v233[12] = 2050;
-        *&v233[14] = v14;
-        *&v233[22] = 2050;
-        v234 = v105;
-        *v235 = 2050;
-        *&v235[2] = v106;
-        *&v235[10] = 2050;
-        *&v235[12] = v107;
-        v108 = _os_log_send_and_compose_impl();
-        sub_19B885924("Generic", 1, 0, 2, "BOOL CLTripSegmentMapIntegratorSparse::constructSegment(NSUUID * _Nonnull, const std::vector<CLGeoMapSnapDataPtr> &, const std::vector<CLGeoMapSnapDataPtr> &, BOOL, BOOL, const CLTripSegmentModeOfTransport)", "CoreLocation: %s\n", v108);
-        if (v108 != buf)
-        {
-          free(v108);
-        }
-      }
-
-      v30 = 0;
-      goto LABEL_369;
-    }
-
-    v122 = 0;
-    v181 = 0;
-    v123 = v120 >> 4;
-    if (v123 >= 0x1E)
-    {
-      v123 = 30;
-    }
-
-    if (v123 <= 1)
-    {
-      v123 = 1;
-    }
-
-    v179 = 16 * v123;
-    while (1)
-    {
-      v124 = *a4;
-      v125 = sub_19BA0C01C(a1, (*v184)[3], (*v184)[4], *((*a4)[v122 / 8] + 24), *((*a4)[v122 / 8] + 32), 0.0);
-      v126 = v125;
-      v127 = v125 + v125;
-      if (v125 + v125 >= v73)
-      {
-        v128 = v125 + v125;
-      }
-
-      else
-      {
-        v128 = v73;
-      }
-
+      v126 = v252;
+      v127.i32[0] = 1;
+      v127.i32[1] = DWORD2(v279);
+      *(v252 + 80) = vadd_s32(*(v252 + 80), v127);
+      v128 = v280;
+      *(v126 + 88) += HIDWORD(v279);
+      sub_19B9988CC((v126 + 128), v128);
+      *(v252 + 96) = v281 + *(v252 + 96);
       if (qword_1EAFE46B8 != -1)
       {
         dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
@@ -4995,60 +4971,24 @@ LABEL_189:
       v129 = qword_1EAFE46E8;
       if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_INFO))
       {
-        v130 = *(**v184 + 144);
-        if (v130 == *(**v184 + 136))
-        {
-          v131 = 0;
-          v132 = 0;
-        }
-
-        else
-        {
-          v131 = *(v130 - 16);
-          v132 = *(v130 - 8);
-        }
-
-        v133 = *v124[v122 / 8];
-        v134 = *(v133 + 136);
-        if (*(v133 + 144) == v134)
-        {
-          v135 = 0;
-          v136 = 0;
-        }
-
-        else
-        {
-          v135 = *v134;
-          v136 = v134[1];
-        }
-
-        *buf = 134351617;
+        v130 = (a3[1] - *a3) >> 4;
+        v131 = (a4[1] - *a4) >> 4;
+        v132 = (*(a1 + 56) - *(a1 + 48)) >> 4;
+        *buf = 134350080;
         *&buf[4] = v13;
-        *&buf[12] = 2053;
-        *&buf[14] = v131;
-        v254 = 2053;
-        v255 = v132;
-        v256 = 2053;
-        v257 = v135;
-        v258 = 2053;
-        v259 = v136;
-        v260 = 2050;
-        v261 = v126;
-        v262 = 2050;
-        v263 = v14;
-        v264 = 2050;
-        v265 = v128;
-        v266 = 2050;
-        v267 = v73;
-        v268 = 2050;
-        v269 = v127;
-        v270 = 1026;
-        LODWORD(v271) = v181;
-        _os_log_impl(&dword_19B873000, v129, OS_LOG_TYPE_INFO, "CLTSP,MI,%{public}.3lf,try alternate astar route between,startPoint,%{sensitive}.7lf,%{sensitive}.7lf,endPoint,%{sensitive}.7lf,%{sensitive}.7lf,distance,%{public}.3lf,endTime,%{public}.3lf,maxDistance,%{public}.3lf,maxSpeedBasedDistance,%{public}.1lf,maxLOSBasedDistance,%{public}.1lf,tryCount,%{public}d", buf, 0x6Cu);
+        *&buf[12] = 2050;
+        *&buf[14] = v14;
+        v287 = 2050;
+        v288 = v130;
+        v289 = 2050;
+        v290 = v131;
+        v291 = 2050;
+        v292 = v132;
+        _os_log_impl(&dword_19B873000, v129, OS_LOG_TYPE_INFO, "CLTSP,MI,unable to construct route,added snap solutions,startTime,%{public}.3lf,endTime,%{public}.3lf,startSnap,%{public}lu,constructed,0,endSnap,%{public}lu,total,%{public}lu", buf, 0x34u);
       }
 
-      v137 = sub_19B87DD40();
-      if (*(v137 + 160) > 1 || *(v137 + 164) > 1 || *(v137 + 168) > 1 || *(v137 + 152))
+      v133 = sub_19B87DD40();
+      if (*(v133 + 160) > 1 || *(v133 + 164) > 1 || *(v133 + 168) > 1 || *(v133 + 152))
       {
         bzero(buf, 0x65CuLL);
         if (qword_1EAFE46B8 != -1)
@@ -5056,60 +4996,184 @@ LABEL_189:
           dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
         }
 
-        v138 = *(**v184 + 144);
-        if (v138 == *(**v184 + 136))
+        v134 = (a3[1] - *a3) >> 4;
+        v135 = (a4[1] - *a4) >> 4;
+        v136 = (*(a1 + 56) - *(a1 + 48)) >> 4;
+        *v266 = 134350080;
+        *&v266[4] = v13;
+        *&v266[12] = 2050;
+        *&v266[14] = v14;
+        *&v266[22] = 2050;
+        v267 = v134;
+        *v268 = 2050;
+        *&v268[2] = v135;
+        *&v268[10] = 2050;
+        *&v268[12] = v136;
+        v137 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE46E8, 1, "CLTSP,MI,unable to construct route,added snap solutions,startTime,%{public}.3lf,endTime,%{public}.3lf,startSnap,%{public}lu,constructed,0,endSnap,%{public}lu,total,%{public}lu", v266, 52);
+        sub_19B885924("Generic", 1, 0, 2, "BOOL CLTripSegmentMapIntegratorSparse::constructSegment(NSUUID * _Nonnull, const std::vector<CLGeoMapSnapDataPtr> &, const std::vector<CLGeoMapSnapDataPtr> &, BOOL, BOOL, const CLTripSegmentModeOfTransport)", "CoreLocation: %s\n", v137);
+        if (v137 != buf)
         {
-          v139 = 0;
-          v140 = 0;
+          free(v137);
+        }
+      }
+
+      v30 = 0;
+      goto LABEL_373;
+    }
+
+    v153 = 0;
+    v214 = 0;
+    v154 = v151 >> 4;
+    if (v154 >= 0x1E)
+    {
+      v154 = 30;
+    }
+
+    if (v154 <= 1)
+    {
+      v154 = 1;
+    }
+
+    v212 = 16 * v154;
+    while (1)
+    {
+      v155 = *a4;
+      sub_19BA0C01C(a1, *(*v217 + 24), *(*v217 + 32), *((*a4)[v153 / 8] + 3), *((*a4)[v153 / 8] + 4), 0.0);
+      v157 = v156;
+      v158 = v156 + v156;
+      if (v156 + v156 >= v94)
+      {
+        v159 = v156 + v156;
+      }
+
+      else
+      {
+        v159 = v94;
+      }
+
+      if (qword_1EAFE46B8 != -1)
+      {
+        dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
+      }
+
+      v160 = qword_1EAFE46E8;
+      if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_INFO))
+      {
+        v161 = *(**v217 + 144);
+        if (v161 == *(**v217 + 136))
+        {
+          v162 = 0;
+          v163 = 0;
         }
 
         else
         {
-          v139 = *(v138 - 16);
-          v140 = *(v138 - 8);
+          v162 = *(v161 - 16);
+          v163 = *(v161 - 8);
         }
 
-        v141 = *v124[v122 / 8];
-        v142 = *(v141 + 136);
-        if (*(v141 + 144) == v142)
+        v164 = *v155[v153 / 8];
+        v165 = *(v164 + 136);
+        if (*(v164 + 144) == v165)
         {
-          v143 = 0;
-          v144 = 0;
+          v166 = 0;
+          v167 = 0;
         }
 
         else
         {
-          v143 = *v142;
-          v144 = v142[1];
+          v166 = *v165;
+          v167 = v165[1];
         }
 
-        *v233 = 134351617;
-        *&v233[4] = v13;
-        *&v233[12] = 2053;
-        *&v233[14] = v139;
-        *&v233[22] = 2053;
-        v234 = v140;
-        *v235 = 2053;
-        *&v235[2] = v143;
-        *&v235[10] = 2053;
-        *&v235[12] = v144;
-        *&v235[20] = 2050;
-        *&v235[22] = v126;
-        *&v235[30] = 2050;
-        v236 = v14;
-        v237 = 2050;
-        v238 = v128;
-        v239 = 2050;
-        v240 = v73;
-        v241 = 2050;
-        v242 = v127;
-        v243 = 1026;
-        LODWORD(v244) = v181;
-        v145 = _os_log_send_and_compose_impl();
-        sub_19B885924("Generic", 1, 0, 2, "BOOL CLTripSegmentMapIntegratorSparse::constructSegment(NSUUID * _Nonnull, const std::vector<CLGeoMapSnapDataPtr> &, const std::vector<CLGeoMapSnapDataPtr> &, BOOL, BOOL, const CLTripSegmentModeOfTransport)", "CoreLocation: %s\n", v145);
-        if (v145 != buf)
+        *buf = 134351617;
+        *&buf[4] = v13;
+        *&buf[12] = 2053;
+        *&buf[14] = v162;
+        v287 = 2053;
+        v288 = v163;
+        v289 = 2053;
+        v290 = v166;
+        v291 = 2053;
+        v292 = v167;
+        v293 = 2050;
+        v294 = *&v157;
+        v295 = 2050;
+        v296 = v14;
+        v297 = 2050;
+        v298 = v159;
+        v299 = 2050;
+        v300 = v94;
+        v301 = 2050;
+        v302 = v158;
+        v303 = 1026;
+        LODWORD(v304) = v214;
+        _os_log_impl(&dword_19B873000, v160, OS_LOG_TYPE_INFO, "CLTSP,MI,%{public}.3lf,try alternate astar route between,startPoint,%{sensitive}.7lf,%{sensitive}.7lf,endPoint,%{sensitive}.7lf,%{sensitive}.7lf,distance,%{public}.3lf,endTime,%{public}.3lf,maxDistance,%{public}.3lf,maxSpeedBasedDistance,%{public}.1lf,maxLOSBasedDistance,%{public}.1lf,tryCount,%{public}d", buf, 0x6Cu);
+      }
+
+      v168 = sub_19B87DD40();
+      if (*(v168 + 160) > 1 || *(v168 + 164) > 1 || *(v168 + 168) > 1 || *(v168 + 152))
+      {
+        bzero(buf, 0x65CuLL);
+        if (qword_1EAFE46B8 != -1)
         {
-          free(v145);
+          dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
+        }
+
+        v171 = *(**v217 + 144);
+        if (v171 == *(**v217 + 136))
+        {
+          v172 = 0;
+          v173 = 0;
+        }
+
+        else
+        {
+          v172 = *(v171 - 16);
+          v173 = *(v171 - 8);
+        }
+
+        v174 = *v155[v153 / 8];
+        v175 = *(v174 + 136);
+        if (*(v174 + 144) == v175)
+        {
+          v176 = 0;
+          v177 = 0;
+        }
+
+        else
+        {
+          v176 = *v175;
+          v177 = v175[1];
+        }
+
+        *v266 = 134351617;
+        *&v266[4] = v13;
+        *&v266[12] = 2053;
+        *&v266[14] = v172;
+        *&v266[22] = 2053;
+        v267 = v173;
+        *v268 = 2053;
+        *&v268[2] = v176;
+        *&v268[10] = 2053;
+        *&v268[12] = v177;
+        *&v268[20] = 2050;
+        *&v268[22] = v157;
+        *&v268[30] = 2050;
+        v269 = v14;
+        v270 = 2050;
+        v271 = v159;
+        v272 = 2050;
+        v273 = v94;
+        v274 = 2050;
+        v275 = v158;
+        v276 = 1026;
+        LODWORD(v277) = v214;
+        v178 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE46E8, 1, "CLTSP,MI,%{public}.3lf,try alternate astar route between,startPoint,%{sensitive}.7lf,%{sensitive}.7lf,endPoint,%{sensitive}.7lf,%{sensitive}.7lf,distance,%{public}.3lf,endTime,%{public}.3lf,maxDistance,%{public}.3lf,maxSpeedBasedDistance,%{public}.1lf,maxLOSBasedDistance,%{public}.1lf,tryCount,%{public}d", v266, 108);
+        sub_19B885924("Generic", 1, 0, 2, "BOOL CLTripSegmentMapIntegratorSparse::constructSegment(NSUUID * _Nonnull, const std::vector<CLGeoMapSnapDataPtr> &, const std::vector<CLGeoMapSnapDataPtr> &, BOOL, BOOL, const CLTripSegmentModeOfTransport)", "CoreLocation: %s\n", v178);
+        if (v178 != buf)
+        {
+          free(v178);
         }
       }
 
@@ -5118,122 +5182,127 @@ LABEL_189:
         dispatch_once(&qword_1EAFE5B00, &unk_1F0E6D570);
       }
 
-      sub_19B9F081C(qword_1EAFE5B10, a2, &v203);
-      v146 = v184[1];
-      v201 = *v184;
-      v202 = v146;
-      if (v146)
+      sub_19B9F081C(qword_1EAFE5B10, a2, &v236, v169, v170);
+      v179 = *(v217 + 1);
+      v234 = *v217;
+      v235 = v179;
+      if (v179)
       {
-        atomic_fetch_add_explicit(&v146->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v179->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v199 = v124[v122 / 8];
-      v147 = v124[v122 / 8 + 1];
-      v200 = v147;
-      if (v147)
+      v232 = v155[v153 / 8];
+      v180 = v155[v153 / 8 + 1];
+      v233 = v180;
+      if (v180)
       {
-        atomic_fetch_add_explicit(&v147->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v180->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v148 = *(a1 + 144);
-      v197 = *(a1 + 136);
-      v198 = v148;
-      if (v148)
+      v181 = *(a1 + 144);
+      v230 = *(a1 + 136);
+      v231 = v181;
+      if (v181)
       {
-        atomic_fetch_add_explicit(&v148->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v181->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v195 = 0;
-      v196 = 0;
-      v149 = sub_19B9A4AC0(&v245, a1, &v203, &v201, &v199, &v197, v13, v128);
-      if (v198)
+      v228 = 0;
+      v229 = 0;
+      v182 = sub_19B9A4AC0(&v278, a1, &v236, &v234, &v232, &v230, 1, &v228, v13, v159, 5.0);
+      if (v229)
       {
-        sub_19B8750F8(v198);
+        sub_19B8750F8(v229);
       }
 
-      if (v200)
+      if (v231)
       {
-        sub_19B8750F8(v200);
+        sub_19B8750F8(v231);
       }
 
-      if (v202)
+      if (v233)
       {
-        sub_19B8750F8(v202);
+        sub_19B8750F8(v233);
       }
 
-      if (v204)
+      if (v235)
       {
-        sub_19B8750F8(v204);
+        sub_19B8750F8(v235);
       }
 
-      if (v149)
+      if (v237)
+      {
+        sub_19B8750F8(v237);
+      }
+
+      if (v182)
       {
         break;
       }
 
-      ++v181;
-      v122 += 16;
-      if (v179 == v122)
+      ++v214;
+      v153 += 16;
+      if (v212 == v153)
       {
         goto LABEL_189;
       }
     }
 
-    v20 = *v184;
-    v182 = v184[1];
-    if (v182)
+    v20 = *v217;
+    v215 = *(v217 + 1);
+    if (v215)
     {
-      atomic_fetch_add_explicit(&v182->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v215->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    if (v180)
+    if (v213)
     {
-      sub_19B8750F8(v180);
+      sub_19B8750F8(v213);
     }
 
-    v183 = v124[v122 / 8];
-    v150 = v124[v122 / 8 + 1];
-    if (v150)
+    v216 = v155[v153 / 8];
+    v183 = v155[v153 / 8 + 1];
+    if (v183)
     {
-      atomic_fetch_add_explicit(&v150->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v183->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    if (v185)
+    if (v218)
     {
-      sub_19B8750F8(v185);
+      sub_19B8750F8(v218);
     }
 
-    v180 = v182;
-    v185 = v150;
+    v213 = v215;
+    v218 = v183;
   }
 
-LABEL_301:
-  v151 = v219;
-  *(v219 + 96) = v248 + *(v219 + 96);
-  sub_19B9988CC((v151 + 128), v247);
-  v152 = *a3;
-  v153 = a3[1];
-  if ((v153 - *a3) >= 0x11 && v20 != *v152)
+LABEL_305:
+  v184 = v252;
+  *(v252 + 96) = v281 + *(v252 + 96);
+  sub_19B9988CC((v184 + 128), v280);
+  v185 = *a3;
+  v186 = a3[1];
+  if ((v186 - *a3) >= 0x11 && v20 != *v185)
   {
-    memset(v233, 0, sizeof(v233));
-    if (sub_19B9F03E4(a1, a2, v152, v153, v233))
+    memset(v266, 0, sizeof(v266));
+    if (sub_19B9F03E4(a1, a2, v185, v186, v266))
     {
-      sub_19B8F1A28((a1 + 152), *(a1 + 160), *v233, *&v233[8], (*&v233[8] - *v233) >> 4);
+      sub_19B8F1A28((a1 + 152), *(a1 + 160), *v266, *&v266[8], (*&v266[8] - *v266) >> 4);
       if (qword_1EAFE46B8 != -1)
       {
         dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
       }
 
-      v154 = qword_1EAFE46E8;
+      v187 = qword_1EAFE46E8;
       if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_INFO))
       {
         *buf = 67240192;
-        *&buf[4] = (*&v233[8] - *v233) >> 4;
-        _os_log_impl(&dword_19B873000, v154, OS_LOG_TYPE_INFO, "CLTSP,route appended at start using startSnaps,numRoads,%{public}d", buf, 8u);
+        *&buf[4] = (*&v266[8] - *v266) >> 4;
+        _os_log_impl(&dword_19B873000, v187, OS_LOG_TYPE_INFO, "CLTSP,route appended at start using startSnaps,numRoads,%{public}d", buf, 8u);
       }
 
-      v155 = sub_19B87DD40();
-      if (*(v155 + 160) > 1 || *(v155 + 164) > 1 || *(v155 + 168) > 1 || *(v155 + 152))
+      v188 = sub_19B87DD40();
+      if (*(v188 + 160) > 1 || *(v188 + 164) > 1 || *(v188 + 168) > 1 || *(v188 + 152))
       {
         bzero(buf, 0x65CuLL);
         if (qword_1EAFE46B8 != -1)
@@ -5241,46 +5310,46 @@ LABEL_301:
           dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
         }
 
-        v221 = 67240192;
-        LODWORD(v222) = (*&v233[8] - *v233) >> 4;
-        v156 = _os_log_send_and_compose_impl();
-        sub_19B885924("Generic", 1, 0, 2, "BOOL CLTripSegmentMapIntegratorSparse::constructSegment(NSUUID * _Nonnull, const std::vector<CLGeoMapSnapDataPtr> &, const std::vector<CLGeoMapSnapDataPtr> &, BOOL, BOOL, const CLTripSegmentModeOfTransport)", "CoreLocation: %s\n", v156);
-        if (v156 != buf)
+        v254 = 67240192;
+        LODWORD(v255) = (*&v266[8] - *v266) >> 4;
+        v189 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE46E8, 1, "CLTSP,route appended at start using startSnaps,numRoads,%{public}d", &v254, 8);
+        sub_19B885924("Generic", 1, 0, 2, "BOOL CLTripSegmentMapIntegratorSparse::constructSegment(NSUUID * _Nonnull, const std::vector<CLGeoMapSnapDataPtr> &, const std::vector<CLGeoMapSnapDataPtr> &, BOOL, BOOL, const CLTripSegmentModeOfTransport)", "CoreLocation: %s\n", v189);
+        if (v189 != buf)
         {
-          free(v156);
+          free(v189);
         }
       }
     }
 
-    *buf = v233;
+    *buf = v266;
     sub_19B8F0E84(buf);
   }
 
   if (a5)
   {
-    v157 = *a4;
-    v158 = a4[1];
-    if ((v158 - *a4) >= 0x11 && v183 != *(v158 - 16))
+    v190 = *a4;
+    v191 = a4[1];
+    if ((v191 - *a4) >= 0x11 && v216 != *(v191 - 2))
     {
-      memset(v233, 0, sizeof(v233));
-      if (sub_19B9F03E4(a1, a2, v157, v158, v233))
+      memset(v266, 0, sizeof(v266));
+      if (sub_19B9F03E4(a1, a2, v190, v191, v266))
       {
-        sub_19B8F1A28((a1 + 152), *(a1 + 160), *v233, *&v233[8], (*&v233[8] - *v233) >> 4);
+        sub_19B8F1A28((a1 + 152), *(a1 + 160), *v266, *&v266[8], (*&v266[8] - *v266) >> 4);
         if (qword_1EAFE46B8 != -1)
         {
           dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
         }
 
-        v159 = qword_1EAFE46E8;
+        v192 = qword_1EAFE46E8;
         if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_INFO))
         {
           *buf = 67240192;
-          *&buf[4] = (*&v233[8] - *v233) >> 4;
-          _os_log_impl(&dword_19B873000, v159, OS_LOG_TYPE_INFO, "CLTSP,route appended at end using stopSnaps,numRoads,%{public}d", buf, 8u);
+          *&buf[4] = (*&v266[8] - *v266) >> 4;
+          _os_log_impl(&dword_19B873000, v192, OS_LOG_TYPE_INFO, "CLTSP,route appended at end using stopSnaps,numRoads,%{public}d", buf, 8u);
         }
 
-        v160 = sub_19B87DD40();
-        if (*(v160 + 160) > 1 || *(v160 + 164) > 1 || *(v160 + 168) > 1 || *(v160 + 152))
+        v193 = sub_19B87DD40();
+        if (*(v193 + 160) > 1 || *(v193 + 164) > 1 || *(v193 + 168) > 1 || *(v193 + 152))
         {
           bzero(buf, 0x65CuLL);
           if (qword_1EAFE46B8 != -1)
@@ -5288,108 +5357,108 @@ LABEL_301:
             dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
           }
 
-          v221 = 67240192;
-          LODWORD(v222) = (*&v233[8] - *v233) >> 4;
-          v161 = _os_log_send_and_compose_impl();
-          sub_19B885924("Generic", 1, 0, 2, "BOOL CLTripSegmentMapIntegratorSparse::constructSegment(NSUUID * _Nonnull, const std::vector<CLGeoMapSnapDataPtr> &, const std::vector<CLGeoMapSnapDataPtr> &, BOOL, BOOL, const CLTripSegmentModeOfTransport)", "CoreLocation: %s\n", v161);
-          if (v161 != buf)
+          v254 = 67240192;
+          LODWORD(v255) = (*&v266[8] - *v266) >> 4;
+          v194 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE46E8, 1, "CLTSP,route appended at end using stopSnaps,numRoads,%{public}d", &v254, 8);
+          sub_19B885924("Generic", 1, 0, 2, "BOOL CLTripSegmentMapIntegratorSparse::constructSegment(NSUUID * _Nonnull, const std::vector<CLGeoMapSnapDataPtr> &, const std::vector<CLGeoMapSnapDataPtr> &, BOOL, BOOL, const CLTripSegmentModeOfTransport)", "CoreLocation: %s\n", v194);
+          if (v194 != buf)
           {
-            free(v161);
+            free(v194);
           }
         }
       }
 
-      *buf = v233;
+      *buf = v266;
       sub_19B8F0E84(buf);
     }
   }
 
-  v193 = 0uLL;
-  v194 = 0;
-  v163 = *(&v245 + 1);
-  v162 = v245;
-  if (v245 != *(&v245 + 1))
+  v226 = 0uLL;
+  v227 = 0;
+  v196 = *(&v278 + 1);
+  v195 = v278;
+  if (v278 != *(&v278 + 1))
   {
     do
     {
-      sub_19B8EAB68(&v193, *v162);
-      v162 += 2;
+      sub_19B8EAB68(&v226, *v195);
+      v195 += 2;
     }
 
-    while (v162 != v163);
-    if (v193 != *(&v193 + 1))
+    while (v195 != v196);
+    if (v226 != *(&v226 + 1))
     {
-      v165 = *(a1 + 160);
-      v164 = (a1 + 152);
-      if (*(a1 + 152) == v165)
+      v198 = *(a1 + 160);
+      v197 = (a1 + 152);
+      if (*(a1 + 152) == v198)
       {
-        sub_19B8F1A28(v164, *(a1 + 152), v193, *(&v193 + 1), (*(&v193 + 1) - v193) >> 4);
+        sub_19B8F1A28(v197, *(a1 + 152), v226, *(&v226 + 1), (*(&v226 + 1) - v226) >> 4);
       }
 
       else
       {
-        v166 = *(v165 - 2);
-        if (*v166 == **v193 && v166[1] == *(*v193 + 8))
+        v199 = *(v198 - 2);
+        if (*v199 == **v226 && v199[1] == *(*v226 + 8))
         {
-          sub_19B8F1A28(v164, v165, (v193 + 16), *(&v193 + 1), (*(&v193 + 1) - (v193 + 16)) >> 4);
+          sub_19B8F1A28(v197, v198, (v226 + 16), *(&v226 + 1), (*(&v226 + 1) - (v226 + 16)) >> 4);
         }
 
         else
         {
-          sub_19B8F1A28(v164, v165, v193, *(&v193 + 1), (*(&v193 + 1) - v193) >> 4);
+          sub_19B8F1A28(v197, v198, v226, *(&v226 + 1), (*(&v226 + 1) - v226) >> 4);
         }
       }
     }
   }
 
-  v190 = 0;
-  v191 = 0;
-  v192 = 0;
-  *&v233[16] = 0;
-  v234 = 0;
-  *v233 = xmmword_19BA89490;
-  *v235 = 0x3FF0000000000000;
-  memset(&v235[8], 0, 24);
-  sub_19B948EFC(a1 + 72, &v235[8], 1, 0, v20[2], v183[2]);
+  v223 = 0;
+  v224 = 0;
+  v225 = 0;
+  *&v266[16] = 0;
+  v267 = 0;
+  *v266 = xmmword_19BA89490;
+  *v268 = 0x3FF0000000000000;
+  memset(&v268[8], 0, 24);
+  sub_19B948EFC(a1 + 72, &v268[8], 1, 0, v20[2], *(v216 + 2));
   if (a6 == 1)
   {
-    if ((sub_19B9F1380(a1, &v245, &v190, a3, a4, v233) & 1) == 0)
+    if ((sub_19B9F1380(a1, &v278, &v223, a3, a4, v266) & 1) == 0)
     {
-      goto LABEL_368;
+      goto LABEL_372;
     }
 
-LABEL_356:
+LABEL_360:
     sub_19B9F22AC((a1 + 48), *(a1 + 56), *a3, a3[1], (a3[1] - *a3) >> 4);
-    sub_19B9F2604((a1 + 48), *(a1 + 56), v190, v191, (v191 - v190) >> 4);
+    sub_19B9F2604((a1 + 48), *(a1 + 56), v223, v224, (v224 - v223) >> 4);
     sub_19B9F22AC((a1 + 48), *(a1 + 56), *a4, a4[1], (a4[1] - *a4) >> 4);
     if (qword_1EAFE46B8 != -1)
     {
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
     }
 
-    v168 = qword_1EAFE46E8;
+    v201 = qword_1EAFE46E8;
     if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_INFO))
     {
-      v169 = (a3[1] - *a3) >> 4;
-      v170 = (a4[1] - *a4) >> 4;
-      v171 = (*(a1 + 56) - *(a1 + 48)) >> 4;
+      v202 = (a3[1] - *a3) >> 4;
+      v203 = (a4[1] - *a4) >> 4;
+      v204 = (*(a1 + 56) - *(a1 + 48)) >> 4;
       *buf = 134350336;
       *&buf[4] = v13;
       *&buf[12] = 2050;
       *&buf[14] = v14;
-      v254 = 2050;
-      v255 = v169;
-      v256 = 2050;
-      v257 = (v191 - v190) >> 4;
-      v258 = 2050;
-      v259 = v170;
-      v260 = 2050;
-      v261 = *&v171;
-      _os_log_impl(&dword_19B873000, v168, OS_LOG_TYPE_INFO, "CLTSP,MI,added snap solutions,startTime,%{public}.3lf,endTime,%{public}.3lf,startSnap,%{public}lu,constructed,%{public}lu,endSnap,%{public}lu,total,%{public}lu", buf, 0x3Eu);
+      v287 = 2050;
+      v288 = v202;
+      v289 = 2050;
+      v290 = (v224 - v223) >> 4;
+      v291 = 2050;
+      v292 = v203;
+      v293 = 2050;
+      v294 = v204;
+      _os_log_impl(&dword_19B873000, v201, OS_LOG_TYPE_INFO, "CLTSP,MI,added snap solutions,startTime,%{public}.3lf,endTime,%{public}.3lf,startSnap,%{public}lu,constructed,%{public}lu,endSnap,%{public}lu,total,%{public}lu", buf, 0x3Eu);
     }
 
-    v172 = sub_19B87DD40();
-    if (*(v172 + 160) > 1 || *(v172 + 164) > 1 || *(v172 + 168) > 1 || *(v172 + 152))
+    v205 = sub_19B87DD40();
+    if (*(v205 + 160) > 1 || *(v205 + 164) > 1 || *(v205 + 168) > 1 || *(v205 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE46B8 != -1)
@@ -5397,94 +5466,94 @@ LABEL_356:
         dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
       }
 
-      v173 = (a3[1] - *a3) >> 4;
-      v174 = (a4[1] - *a4) >> 4;
-      v175 = (*(a1 + 56) - *(a1 + 48)) >> 4;
-      v221 = 134350336;
-      v222 = v13;
-      v223 = 2050;
-      v224 = v14;
-      v225 = 2050;
-      v226 = v173;
-      v227 = 2050;
-      v228 = (v191 - v190) >> 4;
-      v229 = 2050;
-      v230 = v174;
-      v231 = 2050;
-      v232 = v175;
-      v176 = _os_log_send_and_compose_impl();
-      sub_19B885924("Generic", 1, 0, 2, "BOOL CLTripSegmentMapIntegratorSparse::constructSegment(NSUUID * _Nonnull, const std::vector<CLGeoMapSnapDataPtr> &, const std::vector<CLGeoMapSnapDataPtr> &, BOOL, BOOL, const CLTripSegmentModeOfTransport)", "CoreLocation: %s\n", v176);
-      if (v176 != buf)
+      v206 = (a3[1] - *a3) >> 4;
+      v207 = (a4[1] - *a4) >> 4;
+      v208 = (*(a1 + 56) - *(a1 + 48)) >> 4;
+      v254 = 134350336;
+      v255 = v13;
+      v256 = 2050;
+      v257 = v14;
+      v258 = 2050;
+      v259 = v206;
+      v260 = 2050;
+      v261 = (v224 - v223) >> 4;
+      v262 = 2050;
+      v263 = v207;
+      v264 = 2050;
+      v265 = v208;
+      v209 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE46E8, 1, "CLTSP,MI,added snap solutions,startTime,%{public}.3lf,endTime,%{public}.3lf,startSnap,%{public}lu,constructed,%{public}lu,endSnap,%{public}lu,total,%{public}lu", &v254, 62);
+      sub_19B885924("Generic", 1, 0, 2, "BOOL CLTripSegmentMapIntegratorSparse::constructSegment(NSUUID * _Nonnull, const std::vector<CLGeoMapSnapDataPtr> &, const std::vector<CLGeoMapSnapDataPtr> &, BOOL, BOOL, const CLTripSegmentModeOfTransport)", "CoreLocation: %s\n", v209);
+      if (v209 != buf)
       {
-        free(v176);
+        free(v209);
       }
     }
 
-    goto LABEL_368;
+    goto LABEL_372;
   }
 
-  v189[0] = v20;
-  v189[1] = v180;
-  if (v180)
+  v222[0] = v20;
+  v222[1] = v213;
+  if (v213)
   {
-    atomic_fetch_add_explicit(&v180->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v213->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v188[0] = v183;
-  v188[1] = v185;
-  if (v185)
+  v221[0] = v216;
+  v221[1] = v218;
+  if (v218)
   {
-    atomic_fetch_add_explicit(&v185->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v218->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v167 = sub_19B9F089C(a1, &v245, &v190, v189, v188, v233);
-  if (v185)
+  v200 = sub_19B9F089C(a1, &v278, &v223, v222, v221, v266);
+  if (v218)
   {
-    sub_19B8750F8(v185);
+    sub_19B8750F8(v218);
   }
 
-  if (v180)
+  if (v213)
   {
-    sub_19B8750F8(v180);
-    if ((v167 & 1) == 0)
+    sub_19B8750F8(v213);
+    if (!v200)
     {
-      goto LABEL_368;
+      goto LABEL_372;
     }
 
-    goto LABEL_356;
+    goto LABEL_360;
   }
 
-  if (v167)
+  if (v200)
   {
-    goto LABEL_356;
+    goto LABEL_360;
   }
 
-LABEL_368:
-  v177 = *(a1 + 136);
-  *(v219 + 104) += *(v177 + 116);
+LABEL_372:
+  v210 = *(a1 + 136);
+  *(v252 + 104) += *(v210 + 116);
   Current = CFAbsoluteTimeGetCurrent();
-  sub_19B8E62BC(v177 + 288, Current, 0.5, 0.5);
-  v30 = v190 != v191;
-  *buf = &v235[8];
+  sub_19B8E62BC(v210 + 288, Current, 0.5, 0.5);
+  v30 = v223 != v224;
+  *buf = &v268[8];
   sub_19B8F0E84(buf);
-  *buf = &v190;
+  *buf = &v223;
   sub_19B8F0E84(buf);
-  *buf = &v193;
+  *buf = &v226;
   sub_19B8F0E84(buf);
-LABEL_369:
-  *buf = &v245;
+LABEL_373:
+  *buf = &v278;
   sub_19B8F0E84(buf);
-LABEL_370:
-  if (v220)
+LABEL_374:
+  if (v253)
   {
-    sub_19B8750F8(v220);
+    sub_19B8750F8(v253);
   }
 
-  v21 = v180;
+  v21 = v213;
 LABEL_41:
-  if (v185)
+  if (v218)
   {
-    sub_19B8750F8(v185);
+    sub_19B8750F8(v218);
   }
 
   if (v21)
@@ -5492,8 +5561,6 @@ LABEL_41:
     sub_19B8750F8(v21);
   }
 
-LABEL_76:
-  v44 = *MEMORY[0x1E69E9840];
   return v30;
 }
 
@@ -5552,8 +5619,8 @@ BOOL sub_19B9F03E4(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
     }
 
     v16 = v14[1];
-    *&v50 = v15;
-    *(&v50 + 1) = v16;
+    *&v52 = v15;
+    *(&v52 + 1) = v16;
     if (v16)
     {
       atomic_fetch_add_explicit(v16 + 1, 1uLL, memory_order_relaxed);
@@ -5562,12 +5629,12 @@ BOOL sub_19B9F03E4(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
     v17 = *(a5 + 8);
     if (*a5 == v17)
     {
-      sub_19B8EAB68(a5, &v50);
+      sub_19B8EAB68(a5, &v52);
       v11 = *v8;
-      v20 = *(v8 + 8);
-      if (v20)
+      v22 = *(v8 + 8);
+      if (v22)
       {
-        atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
       v19 = v12;
@@ -5588,57 +5655,52 @@ BOOL sub_19B9F03E4(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 
       if (*v18 != *v15 || v18[1] != v15[1])
       {
-        if (sub_19B9F6278(v18, &v50))
+        if (sub_19B9F6278(v18, &v52))
         {
-          sub_19B8EAB68(a5, &v50);
+          sub_19B8EAB68(a5, &v52);
         }
 
         else
         {
-          v45 = 0;
-          v49 = 0;
-          memset(v43, 0, sizeof(v43));
-          v44 = 0;
-          v48 = 0;
           v47 = 0;
-          v46 = 1;
+          v51 = 0;
+          memset(v45, 0, sizeof(v45));
+          v46 = 0;
+          v50 = 0;
+          v49 = 0;
+          v48 = 1;
           if (qword_1EAFE5B00 != -1)
           {
             dispatch_once(&qword_1EAFE5B00, &unk_1F0E6D570);
           }
 
-          sub_19B9F081C(qword_1EAFE5B10, a2, &v41);
-          v39 = v11;
-          v40 = v12;
+          sub_19B9F081C(qword_1EAFE5B10, a2, &v43, v20, v21);
+          v41 = v11;
+          v42 = v12;
           if (v12)
           {
             atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          v21 = *(v8 + 8);
-          v37 = *v8;
-          v38 = v21;
-          if (v21)
+          v23 = *(v8 + 8);
+          v39 = *v8;
+          v40 = v23;
+          if (v23)
           {
-            atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit(&v23->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          v22 = *(a1 + 144);
-          v35 = *(a1 + 136);
-          v36 = v22;
-          if (v22)
+          v24 = *(a1 + 144);
+          v37 = *(a1 + 136);
+          v38 = v24;
+          if (v24)
           {
-            atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit(&v24->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          v33 = 0;
-          v34 = 0;
-          v23 = sub_19B9A4AC0(v43, a1, &v41, &v39, &v37, &v35, v13, -1.0);
-          if (v34)
-          {
-            sub_19B8750F8(v34);
-          }
-
+          v35 = 0;
+          v36 = 0;
+          v25 = sub_19B9A4AC0(v45, a1, &v43, &v41, &v39, &v37, 1, &v35, v13, -1.0, 5.0);
           if (v36)
           {
             sub_19B8750F8(v36);
@@ -5659,60 +5721,65 @@ BOOL sub_19B9F03E4(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
             sub_19B8750F8(v42);
           }
 
-          if (v23)
+          if (v44)
           {
-            v30 = 0;
-            v31 = 0;
+            sub_19B8750F8(v44);
+          }
+
+          if (v25)
+          {
             v32 = 0;
-            v25 = *(&v43[0] + 1);
-            v24 = *&v43[0];
-            if (*&v43[0] == *(&v43[0] + 1))
+            v33 = 0;
+            v34 = 0;
+            v27 = *(&v45[0] + 1);
+            v26 = *&v45[0];
+            if (*&v45[0] == *(&v45[0] + 1))
             {
-              v26 = 0;
+              v28 = 0;
             }
 
             else
             {
               do
               {
-                sub_19B8EAB68(&v30, *v24);
-                v24 += 2;
+                sub_19B8EAB68(&v32, *v26);
+                v26 += 2;
               }
 
-              while (v24 != v25);
-              v26 = v30;
+              while (v26 != v27);
+              v28 = v32;
             }
 
-            v27 = *(a5 + 8);
-            if (*a5 != v27 && (v28 = *(v27 - 2), *v28 == **v26) && v28[1] == *(*v26 + 8))
+            v29 = *(a5 + 8);
+            if (*a5 != v29 && (v30 = *(v29 - 2), *v30 == **v28) && v30[1] == *(*v28 + 8))
             {
-              sub_19B8F1A28(a5, v27, v26 + 2, v31, (v31 - (v26 + 2)) >> 4);
+              sub_19B8F1A28(a5, v29, v28 + 2, v33, (v33 - (v28 + 2)) >> 4);
             }
 
             else
             {
-              sub_19B8F1A28(a5, v27, v26, v31, (v31 - v26) >> 4);
+              sub_19B8F1A28(a5, v29, v28, v33, (v33 - v28) >> 4);
             }
 
-            v51 = &v30;
-            sub_19B8F0E84(&v51);
+            v53 = &v32;
+            sub_19B8F0E84(&v53);
           }
 
           else
           {
-            sub_19B8EAB68(a5, &v50);
+            sub_19B8EAB68(a5, &v52);
           }
 
-          v30 = v43;
-          sub_19B8F0E84(&v30);
+          v32 = v45;
+          sub_19B8F0E84(&v32);
         }
       }
 
       v11 = *v8;
-      v20 = *(v8 + 8);
-      if (v20)
+      v22 = *(v8 + 8);
+      if (v22)
       {
-        atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
       if (v12)
@@ -5728,12 +5795,12 @@ BOOL sub_19B9F03E4(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 
     sub_19B8750F8(v19);
 LABEL_57:
-    if (*(&v50 + 1))
+    if (*(&v52 + 1))
     {
-      sub_19B8750F8(*(&v50 + 1));
+      sub_19B8750F8(*(&v52 + 1));
     }
 
-    v12 = v20;
+    v12 = v22;
 LABEL_60:
     v8 += 16;
   }
@@ -5773,11 +5840,13 @@ void sub_19B9F0768(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_19B9F081C(std::mutex *a1@<X0>, void *a2@<X1>, void *a3@<X8>)
+void sub_19B9F081C(std::mutex *a1@<X0>, void *a2@<X1>, void *a3@<X8>, uint64_t a4@<X2>, uint64_t a5@<X3>)
 {
-  sub_19B8759E8(__p, [objc_msgSend(a2 "UUIDString")]);
+  v7 = objc_msgSend_UUIDString(a2, a2, a4, a5);
+  v11 = objc_msgSend_UTF8String(v7, v8, v9, v10);
+  sub_19B8759E8(__p, v11);
   sub_19B9A26B0(a1, __p, a3);
-  if (v6 < 0)
+  if (v13 < 0)
   {
     operator delete(__p[0]);
   }
@@ -5793,9 +5862,9 @@ void sub_19B9F0880(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t sub_19B9F089C(float64x2_t *a1, uint64_t *a2, uint64_t a3, double **a4, double **a5, uint64_t a6)
+BOOL sub_19B9F089C(float64x2_t *a1, uint64_t *a2, void **a3, double **a4, double ***a5, uint64_t a6)
 {
-  v81 = *MEMORY[0x1E69E9840];
+  v90 = *MEMORY[0x1E69E9840];
   v6 = *a4;
   if (!*a4 || (v8 = *a5) == 0)
   {
@@ -5804,17 +5873,17 @@ uint64_t sub_19B9F089C(float64x2_t *a1, uint64_t *a2, uint64_t a3, double **a4, 
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
     }
 
-    v19 = qword_1EAFE46E8;
+    v20 = qword_1EAFE46E8;
     if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B873000, v19, OS_LOG_TYPE_ERROR, "CLTSP,MI,interpolateLocationsAlongSegmentPedestrian,null pointers", buf, 2u);
+      _os_log_impl(&dword_19B873000, v20, OS_LOG_TYPE_ERROR, "CLTSP,MI,interpolateLocationsAlongSegmentPedestrian,null pointers", buf, 2u);
     }
 
-    v20 = sub_19B87DD40();
-    if ((*(v20 + 160) & 0x80000000) != 0 && (*(v20 + 164) & 0x80000000) != 0 && (*(v20 + 168) & 0x80000000) != 0 && !*(v20 + 152))
+    v21 = sub_19B87DD40();
+    if ((*(v21 + 160) & 0x80000000) != 0 && (*(v21 + 164) & 0x80000000) != 0 && (*(v21 + 168) & 0x80000000) != 0 && !*(v21 + 152))
     {
-      goto LABEL_18;
+      return 0;
     }
 
     bzero(buf, 0x65CuLL);
@@ -5823,32 +5892,32 @@ uint64_t sub_19B9F089C(float64x2_t *a1, uint64_t *a2, uint64_t a3, double **a4, 
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
     }
 
-    LOWORD(v68) = 0;
-    v21 = _os_log_send_and_compose_impl();
-    sub_19B885924("Generic", 1, 0, 0, "BOOL CLTripSegmentMapIntegratorSparse::interpolateLocationsAlongSegmentPedestrian(CLAStarRouteConstructor &, std::vector<CLGeoMapSnapDataPtr> &, const CLGeoMapSnapDataPtr, const CLGeoMapSnapDataPtr, const CLGeoMapLocationArray &) const", "CoreLocation: %s\n", v21);
+    LOWORD(v77) = 0;
+    v22 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE46E8, 16, "CLTSP,MI,interpolateLocationsAlongSegmentPedestrian,null pointers", &v77, 2);
+    sub_19B885924("Generic", 1, 0, 0, "BOOL CLTripSegmentMapIntegratorSparse::interpolateLocationsAlongSegmentPedestrian(CLAStarRouteConstructor &, std::vector<CLGeoMapSnapDataPtr> &, const CLGeoMapSnapDataPtr, const CLGeoMapSnapDataPtr, const CLGeoMapLocationArray &) const", "CoreLocation: %s\n", v22);
 LABEL_16:
-    if (v21 != buf)
+    if (v22 != buf)
     {
-      free(v21);
+      free(v22);
     }
 
-    goto LABEL_18;
+    return 0;
   }
 
   v10 = *a2;
   v11 = a2[1];
   if (v11 == *a2)
   {
-    goto LABEL_100;
+    return 1;
   }
 
-  v15 = *(*v10 + 24);
-  v16 = *(v11 - 16);
-  v17 = *(v16 + 24);
+  v16 = *(*v10 + 24);
+  v17 = *(v11 - 16);
+  v18 = *(v17 + 24);
   if ((v11 - *a2) < 0x11)
   {
-    v18 = v8[6] > v6[6];
-    *(*v10 + 24) = v18;
+    v19 = *(v8 + 6) > v6[6];
+    *(*v10 + 24) = v19;
   }
 
   else
@@ -5856,153 +5925,154 @@ LABEL_16:
     sub_19B9AC9F0(a2, a1);
     v10 = *a2;
     v11 = a2[1];
-    v18 = *(**a2 + 24);
+    v19 = *(**a2 + 24);
     v6 = *a4;
     v8 = *a5;
-    v16 = *(v11 - 16);
+    v17 = *(v11 - 16);
   }
 
-  v23 = *(v16 + 24);
-  v24 = v6[20];
-  if (v18 != v15)
-  {
-    v24 = -v24;
-  }
-
-  v6[20] = v24;
-  v25 = v8[20];
-  if (v23 != v17)
+  v24 = *(v17 + 24);
+  v25 = v6[20];
+  if (v19 != v16)
   {
     v25 = -v25;
   }
 
-  v8[20] = v25;
+  v6[20] = v25;
+  v26 = *(v8 + 20);
+  if (v24 != v18)
+  {
+    v26 = -v26;
+  }
+
+  *(v8 + 20) = v26;
   if (v10 == v11)
   {
-    goto LABEL_100;
+    return 1;
   }
 
-  if (v18)
+  if (v19)
   {
-    v26 = v6[6];
+    v27 = v6[6];
   }
 
   else
   {
-    v26 = 1.0 - v6[6];
+    v27 = 1.0 - v6[6];
   }
 
-  v27 = *v6;
+  v28 = *v6;
   sub_19B9F5AA8(*v6);
-  v28 = *(*&v27 + 40);
-  v29 = *a5;
+  v29 = v28[5];
+  v30 = *a5;
   if (*(*(a2[1] - 16) + 24))
   {
-    v30 = 1.0 - (*a5)[6];
+    v31 = 1.0 - *(*a5 + 6);
   }
 
   else
   {
-    v30 = (*a5)[6];
+    v31 = *(*a5 + 6);
   }
 
-  v31 = *v29;
-  sub_19B9F5AA8(*v29);
-  v32 = v30 * *(v31 + 40) + v26 * v28;
-  v33 = sub_19B9B0CAC(a2, (*a4)[20]) - v32;
-  v34 = sub_19B9B0CAC(a2, (*a5)[20]) - v32;
-  v35 = *a4;
-  v36 = (*a4)[13];
-  v37 = (*a5)[13];
-  if (v36 <= 0.5)
+  v32 = *v30;
+  sub_19B9F5AA8(*v30);
+  v33 = v31 * v32[5] + v27 * v29;
+  v34 = sub_19B9B0CAC(a2, (*a4)[20]) - v33;
+  v35 = sub_19B9B0CAC(a2, *(*a5 + 20)) - v33;
+  v36 = *a4;
+  v37 = (*a4)[13];
+  v38 = *(*a5 + 13);
+  if (v37 <= 0.5)
   {
-    v36 = -1.0;
-    if (v37 > 0.5)
+    v37 = -1.0;
+    if (v38 > 0.5)
     {
-      v36 = (*a5)[13];
+      v37 = *(*a5 + 13);
     }
   }
 
-  else if (v37 > 0.5 && v36 < v37)
+  else if (v38 > 0.5 && v37 < v38)
   {
-    v36 = (*a5)[13];
+    v37 = *(*a5 + 13);
   }
 
-  v38 = (v33 + v34) * 0.5;
-  v39 = (*a5)[2] - (*a4)[2];
-  v40 = *(a6 + 40);
-  v41 = *(a6 + 48);
-  v42 = 0.0;
-  if (v40 != v41)
+  v39 = (v34 + v35) * 0.5;
+  v40 = *(*a5 + 2) - (*a4)[2];
+  v41 = *(a6 + 40);
+  v42 = *(a6 + 48);
+  v43 = (a6 + 40);
+  v44 = 0.0;
+  if (v41 != v42)
   {
-    v43 = *(a6 + 40);
+    v45 = *(a6 + 40);
     do
     {
-      if (*v43)
+      if (*v45)
       {
-        v42 = v42 + *(*v43 + 80);
+        v44 = v44 + *(*v45 + 80);
       }
 
-      v43 += 16;
+      v45 += 16;
     }
 
-    while (v43 != v41);
+    while (v45 != v42);
   }
 
-  v44 = 0;
-  v45 = v38 / v39;
-  if (v36 >= 0.0 && v45 > 0.0)
+  v46 = 0;
+  v47 = v39 / v40;
+  if (v37 >= 0.0 && v47 > 0.0)
   {
-    v46 = fabs(v39) * -0.0833333333 + 4.5;
-    v47 = 4.0;
-    if (v46 <= 4.0)
+    v48 = fabs(v40) * -0.0833333333 + 4.5;
+    v49 = 4.0;
+    if (v48 <= 4.0)
     {
-      v47 = v46;
+      v49 = v48;
     }
 
-    if (v46 >= 2.0)
+    if (v48 >= 2.0)
     {
-      v48 = v47;
+      v50 = v49;
     }
 
     else
     {
-      v48 = 2.0;
+      v50 = 2.0;
     }
 
-    v44 = v45 > v48 * v36;
+    v46 = v47 > v50 * v37;
   }
 
-  v49 = v42 * 1.2;
-  if (v44 || v38 > v49)
+  v51 = v44 * 1.2;
+  if (v46 || v39 > v51)
   {
     if (qword_1EAFE46B8 != -1)
     {
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
     }
 
-    v51 = qword_1EAFE46E8;
+    v53 = qword_1EAFE46E8;
     if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67110400;
-      *&buf[4] = v44;
+      *&buf[4] = v46;
       *&buf[8] = 1024;
-      *&buf[10] = v38 > v49;
+      *&buf[10] = v39 > v51;
       *&buf[14] = 2050;
-      v78 = v45;
-      *v79 = 2050;
-      *&v79[2] = v36;
-      *&v79[10] = 2048;
-      *&v79[12] = (v33 + v34) * 0.5;
-      *&v79[20] = 2048;
-      *&v79[22] = v42;
-      _os_log_impl(&dword_19B873000, v51, OS_LOG_TYPE_DEFAULT, "CLTSP,Warning,cannot interpolate along route,speed_check_failed,%d,distance_check_failed,%d,route_speed_mps,%{public}.1lf,max_start_destination_speed_mps,%{public}.1lf,routeLength_m,%.1lf,li_distance_m,%.1lf", buf, 0x36u);
+      v87 = v47;
+      *v88 = 2050;
+      *&v88[2] = v37;
+      *&v88[10] = 2048;
+      *&v88[12] = (v34 + v35) * 0.5;
+      *&v88[20] = 2048;
+      *&v88[22] = v44;
+      _os_log_impl(&dword_19B873000, v53, OS_LOG_TYPE_DEFAULT, "CLTSP,Warning,cannot interpolate along route,speed_check_failed,%d,distance_check_failed,%d,route_speed_mps,%{public}.1lf,max_start_destination_speed_mps,%{public}.1lf,routeLength_m,%.1lf,li_distance_m,%.1lf", buf, 0x36u);
     }
 
-    v52 = sub_19B87DD40();
-    if (*(v52 + 160) <= 1 && *(v52 + 164) <= 1 && *(v52 + 168) <= 1 && !*(v52 + 152))
+    v54 = sub_19B87DD40();
+    if (*(v54 + 160) <= 1 && *(v54 + 164) <= 1 && *(v54 + 168) <= 1 && !*(v54 + 152))
     {
-      goto LABEL_18;
+      return 0;
     }
 
     bzero(buf, 0x65CuLL);
@@ -6011,107 +6081,132 @@ LABEL_16:
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
     }
 
-    LODWORD(v68) = 67110400;
-    HIDWORD(v68) = v44;
-    LOWORD(v69) = 1024;
-    *(&v69 + 2) = v38 > v49;
-    HIWORD(v69) = 2050;
-    v70 = v45;
-    v71 = 2050;
-    v72 = v36;
-    v73 = 2048;
-    v74 = (v33 + v34) * 0.5;
-    v75 = 2048;
-    v76 = v42;
-    v21 = _os_log_send_and_compose_impl();
-    sub_19B885924("Generic", 1, 0, 2, "BOOL CLTripSegmentMapIntegratorSparse::interpolateLocationsAlongSegmentPedestrian(CLAStarRouteConstructor &, std::vector<CLGeoMapSnapDataPtr> &, const CLGeoMapSnapDataPtr, const CLGeoMapSnapDataPtr, const CLGeoMapLocationArray &) const", "CoreLocation: %s\n", v21);
+    LODWORD(v77) = 67110400;
+    HIDWORD(v77) = v46;
+    LOWORD(v78) = 1024;
+    *(&v78 + 2) = v39 > v51;
+    HIWORD(v78) = 2050;
+    v79 = v47;
+    v80 = 2050;
+    v81 = v37;
+    v82 = 2048;
+    v83 = (v34 + v35) * 0.5;
+    v84 = 2048;
+    v85 = v44;
+    v22 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE46E8, 0, "CLTSP,Warning,cannot interpolate along route,speed_check_failed,%d,distance_check_failed,%d,route_speed_mps,%{public}.1lf,max_start_destination_speed_mps,%{public}.1lf,routeLength_m,%.1lf,li_distance_m,%.1lf", &v77, 54);
+    sub_19B885924("Generic", 1, 0, 2, "BOOL CLTripSegmentMapIntegratorSparse::interpolateLocationsAlongSegmentPedestrian(CLAStarRouteConstructor &, std::vector<CLGeoMapSnapDataPtr> &, const CLGeoMapSnapDataPtr, const CLGeoMapSnapDataPtr, const CLGeoMapLocationArray &) const", "CoreLocation: %s\n", v22);
     goto LABEL_16;
   }
 
-  v50 = 0.0;
-  while (v40 != v41)
+  v52 = 0.0;
+  while (v41 != v42)
   {
-    if (*v40)
+    if (*v41)
     {
-      v50 = v50 + *(*v40 + 80);
+      v52 = v52 + *(*v41 + 80);
     }
 
-    v40 += 16;
+    v41 += 16;
   }
 
-  v68 = 0;
-  v69 = 0;
-  v70 = 0.0;
-  if (sub_19B9EA700(v35[6], v33 / v50, v35[20], a1, (a6 + 40), a2))
+  v77 = 0;
+  v78 = 0;
+  v79 = 0.0;
+  if ((sub_19B9EA700(a1, (a6 + 40), a2, &v77, v36[6], v34 / v52, v36[20]) & 1) == 0)
   {
-    v66 = 0uLL;
-    v67 = 0;
-    v53 = sub_19B9EA700((*a4)[6], v34 / v50, (*a5)[20], a1, (a6 + 40), a2);
-    if (v53)
+    if (qword_1EAFE46B8 != -1)
     {
-      v78 = 0.0;
-      *v79 = 0;
-      *buf = xmmword_19BA89490;
-      *&v79[8] = 0x3FF0000000000000;
-      *&v79[16] = 0;
-      *&v79[24] = 0;
-      v80 = 0;
-      if (buf != a6)
-      {
-        sub_19B9F1EC8(&v79[16], *(a6 + 40), *(a6 + 48), (*(a6 + 48) - *(a6 + 40)) >> 4);
-      }
-
-      v65[0] = &v79[16];
-      sub_19B8F0E84(v65);
+      dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
     }
 
-    else
+    v64 = qword_1EAFE46E8;
+    if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
     {
+      v65 = *(*a4 + 2);
+      *buf = 134349056;
+      *&buf[4] = v65;
+      _os_log_impl(&dword_19B873000, v64, OS_LOG_TYPE_ERROR, "CLTSP,%{public}.1lf,unable to compute snap on constructed route", buf, 0xCu);
+    }
+
+    v66 = sub_19B87DD40();
+    if ((*(v66 + 160) & 0x80000000) == 0 || (*(v66 + 164) & 0x80000000) == 0 || (*(v66 + 168) & 0x80000000) == 0 || *(v66 + 152))
+    {
+      bzero(buf, 0x65CuLL);
       if (qword_1EAFE46B8 != -1)
       {
         dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
       }
 
-      v59 = qword_1EAFE46E8;
-      if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
+      v67 = *(*a4 + 2);
+      LODWORD(v75) = 134349056;
+      *(&v75 + 4) = v67;
+      v68 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE46E8, 16, "CLTSP,%{public}.1lf,unable to compute snap on constructed route", &v75, 12);
+      sub_19B885924("Generic", 1, 0, 0, "BOOL CLTripSegmentMapIntegratorSparse::interpolateLocationsAlongSegmentPedestrian(CLAStarRouteConstructor &, std::vector<CLGeoMapSnapDataPtr> &, const CLGeoMapSnapDataPtr, const CLGeoMapSnapDataPtr, const CLGeoMapLocationArray &) const", "CoreLocation: %s\n", v68);
+      if (v68 != buf)
       {
-        v60 = *(*a4 + 2);
-        *buf = 134349056;
-        *&buf[4] = v60;
-        _os_log_impl(&dword_19B873000, v59, OS_LOG_TYPE_ERROR, "CLTSP,%{public}.1lf,unable to compute snap on constructed route", buf, 0xCu);
-      }
-
-      v61 = sub_19B87DD40();
-      if ((*(v61 + 160) & 0x80000000) == 0 || (*(v61 + 164) & 0x80000000) == 0 || (*(v61 + 168) & 0x80000000) == 0 || *(v61 + 152))
-      {
-        bzero(buf, 0x65CuLL);
-        if (qword_1EAFE46B8 != -1)
-        {
-          dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
-        }
-
-        v62 = *(*a4 + 2);
-        LODWORD(v65[0]) = 134349056;
-        *(v65 + 4) = v62;
-        v63 = _os_log_send_and_compose_impl();
-        sub_19B885924("Generic", 1, 0, 0, "BOOL CLTripSegmentMapIntegratorSparse::interpolateLocationsAlongSegmentPedestrian(CLAStarRouteConstructor &, std::vector<CLGeoMapSnapDataPtr> &, const CLGeoMapSnapDataPtr, const CLGeoMapSnapDataPtr, const CLGeoMapLocationArray &) const", "CoreLocation: %s\n", v63);
-        if (v63 != buf)
-        {
-          free(v63);
-        }
+        free(v68);
       }
     }
 
-    *buf = &v66;
+    *buf = &v77;
     sub_19B8F0E84(buf);
-    *buf = &v68;
-    sub_19B8F0E84(buf);
-    if (v53)
+    return 0;
+  }
+
+  v75 = 0uLL;
+  v76 = 0;
+  v55 = sub_19B9EA700(a1, (a6 + 40), a2, &v75, (*a4)[6], v35 / v52, *(*a5 + 20));
+  if (v55)
+  {
+    v87 = 0.0;
+    *v88 = 0;
+    *buf = xmmword_19BA89490;
+    *&v88[8] = 0x3FF0000000000000;
+    *&v88[16] = 0;
+    *&v88[24] = 0;
+    v89 = 0;
+    if (buf != a6)
     {
-LABEL_100:
-      result = 1;
-      goto LABEL_101;
+      sub_19B9F1EC8(&v88[16], *(a6 + 40), *(a6 + 48), (*(a6 + 48) - *(a6 + 40)) >> 4);
     }
+
+    v56 = v77;
+    if (v78 != v77)
+    {
+      v57 = 0;
+      do
+      {
+        v58 = *&v88[16];
+        v59 = 0.0;
+        for (i = 0.0; v58 != *&v88[24]; v58 += 2)
+        {
+          v61 = *v58;
+          if (*v58)
+          {
+            if (*v61 > ***v43 && *v61 <= *(*v43)[2 * v57])
+            {
+              i = i + v61[10];
+            }
+          }
+        }
+
+        if (v39 > 0.0)
+        {
+          v59 = v34 / v52 * i / v34;
+        }
+
+        v63 = &v56[16 * v57];
+        *(*v63 + 24) = vmlaq_n_f64(vmulq_n_f64(*(*(v75 + 16 * v57) + 24), v59), *(*v63 + 24), 1.0 - v59);
+        sub_19B8EAB68(a3, v63);
+        ++v57;
+        v56 = v77;
+      }
+
+      while (v57 < (v78 - v77) >> 4);
+    }
+
+    *v74 = &v88[16];
+    sub_19B8F0E84(v74);
   }
 
   else
@@ -6121,17 +6216,17 @@ LABEL_100:
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
     }
 
-    v54 = qword_1EAFE46E8;
+    v69 = qword_1EAFE46E8;
     if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
     {
-      v55 = *(*a4 + 2);
+      v70 = *(*a4 + 2);
       *buf = 134349056;
-      *&buf[4] = v55;
-      _os_log_impl(&dword_19B873000, v54, OS_LOG_TYPE_ERROR, "CLTSP,%{public}.1lf,unable to compute snap on constructed route", buf, 0xCu);
+      *&buf[4] = v70;
+      _os_log_impl(&dword_19B873000, v69, OS_LOG_TYPE_ERROR, "CLTSP,%{public}.1lf,unable to compute snap on constructed route", buf, 0xCu);
     }
 
-    v56 = sub_19B87DD40();
-    if ((*(v56 + 160) & 0x80000000) == 0 || (*(v56 + 164) & 0x80000000) == 0 || (*(v56 + 168) & 0x80000000) == 0 || *(v56 + 152))
+    v71 = sub_19B87DD40();
+    if ((*(v71 + 160) & 0x80000000) == 0 || (*(v71 + 164) & 0x80000000) == 0 || (*(v71 + 168) & 0x80000000) == 0 || *(v71 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE46B8 != -1)
@@ -6139,26 +6234,23 @@ LABEL_100:
         dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
       }
 
-      v57 = *(*a4 + 2);
-      LODWORD(v66) = 134349056;
-      *(&v66 + 4) = v57;
-      v58 = _os_log_send_and_compose_impl();
-      sub_19B885924("Generic", 1, 0, 0, "BOOL CLTripSegmentMapIntegratorSparse::interpolateLocationsAlongSegmentPedestrian(CLAStarRouteConstructor &, std::vector<CLGeoMapSnapDataPtr> &, const CLGeoMapSnapDataPtr, const CLGeoMapSnapDataPtr, const CLGeoMapLocationArray &) const", "CoreLocation: %s\n", v58);
-      if (v58 != buf)
+      v72 = *(*a4 + 2);
+      *v74 = 134349056;
+      *&v74[4] = v72;
+      v73 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE46E8, 16, "CLTSP,%{public}.1lf,unable to compute snap on constructed route", v74, 12);
+      sub_19B885924("Generic", 1, 0, 0, "BOOL CLTripSegmentMapIntegratorSparse::interpolateLocationsAlongSegmentPedestrian(CLAStarRouteConstructor &, std::vector<CLGeoMapSnapDataPtr> &, const CLGeoMapSnapDataPtr, const CLGeoMapSnapDataPtr, const CLGeoMapLocationArray &) const", "CoreLocation: %s\n", v73);
+      if (v73 != buf)
       {
-        free(v58);
+        free(v73);
       }
     }
-
-    *buf = &v68;
-    sub_19B8F0E84(buf);
   }
 
-LABEL_18:
-  result = 0;
-LABEL_101:
-  v64 = *MEMORY[0x1E69E9840];
-  return result;
+  *buf = &v75;
+  sub_19B8F0E84(buf);
+  *buf = &v77;
+  sub_19B8F0E84(buf);
+  return (v55 & 1) != 0;
 }
 
 void sub_19B9F1324(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void **a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void **a25)
@@ -6171,9 +6263,9 @@ void sub_19B9F1324(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_19B9F1380(uint64_t a1, uint64_t *a2, uint64_t a3, void *a4, uint64_t **a5, uint64_t a6)
+uint64_t sub_19B9F1380(uint64_t a1, uint64_t *a2, const void **a3, void *a4, uint64_t ***a5, uint64_t a6)
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   v8 = a4[1];
   if (*a4 == v8 || (v9 = *a5, *a5 == a5[1]))
   {
@@ -6182,31 +6274,39 @@ uint64_t sub_19B9F1380(uint64_t a1, uint64_t *a2, uint64_t a3, void *a4, uint64_
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
     }
 
-    v21 = qword_1EAFE46E8;
+    v22 = qword_1EAFE46E8;
     if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
     {
-      v22 = (a4[1] - *a4) >> 4;
-      v23 = (a5[1] - *a5) >> 4;
+      v23 = (a4[1] - *a4) >> 4;
+      v24 = (a5[1] - *a5) >> 4;
       *buf = 134349312;
-      *&buf[4] = v22;
-      v57 = 2050;
-      v58 = v23;
-      _os_log_impl(&dword_19B873000, v21, OS_LOG_TYPE_ERROR, "CLTSP,MI,interpolateLocationsAlongSegmentVehicular,invalid size,start,%{public}lu,end,%{public}lu", buf, 0x16u);
+      *&buf[4] = v23;
+      v59 = 2050;
+      v60 = v24;
+      _os_log_impl(&dword_19B873000, v22, OS_LOG_TYPE_ERROR, "CLTSP,MI,interpolateLocationsAlongSegmentVehicular,invalid size,start,%{public}lu,end,%{public}lu", buf, 0x16u);
     }
 
-    v24 = sub_19B87DD40();
-    if ((*(v24 + 160) & 0x80000000) != 0 && (*(v24 + 164) & 0x80000000) != 0 && (*(v24 + 168) & 0x80000000) != 0 && !*(v24 + 152))
+    v25 = sub_19B87DD40();
+    if ((*(v25 + 160) & 0x80000000) != 0 && (*(v25 + 164) & 0x80000000) != 0 && (*(v25 + 168) & 0x80000000) != 0 && !*(v25 + 152))
     {
-      goto LABEL_37;
+      return 0;
     }
 
     bzero(buf, 0x65CuLL);
-    if (qword_1EAFE46B8 == -1)
+    if (qword_1EAFE46B8 != -1)
     {
-      goto LABEL_35;
+      dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
     }
 
-    goto LABEL_73;
+    v26 = (a4[1] - *a4) >> 4;
+    v27 = (a5[1] - *a5) >> 4;
+    LODWORD(v53[0]) = 134349312;
+    *(v53 + 4) = v26;
+    WORD2(v53[1]) = 2050;
+    *(&v53[1] + 6) = v27;
+    v28 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE46E8, 16, "CLTSP,MI,interpolateLocationsAlongSegmentVehicular,invalid size,start,%{public}lu,end,%{public}lu", v53, 22);
+    sub_19B885924("Generic", 1, 0, 0, "BOOL CLTripSegmentMapIntegratorSparse::interpolateLocationsAlongSegmentVehicular(CLAStarRouteConstructor &, std::vector<CLGeoMapSnapDataPtr> &, const std::vector<CLGeoMapSnapDataPtr> &, const std::vector<CLGeoMapSnapDataPtr> &, const CLGeoMapLocationArray &, BOOL)", "CoreLocation: %s\n", v28);
+    goto LABEL_38;
   }
 
   if (!*(v8 - 16) || !*v9)
@@ -6216,119 +6316,115 @@ uint64_t sub_19B9F1380(uint64_t a1, uint64_t *a2, uint64_t a3, void *a4, uint64_
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
     }
 
-    v25 = qword_1EAFE46E8;
+    v29 = qword_1EAFE46E8;
     if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
     {
-      v26 = (a4[1] - *a4) >> 4;
-      v27 = (a5[1] - *a5) >> 4;
+      v30 = (a4[1] - *a4) >> 4;
+      v31 = (a5[1] - *a5) >> 4;
       *buf = 134349312;
-      *&buf[4] = v26;
-      v57 = 2050;
-      v58 = v27;
-      _os_log_impl(&dword_19B873000, v25, OS_LOG_TYPE_ERROR, "CLTSP,MI,interpolateLocationsAlongSegmentVehicular,null pointers,start,%{public}lu,end,%{public}lu", buf, 0x16u);
+      *&buf[4] = v30;
+      v59 = 2050;
+      v60 = v31;
+      _os_log_impl(&dword_19B873000, v29, OS_LOG_TYPE_ERROR, "CLTSP,MI,interpolateLocationsAlongSegmentVehicular,null pointers,start,%{public}lu,end,%{public}lu", buf, 0x16u);
     }
 
-    v28 = sub_19B87DD40();
-    if ((*(v28 + 160) & 0x80000000) != 0 && (*(v28 + 164) & 0x80000000) != 0 && (*(v28 + 168) & 0x80000000) != 0 && !*(v28 + 152))
+    v32 = sub_19B87DD40();
+    if ((*(v32 + 160) & 0x80000000) != 0 && (*(v32 + 164) & 0x80000000) != 0 && (*(v32 + 168) & 0x80000000) != 0 && !*(v32 + 152))
     {
-      goto LABEL_37;
+      return 0;
     }
 
     bzero(buf, 0x65CuLL);
-    if (qword_1EAFE46B8 == -1)
+    if (qword_1EAFE46B8 != -1)
     {
-LABEL_35:
-      v29 = (a4[1] - *a4) >> 4;
-      v30 = (a5[1] - *a5) >> 4;
-      LODWORD(v51[0]) = 134349312;
-      *(v51 + 4) = v29;
-      WORD2(v51[1]) = 2050;
-      *(&v51[1] + 6) = v30;
-      v31 = _os_log_send_and_compose_impl();
-      sub_19B885924("Generic", 1, 0, 0, "BOOL CLTripSegmentMapIntegratorSparse::interpolateLocationsAlongSegmentVehicular(CLAStarRouteConstructor &, std::vector<CLGeoMapSnapDataPtr> &, const std::vector<CLGeoMapSnapDataPtr> &, const std::vector<CLGeoMapSnapDataPtr> &, const CLGeoMapLocationArray &, BOOL)", "CoreLocation: %s\n", v31);
-      if (v31 != buf)
-      {
-        free(v31);
-      }
-
-LABEL_37:
-      v32 = 0;
-      goto LABEL_38;
+      dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
     }
 
-LABEL_73:
-    dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
-    goto LABEL_35;
+    v33 = (a4[1] - *a4) >> 4;
+    v34 = (a5[1] - *a5) >> 4;
+    LODWORD(v53[0]) = 134349312;
+    *(v53 + 4) = v33;
+    WORD2(v53[1]) = 2050;
+    *(&v53[1] + 6) = v34;
+    v28 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE46E8, 16, "CLTSP,MI,interpolateLocationsAlongSegmentVehicular,null pointers,start,%{public}lu,end,%{public}lu", v53, 22);
+    sub_19B885924("Generic", 1, 0, 0, "BOOL CLTripSegmentMapIntegratorSparse::interpolateLocationsAlongSegmentVehicular(CLAStarRouteConstructor &, std::vector<CLGeoMapSnapDataPtr> &, const std::vector<CLGeoMapSnapDataPtr> &, const std::vector<CLGeoMapSnapDataPtr> &, const CLGeoMapLocationArray &, BOOL)", "CoreLocation: %s\n", v28);
+LABEL_38:
+    if (v28 != buf)
+    {
+      free(v28);
+    }
+
+    return 0;
   }
 
-  v47 = *(v8 - 16);
-  v13 = *(v8 - 8);
-  v48 = v13;
-  if (v13)
-  {
-    atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
-    v9 = *a5;
-  }
-
-  v15 = *v9;
-  v14 = v9[1];
-  v45 = v15;
-  v46 = v14;
+  v49 = *(v8 - 16);
+  v14 = *(v8 - 8);
+  v50 = v14;
   if (v14)
   {
     atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
+    v9 = *a5;
   }
 
-  v16 = sub_19B9AEA00(a2, &v47, &v45);
-  if (v46)
+  v16 = *v9;
+  v15 = *(v9 + 1);
+  v47 = v16;
+  v48 = v15;
+  if (v15)
   {
-    sub_19B8750F8(v46);
+    atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
+  v17 = sub_19B9AEA00(a2, &v49, &v47);
   if (v48)
   {
     sub_19B8750F8(v48);
   }
 
-  v17 = *(a6 + 40);
-  v18 = *(a6 + 48);
-  v19 = (a6 + 40);
-  v20 = 0.0;
-  while (v17 != v18)
+  if (v50)
   {
-    if (*v17)
-    {
-      v20 = v20 + *(*v17 + 80);
-    }
-
-    v17 += 16;
+    sub_19B8750F8(v50);
   }
 
-  v35 = *(*(a4[1] - 16) + 16);
-  v36 = *(**a5 + 16);
+  v18 = *(a6 + 40);
+  v19 = *(a6 + 48);
+  v20 = (a6 + 40);
+  v21 = 0.0;
+  while (v18 != v19)
+  {
+    if (*v18)
+    {
+      v21 = v21 + *(*v18 + 80);
+    }
+
+    v18 += 16;
+  }
+
+  v37 = *(*(a4[1] - 16) + 16);
+  v38 = (**a5)[2];
   if (qword_1EAFE46B8 != -1)
   {
     dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
   }
 
-  v37 = qword_1EAFE46E8;
+  v39 = qword_1EAFE46E8;
   if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_INFO))
   {
     *buf = 134350080;
-    *&buf[4] = v35;
-    v57 = 2050;
-    v58 = v36;
+    *&buf[4] = v37;
     v59 = 2050;
-    v60 = v16;
+    v60 = v38;
     v61 = 2050;
-    v62 = v20;
+    v62 = v17;
     v63 = 2050;
-    v64 = v16 / v20;
-    _os_log_impl(&dword_19B873000, v37, OS_LOG_TYPE_INFO, "CLTSP,MI,construct route distances,startTime,%{public}.3lf,endTime,%{public}.3lf,routeConstructed,%{public}.3lf,routeExpected,%{public}.3lf,distanceScale,%{public}.3lf", buf, 0x34u);
+    v64 = v21;
+    v65 = 2050;
+    v66 = v17 / v21;
+    _os_log_impl(&dword_19B873000, v39, OS_LOG_TYPE_INFO, "CLTSP,MI,construct route distances,startTime,%{public}.3lf,endTime,%{public}.3lf,routeConstructed,%{public}.3lf,routeExpected,%{public}.3lf,distanceScale,%{public}.3lf", buf, 0x34u);
   }
 
-  v38 = sub_19B87DD40();
-  if (*(v38 + 160) > 1 || *(v38 + 164) > 1 || *(v38 + 168) > 1 || *(v38 + 152))
+  v40 = sub_19B87DD40();
+  if (*(v40 + 160) > 1 || *(v40 + 164) > 1 || *(v40 + 168) > 1 || *(v40 + 152))
   {
     bzero(buf, 0x65CuLL);
     if (qword_1EAFE46B8 != -1)
@@ -6336,51 +6432,51 @@ LABEL_73:
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
     }
 
-    LODWORD(v51[0]) = 134350080;
-    *(v51 + 4) = v35;
-    WORD2(v51[1]) = 2050;
-    *(&v51[1] + 6) = v36;
-    HIWORD(v51[2]) = 2050;
-    v51[3] = *&v16;
-    v52 = 2050;
-    v53 = v20;
+    LODWORD(v53[0]) = 134350080;
+    *(v53 + 4) = v37;
+    WORD2(v53[1]) = 2050;
+    *(&v53[1] + 6) = v38;
+    HIWORD(v53[2]) = 2050;
+    v53[3] = *&v17;
     v54 = 2050;
-    v55 = v16 / v20;
-    v39 = _os_log_send_and_compose_impl();
-    sub_19B885924("Generic", 1, 0, 2, "BOOL CLTripSegmentMapIntegratorSparse::interpolateLocationsAlongSegmentVehicular(CLAStarRouteConstructor &, std::vector<CLGeoMapSnapDataPtr> &, const std::vector<CLGeoMapSnapDataPtr> &, const std::vector<CLGeoMapSnapDataPtr> &, const CLGeoMapLocationArray &, BOOL)", "CoreLocation: %s\n", v39);
-    if (v39 != buf)
+    v55 = v21;
+    v56 = 2050;
+    v57 = v17 / v21;
+    v41 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE46E8, 1, "CLTSP,MI,construct route distances,startTime,%{public}.3lf,endTime,%{public}.3lf,routeConstructed,%{public}.3lf,routeExpected,%{public}.3lf,distanceScale,%{public}.3lf", v53, 52);
+    sub_19B885924("Generic", 1, 0, 2, "BOOL CLTripSegmentMapIntegratorSparse::interpolateLocationsAlongSegmentVehicular(CLAStarRouteConstructor &, std::vector<CLGeoMapSnapDataPtr> &, const std::vector<CLGeoMapSnapDataPtr> &, const std::vector<CLGeoMapSnapDataPtr> &, const CLGeoMapLocationArray &, BOOL)", "CoreLocation: %s\n", v41);
+    if (v41 != buf)
     {
-      free(v39);
+      free(v41);
     }
   }
 
-  memset(v51, 0, 24);
-  v40 = *a2;
-  v41 = a2[1];
-  while (v40 != v41)
+  memset(v53, 0, 24);
+  v42 = *a2;
+  v43 = a2[1];
+  while (v42 != v43)
   {
-    sub_19B8EAB68(v51, *v40);
-    v40 += 2;
+    sub_19B8EAB68(v53, *v42);
+    v42 += 2;
   }
 
-  v32 = sub_19B9EA700(*(*(a4[1] - 16) + 48), v16 / v20, 0.0, a1, v19, a2);
-  if ((v32 & 1) == 0)
+  v35 = sub_19B9EA700(a1, v20, a2, a3, *(*(a4[1] - 16) + 48), v17 / v21, 0.0);
+  if ((v35 & 1) == 0)
   {
     if (qword_1EAFE46B8 != -1)
     {
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
     }
 
-    v42 = qword_1EAFE46E8;
+    v44 = qword_1EAFE46E8;
     if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
     {
       *buf = 134349056;
-      *&buf[4] = v35;
-      _os_log_impl(&dword_19B873000, v42, OS_LOG_TYPE_ERROR, "CLTSP,MI,%{public}.1lf,unable to compute snap on constructed route", buf, 0xCu);
+      *&buf[4] = v37;
+      _os_log_impl(&dword_19B873000, v44, OS_LOG_TYPE_ERROR, "CLTSP,MI,%{public}.1lf,unable to compute snap on constructed route", buf, 0xCu);
     }
 
-    v43 = sub_19B87DD40();
-    if ((*(v43 + 160) & 0x80000000) == 0 || (*(v43 + 164) & 0x80000000) == 0 || (*(v43 + 168) & 0x80000000) == 0 || *(v43 + 152))
+    v45 = sub_19B87DD40();
+    if ((*(v45 + 160) & 0x80000000) == 0 || (*(v45 + 164) & 0x80000000) == 0 || (*(v45 + 168) & 0x80000000) == 0 || *(v45 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE46B8 != -1)
@@ -6388,22 +6484,20 @@ LABEL_73:
         dispatch_once(&qword_1EAFE46B8, &unk_1F0E6E9F0);
       }
 
-      v49 = 134349056;
-      v50 = v35;
-      v44 = _os_log_send_and_compose_impl();
-      sub_19B885924("Generic", 1, 0, 0, "BOOL CLTripSegmentMapIntegratorSparse::interpolateLocationsAlongSegmentVehicular(CLAStarRouteConstructor &, std::vector<CLGeoMapSnapDataPtr> &, const std::vector<CLGeoMapSnapDataPtr> &, const std::vector<CLGeoMapSnapDataPtr> &, const CLGeoMapLocationArray &, BOOL)", "CoreLocation: %s\n", v44);
-      if (v44 != buf)
+      v51 = 134349056;
+      v52 = v37;
+      v46 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE46E8, 16, "CLTSP,MI,%{public}.1lf,unable to compute snap on constructed route", &v51, 12);
+      sub_19B885924("Generic", 1, 0, 0, "BOOL CLTripSegmentMapIntegratorSparse::interpolateLocationsAlongSegmentVehicular(CLAStarRouteConstructor &, std::vector<CLGeoMapSnapDataPtr> &, const std::vector<CLGeoMapSnapDataPtr> &, const std::vector<CLGeoMapSnapDataPtr> &, const CLGeoMapLocationArray &, BOOL)", "CoreLocation: %s\n", v46);
+      if (v46 != buf)
       {
-        free(v44);
+        free(v46);
       }
     }
   }
 
-  *buf = v51;
+  *buf = v53;
   sub_19B8F0E84(buf);
-LABEL_38:
-  v33 = *MEMORY[0x1E69E9840];
-  return v32;
+  return v35;
 }
 
 void sub_19B9F1B98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void **a25)
@@ -6571,7 +6665,7 @@ os_log_t sub_19B9F1E98()
   return result;
 }
 
-void sub_19B9F1EC8(uint64_t *a1, uint64_t *a2, uint64_t *a3, unint64_t a4)
+void sub_19B9F1EC8(uint64_t **a1, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   v7 = a1[2];
   v8 = *a1;
@@ -6645,14 +6739,14 @@ void sub_19B9F1EC8(uint64_t *a1, uint64_t *a2, uint64_t *a3, unint64_t a4)
 
 void sub_19B9F2000(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   std::mutex::lock(a1);
   if (sub_19B95D1AC(a1, a2))
   {
     *buf = a2;
-    v6 = sub_19B95D310(a1 + 64, a2);
-    v8 = *(v6 + 56);
-    v7 = *(v6 + 64);
+    v6 = sub_19B95D310((a1 + 64), a2, &unk_19BA897F0, buf, &v16);
+    v8 = v6[7];
+    v7 = v6[8];
     if (v7)
     {
       atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -6662,7 +6756,7 @@ void sub_19B9F2000(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
         a3[1] = v7;
         atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
         sub_19B8750F8(v7);
-        goto LABEL_25;
+        goto LABEL_26;
       }
 
       sub_19B8750F8(v7);
@@ -6672,7 +6766,7 @@ void sub_19B9F2000(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
     {
       *a3 = v8 + 48;
       a3[1] = 0;
-      goto LABEL_25;
+      goto LABEL_26;
     }
   }
 
@@ -6697,8 +6791,8 @@ void sub_19B9F2000(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
     v11 = *(a1 + 80);
     *buf = 136446466;
     *&buf[4] = v10;
-    v18 = 1026;
-    v19 = v11;
+    v21 = 1026;
+    v22 = v11;
     _os_log_impl(&dword_19B873000, v9, OS_LOG_TYPE_ERROR, "CLTSP,sharedData,tripID not present in CLTripSegmentSharedData array while accessing getAnalyticsInstance,%{public}s,arraySize,%{public}d", buf, 0x12u);
   }
 
@@ -6711,41 +6805,49 @@ void sub_19B9F2000(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
       dispatch_once(&qword_1EAFE46D0, &unk_1F0E6EA10);
     }
 
-    if (*(a2 + 23) < 0)
+    if (*(a2 + 23) >= 0)
+    {
+      v13 = a2;
+    }
+
+    else
     {
       v13 = *a2;
     }
 
-    v16 = *(a1 + 80);
-    v14 = _os_log_send_and_compose_impl();
-    sub_19B885924("Generic", 1, 0, 0, "std::shared_ptr<CLTripSegmentAnalytics> CLTripSegmentSharedData::getAnalyticsInstance(const std::string &)", "CoreLocation: %s\n", v14);
-    if (v14 != buf)
+    v14 = *(a1 + 80);
+    v16 = 136446466;
+    v17 = v13;
+    v18 = 1026;
+    v19 = v14;
+    v15 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, off_1EAFE4708, 16, "CLTSP,sharedData,tripID not present in CLTripSegmentSharedData array while accessing getAnalyticsInstance,%{public}s,arraySize,%{public}d", &v16, 18);
+    sub_19B885924("Generic", 1, 0, 0, "std::shared_ptr<CLTripSegmentAnalytics> CLTripSegmentSharedData::getAnalyticsInstance(const std::string &)", "CoreLocation: %s\n", v15);
+    if (v15 != buf)
     {
-      free(v14);
+      free(v15);
     }
   }
 
   *a3 = 0;
   a3[1] = 0;
-LABEL_25:
+LABEL_26:
   std::mutex::unlock(a1);
-  v15 = *MEMORY[0x1E69E9840];
 }
 
-void sub_19B9F22AC(unint64_t *a1, void *a2, uint64_t *a3, void *a4, uint64_t a5)
+void sub_19B9F22AC(void **result, char *a2, uint64_t *a3, void *a4, uint64_t a5)
 {
   if (a5 >= 1)
   {
     v6 = a3;
-    v10 = a1[1];
-    v9 = a1[2];
+    v10 = result[1];
+    v9 = result[2];
     if (a5 <= (v9 - v10) >> 4)
     {
       v16 = v10 - a2;
       v17 = (v10 - a2) >> 4;
       if (v17 >= a5)
       {
-        sub_19B9F250C(a1, a2, a1[1], &a2[2 * a5]);
+        sub_19B9F250C(result, a2, result[1], &a2[16 * a5]);
 
         sub_19B9F2594(v6, &v6[2 * a5], a2);
       }
@@ -6753,9 +6855,9 @@ void sub_19B9F22AC(unint64_t *a1, void *a2, uint64_t *a3, void *a4, uint64_t a5)
       else
       {
         v18 = (a3 + v16);
-        v38 = a1[1];
+        v38 = result[1];
         v39 = v10;
-        v33 = a1;
+        v33 = result;
         v34 = &v38;
         v19 = v10;
         v35 = &v39;
@@ -6785,10 +6887,10 @@ void sub_19B9F22AC(unint64_t *a1, void *a2, uint64_t *a3, void *a4, uint64_t a5)
 
         LOBYTE(v36) = 1;
         sub_19B9A3138(&v33);
-        a1[1] = v19;
+        result[1] = v19;
         if (v17 >= 1)
         {
-          sub_19B9F250C(a1, a2, v10, &a2[2 * a5]);
+          sub_19B9F250C(result, a2, v10, &a2[16 * a5]);
           sub_19B9F2594(v6, v18, a2);
         }
       }
@@ -6796,8 +6898,8 @@ void sub_19B9F22AC(unint64_t *a1, void *a2, uint64_t *a3, void *a4, uint64_t a5)
 
     else
     {
-      v11 = *a1;
-      v12 = a5 + ((v10 - *a1) >> 4);
+      v11 = *result;
+      v12 = a5 + ((v10 - *result) >> 4);
       if (v12 >> 60)
       {
         sub_19B8B8A40();
@@ -6820,10 +6922,10 @@ void sub_19B9F22AC(unint64_t *a1, void *a2, uint64_t *a3, void *a4, uint64_t a5)
         v15 = v12;
       }
 
-      v37 = a1;
+      v37 = result;
       if (v15)
       {
-        sub_19B8F0D38(a1, v15);
+        sub_19B8F0D38(result, v15);
       }
 
       v23 = 16 * (v13 >> 4);
@@ -6845,18 +6947,18 @@ void sub_19B9F22AC(unint64_t *a1, void *a2, uint64_t *a3, void *a4, uint64_t a5)
       }
 
       while (v25 != v24);
-      memcpy(v24, a2, a1[1] - a2);
-      v27 = *a1;
-      v28 = &v24[a1[1] - a2];
-      a1[1] = a2;
-      v29 = a2 - v27;
+      memcpy(v24, a2, result[1] - a2);
+      v27 = *result;
+      v28 = &v24[result[1] - a2];
+      result[1] = a2;
+      v29 = (a2 - v27);
       v30 = (v23 - (a2 - v27));
       memcpy(v30, v27, v29);
-      v31 = *a1;
-      *a1 = v30;
-      a1[1] = v28;
-      v32 = a1[2];
-      a1[2] = v36;
+      v31 = *result;
+      *result = v30;
+      result[1] = v28;
+      v32 = result[2];
+      result[2] = v36;
       v35 = v31;
       v36 = v32;
       v33 = v31;
@@ -6869,15 +6971,15 @@ void sub_19B9F22AC(unint64_t *a1, void *a2, uint64_t *a3, void *a4, uint64_t a5)
 void sub_19B9F250C(uint64_t a1, uint64_t a2, unint64_t a3, char *a4)
 {
   v4 = *(a1 + 8);
-  v5 = (v4 - a4);
-  v6 = (a2 + v4 - a4);
+  v5 = v4 - a4;
+  v6 = a2 + v4 - a4;
   v7 = v4;
   while (v6 < a3)
   {
     *v7 = *v6;
     v7 += 16;
     *v6 = 0;
-    *(v6 + 1) = 0;
+    *(v6 + 8) = 0;
     v6 += 16;
   }
 
@@ -6888,10 +6990,10 @@ void sub_19B9F250C(uint64_t a1, uint64_t a2, unint64_t a3, char *a4)
     v9 = a2 - 16;
     do
     {
-      v10 = &v5[v9];
-      v11 = *&v5[v9];
+      v10 = (v9 + v5);
+      v11 = *(v9 + v5);
       *v10 = 0;
-      *(v10 + 1) = 0;
+      v10[1] = 0;
       v12 = *v8;
       *(v8 - 1) = v11;
       if (v12)
@@ -6907,7 +7009,7 @@ void sub_19B9F250C(uint64_t a1, uint64_t a2, unint64_t a3, char *a4)
   }
 }
 
-void sub_19B9F2594(uint64_t *a1, uint64_t *a2, void *a3)
+void sub_19B9F2594(uint64_t *a1, uint64_t *a2, uint64_t *a3)
 {
   if (a1 != a2)
   {
@@ -6937,7 +7039,7 @@ void sub_19B9F2594(uint64_t *a1, uint64_t *a2, void *a3)
   }
 }
 
-uint64_t *sub_19B9F2604(uint64_t *result, void *a2, uint64_t *a3, void *a4, uint64_t a5)
+uint64_t *sub_19B9F2604(uint64_t *result, uint64_t *a2, uint64_t *a3, void *a4, uint64_t a5)
 {
   if (a5 >= 1)
   {
@@ -7024,7 +7126,7 @@ uint64_t *sub_19B9F2604(uint64_t *result, void *a2, uint64_t *a3, void *a4, uint
     v23 = *v8;
     v24 = &v20[v8[1] - a2];
     v8[1] = a2;
-    v25 = a2 - v23;
+    v25 = (a2 - v23);
     v26 = (v19 - (a2 - v23));
     memcpy(v26, v23, v25);
     v27 = *v8;
@@ -7053,18 +7155,18 @@ void sub_19B9F3234(_Unwind_Exception *a1)
 void sub_19B9F3290(uint64_t a1, uint64_t *a2)
 {
   Weak = objc_loadWeak((a1 + 32));
-  v4 = a2[1];
-  v5 = *a2;
-  v6 = v4;
-  if (v4)
-  {
-    atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  [Weak handleMessage:&v5];
+  v6 = a2[1];
+  v7 = *a2;
+  v8 = v6;
   if (v6)
   {
-    sub_19B8750F8(v6);
+    atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  objc_msgSend_handleMessage_(Weak, v4, &v7, v5);
+  if (v8)
+  {
+    sub_19B8750F8(v8);
   }
 }
 
@@ -7082,7 +7184,7 @@ uint64_t sub_19B9F3304(uint64_t a1)
 {
   Weak = objc_loadWeak((a1 + 32));
 
-  return [Weak handleInterruption];
+  return objc_msgSend_handleInterruption(Weak, v2, v3, v4);
 }
 
 void sub_19B9F46A0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, std::__shared_weak_count *a15)
@@ -7160,41 +7262,42 @@ void sub_19B9F5A50(uint64_t a1, float64x2_t *a2, int a3)
   }
 }
 
-uint64_t sub_19B9F5AA8(void *a1)
+uint64_t sub_19B9F5AA8(double *a1)
 {
   v1 = (a1 + 20);
-  if (a1[20] == a1[21])
+  if (*(a1 + 20) == *(a1 + 21))
   {
-    a1[5] = 0;
-    v4 = a1[17];
-    v5 = a1[18];
+    a1[5] = 0.0;
+    v4 = *(a1 + 17);
+    v5 = *(a1 + 18);
     if (v4 == v5)
     {
       return 0;
     }
 
     ++qword_1EAFE5B20;
-    v11 = 0;
     v12 = 0;
-    v10 = xmmword_19BA89490;
-    v13 = 0x3FF0000000000000;
+    v13 = 0;
+    v11 = xmmword_19BA89490;
+    v14 = 0x3FF0000000000000;
     sub_19B9CA9C0(a1 + 20, ((v5 - v4) >> 4) - 1);
-    v6 = a1[17];
-    if ((a1[18] - v6) >= 0x11)
+    v6 = *(a1 + 17);
+    if ((*(a1 + 18) - v6) >= 0x11)
     {
       v7 = 0;
       v8 = 1;
       do
       {
-        v9 = sub_19BA0C01C(&v10, *(v6 + v7), *(v6 + v7 + 8), *(v6 + v7 + 16), *(v6 + v7 + 24), 0.0);
-        sub_19B8F518C(v1, &v9);
-        *(a1 + 5) = v9 + *(a1 + 5);
+        sub_19BA0C01C(&v11, *(v6 + v7), *(v6 + v7 + 8), *(v6 + v7 + 16), *(v6 + v7 + 24), 0.0);
+        v10 = v9;
+        sub_19B8F518C(v1, &v10);
+        a1[5] = v10 + a1[5];
         ++v8;
-        v6 = a1[17];
+        v6 = *(a1 + 17);
         v7 += 16;
       }
 
-      while (v8 < (a1[18] - v6) >> 4);
+      while (v8 < (*(a1 + 18) - v6) >> 4);
     }
   }
 
@@ -7240,7 +7343,7 @@ uint64_t sub_19B9F5BAC(void *a1)
   return 1;
 }
 
-double sub_19B9F5C98(void *a1, signed int a2)
+double sub_19B9F5C98(void *a1, int a2)
 {
   sub_19B9F5BAC(a1);
   v4 = a1[23];
@@ -7259,7 +7362,7 @@ double sub_19B9F5C98(void *a1, signed int a2)
   return result;
 }
 
-double sub_19B9F5D20(uint64_t a1, unsigned int a2, unsigned int a3)
+double sub_19B9F5D20(uint64_t a1, int a2, unsigned int a3)
 {
   result = -1.0;
   if ((a2 & 0x80000000) == 0)
@@ -7746,194 +7849,217 @@ uint64_t sub_19B9F6598(uint64_t a1)
   return result;
 }
 
-BOOL sub_19B9F6608(uint64_t a1, uint64_t a2, void *a3, int a4)
+BOOL sub_19B9F6608(uint64_t a1, const char *a2, void *a3, uint64_t a4)
 {
   if (!a3)
   {
     return 0;
   }
 
-  if ([a3 valueForKey:@"roadID"])
+  v164 = a4;
+  if (objc_msgSend_valueForKey_(a3, a2, @"roadID", a4))
   {
-    *a1 = [objc_msgSend(a3 valueForKey:{@"roadID", "longLongValue"}];
+    v8 = objc_msgSend_valueForKey_(a3, v6, @"roadID", v7);
+    *a1 = objc_msgSend_longLongValue(v8, v9, v10, v11);
   }
 
-  if ([a3 valueForKey:@"roadClass"])
+  if (objc_msgSend_valueForKey_(a3, v6, @"roadClass", v7))
   {
-    *(a1 + 20) = [objc_msgSend(a3 valueForKey:{@"roadClass", "intValue"}];
+    v14 = objc_msgSend_valueForKey_(a3, v12, @"roadClass", v13);
+    *(a1 + 20) = objc_msgSend_intValue(v14, v15, v16, v17);
   }
 
-  if ([a3 valueForKey:@"formOfWay"])
+  if (objc_msgSend_valueForKey_(a3, v12, @"formOfWay", v13))
   {
-    *(a1 + 24) = [objc_msgSend(a3 valueForKey:{@"formOfWay", "intValue"}];
+    v20 = objc_msgSend_valueForKey_(a3, v18, @"formOfWay", v19);
+    *(a1 + 24) = objc_msgSend_intValue(v20, v21, v22, v23);
   }
 
-  if ([a3 valueForKey:@"travelDirection"])
+  if (objc_msgSend_valueForKey_(a3, v18, @"travelDirection", v19))
   {
-    *(a1 + 72) = [objc_msgSend(a3 valueForKey:{@"travelDirection", "intValue"}];
+    v26 = objc_msgSend_valueForKey_(a3, v24, @"travelDirection", v25);
+    *(a1 + 72) = objc_msgSend_intValue(v26, v27, v28, v29);
   }
 
-  if ([a3 valueForKey:@"rampType"])
+  if (objc_msgSend_valueForKey_(a3, v24, @"rampType", v25))
   {
-    *(a1 + 76) = [objc_msgSend(a3 valueForKey:{@"rampType", "intValue"}];
+    v32 = objc_msgSend_valueForKey_(a3, v30, @"rampType", v31);
+    *(a1 + 76) = objc_msgSend_intValue(v32, v33, v34, v35);
   }
 
-  if ([a3 valueForKey:@"speedLimit"])
+  if (objc_msgSend_valueForKey_(a3, v30, @"speedLimit", v31))
   {
-    *(a1 + 32) = [objc_msgSend(a3 valueForKey:{@"speedLimit", "intValue"}];
+    v38 = objc_msgSend_valueForKey_(a3, v36, @"speedLimit", v37);
+    *(a1 + 32) = objc_msgSend_intValue(v38, v39, v40, v41);
   }
 
-  if ([a3 valueForKey:@"isDrivable"])
+  if (objc_msgSend_valueForKey_(a3, v36, @"isDrivable", v37))
   {
-    *(a1 + 81) = [objc_msgSend(a3 valueForKey:{@"isDrivable", "BOOLValue"}];
+    v44 = objc_msgSend_valueForKey_(a3, v42, @"isDrivable", v43);
+    *(a1 + 81) = objc_msgSend_BOOLValue(v44, v45, v46, v47);
   }
 
-  if ([a3 valueForKey:@"isRoadPedestrianNavigable"])
+  if (objc_msgSend_valueForKey_(a3, v42, @"isRoadPedestrianNavigable", v43))
   {
-    v26 = [objc_msgSend(a3 valueForKey:{@"isRoadPedestrianNavigable", "BOOLValue"}];
+    v50 = objc_msgSend_valueForKey_(a3, v48, @"isRoadPedestrianNavigable", v49);
+    v163 = objc_msgSend_BOOLValue(v50, v51, v52, v53);
   }
 
   else
   {
-    v26 = 0;
+    v163 = 0;
   }
 
-  if ([a3 valueForKey:@"isTunnel"])
+  if (objc_msgSend_valueForKey_(a3, v48, @"isTunnel", v49))
   {
-    *(a1 + 18) = [objc_msgSend(a3 valueForKey:{@"isTunnel", "BOOLValue"}];
+    v57 = objc_msgSend_valueForKey_(a3, v55, @"isTunnel", v56);
+    *(a1 + 18) = objc_msgSend_BOOLValue(v57, v58, v59, v60);
   }
 
-  if ([a3 valueForKey:@"isBridge"])
+  if (objc_msgSend_valueForKey_(a3, v55, @"isBridge", v56))
   {
-    *(a1 + 19) = [objc_msgSend(a3 valueForKey:{@"isBridge", "BOOLValue"}];
+    v63 = objc_msgSend_valueForKey_(a3, v61, @"isBridge", v62);
+    *(a1 + 19) = objc_msgSend_BOOLValue(v63, v64, v65, v66);
   }
 
-  if ([a3 valueForKey:@"isRail"])
+  if (objc_msgSend_valueForKey_(a3, v61, @"isRail", v62))
   {
-    *(a1 + 17) = [objc_msgSend(a3 valueForKey:{@"isRail", "BOOLValue"}];
+    v69 = objc_msgSend_valueForKey_(a3, v67, @"isRail", v68);
+    *(a1 + 17) = objc_msgSend_BOOLValue(v69, v70, v71, v72);
   }
 
-  if ([a3 valueForKey:@"startJunction"])
+  if (objc_msgSend_valueForKey_(a3, v67, @"startJunction", v68))
   {
-    *(a1 + 108) = [objc_msgSend(a3 valueForKey:{@"startJunction", "intValue"}];
+    v75 = objc_msgSend_valueForKey_(a3, v73, @"startJunction", v74);
+    *(a1 + 108) = objc_msgSend_intValue(v75, v76, v77, v78);
   }
 
-  if ([a3 valueForKey:@"stopJunction"])
+  if (objc_msgSend_valueForKey_(a3, v73, @"stopJunction", v74))
   {
-    *(a1 + 112) = [objc_msgSend(a3 valueForKey:{@"stopJunction", "intValue"}];
+    v81 = objc_msgSend_valueForKey_(a3, v79, @"stopJunction", v80);
+    *(a1 + 112) = objc_msgSend_intValue(v81, v82, v83, v84);
   }
 
-  if ([a3 valueForKey:@"startTileBorder"])
+  if (objc_msgSend_valueForKey_(a3, v79, @"startTileBorder", v80))
   {
-    *(a1 + 116) = [objc_msgSend(a3 valueForKey:{@"startTileBorder", "BOOLValue"}];
+    v87 = objc_msgSend_valueForKey_(a3, v85, @"startTileBorder", v86);
+    *(a1 + 116) = objc_msgSend_BOOLValue(v87, v88, v89, v90);
   }
 
-  if ([a3 valueForKey:@"endTileBorder"])
+  if (objc_msgSend_valueForKey_(a3, v85, @"endTileBorder", v86))
   {
-    *(a1 + 117) = [objc_msgSend(a3 valueForKey:{@"endTileBorder", "BOOLValue"}];
+    v93 = objc_msgSend_valueForKey_(a3, v91, @"endTileBorder", v92);
+    *(a1 + 117) = objc_msgSend_BOOLValue(v93, v94, v95, v96);
   }
 
-  if ([a3 valueForKey:@"bikeableSide"])
+  if (objc_msgSend_valueForKey_(a3, v91, @"bikeableSide", v92))
   {
-    *(a1 + 88) = [objc_msgSend(a3 valueForKey:{@"bikeableSide", "intValue"}];
+    v99 = objc_msgSend_valueForKey_(a3, v97, @"bikeableSide", v98);
+    *(a1 + 88) = objc_msgSend_intValue(v99, v100, v101, v102);
   }
 
-  if ([a3 valueForKey:@"walkableSide"])
+  if (objc_msgSend_valueForKey_(a3, v97, @"walkableSide", v98))
   {
-    *(a1 + 84) = [objc_msgSend(a3 valueForKey:{@"walkableSide", "intValue"}];
+    v105 = objc_msgSend_valueForKey_(a3, v103, @"walkableSide", v104);
+    *(a1 + 84) = objc_msgSend_intValue(v105, v106, v107, v108);
   }
 
-  if ([a3 valueForKey:@"coordinateCount"] && (v7 = objc_msgSend(objc_msgSend(a3, "valueForKey:", @"coordinateCount"), "intValue"), v7 >= 1))
+  if (objc_msgSend_valueForKey_(a3, v103, @"coordinateCount", v104) && (v111 = objc_msgSend_valueForKey_(a3, v109, @"coordinateCount", v110), v115 = objc_msgSend_intValue(v111, v112, v113, v114), v115 >= 1))
   {
-    v8 = v7;
-    v9 = 0;
+    v116 = v115;
+    v117 = 0;
     while (1)
     {
-      v10 = objc_autoreleasePoolPush();
-      v11 = [objc_msgSend(a3 valueForKey:{objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"coord%i", v9)), "componentsSeparatedByString:", @", "}];
-      if ([v11 count] != 3)
+      v118 = objc_autoreleasePoolPush();
+      v121 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v119, @"coord%i", v120, v117);
+      v124 = objc_msgSend_valueForKey_(a3, v122, v121, v123);
+      v127 = objc_msgSend_componentsSeparatedByString_(v124, v125, @",", v126);
+      if (objc_msgSend_count(v127, v128, v129, v130) != 3)
       {
         break;
       }
 
-      [objc_msgSend(v11 objectAtIndexedSubscript:{0), "doubleValue"}];
-      v13 = v12;
-      [objc_msgSend(v11 objectAtIndexedSubscript:{1), "doubleValue"}];
-      v28.f64[0] = v13;
-      v28.f64[1] = v14;
-      sub_19B9F5A50(a1, &v28, 1);
-      v15 = (*(a1 + 144) - *(a1 + 136)) & 0xFFFFFFFF0;
-      [objc_msgSend(v11 objectAtIndexedSubscript:{2), "doubleValue"}];
-      if (v15 == 16)
+      v133 = objc_msgSend_objectAtIndexedSubscript_(v127, v131, 0, v132);
+      objc_msgSend_doubleValue(v133, v134, v135, v136);
+      v138 = v137;
+      v141 = objc_msgSend_objectAtIndexedSubscript_(v127, v139, 1, v140);
+      objc_msgSend_doubleValue(v141, v142, v143, v144);
+      v165.f64[0] = v138;
+      v165.f64[1] = v145;
+      sub_19B9F5A50(a1, &v165, 1);
+      v146 = (*(a1 + 144) - *(a1 + 136)) & 0xFFFFFFFF0;
+      v149 = objc_msgSend_objectAtIndexedSubscript_(v127, v147, 2, v148);
+      objc_msgSend_doubleValue(v149, v150, v151, v152);
+      if (v146 == 16)
       {
-        v17 = 120;
+        v154 = 120;
       }
 
       else
       {
-        v17 = 128;
+        v154 = 128;
       }
 
-      *(a1 + v17) = v16;
-      objc_autoreleasePoolPop(v10);
-      v9 = (v9 + 1);
-      if (v8 == v9)
+      *(a1 + v154) = v153;
+      objc_autoreleasePoolPop(v118);
+      v117 = (v117 + 1);
+      if (v116 == v117)
       {
         goto LABEL_46;
       }
     }
 
-    objc_autoreleasePoolPop(v10);
+    objc_autoreleasePoolPop(v118);
     return 0;
   }
 
   else
   {
 LABEL_46:
-    v18 = *(a1 + 17);
+    v155 = *(a1 + 17);
     if ((*(a1 + 84) - 1) < 3)
     {
-      v19 = 1;
+      v156 = 1;
     }
 
     else
     {
-      v19 = v26;
+      v156 = v163;
     }
 
-    *(a1 + 80) = v19 & (v18 ^ 1);
-    if (v19 & (v18 ^ 1))
+    *(a1 + 80) = v156 & (v155 ^ 1);
+    if (v156 & (v155 ^ 1))
     {
-      v20 = 1;
+      v157 = 1;
     }
 
     else
     {
-      v20 = ((*(a1 + 88) - 1) < 3) & (v18 ^ 1);
+      v157 = ((*(a1 + 88) - 1) < 3) & (v155 ^ 1);
     }
 
-    *(a1 + 82) = v20;
+    *(a1 + 82) = v157;
     *(a1 + 96) = sub_19B988DA8(*(a1 + 20), *(a1 + 72) != 0);
-    v21 = (*(a1 + 17) & 1) == 0 && *(a1 + 72) != 0;
-    v24 = *(a1 + 136);
-    v23 = a1 + 136;
-    v22 = v24;
-    *(v23 - 120) = v21;
-    v25 = *(v23 + 8) - v24;
-    if (a4)
+    v158 = (*(a1 + 17) & 1) == 0 && *(a1 + 72) != 0;
+    v161 = *(a1 + 136);
+    v160 = a1 + 136;
+    v159 = v161;
+    *(v160 - 120) = v158;
+    v162 = *(v160 + 8) - v161;
+    if (v164)
     {
-      return (v25 >> 4) > 1;
+      return (v162 >> 4) > 1;
     }
 
     else
     {
       result = 1;
-      if (v22)
+      if (v159)
       {
-        if ((v25 & 0xFFFFFFFF0) == 0x10)
+        if ((v162 & 0xFFFFFFFF0) == 0x10)
         {
-          v28 = *v22;
-          sub_19B8F1158(v23, &v28);
+          v165 = *v159;
+          sub_19B8F1158(v160, &v165);
           return 1;
         }
       }
@@ -7943,44 +8069,45 @@ LABEL_46:
   return result;
 }
 
-uint64_t sub_19B9F6B4C(uint64_t a1, void *a2, int a3)
+uint64_t sub_19B9F6B4C(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
   if (!a2)
   {
     return 0;
   }
 
-  v3 = a3;
+  v4 = a3;
   if (a3)
   {
-    if ([a2 coordinateCount] < 2)
+    if (objc_msgSend_coordinateCount(a2, a2, a3, a4) < 2)
     {
       return 0;
     }
   }
 
-  if ([a2 internalRoadName])
+  if (objc_msgSend_internalRoadName(a2, a2, a3, a4))
   {
-    v7 = [objc_msgSend(a2 "internalRoadName")];
-    v8 = strlen(v7);
-    if (v8 >= 0x7FFFFFFFFFFFFFF8)
+    v11 = objc_msgSend_internalRoadName(a2, v8, v9, v10);
+    v15 = objc_msgSend_UTF8String(v11, v12, v13, v14);
+    v16 = strlen(v15);
+    if (v16 >= 0x7FFFFFFFFFFFFFF8)
     {
       sub_19B890AD4();
     }
 
-    v9 = v8;
-    if (v8 >= 0x17)
+    v17 = v16;
+    if (v16 >= 0x17)
     {
       operator new();
     }
 
-    *(&__dst.__r_.__value_.__s + 23) = v8;
-    if (v8)
+    *(&__dst.__r_.__value_.__s + 23) = v16;
+    if (v16)
     {
-      memmove(&__dst, v7, v8);
+      memmove(&__dst, v15, v16);
     }
 
-    __dst.__r_.__value_.__s.__data_[v9] = 0;
+    __dst.__r_.__value_.__s.__data_[v17] = 0;
     std::string::operator=((a1 + 48), &__dst);
     if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
     {
@@ -7988,96 +8115,104 @@ uint64_t sub_19B9F6B4C(uint64_t a1, void *a2, int a3)
     }
   }
 
-  v10 = [a2 roadID];
-  v11 = sub_19B964678(a2);
-  *a1 = v10;
-  *(a1 + 8) = v11;
-  *(a1 + 17) = [a2 isRail];
-  *(a1 + 18) = [a2 isTunnel];
-  *(a1 + 19) = [a2 isBridge];
-  *(a1 + 20) = [a2 roadClass];
-  *(a1 + 24) = [a2 formOfWay];
-  v12 = [a2 travelDirection];
-  *(a1 + 72) = v12;
-  *(a1 + 16) = (v12 != 0) & ~*(a1 + 17);
-  *(a1 + 76) = [a2 rampType];
-  v13 = [a2 isRoadPedestrianNavigable];
-  v14 = [a2 walkableSide];
-  v15 = [a2 isRail];
-  if ((v14 - 1) < 3)
+  v18 = objc_msgSend_roadID(a2, v8, v9, v10);
+  v22 = sub_19B964678(a2, v19, v20, v21);
+  *a1 = v18;
+  *(a1 + 8) = v22;
+  *(a1 + 17) = objc_msgSend_isRail(a2, v23, v24, v25);
+  *(a1 + 18) = objc_msgSend_isTunnel(a2, v26, v27, v28);
+  *(a1 + 19) = objc_msgSend_isBridge(a2, v29, v30, v31);
+  *(a1 + 20) = objc_msgSend_roadClass(a2, v32, v33, v34);
+  *(a1 + 24) = objc_msgSend_formOfWay(a2, v35, v36, v37);
+  v41 = objc_msgSend_travelDirection(a2, v38, v39, v40);
+  *(a1 + 72) = v41;
+  *(a1 + 16) = (v41 != 0) & ~*(a1 + 17);
+  *(a1 + 76) = objc_msgSend_rampType(a2, v42, v43, v44);
+  isRoadPedestrianNavigable = objc_msgSend_isRoadPedestrianNavigable(a2, v45, v46, v47);
+  v52 = objc_msgSend_walkableSide(a2, v49, v50, v51);
+  isRail = objc_msgSend_isRail(a2, v53, v54, v55);
+  if ((v52 - 1) < 3)
   {
-    v16 = 1;
+    v60 = 1;
   }
 
   else
   {
-    v16 = v13;
+    v60 = isRoadPedestrianNavigable;
   }
 
-  *(a1 + 80) = v16 & (v15 ^ 1);
-  *(a1 + 81) = [a2 isDrivable];
-  v17 = [a2 isRoadPedestrianNavigable];
-  v18 = [a2 walkableSide];
-  v19 = [a2 isRail];
-  if ((((v18 - 1) > 2) & ~v17) != 0 || v19)
+  *(a1 + 80) = v60 & (isRail ^ 1);
+  *(a1 + 81) = objc_msgSend_isDrivable(a2, v57, v58, v59);
+  v64 = objc_msgSend_isRoadPedestrianNavigable(a2, v61, v62, v63);
+  v68 = objc_msgSend_walkableSide(a2, v65, v66, v67);
+  v72 = objc_msgSend_isRail(a2, v69, v70, v71);
+  if ((((v68 - 1) > 2) & ~v64) != 0 || v72)
   {
-    v21 = [a2 bikeableSide];
-    v20 = [a2 isRail] ^ 1;
-    if ((v21 - 1) >= 3)
+    v77 = objc_msgSend_bikeableSide(a2, v73, v74, v75);
+    v76 = objc_msgSend_isRail(a2, v78, v79, v80) ^ 1;
+    if ((v77 - 1) >= 3)
     {
-      LOBYTE(v20) = 0;
+      LOBYTE(v76) = 0;
     }
   }
 
   else
   {
-    LOBYTE(v20) = 1;
+    LOBYTE(v76) = 1;
   }
 
-  *(a1 + 82) = v20;
-  *(a1 + 84) = [a2 walkableSide];
-  *(a1 + 108) = [objc_msgSend(a2 "startJunction")];
-  *(a1 + 112) = [objc_msgSend(a2 "endJunction")];
-  *(a1 + 116) = [objc_msgSend(a2 "startJunction")];
-  *(a1 + 117) = [objc_msgSend(a2 "endJunction")];
-  *(a1 + 96) = sub_19B988DA8([a2 roadClass], objc_msgSend(a2, "travelDirection") != 0);
-  if ([a2 speedLimitIsMPH])
+  *(a1 + 82) = v76;
+  *(a1 + 84) = objc_msgSend_walkableSide(a2, v73, v74, v75);
+  started = objc_msgSend_startJunction(a2, v81, v82, v83);
+  *(a1 + 108) = objc_msgSend_junctionIndex(started, v85, v86, v87);
+  v91 = objc_msgSend_endJunction(a2, v88, v89, v90);
+  *(a1 + 112) = objc_msgSend_junctionIndex(v91, v92, v93, v94);
+  v98 = objc_msgSend_startJunction(a2, v95, v96, v97);
+  *(a1 + 116) = objc_msgSend_isOnTileBorder(v98, v99, v100, v101);
+  v105 = objc_msgSend_endJunction(a2, v102, v103, v104);
+  *(a1 + 117) = objc_msgSend_isOnTileBorder(v105, v106, v107, v108);
+  v112 = objc_msgSend_roadClass(a2, v109, v110, v111);
+  v116 = objc_msgSend_travelDirection(a2, v113, v114, v115) != 0;
+  *(a1 + 96) = sub_19B988DA8(v112, v116);
+  if (objc_msgSend_speedLimitIsMPH(a2, v117, v118, v119))
   {
-    v22 = 0.44704;
+    v123 = 0.44704;
   }
 
   else
   {
-    v22 = 0.277778;
+    v123 = 0.277778;
   }
 
-  *(a1 + 32) = v22 * [a2 speedLimit];
-  *(a1 + 104) = [a2 laneCount];
-  *(a1 + 88) = [a2 bikeableSide];
-  if ([a2 coordinateCount])
+  *(a1 + 32) = v123 * objc_msgSend_speedLimit(a2, v120, v121, v122);
+  *(a1 + 104) = objc_msgSend_laneCount(a2, v124, v125, v126);
+  *(a1 + 88) = objc_msgSend_bikeableSide(a2, v127, v128, v129);
+  if (objc_msgSend_coordinateCount(a2, v130, v131, v132))
   {
-    v23 = 0;
-    v24 = 0;
+    v136 = 0;
+    v137 = 0;
     do
     {
-      sub_19B9F5A50(a1, ([a2 coordinates] + v23), 1);
-      ++v24;
-      v23 += 16;
+      v138 = objc_msgSend_coordinates(a2, v133, v134, v135);
+      sub_19B9F5A50(a1, (v138 + v136), 1);
+      ++v137;
+      v136 += 16;
     }
 
-    while ([a2 coordinateCount] > v24);
+    while (objc_msgSend_coordinateCount(a2, v139, v140, v141) > v137);
   }
 
-  if ((v3 & 1) == 0 && [a2 coordinateCount] == 1)
+  if ((v4 & 1) == 0 && objc_msgSend_coordinateCount(a2, v133, v134, v135) == 1)
   {
-    sub_19B8F1158(a1 + 136, [a2 coordinates]);
+    v142 = objc_msgSend_coordinates(a2, v133, v134, v135);
+    sub_19B8F1158(a1 + 136, v142);
   }
 
-  if ([a2 coordinateCount])
+  if (objc_msgSend_coordinateCount(a2, v133, v134, v135))
   {
-    *(a1 + 120) = *([a2 coordinates3d] + 16);
-    v25 = [a2 coordinates3d];
-    *(a1 + 128) = *(v25 + 24 * [a2 coordinateCount] - 8);
+    *(a1 + 120) = *(objc_msgSend_coordinates3d(a2, v143, v144, v145) + 16);
+    v149 = objc_msgSend_coordinates3d(a2, v146, v147, v148);
+    *(a1 + 128) = *(v149 + 24 * objc_msgSend_coordinateCount(a2, v150, v151, v152) - 8);
   }
 
   return 1;
@@ -8093,33 +8228,33 @@ void sub_19B9F6F10(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t sub_19B9F6F2C(void *a1)
+uint64_t sub_19B9F6F2C(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v2 = [a1 objectForKey:@"Authorization"];
-  if (v2)
+  v5 = objc_msgSend_objectForKey_(a1, a2, @"Authorization", a4);
+  if (v5)
   {
-    v3 = [v2 integerValue];
-    if (v3 < 5)
+    v9 = objc_msgSend_integerValue(v5, v6, v7, v8);
+    if (v9 < 5)
     {
-      return qword_19BA8D310[v3];
+      return qword_19BA8D310[v9];
     }
 
     return 0;
   }
 
-  v5 = [a1 objectForKey:@"Authorized"];
-  if (!v5)
+  v11 = objc_msgSend_objectForKey_(a1, v6, @"Authorized", v8);
+  if (!v11)
   {
-    v6 = sub_19B9F7A74(a1, 1) - 3;
-    if (v6 < 6)
+    v15 = sub_19B9F7A74(a1, 1, v13, v14) - 3;
+    if (v15 < 6)
     {
-      return qword_19BA8D338[v6];
+      return qword_19BA8D338[v15];
     }
 
     return 0;
   }
 
-  if ([v5 BOOLValue])
+  if (objc_msgSend_BOOLValue(v11, v12, v13, v14))
   {
     return 4;
   }
@@ -8130,124 +8265,125 @@ uint64_t sub_19B9F6F2C(void *a1)
   }
 }
 
-uint64_t sub_19B9F6FCC(void *a1, double a2)
+uint64_t sub_19B9F6FCC(void *a1, double a2, const char *a3, uint64_t a4, uint64_t a5)
 {
-  v4 = 0;
-  v5 = 0;
-  v6 = off_1E753EA18;
+  v7 = 0;
+  v8 = 0;
+  v9 = off_1E753EA18;
   do
   {
-    v7 = dbl_19BA8D298[v4];
-    v8 = *v6;
-    v9 = [a1 objectForKey:*(v6 - 1)];
-    v10 = [a1 objectForKey:v8];
-    v11 = v10;
-    if (v9)
+    v10 = dbl_19BA8D298[v7];
+    v11 = *v9;
+    v12 = objc_msgSend_objectForKey_(a1, a3, *(v9 - 1), a5);
+    v15 = objc_msgSend_objectForKey_(a1, v13, v11, v14);
+    v17 = v15;
+    if (v12)
     {
-      v12 = v10 == 0;
+      v18 = v15 == 0;
     }
 
     else
     {
-      v12 = 1;
+      v18 = 1;
     }
 
-    if (!v12)
+    if (!v18)
     {
-      [v9 doubleValue];
-      v14 = v13;
-      [v11 doubleValue];
-      if (v14 <= v15)
+      objc_msgSend_doubleValue(v12, a3, v16, a5);
+      v20 = v19;
+      objc_msgSend_doubleValue(v17, v21, v22, v23);
+      if (v20 <= v24)
       {
-        v16 = 1;
+        v25 = 1;
         goto LABEL_15;
       }
 
-      v11 = 0;
+      v17 = 0;
     }
 
-    v16 = v11 != 0;
-    if (v9)
+    v25 = v17 != 0;
+    if (v12)
     {
-      v17 = v11 == 0;
+      v26 = v17 == 0;
     }
 
     else
     {
-      v17 = 0;
+      v26 = 0;
     }
 
-    if (v17)
+    if (v26)
     {
 LABEL_20:
-      v5 = dword_19BA8D2E8[v4] | v5;
+      v8 = dword_19BA8D2E8[v7] | v8;
       goto LABEL_21;
     }
 
 LABEL_15:
-    v18 = a2 - v7;
-    if (v18 > 0.0 && v16)
+    v27 = a2 - v10;
+    if (v27 > 0.0 && v25)
     {
-      [objc_msgSend(MEMORY[0x1E695DF00] "date")];
-      v21 = v20;
-      [v11 doubleValue];
-      if (vabdd_f64(v22, v21) < v18)
+      v29 = objc_msgSend_date(MEMORY[0x1E695DF00], a3, v16, a5);
+      objc_msgSend_timeIntervalSinceReferenceDate(v29, v30, v31, v32);
+      v34 = v33;
+      objc_msgSend_doubleValue(v17, v35, v36, v37);
+      if (vabdd_f64(v38, v34) < v27)
       {
         goto LABEL_20;
       }
     }
 
 LABEL_21:
-    ++v4;
-    v6 += 2;
+    ++v7;
+    v9 += 2;
   }
 
-  while (v4 != 10);
-  return v5;
+  while (v7 != 10);
+  return v8;
 }
 
-id sub_19B9F7100(id a1)
+id sub_19B9F7100(void *a1)
 {
-  v35 = *MEMORY[0x1E69E9840];
-  v23 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  v27 = 0u;
-  v2 = [a1 allKeys];
-  v3 = [v2 countByEnumeratingWithState:&v24 objects:v34 count:16];
-  if (!v3)
+  v51 = *MEMORY[0x1E69E9840];
+  v39 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v40 = 0u;
+  v41 = 0u;
+  v42 = 0u;
+  v43 = 0u;
+  v5 = objc_msgSend_allKeys(a1, v2, v3, v4);
+  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v40, v50, 16);
+  if (!v7)
   {
     goto LABEL_31;
   }
 
-  v5 = v3;
-  v6 = 0;
-  v7 = *v25;
-  *&v4 = 68289282;
-  v22 = v4;
+  v11 = v7;
+  v12 = 0;
+  v13 = *v41;
+  *&v10 = 68289282;
+  v38 = v10;
   do
   {
-    v8 = 0;
+    v14 = 0;
     do
     {
-      if (*v25 != v7)
+      if (*v41 != v13)
       {
-        objc_enumerationMutation(v2);
+        objc_enumerationMutation(v5);
       }
 
-      v9 = *(*(&v24 + 1) + 8 * v8);
-      [a1 objectForKeyedSubscript:{v9, v22}];
+      v15 = *(*(&v40 + 1) + 8 * v14);
+      objc_msgSend_objectForKeyedSubscript_(a1, v8, v15, v9, v38);
       objc_opt_class();
       isKindOfClass = objc_opt_isKindOfClass();
-      v11 = [a1 objectForKeyedSubscript:v9];
+      v19 = objc_msgSend_objectForKeyedSubscript_(a1, v17, v15, v18);
       if (isKindOfClass)
       {
-        v12 = [v11 objectAtIndexedSubscript:1];
+        v22 = objc_msgSend_objectAtIndexedSubscript_(v19, v20, 1, v21);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          [v23 setObject:v12 forKeyedSubscript:v9];
+          objc_msgSend_setObject_forKeyedSubscript_(v39, v23, v22, v15);
         }
 
         else
@@ -8257,36 +8393,36 @@ id sub_19B9F7100(id a1)
             dispatch_once(&qword_1ED519078, &unk_1F0E6EA70);
           }
 
-          v13 = qword_1ED519080;
+          v28 = qword_1ED519080;
           if (os_log_type_enabled(qword_1ED519080, OS_LOG_TYPE_FAULT))
           {
-            *buf = v22;
-            v29 = 0;
-            v30 = 2082;
-            v31 = "";
-            v32 = 2114;
-            v33 = v12;
-            _os_log_impl(&dword_19B873000, v13, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Invalid RemoteUsageDictionary. Found NSArray value where index 1 is not a timestamp, arr[1]:%{public, location:escape_only}@}", buf, 0x1Cu);
+            *buf = v38;
+            v45 = 0;
+            v46 = 2082;
+            v47 = "";
+            v48 = 2114;
+            v49 = v22;
+            _os_log_impl(&dword_19B873000, v28, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Invalid RemoteUsageDictionary. Found NSArray value where index 1 is not a timestamp, arr[1]:%{public, location:escape_only}@}", buf, 0x1Cu);
             if (qword_1ED519078 != -1)
             {
               dispatch_once(&qword_1ED519078, &unk_1F0E6EA70);
             }
           }
 
-          v14 = qword_1ED519080;
+          v29 = qword_1ED519080;
           if (os_signpost_enabled(qword_1ED519080))
           {
-            *buf = v22;
-            v29 = 0;
-            v30 = 2082;
-            v31 = "";
-            v32 = 2114;
-            v33 = v12;
-            _os_signpost_emit_with_name_impl(&dword_19B873000, v14, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Invalid RemoteUsageDictionary. Found NSArray value where index 1 is not a timestamp", "{msg%{public}.0s:Invalid RemoteUsageDictionary. Found NSArray value where index 1 is not a timestamp, arr[1]:%{public, location:escape_only}@}", buf, 0x1Cu);
+            *buf = v38;
+            v45 = 0;
+            v46 = 2082;
+            v47 = "";
+            v48 = 2114;
+            v49 = v22;
+            _os_signpost_emit_with_name_impl(&dword_19B873000, v29, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Invalid RemoteUsageDictionary. Found NSArray value where index 1 is not a timestamp", "{msg%{public}.0s:Invalid RemoteUsageDictionary. Found NSArray value where index 1 is not a timestamp, arr[1]:%{public, location:escape_only}@}", buf, 0x1Cu);
           }
         }
 
-        v6 = 1;
+        v12 = 1;
       }
 
       else
@@ -8294,7 +8430,8 @@ id sub_19B9F7100(id a1)
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          [v23 setObject:objc_msgSend(a1 forKeyedSubscript:{"objectForKeyedSubscript:", v9), v9}];
+          v26 = objc_msgSend_objectForKeyedSubscript_(a1, v24, v15, v25);
+          objc_msgSend_setObject_forKeyedSubscript_(v39, v27, v26, v15);
         }
 
         else
@@ -8304,157 +8441,156 @@ id sub_19B9F7100(id a1)
             dispatch_once(&qword_1ED519078, &unk_1F0E6EA70);
           }
 
-          v15 = qword_1ED519080;
+          v30 = qword_1ED519080;
           if (os_log_type_enabled(qword_1ED519080, OS_LOG_TYPE_FAULT))
           {
-            v16 = [a1 objectForKeyedSubscript:v9];
-            *buf = v22;
-            v29 = 0;
-            v30 = 2082;
-            v31 = "";
-            v32 = 2114;
-            v33 = v16;
-            _os_log_impl(&dword_19B873000, v15, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Invalid RemoteUsageDictionary. Found non-NSArray value which is not a timestamp, value:%{public, location:escape_only}@}", buf, 0x1Cu);
+            v33 = objc_msgSend_objectForKeyedSubscript_(a1, v31, v15, v32);
+            *buf = v38;
+            v45 = 0;
+            v46 = 2082;
+            v47 = "";
+            v48 = 2114;
+            v49 = v33;
+            _os_log_impl(&dword_19B873000, v30, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Invalid RemoteUsageDictionary. Found non-NSArray value which is not a timestamp, value:%{public, location:escape_only}@}", buf, 0x1Cu);
             if (qword_1ED519078 != -1)
             {
               dispatch_once(&qword_1ED519078, &unk_1F0E6EA70);
             }
           }
 
-          v17 = qword_1ED519080;
+          v34 = qword_1ED519080;
           if (os_signpost_enabled(qword_1ED519080))
           {
-            v18 = [a1 objectForKeyedSubscript:v9];
-            *buf = v22;
-            v29 = 0;
-            v30 = 2082;
-            v31 = "";
-            v32 = 2114;
-            v33 = v18;
-            _os_signpost_emit_with_name_impl(&dword_19B873000, v17, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Invalid RemoteUsageDictionary. Found non-NSArray value which is not a timestamp", "{msg%{public}.0s:Invalid RemoteUsageDictionary. Found non-NSArray value which is not a timestamp, value:%{public, location:escape_only}@}", buf, 0x1Cu);
+            v35 = objc_msgSend_objectForKeyedSubscript_(a1, v8, v15, v9);
+            *buf = v38;
+            v45 = 0;
+            v46 = 2082;
+            v47 = "";
+            v48 = 2114;
+            v49 = v35;
+            _os_signpost_emit_with_name_impl(&dword_19B873000, v34, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Invalid RemoteUsageDictionary. Found non-NSArray value which is not a timestamp", "{msg%{public}.0s:Invalid RemoteUsageDictionary. Found non-NSArray value which is not a timestamp, value:%{public, location:escape_only}@}", buf, 0x1Cu);
           }
         }
       }
 
-      ++v8;
+      ++v14;
     }
 
-    while (v5 != v8);
-    v19 = [v2 countByEnumeratingWithState:&v24 objects:v34 count:16];
-    v5 = v19;
+    while (v11 != v14);
+    v36 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v8, &v40, v50, 16);
+    v11 = v36;
   }
 
-  while (v19);
-  if (v6)
+  while (v36);
+  if (v12)
   {
-    a1 = v23;
+    return v39;
   }
 
-  else
-  {
 LABEL_31:
-  }
 
-  v20 = *MEMORY[0x1E69E9840];
   return a1;
 }
 
-uint64_t sub_19B9F756C(void *a1, int a2)
+uint64_t sub_19B9F756C(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v4 = sub_19B9F6F2C(a1);
-  v5 = 60.0;
-  if (a2 != 2)
+  v4 = a2;
+  v6 = sub_19B9F6F2C(a1, a2, a3, a4);
+  v10 = 60.0;
+  if (v4 != 2)
   {
-    v5 = 0.0;
+    v10 = 0.0;
   }
 
-  if (a2 == 1)
+  if (v4 == 1)
   {
-    v5 = 10.0;
+    v10 = 10.0;
   }
 
-  if ((v4 & 6) != 0)
+  if ((v6 & 6) != 0)
   {
-    v6 = v5;
+    v11 = v10;
   }
 
   else
   {
-    v6 = -1.0;
+    v11 = -1.0;
   }
 
-  v7 = sub_19B9F6FCC(a1, v6);
-  v8 = sub_19B9F7100([a1 objectForKeyedSubscript:0x1F0E73D40]);
-  if (v8)
+  v12 = sub_19B9F6FCC(a1, v11, v7, v8, v9);
+  v15 = objc_msgSend_objectForKeyedSubscript_(a1, v13, 0x1F0E73D40, v14);
+  v16 = sub_19B9F7100(v15);
+  if (v16)
   {
-    LODWORD(v8) = sub_19B9F6FCC(v8, v6);
+    LODWORD(v16) = sub_19B9F6FCC(v16, v11, v17, v18, v19);
   }
 
-  if (((v8 | v7) & 0x240) != 0)
+  if (((v16 | v12) & 0x240) != 0)
   {
     return 2;
   }
 
-  if (!(v8 | v7))
+  if (!(v16 | v12))
   {
     return 0;
   }
 
-  v10 = [a1 objectForKeyedSubscript:0x1F0E73840];
+  v21 = objc_msgSend_objectForKeyedSubscript_(a1, v17, 0x1F0E73840, v19);
   objc_opt_class();
-  v11 = (objc_opt_isKindOfClass() & 1) != 0 && [v10 intValue] != 0;
-  v12 = [a1 objectForKeyedSubscript:0x1F0E73D20];
+  v25 = (objc_opt_isKindOfClass() & 1) != 0 && objc_msgSend_intValue(v21, v22, v23, v24) != 0;
+  v26 = objc_msgSend_objectForKeyedSubscript_(a1, v22, 0x1F0E73D20, v24);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v13 = [v12 BOOLValue] ^ 1;
+    v30 = objc_msgSend_BOOLValue(v26, v27, v28, v29) ^ 1;
   }
 
   else
   {
-    v13 = 1;
+    v30 = 1;
   }
 
-  return (v11 | v13) & 1;
+  return (v25 | v30) & 1;
 }
 
-BOOL sub_19B9F76B4(void *a1)
+BOOL sub_19B9F76B4(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v2 = sub_19B9F7100([a1 objectForKeyedSubscript:0x1F0E73D40]);
-  if ([a1 objectForKey:@"FenceTimeStarted"] || objc_msgSend(v2, "objectForKeyedSubscript:", @"FenceTimeStarted"))
+  v5 = objc_msgSend_objectForKeyedSubscript_(a1, a2, 0x1F0E73D40, a4);
+  v6 = sub_19B9F7100(v5);
+  if (objc_msgSend_objectForKey_(a1, v7, @"FenceTimeStarted", v8) || objc_msgSend_objectForKeyedSubscript_(v6, v9, @"FenceTimeStarted", v10))
   {
     return 1;
   }
 
-  v4 = 0;
+  v14 = 0;
   do
   {
-    v5 = v4;
-    if (v4 == 11)
+    v15 = v14;
+    if (v14 == 11)
     {
       break;
     }
 
-    v6 = off_1E753E9B0[v4 + 1];
-    if ([a1 objectForKey:v6])
+    v16 = off_1E753E9B0[v14 + 1];
+    if (objc_msgSend_objectForKey_(a1, v11, v16, v12))
     {
       break;
     }
 
-    v7 = [v2 objectForKeyedSubscript:v6];
-    v4 = v5 + 1;
+    v19 = objc_msgSend_objectForKeyedSubscript_(v6, v17, v16, v18);
+    v14 = v15 + 1;
   }
 
-  while (!v7);
-  return v5 < 0xB;
+  while (!v19);
+  return v15 < 0xB;
 }
 
-uint64_t sub_19B9F7774(void *a1)
+uint64_t sub_19B9F7774(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v1 = [a1 objectForKey:@"SupportedAuthorizationMask"];
-  if (v1)
+  v4 = objc_msgSend_objectForKey_(a1, a2, @"SupportedAuthorizationMask", a4);
+  if (v4)
   {
-    return [v1 integerValue] & 7;
+    return objc_msgSend_integerValue(v4, v5, v6, v7) & 7;
   }
 
   else
@@ -8463,12 +8599,12 @@ uint64_t sub_19B9F7774(void *a1)
   }
 }
 
-void *sub_19B9F77D4(void *a1)
+void *sub_19B9F77D4(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  result = [a1 objectForKey:@"IncidentalUseMode"];
+  result = objc_msgSend_objectForKey_(a1, a2, @"IncidentalUseMode", a4);
   if (result)
   {
-    result = [result integerValue];
+    result = objc_msgSend_integerValue(result, v5, v6, v7);
     if (result >= 4)
     {
       return 0;
@@ -8478,73 +8614,74 @@ void *sub_19B9F77D4(void *a1)
   return result;
 }
 
-void *sub_19B9F7810(void *a1)
+void *sub_19B9F7810(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  result = [a1 objectForKey:@"Relevant"];
+  result = objc_msgSend_objectForKey_(a1, a2, @"Relevant", a4);
   if (result)
   {
 
-    return [result BOOLValue];
+    return objc_msgSend_BOOLValue(result, v5, v6, v7);
   }
 
   return result;
 }
 
-uint64_t sub_19B9F784C(void *a1)
+uint64_t sub_19B9F784C(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v1 = [a1 objectForKey:@"BackgroundIndicatorEnabled"];
-  if (!v1)
+  v4 = objc_msgSend_objectForKey_(a1, a2, @"BackgroundIndicatorEnabled", a4);
+  if (!v4)
   {
     return 1;
   }
 
-  return [v1 BOOLValue];
+  return objc_msgSend_BOOLValue(v4, v5, v6, v7);
 }
 
-uint64_t sub_19B9F788C(void *a1)
+uint64_t sub_19B9F788C(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v2 = sub_19B9F7904(a1);
-  v3 = sub_19B9F7100([a1 objectForKeyedSubscript:0x1F0E73D40]);
-  if (!v3)
+  v5 = sub_19B9F7904(a1, a2, a3, a4);
+  v8 = objc_msgSend_objectForKeyedSubscript_(a1, v6, 0x1F0E73D40, v7);
+  v9 = sub_19B9F7100(v8);
+  if (!v9)
   {
-    v4 = 0;
-    if (v2)
+    v13 = 0;
+    if (v5)
     {
       goto LABEL_3;
     }
 
-    return v4;
+    return v13;
   }
 
-  v4 = sub_19B9F7904(v3);
-  if (!v2)
+  v13 = sub_19B9F7904(v9, v10, v11, v12);
+  if (!v5)
   {
-    return v4;
+    return v13;
   }
 
 LABEL_3:
 
-  return MEMORY[0x1EEE66B58](v2, sel_laterDate_);
+  return MEMORY[0x1EEE66B58](v5, sel_laterDate_, v13, v12);
 }
 
-uint64_t sub_19B9F7904(void *a1)
+uint64_t sub_19B9F7904(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v2 = 0;
-  v3 = 0;
-  v4 = 2.22507386e-308;
+  v5 = 0;
+  v6 = 0;
+  v7 = 2.22507386e-308;
   while (2)
   {
-    v5 = &off_1E753EA10[v2 + 1];
-    v6 = v2;
-    while ((v6 | 8) == 0xA)
+    v8 = &off_1E753EA10[v5 + 1];
+    v9 = v5;
+    while ((v9 | 8) == 0xA)
     {
 LABEL_11:
-      v5 += 2;
-      v11 = v6 > 0x11;
-      v6 += 2;
-      if (v11)
+      v8 += 2;
+      v16 = v9 > 0x11;
+      v9 += 2;
+      if (v16)
       {
-        if ((v3 & 1) == 0)
+        if ((v6 & 1) == 0)
         {
           return 0;
         }
@@ -8553,27 +8690,27 @@ LABEL_11:
       }
     }
 
-    v7 = [a1 objectForKey:*(v5 - 1)];
-    v8 = [a1 objectForKey:*v5];
-    v9 = v8;
-    if (v7)
+    v10 = objc_msgSend_objectForKey_(a1, a2, *(v8 - 1), a4);
+    v13 = objc_msgSend_objectForKey_(a1, v11, *v8, v12);
+    v14 = v13;
+    if (v10)
     {
-      v10 = v8 == 0;
+      v15 = v13 == 0;
     }
 
     else
     {
-      v10 = 1;
+      v15 = 1;
     }
 
-    if (v10)
+    if (v15)
     {
-      if (v7)
+      if (v10)
       {
         break;
       }
 
-      if (v8)
+      if (v13)
       {
         goto LABEL_15;
       }
@@ -8581,26 +8718,26 @@ LABEL_11:
       goto LABEL_11;
     }
 
-    [v7 doubleValue];
-    v13 = v12;
-    [v9 doubleValue];
-    if (v13 <= v14)
+    objc_msgSend_doubleValue(v10, a2, a3, a4);
+    v18 = v17;
+    objc_msgSend_doubleValue(v14, v19, v20, v21);
+    if (v18 <= v22)
     {
 LABEL_15:
-      [v9 doubleValue];
-      if (v15 > v4)
+      objc_msgSend_doubleValue(v14, a2, a3, a4);
+      if (v23 > v7)
       {
-        v4 = v15;
+        v7 = v23;
       }
 
-      v2 = v6 + 2;
-      v3 = 1;
-      if (v6 > 0x11)
+      v5 = v9 + 2;
+      v6 = 1;
+      if (v9 > 0x11)
       {
 LABEL_20:
-        v16 = MEMORY[0x1E695DF00];
+        v24 = MEMORY[0x1E695DF00];
 
-        return [v16 dateWithTimeIntervalSinceReferenceDate:v4];
+        return objc_msgSend_dateWithTimeIntervalSinceReferenceDate_(v24, a2, a3, a4, v7);
       }
 
       continue;
@@ -8609,33 +8746,34 @@ LABEL_20:
     break;
   }
 
-  v18 = MEMORY[0x1E695DF00];
+  v26 = MEMORY[0x1E695DF00];
 
-  return [v18 date];
+  return objc_msgSend_date(v26, a2, a3, a4);
 }
 
-uint64_t sub_19B9F7A74(void *a1, int a2)
+uint64_t sub_19B9F7A74(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v4 = [a1 objectForKey:@"BundleId"];
-  v5 = [a1 objectForKey:@"BundlePath"];
-  if (v4)
+  v4 = a2;
+  v6 = objc_msgSend_objectForKey_(a1, a2, @"BundleId", a4);
+  v9 = objc_msgSend_objectForKey_(a1, v7, @"BundlePath", v8);
+  if (v6)
   {
-    if (!a2)
+    if (!v4)
     {
       return 1;
     }
 
-    if ([a1 objectForKey:@"Registered"])
+    if (objc_msgSend_objectForKey_(a1, v10, @"Registered", v11))
     {
       return 1;
     }
 
-    if ([a1 objectForKey:@"Authorized"])
+    if (objc_msgSend_objectForKey_(a1, v12, @"Authorized", v13))
     {
       return 1;
     }
 
-    result = [a1 objectForKey:@"Authorization"];
+    result = objc_msgSend_objectForKey_(a1, v14, @"Authorization", v15);
     if (result)
     {
       return 1;
@@ -8644,30 +8782,30 @@ uint64_t sub_19B9F7A74(void *a1, int a2)
 
   else
   {
-    v7 = v5;
-    if (v5)
+    v17 = v9;
+    if (v9)
     {
-      if (sub_19B8B866C(v5))
+      if (sub_19B8B866C(v9))
       {
         return 4;
       }
 
-      else if (sub_19B8B86FC(v7))
+      else if (sub_19B8B86FC(v17))
       {
         return 5;
       }
 
-      else if (sub_19B8B8754(v7))
+      else if (sub_19B8B8754(v17))
       {
         return 7;
       }
 
-      else if (sub_19B8B8414(v7))
+      else if (sub_19B8B8414(v17, v18, v19, v20))
       {
         return 8;
       }
 
-      else if (sub_19B8B83AC(v7))
+      else if (sub_19B8B83AC(v17, v21, v22, v23))
       {
         return 3;
       }
@@ -8715,9 +8853,9 @@ BOOL sub_19B9F7DBC(uint64_t a1, const __CFString *a2)
   return v7;
 }
 
-void sub_19B9F7E94(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_19B9F7E94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_19B888D7C(va);
   _Unwind_Resume(a1);
 }
@@ -8790,9 +8928,9 @@ BOOL sub_19B9F7F78(uint64_t a1, const __CFString *a2)
   return v6;
 }
 
-void sub_19B9F804C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_19B9F804C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_19B888D7C(va);
   _Unwind_Resume(a1);
 }
@@ -8818,9 +8956,9 @@ BOOL sub_19B9F8060(uint64_t a1, const __CFString *a2)
   return v6;
 }
 
-void sub_19B9F8134(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_19B9F8134(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_19B888D7C(va);
   _Unwind_Resume(a1);
 }
@@ -8846,9 +8984,9 @@ BOOL sub_19B9F8148(uint64_t a1, const __CFString *a2)
   return v6;
 }
 
-void sub_19B9F821C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_19B9F821C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_19B888D7C(va);
   _Unwind_Resume(a1);
 }
@@ -8870,7 +9008,7 @@ void sub_19B9FBE64(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t sub_19B9FBEA8(uint64_t a1, CLConnectionMessage **a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (qword_1EAFE4728 != -1)
   {
     dispatch_once(&qword_1EAFE4728, &unk_1F0E6EAB0);
@@ -8892,7 +9030,8 @@ uint64_t sub_19B9FBEA8(uint64_t a1, CLConnectionMessage **a2)
       dispatch_once(&qword_1EAFE4728, &unk_1F0E6EAB0);
     }
 
-    v6 = _os_log_send_and_compose_impl();
+    v20[0] = 0;
+    v6 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE4730, 0, "received service event callback kCLConnectionMessageMiLoServiceEvent", v20, 2);
     sub_19B885924("Generic", 1, 0, 2, "[CLMiLoConnectionInternal _registerForMiLoServiceEvents]_block_invoke", "CoreLocation: %s\n", v6);
     if (v6 != buf)
     {
@@ -8905,10 +9044,10 @@ uint64_t sub_19B9FBEA8(uint64_t a1, CLConnectionMessage **a2)
   v9 = objc_opt_class();
   v10 = objc_opt_class();
   v11 = objc_opt_class();
-  v12 = [v7 setWithObjects:{v8, v9, v10, v11, objc_opt_class(), 0}];
-  result = [*(a1 + 32) _handleDaemonEvent:{CLConnectionMessage::getDictionaryOfClasses(*a2, v12)}];
-  v14 = *MEMORY[0x1E69E9840];
-  return result;
+  v12 = objc_opt_class();
+  v15 = objc_msgSend_setWithObjects_(v7, v13, v8, v14, v9, v10, v11, v12, 0);
+  DictionaryOfClasses = CLConnectionMessage::getDictionaryOfClasses(*a2, v15);
+  return objc_msgSend__handleDaemonEvent_(*(a1 + 32), v17, DictionaryOfClasses, v18);
 }
 
 void sub_19B9FC294(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20)
@@ -8938,7 +9077,7 @@ void sub_19B9FC434(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t sub_19B9FC458(uint64_t a1, CLConnectionMessage **a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (qword_1EAFE4728 != -1)
   {
     dispatch_once(&qword_1EAFE4728, &unk_1F0E6EAB0);
@@ -8960,7 +9099,8 @@ uint64_t sub_19B9FC458(uint64_t a1, CLConnectionMessage **a2)
       dispatch_once(&qword_1EAFE4728, &unk_1F0E6EAB0);
     }
 
-    v6 = _os_log_send_and_compose_impl();
+    v16[0] = 0;
+    v6 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE4730, 0, "received callback for kCLConnectionMessageMiLoPredictionEventUpdate", v16, 2);
     sub_19B885924("Generic", 1, 0, 2, "[CLMiLoConnectionInternal _setHandlerForMiLoPredictionEvents]_block_invoke", "CoreLocation: %s\n", v6);
     if (v6 != buf)
     {
@@ -8968,10 +9108,11 @@ uint64_t sub_19B9FC458(uint64_t a1, CLConnectionMessage **a2)
     }
   }
 
-  v7 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  result = [*(a1 + 32) _handlePredictionUpdateEvent:{CLConnectionMessage::getDictionaryOfClasses(*a2, v7)}];
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  v7 = MEMORY[0x1E695DFD8];
+  v8 = objc_opt_class();
+  v11 = objc_msgSend_setWithObjects_(v7, v9, v8, v10, 0);
+  DictionaryOfClasses = CLConnectionMessage::getDictionaryOfClasses(*a2, v11);
+  return objc_msgSend__handlePredictionUpdateEvent_(*(a1 + 32), v13, DictionaryOfClasses, v14);
 }
 
 void sub_19B9FC75C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
@@ -8996,7 +9137,7 @@ void sub_19B9FC8DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t sub_19B9FC900(uint64_t a1, CLConnectionMessage **a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (qword_1EAFE4728 != -1)
   {
     dispatch_once(&qword_1EAFE4728, &unk_1F0E6EAB0);
@@ -9018,7 +9159,8 @@ uint64_t sub_19B9FC900(uint64_t a1, CLConnectionMessage **a2)
       dispatch_once(&qword_1EAFE4728, &unk_1F0E6EAB0);
     }
 
-    v6 = _os_log_send_and_compose_impl();
+    v16[0] = 0;
+    v6 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE4730, 0, "received callback for kCLConnectionMessageMiLoServiceDebugResponse", v16, 2);
     sub_19B885924("Generic", 1, 0, 2, "[CLMiLoConnectionInternal _registerForMiLoDebugResponseEvents]_block_invoke", "CoreLocation: %s\n", v6);
     if (v6 != buf)
     {
@@ -9026,10 +9168,11 @@ uint64_t sub_19B9FC900(uint64_t a1, CLConnectionMessage **a2)
     }
   }
 
-  v7 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  result = [*(a1 + 32) _handleDebugResponseEvent:{CLConnectionMessage::getDictionaryOfClasses(*a2, v7)}];
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  v7 = MEMORY[0x1E695DFD8];
+  v8 = objc_opt_class();
+  v11 = objc_msgSend_setWithObjects_(v7, v9, v8, v10, 0);
+  DictionaryOfClasses = CLConnectionMessage::getDictionaryOfClasses(*a2, v11);
+  return objc_msgSend__handleDebugResponseEvent_(*(a1 + 32), v13, DictionaryOfClasses, v14);
 }
 
 void sub_19B9FCC04(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
@@ -9054,7 +9197,7 @@ void sub_19B9FCD84(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t sub_19B9FCDA8(uint64_t a1, CLConnectionMessage **a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (qword_1EAFE4728 != -1)
   {
     dispatch_once(&qword_1EAFE4728, &unk_1F0E6EAB0);
@@ -9076,7 +9219,8 @@ uint64_t sub_19B9FCDA8(uint64_t a1, CLConnectionMessage **a2)
       dispatch_once(&qword_1EAFE4728, &unk_1F0E6EAB0);
     }
 
-    v6 = _os_log_send_and_compose_impl();
+    v16[0] = 0;
+    v6 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE4730, 0, "received callback for kCLConnectionMessageMiLoGenericEventResponse", v16, 2);
     sub_19B885924("Generic", 1, 0, 2, "[CLMiLoConnectionInternal _registerForMiLoGenericEvents]_block_invoke", "CoreLocation: %s\n", v6);
     if (v6 != buf)
     {
@@ -9084,10 +9228,11 @@ uint64_t sub_19B9FCDA8(uint64_t a1, CLConnectionMessage **a2)
     }
   }
 
-  v7 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  result = [*(a1 + 32) _handleGenericEvent:{CLConnectionMessage::getDictionaryOfClasses(*a2, v7)}];
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  v7 = MEMORY[0x1E695DFD8];
+  v8 = objc_opt_class();
+  v11 = objc_msgSend_setWithObjects_(v7, v9, v8, v10, 0);
+  DictionaryOfClasses = CLConnectionMessage::getDictionaryOfClasses(*a2, v11);
+  return objc_msgSend__handleGenericEvent_(*(a1 + 32), v13, DictionaryOfClasses, v14);
 }
 
 void sub_19B9FD0AC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
@@ -9112,7 +9257,7 @@ void sub_19B9FD308(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t sub_19B9FD32C(uint64_t a1, CLConnectionMessage **a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (qword_1EAFE4728 != -1)
   {
     dispatch_once(&qword_1EAFE4728, &unk_1F0E6EAB0);
@@ -9134,7 +9279,8 @@ uint64_t sub_19B9FD32C(uint64_t a1, CLConnectionMessage **a2)
       dispatch_once(&qword_1EAFE4728, &unk_1F0E6EAB0);
     }
 
-    v6 = _os_log_send_and_compose_impl();
+    v16[0] = 0;
+    v6 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE4730, 0, "received callback for kCLConnectionMessageMiLoConnectionStatusEvent", v16, 2);
     sub_19B885924("Generic", 1, 0, 2, "[CLMiLoConnectionInternal _registerForMiLoConnectionStatusEvents]_block_invoke", "CoreLocation: %s\n", v6);
     if (v6 != buf)
     {
@@ -9142,10 +9288,11 @@ uint64_t sub_19B9FD32C(uint64_t a1, CLConnectionMessage **a2)
     }
   }
 
-  v7 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  result = [*(a1 + 32) _handleMiLoConnectionStatusEvent:{CLConnectionMessage::getDictionaryOfClasses(*a2, v7)}];
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  v7 = MEMORY[0x1E695DFD8];
+  v8 = objc_opt_class();
+  v11 = objc_msgSend_setWithObjects_(v7, v9, v8, v10, 0);
+  DictionaryOfClasses = CLConnectionMessage::getDictionaryOfClasses(*a2, v11);
+  return objc_msgSend__handleMiLoConnectionStatusEvent_(*(a1 + 32), v13, DictionaryOfClasses, v14);
 }
 
 void sub_19B9FD630(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
@@ -9158,144 +9305,31 @@ void sub_19B9FD630(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t sub_19B9FD6E8(uint64_t a1)
+uint64_t sub_19B9FDEC8(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v2 = *(a1 + 32);
-  v1 = *(a1 + 40);
-  v3 = *(v2 + 40);
-  return MEMORY[0x1EEE66B58](*(v2 + 32), sel_miLoConnection_didUpdateMiLoConnectionStatus_);
+  v5 = *(a1 + 32);
+  v6 = *(v5 + 32);
+  v7 = *(v5 + 40);
+  v8 = objc_msgSend_exportDatabaseTablesResult(*(a1 + 40), a2, a3, a4);
+  v12 = objc_msgSend_exportDir(v8, v9, v10, v11);
+  v16 = objc_msgSend_exportDatabaseTablesResult(*(a1 + 40), v13, v14, v15);
+  objc_msgSend_fileName(v16, v17, v18, v19);
+  v23 = objc_msgSend_exportDatabaseTablesResult(*(a1 + 40), v20, v21, v22);
+  objc_msgSend_sandboxExtensionTok(v23, v24, v25, v26);
+
+  return MEMORY[0x1EEE66B58](v6, sel_miLoConnection_didExportMiLoDatabaseWithExportDir_withFileName_withSandboxExtensionToken_, v7, v12);
 }
 
-uint64_t sub_19B9FD788(uint64_t a1)
+uint64_t sub_19B9FDFE0(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v2 = *(a1 + 32);
-  v1 = *(a1 + 40);
-  v3 = *(v2 + 40);
-  return MEMORY[0x1EEE66B58](*(v2 + 32), sel_miLoConnection_didUpdateServiceStatus_);
-}
+  v5 = *(a1 + 32);
+  v6 = *(v5 + 32);
+  v7 = *(v5 + 40);
+  v8 = objc_msgSend_eventType(*(a1 + 40), a2, a3, a4);
+  objc_msgSend_genericEventDescription(*(a1 + 40), v9, v10, v11);
+  objc_msgSend_error(*(a1 + 40), v12, v13, v14);
 
-uint64_t sub_19B9FD828(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  v1 = *(a1 + 40);
-  v3 = *(v2 + 40);
-  return MEMORY[0x1EEE66B58](*(v2 + 32), sel_miLoConnection_didCreateServiceWithServiceIdentifier_);
-}
-
-uint64_t sub_19B9FD8C8(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  v1 = *(a1 + 40);
-  v3 = *(v2 + 40);
-  return MEMORY[0x1EEE66B58](*(v2 + 32), sel_miLoConnection_createServiceDidFailWithError_);
-}
-
-uint64_t sub_19B9FD978(void *a1)
-{
-  v2 = a1[4];
-  v1 = a1[5];
-  v3 = *(v2 + 40);
-  v4 = a1[6];
-  return MEMORY[0x1EEE66B58](*(v2 + 32), sel_miLoConnection_deleteServiceDidFailForServiceWithIdentifier_withError_);
-}
-
-uint64_t sub_19B9FDA20(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  v1 = *(a1 + 40);
-  v3 = *(v2 + 40);
-  return MEMORY[0x1EEE66B58](*(v2 + 32), sel_miLoConnection_didDeleteServiceWithServiceIdentifier_);
-}
-
-uint64_t sub_19B9FDAC0(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  v1 = *(a1 + 40);
-  v3 = *(v2 + 40);
-  return MEMORY[0x1EEE66B58](*(v2 + 32), sel_miLoConnection_didFindMyServicesWithServiceDescriptors_);
-}
-
-uint64_t sub_19B9FDB70(void *a1)
-{
-  v2 = a1[4];
-  v1 = a1[5];
-  v3 = *(v2 + 40);
-  v4 = a1[6];
-  return MEMORY[0x1EEE66B58](*(v2 + 32), sel_miLoConnection_connectServiceDidFailWithServiceIdentifier_withError_);
-}
-
-uint64_t sub_19B9FDC18(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  v1 = *(a1 + 40);
-  v3 = *(v2 + 40);
-  return MEMORY[0x1EEE66B58](*(v2 + 32), sel_miLoConnection_didUpdatePrediction_);
-}
-
-uint64_t sub_19B9FDCB8(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  v1 = *(a1 + 40);
-  v3 = *(v2 + 40);
-  return MEMORY[0x1EEE66B58](*(v2 + 32), sel_miLoConnection_queryServiceDidFailWithError_);
-}
-
-uint64_t sub_19B9FDD68(void *a1)
-{
-  v2 = a1[4];
-  v1 = a1[5];
-  v3 = *(v2 + 40);
-  v4 = a1[6];
-  return MEMORY[0x1EEE66B58](*(v2 + 32), sel_miLoConnection_disconnectServiceDidFailWithServiceIdentifier_withError_);
-}
-
-uint64_t sub_19B9FDE20(void *a1)
-{
-  v2 = a1[4];
-  v1 = a1[5];
-  v3 = *(v2 + 40);
-  v4 = a1[6];
-  return MEMORY[0x1EEE66B58](*(v2 + 32), sel_miLoConnection_didCompleteClientRequest_withError_);
-}
-
-uint64_t sub_19B9FDEC8(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  v3 = *(v2 + 32);
-  v4 = *(v2 + 40);
-  [objc_msgSend(*(a1 + 40) "exportDatabaseTablesResult")];
-  [objc_msgSend(*(a1 + 40) "exportDatabaseTablesResult")];
-  [objc_msgSend(*(a1 + 40) "exportDatabaseTablesResult")];
-
-  return MEMORY[0x1EEE66B58](v3, sel_miLoConnection_didExportMiLoDatabaseWithExportDir_withFileName_withSandboxExtensionToken_);
-}
-
-uint64_t sub_19B9FDFE0(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  v3 = *(v2 + 32);
-  v4 = *(v2 + 40);
-  [*(a1 + 40) eventType];
-  [*(a1 + 40) genericEventDescription];
-  [*(a1 + 40) error];
-
-  return MEMORY[0x1EEE66B58](v3, sel_miLoConnection_didGetGenericEventNotificationWithEventType_withDescription_withError_);
-}
-
-uint64_t sub_19B9FE0EC(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  v1 = *(a1 + 40);
-  v3 = *(v2 + 40);
-  return MEMORY[0x1EEE66B58](*(v2 + 32), sel_miLoConnection_queryMiLoConnectionStatusDidFailWithError_);
-}
-
-uint64_t sub_19B9FE18C(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  v1 = *(a1 + 40);
-  v3 = *(v2 + 40);
-  return MEMORY[0x1EEE66B58](*(v2 + 32), sel_miLoConnection_didCompleteObservationWithMetaInformation_);
+  return MEMORY[0x1EEE66B58](v6, sel_miLoConnection_didGetGenericEventNotificationWithEventType_withDescription_withError_, v7, v8);
 }
 
 __CFString *sub_19BA007C0(unint64_t a1)
@@ -9328,7 +9362,7 @@ void sub_19BA01D74(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t sub_19BA01DA0(uint64_t a1, CLConnectionMessage **a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   if (qword_1EAFE4728 != -1)
   {
     dispatch_once(&qword_1EAFE4728, &unk_1F0E6EAB0);
@@ -9338,56 +9372,59 @@ uint64_t sub_19BA01DA0(uint64_t a1, CLConnectionMessage **a2)
   if (os_log_type_enabled(qword_1EAFE4730, OS_LOG_TYPE_DEBUG))
   {
     *buf = 68289026;
-    v14 = 0;
-    v15 = 2082;
-    v16 = "";
+    v26 = 0;
+    v27 = 2082;
+    v28 = "";
     _os_log_impl(&dword_19B873000, v4, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:received response message for creating a service}", buf, 0x12u);
   }
 
-  v5 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  if (*a2 && (DictionaryOfClasses = CLConnectionMessage::getDictionaryOfClasses(*a2, v5)) != 0)
+  v5 = MEMORY[0x1E695DFD8];
+  v6 = objc_opt_class();
+  v9 = objc_msgSend_setWithObjects_(v5, v7, v6, v8, 0);
+  if (*a2)
   {
-    result = [*(a1 + 32) _handleDaemonEvent:DictionaryOfClasses];
+    DictionaryOfClasses = CLConnectionMessage::getDictionaryOfClasses(*a2, v9);
+    if (DictionaryOfClasses)
+    {
+      return objc_msgSend__handleDaemonEvent_(*(a1 + 32), v11, DictionaryOfClasses, v12);
+    }
   }
 
-  else
+  if (qword_1EAFE4728 != -1)
   {
+    dispatch_once(&qword_1EAFE4728, &unk_1F0E6EAB0);
+  }
+
+  v14 = qword_1EAFE4730;
+  if (os_log_type_enabled(qword_1EAFE4730, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 68289026;
+    v26 = 0;
+    v27 = 2082;
+    v28 = "";
+    _os_log_impl(&dword_19B873000, v14, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:SPI request, failed to create a service, empty response}", buf, 0x12u);
     if (qword_1EAFE4728 != -1)
     {
       dispatch_once(&qword_1EAFE4728, &unk_1F0E6EAB0);
     }
-
-    v8 = qword_1EAFE4730;
-    if (os_log_type_enabled(qword_1EAFE4730, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 68289026;
-      v14 = 0;
-      v15 = 2082;
-      v16 = "";
-      _os_log_impl(&dword_19B873000, v8, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:SPI request, failed to create a service, empty response}", buf, 0x12u);
-      if (qword_1EAFE4728 != -1)
-      {
-        dispatch_once(&qword_1EAFE4728, &unk_1F0E6EAB0);
-      }
-    }
-
-    v9 = qword_1EAFE4730;
-    if (os_signpost_enabled(qword_1EAFE4730))
-    {
-      *buf = 68289026;
-      v14 = 0;
-      v15 = 2082;
-      v16 = "";
-      _os_signpost_emit_with_name_impl(&dword_19B873000, v9, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "SPI request, failed to create a service, empty response", "{msg%{public}.0s:SPI request, failed to create a service, empty response}", buf, 0x12u);
-    }
-
-    v11 = *MEMORY[0x1E696A578];
-    v12 = @"Internal error";
-    result = [*(a1 + 32) _notifyClientCreateServiceDidFailWithError:{objc_msgSend(MEMORY[0x1E696ABC0], "errorWithDomain:code:userInfo:", @"kCLErrorDomainPrivate", 0, objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v12, &v11, 1))}];
   }
 
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  v15 = qword_1EAFE4730;
+  if (os_signpost_enabled(qword_1EAFE4730))
+  {
+    *buf = 68289026;
+    v26 = 0;
+    v27 = 2082;
+    v28 = "";
+    _os_signpost_emit_with_name_impl(&dword_19B873000, v15, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "SPI request, failed to create a service, empty response", "{msg%{public}.0s:SPI request, failed to create a service, empty response}", buf, 0x12u);
+  }
+
+  v17 = MEMORY[0x1E696ABC0];
+  v23 = *MEMORY[0x1E696A578];
+  v24 = @"Internal error";
+  v18 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v16, &v24, &v23, 1);
+  v20 = objc_msgSend_errorWithDomain_code_userInfo_(v17, v19, @"kCLErrorDomainPrivate", 0, v18);
+  return objc_msgSend__notifyClientCreateServiceDidFailWithError_(*(a1 + 32), v21, v20, v22);
 }
 
 void sub_19BA0236C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, std::__shared_weak_count *a17)
@@ -9407,7 +9444,7 @@ void sub_19BA0236C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t sub_19BA02398(uint64_t a1, CLConnectionMessage **a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   if (qword_1EAFE4728 != -1)
   {
     dispatch_once(&qword_1EAFE4728, &unk_1F0E6EAB0);
@@ -9417,56 +9454,59 @@ uint64_t sub_19BA02398(uint64_t a1, CLConnectionMessage **a2)
   if (os_log_type_enabled(qword_1EAFE4730, OS_LOG_TYPE_DEBUG))
   {
     *buf = 68289026;
-    v14 = 0;
-    v15 = 2082;
-    v16 = "";
+    v25 = 0;
+    v26 = 2082;
+    v27 = "";
     _os_log_impl(&dword_19B873000, v4, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:received response message for deleting a service}", buf, 0x12u);
   }
 
-  v5 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  if (*a2 && (DictionaryOfClasses = CLConnectionMessage::getDictionaryOfClasses(*a2, v5)) != 0)
+  v5 = MEMORY[0x1E695DFD8];
+  v6 = objc_opt_class();
+  v9 = objc_msgSend_setWithObjects_(v5, v7, v6, v8, 0);
+  if (*a2)
   {
-    result = [*(a1 + 32) _handleDaemonEvent:DictionaryOfClasses];
+    DictionaryOfClasses = CLConnectionMessage::getDictionaryOfClasses(*a2, v9);
+    if (DictionaryOfClasses)
+    {
+      return objc_msgSend__handleDaemonEvent_(*(a1 + 32), v11, DictionaryOfClasses, v12);
+    }
   }
 
-  else
+  if (qword_1EAFE4728 != -1)
   {
+    dispatch_once(&qword_1EAFE4728, &unk_1F0E6EAB0);
+  }
+
+  v14 = qword_1EAFE4730;
+  if (os_log_type_enabled(qword_1EAFE4730, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 68289026;
+    v25 = 0;
+    v26 = 2082;
+    v27 = "";
+    _os_log_impl(&dword_19B873000, v14, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:SPI request, failed to delete a service with empty response}", buf, 0x12u);
     if (qword_1EAFE4728 != -1)
     {
       dispatch_once(&qword_1EAFE4728, &unk_1F0E6EAB0);
     }
-
-    v8 = qword_1EAFE4730;
-    if (os_log_type_enabled(qword_1EAFE4730, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 68289026;
-      v14 = 0;
-      v15 = 2082;
-      v16 = "";
-      _os_log_impl(&dword_19B873000, v8, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:SPI request, failed to delete a service with empty response}", buf, 0x12u);
-      if (qword_1EAFE4728 != -1)
-      {
-        dispatch_once(&qword_1EAFE4728, &unk_1F0E6EAB0);
-      }
-    }
-
-    v9 = qword_1EAFE4730;
-    if (os_signpost_enabled(qword_1EAFE4730))
-    {
-      *buf = 68289026;
-      v14 = 0;
-      v15 = 2082;
-      v16 = "";
-      _os_signpost_emit_with_name_impl(&dword_19B873000, v9, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "SPI request, failed to delete a service with empty response", "{msg%{public}.0s:SPI request, failed to delete a service with empty response}", buf, 0x12u);
-    }
-
-    v11 = *MEMORY[0x1E696A578];
-    v12 = @"Internal error";
-    result = [*(a1 + 32) _notifyClientDeleteServiceDidFailWithServiceIdentifier:*(a1 + 40) withError:{objc_msgSend(MEMORY[0x1E696ABC0], "errorWithDomain:code:userInfo:", @"kCLErrorDomainPrivate", 0, objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v12, &v11, 1))}];
   }
 
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  v15 = qword_1EAFE4730;
+  if (os_signpost_enabled(qword_1EAFE4730))
+  {
+    *buf = 68289026;
+    v25 = 0;
+    v26 = 2082;
+    v27 = "";
+    _os_signpost_emit_with_name_impl(&dword_19B873000, v15, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "SPI request, failed to delete a service with empty response", "{msg%{public}.0s:SPI request, failed to delete a service with empty response}", buf, 0x12u);
+  }
+
+  v17 = MEMORY[0x1E696ABC0];
+  v22 = *MEMORY[0x1E696A578];
+  v23 = @"Internal error";
+  v18 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v16, &v23, &v22, 1);
+  v20 = objc_msgSend_errorWithDomain_code_userInfo_(v17, v19, @"kCLErrorDomainPrivate", 0, v18);
+  return objc_msgSend__notifyClientDeleteServiceDidFailWithServiceIdentifier_withError_(*(a1 + 32), v21, *(a1 + 40), v20);
 }
 
 void sub_19BA02980(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, std::__shared_weak_count *a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24)
@@ -9482,7 +9522,7 @@ void sub_19BA02980(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t sub_19BA029D4(uint64_t a1, CLConnectionMessage **a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   if (qword_1EAFE4728 != -1)
   {
     dispatch_once(&qword_1EAFE4728, &unk_1F0E6EAB0);
@@ -9492,56 +9532,59 @@ uint64_t sub_19BA029D4(uint64_t a1, CLConnectionMessage **a2)
   if (os_log_type_enabled(qword_1EAFE4730, OS_LOG_TYPE_DEBUG))
   {
     *buf = 68289026;
-    v14 = 0;
-    v15 = 2082;
-    v16 = "";
+    v26 = 0;
+    v27 = 2082;
+    v28 = "";
     _os_log_impl(&dword_19B873000, v4, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:received response message for query my services}", buf, 0x12u);
   }
 
-  v5 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  if (*a2 && (DictionaryOfClasses = CLConnectionMessage::getDictionaryOfClasses(*a2, v5)) != 0)
+  v5 = MEMORY[0x1E695DFD8];
+  v6 = objc_opt_class();
+  v9 = objc_msgSend_setWithObjects_(v5, v7, v6, v8, 0);
+  if (*a2)
   {
-    result = [*(a1 + 32) _handleDaemonEvent:DictionaryOfClasses];
+    DictionaryOfClasses = CLConnectionMessage::getDictionaryOfClasses(*a2, v9);
+    if (DictionaryOfClasses)
+    {
+      return objc_msgSend__handleDaemonEvent_(*(a1 + 32), v11, DictionaryOfClasses, v12);
+    }
   }
 
-  else
+  if (qword_1EAFE4728 != -1)
   {
+    dispatch_once(&qword_1EAFE4728, &unk_1F0E6EAB0);
+  }
+
+  v14 = qword_1EAFE4730;
+  if (os_log_type_enabled(qword_1EAFE4730, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 68289026;
+    v26 = 0;
+    v27 = 2082;
+    v28 = "";
+    _os_log_impl(&dword_19B873000, v14, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:SPI request, failed to query my services with empty response}", buf, 0x12u);
     if (qword_1EAFE4728 != -1)
     {
       dispatch_once(&qword_1EAFE4728, &unk_1F0E6EAB0);
     }
-
-    v8 = qword_1EAFE4730;
-    if (os_log_type_enabled(qword_1EAFE4730, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 68289026;
-      v14 = 0;
-      v15 = 2082;
-      v16 = "";
-      _os_log_impl(&dword_19B873000, v8, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:SPI request, failed to query my services with empty response}", buf, 0x12u);
-      if (qword_1EAFE4728 != -1)
-      {
-        dispatch_once(&qword_1EAFE4728, &unk_1F0E6EAB0);
-      }
-    }
-
-    v9 = qword_1EAFE4730;
-    if (os_signpost_enabled(qword_1EAFE4730))
-    {
-      *buf = 68289026;
-      v14 = 0;
-      v15 = 2082;
-      v16 = "";
-      _os_signpost_emit_with_name_impl(&dword_19B873000, v9, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "SPI request, failed to query my services with empty response", "{msg%{public}.0s:SPI request, failed to query my services with empty response}", buf, 0x12u);
-    }
-
-    v11 = *MEMORY[0x1E696A578];
-    v12 = @"Internal error";
-    result = [*(a1 + 32) _notifyClientQueryServiceDidFailWithError:{objc_msgSend(MEMORY[0x1E696ABC0], "errorWithDomain:code:userInfo:", @"kCLErrorDomainPrivate", 0, objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v12, &v11, 1))}];
   }
 
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  v15 = qword_1EAFE4730;
+  if (os_signpost_enabled(qword_1EAFE4730))
+  {
+    *buf = 68289026;
+    v26 = 0;
+    v27 = 2082;
+    v28 = "";
+    _os_signpost_emit_with_name_impl(&dword_19B873000, v15, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "SPI request, failed to query my services with empty response", "{msg%{public}.0s:SPI request, failed to query my services with empty response}", buf, 0x12u);
+  }
+
+  v17 = MEMORY[0x1E696ABC0];
+  v23 = *MEMORY[0x1E696A578];
+  v24 = @"Internal error";
+  v18 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v16, &v24, &v23, 1);
+  v20 = objc_msgSend_errorWithDomain_code_userInfo_(v17, v19, @"kCLErrorDomainPrivate", 0, v18);
+  return objc_msgSend__notifyClientQueryServiceDidFailWithError_(*(a1 + 32), v21, v20, v22);
 }
 
 void sub_19BA03070(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, std::__shared_weak_count *a18)
@@ -9561,7 +9604,7 @@ void sub_19BA03070(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t sub_19BA0309C(uint64_t a1, CLConnectionMessage **a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   if (qword_1EAFE4728 != -1)
   {
     dispatch_once(&qword_1EAFE4728, &unk_1F0E6EAB0);
@@ -9583,7 +9626,8 @@ uint64_t sub_19BA0309C(uint64_t a1, CLConnectionMessage **a2)
       dispatch_once(&qword_1EAFE4728, &unk_1F0E6EAB0);
     }
 
-    v6 = _os_log_send_and_compose_impl();
+    v26[0] = 0;
+    v6 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE4730, 0, "received response message for query MiLo connection status", v26, 2);
     sub_19B885924("Generic", 1, 0, 2, "[CLMiLoConnectionInternal _queryMiLoConnectionStatus]_block_invoke", "CoreLocation: %s\n", v6);
     if (v6 != buf)
     {
@@ -9591,50 +9635,54 @@ uint64_t sub_19BA0309C(uint64_t a1, CLConnectionMessage **a2)
     }
   }
 
-  v7 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  if (*a2 && (DictionaryOfClasses = CLConnectionMessage::getDictionaryOfClasses(*a2, v7)) != 0)
+  v7 = MEMORY[0x1E695DFD8];
+  v8 = objc_opt_class();
+  v11 = objc_msgSend_setWithObjects_(v7, v9, v8, v10, 0);
+  if (*a2)
   {
-    result = [*(a1 + 32) _handleDaemonEvent:DictionaryOfClasses];
+    DictionaryOfClasses = CLConnectionMessage::getDictionaryOfClasses(*a2, v11);
+    if (DictionaryOfClasses)
+    {
+      return objc_msgSend__handleDaemonEvent_(*(a1 + 32), v13, DictionaryOfClasses, v14);
+    }
   }
 
-  else
+  if (qword_1EAFE4728 != -1)
   {
+    dispatch_once(&qword_1EAFE4728, &unk_1F0E6EAB0);
+  }
+
+  v16 = qword_1EAFE4730;
+  if (os_log_type_enabled(qword_1EAFE4730, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_19B873000, v16, OS_LOG_TYPE_ERROR, "SPI request, failed to query MiLo connection status with empty response", buf, 2u);
+  }
+
+  v17 = sub_19B87DD40();
+  if ((*(v17 + 160) & 0x80000000) == 0 || (*(v17 + 164) & 0x80000000) == 0 || (*(v17 + 168) & 0x80000000) == 0 || *(v17 + 152))
+  {
+    bzero(buf, 0x65CuLL);
     if (qword_1EAFE4728 != -1)
     {
       dispatch_once(&qword_1EAFE4728, &unk_1F0E6EAB0);
     }
 
-    v10 = qword_1EAFE4730;
-    if (os_log_type_enabled(qword_1EAFE4730, OS_LOG_TYPE_ERROR))
+    v26[0] = 0;
+    v19 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE4730, 16, "SPI request, failed to query MiLo connection status with empty response", v26, 2);
+    sub_19B885924("Generic", 1, 0, 0, "[CLMiLoConnectionInternal _queryMiLoConnectionStatus]_block_invoke", "CoreLocation: %s\n", v19);
+    if (v19 != buf)
     {
-      *buf = 0;
-      _os_log_impl(&dword_19B873000, v10, OS_LOG_TYPE_ERROR, "SPI request, failed to query MiLo connection status with empty response", buf, 2u);
+      free(v19);
     }
-
-    v11 = sub_19B87DD40();
-    if ((*(v11 + 160) & 0x80000000) == 0 || (*(v11 + 164) & 0x80000000) == 0 || (*(v11 + 168) & 0x80000000) == 0 || *(v11 + 152))
-    {
-      bzero(buf, 0x65CuLL);
-      if (qword_1EAFE4728 != -1)
-      {
-        dispatch_once(&qword_1EAFE4728, &unk_1F0E6EAB0);
-      }
-
-      v12 = _os_log_send_and_compose_impl();
-      sub_19B885924("Generic", 1, 0, 0, "[CLMiLoConnectionInternal _queryMiLoConnectionStatus]_block_invoke", "CoreLocation: %s\n", v12);
-      if (v12 != buf)
-      {
-        free(v12);
-      }
-    }
-
-    v14 = *MEMORY[0x1E696A578];
-    v15 = @"Internal error";
-    result = [*(a1 + 32) _notifyClientQueryMiLoConnectionStatusDidFailWithError:{objc_msgSend(MEMORY[0x1E696ABC0], "errorWithDomain:code:userInfo:", @"kCLErrorDomainPrivate", 0, objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v15, &v14, 1))}];
   }
 
-  v13 = *MEMORY[0x1E69E9840];
-  return result;
+  v20 = MEMORY[0x1E696ABC0];
+  v27 = *MEMORY[0x1E696A578];
+  v28 = @"Internal error";
+  v21 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v18, &v28, &v27, 1);
+  v23 = objc_msgSend_errorWithDomain_code_userInfo_(v20, v22, @"kCLErrorDomainPrivate", 0, v21);
+  return objc_msgSend__notifyClientQueryMiLoConnectionStatusDidFailWithError_(*(a1 + 32), v24, v23, v25);
 }
 
 void sub_19BA03978(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, std::__shared_weak_count *a16)
@@ -9655,7 +9703,7 @@ void sub_19BA03978(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t sub_19BA039A4(uint64_t a1, CLConnectionMessage **a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   if (qword_1EAFE4728 != -1)
   {
     dispatch_once(&qword_1EAFE4728, &unk_1F0E6EAB0);
@@ -9665,31 +9713,34 @@ uint64_t sub_19BA039A4(uint64_t a1, CLConnectionMessage **a2)
   if (os_log_type_enabled(qword_1EAFE4730, OS_LOG_TYPE_INFO))
   {
     *buf = 68289026;
-    v17 = 0;
-    v18 = 2082;
-    v19 = "";
+    v36 = 0;
+    v37 = 2082;
+    v38 = "";
     _os_log_impl(&dword_19B873000, v4, OS_LOG_TYPE_INFO, "{msg%{public}.0s:received response message for connect to a service}", buf, 0x12u);
   }
 
-  v5 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  if (*a2 && (DictionaryOfClasses = CLConnectionMessage::getDictionaryOfClasses(*a2, v5)) != 0)
+  v5 = MEMORY[0x1E695DFD8];
+  v6 = objc_opt_class();
+  v9 = objc_msgSend_setWithObjects_(v5, v7, v6, v8, 0);
+  if (*a2 && (DictionaryOfClasses = CLConnectionMessage::getDictionaryOfClasses(*a2, v9)) != 0)
   {
-    v7 = DictionaryOfClasses;
-    if (([objc_msgSend(DictionaryOfClasses objectForKeyedSubscript:{0x1F0E73DA0), "isEqualToNumber:", &unk_1F0E8CD90}] & 1) == 0)
+    v13 = DictionaryOfClasses;
+    v14 = objc_msgSend_objectForKeyedSubscript_(DictionaryOfClasses, v11, 0x1F0E73DA0, v12);
+    if ((objc_msgSend_isEqualToNumber_(v14, v15, &unk_1F0E8CD90, v16) & 1) == 0)
     {
       if (qword_1EAFE4728 != -1)
       {
         dispatch_once(&qword_1EAFE4728, &unk_1F0E6EAB0);
       }
 
-      v8 = qword_1EAFE4730;
+      v19 = qword_1EAFE4730;
       if (os_log_type_enabled(qword_1EAFE4730, OS_LOG_TYPE_INFO))
       {
         *buf = 68289026;
-        v17 = 0;
-        v18 = 2082;
-        v19 = "";
-        _os_log_impl(&dword_19B873000, v8, OS_LOG_TYPE_INFO, "{msg%{public}.0s:connect to service failed, set connectedServiceIdentifier to nil}", buf, 0x12u);
+        v36 = 0;
+        v37 = 2082;
+        v38 = "";
+        _os_log_impl(&dword_19B873000, v19, OS_LOG_TYPE_INFO, "{msg%{public}.0s:connect to service failed, set connectedServiceIdentifier to nil}", buf, 0x12u);
       }
 
       *(*(a1 + 32) + 48) = 0;
@@ -9698,20 +9749,20 @@ uint64_t sub_19BA039A4(uint64_t a1, CLConnectionMessage **a2)
         dispatch_once(&qword_1EAFE4728, &unk_1F0E6EAB0);
       }
 
-      v9 = qword_1EAFE4730;
+      v20 = qword_1EAFE4730;
       if (os_log_type_enabled(qword_1EAFE4730, OS_LOG_TYPE_INFO))
       {
         *buf = 68289026;
-        v17 = 0;
-        v18 = 2082;
-        v19 = "";
-        _os_log_impl(&dword_19B873000, v9, OS_LOG_TYPE_INFO, "{msg%{public}.0s:connect to service failed, unset handler for prediction updates}", buf, 0x12u);
+        v36 = 0;
+        v37 = 2082;
+        v38 = "";
+        _os_log_impl(&dword_19B873000, v20, OS_LOG_TYPE_INFO, "{msg%{public}.0s:connect to service failed, unset handler for prediction updates}", buf, 0x12u);
       }
 
-      [*(a1 + 32) _unsetHandlerForMiLoPredictionEvents];
+      objc_msgSend__unsetHandlerForMiLoPredictionEvents(*(a1 + 32), v21, v22, v23);
     }
 
-    result = [*(a1 + 32) _handleDaemonEvent:v7];
+    return objc_msgSend__handleDaemonEvent_(*(a1 + 32), v17, v13, v18);
   }
 
   else
@@ -9721,136 +9772,35 @@ uint64_t sub_19BA039A4(uint64_t a1, CLConnectionMessage **a2)
       dispatch_once(&qword_1EAFE4728, &unk_1F0E6EAB0);
     }
 
-    v11 = qword_1EAFE4730;
+    v25 = qword_1EAFE4730;
     if (os_log_type_enabled(qword_1EAFE4730, OS_LOG_TYPE_ERROR))
     {
       *buf = 68289026;
-      v17 = 0;
-      v18 = 2082;
-      v19 = "";
-      _os_log_impl(&dword_19B873000, v11, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:SPI request, failed to connect to services with empty response}", buf, 0x12u);
+      v36 = 0;
+      v37 = 2082;
+      v38 = "";
+      _os_log_impl(&dword_19B873000, v25, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:SPI request, failed to connect to services with empty response}", buf, 0x12u);
       if (qword_1EAFE4728 != -1)
       {
         dispatch_once(&qword_1EAFE4728, &unk_1F0E6EAB0);
       }
     }
 
-    v12 = qword_1EAFE4730;
+    v26 = qword_1EAFE4730;
     if (os_signpost_enabled(qword_1EAFE4730))
     {
       *buf = 68289026;
-      v17 = 0;
-      v18 = 2082;
-      v19 = "";
-      _os_signpost_emit_with_name_impl(&dword_19B873000, v12, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "SPI request, failed to connect to services with empty response", "{msg%{public}.0s:SPI request, failed to connect to services with empty response}", buf, 0x12u);
+      v36 = 0;
+      v37 = 2082;
+      v38 = "";
+      _os_signpost_emit_with_name_impl(&dword_19B873000, v26, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "SPI request, failed to connect to services with empty response", "{msg%{public}.0s:SPI request, failed to connect to services with empty response}", buf, 0x12u);
     }
 
-    v14 = *MEMORY[0x1E696A578];
-    v15 = @"Internal error";
-    result = [*(a1 + 32) _notifyClientConnectServiceDidFailWithServiceIdentifier:*(a1 + 40) withError:{objc_msgSend(MEMORY[0x1E696ABC0], "errorWithDomain:code:userInfo:", @"kCLErrorDomainPrivate", 0, objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v15, &v14, 1))}];
+    v28 = MEMORY[0x1E696ABC0];
+    v33 = *MEMORY[0x1E696A578];
+    v34 = @"Internal error";
+    v29 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v27, &v34, &v33, 1);
+    v31 = objc_msgSend_errorWithDomain_code_userInfo_(v28, v30, @"kCLErrorDomainPrivate", 0, v29);
+    return objc_msgSend__notifyClientConnectServiceDidFailWithServiceIdentifier_withError_(*(a1 + 32), v32, *(a1 + 40), v31);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-uint64_t sub_19BA0445C(uint64_t a1, CLConnectionMessage **a2)
-{
-  v20 = *MEMORY[0x1E69E9840];
-  if (qword_1EAFE4728 != -1)
-  {
-    dispatch_once(&qword_1EAFE4728, &unk_1F0E6EAB0);
-  }
-
-  v4 = qword_1EAFE4730;
-  if (os_log_type_enabled(qword_1EAFE4730, OS_LOG_TYPE_INFO))
-  {
-    *buf = 68289026;
-    v17 = 0;
-    v18 = 2082;
-    v19 = "";
-    _os_log_impl(&dword_19B873000, v4, OS_LOG_TYPE_INFO, "{msg%{public}.0s:received response message for disconnecting to a service}", buf, 0x12u);
-  }
-
-  v5 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  if (*a2 && (DictionaryOfClasses = CLConnectionMessage::getDictionaryOfClasses(*a2, v5)) != 0)
-  {
-    v7 = DictionaryOfClasses;
-    if (([objc_msgSend(DictionaryOfClasses objectForKeyedSubscript:{0x1F0E73DA0), "isEqualToNumber:", &unk_1F0E8CD90}] & 1) == 0)
-    {
-      if (qword_1EAFE4728 != -1)
-      {
-        dispatch_once(&qword_1EAFE4728, &unk_1F0E6EAB0);
-      }
-
-      v8 = qword_1EAFE4730;
-      if (os_log_type_enabled(qword_1EAFE4730, OS_LOG_TYPE_INFO))
-      {
-        *buf = 68289026;
-        v17 = 0;
-        v18 = 2082;
-        v19 = "";
-        _os_log_impl(&dword_19B873000, v8, OS_LOG_TYPE_INFO, "{msg%{public}.0s:disconnect to service failed, recover connectedServiceIdentifier}", buf, 0x12u);
-      }
-
-      *(*(a1 + 32) + 48) = [*(a1 + 40) copy];
-      if (qword_1EAFE4728 != -1)
-      {
-        dispatch_once(&qword_1EAFE4728, &unk_1F0E6EAB0);
-      }
-
-      v9 = qword_1EAFE4730;
-      if (os_log_type_enabled(qword_1EAFE4730, OS_LOG_TYPE_INFO))
-      {
-        *buf = 68289026;
-        v17 = 0;
-        v18 = 2082;
-        v19 = "";
-        _os_log_impl(&dword_19B873000, v9, OS_LOG_TYPE_INFO, "{msg%{public}.0s:disconnect to service failed, set handler for prediction updates}", buf, 0x12u);
-      }
-
-      [*(a1 + 32) _setHandlerForMiLoPredictionEvents];
-    }
-
-    result = [*(a1 + 32) _handleDaemonEvent:v7];
-  }
-
-  else
-  {
-    if (qword_1EAFE4728 != -1)
-    {
-      dispatch_once(&qword_1EAFE4728, &unk_1F0E6EAB0);
-    }
-
-    v11 = qword_1EAFE4730;
-    if (os_log_type_enabled(qword_1EAFE4730, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 68289026;
-      v17 = 0;
-      v18 = 2082;
-      v19 = "";
-      _os_log_impl(&dword_19B873000, v11, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:SPI request, failed to disconnect service with empty response}", buf, 0x12u);
-      if (qword_1EAFE4728 != -1)
-      {
-        dispatch_once(&qword_1EAFE4728, &unk_1F0E6EAB0);
-      }
-    }
-
-    v12 = qword_1EAFE4730;
-    if (os_signpost_enabled(qword_1EAFE4730))
-    {
-      *buf = 68289026;
-      v17 = 0;
-      v18 = 2082;
-      v19 = "";
-      _os_signpost_emit_with_name_impl(&dword_19B873000, v12, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "SPI request, failed to disconnect service with empty response", "{msg%{public}.0s:SPI request, failed to disconnect service with empty response}", buf, 0x12u);
-    }
-
-    v14 = *MEMORY[0x1E696A578];
-    v15 = @"Internal error";
-    result = [*(a1 + 32) _notifyClientDisconnectServiceDidFailWithError:objc_msgSend(MEMORY[0x1E696ABC0] serviceIdentifier:{"errorWithDomain:code:userInfo:", @"kCLErrorDomainPrivate", 0, objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v15, &v14, 1)), *(a1 + 40)}];
-  }
-
-  v13 = *MEMORY[0x1E69E9840];
-  return result;
 }

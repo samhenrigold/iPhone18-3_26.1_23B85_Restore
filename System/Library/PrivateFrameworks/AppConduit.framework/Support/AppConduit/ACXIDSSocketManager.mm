@@ -5,6 +5,7 @@
 - (BOOL)writeData:(id)data error:(id *)error;
 - (BOOL)writeDictionary:(id)dictionary error:(id *)error;
 - (id)_initWithDelegate:(id)delegate queue:(id)queue serviceName:(id)name;
+- (id)_sendMessage:(id)message messageDictionary:(id)dictionary withAcknowledgement:(BOOL)acknowledgement error:(id *)error;
 - (void)_doneUsingSocket;
 - (void)_onInternalQueue_armSocketShutdownTimer;
 - (void)_onInternalQueue_beginUsingSocketAsDelegate:(id)delegate onQueue:(id)queue tryWiFi:(BOOL)fi completion:(id)completion;
@@ -420,6 +421,65 @@ LABEL_10:
     blockCopy[2](blockCopy, v11);
     [(ACXIDSSocketManager *)self setInitiateCB:0];
   }
+}
+
+- (id)_sendMessage:(id)message messageDictionary:(id)dictionary withAcknowledgement:(BOOL)acknowledgement error:(id *)error
+{
+  acknowledgementCopy = acknowledgement;
+  v9 = IDSDefaultPairedDevice;
+  dictionaryCopy = dictionary;
+  messageCopy = message;
+  v12 = [NSSet setWithObject:v9];
+  v23[0] = IDSSendMessageOptionTimeoutKey;
+  v23[1] = IDSSendMessageOptionForceLocalDeliveryKey;
+  v24[0] = &off_100097BC0;
+  v24[1] = &__kCFBooleanTrue;
+  v23[2] = IDSSendMessageOptionWantsClientAcknowledgementKey;
+  v13 = [NSNumber numberWithBool:acknowledgementCopy];
+  v23[3] = IDSSendMessageOptionBypassDuetKey;
+  v24[2] = v13;
+  v24[3] = &__kCFBooleanTrue;
+  v14 = [NSDictionary dictionaryWithObjects:v24 forKeys:v23 count:4];
+
+  v15 = [NSPropertyListSerialization dataWithPropertyList:dictionaryCopy format:200 options:0 error:0];
+
+  v21 = 0;
+  v22 = 0;
+  LOBYTE(v9) = [messageCopy sendData:v15 toDestinations:v12 priority:300 options:v14 identifier:&v22 error:&v21];
+
+  v16 = v22;
+  v17 = v21;
+  if (v9)
+  {
+    if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 5)
+    {
+      MOLogWrite();
+    }
+
+    v18 = v16;
+  }
+
+  else
+  {
+    if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 3)
+    {
+      MOLogWrite();
+    }
+
+    if (error)
+    {
+      v19 = v17;
+      v18 = 0;
+      *error = v17;
+    }
+
+    else
+    {
+      v18 = 0;
+    }
+  }
+
+  return v18;
 }
 
 - (void)_onInternalQueue_resetSocketBecauseOfError:(id)error

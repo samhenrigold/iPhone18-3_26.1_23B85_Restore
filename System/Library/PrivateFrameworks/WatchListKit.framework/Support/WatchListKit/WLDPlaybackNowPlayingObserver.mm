@@ -80,24 +80,23 @@
     }
 
     self->_isObserving = 1;
-    notificationQueue = self->_notificationQueue;
     MRMediaRemoteRegisterForNowPlayingNotifications();
+    v4 = +[NSNotificationCenter defaultCenter];
+    [v4 addObserver:self selector:"_nowPlayingInfoDidChangeNotification:" name:kMRMediaRemotePlayerNowPlayingInfoDidChangeNotification object:0];
+
     v5 = +[NSNotificationCenter defaultCenter];
-    [v5 addObserver:self selector:"_nowPlayingInfoDidChangeNotification:" name:kMRMediaRemotePlayerNowPlayingInfoDidChangeNotification object:0];
+    [v5 addObserver:self selector:"_isPlayingDidChangeNotification:" name:kMRMediaRemotePlayerIsPlayingDidChangeNotification object:0];
 
     v6 = +[NSNotificationCenter defaultCenter];
-    [v6 addObserver:self selector:"_isPlayingDidChangeNotification:" name:kMRMediaRemotePlayerIsPlayingDidChangeNotification object:0];
+    [v6 addObserver:self selector:"_activePlayerPathsDidChangeNotification:" name:kMRMediaRemoteActivePlayerPathsDidChange object:0];
 
-    v7 = +[NSNotificationCenter defaultCenter];
-    [v7 addObserver:self selector:"_activePlayerPathsDidChangeNotification:" name:kMRMediaRemoteActivePlayerPathsDidChange object:0];
-
-    v8 = self->_notificationQueue;
+    notificationQueue = self->_notificationQueue;
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = __47__WLDPlaybackNowPlayingObserver_startObserving__block_invoke;
     block[3] = &unk_100044DB8;
     block[4] = self;
-    dispatch_async(v8, block);
+    dispatch_async(notificationQueue, block);
   }
 }
 
@@ -128,49 +127,47 @@
   stringValue = [ams_DSID stringValue];
 
   v6 = dispatch_semaphore_create(0);
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x3032000000;
-  v25 = __Block_byref_object_copy__4;
-  v26 = __Block_byref_object_dispose__4;
-  v27 = objc_opt_new();
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__4;
+  v24 = __Block_byref_object_dispose__4;
+  v25 = objc_opt_new();
   [(WLDPlaybackNowPlayingObserver *)self _getActivePlayerPaths];
-  v20 = 0u;
-  v21 = 0u;
   v18 = 0u;
-  obj = v19 = 0u;
-  v7 = [obj countByEnumeratingWithState:&v18 objects:v28 count:16];
+  v19 = 0u;
+  v16 = 0u;
+  obj = v17 = 0u;
+  v7 = [obj countByEnumeratingWithState:&v16 objects:v26 count:16];
   if (v7)
   {
-    v8 = *v19;
+    v8 = *v17;
     do
     {
-      for (i = 0; i != v7; i = i + 1)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        lookupQueue = self->_lookupQueue;
-        v15 = *(*(&v18 + 1) + 8 * i);
-        v16 = stringValue;
-        v17 = v6;
+        v14 = stringValue;
+        v15 = v6;
         MRMediaRemoteGetNowPlayingInfoForPlayer();
-        v11 = dispatch_time(0, 2000000000);
-        dispatch_semaphore_wait(v17, v11);
+        v10 = dispatch_time(0, 2000000000);
+        dispatch_semaphore_wait(v15, v10);
       }
 
-      v7 = [obj countByEnumeratingWithState:&v18 objects:v28 count:16];
+      v7 = [obj countByEnumeratingWithState:&v16 objects:v26 count:16];
     }
 
     while (v7);
   }
 
-  v12 = [v23[5] copy];
-  _Block_object_dispose(&v22, 8);
+  v11 = [v21[5] copy];
+  _Block_object_dispose(&v20, 8);
 
-  return v12;
+  return v11;
 }
 
 intptr_t __52__WLDPlaybackNowPlayingObserver_nowPlayingSummaries__block_invoke(uint64_t a1, void *a2)
@@ -384,20 +381,18 @@ LABEL_9:
 - (BOOL)_isPlayerPathPlaying:(id)playing
 {
   playingCopy = playing;
-  v5 = dispatch_semaphore_create(0);
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x2020000000;
-  v13 = 0;
-  lookupQueue = self->_lookupQueue;
-  v9 = v5;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v11 = 0;
+  v7 = dispatch_semaphore_create(0);
   MRMediaRemoteGetPlaybackStateForPlayer();
-  v7 = dispatch_time(0, 2000000000);
-  dispatch_semaphore_wait(v9, v7);
-  LOBYTE(lookupQueue) = *(v11 + 24);
+  v4 = dispatch_time(0, 2000000000);
+  dispatch_semaphore_wait(v7, v4);
+  v5 = *(v9 + 24);
 
-  _Block_object_dispose(&v10, 8);
-  return lookupQueue;
+  _Block_object_dispose(&v8, 8);
+  return v5;
 }
 
 intptr_t __54__WLDPlaybackNowPlayingObserver__isPlayerPathPlaying___block_invoke(uint64_t a1, int a2)
@@ -460,51 +455,49 @@ intptr_t __54__WLDPlaybackNowPlayingObserver__isPlayerPathPlaying___block_invoke
 
 - (id)_fetchActivePlayerPaths
 {
-  v3 = dispatch_semaphore_create(0);
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x3032000000;
-  v32 = __Block_byref_object_copy__4;
-  v33 = __Block_byref_object_dispose__4;
-  v34 = 0;
-  lookupQueue = self->_lookupQueue;
-  v23 = _NSConcreteStackBlock;
-  v24 = 3221225472;
-  v25 = __56__WLDPlaybackNowPlayingObserver__fetchActivePlayerPaths__block_invoke;
-  v26 = &unk_100045C18;
-  v28 = &v29;
-  v5 = v3;
-  v27 = v5;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x3032000000;
+  v29 = __Block_byref_object_copy__4;
+  v30 = __Block_byref_object_dispose__4;
+  v31 = 0;
+  v20 = _NSConcreteStackBlock;
+  v21 = 3221225472;
+  v22 = __56__WLDPlaybackNowPlayingObserver__fetchActivePlayerPaths__block_invoke;
+  v23 = &unk_100045C18;
+  v25 = &v26;
+  v2 = dispatch_semaphore_create(0);
+  v24 = v2;
   MRMediaRemoteGetActivePlayerPathsForOrigin();
-  v6 = dispatch_time(0, 2000000000);
-  dispatch_semaphore_wait(v5, v6);
-  v7 = +[WLKAppLibrary defaultAppLibrary];
-  allAppBundleIdentifiers = [v7 allAppBundleIdentifiers];
+  v3 = dispatch_time(0, 2000000000);
+  dispatch_semaphore_wait(v2, v3);
+  v4 = +[WLKAppLibrary defaultAppLibrary];
+  allAppBundleIdentifiers = [v4 allAppBundleIdentifiers];
 
-  v9 = objc_alloc_init(NSMutableArray);
-  v10 = v30[5];
-  v17 = _NSConcreteStackBlock;
-  v18 = 3221225472;
-  v19 = __56__WLDPlaybackNowPlayingObserver__fetchActivePlayerPaths__block_invoke_2;
-  v20 = &unk_100045C40;
-  v11 = allAppBundleIdentifiers;
-  v21 = v11;
-  v12 = v9;
-  v22 = v12;
-  [v10 enumerateObjectsUsingBlock:&v17];
-  v13 = WLKPlaybackTrackingLogObject();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v6 = objc_alloc_init(NSMutableArray);
+  v7 = v27[5];
+  v14 = _NSConcreteStackBlock;
+  v15 = 3221225472;
+  v16 = __56__WLDPlaybackNowPlayingObserver__fetchActivePlayerPaths__block_invoke_2;
+  v17 = &unk_100045C40;
+  v8 = allAppBundleIdentifiers;
+  v18 = v8;
+  v9 = v6;
+  v19 = v9;
+  [v7 enumerateObjectsUsingBlock:&v14];
+  v10 = WLKPlaybackTrackingLogObject();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = [v12 count];
+    v11 = [v9 count];
     *buf = 134217984;
-    v36 = v14;
-    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "WLDPlaybackNowPlayingObserver - WLDPlaybackNowPlayingObserver: _fetchActivePlayerPaths filtered paths count: %lu", buf, 0xCu);
+    v33 = v11;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "WLDPlaybackNowPlayingObserver - WLDPlaybackNowPlayingObserver: _fetchActivePlayerPaths filtered paths count: %lu", buf, 0xCu);
   }
 
-  v15 = [v12 copy];
-  _Block_object_dispose(&v29, 8);
+  v12 = [v9 copy];
+  _Block_object_dispose(&v26, 8);
 
-  return v15;
+  return v12;
 }
 
 intptr_t __56__WLDPlaybackNowPlayingObserver__fetchActivePlayerPaths__block_invoke(uint64_t a1, void *a2)
@@ -537,36 +530,35 @@ void __56__WLDPlaybackNowPlayingObserver__fetchActivePlayerPaths__block_invoke_2
   if (pathCopy)
   {
     *buf = 0;
-    v14 = buf;
-    v15 = 0x3032000000;
-    v16 = __Block_byref_object_copy__4;
-    v17 = __Block_byref_object_dispose__4;
-    v18 = objc_opt_new();
+    v13 = buf;
+    v14 = 0x3032000000;
+    v15 = __Block_byref_object_copy__4;
+    v16 = __Block_byref_object_dispose__4;
+    v17 = objc_opt_new();
     v5 = dispatch_semaphore_create(0);
-    lookupQueue = self->_lookupQueue;
-    v11 = pathCopy;
-    v12 = v5;
+    v10 = pathCopy;
+    v11 = v5;
     MRMediaRemoteGetNowPlayingInfoForPlayer();
-    v7 = dispatch_time(0, 2000000000);
-    dispatch_semaphore_wait(v12, v7);
-    v8 = [*(v14 + 5) copy];
+    v6 = dispatch_time(0, 2000000000);
+    dispatch_semaphore_wait(v11, v6);
+    v7 = [*(v13 + 5) copy];
 
     _Block_object_dispose(buf, 8);
   }
 
   else
   {
-    v9 = WLKPlaybackTrackingLogObject();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v8 = WLKPlaybackTrackingLogObject();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "WLDPlaybackNowPlayingObserver - WLDPlaybackNowPlayingObserver: _nowPlayingInfoForPlayerPath invalid player path", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "WLDPlaybackNowPlayingObserver - WLDPlaybackNowPlayingObserver: _nowPlayingInfoForPlayerPath invalid player path", buf, 2u);
     }
 
-    v8 = 0;
+    v7 = 0;
   }
 
-  return v8;
+  return v7;
 }
 
 void __62__WLDPlaybackNowPlayingObserver__nowPlayingInfoForPlayerPath___block_invoke(uint64_t a1, void *a2)
@@ -615,46 +607,44 @@ void __62__WLDPlaybackNowPlayingObserver__nowPlayingInfoForPlayerPath___block_in
 - (BOOL)_isAnyAppPlaying
 {
   v3 = dispatch_semaphore_create(0);
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x2020000000;
-  v21 = 0;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x2020000000;
+  v19 = 0;
+  v12 = 0u;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v17 = 0u;
   _getActivePlayerPaths = [(WLDPlaybackNowPlayingObserver *)self _getActivePlayerPaths];
-  v5 = [_getActivePlayerPaths countByEnumeratingWithState:&v14 objects:v22 count:16];
+  v5 = [_getActivePlayerPaths countByEnumeratingWithState:&v12 objects:v20 count:16];
   if (v5)
   {
-    v6 = *v15;
+    v6 = *v13;
     do
     {
-      for (i = 0; i != v5; i = i + 1)
+      for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(_getActivePlayerPaths);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * i);
-        lookupQueue = self->_lookupQueue;
-        v13 = v3;
+        v11 = v3;
         MRMediaRemoteGetPlaybackStateForPlayer();
-        v10 = dispatch_time(0, 2000000000);
-        dispatch_semaphore_wait(v13, v10);
+        v8 = dispatch_time(0, 2000000000);
+        dispatch_semaphore_wait(v11, v8);
       }
 
-      v5 = [_getActivePlayerPaths countByEnumeratingWithState:&v14 objects:v22 count:{16, _NSConcreteStackBlock, 3221225472, __49__WLDPlaybackNowPlayingObserver__isAnyAppPlaying__block_invoke, &unk_100045BF0}];
+      v5 = [_getActivePlayerPaths countByEnumeratingWithState:&v12 objects:v20 count:{16, _NSConcreteStackBlock, 3221225472, __49__WLDPlaybackNowPlayingObserver__isAnyAppPlaying__block_invoke, &unk_100045BF0}];
     }
 
     while (v5);
   }
 
-  v11 = *(v19 + 24);
-  _Block_object_dispose(&v18, 8);
+  v9 = *(v17 + 24);
+  _Block_object_dispose(&v16, 8);
 
-  return v11 & 1;
+  return v9 & 1;
 }
 
 intptr_t __49__WLDPlaybackNowPlayingObserver__isAnyAppPlaying__block_invoke(uint64_t a1, int a2)
@@ -670,20 +660,18 @@ intptr_t __49__WLDPlaybackNowPlayingObserver__isAnyAppPlaying__block_invoke(uint
 - (BOOL)_nowPlayingAppIsPlayingForPlayerPath:(id)path
 {
   pathCopy = path;
-  v5 = dispatch_semaphore_create(0);
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x2020000000;
-  v13 = 0;
-  lookupQueue = self->_lookupQueue;
-  v9 = v5;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v11 = 0;
+  v7 = dispatch_semaphore_create(0);
   MRMediaRemoteGetPlaybackStateForPlayer();
-  v7 = dispatch_time(0, 2000000000);
-  dispatch_semaphore_wait(v9, v7);
-  LOBYTE(lookupQueue) = *(v11 + 24);
+  v4 = dispatch_time(0, 2000000000);
+  dispatch_semaphore_wait(v7, v4);
+  v5 = *(v9 + 24);
 
-  _Block_object_dispose(&v10, 8);
-  return lookupQueue;
+  _Block_object_dispose(&v8, 8);
+  return v5;
 }
 
 intptr_t __70__WLDPlaybackNowPlayingObserver__nowPlayingAppIsPlayingForPlayerPath___block_invoke(uint64_t a1, int a2)
@@ -804,20 +792,18 @@ void __55__WLDPlaybackNowPlayingObserver__unsupportedMediaTypes__block_invoke(id
   }
 }
 
-uint64_t __59__WLDPlaybackNowPlayingObserver__updateWithInfo_sessionID___block_invoke(void *a1)
+uint64_t __59__WLDPlaybackNowPlayingObserver__updateWithInfo_sessionID___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = WLKPlaybackTrackingLogObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = WLKPlaybackTrackingLogObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = a1[4];
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "WLDPlaybackNowPlayingObserver - Calling update handler with summary: %@", &v7, 0xCu);
+    v4 = *(a1 + 32);
+    v6 = 138412290;
+    v7 = v4;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "WLDPlaybackNowPlayingObserver - Calling update handler with summary: %@", &v6, 0xCu);
   }
 
-  v4 = a1[4];
-  v5 = a1[6];
-  return (*(*(a1[5] + 56) + 16))();
+  return (*(*(*(a1 + 40) + 56) + 16))();
 }
 
 - (BOOL)_isSummary:(id)summary signifantChangeFromSummary:(id)fromSummary

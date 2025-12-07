@@ -52,31 +52,25 @@ void sub_100002FE0(uint64_t a1, void *a2)
 
 uint64_t sub_100004020@<X0>(uint64_t *a1@<X8>)
 {
-  v2 = sub_100004714();
-  v3 = *(v2 + 48);
-  v4 = *(v2 + 52);
+  sub_100004714();
   swift_allocObject();
   sub_100004724();
-  v5 = sub_1000046E4();
-  v6 = *(v5 + 48);
-  v7 = *(v5 + 52);
+  sub_1000046E4();
   swift_allocObject();
 
   sub_1000046F4();
   sub_1000044D0(&qword_100010E70, qword_100005EA0);
-  v8 = *(sub_1000046A4() - 8);
-  v9 = *(v8 + 72);
-  v10 = (*(v8 + 80) + 32) & ~*(v8 + 80);
-  v11 = swift_allocObject();
-  *(v11 + 16) = xmmword_100005E20;
-  sub_100004518(&qword_100010E78, &type metadata accessor for PRRenderingConfiguration);
+  sub_1000046A4();
+  v2 = swift_allocObject();
+  *(v2 + 16) = xmmword_100005E20;
+  sub_100004518(&qword_100010E78, &type metadata accessor for PRRenderingConfiguration, &protocol conformance descriptor for PRRenderingConfiguration);
 
   sub_100004694();
-  sub_100004518(&qword_100010E80, &type metadata accessor for PREditingConfiguration);
+  sub_100004518(&qword_100010E80, &type metadata accessor for PREditingConfiguration, &protocol conformance descriptor for PREditingConfiguration);
 
   sub_100004694();
 
-  *a1 = v11;
+  *a1 = v2;
   return result;
 }
 
@@ -90,19 +84,17 @@ id sub_10000424C()
 uint64_t sub_100004288()
 {
   [objc_allocWithZone(UnityPoster) init];
-  v0 = sub_1000044D0(&qword_100010E60, &unk_100005E30);
-  v1 = *(v0 + 48);
-  v2 = *(v0 + 52);
+  sub_1000044D0(&qword_100010E60, &unk_100005E30);
   swift_allocObject();
   sub_100004704();
-  sub_100004594(&qword_100010E68);
+  sub_100004594(&qword_100010E68, &protocol conformance descriptor for PRProviderConfiguration<A>);
   sub_1000046D4();
 }
 
 int main(int argc, const char **argv, const char **envp)
 {
   sub_1000043EC();
-  sub_100004594(&qword_100010E58);
+  sub_100004594(&qword_100010E58, &protocol conformance descriptor for PRProviderConfiguration<A>);
   sub_1000046B4();
   return 0;
 }
@@ -124,7 +116,6 @@ uint64_t sub_100004440(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -137,7 +128,6 @@ uint64_t sub_1000044D0(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -145,7 +135,7 @@ uint64_t sub_1000044D0(uint64_t *a1, uint64_t *a2)
   return result;
 }
 
-uint64_t sub_100004518(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_100004518(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -158,7 +148,7 @@ uint64_t sub_100004518(unint64_t *a1, void (*a2)(uint64_t))
   return result;
 }
 
-uint64_t sub_100004594(unint64_t *a1)
+uint64_t sub_100004594(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)

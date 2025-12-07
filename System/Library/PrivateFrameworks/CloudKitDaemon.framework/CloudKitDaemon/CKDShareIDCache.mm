@@ -36,7 +36,7 @@
 
 + (id)cacheForContainer:(id)container
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   containerCopy = container;
   v5 = sub_225081F2C(containerCopy);
   v8 = objc_msgSend__caches(self, v6, v7);
@@ -47,9 +47,9 @@
   if (!inited)
   {
     v14 = [CKDShareIDCache alloc];
-    v27 = 0;
-    inited = objc_msgSend_initInternalWithContainer_error_(v14, v15, containerCopy, &v27);
-    v16 = v27;
+    v26 = 0;
+    inited = objc_msgSend_initInternalWithContainer_error_(v14, v15, containerCopy, &v26);
+    v16 = v26;
     v19 = v16;
     if (!inited || v16)
     {
@@ -61,11 +61,11 @@
       v21 = *MEMORY[0x277CBC830];
       if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        v26 = objc_msgSend_containerID(containerCopy, v22, v23);
+        v25 = objc_msgSend_containerID(containerCopy, v22, v23);
         *buf = 138412546;
-        v29 = v26;
-        v30 = 2112;
-        v31 = v19;
+        v28 = v25;
+        v29 = 2112;
+        v30 = v19;
         _os_log_error_impl(&dword_22506F000, v21, OS_LOG_TYPE_ERROR, "Cannot initialize share ID SQL cache for container with ID %@: %@", buf, 0x16u);
       }
     }
@@ -79,14 +79,12 @@
 
   objc_sync_exit(v8);
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return inited;
 }
 
 + (id)cacheForTestingWithIdentifier:(id)identifier
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v7 = objc_msgSend__caches(self, v5, v6);
   objc_sync_enter(v7);
@@ -96,9 +94,9 @@
   if (!inited)
   {
     v13 = [CKDShareIDCache alloc];
-    v23 = 0;
-    inited = objc_msgSend_initInternalForTestingWithIdentifier_error_(v13, v14, identifierCopy, &v23);
-    v15 = v23;
+    v22 = 0;
+    inited = objc_msgSend_initInternalForTestingWithIdentifier_error_(v13, v14, identifierCopy, &v22);
+    v15 = v22;
     v18 = v15;
     if (!inited || v15)
     {
@@ -111,7 +109,7 @@
       if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v25 = identifierCopy;
+        v24 = identifierCopy;
         _os_log_error_impl(&dword_22506F000, v20, OS_LOG_TYPE_ERROR, "Cannot initialize testing share ID SQL cache with identifier: %@", buf, 0xCu);
       }
     }
@@ -125,14 +123,12 @@
 
   objc_sync_exit(v7);
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return inited;
 }
 
 + (void)dropCacheConnectionForContainer:(id)container
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   containerCopy = container;
   v7 = containerCopy;
   if (containerCopy && objc_msgSend_allowsDeviceCapabilitiesReporting(containerCopy, v5, v6))
@@ -155,9 +151,9 @@
       v21 = *MEMORY[0x277CBC830];
       if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
       {
-        v27 = 138412290;
-        v28 = v11;
-        _os_log_debug_impl(&dword_22506F000, v21, OS_LOG_TYPE_DEBUG, "Dropping shareID cache connection for container with ID: %@", &v27, 0xCu);
+        v26 = 138412290;
+        v27 = v11;
+        _os_log_debug_impl(&dword_22506F000, v21, OS_LOG_TYPE_DEBUG, "Dropping shareID cache connection for container with ID: %@", &v26, 0xCu);
       }
 
       v24 = objc_msgSend__caches(self, v22, v23);
@@ -167,8 +163,6 @@
     objc_autoreleasePoolPop(v15);
     objc_sync_exit(v14);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (CKDShareIDCache)init
@@ -218,7 +212,7 @@
 
 - (void)addShare:(id)share
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   shareCopy = share;
   if (objc_msgSend_isZoneWideShare(shareCopy, v5, v6))
   {
@@ -245,14 +239,12 @@
       v15 = *MEMORY[0x277CBC830];
       if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_INFO))
       {
-        v17 = 138412290;
-        v18 = shareCopy;
-        _os_log_impl(&dword_22506F000, v15, OS_LOG_TYPE_INFO, "Warn: Unknown share type. Share is neither a zone share nor a record share: %@", &v17, 0xCu);
+        v16 = 138412290;
+        v17 = shareCopy;
+        _os_log_impl(&dword_22506F000, v15, OS_LOG_TYPE_INFO, "Warn: Unknown share type. Share is neither a zone share nor a record share: %@", &v16, 0xCu);
       }
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addRecord:(id)record

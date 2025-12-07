@@ -11,7 +11,7 @@
 - (__n128)ecefFromlocation;
 - (__n128)locationECEF;
 - (__n128)locationLLA;
-- (double)enuFromLocation:(void *)location@<X2>;
+- (double)enuFromLocation:(_OWORD *)location@<X8>;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)encodeToDictionary;
 - (void)encodeWithCoder:(id)coder;
@@ -35,8 +35,8 @@
 
     v6 = mach_absolute_time();
     v7 = *&initWithLocation__machTimeFactor;
-    timestamp = [locationCopy timestamp];
-    [timestamp timeIntervalSinceNow];
+    v8 = objc_msgSend_timestamp(locationCopy);
+    [v8 timeIntervalSinceNow];
     v5->_timestamp = v9 + v6 * v7;
 
     v5->_secure = 1;
@@ -153,18 +153,18 @@ double __35__ARLocationData_initWithLocation___block_invoke()
   *self[1]._locationLLA = v30;
 }
 
-- (double)enuFromLocation:(void *)location@<X2>
+- (double)enuFromLocation:(_OWORD *)location@<X8>
 {
-  if (location)
+  if (a3)
   {
-    [location locationECEF];
+    objc_msgSend_locationECEF(a3, a2, d0_0, a6, a5.n128_f64[0]);
   }
 
-  ARECEFToENU(v5);
-  result = *v5;
-  v4 = v5[1];
-  *a2 = v5[0];
-  a2[1] = v4;
+  ARECEFToENU(v10);
+  result = *v10;
+  v9 = v10[1];
+  *location = v10[0];
+  location[1] = v9;
   return result;
 }
 
@@ -181,7 +181,7 @@ double __35__ARLocationData_initWithLocation___block_invoke()
 - (void)encodeWithCoder:(id)coder
 {
   coderCopy = coder;
-  [(ARLocationData *)self timestamp];
+  objc_msgSend_timestamp(self);
   [coderCopy encodeDouble:@"timestamp" forKey:?];
   [coderCopy encodeObject:self->_location forKey:@"location"];
 }
@@ -207,7 +207,7 @@ double __35__ARLocationData_initWithLocation___block_invoke()
   v4 = [v3 base64EncodedStringWithOptions:1];
   v9[0] = @"timestamp";
   v5 = MEMORY[0x1E696AD98];
-  [(ARLocationData *)self timestamp];
+  objc_msgSend_timestamp(self);
   v6 = [v5 numberWithDouble:?];
   v9[1] = @"location";
   v10[0] = v6;
@@ -252,86 +252,87 @@ double __35__ARLocationData_initWithLocation___block_invoke()
 
 + (id)grabNextFromReader:(id)reader timestamp:(double *)timestamp
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   readerCopy = reader;
   array = [MEMORY[0x1E695DF70] array];
   v7 = objc_autoreleasePoolPush();
   v8 = *(MEMORY[0x1E6960CA8] + 16);
-  v31 = *MEMORY[0x1E6960CA8];
-  v32 = v8;
-  v33 = *(MEMORY[0x1E6960CA8] + 32);
-  v30 = 0;
-  v9 = [readerCopy grabNextCLLocation:&v31 location:0 timestamps:&v30];
-  v10 = v30;
+  v32 = *MEMORY[0x1E6960CA8];
+  v33 = v8;
+  v34 = *(MEMORY[0x1E6960CA8] + 32);
+  v31 = 0;
+  v9 = [readerCopy grabNextCLLocation:&v32 location:0 timestamps:&v31];
+  v10 = v31;
   v11 = [v9 count];
-  if (v11 != [v10 count])
+  v12 = [v10 count];
+  if (v11 != v12)
   {
     if (ARShouldUseLogTypeError_onceToken_31 != -1)
     {
       [ARLocationData setLocation:];
     }
 
-    v19 = ARShouldUseLogTypeError_internalOSVersion_31;
-    v20 = _ARLogGeneral_22();
-    v21 = v20;
-    if (v19 == 1)
+    v20 = ARShouldUseLogTypeError_internalOSVersion_31;
+    v21 = _ARLogGeneral_22(v12);
+    v22 = v21;
+    if (v20 == 1)
     {
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        v22 = objc_opt_class();
-        v23 = NSStringFromClass(v22);
+        v23 = objc_opt_class();
+        v24 = NSStringFromClass(v23);
         LODWORD(time.value) = 138543362;
-        *(&time.value + 4) = v23;
-        v24 = "%{public}@ error: Couldn't get timestamps for location data.";
-        v25 = v21;
-        v26 = OS_LOG_TYPE_ERROR;
+        *(&time.value + 4) = v24;
+        v25 = "%{public}@ error: Couldn't get timestamps for location data.";
+        v26 = v22;
+        v27 = OS_LOG_TYPE_ERROR;
 LABEL_13:
-        _os_log_impl(&dword_1C241C000, v25, v26, v24, &time, 0xCu);
+        _os_log_impl(&dword_1C241C000, v26, v27, v25, &time, 0xCu);
       }
     }
 
-    else if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
-      v27 = objc_opt_class();
-      v23 = NSStringFromClass(v27);
+      v28 = objc_opt_class();
+      v24 = NSStringFromClass(v28);
       LODWORD(time.value) = 138543362;
-      *(&time.value + 4) = v23;
-      v24 = "Error: %{public}@ error: Couldn't get timestamps for location data.";
-      v25 = v21;
-      v26 = OS_LOG_TYPE_INFO;
+      *(&time.value + 4) = v24;
+      v25 = "Error: %{public}@ error: Couldn't get timestamps for location data.";
+      v26 = v22;
+      v27 = OS_LOG_TYPE_INFO;
       goto LABEL_13;
     }
 
-    v28 = array;
+    v29 = array;
     objc_autoreleasePoolPop(v7);
     goto LABEL_15;
   }
 
   if ([v9 count])
   {
-    v12 = 0;
+    v13 = 0;
     do
     {
-      v13 = [v9 objectAtIndex:v12];
-      v14 = [v10 objectAtIndex:v12];
-      [v14 doubleValue];
-      v16 = v15;
+      v14 = [v9 objectAtIndex:v13];
+      v15 = [v10 objectAtIndex:v13];
+      [v15 doubleValue];
+      v17 = v16;
 
-      v17 = [objc_alloc(objc_opt_class()) initWithLocation:v13 timestamp:0 secure:v16];
-      [array addObject:v17];
+      v18 = [objc_alloc(objc_opt_class()) initWithLocation:v14 timestamp:0 secure:v17];
+      [array addObject:v18];
 
-      ++v12;
+      ++v13;
     }
 
-    while ([v9 count] > v12);
+    while ([v9 count] > v13);
   }
 
-  *&time.value = v31;
-  time.epoch = v32;
+  *&time.value = v32;
+  time.epoch = v33;
   *timestamp = CMTimeGetSeconds(&time);
 
   objc_autoreleasePoolPop(v7);
-  v18 = array;
+  v19 = array;
 LABEL_15:
 
   return array;
@@ -340,7 +341,7 @@ LABEL_15:
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = [[ARLocationData allocWithZone:?], "initWithLocation:", self->_location];
-  [(ARLocationData *)self timestamp];
+  objc_msgSend_timestamp(self);
   [(ARLocationData *)v4 setTimestamp:?];
   v4->_secure = self->_secure;
   return v4;
@@ -359,9 +360,9 @@ LABEL_15:
 
     else
     {
-      [(ARLocationData *)self timestamp];
+      objc_msgSend_timestamp(self);
       v7 = v6;
-      [v5 timestamp];
+      objc_msgSend_timestamp(v5);
       v9 = vabdd_f64(v7, v8) < 2.22044605e-16;
     }
   }
@@ -381,36 +382,23 @@ LABEL_15:
   v5 = NSStringFromClass(v4);
   v6 = [v3 stringWithFormat:@"<%@: %p", v5, self];
 
-  [(ARLocationData *)self timestamp];
-  [v6 appendFormat:@" timestamp=%f", v7];
-  if (ARInternalOSBuild())
+  objc_msgSend_timestamp(self);
+  v8 = [v6 appendFormat:@" timestamp=%f", v7];
+  if (ARInternalOSBuild(v8, v9))
   {
     [(CLLocation *)self->_location coordinate];
-    v9 = v8;
+    v11 = v10;
     [(CLLocation *)self->_location coordinate];
-    [v6 appendFormat:@" coordinates=(%f, %f)", v9, v10];
+    [v6 appendFormat:@" coordinates=(%f, %f)", v11, v12];
     [(CLLocation *)self->_location altitude];
-    [v6 appendFormat:@" altitude=%.3f m", v11];
+    [v6 appendFormat:@" altitude=%.3f m", v13];
     [(CLLocation *)self->_location horizontalAccuracy];
-    [v6 appendFormat:@" horizontalAccuracy=%.1f m", v12];
+    [v6 appendFormat:@" horizontalAccuracy=%.1f m", v14];
     [(CLLocation *)self->_location verticalAccuracy];
-    [v6 appendFormat:@" verticalAccuracy=%.1fm", v13];
+    [v6 appendFormat:@" verticalAccuracy=%.1fm", v15];
     [(CLLocation *)self->_location altitudeWgs84];
-    [v6 appendFormat:@" altitudeWgs84=%.3fm", v14];
+    [v6 appendFormat:@" altitudeWgs84=%.3fm", v16];
     if ([(CLLocation *)self->_location isAltitudeWgs84Available])
-    {
-      v15 = @"yes";
-    }
-
-    else
-    {
-      v15 = @"no";
-    }
-
-    [v6 appendFormat:@" wgs84Available=%@", v15];
-    [(CLLocation *)self->_location horizontalAccuracy];
-    [v6 appendFormat:@" accuracy=%.02fm", v16];
-    if ([(CLLocation *)self->_location isCoordinateFused])
     {
       v17 = @"yes";
     }
@@ -420,18 +408,31 @@ LABEL_15:
       v17 = @"no";
     }
 
-    [v6 appendFormat:@" fused=%@", v17];
-    if (self->_secure)
+    [v6 appendFormat:@" wgs84Available=%@", v17];
+    [(CLLocation *)self->_location horizontalAccuracy];
+    [v6 appendFormat:@" accuracy=%.02fm", v18];
+    if ([(CLLocation *)self->_location isCoordinateFused])
     {
-      v18 = @"yes";
+      v19 = @"yes";
     }
 
     else
     {
-      v18 = @"no";
+      v19 = @"no";
     }
 
-    [v6 appendFormat:@" isSecure=%@", v18];
+    [v6 appendFormat:@" fused=%@", v19];
+    if (self->_secure)
+    {
+      v20 = @"yes";
+    }
+
+    else
+    {
+      v20 = @"no";
+    }
+
+    [v6 appendFormat:@" isSecure=%@", v20];
   }
 
   [v6 appendString:@">"];

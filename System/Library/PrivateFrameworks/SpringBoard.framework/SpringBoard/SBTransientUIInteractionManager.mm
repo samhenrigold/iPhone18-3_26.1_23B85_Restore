@@ -200,7 +200,7 @@
 - (void)registerParticipantForTapToDismiss:(id)dismiss
 {
   dismissCopy = dismiss;
-  if (![(NSHashTable *)self->_tapToDismissParticipants containsObject:?])
+  if ((objc_msgSend_containsObject_(self->_tapToDismissParticipants) & 1) == 0)
   {
     [(NSHashTable *)self->_tapToDismissParticipants addObject:dismissCopy];
   }
@@ -222,7 +222,7 @@
 - (void)unregisterParticipantForTapToDismiss:(id)dismiss
 {
   dismissCopy = dismiss;
-  if ([(NSHashTable *)self->_tapToDismissParticipants containsObject:?])
+  if (objc_msgSend_containsObject_(self->_tapToDismissParticipants))
   {
     [(NSHashTable *)self->_tapToDismissParticipants removeObject:dismissCopy];
   }
@@ -240,7 +240,7 @@
 - (void)registerParticipantForTapToUnhide:(id)unhide
 {
   unhideCopy = unhide;
-  if (![(NSHashTable *)self->_tapToUnhideParticipants containsObject:?])
+  if ((objc_msgSend_containsObject_(self->_tapToUnhideParticipants) & 1) == 0)
   {
     [(NSHashTable *)self->_tapToUnhideParticipants addObject:unhideCopy];
   }
@@ -287,7 +287,7 @@
 - (void)unregisterParticipantForTapToUnhide:(id)unhide
 {
   unhideCopy = unhide;
-  if ([(NSHashTable *)self->_tapToUnhideParticipants containsObject:?])
+  if (objc_msgSend_containsObject_(self->_tapToUnhideParticipants))
   {
     [(NSHashTable *)self->_tapToUnhideParticipants removeObject:unhideCopy];
   }
@@ -308,7 +308,7 @@
 - (void)registerParticipantForIndirectPanToDismiss:(id)dismiss
 {
   dismissCopy = dismiss;
-  if (![(NSHashTable *)self->_indirectPanToParticipants containsObject:?])
+  if ((objc_msgSend_containsObject_(self->_indirectPanToParticipants) & 1) == 0)
   {
     [(NSHashTable *)self->_indirectPanToParticipants addObject:dismissCopy];
   }
@@ -331,7 +331,7 @@
 - (void)unregisterParticipantForIndirectPanToDismiss:(id)dismiss
 {
   dismissCopy = dismiss;
-  if ([(NSHashTable *)self->_indirectPanToParticipants containsObject:?])
+  if (objc_msgSend_containsObject_(self->_indirectPanToParticipants))
   {
     [(NSHashTable *)self->_indirectPanToParticipants removeObject:dismissCopy];
   }

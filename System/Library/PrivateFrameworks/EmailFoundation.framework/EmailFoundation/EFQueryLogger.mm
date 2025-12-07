@@ -332,12 +332,12 @@ void __38__EFQueryLogger_logUniqueQueryString___block_invoke(uint64_t a1)
 
 void __48__EFQueryLogger_countQueryString_executionTime___block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = WeakRetained;
   if (WeakRetained)
   {
-    v26 = WeakRetained;
+    v25 = WeakRetained;
     if (!_block_invoke_2_queryCountMap)
     {
       v4 = objc_opt_new();
@@ -345,7 +345,7 @@ void __48__EFQueryLogger_countQueryString_executionTime___block_invoke(uint64_t 
       _block_invoke_2_queryCountMap = v4;
     }
 
-    v25 = [EFPrivacy redactedQueryStringForQueryString:*(a1 + 32)];
+    v24 = [EFPrivacy redactedQueryStringForQueryString:*(a1 + 32)];
     v6 = [_block_invoke_2_queryCountMap objectForKeyedSubscript:?];
     if (!v6)
     {
@@ -355,37 +355,37 @@ void __48__EFQueryLogger_countQueryString_executionTime___block_invoke(uint64_t 
     [v6 setCount:{objc_msgSend(v6, "count") + 1}];
     [v6 totalExecutionTime];
     [v6 setTotalExecutionTime:v7 + *(a1 + 48)];
-    [_block_invoke_2_queryCountMap setObject:v6 forKeyedSubscript:v25];
+    [_block_invoke_2_queryCountMap setObject:v6 forKeyedSubscript:v24];
     if (++_block_invoke_2_logCount >> 4 >= 0x271)
     {
-      v24 = [_block_invoke_2_queryCountMap keysSortedByValueUsingComparator:&__block_literal_global_48];
+      v23 = [_block_invoke_2_queryCountMap keysSortedByValueUsingComparator:&__block_literal_global_48];
       if (v3[1] || ([v3 _openLookasideFile], v3[1]))
       {
-        v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"\nTotal query count: %lu, Unique query count: %lu", _block_invoke_2_logCount, objc_msgSend(v24, "count")];
-        v23 = [v22 dataUsingEncoding:4];
-        write([v3[1] fileDescriptor], objc_msgSend(v23, "bytes"), objc_msgSend(v23, "length"));
-        v29 = 0u;
-        v30 = 0u;
-        v27 = 0u;
+        v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"\nTotal query count: %lu, Unique query count: %lu", _block_invoke_2_logCount, objc_msgSend(v23, "count")];
+        v22 = [v21 dataUsingEncoding:4];
+        write([v3[1] fileDescriptor], objc_msgSend(v22, "bytes"), objc_msgSend(v22, "length"));
         v28 = 0u;
-        v8 = v24;
+        v29 = 0u;
+        v26 = 0u;
+        v27 = 0u;
+        v8 = v23;
         v9 = 0;
         v10 = 0;
-        v11 = [v8 countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v11 = [v8 countByEnumeratingWithState:&v26 objects:v30 count:16];
         if (v11)
         {
-          v12 = *v28;
+          v12 = *v27;
           do
           {
             v13 = 0;
             do
             {
-              if (*v28 != v12)
+              if (*v27 != v12)
               {
                 objc_enumerationMutation(v8);
               }
 
-              v14 = *(*(&v27 + 1) + 8 * v13);
+              v14 = *(*(&v26 + 1) + 8 * v13);
               v15 = objc_autoreleasePoolPush();
               v16 = [_block_invoke_2_queryCountMap objectForKeyedSubscript:v14];
 
@@ -397,7 +397,7 @@ void __48__EFQueryLogger_countQueryString_executionTime___block_invoke(uint64_t 
 
               else
               {
-                [v26 _sortAndWriteQueries:v10 forCount:v9 totalCount:_block_invoke_2_logCount queryCountMap:_block_invoke_2_queryCountMap];
+                [v25 _sortAndWriteQueries:v10 forCount:v9 totalCount:_block_invoke_2_logCount queryCountMap:_block_invoke_2_queryCountMap];
                 v17 = objc_opt_new();
 
                 [v17 addObject:v14];
@@ -410,19 +410,19 @@ void __48__EFQueryLogger_countQueryString_executionTime___block_invoke(uint64_t 
             }
 
             while (v11 != v13);
-            v11 = [v8 countByEnumeratingWithState:&v27 objects:v31 count:16];
+            v11 = [v8 countByEnumeratingWithState:&v26 objects:v30 count:16];
           }
 
           while (v11);
         }
 
-        [v26 _sortAndWriteQueries:v10 forCount:v9 totalCount:_block_invoke_2_logCount queryCountMap:_block_invoke_2_queryCountMap];
-        [v26 _moveLogFileContentsAtPath:v26[2]];
-        v18 = v26[1];
-        v26[1] = 0;
+        [v25 _sortAndWriteQueries:v10 forCount:v9 totalCount:_block_invoke_2_logCount queryCountMap:_block_invoke_2_queryCountMap];
+        [v25 _moveLogFileContentsAtPath:v25[2]];
+        v18 = v25[1];
+        v25[1] = 0;
 
-        v19 = v26[2];
-        v26[2] = 0;
+        v19 = v25[2];
+        v25[2] = 0;
       }
 
       v20 = _block_invoke_2_queryCountMap;
@@ -431,10 +431,8 @@ void __48__EFQueryLogger_countQueryString_executionTime___block_invoke(uint64_t 
       _block_invoke_2_logCount = 0;
     }
 
-    v3 = v26;
+    v3 = v25;
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __48__EFQueryLogger_countQueryString_executionTime___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -468,32 +466,32 @@ uint64_t __48__EFQueryLogger_countQueryString_executionTime___block_invoke_2(uin
 
 - (void)_sortAndWriteQueries:(id)queries forCount:(unint64_t)count totalCount:(unint64_t)totalCount queryCountMap:(id)map
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   queriesCopy = queries;
   mapCopy = map;
-  v22 = queriesCopy;
+  v21 = queriesCopy;
   if (queriesCopy && [queriesCopy count])
   {
     [queriesCopy sortUsingSelector:sel_caseInsensitiveCompare_];
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     obj = queriesCopy;
-    v11 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v11 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v11)
     {
-      v12 = *v26;
+      v12 = *v25;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v26 != v12)
+          if (*v25 != v12)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = *(*(&v25 + 1) + 8 * i);
+          v14 = *(*(&v24 + 1) + 8 * i);
           v15 = [mapCopy objectForKeyedSubscript:v14];
           v16 = MEMORY[0x1E696AEC0];
           [v15 totalExecutionTime];
@@ -504,14 +502,12 @@ uint64_t __48__EFQueryLogger_countQueryString_executionTime___block_invoke_2(uin
           write(v14, [v19 bytes], objc_msgSend(v19, "length"));
         }
 
-        v11 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v11 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v11);
     }
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 @end

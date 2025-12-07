@@ -15,7 +15,7 @@
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
   controllerCopy = controller;
   selfCopy = self;
-  sub_10126F940();
+  sub_10126F940(v9);
 
   (*(v7 + 8))(v9, v6);
 }
@@ -24,7 +24,7 @@
 {
   cancelCopy = cancel;
   selfCopy = self;
-  sub_101270130();
+  sub_101270130(selfCopy);
 }
 
 - (_TtC8FreeformP33_A57276A3C6F5E8852856D4D908CBDB8040CRLImagePlaygroundViewControllerDelegate)init

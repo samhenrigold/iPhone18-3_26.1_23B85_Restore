@@ -300,10 +300,10 @@ uint64_t __86__CNUIUserActionDisambiguationModeler_modelsWithContact_actionType_
   return v16;
 }
 
-void __77__CNUIUserActionDisambiguationModeler_targetsChangedObservableForActionType___block_invoke()
+void __77__CNUIUserActionDisambiguationModeler_targetsChangedObservableForActionType___block_invoke(uint64_t a1)
 {
-  v0 = +[CNUICoreLogProvider actions_os_log];
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v1 = +[CNUICoreLogProvider actions_os_log];
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
     __77__CNUIUserActionDisambiguationModeler_targetsChangedObservableForActionType___block_invoke_cold_1();
   }

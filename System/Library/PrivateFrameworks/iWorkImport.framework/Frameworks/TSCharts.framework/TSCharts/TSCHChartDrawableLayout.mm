@@ -237,7 +237,7 @@
     v52 = 0uLL;
     v53 = 0;
 LABEL_8:
-    objc_msgSend_layoutSettings(v29, v20, v21, v22, v23);
+    objc_msgSend_layoutSettings(v29, v21, v22, v23);
     goto LABEL_9;
   }
 
@@ -258,7 +258,7 @@ LABEL_8:
   v50 = 0uLL;
   v51 = 0;
 LABEL_9:
-  objc_msgSend_p_layoutSettingsForDrawableLayoutModeByUpdatingLayoutSettings_(self, v20, v21, v22, v23, &v50);
+  objc_msgSend_p_layoutSettingsForDrawableLayoutModeByUpdatingLayoutSettings_(self, v21, v22, v23);
   v50 = v52;
   v51 = v53;
   objc_msgSend_setLayoutSettings_(self->_chartLayout, v45, *&v52, v46, v47, &v50);
@@ -501,25 +501,25 @@ LABEL_9:
   width = v30;
   height = v32;
   v35 = objc_msgSend_geometry(self, v34, v26, v28, v30);
-  v40 = v35;
+  v39 = v35;
   if (v35)
   {
-    objc_msgSend_transform(v35, v36, v37, v38, v39);
-    v47.origin.x = x;
-    v47.origin.y = y;
-    v47.size.width = width;
-    v47.size.height = height;
-    v48 = CGRectApplyAffineTransform(v47, &v45);
-    x = v48.origin.x;
-    y = v48.origin.y;
-    width = v48.size.width;
-    height = v48.size.height;
+    objc_msgSend_transform(v35, v36, v37, v38);
+    v46.origin.x = x;
+    v46.origin.y = y;
+    v46.size.width = width;
+    v46.size.height = height;
+    v47 = CGRectApplyAffineTransform(v46, &v44);
+    x = v47.origin.x;
+    y = v47.origin.y;
+    width = v47.size.width;
+    height = v47.size.height;
   }
 
-  v41 = objc_alloc(MEMORY[0x277D80300]);
-  v43 = objc_msgSend_initWithFrame_(v41, v42, x, y, width, height);
+  v40 = objc_alloc(MEMORY[0x277D80300]);
+  v42 = objc_msgSend_initWithFrame_(v40, v41, x, y, width, height);
 
-  return v43;
+  return v42;
 }
 
 - (void)p_setLegendGeometry:(id)geometry fromTransform:(CGAffineTransform *)transform onLayout:(id)layout shouldUpdateLayoutItemSize:(BOOL)size
@@ -566,29 +566,29 @@ LABEL_9:
 
 - (void)setLegendGeometry:(id)geometry
 {
-  v24 = 0u;
-  v25 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v22 = 0u;
   geometryCopy = geometry;
   v9 = objc_msgSend_geometry(self, v5, v6, v7, v8);
-  v14 = v9;
+  v13 = v9;
   if (v9)
   {
-    objc_msgSend_transform(v9, v10, v11, v12, v13);
+    objc_msgSend_transform(v9, v10, v11, v12);
   }
 
   else
   {
-    v24 = 0u;
-    v25 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v22 = 0u;
   }
 
-  v19 = objc_msgSend_chartLayout(self, v15, v16, v17, v18);
-  v22[0] = v23;
-  v22[1] = v24;
-  v22[2] = v25;
-  objc_msgSend_p_setLegendGeometry_fromTransform_onLayout_shouldUpdateLayoutItemSize_(self, v20, *&v25, *&v24, v21, geometryCopy, v22, v19, 0);
+  v18 = objc_msgSend_chartLayout(self, v14, v15, v16, v17);
+  v21[0] = v22;
+  v21[1] = v23;
+  v21[2] = v24;
+  objc_msgSend_p_setLegendGeometry_fromTransform_onLayout_shouldUpdateLayoutItemSize_(self, v19, *&v24, *&v23, v20, geometryCopy, v21, v18, 0);
 }
 
 - (TSDLayoutGeometry)legendModelGeometry
@@ -732,8 +732,8 @@ LABEL_9:
     v13 = objc_msgSend_p_chartLayout(self, v8, v9, v10, v11);
     v18 = objc_msgSend_info(self, v38, v39, v40, v41);
     v46 = objc_msgSend_geometry(v18, v42, v43, v44, v45);
-    objc_msgSend_size(v46, v47, v48, v49, v50);
-    objc_msgSend_layoutForChartBodySize_(v13, v51, v52, v53, v54);
+    objc_msgSend_size(v46, v47, v48, v49);
+    objc_msgSend_layoutForChartBodySize_(v13, v50, v51, v52, v53);
 
     goto LABEL_10;
   }
@@ -745,7 +745,7 @@ LABEL_9:
     if (v17)
     {
       v18 = v17;
-      objc_msgSend_size(v13, v12, v14, v15, v16);
+      objc_msgSend_size(v13, v14, v15, v16);
       objc_msgSend_layoutForResizingSize_(v18, v19, v20, v21, v22);
 LABEL_10:
 
@@ -762,7 +762,7 @@ LABEL_10:
 LABEL_11:
 
   *p_chartInvalidFlags = 0;
-  objc_msgSend_invalidateFrame(self, v55, v56, v57, v58);
+  objc_msgSend_invalidateFrame(self, v54, v55, v56, v57);
   self->_suppressChartLayoutInvalidation = 0;
 }
 
@@ -819,7 +819,7 @@ LABEL_11:
   v50 = v49;
   v52 = objc_msgSend_chartDrawableLayoutGeometryProvider(self, v51, v43, v45, v47);
   v57 = v52;
-  if (layoutCopy && v52 && objc_msgSend_isValid(layoutCopy, v53, v54, v55, v56) && (v108.origin.x = v44, v108.origin.y = v46, v108.size.width = v48, v108.size.height = v50, !CGRectIsNull(v108)))
+  if (layoutCopy && v52 && objc_msgSend_isValid(layoutCopy, v53, v54, v55, v56) && (v107.origin.x = v44, v107.origin.y = v46, v107.size.width = v48, v107.size.height = v50, !CGRectIsNull(v107)))
   {
     objc_msgSend_unscaledLayoutClipRect(v57, v53, v54, v55, v56);
     objc_msgSend_unscaledLayoutFrame(v57, v66, v67, v68, v69);
@@ -832,10 +832,10 @@ LABEL_11:
 
     objc_msgSend_chartBodyFrame(layoutCopy, v88, v89, v90, v91);
     objc_msgSend_setSize_(v58, v92, v93, v94, v93);
-    objc_msgSend_position(v58, v95, v96, v97, v98);
+    objc_msgSend_position(v58, v95, v96, v97);
     TSUAddPoints();
-    objc_msgSend_setPosition_(v58, v99, v100, v101, v102);
-    v63 = objc_msgSend_copy(v58, v103, v104, v105, v106);
+    objc_msgSend_setPosition_(v58, v98, v99, v100, v101);
+    v63 = objc_msgSend_copy(v58, v102, v103, v104, v105);
   }
 
   else
@@ -972,13 +972,13 @@ LABEL_11:
   else
   {
     v33 = objc_msgSend_p_infoGeometryForComputingLayoutGeometryWithChartLayout_(self, v27, v28, v29, v30, v7);
-    v115 = 0;
-    v116 = 0;
+    v113 = 0;
     v114 = 0;
-    objc_msgSend_p_convertValidChartLayout_andInfoGeometry_toPureGeometry_toChartAreaGeometry_toShadowGeometry_(self, v34, v35, v36, v37, v7, v33, &v116, &v115, &v114);
-    v38 = v116;
-    v39 = v115;
-    v32 = v114;
+    v112 = 0;
+    objc_msgSend_p_convertValidChartLayout_andInfoGeometry_toPureGeometry_toChartAreaGeometry_toShadowGeometry_(self, v34, v35, v36, v37, v7, v33, &v114, &v113, &v112);
+    v38 = v114;
+    v39 = v113;
+    v32 = v112;
     objc_msgSend_setLastPureGeometry_(self, v40, v41, v42, v43, v38);
     objc_msgSend_setLastChartAreaGeometry_(self, v44, v45, v46, v47, v39);
   }
@@ -1004,31 +1004,31 @@ LABEL_11:
     v78 = objc_msgSend_lastPureGeometry(self, v74, v75, v76, v77);
     v83 = objc_msgSend_copy(v78, v79, v80, v81, v82);
 
-    v112 = v73;
-    v113 = 0;
-    v88 = objc_msgSend_p_constrainAndResizePureGeometry_withValidChartLayout_toChartAreaGeometry_toShadowGeometry_toInfoGeometry_(self, v84, v85, v86, v87, v83, v7, &v113, &v112, 0);
-    v89 = v113;
-    v32 = v112;
+    v110 = v73;
+    v111 = 0;
+    v88 = objc_msgSend_p_constrainAndResizePureGeometry_withValidChartLayout_toChartAreaGeometry_toShadowGeometry_toInfoGeometry_(self, v84, v85, v86, v87, v83, v7, &v111, &v110, 0);
+    v89 = v111;
+    v32 = v110;
 
     objc_msgSend_setLastPureGeometry_(self, v90, v91, v92, v93, v88);
     objc_msgSend_setLastChartAreaGeometry_(self, v94, v95, v96, v97, v89);
   }
 
   objc_storeStrong(&self->_layoutGeometryWhileCallingSuperComputeLayoutGeometry, v32);
-  v111.receiver = self;
-  v111.super_class = TSCHChartDrawableLayout;
-  computeLayoutGeometry = [(TSCHChartDrawableLayout *)&v111 computeLayoutGeometry];
-  v103 = computeLayoutGeometry;
+  v109.receiver = self;
+  v109.super_class = TSCHChartDrawableLayout;
+  computeLayoutGeometry = [(TSCHChartDrawableLayout *)&v109 computeLayoutGeometry];
+  v102 = computeLayoutGeometry;
   if (v32 && computeLayoutGeometry)
   {
-    objc_msgSend_size(computeLayoutGeometry, v99, v100, v101, v102);
-    objc_msgSend_size(v32, v104, v105, v106, v107);
+    objc_msgSend_size(computeLayoutGeometry, v99, v100, v101);
+    objc_msgSend_size(v32, v103, v104, v105);
   }
 
   layoutGeometryWhileCallingSuperComputeLayoutGeometry = self->_layoutGeometryWhileCallingSuperComputeLayoutGeometry;
   self->_layoutGeometryWhileCallingSuperComputeLayoutGeometry = 0;
 
-  v109 = v32;
+  v107 = v32;
   return v32;
 }
 
@@ -1166,7 +1166,7 @@ LABEL_6:
 
   if (v14)
   {
-    objc_msgSend_layoutSettings(v14, v15, v16, v17, v18);
+    objc_msgSend_layoutSettings(v14, v16, v17, v18);
   }
 
   else
@@ -1244,7 +1244,7 @@ LABEL_6:
       objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v40, v41, v42, v43);
     }
 
-    objc_msgSend_transformInRoot(self, v24, 0.0, v27, v28);
+    objc_msgSend_transformInRoot(self, 0.0, v27, v28);
     objc_msgSend_boundsForResize(v25, v44, v45, v46, v47);
     objc_msgSend_convertChartLayoutSpaceToNaturalSpace_(v25, v48, v49, v50, v51);
     TSUAddPoints();
@@ -1298,7 +1298,7 @@ LABEL_6:
     objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v57, v58, v59, v60);
   }
 
-  objc_msgSend_size(v41, v42, v43, v44, v45);
+  objc_msgSend_size(v41, v43, v44, v45);
   objc_msgSend_layoutForChartBodySize_(v7, v61, v62, v63, v64);
   v83 = 0;
   v84 = 0;
@@ -1450,7 +1450,7 @@ LABEL_23:
   v125 = objc_msgSend_mutableCopy(v84, v120, v121, v122, v123);
   if (objc_msgSend_widthValid(v84, v126, v127, v128, v129))
   {
-    objc_msgSend_size(v84, v130, v131, v132, v133);
+    objc_msgSend_size(v84, v131, v132, v133);
     if (v88 >= v135)
     {
       v135 = v88;
@@ -1461,7 +1461,7 @@ LABEL_23:
 
   else if (objc_msgSend_heightValid(v84, v130, v131, v132, v133))
   {
-    objc_msgSend_size(v84, v141, v142, v143, v144);
+    objc_msgSend_size(v84, v142, v143, v144);
     if (v89 >= v146)
     {
       v148 = v89;
@@ -1506,15 +1506,15 @@ LABEL_35:
     if (!v158)
     {
 LABEL_46:
-      v205 = v163;
+      v203 = v163;
       goto LABEL_47;
     }
   }
 
-  objc_msgSend_size(v163, v159, v160, v161, v162);
+  objc_msgSend_size(v163, v160, v161, v162);
   if (v167 >= v164)
   {
-    objc_msgSend_size(v163, v166, v167, v168, v169);
+    objc_msgSend_size(v163, v167, v168, v169);
     if (v168 >= v165)
     {
       goto LABEL_46;
@@ -1524,118 +1524,118 @@ LABEL_46:
   v170 = MEMORY[0x277D81150];
   v171 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v166, v167, v168, v169, "TSDInfoGeometry * _Nonnull TSCHEnsureMinSizeInfoGeometryForChart(TSCHChartInfo * _Nonnull __strong, TSDInfoGeometry * _Nonnull __strong)");
   v176 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v172, v173, v174, v175, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartDrawableLayout.m");
-  objc_msgSend_size(v163, v177, v178, v179, v180);
-  NSStringFromCGSize(v289);
+  objc_msgSend_size(v163, v177, v178, v179);
+  NSStringFromCGSize(v286);
   areaGeometryCopy = areaGeometry;
-  v183 = v182 = shadowGeometry;
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v170, v184, v185, v186, v187, v171, v176, 2000, 0, "Chart infoGeometry size has dimension smaller than the minimum %@. That's a bad document.", v183);
+  v182 = v181 = shadowGeometry;
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v170, v183, v184, v185, v186, v171, v176, 2000, 0, "Chart infoGeometry size has dimension smaller than the minimum %@. That's a bad document.", v182);
 
-  shadowGeometry = v182;
+  shadowGeometry = v181;
   areaGeometry = areaGeometryCopy;
 
-  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v188, v189, v190, v191);
-  v196 = objc_msgSend_mutableCopy(v163, v192, v193, v194, v195);
-  objc_msgSend_size(v196, v197, v198, v199, v200);
-  if (v202 < v164)
+  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v187, v188, v189, v190);
+  v195 = objc_msgSend_mutableCopy(v163, v191, v192, v193, v194);
+  objc_msgSend_size(v195, v196, v197, v198);
+  if (v200 < v164)
   {
-    v202 = v164;
+    v200 = v164;
   }
 
-  if (v203 < v165)
+  if (v201 < v165)
   {
-    v203 = v165;
+    v201 = v165;
   }
 
-  objc_msgSend_setSize_(v196, v201, v202, v203, v204);
-  v205 = v196;
+  objc_msgSend_setSize_(v195, v199, v200, v201, v202);
+  v203 = v195;
 
 LABEL_47:
   if (layoutCopy)
   {
-    if (v205)
+    if (v203)
     {
       if (pureGeometry | shadowGeometry)
       {
-        if (objc_msgSend_isValid(layoutCopy, v206, v207, v208, v209))
+        if (objc_msgSend_isValid(layoutCopy, v204, v205, v206, v207))
         {
-          objc_msgSend_size(v205, v210, v211, v212, v213);
-          v214 = TSUNearlyEqualSizes();
-          if (p_lastChartAreaGeometry != areaGeometry && p_lastPureGeometry != pureGeometry && (v214 & 1) == 0)
+          objc_msgSend_size(v203, v208, v209, v210);
+          v211 = TSUNearlyEqualSizes();
+          if (p_lastChartAreaGeometry != areaGeometry && p_lastPureGeometry != pureGeometry && (v211 & 1) == 0)
           {
-            v215 = objc_alloc(MEMORY[0x277D80300]);
-            v220 = objc_msgSend_initWithInfoGeometry_(v215, v216, v217, v218, v219, v205);
-            if (!sub_2762ED4A8(v220))
+            v212 = objc_alloc(MEMORY[0x277D80300]);
+            v217 = objc_msgSend_initWithInfoGeometry_(v212, v213, v214, v215, v216, v203);
+            if (!sub_2762ED4A8(v217))
             {
-              v225 = MEMORY[0x277D81150];
-              v226 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v221, v222, v223, v224, "[TSCHChartDrawableLayout p_convertValidChartLayout:andInfoGeometry:toPureGeometry:toChartAreaGeometry:toShadowGeometry:]");
-              v231 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v227, v228, v229, v230, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartDrawableLayout.m");
-              objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v225, v232, v233, v234, v235, v226, v231, 1453, 0, "Geometry has scale component. This should not be!");
+              v222 = MEMORY[0x277D81150];
+              v223 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v218, v219, v220, v221, "[TSCHChartDrawableLayout p_convertValidChartLayout:andInfoGeometry:toPureGeometry:toChartAreaGeometry:toShadowGeometry:]");
+              v228 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v224, v225, v226, v227, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartDrawableLayout.m");
+              objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v222, v229, v230, v231, v232, v223, v228, 1453, 0, "Geometry has scale component. This should not be!");
 
-              objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v236, v237, v238, v239);
+              objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v233, v234, v235, v236);
             }
 
-            objc_msgSend_size(v220, v221, v222, v223, v224);
-            objc_msgSend_layoutForChartBodySize_(layoutCopy, v240, v241, v242, v243);
-            objc_msgSend_chartBodyFrame(layoutCopy, v244, v245, v246, v247);
-            v251 = 0.0;
-            memset(&v288, 0, sizeof(v288));
-            if (v220)
+            objc_msgSend_size(v217, v219, v220, v221);
+            objc_msgSend_layoutForChartBodySize_(layoutCopy, v237, v238, v239, v240);
+            objc_msgSend_chartBodyFrame(layoutCopy, v241, v242, v243, v244);
+            v248 = 0.0;
+            memset(&v285, 0, sizeof(v285));
+            if (v217)
             {
-              objc_msgSend_transform(v220, v248, 0.0, v249, v250);
+              objc_msgSend_transform(v217, 0.0, v246, v247);
             }
 
             if (pureGeometry)
             {
-              objc_msgSend_boundsForResize(layoutCopy, v248, v251, v249, v250);
-              v253 = v252;
-              v255 = v254;
+              objc_msgSend_boundsForResize(layoutCopy, v245, v248, v246, v247);
+              v250 = v249;
+              v252 = v251;
               TSUSubtractPoints();
-              memset(&v287, 0, sizeof(v287));
-              CGAffineTransformMakeTranslation(&v287, v256, v257);
-              t1 = v287;
-              memset(&v286, 0, sizeof(v286));
-              t2 = v288;
-              CGAffineTransformConcat(&v286, &t1, &t2);
-              v258 = objc_alloc(MEMORY[0x277D80300]);
-              t1 = v286;
-              v261 = objc_msgSend_initWithSize_transform_(v258, v259, v253, v255, v260, &t1);
-              *pureGeometry = v261;
+              memset(&v284, 0, sizeof(v284));
+              CGAffineTransformMakeTranslation(&v284, v253, v254);
+              t1 = v284;
+              memset(&v283, 0, sizeof(v283));
+              t2 = v285;
+              CGAffineTransformConcat(&v283, &t1, &t2);
+              v255 = objc_alloc(MEMORY[0x277D80300]);
+              t1 = v283;
+              v258 = objc_msgSend_initWithSize_transform_(v255, v256, v250, v252, v257, &t1);
+              *pureGeometry = v258;
             }
 
             if (areaGeometry)
             {
-              objc_msgSend_chartAreaFrame(layoutCopy, v248, v251, v249, v250);
-              v263 = v262;
-              v265 = v264;
+              objc_msgSend_chartAreaFrame(layoutCopy, v245, v248, v246, v247);
+              v260 = v259;
+              v262 = v261;
               TSUSubtractPoints();
-              memset(&v287, 0, sizeof(v287));
-              CGAffineTransformMakeTranslation(&v287, v266, v267);
-              t1 = v287;
-              memset(&v286, 0, sizeof(v286));
-              t2 = v288;
-              CGAffineTransformConcat(&v286, &t1, &t2);
-              v268 = objc_alloc(MEMORY[0x277D80300]);
-              t1 = v286;
-              v271 = objc_msgSend_initWithSize_transform_(v268, v269, v263, v265, v270, &t1);
-              *areaGeometry = v271;
+              memset(&v284, 0, sizeof(v284));
+              CGAffineTransformMakeTranslation(&v284, v263, v264);
+              t1 = v284;
+              memset(&v283, 0, sizeof(v283));
+              t2 = v285;
+              CGAffineTransformConcat(&v283, &t1, &t2);
+              v265 = objc_alloc(MEMORY[0x277D80300]);
+              t1 = v283;
+              v268 = objc_msgSend_initWithSize_transform_(v265, v266, v260, v262, v267, &t1);
+              *areaGeometry = v268;
             }
 
             if (shadowGeometry)
             {
-              objc_msgSend_outerShadowFrame(layoutCopy, v248, v251, v249, v250);
-              v273 = v272;
-              v275 = v274;
+              objc_msgSend_outerShadowFrame(layoutCopy, v245, v248, v246, v247);
+              v270 = v269;
+              v272 = v271;
               TSUSubtractPoints();
-              memset(&v287, 0, sizeof(v287));
-              CGAffineTransformMakeTranslation(&v287, v276, v277);
-              t1 = v287;
-              memset(&v286, 0, sizeof(v286));
-              t2 = v288;
-              CGAffineTransformConcat(&v286, &t1, &t2);
-              v278 = objc_alloc(MEMORY[0x277D80300]);
-              t1 = v286;
-              v281 = objc_msgSend_initWithSize_transform_(v278, v279, v273, v275, v280, &t1);
-              *shadowGeometry = v281;
+              memset(&v284, 0, sizeof(v284));
+              CGAffineTransformMakeTranslation(&v284, v273, v274);
+              t1 = v284;
+              memset(&v283, 0, sizeof(v283));
+              t2 = v285;
+              CGAffineTransformConcat(&v283, &t1, &t2);
+              v275 = objc_alloc(MEMORY[0x277D80300]);
+              t1 = v283;
+              v278 = objc_msgSend_initWithSize_transform_(v275, v276, v270, v272, v277, &t1);
+              *shadowGeometry = v278;
             }
           }
         }
@@ -1674,24 +1674,24 @@ LABEL_47:
 
   else
   {
-    v43 = MEMORY[0x277D81150];
-    v44 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, v14, v15, v16, "[TSCHChartDrawableLayout p_constrainAndResizePureGeometry:withValidChartLayout:toChartAreaGeometry:toShadowGeometry:toInfoGeometry:]");
-    v49 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v45, v46, v47, v48, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartDrawableLayout.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v43, v50, v51, v52, v53, v44, v49, 1518, 0, "invalid nil value for '%{public}s'", "chartLayout");
+    v42 = MEMORY[0x277D81150];
+    v43 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, v14, v15, v16, "[TSCHChartDrawableLayout p_constrainAndResizePureGeometry:withValidChartLayout:toChartAreaGeometry:toShadowGeometry:toInfoGeometry:]");
+    v48 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v44, v45, v46, v47, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartDrawableLayout.m");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v42, v49, v50, v51, v52, v43, v48, 1518, 0, "invalid nil value for '%{public}s'", "chartLayout");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v54, v55, v56, v57);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v53, v54, v55, v56);
     if (geometryCopy)
     {
       goto LABEL_9;
     }
   }
 
-  v58 = MEMORY[0x277D81150];
-  v59 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, v14, v15, v16, "[TSCHChartDrawableLayout p_constrainAndResizePureGeometry:withValidChartLayout:toChartAreaGeometry:toShadowGeometry:toInfoGeometry:]");
-  v64 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v60, v61, v62, v63, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartDrawableLayout.m");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v58, v65, v66, v67, v68, v59, v64, 1519, 0, "invalid nil value for '%{public}s'", "pureGeometry");
+  v57 = MEMORY[0x277D81150];
+  v58 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, v14, v15, v16, "[TSCHChartDrawableLayout p_constrainAndResizePureGeometry:withValidChartLayout:toChartAreaGeometry:toShadowGeometry:toInfoGeometry:]");
+  v63 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v59, v60, v61, v62, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartDrawableLayout.m");
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v57, v64, v65, v66, v67, v58, v63, 1519, 0, "invalid nil value for '%{public}s'", "pureGeometry");
 
-  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v69, v70, v71, v72);
+  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v68, v69, v70, v71);
 LABEL_9:
   if ((objc_msgSend_isValid(v17, v13, v14, v15, v16) & 1) == 0)
   {
@@ -1703,97 +1703,97 @@ LABEL_9:
     objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v33, v34, v35, v36);
   }
 
-  if (v17 && geometryCopy && areaGeometry | shadowGeometry | infoGeometry && objc_msgSend_isValid(v17, v18, v19, v20, v21) && (objc_msgSend_size(geometryCopy, v37, v38, v39, v40), !TSUNearlyEqualSizes()))
+  if (v17 && geometryCopy && areaGeometry | shadowGeometry | infoGeometry && objc_msgSend_isValid(v17, v18, v19, v20, v21) && (objc_msgSend_size(geometryCopy, v37, v38, v39), !TSUNearlyEqualSizes()))
   {
     if (!sub_2762ED4A8(geometryCopy))
     {
-      v77 = MEMORY[0x277D81150];
-      v78 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v73, v74, v75, v76, "[TSCHChartDrawableLayout p_constrainAndResizePureGeometry:withValidChartLayout:toChartAreaGeometry:toShadowGeometry:toInfoGeometry:]");
-      v83 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v79, v80, v81, v82, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartDrawableLayout.m");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v77, v84, v85, v86, v87, v78, v83, 1531, 0, "Geometry has scale component. This should not be!");
+      v76 = MEMORY[0x277D81150];
+      v77 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v72, v73, v74, v75, "[TSCHChartDrawableLayout p_constrainAndResizePureGeometry:withValidChartLayout:toChartAreaGeometry:toShadowGeometry:toInfoGeometry:]");
+      v82 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v78, v79, v80, v81, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartDrawableLayout.m");
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v76, v83, v84, v85, v86, v77, v82, 1531, 0, "Geometry has scale component. This should not be!");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v88, v89, v90, v91);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v87, v88, v89, v90);
     }
 
-    memset(&v157, 0, sizeof(v157));
-    objc_msgSend_transform(geometryCopy, v73, 0.0, v75, v76);
-    objc_msgSend_size(geometryCopy, v92, v93, v94, v95);
-    objc_msgSend_layoutForResizingSize_(v17, v96, v97, v98, v99);
-    objc_msgSend_boundsForResize(v17, v100, v101, v102, v103);
+    memset(&v153, 0, sizeof(v153));
+    objc_msgSend_transform(geometryCopy, 0.0, v74, v75);
+    objc_msgSend_size(geometryCopy, v91, v92, v93);
+    objc_msgSend_layoutForResizingSize_(v17, v94, v95, v96, v97);
+    objc_msgSend_boundsForResize(v17, v98, v99, v100, v101);
+    v106 = v105;
     v108 = v107;
-    v110 = v109;
     if (areaGeometry)
     {
-      objc_msgSend_chartAreaFrame(v17, v104, v105, v106, v107);
+      objc_msgSend_chartAreaFrame(v17, v102, v103, v104, v105);
+      v110 = v109;
       v112 = v111;
-      v114 = v113;
       TSUSubtractPoints();
-      memset(&v156, 0, sizeof(v156));
-      CGAffineTransformMakeTranslation(&v156, v115, v116);
-      t1 = v156;
-      memset(&v155, 0, sizeof(v155));
-      t2 = v157;
-      CGAffineTransformConcat(&v155, &t1, &t2);
-      v117 = objc_alloc(MEMORY[0x277D80300]);
-      t1 = v155;
-      v120 = objc_msgSend_initWithSize_transform_(v117, v118, v112, v114, v119, &t1);
-      *areaGeometry = v120;
+      memset(&v152, 0, sizeof(v152));
+      CGAffineTransformMakeTranslation(&v152, v113, v114);
+      t1 = v152;
+      memset(&v151, 0, sizeof(v151));
+      t2 = v153;
+      CGAffineTransformConcat(&v151, &t1, &t2);
+      v115 = objc_alloc(MEMORY[0x277D80300]);
+      t1 = v151;
+      v118 = objc_msgSend_initWithSize_transform_(v115, v116, v110, v112, v117, &t1);
+      *areaGeometry = v118;
     }
 
     if (shadowGeometry)
     {
-      objc_msgSend_outerShadowFrame(v17, v104, v105, v106, v107);
+      objc_msgSend_outerShadowFrame(v17, v102, v103, v104, v105);
+      v120 = v119;
       v122 = v121;
-      v124 = v123;
       TSUSubtractPoints();
-      memset(&v156, 0, sizeof(v156));
-      CGAffineTransformMakeTranslation(&v156, v125, v126);
-      t1 = v156;
-      memset(&v155, 0, sizeof(v155));
-      t2 = v157;
-      CGAffineTransformConcat(&v155, &t1, &t2);
-      v127 = objc_alloc(MEMORY[0x277D80300]);
-      t1 = v155;
-      v130 = objc_msgSend_initWithSize_transform_(v127, v128, v122, v124, v129, &t1);
-      *shadowGeometry = v130;
+      memset(&v152, 0, sizeof(v152));
+      CGAffineTransformMakeTranslation(&v152, v123, v124);
+      t1 = v152;
+      memset(&v151, 0, sizeof(v151));
+      t2 = v153;
+      CGAffineTransformConcat(&v151, &t1, &t2);
+      v125 = objc_alloc(MEMORY[0x277D80300]);
+      t1 = v151;
+      v128 = objc_msgSend_initWithSize_transform_(v125, v126, v120, v122, v127, &t1);
+      *shadowGeometry = v128;
     }
 
     if (infoGeometry)
     {
-      objc_msgSend_chartBodyFrame(v17, v104, v105, v106, v107);
+      objc_msgSend_chartBodyFrame(v17, v102, v103, v104, v105);
+      v130 = v129;
       v132 = v131;
-      v134 = v133;
       TSUSubtractPoints();
-      memset(&v156, 0, sizeof(v156));
-      CGAffineTransformMakeTranslation(&v156, v135, v136);
-      t1 = v156;
-      memset(&v155, 0, sizeof(v155));
-      t2 = v157;
-      CGAffineTransformConcat(&v155, &t1, &t2);
-      v137 = objc_alloc(MEMORY[0x277D802E8]);
-      t1 = v155;
-      v140 = objc_msgSend_initWithTransform_size_(v137, v138, v132, v134, v139, &t1);
-      *infoGeometry = v140;
+      memset(&v152, 0, sizeof(v152));
+      CGAffineTransformMakeTranslation(&v152, v133, v134);
+      t1 = v152;
+      memset(&v151, 0, sizeof(v151));
+      t2 = v153;
+      CGAffineTransformConcat(&v151, &t1, &t2);
+      v135 = objc_alloc(MEMORY[0x277D802E8]);
+      t1 = v151;
+      v138 = objc_msgSend_initWithTransform_size_(v135, v136, v130, v132, v137, &t1);
+      *infoGeometry = v138;
     }
 
-    v41 = geometryCopy;
-    objc_msgSend_size(v41, v141, v142, v143, v144);
+    v40 = geometryCopy;
+    objc_msgSend_size(v40, v139, v140, v141);
     if ((TSUNearlyEqualSizes() & 1) == 0)
     {
-      v145 = objc_alloc(MEMORY[0x277D80300]);
-      objc_msgSend_transform(v41, v146, v147, v148, v149);
-      v152 = objc_msgSend_initWithSize_transform_(v145, v150, v108, v110, v151, &v156);
+      v142 = objc_alloc(MEMORY[0x277D80300]);
+      objc_msgSend_transform(v40, v143, v144, v145);
+      v148 = objc_msgSend_initWithSize_transform_(v142, v146, v106, v108, v147, &v152);
 
-      v41 = v152;
+      v40 = v148;
     }
   }
 
   else
   {
-    v41 = geometryCopy;
+    v40 = geometryCopy;
   }
 
-  return v41;
+  return v40;
 }
 
 - (BOOL)p_isPrintingInBackground
@@ -2051,7 +2051,7 @@ LABEL_10:
     objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v22, v23, v24, v25);
   }
 
-  objc_msgSend_transform(self, v6, 0.0, v9, v10);
+  objc_msgSend_transform(self, 0.0, v9, v10);
   v30 = objc_msgSend_sharedChartConfiguration(TSCHConfiguration, v26, v27, v28, v29);
   v35 = objc_msgSend_supportsTextWrapping(v30, v31, v32, v33, v34);
 
@@ -2198,28 +2198,28 @@ LABEL_10:
   v18 = v17;
   v20 = v19;
   v22 = v21;
-  objc_msgSend_transform(self, v23, v15, v17, v19);
-  v36.origin.x = v16;
-  v36.origin.y = v18;
-  v36.size.width = v20;
-  v36.size.height = v22;
-  v37 = CGRectApplyAffineTransform(v36, &v35);
-  x = v37.origin.x;
-  width = v37.size.width;
-  v34.receiver = self;
-  v34.super_class = TSCHChartDrawableLayout;
-  [(TSCHChartDrawableLayout *)&v34 frameForCaptionPositioning];
-  v27 = v26;
-  v29 = v28;
+  objc_msgSend_transform(self, v15, v17, v19);
+  v35.origin.x = v16;
+  v35.origin.y = v18;
+  v35.size.width = v20;
+  v35.size.height = v22;
+  v36 = CGRectApplyAffineTransform(v35, &v34);
+  x = v36.origin.x;
+  width = v36.size.width;
+  v33.receiver = self;
+  v33.super_class = TSCHChartDrawableLayout;
+  [(TSCHChartDrawableLayout *)&v33 frameForCaptionPositioning];
+  v26 = v25;
+  v28 = v27;
 
-  v30 = x;
-  v31 = v27;
-  v32 = width;
-  v33 = v29;
-  result.size.height = v33;
-  result.size.width = v32;
-  result.origin.y = v31;
-  result.origin.x = v30;
+  v29 = x;
+  v30 = v26;
+  v31 = width;
+  v32 = v28;
+  result.size.height = v32;
+  result.size.width = v31;
+  result.origin.y = v30;
+  result.origin.x = v29;
   return result;
 }
 

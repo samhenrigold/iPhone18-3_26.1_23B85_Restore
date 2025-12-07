@@ -22,7 +22,7 @@
   }
 
   v5 = qword_101219020;
-  v6 = objc_allocWithZone(type metadata accessor for WaveformPlayIndicator());
+  v6 = objc_allocWithZone(type metadata accessor for WaveformPlayIndicator(0));
   *(&self->super.super.super.isa + v4) = WaveformPlayIndicator.init(settings:)(v5);
   result = _assertionFailure(_:_:file:line:flags:)();
   __break(1u);

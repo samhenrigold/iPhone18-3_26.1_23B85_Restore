@@ -41,8 +41,8 @@
 + (id)animationEventWithKeyTime:(float)time block:(id)block
 {
   v6 = objc_alloc_init(self);
-  objc_msgSend_setTime_(v6, v7, v8, v9, time);
-  objc_msgSend_setEventBlock_(v6, v10, block, v11);
+  objc_msgSend_setTime_(v6, v7, v8, time);
+  objc_msgSend_setEventBlock_(v6, v9, block);
   return v6;
 }
 

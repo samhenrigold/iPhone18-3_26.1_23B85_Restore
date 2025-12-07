@@ -18,23 +18,21 @@
 
 - (id)text
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___HULiveCaptionObjC_rootObject);
   selfCopy = self;
   sub_1DA67E4F4();
 
-  v4 = sub_1DA67E574();
+  v3 = sub_1DA67E574();
 
-  return v4;
+  return v3;
 }
 
 - (int64_t)resultType
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___HULiveCaptionObjC_rootObject);
   selfCopy = self;
   sub_1DA67E4E4();
-  v4 = sub_1DA67E544();
+  v3 = sub_1DA67E544();
 
-  return v4;
+  return v3;
 }
 
 - (HULiveCaptionObjC)init

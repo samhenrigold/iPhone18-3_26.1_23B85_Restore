@@ -3,7 +3,9 @@
 - (void)dealloc;
 - (void)touch:(unsigned int)touch didHitTestToDestination:(id)destination hostingChainIndex:(int64_t)index;
 - (void)touch:(unsigned int)touch pathIndex:(int64_t)index downAtPoint:(CGPoint)point eventMask:(unsigned int)mask transducerType:(unsigned int)type;
+- (void)touch:(unsigned int)touch pathIndex:(int64_t)index rangeInAtPoint:(CGPoint)point eventMask:(unsigned int)mask z:(double)z maxZ:(double)maxZ transducerType:(unsigned int)type;
 - (void)touch:(unsigned int)touch pathIndex:(int64_t)index rangeOutAtPoint:(CGPoint)point;
+- (void)touch:(unsigned int)touch pathIndex:(int64_t)index upAtPoint:(CGPoint)point detached:(BOOL)detached;
 - (void)touchDidDetach:(unsigned int)detach destinations:(id)destinations;
 - (void)touchDidFinishProcessingTouchCollection;
 - (void)touchDidHIDCancel:(unsigned int)cancel;
@@ -89,6 +91,18 @@
   [(BKEventStatisticsLoggingController *)loggingController updateStatistics:v5, destinations];
 }
 
+- (void)touch:(unsigned int)touch pathIndex:(int64_t)index upAtPoint:(CGPoint)point detached:(BOOL)detached
+{
+  loggingController = self->_loggingController;
+  v7[0] = _NSConcreteStackBlock;
+  v7[1] = 3221225472;
+  v7[2] = sub_1000941D4;
+  v7[3] = &unk_1000FCF78;
+  v7[4] = self;
+  v7[5] = index;
+  [(BKEventStatisticsLoggingController *)loggingController updateStatistics:v7, index, detached];
+}
+
 - (void)touch:(unsigned int)touch pathIndex:(int64_t)index downAtPoint:(CGPoint)point eventMask:(unsigned int)mask transducerType:(unsigned int)type
 {
   loggingController = self->_loggingController;
@@ -113,6 +127,18 @@
   v6[4] = self;
   v6[5] = index;
   [(BKEventStatisticsLoggingController *)loggingController updateStatistics:v6];
+}
+
+- (void)touch:(unsigned int)touch pathIndex:(int64_t)index rangeInAtPoint:(CGPoint)point eventMask:(unsigned int)mask z:(double)z maxZ:(double)maxZ transducerType:(unsigned int)type
+{
+  loggingController = self->_loggingController;
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = sub_100094478;
+  v10[3] = &unk_1000FCF78;
+  v10[4] = self;
+  v10[5] = index;
+  [(BKEventStatisticsLoggingController *)loggingController updateStatistics:v10, index, *&mask, *&type];
 }
 
 - (void)touch:(unsigned int)touch didHitTestToDestination:(id)destination hostingChainIndex:(int64_t)index

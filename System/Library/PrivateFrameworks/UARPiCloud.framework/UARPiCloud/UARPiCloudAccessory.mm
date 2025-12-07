@@ -120,9 +120,7 @@
 
 - (void)setAvailableRecords:(id)records
 {
-  v4 = [records mutableCopy];
-  availableRecords = self->_availableRecords;
-  self->_availableRecords = v4;
+  self->_availableRecords = [records mutableCopy];
 
   MEMORY[0x2821F96F8]();
 }

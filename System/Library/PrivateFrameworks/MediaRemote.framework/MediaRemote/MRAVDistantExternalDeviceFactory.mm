@@ -22,7 +22,7 @@
 
 void __56__MRAVDistantExternalDeviceFactory__withLock_purgeCache__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (([v6 isValid] & 1) == 0)
@@ -30,17 +30,15 @@ void __56__MRAVDistantExternalDeviceFactory__withLock_purgeCache__block_invoke(u
     v7 = _MRLogForCategory(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138412546;
-      v10 = v5;
-      v11 = 2112;
-      v12 = v6;
-      _os_log_impl(&dword_1A2860000, v7, OS_LOG_TYPE_DEFAULT, "[MRAVDistantExternalDeviceFactory] Purging distantExternalDevice %@ %@", &v9, 0x16u);
+      v8 = 138412546;
+      v9 = v5;
+      v10 = 2112;
+      v11 = v6;
+      _os_log_impl(&dword_1A2860000, v7, OS_LOG_TYPE_DEFAULT, "[MRAVDistantExternalDeviceFactory] Purging distantExternalDevice %@ %@", &v8, 0x16u);
     }
 
     [*(*(a1 + 32) + 8) removeObjectForKey:v5];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (MRAVDistantExternalDeviceFactory)init
@@ -74,7 +72,7 @@ void __56__MRAVDistantExternalDeviceFactory__withLock_purgeCache__block_invoke(u
 
 - (id)distantExternalDeviceForEndpoint:(id)endpoint
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   endpointCopy = endpoint;
   os_unfair_lock_lock(&self->_lock);
   [(MRAVDistantExternalDeviceFactory *)self _withLock_purgeCache];
@@ -88,11 +86,11 @@ void __56__MRAVDistantExternalDeviceFactory__withLock_purgeCache__block_invoke(u
     if (os_log_type_enabled(uniqueIdentifier2, OS_LOG_TYPE_DEFAULT))
     {
       debugName = [endpointCopy debugName];
-      v18 = 138412546;
-      v19 = debugName;
-      v20 = 2112;
-      v21 = v7;
-      _os_log_impl(&dword_1A2860000, uniqueIdentifier2, OS_LOG_TYPE_DEFAULT, "[MRAVDistantExternalDeviceFactory] Reusing distantExternalDevice for endpoint %@ %@", &v18, 0x16u);
+      v17 = 138412546;
+      v18 = debugName;
+      v19 = 2112;
+      v20 = v7;
+      _os_log_impl(&dword_1A2860000, uniqueIdentifier2, OS_LOG_TYPE_DEFAULT, "[MRAVDistantExternalDeviceFactory] Reusing distantExternalDevice for endpoint %@ %@", &v17, 0x16u);
     }
   }
 
@@ -112,11 +110,11 @@ void __56__MRAVDistantExternalDeviceFactory__withLock_purgeCache__block_invoke(u
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         debugName2 = [endpointCopy debugName];
-        v18 = 138412546;
-        v19 = debugName2;
-        v20 = 2112;
-        v21 = v7;
-        _os_log_impl(&dword_1A2860000, v12, OS_LOG_TYPE_DEFAULT, "[MRAVDistantExternalDeviceFactory] Caching distantExternalDevice for endpoint %@ %@", &v18, 0x16u);
+        v17 = 138412546;
+        v18 = debugName2;
+        v19 = 2112;
+        v20 = v7;
+        _os_log_impl(&dword_1A2860000, v12, OS_LOG_TYPE_DEFAULT, "[MRAVDistantExternalDeviceFactory] Caching distantExternalDevice for endpoint %@ %@", &v17, 0x16u);
       }
 
       v14 = self->_distantExternalDevices;
@@ -130,11 +128,11 @@ void __56__MRAVDistantExternalDeviceFactory__withLock_purgeCache__block_invoke(u
       if (os_log_type_enabled(uniqueIdentifier2, OS_LOG_TYPE_DEFAULT))
       {
         debugName3 = [endpointCopy debugName];
-        v18 = 138412546;
-        v19 = debugName3;
-        v20 = 2112;
-        v21 = 0;
-        _os_log_impl(&dword_1A2860000, uniqueIdentifier2, OS_LOG_TYPE_DEFAULT, "[MRAVDistantExternalDeviceFactory] Failed to create distantExternalDevice for endpoint %@ %@", &v18, 0x16u);
+        v17 = 138412546;
+        v18 = debugName3;
+        v19 = 2112;
+        v20 = 0;
+        _os_log_impl(&dword_1A2860000, uniqueIdentifier2, OS_LOG_TYPE_DEFAULT, "[MRAVDistantExternalDeviceFactory] Failed to create distantExternalDevice for endpoint %@ %@", &v17, 0x16u);
 
         v7 = 0;
       }
@@ -142,7 +140,6 @@ void __56__MRAVDistantExternalDeviceFactory__withLock_purgeCache__block_invoke(u
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v16 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

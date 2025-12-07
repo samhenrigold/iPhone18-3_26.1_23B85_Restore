@@ -72,12 +72,4 @@ BOOL __51__HDHRPregnancySampleProvider_getSamplesWithError___block_invoke(uint64
   return v5 > v6;
 }
 
-- (void)getSamplesWithError:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_1(&dword_229486000, v0, v1, "[%{public}@] Could not fetch pregnancy samples with error: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
 @end

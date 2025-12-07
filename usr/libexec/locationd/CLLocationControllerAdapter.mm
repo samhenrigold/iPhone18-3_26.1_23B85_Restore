@@ -223,9 +223,10 @@
 
 - (void)zipperedRouteReconstructionCallback:(int)callback
 {
+  v3 = *&callback;
   adaptee = [(CLLocationControllerAdapter *)self adaptee];
 
-  sub_10066CB88(adaptee, callback);
+  sub_10066CB88(adaptee, v3);
 }
 
 - (void)getRecentLocationsBufferInternalState:(BOOL)state withReply:(id)reply
@@ -264,9 +265,9 @@
     goto LABEL_21;
   }
 
-  v26 = 0xBFF0000000000000;
   v27 = 0xBFF0000000000000;
-  if ((sub_10066D38C([(CLLocationControllerAdapter *)self adaptee], &v27, &v26) & 1) == 0)
+  v28 = 0xBFF0000000000000;
+  if ((sub_10066D38C([(CLLocationControllerAdapter *)self adaptee], &v28, &v27) & 1) == 0)
   {
     if (qword_1025D4600 != -1)
     {
@@ -321,9 +322,9 @@ LABEL_21:
     *buf = 67240704;
     v35 = v8;
     v36 = 2050;
-    v37 = v27;
+    v37 = v28;
     v38 = 2050;
-    v39 = v26;
+    v39 = v27;
     _os_log_impl(dword_100000000, v18, OS_LOG_TYPE_INFO, "LocationController,#ADL,getRecentLocationsBufferInternalState,currentSize,%{public}d,startMctSec,%{public}.3f,endMctSec,%{public}.3f", buf, 0x1Cu);
   }
 
@@ -335,28 +336,29 @@ LABEL_21:
       sub_1018F7C0C();
     }
 
-    v24 = v26;
-    v23 = v27;
-    v28 = 67240704;
-    v29 = v8;
+    v24 = v27;
+    v23 = v28;
+    v29[0] = 67240704;
+    v29[1] = v8;
     v30 = 2050;
-    v31 = v27;
+    v31 = v28;
     v32 = 2050;
-    v33 = v26;
-    v25 = _os_log_send_and_compose_impl();
+    v33 = v27;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4608, 1, "LocationController,#ADL,getRecentLocationsBufferInternalState,currentSize,%{public}d,startMctSec,%{public}.3f,endMctSec,%{public}.3f", v29, 28);
+    v26 = v25;
     sub_100152C7C("Generic", 1, 0, 2, "[CLLocationControllerAdapter getRecentLocationsBufferInternalState:withReply:]", "%s\n", v25);
     v21 = v23;
     v22 = v24;
-    if (v25 != buf)
+    if (v26 != buf)
     {
-      free(v25);
+      free(v26);
     }
   }
 
   else
   {
-    v22 = v26;
-    v21 = v27;
+    v22 = v27;
+    v21 = v28;
   }
 
   v19.n128_u64[0] = v21;
@@ -374,11 +376,11 @@ LABEL_21:
   v7 = qword_1025D4608;
   if (os_log_type_enabled(qword_1025D4608, OS_LOG_TYPE_DEBUG))
   {
-    v11 = 134349312;
+    v12 = 134349312;
     timeCopy = time;
-    v13 = 2050;
+    v14 = 2050;
     continuousTimeCopy = continuousTime;
-    _os_log_impl(dword_100000000, v7, OS_LOG_TYPE_DEBUG, "LocationController,#ADL,triggerRecentLocationsRevised internal notification,start_mct_sec,%{public}.3f,end_mct_sec,%{public}.3f", &v11, 0x16u);
+    _os_log_impl(dword_100000000, v7, OS_LOG_TYPE_DEBUG, "LocationController,#ADL,triggerRecentLocationsRevised internal notification,start_mct_sec,%{public}.3f,end_mct_sec,%{public}.3f", &v12, 0x16u);
   }
 
   if (sub_10000A100(121, 2))
@@ -387,10 +389,10 @@ LABEL_21:
   }
 
   adaptee = [(CLLocationControllerAdapter *)self adaptee];
-  v9 = sub_10000B1F8();
-  v11 = 1;
-  v10 = sub_10001A6B0(v9, &v11);
-  sub_100E6F1C0(adaptee, v10, time, continuousTime);
+  v10 = sub_10000B1F8(adaptee, v9);
+  v12 = 1;
+  v11 = sub_10001A6B0(v10, &v12);
+  sub_100E6F1C0(adaptee, v11, time, continuousTime);
 }
 
 - (void)requestRouteReconstruction:(int64_t)reconstruction

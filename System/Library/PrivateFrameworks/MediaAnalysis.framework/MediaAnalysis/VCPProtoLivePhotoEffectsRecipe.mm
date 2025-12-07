@@ -185,13 +185,14 @@
   exportToLegacyDictionary = [instructionCopy exportToLegacyDictionary];
   v5 = [exportToLegacyDictionary mutableCopy];
 
-  memset(&v8, 0, sizeof(v8));
-  CMTimeMake(&v8, [instructionCopy timeValue], objc_msgSend(instructionCopy, "timeScale"));
-  v8.epoch = [instructionCopy epoch];
-  v8.flags = [instructionCopy flags];
-  time = v8;
-  v6 = CMTimeCopyAsDictionary(&time, 0);
-  [v5 setObject:v6 forKeyedSubscript:@"rawTime"];
+  memset(&v9, 0, sizeof(v9));
+  v6 = objc_msgSend_timeValue(instructionCopy);
+  CMTimeMake(&v9, v6, [instructionCopy timeScale]);
+  v9.epoch = [instructionCopy epoch];
+  v9.flags = [instructionCopy flags];
+  time = v9;
+  v7 = CMTimeCopyAsDictionary(&time, 0);
+  [v5 setObject:v7 forKeyedSubscript:@"rawTime"];
 
   return v5;
 }

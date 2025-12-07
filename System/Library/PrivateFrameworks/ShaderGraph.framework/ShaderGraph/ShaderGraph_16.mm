@@ -1,2322 +1,3 @@
-void specialized static FileLogger.saveDebugTextSource(_:name:extension:)(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, unint64_t a6)
-{
-  v10 = type metadata accessor for String.Encoding();
-  v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
-  MEMORY[0x28223BE20](v10);
-  v14 = &v23 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  static String.Encoding.utf8.getter();
-  v15 = String.data(using:allowLossyConversion:)();
-  v17 = v16;
-  (*(v11 + 8))(v14, v10);
-  if (v17 >> 60 == 15)
-  {
-    if (one-time initialization token for logger != -1)
-    {
-      swift_once();
-    }
-
-    v18 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v18, logger);
-    v19 = static os_log_type_t.error.getter();
-
-    v20 = Logger.logObject.getter();
-
-    if (os_log_type_enabled(v20, v19))
-    {
-      v21 = swift_slowAlloc();
-      v22 = swift_slowAlloc();
-      v24 = v22;
-      *v21 = 136315394;
-      *(v21 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(a3, a4, &v24);
-      *(v21 + 12) = 2080;
-      *(v21 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(a5, a6, &v24);
-      _os_log_impl(&dword_265D7D000, v20, v19, "Unable to convert string to data %s.%s", v21, 0x16u);
-      swift_arrayDestroy();
-      MEMORY[0x266773120](v22, -1, -1);
-      MEMORY[0x266773120](v21, -1, -1);
-    }
-  }
-
-  else
-  {
-    specialized static FileLogger.saveDebugFile(_:name:extension:)(v15, v17, a3, a4, a5, a6);
-    outlined consume of Data?(v15, v17);
-  }
-}
-
-uint64_t *__swift_allocate_value_buffer(uint64_t a1, uint64_t *a2)
-{
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
-  {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
-  }
-
-  return a2;
-}
-
-Swift::String __swiftcall OrderedDictionary._debugDescription(typeName:)(Swift::String typeName)
-{
-  *&v55 = v6;
-  v7 = v5;
-  v8 = v4;
-  v9 = v3;
-  v10 = v2;
-  v11 = v1;
-  object = typeName._object;
-  countAndFlagsBits = typeName._countAndFlagsBits;
-  v14 = *(v5 - 8);
-  v15 = *(v14 + 64);
-  MEMORY[0x28223BE20](typeName._countAndFlagsBits);
-  v57 = v43 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v44 = *(v17 - 8);
-  v18 = *(v44 + 64);
-  MEMORY[0x28223BE20](v19);
-  v56 = v43 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-  v54 = type metadata accessor for Optional();
-  v51 = *(v54 - 8);
-  v22 = *(v51 + 64);
-  MEMORY[0x28223BE20](v54);
-  v53 = v43 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v24);
-  v26 = v43 - v25;
-  v58 = countAndFlagsBits;
-  v59 = object;
-
-  MEMORY[0x266771550](40, 0xE100000000000000);
-  v62 = v58;
-  v63 = v59;
-  v58 = v9;
-  type metadata accessor for ContiguousArray();
-  swift_getWitnessTable();
-  if (Collection.isEmpty.getter())
-  {
-    v27 = 6109787;
-    v28 = 0xE300000000000000;
-  }
-
-  else
-  {
-    MEMORY[0x266771550](91, 0xE100000000000000);
-    v58 = v11;
-    v59 = v10;
-    v60 = v9;
-    v61 = 0;
-    v29 = type metadata accessor for OrderedDictionary.Iterator();
-    v51 += 32;
-    v52 = v29;
-    v50 = TupleTypeMetadata2 - 8;
-    v48 = (v14 + 32);
-    v49 = (v44 + 32);
-    v46 = (v14 + 16);
-    v47 = (v44 + 16);
-    v45 = (v14 + 8);
-    v30 = (v44 + 8);
-    v44 = v11;
-
-    v43[2] = v10;
-
-    v43[1] = v9;
-
-    v31 = 1;
-    v55 = xmmword_265F1F670;
-    while (1)
-    {
-      v38 = v53;
-      OrderedDictionary.Iterator.next()(v52, v53);
-      (*v51)(v26, v38, v54);
-      if ((*(*(TupleTypeMetadata2 - 8) + 48))(v26, 1, TupleTypeMetadata2) == 1)
-      {
-        break;
-      }
-
-      v39 = *(TupleTypeMetadata2 + 48);
-      (*v49)(v56, v26, v8);
-      (*v48)(v57, &v26[v39], v7);
-      if ((v31 & 1) == 0)
-      {
-        MEMORY[0x266771550](8236, 0xE200000000000000);
-      }
-
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyypGMd, &_ss23_ContiguousArrayStorageCyypGMR);
-      v32 = swift_allocObject();
-      *(v32 + 16) = v55;
-      *(v32 + 56) = v8;
-      boxed_opaque_existential_0 = __swift_allocate_boxed_opaque_existential_0((v32 + 32));
-      v34 = v56;
-      (*v47)(boxed_opaque_existential_0, v56, v8);
-      debugPrint<A>(_:separator:terminator:to:)();
-
-      MEMORY[0x266771550](8250, 0xE200000000000000);
-      v35 = swift_allocObject();
-      *(v35 + 16) = v55;
-      *(v35 + 56) = v7;
-      v36 = __swift_allocate_boxed_opaque_existential_0((v35 + 32));
-      v37 = v57;
-      (*v46)(v36, v57, v7);
-      debugPrint<A>(_:separator:terminator:to:)();
-
-      (*v45)(v37, v7);
-      (*v30)(v34, v8);
-      v31 = 0;
-    }
-
-    v27 = 93;
-    v28 = 0xE100000000000000;
-  }
-
-  MEMORY[0x266771550](v27, v28);
-  MEMORY[0x266771550](41, 0xE100000000000000);
-  v40 = v62;
-  v41 = v63;
-  result._object = v41;
-  result._countAndFlagsBits = v40;
-  return result;
-}
-
-uint64_t OrderedDictionary.debugDescription.getter()
-{
-  v0._countAndFlagsBits = specialized OrderedDictionary._debugTypeName()();
-  countAndFlagsBits = OrderedDictionary._debugDescription(typeName:)(v0)._countAndFlagsBits;
-
-  return countAndFlagsBits;
-}
-
-Swift::String __swiftcall OrderedDictionary._debugTypeName()()
-{
-  v0 = specialized OrderedDictionary._debugTypeName()();
-  result._object = v1;
-  result._countAndFlagsBits = v0;
-  return result;
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance OrderedDictionary<A, B>(void *a1)
-{
-  v3 = *v1;
-  v2 = v1[1];
-  v4 = v1[2];
-  v5 = a1[2];
-  v6 = a1[3];
-  v7 = a1[4];
-  return OrderedDictionary.debugDescription.getter();
-}
-
-unint64_t specialized OrderedDictionary._debugTypeName()()
-{
-  _StringGuts.grow(_:)(25);
-
-  v0 = _typeName(_:qualified:)();
-  MEMORY[0x266771550](v0);
-
-  MEMORY[0x266771550](8236, 0xE200000000000000);
-  v1 = _typeName(_:qualified:)();
-  MEMORY[0x266771550](v1);
-
-  MEMORY[0x266771550](62, 0xE100000000000000);
-  return 0xD000000000000012;
-}
-
-uint64_t _sSTsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFs15FlattenSequenceVySaySay11ShaderGraph7NodeDefV12AvailabilityVGGG_AL8PlatformO_ALts5NeverOTg504_s11f6Graph7hi3V12j54V24MaterialXAttributeParserV9reconcileySayAEGxKSTRzAE7b9RtzlFZAE8K12O_AEtAEXEfU_Tf1cn_n(uint64_t a1)
-{
-  v53 = MEMORY[0x277D84F90];
-  result = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, 0, 0);
-  v3 = 0;
-  v4 = v53;
-LABEL_3:
-  v6 = *(a1 + 16);
-  if (v3 == v6)
-  {
-LABEL_15:
-
-    return v4;
-  }
-
-  else
-  {
-    if (v3 >= v6)
-    {
-LABEL_16:
-      __break(1u);
-    }
-
-    else
-    {
-      while (1)
-      {
-        v7 = *(a1 + 32 + 8 * v3);
-
-        if (v7)
-        {
-          v5 = *(v7 + 16);
-          if (v5)
-          {
-            break;
-          }
-        }
-
-        ++v3;
-        v8 = *(a1 + 16);
-        if (v3 == v8)
-        {
-          goto LABEL_15;
-        }
-
-        if (v3 >= v8)
-        {
-          goto LABEL_16;
-        }
-      }
-
-      v9 = 0;
-      ++v3;
-      while (v9 < v5)
-      {
-        v10 = (v7 + 160 * v9);
-        v11 = v10[2];
-        v34 = v10[3];
-        v33 = v11;
-        v12 = v10[4];
-        v13 = v10[5];
-        v14 = v10[6];
-        v38 = v10[7];
-        v37 = v14;
-        v36 = v13;
-        v35 = v12;
-        v15 = v10[8];
-        v16 = v10[9];
-        v17 = v10[11];
-        v41 = v10[10];
-        v42 = v17;
-        v39 = v15;
-        v40 = v16;
-        v54 = v33;
-        *&v32[71] = v14;
-        *&v32[87] = v38;
-        *&v32[39] = v35;
-        *&v32[55] = v36;
-        *&v32[135] = v41;
-        *&v32[151] = v17;
-        *&v32[103] = v15;
-        *&v32[119] = v16;
-        *&v32[7] = v33;
-        *&v32[23] = v34;
-        v50 = *&v32[112];
-        v51 = *&v32[128];
-        *v52 = *&v32[144];
-        *&v52[15] = *(&v17 + 1);
-        v47 = *&v32[64];
-        v48 = *&v32[80];
-        v49 = *&v32[96];
-        v43 = *v32;
-        v44 = *&v32[16];
-        v45 = *&v32[32];
-        v46 = *&v32[48];
-        v18 = v9;
-        result = outlined init with copy of NodeDef.Availability(&v33, &v31);
-        v53 = v4;
-        v20 = *(v4 + 16);
-        v19 = *(v4 + 24);
-        v21 = v20 + 1;
-        if (v20 >= v19 >> 1)
-        {
-          result = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v19 > 1), v20 + 1, 1);
-          v21 = v20 + 1;
-          v4 = v53;
-        }
-
-        v9 = v18 + 1;
-        *(v4 + 16) = v21;
-        v22 = v4 + 168 * v20;
-        *(v22 + 32) = v54;
-        v23 = v43;
-        v24 = v44;
-        *(v22 + 65) = v45;
-        *(v22 + 49) = v24;
-        *(v22 + 33) = v23;
-        v25 = v46;
-        v26 = v47;
-        v27 = v48;
-        *(v22 + 129) = v49;
-        *(v22 + 113) = v27;
-        *(v22 + 97) = v26;
-        *(v22 + 81) = v25;
-        v28 = v50;
-        v29 = v51;
-        v30 = *v52;
-        *(v22 + 192) = *&v52[15];
-        *(v22 + 177) = v30;
-        *(v22 + 161) = v29;
-        *(v22 + 145) = v28;
-        v5 = *(v7 + 16);
-        if (v9 == v5)
-        {
-          goto LABEL_3;
-        }
-      }
-    }
-
-    __break(1u);
-  }
-
-  return result;
-}
-
-uint64_t _sSTsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(void (*a1)(char *, char *), uint64_t a2, unsigned int (*a3)(char *, uint64_t, uint64_t), char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v52 = a8;
-  v9 = v8;
-  v67 = a2;
-  v68 = a4;
-  v66 = a1;
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v61 = *(AssociatedTypeWitness - 8);
-  v15 = *(v61 + 64);
-  MEMORY[0x28223BE20](AssociatedTypeWitness);
-  v50 = &v49 - v16;
-  v53 = a5;
-  v51 = *(a5 - 8);
-  v17 = *(v51 + 64);
-  MEMORY[0x28223BE20](v18);
-  v63 = &v49 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v20);
-  v64 = &v49 - v21;
-  v22 = type metadata accessor for Optional();
-  v54 = *(v22 - 8);
-  v55 = v22;
-  v23 = *(v54 + 64);
-  MEMORY[0x28223BE20](v22);
-  v57 = &v49 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v25);
-  v27 = &v49 - v26;
-  v28 = *(*(a4 - 1) + 64);
-  MEMORY[0x28223BE20](v29);
-  v56 = &v49 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v31);
-  v62 = *(a3 - 1);
-  v32 = *(v62 + 8);
-  MEMORY[0x28223BE20](v33);
-  v35 = &v49 - ((v34 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v60 = a6;
-  v69 = swift_getAssociatedTypeWitness();
-  v58 = *(v69 - 8);
-  v36 = *(v58 + 64);
-  MEMORY[0x28223BE20](v69);
-  v38 = &v49 - v37;
-  v39 = dispatch thunk of Sequence.underestimatedCount.getter();
-  v70 = ContiguousArray.init()();
-  v65 = type metadata accessor for ContiguousArray();
-  ContiguousArray.reserveCapacity(_:)(v39);
-  (*(v62 + 2))(v35, v59, a3);
-  v68 = v38;
-  v62 = a3;
-  result = dispatch thunk of Sequence.makeIterator()();
-  if (v39 < 0)
-  {
-    __break(1u);
-LABEL_17:
-    __break(1u);
-    return result;
-  }
-
-  if (v39)
-  {
-    v41 = (v61 + 48);
-    v42 = (v61 + 8);
-    swift_getAssociatedConformanceWitness();
-    while (1)
-    {
-      dispatch thunk of IteratorProtocol.next()();
-      result = (*v41)(v27, 1, AssociatedTypeWitness);
-      if (result == 1)
-      {
-        goto LABEL_17;
-      }
-
-      v66(v27, v64);
-      if (v9)
-      {
-        (*(v58 + 8))(v68, v69);
-
-        (*(v51 + 32))(v52, v64, v53);
-        return (*v42)(v27, AssociatedTypeWitness);
-      }
-
-      v9 = 0;
-      (*v42)(v27, AssociatedTypeWitness);
-      ContiguousArray.append(_:)();
-      if (!--v39)
-      {
-        goto LABEL_9;
-      }
-    }
-  }
-
-  swift_getAssociatedConformanceWitness();
-LABEL_9:
-  v43 = v57;
-  dispatch thunk of IteratorProtocol.next()();
-  v44 = v43;
-  v45 = v61;
-  v46 = *(v61 + 48);
-  v64 = (v61 + 48);
-  v62 = v46;
-  if (v46(v43, 1, AssociatedTypeWitness) == 1)
-  {
-LABEL_13:
-    (*(v58 + 8))(v68, v69);
-    (*(v54 + 8))(v44, v55);
-    return v70;
-  }
-
-  else
-  {
-    v61 = *(v45 + 32);
-    v47 = (v45 + 8);
-    v48 = v50;
-    while (1)
-    {
-      (v61)(v48, v44, AssociatedTypeWitness);
-      v66(v48, v63);
-      if (v9)
-      {
-        break;
-      }
-
-      v9 = 0;
-      (*v47)(v48, AssociatedTypeWitness);
-      ContiguousArray.append(_:)();
-      dispatch thunk of IteratorProtocol.next()();
-      if (v62(v44, 1, AssociatedTypeWitness) == 1)
-      {
-        goto LABEL_13;
-      }
-    }
-
-    (*v47)(v48, AssociatedTypeWitness);
-    (*(v58 + 8))(v68, v69);
-
-    return (*(v51 + 32))(v52, v63, v53);
-  }
-}
-
-unint64_t specialized Collection.first.getter(unint64_t a1, unint64_t a2)
-{
-  if ((a2 & 0x2000000000000000) != 0)
-  {
-    v2 = HIBYTE(a2) & 0xF;
-  }
-
-  else
-  {
-    v2 = a1 & 0xFFFFFFFFFFFFLL;
-  }
-
-  if (v2)
-  {
-    v5 = _StringGuts.validateScalarIndex(_:)(0xFuLL, a1, a2);
-    if ((a2 & 0x1000000000000000) != 0)
-    {
-      v9 = _StringGuts.foreignErrorCorrectedScalar(startingAt:)();
-    }
-
-    else
-    {
-      v6 = v5 >> 16;
-      if ((a2 & 0x2000000000000000) != 0)
-      {
-        v17[0] = a1;
-        v17[1] = a2 & 0xFFFFFFFFFFFFFFLL;
-        v8 = v17 + v6;
-      }
-
-      else
-      {
-        if ((a1 & 0x1000000000000000) != 0)
-        {
-          v7 = (a2 & 0xFFFFFFFFFFFFFFFLL) + 32;
-        }
-
-        else
-        {
-          v7 = _StringObject.sharedUTF8.getter();
-        }
-
-        v8 = (v7 + v6);
-      }
-
-      v9 = *v8;
-      if (*v8 < 0)
-      {
-        v10 = (__clz(v9 ^ 0xFF) - 24);
-        if (v10 > 2)
-        {
-          if (v10 == 3)
-          {
-            v11 = v8[1];
-            v12 = v8[2];
-            v13 = ((v9 & 0xF) << 12) | ((v11 & 0x3F) << 6);
-          }
-
-          else
-          {
-            v14 = v8[1];
-            v15 = v8[2];
-            v12 = v8[3];
-            v13 = ((v9 & 0xF) << 18) | ((v14 & 0x3F) << 12) | ((v15 & 0x3F) << 6);
-          }
-
-          v9 = v13 & 0xFFFFFFC0 | v12 & 0x3F;
-        }
-
-        else if (v10 != 1)
-        {
-          v9 = v8[1] & 0x3F | ((v9 & 0x1F) << 6);
-        }
-      }
-    }
-  }
-
-  else
-  {
-    v9 = 0;
-  }
-
-  LOBYTE(v17[0]) = v2 == 0;
-  return v9 | ((v2 == 0) << 32);
-}
-
-uint64_t _ss10SetAlgebraPsEyxqd__ncSTRd__7ElementQyd__ACRtzlufC10Foundation09CharacterA0V_SS17UnicodeScalarViewVTt1g5(uint64_t a1, unint64_t a2)
-{
-  type metadata accessor for CharacterSet();
-  lazy protocol witness table accessor for type CharacterSet and conformance CharacterSet();
-  dispatch thunk of SetAlgebra.init()();
-  if ((a2 & 0x2000000000000000) != 0)
-  {
-    v4 = HIBYTE(a2) & 0xF;
-  }
-
-  else
-  {
-    v4 = a1 & 0xFFFFFFFFFFFFLL;
-  }
-
-  if (v4)
-  {
-    v5 = 0;
-    while (1)
-    {
-      if ((a2 & 0x1000000000000000) != 0)
-      {
-        v6 = _StringGuts.foreignErrorCorrectedScalar(startingAt:)();
-      }
-
-      else
-      {
-        if ((a2 & 0x2000000000000000) != 0)
-        {
-          v12[0] = a1;
-          v12[1] = a2 & 0xFFFFFFFFFFFFFFLL;
-          v9 = v12 + v5;
-        }
-
-        else
-        {
-          v8 = (a2 & 0xFFFFFFFFFFFFFFFLL) + 32;
-          if ((a1 & 0x1000000000000000) == 0)
-          {
-            v8 = _StringObject.sharedUTF8.getter();
-          }
-
-          v9 = (v8 + v5);
-        }
-
-        v6 = *v9;
-        if ((*v9 & 0x80000000) == 0)
-        {
-          goto LABEL_15;
-        }
-
-        v10 = (__clz(v6 ^ 0xFF) - 24);
-        if (v10 > 2)
-        {
-          if (v10 == 3)
-          {
-            v6 = ((v6 & 0xF) << 12) | ((v9[1] & 0x3F) << 6) | v9[2] & 0x3F;
-            v7 = 3;
-          }
-
-          else
-          {
-            v6 = ((v6 & 0xF) << 18) | ((v9[1] & 0x3F) << 12) | ((v9[2] & 0x3F) << 6) | v9[3] & 0x3F;
-            v7 = 4;
-          }
-
-          goto LABEL_7;
-        }
-
-        if (v10 == 1)
-        {
-LABEL_15:
-          v7 = 1;
-        }
-
-        else
-        {
-          v6 = v9[1] & 0x3F | ((v6 & 0x1F) << 6);
-          v7 = 2;
-        }
-      }
-
-LABEL_7:
-      v5 += v7;
-      v13 = v6;
-      dispatch thunk of SetAlgebra.insert(_:)();
-      if (v5 >= v4)
-      {
-      }
-    }
-  }
-}
-
-__n128 static NodeDef.Availability.currentPlatform.getter@<Q0>(uint64_t a1@<X8>)
-{
-  v2 = [objc_allocWithZone(MEMORY[0x277CCAC38]) init];
-  [v2 operatingSystemVersion];
-  v3 = v7;
-  v5 = v6;
-
-  *a1 = 0;
-  result = v5;
-  *(a1 + 8) = v5;
-  *(a1 + 24) = 0;
-  *(a1 + 32) = v3;
-  *(a1 + 40) = 0;
-  return result;
-}
-
-uint64_t NodeDef.Availability.PlatformVersion.minor.getter()
-{
-  result = *(v0 + 8);
-  v2 = *(v0 + 16);
-  return result;
-}
-
-uint64_t NodeDef.Availability.PlatformVersion.patch.getter()
-{
-  result = *(v0 + 24);
-  v2 = *(v0 + 32);
-  return result;
-}
-
-uint64_t one-time initialization function for platformVersionRegex()
-{
-  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17_StringProcessing5RegexVySs_S2sSgA4DtGMd, &_s17_StringProcessing5RegexVySs_S2sSgA4DtGMR);
-  __swift_allocate_value_buffer(v0, static NodeDef.Availability.PlatformVersion.platformVersionRegex);
-  __swift_project_value_buffer(v0, static NodeDef.Availability.PlatformVersion.platformVersionRegex);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSs_S2sSgA4AtMd, &_sSs_S2sSgA4AtMR);
-  return Regex.init(_regexString:version:)();
-}
-
-uint64_t NodeDef.Availability.PlatformVersion.platformVersionRegex.unsafeMutableAddressor()
-{
-  if (one-time initialization token for platformVersionRegex != -1)
-  {
-    swift_once();
-  }
-
-  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17_StringProcessing5RegexVySs_S2sSgA4DtGMd, &_s17_StringProcessing5RegexVySs_S2sSgA4DtGMR);
-
-  return __swift_project_value_buffer(v0, static NodeDef.Availability.PlatformVersion.platformVersionRegex);
-}
-
-uint64_t static NodeDef.Availability.PlatformVersion.platformVersionRegex.getter@<X0>(uint64_t a1@<X8>)
-{
-  if (one-time initialization token for platformVersionRegex != -1)
-  {
-    swift_once();
-  }
-
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17_StringProcessing5RegexVySs_S2sSgA4DtGMd, &_s17_StringProcessing5RegexVySs_S2sSgA4DtGMR);
-  v3 = __swift_project_value_buffer(v2, static NodeDef.Availability.PlatformVersion.platformVersionRegex);
-  v4 = *(*(v2 - 8) + 16);
-
-  return v4(a1, v3, v2);
-}
-
-double NodeDef.Availability.PlatformVersion.init(versionString:)@<D0>(unint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  specialized NodeDef.Availability.PlatformVersion.init(versionString:)(a1, a2, v7);
-  if (!v3)
-  {
-    result = *v7;
-    v6 = v7[1];
-    *a3 = v7[0];
-    *(a3 + 16) = v6;
-    *(a3 + 32) = v8;
-  }
-
-  return result;
-}
-
-double NodeDef.Availability.PlatformVersion.init(stringLiteral:)@<D0>(unint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  specialized NodeDef.Availability.PlatformVersion.init(versionString:)(a1, a2, v6);
-  result = *v6;
-  v5 = v6[1];
-  *a3 = v6[0];
-  *(a3 + 16) = v5;
-  *(a3 + 32) = v7;
-  return result;
-}
-
-uint64_t NodeDef.Availability.PlatformVersion.init(major:minor:patch:)@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t a4@<X3>, char a5@<W4>, uint64_t a6@<X8>)
-{
-  *a6 = result;
-  *(a6 + 8) = a2;
-  *(a6 + 16) = a3 & 1;
-  *(a6 + 24) = a4;
-  *(a6 + 32) = a5 & 1;
-  return result;
-}
-
-void NodeDef.Availability.PlatformVersion.hash(into:)()
-{
-  MEMORY[0x266772770](*v0);
-  if (*(v0 + 16) == 1)
-  {
-    Hasher._combine(_:)(0);
-  }
-
-  else
-  {
-    v1 = *(v0 + 8);
-    Hasher._combine(_:)(1u);
-    MEMORY[0x266772770](v1);
-  }
-
-  if (*(v0 + 32) == 1)
-  {
-    Hasher._combine(_:)(0);
-  }
-
-  else
-  {
-    v2 = *(v0 + 24);
-    Hasher._combine(_:)(1u);
-    MEMORY[0x266772770](v2);
-  }
-}
-
-Swift::Int NodeDef.Availability.PlatformVersion.hashValue.getter()
-{
-  Hasher.init(_seed:)();
-  MEMORY[0x266772770](*v0);
-  if (*(v0 + 16) == 1)
-  {
-    Hasher._combine(_:)(0);
-  }
-
-  else
-  {
-    v1 = *(v0 + 8);
-    Hasher._combine(_:)(1u);
-    MEMORY[0x266772770](v1);
-  }
-
-  if (*(v0 + 32) == 1)
-  {
-    Hasher._combine(_:)(0);
-  }
-
-  else
-  {
-    v2 = *(v0 + 24);
-    Hasher._combine(_:)(1u);
-    MEMORY[0x266772770](v2);
-  }
-
-  return Hasher._finalize()();
-}
-
-void protocol witness for Hashable.hash(into:) in conformance NodeDef.Availability.PlatformVersion()
-{
-  v1 = *(v0 + 8);
-  v2 = *(v0 + 16);
-  v3 = *(v0 + 24);
-  v4 = *(v0 + 32);
-  MEMORY[0x266772770](*v0);
-  if (v2 == 1)
-  {
-    Hasher._combine(_:)(0);
-    if (!v4)
-    {
-LABEL_3:
-      Hasher._combine(_:)(1u);
-      MEMORY[0x266772770](v3);
-      return;
-    }
-  }
-
-  else
-  {
-    Hasher._combine(_:)(1u);
-    MEMORY[0x266772770](v1);
-    if (!v4)
-    {
-      goto LABEL_3;
-    }
-  }
-
-  Hasher._combine(_:)(0);
-}
-
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance NodeDef.Availability.PlatformVersion()
-{
-  v2 = *v0;
-  v1 = v0[1];
-  v3 = *(v0 + 16);
-  v4 = v0[3];
-  v5 = *(v0 + 32);
-  Hasher.init(_seed:)();
-  MEMORY[0x266772770](v2);
-  if (v3 != 1)
-  {
-    Hasher._combine(_:)(1u);
-    MEMORY[0x266772770](v1);
-    if (!v5)
-    {
-      goto LABEL_3;
-    }
-
-LABEL_5:
-    Hasher._combine(_:)(0);
-    return Hasher._finalize()();
-  }
-
-  Hasher._combine(_:)(0);
-  if (v5)
-  {
-    goto LABEL_5;
-  }
-
-LABEL_3:
-  Hasher._combine(_:)(1u);
-  MEMORY[0x266772770](v4);
-  return Hasher._finalize()();
-}
-
-BOOL protocol witness for static Equatable.== infix(_:_:) in conformance NodeDef.Availability.PlatformVersion(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a1 + 16);
-  v5[0] = *a1;
-  v5[1] = v2;
-  v6 = *(a1 + 32);
-  v3 = *(a2 + 16);
-  v7[0] = *a2;
-  v7[1] = v3;
-  v8 = *(a2 + 32);
-  return specialized static NodeDef.Availability.PlatformVersion.== infix(_:_:)(v5, v7);
-}
-
-double protocol witness for ExpressibleByStringLiteral.init(stringLiteral:) in conformance NodeDef.Availability.PlatformVersion@<D0>(unint64_t *a1@<X0>, uint64_t a2@<X8>)
-{
-  specialized NodeDef.Availability.PlatformVersion.init(versionString:)(*a1, a1[1], v5);
-  result = *v5;
-  v4 = v5[1];
-  *a2 = v5[0];
-  *(a2 + 16) = v4;
-  *(a2 + 32) = v6;
-  return result;
-}
-
-uint64_t NodeDef.Availability.Platform.rawValue.getter(unsigned __int8 a1)
-{
-  v1 = 5459817;
-  v2 = 1397716596;
-  v3 = 0x534F6E6F69736976;
-  if (a1 != 4)
-  {
-    v3 = 0x4B7974696C616572;
-  }
-
-  if (a1 != 3)
-  {
-    v2 = v3;
-  }
-
-  v4 = 0x534F63616DLL;
-  if (a1 != 1)
-  {
-    v4 = 0x534F6863746177;
-  }
-
-  if (a1)
-  {
-    v1 = v4;
-  }
-
-  if (a1 <= 2u)
-  {
-    return v1;
-  }
-
-  else
-  {
-    return v2;
-  }
-}
-
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance NodeDef.Availability.Platform(_BYTE *a1, _BYTE *a2)
-{
-  v2 = *a1;
-  v3 = 0xE300000000000000;
-  v4 = *a2;
-  v5 = 0xE400000000000000;
-  v6 = 1397716596;
-  v7 = 0xE800000000000000;
-  v8 = 0x534F6E6F69736976;
-  if (v2 != 4)
-  {
-    v8 = 0x4B7974696C616572;
-    v7 = 0xEA00000000007469;
-  }
-
-  if (v2 != 3)
-  {
-    v6 = v8;
-    v5 = v7;
-  }
-
-  v9 = 0xE500000000000000;
-  v10 = 0x534F63616DLL;
-  if (v2 != 1)
-  {
-    v10 = 0x534F6863746177;
-    v9 = 0xE700000000000000;
-  }
-
-  if (*a1)
-  {
-    v3 = v9;
-  }
-
-  else
-  {
-    v10 = 5459817;
-  }
-
-  if (*a1 <= 2u)
-  {
-    v11 = v10;
-  }
-
-  else
-  {
-    v11 = v6;
-  }
-
-  if (v2 <= 2)
-  {
-    v12 = v3;
-  }
-
-  else
-  {
-    v12 = v5;
-  }
-
-  if (*a2 > 2u)
-  {
-    if (v4 == 3)
-    {
-      v13 = 0xE400000000000000;
-      if (v11 != 1397716596)
-      {
-        goto LABEL_34;
-      }
-    }
-
-    else if (v4 == 4)
-    {
-      v13 = 0xE800000000000000;
-      if (v11 != 0x534F6E6F69736976)
-      {
-        goto LABEL_34;
-      }
-    }
-
-    else
-    {
-      v13 = 0xEA00000000007469;
-      if (v11 != 0x4B7974696C616572)
-      {
-LABEL_34:
-        v14 = _stringCompareWithSmolCheck(_:_:expecting:)();
-        goto LABEL_35;
-      }
-    }
-  }
-
-  else if (*a2)
-  {
-    if (v4 == 1)
-    {
-      v13 = 0xE500000000000000;
-      if (v11 != 0x534F63616DLL)
-      {
-        goto LABEL_34;
-      }
-    }
-
-    else
-    {
-      v13 = 0xE700000000000000;
-      if (v11 != 0x534F6863746177)
-      {
-        goto LABEL_34;
-      }
-    }
-  }
-
-  else
-  {
-    v13 = 0xE300000000000000;
-    if (v11 != 5459817)
-    {
-      goto LABEL_34;
-    }
-  }
-
-  if (v12 != v13)
-  {
-    goto LABEL_34;
-  }
-
-  v14 = 1;
-LABEL_35:
-
-  return v14 & 1;
-}
-
-Swift::Int protocol witness for Hashable.hashValue.getter in conformance NodeDef.Availability.Platform()
-{
-  v1 = *v0;
-  Hasher.init(_seed:)();
-  String.hash(into:)();
-
-  return Hasher._finalize()();
-}
-
-uint64_t protocol witness for Hashable.hash(into:) in conformance NodeDef.Availability.Platform()
-{
-  *v0;
-  *v0;
-  *v0;
-  String.hash(into:)();
-}
-
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance NodeDef.Availability.Platform()
-{
-  v1 = *v0;
-  Hasher.init(_seed:)();
-  String.hash(into:)();
-
-  return Hasher._finalize()();
-}
-
-unint64_t protocol witness for RawRepresentable.init(rawValue:) in conformance NodeDef.Availability.Platform@<X0>(Swift::String *a1@<X0>, _BYTE *a2@<X8>)
-{
-  result = specialized NodeDef.Availability.Platform.init(rawValue:)(*a1);
-  *a2 = result;
-  return result;
-}
-
-void protocol witness for RawRepresentable.rawValue.getter in conformance NodeDef.Availability.Platform(uint64_t *a1@<X8>)
-{
-  v2 = *v1;
-  v3 = 0xE300000000000000;
-  v4 = 5459817;
-  v5 = 0xE400000000000000;
-  v6 = 1397716596;
-  v7 = 0xE800000000000000;
-  v8 = 0x534F6E6F69736976;
-  if (v2 != 4)
-  {
-    v8 = 0x4B7974696C616572;
-    v7 = 0xEA00000000007469;
-  }
-
-  if (v2 != 3)
-  {
-    v6 = v8;
-    v5 = v7;
-  }
-
-  v9 = 0xE500000000000000;
-  v10 = 0x534F63616DLL;
-  if (v2 != 1)
-  {
-    v10 = 0x534F6863746177;
-    v9 = 0xE700000000000000;
-  }
-
-  if (*v1)
-  {
-    v4 = v10;
-    v3 = v9;
-  }
-
-  if (*v1 <= 2u)
-  {
-    v11 = v4;
-  }
-
-  else
-  {
-    v11 = v6;
-  }
-
-  if (*v1 > 2u)
-  {
-    v3 = v5;
-  }
-
-  *a1 = v11;
-  a1[1] = v3;
-}
-
-void NodeDef.Availability.AvailabilityKind.hash(into:)()
-{
-  if (*(v0 + 114))
-  {
-    v1 = 1;
-LABEL_3:
-    MEMORY[0x266772770](v1);
-    return;
-  }
-
-  v3 = *v0;
-  v2 = v0[1];
-  v4 = v0[2];
-  v5 = v0[3];
-  v6 = *(v0 + 32);
-  v7 = v0[5];
-  v8 = v0[7];
-  v11 = v0[6];
-  v12 = v0[8];
-  v15 = *(v0 + 72);
-  v16 = v0[10];
-  v17 = v0[12];
-  v13 = v0[11];
-  v14 = v0[13];
-  v18 = *(v0 + 112);
-  v19 = *(v0 + 113);
-  v9 = *(v0 + 73);
-  v10 = *(v0 + 33);
-  MEMORY[0x266772770](0);
-  if (v10)
-  {
-    goto LABEL_10;
-  }
-
-  Hasher._combine(_:)(1u);
-  MEMORY[0x266772770](v3);
-  if (v4)
-  {
-    Hasher._combine(_:)(0);
-    if ((v6 & 1) == 0)
-    {
-      goto LABEL_7;
-    }
-
-LABEL_10:
-    Hasher._combine(_:)(0);
-    if (v9)
-    {
-      goto LABEL_16;
-    }
-
-    goto LABEL_11;
-  }
-
-  Hasher._combine(_:)(1u);
-  MEMORY[0x266772770](v2);
-  if (v6)
-  {
-    goto LABEL_10;
-  }
-
-LABEL_7:
-  Hasher._combine(_:)(1u);
-  MEMORY[0x266772770](v5);
-  if (v9)
-  {
-LABEL_16:
-    Hasher._combine(_:)(0);
-    if (v19)
-    {
-      goto LABEL_21;
-    }
-
-    goto LABEL_17;
-  }
-
-LABEL_11:
-  Hasher._combine(_:)(1u);
-  MEMORY[0x266772770](v7);
-  if (v8)
-  {
-    Hasher._combine(_:)(0);
-    if (v15)
-    {
-      goto LABEL_16;
-    }
-  }
-
-  else
-  {
-    Hasher._combine(_:)(1u);
-    MEMORY[0x266772770](v11);
-    if (v15)
-    {
-      goto LABEL_16;
-    }
-  }
-
-  Hasher._combine(_:)(1u);
-  MEMORY[0x266772770](v12);
-  if (v19)
-  {
-    goto LABEL_21;
-  }
-
-LABEL_17:
-  Hasher._combine(_:)(1u);
-  MEMORY[0x266772770](v16);
-  if (v17)
-  {
-    Hasher._combine(_:)(0);
-    if ((v18 & 1) == 0)
-    {
-LABEL_19:
-      Hasher._combine(_:)(1u);
-      v1 = v14;
-      goto LABEL_3;
-    }
-  }
-
-  else
-  {
-    Hasher._combine(_:)(1u);
-    MEMORY[0x266772770](v13);
-    if ((v18 & 1) == 0)
-    {
-      goto LABEL_19;
-    }
-  }
-
-LABEL_21:
-  Hasher._combine(_:)(0);
-}
-
-Swift::Int NodeDef.Availability.AvailabilityKind.hashValue.getter()
-{
-  Hasher.init(_seed:)();
-  NodeDef.Availability.AvailabilityKind.hash(into:)();
-  return Hasher._finalize()();
-}
-
-Swift::Int protocol witness for Hashable.hashValue.getter in conformance NodeDef.Availability.AvailabilityKind()
-{
-  Hasher.init(_seed:)();
-  NodeDef.Availability.AvailabilityKind.hash(into:)();
-  return Hasher._finalize()();
-}
-
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance NodeDef.Availability.AvailabilityKind()
-{
-  Hasher.init(_seed:)();
-  NodeDef.Availability.AvailabilityKind.hash(into:)();
-  return Hasher._finalize()();
-}
-
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance NodeDef.Availability.AvailabilityKind(uint64_t a1, __int128 *a2)
-{
-  v2 = *(a1 + 80);
-  v12[4] = *(a1 + 64);
-  v12[5] = v2;
-  v13[0] = *(a1 + 96);
-  *(v13 + 15) = *(a1 + 111);
-  v3 = *(a1 + 16);
-  v12[0] = *a1;
-  v12[1] = v3;
-  v4 = *(a1 + 48);
-  v12[2] = *(a1 + 32);
-  v12[3] = v4;
-  v5 = *a2;
-  v6 = a2[1];
-  v7 = a2[3];
-  v14[2] = a2[2];
-  v14[3] = v7;
-  v14[0] = v5;
-  v14[1] = v6;
-  v8 = a2[4];
-  v9 = a2[5];
-  v10 = a2[6];
-  *&v15[15] = *(a2 + 111);
-  v14[5] = v9;
-  *v15 = v10;
-  v14[4] = v8;
-  return specialized static NodeDef.Availability.AvailabilityKind.== infix(_:_:)(v12, v14) & 1;
-}
-
-__n128 NodeDef.Availability.kind.getter@<Q0>(uint64_t a1@<X8>)
-{
-  v2 = *(v1 + 88);
-  *(a1 + 64) = *(v1 + 72);
-  *(a1 + 80) = v2;
-  *(a1 + 96) = *(v1 + 104);
-  *(a1 + 111) = *(v1 + 119);
-  v3 = *(v1 + 24);
-  *a1 = *(v1 + 8);
-  *(a1 + 16) = v3;
-  result = *(v1 + 40);
-  v5 = *(v1 + 56);
-  *(a1 + 32) = result;
-  *(a1 + 48) = v5;
-  return result;
-}
-
-uint64_t NodeDef.Availability.renamed.getter()
-{
-  v1 = *(v0 + 128);
-  v2 = *(v0 + 136);
-
-  return v1;
-}
-
-uint64_t NodeDef.Availability.message.getter()
-{
-  v1 = *(v0 + 144);
-  v2 = *(v0 + 152);
-
-  return v1;
-}
-
-void NodeDef.Availability.hash(into:)()
-{
-  *v0;
-  *v0;
-  String.hash(into:)();
-
-  if (*(v0 + 122))
-  {
-    v1 = 1;
-    goto LABEL_3;
-  }
-
-  v4 = *(v0 + 8);
-  v5 = *(v0 + 16);
-  v6 = *(v0 + 24);
-  v7 = *(v0 + 32);
-  v8 = *(v0 + 40);
-  v9 = *(v0 + 48);
-  v12 = *(v0 + 56);
-  v13 = *(v0 + 72);
-  v17 = *(v0 + 80);
-  v14 = *(v0 + 96);
-  v18 = *(v0 + 88);
-  v19 = *(v0 + 104);
-  v15 = *(v0 + 112);
-  v16 = *(v0 + 64);
-  v20 = *(v0 + 120);
-  v21 = *(v0 + 121);
-  v10 = *(v0 + 81);
-  v11 = *(v0 + 41);
-  MEMORY[0x266772770](0);
-  if (v11)
-  {
-    goto LABEL_14;
-  }
-
-  Hasher._combine(_:)(1u);
-  MEMORY[0x266772770](v4);
-  if (v6)
-  {
-    Hasher._combine(_:)(0);
-    if ((v8 & 1) == 0)
-    {
-      goto LABEL_11;
-    }
-
-LABEL_14:
-    Hasher._combine(_:)(0);
-    if (v10)
-    {
-      goto LABEL_20;
-    }
-
-LABEL_15:
-    Hasher._combine(_:)(1u);
-    MEMORY[0x266772770](v9);
-    if (v16)
-    {
-      Hasher._combine(_:)(0);
-      if (v17)
-      {
-        goto LABEL_20;
-      }
-    }
-
-    else
-    {
-      Hasher._combine(_:)(1u);
-      MEMORY[0x266772770](v12);
-      if (v17)
-      {
-        goto LABEL_20;
-      }
-    }
-
-    Hasher._combine(_:)(1u);
-    MEMORY[0x266772770](v13);
-    if (v21)
-    {
-      goto LABEL_25;
-    }
-
-    goto LABEL_21;
-  }
-
-  Hasher._combine(_:)(1u);
-  MEMORY[0x266772770](v5);
-  if (v8)
-  {
-    goto LABEL_14;
-  }
-
-LABEL_11:
-  Hasher._combine(_:)(1u);
-  MEMORY[0x266772770](v7);
-  if ((v10 & 1) == 0)
-  {
-    goto LABEL_15;
-  }
-
-LABEL_20:
-  Hasher._combine(_:)(0);
-  if (v21)
-  {
-    goto LABEL_25;
-  }
-
-LABEL_21:
-  Hasher._combine(_:)(1u);
-  MEMORY[0x266772770](v18);
-  if (v19)
-  {
-    Hasher._combine(_:)(0);
-    if ((v20 & 1) == 0)
-    {
-LABEL_23:
-      Hasher._combine(_:)(1u);
-      v1 = v15;
-LABEL_3:
-      MEMORY[0x266772770](v1);
-      if (*(v0 + 136))
-      {
-        goto LABEL_4;
-      }
-
-LABEL_26:
-      Hasher._combine(_:)(0);
-      if (*(v0 + 152))
-      {
-        goto LABEL_5;
-      }
-
-LABEL_27:
-      Hasher._combine(_:)(0);
-      return;
-    }
-  }
-
-  else
-  {
-    Hasher._combine(_:)(1u);
-    MEMORY[0x266772770](v14);
-    if ((v20 & 1) == 0)
-    {
-      goto LABEL_23;
-    }
-  }
-
-LABEL_25:
-  Hasher._combine(_:)(0);
-  if (!*(v0 + 136))
-  {
-    goto LABEL_26;
-  }
-
-LABEL_4:
-  v2 = *(v0 + 128);
-  Hasher._combine(_:)(1u);
-  String.hash(into:)();
-  if (!*(v0 + 152))
-  {
-    goto LABEL_27;
-  }
-
-LABEL_5:
-  v3 = *(v0 + 144);
-  Hasher._combine(_:)(1u);
-
-  String.hash(into:)();
-}
-
-Swift::Int NodeDef.Availability.hashValue.getter()
-{
-  Hasher.init(_seed:)();
-  NodeDef.Availability.hash(into:)();
-  return Hasher._finalize()();
-}
-
-__n128 NodeDef.Availability.init(platform:kind:renamed:message:)@<Q0>(char a1@<W0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X8>)
-{
-  *&v8[7] = *a2;
-  *&v8[55] = *(a2 + 48);
-  *&v8[39] = *(a2 + 32);
-  *&v8[23] = *(a2 + 16);
-  *&v8[118] = *(a2 + 111);
-  *&v8[103] = *(a2 + 96);
-  *&v8[87] = *(a2 + 80);
-  *&v8[71] = *(a2 + 64);
-  *(a7 + 1) = *v8;
-  *(a7 + 49) = *&v8[48];
-  *(a7 + 33) = *&v8[32];
-  *(a7 + 107) = *&v8[106];
-  result = *&v8[80];
-  *(a7 + 97) = *&v8[96];
-  *(a7 + 81) = *&v8[80];
-  *(a7 + 65) = *&v8[64];
-  *a7 = a1;
-  *(a7 + 17) = *&v8[16];
-  *(a7 + 128) = a3;
-  *(a7 + 136) = a4;
-  *(a7 + 144) = a5;
-  *(a7 + 152) = a6;
-  return result;
-}
-
-Swift::Int protocol witness for Hashable.hashValue.getter in conformance NodeDef.Availability()
-{
-  Hasher.init(_seed:)();
-  NodeDef.Availability.hash(into:)();
-  return Hasher._finalize()();
-}
-
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance NodeDef.Availability()
-{
-  Hasher.init(_seed:)();
-  NodeDef.Availability.hash(into:)();
-  return Hasher._finalize()();
-}
-
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance NodeDef.Availability(_OWORD *a1, _OWORD *a2)
-{
-  v2 = a1[7];
-  v13[6] = a1[6];
-  v13[7] = v2;
-  v3 = a1[9];
-  v13[8] = a1[8];
-  v13[9] = v3;
-  v4 = a1[3];
-  v13[2] = a1[2];
-  v13[3] = v4;
-  v5 = a1[5];
-  v13[4] = a1[4];
-  v13[5] = v5;
-  v6 = a1[1];
-  v13[0] = *a1;
-  v13[1] = v6;
-  v7 = a2[7];
-  v14[6] = a2[6];
-  v14[7] = v7;
-  v8 = a2[9];
-  v14[8] = a2[8];
-  v14[9] = v8;
-  v9 = a2[3];
-  v14[2] = a2[2];
-  v14[3] = v9;
-  v10 = a2[5];
-  v14[4] = a2[4];
-  v14[5] = v10;
-  v11 = a2[1];
-  v14[0] = *a2;
-  v14[1] = v11;
-  return specialized static NodeDef.Availability.== infix(_:_:)(v13, v14) & 1;
-}
-
-uint64_t NodeDef.isAvailable(for:)(unsigned __int8 a1, uint64_t a2)
-{
-  v3 = v2[18];
-  if (v3)
-  {
-    v6 = v2[18];
-
-    v7 = specialized static NodeDef.available(for:in:)(a1, a2, v3);
-  }
-
-  else
-  {
-    v7 = v2[14];
-    outlined copy of MaterialXAvailability(v7, v2[15]);
-  }
-
-  return v7;
-}
-
-uint64_t protocol witness for static Comparable.< infix(_:_:) in conformance NodeDef.Availability.PlatformVersion(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a1 + 16);
-  v5[0] = *a1;
-  v5[1] = v2;
-  v6 = *(a1 + 32);
-  v3 = *(a2 + 16);
-  v7[0] = *a2;
-  v7[1] = v3;
-  v8 = *(a2 + 32);
-  return specialized static NodeDef.Availability.PlatformVersion.< infix(_:_:)(v5, v7) & 1;
-}
-
-BOOL protocol witness for static Comparable.<= infix(_:_:) in conformance NodeDef.Availability.PlatformVersion(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a1 + 16);
-  v7[0] = *a1;
-  v7[1] = v2;
-  v8 = *(a1 + 32);
-  v3 = *(a2 + 16);
-  v5[0] = *a2;
-  v5[1] = v3;
-  v6 = *(a2 + 32);
-  return (specialized static NodeDef.Availability.PlatformVersion.< infix(_:_:)(v5, v7) & 1) == 0;
-}
-
-BOOL protocol witness for static Comparable.>= infix(_:_:) in conformance NodeDef.Availability.PlatformVersion(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a1 + 16);
-  v5[0] = *a1;
-  v5[1] = v2;
-  v6 = *(a1 + 32);
-  v3 = *(a2 + 16);
-  v7[0] = *a2;
-  v7[1] = v3;
-  v8 = *(a2 + 32);
-  return (specialized static NodeDef.Availability.PlatformVersion.< infix(_:_:)(v5, v7) & 1) == 0;
-}
-
-uint64_t protocol witness for static Comparable.> infix(_:_:) in conformance NodeDef.Availability.PlatformVersion(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a1 + 16);
-  v7[0] = *a1;
-  v7[1] = v2;
-  v8 = *(a1 + 32);
-  v3 = *(a2 + 16);
-  v5[0] = *a2;
-  v5[1] = v3;
-  v6 = *(a2 + 32);
-  return specialized static NodeDef.Availability.PlatformVersion.< infix(_:_:)(v5, v7) & 1;
-}
-
-uint64_t _s11ShaderGraph7NodeDefV12AvailabilityV24MaterialXAttributeParserV9reconcileySayAEGxKSTRzAE7ElementRtzlFZs15FlattenSequenceVySayAIGG_Tt0g5(uint64_t a1)
-{
-  v3 = _sSTsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFs15FlattenSequenceVySaySay11ShaderGraph7NodeDefV12AvailabilityVGGG_AL8PlatformO_ALts5NeverOTg504_s11f6Graph7hi3V12j54V24MaterialXAttributeParserV9reconcileySayAEGxKSTRzAE7b9RtzlFZAE8K12O_AEtAEXEfU_Tf1cn_n(a1);
-  if (*(v3 + 16))
-  {
-    v4 = v3;
-    v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy11ShaderGraph7NodeDefV12AvailabilityV8PlatformOAGGMd, &_ss18_DictionaryStorageCy11ShaderGraph7NodeDefV12AvailabilityV8PlatformOAGGMR);
-    v5 = static _DictionaryStorage.allocate(capacity:)();
-    v3 = v4;
-  }
-
-  else
-  {
-    v5 = MEMORY[0x277D84F98];
-  }
-
-  v10 = v5;
-  specialized _NativeDictionary.merge<A>(_:isUnique:uniquingKeysWith:)(v3, 1, &v10);
-  if (!v2)
-  {
-    v6 = *(v10 + 16);
-    if (v6)
-    {
-      v7 = v10;
-      v1 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC11ShaderGraph7NodeDefV12AvailabilityV_Tt1g5(*(v10 + 16), 0);
-      v8 = specialized Sequence._copySequenceContents(initializing:)(&v10, (v1 + 32), v6, v7);
-      outlined consume of [String : GeomPropDef].Iterator._Variant();
-      if (v8 == v6)
-      {
-        return v1;
-      }
-
-      __break(1u);
-    }
-
-    return MEMORY[0x277D84F90];
-  }
-
-  return v1;
-}
-
-uint64_t static NodeDef.Availability.MaterialXAttributeParser.reconcile<A>(_:)(uint64_t a1, unsigned int (*a2)(char *, uint64_t, uint64_t), uint64_t a3)
-{
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11ShaderGraph7NodeDefV12AvailabilityV8PlatformO_AEtMd, &_s11ShaderGraph7NodeDefV12AvailabilityV8PlatformO_AEtMR);
-  v8 = a3;
-  v9 = a1;
-  v11 = _sSTsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #1 in static NodeDef.Availability.MaterialXAttributeParser.reconcile<A>(_:), 0, a2, v7, MEMORY[0x277D84A98], v8, MEMORY[0x277D84AC0], v10);
-  if (*(v11 + 16))
-  {
-    v12 = v11;
-    v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy11ShaderGraph7NodeDefV12AvailabilityV8PlatformOAGGMd, &_ss18_DictionaryStorageCy11ShaderGraph7NodeDefV12AvailabilityV8PlatformOAGGMR);
-    v13 = static _DictionaryStorage.allocate(capacity:)();
-    v11 = v12;
-  }
-
-  else
-  {
-    v13 = MEMORY[0x277D84F98];
-  }
-
-  v18 = v13;
-  specialized _NativeDictionary.merge<A>(_:isUnique:uniquingKeysWith:)(v11, 1, &v18);
-  if (!v3)
-  {
-    v14 = *(v18 + 16);
-    if (v14)
-    {
-      v15 = v18;
-      v9 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC11ShaderGraph7NodeDefV12AvailabilityV_Tt1g5(*(v18 + 16), 0);
-      v16 = specialized Sequence._copySequenceContents(initializing:)(&v18, (v9 + 32), v14, v15);
-      outlined consume of [String : GeomPropDef].Iterator._Variant();
-      if (v16 == v14)
-      {
-        return v9;
-      }
-
-      __break(1u);
-    }
-
-    return MEMORY[0x277D84F90];
-  }
-
-  return v9;
-}
-
-uint64_t closure #1 in static NodeDef.Availability.MaterialXAttributeParser.reconcile<A>(_:)@<X0>(_OWORD *a1@<X0>, uint64_t a2@<X8>)
-{
-  v2 = a1[7];
-  v3 = a1[5];
-  v22 = a1[6];
-  v23 = v2;
-  v4 = a1[7];
-  v5 = a1[9];
-  v24 = a1[8];
-  v6 = v24;
-  v25 = v5;
-  v7 = a1[3];
-  v9 = a1[1];
-  v18 = a1[2];
-  v8 = v18;
-  v19 = v7;
-  v10 = a1[3];
-  v11 = a1[5];
-  v20 = a1[4];
-  v12 = v20;
-  v21 = v11;
-  v13 = a1[1];
-  v17[0] = *a1;
-  v14 = v17[0];
-  v17[1] = v13;
-  *(a2 + 104) = v22;
-  *(a2 + 120) = v4;
-  *(a2 + 136) = v6;
-  *(a2 + 152) = a1[9];
-  *(a2 + 40) = v8;
-  *(a2 + 56) = v10;
-  *(a2 + 72) = v12;
-  *(a2 + 88) = v3;
-  *(a2 + 8) = v14;
-  *a2 = v17[0];
-  *(a2 + 24) = v9;
-  return outlined init with copy of NodeDef.Availability(v17, &v16);
-}
-
-double static NodeDef.Availability.MaterialXAttributeParser.parse(_:matchingUntil:)@<D0>(unint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  specialized static NodeDef.Availability.MaterialXAttributeParser.parse(_:matchingUntil:)(a1, a2, &v11);
-  v4 = v12;
-  v5 = v13;
-  v6 = v15;
-  v7 = v16;
-  v8 = v17;
-  result = *&v11;
-  v10 = v14;
-  *a3 = v11;
-  *(a3 + 16) = v4;
-  *(a3 + 24) = v5;
-  *(a3 + 32) = v10;
-  *(a3 + 48) = v6;
-  *(a3 + 56) = v7;
-  *(a3 + 64) = v8;
-  return result;
-}
-
-double static NodeDef.Availability.MaterialXAttributeParser.nextToken(in:)@<D0>(unint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
-{
-  specialized static NodeDef.Availability.MaterialXAttributeParser.nextToken(in:)(a1, a2, a3, a4, &v14);
-  if (!v5)
-  {
-    result = *&v14;
-    v8 = v15;
-    v9 = v16;
-    v10 = v17;
-    v11 = v18;
-    v12 = v19;
-    v13 = v20;
-    *a5 = v14;
-    *(a5 + 16) = v8;
-    *(a5 + 24) = v9;
-    *(a5 + 32) = v10;
-    *(a5 + 48) = v11;
-    *(a5 + 56) = v12;
-    *(a5 + 64) = v13;
-  }
-
-  return result;
-}
-
-uint64_t NodeDef.Availability.description.getter()
-{
-  *&v52 = 0;
-  *(&v52 + 1) = 0xE000000000000000;
-  LOBYTE(v48) = *v0;
-  _print_unlocked<A, B>(_:_:)();
-  v1 = MEMORY[0x277D84F90];
-  v2 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, 1, 1, MEMORY[0x277D84F90]);
-  v4 = *(v2 + 2);
-  v3 = *(v2 + 3);
-  if (v4 >= v3 >> 1)
-  {
-    v2 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v3 > 1), v4 + 1, 1, v2);
-  }
-
-  *(v2 + 2) = v4 + 1;
-  v5 = &v2[16 * v4];
-  *(v5 + 4) = 0;
-  *(v5 + 5) = 0xE000000000000000;
-  v6 = &_ss23_ContiguousArrayStorageCy11ShaderGraph7NodeDefV12AvailabilityVGMR;
-  if (*(v0 + 122))
-  {
-    v7 = &outlined read-only object #1 of NodeDef.Availability.description.getter;
-LABEL_11:
-    specialized Array.append<A>(contentsOf:)(v7);
-    goto LABEL_12;
-  }
-
-  v9 = *(v0 + 24);
-  v8 = *(v0 + 32);
-  v10 = *(v0 + 40);
-  v35 = *(v0 + 8);
-  v36 = *(v0 + 48);
-  v11 = *(v0 + 64);
-  v12 = *(v0 + 72);
-  v37 = *(v0 + 80);
-  v38 = *(v0 + 88);
-  v39 = *(v0 + 104);
-  v41 = *(v0 + 112);
-  v40 = *(v0 + 120);
-  v42 = *(v0 + 121);
-  v13 = *(v0 + 81);
-  v14 = *(v0 + 41);
-  specialized Array.append<A>(contentsOf:)(&outlined read-only object #0 of NodeDef.Availability.description.getter);
-  v43 = v1;
-  if (v14)
-  {
-    v6 = &_ss23_ContiguousArrayStorageCy11ShaderGraph7NodeDefV12AvailabilityVGMR;
-    if (v13)
-    {
-      goto LABEL_7;
-    }
-  }
-
-  else
-  {
-    v52 = v35;
-    v53 = v9 & 1;
-    v54 = v8;
-    v55 = v10 & 1;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
-    inited = swift_initStackObject();
-    *(inited + 16) = xmmword_265F1F670;
-    strcpy(&v48, "introduced: ");
-    BYTE13(v48) = 0;
-    HIWORD(v48) = -5120;
-    v30 = NodeDef.Availability.PlatformVersion.description.getter();
-    MEMORY[0x266771550](v30);
-
-    v31 = *(&v48 + 1);
-    *(inited + 32) = v48;
-    *(inited + 40) = v31;
-    specialized Array.append<A>(contentsOf:)(inited);
-    v6 = &_ss23_ContiguousArrayStorageCy11ShaderGraph7NodeDefV12AvailabilityVGMR;
-    if (v13)
-    {
-LABEL_7:
-      if (v42)
-      {
-        goto LABEL_9;
-      }
-
-      goto LABEL_8;
-    }
-  }
-
-  v48 = v36;
-  v49 = v11 & 1;
-  v50 = v12;
-  v51 = v37 & 1;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
-  v32 = swift_initStackObject();
-  *(v32 + 16) = xmmword_265F1F670;
-  strcpy(&v44, "deprecated: ");
-  BYTE13(v44) = 0;
-  HIWORD(v44) = -5120;
-  v33 = NodeDef.Availability.PlatformVersion.description.getter();
-  MEMORY[0x266771550](v33);
-
-  v34 = *(&v44 + 1);
-  *(v32 + 32) = v44;
-  *(v32 + 40) = v34;
-  specialized Array.append<A>(contentsOf:)(v32);
-  if ((v42 & 1) == 0)
-  {
-LABEL_8:
-    v44 = v38;
-    v45 = v39 & 1;
-    v46 = v41;
-    v47 = v40 & 1;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
-    v15 = swift_initStackObject();
-    *(v15 + 16) = xmmword_265F1F670;
-    v16 = NodeDef.Availability.PlatformVersion.description.getter();
-    MEMORY[0x266771550](v16);
-
-    *(v15 + 32) = 0x6574656C6F73626FLL;
-    *(v15 + 40) = 0xEB00000000203A64;
-    specialized Array.append<A>(contentsOf:)(v15);
-  }
-
-LABEL_9:
-  if (*(v43 + 16))
-  {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
-    v17 = swift_initStackObject();
-    *(v17 + 16) = xmmword_265F1F670;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
-    lazy protocol witness table accessor for type [String] and conformance [A](&lazy protocol witness table cache variable for type [String] and conformance [A], &_sSaySSGMd, &_sSaySSGMR);
-    v18 = BidirectionalCollection<>.joined(separator:)();
-    v20 = v19;
-
-    MEMORY[0x266771550](v18, v20);
-
-    MEMORY[0x266771550](41, 0xE100000000000000);
-    *(v17 + 32) = 40;
-    *(v17 + 40) = 0xE100000000000000;
-    v7 = v17;
-    goto LABEL_11;
-  }
-
-LABEL_12:
-  v21 = *(v0 + 152);
-  if (v21)
-  {
-    v22 = *(v0 + 144);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
-    v23 = swift_initStackObject();
-    *(v23 + 16) = *(v6 + 103);
-    MEMORY[0x266771550](v22, v21);
-    MEMORY[0x266771550](39, 0xE100000000000000);
-    *(v23 + 32) = 0x206567617373656DLL;
-    *(v23 + 40) = 0xE900000000000027;
-    specialized Array.append<A>(contentsOf:)(v23);
-  }
-
-  v24 = *(v0 + 136);
-  if (v24)
-  {
-    v25 = *(v0 + 128);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
-    v26 = swift_initStackObject();
-    *(v26 + 16) = *(v6 + 103);
-    MEMORY[0x266771550](v25, v24);
-    MEMORY[0x266771550](39, 0xE100000000000000);
-    *(v26 + 32) = 0x2064656D616E6572;
-    *(v26 + 40) = 0xE900000000000027;
-    specialized Array.append<A>(contentsOf:)(v26);
-  }
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
-  lazy protocol witness table accessor for type [String] and conformance [A](&lazy protocol witness table cache variable for type [String] and conformance [A], &_sSaySSGMd, &_sSaySSGMR);
-  v27 = BidirectionalCollection<>.joined(separator:)();
-
-  return v27;
-}
-
-uint64_t NodeDef.Availability.PlatformVersion.description.getter()
-{
-  v6 = *v0;
-  v7 = dispatch thunk of CustomStringConvertible.description.getter();
-  MEMORY[0x266771550](46, 0xE100000000000000);
-  v1 = v0[1];
-  *(v0 + 16);
-  v2 = dispatch thunk of CustomStringConvertible.description.getter();
-  MEMORY[0x266771550](v2);
-
-  MEMORY[0x266771550](46, 0xE100000000000000);
-  v3 = v0[3];
-  *(v0 + 32);
-  v4 = dispatch thunk of CustomStringConvertible.description.getter();
-  MEMORY[0x266771550](v4);
-
-  return v7;
-}
-
-uint64_t specialized Collection.split(maxSplits:omittingEmptySubsequences:whereSeparator:)@<X0>(uint64_t result@<X0>, char a2@<W1>, uint64_t (*a3)(void *)@<X2>, void *a4@<X3>, uint64_t a5@<X4>, unint64_t a6@<X8>)
-{
-  v38 = a3;
-  if (result < 0)
-  {
-LABEL_46:
-    __break(1u);
-LABEL_47:
-    result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((a6 > 1), v6, 1, result);
-LABEL_31:
-    *(result + 16) = v6;
-    v24 = (result + 32 * v9);
-    v24[4] = v8;
-    v24[5] = v8 + 32;
-    v24[6] = 0;
-    v24[7] = (2 * v10) | 1;
-    return result;
-  }
-
-  v8 = a5;
-  v10 = *(a5 + 16);
-  if (!result || !v10)
-  {
-    if (!v10 && (a2 & 1) != 0)
-    {
-
-      return MEMORY[0x277D84F90];
-    }
-
-    result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, 1, 1, MEMORY[0x277D84F90]);
-    v9 = *(result + 16);
-    a6 = *(result + 24);
-    v6 = (v9 + 1);
-    if (v9 < a6 >> 1)
-    {
-      goto LABEL_31;
-    }
-
-    goto LABEL_47;
-  }
-
-  v6 = a4;
-  v11 = 0;
-  v31 = a5 + 32;
-  v12 = -v10;
-  v13 = MEMORY[0x277D84F90];
-  while (1)
-  {
-    if (v11 == v10)
-    {
-      v11 = v10;
-      goto LABEL_33;
-    }
-
-    v30 = result;
-    v35 = v10;
-    v36 = v13;
-    v14 = 2 * v11;
-    v32 = v12;
-LABEL_7:
-    v9 = 0;
-    v10 = v12 + v11;
-    v34 = v14;
-    while (1)
-    {
-      a6 = v11 + v9;
-      if (v11 + v9 >= *(v8 + 16))
-      {
-        __break(1u);
-        goto LABEL_46;
-      }
-
-      v15 = v8 + 8 * v14;
-      v16 = *(v15 + 40);
-      v37[0] = *(v15 + 32);
-      v37[1] = v16;
-
-      v17 = v38(v37);
-      if (v7)
-      {
-      }
-
-      v18 = v17;
-
-      if (v18)
-      {
-        break;
-      }
-
-      ++v9;
-      v14 += 2;
-      if (!(v10 + v9))
-      {
-        v10 = v35;
-        v13 = v36;
-        goto LABEL_33;
-      }
-    }
-
-    if (!v9 && (a2 & 1) != 0)
-    {
-      break;
-    }
-
-    if ((v11 + v9) < v11)
-    {
-      __break(1u);
-LABEL_53:
-      __break(1u);
-LABEL_54:
-      __break(1u);
-      return result;
-    }
-
-    if (v11 < 0)
-    {
-      goto LABEL_53;
-    }
-
-    v19 = *(v8 + 16);
-    if (v19 < v11 || v19 < v11 + v9)
-    {
-      goto LABEL_54;
-    }
-
-    if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-    {
-      v36 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v36[2] + 1, 1, v36);
-    }
-
-    v21 = v36[2];
-    v20 = v36[3];
-    v22 = v21 + 1;
-    if (v21 >= v20 >> 1)
-    {
-      v36 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v20 > 1), v21 + 1, 1, v36);
-    }
-
-    v13 = v36;
-    v36[2] = v22;
-    v23 = &v36[4 * v21];
-    result = v30;
-    v23[4] = v8;
-    v23[5] = v31;
-    v23[6] = v11;
-    v23[7] = v14 + 1;
-    v11 += v9 + 1;
-    v10 = v35;
-    v12 = v32;
-    if (v22 == v30)
-    {
-      goto LABEL_33;
-    }
-  }
-
-  ++v11;
-  v10 = v35;
-  v14 = v34 + 2;
-  v12 = v32;
-  if (v11 != v35)
-  {
-    goto LABEL_7;
-  }
-
-  v11 = v35;
-  v13 = v36;
-LABEL_33:
-  if (v11 == v10 && (a2 & 1) != 0)
-  {
-    v25 = v13;
-
-    return v25;
-  }
-
-  if (v10 < v11)
-  {
-    __break(1u);
-    goto LABEL_49;
-  }
-
-  if (v11 < 0)
-  {
-LABEL_49:
-    __break(1u);
-LABEL_50:
-    __break(1u);
-    goto LABEL_51;
-  }
-
-  v26 = *(v8 + 16);
-  if (v26 < v11 || v26 < v10)
-  {
-    goto LABEL_50;
-  }
-
-  v6 = v13;
-  if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-  {
-LABEL_51:
-    v6 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v6[2] + 1, 1, v6);
-  }
-
-  result = v6;
-  v28 = v6[2];
-  v27 = v6[3];
-  if (v28 >= v27 >> 1)
-  {
-    result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v27 > 1), v28 + 1, 1, v6);
-  }
-
-  *(result + 16) = v28 + 1;
-  v29 = (result + 32 * v28);
-  v29[4] = v8;
-  v29[5] = v31;
-  v29[6] = v11;
-  v29[7] = (2 * v10) | 1;
-  return result;
-}
-
 void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCs5UInt8V_Tt1gq5(uint64_t a1, uint64_t a2)
 {
   if (a2 <= a1)
@@ -2348,25 +29,25 @@ void specialized _NativeDictionary.merge<A>(_:isUnique:uniquingKeysWith:)(uint64
   v3 = a3;
   v5 = 0;
   v6 = *(a1 + 16);
-  v83 = a1 + 32;
-  v99 = v6;
+  v82 = a1 + 32;
+  v98 = v6;
   while (1)
   {
     if (v5 == v6)
     {
       _s11ShaderGraph7NodeDefV12AvailabilityV8PlatformO_AEtSgWOi0_(__dst);
-      v122[8] = __dst[8];
-      v122[9] = __dst[9];
-      *&v122[10] = *&__dst[10];
-      v122[4] = __dst[4];
-      v122[5] = __dst[5];
-      v122[6] = __dst[6];
-      v122[7] = __dst[7];
-      v122[0] = __dst[0];
-      v122[1] = __dst[1];
+      v121[8] = __dst[8];
+      v121[9] = __dst[9];
+      *&v121[10] = *&__dst[10];
+      v121[4] = __dst[4];
+      v121[5] = __dst[5];
+      v121[6] = __dst[6];
+      v121[7] = __dst[7];
+      v121[0] = __dst[0];
+      v121[1] = __dst[1];
       v16 = v6;
-      v122[2] = __dst[2];
-      v122[3] = __dst[3];
+      v121[2] = __dst[2];
+      v121[3] = __dst[3];
     }
 
     else
@@ -2381,7 +62,7 @@ void specialized _NativeDictionary.merge<A>(_:isUnique:uniquingKeysWith:)(uint64
         goto LABEL_55;
       }
 
-      v17 = (v83 + 168 * v5);
+      v17 = (v82 + 168 * v5);
       v18 = v17[7];
       v19 = v17[9];
       __dst[8] = v17[8];
@@ -2403,55 +84,55 @@ void specialized _NativeDictionary.merge<A>(_:isUnique:uniquingKeysWith:)(uint64
       __dst[2] = v17[2];
       __dst[3] = v25;
       v28 = v17[9];
-      v122[8] = __dst[8];
-      v122[9] = v28;
-      v122[4] = __dst[4];
-      v122[5] = v22;
-      v122[6] = __dst[6];
-      v122[7] = v18;
-      v122[0] = v27;
-      v122[1] = v26;
+      v121[8] = __dst[8];
+      v121[9] = v28;
+      v121[4] = __dst[4];
+      v121[5] = v22;
+      v121[6] = __dst[6];
+      v121[7] = v18;
+      v121[0] = v27;
+      v121[1] = v26;
       *&__dst[10] = *(v17 + 20);
-      *&v122[10] = *(v17 + 20);
+      *&v121[10] = *(v17 + 20);
       v16 = v5 + 1;
-      v122[2] = __dst[2];
-      v122[3] = v20;
-      destructiveProjectEnumData for NodePersonality.ShaderType(v122);
+      v121[2] = __dst[2];
+      v121[3] = v20;
+      destructiveProjectEnumData for NodePersonality.ShaderType();
       outlined init with copy of (NodeDef.Availability.Platform, NodeDef.Availability)(__dst, __src);
     }
 
-    v120[8] = v122[8];
-    v120[9] = v122[9];
-    v121 = *&v122[10];
-    v120[4] = v122[4];
-    v120[5] = v122[5];
-    v120[6] = v122[6];
-    v120[7] = v122[7];
-    v120[0] = v122[0];
-    v120[1] = v122[1];
-    v120[2] = v122[2];
-    v120[3] = v122[3];
-    if (_s11ShaderGraph7NodeDefV12AvailabilityV8PlatformO_AEtSgWOg(v120) == 1)
+    v119[8] = v121[8];
+    v119[9] = v121[9];
+    v120 = *&v121[10];
+    v119[4] = v121[4];
+    v119[5] = v121[5];
+    v119[6] = v121[6];
+    v119[7] = v121[7];
+    v119[0] = v121[0];
+    v119[1] = v121[1];
+    v119[2] = v121[2];
+    v119[3] = v121[3];
+    if (_s11ShaderGraph7NodeDefV12AvailabilityV8PlatformO_AEtSgWOg(v119) == 1)
     {
 
       return;
     }
 
-    v123 = v16;
-    v29 = v122[0];
-    v113 = v122[0];
-    *&v117[16] = *(&v122[6] + 8);
-    *&v117[32] = *(&v122[7] + 8);
-    v118 = *(&v122[8] + 8);
-    v119 = *(&v122[9] + 8);
-    *&v114[32] = *(&v122[2] + 8);
-    v115 = *(&v122[3] + 8);
-    v116 = *(&v122[4] + 8);
-    *v117 = *(&v122[5] + 8);
-    *v114 = *(v122 + 8);
-    *&v114[16] = *(&v122[1] + 8);
+    v122 = v16;
+    v29 = LOBYTE(v121[0]);
+    v112 = v121[0];
+    *&v116[16] = *(&v121[6] + 8);
+    *&v116[32] = *(&v121[7] + 8);
+    v117 = *(&v121[8] + 8);
+    v118 = *(&v121[9] + 8);
+    *&v113[32] = *(&v121[2] + 8);
+    v114 = *(&v121[3] + 8);
+    v115 = *(&v121[4] + 8);
+    *v116 = *(&v121[5] + 8);
+    *v113 = *(v121 + 8);
+    *&v113[16] = *(&v121[1] + 8);
     v30 = *v3;
-    v32 = specialized __RawDictionaryStorage.find<A>(_:)(v122[0]);
+    v32 = specialized __RawDictionaryStorage.find<A>(_:)(LOBYTE(v121[0]));
     v33 = v30[2];
     v34 = (v31 & 1) == 0;
     v35 = v33 + v34;
@@ -2494,151 +175,150 @@ LABEL_57:
     }
 
 LABEL_48:
-    v67 = *v3;
+    v66 = *v3;
     *(*v3 + 8 * (v32 >> 6) + 64) |= 1 << v32;
-    *(v67[6] + v32) = v29;
-    v68 = v67[7] + 160 * v32;
-    v69 = *&v114[16];
-    *v68 = *v114;
-    *(v68 + 16) = v69;
-    v70 = *&v114[32];
-    v71 = v115;
-    v72 = *v117;
-    *(v68 + 64) = v116;
-    *(v68 + 80) = v72;
-    *(v68 + 32) = v70;
-    *(v68 + 48) = v71;
-    v73 = *&v117[16];
-    v74 = *&v117[32];
-    v75 = v119;
-    *(v68 + 128) = v118;
-    *(v68 + 144) = v75;
-    *(v68 + 96) = v73;
-    *(v68 + 112) = v74;
-    v76 = v67[2];
-    v77 = __OFADD__(v76, 1);
-    v78 = v76 + 1;
-    if (v77)
+    *(v66[6] + v32) = v29;
+    v67 = v66[7] + 160 * v32;
+    v68 = *&v113[16];
+    *v67 = *v113;
+    *(v67 + 16) = v68;
+    v69 = *&v113[32];
+    v70 = v114;
+    v71 = *v116;
+    *(v67 + 64) = v115;
+    *(v67 + 80) = v71;
+    *(v67 + 32) = v69;
+    *(v67 + 48) = v70;
+    v72 = *&v116[16];
+    v73 = *&v116[32];
+    v74 = v118;
+    *(v67 + 128) = v117;
+    *(v67 + 144) = v74;
+    *(v67 + 96) = v72;
+    *(v67 + 112) = v73;
+    v75 = v66[2];
+    v76 = __OFADD__(v75, 1);
+    v77 = v75 + 1;
+    if (v76)
     {
       goto LABEL_56;
     }
 
-    v67[2] = v78;
+    v66[2] = v77;
 LABEL_3:
     a2 = 1;
-    v6 = v99;
-    v5 = v123;
+    v6 = v98;
+    v5 = v122;
   }
 
   specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v35, a2 & 1);
-  v37 = *v3;
-  v38 = specialized __RawDictionaryStorage.find<A>(_:)(v29);
-  if ((v36 & 1) != (v39 & 1))
+  v37 = specialized __RawDictionaryStorage.find<A>(_:)(v29);
+  if ((v36 & 1) != (v38 & 1))
   {
     goto LABEL_57;
   }
 
-  v32 = v38;
+  v32 = v37;
   if ((v36 & 1) == 0)
   {
     goto LABEL_48;
   }
 
 LABEL_17:
-  v40 = *v3;
-  v41 = *(*v3 + 56) + 160 * v32;
-  v42 = *(v41 + 16);
-  *v107 = *v41;
-  *&v107[16] = v42;
-  v43 = *(v41 + 80);
-  v45 = *(v41 + 32);
-  v44 = *(v41 + 48);
-  v109 = *(v41 + 64);
-  *v110 = v43;
-  *&v107[32] = v45;
-  v108 = v44;
-  v46 = *(v41 + 144);
-  v48 = *(v41 + 96);
-  v47 = *(v41 + 112);
-  v111 = *(v41 + 128);
-  v112 = v46;
-  *&v110[16] = v48;
-  *&v110[32] = v47;
-  if (BYTE10(v47))
+  v39 = *v3;
+  v40 = *(*v3 + 56) + 160 * v32;
+  v41 = *(v40 + 16);
+  *v106 = *v40;
+  *&v106[16] = v41;
+  v42 = *(v40 + 80);
+  v44 = *(v40 + 32);
+  v43 = *(v40 + 48);
+  v108 = *(v40 + 64);
+  *v109 = v42;
+  *&v106[32] = v44;
+  v107 = v43;
+  v45 = *(v40 + 144);
+  v47 = *(v40 + 96);
+  v46 = *(v40 + 112);
+  v110 = *(v40 + 128);
+  v111 = v45;
+  *&v109[16] = v47;
+  *&v109[32] = v46;
+  if (BYTE10(v46))
   {
-    v49 = v117[42];
-    if ((v117[42] & 1) == 0)
+    v48 = v116[42];
+    if ((v116[42] & 1) == 0)
     {
       goto LABEL_50;
     }
 
-    v97 = *&v114[8];
-    v98 = *&v114[24];
-    v50 = v114[40];
-    v51 = v114[41];
-    v105 = *&v114[42];
-    v106 = *&v114[46];
+    v96 = *&v113[8];
+    v97 = *&v113[24];
+    v49 = v113[40];
+    v50 = v113[41];
+    v104 = *&v113[42];
+    v105 = *&v113[46];
+    v94 = v114;
     v95 = v115;
-    v96 = v116;
-    v52 = v117[0];
-    v53 = v117[1];
-    v103 = *&v117[2];
-    v104 = *&v117[6];
-    v93 = *&v117[8];
-    v94 = *&v117[24];
-    v54 = v117[40];
-    v55 = v117[41];
+    v51 = v116[0];
+    v52 = v116[1];
+    v102 = *&v116[2];
+    v103 = *&v116[6];
+    v92 = *&v116[8];
+    v93 = *&v116[24];
+    v53 = v116[40];
+    v54 = v116[41];
 LABEL_39:
-    v63 = *(&v112 + 1);
-    v64 = *(&v119 + 1);
-    if (*(&v112 + 1) && *(&v119 + 1))
+    v62 = *(&v111 + 1);
+    v63 = *(&v118 + 1);
+    if (*(&v111 + 1) && *(&v118 + 1))
     {
       goto LABEL_50;
     }
 
-    v65 = *(&v118 + 1);
-    v91 = v50;
-    v92 = v49;
-    v89 = v54;
-    v90 = v52;
-    v87 = v53;
-    v88 = v51;
-    v86 = v55;
-    v100 = v112;
-    if (*(&v111 + 1))
+    v64 = *(&v117 + 1);
+    v90 = v49;
+    v91 = v48;
+    v88 = v53;
+    v89 = v51;
+    v86 = v52;
+    v87 = v50;
+    v85 = v54;
+    v99 = v111;
+    if (*(&v110 + 1))
     {
-      if (*(&v118 + 1))
+      if (*(&v117 + 1))
       {
         goto LABEL_50;
       }
 
+      v64 = *(&v110 + 1);
+      v84 = v110;
       v65 = *(&v111 + 1);
-      v85 = v111;
-      v66 = *(&v112 + 1);
-      if (!*(&v112 + 1))
+      if (!*(&v111 + 1))
       {
 LABEL_46:
-        v100 = v119;
+        v99 = v118;
 
-        v66 = v64;
+        v65 = v63;
       }
     }
 
     else
     {
-      v85 = v118;
+      v84 = v117;
 
-      v66 = v63;
-      if (!v63)
+      v65 = v62;
+      if (!v62)
       {
         goto LABEL_46;
       }
     }
 
-    v7 = v107[0];
+    v7 = v106[0];
 
-    outlined destroy of NodeDef.Availability(v114);
-    v8 = v40[7] + 160 * v32;
+    outlined destroy of NodeDef.Availability(v113);
+    v8 = v39[7] + 160 * v32;
     v10 = *(v8 + 128);
     v9 = *(v8 + 144);
     v11 = *(v8 + 112);
@@ -2657,137 +337,137 @@ LABEL_46:
     __dst[1] = v15;
     __dst[2] = v14;
     *v8 = v7;
-    *(v8 + 8) = v97;
-    *(v8 + 24) = v98;
-    *(v8 + 40) = v91;
-    *(v8 + 41) = v88;
-    *(v8 + 46) = v106;
-    *(v8 + 42) = v105;
-    *(v8 + 48) = v95;
-    *(v8 + 64) = v96;
-    *(v8 + 80) = v90;
-    *(v8 + 81) = v87;
-    *(v8 + 86) = v104;
-    *(v8 + 82) = v103;
-    *(v8 + 88) = v93;
-    *(v8 + 104) = v94;
-    *(v8 + 120) = v89;
-    *(v8 + 121) = v86;
-    *(v8 + 122) = v92;
-    *(v8 + 128) = v85;
-    *(v8 + 136) = v65;
-    *(v8 + 144) = v100;
-    *(v8 + 152) = v66;
+    *(v8 + 8) = v96;
+    *(v8 + 24) = v97;
+    *(v8 + 40) = v90;
+    *(v8 + 41) = v87;
+    *(v8 + 46) = v105;
+    *(v8 + 42) = v104;
+    *(v8 + 48) = v94;
+    *(v8 + 64) = v95;
+    *(v8 + 80) = v89;
+    *(v8 + 81) = v86;
+    *(v8 + 86) = v103;
+    *(v8 + 82) = v102;
+    *(v8 + 88) = v92;
+    *(v8 + 104) = v93;
+    *(v8 + 120) = v88;
+    *(v8 + 121) = v85;
+    *(v8 + 122) = v91;
+    *(v8 + 128) = v84;
+    *(v8 + 136) = v64;
+    *(v8 + 144) = v99;
+    *(v8 + 152) = v65;
     outlined destroy of NodeDef.Availability(__dst);
     v3 = a3;
     goto LABEL_3;
   }
 
-  if (v117[42] & 1) == 0 && ((v107[41] | v114[41]) & 1) != 0 && ((v110[1] | v117[1]) & 1) != 0 && ((v110[41] | v117[41]))
+  if (v116[42] & 1) == 0 && ((v106[41] | v113[41]) & 1) != 0 && ((v109[1] | v116[1]) & 1) != 0 && ((v109[41] | v116[41]))
   {
-    v49 = 0;
-    v52 = v110[0];
-    v50 = v114[40];
-    if ((v107[41] & 1) == 0)
+    v48 = 0;
+    v51 = v109[0];
+    v49 = v113[40];
+    if ((v106[41] & 1) == 0)
     {
-      v50 = v107[40];
+      v49 = v106[40];
     }
 
-    v56 = v107[41] & v114[41];
-    if (v107[41])
+    v55 = v106[41] & v113[41];
+    if (v106[41])
     {
-      v57 = -1;
-    }
-
-    else
-    {
-      v57 = 0;
-    }
-
-    v58 = vdupq_n_s64(v57);
-    v98 = vbslq_s8(v58, *&v114[24], *&v107[24]);
-    v97 = vbslq_s8(v58, *&v114[8], *&v107[8]);
-    if (v110[1])
-    {
-      v52 = v117[0];
-      v59 = -1;
+      v56 = -1;
     }
 
     else
     {
-      v59 = 0;
+      v56 = 0;
     }
 
-    v60 = vdupq_n_s64(v59);
-    v95 = vbslq_s8(v60, v115, v108);
-    v96 = vbslq_s8(v60, v116, v109);
-    if (v110[41])
+    v57 = vdupq_n_s64(v56);
+    v97 = vbslq_s8(v57, *&v113[24], *&v106[24]);
+    v96 = vbslq_s8(v57, *&v113[8], *&v106[8]);
+    if (v109[1])
     {
-      v54 = v117[40];
+      v51 = v116[0];
+      v58 = -1;
     }
 
     else
     {
-      v54 = v110[40];
+      v58 = 0;
     }
 
-    if (v110[41])
+    v59 = vdupq_n_s64(v58);
+    v94 = vbslq_s8(v59, v114, v107);
+    v95 = vbslq_s8(v59, v115, v108);
+    if (v109[41])
     {
-      v61 = -1;
+      v53 = v116[40];
     }
 
     else
     {
-      v61 = 0;
+      v53 = v109[40];
     }
 
-    v62 = vdupq_n_s64(v61);
-    v93 = vbslq_s8(v62, *&v117[8], *&v110[8]);
-    v94 = vbslq_s8(v62, *&v117[24], *&v110[24]);
-    v51 = v56 & 1;
-    LOBYTE(__src[0]) = v56 & 1;
-    v53 = v110[1] & v117[1] & 1;
-    v55 = v110[41] & v117[41] & 1;
+    if (v109[41])
+    {
+      v60 = -1;
+    }
+
+    else
+    {
+      v60 = 0;
+    }
+
+    v61 = vdupq_n_s64(v60);
+    v92 = vbslq_s8(v61, *&v116[8], *&v109[8]);
+    v93 = vbslq_s8(v61, *&v116[24], *&v109[24]);
+    v50 = v55 & 1;
+    LOBYTE(__src[0]) = v55 & 1;
+    v52 = v109[1] & v116[1] & 1;
+    v54 = v109[41] & v116[41] & 1;
     LOBYTE(__dst[0]) = 0;
     goto LABEL_39;
   }
 
 LABEL_50:
-  __src[6] = *&v110[16];
-  __src[7] = *&v110[32];
-  __src[8] = v111;
-  __src[9] = v112;
-  __src[2] = *&v107[32];
-  __src[3] = v108;
-  __src[4] = v109;
-  __src[5] = *v110;
-  __src[0] = *v107;
-  __src[1] = *&v107[16];
-  __src[16] = *&v117[16];
-  __src[17] = *&v117[32];
-  __src[18] = v118;
-  __src[19] = v119;
-  __src[12] = *&v114[32];
-  __src[13] = v115;
-  __src[14] = v116;
-  __src[15] = *v117;
-  __src[10] = *v114;
-  __src[11] = *&v114[16];
+  __src[6] = *&v109[16];
+  __src[7] = *&v109[32];
+  __src[8] = v110;
+  __src[9] = v111;
+  __src[2] = *&v106[32];
+  __src[3] = v107;
+  __src[4] = v108;
+  __src[5] = *v109;
+  __src[0] = *v106;
+  __src[1] = *&v106[16];
+  __src[16] = *&v116[16];
+  __src[17] = *&v116[32];
+  __src[18] = v117;
+  __src[19] = v118;
+  __src[12] = *&v113[32];
+  __src[13] = v114;
+  __src[14] = v115;
+  __src[15] = *v116;
+  __src[10] = *v113;
+  __src[11] = *&v113[16];
   memcpy(__dst, __src, sizeof(__dst));
   _s11ShaderGraph14MaterialXErrorOWOi2_(__dst);
   lazy protocol witness table accessor for type MaterialXError and conformance MaterialXError();
-  v79 = swift_allocError();
-  memcpy(v80, __dst, 0x140uLL);
+  v78 = swift_allocError();
+  memcpy(v79, __dst, 0x140uLL);
   swift_willThrow();
-  outlined init with copy of NodeDef.Availability(v107, __dst);
-  outlined init with copy of NodeDef.Availability(v114, __dst);
+  outlined init with copy of NodeDef.Availability(v106, __dst);
+  outlined init with copy of NodeDef.Availability(v113, __dst);
 
-  *&__src[0] = v79;
-  v81 = v79;
+  *&__src[0] = v78;
+  v80 = v78;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
   if ((swift_dynamicCast() & 1) == 0)
   {
-    outlined destroy of NodeDef.Availability(v114);
+    outlined destroy of NodeDef.Availability(v113);
 
     return;
   }
@@ -2803,22 +483,35 @@ LABEL_58:
   __break(1u);
 }
 
-uint64_t static String._copying(_:)()
+uint64_t static String._copying(_:)(uint64_t a1, unint64_t a2)
 {
-  v0 = String.subscript.getter();
-  v4 = static String._copying(_:)(v0, v1, v2, v3);
+  v2 = String.subscript.getter();
+  v6 = static String._copying(_:)(v2, v3, v4, v5);
 
-  return v4;
+  return v6;
 }
 
 uint64_t static String._copying(_:)(unint64_t a1, unint64_t a2, unint64_t a3, unint64_t a4)
 {
-  if ((a4 & 0x1000000000000000) == 0)
+  if ((a4 & 0x1000000000000000) != 0)
+  {
+    v9 = Substring.UTF8View.distance(from:to:)();
+    if (!v9 || (v10 = v9, v11 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCs5UInt8V_Tt1gq5(v9, 0), v12 = specialized Sequence._copySequenceContents(initializing:)(v14, (v11 + 4), v10, a1, a2, a3, a4), , , v12 == v10))
+    {
+      v13 = static String._uncheckedFromUTF8(_:)();
+
+      return v13;
+    }
+
+    __break(1u);
+  }
+
+  else
   {
     if ((a4 & 0x2000000000000000) != 0)
     {
-      v15[0] = a3;
-      v15[1] = a4 & 0xFFFFFFFFFFFFFFLL;
+      v14[0] = a3;
+      v14[1] = a4 & 0xFFFFFFFFFFFFFFLL;
       return static String._uncheckedFromUTF8(_:)();
     }
 
@@ -2826,32 +519,8 @@ uint64_t static String._copying(_:)(unint64_t a1, unint64_t a2, unint64_t a3, un
     {
       goto LABEL_4;
     }
-
-    goto LABEL_11;
   }
 
-  v9 = Substring.UTF8View.distance(from:to:)();
-  if (!v9)
-  {
-    v11 = MEMORY[0x277D84F90];
-    goto LABEL_13;
-  }
-
-  v10 = v9;
-  v11 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCs5UInt8V_Tt1gq5(v9, 0);
-  v12 = specialized Sequence._copySequenceContents(initializing:)(v15, (v11 + 4), v10, a1, a2, a3, a4);
-
-  if (v12 == v10)
-  {
-LABEL_13:
-    v13 = v11[2];
-    v14 = static String._uncheckedFromUTF8(_:)();
-
-    return v14;
-  }
-
-  __break(1u);
-LABEL_11:
   _StringObject.sharedUTF8.getter();
 LABEL_4:
 
@@ -3020,7 +689,7 @@ LABEL_38:
   return result;
 }
 
-uint64_t _StringGuts._slowEnsureMatchingEncoding(_:)(unint64_t a1, uint64_t a2, uint64_t a3)
+unint64_t _StringGuts._slowEnsureMatchingEncoding(_:)(unint64_t a1, uint64_t a2, uint64_t a3)
 {
   v3 = a1;
   v4 = a1 >> 14;
@@ -3065,7 +734,7 @@ unsigned __int8 *specialized _parseInteger<A, B>(ascii:radix:)(uint64_t a1, uint
   v8 = result;
   if ((v7 & 0x1000000000000000) != 0)
   {
-    v8 = static String._copying(_:)();
+    v8 = static String._copying(_:)(result, v7);
     v37 = v36;
 
     v7 = v37;
@@ -4187,32 +1856,32 @@ LABEL_9:
   }
 }
 
-unint64_t specialized static NodeDef.Availability.MaterialXAttributeParser.parse(_:matchingUntil:)@<X0>(unint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X8>)
+unint64_t specialized static NodeDef.Availability.MaterialXAttributeParser.parse(_:matchingUntil:)@<X0>(unint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a5@<X8>)
 {
-  v3 = a3;
-  v4 = a2 >> 14;
+  v5 = a5;
+  v6 = a2 >> 14;
   if (a1 >> 14 >= a2 >> 14)
   {
-    v23 = 1;
-    v10 = a1 >> 14;
+    v25 = 1;
+    v12 = a1 >> 14;
 LABEL_9:
     result = Substring.subscript.getter();
-    if (v4 >= v10)
+    if (v6 >= v12)
     {
-      v14 = v11;
-      v15 = v12;
-      v16 = result;
-      v17 = v13;
+      v16 = v13;
+      v17 = v14;
+      v18 = result;
+      v19 = v15;
       result = Substring.subscript.getter();
-      *v3 = v16;
-      *(v3 + 8) = v14;
-      *(v3 + 16) = v15;
-      *(v3 + 24) = v17;
-      *(v3 + 32) = result;
-      *(v3 + 40) = v18;
-      *(v3 + 48) = v19;
-      *(v3 + 56) = v20;
-      *(v3 + 64) = v23 & 1;
+      *v5 = v18;
+      *(v5 + 8) = v16;
+      *(v5 + 16) = v17;
+      *(v5 + 24) = v19;
+      *(v5 + 32) = result;
+      *(v5 + 40) = v20;
+      *(v5 + 48) = v21;
+      *(v5 + 56) = v22;
+      *(v5 + 64) = v25 & 1;
       return result;
     }
 
@@ -4222,34 +1891,34 @@ LABEL_12:
 
   else
   {
-    v22 = a1 >> 14;
-    v5 = a1 >> 14;
+    v24 = a1 >> 14;
+    v7 = a1 >> 14;
     while (1)
     {
-      v6 = Substring.subscript.getter();
-      result = specialized Collection.first.getter(v6, v7);
+      v8 = Substring.subscript.getter();
+      result = specialized Collection.first.getter(v8, v9);
       if ((result & 0x100000000) != 0)
       {
         break;
       }
 
       result = CharacterSet.contains(_:)();
-      v9 = result;
+      v11 = result;
       if ((result & 1) == 0)
       {
         result = Substring.index(after:)();
-        v5 = result >> 14;
-        if (result >> 14 < v4)
+        v7 = result >> 14;
+        if (result >> 14 < v6)
         {
           continue;
         }
       }
 
-      if (v5 >= v22)
+      if (v7 >= v24)
       {
-        v23 = v9 ^ 1;
-        v10 = v5;
-        v3 = a3;
+        v25 = v11 ^ 1;
+        v12 = v7;
+        v5 = a5;
         goto LABEL_9;
       }
 
@@ -4266,16 +1935,15 @@ unint64_t specialized static NodeDef.Availability.MaterialXAttributeParser.nextT
 {
   v78 = a5;
   v10 = type metadata accessor for CharacterSet();
-  v11 = *(*(v10 - 8) + 64);
-  v12 = MEMORY[0x28223BE20](v10);
-  v13 = MEMORY[0x28223BE20](v12);
-  v15 = &v66 - v14;
-  v16 = MEMORY[0x28223BE20](v13);
+  MEMORY[0x28223BE20](v10);
+  MEMORY[0x28223BE20](v11);
+  v13 = &v66 - v12;
+  v18 = MEMORY[0x28223BE20](v14);
   v20 = &v66 - v19;
   v21 = a2 >> 14;
   if (a1 >> 14 == a2 >> 14)
   {
-    v75 = MEMORY[0x266771D20](0, 0xE000000000000000);
+    v75 = MEMORY[0x266771D20](0, 0xE000000000000000, v18);
     v23 = v22;
     v25 = v24;
     v27 = v26;
@@ -4299,10 +1967,10 @@ LABEL_28:
 
   v69 = (a1 >> 14);
   v70 = v5;
-  v71 = v18;
-  v72 = v16;
+  v71 = v17;
+  v72 = v15;
   v74 = a1;
-  v75 = v17;
+  v75 = v16;
   v76 = a3;
   v73 = a4;
   v33 = Substring.subscript.getter();
@@ -4399,7 +2067,7 @@ LABEL_37:
       v77[0] = &outlined read-only object #0 of static NodeDef.Availability.MaterialXAttributeParser.nextToken(in:);
       lazy protocol witness table accessor for type CharacterSet and conformance CharacterSet();
       __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays7UnicodeO6ScalarVGMd, &_sSays7UnicodeO6ScalarVGMR);
-      lazy protocol witness table accessor for type [String] and conformance [A](&lazy protocol witness table cache variable for type [Unicode.Scalar] and conformance [A], &_sSays7UnicodeO6ScalarVGMd, &_sSays7UnicodeO6ScalarVGMR);
+      lazy protocol witness table accessor for type [String] and conformance [A](&lazy protocol witness table cache variable for type [Unicode.Scalar] and conformance [A], &_sSays7UnicodeO6ScalarVGMd, &_sSays7UnicodeO6ScalarVGMR, MEMORY[0x277D83970]);
       v63 = v71;
       v64 = v72;
       dispatch thunk of SetAlgebra.init<A>(_:)();
@@ -4408,7 +2076,7 @@ LABEL_37:
       v65 = *(v75 + 8);
       v69 = v65;
       v65(v63, v64);
-      v65(v15, v64);
+      v65(v13, v64);
       specialized static NodeDef.Availability.MaterialXAttributeParser.parse(_:matchingUntil:)(v74, a2, v77);
       v23 = v77[1];
       v75 = v77[0];
@@ -4456,95 +2124,94 @@ LABEL_38:
 char *specialized static NodeDef.Availability.MaterialXAttributeParser.tokenize(_:)(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
-  v41 = type metadata accessor for CharacterSet();
-  v6 = *(v41 - 8);
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x28223BE20](v41);
-  v40 = &v37 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v40 = type metadata accessor for CharacterSet();
+  v6 = *(v40 - 8);
+  MEMORY[0x28223BE20](v40);
+  v39 = &v36 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v8);
-  v39 = &v37 - v10;
+  v38 = &v36 - v9;
 
-  v11 = MEMORY[0x266771D20](a1, a2);
-  v13 = v12;
-  v53 = v14;
-  v38 = (v6 + 8);
-  v15 = MEMORY[0x277D84F90];
+  v10 = MEMORY[0x266771D20](a1, a2);
+  v12 = v11;
+  v52 = v13;
+  v37 = (v6 + 8);
+  v14 = MEMORY[0x277D84F90];
   while (1)
   {
-    v44 = v15;
-    v45 = v3;
-    v16 = v39;
+    v43 = v14;
+    v44 = v3;
+    v15 = v38;
     static CharacterSet.whitespacesAndNewlines.getter();
-    v17 = v40;
+    v16 = v39;
     CharacterSet.inverted.getter();
-    v18 = *v38;
-    v19 = v41;
-    (*v38)(v16, v41);
-    specialized static NodeDef.Availability.MaterialXAttributeParser.parse(_:matchingUntil:)(v11, v13, v46);
+    v17 = *v37;
+    v18 = v40;
+    (*v37)(v15, v40);
+    specialized static NodeDef.Availability.MaterialXAttributeParser.parse(_:matchingUntil:)(v10, v12, v45);
+    v19 = v47;
+    v42 = v46;
     v20 = v48;
-    v43 = v47;
     v21 = v49;
     v22 = v50;
-    v23 = v51;
-    v42 = v52;
+    v41 = v51;
 
-    v18(v17, v19);
+    v17(v16, v18);
 
-    if (v42)
+    if (v41)
     {
-      v53 = v23;
-      v15 = v44;
+      v52 = v22;
+      v14 = v43;
 LABEL_11:
 
-      return v15;
+      return v14;
     }
 
-    v24 = v45;
-    specialized static NodeDef.Availability.MaterialXAttributeParser.nextToken(in:)(v20, v21, v22, v23, v46);
-    v3 = v24;
-    v15 = v44;
-    if (v24)
+    v23 = v44;
+    specialized static NodeDef.Availability.MaterialXAttributeParser.nextToken(in:)(v19, v20, v21, v22, v45);
+    v3 = v23;
+    v14 = v43;
+    if (v23)
     {
       break;
     }
 
-    v25 = v46[0];
-    v26 = v46[1];
-    v27 = v46[2];
-    v28 = v47;
-    v45 = v48;
-    v43 = v49;
-    v53 = v51;
-    v29 = v52;
+    v24 = v45[0];
+    v25 = v45[1];
+    v26 = v45[2];
+    v27 = v46;
+    v44 = v47;
+    v42 = v48;
+    v52 = v50;
+    v28 = v51;
 
-    v30 = MEMORY[0x2667714E0](v25, v26, v27, v28);
-    v32 = v31;
+    v29 = MEMORY[0x2667714E0](v24, v25, v26, v27);
+    v31 = v30;
 
     if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
     {
-      v15 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v15 + 2) + 1, 1, v15);
+      v14 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v14 + 2) + 1, 1, v14);
     }
 
-    v34 = *(v15 + 2);
-    v33 = *(v15 + 3);
-    if (v34 >= v33 >> 1)
+    v33 = *(v14 + 2);
+    v32 = *(v14 + 3);
+    if (v33 >= v32 >> 1)
     {
-      v15 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v33 > 1), v34 + 1, 1, v15);
+      v14 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v32 > 1), v33 + 1, 1, v14);
     }
 
-    *(v15 + 2) = v34 + 1;
-    v35 = &v15[16 * v34];
-    *(v35 + 4) = v30;
-    *(v35 + 5) = v32;
-    v11 = v45;
-    v13 = v43;
-    if (v29)
+    *(v14 + 2) = v33 + 1;
+    v34 = &v14[16 * v33];
+    *(v34 + 4) = v29;
+    *(v34 + 5) = v31;
+    v10 = v44;
+    v12 = v42;
+    if (v28)
     {
       goto LABEL_11;
     }
   }
 
-  return v15;
+  return v14;
 }
 
 unint64_t specialized NodeDef.Availability.Platform.init(rawValue:)(Swift::String string)
@@ -4943,572 +2610,569 @@ LABEL_95:
 uint64_t specialized NodeDef.Availability.PlatformVersion.init(versionString:)@<X0>(unint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17_StringProcessing5RegexV5MatchVySs_S2sSgA4Ft_GSgMd, &_s17_StringProcessing5RegexV5MatchVySs_S2sSgA4Ft_GSgMR);
-  v8 = *(*(v7 - 8) + 64);
   MEMORY[0x28223BE20](v7 - 8);
-  v10 = &v48 - v9;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17_StringProcessing5RegexV5MatchVySs_S2sSgA4Ft_GMd, &_s17_StringProcessing5RegexV5MatchVySs_S2sSgA4Ft_GMR);
-  v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
-  MEMORY[0x28223BE20](v11);
-  v58 = &v48 - v14;
+  v9 = &v46 - v8;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17_StringProcessing5RegexV5MatchVySs_S2sSgA4Ft_GMd, &_s17_StringProcessing5RegexV5MatchVySs_S2sSgA4Ft_GMR);
+  v11 = *(v10 - 8);
+  MEMORY[0x28223BE20](v10);
+  v56 = &v46 - v12;
   if (one-time initialization token for platformVersionRegex != -1)
   {
     swift_once();
   }
 
-  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17_StringProcessing5RegexVySs_S2sSgA4DtGMd, &_s17_StringProcessing5RegexVySs_S2sSgA4DtGMR);
-  __swift_project_value_buffer(v15, static NodeDef.Availability.PlatformVersion.platformVersionRegex);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17_StringProcessing5RegexVySs_S2sSgA4DtGMd, &_s17_StringProcessing5RegexVySs_S2sSgA4DtGMR);
+  __swift_project_value_buffer(v13, static NodeDef.Availability.PlatformVersion.platformVersionRegex);
   Regex.firstMatch(in:)();
   if (v3)
   {
   }
 
-  if ((*(v12 + 48))(v10, 1, v11) == 1)
+  if ((*(v11 + 48))(v9, 1, v10) == 1)
   {
-    outlined destroy of Regex<(Substring, Substring, Substring?, Substring?, Substring?, Substring?, Substring?)>.Match?(v10);
-    v57[0] = a1;
-    v57[1] = a2;
-    _s11ShaderGraph14MaterialXErrorOWOi_(v57);
+    outlined destroy of Regex<(Substring, Substring, Substring?, Substring?, Substring?, Substring?, Substring?)>.Match?(v9);
+    v55[0] = a1;
+    v55[1] = a2;
+    _s11ShaderGraph14MaterialXErrorOWOi_(v55);
     lazy protocol witness table accessor for type MaterialXError and conformance MaterialXError();
     swift_allocError();
-    memcpy(v17, v57, 0x140uLL);
+    memcpy(v15, v55, 0x140uLL);
     return swift_willThrow();
   }
 
-  v50 = a3;
-  v52 = v12;
-  (*(v12 + 32))(v58, v10, v11);
+  v48 = a3;
+  v50 = v11;
+  (*(v11 + 32))(v56, v9, v10);
   swift_getKeyPath();
   Regex.Match.subscript.getter();
 
-  v19 = v53;
+  v17 = v51;
+  v16 = v52;
   v18 = v54;
-  v20 = v56;
-  if (!((v54 ^ v53) >> 14))
+  if (!((v52 ^ v51) >> 14))
   {
 
     goto LABEL_12;
   }
 
-  v51 = v11;
-  v21 = v55;
-  v22 = _ss5SliceV32withContiguousStorageIfAvailableyqd__Sgqd__SRy7ElementQzGKXEKlFSRyxGq_s5Error_pRi_zRi0_zRi__Ri0__r0_lys5UInt8Vqd__Isgyrzo_ABySS8UTF8ViewVGADsAI_pAMRszr__lIetMggrzo_Tpq5SiSg_Tg5061_ss17FixedWidthIntegerPsE_5radixxSgqd___SitcSyRd__lufcADSRys5I15VGXEfU_Si_SsTG5SiTf1cn_n(v53, v54, v55, v56, 10);
-  if ((v23 & 0x100) == 0)
+  v49 = v10;
+  v19 = v53;
+  v20 = _ss5SliceV32withContiguousStorageIfAvailableyqd__Sgqd__SRy7ElementQzGKXEKlFSRyxGq_s5Error_pRi_zRi0_zRi__Ri0__r0_lys5UInt8Vqd__Isgyrzo_ABySS8UTF8ViewVGADsAI_pAMRszr__lIetMggrzo_Tpq5SiSg_Tg5061_ss17FixedWidthIntegerPsE_5radixxSgqd___SitcSyRd__lufcADSRys5I15VGXEfU_Si_SsTG5SiTf1cn_n(v51, v52, v53, v54, 10);
+  if ((v21 & 0x100) == 0)
   {
-    v24 = v23;
-    v49 = v22;
+    v22 = v21;
+    v47 = v20;
 
-    v11 = v51;
-    if ((v24 & 1) == 0)
+    v10 = v49;
+    if ((v22 & 1) == 0)
     {
       goto LABEL_13;
     }
 
 LABEL_12:
-    v57[0] = a1;
-    v57[1] = a2;
-    _s11ShaderGraph14MaterialXErrorOWOi_(v57);
+    v55[0] = a1;
+    v55[1] = a2;
+    _s11ShaderGraph14MaterialXErrorOWOi_(v55);
     lazy protocol witness table accessor for type MaterialXError and conformance MaterialXError();
     swift_allocError();
-    memcpy(v27, v57, 0x140uLL);
+    memcpy(v25, v55, 0x140uLL);
     swift_willThrow();
-    return (*(v52 + 8))(v58, v11);
+    return (*(v50 + 8))(v56, v10);
   }
 
-  v49 = specialized _parseInteger<A, B>(ascii:radix:)(v19, v18, v21, v20, 10);
-  v26 = v25;
+  v47 = specialized _parseInteger<A, B>(ascii:radix:)(v17, v16, v19, v18, 10);
+  v24 = v23;
 
-  v11 = v51;
-  if (v26)
+  v10 = v49;
+  if (v24)
   {
     goto LABEL_12;
   }
 
 LABEL_13:
-  v28 = v58;
+  v26 = v56;
 
   swift_getKeyPath();
   Regex.Match.subscript.getter();
 
-  v29 = v57[3];
-  if (v57[3])
+  v27 = v55[3];
+  if (v55[3])
   {
-    v30 = v57[0];
-    v31 = v57[1];
-    if ((v57[1] ^ v57[0]) >> 14)
+    v28 = v55[0];
+    v29 = v55[1];
+    if ((v55[1] ^ v55[0]) >> 14)
     {
-      v32 = v57[2];
-      v33 = _ss5SliceV32withContiguousStorageIfAvailableyqd__Sgqd__SRy7ElementQzGKXEKlFSRyxGq_s5Error_pRi_zRi0_zRi__Ri0__r0_lys5UInt8Vqd__Isgyrzo_ABySS8UTF8ViewVGADsAI_pAMRszr__lIetMggrzo_Tpq5SiSg_Tg5061_ss17FixedWidthIntegerPsE_5radixxSgqd___SitcSyRd__lufcADSRys5I15VGXEfU_Si_SsTG5SiTf1cn_n(v57[0], v57[1], v57[2], v57[3], 10);
-      LODWORD(v51) = v34;
-      if ((v34 & 0x100) != 0)
+      v30 = v55[2];
+      v31 = _ss5SliceV32withContiguousStorageIfAvailableyqd__Sgqd__SRy7ElementQzGKXEKlFSRyxGq_s5Error_pRi_zRi0_zRi__Ri0__r0_lys5UInt8Vqd__Isgyrzo_ABySS8UTF8ViewVGADsAI_pAMRszr__lIetMggrzo_Tpq5SiSg_Tg5061_ss17FixedWidthIntegerPsE_5radixxSgqd___SitcSyRd__lufcADSRys5I15VGXEfU_Si_SsTG5SiTf1cn_n(v55[0], v55[1], v55[2], v55[3], 10);
+      LODWORD(v49) = v32;
+      if ((v32 & 0x100) != 0)
       {
 
-        v35 = specialized _parseInteger<A, B>(ascii:radix:)(v30, v31, v32, v29, 10);
-        LODWORD(v30) = v37;
+        v33 = specialized _parseInteger<A, B>(ascii:radix:)(v28, v29, v30, v27, 10);
+        LODWORD(v28) = v35;
         swift_bridgeObjectRelease_n();
-        v28 = v58;
+        v26 = v56;
       }
 
       else
       {
-        v35 = v33;
+        v33 = v31;
 
-        v28 = v58;
-        LODWORD(v30) = v51;
+        v26 = v56;
+        LODWORD(v28) = v49;
       }
 
-      if (v30)
+      if (v28)
       {
-        v36 = 0;
+        v34 = 0;
       }
 
       else
       {
-        v36 = v35;
+        v34 = v33;
       }
     }
 
     else
     {
 
-      v36 = 0;
-      LODWORD(v30) = 1;
-      v28 = v58;
+      v34 = 0;
+      LODWORD(v28) = 1;
+      v26 = v56;
     }
   }
 
   else
   {
-    v36 = 0;
-    LODWORD(v30) = 1;
+    v34 = 0;
+    LODWORD(v28) = 1;
   }
 
   swift_getKeyPath();
   Regex.Match.subscript.getter();
 
-  v38 = v57[3];
-  if (v57[3])
+  v36 = v55[3];
+  if (v55[3])
   {
-    v48 = v36;
-    LODWORD(v51) = v30;
-    v39 = v57[0];
-    v30 = v57[1];
-    if ((v57[1] ^ v57[0]) >> 14)
+    v46 = v34;
+    LODWORD(v49) = v28;
+    v37 = v55[0];
+    v28 = v55[1];
+    if ((v55[1] ^ v55[0]) >> 14)
     {
-      v40 = v57[2];
-      v41 = _ss5SliceV32withContiguousStorageIfAvailableyqd__Sgqd__SRy7ElementQzGKXEKlFSRyxGq_s5Error_pRi_zRi0_zRi__Ri0__r0_lys5UInt8Vqd__Isgyrzo_ABySS8UTF8ViewVGADsAI_pAMRszr__lIetMggrzo_Tpq5SiSg_Tg5061_ss17FixedWidthIntegerPsE_5radixxSgqd___SitcSyRd__lufcADSRys5I15VGXEfU_Si_SsTG5SiTf1cn_n(v57[0], v57[1], v57[2], v57[3], 10);
-      if ((v42 & 0x100) != 0)
+      v38 = v55[2];
+      v39 = _ss5SliceV32withContiguousStorageIfAvailableyqd__Sgqd__SRy7ElementQzGKXEKlFSRyxGq_s5Error_pRi_zRi0_zRi__Ri0__r0_lys5UInt8Vqd__Isgyrzo_ABySS8UTF8ViewVGADsAI_pAMRszr__lIetMggrzo_Tpq5SiSg_Tg5061_ss17FixedWidthIntegerPsE_5radixxSgqd___SitcSyRd__lufcADSRys5I15VGXEfU_Si_SsTG5SiTf1cn_n(v55[0], v55[1], v55[2], v55[3], 10);
+      if ((v40 & 0x100) != 0)
       {
 
-        v45 = specialized _parseInteger<A, B>(ascii:radix:)(v39, v30, v40, v38, 10);
-        v43 = v47;
+        v43 = specialized _parseInteger<A, B>(ascii:radix:)(v37, v28, v38, v36, 10);
+        v41 = v45;
 
-        v44 = v50;
-        LOBYTE(v30) = v51;
-        v36 = v48;
+        v42 = v48;
+        LOBYTE(v28) = v49;
+        v34 = v46;
       }
 
       else
       {
-        v43 = v42;
-        v44 = v50;
-        LOBYTE(v30) = v51;
-        v36 = v48;
-        v45 = v41;
+        v41 = v40;
+        v42 = v48;
+        LOBYTE(v28) = v49;
+        v34 = v46;
+        v43 = v39;
       }
 
-      (*(v52 + 8))(v58, v11);
+      (*(v50 + 8))(v56, v10);
 
-      if (v43)
+      if (v41)
       {
-        v46 = 0;
+        v44 = 0;
       }
 
       else
       {
-        v46 = v45;
+        v44 = v43;
       }
     }
 
     else
     {
-      (*(v52 + 8))(v58, v11);
+      (*(v50 + 8))(v56, v10);
 
-      v46 = 0;
-      v43 = 1;
-      v44 = v50;
-      LOBYTE(v30) = v51;
-      v36 = v48;
+      v44 = 0;
+      v41 = 1;
+      v42 = v48;
+      LOBYTE(v28) = v49;
+      v34 = v46;
     }
   }
 
   else
   {
-    result = (*(v52 + 8))(v28, v11);
-    v46 = 0;
-    v43 = 1;
-    v44 = v50;
+    result = (*(v50 + 8))(v26, v10);
+    v44 = 0;
+    v41 = 1;
+    v42 = v48;
   }
 
-  *v44 = v49;
-  *(v44 + 8) = v36;
-  *(v44 + 16) = v30 & 1;
-  *(v44 + 24) = v46;
-  *(v44 + 32) = v43 & 1;
+  *v42 = v47;
+  *(v42 + 8) = v34;
+  *(v42 + 16) = v28 & 1;
+  *(v42 + 24) = v44;
+  *(v42 + 32) = v41 & 1;
   return result;
 }
 
 uint64_t specialized static NodeDef.Availability.MaterialXAttributeParser.createAvailabilities(platformAttributeTokens:)(uint64_t a1, uint64_t a2, int64_t a3, void *a4)
 {
   v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17_StringProcessing5RegexV5MatchVySs_S2sSgA4Ft_GSgMd, &_s17_StringProcessing5RegexV5MatchVySs_S2sSgA4Ft_GSgMR);
-  v10 = *(*(v9 - 8) + 64);
   MEMORY[0x28223BE20](v9 - 8);
-  v12 = (&v93 - v11);
-  v142 = a1;
-  v143 = a2;
-  v144 = a3;
-  v145 = a4;
-  v13 = specialized Collection<>.popFirst()();
-  if (!v14)
+  v11 = &v92 - v10;
+  v141 = a1;
+  v142 = a2;
+  v143 = a3;
+  v144 = a4;
+  v12 = specialized Collection<>.popFirst()();
+  if (!v13)
   {
-    _s11ShaderGraph14MaterialXErrorOWOi3_(v141);
+    _s11ShaderGraph14MaterialXErrorOWOi3_(v140);
     lazy protocol witness table accessor for type MaterialXError and conformance MaterialXError();
-    v24 = swift_allocError();
-    memcpy(v25, v141, 0x140uLL);
+    v23 = swift_allocError();
+    memcpy(v24, v140, 0x140uLL);
     swift_willThrow();
     swift_unknownObjectRetain();
     goto LABEL_99;
   }
 
+  v14 = v12;
   v15 = v13;
-  v16 = v14;
-  if (v13 == 42 && v14 == 0xE100000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  if (v12 == 42 && v13 == 0xE100000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
   {
     swift_unknownObjectRetain();
-    v17 = &outlined read-only object #0 of one-time initialization function for all;
+    v16 = &outlined read-only object #0 of one-time initialization function for all;
   }
 
   else
   {
     swift_unknownObjectRetain();
 
-    v163._countAndFlagsBits = v15;
-    v163._object = v16;
-    v31 = specialized NodeDef.Availability.Platform.init(rawValue:)(v163);
-    if (v31 == 6)
+    v162._countAndFlagsBits = v14;
+    v162._object = v15;
+    v30 = specialized NodeDef.Availability.Platform.init(rawValue:)(v162);
+    if (v30 == 6)
     {
-      v141[0] = v15;
-      v141[1] = v16;
-      _s11ShaderGraph14MaterialXErrorOWOi1_(v141);
+      v140[0] = v14;
+      v140[1] = v15;
+      _s11ShaderGraph14MaterialXErrorOWOi1_(v140);
       lazy protocol witness table accessor for type MaterialXError and conformance MaterialXError();
-      v24 = swift_allocError();
-      memcpy(v32, v141, 0x140uLL);
+      v23 = swift_allocError();
+      memcpy(v31, v140, 0x140uLL);
       swift_willThrow();
       goto LABEL_99;
     }
 
-    v33 = v31;
+    v32 = v30;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy11ShaderGraph7NodeDefV12AvailabilityV8PlatformOGMd, &_ss23_ContiguousArrayStorageCy11ShaderGraph7NodeDefV12AvailabilityV8PlatformOGMR);
-    v34 = swift_allocObject();
-    *(v34 + 16) = xmmword_265F1F670;
-    *(v34 + 32) = v33;
-    v17 = v34;
+    v33 = swift_allocObject();
+    *(v33 + 16) = xmmword_265F1F670;
+    *(v33 + 32) = v32;
+    v16 = v33;
   }
 
-  v18 = v144;
-  v132 = v145;
-  v19 = v145 >> 1;
-  v115 = v17;
-  if (v144 == v145 >> 1)
+  v17 = v143;
+  v131 = v144;
+  v18 = v144 >> 1;
+  v114 = v16;
+  if (v143 == v144 >> 1)
   {
     swift_beginAccess();
-    v113 = 0;
-    v114 = 0;
-    v20 = 0;
-    v21 = 0;
     v112 = 0;
-    v101 = 0;
-    v102 = 0;
-    v99 = 0;
-    v100 = 0;
-    v98 = 0;
-    v105 = 0;
-    v106 = 0;
-    v103 = 0;
-    v104 = 0;
-    v110 = 0;
+    v113 = 0;
+    v19 = 0;
+    v20 = 0;
     v111 = 0;
-    v108 = 0;
+    v100 = 0;
+    v101 = 0;
+    v98 = 0;
+    v99 = 0;
+    v97 = 0;
+    v104 = 0;
+    v105 = 0;
+    v102 = 0;
+    v103 = 0;
     v109 = 0;
-    v22 = 0;
-    v23 = 1;
-    v96 = 0;
-    v97 = 1;
-    v134 = 1;
+    v110 = 0;
+    v107 = 0;
+    v108 = 0;
+    v21 = 0;
+    v22 = 1;
+    v95 = 0;
+    v96 = 1;
+    v133 = 1;
 LABEL_87:
 
 LABEL_88:
-    v73 = v17[2];
-    if (v73)
+    v72 = v16[2];
+    if (v72)
     {
-      v140 = MEMORY[0x277D84F90];
-      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v73, 0);
-      v95 = v22;
-      v162 = v73 - 1;
-      v24 = v140;
-      v74 = 32;
-      v93 = v23 & 1;
-      v94 = v134 & 1;
-      v75 = v21;
-      v116 = v20;
-      v76 = v20;
-      if (v112)
+      v139 = MEMORY[0x277D84F90];
+      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v72, 0);
+      v94 = v21;
+      v161 = v72 - 1;
+      v23 = v139;
+      v73 = 32;
+      v92 = v22 & 1;
+      v93 = v133 & 1;
+      v74 = v20;
+      v115 = v19;
+      v75 = v19;
+      if (v111)
       {
         goto LABEL_91;
       }
 
 LABEL_90:
-      LODWORD(v134) = 0;
-      LOBYTE(v135) = v94;
-      v139 = v93;
-      v119 = v94 << 8;
-      v120 = v93 << 8;
-      v132 = v110;
-      v133 = v111;
+      LODWORD(v133) = 0;
+      LOBYTE(v134) = v93;
+      v138 = v92;
+      v118 = v93 << 8;
+      v119 = v92 << 8;
       v131 = v109;
-      v129 = v108;
-      v127 = v105;
-      *&v128 = v106;
-      LODWORD(v130) = v97 & 1;
-      v138 = v97 & 1;
-      v125 = v103;
+      v132 = v110;
+      v130 = v108;
+      v128 = v107;
       v126 = v104;
-      LOBYTE(v137[0]) = 0;
-      v123 = v101;
+      *&v127 = v105;
+      LODWORD(v129) = v96 & 1;
+      v137 = v96 & 1;
       v124 = v102;
-      v121 = v99;
+      v125 = v103;
+      LOBYTE(v136[0]) = 0;
       v122 = v100;
-      v118 = v98;
-      v77 = v95;
-      v117 = v96;
+      v123 = v101;
+      v120 = v98;
+      v121 = v99;
+      v117 = v97;
+      v76 = v94;
+      v116 = v95;
       while (1)
       {
-        v78 = v74;
-        v79 = *(v17 + v74);
-        v140 = v24;
-        v81 = *(v24 + 16);
-        v80 = *(v24 + 24);
+        v77 = v73;
+        v78 = *(v16 + v73);
+        v139 = v23;
+        v80 = *(v23 + 16);
+        v79 = *(v23 + 24);
 
-        if (v81 >= v80 >> 1)
+        if (v80 >= v79 >> 1)
         {
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v80 > 1), v81 + 1, 1);
-          v24 = v140;
+          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v79 > 1), v80 + 1, 1);
+          v23 = v139;
         }
 
-        *(v24 + 16) = v81 + 1;
-        v82 = v24 + 160 * v81;
-        *(v82 + 32) = v79;
-        v83 = v119 | v77;
-        v84 = v120 | v117;
-        v85 = *(v137 + 3);
-        v86 = v118 | (v130 << 8);
-        *(v82 + 33) = v137[0];
-        *(v82 + 36) = v85;
-        v87 = v132;
-        *(v82 + 40) = v133;
-        *(v82 + 48) = v87;
-        v88 = v129;
-        *(v82 + 56) = v131;
-        *(v82 + 64) = v88;
-        *(v82 + 72) = v83;
-        *(v82 + 80) = v128;
-        *(v82 + 88) = v127;
-        *(v82 + 96) = v126;
-        *(v82 + 104) = v125;
-        *(v82 + 112) = v84;
-        v89 = v123;
-        *(v82 + 120) = v124;
-        *(v82 + 128) = v89;
-        v90 = v121;
-        *(v82 + 136) = v122;
-        *(v82 + 144) = v90;
-        *(v82 + 152) = v86;
-        *(v82 + 154) = v134;
-        LODWORD(v90) = v135;
-        *(v82 + 159) = v136;
-        *(v82 + 155) = v90;
-        v91 = v113;
-        *(v82 + 160) = v114;
-        *(v82 + 168) = v75;
-        *(v82 + 176) = v91;
-        *(v82 + 184) = v76;
-        if (!v162)
+        *(v23 + 16) = v80 + 1;
+        v81 = v23 + 160 * v80;
+        *(v81 + 32) = v78;
+        v82 = v118 | v76;
+        v83 = v119 | v116;
+        v84 = *(v136 + 3);
+        v85 = v117 | (v129 << 8);
+        *(v81 + 33) = v136[0];
+        *(v81 + 36) = v84;
+        v86 = v131;
+        *(v81 + 40) = v132;
+        *(v81 + 48) = v86;
+        v87 = v128;
+        *(v81 + 56) = v130;
+        *(v81 + 64) = v87;
+        *(v81 + 72) = v82;
+        *(v81 + 80) = v127;
+        *(v81 + 88) = v126;
+        *(v81 + 96) = v125;
+        *(v81 + 104) = v124;
+        *(v81 + 112) = v83;
+        v88 = v122;
+        *(v81 + 120) = v123;
+        *(v81 + 128) = v88;
+        v89 = v120;
+        *(v81 + 136) = v121;
+        *(v81 + 144) = v89;
+        *(v81 + 152) = v85;
+        *(v81 + 154) = v133;
+        LODWORD(v89) = v134;
+        *(v81 + 159) = v135;
+        *(v81 + 155) = v89;
+        v90 = v112;
+        *(v81 + 160) = v113;
+        *(v81 + 168) = v74;
+        *(v81 + 176) = v90;
+        *(v81 + 184) = v75;
+        if (!v161)
         {
           break;
         }
 
-        --v162;
-        v74 = v78 + 1;
-        v17 = v115;
-        if ((v112 & 1) == 0)
+        --v161;
+        v73 = v77 + 1;
+        v16 = v114;
+        if ((v111 & 1) == 0)
         {
           goto LABEL_90;
         }
 
 LABEL_91:
-        v132 = 0;
-        v133 = 0;
         v131 = 0;
-        v129 = 0;
-        v127 = 0;
-        *&v128 = 0;
-        v125 = 0;
+        v132 = 0;
+        v130 = 0;
+        v128 = 0;
         v126 = 0;
-        v123 = 0;
+        *&v127 = 0;
         v124 = 0;
-        v121 = 0;
+        v125 = 0;
         v122 = 0;
-        v118 = 0;
-        LODWORD(v130) = 0;
-        v117 = 0;
-        v119 = 0;
+        v123 = 0;
         v120 = 0;
-        v77 = 0;
-        LODWORD(v134) = 1;
+        v121 = 0;
+        v117 = 0;
+        LODWORD(v129) = 0;
+        v116 = 0;
+        v118 = 0;
+        v119 = 0;
+        v76 = 0;
+        LODWORD(v133) = 1;
       }
     }
 
     else
     {
 
-      v24 = MEMORY[0x277D84F90];
+      v23 = MEMORY[0x277D84F90];
     }
 
 LABEL_99:
     swift_unknownObjectRelease();
-    return v24;
+    return v23;
   }
 
-  if (v144 >= (v145 >> 1))
+  if (v143 >= (v144 >> 1))
   {
     goto LABEL_105;
   }
 
-  if (__OFSUB__(v19, v144))
+  if (__OFSUB__(v18, v143))
   {
     goto LABEL_106;
   }
 
-  v133 = v143;
-  v134 = v145 >> 1;
-  v129 = v16;
-  if (v19 - v144 != 1)
+  v132 = v142;
+  v133 = v144 >> 1;
+  v128 = v15;
+  if (v18 - v143 != 1)
   {
     goto LABEL_21;
   }
 
-  v16 = v17;
-  v26 = (v143 + 16 * v144);
-  v4 = *v26;
-  v17 = v26[1];
-  v27 = one-time initialization token for platformVersionRegex;
+  v15 = v16;
+  v25 = (v142 + 16 * v143);
+  v4 = *v25;
+  v16 = v25[1];
+  v26 = one-time initialization token for platformVersionRegex;
 
-  if (v27 != -1)
+  if (v26 != -1)
   {
     goto LABEL_107;
   }
 
 LABEL_13:
-  v28 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17_StringProcessing5RegexVySs_S2sSgA4DtGMd, &_s17_StringProcessing5RegexVySs_S2sSgA4DtGMR);
-  __swift_project_value_buffer(v28, static NodeDef.Availability.PlatformVersion.platformVersionRegex);
-  v29 = v107;
+  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17_StringProcessing5RegexVySs_S2sSgA4DtGMd, &_s17_StringProcessing5RegexVySs_S2sSgA4DtGMR);
+  __swift_project_value_buffer(v27, static NodeDef.Availability.PlatformVersion.platformVersionRegex);
+  v28 = v106;
   Regex.wholeMatch(in:)();
-  if (v29)
+  if (v28)
   {
 
-    v30 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17_StringProcessing5RegexV5MatchVySs_S2sSgA4Ft_GMd, &_s17_StringProcessing5RegexV5MatchVySs_S2sSgA4Ft_GMR);
-    (*(*(v30 - 8) + 56))(v12, 1, 1, v30);
-    v107 = 0;
+    v29 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17_StringProcessing5RegexV5MatchVySs_S2sSgA4Ft_GMd, &_s17_StringProcessing5RegexV5MatchVySs_S2sSgA4Ft_GMR);
+    (*(*(v29 - 8) + 56))(v11, 1, 1, v29);
+    v106 = 0;
   }
 
   else
   {
-    v107 = 0;
-    v35 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17_StringProcessing5RegexV5MatchVySs_S2sSgA4Ft_GMd, &_s17_StringProcessing5RegexV5MatchVySs_S2sSgA4Ft_GMR);
-    if ((*(*(v35 - 8) + 48))(v12, 1, v35) != 1)
+    v106 = 0;
+    v34 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17_StringProcessing5RegexV5MatchVySs_S2sSgA4Ft_GMd, &_s17_StringProcessing5RegexV5MatchVySs_S2sSgA4Ft_GMR);
+    if ((*(*(v34 - 8) + 48))(v11, 1, v34) != 1)
     {
 
-      outlined destroy of Regex<(Substring, Substring, Substring?, Substring?, Substring?, Substring?, Substring?)>.Match?(v12);
-      v72 = v107;
-      specialized NodeDef.Availability.PlatformVersion.init(versionString:)(v4, v17, v146);
-      v107 = v72;
-      if (v72)
+      outlined destroy of Regex<(Substring, Substring, Substring?, Substring?, Substring?, Substring?, Substring?)>.Match?(v11);
+      v71 = v106;
+      specialized NodeDef.Availability.PlatformVersion.init(versionString:)(v4, v16, v145);
+      v106 = v71;
+      if (v71)
       {
         goto LABEL_110;
       }
 
+      v111 = 0;
       v112 = 0;
       v113 = 0;
-      v114 = 0;
+      v19 = 0;
       v20 = 0;
-      v21 = 0;
-      v101 = 0;
-      v102 = 0;
-      v99 = 0;
       v100 = 0;
+      v101 = 0;
       v98 = 0;
-      v105 = 0;
-      v106 = 0;
-      v103 = 0;
+      v99 = 0;
+      v97 = 0;
       v104 = 0;
-      v134 = 0;
-      v110 = v146[1];
-      v111 = v146[0];
-      v108 = v148;
-      v109 = v147;
-      v22 = v149;
-      v96 = 0;
-      v97 = 1;
-      v23 = 1;
-      v17 = v16;
+      v105 = 0;
+      v102 = 0;
+      v103 = 0;
+      v133 = 0;
+      v109 = v145[1];
+      v110 = v145[0];
+      v107 = v147;
+      v108 = v146;
+      v21 = v148;
+      v95 = 0;
+      v96 = 1;
+      v22 = 1;
+      v16 = v15;
       goto LABEL_88;
     }
   }
 
-  outlined destroy of Regex<(Substring, Substring, Substring?, Substring?, Substring?, Substring?, Substring?)>.Match?(v12);
+  outlined destroy of Regex<(Substring, Substring, Substring?, Substring?, Substring?, Substring?, Substring?)>.Match?(v11);
 LABEL_21:
-  v17 = v132;
-  v36 = 1;
+  v16 = v131;
+  v35 = 1;
   swift_beginAccess();
-  v12 = 0;
+  v11 = 0;
+  v107 = 0;
   v108 = 0;
   v109 = 0;
   v110 = 0;
-  v111 = 0;
-  v130 = 0;
+  v129 = 0;
+  v102 = 0;
   v103 = 0;
   v104 = 0;
   v105 = 0;
-  v106 = 0;
+  v97 = 0;
   v98 = 0;
   v99 = 0;
   v100 = 0;
   v101 = 0;
-  v102 = 0;
-  v112 = 0;
+  v111 = 0;
   v4 = 0;
+  v112 = 0;
   v113 = 0;
-  v114 = 0;
-  v116 = 0;
-  *&v37 = 136315138;
-  v128 = v37;
-  LODWORD(v131) = 1;
-  v97 = 1;
-  v39 = v133;
-  v38 = v134;
+  v115 = 0;
+  *&v36 = 136315138;
+  v127 = v36;
+  LODWORD(v130) = 1;
+  v96 = 1;
+  v38 = v132;
+  v37 = v133;
   while (1)
   {
-    if (v18 >= v38)
+    if (v17 >= v37)
     {
       __break(1u);
 LABEL_103:
@@ -5524,250 +3188,250 @@ LABEL_107:
       goto LABEL_13;
     }
 
-    v162 = v4;
-    v40 = (v39 + 16 * v18);
-    v41 = *v40;
-    v4 = v40[1];
-    v24 = v142;
-    v16 = v18 + 1;
-    v143 = v39;
-    v144 = v18 + 1;
-    v145 = v17;
-    if (v41 != 0x6375646F72746E69 || v4 != 0xEA00000000006465)
+    v161 = v4;
+    v39 = (v38 + 16 * v17);
+    v40 = *v39;
+    v4 = v39[1];
+    v23 = v141;
+    v15 = v17 + 1;
+    v142 = v38;
+    v143 = v17 + 1;
+    v144 = v16;
+    if (v40 != 0x6375646F72746E69 || v4 != 0xEA00000000006465)
     {
-      v43 = _stringCompareWithSmolCheck(_:_:expecting:)();
-      v39 = v133;
-      v38 = v134;
-      if ((v43 & 1) == 0)
+      v42 = _stringCompareWithSmolCheck(_:_:expecting:)();
+      v38 = v132;
+      v37 = v133;
+      if ((v42 & 1) == 0)
       {
         break;
       }
     }
 
-    if (v16 == v38)
+    if (v15 == v37)
     {
-      LOBYTE(v12) = 0;
+      LOBYTE(v11) = 0;
+      v107 = 0;
       v108 = 0;
       v109 = 0;
       v110 = 0;
-      v111 = 0;
-      v36 = 1;
+      v35 = 1;
       goto LABEL_85;
     }
 
-    if (v16 >= v38)
+    if (v15 >= v37)
     {
       goto LABEL_103;
     }
 
-    v44 = (v39 + 16 * v16);
-    v46 = *v44;
-    v45 = v44[1];
-    v16 = v18 + 2;
-    v142 = v24;
-    v143 = v39;
-    v144 = v18 + 2;
-    v145 = v17;
+    v43 = (v38 + 16 * v15);
+    v45 = *v43;
+    v44 = v43[1];
+    v15 = v17 + 2;
+    v141 = v23;
+    v142 = v38;
+    v143 = v17 + 2;
+    v144 = v16;
     swift_bridgeObjectRetain_n();
-    v47 = v107;
-    specialized NodeDef.Availability.PlatformVersion.init(versionString:)(v46, v45, v150);
-    if (v47)
+    v46 = v106;
+    specialized NodeDef.Availability.PlatformVersion.init(versionString:)(v45, v44, v149);
+    if (v46)
     {
       goto LABEL_80;
     }
 
-    v110 = v150[1];
-    v111 = v150[0];
-    v109 = v151;
-    v107 = 0;
-    v108 = v152;
-    v12 = v153;
+    v109 = v149[1];
+    v110 = v149[0];
+    v108 = v150;
+    v106 = 0;
+    v107 = v151;
+    v11 = v152;
 
-    v36 = 0;
+    v35 = 0;
 LABEL_32:
-    v4 = v162;
+    v4 = v161;
 LABEL_33:
-    v39 = v133;
-    v38 = v134;
+    v38 = v132;
+    v37 = v133;
 LABEL_34:
-    v18 = v16;
-    if (v16 == v38)
+    v17 = v15;
+    if (v15 == v37)
     {
       goto LABEL_86;
     }
   }
 
-  v48 = v41 == 0x7461636572706564 && v4 == 0xEA00000000006465;
-  if (v48 || (v49 = _stringCompareWithSmolCheck(_:_:expecting:)(), v39 = v133, v38 = v134, (v49 & 1) != 0))
+  v47 = v40 == 0x7461636572706564 && v4 == 0xEA00000000006465;
+  if (v47 || (v48 = _stringCompareWithSmolCheck(_:_:expecting:)(), v38 = v132, v37 = v133, (v48 & 1) != 0))
   {
-    if (v16 != v38)
+    if (v15 != v37)
     {
-      if (v16 >= v38)
+      if (v15 >= v37)
       {
         goto LABEL_104;
       }
 
-      v50 = (v39 + 16 * v16);
-      v52 = *v50;
-      v51 = v50[1];
-      v16 = v18 + 2;
-      v142 = v24;
-      v143 = v39;
-      v144 = v18 + 2;
-      v145 = v17;
+      v49 = (v38 + 16 * v15);
+      v51 = *v49;
+      v50 = v49[1];
+      v15 = v17 + 2;
+      v141 = v23;
+      v142 = v38;
+      v143 = v17 + 2;
+      v144 = v16;
       swift_bridgeObjectRetain_n();
-      v53 = v107;
-      specialized NodeDef.Availability.PlatformVersion.init(versionString:)(v52, v51, v154);
-      if (v53)
+      v52 = v106;
+      specialized NodeDef.Availability.PlatformVersion.init(versionString:)(v51, v50, v153);
+      if (v52)
       {
 LABEL_80:
         swift_unknownObjectRelease();
 
-        return v24;
+        return v23;
       }
 
-      v106 = v154[0];
-      v107 = 0;
-      v104 = v155;
-      v105 = v154[1];
-      v103 = v156;
-      v130 = v157;
+      v105 = v153[0];
+      v106 = 0;
+      v103 = v154;
+      v104 = v153[1];
+      v102 = v155;
+      v129 = v156;
 
-      LODWORD(v131) = 0;
-      v4 = v162;
-      v17 = v132;
+      LODWORD(v130) = 0;
+      v4 = v161;
+      v16 = v131;
       goto LABEL_33;
     }
 
-    v130 = 0;
+    v129 = 0;
+    v102 = 0;
     v103 = 0;
     v104 = 0;
     v105 = 0;
-    v106 = 0;
-    LODWORD(v131) = 1;
+    LODWORD(v130) = 1;
 LABEL_85:
-    v4 = v162;
+    v4 = v161;
 LABEL_86:
-    v134 = v36;
-    v22 = v12;
-    v21 = v4;
-    v96 = v130;
-    v17 = v115;
-    v20 = v116;
-    v23 = v131;
+    v133 = v35;
+    v21 = v11;
+    v20 = v4;
+    v95 = v129;
+    v16 = v114;
+    v19 = v115;
+    v22 = v130;
     goto LABEL_87;
   }
 
-  if (v41 != 0x6574656C6F73626FLL || v4 != 0xE900000000000064)
+  if (v40 != 0x6574656C6F73626FLL || v4 != 0xE900000000000064)
   {
-    v54 = _stringCompareWithSmolCheck(_:_:expecting:)();
-    v39 = v133;
-    v38 = v134;
-    if ((v54 & 1) == 0)
+    v53 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v38 = v132;
+    v37 = v133;
+    if ((v53 & 1) == 0)
     {
-      if (v41 == 0x64656D616E6572 && v4 == 0xE700000000000000 || (v59 = _stringCompareWithSmolCheck(_:_:expecting:)(), v39 = v133, v38 = v134, (v59 & 1) != 0))
+      if (v40 == 0x64656D616E6572 && v4 == 0xE700000000000000 || (v58 = _stringCompareWithSmolCheck(_:_:expecting:)(), v38 = v132, v37 = v133, (v58 & 1) != 0))
       {
-        if (v16 == v38)
+        if (v15 == v37)
         {
-          v114 = 0;
+          v113 = 0;
           v4 = 0;
-          v16 = v38;
+          v15 = v37;
         }
 
         else
         {
-          if (v16 >= v38)
+          if (v15 >= v37)
           {
             goto LABEL_108;
           }
 
-          v60 = (v39 + 16 * v16);
-          v4 = v60[1];
-          v114 = *v60;
-          v16 = v18 + 2;
-          v142 = v24;
-          v143 = v39;
-          v144 = v18 + 2;
-          v145 = v17;
+          v59 = (v38 + 16 * v15);
+          v4 = v59[1];
+          v113 = *v59;
+          v15 = v17 + 2;
+          v141 = v23;
+          v142 = v38;
+          v143 = v17 + 2;
+          v144 = v16;
         }
 
         goto LABEL_33;
       }
 
-      if (v41 == 0x6567617373656DLL && v4 == 0xE700000000000000 || (v61 = _stringCompareWithSmolCheck(_:_:expecting:)(), v39 = v133, v38 = v134, (v61 & 1) != 0))
+      if (v40 == 0x6567617373656DLL && v4 == 0xE700000000000000 || (v60 = _stringCompareWithSmolCheck(_:_:expecting:)(), v38 = v132, v37 = v133, (v60 & 1) != 0))
       {
-        if (v16 == v38)
+        if (v15 == v37)
         {
-          v113 = 0;
-          v62 = 0;
-          v16 = v38;
+          v112 = 0;
+          v61 = 0;
+          v15 = v37;
         }
 
         else
         {
-          if (v16 >= v38)
+          if (v15 >= v37)
           {
             goto LABEL_109;
           }
 
-          v63 = (v39 + 16 * v16);
-          v62 = v63[1];
-          v113 = *v63;
-          v16 = v18 + 2;
-          v142 = v24;
-          v143 = v39;
-          v144 = v18 + 2;
-          v145 = v17;
+          v62 = (v38 + 16 * v15);
+          v61 = v62[1];
+          v112 = *v62;
+          v15 = v17 + 2;
+          v141 = v23;
+          v142 = v38;
+          v143 = v17 + 2;
+          v144 = v16;
         }
 
-        v116 = v62;
+        v115 = v61;
       }
 
       else
       {
-        if (v41 == 0x616C696176616E75 && v4 == 0xEB00000000656C62)
+        if (v40 == 0x616C696176616E75 && v4 == 0xEB00000000656C62)
         {
-          v112 = 1;
-          v4 = v162;
+          v111 = 1;
+          v4 = v161;
           goto LABEL_34;
         }
 
         if (_stringCompareWithSmolCheck(_:_:expecting:)())
         {
-          v112 = 1;
+          v111 = 1;
         }
 
         else
         {
-          v64 = one-time initialization token for logger;
+          v63 = one-time initialization token for logger;
 
-          if (v64 != -1)
+          if (v63 != -1)
           {
             swift_once();
           }
 
-          v65 = type metadata accessor for Logger();
-          __swift_project_value_buffer(v65, logger);
+          v64 = type metadata accessor for Logger();
+          __swift_project_value_buffer(v64, logger);
 
-          v66 = Logger.logObject.getter();
-          v67 = static os_log_type_t.error.getter();
+          v65 = Logger.logObject.getter();
+          v66 = static os_log_type_t.error.getter();
 
-          if (os_log_type_enabled(v66, v67))
+          if (os_log_type_enabled(v65, v66))
           {
-            v68 = swift_slowAlloc();
-            LODWORD(v126) = v67;
-            v69 = v68;
-            v127 = swift_slowAlloc();
-            v140 = v127;
-            *v69 = v128;
-            v70 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v41, v4, &v140);
+            v67 = swift_slowAlloc();
+            LODWORD(v125) = v66;
+            v68 = v67;
+            v126 = swift_slowAlloc();
+            v139 = v126;
+            *v68 = v127;
+            v69 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v40, v4, &v139);
 
-            *(v69 + 4) = v70;
-            _os_log_impl(&dword_265D7D000, v66, v126, "Could not parse platform availability attribute '%s'.", v69, 0xCu);
-            v71 = v127;
-            __swift_destroy_boxed_opaque_existential_1Tm(v127);
-            MEMORY[0x266773120](v71, -1, -1);
-            MEMORY[0x266773120](v69, -1, -1);
+            *(v68 + 4) = v69;
+            _os_log_impl(&dword_265D7D000, v65, v125, "Could not parse platform availability attribute '%s'.", v68, 0xCu);
+            v70 = v126;
+            __swift_destroy_boxed_opaque_existential_1Tm(v126);
+            MEMORY[0x266773120](v70, -1, -1);
+            MEMORY[0x266773120](v68, -1, -1);
           }
 
           else
@@ -5780,46 +3444,46 @@ LABEL_86:
     }
   }
 
-  if (v16 == v38)
+  if (v15 == v37)
   {
+    v97 = 0;
     v98 = 0;
     v99 = 0;
     v100 = 0;
     v101 = 0;
-    v102 = 0;
-    v97 = 1;
+    v96 = 1;
     goto LABEL_85;
   }
 
-  v127 = v12;
-  if (v16 < v38)
+  v126 = v11;
+  if (v15 < v37)
   {
-    v55 = (v39 + 16 * v16);
-    v57 = *v55;
-    v56 = v55[1];
-    v16 = v18 + 2;
-    v142 = v24;
-    v143 = v39;
-    v144 = v18 + 2;
-    v145 = v17;
+    v54 = (v38 + 16 * v15);
+    v56 = *v54;
+    v55 = v54[1];
+    v15 = v17 + 2;
+    v141 = v23;
+    v142 = v38;
+    v143 = v17 + 2;
+    v144 = v16;
     swift_bridgeObjectRetain_n();
-    v58 = v107;
-    specialized NodeDef.Availability.PlatformVersion.init(versionString:)(v57, v56, v158);
-    if (v58)
+    v57 = v106;
+    specialized NodeDef.Availability.PlatformVersion.init(versionString:)(v56, v55, v157);
+    if (v57)
     {
       goto LABEL_80;
     }
 
-    v107 = 0;
-    v101 = v158[1];
-    v102 = v158[0];
-    v100 = v159;
-    v99 = v160;
-    v98 = v161;
+    v106 = 0;
+    v100 = v157[1];
+    v101 = v157[0];
+    v99 = v158;
+    v98 = v159;
+    v97 = v160;
 
-    v97 = 0;
-    v4 = v162;
-    v12 = v127;
+    v96 = 0;
+    v4 = v161;
+    v11 = v126;
     goto LABEL_33;
   }
 
@@ -5842,11 +3506,11 @@ uint64_t specialized static NodeDef.Availability.MaterialXAttributeParser.parse(
     return v3;
   }
 
-  v21[0] = 59;
-  v21[1] = 0xE100000000000000;
+  v20[0] = 59;
+  v20[1] = 0xE100000000000000;
   MEMORY[0x28223BE20](v4);
-  v20[2] = v21;
-  v6 = specialized Collection.split(maxSplits:omittingEmptySubsequences:whereSeparator:)(0x7FFFFFFFFFFFFFFFLL, 1, partial apply for specialized closure #1 in Sequence<>.contains(_:), v20, v5, v21);
+  v19[2] = v20;
+  v6 = specialized Collection.split(maxSplits:omittingEmptySubsequences:whereSeparator:)(0x7FFFFFFFFFFFFFFFLL, 1, partial apply for specialized closure #1 in Sequence<>.contains(_:), v19, v5, v20);
   v7 = *(v6 + 16);
   if (!v7)
   {
@@ -5858,32 +3522,31 @@ LABEL_11:
     return v3;
   }
 
-  v21[0] = MEMORY[0x277D84F90];
+  v20[0] = MEMORY[0x277D84F90];
   result = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v7, 0);
   v9 = 0;
-  v10 = v21[0];
+  v10 = v20[0];
   v11 = (v6 + 56);
   while (v9 < *(v6 + 16))
   {
-    v13 = *(v11 - 3);
     v12 = *(v11 - 2);
-    v14 = *(v11 - 1);
-    v15 = *v11;
-    v16 = swift_unknownObjectRetain();
-    v17 = specialized static NodeDef.Availability.MaterialXAttributeParser.createAvailabilities(platformAttributeTokens:)(v16, v12, v14, v15);
+    v13 = *(v11 - 1);
+    v14 = *v11;
+    v15 = swift_unknownObjectRetain();
+    v16 = specialized static NodeDef.Availability.MaterialXAttributeParser.createAvailabilities(platformAttributeTokens:)(v15, v12, v13, v14);
     result = swift_unknownObjectRelease();
-    v21[0] = v10;
-    v19 = *(v10 + 16);
-    v18 = *(v10 + 24);
-    if (v19 >= v18 >> 1)
+    v20[0] = v10;
+    v18 = *(v10 + 16);
+    v17 = *(v10 + 24);
+    if (v18 >= v17 >> 1)
     {
-      result = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v18 > 1), v19 + 1, 1);
-      v10 = v21[0];
+      result = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v17 > 1), v18 + 1, 1);
+      v10 = v20[0];
     }
 
     ++v9;
-    *(v10 + 16) = v19 + 1;
-    *(v10 + 8 * v19 + 32) = v17;
+    *(v10 + 16) = v18 + 1;
+    *(v10 + 8 * v18 + 32) = v16;
     v11 += 4;
     if (v7 == v9)
     {
@@ -6069,35 +3732,10 @@ uint64_t specialized static NodeDef.available(for:in:)(unsigned __int8 a1, uint6
   outlined init with copy of NodeDef.Availability(&v45, &v41);
 
 LABEL_50:
-  if (BYTE10(v51))
+  if (BYTE10(v51) & 1) != 0 || (v22 = *(&v45 + 1), v24 = v46, v23 = v47, v25 = BYTE8(v47), v26 = BYTE9(v47), v27 = v48, v28 = v49, v29 = v50[0], v30 = v50[1], (BYTE9(v51) & 1) == 0) && (v33 = v48, v41 = *&v50[8], v42 = v50[24] & 1, v43 = v51, v44 = BYTE8(v51) & 1, v31 = specialized static NodeDef.Availability.PlatformVersion.< infix(_:_:)(&v41, a2), v27 = v33, (v31))
   {
-    goto LABEL_51;
-  }
-
-  v22 = *(&v45 + 1);
-  v24 = v46;
-  v23 = v47;
-  v25 = BYTE8(v47);
-  v26 = BYTE9(v47);
-  v27 = v48;
-  v28 = v49;
-  v29 = v50[0];
-  v30 = v50[1];
-  if ((BYTE9(v51) & 1) == 0)
-  {
-    v33 = v48;
-    v41 = *&v50[8];
-    v42 = v50[24] & 1;
-    v43 = v51;
-    v44 = BYTE8(v51) & 1;
-    v31 = specialized static NodeDef.Availability.PlatformVersion.< infix(_:_:)(&v41, a2);
-    v27 = v33;
-    if (v31)
-    {
-LABEL_51:
-      outlined destroy of NodeDef.Availability(&v45);
-      return 0;
-    }
+    outlined destroy of NodeDef.Availability(&v45);
+    return 0;
   }
 
   if ((v30 & 1) != 0 || (v54 = v27, v55 = v28 & 1, v56 = *(&v28 + 1), v57 = v29 & 1, (specialized static NodeDef.Availability.PlatformVersion.< infix(_:_:)(&v54, a2) & 1) == 0))
@@ -6625,9 +4263,6 @@ uint64_t OrderedSet.UnorderedView._base.getter(uint64_t a1)
 
 uint64_t OrderedSet.UnorderedView._base.setter(uint64_t a1, uint64_t a2)
 {
-  v5 = *v2;
-
-  v6 = v2[1];
 
   *v2 = a1;
   v2[1] = a2;
@@ -6637,20 +4272,17 @@ uint64_t OrderedSet.UnorderedView._base.setter(uint64_t a1, uint64_t a2)
 uint64_t key path setter for OrderedSet.unordered : <A>OrderedSet<A>(uint64_t *a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
   v5 = *(a3 + a4 - 16);
-  v6 = *(a3 + a4 - 8);
-  v7 = *a1;
-  v8 = a1[1];
-  v9 = *a2;
-  v10 = a2[1];
+  v6 = *a1;
+  v7 = a1[1];
 
-  v11 = OrderedSet.init()(v5);
-  v13 = v12;
+  v8 = OrderedSet.init()(v5);
+  v10 = v9;
 
-  *a2 = v11;
-  a2[1] = v13;
-  v15[0] = v7;
-  v15[1] = v8;
-  $defer #1 <A>() in OrderedSet.__unstable.modify(a2, v15);
+  *a2 = v8;
+  a2[1] = v10;
+  v12[0] = v6;
+  v12[1] = v7;
+  $defer #1 <A>() in OrderedSet.__unstable.modify(a2, v12);
 }
 
 void (*OrderedSet.unordered.modify(void *a1, uint64_t a2))(uint64_t **a1)
@@ -6681,119 +4313,96 @@ void (*OrderedSet.unordered.modify(void *a1, uint64_t a2))(uint64_t **a1)
 
 uint64_t OrderedSet.unordered.setter(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = *v3;
-  v7 = v3[1];
-  v8 = *(a3 + 24);
-  v9 = OrderedSet.init()(*(a3 + 16));
-  v11 = v10;
+  v6 = OrderedSet.init()(*(a3 + 16));
+  v8 = v7;
 
-  *v3 = v9;
-  v3[1] = v11;
-  v13[0] = a1;
-  v13[1] = a2;
-  $defer #1 <A>() in OrderedSet.__unstable.modify(v3, v13);
+  *v3 = v6;
+  v3[1] = v8;
+  v10[0] = a1;
+  v10[1] = a2;
+  $defer #1 <A>() in OrderedSet.__unstable.modify(v3, v10);
 }
 
-uint64_t OrderedSet.UnorderedView.debugDescription.getter()
+uint64_t OrderedSet.UnorderedView.debugDescription.getter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   _StringGuts.grow(_:)(16);
-  v0 = specialized OrderedSet._debugTypeName()();
-  v2 = v1;
+  v5 = specialized OrderedSet._debugTypeName()(a3);
+  v7 = v6;
 
   MEMORY[0x266771550](0x726564726F6E552ELL, 0xEE00776569566465);
-  v3._countAndFlagsBits = v0;
-  v3._object = v2;
-  countAndFlagsBits = OrderedSet._debugDescription(typeName:)(v3)._countAndFlagsBits;
+  v8._countAndFlagsBits = v5;
+  v8._object = v7;
+  countAndFlagsBits = OrderedSet._debugDescription(typeName:)(v8)._countAndFlagsBits;
 
   return countAndFlagsBits;
 }
 
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance OrderedSet<A>.UnorderedView(uint64_t a1)
+uint64_t OrderedSet.UnorderedView.customMirror.getter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v3 = *v1;
-  v2 = v1[1];
-  v4 = *(a1 + 16);
-  v5 = *(a1 + 24);
-  return OrderedSet.UnorderedView.debugDescription.getter();
-}
-
-uint64_t OrderedSet.UnorderedView.customMirror.getter(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for Mirror.AncestorRepresentation();
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  v7 = v16 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6MirrorV12DisplayStyleOSgMd, &_ss6MirrorV12DisplayStyleOSgMR);
-  v9 = *(*(v8 - 8) + 64);
+  v8 = type metadata accessor for Mirror.AncestorRepresentation();
   MEMORY[0x28223BE20](v8 - 8);
-  v11 = v16 - v10;
-  v16[2] = a1;
-  v16[3] = a2;
-  v16[1] = a2;
-  v12 = *MEMORY[0x277D84BF0];
-  v13 = type metadata accessor for Mirror.DisplayStyle();
-  v14 = *(v13 - 8);
-  (*(v14 + 104))(v11, v12, v13);
-  (*(v14 + 56))(v11, 0, 1, v13);
-  type metadata accessor for OrderedSet.UnorderedView();
+  v10 = v19 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6MirrorV12DisplayStyleOSgMd, &_ss6MirrorV12DisplayStyleOSgMR);
+  MEMORY[0x28223BE20](v11 - 8);
+  v13 = v19 - v12;
+  v19[2] = a1;
+  v19[3] = a2;
+  v19[1] = a2;
+  v14 = *MEMORY[0x277D84BF0];
+  v15 = type metadata accessor for Mirror.DisplayStyle();
+  v16 = *(v15 - 8);
+  (*(v16 + 104))(v13, v14, v15);
+  (*(v16 + 56))(v13, 0, 1, v15);
+  type metadata accessor for OrderedSet.UnorderedView(0, a3, a4, v17);
   type metadata accessor for ContiguousArray();
   swift_getWitnessTable();
-  default argument 3 of Mirror.init<A, B>(_:unlabeledChildren:displayStyle:ancestorRepresentation:)(v7);
+  default argument 3 of Mirror.init<A, B>(_:unlabeledChildren:displayStyle:ancestorRepresentation:)(v10);
 
   swift_retain_n();
   return Mirror.init<A, B>(_:unlabeledChildren:displayStyle:ancestorRepresentation:)();
 }
 
-uint64_t protocol witness for CustomReflectable.customMirror.getter in conformance OrderedSet<A>.UnorderedView(uint64_t a1)
+BOOL static OrderedSet.UnorderedView.== infix(_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v2 = *(a1 + 16);
-  v3 = *(a1 + 24);
-  return OrderedSet.UnorderedView.customMirror.getter(*v1, v1[1]);
-}
-
-uint64_t static OrderedSet.UnorderedView.== infix(_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
-{
-  v23 = a6;
+  v22 = a6;
   v10 = *(a5 - 8);
-  v11 = *(v10 + 64);
   MEMORY[0x28223BE20](a1);
-  v14 = &v22 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  if (v12 && a3 && v12 == a3)
+  v13 = &v21 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  if (v11 && a3 && v11 == a3)
   {
     return 1;
   }
 
-  v16 = ContiguousArray.count.getter();
-  if (v16 != ContiguousArray.count.getter())
+  v15 = ContiguousArray.count.getter();
+  if (v15 != ContiguousArray.count.getter())
   {
     return 0;
   }
 
-  v17 = 0;
-  v18 = *(a2 + 16);
-  v19 = (v10 + 8);
+  v16 = 0;
+  v17 = *(a2 + 16);
+  v18 = (v10 + 8);
   do
   {
-    v15 = v18 == v17;
-    if (v18 == v17)
+    v14 = v17 == v16;
+    if (v17 == v16)
     {
       break;
     }
 
     ContiguousArray.subscript.getter();
-    ++v17;
-    v20 = OrderedSet.contains(_:)(v14, a3, a4, a5, v23);
-    (*v19)(v14, a5);
+    ++v16;
+    v19 = OrderedSet.contains(_:)(v13, a3, a4, a5, v22);
+    (*v18)(v13, a5);
   }
 
-  while (v20);
-  return v15;
+  while (v19);
+  return v14;
 }
 
-uint64_t OrderedSet.UnorderedView.hash(into:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t OrderedSet.UnorderedView.hash(into:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v6 = *(a4 - 8);
-  v7 = *(v6 + 64);
+  v7 = *(a4 - 8);
   MEMORY[0x28223BE20](a1);
   v9 = v20 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v11 = v10[3];
@@ -6811,7 +4420,7 @@ uint64_t OrderedSet.UnorderedView.hash(into:)(uint64_t a1, uint64_t a2, uint64_t
   {
     v15 = 0;
     v16 = 0;
-    v17 = (v6 + 8);
+    v17 = (v7 + 8);
     do
     {
       ContiguousArray.subscript.getter();
@@ -6832,18 +4441,17 @@ uint64_t OrderedSet.UnorderedView.hash(into:)(uint64_t a1, uint64_t a2, uint64_t
   return MEMORY[0x266772770](v15);
 }
 
-Swift::Int OrderedSet.UnorderedView.hashValue.getter(uint64_t a1, uint64_t a2, uint64_t a3)
+Swift::Int OrderedSet.UnorderedView.hashValue.getter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   Hasher.init(_seed:)();
-  OrderedSet.UnorderedView.hash(into:)(v7, v5, a2, a3);
+  OrderedSet.UnorderedView.hash(into:)(v9, v7, a2, a3, a4);
   return Hasher._finalize()();
 }
 
 Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance OrderedSet<A>.UnorderedView(uint64_t a1, uint64_t a2)
 {
   Hasher.init(_seed:)();
-  v4 = *(a2 + 24);
-  OrderedSet.UnorderedView.hash(into:)(v7, v5, *(v2 + 8), *(a2 + 16));
+  OrderedSet.UnorderedView.hash(into:)(v6, v4, *(v2 + 8), *(a2 + 16), *(a2 + 24));
   return Hasher._finalize()();
 }
 
@@ -6870,14 +4478,13 @@ uint64_t protocol witness for ExpressibleByArrayLiteral.init(arrayLiteral:) in c
 
 uint64_t protocol witness for SetAlgebra.init() in conformance OrderedSet<A>.UnorderedView@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
-  v3 = *(a1 + 24);
   result = OrderedSet.init()(*(a1 + 16));
   *a2 = result;
-  a2[1] = v5;
+  a2[1] = v4;
   return result;
 }
 
-uint64_t protocol witness for SetAlgebra.union(_:) in conformance OrderedSet<A>.UnorderedView@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
+uint64_t protocol witness for SetAlgebra.union(_:) in conformance OrderedSet<A>.UnorderedView@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
 {
   v5 = specialized OrderedSet.UnorderedView.union(_:)(*a1, a1[1], *v3, v3[1], *(a2 + 16), *(a2 + 24));
   v7 = v6;
@@ -6911,93 +4518,79 @@ uint64_t OrderedSet.UnorderedView.intersection(_:)(uint64_t a1, uint64_t a2, uin
   return v6;
 }
 
-uint64_t OrderedSet.UnorderedView.insert(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t OrderedSet.UnorderedView.insert(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v6 = *(a3 + 16);
-  v5 = *(a3 + 24);
-  v7 = type metadata accessor for OrderedSet();
-  v8 = OrderedSet._append(_:)(a2, v7);
-  v9 = *(v3 + 8);
+  v5 = *(a3 + 16);
+  v6 = type metadata accessor for OrderedSet(0, v5, *(a3 + 24), a4);
+  v7 = OrderedSet._append(_:)(a2, v6);
   ContiguousArray.subscript.getter();
-  (*(*(v6 - 8) + 8))(a2, v6);
-  return v8 & 1;
+  (*(*(v5 - 8) + 8))(a2, v5);
+  return v7 & 1;
 }
 
-uint64_t protocol witness for SetAlgebra.remove(_:) in conformance OrderedSet<A>.UnorderedView@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t protocol witness for SetAlgebra.remove(_:) in conformance OrderedSet<A>.UnorderedView@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X3>, uint64_t a4@<X8>)
 {
-  v6 = *(a2 + 16);
-  v5 = *(a2 + 24);
-  v7 = type metadata accessor for OrderedSet();
+  v6 = type metadata accessor for OrderedSet(0, *(a2 + 16), *(a2 + 24), a3);
 
-  return OrderedSet.remove(_:)(a1, v7, a3);
+  return OrderedSet.remove(_:)(a1, v6, a4);
 }
 
-uint64_t OrderedSet.UnorderedView.remove(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t OrderedSet.UnorderedView.remove(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X3>, uint64_t a4@<X8>)
 {
-  v6 = *(a2 + 16);
-  v5 = *(a2 + 24);
-  v7 = type metadata accessor for OrderedSet();
+  v6 = type metadata accessor for OrderedSet(0, *(a2 + 16), *(a2 + 24), a3);
 
-  return OrderedSet.remove(_:)(a1, v7, a3);
+  return OrderedSet.remove(_:)(a1, v6, a4);
 }
 
-uint64_t OrderedSet.UnorderedView.update(with:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t OrderedSet.UnorderedView.update(with:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>, uint64_t a4@<X3>)
 {
   v7 = *(a2 + 16);
-  v6 = *(a2 + 24);
-  v8 = type metadata accessor for OrderedSet();
+  v8 = type metadata accessor for OrderedSet(0, v7, *(a2 + 24), a4);
   if (OrderedSet._append(_:)(a1, v8))
   {
-    v17 = *(v7 - 8);
-    (*(v17 + 8))(a1, v7);
+    v15 = *(v7 - 8);
+    (*(v15 + 8))(a1, v7);
     v10 = 1;
   }
 
   else
   {
     v11 = v9;
-    v12 = *(v3 + 8);
     ContiguousArray.subscript.getter();
-    v13 = type metadata accessor for ContiguousArray();
+    type metadata accessor for ContiguousArray();
     ContiguousArray._makeMutableAndUnique()();
-    v14 = *(v3 + 8);
+    v12 = *(v4 + 8);
     ContiguousArray._checkSubscript_mutating(_:)(v11);
-    v17 = *(v7 - 8);
-    (*(v17 + 40))(v14 + ((*(v17 + 80) + 32) & ~*(v17 + 80)) + *(v17 + 72) * v11, a1, v7);
-    destructiveProjectEnumData for NodePersonality.ShaderType(v13);
+    v15 = *(v7 - 8);
+    (*(v15 + 40))(v12 + ((*(v15 + 80) + 32) & ~*(v15 + 80)) + *(v15 + 72) * v11, a1, v7);
+    destructiveProjectEnumData for NodePersonality.ShaderType();
     v10 = 0;
   }
 
-  v15 = *(v17 + 56);
+  v13 = *(v15 + 56);
 
-  return v15(a3, v10, 1, v7);
+  return v13(a3, v10, 1, v7);
 }
 
-uint64_t protocol witness for SetAlgebra.formUnion(_:) in conformance OrderedSet<A>.UnorderedView(uint64_t *a1, uint64_t a2)
+uint64_t protocol witness for SetAlgebra.formUnion(_:) in conformance OrderedSet<A>.UnorderedView(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = *a1;
-  v3 = a1[1];
-  v5 = *(a2 + 16);
-  v4 = *(a2 + 24);
-  v6 = type metadata accessor for OrderedSet();
-  specialized OrderedSet.formUnion(_:)(v2, v3, v6);
+  v4 = *a1;
+  v5 = a1[1];
+  v6 = type metadata accessor for OrderedSet(0, *(a2 + 16), *(a2 + 24), a4);
+  specialized OrderedSet.formUnion(_:)(v4, v5, v6);
 }
 
-uint64_t OrderedSet.UnorderedView.formUnion(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t OrderedSet.UnorderedView.formUnion(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v5 = *(a3 + 16);
-  v6 = *(a3 + 24);
-  v7 = type metadata accessor for OrderedSet();
-  specialized OrderedSet.formUnion(_:)(a1, a2, v7);
+  v6 = type metadata accessor for OrderedSet(0, *(a3 + 16), *(a3 + 24), a4);
+  specialized OrderedSet.formUnion(_:)(a1, a2, v6);
 }
 
 uint64_t OrderedSet.UnorderedView.formIntersection(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t, uint64_t, uint64_t))
 {
-  v6 = *(a3 + 16);
-  v7 = *(a3 + 24);
-  v8 = type metadata accessor for OrderedSet();
+  v6 = type metadata accessor for OrderedSet(0, *(a3 + 16), *(a3 + 24), a4);
 
-  return a4(a1, a2, v8);
+  return a4(a1, a2, v6);
 }
 
 uint64_t protocol witness for SetAlgebra.symmetricDifference(_:) in conformance OrderedSet<A>.UnorderedView@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t (*a3)(void, void, void, void, void, void)@<X3>, uint64_t *a4@<X8>)
@@ -7008,98 +4601,91 @@ uint64_t protocol witness for SetAlgebra.symmetricDifference(_:) in conformance 
   return result;
 }
 
-uint64_t OrderedSet.UnorderedView.subtracting(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t OrderedSet.UnorderedView.subtracting(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v9[0] = a1;
-  v9[1] = a2;
-  type metadata accessor for OrderedSet();
+  v12[0] = a1;
+  v12[1] = a2;
+  v10 = type metadata accessor for OrderedSet(0, a5, a6, a4);
   swift_getWitnessTable();
-  return OrderedSet._subtracting<A>(_:)(v9, a3, a4, a5);
+  return OrderedSet._subtracting<A>(_:)(v12, a3, a4, a5, v10, a6);
 }
 
-uint64_t protocol witness for SetAlgebra.init<A>(_:) in conformance OrderedSet<A>.UnorderedView@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X3>, uint64_t *a4@<X8>)
+uint64_t protocol witness for SetAlgebra.init<A>(_:) in conformance OrderedSet<A>.UnorderedView@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t *a5@<X8>)
 {
-  v8 = *(a2 - 8);
-  v9 = *(v8 + 64);
-  v10 = MEMORY[0x28223BE20](a1);
-  v12 = &v17 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v8 + 16))(v12, a1, a2, v10);
-  v13 = OrderedSet.init<A>(_:)(v12, *(a3 + 16), a2, *(a3 + 24));
-  v15 = v14;
-  result = (*(v8 + 8))(a1, a2);
-  *a4 = v13;
-  a4[1] = v15;
+  v10 = *(a2 - 8);
+  v11 = MEMORY[0x28223BE20](a1);
+  v13 = &v18 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v10 + 16))(v13, a1, a2, v11);
+  v14 = OrderedSet.init<A>(_:)(v13, *(a4 + 16), a2, *(a4 + 24), a3);
+  v16 = v15;
+  result = (*(v10 + 8))(a1, a2);
+  *a5 = v14;
+  a5[1] = v16;
+  return result;
+}
+
+uint64_t OrderedSet.UnorderedView.init<A>(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v10 = *(a3 - 8);
+  v11 = MEMORY[0x28223BE20](a1);
+  v13 = &v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v10 + 16))(v13, a1, v11);
+  v14 = OrderedSet.init<A>(_:)(v13, a2, a3, a4, a5);
+  (*(v10 + 8))(a1, a3);
+  return v14;
+}
+
+uint64_t OrderedSet.UnorderedView.subtract(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v5 = *v4;
+  v6 = v4[1];
+  v12[0] = a1;
+  v12[1] = a2;
+  v7 = *(a3 + 16);
+  v8 = *(a3 + 24);
+  v9 = type metadata accessor for OrderedSet(0, v7, v8, a4);
+  swift_getWitnessTable();
+  result = OrderedSet._subtracting<A>(_:)(v12, v5, v6, v7, v9, v8);
+  *v4 = result;
+  v4[1] = v11;
   return result;
 }
 
 uint64_t OrderedSet.UnorderedView.init<A>(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v8 = *(a3 - 8);
-  v9 = *(v8 + 64);
-  v10 = MEMORY[0x28223BE20](a1);
-  v12 = &v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v8 + 16))(v12, a1, v10);
-  v13 = OrderedSet.init<A>(_:)(v12, a2, a3, a4);
-  (*(v8 + 8))(a1, a3);
-  return v13;
-}
+  v4 = specialized OrderedSet.init<A>(_:)(a1, a2, a3, a4);
 
-uint64_t OrderedSet.UnorderedView.subtract(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v4 = *v3;
-  v5 = v3[1];
-  v10[0] = a1;
-  v10[1] = a2;
-  v6 = *(a3 + 16);
-  v7 = *(a3 + 24);
-  type metadata accessor for OrderedSet();
-  swift_getWitnessTable();
-  result = OrderedSet._subtracting<A>(_:)(v10, v4, v5, v6);
-  *v3 = result;
-  v3[1] = v9;
-  return result;
-}
-
-uint64_t OrderedSet.UnorderedView.init<A>(_:)()
-{
-  v0 = specialized OrderedSet.init<A>(_:)();
-
-  return v0;
+  return v4;
 }
 
 uint64_t OrderedSet.UnorderedView.formIntersection<A>(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v8 = *(a2 + 16);
-  v7 = *(a2 + 24);
-  v9 = type metadata accessor for OrderedSet();
+  v7 = type metadata accessor for OrderedSet(0, *(a2 + 16), *(a2 + 24), a4);
 
-  return OrderedSet.formIntersection<A>(_:)(a1, v9, a3, a4);
+  return OrderedSet.formIntersection<A>(_:)(a1, v7, a3, a4);
 }
 
-uint64_t OrderedSet.UnorderedView.union<A>(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t (*a8)(void))
+uint64_t OrderedSet.UnorderedView.union<A>(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t (*a8)(uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t))
 {
-  v10 = a8();
+  v10 = a8(a1, a2, a3, a4, a5, a6, a7);
   (*(*(a5 - 8) + 8))(a1, a5);
   return v10;
 }
 
 uint64_t OrderedSet.UnorderedView.formUnion<A>(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void (*a5)(uint64_t, uint64_t, uint64_t, uint64_t))
 {
-  v10 = *(a2 + 16);
-  v9 = *(a2 + 24);
-  v11 = type metadata accessor for OrderedSet();
-  a5(a1, v11, a3, a4);
-  v12 = *(*(a3 - 8) + 8);
+  v9 = type metadata accessor for OrderedSet(0, *(a2 + 16), *(a2 + 24), a4);
+  a5(a1, v9, a3, a4);
+  v10 = *(*(a3 - 8) + 8);
 
-  return v12(a1, a3);
+  return v10(a1, a3);
 }
 
-uint64_t OrderedSet.UnorderedView.subtract<A>(_:)(uint64_t a1, uint64_t a2)
+uint64_t OrderedSet.UnorderedView.subtract<A>(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v3 = *(a2 + 24);
-  result = OrderedSet._subtracting<A>(_:)(a1, *v2, v2[1], *(a2 + 16));
-  *v2 = result;
-  v2[1] = v5;
+  result = OrderedSet._subtracting<A>(_:)(a1, *v4, v4[1], *(a2 + 16), a3, *(a2 + 24));
+  *v4 = result;
+  v4[1] = v6;
   return result;
 }
 
@@ -7123,7 +4709,7 @@ __n128 sub_265E92A84(__n128 *a1, __n128 *a2)
   return result;
 }
 
-uint64_t type metadata instantiation function for OrderedSet.UnorderedView()
+uint64_t type metadata instantiation function for OrderedSet.UnorderedView(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
@@ -7169,13 +4755,6 @@ BOOL OrderedSet.contains(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4,
   return (v11 & 1) == 0;
 }
 
-uint64_t partial apply for closure #1 in OrderedSet._find_inlined(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  v4 = v3[2];
-  v5 = v3[5];
-  return closure #1 in OrderedSet._find_inlined(_:)(a1, a2, v3[4], v3[6], v3[3], a3);
-}
-
 uint64_t ShaderGraphNode.materialXNodeDefName.getter()
 {
   if (*v0 >> 61 != 5)
@@ -7184,7 +4763,6 @@ uint64_t ShaderGraphNode.materialXNodeDefName.getter()
   }
 
   v1 = *((*v0 & 0x1FFFFFFFFFFFFFFFLL) + 0x10);
-  v2 = *((*v0 & 0x1FFFFFFFFFFFFFFFLL) + 0x18);
 
   return v1;
 }
@@ -7197,10 +4775,9 @@ uint64_t ShaderGraphNode.constantStringValue.getter()
     return 0;
   }
 
-  v3 = *(v1 + 16);
-  v2 = *(v1 + 24);
+  v2 = *(v1 + 16);
 
-  return v3;
+  return v2;
 }
 
 uint64_t ShaderGraphNode.constant.getter@<X0>(uint64_t a1@<X8>)
@@ -7248,26 +4825,21 @@ uint64_t ShaderGraphNode.constant.getter@<X0>(uint64_t a1@<X8>)
 uint64_t RESurfaceShaderFunctionNode.functionName.getter()
 {
   v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
 
   return v1;
 }
 
 uint64_t RESurfaceShaderFunctionNode.paramsInput.getter()
 {
-  v1 = v0[4];
-  v2 = v0[5];
-  v3 = v0[6];
+  v1 = *(v0 + 32);
 
   return v1;
 }
 
 uint64_t RESurfaceShaderFunctionNode.uniformsInput.getter()
 {
-  v1 = v0[7];
-  v2 = v0[8];
-  v3 = v0[9];
-  outlined copy of (name: String, type: MetalDataType)?(v1, v2);
+  v1 = *(v0 + 56);
+  outlined copy of (name: String, type: MetalDataType)?(v1, *(v0 + 64));
   return v1;
 }
 
@@ -7341,30 +4913,15 @@ void *RESurfaceShaderFunctionNode.init(id:named:paramsInput:uniformsInput:)(uint
   return v9;
 }
 
-uint64_t RESurfaceShaderFunctionNode.id.setter(uint64_t a1)
-{
-  result = swift_beginAccess();
-  *(v1 + 88) = a1;
-  return result;
-}
-
-uint64_t RESurfaceShaderFunctionNode.inputs.getter()
-{
-  swift_beginAccess();
-  v1 = *(v0 + 96);
-}
-
 uint64_t RESurfaceShaderFunctionNode.inputs.setter(uint64_t a1)
 {
   swift_beginAccess();
-  v3 = *(v1 + 96);
   *(v1 + 96) = a1;
 }
 
 uint64_t RESurfaceShaderFunctionNode.debugLabel.getter()
 {
   v1 = *(v0 + 104);
-  v2 = *(v0 + 112);
 
   return v1;
 }
@@ -7623,38 +5180,18 @@ uint64_t closure #1 in closure #2 in RESurfaceShaderFunctionNode.generateMetalSo
   return v20(&v31, 0);
 }
 
-void *RESurfaceShaderFunctionNode.deinit()
+uint64_t *RESurfaceShaderFunctionNode.deinit()
 {
-  v1 = v0[3];
 
-  v3 = v0[5];
-  v2 = v0[6];
-
-  v4 = v0[9];
-  outlined consume of (name: String, type: MetalDataType)?(v0[7], v0[8]);
-  v5 = v0[10];
-
-  v6 = v0[12];
-
-  v7 = v0[14];
+  outlined consume of (name: String, type: MetalDataType)?(v0[7], v0[8], v0[9]);
 
   return v0;
 }
 
 uint64_t RESurfaceShaderFunctionNode.__deallocating_deinit()
 {
-  v1 = v0[3];
 
-  v3 = v0[5];
-  v2 = v0[6];
-
-  v4 = v0[9];
-  outlined consume of (name: String, type: MetalDataType)?(v0[7], v0[8]);
-  v5 = v0[10];
-
-  v6 = v0[12];
-
-  v7 = v0[14];
+  outlined consume of (name: String, type: MetalDataType)?(v0[7], v0[8], v0[9]);
 
   return swift_deallocClassInstance();
 }
@@ -7666,47 +5203,23 @@ uint64_t protocol witness for MetalFunctionNode.id.getter in conformance RESurfa
   return *(v1 + 88);
 }
 
-uint64_t protocol witness for MetalFunctionNode.id.setter in conformance RESurfaceShaderFunctionNode(uint64_t a1)
+void protocol witness for MetalFunctionNode.id.setter in conformance RESurfaceShaderFunctionNode(uint64_t a1)
 {
   v3 = *v1;
-  result = swift_beginAccess();
+  swift_beginAccess();
   *(v3 + 88) = a1;
-  return result;
-}
-
-uint64_t (*protocol witness for MetalFunctionNode.id.modify in conformance RESurfaceShaderFunctionNode())()
-{
-  v1 = *v0;
-  swift_beginAccess();
-  return XMLParserDelegate.Element.children.modify;
-}
-
-uint64_t protocol witness for MetalFunctionNode.inputs.getter in conformance RESurfaceShaderFunctionNode()
-{
-  v1 = *v0;
-  swift_beginAccess();
-  v2 = *(v1 + 96);
 }
 
 uint64_t protocol witness for MetalFunctionNode.inputs.setter in conformance RESurfaceShaderFunctionNode(uint64_t a1)
 {
   v3 = *v1;
   swift_beginAccess();
-  v4 = *(v3 + 96);
   *(v3 + 96) = a1;
-}
-
-uint64_t (*protocol witness for MetalFunctionNode.inputs.modify in conformance RESurfaceShaderFunctionNode())()
-{
-  v1 = *v0;
-  swift_beginAccess();
-  return XMLParserDelegate.Element.children.modify;
 }
 
 uint64_t protocol witness for HasDebugLabel.debugLabel.getter in conformance RESurfaceShaderFunctionNode()
 {
   v1 = *(*v0 + 104);
-  v2 = *(*v0 + 112);
 
   return v1;
 }
@@ -7733,21 +5246,19 @@ uint64_t partial apply for closure #2 in RESurfaceShaderFunctionNode.generateMet
   return result;
 }
 
-uint64_t outlined consume of (name: String, type: MetalDataType)?(uint64_t a1, uint64_t a2)
+void outlined consume of (name: String, type: MetalDataType)?(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a2)
   {
   }
-
-  return result;
 }
 
-uint64_t OrderedSet.init(minimumCapacity:persistent:)(Swift::Int a1, Swift::Bool a2, uint64_t a3)
+uint64_t OrderedSet.init(minimumCapacity:persistent:)(Swift::Int a1, Swift::Bool a2, uint64_t a3, uint64_t a4)
 {
-  v6 = OrderedSet.init()(a3);
-  type metadata accessor for OrderedSet();
+  v10 = OrderedSet.init()(a3);
+  type metadata accessor for OrderedSet(0, a3, a4, v8);
   OrderedSet._reserveCapacity(_:persistent:)(a1, a2);
-  return v6;
+  return v10;
 }
 
 Swift::Void __swiftcall OrderedSet._reserveCapacity(_:persistent:)(Swift::Int _, Swift::Bool persistent)
@@ -7758,58 +5269,53 @@ Swift::Void __swiftcall OrderedSet._reserveCapacity(_:persistent:)(Swift::Int _,
     goto LABEL_20;
   }
 
-  v4 = v3;
-  v5 = v2;
-  v8 = *(v2 + 16);
+  v3 = v2;
   type metadata accessor for ContiguousArray();
   ContiguousArray.reserveCapacity(_:)(_);
-  v10 = *v3;
-  v9 = v3[1];
-  v11 = *(v5 + 24);
-  v12 = OrderedSet._scale.getter(*v3);
-  v13 = specialized static _HashTable.scale(forCapacity:)(_);
-  v14 = v13;
+  v6 = *v2;
+  v7 = OrderedSet._scale.getter(*v2);
+  v8 = specialized static _HashTable.scale(forCapacity:)(_);
+  v9 = v8;
   if (!persistent)
   {
-    v14 = OrderedSet._reservedScale.getter(v10);
+    v9 = OrderedSet._reservedScale.getter(v6);
   }
 
-  if (v12 >= v13)
+  if (v7 >= v8)
   {
-    v16 = ContiguousArray.count.getter();
-    v15 = specialized static _HashTable.scale(forCapacity:)(v16);
-    if (v14 <= v13)
+    v11 = ContiguousArray.count.getter();
+    v10 = specialized static _HashTable.scale(forCapacity:)(v11);
+    if (v9 <= v8)
     {
-      v17 = v13;
+      v12 = v8;
     }
 
     else
     {
-      v17 = v14;
+      v12 = v9;
     }
 
-    if (v15 <= v17)
+    if (v10 <= v12)
     {
-      v15 = v17;
+      v10 = v12;
     }
 
-    if (v15 < v12)
+    if (v10 < v7)
     {
       goto LABEL_12;
     }
 
     OrderedSet._ensureUnique()();
-    v19 = *v4;
-    v18 = v4[1];
-    if (OrderedSet._reservedScale.getter(*v4) == v14)
+    v13 = *v3;
+    if (OrderedSet._reservedScale.getter(*v3) == v9)
     {
       return;
     }
 
-    if (v19)
+    if (v13)
     {
       swift_beginAccess();
-      *(v19 + 24) = *(v19 + 24) & 0xFFFFFFFFFFFFFFC0 | v14 & 0x3F;
+      *(v13 + 24) = *(v13 + 24) & 0xFFFFFFFFFFFFFFC0 | v9 & 0x3F;
       return;
     }
 
@@ -7818,10 +5324,10 @@ LABEL_20:
     return;
   }
 
-  v15 = v13;
+  v10 = v8;
 LABEL_12:
 
-  OrderedSet._regenerateHashTable(scale:reservedScale:)(v15, v14);
+  OrderedSet._regenerateHashTable(scale:reservedScale:)(v10, v9);
 }
 
 uint64_t *MetalDataType.re.surface_parameters_private.unsafeMutableAddressor()
@@ -9368,7 +6874,7 @@ uint64_t *MetalDataType.re.geometry_modifier_private.geometry_private.unsafeMuta
   return &static MetalDataType.re.geometry_modifier_private.geometry_private;
 }
 
-uint64_t one-time initialization function for BlendFactor()
+void *one-time initialization function for BlendFactor()
 {
   result = specialized MetalDataType.Enum.__allocating_init(note:typeName:types:)(0x614620646E656C42, 0xEC000000726F7463, 0x636146646E656C42, 0xEB00000000726F74, &outlined read-only object #0 of one-time initialization function for BlendFactor);
   static MetalDataType.BlendFactor = result;
@@ -9385,7 +6891,7 @@ uint64_t *MetalDataType.BlendFactor.unsafeMutableAddressor()
   return &static MetalDataType.BlendFactor;
 }
 
-uint64_t one-time initialization function for BlendOperation()
+void *one-time initialization function for BlendOperation()
 {
   result = specialized MetalDataType.Enum.__allocating_init(note:typeName:types:)(0x704F20646E656C42, 0xEF6E6F6974617265, 0x65704F646E656C42, 0xEE006E6F69746172, &outlined read-only object #0 of one-time initialization function for BlendOperation);
   static MetalDataType.BlendOperation = result;
@@ -9402,7 +6908,7 @@ uint64_t *MetalDataType.BlendOperation.unsafeMutableAddressor()
   return &static MetalDataType.BlendOperation;
 }
 
-uint64_t one-time initialization function for CompareFunction()
+void *one-time initialization function for CompareFunction()
 {
   result = specialized MetalDataType.Enum.__allocating_init(note:typeName:types:)(0xD000000000000010, 0x8000000265F32900, 0x46657261706D6F43, 0xEF6E6F6974636E75, &outlined read-only object #0 of one-time initialization function for CompareFunction);
   static MetalDataType.CompareFunction = result;
@@ -9558,10 +7064,10 @@ uint64_t specialized Sequence.compactMap<A>(_:)(uint64_t result, uint64_t a2, ui
   return result;
 }
 
-unint64_t specialized Graph.edge(to:)@<X0>(unint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+void specialized Graph.edge(to:)(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v3 = *result;
-  if ((*result & 0x8000000000000000) != 0)
+  v3 = *a1;
+  if (*a1 < 0)
   {
     __break(1u);
     goto LABEL_25;
@@ -9575,8 +7081,7 @@ LABEL_25:
     goto LABEL_26;
   }
 
-  v5 = result;
-  v7 = *(result + 8);
+  v7 = a1[1];
   v8 = a2 + 32;
   v9 = (a2 + 32 + 88 * v3);
   v10 = v9[8];
@@ -9586,31 +7091,31 @@ LABEL_25:
   v14 = *(v11 + 16);
   if (v10)
   {
-    result = specialized _HashTable.UnsafeHandle._find<A>(_:in:)(*(result + 8), v13, v14, v10 + 16, v10 + 32);
-    if (v15)
+    v15 = specialized _HashTable.UnsafeHandle._find<A>(_:in:)(a1[1], v13, v14, v10 + 16, v10 + 32);
+    if (v16)
     {
-      v16 = 0;
+      v17 = 0;
       v3 = 0;
       v7 = 0;
-      v17 = 0;
       v18 = 0;
-      v19 = 0uLL;
+      v19 = 0;
+      v20 = 0uLL;
 LABEL_16:
-      v21 = 0uLL;
       v22 = 0uLL;
+      v23 = 0uLL;
 LABEL_17:
-      *a3 = v19;
-      *(a3 + 16) = v16;
-      *(a3 + 24) = v21;
+      *a3 = v20;
+      *(a3 + 16) = v17;
+      *(a3 + 24) = v22;
       *(a3 + 40) = v3;
       *(a3 + 48) = v7;
-      *(a3 + 56) = v17;
-      *(a3 + 64) = v22;
-      *(a3 + 80) = v18;
-      return result;
+      *(a3 + 56) = v18;
+      *(a3 + 64) = v23;
+      *(a3 + 80) = v19;
+      return;
     }
 
-    if ((result & 0x8000000000000000) == 0)
+    if ((v15 & 0x8000000000000000) == 0)
     {
       goto LABEL_12;
     }
@@ -9620,87 +7125,87 @@ LABEL_26:
     goto LABEL_27;
   }
 
-  v19 = 0uLL;
+  v20 = 0uLL;
   if (!v14)
   {
 LABEL_14:
-    v16 = 0;
+    v17 = 0;
     v3 = 0;
     v7 = 0;
-    v17 = 0;
-LABEL_15:
     v18 = 0;
+LABEL_15:
+    v19 = 0;
     goto LABEL_16;
   }
 
-  result = 0;
-  while (*(v13 + 8 * result) != v7)
+  v15 = 0;
+  while (*(v13 + 8 * v15) != v7)
   {
-    if (v14 == ++result)
+    if (v14 == ++v15)
     {
       goto LABEL_14;
     }
   }
 
 LABEL_12:
-  if (result >= *(v12 + 16))
+  if (v15 >= *(v12 + 16))
   {
 LABEL_27:
     __break(1u);
     goto LABEL_28;
   }
 
-  v20 = v12 + 24 * result;
-  v19 = 0uLL;
-  if (*(v20 + 48))
+  v21 = v12 + 24 * v15;
+  v20 = 0uLL;
+  if (*(v21 + 48))
   {
     goto LABEL_14;
   }
 
-  v23 = *(v20 + 32);
-  if (v23 < v4)
+  v24 = *(v21 + 32);
+  if (v24 < v4)
   {
-    v24 = (v8 + 88 * v23);
-    v17 = v24[4];
-    if (v17)
+    v25 = (v8 + 88 * v24);
+    v18 = v25[4];
+    if (v18)
     {
-      v26 = v24[2];
-      v25 = v24[3];
-      v28 = *v24;
-      v27 = v24[1];
-      specialized Graph.Node.subscript.getter(*(v20 + 40), *v24, v26, &v32);
-      v16 = v33;
-      v30 = v32;
-      v31 = v34;
+      v27 = v25[2];
+      v26 = v25[3];
+      v29 = *v25;
+      v28 = v25[1];
+      specialized Graph.Node.subscript.getter(*(v21 + 40), *v25, v27, &v33);
+      v17 = v34;
+      v31 = v33;
+      v32 = v35;
 
-      result = outlined consume of Graph<SGDataTypeGraph.Personality>.Node?(v28, v27, v26, v25, v17);
-      if (v31)
+      outlined consume of Graph<SGDataTypeGraph.Personality>.Node?(v29, v28, v27, v26, v18);
+      if (v32)
       {
-        v17 = *(v5 + 16);
-        v29 = *(v5 + 24);
-        v18 = *(v5 + 40);
+        v18 = a1[2];
+        v30 = *(a1 + 3);
+        v19 = *(a1 + 40);
 
-        v22 = v29;
-        v19 = v30;
-        v21 = v31;
+        v23 = v30;
+        v20 = v31;
+        v22 = v32;
       }
 
       else
       {
-        v16 = 0;
+        v17 = 0;
         v3 = 0;
         v7 = 0;
-        v17 = 0;
         v18 = 0;
-        v21 = 0uLL;
+        v19 = 0;
         v22 = 0uLL;
-        v19 = 0uLL;
+        v23 = 0uLL;
+        v20 = 0uLL;
       }
 
       goto LABEL_17;
     }
 
-    v16 = 0;
+    v17 = 0;
     v3 = 0;
     v7 = 0;
     goto LABEL_15;
@@ -9708,15 +7213,14 @@ LABEL_27:
 
 LABEL_28:
   __break(1u);
-  return result;
 }
 
-uint64_t specialized SGDataTypeGraph.TopologicalSort.path(to:on:resolvingInput:)@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, void *a4@<X3>, char **a5@<X8>)
+uint64_t specialized SGDataTypeGraph.TopologicalSort.path(to:on:resolvingInput:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, void *a4@<X3>, char **a5@<X8>)
 {
-  v224 = a4;
-  v189 = a5;
+  v212 = a4;
+  v177 = a5;
   v6 = a3[1];
-  v234 = *a3;
+  v222 = *a3;
   v8 = a3[2];
   v7 = a3[3];
   v9 = a3[4];
@@ -9726,128 +7230,128 @@ uint64_t specialized SGDataTypeGraph.TopologicalSort.path(to:on:resolvingInput:)
   v13 = a3[8];
   v14 = a3[9];
   v15 = a3[10];
-  v231 = v12;
-  v232 = v10;
-  v207 = v6;
-  v233 = v9;
+  v219 = v12;
+  v220 = v10;
+  v195 = v6;
+  v221 = v9;
   if (v9)
   {
     v16 = v14;
     v17 = v13;
     v18 = v11;
-    specialized Graph.Node<>.input(named:)(a1, a2, v234, v8, v295);
-    v211 = v295[1];
-    v212 = v295[0];
-    v19 = v295[3];
-    v209 = v295[4];
-    v210 = v295[2];
-    v208 = v296;
+    specialized Graph.Node<>.input(named:)(a1, a2, v222, v8, v283);
+    v199 = v283[1];
+    v200 = v283[0];
+    v19 = v283[3];
+    v197 = v283[4];
+    v198 = v283[2];
+    v196 = v284;
     v20 = a3[8];
-    v214 = a3[10];
-    v215 = v20;
-    v223 = *(a3 + 72);
+    v202 = a3[10];
+    v203 = v20;
+    v211 = *(a3 + 72);
     v21 = a3[6];
-    v216 = a3[7];
-    v217 = v21;
+    v204 = a3[7];
+    v205 = v21;
     v22 = *a3;
-    v221 = a3[1];
-    v222 = v22;
+    v209 = a3[1];
+    v210 = v22;
     v23 = a3[2];
-    v219 = a3[3];
-    v220 = v23;
+    v207 = a3[3];
+    v208 = v23;
     v10 = a3[5];
-    v218 = a3[4];
+    v206 = a3[4];
   }
 
   else
   {
-    v211 = 0;
-    v212 = 0;
-    v209 = 0;
-    v210 = 0;
+    v199 = 0;
+    v200 = 0;
+    v197 = 0;
+    v198 = 0;
     v19 = 0;
-    v208 = 0;
-    v218 = 0;
-    v219 = v7;
-    v220 = v8;
-    v221 = v6;
-    v222 = v234;
-    v216 = v12;
-    v217 = v11;
+    v196 = 0;
+    v206 = 0;
+    v207 = v7;
+    v208 = v8;
+    v209 = v6;
+    v210 = v222;
+    v204 = v12;
+    v205 = v11;
     v18 = v11;
     v16 = v14;
-    v223 = v14;
+    v211 = v14;
     v17 = v13;
-    v214 = v15;
-    v215 = v13;
+    v202 = v15;
+    v203 = v13;
   }
 
-  outlined init with copy of SGDataTypeGraph.TopologicalSort.Element(a3, v294);
-  v188 = a3;
-  outlined init with copy of SGDataTypeGraph.TopologicalSort.Element(a3, v294);
-  v186 = 0;
-  v202 = MEMORY[0x277D84F90];
-  v187 = v10;
-  v213 = v10;
-  v24 = v231;
-  v25 = v232;
+  outlined init with copy of SGDataTypeGraph.TopologicalSort.Element(a3, v282);
+  v176 = a3;
+  outlined init with copy of SGDataTypeGraph.TopologicalSort.Element(a3, v282);
+  v174 = 0;
+  v190 = MEMORY[0x277D84F90];
+  v175 = v10;
+  v201 = v10;
+  v24 = v219;
+  v25 = v220;
   v26 = v18;
   v27 = v17;
   v28 = v16;
-  v29 = v207;
+  v29 = v195;
   v30 = v19;
-  v31 = v233;
+  v31 = v221;
   while (1)
   {
-    *&v288 = v222;
-    *(&v288 + 1) = v221;
-    *&v289 = v220;
-    *(&v289 + 1) = v219;
-    *&v290 = v218;
-    *(&v290 + 1) = v213;
-    *&v291 = v217;
-    *(&v291 + 1) = v216;
-    *&v292 = v215;
-    BYTE8(v292) = v223 & 1;
-    v293 = v214;
-    v294[0] = v234;
-    v294[1] = v29;
-    v294[2] = v8;
-    v294[3] = v7;
-    v294[4] = v31;
-    v294[5] = v25;
+    *&v276 = v210;
+    *(&v276 + 1) = v209;
+    *&v277 = v208;
+    *(&v277 + 1) = v207;
+    *&v278 = v206;
+    *(&v278 + 1) = v201;
+    *&v279 = v205;
+    *(&v279 + 1) = v204;
+    *&v280 = v203;
+    BYTE8(v280) = v211 & 1;
+    v281 = v202;
+    v282[0] = v222;
+    v282[1] = v29;
+    v282[2] = v8;
+    v282[3] = v7;
+    v282[4] = v31;
+    v282[5] = v25;
     v32 = v26;
-    v294[6] = v26;
-    v230 = v27;
-    v231 = v24;
-    v294[7] = v24;
-    v294[8] = v27;
-    v229 = v28;
-    v294[9] = v28;
+    v282[6] = v26;
+    v218 = v27;
+    v219 = v24;
+    v282[7] = v24;
+    v282[8] = v27;
+    v217 = v28;
+    v282[9] = v28;
     v33 = v15;
-    v294[10] = v15;
-    v232 = v25;
-    v233 = v31;
+    v282[10] = v15;
+    v220 = v25;
+    v221 = v31;
     if (!v31)
     {
 
-      goto LABEL_81;
+      goto LABEL_74;
     }
 
     if (!v30)
     {
-      goto LABEL_81;
+      goto LABEL_74;
     }
 
     v34 = v8;
     v35 = v29;
-    v306[0] = v212;
-    v306[1] = v211;
-    v306[2] = v210;
-    v306[3] = v30;
-    v306[4] = v209;
-    v307 = v208 & 1;
-    v36 = v224[1];
+    v294[0] = v200;
+    v294[1] = v199;
+    v294[2] = v198;
+    v294[3] = v30;
+    v294[4] = v197;
+    v295 = v196 & 1;
+    v36 = v212[1];
     if (!*(v36 + 16))
     {
       break;
@@ -9860,749 +7364,700 @@ uint64_t specialized SGDataTypeGraph.TopologicalSort.path(to:on:resolvingInput:)
       break;
     }
 
-    v226 = v7;
-    v227 = v34;
+    v214 = v7;
+    v215 = v34;
     v40 = v35;
-    v228 = v33;
-    v225 = v37;
+    v216 = v33;
+    v213 = v37;
     v41 = (*(v36 + 56) + 48 * v38);
     v42 = *v41;
-    v44 = v41[2];
-    v43 = v41[3];
-    v46 = v41[4];
-    v45 = v41[5];
+    v43 = v41[2];
+    v44 = v41[5];
 
-    outlined init with copy of [Input](v294, &v277, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
-    specialized Graph.edge(to:)(v306, v45, &v271);
-    v249 = v271;
-    v250 = v272;
-    v251 = v273;
-    v252 = v274;
-    v253 = v275;
-    v254 = v276;
-    v255 = v273;
-    v256 = v274;
-    v257 = v275;
-    v258 = v276;
-    if (!*(&v272 + 1))
+    outlined init with copy of [Input](v282, &v265, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
+    specialized Graph.edge(to:)(v294, v44, &v259);
+    v237 = v259;
+    v238 = v260;
+    v239 = v261;
+    v240 = v262;
+    v241 = v263;
+    v242 = v264;
+    v243 = v261;
+    v244 = v262;
+    v245 = v263;
+    v246 = v264;
+    if (!*(&v260 + 1))
     {
       goto LABEL_6;
     }
 
-    if ((v271 & 0x8000000000000000) != 0)
+    if ((v259 & 0x8000000000000000) != 0)
     {
       __break(1u);
-LABEL_85:
+LABEL_78:
       __break(1u);
-LABEL_86:
+LABEL_79:
       __break(1u);
-LABEL_87:
+LABEL_80:
       __break(1u);
-LABEL_88:
+LABEL_81:
       __break(1u);
-LABEL_89:
+LABEL_82:
       __break(1u);
-      goto LABEL_90;
+      goto LABEL_83;
     }
 
-    if (v271 >= *(v45 + 16))
+    if (v259 >= *(v44 + 16))
     {
-      goto LABEL_85;
+      goto LABEL_78;
     }
 
-    v47 = (v45 + 88 * v271);
-    v48 = v47[8];
-    if (!v48)
+    v45 = (v44 + 88 * v259);
+    v46 = v45[8];
+    if (!v46)
     {
-      outlined destroy of [Input](&v249, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMd, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMR);
+      outlined destroy of [Input](&v237, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMd, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMR);
 LABEL_6:
 
-      outlined destroy of [Input](v294, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
-      v277 = v234;
-      v278 = v35;
-      v279 = v227;
-      v280 = v226;
-      v281 = v233;
-      v282 = v232;
-      v283 = v32;
-      v284 = v231;
-      v285 = v230;
-      v286 = v229;
-      v287 = v228;
+      outlined destroy of [Input](v282, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
+      v265 = v222;
+      v266 = v35;
+      v267 = v215;
+      v268 = v214;
+      v269 = v221;
+      v270 = v220;
+      v271 = v32;
+      v272 = v219;
+      v273 = v218;
+      v274 = v217;
+      v275 = v216;
       goto LABEL_7;
     }
 
-    v201 = *(&v272 + 1);
-    v49 = v224[2];
-    if (!*(v49 + 16))
+    v189 = *(&v260 + 1);
+    v47 = v212[2];
+    if (*(v47 + 16) && (v49 = v45[4], v48 = v45[5], v51 = v45[6], v50 = v45[7], v193 = v51, v194 = v47, v184 = v50, *&v185 = v48, v195 = v46, v181 = v260, v178 = v259, v52 = specialized __RawDictionaryStorage.find<A>(_:)(v42, v49), (v53 & 1) != 0))
     {
-      goto LABEL_28;
-    }
-
-    v51 = v47[4];
-    v50 = v47[5];
-    v53 = v47[6];
-    v52 = v47[7];
-    v205 = v53;
-    v206 = v49;
-    v196 = v52;
-    *&v197 = v50;
-    v207 = v48;
-    v193 = v272;
-    v190 = v271;
-    v54 = specialized __RawDictionaryStorage.find<A>(_:)(v42, v51);
-    if (v55)
-    {
-      v56 = *(*(v206 + 56) + 8 * v54);
-      if ((v56 & 0x8000000000000000) != 0)
+      v54 = *(*(v194 + 56) + 8 * v52);
+      if ((v54 & 0x8000000000000000) != 0)
       {
-        goto LABEL_86;
+        goto LABEL_79;
       }
 
-      v57 = *v224;
-      if (v56 >= *(*v224 + 16))
+      v55 = *v212;
+      if (v54 >= *(*v212 + 16))
       {
-        goto LABEL_87;
+        goto LABEL_80;
       }
 
-      v185 = *(*v224 + 16);
-      v184 = v57 + 32;
-      v58 = v57 + 32 + 88 * v56;
-      v59 = *(v58 + 16);
-      v265 = *v58;
-      v266 = v59;
-      v60 = *(v58 + 80);
-      v62 = *(v58 + 48);
-      v61 = *(v58 + 64);
-      v267 = *(v58 + 32);
-      v268 = v62;
+      v173 = *(*v212 + 16);
+      v172 = v55 + 32;
+      v56 = v55 + 32 + 88 * v54;
+      v57 = *(v56 + 16);
+      v253 = *v56;
+      v254 = v57;
+      v58 = *(v56 + 80);
+      v60 = *(v56 + 48);
+      v59 = *(v56 + 64);
+      v255 = *(v56 + 32);
+      v256 = v60;
+      v257 = v59;
+      v258 = v58;
+      v179 = *(&v253 + 1);
+      v180 = v253;
+      v191 = v254;
+      v192 = v58;
+      *(&v185 + 1) = *(&v255 + 1);
+      v61 = v255;
+      v183 = *(&v60 + 1);
+      v186 = v60;
+      v187 = v59;
+      v188 = *(&v254 + 1);
+      v182 = *(&v59 + 1);
+      *&v259 = v222;
+      *(&v259 + 1) = v40;
+      *&v260 = v215;
+      *(&v260 + 1) = v214;
+      *&v261 = v221;
+      *(&v261 + 1) = v220;
+      *&v262 = v32;
+      *(&v262 + 1) = v219;
+      *&v263 = v218;
+      *(&v263 + 1) = v217;
+      v264 = v216;
+      outlined copy of Graph<SGDataTypeGraph.Personality>.Node?(v49, v185, v193, v184, v195);
+      outlined init with copy of SGDataTypeGraph.TopologicalSort.Element(&v253, &v247);
+      outlined destroy of [Input](&v259, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
+      v265 = v180;
+      v266 = v179;
+      v267 = v191;
+      v268 = v188;
       v269 = v61;
-      v270 = v60;
-      v191 = *(&v265 + 1);
-      v192 = v265;
-      v203 = v266;
-      v204 = v60;
-      *(&v197 + 1) = *(&v267 + 1);
-      v63 = v267;
-      v195 = *(&v62 + 1);
-      v198 = v62;
-      v199 = v61;
-      v200 = *(&v266 + 1);
-      v194 = *(&v61 + 1);
-      *&v271 = v234;
-      *(&v271 + 1) = v40;
-      *&v272 = v227;
-      *(&v272 + 1) = v226;
-      *&v273 = v233;
-      *(&v273 + 1) = v232;
-      *&v274 = v32;
-      *(&v274 + 1) = v231;
-      *&v275 = v230;
-      *(&v275 + 1) = v229;
-      v276 = v228;
-      outlined copy of Graph<SGDataTypeGraph.Personality>.Node?(v51, v197, v205, v196, v207);
-      outlined init with copy of SGDataTypeGraph.TopologicalSort.Element(&v265, &v259);
-      outlined destroy of [Input](&v271, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
-      v277 = v192;
-      v278 = v191;
-      v279 = v203;
-      v280 = v200;
-      v281 = v63;
-      v282 = *(&v197 + 1);
-      v283 = v198;
-      v284 = v195;
-      v285 = v199;
-      v286 = v194;
-      v287 = v204;
-      v248 = v194;
-      *&v197 = v63;
-      if (v63)
+      v270 = *(&v185 + 1);
+      v271 = v186;
+      v272 = v183;
+      v273 = v187;
+      v274 = v182;
+      v275 = v192;
+      v236 = v182;
+      *&v185 = v61;
+      if (v61)
       {
-        v234 = v44;
-        outlined init with copy of [Input](&v277, &v259, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
+        v222 = v43;
+        outlined init with copy of [Input](&v265, &v247, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
 
-        v246[2] = v251;
-        v246[3] = v252;
-        v246[4] = v253;
-        v247 = v254;
-        v246[0] = v249;
-        v246[1] = v250;
-        outlined init with copy of [Input](v246, &v259, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GMd, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GMR);
-        v64 = v202;
+        v234[2] = v239;
+        v234[3] = v240;
+        v234[4] = v241;
+        v235 = v242;
+        v234[0] = v237;
+        v234[1] = v238;
+        outlined init with copy of [Input](v234, &v247, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GMd, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GMR);
+        v62 = v190;
         if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
         {
-          v64 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v64 + 2) + 1, 1, v64);
+          v62 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v62 + 2) + 1, 1, v62);
         }
 
-        v66 = *(v64 + 2);
-        v65 = *(v64 + 3);
-        if (v66 >= v65 >> 1)
+        v64 = *(v62 + 2);
+        v63 = *(v62 + 3);
+        if (v64 >= v63 >> 1)
         {
-          v64 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v65 > 1), v66 + 1, 1, v64);
+          v62 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v63 > 1), v64 + 1, 1, v62);
         }
 
-        outlined destroy of SGDataTypeGraph.TopologicalSort.Element(&v288);
-        v245 = v258;
-        v243 = v256;
-        v244 = v257;
-        v242 = v255;
-        *(v64 + 2) = v66 + 1;
-        v202 = v64;
-        v67 = &v64[104 * v66];
-        v68 = v193;
-        *(v67 + 2) = v190;
-        *(v67 + 3) = v68;
-        v69 = v242;
-        v70 = v243;
-        v71 = v244;
-        v67[112] = v245;
-        *(v67 + 5) = v70;
-        *(v67 + 6) = v71;
-        *(v67 + 4) = v69;
-        v72 = v203;
-        v73 = v228;
-        *(v67 + 15) = v204;
-        *(v67 + 16) = v73;
-        if (v72 >> 62 == 1)
+        outlined destroy of SGDataTypeGraph.TopologicalSort.Element(&v276);
+        v233 = v246;
+        v231 = v244;
+        v232 = v245;
+        v230 = v243;
+        *(v62 + 2) = v64 + 1;
+        v190 = v62;
+        v65 = &v62[104 * v64];
+        v66 = v181;
+        *(v65 + 2) = v178;
+        *(v65 + 3) = v66;
+        v67 = v230;
+        v68 = v231;
+        v69 = v232;
+        v65[112] = v233;
+        *(v65 + 5) = v68;
+        *(v65 + 6) = v69;
+        *(v65 + 4) = v67;
+        v70 = v191;
+        v71 = v216;
+        *(v65 + 15) = v192;
+        *(v65 + 16) = v71;
+        if (v70 >> 62 == 1)
         {
-          v74 = v72 & 0x3FFFFFFFFFFFFFFFLL;
 
-          v75 = *((v72 & 0x3FFFFFFFFFFFFFFFLL) + 0x10);
-          v76 = *((v72 & 0x3FFFFFFFFFFFFFFFLL) + 0x20);
-          v77 = *((v72 & 0x3FFFFFFFFFFFFFFFLL) + 0x28);
-          v78 = *((v72 & 0x3FFFFFFFFFFFFFFFLL) + 0x30);
-          v79 = *(v74 + 56);
-          v80 = *(v74 + 32);
+          v72 = *((v70 & 0x3FFFFFFFFFFFFFFFLL) + 0x10);
+          v73 = *((v70 & 0x3FFFFFFFFFFFFFFFLL) + 0x38);
 
-          specialized SGDataTypeGraph.resultNode.getter(v79, v297);
-          v81 = v298;
-          if (v298)
+          specialized SGDataTypeGraph.resultNode.getter(v285, v73);
+          v74 = v286;
+          if (v286)
           {
-            v82 = v297[3];
-            specialized Graph.Node<>.input(named:)(v193, v201, v297[0], v297[2], v300);
-            v211 = v300[1];
-            v212 = v300[0];
-            v225 = v300[3];
-            v209 = v300[4];
-            v210 = v300[2];
-            v208 = v301;
-            outlined destroy of [Input](&v249, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMd, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMR);
+            v75 = v285[3];
+            specialized Graph.Node<>.input(named:)(v181, v189, v285[0], v285[2], v288);
+            v199 = v288[1];
+            v200 = v288[0];
+            v213 = v288[3];
+            v197 = v288[4];
+            v198 = v288[2];
+            v196 = v289;
+            outlined destroy of [Input](&v237, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMd, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMR);
 
-            v305[0] = v82;
-            v305[1] = v81;
-            outlined destroy of String(v305);
+            v293[0] = v75;
+            v293[1] = v74;
+            outlined destroy of String(v293);
           }
 
           else
           {
-            outlined destroy of [Input](&v249, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMd, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMR);
-            v211 = 0;
-            v212 = 0;
-            v209 = 0;
-            v210 = 0;
-            v225 = 0;
-            v208 = 0;
+            outlined destroy of [Input](&v237, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMd, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMR);
+            v199 = 0;
+            v200 = 0;
+            v197 = 0;
+            v198 = 0;
+            v213 = 0;
+            v196 = 0;
           }
 
-          specialized SGDataTypeGraph.resultNode.getter(v79, v302);
-          if (v302[4])
+          specialized SGDataTypeGraph.resultNode.getter(v290, v73);
+          if (v290[4])
           {
-            v98 = v302[0];
+            v91 = v290[0];
 
-            v99 = v206;
-            if (*(v206 + 16))
+            v92 = v194;
+            if (*(v194 + 16))
             {
-              v100 = specialized __RawDictionaryStorage.find<A>(_:)(v75, v98);
-              v101 = v198;
-              v102 = v199;
-              v103 = v195;
-              v104 = v192;
-              v105 = v197;
-              if (v106)
+              v93 = specialized __RawDictionaryStorage.find<A>(_:)(v72, v91);
+              v94 = v186;
+              v95 = v187;
+              v96 = v183;
+              v97 = v180;
+              v98 = v185;
+              if (v99)
               {
-                v107 = *(*(v99 + 56) + 8 * v100);
-                v108 = v203;
-                if (v107 >= v185)
+                v100 = *(*(v92 + 56) + 8 * v93);
+                v101 = v191;
+                if (v100 >= v173)
                 {
-                  goto LABEL_88;
+                  goto LABEL_81;
                 }
 
-                v109 = (v184 + 88 * v107);
-                v110 = v109[1];
-                v259 = *v109;
-                v260 = v110;
-                v111 = v109[2];
-                v112 = v109[3];
-                v113 = v109[4];
-                v264 = *(v109 + 10);
-                v262 = v112;
-                v263 = v113;
-                v261 = v111;
-                outlined init with copy of SGDataTypeGraph.TopologicalSort.Element(&v259, &v236);
-                outlined destroy of [Input](v302, &_s11ShaderGraph0B0V4NodeVyAA010SGDataTypeB0V11PersonalityV_GSgMd, &_s11ShaderGraph0B0V4NodeVyAA010SGDataTypeB0V11PersonalityV_GSgMR);
+                v102 = (v172 + 88 * v100);
+                v103 = v102[1];
+                v247 = *v102;
+                v248 = v103;
+                v104 = v102[2];
+                v105 = v102[3];
+                v106 = v102[4];
+                v252 = *(v102 + 10);
+                v250 = v105;
+                v251 = v106;
+                v249 = v104;
+                outlined init with copy of SGDataTypeGraph.TopologicalSort.Element(&v247, &v224);
+                outlined destroy of [Input](v290, &_s11ShaderGraph0B0V4NodeVyAA010SGDataTypeB0V11PersonalityV_GSgMd, &_s11ShaderGraph0B0V4NodeVyAA010SGDataTypeB0V11PersonalityV_GSgMR);
 
-                outlined destroy of [Input](v294, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
-                v226 = *(&v260 + 1);
-                v227 = v260;
-                v233 = v261;
-                v234 = v259;
-                v206 = v262;
-                v207 = *(&v259 + 1);
-                v231 = *(&v262 + 1);
-                v232 = *(&v261 + 1);
-                v229 = *(&v263 + 1);
-                v230 = v263;
-                v228 = v264;
-                v114 = v204;
-                v115 = v102;
-                v116 = v101;
+                outlined destroy of [Input](v282, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
+                v214 = *(&v248 + 1);
+                v215 = v248;
+                v221 = v249;
+                v222 = v247;
+                v194 = v250;
+                v195 = *(&v247 + 1);
+                v219 = *(&v250 + 1);
+                v220 = *(&v249 + 1);
+                v217 = *(&v251 + 1);
+                v218 = v251;
+                v216 = v252;
+                v107 = v192;
+                v108 = v95;
+                v109 = v94;
               }
 
               else
               {
-                outlined destroy of [Input](v302, &_s11ShaderGraph0B0V4NodeVyAA010SGDataTypeB0V11PersonalityV_GSgMd, &_s11ShaderGraph0B0V4NodeVyAA010SGDataTypeB0V11PersonalityV_GSgMR);
+                outlined destroy of [Input](v290, &_s11ShaderGraph0B0V4NodeVyAA010SGDataTypeB0V11PersonalityV_GSgMd, &_s11ShaderGraph0B0V4NodeVyAA010SGDataTypeB0V11PersonalityV_GSgMR);
 
-                outlined destroy of [Input](v294, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
-                v116 = v101;
-                v233 = 0;
-                v234 = 0;
-                v206 = 0;
-                v207 = 0;
-                v226 = 0;
-                v227 = 0;
-                v231 = 0;
-                v232 = 0;
-                v229 = 0;
-                v230 = 0;
-                v228 = 0;
-                v108 = v203;
-                v114 = v204;
-                v115 = v102;
+                outlined destroy of [Input](v282, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
+                v109 = v94;
+                v221 = 0;
+                v222 = 0;
+                v194 = 0;
+                v195 = 0;
+                v214 = 0;
+                v215 = 0;
+                v219 = 0;
+                v220 = 0;
+                v217 = 0;
+                v218 = 0;
+                v216 = 0;
+                v101 = v191;
+                v107 = v192;
+                v108 = v95;
               }
 
-              goto LABEL_65;
+              goto LABEL_60;
             }
 
-            outlined destroy of [Input](v302, &_s11ShaderGraph0B0V4NodeVyAA010SGDataTypeB0V11PersonalityV_GSgMd, &_s11ShaderGraph0B0V4NodeVyAA010SGDataTypeB0V11PersonalityV_GSgMR);
+            outlined destroy of [Input](v290, &_s11ShaderGraph0B0V4NodeVyAA010SGDataTypeB0V11PersonalityV_GSgMd, &_s11ShaderGraph0B0V4NodeVyAA010SGDataTypeB0V11PersonalityV_GSgMR);
           }
 
           else
           {
           }
 
-          outlined destroy of [Input](v294, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
-          v233 = 0;
-          v234 = 0;
-          v206 = 0;
-          v207 = 0;
-          v226 = 0;
-          v227 = 0;
-          v231 = 0;
-          v232 = 0;
-          v229 = 0;
-          v230 = 0;
-          v228 = 0;
-          v108 = v203;
-          v114 = v204;
-          v116 = v198;
-          v115 = v199;
-          v103 = v195;
-          v104 = v192;
-          v105 = v197;
-LABEL_65:
-          *&v259 = v104;
-          v130 = v104;
-          v131 = v191;
-          *(&v259 + 1) = v191;
-          *&v260 = v108;
-          v132 = v200;
-          *(&v260 + 1) = v200;
-          *&v261 = v105;
-          v133 = v105;
-          v134 = v108;
-          v135 = *(&v197 + 1);
-          *(&v261 + 1) = *(&v197 + 1);
-          *&v262 = v116;
-          *(&v262 + 1) = v103;
-          *&v263 = v115;
-          *(&v263 + 1) = v194;
-          v264 = v114;
-          v136 = v114;
-          v137 = v116;
-          outlined destroy of [Input](&v259, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
-          v221 = v131;
-          v222 = v130;
-          v223 = v248;
-          v219 = v132;
-          v220 = v134;
-          v217 = v137;
-          v218 = v133;
-          v213 = v135;
-          v214 = v136;
-          v215 = v199;
-          v216 = v103;
-          v30 = v225;
-          v15 = v228;
-          v29 = v207;
-          goto LABEL_66;
+          outlined destroy of [Input](v282, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
+          v221 = 0;
+          v222 = 0;
+          v194 = 0;
+          v195 = 0;
+          v214 = 0;
+          v215 = 0;
+          v219 = 0;
+          v220 = 0;
+          v217 = 0;
+          v218 = 0;
+          v216 = 0;
+          v101 = v191;
+          v107 = v192;
+          v109 = v186;
+          v108 = v187;
+          v96 = v183;
+          v97 = v180;
+          v98 = v185;
+LABEL_60:
+          *&v247 = v97;
+          v119 = v97;
+          v120 = v179;
+          *(&v247 + 1) = v179;
+          *&v248 = v101;
+          v121 = v188;
+          *(&v248 + 1) = v188;
+          *&v249 = v98;
+          v122 = v98;
+          v123 = v101;
+          v124 = *(&v185 + 1);
+          *(&v249 + 1) = *(&v185 + 1);
+          *&v250 = v109;
+          *(&v250 + 1) = v96;
+          *&v251 = v108;
+          *(&v251 + 1) = v182;
+          v252 = v107;
+          v125 = v107;
+          v126 = v109;
+          outlined destroy of [Input](&v247, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
+          v209 = v120;
+          v210 = v119;
+          v211 = v236;
+          v207 = v121;
+          v208 = v123;
+          v205 = v126;
+          v206 = v122;
+          v201 = v124;
+          v202 = v125;
+          v203 = v187;
+          v204 = v96;
+          v30 = v213;
+          v15 = v216;
+          v29 = v195;
+          goto LABEL_61;
         }
 
-        v231 = v72 >> 62;
-        outlined init with copy of [Input](&v277, &v259, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
-        v233 = v72 & 0x3FFFFFFFFFFFFFFFLL;
+        v219 = v70 >> 62;
+        outlined init with copy of [Input](&v265, &v247, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
+        v221 = v70 & 0x3FFFFFFFFFFFFFFFLL;
 
-        v84 = v197;
+        v77 = v185;
 
-        specialized SGDataTypeGraph.argumentsNode.getter(v45, v299);
-        v232 = v299[0];
-        v85 = v299[1];
-        v86 = v299[2];
-        v87 = v299[3];
-        v88 = v299[4];
+        specialized SGDataTypeGraph.argumentsNode.getter(v287, v44);
+        v220 = v287[0];
+        v78 = v287[1];
+        v79 = v287[2];
+        v80 = v287[3];
+        v81 = v287[4];
 
-        if (v88)
+        if (v81)
         {
-          v89 = v85;
-          v91 = v191;
-          v90 = v192;
-          v92 = v200;
-          v93 = v84;
-          if (v192 != v232 || v191 != v89 || (specialized static SGDataTypeGraph.PersonalityKind.== infix(_:_:)(v203, v86) & 1) == 0 || (v92 != v87 || v84 != v88) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+          v82 = v78;
+          v84 = v179;
+          v83 = v180;
+          v85 = v188;
+          v86 = v77;
+          if (v180 != v220 || v179 != v82 || (specialized static SGDataTypeGraph.PersonalityKind.== infix(_:_:)(v191, v79) & 1) == 0 || (v85 != v80 || v77 != v81) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
           {
 
-            v95 = outlined destroy of [Input](&v249, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMd, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMR);
-            v94 = v186;
+            v88 = outlined destroy of [Input](&v237, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMd, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMR);
+            v87 = v174;
             goto LABEL_40;
           }
 
-          v94 = v186;
-          if (v248)
+          v87 = v174;
+          if (v236)
           {
-            v95 = outlined destroy of [Input](&v249, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMd, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMR);
+            v88 = outlined destroy of [Input](&v237, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMd, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMR);
 LABEL_40:
-            v96 = v203;
-            v97 = v92;
+            v89 = v191;
+            v90 = v85;
             goto LABEL_48;
           }
 
-          outlined destroy of [Input](&v277, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
-          v145 = v199;
-          v146 = v203;
-          if (v199 >= v185)
+          outlined destroy of [Input](&v265, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
+          v133 = v187;
+          v134 = v191;
+          if (v187 >= v173)
           {
-            goto LABEL_89;
+            goto LABEL_82;
           }
 
-          v147 = (v184 + 88 * v199);
-          v148 = v147[1];
-          v236 = *v147;
-          v237 = v148;
-          v149 = *(v147 + 10);
-          v151 = v147[3];
-          v150 = v147[4];
-          v238 = v147[2];
-          v239 = v151;
-          v240 = v150;
-          v241 = v149;
-          v152 = *(&v236 + 1);
-          v234 = v236;
-          v226 = *(&v237 + 1);
-          v153 = v237;
-          v154 = v238;
-          v231 = *(&v151 + 1);
-          v206 = v151;
-          v232 = *(&v238 + 1);
-          v230 = v150;
-          v228 = v149;
-          v229 = *(&v150 + 1);
-          *&v259 = v90;
-          *(&v259 + 1) = v91;
-          *&v260 = v203;
-          *(&v260 + 1) = v200;
-          v261 = v197;
-          *&v262 = v198;
-          v155 = v195;
-          *(&v262 + 1) = v195;
-          *&v263 = v199;
-          *(&v263 + 1) = v194;
-          v156 = v204;
-          v264 = v204;
-          outlined init with copy of SGDataTypeGraph.TopologicalSort.Element(&v236, &v235);
-          outlined destroy of [Input](&v259, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
-          v233 = v154;
-          v227 = v153;
-          if (v154)
+          v135 = (v172 + 88 * v187);
+          v136 = v135[1];
+          v224 = *v135;
+          v225 = v136;
+          v137 = *(v135 + 10);
+          v139 = v135[3];
+          v138 = v135[4];
+          v226 = v135[2];
+          v227 = v139;
+          v228 = v138;
+          v229 = v137;
+          v140 = *(&v224 + 1);
+          v222 = v224;
+          v214 = *(&v225 + 1);
+          v141 = v225;
+          v142 = v226;
+          v219 = *(&v139 + 1);
+          v194 = v139;
+          v220 = *(&v226 + 1);
+          v218 = v138;
+          v216 = v137;
+          v217 = *(&v138 + 1);
+          *&v247 = v83;
+          *(&v247 + 1) = v84;
+          *&v248 = v191;
+          *(&v248 + 1) = v188;
+          v249 = v185;
+          *&v250 = v186;
+          v143 = v183;
+          *(&v250 + 1) = v183;
+          *&v251 = v187;
+          *(&v251 + 1) = v182;
+          v144 = v192;
+          v252 = v192;
+          outlined init with copy of SGDataTypeGraph.TopologicalSort.Element(&v224, &v223);
+          outlined destroy of [Input](&v247, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
+          v221 = v142;
+          v215 = v141;
+          if (v142)
           {
-            specialized Graph.Node<>.input(named:)(v193, v201, v234, v153, v303);
-            v211 = v303[1];
-            v212 = v303[0];
-            v157 = v303[3];
-            v209 = v303[4];
-            v210 = v303[2];
-            v208 = v304;
+            specialized Graph.Node<>.input(named:)(v181, v189, v222, v141, v291);
+            v199 = v291[1];
+            v200 = v291[0];
+            v145 = v291[3];
+            v197 = v291[4];
+            v198 = v291[2];
+            v196 = v292;
 
-            outlined destroy of [Input](v294, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
+            outlined destroy of [Input](v282, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
 
-            outlined destroy of [Input](&v249, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMd, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMR);
+            outlined destroy of [Input](&v237, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMd, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMR);
           }
 
           else
           {
 
-            outlined destroy of [Input](&v249, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMd, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMR);
-            outlined destroy of [Input](v294, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
-            v211 = 0;
-            v212 = 0;
-            v209 = 0;
-            v210 = 0;
-            v157 = 0;
-            v208 = 0;
+            outlined destroy of [Input](&v237, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMd, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMR);
+            outlined destroy of [Input](v282, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
+            v199 = 0;
+            v200 = 0;
+            v197 = 0;
+            v198 = 0;
+            v145 = 0;
+            v196 = 0;
           }
 
-          v223 = 0;
-          v221 = v191;
-          v222 = v192;
-          v219 = v200;
-          v220 = v146;
-          v213 = *(&v197 + 1);
-          v214 = v156;
-          v217 = v198;
-          v218 = v197;
-          v215 = v145;
-          v216 = v155;
-          v30 = v157;
-          v15 = v228;
-          v29 = v152;
-LABEL_66:
-          v7 = v226;
-          v8 = v227;
-          v25 = v232;
-          v31 = v233;
-          v26 = v206;
-          v27 = v230;
-          v24 = v231;
-          v28 = v229;
+          v211 = 0;
+          v209 = v179;
+          v210 = v180;
+          v207 = v188;
+          v208 = v134;
+          v201 = *(&v185 + 1);
+          v202 = v144;
+          v205 = v186;
+          v206 = v185;
+          v203 = v133;
+          v204 = v143;
+          v30 = v145;
+          v15 = v216;
+          v29 = v140;
+LABEL_61:
+          v7 = v214;
+          v8 = v215;
+          v25 = v220;
+          v31 = v221;
+          v26 = v194;
+          v27 = v218;
+          v24 = v219;
+          v28 = v217;
         }
 
         else
         {
-          outlined destroy of [Input](&v249, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMd, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMR);
-          v91 = v191;
-          v117 = v192;
-          v97 = v200;
-          outlined consume of Graph<SGDataTypeGraph.Personality>.Node?(v192, v191, v72, v200, v84);
-          v95 = outlined consume of Graph<SGDataTypeGraph.Personality>.Node?(v232, v85, v86, v87, 0);
-          v94 = v186;
-          v96 = v72;
-          v90 = v117;
-          v93 = v84;
+          outlined destroy of [Input](&v237, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMd, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMR);
+          v84 = v179;
+          v110 = v180;
+          v90 = v188;
+          outlined consume of Graph<SGDataTypeGraph.Personality>.Node?(v180, v179, v70, v188, v77);
+          outlined consume of Graph<SGDataTypeGraph.Personality>.Node?(v220, v78, v79, v80, 0);
+          v87 = v174;
+          v89 = v70;
+          v83 = v110;
+          v86 = v77;
 LABEL_48:
-          *&v259 = v90;
-          *(&v259 + 1) = v91;
-          *&v260 = v96;
-          *(&v260 + 1) = v97;
-          *&v261 = v93;
-          v118 = v231;
-          if (!v231)
-          {
-            v119 = v96 + 32;
-            goto LABEL_53;
-          }
+          *&v247 = v83;
+          *(&v247 + 1) = v84;
+          *&v248 = v89;
+          *(&v248 + 1) = v90;
+          *&v249 = v86;
+          v111 = v219;
+          MEMORY[0x28223BE20](v88);
+          v170 = &v247;
+          v113 = *(specialized Sequence.compactMap<A>(_:)(closure #1 in Graph.Node.inputs.getterspecialized partial apply, v169, 0, v112) + 16);
 
-          if (v231 == 1)
+          if (v113 == 1)
           {
-            v119 = v233 + 40;
-LABEL_53:
-            v120 = *(*v119 + 16);
-          }
-
-          MEMORY[0x28223BE20](v95);
-          v182 = &v259;
-          v122 = *(specialized Sequence.compactMap<A>(_:)(closure #1 in Graph.Node.inputs.getterspecialized partial apply, v181, 0, v121) + 16);
-
-          if (v122 == 1)
-          {
-            *&v259 = v90;
-            *(&v259 + 1) = v91;
-            *&v260 = v96;
-            *(&v260 + 1) = v97;
-            *&v261 = v93;
-            if (!v118)
+            *&v247 = v83;
+            *(&v247 + 1) = v84;
+            *&v248 = v89;
+            *(&v248 + 1) = v90;
+            *&v249 = v86;
+            if (v111)
             {
-              v125 = v96;
-              v127 = v96 + 32;
-              v128 = v204;
-              v129 = v199;
-              v126 = v194;
-              goto LABEL_68;
+              v116 = v182;
+              v117 = v192;
+              v118 = v187;
             }
 
-            v125 = v96;
-            v126 = v194;
-            if (v118 == 1)
+            else
             {
-              v127 = v233 + 40;
-              v128 = v204;
-              v129 = v199;
-LABEL_68:
-              v138 = *(*v127 + 16);
-              goto LABEL_70;
+              v117 = v192;
+              v118 = v187;
+              v116 = v182;
             }
 
-            v128 = v204;
-            v129 = v199;
-LABEL_70:
-            MEMORY[0x28223BE20](v123);
-            v182 = &v259;
-            v140 = specialized Sequence.compactMap<A>(_:)(closure #1 in Graph.Node.inputs.getterspecialized partial apply, v181, 0, v139);
-            v141 = *(v140 + 16);
-            v186 = v94;
-            if (v141)
+            MEMORY[0x28223BE20](v114);
+            v170 = &v247;
+            v128 = specialized Sequence.compactMap<A>(_:)(closure #1 in Graph.Node.inputs.getterspecialized partial apply, v169, 0, v127);
+            v129 = *(v128 + 16);
+            v174 = v87;
+            if (v129)
             {
-              v142 = *(v140 + 32);
-              v211 = *(v140 + 40);
-              v212 = v142;
-              v143 = *(v140 + 48);
-              v144 = *(v140 + 56);
-              v209 = *(v140 + 64);
-              v210 = v143;
-              v208 = *(v140 + 72);
+              v130 = *(v128 + 32);
+              v199 = *(v128 + 40);
+              v200 = v130;
+              v131 = *(v128 + 48);
+              v132 = *(v128 + 56);
+              v197 = *(v128 + 64);
+              v198 = v131;
+              v196 = *(v128 + 72);
 
-              outlined destroy of [Input](&v277, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
+              outlined destroy of [Input](&v265, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
 
-              outlined destroy of [Input](v294, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
-              v30 = v144;
+              outlined destroy of [Input](v282, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
+              v30 = v132;
             }
 
             else
             {
 
-              outlined destroy of [Input](&v277, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
+              outlined destroy of [Input](&v265, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
 
-              outlined destroy of [Input](v294, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
-              v211 = 0;
-              v212 = 0;
-              v209 = 0;
-              v210 = 0;
+              outlined destroy of [Input](v282, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
+              v199 = 0;
+              v200 = 0;
+              v197 = 0;
+              v198 = 0;
               v30 = 0;
-              v208 = 0;
+              v196 = 0;
             }
 
-            v234 = v192;
-            v29 = v191;
-            v223 = v248;
-            v8 = v125;
-            v7 = v200;
-            v26 = v198;
-            v24 = v195;
-            v27 = v129;
-            v28 = v126;
-            v221 = v191;
-            v222 = v192;
-            v219 = v200;
-            v220 = v125;
-            v15 = v128;
-            v217 = v198;
-            v213 = *(&v197 + 1);
-            v218 = v197;
-            v214 = v128;
-            v215 = v129;
-            v216 = v195;
-            v25 = *(&v197 + 1);
-            v31 = v197;
+            v222 = v180;
+            v29 = v179;
+            v211 = v236;
+            v8 = v89;
+            v7 = v188;
+            v26 = v186;
+            v24 = v183;
+            v27 = v118;
+            v28 = v116;
+            v209 = v179;
+            v210 = v180;
+            v207 = v188;
+            v208 = v89;
+            v15 = v117;
+            v205 = v186;
+            v201 = *(&v185 + 1);
+            v206 = v185;
+            v202 = v117;
+            v203 = v118;
+            v204 = v183;
+            v25 = *(&v185 + 1);
+            v31 = v185;
           }
 
           else
           {
-            v8 = v96;
-            v186 = v94;
+            v8 = v89;
+            v174 = v87;
 
-            if (v122)
+            if (v113)
             {
-              outlined destroy of [Input](v294, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
-              v124 = &v277;
+              outlined destroy of [Input](v282, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
+              v115 = &v265;
             }
 
             else
             {
-              outlined destroy of [Input](&v277, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
-              v124 = v294;
+              outlined destroy of [Input](&v265, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
+              v115 = v282;
             }
 
-            outlined destroy of [Input](v124, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
-            v211 = 0;
-            v212 = 0;
-            v209 = 0;
-            v210 = 0;
+            outlined destroy of [Input](v115, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
+            v199 = 0;
+            v200 = 0;
+            v197 = 0;
+            v198 = 0;
             v30 = 0;
-            v208 = 0;
-            v223 = v248;
-            v234 = v90;
-            v29 = v91;
-            v7 = v200;
-            v26 = v198;
-            v28 = v194;
-            v24 = v195;
-            v27 = v199;
-            v221 = v91;
-            v222 = v90;
-            v31 = v93;
-            v219 = v200;
-            v220 = v96;
-            v15 = v204;
-            v217 = v198;
-            v218 = v93;
-            v25 = *(&v197 + 1);
-            v213 = *(&v197 + 1);
-            v214 = v204;
-            v215 = v199;
-            v216 = v195;
+            v196 = 0;
+            v211 = v236;
+            v222 = v83;
+            v29 = v84;
+            v7 = v188;
+            v26 = v186;
+            v28 = v182;
+            v24 = v183;
+            v27 = v187;
+            v209 = v84;
+            v210 = v83;
+            v31 = v86;
+            v207 = v188;
+            v208 = v89;
+            v15 = v192;
+            v205 = v186;
+            v206 = v86;
+            v25 = *(&v185 + 1);
+            v201 = *(&v185 + 1);
+            v202 = v192;
+            v203 = v187;
+            v204 = v183;
           }
         }
       }
 
       else
       {
-        v83 = v192;
-        v29 = v191;
+        v76 = v180;
+        v29 = v179;
 
-        outlined destroy of [Input](&v249, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMd, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMR);
+        outlined destroy of [Input](&v237, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMd, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMR);
 
-        outlined destroy of [Input](v294, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
+        outlined destroy of [Input](v282, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
         v31 = 0;
-        v234 = v83;
-        v8 = v203;
-        v15 = v204;
-        v27 = v199;
-        v7 = v200;
-        v25 = *(&v197 + 1);
-        v26 = v198;
-        v28 = v194;
-        v24 = v195;
-        v30 = v225;
+        v222 = v76;
+        v8 = v191;
+        v15 = v192;
+        v27 = v187;
+        v7 = v188;
+        v25 = *(&v185 + 1);
+        v26 = v186;
+        v28 = v182;
+        v24 = v183;
+        v30 = v213;
       }
     }
 
     else
     {
-LABEL_28:
 
-      outlined destroy of [Input](v294, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
-      outlined destroy of [Input](&v249, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMd, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMR);
-      v277 = v234;
-      v278 = v40;
-      v279 = v227;
-      v280 = v226;
-      v281 = v233;
-      v282 = v232;
-      v283 = v32;
-      v284 = v231;
-      v285 = v230;
-      v286 = v229;
-      v287 = v228;
+      outlined destroy of [Input](v282, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
+      outlined destroy of [Input](&v237, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMd, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMR);
+      v265 = v222;
+      v266 = v40;
+      v267 = v215;
+      v268 = v214;
+      v269 = v221;
+      v270 = v220;
+      v271 = v32;
+      v272 = v219;
+      v273 = v218;
+      v274 = v217;
+      v275 = v216;
 LABEL_7:
-      outlined destroy of [Input](&v277, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
-      v234 = 0;
+      outlined destroy of [Input](&v265, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
+      v222 = 0;
       v29 = 0;
       v8 = 0;
       v7 = 0;
@@ -10613,96 +8068,1868 @@ LABEL_7:
       v27 = 0;
       v28 = 0;
       v15 = 0;
-      v30 = v225;
+      v30 = v213;
     }
   }
 
   v29 = v35;
   v8 = v34;
-LABEL_81:
-  v158 = v29;
-  v159 = v224[1];
-  if (*(v159 + 16))
+LABEL_74:
+  v146 = v29;
+  v147 = v212[1];
+  if (*(v147 + 16))
   {
-    v160 = specialized __RawDictionaryStorage.find<A>(_:)(v187);
-    if (v161)
+    v148 = specialized __RawDictionaryStorage.find<A>(_:)(v175);
+    if (v149)
     {
-      v162 = (*(v159 + 56) + 48 * v160);
-      v163 = v162[1];
-      v227 = *v162;
-      v228 = v163;
-      v165 = v162[2];
-      v164 = v162[3];
-      v166 = v162[4];
-      v226 = v162[5];
-      v167 = *(v188 + 3);
-      v273 = *(v188 + 2);
-      v274 = v167;
-      v275 = *(v188 + 4);
-      v276 = v188[10];
-      v168 = *(v188 + 1);
-      v271 = *v188;
-      v272 = v168;
-      v265 = v288;
-      v266 = v289;
-      v270 = v293;
-      v268 = v291;
-      v269 = v292;
-      v267 = v290;
-      v277 = v234;
-      v278 = v158;
-      v279 = v8;
-      v280 = v7;
-      v281 = v233;
-      v282 = v232;
-      v283 = v32;
-      v284 = v231;
-      v285 = v230;
-      v286 = v229;
-      v287 = v33;
-      outlined init with copy of SGDataTypeGraph.TopologicalSort.Element(v188, &v259);
+      v150 = (*(v147 + 56) + 48 * v148);
+      v151 = v150[1];
+      v215 = *v150;
+      v216 = v151;
+      v153 = v150[2];
+      v152 = v150[3];
+      v154 = v150[4];
+      v214 = v150[5];
+      v155 = *(v176 + 3);
+      v261 = *(v176 + 2);
+      v262 = v155;
+      v263 = *(v176 + 4);
+      v264 = v176[10];
+      v156 = *(v176 + 1);
+      v259 = *v176;
+      v260 = v156;
+      v253 = v276;
+      v254 = v277;
+      v258 = v281;
+      v256 = v279;
+      v257 = v280;
+      v255 = v278;
+      v265 = v222;
+      v266 = v146;
+      v267 = v8;
+      v268 = v7;
+      v269 = v221;
+      v270 = v220;
+      v271 = v32;
+      v272 = v219;
+      v273 = v218;
+      v274 = v217;
+      v275 = v33;
+      outlined init with copy of SGDataTypeGraph.TopologicalSort.Element(v176, &v247);
 
-      v169 = v166;
+      v157 = v154;
 
-      v170 = v226;
+      v158 = v214;
 
-      result = outlined destroy of [Input](&v277, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
-      v172 = v189;
-      *v189 = v202;
-      v173 = v274;
-      *(v172 + 5) = v273;
-      *(v172 + 7) = v173;
-      *(v172 + 9) = v275;
-      v172[11] = v276;
-      v174 = v272;
-      *(v172 + 1) = v271;
-      *(v172 + 3) = v174;
-      v175 = v266;
-      *(v172 + 6) = v265;
-      *(v172 + 7) = v175;
-      v176 = v267;
-      v177 = v269;
-      v178 = v270;
-      *(v172 + 9) = v268;
-      *(v172 + 10) = v177;
-      *(v172 + 8) = v176;
-      v180 = v227;
-      v179 = v228;
-      v172[22] = v178;
-      v172[23] = v180;
-      v172[24] = v179;
-      v172[25] = v165;
-      v172[26] = v164;
-      v172[27] = v169;
-      v172[28] = v170;
+      result = outlined destroy of [Input](&v265, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
+      v160 = v177;
+      *v177 = v190;
+      v161 = v262;
+      *(v160 + 5) = v261;
+      *(v160 + 7) = v161;
+      *(v160 + 9) = v263;
+      v160[11] = v264;
+      v162 = v260;
+      *(v160 + 1) = v259;
+      *(v160 + 3) = v162;
+      v163 = v254;
+      *(v160 + 6) = v253;
+      *(v160 + 7) = v163;
+      v164 = v255;
+      v165 = v257;
+      v166 = v258;
+      *(v160 + 9) = v256;
+      *(v160 + 10) = v165;
+      *(v160 + 8) = v164;
+      v168 = v215;
+      v167 = v216;
+      v160[22] = v166;
+      v160[23] = v168;
+      v160[24] = v167;
+      v160[25] = v153;
+      v160[26] = v152;
+      v160[27] = v157;
+      v160[28] = v158;
       return result;
     }
   }
 
-LABEL_90:
-  v183 = 0;
-  v182 = 191;
+LABEL_83:
+  v171 = 0;
+  v170 = 191;
   result = _assertionFailure(_:_:file:line:flags:)();
   __break(1u);
   return result;
+}
+
+uint64_t SGDataTypeGraph.TopologicalSort.path(to:on:resolvingInput:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, void (*a4)(void *__return_ptr, __int128 *)@<X3>, uint64_t a5@<X4>, void *a6@<X8>)
+{
+  v189 = a4;
+  v190 = a5;
+  v198 = a6;
+  v7 = *a3;
+  v9 = a3[1];
+  v8 = a3[2];
+  v11 = a3[3];
+  v10 = a3[4];
+  v12 = a3[5];
+  v13 = a3[6];
+  v14 = a3[7];
+  v15 = a3[8];
+  v16 = a3[9];
+  v17 = a3[10];
+  v214 = v12;
+  v241 = v16;
+  v242 = v14;
+  v238 = v10;
+  v239 = v11;
+  if (v10)
+  {
+    v18 = v15;
+    v19 = v7;
+    v20 = v8;
+    specialized Graph.Node<>.input(named:)(a1, a2, v7, v8, v302);
+    v220 = v302[1];
+    v221 = v302[0];
+    v21 = v302[3];
+    v218 = v302[4];
+    v219 = v302[2];
+    v217 = v303;
+    v22 = a3[8];
+    v223 = a3[10];
+    v224 = v22;
+    v232 = *(a3 + 72);
+    v23 = a3[6];
+    v225 = a3[7];
+    v226 = v23;
+    v24 = *a3;
+    v230 = a3[1];
+    v231 = v24;
+    v25 = a3[2];
+    v228 = a3[3];
+    v229 = v25;
+    v12 = a3[5];
+    v227 = a3[4];
+  }
+
+  else
+  {
+    v220 = 0;
+    v221 = 0;
+    v218 = 0;
+    v219 = 0;
+    v21 = 0;
+    v217 = 0;
+    v227 = 0;
+    v228 = v11;
+    v20 = v8;
+    v229 = v8;
+    v230 = v9;
+    v19 = v7;
+    v231 = v7;
+    v225 = v14;
+    v226 = v13;
+    v232 = v16;
+    v18 = v15;
+    v223 = v17;
+    v224 = v15;
+  }
+
+  outlined init with copy of SGDataTypeGraph.TopologicalSort.Element(a3, v301);
+  v197 = a3;
+  outlined init with copy of SGDataTypeGraph.TopologicalSort.Element(a3, v301);
+  v192 = 0;
+  v212 = MEMORY[0x277D84F90];
+  v196 = v12;
+  v222 = v12;
+  v26 = v214;
+  v28 = v241;
+  v27 = v242;
+  v29 = v18;
+  v30 = v20;
+  v31 = v19;
+  v32 = v21;
+  v33 = v238;
+  v34 = v239;
+  while (1)
+  {
+    *&v295 = v231;
+    *(&v295 + 1) = v230;
+    *&v296 = v229;
+    *(&v296 + 1) = v228;
+    *&v297 = v227;
+    *(&v297 + 1) = v222;
+    *&v298 = v226;
+    *(&v298 + 1) = v225;
+    *&v299 = v224;
+    BYTE8(v299) = v232 & 1;
+    v300 = v223;
+    v35 = v31;
+    v301[0] = v31;
+    v301[1] = v9;
+    v301[2] = v30;
+    v301[3] = v34;
+    v301[4] = v33;
+    v301[5] = v26;
+    v301[6] = v13;
+    v241 = v28;
+    v242 = v27;
+    v301[7] = v27;
+    v236 = v29;
+    v237 = v13;
+    v301[8] = v29;
+    v301[9] = v28;
+    v301[10] = v17;
+    v240 = v17;
+    if (!v33)
+    {
+      v156 = v26;
+      v157 = v30;
+
+      v30 = v157;
+      v26 = v156;
+      goto LABEL_72;
+    }
+
+    if (!v32)
+    {
+      goto LABEL_72;
+    }
+
+    v36 = v30;
+    v318[0] = v221;
+    v318[1] = v220;
+    v318[2] = v219;
+    v318[3] = v32;
+    v318[4] = v218;
+    v319 = v217 & 1;
+    v37 = v233[1];
+    if (!*(v37 + 16))
+    {
+      v158 = v26;
+
+      v26 = v158;
+      goto LABEL_71;
+    }
+
+    v38 = v32;
+    v39 = v26;
+    v40 = specialized __RawDictionaryStorage.find<A>(_:)(v26);
+    if ((v41 & 1) == 0)
+    {
+      break;
+    }
+
+    v238 = v33;
+    v239 = v34;
+    *&v234 = v35;
+    *(&v234 + 1) = v9;
+    v235 = v38;
+    v42 = (*(v37 + 56) + 48 * v40);
+    v43 = *v42;
+    v45 = v42[2];
+    v44 = v42[3];
+    v47 = v42[4];
+    v46 = v42[5];
+
+    outlined init with copy of [Input](v301, &v285, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
+    specialized Graph.edge(to:)(v318, v46, &v279);
+    v257 = v279;
+    v258 = v280;
+    v259 = v281;
+    v260 = v282;
+    v261 = v283;
+    v262 = v284;
+    v263 = v281;
+    v264 = v282;
+    v265 = v283;
+    v266 = v284;
+    if (!*(&v280 + 1))
+    {
+      goto LABEL_6;
+    }
+
+    if ((v279 & 0x8000000000000000) != 0)
+    {
+      __break(1u);
+LABEL_76:
+      __break(1u);
+LABEL_77:
+      __break(1u);
+LABEL_78:
+      __break(1u);
+LABEL_79:
+      __break(1u);
+LABEL_80:
+      __break(1u);
+      goto LABEL_81;
+    }
+
+    if (v279 >= *(v46 + 16))
+    {
+      goto LABEL_76;
+    }
+
+    v48 = (v46 + 88 * v279);
+    v49 = v48[8];
+    if (!v49)
+    {
+      outlined destroy of [Input](&v257, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMd, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMR);
+LABEL_6:
+
+      outlined destroy of [Input](v301, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
+      v285 = v234;
+      v286 = v36;
+      goto LABEL_7;
+    }
+
+    v215 = v44;
+    v216 = v36;
+    v207 = *(&v280 + 1);
+    v50 = v233[2];
+    if (*(v50 + 16) && (v52 = v48[4], v51 = v48[5], v54 = v48[6], v53 = v48[7], v208 = v54, v204 = v53, v213 = v49, v201 = v280, v199 = v279, v55 = specialized __RawDictionaryStorage.find<A>(_:)(v43, v52), (v56 & 1) != 0))
+    {
+      v57 = *(*(v50 + 56) + 8 * v55);
+      if ((v57 & 0x8000000000000000) != 0)
+      {
+        goto LABEL_77;
+      }
+
+      v58 = *v233;
+      v59 = *(*v233 + 16);
+      if (v57 >= v59)
+      {
+        goto LABEL_78;
+      }
+
+      v193 = v47;
+      v194 = v45;
+      v188 = v59;
+      v187 = v58 + 32;
+      v60 = v58 + 32 + 88 * v57;
+      v61 = *(v60 + 16);
+      v273 = *v60;
+      v274 = v61;
+      v62 = *(v60 + 80);
+      v64 = *(v60 + 48);
+      v63 = *(v60 + 64);
+      v275 = *(v60 + 32);
+      v276 = v64;
+      v277 = v63;
+      v278 = v62;
+      v210 = v273;
+      v211 = *(&v274 + 1);
+      v209 = v274;
+      v65 = v275;
+      v202 = *(&v64 + 1);
+      v203 = v64;
+      v205 = *(&v275 + 1);
+      v206 = v63;
+      v66 = v51;
+      v67 = *(&v63 + 1);
+      v279 = v234;
+      *&v280 = v216;
+      *(&v280 + 1) = v239;
+      *&v281 = v238;
+      *(&v281 + 1) = v39;
+      *&v282 = v237;
+      *(&v282 + 1) = v242;
+      *&v283 = v236;
+      *(&v283 + 1) = v241;
+      v284 = v240;
+      outlined copy of Graph<SGDataTypeGraph.Personality>.Node?(v52, v66, v208, v204, v213);
+      outlined init with copy of SGDataTypeGraph.TopologicalSort.Element(&v273, &v267);
+      outlined destroy of [Input](&v279, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
+      v68 = v67;
+      v69 = *(&v210 + 1);
+      v285 = v210;
+      v286 = v209;
+      v287 = v211;
+      v288 = v65;
+      v289 = v205;
+      v290 = v203;
+      v291 = v202;
+      v292 = v206;
+      v293 = v68;
+      v17 = v62;
+      v294 = v62;
+      v256 = v68;
+      v200 = v65;
+      v195 = v68;
+      if (v65)
+      {
+        v242 = v50;
+        outlined init with copy of [Input](&v285, &v267, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
+
+        v254[2] = v259;
+        v254[3] = v260;
+        v254[4] = v261;
+        v255 = v262;
+        v254[0] = v257;
+        v254[1] = v258;
+        outlined init with copy of [Input](v254, &v267, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GMd, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GMR);
+        isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+        v191 = v62;
+        if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+        {
+          v212 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v212 + 2) + 1, 1, v212);
+        }
+
+        v71 = v211;
+        v73 = *(v212 + 2);
+        v72 = *(v212 + 3);
+        if (v73 >= v72 >> 1)
+        {
+          v212 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v72 > 1), v73 + 1, 1, v212);
+        }
+
+        outlined destroy of SGDataTypeGraph.TopologicalSort.Element(&v295);
+        v253 = v266;
+        v251 = v264;
+        v252 = v265;
+        v250 = v263;
+        v74 = v212;
+        *(v212 + 2) = v73 + 1;
+        v75 = &v74[104 * v73];
+        v76 = v201;
+        *(v75 + 2) = v199;
+        *(v75 + 3) = v76;
+        v78 = v251;
+        v77 = v252;
+        v79 = v253;
+        *(v75 + 4) = v250;
+        *(v75 + 5) = v78;
+        v75[112] = v79;
+        *(v75 + 6) = v77;
+        v80 = v240;
+        *(v75 + 15) = v191;
+        *(v75 + 16) = v80;
+        v315 = v210;
+        v81 = v209;
+        *&v316 = v209;
+        *(&v316 + 1) = v71;
+        v317 = v200;
+        if (v209 >> 62 == 1)
+        {
+          v82 = v209 & 0x3FFFFFFFFFFFFFFFLL;
+
+          v241 = *((v81 & 0x3FFFFFFFFFFFFFFFLL) + 0x10);
+          v83 = *(v82 + 56);
+
+          specialized SGDataTypeGraph.resultNode.getter(v304, v83);
+          v84 = v305;
+          if (v305)
+          {
+            v85 = v304[3];
+            specialized Graph.Node<>.input(named:)(v201, v207, v304[0], v304[2], v306);
+            v220 = v306[1];
+            v221 = v306[0];
+            v235 = v306[3];
+            v218 = v306[4];
+            v219 = v306[2];
+            v217 = v307;
+            outlined destroy of [Input](&v257, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMd, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMR);
+
+            v314[0] = v85;
+            v314[1] = v84;
+            outlined destroy of String(v314);
+          }
+
+          else
+          {
+            outlined destroy of [Input](&v257, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMd, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMR);
+            v220 = 0;
+            v221 = 0;
+            v218 = 0;
+            v219 = 0;
+            v235 = 0;
+            v217 = 0;
+          }
+
+          v96 = v242;
+          specialized SGDataTypeGraph.resultNode.getter(v308, v83);
+          if (!v308[4])
+          {
+
+LABEL_55:
+
+            outlined destroy of [Input](v301, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
+            v234 = 0uLL;
+            v216 = 0;
+            v238 = 0;
+            v239 = 0;
+            v214 = 0;
+            v236 = 0;
+            v237 = 0;
+            v241 = 0;
+            v242 = 0;
+            v240 = 0;
+            v109 = v191;
+            v110 = v206;
+            v111 = v202;
+            v112 = v203;
+            goto LABEL_57;
+          }
+
+          v97 = v308[0];
+
+          if (!*(v96 + 16))
+          {
+            outlined destroy of [Input](v308, &_s11ShaderGraph0B0V4NodeVyAA010SGDataTypeB0V11PersonalityV_GSgMd, &_s11ShaderGraph0B0V4NodeVyAA010SGDataTypeB0V11PersonalityV_GSgMR);
+            goto LABEL_55;
+          }
+
+          v98 = specialized __RawDictionaryStorage.find<A>(_:)(v241, v97);
+          v99 = v191;
+          v100 = v206;
+          v101 = v203;
+          if (v102)
+          {
+            v103 = *(*(v96 + 56) + 8 * v98);
+            if (v103 >= v188)
+            {
+              goto LABEL_79;
+            }
+
+            v104 = (v187 + 88 * v103);
+            v105 = v104[1];
+            v267 = *v104;
+            v268 = v105;
+            v106 = v104[2];
+            v107 = v104[3];
+            v108 = v104[4];
+            v272 = *(v104 + 10);
+            v270 = v107;
+            v271 = v108;
+            v269 = v106;
+            outlined init with copy of SGDataTypeGraph.TopologicalSort.Element(&v267, &v244);
+            outlined destroy of [Input](v308, &_s11ShaderGraph0B0V4NodeVyAA010SGDataTypeB0V11PersonalityV_GSgMd, &_s11ShaderGraph0B0V4NodeVyAA010SGDataTypeB0V11PersonalityV_GSgMR);
+
+            outlined destroy of [Input](v301, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
+            v234 = v267;
+            v216 = v268;
+            v238 = v269;
+            v239 = *(&v268 + 1);
+            v214 = *(&v269 + 1);
+            v236 = v271;
+            v237 = v270;
+            v241 = *(&v271 + 1);
+            v242 = *(&v270 + 1);
+            v240 = v272;
+            v109 = v99;
+            v110 = v100;
+            v111 = v202;
+            v112 = v101;
+          }
+
+          else
+          {
+            v112 = v203;
+            outlined destroy of [Input](v308, &_s11ShaderGraph0B0V4NodeVyAA010SGDataTypeB0V11PersonalityV_GSgMd, &_s11ShaderGraph0B0V4NodeVyAA010SGDataTypeB0V11PersonalityV_GSgMR);
+
+            outlined destroy of [Input](v301, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
+            v234 = 0uLL;
+            v216 = 0;
+            v238 = 0;
+            v239 = 0;
+            v214 = 0;
+            v236 = 0;
+            v237 = 0;
+            v241 = 0;
+            v242 = 0;
+            v240 = 0;
+            v109 = v99;
+            v110 = v100;
+            v111 = v202;
+          }
+
+LABEL_57:
+          v129 = *(&v210 + 1);
+          v130 = v210;
+          v267 = v210;
+          v131 = v209;
+          *&v268 = v209;
+          v132 = v211;
+          *(&v268 + 1) = v211;
+          v133 = v200;
+          *&v269 = v200;
+          v134 = v205;
+          *(&v269 + 1) = v205;
+          *&v270 = v112;
+          *(&v270 + 1) = v111;
+          *&v271 = v110;
+          *(&v271 + 1) = v195;
+          v272 = v109;
+          v135 = v109;
+          v136 = v111;
+          outlined destroy of [Input](&v267, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
+          v230 = v129;
+          v231 = v130;
+          v232 = v256;
+          v228 = v132;
+          v229 = v131;
+          v226 = v112;
+          v227 = v133;
+          v222 = v134;
+          v223 = v135;
+          v224 = v206;
+          v225 = v136;
+          v32 = v235;
+          v29 = v236;
+          v34 = v239;
+          v17 = v240;
+          v9 = *(&v234 + 1);
+          v31 = v234;
+          v13 = v237;
+          v33 = v238;
+          v26 = v214;
+          v28 = v241;
+          v27 = v242;
+          v30 = v216;
+        }
+
+        else
+        {
+          outlined init with copy of [Input](&v285, &v267, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
+
+          specialized SGDataTypeGraph.argumentsNode.getter(v309, v46);
+          v88 = v309[0];
+          v89 = v309[1];
+          v90 = v309[2];
+          v91 = v309[3];
+          v92 = v309[4];
+
+          if (!v92)
+          {
+            outlined destroy of [Input](&v257, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMd, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMR);
+            outlined consume of Graph<SGDataTypeGraph.Personality>.Node?(v210, *(&v210 + 1), v81, v211, v200);
+            outlined consume of Graph<SGDataTypeGraph.Personality>.Node?(v88, v89, v90, v91, 0);
+            goto LABEL_46;
+          }
+
+          v93 = v90;
+          v94 = v205;
+          if (v210 != __PAIR128__(v89, v88) || (specialized static SGDataTypeGraph.PersonalityKind.== infix(_:_:)(v209, v93) & 1) == 0 || (v211 != v91 || v200 != v92) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+          {
+
+            v95 = outlined destroy of [Input](&v257, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMd, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMR);
+            goto LABEL_46;
+          }
+
+          if (v256)
+          {
+            v95 = outlined destroy of [Input](&v257, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMd, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMR);
+LABEL_46:
+            v267 = v315;
+            v268 = v316;
+            *&v269 = v317;
+            v113 = v191;
+            v114 = v206;
+            v115 = v202;
+            v28 = v195;
+            MEMORY[0x28223BE20](v95);
+            v185 = &v267;
+            v116 = v192;
+            v118 = specialized Sequence.compactMap<A>(_:)(_s11ShaderGraph0B0V4NodeV6inputsSayAC5InputVyx_GGvgAISgSiXEfU_AA010SGDataTypeB0V11PersonalityV_TG5TA_0, v184, 0, v117);
+            v192 = v116;
+            v119 = *(v118 + 16);
+
+            if (v119 == 1)
+            {
+              v267 = v315;
+              v268 = v316;
+              *&v269 = v317;
+              MEMORY[0x28223BE20](v120);
+              v185 = &v267;
+              v137 = v192;
+              v139 = specialized Sequence.compactMap<A>(_:)(closure #1 in Graph.Node.inputs.getterspecialized partial apply, v184, 0, v138);
+              v192 = v137;
+              if (*(v139 + 16))
+              {
+                v140 = *(v139 + 32);
+                v220 = *(v139 + 40);
+                v221 = v140;
+                v141 = *(v139 + 48);
+                v142 = *(v139 + 56);
+                v218 = *(v139 + 64);
+                v219 = v141;
+                v217 = *(v139 + 72);
+
+                outlined destroy of [Input](&v285, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
+
+                outlined destroy of [Input](v301, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
+                v32 = v142;
+              }
+
+              else
+              {
+
+                outlined destroy of [Input](&v285, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
+
+                outlined destroy of [Input](v301, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
+                v220 = 0;
+                v221 = 0;
+                v218 = 0;
+                v219 = 0;
+                v32 = 0;
+                v217 = 0;
+              }
+
+              v121 = *(&v210 + 1);
+              v9 = *(&v210 + 1);
+              v122 = v210;
+              v31 = v210;
+              v232 = v256;
+              v124 = v209;
+              v30 = v209;
+              v125 = v211;
+              v126 = v200;
+              v33 = v200;
+              v127 = v205;
+              v26 = v205;
+              v128 = v203;
+              v27 = v115;
+              v29 = v114;
+              v28 = v195;
+            }
+
+            else
+            {
+              if (v119)
+              {
+                v189(v312, &v315);
+                v220 = v312[1];
+                v221 = v312[0];
+                v123 = v312[3];
+                v218 = v312[4];
+                v219 = v312[2];
+                v217 = v313;
+
+                outlined destroy of [Input](v301, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
+                outlined destroy of [Input](&v285, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
+                v32 = v123;
+                v121 = *(&v210 + 1);
+                v9 = *(&v210 + 1);
+                v122 = v210;
+                v31 = v210;
+                v232 = v256;
+              }
+
+              else
+              {
+
+                outlined destroy of [Input](&v285, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
+                outlined destroy of [Input](v301, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
+                v220 = 0;
+                v221 = 0;
+                v218 = 0;
+                v219 = 0;
+                v32 = 0;
+                v217 = 0;
+                v232 = v256;
+                v121 = *(&v210 + 1);
+                v9 = *(&v210 + 1);
+                v122 = v210;
+                v31 = v210;
+              }
+
+              v124 = v209;
+              v125 = v211;
+              v126 = v200;
+              v33 = v200;
+              v127 = v205;
+              v26 = v205;
+              v128 = v203;
+              v27 = v115;
+              v29 = v114;
+              v30 = v209;
+            }
+
+            v17 = v113;
+            v230 = v121;
+            v231 = v122;
+            v228 = v125;
+            v229 = v124;
+            v226 = v128;
+            v227 = v126;
+            v222 = v127;
+            v223 = v113;
+            v224 = v114;
+            v225 = v115;
+            v13 = v128;
+            v34 = v125;
+          }
+
+          else
+          {
+            v143 = v187;
+            outlined destroy of [Input](&v285, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
+            v144 = v206;
+            v145 = v191;
+            v146 = v202;
+            v147 = v203;
+            if (v206 >= v188)
+            {
+              goto LABEL_80;
+            }
+
+            v148 = (v143 + 88 * v206);
+            v149 = v148[1];
+            v244 = *v148;
+            v245 = v149;
+            v150 = *(v148 + 10);
+            v152 = v148[3];
+            v151 = v148[4];
+            v246 = v148[2];
+            v247 = v152;
+            v248 = v151;
+            v249 = v150;
+            *(&v234 + 1) = *(&v244 + 1);
+            v153 = v244;
+            v239 = *(&v245 + 1);
+            v154 = v245;
+            v240 = v150;
+            v214 = *(&v246 + 1);
+            v155 = v246;
+            v236 = v151;
+            v237 = v152;
+            v241 = *(&v151 + 1);
+            v242 = *(&v152 + 1);
+            v267 = v210;
+            *&v268 = v209;
+            *(&v268 + 1) = v211;
+            *&v269 = v200;
+            *(&v269 + 1) = v94;
+            *&v270 = v203;
+            *(&v270 + 1) = v202;
+            *&v271 = v206;
+            *(&v271 + 1) = v195;
+            v272 = v191;
+            outlined init with copy of SGDataTypeGraph.TopologicalSort.Element(&v244, &v243);
+            outlined destroy of [Input](&v267, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
+            v238 = v155;
+            *&v234 = v153;
+            v216 = v154;
+            if (v155)
+            {
+              specialized Graph.Node<>.input(named:)(v201, v207, v153, v154, v310);
+              v220 = v310[1];
+              v221 = v310[0];
+              v235 = v310[3];
+              v218 = v310[4];
+              v219 = v310[2];
+              v217 = v311;
+
+              outlined destroy of [Input](v301, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
+
+              outlined destroy of [Input](&v257, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMd, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMR);
+            }
+
+            else
+            {
+
+              outlined destroy of [Input](&v257, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMd, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMR);
+              outlined destroy of [Input](v301, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
+              v220 = 0;
+              v221 = 0;
+              v218 = 0;
+              v219 = 0;
+              v235 = 0;
+              v217 = 0;
+            }
+
+            v232 = 0;
+            v230 = *(&v210 + 1);
+            v231 = v210;
+            v228 = v211;
+            v229 = v209;
+            v226 = v147;
+            v227 = v200;
+            v222 = v94;
+            v223 = v145;
+            v224 = v144;
+            v225 = v146;
+            v9 = *(&v234 + 1);
+            v32 = v235;
+            v34 = v239;
+            v17 = v240;
+            v31 = v234;
+            v13 = v237;
+            v33 = v238;
+            v26 = v214;
+            v28 = v241;
+            v27 = v242;
+            v29 = v236;
+            v30 = v216;
+          }
+        }
+      }
+
+      else
+      {
+        v86 = v210;
+        v87 = v209;
+
+        outlined destroy of [Input](&v257, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMd, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMR);
+
+        outlined destroy of [Input](v301, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
+        v33 = 0;
+        v31 = v86;
+        v9 = v69;
+        v30 = v87;
+        v34 = v211;
+        v26 = v205;
+        v29 = v206;
+        v27 = v202;
+        v13 = v203;
+        v28 = v195;
+        v32 = v235;
+      }
+    }
+
+    else
+    {
+
+      outlined destroy of [Input](v301, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
+      outlined destroy of [Input](&v257, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMd, &_s11ShaderGraph0B0V4EdgeVyAA010SGDataTypeB0V11PersonalityV_GSgMR);
+      v285 = v234;
+      v286 = v216;
+LABEL_7:
+      v287 = v239;
+      v288 = v238;
+      v289 = v39;
+      v290 = v237;
+      v291 = v242;
+      v292 = v236;
+      v293 = v241;
+      v294 = v240;
+      outlined destroy of [Input](&v285, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
+      v31 = 0;
+      v9 = 0;
+      v30 = 0;
+      v34 = 0;
+      v33 = 0;
+      v26 = 0;
+      v13 = 0;
+      v27 = 0;
+      v29 = 0;
+      v28 = 0;
+      v17 = 0;
+      v32 = v235;
+    }
+  }
+
+  v26 = v39;
+LABEL_71:
+  v30 = v36;
+LABEL_72:
+  v214 = v26;
+  v159 = v233[1];
+  if (*(v159 + 16))
+  {
+    v160 = v33;
+    v161 = v34;
+    v162 = v30;
+    v163 = specialized __RawDictionaryStorage.find<A>(_:)(v196);
+    if (v164)
+    {
+      v165 = (*(v159 + 56) + 48 * v163);
+      v166 = *v165;
+      v238 = v165[1];
+      v239 = v166;
+      v167 = v165[2];
+      v168 = v165[3];
+      v169 = v165[4];
+      v235 = v165[5];
+      v170 = *(v197 + 3);
+      v281 = *(v197 + 2);
+      v282 = v170;
+      v283 = *(v197 + 4);
+      v284 = v197[10];
+      v171 = *(v197 + 1);
+      v279 = *v197;
+      v280 = v171;
+      v273 = v295;
+      v274 = v296;
+      v278 = v300;
+      v276 = v298;
+      v277 = v299;
+      v275 = v297;
+      *&v285 = v35;
+      *(&v285 + 1) = v9;
+      v286 = v162;
+      v287 = v161;
+      v288 = v160;
+      v289 = v214;
+      v290 = v237;
+      v291 = v242;
+      v292 = v236;
+      v293 = v241;
+      v294 = v240;
+      outlined init with copy of SGDataTypeGraph.TopologicalSort.Element(v197, &v267);
+
+      v172 = v168;
+
+      v173 = v235;
+
+      result = outlined destroy of [Input](&v285, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMd, &_s11ShaderGraph010SGDataTypeB0V15TopologicalSortV7ElementVSgMR);
+      v175 = v198;
+      *v198 = v212;
+      v176 = v282;
+      *(v175 + 5) = v281;
+      *(v175 + 7) = v176;
+      *(v175 + 9) = v283;
+      v175[11] = v284;
+      v177 = v280;
+      *(v175 + 1) = v279;
+      *(v175 + 3) = v177;
+      v178 = v274;
+      *(v175 + 6) = v273;
+      *(v175 + 7) = v178;
+      v179 = v275;
+      v180 = v277;
+      v181 = v278;
+      *(v175 + 9) = v276;
+      *(v175 + 10) = v180;
+      *(v175 + 8) = v179;
+      v182 = v238;
+      v183 = v239;
+      v175[22] = v181;
+      v175[23] = v183;
+      v175[24] = v182;
+      v175[25] = v167;
+      v175[26] = v172;
+      v175[27] = v169;
+      v175[28] = v173;
+      return result;
+    }
+  }
+
+LABEL_81:
+  v186 = 0;
+  v185 = 191;
+  result = _assertionFailure(_:_:file:line:flags:)();
+  __break(1u);
+  return result;
+}
+
+unint64_t SGDataTypeGraph.TopologicalSort.Path.hasValue.getter()
+{
+  v1 = *(*v0 + 16);
+  if (v1)
+  {
+    v1 = v0[14];
+    if (v1 >> 62)
+    {
+      LOBYTE(v1) = v1 >> 62 != 1;
+    }
+
+    else
+    {
+      v2 = v0[13];
+      v3 = v1 & 0x3FFFFFFFFFFFFFFFLL;
+      v4 = *(v3 + 16);
+      v5 = *(v3 + 24);
+      v6 = v4 == 0x656D756772615F5FLL && v5 == 0xEB0000000073746ELL;
+      if (v6 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+      {
+        LOBYTE(v1) = v2 == v0[23];
+      }
+
+      else if (v4 == 0x746C757365725F5FLL && v5 == 0xE900000000000073)
+      {
+        LOBYTE(v1) = 0;
+      }
+
+      else
+      {
+        LOBYTE(v1) = _stringCompareWithSmolCheck(_:_:expecting:)() ^ 1;
+      }
+    }
+  }
+
+  return v1 & 1;
+}
+
+uint64_t SGDataTypeGraph.TopologicalSort.Path.constantBoolValue.getter()
+{
+  v1 = *(v0 + 112);
+  if (v1 >> 62 == 2 && ((v2 = v1 & 0x3FFFFFFFFFFFFFFFLL, *(v2 + 16) == 1) ? (v3 = *(v2 + 96) == 0) : (v3 = 0), v3))
+  {
+    return *(v2 + 32) & 1;
+  }
+
+  else
+  {
+    return 2;
+  }
+}
+
+uint64_t SGDataTypeGraph.TopologicalSort.Path.sourceNode.getter@<X0>(uint64_t a1@<X8>)
+{
+  v2 = *(v1 + 128);
+  v3 = *(v1 + 112);
+  *a1 = *(v1 + 96);
+  *(a1 + 16) = v3;
+  *(a1 + 32) = v2;
+}
+
+uint64_t Graph.Node<>.BOOLValue.getter()
+{
+  v1 = *(v0 + 16);
+  if (v1 >> 62 == 2 && ((v2 = v1 & 0x3FFFFFFFFFFFFFFFLL, *(v2 + 16) == 1) ? (v3 = *(v2 + 96) == 0) : (v3 = 0), v3))
+  {
+    return *(v2 + 32) & 1;
+  }
+
+  else
+  {
+    return 2;
+  }
+}
+
+uint64_t Graph.Node<>.constantStringValue.getter()
+{
+  v1 = *(v0 + 16);
+  if (v1 >> 62 != 2)
+  {
+    return 0;
+  }
+
+  v2 = v1 & 0x3FFFFFFFFFFFFFFFLL;
+  if (*(v2 + 16) != 11 || *(v2 + 96) != 6)
+  {
+    return 0;
+  }
+
+  v5 = *(v2 + 32);
+
+  return v5;
+}
+
+uint64_t Graph.Node<>.constantAssetValue.getter()
+{
+  v1 = *(v0 + 16);
+  if (v1 >> 62 != 2)
+  {
+    return 0;
+  }
+
+  v2 = v1 & 0x3FFFFFFFFFFFFFFFLL;
+  if (*(v2 + 16) != 13 || *(v2 + 96) != 6)
+  {
+    return 0;
+  }
+
+  v5 = *(v2 + 32);
+
+  return v5;
+}
+
+uint64_t SGDataTypeGraph.TopologicalSort.Path.PathEdge.debugDescription.getter()
+{
+  _StringGuts.grow(_:)(22);
+  v1 = v0[2];
+  v2 = v0[7];
+  v3 = v0[8];
+
+  MEMORY[0x266771550](58, 0xE100000000000000);
+  v4 = SGDataType.stringValue.getter();
+  MEMORY[0x266771550](v4);
+
+  MEMORY[0x266771550](91, 0xE100000000000000);
+  v5 = dispatch thunk of CustomStringConvertible.description.getter();
+  MEMORY[0x266771550](v5);
+
+  MEMORY[0x266771550](0x203E2D205DLL, 0xE500000000000000);
+  MEMORY[0x266771550](v2, v3);
+  MEMORY[0x266771550](58, 0xE100000000000000);
+  v6 = SGDataType.stringValue.getter();
+  MEMORY[0x266771550](v6);
+
+  MEMORY[0x266771550](91, 0xE100000000000000);
+  v7 = dispatch thunk of CustomStringConvertible.description.getter();
+  MEMORY[0x266771550](v7);
+
+  MEMORY[0x266771550](93, 0xE100000000000000);
+  return v1;
+}
+
+__n128 SGDataTypeGraph.TopologicalSort.Path.PathEdge.init(edge:fromElement:toElement:)@<Q0>(__int128 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+{
+  LOBYTE(v8) = *(a1 + 80);
+  result = a1[2];
+  v5 = a1[4];
+  v6 = *a1;
+  v7 = a1[1];
+  *(a4 + 48) = a1[3];
+  *(a4 + 64) = v5;
+  *(a4 + 16) = v7;
+  *(a4 + 32) = result;
+  *a4 = v6;
+  *(a4 + 80) = v8;
+  *(a4 + 88) = a2;
+  *(a4 + 96) = a3;
+  return result;
+}
+
+BOOL SGDataTypeGraph.TopologicalSort.Path.isMaterialUniform.getter()
+{
+  v2 = v0[12];
+  v1 = v0[13];
+  v3 = v0[14];
+  v4 = v0[15];
+  v5 = v0[16];
+  v6 = v0[28];
+
+  specialized SGDataTypeGraph.argumentsNode.getter(&v14, v6);
+  v8 = v14;
+  v7 = v15;
+  v9 = v16;
+  v10 = v17;
+  v11 = v18;
+  if (v18)
+  {
+    v12 = v2 == v14 && v1 == v15 && (specialized static SGDataTypeGraph.PersonalityKind.== infix(_:_:)(v3, v16) & 1) != 0 && (v4 == v10 && v11 == v5 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0);
+  }
+
+  else
+  {
+    outlined consume of Graph<SGDataTypeGraph.Personality>.Node?(v2, v1, v3, v4, v5);
+    outlined consume of Graph<SGDataTypeGraph.Personality>.Node?(v8, v7, v9, v10, 0);
+    return 0;
+  }
+
+  return v12;
+}
+
+uint64_t SGDataTypeGraph.TopologicalSort.Path.debugDescription.getter()
+{
+  v1 = *v0;
+  v2 = *(*v0 + 16);
+  if (!v2)
+  {
+    return 0x706D652068746150;
+  }
+
+  *&v29[0] = 0;
+  *(&v29[0] + 1) = 0xE000000000000000;
+  _StringGuts.grow(_:)(20);
+  v4 = v0[15];
+  v3 = v0[16];
+  v5 = v0[17];
+
+  *&v29[0] = v4;
+  *(&v29[0] + 1) = v3;
+  MEMORY[0x266771550](91, 0xE100000000000000);
+  *&v27 = v5;
+  v6 = dispatch thunk of CustomStringConvertible.description.getter();
+  MEMORY[0x266771550](v6);
+
+  MEMORY[0x266771550](0x203E2D205DLL, 0xE500000000000000);
+  v7 = v0[6];
+  MEMORY[0x266771550](v0[4], v0[5]);
+  MEMORY[0x266771550](91, 0xE100000000000000);
+  *&v27 = v7;
+  v8 = dispatch thunk of CustomStringConvertible.description.getter();
+  MEMORY[0x266771550](v8);
+
+  MEMORY[0x266771550](0x203A3A205DLL, 0xE500000000000000);
+  v9 = v29[0];
+  v28 = MEMORY[0x277D84F90];
+  specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v2, 0);
+  v10 = v28;
+  v11 = (v1 + 32);
+  do
+  {
+    v12 = *v11;
+    v13 = v11[2];
+    v29[1] = v11[1];
+    v29[2] = v13;
+    v29[0] = v12;
+    v14 = v11[3];
+    v15 = v11[4];
+    v16 = v11[5];
+    v30 = *(v11 + 12);
+    v29[4] = v15;
+    v29[5] = v16;
+    v29[3] = v14;
+    outlined init with copy of SGDataTypeGraph.TopologicalSort.Path.PathEdge(v29, &v27);
+    v17 = SGDataTypeGraph.TopologicalSort.Path.PathEdge.debugDescription.getter();
+    v19 = v18;
+    outlined destroy of SGDataTypeGraph.TopologicalSort.Path.PathEdge(v29);
+    v28 = v10;
+    v21 = *(v10 + 16);
+    v20 = *(v10 + 24);
+    if (v21 >= v20 >> 1)
+    {
+      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v20 > 1), v21 + 1, 1);
+      v10 = v28;
+    }
+
+    *(v10 + 16) = v21 + 1;
+    v22 = v10 + 16 * v21;
+    *(v22 + 32) = v17;
+    *(v22 + 40) = v19;
+    v11 = (v11 + 104);
+    --v2;
+  }
+
+  while (v2);
+  *&v27 = v10;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
+  lazy protocol witness table accessor for type [String] and conformance [A]();
+  v23 = BidirectionalCollection<>.joined(separator:)();
+  v25 = v24;
+
+  v27 = v9;
+
+  MEMORY[0x266771550](v23, v25);
+
+  return v27;
+}
+
+double closure #1 in default argument 2 of SGDataTypeGraph.TopologicalSort.path(to:on:resolvingInput:)@<D0>(_OWORD *a1@<X8>)
+{
+  result = 0.0;
+  *(a1 + 25) = 0u;
+  *a1 = 0u;
+  a1[1] = 0u;
+  return result;
+}
+
+double specialized closure #1 in Graph.Node.inputs.getter@<D0>(unint64_t *a1@<X0>, uint64_t *a2@<X1>, _OWORD *a3@<X8>)
+{
+  specialized closure #1 in Graph.Node.inputs.getter(*a1, *a2, a2[2], &v7);
+  if (!v3)
+  {
+    v6 = v8[0];
+    *a3 = v7;
+    a3[1] = v6;
+    result = *(v8 + 9);
+    *(a3 + 25) = *(v8 + 9);
+  }
+
+  return result;
+}
+
+__n128 __swift_memcpy232_8(uint64_t a1, __int128 *a2)
+{
+  v2 = *a2;
+  v3 = a2[2];
+  *(a1 + 16) = a2[1];
+  *(a1 + 32) = v3;
+  *a1 = v2;
+  v4 = a2[3];
+  v5 = a2[4];
+  v6 = a2[6];
+  *(a1 + 80) = a2[5];
+  *(a1 + 96) = v6;
+  *(a1 + 48) = v4;
+  *(a1 + 64) = v5;
+  v7 = a2[7];
+  v8 = a2[8];
+  v9 = a2[10];
+  *(a1 + 144) = a2[9];
+  *(a1 + 160) = v9;
+  *(a1 + 112) = v7;
+  *(a1 + 128) = v8;
+  result = a2[11];
+  v11 = a2[12];
+  v12 = a2[13];
+  *(a1 + 224) = *(a2 + 28);
+  *(a1 + 192) = v11;
+  *(a1 + 208) = v12;
+  *(a1 + 176) = result;
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for SGDataTypeGraph.TopologicalSort.Path(uint64_t *a1, int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 < 0 && *(a1 + 232))
+  {
+    return *a1 + 0x80000000;
+  }
+
+  v2 = *a1;
+  if (*a1 >= 0xFFFFFFFF)
+  {
+    LODWORD(v2) = -1;
+  }
+
+  return (v2 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for SGDataTypeGraph.TopologicalSort.Path(uint64_t result, int a2, int a3)
+{
+  if (a2 < 0)
+  {
+    *(result + 200) = 0u;
+    *(result + 216) = 0u;
+    *(result + 184) = 0u;
+    *(result + 168) = 0u;
+    *(result + 152) = 0u;
+    *(result + 136) = 0u;
+    *(result + 120) = 0u;
+    *(result + 104) = 0u;
+    *(result + 88) = 0u;
+    *(result + 72) = 0u;
+    *(result + 56) = 0u;
+    *(result + 40) = 0u;
+    *(result + 24) = 0u;
+    *(result + 8) = 0u;
+    *result = a2 & 0x7FFFFFFF;
+    if (a3 < 0)
+    {
+      *(result + 232) = 1;
+    }
+  }
+
+  else
+  {
+    if ((a3 & 0x80000000) == 0)
+    {
+      if (!a2)
+      {
+        return result;
+      }
+
+LABEL_8:
+      *result = (a2 - 1);
+      return result;
+    }
+
+    *(result + 232) = 0;
+    if (a2)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  return result;
+}
+
+__n128 __swift_memcpy104_8(uint64_t a1, __int128 *a2)
+{
+  v2 = *a2;
+  v3 = a2[2];
+  *(a1 + 16) = a2[1];
+  *(a1 + 32) = v3;
+  *a1 = v2;
+  result = a2[3];
+  v5 = a2[4];
+  v6 = a2[5];
+  *(a1 + 96) = *(a2 + 12);
+  *(a1 + 64) = v5;
+  *(a1 + 80) = v6;
+  *(a1 + 48) = result;
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for SGDataTypeGraph.TopologicalSort.Path.PathEdge(uint64_t a1, int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 < 0 && *(a1 + 104))
+  {
+    return *a1 + 0x80000000;
+  }
+
+  v2 = *(a1 + 24);
+  if (v2 >= 0xFFFFFFFF)
+  {
+    LODWORD(v2) = -1;
+  }
+
+  return (v2 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for SGDataTypeGraph.TopologicalSort.Path.PathEdge(uint64_t result, int a2, int a3)
+{
+  if (a2 < 0)
+  {
+    *(result + 72) = 0u;
+    *(result + 88) = 0u;
+    *(result + 56) = 0u;
+    *(result + 40) = 0u;
+    *(result + 24) = 0u;
+    *(result + 8) = 0u;
+    *result = a2 & 0x7FFFFFFF;
+    if (a3 < 0)
+    {
+      *(result + 104) = 1;
+    }
+  }
+
+  else
+  {
+    if ((a3 & 0x80000000) == 0)
+    {
+      if (!a2)
+      {
+        return result;
+      }
+
+LABEL_8:
+      *(result + 24) = (a2 - 1);
+      return result;
+    }
+
+    *(result + 104) = 0;
+    if (a2)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  return result;
+}
+
+unint64_t specialized closure #1 in Graph.Node.inputs.getter@<X0>(unint64_t result@<X0>, uint64_t a2@<X1>, unint64_t a3@<X2>, uint64_t a4@<X8>)
+{
+  if ((result & 0x8000000000000000) != 0)
+  {
+    goto LABEL_10;
+  }
+
+  v4 = a3 >> 62;
+  if (a3 >> 62)
+  {
+    if (v4 != 1)
+    {
+LABEL_10:
+      a2 = 0;
+      v9 = 0;
+      v10 = 0;
+      v11 = 0;
+      v12 = 0;
+      v13 = 0;
+LABEL_13:
+      *a4 = a2;
+      *(a4 + 8) = v9;
+      *(a4 + 16) = v10;
+      *(a4 + 24) = v11;
+      *(a4 + 32) = v12;
+      *(a4 + 40) = v13;
+      return result;
+    }
+
+    v5 = a3 & 0x3FFFFFFFFFFFFFFFLL;
+    v6 = 40;
+  }
+
+  else
+  {
+    v6 = 32;
+    v5 = a3;
+  }
+
+  if (*(*(v5 + v6) + 16) <= result)
+  {
+    goto LABEL_10;
+  }
+
+  v8 = a4;
+  if (!v4)
+  {
+    a4 = *(a3 + 32);
+    if (*(a4 + 16) <= result)
+    {
+      __break(1u);
+      goto LABEL_10;
+    }
+
+LABEL_12:
+    v14 = a4 + 32 * result;
+    v10 = *(v14 + 32);
+    v11 = *(v14 + 40);
+    v12 = *(v14 + 48);
+    v13 = *(v14 + 56);
+    v15 = result;
+
+    v9 = v15;
+    a4 = v8;
+    goto LABEL_13;
+  }
+
+  a4 = *((a3 & 0x3FFFFFFFFFFFFFFFLL) + 0x28);
+  if (*(a4 + 16) > result)
+  {
+    goto LABEL_12;
+  }
+
+  __break(1u);
+  return result;
+}
+
+void specialized Sequence.forEach(_:)(unint64_t a1, uint64_t a2)
+{
+  v3 = a1;
+  if (a1 >> 62)
+  {
+    goto LABEL_60;
+  }
+
+  for (i = *((a1 & 0xFFFFFFFFFFFFFF8) + 0x10); i; i = __CocoaSet.count.getter())
+  {
+    v5 = 0;
+    v49 = v3 & 0xFFFFFFFFFFFFFF8;
+    v50 = v3 & 0xC000000000000001;
+    v48 = v3 + 32;
+    v44 = a2;
+    v45 = i;
+    v46 = v3;
+    while (1)
+    {
+      if (v50)
+      {
+        v6 = MEMORY[0x266772030](v5, v3);
+      }
+
+      else
+      {
+        if (v5 >= *(v49 + 16))
+        {
+          goto LABEL_57;
+        }
+
+        v6 = *(v48 + 8 * v5);
+      }
+
+      v52 = v6;
+      v7 = __OFADD__(v5++, 1);
+      if (v7)
+      {
+        break;
+      }
+
+      v9 = *a2;
+      v8 = *(a2 + 8);
+      v10 = (v8 + 32);
+      if (*a2)
+      {
+        v12 = (v9 + 16);
+        v11 = *(v9 + 16);
+
+        v13 = NSObject._rawHashValue(seed:)(v11);
+        v14 = 1 << *(v9 + 16);
+        v7 = __OFSUB__(v14, 1);
+        v15 = v14 - 1;
+        if (v7)
+        {
+          goto LABEL_59;
+        }
+
+        v16 = v15 & v13;
+        v17 = _HashTable.UnsafeHandle._startIterator(bucket:)(v15 & v13, (v9 + 16), v9 + 32);
+        if (v17)
+        {
+          v3 = v18;
+          v20 = v19;
+          v47 = v5;
+          v21 = -1 << *(v9 + 16);
+          v22 = (v21 ^ ~v17) + (*(v9 + 24) >> 6);
+          if (v22 >= ~v21)
+          {
+            v23 = ~v21;
+          }
+
+          else
+          {
+            v23 = 0;
+          }
+
+          v24 = v22 - v23;
+          type metadata accessor for SGEdge();
+          v25 = v10[v24];
+          a2 = static NSObject.== infix(_:_:)();
+
+          if ((a2 & 1) == 0)
+          {
+            v51 = 0;
+            do
+            {
+              ++v16;
+              v26 = *v12 & 0x3FLL;
+              v27 = 1 << *v12;
+              if (v16 == v27)
+              {
+                if (v51)
+                {
+                  _assertionFailure(_:_:file:line:flags:)();
+                  __break(1u);
+                  return;
+                }
+
+                v16 = 0;
+                v51 = 1;
+              }
+
+              if (v20 >= v26)
+              {
+                v35 = (v27 - 1) & v3;
+                v3 >>= v26;
+                v20 -= v26;
+                if (!v35)
+                {
+LABEL_50:
+                  a2 = v44;
+                  v5 = v47;
+                  goto LABEL_51;
+                }
+              }
+
+              else
+              {
+                v28 = (v16 * v26) >> 6;
+                if (v20)
+                {
+                  if (__OFADD__(v26 << v26, 64))
+                  {
+                    goto LABEL_58;
+                  }
+
+                  v29 = (v26 << v26) + 126;
+                  if ((v26 << v26) + 64 >= 1)
+                  {
+                    v29 = (v26 << v26) + 63;
+                  }
+
+                  if (v28 + 1 == v29 >> 6)
+                  {
+                    v28 = 0;
+                  }
+
+                  else
+                  {
+                    ++v28;
+                  }
+                }
+
+                v30 = v26 - v20;
+                if (__OFSUB__(v26, v20))
+                {
+                  __break(1u);
+LABEL_55:
+                  __break(1u);
+                  goto LABEL_56;
+                }
+
+                v31 = v28 == 2 && v26 == 5;
+                v32 = 64;
+                if (v31)
+                {
+                  v32 = 32;
+                }
+
+                v7 = __OFSUB__(v32, v30);
+                v33 = v32 - v30;
+                if (v7)
+                {
+                  goto LABEL_55;
+                }
+
+                v34 = *(v9 + 32 + 8 * v28);
+                v35 = ((v34 << v20) | v3) & (v27 - 1);
+                v3 = v34 >> v30;
+                v20 = v33;
+                if (!v35)
+                {
+                  goto LABEL_50;
+                }
+              }
+
+              v36 = -1 << v26;
+              v37 = (v36 ^ ~v35) + (*(v9 + 24) >> 6);
+              if (v37 >= ~v36)
+              {
+                v38 = ~v36;
+              }
+
+              else
+              {
+                v38 = 0;
+              }
+
+              v39 = v10[v37 - v38];
+              a2 = static NSObject.== infix(_:_:)();
+            }
+
+            while ((a2 & 1) == 0);
+          }
+
+          a2 = v44;
+          i = v45;
+          v3 = v46;
+          v5 = v47;
+          goto LABEL_5;
+        }
+
+LABEL_51:
+
+        i = v45;
+        v3 = v46;
+      }
+
+      else
+      {
+        v40 = v5;
+        v41 = *(v8 + 16);
+        if (v41)
+        {
+          type metadata accessor for SGEdge();
+          while (1)
+          {
+            v42 = *v10;
+            v43 = static NSObject.== infix(_:_:)();
+
+            if (v43)
+            {
+              break;
+            }
+
+            ++v10;
+            if (!--v41)
+            {
+              goto LABEL_48;
+            }
+          }
+
+          v5 = v40;
+          goto LABEL_5;
+        }
+
+LABEL_48:
+        v16 = 0;
+        v5 = v40;
+      }
+
+      specialized OrderedSet._appendNew(_:in:)(v52, v16);
+
+LABEL_5:
+      if (v5 == i)
+      {
+        return;
+      }
+    }
+
+LABEL_56:
+    __break(1u);
+LABEL_57:
+    __break(1u);
+LABEL_58:
+    __break(1u);
+LABEL_59:
+    __break(1u);
+LABEL_60:
+    ;
+  }
 }

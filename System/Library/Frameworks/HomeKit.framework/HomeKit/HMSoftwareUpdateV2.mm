@@ -12,38 +12,36 @@
 
 - (NSArray)attributeDescriptions
 {
-  v27[7] = *MEMORY[0x1E69E9840];
+  v26[7] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E69A29C8]);
-  v26 = [MEMORY[0x1E696AD98] numberWithInteger:{-[HMSoftwareUpdateV2 status](self, "status")}];
-  v25 = [v3 initWithName:@"status" value:v26];
-  v27[0] = v25;
+  v25 = [MEMORY[0x1E696AD98] numberWithInteger:{-[HMSoftwareUpdateV2 status](self, "status")}];
+  v24 = [v3 initWithName:@"status" value:v25];
+  v26[0] = v24;
   v4 = objc_alloc(MEMORY[0x1E69A29C8]);
   error = [(HMSoftwareUpdateV2 *)self error];
-  v23 = [v4 initWithName:@"error" value:error];
-  v27[1] = v23;
+  v22 = [v4 initWithName:@"error" value:error];
+  v26[1] = v22;
   v5 = objc_alloc(MEMORY[0x1E69A29C8]);
   documentationMetadata = [(HMSoftwareUpdateV2 *)self documentationMetadata];
   v6 = [v5 initWithName:@"documentationMetadata" value:documentationMetadata];
-  v27[2] = v6;
+  v26[2] = v6;
   v7 = objc_alloc(MEMORY[0x1E69A29C8]);
   version = [(HMSoftwareUpdateV2 *)self version];
   v9 = [v7 initWithName:@"version" value:version];
-  v27[3] = v9;
+  v26[3] = v9;
   v10 = objc_alloc(MEMORY[0x1E69A29C8]);
   v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[HMSoftwareUpdateV2 downloadSize](self, "downloadSize")}];
   v12 = [v10 initWithName:@"downloadSize" value:v11];
-  v27[4] = v12;
+  v26[4] = v12;
   v13 = objc_alloc(MEMORY[0x1E69A29C8]);
   humanReadableUpdateName = [(HMSoftwareUpdateV2 *)self humanReadableUpdateName];
   v15 = [v13 initWithName:@"humanReadableUpdateName" value:humanReadableUpdateName];
-  v27[5] = v15;
+  v26[5] = v15;
   v16 = objc_alloc(MEMORY[0x1E69A29C8]);
   v17 = [MEMORY[0x1E696AD98] numberWithBool:{-[HMSoftwareUpdateV2 rampFeatureEnabledOnServer](self, "rampFeatureEnabledOnServer")}];
   v18 = [v16 initWithName:@"rampFeatureEnabledOnServer" value:v17];
-  v27[6] = v18;
-  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:7];
-
-  v20 = *MEMORY[0x1E69E9840];
+  v26[6] = v18;
+  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:7];
 
   return v19;
 }
@@ -77,55 +75,7 @@
     }
 
     v6 = v5;
-    if (!v6)
-    {
-      goto LABEL_13;
-    }
-
-    status = [(HMSoftwareUpdateV2 *)self status];
-    if (status != [(HMSoftwareUpdateV2 *)v6 status])
-    {
-      goto LABEL_13;
-    }
-
-    error = [(HMSoftwareUpdateV2 *)self error];
-    error2 = [(HMSoftwareUpdateV2 *)v6 error];
-    v10 = HMFEqualObjects();
-
-    if (!v10)
-    {
-      goto LABEL_13;
-    }
-
-    documentationMetadata = [(HMSoftwareUpdateV2 *)self documentationMetadata];
-    documentationMetadata2 = [(HMSoftwareUpdateV2 *)v6 documentationMetadata];
-    v13 = HMFEqualObjects();
-
-    if (!v13)
-    {
-      goto LABEL_13;
-    }
-
-    version = [(HMSoftwareUpdateV2 *)self version];
-    version2 = [(HMSoftwareUpdateV2 *)v6 version];
-    v16 = HMFEqualObjects();
-
-    if (!v16)
-    {
-      goto LABEL_13;
-    }
-
-    downloadSize = [(HMSoftwareUpdateV2 *)self downloadSize];
-    if (downloadSize != [(HMSoftwareUpdateV2 *)v6 downloadSize])
-    {
-      goto LABEL_13;
-    }
-
-    humanReadableUpdateName = [(HMSoftwareUpdateV2 *)self humanReadableUpdateName];
-    humanReadableUpdateName2 = [(HMSoftwareUpdateV2 *)v6 humanReadableUpdateName];
-    v20 = HMFEqualObjects();
-
-    if (v20)
+    if (v6 && (v7 = [(HMSoftwareUpdateV2 *)self status], v7 == [(HMSoftwareUpdateV2 *)v6 status]) && ([(HMSoftwareUpdateV2 *)self error], v8 = objc_claimAutoreleasedReturnValue(), [(HMSoftwareUpdateV2 *)v6 error], v9 = objc_claimAutoreleasedReturnValue(), v10 = HMFEqualObjects(), v9, v8, v10) && ([(HMSoftwareUpdateV2 *)self documentationMetadata], v11 = objc_claimAutoreleasedReturnValue(), [(HMSoftwareUpdateV2 *)v6 documentationMetadata], v12 = objc_claimAutoreleasedReturnValue(), v13 = HMFEqualObjects(), v12, v11, v13) && ([(HMSoftwareUpdateV2 *)self version], v14 = objc_claimAutoreleasedReturnValue(), [(HMSoftwareUpdateV2 *)v6 version], v15 = objc_claimAutoreleasedReturnValue(), v16 = HMFEqualObjects(), v15, v14, v16) && (v17 = [(HMSoftwareUpdateV2 *)self downloadSize], v17 == [(HMSoftwareUpdateV2 *)v6 downloadSize]) && ([(HMSoftwareUpdateV2 *)self humanReadableUpdateName], v18 = objc_claimAutoreleasedReturnValue(), [(HMSoftwareUpdateV2 *)v6 humanReadableUpdateName], v19 = objc_claimAutoreleasedReturnValue(), v20 = HMFEqualObjects(), v19, v18, v20))
     {
       rampFeatureEnabledOnServer = [(HMSoftwareUpdateV2 *)self rampFeatureEnabledOnServer];
       v22 = rampFeatureEnabledOnServer ^ [(HMSoftwareUpdateV2 *)v6 rampFeatureEnabledOnServer]^ 1;
@@ -133,7 +83,6 @@
 
     else
     {
-LABEL_13:
       LOBYTE(v22) = 0;
     }
   }

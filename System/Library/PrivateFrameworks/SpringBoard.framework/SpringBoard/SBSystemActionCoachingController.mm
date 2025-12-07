@@ -157,7 +157,7 @@ LABEL_3:
 
 - (void)systemActionPreviewCoordinator:(id)coordinator didInvalidateExpansionOfPreview:(id)preview forAction:(id)action withResult:(unint64_t)result
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   actionCopy = action;
   [(SBSystemActionCoachingPolicy *)self->_policy noteDidInvalidateExpansionOfPreview:preview forAction:actionCopy withResult:result];
   if (!result)
@@ -171,16 +171,17 @@ LABEL_3:
   hUDViewController = [v11 HUDViewController];
   if ([(SBSystemActionCoachingPolicy *)self->_policy wantsCoachingPresentedForAction:actionCopy])
   {
-    if (([(SBSystemActionCoachingController *)self _canPresentCoachingForAction:actionCopy]& 1) == 0)
+    v13 = [(SBSystemActionCoachingController *)self _canPresentCoachingForAction:actionCopy];
+    if ((v13 & 1) == 0)
     {
-      v14 = SBLogSystemActionCoaching();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v15 = SBLogSystemActionCoaching(v13);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = 138543618;
+        v16 = 138543618;
         selfCopy = self;
-        v17 = 2114;
-        v18 = actionCopy;
-        _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, "(%{public}@) Delegate denied presentation of coaching for action %{public}@", &v15, 0x16u);
+        v18 = 2114;
+        v19 = actionCopy;
+        _os_log_impl(&dword_21ED4E000, v15, OS_LOG_TYPE_DEFAULT, "(%{public}@) Delegate denied presentation of coaching for action %{public}@", &v16, 0x16u);
       }
 
       goto LABEL_5;
@@ -188,12 +189,12 @@ LABEL_3:
 
     if (!v11)
     {
-      v13 = [[SBSystemActionCoachingHUDViewController alloc] initWithRingerControl:self->_activityManager activityManager:self->_applicationController applicationController:self->_doNotDisturbStateMonitor doNotDisturbStateMonitor:self->_flashlightActivityManager flashlightActivityManager:?];
+      v14 = [[SBSystemActionCoachingHUDViewController alloc] initWithRingerControl:self->_activityManager activityManager:self->_applicationController applicationController:self->_doNotDisturbStateMonitor doNotDisturbStateMonitor:self->_flashlightActivityManager flashlightActivityManager:?];
 
-      [(SBSystemActionCoachingHUDViewController *)v13 setDelegate:?];
-      [(SBSystemActionCoachingHUDViewController *)v13 setSystemApertureFrames:?];
-      v11 = [(SBHUDController *)self->_HUDController HUDSessionForViewController:v13 identifier:v10];
-      hUDViewController = v13;
+      [(SBSystemActionCoachingHUDViewController *)v14 setDelegate:?];
+      [(SBSystemActionCoachingHUDViewController *)v14 setSystemApertureFrames:?];
+      v11 = [(SBHUDController *)self->_HUDController HUDSessionForViewController:v14 identifier:v10];
+      hUDViewController = v14;
     }
 
     [(SBSystemActionCoachingHUDViewController *)hUDViewController setAction:actionCopy];
@@ -251,11 +252,11 @@ LABEL_6:
   }
 }
 
-uint64_t __52__SBSystemActionCoachingController__dismissCoaching__block_invoke(uint64_t result, int a2)
+id *__52__SBSystemActionCoachingController__dismissCoaching__block_invoke(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) dismiss];
+    return [result[4] dismiss];
   }
 
   return result;
@@ -400,7 +401,7 @@ uint64_t __52__SBSystemActionCoachingController__dismissCoaching__block_invoke(u
 
 - (void)initWithHUDController:(char *)a1 ringerControl:activityManager:applicationController:doNotDisturbStateMonitor:flashlightActivityManager:bannerManager:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"bannerManager != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -408,7 +409,7 @@ uint64_t __52__SBSystemActionCoachingController__dismissCoaching__block_invoke(u
     v3 = OUTLINED_FUNCTION_5_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"bannerManager != ((void *)0)", v10, v11);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -418,7 +419,7 @@ uint64_t __52__SBSystemActionCoachingController__dismissCoaching__block_invoke(u
 
 - (void)initWithHUDController:(char *)a1 ringerControl:activityManager:applicationController:doNotDisturbStateMonitor:flashlightActivityManager:bannerManager:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"flashlightActivityManager != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -426,7 +427,7 @@ uint64_t __52__SBSystemActionCoachingController__dismissCoaching__block_invoke(u
     v3 = OUTLINED_FUNCTION_5_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"flashlightActivityManager != ((void *)0)", v10, v11);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -436,7 +437,7 @@ uint64_t __52__SBSystemActionCoachingController__dismissCoaching__block_invoke(u
 
 - (void)initWithHUDController:(char *)a1 ringerControl:activityManager:applicationController:doNotDisturbStateMonitor:flashlightActivityManager:bannerManager:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"doNotDisturbStateMonitor != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -444,7 +445,7 @@ uint64_t __52__SBSystemActionCoachingController__dismissCoaching__block_invoke(u
     v3 = OUTLINED_FUNCTION_5_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"doNotDisturbStateMonitor != ((void *)0)", v10, v11);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -454,7 +455,7 @@ uint64_t __52__SBSystemActionCoachingController__dismissCoaching__block_invoke(u
 
 - (void)initWithHUDController:(char *)a1 ringerControl:activityManager:applicationController:doNotDisturbStateMonitor:flashlightActivityManager:bannerManager:.cold.4(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"applicationController != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -462,7 +463,7 @@ uint64_t __52__SBSystemActionCoachingController__dismissCoaching__block_invoke(u
     v3 = OUTLINED_FUNCTION_5_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"applicationController != ((void *)0)", v10, v11);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -472,7 +473,7 @@ uint64_t __52__SBSystemActionCoachingController__dismissCoaching__block_invoke(u
 
 - (void)initWithHUDController:(char *)a1 ringerControl:activityManager:applicationController:doNotDisturbStateMonitor:flashlightActivityManager:bannerManager:.cold.5(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"activityManager != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -480,7 +481,7 @@ uint64_t __52__SBSystemActionCoachingController__dismissCoaching__block_invoke(u
     v3 = OUTLINED_FUNCTION_5_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"activityManager != ((void *)0)", v10, v11);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -490,7 +491,7 @@ uint64_t __52__SBSystemActionCoachingController__dismissCoaching__block_invoke(u
 
 - (void)initWithHUDController:(char *)a1 ringerControl:activityManager:applicationController:doNotDisturbStateMonitor:flashlightActivityManager:bannerManager:.cold.6(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"ringerControl != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -498,7 +499,7 @@ uint64_t __52__SBSystemActionCoachingController__dismissCoaching__block_invoke(u
     v3 = OUTLINED_FUNCTION_5_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"ringerControl != ((void *)0)", v10, v11);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -508,7 +509,7 @@ uint64_t __52__SBSystemActionCoachingController__dismissCoaching__block_invoke(u
 
 - (void)initWithHUDController:(char *)a1 ringerControl:activityManager:applicationController:doNotDisturbStateMonitor:flashlightActivityManager:bannerManager:.cold.7(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"HUDController != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -516,7 +517,7 @@ uint64_t __52__SBSystemActionCoachingController__dismissCoaching__block_invoke(u
     v3 = OUTLINED_FUNCTION_5_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"HUDController != ((void *)0)", v10, v11);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];

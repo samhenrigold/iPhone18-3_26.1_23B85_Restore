@@ -24,14 +24,14 @@
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFSoundDistributionObservable.soundDistributionService(_:didUpdateBalance:)();
+  CAFSoundDistributionObservable.soundDistributionService(_:didUpdateBalance:)(selfCopy, balance);
 }
 
 - (void)soundDistributionService:(id)service didUpdateFade:(char)fade
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFSoundDistributionObservable.soundDistributionService(_:didUpdateFade:)();
+  CAFSoundDistributionObservable.soundDistributionService(_:didUpdateFade:)(selfCopy, fade);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

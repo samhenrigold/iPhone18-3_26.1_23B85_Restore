@@ -27,6 +27,8 @@
 - (void)resetCustomPasswordForAccount:(id)account;
 - (void)setBiometricsSwitchValue:(id)value specifier:(id)specifier;
 - (void)setLockedNotesMode:(id)mode;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation ICSettingsPasswordViewController
@@ -49,6 +51,42 @@
   }
 
   return v7;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = ICSettingsPasswordViewController;
+  [(ICSettingsPasswordViewController *)&v4 viewWillAppear:appear];
+  +[ICLocalAuthentication refreshBiometricsContext];
+  +[ICLocalAuthentication refreshHasPasscode];
+  [(ICSettingsPasswordViewController *)self reloadTitle];
+  [(ICSettingsPasswordViewController *)self reloadSpecifiers];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = ICSettingsPasswordViewController;
+  [(ICSettingsPasswordViewController *)&v7 viewDidAppear:appear];
+  account = [(ICSettingsPasswordViewController *)self account];
+  if ([account resolvedLockedNotesMode] == 1)
+  {
+    account2 = [(ICSettingsPasswordViewController *)self account];
+    hasPassphraseSet = [account2 hasPassphraseSet];
+
+    if ((hasPassphraseSet & 1) == 0)
+    {
+      [(ICSettingsPasswordViewController *)self presentLockedNotesWelcomePrompt];
+      [(ICSettingsPasswordViewController *)self reloadSpecifiers];
+    }
+  }
+
+  else
+  {
+  }
+
+  [(ICSettingsPasswordViewController *)self ic_submitNavigationEventForIdentifier:ICPasswordPrefIdentifier titleStringKey:@"PASSWORD_SETTINGS" navigationComponents:&off_1EEF0];
 }
 
 - (void)applicationDidResume

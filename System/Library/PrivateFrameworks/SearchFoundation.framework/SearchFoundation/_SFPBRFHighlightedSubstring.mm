@@ -153,9 +153,7 @@ LABEL_8:
 
 - (void)setSubstring:(id)substring
 {
-  v4 = [substring copy];
-  substring = self->_substring;
-  self->_substring = v4;
+  self->_substring = [substring copy];
 
   MEMORY[0x1EEE66BB8]();
 }

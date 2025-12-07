@@ -24,13 +24,11 @@
 
 void __41__EKImage_knownIdentityKeysForComparison__block_invoke()
 {
-  v3[1] = *MEMORY[0x1E69E9840];
-  v3[0] = *MEMORY[0x1E6992A10];
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:1];
+  v2[1] = *MEMORY[0x1E69E9840];
+  v2[0] = *MEMORY[0x1E6992A10];
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v2 count:1];
   v1 = knownIdentityKeysForComparison_keys_2;
   knownIdentityKeysForComparison_keys_2 = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 + (id)imageWithEventStore:(id)store systemSymbolName:(id)name colorData:(id)data
@@ -120,7 +118,7 @@ LABEL_10:
 
 - (id)_generateIdentifierInCalendar:(id)calendar
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   type = [(EKImage *)self type];
   if (type == 2)
   {
@@ -143,7 +141,7 @@ LABEL_10:
     {
       CC_SHA1([colorData bytes], objc_msgSend(colorData, "length"), md);
       v7 = 0;
-      v8 = v18;
+      v8 = v17;
       do
       {
         v9 = md[v7];
@@ -154,7 +152,7 @@ LABEL_10:
       }
 
       while (v7 != 8);
-      name = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:&v17 length:16 encoding:4];
+      name = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:&v16 length:16 encoding:4];
     }
 
     else
@@ -168,7 +166,6 @@ LABEL_10:
   }
 
 LABEL_12:
-  v15 = *MEMORY[0x1E69E9840];
 
   return v12;
 }

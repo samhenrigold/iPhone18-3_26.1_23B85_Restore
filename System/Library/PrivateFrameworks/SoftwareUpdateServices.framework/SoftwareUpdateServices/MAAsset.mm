@@ -11,7 +11,7 @@ void __41__MAAsset_SUS__cancelDownloadIfNecessary__block_invoke(uint64_t a1, uin
   }
 }
 
-uint64_t __28__MAAsset_SUS__cleanupAsset__block_invoke(uint64_t a1)
+void *__28__MAAsset_SUS__cleanupAsset__block_invoke(uint64_t a1)
 {
   [*(a1 + 32) cancelDownloadIfNecessary];
   result = [*(a1 + 32) isInstalled];

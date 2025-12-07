@@ -28,10 +28,11 @@
   pathCopy = path;
   valueCopy = value;
   WeakRetained = objc_loadWeakRetained(&self->_settingsInterface);
+  v12 = WeakRetained;
   if (WeakRetained)
   {
-    v12 = _HPSLoggingFacility();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v13 = _HPSLoggingFacility(WeakRetained);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       v14 = 136315906;
       v15 = "[HPSHomeAccessoryInterfaceMediator homekitaccessoryDidUpdateValueForEndpointIdentifier:keyPath:value:]";
@@ -41,13 +42,11 @@
       v19 = pathCopy;
       v20 = 2112;
       v21 = valueCopy;
-      _os_log_impl(&dword_2542B7000, v12, OS_LOG_TYPE_INFO, "%s endpointID %@ keyPath %@ settingValue %@", &v14, 0x2Au);
+      _os_log_impl(&dword_2542B7000, v13, OS_LOG_TYPE_INFO, "%s endpointID %@ keyPath %@ settingValue %@", &v14, 0x2Au);
     }
 
-    [WeakRetained accessoryDidUpdateValueForEndpointIdentifier:identifierCopy keyPath:pathCopy value:valueCopy];
+    [v12 accessoryDidUpdateValueForEndpointIdentifier:identifierCopy keyPath:pathCopy value:valueCopy];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (HPSHomeAccessorySettingsInterface)settingsInterface

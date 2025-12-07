@@ -1,5 +1,6 @@
-void _genericMFi_appLaunch_LaunchApp(void *a1, int a2)
+void _genericMFi_appLaunch_LaunchApp(void *a1, uint64_t a2)
 {
+  v2 = a2;
   if (gLogObjects && gNumLogObjects >= 62)
   {
     v4 = *(gLogObjects + 488);
@@ -23,11 +24,11 @@ void _genericMFi_appLaunch_LaunchApp(void *a1, int a2)
     v9 = 2112;
     v10 = a1;
     v11 = 1024;
-    v12 = a2;
+    v12 = v2;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%s: Launching application to foreground %s: %@: report primary app?: %{BOOL}d", &v5, 0x26u);
   }
 
-  platform_system_launchApplication(a1, a2);
+  platform_system_launchApplication(a1, v2);
 }
 
 void __genericMFi_appLaunch_requestAppLaunch_block_invoke_3(uint64_t a1, int a2)
@@ -82,22 +83,6 @@ void *logObjectForModule_34()
     logObjectForModule_cold_1_6(v0);
   }
 
-  return v1;
-}
-
-void OUTLINED_FUNCTION_8_23()
-{
-  v2 = *(v1 + 24);
-  v3 = *v0;
-  v4 = v0[1];
-  v5 = v0[2];
-  v6 = v0[3];
-}
-
-uint64_t OUTLINED_FUNCTION_16_15()
-{
-  v2 = *(v0 + 8);
-  v3 = *(v0 + 10);
   return v1;
 }
 
@@ -205,10 +190,11 @@ id platform_location_sendGPRMCDataStatus(uint64_t a1, uint64_t a2, uint64_t a3, 
   return v9;
 }
 
-void OUTLINED_FUNCTION_8_24(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_8_24(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 uint64_t qiAuth_protocol_init(uint64_t a1, uint64_t a2, int a3, int a4, unsigned int a5, int a6, uint64_t a7, __int16 a8)
@@ -469,7 +455,7 @@ uint64_t qiAuth_protocol_start(uint64_t a1)
   }
 
   *(a1 + 48) = 4;
-  inited = qiAuth_protocol_initMsg_GET_DIGESTS(v6, *(a1 + 12), 1u, v10, v11, (a1 + 42));
+  inited = qiAuth_protocol_initMsg_GET_DIGESTS(v6, *(a1 + 12), 1, v10, v11, (a1 + 42));
   if (inited)
   {
 LABEL_22:
@@ -564,14 +550,16 @@ LABEL_8:
 
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    qiAuth_protocol_start_cold_3(a1);
+    qiAuth_protocol_start_cold_3();
   }
 
   return v3;
 }
 
-uint64_t qiAuth_protocol_initMsg_GET_DIGESTS(uint64_t a1, int a2, unsigned int a3, _BYTE *a4, unsigned int a5, _WORD *a6)
+uint64_t qiAuth_protocol_initMsg_GET_DIGESTS(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4, unsigned int a5, _WORD *a6)
 {
+  v9 = a3;
+  v10 = a2;
   if (gLogObjects && gNumLogObjects >= 60)
   {
     v11 = *(gLogObjects + 472);
@@ -600,11 +588,11 @@ uint64_t qiAuth_protocol_initMsg_GET_DIGESTS(uint64_t a1, int a2, unsigned int a
     goto LABEL_12;
   }
 
-  if (a3 <= 0xF && a5 >= 2)
+  if (v9 <= 0xF && a5 >= 2)
   {
     v12 = 0;
-    *a4 = (16 * a2) | 9;
-    a4[1] = a3;
+    *a4 = (16 * v10) | 9;
+    a4[1] = v9;
     *a6 = 2;
     goto LABEL_13;
   }
@@ -654,7 +642,7 @@ LABEL_14:
     v22 = 1024;
     v23 = v12;
     v24 = 1024;
-    v25 = a2;
+    v25 = v10;
     v26 = 1024;
     v27 = v13;
     v28 = 2080;
@@ -667,48 +655,54 @@ LABEL_14:
   return v12;
 }
 
-uint64_t qiAuth_protocol_timeoutForRequest(uint64_t a1, int a2, unsigned int a3)
+uint64_t qiAuth_protocol_timeoutForRequest(uint64_t a1, uint64_t a2, unsigned int a3)
 {
-  switch(a2)
+  if (a2 == 9)
   {
-    case 9:
-      return 43000;
-    case 11:
-      return 23000;
-    case 10:
-      if (a3 <= 3)
-      {
-        return 5;
-      }
+    return 43000;
+  }
 
-      else
-      {
-        return 300 * a3 + 4000;
-      }
+  v3 = a2;
+  if (a2 == 11)
+  {
+    return 23000;
+  }
 
-    default:
-      if (gLogObjects && gNumLogObjects >= 60)
-      {
-        v6 = *(gLogObjects + 472);
-      }
+  if (a2 == 10)
+  {
+    if (a3 <= 3)
+    {
+      return 5;
+    }
 
-      else
-      {
-        v6 = &_os_log_default;
-        if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
-        {
-          platform_connectionInfo_configStreamGetCategories_cold_2();
-        }
-      }
+    else
+    {
+      return 300 * a3 + 4000;
+    }
+  }
 
-      result = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
-      if (result)
-      {
-        qiAuth_protocol_timeoutForRequest_cold_2(a1, a2, v6);
-        return 0;
-      }
+  else
+  {
+    if (gLogObjects && gNumLogObjects >= 60)
+    {
+      v6 = *(gLogObjects + 472);
+    }
 
-      break;
+    else
+    {
+      v6 = &_os_log_default;
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        platform_connectionInfo_configStreamGetCategories_cold_2();
+      }
+    }
+
+    result = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
+    if (result)
+    {
+      qiAuth_protocol_timeoutForRequest_cold_2(a1, v3, v6);
+      return 0;
+    }
   }
 
   return result;
@@ -727,9 +721,15 @@ const char *qiAuth_protocol_msgTypeString(int a1)
   }
 }
 
-void _qiAuth_protocol_timeoutCallback(uint64_t a1, int a2, unsigned int a3)
+void _qiAuth_protocol_timeoutCallback(uint64_t a1, uint64_t a2, unsigned int a3)
 {
-  if (!a1 || a2 < 0)
+  if (!a1)
+  {
+    return;
+  }
+
+  v3 = a2;
+  if ((a2 & 0x80000000) != 0)
   {
     return;
   }
@@ -758,7 +758,7 @@ void _qiAuth_protocol_timeoutCallback(uint64_t a1, int a2, unsigned int a3)
     v32 = 1024;
     v33 = 1337;
     v34 = 1024;
-    v35 = a2;
+    v35 = v3;
     v36 = 1024;
     v37 = v6;
     v38 = 1024;
@@ -774,7 +774,7 @@ void _qiAuth_protocol_timeoutCallback(uint64_t a1, int a2, unsigned int a3)
   v10 = *(a1 + 8);
   if (!v10)
   {
-    if (*(a1 + 220) != a2)
+    if (*(a1 + 220) != v3)
     {
 LABEL_42:
       v10 = *v11;
@@ -950,12 +950,12 @@ LABEL_43:
 
     if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
     {
-      _qiAuth_protocol_timeoutCallback_cold_6(v11);
+      _qiAuth_protocol_timeoutCallback_cold_6();
     }
   }
 }
 
-uint64_t qiAuth_protocol_sendData(uint64_t a1, const UInt8 *a2, CFIndex a3)
+uint64_t qiAuth_protocol_sendData(uint64_t a1, unsigned __int8 *a2, CFIndex a3)
 {
   v4 = 0;
   v5 = 4294967294;
@@ -1051,7 +1051,7 @@ uint64_t qiAuth_protocol_sendData(uint64_t a1, const UInt8 *a2, CFIndex a3)
   return v5;
 }
 
-uint64_t qiAuth_protocol_processIncomingData(uint64_t a1, char *a2, unsigned int a3)
+uint64_t qiAuth_protocol_processIncomingData(uint64_t a1, char *a2, uint64_t a3)
 {
   v5 = 0;
   v34 = 0;
@@ -1253,7 +1253,7 @@ LABEL_50:
 
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        qiAuth_protocol_processIncomingData_cold_2((a1 + 8));
+        qiAuth_protocol_processIncomingData_cold_2();
       }
 
       v5 = 0;
@@ -1597,8 +1597,9 @@ LABEL_13:
   return v10 == 0;
 }
 
-uint64_t _qiAuth_protocol_handleResponse_DIGESTS(uint64_t a1, char *a2, unsigned int a3, _BYTE *a4, unsigned int a5, unsigned __int16 *a6)
+uint64_t _qiAuth_protocol_handleResponse_DIGESTS(uint64_t a1, char *a2, uint64_t a3, _BYTE *a4, unsigned int a5, _WORD *a6)
 {
+  v7 = a3;
   v8 = &audioProductCerts_endpoint_publish_onceToken;
   v9 = &audioProductCerts_endpoint_publish_onceToken;
   if (!a1)
@@ -1624,14 +1625,14 @@ uint64_t _qiAuth_protocol_handleResponse_DIGESTS(uint64_t a1, char *a2, unsigned
 
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
-    _qiAuth_protocol_handleResponse_DIGESTS_cold_2(a1);
+    _qiAuth_protocol_handleResponse_DIGESTS_cold_2();
   }
 
   v14 = 0;
   v15 = 4294967294;
-  if (a3 >= 0x22 && a2 && !*(a1 + 8))
+  if (v7 >= 0x22 && a2 && !*(a1 + 8))
   {
-    v84 = a4;
+    v83 = a4;
     v14 = *a2 & 0xF;
     if (gLogObjects && gNumLogObjects >= 60)
     {
@@ -1649,24 +1650,24 @@ uint64_t _qiAuth_protocol_handleResponse_DIGESTS(uint64_t a1, char *a2, unsigned
 
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
-      v45 = a6;
-      v46 = *(a1 + 8);
-      v47 = *(a1 + 48);
+      v44 = a6;
+      v45 = *(a1 + 8);
+      v46 = *(a1 + 48);
       *buf = 136316418;
-      v87 = "_qiAuth_protocol_handleResponse_DIGESTS";
-      v88 = 1024;
-      v89 = 1880;
-      v90 = 1024;
-      v91 = v46;
-      a6 = v45;
+      v86 = "_qiAuth_protocol_handleResponse_DIGESTS";
+      v87 = 1024;
+      v88 = 1880;
+      v89 = 1024;
+      v90 = v45;
+      a6 = v44;
       v9 = &audioProductCerts_endpoint_publish_onceToken;
-      v92 = 1024;
-      v93 = v47;
+      v91 = 1024;
+      v92 = v46;
       v8 = &audioProductCerts_endpoint_publish_onceToken;
-      v94 = 1024;
-      *v95 = v14;
-      *&v95[4] = 2080;
-      *&v95[6] = qiAuth_protocol_msgTypeString(v14);
+      v93 = 1024;
+      *v94 = v14;
+      *&v94[4] = 2080;
+      *&v94[6] = qiAuth_protocol_msgTypeString(v14);
       _os_log_debug_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEBUG, "%s:%d role %d, currentSlot %d, msgType %d(%s)", buf, 0x2Eu);
     }
 
@@ -1676,7 +1677,7 @@ uint64_t _qiAuth_protocol_handleResponse_DIGESTS(uint64_t a1, char *a2, unsigned
       if (a5 >= 0x80 && a4 && v14 == 1)
       {
         v17 = *a2;
-        v83 = a6;
+        v82 = a6;
         *a6 = 0;
         *(a1 + 224) = 0;
         v18 = a2[1];
@@ -1696,9 +1697,9 @@ uint64_t _qiAuth_protocol_handleResponse_DIGESTS(uint64_t a1, char *a2, unsigned
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
           {
             *buf = 134218240;
-            v87 = v21;
-            v88 = 1024;
-            v89 = v22;
+            v86 = v21;
+            v87 = 1024;
+            v88 = v22;
             _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
             v20 = *(a1 + 321);
           }
@@ -1709,18 +1710,18 @@ uint64_t _qiAuth_protocol_handleResponse_DIGESTS(uint64_t a1, char *a2, unsigned
         if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
         {
           *buf = 136315906;
-          v87 = "_qiAuth_protocol_handleResponse_DIGESTS";
-          v88 = 1024;
-          v89 = 1899;
-          v90 = 1024;
-          v91 = v20;
-          v92 = 1024;
-          v93 = v18 & 0xF;
+          v86 = "_qiAuth_protocol_handleResponse_DIGESTS";
+          v87 = 1024;
+          v88 = 1899;
+          v89 = 1024;
+          v90 = v20;
+          v91 = 1024;
+          v92 = v18 & 0xF;
           _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_INFO, "%s:%d rxCertsTXSupportedMask 0x%02x, digestReturnedMask 0x%02x", buf, 0x1Eu);
           v20 = *(a1 + 321);
         }
 
-        a6 = v83;
+        a6 = v82;
         if (v20)
         {
           v25 = 0;
@@ -1734,18 +1735,18 @@ uint64_t _qiAuth_protocol_handleResponse_DIGESTS(uint64_t a1, char *a2, unsigned
             {
               if (((1 << v25) & *(a1 + 24)) != 0)
               {
-                if (v28 > a3)
+                if (v28 > v7)
                 {
                   if (gLogObjects && gNumLogObjects >= 60)
                   {
                     v30 = *(gLogObjects + 472);
-                    a6 = v83;
+                    a6 = v82;
                   }
 
                   else
                   {
                     v30 = &_os_log_default;
-                    a6 = v83;
+                    a6 = v82;
                     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
                     {
                       platform_connectionInfo_configStreamGetCategories_cold_2();
@@ -1774,262 +1775,261 @@ uint64_t _qiAuth_protocol_handleResponse_DIGESTS(uint64_t a1, char *a2, unsigned
               v8 = &audioProductCerts_endpoint_publish_onceToken;
               if (v15)
               {
-                a6 = v83;
+                a6 = v82;
                 goto LABEL_62;
               }
 
               v31 = *(a1 + 248);
               v32 = *(a1 + 321);
-              a6 = v83;
+              a6 = v82;
               if (v31 != v32)
               {
-                v54 = v32 & ~v31;
+                v53 = v32 & ~v31;
                 *(a1 + 48) = 4;
-                v55 = logObjectForModule_22();
-                v56 = os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT);
-                if (v56)
+                v54 = logObjectForModule_22();
+                v55 = os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT);
+                if (v55)
                 {
                   *buf = 136315650;
-                  v87 = "_qiAuth_protocol_handleResponse_DIGESTS";
-                  v88 = 1024;
-                  v89 = 1926;
-                  v90 = 1024;
-                  v91 = v54;
-                  _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_DEFAULT, "%s:%d Need more digests, GET_DIGESTS, slotRequestMask 0x%x", buf, 0x18u);
+                  v86 = "_qiAuth_protocol_handleResponse_DIGESTS";
+                  v87 = 1024;
+                  v88 = 1926;
+                  v89 = 1024;
+                  v90 = v53;
+                  _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_DEFAULT, "%s:%d Need more digests, GET_DIGESTS, slotRequestMask 0x%x", buf, 0x18u);
                 }
 
-                inited = qiAuth_protocol_initMsg_GET_DIGESTS(v56, *(a1 + 12), v54, v84, a5, v83);
+                inited = qiAuth_protocol_initMsg_GET_DIGESTS(v55, *(a1 + 12), v53, v83, a5, v82);
                 goto LABEL_76;
               }
 
               v33 = qiAuth_util_policy_challengeFirst(a1);
-              v34 = *(a1 + 321);
-              v35 = qiAuth_util_policy_preferredSlot();
-              *(a1 + 48) = v35;
+              v34 = qiAuth_util_policy_preferredSlot();
+              *(a1 + 48) = v34;
               if (v33)
               {
-                qiAuth_util_generateNonce(a1, (a1 + 135), 0x10u);
+                qiAuth_util_generateNonce(a1, (a1 + 135), 16);
                 *(a1 + 215) = 0;
-                v36 = logObjectForModule_22();
-                v37 = v84;
-                if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+                v35 = logObjectForModule_22();
+                v36 = v83;
+                if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
                 {
-                  v38 = *(a1 + 48);
+                  v37 = *(a1 + 48);
                   *buf = 136315650;
-                  v87 = "_qiAuth_protocol_handleResponse_DIGESTS";
-                  v88 = 1024;
-                  v89 = 2052;
-                  v90 = 1024;
-                  v91 = v38;
-                  _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "%s:%d ChallengeBeforeAuth, CHALLENGE, currentSlot %d", buf, 0x18u);
+                  v86 = "_qiAuth_protocol_handleResponse_DIGESTS";
+                  v87 = 1024;
+                  v88 = 2052;
+                  v89 = 1024;
+                  v90 = v37;
+                  _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "%s:%d ChallengeBeforeAuth, CHALLENGE, currentSlot %d", buf, 0x18u);
                 }
 
                 qiAuth_util_logCertData(a1, "DIGEST: --nonce--", a1 + 135, 0x10u, 1);
-                v15 = qiAuth_protocol_initMsg_CHALLENGE(v39, *(a1 + 12), *(a1 + 48), (a1 + 135), 16, v84, a5, v83);
-                if (v15 || (v40 = *v83, v40 != 18))
+                v15 = qiAuth_protocol_initMsg_CHALLENGE(v38, *(a1 + 12), *(a1 + 48), (a1 + 135), 16, v83, a5, v82);
+                if (v15 || (v39 = *v82, v39 != 18))
                 {
-                  v41 = logObjectForModule_22();
-                  if (!os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+                  v40 = logObjectForModule_22();
+                  if (!os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
                   {
                     goto LABEL_61;
                   }
 
-                  v42 = *(a1 + 48);
-                  v43 = *v83;
+                  v41 = *(a1 + 48);
+                  v42 = *v82;
                   *buf = 136316162;
-                  v87 = "_qiAuth_protocol_handleResponse_DIGESTS";
-                  v88 = 1024;
-                  v89 = 2067;
-                  v90 = 1024;
-                  v91 = v42;
-                  v92 = 1024;
-                  v93 = v15;
-                  v94 = 1024;
-                  *v95 = v43;
-                  v44 = "%s:%d ChallengeBeforeAuth, CHALLENGE, currentSlot %d, result %d, dataOutLen %d, skip saving challengeMsg!";
+                  v86 = "_qiAuth_protocol_handleResponse_DIGESTS";
+                  v87 = 1024;
+                  v88 = 2067;
+                  v89 = 1024;
+                  v90 = v41;
+                  v91 = 1024;
+                  v92 = v15;
+                  v93 = 1024;
+                  *v94 = v42;
+                  v43 = "%s:%d ChallengeBeforeAuth, CHALLENGE, currentSlot %d, result %d, dataOutLen %d, skip saving challengeMsg!";
 LABEL_94:
-                  _os_log_error_impl(&_mh_execute_header, v41, OS_LOG_TYPE_ERROR, v44, buf, 0x24u);
+                  _os_log_error_impl(&_mh_execute_header, v40, OS_LOG_TYPE_ERROR, v43, buf, 0x24u);
                   goto LABEL_61;
                 }
 
 LABEL_91:
                 v15 = 0;
-                *(a1 + 1904) = v40;
-                v68 = *v37;
-                *(a1 + 1922) = *(v37 + 8);
-                *(a1 + 1906) = v68;
+                *(a1 + 1904) = v39;
+                v67 = *v36;
+                *(a1 + 1922) = *(v36 + 8);
+                *(a1 + 1906) = v67;
                 goto LABEL_61;
               }
 
-              v58 = v35;
-              v59 = a1 + 256;
-              qiAuth_util_logCertData(a1, "DIGEST: --CertDigest--", *(a1 + 256 + 8 * v35), 0x20u, 1);
-              v60 = a1 + 336;
-              if (!*(a1 + 336 + 8 * v58))
+              v57 = v34;
+              v58 = a1 + 256;
+              qiAuth_util_logCertData(a1, "DIGEST: --CertDigest--", *(a1 + 256 + 8 * v34), 0x20u, 1);
+              v59 = a1 + 336;
+              if (!*(a1 + 336 + 8 * v57))
               {
-                if (qiAuth_util_certificateExistsCache(a1, v58, *(v59 + 8 * v58), 0x20u))
+                if (qiAuth_util_certificateExistsCache(a1, v57, *(v58 + 8 * v57), 32))
                 {
-                  v82 = *(a1 + 322);
-                  v61 = logObjectForModule_22();
-                  if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
+                  v81 = *(a1 + 322);
+                  v60 = logObjectForModule_22();
+                  if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 136315650;
-                    v87 = "_qiAuth_protocol_handleResponse_DIGESTS";
-                    v88 = 1024;
-                    v89 = 1946;
-                    v90 = 1024;
-                    v91 = v58;
-                    _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_DEFAULT, "%s:%d Cert EXIST in cache! slot %d", buf, 0x18u);
+                    v86 = "_qiAuth_protocol_handleResponse_DIGESTS";
+                    v87 = 1024;
+                    v88 = 1946;
+                    v89 = 1024;
+                    v90 = v57;
+                    _os_log_impl(&_mh_execute_header, v60, OS_LOG_TYPE_DEFAULT, "%s:%d Cert EXIST in cache! slot %d", buf, 0x18u);
                   }
 
                   if (*(a1 + 322))
                   {
 LABEL_82:
-                    v62 = v58;
-                    v63 = *(v60 + 8 * v58);
-                    if (v63)
+                    v61 = v57;
+                    v62 = *(v59 + 8 * v57);
+                    if (v62)
                     {
-                      qiAuth_util_logCertData(a1, "DIGEST: --CertCacheData--", v63, *(a1 + 2 * v58 + 324), 1);
-                      a6 = v83;
+                      qiAuth_util_logCertData(a1, "DIGEST: --CertCacheData--", v62, *(a1 + 2 * v57 + 324), 1);
+                      a6 = v82;
                       goto LABEL_86;
                     }
                   }
 
                   else
                   {
-                    *(v60 + 8 * v58) = a1 + 368;
-                    v71 = (a1 + 2 * v58 + 324);
-                    *v71 = 0;
+                    *(v59 + 8 * v57) = a1 + 368;
+                    v70 = (a1 + 2 * v57 + 324);
+                    *v70 = 0;
                     *(a1 + 322) = 1;
-                    v72 = *(v59 + 8 * v58);
-                    v62 = v58;
-                    if (qiAuth_util_copyCertificateFromCache(a1, v58, v72, 0x20u, 0, 0, (a1 + 368), 0x600u, v71))
+                    v71 = *(v58 + 8 * v57);
+                    v61 = v57;
+                    if (qiAuth_util_copyCertificateFromCache(a1, v57, v71, 0x20u, 0, 0, (a1 + 368), 0x600u, v70))
                     {
-                      *(v60 + 8 * v58) = 0;
-                      *v71 = 0;
-                      *(a1 + 322) = v82;
+                      *(v59 + 8 * v57) = 0;
+                      *v70 = 0;
+                      *(a1 + 322) = v81;
                     }
 
                     else
                     {
-                      v73 = *(v60 + 8 * v58);
-                      v74 = (v73 + 17);
-                      v75 = (bswap32(*v73) >> 16) - 34;
-                      qiAuth_util_logCertData(a1, "CACHE: --RootHash--", (v73 + 1), 0x20u, 1);
-                      qiAuth_util_logCertData(a1, "CACHE: --CertData--", (v73 + 17), v75, 1);
-                      v76 = (v73 + 1);
+                      v72 = *(v59 + 8 * v57);
+                      v73 = (v72 + 17);
+                      v74 = (bswap32(*v72) >> 16) - 34;
+                      qiAuth_util_logCertData(a1, "CACHE: --RootHash--", (v72 + 1), 0x20u, 1);
+                      qiAuth_util_logCertData(a1, "CACHE: --CertData--", (v72 + 17), v74, 1);
+                      v75 = (v72 + 1);
                       v8 = &audioProductCerts_endpoint_publish_onceToken;
-                      v77 = v75;
+                      v76 = v74;
                       v9 = &audioProductCerts_endpoint_publish_onceToken;
-                      if (!qiAuth_util_verifyCertificateChain(a1, *(a1 + 48), v76, 32, v74, v77))
+                      if (!qiAuth_util_verifyCertificateChain(a1, *(a1 + 48), v75, 32, v73, v76))
                       {
-                        *(a1 + 320) |= 1 << v58;
+                        *(a1 + 320) |= 1 << v57;
                         goto LABEL_82;
                       }
                     }
                   }
 
-                  v78 = logObjectForModule_22();
-                  if (os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT))
+                  v77 = logObjectForModule_22();
+                  if (os_log_type_enabled(v77, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 136315650;
-                    v87 = "_qiAuth_protocol_handleResponse_DIGESTS";
-                    v88 = 1024;
-                    v89 = 1990;
-                    v90 = 1024;
-                    v91 = v58;
-                    _os_log_impl(&_mh_execute_header, v78, OS_LOG_TYPE_DEFAULT, "%s:%d Failed to read cert from cache! slot %d", buf, 0x18u);
+                    v86 = "_qiAuth_protocol_handleResponse_DIGESTS";
+                    v87 = 1024;
+                    v88 = 1990;
+                    v89 = 1024;
+                    v90 = v57;
+                    _os_log_impl(&_mh_execute_header, v77, OS_LOG_TYPE_DEFAULT, "%s:%d Failed to read cert from cache! slot %d", buf, 0x18u);
                   }
 
-                  *(v60 + 8 * v62) = 0;
-                  *(a1 + 2 * v62 + 324) = 0;
-                  *(a1 + 322) = v82;
-                  a6 = v83;
+                  *(v59 + 8 * v61) = 0;
+                  *(a1 + 2 * v61 + 324) = 0;
+                  *(a1 + 322) = v81;
+                  a6 = v82;
 LABEL_101:
-                  v79 = logObjectForModule_22();
-                  v80 = os_log_type_enabled(v79, OS_LOG_TYPE_DEFAULT);
-                  if (v80)
+                  v78 = logObjectForModule_22();
+                  v79 = os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT);
+                  if (v79)
                   {
-                    v81 = *(a1 + 48);
+                    v80 = *(a1 + 48);
                     *buf = 136315650;
-                    v87 = "_qiAuth_protocol_handleResponse_DIGESTS";
-                    v88 = 1024;
-                    v89 = 2035;
-                    v90 = 1024;
-                    v91 = v81;
-                    _os_log_impl(&_mh_execute_header, v79, OS_LOG_TYPE_DEFAULT, "%s:%d GET_CERTIFICATE, currentSlot %d", buf, 0x18u);
+                    v86 = "_qiAuth_protocol_handleResponse_DIGESTS";
+                    v87 = 1024;
+                    v88 = 2035;
+                    v89 = 1024;
+                    v90 = v80;
+                    _os_log_impl(&_mh_execute_header, v78, OS_LOG_TYPE_DEFAULT, "%s:%d GET_CERTIFICATE, currentSlot %d", buf, 0x18u);
                   }
 
                   *(a1 + 244) = 8323072;
-                  inited = qiAuth_protocol_initMsg_GET_CERTIFICATE(v80, *(a1 + 12), *(a1 + 48), 0, 0x7Fu, v84, a5, a6);
+                  inited = qiAuth_protocol_initMsg_GET_CERTIFICATE(v79, *(a1 + 12), *(a1 + 48), 0, 0x7Fu, v83, a5, a6);
 LABEL_76:
                   v15 = inited;
                   goto LABEL_62;
                 }
 
-                v64 = logObjectForModule_22();
-                v62 = v58;
-                if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
+                v63 = logObjectForModule_22();
+                v61 = v57;
+                if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 136315650;
-                  v87 = "_qiAuth_protocol_handleResponse_DIGESTS";
-                  v88 = 1024;
-                  v89 = 2005;
-                  v90 = 1024;
-                  v91 = v58;
-                  _os_log_impl(&_mh_execute_header, v64, OS_LOG_TYPE_DEFAULT, "%s:%d Cert NOT EXIST in cache! slot %d", buf, 0x18u);
+                  v86 = "_qiAuth_protocol_handleResponse_DIGESTS";
+                  v87 = 1024;
+                  v88 = 2005;
+                  v89 = 1024;
+                  v90 = v57;
+                  _os_log_impl(&_mh_execute_header, v63, OS_LOG_TYPE_DEFAULT, "%s:%d Cert NOT EXIST in cache! slot %d", buf, 0x18u);
                 }
 
 LABEL_86:
-                if (!*(v60 + 8 * v62))
+                if (!*(v59 + 8 * v61))
                 {
                   goto LABEL_101;
                 }
               }
 
-              qiAuth_util_generateNonce(a1, (a1 + 135), 0x10u);
+              qiAuth_util_generateNonce(a1, (a1 + 135), 16);
               *(a1 + 215) = 0;
-              v65 = logObjectForModule_22();
-              if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
+              v64 = logObjectForModule_22();
+              if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
               {
-                v66 = *(a1 + 48);
+                v65 = *(a1 + 48);
                 *buf = 136315650;
-                v87 = "_qiAuth_protocol_handleResponse_DIGESTS";
-                v88 = 1024;
-                v89 = 2015;
-                v90 = 1024;
-                v91 = v66;
-                _os_log_impl(&_mh_execute_header, v65, OS_LOG_TYPE_DEFAULT, "%s:%d CHALLENGE, currentSlot %d, Cert already available", buf, 0x18u);
+                v86 = "_qiAuth_protocol_handleResponse_DIGESTS";
+                v87 = 1024;
+                v88 = 2015;
+                v89 = 1024;
+                v90 = v65;
+                _os_log_impl(&_mh_execute_header, v64, OS_LOG_TYPE_DEFAULT, "%s:%d CHALLENGE, currentSlot %d, Cert already available", buf, 0x18u);
               }
 
               qiAuth_util_logCertData(a1, "DIGEST: --nonce--", a1 + 135, 0x10u, 1);
-              v37 = v84;
-              v15 = qiAuth_protocol_initMsg_CHALLENGE(v67, *(a1 + 12), *(a1 + 48), (a1 + 135), 16, v84, a5, a6);
+              v36 = v83;
+              v15 = qiAuth_protocol_initMsg_CHALLENGE(v66, *(a1 + 12), *(a1 + 48), (a1 + 135), 16, v83, a5, a6);
               if (!v15)
               {
-                v40 = *a6;
-                if (v40 == 18)
+                v39 = *a6;
+                if (v39 == 18)
                 {
                   goto LABEL_91;
                 }
               }
 
-              v41 = logObjectForModule_22();
-              if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+              v40 = logObjectForModule_22();
+              if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
               {
-                v69 = *(a1 + 48);
-                v70 = *a6;
+                v68 = *(a1 + 48);
+                v69 = *a6;
                 *buf = 136316162;
-                v87 = "_qiAuth_protocol_handleResponse_DIGESTS";
-                v88 = 1024;
-                v89 = 2030;
-                v90 = 1024;
-                v91 = v69;
-                v92 = 1024;
-                v93 = v15;
-                v94 = 1024;
-                *v95 = v70;
-                v44 = "%s:%d CHALLENGE, currentSlot %d, result %d, dataOutLen %d, skip saving challengeMsg!";
+                v86 = "_qiAuth_protocol_handleResponse_DIGESTS";
+                v87 = 1024;
+                v88 = 2030;
+                v89 = 1024;
+                v90 = v68;
+                v91 = 1024;
+                v92 = v15;
+                v93 = 1024;
+                *v94 = v69;
+                v43 = "%s:%d CHALLENGE, currentSlot %d, result %d, dataOutLen %d, skip saving challengeMsg!";
                 goto LABEL_94;
               }
 
@@ -2060,61 +2060,62 @@ LABEL_60:
   }
 
 LABEL_62:
-  v48 = v8[491];
-  v49 = *(v9 + 984);
-  if (v48 && v49 >= 60)
+  v47 = v8[491];
+  v48 = *(v9 + 984);
+  if (v47 && v48 >= 60)
   {
-    v50 = *(v48 + 472);
+    v49 = *(v47 + 472);
   }
 
   else
   {
-    v50 = &_os_log_default;
+    v49 = &_os_log_default;
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
       platform_connectionInfo_configStreamGetCategories_cold_2();
     }
   }
 
-  if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
   {
-    v51 = qiAuth_protocol_msgTypeString(v14);
+    v50 = qiAuth_protocol_msgTypeString(v14);
     if (a6)
     {
-      v52 = *a6;
+      v51 = *a6;
     }
 
     else
     {
-      v52 = -1;
+      v51 = -1;
     }
 
     *buf = 136316674;
-    v87 = "_qiAuth_protocol_handleResponse_DIGESTS";
-    v88 = 1024;
-    v89 = 2081;
-    v90 = 1024;
-    v91 = v15;
-    v92 = 1024;
-    v93 = v14;
-    v94 = 2080;
-    *v95 = v51;
-    *&v95[8] = 1024;
-    *&v95[10] = a3;
-    v96 = 1024;
-    v97 = v52;
-    _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEFAULT, "%s:%d result %d, msgType %d(%s), dataInLen %u, dataOutLen %u", buf, 0x34u);
+    v86 = "_qiAuth_protocol_handleResponse_DIGESTS";
+    v87 = 1024;
+    v88 = 2081;
+    v89 = 1024;
+    v90 = v15;
+    v91 = 1024;
+    v92 = v14;
+    v93 = 2080;
+    *v94 = v50;
+    *&v94[8] = 1024;
+    *&v94[10] = v7;
+    v95 = 1024;
+    v96 = v51;
+    _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEFAULT, "%s:%d result %d, msgType %d(%s), dataInLen %u, dataOutLen %u", buf, 0x34u);
   }
 
   return v15;
 }
 
-uint64_t _qiAuth_protocol_handleResponse_CERTIFICATE(uint64_t a1, _BYTE *a2, unsigned int a3, uint64_t a4, unsigned int a5, unsigned __int16 *a6)
+uint64_t _qiAuth_protocol_handleResponse_CERTIFICATE(uint64_t a1, _BYTE *a2, unsigned int a3, __int128 *a4, uint64_t a5, _WORD *a6)
 {
   v8 = &audioProductCerts_endpoint_publish_onceToken;
   v9 = &audioProductCerts_endpoint_publish_onceToken;
   if (a1)
   {
+    v10 = a5;
     if (gLogObjects && gNumLogObjects >= 60)
     {
       v14 = *(gLogObjects + 472);
@@ -2131,7 +2132,7 @@ uint64_t _qiAuth_protocol_handleResponse_CERTIFICATE(uint64_t a1, _BYTE *a2, uns
 
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      _qiAuth_protocol_handleResponse_CERTIFICATE_cold_2(a1);
+      _qiAuth_protocol_handleResponse_CERTIFICATE_cold_2();
     }
 
     v15 = 0;
@@ -2186,7 +2187,7 @@ uint64_t _qiAuth_protocol_handleResponse_CERTIFICATE(uint64_t a1, _BYTE *a2, uns
 
       v9 = &audioProductCerts_endpoint_publish_onceToken;
       v8 = &audioProductCerts_endpoint_publish_onceToken;
-      if (a5 >= 0x80)
+      if (v10 >= 0x80)
       {
         if (a4)
         {
@@ -2410,15 +2411,15 @@ LABEL_56:
                 *(a1 + 320) |= 1 << v72;
                 if ((*(a1 + 215) & 1) == 0)
                 {
-                  qiAuth_util_generateNonce(a1, (a1 + 135), 0x10u);
+                  qiAuth_util_generateNonce(a1, (a1 + 135), 16);
                   qiAuth_util_logCertData(a1, "CERTIFICATE: --nonce--", a1 + 135, 0x10u, 1);
-                  inited = qiAuth_protocol_initMsg_CHALLENGE(v63, *(a1 + 12), *(a1 + 48), (a1 + 135), 16, a4, a5, a6);
+                  inited = qiAuth_protocol_initMsg_CHALLENGE(v63, *(a1 + 12), *(a1 + 48), (a1 + 135), 16, a4, v10, a6);
                   if (!inited && *a6 == 18)
                   {
                     inited = 0;
                     *(a1 + 1904) = 18;
                     v64 = *a4;
-                    *(a1 + 1922) = *(a4 + 16);
+                    *(a1 + 1922) = *(a4 + 8);
                     *(a1 + 1906) = v64;
                     goto LABEL_56;
                   }
@@ -2526,7 +2527,7 @@ LABEL_55:
                   _os_log_impl(&_mh_execute_header, loga, OS_LOG_TYPE_INFO, "%s:%d Get next certs segment, GET_CERTIFICATE, slot %d, rxCertsLen %d, lastCertOffsetRequest %d, lastCertLenRequest %d, maxCertLen %d", buf, 0x30u);
                 }
 
-                v58 = qiAuth_protocol_initMsg_GET_CERTIFICATE(v54, *(a1 + 12), v72, *(a1 + 244), *(a1 + 246), a4, a5, a6);
+                v58 = qiAuth_protocol_initMsg_GET_CERTIFICATE(v54, *(a1 + 12), v72, *(a1 + 244), *(a1 + 246), a4, v10, a6);
               }
 
               inited = v58;
@@ -2593,7 +2594,7 @@ LABEL_57:
   return inited;
 }
 
-uint64_t _qiAuth_protocol_handleResponse_CHALLENGE_AUTH(uint64_t a1, uint64_t a2, int a3, _BYTE *a4, unsigned int a5, unsigned __int16 *a6)
+uint64_t _qiAuth_protocol_handleResponse_CHALLENGE_AUTH(uint64_t a1, uint64_t a2, int a3, _BYTE *a4, unsigned int a5, _WORD *a6)
 {
   v8 = &audioProductCerts_endpoint_publish_onceToken;
   if (a1)
@@ -2614,7 +2615,7 @@ uint64_t _qiAuth_protocol_handleResponse_CHALLENGE_AUTH(uint64_t a1, uint64_t a2
 
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      _qiAuth_protocol_handleResponse_CHALLENGE_AUTH_cold_2(a1);
+      _qiAuth_protocol_handleResponse_CHALLENGE_AUTH_cold_2();
     }
 
     v14 = 0;
@@ -2642,17 +2643,17 @@ uint64_t _qiAuth_protocol_handleResponse_CHALLENGE_AUTH(uint64_t a1, uint64_t a2
         v28 = *(a1 + 8);
         v29 = *(a1 + 48);
         *buf = 136316418;
-        v45 = "_qiAuth_protocol_handleResponse_CHALLENGE_AUTH";
-        v46 = 1024;
-        v47 = 2251;
-        v48 = 1024;
-        v49 = v28;
-        v50 = 1024;
-        *v51 = v29;
-        *&v51[4] = 1024;
-        *&v51[6] = v14;
-        *&v51[10] = 2080;
-        *&v51[12] = qiAuth_protocol_msgTypeString(v14);
+        v44 = "_qiAuth_protocol_handleResponse_CHALLENGE_AUTH";
+        v45 = 1024;
+        v46 = 2251;
+        v47 = 1024;
+        v48 = v28;
+        v49 = 1024;
+        *v50 = v29;
+        *&v50[4] = 1024;
+        *&v50[6] = v14;
+        *&v50[10] = 2080;
+        *&v50[12] = qiAuth_protocol_msgTypeString(v14);
         _os_log_debug_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEBUG, "%s:%d role %d, currentSlot %d, msgType %d(%s)", buf, 0x2Eu);
       }
 
@@ -2664,7 +2665,7 @@ uint64_t _qiAuth_protocol_handleResponse_CHALLENGE_AUTH(uint64_t a1, uint64_t a2
         if (a5 >= 0x80 && a4 && v14 == 3)
         {
           v18 = *(a2 + 1) & 0xF;
-          v43 = *(a2 + 2);
+          v42 = *(a2 + 2);
           v16 = *(a1 + 48);
           *a6 = 0;
           *(a1 + 224) = 0;
@@ -2707,19 +2708,19 @@ uint64_t _qiAuth_protocol_handleResponse_CHALLENGE_AUTH(uint64_t a1, uint64_t a2
           if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136316674;
-            v45 = "_qiAuth_protocol_handleResponse_CHALLENGE_AUTH";
-            v46 = 1024;
-            v47 = 2278;
-            v48 = 1024;
-            v49 = 3;
-            v50 = 2080;
-            *v51 = "CHALLENGE_AUTH";
-            *&v51[8] = 1024;
-            *&v51[10] = v16;
-            *&v51[14] = 1024;
-            *&v51[16] = v18;
-            v52 = 1024;
-            v53 = v43;
+            v44 = "_qiAuth_protocol_handleResponse_CHALLENGE_AUTH";
+            v45 = 1024;
+            v46 = 2278;
+            v47 = 1024;
+            v48 = 3;
+            v49 = 2080;
+            *v50 = "CHALLENGE_AUTH";
+            *&v50[8] = 1024;
+            *&v50[10] = v16;
+            *&v50[14] = 1024;
+            *&v50[16] = v18;
+            v51 = 1024;
+            v52 = v42;
             _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "%s:%d msgType %d(%s), slot %d, slotPopMask %x, certChainHashLSB %02x", buf, 0x34u);
           }
 
@@ -2729,7 +2730,7 @@ uint64_t _qiAuth_protocol_handleResponse_CHALLENGE_AUTH(uint64_t a1, uint64_t a2
             goto LABEL_45;
           }
 
-          if (qiAuth_util_certificateExistsCache(a1, v16, &v43, 1u))
+          if (qiAuth_util_certificateExistsCache(a1, v16, &v42, 1))
           {
             if (gLogObjects && gNumLogObjects >= 60)
             {
@@ -2748,13 +2749,13 @@ uint64_t _qiAuth_protocol_handleResponse_CHALLENGE_AUTH(uint64_t a1, uint64_t a2
             if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136315906;
-              v45 = "_qiAuth_protocol_handleResponse_CHALLENGE_AUTH";
-              v46 = 1024;
-              v47 = 2284;
-              v48 = 1024;
-              v49 = v16;
-              v50 = 1024;
-              *v51 = v43;
+              v44 = "_qiAuth_protocol_handleResponse_CHALLENGE_AUTH";
+              v45 = 1024;
+              v46 = 2284;
+              v47 = 1024;
+              v48 = v16;
+              v49 = 1024;
+              *v50 = v42;
               _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "%s:%d Found in cache! slot %d, certChainHashLSB %02x", buf, 0x1Eu);
             }
 
@@ -2764,7 +2765,7 @@ uint64_t _qiAuth_protocol_handleResponse_CHALLENGE_AUTH(uint64_t a1, uint64_t a2
               v36 = (a1 + 2 * v16 + 324);
               *v36 = 0;
               *(a1 + 322) = 1;
-              if (qiAuth_util_copyCertificateFromCache(a1, v16, &v43, 1u, *(a1 + 256 + 8 * v16), 0x20u, (a1 + 368), 0x600u, v36))
+              if (qiAuth_util_copyCertificateFromCache(a1, v16, &v42, 1u, *(a1 + 256 + 8 * v16), 0x20u, (a1 + 368), 0x600u, v36))
               {
                 *(v26 + 8 * v16) = 0;
                 *v36 = 0;
@@ -2772,13 +2773,13 @@ uint64_t _qiAuth_protocol_handleResponse_CHALLENGE_AUTH(uint64_t a1, uint64_t a2
                 goto LABEL_67;
               }
 
-              v40 = *(v26 + 8 * v16);
-              v41 = *v40;
+              v39 = *(v26 + 8 * v16);
+              v40 = *v39;
               qiAuth_util_logCertData(a1, "CACHE: --CertDigest--", *(a1 + 256 + 8 * v16), 0x20u, 1);
-              qiAuth_util_logCertData(a1, "CACHE: --RootHash--", (v40 + 1), 0x20u, 1);
-              v42 = (bswap32(v41) >> 16) - 34;
-              qiAuth_util_logCertData(a1, "CACHE: --CertData--", (v40 + 17), v42, 1);
-              if (!qiAuth_util_verifyCertificateChain(a1, *(a1 + 48), (v40 + 1), 32, (v40 + 17), v42))
+              qiAuth_util_logCertData(a1, "CACHE: --RootHash--", (v39 + 1), 0x20u, 1);
+              v41 = (bswap32(v40) >> 16) - 34;
+              qiAuth_util_logCertData(a1, "CACHE: --CertData--", (v39 + 17), v41, 1);
+              if (!qiAuth_util_verifyCertificateChain(a1, *(a1 + 48), (v39 + 1), 32, (v39 + 17), v41))
               {
                 *(a1 + 320) |= 1 << v16;
               }
@@ -2806,11 +2807,11 @@ LABEL_45:
             if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136315650;
-              v45 = "_qiAuth_protocol_handleResponse_CHALLENGE_AUTH";
-              v46 = 1024;
-              v47 = 2333;
-              v48 = 1024;
-              v49 = v16;
+              v44 = "_qiAuth_protocol_handleResponse_CHALLENGE_AUTH";
+              v45 = 1024;
+              v46 = 2333;
+              v47 = 1024;
+              v48 = v16;
               _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "%s:%d Have cert for slot %d !!! verify signature", buf, 0x18u);
             }
 
@@ -2840,19 +2841,18 @@ LABEL_67:
           if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315650;
-            v45 = "_qiAuth_protocol_handleResponse_CHALLENGE_AUTH";
-            v46 = 1024;
-            v47 = 2339;
-            v48 = 1024;
-            v49 = v16;
+            v44 = "_qiAuth_protocol_handleResponse_CHALLENGE_AUTH";
+            v45 = 1024;
+            v46 = 2339;
+            v47 = 1024;
+            v48 = v16;
             _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "%s:%d No cert for slot %d !!! need GET_CERTIFICATE", buf, 0x18u);
           }
 
-          v38 = *(a1 + 321);
-          v39 = qiAuth_util_policy_preferredSlot();
-          *(a1 + 48) = v39;
+          v38 = qiAuth_util_policy_preferredSlot();
+          *(a1 + 48) = v38;
           *(a1 + 244) = 8323072;
-          inited = qiAuth_protocol_initMsg_GET_CERTIFICATE(v39, *(a1 + 12), v16, 0, 0x7Fu, a4, a5, a6);
+          inited = qiAuth_protocol_initMsg_GET_CERTIFICATE(v38, *(a1 + 12), v16, 0, 0x7Fu, a4, a5, a6);
           goto LABEL_53;
         }
       }
@@ -2900,21 +2900,21 @@ LABEL_54:
     }
 
     *buf = 136316930;
-    v45 = "_qiAuth_protocol_handleResponse_CHALLENGE_AUTH";
-    v46 = 1024;
-    v47 = 2354;
-    v48 = 1024;
-    v49 = v15;
-    v50 = 1024;
-    *v51 = v14;
-    *&v51[4] = 2080;
-    *&v51[6] = v33;
-    *&v51[14] = 1024;
-    *&v51[16] = v16;
-    v52 = 1024;
-    v53 = a3;
-    v54 = 1024;
-    v55 = v34;
+    v44 = "_qiAuth_protocol_handleResponse_CHALLENGE_AUTH";
+    v45 = 1024;
+    v46 = 2354;
+    v47 = 1024;
+    v48 = v15;
+    v49 = 1024;
+    *v50 = v14;
+    *&v50[4] = 2080;
+    *&v50[6] = v33;
+    *&v50[14] = 1024;
+    *&v50[16] = v16;
+    v51 = 1024;
+    v52 = a3;
+    v53 = 1024;
+    v54 = v34;
     _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "%s:%d result %d, msgType %d(%s), slot %d, dataInLen %u, dataOutLen %u", buf, 0x3Au);
   }
 
@@ -2943,7 +2943,7 @@ uint64_t _qiAuth_protocol_handleResponse_ERROR(uint64_t a1, _BYTE *a2, int a3, u
 
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      _qiAuth_protocol_handleResponse_ERROR_cold_2(a1);
+      _qiAuth_protocol_handleResponse_ERROR_cold_2();
     }
 
     v15 = 0;
@@ -3219,7 +3219,7 @@ LABEL_67:
 
           if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
           {
-            _qiAuth_protocol_handleResponse_ERROR_cold_8(a2 + 1, a2);
+            _qiAuth_protocol_handleResponse_ERROR_cold_8();
           }
 
           v16 = 4294967294;
@@ -3290,8 +3290,9 @@ LABEL_68:
   return v16;
 }
 
-uint64_t qiAuth_protocol_setSlotAuthState(unsigned __int8 *a1, unsigned int a2, int a3)
+uint64_t qiAuth_protocol_setSlotAuthState(unsigned __int8 *a1, uint64_t a2, uint64_t a3)
 {
+  v4 = a2;
   v5 = gLogObjects;
   v6 = 4294967294;
   if (!a1 || a2 > 3)
@@ -3323,7 +3324,7 @@ uint64_t qiAuth_protocol_setSlotAuthState(unsigned __int8 *a1, unsigned int a2, 
     v30 = 1024;
     v31 = 594;
     v32 = 1024;
-    v33 = a2;
+    v33 = v4;
     v34 = 1024;
     v35 = v9;
     v36 = 1024;
@@ -3355,17 +3356,17 @@ uint64_t qiAuth_protocol_setSlotAuthState(unsigned __int8 *a1, unsigned int a2, 
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v12 = a1[248];
-    v13 = &a1[8 * a2];
+    v13 = &a1[8 * v4];
     v14 = *(v13 + 32) != 0;
     v15 = a1[320];
     LODWORD(v13) = *(v13 + 42) != 0;
-    v16 = *&a1[2 * a2 + 324];
+    v16 = *&a1[2 * v4 + 324];
     *buf = 136317186;
     v29 = "qiAuth_protocol_setSlotAuthState";
     v30 = 1024;
     v31 = 604;
     v32 = 1024;
-    v33 = a2;
+    v33 = v4;
     v34 = 1024;
     v35 = a3;
     v36 = 1024;
@@ -3381,10 +3382,10 @@ uint64_t qiAuth_protocol_setSlotAuthState(unsigned __int8 *a1, unsigned int a2, 
     _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%s:%d slot %d, authState %d, rxDigestsRetrievedMask 0x%x, rxDigests(%d), rxCertsAvailbleMask 0x%x, rxCerts(%d), len %d", buf, 0x3Cu);
   }
 
-  v17 = *&v8[4 * a2];
+  v17 = *&v8[4 * v4];
   if (v17 == 1)
   {
-    if (((1 << a2) & a1[248]) == 0 || !*&a1[8 * a2 + 256] || ((1 << a2) & a1[320]) == 0 || !*&a1[8 * a2 + 336] || (v18 = a1 + 324, !*&a1[2 * a2 + 324]))
+    if (((1 << v4) & a1[248]) == 0 || !*&a1[8 * v4 + 256] || ((1 << v4) & a1[320]) == 0 || !*&a1[8 * v4 + 336] || (v18 = a1 + 324, !*&a1[2 * v4 + 324]))
     {
       v20 = gLogObjects;
       v21 = gNumLogObjects;
@@ -3406,7 +3407,7 @@ LABEL_36:
           v30 = 1024;
           v31 = 623;
           v32 = 1024;
-          v33 = a2;
+          v33 = v4;
           v34 = 1024;
           v35 = v23;
           v36 = 1024;
@@ -3433,20 +3434,20 @@ LABEL_34:
     log = logObjectForModule_22();
     if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = *&v18[2 * a2];
+      v19 = *&v18[2 * v4];
       *buf = 136315906;
       v29 = "qiAuth_protocol_setSlotAuthState";
       v30 = 1024;
       v31 = 613;
       v32 = 1024;
-      v33 = a2;
+      v33 = v4;
       v34 = 1024;
       v35 = v19;
       _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEFAULT, "%s:%d slot %d, Save cert in cache!! certsLen %d", buf, 0x1Eu);
     }
 
-    qiAuth_util_saveCertificateInCache(a1, a2, *&a1[8 * a2 + 256], 0x20u, *&a1[8 * a2 + 336], *&v18[2 * a2]);
-    v17 = *&v8[4 * a2];
+    qiAuth_util_saveCertificateInCache(a1, v4, *&a1[8 * v4 + 256], 0x20u, *&a1[8 * v4 + 336], *&v18[2 * v4]);
+    v17 = *&v8[4 * v4];
   }
 
   v20 = gLogObjects;
@@ -3483,13 +3484,13 @@ LABEL_39:
     v30 = 1024;
     v31 = 630;
     v32 = 1024;
-    v33 = a2;
+    v33 = v4;
     v34 = 1024;
     v35 = a3;
     _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_INFO, "%s:%d slot %d, notify system of authState %d", buf, 0x1Eu);
   }
 
-  qiAuth_util_notifySlotAuthState(a1, a2, a3);
+  qiAuth_util_notifySlotAuthState(a1, v4, a3);
   v6 = 0;
   v5 = gLogObjects;
 LABEL_47:
@@ -3516,7 +3517,7 @@ LABEL_47:
     v32 = 1024;
     v33 = v6;
     v34 = 1024;
-    v35 = a2;
+    v35 = v4;
     v36 = 1024;
     v37 = a3;
     _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "%s:%d result %d, slot %d, authState %d", buf, 0x24u);
@@ -3525,7 +3526,7 @@ LABEL_47:
   return v6;
 }
 
-const char *qiAuth_protocol_authStateString(int a1)
+const char *qiAuth_protocol_authStateString(uint64_t a1)
 {
   if ((a1 - 1) > 2)
   {
@@ -3534,7 +3535,7 @@ const char *qiAuth_protocol_authStateString(int a1)
 
   else
   {
-    v1 = off_1002298C0[a1 - 1];
+    v1 = off_1002298C0[(a1 - 1)];
   }
 
   if (gLogObjects && gNumLogObjects >= 60)
@@ -3559,8 +3560,10 @@ const char *qiAuth_protocol_authStateString(int a1)
   return v1;
 }
 
-uint64_t qiAuth_protocol_saveDigest(uint64_t a1, int a2, unsigned int a3, _OWORD *a4, int a5)
+uint64_t qiAuth_protocol_saveDigest(uint64_t a1, uint64_t a2, uint64_t a3, _OWORD *a4, int a5)
 {
+  v5 = a3;
+  v6 = a2;
   v7 = 4294967294;
   if (a1 && a3 <= 3 && ((1 << a3) & *(a1 + 24)) != 0)
   {
@@ -3623,18 +3626,20 @@ uint64_t qiAuth_protocol_saveDigest(uint64_t a1, int a2, unsigned int a3, _OWORD
     v16 = 1024;
     v17 = v7;
     v18 = 1024;
-    v19 = a2;
+    v19 = v6;
     v20 = 1024;
-    v21 = a3;
+    v21 = v5;
     _os_log_debug_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEBUG, "%s:%d Result %d, role %d, slot %d", &v12, 0x24u);
   }
 
   return v7;
 }
 
-uint64_t qiAuth_protocol_saveCertNextSegment(uint64_t a1, unsigned int a2, unsigned int a3, const void *a4, unsigned int a5, unsigned int a6)
+uint64_t qiAuth_protocol_saveCertNextSegment(uint64_t a1, uint64_t a2, uint64_t a3, const void *a4, unsigned int a5, unsigned int a6)
 {
   __n = a6;
+  v8 = a3;
+  v9 = a2;
   if (gLogObjects && gNumLogObjects >= 60)
   {
     v11 = *(gLogObjects + 472);
@@ -3656,9 +3661,9 @@ uint64_t qiAuth_protocol_saveCertNextSegment(uint64_t a1, unsigned int a2, unsig
     v33 = 1024;
     v34 = 1032;
     v35 = 1024;
-    v36 = a2;
+    v36 = v9;
     v37 = 1024;
-    v38 = a3;
+    v38 = v8;
     v39 = 1024;
     v40 = a5;
     v41 = 1024;
@@ -3667,9 +3672,9 @@ uint64_t qiAuth_protocol_saveCertNextSegment(uint64_t a1, unsigned int a2, unsig
   }
 
   v12 = 4294967294;
-  if (a1 && a3 <= 3 && ((*(a1 + 24) >> a3) & 1) != 0)
+  if (a1 && v8 <= 3 && ((*(a1 + 24) >> v8) & 1) != 0)
   {
-    if (a2)
+    if (v9)
     {
       if (gLogObjects && gNumLogObjects >= 60)
       {
@@ -3700,8 +3705,8 @@ uint64_t qiAuth_protocol_saveCertNextSegment(uint64_t a1, unsigned int a2, unsig
     }
 
     v29 = a1 + 336;
-    v14 = a3;
-    if (*(a1 + 336 + 8 * a3))
+    v14 = v8;
+    if (*(a1 + 336 + 8 * v8))
     {
       if (gLogObjects && gNumLogObjects >= 60)
       {
@@ -3717,7 +3722,7 @@ uint64_t qiAuth_protocol_saveCertNextSegment(uint64_t a1, unsigned int a2, unsig
         }
       }
 
-      v14 = a3;
+      v14 = v8;
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
         __n_4 = 136316418;
@@ -3727,7 +3732,7 @@ uint64_t qiAuth_protocol_saveCertNextSegment(uint64_t a1, unsigned int a2, unsig
         v35 = 1024;
         v36 = 0;
         v37 = 1024;
-        v38 = a3;
+        v38 = v8;
         v39 = 1024;
         v40 = a5;
         v41 = 1024;
@@ -3756,7 +3761,7 @@ uint64_t qiAuth_protocol_saveCertNextSegment(uint64_t a1, unsigned int a2, unsig
         v35 = 1024;
         v36 = 0;
         v37 = 1024;
-        v38 = a3;
+        v38 = v8;
         v39 = 1024;
         v40 = a5;
         v41 = 1024;
@@ -3777,7 +3782,7 @@ uint64_t qiAuth_protocol_saveCertNextSegment(uint64_t a1, unsigned int a2, unsig
         v35 = 1024;
         v36 = 0;
         v37 = 1024;
-        v38 = a3;
+        v38 = v8;
         v39 = 1024;
         v40 = a5;
         v41 = 1024;
@@ -3786,8 +3791,8 @@ uint64_t qiAuth_protocol_saveCertNextSegment(uint64_t a1, unsigned int a2, unsig
       }
 
       v28 = *(a1 + 322);
-      *(v29 + 8 * a3) = a1 + 1536 * v28 + 368;
-      *(a1 + 2 * a3 + 324) = 0;
+      *(v29 + 8 * v8) = a1 + 1536 * v28 + 368;
+      *(a1 + 2 * v8 + 324) = 0;
       *(a1 + 322) = v28 + 1;
     }
 
@@ -3812,7 +3817,7 @@ uint64_t qiAuth_protocol_saveCertNextSegment(uint64_t a1, unsigned int a2, unsig
         v35 = 1024;
         v36 = 0;
         v37 = 1024;
-        v38 = a3;
+        v38 = v8;
         v39 = 1024;
         v40 = a5;
         v41 = 1024;
@@ -3844,7 +3849,7 @@ uint64_t qiAuth_protocol_saveCertNextSegment(uint64_t a1, unsigned int a2, unsig
     v39 = 1024;
     v40 = 0;
     v41 = 1024;
-    v42 = a3;
+    v42 = v8;
     v43 = 1024;
     v44 = -1;
     v21 = "%s:%d offset(%d) not in sequence(%d)! role %d, slot %d, result %d";
@@ -3877,9 +3882,9 @@ LABEL_28:
     v35 = 1024;
     v36 = v12;
     v37 = 1024;
-    v38 = a2;
+    v38 = v9;
     v39 = 1024;
-    v40 = a3;
+    v40 = v8;
     v41 = 1024;
     v42 = a5;
     v43 = 1024;
@@ -3954,20 +3959,19 @@ uint64_t qiAuth_protocol_calculateChallengeHash(uint64_t a1, unsigned int a2, __
   v12 = 0;
   *&v13 = 0xAAAAAAAAAAAAAAAALL;
   *(&v13 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v54 = v13;
   v55 = v13;
-  v56 = v13;
-  *&v54[15] = -1431655766;
-  v53[2] = v13;
-  *v54 = v13;
-  v53[0] = v13;
-  v53[1] = v13;
+  *&v53[15] = -1431655766;
+  v52[2] = v13;
+  *v53 = v13;
+  v52[0] = v13;
+  v52[1] = v13;
   v14 = 4294967294;
   if (!a1 || !a5 || !a6 || a7 != 54 || !a8 || !a9 || a10 < 0x20u || !a11)
   {
     goto LABEL_40;
   }
 
-  v34 = (a1 + 8);
   if (*(a1 + 8))
   {
     v19 = &audioProductCerts_endpoint_publish_onceToken;
@@ -3989,7 +3993,7 @@ LABEL_11:
 
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      qiAuth_protocol_calculateChallengeHash_cold_6(v34, a1);
+      qiAuth_protocol_calculateChallengeHash_cold_6();
     }
 
     v12 = 170;
@@ -4010,7 +4014,7 @@ LABEL_19:
 
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      qiAuth_protocol_calculateChallengeHash_cold_8(v34, a1);
+      qiAuth_protocol_calculateChallengeHash_cold_8();
     }
 
     goto LABEL_26;
@@ -4037,7 +4041,7 @@ LABEL_19:
 
     if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
-      qiAuth_protocol_calculateChallengeHash_cold_4(v34, a1);
+      qiAuth_protocol_calculateChallengeHash_cold_4();
     }
 
     v14 = 0xFFFFFFFFLL;
@@ -4045,8 +4049,8 @@ LABEL_19:
   }
 
   v30 = v29[1];
-  v55 = *v29;
-  v56 = v30;
+  v54 = *v29;
+  v55 = v30;
   v12 = HIBYTE(v30);
   if (*(a1 + 1924) <= 2u)
   {
@@ -4068,16 +4072,16 @@ LABEL_19:
 
     if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
-      qiAuth_protocol_calculateChallengeHash_cold_2(v34, a1);
+      qiAuth_protocol_calculateChallengeHash_cold_2();
     }
 
     v14 = 0xFFFFFFFFLL;
     goto LABEL_19;
   }
 
-  LOWORD(v53[0]) = *(a1 + 1926);
-  BYTE2(v53[0]) = *(a1 + 1928);
-  v31 = qiAuth_protocol_composeTBSAuth(a1, &v55, 32, a3, a4, v53, 3, a6, 0x36u, a8);
+  LOWORD(v52[0]) = *(a1 + 1926);
+  BYTE2(v52[0]) = *(a1 + 1928);
+  v31 = qiAuth_protocol_composeTBSAuth(a1, &v54, 32, a3, a4, v52, 3, a6, 0x36u, a8);
   if (!v31)
   {
     v14 = qiAuth_util_hash_SHA256(a1, a6, *a8, a9, a10, a11);
@@ -4113,7 +4117,7 @@ LABEL_26:
 
   if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
   {
-    qiAuth_protocol_calculateChallengeHash_cold_10(v34, a1);
+    qiAuth_protocol_calculateChallengeHash_cold_10();
   }
 
 LABEL_33:
@@ -4134,7 +4138,7 @@ LABEL_33:
 
   if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
   {
-    qiAuth_protocol_calculateChallengeHash_cold_12(v34, a1);
+    qiAuth_protocol_calculateChallengeHash_cold_12();
   }
 
 LABEL_40:
@@ -4155,145 +4159,145 @@ LABEL_40:
   if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136316930;
-    v38 = "qiAuth_protocol_calculateChallengeHash";
-    v39 = 1024;
-    v40 = 1244;
-    v41 = 1024;
-    v42 = v14;
-    v43 = 1024;
-    v44 = a2;
-    v45 = 1024;
-    v46 = a4;
-    v47 = 1024;
-    v48 = v12;
-    v49 = 1024;
-    v50 = a7;
-    v51 = 1024;
-    v52 = a10;
+    v37 = "qiAuth_protocol_calculateChallengeHash";
+    v38 = 1024;
+    v39 = 1244;
+    v40 = 1024;
+    v41 = v14;
+    v42 = 1024;
+    v43 = a2;
+    v44 = 1024;
+    v45 = a4;
+    v46 = 1024;
+    v47 = v12;
+    v48 = 1024;
+    v49 = a7;
+    v50 = 1024;
+    v51 = a10;
     _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "%s:%d result %d, slot %d, challengeMsgLen %d, digestLSB 0x%02x, outTBSAuthSize %d, outChallengeHashSize %d", buf, 0x36u);
   }
 
   return v14;
 }
 
-uint64_t _qiAuth_protocol_getCachedCertLengthFromHeader(uint64_t a1, unsigned int a2)
+uint64_t _qiAuth_protocol_getCachedCertLengthFromHeader(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v3 = 0;
   if (a1 && a2 <= 3)
   {
-    v4 = (a1 + 8);
     if (*(a1 + 8))
     {
       if (gLogObjects && gNumLogObjects >= 60)
       {
-        v5 = *(gLogObjects + 472);
+        v4 = *(gLogObjects + 472);
       }
 
       else
       {
-        v5 = &_os_log_default;
+        v4 = &_os_log_default;
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
           platform_connectionInfo_configStreamGetCategories_cold_2();
         }
       }
 
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
-        _qiAuth_protocol_getCachedCertLengthFromHeader_cold_2(v4);
+        _qiAuth_protocol_getCachedCertLengthFromHeader_cold_2();
       }
 
       goto LABEL_16;
     }
 
-    v6 = a1 + 336;
-    v7 = *(a1 + 336 + 8 * a2);
-    if (!v7 || (v8 = a1 + 324, *(a1 + 324 + 2 * a2) < 2u))
+    v5 = a1 + 336;
+    v6 = *(a1 + 336 + 8 * a2);
+    if (!v6 || (v7 = a1 + 324, *(a1 + 324 + 2 * a2) < 2u))
     {
 LABEL_16:
       v3 = 0;
       goto LABEL_17;
     }
 
-    v9 = gLogObjects;
-    v10 = gNumLogObjects;
+    v8 = gLogObjects;
+    v9 = gNumLogObjects;
     if (gLogObjects && gNumLogObjects >= 60)
     {
-      v11 = *(gLogObjects + 472);
+      v10 = *(gLogObjects + 472);
     }
 
     else
     {
-      v11 = &_os_log_default;
+      v10 = &_os_log_default;
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        v23 = 134218240;
-        v24 = v9;
-        v25 = 1024;
-        v26 = v10;
-        _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", &v23, 0x12u);
-        v7 = *(v6 + 8 * a2);
+        v22 = 134218240;
+        v23 = v8;
+        v24 = 1024;
+        v25 = v9;
+        _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", &v22, 0x12u);
+        v6 = *(v5 + 8 * v2);
       }
     }
 
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      v14 = *(v8 + 2 * a2);
-      v15 = *v7;
-      v16 = v7[1];
-      v17 = v7[2];
-      v18 = v7[3];
-      v19 = v7[4];
-      v20 = v7[5];
-      v21 = v7[6];
-      v22 = v7[7];
-      v23 = 136317954;
-      v24 = "_qiAuth_protocol_getCachedCertLengthFromHeader";
-      v25 = 1024;
-      v26 = 1274;
-      v27 = 1024;
-      v28 = a2;
-      v29 = 1024;
-      v30 = v14;
-      v31 = 1024;
-      v32 = v15;
-      v33 = 1024;
-      v34 = v16;
-      v35 = 1024;
-      v36 = v17;
-      v37 = 1024;
-      v38 = v18;
-      v39 = 1024;
-      v40 = v19;
-      v41 = 1024;
-      v42 = v20;
-      v43 = 1024;
-      v44 = v21;
-      v45 = 1024;
-      v46 = v22;
-      _os_log_debug_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEBUG, "%s:%d slot %d, rxCerts(%d bytes): [%02X %02X] %02X %02X %02X %02X %02X %02X ... \n", &v23, 0x4Eu);
-      v7 = *(v6 + 8 * a2);
+      v13 = *(v7 + 2 * v2);
+      v14 = *v6;
+      v15 = v6[1];
+      v16 = v6[2];
+      v17 = v6[3];
+      v18 = v6[4];
+      v19 = v6[5];
+      v20 = v6[6];
+      v21 = v6[7];
+      v22 = 136317954;
+      v23 = "_qiAuth_protocol_getCachedCertLengthFromHeader";
+      v24 = 1024;
+      v25 = 1274;
+      v26 = 1024;
+      v27 = v2;
+      v28 = 1024;
+      v29 = v13;
+      v30 = 1024;
+      v31 = v14;
+      v32 = 1024;
+      v33 = v15;
+      v34 = 1024;
+      v35 = v16;
+      v36 = 1024;
+      v37 = v17;
+      v38 = 1024;
+      v39 = v18;
+      v40 = 1024;
+      v41 = v19;
+      v42 = 1024;
+      v43 = v20;
+      v44 = 1024;
+      v45 = v21;
+      _os_log_debug_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEBUG, "%s:%d slot %d, rxCerts(%d bytes): [%02X %02X] %02X %02X %02X %02X %02X %02X ... \n", &v22, 0x4Eu);
+      v6 = *(v5 + 8 * v2);
     }
 
-    v3 = bswap32(*v7) >> 16;
+    v3 = bswap32(*v6) >> 16;
   }
 
 LABEL_17:
   if (gLogObjects && gNumLogObjects >= 60)
   {
-    v12 = *(gLogObjects + 472);
+    v11 = *(gLogObjects + 472);
   }
 
   else
   {
-    v12 = &_os_log_default;
+    v11 = &_os_log_default;
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
       platform_connectionInfo_configStreamGetCategories_cold_2();
     }
   }
 
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     _qiAuth_protocol_getCachedCertLengthFromHeader_cold_4();
   }
@@ -4569,7 +4573,7 @@ uint64_t _qiAuth_protocol_finishAuth(uint64_t a1)
 
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    _qiAuth_protocol_finishAuth_cold_2(a1);
+    _qiAuth_protocol_finishAuth_cold_2();
   }
 
   if (*(a1 + 8))
@@ -4595,7 +4599,7 @@ LABEL_10:
 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    _qiAuth_protocol_finishAuth_cold_4((a1 + 8), a1);
+    _qiAuth_protocol_finishAuth_cold_4();
   }
 
   v7 = *(a1 + 48);
@@ -4733,7 +4737,7 @@ LABEL_67:
 
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        _qiAuth_protocol_finishAuth_cold_9(a1);
+        _qiAuth_protocol_finishAuth_cold_9();
       }
     }
 
@@ -4808,7 +4812,7 @@ LABEL_11:
   return v3;
 }
 
-uint64_t qiAuth_protocol_initMsg_CHALLENGE_AUTH(uint64_t a1, unsigned int a2, unsigned int a3, int a4, int a5, const void *a6, unsigned int a7, _BYTE *a8, unsigned __int16 a9, __int16 *a10)
+uint64_t qiAuth_protocol_initMsg_CHALLENGE_AUTH(uint64_t a1, unsigned int a2, unsigned int a3, int a4, int a5, const void *a6, unsigned int a7, _BYTE *a8, unsigned __int16 a9, unsigned __int16 *a10)
 {
   if (gLogObjects && gNumLogObjects >= 60)
   {
@@ -4922,14 +4926,6 @@ LABEL_19:
   }
 
   return v17;
-}
-
-unsigned int *OUTLINED_FUNCTION_13_15@<X0>(unsigned int *result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  *(v3 - 8) = a3;
-  v4 = *result;
-  v5 = *(a2 + 48);
-  return result;
 }
 
 uint64_t iap2_features_registerMessageHandlers()
@@ -5168,9 +5164,9 @@ uint64_t iap2_features_registerIdentificationParamHandlers()
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
           *buf = 134218240;
-          v19 = v5;
-          v20 = 1024;
-          v21 = v6;
+          v17 = v5;
+          v18 = 1024;
+          v19 = v6;
           _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
           v8 = &_os_log_default;
         }
@@ -5183,7 +5179,7 @@ uint64_t iap2_features_registerIdentificationParamHandlers()
 
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
-        iap2_features_registerIdentificationParamHandlers_cold_2(v16, i, v17, v8);
+        iap2_features_registerIdentificationParamHandlers_cold_2(v14, i, v15, v8);
       }
 
       v9 = *(&_kiAP2FeatureInfoEntries + 2 * i + 1);
@@ -5198,8 +5194,6 @@ uint64_t iap2_features_registerIdentificationParamHandlers()
             do
             {
               v12 = *(v9 + 24);
-              v13 = *(v12 + v10);
-              v14 = *(v12 + v10 + 8);
               iap2_identification_setParamHandler();
               if (*(v12 + v10 + 16) == 1)
               {
@@ -5425,8 +5419,9 @@ void *OUTLINED_FUNCTION_8_25()
   return logObjectForModule_36();
 }
 
-unint64_t iap2_sessionRouter_processSessionData(unint64_t a1, uint64_t a2, UInt8 *a3, unsigned int a4)
+unint64_t iap2_sessionRouter_processSessionData(unint64_t a1, uint64_t a2, UInt8 *a3, uint64_t a4)
 {
+  v4 = a4;
   if (gLogObjects)
   {
     v8 = gNumLogObjects < 19;
@@ -5462,9 +5457,9 @@ unint64_t iap2_sessionRouter_processSessionData(unint64_t a1, uint64_t a2, UInt8
   {
     if (v11 == 2)
     {
-      if (a4 < 3)
+      if (v4 < 3)
       {
-        if (a4 == 2)
+        if (v4 == 2)
         {
           if (gLogObjects && gNumLogObjects >= 19)
           {
@@ -5497,7 +5492,7 @@ unint64_t iap2_sessionRouter_processSessionData(unint64_t a1, uint64_t a2, UInt8
 
       else
       {
-        v14 = a4;
+        v14 = v4;
         v15 = bswap32(*a3) >> 16;
         v16 = CFDataCreate(kCFAllocatorDefault, a3 + 2, v14 - 2);
         v10 = platform_externalAccessory_handleIncomingEADataFromAccessoryForSessionID(v15, v16);
@@ -5510,7 +5505,7 @@ unint64_t iap2_sessionRouter_processSessionData(unint64_t a1, uint64_t a2, UInt8
 
     else if (v11 == 4)
     {
-      return iap2_sessionLog_parseIncomingMessage(a1, a3, a4);
+      return iap2_sessionLog_parseIncomingMessage(a1, a3, v4);
     }
   }
 
@@ -5518,12 +5513,12 @@ unint64_t iap2_sessionRouter_processSessionData(unint64_t a1, uint64_t a2, UInt8
   {
     if (!*(a2 + 1))
     {
-      return iap2_sessionControl_parseIncomingMessage(a1, a3, a4);
+      return iap2_sessionControl_parseIncomingMessage(a1, a3, v4);
     }
 
     if (v11 == 1)
     {
-      return iap2_sessionFileTransfer_handleDatagram(a1, a3, a4);
+      return iap2_sessionFileTransfer_handleDatagram(a1, a3, v4);
     }
   }
 
@@ -6190,9 +6185,9 @@ void sub_1000BFBB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1000C213C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000C213C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6296,7 +6291,7 @@ unsigned __int16 *iAP2MsgGetFirstParam(uint64_t a1, unsigned __int16 *a2)
   {
     result = 0;
     v7 = *(v2 + 32);
-    v8 = *(v2 + 24) + 6;
+    v8 = (*(v2 + 24) + 6);
     v9 = v7 - v8;
     if (v7 > v8)
     {
@@ -8591,7 +8586,7 @@ LABEL_12:
   return result;
 }
 
-uint64_t loggingProtocol_sendMessage(int a1, uint64_t a2, uint64_t a3)
+uint64_t loggingProtocol_sendMessage(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v8 = 0;
   v7 = 0;
@@ -9230,7 +9225,7 @@ void platform_transactions_accessoryDisconnected(void *a1)
   }
 }
 
-const __CFString *genericMFi_util_copyTLVTypeStringForProperty(int a1, int a2)
+const __CFString *genericMFi_util_copyTLVTypeStringForProperty(unsigned int a1, int a2)
 {
   if (a2)
   {

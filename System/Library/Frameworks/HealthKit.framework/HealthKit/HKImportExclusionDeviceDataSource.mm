@@ -19,10 +19,10 @@
 {
   recordingCopy = recording;
   std::string::basic_string[abi:ne200100]<0>(&__p, [recordingCopy UTF8String]);
-  v4 = v33;
-  v5 = v33;
+  v4 = v32;
+  v5 = v32;
   v6 = __p;
-  if ((v33 & 0x80u) == 0)
+  if ((v32 & 0x80u) == 0)
   {
     p_p = &__p;
   }
@@ -32,13 +32,13 @@
     p_p = __p;
   }
 
-  if ((v33 & 0x80u) != 0)
+  if ((v32 & 0x80u) != 0)
   {
-    v4 = v32;
+    v4 = v31;
   }
 
-  v37 = 0;
   v36 = 0;
+  v35 = 0;
   if (v4 == 10)
   {
     v8 = 0;
@@ -56,11 +56,11 @@
       {
         for (i = 5; i != -1; --i)
         {
-          *(&v36 + i) = v9;
+          *(&v35 + i) = v9;
           v9 >>= 8;
         }
 
-        v12 = v36 | (v37 << 32);
+        v12 = v35 | (v36 << 32);
         goto LABEL_15;
       }
     }
@@ -68,14 +68,14 @@
 
   v12 = 0;
 LABEL_15:
-  v34 = v12;
-  v35 = WORD2(v12);
+  v33 = v12;
+  v34 = WORD2(v12);
   if (v5 < 0)
   {
     operator delete(v6);
   }
 
-  if (v34 | v35)
+  if (v33 | v34)
   {
     v13 = 0;
     v14 = 107399;
@@ -87,7 +87,7 @@ LABEL_15:
       while (1)
       {
         v18 = hk_HKFeatureIdentifierOxygenSaturationRecording::allowed_encoded_serial_numbers[v17 + v15];
-        v19 = *(&v34 + v15);
+        v19 = *(&v33 + v15);
         if (v18 != v19)
         {
           break;
@@ -118,32 +118,32 @@ LABEL_25:
 
     else
     {
-      v26 = 0;
-      v27 = &hk_HKFeatureIdentifierOxygenSaturationRecording::allowed_encoded_serial_numbers[v13];
+      v25 = 0;
+      v26 = &hk_HKFeatureIdentifierOxygenSaturationRecording::allowed_encoded_serial_numbers[v13];
       while (1)
       {
-        v28 = *(&v34 + v26);
-        v29 = v27[v26];
-        if (v28 != v29)
+        v27 = *(&v33 + v25);
+        v28 = v26[v25];
+        if (v27 != v28)
         {
           break;
         }
 
-        if (++v26 == 6)
+        if (++v25 == 6)
         {
           v21 = 1;
           goto LABEL_44;
         }
       }
 
-      v21 = v28 >= v29;
+      v21 = v27 >= v28;
     }
   }
 
   else
   {
     std::string::basic_string[abi:ne200100]<0>(&__p, [recordingCopy UTF8String]);
-    LOBYTE(v36) = 0;
+    LOBYTE(v35) = 0;
     v22 = std::__lower_bound_bisecting[abi:ne200100]<std::_ClassicAlgPolicy,std::string_view const*,std::string,std::__identity,std::__less<void,void>>(&hk_HKFeatureIdentifierOxygenSaturationRecording::additional_allowed_serial_numbers, &__p, 0x44uLL);
     if (v22 == &__block_descriptor_32_e35_v24__0__NSString_8__NSDictionary_16l)
     {
@@ -152,31 +152,30 @@ LABEL_25:
 
     else
     {
-      v23 = *v22;
-      if ((v33 & 0x80u) == 0)
+      if ((v32 & 0x80u) == 0)
       {
-        v24 = &__p;
+        v23 = &__p;
       }
 
       else
       {
-        v24 = __p;
+        v23 = __p;
       }
 
-      if ((v33 & 0x80u) == 0)
+      if ((v32 & 0x80u) == 0)
       {
-        v25 = v33;
+        v24 = v32;
       }
 
       else
       {
-        v25 = v32;
+        v24 = v31;
       }
 
-      v21 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>>(*v22, *(v22 + 8), v24, v25) < 1;
+      v21 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>>(*v22, v22[1], v23, v24) < 1;
     }
 
-    if (v33 < 0)
+    if (v32 < 0)
     {
       operator delete(__p);
     }
@@ -510,10 +509,10 @@ LABEL_15:
 {
   recordingCopy = recording;
   std::string::basic_string[abi:ne200100]<0>(&__p, [recordingCopy UTF8String]);
-  v4 = v33;
-  v5 = v33;
+  v4 = v32;
+  v5 = v32;
   v6 = __p;
-  if ((v33 & 0x80u) == 0)
+  if ((v32 & 0x80u) == 0)
   {
     p_p = &__p;
   }
@@ -523,13 +522,13 @@ LABEL_15:
     p_p = __p;
   }
 
-  if ((v33 & 0x80u) != 0)
+  if ((v32 & 0x80u) != 0)
   {
-    v4 = v32;
+    v4 = v31;
   }
 
-  v37 = 0;
   v36 = 0;
+  v35 = 0;
   if (v4 == 10)
   {
     v8 = 0;
@@ -547,11 +546,11 @@ LABEL_15:
       {
         for (i = 5; i != -1; --i)
         {
-          *(&v36 + i) = v9;
+          *(&v35 + i) = v9;
           v9 >>= 8;
         }
 
-        v12 = v36 | (v37 << 32);
+        v12 = v35 | (v36 << 32);
         goto LABEL_15;
       }
     }
@@ -559,14 +558,14 @@ LABEL_15:
 
   v12 = 0;
 LABEL_15:
-  v34 = v12;
-  v35 = WORD2(v12);
+  v33 = v12;
+  v34 = WORD2(v12);
   if (v5 < 0)
   {
     operator delete(v6);
   }
 
-  if (v34 | v35)
+  if (v33 | v34)
   {
     v13 = 0;
     v14 = 265;
@@ -578,7 +577,7 @@ LABEL_15:
       while (1)
       {
         v18 = hk_HKFeatureIdentifierOxygenSaturationRecording::allowed_encoded_serial_numbers_tib[v17 + v15];
-        v19 = *(&v34 + v15);
+        v19 = *(&v33 + v15);
         if (v18 != v19)
         {
           break;
@@ -609,32 +608,32 @@ LABEL_25:
 
     else
     {
-      v26 = 0;
-      v27 = &hk_HKFeatureIdentifierOxygenSaturationRecording::allowed_encoded_serial_numbers_tib[v13];
+      v25 = 0;
+      v26 = &hk_HKFeatureIdentifierOxygenSaturationRecording::allowed_encoded_serial_numbers_tib[v13];
       while (1)
       {
-        v28 = *(&v34 + v26);
-        v29 = v27[v26];
-        if (v28 != v29)
+        v27 = *(&v33 + v25);
+        v28 = v26[v25];
+        if (v27 != v28)
         {
           break;
         }
 
-        if (++v26 == 6)
+        if (++v25 == 6)
         {
           v21 = 1;
           goto LABEL_44;
         }
       }
 
-      v21 = v28 >= v29;
+      v21 = v27 >= v28;
     }
   }
 
   else
   {
     std::string::basic_string[abi:ne200100]<0>(&__p, [recordingCopy UTF8String]);
-    LOBYTE(v36) = 0;
+    LOBYTE(v35) = 0;
     v22 = std::__lower_bound_bisecting[abi:ne200100]<std::_ClassicAlgPolicy,std::string_view const*,std::string,std::__identity,std::__less<void,void>>(&hk_HKFeatureIdentifierOxygenSaturationRecording::additional_allowed_serial_numbers_tib, &__p, 1uLL);
     if (v22 == HKConceptAttributeValueTrue)
     {
@@ -643,31 +642,30 @@ LABEL_25:
 
     else
     {
-      v23 = *v22;
-      if ((v33 & 0x80u) == 0)
+      if ((v32 & 0x80u) == 0)
       {
-        v24 = &__p;
+        v23 = &__p;
       }
 
       else
       {
-        v24 = __p;
+        v23 = __p;
       }
 
-      if ((v33 & 0x80u) == 0)
+      if ((v32 & 0x80u) == 0)
       {
-        v25 = v33;
+        v24 = v32;
       }
 
       else
       {
-        v25 = v32;
+        v24 = v31;
       }
 
-      v21 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>>(*v22, *(v22 + 8), v24, v25) < 1;
+      v21 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>>(*v22, v22[1], v23, v24) < 1;
     }
 
-    if (v33 < 0)
+    if (v32 < 0)
     {
       operator delete(__p);
     }

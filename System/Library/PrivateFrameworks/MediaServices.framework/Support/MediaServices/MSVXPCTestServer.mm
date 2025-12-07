@@ -25,27 +25,21 @@
 
 - (void)sendMessage:(id)message
 {
-  v4 = [message copy];
-  message = self->_message;
-  self->_message = v4;
+  self->_message = [message copy];
 
   _objc_release_x1();
 }
 
 - (void)setNewConnectionInvalidationHandler:(id)handler
 {
-  v4 = objc_retainBlock(handler);
-  invalidationHandler = self->_invalidationHandler;
-  self->_invalidationHandler = v4;
+  self->_invalidationHandler = objc_retainBlock(handler);
 
   _objc_release_x1();
 }
 
 - (void)setNewConnectionInterruptionHandler:(id)handler
 {
-  v4 = objc_retainBlock(handler);
-  interruptionHandler = self->_interruptionHandler;
-  self->_interruptionHandler = v4;
+  self->_interruptionHandler = objc_retainBlock(handler);
 
   _objc_release_x1();
 }

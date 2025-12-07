@@ -60,13 +60,12 @@
 
 void __48__SWLocalDatastoreUpdateScript_userScriptSource__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  v5 = [v2 URLForResource:@"local-datastore-init" withExtension:@"js"];
+  v1 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+  v4 = [v1 URLForResource:@"local-datastore-init" withExtension:@"js"];
 
-  v3 = [MEMORY[0x1E696AEC0] stringWithContentsOfURL:v5 encoding:4 error:0];
-  v4 = userScriptSource_source;
-  userScriptSource_source = v3;
+  v2 = [MEMORY[0x1E696AEC0] stringWithContentsOfURL:v4 encoding:4 error:0];
+  v3 = userScriptSource_source;
+  userScriptSource_source = v2;
 }
 
 - (NSString)executableScript
@@ -105,13 +104,12 @@ void __48__SWLocalDatastoreUpdateScript_userScriptSource__block_invoke(uint64_t 
 
 void __48__SWLocalDatastoreUpdateScript_executableSource__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  v5 = [v2 URLForResource:@"local-datastore-update" withExtension:@"js"];
+  v1 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+  v4 = [v1 URLForResource:@"local-datastore-update" withExtension:@"js"];
 
-  v3 = [MEMORY[0x1E696AEC0] stringWithContentsOfURL:v5 encoding:4 error:0];
-  v4 = executableSource_source_0;
-  executableSource_source_0 = v3;
+  v2 = [MEMORY[0x1E696AEC0] stringWithContentsOfURL:v4 encoding:4 error:0];
+  v3 = executableSource_source_0;
+  executableSource_source_0 = v2;
 }
 
 @end

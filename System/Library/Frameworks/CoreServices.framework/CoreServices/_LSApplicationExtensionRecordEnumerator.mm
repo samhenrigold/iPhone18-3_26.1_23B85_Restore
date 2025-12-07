@@ -104,7 +104,7 @@
   if (v7 > index)
   {
     v11 = begin[index];
-    v12 = _LSGetPlugin(context->db, begin[index]);
+    v12 = _LSGetPlugin(context->db, v11);
     if (v12)
     {
       v13 = v12;
@@ -172,7 +172,7 @@
 
 - (BOOL)_getExtensionPointID:(unsigned int *)d context:(LSContext *)context error:(id *)error
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   extensionPointID = self->_extensionPointID;
   if (!extensionPointID)
   {
@@ -187,9 +187,9 @@
     if (StringForCFString)
     {
       v10 = self->_extensionPointID;
-      v13 = 138477827;
-      v14 = v10;
-      _os_log_impl(&dword_18162D000, v9, OS_LOG_TYPE_DEFAULT, "Could not find extension point %{private}@ in database; will yield nothing", &v13, 0xCu);
+      v12 = 138477827;
+      v13 = v10;
+      _os_log_impl(&dword_18162D000, v9, OS_LOG_TYPE_DEFAULT, "Could not find extension point %{private}@ in database; will yield nothing", &v12, 0xCu);
 LABEL_5:
       StringForCFString = 0;
     }
@@ -200,29 +200,29 @@ LABEL_5:
     *d = StringForCFString;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
 - (BOOL)_evaluatePluginNoIO:(unsigned int)o data:(const LSPluginData *)data extensionPointID:(unsigned int)d context:(LSContext *)context
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v8 = *&o;
+  v34 = *MEMORY[0x1E69E9840];
   if (d && data->var4 != d)
   {
     v17 = _LSEnumeratorLog;
     v12 = os_log_type_enabled(_LSEnumeratorLog, OS_LOG_TYPE_DEBUG);
     if (!v12)
     {
-      goto LABEL_31;
+      return v12;
     }
 
     var4 = data->var4;
     *buf = 134218496;
-    *&buf[4] = o;
-    v33 = 2048;
-    *v34 = d;
-    *&v34[8] = 2048;
-    v35 = var4;
+    *&buf[4] = v8;
+    v31 = 2048;
+    *v32 = d;
+    *&v32[8] = 2048;
+    v33 = var4;
     v19 = "Skipping plugin %llx during enumeration because it is on the wrong extension point (want %llx, had %llx)";
     v20 = v17;
     v21 = 32;
@@ -242,9 +242,9 @@ LABEL_5:
         {
           if ((*(v14 + 191) & 0x10) != 0)
           {
-            v31 = 0;
+            v29 = 0;
             *buf = 0;
-            _LSExtensionPointFindWithStringID(context->db, data->var4, data->var0.platform, 0, &v31, buf);
+            _LSExtensionPointFindWithStringID(context->db, data->var4, data->var0.platform, 0, &v29, buf);
             if (*buf)
             {
               v15 = *(*buf + 68);
@@ -271,10 +271,9 @@ LABEL_5:
       if (self->_filterBlock)
       {
         v25 = [_LSLazyPropertyList lazyPropertyListWithContext:context unit:data->var0.infoDictionary];
-        v26 = [_LSLazyPropertyList lazyPropertyListWithContext:context unit:_LSPluginGetSDKDictionaryDataUnit(context->db, o, data)];
+        v26 = [_LSLazyPropertyList lazyPropertyListWithContext:context unit:_LSPluginGetSDKDictionaryDataUnit(context->db, v8, data)];
         v27 = [[_LSPlugInPropertyList alloc] initWithInfoPlist:v25 SDKPlist:v26];
         objc_storeStrong(&self->_propertyList, v27);
-        propertyList = self->_propertyList;
         if (((*(self->_filterBlock + 2))() & 1) == 0)
         {
           if (os_log_type_enabled(_LSEnumeratorLog, OS_LOG_TYPE_DEBUG))
@@ -287,24 +286,24 @@ LABEL_5:
       }
 
       LOBYTE(v12) = 1;
-      goto LABEL_31;
+      return v12;
     }
 
     v22 = _LSEnumeratorLog;
     v12 = os_log_type_enabled(_LSEnumeratorLog, OS_LOG_TYPE_DEBUG);
     if (!v12)
     {
-      goto LABEL_31;
+      return v12;
     }
 
     v23 = data->var0.platform;
     v24 = self->_platform;
     *buf = 134218496;
-    *&buf[4] = o;
-    v33 = 1024;
-    *v34 = v23;
-    *&v34[4] = 1024;
-    *&v34[6] = v24;
+    *&buf[4] = v8;
+    v31 = 1024;
+    *v32 = v23;
+    *&v32[4] = 1024;
+    *&v32[6] = v24;
     v19 = "Skipping plugin %llx during enumeration because it is the wrong platform (%x, want %x)";
     v20 = v22;
     v21 = 24;
@@ -321,27 +320,23 @@ LABEL_30:
     LOBYTE(v12) = 0;
   }
 
-LABEL_31:
-  v29 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 - (void)_prepareWithContext:(uint64_t)a3 error:(uint64_t)a4 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = ((*(a1 + 144) - *(a1 + 136)) >> 2) >> 32;
-  OUTLINED_FUNCTION_1(&dword_18162D000, a2, a3, "Will enumerate %llu candidate plugins", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = (*(a1 + 144) - *(a1 + 136)) >> 2;
+  OUTLINED_FUNCTION_1(&dword_18162D000, a2, a3, "Will enumerate %llu candidate plugins", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_getObject:atIndex:context:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_12();
-  v4 = 2114;
-  v5 = v0;
-  _os_log_debug_impl(&dword_18162D000, v1, OS_LOG_TYPE_DEBUG, "Skipping plugin %llx during enumeration because it is invalid: %{public}@", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2114;
+  v4 = v0;
+  _os_log_debug_impl(&dword_18162D000, v1, OS_LOG_TYPE_DEBUG, "Skipping plugin %llx during enumeration because it is invalid: %{public}@", v2, 0x16u);
 }
 
 @end

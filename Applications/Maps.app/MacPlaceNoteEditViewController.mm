@@ -144,7 +144,7 @@
   {
     v6 = *(v4 + 1);
     selfCopy = self;
-    sub_1000CD9D4(v5);
+    sub_1000CD9D4(v5, v6);
     v5(0, 0, 0);
 
     sub_1000D3B90(v5, v6);

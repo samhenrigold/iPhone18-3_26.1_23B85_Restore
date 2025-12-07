@@ -832,7 +832,7 @@ LABEL_7:
       OUTLINED_FUNCTION_6_65();
       OUTLINED_FUNCTION_5_70();
       OUTLINED_FUNCTION_0_95();
-      networkURL = [(BWEspressoInferenceAdapter *)v20 _newInferenceProviderWithType:v21 networkURL:v22 networkConfiguration:v23 networkConfigurationByLayout:v24 defaultLayout:v25 portraitOrientationSupportEnabled:v26 context:v19 executionTarget:v18 configuration:v346 preventionReasons:v347 resourceProvider:v348 allowedCompressionDirection:v349 concurrentSubmissionLimit:v350 e5Allowed:v351 updateMetadataWithCropRect:SHIBYTE(v351) additionalCacheKeyAttributes:v355];
+      networkURL = [(BWEspressoInferenceAdapter *)v20 _newInferenceProviderWithType:v21 networkURL:v22 networkConfiguration:v23 networkConfigurationByLayout:v24 defaultLayout:v25 portraitOrientationSupportEnabled:v26 context:v19 executionTarget:v18 configuration:v357 preventionReasons:v359 resourceProvider:v361 allowedCompressionDirection:v363 concurrentSubmissionLimit:v365 e5Allowed:v367 updateMetadataWithCropRect:SHIBYTE(v367) additionalCacheKeyAttributes:v372];
       if (!networkURL)
       {
         goto LABEL_214;
@@ -844,8 +844,8 @@ LABEL_7:
       [(BWVideoFormatRequirements *)v27 setSupportedPixelFormats:&unk_1F2249300];
       [(BWVideoFormatRequirements *)v27 setBytesPerRowAlignment:64];
       [OUTLINED_FUNCTION_15_33() setDeviceOriented:?];
-      v395 = v27;
-      [MEMORY[0x1E695DEC8] arrayWithObjects:&v395 count:1];
+      v413 = v27;
+      [MEMORY[0x1E695DEC8] arrayWithObjects:&v413 count:1];
       [OUTLINED_FUNCTION_7() formatByResolvingRequirements:?];
 
       [OUTLINED_FUNCTION_13_35() bindEspressoInput:? fromAttachedMediaUsingKey:? withVideoFormat:?];
@@ -862,24 +862,24 @@ LABEL_7:
       v29 = objc_alloc_init(BWInferenceVideoFormatRequirements);
       [(BWVideoFormatRequirements *)v29 setWidth:512];
       [(BWVideoFormatRequirements *)v29 setHeight:384];
-      v394 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v28];
-      [MEMORY[0x1E695DEC8] arrayWithObjects:&v394 count:1];
+      v412 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v28];
+      [MEMORY[0x1E695DEC8] arrayWithObjects:&v412 count:1];
       [OUTLINED_FUNCTION_8() setSupportedPixelFormats:?];
       [(BWVideoFormatRequirements *)v29 setBytesPerRowAlignment:64];
       [OUTLINED_FUNCTION_15_33() setDeviceOriented:?];
-      v393 = v29;
-      [MEMORY[0x1E695DEC8] arrayWithObjects:&v393 count:1];
+      v411 = v29;
+      [MEMORY[0x1E695DEC8] arrayWithObjects:&v411 count:1];
       [OUTLINED_FUNCTION_7() formatByResolvingRequirements:?];
 
       goto LABEL_127;
     case 'g':
-      v95 = v10 & 0xFFFF00000000;
-      v96 = v10 == 1 && WORD1(v10) == 1;
-      if (!v96 || v95)
+      v99 = v10 & 0xFFFF00000000;
+      v100 = v10 == 1 && WORD1(v10) == 1;
+      if (!v100 || v99)
       {
         v14 = 0;
         networkURL = 0;
-        if (v10 != 1 || WORD1(v10) || v95)
+        if (v10 != 1 || WORD1(v10) || v99)
         {
           goto LABEL_174;
         }
@@ -890,15 +890,15 @@ LABEL_7:
           goto LABEL_148;
         }
 
-        v259 = [provider espressoContextForExecutionTarget:1];
+        v268 = [provider espressoContextForExecutionTarget:1];
         [MEMORY[0x1E695DFD8] set];
         OUTLINED_FUNCTION_5_70();
         OUTLINED_FUNCTION_0_95();
-        networkURL = [(BWEspressoInferenceAdapter *)v260 _newInferenceProviderWithType:v261 networkURL:v262 networkConfiguration:v263 networkConfigurationByLayout:v264 defaultLayout:v265 portraitOrientationSupportEnabled:v266 context:v259 executionTarget:1u configuration:v346 preventionReasons:v347 resourceProvider:v348 allowedCompressionDirection:v349 concurrentSubmissionLimit:1 e5Allowed:0 updateMetadataWithCropRect:0 additionalCacheKeyAttributes:0];
+        networkURL = [(BWEspressoInferenceAdapter *)v269 _newInferenceProviderWithType:v270 networkURL:v271 networkConfiguration:v272 networkConfigurationByLayout:v273 defaultLayout:v274 portraitOrientationSupportEnabled:v275 context:v268 executionTarget:1u configuration:v357 preventionReasons:v359 resourceProvider:v361 allowedCompressionDirection:v363 concurrentSubmissionLimit:1 e5Allowed:0 updateMetadataWithCropRect:0 additionalCacheKeyAttributes:0];
         if (networkURL)
         {
-          v267 = OUTLINED_FUNCTION_39_15();
-          OUTLINED_FUNCTION_21_26(v267, v268);
+          v276 = OUTLINED_FUNCTION_39_15();
+          OUTLINED_FUNCTION_21_26(v276, v277);
           OUTLINED_FUNCTION_28_13();
           [configuration setSupportedPixelFormats:&unk_1F2249360];
           OUTLINED_FUNCTION_27_14();
@@ -907,8 +907,8 @@ LABEL_7:
           [OUTLINED_FUNCTION_7() formatByResolvingRequirements:?];
 
           [OUTLINED_FUNCTION_13_35() bindEspressoInput:? fromAttachedMediaUsingKey:? withVideoFormat:?];
-          v269 = objc_alloc_init(MEMORY[0x71]);
-          OUTLINED_FUNCTION_21_26(v269, v270);
+          v278 = objc_alloc_init(MEMORY[0x71]);
+          OUTLINED_FUNCTION_21_26(v278, v279);
           OUTLINED_FUNCTION_28_13();
           [configuration setSupportedPixelFormats:&unk_1F2249378];
           OUTLINED_FUNCTION_27_14();
@@ -928,16 +928,16 @@ LABEL_7:
           goto LABEL_148;
         }
 
-        v97 = OUTLINED_FUNCTION_10_44();
+        v101 = OUTLINED_FUNCTION_10_44();
         [MEMORY[0x1E695DFD8] set];
         OUTLINED_FUNCTION_6_65();
         OUTLINED_FUNCTION_2_94();
         OUTLINED_FUNCTION_0_95();
-        networkURL = [(BWEspressoInferenceAdapter *)v98 _newInferenceProviderWithType:v99 networkURL:v100 networkConfiguration:v101 networkConfigurationByLayout:v102 defaultLayout:v103 portraitOrientationSupportEnabled:v104 context:v97 executionTarget:v343 configuration:v346 preventionReasons:v347 resourceProvider:v348 allowedCompressionDirection:0 concurrentSubmissionLimit:v350 e5Allowed:v351 updateMetadataWithCropRect:SHIBYTE(v351) additionalCacheKeyAttributes:v355];
+        networkURL = [(BWEspressoInferenceAdapter *)v102 _newInferenceProviderWithType:v103 networkURL:v104 networkConfiguration:v105 networkConfigurationByLayout:v106 defaultLayout:v107 portraitOrientationSupportEnabled:v108 context:v101 executionTarget:v353 configuration:v357 preventionReasons:v359 resourceProvider:v361 allowedCompressionDirection:0 concurrentSubmissionLimit:v365 e5Allowed:v367 updateMetadataWithCropRect:SHIBYTE(v367) additionalCacheKeyAttributes:v372];
         if (networkURL)
         {
-          v105 = OUTLINED_FUNCTION_39_15();
-          OUTLINED_FUNCTION_21_26(v105, v106);
+          v109 = OUTLINED_FUNCTION_39_15();
+          OUTLINED_FUNCTION_21_26(v109, v110);
           OUTLINED_FUNCTION_28_13();
           [configuration setSupportedPixelFormats:&unk_1F2249318];
           OUTLINED_FUNCTION_27_14();
@@ -946,8 +946,8 @@ LABEL_7:
           [OUTLINED_FUNCTION_7() formatByResolvingRequirements:?];
 
           [OUTLINED_FUNCTION_13_35() bindEspressoInput:? fromAttachedMediaUsingKey:? withVideoFormat:?];
-          v107 = objc_alloc_init(*(v7 + 112));
-          OUTLINED_FUNCTION_21_26(v107, v108);
+          v111 = objc_alloc_init(*(v7 + 112));
+          OUTLINED_FUNCTION_21_26(v111, v112);
           OUTLINED_FUNCTION_28_13();
           [configuration setSupportedPixelFormats:&unk_1F2249330];
           OUTLINED_FUNCTION_27_14();
@@ -956,8 +956,8 @@ LABEL_7:
           [OUTLINED_FUNCTION_7() formatByResolvingRequirements:?];
 
           [OUTLINED_FUNCTION_13_35() bindEspressoOutput:? asAttachedMediaUsingKey:? withVideoFormat:?];
-          v109 = objc_alloc_init(*(v7 + 112));
-          OUTLINED_FUNCTION_21_26(v109, v110);
+          v113 = objc_alloc_init(*(v7 + 112));
+          OUTLINED_FUNCTION_21_26(v113, v114);
           OUTLINED_FUNCTION_28_13();
           [configuration setSupportedPixelFormats:&unk_1F2249348];
           OUTLINED_FUNCTION_27_14();
@@ -982,16 +982,16 @@ LABEL_7:
     case 'i':
       if (self)
       {
-        v298 = [BWInferenceEngine allowedBufferCompressionDirectionForExecutionTarget:3];
+        v307 = [BWInferenceEngine allowedBufferCompressionDirectionForExecutionTarget:3];
       }
 
       else
       {
-        v298 = 0;
+        v307 = 0;
       }
 
-      objc_opt_class();
-      if (OUTLINED_FUNCTION_19())
+      v308 = objc_opt_class();
+      if (OUTLINED_FUNCTION_19(v308))
       {
         configurationCopy6 = configuration;
       }
@@ -1001,39 +1001,39 @@ LABEL_7:
         configurationCopy6 = 0;
       }
 
-      v300 = MEMORY[0x1E696AEC0];
+      v310 = MEMORY[0x1E696AEC0];
       useLowFrameRateOptimizedNetwork = [configurationCopy6 useLowFrameRateOptimizedNetwork];
-      v302 = &stru_1F216A3D0;
+      v312 = &stru_1F216A3D0;
       if (useLowFrameRateOptimizedNetwork)
       {
-        v302 = @"-lowfps";
+        v312 = @"-lowfps";
       }
 
-      if (!+[BWEspressoInferenceAdapter espressoNetworkURLForPlatformedResourceBaseName:embedPlatformOrDeviceID:e5Bundle:](BWEspressoInferenceAdapter, [v300 stringWithFormat:@"personsemantics-preview%@", v302], 0, v16))
+      if (!+[BWEspressoInferenceAdapter espressoNetworkURLForPlatformedResourceBaseName:embedPlatformOrDeviceID:e5Bundle:](BWEspressoInferenceAdapter, [v310 stringWithFormat:@"personsemantics-preview%@", v312], 0, v16))
       {
         goto LABEL_147;
       }
 
-      v303 = OUTLINED_FUNCTION_10_44();
+      v313 = OUTLINED_FUNCTION_10_44();
       [MEMORY[0x1E695DFD8] set];
       OUTLINED_FUNCTION_11_42();
       OUTLINED_FUNCTION_2_94();
       OUTLINED_FUNCTION_1_106();
-      networkURL = [(BWEspressoInferenceAdapter *)v304 _newInferenceProviderWithType:v305 networkURL:v306 networkConfiguration:v307 networkConfigurationByLayout:v308 defaultLayout:v309 portraitOrientationSupportEnabled:v310 context:v303 executionTarget:v345 configuration:v346 preventionReasons:v347 resourceProvider:v348 allowedCompressionDirection:v298 concurrentSubmissionLimit:v350 e5Allowed:v16 updateMetadataWithCropRect:0 additionalCacheKeyAttributes:0];
+      networkURL = [(BWEspressoInferenceAdapter *)v314 _newInferenceProviderWithType:v315 networkURL:v316 networkConfiguration:v317 networkConfigurationByLayout:v318 defaultLayout:v319 portraitOrientationSupportEnabled:v320 context:v313 executionTarget:v356 configuration:v357 preventionReasons:v359 resourceProvider:v361 allowedCompressionDirection:v307 concurrentSubmissionLimit:v365 e5Allowed:v16 updateMetadataWithCropRect:0 additionalCacheKeyAttributes:0];
       if (!networkURL)
       {
         goto LABEL_214;
       }
 
-      v311 = OUTLINED_FUNCTION_39_15();
-      OUTLINED_FUNCTION_21_26(v311, v312);
+      v321 = OUTLINED_FUNCTION_39_15();
+      OUTLINED_FUNCTION_21_26(v321, v322);
       [configuration setHeight:192];
       [configuration setSupportedPixelFormats:&unk_1F2249390];
       [OUTLINED_FUNCTION_15_33() setDeviceOriented:?];
       [configuration setRotationDegrees:{objc_msgSend(configurationCopy6, "inputRotationAngle")}];
       if ([configurationCopy6 cropColorInputToPrimaryCaptureRect])
       {
-        v313 = objc_alloc_init(BWInferencePrimaryCaptureRectDescriptor);
+        v323 = objc_alloc_init(BWInferencePrimaryCaptureRectDescriptor);
         [OUTLINED_FUNCTION_8() setCropDescriptor:?];
       }
 
@@ -1041,30 +1041,30 @@ LABEL_7:
       [MEMORY[0x1E695DEC8] arrayWithObjects:&configurationCopy7 count:1];
       [OUTLINED_FUNCTION_7() formatByResolvingRequirements:?];
 
-      v314 = [OUTLINED_FUNCTION_13_35() bindEspressoInput:? fromAttachedMediaUsingKey:? withVideoFormat:?];
+      v324 = [OUTLINED_FUNCTION_13_35() bindEspressoInput:? fromAttachedMediaUsingKey:? withVideoFormat:?];
       if ([configurationCopy6 propagateColorInput])
       {
-        [networkURL bindOutputByCloningInputRequirement:v314 toAttachedMediaUsingKey:0x1F219EA50];
+        [networkURL bindOutputByCloningInputRequirement:v324 toAttachedMediaUsingKey:0x1F219EA50];
       }
 
-      v315 = objc_alloc_init(*(v7 + 112));
-      OUTLINED_FUNCTION_21_26(v315, v316);
-      [v314 setHeight:192];
-      [v314 setSupportedPixelFormats:&unk_1F22493A8];
+      v325 = objc_alloc_init(*(v7 + 112));
+      OUTLINED_FUNCTION_21_26(v325, v326);
+      [v324 setHeight:192];
+      [v324 setSupportedPixelFormats:&unk_1F22493A8];
       [OUTLINED_FUNCTION_15_33() setDeviceOriented:?];
-      v386 = v314;
-      [MEMORY[0x1E695DEC8] arrayWithObjects:&v386 count:1];
+      v404 = v324;
+      [MEMORY[0x1E695DEC8] arrayWithObjects:&v404 count:1];
       [OUTLINED_FUNCTION_7() formatByResolvingRequirements:?];
 
       [configurationCopy6 alternativeStreamingPersonSegmentationMaskKey];
       [OUTLINED_FUNCTION_13_35() bindEspressoOutput:? asAttachedMediaUsingKey:? withVideoFormat:?];
-      v317 = objc_alloc_init(*(v7 + 112));
-      OUTLINED_FUNCTION_21_26(v317, v318);
-      [v314 setHeight:192];
-      [v314 setSupportedPixelFormats:&unk_1F22493C0];
+      v327 = objc_alloc_init(*(v7 + 112));
+      OUTLINED_FUNCTION_21_26(v327, v328);
+      [v324 setHeight:192];
+      [v324 setSupportedPixelFormats:&unk_1F22493C0];
       [OUTLINED_FUNCTION_15_33() setDeviceOriented:?];
-      v385 = v314;
-      [MEMORY[0x1E695DEC8] arrayWithObjects:&v385 count:1];
+      v403 = v324;
+      [MEMORY[0x1E695DEC8] arrayWithObjects:&v403 count:1];
       [OUTLINED_FUNCTION_7() formatByResolvingRequirements:?];
 
       [configurationCopy6 alternativeStreamingSkinSegmentationMaskKey];
@@ -1079,41 +1079,41 @@ LABEL_136:
           goto LABEL_173;
         }
 
-        objc_opt_class();
-        OUTLINED_FUNCTION_19();
+        v118 = objc_opt_class();
+        OUTLINED_FUNCTION_19(v118);
         OUTLINED_FUNCTION_16_34();
         if (configuration)
         {
-          if (v113)
+          if (v119)
           {
             depthPrioritization = [configuration depthPrioritization];
-            v115 = [objc_alloc(getADMonocularPipelineParametersClass()) init];
-            v116 = [objc_msgSend(objc_alloc(getADMonocularPipelineClass()) initWithInputPrioritization:depthPrioritization andParameters:{v115), "inferenceDescriptor"}];
-            networkURL = [v116 networkURL];
+            v121 = [objc_alloc(getADMonocularPipelineParametersClass()) init];
+            v122 = [objc_msgSend(objc_alloc(getADMonocularPipelineClass()) initWithInputPrioritization:depthPrioritization andParameters:{v121), "inferenceDescriptor"}];
+            networkURL = [v122 networkURL];
             if (networkURL)
             {
-              if ([v116 configurationNameForLayout:1])
+              if ([v122 configurationNameForLayout:1])
               {
-                v117 = OUTLINED_FUNCTION_10_44();
-                v118 = [MEMORY[0x1E695DFD8] set];
+                v123 = OUTLINED_FUNCTION_10_44();
+                v124 = [MEMORY[0x1E695DFD8] set];
                 appliesFinalCropRect = [configuration appliesFinalCropRect];
                 OUTLINED_FUNCTION_11_42();
                 OUTLINED_FUNCTION_33_16();
                 OUTLINED_FUNCTION_3_82();
-                networkURL = [(BWEspressoInferenceAdapter *)v119 _newInferenceProviderWithType:v120 networkURL:v121 networkConfiguration:v122 networkConfigurationByLayout:v123 defaultLayout:v124 portraitOrientationSupportEnabled:v125 context:v117 executionTarget:v343 configuration:v346 preventionReasons:v118 resourceProvider:provider allowedCompressionDirection:0 concurrentSubmissionLimit:v350 e5Allowed:0 updateMetadataWithCropRect:appliesFinalCropRect additionalCacheKeyAttributes:0];
+                networkURL = [(BWEspressoInferenceAdapter *)v125 _newInferenceProviderWithType:v126 networkURL:v127 networkConfiguration:v128 networkConfigurationByLayout:v129 defaultLayout:v130 portraitOrientationSupportEnabled:v131 context:v123 executionTarget:v353 configuration:v357 preventionReasons:v124 resourceProvider:provider allowedCompressionDirection:0 concurrentSubmissionLimit:v365 e5Allowed:0 updateMetadataWithCropRect:appliesFinalCropRect additionalCacheKeyAttributes:0];
                 if (!networkURL)
                 {
                   goto LABEL_214;
                 }
 
-                [objc_msgSend(objc_msgSend(v116 "colorInput")];
-                v127 = v126;
-                v129 = v128;
-                v130 = objc_alloc_init(BWInferenceVideoFormatRequirements);
-                [(BWVideoFormatRequirements *)v130 setWidth:v127];
-                [(BWVideoFormatRequirements *)v130 setHeight:v129];
-                v383 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{objc_msgSend(objc_msgSend(objc_msgSend(v116, "colorInput"), "imageDescriptor"), "pixelFormat")}];
-                [MEMORY[0x1E695DEC8] arrayWithObjects:&v383 count:1];
+                [objc_msgSend(objc_msgSend(v122 "colorInput")];
+                v133 = v132;
+                v135 = v134;
+                v136 = objc_alloc_init(BWInferenceVideoFormatRequirements);
+                [(BWVideoFormatRequirements *)v136 setWidth:v133];
+                [(BWVideoFormatRequirements *)v136 setHeight:v135];
+                v401 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{objc_msgSend(objc_msgSend(objc_msgSend(v122, "colorInput"), "imageDescriptor"), "pixelFormat")}];
+                [MEMORY[0x1E695DEC8] arrayWithObjects:&v401 count:1];
                 [OUTLINED_FUNCTION_7() setSupportedPixelFormats:?];
                 [OUTLINED_FUNCTION_18_25() setDeviceOriented:?];
                 if ([configuration appliesFinalCropRect])
@@ -1122,26 +1122,26 @@ LABEL_136:
                   [OUTLINED_FUNCTION_7() setCropDescriptor:?];
                 }
 
-                v382 = v130;
-                [MEMORY[0x1E695DEC8] arrayWithObjects:&v382 count:1];
+                v400 = v136;
+                [MEMORY[0x1E695DEC8] arrayWithObjects:&v400 count:1];
                 [OUTLINED_FUNCTION_8() formatByResolvingRequirements:?];
-                [objc_msgSend(v116 "colorInput")];
+                [objc_msgSend(v122 "colorInput")];
                 [OUTLINED_FUNCTION_31_16() bindEspressoInput:? fromAttachedMediaUsingKey:? withVideoFormat:?];
-                [objc_msgSend(objc_msgSend(v116 "depthOutput")];
-                v132 = v131;
-                v134 = v133;
-                v135 = objc_alloc_init(BWInferenceVideoFormatRequirements);
-                [(BWVideoFormatRequirements *)v135 setWidth:v132];
-                [(BWVideoFormatRequirements *)v135 setHeight:v134];
-                v381 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{objc_msgSend(objc_msgSend(objc_msgSend(v116, "depthOutput"), "imageDescriptor"), "pixelFormat")}];
-                [MEMORY[0x1E695DEC8] arrayWithObjects:&v381 count:1];
+                [objc_msgSend(objc_msgSend(v122 "depthOutput")];
+                v138 = v137;
+                v140 = v139;
+                v141 = objc_alloc_init(BWInferenceVideoFormatRequirements);
+                [(BWVideoFormatRequirements *)v141 setWidth:v138];
+                [(BWVideoFormatRequirements *)v141 setHeight:v140];
+                v399 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{objc_msgSend(objc_msgSend(objc_msgSend(v122, "depthOutput"), "imageDescriptor"), "pixelFormat")}];
+                [MEMORY[0x1E695DEC8] arrayWithObjects:&v399 count:1];
                 [OUTLINED_FUNCTION_8() setSupportedPixelFormats:?];
                 [OUTLINED_FUNCTION_15_33() setDeviceOriented:?];
-                v380 = v135;
-                [MEMORY[0x1E695DEC8] arrayWithObjects:&v380 count:1];
+                v398 = v141;
+                [MEMORY[0x1E695DEC8] arrayWithObjects:&v398 count:1];
                 [OUTLINED_FUNCTION_7() formatByResolvingRequirements:?];
 
-                [objc_msgSend(v116 "depthOutput")];
+                [objc_msgSend(v122 "depthOutput")];
                 goto LABEL_127;
               }
 
@@ -1171,12 +1171,12 @@ LABEL_211:
       }
 
       depthDataDimensions2 = [configuration depthDataDimensions];
-      v278 = [configuration depthDataDimensions] >> 32;
-      [getADImageDimensionsClass() imageDimensionsWithWidth:depthDataDimensions2 height:v278];
+      v287 = [configuration depthDataDimensions] >> 32;
+      [getADImageDimensionsClass() imageDimensionsWithWidth:depthDataDimensions2 height:v287];
       [OUTLINED_FUNCTION_4() setRequestedDimensions:?];
       if ([configuration depthDataDimensions] == 768 && objc_msgSend(configuration, "depthDataDimensions") >> 32 == 576)
       {
-        v330 = 0;
+        v340 = 0;
       }
 
       else
@@ -1186,7 +1186,7 @@ LABEL_211:
 LABEL_146:
           fig_log_get_emitter();
           OUTLINED_FUNCTION_8_50();
-          FigDebugAssert3();
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
 LABEL_147:
           networkURL = 0;
 LABEL_148:
@@ -1194,46 +1194,46 @@ LABEL_148:
           goto LABEL_174;
         }
 
-        v330 = 1;
+        v340 = 1;
       }
 
-      v331 = (&bweia_monocularStillsPipelineForInferenceConfiguration_sDescriptors + 48 * v330);
+      v341 = (&bweia_monocularStillsPipelineForInferenceConfiguration_sDescriptors + 48 * v340);
       *&block = MEMORY[0x1E69E9820];
       *(&block + 1) = 3221225472;
-      *&v397 = __bweia_monocularStillsPipelineForInferenceConfiguration_block_invoke;
-      *(&v397 + 1) = &unk_1E7990178;
+      *&v415 = __bweia_monocularStillsPipelineForInferenceConfiguration_block_invoke;
+      *(&v415 + 1) = &unk_1E7990178;
       configurationCopy8 = configuration;
-      v399 = v331;
-      if (*v331 != -1)
+      v417 = v341;
+      if (*v341 != -1)
       {
-        dispatch_once(v331, &block);
+        dispatch_once(v341, &block);
       }
 
-      v332 = OUTLINED_FUNCTION_10_44();
-      v333 = [MEMORY[0x1E695DFD8] set];
+      v342 = OUTLINED_FUNCTION_10_44();
+      v343 = [MEMORY[0x1E695DFD8] set];
       appliesFinalCropRect2 = [configuration appliesFinalCropRect];
       if (v16)
       {
-        v352 = 1;
-        v350 = 0;
+        v369 = 1;
+        v365 = 0;
       }
 
       else
       {
-        v352 = 0;
+        v369 = 0;
         OUTLINED_FUNCTION_11_42();
       }
 
       OUTLINED_FUNCTION_33_16();
       OUTLINED_FUNCTION_3_82();
-      networkURL = [(BWEspressoInferenceAdapter *)v334 _newInferenceProviderWithType:v335 networkURL:v336 networkConfiguration:v337 networkConfigurationByLayout:v338 defaultLayout:v339 portraitOrientationSupportEnabled:v340 context:v332 executionTarget:v343 configuration:v346 preventionReasons:v333 resourceProvider:provider allowedCompressionDirection:0 concurrentSubmissionLimit:v350 e5Allowed:v352 updateMetadataWithCropRect:appliesFinalCropRect2 additionalCacheKeyAttributes:0];
+      networkURL = [(BWEspressoInferenceAdapter *)v344 _newInferenceProviderWithType:v345 networkURL:v346 networkConfiguration:v347 networkConfigurationByLayout:v348 defaultLayout:v349 portraitOrientationSupportEnabled:v350 context:v342 executionTarget:v353 configuration:v357 preventionReasons:v343 resourceProvider:provider allowedCompressionDirection:0 concurrentSubmissionLimit:v365 e5Allowed:v369 updateMetadataWithCropRect:appliesFinalCropRect2 additionalCacheKeyAttributes:0];
       if (networkURL)
       {
-        v341 = objc_alloc_init(BWInferenceVideoFormatRequirements);
-        [(BWVideoFormatRequirements *)v341 setWidth:depthDataDimensions2];
-        [(BWVideoFormatRequirements *)v341 setHeight:v278];
-        v379 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*(v331 + 7)];
-        [MEMORY[0x1E695DEC8] arrayWithObjects:&v379 count:1];
+        v351 = objc_alloc_init(BWInferenceVideoFormatRequirements);
+        [(BWVideoFormatRequirements *)v351 setWidth:depthDataDimensions2];
+        [(BWVideoFormatRequirements *)v351 setHeight:v287];
+        v397 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*(v341 + 7)];
+        [MEMORY[0x1E695DEC8] arrayWithObjects:&v397 count:1];
         [OUTLINED_FUNCTION_7() setSupportedPixelFormats:?];
         [OUTLINED_FUNCTION_18_25() setDeviceOriented:?];
         if ([configuration appliesFinalCropRect])
@@ -1243,18 +1243,18 @@ LABEL_148:
         }
 
         [OUTLINED_FUNCTION_18_25() setRotationDegrees:?];
-        v378 = v341;
-        [MEMORY[0x1E695DEC8] arrayWithObjects:&v378 count:1];
-        [networkURL bindEspressoInput:v331[4] fromAttachedMediaUsingKey:@"PrimaryFormat" withVideoFormat:objc_msgSend(OUTLINED_FUNCTION_8(), "formatByResolvingRequirements:")];
-        v342 = objc_alloc_init(BWInferenceVideoFormatRequirements);
-        [(BWVideoFormatRequirements *)v342 setWidth:depthDataDimensions2];
-        [(BWVideoFormatRequirements *)v342 setHeight:v278];
-        v377 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*(v331 + 6)];
-        [MEMORY[0x1E695DEC8] arrayWithObjects:&v377 count:1];
+        v396 = v351;
+        [MEMORY[0x1E695DEC8] arrayWithObjects:&v396 count:1];
+        [networkURL bindEspressoInput:v341[4] fromAttachedMediaUsingKey:@"PrimaryFormat" withVideoFormat:objc_msgSend(OUTLINED_FUNCTION_8(), "formatByResolvingRequirements:")];
+        v352 = objc_alloc_init(BWInferenceVideoFormatRequirements);
+        [(BWVideoFormatRequirements *)v352 setWidth:depthDataDimensions2];
+        [(BWVideoFormatRequirements *)v352 setHeight:v287];
+        v395 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*(v341 + 6)];
+        [MEMORY[0x1E695DEC8] arrayWithObjects:&v395 count:1];
         [OUTLINED_FUNCTION_8() setSupportedPixelFormats:?];
         [OUTLINED_FUNCTION_15_33() setDeviceOriented:?];
-        v376 = v342;
-        [MEMORY[0x1E695DEC8] arrayWithObjects:&v376 count:1];
+        v394 = v352;
+        [MEMORY[0x1E695DEC8] arrayWithObjects:&v394 count:1];
         [OUTLINED_FUNCTION_7() formatByResolvingRequirements:?];
 
 LABEL_127:
@@ -1264,10 +1264,10 @@ LABEL_127:
 
       goto LABEL_214;
     case 'l':
-      objc_opt_class();
-      OUTLINED_FUNCTION_19();
+      v53 = objc_opt_class();
+      OUTLINED_FUNCTION_19(v53);
       OUTLINED_FUNCTION_16_34();
-      if (!configuration || (v51 & 1) == 0)
+      if (!configuration || (v54 & 1) == 0)
       {
         goto LABEL_174;
       }
@@ -1277,90 +1277,90 @@ LABEL_127:
         goto LABEL_94;
       }
 
-      v52 = [objc_msgSend(objc_alloc(getADStereoPipelineClass()) initWithInputAlignment:objc_msgSend(configuration andPrioritization:{"fsdNetStereoImagesAlignment"), objc_msgSend(configuration, "disparityPrioritization")), "inferenceDescriptor"}];
-      networkURL = [v52 networkURL];
+      v55 = [objc_msgSend(objc_alloc(getADStereoPipelineClass()) initWithInputAlignment:objc_msgSend(configuration andPrioritization:{"fsdNetStereoImagesAlignment"), objc_msgSend(configuration, "disparityPrioritization")), "inferenceDescriptor"}];
+      networkURL = [v55 networkURL];
       if (!networkURL)
       {
         goto LABEL_174;
       }
 
-      v358 = [objc_msgSend(v52 "referenceInput")];
-      [objc_msgSend(objc_msgSend(v52 "referenceInput")];
-      v54 = v53;
-      v56 = v55;
-      v57 = [objc_msgSend(objc_msgSend(v52 "referenceInput")];
-      v356 = [objc_msgSend(v52 "auxiliaryInput")];
-      [objc_msgSend(objc_msgSend(v52 "auxiliaryInput")];
+      v376 = [objc_msgSend(v55 "referenceInput")];
+      [objc_msgSend(objc_msgSend(v55 "referenceInput")];
+      v57 = v56;
       v59 = v58;
-      v61 = v60;
-      v62 = [objc_msgSend(objc_msgSend(v52 "auxiliaryInput")];
-      v63 = [objc_msgSend(v52 "disparityOutput")];
-      [objc_msgSend(objc_msgSend(v52 "disparityOutput")];
-      v65 = v64;
-      v67 = v66;
-      v68 = [objc_msgSend(objc_msgSend(v52 "disparityOutput")];
-      if (v57 != 1380411457 || v62 != 1380411457 || v68 != 1751411059)
+      v60 = [objc_msgSend(objc_msgSend(v55 "referenceInput")];
+      v374 = [objc_msgSend(v55 "auxiliaryInput")];
+      [objc_msgSend(objc_msgSend(v55 "auxiliaryInput")];
+      v62 = v61;
+      v64 = v63;
+      v65 = [objc_msgSend(objc_msgSend(v55 "auxiliaryInput")];
+      v66 = [objc_msgSend(v55 "disparityOutput")];
+      [objc_msgSend(objc_msgSend(v55 "disparityOutput")];
+      v68 = v67;
+      v70 = v69;
+      v71 = [objc_msgSend(objc_msgSend(v55 "disparityOutput")];
+      if (v60 != 1380411457 || v65 != 1380411457 || v71 != 1751411059)
       {
         networkURL = 0;
         goto LABEL_210;
       }
 
-      v71 = OUTLINED_FUNCTION_10_44();
+      v74 = OUTLINED_FUNCTION_10_44();
       [MEMORY[0x1E695DFD8] set];
       OUTLINED_FUNCTION_6_65();
       OUTLINED_FUNCTION_2_94();
       OUTLINED_FUNCTION_0_95();
-      networkURL = [(BWEspressoInferenceAdapter *)v72 _newInferenceProviderWithType:v73 networkURL:v74 networkConfiguration:v75 networkConfigurationByLayout:v76 defaultLayout:v77 portraitOrientationSupportEnabled:v78 context:v71 executionTarget:v343 configuration:v346 preventionReasons:v347 resourceProvider:v348 allowedCompressionDirection:0 concurrentSubmissionLimit:v350 e5Allowed:v351 updateMetadataWithCropRect:SHIBYTE(v351) additionalCacheKeyAttributes:v355];
+      networkURL = [(BWEspressoInferenceAdapter *)v75 _newInferenceProviderWithType:v76 networkURL:v77 networkConfiguration:v78 networkConfigurationByLayout:v79 defaultLayout:v80 portraitOrientationSupportEnabled:v81 context:v74 executionTarget:v353 configuration:v357 preventionReasons:v359 resourceProvider:v361 allowedCompressionDirection:0 concurrentSubmissionLimit:v365 e5Allowed:v367 updateMetadataWithCropRect:SHIBYTE(v367) additionalCacheKeyAttributes:v372];
       if (!networkURL)
       {
         goto LABEL_214;
       }
 
-      v79 = objc_alloc_init(BWInferenceVideoFormatRequirements);
-      [(BWVideoFormatRequirements *)v79 setWidth:v54];
-      [(BWVideoFormatRequirements *)v79 setHeight:v56];
-      v375 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:1380411457];
-      [MEMORY[0x1E695DEC8] arrayWithObjects:&v375 count:1];
+      v82 = objc_alloc_init(BWInferenceVideoFormatRequirements);
+      [(BWVideoFormatRequirements *)v82 setWidth:v57];
+      [(BWVideoFormatRequirements *)v82 setHeight:v59];
+      v393 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:1380411457];
+      [MEMORY[0x1E695DEC8] arrayWithObjects:&v393 count:1];
       [OUTLINED_FUNCTION_7() setSupportedPixelFormats:?];
-      [(BWVideoFormatRequirements *)v79 setBytesPerRowAlignment:64];
+      [(BWVideoFormatRequirements *)v82 setBytesPerRowAlignment:64];
       [OUTLINED_FUNCTION_18_25() setDeviceOriented:?];
-      v374 = v79;
-      [MEMORY[0x1E695DEC8] arrayWithObjects:&v374 count:1];
-      v80 = [OUTLINED_FUNCTION_8() formatByResolvingRequirements:?];
+      v392 = v82;
+      [MEMORY[0x1E695DEC8] arrayWithObjects:&v392 count:1];
+      v83 = [OUTLINED_FUNCTION_8() formatByResolvingRequirements:?];
 
-      v81 = objc_alloc_init(BWInferenceVideoFormatRequirements);
-      [(BWVideoFormatRequirements *)v81 setWidth:v59];
-      [(BWVideoFormatRequirements *)v81 setHeight:v61];
-      v373 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:1380411457];
-      [MEMORY[0x1E695DEC8] arrayWithObjects:&v373 count:1];
+      v84 = objc_alloc_init(BWInferenceVideoFormatRequirements);
+      [(BWVideoFormatRequirements *)v84 setWidth:v62];
+      [(BWVideoFormatRequirements *)v84 setHeight:v64];
+      v391 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:1380411457];
+      [MEMORY[0x1E695DEC8] arrayWithObjects:&v391 count:1];
       [OUTLINED_FUNCTION_28() setSupportedPixelFormats:?];
       OUTLINED_FUNCTION_38_12();
-      [(BWInferenceVideoFormatRequirements *)v81 setDeviceOriented:0];
-      v372 = v81;
-      [MEMORY[0x1E695DEC8] arrayWithObjects:&v372 count:1];
-      v82 = [OUTLINED_FUNCTION_7() formatByResolvingRequirements:?];
+      [(BWInferenceVideoFormatRequirements *)v84 setDeviceOriented:0];
+      v390 = v84;
+      [MEMORY[0x1E695DEC8] arrayWithObjects:&v390 count:1];
+      v85 = [OUTLINED_FUNCTION_7() formatByResolvingRequirements:?];
 
-      v83 = objc_alloc_init(BWInferenceVideoFormatRequirements);
-      [(BWVideoFormatRequirements *)v83 setWidth:v65];
-      [(BWVideoFormatRequirements *)v83 setHeight:v67];
+      v86 = objc_alloc_init(BWInferenceVideoFormatRequirements);
+      [(BWVideoFormatRequirements *)v86 setWidth:v68];
+      [(BWVideoFormatRequirements *)v86 setHeight:v70];
       OUTLINED_FUNCTION_30_11();
-      v371 = [v84 numberWithUnsignedInt:?];
-      [MEMORY[0x1E695DEC8] arrayWithObjects:&v371 count:1];
+      v389 = [v87 numberWithUnsignedInt:?];
+      [MEMORY[0x1E695DEC8] arrayWithObjects:&v389 count:1];
       [OUTLINED_FUNCTION_28() setSupportedPixelFormats:?];
       OUTLINED_FUNCTION_38_12();
-      [(BWInferenceVideoFormatRequirements *)v83 setDeviceOriented:0];
-      v370 = v83;
-      v85 = OUTLINED_FUNCTION_37_12([MEMORY[0x1E695DEC8] arrayWithObjects:&v370 count:1]);
+      [(BWInferenceVideoFormatRequirements *)v86 setDeviceOriented:0];
+      v388 = v86;
+      v88 = OUTLINED_FUNCTION_37_12([MEMORY[0x1E695DEC8] arrayWithObjects:&v388 count:1]);
 
-      if (![networkURL bindEspressoInput:v358 fromAttachedMediaUsingKey:0x1F219E9F0 withVideoFormat:v80])
+      if (![networkURL bindEspressoInput:v376 fromAttachedMediaUsingKey:0x1F219E9F0 withVideoFormat:v83])
       {
         goto LABEL_210;
       }
 
       v14 = -31711;
-      if ([networkURL bindEspressoInput:v356 fromAttachedMediaUsingKey:0x1F219EA10 withVideoFormat:v82])
+      if ([networkURL bindEspressoInput:v374 fromAttachedMediaUsingKey:0x1F219EA10 withVideoFormat:v85])
       {
-        if ([networkURL bindEspressoOutput:v63 asAttachedMediaUsingKey:0x1F219EA30 withVideoFormat:v85])
+        if ([networkURL bindEspressoOutput:v66 asAttachedMediaUsingKey:0x1F219EA30 withVideoFormat:v88])
         {
           v14 = 0;
         }
@@ -1373,38 +1373,38 @@ LABEL_127:
 
       goto LABEL_174;
     case 'm':
-      objc_opt_class();
-      OUTLINED_FUNCTION_19();
+      v142 = objc_opt_class();
+      OUTLINED_FUNCTION_19(v142);
       OUTLINED_FUNCTION_16_34();
-      if (!configuration || (v136 & 1) == 0)
+      if (!configuration || (v143 & 1) == 0)
       {
         goto LABEL_174;
       }
 
-      v137 = [provider espressoContextForExecutionTarget:3];
+      v144 = [provider espressoContextForExecutionTarget:3];
       videoDepthAlgorithm = [configuration videoDepthAlgorithm];
       if (videoDepthAlgorithm > 3)
       {
         goto LABEL_94;
       }
 
-      v139 = +[BWVideoDepthInferenceConfiguration pceDisparityColorInferenceDescriptorForVideoDepthLayout:inputSource:](BWVideoDepthInferenceConfiguration, "pceDisparityColorInferenceDescriptorForVideoDepthLayout:inputSource:", [configuration videoDepthLayout], qword_1AD056490[videoDepthAlgorithm]);
-      if (!v139)
+      v146 = +[BWVideoDepthInferenceConfiguration pceDisparityColorInferenceDescriptorForVideoDepthLayout:inputSource:](BWVideoDepthInferenceConfiguration, "pceDisparityColorInferenceDescriptorForVideoDepthLayout:inputSource:", [configuration videoDepthLayout], qword_1AD056490[videoDepthAlgorithm]);
+      if (!v146)
       {
         networkURL = 0;
         goto LABEL_214;
       }
 
-      v140 = v139;
-      var7 = v139->var7;
-      v142 = [configuration concurrencyWidth] + 1;
+      v147 = v146;
+      var7 = v146->var7;
+      v149 = [configuration concurrencyWidth] + 1;
       [MEMORY[0x1E695DFD8] set];
       OUTLINED_FUNCTION_5_70();
-      v344 = v143;
+      v354 = v150;
       OUTLINED_FUNCTION_3_82();
-      v151 = [(BWEspressoInferenceAdapter *)v144 _newInferenceProviderWithType:v145 networkURL:v146 networkConfiguration:v147 networkConfigurationByLayout:v148 defaultLayout:v149 portraitOrientationSupportEnabled:v150 context:v137 executionTarget:v344 configuration:v346 preventionReasons:v347 resourceProvider:v348 allowedCompressionDirection:v349 concurrentSubmissionLimit:v142 e5Allowed:0 updateMetadataWithCropRect:0 additionalCacheKeyAttributes:0];
-      networkURL = v151;
-      if (!v151)
+      v158 = [(BWEspressoInferenceAdapter *)v151 _newInferenceProviderWithType:v152 networkURL:v153 networkConfiguration:v154 networkConfigurationByLayout:v155 defaultLayout:v156 portraitOrientationSupportEnabled:v157 context:v144 executionTarget:v354 configuration:v357 preventionReasons:v359 resourceProvider:v361 allowedCompressionDirection:v363 concurrentSubmissionLimit:v149 e5Allowed:0 updateMetadataWithCropRect:0 additionalCacheKeyAttributes:0];
+      networkURL = v158;
+      if (!v158)
       {
         goto LABEL_214;
       }
@@ -1414,51 +1414,51 @@ LABEL_127:
         goto LABEL_174;
       }
 
-      v366[0] = MEMORY[0x1E69E9820];
-      v366[1] = 3221225472;
-      v367 = __101__BWEspressoInferenceAdapter_inferenceProviderForType_version_configuration_resourceProvider_status___block_invoke;
-      v368 = &unk_1E799A150;
-      v369 = v151;
-      OUTLINED_FUNCTION_9_51(*&v140->var9.var0, *&v140->var9.var1.height);
+      v384[0] = MEMORY[0x1E69E9820];
+      v384[1] = 3221225472;
+      v385 = __101__BWEspressoInferenceAdapter_inferenceProviderForType_version_configuration_resourceProvider_status___block_invoke;
+      v386 = &unk_1E799A150;
+      v387 = v158;
+      OUTLINED_FUNCTION_9_51(*&v147->var9.var0, *&v147->var9.var1.height);
       OUTLINED_FUNCTION_30_11();
       OUTLINED_FUNCTION_20_21();
-      if (!__101__BWEspressoInferenceAdapter_inferenceProviderForType_version_configuration_resourceProvider_status___block_invoke(v152, v153, v154, v155, v156, v157, v158))
+      if (!__101__BWEspressoInferenceAdapter_inferenceProviderForType_version_configuration_resourceProvider_status___block_invoke(v159, v160, v161, v162, v163, v164, v165))
       {
         goto LABEL_210;
       }
 
-      OUTLINED_FUNCTION_9_51(*&v140->var10.var0, *&v140->var10.var1.height);
+      OUTLINED_FUNCTION_9_51(*&v147->var10.var0, *&v147->var10.var1.height);
       OUTLINED_FUNCTION_30_11();
       OUTLINED_FUNCTION_20_21();
-      if (!v159())
+      if (!v166())
       {
         goto LABEL_210;
       }
 
-      v160 = *&v140->var11.var1.height;
-      block = *&v140->var11.var0;
-      v397 = v160;
-      if (!v367(v366, &block, 1111970369, 1, 0x1F219EC10, 0, &unk_1F2249408))
+      v167 = *&v147->var11.var1.height;
+      block = *&v147->var11.var0;
+      v415 = v167;
+      if (!v385(v384, &block, 1111970369, 1, 0x1F219EC10, 0, &unk_1F2249408))
       {
         goto LABEL_210;
       }
 
-      OUTLINED_FUNCTION_9_51(*&v140->var12.var0, *&v140->var12.var1.height);
+      OUTLINED_FUNCTION_9_51(*&v147->var12.var0, *&v147->var12.var1.height);
       OUTLINED_FUNCTION_30_11();
-      if (!v161())
+      if (!v168())
       {
         goto LABEL_210;
       }
 
-      OUTLINED_FUNCTION_9_51(*&v140->var13.var0, *&v140->var13.var1.height);
+      OUTLINED_FUNCTION_9_51(*&v147->var13.var0, *&v147->var13.var1.height);
       OUTLINED_FUNCTION_20_21();
       v14 = -31711;
-      if (v162())
+      if (v169())
       {
-        OUTLINED_FUNCTION_9_51(*&v140->var14.var0, *&v140->var14.var1.height);
-        v164 = v163();
+        OUTLINED_FUNCTION_9_51(*&v147->var14.var0, *&v147->var14.var1.height);
+        v171 = v170();
 LABEL_118:
-        if (v164)
+        if (v171)
         {
           v14 = 0;
         }
@@ -1471,105 +1471,105 @@ LABEL_118:
 
       goto LABEL_174;
     case 'o':
-      objc_opt_class();
-      OUTLINED_FUNCTION_19();
+      v203 = objc_opt_class();
+      OUTLINED_FUNCTION_19(v203);
       OUTLINED_FUNCTION_16_34();
-      if (!configuration || (v195 & 1) == 0)
+      if (!configuration || (v204 & 1) == 0)
       {
         goto LABEL_174;
       }
 
-      v196 = [configuration concurrencyWidth] + 1;
-      v197 = OUTLINED_FUNCTION_10_44();
-      v198 = [objc_alloc(getADStereoV2PipelineParametersClass()) init];
-      v199 = [objc_msgSend(objc_alloc(getADStereoV2PipelineClass()) initWithParameters:{v198), "inferenceDescriptor"}];
-      [v199 networkURL];
+      v205 = [configuration concurrencyWidth] + 1;
+      v206 = OUTLINED_FUNCTION_10_44();
+      v207 = [objc_alloc(getADStereoV2PipelineParametersClass()) init];
+      v208 = [objc_msgSend(objc_alloc(getADStereoV2PipelineClass()) initWithParameters:{v207), "inferenceDescriptor"}];
+      [v208 networkURL];
       [MEMORY[0x1E695DFD8] set];
       OUTLINED_FUNCTION_2_94();
       OUTLINED_FUNCTION_1_106();
-      networkURL = [(BWEspressoInferenceAdapter *)v200 _newInferenceProviderWithType:v201 networkURL:v202 networkConfiguration:v203 networkConfigurationByLayout:v204 defaultLayout:v205 portraitOrientationSupportEnabled:v206 context:v197 executionTarget:v343 configuration:v346 preventionReasons:v347 resourceProvider:v348 allowedCompressionDirection:0 concurrentSubmissionLimit:v196 e5Allowed:0 updateMetadataWithCropRect:0 additionalCacheKeyAttributes:0];
+      networkURL = [(BWEspressoInferenceAdapter *)v209 _newInferenceProviderWithType:v210 networkURL:v211 networkConfiguration:v212 networkConfigurationByLayout:v213 defaultLayout:v214 portraitOrientationSupportEnabled:v215 context:v206 executionTarget:v353 configuration:v357 preventionReasons:v359 resourceProvider:v361 allowedCompressionDirection:0 concurrentSubmissionLimit:v205 e5Allowed:0 updateMetadataWithCropRect:0 additionalCacheKeyAttributes:0];
       if (!networkURL)
       {
         goto LABEL_214;
       }
 
-      [v199 referenceInput];
+      [v208 referenceInput];
       concurrencyWidth = [OUTLINED_FUNCTION_25_0() concurrencyWidth];
       [-[BWEspressoInferenceAdapter imageDescriptor](self "imageDescriptor")];
       OUTLINED_FUNCTION_12_41();
-      if (!bweia_addRequirement_base(self, @"refInput", &unk_1F22493D8, networkURL, concurrencyWidth, v208, v209))
+      if (!bweia_addRequirement_base(self, @"refInput", &unk_1F22493D8, networkURL, concurrencyWidth, v217, v218))
       {
         goto LABEL_210;
       }
 
-      [v199 auxiliaryInput];
+      [v208 auxiliaryInput];
       concurrencyWidth2 = [OUTLINED_FUNCTION_25_0() concurrencyWidth];
       [-[BWEspressoInferenceAdapter imageDescriptor](self "imageDescriptor")];
       OUTLINED_FUNCTION_12_41();
-      if (!bweia_addRequirement_base(self, @"auxInput", &unk_1F22493D8, networkURL, concurrencyWidth2, v211, v212))
+      if (!bweia_addRequirement_base(self, @"auxInput", &unk_1F22493D8, networkURL, concurrencyWidth2, v220, v221))
       {
         goto LABEL_210;
       }
 
-      [objc_msgSend(objc_msgSend(v199 "prevColorFeaturesInput")];
+      [objc_msgSend(objc_msgSend(v208 "prevColorFeaturesInput")];
       OUTLINED_FUNCTION_12_41();
       OUTLINED_FUNCTION_4_72();
-      if (!bweia_addRequirement_base(v213, v214, v215, v216, v217, v218, v219))
+      if (!bweia_addRequirement_base(v222, v223, v224, v225, v226, v227, v228))
       {
         goto LABEL_210;
       }
 
-      [objc_msgSend(objc_msgSend(v199 "colorFeaturesOutput")];
+      [objc_msgSend(objc_msgSend(v208 "colorFeaturesOutput")];
       OUTLINED_FUNCTION_12_41();
       OUTLINED_FUNCTION_4_72();
-      if (!bweia_addRequirement_base(v220, v221, v222, v223, v224, v225, v226))
+      if (!bweia_addRequirement_base(v229, v230, v231, v232, v233, v234, v235))
       {
         goto LABEL_210;
       }
 
-      [objc_msgSend(objc_msgSend(v199 "prevDepthFeaturesInput")];
+      [objc_msgSend(objc_msgSend(v208 "prevDepthFeaturesInput")];
       OUTLINED_FUNCTION_12_41();
       OUTLINED_FUNCTION_4_72();
-      if (!bweia_addRequirement_base(v227, v228, v229, v230, v231, v232, v233))
+      if (!bweia_addRequirement_base(v236, v237, v238, v239, v240, v241, v242))
       {
         goto LABEL_210;
       }
 
-      depthFeaturesOutput = [v199 depthFeaturesOutput];
+      depthFeaturesOutput = [v208 depthFeaturesOutput];
       [objc_msgSend(depthFeaturesOutput "imageDescriptor")];
       OUTLINED_FUNCTION_12_41();
       OUTLINED_FUNCTION_4_72();
-      if (!bweia_addRequirement_base(v235, v236, v237, v238, v239, v240, v241))
+      if (!bweia_addRequirement_base(v244, v245, v246, v247, v248, v249, v250))
       {
         goto LABEL_210;
       }
 
-      [v199 disparityOutput];
+      [v208 disparityOutput];
       concurrencyWidth3 = [OUTLINED_FUNCTION_25_0() concurrencyWidth];
       [objc_msgSend(depthFeaturesOutput "imageDescriptor")];
       OUTLINED_FUNCTION_12_41();
-      if (!bweia_addRequirement_base(depthFeaturesOutput, @"espressoOutput", 0, networkURL, concurrencyWidth3, v243, v244))
+      if (!bweia_addRequirement_base(depthFeaturesOutput, @"espressoOutput", 0, networkURL, concurrencyWidth3, v252, v253))
       {
         goto LABEL_210;
       }
 
-      [objc_msgSend(objc_msgSend(v199 "temporalSmoothingCurrentFeaturesRatioMinInput")];
+      [objc_msgSend(objc_msgSend(v208 "temporalSmoothingCurrentFeaturesRatioMinInput")];
       OUTLINED_FUNCTION_12_41();
       OUTLINED_FUNCTION_4_72();
       v14 = -31711;
-      if (!bweia_addRequirement_base(v245, v246, v247, v248, v249, v250, v251))
+      if (!bweia_addRequirement_base(v254, v255, v256, v257, v258, v259, v260))
       {
         goto LABEL_174;
       }
 
-      [objc_msgSend(objc_msgSend(v199 "temporalSmoothingPreviousFeaturesRatioMinInput")];
+      [objc_msgSend(objc_msgSend(v208 "temporalSmoothingPreviousFeaturesRatioMinInput")];
       OUTLINED_FUNCTION_12_41();
       OUTLINED_FUNCTION_4_72();
-      v164 = bweia_addRequirement_base(v252, v253, v254, v255, v256, v257, v258);
+      v171 = bweia_addRequirement_base(v261, v262, v263, v264, v265, v266, v267);
       goto LABEL_118;
     case 't':
-      objc_opt_class();
-      if ((OUTLINED_FUNCTION_19() & 1) == 0)
+      v89 = objc_opt_class();
+      if ((OUTLINED_FUNCTION_19(v89) & 1) == 0)
       {
         goto LABEL_146;
       }
@@ -1586,13 +1586,13 @@ LABEL_118:
       }
 
       version2 = [configuration version];
-      v88 = HIWORD(version2);
+      v92 = HIWORD(version2);
       if (HIWORD(version2) != WORD1(v10))
       {
         goto LABEL_136;
       }
 
-      v89 = version2;
+      v93 = version2;
       if (([configuration version] >> 32) != WORD2(v10))
       {
         goto LABEL_136;
@@ -1604,115 +1604,115 @@ LABEL_118:
         goto LABEL_148;
       }
 
-      if (version == 1 && v89 < 0x10000)
+      if (version == 1 && v93 < 0x10000)
       {
-        v357 = 0;
-        v90 = 0;
-        v359 = 1;
-        v91 = 384.0;
-        v92 = 512.0;
-        v93 = @"image";
+        v375 = 0;
+        v94 = 0;
+        v377 = 1;
+        v95 = 384.0;
+        v96 = 512.0;
+        v97 = @"image";
         if (!self)
         {
 LABEL_54:
-          v94 = 0;
+          v98 = 0;
           goto LABEL_162;
         }
       }
 
       else
       {
-        if (version > 1 || version == 1 && (v88 == 3 || v89 >= 0x50000))
+        if (version > 1 || version == 1 && (v92 == 3 || v93 >= 0x50000))
         {
-          v90 = @"P3rotation";
+          v94 = @"P3rotation";
         }
 
         else
         {
-          v90 = 0;
+          v94 = 0;
         }
 
-        v279 = version == 1;
-        if ((v89 & 0xFFFC0000) == 0)
+        v288 = version == 1;
+        if ((v93 & 0xFFFC0000) == 0)
         {
-          v279 = 0;
+          v288 = 0;
         }
 
         if (version > 1)
         {
-          v279 = 1;
+          v288 = 1;
         }
 
-        v359 = !v279;
-        if (v279)
+        v377 = !v288;
+        if (v288)
         {
-          v280 = @"P3font_size";
+          v289 = @"P3font_size";
         }
 
         else
         {
-          v280 = 0;
+          v289 = 0;
         }
 
-        v357 = v280;
-        v93 = @"input_image";
-        v91 = 448.0;
-        v92 = 608.0;
+        v375 = v289;
+        v97 = @"input_image";
+        v95 = 448.0;
+        v96 = 608.0;
         if (!self)
         {
           goto LABEL_54;
         }
       }
 
-      v94 = [BWInferenceEngine allowedBufferCompressionDirectionForExecutionTarget:3];
+      v98 = [BWInferenceEngine allowedBufferCompressionDirectionForExecutionTarget:3];
 LABEL_162:
-      v281 = OUTLINED_FUNCTION_10_44();
+      v290 = OUTLINED_FUNCTION_10_44();
       [MEMORY[0x1E695DFD8] set];
       OUTLINED_FUNCTION_6_65();
       OUTLINED_FUNCTION_2_94();
       OUTLINED_FUNCTION_0_95();
-      networkURL = [(BWEspressoInferenceAdapter *)v282 _newInferenceProviderWithType:v283 networkURL:v284 networkConfiguration:v285 networkConfigurationByLayout:v286 defaultLayout:v287 portraitOrientationSupportEnabled:v288 context:v281 executionTarget:v343 configuration:v346 preventionReasons:v347 resourceProvider:v348 allowedCompressionDirection:v94 concurrentSubmissionLimit:v350 e5Allowed:v351 updateMetadataWithCropRect:SHIBYTE(v351) additionalCacheKeyAttributes:v355];
+      networkURL = [(BWEspressoInferenceAdapter *)v291 _newInferenceProviderWithType:v292 networkURL:v293 networkConfiguration:v294 networkConfigurationByLayout:v295 defaultLayout:v296 portraitOrientationSupportEnabled:v297 context:v290 executionTarget:v353 configuration:v357 preventionReasons:v359 resourceProvider:v361 allowedCompressionDirection:v98 concurrentSubmissionLimit:v365 e5Allowed:v367 updateMetadataWithCropRect:SHIBYTE(v367) additionalCacheKeyAttributes:v372];
       if (networkURL)
       {
-        v289 = [BWInferenceVideoFormatRequirements defaultEspressoFormatRequirementsWithWidth:v92 height:v91];
-        [v289 setVideoContentMode:0];
-        v290 = objc_alloc_init(BWInferencePrimaryCaptureRectDescriptor);
+        v298 = [BWInferenceVideoFormatRequirements defaultEspressoFormatRequirementsWithWidth:v96 height:v95];
+        [v298 setVideoContentMode:0];
+        v299 = objc_alloc_init(BWInferencePrimaryCaptureRectDescriptor);
         [OUTLINED_FUNCTION_7() setCropDescriptor:?];
         if ([configuration inferenceInputUsesPortraitOrientation])
         {
-          [v289 setRotationDegrees:90];
+          [v298 setRotationDegrees:90];
         }
 
         [OUTLINED_FUNCTION_18_25() setDeviceOriented:?];
-        v384 = v289;
-        [MEMORY[0x1E695DEC8] arrayWithObjects:&v384 count:1];
-        v291 = [OUTLINED_FUNCTION_28() formatByResolvingRequirements:?];
-        if (v291)
+        v402 = v298;
+        [MEMORY[0x1E695DEC8] arrayWithObjects:&v402 count:1];
+        v300 = [OUTLINED_FUNCTION_28() formatByResolvingRequirements:?];
+        if (v300)
         {
-          [networkURL bindEspressoInput:v93 fromAttachedMediaUsingKey:@"PrimaryFormat" withVideoFormat:v291];
-          v292 = [networkURL bindEspressoOutput:@"pred_boxes" asMetadataUsingKeys:0];
-          v293 = [networkURL bindEspressoOutput:@"scores" asMetadataUsingKeys:0];
-          if (v90)
+          [networkURL bindEspressoInput:v97 fromAttachedMediaUsingKey:@"PrimaryFormat" withVideoFormat:v300];
+          v301 = [networkURL bindEspressoOutput:@"pred_boxes" asMetadataUsingKeys:0];
+          v302 = [networkURL bindEspressoOutput:@"scores" asMetadataUsingKeys:0];
+          if (v94)
           {
-            v294 = [networkURL bindEspressoOutput:v90 asMetadataUsingKeys:0];
+            v303 = [networkURL bindEspressoOutput:v94 asMetadataUsingKeys:0];
           }
 
           else
           {
-            v294 = 0;
+            v303 = 0;
           }
 
-          if (v359)
+          if (v377)
           {
-            v295 = 0;
+            v304 = 0;
           }
 
           else
           {
-            v295 = [networkURL bindEspressoOutput:v357 asMetadataUsingKeys:0];
+            v304 = [networkURL bindEspressoOutput:v375 asMetadataUsingKeys:0];
           }
 
-          v296 = [[BWEspressoInferenceBoundingBoxPropagator alloc] initWithBoxRequirement:v292 scoreRequirement:v293 angularOffsetRequirement:v294 fontSizeRequirement:v295 configuration:configuration toInferenceResultKey:0x1F219E730];
+          v305 = [[BWEspressoInferenceBoundingBoxPropagator alloc] initWithBoxRequirement:v301 scoreRequirement:v302 angularOffsetRequirement:v303 fontSizeRequirement:v304 configuration:configuration toInferenceResultKey:0x1F219E730];
           [OUTLINED_FUNCTION_4() setPropagatable:?];
 LABEL_173:
           v14 = 0;
@@ -1722,7 +1722,7 @@ LABEL_173:
         {
           fig_log_get_emitter();
           OUTLINED_FUNCTION_8_50();
-          FigDebugAssert3();
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v355, v358, v360, v362, v364, v366, v368, v373);
 LABEL_210:
           v14 = -31711;
         }
@@ -1742,10 +1742,10 @@ LABEL_174:
 
       return networkURL;
     case 'v':
-      objc_opt_class();
-      OUTLINED_FUNCTION_19();
+      v115 = objc_opt_class();
+      OUTLINED_FUNCTION_19(v115);
       OUTLINED_FUNCTION_16_34();
-      if (!configuration || (v111 & 1) == 0)
+      if (!configuration || (v116 & 1) == 0)
       {
         goto LABEL_174;
       }
@@ -1757,12 +1757,12 @@ LABEL_174:
 
       if ([configuration masksDimensions] == 256 && objc_msgSend(configuration, "masksDimensions") >> 32 == 256)
       {
-        v112 = @"anst_refiner256x256-v2";
+        v117 = @"anst_refiner256x256-v2";
       }
 
       else if (v10 == 1)
       {
-        v112 = @"anst_refiner256-v1.1";
+        v117 = @"anst_refiner256-v1.1";
       }
 
       else
@@ -1774,21 +1774,21 @@ LABEL_94:
           goto LABEL_174;
         }
 
-        v112 = @"anst_refiner256x192-v2";
+        v117 = @"anst_refiner256x192-v2";
       }
 
-      networkURL = [BWEspressoInferenceAdapter espressoNetworkURLForPlatformedResourceBaseName:v112 embedPlatformOrDeviceID:0 e5Bundle:v16];
+      networkURL = [BWEspressoInferenceAdapter espressoNetworkURLForPlatformedResourceBaseName:v117 embedPlatformOrDeviceID:0 e5Bundle:v16];
       if (!networkURL)
       {
         goto LABEL_174;
       }
 
-      v319 = OUTLINED_FUNCTION_10_44();
+      v329 = OUTLINED_FUNCTION_10_44();
       [MEMORY[0x1E695DFD8] set];
       OUTLINED_FUNCTION_11_42();
       OUTLINED_FUNCTION_2_94();
       OUTLINED_FUNCTION_0_95();
-      networkURL = [(BWEspressoInferenceAdapter *)v320 _newInferenceProviderWithType:v321 networkURL:v322 networkConfiguration:v323 networkConfigurationByLayout:v324 defaultLayout:v325 portraitOrientationSupportEnabled:v326 context:v319 executionTarget:v343 configuration:v346 preventionReasons:v347 resourceProvider:v348 allowedCompressionDirection:0 concurrentSubmissionLimit:v350 e5Allowed:v16 updateMetadataWithCropRect:0 additionalCacheKeyAttributes:0];
+      networkURL = [(BWEspressoInferenceAdapter *)v330 _newInferenceProviderWithType:v331 networkURL:v332 networkConfiguration:v333 networkConfigurationByLayout:v334 defaultLayout:v335 portraitOrientationSupportEnabled:v336 context:v329 executionTarget:v353 configuration:v357 preventionReasons:v359 resourceProvider:v361 allowedCompressionDirection:0 concurrentSubmissionLimit:v365 e5Allowed:v16 updateMetadataWithCropRect:0 additionalCacheKeyAttributes:0];
       if (!networkURL)
       {
         goto LABEL_214;
@@ -1803,24 +1803,24 @@ LABEL_94:
       selfCopy = self;
       [MEMORY[0x1E695DEC8] arrayWithObjects:&selfCopy count:1];
       [networkURL bindEspressoInput:@"input_image" fromAttachedMediaUsingKey:@"PrimaryFormat" withVideoFormat:objc_msgSend(OUTLINED_FUNCTION_28(), "formatByResolvingRequirements:")];
-      v327 = objc_alloc_init(*(v7 + 112));
-      [v327 setWidth:{objc_msgSend(configuration, "masksDimensions")}];
-      [v327 setHeight:{objc_msgSend(configuration, "masksDimensions") >> 32}];
-      [v327 setSupportedPixelFormats:&unk_1F2249450];
+      v337 = objc_alloc_init(*(v7 + 112));
+      [v337 setWidth:{objc_msgSend(configuration, "masksDimensions")}];
+      [v337 setHeight:{objc_msgSend(configuration, "masksDimensions") >> 32}];
+      [v337 setSupportedPixelFormats:&unk_1F2249450];
       OUTLINED_FUNCTION_38_12();
-      v363 = v327;
-      v328 = OUTLINED_FUNCTION_37_12([MEMORY[0x1E695DEC8] arrayWithObjects:&v363 count:1]);
-      [networkURL bindEspressoInput:@"input_mask_person" fromAttachedMediaUsingKey:0x1F219EE10 withVideoFormat:v328];
-      [networkURL bindEspressoInput:@"input_mask_hair" fromAttachedMediaUsingKey:0x1F219EE30 withVideoFormat:v328];
-      [networkURL bindEspressoInput:@"input_mask_skin" fromAttachedMediaUsingKey:0x1F219EE50 withVideoFormat:v328];
-      [networkURL bindEspressoInput:@"last_mask" fromAttachedMediaUsingKey:0x1F219EE10 withVideoFormat:v328];
-      v329 = objc_alloc_init(*(v7 + 112));
-      [v329 setWidth:{objc_msgSend(configuration, "masksDimensions")}];
-      [v329 setHeight:{objc_msgSend(configuration, "masksDimensions") >> 32}];
+      v381 = v337;
+      v338 = OUTLINED_FUNCTION_37_12([MEMORY[0x1E695DEC8] arrayWithObjects:&v381 count:1]);
+      [networkURL bindEspressoInput:@"input_mask_person" fromAttachedMediaUsingKey:0x1F219EE10 withVideoFormat:v338];
+      [networkURL bindEspressoInput:@"input_mask_hair" fromAttachedMediaUsingKey:0x1F219EE30 withVideoFormat:v338];
+      [networkURL bindEspressoInput:@"input_mask_skin" fromAttachedMediaUsingKey:0x1F219EE50 withVideoFormat:v338];
+      [networkURL bindEspressoInput:@"last_mask" fromAttachedMediaUsingKey:0x1F219EE10 withVideoFormat:v338];
+      v339 = objc_alloc_init(*(v7 + 112));
+      [v339 setWidth:{objc_msgSend(configuration, "masksDimensions")}];
+      [v339 setHeight:{objc_msgSend(configuration, "masksDimensions") >> 32}];
       OUTLINED_FUNCTION_38_12();
-      [v329 setSupportedPixelFormats:&unk_1F2249468];
-      v362 = v329;
-      [MEMORY[0x1E695DEC8] arrayWithObjects:&v362 count:1];
+      [v339 setSupportedPixelFormats:&unk_1F2249468];
+      v380 = v339;
+      [MEMORY[0x1E695DEC8] arrayWithObjects:&v380 count:1];
       [OUTLINED_FUNCTION_8() formatByResolvingRequirements:?];
       [OUTLINED_FUNCTION_31_16() bindEspressoOutput:? asAttachedMediaUsingKey:? withVideoFormat:?];
       [OUTLINED_FUNCTION_31_16() bindEspressoOutput:? asAttachedMediaUsingKey:? withVideoFormat:?];
@@ -1833,15 +1833,15 @@ LABEL_94:
         goto LABEL_147;
       }
 
-      objc_opt_class();
-      OUTLINED_FUNCTION_19();
+      v172 = objc_opt_class();
+      OUTLINED_FUNCTION_19(v172);
       OUTLINED_FUNCTION_16_34();
-      if (!configuration || (v165 & 1) == 0)
+      if (!configuration || (v173 & 1) == 0)
       {
         goto LABEL_174;
       }
 
-      v166 = OUTLINED_FUNCTION_10_44();
+      v174 = OUTLINED_FUNCTION_10_44();
       monocularVideoInferenceDescriptor = [configuration monocularVideoInferenceDescriptor];
       [MEMORY[0x1E695DFF8] fileURLWithPath:objc_msgSend(objc_msgSend(monocularVideoInferenceDescriptor isDirectory:{"networkURL"), "path"), 1}];
       [monocularVideoInferenceDescriptor configurationNameForLayout:255];
@@ -1849,7 +1849,7 @@ LABEL_94:
       OUTLINED_FUNCTION_34_18();
       OUTLINED_FUNCTION_2_94();
       OUTLINED_FUNCTION_3_82();
-      networkURL = [(BWEspressoInferenceAdapter *)v168 _newInferenceProviderWithType:v169 networkURL:v170 networkConfiguration:v171 networkConfigurationByLayout:v172 defaultLayout:v173 portraitOrientationSupportEnabled:v174 context:v166 executionTarget:v343 configuration:v346 preventionReasons:v347 resourceProvider:v348 allowedCompressionDirection:v349 concurrentSubmissionLimit:v350 e5Allowed:v351 updateMetadataWithCropRect:SHIBYTE(v351) additionalCacheKeyAttributes:v355];
+      networkURL = [(BWEspressoInferenceAdapter *)v176 _newInferenceProviderWithType:v177 networkURL:v178 networkConfiguration:v179 networkConfigurationByLayout:v180 defaultLayout:v181 portraitOrientationSupportEnabled:v182 context:v174 executionTarget:v353 configuration:v357 preventionReasons:v359 resourceProvider:v361 allowedCompressionDirection:v363 concurrentSubmissionLimit:v365 e5Allowed:v367 updateMetadataWithCropRect:SHIBYTE(v367) additionalCacheKeyAttributes:v372];
       if (!networkURL)
       {
         goto LABEL_214;
@@ -1862,28 +1862,28 @@ LABEL_94:
 
       [monocularVideoInferenceDescriptor prevColorFeaturesInput];
       OUTLINED_FUNCTION_4_72();
-      if (!bweia_addRequirement_cmm(v175, v176, v177, v178, v179))
+      if (!bweia_addRequirement_cmm(v183, v184, v185, v186, v187))
       {
         goto LABEL_210;
       }
 
       [monocularVideoInferenceDescriptor colorFeaturesOutput];
       OUTLINED_FUNCTION_4_72();
-      if (!bweia_addRequirement_cmm(v180, v181, v182, v183, v184))
+      if (!bweia_addRequirement_cmm(v188, v189, v190, v191, v192))
       {
         goto LABEL_210;
       }
 
       [monocularVideoInferenceDescriptor prevDepthFeaturesInput];
       OUTLINED_FUNCTION_4_72();
-      if (!bweia_addRequirement_cmm(v185, v186, v187, v188, v189))
+      if (!bweia_addRequirement_cmm(v193, v194, v195, v196, v197))
       {
         goto LABEL_210;
       }
 
       [monocularVideoInferenceDescriptor depthFeaturesOutput];
       OUTLINED_FUNCTION_4_72();
-      if (!bweia_addRequirement_cmm(v190, v191, v192, v193, v194))
+      if (!bweia_addRequirement_cmm(v198, v199, v200, v201, v202))
       {
         goto LABEL_210;
       }
@@ -1896,18 +1896,18 @@ LABEL_94:
       }
 
       [monocularVideoInferenceDescriptor outputScale];
-      v164 = OUTLINED_FUNCTION_25_19([configuration concurrencyWidth]);
+      v171 = OUTLINED_FUNCTION_25_19([configuration concurrencyWidth]);
       goto LABEL_118;
     case 'x':
-      objc_opt_class();
-      OUTLINED_FUNCTION_19();
+      v41 = objc_opt_class();
+      OUTLINED_FUNCTION_19(v41);
       OUTLINED_FUNCTION_16_34();
       if (!configuration)
       {
         goto LABEL_174;
       }
 
-      if ((v40 & 1) == 0)
+      if ((v42 & 1) == 0)
       {
         goto LABEL_174;
       }
@@ -1918,28 +1918,28 @@ LABEL_94:
         goto LABEL_174;
       }
 
-      v41 = [MEMORY[0x1E695DFA8] setWithObjects:{@"BlurryInputBuffer", 0}];
+      v43 = [MEMORY[0x1E695DFA8] setWithObjects:{@"BlurryInputBuffer", 0}];
       if (+[BWInferenceEngine isNeuralEngineSupported])
       {
-        v42 = 3;
+        v44 = 3;
       }
 
       else
       {
-        v42 = 1;
+        v44 = 1;
       }
 
-      [provider espressoContextForExecutionTarget:v42];
+      [provider espressoContextForExecutionTarget:v44];
       OUTLINED_FUNCTION_34_18();
       OUTLINED_FUNCTION_0_95();
-      networkURL = [(BWEspressoInferenceAdapter *)v43 _newInferenceProviderWithType:v44 networkURL:v45 networkConfiguration:v46 networkConfigurationByLayout:v47 defaultLayout:v48 portraitOrientationSupportEnabled:v49 context:v50 executionTarget:v42 configuration:configuration preventionReasons:v41 resourceProvider:provider allowedCompressionDirection:v349 concurrentSubmissionLimit:v350 e5Allowed:v351 updateMetadataWithCropRect:SHIBYTE(v351) additionalCacheKeyAttributes:v355];
+      networkURL = [(BWEspressoInferenceAdapter *)v45 _newInferenceProviderWithType:v46 networkURL:v47 networkConfiguration:v48 networkConfigurationByLayout:v49 defaultLayout:v50 portraitOrientationSupportEnabled:v51 context:v52 executionTarget:v44 configuration:configuration preventionReasons:v43 resourceProvider:provider allowedCompressionDirection:v363 concurrentSubmissionLimit:v365 e5Allowed:v367 updateMetadataWithCropRect:SHIBYTE(v367) additionalCacheKeyAttributes:v372];
       if (!networkURL)
       {
         goto LABEL_214;
       }
 
-      v361 = BWLensSmudgeDetectionInputVideoFormatRequirements(0);
-      [MEMORY[0x1E695DEC8] arrayWithObjects:&v361 count:1];
+      v379 = BWLensSmudgeDetectionInputVideoFormatRequirements(0);
+      [MEMORY[0x1E695DEC8] arrayWithObjects:&v379 count:1];
       [OUTLINED_FUNCTION_7() formatByResolvingRequirements:?];
       [OUTLINED_FUNCTION_25_0() inferenceInputMediaKey];
       [OUTLINED_FUNCTION_13_35() bindEspressoInput:? fromAttachedMediaUsingKey:? withVideoFormat:?];
@@ -1956,15 +1956,15 @@ LABEL_94:
         goto LABEL_147;
       }
 
-      objc_opt_class();
-      OUTLINED_FUNCTION_19();
+      v30 = objc_opt_class();
+      OUTLINED_FUNCTION_19(v30);
       OUTLINED_FUNCTION_16_34();
       if (!configuration)
       {
         goto LABEL_174;
       }
 
-      if ((v30 & 1) == 0)
+      if ((v31 & 1) == 0)
       {
         goto LABEL_174;
       }
@@ -1975,48 +1975,48 @@ LABEL_94:
         goto LABEL_174;
       }
 
-      v31 = OUTLINED_FUNCTION_10_44();
+      v32 = OUTLINED_FUNCTION_10_44();
       [OUTLINED_FUNCTION_15_33() setPriority:?];
       [MEMORY[0x1E695DFD8] set];
       OUTLINED_FUNCTION_6_65();
       OUTLINED_FUNCTION_2_94();
       OUTLINED_FUNCTION_3_82();
-      networkURL = [(BWEspressoInferenceAdapter *)v32 _newInferenceProviderWithType:v33 networkURL:v34 networkConfiguration:v35 networkConfigurationByLayout:v36 defaultLayout:v37 portraitOrientationSupportEnabled:v38 context:v31 executionTarget:v343 configuration:v346 preventionReasons:v347 resourceProvider:v348 allowedCompressionDirection:0 concurrentSubmissionLimit:v350 e5Allowed:v351 updateMetadataWithCropRect:SHIBYTE(v351) additionalCacheKeyAttributes:v355];
+      networkURL = [(BWEspressoInferenceAdapter *)v33 _newInferenceProviderWithType:v34 networkURL:v35 networkConfiguration:v36 networkConfigurationByLayout:v37 defaultLayout:v38 portraitOrientationSupportEnabled:v39 context:v32 executionTarget:v353 configuration:v357 preventionReasons:v359 resourceProvider:v361 allowedCompressionDirection:0 concurrentSubmissionLimit:v365 e5Allowed:v367 updateMetadataWithCropRect:SHIBYTE(v367) additionalCacheKeyAttributes:v372];
       if (!networkURL)
       {
         goto LABEL_214;
       }
 
-      v39 = [configuration targetAspectRatio] == 4 || objc_msgSend(configuration, "targetAspectRatio") == 2;
-      v271 = objc_alloc_init(BWInferenceVideoFormatRequirements);
-      [(BWVideoFormatRequirements *)v271 setWidth:256];
-      [(BWVideoFormatRequirements *)v271 setHeight:160];
-      [(BWVideoFormatRequirements *)v271 setSupportedPixelFormats:&unk_1F2249420];
-      [(BWVideoFormatRequirements *)v271 setBytesPerRowAlignment:64];
+      v40 = [configuration targetAspectRatio] == 4 || objc_msgSend(configuration, "targetAspectRatio") == 2;
+      v280 = objc_alloc_init(BWInferenceVideoFormatRequirements);
+      [(BWVideoFormatRequirements *)v280 setWidth:256];
+      [(BWVideoFormatRequirements *)v280 setHeight:160];
+      [(BWVideoFormatRequirements *)v280 setSupportedPixelFormats:&unk_1F2249420];
+      [(BWVideoFormatRequirements *)v280 setBytesPerRowAlignment:64];
       [OUTLINED_FUNCTION_18_25() setDeviceOriented:?];
-      if (v39)
+      if (v40)
       {
-        v272 = 90;
+        v281 = 90;
       }
 
       else
       {
-        v272 = 0;
+        v281 = 0;
       }
 
-      [(BWInferenceVideoFormatRequirements *)v271 setRotationDegrees:v272];
-      v365 = v271;
-      [MEMORY[0x1E695DEC8] arrayWithObjects:&v365 count:1];
-      v273 = [OUTLINED_FUNCTION_28() formatByResolvingRequirements:?];
+      [(BWInferenceVideoFormatRequirements *)v280 setRotationDegrees:v281];
+      v383 = v280;
+      [MEMORY[0x1E695DEC8] arrayWithObjects:&v383 count:1];
+      v282 = [OUTLINED_FUNCTION_28() formatByResolvingRequirements:?];
 
-      if (![networkURL bindEspressoInput:@"input" fromAttachedMediaUsingKey:@"PrimaryFormat" withVideoFormat:v273])
+      if (![networkURL bindEspressoInput:@"input" fromAttachedMediaUsingKey:@"PrimaryFormat" withVideoFormat:v282])
       {
         goto LABEL_210;
       }
 
-      v274 = -[BWInferenceHumanPosePropagator initWithOutputRequirement:rotateOutput:]([BWInferenceHumanPosePropagator alloc], "initWithOutputRequirement:rotateOutput:", [networkURL bindEspressoOutput:@"output" asMetadataUsingKey:0x1F219EBD0], v39);
-      [networkURL setPropagatable:v274];
-      [networkURL setTensorMemoryProvider:v274];
+      v283 = -[BWInferenceHumanPosePropagator initWithOutputRequirement:rotateOutput:]([BWInferenceHumanPosePropagator alloc], "initWithOutputRequirement:rotateOutput:", [networkURL bindEspressoOutput:@"output" asMetadataUsingKey:0x1F219EBD0], v40);
+      [networkURL setPropagatable:v283];
+      [networkURL setTensorMemoryProvider:v283];
 
       goto LABEL_173;
   }
@@ -2233,20 +2233,6 @@ uint64_t __101__BWEspressoInferenceAdapter_inferenceProviderForType_version_conf
   v0 = [MEMORY[0x1E696AAA8] currentHandler];
   [v0 handleFailureInFunction:objc_msgSend(MEMORY[0x1E696AEC0] file:"stringWithUTF8String:" lineNumber:"NSString *getVisionCoreInferenceNetworkIdentifierCamGaze(void)") description:{@"BWVisionCoreSoftLinking.h", 23, @"%s", dlerror()}];
   __break(1u);
-}
-
-+ (uint64_t)findAvailableVersion:defaultOverrideKey:versionLocator:e5Bundle:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-+ (uint64_t)findAvailableVersion:defaultOverrideKey:versionLocator:e5Bundle:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
 }
 
 @end

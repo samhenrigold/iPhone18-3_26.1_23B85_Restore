@@ -15,26 +15,27 @@
 - (BOOL)loadDelegate
 {
   delegateClass = [(_EXExtension *)self delegateClass];
-  v4 = _EXDefaultLog();
+  v4 = _EXDefaultLog(delegateClass);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [(_EXExtension *)delegateClass loadDelegate];
   }
 
   v5 = objc_alloc_init(delegateClass);
+  v6 = v5;
   if (v5)
   {
-    v6 = _EXDefaultLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = _EXDefaultLog(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      [(_EXExtension *)v5 loadDelegate];
+      [(_EXExtension *)v6 loadDelegate];
     }
 
-    [(_EXExtension *)self setDelegate:v5];
-    [(_EXExtension *)self setStrongDelegate:v5];
+    [(_EXExtension *)self setDelegate:v6];
+    [(_EXExtension *)self setStrongDelegate:v6];
   }
 
-  return v5 != 0;
+  return v6 != 0;
 }
 
 - (void)setStrongDelegate:(id)delegate
@@ -113,7 +114,7 @@
   v5 = hostProcess;
   if (hostProcess)
   {
-    [hostProcess auditToken];
+    objc_msgSend_auditToken(hostProcess);
     v5 = hostProcess;
   }
 
@@ -135,11 +136,10 @@
 
 - (void)loadDelegate
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
   selfCopy = self;
-  _os_log_debug_impl(&dword_1847D1000, a2, OS_LOG_TYPE_DEBUG, "Extension delegate is: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1847D1000, a2, OS_LOG_TYPE_DEBUG, "Extension delegate is: %{public}@", &v2, 0xCu);
 }
 
 @end

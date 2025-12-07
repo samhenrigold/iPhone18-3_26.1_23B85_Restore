@@ -57,7 +57,7 @@
 
 - (id)readSectionInfo
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v3 = BBLogPersistence;
   if (os_log_type_enabled(BBLogPersistence, OS_LOG_TYPE_DEFAULT))
   {
@@ -71,36 +71,36 @@
   _sectionInfoPath = [(BBPersistentStore *)self _sectionInfoPath];
   v6 = [v4 dictionaryWithContentsOfFile:_sectionInfoPath];
 
-  v23 = v6;
+  v22 = v6;
   v7 = [v6 objectForKey:@"sectionInfo"];
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   obj = [v7 allKeys];
-  v8 = [obj countByEnumeratingWithState:&v30 objects:v38 count:16];
+  v8 = [obj countByEnumeratingWithState:&v29 objects:v37 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v31;
-    v26 = *MEMORY[0x277CCA308];
+    v10 = *v30;
+    v25 = *MEMORY[0x277CCA308];
     do
     {
       v11 = 0;
       do
       {
-        if (*v31 != v10)
+        if (*v30 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v30 + 1) + 8 * v11);
+        v12 = *(*(&v29 + 1) + 8 * v11);
         v13 = objc_autoreleasePoolPush();
         v14 = [v7 objectForKey:v12];
         v15 = objc_alloc(MEMORY[0x277CCAAC8]);
-        v29 = 0;
-        v16 = [v15 initForReadingFromData:v14 error:&v29];
-        v17 = v29;
+        v28 = 0;
+        v16 = [v15 initForReadingFromData:v14 error:&v28];
+        v17 = v28;
         if (v17)
         {
           goto LABEL_12;
@@ -114,9 +114,9 @@
         [v16 setClass:objc_opt_class() forClassName:@"UNCSectionMuteAssertion"];
         [v16 setClass:objc_opt_class() forClassName:@"UNCThreadsMuteAssertion"];
         v18 = objc_opt_class();
-        v28 = 0;
-        v19 = [v16 decodeTopLevelObjectOfClass:v18 forKey:v26 error:&v28];
-        v17 = v28;
+        v27 = 0;
+        v19 = [v16 decodeTopLevelObjectOfClass:v18 forKey:v25 error:&v27];
+        v17 = v27;
         if (v19)
         {
           [dictionary setObject:v19 forKey:v12];
@@ -129,9 +129,9 @@ LABEL_12:
           if (os_log_type_enabled(BBLogPersistence, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543618;
-            v35 = v12;
-            v36 = 2114;
-            v37 = v17;
+            v34 = v12;
+            v35 = 2114;
+            v36 = v17;
             _os_log_error_impl(&dword_241EFF000, v20, OS_LOG_TYPE_ERROR, "Decoding BBSectionInfo for sectionID %{public}@ failed: %{public}@", buf, 0x16u);
           }
         }
@@ -141,14 +141,13 @@ LABEL_12:
       }
 
       while (v9 != v11);
-      v9 = [obj countByEnumeratingWithState:&v30 objects:v38 count:16];
+      v9 = [obj countByEnumeratingWithState:&v29 objects:v37 count:16];
     }
 
     while (v9);
   }
 
   objc_autoreleasePoolPop(context);
-  v21 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
@@ -228,31 +227,31 @@ LABEL_12:
 - (void)writeSectionInfo:(id)info
 {
   selfCopy = self;
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   context = objc_autoreleasePoolPush();
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   dictionary2 = [MEMORY[0x277CBEB38] dictionary];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   v5 = infoCopy;
-  v6 = [v5 countByEnumeratingWithState:&v27 objects:v33 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v26 objects:v32 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v28;
+    v8 = *v27;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v28 != v8)
+        if (*v27 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v27 + 1) + 8 * i);
+        v10 = *(*(&v26 + 1) + 8 * i);
         v11 = [v5 objectForKey:{v10, selfCopy}];
         if (([v11 suppressFromSettings] & 1) == 0)
         {
@@ -264,7 +263,7 @@ LABEL_12:
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v27 objects:v33 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v26 objects:v32 count:16];
     }
 
     while (v7);
@@ -277,7 +276,7 @@ LABEL_12:
     v15 = v14;
     v16 = [dictionary2 count];
     *buf = 134217984;
-    v32 = v16;
+    v31 = v16;
     _os_log_impl(&dword_241EFF000, v15, OS_LOG_TYPE_DEFAULT, "Writing section info to persistence. Count %lu", buf, 0xCu);
   }
 
@@ -285,10 +284,10 @@ LABEL_12:
   [dictionary setObject:v17 forKey:@"sectionInfoVersionNumber"];
 
   v18 = [MEMORY[0x277CCAC58] dataWithPropertyList:dictionary format:100 options:0 error:0];
-  _sectionInfoPath = [v23 _sectionInfoPath];
-  v26 = 0;
-  [v18 writeToFile:_sectionInfoPath options:268435457 error:&v26];
-  v20 = v26;
+  _sectionInfoPath = [v22 _sectionInfoPath];
+  v25 = 0;
+  [v18 writeToFile:_sectionInfoPath options:268435457 error:&v25];
+  v20 = v25;
 
   if (v20 && os_log_type_enabled(BBLogPersistence, OS_LOG_TYPE_ERROR))
   {
@@ -296,23 +295,34 @@ LABEL_12:
   }
 
   objc_autoreleasePoolPop(context);
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteSectionInfoFile
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  defaultManager = [MEMORY[0x277CCAA00] defaultManager];
+  _sectionInfoPath = [(BBPersistentStore *)self _sectionInfoPath];
+  v6 = 0;
+  [defaultManager removeItemAtPath:_sectionInfoPath error:&v6];
+  v5 = v6;
+
+  if (v5 && os_log_type_enabled(BBLogMigration, OS_LOG_TYPE_ERROR))
+  {
+    [BBPersistentStore deleteSectionInfoFile];
+  }
 }
 
 - (void)deleteSectionInfoLegacyFile
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  defaultManager = [MEMORY[0x277CCAA00] defaultManager];
+  _sectionInfoLegacyPath = [(BBPersistentStore *)self _sectionInfoLegacyPath];
+  v6 = 0;
+  [defaultManager removeItemAtPath:_sectionInfoLegacyPath error:&v6];
+  v5 = v6;
+
+  if (v5 && os_log_type_enabled(BBLogMigration, OS_LOG_TYPE_ERROR))
+  {
+    [BBPersistentStore deleteSectionInfoLegacyFile];
+  }
 }
 
 - (BOOL)hasSectionInfoLegacyFile
@@ -331,14 +341,6 @@ LABEL_12:
   v4 = [v2 dictionaryWithContentsOfFile:_sectionInfoPath];
 
   return v4;
-}
-
-- (void)writeSectionInfo:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

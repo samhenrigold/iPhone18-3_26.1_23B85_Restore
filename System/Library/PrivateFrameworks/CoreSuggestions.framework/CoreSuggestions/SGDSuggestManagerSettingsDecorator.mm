@@ -10,27 +10,26 @@
 - (void)forwardInvocation:(id)invocation
 {
   invocationCopy = invocation;
-  manager = self->_manager;
   [invocationCopy selector];
   if (objc_opt_respondsToSelector())
   {
-    v6 = objc_autoreleasePoolPush();
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_100001D5C;
-    v8[3] = &unk_10000C460;
-    v9 = invocationCopy;
+    v5 = objc_autoreleasePoolPush();
+    v7[0] = _NSConcreteStackBlock;
+    v7[1] = 3221225472;
+    v7[2] = sub_100001D5C;
+    v7[3] = &unk_10000C460;
+    v8 = invocationCopy;
     selfCopy = self;
-    [_PASXPCUtilities runWithExceptionBarrier:v8];
+    [_PASXPCUtilities runWithExceptionBarrier:v7];
 
-    objc_autoreleasePoolPop(v6);
+    objc_autoreleasePoolPop(v5);
   }
 
   else
   {
-    v7.receiver = self;
-    v7.super_class = SGDSuggestManagerSettingsDecorator;
-    [(SGDSuggestManagerSettingsDecorator *)&v7 forwardInvocation:invocationCopy];
+    v6.receiver = self;
+    v6.super_class = SGDSuggestManagerSettingsDecorator;
+    [(SGDSuggestManagerSettingsDecorator *)&v6 forwardInvocation:invocationCopy];
   }
 }
 

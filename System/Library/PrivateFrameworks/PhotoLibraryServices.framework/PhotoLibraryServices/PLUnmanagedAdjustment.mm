@@ -232,9 +232,9 @@ LABEL_4:
   }
 
   adjustmentFormatIdentifier = [adjustmentsCopy adjustmentFormatIdentifier];
-  v14 = [adjustmentFormatIdentifier isEqualToString:*MEMORY[0x1E69C0988]];
+  isEqualToString = objc_msgSend_isEqualToString_(adjustmentFormatIdentifier);
 
-  if (v14)
+  if (isEqualToString)
   {
     v48 = 0;
     v15 = [(PLUnmanagedAdjustment *)self _deserializeAdjustmentEnvelopeIfNeededFromAssetAdjustments:adjustmentsCopy adjustmentEnvelope:envelope error:&v48];
@@ -267,7 +267,7 @@ LABEL_10:
 
           v24 = *(*(&v44 + 1) + 8 * v23);
           identifier = [v24 identifier];
-          v26 = [identifier isEqualToString:identifierCopy];
+          v26 = objc_msgSend_isEqualToString_(identifier);
 
           if (v26)
           {
@@ -472,9 +472,9 @@ uint64_t __100__PLUnmanagedAdjustment__styleCastRenderTypeFromAssetAdjustments_s
 
 LABEL_3:
   adjustmentFormatIdentifier = [adjustmentsCopy adjustmentFormatIdentifier];
-  v9 = [adjustmentFormatIdentifier isEqualToString:*MEMORY[0x1E69C0988]];
+  isEqualToString = objc_msgSend_isEqualToString_(adjustmentFormatIdentifier);
 
-  if (v9)
+  if (isEqualToString)
   {
     editorBundleID = [adjustmentsCopy editorBundleID];
     v11 = [editorBundleID isEqual:@"com.apple.camera"];
@@ -489,7 +489,7 @@ LABEL_3:
         adjustmentStack = [v12 adjustmentStack];
         versionInfo = [adjustmentStack versionInfo];
         appVersion = [versionInfo appVersion];
-        if (appVersion && (v17 = appVersion, [versionInfo appVersion], v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v18, "isEqualToString:", &stru_1F0F06D80), v18, v17, !v19))
+        if (appVersion && (v17 = appVersion, [versionInfo appVersion], v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend_isEqualToString_(v18), v18, v17, !v19))
         {
           v20 = 0;
         }
@@ -526,7 +526,7 @@ LABEL_3:
   else
   {
     adjustmentFormatIdentifier2 = [adjustmentsCopy adjustmentFormatIdentifier];
-    v22 = [adjustmentFormatIdentifier2 isEqualToString:*MEMORY[0x1E69C0E90]];
+    v22 = objc_msgSend_isEqualToString_(adjustmentFormatIdentifier2);
 
     if (v22)
     {
@@ -749,7 +749,7 @@ LABEL_18:
 {
   v21 = *MEMORY[0x1E69E9840];
   correctionsCopy = corrections;
-  v7 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(correctionsCopy, "count")}];
+  v7 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(correctionsCopy)];
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;

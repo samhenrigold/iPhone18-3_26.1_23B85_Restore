@@ -108,12 +108,12 @@ void __57__AFUIAutoFillCreditCardController__generateSuggestions___block_invoke(
 
 - (id)_menuUIElementsForSuggestions:(id)suggestions
 {
-  v47[1] = *MEMORY[0x1E69E9840];
+  v46[1] = *MEMORY[0x1E69E9840];
   suggestionsCopy = suggestions;
   array = [MEMORY[0x1E695DF70] array];
   objc_initWeak(&location, self);
   [(AFUIAutoFillCreditCardController *)self setHasSuggestions:0];
-  v38 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"creditcard"];
+  v37 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"creditcard"];
   -[AFUIAutoFillCreditCardController _maximumSuggestionsForReturnedSuggestions:](self, "_maximumSuggestionsForReturnedSuggestions:", [suggestionsCopy count]);
   v5 = v4;
   if (v4 > 0.0)
@@ -165,22 +165,22 @@ void __57__AFUIAutoFillCreditCardController__generateSuggestions___block_invoke(
       v22 = [v19 initWithTitle:title subTitle:subTitle3 creditCardPayload:v9 customInfoType:{objc_msgSend(v7, "customInfoType")}];
 
       v23 = MEMORY[0x1E69DC628];
-      v43[0] = MEMORY[0x1E69E9820];
-      v43[1] = 3221225472;
-      v43[2] = __66__AFUIAutoFillCreditCardController__menuUIElementsForSuggestions___block_invoke;
-      v43[3] = &unk_1E84244B8;
-      objc_copyWeak(&v45, &location);
+      v42[0] = MEMORY[0x1E69E9820];
+      v42[1] = 3221225472;
+      v42[2] = __66__AFUIAutoFillCreditCardController__menuUIElementsForSuggestions___block_invoke;
+      v42[3] = &unk_1E84244B8;
+      objc_copyWeak(&v44, &location);
       v24 = v22;
-      v44 = v24;
-      v25 = [v23 actionWithHandler:v43];
+      v43 = v24;
+      v25 = [v23 actionWithHandler:v42];
       title2 = [v7 title];
       [v25 setTitle:title2];
 
       [v25 setSubtitle:v18];
-      [v25 setImage:v38];
+      [v25 setImage:v37];
       [array addObject:v25];
 
-      objc_destroyWeak(&v45);
+      objc_destroyWeak(&v44);
       ++v6;
     }
 
@@ -189,28 +189,26 @@ void __57__AFUIAutoFillCreditCardController__generateSuggestions___block_invoke(
 
   [(AFUIAutoFillCreditCardController *)self setHasSuggestions:v5 > 0.0];
   v27 = MEMORY[0x1E69DC628];
-  v41[0] = MEMORY[0x1E69E9820];
-  v41[1] = 3221225472;
-  v41[2] = __66__AFUIAutoFillCreditCardController__menuUIElementsForSuggestions___block_invoke_2;
-  v41[3] = &unk_1E84244E0;
-  objc_copyWeak(&v42, &location);
-  v28 = [v27 actionWithHandler:v41];
+  v40[0] = MEMORY[0x1E69E9820];
+  v40[1] = 3221225472;
+  v40[2] = __66__AFUIAutoFillCreditCardController__menuUIElementsForSuggestions___block_invoke_2;
+  v40[3] = &unk_1E84244E0;
+  objc_copyWeak(&v41, &location);
+  v28 = [v27 actionWithHandler:v40];
   v29 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
   v30 = [v29 localizedStringForKey:@"Manage Cards…" value:&stru_1F4E9A028 table:@"Localizable"];
   [v28 setTitle:v30];
 
   v31 = MEMORY[0x1E69DCC60];
-  v47[0] = v28;
-  v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:v47 count:1];
+  v46[0] = v28;
+  v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:1];
   v33 = [v31 menuWithTitle:&stru_1F4E9A028 image:0 identifier:0 options:1 children:v32];
 
   [array addObject:v33];
   v34 = [MEMORY[0x1E69DCC60] menuWithChildren:array];
 
-  objc_destroyWeak(&v42);
+  objc_destroyWeak(&v41);
   objc_destroyWeak(&location);
-
-  v35 = *MEMORY[0x1E69E9840];
 
   return v34;
 }
@@ -340,28 +338,28 @@ void __73__AFUIAutoFillCreditCardController__performTextOperationsWithSuggestion
 
 void __73__AFUIAutoFillCreditCardController__performTextOperationsWithSuggestion___block_invoke_3(uint64_t a1, void *a2)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v27;
+    v7 = *v26;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v27 != v7)
+        if (*v26 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = *(*(&v26 + 1) + 8 * i);
+        v9 = *(*(&v25 + 1) + 8 * i);
         v10 = [*(a1 + 32) title];
         v11 = [v9 title];
         v12 = [v10 isEqualToString:v11];
@@ -374,7 +372,7 @@ void __73__AFUIAutoFillCreditCardController__performTextOperationsWithSuggestion
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v5);
@@ -407,8 +405,6 @@ void __73__AFUIAutoFillCreditCardController__performTextOperationsWithSuggestion
 
   v24 = [*(a1 + 40) performTextOperations];
   (v24)[2](v24, v14);
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 void __73__AFUIAutoFillCreditCardController__performTextOperationsWithSuggestion___block_invoke_4(void *a1)

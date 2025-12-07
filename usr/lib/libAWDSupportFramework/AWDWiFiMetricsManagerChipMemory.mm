@@ -210,7 +210,6 @@ LABEL_8:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x10) == 0)
@@ -230,7 +229,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  heapTotal = self->_heapTotal;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -245,7 +243,6 @@ LABEL_4:
   }
 
 LABEL_11:
-  heapTotalMin = self->_heapTotalMin;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -260,7 +257,6 @@ LABEL_5:
   }
 
 LABEL_12:
-  heapTotalMax = self->_heapTotalMax;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -272,7 +268,6 @@ LABEL_6:
     }
 
 LABEL_14:
-    heapFreeMin = self->_heapFreeMin;
     PBDataWriterWriteUint32Field();
     if ((*&self->_has & 4) == 0)
     {
@@ -283,7 +278,6 @@ LABEL_14:
   }
 
 LABEL_13:
-  heapFree = self->_heapFree;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) != 0)
@@ -298,7 +292,6 @@ LABEL_7:
   }
 
 LABEL_15:
-  heapFreeMax = self->_heapFreeMax;
 
   PBDataWriterWriteUint32Field();
 }

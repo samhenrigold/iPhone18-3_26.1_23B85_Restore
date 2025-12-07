@@ -184,19 +184,19 @@
 
         element2 = [*(*(&v45 + 1) + 8 * j) element];
         v36 = *element2;
-        v37 = *(element2 + 1);
-        if (*(element2 + 31) >= 0)
+        v37 = element2[1];
+        if ((element2[31] & 0x80u) == 0)
         {
           v38 = (element2 + 8);
         }
 
         else
         {
-          v38 = *(element2 + 8);
+          v38 = *(element2 + 1);
         }
 
-        v39 = *(element2 + 55);
-        v42 = *(element2 + 32);
+        v39 = element2[55];
+        v42 = *(element2 + 4);
         v40 = (element2 + 32);
         v41 = v42;
         if (v39 >= 0)
@@ -257,8 +257,8 @@ LABEL_34:
 
     [v32 encodeInt32:v10 forKey:@"textDisplayMode"];
     [v32 encodeInt64:*(self->_feature.__ptr_ + 2) forKey:@"featureId"];
-    styleAttributes = [(VKCustomFeature *)self styleAttributes];
-    [v32 encodeObject:styleAttributes forKey:@"styleAttributes"];
+    v11 = objc_msgSend_styleAttributes(self);
+    [v32 encodeObject:v11 forKey:@"styleAttributes"];
 
     v12 = objc_alloc_init(MEMORY[0x1E695DF70]);
     v13 = self->_feature.__ptr_;
@@ -782,7 +782,7 @@ LABEL_14:
   {
     if (v6)
     {
-      _ZNSt3__115allocate_sharedB8nn200100IN2md25LabelExternalPointFeatureENS_9allocatorIS2_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
+      _ZNSt3__115allocate_sharedB8nn200100IN2md25LabelExternalPointFeatureENS_9allocatorIS2_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_(&v11);
     }
 
     v8 = 0;

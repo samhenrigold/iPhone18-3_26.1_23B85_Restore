@@ -6,12 +6,12 @@
 - (CGFloat)_wk_clampToScrollExtents:()WebKitInternal;
 - (double)_wk_contentHeightIncludingInsets;
 - (double)_wk_contentWidthIncludingInsets;
-- (uint64_t)_wk_isInterruptingDeceleration;
 - (uint64_t)_wk_isScrollAnimating;
 - (uint64_t)_wk_isZoomAnimating;
 - (uint64_t)_wk_setContentOffsetAndShowScrollIndicators:()WebKitInternal animated:;
 - (uint64_t)_wk_setTransfersHorizontalScrollingToParent:()WebKitInternal;
 - (uint64_t)_wk_setTransfersVerticalScrollingToParent:()WebKitInternal;
+- (void)_wk_isInterruptingDeceleration;
 - (void)_wk_stopScrollingAndZooming;
 @end
 
@@ -71,7 +71,7 @@ LABEL_3:
   return [self isScrollAnimating];
 }
 
-- (uint64_t)_wk_isInterruptingDeceleration
+- (void)_wk_isInterruptingDeceleration
 {
   result = [self isDecelerating];
   if (result)
@@ -365,7 +365,7 @@ LABEL_3:
     }
   }
 
-  [self setContentOffset:? animated:?];
+  [self setContentOffset:a5 animated:?];
   [self contentOffset];
   *v20 = v8;
   *&v20[8] = v9;

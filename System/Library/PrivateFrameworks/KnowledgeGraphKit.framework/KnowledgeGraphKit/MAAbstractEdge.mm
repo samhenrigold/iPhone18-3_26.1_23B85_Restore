@@ -1,4 +1,5 @@
 @interface MAAbstractEdge
+- (MAAbstractEdge)initWithLabel:(id)label domain:(unsigned __int16)domain weight:(float)weight properties:(id)properties;
 - (MAAbstractEdge)initWithLabel:(id)label sourceNode:(id)node targetNode:(id)targetNode domain:(unsigned __int16)domain weight:(float)weight minimum:(unint64_t)minimum maximum:(unint64_t)maximum directed:(BOOL)self0;
 - (id)oppositeNode:(id)node;
 - (id)sourceNode;
@@ -28,6 +29,14 @@
   WeakRetained = objc_loadWeakRetained(&self->_sourceAbstractNode);
 
   return WeakRetained;
+}
+
+- (MAAbstractEdge)initWithLabel:(id)label domain:(unsigned __int16)domain weight:(float)weight properties:(id)properties
+{
+  v8.receiver = self;
+  v8.super_class = MAAbstractEdge;
+  LODWORD(v6) = 1.0;
+  return [(MAConcreteEdge *)&v8 initWithLabel:label sourceNode:0 targetNode:0 domain:domain weight:properties properties:v6];
 }
 
 - (MAAbstractEdge)initWithLabel:(id)label sourceNode:(id)node targetNode:(id)targetNode domain:(unsigned __int16)domain weight:(float)weight minimum:(unint64_t)minimum maximum:(unint64_t)maximum directed:(BOOL)self0

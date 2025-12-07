@@ -58,16 +58,15 @@ void __52__PUPhotosSharingViewControllerSpec_optionBadgeSize__block_invoke()
   v3[2](v3, 18874432);
 }
 
-uint64_t __52__PUPhotosSharingViewControllerSpec_optionBadgeSize__block_invoke_2(uint64_t a1)
+void __52__PUPhotosSharingViewControllerSpec_optionBadgeSize__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
+  v3 = *(a1 + 32);
   PXAssetBadgeInfoCreateWithBadges();
-  [v2 setBadgeInfo:&v6];
+  [v3 setBadgeInfo:&v6];
   [*(a1 + 32) sizeThatFits:{*MEMORY[0x1E695F060], *(MEMORY[0x1E695F060] + 8)}];
-  result = PXSizeMax();
+  PXSizeMax();
   *&optionBadgeSize__s_maxSize = v4;
   *(&optionBadgeSize__s_maxSize + 1) = v5;
-  return result;
 }
 
 - (UIOffset)selectionBadgeOffset

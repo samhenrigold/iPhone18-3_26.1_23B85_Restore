@@ -6,7 +6,7 @@
 
 - (NSString)redactedDescription
 {
-  v4 = objc_msgSend__cfTypeID(self, a2, v2);
+  _cfTypeID = [(__MRCCFType *)self _cfTypeID];
   os_unfair_lock_lock_with_options();
   if (qword_280CB3498[0] != -1)
   {
@@ -18,34 +18,34 @@
     goto LABEL_20;
   }
 
-  v5 = vcnt_s8(*(&xmmword_280CB34A8 + 8));
-  v5.i16[0] = vaddlv_u8(v5);
-  if (v5.u32[0] > 1uLL)
+  v4 = vcnt_s8(*(&xmmword_280CB34A8 + 8));
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v6 = v4;
-    if (v4 >= *(&xmmword_280CB34A8 + 1))
+    v5 = _cfTypeID;
+    if (_cfTypeID >= *(&xmmword_280CB34A8 + 1))
     {
-      v6 = v4 % *(&xmmword_280CB34A8 + 1);
+      v5 = _cfTypeID % *(&xmmword_280CB34A8 + 1);
     }
   }
 
   else
   {
-    v6 = (*(&xmmword_280CB34A8 + 1) - 1) & v4;
+    v5 = (*(&xmmword_280CB34A8 + 1) - 1) & _cfTypeID;
   }
 
-  v7 = *(xmmword_280CB34A8 + 8 * v6);
-  if (v7)
+  v6 = *(xmmword_280CB34A8 + 8 * v5);
+  if (v6)
   {
-    v8 = *v7;
-    if (*v7)
+    v7 = *v6;
+    if (*v6)
     {
       do
       {
-        v9 = v8[1];
-        if (v9 == v4)
+        v8 = v7[1];
+        if (v8 == _cfTypeID)
         {
-          if (v8[2] == v4)
+          if (v7[2] == _cfTypeID)
           {
             break;
           }
@@ -53,59 +53,59 @@
 
         else
         {
-          if (v5.u32[0] > 1uLL)
+          if (v4.u32[0] > 1uLL)
           {
-            if (v9 >= *(&xmmword_280CB34A8 + 1))
+            if (v8 >= *(&xmmword_280CB34A8 + 1))
             {
-              v9 %= *(&xmmword_280CB34A8 + 1);
+              v8 %= *(&xmmword_280CB34A8 + 1);
             }
           }
 
           else
           {
-            v9 &= *(&xmmword_280CB34A8 + 1) - 1;
+            v8 &= *(&xmmword_280CB34A8 + 1) - 1;
           }
 
-          if (v9 != v6)
+          if (v8 != v5)
           {
             goto LABEL_20;
           }
         }
 
-        v8 = *v8;
+        v7 = *v7;
       }
 
-      while (v8);
+      while (v7);
     }
   }
 
   else
   {
 LABEL_20:
-    v8 = 0;
+    v7 = 0;
   }
 
-  if (v8)
+  if (v7)
   {
     os_unfair_lock_unlock(&unk_280CB3250);
-    v14[1] = self;
-    v10 = v8[6];
-    if (!v10)
+    v12[1] = self;
+    v9 = v7[6];
+    if (!v9)
     {
       sub_261477FC4();
     }
 
-    (*(*v10 + 48))(v14);
-    v11 = atomic_exchange(v14, 0);
-    sub_26148E848(v14);
-    return v11;
+    (*(*v9 + 48))(v12);
+    v10 = atomic_exchange(v12, 0);
+    sub_26148E848(v12);
+    return v10;
   }
 
   else
   {
     os_unfair_lock_unlock(&unk_280CB3250);
 
-    return MEMORY[0x2821F9670](self, sel_description, v13);
+    return MEMORY[0x2821F9670](self, sel_description);
   }
 }
 

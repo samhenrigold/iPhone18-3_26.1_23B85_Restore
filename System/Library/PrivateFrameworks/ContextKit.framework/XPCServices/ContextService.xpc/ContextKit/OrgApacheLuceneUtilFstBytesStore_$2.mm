@@ -1,6 +1,7 @@
 @interface OrgApacheLuceneUtilFstBytesStore_$2
 - (char)readByte;
 - (void)dealloc;
+- (void)readBytesWithByteArray:(id)array withInt:(int)int withInt:(int)withInt;
 - (void)setPositionWithLong:(int64_t)long;
 - (void)skipBytesWithLong:(int64_t)long;
 @end
@@ -46,6 +47,36 @@ LABEL_8:
   v4 = [(OrgApacheLuceneUtilFstBytesStore_$2 *)self getPosition]- long;
 
   [(OrgApacheLuceneUtilFstBytesStore_$2 *)self setPositionWithLong:v4];
+}
+
+- (void)readBytesWithByteArray:(id)array withInt:(int)int withInt:(int)withInt
+{
+  if (withInt >= 1)
+  {
+    v5 = *&int;
+    withIntCopy = withInt;
+    do
+    {
+      readByte = [(OrgApacheLuceneUtilFstBytesStore_$2 *)self readByte];
+      if (!array)
+      {
+        JreThrowNullPointerException();
+      }
+
+      v10 = readByte;
+      v11 = *(array + 2);
+      if ((v5 & 0x80000000) != 0 || v5 >= v11)
+      {
+        IOSArray_throwOutOfBoundsWithMsg(v11, v5);
+      }
+
+      *(array + v5 + 12) = v10;
+      v5 = (v5 + 1);
+      --withIntCopy;
+    }
+
+    while (withIntCopy);
+  }
 }
 
 - (void)setPositionWithLong:(int64_t)long

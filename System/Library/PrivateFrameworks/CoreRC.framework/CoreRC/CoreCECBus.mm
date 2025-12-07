@@ -31,40 +31,39 @@
 
 - (NSDictionary)analyticsContext
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   devices = [(CoreRCBus *)self devices];
-  v5 = [(NSSet *)devices countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [(NSSet *)devices countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(devices);
         }
 
-        -[NSDictionary setObject:forKeyedSubscript:](dictionary, "setObject:forKeyedSubscript:", [*(*(&v11 + 1) + 8 * v8) analyticsDescription], objc_msgSend(*(*(&v11 + 1) + 8 * v8), "analyticsKey"));
+        -[NSDictionary setObject:forKeyedSubscript:](dictionary, "setObject:forKeyedSubscript:", [*(*(&v10 + 1) + 8 * v8) analyticsDescription], objc_msgSend(*(*(&v10 + 1) + 8 * v8), "analyticsKey"));
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [(NSSet *)devices countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [(NSSet *)devices countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return dictionary;
 }
 
@@ -195,10 +194,10 @@
 
 - (id)description
 {
-  v11[1] = *MEMORY[0x277D85DE8];
-  v9.receiver = self;
-  v9.super_class = CoreCECBus;
-  v3 = [objc_alloc(MEMORY[0x277CCAB68]) initWithString:{-[CoreRCBus description](&v9, sel_description)}];
+  v10[1] = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = CoreCECBus;
+  v3 = [objc_alloc(MEMORY[0x277CCAB68]) initWithString:{-[CoreRCBus description](&v8, sel_description)}];
   hasLink = [(CoreCECBus *)self hasLink];
   v5 = "N";
   if (hasLink)
@@ -207,8 +206,8 @@
   }
 
   [v3 appendFormat:@" Link: %s;", v5];
-  v11[0] = CECPhysicalAddressStringWithAddress([(CoreCECBus *)self physicalAddress]);
-  [v3 appendFormat:@" PA: %s;", v11];
+  v10[0] = CECPhysicalAddressStringWithAddress([(CoreCECBus *)self physicalAddress]);
+  [v3 appendFormat:@" PA: %s;", v10];
   [v3 appendFormat:@" Name: %@;", -[CoreCECBus osdName](self, "osdName")];
   [v3 appendFormat:@" System Audio Mode: %@;", CoreCECSystemAudioModeStatusString(-[CoreCECBus systemAudioModeStatus](self, "systemAudioModeStatus"))];
   [v3 appendFormat:@" TV-Language: %@;", -[CoreCECBus tvLanguageCode](self, "tvLanguageCode")];
@@ -219,8 +218,8 @@
 
   else
   {
-    v10 = CECPhysicalAddressStringWithAddress([(CoreCECBus *)self streamPath]);
-    v6 = &v10;
+    v9 = CECPhysicalAddressStringWithAddress([(CoreCECBus *)self streamPath]);
+    v6 = &v9;
   }
 
   [v3 appendFormat:@" Route: %s;", v6];
@@ -234,9 +233,7 @@
     [v3 appendFormat:@" EDID: %@", -[CoreCECBus edidAttributes](self, "edidAttributes")];
   }
 
-  result = v3;
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return v3;
 }
 
 - (void)dealloc
@@ -274,14 +271,12 @@
 
 - (NSString)osdName
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   osdNameASCII = [(CoreCECBus *)self osdNameASCII];
-  v8 = v2;
-  v10 = v3;
-  v9 = v4;
-  result = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:&osdNameASCII + 1 length:osdNameASCII encoding:1];
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  v7 = v2;
+  v9 = v3;
+  v8 = v4;
+  return [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:&osdNameASCII + 1 length:osdNameASCII encoding:1];
 }
 
 - (NSString)tvLanguageCode
@@ -301,41 +296,41 @@
 
 - (void)removeDeviceWithType:(unint64_t)type
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (gLogCategory_CoreRCBus <= 40 && (gLogCategory_CoreRCBus != -1 || _LogCategory_Initialize()))
   {
-    [CoreCECBus removeDeviceWithType:];
+    [CoreCECBus removeDeviceWithType:type];
   }
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   devices = [(CoreRCBus *)self devices];
-  v6 = [(NSSet *)devices countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [(NSSet *)devices countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       v9 = 0;
       do
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(devices);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * v9);
+        v10 = *(*(&v13 + 1) + 8 * v9);
         if ([v10 deviceType] == type)
         {
-          v13.receiver = self;
-          v13.super_class = CoreCECBus;
-          [(CoreRCBus *)&v13 removeDevice:v10];
+          v12.receiver = self;
+          v12.super_class = CoreCECBus;
+          [(CoreRCBus *)&v12 removeDevice:v10];
           if (gLogCategory_CoreRCBus <= 40 && (gLogCategory_CoreRCBus != -1 || _LogCategory_Initialize()))
           {
-            [CoreCECBus removeDeviceWithType:];
+            [CoreCECBus removeDeviceWithType:v10];
           }
         }
 
@@ -343,14 +338,12 @@
       }
 
       while (v7 != v9);
-      v11 = [(NSSet *)devices countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v11 = [(NSSet *)devices countByEnumeratingWithState:&v13 objects:v17 count:16];
       v7 = v11;
     }
 
     while (v11);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (CoreCECPhysicalDevice)rootPhysicalDevice
@@ -369,50 +362,46 @@
 
 - (BOOL)setOSDName:(id)name error:(id *)error
 {
-  v14 = *MEMORY[0x277D85DE8];
-  *&v13[7] = 0;
-  *&v13[1] = 0;
+  v13 = *MEMORY[0x277D85DE8];
+  *&v12[7] = 0;
+  *&v12[1] = 0;
   if (gLogCategory_CoreRCBus <= 10 && (gLogCategory_CoreRCBus != -1 || _LogCategory_Initialize()))
   {
-    [CoreCECBus setOSDName:error:];
+    [CoreCECBus setOSDName:name error:?];
   }
 
   v7 = [name dataUsingEncoding:1 allowLossyConversion:0];
   if (!v7)
   {
-    v11 = -6705;
+    v10 = -6705;
 LABEL_15:
-    [(CoreCECBus *)error setOSDName:v11 error:&v12];
-    result = v12;
-    goto LABEL_10;
+    [(CoreCECBus *)error setOSDName:v10 error:&v11];
+    return v11;
   }
 
   v8 = v7;
   if ([v7 length] > 0xE)
   {
-    v11 = -6743;
+    v10 = -6743;
     goto LABEL_15;
   }
 
-  v13[0] = [v8 length];
-  [v8 getBytes:&v13[1] length:14];
-  [(CoreCECBus *)self setOsdNameASCII:*v13, *&v13[8] | ((*&v13[12] | (v13[14] << 16)) << 32)];
+  v12[0] = [v8 length];
+  [v8 getBytes:&v12[1] length:14];
+  [(CoreCECBus *)self setOsdNameASCII:*v12, *&v12[8] | ((*&v12[12] | (v12[14] << 16)) << 32)];
   if (gLogCategory_CoreRCBus <= 10 && (gLogCategory_CoreRCBus != -1 || _LogCategory_Initialize()))
   {
     [CoreCECBus setOSDName:? error:?];
   }
 
-  result = 1;
-LABEL_10:
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 - (BOOL)setTvLanguageCode:(id)code error:(id *)error
 {
   if (gLogCategory_CoreRCBus <= 10 && (gLogCategory_CoreRCBus != -1 || _LogCategory_Initialize()))
   {
-    [CoreCECBus setTvLanguageCode:error:];
+    [CoreCECBus setTvLanguageCode:code error:?];
   }
 
   v7 = [objc_msgSend(code "lowercaseString")];
@@ -446,53 +435,46 @@ LABEL_15:
 - (id)deviceOnBusWithLogicalAddress:(unsigned __int8)address
 {
   addressCopy = address;
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   devices = [(CoreRCBus *)self devices];
-  v5 = [(NSSet *)devices countByEnumeratingWithState:&v12 objects:v16 count:16];
-  if (v5)
+  v5 = [(NSSet *)devices countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (!v5)
   {
-    v6 = v5;
-    v7 = *v13;
+    return 0;
+  }
+
+  v6 = v5;
+  v7 = *v12;
 LABEL_3:
-    v8 = 0;
-    while (1)
+  v8 = 0;
+  while (1)
+  {
+    if (*v12 != v7)
     {
-      if (*v13 != v7)
+      objc_enumerationMutation(devices);
+    }
+
+    v9 = *(*(&v11 + 1) + 8 * v8);
+    if ([v9 logicalAddress] == addressCopy && (!objc_msgSend(v9, "isLocalDevice") || !objc_msgSend(v9, "isUnregistered")))
+    {
+      return v9;
+    }
+
+    if (v6 == ++v8)
+    {
+      v6 = [(NSSet *)devices countByEnumeratingWithState:&v11 objects:v15 count:16];
+      if (v6)
       {
-        objc_enumerationMutation(devices);
+        goto LABEL_3;
       }
 
-      v9 = *(*(&v12 + 1) + 8 * v8);
-      if ([v9 logicalAddress] == addressCopy && (!objc_msgSend(v9, "isLocalDevice") || !objc_msgSend(v9, "isUnregistered")))
-      {
-        break;
-      }
-
-      if (v6 == ++v8)
-      {
-        v6 = [(NSSet *)devices countByEnumeratingWithState:&v12 objects:v16 count:16];
-        if (v6)
-        {
-          goto LABEL_3;
-        }
-
-        goto LABEL_11;
-      }
+      return 0;
     }
   }
-
-  else
-  {
-LABEL_11:
-    v9 = 0;
-  }
-
-  v10 = *MEMORY[0x277D85DE8];
-  return v9;
 }
 
 - (void)didChangeActiveSourceFrom:(id)from to:(id)to
@@ -500,8 +482,8 @@ LABEL_11:
   delegate = [(CoreCECBus *)self delegate];
   if (gLogCategory_CoreRCBus <= 10 && (gLogCategory_CoreRCBus != -1 || _LogCategory_Initialize()))
   {
-    objc_opt_class();
-    LogPrintF();
+    v8 = objc_opt_class();
+    LogPrintF(&gLogCategory_CoreRCBus, "[CoreCECBus didChangeActiveSourceFrom:to:]", 10, "NOTIFY %@ %@ ACTIVE SOURCE CHANGE FROM %@ to %@\n", v8, self, from, to);
   }
 
   if (objc_opt_respondsToSelector())
@@ -515,7 +497,7 @@ LABEL_11:
 {
   if (gLogCategory_CoreRCBus <= 40 && (gLogCategory_CoreRCBus != -1 || _LogCategory_Initialize()))
   {
-    [CoreCECBus didChangeLinkState:physicalAddress:];
+    [CoreCECBus didChangeLinkState:state physicalAddress:?];
   }
 
   [(CoreCECBus *)self didUpdateProperties:&unk_28593C108];
@@ -526,7 +508,7 @@ LABEL_11:
   delegate = [(CoreCECBus *)self delegate];
   if (gLogCategory_CoreRCBus <= 10 && (gLogCategory_CoreRCBus != -1 || _LogCategory_Initialize()))
   {
-    [CoreCECBus didReceiveRXMessage:];
+    [(CoreCECBus *)self didReceiveRXMessage:v5];
   }
 
   if (objc_opt_respondsToSelector())
@@ -541,7 +523,7 @@ LABEL_11:
   delegate = [(CoreCECBus *)self delegate];
   if (gLogCategory_CoreRCBus <= 10 && (gLogCategory_CoreRCBus != -1 || _LogCategory_Initialize()))
   {
-    [CoreCECBus didSendTXMessage:error:];
+    [CoreCECBus didSendTXMessage:v7 error:?];
   }
 
   if (objc_opt_respondsToSelector())
@@ -582,7 +564,7 @@ LABEL_11:
   delegate = [(CoreCECBus *)self delegate];
   if (gLogCategory_CoreRCBus <= 10 && (gLogCategory_CoreRCBus != -1 || _LogCategory_Initialize()))
   {
-    [CoreCECBus notifyDelegateLinkStateUpdated];
+    [(CoreCECBus *)self notifyDelegateLinkStateUpdated];
   }
 
   if (objc_opt_respondsToSelector())
@@ -608,7 +590,7 @@ LABEL_11:
   return result;
 }
 
-- (uint64_t)setOSDName:(_BYTE *)a3 error:.cold.3(uint64_t *a1, uint64_t a2, _BYTE *a3)
+- (void)setOSDName:(_BYTE *)a3 error:.cold.3(void *a1, uint64_t a2, _BYTE *a3)
 {
   result = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:a2 userInfo:0];
   if (a1)
@@ -618,6 +600,17 @@ LABEL_11:
 
   *a3 = 0;
   return result;
+}
+
+- (uint64_t)didChangeLinkState:(char)a1 physicalAddress:.cold.1(char a1)
+{
+  v1 = "N";
+  if (a1)
+  {
+    v1 = "Y";
+  }
+
+  return LogPrintF(&gLogCategory_CoreRCBus, "[CoreCECBus didChangeLinkState:physicalAddress:]", 40, "Link now %s\n", v1);
 }
 
 @end

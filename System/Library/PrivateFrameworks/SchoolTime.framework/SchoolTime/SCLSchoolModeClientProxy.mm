@@ -11,11 +11,13 @@
 - (void)applySchedule:(id)schedule completion:(id)completion;
 - (void)connectWithPairingID:(id)d identifier:(id)identifier completion:(id)completion;
 - (void)deleteHistoryWithCompletion:(id)completion;
+- (void)didUpdateScheduleSettings:(id)settings notify:(BOOL)notify;
 - (void)didUpdateState:(id)state fromState:(id)fromState;
 - (void)dumpState;
 - (void)fetchRecentUnlockHistoryItemsWithCompletion:(id)completion;
 - (void)noteSignificantUserInteraction;
 - (void)sendServerSettings:(id)settings;
+- (void)setActive:(BOOL)active options:(unint64_t)options completion:(id)completion;
 - (void)triggerRemoteSync;
 - (void)unlockHistoryDidChange;
 @end
@@ -80,20 +82,20 @@ void __47__SCLSchoolModeClientProxy_initWithConnection___block_invoke(uint64_t a
 
 - (void)connectWithPairingID:(id)d identifier:(id)identifier completion:(id)completion
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   identifierCopy = identifier;
   dCopy = d;
-  v11 = scl_framework_log();
+  v11 = scl_framework_log(dCopy);
   v12 = os_signpost_id_make_with_pointer(v11, self);
 
-  v13 = scl_framework_log();
-  v14 = v13;
-  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  v14 = scl_framework_log(v13);
+  v15 = v14;
+  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
   {
-    v20 = 134217984;
+    v21 = 134217984;
     selfCopy2 = self;
-    _os_signpost_emit_with_name_impl(&dword_264829000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v12, "Connect Client", "Client: %p", &v20, 0xCu);
+    _os_signpost_emit_with_name_impl(&dword_264829000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v12, "Connect Client", "Client: %p", &v21, 0xCu);
   }
 
   [(SCLSchoolModeClientProxy *)self setPairingID:dCopy];
@@ -105,16 +107,14 @@ void __47__SCLSchoolModeClientProxy_initWithConnection___block_invoke(uint64_t a
   serverSettings = [(SCLSchoolModeClientProxy *)self serverSettings];
   completionCopy[2](completionCopy, serverSettings, 0);
 
-  v17 = scl_framework_log();
-  v18 = v17;
-  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
+  v19 = scl_framework_log(v18);
+  v20 = v19;
+  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
   {
-    v20 = 134217984;
+    v21 = 134217984;
     selfCopy2 = self;
-    _os_signpost_emit_with_name_impl(&dword_264829000, v18, OS_SIGNPOST_INTERVAL_END, v12, "Connect Client", "Client: %p", &v20, 0xCu);
+    _os_signpost_emit_with_name_impl(&dword_264829000, v20, OS_SIGNPOST_INTERVAL_END, v12, "Connect Client", "Client: %p", &v21, 0xCu);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)applySchedule:(id)schedule completion:(id)completion
@@ -151,6 +151,30 @@ void __47__SCLSchoolModeClientProxy_initWithConnection___block_invoke(uint64_t a
   else
   {
     completionCopy[2](completionCopy, 0, v9);
+  }
+}
+
+- (void)setActive:(BOOL)active options:(unint64_t)options completion:(id)completion
+{
+  activeCopy = active;
+  completionCopy = completion;
+  v15 = 0;
+  v9 = [(SCLSchoolModeClientProxy *)self validatePairing:&v15];
+  v10 = v15;
+  if (v9)
+  {
+    coordinator = [(SCLSchoolModeClientProxy *)self coordinator];
+    v14 = v10;
+    v12 = [coordinator setActive:activeCopy options:options error:&v14];
+    v13 = v14;
+
+    completionCopy[2](completionCopy, v12, v13);
+    v10 = v13;
+  }
+
+  else
+  {
+    completionCopy[2](completionCopy, 0, v10);
   }
 }
 
@@ -264,7 +288,7 @@ void __47__SCLSchoolModeClientProxy_initWithConnection___block_invoke(uint64_t a
 
 - (void)dumpState
 {
-  v2 = scl_framework_log();
+  v2 = scl_framework_log(self);
   if (os_log_type_enabled(v2, 0x90u))
   {
     [(SCLSchoolModeClientProxy *)v2 dumpState];
@@ -352,6 +376,12 @@ void __47__SCLSchoolModeClientProxy_initWithConnection___block_invoke(uint64_t a
   remoteObjectProxy = [connection remoteObjectProxy];
 
   return remoteObjectProxy;
+}
+
+- (void)didUpdateScheduleSettings:(id)settings notify:(BOOL)notify
+{
+  v5 = [(SCLSchoolModeClientProxy *)self serverSettings:settings];
+  [(SCLSchoolModeClientProxy *)self sendServerSettings:v5];
 }
 
 - (void)didUpdateState:(id)state fromState:(id)fromState

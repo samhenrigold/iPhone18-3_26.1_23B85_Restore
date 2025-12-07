@@ -78,26 +78,24 @@
 
 - (id)unableToDecodeInputError
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696ABC0];
   v3 = *MEMORY[0x1E696A250];
-  v10[0] = *MEMORY[0x1E696A588];
+  v9[0] = *MEMORY[0x1E696A588];
   v4 = WFLocalizedString(@"Unable to run");
-  v11[0] = v4;
-  v10[1] = *MEMORY[0x1E696A578];
+  v10[0] = v4;
+  v9[1] = *MEMORY[0x1E696A578];
   v5 = WFLocalizedString(@"The input of the shortcut could not be processed.");
-  v11[1] = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v10[1] = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
   v7 = [v2 errorWithDomain:v3 code:0x7FFFFFFFFFFFFFFFLL userInfo:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 - (void)getInputWithCompletionHandler:(id)handler
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   cachedInput = [(WFWorkflowRunRequest *)self cachedInput];
 
@@ -113,30 +111,30 @@
 
     if (archivedInput)
     {
-      v9 = NSClassFromString(@"WFContentCollection");
-      if (v9)
+      v8 = NSClassFromString(@"WFContentCollection");
+      if (v8)
       {
-        v10 = v9;
-        v11 = MEMORY[0x1E696ACD0];
+        v9 = v8;
+        v10 = MEMORY[0x1E696ACD0];
         archivedInput2 = [(WFWorkflowRunRequest *)self archivedInput];
-        v13 = [MEMORY[0x1E695DFD8] setWithObject:v10];
-        v17[0] = MEMORY[0x1E69E9820];
-        v17[1] = 3221225472;
-        v17[2] = __54__WFWorkflowRunRequest_getInputWithCompletionHandler___block_invoke;
-        v17[3] = &unk_1E7B01240;
-        v17[4] = self;
-        v18 = handlerCopy;
-        v14 = [v11 wf_securelyUnarchiveObjectWithData:archivedInput2 allowedClasses:v13 completionHandler:v17];
+        v12 = [MEMORY[0x1E695DFD8] setWithObject:v9];
+        v16[0] = MEMORY[0x1E69E9820];
+        v16[1] = 3221225472;
+        v16[2] = __54__WFWorkflowRunRequest_getInputWithCompletionHandler___block_invoke;
+        v16[3] = &unk_1E7B01240;
+        v16[4] = self;
+        v17 = handlerCopy;
+        v13 = [v10 wf_securelyUnarchiveObjectWithData:archivedInput2 allowedClasses:v12 completionHandler:v16];
       }
 
       else
       {
-        v15 = getWFVoiceShortcutClientLogObject();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+        v14 = getWFVoiceShortcutClientLogObject();
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
         {
           *buf = 136315138;
-          v20 = "[WFWorkflowRunRequest getInputWithCompletionHandler:]";
-          _os_log_impl(&dword_1B1DE3000, v15, OS_LOG_TYPE_FAULT, "%s Unable to get input from WFWorkflowRunRequest, since ContentKit isn't linked.", buf, 0xCu);
+          v19 = "[WFWorkflowRunRequest getInputWithCompletionHandler:]";
+          _os_log_impl(&dword_1B1DE3000, v14, OS_LOG_TYPE_FAULT, "%s Unable to get input from WFWorkflowRunRequest, since ContentKit isn't linked.", buf, 0xCu);
         }
 
         unableToDecodeInputError = [(WFWorkflowRunRequest *)self unableToDecodeInputError];
@@ -149,8 +147,6 @@
       handlerCopy[2](handlerCopy, 0, 0);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __54__WFWorkflowRunRequest_getInputWithCompletionHandler___block_invoke(uint64_t a1, void *a2)

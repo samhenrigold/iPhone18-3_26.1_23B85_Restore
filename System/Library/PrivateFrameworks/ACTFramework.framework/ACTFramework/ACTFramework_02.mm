@@ -1,4 +1,4 @@
-uint64_t projectionRowsFromIntegralImage(int a1, uint64_t a2, signed int a3, int a4, signed int a5, signed int a6, void *a7)
+uint64_t projectionRowsFromIntegralImage(int a1, uint64_t a2, signed int a3, int a4, unsigned int a5, signed int a6, void *a7)
 {
   if (a3 < 0)
   {
@@ -13,7 +13,7 @@ uint64_t projectionRowsFromIntegralImage(int a1, uint64_t a2, signed int a3, int
     goto LABEL_15;
   }
 
-  if (a5 < 0)
+  if ((a5 & 0x80000000) != 0)
   {
     v8 = 440;
     goto LABEL_15;
@@ -63,7 +63,7 @@ LABEL_15:
   do
   {
     v27 = a5 - v21;
-    if (a5 - v21 >= 240)
+    if ((a5 - v21) >= 240)
     {
       v27 = 240;
     }
@@ -232,43 +232,44 @@ uint64_t signatureLineRegressionQuality()
   return v4;
 }
 
-void *RobustPano_createProcessor(uint64_t a1)
+id RobustPano_createProcessor(uint64_t a1)
 {
   v2 = [PanoramaProcessor alloc];
   v3 = *(a1 + 48);
-  v13[2] = *(a1 + 32);
-  v13[3] = v3;
-  v14 = *(a1 + 64);
+  v7[2] = *(a1 + 32);
+  v7[3] = v3;
+  v8 = *(a1 + 64);
   v4 = *(a1 + 16);
-  v13[0] = *a1;
-  v13[1] = v4;
-  v7 = objc_msgSend_init_(v2, v5, v13, v6);
-  objc_msgSend_setDoParallaxCorrection_(v7, v8, 1, v9);
-  objc_msgSend_prepareToProcess_(v7, v10, 0, v11);
+  v7[0] = *a1;
+  v7[1] = v4;
+  v5 = [(PanoramaProcessor *)v2 init:v7];
+  [v5 setDoParallaxCorrection:1];
+  [v5 prepareToProcess:0];
   fig_note_initialize_category_with_default_work();
-  return v7;
-}
-
-uint64_t RobustPano_invalidate(void *a1, const char *a2, uint64_t a3, uint64_t a4)
-{
-  dword_2810D7488 = 0;
-  v5 = objc_msgSend_resetState(a1, a2, a3, a4);
-
   return v5;
 }
 
-uint64_t RobustPano_setDirection(void *a1, const char *a2, uint64_t a3, uint64_t a4)
+uint64_t RobustPano_invalidate(void *a1)
+{
+  dword_2810D7488 = 0;
+  v2 = [a1 resetState];
+
+  return v2;
+}
+
+uint64_t RobustPano_setDirection(void *a1, int a2)
 {
   if (a2 == 2)
   {
-    objc_msgSend_setDirection_(a1, a2, 2, a4);
+    v2 = 2;
   }
 
   else
   {
-    objc_msgSend_setDirection_(a1, a2, 1, a4);
+    v2 = 1;
   }
 
+  [a1 setDirection:v2];
   return 0;
 }
 
@@ -279,8 +280,8 @@ uint64_t RobustPano_copyProperty(void *a1, CFTypeRef cf1, uint64_t a3, uint64_t 
     return 4294954512;
   }
 
-  objc_msgSend_finishProcessing(a1, v6, v7, v8);
-  *a4 = objc_msgSend_encodedFinalAsset(a1, v9, v10, v11);
+  [a1 finishProcessing];
+  *a4 = [a1 encodedFinalAsset];
   RobustPano_stopCapture(a1);
   return 0;
 }
@@ -288,15 +289,11 @@ uint64_t RobustPano_copyProperty(void *a1, CFTypeRef cf1, uint64_t a3, uint64_t 
 uint64_t RobustPano_stopCapture(void *a1)
 {
   v2 = ACT_getHostTime() - *&qword_27E1F6598;
-  v6 = objc_msgSend_nbFramesReceived(a1, v3, v4, v5);
-  v10 = objc_msgSend_nbFramesSkipped(a1, v7, v8, v9);
-  v14 = v2 / (v6 - (v10 + objc_msgSend_nbFramesDropped(a1, v11, v12, v13)));
+  v3 = [a1 nbFramesReceived];
+  v4 = [a1 nbFramesSkipped];
+  v5 = v2 / (v3 - (v4 + [a1 nbFramesDropped]));
   HostTime = ACT_getHostTime();
-  v16 = dword_2810D7488;
-  v20 = objc_msgSend_nbFramesReceived(a1, v17, v18, v19);
-  v24 = objc_msgSend_nbFramesSkipped(a1, v21, v22, v23);
-  v28 = objc_msgSend_nbFramesDropped(a1, v25, v26, v27);
-  panoLog(32, "Capture stopped at %.2f\nCapture stats: %d frames received by RobustPano, %zu frames received by PanoIBP, %zu frames skipped, %zu frames dropped, total time spent %.4f sec, processing time per frames %.3f ms\n", HostTime, v16, v20, v24, v28, v2, v14 * 1000.0);
+  panoLog(32, "Capture stopped at %.2f\nCapture stats: %d frames received by RobustPano, %zu frames received by PanoIBP, %zu frames skipped, %zu frames dropped, total time spent %.4f sec, processing time per frames %.3f ms\n", HostTime, dword_2810D7488, [a1 nbFramesReceived], objc_msgSend(a1, "nbFramesSkipped"), objc_msgSend(a1, "nbFramesDropped"), v2, v5 * 1000.0);
 
   return panoCloseLogFile();
 }
@@ -311,6 +308,7 @@ uint64_t RobustPano_startCapture(uint64_t a1, uint64_t a2, const char *a3)
 
 uint64_t TUGetTiming(int *a1, uint64_t a2)
 {
+  v8 = *MEMORY[0x277D85DE8];
   if (*a1 < 16)
   {
     mach_absolute_time();
@@ -3149,7 +3147,7 @@ uint64_t Stitcher_SceneCut_maxMinOverlapWidth(uint64_t a1)
   }
 }
 
-uint64_t Stitcher_SceneCut_pasteImageToReference(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, float a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, float *a11, unint64_t a12, vImagePixelCount a13, int a14, int a15)
+uint64_t Stitcher_SceneCut_pasteImageToReference(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, float a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, float *a11, unint64_t a12, vDSP_Length a13, int a14, int a15)
 {
   v21 = result;
   v56 = *MEMORY[0x277D85DE8];
@@ -5823,7 +5821,7 @@ uint64_t Stitcher_SceneCut_maxMinOverlapWidth_v2(uint64_t a1)
   }
 }
 
-uint64_t Stitcher_SceneCut_pasteImageToReference_v2(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, float a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, float *a11, unint64_t a12, vImagePixelCount a13, int a14)
+uint64_t Stitcher_SceneCut_pasteImageToReference_v2(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, float a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, float *a11, unint64_t a12, vDSP_Length a13, int a14)
 {
   v20 = result;
   v56 = *MEMORY[0x277D85DE8];
@@ -5954,7 +5952,7 @@ uint64_t *Stitcher_storeIOSurfaceIDs_v2(uint64_t *result, int a2, int a3)
   return result;
 }
 
-uint64_t sub_23C471834(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, __int128 a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26)
+uint64_t sub_23C471834(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, __int128 a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26)
 {
   a24 = v27;
   a25 = a1;
@@ -5962,20 +5960,20 @@ uint64_t sub_23C471834(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, ui
   a15 = *(v29 - 112);
   a16 = *(v29 - 96);
 
-  return objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v26, a2, &a24, &a15);
+  return [v26 dispatchThreads:&a24 threadsPerThreadgroup:{&a15, a5, a6, a7, a8}];
 }
 
-uint64_t sub_23C4718A8(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4)
+uint64_t sub_23C4718A8(uint64_t a1)
 {
 
-  return objc_msgSend_setComputePipelineState_(v4, a2, a1, a4);
+  return [v1 setComputePipelineState:a1];
 }
 
 uint64_t sub_23C4740B8(_DWORD *a1)
 {
   fig_log_get_emitter();
   sub_23C460E38();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
@@ -5984,7 +5982,7 @@ uint64_t sub_23C474114(_DWORD *a1)
 {
   fig_log_get_emitter();
   sub_23C460E38();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
@@ -5993,7 +5991,7 @@ uint64_t sub_23C474170(_DWORD *a1)
 {
   fig_log_get_emitter();
   sub_23C460E38();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
@@ -6002,7 +6000,7 @@ BOOL sub_23C4741CC()
 {
   fig_log_get_emitter();
   sub_23C460E38();
-  return FigSignalErrorAtGM() == 0;
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v1, v2, vars0) == 0;
 }
 
 uint64_t sub_23C47422C()
@@ -6010,7 +6008,7 @@ uint64_t sub_23C47422C()
   fig_log_get_emitter();
   sub_23C460E38();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d");
 }
 
 uint64_t sub_23C47428C()
@@ -6018,7 +6016,7 @@ uint64_t sub_23C47428C()
   fig_log_get_emitter();
   sub_23C460E38();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d");
 }
 
 uint64_t sub_23C4742EC()
@@ -6026,7 +6024,7 @@ uint64_t sub_23C4742EC()
   fig_log_get_emitter();
   sub_23C460E38();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d");
 }
 
 uint64_t sub_23C47434C()
@@ -6034,7 +6032,7 @@ uint64_t sub_23C47434C()
   fig_log_get_emitter();
   sub_23C460E38();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d");
 }
 
 uint64_t sub_23C4743AC()
@@ -6042,10 +6040,10 @@ uint64_t sub_23C4743AC()
   fig_log_get_emitter();
   sub_23C460E38();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d");
 }
 
-void sub_23C474410(uint64_t *a1, void *a2, int a3, uint64_t *a4)
+void sub_23C474410(uint64_t *a1, void *a2, int a3, void *a4)
 {
   v6 = *a1;
   v7 = a2;
@@ -6061,75 +6059,69 @@ void sub_23C474410(uint64_t *a1, void *a2, int a3, uint64_t *a4)
 
   NSClassFromString(&v8->isa);
   v9 = objc_opt_new();
-  v12 = v9;
+  v10 = v9;
   if (v9)
   {
-    objc_msgSend_setPixelBuffer_(v9, v10, *a4, v11);
-    v13 = objc_opt_new();
-    objc_msgSend_setMetadata_(v12, v14, v13, v15);
+    [v9 setPixelBuffer:*a4];
+    v11 = objc_opt_new();
+    [v10 setMetadata:v11];
 
-    objc_msgSend_setOutput_(v7, v16, v12, v17);
-    if (!objc_msgSend_addFrame_(v7, v18, v6, v19) && !objc_msgSend_process(v7, v10, v20, v11) && !objc_msgSend_finishProcessing(v7, v10, v21, v11))
+    [v7 setOutput:v10];
+    if (![v7 addFrame:v6] && !objc_msgSend(v7, "process") && !objc_msgSend(v7, "finishProcessing"))
     {
-      objc_msgSend_resetState(v7, v10, v22, v11);
+      [v7 resetState];
     }
   }
 
-  objc_msgSend_setOutput_(v7, v10, 0, v11);
+  [v7 setOutput:0];
 }
 
-uint64_t sub_23C475548(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4)
+uint64_t sub_23C475548(uint64_t a1)
 {
-  v5 = *(a1 + 32);
-  if (*(v5 + 264) == 1 && *(v5 + 272))
+  v2 = *(a1 + 32);
+  if (*(v2 + 264) == 1 && *(v2 + 272))
   {
-    Slice = objc_msgSend__addLastSlice(v5, a2, a3, a4);
-    result = sub_23C463F80(Slice);
-    if (v8)
+    result = sub_23C463F80([v2 _addLastSlice]);
+    if (v4)
     {
       return result;
     }
 
-    v5 = *(a1 + 32);
+    v2 = *(a1 + 32);
   }
 
-  v9 = objc_msgSend_finishProcessing(*(v5 + 24), a2, a3, a4);
-  result = sub_23C463F80(v9);
-  if (!v10)
+  result = sub_23C463F80([*(v2 + 24) finishProcessing]);
+  if (!v5)
   {
-    v11 = sub_23C464074();
-    v15 = objc_msgSend_finishProcessing(v11, v12, v13, v14);
-    result = sub_23C463F80(v15);
-    if (!v19)
+    v6 = [sub_23C464074() finishProcessing];
+    result = sub_23C463F80(v6);
+    if (!v7)
     {
-      v20 = *(a1 + 32);
-      if (*(v20 + 237))
+      v8 = *(a1 + 32);
+      if (*(v8 + 237))
       {
-        v21 = *(v20 + 200);
-        v22 = *(v20 + 192) * 1.1 + -1.0;
-        *(v20 + 144) = 0;
-        *(v20 + 152) = 0;
-        *(v20 + 160) = v21;
-        *(v20 + 168) = v22;
+        v9 = *(v8 + 200);
+        v10 = *(v8 + 192) * 1.1 + -1.0;
+        *(v8 + 144) = 0;
+        *(v8 + 152) = 0;
+        *(v8 + 160) = v9;
+        *(v8 + 168) = v10;
       }
 
       else
       {
-        v23 = *(v20 + 56);
-        v24 = objc_msgSend_outputMask(*(v20 + 40), v16, v17, v18);
-        v25 = sub_23C464074();
-        objc_msgSend_boundingBox(v25, v26, v27, v28);
-        v31 = objc_msgSend_cropAPI_initialRect_(v23, v29, v24, v30);
-        sub_23C463F9C(v31);
+        v11 = *(v8 + 56);
+        v12 = [*(v8 + 40) outputMask];
+        [sub_23C464074() boundingBox];
+        sub_23C463F9C([v11 cropAPI:v12 initialRect:?]);
 
-        v32 = *(a1 + 32);
-        objc_msgSend_getCropRect(*(v32 + 56), v33, v34, v35);
-        *(v32 + 144) = v36;
-        *(v32 + 152) = v37;
-        *(v32 + 160) = v38;
-        *(v32 + 168) = v39;
-        v43 = objc_msgSend_finishProcessing(*(*(a1 + 32) + 56), v40, v41, v42);
-        return sub_23C463F9C(v43);
+        v13 = *(a1 + 32);
+        [*(v13 + 56) getCropRect];
+        *(v13 + 144) = v14;
+        *(v13 + 152) = v15;
+        *(v13 + 160) = v16;
+        *(v13 + 168) = v17;
+        return sub_23C463F9C([*(*(a1 + 32) + 56) finishProcessing]);
       }
     }
   }
@@ -6141,8 +6133,8 @@ void sub_23C475640(uint64_t a1)
 {
   if (*(a1 + 48))
   {
-    v50 = *(*(a1 + 40) + 8);
-    v60 = 1;
+    v23 = *(*(a1 + 40) + 8);
+    v25 = 1;
     goto LABEL_15;
   }
 
@@ -6155,58 +6147,53 @@ void sub_23C475640(uint64_t a1)
     v6 = v4[25];
     v7 = v4[22];
     v8 = v4[23];
-    v63 = v6;
-    v64 = v5;
-    setDownscaledResolution(&v64, &v63, 7uLL, 0x46uLL, 0x23uLL);
-    v61 = v8;
-    v62 = v7;
-    setDownscaledResolution(&v62, &v61, 3uLL, 0x3E8uLL, 0xBDuLL);
+    v28 = v6;
+    v29 = v5;
+    setDownscaledResolution(&v29, &v28, 7uLL, 0x46uLL, 0x23uLL);
+    v26 = v8;
+    v27 = v7;
+    setDownscaledResolution(&v27, &v26, 3uLL, 0x3E8uLL, 0xBDuLL);
     v9 = *(a1 + 32);
     v10 = *(v9 + 16);
-    v14 = objc_msgSend_device(*(v9 + 8), v11, v12, v13);
-    v18 = objc_msgSend_library(*(*(a1 + 32) + 8), v15, v16, v17);
-    v22 = objc_msgSend_commandQueue(*(*(a1 + 32) + 8), v19, v20, v21);
-    v24 = objc_msgSend_prepareToProcessWithDevice_library_commandQueue_width_height_(v10, v23, v14, v18, v22, v62, v61);
-    sub_23C463F9C(v24);
+    v11 = [*(v9 + 8) device];
+    v12 = [*(*(a1 + 32) + 8) library];
+    v13 = [*(*(a1 + 32) + 8) commandQueue];
+    sub_23C463F9C([v10 prepareToProcessWithDevice:v11 library:v12 commandQueue:v13 width:v27 height:v26]);
 
     sub_23C463FAC();
-    if (!v25)
+    if (!v14)
     {
       sub_23C464080();
-      objc_msgSend_prepareToProcess_sliceWidth_sliceHeight_(v26, v27, v28, v29);
+      [v15 prepareToProcess:? sliceWidth:? sliceHeight:?];
       sub_23C463FAC();
-      if (!v30)
+      if (!v16)
       {
         sub_23C464080();
-        objc_msgSend_prepareToProcess_sliceWidth_sliceHeight_(v31, v32, v33, v34);
+        [v17 prepareToProcess:? sliceWidth:? sliceHeight:?];
         sub_23C463FAC();
-        if (!v35)
+        if (!v18)
         {
           sub_23C464080();
-          v40 = objc_msgSend_prepareToProcess_sliceWidth_sliceHeight_(v36, v37, v38, v39);
-          sub_23C463F80(v40);
-          if (!v42)
+          sub_23C463F80([v19 prepareToProcess:? sliceWidth:? sliceHeight:?]);
+          if (!v20)
           {
-            v43 = objc_msgSend_prepareToProcessSliceWidth_sliceHeight_(*(*(a1 + 32) + 24), v41, v7, v8);
-            sub_23C463F80(v43);
-            if (!v47)
+            sub_23C463F80([*(*(a1 + 32) + 24) prepareToProcessSliceWidth:v7 sliceHeight:v8]);
+            if (!v21)
             {
-              v48 = *(*(a1 + 32) + 384);
-              if (v48 || (DummyOutputWidth_height = objc_msgSend__createDummyOutputWidth_height_(*(a1 + 32), v44, v5, v6), sub_23C463F9C(DummyOutputWidth_height), v50 = *(*(a1 + 40) + 8), !*(v50 + 24)) && (v48 = *(*(a1 + 32) + 384)) != 0)
+              v22 = *(*(a1 + 32) + 384);
+              if (v22 || (sub_23C463F9C([*(a1 + 32) _createDummyOutputWidth:v5 height:v6]), v23 = *(*(a1 + 40) + 8), !*(v23 + 24)) && (v22 = *(*(a1 + 32) + 384)) != 0)
               {
-                objc_msgSend_pixelBuffer(v48, v44, v45, v46);
-                v51 = sub_23C464074();
-                objc_msgSend_setOutput_(v51, v52, v53, v54);
+                [v22 pixelBuffer];
+                [sub_23C464074() setOutput:?];
                 sub_23C464074();
                 sub_23C464080();
-                v59 = objc_msgSend_prepareToProcess_sliceWidth_sliceHeight_gridWidth_gridHeight_(v55, v56, v57, v58);
-                sub_23C463F9C(v59);
+                sub_23C463F9C([v24 prepareToProcess:? sliceWidth:? sliceHeight:? gridWidth:? gridHeight:?]);
                 return;
               }
 
-              v60 = 2;
+              v25 = 2;
 LABEL_15:
-              *(v50 + 24) = v60;
+              *(v23 + 24) = v25;
             }
           }
         }
@@ -6215,44 +6202,38 @@ LABEL_15:
   }
 }
 
-void sub_23C47585C(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4)
+void sub_23C47585C(uint64_t a1)
 {
-  v32[1] = *MEMORY[0x277D85DE8];
-  v5 = *(a1 + 32);
-  v6 = *(v5 + 80);
-  if (!v6)
+  v11[1] = *MEMORY[0x277D85DE8];
+  v2 = *(a1 + 32);
+  v3 = *(v2 + 80);
+  if (!v3)
   {
-    v7 = objc_msgSend_pixelBuffer(*(v5 + 384), a2, a3, a4);
-    Height = CVPixelBufferGetHeight(v7);
-    v12 = objc_msgSend_pixelBuffer(*(*(a1 + 32) + 384), v9, v10, v11);
-    Width = CVPixelBufferGetWidth(v12);
-    v31 = *MEMORY[0x277CC4DE8];
-    v32[0] = MEMORY[0x277CBEC10];
-    v15 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v14, v32, &v31, 1);
-    if (CVPixelBufferCreate(0, Height, Width, 0x34323066u, v15, (*(a1 + 32) + 80)))
+    Height = CVPixelBufferGetHeight([*(v2 + 384) pixelBuffer]);
+    Width = CVPixelBufferGetWidth([*(*(a1 + 32) + 384) pixelBuffer]);
+    v10 = *MEMORY[0x277CC4DE8];
+    v11[0] = MEMORY[0x277CBEC10];
+    if (CVPixelBufferCreate(0, Height, Width, 0x34323066u, [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1], (*(a1 + 32) + 80)))
     {
       return;
     }
 
-    v6 = *(*(a1 + 32) + 80);
+    v3 = *(*(a1 + 32) + 80);
   }
 
-  v16 = *MEMORY[0x277CC4B78];
-  CVBufferRemoveAttachment(v6, *MEMORY[0x277CC4B78]);
-  v17 = *(a1 + 32);
-  v18 = *(v17 + 256);
-  v22 = objc_msgSend_pixelBuffer(*(v17 + 384), v19, v20, v21);
-  if (!VTPixelRotationSessionRotateImage(v18, v22, *(*(a1 + 32) + 80)))
+  v6 = *MEMORY[0x277CC4B78];
+  CVBufferRemoveAttachment(v3, *MEMORY[0x277CC4B78]);
+  if (!VTPixelRotationSessionRotateImage(*(*(a1 + 32) + 256), [*(*(a1 + 32) + 384) pixelBuffer], *(*(a1 + 32) + 80)))
   {
-    if (!objc_msgSend_isEqualToString_(*(*(a1 + 32) + 296), v23, *MEMORY[0x277CF3D08], v24) || (VTSessionSetProperty(*(*(a1 + 32) + 256), *MEMORY[0x277CE2838], 1), !VTPixelRotationSessionRotateImage(*(*(a1 + 32) + 256), *(*(a1 + 32) + 80), *(*(a1 + 32) + 80))))
+    if (![*(*(a1 + 32) + 296) isEqualToString:*MEMORY[0x277CF3D08]] || (VTSessionSetProperty(*(*(a1 + 32) + 256), *MEMORY[0x277CE2838], 1), !VTPixelRotationSessionRotateImage(*(*(a1 + 32) + 256), *(*(a1 + 32) + 80), *(*(a1 + 32) + 80))))
     {
       HostTime = ACT_getHostTime();
       panoLog(32, "time %.3f: encodedResult\n", HostTime);
-      v26 = CGColorSpaceCreateWithName(*MEMORY[0x277CBF3E0]);
-      CVBufferSetAttachment(*(*(a1 + 32) + 80), v16, v26, kCVAttachmentMode_ShouldPropagate);
-      objc_msgSend_setObject_forKeyedSubscript_(*(*(*(a1 + 40) + 8) + 40), v27, *(*(a1 + 32) + 80), @"Assembly");
-      v29 = objc_msgSend_dataWithBytes_length_(MEMORY[0x277CBEA90], v28, *(a1 + 32) + 144, 32);
-      objc_msgSend_setObject_forKeyedSubscript_(*(*(*(a1 + 40) + 8) + 40), v30, v29, @"CropRect");
+      v8 = CGColorSpaceCreateWithName(*MEMORY[0x277CBF3E0]);
+      CVBufferSetAttachment(*(*(a1 + 32) + 80), v6, v8, kCVAttachmentMode_ShouldPropagate);
+      [*(*(*(a1 + 40) + 8) + 40) setObject:*(*(a1 + 32) + 80) forKeyedSubscript:@"Assembly"];
+      v9 = [MEMORY[0x277CBEA90] dataWithBytes:*(a1 + 32) + 144 length:32];
+      [*(*(*(a1 + 40) + 8) + 40) setObject:v9 forKeyedSubscript:@"CropRect"];
     }
   }
 }
@@ -6388,7 +6369,7 @@ uint64_t scaleCropAndRotatePixelBuffer(int a1, __CVBuffer *a2, uint64_t a3)
 
 uint64_t RobustPano_processSampleBuffer(void *a1, opaqueCMSampleBuffer *a2, _DWORD *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   FigSampleBufferRetain();
   ++dword_2810D7488;
   if (CMSampleBufferGetImageBuffer(a2))
@@ -6401,8 +6382,8 @@ uint64_t RobustPano_processSampleBuffer(void *a1, opaqueCMSampleBuffer *a2, _DWO
 
   else
   {
-    v7 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+    v6 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
 
     ACT_getHostTime();
@@ -6411,53 +6392,51 @@ uint64_t RobustPano_processSampleBuffer(void *a1, opaqueCMSampleBuffer *a2, _DWO
     panoLog(4, "time %.3f: NULL frame received ID:%d PTS:%.3f\n");
   }
 
-  v11 = objc_msgSend_addFrame_registrationCallback_(a1, v6, a2, 0);
-  if (!v11)
+  v7 = [a1 addFrame:a2 registrationCallback:0];
+  if (!v7)
   {
-    objc_msgSend_getCurrentPanningSpeed(a1, v8, v9, v10);
-    *a3 = v12;
+    [a1 getCurrentPanningSpeed];
+    *a3 = v8;
   }
 
-  return v11;
+  return v7;
 }
 
-id loadPanoIBPFromBundle(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4)
+id loadPanoIBPFromBundle()
 {
-  v4 = MEMORY[0x277CCA8D8];
-  v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "/System/Library/VideoProcessors/Panorama.bundle", a4);
-  v8 = objc_msgSend_bundleWithPath_(v4, v6, v5, v7);
+  v0 = MEMORY[0x277CCA8D8];
+  v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/System/Library/VideoProcessors/Panorama.bundle"];
+  v2 = [v0 bundleWithPath:v1];
 
-  if (v8)
+  if (v2)
   {
-    v25 = 0;
-    objc_msgSend_loadAndReturnError_(v8, v9, &v25, v10);
-    v11 = v25;
-    if (v11)
+    v9 = 0;
+    [v2 loadAndReturnError:&v9];
+    v3 = v9;
+    if (v3)
     {
-      v16 = v11;
-      v18 = *MEMORY[0x277D85DF8];
-      v19 = objc_msgSend_description(v11, v12, v13, v14);
-      v20 = v19;
-      v24 = objc_msgSend_UTF8String(v20, v21, v22, v23);
-      fprintf(v18, "%s\n", v24);
+      v5 = v3;
+      v7 = *MEMORY[0x277D85DF8];
+      v8 = [v3 description];
+      fprintf(v7, "%s\n", [v8 UTF8String]);
 
       goto LABEL_10;
     }
 
-    if (objc_msgSend_classNamed_(v8, v12, @"PanoramaProcessor", v14))
+    if ([v2 classNamed:@"PanoramaProcessor"])
     {
-      v15 = objc_opt_new();
-      v16 = 0;
+      v4 = objc_opt_new();
+      v5 = 0;
       goto LABEL_5;
     }
   }
 
-  v16 = 0;
+  v5 = 0;
 LABEL_10:
-  v15 = 0;
+  v4 = 0;
 LABEL_5:
 
-  return v15;
+  return v4;
 }
 
 Boolean CFCalendarDecomposeAbsoluteTime(CFCalendarRef calendar, CFAbsoluteTime at, const char *componentDesc, ...)

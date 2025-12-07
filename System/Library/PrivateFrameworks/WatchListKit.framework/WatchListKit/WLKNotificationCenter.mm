@@ -23,9 +23,11 @@
 
 uint64_t __38__WLKNotificationCenter_defaultCenter__block_invoke()
 {
-  defaultCenter__singleton = objc_alloc_init(WLKNotificationCenter);
+  v0 = objc_alloc_init(WLKNotificationCenter);
+  v1 = defaultCenter__singleton;
+  defaultCenter__singleton = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (WLKNotificationCenter)init

@@ -66,53 +66,60 @@
     sfService = self->_sfService;
     self->_sfService = 0;
 
-    if (dword_1002F6AD8 <= 30 && (dword_1002F6AD8 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F6AD8 <= 30)
     {
-      sub_1001EF254();
+      if (dword_1002F6AD8 != -1 || (v6 = _LogCategory_Initialize(), v6))
+      {
+        sub_1001EF254(v6, v7, v8);
+      }
     }
   }
 }
 
 - (void)_sfServiceStart
 {
-  if (dword_1002F6AD8 <= 30 && (dword_1002F6AD8 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1002F6AD8 <= 30)
   {
-    sub_1001EF270();
+    if (dword_1002F6AD8 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_1001EF270(self, a2, v2);
+    }
   }
 
-  [(SFService *)self->_sfService invalidate];
-  v3 = objc_alloc_init(SFService);
-  sfService = self->_sfService;
-  self->_sfService = v3;
-  v5 = v3;
+  [(SFService *)selfCopy->_sfService invalidate];
+  v4 = objc_alloc_init(SFService);
+  sfService = selfCopy->_sfService;
+  selfCopy->_sfService = v4;
+  v6 = v4;
 
-  [(SFService *)v5 setDispatchQueue:self->_dispatchQueue];
-  [(SFService *)v5 setFixedPIN:@"public"];
-  [(SFService *)v5 setIdentifier:@"com.apple.sharing.ShareAudio"];
-  [(SFService *)v5 setLabel:@"ShareAudio"];
-  [(SFService *)v5 setSessionFlags:2305];
-  [(SFService *)v5 setServiceType:21];
+  [(SFService *)v6 setDispatchQueue:selfCopy->_dispatchQueue];
+  [(SFService *)v6 setFixedPIN:@"public"];
+  [(SFService *)v6 setIdentifier:@"com.apple.sharing.ShareAudio"];
+  [(SFService *)v6 setLabel:@"ShareAudio"];
+  [(SFService *)v6 setSessionFlags:2305];
+  [(SFService *)v6 setServiceType:21];
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_10007D848;
+  v9[3] = &unk_1002B9550;
+  v9[4] = v6;
+  v9[5] = selfCopy;
+  [(SFService *)v6 setSessionStartedHandler:v9];
   v8[0] = _NSConcreteStackBlock;
   v8[1] = 3221225472;
-  v8[2] = sub_10007D848;
-  v8[3] = &unk_1002B9550;
-  v8[4] = v5;
-  v8[5] = self;
-  [(SFService *)v5 setSessionStartedHandler:v8];
+  v8[2] = sub_10007D864;
+  v8[3] = &unk_1002B9578;
+  v8[4] = v6;
+  v8[5] = selfCopy;
+  [(SFService *)v6 setSessionEndedHandler:v8];
   v7[0] = _NSConcreteStackBlock;
   v7[1] = 3221225472;
-  v7[2] = sub_10007D864;
-  v7[3] = &unk_1002B9578;
-  v7[4] = v5;
-  v7[5] = self;
-  [(SFService *)v5 setSessionEndedHandler:v7];
-  v6[0] = _NSConcreteStackBlock;
-  v6[1] = 3221225472;
-  v6[2] = sub_10007D884;
-  v6[3] = &unk_1002B68A8;
-  v6[4] = v5;
-  v6[5] = self;
-  [(SFService *)v5 activateWithCompletion:v6];
+  v7[2] = sub_10007D884;
+  v7[3] = &unk_1002B68A8;
+  v7[4] = v6;
+  v7[5] = selfCopy;
+  [(SFService *)v6 activateWithCompletion:v7];
 }
 
 - (void)_handleSessionStarted:(id)started
@@ -165,11 +172,10 @@
     {
       if (dword_1002F6AD8 <= 30)
       {
-        if (dword_1002F6AD8 != -1 || (v8 = _LogCategory_Initialize(), sfSession = self->_sfSession, v8))
+        if (dword_1002F6AD8 != -1 || (v9 = _LogCategory_Initialize(), sfSession = self->_sfSession, v9))
         {
           peer = [(SFSession *)sfSession peer];
-          v18 = errorCopy;
-          LogPrintF();
+          LogPrintF(&dword_1002F6AD8, "[BTShareAudioService _handleSessionEnded:error:]", 30, "Session end: peer %@, %{error}\n", peer, errorCopy);
 
           sfSession = self->_sfSession;
         }
@@ -185,26 +191,26 @@
     searchTimer = self->_searchTimer;
     if (searchTimer)
     {
-      v11 = searchTimer;
-      dispatch_source_cancel(v11);
-      v12 = self->_searchTimer;
+      v12 = searchTimer;
+      dispatch_source_cancel(v12);
+      v13 = self->_searchTimer;
       self->_searchTimer = 0;
     }
 
-    [(CUBluetoothClient *)self->_searchBTClient invalidate:peer];
+    [(CUBluetoothClient *)self->_searchBTClient invalidate];
     searchBTClient = self->_searchBTClient;
     self->_searchBTClient = 0;
 
-    v14 = objc_retainBlock(self->_responseHandler);
-    if (v14)
+    v15 = objc_retainBlock(self->_responseHandler);
+    if (v15)
     {
-      v15 = NSErrorF();
+      v16 = NSErrorF(NSOSStatusErrorDomain, 4294960544, "Session ended");
       if (dword_1002F6AD8 < 91 && (dword_1002F6AD8 != -1 || _LogCategory_Initialize()))
       {
-        sub_1001EF448();
+        sub_1001EF448(v16);
       }
 
-      (*(v14 + 2))(v14, v15, 0, 0);
+      (*(v15 + 2))(v15, v16, 0, 0);
       responseHandler = self->_responseHandler;
       self->_responseHandler = 0;
     }
@@ -217,7 +223,7 @@
   handlerCopy = handler;
   if (dword_1002F6AD8 <= 30 && (dword_1002F6AD8 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001EF488();
+    sub_1001EF488(requestCopy);
   }
 
   v19 = 0;
@@ -236,7 +242,7 @@
   v9 = objc_retainBlock(v16);
   if (self->_responseHandler)
   {
-    v13 = NSErrorF();
+    v13 = NSErrorF(NSOSStatusErrorDomain, 4294960575, "Requesting");
     v14 = v20[5];
     v20[5] = v13;
   }
@@ -255,7 +261,7 @@
 
     else
     {
-      v15 = NSErrorF();
+      v15 = NSErrorF(NSOSStatusErrorDomain, 0, "No BT addr");
       responseHandler = v20[5];
       v20[5] = v15;
     }
@@ -284,7 +290,7 @@
     {
       if (dword_1002F6AD8 <= 90 && (dword_1002F6AD8 != -1 || _LogCategory_Initialize()))
       {
-        sub_1001EF4C8();
+        sub_1001EF4C8(errorCopy);
       }
 
       (*(v9 + 2))(v9, errorCopy, 0, 0);
@@ -327,7 +333,7 @@
         v18 = SFErrorF();
         if (dword_1002F6AD8 <= 90 && (dword_1002F6AD8 != -1 || _LogCategory_Initialize()))
         {
-          sub_1001EF4C8();
+          sub_1001EF4C8(v18);
         }
 
         (*(v9 + 2))(v9, v18, 0, 0);
@@ -338,35 +344,39 @@
 
 - (void)_handleShareAudioSearchTimeout
 {
-  if (dword_1002F6AD8 <= 90 && (dword_1002F6AD8 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1002F6AD8 <= 90)
   {
-    sub_1001EF58C();
+    if (dword_1002F6AD8 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_1001EF58C(self, a2, v2);
+    }
   }
 
-  searchTimer = self->_searchTimer;
+  searchTimer = selfCopy->_searchTimer;
   if (searchTimer)
   {
-    v4 = searchTimer;
-    dispatch_source_cancel(v4);
-    v5 = self->_searchTimer;
-    self->_searchTimer = 0;
+    v5 = searchTimer;
+    dispatch_source_cancel(v5);
+    v6 = selfCopy->_searchTimer;
+    selfCopy->_searchTimer = 0;
   }
 
-  [(CUBluetoothClient *)self->_searchBTClient invalidate];
-  searchBTClient = self->_searchBTClient;
-  self->_searchBTClient = 0;
+  [(CUBluetoothClient *)selfCopy->_searchBTClient invalidate];
+  searchBTClient = selfCopy->_searchBTClient;
+  selfCopy->_searchBTClient = 0;
 
-  v7 = objc_retainBlock(self->_responseHandler);
-  if (v7)
+  v8 = objc_retainBlock(selfCopy->_responseHandler);
+  if (v8)
   {
-    responseHandler = self->_responseHandler;
-    self->_responseHandler = 0;
-    v10 = v7;
+    responseHandler = selfCopy->_responseHandler;
+    selfCopy->_responseHandler = 0;
+    v11 = v8;
 
-    v9 = NSErrorF();
-    (*(v10 + 2))(v10, v9, 0, 0);
+    v10 = NSErrorF(NSOSStatusErrorDomain, 4294960569, "No connected device found");
+    (*(v11 + 2))(v11, v10, 0, 0);
 
-    v7 = v10;
+    v8 = v11;
   }
 }
 

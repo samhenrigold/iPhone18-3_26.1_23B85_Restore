@@ -16,6 +16,7 @@
 - (void)handleDeath;
 - (void)restrictionWithIdentifier:(id)identifier didChangeState:(int64_t)state;
 - (void)resume;
+- (void)settingsDidChangeWithServerMode:(unsigned int)mode allowsMotion:(BOOL)motion allowsKeyboardTextInput:(BOOL)input;
 - (void)suspend;
 - (void)terminate;
 @end
@@ -176,6 +177,25 @@
     pid_resume();
     self->_isSuspended = 0;
   }
+}
+
+- (void)settingsDidChangeWithServerMode:(unsigned int)mode allowsMotion:(BOOL)motion allowsKeyboardTextInput:(BOOL)input
+{
+  inputCopy = input;
+  motionCopy = motion;
+  v13[0] = @"GAXIPCPayloadKeyServerMode";
+  v8 = [NSNumber numberWithUnsignedInt:*&mode];
+  v14[0] = v8;
+  v13[1] = @"GAXIPCPayloadKeyAllowsMotion";
+  v9 = [NSNumber numberWithBool:motionCopy];
+  v14[1] = v9;
+  v13[2] = @"GAXIPCPayloadKeyAllowsKeyboardTextInput";
+  v10 = [NSNumber numberWithBool:inputCopy];
+  v14[2] = v10;
+  v11 = [NSDictionary dictionaryWithObjects:v14 forKeys:v13 count:3];
+
+  v12 = [[AXIPCMessage alloc] initWithKey:11003 payload:v11];
+  [(_GAXAppRepresentation *)self _sendMessageToClient:v12 replyMessage:0 timeout:@"notify client app of server settings change" description:0.0];
 }
 
 - (id)containedViewsForArchivedFingerPath:(id)path

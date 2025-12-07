@@ -624,9 +624,9 @@
     goto LABEL_8;
   }
 
-  v8 = [(_UIStatusBarStyleAttributes *)v9 isEqual:v7];
+  isEqual = objc_msgSend_isEqual_(v9);
 
-  if (!v8)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     objc_storeStrong(&self->_overriddenStyleAttributes, attributes);
@@ -641,7 +641,7 @@ LABEL_9:
   v45 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   displayItems = self->_displayItems;
-  if (displayItems != itemsCopy && ([(NSOrderedSet *)displayItems isEqual:itemsCopy]& 1) == 0)
+  if (displayItems != itemsCopy && (objc_msgSend_isEqual_(displayItems) & 1) == 0)
   {
     self->_needsReLayout = 0;
     goto LABEL_16;

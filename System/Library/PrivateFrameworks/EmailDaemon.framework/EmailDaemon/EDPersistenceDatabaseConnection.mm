@@ -103,7 +103,7 @@
 
 - (void)detachProtectedDatabase
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (self)
   {
     v2 = self[2];
@@ -125,18 +125,15 @@
     v5 = +[EDPersistenceDatabaseConnection log];
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138543362;
+      v6 = 138543362;
       selfCopy = self;
-      _os_log_impl(&dword_1C61EF000, v5, OS_LOG_TYPE_DEFAULT, "Detached Protected Index on connection %{public}@", &v8, 0xCu);
+      _os_log_impl(&dword_1C61EF000, v5, OS_LOG_TYPE_DEFAULT, "Detached Protected Index on connection %{public}@", &v6, 0xCu);
     }
-
-    v6 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
     [self close];
-    v7 = *MEMORY[0x1E69E9840];
 
     [self open];
   }
@@ -820,15 +817,15 @@ void __65__EDPersistenceDatabaseConnection_databaseIDsForSelectStatement___block
 - (BOOL)performWithOptions:(unint64_t)options transactionError:(id *)error block:(id)block
 {
   optionsCopy = options;
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   v10 = objc_autoreleasePoolPush();
   sqlConnection = [(EDPersistenceDatabaseConnection *)self sqlConnection];
   if (optionsCopy)
   {
-    v30 = 0;
-    v12 = [(EDPersistenceDatabaseConnection *)self _startTransactionWithSQLConnection:sqlConnection options:optionsCopy error:&v30];
-    v13 = v30;
+    v29 = 0;
+    v12 = [(EDPersistenceDatabaseConnection *)self _startTransactionWithSQLConnection:sqlConnection options:optionsCopy error:&v29];
+    v13 = v29;
     if (v13)
     {
       v14 = v13;
@@ -911,9 +908,9 @@ LABEL_20:
     v19 = 0;
   }
 
-  v29 = 0;
-  v20 = [(EDPersistenceDatabaseConnection *)self _finishTransactionWithSQLConnection:sqlConnection afterSuccess:v19 transactionError:&v29];
-  v14 = v29;
+  v28 = 0;
+  v20 = [(EDPersistenceDatabaseConnection *)self _finishTransactionWithSQLConnection:sqlConnection afterSuccess:v19 transactionError:&v28];
+  v14 = v28;
 LABEL_25:
 
   objc_autoreleasePoolPop(v10);
@@ -923,7 +920,6 @@ LABEL_25:
     *error = v14;
   }
 
-  v27 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
@@ -1026,7 +1022,7 @@ LABEL_27:
 
 - (uint64_t)_finishTransactionWithSQLConnection:(int)connection afterSuccess:(void *)success transactionError:
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v7 = a2;
   if (!self)
   {
@@ -1051,9 +1047,9 @@ LABEL_6:
   {
     if (([self hadIOError] & 1) == 0)
     {
-      v25 = 0;
-      v15 = &v25;
-      v16 = [v7 commitTransactionWithError:&v25];
+      v24 = 0;
+      v15 = &v24;
+      v16 = [v7 commitTransactionWithError:&v24];
       v17 = @"commit";
       goto LABEL_15;
     }
@@ -1081,12 +1077,12 @@ LABEL_7:
       v14 = &stru_1F45B4608;
     }
 
-    [(EDPersistenceDatabaseConnection *)v14 _finishTransactionWithSQLConnection:v32 afterSuccess:self transactionError:v13];
+    [(EDPersistenceDatabaseConnection *)v14 _finishTransactionWithSQLConnection:v31 afterSuccess:self transactionError:v13];
   }
 
-  v24 = 0;
-  v15 = &v24;
-  [v7 rollbackTransactionWithError:&v24];
+  v23 = 0;
+  v15 = &v23;
+  [v7 rollbackTransactionWithError:&v23];
   v16 = 0;
   v17 = @"rollback";
 LABEL_15:
@@ -1099,10 +1095,10 @@ LABEL_15:
       ef_publicDescription = [v18 ef_publicDescription];
       *buf = 138543874;
       selfCopy = self;
-      v28 = 2114;
-      v29 = v17;
-      v30 = 2114;
-      v31 = ef_publicDescription;
+      v27 = 2114;
+      v28 = v17;
+      v29 = 2114;
+      v30 = ef_publicDescription;
       _os_log_error_impl(&dword_1C61EF000, v19, OS_LOG_TYPE_ERROR, "Transaction on connection %{public}@ %{public}@ failed: %{public}@", buf, 0x20u);
     }
 
@@ -1134,7 +1130,6 @@ LABEL_22:
   [threadDictionary setObject:0 forKeyedSubscript:@"_EDPersistenceDatabaseConnectionTransactionGeneration"];
 
 LABEL_25:
-  v22 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
@@ -1183,7 +1178,7 @@ LABEL_25:
 
 - (void)_storeTransactionWriteGenerationWithSQLConnection:(uint64_t)connection newGeneration:
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   if (self)
   {
@@ -1198,9 +1193,9 @@ LABEL_25:
       v10 = [MEMORY[0x1E696AD98] numberWithLongLong:connection];
       [v9 setObject:v10 forKeyedSubscript:@":value"];
 
-      v16 = 0;
-      v11 = [v8 executeWithNamedBindings:v9 usingBlock:0 error:&v16];
-      v12 = v16;
+      v15 = 0;
+      v11 = [v8 executeWithNamedBindings:v9 usingBlock:0 error:&v15];
+      v12 = v15;
       if ((v11 & 1) == 0)
       {
         v13 = +[EDPersistenceDatabaseConnection log];
@@ -1214,8 +1209,6 @@ LABEL_25:
       }
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __85__EDPersistenceDatabaseConnection__fetchTransactionWriteGenerationWithSQLConnection___block_invoke(uint64_t a1, void *a2)
@@ -1317,13 +1310,13 @@ void __54__EDPersistenceDatabaseConnection_databaseIsAttached___block_invoke(uin
 
 - (BOOL)tableExists:(id)exists inDatabase:(id)database
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   existsCopy = exists;
   databaseCopy = database;
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x2020000000;
-  v21 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2020000000;
+  v20 = 0;
   if (databaseCopy)
   {
     databaseCopy = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SELECT 1 FROM %@.sqlite_master WHERE name = ? AND type = 'table'", databaseCopy];
@@ -1335,26 +1328,25 @@ void __54__EDPersistenceDatabaseConnection_databaseIsAttached___block_invoke(uin
   }
 
   v9 = [(EDPersistenceDatabaseConnection *)self preparedStatementForQueryString:databaseCopy];
-  v22[0] = existsCopy;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
-  v16 = 0;
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __58__EDPersistenceDatabaseConnection_tableExists_inDatabase___block_invoke;
-  v17[3] = &unk_1E8250418;
-  v17[4] = &v18;
-  v11 = [v9 executeWithIndexedBindings:v10 usingBlock:v17 error:&v16];
-  v12 = v16;
+  v21[0] = existsCopy;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
+  v15 = 0;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __58__EDPersistenceDatabaseConnection_tableExists_inDatabase___block_invoke;
+  v16[3] = &unk_1E8250418;
+  v16[4] = &v17;
+  v11 = [v9 executeWithIndexedBindings:v10 usingBlock:v16 error:&v15];
+  v12 = v15;
 
   if ((v11 & 1) == 0)
   {
     [(EDPersistenceDatabaseConnection *)self handleError:v12 message:@"Checking for existence of table"];
   }
 
-  v13 = *(v19 + 24);
+  v13 = *(v18 + 24);
 
-  _Block_object_dispose(&v18, 8);
-  v14 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v17, 8);
   return v13 & 1;
 }
 
@@ -1557,7 +1549,7 @@ void __70__EDPersistenceDatabaseConnection_columnExists_inTable_database_type___
 
 - (BOOL)attachJournalDatabase:(id)database withName:(id)name error:(id *)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   databaseCopy = database;
   nameCopy = name;
   if ([(EDPersistenceDatabaseConnection *)self journalDatabaseAttached])
@@ -1581,17 +1573,16 @@ void __70__EDPersistenceDatabaseConnection_columnExists_inTable_database_type___
 
       [(EDPersistenceDatabaseConnection *)self setJournal:databaseCopy];
       [databaseCopy checkOut];
-      v17 = +[EDPersistenceDatabaseConnection log];
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v16 = +[EDPersistenceDatabaseConnection log];
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = 138543362;
+        v17 = 138543362;
         selfCopy = self;
-        _os_log_impl(&dword_1C61EF000, v17, OS_LOG_TYPE_DEFAULT, "Attached journal on connection %{public}@", &v18, 0xCu);
+        _os_log_impl(&dword_1C61EF000, v16, OS_LOG_TYPE_DEFAULT, "Attached journal on connection %{public}@", &v17, 0xCu);
       }
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -1964,7 +1955,7 @@ void __104__EDPersistenceDatabaseConnection_EDSearchableIndexPersistence__select
 
 - (id)assignIndexedAttachmentItems:(uint64_t)items transaction:
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = v5;
   selfCopy = self;
@@ -1974,33 +1965,33 @@ void __104__EDPersistenceDatabaseConnection_EDSearchableIndexPersistence__select
     {
       if (items)
       {
-        v27 = v6;
-        v29 = objc_alloc_init(MEMORY[0x1E695DF70]);
+        v26 = v6;
+        v28 = objc_alloc_init(MEMORY[0x1E695DF70]);
         items = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"INSERT OR REPLACE INTO searchable_attachments (attachment_id, attachment, message_id, transaction_id) VALUES (?, ?, ?, %lld)", items];
         v7 = [self preparedStatementForQueryString:items];
-        v37 = 0u;
-        v38 = 0u;
-        v35 = 0u;
         v36 = 0u;
+        v37 = 0u;
+        v34 = 0u;
+        v35 = 0u;
         obj = v6;
-        v8 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
+        v8 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
         if (!v8)
         {
           goto LABEL_17;
         }
 
-        v33 = *v36;
-        v31 = *MEMORY[0x1E699B770];
+        v32 = *v35;
+        v30 = *MEMORY[0x1E699B770];
         while (1)
         {
           for (i = 0; i != v8; ++i)
           {
-            if (*v36 != v33)
+            if (*v35 != v32)
             {
               objc_enumerationMutation(obj);
             }
 
-            v10 = *(*(&v35 + 1) + 8 * i);
+            v10 = *(*(&v34 + 1) + 8 * i);
             v11 = MEMORY[0x1E696AD98];
             attachmentID = [v10 attachmentID];
             v13 = [v11 numberWithLongLong:{objc_msgSend(attachmentID, "databaseID")}];
@@ -2009,18 +2000,18 @@ void __104__EDPersistenceDatabaseConnection_EDSearchableIndexPersistence__select
             messageID = [v10 messageID];
             v16 = [v14 numberWithLongLong:{objc_msgSend(messageID, "databaseID")}];
 
-            v39[0] = v13;
-            v39[1] = v13;
-            v39[2] = v16;
-            v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:3];
-            v34 = 0;
-            v18 = [v7 executeWithIndexedBindings:v17 usingBlock:0 error:&v34];
-            v19 = v34;
+            v38[0] = v13;
+            v38[1] = v13;
+            v38[2] = v16;
+            v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:3];
+            v33 = 0;
+            v18 = [v7 executeWithIndexedBindings:v17 usingBlock:0 error:&v33];
+            v19 = v33;
             v20 = v19;
             if ((v18 & 1) == 0)
             {
               domain = [v19 domain];
-              if ([domain isEqualToString:v31])
+              if ([domain isEqualToString:v30])
               {
                 v22 = [v20 code] == 19;
 
@@ -2028,7 +2019,7 @@ void __104__EDPersistenceDatabaseConnection_EDSearchableIndexPersistence__select
                 {
                   attachmentID2 = [v10 attachmentID];
                   v24 = [EDSearchableIndexAttachmentItem identifierForAttachmentPersistentID:attachmentID2];
-                  [v29 addObject:v24];
+                  [v28 addObject:v24];
 
                   goto LABEL_15;
                 }
@@ -2046,12 +2037,12 @@ LABEL_15:
             [v7 resetWithError:0];
           }
 
-          v8 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
+          v8 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
           if (!v8)
           {
 LABEL_17:
 
-            v6 = v27;
+            v6 = v26;
             goto LABEL_20;
           }
         }
@@ -2060,19 +2051,17 @@ LABEL_17:
       [(EDPersistenceDatabaseConnection *)self deleteAttachmentItems:v6];
     }
 
-    v29 = MEMORY[0x1E695E0F0];
+    v28 = MEMORY[0x1E695E0F0];
   }
 
   else
   {
-    v29 = 0;
+    v28 = 0;
   }
 
 LABEL_20:
 
-  v25 = *MEMORY[0x1E69E9840];
-
-  return v29;
+  return v28;
 }
 
 - (void)deleteAttachmentItems:(void *)items
@@ -2287,30 +2276,30 @@ void __87__EDPersistenceDatabaseConnection_EDSearchableIndexPersistence__message
 - (id)messagesWithUnindexedBodiesAfterID:(uint64_t)d limit:
 {
   selfCopy = self;
-  v20[3] = *MEMORY[0x1E69E9840];
+  v19[3] = *MEMORY[0x1E69E9840];
   if (self)
   {
     array = [MEMORY[0x1E695DF70] array];
     v7 = [selfCopy preparedStatementForQueryString:@"   SELECT message_id     FROM searchable_messages    WHERE transaction_id > :transaction      AND message_id > :after_id      AND NOT message_body_indexed ORDER BY message_id ASC    LIMIT :limit"];
-    v20[0] = &unk_1F45E69A0;
-    v19[0] = @":transaction";
-    v19[1] = @":after_id";
+    v19[0] = &unk_1F45E69A0;
+    v18[0] = @":transaction";
+    v18[1] = @":after_id";
     v8 = [MEMORY[0x1E696AD98] numberWithLongLong:a2];
-    v20[1] = v8;
-    v19[2] = @":limit";
+    v19[1] = v8;
+    v18[2] = @":limit";
     v9 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:d];
-    v20[2] = v9;
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:3];
+    v19[2] = v9;
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:3];
 
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __106__EDPersistenceDatabaseConnection_EDSearchableIndexPersistence__messagesWithUnindexedBodiesAfterID_limit___block_invoke;
-    v17[3] = &unk_1E8250300;
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __106__EDPersistenceDatabaseConnection_EDSearchableIndexPersistence__messagesWithUnindexedBodiesAfterID_limit___block_invoke;
+    v16[3] = &unk_1E8250300;
     v11 = array;
-    v18 = v11;
-    v16 = 0;
-    v12 = [v7 executeWithNamedBindings:v10 usingBlock:v17 error:&v16];
-    v13 = v16;
+    v17 = v11;
+    v15 = 0;
+    v12 = [v7 executeWithNamedBindings:v10 usingBlock:v16 error:&v15];
+    v13 = v15;
     if ((v12 & 1) == 0)
     {
       [selfCopy handleError:v13 message:@"Could not load unindexed bodies from searchable_messages table"];
@@ -2318,8 +2307,6 @@ void __87__EDPersistenceDatabaseConnection_EDSearchableIndexPersistence__message
 
     selfCopy = [v11 copy];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return selfCopy;
 }
@@ -2609,36 +2596,36 @@ void __107__EDPersistenceDatabaseConnection_EDSearchableIndexPersistence__select
 
 - (void)addTombstonesForIdentifiers:(uint64_t)identifiers type:
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = v5;
   if (self && [v5 count])
   {
     identifiers = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"INSERT OR REPLACE INTO searchable_message_tombstones (type, identifier) VALUES (%lld, ?)", identifiers];
     v7 = [self preparedStatementForQueryString:identifiers];
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v8 = v6;
-    v9 = [v8 countByEnumeratingWithState:&v18 objects:v23 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v17 objects:v22 count:16];
     if (v9)
     {
-      v10 = *v19;
+      v10 = *v18;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v19 != v10)
+          if (*v18 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          v22 = *(*(&v18 + 1) + 8 * i);
-          v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v22 count:1];
-          v17 = 0;
-          v13 = [v7 executeWithIndexedBindings:v12 usingBlock:0 error:&v17];
-          v14 = v17;
+          v21 = *(*(&v17 + 1) + 8 * i);
+          v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v21 count:1];
+          v16 = 0;
+          v13 = [v7 executeWithIndexedBindings:v12 usingBlock:0 error:&v16];
+          v14 = v16;
 
           if ((v13 & 1) == 0)
           {
@@ -2649,14 +2636,12 @@ void __107__EDPersistenceDatabaseConnection_EDSearchableIndexPersistence__select
           [v7 resetWithError:0];
         }
 
-        v9 = [v8 countByEnumeratingWithState:&v18 objects:v23 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v17 objects:v22 count:16];
       }
 
       while (v9);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)assignTombstonesForIdentifiers:(uint64_t)identifiers type:(uint64_t)type transaction:
@@ -2850,42 +2835,42 @@ void __146__EDPersistenceDatabaseConnection_EDSearchableIndexPersistence__richLi
 
 - (id)assignIndexedRichLinkItems:(uint64_t)items transaction:
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v5 = a2;
   selfCopy = self;
-  v28 = v5;
+  v27 = v5;
   if (self)
   {
     if ([v5 count])
     {
       if (items)
       {
-        v29 = objc_alloc_init(MEMORY[0x1E695DF70]);
+        v28 = objc_alloc_init(MEMORY[0x1E695DF70]);
         items = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"INSERT OR REPLACE INTO searchable_rich_links (rich_link, message_id, transaction_id) VALUES (?, ?, %lld)", items];
         v6 = [self preparedStatementForQueryString:?];
-        v37 = 0u;
-        v38 = 0u;
-        v35 = 0u;
         v36 = 0u;
-        obj = v28;
-        v7 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
+        v37 = 0u;
+        v34 = 0u;
+        v35 = 0u;
+        obj = v27;
+        v7 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
         if (!v7)
         {
           goto LABEL_17;
         }
 
-        v33 = *v36;
-        v31 = *MEMORY[0x1E699B770];
+        v32 = *v35;
+        v30 = *MEMORY[0x1E699B770];
         while (1)
         {
           for (i = 0; i != v7; ++i)
           {
-            if (*v36 != v33)
+            if (*v35 != v32)
             {
               objc_enumerationMutation(obj);
             }
 
-            v9 = *(*(&v35 + 1) + 8 * i);
+            v9 = *(*(&v34 + 1) + 8 * i);
             v10 = MEMORY[0x1E696AD98];
             richLinkID = [v9 richLinkID];
             v12 = [v10 numberWithLongLong:{objc_msgSend(richLinkID, "databaseID")}];
@@ -2894,17 +2879,17 @@ void __146__EDPersistenceDatabaseConnection_EDSearchableIndexPersistence__richLi
             messageID = [v9 messageID];
             v15 = [v13 numberWithLongLong:{objc_msgSend(messageID, "databaseID")}];
 
-            v39[0] = v12;
-            v39[1] = v15;
-            v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:2];
-            v34 = 0;
-            v17 = [v6 executeWithIndexedBindings:v16 usingBlock:0 error:&v34];
-            v18 = v34;
+            v38[0] = v12;
+            v38[1] = v15;
+            v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:2];
+            v33 = 0;
+            v17 = [v6 executeWithIndexedBindings:v16 usingBlock:0 error:&v33];
+            v18 = v33;
             v19 = v18;
             if ((v17 & 1) == 0)
             {
               domain = [v18 domain];
-              if ([domain isEqualToString:v31])
+              if ([domain isEqualToString:v30])
               {
                 v21 = [v19 code] == 19;
 
@@ -2913,7 +2898,7 @@ void __146__EDPersistenceDatabaseConnection_EDSearchableIndexPersistence__richLi
                   messageID2 = [v9 messageID];
                   richLinkID2 = [v9 richLinkID];
                   v24 = [EDSearchableIndexRichLinkItem identifierForMessageID:messageID2 richLinkID:richLinkID2];
-                  [v29 addObject:v24];
+                  [v28 addObject:v24];
 
                   goto LABEL_15;
                 }
@@ -2931,7 +2916,7 @@ LABEL_15:
             [v6 resetWithError:0];
           }
 
-          v7 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
+          v7 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
           if (!v7)
           {
 LABEL_17:
@@ -2941,51 +2926,49 @@ LABEL_17:
         }
       }
 
-      [(EDPersistenceDatabaseConnection *)self deleteRichLinkItems:v28];
+      [(EDPersistenceDatabaseConnection *)self deleteRichLinkItems:v27];
     }
 
-    v29 = MEMORY[0x1E695E0F0];
+    v28 = MEMORY[0x1E695E0F0];
   }
 
   else
   {
-    v29 = 0;
+    v28 = 0;
   }
 
 LABEL_20:
 
-  v25 = *MEMORY[0x1E69E9840];
-
-  return v29;
+  return v28;
 }
 
 - (void)deleteRichLinkItems:(void *)items
 {
-  v28 = *MEMORY[0x1E69E9840];
-  v18 = a2;
+  v27 = *MEMORY[0x1E69E9840];
+  v17 = a2;
   if (items)
   {
     v3 = [items preparedStatementForQueryString:@"DELETE FROM searchable_rich_links WHERE rich_link = ? AND message_id = ?"];
     itemsCopy = items;
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
-    obj = v18;
-    v4 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
+    obj = v17;
+    v4 = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
     if (v4)
     {
-      v5 = *v23;
+      v5 = *v22;
       do
       {
         for (i = 0; i != v4; ++i)
         {
-          if (*v23 != v5)
+          if (*v22 != v5)
           {
             objc_enumerationMutation(obj);
           }
 
-          v7 = *(*(&v22 + 1) + 8 * i);
+          v7 = *(*(&v21 + 1) + 8 * i);
           v8 = MEMORY[0x1E696AD98];
           richLinkID = [v7 richLinkID];
           v10 = [v8 numberWithLongLong:{objc_msgSend(richLinkID, "databaseID")}];
@@ -2994,12 +2977,12 @@ LABEL_20:
           messageID = [v7 messageID];
           v13 = [v11 numberWithLongLong:{objc_msgSend(messageID, "databaseID")}];
 
-          v26[0] = v10;
-          v26[1] = v13;
-          v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:2];
-          v21 = 0;
-          v15 = [v3 executeWithIndexedBindings:v14 usingBlock:0 error:&v21];
-          v16 = v21;
+          v25[0] = v10;
+          v25[1] = v13;
+          v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:2];
+          v20 = 0;
+          v15 = [v3 executeWithIndexedBindings:v14 usingBlock:0 error:&v20];
+          v16 = v20;
           if ((v15 & 1) == 0)
           {
             [itemsCopy handleError:v16 message:@"Failed to delete items in searchable_rich_links"];
@@ -3009,14 +2992,12 @@ LABEL_20:
           [v3 resetWithError:0];
         }
 
-        v4 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
+        v4 = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
       }
 
       while (v4);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deleteRichLinksInTransactions:(void *)transactions
@@ -3098,40 +3079,40 @@ LABEL_20:
 
 - (void)emptyAllSearchableIndexTables
 {
-  v19[6] = *MEMORY[0x1E69E9840];
+  v18[6] = *MEMORY[0x1E69E9840];
   if (self)
   {
-    v19[0] = @"searchable_messages";
-    v19[1] = @"searchable_message_tombstones";
-    v19[2] = @"searchable_attachments";
-    v19[3] = @"searchable_rich_links";
-    v19[4] = @"searchable_data_detection_results";
-    v19[5] = @"searchable_rebuild";
-    [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:6];
+    v18[0] = @"searchable_messages";
+    v18[1] = @"searchable_message_tombstones";
+    v18[2] = @"searchable_attachments";
+    v18[3] = @"searchable_rich_links";
+    v18[4] = @"searchable_data_detection_results";
+    v18[5] = @"searchable_rebuild";
+    [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:6];
+    v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
-    obj = v15 = 0u;
-    v2 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v13 = 0u;
+    obj = v14 = 0u;
+    v2 = [obj countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v2)
     {
-      v3 = *v15;
+      v3 = *v14;
       do
       {
         v4 = 0;
         do
         {
-          if (*v15 != v3)
+          if (*v14 != v3)
           {
             objc_enumerationMutation(obj);
           }
 
-          v5 = *(*(&v14 + 1) + 8 * v4);
+          v5 = *(*(&v13 + 1) + 8 * v4);
           v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DELETE FROM %@", v5];
           v7 = [self preparedStatementForQueryString:v6];
-          v13 = 0;
-          v8 = [v7 executeUsingBlock:0 error:&v13];
-          v9 = v13;
+          v12 = 0;
+          v8 = [v7 executeUsingBlock:0 error:&v12];
+          v9 = v12;
           if ((v8 & 1) == 0)
           {
             v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Purging %@", v5];
@@ -3142,43 +3123,41 @@ LABEL_20:
         }
 
         while (v2 != v4);
-        v2 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v2 = [obj countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v2);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeIndexedIdentifiers:(void *)identifiers
 {
-  v32 = *MEMORY[0x1E69E9840];
-  v24 = a2;
+  v31 = *MEMORY[0x1E69E9840];
+  v23 = a2;
   if (identifiers)
   {
     v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
     v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
-    v5 = v24;
-    v6 = [v5 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
+    v5 = v23;
+    v6 = [v5 countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v6)
     {
-      v7 = *v28;
+      v7 = *v27;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v28 != v7)
+          if (*v27 != v7)
           {
             objc_enumerationMutation(v5);
           }
 
-          v9 = *(*(&v27 + 1) + 8 * i);
+          v9 = *(*(&v26 + 1) + 8 * i);
           v10 = [EDSearchableIndexAttachmentItem attachmentPersistentIDFromItemIdentifier:v9];
           v11 = v10;
           if (v10)
@@ -3193,7 +3172,7 @@ LABEL_20:
           }
         }
 
-        v6 = [v5 countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v6 = [v5 countByEnumeratingWithState:&v26 objects:v30 count:16];
       }
 
       while (v6);
@@ -3204,9 +3183,9 @@ LABEL_20:
       v13 = [v3 componentsJoinedByString:{@", "}];
       v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DELETE FROM searchable_messages WHERE message_id IN (%@)", v13];
       v15 = [identifiers preparedStatementForQueryString:v14];
-      v26 = 0;
-      v16 = [v15 executeUsingBlock:0 error:&v26];
-      v17 = v26;
+      v25 = 0;
+      v16 = [v15 executeUsingBlock:0 error:&v25];
+      v17 = v25;
       if ((v16 & 1) == 0)
       {
         [identifiers handleError:v17 message:@"Removing items from searchable_messages"];
@@ -3218,17 +3197,15 @@ LABEL_20:
       v18 = [v4 componentsJoinedByString:{@", "}];
       v19 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"DELETE FROM searchable_attachments WHERE attachment_id IN (%@)", v18];
       v20 = [identifiers preparedStatementForQueryString:v19];
-      v25 = 0;
-      v21 = [v20 executeUsingBlock:0 error:&v25];
-      v22 = v25;
+      v24 = 0;
+      v21 = [v20 executeUsingBlock:0 error:&v24];
+      v22 = v24;
       if ((v21 & 1) == 0)
       {
         [identifiers handleError:v22 message:@"Removing items from searchable_attachments"];
       }
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (id)messageIDTransactionIDDictionaryToVerifyWithCount:(uint64_t)count lastVerifiedMessageID:
@@ -3313,60 +3290,18 @@ void __137__EDPersistenceDatabaseConnection_EDSearchableIndexPersistence__messag
   _os_log_error_impl(&dword_1C61EF000, log, OS_LOG_TYPE_ERROR, "Failed to begin transaction on connection %{public}@: %{public}@", buf, 0x16u);
 }
 
-- (void)performWithOptions:transactionError:block:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_0_4(&dword_1C61EF000, v0, v1, "Nested database block failed on connection %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)performWithOptions:transactionError:block:.cold.3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_0_4(&dword_1C61EF000, v0, v1, "Non-transactional database block failed on connection %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)performWithOptions:transactionError:block:.cold.4()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_0_4(&dword_1C61EF000, v0, v1, "Outer database block failed on connection %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 - (void)_startTransactionWithSQLConnection:options:error:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
-  _os_log_debug_impl(&dword_1C61EF000, v0, OS_LOG_TYPE_DEBUG, "Write Transaction (generation: ignored) on connection %{public}@ started successfully", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1C61EF000, v0, OS_LOG_TYPE_DEBUG, "Write Transaction (generation: ignored) on connection %{public}@ started successfully", v1, 0xCu);
 }
 
 - (void)_startTransactionWithSQLConnection:options:error:.cold.2()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
-  _os_log_debug_impl(&dword_1C61EF000, v0, OS_LOG_TYPE_DEBUG, "Read Transaction (generation: ignored) on connection %{public}@ started successfully", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_startTransactionWithSQLConnection:options:error:.cold.3()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_3();
-  OUTLINED_FUNCTION_2_0(&dword_1C61EF000, v0, v1, "Write Transaction (generation: %lld) on connection %{public}@ started successfully");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_startTransactionWithSQLConnection:options:error:.cold.4()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_3();
-  OUTLINED_FUNCTION_2_0(&dword_1C61EF000, v0, v1, "Read Transaction (generation: %lld) on connection %{public}@ started successfully");
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1C61EF000, v0, OS_LOG_TYPE_DEBUG, "Read Transaction (generation: ignored) on connection %{public}@ started successfully", v1, 0xCu);
 }
 
 - (void)_finishTransactionWithSQLConnection:(uint64_t)a3 afterSuccess:(os_log_t)log transactionError:.cold.1(uint64_t a1, uint8_t *buf, uint64_t a3, os_log_t log)
@@ -3378,14 +3313,6 @@ void __137__EDPersistenceDatabaseConnection_EDSearchableIndexPersistence__messag
   _os_log_error_impl(&dword_1C61EF000, log, OS_LOG_TYPE_ERROR, "Rolling back transaction on connection %{public}@ %{public}@", buf, 0x16u);
 }
 
-- (void)_finishTransactionWithSQLConnection:afterSuccess:transactionError:.cold.2()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_2_0(&dword_1C61EF000, v0, v1, "Transaction on connection %{public}@ %{public}@ succeeded");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
 - (void)_storeTransactionWriteGenerationWithSQLConnection:(os_log_t)log newGeneration:.cold.1(void *a1, uint8_t *buf, os_log_t log)
 {
   *buf = 138543362;
@@ -3395,28 +3322,18 @@ void __137__EDPersistenceDatabaseConnection_EDSearchableIndexPersistence__messag
 
 - (void)attachProtectedDatabaseWithName:(NSObject *)a1 url:(uint64_t)a2 error:.cold.1(NSObject *a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(a1, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138543362;
-    v6 = a2;
-    _os_log_impl(&dword_1C61EF000, a1, OS_LOG_TYPE_DEFAULT, "Attached Protected Index on connection %{public}@", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = a2;
+    _os_log_impl(&dword_1C61EF000, a1, OS_LOG_TYPE_DEFAULT, "Attached Protected Index on connection %{public}@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_attachDatabaseWithName:url:error:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_2_0(&dword_1C61EF000, v0, v1, "Attaching database '%{public}@' at URL %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)detachJournalDatabase
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (self)
   {
     v4 = *(self + 24);
@@ -3433,7 +3350,7 @@ void __137__EDPersistenceDatabaseConnection_EDSearchableIndexPersistence__messag
     {
       [*(self + 32) checkIn];
       [(EDPersistenceDatabaseConnection *)self setJournal:?];
-      objc_setProperty_nonatomic_copy(self, v7, 0, 24);
+      objc_setProperty_nonatomic_copy(self, v6, 0, 24);
     }
 
     else
@@ -3442,12 +3359,12 @@ void __137__EDPersistenceDatabaseConnection_EDSearchableIndexPersistence__messag
       [(EDPersistenceDatabaseConnection *)0 setJournal:?];
     }
 
-    v8 = +[EDPersistenceDatabaseConnection log];
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v7 = +[EDPersistenceDatabaseConnection log];
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138543362;
+      v8 = 138543362;
       selfCopy = self;
-      _os_log_impl(&dword_1C61EF000, v8, OS_LOG_TYPE_DEFAULT, "Detached journal on connection %{public}@", &v9, 0xCu);
+      _os_log_impl(&dword_1C61EF000, v7, OS_LOG_TYPE_DEFAULT, "Detached journal on connection %{public}@", &v8, 0xCu);
     }
 
     v5 = 1;
@@ -3459,7 +3376,6 @@ void __137__EDPersistenceDatabaseConnection_EDSearchableIndexPersistence__messag
   }
 
   *a2 = v5;
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (id)selectIdentifiersForDeletedAttachments

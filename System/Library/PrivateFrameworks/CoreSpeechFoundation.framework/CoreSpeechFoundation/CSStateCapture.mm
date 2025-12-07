@@ -11,18 +11,18 @@
 
 - (os_state_data_s)stateDataForDictionary:(id)dictionary title:(id)title
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   titleCopy = title;
   v7 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315650;
-    v23 = "[CSStateCapture stateDataForDictionary:title:]";
-    v24 = 2112;
-    v25 = titleCopy;
-    v26 = 2112;
-    v27 = dictionaryCopy;
+    v22 = "[CSStateCapture stateDataForDictionary:title:]";
+    v23 = 2112;
+    v24 = titleCopy;
+    v25 = 2112;
+    v26 = dictionaryCopy;
     _os_log_debug_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_DEBUG, "%s Persisting the state for %@ data: \n %@", buf, 0x20u);
     if (dictionaryCopy)
     {
@@ -40,18 +40,18 @@ LABEL_16:
   }
 
 LABEL_3:
-  v21 = 0;
-  v8 = [MEMORY[0x1E696AE40] dataWithPropertyList:dictionaryCopy format:200 options:0 error:&v21];
-  v9 = v21;
+  v20 = 0;
+  v8 = [MEMORY[0x1E696AE40] dataWithPropertyList:dictionaryCopy format:200 options:0 error:&v20];
+  v9 = v20;
   if (v9)
   {
     v10 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v23 = "[CSStateCapture stateDataForDictionary:title:]";
-      v24 = 2112;
-      v25 = v9;
+      v22 = "[CSStateCapture stateDataForDictionary:title:]";
+      v23 = 2112;
+      v24 = v9;
       _os_log_error_impl(&dword_1DDA4B000, v10, OS_LOG_TYPE_ERROR, "%s Error serializing dictionary for State Capture: %@", buf, 0x16u);
     }
 
@@ -91,19 +91,18 @@ LABEL_3:
   }
 
 LABEL_17:
-  v19 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 - (os_state_data_s)_stateCapture
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 136315138;
-    v14 = "[CSStateCapture _stateCapture]";
-    _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s Starting state capture", &v13, 0xCu);
+    v12 = 136315138;
+    v13 = "[CSStateCapture _stateCapture]";
+    _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s Starting state capture", &v12, 0xCu);
   }
 
   stateCaptureBlock = [(CSStateCapture *)self stateCaptureBlock];
@@ -113,9 +112,9 @@ LABEL_17:
     v5 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEBUG))
     {
-      v13 = 136315138;
-      v14 = "[CSStateCapture _stateCapture]";
-      _os_log_debug_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_DEBUG, "%s Running capture block", &v13, 0xCu);
+      v12 = 136315138;
+      v13 = "[CSStateCapture _stateCapture]";
+      _os_log_debug_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_DEBUG, "%s Running capture block", &v12, 0xCu);
     }
 
     stateCaptureBlock2 = [(CSStateCapture *)self stateCaptureBlock];
@@ -125,28 +124,27 @@ LABEL_17:
   v7 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 136315138;
-    v14 = "[CSStateCapture _stateCapture]";
-    _os_log_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_DEFAULT, "%s Finished capturing state", &v13, 0xCu);
+    v12 = 136315138;
+    v13 = "[CSStateCapture _stateCapture]";
+    _os_log_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_DEFAULT, "%s Finished capturing state", &v12, 0xCu);
   }
 
   stateData = [stateCaptureBlock stateData];
   stateDataTitle = [stateCaptureBlock stateDataTitle];
   v10 = [(CSStateCapture *)self stateDataForDictionary:stateData title:stateDataTitle];
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (void)unregisterHandlerforStateCapture
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[CSStateCapture unregisterHandlerforStateCapture]";
-    _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s Removing state capture handler", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[CSStateCapture unregisterHandlerforStateCapture]";
+    _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s Removing state capture handler", &v4, 0xCu);
   }
 
   if ([(CSStateCapture *)self handle])
@@ -154,29 +152,26 @@ LABEL_17:
     [(CSStateCapture *)self handle];
     os_state_remove_handler();
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)registerHandlerforStateCapture
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v8 = "[CSStateCapture registerHandlerforStateCapture]";
+    v7 = "[CSStateCapture registerHandlerforStateCapture]";
     _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s Registering state capture handler", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
   v4 = MEMORY[0x1E69E96A0];
-  objc_copyWeak(&v6, buf);
+  objc_copyWeak(&v5, buf);
   [(CSStateCapture *)self setHandle:os_state_add_handler()];
 
-  objc_destroyWeak(&v6);
+  objc_destroyWeak(&v5);
   objc_destroyWeak(buf);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __48__CSStateCapture_registerHandlerforStateCapture__block_invoke(uint64_t a1, uint64_t a2)

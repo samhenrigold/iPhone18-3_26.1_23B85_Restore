@@ -94,8 +94,7 @@
   objc_msgSend_quaternion(self->_attitude, v11, v12);
   v14 = v13;
   objc_msgSend_quaternion(self->_attitude, v15, v16);
-  z = self->_gravity.z;
-  return objc_msgSend_stringWithFormat_(v4, v18, @"QuaternionX %f QuaternionY %f QuaternionZ %f QuaternionW %f GravityX %f GravityY %f GravityZ %f @ %f", v6, v10, v14, v19, *&self->_gravity.x, *&self->_gravity.y, *&z, *&self->_timestamp);
+  return objc_msgSend_stringWithFormat_(v4, v17, @"QuaternionX %f QuaternionY %f QuaternionZ %f QuaternionW %f GravityX %f GravityY %f GravityZ %f @ %f", v6, v10, v14, v18, *&self->_gravity.x, *&self->_gravity.y, *&self->_gravity.z, *&self->_timestamp);
 }
 
 - ($1AB5FA073B851C12C2339EC22442E995)gravity

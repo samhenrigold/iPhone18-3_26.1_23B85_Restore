@@ -77,8 +77,7 @@
 
   [connectionCopy setExportedInterface:v6];
   [connectionCopy setExportedObject:self];
-  [connectionCopy activate];
-  v14 = SBRSLogXPC();
+  v14 = SBRSLogXPC([connectionCopy activate]);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     v16[0] = 67109120;
@@ -95,65 +94,65 @@
   v7 = dword_10000DD18++;
   requestCopy = request;
   Current = CFAbsoluteTimeGetCurrent();
-  v10 = SBRSLogXPC();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v11 = SBRSLogXPC(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    sub_100003594(v7, v10, v11, v12, v13, v14, v15, v16);
+    sub_100003594(v7, v11, v12, v13, v14, v15, v16, v17);
   }
 
   analysisServer = self->_analysisServer;
-  v21[0] = _NSConcreteStackBlock;
-  v21[1] = 3221225472;
-  v21[2] = sub_100003170;
-  v21[3] = &unk_100008478;
-  v22 = replyCopy;
-  v24 = v7;
-  v23 = Current;
-  v18 = replyCopy;
-  v19 = [(SBImageAnalysisServer *)analysisServer executeAnalysisRequest:requestCopy reply:v21];
+  v22[0] = _NSConcreteStackBlock;
+  v22[1] = 3221225472;
+  v22[2] = sub_100003170;
+  v22[3] = &unk_100008478;
+  v23 = replyCopy;
+  v25 = v7;
+  v24 = Current;
+  v19 = replyCopy;
+  v20 = [(SBImageAnalysisServer *)analysisServer executeAnalysisRequest:requestCopy reply:v22];
 
-  return v19;
+  return v20;
 }
 
 - (void)cancelRequest:(id)request
 {
-  ++dword_10000DD1C;
+  v4 = dword_10000DD1C++;
   requestCopy = request;
   CFAbsoluteTimeGetCurrent();
-  v5 = SBRSLogXPC();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v7 = SBRSLogXPC(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    sub_1000036B8();
+    sub_1000036B8(v4);
   }
 
   [(SBImageAnalysisServer *)self->_analysisServer cancelRequest:requestCopy];
-  v6 = SBRSLogXPC();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v9 = SBRSLogXPC(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    sub_100003734();
+    sub_100003734(v4);
   }
 }
 
 - (id)executeAnalysisRequest:(id)request error:(id *)error
 {
-  ++dword_10000DD20;
+  v6 = dword_10000DD20++;
   requestCopy = request;
   CFAbsoluteTimeGetCurrent();
-  v7 = SBRSLogXPC();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
-  {
-    sub_1000037D4();
-  }
-
-  v8 = [(SBImageAnalysisServer *)self->_analysisServer executeAnalysisRequest:requestCopy error:error];
-
-  v9 = SBRSLogXPC();
+  v9 = SBRSLogXPC(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    sub_100003850();
+    sub_1000037D4(v6);
   }
 
-  return v8;
+  v10 = [(SBImageAnalysisServer *)self->_analysisServer executeAnalysisRequest:requestCopy error:error];
+
+  v12 = SBRSLogXPC(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  {
+    sub_100003850(v6);
+  }
+
+  return v10;
 }
 
 @end

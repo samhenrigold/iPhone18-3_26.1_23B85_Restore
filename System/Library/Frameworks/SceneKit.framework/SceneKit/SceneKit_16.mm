@@ -1,3 +1,806 @@
+void C3DCameraSetCategoryBitMask(uint64_t result, uint64_t a2)
+{
+  if (!result)
+  {
+    v4 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    {
+      C3DCameraNeedsPostProcess_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
+    }
+  }
+
+  *(result + 528) = a2;
+}
+
+float C3DCameraGetColorFringeStrength(uint64_t a1, uint64_t a2)
+{
+  if (!a1)
+  {
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    {
+      C3DCameraNeedsPostProcess_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
+    }
+  }
+
+  return *(a1 + 452);
+}
+
+void C3DCameraSetColorFringeStrength(void *a1, uint64_t a2, float a3)
+{
+  if (!a1)
+  {
+    v5 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    {
+      C3DCameraNeedsPostProcess_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
+    }
+  }
+
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 0x40000000;
+  v13[2] = __C3DCameraSetColorFringeStrength_block_invoke;
+  v13[3] = &__block_descriptor_tmp_3_1;
+  v13[4] = a1;
+  v14 = a3;
+  __invalidatePassIfNeeded(a1, v13);
+}
+
+float __C3DCameraSetColorFringeStrength_block_invoke(uint64_t a1)
+{
+  result = *(a1 + 40);
+  *(*(a1 + 32) + 452) = result;
+  return result;
+}
+
+float C3DCameraGetColorFringeIntensity(uint64_t a1, uint64_t a2)
+{
+  if (!a1)
+  {
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    {
+      C3DCameraNeedsPostProcess_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
+    }
+  }
+
+  return *(a1 + 444);
+}
+
+void C3DCameraSetColorFringeIntensity(uint64_t result, uint64_t a2, float a3)
+{
+  if (!result)
+  {
+    v5 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    {
+      C3DCameraNeedsPostProcess_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
+    }
+  }
+
+  *(result + 444) = a3;
+}
+
+float C3DCameraGetContrast(uint64_t a1, uint64_t a2)
+{
+  if (!a1)
+  {
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    {
+      C3DCameraNeedsPostProcess_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
+    }
+  }
+
+  return *(a1 + 460);
+}
+
+void C3DCameraSetContrast(void *a1, uint64_t a2, float a3)
+{
+  if (!a1)
+  {
+    v5 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    {
+      C3DCameraNeedsPostProcess_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
+    }
+  }
+
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 0x40000000;
+  v13[2] = __C3DCameraSetContrast_block_invoke;
+  v13[3] = &__block_descriptor_tmp_4_1;
+  v13[4] = a1;
+  v14 = a3;
+  __invalidatePassIfNeeded(a1, v13);
+}
+
+float __C3DCameraSetContrast_block_invoke(uint64_t a1)
+{
+  result = *(a1 + 40);
+  *(*(a1 + 32) + 460) = result;
+  return result;
+}
+
+float C3DCameraGetGrainIntensity(uint64_t a1, uint64_t a2)
+{
+  if (!a1)
+  {
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    {
+      C3DCameraNeedsPostProcess_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
+    }
+  }
+
+  return *(a1 + 464);
+}
+
+void C3DCameraSetGrainIntensity(void *a1, uint64_t a2, float a3)
+{
+  if (!a1)
+  {
+    v5 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    {
+      C3DCameraNeedsPostProcess_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
+    }
+  }
+
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 0x40000000;
+  v13[2] = __C3DCameraSetGrainIntensity_block_invoke;
+  v13[3] = &__block_descriptor_tmp_5_1;
+  v13[4] = a1;
+  v14 = a3;
+  __invalidatePassIfNeeded(a1, v13);
+}
+
+float __C3DCameraSetGrainIntensity_block_invoke(uint64_t a1)
+{
+  result = *(a1 + 40);
+  *(*(a1 + 32) + 464) = result;
+  return result;
+}
+
+float C3DCameraGetGrainScale(uint64_t a1, uint64_t a2)
+{
+  if (!a1)
+  {
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    {
+      C3DCameraNeedsPostProcess_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
+    }
+  }
+
+  return *(a1 + 468);
+}
+
+void C3DCameraSetGrainScale(uint64_t result, uint64_t a2, float a3)
+{
+  if (!result)
+  {
+    v5 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    {
+      C3DCameraNeedsPostProcess_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
+    }
+  }
+
+  *(result + 468) = a3;
+}
+
+uint64_t C3DCameraGetGrainIsColored(uint64_t a1, uint64_t a2)
+{
+  if (!a1)
+  {
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    {
+      C3DCameraNeedsPostProcess_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
+    }
+  }
+
+  return (*(a1 + 312) >> 4) & 1;
+}
+
+void C3DCameraSetGrainIsColored(uint64_t result, uint64_t a2)
+{
+  v2 = a2;
+  if (!result)
+  {
+    v4 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    {
+      C3DCameraNeedsPostProcess_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
+    }
+  }
+
+  if (v2)
+  {
+    v12 = 16;
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  *(result + 312) = *(result + 312) & 0xEF | v12;
+}
+
+uint64_t C3DCameraGetARGrainTexture(uint64_t a1, uint64_t a2)
+{
+  if (!a1)
+  {
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    {
+      C3DCameraNeedsPostProcess_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
+    }
+  }
+
+  return *(a1 + 544);
+}
+
+CFTypeRef C3DCameraSetARGrainTexture(uint64_t a1, CFTypeRef cf)
+{
+  if (!a1)
+  {
+    v4 = scn_default_log(0, cf);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    {
+      C3DCameraNeedsPostProcess_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
+    }
+  }
+
+  result = *(a1 + 544);
+  if (result != cf)
+  {
+    if (result)
+    {
+      CFRelease(result);
+      *(a1 + 544) = 0;
+    }
+
+    if (cf)
+    {
+      result = CFRetain(cf);
+    }
+
+    else
+    {
+      result = 0;
+    }
+
+    *(a1 + 544) = result;
+  }
+
+  return result;
+}
+
+float C3DCameraGetARGrainSlice(uint64_t a1, uint64_t a2)
+{
+  if (!a1)
+  {
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    {
+      C3DCameraNeedsPostProcess_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
+    }
+  }
+
+  return *(a1 + 552);
+}
+
+void C3DCameraSetARGrainSlice(uint64_t result, uint64_t a2, float a3)
+{
+  if (!result)
+  {
+    v5 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    {
+      C3DCameraNeedsPostProcess_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
+    }
+  }
+
+  *(result + 552) = a3;
+}
+
+float C3DCameraGetWhiteBalanceTemperature(uint64_t a1, uint64_t a2)
+{
+  if (!a1)
+  {
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    {
+      C3DCameraNeedsPostProcess_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
+    }
+  }
+
+  return *(a1 + 484);
+}
+
+void C3DCameraSetWhiteBalanceTemperature(void *a1, uint64_t a2, float a3)
+{
+  if (!a1)
+  {
+    v5 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    {
+      C3DCameraNeedsPostProcess_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
+    }
+  }
+
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 0x40000000;
+  v13[2] = __C3DCameraSetWhiteBalanceTemperature_block_invoke;
+  v13[3] = &__block_descriptor_tmp_6_1;
+  v13[4] = a1;
+  v14 = a3;
+  __invalidatePassIfNeeded(a1, v13);
+}
+
+float __C3DCameraSetWhiteBalanceTemperature_block_invoke(uint64_t a1)
+{
+  result = *(a1 + 40);
+  *(*(a1 + 32) + 484) = result;
+  return result;
+}
+
+float C3DCameraGetWhiteBalanceTint(uint64_t a1, uint64_t a2)
+{
+  if (!a1)
+  {
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    {
+      C3DCameraNeedsPostProcess_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
+    }
+  }
+
+  return *(a1 + 488);
+}
+
+void C3DCameraSetWhiteBalanceTint(void *a1, uint64_t a2, float a3)
+{
+  if (!a1)
+  {
+    v5 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    {
+      C3DCameraNeedsPostProcess_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
+    }
+  }
+
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 0x40000000;
+  v13[2] = __C3DCameraSetWhiteBalanceTint_block_invoke;
+  v13[3] = &__block_descriptor_tmp_7_2;
+  v13[4] = a1;
+  v14 = a3;
+  __invalidatePassIfNeeded(a1, v13);
+}
+
+float __C3DCameraSetWhiteBalanceTint_block_invoke(uint64_t a1)
+{
+  result = *(a1 + 40);
+  *(*(a1 + 32) + 488) = result;
+  return result;
+}
+
+float C3DCameraGetExposureAdaptationBrighteningSpeedFactor(uint64_t a1, uint64_t a2)
+{
+  if (!a1)
+  {
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    {
+      C3DCameraNeedsPostProcess_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
+    }
+  }
+
+  return *(a1 + 400);
+}
+
+void C3DCameraSetExposureAdaptationBrighteningSpeedFactor(uint64_t result, uint64_t a2, float a3)
+{
+  if (!result)
+  {
+    v5 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    {
+      C3DCameraNeedsPostProcess_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
+    }
+  }
+
+  *(result + 400) = a3;
+}
+
+float C3DCameraGetExposureAdaptationDarkeningSpeedFactor(uint64_t a1, uint64_t a2)
+{
+  if (!a1)
+  {
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    {
+      C3DCameraNeedsPostProcess_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
+    }
+  }
+
+  return *(a1 + 404);
+}
+
+void C3DCameraSetExposureAdaptationDarkeningSpeedFactor(uint64_t result, uint64_t a2, float a3)
+{
+  if (!result)
+  {
+    v5 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    {
+      C3DCameraNeedsPostProcess_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
+    }
+  }
+
+  *(result + 404) = a3;
+}
+
+float C3DCameraGetExposureAdaptationDuration(uint64_t a1, uint64_t a2)
+{
+  if (!a1)
+  {
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    {
+      C3DCameraNeedsPostProcess_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
+    }
+  }
+
+  return *(a1 + 396);
+}
+
+void C3DCameraSetExposureAdaptationDuration(uint64_t result, uint64_t a2, float a3)
+{
+  if (!result)
+  {
+    v5 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    {
+      C3DCameraNeedsPostProcess_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
+    }
+  }
+
+  *(result + 396) = a3;
+}
+
+float C3DCameraGetExposureAdaptationHistogramRangeHighProbability(uint64_t a1, uint64_t a2)
+{
+  if (!a1)
+  {
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    {
+      C3DCameraNeedsPostProcess_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
+    }
+  }
+
+  return *(a1 + 408);
+}
+
+void C3DCameraSetExposureAdaptationHistogramRangeHighProbability(uint64_t result, uint64_t a2, float a3)
+{
+  if (!result)
+  {
+    v5 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    {
+      C3DCameraNeedsPostProcess_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
+    }
+  }
+
+  *(result + 408) = a3;
+}
+
+float C3DCameraGetExposureAdaptationHistogramRangeLowProbability(uint64_t a1, uint64_t a2)
+{
+  if (!a1)
+  {
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    {
+      C3DCameraNeedsPostProcess_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
+    }
+  }
+
+  return *(a1 + 412);
+}
+
+void C3DCameraSetExposureAdaptationHistogramRangeLowProbability(uint64_t result, uint64_t a2, float a3)
+{
+  if (!result)
+  {
+    v5 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    {
+      C3DCameraNeedsPostProcess_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
+    }
+  }
+
+  *(result + 412) = a3;
+}
+
+uint64_t C3DCameraGetExposureAdaptationMode(uint64_t a1, uint64_t a2)
+{
+  if (!a1)
+  {
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    {
+      C3DCameraNeedsPostProcess_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
+    }
+  }
+
+  return *(a1 + 313);
+}
+
+void C3DCameraSetExposureAdaptationMode(uint64_t result, uint64_t a2)
+{
+  v2 = a2;
+  if (!result)
+  {
+    v4 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    {
+      C3DCameraNeedsPostProcess_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
+    }
+  }
+
+  *(result + 313) = v2;
+}
+
+float C3DCameraGetExposureOffset(uint64_t a1, uint64_t a2)
+{
+  if (!a1)
+  {
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    {
+      C3DCameraNeedsPostProcess_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
+    }
+  }
+
+  return *(a1 + 392);
+}
+
+void C3DCameraSetExposureOffset(uint64_t result, uint64_t a2, float a3)
+{
+  if (!result)
+  {
+    v5 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    {
+      C3DCameraNeedsPostProcess_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
+    }
+  }
+
+  *(result + 392) = a3;
+}
+
+float C3DCameraGetMaximumExposure(uint64_t a1, uint64_t a2)
+{
+  if (!a1)
+  {
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    {
+      C3DCameraNeedsPostProcess_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
+    }
+  }
+
+  return *(a1 + 420);
+}
+
+void C3DCameraSetMaximumExposure(uint64_t result, uint64_t a2, float a3)
+{
+  if (!result)
+  {
+    v5 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    {
+      C3DCameraNeedsPostProcess_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
+    }
+  }
+
+  *(result + 420) = a3;
+}
+
+float C3DCameraGetMinimumExposure(uint64_t a1, uint64_t a2)
+{
+  if (!a1)
+  {
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    {
+      C3DCameraNeedsPostProcess_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
+    }
+  }
+
+  return *(a1 + 416);
+}
+
+void C3DCameraSetMinimumExposure(uint64_t result, uint64_t a2, float a3)
+{
+  if (!result)
+  {
+    v5 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    {
+      C3DCameraNeedsPostProcess_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
+    }
+  }
+
+  *(result + 416) = a3;
+}
+
+float C3DCameraGetMotionBlurIntensity(uint64_t a1, uint64_t a2)
+{
+  if (!a1)
+  {
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    {
+      C3DCameraNeedsPostProcess_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
+    }
+  }
+
+  return *(a1 + 472);
+}
+
+double C3DCameraGetOrthographicScale(uint64_t a1, uint64_t a2)
+{
+  if (!a1)
+  {
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    {
+      C3DCameraNeedsPostProcess_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
+    }
+  }
+
+  return *(a1 + 112);
+}
+
+float C3DCameraGetSaturation(uint64_t a1, uint64_t a2)
+{
+  if (!a1)
+  {
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    {
+      C3DCameraNeedsPostProcess_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
+    }
+  }
+
+  return *(a1 + 456);
+}
+
+void C3DCameraSetSaturation(void *a1, uint64_t a2, float a3)
+{
+  if (!a1)
+  {
+    v5 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    {
+      C3DCameraNeedsPostProcess_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
+    }
+  }
+
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 0x40000000;
+  v13[2] = __C3DCameraSetSaturation_block_invoke;
+  v13[3] = &__block_descriptor_tmp_8_0;
+  v13[4] = a1;
+  v14 = a3;
+  __invalidatePassIfNeeded(a1, v13);
+}
+
+float __C3DCameraSetSaturation_block_invoke(uint64_t a1)
+{
+  result = *(a1 + 40);
+  *(*(a1 + 32) + 456) = result;
+  return result;
+}
+
+uint64_t C3DCameraGetUsesOrthographicProjection(uint64_t a1, uint64_t a2)
+{
+  if (!a1)
+  {
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    {
+      C3DCameraNeedsPostProcess_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
+    }
+  }
+
+  return *(a1 + 64) & 1;
+}
+
+float C3DCameraGetVignettingIntensity(uint64_t a1, uint64_t a2)
+{
+  if (!a1)
+  {
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    {
+      C3DCameraNeedsPostProcess_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
+    }
+  }
+
+  return *(a1 + 480);
+}
+
+void C3DCameraSetVignettingIntensity(void *a1, uint64_t a2, float a3)
+{
+  if (!a1)
+  {
+    v5 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    {
+      C3DCameraNeedsPostProcess_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
+    }
+  }
+
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 0x40000000;
+  v13[2] = __C3DCameraSetVignettingIntensity_block_invoke;
+  v13[3] = &__block_descriptor_tmp_9_0;
+  v13[4] = a1;
+  v14 = a3;
+  __invalidatePassIfNeeded(a1, v13);
+}
+
+float __C3DCameraSetVignettingIntensity_block_invoke(uint64_t a1)
+{
+  result = *(a1 + 40);
+  *(*(a1 + 32) + 480) = result;
+  return result;
+}
+
+float C3DCameraGetVignettingPower(uint64_t a1, uint64_t a2)
+{
+  if (!a1)
+  {
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    {
+      C3DCameraNeedsPostProcess_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
+    }
+  }
+
+  return *(a1 + 476);
+}
+
+void C3DCameraSetVignettingPower(void *a1, uint64_t a2, float a3)
+{
+  if (!a1)
+  {
+    v5 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    {
+      C3DCameraNeedsPostProcess_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
+    }
+  }
+
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 0x40000000;
+  v13[2] = __C3DCameraSetVignettingPower_block_invoke;
+  v13[3] = &__block_descriptor_tmp_10;
+  v13[4] = a1;
+  v14 = a3;
+  __invalidatePassIfNeeded(a1, v13);
+}
+
 float __C3DCameraSetVignettingPower_block_invoke(uint64_t a1)
 {
   result = *(a1 + 40);
@@ -5,32 +808,33 @@ float __C3DCameraSetVignettingPower_block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t C3DCameraGetWantsExposureAdaptation(uint64_t a1)
+uint64_t C3DCameraGetWantsExposureAdaptation(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DCameraNeedsPostProcess_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DCameraNeedsPostProcess_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return (*(a1 + 312) >> 2) & 1;
 }
 
-void C3DCameraSetWantsExposureAdaptation(uint64_t a1, int a2)
+void C3DCameraSetWantsExposureAdaptation(uint64_t result, uint64_t a2)
 {
-  if (!a1)
+  v2 = a2;
+  if (!result)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(0, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       C3DCameraNeedsPostProcess_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
     }
   }
 
-  if (a2)
+  if (v2)
   {
     v12 = 4;
   }
@@ -40,490 +844,493 @@ void C3DCameraSetWantsExposureAdaptation(uint64_t a1, int a2)
     v12 = 0;
   }
 
-  *(a1 + 312) = *(a1 + 312) & 0xFB | v12;
+  *(result + 312) = *(result + 312) & 0xFB | v12;
 }
 
-uint64_t C3DCameraGetWantsHDR(uint64_t a1)
+uint64_t C3DCameraGetWantsHDR(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DCameraNeedsPostProcess_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DCameraNeedsPostProcess_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return (*(a1 + 312) >> 1) & 1;
 }
 
-float C3DCameraGetWhitePoint(uint64_t a1)
+float C3DCameraGetWhitePoint(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DCameraNeedsPostProcess_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DCameraNeedsPostProcess_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 384);
 }
 
-void C3DCameraSetWhitePoint(uint64_t a1, float a2)
+void C3DCameraSetWhitePoint(uint64_t result, uint64_t a2, float a3)
 {
-  if (!a1)
+  if (!result)
   {
-    v4 = scn_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      C3DCameraNeedsPostProcess_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
+      C3DCameraNeedsPostProcess_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
     }
   }
 
-  *(a1 + 384) = a2;
+  *(result + 384) = a3;
 }
 
-double C3DCameraGetXFov(uint64_t a1)
+double C3DCameraGetXFov(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DCameraNeedsPostProcess_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DCameraNeedsPostProcess_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 272);
 }
 
-double C3DCameraGetYFov(uint64_t a1)
+double C3DCameraGetYFov(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DCameraNeedsPostProcess_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DCameraNeedsPostProcess_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 280);
 }
 
-double C3DCameraGetZFar(uint64_t a1)
+double C3DCameraGetZFar(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DCameraNeedsPostProcess_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DCameraNeedsPostProcess_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 80);
 }
 
-double C3DCameraGetZNear(uint64_t a1)
+double C3DCameraGetZNear(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DCameraNeedsPostProcess_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DCameraNeedsPostProcess_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 72);
 }
 
-float C3DCameraGetFocalLength(uint64_t a1)
+float C3DCameraGetFocalLength(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DCameraNeedsPostProcess_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DCameraNeedsPostProcess_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 292);
 }
 
-float C3DCameraSetFocalLength(uint64_t a1, float a2)
+float C3DCameraSetFocalLength(uint64_t a1, uint64_t a2, float a3)
 {
   if (!a1)
   {
-    v4 = scn_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      C3DCameraNeedsPostProcess_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
+      C3DCameraNeedsPostProcess_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
     }
   }
 
-  *(a1 + 292) = a2;
-  v12 = atan(*(a1 + 300) * 0.5 / a2);
-  *&v12 = v12 + v12;
-  result = *&v12 / 3.14159265 * 180.0;
+  *(a1 + 292) = a3;
+  v13 = atan(*(a1 + 300) * 0.5 / a3);
+  *&v13 = v13 + v13;
+  result = *&v13 / 3.14159265 * 180.0;
   *(a1 + 120) = result;
   *(a1 + 64) &= ~0x10u;
   return result;
 }
 
-float C3DCameraGetFov(uint64_t a1)
+float C3DCameraGetFov(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DCameraNeedsPostProcess_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DCameraNeedsPostProcess_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 120);
 }
 
-float C3DCameraSetFov(uint64_t a1, float a2)
+float C3DCameraSetFov(uint64_t a1, uint64_t a2, float a3)
 {
   if (!a1)
   {
-    v4 = scn_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      C3DCameraNeedsPostProcess_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
+      C3DCameraNeedsPostProcess_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
     }
   }
 
-  *(a1 + 120) = a2;
+  *(a1 + 120) = a3;
   *(a1 + 64) &= ~0x10u;
-  v12 = a2 / 180.0 * 3.14159265;
-  v13 = *(a1 + 300) * 0.5;
-  result = v13 / tanf(v12 * 0.5);
+  v13 = a3 / 180.0 * 3.14159265;
+  v14 = *(a1 + 300) * 0.5;
+  result = v14 / tanf(v13 * 0.5);
   *(a1 + 292) = result;
   return result;
 }
 
-float C3DCameraGetAspectRatio(uint64_t a1)
+float C3DCameraGetAspectRatio(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DCameraNeedsPostProcess_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DCameraNeedsPostProcess_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 128);
 }
 
-double C3DCameraSetAspectRatio(uint64_t a1, float a2)
+double C3DCameraSetAspectRatio(uint64_t a1, uint64_t a2, float a3)
 {
   if (!a1)
   {
-    v4 = scn_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      C3DCameraNeedsPostProcess_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
+      C3DCameraNeedsPostProcess_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
     }
   }
 
-  result = a2;
-  *(a1 + 128) = a2;
+  result = a3;
+  *(a1 + 128) = a3;
   *(a1 + 64) &= ~0x10u;
   return result;
 }
 
-float C3DCameraGetFocusDistance(uint64_t a1)
+float C3DCameraGetFocusDistance(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DCameraNeedsPostProcess_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DCameraNeedsPostProcess_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 288);
 }
 
-void C3DCameraSetFocusDistance(uint64_t a1, float a2)
+void C3DCameraSetFocusDistance(uint64_t result, uint64_t a2, float a3)
 {
-  if (!a1)
+  if (!result)
   {
-    v4 = scn_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      C3DCameraNeedsPostProcess_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
+      C3DCameraNeedsPostProcess_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
     }
   }
 
-  *(a1 + 288) = a2;
+  *(result + 288) = a3;
 }
 
-double C3DCameraGetLensShift(uint64_t a1)
+double C3DCameraGetLensShift(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DCameraNeedsPostProcess_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DCameraNeedsPostProcess_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 88);
 }
 
-void C3DCameraSetLensShift(uint64_t a1, double a2)
+void C3DCameraSetLensShift(uint64_t result, uint64_t a2, double a3)
 {
-  if (!a1)
+  if (!result)
   {
-    v4 = scn_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      C3DCameraNeedsPostProcess_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
+      C3DCameraNeedsPostProcess_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
     }
   }
 
-  *(a1 + 88) = a2;
+  *(result + 88) = a3;
 }
 
-double C3DCameraGetPostProjectionTransformTranslation(uint64_t a1)
+double C3DCameraGetPostProjectionTransformTranslation(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DCameraNeedsPostProcess_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DCameraNeedsPostProcess_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 96);
 }
 
-void C3DCameraSetPostProjectionTransformTranslation(uint64_t a1, double a2)
+void C3DCameraSetPostProjectionTransformTranslation(uint64_t result, uint64_t a2, double a3)
 {
-  if (!a1)
+  if (!result)
   {
-    v4 = scn_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      C3DCameraNeedsPostProcess_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
+      C3DCameraNeedsPostProcess_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
     }
   }
 
-  *(a1 + 96) = a2;
+  *(result + 96) = a3;
 }
 
-double C3DCameraGetPostProjectionTransformScale(uint64_t a1)
+double C3DCameraGetPostProjectionTransformScale(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DCameraNeedsPostProcess_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DCameraNeedsPostProcess_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 104);
 }
 
-void C3DCameraSetPostProjectionTransformScale(uint64_t a1, double a2)
+void C3DCameraSetPostProjectionTransformScale(uint64_t result, uint64_t a2, double a3)
 {
-  if (!a1)
+  if (!result)
   {
-    v4 = scn_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      C3DCameraNeedsPostProcess_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
+      C3DCameraNeedsPostProcess_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
     }
   }
 
-  *(a1 + 104) = a2;
+  *(result + 104) = a3;
 }
 
-float C3DCameraGetAperture(uint64_t a1)
+float C3DCameraGetAperture(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DCameraNeedsPostProcess_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DCameraNeedsPostProcess_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 300) / *(a1 + 296);
 }
 
-float C3DCameraGetFStop(uint64_t a1)
+float C3DCameraGetFStop(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DCameraNeedsPostProcess_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DCameraNeedsPostProcess_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 296);
 }
 
-uint64_t C3DCameraGetBladeCount(uint64_t a1)
+uint64_t C3DCameraGetBladeCount(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DCameraNeedsPostProcess_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DCameraNeedsPostProcess_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 304);
 }
 
-uint64_t C3DCameraGetDofSampleCount(uint64_t a1)
+uint64_t C3DCameraGetDofSampleCount(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DCameraNeedsPostProcess_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DCameraNeedsPostProcess_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 308);
 }
 
-void C3DCameraSetFStop(uint64_t a1, float a2)
+void C3DCameraSetFStop(uint64_t result, uint64_t a2, float a3)
 {
-  if (!a1)
+  if (!result)
   {
-    v4 = scn_default_log();
+    v5 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    {
+      C3DCameraNeedsPostProcess_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
+    }
+  }
+
+  *(result + 296) = a3;
+}
+
+void C3DCameraSetBladeCount(uint64_t result, uint64_t a2)
+{
+  v2 = a2;
+  if (!result)
+  {
+    v4 = scn_default_log(0, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       C3DCameraNeedsPostProcess_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
     }
   }
 
-  *(a1 + 296) = a2;
+  *(result + 304) = v2;
 }
 
-void C3DCameraSetBladeCount(uint64_t a1, int a2)
+void C3DCameraSetDofSampleCount(_DWORD *a1, uint64_t a2)
 {
-  if (!a1)
-  {
-    v4 = scn_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
-    {
-      C3DCameraNeedsPostProcess_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
-    }
-  }
-
-  *(a1 + 304) = a2;
-}
-
-void C3DCameraSetDofSampleCount(_DWORD *a1, int a2)
-{
+  v2 = a2;
   values = a1;
   if (!a1)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(0, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       C3DCameraNeedsPostProcess_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
     }
   }
 
-  if (a1[77] != a2)
+  if (a1[77] != v2)
   {
-    a1[77] = a2;
+    a1[77] = v2;
     v12 = CFDictionaryCreate(0, kC3DCameraKey, &values, 1, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-    SharedInstance = C3DNotificationCenterGetSharedInstance();
-    v14 = C3DGetScene(values);
-    C3DNotificationCenterPostNotification(SharedInstance, @"kC3DNotificationEngineContextInvalidatePasses", v14, v12, 1u);
+    SharedInstance = C3DNotificationCenterGetSharedInstance(v12, v13);
+    v16 = C3DGetScene(values, v15);
+    C3DNotificationCenterPostNotification(SharedInstance, @"kC3DNotificationEngineContextInvalidatePasses", v16, v12, 1u);
     CFRelease(v12);
   }
 }
 
-float C3DCameraGetSensorSize(uint64_t a1)
+float C3DCameraGetSensorSize(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DCameraNeedsPostProcess_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DCameraNeedsPostProcess_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 300);
 }
 
-float C3DCameraSetSensorSize(uint64_t a1, float a2)
+float C3DCameraSetSensorSize(uint64_t a1, uint64_t a2, float a3)
 {
   if (!a1)
   {
-    v4 = scn_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      C3DCameraNeedsPostProcess_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
+      C3DCameraNeedsPostProcess_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
     }
   }
 
-  v12 = 0.0001;
-  if (a2 >= 0.0001)
+  v13 = 0.0001;
+  if (a3 >= 0.0001)
   {
-    v12 = a2;
+    v13 = a3;
   }
 
-  *(a1 + 300) = v12;
+  *(a1 + 300) = v13;
   *(a1 + 64) &= ~0x10u;
-  v13 = *(a1 + 120) / 180.0 * 3.14159265;
-  result = v12 * 0.5 / tanf(v13 * 0.5);
+  v14 = *(a1 + 120) / 180.0 * 3.14159265;
+  result = v13 * 0.5 / tanf(v14 * 0.5);
   *(a1 + 292) = result;
   return result;
 }
 
-uint64_t C3DCameraGetFovIsHorizontal(uint64_t a1)
+uint64_t C3DCameraGetFovIsHorizontal(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DCameraNeedsPostProcess_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DCameraNeedsPostProcess_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return (*(a1 + 64) >> 5) & 1;
 }
 
-void C3DCameraSetFovHorizontal(uint64_t a1, int a2)
+void C3DCameraSetFovHorizontal(uint64_t result, uint64_t a2)
 {
-  if (!a1)
+  v2 = a2;
+  if (!result)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(0, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       C3DCameraNeedsPostProcess_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
     }
   }
 
-  if (a2)
+  if (v2)
   {
     v12 = 32;
   }
@@ -533,35 +1340,36 @@ void C3DCameraSetFovHorizontal(uint64_t a1, int a2)
     v12 = 0;
   }
 
-  *(a1 + 64) = *(a1 + 64) & 0xDF | v12;
+  *(result + 64) = *(result + 64) & 0xDF | v12;
 }
 
-uint64_t C3DCameraGetLetterboxMode(uint64_t a1)
+uint64_t C3DCameraGetLetterboxMode(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DCameraNeedsPostProcess_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DCameraNeedsPostProcess_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return (*(a1 + 312) >> 3) & 1;
 }
 
-void C3DCameraSetLetterboxMode(uint64_t a1, int a2)
+void C3DCameraSetLetterboxMode(uint64_t result, uint64_t a2)
 {
-  if (!a1)
+  v2 = a2;
+  if (!result)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(0, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       C3DCameraNeedsPostProcess_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
     }
   }
 
-  if (a2)
+  if (v2)
   {
     v12 = 8;
   }
@@ -571,8 +1379,8 @@ void C3DCameraSetLetterboxMode(uint64_t a1, int a2)
     v12 = 0;
   }
 
-  *(a1 + 312) = *(a1 + 312) & 0xF7 | v12;
-  if (a2)
+  *(result + 312) = *(result + 312) & 0xF7 | v12;
+  if (v2)
   {
     v13 = 64;
   }
@@ -582,14 +1390,14 @@ void C3DCameraSetLetterboxMode(uint64_t a1, int a2)
     v13 = 0;
   }
 
-  *(a1 + 64) = *(a1 + 64) & 0xAF | v13;
+  *(result + 64) = *(result + 64) & 0xAF | v13;
 }
 
 void C3DCameraGetEffectiveFovForAspectRatio(uint64_t a1, float *a2, float *a3, float a4)
 {
   if (!a1)
   {
-    v8 = scn_default_log();
+    v8 = scn_default_log(0, a2);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
       C3DCameraNeedsPostProcess_cold_1(v8, v9, v10, v11, v12, v13, v14, v15);
@@ -639,109 +1447,112 @@ void C3DCameraGetEffectiveFovForAspectRatio(uint64_t a1, float *a2, float *a3, f
   *a3 = v19;
 }
 
-void C3DCameraSetOrthographicScale(uint64_t a1, double a2)
+void C3DCameraSetOrthographicScale(uint64_t result, uint64_t a2, double a3)
 {
-  if (!a1)
+  if (!result)
   {
-    v4 = scn_default_log();
+    v5 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    {
+      C3DCameraNeedsPostProcess_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
+    }
+  }
+
+  *(result + 112) = a3;
+  *(result + 64) &= ~8u;
+}
+
+void C3DCameraSetUsesOrthographicProjection(uint64_t result, uint64_t a2)
+{
+  v2 = a2;
+  if (!result)
+  {
+    v4 = scn_default_log(0, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       C3DCameraNeedsPostProcess_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
     }
   }
 
-  *(a1 + 112) = a2;
-  *(a1 + 64) &= ~8u;
+  *(result + 64) = *(result + 64) & 0xF6 | v2;
 }
 
-void C3DCameraSetUsesOrthographicProjection(uint64_t a1, char a2)
+void C3DCameraSetXFov(uint64_t result, uint64_t a2, double a3)
 {
-  if (!a1)
+  if (!result)
   {
-    v4 = scn_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      C3DCameraNeedsPostProcess_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
+      C3DCameraNeedsPostProcess_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
     }
   }
 
-  *(a1 + 64) = *(a1 + 64) & 0xF6 | a2;
+  *(result + 272) = a3;
+  *(result + 64) = *(result + 64) & 0xE7 | 0x10;
 }
 
-void C3DCameraSetXFov(uint64_t a1, double a2)
+void C3DCameraSetYFov(uint64_t result, uint64_t a2, double a3)
 {
-  if (!a1)
+  if (!result)
   {
-    v4 = scn_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      C3DCameraNeedsPostProcess_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
+      C3DCameraNeedsPostProcess_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
     }
   }
 
-  *(a1 + 272) = a2;
-  *(a1 + 64) = *(a1 + 64) & 0xE7 | 0x10;
+  *(result + 280) = a3;
+  *(result + 64) = *(result + 64) & 0xE7 | 0x10;
 }
 
-void C3DCameraSetYFov(uint64_t a1, double a2)
+void C3DCameraSetZFar(uint64_t result, uint64_t a2, double a3)
 {
-  if (!a1)
+  if (!result)
   {
-    v4 = scn_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      C3DCameraNeedsPostProcess_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
+      C3DCameraNeedsPostProcess_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
     }
   }
 
-  *(a1 + 280) = a2;
-  *(a1 + 64) = *(a1 + 64) & 0xE7 | 0x10;
+  *(result + 80) = a3;
+  *(result + 64) &= ~8u;
 }
 
-void C3DCameraSetZFar(uint64_t a1, double a2)
+void C3DProjectionInfosSetZFar(uint64_t result, uint64_t a2, double a3)
 {
-  if (!a1)
+  if (!result)
   {
-    v4 = scn_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      C3DCameraNeedsPostProcess_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
+      C3DProjectionInfosSetZFar_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
     }
   }
 
-  *(a1 + 80) = a2;
-  *(a1 + 64) &= ~8u;
+  *(result + 16) = a3;
+  *result &= ~8u;
 }
 
-void C3DProjectionInfosSetZFar(uint64_t a1, double a2)
+void C3DCameraSetZNear(_BOOL8 a1, uint64_t a2, double a3)
 {
+  v4 = a1;
   if (!a1)
   {
-    v4 = scn_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = scn_default_log(0, a2);
+    a1 = os_log_type_enabled(v5, OS_LOG_TYPE_FAULT);
+    if (a1)
     {
-      C3DProjectionInfosSetZFar_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
+      C3DCameraNeedsPostProcess_cold_1(v5, a2, v6, v7, v8, v9, v10, v11);
     }
   }
 
-  *(a1 + 16) = a2;
-  *a1 &= ~8u;
-}
-
-void C3DCameraSetZNear(uint64_t a1, double a2)
-{
-  if (!a1)
+  if (a3 == 0.0 && (*(v4 + 64) & 1) == 0)
   {
-    v4 = scn_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
-    {
-      C3DCameraNeedsPostProcess_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
-    }
-  }
-
-  if (a2 == 0.0 && (*(a1 + 64) & 1) == 0)
-  {
-    v12 = scn_default_log();
+    v12 = scn_default_log(a1, a2);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       *v13 = 0;
@@ -749,23 +1560,23 @@ void C3DCameraSetZNear(uint64_t a1, double a2)
     }
   }
 
-  *(a1 + 72) = a2;
-  *(a1 + 64) &= ~8u;
+  *(v4 + 72) = a3;
+  *(v4 + 64) &= ~8u;
 }
 
-void C3DProjectionInfosSetZNear(uint64_t a1, double a2)
+void C3DProjectionInfosSetZNear(uint64_t result, uint64_t a2, double a3)
 {
-  if (!a1)
+  if (!result)
   {
-    v4 = scn_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      C3DProjectionInfosSetZFar_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
+      C3DProjectionInfosSetZFar_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
     }
   }
 
-  *(a1 + 8) = a2;
-  *a1 &= ~8u;
+  *(result + 8) = a3;
+  *result &= ~8u;
 }
 
 void C3DCameraSetTechnique(void *a1, CFTypeRef cf)
@@ -773,7 +1584,7 @@ void C3DCameraSetTechnique(void *a1, CFTypeRef cf)
   values = a1;
   if (!a1)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(0, cf);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       C3DCameraNeedsPostProcess_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
@@ -801,63 +1612,63 @@ void C3DCameraSetTechnique(void *a1, CFTypeRef cf)
 
     a1[67] = v13;
     v14 = CFDictionaryCreate(0, kC3DCameraKey, &values, 1, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-    SharedInstance = C3DNotificationCenterGetSharedInstance();
-    v16 = C3DGetScene(values);
-    C3DNotificationCenterPostNotification(SharedInstance, @"kC3DNotificationEngineContextInvalidatePasses", v16, v14, 1u);
+    SharedInstance = C3DNotificationCenterGetSharedInstance(v14, v15);
+    v18 = C3DGetScene(values, v17);
+    C3DNotificationCenterPostNotification(SharedInstance, @"kC3DNotificationEngineContextInvalidatePasses", v18, v14, 1u);
     CFRelease(v14);
   }
 }
 
-uint64_t C3DCameraGetTechnique(uint64_t a1)
+uint64_t C3DCameraGetTechnique(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DCameraNeedsPostProcess_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DCameraNeedsPostProcess_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 536);
 }
 
-double C3DProjectionInfosGetXFov(uint64_t a1)
+double C3DProjectionInfosGetXFov(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DProjectionInfosSetZFar_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DProjectionInfosSetZFar_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 208);
 }
 
-double C3DProjectionInfosGetYFov(uint64_t a1)
+double C3DProjectionInfosGetYFov(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DProjectionInfosSetZFar_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DProjectionInfosSetZFar_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 216);
 }
 
-double C3DProjectionInfosGetEffectiveFov(uint64_t a1)
+double C3DProjectionInfosGetEffectiveFov(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DProjectionInfosSetZFar_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DProjectionInfosSetZFar_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
@@ -866,76 +1677,76 @@ double C3DProjectionInfosGetEffectiveFov(uint64_t a1)
     return *(a1 + 56);
   }
 
-  v11 = 208;
+  v12 = 208;
   if ((*a1 & 0x20) == 0)
   {
-    v11 = 216;
+    v12 = 216;
   }
 
-  return *(a1 + v11);
+  return *(a1 + v12);
 }
 
-double C3DProjectionInfosGetZNear(uint64_t a1)
+double C3DProjectionInfosGetZNear(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DProjectionInfosSetZFar_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DProjectionInfosSetZFar_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 8);
 }
 
-double C3DProjectionInfosGetZFar(uint64_t a1)
+double C3DProjectionInfosGetZFar(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DProjectionInfosSetZFar_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DProjectionInfosSetZFar_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 16);
 }
 
-double C3DProjectionInfosGetOrthographicScale(uint64_t a1)
+double C3DProjectionInfosGetOrthographicScale(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DProjectionInfosSetZFar_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DProjectionInfosSetZFar_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 48);
 }
 
-uint64_t C3DProjectionInfosGetOrtho(_BYTE *a1)
+uint64_t C3DProjectionInfosGetOrtho(_BYTE *a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DProjectionInfosSetZFar_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DProjectionInfosSetZFar_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *a1 & 1;
 }
 
-char *C3DProjectionInfosGetMatrix(char *a1, int8x16_t *a2, char a3)
+double *C3DProjectionInfosGetMatrix(double *a1, int8x16_t *a2, char a3)
 {
   if (!a1)
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(0, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
       C3DProjectionInfosSetZFar_cold_1(v6, v7, v8, v9, v10, v11, v12, v13);
@@ -949,7 +1760,7 @@ char *C3DProjectionInfosGetMatrix(char *a1, int8x16_t *a2, char a3)
     {
       if ((*a1 & 0x10) != 0)
       {
-        v48 = *(a1 + 26);
+        v48 = a1[26];
         v49 = 1.0;
         if (a2)
         {
@@ -960,14 +1771,14 @@ char *C3DProjectionInfosGetMatrix(char *a1, int8x16_t *a2, char a3)
           }
         }
 
-        if (v48 == 0.0 && *(a1 + 27) == 0.0)
+        if (v48 == 0.0 && a1[27] == 0.0)
         {
           v52 = 60.0;
         }
 
         else
         {
-          v52 = *(a1 + 27);
+          v52 = a1[27];
         }
 
         if (v48 != 0.0 && v52 != 0.0)
@@ -984,10 +1795,10 @@ char *C3DProjectionInfosGetMatrix(char *a1, int8x16_t *a2, char a3)
           }
         }
 
-        v54 = *(a1 + 1);
-        if (*(a1 + 2) > v54)
+        v54 = a1[1];
+        if (a1[2] > v54)
         {
-          v55 = *(a1 + 2);
+          v55 = a1[2];
         }
 
         else
@@ -1083,13 +1894,13 @@ LABEL_93:
         goto LABEL_94;
       }
 
-      if (a2 && (v15 = *(a1 + 24), v16 = vmvn_s8(vceqz_f32(v15)), (vpmax_u32(v16, v16).u32[0] & 0x80000000) != 0))
+      if (a2 && (v15 = a1[3], v16 = vmvn_s8(vceqz_f32(v15)), (vpmax_u32(v16, v16).u32[0] & 0x80000000) != 0))
       {
         v17 = *(a1 + 14) / 180.0 * 3.14159265 * 0.5;
-        v18 = *(a1 + 1);
+        v18 = a1[1];
         v19 = v18 * tanf(v17);
         v20 = vdiv_f32(vadd_f32(v15, v15), *&vextq_s8(*a2, *a2, 8uLL));
-        v21 = *(a1 + 2);
+        v21 = a1[2];
         if (v21 <= v18)
         {
           v21 = v18 + 1.0;
@@ -1129,15 +1940,15 @@ LABEL_93:
         *(a1 + 6) = v33;
         *(a1 + 7) = v34;
         *(a1 + 8) = _Q1;
-        v38 = *(a1 + 8);
+        v38 = a1[8];
       }
 
       else
       {
-        v68 = *(a1 + 1);
-        if (*(a1 + 2) > v68)
+        v68 = a1[1];
+        if (a1[2] > v68)
         {
-          v69 = *(a1 + 2);
+          v69 = a1[2];
         }
 
         else
@@ -1183,7 +1994,7 @@ LABEL_93:
         *(a1 + 6) = v73;
         *(a1 + 7) = v34;
         *(a1 + 8) = _Q1;
-        v38 = *(a1 + 8);
+        v38 = a1[8];
         v31 = vdup_lane_s32(v71, 0);
         if (!a2)
         {
@@ -1216,10 +2027,10 @@ LABEL_90:
       goto LABEL_93;
     }
 
-    v41 = *(a1 + 6);
+    v41 = a1[6];
     if (!a2)
     {
-      v67 = *(a1 + 6);
+      v67 = a1[6];
       goto LABEL_75;
     }
 
@@ -1259,10 +2070,10 @@ LABEL_72:
 LABEL_74:
       v67 = v41 / v79;
 LABEL_75:
-      v80 = *(a1 + 1);
-      if (*(a1 + 2) > v80)
+      v80 = a1[1];
+      if (a1[2] > v80)
       {
-        v81 = *(a1 + 2);
+        v81 = a1[2];
       }
 
       else
@@ -1307,8 +2118,8 @@ LABEL_75:
       if ((a3 & 8) == 0)
       {
 LABEL_97:
-        v102.i64[0] = *(a1 + 4);
-        v103 = *(a1 + 40);
+        v102.i64[0] = a1[4];
+        v103 = a1[5];
         v104 = vmvn_s8(vceqz_f32(*v102.f32));
         if ((vpmax_u32(v104, v104).u32[0] & 0x80000000) != 0)
         {
@@ -1351,10 +2162,10 @@ LABEL_101:
           *(a1 + 6) = v110;
           *(a1 + 7) = v111;
           *(a1 + 8) = v112;
-          return a1 + 80;
+          return a1 + 10;
         }
 
-        return a1 + 80;
+        return a1 + 10;
       }
 
 LABEL_94:
@@ -1392,7 +2203,7 @@ LABEL_94:
   {
     v44 = 0;
     v45 = *(a1 + 10);
-    v46 = *(a1 + 11);
+    v46 = *(a1 + 22);
     v47 = *(a1 + 12);
     v114 = *(a1 + 9);
     v115 = v45;
@@ -1418,27 +2229,27 @@ LABEL_94:
   v40 = *(a1 + 12);
   *(a1 + 7) = *(a1 + 11);
   *(a1 + 8) = v40;
-  return a1 + 80;
+  return a1 + 10;
 }
 
-uint64_t C3DProjectionInfosUnproject(uint64_t a1, __int128 *a2, int a3, char a4, float32x4_t *a5, int8x16_t a6)
+uint64_t C3DProjectionInfosUnproject(double *a1, __int128 *a2, int a3, char a4, simd_float4 *a5, int8x16_t a6)
 {
   LODWORD(v8) = a3;
-  v57 = a6;
+  v58 = a6;
   if ((a4 & 8) != 0 || (v11 = *a1, (*a1 & 0x19) != 0))
   {
-    v58 = *C3DProjectionInfosGetMatrix(a1, &v57, a4);
-    v59 = __invert_f4(v58);
-    v50 = v59.columns[1];
-    v51 = v59.columns[0];
-    v48 = v59.columns[3];
-    v49 = v59.columns[2];
-    if (*&v57.i32[2] == 0.0 || *&v57.i32[3] == 0.0)
+    v59 = *C3DProjectionInfosGetMatrix(a1, &v58, a4);
+    v60 = __invert_f4(v59);
+    v51 = v60.columns[1];
+    v52 = v60.columns[0];
+    v49 = v60.columns[3];
+    v50 = v60.columns[2];
+    if (*&v58.i32[2] == 0.0 || *&v58.i32[3] == 0.0)
     {
-      v43 = scn_default_log();
-      if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+      v44 = scn_default_log(v33, v34);
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
       {
-        C3DProjectionInfosUnproject_cold_1(v43);
+        C3DProjectionInfosUnproject_cold_1(v44);
       }
 
       return 0;
@@ -1450,69 +2261,70 @@ uint64_t C3DProjectionInfosUnproject(uint64_t a1, __int128 *a2, int a3, char a4,
       return v32;
     }
 
-    v34 = a2 + 2;
+    v36 = a2 + 2;
     v8 = v8;
-    LODWORD(v33) = 1.0;
+    LODWORD(v35) = 1.0;
     while (1)
     {
-      v35 = *(v34 - 2);
-      v36 = v57;
+      v37 = *(v36 - 2);
+      v38 = v58;
       if ((a4 & 8) != 0)
       {
-        v45 = *(v34 - 2);
-        v46 = v57;
-        v53 = v33;
-        v38 = C3DWasLinkedBeforeMajorOSYear2021();
-        v37 = *v34;
-        if ((v38 & 1) == 0)
+        v46 = *(v36 - 2);
+        v47 = v58;
+        v54 = v35;
+        v33 = C3DWasLinkedBeforeMajorOSYear2021(v33, v34);
+        v39 = *v36;
+        if ((v33 & 1) == 0)
         {
-          v39 = 1.0 - v37;
-          v33 = v53;
-          *&v35 = v45;
-          v36 = v46;
+          v40 = 1.0 - v39;
+          v35 = v54;
+          *&v37 = v46;
+          v38 = v47;
           goto LABEL_22;
         }
 
-        v33 = v53;
-        *&v35 = v45;
-        v36 = v46;
+        v35 = v54;
+        *&v37 = v46;
+        v38 = v47;
       }
 
       else
       {
-        LODWORD(v37) = *v34;
+        LODWORD(v39) = *v36;
       }
 
-      v39 = (v37 * 2.0) + -1.0;
+      v40 = (v39 * 2.0) + -1.0;
 LABEL_22:
-      v40 = vaddq_f32(v48, vmlaq_n_f32(vmlaq_n_f32(vmulq_n_f32(v50, (((*(&v35 + 1) - *&v36.i32[1]) + (*(&v35 + 1) - *&v36.i32[1])) / *&v36.i32[3]) + -1.0), v51, (((*&v35 - *v36.i32) + (*&v35 - *v36.i32)) / *&v36.i32[2]) + -1.0), v49, v39));
-      if (v40.f32[3] == 0.0)
+      v41 = vaddq_f32(v49, vmlaq_n_f32(vmlaq_n_f32(vmulq_n_f32(v51, (((*(&v37 + 1) - *&v38.i32[1]) + (*(&v37 + 1) - *&v38.i32[1])) / *&v38.i32[3]) + -1.0), v52, (((*&v37 - *v38.i32) + (*&v37 - *v38.i32)) / *&v38.i32[2]) + -1.0), v50, v40));
+      if (v41.f32[3] == 0.0)
       {
         if ((C3DProjectionInfosUnproject_done & 1) == 0)
         {
-          v47 = v40;
-          v54 = v33;
+          v48 = v41;
+          v55 = v35;
           C3DProjectionInfosUnproject_done = 1;
-          v41 = scn_default_log();
-          if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+          v42 = scn_default_log(v33, v34);
+          v33 = os_log_type_enabled(v42, OS_LOG_TYPE_ERROR);
+          if (v33)
           {
-            C3DProjectionInfosUnproject_cold_2(&buf, v56, v41);
+            C3DProjectionInfosUnproject_cold_2(&buf, v57, v42);
           }
 
-          v33 = v54;
-          v40 = v47;
+          v35 = v55;
+          v41 = v48;
         }
       }
 
       else
       {
-        *&v33 = 1.0 / v40.f32[3];
+        *&v35 = 1.0 / v41.f32[3];
       }
 
-      v42 = vmulq_n_f32(v40, *&v33);
-      v42.i32[2] = vmuls_lane_f32(*&v33, v40, 2);
-      *a5++ = v42;
-      v34 += 4;
+      v43 = vmulq_n_f32(v41, *&v35);
+      v43.i32[2] = vmuls_lane_f32(*&v35, v41, 2);
+      *a5++ = v43;
+      v36 += 4;
       if (!--v8)
       {
         return 1;
@@ -1520,8 +2332,8 @@ LABEL_22:
     }
   }
 
-  v13 = *(a1 + 56) / 180.0 * 3.14159265;
-  v52 = a6;
+  v13 = *(a1 + 14) / 180.0 * 3.14159265;
+  v53 = a6;
   v14 = tanf(v13 * 0.5);
   if ((v11 & 0x20) != 0)
   {
@@ -1530,23 +2342,23 @@ LABEL_22:
 
   else
   {
-    v15.f32[0] = (*&v52.i32[2] / *&v52.i32[3]) * v14;
+    v15.f32[0] = (*&v53.i32[2] / *&v53.i32[3]) * v14;
   }
 
   if ((v11 & 0x20) != 0)
   {
-    v14 = v14 / (*&v52.i32[2] / *&v52.i32[3]);
+    v14 = v14 / (*&v53.i32[2] / *&v53.i32[3]);
   }
 
   if (v8)
   {
     v15.f32[1] = v14;
-    v16 = *(a1 + 8);
-    v17 = *(a1 + 16);
+    v16 = a1[1];
+    v17 = a1[2];
     v18 = v16 * v17;
     _S3 = v16 - v17;
     v20 = v8;
-    v21 = vextq_s8(v52, v52, 8uLL).u64[0];
+    v21 = vextq_s8(v53, v53, 8uLL).u64[0];
     __asm { FMOV            V5.2S, #-1.0 }
 
     do
@@ -1556,7 +2368,7 @@ LABEL_22:
       __asm { FMLA            S7, S3, V6.S[2] }
 
       v30 = v18 / _S7;
-      v31 = vsub_f32(*&v27, *v52.i8);
+      v31 = vsub_f32(*&v27, *v53.i8);
       *_Q6.f32 = vmul_n_f32(vmul_f32(v15, vadd_f32(vdiv_f32(vadd_f32(v31, v31), v21), _D5)), v30);
       _Q6.f32[2] = -v30;
       *a5++ = _Q6;
@@ -1569,41 +2381,41 @@ LABEL_22:
   return 1;
 }
 
-uint64_t C3DCameraGetProjectionInfosPtr(uint64_t a1)
+uint64_t C3DCameraGetProjectionInfosPtr(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DCameraNeedsPostProcess_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DCameraNeedsPostProcess_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return a1 + 64;
 }
 
-void _C3DCameraCFFinalize(void *a1)
+void _C3DCameraCFFinalize(void *a1, uint64_t a2)
 {
-  C3DEntityCFFinalize(a1);
-  v2 = a1[65];
-  if (v2)
-  {
-    CFRelease(v2);
-    a1[65] = 0;
-  }
-
-  v3 = a1[67];
+  C3DEntityCFFinalize(a1, a2);
+  v3 = a1[65];
   if (v3)
   {
     CFRelease(v3);
-    a1[67] = 0;
+    a1[65] = 0;
   }
 
-  v4 = a1[68];
+  v4 = a1[67];
   if (v4)
   {
     CFRelease(v4);
+    a1[67] = 0;
+  }
+
+  v5 = a1[68];
+  if (v5)
+  {
+    CFRelease(v5);
     a1[68] = 0;
   }
 }
@@ -1613,13 +2425,13 @@ CFStringRef _C3DCameraCFCopyDebugDescription(_BYTE *cf)
   v2 = cf[64];
   if ((v2 & 8) != 0)
   {
-    v15 = *(cf + 15);
-    v16 = *(cf + 16);
-    v13 = *(cf + 13);
-    v14 = *(cf + 14);
-    v11 = CFGetAllocator(cf);
-    Name = C3DEntityGetName(cf);
-    return CFStringCreateWithFormat(v11, 0, @"<C3DCamera:%p %@ custom, [%.3f %.3f %.3f %.3f ; %.3f %.3f %.3f %.3f ; %.3f %.3f %.3f %.3f ; %.3f %.3f %.3f %.3f]>", cf, Name, *&v13, *(&v13 + 1), *(&v13 + 2), *(&v13 + 3), *&v14, *(&v14 + 1), *(&v14 + 2), *(&v14 + 3), *&v15, *(&v15 + 1), *(&v15 + 2), *(&v15 + 3), *&v16, *(&v16 + 1), *(&v16 + 2), *(&v16 + 3));
+    v17 = *(cf + 15);
+    v18 = *(cf + 16);
+    v15 = *(cf + 13);
+    v16 = *(cf + 14);
+    v12 = CFGetAllocator(cf);
+    Name = C3DEntityGetName(cf, v13);
+    return CFStringCreateWithFormat(v12, 0, @"<C3DCamera:%p %@ custom, [%.3f %.3f %.3f %.3f ; %.3f %.3f %.3f %.3f ; %.3f %.3f %.3f %.3f ; %.3f %.3f %.3f %.3f]>", cf, Name, *&v15, *(&v15 + 1), *(&v15 + 2), *(&v15 + 3), *&v16, *(&v16 + 1), *(&v16 + 2), *(&v16 + 3), *&v17, *(&v17 + 1), *(&v17 + 2), *(&v17 + 3), *&v18, *(&v18 + 1), *(&v18 + 2), *(&v18 + 3));
   }
 
   else
@@ -1629,21 +2441,21 @@ CFStringRef _C3DCameraCFCopyDebugDescription(_BYTE *cf)
     v5 = *(cf + 14);
     v6 = *(cf + 30);
     v7 = CFGetAllocator(cf);
-    v8 = C3DEntityGetName(cf);
+    v9 = C3DEntityGetName(cf, v8);
     if (v2)
     {
-      return CFStringCreateWithFormat(v7, 0, @"<C3DCamera:%p %@ ortho, near:%.3f far:%.3f scale: %.3f>", cf, v8, v3, v4, v5);
+      return CFStringCreateWithFormat(v7, 0, @"<C3DCamera:%p %@ ortho, near:%.3f far:%.3f scale: %.3f>", cf, v9, v3, v4, v5);
     }
 
     else
     {
-      v9 = "horizontal";
+      v10 = "horizontal";
       if ((v2 & 0x20) == 0)
       {
-        v9 = "vertical";
+        v10 = "vertical";
       }
 
-      return CFStringCreateWithFormat(v7, 0, @"<C3DCamera:%p %@ persp, near:%.3f far:%.3f %s-fov:%.3f>", cf, v8, v3, v4, v9, v6);
+      return CFStringCreateWithFormat(v7, 0, @"<C3DCamera:%p %@ persp, near:%.3f far:%.3f %s-fov:%.3f>", cf, v9, v3, v4, v10, v6);
     }
   }
 }
@@ -1654,35 +2466,35 @@ float _C3DCameraSetValue(uint64_t a1, void *__dst, float *__src, size_t __n)
   {
     v7 = *__src;
 
-    C3DCameraSetDepthOfFieldIntensity(a1, v7);
+    C3DCameraSetDepthOfFieldIntensity(a1, __dst, v7);
   }
 
   else if ((a1 + 472) == __dst)
   {
     v8 = *__src;
 
-    C3DCameraSetMotionBlurIntensity(a1, v8);
+    C3DCameraSetMotionBlurIntensity(a1, __dst, v8);
   }
 
   else if ((a1 + 120) == __dst)
   {
     v9 = *__src;
 
-    return C3DCameraSetFov(a1, v9);
+    return C3DCameraSetFov(a1, __dst, v9);
   }
 
   else if ((a1 + 272) == __dst)
   {
     v10 = *__src;
 
-    C3DCameraSetXFov(a1, v10);
+    C3DCameraSetXFov(a1, __dst, v10);
   }
 
   else if ((a1 + 280) == __dst)
   {
     v11 = *__src;
 
-    C3DCameraSetYFov(a1, v11);
+    C3DCameraSetYFov(a1, __dst, v11);
   }
 
   else
@@ -1718,428 +2530,429 @@ float _C3DCameraSetValue(uint64_t a1, void *__dst, float *__src, size_t __n)
   return result;
 }
 
-uint64_t _C3DCameraInitWithPropertyList(uint64_t a1, const __CFDictionary *a2)
+uint64_t _C3DCameraInitWithPropertyList(uint64_t a1, const __CFDictionary *a2, uint64_t a3, uint64_t a4)
 {
   if (!a1)
   {
-    v4 = scn_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
-    {
-      _C3DGeometryFillLibraryForSerialization_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
-    }
-  }
-
-  v12 = C3DEntityInitWithPropertyList(a1, a2);
-  if (v12)
-  {
-    *(a1 + 272) = 0;
-    *(a1 + 280) = 0;
-    Value = CFDictionaryGetValue(a2, @"ortho");
-    if (Value)
-    {
-      v56[0] = 0.0;
-      CFNumberGetValue(Value, kCFNumberIntType, v56);
-      v14 = *(a1 + 64) & 0xFE;
-      if (LODWORD(v56[0]))
-      {
-        ++v14;
-      }
-
-      *(a1 + 64) = v14;
-    }
-
-    v15 = CFDictionaryGetValue(a2, @"letterbox");
-    if (v15)
-    {
-      v56[0] = 0.0;
-      CFNumberGetValue(v15, kCFNumberIntType, v56);
-      *(a1 + 64) = *(a1 + 64) & 0xBF | ((LODWORD(v56[0]) != 0) << 6);
-    }
-
-    v16 = CFDictionaryGetValue(a2, @"fovHorizontal");
-    if (v16)
-    {
-      v56[0] = 0.0;
-      CFNumberGetValue(v16, kCFNumberIntType, v56);
-      *(a1 + 64) = *(a1 + 64) & 0xDF | (32 * (LODWORD(v56[0]) != 0));
-    }
-
-    v17 = CFDictionaryGetValue(a2, @"customProj");
-    if (v17)
-    {
-      v56[0] = 0.0;
-      CFNumberGetValue(v17, kCFNumberIntType, v56);
-      *(a1 + 64) = *(a1 + 64) & 0xF7 | (8 * (LODWORD(v56[0]) != 0));
-    }
-
-    v18 = CFDictionaryGetValue(a2, @"autoZRange");
-    if (v18)
-    {
-      v56[0] = 0.0;
-      CFNumberGetValue(v18, kCFNumberIntType, v56);
-      *(a1 + 64) = *(a1 + 64) & 0xFD | (2 * (LODWORD(v56[0]) != 0));
-    }
-
-    v19 = CFDictionaryGetValue(a2, @"xfov");
-    if (v19)
-    {
-      *v56 = 0;
-      CFNumberGetValue(v19, kCFNumberDoubleType, v56);
-      *(a1 + 272) = *v56;
-    }
-
-    v20 = CFDictionaryGetValue(a2, @"yfov");
-    if (v20)
-    {
-      *v56 = 0;
-      CFNumberGetValue(v20, kCFNumberDoubleType, v56);
-      *(a1 + 280) = *v56;
-    }
-
-    v21 = CFDictionaryGetValue(a2, @"xMag");
-    if (v21)
-    {
-      *v56 = 0;
-      CFNumberGetValue(v21, kCFNumberDoubleType, v56);
-      *(a1 + 112) = *v56;
-    }
-
-    v22 = CFDictionaryGetValue(a2, @"znear");
-    if (v22)
-    {
-      *v56 = 0;
-      CFNumberGetValue(v22, kCFNumberDoubleType, v56);
-      *(a1 + 72) = *v56;
-    }
-
-    v23 = CFDictionaryGetValue(a2, @"zfar");
-    if (v23)
-    {
-      *v56 = 0;
-      CFNumberGetValue(v23, kCFNumberDoubleType, v56);
-      *(a1 + 80) = *v56;
-    }
-
-    v24 = CFDictionaryGetValue(a2, @"aspectRatio");
-    if (v24)
-    {
-      *v56 = 0;
-      CFNumberGetValue(v24, kCFNumberDoubleType, v56);
-      *(a1 + 128) = *v56;
-    }
-
-    v25 = CFDictionaryGetValue(a2, @"focusDistance");
-    if (v25)
-    {
-      v56[0] = 0.0;
-      CFNumberGetValue(v25, kCFNumberFloatType, v56);
-      *(a1 + 288) = v56[0];
-    }
-
-    v26 = CFDictionaryGetValue(a2, @"fstop");
-    if (v26)
-    {
-      v56[0] = 0.0;
-      CFNumberGetValue(v26, kCFNumberFloatType, v56);
-      *(a1 + 296) = v56[0];
-    }
-
-    v27 = CFDictionaryGetValue(a2, @"bladeCount");
-    if (v27)
-    {
-      v56[0] = 0.0;
-      CFNumberGetValue(v27, kCFNumberIntType, v56);
-      *(a1 + 304) = v56[0];
-    }
-
-    v28 = CFDictionaryGetValue(a2, @"dofSampleCount");
-    if (v28)
-    {
-      v56[0] = 0.0;
-      CFNumberGetValue(v28, kCFNumberIntType, v56);
-      *(a1 + 308) = v56[0];
-    }
-
-    v29 = CFDictionaryGetValue(a2, @"sensorSize");
-    if (v29)
-    {
-      v56[0] = 0.0;
-      CFNumberGetValue(v29, kCFNumberFloatType, v56);
-      *(a1 + 300) = v56[0];
-    }
-
-    v30 = CFDictionaryGetValue(a2, @"dofIntensity");
-    if (v30)
-    {
-      v56[0] = 0.0;
-      CFNumberGetValue(v30, kCFNumberFloatType, v56);
-      *(a1 + 448) = v56[0];
-    }
-
-    v31 = CFDictionaryGetValue(a2, @"category");
-    if (v31)
-    {
-      *v56 = 0;
-      CFNumberGetValue(v31, kCFNumberNSIntegerType, v56);
-      *(a1 + 528) = *v56;
-    }
-
-    v32 = CFDictionaryGetValue(a2, @"whitePoint");
-    if (v32)
-    {
-      v56[0] = 0.0;
-      CFNumberGetValue(v32, kCFNumberFloatType, v56);
-      *(a1 + 384) = v56[0];
-    }
-
-    v33 = CFDictionaryGetValue(a2, @"averageGray");
-    if (v33)
-    {
-      v56[0] = 0.0;
-      CFNumberGetValue(v33, kCFNumberFloatType, v56);
-      *(a1 + 388) = v56[0];
-    }
-
-    v34 = CFDictionaryGetValue(a2, @"exposureAdaptationDuration");
-    if (v34)
-    {
-      v56[0] = 0.0;
-      CFNumberGetValue(v34, kCFNumberFloatType, v56);
-      *(a1 + 396) = v56[0];
-    }
-
-    v35 = CFDictionaryGetValue(a2, @"exposureAdaptationBrighteningSpeedFactor");
-    if (v35)
-    {
-      v56[0] = 0.0;
-      CFNumberGetValue(v35, kCFNumberFloatType, v56);
-      *(a1 + 400) = v56[0];
-    }
-
-    v36 = CFDictionaryGetValue(a2, @"exposureAdaptationDarkeningSpeedFactor");
-    if (v36)
-    {
-      v56[0] = 0.0;
-      CFNumberGetValue(v36, kCFNumberFloatType, v56);
-      *(a1 + 404) = v56[0];
-    }
-
-    v37 = CFDictionaryGetValue(a2, @"minimumExposure");
-    if (v37)
-    {
-      v56[0] = 0.0;
-      CFNumberGetValue(v37, kCFNumberFloatType, v56);
-      *(a1 + 416) = v56[0];
-    }
-
-    v38 = CFDictionaryGetValue(a2, @"maximumExposure");
-    if (v38)
-    {
-      v56[0] = 0.0;
-      CFNumberGetValue(v38, kCFNumberFloatType, v56);
-      *(a1 + 420) = v56[0];
-    }
-
-    v39 = CFDictionaryGetValue(a2, @"bloomIntensity");
-    if (v39)
-    {
-      v56[0] = 0.0;
-      CFNumberGetValue(v39, kCFNumberFloatType, v56);
-      *(a1 + 424) = v56[0];
-    }
-
-    v40 = CFDictionaryGetValue(a2, @"bloomThreshold");
-    if (v40)
-    {
-      v56[0] = 0.0;
-      CFNumberGetValue(v40, kCFNumberFloatType, v56);
-      *(a1 + 428) = v56[0];
-    }
-
-    v41 = CFDictionaryGetValue(a2, @"bloomIteration");
-    if (v41)
-    {
-      v56[0] = 0.0;
-      CFNumberGetValue(v41, kCFNumberIntType, v56);
-      *(a1 + 432) = v56[0];
-    }
-
-    v42 = CFDictionaryGetValue(a2, @"bloomIterationSpread");
-    if (v42)
-    {
-      v56[0] = 0.0;
-      CFNumberGetValue(v42, kCFNumberFloatType, v56);
-      *(a1 + 432) = v56[0];
-    }
-
-    v43 = CFDictionaryGetValue(a2, @"bloomBlurRadius");
-    if (v43)
-    {
-      v56[0] = 0.0;
-      CFNumberGetValue(v43, kCFNumberFloatType, v56);
-      *(a1 + 440) = v56[0];
-    }
-
-    v44 = CFDictionaryGetValue(a2, @"motionBlurIntensity");
-    if (v44)
-    {
-      v56[0] = 0.0;
-      CFNumberGetValue(v44, kCFNumberFloatType, v56);
-      *(a1 + 472) = v56[0];
-    }
-
-    v45 = CFDictionaryGetValue(a2, @"screenSpaceAmbientOcclusionIntensity");
-    if (v45)
-    {
-      v56[0] = 0.0;
-      CFNumberGetValue(v45, kCFNumberFloatType, v56);
-      *(a1 + 492) = v56[0];
-    }
-
-    v46 = CFDictionaryGetValue(a2, @"screenSpaceAmbientOcclusionRadius");
-    if (v46)
-    {
-      v56[0] = 0.0;
-      CFNumberGetValue(v46, kCFNumberFloatType, v56);
-      *(a1 + 496) = v56[0];
-    }
-
-    v47 = CFDictionaryGetValue(a2, @"screenSpaceAmbientOcclusionBias");
-    if (v47)
-    {
-      v56[0] = 0.0;
-      CFNumberGetValue(v47, kCFNumberFloatType, v56);
-      *(a1 + 500) = v56[0];
-    }
-
-    v48 = CFDictionaryGetValue(a2, @"screenSpaceAmbientOcclusionDepthThreshold");
-    if (v48)
-    {
-      v56[0] = 0.0;
-      CFNumberGetValue(v48, kCFNumberFloatType, v56);
-      *(a1 + 504) = v56[0];
-    }
-
-    v49 = CFDictionaryGetValue(a2, @"screenSpaceAmbientOcclusionNormalThreshold");
-    if (v49)
-    {
-      v56[0] = 0.0;
-      CFNumberGetValue(v49, kCFNumberFloatType, v56);
-      *(a1 + 508) = v56[0];
-    }
-
-    v50 = CFDictionaryGetValue(a2, @"screenSpaceAmbientOcclusionSampleCount");
-    if (v50)
-    {
-      v56[0] = 0.0;
-      CFNumberGetValue(v50, kCFNumberIntType, v56);
-      *(a1 + 512) = v56[0];
-    }
-
-    v51 = CFDictionaryGetValue(a2, @"screenSpaceAmbientOcclusionDownSample");
-    if (v51)
-    {
-      v56[0] = 0.0;
-      CFNumberGetValue(v51, kCFNumberIntType, v56);
-      *(a1 + 516) = v56[0];
-    }
-
-    *(a1 + 64) |= 0x10u;
-    v52 = CFDictionaryGetValue(a2, @"fov");
-    if (v52)
-    {
-      v56[0] = 0.0;
-      CFNumberGetValue(v52, kCFNumberFloatType, v56);
-      C3DCameraSetFov(a1, v56[0]);
-    }
-
-    if (*(a1 + 72) == 0.0 && (*(a1 + 64) & 1) == 0)
-    {
-      v53 = scn_default_log();
-      if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
-      {
-        LOWORD(v56[0]) = 0;
-        _os_log_impl(&dword_21BEF7000, v53, OS_LOG_TYPE_INFO, "Info: loaded camera has an invalid zNear value (0)", v56, 2u);
-      }
-    }
-  }
-
-  else
-  {
-    v54 = scn_default_log();
-    if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
-    {
-      _C3DCameraInitWithPropertyList_cold_2(v54);
-    }
-  }
-
-  return v12;
-}
-
-__CFDictionary *_C3DCameraCopyPropertyList(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  if (!a1)
-  {
-    v6 = scn_default_log();
+    v6 = scn_default_log(0, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
       _C3DGeometryFillLibraryForSerialization_cold_1(v6, v7, v8, v9, v10, v11, v12, v13);
     }
   }
 
-  v14 = C3DEntityCopyPropertyList(a1, a2, a3);
+  v14 = C3DEntityInitWithPropertyList(a1, a2);
+  v16 = v14;
   if (v14)
   {
+    *(a1 + 272) = 0;
+    *(a1 + 280) = 0;
+    Value = CFDictionaryGetValue(a2, @"ortho");
+    if (Value)
+    {
+      LODWORD(v62[0]) = 0;
+      CFNumberGetValue(Value, kCFNumberIntType, v62);
+      v18 = *(a1 + 64) & 0xFE;
+      if (LODWORD(v62[0]))
+      {
+        ++v18;
+      }
+
+      *(a1 + 64) = v18;
+    }
+
+    v19 = CFDictionaryGetValue(a2, @"letterbox");
+    if (v19)
+    {
+      LODWORD(v62[0]) = 0;
+      CFNumberGetValue(v19, kCFNumberIntType, v62);
+      *(a1 + 64) = *(a1 + 64) & 0xBF | ((LODWORD(v62[0]) != 0) << 6);
+    }
+
+    v20 = CFDictionaryGetValue(a2, @"fovHorizontal");
+    if (v20)
+    {
+      LODWORD(v62[0]) = 0;
+      CFNumberGetValue(v20, kCFNumberIntType, v62);
+      *(a1 + 64) = *(a1 + 64) & 0xDF | (32 * (LODWORD(v62[0]) != 0));
+    }
+
+    v21 = CFDictionaryGetValue(a2, @"customProj");
+    if (v21)
+    {
+      LODWORD(v62[0]) = 0;
+      CFNumberGetValue(v21, kCFNumberIntType, v62);
+      *(a1 + 64) = *(a1 + 64) & 0xF7 | (8 * (LODWORD(v62[0]) != 0));
+    }
+
+    v22 = CFDictionaryGetValue(a2, @"autoZRange");
+    if (v22)
+    {
+      LODWORD(v62[0]) = 0;
+      CFNumberGetValue(v22, kCFNumberIntType, v62);
+      *(a1 + 64) = *(a1 + 64) & 0xFD | (2 * (LODWORD(v62[0]) != 0));
+    }
+
+    v23 = CFDictionaryGetValue(a2, @"xfov");
+    if (v23)
+    {
+      v62[0] = 0;
+      CFNumberGetValue(v23, kCFNumberDoubleType, v62);
+      *(a1 + 272) = v62[0];
+    }
+
+    v24 = CFDictionaryGetValue(a2, @"yfov");
+    if (v24)
+    {
+      v62[0] = 0;
+      CFNumberGetValue(v24, kCFNumberDoubleType, v62);
+      *(a1 + 280) = v62[0];
+    }
+
+    v25 = CFDictionaryGetValue(a2, @"xMag");
+    if (v25)
+    {
+      v62[0] = 0;
+      CFNumberGetValue(v25, kCFNumberDoubleType, v62);
+      *(a1 + 112) = v62[0];
+    }
+
+    v26 = CFDictionaryGetValue(a2, @"znear");
+    if (v26)
+    {
+      v62[0] = 0;
+      CFNumberGetValue(v26, kCFNumberDoubleType, v62);
+      *(a1 + 72) = v62[0];
+    }
+
+    v27 = CFDictionaryGetValue(a2, @"zfar");
+    if (v27)
+    {
+      v62[0] = 0;
+      CFNumberGetValue(v27, kCFNumberDoubleType, v62);
+      *(a1 + 80) = v62[0];
+    }
+
+    v28 = CFDictionaryGetValue(a2, @"aspectRatio");
+    if (v28)
+    {
+      v62[0] = 0;
+      CFNumberGetValue(v28, kCFNumberDoubleType, v62);
+      *(a1 + 128) = v62[0];
+    }
+
+    v29 = CFDictionaryGetValue(a2, @"focusDistance");
+    if (v29)
+    {
+      LODWORD(v62[0]) = 0;
+      CFNumberGetValue(v29, kCFNumberFloatType, v62);
+      *(a1 + 288) = v62[0];
+    }
+
+    v30 = CFDictionaryGetValue(a2, @"fstop");
+    if (v30)
+    {
+      LODWORD(v62[0]) = 0;
+      CFNumberGetValue(v30, kCFNumberFloatType, v62);
+      *(a1 + 296) = v62[0];
+    }
+
+    v31 = CFDictionaryGetValue(a2, @"bladeCount");
+    if (v31)
+    {
+      LODWORD(v62[0]) = 0;
+      CFNumberGetValue(v31, kCFNumberIntType, v62);
+      *(a1 + 304) = v62[0];
+    }
+
+    v32 = CFDictionaryGetValue(a2, @"dofSampleCount");
+    if (v32)
+    {
+      LODWORD(v62[0]) = 0;
+      CFNumberGetValue(v32, kCFNumberIntType, v62);
+      *(a1 + 308) = v62[0];
+    }
+
+    v33 = CFDictionaryGetValue(a2, @"sensorSize");
+    if (v33)
+    {
+      LODWORD(v62[0]) = 0;
+      CFNumberGetValue(v33, kCFNumberFloatType, v62);
+      *(a1 + 300) = v62[0];
+    }
+
+    v34 = CFDictionaryGetValue(a2, @"dofIntensity");
+    if (v34)
+    {
+      LODWORD(v62[0]) = 0;
+      CFNumberGetValue(v34, kCFNumberFloatType, v62);
+      *(a1 + 448) = v62[0];
+    }
+
+    v35 = CFDictionaryGetValue(a2, @"category");
+    if (v35)
+    {
+      v62[0] = 0;
+      CFNumberGetValue(v35, kCFNumberNSIntegerType, v62);
+      *(a1 + 528) = v62[0];
+    }
+
+    v36 = CFDictionaryGetValue(a2, @"whitePoint");
+    if (v36)
+    {
+      LODWORD(v62[0]) = 0;
+      CFNumberGetValue(v36, kCFNumberFloatType, v62);
+      *(a1 + 384) = v62[0];
+    }
+
+    v37 = CFDictionaryGetValue(a2, @"averageGray");
+    if (v37)
+    {
+      LODWORD(v62[0]) = 0;
+      CFNumberGetValue(v37, kCFNumberFloatType, v62);
+      *(a1 + 388) = v62[0];
+    }
+
+    v38 = CFDictionaryGetValue(a2, @"exposureAdaptationDuration");
+    if (v38)
+    {
+      LODWORD(v62[0]) = 0;
+      CFNumberGetValue(v38, kCFNumberFloatType, v62);
+      *(a1 + 396) = v62[0];
+    }
+
+    v39 = CFDictionaryGetValue(a2, @"exposureAdaptationBrighteningSpeedFactor");
+    if (v39)
+    {
+      LODWORD(v62[0]) = 0;
+      CFNumberGetValue(v39, kCFNumberFloatType, v62);
+      *(a1 + 400) = v62[0];
+    }
+
+    v40 = CFDictionaryGetValue(a2, @"exposureAdaptationDarkeningSpeedFactor");
+    if (v40)
+    {
+      LODWORD(v62[0]) = 0;
+      CFNumberGetValue(v40, kCFNumberFloatType, v62);
+      *(a1 + 404) = v62[0];
+    }
+
+    v41 = CFDictionaryGetValue(a2, @"minimumExposure");
+    if (v41)
+    {
+      LODWORD(v62[0]) = 0;
+      CFNumberGetValue(v41, kCFNumberFloatType, v62);
+      *(a1 + 416) = v62[0];
+    }
+
+    v42 = CFDictionaryGetValue(a2, @"maximumExposure");
+    if (v42)
+    {
+      LODWORD(v62[0]) = 0;
+      CFNumberGetValue(v42, kCFNumberFloatType, v62);
+      *(a1 + 420) = v62[0];
+    }
+
+    v43 = CFDictionaryGetValue(a2, @"bloomIntensity");
+    if (v43)
+    {
+      LODWORD(v62[0]) = 0;
+      CFNumberGetValue(v43, kCFNumberFloatType, v62);
+      *(a1 + 424) = v62[0];
+    }
+
+    v44 = CFDictionaryGetValue(a2, @"bloomThreshold");
+    if (v44)
+    {
+      LODWORD(v62[0]) = 0;
+      CFNumberGetValue(v44, kCFNumberFloatType, v62);
+      *(a1 + 428) = v62[0];
+    }
+
+    v45 = CFDictionaryGetValue(a2, @"bloomIteration");
+    if (v45)
+    {
+      LODWORD(v62[0]) = 0;
+      CFNumberGetValue(v45, kCFNumberIntType, v62);
+      *(a1 + 432) = v62[0];
+    }
+
+    v46 = CFDictionaryGetValue(a2, @"bloomIterationSpread");
+    if (v46)
+    {
+      LODWORD(v62[0]) = 0;
+      CFNumberGetValue(v46, kCFNumberFloatType, v62);
+      *(a1 + 432) = *v62;
+    }
+
+    v47 = CFDictionaryGetValue(a2, @"bloomBlurRadius");
+    if (v47)
+    {
+      LODWORD(v62[0]) = 0;
+      CFNumberGetValue(v47, kCFNumberFloatType, v62);
+      *(a1 + 440) = v62[0];
+    }
+
+    v48 = CFDictionaryGetValue(a2, @"motionBlurIntensity");
+    if (v48)
+    {
+      LODWORD(v62[0]) = 0;
+      CFNumberGetValue(v48, kCFNumberFloatType, v62);
+      *(a1 + 472) = v62[0];
+    }
+
+    v49 = CFDictionaryGetValue(a2, @"screenSpaceAmbientOcclusionIntensity");
+    if (v49)
+    {
+      LODWORD(v62[0]) = 0;
+      CFNumberGetValue(v49, kCFNumberFloatType, v62);
+      *(a1 + 492) = v62[0];
+    }
+
+    v50 = CFDictionaryGetValue(a2, @"screenSpaceAmbientOcclusionRadius");
+    if (v50)
+    {
+      LODWORD(v62[0]) = 0;
+      CFNumberGetValue(v50, kCFNumberFloatType, v62);
+      *(a1 + 496) = v62[0];
+    }
+
+    v51 = CFDictionaryGetValue(a2, @"screenSpaceAmbientOcclusionBias");
+    if (v51)
+    {
+      LODWORD(v62[0]) = 0;
+      CFNumberGetValue(v51, kCFNumberFloatType, v62);
+      *(a1 + 500) = v62[0];
+    }
+
+    v52 = CFDictionaryGetValue(a2, @"screenSpaceAmbientOcclusionDepthThreshold");
+    if (v52)
+    {
+      LODWORD(v62[0]) = 0;
+      CFNumberGetValue(v52, kCFNumberFloatType, v62);
+      *(a1 + 504) = v62[0];
+    }
+
+    v53 = CFDictionaryGetValue(a2, @"screenSpaceAmbientOcclusionNormalThreshold");
+    if (v53)
+    {
+      LODWORD(v62[0]) = 0;
+      CFNumberGetValue(v53, kCFNumberFloatType, v62);
+      *(a1 + 508) = v62[0];
+    }
+
+    v54 = CFDictionaryGetValue(a2, @"screenSpaceAmbientOcclusionSampleCount");
+    if (v54)
+    {
+      LODWORD(v62[0]) = 0;
+      CFNumberGetValue(v54, kCFNumberIntType, v62);
+      *(a1 + 512) = v62[0];
+    }
+
+    v55 = CFDictionaryGetValue(a2, @"screenSpaceAmbientOcclusionDownSample");
+    if (v55)
+    {
+      LODWORD(v62[0]) = 0;
+      CFNumberGetValue(v55, kCFNumberIntType, v62);
+      *(a1 + 516) = v62[0];
+    }
+
+    *(a1 + 64) |= 0x10u;
+    v56 = CFDictionaryGetValue(a2, @"fov");
+    if (v56)
+    {
+      LODWORD(v62[0]) = 0;
+      CFNumberGetValue(v56, kCFNumberFloatType, v62);
+      C3DCameraSetFov(a1, v58, *v62);
+    }
+
+    if (*(a1 + 72) == 0.0 && (*(a1 + 64) & 1) == 0)
+    {
+      v59 = scn_default_log(v56, v57);
+      if (os_log_type_enabled(v59, OS_LOG_TYPE_INFO))
+      {
+        LOWORD(v62[0]) = 0;
+        _os_log_impl(&dword_21BEF7000, v59, OS_LOG_TYPE_INFO, "Info: loaded camera has an invalid zNear value (0)", v62, 2u);
+      }
+    }
+  }
+
+  else
+  {
+    v60 = scn_default_log(v14, v15);
+    if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
+    {
+      _C3DCameraInitWithPropertyList_cold_2(v60);
+    }
+  }
+
+  return v16;
+}
+
+__CFDictionary *_C3DCameraCopyPropertyList(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  if (!a1)
+  {
+    v7 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    {
+      _C3DGeometryFillLibraryForSerialization_cold_1(v7, v8, v9, v10, v11, v12, v13, v14);
+    }
+  }
+
+  v15 = C3DEntityCopyPropertyList(a1, a2, a3);
+  if (v15)
+  {
     LODWORD(valuePtr) = *(a1 + 64) & 1;
-    v15 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
-    CFDictionaryAddValue(v14, @"ortho", v15);
-    CFRelease(v15);
-    LODWORD(valuePtr) = (*(a1 + 312) >> 3) & 1;
     v16 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
-    CFDictionaryAddValue(v14, @"letterbox", v16);
+    CFDictionaryAddValue(v15, @"ortho", v16);
     CFRelease(v16);
-    LODWORD(valuePtr) = (*(a1 + 64) >> 5) & 1;
+    LODWORD(valuePtr) = (*(a1 + 312) >> 3) & 1;
     v17 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
-    CFDictionaryAddValue(v14, @"fovHorizontal", v17);
+    CFDictionaryAddValue(v15, @"letterbox", v17);
     CFRelease(v17);
-    LODWORD(valuePtr) = (*(a1 + 64) >> 1) & 1;
+    LODWORD(valuePtr) = (*(a1 + 64) >> 5) & 1;
     v18 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
-    CFDictionaryAddValue(v14, @"autoZRange", v18);
+    CFDictionaryAddValue(v15, @"fovHorizontal", v18);
     CFRelease(v18);
-    LODWORD(valuePtr) = (*(a1 + 64) >> 3) & 1;
+    LODWORD(valuePtr) = (*(a1 + 64) >> 1) & 1;
     v19 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
-    CFDictionaryAddValue(v14, @"customProj", v19);
+    CFDictionaryAddValue(v15, @"autoZRange", v19);
     CFRelease(v19);
+    LODWORD(valuePtr) = (*(a1 + 64) >> 3) & 1;
+    v20 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
+    CFDictionaryAddValue(v15, @"customProj", v20);
+    CFRelease(v20);
     if ((*(a1 + 64) & 0x10) != 0)
     {
       if (*(a1 + 272) != 0.0)
       {
         valuePtr = *(a1 + 272);
-        v23 = CFNumberCreate(0, kCFNumberDoubleType, &valuePtr);
-        CFDictionaryAddValue(v14, @"xfov", v23);
-        CFRelease(v23);
+        v24 = CFNumberCreate(0, kCFNumberDoubleType, &valuePtr);
+        CFDictionaryAddValue(v15, @"xfov", v24);
+        CFRelease(v24);
       }
 
       if (*(a1 + 280) != 0.0)
       {
         valuePtr = *(a1 + 280);
-        v24 = CFNumberCreate(0, kCFNumberDoubleType, &valuePtr);
-        CFDictionaryAddValue(v14, @"yfov", v24);
-        CFRelease(v24);
+        v25 = CFNumberCreate(0, kCFNumberDoubleType, &valuePtr);
+        CFDictionaryAddValue(v15, @"yfov", v25);
+        CFRelease(v25);
       }
     }
 
     else
     {
       LODWORD(valuePtr) = *(a1 + 120);
-      v20 = CFNumberCreate(0, kCFNumberFloatType, &valuePtr);
-      CFDictionaryAddValue(v14, @"fov", v20);
-      CFRelease(v20);
-      LODWORD(valuePtr) = (*(a1 + 64) >> 5) & 1;
-      v21 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
-      CFDictionaryAddValue(v14, @"fovHorizontal", v21);
+      v21 = CFNumberCreate(0, kCFNumberFloatType, &valuePtr);
+      CFDictionaryAddValue(v15, @"fov", v21);
       CFRelease(v21);
-      Value = CFDictionaryGetValue(v14, @"sensorSize");
+      LODWORD(valuePtr) = (*(a1 + 64) >> 5) & 1;
+      v22 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
+      CFDictionaryAddValue(v15, @"fovHorizontal", v22);
+      CFRelease(v22);
+      Value = CFDictionaryGetValue(v15, @"sensorSize");
       if (Value)
       {
         LODWORD(valuePtr) = 0;
@@ -2149,76 +2962,76 @@ __CFDictionary *_C3DCameraCopyPropertyList(uint64_t a1, uint64_t a2, uint64_t a3
     }
 
     valuePtr = *(a1 + 112);
-    v25 = CFNumberCreate(0, kCFNumberDoubleType, &valuePtr);
-    CFDictionaryAddValue(v14, @"xMag", v25);
-    CFRelease(v25);
-    valuePtr = *(a1 + 72);
     v26 = CFNumberCreate(0, kCFNumberDoubleType, &valuePtr);
-    CFDictionaryAddValue(v14, @"znear", v26);
+    CFDictionaryAddValue(v15, @"xMag", v26);
     CFRelease(v26);
-    valuePtr = *(a1 + 80);
+    valuePtr = *(a1 + 72);
     v27 = CFNumberCreate(0, kCFNumberDoubleType, &valuePtr);
-    CFDictionaryAddValue(v14, @"zfar", v27);
+    CFDictionaryAddValue(v15, @"znear", v27);
     CFRelease(v27);
-    valuePtr = *(a1 + 128);
+    valuePtr = *(a1 + 80);
     v28 = CFNumberCreate(0, kCFNumberDoubleType, &valuePtr);
-    CFDictionaryAddValue(v14, @"aspectRatio", v28);
+    CFDictionaryAddValue(v15, @"zfar", v28);
     CFRelease(v28);
-    LODWORD(valuePtr) = *(a1 + 296);
-    v29 = CFNumberCreate(0, kCFNumberFloatType, &valuePtr);
-    CFDictionaryAddValue(v14, @"fstop", v29);
+    valuePtr = *(a1 + 128);
+    v29 = CFNumberCreate(0, kCFNumberDoubleType, &valuePtr);
+    CFDictionaryAddValue(v15, @"aspectRatio", v29);
     CFRelease(v29);
-    LODWORD(valuePtr) = *(a1 + 304);
-    v30 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
-    CFDictionaryAddValue(v14, @"bladeCount", v30);
+    LODWORD(valuePtr) = *(a1 + 296);
+    v30 = CFNumberCreate(0, kCFNumberFloatType, &valuePtr);
+    CFDictionaryAddValue(v15, @"fstop", v30);
     CFRelease(v30);
-    LODWORD(valuePtr) = *(a1 + 308);
+    LODWORD(valuePtr) = *(a1 + 304);
     v31 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
-    CFDictionaryAddValue(v14, @"dofSampleCount", v31);
+    CFDictionaryAddValue(v15, @"bladeCount", v31);
     CFRelease(v31);
-    LODWORD(valuePtr) = *(a1 + 288);
-    v32 = CFNumberCreate(0, kCFNumberFloatType, &valuePtr);
-    CFDictionaryAddValue(v14, @"focusDistance", v32);
+    LODWORD(valuePtr) = *(a1 + 308);
+    v32 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
+    CFDictionaryAddValue(v15, @"dofSampleCount", v32);
     CFRelease(v32);
-    LODWORD(valuePtr) = *(a1 + 448);
+    LODWORD(valuePtr) = *(a1 + 288);
     v33 = CFNumberCreate(0, kCFNumberFloatType, &valuePtr);
-    CFDictionaryAddValue(v14, @"dofIntensity", v33);
+    CFDictionaryAddValue(v15, @"focusDistance", v33);
     CFRelease(v33);
-    LODWORD(valuePtr) = *(a1 + 492);
+    LODWORD(valuePtr) = *(a1 + 448);
     v34 = CFNumberCreate(0, kCFNumberFloatType, &valuePtr);
-    CFDictionaryAddValue(v14, @"screenSpaceAmbientOcclusionIntensity", v34);
+    CFDictionaryAddValue(v15, @"dofIntensity", v34);
     CFRelease(v34);
-    LODWORD(valuePtr) = *(a1 + 496);
+    LODWORD(valuePtr) = *(a1 + 492);
     v35 = CFNumberCreate(0, kCFNumberFloatType, &valuePtr);
-    CFDictionaryAddValue(v14, @"screenSpaceAmbientOcclusionRadius", v35);
+    CFDictionaryAddValue(v15, @"screenSpaceAmbientOcclusionIntensity", v35);
     CFRelease(v35);
-    LODWORD(valuePtr) = *(a1 + 500);
+    LODWORD(valuePtr) = *(a1 + 496);
     v36 = CFNumberCreate(0, kCFNumberFloatType, &valuePtr);
-    CFDictionaryAddValue(v14, @"screenSpaceAmbientOcclusionBias", v36);
+    CFDictionaryAddValue(v15, @"screenSpaceAmbientOcclusionRadius", v36);
     CFRelease(v36);
-    LODWORD(valuePtr) = *(a1 + 504);
+    LODWORD(valuePtr) = *(a1 + 500);
     v37 = CFNumberCreate(0, kCFNumberFloatType, &valuePtr);
-    CFDictionaryAddValue(v14, @"screenSpaceAmbientOcclusionDepthThreshold", v37);
+    CFDictionaryAddValue(v15, @"screenSpaceAmbientOcclusionBias", v37);
     CFRelease(v37);
-    LODWORD(valuePtr) = *(a1 + 508);
+    LODWORD(valuePtr) = *(a1 + 504);
     v38 = CFNumberCreate(0, kCFNumberFloatType, &valuePtr);
-    CFDictionaryAddValue(v14, @"screenSpaceAmbientOcclusionNormalThreshold", v38);
+    CFDictionaryAddValue(v15, @"screenSpaceAmbientOcclusionDepthThreshold", v38);
     CFRelease(v38);
-    LODWORD(valuePtr) = *(a1 + 512);
-    v39 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
-    CFDictionaryAddValue(v14, @"screenSpaceAmbientOcclusionSampleCount", v39);
+    LODWORD(valuePtr) = *(a1 + 508);
+    v39 = CFNumberCreate(0, kCFNumberFloatType, &valuePtr);
+    CFDictionaryAddValue(v15, @"screenSpaceAmbientOcclusionNormalThreshold", v39);
     CFRelease(v39);
-    LODWORD(valuePtr) = *(a1 + 516);
+    LODWORD(valuePtr) = *(a1 + 512);
     v40 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
-    CFDictionaryAddValue(v14, @"screenSpaceAmbientOcclusionDownSample", v40);
+    CFDictionaryAddValue(v15, @"screenSpaceAmbientOcclusionSampleCount", v40);
     CFRelease(v40);
-    valuePtr = *(a1 + 528);
-    v41 = CFNumberCreate(0, kCFNumberNSIntegerType, &valuePtr);
-    CFDictionaryAddValue(v14, @"category", v41);
+    LODWORD(valuePtr) = *(a1 + 516);
+    v41 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
+    CFDictionaryAddValue(v15, @"screenSpaceAmbientOcclusionDownSample", v41);
     CFRelease(v41);
+    valuePtr = *(a1 + 528);
+    v42 = CFNumberCreate(0, kCFNumberNSIntegerType, &valuePtr);
+    CFDictionaryAddValue(v15, @"category", v42);
+    CFRelease(v42);
   }
 
-  return v14;
+  return v15;
 }
 
 __CFArray *_C3DCameraCopyInstanceVariables(uint64_t a1)
@@ -2871,7 +3684,7 @@ __CFArray *_C3DCameraCopyInstanceVariables(uint64_t a1)
 
 uint64_t _C3DCameraSearchByID(uint64_t a1, const void *a2)
 {
-  ID = C3DEntityGetID(a1);
+  ID = C3DEntityGetID(a1, a2);
   if (C3DEqual(ID, a2))
   {
     return a1;
@@ -2883,77 +3696,77 @@ uint64_t _C3DCameraSearchByID(uint64_t a1, const void *a2)
   }
 }
 
-uint64_t C3DNodeIsHidden(uint64_t a1)
+uint64_t C3DNodeIsHidden(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DGeometryTrackNode_cold_2(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 200);
 }
 
-void C3DNodeUpdateCullingSystemMembership(uint64_t a1)
+void C3DNodeUpdateCullingSystemMembership(uint64_t result)
 {
-  v1 = *(a1 + 48);
+  v1 = *(result + 48);
   if (v1)
   {
-    __UpdateCullingHandle(a1, v1);
+    __UpdateCullingHandle(result, v1);
   }
 }
 
 void __UpdateCullingHandle(uint64_t a1, uint64_t a2)
 {
-  ShouldBePutInCullingSystem = C3DNodeShouldBePutInCullingSystem(a1);
+  ShouldBePutInCullingSystem = C3DNodeShouldBePutInCullingSystem(a1, a2);
   if (((ShouldBePutInCullingSystem ^ (*(a1 + 216) == -1)) & 1) == 0)
   {
-    v5 = ShouldBePutInCullingSystem;
-    CullingSystem = C3DSceneGetCullingSystem(a2);
-    if (v5)
+    v6 = ShouldBePutInCullingSystem;
+    CullingSystem = C3DSceneGetCullingSystem(a2, v5);
+    if (v6)
     {
-      v7 = C3DCullingSystemAdd(CullingSystem, a1);
+      v8 = C3DCullingSystemAdd(CullingSystem, a1);
     }
 
     else
     {
       C3DCullingSystemRemove(CullingSystem, *(a1 + 216));
-      v7 = -1;
+      v8 = -1;
     }
 
-    *(a1 + 216) = v7;
-    TransformTree = C3DSceneGetTransformTree(a2);
-    v9 = *(a1 + 88);
-    v10 = *(a1 + 216);
+    *(a1 + 216) = v8;
+    TransformTree = C3DSceneGetTransformTree(a2, v9);
+    v11 = *(a1 + 88);
+    v12 = *(a1 + 216);
 
-    C3DTransformTreeUpdateCullingHandle(TransformTree, v9, v10);
+    C3DTransformTreeUpdateCullingHandle(TransformTree, v11, v12);
   }
 }
 
-__n128 __C3DComputeLocalBoundingBox(uint64_t a1)
+__n128 __C3DComputeLocalBoundingBox(uint64_t a1, uint64_t a2)
 {
   *(a1 + 272) = *(MEMORY[0x277D860B8] + 48);
   *(a1 + 288) = xmmword_21C27F650;
-  DeformerStack = C3DNodeGetDeformerStack(a1);
+  DeformerStack = C3DNodeGetDeformerStack(a1, a2);
   if (!DeformerStack || (C3DDeformerStackGetLocalBoundingBox(DeformerStack, (a1 + 272)) & 1) == 0)
   {
-    Geometry = C3DNodeGetGeometry(a1);
+    Geometry = C3DNodeGetGeometry(a1, v4);
     if (Geometry)
     {
-      v8 = 0uLL;
-      v7 = 0uLL;
-      if (C3DGetBoundingBox(Geometry, 0, &v8, &v7))
+      v10 = 0uLL;
+      v9 = 0uLL;
+      if (C3DGetBoundingBox(Geometry, 0, &v10, &v9))
       {
-        v5.i64[0] = 0x3F0000003F000000;
-        v5.i64[1] = 0x3F0000003F000000;
-        v6 = vmulq_f32(vaddq_f32(v8, v7), v5);
-        result = vmulq_f32(vsubq_f32(v7, v8), v5);
-        v6.i32[3] = 1.0;
+        v7.i64[0] = 0x3F0000003F000000;
+        v7.i64[1] = 0x3F0000003F000000;
+        v8 = vmulq_f32(vaddq_f32(v10, v9), v7);
+        result = vmulq_f32(vsubq_f32(v9, v10), v7);
+        v8.i32[3] = 1.0;
         result.n128_u32[3] = 0;
-        *(a1 + 272) = v6;
+        *(a1 + 272) = v8;
         *(a1 + 288) = result;
       }
     }
@@ -2962,63 +3775,63 @@ __n128 __C3DComputeLocalBoundingBox(uint64_t a1)
   return result;
 }
 
-uint64_t C3DNodeGetDeformerStack(uint64_t a1)
+uint64_t C3DNodeGetDeformerStack(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DGeometryTrackNode_cold_2(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 248);
 }
 
-uint64_t C3DNodeGetGeometry(uint64_t a1)
+uint64_t C3DNodeGetGeometry(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DGeometryTrackNode_cold_2(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 240);
 }
 
-void C3DNodeGeometryDidUpdate(uint64_t *a1)
+void C3DNodeGeometryDidUpdate(uint64_t *a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DGeometryTrackNode_cold_2(v3, a2, v4, v5, v6, v7, v8, v9);
     }
   }
 
-  C3DNodeBoundingBoxDidUpdate(a1);
+  C3DNodeBoundingBoxDidUpdate(a1, a2);
   C3DScenePostPipelineEvent(a1[6], 2, a1, @"kMeshKey");
 }
 
-void C3DNodeBoundingBoxDidUpdate(uint64_t a1)
+void C3DNodeBoundingBoxDidUpdate(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DGeometryTrackNode_cold_2(v3, a2, v4, v5, v6, v7, v8, v9);
     }
   }
 
   if ((*(a1 + 220) & 4) == 0)
   {
-    __C3DComputeLocalBoundingBox(a1);
+    __C3DComputeLocalBoundingBox(a1, a2);
   }
 
   if (*(a1 + 216) != -1)
@@ -3026,7 +3839,7 @@ void C3DNodeBoundingBoxDidUpdate(uint64_t a1)
     v10 = *(a1 + 48);
     if (v10)
     {
-      CullingSystem = C3DSceneGetCullingSystem(v10);
+      CullingSystem = C3DSceneGetCullingSystem(v10, a2);
       v12 = *(a1 + 288);
       v13[0] = *(a1 + 272);
       v13[1] = v12;
@@ -3046,14 +3859,14 @@ uint64_t C3DNodeGetLocalBoundingBox(uint64_t a1, _OWORD *a2)
   return vminvq_u32(vcgezq_f32(*(a1 + 288))) >> 31;
 }
 
-void C3DNodeGeometryLODDidUpdate(uint64_t a1)
+void C3DNodeGeometryLODDidUpdate(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DGeometryTrackNode_cold_2(v3, a2, v4, v5, v6, v7, v8, v9);
     }
   }
 
@@ -3065,38 +3878,38 @@ void C3DNodeGeometryLODDidUpdate(uint64_t a1)
 
   *(a1 + 232) = 0;
   *(a1 + 220) &= ~0x8000u;
-  Geometry = C3DNodeGetGeometry(a1);
+  Geometry = C3DNodeGetGeometry(a1, a2);
   if (Geometry)
   {
-    LOD = C3DGeometryGetLOD(Geometry);
+    LOD = C3DGeometryGetLOD(Geometry, v12);
     if (LOD)
     {
-      v13 = LOD;
+      v14 = LOD;
       if (CFArrayGetCount(LOD) >= 1)
       {
-        Count = CFArrayGetCount(v13);
-        ValueAtIndex = CFArrayGetValueAtIndex(v13, Count / 2);
-        v16 = C3DLODGetThresholdType(ValueAtIndex);
-        v17 = malloc_type_malloc(12 * Count + 8, 0x100004000313F17uLL);
-        *(a1 + 232) = v17;
-        *v17 = Count;
-        v17[2] = v16;
+        Count = CFArrayGetCount(v14);
+        ValueAtIndex = CFArrayGetValueAtIndex(v14, Count / 2);
+        v18 = C3DLODGetThresholdType(ValueAtIndex, v17);
+        v19 = malloc_type_malloc(12 * Count + 8, 0x100004000313F17uLL);
+        *(a1 + 232) = v19;
+        *v19 = Count;
+        v19[2] = v18;
         *(*(a1 + 232) + 4) = 0;
         *(a1 + 220) |= 0x8000u;
         if (Count >= 1)
         {
-          v18 = 0;
-          v19 = (v17 + 16);
+          v20 = 0;
+          v21 = (v19 + 16);
           do
           {
-            v20 = CFArrayGetValueAtIndex(v13, v18);
-            *(v19 - 2) = C3DLODGetThreshold(v20);
-            *(v19 - 1) = 0xFFFFFFFFLL;
-            ++v18;
-            v19 += 3;
+            v22 = CFArrayGetValueAtIndex(v14, v20);
+            *(v21 - 2) = C3DLODGetThreshold(v22, v23);
+            *(v21 - 1) = 0xFFFFFFFFLL;
+            ++v20;
+            v21 += 3;
           }
 
-          while (Count != v18);
+          while (Count != v20);
         }
       }
     }
@@ -3128,7 +3941,7 @@ float32x4_t C3DTransformBoundingBox(float32x4_t *a1, float32x4_t *a2, float32x4_
   return result;
 }
 
-uint64_t C3DNodeIsLighted(uint64_t a1)
+const __CFArray *C3DNodeIsLighted(uint64_t a1)
 {
   result = *(a1 + 240);
   if (result)
@@ -3136,10 +3949,10 @@ uint64_t C3DNodeIsLighted(uint64_t a1)
     result = C3DGeometryGetMaterialAtIndex(result, 0);
     if (result)
     {
-      result = C3DMaterialGetCommonProfile(result);
+      result = C3DMaterialGetCommonProfile(result, v2);
       if (result)
       {
-        return (C3DEffectCommonProfileGetLightingModel(result) & 0xFFFFFFFB) != 0;
+        return ((C3DEffectCommonProfileGetLightingModel(result, v3) & 0xFFFFFFFB) != 0);
       }
     }
   }
@@ -3147,53 +3960,53 @@ uint64_t C3DNodeIsLighted(uint64_t a1)
   return result;
 }
 
-uint64_t C3DNodeIsAlwaysRendered(uint64_t a1)
+uint64_t C3DNodeIsAlwaysRendered(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 220);
-  if ((v1 & 2) != 0)
+  v2 = *(a1 + 220);
+  if ((v2 & 2) != 0)
   {
-    if ((v1 & 4) != 0)
+    if ((v2 & 4) != 0)
     {
-      v5 = 0;
+      v7 = 0;
     }
 
     else
     {
-      RendererDelegate = C3DNodeGetRendererDelegate(a1);
-      v4 = *(a1 + 240);
-      if (v4)
+      RendererDelegate = C3DNodeGetRendererDelegate(a1, a2);
+      v6 = *(a1 + 240);
+      if (v6)
       {
-        LODWORD(v4) = C3DGeometryIsAlwaysRendered(v4);
+        LODWORD(v6) = C3DGeometryIsAlwaysRendered(v6, v4);
       }
 
       if (RendererDelegate)
       {
-        v5 = 1;
+        v7 = 1;
       }
 
       else
       {
-        v5 = v4;
+        v7 = v6;
       }
 
-      v1 = *(a1 + 220);
+      v2 = *(a1 + 220);
     }
 
-    v1 = v1 & 0xFFFFFFFC | v5;
-    *(a1 + 220) = v1;
+    v2 = v2 & 0xFFFFFFFC | v7;
+    *(a1 + 220) = v2;
   }
 
-  return v1 & 1;
+  return v2 & 1;
 }
 
-const __CFDictionary *C3DNodeGetRendererDelegate(uint64_t a1)
+const __CFDictionary *C3DNodeGetRendererDelegate(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DGeometryTrackNode_cold_2(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
@@ -3222,7 +4035,7 @@ void C3DNodeSetBoundingBox(uint64_t a1, _OWORD *a2, uint64_t a3)
 
     else
     {
-      __C3DComputeLocalBoundingBox(a1);
+      __C3DComputeLocalBoundingBox(a1, 0);
       v5 = *(a1 + 220);
     }
 
@@ -3237,77 +4050,77 @@ void C3DNodeSetBoundingBox(uint64_t a1, _OWORD *a2, uint64_t a3)
       *(a1 + 220) = v5 & 0xFFFFFFFC;
     }
 
-    C3DNodeBoundingBoxDidUpdate(a1);
+    C3DNodeBoundingBoxDidUpdate(a1, a2);
   }
 }
 
 uint64_t C3DNodeGetBoundingBoxOmittingFloor(uint64_t a1, _OWORD *a2, uint64_t a3)
 {
-  if (C3DNodeIsHidden(a1))
+  if (C3DNodeIsHidden(a1, a2))
   {
-    v6 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v18 = 0;
-    v19 = &v18;
-    v20 = 0x2000000000;
-    if (C3DNodeGetFloor(a1))
+    v19 = 0;
+    v20 = &v19;
+    v21 = 0x2000000000;
+    if (C3DNodeGetFloor(a1, v6))
     {
-      LOBYTE(v7) = 0;
+      LOBYTE(v8) = 0;
     }
 
     else
     {
-      v8 = *(a1 + 288);
+      v9 = *(a1 + 288);
       *a2 = *(a1 + 272);
-      a2[1] = v8;
-      v7 = vminvq_u32(vcgezq_f32(*(a1 + 288))) >> 31;
+      a2[1] = v9;
+      v8 = vminvq_u32(vcgezq_f32(*(a1 + 288))) >> 31;
     }
 
-    v21 = v7;
-    v9 = *(a1 + 72);
-    if (v9)
+    v22 = v8;
+    v10 = *(a1 + 72);
+    if (v10)
     {
-      v10 = 0;
-      v12[0] = MEMORY[0x277D85DD0];
-      v12[1] = 0x40000000;
-      v13 = __C3DNodeGetBoundingBoxOmittingFloor_block_invoke;
-      v14 = &unk_2782FE5E0;
-      v15 = &v18;
-      v16 = a3;
-      v17 = a2;
+      v11 = 0;
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 0x40000000;
+      v14 = __C3DNodeGetBoundingBoxOmittingFloor_block_invoke;
+      v15 = &unk_2782FE5E0;
+      v16 = &v19;
+      v17 = a3;
+      v18 = a2;
       do
       {
-        (v13)(v12, v9, v10++);
-        v9 = *(v9 + 80);
+        (v14)(v13, v10, v11++);
+        v10 = *(v10 + 80);
       }
 
-      while (v9);
+      while (v10);
     }
 
-    v6 = *(v19 + 24);
-    _Block_object_dispose(&v18, 8);
+    v7 = *(v20 + 24);
+    _Block_object_dispose(&v19, 8);
   }
 
-  return v6 & 1;
+  return v7 & 1;
 }
 
-uint64_t C3DNodeGetFloor(uint64_t a1)
+uint64_t C3DNodeGetFloor(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DGeometryTrackNode_cold_2(v3, a2, v4, v5, v6, v7, v8, v9);
     }
   }
 
   if ((*(a1 + 221) & 0x10) != 0)
   {
-    return C3DNodeGetGeometry(a1);
+    return C3DNodeGetGeometry(a1, a2);
   }
 
   else
@@ -3336,9 +4149,9 @@ uint64_t C3DNodeApplyChildren(uint64_t result, uint64_t a2)
 
 void __C3DNodeGetBoundingBoxOmittingFloor_block_invoke(void *a1, uint64_t a2)
 {
-  v26 = 0u;
   v27 = 0u;
-  Floor = C3DNodeGetFloor(a2);
+  v28 = 0u;
+  Floor = C3DNodeGetFloor(a2, a2);
   v5 = a1[5];
   if (Floor)
   {
@@ -3348,74 +4161,74 @@ void __C3DNodeGetBoundingBoxOmittingFloor_block_invoke(void *a1, uint64_t a2)
     }
   }
 
-  else if (C3DNodeGetBoundingBoxOmittingFloor(a2, &v26, v5))
+  else if (C3DNodeGetBoundingBoxOmittingFloor(a2, &v27, v5))
   {
-    v24 = 0u;
     v25 = 0u;
-    v22 = 0u;
+    v26 = 0u;
     v23 = 0u;
-    C3DNodeGetMatrix(a2, &v22);
-    v6 = vaddq_f32(v25, vmlaq_laneq_f32(vmlaq_n_f32(vmulq_lane_f32(v23, *v26.f32, 1), v22, v26.f32[0]), v24, v26, 2));
-    v7 = v6;
-    v7.i32[3] = 1.0;
-    v8 = v27;
-    v8.i32[1] = v27.i32[0];
-    v8.i32[2] = v27.i32[0];
-    v9 = vaddq_f32(vaddq_f32(vabsq_f32(vmulq_f32(v22, v8)), vabsq_f32(vmulq_f32(vuzp2q_s32(vdupq_lane_s32(*v27.i8, 1), v27), v23))), vabsq_f32(vmulq_f32(vzip2q_s32(vtrn1q_s32(v27, v27), v27), v24)));
-    v26 = v7;
-    v27 = v9;
-    v10 = *(a1[4] + 8);
-    if (*(v10 + 24))
+    v24 = 0u;
+    C3DNodeGetMatrix(a2, v6, &v23);
+    v7 = vaddq_f32(v26, vmlaq_laneq_f32(vmlaq_n_f32(vmulq_lane_f32(v24, *v27.f32, 1), v23, v27.f32[0]), v25, v27, 2));
+    v8 = v7;
+    v8.i32[3] = 1.0;
+    v9 = v28;
+    v9.i32[1] = v28.i32[0];
+    v9.i32[2] = v28.i32[0];
+    v10 = vaddq_f32(vaddq_f32(vabsq_f32(vmulq_f32(v23, v9)), vabsq_f32(vmulq_f32(vuzp2q_s32(vdupq_lane_s32(*v28.i8, 1), v28), v24))), vabsq_f32(vmulq_f32(vzip2q_s32(vtrn1q_s32(v28, v28), v28), v25)));
+    v27 = v8;
+    v28 = v10;
+    v11 = *(a1[4] + 8);
+    if (*(v11 + 24))
     {
-      v11 = a1[6];
-      v12 = v11[1];
-      v13 = vsubq_f32(v6, v9);
-      v14 = vsubq_f32(*v11, v12);
+      v12 = a1[6];
+      v13 = v12[1];
+      v14 = vsubq_f32(v7, v10);
+      v15 = vsubq_f32(*v12, v13);
+      v15.i32[3] = 0;
       v14.i32[3] = 0;
-      v13.i32[3] = 0;
-      v15 = vminnmq_f32(v14, v13);
-      v16 = vaddq_f32(v6, v9);
-      v17 = vaddq_f32(*v11, v12);
+      v16 = vminnmq_f32(v15, v14);
+      v17 = vaddq_f32(v7, v10);
+      v18 = vaddq_f32(*v12, v13);
+      v18.i32[3] = 0;
       v17.i32[3] = 0;
-      v16.i32[3] = 0;
-      v18 = vmaxnmq_f32(v17, v16);
-      v19.i64[0] = 0x3F0000003F000000;
-      v19.i64[1] = 0x3F0000003F000000;
-      v20 = vmulq_f32(vaddq_f32(v15, v18), v19);
-      v21 = vmulq_f32(vsubq_f32(v18, v15), v19);
-      v20.i32[3] = 1.0;
-      v21.i32[3] = 0;
-      *v11 = v20;
+      v19 = vmaxnmq_f32(v18, v17);
+      v20.i64[0] = 0x3F0000003F000000;
+      v20.i64[1] = 0x3F0000003F000000;
+      v21 = vmulq_f32(vaddq_f32(v16, v19), v20);
+      v22 = vmulq_f32(vsubq_f32(v19, v16), v20);
+      v21.i32[3] = 1.0;
+      v22.i32[3] = 0;
+      *v12 = v21;
     }
 
     else
     {
-      *(v10 + 24) = 1;
-      v11 = a1[6];
-      v21 = v27;
-      *v11 = v26;
+      *(v11 + 24) = 1;
+      v12 = a1[6];
+      v22 = v28;
+      *v12 = v27;
     }
 
-    v11[1] = v21;
+    v12[1] = v22;
   }
 }
 
-double C3DNodeGetMatrix@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+double C3DNodeGetMatrix@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   if (!a1)
   {
-    v4 = scn_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v4, v5, v6, v7, v8, v9, v10, v11);
+      C3DGeometryTrackNode_cold_2(v5, a2, v6, v7, v8, v9, v10, v11);
     }
   }
 
-  *(a2 + 32) = 0u;
-  *(a2 + 48) = 0u;
-  *a2 = 0u;
-  *(a2 + 16) = 0u;
-  *&result = C3DTransformGetMatrix(a1 + 96, a2).n128_u64[0];
+  *(a3 + 32) = 0u;
+  *(a3 + 48) = 0u;
+  *a3 = 0u;
+  *(a3 + 16) = 0u;
+  *&result = C3DTransformGetMatrix(a1 + 96, a3, a2).n128_u64[0];
   v13 = *(a1 + 192);
   if (v13)
   {
@@ -3425,43 +4238,43 @@ double C3DNodeGetMatrix@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
       v13 = *(a1 + 192);
     }
 
-    return C3DMatrix4x4Mult(v13 + 64, a2, a2);
+    return C3DMatrix4x4Mult(v13 + 64, a3, a3);
   }
 
   return result;
 }
 
-uint64_t C3DNodeShouldBePutInCullingSystem(uint64_t a1)
+uint64_t C3DNodeShouldBePutInCullingSystem(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 240))
   {
     return 1;
   }
 
-  v2 = *(a1 + 220);
-  if ((v2 & 0x6000) != 0)
+  v3 = *(a1 + 220);
+  if ((v3 & 0x6000) != 0)
   {
     return 1;
   }
 
-  if ((v2 & 0x200) == 0)
+  if ((v3 & 0x200) == 0)
   {
     return 0;
   }
 
-  Light = C3DNodeGetLight(a1);
+  Light = C3DNodeGetLight(a1, a2);
 
-  return C3DLightGetDrawsArea(Light);
+  return C3DLightGetDrawsArea(Light, v6);
 }
 
-const __CFDictionary *C3DNodeGetLight(uint64_t a1)
+const __CFDictionary *C3DNodeGetLight(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DGeometryTrackNode_cold_2(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
@@ -3482,37 +4295,37 @@ uint64_t __computeSubBox(float32x4_t *a1, float32x4_t *a2)
   *a2 = a1[17];
   a2[1] = v2;
   v3 = vminvq_u32(vcgezq_f32(a1[18])) >> 31;
-  for (i = a1[4].i64[1]; i; i = *(i + 80))
+  for (i = a1[4].i64[1]; i; i = i[5].i64[0])
   {
-    v23 = 0u;
     v24 = 0u;
-    if (__computeSubBox(i, &v23))
+    v25 = 0u;
+    if (__computeSubBox(i, &v24))
     {
-      C3DNodeGetMatrix(i, &v19);
-      v6 = vaddq_f32(v22, vmlaq_laneq_f32(vmlaq_n_f32(vmulq_lane_f32(v20, *v23.f32, 1), v19, v23.f32[0]), v21, v23, 2));
-      v7 = v24;
-      v7.i32[1] = v24.i32[0];
-      v7.i32[2] = v24.i32[0];
-      v8 = vaddq_f32(vabsq_f32(vmulq_f32(v21, vzip2q_s32(vtrn1q_s32(v24, v24), v24))), vaddq_f32(vabsq_f32(vmulq_f32(v19, v7)), vabsq_f32(vmulq_f32(v20, vuzp2q_s32(vdupq_lane_s32(*v24.i8, 1), v24)))));
-      v9 = a2[1];
-      v10 = vsubq_f32(v6, v8);
-      v10.i32[3] = 0;
-      v11 = vsubq_f32(*a2, v9);
+      C3DNodeGetMatrix(i, v6, &v20);
+      v7 = vaddq_f32(v23, vmlaq_laneq_f32(vmlaq_n_f32(vmulq_lane_f32(v21, *v24.f32, 1), v20, v24.f32[0]), v22, v24, 2));
+      v8 = v25;
+      v8.i32[1] = v25.i32[0];
+      v8.i32[2] = v25.i32[0];
+      v9 = vaddq_f32(vabsq_f32(vmulq_f32(v22, vzip2q_s32(vtrn1q_s32(v25, v25), v25))), vaddq_f32(vabsq_f32(vmulq_f32(v20, v8)), vabsq_f32(vmulq_f32(v21, vuzp2q_s32(vdupq_lane_s32(*v25.i8, 1), v25)))));
+      v10 = a2[1];
+      v11 = vsubq_f32(v7, v9);
       v11.i32[3] = 0;
-      v12 = vminnmq_f32(v10, v11);
-      v13 = vaddq_f32(v6, v8);
-      v13.i32[3] = 0;
-      v14 = vaddq_f32(*a2, v9);
+      v12 = vsubq_f32(*a2, v10);
+      v12.i32[3] = 0;
+      v13 = vminnmq_f32(v11, v12);
+      v14 = vaddq_f32(v7, v9);
       v14.i32[3] = 0;
-      v15 = vmaxnmq_f32(v13, v14);
-      v9.i64[0] = 0x3F0000003F000000;
-      v9.i64[1] = 0x3F0000003F000000;
-      v16 = vmulq_f32(vaddq_f32(v12, v15), v9);
-      v16.i32[3] = 1.0;
-      v17 = vmulq_f32(vsubq_f32(v15, v12), v9);
-      v17.i32[3] = 0;
-      *a2 = v16;
-      a2[1] = v17;
+      v15 = vaddq_f32(*a2, v10);
+      v15.i32[3] = 0;
+      v16 = vmaxnmq_f32(v14, v15);
+      v10.i64[0] = 0x3F0000003F000000;
+      v10.i64[1] = 0x3F0000003F000000;
+      v17 = vmulq_f32(vaddq_f32(v13, v16), v10);
+      v17.i32[3] = 1.0;
+      v18 = vmulq_f32(vsubq_f32(v16, v13), v10);
+      v18.i32[3] = 0;
+      *a2 = v17;
+      a2[1] = v18;
       LOBYTE(v3) = 1;
     }
   }
@@ -3520,13 +4333,14 @@ uint64_t __computeSubBox(float32x4_t *a1, float32x4_t *a2)
   return v3 & 1;
 }
 
-uint64_t C3DNodeComputeHierarchicalBoundingBox(float32x4_t *a1, int a2, float32x4_t *a3)
+uint64_t C3DNodeComputeHierarchicalBoundingBox(float32x4_t *a1, uint64_t a2, float32x4_t *a3)
 {
-  if ((a1[13].i16[7] & 0x380) == 0 && (v13 = a1[3].i64[0]) != 0 && (CullingSystem = C3DSceneGetCullingSystem(v13)) != 0)
+  v4 = a2;
+  if ((a1[13].i16[7] & 0x380) == 0 && (v14 = a1[3].i64[0]) != 0 && (CullingSystem = C3DSceneGetCullingSystem(v14, a2)) != 0)
   {
-    *a3 = C3DCullingSystemComputeHierarchicalAABB(CullingSystem, a1, a2);
-    a3[1] = v15;
-    return vminvq_u32(vcgezq_f32(v15)) >> 31;
+    *a3 = C3DCullingSystemComputeHierarchicalAABB(CullingSystem, a1, v4);
+    a3[1] = v16;
+    return vminvq_u32(vcgezq_f32(v16)) >> 31;
   }
 
   else
@@ -3534,19 +4348,19 @@ uint64_t C3DNodeComputeHierarchicalBoundingBox(float32x4_t *a1, int a2, float32x
     result = __computeSubBox(a1, a3);
     if (result)
     {
-      if ((a2 & 1) == 0)
+      if ((v4 & 1) == 0)
       {
-        WorldMatrix = C3DNodeGetWorldMatrix(a1);
-        v8 = WorldMatrix[1];
-        v9 = WorldMatrix[2];
-        v10 = vaddq_f32(WorldMatrix[3], vmlaq_laneq_f32(vmlaq_n_f32(vmulq_lane_f32(v8, *a3->f32, 1), *WorldMatrix, COERCE_FLOAT(*a3)), v9, *a3, 2));
-        v10.i32[3] = 1.0;
-        v11 = a3[1];
-        v11.i32[1] = v11.i32[0];
-        v11.i32[2] = a3[1];
-        v12 = vaddq_f32(vaddq_f32(vabsq_f32(vmulq_f32(*WorldMatrix, v11)), vabsq_f32(vmulq_f32(vuzp2q_s32(vdupq_lane_s32(*a3[1].f32, 1), a3[1]), v8))), vabsq_f32(vmulq_f32(vzip2q_s32(vtrn1q_s32(a3[1], a3[1]), a3[1]), v9)));
-        *a3 = v10;
-        a3[1] = v12;
+        WorldMatrix = C3DNodeGetWorldMatrix(a1, v7);
+        v9 = *(WorldMatrix + 16);
+        v10 = *(WorldMatrix + 32);
+        v11 = vaddq_f32(*(WorldMatrix + 48), vmlaq_laneq_f32(vmlaq_n_f32(vmulq_lane_f32(v9, *a3->f32, 1), *WorldMatrix, COERCE_FLOAT(*a3)), v10, *a3, 2));
+        v11.i32[3] = 1.0;
+        v12 = a3[1];
+        v12.i32[1] = v12.i32[0];
+        v12.i32[2] = a3[1];
+        v13 = vaddq_f32(vaddq_f32(vabsq_f32(vmulq_f32(*WorldMatrix, v12)), vabsq_f32(vmulq_f32(vuzp2q_s32(vdupq_lane_s32(*a3[1].f32, 1), a3[1]), v9))), vabsq_f32(vmulq_f32(vzip2q_s32(vtrn1q_s32(a3[1], a3[1]), a3[1]), v10)));
+        *a3 = v11;
+        a3[1] = v13;
         return 1;
       }
     }
@@ -3555,91 +4369,91 @@ uint64_t C3DNodeComputeHierarchicalBoundingBox(float32x4_t *a1, int a2, float32x
   return result;
 }
 
-float32x4_t *C3DNodeGetWorldMatrix(float32x4_t *a1)
+uint64_t C3DNodeGetWorldMatrix(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DGeometryTrackNode_cold_2(v3, a2, v4, v5, v6, v7, v8, v9);
     }
   }
 
-  v10 = a1[3].i64[0];
+  v10 = *(a1 + 48);
   if (!v10)
   {
-    return C3DTransformGetMatrixPtr(a1 + 6);
+    return C3DTransformGetMatrixPtr(a1 + 96, a2);
   }
 
-  TransformTree = C3DSceneGetTransformTree(v10);
+  TransformTree = C3DSceneGetTransformTree(v10, a2);
   if (!TransformTree)
   {
-    v22 = scn_default_log();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v23 = scn_default_log(0, v12);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
-      *v23 = 0;
-      _os_log_impl(&dword_21BEF7000, v22, OS_LOG_TYPE_DEFAULT, "Warning: C3DNodeGetWorldMatrix - no transform tree", v23, 2u);
+      *v24 = 0;
+      _os_log_impl(&dword_21BEF7000, v23, OS_LOG_TYPE_DEFAULT, "Warning: C3DNodeGetWorldMatrix - no transform tree", v24, 2u);
     }
 
-    return C3DTransformGetMatrixPtr(a1 + 6);
+    return C3DTransformGetMatrixPtr(a1 + 96, a2);
   }
 
-  v12 = TransformTree;
-  if (a1[5].i32[2] == -1)
+  v13 = TransformTree;
+  if (*(a1 + 88) == -1)
   {
-    v13 = scn_default_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+    v14 = scn_default_log(TransformTree, v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
-      C3DNodeGetWorldMatrix_cold_2(v13, v14, v15, v16, v17, v18, v19, v20);
+      C3DNodeGetWorldMatrix_cold_2(v14, v15, v16, v17, v18, v19, v20, v21);
     }
   }
 
-  return C3DTransformTreeGetWorldTransformPtr(v12, a1[5].i32[2]);
+  return C3DTransformTreeGetWorldTransformPtr(v13, *(a1 + 88));
 }
 
-uint64_t C3DNodeGetRenderableAttributeHash(uint64_t a1)
+uint64_t C3DNodeGetRenderableAttributeHash(uint64_t a1, uint64_t a2)
 {
-  if (C3DNodeGetRendererDelegate(a1))
+  if (C3DNodeGetRendererDelegate(a1, a2))
   {
-    v2 = 2;
+    v4 = 2;
   }
 
-  else if (C3DNodeGetFilters(a1))
+  else if (C3DNodeGetFilters(a1, v3))
   {
-    v2 = 8;
-  }
-
-  else
-  {
-    v2 = C3DNodeGetGeometry(a1) != 0;
-  }
-
-  Light = C3DNodeGetLight(a1);
-  if (Light && C3DLightGetType(Light) == 6)
-  {
-    v2 |= 0x10u;
-  }
-
-  if (C3DNodeGetUsesDepthPrePass(a1))
-  {
-    return v2 | 0x20;
+    v4 = 8;
   }
 
   else
   {
-    return v2;
+    v4 = C3DNodeGetGeometry(a1, v3) != 0;
+  }
+
+  Light = C3DNodeGetLight(a1, v3);
+  if (Light && C3DLightGetType(Light, v6) == 6)
+  {
+    v4 |= 0x10u;
+  }
+
+  if (C3DNodeGetUsesDepthPrePass(a1, v6))
+  {
+    return v4 | 0x20;
+  }
+
+  else
+  {
+    return v4;
   }
 }
 
-const __CFDictionary *C3DNodeGetFilters(uint64_t a1)
+const __CFDictionary *C3DNodeGetFilters(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DGeometryTrackNode_cold_2(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
@@ -3651,27 +4465,27 @@ const __CFDictionary *C3DNodeGetFilters(uint64_t a1)
   result = C3DEntityGetAttribute(a1, @"kFilterKey");
   if (result)
   {
-    return C3DModelTargetGetTarget(result);
+    return C3DModelTargetGetTarget(result, v12);
   }
 
   return result;
 }
 
-uint64_t C3DNodeGetUsesDepthPrePass(uint64_t a1)
+uint64_t C3DNodeGetUsesDepthPrePass(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DGeometryTrackNode_cold_2(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return (*(a1 + 223) >> 2) & 1;
 }
 
-uint64_t C3DNodeGetTypeID()
+uint64_t C3DNodeGetTypeID(uint64_t a1, uint64_t a2)
 {
   if (C3DNodeGetTypeID_onceToken != -1)
   {
@@ -3685,10 +4499,10 @@ double __C3DNodeGetTypeID_block_invoke()
 {
   v0 = _CFRuntimeRegisterClass();
   C3DNodeGetTypeID_typeID = v0;
-  TypeID = C3DEntityGetTypeID();
+  TypeID = C3DEntityGetTypeID(v0, v1);
   C3DModelPathResolverRegisterClassBegin(v0, TypeID);
-  C3DModelPathResolverRegisterProperty(@"hidden", 0xC8u, 3, 0);
-  C3DModelPathResolverRegisterProperty(@"opacity", 0xCCu, 1, 0);
+  C3DModelPathResolverRegisterProperty(@"hidden", 200, 3, 0);
+  C3DModelPathResolverRegisterProperty(@"opacity", 204, 1, 0);
   C3DModelPathResolverRegisterClassEnd();
   unk_2817408E8 = kC3DC3DNodeContextClassSerializable;
   unk_2817408F8 = *&off_282DC52C8;
@@ -3703,7 +4517,7 @@ double __C3DNodeGetTypeID_block_invoke()
   return result;
 }
 
-uint64_t C3DNodeCreate()
+uint64_t C3DNodeCreate(uint64_t a1, uint64_t a2)
 {
   if (C3DNodeGetTypeID_onceToken != -1)
   {
@@ -3714,231 +4528,234 @@ uint64_t C3DNodeCreate()
   C3DTransformInit(Instance + 96);
   *(Instance + 204) = 1065353216;
   *(Instance + 200) = 0;
-  v1 = *(Instance + 220) & 0xFFDFFFD1 | 0x20002A;
+  v3 = *(Instance + 220) & 0xFFDFFFD1 | 0x20002A;
   *(Instance + 208) = 1;
   *(Instance + 216) = -1;
-  *(Instance + 220) = v1;
+  *(Instance + 220) = v3;
   *(Instance + 88) = -1;
   *(Instance + 272) = *(MEMORY[0x277D860B8] + 48);
   *(Instance + 288) = xmmword_21C27F650;
   return Instance;
 }
 
-uint64_t C3DNodeCopyNode(uint64_t a1)
+uint64_t C3DNodeCopyNode(_BOOL8 a1, uint64_t a2)
 {
+  v2 = a1;
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    a1 = os_log_type_enabled(v3, OS_LOG_TYPE_FAULT);
+    if (a1)
     {
-      C3DGeometryTrackNode_cold_2(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DGeometryTrackNode_cold_2(v3, a2, v4, v5, v6, v7, v8, v9);
     }
   }
 
-  v10 = C3DNodeCreate();
-  v11 = *(a1 + 112);
-  *(v10 + 96) = *(a1 + 96);
+  v10 = C3DNodeCreate(a1, a2);
+  v11 = *(v2 + 112);
+  *(v10 + 96) = *(v2 + 96);
   *(v10 + 112) = v11;
-  v12 = *(a1 + 176);
-  v14 = *(a1 + 128);
-  v13 = *(a1 + 144);
-  *(v10 + 160) = *(a1 + 160);
+  v12 = *(v2 + 176);
+  v14 = *(v2 + 128);
+  v13 = *(v2 + 144);
+  *(v10 + 160) = *(v2 + 160);
   *(v10 + 176) = v12;
   *(v10 + 128) = v14;
   *(v10 + 144) = v13;
-  if (C3DNodeGetHasPivot(a1))
+  if (C3DNodeGetHasPivot(v2, v15))
   {
-    PivotMatrix = C3DNodeGetPivotMatrix(a1);
+    PivotMatrix = C3DNodeGetPivotMatrix(v2, v16);
     C3DNodeSetPivotMatrix(v10, PivotMatrix);
   }
 
-  Opacity = C3DNodeGetOpacity(a1);
-  C3DNodeSetOpacity(v10, Opacity);
-  IsHidden = C3DNodeIsHidden(a1);
+  Opacity = C3DNodeGetOpacity(v2, v16);
+  C3DNodeSetOpacity(v10, v19, Opacity);
+  IsHidden = C3DNodeIsHidden(v2, v20);
   C3DNodeSetHidden(v10, IsHidden);
-  v18 = *(a1 + 240);
-  if (v18)
+  v22 = *(v2 + 240);
+  if (v22)
   {
-    C3DNodeSetGeometry(v10, v18);
+    C3DNodeSetGeometry(v10, v22);
   }
 
-  C3DEntityCopyTo(a1, v10);
-  v19 = *(v10 + 220) & 0xFFFFFBFF | (((*(a1 + 220) >> 10) & 1) << 10);
-  *(v10 + 220) = v19;
-  v20 = v19 & 0xFFFEFFFF | ((HIWORD(*(a1 + 220)) & 1) << 16);
-  *(v10 + 220) = v20;
-  v21 = v20 & 0xFFFFBFFF | (((*(a1 + 220) >> 14) & 1) << 14);
-  *(v10 + 220) = v21;
-  v22 = v21 & 0xFFFFEFFF | (((*(a1 + 220) >> 12) & 1) << 12);
-  *(v10 + 220) = v22;
-  v23 = v22 & 0xFFFFFDFF | (((*(a1 + 220) >> 9) & 1) << 9);
+  C3DEntityCopyTo(v2, v10);
+  v23 = *(v10 + 220) & 0xFFFFFBFF | (((*(v2 + 220) >> 10) & 1) << 10);
   *(v10 + 220) = v23;
-  Copy = *(a1 + 248);
+  v24 = v23 & 0xFFFEFFFF | ((HIWORD(*(v2 + 220)) & 1) << 16);
+  *(v10 + 220) = v24;
+  v25 = v24 & 0xFFFFBFFF | (((*(v2 + 220) >> 14) & 1) << 14);
+  *(v10 + 220) = v25;
+  v26 = v25 & 0xFFFFEFFF | (((*(v2 + 220) >> 12) & 1) << 12);
+  *(v10 + 220) = v26;
+  v27 = v26 & 0xFFFFFDFF | (((*(v2 + 220) >> 9) & 1) << 9);
+  *(v10 + 220) = v27;
+  Copy = *(v2 + 248);
   if (Copy)
   {
     Copy = C3DDeformerStackCreateCopy(Copy, v10);
-    v23 = *(v10 + 220);
+    v27 = *(v10 + 220);
   }
 
   *(v10 + 248) = Copy;
-  v25 = v23 & 0xFFFFDFFF | (((*(a1 + 220) >> 13) & 1) << 13);
-  *(v10 + 220) = v25;
-  v26 = v25 & 0xFFFFF7FF | (((*(a1 + 220) >> 11) & 1) << 11);
-  *(v10 + 220) = v26;
-  v27 = *(a1 + 288);
-  *(v10 + 272) = *(a1 + 272);
-  *(v10 + 288) = v27;
-  v28 = v26 & 0xFFFFFFFB | (4 * ((*(a1 + 220) >> 2) & 1));
-  *(v10 + 220) = v28;
-  *(v10 + 208) = *(a1 + 208);
-  *(v10 + 220) = v28 & 0xFFBFFFFF | (((*(a1 + 220) >> 22) & 1) << 22);
+  v29 = v27 & 0xFFFFDFFF | (((*(v2 + 220) >> 13) & 1) << 13);
+  *(v10 + 220) = v29;
+  v30 = v29 & 0xFFFFF7FF | (((*(v2 + 220) >> 11) & 1) << 11);
+  *(v10 + 220) = v30;
+  v31 = *(v2 + 288);
+  *(v10 + 272) = *(v2 + 272);
+  *(v10 + 288) = v31;
+  v32 = v30 & 0xFFFFFFFB | (4 * ((*(v2 + 220) >> 2) & 1));
+  *(v10 + 220) = v32;
+  *(v10 + 208) = *(v2 + 208);
+  *(v10 + 220) = v32 & 0xFFBFFFFF | (((*(v2 + 220) >> 22) & 1) << 22);
   return v10;
 }
 
-BOOL C3DNodeGetHasPivot(uint64_t a1)
+BOOL C3DNodeGetHasPivot(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DGeometryTrackNode_cold_2(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 192) != 0;
 }
 
-void C3DNodeSetPivotMatrix(float32x4_t *a1, __int128 *a2)
+void C3DNodeSetPivotMatrix(uint64_t a1, __int128 *a2)
 {
   if (!a1)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(0, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v4, v5, v6, v7, v8, v9, v10, v11);
+      C3DGeometryTrackNode_cold_2(v4, a2, v5, v6, v7, v8, v9, v10);
     }
   }
 
-  v12 = a1[12].i64[0];
-  if (!v12)
+  v11 = *(a1 + 192);
+  if (!v11)
   {
-    v12 = C3DMalloc(0x80uLL);
-    a1[12].i64[0] = v12;
+    v11 = C3DMalloc(0x80uLL);
+    *(a1 + 192) = v11;
   }
 
-  v13 = *a2;
-  v14 = a2[1];
-  v15 = a2[3];
-  v12[2] = a2[2];
-  v12[3] = v15;
-  *v12 = v13;
-  v12[1] = v14;
-  v16 = a1[12].i64[0];
-  if (v16)
+  v12 = *a2;
+  v13 = a2[1];
+  v14 = a2[3];
+  v11[2] = a2[2];
+  v11[3] = v14;
+  *v11 = v12;
+  v11[1] = v13;
+  v15 = *(a1 + 192);
+  if (v15)
   {
-    *(v16 + 124) = 0;
+    *(v15 + 124) = 0;
   }
 
-  __C3DNodeTransformDidChange(a1);
+  __C3DNodeTransformDidChange(a1, a2);
 }
 
-uint64_t C3DNodeGetPivotMatrix(uint64_t a1)
+uint64_t C3DNodeGetPivotMatrix(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DGeometryTrackNode_cold_2(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 192);
 }
 
-void C3DNodeSetOpacity(uint64_t a1, float a2)
+void C3DNodeSetOpacity(uint64_t result, uint64_t a2, float a3)
 {
-  if (!a1)
+  if (!result)
   {
-    v4 = scn_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v4, v5, v6, v7, v8, v9, v10, v11);
+      C3DGeometryTrackNode_cold_2(v5, v6, v7, v8, v9, v10, v11, v12);
     }
   }
 
-  v12 = *(a1 + 204);
-  if (v12 != a2)
+  v13 = *(result + 204);
+  if (v13 != a3)
   {
-    if (a2 >= 1.0 && v12 < 1.0)
+    if (a3 >= 1.0 && v13 < 1.0)
     {
-      *(a1 + 204) = a2;
-      __DirtyWorldAlpha(a1, 1);
+      *(result + 204) = a3;
+      __DirtyWorldAlpha(result, 1);
     }
 
     else
     {
-      if (a2 >= 1.0)
+      if (a3 >= 1.0)
       {
-        *(a1 + 204) = a2;
-        __DirtyWorldAlpha(a1, 0);
+        *(result + 204) = a3;
+        __DirtyWorldAlpha(result, 0);
         goto LABEL_15;
       }
 
-      *(a1 + 204) = a2;
-      __DirtyWorldAlpha(a1, v12 >= 1.0);
-      if (v12 < 1.0)
+      *(result + 204) = a3;
+      __DirtyWorldAlpha(result, v13 >= 1.0);
+      if (v13 < 1.0)
       {
         goto LABEL_15;
       }
     }
 
-    v14 = *(a1 + 48);
-    C3DScenePostPipelineEvent(v14, 4, a1, 0);
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 0x40000000;
-    v15[2] = ____IsOpaqueDidChange_block_invoke;
-    v15[3] = &__block_descriptor_tmp_164;
-    v15[4] = v14;
-    C3DNodeApplyHierarchy(a1, v15);
+    v15 = *(result + 48);
+    C3DScenePostPipelineEvent(v15, 4, result, 0);
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 0x40000000;
+    v16[2] = ____IsOpaqueDidChange_block_invoke;
+    v16[3] = &__block_descriptor_tmp_164;
+    v16[4] = v15;
+    C3DNodeApplyHierarchy(result, v16);
 LABEL_15:
-    if (a2 == 0.0 || v12 == 0.0)
+    if (a3 == 0.0 || v13 == 0.0)
     {
-      __UpdateCullingSystemFlags(a1, 1);
+      __UpdateCullingSystemFlags(result, 1);
     }
   }
 }
 
-float C3DNodeGetOpacity(uint64_t a1)
+float C3DNodeGetOpacity(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DGeometryTrackNode_cold_2(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 204);
 }
 
-void C3DNodeSetHidden(uint64_t a1, int a2)
+void C3DNodeSetHidden(uint64_t result, uint64_t a2)
 {
-  if (!a1)
+  v2 = a2;
+  if (!result)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(0, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       C3DGeometryTrackNode_cold_2(v4, v5, v6, v7, v8, v9, v10, v11);
     }
   }
 
-  if (*(a1 + 200) != a2)
+  if (*(result + 200) != v2)
   {
-    *(a1 + 200) = a2;
-    __UpdateNodeVisibilityIfNeeded(a1, a2 ^ 1);
+    *(result + 200) = v2;
+    __UpdateNodeVisibilityIfNeeded(result, v2 ^ 1u);
   }
 }
 
@@ -3946,14 +4763,14 @@ void C3DNodeSetGeometry(uint64_t a1, __C3DGeometry *a2)
 {
   if (!a1)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(0, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v4, v5, v6, v7, v8, v9, v10, v11);
+      C3DGeometryTrackNode_cold_2(v4, a2, v5, v6, v7, v8, v9, v10);
     }
   }
 
-  Geometry = C3DNodeGetGeometry(a1);
+  Geometry = C3DNodeGetGeometry(a1, a2);
   if (Geometry)
   {
     v13 = Geometry;
@@ -3961,37 +4778,37 @@ void C3DNodeSetGeometry(uint64_t a1, __C3DGeometry *a2)
     C3DRemoveSceneRef(v13, *(a1 + 48));
   }
 
-  v14 = *(a1 + 240);
-  if (v14 != a2)
+  TypeID = *(a1 + 240);
+  if (TypeID != a2)
   {
-    if (v14)
+    if (TypeID)
     {
-      CFRelease(v14);
+      CFRelease(TypeID);
       *(a1 + 240) = 0;
     }
 
     if (a2)
     {
-      v15 = CFRetain(a2);
+      TypeID = CFRetain(a2);
     }
 
     else
     {
-      v15 = 0;
+      TypeID = 0;
     }
 
-    *(a1 + 240) = v15;
+    *(a1 + 240) = TypeID;
   }
 
   if (a2)
   {
-    C3DGeometryTrackNode(a2, a1);
+    TypeID = C3DGeometryTrackNode(a2, a1);
   }
 
-  v16 = *(a1 + 48);
-  if (v16)
+  v15 = *(a1 + 48);
+  if (v15)
   {
-    SharedInstance = C3DNotificationCenterGetSharedInstance();
+    SharedInstance = C3DNotificationCenterGetSharedInstance(TypeID, v12);
     C3DNotificationCenterPostNotification(SharedInstance, @"kC3DNotificationEntityAttributeDidChange", a1, @"kMeshKey", 1u);
   }
 
@@ -4000,14 +4817,15 @@ void C3DNodeSetGeometry(uint64_t a1, __C3DGeometry *a2)
     goto LABEL_22;
   }
 
-  v18 = *(a1 + 48);
-  if (v18)
+  v17 = *(a1 + 48);
+  if (v17)
   {
-    C3DAddSceneRef(a2, v18);
+    C3DAddSceneRef(a2, v17);
   }
 
-  v19 = CFGetTypeID(a2);
-  if (v19 == C3DFloorGetTypeID())
+  v18 = CFGetTypeID(a2);
+  TypeID = C3DFloorGetTypeID(v18, v19);
+  if (v18 == TypeID)
   {
     v20 = 4096;
   }
@@ -4024,7 +4842,7 @@ LABEL_22:
     }
   }
 
-  v23 = C3DNotificationCenterGetSharedInstance();
+  v23 = C3DNotificationCenterGetSharedInstance(TypeID, v12);
   C3DNotificationCenterPostNotification(v23, @"kC3DNotificationEngineContextInvalidatePasses", *(a1 + 48), 0, 1u);
   v22 = *(a1 + 220);
   v21 = v20;
@@ -4036,59 +4854,60 @@ LABEL_24:
     C3DDeformerStackSetBaseGeometry(v24, a2);
   }
 
-  C3DNodeGeometryLODDidUpdate(a1);
-  C3DNodeBoundingBoxDidUpdate(a1);
+  C3DNodeGeometryLODDidUpdate(a1, v12);
+  C3DNodeBoundingBoxDidUpdate(a1, v25);
   __UpdateCullingSystemFlags(a1, 0);
-  v25 = a1;
+  v26 = a1;
   do
   {
-    *(v25 + 220) |= 2u;
-    v25 = *(v25 + 64);
+    *(v26 + 220) |= 2u;
+    v26 = *(v26 + 64);
   }
 
-  while (v25);
-  if (v16)
+  while (v26);
+  if (v15)
   {
-    __UpdateCullingHandle(a1, v16);
+    __UpdateCullingHandle(a1, v15);
   }
 }
 
-uint64_t C3DNodeCreateCopy(uint64_t a1, int a2)
+uint64_t C3DNodeCreateCopy(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   if (!a1)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(0, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v4, v5, v6, v7, v8, v9, v10, v11);
+      C3DGeometryTrackNode_cold_2(v4, a2, v5, v6, v7, v8, v9, v10);
     }
   }
 
-  v12 = C3DNodeCopyNode(a1);
-  v13 = v12;
-  if (a2)
+  v11 = C3DNodeCopyNode(a1, a2);
+  v12 = v11;
+  if (v2)
   {
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 0x40000000;
-    v18 = __C3DNodeCreateCopy_block_invoke;
-    v19 = &__block_descriptor_tmp_8_1;
-    v21 = a2;
-    v20 = v12;
-    v14 = *(a1 + 72);
-    if (v14)
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 0x40000000;
+    v17 = __C3DNodeCreateCopy_block_invoke;
+    v18 = &__block_descriptor_tmp_8_1;
+    v20 = v2;
+    v19 = v11;
+    v13 = *(a1 + 72);
+    if (v13)
     {
-      v15 = 0;
+      v14 = 0;
       do
       {
-        (v18)(v17, v14, v15++);
-        v14 = *(v14 + 80);
+        (v17)(v16, v13, v14++);
+        v13 = *(v13 + 80);
       }
 
-      while (v14);
+      while (v13);
     }
   }
 
-  return v13;
+  return v12;
 }
 
 void __C3DNodeCreateCopy_block_invoke(uint64_t a1, uint64_t a2)
@@ -4099,7 +4918,7 @@ void __C3DNodeCreateCopy_block_invoke(uint64_t a1, uint64_t a2)
   CFRelease(Copy);
 }
 
-uint64_t C3DNodeAddChildNode(uint64_t a1, float32x4_t *cf)
+uint64_t C3DNodeAddChildNode(uint64_t a1, CFTypeRef cf)
 {
   if (cf)
   {
@@ -4113,7 +4932,7 @@ uint64_t C3DNodeAddChildNode(uint64_t a1, float32x4_t *cf)
     goto LABEL_7;
   }
 
-  v5 = scn_default_log();
+  v5 = scn_default_log(a1, 0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
   {
     C3DNodeAddChildNode_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
@@ -4141,31 +4960,31 @@ LABEL_7:
 
 __C3DGeometry *__createSubdividedGeometryCopy(const void *a1, const void *a2, unsigned __int8 a3)
 {
-  Copy = C3DGeometryCreateCopy(a1);
-  v6 = Copy;
+  Copy = C3DGeometryCreateCopy(a1, a2);
+  v7 = Copy;
   if (a2)
   {
-    Mesh = C3DGeometryGetMesh(Copy);
+    Mesh = C3DGeometryGetMesh(Copy, v6);
     C3DMeshSetMeshElements(Mesh, a2);
   }
 
-  SubdivisionSettings = C3DGeometryOsdGetSubdivisionSettings(v6);
-  C3DGeometryOsdSetSubdivisionSettings(v6, SubdivisionSettings & 0xFFFFFF00);
-  C3DGeometryOsdSetSubdivisionLevel(v6, a3);
-  CPUSubdividedC3DMesh = C3DGeometryOsdGetCPUSubdividedC3DMesh(v6);
+  SubdivisionSettings = C3DGeometryOsdGetSubdivisionSettings(v7);
+  C3DGeometryOsdSetSubdivisionSettings(v7, SubdivisionSettings & 0xFFFFFF00);
+  C3DGeometryOsdSetSubdivisionLevel(v7, a3);
+  CPUSubdividedC3DMesh = C3DGeometryOsdGetCPUSubdividedC3DMesh(v7, v10);
   CFRetain(CPUSubdividedC3DMesh);
-  C3DGeometryOsdSetSubdivisionLevel(v6, 0);
-  C3DGeometrySetMesh(v6, CPUSubdividedC3DMesh);
+  C3DGeometryOsdSetSubdivisionLevel(v7, 0);
+  C3DGeometrySetMesh(v7, CPUSubdividedC3DMesh);
   CFRelease(CPUSubdividedC3DMesh);
-  return v6;
+  return v7;
 }
 
-CFTypeRef *C3DNodeCreateSubdividedCopy(uint64_t a1, int a2)
+CFTypeRef *C3DNodeCreateSubdividedCopy(uint64_t a1, uint64_t a2)
 {
   v2 = a2;
   if (!a2)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(a1, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       C3DNodeCreateSubdividedCopy_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
@@ -4173,113 +4992,113 @@ CFTypeRef *C3DNodeCreateSubdividedCopy(uint64_t a1, int a2)
   }
 
   Copy = C3DNodeCreateCopy(a1, 0);
-  Geometry = C3DNodeGetGeometry(Copy);
+  Geometry = C3DNodeGetGeometry(Copy, v13);
   if (Geometry)
   {
-    v14 = Geometry;
-    Morpher = C3DNodeGetMorpher(a1);
-    SubdividedGeometryCopy = __createSubdividedGeometryCopy(v14, 0, v2);
+    v16 = Geometry;
+    Morpher = C3DNodeGetMorpher(a1, v15);
+    SubdividedGeometryCopy = __createSubdividedGeometryCopy(v16, 0, v2);
     C3DNodeSetGeometry(Copy, SubdividedGeometryCopy);
     CFRelease(SubdividedGeometryCopy);
     if (Morpher)
     {
-      v49 = Copy;
-      v17 = C3DMorpherCreateCopy(Morpher);
-      C3DMorpherSetBaseGeometry(v17, SubdividedGeometryCopy);
-      v47 = v17;
-      OverrideMaterial = C3DGeometryGetOverrideMaterial(v17);
-      if (C3DMorphIsUsingSparseTargets(OverrideMaterial))
+      v59 = Copy;
+      v20 = C3DMorpherCreateCopy(Morpher, v19);
+      C3DMorpherSetBaseGeometry(v20, SubdividedGeometryCopy);
+      v57 = v20;
+      OverrideMaterial = C3DGeometryGetOverrideMaterial(v20);
+      if (C3DMorphIsUsingSparseTargets(OverrideMaterial, v22))
       {
-        C3DMorphConvertToSparse(OverrideMaterial, v14, 0, 0);
+        C3DMorphConvertToSparse(OverrideMaterial, v16, 0, 0);
       }
 
-      v48 = Morpher;
+      v58 = Morpher;
       if (C3DMorphGetCalculationMode(OverrideMaterial))
       {
-        C3DMorphConvertToCalculationMode(OverrideMaterial, v14, 0, 0);
+        C3DMorphConvertToCalculationMode(OverrideMaterial, v16, 0, 0);
       }
 
-      Mesh = C3DGeometryGetMesh(v14);
+      Mesh = C3DGeometryGetMesh(v16, v23);
       MeshElements = C3DMeshGetMeshElements(Mesh, 0);
-      v21 = C3DGeometryGetOverrideMaterial(OverrideMaterial);
-      Count = CFArrayGetCount(v21);
+      v26 = C3DGeometryGetOverrideMaterial(OverrideMaterial);
+      Count = CFArrayGetCount(v26);
       Mutable = CFArrayCreateMutable(*MEMORY[0x277CBECE8], Count, MEMORY[0x277CBF128]);
       if (Count >= 1)
       {
         for (i = 0; i != Count; ++i)
         {
-          ValueAtIndex = CFArrayGetValueAtIndex(v21, i);
-          v26 = __createSubdividedGeometryCopy(ValueAtIndex, MeshElements, v2);
-          CFArrayAppendValue(Mutable, v26);
-          CFRelease(v26);
+          ValueAtIndex = CFArrayGetValueAtIndex(v26, i);
+          v31 = __createSubdividedGeometryCopy(ValueAtIndex, MeshElements, v2);
+          CFArrayAppendValue(Mutable, v31);
+          CFRelease(v31);
         }
       }
 
       C3DMorphSetTargets(OverrideMaterial, Mutable, 0);
-      Copy = v49;
-      C3DNodeSetMorpher(v49, v47);
-      CFRelease(v47);
-      Morpher = v48;
+      Copy = v59;
+      C3DNodeSetMorpher(v59, v57);
+      CFRelease(v57);
+      Morpher = v58;
     }
 
-    v27 = *(a1 + 248);
-    if (v27)
+    v32 = *(a1 + 248);
+    if (v32)
     {
-      Skinner = C3DDeformerStackGetSkinner(v27);
+      Skinner = C3DDeformerStackGetSkinner(v32, v19);
       if (Skinner)
       {
-        v29 = Skinner;
-        v30 = C3DGeometryGetOverrideMaterial(Skinner);
-        v31 = C3DGeometryGetMesh(v14);
-        v32 = C3DMeshCreateCopy(v31);
-        v33 = C3DGeometryCreate();
-        C3DGeometrySetMesh(v33, v32);
-        if (v32)
+        v34 = Skinner;
+        v35 = C3DGeometryGetOverrideMaterial(Skinner);
+        v37 = C3DGeometryGetMesh(v16, v36);
+        v39 = C3DMeshCreateCopy(v37, v38);
+        v41 = C3DGeometryCreate(v39, v40);
+        C3DGeometrySetMesh(v41, v39);
+        if (v39)
         {
-          CFRelease(v32);
+          CFRelease(v39);
         }
 
         if (Morpher)
         {
-          SubdivisionSettings = C3DGeometryOsdGetSubdivisionSettings(v33);
-          C3DGeometryOsdSetSubdivisionSettings(v33, SubdivisionSettings & 0xFFFFFF00);
+          SubdivisionSettings = C3DGeometryOsdGetSubdivisionSettings(v41);
+          C3DGeometryOsdSetSubdivisionSettings(v41, SubdivisionSettings & 0xFFFFFF00);
         }
 
-        C3DGeometryOsdSetSubdivisionLevel(v33, v2);
-        CPUSubdividedC3DMesh = C3DGeometryOsdGetCPUSubdividedC3DMesh(v33);
-        Joints = C3DSkinnerGetJoints(v29);
-        v37 = Joints;
+        C3DGeometryOsdSetSubdivisionLevel(v41, v2);
+        CPUSubdividedC3DMesh = C3DGeometryOsdGetCPUSubdividedC3DMesh(v41, v43);
+        Joints = C3DSkinnerGetJoints(v34);
+        v46 = Joints;
         if (Joints)
         {
           LOWORD(Joints) = CFArrayGetCount(Joints);
         }
 
-        v38 = C3DSkinCreateWithSkinnableMesh(CPUSubdividedC3DMesh, Joints);
-        CFRelease(v33);
-        if (v38)
+        v47 = C3DSkinCreateWithSkinnableMesh(CPUSubdividedC3DMesh, Joints);
+        CFRelease(v41);
+        if (v47)
         {
-          DefaultShapeMatrix = C3DSkinGetDefaultShapeMatrix(v30);
-          v40 = *DefaultShapeMatrix;
-          v41 = DefaultShapeMatrix[1];
-          v42 = DefaultShapeMatrix[3];
-          v50[2] = DefaultShapeMatrix[2];
-          v50[3] = v42;
-          v50[0] = v40;
-          v50[1] = v41;
-          C3DSkinSetDefaultShapeMatrix(v38, v50);
-          InverseBindMatricesPtr = C3DSkinGetInverseBindMatricesPtr(v30);
-          C3DSkinCopyInverseBindMatricesPtr(v38, InverseBindMatricesPtr);
-          v44 = C3DSkinnerCreateWithSkin(v38);
-          CFRelease(v38);
-          if (v37)
+          DefaultShapeMatrix = C3DSkinGetDefaultShapeMatrix(v35);
+          v49 = *DefaultShapeMatrix;
+          v50 = DefaultShapeMatrix[1];
+          v51 = DefaultShapeMatrix[3];
+          v60[2] = DefaultShapeMatrix[2];
+          v60[3] = v51;
+          v60[0] = v49;
+          v60[1] = v50;
+          C3DSkinSetDefaultShapeMatrix(v47, v60);
+          InverseBindMatricesPtr = C3DSkinGetInverseBindMatricesPtr(v35);
+          C3DSkinCopyInverseBindMatricesPtr(v47, InverseBindMatricesPtr);
+          v54 = C3DSkinnerCreateWithSkin(v47, v53);
+          CFRelease(v47);
+          if (v46)
           {
-            v45 = CFArrayCreateCopy(0, v37);
-            C3DSkinnerSetJoints(v44, v45);
-            CFRelease(v45);
+            v55 = CFArrayCreateCopy(0, v46);
+            C3DSkinnerSetJoints(v54, v55);
+            CFRelease(v55);
           }
 
-          C3DNodeSetSkinner(Copy, v44);
-          CFRelease(v44);
+          C3DNodeSetSkinner(Copy, v54);
+          CFRelease(v54);
         }
       }
     }
@@ -4288,44 +5107,44 @@ CFTypeRef *C3DNodeCreateSubdividedCopy(uint64_t a1, int a2)
   return Copy;
 }
 
-uint64_t C3DNodeGetMorpher(uint64_t a1)
+uint64_t C3DNodeGetMorpher(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DGeometryTrackNode_cold_2(v3, a2, v4, v5, v6, v7, v8, v9);
     }
   }
 
   result = *(a1 + 248);
   if (result)
   {
-    return C3DDeformerStackGetMorpher(result);
+    return C3DDeformerStackGetMorpher(result, a2);
   }
 
   return result;
 }
 
-void C3DNodeSetMorpher(CFTypeRef *a1, uint64_t *a2)
+void C3DNodeSetMorpher(CFTypeRef *a1, void *a2)
 {
   if (!a1)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(0, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v4, v5, v6, v7, v8, v9, v10, v11);
+      C3DGeometryTrackNode_cold_2(v4, a2, v5, v6, v7, v8, v9, v10);
     }
   }
 
-  Morpher = C3DNodeGetMorpher(a1);
+  Morpher = C3DNodeGetMorpher(a1, a2);
   if (Morpher != a2)
   {
     v13 = Morpher;
     if (Morpher)
     {
-      v14 = C3DGetSceneRef(a1);
+      v14 = C3DGetSceneRef(a1, v12);
       C3DRemoveSceneRef(v13, v14);
     }
 
@@ -4357,19 +5176,20 @@ void C3DNodeSetMorpher(CFTypeRef *a1, uint64_t *a2)
       if (!v16)
       {
 LABEL_17:
-        if (C3DGetSceneRef(a1))
+        v19 = C3DGetSceneRef(a1, v12);
+        if (v19)
         {
-          SharedInstance = C3DNotificationCenterGetSharedInstance();
+          SharedInstance = C3DNotificationCenterGetSharedInstance(v19, v20);
           C3DNotificationCenterPostNotification(SharedInstance, @"kC3DNotificationEntityAttributeDidChange", a1, @"kDeformerStackKey", 1u);
         }
 
-        C3DNodeGeometryDidUpdate(a1);
+        C3DNodeGeometryDidUpdate(a1, v20);
         return;
       }
     }
 
     C3DDeformerStackSetMorpher(v16, a2);
-    if (C3DDeformerStackIsEmpty(v16) && *v17)
+    if (C3DDeformerStackIsEmpty(v16, v18) && *v17)
     {
       CFRelease(*v17);
       *v17 = 0;
@@ -4379,30 +5199,30 @@ LABEL_17:
   }
 }
 
-uint64_t C3DNodeGetSkinner(uint64_t a1)
+uint64_t C3DNodeGetSkinner(uint64_t a1, uint64_t a2)
 {
   result = *(a1 + 248);
   if (result)
   {
-    return C3DDeformerStackGetSkinner(result);
+    return C3DDeformerStackGetSkinner(result, a2);
   }
 
   return result;
 }
 
-void C3DNodeSetSkinner(void *a1, uint64_t *a2)
+void C3DNodeSetSkinner(void *a1, void *a2)
 {
   if (!a1)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(0, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v4, v5, v6, v7, v8, v9, v10, v11);
+      C3DGeometryTrackNode_cold_2(v4, a2, v5, v6, v7, v8, v9, v10);
     }
   }
 
-  v12 = a1[31];
-  if (!v12)
+  v11 = a1[31];
+  if (!v11)
   {
     if (!a2)
     {
@@ -4431,7 +5251,7 @@ LABEL_12:
     goto LABEL_16;
   }
 
-  Skinner = C3DDeformerStackGetSkinner(v12);
+  Skinner = C3DDeformerStackGetSkinner(v11, a2);
   if (Skinner == a2)
   {
     return;
@@ -4440,7 +5260,7 @@ LABEL_12:
   v14 = Skinner;
   if (Skinner)
   {
-    v15 = C3DGetSceneRef(a1);
+    v15 = C3DGetSceneRef(a1, v13);
     C3DRemoveSceneRef(v14, v15);
     C3DSkinnerSetOwnerNode(v14, 0);
   }
@@ -4455,25 +5275,26 @@ LABEL_12:
   {
 LABEL_16:
     C3DDeformerStackSetSkinner(v16, a2);
-    if (C3DDeformerStackIsEmpty(v16))
+    if (C3DDeformerStackIsEmpty(v16, v18))
     {
-      v18 = a1[31];
-      if (v18)
+      v19 = a1[31];
+      if (v19)
       {
-        CFRelease(v18);
+        CFRelease(v19);
         a1[31] = 0;
       }
     }
   }
 
 LABEL_19:
-  if (C3DGetSceneRef(a1))
+  v20 = C3DGetSceneRef(a1, v13);
+  if (v20)
   {
-    SharedInstance = C3DNotificationCenterGetSharedInstance();
+    SharedInstance = C3DNotificationCenterGetSharedInstance(v20, v21);
     C3DNotificationCenterPostNotification(SharedInstance, @"kC3DNotificationEntityAttributeDidChange", a1, @"kDeformerStackKey", 1u);
   }
 
-  C3DNodeGeometryDidUpdate(a1);
+  C3DNodeGeometryDidUpdate(a1, v21);
 }
 
 uint64_t C3DNodeGetChildNodesCount(uint64_t a1)
@@ -4581,18 +5402,18 @@ uint64_t C3DNodeApplyHierarchy(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t C3DNodeGetName(uint64_t a1)
+uint64_t C3DNodeGetName(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DGeometryTrackNode_cold_2(v3, a2, v4, v5, v6, v7, v8, v9);
     }
   }
 
-  return C3DEntityGetName(a1);
+  return C3DEntityGetName(a1, a2);
 }
 
 uint64_t C3DNodeApplyHierarchySkippingHiddenNodes(uint64_t result, uint64_t a2)
@@ -4660,95 +5481,97 @@ uint64_t C3DNodeGetChildNodeAtIndex(uint64_t a1, unsigned int a2)
   return result;
 }
 
-uint64_t __FixupParent(uint64_t a1, float32x4_t *a2)
+uint64_t __FixupParent(uint64_t a1, uint64_t a2)
 {
-  a2[4].i64[0] = a1;
-  __C3DNodeTransformDidChange(a2);
+  *(a2 + 64) = a1;
+  __C3DNodeTransformDidChange(a2, a2);
   if (a1)
   {
-    if ((a2[13].i32[3] & 3) != 0)
+    if ((*(a2 + 220) & 3) != 0)
     {
-      v4 = a1;
+      v6 = a1;
       do
       {
-        *(v4 + 220) |= 2u;
-        v4 = *(v4 + 64);
+        *(v6 + 220) |= 2u;
+        v6 = *(v6 + 64);
       }
 
-      while (v4);
+      while (v6);
       if (!a2)
       {
-        v5 = scn_default_log();
-        if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+        v7 = scn_default_log(v4, v5);
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
         {
-          C3DGeometryTrackNode_cold_2(v5, v6, v7, v8, v9, v10, v11, v12);
+          C3DGeometryTrackNode_cold_2(v7, v8, v9, v10, v11, v12, v13, v14);
         }
       }
     }
   }
 
-  v13 = a2[4].i64[0];
-  if (v13)
+  v15 = *(a2 + 64);
+  if (v15)
   {
-    v14 = a2[13].i32[3] & 0xFFFFFF7F | (((*(v13 + 220) >> 7) & 1) << 7);
-    a2[13].i32[3] = v14;
-    v15 = v14 & 0xFC7FFFFF | (((*(v13 + 220) >> 23) & 7) << 23);
-    a2[13].i32[3] = v15;
+    v16 = *(a2 + 220) & 0xFFFFFF7F | (((*(v15 + 220) >> 7) & 1) << 7);
+    *(a2 + 220) = v16;
+    v17 = v16 & 0xFC7FFFFF | (((*(v15 + 220) >> 23) & 7) << 23);
+    *(a2 + 220) = v17;
   }
 
   else
   {
-    v15 = a2[13].u32[3];
+    v17 = *(a2 + 220);
   }
 
-  __PropagateFlagsToChildren(a2, (v15 >> 7) & 1, (v15 >> 23) & 7);
+  __PropagateFlagsToChildren(a2, (v17 >> 7) & 1, (v17 >> 23) & 7);
   __DirtyWorldAlpha(a2, 0);
-  v16 = *(a1 + 48);
-  v17 = a2[3].i64[0];
-  if (v16)
+  v18 = *(a1 + 48);
+  v19 = *(a2 + 48);
+  if (v18)
   {
-    if (v17 != v16)
+    if (v19 != v18)
     {
-      C3DRemoveSceneRef(a2, v17);
+      C3DRemoveSceneRef(a2, v19);
       C3DAddSceneRef(a2, *(a1 + 48));
     }
   }
 
   else
   {
-    C3DRemoveSceneRef(a2, v17);
+    C3DRemoveSceneRef(a2, v19);
   }
 
   return __UpdateNodeVisibilityIfNeeded(a2, 1);
 }
 
-uint64_t C3DNodeInsertChildNodeAtIndex(uint64_t a1, float32x4_t *cf, int a3)
+uint64_t C3DNodeInsertChildNodeAtIndex(_BOOL8 inserted, void *cf, int a3)
 {
-  if (cf[5].i64[0])
+  v5 = inserted;
+  if (cf[10])
   {
-    v6 = scn_default_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v6 = scn_default_log(inserted, cf);
+    inserted = os_log_type_enabled(v6, OS_LOG_TYPE_FAULT);
+    if (inserted)
     {
-      C3DNodeInsertChildNodeAtIndex_cold_1(v6, v7, v8, v9, v10, v11, v12, v13);
+      C3DNodeInsertChildNodeAtIndex_cold_1(v6, cf, v7, v8, v9, v10, v11, v12);
     }
   }
 
-  if (cf[4].i64[0])
+  if (cf[8])
   {
-    v14 = scn_default_log();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+    v13 = scn_default_log(inserted, cf);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
-      C3DNodeInsertChildNodeAtIndex_cold_2(v14, v15, v16, v17, v18, v19, v20, v21);
+      C3DNodeInsertChildNodeAtIndex_cold_2(v13, v14, v15, v16, v17, v18, v19, v20);
       if (a3)
       {
         goto LABEL_7;
       }
 
 LABEL_11:
-      cf[5].i64[0] = *(a1 + 72);
-      *(a1 + 72) = cf;
+      cf[10] = *(v5 + 72);
+      *(v5 + 72) = cf;
       CFRetain(cf);
-      return __FixupParent(a1, cf);
+      return __FixupParent(v5, cf);
     }
   }
 
@@ -4758,38 +5581,40 @@ LABEL_11:
   }
 
 LABEL_7:
-  v22 = *(a1 + 72);
-  v23 = (a3 - 1);
+  v21 = *(v5 + 72);
+  v22 = (a3 - 1);
   if (a3 != 1)
   {
     do
     {
-      v22 = *(v22 + 80);
-      --v23;
+      v21 = *(v21 + 80);
+      --v22;
     }
 
-    while (v23);
+    while (v22);
   }
 
-  v24 = *(v22 + 80);
-  *(v22 + 80) = cf;
+  v23 = *(v21 + 80);
+  *(v21 + 80) = cf;
   CFRetain(cf);
-  cf[5].i64[0] = v24;
-  return __FixupParent(a1, cf);
+  cf[10] = v23;
+  return __FixupParent(v5, cf);
 }
 
-uint64_t C3DNodeInsertChildNodeAfterChild(uint64_t a1, float32x4_t *cf, uint64_t a3)
+uint64_t C3DNodeInsertChildNodeAfterChild(_BOOL8 inserted, void *cf, uint64_t a3)
 {
-  if (cf[5].i64[0])
+  v5 = inserted;
+  if (cf[10])
   {
-    v6 = scn_default_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v6 = scn_default_log(inserted, cf);
+    inserted = os_log_type_enabled(v6, OS_LOG_TYPE_FAULT);
+    if (inserted)
     {
-      C3DNodeInsertChildNodeAtIndex_cold_1(v6, v7, v8, v9, v10, v11, v12, v13);
+      C3DNodeInsertChildNodeAtIndex_cold_1(v6, cf, v7, v8, v9, v10, v11, v12);
     }
   }
 
-  if (!cf[4].i64[0] || (v14 = scn_default_log(), !os_log_type_enabled(v14, OS_LOG_TYPE_FAULT)))
+  if (!cf[8] || (v13 = scn_default_log(inserted, cf), !(inserted = os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))))
   {
     if (a3)
     {
@@ -4797,78 +5622,81 @@ uint64_t C3DNodeInsertChildNodeAfterChild(uint64_t a1, float32x4_t *cf, uint64_t
     }
 
 LABEL_12:
-    cf[5].i64[0] = *(a1 + 72);
-    *(a1 + 72) = cf;
+    cf[10] = *(v5 + 72);
+    *(v5 + 72) = cf;
     CFRetain(cf);
-    return __FixupParent(a1, cf);
+    return __FixupParent(v5, cf);
   }
 
-  C3DNodeInsertChildNodeAtIndex_cold_2(v14, v15, v16, v17, v18, v19, v20, v21);
+  C3DNodeInsertChildNodeAtIndex_cold_2(v13, cf, v14, v15, v16, v17, v18, v19);
   if (!a3)
   {
     goto LABEL_12;
   }
 
 LABEL_7:
-  if (*(a3 + 64) != a1)
+  if (*(a3 + 64) != v5)
   {
-    v22 = scn_default_log();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
+    v20 = scn_default_log(inserted, cf);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
     {
-      C3DNodeInsertChildNodeAfterChild_cold_3(v22, v23, v24, v25, v26, v27, v28, v29);
+      C3DNodeInsertChildNodeAfterChild_cold_3(v20, v21, v22, v23, v24, v25, v26, v27);
     }
   }
 
-  v30 = *(a3 + 80);
+  v28 = *(a3 + 80);
   *(a3 + 80) = cf;
   CFRetain(cf);
-  cf[5].i64[0] = v30;
-  return __FixupParent(a1, cf);
+  cf[10] = v28;
+  return __FixupParent(v5, cf);
 }
 
-void C3DNodeRemoveFromParentNode(void *cf)
+void C3DNodeRemoveFromParentNode(uint64_t cf, uint64_t a2)
 {
   *&v15[5] = *MEMORY[0x277D85DE8];
-  v1 = cf[8];
-  if (v1)
+  v2 = *(cf + 64);
+  if (v2)
   {
-    v3 = *(v1 + 72);
-    if (v3 == cf)
+    v3 = cf;
+    v4 = *(v2 + 72);
+    if (v4 == cf)
     {
-      *(v1 + 72) = cf[10];
+      *(v2 + 72) = *(cf + 80);
     }
 
     else
     {
-      if (!v3)
+      if (!v4)
       {
-        v4 = scn_default_log();
-        if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+        v5 = scn_default_log(cf, a2);
+        cf = os_log_type_enabled(v5, OS_LOG_TYPE_FAULT);
+        if (cf)
         {
-          C3DNodeRemoveFromParentNode_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
+          C3DNodeRemoveFromParentNode_cold_1(v5, a2, v6, v7, v8, v9, v10, v11);
         }
       }
 
-      for (i = v3[10]; i != cf; i = v3[10])
+      for (i = v4[10]; i != v3; i = v4[10])
       {
-        v3 = i;
+        v4 = i;
         if (!i)
         {
-          v13 = scn_default_log();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+          v13 = scn_default_log(cf, a2);
+          cf = os_log_type_enabled(v13, OS_LOG_TYPE_FAULT);
+          if (cf)
           {
             C3DNodeRemoveFromParentNode_cold_2(v14, v15, v13);
           }
         }
       }
 
-      v3[10] = cf[10];
+      v4[10] = v3[10];
     }
 
-    cf[10] = 0;
-    cf[8] = 0;
-    C3DRemoveSceneRef(cf, cf[6]);
-    CFRelease(cf);
+    v3[10] = 0;
+    v3[8] = 0;
+    C3DRemoveSceneRef(v3, v3[6]);
+    CFRelease(v3);
   }
 }
 
@@ -4897,25 +5725,26 @@ uint64_t C3DNodeGetIndexOfChildNode(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t C3DNodeGetParent(uint64_t a1)
+uint64_t C3DNodeGetParent(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DGeometryTrackNode_cold_2(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 64);
 }
 
-double C3DNodeGetWorldPosition(float32x4_t *a1, __n128 *a2)
+double C3DNodeGetWorldPosition(_BOOL8 a1, __n128 *a2)
 {
-  if (!a1 && (v4 = scn_default_log(), os_log_type_enabled(v4, OS_LOG_TYPE_FAULT)))
+  v3 = a1;
+  if (!a1 && (v4 = scn_default_log(0, a2), a1 = os_log_type_enabled(v4, OS_LOG_TYPE_FAULT)))
   {
-    C3DGeometryTrackNode_cold_2(v4, v5, v6, v7, v8, v9, v10, v11);
+    C3DGeometryTrackNode_cold_2(v4, a2, v5, v6, v7, v8, v9, v10);
     if (a2)
     {
       goto LABEL_6;
@@ -4927,23 +5756,24 @@ double C3DNodeGetWorldPosition(float32x4_t *a1, __n128 *a2)
     goto LABEL_6;
   }
 
-  v12 = scn_default_log();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+  v11 = scn_default_log(a1, a2);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
   {
-    C3DNodeGetWorldPosition_cold_2(v12, v13, v14, v15, v16, v17, v18, v19);
+    C3DNodeGetWorldPosition_cold_2(v11, a2, v12, v13, v14, v15, v16, v17);
   }
 
 LABEL_6:
-  WorldMatrix = C3DNodeGetWorldMatrix(a1);
+  WorldMatrix = C3DNodeGetWorldMatrix(v3, a2);
   *&result = C3DMatrix4x4GetTranslation(WorldMatrix, a2).n128_u64[0];
   return result;
 }
 
-void C3DNodeGetWorldOrientation(float32x4_t *a1, _OWORD *a2)
+void C3DNodeGetWorldOrientation(_BOOL8 a1, _OWORD *a2)
 {
-  if (!a1 && (v4 = scn_default_log(), os_log_type_enabled(v4, OS_LOG_TYPE_FAULT)))
+  v3 = a1;
+  if (!a1 && (v4 = scn_default_log(0, a2), a1 = os_log_type_enabled(v4, OS_LOG_TYPE_FAULT)))
   {
-    C3DGeometryTrackNode_cold_2(v4, v5, v6, v7, v8, v9, v10, v11);
+    C3DGeometryTrackNode_cold_2(v4, a2, v5, v6, v7, v8, v9, v10);
     if (a2)
     {
       goto LABEL_6;
@@ -4955,313 +5785,315 @@ void C3DNodeGetWorldOrientation(float32x4_t *a1, _OWORD *a2)
     goto LABEL_6;
   }
 
-  v12 = scn_default_log();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+  v11 = scn_default_log(a1, a2);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
   {
-    C3DNodeGetWorldOrientation_cold_2(v12, v13, v14, v15, v16, v17, v18, v19);
+    C3DNodeGetWorldOrientation_cold_2(v11, a2, v12, v13, v14, v15, v16, v17);
   }
 
 LABEL_6:
-  WorldMatrix = C3DNodeGetWorldMatrix(a1);
-  v21 = *WorldMatrix;
-  v22 = WorldMatrix[1];
-  v23 = WorldMatrix[3];
-  v25[2] = WorldMatrix[2];
-  v25[3] = v23;
-  v25[0] = v21;
-  v25[1] = v22;
-  *&v24 = C3DMatrix4x4GetRotation(v25);
-  *a2 = v24;
+  WorldMatrix = C3DNodeGetWorldMatrix(v3, a2);
+  v19 = *WorldMatrix;
+  v20 = *(WorldMatrix + 16);
+  v21 = *(WorldMatrix + 48);
+  v23[2] = *(WorldMatrix + 32);
+  v23[3] = v21;
+  v23[0] = v19;
+  v23[1] = v20;
+  *&v22 = C3DMatrix4x4GetRotation(v23);
+  *a2 = v22;
 }
 
-float32x4_t *C3DNodeGetLastFrameWorldMatrix(float32x4_t *a1)
+uint64_t C3DNodeGetLastFrameWorldMatrix(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DGeometryTrackNode_cold_2(v3, a2, v4, v5, v6, v7, v8, v9);
     }
   }
 
-  v10 = a1[3].i64[0];
+  v10 = *(a1 + 48);
   if (!v10)
   {
-    return C3DTransformGetMatrixPtr(a1 + 6);
+    return C3DTransformGetMatrixPtr(a1 + 96, a2);
   }
 
-  TransformTree = C3DSceneGetTransformTree(v10);
-  if (a1[5].i32[2] == -1)
+  TransformTree = C3DSceneGetTransformTree(v10, a2);
+  v13 = TransformTree;
+  if (*(a1 + 88) == -1)
   {
-    v12 = scn_default_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+    v14 = scn_default_log(TransformTree, v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
-      C3DNodeGetWorldMatrix_cold_2(v12, v13, v14, v15, v16, v17, v18, v19);
+      C3DNodeGetWorldMatrix_cold_2(v14, v15, v16, v17, v18, v19, v20, v21);
     }
   }
 
-  return C3DTransformTreeGetLastFrameWorldTransformPtr(TransformTree, a1[5].i32[2]);
+  return C3DTransformTreeGetLastFrameWorldTransformPtr(v13, *(a1 + 88));
 }
 
-void C3DNodeSetPosition(uint64_t a1, __n128 a2)
+void C3DNodeSetPosition(__n128 *a1, __n128 a2)
 {
-  C3DTransformSetPosition((a1 + 96), a2);
+  C3DTransformSetPosition(a1 + 6, a2);
 
-  __C3DNodeTransformDidChange(a1);
+  __C3DNodeTransformDidChange(a1, v3);
 }
 
-void __C3DNodeTransformDidChange(float32x4_t *a1)
+void __C3DNodeTransformDidChange(uint64_t a1, uint64_t a2)
 {
-  v2 = a1[3].i64[0];
-  if (v2)
+  v3 = *(a1 + 48);
+  if (v3)
   {
-    TransformTree = C3DSceneGetTransformTree(v2);
+    TransformTree = C3DSceneGetTransformTree(v3, a2);
     if (TransformTree)
     {
-      if (a1[5].i32[2] != -1)
+      if (*(a1 + 88) != -1)
       {
-        v4 = TransformTree;
-        memset(&v5, 0, sizeof(v5));
-        C3DNodeGetMatrix(a1, &v5);
-        C3DTransformTreeUpdateNodeTransform(v4, a1[5].i32[2], &v5);
+        v5 = TransformTree;
+        memset(&v6, 0, sizeof(v6));
+        C3DNodeGetMatrix(a1, a2, &v6);
+        C3DTransformTreeUpdateNodeTransform(v5, *(a1 + 88), &v6);
       }
     }
   }
 
-  __UpdateAudioTransform(a1);
+  __UpdateAudioTransform(a1, a2);
 }
 
-void C3DNodeSetScale(float32x4_t *a1, __n128 a2)
+void C3DNodeSetScale(uint64_t a1, uint64_t a2, __n128 a3)
 {
-  C3DTransformSetScale(&a1[6], a2);
+  C3DTransformSetScale(a1 + 96, a2, a3);
 
-  __C3DNodeTransformDidChange(a1);
+  __C3DNodeTransformDidChange(a1, v4);
 }
 
-void C3DNodeSetAxisAngle(float32x4_t *a1, __n128 a2)
+void C3DNodeSetAxisAngle(__n128 *a1, uint64_t a2, __n128 a3)
 {
-  C3DTransformSetAxisAngle(&a1[6], a2);
+  C3DTransformSetAxisAngle(a1 + 6, a2, a3);
 
-  __C3DNodeTransformDidChange(a1);
+  __C3DNodeTransformDidChange(a1, v4);
 }
 
-void C3DNodeSetEuler(float32x4_t *a1, __n128 a2)
+void C3DNodeSetEuler(__n128 *a1, uint64_t a2, __n128 a3)
 {
-  C3DTransformSetEuler(&a1[6], a2);
+  C3DTransformSetEuler(a1 + 6, a2, a3);
 
-  __C3DNodeTransformDidChange(a1);
+  __C3DNodeTransformDidChange(a1, v4);
 }
 
-void C3DNodeSetQuaternion(float32x4_t *a1, __n128 a2)
+void C3DNodeSetQuaternion(__n128 *a1, uint64_t a2, __n128 a3)
 {
-  C3DTransformSetQuaternion(&a1[6], a2);
+  C3DTransformSetQuaternion(a1 + 6, a3, a2);
 
-  __C3DNodeTransformDidChange(a1);
+  __C3DNodeTransformDidChange(a1, v4);
 }
 
-void C3DNodeSetMatrix(float32x4_t *a1, uint64_t a2)
+void C3DNodeSetMatrix(uint64_t a1, uint64_t a2)
 {
-  C3DTransformSetMatrix(&a1[6], a2);
+  C3DTransformSetMatrix(a1 + 96, a2);
 
-  __C3DNodeTransformDidChange(a1);
+  __C3DNodeTransformDidChange(a1, v3);
 }
 
-double C3DNodeGetLocalNoPivotMatrix@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+double C3DNodeGetLocalNoPivotMatrix@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
   if (!a1)
   {
-    v4 = scn_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v4, v5, v6, v7, v8, v9, v10, v11);
+      C3DGeometryTrackNode_cold_2(v5, a2, v6, v7, v8, v9, v10, v11);
     }
   }
 
-  *&result = C3DTransformGetMatrix(a1 + 96, a2).n128_u64[0];
+  *&result = C3DTransformGetMatrix(a1 + 96, a3, a2).n128_u64[0];
   return result;
 }
 
-double C3DNodeGetPivotPosition(uint64_t a1)
+double C3DNodeGetPivotPosition(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DGeometryTrackNode_cold_2(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
-  v12.n128_u32[2] = 0;
-  v12.n128_u64[0] = 0;
-  v10 = *(a1 + 192);
-  if (!v10)
+  v13.n128_u32[2] = 0;
+  v13.n128_u64[0] = 0;
+  v11 = *(a1 + 192);
+  if (!v11)
   {
     return 0.0;
   }
 
-  C3DMatrix4x4GetTranslation(v10, &v12);
-  return v12.n128_f64[0];
+  C3DMatrix4x4GetTranslation(v11, &v13);
+  return v13.n128_f64[0];
 }
 
-void C3DNodeSetPivotPosition(float32x4_t *a1, __n128 a2)
+void C3DNodeSetPivotPosition(uint64_t a1, uint64_t a2, __n128 a3)
 {
   if (!a1)
   {
-    v14 = a2;
-    v3 = scn_default_log();
-    v4 = os_log_type_enabled(v3, OS_LOG_TYPE_FAULT);
-    a2 = v14;
-    if (v4)
+    v16 = a3;
+    v4 = scn_default_log(0, a2);
+    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_FAULT);
+    a3 = v16;
+    if (v5)
     {
-      C3DGeometryTrackNode_cold_2(v3, v5, v6, v7, v8, v9, v10, v11);
-      a2 = v14;
+      C3DGeometryTrackNode_cold_2(v4, v6, v7, v8, v9, v10, v11, v12);
+      a3 = v16;
     }
   }
 
-  v12 = a1[12].i64[0];
-  if (v12)
+  v13 = *(a1 + 192);
+  if (v13)
   {
-    C3DMatrix4x4SetTranslation(v12, a2);
+    C3DMatrix4x4SetTranslation(v13, a3);
   }
 
   else
   {
-    memset(v15, 0, sizeof(v15));
-    C3DMatrix4x4SetTranslation(v15, a2);
-    C3DNodeSetPivotMatrix(a1, v15);
+    memset(v17, 0, sizeof(v17));
+    C3DMatrix4x4SetTranslation(v17, a3);
+    C3DNodeSetPivotMatrix(a1, v17);
   }
 
-  v13 = a1[12].i64[0];
-  if (v13)
+  v15 = *(a1 + 192);
+  if (v15)
   {
-    *(v13 + 124) = 0;
+    *(v15 + 124) = 0;
   }
 
-  __C3DNodeTransformDidChange(a1);
+  __C3DNodeTransformDidChange(a1, v14);
 }
 
-__n128 C3DNodeComputeWorldMatrix(float32x4_t *a1, uint64_t a2)
+__n128 C3DNodeComputeWorldMatrix(uint64_t a1, uint64_t a2)
 {
   if (!a2)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(a1, 0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
-      C3DNodeComputeWorldMatrix_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
+      C3DNodeComputeWorldMatrix_cold_1(v4, a2, v5, v6, v7, v8, v9, v10);
     }
   }
 
-  WorldMatrix = C3DNodeGetWorldMatrix(a1);
-  result = WorldMatrix[2];
-  v14 = WorldMatrix[3];
-  v16 = *WorldMatrix;
-  v15 = WorldMatrix[1];
+  WorldMatrix = C3DNodeGetWorldMatrix(a1, a2);
+  result = *(WorldMatrix + 32);
+  v13 = *(WorldMatrix + 48);
+  v15 = *WorldMatrix;
+  v14 = *(WorldMatrix + 16);
   *(a2 + 32) = result;
-  *(a2 + 48) = v14;
-  *a2 = v16;
-  *(a2 + 16) = v15;
+  *(a2 + 48) = v13;
+  *a2 = v15;
+  *(a2 + 16) = v14;
   return result;
 }
 
-__n128 C3DNodeComputeWorldTransform(float32x4_t *a1, uint64_t a2)
+__n128 C3DNodeComputeWorldTransform(uint64_t a1, uint64_t a2)
 {
   if (!a2)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(a1, 0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
-      C3DNodeComputeWorldMatrix_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
+      C3DNodeComputeWorldMatrix_cold_1(v4, a2, v5, v6, v7, v8, v9, v10);
     }
   }
 
-  if (a1[5].i32[2] == -1)
+  if (*(a1 + 88) == -1)
   {
-    WorldMatrix = C3DNodeGetWorldMatrix(a1);
-    result = WorldMatrix[2];
-    v23 = WorldMatrix[3];
-    v25 = *WorldMatrix;
-    v24 = WorldMatrix[1];
+    WorldMatrix = C3DNodeGetWorldMatrix(a1, a2);
+    result = *(WorldMatrix + 32);
+    v22 = *(WorldMatrix + 48);
+    v24 = *WorldMatrix;
+    v23 = *(WorldMatrix + 16);
     *(a2 + 32) = result;
-    *(a2 + 48) = v23;
-    *a2 = v25;
-    *(a2 + 16) = v24;
+    *(a2 + 48) = v22;
+    *a2 = v24;
+    *(a2 + 16) = v23;
   }
 
   else
   {
-    C3DNodeGetMatrix(a1, &v34);
-    result = v34;
+    C3DNodeGetMatrix(a1, a2, &v33);
+    result = v33;
+    v12 = v34;
     v13 = v35;
     v14 = v36;
-    v15 = v37;
-    v16 = a1[4].i64[0];
-    if (v16)
+    v15 = *(a1 + 64);
+    if (v15)
     {
-      v32 = 0u;
-      v33 = 0u;
-      v30 = 0u;
       v31 = 0u;
+      v32 = 0u;
+      v29 = 0u;
+      v30 = 0u;
+      v25 = v33;
       v26 = v34;
       v27 = v35;
       v28 = v36;
-      v29 = v37;
-      C3DNodeComputeWorldTransform(v16, &v30);
-      v17 = 0;
+      C3DNodeComputeWorldTransform(v15, &v29);
+      v16 = 0;
+      v17 = v29;
       v18 = v30;
       v19 = v31;
       v20 = v32;
-      v21 = v33;
-      v38[0] = v26;
-      v38[1] = v27;
-      v38[2] = v28;
-      v38[3] = v29;
+      v37[0] = v25;
+      v37[1] = v26;
+      v37[2] = v27;
+      v37[3] = v28;
+      v38 = 0u;
       v39 = 0u;
       v40 = 0u;
       v41 = 0u;
-      v42 = 0u;
       do
       {
-        *(&v39 + v17 * 16) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v18, COERCE_FLOAT(v38[v17])), v19, *&v38[v17], 1), v20, v38[v17], 2), v21, v38[v17], 3);
-        ++v17;
+        *(&v38 + v16 * 16) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v17, COERCE_FLOAT(v37[v16])), v18, *&v37[v16], 1), v19, v37[v16], 2), v20, v37[v16], 3);
+        ++v16;
       }
 
-      while (v17 != 4);
-      result = v39;
+      while (v16 != 4);
+      result = v38;
+      v12 = v39;
       v13 = v40;
       v14 = v41;
-      v15 = v42;
     }
 
     *a2 = result;
-    *(a2 + 16) = v13;
-    *(a2 + 32) = v14;
-    *(a2 + 48) = v15;
+    *(a2 + 16) = v12;
+    *(a2 + 32) = v13;
+    *(a2 + 48) = v14;
   }
 
   return result;
 }
 
-uint64_t C3DNodeGetID(uint64_t a1)
+uint64_t C3DNodeGetID(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DGeometryTrackNode_cold_2(v3, a2, v4, v5, v6, v7, v8, v9);
     }
   }
 
-  return C3DEntityGetID(a1);
+  return C3DEntityGetID(a1, a2);
 }
 
-uint64_t C3DNodeGetNodeWithName(uint64_t a1, uint64_t a2)
+uint64_t C3DNodeGetNodeWithName(_BOOL8 AnimationPerKeyDictionaryForObject_cold_2, uint64_t a2)
 {
-  if (!a1 && (v4 = scn_default_log(), os_log_type_enabled(v4, OS_LOG_TYPE_FAULT)))
+  v3 = AnimationPerKeyDictionaryForObject_cold_2;
+  if (!AnimationPerKeyDictionaryForObject_cold_2 && (v4 = scn_default_log(0, a2), AnimationPerKeyDictionaryForObject_cold_2 = os_log_type_enabled(v4, OS_LOG_TYPE_FAULT)))
   {
-    _C3DAnimationManagerGetAnimationPerKeyDictionaryForObject_cold_2(v4, v5, v6, v7, v8, v9, v10, v11);
+    _C3DAnimationManagerGetAnimationPerKeyDictionaryForObject_cold_2(v4, a2, v5, v6, v7, v8, v9, v10);
     if (a2)
     {
       goto LABEL_6;
@@ -5273,32 +6105,32 @@ uint64_t C3DNodeGetNodeWithName(uint64_t a1, uint64_t a2)
     goto LABEL_6;
   }
 
-  v12 = scn_default_log();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+  v11 = scn_default_log(AnimationPerKeyDictionaryForObject_cold_2, a2);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
   {
-    C3DNodeGetNodeWithName_cold_2(v12, v13, v14, v15, v16, v17, v18, v19);
+    C3DNodeGetNodeWithName_cold_2(v11, v12, v13, v14, v15, v16, v17, v18);
   }
 
 LABEL_6:
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x2000000000;
-  v26 = 0;
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 0x40000000;
-  v22[2] = __C3DNodeGetNodeWithName_block_invoke;
-  v22[3] = &unk_2782FE648;
-  v22[4] = &v23;
-  v22[5] = a2;
-  C3DNodeApplyHierarchy(a1, v22);
-  v20 = v24[3];
-  _Block_object_dispose(&v23, 8);
-  return v20;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x2000000000;
+  v25 = 0;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 0x40000000;
+  v21[2] = __C3DNodeGetNodeWithName_block_invoke;
+  v21[3] = &unk_2782FE648;
+  v21[4] = &v22;
+  v21[5] = a2;
+  C3DNodeApplyHierarchy(v3, v21);
+  v19 = v23[3];
+  _Block_object_dispose(&v22, 8);
+  return v19;
 }
 
 uint64_t __C3DNodeGetNodeWithName_block_invoke(uint64_t a1, uint64_t a2)
 {
-  result = C3DNodeGetName(a2);
+  result = C3DNodeGetName(a2, a2);
   if (result)
   {
     if (CFEqual(result, *(a1 + 40)))
@@ -5316,11 +6148,12 @@ uint64_t __C3DNodeGetNodeWithName_block_invoke(uint64_t a1, uint64_t a2)
   return result;
 }
 
-CFMutableArrayRef C3DNodeCopyNodesWithAttribute(uint64_t a1, __CFString *a2, char a3)
+CFMutableArrayRef C3DNodeCopyNodesWithAttribute(_BOOL8 AnimationPerKeyDictionaryForObject_cold_2, __CFString *a2, char a3)
 {
-  if (!a1 && (v6 = scn_default_log(), os_log_type_enabled(v6, OS_LOG_TYPE_FAULT)))
+  v5 = AnimationPerKeyDictionaryForObject_cold_2;
+  if (!AnimationPerKeyDictionaryForObject_cold_2 && (v6 = scn_default_log(0, a2), AnimationPerKeyDictionaryForObject_cold_2 = os_log_type_enabled(v6, OS_LOG_TYPE_FAULT)))
   {
-    _C3DAnimationManagerGetAnimationPerKeyDictionaryForObject_cold_2(v6, v7, v8, v9, v10, v11, v12, v13);
+    _C3DAnimationManagerGetAnimationPerKeyDictionaryForObject_cold_2(v6, a2, v7, v8, v9, v10, v11, v12);
     if (a2)
     {
       goto LABEL_6;
@@ -5332,56 +6165,56 @@ CFMutableArrayRef C3DNodeCopyNodesWithAttribute(uint64_t a1, __CFString *a2, cha
     goto LABEL_6;
   }
 
-  v14 = scn_default_log();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+  v13 = scn_default_log(AnimationPerKeyDictionaryForObject_cold_2, a2);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
   {
-    C3DNodeCopyNodesWithAttribute_cold_2(v14, v15, v16, v17, v18, v19, v20, v21);
+    C3DNodeCopyNodesWithAttribute_cold_2(v13, v14, v15, v16, v17, v18, v19, v20);
   }
 
 LABEL_6:
   Mutable = CFArrayCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF128]);
-  v23 = Mutable;
+  v22 = Mutable;
   if (@"kMeshKey" == a2)
   {
-    v24 = v30;
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 0x40000000;
-    v30[2] = __C3DNodeCopyNodesWithAttribute_block_invoke;
-    v30[3] = &__block_descriptor_tmp_30_0;
-    v30[4] = Mutable;
+    v23 = v29;
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 0x40000000;
+    v29[2] = __C3DNodeCopyNodesWithAttribute_block_invoke;
+    v29[3] = &__block_descriptor_tmp_30_0;
+    v29[4] = Mutable;
 LABEL_11:
-    v25 = v24 + 5;
+    v24 = v23 + 5;
     goto LABEL_12;
   }
 
   if (@"kDeformerStackKey" == a2)
   {
-    v24 = v29;
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 0x40000000;
-    v29[2] = __C3DNodeCopyNodesWithAttribute_block_invoke_2;
-    v29[3] = &__block_descriptor_tmp_31_2;
-    v29[4] = Mutable;
+    v23 = v28;
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 0x40000000;
+    v28[2] = __C3DNodeCopyNodesWithAttribute_block_invoke_2;
+    v28[3] = &__block_descriptor_tmp_31_2;
+    v28[4] = Mutable;
     goto LABEL_11;
   }
 
-  v24 = v27;
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 0x40000000;
-  v27[2] = __C3DNodeCopyNodesWithAttribute_block_invoke_3;
-  v27[3] = &__block_descriptor_tmp_32;
-  v27[4] = a2;
-  v27[5] = Mutable;
-  v25 = &v28;
+  v23 = v26;
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 0x40000000;
+  v26[2] = __C3DNodeCopyNodesWithAttribute_block_invoke_3;
+  v26[3] = &__block_descriptor_tmp_32;
+  v26[4] = a2;
+  v26[5] = Mutable;
+  v24 = &v27;
 LABEL_12:
-  *v25 = a3;
-  C3DNodeApplyHierarchy(a1, v24);
-  return v23;
+  *v24 = a3;
+  C3DNodeApplyHierarchy(v5, v23);
+  return v22;
 }
 
 uint64_t __C3DNodeCopyNodesWithAttribute_block_invoke(uint64_t a1, const void *a2)
 {
-  if (C3DNodeGetGeometry(a2) && (CFArrayAppendValue(*(a1 + 32), a2), (*(a1 + 40) & 1) != 0))
+  if (C3DNodeGetGeometry(a2, a2) && (CFArrayAppendValue(*(a1 + 32), a2), (*(a1 + 40) & 1) != 0))
   {
     return 2;
   }
@@ -5394,7 +6227,7 @@ uint64_t __C3DNodeCopyNodesWithAttribute_block_invoke(uint64_t a1, const void *a
 
 uint64_t __C3DNodeCopyNodesWithAttribute_block_invoke_2(uint64_t a1, const void *a2)
 {
-  if (C3DNodeGetDeformerStack(a2) && (CFArrayAppendValue(*(a1 + 32), a2), (*(a1 + 40) & 1) != 0))
+  if (C3DNodeGetDeformerStack(a2, a2) && (CFArrayAppendValue(*(a1 + 32), a2), (*(a1 + 40) & 1) != 0))
   {
     return 2;
   }
@@ -5418,10 +6251,11 @@ uint64_t __C3DNodeCopyNodesWithAttribute_block_invoke_3(uint64_t a1, const void 
   }
 }
 
-__CFArray *C3DNodeCopyChildNodesPassingTest(void *a1, uint64_t a2, int a3)
+CFMutableArrayRef C3DNodeCopyChildNodesPassingTest(void *a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
   Mutable = CFArrayCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF128]);
-  _C3DNodeCopyChildNodesPassingTest(a1, a2, a3, Mutable);
+  _C3DNodeCopyChildNodesPassingTest(a1, a2, v3, Mutable);
   return Mutable;
 }
 
@@ -5457,7 +6291,7 @@ uint64_t _C3DNodeCopyChildNodesPassingTest(void *a1, uint64_t a2, int a3, __CFAr
         }
 
         ++v11;
-        v10 = *(v10 + 80);
+        v10 = v10[10];
       }
 
       while (v10);
@@ -5477,7 +6311,7 @@ CFStringRef C3DNodeSetName(uint64_t a1, CFStringRef theString)
 {
   if (!a1)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(0, theString);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       C3DGeometryTrackNode_cold_2(v4, v5, v6, v7, v8, v9, v10, v11);
@@ -5491,7 +6325,7 @@ CFTypeRef C3DNodeSetID(uint64_t a1, CFTypeRef cf)
 {
   if (!a1)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(0, cf);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       C3DGeometryTrackNode_cold_2(v4, v5, v6, v7, v8, v9, v10, v11);
@@ -5501,14 +6335,14 @@ CFTypeRef C3DNodeSetID(uint64_t a1, CFTypeRef cf)
   return C3DEntitySetID(a1, cf);
 }
 
-void C3DNodeGetWorldAlpha(uint64_t a1)
+void C3DNodeGetWorldAlpha(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DGeometryTrackNode_cold_2(v3, a2, v4, v5, v6, v7, v8, v9);
     }
   }
 
@@ -5516,9 +6350,11 @@ void C3DNodeGetWorldAlpha(uint64_t a1)
   if ((v10 & 0x20) != 0)
   {
     *(a1 + 256) = *(a1 + 204);
-    if (*(a1 + 64))
+    v11 = *(a1 + 64);
+    if (v11)
     {
-      *(a1 + 256) = C3DNodeGetWorldAlpha() * *(a1 + 256);
+      C3DNodeGetWorldAlpha(v11, a2);
+      *(a1 + 256) = v12 * *(a1 + 256);
       v10 = *(a1 + 220);
     }
 
@@ -5526,46 +6362,48 @@ void C3DNodeGetWorldAlpha(uint64_t a1)
   }
 }
 
-void __DirtyWorldAlpha(uint64_t a1, char a2)
+void __DirtyWorldAlpha(uint64_t result, uint64_t a2)
 {
-  if (!a1)
+  v2 = a2;
+  if (!result)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(0, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       C3DGeometryTrackNode_cold_2(v4, v5, v6, v7, v8, v9, v10, v11);
     }
   }
 
-  v12 = *(a1 + 220);
-  if (*(a1 + 72))
+  v12 = *(result + 220);
+  if (*(result + 72))
   {
-    *(a1 + 220) = v12 & 0xFFFFFFDF;
-    v13 = *(a1 + 48);
+    *(result + 220) = v12 & 0xFFFFFFDF;
+    v13 = *(result + 48);
     v14[0] = MEMORY[0x277D85DD0];
     v14[1] = 0x40000000;
     v14[2] = ____DirtyWorldAlpha_block_invoke;
     v14[3] = &__block_descriptor_tmp_163;
-    v15 = a2;
+    v15 = v2;
     v14[4] = v13;
-    C3DNodeApplyHierarchy(a1, v14);
+    C3DNodeApplyHierarchy(result, v14);
   }
 
   else
   {
-    *(a1 + 220) = v12 | 0x20;
+    *(result + 220) = v12 | 0x20;
   }
 }
 
-uint64_t __UpdateCullingSystemFlags(uint64_t a1, int a2)
+uint64_t __UpdateCullingSystemFlags(uint64_t a1, uint64_t a2)
 {
   result = *(a1 + 48);
   if (result)
   {
-    result = C3DSceneGetCullingSystem(result);
+    v4 = a2;
+    result = C3DSceneGetCullingSystem(result, a2);
     if (result)
     {
-      if (a2)
+      if (v4)
       {
         v6[0] = MEMORY[0x277D85DD0];
         v6[1] = 0x40000000;
@@ -5590,43 +6428,43 @@ uint64_t __UpdateCullingSystemFlags(uint64_t a1, int a2)
   return result;
 }
 
-uint64_t C3DNodeIsHiddenOrIsHiddenByAncestor(uint64_t a1)
+BOOL C3DNodeIsHiddenOrIsHiddenByAncestor(uint64_t a1, uint64_t a2)
 {
-  v1 = a1;
-  if (C3DNodeIsHidden(a1))
+  v2 = a1;
+  if (C3DNodeIsHidden(a1, a2))
   {
     return 1;
   }
 
   do
   {
-    v1 = *(v1 + 64);
-    v2 = v1 != 0;
+    v2 = *(v2 + 64);
+    v4 = v2 != 0;
   }
 
-  while (v1 && !C3DNodeIsHidden(v1));
-  return v2;
+  while (v2 && !C3DNodeIsHidden(v2, v3));
+  return v4;
 }
 
-float C3DNodeIsHiddenOrTransparentOrIsHiddenOrTransparentByAncestor(uint64_t a1)
+float C3DNodeIsHiddenOrTransparentOrIsHiddenOrTransparentByAncestor(uint64_t a1, uint64_t a2)
 {
-  v1 = a1;
-  if (!C3DNodeIsHiddenOrTransparent(a1))
+  v2 = a1;
+  if (!C3DNodeIsHiddenOrTransparent(a1, a2))
   {
     do
     {
-      v1 = *(v1 + 64);
-      if (!v1)
+      v2 = *(v2 + 64);
+      if (!v2)
       {
         break;
       }
 
-      if (*(v1 + 200))
+      if (*(v2 + 200))
       {
         break;
       }
 
-      result = *(v1 + 204);
+      result = *(v2 + 204);
     }
 
     while (result > 0.0);
@@ -5635,55 +6473,57 @@ float C3DNodeIsHiddenOrTransparentOrIsHiddenOrTransparentByAncestor(uint64_t a1)
   return result;
 }
 
-BOOL C3DNodeIsHiddenOrTransparent(uint64_t a1)
+BOOL C3DNodeIsHiddenOrTransparent(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DGeometryTrackNode_cold_2(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return (*(a1 + 200) & 1) != 0 || *(a1 + 204) <= 0.0;
 }
 
-uint64_t __UpdateNodeVisibilityIfNeeded(uint64_t result, char a2)
+uint64_t __UpdateNodeVisibilityIfNeeded(uint64_t result, uint64_t a2)
 {
   v2 = *(result + 48);
   if (v2)
   {
+    v3 = a2;
     v4 = result;
-    if (C3DNodeShouldBePutInCullingSystem(result) && *(v4 + 216) == -1)
+    ShouldBePutInCullingSystem = C3DNodeShouldBePutInCullingSystem(result, a2);
+    if (ShouldBePutInCullingSystem && *(v4 + 216) == -1)
     {
-      v5 = scn_default_log();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+      v7 = scn_default_log(ShouldBePutInCullingSystem, v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
       {
-        __UpdateNodeVisibilityIfNeeded_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
+        __UpdateNodeVisibilityIfNeeded_cold_1(v7, v8, v9, v10, v11, v12, v13, v14);
       }
     }
 
     __UpdateCullingSystemFlags(v4, 1);
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 0x40000000;
-    v13[2] = ____UpdateNodeVisibilityIfNeeded_block_invoke;
-    v13[3] = &__block_descriptor_tmp_168;
-    v14 = a2;
-    v13[4] = v4;
-    v13[5] = v2;
-    return C3DNodeApplyHierarchy(v4, v13);
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 0x40000000;
+    v15[2] = ____UpdateNodeVisibilityIfNeeded_block_invoke;
+    v15[3] = &__block_descriptor_tmp_168;
+    v16 = v3;
+    v15[4] = v4;
+    v15[5] = v2;
+    return C3DNodeApplyHierarchy(v4, v15);
   }
 
   return result;
 }
 
-BOOL C3DNodeIsAncestor(uint64_t a1, uint64_t a2)
+BOOL C3DNodeIsAncestor(_BOOL8 a1, uint64_t a2)
 {
   v3 = a1;
-  if (!a1 && (v4 = scn_default_log(), os_log_type_enabled(v4, OS_LOG_TYPE_FAULT)))
+  if (!a1 && (v4 = scn_default_log(0, a2), a1 = os_log_type_enabled(v4, OS_LOG_TYPE_FAULT)))
   {
-    C3DGeometryTrackNode_cold_2(v4, v5, v6, v7, v8, v9, v10, v11);
+    C3DGeometryTrackNode_cold_2(v4, a2, v5, v6, v7, v8, v9, v10);
     if (a2)
     {
       goto LABEL_6;
@@ -5695,10 +6535,10 @@ BOOL C3DNodeIsAncestor(uint64_t a1, uint64_t a2)
     goto LABEL_6;
   }
 
-  v12 = scn_default_log();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+  v11 = scn_default_log(a1, a2);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
   {
-    C3DNodeIsAncestor_cold_2(v12, v13, v14, v15, v16, v17, v18, v19);
+    C3DNodeIsAncestor_cold_2(v11, v12, v13, v14, v15, v16, v17, v18);
   }
 
   do
@@ -5711,14 +6551,14 @@ LABEL_6:
   return v3 != 0;
 }
 
-void *C3DNodeFindCommonAncestor(CFArrayRef theArray)
+void *C3DNodeFindCommonAncestor(CFArrayRef theArray, uint64_t a2)
 {
   if (!theArray)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DNodeFindCommonAncestor_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DNodeFindCommonAncestor_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
@@ -5728,19 +6568,19 @@ void *C3DNodeFindCommonAncestor(CFArrayRef theArray)
     return 0;
   }
 
-  v11 = Count;
+  v12 = Count;
   ValueAtIndex = CFArrayGetValueAtIndex(theArray, 0);
-  if (v11 >= 2)
+  if (v12 >= 2)
   {
-    for (i = 1; i != v11; ++i)
+    for (i = 1; i != v12; ++i)
     {
-      v14 = CFArrayGetValueAtIndex(theArray, i);
+      v15 = CFArrayGetValueAtIndex(theArray, i);
       if (!ValueAtIndex)
       {
         break;
       }
 
-      while (!v14)
+      while (!v15)
       {
 LABEL_12:
         ValueAtIndex = ValueAtIndex[8];
@@ -5750,11 +6590,11 @@ LABEL_12:
         }
       }
 
-      v15 = v14;
-      while (v15 != ValueAtIndex)
+      v16 = v15;
+      while (v16 != ValueAtIndex)
       {
-        v15 = v15[8];
-        if (!v15)
+        v16 = v16[8];
+        if (!v16)
         {
           goto LABEL_12;
         }
@@ -5765,14 +6605,14 @@ LABEL_12:
   return ValueAtIndex;
 }
 
-const __CFDictionary *C3DNodeGetRenderingOrder(uint64_t a1)
+const __CFNumber *C3DNodeGetRenderingOrder(_BOOL8 a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DGeometryTrackNode_cold_2(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
@@ -5787,25 +6627,25 @@ const __CFDictionary *C3DNodeGetRenderingOrder(uint64_t a1)
   return result;
 }
 
-void C3DNodeSetRenderingOrder(uint64_t a1, const __CFDictionary *a2)
+void C3DNodeSetRenderingOrder(uint64_t *a1, const __CFNumber *a2)
 {
   if (!a1)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(0, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v4, v5, v6, v7, v8, v9, v10, v11);
+      C3DGeometryTrackNode_cold_2(v4, a2, v5, v6, v7, v8, v9, v10);
     }
   }
 
-  if (C3DNodeGetRenderingOrder(a1) != a2)
+  if (C3DNodeGetRenderingOrder(a1, a2) != a2)
   {
     if (a2)
     {
       valuePtr = a2;
-      v12 = CFNumberCreate(0, kCFNumberLongType, &valuePtr);
-      C3DEntitySetAttribute(a1, @"kRenderingPriorityKey", v12);
-      CFRelease(v12);
+      v11 = CFNumberCreate(0, kCFNumberLongType, &valuePtr);
+      C3DEntitySetAttribute(a1, @"kRenderingPriorityKey", v11);
+      CFRelease(v11);
     }
 
     else
@@ -5813,39 +6653,40 @@ void C3DNodeSetRenderingOrder(uint64_t a1, const __CFDictionary *a2)
       C3DEntitySetAttribute(a1, @"kRenderingPriorityKey", 0);
     }
 
-    C3DScenePostPipelineEvent(*(a1 + 48), 5, a1, 0);
+    C3DScenePostPipelineEvent(a1[6], 5, a1, 0);
   }
 }
 
-uint64_t C3DNodeGetCastsShadow(uint64_t a1)
+uint64_t C3DNodeGetCastsShadow(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DGeometryTrackNode_cold_2(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return (*(a1 + 222) >> 5) & 1;
 }
 
-void C3DNodeSetCastsShadow(uint64_t a1, int a2)
+void C3DNodeSetCastsShadow(uint64_t result, uint64_t a2)
 {
-  if (!a1)
+  v2 = a2;
+  if (!result)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(0, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       C3DGeometryTrackNode_cold_2(v4, v5, v6, v7, v8, v9, v10, v11);
     }
   }
 
-  v12 = *(a1 + 220);
-  if (((((v12 & 0x200000) == 0) ^ a2) & 1) == 0)
+  v12 = *(result + 220);
+  if (((((v12 & 0x200000) == 0) ^ v2) & 1) == 0)
   {
-    if (a2)
+    if (v2)
     {
       v13 = 0x200000;
     }
@@ -5855,27 +6696,28 @@ void C3DNodeSetCastsShadow(uint64_t a1, int a2)
       v13 = 0;
     }
 
-    *(a1 + 220) = v12 & 0xFFDFFFFF | v13;
-    C3DScenePostPipelineEvent(*(a1 + 48), 5, a1, 0);
-    __UpdateCullingSystemFlags(a1, 0);
+    *(result + 220) = v12 & 0xFFDFFFFF | v13;
+    C3DScenePostPipelineEvent(*(result + 48), 5, result, 0);
+    __UpdateCullingSystemFlags(result, 0);
   }
 }
 
-void C3DNodeSetUsesDepthPrePass(uint64_t a1, int a2)
+void C3DNodeSetUsesDepthPrePass(uint64_t result, uint64_t a2)
 {
-  if (!a1)
+  v2 = a2;
+  if (!result)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(0, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       C3DGeometryTrackNode_cold_2(v4, v5, v6, v7, v8, v9, v10, v11);
     }
   }
 
-  v12 = *(a1 + 220);
-  if (((((v12 & 0x4000000) == 0) ^ a2) & 1) == 0)
+  v12 = *(result + 220);
+  if (((((v12 & 0x4000000) == 0) ^ v2) & 1) == 0)
   {
-    if (a2)
+    if (v2)
     {
       v13 = 0x4000000;
     }
@@ -5885,22 +6727,22 @@ void C3DNodeSetUsesDepthPrePass(uint64_t a1, int a2)
       v13 = 0;
     }
 
-    *(a1 + 220) = v12 & 0xFBFFFFFF | v13;
-    v14 = *(a1 + 48);
-    C3DScenePostPipelineEvent(v14, 8, a1, 0);
-    C3DScenePostPipelineEvent(v14, 5, a1, 0);
-    __UpdateCullingSystemFlags(a1, 0);
+    *(result + 220) = v12 & 0xFBFFFFFF | v13;
+    v14 = *(result + 48);
+    C3DScenePostPipelineEvent(v14, 8, result, 0);
+    C3DScenePostPipelineEvent(v14, 5, result, 0);
+    __UpdateCullingSystemFlags(result, 0);
   }
 }
 
-uint64_t C3DNodeGetCategoryBitMask(uint64_t a1)
+uint64_t C3DNodeGetCategoryBitMask(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DGeometryTrackNode_cold_2(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
@@ -5911,7 +6753,7 @@ uint64_t C3DNodeSetCategoryBitMask(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(0, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       C3DGeometryTrackNode_cold_2(v4, v5, v6, v7, v8, v9, v10, v11);
@@ -5922,36 +6764,37 @@ uint64_t C3DNodeSetCategoryBitMask(uint64_t a1, uint64_t a2)
   return __UpdateCullingSystemFlags(a1, 0);
 }
 
-uint64_t C3DNodeGetMovability(uint64_t a1)
+uint64_t C3DNodeGetMovability(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DGeometryTrackNode_cold_2(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return (*(a1 + 220) >> 22) & 1;
 }
 
-void C3DNodeSetMovability(uint64_t a1, int a2)
+void C3DNodeSetMovability(uint64_t result, uint64_t a2)
 {
-  if (!a1)
+  v2 = a2;
+  if (!result)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(0, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       C3DGeometryTrackNode_cold_2(v4, v5, v6, v7, v8, v9, v10, v11);
     }
   }
 
-  v12 = *(a1 + 220);
-  if (((v12 >> 22) & 1) != a2)
+  v12 = *(result + 220);
+  if (((v12 >> 22) & 1) != v2)
   {
-    *(a1 + 220) = v12 & 0xFFBFFFFF | ((a2 & 1) << 22);
-    __UpdateCullingSystemFlags(a1, 0);
+    *(result + 220) = v12 & 0xFFBFFFFF | ((v2 & 1) << 22);
+    __UpdateCullingSystemFlags(result, 0);
   }
 }
 
@@ -6003,27 +6846,27 @@ uint64_t C3DNodeSetIsGizmo(uint64_t result, int a2)
   return result;
 }
 
-__C3DGeometry *C3DNodeGetPresentationMesh(uint64_t a1)
+__C3DMesh *C3DNodeGetPresentationMesh(uint64_t a1, uint64_t a2)
 {
   result = *(a1 + 240);
   if (result)
   {
-    return C3DGeometryGetRenderingMesh(result);
+    return C3DGeometryGetRenderingMesh(result, a2);
   }
 
   return result;
 }
 
-const void *C3DNodeGetPresentationMeshLegacy(uint64_t a1)
+__C3DMesh *C3DNodeGetPresentationMeshLegacy(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 240);
-  if (!v1)
+  v2 = *(a1 + 240);
+  if (!v2)
   {
     return 0;
   }
 
-  v3 = *(a1 + 248);
-  if (v3 && (Skinner = C3DDeformerStackGetSkinner(v3)) != 0)
+  v4 = *(a1 + 248);
+  if (v4 && (Skinner = C3DDeformerStackGetSkinner(v4, a2)) != 0)
   {
 
     return C3DSkinnerGetSkinnedMeshLegacy(Skinner, a1);
@@ -6031,73 +6874,73 @@ const void *C3DNodeGetPresentationMeshLegacy(uint64_t a1)
 
   else
   {
-    Morpher = C3DNodeGetMorpher(a1);
+    Morpher = C3DNodeGetMorpher(a1, a2);
     if (Morpher)
     {
 
-      return C3DMorpherGetMorphedMeshLegacy(Morpher);
+      return C3DMorpherGetMorphedMeshLegacy(Morpher, v8);
     }
 
     else
     {
 
-      return C3DGeometryGetRenderingMesh(v1);
+      return C3DGeometryGetRenderingMesh(v2, v8);
     }
   }
 }
 
-uint64_t C3DNodeHasLight(uint64_t a1)
+uint64_t C3DNodeHasLight(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DGeometryTrackNode_cold_2(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return (*(a1 + 221) >> 1) & 1;
 }
 
-void C3DNodeSetLight(float32x4_t *a1, const __CFDictionary *a2)
+void C3DNodeSetLight(uint64_t a1, const __CFDictionary *a2)
 {
   if (!a1)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(0, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v4, v5, v6, v7, v8, v9, v10, v11);
+      C3DGeometryTrackNode_cold_2(v4, a2, v5, v6, v7, v8, v9, v10);
     }
   }
 
-  v12 = a1[3].i64[0];
-  if (v12)
+  v11 = *(a1 + 48);
+  if (v11)
   {
-    Light = C3DNodeGetLight(a1);
+    Light = C3DNodeGetLight(a1, a2);
     if (Light)
     {
-      C3DRemoveSceneRef(Light, a1[3].i64[0]);
-      LightingSystem = C3DSceneGetLightingSystem(v12);
+      C3DRemoveSceneRef(Light, *(a1 + 48));
+      LightingSystem = C3DSceneGetLightingSystem(v11, v13);
       C3DLightingSystemRemove(LightingSystem, a1);
     }
   }
 
-  v15 = C3DGetSceneRef(a1) != 0;
+  v15 = C3DGetSceneRef(a1, a2) != 0;
   _C3DEntitySetAttribute(a1, @"kLightKey", a2, v15);
   if (a2)
   {
-    v16 = a1[3].i64[0];
+    v16 = *(a1 + 48);
     if (v16)
     {
       C3DAddSceneRef(a2, v16);
     }
   }
 
-  a1[13].i32[3] = a1[13].i32[3] & 0xFFFFFDFF | ((a2 != 0) << 9);
-  if (a2 && v12)
+  *(a1 + 220) = *(a1 + 220) & 0xFFFFFDFF | ((a2 != 0) << 9);
+  if (a2 && v11)
   {
-    v17 = C3DSceneGetLightingSystem(v12);
+    v17 = C3DSceneGetLightingSystem(v11, v16);
     C3DLightingSystemAdd(v17, a1);
     C3DLightingSystemLightDidUpdate(v17, a2);
   }
@@ -6107,24 +6950,25 @@ void C3DNodeSetLight(float32x4_t *a1, const __CFDictionary *a2)
     return;
   }
 
-  if (C3DLightTypeSupportsShadow(a2))
+  if (C3DLightTypeSupportsShadow(a2, v16))
   {
-    if (C3DLightGetCastsShadow(a2))
+    CastsShadow = C3DLightGetCastsShadow(a2, v18);
+    if (CastsShadow)
     {
-      SharedInstance = C3DNotificationCenterGetSharedInstance();
-      C3DNotificationCenterPostNotification(SharedInstance, @"kC3DNotificationEngineContextInvalidatePasses", v12, 0, 1u);
+      SharedInstance = C3DNotificationCenterGetSharedInstance(CastsShadow, v20);
+      C3DNotificationCenterPostNotification(SharedInstance, @"kC3DNotificationEngineContextInvalidatePasses", v11, 0, 1u);
     }
   }
 }
 
-const __CFDictionary *C3DNodeGetCamera(uint64_t a1)
+const __CFDictionary *C3DNodeGetCamera(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DGeometryTrackNode_cold_2(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
@@ -6143,23 +6987,23 @@ void C3DNodeSetCamera(uint64_t a1, const __CFDictionary *a2)
 {
   if (!a1)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(0, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v4, v5, v6, v7, v8, v9, v10, v11);
+      C3DGeometryTrackNode_cold_2(v4, a2, v5, v6, v7, v8, v9, v10);
     }
   }
 
-  if (C3DGetSceneRef(a1))
+  if (C3DGetSceneRef(a1, a2))
   {
-    Camera = C3DNodeGetCamera(a1);
+    Camera = C3DNodeGetCamera(a1, v11);
     if (Camera)
     {
       C3DRemoveSceneRef(Camera, *(a1 + 48));
     }
   }
 
-  v13 = C3DGetSceneRef(a1) != 0;
+  v13 = C3DGetSceneRef(a1, v11) != 0;
   _C3DEntitySetAttribute(a1, @"kCameraKey", a2, v13);
   *(a1 + 220) = *(a1 + 220) & 0xFFFFFBFF | ((a2 != 0) << 10);
   if (a2)
@@ -6184,19 +7028,20 @@ void C3DNodeSetPostMorphingDeformers(void *a1, const __CFArray *cf)
   if (v4)
   {
     C3DDeformerStackSetPostMorphingDeformers(v4, cf);
-    if (C3DDeformerStackIsEmpty(v4))
+    IsEmpty = C3DDeformerStackIsEmpty(v4, v5);
+    if (IsEmpty)
     {
-      v5 = a1[31];
-      if (v5)
+      IsEmpty = a1[31];
+      if (IsEmpty)
       {
-        CFRelease(v5);
+        CFRelease(IsEmpty);
         a1[31] = 0;
       }
     }
 
     if (a1[6])
     {
-      SharedInstance = C3DNotificationCenterGetSharedInstance();
+      SharedInstance = C3DNotificationCenterGetSharedInstance(IsEmpty, v7);
 
       C3DNotificationCenterPostNotification(SharedInstance, @"kC3DNotificationEntityAttributeDidChange", a1, @"kDeformerStackKey", 1u);
     }
@@ -6215,33 +7060,34 @@ void C3DNodeSetPostSkinningDeformers(void *a1, const __CFArray *cf)
   if (v4)
   {
     C3DDeformerStackSetPostSkinningDeformers(v4, cf);
-    if (C3DDeformerStackIsEmpty(v4))
+    IsEmpty = C3DDeformerStackIsEmpty(v4, v5);
+    if (IsEmpty)
     {
-      v5 = a1[31];
-      if (v5)
+      IsEmpty = a1[31];
+      if (IsEmpty)
       {
-        CFRelease(v5);
+        CFRelease(IsEmpty);
         a1[31] = 0;
       }
     }
 
     if (a1[6])
     {
-      SharedInstance = C3DNotificationCenterGetSharedInstance();
+      SharedInstance = C3DNotificationCenterGetSharedInstance(IsEmpty, v7);
 
       C3DNotificationCenterPostNotification(SharedInstance, @"kC3DNotificationEntityAttributeDidChange", a1, @"kDeformerStackKey", 1u);
     }
   }
 }
 
-const __CFDictionary *C3DNodeGetLightmapInfo(uint64_t a1)
+const __CFDictionary *C3DNodeGetLightmapInfo(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DGeometryTrackNode_cold_2(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
@@ -6260,15 +7106,15 @@ void C3DNodeSetLightmapInfo(uint64_t a1, const __CFDictionary *a2)
 {
   if (!a1)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(0, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v4, v5, v6, v7, v8, v9, v10, v11);
+      C3DGeometryTrackNode_cold_2(v4, a2, v5, v6, v7, v8, v9, v10);
     }
   }
 
-  v12 = C3DGetSceneRef(a1) != 0;
-  _C3DEntitySetAttribute(a1, @"kLightmapInfoKey", a2, v12);
+  v11 = C3DGetSceneRef(a1, a2) != 0;
+  _C3DEntitySetAttribute(a1, @"kLightmapInfoKey", a2, v11);
   *(a1 + 220) = *(a1 + 220) & 0xFFFFF7FF | ((a2 != 0) << 11);
 }
 
@@ -6277,15 +7123,15 @@ void C3DNodeSetRendererDelegate(uint64_t a1, const __CFDictionary *a2)
   v3 = a1;
   if (!a1)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(0, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v4, v5, v6, v7, v8, v9, v10, v11);
+      C3DGeometryTrackNode_cold_2(v4, a2, v5, v6, v7, v8, v9, v10);
     }
   }
 
-  v12 = C3DGetSceneRef(v3) != 0;
-  _C3DEntitySetAttribute(v3, @"rendererDelegate", a2, v12);
+  v11 = C3DGetSceneRef(v3, a2) != 0;
+  _C3DEntitySetAttribute(v3, @"rendererDelegate", a2, v11);
   if ((a2 != 0) == ((*(v3 + 220) & 0x2000) == 0))
   {
     *(v3 + 220) = *(v3 + 220) & 0xFFFFDFFF | ((a2 != 0) << 13);
@@ -6300,14 +7146,14 @@ void C3DNodeSetRendererDelegate(uint64_t a1, const __CFDictionary *a2)
   }
 }
 
-const __CFDictionary *C3DNodeGetParticleSystems(uint64_t a1)
+const __CFDictionary *C3DNodeGetParticleSystems(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DGeometryTrackNode_cold_2(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
@@ -6322,14 +7168,14 @@ const __CFDictionary *C3DNodeGetParticleSystems(uint64_t a1)
   }
 }
 
-CFIndex C3DNodeGetCountOfParticleSystems(uint64_t a1)
+CFIndex C3DNodeGetCountOfParticleSystems(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DGeometryTrackNode_cold_2(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
@@ -6342,11 +7188,12 @@ CFIndex C3DNodeGetCountOfParticleSystems(uint64_t a1)
   return CFArrayGetCount(Attribute);
 }
 
-void C3DNodeAddParticleSystem(uint64_t a1, void *a2)
+void C3DNodeAddParticleSystem(_BOOL8 a1, void *a2)
 {
-  if (!a1 && (v4 = scn_default_log(), os_log_type_enabled(v4, OS_LOG_TYPE_FAULT)))
+  v3 = a1;
+  if (!a1 && (v4 = scn_default_log(0, a2), a1 = os_log_type_enabled(v4, OS_LOG_TYPE_FAULT)))
   {
-    C3DGeometryTrackNode_cold_2(v4, v5, v6, v7, v8, v9, v10, v11);
+    C3DGeometryTrackNode_cold_2(v4, a2, v5, v6, v7, v8, v9, v10);
     if (a2)
     {
       goto LABEL_6;
@@ -6358,22 +7205,23 @@ void C3DNodeAddParticleSystem(uint64_t a1, void *a2)
     goto LABEL_6;
   }
 
-  v12 = scn_default_log();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+  v11 = scn_default_log(a1, a2);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
   {
-    C3DNodeAddParticleSystem_cold_2(v12, v13, v14, v15, v16, v17, v18, v19);
+    C3DNodeAddParticleSystem_cold_2(v11, a2, v12, v13, v14, v15, v16, v17);
   }
 
 LABEL_6:
-  CountOfParticleSystems = C3DNodeGetCountOfParticleSystems(a1);
-  C3DNodeInsertParticleSystemAtIndex(a1, a2, CountOfParticleSystems);
+  CountOfParticleSystems = C3DNodeGetCountOfParticleSystems(v3, a2);
+  C3DNodeInsertParticleSystemAtIndex(v3, a2, CountOfParticleSystems);
 }
 
-void C3DNodeInsertParticleSystemAtIndex(uint64_t a1, void *a2, CFIndex a3)
+void C3DNodeInsertParticleSystemAtIndex(_BOOL8 a1, void *a2, CFIndex a3)
 {
-  if (!a1 && (v6 = scn_default_log(), os_log_type_enabled(v6, OS_LOG_TYPE_FAULT)))
+  v5 = a1;
+  if (!a1 && (v6 = scn_default_log(0, a2), a1 = os_log_type_enabled(v6, OS_LOG_TYPE_FAULT)))
   {
-    C3DGeometryTrackNode_cold_2(v6, v7, v8, v9, v10, v11, v12, v13);
+    C3DGeometryTrackNode_cold_2(v6, a2, v7, v8, v9, v10, v11, v12);
     if (a2)
     {
       goto LABEL_6;
@@ -6385,44 +7233,44 @@ void C3DNodeInsertParticleSystemAtIndex(uint64_t a1, void *a2, CFIndex a3)
     goto LABEL_6;
   }
 
-  v14 = scn_default_log();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+  v13 = scn_default_log(a1, a2);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
   {
-    C3DNodeAddParticleSystem_cold_2(v14, v15, v16, v17, v18, v19, v20, v21);
+    C3DNodeAddParticleSystem_cold_2(v13, v14, v15, v16, v17, v18, v19, v20);
   }
 
 LABEL_6:
-  Attribute = C3DEntityGetAttribute(a1, @"kParticleSystem");
+  Attribute = C3DEntityGetAttribute(v5, @"kParticleSystem");
   if (!Attribute)
   {
     Attribute = CFArrayCreateMutable(0, 0, MEMORY[0x277CBF128]);
-    C3DEntitySetAttribute(a1, @"kParticleSystem", Attribute);
+    C3DEntitySetAttribute(v5, @"kParticleSystem", Attribute);
     CFRelease(Attribute);
   }
 
   CFArrayInsertValueAtIndex(Attribute, a3, a2);
-  *(a1 + 220) |= 0x40000u;
-  v23 = *(a1 + 48);
-  if (v23)
+  *(v5 + 220) |= 0x40000u;
+  v22 = *(v5 + 48);
+  if (v22)
   {
-    ParticleManager = C3DSceneGetParticleManager(*(a1 + 48), 1);
+    ParticleManager = C3DSceneGetParticleManager(*(v5 + 48), 1);
     if (ParticleManager)
     {
-      C3DParticleManagerAddSystem(ParticleManager, a1, a2, 0);
+      C3DParticleManagerAddSystem(ParticleManager, v5, a2, 0);
     }
 
-    C3DAddSceneRef(a2, v23);
+    C3DAddSceneRef(a2, v22);
   }
 }
 
-void C3DNodeRemoveAllParticleSystems(uint64_t a1)
+void C3DNodeRemoveAllParticleSystems(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DGeometryTrackNode_cold_2(v3, a2, v4, v5, v6, v7, v8, v9);
     }
   }
 
@@ -6437,21 +7285,21 @@ void C3DNodeRemoveAllParticleSystems(uint64_t a1)
     ParticleManager = 0;
   }
 
-  if (C3DGetSceneRef(a1))
+  if (C3DGetSceneRef(a1, a2))
   {
-    ParticleSystems = C3DNodeGetParticleSystems(a1);
+    ParticleSystems = C3DNodeGetParticleSystems(a1, v12);
     if (ParticleSystems)
     {
-      v13 = ParticleSystems;
+      v14 = ParticleSystems;
       Count = CFArrayGetCount(ParticleSystems);
       if (Count >= 1)
       {
-        v15 = Count;
-        for (i = 0; i != v15; ++i)
+        v16 = Count;
+        for (i = 0; i != v16; ++i)
         {
-          ValueAtIndex = CFArrayGetValueAtIndex(v13, i);
-          v18 = C3DGetSceneRef(a1);
-          C3DRemoveSceneRef(ValueAtIndex, v18);
+          ValueAtIndex = CFArrayGetValueAtIndex(v14, i);
+          v20 = C3DGetSceneRef(a1, v19);
+          C3DRemoveSceneRef(ValueAtIndex, v20);
         }
       }
     }
@@ -6466,11 +7314,12 @@ void C3DNodeRemoveAllParticleSystems(uint64_t a1)
   *(a1 + 220) &= ~0x40000u;
 }
 
-void C3DNodeRemoveParticleSystem(uint64_t a1, const void *a2, int a3)
+void C3DNodeRemoveParticleSystem(_BOOL8 a1, const void *a2, int a3)
 {
-  if (!a1 && (v6 = scn_default_log(), os_log_type_enabled(v6, OS_LOG_TYPE_FAULT)))
+  v5 = a1;
+  if (!a1 && (v6 = scn_default_log(0, a2), a1 = os_log_type_enabled(v6, OS_LOG_TYPE_FAULT)))
   {
-    C3DGeometryTrackNode_cold_2(v6, v7, v8, v9, v10, v11, v12, v13);
+    C3DGeometryTrackNode_cold_2(v6, a2, v7, v8, v9, v10, v11, v12);
     if (a2)
     {
       goto LABEL_6;
@@ -6482,21 +7331,21 @@ void C3DNodeRemoveParticleSystem(uint64_t a1, const void *a2, int a3)
     goto LABEL_6;
   }
 
-  v14 = scn_default_log();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+  v13 = scn_default_log(a1, a2);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
   {
-    C3DNodeAddParticleSystem_cold_2(v14, v15, v16, v17, v18, v19, v20, v21);
+    C3DNodeAddParticleSystem_cold_2(v13, v14, v15, v16, v17, v18, v19, v20);
   }
 
 LABEL_6:
-  Attribute = C3DEntityGetAttribute(a1, @"kParticleSystem");
+  Attribute = C3DEntityGetAttribute(v5, @"kParticleSystem");
   if (Attribute)
   {
-    v23 = Attribute;
-    v25.length = CFArrayGetCount(Attribute);
-    v25.location = 0;
-    FirstIndexOfValue = CFArrayGetFirstIndexOfValue(v23, v25, a2);
-    C3DNodeRemoveParticleSystemAtIndex(a1, FirstIndexOfValue, a3);
+    v22 = Attribute;
+    v24.length = CFArrayGetCount(Attribute);
+    v24.location = 0;
+    FirstIndexOfValue = CFArrayGetFirstIndexOfValue(v22, v24, a2);
+    C3DNodeRemoveParticleSystemAtIndex(v5, FirstIndexOfValue, a3);
   }
 }
 
@@ -6504,7 +7353,7 @@ void C3DNodeRemoveParticleSystemAtIndex(uint64_t a1, CFIndex a2, int a3)
 {
   if (!a1)
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(0, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
       C3DGeometryTrackNode_cold_2(v6, v7, v8, v9, v10, v11, v12, v13);
@@ -6533,14 +7382,14 @@ void C3DNodeRemoveParticleSystemAtIndex(uint64_t a1, CFIndex a2, int a3)
 
     if (ValueAtIndex)
     {
-      v17 = C3DGetSceneRef(a1);
-      C3DRemoveSceneRef(ValueAtIndex, v17);
+      v18 = C3DGetSceneRef(a1, v17);
+      C3DRemoveSceneRef(ValueAtIndex, v18);
       if (a3)
       {
-        v18 = *(a1 + 48);
-        if (v18)
+        v19 = *(a1 + 48);
+        if (v19)
         {
-          ParticleManager = C3DSceneGetParticleManager(v18, 0);
+          ParticleManager = C3DSceneGetParticleManager(v19, 0);
           if (ParticleManager)
           {
             C3DParticleManagerRemoveSystem(ParticleManager, a1, ValueAtIndex);
@@ -6551,11 +7400,12 @@ void C3DNodeRemoveParticleSystemAtIndex(uint64_t a1, CFIndex a2, int a3)
   }
 }
 
-void C3DNodeReplaceParticleSystemAtIndex(uint64_t a1, void *cf, CFIndex a3)
+void C3DNodeReplaceParticleSystemAtIndex(_BOOL8 a1, void *cf, CFIndex a3)
 {
-  if (!a1 && (v6 = scn_default_log(), os_log_type_enabled(v6, OS_LOG_TYPE_FAULT)))
+  v5 = a1;
+  if (!a1 && (v6 = scn_default_log(0, cf), a1 = os_log_type_enabled(v6, OS_LOG_TYPE_FAULT)))
   {
-    C3DGeometryTrackNode_cold_2(v6, v7, v8, v9, v10, v11, v12, v13);
+    C3DGeometryTrackNode_cold_2(v6, cf, v7, v8, v9, v10, v11, v12);
     if (cf)
     {
       goto LABEL_4;
@@ -6566,30 +7416,30 @@ void C3DNodeReplaceParticleSystemAtIndex(uint64_t a1, void *cf, CFIndex a3)
   {
 LABEL_4:
     CFRetain(cf);
-    C3DNodeRemoveParticleSystemAtIndex(a1, a3, 1);
-    C3DNodeInsertParticleSystemAtIndex(a1, cf, a3);
+    C3DNodeRemoveParticleSystemAtIndex(v5, a3, 1);
+    C3DNodeInsertParticleSystemAtIndex(v5, cf, a3);
     CFRelease(cf);
     return;
   }
 
-  v14 = scn_default_log();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+  v13 = scn_default_log(a1, cf);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
   {
-    C3DNodeAddParticleSystem_cold_2(v14, v15, v16, v17, v18, v19, v20, v21);
+    C3DNodeAddParticleSystem_cold_2(v13, v14, v15, v16, v17, v18, v19, v20);
   }
 
-  C3DNodeRemoveParticleSystemAtIndex(a1, a3, 1);
-  C3DNodeInsertParticleSystemAtIndex(a1, 0, a3);
+  C3DNodeRemoveParticleSystemAtIndex(v5, a3, 1);
+  C3DNodeInsertParticleSystemAtIndex(v5, 0, a3);
 }
 
-const __CFDictionary *C3DNodeGetAudioPlayers(uint64_t a1)
+const __CFDictionary *C3DNodeGetAudioPlayers(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DGeometryTrackNode_cold_2(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
@@ -6604,14 +7454,14 @@ const __CFDictionary *C3DNodeGetAudioPlayers(uint64_t a1)
   }
 }
 
-CFIndex C3DNodeGetCountOfAudioPlayers(uint64_t a1)
+CFIndex C3DNodeGetCountOfAudioPlayers(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DGeometryTrackNode_cold_2(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
@@ -6624,11 +7474,12 @@ CFIndex C3DNodeGetCountOfAudioPlayers(uint64_t a1)
   return CFArrayGetCount(Attribute);
 }
 
-uint64_t C3DNodeAddAudioPlayer(uint64_t a1, void *a2)
+uint64_t C3DNodeAddAudioPlayer(_BOOL8 a1, void *a2)
 {
-  if (!a1 && (v4 = scn_default_log(), os_log_type_enabled(v4, OS_LOG_TYPE_FAULT)))
+  v3 = a1;
+  if (!a1 && (v4 = scn_default_log(0, a2), a1 = os_log_type_enabled(v4, OS_LOG_TYPE_FAULT)))
   {
-    C3DGeometryTrackNode_cold_2(v4, v5, v6, v7, v8, v9, v10, v11);
+    C3DGeometryTrackNode_cold_2(v4, a2, v5, v6, v7, v8, v9, v10);
     if (a2)
     {
       goto LABEL_6;
@@ -6640,16 +7491,16 @@ uint64_t C3DNodeAddAudioPlayer(uint64_t a1, void *a2)
     goto LABEL_6;
   }
 
-  v12 = scn_default_log();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+  v11 = scn_default_log(a1, a2);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
   {
-    C3DNodeAddAudioPlayer_cold_2(v12, v13, v14, v15, v16, v17, v18, v19);
+    C3DNodeAddAudioPlayer_cold_2(v11, a2, v12, v13, v14, v15, v16, v17);
   }
 
 LABEL_6:
-  CountOfAudioPlayers = C3DNodeGetCountOfAudioPlayers(a1);
-  C3DNodeInsertAudioPlayerAtIndex(a1, a2, CountOfAudioPlayers);
-  result = C3DNodeIsHiddenOrIsHiddenByAncestor(a1);
+  CountOfAudioPlayers = C3DNodeGetCountOfAudioPlayers(v3, a2);
+  C3DNodeInsertAudioPlayerAtIndex(v3, a2, CountOfAudioPlayers);
+  result = C3DNodeIsHiddenOrIsHiddenByAncestor(v3, v19);
   if ((result & 1) == 0)
   {
     return C3DAudioPlayerPlay(a2);
@@ -6658,11 +7509,12 @@ LABEL_6:
   return result;
 }
 
-uint64_t C3DNodeInsertAudioPlayerAtIndex(uint64_t a1, void *a2, CFIndex a3)
+uint64_t C3DNodeInsertAudioPlayerAtIndex(_BOOL8 a1, void *a2, CFIndex a3)
 {
-  if (!a1 && (v6 = scn_default_log(), os_log_type_enabled(v6, OS_LOG_TYPE_FAULT)))
+  v5 = a1;
+  if (!a1 && (v6 = scn_default_log(0, a2), a1 = os_log_type_enabled(v6, OS_LOG_TYPE_FAULT)))
   {
-    C3DGeometryTrackNode_cold_2(v6, v7, v8, v9, v10, v11, v12, v13);
+    C3DGeometryTrackNode_cold_2(v6, a2, v7, v8, v9, v10, v11, v12);
     if (a2)
     {
       goto LABEL_6;
@@ -6674,36 +7526,36 @@ uint64_t C3DNodeInsertAudioPlayerAtIndex(uint64_t a1, void *a2, CFIndex a3)
     goto LABEL_6;
   }
 
-  v14 = scn_default_log();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+  v13 = scn_default_log(a1, a2);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
   {
-    C3DNodeAddAudioPlayer_cold_2(v14, v15, v16, v17, v18, v19, v20, v21);
+    C3DNodeAddAudioPlayer_cold_2(v13, v14, v15, v16, v17, v18, v19, v20);
   }
 
 LABEL_6:
-  Attribute = C3DEntityGetAttribute(a1, @"kAudioPlayer");
+  Attribute = C3DEntityGetAttribute(v5, @"kAudioPlayer");
   if (!Attribute)
   {
     Attribute = CFArrayCreateMutable(0, 0, MEMORY[0x277CBF128]);
-    C3DEntitySetAttribute(a1, @"kAudioPlayer", Attribute);
+    C3DEntitySetAttribute(v5, @"kAudioPlayer", Attribute);
     CFRelease(Attribute);
   }
 
   CFArrayInsertValueAtIndex(Attribute, a3, a2);
-  *(a1 + 220) |= 0x80000u;
-  WorldMatrix = C3DNodeGetWorldMatrix(a1);
+  *(v5 + 220) |= 0x80000u;
+  WorldMatrix = C3DNodeGetWorldMatrix(v5, v22);
   C3DAudioPlayerSetTransform(a2, WorldMatrix);
   return C3DAudioManagerAddVoice(a2);
 }
 
-void C3DNodeRemoveAllAudioPlayers(uint64_t a1)
+void C3DNodeRemoveAllAudioPlayers(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DGeometryTrackNode_cold_2(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
@@ -6713,14 +7565,14 @@ void C3DNodeRemoveAllAudioPlayers(uint64_t a1)
     Count = CFArrayGetCount(Attribute);
     if (Count >= 1)
     {
-      v12 = Count;
+      v13 = Count;
       do
       {
         C3DNodeRemoveAudioPlayerAtIndex(a1, 0, 1);
-        --v12;
+        --v13;
       }
 
-      while (v12);
+      while (v13);
     }
 
     C3DEntitySetAttribute(a1, @"kAudioPlayer", 0);
@@ -6729,11 +7581,11 @@ void C3DNodeRemoveAllAudioPlayers(uint64_t a1)
   *(a1 + 220) &= ~0x80000u;
 }
 
-void C3DNodeRemoveAudioPlayerAtIndex(uint64_t a1, CFIndex a2, int a3)
+void C3DNodeRemoveAudioPlayerAtIndex(uint64_t a1, uint64_t a2, int a3)
 {
   if (!a1)
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(0, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
       C3DGeometryTrackNode_cold_2(v6, v7, v8, v9, v10, v11, v12, v13);
@@ -6770,11 +7622,12 @@ void C3DNodeRemoveAudioPlayerAtIndex(uint64_t a1, CFIndex a2, int a3)
   }
 }
 
-void C3DNodeRemoveAudioPlayer(uint64_t a1, const void *a2, int a3)
+void C3DNodeRemoveAudioPlayer(_BOOL8 a1, const void *a2, int a3)
 {
-  if (!a1 && (v6 = scn_default_log(), os_log_type_enabled(v6, OS_LOG_TYPE_FAULT)))
+  v5 = a1;
+  if (!a1 && (v6 = scn_default_log(0, a2), a1 = os_log_type_enabled(v6, OS_LOG_TYPE_FAULT)))
   {
-    C3DGeometryTrackNode_cold_2(v6, v7, v8, v9, v10, v11, v12, v13);
+    C3DGeometryTrackNode_cold_2(v6, a2, v7, v8, v9, v10, v11, v12);
     if (a2)
     {
       goto LABEL_6;
@@ -6786,32 +7639,33 @@ void C3DNodeRemoveAudioPlayer(uint64_t a1, const void *a2, int a3)
     goto LABEL_6;
   }
 
-  v14 = scn_default_log();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+  v13 = scn_default_log(a1, a2);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
   {
-    C3DNodeAddParticleSystem_cold_2(v14, v15, v16, v17, v18, v19, v20, v21);
+    C3DNodeAddParticleSystem_cold_2(v13, v14, v15, v16, v17, v18, v19, v20);
   }
 
 LABEL_6:
-  Attribute = C3DEntityGetAttribute(a1, @"kAudioPlayer");
+  Attribute = C3DEntityGetAttribute(v5, @"kAudioPlayer");
   if (Attribute)
   {
-    v23 = Attribute;
-    v25.length = CFArrayGetCount(Attribute);
-    v25.location = 0;
-    FirstIndexOfValue = CFArrayGetFirstIndexOfValue(v23, v25, a2);
+    v22 = Attribute;
+    v24.length = CFArrayGetCount(Attribute);
+    v24.location = 0;
+    FirstIndexOfValue = CFArrayGetFirstIndexOfValue(v22, v24, a2);
     if (FirstIndexOfValue != -1)
     {
-      C3DNodeRemoveAudioPlayerAtIndex(a1, FirstIndexOfValue, a3);
+      C3DNodeRemoveAudioPlayerAtIndex(v5, FirstIndexOfValue, a3);
     }
   }
 }
 
-void C3DNodeReplaceAudioPlayerAtIndex(float32x4_t *a1, void *cf, CFIndex a3)
+void C3DNodeReplaceAudioPlayerAtIndex(_BOOL8 a1, void *cf, uint64_t a3)
 {
-  if (!a1 && (v6 = scn_default_log(), os_log_type_enabled(v6, OS_LOG_TYPE_FAULT)))
+  v5 = a1;
+  if (!a1 && (v6 = scn_default_log(0, cf), a1 = os_log_type_enabled(v6, OS_LOG_TYPE_FAULT)))
   {
-    C3DGeometryTrackNode_cold_2(v6, v7, v8, v9, v10, v11, v12, v13);
+    C3DGeometryTrackNode_cold_2(v6, cf, v7, v8, v9, v10, v11, v12);
     if (cf)
     {
       goto LABEL_4;
@@ -6822,55 +7676,55 @@ void C3DNodeReplaceAudioPlayerAtIndex(float32x4_t *a1, void *cf, CFIndex a3)
   {
 LABEL_4:
     CFRetain(cf);
-    C3DNodeRemoveAudioPlayerAtIndex(a1, a3, 1);
-    C3DNodeInsertAudioPlayerAtIndex(a1, cf, a3);
-    WorldMatrix = C3DNodeGetWorldMatrix(a1);
+    C3DNodeRemoveAudioPlayerAtIndex(v5, a3, 1);
+    C3DNodeInsertAudioPlayerAtIndex(v5, cf, a3);
+    WorldMatrix = C3DNodeGetWorldMatrix(v5, v13);
     C3DAudioPlayerSetTransform(cf, WorldMatrix);
     CFRelease(cf);
     return;
   }
 
-  v15 = scn_default_log();
+  v15 = scn_default_log(a1, cf);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
   {
     C3DNodeAddParticleSystem_cold_2(v15, v16, v17, v18, v19, v20, v21, v22);
   }
 
-  C3DNodeRemoveAudioPlayerAtIndex(a1, a3, 1);
-  C3DNodeInsertAudioPlayerAtIndex(a1, 0, a3);
-  v23 = C3DNodeGetWorldMatrix(a1);
-  C3DAudioPlayerSetTransform(0, v23);
+  C3DNodeRemoveAudioPlayerAtIndex(v5, a3, 1);
+  C3DNodeInsertAudioPlayerAtIndex(v5, 0, a3);
+  v24 = C3DNodeGetWorldMatrix(v5, v23);
+  C3DAudioPlayerSetTransform(0, v24);
 }
 
-void __UpdateAudioTransform(float32x4_t *a1)
+void __UpdateAudioTransform(uint64_t result, uint64_t a2)
 {
-  if (!a1)
+  if (!result)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DGeometryTrackNode_cold_2(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
-  if ((a1[13].i8[14] & 8) != 0)
+  if ((*(result + 222) & 8) != 0)
   {
-    Attribute = C3DEntityGetAttribute(a1, @"kAudioPlayer");
+    Attribute = C3DEntityGetAttribute(result, @"kAudioPlayer");
     if (!Attribute)
     {
-      v11 = scn_default_log();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+      v13 = scn_default_log(0, v11);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
       {
-        __UpdateAudioTransform_cold_2(v11, v12, v13, v14, v15, v16, v17, v18);
+        __UpdateAudioTransform_cold_2(v13, v11, v14, v15, v16, v17, v18, v19);
       }
     }
 
-    WorldMatrix = C3DNodeGetWorldMatrix(a1);
+    WorldMatrix = C3DNodeGetWorldMatrix(result, v11);
     Count = CFArrayGetCount(Attribute);
     if (Count >= 1)
     {
-      v21 = Count;
-      for (i = 0; i != v21; ++i)
+      v22 = Count;
+      for (i = 0; i != v22; ++i)
       {
         ValueAtIndex = CFArrayGetValueAtIndex(Attribute, i);
         C3DAudioPlayerSetTransform(ValueAtIndex, WorldMatrix);
@@ -6879,28 +7733,28 @@ void __UpdateAudioTransform(float32x4_t *a1)
   }
 }
 
-uint64_t C3DNodeHasConstraints(uint64_t a1)
+uint64_t C3DNodeHasConstraints(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DGeometryTrackNode_cold_2(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 222) & 1;
 }
 
-const __CFDictionary *C3DNodeGetConstraints(uint64_t a1)
+const __CFDictionary *C3DNodeGetConstraints(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DGeometryTrackNode_cold_2(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
@@ -6915,20 +7769,20 @@ const __CFDictionary *C3DNodeGetConstraints(uint64_t a1)
   }
 }
 
-void C3DNodeSetConstraints(uint64_t a1, const __CFDictionary *a2)
+void C3DNodeSetConstraints(uint64_t a1, const __CFArray *a2)
 {
   if (!a1)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(0, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v4, v5, v6, v7, v8, v9, v10, v11);
+      C3DGeometryTrackNode_cold_2(v4, a2, v5, v6, v7, v8, v9, v10);
     }
   }
 
-  if (C3DGetSceneRef(a1))
+  if (C3DGetSceneRef(a1, a2))
   {
-    Constraints = C3DNodeGetConstraints(a1);
+    Constraints = C3DNodeGetConstraints(a1, v11);
     if (Constraints)
     {
       v13 = Constraints;
@@ -6939,48 +7793,49 @@ void C3DNodeSetConstraints(uint64_t a1, const __CFDictionary *a2)
         for (i = 0; i != v15; ++i)
         {
           ValueAtIndex = CFArrayGetValueAtIndex(v13, i);
-          v18 = C3DGetSceneRef(a1);
-          C3DRemoveSceneRef(ValueAtIndex, v18);
+          v19 = C3DGetSceneRef(a1, v18);
+          C3DRemoveSceneRef(ValueAtIndex, v19);
         }
       }
     }
   }
 
-  v19 = C3DGetSceneRef(a1) != 0;
-  _C3DEntitySetAttribute(a1, @"kConstraints", a2, v19);
+  v20 = C3DGetSceneRef(a1, v11) != 0;
+  _C3DEntitySetAttribute(a1, @"kConstraints", a2, v20);
   *(a1 + 220) = *(a1 + 220) & 0xFFFEFFFF | ((a2 != 0) << 16);
-  v20 = *(a1 + 48);
-  if (v20)
+  v21 = *(a1 + 48);
+  if (v21)
   {
     C3DSceneRegisterNodeConstrains(*(a1 + 48), a1);
     if (a2)
     {
-      v21 = CFArrayGetCount(a2);
-      if (v21 >= 1)
+      v22 = CFArrayGetCount(a2);
+      if (v22 >= 1)
       {
-        v22 = v21;
-        for (j = 0; j != v22; ++j)
+        v23 = v22;
+        for (j = 0; j != v23; ++j)
         {
-          v24 = CFArrayGetValueAtIndex(a2, j);
-          C3DAddSceneRef(v24, v20);
+          v25 = CFArrayGetValueAtIndex(a2, j);
+          C3DAddSceneRef(v25, v21);
         }
       }
     }
   }
 }
 
-void C3DNodeSetHasPhysicsBody(uint64_t a1, int a2)
+void C3DNodeSetHasPhysicsBody(uint64_t result, uint64_t a2)
 {
-  if (!a1)
+  v2 = a2;
+  if (!result)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(0, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       C3DGeometryTrackNode_cold_2(v4, v5, v6, v7, v8, v9, v10, v11);
     }
   }
 
-  if (a2)
+  if (v2)
   {
     v12 = 64;
   }
@@ -6990,35 +7845,36 @@ void C3DNodeSetHasPhysicsBody(uint64_t a1, int a2)
     v12 = 0;
   }
 
-  *(a1 + 220) = *(a1 + 220) & 0xFFFFFFBF | v12;
+  *(result + 220) = *(result + 220) & 0xFFFFFFBF | v12;
 }
 
-uint64_t C3DNodeGetHasPhysicsBody(uint64_t a1)
+uint64_t C3DNodeGetHasPhysicsBody(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DGeometryTrackNode_cold_2(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return (*(a1 + 220) >> 6) & 1;
 }
 
-void C3DNodeSetHasPhysicsField(uint64_t a1, int a2)
+void C3DNodeSetHasPhysicsField(uint64_t result, uint64_t a2)
 {
-  if (!a1)
+  v2 = a2;
+  if (!result)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(0, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       C3DGeometryTrackNode_cold_2(v4, v5, v6, v7, v8, v9, v10, v11);
     }
   }
 
-  if (a2)
+  if (v2)
   {
     v12 = 0x100000;
   }
@@ -7028,17 +7884,17 @@ void C3DNodeSetHasPhysicsField(uint64_t a1, int a2)
     v12 = 0;
   }
 
-  *(a1 + 220) = *(a1 + 220) & 0xFFEFFFFF | v12;
+  *(result + 220) = *(result + 220) & 0xFFEFFFFF | v12;
 }
 
-uint64_t C3DNodeGetHasPhysicsField(uint64_t a1)
+uint64_t C3DNodeGetHasPhysicsField(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DGeometryTrackNode_cold_2(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
@@ -7047,7 +7903,7 @@ uint64_t C3DNodeGetHasPhysicsField(uint64_t a1)
 
 void C3DNodeSetFilters(uint64_t a1, CFArrayRef theArray)
 {
-  if (!a1 && (v4 = scn_default_log(), os_log_type_enabled(v4, OS_LOG_TYPE_FAULT)))
+  if (!a1 && (v4 = scn_default_log(0, theArray), os_log_type_enabled(v4, OS_LOG_TYPE_FAULT)))
   {
     C3DGeometryTrackNode_cold_2(v4, v5, v6, v7, v8, v9, v10, v11);
     if (theArray)
@@ -7066,57 +7922,58 @@ LABEL_4:
   v12 = 0;
 LABEL_7:
   *(a1 + 220) = *(a1 + 220) & 0xFFFFBFFF | v12;
-  v17 = kC3DCIFilterParamControllerCallbacks;
-  v18 = off_2817423B8;
-  v13 = C3DAnimatableParamControllerCreate(theArray, &v17);
-  v14 = C3DGetSceneRef(a1) != 0;
-  _C3DEntitySetAttribute(a1, @"kFilterKey", v13, v14);
+  v19 = kC3DCIFilterParamControllerCallbacks;
+  v20 = off_2817423B8;
+  v13 = C3DAnimatableParamControllerCreate(theArray, &v19);
+  v15 = C3DGetSceneRef(a1, v14) != 0;
+  _C3DEntitySetAttribute(a1, @"kFilterKey", v13, v15);
   CFRelease(v13);
   __PropagateFlagsToChildren(a1, (*(a1 + 220) >> 14) & 1, (*(a1 + 220) >> 23) & 7);
-  v15 = *(a1 + 48);
-  if (v15)
+  v16 = *(a1 + 48);
+  if (v16)
   {
     C3DSceneRegisterNodeFilters(*(a1 + 48), a1);
-    __UpdateCullingHandle(a1, v15);
-    EnginePipeline = C3DSceneGetEnginePipeline(v15);
+    __UpdateCullingHandle(a1, v16);
+    EnginePipeline = C3DSceneGetEnginePipeline(v16, v17);
     C3DEnginePipelineRemoveNodeFromRendering(EnginePipeline, a1);
     __UpdateNodeVisibilityIfNeeded(a1, 1);
   }
 }
 
-void __PropagateFlagsToChildren(uint64_t a1, int a2, uint64_t a3)
+void __PropagateFlagsToChildren(uint64_t result, uint64_t a2, uint64_t a3)
 {
-  if (!a1)
+  v4 = a2;
+  if (!result)
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(0, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
       C3DGeometryTrackNode_cold_2(v6, v7, v8, v9, v10, v11, v12, v13);
     }
   }
 
-  v14 = *(a1 + 220);
+  v14 = *(result + 220);
   v15 = (v14 >> 7) & 0x80;
-  if (a2)
+  if (v4)
   {
     v15 = 128;
   }
 
-  *(a1 + 220) = v15 & 0xFC7FFFFF | ((a3 & 7) << 23) | v14 & 0xFC7FFF7F;
-  for (i = *(a1 + 72); i; i = *(i + 80))
+  *(result + 220) = v15 & 0xFC7FFFFF | ((a3 & 7) << 23) | v14 & 0xFC7FFF7F;
+  for (i = *(result + 72); i; i = *(i + 80))
   {
-    __PropagateFlagsToChildren(i, (*(a1 + 220) >> 7) & 1, a3);
+    __PropagateFlagsToChildren(i, (*(result + 220) >> 7) & 1, a3);
   }
 }
 
-const __CFDictionary *C3DNodeGetFiltersParamController(uint64_t a1)
+const __CFDictionary *C3DNodeGetFiltersParamController(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DGeometryTrackNode_cold_2(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
@@ -7131,147 +7988,147 @@ const __CFDictionary *C3DNodeGetFiltersParamController(uint64_t a1)
   }
 }
 
-uint64_t C3DNodeGetRendererElementSpan(uint64_t a1)
+uint64_t C3DNodeGetRendererElementSpan(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DGeometryTrackNode_cold_2(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 224);
 }
 
-void C3DNodeSetLayerIndex(uint64_t a1, int a2)
+void C3DNodeSetLayerIndex(uint64_t result, uint64_t a2)
 {
   v2 = a2;
   if (a2 >= 4)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(result, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       C3DNodeSetLayerIndex_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
     }
   }
 
-  *(a1 + 220) = *(a1 + 220) & 0xFC7FFFFF | ((v2 & 7) << 23);
+  *(result + 220) = *(result + 220) & 0xFC7FFFFF | ((v2 & 7) << 23);
 }
 
-id _C3DNodeCFFinalize(uint64_t a1)
+id _C3DNodeCFFinalize(uint64_t a1, uint64_t a2)
 {
-  Geometry = C3DNodeGetGeometry(a1);
+  Geometry = C3DNodeGetGeometry(a1, a2);
   if (Geometry)
   {
     C3DGeometryUntrackNode(Geometry, a1);
   }
 
-  SharedInstance = C3DNotificationCenterGetSharedInstance();
+  SharedInstance = C3DNotificationCenterGetSharedInstance(Geometry, v4);
   C3DNotificationCenterPostNotification(SharedInstance, @"kC3DNotificationNodeWillDie", a1, 0, 1u);
-  v4 = *(a1 + 192);
-  if (v4)
+  v7 = *(a1 + 192);
+  if (v7)
   {
-    free(v4);
+    free(v7);
   }
 
   if ((*(a1 + 222) & 8) != 0)
   {
-    C3DNodeRemoveAllAudioPlayers(a1);
+    C3DNodeRemoveAllAudioPlayers(a1, v6);
   }
 
-  v5 = *(a1 + 72);
-  if (v5)
+  v8 = *(a1 + 72);
+  if (v8)
   {
     do
     {
-      v6 = v5[8];
-      if (v6 == a1)
+      v9 = v8[8];
+      if (v9 == a1)
       {
-        v5[8] = 0;
+        v8[8] = 0;
       }
 
-      else if (v6)
+      else if (v9)
       {
-        v7 = scn_default_log();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+        v10 = scn_default_log(v7, v6);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
-          _C3DNodeCFFinalize_cold_1(&v14, v15, v7);
+          _C3DNodeCFFinalize_cold_1(&v17, v18, v10);
         }
       }
 
-      v8 = v5[10];
-      v5[10] = 0;
-      CFRelease(v5);
-      v5 = v8;
+      v11 = v8[10];
+      v8[10] = 0;
+      CFRelease(v8);
+      v8 = v11;
     }
 
-    while (v8);
+    while (v11);
   }
 
-  v9 = *(a1 + 80);
-  if (v9)
+  v12 = *(a1 + 80);
+  if (v12)
   {
-    CFRelease(v9);
+    CFRelease(v12);
     *(a1 + 80) = 0;
   }
 
-  v10 = *(a1 + 240);
-  if (v10)
+  v13 = *(a1 + 240);
+  if (v13)
   {
-    CFRelease(v10);
+    CFRelease(v13);
     *(a1 + 240) = 0;
   }
 
-  v11 = *(a1 + 248);
-  if (v11)
+  v14 = *(a1 + 248);
+  if (v14)
   {
-    CFRelease(v11);
+    CFRelease(v14);
     *(a1 + 248) = 0;
   }
 
-  v12 = *(a1 + 232);
-  if (v12)
+  v15 = *(a1 + 232);
+  if (v15)
   {
-    free(v12);
+    free(v15);
   }
 
-  return C3DEntityCFFinalize(a1);
+  return C3DEntityCFFinalize(a1, v6);
 }
 
 __CFString *_C3DNodeCFCopyDebugDescription(uint64_t a1)
 {
   Mutable = CFStringCreateMutable(*MEMORY[0x277CBECE8], 0);
-  Name = C3DNodeGetName(a1);
+  Name = C3DNodeGetName(a1, v3);
   CFStringAppendFormat(Mutable, 0, @"<C3DNode:%p %@\n", a1, Name);
-  Geometry = C3DNodeGetGeometry(a1);
+  Geometry = C3DNodeGetGeometry(a1, v5);
   CFStringAppendFormat(Mutable, 0, @"  geometry: %@\n", Geometry);
-  v5 = *(a1 + 220);
-  if ((v5 & 0x200) != 0)
+  v8 = *(a1 + 220);
+  if ((v8 & 0x200) != 0)
   {
-    Light = C3DNodeGetLight(a1);
+    Light = C3DNodeGetLight(a1, v7);
     CFStringAppendFormat(Mutable, 0, @"  light: %@\n", Light);
-    v5 = *(a1 + 220);
+    v8 = *(a1 + 220);
   }
 
-  if ((v5 & 0x400) != 0)
+  if ((v8 & 0x400) != 0)
   {
-    Camera = C3DNodeGetCamera(a1);
+    Camera = C3DNodeGetCamera(a1, v7);
     CFStringAppendFormat(Mutable, 0, @"  camera: %@\n", Camera);
   }
 
-  v8 = *(a1 + 248);
-  if (v8)
+  v11 = *(a1 + 248);
+  if (v11)
   {
-    Skinner = C3DDeformerStackGetSkinner(v8);
+    Skinner = C3DDeformerStackGetSkinner(v11, v7);
     if (Skinner)
     {
       CFStringAppendFormat(Mutable, 0, @"  skinner: %@\n", Skinner);
     }
   }
 
-  Morpher = C3DNodeGetMorpher(a1);
+  Morpher = C3DNodeGetMorpher(a1, v7);
   if (Morpher)
   {
     CFStringAppendFormat(Mutable, 0, @"  morpher: %@\n", Morpher);
@@ -7281,13 +8138,14 @@ __CFString *_C3DNodeCFCopyDebugDescription(uint64_t a1)
   return Mutable;
 }
 
-BOOL _C3DNodeInitWithPropertyList(uint64_t a1, const __CFDictionary *a2, uint64_t a3, CFErrorRef *a4)
+BOOL _C3DNodeInitWithPropertyList(_BOOL8 a1, const __CFDictionary *a2, uint64_t a3, CFErrorRef *a4)
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v7 = a1;
+  v95 = *MEMORY[0x277D85DE8];
   valuePtr = 0;
-  if (!a1 && (v8 = scn_default_log(), os_log_type_enabled(v8, OS_LOG_TYPE_FAULT)))
+  if (!a1 && (v8 = scn_default_log(0, a2), a1 = os_log_type_enabled(v8, OS_LOG_TYPE_FAULT)))
   {
-    _C3DGeometryFillLibraryForSerialization_cold_1(v8, v9, v10, v11, v12, v13, v14, v15);
+    _C3DGeometryFillLibraryForSerialization_cold_1(v8, a2, v9, v10, v11, v12, v13, v14);
     if (a2)
     {
       goto LABEL_6;
@@ -7299,17 +8157,18 @@ BOOL _C3DNodeInitWithPropertyList(uint64_t a1, const __CFDictionary *a2, uint64_
     goto LABEL_6;
   }
 
-  v16 = scn_default_log();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+  v15 = scn_default_log(a1, a2);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
   {
-    _C3DGeometryFinalizeDeserialization_cold_2(v16, v17, v18, v19, v20, v21, v22, v23);
+    _C3DGeometryFinalizeDeserialization_cold_2(v15, v16, v17, v18, v19, v20, v21, v22);
   }
 
 LABEL_6:
-  if ((C3DEntityInitWithPropertyList(a1, a2) & 1) == 0)
+  v23 = C3DEntityInitWithPropertyList(v7, a2);
+  if ((v23 & 1) == 0)
   {
-    v35 = scn_default_log();
-    result = os_log_type_enabled(v35, OS_LOG_TYPE_ERROR);
+    v38 = scn_default_log(v23, v24);
+    result = os_log_type_enabled(v38, OS_LOG_TYPE_ERROR);
     if (!result)
     {
       return result;
@@ -7319,14 +8178,14 @@ LABEL_6:
     return 0;
   }
 
-  Attributes = C3DEntityGetAttributes(a1);
+  Attributes = C3DEntityGetAttributes(v7, v24);
   if (Attributes)
   {
-    v25 = Attributes;
+    v26 = Attributes;
     Count = CFDictionaryGetCount(Attributes);
     Mutable = CFDictionaryCreateMutable(0, Count, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
     context = Mutable;
-    CFDictionaryApplyFunction(v25, _fillPatchedDictionay, &context);
+    CFDictionaryApplyFunction(v26, _fillPatchedDictionay, &context);
     if (context.i64[1])
     {
       if (!Mutable)
@@ -7334,8 +8193,8 @@ LABEL_6:
         goto LABEL_12;
       }
 
-      C3DEntitySetAttributes(a1, Mutable);
-      C3DEntityGetAttributes(a1);
+      C3DEntitySetAttributes(v7, Mutable);
+      C3DEntityGetAttributes(v7, v29);
     }
 
     CFRelease(Mutable);
@@ -7343,129 +8202,130 @@ LABEL_12:
     Value = CFDictionaryGetValue(a2, @"attributes");
     if (Value)
     {
-      v29 = Value;
-      v30 = CFDictionaryGetValue(Value, @"kSkinnerKey");
-      if (v30)
+      v31 = Value;
+      v32 = CFDictionaryGetValue(Value, @"kSkinnerKey");
+      if (v32)
       {
-        v31 = v30;
-        C3DSkinnerCreate();
-        v33 = v32;
-        v34 = C3DInitWithPropertyList(v32, v31, a3, a4);
-        if (v34)
+        v34 = v32;
+        C3DSkinnerCreate(v32, v33);
+        v36 = v35;
+        v37 = C3DInitWithPropertyList(v35, v34, a3, a4);
+        if (v37)
         {
-          C3DNodeSetSkinner(a1, v33);
+          C3DNodeSetSkinner(v7, v36);
         }
 
-        CFRelease(v33);
+        CFRelease(v36);
       }
 
       else
       {
-        v34 = 1;
+        v37 = 1;
       }
 
-      v37 = CFDictionaryGetValue(v29, @"kMorpherKey");
-      if (v37)
+      v40 = CFDictionaryGetValue(v31, @"kMorpherKey");
+      if (v40)
       {
-        v38 = v37;
-        v39 = C3DMorphCreate();
-        v40 = C3DMorpherCreateWith(v39);
-        CFRelease(v39);
-        if ((v34 & C3DInitWithPropertyList(v40, v38, a3, a4)) == 1)
+        v42 = v40;
+        v43 = C3DMorphCreate(v40, v41);
+        v45 = C3DMorpherCreateWith(v43, v44);
+        CFRelease(v43);
+        if ((v37 & C3DInitWithPropertyList(v45, v42, a3, a4)) == 1)
         {
-          C3DNodeSetMorpher(a1, v40);
+          C3DNodeSetMorpher(v7, v45);
         }
 
-        CFRelease(v40);
+        CFRelease(v45);
       }
     }
   }
 
-  v41 = CFDictionaryGetValue(a2, @"hidden");
-  if (v41)
+  v46 = CFDictionaryGetValue(a2, @"hidden");
+  if (v46)
   {
-    CFNumberGetValue(v41, kCFNumberShortType, &valuePtr);
-    *(a1 + 200) = valuePtr != 0;
+    CFNumberGetValue(v46, kCFNumberShortType, &valuePtr);
+    v7[12].n128_u8[8] = valuePtr != 0;
   }
 
-  v42 = CFDictionaryGetValue(a2, @"alpha");
-  if (v42)
+  v47 = CFDictionaryGetValue(a2, @"alpha");
+  if (v47)
   {
-    CFNumberGetValue(v42, kCFNumberFloatType, (a1 + 204));
+    CFNumberGetValue(v47, kCFNumberFloatType, &v7[12].n128_f64[1] + 4);
   }
 
-  v43 = CFDictionaryGetValue(a2, @"category");
-  if (v43)
+  v48 = CFDictionaryGetValue(a2, @"category");
+  if (v48)
   {
-    CFNumberGetValue(v43, kCFNumberNSIntegerType, (a1 + 208));
+    CFNumberGetValue(v48, kCFNumberNSIntegerType, &v7[13]);
   }
 
-  v44 = CFDictionaryGetValue(a2, @"isJoint");
-  if (v44)
+  v49 = CFDictionaryGetValue(a2, @"isJoint");
+  if (v49)
   {
-    v45 = *(a1 + 220) & 0xFFFFFEFF | ((CFBooleanGetValue(v44) & 1) << 8);
+    v50 = v7[13].n128_u32[3] & 0xFFFFFEFF | ((CFBooleanGetValue(v49) & 1) << 8);
   }
 
   else
   {
-    v45 = *(a1 + 220) & 0xFFFFFEFF;
+    v50 = v7[13].n128_u32[3] & 0xFFFFFEFF;
   }
 
-  *(a1 + 220) = v45;
-  v46 = CFDictionaryGetValue(a2, @"transforms");
-  if (!v46)
+  v7[13].n128_u32[3] = v50;
+  v51 = CFDictionaryGetValue(a2, @"transforms");
+  if (!v51)
   {
     goto LABEL_40;
   }
 
-  v47 = v46;
-  v69.n128_u32[2] = 0;
-  v69.n128_u64[0] = 0;
-  v68 = 0uLL;
-  v73 = 0u;
-  v74 = 0u;
+  v53 = v51;
+  v89.n128_u32[2] = 0;
+  v89.n128_u64[0] = 0;
+  v88 = 0uLL;
+  v93 = 0u;
+  v94 = 0u;
   context = 0u;
-  v72 = 0u;
-  v48 = CFDictionaryGetValue(v46, @"matrix4x4");
-  if (!v48)
+  v92 = 0u;
+  v54 = CFDictionaryGetValue(v51, @"matrix4x4");
+  if (!v54)
   {
-    v50 = CFDictionaryGetValue(v47, @"position");
-    if (v50 && C3DVector3InitWithPropertyList(&v69, v50, a3, a4))
+    v59 = CFDictionaryGetValue(v53, @"position");
+    if (v59 && C3DVector3InitWithPropertyList(&v89, v59, a3, a4))
     {
-      C3DTransformSetPosition((a1 + 96), v69);
-      v51 = 1;
+      C3DTransformSetPosition(v7 + 6, v89);
+      v60 = 1;
     }
 
     else
     {
-      v51 = 0;
+      v60 = 0;
     }
 
-    v53 = CFDictionaryGetValue(v47, @"scale");
-    if (v53 && C3DVector3InitWithPropertyList(&v69, v53, a3, a4))
+    v62 = CFDictionaryGetValue(v53, @"scale");
+    if (v62 && C3DVector3InitWithPropertyList(&v89, v62, a3, a4))
     {
-      C3DTransformSetScale(a1 + 96, v69);
+      C3DTransformSetScale(&v7[6], v63, v89);
     }
 
     else
     {
-      v51 = 0;
+      v60 = 0;
     }
 
-    v54 = CFDictionaryGetValue(v47, @"rotation");
-    if (!v54)
+    v64 = CFDictionaryGetValue(v53, @"rotation");
+    if (!v64)
     {
       goto LABEL_67;
     }
 
-    v55 = v54;
-    v56 = CFDictionaryGetValue(v54, @"quaternion");
-    if (v56)
+    v66 = v64;
+    v67 = CFDictionaryGetValue(v64, @"quaternion");
+    if (v67)
     {
-      if ((C3DVector3InitWithPropertyList(&v68, v56, a3, a4) & 1) == 0)
+      v68 = C3DVector3InitWithPropertyList(&v88, v67, a3, a4);
+      if ((v68 & 1) == 0)
       {
-        v59 = scn_default_log();
-        if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
+        v74 = scn_default_log(v68, v69);
+        if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
         {
           _C3DNodeInitWithPropertyList_cold_5();
         }
@@ -7473,18 +8333,19 @@ LABEL_12:
         return 0;
       }
 
-      v57 = v68;
+      v70 = v88;
     }
 
     else
     {
-      v58 = CFDictionaryGetValue(v55, @"euler");
-      if (v58)
+      v71 = CFDictionaryGetValue(v66, @"euler");
+      if (v71)
       {
-        if ((C3DVector3InitWithPropertyList(&v69, v58, a3, a4) & 1) == 0)
+        v72 = C3DVector3InitWithPropertyList(&v89, v71, a3, a4);
+        if ((v72 & 1) == 0)
         {
-          v62 = scn_default_log();
-          if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+          v79 = scn_default_log(v72, v73);
+          if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
           {
             _C3DNodeInitWithPropertyList_cold_6();
           }
@@ -7492,17 +8353,18 @@ LABEL_12:
           return 0;
         }
 
-        C3DTransformSetEuler(a1 + 96, v69);
+        C3DTransformSetEuler(v7 + 6, v73, v89);
         goto LABEL_66;
       }
 
-      v60 = CFDictionaryGetValue(v55, @"axisAngle");
-      if (v60)
+      v75 = CFDictionaryGetValue(v66, @"axisAngle");
+      if (v75)
       {
-        if ((C3DVector3InitWithPropertyList(&v68, v60, a3, a4) & 1) == 0)
+        v76 = C3DVector3InitWithPropertyList(&v88, v75, a3, a4);
+        if ((v76 & 1) == 0)
         {
-          v64 = scn_default_log();
-          if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
+          v84 = scn_default_log(v76, v77);
+          if (os_log_type_enabled(v84, OS_LOG_TYPE_ERROR))
           {
             _C3DNodeInitWithPropertyList_cold_7();
           }
@@ -7510,15 +8372,15 @@ LABEL_12:
           return 0;
         }
 
-        C3DTransformSetAxisAngle(a1 + 96, v68);
+        C3DTransformSetAxisAngle(v7 + 6, v77, v88);
         goto LABEL_66;
       }
 
-      v63 = CFDictionaryGetValue(v55, @"matrix4x4");
-      if (!v63)
+      v80 = CFDictionaryGetValue(v66, @"matrix4x4");
+      if (!v80)
       {
-        v65 = scn_default_log();
-        if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
+        v85 = scn_default_log(0, v81);
+        if (os_log_type_enabled(v85, OS_LOG_TYPE_ERROR))
         {
           _C3DNodeInitWithPropertyList_cold_10();
         }
@@ -7526,10 +8388,11 @@ LABEL_12:
         return 0;
       }
 
-      if ((C3DMatrix4x4InitWithPropertyList(&context, v63, a3, a4) & 1) == 0)
+      v82 = C3DMatrix4x4InitWithPropertyList(&context, v80, a3, a4);
+      if ((v82 & 1) == 0)
       {
-        v66 = scn_default_log();
-        if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
+        v86 = scn_default_log(v82, v83);
+        if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
         {
           _C3DNodeInitWithPropertyList_cold_8();
         }
@@ -7537,36 +8400,37 @@ LABEL_12:
         return 0;
       }
 
-      v67[0] = context;
-      v67[1] = v72;
-      v67[2] = v73;
-      v67[3] = v74;
-      v57.n128_f64[0] = C3DMatrix4x4GetRotation(v67);
-      v68 = v57;
+      v87[0] = context;
+      v87[1] = v92;
+      v87[2] = v93;
+      v87[3] = v94;
+      v70.n128_f64[0] = C3DMatrix4x4GetRotation(v87);
+      v88 = v70;
     }
 
-    C3DTransformSetQuaternion(a1 + 96, v57);
+    C3DTransformSetQuaternion(v7 + 6, v70, v69);
 LABEL_66:
-    if (v51)
+    if (v60)
     {
 LABEL_37:
-      if (CFDictionaryGetValue(v47, @"pivot"))
+      v57 = CFDictionaryGetValue(v53, @"pivot");
+      if (v57)
       {
-        v49 = scn_default_log();
-        if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+        v58 = scn_default_log(v57, v52);
+        if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
         {
           _C3DNodeInitWithPropertyList_cold_9();
         }
       }
 
 LABEL_40:
-      __C3DNodeTransformDidChange(a1);
+      __C3DNodeTransformDidChange(v7, v52);
       return 1;
     }
 
 LABEL_67:
-    v61 = scn_default_log();
-    if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
+    v78 = scn_default_log(v64, v65);
+    if (os_log_type_enabled(v78, OS_LOG_TYPE_ERROR))
     {
       _C3DNodeInitWithPropertyList_cold_11();
       if (!a4)
@@ -7588,14 +8452,15 @@ LABEL_67:
     return 0;
   }
 
-  if (C3DMatrix4x4InitWithPropertyList(&context, v48, a3, a4))
+  v55 = C3DMatrix4x4InitWithPropertyList(&context, v54, a3, a4);
+  if (v55)
   {
-    C3DTransformSetMatrix(a1 + 96, &context);
+    C3DTransformSetMatrix(&v7[6], &context);
     goto LABEL_37;
   }
 
-  v52 = scn_default_log();
-  if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+  v61 = scn_default_log(v55, v56);
+  if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
   {
     _C3DNodeInitWithPropertyList_cold_4();
   }
@@ -7603,55 +8468,55 @@ LABEL_67:
   return 0;
 }
 
-__CFDictionary *_C3DNodeCopyPropertyList(uint64_t a1, uint64_t a2, uint64_t a3)
+__CFDictionary *_C3DNodeCopyPropertyList(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   valuePtr = 0;
   if (!a1)
   {
-    v6 = scn_default_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v7 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      _C3DGeometryFillLibraryForSerialization_cold_1(v6, v7, v8, v9, v10, v11, v12, v13);
+      _C3DGeometryFillLibraryForSerialization_cold_1(v7, a2, v8, v9, v10, v11, v12, v13);
     }
   }
 
-  Attributes = C3DEntityGetAttributes(a1);
-  Morpher = C3DNodeGetMorpher(a1);
+  Attributes = C3DEntityGetAttributes(a1, a2);
+  Morpher = C3DNodeGetMorpher(a1, v15);
   if (Morpher)
   {
     _C3DEntitySetAttribute(a1, @"kMorpherKey", Morpher, 0);
   }
 
-  v16 = *(a1 + 248);
-  if (v16 && (Skinner = C3DDeformerStackGetSkinner(v16)) != 0)
+  v18 = *(a1 + 248);
+  if (v18 && (Skinner = C3DDeformerStackGetSkinner(v18, v16)) != 0)
   {
     _C3DEntitySetAttribute(a1, @"kSkinnerKey", Skinner, 0);
-    v18 = 0;
+    v20 = 0;
   }
 
   else
   {
-    v18 = 1;
+    v20 = 1;
   }
 
-  v19 = C3DEntityCopyPropertyList(a1, a2, a3);
+  v21 = C3DEntityCopyPropertyList(a1, a2, a3);
   if (Morpher)
   {
     _C3DEntitySetAttribute(a1, @"kMorpherKey", 0, 0);
   }
 
-  if ((v18 & 1) == 0)
+  if ((v20 & 1) == 0)
   {
     _C3DEntitySetAttribute(a1, @"kSkinnerKey", 0, 0);
   }
 
-  if (v19)
+  if (v21)
   {
-    Value = CFDictionaryGetValue(v19, @"attributes");
+    Value = CFDictionaryGetValue(v21, @"attributes");
     if (!Value)
     {
       Value = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-      CFDictionaryAddValue(v19, @"attributes", Value);
+      CFDictionaryAddValue(v21, @"attributes", Value);
       CFRelease(Value);
     }
 
@@ -7660,35 +8525,35 @@ __CFDictionary *_C3DNodeCopyPropertyList(uint64_t a1, uint64_t a2, uint64_t a3)
     _serializeNodeAttribute(a1, Attributes, @"kLightKey", a2, Value);
     _serializeNodeAttribute(a1, Attributes, @"kLightmapInfoKey", a2, Value);
     valuePtr = *(a1 + 200);
-    v21 = CFNumberCreate(0, kCFNumberShortType, &valuePtr);
-    CFDictionaryAddValue(v19, @"hidden", v21);
-    CFRelease(v21);
-    v22 = CFNumberCreate(0, kCFNumberFloatType, (a1 + 204));
-    CFDictionaryAddValue(v19, @"alpha", v22);
-    CFRelease(v22);
-    v23 = CFNumberCreate(0, kCFNumberNSIntegerType, (a1 + 208));
-    CFDictionaryAddValue(v19, @"category", v23);
+    v23 = CFNumberCreate(0, kCFNumberShortType, &valuePtr);
+    CFDictionaryAddValue(v21, @"hidden", v23);
     CFRelease(v23);
+    v24 = CFNumberCreate(0, kCFNumberFloatType, (a1 + 204));
+    CFDictionaryAddValue(v21, @"alpha", v24);
+    CFRelease(v24);
+    v25 = CFNumberCreate(0, kCFNumberNSIntegerType, (a1 + 208));
+    CFDictionaryAddValue(v21, @"category", v25);
+    CFRelease(v25);
     if (*(a1 + 221))
     {
-      CFDictionaryAddValue(v19, @"isJoint", *MEMORY[0x277CBED28]);
+      CFDictionaryAddValue(v21, @"isJoint", *MEMORY[0x277CBED28]);
     }
 
-    memset(v28, 0, sizeof(v28));
-    C3DNodeGetMatrix(a1, v28);
-    v24 = C3DMatrix4x4CopyPropertyList(v28);
-    if (v24)
+    memset(v31, 0, sizeof(v31));
+    C3DNodeGetMatrix(a1, v26, v31);
+    v27 = C3DMatrix4x4CopyPropertyList(v31);
+    if (v27)
     {
-      v25 = v24;
+      v28 = v27;
       Mutable = CFDictionaryCreateMutable(0, 1, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-      CFDictionaryAddValue(v19, @"transforms", Mutable);
-      CFDictionaryAddValue(Mutable, @"matrix4x4", v25);
-      CFRelease(v25);
+      CFDictionaryAddValue(v21, @"transforms", Mutable);
+      CFDictionaryAddValue(Mutable, @"matrix4x4", v28);
+      CFRelease(v28);
       CFRelease(Mutable);
     }
   }
 
-  return v19;
+  return v21;
 }
 
 uint64_t _C3DNodeFinalizeDeserialization(uint64_t a1, uint64_t a2, const __CFDictionary *a3, CFErrorRef *a4)
@@ -7696,34 +8561,35 @@ uint64_t _C3DNodeFinalizeDeserialization(uint64_t a1, uint64_t a2, const __CFDic
   valuePtr = 0;
   if (!a1)
   {
-    v8 = scn_default_log();
+    v8 = scn_default_log(0, a2);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
-      _C3DGeometryFillLibraryForSerialization_cold_1(v8, v9, v10, v11, v12, v13, v14, v15);
+      _C3DGeometryFillLibraryForSerialization_cold_1(v8, a2, v9, v10, v11, v12, v13, v14);
     }
   }
 
-  Attributes = C3DEntityGetAttributes(a1);
+  Attributes = C3DEntityGetAttributes(a1, a2);
   Value = CFDictionaryGetValue(a3, @"attributes");
   if (!Attributes)
   {
-    v26 = 1;
-    return v26 & 1;
+    v30 = 1;
+    return v30 & 1;
   }
 
-  v18 = Value;
+  v17 = Value;
   CFRetain(Attributes);
-  v19 = CFDictionaryGetValue(Attributes, @"kMeshKey");
-  if (v19)
+  v18 = CFDictionaryGetValue(Attributes, @"kMeshKey");
+  if (v18)
   {
-    v20 = v19;
-    v21 = CFGetTypeID(v19);
-    if (v21 == CFNumberGetTypeID())
+    v19 = v18;
+    v20 = CFGetTypeID(v18);
+    if (v20 == CFNumberGetTypeID())
     {
-      if (!CFNumberGetValue(v20, kCFNumberIntType, &valuePtr))
+      v21 = CFNumberGetValue(v19, kCFNumberIntType, &valuePtr);
+      if (!v21)
       {
-        v28 = scn_default_log();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+        v32 = scn_default_log(v21, v22);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
         {
           _C3DNodeFinalizeDeserialization_cold_2();
           if (a4)
@@ -7737,11 +8603,12 @@ uint64_t _C3DNodeFinalizeDeserialization(uint64_t a1, uint64_t a2, const __CFDic
         goto LABEL_35;
       }
 
-      v22 = valuePtr;
-      TypeID = C3DGeometryGetTypeID();
-      valuePtr = C3DLibraryGetRemappedID(a2, v22, TypeID);
-      v24 = C3DGeometryGetTypeID();
-      Entry = C3DLibraryGetEntry(a2, v24, valuePtr);
+      v23 = valuePtr;
+      TypeID = C3DGeometryGetTypeID(v21, v22);
+      RemappedID = C3DLibraryGetRemappedID(a2, v23, TypeID);
+      valuePtr = RemappedID;
+      v27 = C3DGeometryGetTypeID(RemappedID, v26);
+      Entry = C3DLibraryGetEntry(a2, v27, valuePtr);
       if (Entry)
       {
         C3DNodeSetGeometry(a1, Entry);
@@ -7749,11 +8616,11 @@ uint64_t _C3DNodeFinalizeDeserialization(uint64_t a1, uint64_t a2, const __CFDic
 
       else
       {
-        v29 = scn_default_log();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+        v33 = scn_default_log(0, v29);
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_21BEF7000, v29, OS_LOG_TYPE_DEFAULT, "Warning: Node<->attribute inconsistency finalizing deserialization", buf, 2u);
+          _os_log_impl(&dword_21BEF7000, v33, OS_LOG_TYPE_DEFAULT, "Warning: Node<->attribute inconsistency finalizing deserialization", buf, 2u);
         }
 
         _C3DEntitySetAttribute(a1, @"kMeshKey", 0, 0);
@@ -7761,17 +8628,18 @@ uint64_t _C3DNodeFinalizeDeserialization(uint64_t a1, uint64_t a2, const __CFDic
     }
   }
 
-  v30 = CFDictionaryGetValue(Attributes, @"kCameraKey");
-  if (v30)
+  v34 = CFDictionaryGetValue(Attributes, @"kCameraKey");
+  if (v34)
   {
-    v31 = v30;
-    v32 = CFGetTypeID(v30);
-    if (v32 == CFNumberGetTypeID())
+    v35 = v34;
+    v36 = CFGetTypeID(v34);
+    if (v36 == CFNumberGetTypeID())
     {
-      if (!CFNumberGetValue(v31, kCFNumberIntType, &valuePtr))
+      v37 = CFNumberGetValue(v35, kCFNumberIntType, &valuePtr);
+      if (!v37)
       {
-        v37 = scn_default_log();
-        if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+        v46 = scn_default_log(v37, v38);
+        if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
         {
           _C3DNodeFinalizeDeserialization_cold_2();
           if (a4)
@@ -7785,23 +8653,24 @@ uint64_t _C3DNodeFinalizeDeserialization(uint64_t a1, uint64_t a2, const __CFDic
         goto LABEL_35;
       }
 
-      v33 = valuePtr;
-      v34 = C3DCameraGetTypeID();
-      valuePtr = C3DLibraryGetRemappedID(a2, v33, v34);
-      v35 = C3DCameraGetTypeID();
-      v36 = C3DLibraryGetEntry(a2, v35, valuePtr);
-      if (v36)
+      v39 = valuePtr;
+      v40 = C3DCameraGetTypeID(v37, v38);
+      v41 = C3DLibraryGetRemappedID(a2, v39, v40);
+      valuePtr = v41;
+      v43 = C3DCameraGetTypeID(v41, v42);
+      v44 = C3DLibraryGetEntry(a2, v43, valuePtr);
+      if (v44)
       {
-        C3DNodeSetCamera(a1, v36);
+        C3DNodeSetCamera(a1, v44);
       }
 
       else
       {
-        v38 = scn_default_log();
-        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+        v47 = scn_default_log(0, v45);
+        if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
         {
-          *v72 = 0;
-          _os_log_impl(&dword_21BEF7000, v38, OS_LOG_TYPE_DEFAULT, "Warning: Node<->attribute inconsistency finalizing deserialization", v72, 2u);
+          *v93 = 0;
+          _os_log_impl(&dword_21BEF7000, v47, OS_LOG_TYPE_DEFAULT, "Warning: Node<->attribute inconsistency finalizing deserialization", v93, 2u);
         }
 
         _C3DEntitySetAttribute(a1, @"kCameraKey", 0, 0);
@@ -7809,23 +8678,24 @@ uint64_t _C3DNodeFinalizeDeserialization(uint64_t a1, uint64_t a2, const __CFDic
     }
   }
 
-  v39 = CFDictionaryGetValue(Attributes, @"kLightKey");
-  if (!v39)
+  v48 = CFDictionaryGetValue(Attributes, @"kLightKey");
+  if (!v48)
   {
     goto LABEL_42;
   }
 
-  v40 = v39;
-  v41 = CFGetTypeID(v39);
-  if (v41 != CFNumberGetTypeID())
+  v49 = v48;
+  v50 = CFGetTypeID(v48);
+  if (v50 != CFNumberGetTypeID())
   {
     goto LABEL_42;
   }
 
-  if (!CFNumberGetValue(v40, kCFNumberIntType, &valuePtr))
+  v51 = CFNumberGetValue(v49, kCFNumberIntType, &valuePtr);
+  if (!v51)
   {
-    v46 = scn_default_log();
-    if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+    v60 = scn_default_log(v51, v52);
+    if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
     {
       _C3DNodeFinalizeDeserialization_cold_2();
       if (a4)
@@ -7851,23 +8721,24 @@ LABEL_35:
     goto LABEL_38;
   }
 
-  v42 = valuePtr;
-  v43 = C3DLightGetTypeID();
-  valuePtr = C3DLibraryGetRemappedID(a2, v42, v43);
-  v44 = C3DLightGetTypeID();
-  v45 = C3DLibraryGetEntry(a2, v44, valuePtr);
-  if (v45)
+  v53 = valuePtr;
+  v54 = C3DLightGetTypeID(v51, v52);
+  v55 = C3DLibraryGetRemappedID(a2, v53, v54);
+  valuePtr = v55;
+  v57 = C3DLightGetTypeID(v55, v56);
+  v58 = C3DLibraryGetEntry(a2, v57, valuePtr);
+  if (v58)
   {
-    C3DNodeSetLight(a1, v45);
+    C3DNodeSetLight(a1, v58);
   }
 
   else
   {
-    v47 = scn_default_log();
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+    v61 = scn_default_log(0, v59);
+    if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
     {
-      *v71 = 0;
-      _os_log_impl(&dword_21BEF7000, v47, OS_LOG_TYPE_DEFAULT, "Warning: Node<->attribute inconsistency finalizing deserialization", v71, 2u);
+      *v92 = 0;
+      _os_log_impl(&dword_21BEF7000, v61, OS_LOG_TYPE_DEFAULT, "Warning: Node<->attribute inconsistency finalizing deserialization", v92, 2u);
     }
 
     _C3DEntitySetAttribute(a1, @"kLightKey", 0, 0);
@@ -7876,54 +8747,55 @@ LABEL_35:
 LABEL_42:
   *(a1 + 220) = *(a1 + 220) & 0xFFFFFBFF | ((C3DEntityGetAttribute(a1, @"kCameraKey") != 0) << 10);
   *(a1 + 220) = *(a1 + 220) & 0xFFFFFDFF | ((C3DEntityGetAttribute(a1, @"kLightKey") != 0) << 9);
-  v48 = CFDictionaryGetValue(Attributes, @"kLightmapInfoKey");
+  v62 = CFDictionaryGetValue(Attributes, @"kLightmapInfoKey");
   CFRelease(Attributes);
-  if (!v48)
+  if (!v62)
   {
     goto LABEL_47;
   }
 
-  v49 = CFDictionaryGetValue(v48, @"image");
-  if (v49 && CFNumberGetValue(v49, kCFNumberIntType, &valuePtr))
+  v64 = CFDictionaryGetValue(v62, @"image");
+  if (v64 && (v64 = CFNumberGetValue(v64, kCFNumberIntType, &valuePtr), v64))
   {
-    v50 = valuePtr;
-    v51 = C3DImageGetTypeID();
-    valuePtr = C3DLibraryGetRemappedID(a2, v50, v51);
-    v52 = C3DImageGetTypeID();
-    v53 = C3DLibraryGetEntry(a2, v52, valuePtr);
-    if (v53)
+    v66 = valuePtr;
+    v67 = C3DImageGetTypeID(v64, v65);
+    v68 = C3DLibraryGetRemappedID(a2, v66, v67);
+    valuePtr = v68;
+    v70 = C3DImageGetTypeID(v68, v69);
+    v71 = C3DLibraryGetEntry(a2, v70, valuePtr);
+    if (v71)
     {
-      v54 = v53;
-      MutableCopy = CFDictionaryCreateMutableCopy(*MEMORY[0x277CBECE8], 0, v48);
-      CFDictionarySetValue(MutableCopy, @"image", v54);
+      v73 = v71;
+      MutableCopy = CFDictionaryCreateMutableCopy(*MEMORY[0x277CBECE8], 0, v62);
+      CFDictionarySetValue(MutableCopy, @"image", v73);
       C3DNodeSetLightmapInfo(a1, MutableCopy);
       CFRelease(MutableCopy);
 LABEL_47:
-      v56 = *(a1 + 248);
-      if (v56)
+      v75 = *(a1 + 248);
+      if (v75)
       {
-        Skinner = C3DDeformerStackGetSkinner(v56);
+        Skinner = C3DDeformerStackGetSkinner(v75, v63);
         if (Skinner)
         {
-          v58 = CFDictionaryGetValue(v18, @"kSkinnerKey");
-          v26 = C3DFinalizeDeserialization(Skinner, a2, v58, a4);
+          v77 = CFDictionaryGetValue(v17, @"kSkinnerKey");
+          v30 = C3DFinalizeDeserialization(Skinner, a2, v77, a4);
           OverrideMaterial = C3DGeometryGetOverrideMaterial(Skinner);
           if (OverrideMaterial)
           {
             Joints = C3DSkinnerGetJoints(OverrideMaterial);
-            v61 = Joints ? C3DGeometryGetMesh(Joints) : 0;
-            Geometry = C3DNodeGetGeometry(a1);
+            v82 = Joints ? C3DGeometryGetMesh(Joints, v81) : 0;
+            Geometry = C3DNodeGetGeometry(a1, v81);
             if (Geometry)
             {
-              if (v61)
+              if (v82)
               {
-                C3DGeometrySetMesh(Geometry, v61);
+                C3DGeometrySetMesh(Geometry, v82);
               }
             }
           }
 
-          __C3DComputeLocalBoundingBox(a1);
-          v63 = 0;
+          __C3DComputeLocalBoundingBox(a1, v79);
+          v84 = 0;
           goto LABEL_67;
         }
       }
@@ -7933,30 +8805,30 @@ LABEL_47:
         Skinner = 0;
       }
 
-      v63 = 1;
-      v26 = 1;
+      v84 = 1;
+      v30 = 1;
 LABEL_67:
-      Morpher = C3DNodeGetMorpher(a1);
+      Morpher = C3DNodeGetMorpher(a1, v63);
       if (Morpher)
       {
-        v68 = Morpher;
-        v69 = CFDictionaryGetValue(v18, @"kMorpherKey");
-        v26 &= C3DFinalizeDeserialization(v68, a2, v69, a4);
-        if ((v63 & 1) == 0)
+        v89 = Morpher;
+        v90 = CFDictionaryGetValue(v17, @"kMorpherKey");
+        v30 &= C3DFinalizeDeserialization(v89, a2, v90, a4);
+        if ((v84 & 1) == 0)
         {
-          v70 = C3DGeometryGetOverrideMaterial(Skinner);
-          if (v70)
+          v91 = C3DGeometryGetOverrideMaterial(Skinner);
+          if (v91)
           {
-            C3DSkinSetInfluencingMorpher(v70, v68);
+            C3DSkinSetInfluencingMorpher(v91, v89);
           }
         }
       }
 
-      return v26 & 1;
+      return v30 & 1;
     }
 
-    v65 = scn_default_log();
-    if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
+    v86 = scn_default_log(0, v72);
+    if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
     {
       _C3DNodeFinalizeDeserialization_cold_5();
     }
@@ -7964,8 +8836,8 @@ LABEL_67:
 
   else
   {
-    v62 = scn_default_log();
-    if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+    v83 = scn_default_log(v64, v65);
+    if (os_log_type_enabled(v83, OS_LOG_TYPE_ERROR))
     {
       _C3DNodeFinalizeDeserialization_cold_6();
     }
@@ -7982,22 +8854,22 @@ LABEL_67:
   return result;
 }
 
-void _C3DNodeFillLibraryForSerialization(uint64_t a1, uint64_t a2, uint64_t a3)
+void _C3DNodeFillLibraryForSerialization(uint64_t result, uint64_t a2, uint64_t a3)
 {
-  if (!a1)
+  if (!result)
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(0, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      _C3DGeometryFillLibraryForSerialization_cold_1(v6, v7, v8, v9, v10, v11, v12, v13);
+      _C3DGeometryFillLibraryForSerialization_cold_1(v6, a2, v7, v8, v9, v10, v11, v12);
     }
   }
 
-  if ((*(a1 + 222) & 2) == 0)
+  if ((*(result + 222) & 2) == 0)
   {
-    if (C3DEntityGetAttributes(a1))
+    if (C3DEntityGetAttributes(result, a2))
     {
-      Attributes = C3DEntityGetAttributes(a1);
+      Attributes = C3DEntityGetAttributes(result, v13);
       Value = CFDictionaryGetValue(Attributes, @"kLightKey");
       if (Value)
       {
@@ -8007,74 +8879,74 @@ void _C3DNodeFillLibraryForSerialization(uint64_t a1, uint64_t a2, uint64_t a3)
       }
     }
 
-    if (C3DEntityGetAttributes(a1))
+    if (C3DEntityGetAttributes(result, v13))
     {
-      v17 = C3DEntityGetAttributes(a1);
-      v18 = CFDictionaryGetValue(v17, @"kCameraKey");
-      if (v18)
+      v18 = C3DEntityGetAttributes(result, v17);
+      v19 = CFDictionaryGetValue(v18, @"kCameraKey");
+      if (v19)
       {
-        v19 = v18;
-        C3DLibraryAddEntry(a2, v18);
-        C3DFillLibraryForSerialization(v19, a2, a3);
+        v20 = v19;
+        C3DLibraryAddEntry(a2, v19);
+        C3DFillLibraryForSerialization(v20, a2, a3);
       }
     }
 
-    v20 = *(a1 + 240);
-    if (v20)
-    {
-      C3DLibraryAddEntry(a2, v20);
-      C3DFillLibraryForSerialization(*(a1 + 240), a2, a3);
-    }
-
-    v21 = *(a1 + 248);
+    v21 = *(result + 240);
     if (v21)
     {
-      Skinner = C3DDeformerStackGetSkinner(v21);
+      C3DLibraryAddEntry(a2, v21);
+      C3DFillLibraryForSerialization(*(result + 240), a2, a3);
+    }
+
+    v22 = *(result + 248);
+    if (v22)
+    {
+      Skinner = C3DDeformerStackGetSkinner(v22, v21);
       if (Skinner)
       {
         C3DFillLibraryForSerialization(Skinner, a2, a3);
       }
     }
 
-    Morpher = C3DNodeGetMorpher(a1);
+    Morpher = C3DNodeGetMorpher(result, v21);
     if (Morpher)
     {
       C3DFillLibraryForSerialization(Morpher, a2, a3);
     }
 
-    LightmapInfo = C3DNodeGetLightmapInfo(a1);
+    LightmapInfo = C3DNodeGetLightmapInfo(result, v25);
     if (LightmapInfo)
     {
-      v25 = CFDictionaryGetValue(LightmapInfo, @"image");
-      if (v25)
+      v27 = CFDictionaryGetValue(LightmapInfo, @"image");
+      if (v27)
       {
-        v26 = v25;
-        TypeID = C3DImageGetTypeID();
-        if (TypeID == CFGetTypeID(v26))
+        v29 = v27;
+        TypeID = C3DImageGetTypeID(v27, v28);
+        if (TypeID == CFGetTypeID(v29))
         {
-          C3DLibraryAddEntry(a2, v26);
-          C3DFillLibraryForSerialization(v26, a2, a3);
+          C3DLibraryAddEntry(a2, v29);
+          C3DFillLibraryForSerialization(v29, a2, a3);
         }
       }
     }
 
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 0x40000000;
-    v31 = ___C3DNodeFillLibraryForSerialization_block_invoke;
-    v32 = &__block_descriptor_tmp_121;
-    v33 = a2;
-    v34 = a3;
-    v28 = *(a1 + 72);
-    if (v28)
+    v33[0] = MEMORY[0x277D85DD0];
+    v33[1] = 0x40000000;
+    v34 = ___C3DNodeFillLibraryForSerialization_block_invoke;
+    v35 = &__block_descriptor_tmp_121;
+    v36 = a2;
+    v37 = a3;
+    v31 = *(result + 72);
+    if (v31)
     {
-      v29 = 0;
+      v32 = 0;
       do
       {
-        (v31)(v30, v28, v29++);
-        v28 = *(v28 + 80);
+        (v34)(v33, v31, v32++);
+        v31 = *(v31 + 80);
       }
 
-      while (v28);
+      while (v31);
     }
   }
 }
@@ -8130,11 +9002,11 @@ void _serializeNodeAttribute(uint64_t a1, const __CFDictionary *a2, __CFString *
       return;
     }
 
-    v26 = CFNumberCreate(0, kCFNumberIntType, &EntryID);
-    CFDictionarySetValue(a5, theString1, v26);
-    v25 = v26;
+    v29 = CFNumberCreate(0, kCFNumberIntType, &EntryID);
+    CFDictionarySetValue(a5, theString1, v29);
+    v28 = v29;
 LABEL_18:
-    CFRelease(v25);
+    CFRelease(v28);
     return;
   }
 
@@ -8149,26 +9021,27 @@ LABEL_18:
       {
         v14 = v13;
         v15 = CFGetTypeID(v13);
-        if (v15 == C3DImageGetTypeID())
+        if (v15 == C3DImageGetTypeID(v15, v16))
         {
-          valuePtr = C3DLibraryGetEntryID(a4, v14);
-          if (!valuePtr)
+          v17 = C3DLibraryGetEntryID(a4, v14);
+          valuePtr = v17;
+          if (!v17)
           {
-            v16 = scn_default_log();
-            if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+            v19 = scn_default_log(v17, v18);
+            if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
             {
-              _serializeNodeAttribute_cold_1(v16, v17, v18, v19, v20, v21, v22, v23);
+              _serializeNodeAttribute_cold_1(v19, v20, v21, v22, v23, v24, v25, v26);
             }
           }
 
-          v24 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
-          CFDictionarySetValue(MutableCopy, @"image", v24);
-          CFRelease(v24);
+          v27 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
+          CFDictionarySetValue(MutableCopy, @"image", v27);
+          CFRelease(v27);
           CFDictionarySetValue(a5, @"kLightmapInfoKey", MutableCopy);
         }
       }
 
-      v25 = MutableCopy;
+      v28 = MutableCopy;
       goto LABEL_18;
     }
   }
@@ -8181,205 +9054,179 @@ __CFArray *_C3DNodeCopyInstanceVariables(uint64_t a1)
   v4 = MEMORY[0x277CBF150];
   v5 = CFDictionaryCreateMutable(0, 4, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   valuePtr = 0x500000001;
-  ID = C3DEntityGetID(a1);
-  v6 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr + 4);
-  v7 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
-  v8 = CFNumberCreate(0, kCFNumberLongType, &ID);
+  ID = C3DEntityGetID(a1, v6);
+  v7 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr + 4);
+  v8 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
+  v9 = CFNumberCreate(0, kCFNumberLongType, &ID);
   CFDictionarySetValue(v5, @"name", @"id");
-  CFDictionarySetValue(v5, @"type", v6);
-  CFDictionarySetValue(v5, @"address", v8);
-  CFDictionarySetValue(v5, @"semantic", v7);
+  CFDictionarySetValue(v5, @"type", v7);
+  CFDictionarySetValue(v5, @"address", v9);
+  CFDictionarySetValue(v5, @"semantic", v8);
   CFArrayAppendValue(Mutable, v5);
-  CFRelease(v7);
-  CFRelease(v5);
   CFRelease(v8);
-  CFRelease(v6);
-  v9 = CFDictionaryCreateMutable(0, 4, v3, v4);
-  valuePtr = 0x500000001;
-  ID = C3DEntityGetName(a1);
-  v10 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr + 4);
-  v11 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
-  v12 = CFNumberCreate(0, kCFNumberLongType, &ID);
-  CFDictionarySetValue(v9, @"name", @"name");
-  CFDictionarySetValue(v9, @"type", v10);
-  CFDictionarySetValue(v9, @"address", v12);
-  CFDictionarySetValue(v9, @"semantic", v11);
-  CFArrayAppendValue(Mutable, v9);
-  CFRelease(v11);
+  CFRelease(v5);
   CFRelease(v9);
-  CFRelease(v12);
-  CFRelease(v10);
-  v13 = CFDictionaryCreateMutable(0, 4, v3, v4);
+  CFRelease(v7);
+  v10 = CFDictionaryCreateMutable(0, 4, v3, v4);
   valuePtr = 0x500000001;
-  ID = C3DEntityGetAttributes(a1);
-  v14 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr + 4);
-  v15 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
-  v16 = CFNumberCreate(0, kCFNumberLongType, &ID);
-  CFDictionarySetValue(v13, @"name", @"attributes");
-  CFDictionarySetValue(v13, @"type", v14);
-  CFDictionarySetValue(v13, @"address", v16);
-  CFDictionarySetValue(v13, @"semantic", v15);
-  CFArrayAppendValue(Mutable, v13);
-  CFRelease(v15);
+  ID = C3DEntityGetName(a1, v11);
+  v12 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr + 4);
+  v13 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
+  v14 = CFNumberCreate(0, kCFNumberLongType, &ID);
+  CFDictionarySetValue(v10, @"name", @"name");
+  CFDictionarySetValue(v10, @"type", v12);
+  CFDictionarySetValue(v10, @"address", v14);
+  CFDictionarySetValue(v10, @"semantic", v13);
+  CFArrayAppendValue(Mutable, v10);
   CFRelease(v13);
-  CFRelease(v16);
+  CFRelease(v10);
   CFRelease(v14);
-  v17 = MEMORY[0x277CBF138];
-  v18 = CFDictionaryCreateMutable(0, 4, MEMORY[0x277CBF138], v4);
+  CFRelease(v12);
+  v15 = CFDictionaryCreateMutable(0, 4, v3, v4);
+  valuePtr = 0x500000001;
+  ID = C3DEntityGetAttributes(a1, v16);
+  v17 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr + 4);
+  v18 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
+  v19 = CFNumberCreate(0, kCFNumberLongType, &ID);
+  CFDictionarySetValue(v15, @"name", @"attributes");
+  CFDictionarySetValue(v15, @"type", v17);
+  CFDictionarySetValue(v15, @"address", v19);
+  CFDictionarySetValue(v15, @"semantic", v18);
+  CFArrayAppendValue(Mutable, v15);
+  CFRelease(v18);
+  CFRelease(v15);
+  CFRelease(v19);
+  CFRelease(v17);
+  v20 = MEMORY[0x277CBF138];
+  v21 = CFDictionaryCreateMutable(0, 4, MEMORY[0x277CBF138], v4);
   valuePtr = 0xB00000000;
   ID = a1 + 96;
-  v19 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr + 4);
-  v20 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
-  v21 = CFNumberCreate(0, kCFNumberLongType, &ID);
-  CFDictionarySetValue(v18, @"name", @"transforms");
-  CFDictionarySetValue(v18, @"type", v19);
-  CFDictionarySetValue(v18, @"address", v21);
-  CFDictionarySetValue(v18, @"semantic", v20);
-  CFArrayAppendValue(Mutable, v18);
-  CFRelease(v20);
-  CFRelease(v18);
+  v22 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr + 4);
+  v23 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
+  v24 = CFNumberCreate(0, kCFNumberLongType, &ID);
+  CFDictionarySetValue(v21, @"name", @"transforms");
+  CFDictionarySetValue(v21, @"type", v22);
+  CFDictionarySetValue(v21, @"address", v24);
+  CFDictionarySetValue(v21, @"semantic", v23);
+  CFArrayAppendValue(Mutable, v21);
+  CFRelease(v23);
   CFRelease(v21);
-  CFRelease(v19);
-  v22 = CFDictionaryCreateMutable(0, 4, v17, MEMORY[0x277CBF150]);
-  valuePtr = 0x500000002;
-  ID = a1 + 72;
-  v23 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr + 4);
-  v24 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
-  v25 = CFNumberCreate(0, kCFNumberLongType, &ID);
-  CFDictionarySetValue(v22, @"name", @"firstChild");
-  CFDictionarySetValue(v22, @"type", v23);
-  CFDictionarySetValue(v22, @"address", v25);
-  CFDictionarySetValue(v22, @"semantic", v24);
-  CFArrayAppendValue(Mutable, v22);
   CFRelease(v24);
   CFRelease(v22);
-  CFRelease(v25);
-  CFRelease(v23);
-  v26 = CFDictionaryCreateMutable(0, 4, v17, MEMORY[0x277CBF150]);
+  v25 = CFDictionaryCreateMutable(0, 4, v20, MEMORY[0x277CBF150]);
   valuePtr = 0x500000002;
-  ID = a1 + 80;
-  v27 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr + 4);
-  v28 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
-  v29 = CFNumberCreate(0, kCFNumberLongType, &ID);
-  CFDictionarySetValue(v26, @"name", @"nextSibling");
-  CFDictionarySetValue(v26, @"type", v27);
-  CFDictionarySetValue(v26, @"address", v29);
-  CFDictionarySetValue(v26, @"semantic", v28);
-  CFArrayAppendValue(Mutable, v26);
+  ID = a1 + 72;
+  v26 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr + 4);
+  v27 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
+  v28 = CFNumberCreate(0, kCFNumberLongType, &ID);
+  CFDictionarySetValue(v25, @"name", @"firstChild");
+  CFDictionarySetValue(v25, @"type", v26);
+  CFDictionarySetValue(v25, @"address", v28);
+  CFDictionarySetValue(v25, @"semantic", v27);
+  CFArrayAppendValue(Mutable, v25);
+  CFRelease(v27);
+  CFRelease(v25);
   CFRelease(v28);
   CFRelease(v26);
+  v29 = CFDictionaryCreateMutable(0, 4, v20, MEMORY[0x277CBF150]);
+  valuePtr = 0x500000002;
+  ID = a1 + 80;
+  v30 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr + 4);
+  v31 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
+  v32 = CFNumberCreate(0, kCFNumberLongType, &ID);
+  CFDictionarySetValue(v29, @"name", @"nextSibling");
+  CFDictionarySetValue(v29, @"type", v30);
+  CFDictionarySetValue(v29, @"address", v32);
+  CFDictionarySetValue(v29, @"semantic", v31);
+  CFArrayAppendValue(Mutable, v29);
+  CFRelease(v31);
   CFRelease(v29);
-  CFRelease(v27);
-  v30 = CFDictionaryCreateMutable(0, 4, v17, MEMORY[0x277CBF150]);
-  valuePtr = 0x100000000;
-  ID = a1 + 204;
-  v31 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr + 4);
-  v32 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
-  v33 = CFNumberCreate(0, kCFNumberLongType, &ID);
-  CFDictionarySetValue(v30, @"name", @"opacity");
-  CFDictionarySetValue(v30, @"type", v31);
-  CFDictionarySetValue(v30, @"address", v33);
-  CFDictionarySetValue(v30, @"semantic", v32);
-  CFArrayAppendValue(Mutable, v30);
   CFRelease(v32);
   CFRelease(v30);
+  v33 = CFDictionaryCreateMutable(0, 4, v20, MEMORY[0x277CBF150]);
+  valuePtr = 0x100000000;
+  ID = a1 + 204;
+  v34 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr + 4);
+  v35 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
+  v36 = CFNumberCreate(0, kCFNumberLongType, &ID);
+  CFDictionarySetValue(v33, @"name", @"opacity");
+  CFDictionarySetValue(v33, @"type", v34);
+  CFDictionarySetValue(v33, @"address", v36);
+  CFDictionarySetValue(v33, @"semantic", v35);
+  CFArrayAppendValue(Mutable, v33);
+  CFRelease(v35);
   CFRelease(v33);
-  CFRelease(v31);
-  v34 = CFDictionaryCreateMutable(0, 4, v17, MEMORY[0x277CBF150]);
-  valuePtr = 0x300000000;
-  ID = a1 + 200;
-  v35 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr + 4);
-  v36 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
-  v37 = CFNumberCreate(0, kCFNumberLongType, &ID);
-  CFDictionarySetValue(v34, @"name", @"hidden");
-  CFDictionarySetValue(v34, @"type", v35);
-  CFDictionarySetValue(v34, @"address", v37);
-  CFDictionarySetValue(v34, @"semantic", v36);
-  CFArrayAppendValue(Mutable, v34);
   CFRelease(v36);
   CFRelease(v34);
+  v37 = CFDictionaryCreateMutable(0, 4, v20, MEMORY[0x277CBF150]);
+  valuePtr = 0x300000000;
+  ID = a1 + 200;
+  v38 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr + 4);
+  v39 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
+  v40 = CFNumberCreate(0, kCFNumberLongType, &ID);
+  CFDictionarySetValue(v37, @"name", @"hidden");
+  CFDictionarySetValue(v37, @"type", v38);
+  CFDictionarySetValue(v37, @"address", v40);
+  CFDictionarySetValue(v37, @"semantic", v39);
+  CFArrayAppendValue(Mutable, v37);
+  CFRelease(v39);
   CFRelease(v37);
-  CFRelease(v35);
-  v38 = CFDictionaryCreateMutable(0, 4, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-  ID = a1 + 64;
-  valuePtr = 0;
-  v39 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr + 4);
-  v40 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
-  v41 = CFNumberCreate(0, kCFNumberLongType, &ID);
-  CFDictionarySetValue(v38, @"name", @"parent");
-  CFDictionarySetValue(v38, @"type", v39);
-  CFDictionarySetValue(v38, @"address", v41);
-  CFDictionarySetValue(v38, @"semantic", v40);
-  CFArrayAppendValue(Mutable, v38);
   CFRelease(v40);
   CFRelease(v38);
+  v41 = CFDictionaryCreateMutable(0, 4, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+  ID = a1 + 64;
+  valuePtr = 0;
+  v42 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr + 4);
+  v43 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
+  v44 = CFNumberCreate(0, kCFNumberLongType, &ID);
+  CFDictionarySetValue(v41, @"name", @"parent");
+  CFDictionarySetValue(v41, @"type", v42);
+  CFDictionarySetValue(v41, @"address", v44);
+  CFDictionarySetValue(v41, @"semantic", v43);
+  CFArrayAppendValue(Mutable, v41);
+  CFRelease(v43);
   CFRelease(v41);
-  CFRelease(v39);
-  v42 = CFDictionaryCreateMutable(0, 4, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-  valuePtr = 0x500000002;
-  ID = a1 + 240;
-  v43 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr + 4);
-  v44 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
-  v45 = CFNumberCreate(0, kCFNumberLongType, &ID);
-  CFDictionarySetValue(v42, @"name", @"geometry");
-  CFDictionarySetValue(v42, @"type", v43);
-  CFDictionarySetValue(v42, @"address", v45);
-  CFDictionarySetValue(v42, @"semantic", v44);
-  CFArrayAppendValue(Mutable, v42);
   CFRelease(v44);
   CFRelease(v42);
+  v45 = CFDictionaryCreateMutable(0, 4, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+  valuePtr = 0x500000002;
+  ID = a1 + 240;
+  v46 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr + 4);
+  v47 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
+  v48 = CFNumberCreate(0, kCFNumberLongType, &ID);
+  CFDictionarySetValue(v45, @"name", @"geometry");
+  CFDictionarySetValue(v45, @"type", v46);
+  CFDictionarySetValue(v45, @"address", v48);
+  CFDictionarySetValue(v45, @"semantic", v47);
+  CFArrayAppendValue(Mutable, v45);
+  CFRelease(v47);
   CFRelease(v45);
-  CFRelease(v43);
-  v46 = CFDictionaryCreateMutable(0, 4, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-  valuePtr = 0x200000000;
-  ID = a1 + 208;
-  v47 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr + 4);
-  v48 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
-  v49 = CFNumberCreate(0, kCFNumberLongType, &ID);
-  CFDictionarySetValue(v46, @"name", @"categoryBitMask");
-  CFDictionarySetValue(v46, @"type", v47);
-  CFDictionarySetValue(v46, @"address", v49);
-  CFDictionarySetValue(v46, @"semantic", v48);
-  CFArrayAppendValue(Mutable, v46);
   CFRelease(v48);
   CFRelease(v46);
+  v49 = CFDictionaryCreateMutable(0, 4, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+  valuePtr = 0x200000000;
+  ID = a1 + 208;
+  v50 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr + 4);
+  v51 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
+  v52 = CFNumberCreate(0, kCFNumberLongType, &ID);
+  CFDictionarySetValue(v49, @"name", @"categoryBitMask");
+  CFDictionarySetValue(v49, @"type", v50);
+  CFDictionarySetValue(v49, @"address", v52);
+  CFDictionarySetValue(v49, @"semantic", v51);
+  CFArrayAppendValue(Mutable, v49);
+  CFRelease(v51);
   CFRelease(v49);
-  CFRelease(v47);
-  if (C3DNodeGetMorpher(a1))
-  {
-    v50 = CFDictionaryCreateMutable(0, 4, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-    valuePtr = 0x500000001;
-    ID = C3DNodeGetMorpher(a1);
-    v51 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr + 4);
-    v52 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
-    v53 = CFNumberCreate(0, kCFNumberLongType, &ID);
-    CFDictionarySetValue(v50, @"name", @"morpher");
-    CFDictionarySetValue(v50, @"type", v51);
-    CFDictionarySetValue(v50, @"address", v53);
-    CFDictionarySetValue(v50, @"semantic", v52);
-    CFArrayAppendValue(Mutable, v50);
-    CFRelease(v52);
-    CFRelease(v50);
-    CFRelease(v53);
-    CFRelease(v51);
-  }
-
-  v54 = *(a1 + 248);
-  if (v54 && C3DDeformerStackGetSkinner(v54))
+  CFRelease(v52);
+  CFRelease(v50);
+  if (C3DNodeGetMorpher(a1, v53))
   {
     v55 = CFDictionaryCreateMutable(0, 4, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
     valuePtr = 0x500000001;
-    Skinner = *(a1 + 248);
-    if (Skinner)
-    {
-      Skinner = C3DDeformerStackGetSkinner(Skinner);
-    }
-
-    ID = Skinner;
+    ID = C3DNodeGetMorpher(a1, v56);
     v57 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr + 4);
     v58 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
     v59 = CFNumberCreate(0, kCFNumberLongType, &ID);
-    CFDictionarySetValue(v55, @"name", @"skinner");
+    CFDictionarySetValue(v55, @"name", @"morpher");
     CFDictionarySetValue(v55, @"type", v57);
     CFDictionarySetValue(v55, @"address", v59);
     CFDictionarySetValue(v55, @"semantic", v58);
@@ -8388,6 +9235,32 @@ __CFArray *_C3DNodeCopyInstanceVariables(uint64_t a1)
     CFRelease(v55);
     CFRelease(v59);
     CFRelease(v57);
+  }
+
+  v60 = *(a1 + 248);
+  if (v60 && C3DDeformerStackGetSkinner(v60, v54))
+  {
+    v62 = CFDictionaryCreateMutable(0, 4, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+    valuePtr = 0x500000001;
+    Skinner = *(a1 + 248);
+    if (Skinner)
+    {
+      Skinner = C3DDeformerStackGetSkinner(Skinner, v61);
+    }
+
+    ID = Skinner;
+    v64 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr + 4);
+    v65 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
+    v66 = CFNumberCreate(0, kCFNumberLongType, &ID);
+    CFDictionarySetValue(v62, @"name", @"skinner");
+    CFDictionarySetValue(v62, @"type", v64);
+    CFDictionarySetValue(v62, @"address", v66);
+    CFDictionarySetValue(v62, @"semantic", v65);
+    CFArrayAppendValue(Mutable, v62);
+    CFRelease(v65);
+    CFRelease(v62);
+    CFRelease(v66);
+    CFRelease(v64);
   }
 
   return Mutable;
@@ -8424,20 +9297,20 @@ LABEL_3:
   return 0;
 }
 
-uint64_t _C3DNodeGetBoundingSphere(float32x4_t *a1, uint64_t a2, float32x4_t *a3)
+uint64_t _C3DNodeGetBoundingSphere(uint64_t a1, uint64_t a2, float32x4_t *a3)
 {
   if (!a3)
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(a1, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      _C3DNodeGetBoundingSphere_cold_1(v6, v7, v8, v9, v10, v11, v12, v13);
+      _C3DNodeGetBoundingSphere_cold_1(v6, a2, v7, v8, v9, v10, v11, v12);
     }
   }
 
-  v34 = 0uLL;
-  v33 = 0uLL;
-  Geometry = C3DNodeGetGeometry(a1);
+  v36 = 0uLL;
+  v35 = 0uLL;
+  Geometry = C3DNodeGetGeometry(a1, a2);
   if (!Geometry)
   {
 LABEL_8:
@@ -8449,30 +9322,30 @@ LABEL_8:
     goto LABEL_11;
   }
 
-  v15 = a1[15].i64[1];
+  v15 = *(a1 + 248);
   if (v15)
   {
-    Skinner = C3DDeformerStackGetSkinner(v15);
+    Skinner = C3DDeformerStackGetSkinner(v15, v13);
     if (Skinner)
     {
-      v29 = 0u;
-      v30 = 0u;
-      LOBYTE(Geometry) = C3DSkinnerGetBoundingBox(Skinner, a1, &v29);
-      v17 = v29;
-      v17.i32[3] = vmaxvq_f32(v30);
-      v34 = v17;
+      v31 = 0u;
+      v32 = 0u;
+      LOBYTE(Geometry) = C3DSkinnerGetBoundingBox(Skinner, a1, &v31);
+      v17 = v31;
+      v17.i32[3] = vmaxvq_f32(v32);
+      v36 = v17;
       goto LABEL_8;
     }
   }
 
-  LOBYTE(Geometry) = C3DGetBoundingSphere(Geometry, a2, &v34);
+  LOBYTE(Geometry) = C3DGetBoundingSphere(Geometry, a2, &v36);
   if (!a2)
   {
     goto LABEL_27;
   }
 
 LABEL_11:
-  v18 = a1[4].i64[1];
+  v18 = *(a1 + 72);
   if (v18)
   {
     LODWORD(v19) = 0;
@@ -8487,7 +9360,7 @@ LABEL_11:
     {
       for (i = 0; i != v19; ++i)
       {
-        v21 = a1[4].i64[1];
+        v21 = *(a1 + 72);
         if (i && v21)
         {
           v22 = 1;
@@ -8505,23 +9378,23 @@ LABEL_11:
           while (v21);
         }
 
-        if (C3DGetBoundingSphere(v21, 1, &v33))
+        if (C3DGetBoundingSphere(v21, 1, &v35))
         {
+          v33 = 0u;
+          v34 = 0u;
           v31 = 0u;
           v32 = 0u;
-          v29 = 0u;
-          v30 = 0u;
-          C3DNodeGetMatrix(v21, &v29);
-          Scale = C3DTransformGetScale(v21 + 6);
-          *&v24 = C3DTransformBoundingSphere(&v33, &v29, &v33, Scale).n128_u64[0];
+          C3DNodeGetMatrix(v21, v23, &v31);
+          Scale = C3DTransformGetScale(v21 + 6, v24);
+          *&v26 = C3DTransformBoundingSphere(&v35, &v31, &v35, Scale).n128_u64[0];
           if (Geometry)
           {
-            C3DSphereMakeByMergingSpheres(&v34, &v33, &v34, v24, v25, v26, v27);
+            C3DSphereMakeByMergingSpheres(&v36, &v35, &v36, v26, v27, v28, v29);
           }
 
           else
           {
-            v34 = v33;
+            v36 = v35;
           }
 
           LOBYTE(Geometry) = 1;
@@ -8536,21 +9409,21 @@ LABEL_27:
     return 0;
   }
 
-  *a3 = v34;
+  *a3 = v36;
   return 1;
 }
 
-void _C3DNodeSetValue(uint64_t a1, __n128 *__dst, unsigned __int32 *__src, size_t __n, int a5, unsigned int a6, __n128 a7)
+void _C3DNodeSetValue(void **a1, void **__dst, unsigned __int32 *__src, size_t __n, uint64_t a5, uint64_t a6, __n128 a7)
 {
-  v8 = (a1 + 96);
+  v8 = a1 + 12;
   if (v8 == __dst)
   {
     C3DTransformSetValue(v8, __src, __n, a5, a6, a7);
 
-    __C3DNodeTransformDidChange(a1);
+    __C3DNodeTransformDidChange(a1, v9);
   }
 
-  else if (*(a1 + 192) == __dst)
+  else if (a1[24] == __dst)
   {
 
     C3DNodeSetPivotMatrix(a1, __src);
@@ -8558,16 +9431,16 @@ void _C3DNodeSetValue(uint64_t a1, __n128 *__dst, unsigned __int32 *__src, size_
 
   else if ((a1 + 204) == __dst)
   {
-    v9 = *__src;
-
-    C3DNodeSetOpacity(a1, *&v9);
-  }
-
-  else if ((a1 + 200) == __dst)
-  {
     v10 = *__src;
 
-    C3DNodeSetHidden(a1, v10);
+    C3DNodeSetOpacity(a1, __dst, v10);
+  }
+
+  else if (a1 + 25 == __dst)
+  {
+    v11 = *__src;
+
+    C3DNodeSetHidden(a1, v11);
   }
 
   else
@@ -8579,7 +9452,7 @@ void _C3DNodeSetValue(uint64_t a1, __n128 *__dst, unsigned __int32 *__src, size_
 
 void _C3DNodeGetValue(uint64_t a1, const void *a2, void *__dst, size_t __n, int a5, unsigned int a6)
 {
-  v6 = a1 + 96;
+  v6 = (a1 + 96);
   if (v6 == a2)
   {
     C3DTransformGetValue(v6, __dst, __n, a5, a6);
@@ -8593,81 +9466,82 @@ void _C3DNodeGetValue(uint64_t a1, const void *a2, void *__dst, size_t __n, int 
 
 uint64_t _C3DNodeEnumerateSubEntities(void *a1, void (**a2)(void))
 {
-  Attributes = C3DEntityGetAttributes(a1);
+  Attributes = C3DEntityGetAttributes(a1, a2);
   if (Attributes)
   {
     CFDictionaryApplyFunction(Attributes, _C3DNodeEnumerateAttributeEntities, a2);
   }
 
-  if (a1[30])
+  v5 = a1[30];
+  if (v5)
   {
     a2[2](a2);
   }
 
-  Morpher = C3DNodeGetMorpher(a1);
+  Morpher = C3DNodeGetMorpher(a1, v5);
   if (Morpher)
   {
     (a2[2])(a2, Morpher);
   }
 
-  v6 = a1[31];
-  if (v6)
+  v8 = a1[31];
+  if (v8)
   {
-    Skinner = C3DDeformerStackGetSkinner(v6);
+    Skinner = C3DDeformerStackGetSkinner(v8, v7);
     if (Skinner)
     {
       (a2[2])(a2, Skinner);
     }
   }
 
-  ParticleSystems = C3DNodeGetParticleSystems(a1);
+  ParticleSystems = C3DNodeGetParticleSystems(a1, v7);
   if (ParticleSystems)
   {
-    v9 = ParticleSystems;
+    v12 = ParticleSystems;
     Count = CFArrayGetCount(ParticleSystems);
     if (Count >= 1)
     {
-      v11 = Count;
-      for (i = 0; i != v11; ++i)
+      v14 = Count;
+      for (i = 0; i != v14; ++i)
       {
-        ValueAtIndex = CFArrayGetValueAtIndex(v9, i);
+        ValueAtIndex = CFArrayGetValueAtIndex(v12, i);
         (a2[2])(a2, ValueAtIndex);
       }
     }
   }
 
-  result = C3DNodeGetConstraints(a1);
+  result = C3DNodeGetConstraints(a1, v11);
   if (result)
   {
-    v15 = result;
+    v18 = result;
     result = CFArrayGetCount(result);
     if (result >= 1)
     {
-      v16 = result;
-      for (j = 0; j != v16; ++j)
+      v19 = result;
+      for (j = 0; j != v19; ++j)
       {
-        v18 = CFArrayGetValueAtIndex(v15, j);
-        result = (a2[2])(a2, v18);
+        v21 = CFArrayGetValueAtIndex(v18, j);
+        result = (a2[2])(a2, v21);
       }
     }
   }
 
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 0x40000000;
-  v22 = ___C3DNodeEnumerateSubEntities_block_invoke;
-  v23 = &unk_2782FE6F0;
-  v24 = a2;
-  v19 = a1[9];
-  if (v19)
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 0x40000000;
+  v25 = ___C3DNodeEnumerateSubEntities_block_invoke;
+  v26 = &unk_2782FE6F0;
+  v27 = a2;
+  v22 = a1[9];
+  if (v22)
   {
-    v20 = 0;
+    v23 = 0;
     do
     {
-      result = (v22)(v21, v19, v20++);
-      v19 = *(v19 + 80);
+      result = (v25)(v24, v22, v23++);
+      v22 = *(v22 + 80);
     }
 
-    while (v19);
+    while (v22);
   }
 
   return result;
@@ -8675,7 +9549,7 @@ uint64_t _C3DNodeEnumerateSubEntities(void *a1, void (**a2)(void))
 
 void _C3DNodeWasAddedToScene(uint64_t a1, uint64_t a2)
 {
-  TransformTree = C3DSceneGetTransformTree(a2);
+  TransformTree = C3DSceneGetTransformTree(a2, a2);
   v5 = *(a1 + 64);
   if (v5)
   {
@@ -8697,7 +9571,7 @@ void _C3DNodeWillRemoveFromScene(uint64_t a1, uint64_t a2)
   C3DSceneNodeWillBeRemoved(a2, a1);
   if (*(a1 + 88) != -1)
   {
-    TransformTree = C3DSceneGetTransformTree(a2);
+    TransformTree = C3DSceneGetTransformTree(a2, v4);
     if (TransformTree)
     {
       C3DTransformTreeRemoveNode(TransformTree, *(a1 + 88));
@@ -8708,7 +9582,7 @@ void _C3DNodeWillRemoveFromScene(uint64_t a1, uint64_t a2)
 
   if (*(a1 + 216) != -1)
   {
-    CullingSystem = C3DSceneGetCullingSystem(a2);
+    CullingSystem = C3DSceneGetCullingSystem(a2, v4);
     if (CullingSystem)
     {
       C3DCullingSystemRemove(CullingSystem, *(a1 + 216));
@@ -8718,898 +9592,25 @@ void _C3DNodeWillRemoveFromScene(uint64_t a1, uint64_t a2)
   }
 }
 
-void _C3DNodeFinalizeAddToScene(float32x4_t *a1)
+void _C3DNodeFinalizeAddToScene(uint64_t a1, uint64_t a2)
 {
-  if (!a1[4].i64[0])
+  if (!*(a1 + 64))
   {
     __UpdateNodeVisibilityIfNeeded(a1, 1);
   }
 
-  v2 = a1[15].i64[1];
-  if (v2)
+  v3 = *(a1 + 248);
+  if (v3)
   {
-    Skinner = C3DDeformerStackGetSkinner(v2);
+    Skinner = C3DDeformerStackGetSkinner(v3, a2);
     if (Skinner)
     {
-      v4 = Skinner;
+      v5 = Skinner;
       if (C3DGeometryGetOverrideMaterial(Skinner))
       {
 
-        C3DSkinnerUpdateJointsAndBoundingBox(v4, a1);
+        C3DSkinnerUpdateJointsAndBoundingBox(v5, a1);
       }
     }
   }
-}
-
-const void *_C3DNodeEnumerateAttributeEntities(uint64_t a1, const void *a2, uint64_t a3)
-{
-  result = CFTypeIsC3DEntity(a2);
-  if (result)
-  {
-    v6 = *(a3 + 16);
-
-    return v6(a3, a2);
-  }
-
-  return result;
-}
-
-uint64_t _C3DNodeSearchByID(uint64_t a1, const void *a2)
-{
-  v3 = a1;
-  ID = C3DEntityGetID(a1);
-  if (!C3DEqual(ID, a2))
-  {
-    Name = C3DEntityGetName(v3);
-    if (!Name || !C3DEqual(Name, a2))
-    {
-      Geometry = C3DNodeGetGeometry(v3);
-      v7 = C3DSearchByID(Geometry, a2);
-      if (v7)
-      {
-        return v7;
-      }
-
-      Light = C3DNodeGetLight(v3);
-      v7 = C3DSearchByID(Light, a2);
-      if (v7)
-      {
-        return v7;
-      }
-
-      Morpher = C3DNodeGetMorpher(v3);
-      v7 = C3DSearchByID(Morpher, a2);
-      if (v7)
-      {
-        return v7;
-      }
-
-      Skinner = *(v3 + 248);
-      if (Skinner)
-      {
-        Skinner = C3DDeformerStackGetSkinner(Skinner);
-      }
-
-      v7 = C3DSearchByID(Skinner, a2);
-      if (v7)
-      {
-        return v7;
-      }
-
-      Floor = C3DNodeGetFloor(v3);
-      v7 = C3DSearchByID(Floor, a2);
-      if (v7)
-      {
-        return v7;
-      }
-
-      Camera = C3DNodeGetCamera(v3);
-      v7 = C3DSearchByID(Camera, a2);
-      if (v7)
-      {
-        return v7;
-      }
-
-      else
-      {
-        v15 = 0;
-        v16 = &v15;
-        v17 = 0x2000000000;
-        v18 = 0;
-        v14[0] = MEMORY[0x277D85DD0];
-        v14[1] = 0x40000000;
-        v14[2] = ___C3DNodeSearchByID_block_invoke;
-        v14[3] = &unk_2782FE718;
-        v14[4] = &v15;
-        v14[5] = a2;
-        C3DNodeApplyChildrenInterruptible(v3, v14);
-        v3 = v16[3];
-        _Block_object_dispose(&v15, 8);
-      }
-    }
-  }
-
-  return v3;
-}
-
-void SCNCActionFade::~SCNCActionFade(SCNCActionFade *this)
-{
-  SCNCAction::~SCNCAction(this);
-
-  JUMPOUT(0x21CF07610);
-}
-
-SCNCAction *SCNCActionFade::cpp_updateWithTargetForTime(SCNCActionFade *this, SCNNode *a2, double a3)
-{
-  v6 = SCNCAction::cpp_ratioForTime(this, a3, a2);
-  if (this->var22)
-  {
-    [(SCNNode *)a2 opacity];
-    *&v7 = v7;
-    v8 = this->var19 * v6;
-    result = [(SCNNode *)a2 setOpacity:(v8 + (*&v7 - this->var21))];
-    this->var21 = v8;
-  }
-
-  else
-  {
-    result = [(SCNNode *)a2 setOpacity:((this->var19 * v6) + (this->var21 * (1.0 - v6)))];
-  }
-
-  if ((COERCE_UNSIGNED_INT(v6 + -1.0) & 0x60000000) == 0)
-  {
-    v10.n128_f64[0] = a3;
-
-    return SCNCAction::didFinishWithTargetAtTime(this, a2, v10);
-  }
-
-  return result;
-}
-
-SCNCAction *SCNCActionFade::cpp_willStartWithTargetAtTime(SCNCActionFade *this, SCNNode *a2, double a3)
-{
-  result = SCNCAction::cpp_willStartWithTargetAtTime(this, a2, a3);
-  v6 = 0.0;
-  if (!this->var22)
-  {
-    result = [(SCNNode *)a2 opacity];
-    v6 = v7;
-  }
-
-  this->var21 = v6;
-  return result;
-}
-
-void __C3DMeshInvalidateRenderableData(uint64_t a1)
-{
-  v2 = *(a1 + 144);
-  if (v2)
-  {
-    CFRelease(v2);
-    *(a1 + 144) = 0;
-  }
-
-  v3 = *(a1 + 112);
-  if (v3)
-  {
-    v4 = a1 + 121;
-    v5 = 9;
-    do
-    {
-      *(v4 - 1) = 255;
-      v4 += 2;
-      --v5;
-    }
-
-    while (v5);
-    CFRelease(v3);
-    *(a1 + 112) = 0;
-  }
-}
-
-void __BuildRenderableSourceChannelsAndSemanticInfos(uint64_t a1)
-{
-  v2 = a1 + 112;
-  Count = CFArrayGetCount(*(a1 + 112));
-  free(*(a1 + 152));
-  *(a1 + 152) = malloc_type_calloc(Count, 1uLL, 0x100004077774924uLL);
-
-  __BuildSemanticInfosForData(a1, v2);
-}
-
-void __BuildSemanticInfosForData(uint64_t a1, uint64_t a2)
-{
-  v4 = 0;
-  *&v34[5] = *MEMORY[0x277D85DE8];
-  v5 = a2 + 8;
-  do
-  {
-    *(a2 + v4 + 8) = 255;
-    v4 += 2;
-  }
-
-  while (v4 != 18);
-  *(a1 + 200) &= ~0x80u;
-  Count = CFArrayGetCount(*a2);
-  if (Count >= 1)
-  {
-    v7 = Count;
-    v8 = 0;
-    v9 = -1;
-    do
-    {
-      ValueAtIndex = CFArrayGetValueAtIndex(*a2, v8);
-      Semantic = C3DMeshSourceGetSemantic(ValueAtIndex);
-      v12 = Semantic;
-      if (Semantic == v9)
-      {
-        if (!v9)
-        {
-          if (*(a2 + 9))
-          {
-            v13 = scn_default_log();
-            if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
-            {
-              __BuildSemanticInfosForData_cold_3(v33, v34, v13);
-            }
-          }
-        }
-
-        v14 = v5 + 2 * v9;
-        v15 = *(v14 + 1) + 1;
-        *(v14 + 1) = v15;
-        if (v9 != 3 && v15 >= 2u)
-        {
-          v16 = scn_default_log();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
-          {
-            Name = C3DEntityGetName(a1);
-            v18 = C3DMeshSourceSemanticToSemanticString(v9);
-            *buf = 138412546;
-            v30 = Name;
-            v31 = 2112;
-            v32 = v18;
-            _os_log_impl(&dword_21BEF7000, v16, OS_LOG_TYPE_DEFAULT, "Warning: Mesh '%@' : sources of redundant semantic '%@' will be ignored in rendering", buf, 0x16u);
-          }
-        }
-      }
-
-      else
-      {
-        if (Semantic <= v9)
-        {
-          v19 = scn_default_log();
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
-          {
-            __BuildSemanticInfosForData_cold_1(v27, &v28, v19);
-          }
-        }
-
-        v20 = (v5 + 2 * v12);
-        if (*v20 != 255)
-        {
-          v21 = scn_default_log();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
-          {
-            __BuildSemanticInfosForData_cold_2(v25, &v26, v21);
-          }
-        }
-
-        *v20 = v8;
-        v20[1] = 1;
-        v9 = v12;
-      }
-
-      if (v12 == 2)
-      {
-        HasNonOpaqueColors = C3DMeshSourceHasNonOpaqueColors(ValueAtIndex);
-        v23 = *(a1 + 200);
-        v24 = v23 & 0x80;
-        if (HasNonOpaqueColors)
-        {
-          v24 = 0x80;
-        }
-
-        *(a1 + 200) = v24 & 0x80 | v23 & 0x7F;
-      }
-
-      ++v8;
-    }
-
-    while (v7 != v8);
-  }
-}
-
-void *__DropOriginalTopology(uint64_t a1)
-{
-  if (!*(a1 + 112))
-  {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
-    {
-      __DropOriginalTopology_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
-    }
-  }
-
-  if (!*(a1 + 144))
-  {
-    v10 = scn_default_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
-    {
-      __DropOriginalTopology_cold_2(v10, v11, v12, v13, v14, v15, v16, v17);
-    }
-  }
-
-  v18 = *(a1 + 64);
-  v19 = *(a1 + 112);
-  if (v18 != v19)
-  {
-    if (v18)
-    {
-      CFRelease(*(a1 + 64));
-      *(a1 + 64) = 0;
-      v19 = *(a1 + 112);
-    }
-
-    if (v19)
-    {
-      v19 = CFRetain(v19);
-    }
-
-    *(a1 + 64) = v19;
-  }
-
-  v20 = *(a1 + 96);
-  v21 = *(a1 + 144);
-  if (v20 != v21)
-  {
-    if (v20)
-    {
-      CFRelease(*(a1 + 96));
-      *(a1 + 96) = 0;
-      v21 = *(a1 + 144);
-    }
-
-    if (v21)
-    {
-      v21 = CFRetain(v21);
-    }
-
-    *(a1 + 96) = v21;
-  }
-
-  *(a1 + 72) = *(a1 + 120);
-  *(a1 + 88) = *(a1 + 136);
-  Count = CFArrayGetCount(*(a1 + 112));
-  free(*(a1 + 104));
-  v23 = malloc_type_malloc(Count, 0x1B0F1610uLL);
-  *(a1 + 104) = v23;
-  return memcpy(v23, *(a1 + 152), Count);
-}
-
-void __UpdateSourcesMutability(uint64_t a1)
-{
-  *(a1 + 200) &= ~4u;
-  v1[0] = MEMORY[0x277D85DD0];
-  v1[1] = 0x40000000;
-  v1[2] = ____UpdateSourcesMutability_block_invoke;
-  v1[3] = &__block_descriptor_tmp_35;
-  v1[4] = a1;
-  C3DMeshApplySources(a1, 0, v1);
-}
-
-void C3DMeshApplySources(uint64_t a1, int a2, uint64_t a3)
-{
-  if (a2 == 1)
-  {
-    C3DMeshBuildRenderableData(a1, 1);
-    v5 = a1 + 112;
-  }
-
-  else if (a2)
-  {
-    v6 = scn_default_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-    {
-      C3DMeshApplySources_cold_1(v6, v7, v8, v9, v10, v11, v12, v13);
-    }
-
-    v5 = 0;
-  }
-
-  else
-  {
-    v5 = a1 + 64;
-  }
-
-  for (i = 0; i != 9; ++i)
-  {
-    v15 = (v5 + 8 + 2 * i);
-    v16 = *v15;
-    if (v16 != -1)
-    {
-      v17 = v15[1];
-      if (v15[1])
-      {
-        v18 = 0;
-        do
-        {
-          ValueAtIndex = CFArrayGetValueAtIndex(*v5, v16 + v18);
-          (*(a3 + 16))(a3, ValueAtIndex, i, v18, *(v16 + v18 + *(v5 + 40)));
-          ++v18;
-        }
-
-        while (v17 != v18);
-      }
-    }
-  }
-}
-
-uint64_t _C3DMeshFinalizeDeserialization(uint64_t a1, uint64_t a2, CFDictionaryRef theDict, CFErrorRef *a4)
-{
-  v52 = *MEMORY[0x277D85DE8];
-  v49 = 1;
-  if (!a1)
-  {
-    v8 = scn_default_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
-    {
-      C3DCreateTangentsWithGeometry_cold_1(v8, v9, v10, v11, v12, v13, v14, v15);
-    }
-  }
-
-  Value = CFDictionaryGetValue(theDict, @"sources");
-  if (!Value)
-  {
-    v28 = scn_default_log();
-    if (!os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_32;
-    }
-
-    _C3DMeshFinalizeDeserialization_cold_5(theDict, v28, v29, v30, v31, v32, v33, v34);
-    if (!a4)
-    {
-      return 0;
-    }
-
-    goto LABEL_33;
-  }
-
-  v17 = Value;
-  if (CFArrayGetCount(Value) < 1)
-  {
-    v19 = 1;
-LABEL_22:
-    v35 = CFDictionaryGetValue(theDict, @"primarySourcesInfo");
-    if (v35)
-    {
-      *&buf = a2;
-      *(&buf + 1) = &v49;
-      v51 = a4;
-      CFDictionaryApplyFunction(v35, __DeserializePrimarySource, &buf);
-      v19 = v49;
-      if (!v49)
-      {
-        v47 = scn_default_log();
-        if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
-        {
-          _C3DMeshFinalizeDeserialization_cold_2();
-        }
-
-        return 0;
-      }
-    }
-
-    if (v19 == 1 && (v36 = CFDictionaryGetValue(theDict, @"geometryElements")) != 0 && (v37 = v36, Count = CFArrayGetCount(v36), Count >= 1))
-    {
-      v39 = Count;
-      v40 = 0;
-      while (1)
-      {
-        ValueAtIndex = CFArrayGetValueAtIndex(v37, v40);
-        v42 = C3DMeshElementCreate();
-        v43 = C3DInitWithPropertyList(v42, ValueAtIndex, 0, a4);
-        v49 = v43;
-        if (!v43)
-        {
-          break;
-        }
-
-        C3DMeshAppendElement(a1, v42);
-        CFRelease(v42);
-        if (v39 == ++v40)
-        {
-          goto LABEL_30;
-        }
-      }
-
-      v48 = scn_default_log();
-      result = os_log_type_enabled(v48, OS_LOG_TYPE_ERROR);
-      if (result)
-      {
-        _C3DMeshFinalizeDeserialization_cold_3();
-        return 0;
-      }
-    }
-
-    else
-    {
-LABEL_30:
-      C3DMeshBuildRenderableData(a1, 1);
-      return v49;
-    }
-
-    return result;
-  }
-
-  v18 = 0;
-  v19 = 1;
-  while (1)
-  {
-    v20 = CFArrayGetValueAtIndex(v17, v18);
-    v21 = CFGetTypeID(v20);
-    if (v21 != CFNumberGetTypeID())
-    {
-      v24 = _C3DMeshSourceCreate();
-      v25 = CFArrayGetValueAtIndex(v17, v18);
-      v26 = C3DInitWithPropertyList(v24, v25, 0, a4);
-      v19 = v26;
-      v49 = v26;
-      if (v26)
-      {
-        __C3DMeshAddSourceWithDataKind(a1, v24, 0, 0, 0);
-      }
-
-      CFRelease(v24);
-      goto LABEL_14;
-    }
-
-    SourceWithID = __FindSourceWithID(a2, v20);
-    if (!SourceWithID)
-    {
-      break;
-    }
-
-    v23 = SourceWithID;
-    if ((C3DMeshSourceGetSemantic(SourceWithID) - 7) > 0xFDu)
-    {
-      v27 = scn_default_log();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
-      {
-        LODWORD(buf) = 138412290;
-        *(&buf + 4) = v23;
-        _os_log_impl(&dword_21BEF7000, v27, OS_LOG_TYPE_INFO, "Info: Mesh deserialization: Skipped a source that will be recreated at runtime : %@", &buf, 0xCu);
-      }
-    }
-
-    else
-    {
-      __C3DMeshAddSourceWithDataKind(a1, v23, 0, 0, 0);
-    }
-
-LABEL_14:
-    if (++v18 >= CFArrayGetCount(v17))
-    {
-      goto LABEL_22;
-    }
-  }
-
-  v45 = scn_default_log();
-  if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
-  {
-    _C3DMeshFinalizeDeserialization_cold_4();
-    if (!a4)
-    {
-      return 0;
-    }
-
-LABEL_33:
-    if (*a4)
-    {
-      return 0;
-    }
-
-    MalformedDocumentError = C3DSceneSourceCreateMalformedDocumentError(0);
-    result = 0;
-    *a4 = MalformedDocumentError;
-    return result;
-  }
-
-LABEL_32:
-  if (a4)
-  {
-    goto LABEL_33;
-  }
-
-  return 0;
-}
-
-void *__FindSourceWithID(uint64_t a1, CFNumberRef number)
-{
-  valuePtr = 0;
-  if (!CFNumberGetValue(number, kCFNumberIntType, &valuePtr))
-  {
-    return 0;
-  }
-
-  v3 = valuePtr;
-  TypeID = C3DMeshSourceGetTypeID();
-  result = C3DLibraryGetRemappedID(a1, v3, TypeID);
-  if (result)
-  {
-    v6 = result;
-    v7 = C3DMeshSourceGetTypeID();
-    return C3DLibraryGetEntry(a1, v7, v6);
-  }
-
-  return result;
-}
-
-void __DeserializePrimarySource(const __CFString *a1, CFDictionaryRef theDict, uint64_t *a3)
-{
-  *&v31[5] = *MEMORY[0x277D85DE8];
-  v5 = *a3;
-  v6 = a3[1];
-  v7 = a3[2];
-  Value = CFDictionaryGetValue(theDict, @"data");
-  v9 = CFDictionaryGetValue(theDict, @"subIDs");
-  IntValue = CFStringGetIntValue(a1);
-  TypeID = C3DMeshSourceGetTypeID();
-  RemappedID = C3DLibraryGetRemappedID(v5, IntValue, TypeID);
-  v13 = C3DMeshSourceGetTypeID();
-  Entry = C3DLibraryGetEntry(v5, v13, RemappedID);
-  if (Entry)
-  {
-    v15 = Entry;
-    theData = Value;
-    Count = CFArrayGetCount(v9);
-    Mutable = CFArrayCreateMutable(0, Count, MEMORY[0x277CBF128]);
-    v18 = CFArrayGetCount(v9);
-    if (v18 >= 1)
-    {
-      v19 = v18;
-      v20 = 0;
-      while (1)
-      {
-        ValueAtIndex = CFArrayGetValueAtIndex(v9, v20);
-        SourceWithID = __FindSourceWithID(v5, ValueAtIndex);
-        if (!SourceWithID)
-        {
-          break;
-        }
-
-        Accessor = C3DGenericSourceGetAccessor(SourceWithID);
-        if (C3DSceneSourceGetURL(Accessor) != v15)
-        {
-          v24 = scn_default_log();
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
-          {
-            __DeserializePrimarySource_cold_1(v30, v31, v24);
-          }
-        }
-
-        CFArrayAppendValue(Mutable, Accessor);
-        if (v19 == ++v20)
-        {
-          goto LABEL_9;
-        }
-      }
-
-      *v6 = 0;
-      if (v7 && !*v7)
-      {
-        *v7 = C3DSceneSourceCreateMalformedDocumentError(0);
-      }
-
-      v28 = scn_default_log();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
-      {
-        __DeserializePrimarySource_cold_2();
-        if (!Mutable)
-        {
-          return;
-        }
-      }
-
-      else if (!Mutable)
-      {
-        return;
-      }
-
-      v26 = Mutable;
-      goto LABEL_24;
-    }
-
-LABEL_9:
-    DeserializedDataWithAccessors = C3DGenericSourceCreateDeserializedDataWithAccessors(v15, theData, Mutable);
-    C3DGenericSourceSetData(v15, DeserializedDataWithAccessors);
-    if (Mutable)
-    {
-      CFRelease(Mutable);
-    }
-
-    if (DeserializedDataWithAccessors)
-    {
-      v26 = DeserializedDataWithAccessors;
-LABEL_24:
-      CFRelease(v26);
-    }
-  }
-
-  else
-  {
-    *v6 = 0;
-    if (v7 && !*v7)
-    {
-      *v7 = C3DSceneSourceCreateMalformedDocumentError(0);
-    }
-
-    v27 = scn_default_log();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
-    {
-      __DeserializePrimarySource_cold_3();
-    }
-  }
-}
-
-void C3DMeshAppendElement(uint64_t a1, const void *a2)
-{
-  if (!a1)
-  {
-    v4 = scn_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
-    {
-      C3DCreateTangentsWithGeometry_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
-    }
-  }
-
-  *(a1 + 200) &= ~2u;
-  __C3DMeshInvalidateRenderableData(a1);
-  CFArrayAppendValue(*(a1 + 96), a2);
-}
-
-uint64_t C3DMeshGetTypeID()
-{
-  if (C3DMeshGetTypeID_onceToken != -1)
-  {
-    C3DMeshGetTypeID_cold_1();
-  }
-
-  return C3DMeshGetTypeID_typeID;
-}
-
-double __C3DMeshGetTypeID_block_invoke()
-{
-  C3DMeshGetTypeID_typeID = _CFRuntimeRegisterClass();
-  unk_281740D70 = kC3DC3DMeshContextClassSerializable;
-  unk_281740D80 = *&off_282DC53E8;
-  qword_281740D28 = _C3DMeshCopyInstanceVariables;
-  result = *&kC3DC3DMeshContextClassSceneLink;
-  unk_281740D40 = kC3DC3DMeshContextClassSceneLink;
-  unk_281740D50 = unk_282DC5408;
-  qword_281740D60 = qword_282DC5418;
-  unk_281740D68 = _C3DMeshSearchByID;
-  return result;
-}
-
-uint64_t C3DMeshCreate()
-{
-  if (C3DMeshGetTypeID_onceToken != -1)
-  {
-    C3DMeshGetTypeID_cold_1();
-  }
-
-  Instance = C3DTypeCreateInstance_(C3DMeshGetTypeID_typeID, 208);
-  v1 = *MEMORY[0x277CBECE8];
-  v2 = MEMORY[0x277CBF128];
-  *(Instance + 64) = CFArrayCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF128]);
-  *(Instance + 96) = CFArrayCreateMutable(v1, 0, v2);
-  *(Instance + 112) = 0;
-  *(Instance + 144) = 0;
-  *(Instance + 200) = *(Instance + 200) & 0x87 | 0x18;
-  __BuildSemanticInfosForData(Instance, Instance + 64);
-  return Instance;
-}
-
-uint64_t C3DMeshCreateVolatile()
-{
-  result = C3DMeshCreate();
-  *(result + 200) |= 1u;
-  return result;
-}
-
-uint64_t C3DMeshCreateCopy(uint64_t a1)
-{
-  if (!a1)
-  {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
-    {
-      C3DGeometryCreateCopy_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
-    }
-  }
-
-  v10 = C3DMeshCreate();
-  __C3DMeshCopy(a1, v10, 0);
-  return v10;
-}
-
-void __C3DMeshCopy(uint64_t a1, uint64_t a2, int a3)
-{
-  if (!a1 && (v6 = scn_default_log(), os_log_type_enabled(v6, OS_LOG_TYPE_FAULT)))
-  {
-    C3DGeometryCopy_cold_1(v6, v7, v8, v9, v10, v11, v12, v13);
-    if (a2)
-    {
-      goto LABEL_6;
-    }
-  }
-
-  else if (a2)
-  {
-    goto LABEL_6;
-  }
-
-  v14 = scn_default_log();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
-  {
-    C3DGeometryCopy_cold_2(v14, v15, v16, v17, v18, v19, v20, v21);
-  }
-
-LABEL_6:
-  __C3DMeshCopySources(a1, a2, a3);
-  if (a3)
-  {
-    ElementsCount = C3DMeshGetElementsCount(a1);
-    Mutable = CFArrayCreateMutable(0, ElementsCount, MEMORY[0x277CBF128]);
-    if (ElementsCount >= 1)
-    {
-      for (i = 0; i != ElementsCount; ++i)
-      {
-        ElementAtIndex = C3DMeshGetElementAtIndex(a1, i, 0);
-        DeepCopy = C3DMeshElementCreateDeepCopy(ElementAtIndex);
-        CFArrayAppendValue(Mutable, DeepCopy);
-        CFRelease(DeepCopy);
-      }
-    }
-
-    C3DMeshSetMeshElements(a2, Mutable);
-    CFRelease(Mutable);
-  }
-
-  else
-  {
-    v27 = *(a2 + 96);
-    if (v27)
-    {
-      CFRelease(v27);
-      *(a2 + 96) = 0;
-    }
-
-    v28 = *(a2 + 144);
-    if (v28)
-    {
-      CFRelease(v28);
-      *(a2 + 144) = 0;
-    }
-
-    v29 = *MEMORY[0x277CBECE8];
-    *(a2 + 96) = CFArrayCreateMutableCopy(*MEMORY[0x277CBECE8], 0, *(a1 + 96));
-    v30 = *(a1 + 144);
-    if (v30)
-    {
-      MutableCopy = CFArrayCreateMutableCopy(v29, 0, v30);
-    }
-
-    else
-    {
-      MutableCopy = CFArrayCreateMutable(*MEMORY[0x277CBED00], 0, MEMORY[0x277CBF128]);
-    }
-
-    *(a2 + 144) = MutableCopy;
-  }
-
-  *(a2 + 200) = *(a2 + 200) & 0x87 | *(a1 + 200) & 0x78;
-  C3DEntityCopyTo(a1, a2);
 }

@@ -150,22 +150,22 @@ LABEL_5:
       type = [(UIApplicationShortcutItem *)v5 type];
       if (type == self->_type)
       {
-        v8 = 1;
+        isEqualToString = 1;
       }
 
       else
       {
         type2 = [(UIApplicationShortcutItem *)v5 type];
-        v8 = [type2 isEqualToString:self->_type];
+        isEqualToString = objc_msgSend_isEqualToString_(type2);
       }
 
       localizedTitle = [(UIApplicationShortcutItem *)v5 localizedTitle];
       if (localizedTitle != self->_localizedTitle)
       {
         localizedTitle2 = [(UIApplicationShortcutItem *)v5 localizedTitle];
-        if (![localizedTitle2 isEqualToString:self->_localizedTitle])
+        if (!objc_msgSend_isEqualToString_(localizedTitle2))
         {
-          v8 = 0;
+          isEqualToString = 0;
         }
       }
 
@@ -173,9 +173,9 @@ LABEL_5:
       if (localizedSubtitle != self->_localizedSubtitle)
       {
         localizedSubtitle2 = [(UIApplicationShortcutItem *)v5 localizedSubtitle];
-        if (![localizedSubtitle2 isEqualToString:self->_localizedSubtitle])
+        if (!objc_msgSend_isEqualToString_(localizedSubtitle2))
         {
-          v8 = 0;
+          isEqualToString = 0;
         }
       }
 
@@ -183,9 +183,9 @@ LABEL_5:
       if (icon != self->_icon)
       {
         icon2 = [(UIApplicationShortcutItem *)v5 icon];
-        if (![icon2 isEqual:self->_icon])
+        if (!objc_msgSend_isEqual_(icon2))
         {
-          v8 = 0;
+          isEqualToString = 0;
         }
       }
 
@@ -193,13 +193,13 @@ LABEL_5:
       if (userInfoData != self->_userInfoData)
       {
         userInfoData2 = [(UIApplicationShortcutItem *)v5 userInfoData];
-        if (![userInfoData2 isEqual:self->_userInfoData])
+        if (!objc_msgSend_isEqual_(userInfoData2))
         {
-          v8 = 0;
+          isEqualToString = 0;
         }
       }
 
-      v9 = [(UIApplicationShortcutItem *)v5 activationMode]== self->_activationMode && v8 != 0;
+      v9 = [(UIApplicationShortcutItem *)v5 activationMode]== self->_activationMode && isEqualToString != 0;
     }
 
     else

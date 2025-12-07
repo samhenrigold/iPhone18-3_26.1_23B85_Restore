@@ -402,11 +402,11 @@ LABEL_16:
         if (animationKeys)
         {
           name = [animateCopy name];
-          v18 = [name isEqualToString:0x1EFBBAB50];
+          isEqualToString = objc_msgSend_isEqualToString_(name);
 
           rangeView = [(UITextSelectionView *)self rangeView];
           interactionAssistant2 = rangeView;
-          if (v18)
+          if (isEqualToString)
           {
             [rangeView startAnimating];
           }
@@ -442,7 +442,7 @@ LABEL_17:
 
 - (void)_registerForViewAnimationNotificationsIfNecessary
 {
-  v3 = +[NSNotificationCenter uikitInternalCenter];
+  v3 = +[(NSNotificationCenter *)MEMORY[0x1E696AD88]];
   if (self->_viewDidStopNotification == -1)
   {
     v4 = v3;
@@ -460,7 +460,7 @@ LABEL_17:
 
 - (void)_unregisterForViewAnimationNotificationsIfNecessary
 {
-  v3 = +[NSNotificationCenter uikitInternalCenter];
+  v3 = +[(NSNotificationCenter *)MEMORY[0x1E696AD88]];
   v4 = v3;
   if (self->_viewDidStopNotification != -1)
   {

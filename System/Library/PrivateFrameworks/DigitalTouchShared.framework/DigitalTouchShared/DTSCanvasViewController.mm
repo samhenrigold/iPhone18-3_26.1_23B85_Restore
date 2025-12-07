@@ -90,13 +90,13 @@
   return v3;
 }
 
-void __45__DTSCanvasViewController_audioToggleOnImage__block_invoke()
+void __45__DTSCanvasViewController_audioToggleOnImage__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = MEMORY[0x277D755B8];
-  v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v1 = [v0 imageNamed:@"AudioOn" inBundle:v3];
-  v2 = audioToggleOnImage_image;
-  audioToggleOnImage_image = v1;
+  v2 = MEMORY[0x277D755B8];
+  v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v3 = [v2 imageNamed:@"AudioOn" inBundle:v5];
+  v4 = audioToggleOnImage_image;
+  audioToggleOnImage_image = v3;
 }
 
 + (id)audioToggleOffImage
@@ -111,13 +111,13 @@ void __45__DTSCanvasViewController_audioToggleOnImage__block_invoke()
   return v3;
 }
 
-void __46__DTSCanvasViewController_audioToggleOffImage__block_invoke()
+void __46__DTSCanvasViewController_audioToggleOffImage__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = MEMORY[0x277D755B8];
-  v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v1 = [v0 imageNamed:@"AudioOff" inBundle:v3];
-  v2 = audioToggleOffImage_image;
-  audioToggleOffImage_image = v1;
+  v2 = MEMORY[0x277D755B8];
+  v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v3 = [v2 imageNamed:@"AudioOff" inBundle:v5];
+  v4 = audioToggleOffImage_image;
+  audioToggleOffImage_image = v3;
 }
 
 - (DTSCanvasViewController)init
@@ -497,7 +497,7 @@ void __43__DTSCanvasViewController__relinquishAudio__block_invoke()
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
-uint64_t __51__DTSCanvasViewController__audioToggleButtonTapped__block_invoke(uint64_t a1)
+void *__51__DTSCanvasViewController__audioToggleButtonTapped__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 1040) isMuted];
   if (result)
@@ -1663,7 +1663,7 @@ void __56__DTSCanvasViewController__startVideoPlayerWithMessage___block_invoke(u
   }
 }
 
-uint64_t __65__DTSCanvasViewController__continueMessagePlaybackLoopWithDelay___block_invoke(uint64_t a1)
+void *__65__DTSCanvasViewController__continueMessagePlaybackLoopWithDelay___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isPlayingMessages];
   if (result)
@@ -1775,11 +1775,11 @@ uint64_t __65__DTSCanvasViewController__continueMessagePlaybackLoopWithDelay___b
   }
 }
 
-uint64_t __51__DTSCanvasViewController__setShowingReplayButton___block_invoke_2(uint64_t result)
+void *__51__DTSCanvasViewController__setShowingReplayButton___block_invoke_2(void *result)
 {
-  if ((*(result + 40) & 1) == 0)
+  if ((result[5] & 1) == 0)
   {
-    return [*(*(result + 32) + 1008) removeFromSuperview];
+    return [*(result[4] + 1008) removeFromSuperview];
   }
 
   return result;

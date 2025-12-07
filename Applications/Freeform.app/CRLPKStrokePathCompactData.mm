@@ -237,17 +237,17 @@ LABEL_28:
     {
       v16 = *&selfCopy[4].var0;
       *buf = 67110402;
-      v31 = v14;
-      v32 = 2082;
-      v33 = "[CRLPKStrokePathCompactData strokePointCompactDataAtIndex:]";
-      v34 = 2082;
-      v35 = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLPKStrokePathConverter.m";
-      v36 = 1024;
-      v37 = 264;
-      v38 = 2048;
-      v39 = a4;
-      v40 = 2048;
-      v41 = v16;
+      v23 = v14;
+      v24 = 2082;
+      v25 = "[CRLPKStrokePathCompactData strokePointCompactDataAtIndex:]";
+      v26 = 2082;
+      v27 = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLPKStrokePathConverter.m";
+      v28 = 1024;
+      v29 = 264;
+      v30 = 2048;
+      v31 = a4;
+      v32 = 2048;
+      v33 = v16;
       _os_log_error_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Out of bounds error. The given index (%zd) must be within [0, %zd).", buf, 0x36u);
     }
 
@@ -262,13 +262,12 @@ LABEL_28:
       sub_10130DA10(v17);
     }
 
-    v29 = *&selfCopy[4].var0;
-    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Out of bounds error. The given index (%zd) must be within [0, %zd).", v18, v19, v20, v21, v22, v23, v24, "[CRLPKStrokePathCompactData strokePointCompactDataAtIndex:]");
-    v25 = [NSString stringWithUTF8String:"[CRLPKStrokePathCompactData strokePointCompactDataAtIndex:]"];
-    v26 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLPKStrokePathConverter.m"];
-    [CRLAssertionHandler handleFailureInFunction:v25 file:v26 lineNumber:264 isFatal:1 description:"Out of bounds error. The given index (%zd) must be within [0, %zd].", a4, *&selfCopy[4].var0, 264, a4, v29);
+    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Out of bounds error. The given index (%zd) must be within [0, %zd).", "[CRLPKStrokePathCompactData strokePointCompactDataAtIndex:]", "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLPKStrokePathConverter.m", 264, a4, *&selfCopy[4].var0);
+    v18 = [NSString stringWithUTF8String:"[CRLPKStrokePathCompactData strokePointCompactDataAtIndex:]"];
+    v19 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLPKStrokePathConverter.m"];
+    [CRLAssertionHandler handleFailureInFunction:v18 file:v19 lineNumber:264 isFatal:1 description:"Out of bounds error. The given index (%zd) must be within [0, %zd].", a4, *&selfCopy[4].var0);
 
-    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v27, v28);
+    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v20, v21);
     abort();
   }
 

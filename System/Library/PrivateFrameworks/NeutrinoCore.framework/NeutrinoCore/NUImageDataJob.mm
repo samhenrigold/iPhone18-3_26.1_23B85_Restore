@@ -46,7 +46,7 @@
     var1 = bounds->var0.var1;
     v20 = bounds->var1.var0;
     v21 = bounds->var1.var1;
-    [dictionaryCopy extent];
+    objc_msgSend_extent(dictionaryCopy);
     v35.origin.x = v22;
     v35.origin.y = v23;
     v35.size.width = v24;
@@ -232,7 +232,7 @@ void __27__NUImageDataJob_complete___block_invoke(uint64_t a1, void *a2)
 {
   v3 = *(a1 + 32);
   v4 = a2;
-  [v4 extent];
+  objc_msgSend_extent(v4);
   v20.origin.x = v5;
   v20.origin.y = v6;
   v20.size.width = v7;
@@ -268,7 +268,7 @@ void __27__NUImageDataJob_complete___block_invoke(uint64_t a1, void *a2)
 
   if (v8)
   {
-    [v8 bounds];
+    objc_msgSend_bounds(v8);
   }
 
   v9 = +[NUFactory sharedFactory];
@@ -379,7 +379,7 @@ void __27__NUImageDataJob_complete___block_invoke(uint64_t a1, void *a2)
   v15 = 0u;
   if (v11)
   {
-    [v11 bounds];
+    objc_msgSend_bounds(v11, v14, v15);
   }
 
   [(NUDigest *)v3 addBytes:&v14 length:32];

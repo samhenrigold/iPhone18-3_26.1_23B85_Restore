@@ -17,13 +17,13 @@
 
 - (PSUISatelliteSubgroup)initWithHostController:(id)controller context:(id)context planReference:(id)reference mode:(unint64_t)mode
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   contextCopy = context;
   referenceCopy = reference;
-  v22.receiver = self;
-  v22.super_class = PSUISatelliteSubgroup;
-  v13 = [(PSUISatelliteSubgroup *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = PSUISatelliteSubgroup;
+  v13 = [(PSUISatelliteSubgroup *)&v21 init];
   v14 = v13;
   if (v13)
   {
@@ -40,14 +40,13 @@
     {
       v18 = [(PSUISatelliteSubgroup *)v14 getSatelliteEnabledString:0];
       *buf = 138412290;
-      v24 = v18;
+      v23 = v18;
       _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "Is satellite enabled: %@", buf, 0xCu);
     }
 
     v19 = v14;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -87,8 +86,8 @@
   _Block_object_dispose(&v16, 8);
   if (!v4)
   {
-    dlerror();
-    abort_report_np();
+    v15 = dlerror();
+    abort_report_np("%s", v15);
     __break(1u);
   }
 
@@ -126,8 +125,6 @@
     *(&buf + 4) = v14;
     _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "Disable satellite specifier due to location services: %@", &buf, 0xCu);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setUpGroupSpecifierIfRequired
@@ -263,7 +260,7 @@
 
 - (id)specifiers
 {
-  v9[2] = *MEMORY[0x277D85DE8];
+  v8[2] = *MEMORY[0x277D85DE8];
   [(PSUISatelliteSubgroup *)self setUpGroupSpecifierIfRequired];
   [(PSUISatelliteSubgroup *)self setUpSatelliteSpecifierIfRequired];
   [(PSUISatelliteSubgroup *)self checkLocationServicesSatelliteAuthorization];
@@ -276,10 +273,9 @@
   }
 
   v5 = self->_satelliteSpecifier;
-  v9[0] = self->_groupSpecifier;
-  v9[1] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
-  v7 = *MEMORY[0x277D85DE8];
+  v8[0] = self->_groupSpecifier;
+  v8[1] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
 
   return v6;
 }
@@ -329,22 +325,20 @@
 
 - (void)turnOnLocationServicesPressed:(id)pressed
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   pressedCopy = pressed;
   getLogger = [(PSUISatelliteSubgroup *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [pressedCopy URL];
-    v10 = 138412290;
-    v11 = v6;
-    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "turnOnLocationServicesPressed: %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v6;
+    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "turnOnLocationServicesPressed: %@", &v9, 0xCu);
   }
 
   defaultWorkspace = [MEMORY[0x277CC1E80] defaultWorkspace];
   v8 = [pressedCopy URL];
   [defaultWorkspace openSensitiveURL:v8 withOptions:0];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getLogger

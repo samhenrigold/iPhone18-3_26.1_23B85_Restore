@@ -2181,16 +2181,16 @@ void __83__SBDeviceApplicationSceneHandle_reevaluateSafeAreaSettingsUsingAnimati
   {
     if (phone)
     {
-      _SB_UIEdgeInsetsRotateFromPortraitToOrientation(orientation);
-      result.right = fmax(v11, v12);
+      _SB_UIEdgeInsetsRotateFromPortraitToOrientation(orientation, *&result.top, *&result.left, *&result.bottom, *&result.right);
+      result.right = fmax(result.left, result.right);
       result.left = result.right;
     }
 
     result.bottom = fmax(result.bottom, allowance);
   }
 
-  v13 = fmax(result.top, height);
-  result.top = v13;
+  v11 = fmax(result.top, height);
+  result.top = v11;
   return result;
 }
 
@@ -2224,7 +2224,7 @@ void __83__SBDeviceApplicationSceneHandle_reevaluateSafeAreaSettingsUsingAnimati
 
   if ([(SBDeviceApplicationSceneHandle *)self _supportsSolariumSafeAreas])
   {
-    [(SBDeviceApplicationSceneHandle *)self windowControlsLayoutForApplicationFrame:settingsCopy screenBounds:v10 activationSettings:v9, v8, v7, x, y, width, height];
+    objc_msgSend_windowControlsLayoutForApplicationFrame_screenBounds_activationSettings_(self, v10, v9, v8, v7, x, y, width, height);
     v25 = 0.0;
     if (!v15)
     {
@@ -2758,7 +2758,7 @@ void __103__SBDeviceApplicationSceneHandle_acquireActiveAppearanceAssertionWithR
   }
 }
 
-uint64_t __103__SBDeviceApplicationSceneHandle_acquireActiveAppearanceAssertionWithReason_activeAppearance_priority___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__103__SBDeviceApplicationSceneHandle_acquireActiveAppearanceAssertionWithReason_activeAppearance_priority___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   v7 = *(a1 + 40);
   result = [a2 priority];
@@ -2784,8 +2784,7 @@ uint64_t __103__SBDeviceApplicationSceneHandle_acquireActiveAppearanceAssertionW
   v14 = &unk_2783B8F68;
   objc_copyWeak(&v15, &location);
   v8 = [(SBSceneHandleActivityModeAssertion *)v7 initWithReason:reasonCopy activityMode:modeCopy invalidationBlock:&v11];
-  [(NSHashTable *)self->_activityModeAssertions addObject:v8, v11, v12, v13, v14];
-  v9 = SBLogSceneRelevancy();
+  v9 = SBLogSceneRelevancy([(NSHashTable *)self->_activityModeAssertions addObject:v8, v11, v12, v13, v14]);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -2825,8 +2824,7 @@ void __91__SBDeviceApplicationSceneHandle_acquireSceneActivityModeAssertionWithR
   v14 = &unk_2783B8F90;
   objc_copyWeak(&v15, &location);
   v8 = [(SBSceneHandleJetsamModeAssertion *)v7 initWithReason:reasonCopy jetsamMode:modeCopy invalidationBlock:&v11];
-  [(NSHashTable *)self->_jetsamModeAssertions addObject:v8, v11, v12, v13, v14];
-  v9 = SBLogSceneRelevancy();
+  v9 = SBLogSceneRelevancy([(NSHashTable *)self->_jetsamModeAssertions addObject:v8, v11, v12, v13, v14]);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -2866,8 +2864,7 @@ void __87__SBDeviceApplicationSceneHandle_acquireSceneJetsamModeAssertionWithRea
   v14 = &unk_2783B8FB8;
   objc_copyWeak(&v15, &location);
   v8 = [(SBSceneHandleResourceElevationAssertion *)v7 initWithReason:reasonCopy resourceElevation:elevationCopy invalidationBlock:&v11];
-  [(NSHashTable *)self->_resourceElevationAssertions addObject:v8, v11, v12, v13, v14];
-  v9 = SBLogSceneRelevancy();
+  v9 = SBLogSceneRelevancy([(NSHashTable *)self->_resourceElevationAssertions addObject:v8, v11, v12, v13, v14]);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -3345,7 +3342,7 @@ void __79__SBDeviceApplicationSceneHandle_appProtectionSubjectsChanged_forSubscr
   v4 = [v3 bundleIdentifier];
   v10 = [v2 applicationWithBundleIdentifier:v4];
 
-  v5 = [*(a1 + 40) containsObject:v10];
+  v5 = objc_msgSend_containsObject_(*(a1 + 40));
   v6 = v10;
   if (v5)
   {
@@ -3752,19 +3749,19 @@ void __78__SBDeviceApplicationSceneHandle__didUpdateSettingsWithDiff_previousSet
 
 - (void)_modifyApplicationSceneSettings:(id)settings fromRequestContext:(id)context entity:(id)entity
 {
-  v113 = *MEMORY[0x277D85DE8];
+  v115 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
   contextCopy = context;
   entityCopy = entity;
-  v104.receiver = self;
-  v104.super_class = SBDeviceApplicationSceneHandle;
-  v99 = contextCopy;
-  [(SBApplicationSceneHandle *)&v104 _modifyApplicationSceneSettings:settingsCopy fromRequestContext:contextCopy entity:entityCopy];
+  v106.receiver = self;
+  v106.super_class = SBDeviceApplicationSceneHandle;
+  v101 = contextCopy;
+  [(SBApplicationSceneHandle *)&v106 _modifyApplicationSceneSettings:settingsCopy fromRequestContext:contextCopy entity:entityCopy];
   application = [(SBApplicationSceneHandle *)self application];
   _windowScene = [(SBDeviceApplicationSceneHandle *)self _windowScene];
   switcherController = [_windowScene switcherController];
   isClassic = [application isClassic];
-  v102 = switcherController;
+  v104 = switcherController;
   windowManagementContext = [switcherController windowManagementContext];
   isChamoisOrFlexibleWindowing = [windowManagementContext isChamoisOrFlexibleWindowing];
 
@@ -3791,7 +3788,7 @@ void __78__SBDeviceApplicationSceneHandle__didUpdateSettingsWithDiff_previousSet
 
   v19 = SBFIsShellSceneKitAvailable();
   supportsChamoisOnExternalDisplay = [application supportsChamoisOnExternalDisplay];
-  v101 = application;
+  v103 = application;
   if (v19)
   {
     if (supportsChamoisOnExternalDisplay)
@@ -3827,10 +3824,10 @@ LABEL_16:
   if (((v18 | v17) & 1) != 0 || isMainDisplay)
   {
     mainConfiguration = [MEMORY[0x277D0AA90] mainConfiguration];
-    v26 = [v101 restrictedClassicModeDisplayConfigurationForDisplayConfiguration:mainConfiguration];
+    v26 = [v103 restrictedClassicModeDisplayConfigurationForDisplayConfiguration:mainConfiguration];
     if (v17)
     {
-      [v101 defaultLaunchingSizeForDisplayConfiguration:v26];
+      [v103 defaultLaunchingSizeForDisplayConfiguration:v26];
       BSRectWithSize();
       [settingsCopy setFrame:?];
     }
@@ -3870,7 +3867,7 @@ LABEL_16:
     sb_displayIdentityForSceneManagers = [settingsCopy sb_displayIdentityForSceneManagers];
     isExternal = [sb_displayIdentityForSceneManagers isExternal];
 
-    v33 = v99;
+    v33 = v101;
     if (isMainDisplay & 1 | ((isExternal & 1) == 0))
     {
       v34 = 0;
@@ -3878,14 +3875,14 @@ LABEL_16:
 
     else
     {
-      v34 = [v101 supportsChamoisSceneResizing] ^ 1;
+      v34 = [v103 supportsChamoisSceneResizing] ^ 1;
     }
   }
 
   else
   {
     v34 = 0;
-    v33 = v99;
+    v33 = v101;
   }
 
   [settingsCopy setScreenBoundsIgnoresSceneOrientation:v34];
@@ -3901,7 +3898,7 @@ LABEL_16:
     goto LABEL_37;
   }
 
-  v38 = [v102 traitsParticipantForSceneHandle:self];
+  v38 = [v104 traitsParticipantForSceneHandle:self];
   if (v38)
   {
     v37 = v38;
@@ -3921,9 +3918,9 @@ LABEL_37:
       interfaceOrientation = [settingsCopy interfaceOrientation];
       sceneIdentifier = [(SBDeviceApplicationSceneHandle *)self sceneIdentifier];
       *buf = 134218242;
-      v106 = interfaceOrientation;
-      v107 = 2112;
-      v108 = sceneIdentifier;
+      v108 = interfaceOrientation;
+      v109 = 2112;
+      v110 = sceneIdentifier;
       _os_log_impl(&dword_21ED4E000, v41, OS_LOG_TYPE_DEFAULT, "[DeviceSceneHandle] Did set interfaceOrientation[%ld] on scene with identifier[%@]", buf, 0x16u);
     }
 
@@ -3935,7 +3932,7 @@ LABEL_37:
   {
     sceneIdentifier2 = [(SBDeviceApplicationSceneHandle *)self sceneIdentifier];
     *buf = 138412290;
-    v106 = sceneIdentifier2;
+    v108 = sceneIdentifier2;
     _os_log_impl(&dword_21ED4E000, v37, OS_LOG_TYPE_DEFAULT, "[DeviceSceneHandle] Participant not found for scene identifier: %@", buf, 0xCu);
   }
 
@@ -3961,7 +3958,7 @@ LABEL_42:
 
   [settingsCopy setStatusBarParts:{-[SBDeviceApplicationSceneHandle statusBarParts](self, "statusBarParts")}];
   [settingsCopy setStatusBarAvoidanceFrame:{self->_statusBarAvoidanceFrame.origin.x, self->_statusBarAvoidanceFrame.origin.y, self->_statusBarAvoidanceFrame.size.width, self->_statusBarAvoidanceFrame.size.height}];
-  windowManagementContext2 = [v102 windowManagementContext];
+  windowManagementContext2 = [v104 windowManagementContext];
   ui_safeAreaSettings = [settingsCopy ui_safeAreaSettings];
   if (ui_safeAreaSettings)
   {
@@ -4021,49 +4018,49 @@ LABEL_42:
 
   if (!supportedUserInterfaceStyle)
   {
-    v78 = SBApp;
+    v79 = SBApp;
     sb_displayIdentityForSceneManagers2 = [settingsCopy sb_displayIdentityForSceneManagers];
-    v80 = [v78 userInterfaceStyleProviderForDisplay:sb_displayIdentityForSceneManagers2];
-    supportedUserInterfaceStyle = [v80 currentStyle];
+    v81 = [v79 userInterfaceStyleProviderForDisplay:sb_displayIdentityForSceneManagers2];
+    supportedUserInterfaceStyle = [v81 currentStyle];
   }
 
-  v81 = SBLogContinuitySession();
-  if (os_log_type_enabled(v81, OS_LOG_TYPE_DEFAULT))
+  v82 = SBLogContinuitySession(v78);
+  if (os_log_type_enabled(v82, OS_LOG_TYPE_DEFAULT))
   {
-    v82 = @"Unspecified";
+    v83 = @"Unspecified";
     if (supportedUserInterfaceStyle == 1)
     {
-      v82 = @"Light";
+      v83 = @"Light";
     }
 
     if (supportedUserInterfaceStyle == 2)
     {
-      v83 = @"Dark";
+      v84 = @"Dark";
     }
 
     else
     {
-      v83 = v82;
+      v84 = v83;
     }
 
     displayIdentity3 = [settingsCopy displayIdentity];
     sb_displayIdentityForSceneManagers3 = [settingsCopy sb_displayIdentityForSceneManagers];
     [(SBDeviceApplicationSceneHandle *)self succinctDescription];
-    v86 = entityCopy;
-    v88 = v87 = v46;
+    v87 = entityCopy;
+    v89 = v88 = v46;
     *buf = 138544130;
-    v106 = v83;
-    v33 = v99;
-    v107 = 2114;
-    v108 = displayIdentity3;
+    v108 = v84;
+    v33 = v101;
     v109 = 2114;
-    v110 = sb_displayIdentityForSceneManagers3;
+    v110 = displayIdentity3;
     v111 = 2114;
-    v112 = v88;
-    _os_log_impl(&dword_21ED4E000, v81, OS_LOG_TYPE_DEFAULT, "modifying scene setting userInterfaceStyle to %{public}@ displayIdentity: %{public}@ forSceneManagers: %{public}@ %{public}@ ", buf, 0x2Au);
+    v112 = sb_displayIdentityForSceneManagers3;
+    v113 = 2114;
+    v114 = v89;
+    _os_log_impl(&dword_21ED4E000, v82, OS_LOG_TYPE_DEFAULT, "modifying scene setting userInterfaceStyle to %{public}@ displayIdentity: %{public}@ forSceneManagers: %{public}@ %{public}@ ", buf, 0x2Au);
 
-    v46 = v87;
-    entityCopy = v86;
+    v46 = v88;
+    entityCopy = v87;
   }
 
   [settingsCopy setUserInterfaceStyle:supportedUserInterfaceStyle];
@@ -4071,18 +4068,18 @@ LABEL_42:
   if ([(SBDeviceApplicationSceneHandle *)self shouldApplyAppProtectionSceneSettings])
   {
     application3 = [(SBApplicationSceneHandle *)self application];
-    v90 = [SBApplicationAppProtectionAssistant assistantForApplication:application3];
+    v91 = [SBApplicationAppProtectionAssistant assistantForApplication:application3];
 
-    v91 = SBLogAppProtection();
-    if (os_log_type_enabled(v91, OS_LOG_TYPE_DEFAULT))
+    v93 = SBLogAppProtection(v92);
+    if (os_log_type_enabled(v93, OS_LOG_TYPE_DEFAULT))
     {
-      shouldShield = [v90 shouldShield];
+      shouldShield = [v91 shouldShield];
       *buf = 67109120;
-      LODWORD(v106) = shouldShield;
-      _os_log_impl(&dword_21ED4E000, v91, OS_LOG_TYPE_DEFAULT, "modifying scene setting underAppProtection to %d", buf, 8u);
+      LODWORD(v108) = shouldShield;
+      _os_log_impl(&dword_21ED4E000, v93, OS_LOG_TYPE_DEFAULT, "modifying scene setting underAppProtection to %d", buf, 8u);
     }
 
-    if ([v90 shouldShield])
+    if ([v91 shouldShield])
     {
       transientLocalSettings = [settingsCopy transientLocalSettings];
       [transientLocalSettings setFlag:1 forSetting:*MEMORY[0x277D77528]];
@@ -4125,7 +4122,7 @@ LABEL_5:
     {
       v5 = MEMORY[0x277CCAE60];
       settings = [sceneIfExists settings];
-      [settings frame];
+      objc_msgSend_frame(settings);
       v7 = [v5 bs_valueWithCGRect:?];
       v13[0] = v7;
       v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
@@ -4165,7 +4162,7 @@ void __66__SBDeviceApplicationSceneHandle__updateApplicationOcclusionRects__bloc
     {
       v5 = MEMORY[0x277CCAE60];
       settings = [sceneIfExists settings];
-      [settings frame];
+      objc_msgSend_frame(settings);
       v7 = [v5 bs_valueWithCGRect:?];
       v14[0] = v7;
       v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
@@ -4553,7 +4550,7 @@ LABEL_20:
   source = [request source];
 
   previousEntities = [requestContextCopy previousEntities];
-  if ([previousEntities containsObject:entityCopy])
+  if (objc_msgSend_containsObject_(previousEntities))
   {
 LABEL_6:
 
@@ -4561,7 +4558,7 @@ LABEL_6:
   }
 
   entities = [requestContextCopy entities];
-  v14 = [entities containsObject:entityCopy];
+  v14 = objc_msgSend_containsObject_(entities);
 
   if (v14)
   {
@@ -5272,7 +5269,7 @@ void __66__SBDeviceApplicationSceneHandle__updateInterfaceActiveAppearance__bloc
 {
   v23 = 0u;
   v24 = 0u;
-  [(SBDeviceApplicationSceneHandle *)self windowControlsLayoutForApplicationFrame:settings screenBounds:frame.origin.x activationSettings:frame.origin.y, frame.size.width, frame.size.height, bounds.origin.x, bounds.origin.y, bounds.size.width, bounds.size.height];
+  objc_msgSend_windowControlsLayoutForApplicationFrame_screenBounds_activationSettings_(self, a2, settings, frame.origin.x, frame.origin.y, frame.size.width, frame.size.height, bounds.origin.x, bounds.origin.y, bounds.size.width, bounds.size.height);
   if ([(SBDeviceApplicationSceneHandle *)self _supportsSolariumSafeAreas]&& v23 == 2)
   {
     preferredSafeAreaSettings = self->_preferredSafeAreaSettings;

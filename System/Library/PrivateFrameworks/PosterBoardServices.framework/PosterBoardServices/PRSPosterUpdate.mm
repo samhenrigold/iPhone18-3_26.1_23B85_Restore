@@ -5,18 +5,22 @@
 + (id)posterUpdateComplications:(id)complications;
 + (id)posterUpdateDisassociateFromChargerIdentifier:(id)identifier;
 + (id)posterUpdateHomeScreenAppearance:(unint64_t)appearance;
++ (id)posterUpdateHomeScreenAppearanceDimWithValue:(BOOL)value;
 + (id)posterUpdateHomeScreenColor:(id)color;
 + (id)posterUpdateHomeScreenGradient:(id)gradient;
 + (id)posterUpdateHomeScreenIconTintSource:(id)source;
 + (id)posterUpdateHomeScreenIconUserInterfaceStyle:(id)style;
 + (id)posterUpdateHomeScreenIconUserInterfaceStyleVariant:(id)variant;
++ (id)posterUpdateHomeScreenPosterLegibilityBlurWithValue:(BOOL)value;
 + (id)posterUpdateHomeScreenPosterProvider:(id)provider sessionInfo:(id)info;
 + (id)posterUpdateHomeScreenPosterWithImageAtURL:(id)l;
 + (id)posterUpdateHomeScreenSuggestedTintColor:(id)color;
 + (id)posterUpdateHomeScreenTintForColor:(id)color;
 + (id)posterUpdateHomeScreenTintWithVariation:(id)variation saturation:(id)saturation luminance:(id)luminance alpha:(id)alpha;
 + (id)posterUpdateInlineComplication:(id)complication;
++ (id)posterUpdateLegibilityBlurWithValue:(BOOL)value;
 + (id)posterUpdateLockScreenPosterWithImageAtURL:(id)l;
++ (id)posterUpdateMirroredHomeScreenLegibilityBlurWithValue:(BOOL)value;
 + (id)posterUpdatePosterWithSessionInfo:(id)info;
 + (id)posterUpdateShouldUseLargeHomeScreenIcons:(id)icons;
 + (id)posterUpdateSidebarComplications:(id)complications;
@@ -165,9 +169,45 @@ void __30__PRSPosterUpdate_description__block_invoke(uint64_t a1)
   return v6;
 }
 
++ (id)posterUpdateMirroredHomeScreenLegibilityBlurWithValue:(BOOL)value
+{
+  valueCopy = value;
+  v4 = [PRSPosterUpdate alloc];
+  v5 = [PRSPosterUpdateTristatePayload alloc];
+  v6 = [MEMORY[0x1E696AD98] numberWithBool:valueCopy];
+  v7 = [(PRSPosterUpdateTristatePayload *)v5 initWithState:v6];
+  v8 = [(PRSPosterUpdate *)v4 _initWithUpdateType:5 payload:v7];
+
+  return v8;
+}
+
++ (id)posterUpdateHomeScreenPosterLegibilityBlurWithValue:(BOOL)value
+{
+  valueCopy = value;
+  v4 = [PRSPosterUpdate alloc];
+  v5 = [PRSPosterUpdateTristatePayload alloc];
+  v6 = [MEMORY[0x1E696AD98] numberWithBool:valueCopy];
+  v7 = [(PRSPosterUpdateTristatePayload *)v5 initWithState:v6];
+  v8 = [(PRSPosterUpdate *)v4 _initWithUpdateType:4 payload:v7];
+
+  return v8;
+}
+
++ (id)posterUpdateLegibilityBlurWithValue:(BOOL)value
+{
+  valueCopy = value;
+  v4 = [PRSPosterUpdate alloc];
+  v5 = [PRSPosterUpdateTristatePayload alloc];
+  v6 = [MEMORY[0x1E696AD98] numberWithBool:valueCopy];
+  v7 = [(PRSPosterUpdateTristatePayload *)v5 initWithState:v6];
+  v8 = [(PRSPosterUpdate *)v4 _initWithUpdateType:3 payload:v7];
+
+  return v8;
+}
+
 + (id)posterUpdateInlineComplication:(id)complication
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   complicationCopy = complication;
   if (complicationCopy)
   {
@@ -182,8 +222,8 @@ void __30__PRSPosterUpdate_description__block_invoke(uint64_t a1)
   v6 = v5;
   if (complicationCopy)
   {
-    v12[0] = complicationCopy;
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+    v11[0] = complicationCopy;
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
     v8 = [(PRSPosterUpdateComplicationPayload *)v6 initWithComplications:v7];
   }
 
@@ -193,8 +233,6 @@ void __30__PRSPosterUpdate_description__block_invoke(uint64_t a1)
   }
 
   v9 = [[PRSPosterUpdate alloc] _initWithUpdateType:2 payload:v8];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -260,7 +298,7 @@ void __30__PRSPosterUpdate_description__block_invoke(uint64_t a1)
   }
 
   v5 = [[PRSPosterUpdatePropertyListPayload alloc] initWithPropertyList:widgetsCopy];
-  v6 = PRSLogCommon();
+  v6 = PRSLogCommon(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     [(PRSPosterUpdate *)widgetsCopy posterUpdateAmbientWidgets:v6];
@@ -327,7 +365,7 @@ void __30__PRSPosterUpdate_description__block_invoke(uint64_t a1)
 
 + (id)posterUpdatesForDecoratedSessionInfo:(id)info
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   infoCopy = info;
   NSClassFromString(&cfstr_Prsposterupdat_23.isa);
   if (!infoCopy)
@@ -355,11 +393,9 @@ void __30__PRSPosterUpdate_description__block_invoke(uint64_t a1)
   else
   {
     v11 = [PRSPosterUpdate posterUpdatePosterWithSessionInfo:infoCopy];
-    v14[0] = v11;
-    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+    v13[0] = v11;
+    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -368,20 +404,8 @@ void __30__PRSPosterUpdate_description__block_invoke(uint64_t a1)
 {
   configurationCopy = configuration;
   infoCopy = info;
-  v8 = configurationCopy;
+  v9 = configurationCopy;
   NSClassFromString(&cfstr_Wfwallpapercon.isa);
-  if (!v8)
-  {
-    [PRSPosterUpdate posterUpdatesForWFWallpaperConfiguration:a2 sessionInfo:?];
-  }
-
-  if ((objc_opt_isKindOfClass() & 1) == 0)
-  {
-    [PRSPosterUpdate posterUpdatesForWFWallpaperConfiguration:a2 sessionInfo:?];
-  }
-
-  v9 = infoCopy;
-  NSClassFromString(&cfstr_Prsposterupdat_23.isa);
   if (!v9)
   {
     [PRSPosterUpdate posterUpdatesForWFWallpaperConfiguration:a2 sessionInfo:?];
@@ -392,67 +416,79 @@ void __30__PRSPosterUpdate_description__block_invoke(uint64_t a1)
     [PRSPosterUpdate posterUpdatesForWFWallpaperConfiguration:a2 sessionInfo:?];
   }
 
-  shortcutsWallpaperConfiguration = [v9 shortcutsWallpaperConfiguration];
-  v11 = [shortcutsWallpaperConfiguration isEqual:v8];
-
-  if (v11)
+  v10 = infoCopy;
+  NSClassFromString(&cfstr_Prsposterupdat_23.isa);
+  if (!v10)
   {
-    location = [v8 location];
-    v13 = objc_opt_new();
-    v14 = objc_alloc_init(PRSPosterUpdateSessionInfo);
-    [(PRSPosterUpdateSessionInfo *)v14 setShortcutsWallpaperConfiguration:v8];
+    [PRSPosterUpdate posterUpdatesForWFWallpaperConfiguration:a2 sessionInfo:?];
+  }
+
+  if ((objc_opt_isKindOfClass() & 1) == 0)
+  {
+    [PRSPosterUpdate posterUpdatesForWFWallpaperConfiguration:a2 sessionInfo:?];
+  }
+
+  shortcutsWallpaperConfiguration = [v10 shortcutsWallpaperConfiguration];
+  v12 = [shortcutsWallpaperConfiguration isEqual:v9];
+
+  if (v12)
+  {
+    location = [v9 location];
+    v14 = objc_opt_new();
+    v15 = objc_alloc_init(PRSPosterUpdateSessionInfo);
+    [(PRSPosterUpdateSessionInfo *)v15 setShortcutsWallpaperConfiguration:v9];
     if (!location || location == 2)
     {
-      v17 = [PRSPosterUpdate posterUpdatePosterWithSessionInfo:v14];
-      [v13 addObject:v17];
+      v18 = [PRSPosterUpdate posterUpdatePosterWithSessionInfo:v15];
+      [v14 addObject:v18];
 
       if (location == 2)
       {
-        v16 = 1;
+        v17 = 1;
         goto LABEL_12;
       }
     }
 
     else if (location == 1)
     {
-      v15 = [PRSPosterUpdate posterUpdateHomeScreenPosterProvider:@"com.apple.PhotosUIPrivate.PhotosPosterProvider" sessionInfo:v14];
-      [v13 addObject:v15];
+      v16 = [PRSPosterUpdate posterUpdateHomeScreenPosterProvider:@"com.apple.PhotosUIPrivate.PhotosPosterProvider" sessionInfo:v15];
+      [v14 addObject:v16];
 
-      v16 = 4;
+      v17 = 4;
 LABEL_12:
-      v18 = [PRSPosterUpdate posterUpdateHomeScreenAppearance:v16];
-      [v13 addObject:v18];
+      v19 = [PRSPosterUpdate posterUpdateHomeScreenAppearance:v17];
+      [v14 addObject:v19];
     }
 
-    legibilityBlur = [v8 legibilityBlur];
+    legibilityBlur = [v9 legibilityBlur];
 
     if (legibilityBlur)
     {
       if ((location & 0xFFFFFFFFFFFFFFFDLL) == 0)
       {
-        legibilityBlur2 = [v8 legibilityBlur];
-        v21 = +[PRSPosterUpdate posterUpdateMirroredHomeScreenLegibilityBlurWithValue:](PRSPosterUpdate, "posterUpdateMirroredHomeScreenLegibilityBlurWithValue:", [legibilityBlur2 BOOLValue]);
-        [v13 addObject:v21];
+        legibilityBlur2 = [v9 legibilityBlur];
+        v22 = +[PRSPosterUpdate posterUpdateMirroredHomeScreenLegibilityBlurWithValue:](PRSPosterUpdate, "posterUpdateMirroredHomeScreenLegibilityBlurWithValue:", [legibilityBlur2 BOOLValue]);
+        [v14 addObject:v22];
       }
 
       if (location == 1)
       {
-        legibilityBlur3 = [v8 legibilityBlur];
-        v23 = +[PRSPosterUpdate posterUpdateHomeScreenPosterLegibilityBlurWithValue:](PRSPosterUpdate, "posterUpdateHomeScreenPosterLegibilityBlurWithValue:", [legibilityBlur3 BOOLValue]);
-        [v13 addObject:v23];
+        legibilityBlur3 = [v9 legibilityBlur];
+        v24 = +[PRSPosterUpdate posterUpdateHomeScreenPosterLegibilityBlurWithValue:](PRSPosterUpdate, "posterUpdateHomeScreenPosterLegibilityBlurWithValue:", [legibilityBlur3 BOOLValue]);
+        [v14 addObject:v24];
       }
     }
 
-    return v13;
+    return v14;
   }
 
-  v25 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"sessionInfo && [[sessionInfo shortcutsWallpaperConfiguration] isEqual:wallpaperConfiguration]"];
+  v26 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"sessionInfo && [[sessionInfo shortcutsWallpaperConfiguration] isEqual:wallpaperConfiguration]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    [PRSPosterUpdate posterUpdatesForWFWallpaperConfiguration:a2 sessionInfo:?];
+    [PRSPosterUpdate posterUpdatesForWFWallpaperConfiguration:a2 sessionInfo:self];
   }
 
-  [v25 UTF8String];
+  [v26 UTF8String];
   result = _bs_set_crash_log_message();
   __break(0);
   return result;
@@ -597,6 +633,18 @@ LABEL_12:
   return v6;
 }
 
++ (id)posterUpdateHomeScreenAppearanceDimWithValue:(BOOL)value
+{
+  valueCopy = value;
+  v4 = [PRSPosterUpdate alloc];
+  v5 = [PRSPosterUpdateTristatePayload alloc];
+  v6 = [MEMORY[0x1E696AD98] numberWithBool:valueCopy];
+  v7 = [(PRSPosterUpdateTristatePayload *)v5 initWithState:v6];
+  v8 = [(PRSPosterUpdate *)v4 _initWithUpdateType:13 payload:v7];
+
+  return v8;
+}
+
 + (id)posterUpdateShouldUseLargeHomeScreenIcons:(id)icons
 {
   iconsCopy = icons;
@@ -690,15 +738,15 @@ LABEL_12:
 
 + (id)posterUpdateAssociateWithChargerIdentifier:(id)identifier
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v4 = [PRSPosterUpdatePropertyListPayload alloc];
   v5 = v4;
   if (identifierCopy)
   {
-    v12 = @"chargerIdentifier";
-    v13[0] = identifierCopy;
-    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v11 = @"chargerIdentifier";
+    v12[0] = identifierCopy;
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
     v7 = [(PRSPosterUpdatePropertyListPayload *)v5 initWithPropertyList:v6];
   }
 
@@ -710,22 +758,21 @@ LABEL_12:
   v8 = [PRSPosterUpdate alloc];
 
   v9 = [(PRSPosterUpdate *)v8 _initWithUpdateType:10 payload:v7];
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 + (id)posterUpdateDisassociateFromChargerIdentifier:(id)identifier
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v4 = [PRSPosterUpdatePropertyListPayload alloc];
   v5 = v4;
   if (identifierCopy)
   {
-    v12 = @"chargerIdentifier";
-    v13[0] = identifierCopy;
-    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v11 = @"chargerIdentifier";
+    v12[0] = identifierCopy;
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
     v7 = [(PRSPosterUpdatePropertyListPayload *)v5 initWithPropertyList:v6];
   }
 
@@ -737,7 +784,6 @@ LABEL_12:
   v8 = [PRSPosterUpdate alloc];
 
   v9 = [(PRSPosterUpdate *)v8 _initWithUpdateType:11 payload:v7];
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -781,7 +827,7 @@ LABEL_12:
 
 + (void)posterUpdateUserInfo:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSDictionaryClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -789,7 +835,7 @@ LABEL_12:
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSDictionaryClass]", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -799,7 +845,7 @@ LABEL_12:
 
 + (void)posterUpdateInlineComplication:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PRSWidgetClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -807,7 +853,7 @@ LABEL_12:
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:PRSWidgetClass]", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -817,7 +863,7 @@ LABEL_12:
 
 + (void)posterUpdateComplications:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSArrayClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -825,7 +871,7 @@ LABEL_12:
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSArrayClass]", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -835,7 +881,7 @@ LABEL_12:
 
 + (void)posterUpdateSidebarComplications:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSArrayClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -843,7 +889,7 @@ LABEL_12:
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSArrayClass]", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -853,7 +899,7 @@ LABEL_12:
 
 + (void)posterUpdateAmbientWidgets:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSDictionaryClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -861,7 +907,7 @@ LABEL_12:
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSDictionaryClass]", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -871,18 +917,16 @@ LABEL_12:
 
 + (void)posterUpdateAmbientWidgets:(void *)a1 .cold.2(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = PRSPosterUpdateAmbientWidgetsIdentifiers(a1);
-  v5 = 138543362;
-  v6 = v3;
-  _os_log_error_impl(&dword_1C26FF000, a2, OS_LOG_TYPE_ERROR, "Building PRSPosterUpdate for ambient widgets: %{public}@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138543362;
+  v5 = v3;
+  _os_log_error_impl(&dword_1C26FF000, a2, OS_LOG_TYPE_ERROR, "Building PRSPosterUpdate for ambient widgets: %{public}@", &v4, 0xCu);
 }
 
 + (void)posterUpdateHomeScreenPosterProvider:(char *)a1 sessionInfo:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -890,7 +934,7 @@ LABEL_12:
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSStringClass]", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -900,7 +944,7 @@ LABEL_12:
 
 + (void)posterUpdateHomeScreenPosterProvider:(char *)a1 sessionInfo:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PRSPosterUpdateSessionInfoClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -908,7 +952,7 @@ LABEL_12:
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:PRSPosterUpdateSessionInfoClass]", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -918,7 +962,7 @@ LABEL_12:
 
 + (void)posterUpdateHomeScreenPosterProvider:(char *)a1 sessionInfo:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -926,7 +970,7 @@ LABEL_12:
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -936,7 +980,7 @@ LABEL_12:
 
 + (void)posterUpdateHomeScreenPosterProvider:(char *)a1 sessionInfo:.cold.4(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -944,7 +988,7 @@ LABEL_12:
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -954,7 +998,7 @@ LABEL_12:
 
 + (void)posterUpdatePosterWithSessionInfo:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PRSPosterUpdateSessionInfoClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -962,7 +1006,7 @@ LABEL_12:
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:PRSPosterUpdateSessionInfoClass]", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -972,7 +1016,7 @@ LABEL_12:
 
 + (void)posterUpdatePosterWithSessionInfo:(char *)a1 .cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -980,7 +1024,7 @@ LABEL_12:
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -990,7 +1034,7 @@ LABEL_12:
 
 + (void)posterUpdatesForDecoratedSessionInfo:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PRSPosterUpdateSessionInfoClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -998,7 +1042,7 @@ LABEL_12:
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:PRSPosterUpdateSessionInfoClass]", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1008,7 +1052,7 @@ LABEL_12:
 
 + (void)posterUpdatesForDecoratedSessionInfo:(char *)a1 .cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1016,7 +1060,7 @@ LABEL_12:
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1026,7 +1070,7 @@ LABEL_12:
 
 + (void)posterUpdatesForWFWallpaperConfiguration:(char *)a1 sessionInfo:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:WFWallpaperConfigurationClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1034,7 +1078,7 @@ LABEL_12:
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:WFWallpaperConfigurationClass]", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1044,7 +1088,7 @@ LABEL_12:
 
 + (void)posterUpdatesForWFWallpaperConfiguration:(char *)a1 sessionInfo:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PRSPosterUpdateSessionInfoClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1052,7 +1096,7 @@ LABEL_12:
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:PRSPosterUpdateSessionInfoClass]", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1060,21 +1104,20 @@ LABEL_12:
   __break(0);
 }
 
-+ (void)posterUpdatesForWFWallpaperConfiguration:(const char *)a1 sessionInfo:.cold.3(const char *a1)
++ (void)posterUpdatesForWFWallpaperConfiguration:(const char *)a1 sessionInfo:(uint64_t)a2 .cold.3(const char *a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = NSStringFromSelector(a1);
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
+  v2 = NSStringFromSelector(a1);
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  LODWORD(v10) = 138544642;
+  *(&v10 + 4) = v2;
   OUTLINED_FUNCTION_2_3();
-  OUTLINED_FUNCTION_5(&dword_1C26FF000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8, 2u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_5(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
 + (void)posterUpdatesForWFWallpaperConfiguration:(char *)a1 sessionInfo:.cold.4(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1082,7 +1125,7 @@ LABEL_12:
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1092,7 +1135,7 @@ LABEL_12:
 
 + (void)posterUpdatesForWFWallpaperConfiguration:(char *)a1 sessionInfo:.cold.5(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1100,7 +1143,7 @@ LABEL_12:
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1110,7 +1153,7 @@ LABEL_12:
 
 + (void)posterUpdatesForWFWallpaperConfiguration:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:WFWallpaperConfigurationClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1118,7 +1161,7 @@ LABEL_12:
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:WFWallpaperConfigurationClass]", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1128,7 +1171,7 @@ LABEL_12:
 
 + (void)posterUpdatesForWFWallpaperConfiguration:(char *)a1 .cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1136,7 +1179,7 @@ LABEL_12:
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1146,7 +1189,7 @@ LABEL_12:
 
 + (void)posterUpdateHomeScreenGradient:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:BSColorClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1154,7 +1197,7 @@ LABEL_12:
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:BSColorClass]", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1164,7 +1207,7 @@ LABEL_12:
 
 + (void)posterUpdateHomeScreenGradient:(char *)a1 .cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1172,7 +1215,7 @@ LABEL_12:
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1182,7 +1225,7 @@ LABEL_12:
 
 + (void)posterUpdateHomeScreenColor:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:BSColorClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1190,7 +1233,7 @@ LABEL_12:
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:BSColorClass]", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1200,7 +1243,7 @@ LABEL_12:
 
 + (void)posterUpdateHomeScreenColor:(char *)a1 .cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1208,7 +1251,7 @@ LABEL_12:
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];

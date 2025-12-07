@@ -901,7 +901,7 @@
 
 - (void)_updateWithSystemState:(id)state forcefully:(BOOL)forcefully
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   v7 = [MEMORY[0x1E695DFA8] set];
   isConnectedToCarPlay = [stateCopy isConnectedToCarPlay];
@@ -976,33 +976,29 @@
     v17 = *MEMORY[0x1E698D0A0];
     if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 136315394;
-      v20 = "[SASRequestOptions _updateWithSystemState:forcefully:]";
-      v21 = 2112;
-      v22 = v7;
-      _os_log_impl(&dword_1C8137000, v17, OS_LOG_TYPE_DEFAULT, "%s #activation Updated properties from system state: %@", &v19, 0x16u);
+      v18 = 136315394;
+      v19 = "[SASRequestOptions _updateWithSystemState:forcefully:]";
+      v20 = 2112;
+      v21 = v7;
+      _os_log_impl(&dword_1C8137000, v17, OS_LOG_TYPE_DEFAULT, "%s #activation Updated properties from system state: %@", &v18, 0x16u);
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setRequestSource:(os_log_t)log .cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 136315138;
-  v3 = "[SASRequestOptions setRequestSource:]";
-  _os_log_error_impl(&dword_1C8137000, log, OS_LOG_TYPE_ERROR, "%s #activation Cannot set requestSource to SASRequestSourceKeyboard when keyboard input is disabled", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 136315138;
+  v2 = "[SASRequestOptions setRequestSource:]";
+  _os_log_error_impl(&dword_1C8137000, log, OS_LOG_TYPE_ERROR, "%s #activation Cannot set requestSource to SASRequestSourceKeyboard when keyboard input is disabled", &v1, 0xCu);
 }
 
 - (void)isATVRemotePTTEligible
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 136315138;
-  v3 = "[SASRequestOptions isATVRemotePTTEligible]";
-  _os_log_debug_impl(&dword_1C8137000, log, OS_LOG_TYPE_DEBUG, "%s #ptt Overriding Siri's eligibility to true", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 136315138;
+  v2 = "[SASRequestOptions isATVRemotePTTEligible]";
+  _os_log_debug_impl(&dword_1C8137000, log, OS_LOG_TYPE_DEBUG, "%s #ptt Overriding Siri's eligibility to true", &v1, 0xCu);
 }
 
 @end

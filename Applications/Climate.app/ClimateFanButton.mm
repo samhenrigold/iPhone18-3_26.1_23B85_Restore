@@ -45,7 +45,8 @@
   *(self + OBJC_IVAR____TtC7Climate16ClimateFanButton_shouldIgnoreCarUpdates) = 0;
   v3 = *(self + OBJC_IVAR____TtC7Climate16ClimateFanButton_fan);
   selfCopy = self;
-  sub_10009BE64([v3 fanLevel]);
+  fanLevel = [v3 fanLevel];
+  sub_10009BE64(fanLevel, fanLevel);
 }
 
 @end

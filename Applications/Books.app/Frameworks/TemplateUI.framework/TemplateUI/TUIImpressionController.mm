@@ -67,48 +67,48 @@
     v5 = objc_opt_new();
     [(TUIImpressionConfiguration *)self->_configuration timingThreshold];
     [(TUIImpressionController *)self q_collectImpressions:v5 time:0 threshold:self->_q_stats flush:time stats:v6];
-    v20 = v5;
+    v21 = v5;
     v7 = [[TUIImpressionSnapshot alloc] initWithMap:v5];
-    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
     impressions = [(TUIImpressionSnapshot *)self->_q_previousSnapshot impressions];
-    v9 = [impressions countByEnumeratingWithState:&v21 objects:v27 count:16];
+    v9 = [impressions countByEnumeratingWithState:&v22 objects:v28 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v22;
+      v11 = *v23;
       do
       {
         for (i = 0; i != v10; i = i + 1)
         {
-          if (*v22 != v11)
+          if (*v23 != v11)
           {
             objc_enumerationMutation(impressions);
           }
 
-          v13 = *(*(&v21 + 1) + 8 * i);
+          v13 = *(*(&v22 + 1) + 8 * i);
           if ([v13 timingCount])
           {
             identifier = [v13 identifier];
             v15 = [(TUIImpressionSnapshot *)v7 impressionForIdentifier:identifier];
 
-            if (!v15 || ![v15 timingCount])
+            if (!v15 || (v16 = [v15 timingCount]) == 0)
             {
-              v16 = TUIDefaultLog();
-              if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+              v17 = TUIDefaultLog(v16);
+              if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
               {
                 uniqueIdentifier = self->_feedId.uniqueIdentifier;
                 *buf = 134217984;
-                v26 = uniqueIdentifier;
-                _os_log_error_impl(&dword_0, v16, OS_LOG_TYPE_ERROR, "[fid:%lu] unexpected change in impression", buf, 0xCu);
+                v27 = uniqueIdentifier;
+                _os_log_error_impl(&dword_0, v17, OS_LOG_TYPE_ERROR, "[fid:%lu] unexpected change in impression", buf, 0xCu);
               }
             }
           }
         }
 
-        v10 = [impressions countByEnumeratingWithState:&v21 objects:v27 count:16];
+        v10 = [impressions countByEnumeratingWithState:&v22 objects:v28 count:16];
       }
 
       while (v10);

@@ -1,6 +1,7 @@
 @interface LACAnalyticsData
 - (LACAnalyticsData)init;
 - (NSString)description;
+- (void)authenticationAction:(int64_t)action failing:(BOOL)failing;
 - (void)authenticationAttemptFailedForEvent:(int64_t)event;
 - (void)authenticationStartedForEvent:(int64_t)event;
 - (void)authenticationSuccessfulForEvent:(int64_t)event;
@@ -112,6 +113,24 @@
     biomeDialogEvent = [(LACAnalyticsData *)self biomeDialogEvent];
     [biomeDialogEvent failedAuthenticationWithMechanism:v4];
   }
+}
+
+- (void)authenticationAction:(int64_t)action failing:(BOOL)failing
+{
+  failingCopy = failing;
+  biomeDialogEvent = [(LACAnalyticsData *)self biomeDialogEvent];
+  v8 = biomeDialogEvent;
+  if (action < 7)
+  {
+    v7 = action + 1;
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  [biomeDialogEvent addAction:v7 failing:failingCopy];
 }
 
 @end

@@ -28,23 +28,7 @@
     [(AEGridEnvironment *)self headerHeight];
     v8 = v7;
     [(AEGridEnvironment *)v6 headerHeight];
-    if (v8 != v9)
-    {
-      goto LABEL_11;
-    }
-
-    [(AEGridEnvironment *)self targetBottomMargin];
-    v11 = v10;
-    [(AEGridEnvironment *)v6 targetBottomMargin];
-    if (v11 != v12)
-    {
-      goto LABEL_11;
-    }
-
-    [(AEGridEnvironment *)self minimumTileHeight];
-    v14 = v13;
-    [(AEGridEnvironment *)v6 minimumTileHeight];
-    if (v14 == v15 && ([(AEGridEnvironment *)self scale], v17 = v16, [(AEGridEnvironment *)v6 scale], v17 == v18))
+    if (v8 == v9 && ([(AEGridEnvironment *)self targetBottomMargin], v11 = v10, [(AEGridEnvironment *)v6 targetBottomMargin], v11 == v12) && ([(AEGridEnvironment *)self minimumTileHeight], v14 = v13, [(AEGridEnvironment *)v6 minimumTileHeight], v14 == v15) && ([(AEGridEnvironment *)self scale], v17 = v16, [(AEGridEnvironment *)v6 scale], v17 == v18))
     {
       [(AEGridEnvironment *)self compactExtensionHeight];
       v20 = v19;
@@ -54,7 +38,6 @@
 
     else
     {
-LABEL_11:
       v22 = 0;
     }
   }

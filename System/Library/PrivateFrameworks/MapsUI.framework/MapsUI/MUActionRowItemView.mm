@@ -16,6 +16,7 @@
 - (void)setAccessoryView:(id)view;
 - (void)setContentBackgroundColor:(id)color;
 - (void)setCornerStyle:(int64_t)style;
+- (void)setEnabled:(BOOL)enabled;
 - (void)setFullWidthMode:(BOOL)mode;
 - (void)setGlyphColor:(id)color;
 - (void)setGlyphName:(id)name;
@@ -293,6 +294,14 @@ LABEL_31:
   [(MUActionRowItemView *)self setToolTip:textCopy];
 }
 
+- (void)setEnabled:(BOOL)enabled
+{
+  v4.receiver = self;
+  v4.super_class = MUActionRowItemView;
+  [(MUActionRowItemView *)&v4 setEnabled:enabled];
+  [(MUActionRowItemView *)self updateColor];
+}
+
 - (void)setTintColor:(id)color
 {
   v4.receiver = self;
@@ -311,7 +320,7 @@ LABEL_31:
 
 - (void)updateImage
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   accessoryView = self->_accessoryView;
   if (accessoryView)
   {
@@ -335,8 +344,8 @@ LABEL_31:
       [(UIImageView *)self->_glyphImageView removeFromSuperview];
       [(UIView *)self->_accessoryContainerView addSubview:v4];
       v12 = [[MUBoxLayout alloc] initWithContainer:self->_accessoryContainerView];
-      v19[0] = v4;
-      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
+      v18[0] = v4;
+      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
       [(MUBoxLayout *)v12 setArrangedLayoutItems:v13];
 
       [(MUBoxLayout *)v12 setHorizontalAlignment:2];
@@ -344,13 +353,11 @@ LABEL_31:
       LODWORD(v14) = 1144750080;
       [(MUBoxLayout *)v12 setHorizontalAlignmentFittingSizePriority:v14];
       v15 = MEMORY[0x1E696ACD8];
-      v18 = v12;
-      v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v18 count:1];
+      v17 = v12;
+      v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v17 count:1];
       [v15 _mapsui_activateLayouts:v16];
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)infoCardThemeChanged

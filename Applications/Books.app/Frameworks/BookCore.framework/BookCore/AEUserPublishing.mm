@@ -371,48 +371,50 @@
 
     if (v9)
     {
-      v27 = 0;
-      v10 = [NSMutableString stringWithContentsOfFile:v9 encoding:4 error:&v27];
+      v29 = 0;
+      v10 = [NSMutableString stringWithContentsOfFile:v9 encoding:4 error:&v29];
       if (v10)
       {
         v11 = [(AEUserPublishing *)self p_assetAuthorForStoreId:idCopy dataSource:sourceCopy];
         v12 = [(AEUserPublishing *)self p_assetTitleForStoreId:idCopy dataSource:sourceCopy];
-        v26 = [(AEUserPublishing *)self p_storeURLForStoreId:idCopy dataSource:sourceCopy];
+        v28 = [(AEUserPublishing *)self p_storeURLForStoreId:idCopy dataSource:sourceCopy];
         v13 = [(AEUserPublishing *)self p_assetCategoryForStoreId:idCopy dataSource:sourceCopy];
-        v14 = &_s5JSApp18ProcessEnvironmentC7currentACvgZ_ptr;
-        if ([v11 length])
+        v14 = [v11 length];
+        v15 = &_s5JSApp18ProcessEnvironmentC7currentACvgZ_ptr;
+        if (v14)
         {
-          v15 = IMCommonCoreBundle();
-          v16 = [v15 localizedStringForKey:@"by %@" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
-          v17 = [NSString stringWithFormat:v16, v11];
+          v16 = IMCommonCoreBundle(v14);
+          v17 = [v16 localizedStringForKey:@"by %@" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
+          v18 = [NSString stringWithFormat:v17, v11];
 
-          v14 = &_s5JSApp18ProcessEnvironmentC7currentACvgZ_ptr;
-          [v10 replaceOccurrencesOfString:@"<!-- %%AUTHOR%% -->" withString:v17 options:0 range:{0, objc_msgSend(v10, "length")}];
+          v15 = &_s5JSApp18ProcessEnvironmentC7currentACvgZ_ptr;
+          [v10 replaceOccurrencesOfString:@"<!-- %%AUTHOR%% -->" withString:v18 options:0 range:{0, objc_msgSend(v10, "length")}];
         }
 
         if ([v12 length])
         {
-          v18 = v12;
-          if (v26)
+          v19 = v12;
+          if (v28)
           {
-            absoluteString = [v26 absoluteString];
-            v20 = [NSString stringWithFormat:@"<a href=%@>%@</a>", absoluteString, v18];
+            absoluteString = [v28 absoluteString];
+            v21 = [NSString stringWithFormat:@"<a href=%@>%@</a>", absoluteString, v19];
 
-            v18 = v20;
-            v14 = &_s5JSApp18ProcessEnvironmentC7currentACvgZ_ptr;
+            v19 = v21;
+            v15 = &_s5JSApp18ProcessEnvironmentC7currentACvgZ_ptr;
           }
 
-          [v10 replaceOccurrencesOfString:@"<!-- %%TITLE%% -->" withString:v18 options:0 range:{0, objc_msgSend(v10, "length")}];
+          [v10 replaceOccurrencesOfString:@"<!-- %%TITLE%% -->" withString:v19 options:0 range:{0, objc_msgSend(v10, "length")}];
         }
 
-        if ([v13 length])
+        v22 = [v13 length];
+        if (v22)
         {
-          v21 = IMCommonCoreBundle();
-          v22 = [v21 localizedStringForKey:@"Category: %@" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
-          v23 = [NSString stringWithFormat:v22, v13];
+          v23 = IMCommonCoreBundle(v22);
+          v24 = [v23 localizedStringForKey:@"Category: %@" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
+          v25 = [NSString stringWithFormat:v24, v13];
 
-          [v10 replaceOccurrencesOfString:@"<!-- %%CATEGORY%% -->" withString:v23 options:0 range:{0, objc_msgSend(v10, "length")}];
-          v14 = &_s5JSApp18ProcessEnvironmentC7currentACvgZ_ptr;
+          [v10 replaceOccurrencesOfString:@"<!-- %%CATEGORY%% -->" withString:v25 options:0 range:{0, objc_msgSend(v10, "length")}];
+          v15 = &_s5JSApp18ProcessEnvironmentC7currentACvgZ_ptr;
         }
 
         else
@@ -420,27 +422,27 @@
           [v10 replaceOccurrencesOfString:@"<!-- %%CATEGORY%% -->" withString:&stru_2D2930 options:0 range:{0, objc_msgSend(v10, "length")}];
         }
 
-        v24 = [v14[120] stringWithString:v10];
+        v26 = [v15[120] stringWithString:v10];
       }
 
       else
       {
-        v24 = 0;
+        v26 = 0;
       }
     }
 
     else
     {
-      v24 = 0;
+      v26 = 0;
     }
   }
 
   else
   {
-    v24 = 0;
+    v26 = 0;
   }
 
-  return v24;
+  return v26;
 }
 
 - (id)p_downloadedStoreUrlForStoreId:(id)id keyProfile:(id)profile path:(id)path dataSource:(id)source
@@ -451,62 +453,63 @@
   if ([(AEUserPublishing *)self p_isDownloadEnabledForStoreId:idCopy dataSource:source]&& (v13 = NSClassFromString(@"AEUserPublishingLookUpRequest"), [(objc_class *)v13 isEnabled]))
   {
     v14 = [v13 alloc];
-    v32 = idCopy;
-    v15 = [NSArray arrayWithObjects:&v32 count:1];
+    v34 = idCopy;
+    v15 = [NSArray arrayWithObjects:&v34 count:1];
     v16 = [v14 initWithAdamIDs:v15 keyProfile:profileCopy];
 
     [(AEUserPublishing *)self timeoutInterval];
-    v25 = 0;
-    v17 = [v16 resultWithTimeout:&v25 Error:?];
-    v18 = v25;
+    v27 = 0;
+    v17 = [v16 resultWithTimeout:&v27 Error:?];
+    v18 = v27;
+    v19 = v18;
     if (v18)
     {
-      v19 = BCIMLog();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
-      {
-        *buf = 136315650;
-        v27 = "[AEUserPublishing p_downloadedStoreUrlForStoreId:keyProfile:path:dataSource:]";
-        v28 = 2080;
-        v29 = "/Library/Caches/com.apple.xbs/Sources/Alder/frameworks/BookCore/BookCore/Sharing/Annotations/Private/AEUserPublishing.m";
-        v30 = 1024;
-        v31 = 484;
-        _os_log_impl(&dword_0, v19, OS_LOG_TYPE_INFO, "%s %s:%d", buf, 0x1Cu);
-      }
-
-      v20 = BCIMLog();
+      v20 = BCIMLog(v18);
       if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
       {
-        *buf = 138412290;
-        v27 = v18;
-        _os_log_impl(&dword_0, v20, OS_LOG_TYPE_INFO, "@Failed to get storeURL -- Error {%@}", buf, 0xCu);
+        *buf = 136315650;
+        v29 = "[AEUserPublishing p_downloadedStoreUrlForStoreId:keyProfile:path:dataSource:]";
+        v30 = 2080;
+        v31 = "/Library/Caches/com.apple.xbs/Sources/Alder/frameworks/BookCore/BookCore/Sharing/Annotations/Private/AEUserPublishing.m";
+        v32 = 1024;
+        v33 = 484;
+        _os_log_impl(&dword_0, v20, OS_LOG_TYPE_INFO, "%s %s:%d", buf, 0x1Cu);
       }
 
-      v21 = 0;
+      v22 = BCIMLog(v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+      {
+        *buf = 138412290;
+        v29 = v19;
+        _os_log_impl(&dword_0, v22, OS_LOG_TYPE_INFO, "@Failed to get storeURL -- Error {%@}", buf, 0xCu);
+      }
+
+      v23 = 0;
     }
 
     else
     {
-      v20 = [objc_opt_class() resultsDictionaryFromLookupResult:v17];
-      v22 = [v20 objectForKey:idCopy];
-      v23 = [v22 objectForKey:pathCopy];
-      if ([v23 length])
+      v22 = [objc_opt_class() resultsDictionaryFromLookupResult:v17];
+      v24 = [v22 objectForKey:idCopy];
+      v25 = [v24 objectForKey:pathCopy];
+      if ([v25 length])
       {
-        v21 = [[NSURL alloc] initWithString:v23];
+        v23 = [[NSURL alloc] initWithString:v25];
       }
 
       else
       {
-        v21 = 0;
+        v23 = 0;
       }
     }
   }
 
   else
   {
-    v21 = 0;
+    v23 = 0;
   }
 
-  return v21;
+  return v23;
 }
 
 - (BOOL)p_isDownloadEnabledForStoreId:(id)id dataSource:(id)source

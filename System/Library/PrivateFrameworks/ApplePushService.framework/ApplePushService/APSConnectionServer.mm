@@ -1052,17 +1052,13 @@ LABEL_20:
     v5 = "no";
   }
 
-  enabledTopics = self->_enabledTopics;
+  v6 = APSPrettyPrintCollection();
   v7 = APSPrettyPrintCollection();
-  ignoredTopics = self->_ignoredTopics;
+  v8 = APSPrettyPrintCollection();
   v9 = APSPrettyPrintCollection();
-  opportunisticTopics = self->_opportunisticTopics;
-  v11 = APSPrettyPrintCollection();
-  nonWakingTopics = self->_nonWakingTopics;
-  v13 = APSPrettyPrintCollection();
-  v14 = [NSString stringWithFormat:@"<%@ %p: %@, criticalReliability=%s, enabledTopics=%@, ignoredTopics=%@, opportunisticTopics=%@, nonwakingTopics=%@>", v4, self, v3, v5, v7, v9, v11, v13];
+  v10 = [NSString stringWithFormat:@"<%@ %p: %@, criticalReliability=%s, enabledTopics=%@, ignoredTopics=%@, opportunisticTopics=%@, nonwakingTopics=%@>", v4, self, v3, v5, v6, v7, v8, v9];
 
-  return v14;
+  return v10;
 }
 
 - (id)aps_prettyDescription
@@ -1103,18 +1099,14 @@ LABEL_20:
     v17 = "no";
   }
 
-  enabledTopics = self->_enabledTopics;
+  v18 = APSPrettyPrintCollection();
   v19 = APSPrettyPrintCollection();
-  ignoredTopics = self->_ignoredTopics;
+  v20 = APSPrettyPrintCollection();
   v21 = APSPrettyPrintCollection();
-  opportunisticTopics = self->_opportunisticTopics;
-  v23 = APSPrettyPrintCollection();
-  nonWakingTopics = self->_nonWakingTopics;
-  v25 = APSPrettyPrintCollection();
-  v26 = APSPrettyPrintCollection();
-  v27 = [NSString stringWithFormat:@"<%@, criticalReliability=%s, enabledTopics=%@, ignoredTopics=%@, opportunisticTopics=%@, nonwakingTopics=%@, statistic=%@>", v3, v17, v19, v21, v23, v25, v26];
+  v22 = APSPrettyPrintCollection();
+  v23 = [NSString stringWithFormat:@"<%@, criticalReliability=%s, enabledTopics=%@, ignoredTopics=%@, opportunisticTopics=%@, nonwakingTopics=%@, statistic=%@>", v3, v17, v18, v19, v20, v21, v22];
 
-  return v27;
+  return v23;
 }
 
 - (void)setUser:(id)user
@@ -1770,7 +1762,7 @@ LABEL_11:
   {
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_10010A1F0(&self->_connectionPortName);
+      sub_10010A1F0();
     }
 
 LABEL_12:
@@ -2154,7 +2146,7 @@ LABEL_11:
         v29 = +[APSLog connectionServer];
         if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
         {
-          sub_10010A2D0(self);
+          sub_10010A2D0();
         }
       }
 
@@ -2231,7 +2223,7 @@ LABEL_28:
       v39 = +[APSLog connectionServer];
       if (os_log_type_enabled(v39, OS_LOG_TYPE_FAULT))
       {
-        sub_10010A3A8(self);
+        sub_10010A3A8();
       }
     }
 
@@ -2306,7 +2298,7 @@ LABEL_29:
           v46 = +[APSLog connectionServer];
           if (os_log_type_enabled(v46, OS_LOG_TYPE_FAULT))
           {
-            sub_10010A480(self);
+            sub_10010A480();
           }
         }
 
@@ -2534,61 +2526,60 @@ LABEL_18:
       v9 = +[APSLog connectionServer];
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        pushWakeTopics = self->_pushWakeTopics;
+        v10 = APSPrettyPrintCollection();
         v11 = APSPrettyPrintCollection();
-        v12 = APSPrettyPrintCollection();
         *buf = 138412802;
         *&buf[4] = self;
         *&buf[12] = 2112;
-        *&buf[14] = v11;
+        *&buf[14] = v10;
         *&buf[22] = 2112;
-        *&buf[24] = v12;
+        *&buf[24] = v11;
         _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%@: connection set push wake topics from %@ to %@", buf, 0x20u);
       }
 
       objc_storeStrong(&self->_pushWakeTopics, topicsCopy);
-      v30 = 0u;
-      v31 = 0u;
-      v28 = 0u;
       v29 = 0u;
-      v13 = [topicManager topicStatesForConnectionServer:self];
-      v14 = [v13 countByEnumeratingWithState:&v28 objects:v32 count:16];
-      if (v14)
+      v30 = 0u;
+      v27 = 0u;
+      v28 = 0u;
+      v12 = [topicManager topicStatesForConnectionServer:self];
+      v13 = [v12 countByEnumeratingWithState:&v27 objects:v31 count:16];
+      if (v13)
       {
-        v15 = v14;
-        v26 = topicManager;
-        v27 = connection;
-        v16 = 0;
-        v17 = *v29;
+        v14 = v13;
+        v25 = topicManager;
+        v26 = connection;
+        v15 = 0;
+        v16 = *v28;
         do
         {
-          for (i = 0; i != v15; i = i + 1)
+          for (i = 0; i != v14; i = i + 1)
           {
-            if (*v29 != v17)
+            if (*v28 != v16)
             {
-              objc_enumerationMutation(v13);
+              objc_enumerationMutation(v12);
             }
 
-            v19 = *(*(&v28 + 1) + 8 * i);
-            topicName = [v19 topicName];
-            attributes = [v19 attributes];
-            v22 = [topicsCopy containsObject:topicName];
-            if (v22 != [attributes isPushWakeEnabled])
+            v18 = *(*(&v27 + 1) + 8 * i);
+            topicName = [v18 topicName];
+            attributes = [v18 attributes];
+            v21 = [topicsCopy containsObject:topicName];
+            if (v21 != [attributes isPushWakeEnabled])
             {
-              [attributes setPushWakeEnabled:v22];
-              v16 = 1;
+              [attributes setPushWakeEnabled:v21];
+              v15 = 1;
             }
           }
 
-          v15 = [v13 countByEnumeratingWithState:&v28 objects:v32 count:16];
+          v14 = [v12 countByEnumeratingWithState:&v27 objects:v31 count:16];
         }
 
-        while (v15);
+        while (v14);
 
         [(APSConnectionServer *)self _savePersistentConnectionTopics];
-        topicManager = v26;
-        connection = v27;
-        if (v16)
+        topicManager = v25;
+        connection = v26;
+        if (v15)
         {
           delegate2 = [(APSConnectionServer *)self delegate];
           topicManager2 = [delegate2 topicManager];
@@ -2610,7 +2601,7 @@ LABEL_18:
     connection = +[APSLog connectionServer];
     if (os_log_type_enabled(connection, OS_LOG_TYPE_FAULT))
     {
-      sub_10010A558();
+      sub_10010A558(topicsCopy);
     }
   }
 }
@@ -2644,61 +2635,60 @@ LABEL_18:
     v9 = +[APSLog connectionServer];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      ultraConstrainedTopics = self->_ultraConstrainedTopics;
+      v10 = APSPrettyPrintCollection();
       v11 = APSPrettyPrintCollection();
-      v12 = APSPrettyPrintCollection();
       *buf = 138412802;
       *&buf[4] = self;
       *&buf[12] = 2112;
-      *&buf[14] = v11;
+      *&buf[14] = v10;
       *&buf[22] = 2112;
-      *&buf[24] = v12;
+      *&buf[24] = v11;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%@: connection set ultra constrained topics from %@ to %@", buf, 0x20u);
     }
 
     objc_storeStrong(&self->_ultraConstrainedTopics, topicsCopy);
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
-    v13 = [topicManager topicStatesForConnectionServer:self];
-    v14 = [v13 countByEnumeratingWithState:&v28 objects:v32 count:16];
-    if (v14)
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
+    v12 = [topicManager topicStatesForConnectionServer:self];
+    v13 = [v12 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    if (v13)
     {
-      v15 = v14;
-      v26 = topicManager;
-      v27 = connection;
-      v16 = 0;
-      v17 = *v29;
+      v14 = v13;
+      v25 = topicManager;
+      v26 = connection;
+      v15 = 0;
+      v16 = *v28;
       do
       {
-        for (i = 0; i != v15; i = i + 1)
+        for (i = 0; i != v14; i = i + 1)
         {
-          if (*v29 != v17)
+          if (*v28 != v16)
           {
-            objc_enumerationMutation(v13);
+            objc_enumerationMutation(v12);
           }
 
-          v19 = *(*(&v28 + 1) + 8 * i);
-          topicName = [v19 topicName];
-          attributes = [v19 attributes];
-          v22 = [topicsCopy containsObject:topicName];
-          if (v22 != [attributes isUltraConstrainedEnabled])
+          v18 = *(*(&v27 + 1) + 8 * i);
+          topicName = [v18 topicName];
+          attributes = [v18 attributes];
+          v21 = [topicsCopy containsObject:topicName];
+          if (v21 != [attributes isUltraConstrainedEnabled])
           {
-            [attributes setUltraConstrainedEnabled:v22];
-            v16 = 1;
+            [attributes setUltraConstrainedEnabled:v21];
+            v15 = 1;
           }
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v27 objects:v31 count:16];
       }
 
-      while (v15);
+      while (v14);
 
       [(APSConnectionServer *)self _savePersistentConnectionTopics];
-      topicManager = v26;
-      connection = v27;
-      if (v16)
+      topicManager = v25;
+      connection = v26;
+      if (v15)
       {
         delegate2 = [(APSConnectionServer *)self delegate];
         topicManager2 = [delegate2 topicManager];

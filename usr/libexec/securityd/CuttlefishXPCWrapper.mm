@@ -2,17 +2,21 @@
 + (BOOL)retryable:(id)retryable;
 - (CuttlefishXPCWrapper)initWithCuttlefishXPCConnection:(id)connection;
 - (void)attemptPreapprovedJoinWithSpecificUser:(id)user ckksKeys:(id)keys tlkShares:(id)shares preapprovedKeys:(id)preapprovedKeys altDSID:(id)d flowID:(id)iD deviceSessionID:(id)sessionID canSendMetrics:(BOOL)self0 reply:(id)self1;
+- (void)createCustodianRecoveryKeyWithSpecificUser:(id)user recoveryKey:(id)key salt:(id)salt ckksKeys:(id)keys uuid:(id)uuid kind:(int)kind reply:(id)reply;
 - (void)departByDistrustingSelfWithSpecificUser:(id)user reply:(id)reply;
 - (void)distrustPeerIDsWithSpecificUser:(id)user peerIDs:(id)ds reply:(id)reply;
 - (void)dropPeerIDsWithSpecificUser:(id)user peerIDs:(id)ds reply:(id)reply;
 - (void)dumpWithSpecificUser:(id)user fileDescriptor:(id)descriptor reply:(id)reply;
 - (void)establishWithSpecificUser:(id)user ckksKeys:(id)keys tlkShares:(id)shares preapprovedKeys:(id)preapprovedKeys altDSID:(id)d flowID:(id)iD deviceSessionID:(id)sessionID canSendMetrics:(BOOL)self0 reply:(id)self1;
+- (void)fetchAccountSettingsWithSpecificUser:(id)user forceFetch:(BOOL)fetch altDSID:(id)d flowID:(id)iD deviceSessionID:(id)sessionID canSendMetrics:(BOOL)metrics reply:(id)reply;
 - (void)fetchAllowedMachineIDsWithSpecificUser:(id)user reply:(id)reply;
 - (void)fetchCurrentItemWithSpecificUser:(id)user items:(id)items reply:(id)reply;
+- (void)fetchCurrentPolicyWithSpecificUser:(id)user modelIDOverride:(id)override isInheritedAccount:(BOOL)account reply:(id)reply;
 - (void)fetchEgoEpochWithSpecificUser:(id)user reply:(id)reply;
 - (void)fetchEscrowContentsWithSpecificUser:(id)user reply:(id)reply;
 - (void)fetchPCSIdentityByPublicKeyWithSpecificUser:(id)user pcsservices:(id)pcsservices reply:(id)reply;
 - (void)fetchPolicyDocumentsWithSpecificUser:(id)user versions:(id)versions reply:(id)reply;
+- (void)fetchRecoverableTLKSharesWithSpecificUser:(id)user peerID:(id)d altDSID:(id)iD flowID:(id)flowID deviceSessionID:(id)sessionID canSendMetrics:(BOOL)metrics reply:(id)reply;
 - (void)fetchTrustStateWithSpecificUser:(id)user reply:(id)reply;
 - (void)fetchTrustedFullPeerCountWithSpecificUser:(id)user reply:(id)reply;
 - (void)fetchTrustedPeerCountWithSpecificUser:(id)user reply:(id)reply;
@@ -34,6 +38,7 @@
 - (void)pingWithReply:(id)reply;
 - (void)preflightPreapprovedJoinWithSpecificUser:(id)user preapprovedKeys:(id)keys reply:(id)reply;
 - (void)preflightRecoverOctagonUsingRecoveryKey:(id)key recoveryKey:(id)recoveryKey salt:(id)salt reply:(id)reply;
+- (void)preflightVouchWithBottleWithSpecificUser:(id)user bottleID:(id)d altDSID:(id)iD flowID:(id)flowID deviceSessionID:(id)sessionID canSendMetrics:(BOOL)metrics reply:(id)reply;
 - (void)preflightVouchWithCustodianRecoveryKeyWithSpecificUser:(id)user crk:(id)crk reply:(id)reply;
 - (void)preflightVouchWithRecoveryKeyWithSpecificUser:(id)user recoveryKey:(id)key salt:(id)salt reply:(id)reply;
 - (void)prepareInheritancePeerWithSpecificUser:(id)user epoch:(unint64_t)epoch machineID:(id)d bottleSalt:(id)salt bottleID:(id)iD modelID:(id)modelID deviceName:(id)name serialNumber:(id)self0 osVersion:(id)self1 policyVersion:(id)self2 policySecrets:(id)self3 syncUserControllableViews:(int)self4 secureElementIdentity:(id)self5 signingPrivKeyPersistentRef:(id)self6 encPrivKeyPersistentRef:(id)self7 crk:(id)self8 reply:(id)self9;
@@ -42,6 +47,9 @@
 - (void)removeCustodianRecoveryKeyWithSpecificUser:(id)user uuid:(id)uuid reply:(id)reply;
 - (void)removeEscrowCacheWithSpecificUser:(id)user reply:(id)reply;
 - (void)removeRecoveryKey:(id)key reply:(id)reply;
+- (void)requestEscrowCheckWithSpecificUser:(id)user requiresEscrowCheck:(BOOL)check passcodeGeneration:(unint64_t)generation knownFederations:(id)federations isBackgroundCheck:(BOOL)backgroundCheck flowID:(id)d deviceSessionID:(id)iD reply:(id)self0;
+- (void)requestHealthCheckWithSpecificUser:(id)user requiresEscrowCheck:(BOOL)check repair:(BOOL)repair danglingPeerCleanup:(BOOL)cleanup caesarPeerCleanup:(BOOL)peerCleanup updateIdMS:(BOOL)s knownFederations:(id)federations flowID:(id)self0 deviceSessionID:(id)self1 reply:(id)self2;
+- (void)resetAccountCDPContentsWithSpecificUser:(id)user idmsTargetContext:(id)context idmsCuttlefishPassword:(id)password notifyIdMS:(BOOL)s internalAccount:(BOOL)account demoAccount:(BOOL)demoAccount reply:(id)reply;
 - (void)resetWithSpecificUser:(id)user resetReason:(int64_t)reason idmsTargetContext:(id)context idmsCuttlefishPassword:(id)password notifyIdMS:(BOOL)s internalAccount:(BOOL)account demoAccount:(BOOL)demoAccount isGuitarfish:(BOOL)self0 accountIsW:(BOOL)self1 accountType:(int64_t)self2 altDSID:(id)self3 flowID:(id)self4 deviceSessionID:(id)self5 canSendMetrics:(BOOL)self6 reply:(id)self7;
 - (void)setAllowedMachineIDsWithSpecificUser:(id)user allowedMachineIDs:(id)ds userInitiatedRemovals:(id)removals evictedRemovals:(id)evictedRemovals unknownReasonRemovals:(id)reasonRemovals honorIDMSListChanges:(BOOL)changes version:(id)version flowID:(id)self0 deviceSessionID:(id)self1 canSendMetrics:(BOOL)self2 altDSID:(id)self3 trustedDeviceHash:(id)self4 deletedDeviceHash:(id)self5 trustedDevicesUpdateTimestamp:(id)self6 reply:(id)self7;
 - (void)setPreapprovedKeysWithSpecificUser:(id)user preapprovedKeys:(id)keys reply:(id)reply;
@@ -546,6 +554,132 @@
   _Block_object_dispose(v53, 8);
 }
 
+- (void)fetchAccountSettingsWithSpecificUser:(id)user forceFetch:(BOOL)fetch altDSID:(id)d flowID:(id)iD deviceSessionID:(id)sessionID canSendMetrics:(BOOL)metrics reply:(id)reply
+{
+  metricsCopy = metrics;
+  fetchCopy = fetch;
+  userCopy = user;
+  dCopy = d;
+  iDCopy = iD;
+  sessionIDCopy = sessionID;
+  replyCopy = reply;
+  v32[0] = 0;
+  v32[1] = v32;
+  v32[2] = 0x2020000000;
+  v33 = 0;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x2020000000;
+  v31 = -86;
+  v18 = &v28;
+  do
+  {
+    *(v18 + 24) = 0;
+    cuttlefishXPCConnection = [(CuttlefishXPCWrapper *)self cuttlefishXPCConnection];
+    v24[0] = _NSConcreteStackBlock;
+    v24[1] = 3221225472;
+    v24[2] = sub_10008CF48;
+    v24[3] = &unk_100335FB0;
+    v26 = v32;
+    v24[4] = self;
+    v27 = &v28;
+    v20 = replyCopy;
+    v25 = v20;
+    v21 = [cuttlefishXPCConnection synchronousRemoteObjectProxyWithErrorHandler:v24];
+    [v21 fetchAccountSettingsWithSpecificUser:userCopy forceFetch:fetchCopy altDSID:dCopy flowID:iDCopy deviceSessionID:sessionIDCopy canSendMetrics:metricsCopy reply:v20];
+
+    v18 = v29;
+  }
+
+  while ((v29[3] & 1) != 0);
+  _Block_object_dispose(&v28, 8);
+  _Block_object_dispose(v32, 8);
+}
+
+- (void)fetchRecoverableTLKSharesWithSpecificUser:(id)user peerID:(id)d altDSID:(id)iD flowID:(id)flowID deviceSessionID:(id)sessionID canSendMetrics:(BOOL)metrics reply:(id)reply
+{
+  metricsCopy = metrics;
+  userCopy = user;
+  dCopy = d;
+  iDCopy = iD;
+  flowIDCopy = flowID;
+  sessionIDCopy = sessionID;
+  replyCopy = reply;
+  v33[0] = 0;
+  v33[1] = v33;
+  v33[2] = 0x2020000000;
+  v34 = 0;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x2020000000;
+  v32 = -86;
+  v19 = &v29;
+  do
+  {
+    *(v19 + 24) = 0;
+    cuttlefishXPCConnection = [(CuttlefishXPCWrapper *)self cuttlefishXPCConnection];
+    v25[0] = _NSConcreteStackBlock;
+    v25[1] = 3221225472;
+    v25[2] = sub_10008D2F4;
+    v25[3] = &unk_100335FB0;
+    v27 = v33;
+    v25[4] = self;
+    v28 = &v29;
+    v21 = replyCopy;
+    v26 = v21;
+    v22 = [cuttlefishXPCConnection synchronousRemoteObjectProxyWithErrorHandler:v25];
+    [v22 fetchRecoverableTLKSharesWithSpecificUser:userCopy peerID:dCopy altDSID:iDCopy flowID:flowIDCopy deviceSessionID:sessionIDCopy canSendMetrics:metricsCopy reply:v21];
+
+    v19 = v30;
+  }
+
+  while ((v30[3] & 1) != 0);
+  _Block_object_dispose(&v29, 8);
+  _Block_object_dispose(v33, 8);
+}
+
+- (void)resetAccountCDPContentsWithSpecificUser:(id)user idmsTargetContext:(id)context idmsCuttlefishPassword:(id)password notifyIdMS:(BOOL)s internalAccount:(BOOL)account demoAccount:(BOOL)demoAccount reply:(id)reply
+{
+  demoAccountCopy = demoAccount;
+  accountCopy = account;
+  sCopy = s;
+  userCopy = user;
+  contextCopy = context;
+  passwordCopy = password;
+  replyCopy = reply;
+  v31[0] = 0;
+  v31[1] = v31;
+  v31[2] = 0x2020000000;
+  v32 = 0;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x2020000000;
+  v30 = -86;
+  v17 = &v27;
+  do
+  {
+    *(v17 + 24) = 0;
+    cuttlefishXPCConnection = [(CuttlefishXPCWrapper *)self cuttlefishXPCConnection];
+    v23[0] = _NSConcreteStackBlock;
+    v23[1] = 3221225472;
+    v23[2] = sub_10008D688;
+    v23[3] = &unk_100335FB0;
+    v25 = v31;
+    v23[4] = self;
+    v26 = &v27;
+    v19 = replyCopy;
+    v24 = v19;
+    v20 = [cuttlefishXPCConnection synchronousRemoteObjectProxyWithErrorHandler:v23];
+    [v20 resetAccountCDPContentsWithSpecificUser:userCopy idmsTargetContext:contextCopy idmsCuttlefishPassword:passwordCopy notifyIdMS:sCopy internalAccount:accountCopy demoAccount:demoAccountCopy reply:v19];
+
+    v17 = v28;
+  }
+
+  while ((v28[3] & 1) != 0);
+  _Block_object_dispose(&v27, 8);
+  _Block_object_dispose(v31, 8);
+}
+
 - (void)removeEscrowCacheWithSpecificUser:(id)user reply:(id)reply
 {
   userCopy = user;
@@ -657,6 +791,79 @@
   _Block_object_dispose(v20, 8);
 }
 
+- (void)requestEscrowCheckWithSpecificUser:(id)user requiresEscrowCheck:(BOOL)check passcodeGeneration:(unint64_t)generation knownFederations:(id)federations isBackgroundCheck:(BOOL)backgroundCheck flowID:(id)d deviceSessionID:(id)iD reply:(id)self0
+{
+  backgroundCheckCopy = backgroundCheck;
+  checkCopy = check;
+  userCopy = user;
+  federationsCopy = federations;
+  dCopy = d;
+  iDCopy = iD;
+  replyCopy = reply;
+  v27[0] = 0;
+  v27[1] = v27;
+  v27[2] = 0x2020000000;
+  v28 = 0;
+  cuttlefishXPCConnection = [(CuttlefishXPCWrapper *)self cuttlefishXPCConnection];
+  v24[0] = _NSConcreteStackBlock;
+  v24[1] = 3221225472;
+  v24[2] = sub_10008E3A0;
+  v24[3] = &unk_100335FD8;
+  v26 = v27;
+  v24[4] = self;
+  v21 = replyCopy;
+  v25 = v21;
+  v22 = [cuttlefishXPCConnection synchronousRemoteObjectProxyWithErrorHandler:v24];
+  [v22 requestEscrowCheckWithSpecificUser:userCopy requiresEscrowCheck:checkCopy passcodeGeneration:generation knownFederations:federationsCopy isBackgroundCheck:backgroundCheckCopy flowID:dCopy deviceSessionID:iDCopy reply:v21];
+
+  _Block_object_dispose(v27, 8);
+}
+
+- (void)requestHealthCheckWithSpecificUser:(id)user requiresEscrowCheck:(BOOL)check repair:(BOOL)repair danglingPeerCleanup:(BOOL)cleanup caesarPeerCleanup:(BOOL)peerCleanup updateIdMS:(BOOL)s knownFederations:(id)federations flowID:(id)self0 deviceSessionID:(id)self1 reply:(id)self2
+{
+  peerCleanupCopy = peerCleanup;
+  sCopy = s;
+  repairCopy = repair;
+  cleanupCopy = cleanup;
+  checkCopy = check;
+  userCopy = user;
+  federationsCopy = federations;
+  dCopy = d;
+  iDCopy = iD;
+  replyCopy = reply;
+  v35[0] = 0;
+  v35[1] = v35;
+  v35[2] = 0x2020000000;
+  v36 = 0;
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x2020000000;
+  v34 = -86;
+  v18 = &v31;
+  do
+  {
+    *(v18 + 24) = 0;
+    cuttlefishXPCConnection = [(CuttlefishXPCWrapper *)self cuttlefishXPCConnection];
+    v27[0] = _NSConcreteStackBlock;
+    v27[1] = 3221225472;
+    v27[2] = sub_10008E728;
+    v27[3] = &unk_100335FB0;
+    v29 = v35;
+    v27[4] = self;
+    v30 = &v31;
+    v20 = replyCopy;
+    v28 = v20;
+    v21 = [cuttlefishXPCConnection synchronousRemoteObjectProxyWithErrorHandler:v27];
+    [v21 requestHealthCheckWithSpecificUser:userCopy requiresEscrowCheck:checkCopy repair:repairCopy danglingPeerCleanup:cleanupCopy caesarPeerCleanup:peerCleanupCopy updateIdMS:sCopy knownFederations:federationsCopy flowID:dCopy deviceSessionID:iDCopy reply:v20];
+
+    v18 = v32;
+  }
+
+  while ((v32[3] & 1) != 0);
+  _Block_object_dispose(&v31, 8);
+  _Block_object_dispose(v35, 8);
+}
+
 - (void)findCustodianRecoveryKeyWithSpecificUser:(id)user uuid:(id)uuid reply:(id)reply
 {
   userCopy = user;
@@ -731,6 +938,48 @@
   while ((v20[3] & 1) != 0);
   _Block_object_dispose(&v19, 8);
   _Block_object_dispose(v23, 8);
+}
+
+- (void)createCustodianRecoveryKeyWithSpecificUser:(id)user recoveryKey:(id)key salt:(id)salt ckksKeys:(id)keys uuid:(id)uuid kind:(int)kind reply:(id)reply
+{
+  v9 = *&kind;
+  userCopy = user;
+  keyCopy = key;
+  saltCopy = salt;
+  keysCopy = keys;
+  uuidCopy = uuid;
+  replyCopy = reply;
+  v33[0] = 0;
+  v33[1] = v33;
+  v33[2] = 0x2020000000;
+  v34 = 0;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x2020000000;
+  v32 = -86;
+  v19 = &v29;
+  do
+  {
+    *(v19 + 24) = 0;
+    cuttlefishXPCConnection = [(CuttlefishXPCWrapper *)self cuttlefishXPCConnection];
+    v25[0] = _NSConcreteStackBlock;
+    v25[1] = 3221225472;
+    v25[2] = sub_10008F190;
+    v25[3] = &unk_100335FB0;
+    v27 = v33;
+    v25[4] = self;
+    v28 = &v29;
+    v21 = replyCopy;
+    v26 = v21;
+    v22 = [cuttlefishXPCConnection synchronousRemoteObjectProxyWithErrorHandler:v25];
+    [v22 createCustodianRecoveryKeyWithSpecificUser:userCopy recoveryKey:keyCopy salt:saltCopy ckksKeys:keysCopy uuid:uuidCopy kind:v9 reply:v21];
+
+    v19 = v30;
+  }
+
+  while ((v30[3] & 1) != 0);
+  _Block_object_dispose(&v29, 8);
+  _Block_object_dispose(v33, 8);
 }
 
 - (void)setRecoveryKeyWithSpecificUser:(id)user recoveryKey:(id)key salt:(id)salt ckksKeys:(id)keys reply:(id)reply
@@ -808,6 +1057,45 @@
   while ((v17[3] & 1) != 0);
   _Block_object_dispose(&v16, 8);
   _Block_object_dispose(v20, 8);
+}
+
+- (void)fetchCurrentPolicyWithSpecificUser:(id)user modelIDOverride:(id)override isInheritedAccount:(BOOL)account reply:(id)reply
+{
+  accountCopy = account;
+  userCopy = user;
+  overrideCopy = override;
+  replyCopy = reply;
+  v25[0] = 0;
+  v25[1] = v25;
+  v25[2] = 0x2020000000;
+  v26 = 0;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x2020000000;
+  v24 = -86;
+  v13 = &v21;
+  do
+  {
+    *(v13 + 24) = 0;
+    cuttlefishXPCConnection = [(CuttlefishXPCWrapper *)self cuttlefishXPCConnection];
+    v17[0] = _NSConcreteStackBlock;
+    v17[1] = 3221225472;
+    v17[2] = sub_10008FBD4;
+    v17[3] = &unk_100335FB0;
+    v19 = v25;
+    v17[4] = self;
+    v20 = &v21;
+    v15 = replyCopy;
+    v18 = v15;
+    v16 = [cuttlefishXPCConnection synchronousRemoteObjectProxyWithErrorHandler:v17];
+    [v16 fetchCurrentPolicyWithSpecificUser:userCopy modelIDOverride:overrideCopy isInheritedAccount:accountCopy reply:v15];
+
+    v13 = v22;
+  }
+
+  while ((v22[3] & 1) != 0);
+  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(v25, 8);
 }
 
 - (void)fetchPolicyDocumentsWithSpecificUser:(id)user versions:(id)versions reply:(id)reply
@@ -1413,6 +1701,48 @@
   while ((v37[3] & 1) != 0);
   _Block_object_dispose(&v36, 8);
   _Block_object_dispose(v40, 8);
+}
+
+- (void)preflightVouchWithBottleWithSpecificUser:(id)user bottleID:(id)d altDSID:(id)iD flowID:(id)flowID deviceSessionID:(id)sessionID canSendMetrics:(BOOL)metrics reply:(id)reply
+{
+  metricsCopy = metrics;
+  userCopy = user;
+  dCopy = d;
+  iDCopy = iD;
+  flowIDCopy = flowID;
+  sessionIDCopy = sessionID;
+  replyCopy = reply;
+  v33[0] = 0;
+  v33[1] = v33;
+  v33[2] = 0x2020000000;
+  v34 = 0;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x2020000000;
+  v32 = -86;
+  v19 = &v29;
+  do
+  {
+    *(v19 + 24) = 0;
+    cuttlefishXPCConnection = [(CuttlefishXPCWrapper *)self cuttlefishXPCConnection];
+    v25[0] = _NSConcreteStackBlock;
+    v25[1] = 3221225472;
+    v25[2] = sub_100093554;
+    v25[3] = &unk_100335FB0;
+    v27 = v33;
+    v25[4] = self;
+    v28 = &v29;
+    v21 = replyCopy;
+    v26 = v21;
+    v22 = [cuttlefishXPCConnection synchronousRemoteObjectProxyWithErrorHandler:v25];
+    [v22 preflightVouchWithBottleWithSpecificUser:userCopy bottleID:dCopy altDSID:iDCopy flowID:flowIDCopy deviceSessionID:sessionIDCopy canSendMetrics:metricsCopy reply:v21];
+
+    v19 = v30;
+  }
+
+  while ((v30[3] & 1) != 0);
+  _Block_object_dispose(&v29, 8);
+  _Block_object_dispose(v33, 8);
 }
 
 - (void)vouchWithSpecificUser:(id)user peerID:(id)d permanentInfo:(id)info permanentInfoSig:(id)sig stableInfo:(id)stableInfo stableInfoSig:(id)infoSig ckksKeys:(id)keys flowID:(id)self0 deviceSessionID:(id)self1 canSendMetrics:(BOOL)self2 reply:(id)self3

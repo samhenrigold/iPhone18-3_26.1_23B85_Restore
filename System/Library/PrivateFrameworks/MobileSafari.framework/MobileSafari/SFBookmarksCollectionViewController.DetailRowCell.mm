@@ -8,7 +8,7 @@
 - (void)prepareForReuse
 {
   selfCopy = self;
-  sub_18BB84640();
+  sub_18BB84640(selfCopy);
 }
 
 - (void)_bridgedUpdateConfigurationUsingState:(id)state

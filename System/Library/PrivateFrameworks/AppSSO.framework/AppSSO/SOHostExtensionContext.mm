@@ -80,7 +80,7 @@ uint64_t __59__SOHostExtensionContext__extensionAuxiliaryVendorProtocol__block_i
 void __49__SOHostExtensionContext_remoteContextWithError___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = SO_LOG_SOHostExtensionContext();
+  v4 = SO_LOG_SOHostExtensionContext(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __49__SOHostExtensionContext_remoteContextWithError___block_invoke_cold_1(v3, v4);
@@ -93,34 +93,32 @@ void __49__SOHostExtensionContext_remoteContextWithError___block_invoke(uint64_t
 
 - (void)openURL:(id)l completionHandler:(id)handler
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   lCopy = l;
   handlerCopy = handler;
-  v8 = SO_LOG_SOHostExtensionContext();
+  v8 = SO_LOG_SOHostExtensionContext(handlerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315907;
-    v16 = "[SOHostExtensionContext openURL:completionHandler:]";
-    v17 = 2160;
-    v18 = 1752392040;
-    v19 = 2117;
-    v20 = lCopy;
-    v21 = 2112;
+    v15 = "[SOHostExtensionContext openURL:completionHandler:]";
+    v16 = 2160;
+    v17 = 1752392040;
+    v18 = 2117;
+    v19 = lCopy;
+    v20 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_1C1317000, v8, OS_LOG_TYPE_DEFAULT, "%s URL: %{sensitive, mask.hash}@ on %@", buf, 0x2Au);
   }
 
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __52__SOHostExtensionContext_openURL_completionHandler___block_invoke;
-  v12[3] = &unk_1E813EE20;
-  v13 = lCopy;
-  v14 = handlerCopy;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __52__SOHostExtensionContext_openURL_completionHandler___block_invoke;
+  v11[3] = &unk_1E813EE20;
+  v12 = lCopy;
+  v13 = handlerCopy;
   v9 = handlerCopy;
   v10 = lCopy;
-  [(SOHostExtensionContext *)self canOpenURL:v10 completionHandler:v12];
-
-  v11 = *MEMORY[0x1E69E9840];
+  [(SOHostExtensionContext *)self canOpenURL:v10 completionHandler:v11];
 }
 
 void __52__SOHostExtensionContext_openURL_completionHandler___block_invoke(uint64_t a1, char a2)
@@ -137,50 +135,48 @@ void __52__SOHostExtensionContext_openURL_completionHandler___block_invoke(uint6
     v6 = [v4 openSensitiveURL:v5 withOptions:v3 error:&v15];
     v7 = v15;
 
-    v8 = SO_LOG_SOHostExtensionContext();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = SO_LOG_SOHostExtensionContext(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = @"NO";
+      v10 = @"NO";
       v17 = 1752392040;
-      v10 = *(a1 + 32);
+      v11 = *(a1 + 32);
       *buf = 141558787;
       if (v6)
       {
-        v9 = @"YES";
+        v10 = @"YES";
       }
 
       v18 = 2117;
-      v19 = v10;
+      v19 = v11;
       v20 = 2114;
-      v21 = v9;
+      v21 = v10;
       v22 = 2114;
       v23 = v7;
-      _os_log_impl(&dword_1C1317000, v8, OS_LOG_TYPE_DEFAULT, "opened URL %{sensitive, mask.hash}@: success = %{public}@, error = %{public}@", buf, 0x2Au);
+      _os_log_impl(&dword_1C1317000, v9, OS_LOG_TYPE_DEFAULT, "opened URL %{sensitive, mask.hash}@: success = %{public}@, error = %{public}@", buf, 0x2Au);
     }
 
-    v11 = *(a1 + 40);
-    if (v11)
+    v12 = *(a1 + 40);
+    if (v12)
     {
-      (*(v11 + 16))(v11, v6);
+      (*(v12 + 16))(v12, v6);
     }
   }
 
   else
   {
-    v12 = SO_LOG_SOHostExtensionContext();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = SO_LOG_SOHostExtensionContext(a1);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      __52__SOHostExtensionContext_openURL_completionHandler___block_invoke_cold_1(a1, v12);
+      __52__SOHostExtensionContext_openURL_completionHandler___block_invoke_cold_1(a1, v13);
     }
 
-    v13 = *(a1 + 40);
-    if (v13)
+    v14 = *(a1 + 40);
+    if (v14)
     {
-      (*(v13 + 16))(v13, 0);
+      (*(v14 + 16))(v14, 0);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)canOpenURL:(id)l completionHandler:(id)handler
@@ -188,7 +184,7 @@ void __52__SOHostExtensionContext_openURL_completionHandler___block_invoke(uint6
   v24 = *MEMORY[0x1E69E9840];
   lCopy = l;
   handlerCopy = handler;
-  v8 = SO_LOG_SOHostExtensionContext();
+  v8 = SO_LOG_SOHostExtensionContext(handlerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315907;
@@ -207,80 +203,74 @@ void __52__SOHostExtensionContext_openURL_completionHandler___block_invoke(uint6
   v10 = [defaultWorkspace isApplicationAvailableToOpenURL:lCopy error:&v15];
   v11 = v15;
 
-  v12 = SO_LOG_SOHostExtensionContext();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = SO_LOG_SOHostExtensionContext(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = @"NO";
+    v14 = @"NO";
     *buf = 141558787;
     v17 = 1752392040;
     v18 = 2117;
     if (v10)
     {
-      v13 = @"YES";
+      v14 = @"YES";
     }
 
     v19 = lCopy;
     v20 = 2114;
-    v21 = v13;
+    v21 = v14;
     v22 = 2114;
     selfCopy = v11;
-    _os_log_impl(&dword_1C1317000, v12, OS_LOG_TYPE_DEFAULT, "can open URL %{sensitive, mask.hash}@: result = %{public}@, error = %{public}@", buf, 0x2Au);
+    _os_log_impl(&dword_1C1317000, v13, OS_LOG_TYPE_DEFAULT, "can open URL %{sensitive, mask.hash}@: result = %{public}@, error = %{public}@", buf, 0x2Au);
   }
 
   if (handlerCopy)
   {
     handlerCopy[2](handlerCopy, v10);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)presentAuthorizationViewControllerWithHints:(id)hints requestIdentifier:(id)identifier completion:(id)completion
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   completionCopy = completion;
   hintsCopy = hints;
-  v11 = SO_LOG_SOHostExtensionContext();
+  v11 = SO_LOG_SOHostExtensionContext(hintsCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 136315650;
-    v15 = "[SOHostExtensionContext presentAuthorizationViewControllerWithHints:requestIdentifier:completion:]";
-    v16 = 2114;
-    v17 = identifierCopy;
-    v18 = 2112;
+    v13 = 136315650;
+    v14 = "[SOHostExtensionContext presentAuthorizationViewControllerWithHints:requestIdentifier:completion:]";
+    v15 = 2114;
+    v16 = identifierCopy;
+    v17 = 2112;
     selfCopy = self;
-    _os_log_impl(&dword_1C1317000, v11, OS_LOG_TYPE_DEFAULT, "%s requestIdentifier: %{public}@ on %@", &v14, 0x20u);
+    _os_log_impl(&dword_1C1317000, v11, OS_LOG_TYPE_DEFAULT, "%s requestIdentifier: %{public}@ on %@", &v13, 0x20u);
   }
 
   contextExtension = [(SOHostExtensionContext *)self contextExtension];
   [contextExtension presentAuthorizationViewControllerWithHints:hintsCopy requestIdentifier:identifierCopy completion:completionCopy];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)authorization:(id)authorization didCompleteWithCredential:(id)credential error:(id)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   authorizationCopy = authorization;
   errorCopy = error;
   credentialCopy = credential;
-  v11 = SO_LOG_SOHostExtensionContext();
+  v11 = SO_LOG_SOHostExtensionContext(credentialCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 136315650;
-    v15 = "[SOHostExtensionContext authorization:didCompleteWithCredential:error:]";
-    v16 = 2114;
-    v17 = authorizationCopy;
-    v18 = 2112;
+    v13 = 136315650;
+    v14 = "[SOHostExtensionContext authorization:didCompleteWithCredential:error:]";
+    v15 = 2114;
+    v16 = authorizationCopy;
+    v17 = 2112;
     selfCopy = self;
-    _os_log_impl(&dword_1C1317000, v11, OS_LOG_TYPE_DEFAULT, "%s requestIdentifier: %{public}@ on %@", &v14, 0x20u);
+    _os_log_impl(&dword_1C1317000, v11, OS_LOG_TYPE_DEFAULT, "%s requestIdentifier: %{public}@ on %@", &v13, 0x20u);
   }
 
   contextExtension = [(SOHostExtensionContext *)self contextExtension];
   [contextExtension authorization:authorizationCopy didCompleteWithCredential:credentialCopy error:errorCopy];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)requestReauthenticationWithRequestIdentifier:(id)identifier completion:(id)completion
@@ -307,23 +297,21 @@ void __52__SOHostExtensionContext_openURL_completionHandler___block_invoke(uint6
 
 void __49__SOHostExtensionContext_remoteContextWithError___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1C1317000, a2, OS_LOG_TYPE_ERROR, "Error getting remote context %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1C1317000, a2, OS_LOG_TYPE_ERROR, "Error getting remote context %{public}@", &v2, 0xCu);
 }
 
 void __52__SOHostExtensionContext_openURL_completionHandler___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
-  v4 = 141558275;
-  v5 = 1752392040;
-  v6 = 2117;
-  v7 = v2;
-  _os_log_error_impl(&dword_1C1317000, a2, OS_LOG_TYPE_ERROR, "can not open URL %{sensitive, mask.hash}@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 141558275;
+  v4 = 1752392040;
+  v5 = 2117;
+  v6 = v2;
+  _os_log_error_impl(&dword_1C1317000, a2, OS_LOG_TYPE_ERROR, "can not open URL %{sensitive, mask.hash}@", &v3, 0x16u);
 }
 
 @end

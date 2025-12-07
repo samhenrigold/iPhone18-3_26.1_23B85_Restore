@@ -78,8 +78,8 @@
 
   [(VIOSessionStateManager *)self setSessionRestartTimer:0];
   session = [(VIOSessionStateManager *)self session];
-  configuration = [(VIOSessionStateManager *)self configuration];
-  [session runWithConfiguration:configuration];
+  v8 = objc_msgSend_configuration(self);
+  [session runWithConfiguration:v8];
 
   session2 = [(VIOSessionStateManager *)self session];
   technique = [session2 technique];

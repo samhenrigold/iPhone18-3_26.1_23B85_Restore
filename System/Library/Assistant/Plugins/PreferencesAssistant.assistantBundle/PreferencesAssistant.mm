@@ -389,65 +389,64 @@ BOOL sub_9244(void *a1)
 uint64_t sub_92A8(void *a1)
 {
   v1 = a1;
-  v29 = @"still-camera";
-  v30[0] = MCFeatureCameraAllowed;
+  v28 = @"still-camera";
+  v29[0] = MCFeatureCameraAllowed;
   v2 = 1;
-  v3 = [NSArray arrayWithObjects:&v29 count:1];
-  v31[0] = v3;
-  v30[1] = MCFeatureVideoConferencingAllowed;
-  v28[0] = @"still-camera";
-  v28[1] = @"venice";
-  v4 = [NSArray arrayWithObjects:v28 count:2];
-  v31[1] = v4;
-  v30[2] = MCFeatureAssistantAllowed;
-  v27 = @"assistant";
-  v5 = [NSArray arrayWithObjects:&v27 count:1];
-  v31[2] = v5;
-  v30[3] = off_19EB8;
-  v26 = @"CellularTelephonyCapability";
-  v6 = [NSArray arrayWithObjects:&v26 count:1];
-  v31[3] = v6;
-  v30[4] = off_19EC0;
-  v25 = @"wifi";
-  v7 = [NSArray arrayWithObjects:&v25 count:1];
-  v31[4] = v7;
-  v30[5] = off_19EC8;
-  v24 = @"bluetooth";
-  v8 = [NSArray arrayWithObjects:&v24 count:1];
-  v31[5] = v8;
-  v9 = [NSDictionary dictionaryWithObjects:v31 forKeys:v30 count:6];
+  v3 = [NSArray arrayWithObjects:&v28 count:1];
+  v30[0] = v3;
+  v29[1] = MCFeatureVideoConferencingAllowed;
+  v27[0] = @"still-camera";
+  v27[1] = @"venice";
+  v4 = [NSArray arrayWithObjects:v27 count:2];
+  v30[1] = v4;
+  v29[2] = MCFeatureAssistantAllowed;
+  v26 = @"assistant";
+  v5 = [NSArray arrayWithObjects:&v26 count:1];
+  v30[2] = v5;
+  v29[3] = off_19EB8;
+  v25 = @"CellularTelephonyCapability";
+  v6 = [NSArray arrayWithObjects:&v25 count:1];
+  v30[3] = v6;
+  v29[4] = off_19EC0;
+  v24 = @"wifi";
+  v7 = [NSArray arrayWithObjects:&v24 count:1];
+  v30[4] = v7;
+  v29[5] = off_19EC8;
+  v23 = @"bluetooth";
+  v8 = [NSArray arrayWithObjects:&v23 count:1];
+  v30[5] = v8;
+  v9 = [NSDictionary dictionaryWithObjects:v30 forKeys:v29 count:6];
 
   [v9 objectForKey:v1];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v10 = v22 = 0u;
-  v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v10 = v21 = 0u;
+  v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v20;
+    v13 = *v19;
     while (2)
     {
-      for (i = 0; i != v12; i = i + 1)
+      for (i = 0; i != v12; ++i)
       {
-        if (*v20 != v13)
+        if (*v19 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v19 + 1) + 8 * i);
-        v16 = MGCopyAnswer();
-        v17 = [v16 BOOLValue];
+        v15 = MGCopyAnswer();
+        v16 = [v15 BOOLValue];
 
-        if (!v17)
+        if (!v16)
         {
           v2 = 0;
           goto LABEL_11;
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v12)
       {
         continue;

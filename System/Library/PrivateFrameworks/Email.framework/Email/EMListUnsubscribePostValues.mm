@@ -64,13 +64,11 @@
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v5 = equalCopy;
-    oneClickURL = self->_oneClickURL;
-    oneClickURL = [v5 oneClickURL];
+    v4 = equalCopy;
+    oneClickURL = [v4 oneClickURL];
     if (EFObjectsAreEqual())
     {
-      postContent = self->_postContent;
-      postContent = [v5 postContent];
+      postContent = [v4 postContent];
       EFObjectsAreEqual();
     }
   }

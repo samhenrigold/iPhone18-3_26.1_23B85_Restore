@@ -1,103 +1,3 @@
-void sub_10005A5B4(uint64_t a1)
-{
-  [*(a1 + 32) updateContextIDs:*(a1 + 40) forProcessID:*(a1 + 80) systemRecording:*(a1 + 88)];
-  [*(a1 + 32) addDelegate:*(a1 + 48)];
-  v2 = dispatch_group_create();
-  v3 = *(a1 + 32);
-  if (v3[20])
-  {
-    if (dword_1000B6840 <= 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
-    {
-      v4 = *(a1 + 48);
-      v11 = 136446722;
-      v12 = "[RPCaptureManager startCaptureForDelegate:forProcessID:shouldStartMicrophoneCapture:windowSize:captureType:contextIDs:mixedRealityCamera:systemCapture:didStartHandler:]_block_invoke";
-      v13 = 1024;
-      v14 = 251;
-      v15 = 2048;
-      v16 = v4;
-      _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d added capture delegate %p", &v11, 0x1Cu);
-    }
-  }
-
-  else
-  {
-    if (dword_1000B6840 <= 1)
-    {
-      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
-      {
-        v5 = *(a1 + 48);
-        v11 = 136446722;
-        v12 = "[RPCaptureManager startCaptureForDelegate:forProcessID:shouldStartMicrophoneCapture:windowSize:captureType:contextIDs:mixedRealityCamera:systemCapture:didStartHandler:]_block_invoke";
-        v13 = 1024;
-        v14 = 247;
-        v15 = 2048;
-        v16 = v5;
-        _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d starting capture for delegate %p", &v11, 0x1Cu);
-      }
-
-      v3 = *(a1 + 32);
-    }
-
-    [v3 startCaptureManagersForProcessID:*(a1 + 80) windowSize:*(a1 + 84) captureType:*(a1 + 40) contextIDs:*(a1 + 89) mixedRealityCamera:*(a1 + 88) systemCapture:v2 dispatchGroup:{*(a1 + 64), *(a1 + 72)}];
-  }
-
-  if (*(a1 + 90) == 1)
-  {
-    [*(a1 + 32) startMicrophoneCaptureWithDispatchGroup:v2];
-  }
-
-  v6 = dispatch_time(0, 10000000000);
-  if (dispatch_group_wait(v2, v6))
-  {
-    if (dword_1000B6840 <= 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
-    {
-      v11 = 136446466;
-      v12 = "[RPCaptureManager startCaptureForDelegate:forProcessID:shouldStartMicrophoneCapture:windowSize:captureType:contextIDs:mixedRealityCamera:systemCapture:didStartHandler:]_block_invoke";
-      v13 = 1024;
-      v14 = 276;
-      _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d start timeout", &v11, 0x12u);
-    }
-
-    [*(a1 + 32) stopAllCapture];
-    *(*(*(a1 + 56) + 8) + 24) = 0;
-  }
-
-  else
-  {
-    if (dword_1000B6840 <= 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
-    {
-      v11 = 136446466;
-      v12 = "[RPCaptureManager startCaptureForDelegate:forProcessID:shouldStartMicrophoneCapture:windowSize:captureType:contextIDs:mixedRealityCamera:systemCapture:didStartHandler:]_block_invoke";
-      v13 = 1024;
-      v14 = 259;
-      _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d start success", &v11, 0x12u);
-    }
-
-    *(*(*(a1 + 56) + 8) + 24) = 1;
-    v7 = os_transaction_create();
-    v8 = *(a1 + 32);
-    v9 = *(v8 + 128);
-    *(v8 + 128) = v7;
-
-    if (*(a1 + 90))
-    {
-      v10 = 2;
-    }
-
-    else
-    {
-      v10 = 1;
-    }
-
-    *(*(a1 + 32) + 80) = v10;
-    if (*(*(a1 + 32) + 136))
-    {
-      *(*(*(a1 + 56) + 8) + 24) = 0;
-      [*(a1 + 32) stopAllCapture];
-    }
-  }
-}
-
 _DWORD *sub_10005AB30(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = *(a1 + 32);
@@ -229,9 +129,9 @@ void sub_10005BD8C(uint64_t a1)
   dispatch_group_leave(*(a1 + 32));
 }
 
-void sub_10005C19C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10005C19C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -622,6 +522,27 @@ void sub_10005E698(uint64_t a1, uint64_t a2)
   }
 }
 
+void sub_10005E808(void *a1)
+{
+  LODWORD(v6) = 67109120;
+  HIDWORD(v6) = [a1 code];
+  sub_100005378(&_mh_execute_header, &_os_log_default, v1, "error in _rkRemoveFile_srDeleteFilesOlderThanTimeToLiveInSeconds, error code: %i", v2, v3, v4, v5, v6);
+}
+
+void sub_10005E880(void *a1)
+{
+  LODWORD(v6) = 67109120;
+  HIDWORD(v6) = [a1 code];
+  sub_100005378(&_mh_execute_header, &_os_log_default, v1, "_rkRemoveFile error: %i", v2, v3, v4, v5, v6);
+}
+
+void sub_10005E8F8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = a1;
+  sub_100005378(&_mh_execute_header, &_os_log_default, a3, "_rkMoveFileFromURL error: %i", a5, a6, a7, a8, v8);
+}
+
 void sub_10005E96C(uint8_t *buf, int a2, _DWORD *a3)
 {
   *buf = 67109120;
@@ -644,7 +565,7 @@ void sub_10005EA50(void *a1)
   if (dword_1000B6840 <= 2 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
   {
     sub_100007380();
-    sub_100007394(&_mh_execute_header, &_os_log_default, v2, " [ERROR] %{public}s:%d AVCaptureSession removeObserver failed", v3, v4, v5, v6, v7);
+    sub_100007394(&_mh_execute_header, &_os_log_default, v2, " [ERROR] %{public}s:%d AVCaptureSession removeObserver failed", v3, v4, v5, v6);
   }
 
   objc_end_catch();
@@ -656,7 +577,7 @@ void sub_10005EB20(void *a1)
   if (dword_1000B6840 <= 2 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
   {
     sub_100007380();
-    sub_100007394(&_mh_execute_header, &_os_log_default, v2, " [ERROR] %{public}s:%d removeObserver failed", v3, v4, v5, v6, v7);
+    sub_100007394(&_mh_execute_header, &_os_log_default, v2, " [ERROR] %{public}s:%d removeObserver failed", v3, v4, v5, v6);
   }
 
   objc_end_catch();
@@ -668,7 +589,7 @@ void sub_10005EBF0(void *a1)
   if (dword_1000B6840 <= 2 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
   {
     sub_100007380();
-    sub_100007394(&_mh_execute_header, &_os_log_default, v2, " [ERROR] %{public}s:%d AVCaptureSession removeObserver failed]", v3, v4, v5, v6, v7);
+    sub_100007394(&_mh_execute_header, &_os_log_default, v2, " [ERROR] %{public}s:%d AVCaptureSession removeObserver failed]", v3, v4, v5, v6);
   }
 
   objc_end_catch();
@@ -786,14 +707,6 @@ void sub_10005F45C()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void sub_10005F4E4(uint64_t a1)
-{
-  v6 = *(a1 + 32);
-  v7 = *(a1 + 40);
-  sub_10000F7C4();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x30u);
-}
-
 void sub_10005F598()
 {
   sub_100007380();
@@ -883,13 +796,6 @@ void sub_10005FB6C()
   sub_100007380();
   sub_10000F7C4();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-}
-
-void sub_10005FBF4(int *a1)
-{
-  v6 = *a1;
-  sub_10000F7C4();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
 }
 
 void sub_10005FC94()
@@ -1281,13 +1187,6 @@ void sub_100061A88()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void sub_100061B14(uint64_t a1)
-{
-  v6 = *(a1 + 32);
-  sub_10000F7C4();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x26u);
-}
-
 double sub_100061BD4()
 {
   info = 0;
@@ -1306,7 +1205,7 @@ void sub_100061DC4(uint64_t a1, void *a2)
   if (dword_1000B6840 <= 2 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
   {
     sub_100007380();
-    sub_100007394(&_mh_execute_header, &_os_log_default, v4, " [ERROR] %{public}s:%d Failed to get videoCodecType for asset", v5, v6, v7, v8, v9);
+    sub_100007394(&_mh_execute_header, &_os_log_default, v4, " [ERROR] %{public}s:%d Failed to get videoCodecType for asset", v5, v6, v7, v8);
   }
 
   *a2 = a1;
@@ -1338,105 +1237,105 @@ void sub_100061FD8(void *a1)
 {
   [a1 code];
   sub_100029F04();
-  sub_100005378(&_mh_execute_header, &_os_log_default, v1, "RPClientProxy:updateScreenRecordingStateWithCurrentState: error getting remote proxy: %d", v2, v3, v4, v5, v6);
+  sub_100005378(&_mh_execute_header, &_os_log_default, v1, "RPClientProxy:updateScreenRecordingStateWithCurrentState: error getting remote proxy: %d", v2, v3, v4, v5);
 }
 
 void sub_10006204C(void *a1)
 {
   [a1 code];
   sub_100029F04();
-  sub_100005378(&_mh_execute_header, &_os_log_default, v1, "RPClientProxy:recordingDidStopWithError: error getting remote proxy: %d", v2, v3, v4, v5, v6);
+  sub_100005378(&_mh_execute_header, &_os_log_default, v1, "RPClientProxy:recordingDidStopWithError: error getting remote proxy: %d", v2, v3, v4, v5);
 }
 
 void sub_1000620C0(void *a1)
 {
   [a1 code];
   sub_100029F04();
-  sub_100005378(&_mh_execute_header, &_os_log_default, v1, "RPClientProxy:updateBroadcastServiceInfo: error getting remote proxy: %d", v2, v3, v4, v5, v6);
+  sub_100005378(&_mh_execute_header, &_os_log_default, v1, "RPClientProxy:updateBroadcastServiceInfo: error getting remote proxy: %d", v2, v3, v4, v5);
 }
 
 void sub_100062134(void *a1)
 {
   [a1 code];
   sub_100029F04();
-  sub_100005378(&_mh_execute_header, &_os_log_default, v1, "RPClientProxy:updateBroadcastURL: error getting remote proxy: %d", v2, v3, v4, v5, v6);
+  sub_100005378(&_mh_execute_header, &_os_log_default, v1, "RPClientProxy:updateBroadcastURL: error getting remote proxy: %d", v2, v3, v4, v5);
 }
 
 void sub_1000621A8(void *a1)
 {
   [a1 code];
   sub_100029F04();
-  sub_100005378(&_mh_execute_header, &_os_log_default, v1, "RPClientProxy:captureHandlerWithSample: error getting remote proxy: %d", v2, v3, v4, v5, v6);
+  sub_100005378(&_mh_execute_header, &_os_log_default, v1, "RPClientProxy:captureHandlerWithSample: error getting remote proxy: %d", v2, v3, v4, v5);
 }
 
 void sub_10006221C(void *a1)
 {
   [a1 code];
   sub_100029F04();
-  sub_100005378(&_mh_execute_header, &_os_log_default, v1, "RPClientProxy:captureHandlerWithAudioSample: error getting remote proxy: %d", v2, v3, v4, v5, v6);
+  sub_100005378(&_mh_execute_header, &_os_log_default, v1, "RPClientProxy:captureHandlerWithAudioSample: error getting remote proxy: %d", v2, v3, v4, v5);
 }
 
 void sub_100062290(void *a1)
 {
   [a1 code];
   sub_100029F04();
-  sub_100005378(&_mh_execute_header, &_os_log_default, v1, "RPClientProxy:recodingDidStopAndSavedToCameraRoll: video saved to camera roll: %d", v2, v3, v4, v5, v6);
+  sub_100005378(&_mh_execute_header, &_os_log_default, v1, "RPClientProxy:recodingDidStopAndSavedToCameraRoll: video saved to camera roll: %d", v2, v3, v4, v5);
 }
 
 void sub_100062304(void *a1)
 {
   [a1 code];
   sub_100029F04();
-  sub_100005378(&_mh_execute_header, &_os_log_default, v1, "RPClientProxy:shouldResumeSessionType: error getting remote proxy: %d", v2, v3, v4, v5, v6);
+  sub_100005378(&_mh_execute_header, &_os_log_default, v1, "RPClientProxy:shouldResumeSessionType: error getting remote proxy: %d", v2, v3, v4, v5);
 }
 
 void sub_100062378(void *a1)
 {
   [a1 code];
   sub_100029F04();
-  sub_100005378(&_mh_execute_header, &_os_log_default, v1, "RPClientProxy:recordingDidPause: error getting remote proxy: %d", v2, v3, v4, v5, v6);
+  sub_100005378(&_mh_execute_header, &_os_log_default, v1, "RPClientProxy:recordingDidPause: error getting remote proxy: %d", v2, v3, v4, v5);
 }
 
 void sub_1000623EC(void *a1)
 {
   [a1 code];
   sub_100029F04();
-  sub_100005378(&_mh_execute_header, &_os_log_default, v1, "RPClientProxy:recordingTimerDidUpdate: error getting remote proxy: %d", v2, v3, v4, v5, v6);
+  sub_100005378(&_mh_execute_header, &_os_log_default, v1, "RPClientProxy:recordingTimerDidUpdate: error getting remote proxy: %d", v2, v3, v4, v5);
 }
 
 void sub_100062474(void *a1)
 {
   [a1 code];
   sub_100029F04();
-  sub_100005378(&_mh_execute_header, &_os_log_default, v1, "RPMultipleClientProxy:updateScreenRecordingStateWithCurrentState: error getting remote proxy: %d", v2, v3, v4, v5, v6);
+  sub_100005378(&_mh_execute_header, &_os_log_default, v1, "RPMultipleClientProxy:updateScreenRecordingStateWithCurrentState: error getting remote proxy: %d", v2, v3, v4, v5);
 }
 
 void sub_1000624E8(void *a1)
 {
   [a1 code];
   sub_100029F04();
-  sub_100005378(&_mh_execute_header, &_os_log_default, v1, "RPMultipleClientProxy:recordingDidStopWithError: error getting remote proxy: %d", v2, v3, v4, v5, v6);
+  sub_100005378(&_mh_execute_header, &_os_log_default, v1, "RPMultipleClientProxy:recordingDidStopWithError: error getting remote proxy: %d", v2, v3, v4, v5);
 }
 
 void sub_10006255C(void *a1)
 {
   [a1 code];
   sub_100029F04();
-  sub_100005378(&_mh_execute_header, &_os_log_default, v1, "RPMultipleClientProxy:updateBroadcastURL: error getting remote proxy: %d", v2, v3, v4, v5, v6);
+  sub_100005378(&_mh_execute_header, &_os_log_default, v1, "RPMultipleClientProxy:updateBroadcastURL: error getting remote proxy: %d", v2, v3, v4, v5);
 }
 
 void sub_1000625D0(void *a1)
 {
   [a1 code];
   sub_100029F04();
-  sub_100005378(&_mh_execute_header, &_os_log_default, v1, "RPMultipleClientProxy:recodingDidStopAndSavedToCameraRoll: video saved to camera roll: %d", v2, v3, v4, v5, v6);
+  sub_100005378(&_mh_execute_header, &_os_log_default, v1, "RPMultipleClientProxy:recodingDidStopAndSavedToCameraRoll: video saved to camera roll: %d", v2, v3, v4, v5);
 }
 
 void sub_100062644(void *a1)
 {
   [a1 code];
   sub_100029F04();
-  sub_100005378(&_mh_execute_header, &_os_log_default, v1, "RPMultipleClientProxy:recordingTimerDidUpdate: error getting remote proxy: %d", v2, v3, v4, v5, v6);
+  sub_100005378(&_mh_execute_header, &_os_log_default, v1, "RPMultipleClientProxy:recordingTimerDidUpdate: error getting remote proxy: %d", v2, v3, v4, v5);
 }
 
 void sub_10006275C()
@@ -1514,13 +1413,6 @@ void sub_10006385C()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void sub_1000638F8(uint64_t a1)
-{
-  v6 = *(a1 + 32);
-  sub_10000F7C4();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x26u);
-}
-
 void sub_1000639A4()
 {
   sub_100007380();
@@ -1549,18 +1441,12 @@ void sub_100063C10()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void sub_100063C98(int *a1)
-{
-  v6 = *a1;
-  sub_10000F7C4();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-}
-
 void sub_100063D38()
 {
+  v5 = 136446722;
   sub_10000F7B4();
   sub_10000F7A0();
-  sub_10003F324(&_mh_execute_header, &_os_log_default, v0, " [ERROR] %{public}s:%d stop session failed with error: %@", v1, v2, v3, v4, 2u);
+  sub_10003F324(&_mh_execute_header, &_os_log_default, v0, " [ERROR] %{public}s:%d stop session failed with error: %@", v1, v2, v3, v4, v5);
 }
 
 void sub_100063DBC()
@@ -1572,30 +1458,34 @@ void sub_100063DBC()
 
 void sub_100063E48()
 {
+  v5 = 136446722;
   sub_10000F7B4();
   sub_10000F7A0();
-  sub_10003F324(&_mh_execute_header, &_os_log_default, v0, " [ERROR] %{public}s:%d error starting in-app recording:%@", v1, v2, v3, v4, 2u);
+  sub_10003F324(&_mh_execute_header, &_os_log_default, v0, " [ERROR] %{public}s:%d error starting in-app recording:%@", v1, v2, v3, v4, v5);
 }
 
 void sub_100063ECC()
 {
+  v5 = 136446722;
   sub_10000F7B4();
   sub_10000F7A0();
-  sub_10003F324(&_mh_execute_header, &_os_log_default, v0, " [ERROR] %{public}s:%d error stopping in-app recording: %@", v1, v2, v3, v4, 2u);
+  sub_10003F324(&_mh_execute_header, &_os_log_default, v0, " [ERROR] %{public}s:%d error stopping in-app recording: %@", v1, v2, v3, v4, v5);
 }
 
 void sub_100063F50()
 {
+  v5 = 136446722;
   sub_10000F7B4();
   sub_10000F7A0();
-  sub_10003F324(&_mh_execute_header, &_os_log_default, v0, " [ERROR] %{public}s:%d error starting in-app capture: %@", v1, v2, v3, v4, 2u);
+  sub_10003F324(&_mh_execute_header, &_os_log_default, v0, " [ERROR] %{public}s:%d error starting in-app capture: %@", v1, v2, v3, v4, v5);
 }
 
 void sub_100063FD4()
 {
+  v5 = 136446722;
   sub_10000F7B4();
   sub_10000F7A0();
-  sub_10003F324(&_mh_execute_header, &_os_log_default, v0, " [ERROR] %{public}s:%d error stopping in-app capture: %@", v1, v2, v3, v4, 2u);
+  sub_10003F324(&_mh_execute_header, &_os_log_default, v0, " [ERROR] %{public}s:%d error stopping in-app capture: %@", v1, v2, v3, v4, v5);
 }
 
 void sub_100064058()
@@ -1607,86 +1497,98 @@ void sub_100064058()
 
 void sub_1000640E4()
 {
+  v5 = 136446722;
   sub_10000F7B4();
   sub_10000F7A0();
-  sub_10003F324(&_mh_execute_header, &_os_log_default, v0, " [ERROR] %{public}s:%d error starting in-app broadcast: %@", v1, v2, v3, v4, 2u);
+  sub_10003F324(&_mh_execute_header, &_os_log_default, v0, " [ERROR] %{public}s:%d error starting in-app broadcast: %@", v1, v2, v3, v4, v5);
 }
 
 void sub_100064168()
 {
+  v5 = 136446722;
   sub_10000F7B4();
   sub_10000F7A0();
-  sub_10003F324(&_mh_execute_header, &_os_log_default, v0, " [ERROR] %{public}s:%d error stopping in-app broadcast: %@", v1, v2, v3, v4, 2u);
+  sub_10003F324(&_mh_execute_header, &_os_log_default, v0, " [ERROR] %{public}s:%d error stopping in-app broadcast: %@", v1, v2, v3, v4, v5);
 }
 
 void sub_1000641EC()
 {
+  v5 = 136446722;
   sub_10000F7B4();
   sub_10000F7A0();
-  sub_10003F324(&_mh_execute_header, &_os_log_default, v0, " [ERROR] %{public}s:%d error starting in-app recording:%@", v1, v2, v3, v4, 2u);
+  sub_10003F324(&_mh_execute_header, &_os_log_default, v0, " [ERROR] %{public}s:%d error starting in-app recording:%@", v1, v2, v3, v4, v5);
 }
 
 void sub_100064270()
 {
+  v5 = 136446722;
   sub_10000F7B4();
   sub_10000F7A0();
-  sub_10003F324(&_mh_execute_header, &_os_log_default, v0, " [ERROR] %{public}s:%d error stopping in-app recording: %@", v1, v2, v3, v4, 2u);
+  sub_10003F324(&_mh_execute_header, &_os_log_default, v0, " [ERROR] %{public}s:%d error stopping in-app recording: %@", v1, v2, v3, v4, v5);
 }
 
 void sub_1000642F4()
 {
+  v5 = 136446722;
   sub_10000F7B4();
   sub_10000F7A0();
-  sub_10003F324(&_mh_execute_header, &_os_log_default, v0, " [ERROR] %{public}s:%d error starting system recording: %@", v1, v2, v3, v4, 2u);
+  sub_10003F324(&_mh_execute_header, &_os_log_default, v0, " [ERROR] %{public}s:%d error starting system recording: %@", v1, v2, v3, v4, v5);
 }
 
 void sub_100064378()
 {
+  v5 = 136446722;
   sub_10000F7B4();
   sub_10000F7A0();
-  sub_10003F324(&_mh_execute_header, &_os_log_default, v0, " [ERROR] %{public}s:%d error stopping System Recording: %@", v1, v2, v3, v4, 2u);
+  sub_10003F324(&_mh_execute_header, &_os_log_default, v0, " [ERROR] %{public}s:%d error stopping System Recording: %@", v1, v2, v3, v4, v5);
 }
 
 void sub_1000643FC()
 {
+  v5 = 136446722;
   sub_10000F7B4();
   sub_10000F7A0();
-  sub_10003F324(&_mh_execute_header, &_os_log_default, v0, " [ERROR] %{public}s:%d error System Recording with URL handler: %@", v1, v2, v3, v4, 2u);
+  sub_10003F324(&_mh_execute_header, &_os_log_default, v0, " [ERROR] %{public}s:%d error System Recording with URL handler: %@", v1, v2, v3, v4, v5);
 }
 
 void sub_100064480()
 {
+  v5 = 136446722;
   sub_10000F7B4();
   sub_10000F7A0();
-  sub_10003F324(&_mh_execute_header, &_os_log_default, v0, " [ERROR] %{public}s:%d Not resuming with error %@", v1, v2, v3, v4, 2u);
+  sub_10003F324(&_mh_execute_header, &_os_log_default, v0, " [ERROR] %{public}s:%d Not resuming with error %@", v1, v2, v3, v4, v5);
 }
 
 void sub_100064504()
 {
+  v5 = 136446722;
   sub_10000F7B4();
   sub_10000F7A0();
-  sub_10003F324(&_mh_execute_header, &_os_log_default, v0, " [ERROR] %{public}s:%d error starting system broadcast: %@", v1, v2, v3, v4, 2u);
+  sub_10003F324(&_mh_execute_header, &_os_log_default, v0, " [ERROR] %{public}s:%d error starting system broadcast: %@", v1, v2, v3, v4, v5);
 }
 
 void sub_100064588()
 {
+  v5 = 136446722;
   sub_10000F7B4();
   sub_10000F7A0();
-  sub_10003F324(&_mh_execute_header, &_os_log_default, v0, " [ERROR] %{public}s:%d error stopping system broadacst: %@", v1, v2, v3, v4, 2u);
+  sub_10003F324(&_mh_execute_header, &_os_log_default, v0, " [ERROR] %{public}s:%d error stopping system broadacst: %@", v1, v2, v3, v4, v5);
 }
 
 void sub_10006460C()
 {
+  v5 = 136446722;
   sub_10000F7B4();
   sub_10000F7A0();
-  sub_10003F324(&_mh_execute_header, &_os_log_default, v0, " [ERROR] %{public}s:%d Not resuming with error %@", v1, v2, v3, v4, 2u);
+  sub_10003F324(&_mh_execute_header, &_os_log_default, v0, " [ERROR] %{public}s:%d Not resuming with error %@", v1, v2, v3, v4, v5);
 }
 
 void sub_100064690()
 {
+  v5 = 136446722;
   sub_10000F7B4();
   sub_10000F7A0();
-  sub_10003F324(&_mh_execute_header, &_os_log_default, v0, " [ERROR] %{public}s:%d error starting HQLR session, error=%@", v1, v2, v3, v4, 2u);
+  sub_10003F324(&_mh_execute_header, &_os_log_default, v0, " [ERROR] %{public}s:%d error starting HQLR session, error=%@", v1, v2, v3, v4, v5);
 }
 
 void sub_100064714()
@@ -1698,9 +1600,10 @@ void sub_100064714()
 
 void sub_1000647A0()
 {
+  v5 = 136446722;
   sub_10000F7B4();
   sub_10000F7A0();
-  sub_10003F324(&_mh_execute_header, &_os_log_default, v0, " [ERROR] %{public}s:%d Not resuming with error %@", v1, v2, v3, v4, 2u);
+  sub_10003F324(&_mh_execute_header, &_os_log_default, v0, " [ERROR] %{public}s:%d Not resuming with error %@", v1, v2, v3, v4, v5);
 }
 
 void sub_100064824()
@@ -1780,13 +1683,6 @@ void sub_100064D1C()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void sub_100064DB8(uint64_t a1)
-{
-  v6 = *(a1 + 32);
-  sub_10000F7C4();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x26u);
-}
-
 void sub_100064E64()
 {
   sub_100007380();
@@ -1809,13 +1705,6 @@ void sub_100064FC0()
   sub_10000F7D0();
   sub_10000F7C4();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-}
-
-void sub_10006504C(uint64_t *a1)
-{
-  v6 = *a1;
-  sub_10000F7C4();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
 }
 
 void sub_1000650F0(uint64_t a1, int a2)
@@ -1937,16 +1826,16 @@ void sub_10006585C()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void sub_1000658E4()
+void sub_1000658E4(uint64_t a1)
 {
-  v0 = BSInterfaceOrientationDescription();
-  v1 = 136446722;
-  v2 = "[RPCameraCaptureManager currentInterfaceOrientation]";
-  v3 = 1024;
-  v4 = 188;
-  v5 = 2112;
-  v6 = v0;
-  _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, " [ERROR] %{public}s:%d invalid interface orientation=%@", &v1, 0x1Cu);
+  v1 = BSInterfaceOrientationDescription();
+  v2 = 136446722;
+  v3 = "[RPCameraCaptureManager currentInterfaceOrientation]";
+  v4 = 1024;
+  v5 = 188;
+  v6 = 2112;
+  v7 = v1;
+  _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, " [ERROR] %{public}s:%d invalid interface orientation=%@", &v2, 0x1Cu);
 }
 
 void sub_1000659A0(void *a1)
@@ -1996,13 +1885,6 @@ void sub_100065C30()
   sub_10000F7A0();
   sub_10000F7C4();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-}
-
-void sub_100065CD0(uint64_t a1)
-{
-  v6 = *(a1 + 32);
-  sub_10000F7C4();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x26u);
 }
 
 void sub_100065F08()
@@ -2062,13 +1944,6 @@ void sub_100066530()
   sub_10000F7A0();
   sub_10000F7C4();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-}
-
-void sub_1000665BC(uint64_t a1)
-{
-  v6 = *(a1 + 32);
-  sub_10000F7C4();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x26u);
 }
 
 void sub_10006667C(uint64_t a1)
@@ -2314,45 +2189,50 @@ void sub_100067800(void *a1)
 {
   v1 = [a1 localizedDescription];
   [v1 UTF8String];
+  v7 = 136446722;
   sub_10000F7B4();
   sub_10005C8B0();
-  sub_10003F324(&_mh_execute_header, &_os_log_default, v2, " [ERROR] %{public}s:%d %s", v3, v4, v5, v6, 2u);
+  sub_10003F324(&_mh_execute_header, &_os_log_default, v2, " [ERROR] %{public}s:%d %s", v3, v4, v5, v6, v7);
 }
 
 void sub_1000678A4(void *a1)
 {
   v1 = [a1 localizedDescription];
   [v1 UTF8String];
+  v7 = 136446722;
   sub_10000F7B4();
   sub_10005C8B0();
-  sub_10003F324(&_mh_execute_header, &_os_log_default, v2, " [ERROR] %{public}s:%d %s", v3, v4, v5, v6, 2u);
+  sub_10003F324(&_mh_execute_header, &_os_log_default, v2, " [ERROR] %{public}s:%d %s", v3, v4, v5, v6, v7);
 }
 
 void sub_100067948(void *a1)
 {
   v1 = [a1 localizedDescription];
   [v1 UTF8String];
+  v7 = 136446722;
   sub_10000F7B4();
   sub_10005C8B0();
-  sub_10003F324(&_mh_execute_header, &_os_log_default, v2, " [ERROR] %{public}s:%d %s", v3, v4, v5, v6, 2u);
+  sub_10003F324(&_mh_execute_header, &_os_log_default, v2, " [ERROR] %{public}s:%d %s", v3, v4, v5, v6, v7);
 }
 
 void sub_1000679EC(void *a1)
 {
   v1 = [a1 localizedDescription];
   [v1 UTF8String];
+  v7 = 136446722;
   sub_10000F7B4();
   sub_10005C8B0();
-  sub_10003F324(&_mh_execute_header, &_os_log_default, v2, " [ERROR] %{public}s:%d %s", v3, v4, v5, v6, 2u);
+  sub_10003F324(&_mh_execute_header, &_os_log_default, v2, " [ERROR] %{public}s:%d %s", v3, v4, v5, v6, v7);
 }
 
 void sub_100067A90(void *a1)
 {
   v1 = [a1 localizedDescription];
   [v1 UTF8String];
+  v7 = 136446722;
   sub_10000F7B4();
   sub_10005C8B0();
-  sub_10003F324(&_mh_execute_header, &_os_log_default, v2, " [ERROR] %{public}s:%d could not setConformsToSessionBehavior: %s", v3, v4, v5, v6, 2u);
+  sub_10003F324(&_mh_execute_header, &_os_log_default, v2, " [ERROR] %{public}s:%d could not setConformsToSessionBehavior: %s", v3, v4, v5, v6, v7);
 }
 
 void sub_100067B34(uint64_t a1)

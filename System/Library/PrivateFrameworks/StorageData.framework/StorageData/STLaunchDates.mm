@@ -104,46 +104,46 @@ uint64_t __33__STLaunchDates__writeDatesPref___block_invoke(uint64_t a1)
 
 - (void)updateDates:(id)dates
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   datesCopy = dates;
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x2020000000;
-  v25 = 0;
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __29__STLaunchDates_updateDates___block_invoke;
-  v21[3] = &unk_279D1D570;
-  v21[4] = selfCopy;
-  v21[5] = &v22;
-  [datesCopy enumerateKeysAndObjectsUsingBlock:v21];
-  if (*(v23 + 24))
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x2020000000;
+  v24 = 0;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __29__STLaunchDates_updateDates___block_invoke;
+  v20[3] = &unk_279D1D570;
+  v20[4] = selfCopy;
+  v20[5] = &v21;
+  [datesCopy enumerateKeysAndObjectsUsingBlock:v20];
+  if (*(v22 + 24))
   {
     [(NSMutableDictionary *)selfCopy->_launchDatesByApp allValues];
+    v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
-    v6 = v18 = 0u;
-    v7 = [v6 countByEnumeratingWithState:&v17 objects:v26 count:16];
+    v16 = 0u;
+    v6 = v17 = 0u;
+    v7 = [v6 countByEnumeratingWithState:&v16 objects:v25 count:16];
     if (v7)
     {
       v8 = 0;
-      v9 = *v18;
+      v9 = *v17;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v18 != v9)
+          if (*v17 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v17 + 1) + 8 * i);
+          v11 = *(*(&v16 + 1) + 8 * i);
           if (v8)
           {
-            v12 = [v8 laterDate:{v11, v17}];
+            v12 = [v8 laterDate:{v11, v16}];
 
             v8 = v12;
           }
@@ -154,7 +154,7 @@ uint64_t __33__STLaunchDates__writeDatesPref___block_invoke(uint64_t a1)
           }
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v17 objects:v26 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v16 objects:v25 count:16];
       }
 
       while (v7);
@@ -182,10 +182,8 @@ LABEL_16:
   }
 
 LABEL_17:
-  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(&v21, 8);
   objc_sync_exit(selfCopy);
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __29__STLaunchDates_updateDates___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -203,102 +201,100 @@ void __29__STLaunchDates_updateDates___block_invoke(uint64_t a1, void *a2, void 
 
 - (void)addSpotlightDates
 {
-  v30[2] = *MEMORY[0x277D85DE8];
+  v29[2] = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x2050000000;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2050000000;
   v4 = getCSSearchQueryContextClass_softClass;
-  v28 = getCSSearchQueryContextClass_softClass;
+  v27 = getCSSearchQueryContextClass_softClass;
   if (!getCSSearchQueryContextClass_softClass)
   {
-    v20 = MEMORY[0x277D85DD0];
-    v21 = 3221225472;
-    v22 = __getCSSearchQueryContextClass_block_invoke;
-    v23 = &unk_279D1D1B0;
-    v24 = &v25;
-    __getCSSearchQueryContextClass_block_invoke(&v20);
-    v4 = v26[3];
+    v19 = MEMORY[0x277D85DD0];
+    v20 = 3221225472;
+    v21 = __getCSSearchQueryContextClass_block_invoke;
+    v22 = &unk_279D1D1B0;
+    v23 = &v24;
+    __getCSSearchQueryContextClass_block_invoke(&v19);
+    v4 = v25[3];
   }
 
   v5 = v4;
-  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v24, 8);
   v6 = objc_opt_new();
   [v6 setBundleIDs:&unk_287C8E890];
-  v30[0] = @"_kMDItemExternalID";
-  v30[1] = @"_kMDItemApplicationLastLaunchedDate";
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:2];
+  v29[0] = @"_kMDItemExternalID";
+  v29[1] = @"_kMDItemApplicationLastLaunchedDate";
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:2];
   [v6 setFetchAttributes:v7];
 
-  v29 = *MEMORY[0x277CCA1A0];
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
+  v28 = *MEMORY[0x277CCA1A0];
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
   [v6 setProtectionClasses:v8];
 
   [v6 setInternal:1];
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x2050000000;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2050000000;
   v9 = getCSSearchQueryClass_softClass;
-  v28 = getCSSearchQueryClass_softClass;
+  v27 = getCSSearchQueryClass_softClass;
   if (!getCSSearchQueryClass_softClass)
   {
-    v20 = MEMORY[0x277D85DD0];
-    v21 = 3221225472;
-    v22 = __getCSSearchQueryClass_block_invoke;
-    v23 = &unk_279D1D1B0;
-    v24 = &v25;
-    __getCSSearchQueryClass_block_invoke(&v20);
-    v9 = v26[3];
+    v19 = MEMORY[0x277D85DD0];
+    v20 = 3221225472;
+    v21 = __getCSSearchQueryClass_block_invoke;
+    v22 = &unk_279D1D1B0;
+    v23 = &v24;
+    __getCSSearchQueryClass_block_invoke(&v19);
+    v9 = v25[3];
   }
 
   v10 = v9;
-  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v24, 8);
   v11 = [[v9 alloc] initWithQueryString:@"true" context:v6];
   v12 = dispatch_semaphore_create(0);
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __34__STLaunchDates_addSpotlightDates__block_invoke;
-  v18[3] = &unk_279D1D598;
-  v19 = dictionary;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __34__STLaunchDates_addSpotlightDates__block_invoke;
+  v17[3] = &unk_279D1D598;
+  v18 = dictionary;
   v13 = dictionary;
-  [v11 setFoundItemsHandler:v18];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __34__STLaunchDates_addSpotlightDates__block_invoke_2;
-  v16[3] = &unk_279D1D5C0;
-  v17 = v12;
+  [v11 setFoundItemsHandler:v17];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __34__STLaunchDates_addSpotlightDates__block_invoke_2;
+  v15[3] = &unk_279D1D5C0;
+  v16 = v12;
   v14 = v12;
-  [v11 setCompletionHandler:v16];
+  [v11 setCompletionHandler:v15];
   [v11 start];
   dispatch_semaphore_wait(v14, 0xFFFFFFFFFFFFFFFFLL);
   [(STLaunchDates *)self updateDates:v13];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __34__STLaunchDates_addSpotlightDates__block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [*(*(&v14 + 1) + 8 * i) attributeSet];
+        v8 = [*(*(&v13 + 1) + 8 * i) attributeSet];
         v9 = [v8 attributeForKey:@"_kMDItemExternalID"];
         v10 = [v8 attributeForKey:@"_kMDItemApplicationLastLaunchedDate"];
         v11 = v10;
@@ -318,13 +314,11 @@ void __34__STLaunchDates_addSpotlightDates__block_invoke(uint64_t a1, void *a2)
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v5);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addBiomeDates

@@ -40,10 +40,9 @@
 
 + (id)defaultWorkflowTypes
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v5[0] = *MEMORY[0x1E69E1460];
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[1] = *MEMORY[0x1E69E9840];
+  v4[0] = *MEMORY[0x1E69E1460];
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
 
   return v2;
 }
@@ -80,7 +79,7 @@
 
 - (BOOL)loadFromPeaceData:(id)data keyImageData:(id)imageData error:(id *)error
 {
-  v33[5] = *MEMORY[0x1E69E9840];
+  v32[5] = *MEMORY[0x1E69E9840];
   dataCopy = data;
   imageDataCopy = imageData;
   v10 = objc_autoreleasePoolPush();
@@ -90,17 +89,17 @@
 
   if (v13)
   {
-    v32[0] = @"WFLWorkflowActions";
-    v32[1] = @"WFLWorkflowActionIdentifier";
-    v33[0] = @"WFWorkflowActions";
-    v33[1] = @"WFWorkflowActionIdentifier";
-    v32[2] = @"WFLWorkflowActionParameters";
-    v32[3] = @"com.apple.WorkflowKit.actions.handle-intent";
-    v33[2] = @"WFWorkflowActionParameters";
-    v33[3] = @"is.workflow.actions.sirikit.donation.handle";
-    v32[4] = @"com.apple.WorkflowKit.actions.open-user-activity";
-    v33[4] = @"is.workflow.actions.useractivity.open";
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:v32 count:5];
+    v31[0] = @"WFLWorkflowActions";
+    v31[1] = @"WFLWorkflowActionIdentifier";
+    v32[0] = @"WFWorkflowActions";
+    v32[1] = @"WFWorkflowActionIdentifier";
+    v31[2] = @"WFLWorkflowActionParameters";
+    v31[3] = @"com.apple.WorkflowKit.actions.handle-intent";
+    v32[2] = @"WFWorkflowActionParameters";
+    v32[3] = @"is.workflow.actions.sirikit.donation.handle";
+    v31[4] = @"com.apple.WorkflowKit.actions.open-user-activity";
+    v32[4] = @"is.workflow.actions.useractivity.open";
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:v31 count:5];
     v15 = WFMapPropertyListStrings(v13, v14);
     v16 = [v13 objectForKeyedSubscript:@"WFWorkflowActions"];
     if (v16)
@@ -146,7 +145,6 @@
   }
 
   objc_autoreleasePoolPop(v10);
-  v30 = *MEMORY[0x1E69E9840];
   return v13 != 0;
 }
 
@@ -259,7 +257,7 @@
 
 - (BOOL)saveChangesToStorage:(id)storage error:(id *)error
 {
-  v37[2] = *MEMORY[0x1E69E9840];
+  v36[2] = *MEMORY[0x1E69E9840];
   storageCopy = storage;
   name = [(WFWorkflowRecord *)self name];
   wf_isEmpty = [name wf_isEmpty];
@@ -270,18 +268,18 @@
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v29 = "[WFWorkflowRecord saveChangesToStorage:error:]";
+      v28 = "[WFWorkflowRecord saveChangesToStorage:error:]";
       _os_log_impl(&dword_1CA256000, v9, OS_LOG_TYPE_ERROR, "%s Could not save workflow record because name was empty", buf, 0xCu);
     }
 
     v10 = MEMORY[0x1E696ABC0];
-    v36[0] = *MEMORY[0x1E696A588];
+    v35[0] = *MEMORY[0x1E696A588];
     v11 = WFLocalizedString(@"Invalid Name");
-    v37[0] = v11;
-    v36[1] = *MEMORY[0x1E696A578];
+    v36[0] = v11;
+    v35[1] = *MEMORY[0x1E696A578];
     v12 = WFLocalizedString(@"Please enter a name for this shortcut.");
-    v37[1] = v12;
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:v36 count:2];
+    v36[1] = v12;
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:v35 count:2];
     *error = [v10 errorWithDomain:@"WFWorkflowErrorDomain" code:0 userInfo:v13];
 
     v14 = 0;
@@ -299,13 +297,13 @@
       {
         name2 = [(WFWorkflowRecord *)self name];
         *buf = 136315906;
-        v29 = "[WFWorkflowRecord saveChangesToStorage:error:]";
-        v30 = 2112;
-        v31 = name2;
-        v32 = 2048;
-        v33 = wantedEncryptedSchemaVersion;
-        v34 = 2048;
-        v35 = v17;
+        v28 = "[WFWorkflowRecord saveChangesToStorage:error:]";
+        v29 = 2112;
+        v30 = name2;
+        v31 = 2048;
+        v32 = wantedEncryptedSchemaVersion;
+        v33 = 2048;
+        v34 = v17;
         _os_log_impl(&dword_1CA256000, v18, OS_LOG_TYPE_DEFAULT, "%s Saving %@ to storage, but Walrus version is wrong; fixing <old: %lld, new: %lld>", buf, 0x2Au);
       }
 
@@ -325,12 +323,11 @@
       [(WFWorkflowRecord *)self setLastSavedOnDeviceName:name3];
     }
 
-    v27.receiver = self;
-    v27.super_class = WFWorkflowRecord;
-    v14 = [(WFRecord *)&v27 saveChangesToStorage:storageCopy error:error];
+    v26.receiver = self;
+    v26.super_class = WFWorkflowRecord;
+    v14 = [(WFRecord *)&v26 saveChangesToStorage:storageCopy error:error];
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -417,16 +414,16 @@ void __108__WFWorkflowRecord_updateCoherenceLibraryWithTypesForWorkflow_workflow
 
 void __108__WFWorkflowRecord_updateCoherenceLibraryWithTypesForWorkflow_workflowTypes_existingWorkflowTypes_database___block_invoke_2(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = WFWorkflowCollectionIdentifierForWorkflowType(v3);
   if (v4)
   {
     v5 = [*(a1 + 32) library];
     v6 = *(a1 + 40);
-    v11 = 0;
-    [v5 insertShortcutWithIdentifier:v6 atIndex:0 toCollection:v4 error:&v11];
-    v7 = v11;
+    v10 = 0;
+    [v5 insertShortcutWithIdentifier:v6 atIndex:0 toCollection:v4 error:&v10];
+    v7 = v10;
 
     if (v7)
     {
@@ -434,9 +431,9 @@ void __108__WFWorkflowRecord_updateCoherenceLibraryWithTypesForWorkflow_workflow
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v13 = "+[WFWorkflowRecord updateCoherenceLibraryWithTypesForWorkflow:workflowTypes:existingWorkflowTypes:database:]_block_invoke_2";
-        v14 = 2114;
-        v15 = v7;
+        v12 = "+[WFWorkflowRecord updateCoherenceLibraryWithTypesForWorkflow:workflowTypes:existingWorkflowTypes:database:]_block_invoke_2";
+        v13 = 2114;
+        v14 = v7;
         _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_ERROR, "%s Failed to add workflow to collection. Error: %{public}@", buf, 0x16u);
       }
     }
@@ -456,28 +453,26 @@ void __108__WFWorkflowRecord_updateCoherenceLibraryWithTypesForWorkflow_workflow
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v13 = "+[WFWorkflowRecord updateCoherenceLibraryWithTypesForWorkflow:workflowTypes:existingWorkflowTypes:database:]_block_invoke";
-      v14 = 2114;
-      v15 = v3;
+      v12 = "+[WFWorkflowRecord updateCoherenceLibraryWithTypesForWorkflow:workflowTypes:existingWorkflowTypes:database:]_block_invoke";
+      v13 = 2114;
+      v14 = v3;
       _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_ERROR, "%s Failed to add workflow to collection because of unknown workflow type: %{public}@", buf, 0x16u);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __108__WFWorkflowRecord_updateCoherenceLibraryWithTypesForWorkflow_workflowTypes_existingWorkflowTypes_database___block_invoke_198(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = WFWorkflowCollectionIdentifierForWorkflowType(v3);
   if (v4)
   {
     v5 = [*(a1 + 32) library];
     v6 = *(a1 + 40);
-    v11 = 0;
-    [v5 removeShortcutWithIdentifier:v6 fromCollectionWithIdentifier:v4 error:&v11];
-    v7 = v11;
+    v10 = 0;
+    [v5 removeShortcutWithIdentifier:v6 fromCollectionWithIdentifier:v4 error:&v10];
+    v7 = v10;
 
     if (v7)
     {
@@ -485,9 +480,9 @@ void __108__WFWorkflowRecord_updateCoherenceLibraryWithTypesForWorkflow_workflow
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v13 = "+[WFWorkflowRecord updateCoherenceLibraryWithTypesForWorkflow:workflowTypes:existingWorkflowTypes:database:]_block_invoke";
-        v14 = 2114;
-        v15 = v7;
+        v12 = "+[WFWorkflowRecord updateCoherenceLibraryWithTypesForWorkflow:workflowTypes:existingWorkflowTypes:database:]_block_invoke";
+        v13 = 2114;
+        v14 = v7;
         _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_ERROR, "%s Failed to remove workflow from collection. Error: %{public}@", buf, 0x16u);
       }
     }
@@ -507,14 +502,12 @@ void __108__WFWorkflowRecord_updateCoherenceLibraryWithTypesForWorkflow_workflow
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v13 = "+[WFWorkflowRecord updateCoherenceLibraryWithTypesForWorkflow:workflowTypes:existingWorkflowTypes:database:]_block_invoke";
-      v14 = 2114;
-      v15 = v3;
+      v12 = "+[WFWorkflowRecord updateCoherenceLibraryWithTypesForWorkflow:workflowTypes:existingWorkflowTypes:database:]_block_invoke";
+      v13 = 2114;
+      v14 = v3;
       _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_ERROR, "%s Failed to remove workflow from collection because of unknown workflow type: %{public}@", buf, 0x16u);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 + (id)workflowSubtitleForActionCount:(unint64_t)count savedSubtitle:(id)subtitle
@@ -582,16 +575,16 @@ uint64_t __88__WFWorkflowRecord_WatchEligibility__isEligibleForWatchWithIneligib
 
 - (BOOL)addWatchWorkflowTypeIfEligibleWithIneligibleActionIdentifiers:(id)identifiers
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   v5 = getWFGeneralLogObject();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v11 = 136315394;
-    v12 = "[WFWorkflowRecord(WatchEligibility) addWatchWorkflowTypeIfEligibleWithIneligibleActionIdentifiers:]";
-    v13 = 2112;
+    v10 = 136315394;
+    v11 = "[WFWorkflowRecord(WatchEligibility) addWatchWorkflowTypeIfEligibleWithIneligibleActionIdentifiers:]";
+    v12 = 2112;
     selfCopy = self;
-    _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_INFO, "%s Adding watch workflow type to record %@", &v11, 0x16u);
+    _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_INFO, "%s Adding watch workflow type to record %@", &v10, 0x16u);
   }
 
   workflowTypes = [(WFWorkflowRecord *)self workflowTypes];
@@ -611,7 +604,6 @@ uint64_t __88__WFWorkflowRecord_WatchEligibility__isEligibleForWatchWithIneligib
   v8 = 1;
 LABEL_8:
 
-  v9 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -626,7 +618,7 @@ LABEL_8:
 
 - (void)addWatchWorkflowType
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   workflowTypes = [(WFWorkflowRecord *)self workflowTypes];
   v4 = [workflowTypes arrayByAddingObject:*MEMORY[0x1E69E1470]];
   [(WFWorkflowRecord *)self setWorkflowTypes:v4];
@@ -634,14 +626,12 @@ LABEL_8:
   v5 = getWFGeneralLogObject();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315394;
-    v8 = "[WFWorkflowRecord(WatchEligibility) addWatchWorkflowType]";
-    v9 = 2112;
+    v6 = 136315394;
+    v7 = "[WFWorkflowRecord(WatchEligibility) addWatchWorkflowType]";
+    v8 = 2112;
     selfCopy = self;
-    _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_DEFAULT, "%s Added watch workflow type to workflow %@", &v7, 0x16u);
+    _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_DEFAULT, "%s Added watch workflow type to workflow %@", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

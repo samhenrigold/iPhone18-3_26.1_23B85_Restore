@@ -28,7 +28,6 @@
 
 uint64_t __23__DACPLogShared_shared__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   shared_sharedInstance = objc_opt_new();
 
   return MEMORY[0x2821F96F8]();
@@ -197,14 +196,19 @@ LABEL_31:
       _os_log_impl(&dword_2243BD000, v29, OS_LOG_TYPE_INFO, "Resolved log file folder to %@", v61, 0xCu);
     }
 
-    if ([v28 length] && objc_msgSend(v28, "characterAtIndex:", objc_msgSend(v28, "length") - 1) == 47)
+    v30 = [v28 length];
+    if (v30)
     {
-      v30 = [v28 substringToIndex:{objc_msgSend(v28, "length") - 1}];
+      v30 = [v28 characterAtIndex:{objc_msgSend(v28, "length") - 1}];
+      if (v30 == 47)
+      {
+        v31 = [v28 substringToIndex:{objc_msgSend(v28, "length") - 1}];
 
-      v28 = v30;
+        v28 = v31;
+      }
     }
 
-    v31 = _fileOpsQueue();
+    v32 = _fileOpsQueue(v30);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __44__DACPLogShared__getUUIDForFolder_baseName___block_invoke_116;
@@ -214,8 +218,8 @@ LABEL_31:
     selfCopy = self;
     v45 = nameCopy;
     v47 = buf;
-    v32 = v28;
-    dispatch_sync(v31, block);
+    v33 = v28;
+    dispatch_sync(v32, block);
 
 LABEL_37:
     goto LABEL_38;
@@ -233,24 +237,22 @@ LABEL_38:
 
   if (*(v52 + 24) == 1)
   {
-    v33 = DALoggingwithCategory(0);
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+    v34 = DALoggingwithCategory(0);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
       *v61 = 138412546;
       v62 = folderCopy;
       v63 = 2112;
       v64 = nameCopy;
-      _os_log_impl(&dword_2243BD000, v33, OS_LOG_TYPE_ERROR, "Get UUID for for folder resulted in an error. Folder: %@. Basename: %@.", v61, 0x16u);
+      _os_log_impl(&dword_2243BD000, v34, OS_LOG_TYPE_ERROR, "Get UUID for for folder resulted in an error. Folder: %@. Basename: %@.", v61, 0x16u);
     }
   }
 
-  v34 = *(v56 + 5);
+  v35 = *(v56 + 5);
   _Block_object_dispose(&v51, 8);
   _Block_object_dispose(buf, 8);
 
-  v35 = *MEMORY[0x277D85DE8];
-
-  return v34;
+  return v35;
 }
 
 void __44__DACPLogShared__getUUIDForFolder_baseName___block_invoke()
@@ -277,19 +279,19 @@ void __44__DACPLogShared__getUUIDForFolder_baseName___block_invoke()
 
 void __44__DACPLogShared__getUUIDForFolder_baseName___block_invoke_116(void *a1)
 {
-  v42[1] = *MEMORY[0x277D85DE8];
-  v35 = 1;
+  v41[1] = *MEMORY[0x277D85DE8];
+  v34 = 1;
   v2 = [MEMORY[0x277CCAA00] defaultManager];
-  if ([v2 fileExistsAtPath:a1[4] isDirectory:&v35])
+  if ([v2 fileExistsAtPath:a1[4] isDirectory:&v34])
   {
-    if ((v35 & 1) == 0)
+    if ((v34 & 1) == 0)
     {
       v3 = DALoggingwithCategory(0);
       if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
       {
         v4 = a1[4];
         *buf = 138412290;
-        v38 = v4;
+        v37 = v4;
         _os_log_impl(&dword_2243BD000, v3, OS_LOG_TYPE_ERROR, "Folder path %@ does not refer to a directory.", buf, 0xCu);
       }
 
@@ -300,14 +302,14 @@ void __44__DACPLogShared__getUUIDForFolder_baseName___block_invoke_116(void *a1)
 
   else
   {
-    v41 = *MEMORY[0x277CCA180];
-    v42[0] = &unk_2837D0048;
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:&v41 count:1];
+    v40 = *MEMORY[0x277CCA180];
+    v41[0] = &unk_2837D0048;
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:&v40 count:1];
     v6 = [MEMORY[0x277CCAA00] defaultManager];
     v7 = a1[4];
-    v34 = 0;
-    [v6 createDirectoryAtPath:v7 withIntermediateDirectories:1 attributes:v5 error:&v34];
-    v8 = v34;
+    v33 = 0;
+    [v6 createDirectoryAtPath:v7 withIntermediateDirectories:1 attributes:v5 error:&v33];
+    v8 = v33;
 
     v9 = DALoggingwithCategory(0);
     v10 = v9;
@@ -317,9 +319,9 @@ void __44__DACPLogShared__getUUIDForFolder_baseName___block_invoke_116(void *a1)
       {
         v11 = a1[4];
         *buf = 138412546;
-        v38 = v11;
-        v39 = 2112;
-        v40 = v8;
+        v37 = v11;
+        v38 = 2112;
+        v39 = v8;
         _os_log_impl(&dword_2243BD000, v10, OS_LOG_TYPE_ERROR, "Could not create directory %@. Error: %@", buf, 0x16u);
       }
 
@@ -331,32 +333,32 @@ void __44__DACPLogShared__getUUIDForFolder_baseName___block_invoke_116(void *a1)
     {
       v12 = a1[4];
       *buf = 138412290;
-      v38 = v12;
+      v37 = v12;
       _os_log_impl(&dword_2243BD000, v10, OS_LOG_TYPE_INFO, "Created directory at path: %@", buf, 0xCu);
     }
   }
 
-  v29 = v2;
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
+  v28 = v2;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v13 = *(a1[5] + 8);
-  v14 = [(DACPLogDFile *)v13 countByEnumeratingWithState:&v30 objects:v36 count:16];
+  v14 = [(DACPLogDFile *)v13 countByEnumeratingWithState:&v29 objects:v35 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v31;
+    v16 = *v30;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v31 != v16)
+        if (*v30 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v30 + 1) + 8 * i);
+        v18 = *(*(&v29 + 1) + 8 * i);
         v19 = [*(a1[5] + 8) objectForKey:v18];
         v20 = [v19 folder];
         if ([v20 isEqualToString:a1[4]])
@@ -377,7 +379,7 @@ void __44__DACPLogShared__getUUIDForFolder_baseName___block_invoke_116(void *a1)
         }
       }
 
-      v15 = [(DACPLogDFile *)v13 countByEnumeratingWithState:&v30 objects:v36 count:16];
+      v15 = [(DACPLogDFile *)v13 countByEnumeratingWithState:&v29 objects:v35 count:16];
     }
 
     while (v15);
@@ -394,10 +396,8 @@ void __44__DACPLogShared__getUUIDForFolder_baseName___block_invoke_116(void *a1)
   *(v26 + 40) = v25;
 
 LABEL_25:
-  v2 = v29;
+  v2 = v28;
 LABEL_26:
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_logData:(id)data UUID:(id)d startNewFile:(BOOL)file sizeCheck:(int64_t)check wantsCompressed:(BOOL)compressed maxFileCount:(int64_t)count outDidCreateNewFile:(BOOL *)newFile outNewFilePath:(id *)self0
@@ -430,34 +430,34 @@ LABEL_26:
   v41 = __Block_byref_object_copy__0;
   v42 = __Block_byref_object_dispose__0;
   v43 = 0;
-  v17 = _fileOpsQueue();
+  v18 = _fileOpsQueue(v17);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __118__DACPLogShared__logData_UUID_startNewFile_sizeCheck_wantsCompressed_maxFileCount_outDidCreateNewFile_outNewFilePath___block_invoke;
   block[3] = &unk_278520BE0;
   block[4] = self;
-  v18 = dCopy;
-  v28 = v18;
+  v19 = dCopy;
+  v28 = v19;
   v30 = &v48;
   v31 = buf;
   fileCopy = file;
   v32 = &v44;
   v33 = &v52;
-  v19 = dataCopy;
-  v29 = v19;
+  v20 = dataCopy;
+  v29 = v20;
   compressedCopy = compressed;
   checkCopy = check;
   countCopy = count;
-  dispatch_sync(v17, block);
+  dispatch_sync(v18, block);
 
   if (*(v53 + 24) == 1)
   {
-    v20 = DALoggingwithCategory(0);
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v21 = DALoggingwithCategory(0);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       *v56 = 138412290;
-      v57 = v18;
-      _os_log_impl(&dword_2243BD000, v20, OS_LOG_TYPE_ERROR, "Log data resulted in an error. UUID: %@.", v56, 0xCu);
+      v57 = v19;
+      _os_log_impl(&dword_2243BD000, v21, OS_LOG_TYPE_ERROR, "Log data resulted in an error. UUID: %@.", v56, 0xCu);
     }
   }
 
@@ -471,23 +471,22 @@ LABEL_26:
 
     if (path)
     {
-      v21 = *(v39 + 5);
-      if (v21)
+      v22 = *(v39 + 5);
+      if (v22)
       {
-        *path = v21;
+        *path = v22;
       }
     }
   }
 
-  v22 = *(v49 + 24);
+  v23 = *(v49 + 24);
 
   _Block_object_dispose(buf, 8);
   _Block_object_dispose(&v44, 8);
   _Block_object_dispose(&v48, 8);
   _Block_object_dispose(&v52, 8);
 
-  v23 = *MEMORY[0x277D85DE8];
-  return v22 & 1;
+  return v23 & 1;
 }
 
 void __118__DACPLogShared__logData_UUID_startNewFile_sizeCheck_wantsCompressed_maxFileCount_outDidCreateNewFile_outNewFilePath___block_invoke(uint64_t a1)
@@ -511,37 +510,35 @@ void __118__DACPLogShared__logData_UUID_startNewFile_sizeCheck_wantsCompressed_m
   {
     if (*(a1 + 88) < 1)
     {
-      v11 = 0;
+      v9 = 0;
     }
 
     else
     {
-      v9 = *(a1 + 105);
-      v10 = *(*(a1 + 72) + 8);
-      v21[1] = 0;
+      v19[1] = 0;
       [v2 checkForMaximumFileSize:? wantsCompressed:? outDidCreateNewFile:? outNewFilePath:?];
-      v11 = 0;
+      v9 = 0;
     }
 
     buf[0] = 0;
-    v12 = *(a1 + 48);
-    v21[0] = 0;
-    v13 = [v3 logData:v12 outDidCreateNewFile:buf outNewFilePath:v21];
-    v14 = v21[0];
-    v15 = v14;
-    *(*(*(a1 + 80) + 8) + 24) = v13 ^ 1;
+    v10 = *(a1 + 48);
+    v19[0] = 0;
+    v11 = [v3 logData:v10 outDidCreateNewFile:buf outNewFilePath:v19];
+    v12 = v19[0];
+    v13 = v12;
+    *(*(*(a1 + 80) + 8) + 24) = v11 ^ 1;
     if (buf[0] == 1)
     {
       *(*(*(a1 + 72) + 8) + 24) = 1;
-      v16 = v14;
+      v14 = v12;
 
-      v11 = v16;
+      v9 = v14;
     }
 
-    v17 = *(*(a1 + 64) + 8);
-    v18 = *(v17 + 40);
-    *(v17 + 40) = v11;
-    v19 = v11;
+    v15 = *(*(a1 + 64) + 8);
+    v16 = *(v15 + 40);
+    *(v15 + 40) = v9;
+    v17 = v9;
 
     goto LABEL_16;
   }
@@ -562,10 +559,10 @@ LABEL_11:
   *(*(*(a1 + 72) + 8) + 24) = 1;
   *(*(*(a1 + 80) + 8) + 24) = [v3 logData:*(a1 + 48) outDidCreateNewFile:0 outNewFilePath:0] ^ 1;
 LABEL_16:
-  v20 = *(a1 + 96);
-  if (v20 && *(*(*(a1 + 72) + 8) + 24) == 1)
+  v18 = *(a1 + 96);
+  if (v18 && *(*(*(a1 + 72) + 8) + 24) == 1)
   {
-    [v3 cullFilesMaxFileCount:v20 - 1];
+    [v3 cullFilesMaxFileCount:v18 - 1];
   }
 
 LABEL_19:
@@ -605,58 +602,60 @@ LABEL_19:
   if (prefixCopy)
   {
     v22 = [prefixCopy dataUsingEncoding:4];
+    v23 = v22;
   }
 
   else
   {
-    v22 = 0;
+    v23 = 0;
   }
 
   v35 = prefixCopy;
   descriptorCopy = descriptor;
   if (suffixCopy)
   {
-    v23 = [suffixCopy dataUsingEncoding:4];
+    v22 = [suffixCopy dataUsingEncoding:4];
+    v24 = v22;
     checkCopy2 = check;
   }
 
   else
   {
     checkCopy2 = check;
-    v23 = 0;
+    v24 = 0;
   }
 
-  v25 = _fileOpsQueue();
+  v26 = _fileOpsQueue(v22);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __160__DACPLogShared__slurpToFileUUID_slurpeeFileDescriptor_prefix_suffix_startNewFile_sizeCheck_wantsCompressed_maxLogFileCount_outDidCreateNewFile_outNewFilePath___block_invoke;
   block[3] = &unk_278520C30;
   block[4] = self;
   v37 = dCopy;
-  v38 = v23;
+  v38 = v24;
   fileCopy = file;
   v41 = &v63;
   v42 = buf;
-  v39 = v22;
+  v39 = v23;
   v40 = &v59;
   v43 = &v55;
   v44 = checkCopy2;
   compressedCopy = compressed;
   v45 = descriptorCopy;
   countCopy = count;
-  v26 = v37;
-  v27 = v22;
+  v27 = v37;
   v28 = v23;
-  dispatch_sync(v25, block);
+  v29 = v24;
+  dispatch_sync(v26, block);
 
   if (*(v64 + 24) == 1)
   {
-    v29 = DALoggingwithCategory(0);
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    v30 = DALoggingwithCategory(0);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
       *v67 = 138412290;
-      v68 = v26;
-      _os_log_impl(&dword_2243BD000, v29, OS_LOG_TYPE_ERROR, "Slurp to file UUID resulted in an error. UUID: %@.", v67, 0xCu);
+      v68 = v27;
+      _os_log_impl(&dword_2243BD000, v30, OS_LOG_TYPE_ERROR, "Slurp to file UUID resulted in an error. UUID: %@.", v67, 0xCu);
     }
   }
 
@@ -670,23 +669,22 @@ LABEL_19:
 
     if (path)
     {
-      v30 = *(v50 + 5);
-      if (v30)
+      v31 = *(v50 + 5);
+      if (v31)
       {
-        *path = v30;
+        *path = v31;
       }
     }
   }
 
-  v31 = *(v60 + 24);
+  v32 = *(v60 + 24);
   _Block_object_dispose(buf, 8);
 
   _Block_object_dispose(&v55, 8);
   _Block_object_dispose(&v59, 8);
   _Block_object_dispose(&v63, 8);
 
-  v32 = *MEMORY[0x277D85DE8];
-  return v31 & 1;
+  return v32 & 1;
 }
 
 void __160__DACPLogShared__slurpToFileUUID_slurpeeFileDescriptor_prefix_suffix_startNewFile_sizeCheck_wantsCompressed_maxLogFileCount_outDidCreateNewFile_outNewFilePath___block_invoke(uint64_t a1)
@@ -699,11 +697,11 @@ void __160__DACPLogShared__slurpToFileUUID_slurpeeFileDescriptor_prefix_suffix_s
     aBlock[1] = 3221225472;
     aBlock[2] = __160__DACPLogShared__slurpToFileUUID_slurpeeFileDescriptor_prefix_suffix_startNewFile_sizeCheck_wantsCompressed_maxLogFileCount_outDidCreateNewFile_outNewFilePath___block_invoke_118;
     aBlock[3] = &unk_278520C08;
-    v27 = *(a1 + 104);
-    v26 = *(a1 + 72);
+    v25 = *(a1 + 104);
+    v24 = *(a1 + 72);
     v4 = v2;
-    v24 = v4;
-    v25 = *(a1 + 48);
+    v22 = v4;
+    v23 = *(a1 + 48);
     v5 = _Block_copy(aBlock);
     if (*(a1 + 112) == 1)
     {
@@ -734,43 +732,41 @@ LABEL_20:
     {
       if (*(a1 + 96) < 1)
       {
-        v13 = 0;
+        v11 = 0;
       }
 
       else
       {
-        v11 = *(a1 + 113);
-        v12 = *(*(a1 + 88) + 8);
-        v22[1] = 0;
+        v20[1] = 0;
         [v4 checkForMaximumFileSize:? wantsCompressed:? outDidCreateNewFile:? outNewFilePath:?];
-        v13 = 0;
+        v11 = 0;
       }
 
       buf[0] = 0;
-      v14 = *(a1 + 56);
-      v22[0] = 0;
-      v15 = [v4 logData:v14 outDidCreateNewFile:buf outNewFilePath:v22];
-      v16 = v22[0];
-      *(*(*(a1 + 72) + 8) + 24) = v15 ^ 1;
+      v12 = *(a1 + 56);
+      v20[0] = 0;
+      v13 = [v4 logData:v12 outDidCreateNewFile:buf outNewFilePath:v20];
+      v14 = v20[0];
+      *(*(*(a1 + 72) + 8) + 24) = v13 ^ 1;
       v5[2](v5);
       if (buf[0] == 1)
       {
         *(*(*(a1 + 88) + 8) + 24) = 1;
-        v17 = v16;
+        v15 = v14;
 
-        v13 = v17;
+        v11 = v15;
       }
 
-      v18 = *(*(a1 + 80) + 8);
-      v19 = *(v18 + 40);
-      *(v18 + 40) = v13;
-      v20 = v13;
+      v16 = *(*(a1 + 80) + 8);
+      v17 = *(v16 + 40);
+      *(v16 + 40) = v11;
+      v18 = v11;
     }
 
-    v21 = *(a1 + 108);
-    if (v21 && *(*(*(a1 + 88) + 8) + 24) == 1)
+    v19 = *(a1 + 108);
+    if (v19 && *(*(*(a1 + 88) + 8) + 24) == 1)
     {
-      [v4 cullFilesMaxFileCount:v21 - 1];
+      [v4 cullFilesMaxFileCount:v19 - 1];
     }
 
     goto LABEL_20;
@@ -787,7 +783,7 @@ LABEL_20:
 LABEL_21:
 }
 
-uint64_t __160__DACPLogShared__slurpToFileUUID_slurpeeFileDescriptor_prefix_suffix_startNewFile_sizeCheck_wantsCompressed_maxLogFileCount_outDidCreateNewFile_outNewFilePath___block_invoke_118(uint64_t a1)
+void *__160__DACPLogShared__slurpToFileUUID_slurpeeFileDescriptor_prefix_suffix_startNewFile_sizeCheck_wantsCompressed_maxLogFileCount_outDidCreateNewFile_outNewFilePath___block_invoke_118(uint64_t a1)
 {
   if (*(a1 + 56) != -1)
   {

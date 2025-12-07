@@ -24,10 +24,9 @@
 
 void __49__HMDMediaDestinationControllerModel_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_226167;
-  logCategory__hmf_once_v1_226167 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_226167;
+  logCategory__hmf_once_v1_226167 = v0;
 }
 
 + (id)properties
@@ -44,43 +43,41 @@ void __49__HMDMediaDestinationControllerModel_logCategory__block_invoke()
 
 void __48__HMDMediaDestinationControllerModel_properties__block_invoke()
 {
-  v8[4] = *MEMORY[0x277D85DE8];
-  v7[0] = @"type";
+  v7[4] = *MEMORY[0x277D85DE8];
+  v6[0] = @"type";
   v0 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v8[0] = v0;
-  v7[1] = @"availableDestinationModelIdentifierStrings";
+  v7[0] = v0;
+  v6[1] = @"availableDestinationModelIdentifierStrings";
   v1 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v8[1] = v1;
-  v7[2] = @"destinationModelIdentifier";
+  v7[1] = v1;
+  v6[2] = @"destinationModelIdentifier";
   v2 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v8[2] = v2;
-  v7[3] = @"supportedOptions";
+  v7[2] = v2;
+  v6[3] = @"supportedOptions";
   v3 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v8[3] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:4];
+  v7[3] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:4];
   v5 = properties__properties_226174;
   properties__properties_226174 = v4;
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)attributeDescriptions
 {
-  v27[5] = *MEMORY[0x277D85DE8];
+  v26[5] = *MEMORY[0x277D85DE8];
   setProperties = [(HMDBackingStoreModelObject *)self setProperties];
   v4 = [setProperties containsObject:@"destinationModelIdentifier"];
   v5 = [setProperties containsObject:@"availableDestinationModelIdentifierStrings"];
   v6 = [setProperties containsObject:@"supportedOptions"];
   v7 = objc_alloc(MEMORY[0x277D0F778]);
   uuid = [(HMDBackingStoreModelObject *)self uuid];
-  v24 = [v7 initWithName:@"uuid" value:?];
-  v27[0] = v24;
+  v23 = [v7 initWithName:@"uuid" value:?];
+  v26[0] = v23;
   v8 = objc_alloc(MEMORY[0x277D0F778]);
   parentUUID = [(HMDBackingStoreModelObject *)self parentUUID];
   v9 = [v8 initWithName:@"parentUUID" value:?];
-  v27[1] = v9;
+  v26[1] = v9;
   v10 = objc_alloc(MEMORY[0x277D0F778]);
-  v26 = v4;
+  v25 = v4;
   if (v4)
   {
     destinationModelIdentifier = [(HMDMediaDestinationControllerModel *)self destinationModelIdentifier];
@@ -91,9 +88,9 @@ void __48__HMDMediaDestinationControllerModel_properties__block_invoke()
     destinationModelIdentifier = @"not set";
   }
 
-  v22 = destinationModelIdentifier;
+  v21 = destinationModelIdentifier;
   v12 = [v10 initWithName:@"destinationModelIdentifier" value:destinationModelIdentifier];
-  v27[2] = v12;
+  v26[2] = v12;
   v13 = objc_alloc(MEMORY[0x277D0F778]);
   if (v6)
   {
@@ -106,7 +103,7 @@ void __48__HMDMediaDestinationControllerModel_properties__block_invoke()
   }
 
   v15 = [v13 initWithName:@"supportedOptions" value:supportedOptions];
-  v27[3] = v15;
+  v26[3] = v15;
   v16 = objc_alloc(MEMORY[0x277D0F778]);
   if (v5)
   {
@@ -119,8 +116,8 @@ void __48__HMDMediaDestinationControllerModel_properties__block_invoke()
   }
 
   v18 = [v16 initWithName:@"availableDestinationModelIdentifierStrings" value:availableDestinationModelIdentifiers];
-  v27[4] = v18;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:5];
+  v26[4] = v18;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:5];
 
   if (v5)
   {
@@ -130,11 +127,9 @@ void __48__HMDMediaDestinationControllerModel_properties__block_invoke()
   {
   }
 
-  if (v26)
+  if (v25)
   {
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }

@@ -447,7 +447,7 @@ void __48__AVSmartSubtitlesController__startObservations__block_invoke_3_40(uint
     if ((v17 & 1) == 0)
     {
       v18 = [v19 playerController];
-      [v18 currentTime];
+      objc_msgSend_currentTime(v18);
       [v19 setLastSeekTime:?];
 
       if ([v19 state] == 2)
@@ -713,7 +713,7 @@ void __48__AVSmartSubtitlesController__startObservations__block_invoke_2(uint64_
 
       [(AVSmartSubtitlesController *)self setCurrentSkipBackTimeInterval:0.0];
       [(AVSmartSubtitlesController *)&self->super.isa _setPlayerTimeObserver:?];
-      [(AVPlayerController *)self->_playerController currentTime];
+      objc_msgSend_currentTime(self->_playerController);
       [(AVSmartSubtitlesController *)self setTimeOfSeekStart:?];
       v4 = _AVLog();
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))

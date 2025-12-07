@@ -74,7 +74,7 @@
 - (void)setPerRecordZoneSaveBlock:(void *)perRecordZoneSaveBlock
 {
   v6 = perRecordZoneSaveBlock;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -105,7 +105,7 @@ LABEL_9:
 
 - (void)perRecordZoneSaveBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -142,7 +142,7 @@ LABEL_9:
 - (void)setPerRecordZoneDeleteBlock:(void *)perRecordZoneDeleteBlock
 {
   v6 = perRecordZoneDeleteBlock;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -173,7 +173,7 @@ LABEL_9:
 
 - (void)perRecordZoneDeleteBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -210,7 +210,7 @@ LABEL_9:
 - (void)setModifyRecordZonesCompletionBlockIVar:(id)var
 {
   varCopy = var;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -241,7 +241,7 @@ LABEL_9:
 
 - (void)modifyRecordZonesCompletionBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -285,7 +285,7 @@ LABEL_9:
 
 - (id)relevantZoneIDs
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v4 = objc_msgSend_recordZoneIDsToDelete(self, a2, v2);
   v7 = objc_msgSend_recordZonesToSave(self, v5, v6);
   v10 = objc_msgSend_count(v7, v8, v9);
@@ -295,40 +295,38 @@ LABEL_9:
     v14 = objc_alloc(MEMORY[0x1E695DF70]);
     v13 = objc_msgSend_initWithCapacity_(v14, v15, v13);
     objc_msgSend_addObjectsFromArray_(v13, v16, v4);
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     v17 = v7;
-    v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v18, &v29, v33, 16);
+    v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v18, &v28, v32, 16);
     if (v19)
     {
       v22 = v19;
-      v23 = *v30;
+      v23 = *v29;
       do
       {
         for (i = 0; i != v22; ++i)
         {
-          if (*v30 != v23)
+          if (*v29 != v23)
           {
             objc_enumerationMutation(v17);
           }
 
-          v26 = objc_msgSend_zoneID(*(*(&v29 + 1) + 8 * i), v20, v21, v29);
+          v26 = objc_msgSend_zoneID(*(*(&v28 + 1) + 8 * i), v20, v21, v28);
           if (v26)
           {
             objc_msgSend_addObject_(v13, v25, v26);
           }
         }
 
-        v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v20, &v29, v33, 16);
+        v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v20, &v28, v32, 16);
       }
 
       while (v22);
     }
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -400,28 +398,28 @@ LABEL_9:
 
 - (BOOL)CKOperationShouldRun:(id *)run
 {
-  v69 = *MEMORY[0x1E69E9840];
+  v68 = *MEMORY[0x1E69E9840];
   v4 = objc_opt_new();
+  v62 = 0u;
   v63 = 0u;
   v64 = 0u;
   v65 = 0u;
-  v66 = 0u;
   v7 = objc_msgSend_recordZonesToSave(self, v5, v6);
-  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v63, v68, 16);
+  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v62, v67, 16);
   if (v9)
   {
     v10 = v9;
-    v11 = *v64;
+    v11 = *v63;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v64 != v11)
+        if (*v63 != v11)
         {
           objc_enumerationMutation(v7);
         }
 
-        v13 = *(*(&v63 + 1) + 8 * i);
+        v13 = *(*(&v62 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -476,36 +474,36 @@ LABEL_33:
         objc_msgSend_addObject_(v4, v21, v18);
       }
 
-      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v22, &v63, v68, 16);
+      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v22, &v62, v67, 16);
     }
 
     while (v10);
   }
 
   v7 = objc_opt_new();
+  v58 = 0u;
   v59 = 0u;
   v60 = 0u;
   v61 = 0u;
-  v62 = 0u;
   v25 = objc_msgSend_recordZoneIDsToDelete(self, v23, v24);
-  v27 = objc_msgSend_countByEnumeratingWithState_objects_count_(v25, v26, &v59, v67, 16);
+  v27 = objc_msgSend_countByEnumeratingWithState_objects_count_(v25, v26, &v58, v66, 16);
   if (!v27)
   {
     goto LABEL_23;
   }
 
   v28 = v27;
-  v29 = *v60;
+  v29 = *v59;
   while (2)
   {
     for (j = 0; j != v28; ++j)
     {
-      if (*v60 != v29)
+      if (*v59 != v29)
       {
         objc_enumerationMutation(v25);
       }
 
-      v31 = *(*(&v59 + 1) + 8 * j);
+      v31 = *(*(&v58 + 1) + 8 * j);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
@@ -551,7 +549,7 @@ LABEL_42:
       objc_msgSend_addObject_(v7, v35, v31);
     }
 
-    v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v25, v36, &v59, v67, 16);
+    v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v25, v36, &v58, v66, 16);
     if (v28)
     {
       continue;
@@ -569,15 +567,15 @@ LABEL_23:
     goto LABEL_46;
   }
 
-  v53 = objc_msgSend_recordZoneIDsToDelete(self, v42, v43);
-  v56 = objc_msgSend_count(v53, v54, v55);
+  v52 = objc_msgSend_recordZoneIDsToDelete(self, v42, v43);
+  v55 = objc_msgSend_count(v52, v53, v54);
 
-  if (v56)
+  if (v55)
   {
 LABEL_46:
-    v58.receiver = self;
-    v58.super_class = CKModifyRecordZonesOperation;
-    v50 = [(CKDatabaseOperation *)&v58 CKOperationShouldRun:run];
+    v57.receiver = self;
+    v57.super_class = CKModifyRecordZonesOperation;
+    v50 = [(CKDatabaseOperation *)&v57 CKOperationShouldRun:run];
     goto LABEL_44;
   }
 
@@ -585,13 +583,12 @@ LABEL_43:
   v50 = 0;
 LABEL_44:
 
-  v51 = *MEMORY[0x1E69E9840];
   return v50;
 }
 
 - (void)performCKOperation
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (ck_log_initialization_predicate != -1)
   {
     dispatch_once(&ck_log_initialization_predicate, ck_log_initialization_block);
@@ -600,30 +597,29 @@ LABEL_44:
   v3 = ck_log_facility_ck;
   if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
   {
-    v5 = v3;
-    v8 = objc_msgSend_operationID(self, v6, v7);
-    v11 = objc_msgSend_recordZonesToSave(self, v9, v10);
-    v14 = objc_msgSend_recordZoneIDsToDelete(self, v12, v13);
+    v4 = v3;
+    v7 = objc_msgSend_operationID(self, v5, v6);
+    v10 = objc_msgSend_recordZonesToSave(self, v8, v9);
+    v13 = objc_msgSend_recordZoneIDsToDelete(self, v11, v12);
     *buf = 138544130;
-    v19 = v8;
-    v20 = 2112;
-    v21 = v11;
-    v22 = 2112;
-    v23 = v14;
-    v24 = 1024;
-    v25 = objc_msgSend_markZonesAsUserPurged(self, v15, v16);
-    _os_log_debug_impl(&dword_1883EA000, v5, OS_LOG_TYPE_DEBUG, "Modifying record zones with operation %{public}@ zonesToSave=%@ zonesToDelete=%@ markZonesAsUserPurged=%d", buf, 0x26u);
+    v18 = v7;
+    v19 = 2112;
+    v20 = v10;
+    v21 = 2112;
+    v22 = v13;
+    v23 = 1024;
+    v24 = objc_msgSend_markZonesAsUserPurged(self, v14, v15);
+    _os_log_debug_impl(&dword_1883EA000, v4, OS_LOG_TYPE_DEBUG, "Modifying record zones with operation %{public}@ zonesToSave=%@ zonesToDelete=%@ markZonesAsUserPurged=%d", buf, 0x26u);
   }
 
-  v17.receiver = self;
-  v17.super_class = CKModifyRecordZonesOperation;
-  [(CKOperation *)&v17 performCKOperation];
-  v4 = *MEMORY[0x1E69E9840];
+  v16.receiver = self;
+  v16.super_class = CKModifyRecordZonesOperation;
+  [(CKOperation *)&v16 performCKOperation];
 }
 
 - (void)handleSaveForRecordZoneID:(id)d recordZone:(id)zone error:(id)error
 {
-  v106 = *MEMORY[0x1E69E9840];
+  v105 = *MEMORY[0x1E69E9840];
   dCopy = d;
   zoneCopy = zone;
   v12 = objc_msgSend_CKClientSuitableError(error, v10, v11);
@@ -677,10 +673,10 @@ LABEL_44:
       goto LABEL_21;
     }
 
-    *v104 = 138412546;
-    *&v104[4] = dCopy;
-    *&v104[12] = 2112;
-    *&v104[14] = v12;
+    *v103 = 138412546;
+    *&v103[4] = dCopy;
+    *&v103[12] = 2112;
+    *&v103[14] = v12;
     v26 = "Record zone %@ saved with error: %@";
     v27 = v20;
     v28 = v25;
@@ -721,14 +717,14 @@ LABEL_44:
 
   if ((v38 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
   {
-    *v104 = 138412290;
-    *&v104[4] = dCopy;
+    *v103 = 138412290;
+    *&v103[4] = dCopy;
     v26 = "Record zone %@ saved";
     v27 = v20;
     v28 = v38;
     v29 = 12;
 LABEL_20:
-    _os_signpost_emit_with_name_impl(&dword_1883EA000, v27, OS_SIGNPOST_EVENT, v28, "CKModifyRecordZonesOperation", v26, v104, v29);
+    _os_signpost_emit_with_name_impl(&dword_1883EA000, v27, OS_SIGNPOST_EVENT, v28, "CKModifyRecordZonesOperation", v26, v103, v29);
   }
 
 LABEL_21:
@@ -736,12 +732,12 @@ LABEL_21:
 LABEL_22:
   if (self)
   {
-    objc_msgSend_objectForKeyedSubscript_(self->_recordZonesByZoneIDs, v15, dCopy, *v104, *&v104[16]);
+    objc_msgSend_objectForKeyedSubscript_(self->_recordZonesByZoneIDs, v15, dCopy, *v103, *&v103[8]);
   }
 
   else
   {
-    objc_msgSend_objectForKeyedSubscript_(0, v15, dCopy, *v104, *&v104[16]);
+    objc_msgSend_objectForKeyedSubscript_(0, v15, dCopy, *v103, *&v103[8]);
   }
   v41 = ;
   if (zoneCopy)
@@ -838,26 +834,24 @@ LABEL_22:
     v98 = ck_log_facility_ck;
     if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
     {
-      v100 = v98;
-      v103 = objc_msgSend_operationID(self, v101, v102);
-      *v104 = 138543874;
-      *&v104[4] = v103;
-      *&v104[12] = 2112;
-      *&v104[14] = dCopy;
-      *&v104[22] = 2112;
-      v105 = v12;
-      _os_log_debug_impl(&dword_1883EA000, v100, OS_LOG_TYPE_DEBUG, "Operation %{public}@ calling out about saved zone with ID %@: %@", v104, 0x20u);
+      v99 = v98;
+      v102 = objc_msgSend_operationID(self, v100, v101);
+      *v103 = 138543874;
+      *&v103[4] = v102;
+      *&v103[12] = 2112;
+      *&v103[14] = dCopy;
+      *&v103[22] = 2112;
+      v104 = v12;
+      _os_log_debug_impl(&dword_1883EA000, v99, OS_LOG_TYPE_DEBUG, "Operation %{public}@ calling out about saved zone with ID %@: %@", v103, 0x20u);
     }
 
     v94[2](v94, dCopy, v97, v12);
   }
-
-  v99 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleDeleteForRecordZoneID:(id)d error:(id)error
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v9 = objc_msgSend_CKClientSuitableError(error, v7, v8);
   if (self)
@@ -915,8 +909,8 @@ LABEL_22:
       goto LABEL_21;
     }
 
-    *v53 = 138412290;
-    *&v53[4] = dCopy;
+    *v52 = 138412290;
+    *&v52[4] = dCopy;
     v24 = "Record zone %@ deleted";
     v25 = v18;
     v26 = v36;
@@ -962,16 +956,16 @@ LABEL_22:
 
   if ((v23 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
   {
-    *v53 = 138412546;
-    *&v53[4] = dCopy;
-    *&v53[12] = 2112;
-    *&v53[14] = v9;
+    *v52 = 138412546;
+    *&v52[4] = dCopy;
+    *&v52[12] = 2112;
+    *&v52[14] = v9;
     v24 = "Record zone %@ deleted with error: %@";
     v25 = v18;
     v26 = v23;
     v27 = 22;
 LABEL_20:
-    _os_signpost_emit_with_name_impl(&dword_1883EA000, v25, OS_SIGNPOST_EVENT, v26, "CKModifyRecordZonesOperation", v24, v53, v27);
+    _os_signpost_emit_with_name_impl(&dword_1883EA000, v25, OS_SIGNPOST_EVENT, v26, "CKModifyRecordZonesOperation", v24, v52, v27);
   }
 
 LABEL_21:
@@ -983,12 +977,12 @@ LABEL_21:
 LABEL_28:
       if (self)
       {
-        objc_msgSend_addObject_(self->_deletedRecordZoneIDs, v39, dCopy, *v53, *&v53[8]);
+        objc_msgSend_addObject_(self->_deletedRecordZoneIDs, v39, dCopy, *v52, *&v52[8]);
       }
 
       else
       {
-        objc_msgSend_addObject_(0, v39, dCopy, *v53, *&v53[8]);
+        objc_msgSend_addObject_(0, v39, dCopy, *v52, *&v52[8]);
       }
 
       goto LABEL_30;
@@ -997,17 +991,17 @@ LABEL_28:
 LABEL_25:
     if (self)
     {
-      objc_msgSend_setObject_forKeyedSubscript_(self->_recordZoneErrors, v39, v9, dCopy, *v53, *&v53[16]);
+      objc_msgSend_setObject_forKeyedSubscript_(self->_recordZoneErrors, v39, v9, dCopy, *v52, *&v52[8]);
     }
 
     else
     {
-      objc_msgSend_setObject_forKeyedSubscript_(0, v39, v9, dCopy, *v53, *&v53[16]);
+      objc_msgSend_setObject_forKeyedSubscript_(0, v39, v9, dCopy, *v52, *&v52[8]);
     }
   }
 
 LABEL_30:
-  v41 = objc_msgSend_perRecordZoneDeleteBlock_wrapper(self, v39, v40, *v53, *&v53[8]);
+  v41 = objc_msgSend_perRecordZoneDeleteBlock_wrapper(self, v39, v40, *v52, *&v52[8]);
   v44 = v41;
   if (v41)
   {
@@ -1030,21 +1024,19 @@ LABEL_30:
     v47 = ck_log_facility_ck;
     if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
     {
-      v49 = v47;
-      v52 = objc_msgSend_operationID(self, v50, v51);
-      *v53 = 138543874;
-      *&v53[4] = v52;
-      *&v53[12] = 2112;
-      *&v53[14] = dCopy;
-      *&v53[22] = 2112;
-      v54 = v9;
-      _os_log_debug_impl(&dword_1883EA000, v49, OS_LOG_TYPE_DEBUG, "Operation %{public}@ calling out about deleted zone with ID %@: %@", v53, 0x20u);
+      v48 = v47;
+      v51 = objc_msgSend_operationID(self, v49, v50);
+      *v52 = 138543874;
+      *&v52[4] = v51;
+      *&v52[12] = 2112;
+      *&v52[14] = dCopy;
+      *&v52[22] = 2112;
+      v53 = v9;
+      _os_log_debug_impl(&dword_1883EA000, v48, OS_LOG_TYPE_DEBUG, "Operation %{public}@ calling out about deleted zone with ID %@: %@", v52, 0x20u);
     }
 
     v45[2](v45, dCopy, v9);
   }
-
-  v48 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_finishOnCallbackQueueWithError:(id)error
@@ -1207,7 +1199,7 @@ LABEL_30:
 
 - (void)ckSignpostBegin
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   if (self)
   {
     signpost = self->super.super._signpost;
@@ -1260,28 +1252,26 @@ LABEL_30:
       v36 = CKStringForDiscretionaryNetworkBehavior(v35);
       v39 = objc_msgSend_qualityOfService(self, v37, v38);
       v41 = CKStringForQOS(v39, v40);
-      v43 = 138413570;
-      v44 = v17;
-      v45 = 2112;
-      v46 = v20;
-      v47 = 2112;
-      v48 = v26;
-      v49 = 2114;
-      v50 = v29;
-      v51 = 2114;
-      v52 = v36;
-      v53 = 2114;
-      v54 = v41;
-      _os_signpost_emit_with_name_impl(&dword_1883EA000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v14, "CKModifyRecordZonesOperation", "ID=%{signpost.description:attribute}@ Container=%{signpost.description:attribute}@ GroupID=%{signpost.description:attribute}@ GroupName=%{signpost.description:attribute,public}@ Behavior=%{signpost.description:attribute,public}@ QoS=%{signpost.description:attribute,public}@ ", &v43, 0x3Eu);
+      v42 = 138413570;
+      v43 = v17;
+      v44 = 2112;
+      v45 = v20;
+      v46 = 2112;
+      v47 = v26;
+      v48 = 2114;
+      v49 = v29;
+      v50 = 2114;
+      v51 = v36;
+      v52 = 2114;
+      v53 = v41;
+      _os_signpost_emit_with_name_impl(&dword_1883EA000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v14, "CKModifyRecordZonesOperation", "ID=%{signpost.description:attribute}@ Container=%{signpost.description:attribute}@ GroupID=%{signpost.description:attribute}@ GroupName=%{signpost.description:attribute,public}@ Behavior=%{signpost.description:attribute,public}@ QoS=%{signpost.description:attribute,public}@ ", &v42, 0x3Eu);
     }
   }
-
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 - (void)ckSignpostEndWithError:(id)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (self)
   {
@@ -1325,13 +1315,11 @@ LABEL_30:
 
     if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
     {
-      v18 = 138412290;
-      v19 = errorCopy;
-      _os_signpost_emit_with_name_impl(&dword_1883EA000, v11, OS_SIGNPOST_INTERVAL_END, v16, "CKModifyRecordZonesOperation", "Error=%{signpost.description:attribute}@ ", &v18, 0xCu);
+      v17 = 138412290;
+      v18 = errorCopy;
+      _os_signpost_emit_with_name_impl(&dword_1883EA000, v11, OS_SIGNPOST_INTERVAL_END, v16, "CKModifyRecordZonesOperation", "Error=%{signpost.description:attribute}@ ", &v17, 0xCu);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (id)activityCreate

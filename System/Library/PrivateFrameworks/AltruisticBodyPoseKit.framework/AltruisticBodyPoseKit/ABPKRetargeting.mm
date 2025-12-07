@@ -9,7 +9,7 @@
 
 - (ABPKRetargeting)init
 {
-  v3 = __ABPKLogSharedInstance();
+  v3 = __ABPKLogSharedInstance(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     *buf = 0;
@@ -48,107 +48,102 @@
 
 - (id)_retargetSkeleton:(id)skeleton
 {
-  v76 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   skeletonCopy = skeleton;
-  v5 = __ABPKLogSharedInstance();
+  v5 = __ABPKLogSharedInstance(skeletonCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     *buf = 0;
     _os_log_impl(&dword_23EDDC000, v5, OS_LOG_TYPE_DEBUG, " ABPKRetargeting: Retargeting skeleton ", buf, 2u);
   }
 
-  coreIKSolver = self->_coreIKSolver;
   SourceBufferSize = CoreIKSolverGetSourceBufferSize();
-  v8 = self->_coreIKSolver;
   TargetBufferSize = CoreIKSolverGetTargetBufferSize();
-  (MEMORY[0x28223BE20])();
+  joints = MEMORY[0x28223BE20](TargetBufferSize);
   if (SourceBufferSize)
   {
-    v10 = 0;
-    v11 = &v68[-4 * SourceBufferSize + 2];
+    v9 = 0;
+    v10 = &v63[-4 * SourceBufferSize + 2];
     __asm { FMOV            V0.4S, #10.0 }
 
-    v72 = _Q0;
-    v73 = xmmword_23EE28170;
+    v67 = _Q0;
+    v68 = xmmword_23EE28170;
     do
     {
       joints = [skeletonCopy joints];
-      v18 = v73;
-      *(v11 - 1) = vdivq_f32(*(joints + 16 * v10), v72);
-      *v11 = v18;
-      ++v10;
-      v11 += 2;
+      v16 = v68;
+      *(v10 - 1) = vdivq_f32(*(joints + 16 * v9), v67);
+      *v10 = v16;
+      ++v9;
+      v10 += 2;
     }
 
-    while (SourceBufferSize != v10);
+    while (SourceBufferSize != v9);
   }
 
-  v19 = __ABPKLogSharedInstance();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+  v17 = __ABPKLogSharedInstance(joints);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
     *buf = 0;
-    _os_log_impl(&dword_23EDDC000, v19, OS_LOG_TYPE_DEBUG, " \t Run CoreIK solver ", buf, 2u);
+    _os_log_impl(&dword_23EDDC000, v17, OS_LOG_TYPE_DEBUG, " \t Run CoreIK solver ", buf, 2u);
   }
 
-  v20 = (MEMORY[0x28223BE20])();
-  MEMORY[0x28223BE20](v20);
-  v21 = self->_coreIKSolver;
-  v22 = CoreIKSolveModelSpaceSource();
-  v23 = v22;
-  v24 = MEMORY[0x28223BE20](v22);
-  v25 = MEMORY[0x28223BE20](v24);
-  v27 = &v68[-2 * v26];
-  if (v25)
+  v19 = MEMORY[0x28223BE20](v18);
+  MEMORY[0x28223BE20](v19);
+  v20 = CoreIKSolveModelSpaceSource();
+  v21 = v20;
+  v22 = MEMORY[0x28223BE20](v20);
+  v23 = MEMORY[0x28223BE20](v22);
+  v25 = &v63[-2 * v24];
+  if (v23)
   {
-    v28 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v26 = __ABPKLogSharedInstance(v23);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      v75 = v23;
-      _os_log_impl(&dword_23EDDC000, v28, OS_LOG_TYPE_ERROR, " Could not solve skeleton: %i ", buf, 8u);
+      v70 = v21;
+      _os_log_impl(&dword_23EDDC000, v26, OS_LOG_TYPE_ERROR, " Could not solve skeleton: %i ", buf, 8u);
     }
 
-    v29 = 0;
+    v27 = 0;
   }
 
   else
   {
-    v30 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+    v28 = __ABPKLogSharedInstance(v23);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&dword_23EDDC000, v30, OS_LOG_TYPE_DEBUG, " \t Create result type ", buf, 2u);
+      _os_log_impl(&dword_23EDDC000, v28, OS_LOG_TYPE_DEBUG, " \t Create result type ", buf, 2u);
     }
 
-    v68[1] = v68;
+    v63[1] = v63;
     if (TargetBufferSize)
     {
-      v34 = v27 + 1;
-      v35 = &v68[-4 * TargetBufferSize + 2];
-      v36 = v35;
-      v37 = &v68[-8 * TargetBufferSize + 4];
-      v38 = vdupq_n_s32(0x3C23D70Au);
-      v69 = xmmword_23EE28180;
-      v70 = v38;
-      v39 = TargetBufferSize;
+      v32 = v25 + 1;
+      v33 = &v63[-4 * TargetBufferSize + 2];
+      v34 = v33;
+      v35 = &v63[-8 * TargetBufferSize + 4];
+      v64 = xmmword_23EE28180;
+      v65 = vdupq_n_s32(0x3C23D70Au);
+      v36 = TargetBufferSize;
       do
       {
-        v40 = v31;
-        _Q4 = *v35;
-        v42 = vmulq_f32(v35[-1], v38);
-        LODWORD(_S5) = HIDWORD(v35->i64[0]);
+        v37 = v29;
+        _Q4 = *v33;
+        LODWORD(_S5) = HIDWORD(v33->i64[0]);
         _S6 = _Q4.i32[2];
         __asm { FMLS            S0, S6, V4.S[2] }
 
-        _S16 = HIDWORD(*v35);
+        _S16 = HIDWORD(*v33);
         __asm { FMLA            S0, S16, V4.S[3] }
 
-        v48 = vmuls_lane_f32(_Q4.f32[2], _Q4, 3);
-        v49 = vmuls_lane_f32(_S5, *v35, 3);
-        *(&_Q0 + 1) = (v48 + (COERCE_FLOAT(*v35) * _S5)) + (v48 + (COERCE_FLOAT(*v35) * _S5));
-        *(&_Q0 + 2) = -(v49 - (_Q4.f32[0] * _Q4.f32[2])) - (v49 - (_Q4.f32[0] * _Q4.f32[2]));
-        v50 = -(v48 - (COERCE_FLOAT(*v35) * _S5));
-        v51.f32[0] = v50 + v50;
+        v44 = vmuls_lane_f32(_Q4.f32[2], _Q4, 3);
+        v45 = vmuls_lane_f32(_S5, *v33, 3);
+        *(&_Q0 + 1) = (v44 + (COERCE_FLOAT(*v33) * _S5)) + (v44 + (COERCE_FLOAT(*v33) * _S5));
+        *(&_Q0 + 2) = -(v45 - (_Q4.f32[0] * _Q4.f32[2])) - (v45 - (_Q4.f32[0] * _Q4.f32[2]));
+        v46 = -(v44 - (COERCE_FLOAT(*v33) * _S5));
+        v47.f32[0] = v46 + v46;
         __asm
         {
           FMLA            S7, S5, V4.S[1]
@@ -156,9 +151,9 @@
           FMLA            S17, S6, V4.S[1]
         }
 
-        v51.f32[1] = _S7 - (_Q4.f32[0] * _Q4.f32[0]);
-        v51.i64[1] = __PAIR64__(v33, _S17 + _S17);
-        *&v55 = (v49 + (_Q4.f32[2] * _Q4.f32[0])) + (v49 + (_Q4.f32[2] * _Q4.f32[0]));
+        v47.f32[1] = _S7 - (_Q4.f32[0] * _Q4.f32[0]);
+        v47.i64[1] = __PAIR64__(v31, _S17 + _S17);
+        *&v51 = (v45 + (_Q4.f32[2] * _Q4.f32[0])) + (v45 + (_Q4.f32[2] * _Q4.f32[0]));
         __asm
         {
           FMLA            S7, S6, V4.S[1]
@@ -166,44 +161,41 @@
           FMLS            S6, S5, V4.S[1]
         }
 
-        *(&v55 + 1) = _S7 + _S7;
-        *(&v55 + 1) = __PAIR64__(v32, _S6);
-        HIDWORD(_Q0) = v40;
-        v72 = v51;
-        v73 = _Q0;
-        v71 = v55;
+        *(&v51 + 1) = _S7 + _S7;
+        *(&v51 + 1) = __PAIR64__(v30, _S6);
+        HIDWORD(_Q0) = v37;
+        v67 = v47;
+        v68 = _Q0;
+        v66 = v51;
         simdMatrix4x4FromRotationAndTranslation();
-        *(v37 - 2) = v59;
-        *(v37 - 1) = v60;
-        v38 = v70;
-        v32 = HIDWORD(v71);
-        v61 = vmulq_f32(v36[-1], v70);
-        *v34 = *v36;
-        v34[1] = v61;
-        v34[-1] = v69;
-        v34 += 3;
-        *v37 = v62;
-        v37[1] = v63;
-        v37 += 4;
-        v35 += 2;
-        v36 += 2;
-        --v39;
-        v33 = v72.i32[3];
-        v31 = HIDWORD(v73);
+        *(v35 - 2) = v55;
+        *(v35 - 1) = v56;
+        v30 = HIDWORD(v66);
+        v57 = vmulq_f32(v34[-1], v65);
+        *v32 = *v34;
+        v32[1] = v57;
+        v32[-1] = v64;
+        v32 += 3;
+        *v35 = v58;
+        v35[1] = v59;
+        v35 += 4;
+        v33 += 2;
+        v34 += 2;
+        --v36;
+        v31 = v67.i32[3];
+        v29 = HIDWORD(v68);
       }
 
-      while (v39);
+      while (v36);
     }
 
-    v64 = [ABPKResultRetargeting alloc];
-    LODWORD(v65) = 981668463;
-    v28 = [skeletonCopy createResultScaledByFactor:v65];
-    v29 = [(ABPKResultRetargeting *)v64 initWithModelJointTransforms:&v68[-8 * TargetBufferSize] localJointTransformsSRT:v27 numberOfTransforms:TargetBufferSize liftedSkeletonData:v28 identifier:self->_skeletonIdentifier];
+    v60 = [ABPKResultRetargeting alloc];
+    LODWORD(v61) = 981668463;
+    v26 = [skeletonCopy createResultScaledByFactor:v61];
+    v27 = [(ABPKResultRetargeting *)v60 initWithModelJointTransforms:&v63[-8 * TargetBufferSize] localJointTransformsSRT:v25 numberOfTransforms:TargetBufferSize liftedSkeletonData:v26 identifier:self->_skeletonIdentifier];
   }
 
-  v66 = *MEMORY[0x277D85DE8];
-
-  return v29;
+  return v27;
 }
 
 @end

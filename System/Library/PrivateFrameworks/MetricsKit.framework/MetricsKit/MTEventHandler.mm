@@ -173,7 +173,7 @@ id __54__MTEventHandler_metricsDataWithCallerSuppliedFields___block_invoke(uint6
 
 - (id)knownFields
 {
-  v9[3] = *MEMORY[0x277D85DE8];
+  v8[3] = *MEMORY[0x277D85DE8];
   delegate = [(MTEventDataProvider *)self delegate];
   v4 = objc_opt_respondsToSelector();
 
@@ -185,13 +185,11 @@ id __54__MTEventHandler_metricsDataWithCallerSuppliedFields___block_invoke(uint6
 
   else
   {
-    v9[0] = @"eventType";
-    v9[1] = @"eventVersion";
-    v9[2] = @"clientEventId";
-    knownFields = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:3];
+    v8[0] = @"eventType";
+    v8[1] = @"eventVersion";
+    v8[2] = @"clientEventId";
+    knownFields = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:3];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return knownFields;
 }

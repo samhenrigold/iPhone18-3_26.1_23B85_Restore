@@ -12,6 +12,7 @@
 - (void)pingWithRecordID:(id)d forSectionID:(id)iD;
 - (void)pingWithRecordID:(id)d forSectionID:(id)iD ack:(id)ack;
 - (void)sendBulletinSummary:(id)summary;
+- (void)subscribeToSectionID:(id)d forFullBulletins:(BOOL)bulletins withAck:(BOOL)ack ackAllowedOnLocalConnection:(BOOL)connection;
 - (void)subscribeWithMachServiceName:(id)name;
 - (void)unsubscribeFromSectionID:(id)d;
 @end
@@ -62,6 +63,17 @@
   dCopy = d;
   remoteObjectProxy = [(NSXPCConnection *)connectionToServer remoteObjectProxy];
   [remoteObjectProxy unsubscribeFromSectionID:dCopy];
+}
+
+- (void)subscribeToSectionID:(id)d forFullBulletins:(BOOL)bulletins withAck:(BOOL)ack ackAllowedOnLocalConnection:(BOOL)connection
+{
+  connectionCopy = connection;
+  ackCopy = ack;
+  bulletinsCopy = bulletins;
+  connectionToServer = self->_connectionToServer;
+  dCopy = d;
+  remoteObjectProxy = [(NSXPCConnection *)connectionToServer remoteObjectProxy];
+  [remoteObjectProxy subscribeToSectionID:dCopy forFullBulletins:bulletinsCopy withAck:ackCopy ackAllowedOnLocalConnection:connectionCopy];
 }
 
 - (void)pingWithBulletin:(id)bulletin
@@ -136,7 +148,7 @@
 
 - (void)_connect
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   [(NSXPCConnection *)self->_connectionToServer invalidate];
   v3 = [objc_alloc(MEMORY[0x277CCAE80]) initWithMachServiceName:@"com.apple.bulletindistributord.server" options:4096];
   connectionToServer = self->_connectionToServer;
@@ -158,29 +170,29 @@
     [exportedObject subscribeWithMachServiceName:self->_machServiceName];
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   subscriptionInfos = [WeakRetained subscriptionInfos];
 
-  v12 = [subscriptionInfos countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v12 = [subscriptionInfos countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v22;
+    v14 = *v21;
     do
     {
       v15 = 0;
       do
       {
-        if (*v22 != v14)
+        if (*v21 != v14)
         {
           objc_enumerationMutation(subscriptionInfos);
         }
 
-        v16 = *(*(&v21 + 1) + 8 * v15);
+        v16 = *(*(&v20 + 1) + 8 * v15);
         remoteObjectProxy = [(NSXPCConnection *)self->_connectionToServer remoteObjectProxy];
         sectionID = [v16 sectionID];
         [remoteObjectProxy subscribeToSectionID:sectionID forFullBulletins:objc_msgSend(v16 withAck:"forBulletin") ackAllowedOnLocalConnection:{objc_msgSend(v16, "canAck"), objc_msgSend(v16, "canAckOnLocalConnection")}];
@@ -189,7 +201,7 @@
       }
 
       while (v13 != v15);
-      v13 = [subscriptionInfos countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v13 = [subscriptionInfos countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v13);
@@ -197,8 +209,6 @@
 
   v19 = objc_loadWeakRetained(&self->_delegate);
   [v19 pingSubscriberDidLoad];
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_createXPCService
@@ -223,52 +233,53 @@
   connectionCopy = connection;
   v8 = [connectionCopy valueForEntitlement:@"com.apple.bulletindistributor.remotepingsubscriber"];
   objc_opt_class();
-  if (objc_opt_isKindOfClass() & 1) != 0 && ([v8 BOOLValue])
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass & 1) != 0 && (isKindOfClass = [v8 BOOLValue], (isKindOfClass))
   {
     objc_storeStrong(&self->_connectionFromServer, connection);
     [(NSXPCConnection *)self->_connectionFromServer setExportedObject:self];
     connectionFromServer = self->_connectionFromServer;
-    v10 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_285454D28];
-    [(NSXPCConnection *)connectionFromServer setExportedInterface:v10];
+    v11 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_285454D28];
+    [(NSXPCConnection *)connectionFromServer setExportedInterface:v11];
 
-    v11 = self->_connectionFromServer;
-    v12 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_28544E800];
-    [(NSXPCConnection *)v11 setRemoteObjectInterface:v12];
+    v12 = self->_connectionFromServer;
+    v13 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_28544E800];
+    [(NSXPCConnection *)v12 setRemoteObjectInterface:v13];
 
     objc_initWeak(&location, self);
-    v13 = self->_connectionFromServer;
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __69__BLTRemotePingSubscriberService_listener_shouldAcceptNewConnection___block_invoke;
-    v20[3] = &unk_278D31718;
-    objc_copyWeak(&v21, &location);
-    [(NSXPCConnection *)v13 setInvalidationHandler:v20];
     v14 = self->_connectionFromServer;
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __69__BLTRemotePingSubscriberService_listener_shouldAcceptNewConnection___block_invoke_2;
-    v18[3] = &unk_278D31718;
-    objc_copyWeak(&v19, &location);
-    [(NSXPCConnection *)v14 setInterruptionHandler:v18];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __69__BLTRemotePingSubscriberService_listener_shouldAcceptNewConnection___block_invoke;
+    v21[3] = &unk_278D31718;
+    objc_copyWeak(&v22, &location);
+    [(NSXPCConnection *)v14 setInvalidationHandler:v21];
+    v15 = self->_connectionFromServer;
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __69__BLTRemotePingSubscriberService_listener_shouldAcceptNewConnection___block_invoke_2;
+    v19[3] = &unk_278D31718;
+    objc_copyWeak(&v20, &location);
+    [(NSXPCConnection *)v15 setInterruptionHandler:v19];
     [(NSXPCConnection *)self->_connectionFromServer resume];
-    objc_destroyWeak(&v19);
-    objc_destroyWeak(&v21);
+    objc_destroyWeak(&v20);
+    objc_destroyWeak(&v22);
     objc_destroyWeak(&location);
-    v15 = 1;
+    v16 = 1;
   }
 
   else
   {
-    v16 = blt_general_log();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = blt_general_log(isKindOfClass);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      [BLTPingSubscriberManager listener:v16 shouldAcceptNewConnection:?];
+      [BLTPingSubscriberManager listener:v17 shouldAcceptNewConnection:?];
     }
 
-    v15 = 0;
+    v16 = 0;
   }
 
-  return v15;
+  return v16;
 }
 
 void __69__BLTRemotePingSubscriberService_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)

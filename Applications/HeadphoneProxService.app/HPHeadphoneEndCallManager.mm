@@ -13,17 +13,17 @@
   v4 = [(HPHeadphoneEndCallManager *)&v10 init];
   v5 = [addressCopy copy];
 
-  v6 = *(v4 + 1);
-  *(v4 + 1) = v5;
+  bluetoothAddressString = v4->_bluetoothAddressString;
+  v4->_bluetoothAddressString = v5;
 
   if (dword_10011C420 <= 30 && (dword_10011C420 != -1 || _LogCategory_Initialize()))
   {
-    sub_1000CF84C(v4 + 1);
+    sub_1000CF84C();
   }
 
   v7 = +[BluetoothManager sharedInstance];
-  v8 = *(v4 + 3);
-  *(v4 + 3) = v7;
+  btManager = v4->_btManager;
+  v4->_btManager = v7;
 
   return v4;
 }
@@ -31,25 +31,25 @@
 - (BOOL)isStatusUnknown
 {
   [(BluetoothManager *)self->_btManager pairedDevices];
+  v15 = 0u;
+  v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v19 = 0u;
-  v3 = v20 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v3 = v18 = 0u;
+  v4 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v18;
+    v6 = *v16;
     while (2)
     {
       for (i = 0; i != v5; i = i + 1)
       {
-        if (*v18 != v6)
+        if (*v16 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v17 + 1) + 8 * i);
+        v8 = *(*(&v15 + 1) + 8 * i);
         address = [v8 address];
         v10 = [address isEqualToString:self->_bluetoothAddressString];
 
@@ -58,14 +58,14 @@
           objc_storeStrong(&self->_bluetoothDevice, v8);
           if (dword_10011C420 <= 30 && (dword_10011C420 != -1 || _LogCategory_Initialize()))
           {
-            sub_1000CF890(&self->_bluetoothDevice);
+            sub_1000CF890();
           }
 
           goto LABEL_13;
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v5)
       {
         continue;
@@ -77,35 +77,33 @@
 
 LABEL_13:
 
-  bluetoothDevice = self->_bluetoothDevice;
-  p_bluetoothDevice = &self->_bluetoothDevice;
-  getCallManagementConfig = [(BluetoothDevice *)bluetoothDevice getCallManagementConfig];
-  if ([(BluetoothDevice *)*p_bluetoothDevice getAACPCapabilityBit:80])
+  getCallManagementConfig = [(BluetoothDevice *)self->_bluetoothDevice getCallManagementConfig];
+  if ([(BluetoothDevice *)self->_bluetoothDevice getAACPCapabilityBit:80])
   {
-    v14 = getCallManagementConfig == 0;
+    v12 = getCallManagementConfig == 0;
   }
 
   else
   {
-    v14 = 0;
+    v12 = 0;
   }
 
-  if (v14)
+  if (v12)
   {
-    v15 = (getCallManagementConfig & 0xFE00) == 0;
+    v13 = (getCallManagementConfig & 0xFE00) == 0;
   }
 
   else
   {
     if (dword_10011C420 <= 30 && (dword_10011C420 != -1 || _LogCategory_Initialize()))
     {
-      sub_1000CF8D4(p_bluetoothDevice);
+      sub_1000CF8D4();
     }
 
-    v15 = 0;
+    v13 = 0;
   }
 
-  return v15;
+  return v13;
 }
 
 @end

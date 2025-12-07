@@ -3,14 +3,29 @@
 - (NEDNSSettingsBundle)init;
 - (NEDNSSettingsBundle)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation NEDNSSettingsBundle
 
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = objc_alloc_init(MEMORY[0x1E696AD60]);
+  [v7 appendPrettyBOOL:-[NEDNSSettingsBundle isEnabled](self withName:"isEnabled") andIndent:@"enabled" options:{v5, options}];
+  onDemandRules = [(NEDNSSettingsBundle *)self onDemandRules];
+  [v7 appendPrettyObject:onDemandRules withName:@"onDemandRules" andIndent:v5 options:options];
+
+  settings = [(NEDNSSettingsBundle *)self settings];
+  [v7 appendPrettyObject:settings withName:@"settings" andIndent:v5 options:options];
+
+  return v7;
+}
+
 - (BOOL)checkValidityAndCollectErrors:(id)errors
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   errorsCopy = errors;
   settings = [(NEDNSSettingsBundle *)self settings];
 
@@ -29,26 +44,26 @@
 
   if (onDemandRules)
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     onDemandRules2 = [(NEDNSSettingsBundle *)self onDemandRules];
-    v9 = [onDemandRules2 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v9 = [onDemandRules2 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v17;
+      v11 = *v16;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v17 != v11)
+          if (*v16 != v11)
           {
             objc_enumerationMutation(onDemandRules2);
           }
 
-          v13 = *(*(&v16 + 1) + 8 * i);
+          v13 = *(*(&v15 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -62,14 +77,13 @@
           }
         }
 
-        v10 = [onDemandRules2 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v10 = [onDemandRules2 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v10);
     }
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return settings;
 }
 

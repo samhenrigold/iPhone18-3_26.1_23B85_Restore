@@ -64,26 +64,25 @@
   timer = self->_timer;
   self->_timer = v3;
 
-  v5 = self->_timer;
   dispatch_set_qos_class_fallback();
   delay = self->_delay;
-  v7 = (delay / 10.0 * 1000000000.0);
-  v8 = dispatch_time(0, (delay * 1000000000.0));
-  dispatch_source_set_timer(self->_timer, v8, 0xFFFFFFFFFFFFFFFFLL, v7);
+  v6 = (delay / 10.0 * 1000000000.0);
+  v7 = dispatch_time(0, (delay * 1000000000.0));
+  dispatch_source_set_timer(self->_timer, v7, 0xFFFFFFFFFFFFFFFFLL, v6);
   [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
-  self->_expectedFiringTimeSinceReferenceDate = v9 + self->_delay;
+  self->_expectedFiringTimeSinceReferenceDate = v8 + self->_delay;
   objc_initWeak(&location, self);
-  v10 = self->_timer;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __34__SLGracePeriodTimer__createTimer__block_invoke;
-  v13[3] = &unk_278925C50;
-  objc_copyWeak(&v14, &location);
-  v11 = v10;
-  v12 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_UTILITY, 0, v13);
-  dispatch_source_set_event_handler(v11, v12);
+  v9 = self->_timer;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __34__SLGracePeriodTimer__createTimer__block_invoke;
+  v12[3] = &unk_278925C50;
+  objc_copyWeak(&v13, &location);
+  v10 = v9;
+  v11 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_UTILITY, 0, v12);
+  dispatch_source_set_event_handler(v10, v11);
 
-  objc_destroyWeak(&v14);
+  objc_destroyWeak(&v13);
   objc_destroyWeak(&location);
 }
 

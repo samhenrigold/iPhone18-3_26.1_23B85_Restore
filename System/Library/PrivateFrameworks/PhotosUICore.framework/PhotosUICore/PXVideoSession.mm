@@ -453,7 +453,7 @@ void __42__PXVideoSession__loadAssetTracksIfNeeded__block_invoke(uint64_t a1)
   v10 = videoPlayer2;
   if (videoPlayer2)
   {
-    [videoPlayer2 currentTime];
+    objc_msgSend_currentTime(videoPlayer2);
   }
 
   else
@@ -466,7 +466,7 @@ void __42__PXVideoSession__loadAssetTracksIfNeeded__block_invoke(uint64_t a1)
   v12 = videoPlayer3;
   if (videoPlayer3)
   {
-    [videoPlayer3 currentItemDuration];
+    objc_msgSend_currentItemDuration(videoPlayer3);
   }
 
   else
@@ -552,11 +552,11 @@ void __48__PXVideoSession__handlePlayerItemSeekDidFinish__block_invoke(uint64_t 
     v18 = 0u;
     v19 = 0u;
     v17 = 0u;
-    [(PXVideoSession *)self playbackTimeRange];
+    objc_msgSend_playbackTimeRange(self);
     v14 = 0;
     v15 = 0;
     v16 = 0;
-    [(PXVideoSession *)self playbackStartTime];
+    objc_msgSend_playbackStartTime(self);
     memset(&v13, 0, sizeof(v13));
     v4 = MEMORY[0x1E6960CC0];
     v13 = **&MEMORY[0x1E6960CC0];
@@ -1017,11 +1017,11 @@ LABEL_9:
   v19 = 0;
   if (videoPlayer)
   {
-    [videoPlayer currentTime];
+    objc_msgSend_currentTime(videoPlayer);
   }
 
   memset(&buf, 0, sizeof(buf));
-  [(PXVideoSession *)self playbackTimeRange];
+  objc_msgSend_playbackTimeRange(self);
   if ((BYTE12(v18) & 0x1D) != 1 || (duration->var2 & 0x1D) != 1)
   {
 LABEL_10:
@@ -1433,7 +1433,7 @@ void __44__PXVideoSession__updateContentDynamicRange__block_invoke(uint64_t a1)
       v23 = 0u;
       if (firstObject)
       {
-        [firstObject preferredTransform];
+        objc_msgSend_preferredTransform(firstObject);
       }
 
       v19[0] = MEMORY[0x1E69E9820];
@@ -1761,7 +1761,7 @@ uint64_t __52__PXVideoSession__handlePlayerTimeAdvancementTimer___block_invoke(u
   v3 = v2;
   if (v2)
   {
-    [v2 currentTime];
+    objc_msgSend_currentTime(v2);
   }
 
   else
@@ -1913,7 +1913,7 @@ void __40__PXVideoSession_pixelBufferOutputSizes__block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __45__PXVideoSession_pixelBufferOutputTokenCount__block_invoke(uint64_t a1)
+void *__45__PXVideoSession_pixelBufferOutputTokenCount__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 168) count];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -2401,17 +2401,17 @@ void *__31__PXVideoSession_setPlayState___block_invoke(void *result)
   _Block_object_dispose(&v8, 8);
 }
 
-uint64_t __39__PXVideoSession_setIsReadyForSeeking___block_invoke(uint64_t result)
+void *__39__PXVideoSession_setIsReadyForSeeking___block_invoke(void *result)
 {
   v1 = *(result + 48);
-  v2 = *(result + 32);
+  v2 = result[4];
   if (v1 != *(v2 + 592))
   {
     *(v2 + 592) = v1;
-    *(*(*(result + 40) + 8) + 24) = 1;
+    *(*(result[5] + 8) + 24) = 1;
     if (*(result + 48) == 1)
     {
-      return [*(*(result + 32) + 632) unlock];
+      return [*(result[4] + 632) unlock];
     }
   }
 
@@ -2681,25 +2681,25 @@ uint64_t __30__PXVideoSession_setPlayable___block_invoke(uint64_t a1)
 
 - (BOOL)isSegmentOfOriginalVideo
 {
-  [(PXVideoSession *)self segmentTimeRangeOfOriginalVideo];
+  objc_msgSend_segmentTimeRangeOfOriginalVideo(self, a2);
   if ((v7 & 1) == 0)
   {
     return 0;
   }
 
-  [(PXVideoSession *)self segmentTimeRangeOfOriginalVideo];
+  objc_msgSend_segmentTimeRangeOfOriginalVideo(self);
   if ((v6 & 1) == 0)
   {
     return 0;
   }
 
-  [(PXVideoSession *)self segmentTimeRangeOfOriginalVideo];
+  objc_msgSend_segmentTimeRangeOfOriginalVideo(self);
   if (v5)
   {
     return 0;
   }
 
-  [(PXVideoSession *)self segmentTimeRangeOfOriginalVideo];
+  objc_msgSend_segmentTimeRangeOfOriginalVideo(self);
   return v4 >= 0;
 }
 
@@ -3674,16 +3674,16 @@ __n128 __31__PXVideoSession_videoDuration__block_invoke(uint64_t a1)
   dispatch_sync(stateQueue, v6);
 }
 
-uint64_t __40__PXVideoSession_setIsVideoOutputReady___block_invoke(uint64_t result)
+void *__40__PXVideoSession_setIsVideoOutputReady___block_invoke(void *result)
 {
   v1 = *(result + 40);
-  v2 = *(result + 32);
+  v2 = result[4];
   if (v1 != *(v2 + 280))
   {
     *(v2 + 280) = v1;
     if (*(result + 40) == 1)
     {
-      return [*(*(result + 32) + 640) unlock];
+      return [*(result[4] + 640) unlock];
     }
   }
 
@@ -3849,7 +3849,7 @@ __n128 __33__PXVideoSession_videoOutputSize__block_invoke(uint64_t a1)
     v6 = videoPlayer2;
     if (videoPlayer2)
     {
-      [videoPlayer2 currentItemDuration];
+      objc_msgSend_currentItemDuration(videoPlayer2);
     }
 
     else
@@ -4037,7 +4037,7 @@ void __41__PXVideoSession__updateDisplayLinkState__block_invoke(uint64_t a1)
       kdebug_trace();
       v15 = 0uLL;
       v16 = 0;
-      [outputCopy itemTimeForHostTime:time];
+      objc_msgSend_itemTimeForHostTime_(outputCopy, time);
       v13 = v15;
       v14 = v16;
       if (![outputCopy hasNewPixelBufferForItemTime:&v13])
@@ -4641,7 +4641,7 @@ void __53__PXVideoSession__updateFromCurrentPresentationState__block_invoke_2(ui
   v7 = *(*(*(a1 + 40) + 8) + 40);
   if (v7)
   {
-    [v7 playbackTimeRange];
+    objc_msgSend_playbackTimeRange(v7);
   }
 
   else
@@ -4659,7 +4659,7 @@ void __53__PXVideoSession__updateFromCurrentPresentationState__block_invoke_2(ui
   v9 = *(*(*(a1 + 40) + 8) + 40);
   if (v9)
   {
-    [v9 playbackStartTime];
+    objc_msgSend_playbackStartTime(v9);
   }
 
   else
@@ -4717,7 +4717,7 @@ void __46__PXVideoSession__handleContentLoadingResult___block_invoke(uint64_t a1
   v10 = *(a1 + 32);
   if (v10)
   {
-    [v10 timeRange];
+    objc_msgSend_timeRange(v10);
     v10 = *(a1 + 32);
   }
 
@@ -4944,8 +4944,8 @@ void __47__PXVideoSession_observable_didChange_context___block_invoke_2(uint64_t
     delegate = [(PXVideoSession *)self delegate];
     [delegate videoSessionDidPlayToEnd:self];
 
-    [(PXVideoSession *)self playbackTimeRange];
-    if ((v17 & 1) == 0 || ([(PXVideoSession *)self playbackTimeRange], (v16 & 1) == 0) || ([(PXVideoSession *)self playbackTimeRange], v15) || ([(PXVideoSession *)self playbackTimeRange], v14 < 0))
+    objc_msgSend_playbackTimeRange(self);
+    if ((v17 & 1) == 0 || (objc_msgSend_playbackTimeRange(self), (v16 & 1) == 0) || (objc_msgSend_playbackTimeRange(self), v15) || (objc_msgSend_playbackTimeRange(self), v14 < 0))
     {
       if ([(PXVideoSession *)self seekToBeginningAtEnd])
       {
@@ -6119,7 +6119,7 @@ uint64_t __78__PXVideoSession_seekToTime_toleranceBefore_toleranceAfter_completi
   memset(&v22, 0, sizeof(v22));
   if (videoPlayer)
   {
-    [videoPlayer currentTime];
+    objc_msgSend_currentTime(videoPlayer);
   }
 
   currentItem = [v4 currentItem];
@@ -6127,7 +6127,7 @@ uint64_t __78__PXVideoSession_seekToTime_toleranceBefore_toleranceAfter_completi
   v7 = asset;
   if (asset)
   {
-    [asset duration];
+    objc_msgSend_duration(asset);
     v8 = MEMORY[0x1E6960CC0];
     start = **&MEMORY[0x1E6960CC0];
     CMTimeRangeMake(&range, &start, &duration);
@@ -6444,7 +6444,7 @@ void __74__PXVideoSession_setAudioSessionCategory_mode_routeSharingPolicy_option
   _Block_object_dispose(&v11, 8);
 }
 
-uint64_t __63__PXVideoSession_cancelPixelBufferOutputWithRequestIdentifier___block_invoke(void *a1)
+void *__63__PXVideoSession_cancelPixelBufferOutputWithRequestIdentifier___block_invoke(void *a1)
 {
   result = [*(a1[4] + 168) containsObject:a1[5]];
   if (result)
@@ -6969,7 +6969,7 @@ uint64_t __44__PXVideoSession__handleSharedAudioSession___block_invoke(uint64_t 
       v33 = loadingResult;
       if (loadingResult)
       {
-        [loadingResult timeRange];
+        objc_msgSend_timeRange(loadingResult);
       }
 
       else

@@ -245,9 +245,9 @@ LABEL_21:
       {
         v28 = [CCToolKitToolContainerDefinition alloc];
         typeName = CCPBReaderReadDataNoCopy();
-        v39 = 0;
-        v26 = [(CCItemMessage *)v28 initWithData:typeName error:&v39];
-        v10 = v39;
+        v37 = 0;
+        v26 = [(CCItemMessage *)v28 initWithData:typeName error:&v37];
+        v10 = v37;
         v27 = 24;
       }
 
@@ -263,7 +263,6 @@ LABEL_21:
 
           v31 = objc_opt_class();
           typeName = NSStringFromClass(v31);
-          v32 = *&v6[*v9];
           v10 = CCSkipFieldErrorForMessage();
 LABEL_31:
 
@@ -278,9 +277,9 @@ LABEL_32:
 
         v24 = [CCToolKitToolContainerDefinition alloc];
         typeName = CCPBReaderReadDataNoCopy();
-        v40 = 0;
-        v26 = [(CCItemMessage *)v24 initWithData:typeName error:&v40];
-        v10 = v40;
+        v38 = 0;
+        v26 = [(CCItemMessage *)v24 initWithData:typeName error:&v38];
+        v10 = v38;
         v27 = 16;
       }
 
@@ -303,23 +302,22 @@ LABEL_35:
   if (!*&v6[*v9])
   {
     v10 = 0;
-    v37 = 1;
+    v35 = 1;
     goto LABEL_39;
   }
 
 LABEL_36:
-  v33 = objc_opt_class();
-  v34 = NSStringFromClass(v33);
-  v35 = *&v6[*v9];
-  v36 = CCInvalidBufferErrorForMessage();
+  v32 = objc_opt_class();
+  v33 = NSStringFromClass(v32);
+  v34 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
   v10 = 0;
 LABEL_37:
-  v37 = 0;
+  v35 = 0;
 LABEL_39:
 
-  return v37;
+  return v35;
 }
 
 - (CCToolKitToolTypeIdentifierAttributed)initWithSourceContainer:(id)container attributionContainer:(id)attributionContainer typeName:(id)name error:(id *)error

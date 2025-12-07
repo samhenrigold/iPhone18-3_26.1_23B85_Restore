@@ -71,9 +71,9 @@
 
 - (void)mkf_addToRelationship:()HomeKitDaemon object:
 {
-  v21 = a3;
+  v25 = a3;
   v6 = a4;
-  v7 = [self valueForKey:v21];
+  v7 = [self valueForKey:v25];
   v8 = [v7 mutableCopy];
   v9 = v8;
   if (v8)
@@ -100,7 +100,7 @@
 
   entity = [self entity];
   relationshipsByName = [entity relationshipsByName];
-  v16 = [relationshipsByName objectForKey:v21];
+  v16 = [relationshipsByName objectForKey:v25];
 
   destinationEntity = [v16 destinationEntity];
   managedObjectClassName = [destinationEntity managedObjectClassName];
@@ -111,12 +111,12 @@
   {
 LABEL_11:
     v20 = _HMFPreconditionFailure();
-    [NSManagedObject(HomeKitDaemon) mkf_synchronizeRelation:v20 items:? allowCreation:?];
+    [(NSManagedObject(HomeKitDaemon) *)v20 mkf_synchronizeRelation:v21 items:v22 allowCreation:v23, v24];
     return;
   }
 
   [v12 addObject:v6];
-  [self setValue:v12 forKey:v21];
+  [self setValue:v12 forKey:v25];
 }
 
 - (uint64_t)mkf_synchronizeRelation:()HomeKitDaemon items:allowCreation:
@@ -251,7 +251,7 @@ LABEL_14:
 
 LABEL_35:
         v33 = _HMFPreconditionFailure();
-        return [NSManagedObject(HomeKitDaemon) mkf_createRelationOnProperty:v33 modelProtocol:? keyValue:?];
+        return [(NSManagedObject(HomeKitDaemon) *)v33 mkf_createRelationOnProperty:v34 modelProtocol:v35 keyValue:v36, v37];
       }
 
       if ([objc_opt_class() isSubclassOfClass:v17])
@@ -292,7 +292,7 @@ LABEL_33:
     goto LABEL_34;
   }
 
-  v35 = v11;
+  v39 = v11;
   if (!v18)
   {
     v18 = [MEMORY[0x277CBEB98] set];
@@ -319,7 +319,7 @@ LABEL_32:
     goto LABEL_33;
   }
 
-  v34 = a6;
+  v38 = a6;
   v21 = v10;
   v22 = v16;
   entity3 = [(objc_class *)v17 entity];
@@ -330,8 +330,8 @@ LABEL_32:
   {
     v16 = v22;
     v10 = v21;
-    a6 = v34;
-    v11 = v35;
+    a6 = v38;
+    v11 = v39;
 LABEL_21:
     if (!a6)
     {
@@ -346,7 +346,7 @@ LABEL_22:
     goto LABEL_23;
   }
 
-  v11 = v35;
+  v11 = v39;
   v16 = v22;
   v10 = v21;
 LABEL_24:

@@ -31,6 +31,8 @@
 - (void)layoutIconView:(id)view forcedApply:(BOOL)apply forcedSubview:(BOOL)subview;
 - (void)layoutIconsForcedApply:(BOOL)apply forcedSubview:(BOOL)subview;
 - (void)layoutSubviews;
+- (void)setLayout:(id)layout animated:(BOOL)animated;
+- (void)setLayout:(id)layout percentComplete:(double)complete animated:(BOOL)animated options:(unint64_t)options;
 - (void)setTargetBundleIdentifier:(id)identifier;
 - (void)setTargetHexToScrolledCenterForReason:(id)reason;
 - (void)updatePPT:(id)t;
@@ -373,6 +375,151 @@
   _Block_object_dispose(v41, 8);
 }
 
+- (void)setLayout:(id)layout percentComplete:(double)complete animated:(BOOL)animated options:(unint64_t)options
+{
+  animatedCopy = animated;
+  layoutCopy = layout;
+  [(CSLHexLayout *)layoutCopy defaultPixelDiameter];
+  v13 = v12;
+  if (self->_defaultPixelDiameter != v12)
+  {
+    self->_defaultPixelDiameter = v12;
+    v14 = [CSLUniformHexLayout alloc];
+    __asm { FMOV            V1.2S, #1.0 }
+
+    v38[0] = 0;
+    v38[1] = _D1;
+    v38[2] = 0;
+    v38[3] = _D1;
+    *&_D1 = v13;
+    v39 = _D1;
+    v40 = 0x40000000;
+    v41 = vdup_n_s32(0x43960000u);
+    v20 = (*&_D1 * 0.5) + 2.5;
+    v21 = *&_D1;
+    v22 = 1.0;
+    if (v21 >= 35)
+    {
+      v22 = (v21 / 0x23u);
+    }
+
+    v42 = v20 + (v22 * 5.0);
+    v43 = vmul_f32(vrndm_f32(vdup_lane_s32(COERCE_UNSIGNED_INT((v42 * 0.0) + (v42 * 0.0)), 0)), 0x3F0000003F000000);
+    v44 = v43;
+    v23 = [(CSLUniformHexLayout *)v14 initWithConfiguration:v38];
+    contentOffsetLayout = self->_contentOffsetLayout;
+    self->_contentOffsetLayout = v23;
+  }
+
+  [(CSLUIPointAnimator *)self->_contentOffsetAnimator cancel];
+  options = self->_options;
+  isEditing = [(CSLUIFieldOfIconsView *)self isEditing];
+  v34 = sub_2484(self);
+  layout = self->_layout;
+  if (layout == layoutCopy)
+  {
+    self->_options = options;
+  }
+
+  else
+  {
+    if ([(CSLUIFieldOfIconsView *)self isDragging])
+    {
+      [(CSLUIFieldOfIconsView *)self endDragging];
+    }
+
+    [(CSLHexLayout *)self->_layout setRubberbandVector:0.0];
+    self->_options = options;
+    [(CSLUIInertialUpdater *)self->_inertialUpdater endUpdating];
+    objc_storeStrong(&self->_layout, layout);
+    [(CSLHexLayout *)self->_layout setTargetHex:sub_3CAC(self, [(CSLUIFieldOfIconsView *)self targetHex])];
+    v28 = self->_layout;
+    [(CSLUIFieldOfIconsView *)self bounds];
+    [(CSLHexLayout *)v28 updateWithBounds:?];
+    [(CSLHexLayout *)self->_layout contentOffset];
+    self->_contentOffset.x = v29;
+    self->_contentOffset.y = v30;
+  }
+
+  [(CSLUIFieldOfIconsView *)self enableGestureRecognizers:vabdd_f64(complete, complete) < 0.00000011920929];
+  [(CSLHexLayout *)self->_layout percentComplete];
+  if ((CSLPRFEqual() & 1) == 0)
+  {
+    [(CSLHexLayout *)self->_layout setPercentComplete:complete];
+    [(CSLUIFieldOfIconsView *)self setNeedsLayout];
+  }
+
+  v31 = self->_options;
+  if (((options >> 4) & 1) != ((v31 >> 4) & 1))
+  {
+    v35[0] = _NSConcreteStackBlock;
+    v35[1] = 3221225472;
+    v35[2] = sub_3D50;
+    v35[3] = &unk_388E8;
+    v36 = v34;
+    v37 = (v31 & 0x10) >> 4;
+    [(CSLUIFieldOfIconsView *)self enumerateIconViewsWithBlock:v35];
+  }
+
+  if (layout != layoutCopy)
+  {
+    [(CSLUIFieldOfIconsView *)self layoutAnimated:animatedCopy];
+  }
+
+  if (!animatedCopy)
+  {
+    [(CSLUIFieldOfIconsView *)self layoutIfNeeded];
+  }
+
+  isEditing2 = [(CSLUIFieldOfIconsView *)self isEditing];
+  v33 = 0.2;
+  if (!isEditing2)
+  {
+    v33 = 0.75;
+  }
+
+  [(CSLIconTapGestureRecognizer *)self->_tapRecognizer setLongPressDuration:v33];
+  if (!(isEditing2 & 1 | ((isEditing & 1) == 0)))
+  {
+    [(CSLUIFieldOfIconsView *)self setTargetHexToScrolledCenterForReason:@"stopped editing"];
+  }
+
+  sub_22320(self);
+}
+
+- (void)setLayout:(id)layout animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  layoutCopy = layout;
+  if (self)
+  {
+    [(CSLUIPointAnimator *)self->_contentOffsetAnimator cancel];
+  }
+
+  if (self->_layout != layoutCopy)
+  {
+    if ([(CSLUIFieldOfIconsView *)self isDragging])
+    {
+      [(CSLUIFieldOfIconsView *)self endDragging];
+    }
+
+    [(CSLUIInertialUpdater *)self->_inertialUpdater endUpdating];
+    objc_storeStrong(&self->_layout, layout);
+    layout = self->_layout;
+    [(CSLUIFieldOfIconsView *)self bounds];
+    [(CSLHexLayout *)layout updateWithBounds:?];
+    [(CSLHexLayout *)self->_layout contentOffset];
+    self->_contentOffset.x = v8;
+    self->_contentOffset.y = v9;
+    [(CSLUIFieldOfIconsView *)self layoutAnimated:animatedCopy];
+  }
+
+  if (!animatedCopy)
+  {
+    [(CSLUIFieldOfIconsView *)self layoutIfNeeded];
+  }
+}
+
 - (void)layoutAnimated:(BOOL)animated
 {
   if (animated)
@@ -416,7 +563,7 @@
   v5 = viewCopy;
   if (viewCopy)
   {
-    [viewCopy layoutAttributes];
+    objc_msgSend_layoutAttributes(viewCopy);
   }
 
   else
@@ -441,40 +588,39 @@
   applyCopy = apply;
   viewCopy = view;
   node = [viewCopy node];
-  v10 = [node hex];
-  if (![(CSLPressStateApplier *)self->_pressApplier isEnabledForHex:v10])
+  if (!-[CSLPressStateApplier isEnabledForHex:](self->_pressApplier, "isEnabledForHex:", [node hex]))
   {
-    [(CSLUIFieldOfIconsView *)self originalLayoutAttributesForHex:v10];
+    objc_msgSend_originalLayoutAttributesForHex_(self);
     goto LABEL_5;
   }
 
   pressApplier = self->_pressApplier;
   if (pressApplier)
   {
-    [(CSLPressStateApplier *)pressApplier layoutAttributesForHex:v10];
+    objc_msgSend_layoutAttributesForHex_(pressApplier);
 LABEL_5:
-    v12 = v19[0];
+    v11 = v18[0];
     goto LABEL_6;
   }
 
-  v12 = 0uLL;
-  memset(v19, 0, sizeof(v19));
+  v11 = 0uLL;
+  memset(v18, 0, sizeof(v18));
 LABEL_6:
-  v20 = *(v19 + 12);
-  v21 = HIDWORD(v19[1]);
-  DWORD2(v19[0]) = DWORD2(v12);
-  *&v19[0] = v12;
-  [viewCopy setLayoutAttributes:{v19, v12}];
-  if (*&v18.i32[2] < 0.2)
+  v19 = *(v18 + 12);
+  v20 = HIDWORD(v18[1]);
+  DWORD2(v18[0]) = DWORD2(v11);
+  *&v18[0] = v11;
+  [viewCopy setLayoutAttributes:{v18, v11}];
+  if (*&v17.i32[2] < 0.2)
   {
-    v13 = 0;
+    v12 = 0;
     goto LABEL_9;
   }
 
-  v14 = vcgt_f32(vabs_f32(*v18.i8), vadd_f32(vdup_laneq_s32(v18, 2), qword_416A8));
-  v14.i32[0] = vpmax_u32(v14, v14).u32[0];
-  v13 = v14.i32[0] >= 0;
-  if (v14.i32[0] < 0)
+  v13 = vcgt_f32(vabs_f32(*v17.i8), vadd_f32(vdup_laneq_s32(v17, 2), qword_416A8));
+  v13.i32[0] = vpmax_u32(v13, v13).u32[0];
+  v12 = v13.i32[0] >= 0;
+  if (v13.i32[0] < 0)
   {
 LABEL_9:
     if (!applyCopy)
@@ -483,22 +629,22 @@ LABEL_9:
     }
   }
 
-  DWORD2(v19[0]) = v18.i32[2];
-  *&v19[0] = v18.i64[0];
-  *(v19 + 12) = v20;
-  HIDWORD(v19[1]) = v21;
-  [viewCopy applyLayoutAttributes:v19];
+  DWORD2(v18[0]) = v17.i32[2];
+  *&v18[0] = v17.i64[0];
+  *(v18 + 12) = v19;
+  HIDWORD(v18[1]) = v20;
+  [viewCopy applyLayoutAttributes:v18];
 LABEL_11:
   WeakRetained = objc_loadWeakRetained(&self->_dragView);
-  v16 = WeakRetained == viewCopy;
+  v15 = WeakRetained == viewCopy;
 
-  if (!v16)
+  if (!v15)
   {
     superview = [viewCopy superview];
 
-    if (v13 != (superview != 0))
+    if (v12 != (superview != 0))
     {
-      if (!v13)
+      if (!v12)
       {
         sub_4468(self, viewCopy);
         goto LABEL_18;
@@ -528,7 +674,7 @@ LABEL_18:
 
   else
   {
-    sub_47D4(self, gestureCopy);
+    sub_47D4(&self->super.super.super.isa, gestureCopy);
   }
 }
 
@@ -547,7 +693,7 @@ LABEL_18:
   layout = self->_layout;
   if (layout)
   {
-    [(CSLHexLayout *)layout layoutAttributesForItemAtHex:hex];
+    objc_msgSend_layoutAttributesForItemAtHex_(layout, a2, hex);
   }
 
   else
@@ -586,7 +732,7 @@ LABEL_18:
           *&buf[8] = 1024;
           *&buf[10] = isDragging;
           *&buf[14] = 1024;
-          LODWORD(v36) = didPanDrag;
+          LODWORD(v35) = didPanDrag;
           _os_log_impl(&dword_0, v17, OS_LOG_TYPE_DEFAULT, "handleIconTap:stateCancelled isEditing:%{BOOL}u isDragging:%{BOOL}u didPanDrag:%{BOOL}u", buf, 0x14u);
         }
 
@@ -603,16 +749,16 @@ LABEL_18:
 
     node = [(CSLUIIconView *)self->_pressedIcon node];
     isLongPress = [tapCopy isLongPress];
-    v25 = cslprf_icon_field_log();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    v24 = cslprf_icon_field_log();
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109634;
       *&buf[4] = [(CSLUIFieldOfIconsView *)self isEditing];
       *&buf[8] = 1024;
       *&buf[10] = isLongPress;
       *&buf[14] = 2114;
-      *&v36 = node;
-      _os_log_impl(&dword_0, v25, OS_LOG_TYPE_DEFAULT, "handleIconTap:stateEnded isEditing:%{BOOL}u isLongPress:%{BOOL}u node:%{public}@", buf, 0x18u);
+      *&v35 = node;
+      _os_log_impl(&dword_0, v24, OS_LOG_TYPE_DEFAULT, "handleIconTap:stateEnded isEditing:%{BOOL}u isLongPress:%{BOOL}u node:%{public}@", buf, 0x18u);
     }
 
     sub_4BD0(self, @"touch up");
@@ -657,38 +803,37 @@ LABEL_39:
   {
     [(CSLUIInertialUpdater *)self->_inertialUpdater endUpdating];
     [tapCopy locationInView:self->_contentView];
-    v22 = sub_2418(self, v20, v21);
-    self->_touchedHex = v22;
+    self->_touchedHex = sub_2418(self, v20, v21);
     *buf = 0u;
-    v36 = 0u;
-    [(CSLUIFieldOfIconsView *)self originalLayoutAttributesForHex:v22];
+    v35 = 0u;
+    objc_msgSend_originalLayoutAttributesForHex_(self);
     if (0.0 >= 0.2)
     {
-      v26 = vcgt_f32(vabs_f32(*buf), vadd_f32(vdup_laneq_s32(*buf, 2), qword_416A8));
-      v23 = vpmax_u32(v26, v26).i32[0] >= 0;
+      v25 = vcgt_f32(vabs_f32(*buf), vadd_f32(vdup_laneq_s32(*buf, 2), qword_416A8));
+      v22 = vpmax_u32(v25, v25).i32[0] >= 0;
     }
 
     else
     {
-      v23 = 0;
+      v22 = 0;
     }
 
-    v27 = cslprf_icon_field_log();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    v26 = cslprf_icon_field_log();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
-      v32[0] = 67109376;
-      v32[1] = [(CSLUIFieldOfIconsView *)self isEditing];
-      v33 = 1024;
-      v34 = v23;
-      _os_log_impl(&dword_0, v27, OS_LOG_TYPE_DEFAULT, "handleIconTap:stateBegan isEditing:%{BOOL}u isOnScreen:%{BOOL}u", v32, 0xEu);
+      v31[0] = 67109376;
+      v31[1] = [(CSLUIFieldOfIconsView *)self isEditing];
+      v32 = 1024;
+      v33 = v22;
+      _os_log_impl(&dword_0, v26, OS_LOG_TYPE_DEFAULT, "handleIconTap:stateBegan isEditing:%{BOOL}u isOnScreen:%{BOOL}u", v31, 0xEu);
     }
 
-    if (v23)
+    if (v22)
     {
-      v28 = objc_loadWeakRetained(&self->_iconGraph);
-      v29 = [v28 nodeAtHex:*&self->_touchedHex];
+      v27 = objc_loadWeakRetained(&self->_iconGraph);
+      v28 = [v27 nodeAtHex:*&self->_touchedHex];
 
-      sub_48B4(self, v29);
+      sub_48B4(self, v28);
     }
   }
 
@@ -706,9 +851,9 @@ LABEL_39:
       *&buf[8] = 1024;
       *&buf[10] = isLongPress2;
       *&buf[14] = 1024;
-      LODWORD(v36) = v10 == 0;
-      WORD2(v36) = 2114;
-      *(&v36 + 6) = node;
+      LODWORD(v35) = v10 == 0;
+      WORD2(v35) = 2114;
+      *(&v35 + 6) = node;
       _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "handleIconTap:stateChanged isEditing:%{BOOL}u isLongPress:%{BOOL}u _dragView nil:%{BOOL}u, node:%{public}@", buf, 0x1Eu);
     }
 
@@ -956,23 +1101,23 @@ LABEL_8:
 
 - (CGPoint)contentOffsetToCenterHex:(Hex)hex
 {
-  v4 = sub_3CAC(self, *&hex);
+  sub_3CAC(self, *&hex);
   contentOffsetLayout = self->_contentOffsetLayout;
   if (contentOffsetLayout)
   {
-    [(CSLUniformHexLayout *)contentOffsetLayout layoutAttributesForItemAtHex:v4];
+    objc_msgSend_layoutAttributesForItemAtHex_(contentOffsetLayout);
   }
 
-  v6 = sub_2484(self);
-  v7 = 0.0;
-  if (!v6)
+  v5 = sub_2484(self);
+  v6 = 0.0;
+  if (!v5)
   {
-    v7 = 0.0;
+    v6 = 0.0;
   }
 
-  v8 = 0.0;
-  result.y = v8;
-  result.x = v7;
+  v7 = 0.0;
+  result.y = v7;
+  result.x = v6;
   return result;
 }
 
@@ -1004,34 +1149,34 @@ LABEL_8:
 - (Hex)closestIconHexToHex:(Hex)hex
 {
   layout = [(CSLUIFieldOfIconsView *)self layout];
-  v6 = layout;
+  v5 = layout;
   if (layout)
   {
-    [layout layoutAttributesForItemAtHex:hex];
-    v7 = v15;
+    objc_msgSend_layoutAttributesForItemAtHex_(layout);
+    v6 = v14;
   }
 
   else
   {
-    v7 = 0;
+    v6 = 0;
   }
 
   layout2 = [(CSLUIFieldOfIconsView *)self layout];
-  v9 = layout2;
+  v8 = layout2;
   if (layout2)
   {
-    [layout2 layoutAttributesForItemAtHex:hex];
-    v10 = v14;
+    objc_msgSend_layoutAttributesForItemAtHex_(layout2);
+    v9 = v13;
   }
 
   else
   {
-    v10 = 0.0;
+    v9 = 0.0;
   }
 
-  v11 = sub_5A0C(self, v13, v10);
+  v10 = sub_5A0C(self, v12, v9);
 
-  return v11;
+  return v10;
 }
 
 - (void)updatePPT:(id)t
@@ -1196,7 +1341,7 @@ LABEL_8:
     layout = self->_layout;
     if (layout)
     {
-      [(CSLHexLayout *)layout layoutAttributesForItemAtHex:v6];
+      objc_msgSend_layoutAttributesForItemAtHex_(layout);
     }
 
     v18 = objc_loadWeakRetained(&self->_dragView);

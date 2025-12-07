@@ -7,6 +7,8 @@
 + (id)bufferHead:(id)head duration:(double)duration;
 + (id)bufferTail:(id)tail duration:(double)duration;
 + (id)extractFromBuffer:(id)buffer atPosition:(unsigned int)position length:(unsigned int)length;
++ (id)splitBuffer:(id)buffer atPosition:(unsigned int)position;
++ (id)splitBuffer:(id)buffer fromStartPosition:(unsigned int)position intoDurationsOfSize:(double)size;
 @end
 
 @implementation SHAudioUtilities
@@ -119,6 +121,73 @@
   }
 
   return v8;
+}
+
++ (id)splitBuffer:(id)buffer fromStartPosition:(unsigned int)position intoDurationsOfSize:(double)size
+{
+  v6 = *&position;
+  bufferCopy = buffer;
+  array = [MEMORY[0x277CBEB18] array];
+  if (v6)
+  {
+    frameLength = [bufferCopy frameLength];
+    if (frameLength >= v6)
+    {
+      v11 = v6;
+    }
+
+    else
+    {
+      v11 = frameLength;
+    }
+
+    v12 = [self extractFromBuffer:bufferCopy atPosition:0 length:v11];
+    [array addObject:v12];
+  }
+
+  format = [bufferCopy format];
+  [format sampleRate];
+  v15 = v14;
+
+  if ([bufferCopy frameLength] > v6)
+  {
+    v16 = (v15 * size);
+    do
+    {
+      LODWORD(v17) = v6 + v16;
+      frameLength2 = [bufferCopy frameLength];
+      if (v6 + v16 >= frameLength2)
+      {
+        v17 = frameLength2;
+      }
+
+      else
+      {
+        v17 = v17;
+      }
+
+      v19 = [self extractFromBuffer:bufferCopy atPosition:v6 length:(v17 - v6)];
+      [array addObject:v19];
+
+      v6 = v17;
+    }
+
+    while (v17 < [bufferCopy frameLength]);
+  }
+
+  return array;
+}
+
++ (id)splitBuffer:(id)buffer atPosition:(unsigned int)position
+{
+  v4 = *&position;
+  bufferCopy = buffer;
+  frameLength = [bufferCopy frameLength];
+  format = [bufferCopy format];
+  [format sampleRate];
+  v10 = [self splitBuffer:bufferCopy fromStartPosition:v4 intoDurationsOfSize:frameLength / v9];
+
+  return v10;
 }
 
 + (BOOL)willAudioFormatCauseBufferMutation:(id)mutation

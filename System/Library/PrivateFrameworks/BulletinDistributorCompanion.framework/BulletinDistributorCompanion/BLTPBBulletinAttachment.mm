@@ -74,31 +74,29 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v7 = toCopy;
+  v5 = toCopy;
   if (self->_identifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    type = self->_type;
     PBDataWriterWriteUint32Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_uRL)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    isUpdated = self->_isUpdated;
     PBDataWriterWriteBOOLField();
-    toCopy = v7;
+    toCopy = v5;
   }
 }
 
@@ -175,7 +173,6 @@
   }
 
   has = self->_has;
-  v7 = *(equalCopy + 36);
   if (has)
   {
     if ((*(equalCopy + 36) & 1) == 0 || self->_type != *(equalCopy + 4))
@@ -200,7 +197,7 @@
     has = self->_has;
   }
 
-  v9 = (*(equalCopy + 36) & 2) == 0;
+  v8 = (*(equalCopy + 36) & 2) == 0;
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 36) & 2) != 0)
@@ -218,17 +215,17 @@
         goto LABEL_14;
       }
 
-      v9 = 1;
+      v8 = 1;
       goto LABEL_15;
     }
 
 LABEL_14:
-    v9 = 0;
+    v8 = 0;
   }
 
 LABEL_15:
 
-  return v9;
+  return v8;
 }
 
 - (unint64_t)hash

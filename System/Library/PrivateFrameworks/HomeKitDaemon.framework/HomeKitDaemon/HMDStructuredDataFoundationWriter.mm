@@ -9,6 +9,7 @@
 - (void)endArray;
 - (void)endDictionary;
 - (void)failWithError:(id)error;
+- (void)writeBoolean:(BOOL)boolean;
 - (void)writeLogicalValue:(id)value validateAndCopy:(BOOL)copy;
 - (void)writeNull;
 @end
@@ -91,6 +92,12 @@ LABEL_5:
 LABEL_9:
 }
 
+- (void)writeBoolean:(BOOL)boolean
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:boolean];
+  [(HMDStructuredDataFoundationWriter *)self _emit:v4];
+}
+
 - (void)writeNull
 {
   null = [MEMORY[0x277CBEB68] null];
@@ -108,7 +115,7 @@ LABEL_9:
 
   else
   {
-    v4 = [v5 copy];
+    v4 = objc_msgSend_copy(v5);
 
     v3 = v4;
   }
@@ -215,7 +222,7 @@ LABEL_9:
 
   else
   {
-    v4 = [v5 copy];
+    v4 = objc_msgSend_copy(v5);
 
     v3 = v4;
   }

@@ -18,7 +18,7 @@
 
 - (id)publisherFromStartTime:(double)time
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceReferenceDate:time];
   v4 = objc_alloc(MEMORY[0x1E698F2D0]);
   date = [MEMORY[0x1E695DF00] date];
@@ -28,16 +28,16 @@
   v8 = [v7 App];
   inFocus = [v8 InFocus];
 
-  v29 = 0;
-  v10 = [inFocus remoteDevicesWithError:&v29];
-  v11 = v29;
+  v28 = 0;
+  v10 = [inFocus remoteDevicesWithError:&v28];
+  v11 = v28;
   if (v11)
   {
     v12 = +[TPSLogger default];
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v32 = v11;
+      v31 = v11;
       _os_log_impl(&dword_1C00A7000, v12, OS_LOG_TYPE_DEFAULT, "Defaulting to base App.InFocus publisher. Unable to retrieve remote devices: %@", buf, 0xCu);
     }
 
@@ -47,31 +47,31 @@
   else
   {
     v14 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v10, "count") + 1}];
+    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
-    v24 = v10;
+    v23 = v10;
     v15 = v10;
-    v16 = [v15 countByEnumeratingWithState:&v25 objects:v30 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v24 objects:v29 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v26;
+      v18 = *v25;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v26 != v18)
+          if (*v25 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          v20 = [inFocus publisherForDevice:*(*(&v25 + 1) + 8 * i) withUseCase:@"FeatureDiscoverability" options:{v6, v24}];
+          v20 = [inFocus publisherForDevice:*(*(&v24 + 1) + 8 * i) withUseCase:@"FeatureDiscoverability" options:{v6, v23}];
           [v14 addObject:v20];
         }
 
-        v17 = [v15 countByEnumeratingWithState:&v25 objects:v30 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v24 objects:v29 count:16];
       }
 
       while (v17);
@@ -81,10 +81,8 @@
     [v14 addObject:v21];
 
     v13 = [objc_alloc(MEMORY[0x1E698F0D0]) initWithPublishers:v14];
-    v10 = v24;
+    v10 = v23;
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

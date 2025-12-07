@@ -23,14 +23,11 @@
 
 - (NSString)bundleIdentifier
 {
-  v2 = (self + OBJC_IVAR____TtC12FinanceKitUI19AppSettingsProvider_bundleIdentifier);
   swift_beginAccess();
-  v4 = *v2;
-  v3 = v2[1];
 
-  v5 = sub_23875EA50();
+  v2 = sub_23875EA50();
 
-  return v5;
+  return v2;
 }
 
 - (void)setBundleIdentifier:(id)identifier
@@ -39,7 +36,6 @@
   v6 = v5;
   v7 = (self + OBJC_IVAR____TtC12FinanceKitUI19AppSettingsProvider_bundleIdentifier);
   swift_beginAccess();
-  v8 = v7[1];
   *v7 = v4;
   v7[1] = v6;
 }

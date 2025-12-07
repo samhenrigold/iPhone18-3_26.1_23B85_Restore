@@ -5,6 +5,7 @@
 - (id)_newCircularTemplateMedium:(BOOL)medium;
 - (id)_newExtraLargeLunarTemplate;
 - (id)_newExtraLargeTemplate;
+- (id)_newGraphicRectangularTemplateDisplayingLunarDate:(BOOL)date;
 - (id)_newLargeUtilitarianTemplate;
 - (id)_newModularLargeLunarTemplate;
 - (id)_newModularLargeTemplate;
@@ -22,18 +23,19 @@
 
 - (id)templateForComplicationFamily:(int64_t)family
 {
-  if ([(NCALDateTimelineEntryModel *)self lunar])
+  lunar = [(NCALDateTimelineEntryModel *)self lunar];
+  if (lunar)
   {
-    v5 = OverlayCalendarLocaleID();
-    v6 = v5 != 0;
+    v6 = OverlayCalendarLocaleID();
+    v7 = v6 != 0;
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  v7 = 0;
+  v8 = 0;
   if (family > 6)
   {
     if (family > 9)
@@ -41,13 +43,13 @@
       switch(family)
       {
         case 10:
-          _newSignatureCircularTemplate = [(NCALDateTimelineEntryModel *)self _newSignatureCircularTemplate];
+          lunar = [(NCALDateTimelineEntryModel *)self _newSignatureCircularTemplate];
           break;
         case 11:
-          _newSignatureCircularTemplate = [(NCALDateTimelineEntryModel *)self _newGraphicRectangularTemplateDisplayingLunarDate:v6];
+          lunar = [(NCALDateTimelineEntryModel *)self _newGraphicRectangularTemplateDisplayingLunarDate:v7];
           break;
         case 12:
-          _newSignatureCircularTemplate = [(NCALDateTimelineEntryModel *)self _newSignatureExtraLargeCircularTemplate];
+          lunar = [(NCALDateTimelineEntryModel *)self _newSignatureExtraLargeCircularTemplate];
           break;
         default:
           goto LABEL_37;
@@ -56,25 +58,25 @@
 
     else if (family == 7)
     {
-      if (v6)
+      if (v7)
       {
-        _newSignatureCircularTemplate = [(NCALDateTimelineEntryModel *)self _newExtraLargeLunarTemplate];
+        lunar = [(NCALDateTimelineEntryModel *)self _newExtraLargeLunarTemplate];
       }
 
       else
       {
-        _newSignatureCircularTemplate = [(NCALDateTimelineEntryModel *)self _newExtraLargeTemplate];
+        lunar = [(NCALDateTimelineEntryModel *)self _newExtraLargeTemplate];
       }
     }
 
     else if (family == 8)
     {
-      _newSignatureCircularTemplate = [(NCALDateTimelineEntryModel *)self _newSignatureCornerTemplate];
+      lunar = [(NCALDateTimelineEntryModel *)self _newSignatureCornerTemplate];
     }
 
     else
     {
-      _newSignatureCircularTemplate = [(NCALDateTimelineEntryModel *)self _newBezelTemplate];
+      lunar = [(NCALDateTimelineEntryModel *)self _newBezelTemplate];
     }
 
     goto LABEL_36;
@@ -84,13 +86,13 @@
   {
     if (family == 3)
     {
-      _newSignatureCircularTemplate = [(NCALDateTimelineEntryModel *)self _newLargeUtilitarianTemplate];
+      lunar = [(NCALDateTimelineEntryModel *)self _newLargeUtilitarianTemplate];
       goto LABEL_36;
     }
 
     if (family == 4)
     {
-      _newSignatureCircularTemplate = [(NCALDateTimelineEntryModel *)self _newCircularTemplateMedium:0];
+      lunar = [(NCALDateTimelineEntryModel *)self _newCircularTemplateMedium:0];
       goto LABEL_36;
     }
 
@@ -100,35 +102,35 @@
     }
 
 LABEL_17:
-    _newSignatureCircularTemplate = [(NCALDateTimelineEntryModel *)self _newSmallFlatUtilitarianTemplate];
+    lunar = [(NCALDateTimelineEntryModel *)self _newSmallFlatUtilitarianTemplate];
 LABEL_36:
-    v7 = _newSignatureCircularTemplate;
+    v8 = lunar;
     goto LABEL_37;
   }
 
   switch(family)
   {
     case 0:
-      if (v6)
+      if (v7)
       {
-        _newSignatureCircularTemplate = [(NCALDateTimelineEntryModel *)self _newModularSmallLunarTemplate];
+        lunar = [(NCALDateTimelineEntryModel *)self _newModularSmallLunarTemplate];
       }
 
       else
       {
-        _newSignatureCircularTemplate = [(NCALDateTimelineEntryModel *)self _newModularSmallTemplate];
+        lunar = [(NCALDateTimelineEntryModel *)self _newModularSmallTemplate];
       }
 
       goto LABEL_36;
     case 1:
-      if (v6)
+      if (v7)
       {
-        _newSignatureCircularTemplate = [(NCALDateTimelineEntryModel *)self _newModularLargeLunarTemplate];
+        lunar = [(NCALDateTimelineEntryModel *)self _newModularLargeLunarTemplate];
       }
 
       else
       {
-        _newSignatureCircularTemplate = [(NCALDateTimelineEntryModel *)self _newModularLargeTemplate];
+        lunar = [(NCALDateTimelineEntryModel *)self _newModularLargeTemplate];
       }
 
       goto LABEL_36;
@@ -154,19 +156,19 @@ LABEL_37:
 
   v10 = _newSimpleTextTemplate;
 
-  v7 = v10;
+  v8 = v10;
 LABEL_42:
-  v11 = ncs_log_complication();
+  v11 = ncs_log_complication(lunar);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v13 = 134218240;
     familyCopy = family;
     v15 = 1024;
-    v16 = v7 != 0;
+    v16 = v8 != 0;
     _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "Has template for family %ld? -> %d", &v13, 0x12u);
   }
 
-  return v7;
+  return v8;
 }
 
 - (id)_newModularSmallTemplate
@@ -406,42 +408,28 @@ LABEL_42:
 
 - (id)_newSignatureCircularTemplate
 {
-  lunar = [(NCALDateTimelineEntryModel *)self lunar];
-  v3 = &off_20350;
-  if (!lunar)
-  {
-    v3 = off_20340;
-  }
+  [(NCALDateTimelineEntryModel *)self lunar];
+  v2 = [CLKFullColorImageProvider fullColorImageProviderWithImageViewClass:objc_opt_class()];
+  v3 = [CLKComplicationTemplateGraphicCircularImage templateWithImageProvider:v2];
+  v6 = NTKRichComplicationViewUsePlatterKey;
+  v7 = &__kCFBooleanTrue;
+  v4 = [NSDictionary dictionaryWithObjects:&v7 forKeys:&v6 count:1];
+  [v3 setMetadata:v4];
 
-  v4 = *v3;
-  v5 = [CLKFullColorImageProvider fullColorImageProviderWithImageViewClass:objc_opt_class()];
-  v6 = [CLKComplicationTemplateGraphicCircularImage templateWithImageProvider:v5];
-  v9 = NTKRichComplicationViewUsePlatterKey;
-  v10 = &__kCFBooleanTrue;
-  v7 = [NSDictionary dictionaryWithObjects:&v10 forKeys:&v9 count:1];
-  [v6 setMetadata:v7];
-
-  return v6;
+  return v3;
 }
 
 - (id)_newSignatureExtraLargeCircularTemplate
 {
-  lunar = [(NCALDateTimelineEntryModel *)self lunar];
-  v3 = off_20348;
-  if (!lunar)
-  {
-    v3 = off_20338;
-  }
+  [(NCALDateTimelineEntryModel *)self lunar];
+  v2 = [CLKFullColorImageProvider fullColorImageProviderWithImageViewClass:objc_opt_class()];
+  v3 = [CLKComplicationTemplateGraphicExtraLargeCircularImage templateWithImageProvider:v2];
+  v6 = NTKRichComplicationViewUsePlatterKey;
+  v7 = &__kCFBooleanTrue;
+  v4 = [NSDictionary dictionaryWithObjects:&v7 forKeys:&v6 count:1];
+  [v3 setMetadata:v4];
 
-  v4 = *v3;
-  v5 = [CLKFullColorImageProvider fullColorImageProviderWithImageViewClass:objc_opt_class()];
-  v6 = [CLKComplicationTemplateGraphicExtraLargeCircularImage templateWithImageProvider:v5];
-  v9 = NTKRichComplicationViewUsePlatterKey;
-  v10 = &__kCFBooleanTrue;
-  v7 = [NSDictionary dictionaryWithObjects:&v10 forKeys:&v9 count:1];
-  [v6 setMetadata:v7];
-
-  return v6;
+  return v3;
 }
 
 - (id)_graphicRectangularDateHeaderTextWithDate:(id)date useLunarDate:(BOOL)lunarDate
@@ -503,6 +491,17 @@ LABEL_42:
   }
 
   return v6;
+}
+
+- (id)_newGraphicRectangularTemplateDisplayingLunarDate:(BOOL)date
+{
+  dateCopy = date;
+  entryDate = [(NCALDateTimelineEntryModel *)self entryDate];
+  v6 = [(NCALDateTimelineEntryModel *)self _graphicRectangularDateHeaderTextWithDate:entryDate useLunarDate:dateCopy];
+  v7 = [(NCALDateTimelineEntryModel *)self _graphicRectangularDateBodyTextWithDate:entryDate displayLunarDate:dateCopy];
+  v8 = [CLKComplicationTemplateGraphicRectangularLargeText templateWithHeaderTextProvider:v6 bodyTextProvider:v7];
+
+  return v8;
 }
 
 @end

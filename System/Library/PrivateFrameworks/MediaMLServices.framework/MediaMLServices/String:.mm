@@ -8,7 +8,6 @@
 - (uint64_t)Any
 {
   v3 = *(self + 32);
-  v5 = *(self + 40);
 
   MEMORY[0x277D82BE0](a2);
   static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();

@@ -16,14 +16,12 @@
 
 + (id)columns
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"medicationName" dataType:2 requestOnly:0 fieldNumber:1 protoDataType:13 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"medication_name" dataType:2 requestOnly:0 fieldNumber:1 protoDataType:13 convertedType:0];
-  v7[0] = v2;
-  v7[1] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[0] = v2;
+  v6[1] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
 
   return v4;
 }
@@ -60,39 +58,37 @@
 
 - (id)jsonDictionary
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   medicationName = [(BMHealthMedicationsAddedMed *)self medicationName];
   v4 = medicationName;
-  v9 = @"medicationName";
+  v8 = @"medicationName";
   if (medicationName)
   {
-    v10 = @"medication_name";
-    v11[0] = medicationName;
+    v9 = @"medication_name";
+    v10[0] = medicationName;
     null2 = medicationName;
   }
 
   else
   {
     null = [MEMORY[0x1E695DFB0] null];
-    v10 = @"medication_name";
-    v11[0] = null;
+    v9 = @"medication_name";
+    v10[0] = null;
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v11[1] = null2;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v9 count:2];
+  v10[1] = null2;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v8 count:2];
   if (!v4)
   {
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 - (BMHealthMedicationsAddedMed)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"medicationName"];
   if (v7)
@@ -132,10 +128,10 @@ LABEL_8:
   {
     v10 = objc_alloc(MEMORY[0x1E696ABC0]);
     v11 = *MEMORY[0x1E698F240];
-    v16 = *MEMORY[0x1E696A578];
+    v15 = *MEMORY[0x1E696A578];
     v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"medicationName"];
-    v17[0] = v12;
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v16[0] = v12;
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     *error = [v10 initWithDomain:v11 code:2 userInfo:v13];
 
     error = 0;
@@ -144,7 +140,6 @@ LABEL_8:
   selfCopy = 0;
 LABEL_12:
 
-  v14 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -286,12 +281,10 @@ LABEL_24:
 
 + (id)protoFields
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"medicationName" number:1 type:13 subMessageClass:0];
-  v6[0] = v2;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v5[0] = v2;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
 
   return v3;
 }

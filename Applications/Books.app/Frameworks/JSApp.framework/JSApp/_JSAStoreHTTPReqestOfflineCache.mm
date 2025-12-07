@@ -28,54 +28,54 @@
 
 - (_JSAStoreHTTPReqestOfflineCache)init
 {
-  v3 = JSASignpost();
+  v3 = JSASignpost(self);
   v4 = os_signpost_id_generate(v3);
 
-  v5 = JSASignpost();
-  v6 = v5;
-  if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
+  v6 = JSASignpost(v5);
+  v7 = v6;
+  if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_0, v6, OS_SIGNPOST_INTERVAL_BEGIN, v4, "Load offline cache", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_0, v7, OS_SIGNPOST_INTERVAL_BEGIN, v4, "Load offline cache", "", buf, 2u);
   }
 
-  v22.receiver = self;
-  v22.super_class = _JSAStoreHTTPReqestOfflineCache;
-  v7 = [(_JSAStoreHTTPReqestOfflineCache *)&v22 init];
-  v8 = v7;
-  if (!v7)
+  v23.receiver = self;
+  v23.super_class = _JSAStoreHTTPReqestOfflineCache;
+  v8 = [(_JSAStoreHTTPReqestOfflineCache *)&v23 init];
+  v9 = v8;
+  if (!v8)
   {
     goto LABEL_18;
   }
 
-  v7->_postLaunchCacheCount = -1;
+  *(v8 + 24) = -1;
   if (+[JSAOfflineCache generateCache](JSAOfflineCache, "generateCache") || +[JSAOfflineCache runFromCache])
   {
     if (+[JSAOfflineCache generateCache])
     {
-      v9 = QOS_CLASS_USER_INTERACTIVE;
+      v10 = QOS_CLASS_USER_INTERACTIVE;
     }
 
     else
     {
-      v9 = QOS_CLASS_USER_INITIATED;
+      v10 = QOS_CLASS_USER_INITIATED;
     }
 
-    v10 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v11 = dispatch_queue_attr_make_with_qos_class(v10, v9, 0);
-    v12 = dispatch_queue_create("JSAStoreHTTPRequest.access", v11);
-    accessQueue = v8->_accessQueue;
-    v8->_accessQueue = v12;
+    v11 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v12 = dispatch_queue_attr_make_with_qos_class(v11, v10, 0);
+    v13 = dispatch_queue_create("JSAStoreHTTPRequest.access", v12);
+    accessQueue = v9->_accessQueue;
+    v9->_accessQueue = v13;
   }
 
   if (+[JSAOfflineCache runFromCache])
   {
-    v14 = +[JSAOfflineCache cacheFileCandidatesForHTTPPreLaunch];
-    v15 = [(_JSAStoreHTTPReqestOfflineCache *)v8 _loadCacheFromCandidatePaths:v14];
-    cache = v8->_cache;
-    v8->_cache = v15;
+    v15 = +[JSAOfflineCache cacheFileCandidatesForHTTPPreLaunch];
+    v16 = [(_JSAStoreHTTPReqestOfflineCache *)v9 _loadCacheFromCandidatePaths:v15];
+    cache = v9->_cache;
+    v9->_cache = v16;
 
-    if (!v8->_cache)
+    if (!v9->_cache)
     {
       BUReportAssertionFailureWithMessage();
       BUCrashBreakpoint();
@@ -92,27 +92,28 @@
     goto LABEL_17;
   }
 
-  if (+[JSAOfflineCache generateCache])
+  v8 = +[JSAOfflineCache generateCache];
+  if (v8)
   {
-    v18 = objc_opt_new();
-    v19 = v8->_cache;
-    v8->_cache = v18;
+    v19 = objc_opt_new();
+    v20 = v9->_cache;
+    v9->_cache = v19;
 
-    v14 = +[NSNotificationCenter defaultCenter];
-    [v14 addObserver:v8 selector:"_saveOfflineCache:" name:UIApplicationDidEnterBackgroundNotification object:0];
+    v15 = +[NSNotificationCenter defaultCenter];
+    [v15 addObserver:v9 selector:"_saveOfflineCache:" name:UIApplicationDidEnterBackgroundNotification object:0];
 LABEL_17:
   }
 
 LABEL_18:
-  v20 = JSASignpost();
-  v21 = v20;
-  if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
+  v21 = JSASignpost(v8);
+  v22 = v21;
+  if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_0, v21, OS_SIGNPOST_INTERVAL_END, v4, "Load offline cache", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_0, v22, OS_SIGNPOST_INTERVAL_END, v4, "Load offline cache", "", buf, 2u);
   }
 
-  return v8;
+  return v9;
 }
 
 - (void)dealloc
@@ -127,107 +128,107 @@ LABEL_18:
 
 - (id)_loadCacheFromCandidatePaths:(id)paths
 {
-  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
   obj = paths;
-  v3 = [obj countByEnumeratingWithState:&v35 objects:v43 count:16];
+  v3 = [obj countByEnumeratingWithState:&v36 objects:v44 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v36;
+    v5 = *v37;
     v6 = &swift_once_ptr;
     v7 = &swift_once_ptr;
-    v29 = *v36;
+    v30 = *v37;
     while (2)
     {
       v8 = 0;
-      v30 = v4;
+      v31 = v4;
       do
       {
-        if (*v36 != v5)
+        if (*v37 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v35 + 1) + 8 * v8);
+        v9 = *(*(&v36 + 1) + 8 * v8);
         defaultManager = [v6[127] defaultManager];
         v11 = [defaultManager fileExistsAtPath:v9];
 
         if (v11)
         {
           v12 = v7[166];
-          v34 = 0;
-          v13 = [v12 dataWithContentsOfFile:v9 options:0 error:&v34];
-          v14 = v34;
+          v35 = 0;
+          v13 = [v12 dataWithContentsOfFile:v9 options:0 error:&v35];
+          v14 = v35;
+          v15 = v14;
           if (v13)
           {
-            v15 = v7[166];
-            v32 = objc_opt_class();
+            v33 = objc_opt_class();
             v16 = objc_opt_class();
             v17 = objc_opt_class();
             v18 = objc_opt_class();
             v19 = objc_opt_class();
             v20 = objc_opt_class();
-            v28 = objc_opt_class();
-            v21 = [NSSet setWithObjects:v32, v16, v17, v18, v19, v20, v28, objc_opt_class(), 0];
+            v29 = objc_opt_class();
+            v21 = [NSSet setWithObjects:v33, v16, v17, v18, v19, v20, v29, objc_opt_class(), 0];
             objc_opt_class();
-            v33 = v14;
-            v22 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v21 fromData:v13 error:&v33];
-            v23 = v33;
+            v34 = v15;
+            v22 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v21 fromData:v13 error:&v34];
+            v23 = v34;
 
             v24 = BUDynamicCast();
 
-            v25 = JSALog();
-            v26 = v25;
+            v26 = JSALog(v25);
+            v27 = v26;
             if (v24)
             {
-              if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+              if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138543362;
-                v40 = v9;
-                _os_log_impl(&dword_0, v26, OS_LOG_TYPE_DEFAULT, "Using offline cache from %{public}@", buf, 0xCu);
+                v41 = v9;
+                _os_log_impl(&dword_0, v27, OS_LOG_TYPE_DEFAULT, "Using offline cache from %{public}@", buf, 0xCu);
               }
 
               goto LABEL_22;
             }
 
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412546;
-              v40 = v9;
-              v41 = 2114;
-              v42 = v23;
-              _os_log_error_impl(&dword_0, v26, OS_LOG_TYPE_ERROR, "Could not unarchive cache at %@ (error): %{public}@", buf, 0x16u);
+              v41 = v9;
+              v42 = 2114;
+              v43 = v23;
+              _os_log_error_impl(&dword_0, v27, OS_LOG_TYPE_ERROR, "Could not unarchive cache at %@ (error): %{public}@", buf, 0x16u);
             }
 
-            v5 = v29;
+            v5 = v30;
             v6 = &swift_once_ptr;
             v7 = &swift_once_ptr;
           }
 
           else
           {
-            v21 = JSALog();
+            v21 = JSALog(v14);
             if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543362;
-              v40 = v9;
+              v41 = v9;
               _os_log_error_impl(&dword_0, v21, OS_LOG_TYPE_ERROR, "Could not read cache file from disk: %{public}@", buf, 0xCu);
             }
 
-            v23 = v14;
+            v23 = v15;
           }
 
-          v4 = v30;
+          v4 = v31;
         }
 
         v8 = v8 + 1;
       }
 
       while (v4 != v8);
-      v4 = [obj countByEnumeratingWithState:&v35 objects:v43 count:16];
+      v4 = [obj countByEnumeratingWithState:&v36 objects:v44 count:16];
       if (v4)
       {
         continue;
@@ -258,77 +259,77 @@ LABEL_22:
 {
   v3 = +[NSFileManager defaultManager];
   v4 = +[JSAOfflineCache cacheDirCandidatesForHTTPPostLaunch];
-  v29[0] = _NSConcreteStackBlock;
-  v29[1] = 3221225472;
-  v29[2] = sub_11DF4;
-  v29[3] = &unk_B2AD0;
+  v30[0] = _NSConcreteStackBlock;
+  v30[1] = 3221225472;
+  v30[2] = sub_11DF4;
+  v30[3] = &unk_B2AD0;
   v5 = v3;
-  v30 = v5;
-  v6 = [v4 indexOfObjectPassingTest:v29];
+  v31 = v5;
+  v6 = [v4 indexOfObjectPassingTest:v30];
   if (v6 != 0x7FFFFFFFFFFFFFFFLL)
   {
     v7 = [v4 objectAtIndexedSubscript:v6];
     if (v7)
     {
       v8 = v7;
-      v28 = 0;
-      v9 = [v5 contentsOfDirectoryAtPath:v7 error:&v28];
-      v21 = v28;
+      v29 = 0;
+      v9 = [v5 contentsOfDirectoryAtPath:v7 error:&v29];
+      v22 = v29;
       v10 = [v9 sortedArrayUsingSelector:"compare:"];
 
       if (!v10)
       {
-        v11 = JSALog();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        v12 = JSALog(v11);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
           sub_811E0();
         }
       }
 
-      v22 = v5;
-      v23 = v4;
-      v26 = 0u;
+      v23 = v5;
+      v24 = v4;
       v27 = 0u;
-      v24 = 0u;
+      v28 = 0u;
       v25 = 0u;
-      v12 = v10;
-      v13 = [v12 countByEnumeratingWithState:&v24 objects:v32 count:16];
-      if (v13)
+      v26 = 0u;
+      v13 = v10;
+      v14 = [v13 countByEnumeratingWithState:&v25 objects:v33 count:16];
+      if (v14)
       {
-        v14 = v13;
-        v15 = *v25;
+        v15 = v14;
+        v16 = *v26;
         do
         {
-          for (i = 0; i != v14; i = i + 1)
+          for (i = 0; i != v15; i = i + 1)
           {
-            if (*v25 != v15)
+            if (*v26 != v16)
             {
-              objc_enumerationMutation(v12);
+              objc_enumerationMutation(v13);
             }
 
-            v17 = *(*(&v24 + 1) + 8 * i);
-            if ([v17 hasSuffix:@".plist"])
+            v18 = *(*(&v25 + 1) + 8 * i);
+            if ([v18 hasSuffix:@".plist"])
             {
-              v18 = [v8 stringByAppendingPathComponent:v17];
-              v31 = v18;
-              v19 = [NSArray arrayWithObjects:&v31 count:1];
-              v20 = [(_JSAStoreHTTPReqestOfflineCache *)self _loadCacheFromCandidatePaths:v19];
+              v19 = [v8 stringByAppendingPathComponent:v18];
+              v32 = v19;
+              v20 = [NSArray arrayWithObjects:&v32 count:1];
+              v21 = [(_JSAStoreHTTPReqestOfflineCache *)self _loadCacheFromCandidatePaths:v20];
 
-              if (v20)
+              if (v21)
               {
-                [(NSMutableDictionary *)self->_cache addEntriesFromDictionary:v20];
+                [(NSMutableDictionary *)self->_cache addEntriesFromDictionary:v21];
               }
             }
           }
 
-          v14 = [v12 countByEnumeratingWithState:&v24 objects:v32 count:16];
+          v15 = [v13 countByEnumeratingWithState:&v25 objects:v33 count:16];
         }
 
-        while (v14);
+        while (v15);
       }
 
-      v5 = v22;
-      v4 = v23;
+      v5 = v23;
+      v4 = v24;
     }
   }
 }
@@ -356,139 +357,136 @@ LABEL_22:
   keyCopy = key;
   if (+[JSAOfflineCache runFromCache])
   {
-    v42 = +[NSDate now];
+    v40 = +[NSDate now];
     v5 = +[NSDate now];
-    v52 = 0;
-    v53 = &v52;
-    v54 = 0x3032000000;
-    v55 = sub_12514;
-    v56 = sub_12524;
-    v57 = 0;
+    v50 = 0;
+    v51 = &v50;
+    v52 = 0x3032000000;
+    v53 = sub_12514;
+    v54 = sub_12524;
+    v55 = 0;
     accessQueue = self->_accessQueue;
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_1252C;
     block[3] = &unk_B2818;
-    v51 = &v52;
+    v49 = &v50;
     block[4] = self;
     v7 = keyCopy;
-    v50 = v7;
+    v48 = v7;
     dispatch_sync(accessQueue, block);
     objc_opt_class();
-    v8 = v53[5];
-    v9 = BUDynamicCast();
-    v10 = v9;
-    if (!v53[5] || v9)
+    v8 = BUDynamicCast();
+    v9 = v8;
+    if (!v51[5] || v8)
     {
 LABEL_22:
-      v29 = +[NSDate now];
-      if (v10)
+      v27 = +[NSDate now];
+      if (v9)
       {
-        v18 = [(JSAStoreHTTPResponse *)v10 copy];
+        v16 = [(JSAStoreHTTPResponse *)v9 copy];
 
-        v58[0] = @"requestStartTime";
-        [v42 timeIntervalSince1970];
-        v31 = [NSNumber numberWithDouble:v30 * 1000.0];
-        v59[0] = v31;
-        v58[1] = @"responseStartTime";
+        v56[0] = @"requestStartTime";
+        [v40 timeIntervalSince1970];
+        v29 = [NSNumber numberWithDouble:v28 * 1000.0];
+        v57[0] = v29;
+        v56[1] = @"responseStartTime";
         [v5 timeIntervalSince1970];
+        v31 = [NSNumber numberWithDouble:v30 * 1000.0];
+        v57[1] = v31;
+        v56[2] = @"responseEndTime";
+        [v27 timeIntervalSince1970];
         v33 = [NSNumber numberWithDouble:v32 * 1000.0];
-        v59[1] = v33;
-        v58[2] = @"responseEndTime";
-        [v29 timeIntervalSince1970];
-        v35 = [NSNumber numberWithDouble:v34 * 1000.0];
-        v58[3] = @"responseCached";
-        v59[2] = v35;
-        v59[3] = &__kCFBooleanTrue;
-        v36 = [NSDictionary dictionaryWithObjects:v59 forKeys:v58 count:4];
-        [v18 setPerformanceMetrics:v36];
+        v56[3] = @"responseCached";
+        v57[2] = v33;
+        v57[3] = &__kCFBooleanTrue;
+        v34 = [NSDictionary dictionaryWithObjects:v57 forKeys:v56 count:4];
+        [v16 setPerformanceMetrics:v34];
       }
 
       else
       {
-        v18 = 0;
+        v16 = 0;
       }
 
-      _Block_object_dispose(&v52, 8);
+      _Block_object_dispose(&v50, 8);
       goto LABEL_26;
     }
 
     objc_opt_class();
-    v11 = v53[5];
-    v12 = BUDynamicCast();
-    v13 = v12;
-    if (v12)
+    v10 = BUDynamicCast();
+    v11 = v10;
+    if (v10)
     {
-      bu_gzipInflate = [v12 bu_gzipInflate];
+      bu_gzipInflate = [v10 bu_gzipInflate];
 
       objc_opt_class();
-      v48 = 0;
-      v15 = [NSJSONSerialization JSONObjectWithData:bu_gzipInflate options:0 error:&v48];
-      v41 = v48;
-      v16 = BUDynamicCast();
+      v46 = 0;
+      v13 = [NSJSONSerialization JSONObjectWithData:bu_gzipInflate options:0 error:&v46];
+      v39 = v46;
+      v14 = BUDynamicCast();
 
-      if (v16)
+      if (v14)
       {
-        v17 = 0;
+        v15 = 0;
 LABEL_11:
 
         goto LABEL_12;
       }
 
-      v40 = objc_opt_class();
-      v39 = objc_opt_class();
       v38 = objc_opt_class();
-      v20 = objc_opt_class();
-      v21 = objc_opt_class();
-      v22 = objc_opt_class();
-      v23 = [NSSet setWithObjects:v40, v39, v38, v20, v21, v22, objc_opt_class(), 0];
+      v37 = objc_opt_class();
+      v36 = objc_opt_class();
+      v17 = objc_opt_class();
+      v18 = objc_opt_class();
+      v19 = objc_opt_class();
+      v20 = [NSSet setWithObjects:v38, v37, v36, v17, v18, v19, objc_opt_class(), 0];
       objc_opt_class();
-      v47 = 0;
-      v24 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v23 fromData:bu_gzipInflate error:&v47];
-      v17 = v47;
-      v16 = BUDynamicCast();
+      v45 = 0;
+      v21 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v20 fromData:bu_gzipInflate error:&v45];
+      v15 = v45;
+      v14 = BUDynamicCast();
 
-      if (v16)
+      if (v14)
       {
         goto LABEL_11;
       }
 
-      v27 = JSALog();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+      v25 = JSALog(v22);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         sub_81250();
       }
 
-      v26 = v41;
+      v24 = v39;
     }
 
     else
     {
       objc_opt_class();
-      v19 = v53[5];
-      v16 = BUDynamicCast();
-      if (v16)
+      v14 = BUDynamicCast();
+      if (v14)
       {
         bu_gzipInflate = 0;
 LABEL_12:
-        v25 = [[JSAStoreHTTPResponse alloc] initWithDictionary:v16];
+        v23 = [[JSAStoreHTTPResponse alloc] initWithDictionary:v14];
 LABEL_21:
-        v28 = self->_accessQueue;
-        v43[0] = _NSConcreteStackBlock;
-        v43[1] = 3221225472;
-        v43[2] = sub_1257C;
-        v43[3] = &unk_B2638;
-        v10 = v25;
-        v44 = v10;
+        v26 = self->_accessQueue;
+        v41[0] = _NSConcreteStackBlock;
+        v41[1] = 3221225472;
+        v41[2] = sub_1257C;
+        v41[3] = &unk_B2638;
+        v9 = v23;
+        v42 = v9;
         selfCopy = self;
-        v46 = v7;
-        dispatch_sync(v28, v43);
+        v44 = v7;
+        dispatch_sync(v26, v41);
 
         goto LABEL_22;
       }
 
-      v26 = JSALog();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v24 = JSALog(0);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         sub_812C0();
       }
@@ -496,15 +494,15 @@ LABEL_21:
       bu_gzipInflate = 0;
     }
 
-    v16 = 0;
-    v25 = 0;
+    v14 = 0;
+    v23 = 0;
     goto LABEL_21;
   }
 
-  v18 = 0;
+  v16 = 0;
 LABEL_26:
 
-  return v18;
+  return v16;
 }
 
 - (void)enumerateKeysAndObjectsUsingBlock:(id)block
@@ -542,10 +540,10 @@ LABEL_26:
   v6 = 0;
   if ([(NSMutableDictionary *)self->_cache count])
   {
-    v15 = sub_80900(&self->super.isa);
-    v17 = 0;
-    v5 = [NSKeyedArchiver archivedDataWithRootObject:v15 requiringSecureCoding:1 error:&v17];
-    v6 = v17;
+    v17 = sub_80900(&self->super.isa);
+    v19 = 0;
+    v5 = [NSKeyedArchiver archivedDataWithRootObject:v17 requiringSecureCoding:1 error:&v19];
+    v6 = v19;
   }
 
   if (self->_postLaunchCacheCount < 0)
@@ -576,24 +574,24 @@ LABEL_26:
 
   if (!v5 || !v11)
   {
-    v14 = JSALog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v16 = JSALog(v12);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       sub_81370();
     }
 
-    v13 = v6;
+    v14 = v6;
     goto LABEL_16;
   }
 
-  v16 = v6;
-  v12 = [v5 writeToFile:v11 options:1 error:&v16];
-  v13 = v16;
+  v18 = v6;
+  v13 = [v5 writeToFile:v11 options:1 error:&v18];
+  v14 = v18;
 
-  if ((v12 & 1) == 0)
+  if ((v13 & 1) == 0)
   {
-    v14 = JSALog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v16 = JSALog(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       sub_813E0();
     }

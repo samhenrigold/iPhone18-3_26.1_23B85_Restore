@@ -5,6 +5,7 @@
 - (id)clone;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)getDisplayName;
+- (id)getDisplayNameWithBoolean:(BOOL)boolean withInt:(int)int;
 - (id)getDisplayNameWithBoolean:(BOOL)boolean withInt:(int)int withJavaUtilLocale:(id)locale;
 - (int)getDSTSavings;
 - (int)getOffsetWithLong:(int64_t)long;
@@ -26,6 +27,15 @@
   Default = JavaUtilLocale_getDefault();
 
   return [(JavaUtilTimeZone *)self getDisplayNameWithBoolean:0 withInt:1 withJavaUtilLocale:Default];
+}
+
+- (id)getDisplayNameWithBoolean:(BOOL)boolean withInt:(int)int
+{
+  v4 = *&int;
+  booleanCopy = boolean;
+  Default = JavaUtilLocale_getDefault();
+
+  return [(JavaUtilTimeZone *)self getDisplayNameWithBoolean:booleanCopy withInt:v4 withJavaUtilLocale:Default];
 }
 
 - (id)getDisplayNameWithBoolean:(BOOL)boolean withInt:(int)int withJavaUtilLocale:(id)locale
@@ -56,7 +66,7 @@
     }
 
     v11 = getRawOffset / 60000;
-    v12 = new_JavaLangStringBuilder_initWithInt_(9u);
+    v12 = new_JavaLangStringBuilder_initWithInt_(9);
     [(JavaLangStringBuilder *)v12 appendWithNSString:@"GMT"];
     if (getRawOffset >= -59999)
     {

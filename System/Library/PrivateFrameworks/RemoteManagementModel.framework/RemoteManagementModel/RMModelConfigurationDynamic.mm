@@ -5,6 +5,7 @@
 - (RMModelConfigurationDynamic)initWithSchema:(id)schema;
 - (id)assetReferences;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)serializePayloadWithType:(signed __int16)type;
 - (void)enumerateManagedSettingsUsingBlock:(id)block;
 @end
 
@@ -56,31 +57,31 @@
 
 - (void)enumerateManagedSettingsUsingBlock:(id)block
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   blockCopy = block;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   schema = [(RMModelConfigurationDynamic *)self schema];
   managedSettings = [schema managedSettings];
 
   obj = managedSettings;
-  v7 = [managedSettings countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v7 = [managedSettings countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v21;
+    v9 = *v20;
 LABEL_3:
     v10 = 0;
     while (1)
     {
-      if (*v21 != v9)
+      if (*v20 != v9)
       {
         objc_enumerationMutation(obj);
       }
 
-      v11 = *(*(&v20 + 1) + 8 * v10);
+      v11 = *(*(&v19 + 1) + 8 * v10);
       keyPath = [v11 keyPath];
       payload = [(RMModelConfigurationDynamic *)self payload];
       v14 = [RMModelPayloadUtilities valueFromKeyPath:keyPath payload:payload];
@@ -99,9 +100,9 @@ LABEL_3:
         }
       }
 
-      v19 = 0;
-      blockCopy[2](blockCopy, v11, v14, &v19);
-      v16 = v19;
+      v18 = 0;
+      blockCopy[2](blockCopy, v11, v14, &v18);
+      v16 = v18;
 
       if (v16)
       {
@@ -110,7 +111,7 @@ LABEL_3:
 
       if (v8 == ++v10)
       {
-        v8 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v8 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
         if (v8)
         {
           goto LABEL_3;
@@ -120,8 +121,6 @@ LABEL_3:
       }
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isSupportedForPlatform:(int64_t)platform scope:(int64_t)scope enrollmentType:(int64_t)type
@@ -144,6 +143,14 @@ LABEL_3:
   [(RMModelConfigurationDynamic *)self setPayload:v10];
 
   return 1;
+}
+
+- (id)serializePayloadWithType:(signed __int16)type
+{
+  payload = [(RMModelConfigurationDynamic *)self payload];
+  v4 = [payload copy];
+
+  return v4;
 }
 
 - (id)copyWithZone:(_NSZone *)zone

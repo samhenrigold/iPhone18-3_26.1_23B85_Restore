@@ -11,6 +11,7 @@
 - (void)addObserver:(id)observer;
 - (void)dealloc;
 - (void)removeObserver:(id)observer;
+- (void)setReachabilityFlags:(unsigned int)flags;
 @end
 
 @implementation FPReachabilityMonitor
@@ -29,14 +30,16 @@
 
 uint64_t __50__FPReachabilityMonitor_sharedReachabilityMonitor__block_invoke()
 {
-  sharedReachabilityMonitor_monitor = objc_alloc_init(FPReachabilityMonitor);
+  v0 = objc_alloc_init(FPReachabilityMonitor);
+  v1 = sharedReachabilityMonitor_monitor;
+  sharedReachabilityMonitor_monitor = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (unsigned)getReachabilityFlagsByCheckingNetwork
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   flags = 0;
   *&address.sa_data[6] = 0;
   *&address.sa_len = 528;
@@ -53,7 +56,6 @@ uint64_t __50__FPReachabilityMonitor_sharedReachabilityMonitor__block_invoke()
     LODWORD(v2) = flags;
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -71,9 +73,11 @@ uint64_t __50__FPReachabilityMonitor_sharedReachabilityMonitor__block_invoke()
 
 uint64_t __43__FPReachabilityMonitor__notifAccountStore__block_invoke()
 {
-  _notifAccountStore_notifAccountStore = objc_opt_new();
+  v0 = objc_opt_new();
+  v1 = _notifAccountStore_notifAccountStore;
+  _notifAccountStore_notifAccountStore = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (BOOL)_isCellularAllowedForBR
@@ -112,10 +116,10 @@ uint64_t __43__FPReachabilityMonitor__notifAccountStore__block_invoke()
 
 - (FPReachabilityMonitor)init
 {
-  v31 = *MEMORY[0x1E69E9840];
-  v27.receiver = self;
-  v27.super_class = FPReachabilityMonitor;
-  v3 = [(FPReachabilityMonitor *)&v27 init];
+  v30 = *MEMORY[0x1E69E9840];
+  v26.receiver = self;
+  v26.super_class = FPReachabilityMonitor;
+  v3 = [(FPReachabilityMonitor *)&v26 init];
   currentHandler2 = v3;
   if (v3)
   {
@@ -142,33 +146,33 @@ uint64_t __43__FPReachabilityMonitor__notifAccountStore__block_invoke()
 
     _notifAccountStore = [objc_opt_class() _notifAccountStore];
     objc_initWeak(&location, currentHandler2);
-    v28[0] = 0;
+    v27[0] = 0;
     if (!AppleAccountLibraryCore_frameworkLibrary)
     {
-      v28[1] = MEMORY[0x1E69E9820];
-      v28[2] = 3221225472;
-      v28[3] = __AppleAccountLibraryCore_block_invoke;
-      v28[4] = &__block_descriptor_40_e5_v8__0l;
-      v28[5] = v28;
-      v29 = xmmword_1E793EA20;
-      v30 = 0;
+      v27[1] = MEMORY[0x1E69E9820];
+      v27[2] = 3221225472;
+      v27[3] = __AppleAccountLibraryCore_block_invoke;
+      v27[4] = &__block_descriptor_40_e5_v8__0l;
+      v27[5] = v27;
+      v28 = xmmword_1E793EA20;
+      v29 = 0;
       AppleAccountLibraryCore_frameworkLibrary = _sl_dlopen();
     }
 
     if (AppleAccountLibraryCore_frameworkLibrary)
     {
-      v13 = v28[0];
-      if (!v28[0])
+      v13 = v27[0];
+      if (!v27[0])
       {
 LABEL_10:
         defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
         mainQueue = [MEMORY[0x1E696ADC8] mainQueue];
-        v23[0] = MEMORY[0x1E69E9820];
-        v23[1] = 3221225472;
-        v23[2] = __29__FPReachabilityMonitor_init__block_invoke;
-        v23[3] = &unk_1E793EA00;
-        objc_copyWeak(&v24, &location);
-        v16 = [defaultCenter addObserverForName:*MEMORY[0x1E6959968] object:_notifAccountStore queue:mainQueue usingBlock:v23];
+        v22[0] = MEMORY[0x1E69E9820];
+        v22[1] = 3221225472;
+        v22[2] = __29__FPReachabilityMonitor_init__block_invoke;
+        v22[3] = &unk_1E793EA00;
+        objc_copyWeak(&v23, &location);
+        v16 = [defaultCenter addObserverForName:*MEMORY[0x1E6959968] object:_notifAccountStore queue:mainQueue usingBlock:v22];
         v17 = *(currentHandler2 + 40);
         *(currentHandler2 + 40) = v16;
 
@@ -177,13 +181,13 @@ LABEL_10:
         block[1] = 3221225472;
         block[2] = __29__FPReachabilityMonitor_init__block_invoke_2;
         block[3] = &unk_1E79399B0;
-        v22 = currentHandler2;
+        v21 = currentHandler2;
         dispatch_async(v18, block);
 
-        objc_destroyWeak(&v24);
+        objc_destroyWeak(&v23);
         objc_destroyWeak(&location);
 
-        goto LABEL_11;
+        return currentHandler2;
       }
     }
 
@@ -191,7 +195,7 @@ LABEL_10:
     {
       currentHandler2 = [MEMORY[0x1E696AAA8] currentHandler];
       _notifAccountStore = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *AppleAccountLibrary(void)"];
-      [currentHandler2 handleFailureInFunction:_notifAccountStore file:@"FPReachabilityMonitor.m" lineNumber:17 description:{@"%s", v28[0]}];
+      [currentHandler2 handleFailureInFunction:_notifAccountStore file:@"FPReachabilityMonitor.m" lineNumber:17 description:{@"%s", v27[0]}];
 
       __break(1u);
     }
@@ -200,8 +204,6 @@ LABEL_10:
     goto LABEL_10;
   }
 
-LABEL_11:
-  v19 = *MEMORY[0x1E69E9840];
   return currentHandler2;
 }
 
@@ -299,17 +301,61 @@ void __42__FPReachabilityMonitor__accountDidChange__block_invoke(uint64_t a1)
   return queue;
 }
 
-uint64_t __53__FPReachabilityMonitor_isNetworkReachableForBundle___block_invoke(uint64_t a1)
+void *__53__FPReachabilityMonitor_isNetworkReachableForBundle___block_invoke(uint64_t a1)
 {
   v2 = *(*(a1 + 32) + 24);
   if (![*(a1 + 40) isEqualToString:@"com.apple.CloudDocs.iCloudDriveFileProvider"] || (result = objc_msgSend(*(a1 + 32), "_isCellularAllowedForBR"), (result & 1) != 0) || (v2 & 0x40000) == 0)
   {
-    v4 = *(a1 + 32);
     result = [objc_opt_class() isNetworkReachableForFlags:v2];
     *(*(*(a1 + 48) + 8) + 24) = result;
   }
 
   return result;
+}
+
+- (void)setReachabilityFlags:(unsigned int)flags
+{
+  v3 = *&flags;
+  v17 = *MEMORY[0x1E69E9840];
+  dispatch_assert_queue_V2(self->_queue);
+  self->_reachabilityFlags = v3;
+  v5 = [objc_opt_class() isNetworkReachableForFlags:v3];
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v6 = self->_reachabilityObservers;
+  v7 = [(NSHashTable *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v7)
+  {
+    v8 = v7;
+    v9 = *v13;
+    do
+    {
+      v10 = 0;
+      do
+      {
+        if (*v13 != v9)
+        {
+          objc_enumerationMutation(v6);
+        }
+
+        v11 = *(*(&v12 + 1) + 8 * v10);
+        if (objc_opt_respondsToSelector())
+        {
+          [v11 reachabilityMonitor:self didChangeReachabilityFlagsTo:{v3, v12}];
+        }
+
+        [v11 reachabilityMonitor:self didChangeReachabilityStatusTo:{v5, v12}];
+        ++v10;
+      }
+
+      while (v8 != v10);
+      v8 = [(NSHashTable *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    }
+
+    while (v8);
+  }
 }
 
 - (void)addObserver:(id)observer
@@ -329,18 +375,16 @@ uint64_t __53__FPReachabilityMonitor_isNetworkReachableForBundle___block_invoke(
 uint64_t __37__FPReachabilityMonitor_addObserver___block_invoke(uint64_t a1)
 {
   [*(*(a1 + 32) + 8) addObject:*(a1 + 40)];
-  v2 = *(a1 + 40);
   if (objc_opt_respondsToSelector())
   {
     [*(a1 + 40) reachabilityMonitor:*(a1 + 32) didChangeReachabilityFlagsTo:*(*(a1 + 32) + 24)];
   }
 
-  v3 = *(a1 + 32);
-  v4 = [objc_opt_class() isNetworkReachableForFlags:*(v3 + 24)];
-  v6 = *(a1 + 32);
-  v5 = *(a1 + 40);
+  v2 = [objc_opt_class() isNetworkReachableForFlags:*(*(a1 + 32) + 24)];
+  v4 = *(a1 + 32);
+  v3 = *(a1 + 40);
 
-  return [v5 reachabilityMonitor:v6 didChangeReachabilityStatusTo:v4];
+  return [v3 reachabilityMonitor:v4 didChangeReachabilityStatusTo:v2];
 }
 
 - (void)removeObserver:(id)observer
@@ -359,16 +403,22 @@ uint64_t __37__FPReachabilityMonitor_addObserver___block_invoke(uint64_t a1)
 
 void __42__FPReachabilityMonitor__accountDidChange__block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_3(&dword_1AAAE1000, a2, a3, "[DEBUG] ┏%llx account properties changed", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_3(&dword_1AAAE1000, a2, a3, "[DEBUG] ┏%llx account properties changed", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_isCellularAllowedForBR
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_3(&dword_1AAAE1000, a2, a3, "[DEBUG] cellular is %@ for D&D", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  v8 = @"disabled";
+  if (self)
+  {
+    v8 = @"enabled";
+  }
+
+  LODWORD(v9) = 138412290;
+  HIDWORD(v9) = v8;
+  OUTLINED_FUNCTION_0_3(&dword_1AAAE1000, a2, a3, "[DEBUG] cellular is %@ for D&D", a5, a6, a7, a8, v9, HIDWORD(v8));
 }
 
 @end

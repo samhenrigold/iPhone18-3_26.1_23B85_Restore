@@ -1,12 +1,12 @@
 @interface _UICollectionLayoutSupplementaryEnroller
 - (_UICollectionLayoutSupplementaryEnroller)init;
+- (id)countForKind:(id *)kind;
 - (id)description;
 - (id)enrollSupplementaryForKind:(id *)kind;
-- (uint64_t)commitEnrollment:(uint64_t)result;
-- (uint64_t)countForKind:(uint64_t)kind;
+- (id)pruneUncommittedEnrollments;
 - (uint64_t)kindIndexForEnrollmentIdentifier:(uint64_t)identifier;
-- (uint64_t)pruneUncommittedEnrollments;
 - (void)_removeEnrollmentWithIdentifier:(id *)identifier;
+- (void)commitEnrollment:(void *)result;
 @end
 
 @implementation _UICollectionLayoutSupplementaryEnroller
@@ -38,7 +38,7 @@
   return v2;
 }
 
-- (uint64_t)pruneUncommittedEnrollments
+- (id)pruneUncommittedEnrollments
 {
   v12 = *MEMORY[0x1E69E9840];
   if (result)
@@ -48,7 +48,7 @@
     v10 = 0u;
     v7 = 0u;
     v8 = 0u;
-    v2 = *(result + 16);
+    v2 = result[2];
     v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     if (v3)
     {
@@ -164,7 +164,7 @@
   return v11;
 }
 
-- (uint64_t)countForKind:(uint64_t)kind
+- (id)countForKind:(id *)kind
 {
   kindCopy = kind;
   if (kind)
@@ -175,7 +175,7 @@
       [currentHandler handleFailureInMethod:sel_countForKind_ object:kindCopy file:@"_UICollectionLayoutSupplementaryEnroller.m" lineNumber:77 description:{@"Invalid parameter not satisfying: %@", @"kind.length"}];
     }
 
-    v4 = [*(kindCopy + 32) objectForKeyedSubscript:a2];
+    v4 = [kindCopy[4] objectForKeyedSubscript:a2];
     v5 = v4;
     if (v4)
     {
@@ -270,7 +270,7 @@
   }
 }
 
-- (uint64_t)commitEnrollment:(uint64_t)result
+- (void)commitEnrollment:(void *)result
 {
   if (result)
   {
@@ -281,7 +281,7 @@
       [currentHandler handleFailureInMethod:sel_commitEnrollment_ object:v3 file:@"_UICollectionLayoutSupplementaryEnroller.m" lineNumber:126 description:{@"Invalid parameter not satisfying: %@", @"enrollmentIdentifier"}];
     }
 
-    v4 = *(v3 + 16);
+    v4 = v3[2];
 
     return [v4 removeObject:a2];
   }

@@ -687,10 +687,10 @@ void __151__PKAccountBillPaymentViewController_initWithAccount_accountUserCollec
 
 - (void)loadView
 {
-  v136[1] = *MEMORY[0x1E69E9840];
-  v132.receiver = self;
-  v132.super_class = PKAccountBillPaymentViewController;
-  [(PKAccountBillPaymentViewController *)&v132 loadView];
+  v137[1] = *MEMORY[0x1E69E9840];
+  v133.receiver = self;
+  v133.super_class = PKAccountBillPaymentViewController;
+  [(PKAccountBillPaymentViewController *)&v133 loadView];
   [(PKAccount *)self->_account feature];
   featuredViewState = self->_featuredViewState;
   if (_UISolariumFeatureFlagEnabled())
@@ -710,7 +710,7 @@ void __151__PKAccountBillPaymentViewController_initWithAccount_accountUserCollec
     v9 = self->_titleLabel;
     if (v8)
     {
-      v10 = PKOBKHeaderTitleFont();
+      v10 = PKOBKHeaderTitleFont(v8);
       [(UILabel *)v9 setFont:v10];
 
       v11 = self->_titleLabel;
@@ -744,18 +744,18 @@ void __151__PKAccountBillPaymentViewController_initWithAccount_accountUserCollec
     v19 = self->_subtitleLabel;
     if (v18)
     {
-      v20 = PKOBKHeaderSubtitleFont();
+      v20 = PKOBKHeaderSubtitleFont(v18);
       [(UILabel *)v19 setFont:v20];
 
       v21 = self->_subtitleLabel;
-      v22 = PKOBKHeaderSubtitleTextColor();
-      [(UILabel *)v21 setTextColor:v22];
+      v23 = PKOBKHeaderSubtitleTextColor(v22);
+      [(UILabel *)v21 setTextColor:v23];
     }
 
     else
     {
-      v22 = PKFontForDefaultDesign(*v15, *MEMORY[0x1E69DDC38], 0x8000, 0);
-      [(UILabel *)v19 setFont:v22];
+      v23 = PKFontForDefaultDesign(*v15, *MEMORY[0x1E69DDC38], 0x8000, 0);
+      [(UILabel *)v19 setFont:v23];
     }
 
     [(UILabel *)self->_subtitleLabel setTextAlignment:PKOBKTextAlignment()];
@@ -764,116 +764,116 @@ void __151__PKAccountBillPaymentViewController_initWithAccount_accountUserCollec
   }
 
   [(PKAccountBillPaymentViewController *)self _updateSubtitle];
-  v23 = objc_alloc_init(MEMORY[0x1E69DCC10]);
+  v24 = objc_alloc_init(MEMORY[0x1E69DCC10]);
   smallRingInterestLabel = self->_smallRingInterestLabel;
-  self->_smallRingInterestLabel = v23;
+  self->_smallRingInterestLabel = v24;
 
   [(UILabel *)self->_smallRingInterestLabel setBaselineAdjustment:1];
   [(UILabel *)self->_smallRingInterestLabel setTextAlignment:1];
   [(UILabel *)self->_smallRingInterestLabel setNumberOfLines:0];
   [(UILabel *)self->_smallRingInterestLabel setAlpha:0.0];
-  v25 = [[PKBillPaymentRingView alloc] initWithSuggestedAmountList:self->_suggestionList delegate:self dataSource:self];
+  v26 = [[PKBillPaymentRingView alloc] initWithSuggestedAmountList:self->_suggestionList delegate:self dataSource:self];
   ringView = self->_ringView;
-  self->_ringView = v25;
+  self->_ringView = v26;
 
   [(PKBillPaymentRingView *)self->_ringView setEnabled:self->_interstitialState == 0];
   [(PKBillPaymentRingView *)self->_ringView setHidden:featuredViewState != 1];
   layer = [(PKBillPaymentRingView *)self->_ringView layer];
   [layer setAnchorPoint:{0.5, 0.0}];
 
-  v28 = [[PKAccountBillPaymentAmountDescriptionView alloc] initWithSuggestedAmountList:self->_suggestionList account:self->_account configuration:self->_configuration delegate:self];
+  v29 = [[PKAccountBillPaymentAmountDescriptionView alloc] initWithSuggestedAmountList:self->_suggestionList account:self->_account configuration:self->_configuration delegate:self];
   amountDescriptionView = self->_amountDescriptionView;
-  self->_amountDescriptionView = v28;
+  self->_amountDescriptionView = v29;
 
-  v30 = self->_amountDescriptionView;
+  v31 = self->_amountDescriptionView;
   schedulePaymentFeatureDescriptor = [(PKAccount *)self->_account schedulePaymentFeatureDescriptor];
   minimumAmount = [schedulePaymentFeatureDescriptor minimumAmount];
-  [(PKAccountBillPaymentAmountDescriptionView *)v30 setMinimumAmount:minimumAmount];
+  [(PKAccountBillPaymentAmountDescriptionView *)v31 setMinimumAmount:minimumAmount];
 
-  v33 = self->_amountDescriptionView;
+  v34 = self->_amountDescriptionView;
   if (PKBroadwayAllowOverpaymentViaKeypadKey())
   {
-    [(PKAccountBillPaymentAmountDescriptionView *)v33 setMaximumAmount:0];
+    [(PKAccountBillPaymentAmountDescriptionView *)v34 setMaximumAmount:0];
   }
 
   else
   {
     maximumAmount = [(PKBillPaymentSuggestedAmountList *)self->_suggestionList maximumAmount];
-    [(PKAccountBillPaymentAmountDescriptionView *)v33 setMaximumAmount:maximumAmount];
+    [(PKAccountBillPaymentAmountDescriptionView *)v34 setMaximumAmount:maximumAmount];
   }
 
   [(PKAccountBillPaymentViewController *)self _setupAmountDescriptionViewForInterstitial];
-  v35 = _UISolariumFeatureFlagEnabled();
-  v36 = *v15;
-  v37 = *MEMORY[0x1E69DDC38];
-  v117 = *MEMORY[0x1E69DDC38];
-  v114 = *v15;
-  if (v35)
+  v36 = _UISolariumFeatureFlagEnabled();
+  v37 = *v15;
+  v38 = *MEMORY[0x1E69DDC38];
+  v118 = *MEMORY[0x1E69DDC38];
+  v115 = *v15;
+  if (v36)
   {
-    PKFontForDefaultDesign(v36, v37, *MEMORY[0x1E69DB970]);
+    PKFontForDefaultDesign(v37, v38, *MEMORY[0x1E69DB970]);
   }
 
   else
   {
-    PKFontForDefaultDesign(v36, v37, 2, 0);
+    PKFontForDefaultDesign(v37, v38, 2, 0);
   }
-  v38 = ;
+  v39 = ;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __46__PKAccountBillPaymentViewController_loadView__block_invoke;
   aBlock[3] = &unk_1E8013CC0;
-  v115 = v38;
-  v131 = v115;
-  v116 = _Block_copy(aBlock);
+  v116 = v39;
+  v132 = v116;
+  v117 = _Block_copy(aBlock);
   objc_initWeak(&location, self);
   if (_UISolariumFeatureFlagEnabled() && (PKIsVision() & 1) == 0)
   {
     prominentGlassButtonConfiguration = [MEMORY[0x1E69DC740] prominentGlassButtonConfiguration];
-    v43 = [MEMORY[0x1E69DC888] colorWithDynamicProvider:&__block_literal_global_66];
-    [prominentGlassButtonConfiguration setBaseForegroundColor:v43];
+    v44 = [MEMORY[0x1E69DC888] colorWithDynamicProvider:&__block_literal_global_66];
+    [prominentGlassButtonConfiguration setBaseForegroundColor:v44];
 
-    v127[0] = MEMORY[0x1E69E9820];
-    v127[1] = 3221225472;
-    v127[2] = __46__PKAccountBillPaymentViewController_loadView__block_invoke_2;
-    v127[3] = &unk_1E8013EE8;
-    v128 = v115;
-    [prominentGlassButtonConfiguration setTitleTextAttributesTransformer:v127];
+    v128[0] = MEMORY[0x1E69E9820];
+    v128[1] = 3221225472;
+    v128[2] = __46__PKAccountBillPaymentViewController_loadView__block_invoke_2;
+    v128[3] = &unk_1E8013EE8;
+    v129 = v116;
+    [prominentGlassButtonConfiguration setTitleTextAttributesTransformer:v128];
     [prominentGlassButtonConfiguration setShowsActivityIndicator:!self->_viewIsEnabled];
-    v44 = [MEMORY[0x1E69DC738] buttonWithConfiguration:prominentGlassButtonConfiguration primaryAction:0];
+    v45 = [MEMORY[0x1E69DC738] buttonWithConfiguration:prominentGlassButtonConfiguration primaryAction:0];
     primaryButton = self->_primaryButton;
-    self->_primaryButton = v44;
+    self->_primaryButton = v45;
 
-    v46 = self->_primaryButton;
-    v47 = [MEMORY[0x1E69DC888] colorWithDynamicProvider:&__block_literal_global_40];
-    [(UIButton *)v46 setTintColor:v47];
+    v47 = self->_primaryButton;
+    v48 = [MEMORY[0x1E69DC888] colorWithDynamicProvider:&__block_literal_global_40];
+    [(UIButton *)v47 setTintColor:v48];
 
-    v48 = self->_primaryButton;
-    v125[0] = MEMORY[0x1E69E9820];
-    v125[1] = 3221225472;
-    v125[2] = __46__PKAccountBillPaymentViewController_loadView__block_invoke_3;
-    v125[3] = &unk_1E8013CE8;
-    objc_copyWeak(&v126, &location);
-    [(UIButton *)v48 setConfigurationUpdateHandler:v125];
-    objc_destroyWeak(&v126);
-    backgroundColor = v128;
+    v49 = self->_primaryButton;
+    v126[0] = MEMORY[0x1E69E9820];
+    v126[1] = 3221225472;
+    v126[2] = __46__PKAccountBillPaymentViewController_loadView__block_invoke_3;
+    v126[3] = &unk_1E8013CE8;
+    objc_copyWeak(&v127, &location);
+    [(UIButton *)v49 setConfigurationUpdateHandler:v126];
+    objc_destroyWeak(&v127);
+    backgroundColor = v129;
   }
 
   else
   {
     prominentGlassButtonConfiguration = [MEMORY[0x1E69DC888] labelColor];
     backgroundColor = [objc_opt_class() backgroundColor];
-    v41 = v116[2](v116, prominentGlassButtonConfiguration, backgroundColor);
-    v42 = self->_primaryButton;
-    self->_primaryButton = v41;
+    v42 = v117[2](v117, prominentGlassButtonConfiguration, backgroundColor);
+    v43 = self->_primaryButton;
+    self->_primaryButton = v42;
   }
 
   [(UIButton *)self->_primaryButton setAccessibilityIdentifier:*MEMORY[0x1E69B9AE0]];
   interstitialState = self->_interstitialState;
   if (interstitialState - 4 < 3)
   {
-    v50 = PKLocalizedPaymentString(&cfstr_Continue.isa);
+    v51 = PKLocalizedPaymentString(&cfstr_Continue.isa);
 LABEL_36:
-    v52 = v50;
+    v53 = v51;
     goto LABEL_37;
   }
 
@@ -886,89 +886,89 @@ LABEL_36:
       [(PKAccountBillPaymentViewController *)self _updatePayNowButtonTitleWithAmount:_paymentAmount];
 
       [(UIButton *)self->_primaryButton addTarget:self action:sel__payNowButtonTapped_ forControlEvents:64];
-      v52 = PKLocalizedFeatureString();
+      v53 = PKLocalizedFeatureString();
       if (_UISolariumFeatureFlagEnabled() && (PKIsVision() & 1) == 0)
       {
         prominentGlassButtonConfiguration2 = [MEMORY[0x1E69DC740] prominentGlassButtonConfiguration];
-        [prominentGlassButtonConfiguration2 setTitle:v52];
+        [prominentGlassButtonConfiguration2 setTitle:v53];
         labelColor = [MEMORY[0x1E69DC888] labelColor];
         [prominentGlassButtonConfiguration2 setBaseForegroundColor:labelColor];
 
-        v123[0] = MEMORY[0x1E69E9820];
-        v123[1] = 3221225472;
-        v123[2] = __46__PKAccountBillPaymentViewController_loadView__block_invoke_4;
-        v123[3] = &unk_1E8013EE8;
-        v124 = v115;
-        [prominentGlassButtonConfiguration2 setTitleTextAttributesTransformer:v123];
-        v69 = [MEMORY[0x1E69DC738] buttonWithConfiguration:prominentGlassButtonConfiguration2 primaryAction:0];
+        v124[0] = MEMORY[0x1E69E9820];
+        v124[1] = 3221225472;
+        v124[2] = __46__PKAccountBillPaymentViewController_loadView__block_invoke_4;
+        v124[3] = &unk_1E8013EE8;
+        v125 = v116;
+        [prominentGlassButtonConfiguration2 setTitleTextAttributesTransformer:v124];
+        v70 = [MEMORY[0x1E69DC738] buttonWithConfiguration:prominentGlassButtonConfiguration2 primaryAction:0];
         secondaryButton = self->_secondaryButton;
-        self->_secondaryButton = v69;
+        self->_secondaryButton = v70;
 
-        v71 = self->_secondaryButton;
+        v72 = self->_secondaryButton;
         systemGray6Color = [MEMORY[0x1E69DC888] systemGray6Color];
-        [(UIButton *)v71 setTintColor:systemGray6Color];
+        [(UIButton *)v72 setTintColor:systemGray6Color];
       }
 
       else
       {
         tertiarySystemFillColor = [MEMORY[0x1E69DC888] tertiarySystemFillColor];
         labelColor2 = [MEMORY[0x1E69DC888] labelColor];
-        v55 = v116[2](v116, tertiarySystemFillColor, labelColor2);
-        v56 = self->_secondaryButton;
-        self->_secondaryButton = v55;
+        v56 = v117[2](v117, tertiarySystemFillColor, labelColor2);
+        v57 = self->_secondaryButton;
+        self->_secondaryButton = v56;
 
-        [(UIButton *)self->_secondaryButton setTitle:v52 forState:0];
+        [(UIButton *)self->_secondaryButton setTitle:v53 forState:0];
       }
 
       [(UIButton *)self->_secondaryButton addTarget:self action:sel__payLaterButtonTapped_ forControlEvents:64];
       [(UIButton *)self->_secondaryButton sizeToFit];
       [(UIButton *)self->_secondaryButton setAccessibilityIdentifier:*MEMORY[0x1E69B9BE0]];
-      v73 = MEMORY[0x1E69DC628];
-      v121[0] = MEMORY[0x1E69E9820];
-      v121[1] = 3221225472;
-      v121[2] = __46__PKAccountBillPaymentViewController_loadView__block_invoke_5;
-      v121[3] = &unk_1E8010A60;
-      objc_copyWeak(&v122, &location);
-      v74 = [v73 actionWithHandler:v121];
-      v75 = PKLocalizedFeatureString();
-      v76 = PKOBKLearnMoreButton(@"keyboard.chevron.compact.down.fill", v75, v74);
+      v74 = MEMORY[0x1E69DC628];
+      v122[0] = MEMORY[0x1E69E9820];
+      v122[1] = 3221225472;
+      v122[2] = __46__PKAccountBillPaymentViewController_loadView__block_invoke_5;
+      v122[3] = &unk_1E8010A60;
+      objc_copyWeak(&v123, &location);
+      v75 = [v74 actionWithHandler:v122];
+      v76 = PKLocalizedFeatureString();
+      v77 = PKOBKLearnMoreButton(@"keyboard.chevron.compact.down.fill", v76, v75);
       tertiaryButton = self->_tertiaryButton;
-      self->_tertiaryButton = v76;
+      self->_tertiaryButton = v77;
 
       [(UIButton *)self->_tertiaryButton sizeToFit];
       [(UIButton *)self->_tertiaryButton setAccessibilityIdentifier:*MEMORY[0x1E69B9D10]];
 
-      objc_destroyWeak(&v122);
+      objc_destroyWeak(&v123);
       goto LABEL_45;
     }
 
-    v50 = PKLocalizedString(&cfstr_Done.isa);
+    v51 = PKLocalizedString(&cfstr_Done.isa);
     goto LABEL_36;
   }
 
-  v52 = PKLocalizedFeatureString();
-  v57 = MEMORY[0x1E69DC740];
-  v58 = PKLocalizedFeatureString();
-  v59 = PKFontForDefaultDesign(v114, v117);
-  v60 = [v57 pkui_plainConfigurationWithTitle:v58 font:v59];
+  v53 = PKLocalizedFeatureString();
+  v58 = MEMORY[0x1E69DC740];
+  v59 = PKLocalizedFeatureString();
+  v60 = PKFontForDefaultDesign(v115, v118);
+  v61 = [v58 pkui_plainConfigurationWithTitle:v59 font:v60];
 
-  v61 = MEMORY[0x1E69DC628];
-  v119[0] = MEMORY[0x1E69E9820];
-  v119[1] = 3221225472;
-  v119[2] = __46__PKAccountBillPaymentViewController_loadView__block_invoke_6;
-  v119[3] = &unk_1E8010A60;
-  objc_copyWeak(&v120, &location);
-  v62 = [v61 actionWithHandler:v119];
-  v63 = [MEMORY[0x1E69DC738] buttonWithConfiguration:v60 primaryAction:v62];
-  v64 = self->_tertiaryButton;
-  self->_tertiaryButton = v63;
+  v62 = MEMORY[0x1E69DC628];
+  v120[0] = MEMORY[0x1E69E9820];
+  v120[1] = 3221225472;
+  v120[2] = __46__PKAccountBillPaymentViewController_loadView__block_invoke_6;
+  v120[3] = &unk_1E8010A60;
+  objc_copyWeak(&v121, &location);
+  v63 = [v62 actionWithHandler:v120];
+  v64 = [MEMORY[0x1E69DC738] buttonWithConfiguration:v61 primaryAction:v63];
+  v65 = self->_tertiaryButton;
+  self->_tertiaryButton = v64;
 
   [(UIButton *)self->_tertiaryButton setConfigurationUpdateHandler:&__block_literal_global_145_0];
   [(UIButton *)self->_tertiaryButton sizeToFit];
 
-  objc_destroyWeak(&v120);
+  objc_destroyWeak(&v121);
 LABEL_37:
-  objc_storeStrong(&self->_payNowButtonTitle, v52);
+  objc_storeStrong(&self->_payNowButtonTitle, v53);
   if (_UISolariumFeatureFlagEnabled() && (PKIsVision() & 1) == 0)
   {
     [(UIButton *)self->_primaryButton setNeedsUpdateConfiguration];
@@ -976,15 +976,15 @@ LABEL_37:
 
   else
   {
-    [(UIButton *)self->_primaryButton setTitle:v52 forState:0];
+    [(UIButton *)self->_primaryButton setTitle:v53 forState:0];
   }
 
   [(UIButton *)self->_primaryButton addTarget:self action:sel__interstitialButtonTapped_ forControlEvents:64];
   if (self->_featuredViewState == 2)
   {
-    v65 = objc_alloc_init(MEMORY[0x1E69DCAE0]);
+    v66 = objc_alloc_init(MEMORY[0x1E69DCAE0]);
     productHeroView = self->_productHeroView;
-    self->_productHeroView = v65;
+    self->_productHeroView = v66;
 
     [(UIImageView *)self->_productHeroView setAccessibilityIgnoresInvertColors:1];
     [(PKAccountBillPaymentViewController *)self _configureProductHeroView];
@@ -993,9 +993,9 @@ LABEL_37:
 LABEL_45:
 
   [(UIButton *)self->_primaryButton sizeToFit];
-  v78 = objc_alloc_init(MEMORY[0x1E69DCEF8]);
+  v79 = objc_alloc_init(MEMORY[0x1E69DCEF8]);
   scrollView = self->_scrollView;
-  self->_scrollView = v78;
+  self->_scrollView = v79;
 
   [(UIScrollView *)self->_scrollView setDelegate:self];
   if (_UISolariumFeatureFlagEnabled())
@@ -1005,28 +1005,28 @@ LABEL_45:
       [(UIScrollView *)self->_scrollView setContentInsetAdjustmentBehavior:2];
     }
 
-    v80 = objc_alloc_init(MEMORY[0x1E69DD250]);
+    v81 = objc_alloc_init(MEMORY[0x1E69DD250]);
     buttonContainerView = self->_buttonContainerView;
-    self->_buttonContainerView = v80;
+    self->_buttonContainerView = v81;
 
-    v82 = self->_buttonContainerView;
+    v83 = self->_buttonContainerView;
     clearColor = [MEMORY[0x1E69DC888] clearColor];
-    [(UIView *)v82 setBackgroundColor:clearColor];
+    [(UIView *)v83 setBackgroundColor:clearColor];
   }
 
   else
   {
-    v84 = [_PKVisibilityBackdropView alloc];
-    v85 = [(_PKVisibilityBackdropView *)v84 initWithFrame:-2 privateStyle:*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
+    v85 = [_PKVisibilityBackdropView alloc];
+    v86 = [(_PKVisibilityBackdropView *)v85 initWithFrame:-2 privateStyle:*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
     blurringView = self->_blurringView;
-    self->_blurringView = v85;
+    self->_blurringView = v86;
 
     [(_PKVisibilityBackdropView *)self->_blurringView setDelegate:self];
     [(_PKVisibilityBackdropView *)self->_blurringView setUserInteractionEnabled:1];
     [(_PKVisibilityBackdropView *)self->_blurringView pkui_setVisibility:0 animated:0.0];
-    v87 = self->_blurringView;
+    v88 = self->_blurringView;
     clearColor = self->_buttonContainerView;
-    self->_buttonContainerView = &v87->super.super;
+    self->_buttonContainerView = &v88->super.super;
   }
 
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
@@ -1034,7 +1034,7 @@ LABEL_45:
   [defaultCenter addObserver:self selector:sel_keyboardDidShow_ name:*MEMORY[0x1E69DDF78] object:0];
   [defaultCenter addObserver:self selector:sel_keyboardWillChange_ name:*MEMORY[0x1E69DE068] object:0];
   [defaultCenter addObserver:self selector:sel_keyboardWillHide_ name:*MEMORY[0x1E69DE078] object:0];
-  v113 = defaultCenter;
+  v114 = defaultCenter;
   view2 = [(PKAccountBillPaymentViewController *)self view];
   backgroundColor2 = [objc_opt_class() backgroundColor];
   [view2 setBackgroundColor:backgroundColor2];
@@ -1070,10 +1070,10 @@ LABEL_45:
   [(UIScrollView *)self->_scrollView addSubview:self->_subtitleLabel];
   [(UIScrollView *)self->_scrollView addSubview:self->_smallRingInterestLabel];
   [view2 setUserInteractionEnabled:self->_viewIsEnabled];
-  v91 = !self->_buttonsArePayButtons || self->_payButtonsEnabled;
-  [(UIButton *)self->_primaryButton setEnabled:v91];
-  v92 = self->_shouldEnablePayLaterButton && self->_payButtonsEnabled;
-  [(UIButton *)self->_secondaryButton setEnabled:v92];
+  v92 = !self->_buttonsArePayButtons || self->_payButtonsEnabled;
+  [(UIButton *)self->_primaryButton setEnabled:v92];
+  v93 = self->_shouldEnablePayLaterButton && self->_payButtonsEnabled;
+  [(UIButton *)self->_secondaryButton setEnabled:v93];
   if ((_UISolariumFeatureFlagEnabled() & 1) == 0)
   {
     [(UIButton *)self->_primaryButton setShowSpinner:!self->_viewIsEnabled];
@@ -1083,52 +1083,52 @@ LABEL_45:
   traitCollection = [(PKAccountBillPaymentViewController *)self traitCollection];
   preferredContentSizeCategory = [traitCollection preferredContentSizeCategory];
 
-  v95 = *MEMORY[0x1E69DDC70];
+  v96 = *MEMORY[0x1E69DDC70];
   self->_usesAccessibilityLayout = UIContentSizeCategoryCompareToCategory(preferredContentSizeCategory, *MEMORY[0x1E69DDC70]) == NSOrderedDescending;
   self->_usesLargestAccessibilityLayout = UIContentSizeCategoryCompareToCategory(preferredContentSizeCategory, *MEMORY[0x1E69DDC20]) < 2;
   _interestLabelIsOutsideSmallRing = [(PKAccountBillPaymentViewController *)self _interestLabelIsOutsideSmallRing];
-  v97 = *MEMORY[0x1E69DDD28];
+  v98 = *MEMORY[0x1E69DDD28];
   if (_interestLabelIsOutsideSmallRing)
   {
-    v98 = *MEMORY[0x1E69DDD28];
+    v99 = *MEMORY[0x1E69DDD28];
   }
 
   else
   {
-    v98 = v114;
+    v99 = v115;
   }
 
   if (_interestLabelIsOutsideSmallRing)
   {
-    v99 = v117;
+    v100 = v118;
   }
 
   else
   {
-    v99 = v95;
+    v100 = v96;
   }
 
-  v100 = PKFontForDesign(*MEMORY[0x1E69DB8D8], v98, v99, 0x8000, 0);
-  pk_fixedWidthFont = [v100 pk_fixedWidthFont];
+  v101 = PKFontForDesign(*MEMORY[0x1E69DB8D8], v99, v100, 0x8000, 0);
+  pk_fixedWidthFont = [v101 pk_fixedWidthFont];
 
-  v135 = *MEMORY[0x1E69DB648];
-  v102 = v135;
-  v136[0] = pk_fixedWidthFont;
-  v103 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v136 forKeys:&v135 count:1];
-  v104 = [v103 mutableCopy];
+  v136 = *MEMORY[0x1E69DB648];
+  v103 = v136;
+  v137[0] = pk_fixedWidthFont;
+  v104 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v137 forKeys:&v136 count:1];
+  v105 = [v104 mutableCopy];
   smallRingInterestAttributes = self->_smallRingInterestAttributes;
-  self->_smallRingInterestAttributes = v104;
+  self->_smallRingInterestAttributes = v105;
 
-  v106 = PKFontForDefaultDesign(v97, v117, 0x8000, 0);
-  v134[0] = v106;
-  v107 = *MEMORY[0x1E69DB650];
-  v133[0] = v102;
-  v133[1] = v107;
+  v107 = PKFontForDefaultDesign(v98, v118, 0x8000, 0);
+  v135[0] = v107;
+  v108 = *MEMORY[0x1E69DB650];
+  v134[0] = v103;
+  v134[1] = v108;
   secondaryLabelColor = [MEMORY[0x1E69DC888] secondaryLabelColor];
-  v134[1] = secondaryLabelColor;
-  v109 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v134 forKeys:v133 count:2];
+  v135[1] = secondaryLabelColor;
+  v110 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v135 forKeys:v134 count:2];
   smallRingInterestDateAttributes = self->_smallRingInterestDateAttributes;
-  self->_smallRingInterestDateAttributes = v109;
+  self->_smallRingInterestDateAttributes = v110;
 
   [(PKAccountBillPaymentViewController *)self _updateNavigationTitle];
   [(PKAccountBillPaymentViewController *)self _updateForShowKeyboardAnimated:0];
@@ -1137,8 +1137,8 @@ LABEL_45:
 
   if (_UISolariumFeatureFlagEnabled() && (PKIsVision() & 1) == 0)
   {
-    v112 = [objc_alloc(MEMORY[0x1E69DD6C0]) initWithScrollView:self->_scrollView edge:4];
-    [(UIView *)self->_buttonContainerView addInteraction:v112];
+    v113 = [objc_alloc(MEMORY[0x1E69DD6C0]) initWithScrollView:self->_scrollView edge:4];
+    [(UIView *)self->_buttonContainerView addInteraction:v113];
   }
 
   objc_destroyWeak(&location);
@@ -1236,20 +1236,20 @@ void __46__PKAccountBillPaymentViewController_loadView__block_invoke_7(uint64_t 
 
 - (void)viewWillLayoutSubviews
 {
-  v89.receiver = self;
-  v89.super_class = PKAccountBillPaymentViewController;
-  [(PKAccountBillPaymentViewController *)&v89 viewWillLayoutSubviews];
+  v90.receiver = self;
+  v90.super_class = PKAccountBillPaymentViewController;
+  [(PKAccountBillPaymentViewController *)&v90 viewWillLayoutSubviews];
   v3 = objc_autoreleasePoolPush();
   self->_inLayoutSubviews = 1;
   view = [(PKAccountBillPaymentViewController *)self view];
   [view safeAreaInsets];
   v6 = v5;
-  v77 = v7;
+  v78 = v7;
   [view bounds];
   v9 = v8;
   v11 = v10;
-  v80 = v12;
-  v81 = v13;
+  v81 = v12;
+  v82 = v13;
   [(UIScrollView *)self->_scrollView setFrame:?];
   memset(&slice, 0, sizeof(slice));
   memset(&remainder, 0, sizeof(remainder));
@@ -1271,64 +1271,66 @@ void __46__PKAccountBillPaymentViewController_loadView__block_invoke_7(uint64_t 
     v17 = 19.0;
   }
 
-  v83 = v17;
-  v82 = 0.0;
-  v78 = v15;
+  v84 = v17;
+  v83 = 0.0;
+  v79 = v15;
   v18 = v15;
   if (_UISolariumFeatureFlagEnabled())
   {
-    v90.origin.x = v80;
-    v90.origin.y = v81;
-    v90.size.width = v9;
-    v90.size.height = v11;
-    v19 = CGRectGetMaxY(v90) + -48.0;
+    v91.origin.x = v81;
+    v91.origin.y = v82;
+    v91.size.width = v9;
+    v91.size.height = v11;
+    v19 = CGRectGetMaxY(v91) + -48.0;
     view2 = [(PKAccountBillPaymentViewController *)self view];
     [view2 _concentricEdgeInsetsForEdge:4 bounds:0.0 minimumEdgeInsets:{v19, v9, 48.0, 0.0, 28.0, 28.0, 28.0}];
     v22 = v21;
-    v82 = v23;
+    v83 = v23;
     v25 = v24;
 
     v18 = v9 - (v22 + v25);
-    v83 = 12.0;
+    v84 = 12.0;
   }
 
   v26 = PKUIGetMinScreenWidthType();
-  v27 = 15.0;
+  v28.n128_u64[0] = 15.0;
   if (!v26)
   {
-    v27 = 10.0;
+    v28.n128_f64[0] = 10.0;
   }
 
-  v75 = v27;
-  PKFloatRoundToPixel();
-  v29 = v28;
+  v76 = v28.n128_u64[0];
+  v27.n128_u64[0] = 0.5;
+  v28.n128_f64[0] = (v18 - v28.n128_f64[0]) * 0.5;
+  PKFloatRoundToPixel(v28, v27);
+  v30 = v29;
   [(UIButton *)self->_secondaryButton sizeThatFits:1.79769313e308, 48.0];
-  v31 = v30;
+  v32 = v31;
   [(UIButton *)self->_primaryButton sizeThatFits:1.79769313e308, 48.0];
-  v33 = v31 <= v29 && v32 <= v29;
-  v76 = v18;
-  if (v33 && self->_primaryButton && self->_secondaryButton)
+  v34 = v32 <= v30 && v33 <= v30;
+  v77 = v18;
+  if (v34 && self->_primaryButton && self->_secondaryButton)
   {
-    v34 = 0;
+    v35 = 0;
   }
 
   else
   {
-    v34 = 1;
-    v29 = v18;
+    v35 = 1;
+    v30 = v18;
   }
 
-  [(PKAccountBillPaymentViewController *)self _buttonHeightForButtonWidth:v29];
-  v36 = v35;
-  remainder.origin.x = v80;
-  remainder.origin.y = v81;
+  [(PKAccountBillPaymentViewController *)self _buttonHeightForButtonWidth:v30];
+  v37 = v36;
+  remainder.origin.x = v81;
+  remainder.origin.y = v82;
   remainder.size.width = v9;
   remainder.size.height = v11;
-  v79 = v11;
-  v37 = v83 + v82 + v35;
+  v80 = v11;
+  v38 = v84 + v83 + v36;
   if (self->_showKeyboard)
   {
-    v74 = v6;
+    v75 = v6;
     if (self->_visibility - 1 > 1)
     {
       x = self->_lastKeyboardFrame.origin.x;
@@ -1346,64 +1348,64 @@ void __46__PKAccountBillPaymentViewController_loadView__block_invoke_7(uint64_t 
       if (!CGRectIsNull(self->_keyboardFrame))
       {
         window = [view window];
-        v43 = window;
+        v44 = window;
         if (window)
         {
           [window convertRect:0 fromWindow:{self->_keyboardFrame.origin.x, self->_keyboardFrame.origin.y, self->_keyboardFrame.size.width, self->_keyboardFrame.size.height}];
           [view convertRect:0 fromView:?];
-          x = v44;
-          y = v45;
-          width = v46;
-          height = v47;
+          x = v45;
+          y = v46;
+          width = v47;
+          height = v48;
         }
       }
     }
 
-    v91.origin.x = x;
-    v91.origin.y = y;
-    v91.size.width = width;
-    v91.size.height = height;
-    if (!CGRectIsNull(v91) && (PKUIKeyboardIsHardwareKeyboardActive() & 1) == 0)
+    v92.origin.x = x;
+    v92.origin.y = y;
+    v92.size.width = width;
+    v92.size.height = height;
+    if (!CGRectIsNull(v92) && (PKUIKeyboardIsHardwareKeyboardActive() & 1) == 0)
     {
-      v49 = fmax(v81 + v79 - y, 0.0);
-      v50 = v49 + 16.0;
-      v51 = v49 <= 0.0;
-      if (v49 > 0.0)
+      v50 = fmax(v82 + v80 - y, 0.0);
+      v51 = v50 + 16.0;
+      v52 = v50 <= 0.0;
+      if (v50 > 0.0)
       {
-        v37 = v36 + v49 + 16.0;
+        v38 = v37 + v50 + 16.0;
       }
 
-      v52 = v83;
-      if (v51)
+      v53 = v84;
+      if (v52)
       {
-        v53 = v82;
+        v54 = v83;
       }
 
       else
       {
-        v53 = v50;
+        v54 = v51;
       }
 
-      if (!v51)
+      if (!v52)
       {
-        v52 = 0.0;
+        v53 = 0.0;
       }
 
-      v82 = v53;
-      v83 = v52;
+      v83 = v54;
+      v84 = v53;
     }
 
     self->_lastKeyboardFrame.origin.x = x;
     self->_lastKeyboardFrame.origin.y = y;
     self->_lastKeyboardFrame.size.width = width;
     self->_lastKeyboardFrame.size.height = height;
-    v6 = v74;
-    if (v34)
+    v6 = v75;
+    if (v35)
     {
 LABEL_42:
       if (self->_primaryButton && self->_secondaryButton)
       {
-        v37 = v36 + 15.0 + v37;
+        v38 = v37 + 15.0 + v38;
       }
     }
   }
@@ -1412,13 +1414,13 @@ LABEL_42:
   {
     if (self->_tertiaryButton && (_UISolariumFeatureFlagEnabled() & 1) == 0)
     {
-      v37 = v37 + v36 + 3.0 + 3.0;
+      v38 = v38 + v37 + 3.0 + 3.0;
     }
 
-    v48 = *(MEMORY[0x1E695F050] + 16);
+    v49 = *(MEMORY[0x1E695F050] + 16);
     self->_lastKeyboardFrame.origin = *MEMORY[0x1E695F050];
-    self->_lastKeyboardFrame.size = v48;
-    if (v34)
+    self->_lastKeyboardFrame.size = v49;
+    if (v35)
     {
       goto LABEL_42;
     }
@@ -1426,76 +1428,76 @@ LABEL_42:
 
   if (_UISolariumFeatureFlagEnabled())
   {
-    v54 = 0.0;
+    v55 = 0.0;
   }
 
   else
   {
-    v54 = v77;
+    v55 = v78;
   }
 
-  v55 = v37 + v54;
-  v92.origin.x = v80;
-  v92.origin.y = v81;
-  v92.size.width = v9;
-  v92.size.height = v79;
-  CGRectDivide(v92, &slice, &remainder, v37 + v54, CGRectMaxYEdge);
+  v56 = v38 + v55;
+  v93.origin.x = v81;
+  v93.origin.y = v82;
+  v93.size.width = v9;
+  v93.size.height = v80;
+  CGRectDivide(v93, &slice, &remainder, v38 + v55, CGRectMaxYEdge);
   [(UIView *)self->_buttonContainerView setFrame:slice.origin.x, slice.origin.y, slice.size.width, slice.size.height];
   [(UIView *)self->_buttonContainerView layoutIfNeeded];
   [(UIScrollView *)self->_scrollView contentInset];
-  v58 = v57;
-  v59 = 20.0;
+  v59 = v58;
+  v60 = 20.0;
   if (self->_showKeyboard)
   {
-    v59 = 0.0;
+    v60 = 0.0;
   }
 
-  v60 = v55 - v54;
-  if (v6 + v59 != v58 || v60 != v56)
+  v61 = v56 - v55;
+  if (v6 + v60 != v59 || v61 != v57)
   {
-    [(UIScrollView *)self->_scrollView setContentInset:*&v74];
+    [(UIScrollView *)self->_scrollView setContentInset:*&v75];
   }
 
-  v61 = v82 + v54;
+  v62 = v83 + v55;
   [(UIScrollView *)self->_scrollView verticalScrollIndicatorInsets];
-  if (v60 != v62)
+  if (v61 != v63)
   {
     [(UIScrollView *)self->_scrollView setVerticalScrollIndicatorInsets:?];
   }
 
-  *v84 = v78;
-  *&v84[1] = v76;
-  *&v84[2] = v29;
-  *&v84[3] = v36;
-  *&v84[4] = v75;
-  *&v84[5] = v83;
-  *&v84[6] = v61;
-  v85 = v34;
-  memset(v86, 0, sizeof(v86));
-  [(PKAccountBillPaymentViewController *)self _layoutFooterWithState:v84];
-  [(PKAccountBillPaymentViewController *)self _layoutScrollViewWithContentWidth:v78];
-  v64 = v63;
-  v66 = v65;
+  *v85 = v79;
+  *&v85[1] = v77;
+  *&v85[2] = v30;
+  *&v85[3] = v37;
+  v85[4] = v76;
+  *&v85[5] = v84;
+  *&v85[6] = v62;
+  v86 = v35;
+  memset(v87, 0, sizeof(v87));
+  [(PKAccountBillPaymentViewController *)self _layoutFooterWithState:v85];
+  [(PKAccountBillPaymentViewController *)self _layoutScrollViewWithContentWidth:v79];
+  v65 = v64;
+  v67 = v66;
   [(UIScrollView *)self->_scrollView contentSize];
-  if (v64 != v68 || v66 != v67)
+  if (v65 != v69 || v67 != v68)
   {
-    [(UIScrollView *)self->_scrollView setContentSize:v64, v66];
+    [(UIScrollView *)self->_scrollView setContentSize:v65, v67];
   }
 
   if ((_UISolariumFeatureFlagEnabled() & 1) == 0)
   {
     [(UIScrollView *)self->_scrollView bounds];
-    if (v66 <= v70 - v6 - v55)
+    if (v67 <= v71 - v6 - v56)
     {
-      v71 = 0.0;
+      v72 = 0.0;
     }
 
     else
     {
-      v71 = fmin(fmax((v66 - v69 - (v79 - v55)) / (v79 - v55 + 8.0 - (v79 - v55)), 0.0), 1.0);
+      v72 = fmin(fmax((v67 - v70 - (v80 - v56)) / (v80 - v56 + 8.0 - (v80 - v56)), 0.0), 1.0);
     }
 
-    [(_PKVisibilityBackdropView *)self->_blurringView pkui_setVisibility:0 animated:v71];
+    [(_PKVisibilityBackdropView *)self->_blurringView pkui_setVisibility:0 animated:v72];
     scrollView = self->_scrollView;
     navigationItem = [(PKAccountBillPaymentViewController *)self navigationItem];
     [(UIScrollView *)scrollView pkui_adjustManualScrollEdgeAppearanceProgressForNavigationItem:navigationItem];
@@ -1515,16 +1517,16 @@ LABEL_42:
 - (CGSize)_layoutScrollViewWithContentWidth:(double)width
 {
   [(UIScrollView *)self->_scrollView bounds];
-  v104 = v5;
+  v128 = v5;
   [(UILabel *)self->_titleLabel sizeThatFits:width, 1.79769313e308];
-  v128 = v7;
-  v130 = v6;
+  v154 = v7;
+  v156 = v6;
   [(UILabel *)self->_subtitleLabel sizeThatFits:width, 1.79769313e308];
-  v124 = v9;
-  v126 = v8;
+  v150 = v9;
+  v152 = v8;
   [(PKAccountBillPaymentAmountDescriptionView *)self->_amountDescriptionView sizeThatFits:width, 1.79769313e308];
-  v132 = v11;
-  v134 = v10;
+  v158 = v11;
+  v160 = v10;
   widthCopy = width;
   [(PKBillPaymentRingView *)self->_ringView sizeThatFits:width, 1.79769313e308];
   v13 = v12;
@@ -1553,10 +1555,10 @@ LABEL_42:
     v21 = v13;
   }
 
-  v115 = v21;
-  v117 = v25;
+  v141 = v21;
+  v143 = v25;
   v26 = 1.0;
-  v120 = v24;
+  v146 = v24;
   if (self->_showKeyboard)
   {
     v27 = v24;
@@ -1573,21 +1575,23 @@ LABEL_42:
     v26 = 0.05;
   }
 
-  v119 = v26;
+  v145 = v26;
   v28 = MEMORY[0x1E695EFF8];
   v29 = *MEMORY[0x1E695EFF8];
   v30 = *(MEMORY[0x1E695EFF8] + 8);
-  [(UILabel *)self->_titleLabel setBounds:*MEMORY[0x1E695EFF8], v30, v130, v128];
-  [(UILabel *)self->_subtitleLabel setBounds:v29, v30, v126, v124];
-  [(PKAccountBillPaymentAmountDescriptionView *)self->_amountDescriptionView setBounds:v29, v30, v134, v132];
+  [(UILabel *)self->_titleLabel setBounds:*MEMORY[0x1E695EFF8], v30, v156, v154];
+  [(UILabel *)self->_subtitleLabel setBounds:v29, v30, v152, v150];
+  [(PKAccountBillPaymentAmountDescriptionView *)self->_amountDescriptionView setBounds:v29, v30, v160, v158];
+  v137 = *&v20;
+  v139 = *&v18;
   [(UIImageView *)self->_productHeroView setBounds:v29, v30, v18, v20];
-  v122 = v29;
+  v148 = v29;
   [(PKBillPaymentRingView *)self->_ringView setBounds:v29, v30, v13, v15];
   [(PKBillPaymentRingView *)self->_ringView layoutIfNeeded];
   _interestLabelIsOutsideSmallRing = [(PKAccountBillPaymentViewController *)self _interestLabelIsOutsideSmallRing];
   if (_interestLabelIsOutsideSmallRing)
   {
-    v32 = widthCopy;
+    v32 = *&widthCopy;
     [(UILabel *)self->_smallRingInterestLabel sizeThatFits:widthCopy, 1.79769313e308];
     v34 = v33;
     v36 = v35;
@@ -1596,93 +1600,103 @@ LABEL_42:
   else
   {
     [(PKBillPaymentRingView *)self->_ringView ringWidth];
-    [(UILabel *)self->_smallRingInterestLabel sizeThatFits:v23 + v37 * -2.0 * v120 + -10.0, v23 + v37 * -2.0 * v120 + -10.0];
+    [(UILabel *)self->_smallRingInterestLabel sizeThatFits:v23 + v37 * -2.0 * v146 + -10.0, v23 + v37 * -2.0 * v146 + -10.0];
     v34 = v38;
     v36 = v39;
-    v32 = widthCopy;
+    v32 = *&widthCopy;
   }
 
-  [(UILabel *)self->_smallRingInterestLabel setBounds:v122, v30, v34, v36];
+  [(UILabel *)self->_smallRingInterestLabel setBounds:v148, v30, v34, v36];
   [(UIScrollView *)self->_scrollView bounds];
-  v40 = *MEMORY[0x1E69BB7F8];
-  PKSizeAlignedInRect();
-  v42 = v41;
-  v141 = 0;
-  v142 = &v141;
-  v143 = 0x3010000000;
-  v144 = &unk_1BE347799;
-  v145 = *v28;
+  v41 = v40;
+  v43 = v42;
+  v45.n128_u64[0] = v44;
+  v47 = v46;
+  v48 = *MEMORY[0x1E69BB7F8];
+  v49.n128_u64[0] = v32;
+  v50.n128_u64[0] = 0x7FEFFFFFFFFFFFFFLL;
+  v51.n128_u64[0] = v41;
+  v52.n128_u64[0] = v43;
+  v53.n128_u64[0] = v45.n128_u64[0];
+  v54.n128_u64[0] = v47;
+  PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v49, v50, v51, v52, v53, v54, v45);
+  v56 = v55;
+  v167 = 0;
+  v168 = &v167;
+  v169 = 0x3010000000;
+  v170 = &unk_1BE347799;
+  v171 = *v28;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __72__PKAccountBillPaymentViewController__layoutScrollViewWithContentWidth___block_invoke;
   aBlock[3] = &unk_1E8013D10;
-  aBlock[4] = &v141;
-  *&aBlock[5] = v32;
-  v43 = _Block_copy(aBlock);
-  v44 = v40;
+  aBlock[4] = &v167;
+  aBlock[5] = v32;
+  v57 = _Block_copy(aBlock);
+  v58 = v48;
   if ((PKIsVision() & 1) == 0)
   {
     view = [(PKAccountBillPaymentViewController *)self view];
     [view _shouldReverseLayoutDirection];
 
-    v44 = PKContentAlignmentMake();
+    v58 = PKContentAlignmentMake();
   }
 
-  v109 = v36;
-  v111 = v34;
-  v46 = *MEMORY[0x1E695F058];
-  v47 = *(MEMORY[0x1E695F058] + 8);
-  v49 = *(MEMORY[0x1E695F058] + 16);
-  v48 = *(MEMORY[0x1E695F058] + 24);
-  v50 = v142;
-  *(v142 + 4) = v42;
-  v139 = *(v50 + 2);
-  v121 = v48;
+  v133 = v36;
+  v135 = v34;
+  v60 = *MEMORY[0x1E695F058];
+  v61 = *(MEMORY[0x1E695F058] + 8);
+  v63 = *(MEMORY[0x1E695F058] + 16);
+  v62 = *(MEMORY[0x1E695F058] + 24);
+  v64 = v168;
+  *(v168 + 4) = v56;
+  v165 = *(v64 + 2);
+  v147 = v62;
   if (self->_titleLabel)
   {
-    v107 = v43[2](v43, v44, v130 * v119, v128 * v119);
-    v129 = v51;
-    v131 = v52;
-    v54 = v53;
-    v55 = _UISolariumFeatureFlagEnabled();
-    v56 = 15.0;
-    if (v55)
+    v131 = v57[2](v57, v58, v156 * v145, v154 * v145);
+    v155 = v65;
+    v157 = v66;
+    v68 = v67;
+    v69 = _UISolariumFeatureFlagEnabled();
+    v70 = 15.0;
+    if (v69)
     {
-      v56 = 0.0;
+      v70 = 0.0;
     }
 
-    v50 = v142;
-    v142[5] = v142[5] + v119 * v56;
+    v64 = v168;
+    v168[5] = v168[5] + v145 * v70;
   }
 
   else
   {
-    v54 = v48;
-    v129 = v47;
-    v131 = v49;
-    v107 = v46;
+    v68 = v62;
+    v155 = v61;
+    v157 = v63;
+    v131 = v60;
   }
 
   if (self->_subtitleLabel)
   {
-    v57 = v43[2](v43, v44, v126 * v119, v124 * v119);
-    v121 = v58;
-    v46 = v57;
-    v47 = v59;
-    v49 = v60;
-    v50 = v142;
+    v71 = v57[2](v57, v58, v152 * v145, v150 * v145);
+    v147 = v72;
+    v60 = v71;
+    v61 = v73;
+    v63 = v74;
+    v64 = v168;
   }
 
   if (self->_showKeyboard)
   {
-    *(v50 + 2) = v139;
+    *(v64 + 2) = v165;
   }
 
-  v138 = *(v50 + 2);
-  v125 = v47;
-  v127 = v49;
-  v106 = v54;
-  v105 = v46;
+  v164 = *(v64 + 2);
+  v151 = v61;
+  v153 = v63;
+  v130 = v68;
+  v129 = v60;
   if (self->_featuredViewState == 1)
   {
     if (self->_showKeyboard)
@@ -1695,108 +1709,127 @@ LABEL_42:
       [objc_opt_class() ringTopMargin];
     }
 
-    v50 = v142;
-    v62 = v142[5];
+    v64 = v168;
+    v76 = v168[5];
   }
 
   else
   {
-    v61 = v50[5];
-    v62 = 20.0;
+    v75 = v64[5];
+    v76 = 20.0;
   }
 
-  v50[5] = v61 + v62;
-  v63 = v43[2](v43, v40, v115, v117);
-  v65 = v64;
-  v67 = v66;
-  v69 = v68;
-  PKSizeAlignedInRect();
-  v116 = v71;
-  v118 = v70;
-  v113 = v73;
-  v114 = v72;
+  v64[5] = v75 + v76;
+  v77 = v57[2](v57, v48, v141, v143);
+  v79 = v78;
+  v81 = v80;
+  v83 = v82;
+  v85.n128_u64[0] = v137;
+  v84.n128_u64[0] = v139;
+  v86.n128_f64[0] = v77;
+  v87.n128_f64[0] = v79;
+  v88.n128_f64[0] = v81;
+  v89.n128_f64[0] = v83;
+  PKSizeAlignedInRect(v48, v84, v85, v86, v87, v88, v89, v90);
+  v142 = v92.n128_f64[0];
+  v144 = v91.n128_f64[0];
+  v138 = v94.n128_f64[0];
+  v140 = v93.n128_f64[0];
   if (!self->_featuredViewState)
   {
-    *(v142 + 2) = v138;
+    v91.n128_u64[1] = *(&v164 + 1);
+    *(v168 + 2) = v164;
   }
 
   if (_interestLabelIsOutsideSmallRing)
   {
-    v142[5] = v142[5] + 8.0;
-    v43[2](v43, v40, v111, v109);
+    v168[5] = v168[5] + 8.0;
+    v57[2](v57, v48, v135, v133);
   }
 
   else
   {
-    PKSizeAlignedInRect();
+    v92.n128_f64[0] = v133;
+    v91.n128_f64[0] = v135;
+    v93.n128_f64[0] = v77;
+    v94.n128_f64[0] = v79;
+    v95.n128_f64[0] = v81;
+    v96.n128_f64[0] = v83;
+    PKSizeAlignedInRect(v48, v91, v92, v93, v94, v95, v96, v97);
   }
 
-  v110 = v77;
-  v112 = v76;
-  v78 = v75;
-  v79 = v74;
-  v142[5] = v142[5] + 20.0;
-  v80 = v43[2](v43, v44, v134, v132);
-  v133 = v81;
-  v135 = v80;
-  v102 = v83;
-  v103 = v82;
-  v84 = !self->_showKeyboard;
-  [(UILabel *)self->_titleLabel setAlpha:v84];
-  [(UILabel *)self->_subtitleLabel setAlpha:v84];
-  [(UIButton *)self->_tertiaryButton setAlpha:v84];
-  [(UIImageView *)self->_productHeroView setAlpha:v84];
-  LOBYTE(v85) = self->_showKeyboard;
-  [(UILabel *)self->_smallRingInterestLabel setAlpha:v85];
+  v134 = v101;
+  v136 = v100;
+  v102 = v99;
+  v103 = v98;
+  v168[5] = v168[5] + 20.0;
+  v104 = v57[2](v57, v58, v160, v158);
+  v159 = v105;
+  v161 = v104;
+  v126 = v107;
+  v127 = v106;
+  v108 = !self->_showKeyboard;
+  [(UILabel *)self->_titleLabel setAlpha:v108];
+  [(UILabel *)self->_subtitleLabel setAlpha:v108];
+  [(UIButton *)self->_tertiaryButton setAlpha:v108];
+  [(UIImageView *)self->_productHeroView setAlpha:v108];
+  LOBYTE(v109) = self->_showKeyboard;
+  [(UILabel *)self->_smallRingInterestLabel setAlpha:v109];
   ringView = self->_ringView;
-  CATransform3DMakeScale(&v137, sx, sx, 1.0);
-  [(PKBillPaymentRingView *)ringView setTransform3D:&v137];
-  memset(&v137, 0, sizeof(v137));
-  CATransform3DMakeScale(&v137, v119, v119, 1.0);
+  CATransform3DMakeScale(&v163, sx, sx, 1.0);
+  [(PKBillPaymentRingView *)ringView setTransform3D:&v163];
+  memset(&v163, 0, sizeof(v163));
+  CATransform3DMakeScale(&v163, v145, v145, 1.0);
   titleLabel = self->_titleLabel;
-  v136 = v137;
-  [(UILabel *)titleLabel setTransform3D:&v136];
+  v162 = v163;
+  [(UILabel *)titleLabel setTransform3D:&v162];
   subtitleLabel = self->_subtitleLabel;
-  v136 = v137;
-  [(UILabel *)subtitleLabel setTransform3D:&v136];
-  __72__PKAccountBillPaymentViewController__layoutScrollViewWithContentWidth___block_invoke_2(self->_titleLabel, v107, v129, v131, v106);
-  __72__PKAccountBillPaymentViewController__layoutScrollViewWithContentWidth___block_invoke_2(self->_subtitleLabel, v105, v125, v127, v121);
-  __72__PKAccountBillPaymentViewController__layoutScrollViewWithContentWidth___block_invoke_2(self->_ringView, v63, v65, v67, v69);
-  __72__PKAccountBillPaymentViewController__layoutScrollViewWithContentWidth___block_invoke_2(self->_productHeroView, v118, v116, v114, v113);
-  __72__PKAccountBillPaymentViewController__layoutScrollViewWithContentWidth___block_invoke_2(self->_smallRingInterestLabel, v79, v78, v112, v110);
-  __72__PKAccountBillPaymentViewController__layoutScrollViewWithContentWidth___block_invoke_2(self->_amountDescriptionView, v135, v133, v103, v102);
+  v162 = v163;
+  [(UILabel *)subtitleLabel setTransform3D:&v162];
+  __72__PKAccountBillPaymentViewController__layoutScrollViewWithContentWidth___block_invoke_2(self->_titleLabel, v131, v155, v157, v130);
+  __72__PKAccountBillPaymentViewController__layoutScrollViewWithContentWidth___block_invoke_2(self->_subtitleLabel, v129, v151, v153, v147);
+  __72__PKAccountBillPaymentViewController__layoutScrollViewWithContentWidth___block_invoke_2(self->_ringView, v77, v79, v81, v83);
+  __72__PKAccountBillPaymentViewController__layoutScrollViewWithContentWidth___block_invoke_2(self->_productHeroView, v144, v142, v140, v138);
+  __72__PKAccountBillPaymentViewController__layoutScrollViewWithContentWidth___block_invoke_2(self->_smallRingInterestLabel, v103, v102, v136, v134);
+  __72__PKAccountBillPaymentViewController__layoutScrollViewWithContentWidth___block_invoke_2(self->_amountDescriptionView, v161, v159, v127, v126);
   tertiaryButton = self->_tertiaryButton;
-  v90 = 0.0;
+  v114 = 0.0;
   if (tertiaryButton)
   {
     [(UIButton *)tertiaryButton sizeThatFits:widthCopy, 1.79769313e308];
-    v92 = v91;
-    v94 = v93;
-    [(UIButton *)self->_tertiaryButton setBounds:v122, v30, v91, v93];
-    v142[5] = v142[5] + 6.0;
-    v95 = v43[2](v43, v44, v92, v94);
-    __72__PKAccountBillPaymentViewController__layoutScrollViewWithContentWidth___block_invoke_2(self->_tertiaryButton, v95, v96, v97, v98);
-    v90 = v94 + 6.0;
+    v116 = v115;
+    v118 = v117;
+    [(UIButton *)self->_tertiaryButton setBounds:v148, v30, v115, v117];
+    v168[5] = v168[5] + 6.0;
+    v119 = v57[2](v57, v58, v116, v118);
+    __72__PKAccountBillPaymentViewController__layoutScrollViewWithContentWidth___block_invoke_2(self->_tertiaryButton, v119, v120, v121, v122);
+    v114 = v118 + 6.0;
     if (!self->_showKeyboard)
     {
-      v90 = 0.0;
+      v114 = 0.0;
     }
   }
 
-  v99 = fmax(v142[5] - v90, 0.0);
+  v123 = fmax(v168[5] - v114, 0.0);
 
-  _Block_object_dispose(&v141, 8);
-  v100 = v104;
-  v101 = v99;
-  result.height = v101;
-  result.width = v100;
+  _Block_object_dispose(&v167, 8);
+  v124 = v128;
+  v125 = v123;
+  result.height = v125;
+  result.width = v124;
   return result;
 }
 
-uint64_t __72__PKAccountBillPaymentViewController__layoutScrollViewWithContentWidth___block_invoke(uint64_t a1, double a2, double a3)
+uint64_t __72__PKAccountBillPaymentViewController__layoutScrollViewWithContentWidth___block_invoke(uint64_t a1, uint64_t a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6, __n128 a7, __n128 a8, __n128 a9)
 {
-  result = PKSizeAlignedInRect();
-  *(*(*(a1 + 32) + 8) + 40) = a3 + *(*(*(a1 + 32) + 8) + 40);
+  v9 = a4.n128_f64[0];
+  v11 = *(*(a1 + 32) + 8);
+  a5.n128_u64[0] = *(v11 + 32);
+  a6.n128_u64[0] = *(v11 + 40);
+  a7.n128_u64[0] = *(a1 + 40);
+  a8.n128_u64[0] = a4.n128_u64[0];
+  result = PKSizeAlignedInRect(a2, a3, a4, a5, a6, a7, a8, a9);
+  *(*(*(a1 + 32) + 8) + 40) = v9 + *(*(*(a1 + 32) + 8) + 40);
   return result;
 }
 
@@ -1827,10 +1860,10 @@ void __72__PKAccountBillPaymentViewController__layoutScrollViewWithContentWidth_
   v10 = v9;
   v12 = v11;
   v14 = v13;
-  v22.origin.x = v7;
-  v22.origin.y = v9;
-  v22.size.width = v11;
-  v22.size.height = v13;
+  v67.origin.x = v7;
+  v67.origin.y = v9;
+  v67.size.width = v11;
+  v67.size.height = v13;
   if ([(UIView *)v6 _shouldReverseLayoutDirection])
   {
     v15 = CGRectMaxXEdge;
@@ -1841,67 +1874,112 @@ void __72__PKAccountBillPaymentViewController__layoutScrollViewWithContentWidth_
     v15 = CGRectMinXEdge;
   }
 
-  v24.origin.x = v8;
-  v24.origin.y = v10;
-  v24.size.width = v12;
-  v24.size.height = v14;
-  CGRectDivide(v24, &slice, &v22, state->var5, CGRectMaxYEdge);
+  v69.origin.x = v8;
+  v69.origin.y = v10;
+  v69.size.width = v12;
+  v69.size.height = v14;
+  CGRectDivide(v69, &slice, &v67, state->var5, CGRectMaxYEdge);
   if (self->_tertiaryButton && (_UISolariumFeatureFlagEnabled() & 1) == 0)
   {
     [(UIButton *)self->_tertiaryButton sizeThatFits:state->var1, 1.79769313e308];
+    v30 = v23.n128_u64[0];
     height = state->var2.height;
     if (self->_showKeyboard)
     {
-      slice.origin.x = v22.origin.x;
-      slice.origin.y = v22.origin.y + v22.size.height + 3.0;
-      slice.size.width = v22.size.width;
+      v27.n128_u64[0] = *&v67.size.width;
+      v26.n128_f64[0] = v67.origin.y + v67.size.height + 3.0;
+      slice.origin.x = v67.origin.x;
+      slice.origin.y = v26.n128_f64[0];
+      slice.size.width = v67.size.width;
       slice.size.height = height;
       tertiaryButton = self->_tertiaryButton;
-      PKSizeAlignedInRect();
+      v24.n128_f64[0] = height;
+      v25.n128_u64[0] = *&v67.origin.x;
+      v28.n128_f64[0] = height;
+      PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v23, v24, v25, v26, v27, v28, v29);
       [(UIButton *)tertiaryButton setFrame:?];
     }
 
     else
     {
-      CGRectDivide(v22, &slice, &v22, 3.0, CGRectMaxYEdge);
-      CGRectDivide(v22, &slice, &v22, state->var2.height, CGRectMaxYEdge);
-      v18 = self->_tertiaryButton;
-      PKSizeAlignedInRect();
-      [(UIButton *)v18 setFrame:?];
-      CGRectDivide(v22, &slice, &v22, 3.0, CGRectMaxYEdge);
+      CGRectDivide(v67, &slice, &v67, 3.0, CGRectMaxYEdge);
+      CGRectDivide(v67, &slice, &v67, state->var2.height, CGRectMaxYEdge);
+      v33 = self->_tertiaryButton;
+      v34.n128_u64[0] = *&slice.origin.x;
+      v35.n128_u64[0] = *&slice.origin.y;
+      v36.n128_u64[0] = *&slice.size.width;
+      v37.n128_u64[0] = *&slice.size.height;
+      v38.n128_u64[0] = v30;
+      v39.n128_f64[0] = height;
+      PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v38, v39, v34, v35, v36, v37, v40);
+      [(UIButton *)v33 setFrame:?];
+      CGRectDivide(v67, &slice, &v67, 3.0, CGRectMaxYEdge);
     }
   }
 
   if (!state->var6)
   {
-    PKSizeAlignedInRect();
-    v22 = v25;
-    CGRectDivide(v25, &v22, &slice, state->var2.height, CGRectMaxYEdge);
-    CGRectDivide(v22, &slice, &v22, state->var2.width, v15);
+    v16.n128_f64[0] = state->var3 + state->var2.width * 2.0;
+    v18.n128_u64[0] = *&v67.origin.x;
+    v19.n128_u64[0] = *&v67.origin.y;
+    v20.n128_u64[0] = *&v67.size.width;
+    v17.n128_u64[0] = *&v67.size.height;
+    v58 = *MEMORY[0x1E69BB7F8];
+    v21.n128_u64[0] = *&v67.size.height;
+    PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v16, v17, v18, v19, v20, v21, v22);
+    v67 = v70;
+    CGRectDivide(v70, &v67, &slice, state->var2.height, CGRectMaxYEdge);
+    CGRectDivide(v67, &slice, &v67, state->var2.width, v15);
     secondaryButton = self->_secondaryButton;
-    PKSizeAlignedInRect();
+    v60.n128_u64[0] = *&state->var2.width;
+    v61.n128_u64[0] = *&state->var2.height;
+    v62.n128_u64[0] = *&slice.origin.x;
+    v63.n128_u64[0] = *&slice.origin.y;
+    v64.n128_u64[0] = *&slice.size.width;
+    v65.n128_u64[0] = *&slice.size.height;
+    PKSizeAlignedInRect(v58, v60, v61, v62, v63, v64, v65, v66);
     [(UIButton *)secondaryButton setFrame:?];
-    CGRectDivide(v22, &slice, &v22, state->var3, v15);
+    CGRectDivide(v67, &slice, &v67, state->var3, v15);
     primaryButton = self->_primaryButton;
+    v51.n128_u64[0] = *&state->var2.width;
+    v52.n128_u64[0] = *&state->var2.height;
+    v54.n128_u64[0] = *&v67.origin.y;
+    v53.n128_u64[0] = *&v67.origin.x;
+    v56.n128_u64[0] = *&v67.size.height;
+    v55.n128_u64[0] = *&v67.size.width;
+    v57 = v58;
     goto LABEL_20;
   }
 
   if (self->_secondaryButton)
   {
-    CGRectDivide(v22, &slice, &v22, state->var2.height, CGRectMaxYEdge);
-    v19 = self->_secondaryButton;
-    PKSizeAlignedInRect();
-    [(UIButton *)v19 setFrame:?];
+    CGRectDivide(v67, &slice, &v67, state->var2.height, CGRectMaxYEdge);
+    v41 = self->_secondaryButton;
+    v42.n128_u64[0] = *&state->var2.width;
+    v43.n128_u64[0] = *&state->var2.height;
+    v44.n128_u64[0] = *&slice.origin.x;
+    v45.n128_u64[0] = *&slice.origin.y;
+    v46.n128_u64[0] = *&slice.size.width;
+    v47.n128_u64[0] = *&slice.size.height;
+    PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v42, v43, v44, v45, v46, v47, v48);
+    [(UIButton *)v41 setFrame:?];
   }
 
   if (self->_primaryButton)
   {
-    if (!self->_secondaryButton || (CGRectDivide(v22, &slice, &v22, 15.0, CGRectMaxYEdge), self->_primaryButton))
+    if (!self->_secondaryButton || (CGRectDivide(v67, &slice, &v67, 15.0, CGRectMaxYEdge), self->_primaryButton))
     {
-      CGRectDivide(v22, &slice, &v22, state->var2.height, CGRectMaxYEdge);
+      CGRectDivide(v67, &slice, &v67, state->var2.height, CGRectMaxYEdge);
       primaryButton = self->_primaryButton;
+      v51.n128_u64[0] = *&state->var2.width;
+      v52.n128_u64[0] = *&state->var2.height;
+      v53.n128_u64[0] = *&slice.origin.x;
+      v54.n128_u64[0] = *&slice.origin.y;
+      v55.n128_u64[0] = *&slice.size.width;
+      v56.n128_u64[0] = *&slice.size.height;
+      v57 = *MEMORY[0x1E69BB7F8];
 LABEL_20:
-      PKSizeAlignedInRect();
+      PKSizeAlignedInRect(v57, v51, v52, v53, v54, v55, v56, v49);
       [(UIButton *)primaryButton setFrame:?];
     }
   }
@@ -3056,7 +3134,7 @@ BOOL __55__PKAccountBillPaymentViewController_keyboardWillHide___block_invoke(ui
   }
 }
 
-uint64_t __69__PKAccountBillPaymentViewController__updateForShowKeyboardAnimated___block_invoke(uint64_t a1)
+void *__69__PKAccountBillPaymentViewController__updateForShowKeyboardAnimated___block_invoke(uint64_t a1)
 {
   [*(*(a1 + 32) + 1240) setShowAmount:*(*(a1 + 32) + 1160)];
   [*(*(a1 + 32) + 1248) setIsSmall:*(*(a1 + 32) + 1160)];
@@ -3147,10 +3225,11 @@ LABEL_11:
 
 - (void)_payNowButtonTapped:(id)tapped
 {
-  if (PKStoreDemoModeEnabled())
+  v4 = PKStoreDemoModeEnabled();
+  if (v4)
   {
-    v7 = PKUIStoreDemoGatewayViewController();
-    [(PKAccountBillPaymentViewController *)self presentViewController:v7 animated:1 completion:0];
+    v10 = PKUIStoreDemoGatewayViewController(v4, v5, v6);
+    [(PKAccountBillPaymentViewController *)self presentViewController:v10 animated:1 completion:0];
   }
 
   else
@@ -3158,14 +3237,14 @@ LABEL_11:
     _paymentAmount = [(PKAccountBillPaymentViewController *)self _paymentAmount];
     [(PKAccountBillPaymentViewController *)self _setEnabled:0];
     billPaymentCoordinator = self->_billPaymentCoordinator;
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __58__PKAccountBillPaymentViewController__payNowButtonTapped___block_invoke;
-    v8[3] = &unk_1E8013D88;
-    v8[4] = self;
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __58__PKAccountBillPaymentViewController__payNowButtonTapped___block_invoke;
+    v11[3] = &unk_1E8013D88;
+    v11[4] = self;
+    v12 = _paymentAmount;
     v9 = _paymentAmount;
-    v6 = _paymentAmount;
-    [(PKAccountBillPaymentController *)billPaymentCoordinator canPerformBillPaymentWithAmount:v6 scheduledDate:0 completion:v8];
+    [(PKAccountBillPaymentController *)billPaymentCoordinator canPerformBillPaymentWithAmount:v9 scheduledDate:0 completion:v11];
   }
 }
 
@@ -3214,10 +3293,11 @@ void __58__PKAccountBillPaymentViewController__payNowButtonTapped___block_invoke
 - (void)_payLaterButtonTapped:(id)tapped
 {
   tappedCopy = tapped;
-  if (PKStoreDemoModeEnabled())
+  v5 = PKStoreDemoModeEnabled();
+  if (v5)
   {
-    v5 = PKUIStoreDemoGatewayViewController();
-    [(PKAccountBillPaymentViewController *)self presentViewController:v5 animated:1 completion:0];
+    v8 = PKUIStoreDemoGatewayViewController(v5, v6, v7);
+    [(PKAccountBillPaymentViewController *)self presentViewController:v8 animated:1 completion:0];
   }
 
   else
@@ -3225,15 +3305,15 @@ void __58__PKAccountBillPaymentViewController__payNowButtonTapped___block_invoke
     objc_initWeak(&location, self);
     mEMORY[0x1E69B8400] = [MEMORY[0x1E69B8400] sharedInstance];
     accountIdentifier = [(PKAccount *)self->_account accountIdentifier];
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __60__PKAccountBillPaymentViewController__payLaterButtonTapped___block_invoke;
-    v8[3] = &unk_1E8013DF8;
-    objc_copyWeak(&v9, &location);
-    v8[4] = self;
-    [mEMORY[0x1E69B8400] scheduledPaymentsWithAccountIdentifier:accountIdentifier includeFailedRecurringPayments:1 completion:v8];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __60__PKAccountBillPaymentViewController__payLaterButtonTapped___block_invoke;
+    v11[3] = &unk_1E8013DF8;
+    objc_copyWeak(&v12, &location);
+    v11[4] = self;
+    [mEMORY[0x1E69B8400] scheduledPaymentsWithAccountIdentifier:accountIdentifier includeFailedRecurringPayments:1 completion:v11];
 
-    objc_destroyWeak(&v9);
+    objc_destroyWeak(&v12);
     objc_destroyWeak(&location);
   }
 }

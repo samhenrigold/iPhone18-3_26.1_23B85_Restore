@@ -23,33 +23,33 @@
 
 void __89__WFContentArrayParameterState_processWithContext_userInputRequiredHandler_valueHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v5)
   {
     v7 = objc_opt_new();
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     v8 = v5;
-    v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v16;
+      v11 = *v15;
       do
       {
         v12 = 0;
         do
         {
-          if (*v16 != v11)
+          if (*v15 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v15 + 1) + 8 * v12);
+          v13 = *(*(&v14 + 1) + 8 * v12);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -58,14 +58,14 @@ void __89__WFContentArrayParameterState_processWithContext_userInputRequiredHand
 
           else
           {
-            [v7 addObject:{v13, v15}];
+            [v7 addObject:{v13, v14}];
           }
 
           ++v12;
         }
 
         while (v10 != v12);
-        v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v10);
@@ -78,8 +78,6 @@ void __89__WFContentArrayParameterState_processWithContext_userInputRequiredHand
   {
     (*(*(a1 + 32) + 16))();
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 @end

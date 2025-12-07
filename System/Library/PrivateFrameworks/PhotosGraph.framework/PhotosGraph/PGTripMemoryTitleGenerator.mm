@@ -64,27 +64,17 @@ LABEL_7:
   dateMatching = [(PGTitleGenerator *)self dateMatching];
   type = [dateMatching type];
 
-  if (type != 9)
+  if (type != 9 || (-[PGTitleGenerator dateMatching](self, "dateMatching"), v5 = objc_claimAutoreleasedReturnValue(), [v5 title], v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "stringValue"), _timeTitleForTripAndWeekend = objc_claimAutoreleasedReturnValue(), v6, v5, !_timeTitleForTripAndWeekend))
   {
-    goto LABEL_3;
+    _timeTitleForTripAndWeekend = [(PGTripMemoryTitleGenerator *)self _timeTitleForTripAndWeekend];
   }
 
-  dateMatching2 = [(PGTitleGenerator *)self dateMatching];
-  title = [dateMatching2 title];
-  stringValue = [title stringValue];
-
-  if (!stringValue)
-  {
-LABEL_3:
-    stringValue = [(PGTripMemoryTitleGenerator *)self _timeTitleForTripAndWeekend];
-  }
-
-  return stringValue;
+  return _timeTitleForTripAndWeekend;
 }
 
 - (id)_locationTitle
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   momentNodes = [(PGTitleGenerator *)self momentNodes];
   v4 = [momentNodes count];
 
@@ -94,9 +84,9 @@ LABEL_3:
     locationHelper = [titleGenerationContext locationHelper];
 
     highlightGroupNodeAsCollection = self->_highlightGroupNodeAsCollection;
-    v16 = 0;
-    v8 = [PGTripTitleGenerator titleForTripNodeAsCollection:highlightGroupNodeAsCollection locationHelper:locationHelper error:&v16];
-    v9 = v16;
+    v15 = 0;
+    v8 = [PGTripTitleGenerator titleForTripNodeAsCollection:highlightGroupNodeAsCollection locationHelper:locationHelper error:&v15];
+    v9 = v15;
     if (v8)
     {
       v10 = v8;
@@ -111,7 +101,7 @@ LABEL_3:
       {
         localizedDescription = [v9 localizedDescription];
         *buf = 138412290;
-        v18 = localizedDescription;
+        v17 = localizedDescription;
         _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[PGTripMemoryTitleGenerator] %@", buf, 0xCu);
       }
     }
@@ -121,8 +111,6 @@ LABEL_3:
   {
     v8 = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

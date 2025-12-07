@@ -9,60 +9,60 @@
 - (id)_columnWithSortDescriptor:(id)descriptor
 {
   descriptorCopy = descriptor;
-  v7 = objc_msgSend_key(descriptorCopy, v5, v6);
+  v8 = objc_msgSend_key(descriptorCopy, v5, v6, v7);
 
-  if (v7)
+  if (v8)
   {
-    v10 = objc_msgSend_keyPathsToColumns(self, v8, v9);
-    v13 = objc_msgSend_key(descriptorCopy, v11, v12);
-    v15 = objc_msgSend_objectForKeyedSubscript_(v10, v14, v13);
+    v12 = objc_msgSend_keyPathsToColumns(self, v9, v10, v11);
+    v16 = objc_msgSend_key(descriptorCopy, v13, v14, v15);
+    v19 = objc_msgSend_objectForKeyedSubscript_(v12, v17, v16, v18);
   }
 
   else
   {
-    v15 = 0;
+    v19 = 0;
   }
 
-  return v15;
+  return v19;
 }
 
 - (id)_orderByClauseWithSortDescriptor:(id)descriptor
 {
   descriptorCopy = descriptor;
-  v7 = objc_msgSend_ascending(descriptorCopy, v5, v6);
-  v8 = @"DESC";
-  if (v7)
+  v8 = objc_msgSend_ascending(descriptorCopy, v5, v6, v7);
+  v9 = @"DESC";
+  if (v8)
   {
-    v8 = @"ASC";
+    v9 = @"ASC";
   }
 
-  v9 = v8;
-  v11 = objc_msgSend__columnWithSortDescriptor_(self, v10, descriptorCopy);
+  v10 = v9;
+  v13 = objc_msgSend__columnWithSortDescriptor_(self, v11, descriptorCopy, v12);
 
-  v13 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v12, @"%@ %@", v11, v9);
+  v16 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v14, @"%@ %@", v15, v13, v10);
 
-  return v13;
+  return v16;
 }
 
 - (IMDSortDescriptorToSQLConverter)initWithSortDescriptor:(id)descriptor keyPathsToColumns:(id)columns
 {
   descriptorCopy = descriptor;
   columnsCopy = columns;
-  v15.receiver = self;
-  v15.super_class = IMDSortDescriptorToSQLConverter;
-  v8 = [(IMDSortDescriptorToSQLConverter *)&v15 init];
+  v16.receiver = self;
+  v16.super_class = IMDSortDescriptorToSQLConverter;
+  v8 = [(IMDSortDescriptorToSQLConverter *)&v16 init];
   v9 = v8;
-  if (v8 && (objc_storeStrong(&v8->_keyPathsToColumns, columns), objc_msgSend__orderByClauseWithSortDescriptor_(v9, v10, descriptorCopy), v11 = objc_claimAutoreleasedReturnValue(), expression = v9->_expression, v9->_expression = v11, expression, !v9->_expression))
+  if (v8 && (objc_storeStrong(&v8->_keyPathsToColumns, columns), objc_msgSend__orderByClauseWithSortDescriptor_(v9, v10, descriptorCopy, v11), v12 = objc_claimAutoreleasedReturnValue(), expression = v9->_expression, v9->_expression = v12, expression, !v9->_expression))
   {
-    v13 = 0;
+    v14 = 0;
   }
 
   else
   {
-    v13 = v9;
+    v14 = v9;
   }
 
-  return v13;
+  return v14;
 }
 
 @end

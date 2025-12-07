@@ -446,7 +446,7 @@
       self->_ioSystemFilterClient = v4;
       if (!v4)
       {
-        _AXLogWithFacility();
+        _AXLogWithFacility(1, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Could not create system client, serious error");
         return;
       }
     }

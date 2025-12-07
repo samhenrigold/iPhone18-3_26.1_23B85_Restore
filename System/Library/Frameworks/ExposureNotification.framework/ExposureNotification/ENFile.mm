@@ -13,6 +13,7 @@
 - (BOOL)openForWritingToData:(id)data error:(id *)error;
 - (BOOL)openWithArchive:(id)archive error:(id *)error;
 - (BOOL)openWithFD:(int)d reading:(BOOL)reading error:(id *)error;
+- (BOOL)openWithFileSystemRepresentation:(const char *)representation reading:(BOOL)reading error:(id *)error;
 - (BOOL)writeTEK:(id)k flags:(unsigned int)flags error:(id *)error;
 - (id)_readKeyWithPtr:(const char *)ptr length:(unint64_t)length error:(id *)error;
 - (id)readTEKWithFlags:(unsigned int)flags error:(id *)error;
@@ -75,8 +76,9 @@
   }
 
   v10 = fdopen(d, v9);
-  if (v10 || *__error() && !*__error())
+  if (v10)
   {
+LABEL_11:
     self->_fileHandle = v10;
     self->_reading = readingCopy;
     if (readingCopy)
@@ -89,29 +91,86 @@
 
     else
     {
-      LODWORD(v11) = [(ENFile *)self _writePrepareAndReturnError:error];
-      if (!v11)
+      LODWORD(v12) = [(ENFile *)self _writePrepareAndReturnError:error];
+      if (!v12)
       {
-        return v11;
+        return v12;
       }
     }
 
-    LOBYTE(v11) = 1;
-    return v11;
+    LOBYTE(v12) = 1;
+    return v12;
+  }
+
+  if (*__error())
+  {
+    v11 = *__error();
+    if (!v11)
+    {
+      goto LABEL_11;
+    }
+  }
+
+  else
+  {
+    v11 = 4294960596;
   }
 
   if (error)
   {
-    v12 = ENErrorF(2);
-    v11 = v12;
-    LOBYTE(v11) = 0;
-    *error = v12;
-    return v11;
+    v13 = ENErrorF(2, "Open FD failed: %#m", v11);
+    v12 = v13;
+    LOBYTE(v12) = 0;
+    *error = v13;
+    return v12;
   }
 
 LABEL_13:
-  LOBYTE(v11) = 0;
-  return v11;
+  LOBYTE(v12) = 0;
+  return v12;
+}
+
+- (BOOL)openWithFileSystemRepresentation:(const char *)representation reading:(BOOL)reading error:(id *)error
+{
+  readingCopy = reading;
+  if (gLogCategory_ENFile <= 30 && (gLogCategory_ENFile != -1 || _LogCategory_Initialize()))
+  {
+    v9 = "no";
+    if (readingCopy)
+    {
+      v9 = "yes";
+    }
+
+    v13 = v9;
+    LogPrintF_safe();
+  }
+
+  if (readingCopy)
+  {
+    v10 = open(representation, 0, 384, v13);
+  }
+
+  else
+  {
+    v10 = open(representation, 1537, 384, v13);
+  }
+
+  v11 = v10;
+  if ((v10 & 0x80000000) != 0 && (!*__error() || *__error()))
+  {
+    if (error)
+    {
+      *error = ENErrorF(2, "Open path failed: '%s', %#m", representation);
+    }
+
+    return 0;
+  }
+
+  else
+  {
+
+    return [(ENFile *)self openWithFD:v11 reading:readingCopy error:error];
+  }
 }
 
 - (BOOL)openForWritingToData:(id)data error:(id *)error
@@ -166,13 +225,12 @@ LABEL_11:
 
       if (error)
       {
-        v13 = *__error();
-        v10 = 1;
-LABEL_17:
-        v11 = ENErrorF(v10);
-        v12 = v11;
+        v12 = *__error();
+        ENErrorF(1, "fclose failed: %#m", v12);
+        v10 = LABEL_17:;
+        v11 = v10;
         result = 0;
-        *error = v11;
+        *error = v10;
         return result;
       }
 
@@ -187,7 +245,7 @@ LABEL_17:
 
   if (error)
   {
-    v10 = 10;
+    ENErrorF(10, "File not open");
     goto LABEL_17;
   }
 
@@ -203,24 +261,38 @@ LABEL_17:
   {
     if (feof(file))
     {
+      v8 = 4294960531;
       if (!error)
       {
-        goto LABEL_18;
+        return 0;
       }
     }
 
     else
     {
-      *__error();
+      LODWORD(v8) = *__error();
+      if (v8)
+      {
+        v8 = v8;
+      }
+
+      else
+      {
+        v8 = 4294960550;
+      }
+
       if (!error)
       {
-LABEL_18:
-        result = 0;
-        goto LABEL_19;
+        return 0;
       }
     }
 
-    goto LABEL_15;
+    ENErrorF(15, "read identifier failed: %#m", v8);
+    v9 = LABEL_19:;
+    v10 = v9;
+    result = 0;
+    *error = v9;
+    return result;
   }
 
   if (gLogCategory_ENFile <= 10 && (gLogCategory_ENFile != -1 || _LogCategory_Initialize()))
@@ -228,138 +300,168 @@ LABEL_18:
     [ENFile _readHeaderFromFile:error:];
   }
 
-  if (__ptr != 0x726F707845204B45 || v12 != 0x2020202031762074)
+  if (__ptr == 0x726F707845204B45 && v12 == 0x2020202031762074)
   {
-    if (!error)
-    {
-      goto LABEL_18;
-    }
+    return 1;
+  }
 
-LABEL_15:
-    v8 = ENErrorF(15);
-    v9 = v8;
-    result = 0;
-    *error = v8;
+  if (error)
+  {
+    ENErrorF(15, "File identifier mismatch");
     goto LABEL_19;
   }
 
-  result = 1;
-LABEL_19:
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 - (BOOL)_readHashFromFile:(__sFILE *)file error:(id *)error
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (!file)
   {
     if (error)
     {
-      v14 = ENErrorF(10);
-      v16 = v14;
-      goto LABEL_14;
+      v15 = ENErrorF(10, "File not open");
+      v18 = v15;
+      goto LABEL_16;
     }
 
-    goto LABEL_18;
+    return 0;
   }
 
   v6 = fileno(file);
-  memset(&v19, 0, sizeof(v19));
-  if (fstat(v6, &v19) && (!*__error() || *__error()))
+  memset(&v21, 0, sizeof(v21));
+  if (!fstat(v6, &v21))
   {
-    if (error)
-    {
-      goto LABEL_13;
-    }
-
-    goto LABEL_18;
+    goto LABEL_5;
   }
 
-  st_size = v19.st_size;
-  if (v19.st_size == -1)
+  if (*__error())
   {
-    if (error)
+    v7 = *__error();
+    if (!v7)
     {
-      goto LABEL_13;
-    }
+LABEL_5:
+      st_size = v21.st_size;
+      if (v21.st_size == -1)
+      {
+        if (error)
+        {
+          v15 = NSErrorF(*MEMORY[0x277CCA590], 0, "File too big: %lld", -1);
+          v19 = v15;
+          goto LABEL_16;
+        }
+      }
 
-    goto LABEL_18;
-  }
+      else
+      {
+        v9 = mmap(0, v21.st_size, 1, 2, v6, 0);
+        if (v9 != -1)
+        {
+LABEL_9:
+          v20[0] = MEMORY[0x277D85DD0];
+          v20[1] = 3221225472;
+          v20[2] = __34__ENFile__readHashFromFile_error___block_invoke;
+          v20[3] = &__block_descriptor_48_e5_v8__0l;
+          v20[4] = v9;
+          v20[5] = st_size;
+          v11 = MEMORY[0x2383EE560](v20);
+          memset(v22, 0, sizeof(v22));
+          ccsha256_di();
+          ccdigest();
+          v12 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:v22 length:32];
+          sha256Data = self->_sha256Data;
+          self->_sha256Data = v12;
 
-  v8 = mmap(0, v19.st_size, 1, 2, v6, 0);
-  if (v8 == -1 && (!*__error() || *__error()))
-  {
-    if (error)
-    {
-LABEL_13:
-      v13 = *MEMORY[0x277CCA590];
-      v14 = NSErrorF();
-      v15 = v14;
-LABEL_14:
-      result = 0;
-      *error = v14;
-      goto LABEL_19;
-    }
+          v11[2](v11);
+          return 1;
+        }
 
-LABEL_18:
-    result = 0;
-    goto LABEL_19;
-  }
+        if (*__error())
+        {
+          v10 = *__error();
+          if (!v10)
+          {
+            goto LABEL_9;
+          }
+        }
 
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __34__ENFile__readHashFromFile_error___block_invoke;
-  v18[3] = &__block_descriptor_48_e5_v8__0l;
-  v18[4] = v8;
-  v18[5] = st_size;
-  v9 = MEMORY[0x2383EE560](v18);
-  memset(v20, 0, sizeof(v20));
-  ccsha256_di();
-  ccdigest();
-  v10 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:v20 length:32];
-  sha256Data = self->_sha256Data;
-  self->_sha256Data = v10;
+        else
+        {
+          v10 = 4294960596;
+        }
 
-  v9[2](v9);
-  result = 1;
-LABEL_19:
-  v17 = *MEMORY[0x277D85DE8];
-  return result;
-}
+        if (error)
+        {
+          v15 = NSErrorF(*MEMORY[0x277CCA590], v10, "mmap failed");
+          v17 = v15;
+          goto LABEL_16;
+        }
+      }
 
-- (BOOL)_readMetadataFromFileHandle:(__sFILE *)handle error:(id *)error
-{
-  v12 = 0;
-  if (fgetpos(handle, &v12) && (!*__error() || *__error()))
-  {
-    if (error)
-    {
-      v10 = *MEMORY[0x277CCA590];
-      NSErrorF();
-      *error = v8 = 0;
-    }
-
-    else
-    {
       return 0;
     }
   }
 
   else
   {
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __44__ENFile__readMetadataFromFileHandle_error___block_invoke;
-    v11[3] = &__block_descriptor_48_e5_v8__0l;
-    v11[4] = handle;
-    v11[5] = v12;
-    v7 = MEMORY[0x2383EE560](v11);
-    v8 = [(ENFile *)self _readMetadataFromCoder:self->_protobufCoder error:error];
-    v7[2](v7);
+    v7 = 4294960596;
   }
 
-  return v8;
+  if (error)
+  {
+    v15 = NSErrorF(*MEMORY[0x277CCA590], v7, "fstat failed");
+    v16 = v15;
+LABEL_16:
+    result = 0;
+    *error = v15;
+    return result;
+  }
+
+  return 0;
+}
+
+- (BOOL)_readMetadataFromFileHandle:(__sFILE *)handle error:(id *)error
+{
+  v12 = 0;
+  if (!fgetpos(handle, &v12))
+  {
+    goto LABEL_4;
+  }
+
+  if (*__error())
+  {
+    v7 = *__error();
+    if (!v7)
+    {
+LABEL_4:
+      v11[0] = MEMORY[0x277D85DD0];
+      v11[1] = 3221225472;
+      v11[2] = __44__ENFile__readMetadataFromFileHandle_error___block_invoke;
+      v11[3] = &__block_descriptor_48_e5_v8__0l;
+      v11[4] = handle;
+      v11[5] = v12;
+      v8 = MEMORY[0x2383EE560](v11);
+      v9 = [(ENFile *)self _readMetadataFromCoder:self->_protobufCoder error:error];
+      v8[2](v8);
+
+      return v9;
+    }
+  }
+
+  else
+  {
+    v7 = 4294960596;
+  }
+
+  if (!error)
+  {
+    return 0;
+  }
+
+  NSErrorF(*MEMORY[0x277CCA590], v7, "fgetpos failed");
+  *error = v9 = 0;
+  return v9;
 }
 
 - (BOOL)_readMetadataFromCoder:(id)coder error:(id *)error
@@ -534,7 +636,7 @@ LABEL_26:
     }
   }
 
-  v30 = ENErrorF(10);
+  v30 = ENErrorF(10, "ProtobufCoder not prepared");
   v31 = v45[5];
   v45[5] = v30;
 
@@ -571,12 +673,12 @@ id __39__ENFile__readMetadataFromCoder_error___block_invoke(uint64_t a1)
   {
     if (error)
     {
-      v14 = 10;
-      goto LABEL_13;
+      ENErrorF(10, "File not open");
+      goto LABEL_14;
     }
 
-LABEL_16:
-    v12 = 0;
+LABEL_17:
+    v13 = 0;
     goto LABEL_10;
   }
 
@@ -585,9 +687,9 @@ LABEL_16:
     if (v6)
     {
       [v6 appendBytes:"EK Export v1    " length:16];
-      v10 = objc_alloc_init(ENProtobufCoder);
+      v11 = objc_alloc_init(ENProtobufCoder);
       protobufCoder = self->_protobufCoder;
-      self->_protobufCoder = v10;
+      self->_protobufCoder = v11;
 
       [(ENProtobufCoder *)self->_protobufCoder setWriteMutableData:v7];
     }
@@ -595,30 +697,44 @@ LABEL_16:
     goto LABEL_9;
   }
 
-  if (fwrite("EK Export v1    ", 1uLL, 0x10uLL, fileHandle) != 16 && (!*__error() || *__error()))
+  if (fwrite("EK Export v1    ", 1uLL, 0x10uLL, fileHandle) != 16)
   {
+    if (*__error())
+    {
+      v8 = *__error();
+      if (!v8)
+      {
+        goto LABEL_6;
+      }
+    }
+
+    else
+    {
+      v8 = 4294960596;
+    }
+
     if (error)
     {
-      v14 = 1;
-LABEL_13:
-      ENErrorF(v14);
-      *error = v12 = 0;
+      ENErrorF(1, "Write failed: %#m", v8);
+LABEL_14:
+      *error = v13 = 0;
       goto LABEL_10;
     }
 
-    goto LABEL_16;
+    goto LABEL_17;
   }
 
-  v8 = objc_alloc_init(ENProtobufCoder);
-  v9 = self->_protobufCoder;
-  self->_protobufCoder = v8;
+LABEL_6:
+  v9 = objc_alloc_init(ENProtobufCoder);
+  v10 = self->_protobufCoder;
+  self->_protobufCoder = v9;
 
   [(ENProtobufCoder *)self->_protobufCoder setFileHandle:fileHandle];
 LABEL_9:
-  v12 = [(ENFile *)self _writeMetadataAndReturnError:error];
+  v13 = [(ENFile *)self _writeMetadataAndReturnError:error];
 LABEL_10:
 
-  return v12;
+  return v13;
 }
 
 - (id)readTEKWithFlags:(unsigned int)flags error:(id *)error
@@ -719,7 +835,7 @@ LABEL_19:
 
   else if (error)
   {
-    ENErrorF(10);
+    ENErrorF(10, "ProtobufCoder not prepared");
     *error = v16 = 0;
   }
 
@@ -910,7 +1026,7 @@ LABEL_32:
       goto LABEL_42;
     }
 
-    ENErrorF(1);
+    ENErrorF(1, "TEK no key data");
     *error = v19 = 0;
   }
 
@@ -922,7 +1038,7 @@ LABEL_36:
 - (BOOL)writeTEK:(id)k flags:(unsigned int)flags error:(id *)error
 {
   flagsCopy = flags;
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   kCopy = k;
   fileHandle = self->_fileHandle;
   v10 = self->_outputData;
@@ -930,14 +1046,13 @@ LABEL_36:
   {
     if (error)
     {
-      v23 = 10;
-LABEL_31:
-      ENErrorF(v23);
+      ENErrorF(10, "File not open");
+LABEL_32:
       *error = v22 = 0;
-      goto LABEL_34;
+      goto LABEL_35;
     }
 
-    goto LABEL_33;
+    goto LABEL_34;
   }
 
   tekProtobufCoder = self->_tekProtobufCoder;
@@ -950,11 +1065,11 @@ LABEL_31:
     tekProtobufCoder = self->_tekProtobufCoder;
   }
 
-  memset(v26, 0, sizeof(v26));
-  [(ENProtobufCoder *)tekProtobufCoder setWriteMemory:v26 length:128];
+  memset(v25, 0, sizeof(v25));
+  [(ENProtobufCoder *)tekProtobufCoder setWriteMemory:v25 length:128];
   if ([kCopy daysSinceOnsetOfSymptoms] != 0x7FFFFFFFFFFFFFFFLL && !-[ENProtobufCoder writeVarIntSInt32:tag:error:](self->_tekProtobufCoder, "writeVarIntSInt32:tag:error:", objc_msgSend(kCopy, "daysSinceOnsetOfSymptoms"), 6, error))
   {
-    goto LABEL_33;
+    goto LABEL_34;
   }
 
   diagnosisReportType = [kCopy diagnosisReportType];
@@ -962,7 +1077,7 @@ LABEL_31:
   {
     if (![(ENProtobufCoder *)self->_tekProtobufCoder writeVarIntUInt32:diagnosisReportType tag:5 error:error])
     {
-      goto LABEL_33;
+      goto LABEL_34;
     }
   }
 
@@ -970,12 +1085,12 @@ LABEL_31:
   if (keyData && ![(ENProtobufCoder *)self->_tekProtobufCoder writeNSData:keyData tag:1 error:error])
   {
 
-    goto LABEL_33;
+    goto LABEL_34;
   }
 
   if (!-[ENProtobufCoder writeVarIntUInt32:tag:error:](self->_tekProtobufCoder, "writeVarIntUInt32:tag:error:", [kCopy rollingStartNumber], 3, error))
   {
-    goto LABEL_33;
+    goto LABEL_34;
   }
 
   rollingPeriod = [kCopy rollingPeriod];
@@ -983,18 +1098,18 @@ LABEL_31:
   {
     if (![(ENProtobufCoder *)self->_tekProtobufCoder writeVarIntUInt32:rollingPeriod tag:4 error:error])
     {
-      goto LABEL_33;
+      goto LABEL_34;
     }
   }
 
   if (!-[ENProtobufCoder writeVarIntUInt32:tag:error:](self->_tekProtobufCoder, "writeVarIntUInt32:tag:error:", [kCopy transmissionRiskLevel], 2, error))
   {
-    goto LABEL_33;
+    goto LABEL_34;
   }
 
   if (!-[ENProtobufCoder writeVarIntBoolean:tag:error:](self->_tekProtobufCoder, "writeVarIntBoolean:tag:error:", [kCopy vaccinated], 7, error))
   {
-    goto LABEL_33;
+    goto LABEL_34;
   }
 
   variantOfConcernType = [kCopy variantOfConcernType];
@@ -1002,7 +1117,7 @@ LABEL_31:
   {
     if (![(ENProtobufCoder *)self->_tekProtobufCoder writeVarIntUInt32:variantOfConcernType tag:8 error:error])
     {
-      goto LABEL_33;
+      goto LABEL_34;
     }
   }
 
@@ -1011,10 +1126,15 @@ LABEL_31:
   {
     if (error)
     {
-      goto LABEL_30;
+      v23 = "No TEK protobuf msgPtr";
+LABEL_31:
+      ENErrorF(16, v23);
+      goto LABEL_32;
     }
 
-    goto LABEL_33;
+LABEL_34:
+    v22 = 0;
+    goto LABEL_35;
   }
 
   v19 = writeBase;
@@ -1023,13 +1143,10 @@ LABEL_31:
   {
     if (error)
     {
-LABEL_30:
-      v23 = 16;
+      v23 = "No TEK protobuf endEnd";
       goto LABEL_31;
     }
 
-LABEL_33:
-    v22 = 0;
     goto LABEL_34;
   }
 
@@ -1038,14 +1155,13 @@ LABEL_33:
     v21 = (flagsCopy & 2) != 0 ? 8 : 7;
     if (![(ENProtobufCoder *)self->_protobufCoder writeLengthDelimitedPtr:v19 length:writeDst - v19 tag:v21 error:error])
     {
-      goto LABEL_33;
+      goto LABEL_34;
     }
   }
 
   v22 = 1;
-LABEL_34:
+LABEL_35:
 
-  v24 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
@@ -1060,7 +1176,7 @@ LABEL_34:
       goto LABEL_16;
     }
 
-    v14 = 10;
+    ENErrorF(10, "File not open");
     goto LABEL_13;
   }
 
@@ -1094,9 +1210,8 @@ LABEL_16:
       goto LABEL_16;
     }
 
-    v14 = 16;
+    ENErrorF(16, "Failed to prepare");
 LABEL_13:
-    ENErrorF(v14);
     *error = v11 = 0;
     goto LABEL_17;
   }
@@ -1128,10 +1243,10 @@ LABEL_17:
     {
       __s1[0] = 0;
       __s1[1] = 0;
-      v14 = 0;
-      v7 = [v6 readDataIntoBuffer:__s1 length:16 error:&v14];
-      v8 = v14;
-      v9 = v8;
+      v19 = 0;
+      v7 = [v6 readDataIntoBuffer:__s1 length:16 error:&v19];
+      v8 = v19;
+      v14 = v8;
       if (v7)
       {
         if (gLogCategory_ENFile <= 10 && (gLogCategory_ENFile != -1 || _LogCategory_Initialize()))
@@ -1141,29 +1256,29 @@ LABEL_17:
 
         if (!memcmp(__s1, "EK Export v1    ", 0x10uLL))
         {
-          v11 = 1;
+          v16 = 1;
           goto LABEL_19;
         }
 
         if (error)
         {
-          v10 = ENErrorF(15);
+          v15 = ENErrorF(15, "File identifier mismatch");
           goto LABEL_9;
         }
       }
 
       else if (error)
       {
-        v10 = ENNestedErrorF(v8, 15);
+        v15 = ENNestedErrorF(v8, 15, "read identifier failed", v9, v10, v11, v12, v13, v18);
 LABEL_9:
-        v11 = 0;
-        *error = v10;
+        v16 = 0;
+        *error = v15;
 LABEL_19:
 
         goto LABEL_20;
       }
 
-      v11 = 0;
+      v16 = 0;
       goto LABEL_19;
     }
 
@@ -1173,68 +1288,65 @@ LABEL_19:
   if (!error)
   {
 LABEL_15:
-    v11 = 0;
+    v16 = 0;
     goto LABEL_20;
   }
 
-  ENErrorF(10);
-  *error = v11 = 0;
+  ENErrorF(10, "File not open");
+  *error = v16 = 0;
 LABEL_20:
 
-  v12 = *MEMORY[0x277D85DE8];
-  return v11;
+  return v16;
 }
 
 - (BOOL)_readHashFromArchive:(id)archive error:(id *)error
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   archiveCopy = archive;
   if ([archiveCopy resetToCurrentEntryAndReturnError:error])
   {
     v7 = ccsha256_di();
-    v8 = (*(v7 + 8) + *(v7 + 16) + 19) & 0xFFFFFFFFFFFFFFF8;
     MEMORY[0x28223BE20]();
-    v10 = v19 - v9;
-    bzero(v19 - v9, v11);
+    v9 = v17 - v8;
+    bzero(v17 - v8, v10);
     ccdigest_init();
-    memset(&v19[2], 0, 128);
-    v12 = OUTLINED_FUNCTION_5_0();
-    if (v12 < 0)
+    memset(&v17[2], 0, 128);
+    v11 = OUTLINED_FUNCTION_5_0();
+    if (v11 < 0)
     {
 LABEL_6:
-      v14 = 0;
+      v13 = 0;
     }
 
     else
     {
-      v13 = v12;
-      while (v13)
+      v12 = v11;
+      while (v12)
       {
         ccdigest_update();
-        v13 = OUTLINED_FUNCTION_5_0();
-        if (v13 < 0)
+        v12 = OUTLINED_FUNCTION_5_0();
+        if (v12 < 0)
         {
           goto LABEL_6;
         }
       }
 
-      memset(v19, 0, 32);
-      (*(v7 + 56))(v7, v10, v19);
-      v15 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:v19 length:32];
+      memset(v17, 0, 32);
+      (*(v7 + 56))(v7, v9, v17);
+      v14 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:v17 length:32];
       sha256Data = self->_sha256Data;
-      self->_sha256Data = v15;
+      self->_sha256Data = v14;
 
-      v14 = 1;
+      v13 = 1;
     }
   }
 
   else
   {
-    v14 = 0;
+    v13 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-  return v14;
+  return v13;
 }
 
 - (BOOL)_readMetadataFromArchive:(id)archive error:(id *)error
@@ -1261,52 +1373,48 @@ LABEL_6:
   {
     if (error)
     {
-      ENErrorF(12);
-      v8 = 0;
-      *error = v11 = 0;
+      ENErrorF(12, "No ProtobufCoder coder");
+      v5 = 0;
+      *error = v6 = 0;
       goto LABEL_13;
     }
 
     goto LABEL_16;
   }
 
-  metadata = self->_metadata;
   CFDictionaryGetInt64();
-  if (![OUTLINED_FUNCTION_4_1() writeFixedUInt64:? tag:? error:?] || (v6 = self->_metadata, CFDictionaryGetInt64(), !objc_msgSend(OUTLINED_FUNCTION_4_1(), "writeFixedUInt64:tag:error:")))
+  if (![OUTLINED_FUNCTION_4_1() writeFixedUInt64:? tag:? error:?] || (CFDictionaryGetInt64(), !objc_msgSend(OUTLINED_FUNCTION_4_1(), "writeFixedUInt64:tag:error:")))
   {
 LABEL_16:
-    v8 = 0;
+    v5 = 0;
 LABEL_17:
-    v11 = 0;
+    v6 = 0;
     goto LABEL_13;
   }
 
-  v7 = self->_metadata;
   CFStringGetTypeID();
-  v8 = CFDictionaryGetTypedValue();
-  if (v8 && ![(ENProtobufCoder *)self->_protobufCoder writeNSString:v8 tag:3 error:error])
+  v5 = CFDictionaryGetTypedValue();
+  if (v5 && ![(ENProtobufCoder *)self->_protobufCoder writeNSString:v5 tag:3 error:error])
   {
     goto LABEL_17;
   }
 
-  v9 = self->_metadata;
   CFDictionaryGetInt64Ranged();
   if (![OUTLINED_FUNCTION_4_1() writeVarIntUInt32:? tag:? error:?])
   {
     goto LABEL_17;
   }
 
-  v10 = self->_metadata;
   CFDictionaryGetInt64Ranged();
   if (![OUTLINED_FUNCTION_4_1() writeVarIntUInt32:? tag:? error:?])
   {
     goto LABEL_17;
   }
 
-  v11 = 1;
+  v6 = 1;
 LABEL_13:
 
-  return v11;
+  return v6;
 }
 
 @end

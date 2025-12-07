@@ -88,7 +88,7 @@
 
 - (void)restartQuery
 {
-  v3 = sub_10000DEB0();
+  v3 = sub_10000DEB0(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -153,29 +153,28 @@
   metadataQueryQueue = [(BDSUbiquityDocumentsObserver *)self metadataQueryQueue];
   dispatch_assert_queue_V2(metadataQueryQueue);
 
-  v6 = sub_10000DEB0();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v7 = sub_10000DEB0(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     sub_1001BDB08();
   }
 
   [(BDSUbiquityDocumentsObserver *)self setQuery:queryCopy];
-  v7 = +[NSNotificationCenter defaultCenter];
-  [v7 addObserver:self selector:"mq_queryDidStart:" name:NSMetadataQueryDidStartGatheringNotification object:queryCopy];
-
   v8 = +[NSNotificationCenter defaultCenter];
-  [v8 addObserver:self selector:"mq_queryDidFinish:" name:NSMetadataQueryDidFinishGatheringNotification object:queryCopy];
+  [v8 addObserver:self selector:"mq_queryDidStart:" name:NSMetadataQueryDidStartGatheringNotification object:queryCopy];
 
   v9 = +[NSNotificationCenter defaultCenter];
-  [v9 addObserver:self selector:"mq_queryDidUpdate:" name:NSMetadataQueryDidUpdateNotification object:queryCopy];
+  [v9 addObserver:self selector:"mq_queryDidFinish:" name:NSMetadataQueryDidFinishGatheringNotification object:queryCopy];
 
-  [queryCopy enableUpdates];
-  v10 = sub_10000DEB0();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v10 = +[NSNotificationCenter defaultCenter];
+  [v10 addObserver:self selector:"mq_queryDidUpdate:" name:NSMetadataQueryDidUpdateNotification object:queryCopy];
+
+  v11 = sub_10000DEB0([queryCopy enableUpdates]);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = queryCopy;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "BDSUbiquityDocumentsObserver: Starting metadata query: %@", &v11, 0xCu);
+    v12 = 138412290;
+    v13 = queryCopy;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "BDSUbiquityDocumentsObserver: Starting metadata query: %@", &v12, 0xCu);
   }
 
   [queryCopy startQuery];
@@ -187,30 +186,31 @@
   dispatch_assert_queue_V2(metadataQueryQueue);
 
   query = [(BDSUbiquityDocumentsObserver *)self query];
+  v5 = query;
   if (query)
   {
-    v5 = sub_10000DEB0();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = sub_10000DEB0(query);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       sub_1001BDB3C();
     }
 
-    [query stopQuery];
+    [v5 stopQuery];
     [(BDSUbiquityDocumentsObserver *)self setQuery:0];
-    v6 = +[NSNotificationCenter defaultCenter];
-    [v6 removeObserver:self name:NSMetadataQueryDidStartGatheringNotification object:query];
-
     v7 = +[NSNotificationCenter defaultCenter];
-    [v7 removeObserver:self name:NSMetadataQueryDidFinishGatheringNotification object:query];
+    [v7 removeObserver:self name:NSMetadataQueryDidStartGatheringNotification object:v5];
 
     v8 = +[NSNotificationCenter defaultCenter];
-    [v8 removeObserver:self name:NSMetadataQueryDidUpdateNotification object:query];
+    [v8 removeObserver:self name:NSMetadataQueryDidFinishGatheringNotification object:v5];
+
+    v9 = +[NSNotificationCenter defaultCenter];
+    [v9 removeObserver:self name:NSMetadataQueryDidUpdateNotification object:v5];
   }
 }
 
 - (void)mq_queryDidStart:(id)start
 {
-  v3 = sub_10000DEB0();
+  v3 = sub_10000DEB0(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -220,7 +220,7 @@
 
 - (void)mq_queryDidFinish:(id)finish
 {
-  v4 = sub_10000DEB0();
+  v4 = sub_10000DEB0(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -232,22 +232,22 @@
 
   v6 = objc_alloc_init(NSMutableArray);
   query2 = [(BDSUbiquityDocumentsObserver *)self query];
-  v13 = _NSConcreteStackBlock;
-  v14 = 3221225472;
-  v15 = sub_1000133A4;
-  v16 = &unk_10023FA20;
+  v14 = _NSConcreteStackBlock;
+  v15 = 3221225472;
+  v16 = sub_1000133A4;
+  v17 = &unk_10023FA20;
   v8 = v6;
-  v17 = v8;
+  v18 = v8;
   selfCopy = self;
-  [query2 enumerateResultsUsingBlock:&v13];
+  [query2 enumerateResultsUsingBlock:&v14];
 
-  v9 = sub_10000DEB0();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_10000DEB0(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v8 count]);
+    v11 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v8 count]);
     *buf = 138412290;
-    v20 = v10;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Found %@ downloaded items", buf, 0xCu);
+    v21 = v11;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Found %@ downloaded items", buf, 0xCu);
   }
 
   delegate = [(BDSUbiquityDocumentsObserver *)self delegate];
@@ -354,37 +354,37 @@
 
       if (v9)
       {
-        v10 = sub_10000DEB0();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+        v11 = sub_10000DEB0(v10);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
         {
           sub_1001BDC14();
         }
 
-        v11 = v6;
-        v12 = self->_noSyncURL;
-        self->_noSyncURL = v11;
+        v12 = v6;
+        v13 = self->_noSyncURL;
+        self->_noSyncURL = v12;
       }
 
       else
       {
-        v22 = 0;
-        v13 = [v7 createDirectoryAtURL:v6 withIntermediateDirectories:0 attributes:0 error:&v22];
-        v12 = v22;
-        v14 = sub_10000DEB0();
-        v15 = v14;
-        if (v13)
+        v23 = 0;
+        v14 = [v7 createDirectoryAtURL:v6 withIntermediateDirectories:0 attributes:0 error:&v23];
+        v13 = v23;
+        v15 = sub_10000DEB0(v13);
+        v16 = v15;
+        if (v14)
         {
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
           {
             sub_1001BDBE0();
           }
 
-          v16 = v6;
-          v15 = self->_noSyncURL;
-          self->_noSyncURL = v16;
+          v17 = v6;
+          v16 = self->_noSyncURL;
+          self->_noSyncURL = v17;
         }
 
-        else if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        else if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           sub_1001BDB70();
         }
@@ -394,18 +394,18 @@
     noSyncURL = self->_noSyncURL;
   }
 
-  v17 = noSyncURL;
+  v18 = noSyncURL;
   directoriesSubpath = [(BDSUbiquityDocumentsObserver *)self directoriesSubpath];
 
   if (directoriesSubpath)
   {
     directoriesSubpath2 = [(BDSUbiquityDocumentsObserver *)self directoriesSubpath];
-    v20 = [(NSURL *)v17 URLByAppendingPathComponent:directoriesSubpath2];
+    v21 = [(NSURL *)v18 URLByAppendingPathComponent:directoriesSubpath2];
 
-    v17 = v20;
+    v18 = v21;
   }
 
-  return v17;
+  return v18;
 }
 
 - (void)q_createSubpathDirectories

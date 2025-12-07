@@ -49,11 +49,11 @@
 
 - (id)_dictionaryRepresentation
 {
-  v10[2] = *MEMORY[0x1E69E9840];
-  v9[0] = @"mediaDestinationType";
+  v9[2] = *MEMORY[0x1E69E9840];
+  v8[0] = @"mediaDestinationType";
   v3 = [MEMORY[0x1E696AD98] numberWithInteger:self->_mediaDestinationType];
-  v9[1] = @"playlistName";
-  v10[0] = v3;
+  v8[1] = @"playlistName";
+  v9[0] = v3;
   playlistName = self->_playlistName;
   null = playlistName;
   if (!playlistName)
@@ -61,13 +61,11 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v10[1] = null;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
+  v9[1] = null;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:2];
   if (!playlistName)
   {
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

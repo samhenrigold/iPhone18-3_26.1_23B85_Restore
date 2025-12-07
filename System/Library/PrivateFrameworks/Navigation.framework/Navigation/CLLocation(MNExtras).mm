@@ -3,7 +3,6 @@
 + (uint64_t)_navigation_isLocation:()MNExtras equalTo:;
 - (double)_navigation_geoCoordinate;
 - (double)_navigation_geoCoordinate3D;
-- (double)_navigation_rawShiftedCoordinate;
 - (id)_navigation_geoLocation;
 - (id)initWithCoordinate:()MNExtras rawCoordinate:course:rawCourse:courseAccuracy:speed:speedAccuracy:altitude:timestamp:horizontalAccuracy:verticalAccuracy:type:referenceFrame:serializedCoarseMetaData:;
 - (uint64_t)_navigation_gtLog;
@@ -87,13 +86,6 @@
   objc_setAssociatedObject(self, &_navigation_gtLogKey, v2, 1);
 }
 
-- (double)_navigation_rawShiftedCoordinate
-{
-  result = *MEMORY[0x1E6985CC0];
-  v1 = *(MEMORY[0x1E6985CC0] + 8);
-  return result;
-}
-
 - (uint64_t)_navigation_locationDescription
 {
   v2 = MEMORY[0x1E696AEC0];
@@ -107,7 +99,7 @@
 
 - (uint64_t)initWithGeoLocation:()MNExtras
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   v4 = a3;
   latLng = [v4 latLng];
   [latLng lat];
@@ -127,14 +119,14 @@
   {
     v17 = MEMORY[0x1E696ACC8];
     coarseMetadata = [v4 coarseMetadata];
-    v45 = 0;
-    v19 = [v17 archivedDataWithRootObject:coarseMetadata requiringSecureCoding:1 error:&v45];
-    v20 = v45;
+    v44 = 0;
+    v19 = [v17 archivedDataWithRootObject:coarseMetadata requiringSecureCoding:1 error:&v44];
+    v20 = v44;
 
     if (!v19 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v47 = v20;
+      v46 = v20;
       _os_log_impl(&dword_1D311E000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to encode coarse location metadata: %{public}@", buf, 0xCu);
     }
   }
@@ -145,7 +137,7 @@
   }
 
   [v4 course];
-  v44 = v21;
+  v43 = v21;
   [v4 rawCourse];
   v23 = v22;
   [v4 courseAccuracy];
@@ -183,9 +175,8 @@
     v40 = 2 * (referenceFrame == 2);
   }
 
-  v41 = [self initWithCoordinate:v38 rawCoordinate:v40 course:v19 rawCourse:v10.latitude courseAccuracy:v10.longitude speed:v16.latitude speedAccuracy:v16.longitude altitude:v44 timestamp:v23 horizontalAccuracy:v25 verticalAccuracy:v27 type:v29 referenceFrame:altitude serializedCoarseMetaData:{v32, v34, v36}];
+  v41 = [self initWithCoordinate:v38 rawCoordinate:v40 course:v19 rawCourse:v10.latitude courseAccuracy:v10.longitude speed:v16.latitude speedAccuracy:v16.longitude altitude:v43 timestamp:v23 horizontalAccuracy:v25 verticalAccuracy:v27 type:v29 referenceFrame:altitude serializedCoarseMetaData:{v32, v34, v36}];
 
-  v42 = *MEMORY[0x1E69E9840];
   return v41;
 }
 
@@ -220,7 +211,7 @@
 
   else
   {
-    v21 = [self initWithClientLocation:&v24];
+    v21 = [self initWithClientLocation:{&v24, a12, 0, a14, a15, a16}];
   }
 
   v22 = v21;

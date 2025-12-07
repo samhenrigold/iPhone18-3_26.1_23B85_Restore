@@ -19,7 +19,7 @@
 {
   Hasher.init()();
   type metadata accessor for AttachmentID();
-  sub_1002C3D18(&qword_1006C2F60, &type metadata accessor for AttachmentID);
+  sub_1002C3D18(&qword_1006C2F60, &type metadata accessor for AttachmentID, &protocol conformance descriptor for AttachmentID);
   selfCopy = self;
   dispatch thunk of Hashable.hash(into:)();
   String.hash(into:)();
@@ -46,7 +46,7 @@
 
   v6 = sub_1002B7368(v8);
 
-  sub_1000073B4(v8, &qword_1006BE7A0);
+  sub_1000073B4(v8, &qword_1006BE7A0, &unk_100535E20);
   return v6 & 1;
 }
 

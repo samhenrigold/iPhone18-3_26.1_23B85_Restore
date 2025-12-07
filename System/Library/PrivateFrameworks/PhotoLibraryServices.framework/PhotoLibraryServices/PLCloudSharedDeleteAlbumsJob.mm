@@ -97,7 +97,7 @@ void __45__PLCloudSharedDeleteAlbumsJob_runDaemonSide__block_invoke_2(uint64_t a
             v19 = a1;
             v20 = v9;
             v22 = v21 = v2;
-            v23 = [v22 count];
+            v23 = objc_msgSend_count(v22);
             *buf = 138412802;
             v32 = v17;
             v33 = 2112;
@@ -199,7 +199,7 @@ void __45__PLCloudSharedDeleteAlbumsJob_runDaemonSide__block_invoke_2(uint64_t a
 + (void)deleteLocalAlbumsForMSASAlbumGUIDs:(id)ds
 {
   dsCopy = ds;
-  if ([dsCopy count])
+  if (objc_msgSend_count(dsCopy))
   {
     v3 = objc_opt_new();
     [v3 setAlbumCloudGUIDsToDelete:dsCopy];

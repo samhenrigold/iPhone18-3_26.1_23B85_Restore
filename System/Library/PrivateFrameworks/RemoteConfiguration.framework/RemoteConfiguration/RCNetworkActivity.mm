@@ -1,4 +1,5 @@
 @interface RCNetworkActivity
++ (RCNetworkActivity)activityWithDomain:(unsigned int)domain label:(unsigned int)label parentToken:(id)token;
 - (RCNetworkActivity)initWithDomain:(unsigned int)domain label:(unsigned int)label parentToken:(id)token;
 - (void)attachActivityToTask:(id)task;
 - (void)completeActivityWithSuccess:(BOOL)success;
@@ -7,13 +8,23 @@
 
 @implementation RCNetworkActivity
 
++ (RCNetworkActivity)activityWithDomain:(unsigned int)domain label:(unsigned int)label parentToken:(id)token
+{
+  v5 = *&label;
+  v6 = *&domain;
+  tokenCopy = token;
+  v8 = [[RCNetworkActivity alloc] initWithDomain:v6 label:v5 parentToken:tokenCopy];
+
+  return v8;
+}
+
 - (RCNetworkActivity)initWithDomain:(unsigned int)domain label:(unsigned int)label parentToken:(id)token
 {
-  v19[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   tokenCopy = token;
-  v18.receiver = self;
-  v18.super_class = RCNetworkActivity;
-  v10 = [(RCNetworkActivity *)&v18 init];
+  v16.receiver = self;
+  v16.super_class = RCNetworkActivity;
+  v10 = [(RCNetworkActivity *)&v16 init];
   v11 = v10;
   if (v10)
   {
@@ -26,16 +37,14 @@
 
     if (tokenCopy)
     {
-      v19[0] = 0;
-      v19[1] = 0;
-      [tokenCopy getUUIDBytes:v19];
+      v17[0] = 0;
+      v17[1] = 0;
+      [tokenCopy getUUIDBytes:v17];
       v14 = nw_activity_create_from_token();
-      v15 = v11->_activity;
       nw_activity_set_parent_activity();
     }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -64,18 +73,17 @@
 
 uint64_t __49__RCNetworkActivity_completeActivityWithSuccess___block_invoke(uint64_t a1)
 {
-  v1 = *(*(a1 + 32) + 8);
   if (*(a1 + 40))
   {
-    v2 = 2;
+    v1 = 2;
   }
 
   else
   {
-    v2 = 3;
+    v1 = 3;
   }
 
-  return MEMORY[0x282126560](*(*(a1 + 32) + 8), v2);
+  return MEMORY[0x282126560](*(*(a1 + 32) + 8), v1);
 }
 
 - (void)attachActivityToTask:(id)task

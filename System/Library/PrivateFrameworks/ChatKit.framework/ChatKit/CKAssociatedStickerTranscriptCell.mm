@@ -231,7 +231,7 @@
     v69 = 0u;
     v70 = 0u;
     v68 = 0u;
-    [(CKAssociatedMessageTranscriptCell *)self geometryDescriptor];
+    objc_msgSend_geometryDescriptor(self);
     [(CKAssociatedStickerTranscriptCell *)self rotation];
     *&v71 = v46;
     *(&v70 + 1) = 0x3FF0000000000000;
@@ -251,7 +251,7 @@
     v48 = v11;
     v50 = v49;
     v52 = v51;
-    [(CKAssociatedMessageTranscriptCell *)self geometryDescriptor];
+    objc_msgSend_geometryDescriptor(self);
     v53 = v50;
     v11 = v48;
     v13 = v47;
@@ -268,7 +268,7 @@
   [(CKAssociatedMessageTranscriptCell *)self parentSize];
   v61 = v60;
   v63 = v62;
-  [(CKAssociatedMessageTranscriptCell *)self geometryDescriptor];
+  objc_msgSend_geometryDescriptor(self);
   [CKAssociatedMessageChatItem applyTransformToView:associatedItemView3 viewFrame:&v68 parentSize:v45 forGeometryDescriptor:v11, v13, v15, v61, v63];
 }
 

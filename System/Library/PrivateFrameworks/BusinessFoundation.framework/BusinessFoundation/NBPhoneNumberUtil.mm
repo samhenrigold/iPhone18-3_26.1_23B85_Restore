@@ -48,7 +48,7 @@ uint64_t __36___NBPhoneNumberUtil_DIGIT_MAPPINGS__block_invoke()
 
 void __47___NBPhoneNumberUtil_initNormalizationMappings__block_invoke()
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjectsAndKeys:{@"0", @"1", @"1", @"2", @"2", @"3", @"3", @"4", @"4", @"5", @"5", @"6", @"6", @"7", @"7", @"8", @"8", @"9", @"9", @"+", @"+", @"*", @"*", @"#", @"#", 0}];
   v1 = qword_2813469C0;
   qword_2813469C0 = v0;
@@ -61,15 +61,13 @@ void __47___NBPhoneNumberUtil_initNormalizationMappings__block_invoke()
   v5 = qword_2813469D0;
   qword_2813469D0 = v4;
 
-  v9[0] = &unk_285464AB8;
-  v9[1] = &unk_285464AD0;
-  v10[0] = @"1";
-  v10[1] = @"9";
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
+  v8[0] = &unk_285464AB8;
+  v8[1] = &unk_285464AD0;
+  v9[0] = @"1";
+  v9[1] = @"9";
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
   v7 = qword_2813469D8;
   qword_2813469D8 = v6;
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __42___NBPhoneNumberUtil_telephonyNetworkInfo__block_invoke()

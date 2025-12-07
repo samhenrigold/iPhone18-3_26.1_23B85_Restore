@@ -63,9 +63,9 @@
     iCloudCalendarSettingSpecifier = self->_iCloudCalendarSettingSpecifier;
     self->_iCloudCalendarSettingSpecifier = v13;
 
-    v26 = ACUIAccountKey;
-    v27 = v11;
-    v15 = [NSDictionary dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+    v28 = ACUIAccountKey;
+    v29 = v11;
+    v15 = [NSDictionary dictionaryWithObjects:&v29 forKeys:&v28 count:1];
     v16 = [NSMutableDictionary dictionaryWithDictionary:v15];
 
     [(PSSpecifier *)self->_iCloudCalendarSettingSpecifier setUserInfo:v16];
@@ -81,17 +81,17 @@
     v21 = self->_specifiers;
     self->_specifiers = v20;
 
-    v22 = _CalLogSystem();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v23 = _CalLogSystem(v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
-      *v25 = 0;
-      _os_log_impl(&dword_0, v22, OS_LOG_TYPE_DEFAULT, "loading calendar specifier", v25, 2u);
+      *v27 = 0;
+      _os_log_impl(&dword_0, v23, OS_LOG_TYPE_DEFAULT, "loading calendar specifier", v27, 2u);
     }
 
-    v23 = _CalLogSystem();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+    v25 = _CalLogSystem(v24);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
     {
-      sub_B2E0(p_specifiers, v23);
+      sub_B2E0(p_specifiers, v25);
     }
 
     specifiers = *p_specifiers;
@@ -250,16 +250,16 @@
 
     if (isKindOfClass)
     {
-      v10 = objc_loadWeakRetained(&self->_presenter);
-      [v10 showController:v7];
+      v11 = objc_loadWeakRetained(&self->_presenter);
+      [v11 showController:v7];
     }
 
     else
     {
-      v10 = _CalLogSystem();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = _CalLogSystem(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        sub_B35C(v10);
+        sub_B35C(v11);
       }
     }
   }

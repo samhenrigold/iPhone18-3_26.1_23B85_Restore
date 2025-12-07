@@ -72,9 +72,11 @@
 
 uint64_t __41__CNContactFetchRequest_makeSerialNumber__block_invoke()
 {
-  makeSerialNumber_cn_once_object_0 = objc_alloc_init(MEMORY[0x1E6996630]);
+  v0 = objc_alloc_init(MEMORY[0x1E6996630]);
+  v1 = makeSerialNumber_cn_once_object_0;
+  makeSerialNumber_cn_once_object_0 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (BOOL)requiresMeContactAuthorization

@@ -364,6 +364,7 @@ LABEL_13:
 
 - (id)predictPersonFromFaceObservation:(id)observation limit:(unint64_t)limit canceller:(id)canceller error:(id *)error
 {
+  v17 = *MEMORY[0x1E69E9840];
   observationCopy = observation;
   cancellerCopy = canceller;
   if (observationCopy)
@@ -377,7 +378,9 @@ LABEL_13:
       {
         [v13 descriptorData];
         objc_claimAutoreleasedReturnValue();
-        std::vector<long long>::__init_with_size[abi:ne200100]<long long const*,long long const*>();
+        v16 = 1;
+        memset(__p, 0, sizeof(__p));
+        std::vector<long long>::__init_with_size[abi:ne200100]<long long const*,long long const*>(__p, &v16, &v17);
       }
     }
   }

@@ -45,7 +45,7 @@
 
 - (void)parseFileHandle:(id)handle completionHandler:(id)handler
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   handleCopy = handle;
   v8 = objc_alloc_init(WBSJSONReader);
@@ -57,10 +57,10 @@
   stack = self->_stack;
   self->_stack = v10;
 
-  v19 = 0;
-  [(WBSJSONReader *)v8 parseFileHandle:handleCopy error:&v19];
+  v18 = 0;
+  [(WBSJSONReader *)v8 parseFileHandle:handleCopy error:&v18];
 
-  v12 = v19;
+  v12 = v18;
   if (v12)
   {
     handlerCopy[2](handlerCopy, v12);
@@ -72,9 +72,9 @@
     if (!self->_foundExtensionsArray && !v13)
     {
       v14 = MEMORY[0x1E696ABC0];
-      v20 = *MEMORY[0x1E696A578];
-      v21[0] = @"Could not find extensions array in JSON file";
-      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+      v19 = *MEMORY[0x1E696A578];
+      v20[0] = @"Could not find extensions array in JSON file";
+      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
       v16 = [v14 errorWithDomain:@"com.apple.SafariShared.WBSExtensionsImporterErrorDomain" code:2 userInfo:v15];
       v17 = self->_lastError;
       self->_lastError = v16;
@@ -84,56 +84,50 @@
 
     handlerCopy[2](handlerCopy, v13);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_checkNotAtRootLevel
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v3 = [(NSMutableArray *)self->_stack count];
   if (!v3)
   {
     v4 = MEMORY[0x1E696ABC0];
-    v10 = *MEMORY[0x1E696A578];
-    v11[0] = @"Root node is expected to be a dictionary";
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v9 = *MEMORY[0x1E696A578];
+    v10[0] = @"Root node is expected to be a dictionary";
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
     v6 = [v4 errorWithDomain:@"com.apple.SafariShared.WBSExtensionsImporterErrorDomain" code:1 userInfo:v5];
     lastError = self->_lastError;
     self->_lastError = v6;
   }
 
-  result = v3 != 0;
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return v3 != 0;
 }
 
 - (BOOL)_isParsingExtensionsArray
 {
-  v6[3] = *MEMORY[0x1E69E9840];
+  v5[3] = *MEMORY[0x1E69E9840];
   stack = self->_stack;
-  v6[0] = &unk_1F308E4B0;
-  v6[1] = @"extensions";
-  v6[2] = &unk_1F308E4C8;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:3];
+  v5[0] = &unk_1F308E4B0;
+  v5[1] = @"extensions";
+  v5[2] = &unk_1F308E4C8;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:3];
   LOBYTE(stack) = [(NSMutableArray *)stack isEqual:v3];
 
-  v4 = *MEMORY[0x1E69E9840];
   return stack;
 }
 
 - (BOOL)_isParsingExtension
 {
-  v6[4] = *MEMORY[0x1E69E9840];
+  v5[4] = *MEMORY[0x1E69E9840];
   stack = self->_stack;
-  v6[0] = &unk_1F308E4B0;
-  v6[1] = @"extensions";
-  v6[2] = &unk_1F308E4C8;
-  v6[3] = &unk_1F308E4B0;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:4];
+  v5[0] = &unk_1F308E4B0;
+  v5[1] = @"extensions";
+  v5[2] = &unk_1F308E4C8;
+  v5[3] = &unk_1F308E4B0;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:4];
   LOBYTE(stack) = [(NSMutableArray *)stack isEqual:v3];
 
-  v4 = *MEMORY[0x1E69E9840];
   return stack;
 }
 

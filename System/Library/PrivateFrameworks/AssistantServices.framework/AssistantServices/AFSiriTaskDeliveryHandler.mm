@@ -22,39 +22,37 @@
 
 - (void)deliverSiriTask:(id)task completionHandler:(id)handler
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   taskCopy = task;
   handlerCopy = handler;
   v8 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v21 = "[AFSiriTaskDeliveryHandler deliverSiriTask:completionHandler:]";
-    v22 = 2112;
-    v23 = taskCopy;
+    v20 = "[AFSiriTaskDeliveryHandler deliverSiriTask:completionHandler:]";
+    v21 = 2112;
+    v22 = taskCopy;
     _os_log_impl(&dword_1912FE000, v8, OS_LOG_TYPE_INFO, "%s %@", buf, 0x16u);
   }
 
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __63__AFSiriTaskDeliveryHandler_deliverSiriTask_completionHandler___block_invoke;
-  v18[3] = &unk_1E7348AA8;
-  v19 = handlerCopy;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __63__AFSiriTaskDeliveryHandler_deliverSiriTask_completionHandler___block_invoke;
+  v17[3] = &unk_1E7348AA8;
+  v18 = handlerCopy;
   v9 = handlerCopy;
-  v10 = MEMORY[0x193AFB7B0](v18);
+  v10 = MEMORY[0x193AFB7B0](v17);
   queue = self->_queue;
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __63__AFSiriTaskDeliveryHandler_deliverSiriTask_completionHandler___block_invoke_2;
-  v15[3] = &unk_1E73496E8;
-  v16 = taskCopy;
-  v17 = v10;
-  v15[4] = self;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __63__AFSiriTaskDeliveryHandler_deliverSiriTask_completionHandler___block_invoke_2;
+  v14[3] = &unk_1E73496E8;
+  v15 = taskCopy;
+  v16 = v10;
+  v14[4] = self;
   v12 = taskCopy;
   v13 = v10;
-  dispatch_async(queue, v15);
-
-  v14 = *MEMORY[0x1E69E9840];
+  dispatch_async(queue, v14);
 }
 
 uint64_t __63__AFSiriTaskDeliveryHandler_deliverSiriTask_completionHandler___block_invoke(uint64_t a1)
@@ -70,7 +68,7 @@ uint64_t __63__AFSiriTaskDeliveryHandler_deliverSiriTask_completionHandler___blo
 
 void __63__AFSiriTaskDeliveryHandler_deliverSiriTask_completionHandler___block_invoke_2(void *a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1[4] + 24));
 
   if (WeakRetained)
@@ -83,13 +81,13 @@ void __63__AFSiriTaskDeliveryHandler_deliverSiriTask_completionHandler___block_i
       v6 = objc_loadWeakRetained((v4 + 24));
       v7 = a1[5];
       *buf = 136315906;
-      v15 = "[AFSiriTaskDeliveryHandler deliverSiriTask:completionHandler:]_block_invoke_2";
+      v13 = "[AFSiriTaskDeliveryHandler deliverSiriTask:completionHandler:]_block_invoke_2";
+      v14 = 2112;
+      v15 = v4;
       v16 = 2112;
-      v17 = v4;
+      v17 = v6;
       v18 = 2112;
-      v19 = v6;
-      v20 = 2112;
-      v21 = v7;
+      v19 = v7;
       _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s %@ asking %@ to handle task %@", buf, 0x2Au);
     }
 
@@ -98,15 +96,13 @@ void __63__AFSiriTaskDeliveryHandler_deliverSiriTask_completionHandler___block_i
     [v8 siriTaskService:v9 handleSiriTask:a1[5]];
 
     (*(a1[6] + 16))();
-    v10 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v11 = a1[6];
-    v13 = [AFError errorWithCode:700];
-    (*(v11 + 16))(v11);
-    v12 = *MEMORY[0x1E69E9840];
+    v10 = a1[6];
+    v11 = [AFError errorWithCode:700];
+    (*(v10 + 16))(v10);
   }
 }
 

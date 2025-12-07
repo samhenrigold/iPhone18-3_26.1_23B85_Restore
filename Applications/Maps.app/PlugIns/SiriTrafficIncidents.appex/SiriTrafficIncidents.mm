@@ -95,16 +95,16 @@ LABEL_19:
   (*(*(a1 + 56) + 16))();
 }
 
-id MAPSGetIncidentsReportingLog()
+id MAPSGetIncidentsReportingLog(uint64_t a1)
 {
   if (qword_10000CED0 != -1)
   {
     sub_100002C88();
   }
 
-  v1 = qword_10000CEC8;
+  v2 = qword_10000CEC8;
 
-  return v1;
+  return v2;
 }
 
 void sub_100001504(id a1)
@@ -119,33 +119,33 @@ void sub_100001704(uint64_t a1, void *a2, void *a3, void *a4)
   v6 = a2;
   v7 = a3;
   v8 = a4;
-  v34 = 0u;
-  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   v9 = [(TrafficIncidentLayout *)v6 feedbackResult];
   v10 = [v9 layoutConfigResult];
   v11 = [v10 forms];
 
-  v12 = [v11 countByEnumeratingWithState:&v34 objects:v42 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v36 objects:v44 count:16];
   if (v12)
   {
     v13 = v12;
-    v30 = v8;
-    v31 = v7;
-    v32 = v6;
+    v32 = v8;
+    v33 = v7;
+    v34 = v6;
     v14 = 0;
-    v15 = *v35;
+    v15 = *v37;
     do
     {
       for (i = 0; i != v13; i = i + 1)
       {
-        if (*v35 != v15)
+        if (*v37 != v15)
         {
           objc_enumerationMutation(v11);
         }
 
-        v17 = *(*(&v34 + 1) + 8 * i);
+        v17 = *(*(&v36 + 1) + 8 * i);
         v18 = [v17 formType];
         v19 = [*(a1 + 32) feedbackRequestParameters];
         v20 = [v19 layoutConfigParameters];
@@ -159,48 +159,49 @@ void sub_100001704(uint64_t a1, void *a2, void *a3, void *a4)
         }
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v34 objects:v42 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v36 objects:v44 count:16];
     }
 
     while (v13);
 
-    v7 = v31;
-    v6 = v32;
-    v8 = v30;
+    v7 = v33;
+    v6 = v34;
+    v8 = v32;
     if (v14)
     {
-      v23 = [[TrafficIncidentLayout alloc] initWithLayoutFormConfig:v14 location:*(a1 + 40)];
-      v24 = *(a1 + 56);
-      if (v24 == 7)
+      v24 = [[TrafficIncidentLayout alloc] initWithLayoutFormConfig:v14 location:*(a1 + 40)];
+      v25 = v24;
+      v26 = *(a1 + 56);
+      if (v26 == 7)
       {
-        v25 = +[TrafficIncidentLayoutStorage sharedInstance];
-        [v25 saveIncidentLayout:v23];
+        v27 = +[TrafficIncidentLayoutStorage sharedInstance];
+        [v27 saveIncidentLayout:v25];
       }
 
       else
       {
-        if (v24 != 9)
+        if (v26 != 9)
         {
 LABEL_21:
-          v28 = MAPSGetIncidentsReportingLog();
-          if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+          v30 = MAPSGetIncidentsReportingLog(v24);
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v39 = v23;
-            _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_INFO, "LayoutItem %@", buf, 0xCu);
+            v41 = v25;
+            _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_INFO, "LayoutItem %@", buf, 0xCu);
           }
 
-          v29 = *(a1 + 48);
-          if (v29)
+          v31 = *(a1 + 48);
+          if (v31)
           {
-            (*(v29 + 16))(v29, v23);
+            (*(v31 + 16))(v31, v25);
           }
 
           goto LABEL_26;
         }
 
-        v25 = +[TrafficIncidentLayoutStorage sharedInstance];
-        [v25 saveIncidentVotingLayout:v23];
+        v27 = +[TrafficIncidentLayoutStorage sharedInstance];
+        [v27 saveIncidentVotingLayout:v25];
       }
 
       goto LABEL_21;
@@ -211,20 +212,20 @@ LABEL_21:
   {
   }
 
-  v26 = MAPSGetIncidentsReportingLog();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+  v28 = MAPSGetIncidentsReportingLog(v23);
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412546;
-    v39 = v6;
-    v40 = 2112;
-    v41 = v8;
-    _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "Error: Layout config not included in response: %@ error: %@", buf, 0x16u);
+    v41 = v6;
+    v42 = 2112;
+    v43 = v8;
+    _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "Error: Layout config not included in response: %@ error: %@", buf, 0x16u);
   }
 
-  v27 = *(a1 + 48);
-  if (v27)
+  v29 = *(a1 + 48);
+  if (v29)
   {
-    (*(v27 + 16))(v27, 0);
+    (*(v29 + 16))(v29, 0);
   }
 
 LABEL_26:

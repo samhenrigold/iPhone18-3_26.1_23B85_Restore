@@ -63,154 +63,154 @@ void __47__MADAutoAssetLookupCache_autoAssetLookupCache__block_invoke(id a1)
   resultCopy = result;
   selectorCopy = selector;
   v9 = +[MADAutoAssetLookupCache autoAssetLookupCache];
-  v10 = getDownloadManager();
-  IsInternalAllowed = _MAPreferencesIsInternalAllowed();
+  v10 = getDownloadManager(v9);
+  IsInternalAllowed = _MAPreferencesIsInternalAllowed(v10, v11);
   assetType = [selectorCopy assetType];
-  v13 = [v10 newAssetAudience:IsInternalAllowed assetType:assetType logMessage:0];
+  v14 = [v10 newAssetAudience:IsInternalAllowed assetType:assetType logMessage:0];
 
-  v14 = +[MADAutoAssetControlManager preferenceLookupCacheAssetSelectorValidSecs];
-  v15 = [MADAutoAssetLookupCache _newBySelectorKey:selectorCopy forAssetAudience:v13];
-  v16 = @"CLIENT";
+  v15 = +[MADAutoAssetControlManager preferenceLookupCacheAssetSelectorValidSecs];
+  v16 = [MADAutoAssetLookupCache _newBySelectorKey:selectorCopy forAssetAudience:v14];
+  v17 = @"CLIENT";
   if (stagingCopy)
   {
-    v16 = @"STAGING";
+    v17 = @"STAGING";
   }
 
-  v17 = v16;
   v18 = v17;
+  v19 = v18;
   if (v9)
   {
-    v32 = v17;
-    v33 = v13;
-    v19 = v15;
-    v20 = v9;
-    v21 = resultCopy;
-    v22 = getDownloadManager();
+    v33 = v18;
+    v34 = v14;
+    v20 = v16;
+    v21 = v9;
+    v22 = resultCopy;
+    v23 = getDownloadManager(v18);
     assetType2 = [selectorCopy assetType];
-    v24 = [v22 getPallasEnabledForAssetType:assetType2];
+    v25 = [v23 getPallasEnabledForAssetType:assetType2];
 
-    if (v24)
+    if (v25)
     {
       if (stagingCopy)
       {
-        v25 = _MADLog(@"Auto");
-        resultCopy = v21;
-        v15 = v19;
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+        v26 = _MADLog(@"Auto");
+        resultCopy = v22;
+        v16 = v20;
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
         {
           summary = [selectorCopy summary];
           *buf = 138543618;
-          v42 = @"STAGING";
-          v43 = 2114;
-          v44 = summary;
-          _os_log_impl(&dword_0, v25, OS_LOG_TYPE_DEFAULT, "{AUTO-LOOKUP-CACHE[%{public}@]:recordLookupResult:forSelector:} | auto-asset-lookup-cache not in use for PSUS | selector:%{public}@", buf, 0x16u);
+          v43 = @"STAGING";
+          v44 = 2114;
+          v45 = summary;
+          _os_log_impl(&dword_0, v26, OS_LOG_TYPE_DEFAULT, "{AUTO-LOOKUP-CACHE[%{public}@]:recordLookupResult:forSelector:} | auto-asset-lookup-cache not in use for PSUS | selector:%{public}@", buf, 0x16u);
         }
 
-        v9 = v20;
+        v9 = v21;
         goto LABEL_17;
       }
 
-      resultCopy = v21;
-      v15 = v19;
-      if (!v19)
+      resultCopy = v22;
+      v16 = v20;
+      if (!v20)
       {
-        v25 = _MADLog(@"Auto");
-        v9 = v20;
-        v13 = v33;
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+        v26 = _MADLog(@"Auto");
+        v9 = v21;
+        v14 = v34;
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
         {
           summary2 = [selectorCopy summary];
           *buf = 138543874;
-          v42 = @"CLIENT";
-          v43 = 2114;
-          v44 = summary2;
-          v45 = 2114;
-          v46 = v33;
-          _os_log_impl(&dword_0, v25, OS_LOG_TYPE_ERROR, "{AUTO-LOOKUP-CACHE[%{public}@]:recordLookupResult:forSelector:} | unable to determine by-asset-selector lookup-cache key | selector:%{public}@ | assetAudience:%{public}@", buf, 0x20u);
+          v43 = @"CLIENT";
+          v44 = 2114;
+          v45 = summary2;
+          v46 = 2114;
+          v47 = v34;
+          _os_log_impl(&dword_0, v26, OS_LOG_TYPE_ERROR, "{AUTO-LOOKUP-CACHE[%{public}@]:recordLookupResult:forSelector:} | unable to determine by-asset-selector lookup-cache key | selector:%{public}@ | assetAudience:%{public}@", buf, 0x20u);
         }
 
         goto LABEL_18;
       }
 
-      v9 = v20;
-      v13 = v33;
-      if (v14)
+      v9 = v21;
+      v14 = v34;
+      if (v15)
       {
-        lookupCacheQueue = [v20 lookupCacheQueue];
+        lookupCacheQueue = [v21 lookupCacheQueue];
         block[0] = _NSConcreteStackBlock;
         block[1] = 3221225472;
         block[2] = __69__MADAutoAssetLookupCache_recordLookupResult_forSelector_forStaging___block_invoke;
         block[3] = &unk_4B3818;
-        v35 = v20;
-        v36 = resultCopy;
-        v37 = selectorCopy;
-        v38 = v33;
-        v39 = @"CLIENT";
-        v40 = v15;
+        v36 = v21;
+        v37 = resultCopy;
+        v38 = selectorCopy;
+        v39 = v34;
+        v40 = @"CLIENT";
+        v41 = v16;
         dispatch_sync(lookupCacheQueue, block);
 
-        v25 = v35;
+        v26 = v36;
 LABEL_18:
-        v18 = v32;
+        v19 = v33;
         goto LABEL_19;
       }
 
-      v25 = _MADLog(@"Auto");
-      v18 = v32;
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+      v26 = _MADLog(@"Auto");
+      v19 = v33;
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
       {
         summary3 = [selectorCopy summary];
         *buf = 138543874;
-        v42 = @"CLIENT";
-        v43 = 2114;
-        v44 = summary3;
-        v45 = 2114;
-        v46 = v33;
-        _os_log_impl(&dword_0, v25, OS_LOG_TYPE_DEFAULT, "{AUTO-LOOKUP-CACHE[%{public}@]:recordLookupResult:forSelector:} | by-asset-selector lookup-cache disabled | selector:%{public}@ | assetAudience:%{public}@", buf, 0x20u);
+        v43 = @"CLIENT";
+        v44 = 2114;
+        v45 = summary3;
+        v46 = 2114;
+        v47 = v34;
+        _os_log_impl(&dword_0, v26, OS_LOG_TYPE_DEFAULT, "{AUTO-LOOKUP-CACHE[%{public}@]:recordLookupResult:forSelector:} | by-asset-selector lookup-cache disabled | selector:%{public}@ | assetAudience:%{public}@", buf, 0x20u);
       }
     }
 
     else
     {
-      v25 = _MADLog(@"Auto");
-      if (!os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+      v26 = _MADLog(@"Auto");
+      if (!os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
       {
-        resultCopy = v21;
-        v9 = v20;
-        v15 = v19;
+        resultCopy = v22;
+        v9 = v21;
+        v16 = v20;
 LABEL_17:
-        v13 = v33;
+        v14 = v34;
         goto LABEL_18;
       }
 
       summary4 = [selectorCopy summary];
       *buf = 138543618;
-      v42 = v32;
-      v43 = 2114;
-      v44 = summary4;
-      _os_log_impl(&dword_0, v25, OS_LOG_TYPE_DEFAULT, "{AUTO-LOOKUP-CACHE[%{public}@]:recordLookupResult:forSelector:} | auto-asset-lookup-cache non-pallas disabled | selector:%{public}@", buf, 0x16u);
+      v43 = v33;
+      v44 = 2114;
+      v45 = summary4;
+      _os_log_impl(&dword_0, v26, OS_LOG_TYPE_DEFAULT, "{AUTO-LOOKUP-CACHE[%{public}@]:recordLookupResult:forSelector:} | auto-asset-lookup-cache non-pallas disabled | selector:%{public}@", buf, 0x16u);
 
-      resultCopy = v21;
-      v9 = v20;
-      v18 = v32;
-      v15 = v19;
-      v13 = v33;
+      resultCopy = v22;
+      v9 = v21;
+      v19 = v33;
+      v16 = v20;
+      v14 = v34;
     }
   }
 
   else
   {
-    v25 = _MADLog(@"Auto");
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v26 = _MADLog(@"Auto");
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       summary5 = [selectorCopy summary];
       *buf = 138543874;
-      v42 = v18;
-      v43 = 2114;
-      v44 = summary5;
-      v45 = 2114;
-      v46 = v13;
-      _os_log_impl(&dword_0, v25, OS_LOG_TYPE_ERROR, "{AUTO-LOOKUP-CACHE[%{public}@]:recordLookupResult:forSelector:} | unable to locate auto-asset-lookup-cache | selector:%{public}@ | assetAudience:%{public}@", buf, 0x20u);
+      v43 = v19;
+      v44 = 2114;
+      v45 = summary5;
+      v46 = 2114;
+      v47 = v14;
+      _os_log_impl(&dword_0, v26, OS_LOG_TYPE_ERROR, "{AUTO-LOOKUP-CACHE[%{public}@]:recordLookupResult:forSelector:} | unable to locate auto-asset-lookup-cache | selector:%{public}@ | assetAudience:%{public}@", buf, 0x20u);
     }
   }
 
@@ -420,46 +420,48 @@ LABEL_36:
   configurationCopy = configuration;
   v9 = +[MADAutoAssetLookupCache autoAssetLookupCache];
   v10 = [MADAutoAssetLookupCache _setConfigurationAssetType:configurationCopy];
-  v28 = resultCopy;
+  v11 = v10;
+  v31 = resultCopy;
   if (v10)
   {
-    v11 = getDownloadManager();
-    v12 = [v11 newAssetAudience:_MAPreferencesIsInternalAllowed() assetType:v10 logMessage:0];
+    v12 = getDownloadManager(v10);
+    v14 = [v12 newAssetAudience:_MAPreferencesIsInternalAllowed(v12 assetType:v13) logMessage:{v11, 0}];
   }
 
   else
   {
-    v12 = 0;
+    v14 = 0;
   }
 
-  v13 = +[MADAutoAssetControlManager preferenceLookupCacheSetConfigurationValidSecs];
-  v14 = [MADAutoAssetLookupCache _newBySetConfigurationKey:configurationCopy forAssetAudience:v12];
+  v15 = +[MADAutoAssetControlManager preferenceLookupCacheSetConfigurationValidSecs];
+  v16 = [MADAutoAssetLookupCache _newBySetConfigurationKey:configurationCopy forAssetAudience:v14];
   if (stagingCopy)
   {
-    v15 = @"STAGING";
+    v17 = @"STAGING";
   }
 
   else
   {
-    v15 = @"CLIENT";
+    v17 = @"CLIENT";
   }
 
-  v16 = v15;
+  v18 = v17;
+  v19 = v18;
   if (!v9)
   {
-    v17 = _MADLog(@"Auto");
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v20 = _MADLog(@"Auto");
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       summary = [configurationCopy summary];
       *buf = 138543618;
-      v37 = v16;
-      v38 = 2114;
-      v39 = summary;
-      v19 = "{AUTO-LOOKUP-CACHE[%{public}@]:recordLookupResult:forSetConfiguration:} | unable to locate auto-asset-lookup-cache | set-configuration:%{public}@";
-      v20 = v17;
-      v21 = OS_LOG_TYPE_ERROR;
+      v40 = v19;
+      v41 = 2114;
+      v42 = summary;
+      v22 = "{AUTO-LOOKUP-CACHE[%{public}@]:recordLookupResult:forSetConfiguration:} | unable to locate auto-asset-lookup-cache | set-configuration:%{public}@";
+      v23 = v20;
+      v24 = OS_LOG_TYPE_ERROR;
 LABEL_26:
-      v27 = 22;
+      v30 = 22;
       goto LABEL_27;
     }
 
@@ -468,64 +470,64 @@ LABEL_26:
 
   if (stagingCopy)
   {
-    v17 = _MADLog(@"Auto");
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v20 = _MADLog(@"Auto");
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       summary = [configurationCopy summary];
       *buf = 138543618;
-      v37 = @"STAGING";
-      v38 = 2114;
-      v39 = summary;
-      v19 = "{AUTO-LOOKUP-CACHE[%{public}@]:recordLookupResult:forSetConfiguration:} | auto-asset-lookup-cache not in use for PSUS | set-configuration:%{public}@";
+      v40 = @"STAGING";
+      v41 = 2114;
+      v42 = summary;
+      v22 = "{AUTO-LOOKUP-CACHE[%{public}@]:recordLookupResult:forSetConfiguration:} | auto-asset-lookup-cache not in use for PSUS | set-configuration:%{public}@";
 LABEL_25:
-      v20 = v17;
-      v21 = OS_LOG_TYPE_DEFAULT;
+      v23 = v20;
+      v24 = OS_LOG_TYPE_DEFAULT;
       goto LABEL_26;
     }
 
     goto LABEL_28;
   }
 
-  if (!v14)
+  if (!v16)
   {
-    if (!v10)
+    if (!v11)
     {
-      v17 = _MADLog(@"Auto");
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v20 = _MADLog(@"Auto");
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         summary = [configurationCopy summary];
         *buf = 138543618;
-        v37 = @"CLIENT";
-        v38 = 2114;
-        v39 = summary;
-        v19 = "{AUTO-LOOKUP-CACHE[%{public}@]:recordLookupResult:forSetConfiguration:} | unable to determine by-set-configuration lookup-cache key (no asset-type from set-configuration) | setConfiguration:%{public}@";
+        v40 = @"CLIENT";
+        v41 = 2114;
+        v42 = summary;
+        v22 = "{AUTO-LOOKUP-CACHE[%{public}@]:recordLookupResult:forSetConfiguration:} | unable to determine by-set-configuration lookup-cache key (no asset-type from set-configuration) | setConfiguration:%{public}@";
         goto LABEL_25;
       }
 
       goto LABEL_28;
     }
 
-    v26 = _MADLog(@"Auto");
-    v17 = v26;
-    if (v12)
+    v29 = _MADLog(@"Auto");
+    v20 = v29;
+    if (v14)
     {
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
         summary = [configurationCopy summary];
         *buf = 138544130;
-        v37 = @"CLIENT";
-        v38 = 2114;
-        v39 = summary;
-        v40 = 2114;
-        v41 = v10;
-        v42 = 2114;
-        v43 = v12;
-        v19 = "{AUTO-LOOKUP-CACHE[%{public}@]:recordLookupResult:forSetConfiguration:} | unable to determine by-set-configuration lookup-cache key | setConfiguration:%{public}@ | setAssetType:%{public}@ | assetAudience:%{public}@";
-        v20 = v17;
-        v21 = OS_LOG_TYPE_ERROR;
-        v27 = 42;
+        v40 = @"CLIENT";
+        v41 = 2114;
+        v42 = summary;
+        v43 = 2114;
+        v44 = v11;
+        v45 = 2114;
+        v46 = v14;
+        v22 = "{AUTO-LOOKUP-CACHE[%{public}@]:recordLookupResult:forSetConfiguration:} | unable to determine by-set-configuration lookup-cache key | setConfiguration:%{public}@ | setAssetType:%{public}@ | assetAudience:%{public}@";
+        v23 = v20;
+        v24 = OS_LOG_TYPE_ERROR;
+        v30 = 42;
 LABEL_27:
-        _os_log_impl(&dword_0, v20, v21, v19, buf, v27);
+        _os_log_impl(&dword_0, v23, v24, v22, buf, v30);
 
         goto LABEL_28;
       }
@@ -533,64 +535,64 @@ LABEL_27:
       goto LABEL_28;
     }
 
-    if (!os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    if (!os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_28;
     }
 
     summary = [configurationCopy summary];
     *buf = 138543874;
-    v37 = @"CLIENT";
-    v38 = 2114;
-    v39 = summary;
-    v40 = 2114;
-    v41 = v10;
-    v19 = "{AUTO-LOOKUP-CACHE[%{public}@]:recordLookupResult:forSetConfiguration:} | unable to determine by-set-configuration lookup-cache key (no asset-audience) | setConfiguration:%{public}@ | setAssetType:%{public}@";
+    v40 = @"CLIENT";
+    v41 = 2114;
+    v42 = summary;
+    v43 = 2114;
+    v44 = v11;
+    v22 = "{AUTO-LOOKUP-CACHE[%{public}@]:recordLookupResult:forSetConfiguration:} | unable to determine by-set-configuration lookup-cache key (no asset-audience) | setConfiguration:%{public}@ | setAssetType:%{public}@";
 LABEL_34:
-    v20 = v17;
-    v21 = OS_LOG_TYPE_DEFAULT;
-    v27 = 32;
+    v23 = v20;
+    v24 = OS_LOG_TYPE_DEFAULT;
+    v30 = 32;
     goto LABEL_27;
   }
 
-  v22 = getDownloadManager();
-  v23 = [v22 getPallasEnabledForAssetType:v10];
+  v25 = getDownloadManager(v18);
+  v26 = [v25 getPallasEnabledForAssetType:v11];
 
-  if ((v23 & 1) == 0)
+  if ((v26 & 1) == 0)
   {
-    v17 = _MADLog(@"Auto");
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v20 = _MADLog(@"Auto");
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       summary = [configurationCopy summary];
       *buf = 138543618;
-      v37 = @"CLIENT";
-      v38 = 2114;
-      v39 = summary;
-      v19 = "{AUTO-LOOKUP-CACHE[%{public}@]:recordLookupResult:forSetConfiguration:} | by-set-configuration non-pallas disabled | selector:%{public}@";
+      v40 = @"CLIENT";
+      v41 = 2114;
+      v42 = summary;
+      v22 = "{AUTO-LOOKUP-CACHE[%{public}@]:recordLookupResult:forSetConfiguration:} | by-set-configuration non-pallas disabled | selector:%{public}@";
       goto LABEL_25;
     }
 
 LABEL_28:
-    v25 = v28;
+    v28 = v31;
     goto LABEL_29;
   }
 
-  if (!v13)
+  if (!v15)
   {
-    v17 = _MADLog(@"Auto");
-    if (!os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v20 = _MADLog(@"Auto");
+    if (!os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_28;
     }
 
     summary = [configurationCopy summary];
     *buf = 138543874;
-    v37 = @"CLIENT";
-    v38 = 2114;
-    v39 = summary;
-    v40 = 2114;
-    v41 = v12;
-    v19 = "{AUTO-LOOKUP-CACHE[%{public}@]:recordLookupResult:forSetConfiguration:} | by-set-configuration lookup-cache disabled | setConfiguration:%{public}@ | assetAudience:%{public}@";
+    v40 = @"CLIENT";
+    v41 = 2114;
+    v42 = summary;
+    v43 = 2114;
+    v44 = v14;
+    v22 = "{AUTO-LOOKUP-CACHE[%{public}@]:recordLookupResult:forSetConfiguration:} | by-set-configuration lookup-cache disabled | setConfiguration:%{public}@ | assetAudience:%{public}@";
     goto LABEL_34;
   }
 
@@ -599,16 +601,16 @@ LABEL_28:
   block[1] = 3221225472;
   block[2] = __77__MADAutoAssetLookupCache_recordLookupResult_forSetConfiguration_forStaging___block_invoke;
   block[3] = &unk_4B3818;
-  v30 = v9;
-  v25 = v28;
-  v31 = v28;
-  v32 = configurationCopy;
-  v33 = v12;
-  v34 = @"CLIENT";
-  v35 = v14;
+  v33 = v9;
+  v28 = v31;
+  v34 = v31;
+  v35 = configurationCopy;
+  v36 = v14;
+  v37 = @"CLIENT";
+  v38 = v16;
   dispatch_sync(lookupCacheQueue, block);
 
-  v17 = v30;
+  v20 = v33;
 LABEL_29:
 }
 
@@ -926,147 +928,148 @@ void __65__MADAutoAssetLookupCache_clearLookupResultsForSetConfiguration___block
   stagingCopy = staging;
   selectorCopy = selector;
   v6 = +[MADAutoAssetLookupCache autoAssetLookupCache];
-  v7 = getDownloadManager();
-  IsInternalAllowed = _MAPreferencesIsInternalAllowed();
+  v7 = getDownloadManager(v6);
+  IsInternalAllowed = _MAPreferencesIsInternalAllowed(v7, v8);
   assetType = [selectorCopy assetType];
-  v10 = [v7 newAssetAudience:IsInternalAllowed assetType:assetType logMessage:0];
+  v11 = [v7 newAssetAudience:IsInternalAllowed assetType:assetType logMessage:0];
 
-  v40 = 0;
-  v41 = &v40;
-  v42 = 0x2020000000;
-  v43 = +[MADAutoAssetControlManager preferenceLookupCacheAssetSelectorValidSecs];
-  v25 = [MADAutoAssetLookupCache _newBySelectorKey:selectorCopy forAssetAudience:v10];
+  v42 = 0;
+  v43 = &v42;
+  v44 = 0x2020000000;
+  v45 = +[MADAutoAssetControlManager preferenceLookupCacheAssetSelectorValidSecs];
+  v27 = [MADAutoAssetLookupCache _newBySelectorKey:selectorCopy forAssetAudience:v11];
   if (stagingCopy)
   {
-    v11 = @"STAGING";
+    v12 = @"STAGING";
   }
 
   else
   {
-    v11 = @"CLIENT";
+    v12 = @"CLIENT";
   }
 
-  v12 = v11;
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x3032000000;
-  v37 = __Block_byref_object_copy__6;
-  v38 = __Block_byref_object_dispose__6;
-  v39 = 0;
+  v13 = v12;
+  v14 = v13;
+  v36 = 0;
+  v37 = &v36;
+  v38 = 0x3032000000;
+  v39 = __Block_byref_object_copy__6;
+  v40 = __Block_byref_object_dispose__6;
+  v41 = 0;
   if (v6)
   {
-    v13 = getDownloadManager();
+    v15 = getDownloadManager(v13);
     assetType2 = [selectorCopy assetType];
-    v15 = [v13 getPallasEnabledForAssetType:assetType2];
+    v17 = [v15 getPallasEnabledForAssetType:assetType2];
 
-    if (v15)
+    if (v17)
     {
       if (stagingCopy)
       {
-        v16 = _MADLog(@"Auto");
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        v18 = _MADLog(@"Auto");
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
           summary = [selectorCopy summary];
           *buf = 138543618;
-          v45 = @"STAGING";
-          v46 = 2114;
-          v47 = summary;
-          _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "{AUTO-LOOKUP-CACHE[%{public}@]:recordLookupResult:forSelector:} | auto-asset-lookup-cache not in use for PSUS | selector:%{public}@", buf, 0x16u);
+          v47 = @"STAGING";
+          v48 = 2114;
+          v49 = summary;
+          _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "{AUTO-LOOKUP-CACHE[%{public}@]:recordLookupResult:forSelector:} | auto-asset-lookup-cache not in use for PSUS | selector:%{public}@", buf, 0x16u);
         }
       }
 
-      else if (v25)
+      else if (v27)
       {
-        if (v41[3])
+        if (v43[3])
         {
           lookupCacheQueue = [v6 lookupCacheQueue];
           block[0] = _NSConcreteStackBlock;
           block[1] = 3221225472;
           block[2] = __68__MADAutoAssetLookupCache_cachedLookupResultForSelector_forStaging___block_invoke;
           block[3] = &unk_4B3840;
-          v27 = v6;
-          v28 = v25;
-          v29 = @"CLIENT";
-          v30 = selectorCopy;
-          v31 = v10;
-          v32 = &v40;
-          v33 = &v34;
+          v29 = v6;
+          v30 = v27;
+          v31 = @"CLIENT";
+          v32 = selectorCopy;
+          v33 = v11;
+          v34 = &v42;
+          v35 = &v36;
           dispatch_sync(lookupCacheQueue, block);
 
-          v16 = v27;
+          v18 = v29;
         }
 
         else
         {
-          v16 = _MADLog(@"Auto");
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+          v18 = _MADLog(@"Auto");
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
           {
             summary2 = [selectorCopy summary];
             *buf = 138543874;
-            v45 = @"CLIENT";
-            v46 = 2114;
-            v47 = summary2;
+            v47 = @"CLIENT";
             v48 = 2114;
-            v49 = v10;
-            _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "{AUTO-LOOKUP-CACHE[%{public}@]:cachedLookupResultForSelector} | by-asset-selector lookup-cache disabled | selector:%{public}@ | assetAudience:%{public}@", buf, 0x20u);
+            v49 = summary2;
+            v50 = 2114;
+            v51 = v11;
+            _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "{AUTO-LOOKUP-CACHE[%{public}@]:cachedLookupResultForSelector} | by-asset-selector lookup-cache disabled | selector:%{public}@ | assetAudience:%{public}@", buf, 0x20u);
           }
         }
       }
 
       else
       {
-        v16 = _MADLog(@"Auto");
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        v18 = _MADLog(@"Auto");
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
           summary3 = [selectorCopy summary];
           *buf = 138543874;
-          v45 = @"CLIENT";
-          v46 = 2114;
-          v47 = summary3;
+          v47 = @"CLIENT";
           v48 = 2114;
-          v49 = v10;
-          _os_log_impl(&dword_0, v16, OS_LOG_TYPE_ERROR, "{AUTO-LOOKUP-CACHE[%{public}@]:cachedLookupResultForSelector} | unable to determine by-asset-selector lookup-cache key | selector:%{public}@ | assetAudience:%{public}@", buf, 0x20u);
+          v49 = summary3;
+          v50 = 2114;
+          v51 = v11;
+          _os_log_impl(&dword_0, v18, OS_LOG_TYPE_ERROR, "{AUTO-LOOKUP-CACHE[%{public}@]:cachedLookupResultForSelector} | unable to determine by-asset-selector lookup-cache key | selector:%{public}@ | assetAudience:%{public}@", buf, 0x20u);
         }
       }
     }
 
     else
     {
-      v16 = _MADLog(@"Auto");
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v18 = _MADLog(@"Auto");
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         summary4 = [selectorCopy summary];
         *buf = 138543618;
-        v45 = v12;
-        v46 = 2114;
-        v47 = summary4;
-        _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "{AUTO-LOOKUP-CACHE[%{public}@]:cachedLookupResultForSelector} | lookup-cache non-pallas disabled | selector:%{public}@", buf, 0x16u);
+        v47 = v14;
+        v48 = 2114;
+        v49 = summary4;
+        _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "{AUTO-LOOKUP-CACHE[%{public}@]:cachedLookupResultForSelector} | lookup-cache non-pallas disabled | selector:%{public}@", buf, 0x16u);
       }
     }
   }
 
   else
   {
-    v16 = _MADLog(@"Auto");
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v18 = _MADLog(@"Auto");
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       summary5 = [selectorCopy summary];
       *buf = 138543874;
-      v45 = v12;
-      v46 = 2114;
-      v47 = summary5;
+      v47 = v14;
       v48 = 2114;
-      v49 = v10;
-      _os_log_impl(&dword_0, v16, OS_LOG_TYPE_ERROR, "{AUTO-LOOKUP-CACHE[%{public}@]:cachedLookupResultForSelector} | unable to locate auto-asset-lookup-cache | selector:%{public}@ | assetAudience:%{public}@", buf, 0x20u);
+      v49 = summary5;
+      v50 = 2114;
+      v51 = v11;
+      _os_log_impl(&dword_0, v18, OS_LOG_TYPE_ERROR, "{AUTO-LOOKUP-CACHE[%{public}@]:cachedLookupResultForSelector} | unable to locate auto-asset-lookup-cache | selector:%{public}@ | assetAudience:%{public}@", buf, 0x20u);
     }
   }
 
-  v23 = v35[5];
-  _Block_object_dispose(&v34, 8);
+  v25 = v37[5];
+  _Block_object_dispose(&v36, 8);
 
-  _Block_object_dispose(&v40, 8);
+  _Block_object_dispose(&v42, 8);
 
-  return v23;
+  return v25;
 }
 
 void __68__MADAutoAssetLookupCache_cachedLookupResultForSelector_forStaging___block_invoke(uint64_t a1)
@@ -1225,176 +1228,177 @@ LABEL_22:
   configurationCopy = configuration;
   v6 = +[MADAutoAssetLookupCache autoAssetLookupCache];
   v7 = [MADAutoAssetLookupCache _setConfigurationAssetType:configurationCopy];
+  v8 = v7;
   if (v7)
   {
-    v8 = getDownloadManager();
-    v9 = [v8 newAssetAudience:_MAPreferencesIsInternalAllowed() assetType:v7 logMessage:0];
+    v9 = getDownloadManager(v7);
+    v11 = [v9 newAssetAudience:_MAPreferencesIsInternalAllowed(v9 assetType:v10) logMessage:{v8, 0}];
   }
 
   else
   {
-    v9 = 0;
+    v11 = 0;
   }
 
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x2020000000;
-  v41 = +[MADAutoAssetControlManager preferenceLookupCacheSetConfigurationValidSecs];
-  v10 = [MADAutoAssetLookupCache _newBySetConfigurationKey:configurationCopy forAssetAudience:v9];
+  v40 = 0;
+  v41 = &v40;
+  v42 = 0x2020000000;
+  v43 = +[MADAutoAssetControlManager preferenceLookupCacheSetConfigurationValidSecs];
+  v12 = [MADAutoAssetLookupCache _newBySetConfigurationKey:configurationCopy forAssetAudience:v11];
   if (stagingCopy)
   {
-    v11 = @"STAGING";
+    v13 = @"STAGING";
   }
 
   else
   {
-    v11 = @"CLIENT";
+    v13 = @"CLIENT";
   }
 
-  v12 = v11;
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x3032000000;
-  v35 = __Block_byref_object_copy__6;
-  v36 = __Block_byref_object_dispose__6;
-  v37 = 0;
+  v14 = v13;
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x3032000000;
+  v37 = __Block_byref_object_copy__6;
+  v38 = __Block_byref_object_dispose__6;
+  v39 = 0;
   if (v6)
   {
     if (stagingCopy)
     {
-      v13 = _MADLog(@"Auto");
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v15 = _MADLog(@"Auto");
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         summary = [configurationCopy summary];
         *buf = 138543874;
-        v43 = @"STAGING";
-        v44 = 2114;
-        v45 = summary;
+        v45 = @"STAGING";
         v46 = 2114;
-        v47 = v7;
-        _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "{AUTO-LOOKUP-CACHE[%{public}@]:cachedLookupResultForSetConfiguration} | auto-asset-lookup-cache not in use for PSUS | set-configuration:%{public}@ | setAssetType:%{public}@", buf, 0x20u);
+        v47 = summary;
+        v48 = 2114;
+        v49 = v8;
+        _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "{AUTO-LOOKUP-CACHE[%{public}@]:cachedLookupResultForSetConfiguration} | auto-asset-lookup-cache not in use for PSUS | set-configuration:%{public}@ | setAssetType:%{public}@", buf, 0x20u);
       }
     }
 
-    else if (v10)
+    else if (v12)
     {
-      if (v39[3])
+      if (v41[3])
       {
         lookupCacheQueue = [v6 lookupCacheQueue];
-        v23[0] = _NSConcreteStackBlock;
-        v23[1] = 3221225472;
-        v23[2] = __76__MADAutoAssetLookupCache_cachedLookupResultForSetConfiguration_forStaging___block_invoke;
-        v23[3] = &unk_4B3868;
-        v24 = v6;
-        v25 = v10;
-        v26 = @"CLIENT";
-        v27 = configurationCopy;
-        v28 = v9;
-        v29 = v7;
-        v30 = &v38;
-        v31 = &v32;
-        dispatch_sync(lookupCacheQueue, v23);
+        v25[0] = _NSConcreteStackBlock;
+        v25[1] = 3221225472;
+        v25[2] = __76__MADAutoAssetLookupCache_cachedLookupResultForSetConfiguration_forStaging___block_invoke;
+        v25[3] = &unk_4B3868;
+        v26 = v6;
+        v27 = v12;
+        v28 = @"CLIENT";
+        v29 = configurationCopy;
+        v30 = v11;
+        v31 = v8;
+        v32 = &v40;
+        v33 = &v34;
+        dispatch_sync(lookupCacheQueue, v25);
 
-        v13 = v24;
+        v15 = v26;
       }
 
       else
       {
-        v13 = _MADLog(@"Auto");
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        v15 = _MADLog(@"Auto");
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
           summary2 = [configurationCopy summary];
           *buf = 138544130;
-          v43 = @"CLIENT";
-          v44 = 2114;
-          v45 = summary2;
+          v45 = @"CLIENT";
           v46 = 2114;
-          v47 = v9;
+          v47 = summary2;
           v48 = 2114;
-          v49 = v7;
-          _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "{AUTO-LOOKUP-CACHE[%{public}@]:cachedLookupResultForSetConfiguration} | by-set-configuration lookup-cache disabled | set-configuration:%{public}@ | assetAudience:%{public}@ | setAssetType:%{public}@", buf, 0x2Au);
+          v49 = v11;
+          v50 = 2114;
+          v51 = v8;
+          _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "{AUTO-LOOKUP-CACHE[%{public}@]:cachedLookupResultForSetConfiguration} | by-set-configuration lookup-cache disabled | set-configuration:%{public}@ | assetAudience:%{public}@ | setAssetType:%{public}@", buf, 0x2Au);
         }
       }
     }
 
-    else if (v7)
+    else if (v8)
     {
-      if (v9)
+      if (v11)
       {
-        v13 = _MADLog(@"Auto");
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        v15 = _MADLog(@"Auto");
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           summary3 = [configurationCopy summary];
           *buf = 138544386;
-          v43 = @"CLIENT";
-          v44 = 2114;
-          v45 = summary3;
+          v45 = @"CLIENT";
           v46 = 2114;
-          v47 = v7;
+          v47 = summary3;
           v48 = 2114;
-          v49 = v9;
+          v49 = v8;
           v50 = 2114;
-          v51 = v7;
-          _os_log_impl(&dword_0, v13, OS_LOG_TYPE_ERROR, "{AUTO-LOOKUP-CACHE[%{public}@]:cachedLookupResultForSetConfiguration} | unable to determine by-set-configuration lookup-cache key | setConfiguration:%{public}@ | setAssetType:%{public}@ | assetAudience:%{public}@ | setAssetType:%{public}@", buf, 0x34u);
+          v51 = v11;
+          v52 = 2114;
+          v53 = v8;
+          _os_log_impl(&dword_0, v15, OS_LOG_TYPE_ERROR, "{AUTO-LOOKUP-CACHE[%{public}@]:cachedLookupResultForSetConfiguration} | unable to determine by-set-configuration lookup-cache key | setConfiguration:%{public}@ | setAssetType:%{public}@ | assetAudience:%{public}@ | setAssetType:%{public}@", buf, 0x34u);
         }
       }
 
       else
       {
-        v13 = _MADLog(@"Auto");
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        v15 = _MADLog(@"Auto");
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
           summary4 = [configurationCopy summary];
           *buf = 138543874;
-          v43 = @"CLIENT";
-          v44 = 2114;
-          v45 = summary4;
+          v45 = @"CLIENT";
           v46 = 2114;
-          v47 = v7;
-          _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "{AUTO-LOOKUP-CACHE[%{public}@]:cachedLookupResultForSetConfiguration} | unable to determine by-set-configuration lookup-cache key (no asset-audience) | setConfiguration:%{public}@ | setAssetType:%{public}@", buf, 0x20u);
+          v47 = summary4;
+          v48 = 2114;
+          v49 = v8;
+          _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "{AUTO-LOOKUP-CACHE[%{public}@]:cachedLookupResultForSetConfiguration} | unable to determine by-set-configuration lookup-cache key (no asset-audience) | setConfiguration:%{public}@ | setAssetType:%{public}@", buf, 0x20u);
         }
       }
     }
 
     else
     {
-      v13 = _MADLog(@"Auto");
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v15 = _MADLog(@"Auto");
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         summary5 = [configurationCopy summary];
         *buf = 138543874;
-        v43 = @"CLIENT";
-        v44 = 2114;
-        v45 = summary5;
+        v45 = @"CLIENT";
         v46 = 2114;
-        v47 = 0;
-        _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "{AUTO-LOOKUP-CACHE[%{public}@]:cachedLookupResultForSetConfiguration} | unable to determine by-set-configuration lookup-cache key (no asset-type from set-configuration) | setConfiguration:%{public}@ | setAssetType:%{public}@", buf, 0x20u);
+        v47 = summary5;
+        v48 = 2114;
+        v49 = 0;
+        _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "{AUTO-LOOKUP-CACHE[%{public}@]:cachedLookupResultForSetConfiguration} | unable to determine by-set-configuration lookup-cache key (no asset-type from set-configuration) | setConfiguration:%{public}@ | setAssetType:%{public}@", buf, 0x20u);
       }
     }
   }
 
   else
   {
-    v13 = _MADLog(@"Auto");
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = _MADLog(@"Auto");
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       summary6 = [configurationCopy summary];
       *buf = 138543874;
-      v43 = v12;
-      v44 = 2114;
-      v45 = summary6;
+      v45 = v14;
       v46 = 2114;
-      v47 = v7;
-      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_ERROR, "{AUTO-LOOKUP-CACHE[%{public}@]:cachedLookupResultForSetConfiguration} | unable to locate auto-asset-lookup-cache | set-configuration:%{public}@ | setAssetType:%{public}@", buf, 0x20u);
+      v47 = summary6;
+      v48 = 2114;
+      v49 = v8;
+      _os_log_impl(&dword_0, v15, OS_LOG_TYPE_ERROR, "{AUTO-LOOKUP-CACHE[%{public}@]:cachedLookupResultForSetConfiguration} | unable to locate auto-asset-lookup-cache | set-configuration:%{public}@ | setAssetType:%{public}@", buf, 0x20u);
     }
   }
 
-  v21 = v33[5];
-  _Block_object_dispose(&v32, 8);
+  v23 = v35[5];
+  _Block_object_dispose(&v34, 8);
 
-  _Block_object_dispose(&v38, 8);
+  _Block_object_dispose(&v40, 8);
 
-  return v21;
+  return v23;
 }
 
 void __76__MADAutoAssetLookupCache_cachedLookupResultForSetConfiguration_forStaging___block_invoke(uint64_t a1)

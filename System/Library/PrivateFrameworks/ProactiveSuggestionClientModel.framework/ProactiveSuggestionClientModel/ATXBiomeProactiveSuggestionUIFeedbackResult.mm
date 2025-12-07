@@ -153,7 +153,7 @@ LABEL_11:
 
 - (id)jsonDict
 {
-  v27[10] = *MEMORY[0x1E69E9840];
+  v26[10] = *MEMORY[0x1E69E9840];
   sessionId = self->_sessionId;
   blendingUICacheUpdateUUID = self->_blendingUICacheUpdateUUID;
   if (!sessionId)
@@ -161,9 +161,9 @@ LABEL_11:
     sessionId = @"nil";
   }
 
-  v27[0] = sessionId;
-  v26[0] = @"sessionId";
-  v26[1] = @"blendingUICacheUpdateUUID";
+  v26[0] = sessionId;
+  v25[0] = @"sessionId";
+  v25[1] = @"blendingUICacheUpdateUUID";
   uUIDString = [(NSUUID *)blendingUICacheUpdateUUID UUIDString];
   v6 = uUIDString;
   if (uUIDString)
@@ -183,10 +183,10 @@ LABEL_11:
     clientModelId = @"nil";
   }
 
-  v27[1] = v7;
-  v27[2] = clientModelId;
-  v26[2] = @"clientModelId";
-  v26[3] = @"clientModelCacheCreationDate";
+  v26[1] = v7;
+  v26[2] = clientModelId;
+  v25[2] = @"clientModelId";
+  v25[3] = @"clientModelCacheCreationDate";
   v10 = [(NSDate *)clientModelCacheCreationDate description];
   v11 = v10;
   if (v10)
@@ -199,11 +199,11 @@ LABEL_11:
     v12 = @"nil";
   }
 
-  v27[3] = v12;
-  v26[4] = @"consumerSubType";
+  v26[3] = v12;
+  v25[4] = @"consumerSubType";
   v13 = [MEMORY[0x1E698B028] stringForConsumerSubtype:self->_consumerSubType];
-  v27[4] = v13;
-  v26[5] = @"sessionStartDate";
+  v26[4] = v13;
+  v25[5] = @"sessionStartDate";
   v14 = [(NSDate *)self->_sessionStartDate description];
   v15 = v14;
   if (v14)
@@ -216,8 +216,8 @@ LABEL_11:
     v16 = @"nil";
   }
 
-  v27[5] = v16;
-  v26[6] = @"sessionEndDate";
+  v26[5] = v16;
+  v25[6] = @"sessionEndDate";
   v17 = [(NSDate *)self->_sessionEndDate description];
   v18 = v17;
   if (v17)
@@ -230,19 +230,17 @@ LABEL_11:
     v19 = @"nil";
   }
 
-  v27[6] = v19;
-  v26[7] = @"shownSuggestions";
+  v26[6] = v19;
+  v25[7] = @"shownSuggestions";
   v20 = [ATXLightweightProactiveSuggestion lightWeightSuggestionDescriptionsFromLightWeightSuggestions:self->_shownSuggestions];
-  v27[7] = v20;
-  v26[8] = @"engagedSuggestions";
+  v26[7] = v20;
+  v25[8] = @"engagedSuggestions";
   v21 = [ATXLightweightProactiveSuggestion lightWeightSuggestionDescriptionsFromLightWeightSuggestions:self->_engagedSuggestions];
-  v27[8] = v21;
-  v26[9] = @"rejectedSuggestions";
+  v26[8] = v21;
+  v25[9] = @"rejectedSuggestions";
   v22 = [ATXLightweightProactiveSuggestion lightWeightSuggestionDescriptionsFromLightWeightSuggestions:self->_rejectedSuggestions];
-  v27[9] = v22;
-  v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:10];
-
-  v24 = *MEMORY[0x1E69E9840];
+  v26[9] = v22;
+  v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:10];
 
   return v23;
 }
@@ -465,43 +463,44 @@ LABEL_7:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v16 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+    v17 = __atxlog_handle_blending(isKindOfClass);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
     {
-      [(ATXLightweightClientModelCacheUpdate *)self initWithProto:v16];
+      [(ATXLightweightClientModelCacheUpdate *)self initWithProto:v17];
     }
 
     goto LABEL_7;
   }
 
-  v5 = protoCopy;
-  sessionId = [v5 sessionId];
-  v6 = objc_alloc(MEMORY[0x1E696AFB0]);
-  blendingUICacheUpdateUUID = [v5 blendingUICacheUpdateUUID];
-  v25 = [v6 initWithUUIDString:blendingUICacheUpdateUUID];
-  clientModelId = [v5 clientModelId];
-  v7 = MEMORY[0x1E695DF00];
-  [v5 clientModelCacheCreationDate];
-  v23 = [v7 dateWithTimeIntervalSinceReferenceDate:?];
-  v8 = MEMORY[0x1E698B028];
-  consumerSubType = [v5 consumerSubType];
-  v22 = [v8 consumerSubtypeForString:consumerSubType found:0];
-  v9 = MEMORY[0x1E695DF00];
-  [v5 sessionStartDate];
-  v20 = [v9 dateWithTimeIntervalSinceReferenceDate:?];
+  v6 = protoCopy;
+  sessionId = [v6 sessionId];
+  v7 = objc_alloc(MEMORY[0x1E696AFB0]);
+  blendingUICacheUpdateUUID = [v6 blendingUICacheUpdateUUID];
+  v26 = [v7 initWithUUIDString:blendingUICacheUpdateUUID];
+  clientModelId = [v6 clientModelId];
+  v8 = MEMORY[0x1E695DF00];
+  [v6 clientModelCacheCreationDate];
+  v24 = [v8 dateWithTimeIntervalSinceReferenceDate:?];
+  v9 = MEMORY[0x1E698B028];
+  consumerSubType = [v6 consumerSubType];
+  v23 = [v9 consumerSubtypeForString:consumerSubType found:0];
   v10 = MEMORY[0x1E695DF00];
-  [v5 sessionEndDate];
-  v19 = [v10 dateWithTimeIntervalSinceReferenceDate:?];
-  shownSuggestions = [v5 shownSuggestions];
-  v18 = [ATXLightweightProactiveSuggestion lightWeightSuggestionsFromProtoLightWeightSuggestions:shownSuggestions];
-  engagedSuggestions = [v5 engagedSuggestions];
-  v12 = [ATXLightweightProactiveSuggestion lightWeightSuggestionsFromProtoLightWeightSuggestions:engagedSuggestions];
-  rejectedSuggestions = [v5 rejectedSuggestions];
+  [v6 sessionStartDate];
+  v21 = [v10 dateWithTimeIntervalSinceReferenceDate:?];
+  v11 = MEMORY[0x1E695DF00];
+  [v6 sessionEndDate];
+  v20 = [v11 dateWithTimeIntervalSinceReferenceDate:?];
+  shownSuggestions = [v6 shownSuggestions];
+  v19 = [ATXLightweightProactiveSuggestion lightWeightSuggestionsFromProtoLightWeightSuggestions:shownSuggestions];
+  engagedSuggestions = [v6 engagedSuggestions];
+  v13 = [ATXLightweightProactiveSuggestion lightWeightSuggestionsFromProtoLightWeightSuggestions:engagedSuggestions];
+  rejectedSuggestions = [v6 rejectedSuggestions];
 
-  v14 = [ATXLightweightProactiveSuggestion lightWeightSuggestionsFromProtoLightWeightSuggestions:rejectedSuggestions];
-  self = [(ATXBiomeProactiveSuggestionUIFeedbackResult *)self initWithSessionId:sessionId blendingUICacheUpdateUUID:v25 clientModelId:clientModelId clientModelCacheCreationDate:v23 consumerSubType:v22 sessionStartDate:v20 sessionEndDate:v19 shownSuggestions:v18 engagedSuggestions:v12 rejectedSuggestions:v14];
+  v15 = [ATXLightweightProactiveSuggestion lightWeightSuggestionsFromProtoLightWeightSuggestions:rejectedSuggestions];
+  self = [(ATXBiomeProactiveSuggestionUIFeedbackResult *)self initWithSessionId:sessionId blendingUICacheUpdateUUID:v26 clientModelId:clientModelId clientModelCacheCreationDate:v24 consumerSubType:v23 sessionStartDate:v21 sessionEndDate:v20 shownSuggestions:v19 engagedSuggestions:v13 rejectedSuggestions:v15];
 
   selfCopy = self;
 LABEL_8:

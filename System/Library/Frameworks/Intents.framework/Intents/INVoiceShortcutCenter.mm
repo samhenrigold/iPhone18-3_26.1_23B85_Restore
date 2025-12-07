@@ -38,7 +38,7 @@ uint64_t __48__INVoiceShortcutCenter_setShortcutSuggestions___block_invoke(uint6
 
 - (void)getVoiceShortcutWithIdentifier:(NSUUID *)identifier completion:(void *)completionHandler
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v6 = identifier;
   v7 = completionHandler;
   voiceShortcutClient = [(INVoiceShortcutCenter *)self voiceShortcutClient];
@@ -48,7 +48,7 @@ uint64_t __48__INVoiceShortcutCenter_setShortcutSuggestions___block_invoke(uint6
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v19 = "[INVoiceShortcutCenter getVoiceShortcutWithIdentifier:completion:]";
+      v18 = "[INVoiceShortcutCenter getVoiceShortcutWithIdentifier:completion:]";
       _os_log_error_impl(&dword_18E991000, v11, OS_LOG_TYPE_ERROR, "%s No VoiceShortcutClient; completing with nil and error", buf, 0xCu);
     }
 
@@ -62,7 +62,7 @@ uint64_t __48__INVoiceShortcutCenter_setShortcutSuggestions___block_invoke(uint6
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v19 = "[INVoiceShortcutCenter getVoiceShortcutWithIdentifier:completion:]";
+      v18 = "[INVoiceShortcutCenter getVoiceShortcutWithIdentifier:completion:]";
       _os_log_error_impl(&dword_18E991000, v13, OS_LOG_TYPE_ERROR, "%s Client passed a nil voice shortcut identifier; completing with nil and error", buf, 0xCu);
     }
 
@@ -74,23 +74,21 @@ LABEL_10:
   }
 
   uUIDString = [(NSUUID *)v6 UUIDString];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __67__INVoiceShortcutCenter_getVoiceShortcutWithIdentifier_completion___block_invoke;
-  v15[3] = &unk_1E7280618;
-  v16 = v6;
-  v17 = v7;
-  [voiceShortcutClient getVoiceShortcutWithIdentifier:uUIDString completion:v15];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __67__INVoiceShortcutCenter_getVoiceShortcutWithIdentifier_completion___block_invoke;
+  v14[3] = &unk_1E7280618;
+  v15 = v6;
+  v16 = v7;
+  [voiceShortcutClient getVoiceShortcutWithIdentifier:uUIDString completion:v14];
 
-  v10 = v16;
+  v10 = v15;
 LABEL_11:
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __67__INVoiceShortcutCenter_getVoiceShortcutWithIdentifier_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -106,11 +104,11 @@ void __67__INVoiceShortcutCenter_getVoiceShortcutWithIdentifier_completion___blo
       v11 = INSiriLogContextIntents;
       if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
       {
-        v16 = 136315394;
-        v17 = "[INVoiceShortcutCenter getVoiceShortcutWithIdentifier:completion:]_block_invoke";
-        v18 = 2114;
-        v19 = v5;
-        _os_log_error_impl(&dword_18E991000, v11, OS_LOG_TYPE_ERROR, "%s Failed to create an INVoiceShortcut from VCVoiceShortcut=%{public}@", &v16, 0x16u);
+        v15 = 136315394;
+        v16 = "[INVoiceShortcutCenter getVoiceShortcutWithIdentifier:completion:]_block_invoke";
+        v17 = 2114;
+        v18 = v5;
+        _os_log_error_impl(&dword_18E991000, v11, OS_LOG_TYPE_ERROR, "%s Failed to create an INVoiceShortcut from VCVoiceShortcut=%{public}@", &v15, 0x16u);
       }
 
       v12 = *(a1 + 40);
@@ -124,14 +122,14 @@ void __67__INVoiceShortcutCenter_getVoiceShortcutWithIdentifier_completion___blo
   v8 = INSiriLogContextIntents;
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
   {
-    v15 = *(a1 + 32);
-    v16 = 136315650;
-    v17 = "[INVoiceShortcutCenter getVoiceShortcutWithIdentifier:completion:]_block_invoke";
-    v18 = 2114;
-    v19 = v15;
-    v20 = 2114;
-    v21 = v6;
-    _os_log_error_impl(&dword_18E991000, v8, OS_LOG_TYPE_ERROR, "%s Error from -getVoiceShortcutWithIdentifier=%{public}@: %{public}@", &v16, 0x20u);
+    v14 = *(a1 + 32);
+    v15 = 136315650;
+    v16 = "[INVoiceShortcutCenter getVoiceShortcutWithIdentifier:completion:]_block_invoke";
+    v17 = 2114;
+    v18 = v14;
+    v19 = 2114;
+    v20 = v6;
+    _os_log_error_impl(&dword_18E991000, v8, OS_LOG_TYPE_ERROR, "%s Error from -getVoiceShortcutWithIdentifier=%{public}@: %{public}@", &v15, 0x20u);
   }
 
   v9 = dyld_program_sdk_at_least();
@@ -147,23 +145,21 @@ LABEL_12:
 
   (*(v10 + 16))(v10, 0, 0);
 LABEL_13:
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getAllVoiceShortcutsWithCompletion:(void *)completionHandler
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = completionHandler;
   voiceShortcutClient = [(INVoiceShortcutCenter *)self voiceShortcutClient];
   if (voiceShortcutClient)
   {
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __60__INVoiceShortcutCenter_getAllVoiceShortcutsWithCompletion___block_invoke;
-    v8[3] = &unk_1E7285360;
-    v9 = v4;
-    [voiceShortcutClient getVoiceShortcutsWithCompletion:v8];
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __60__INVoiceShortcutCenter_getAllVoiceShortcutsWithCompletion___block_invoke;
+    v7[3] = &unk_1E7285360;
+    v8 = v4;
+    [voiceShortcutClient getVoiceShortcutsWithCompletion:v7];
   }
 
   else
@@ -172,49 +168,47 @@ LABEL_13:
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v11 = "[INVoiceShortcutCenter getAllVoiceShortcutsWithCompletion:]";
+      v10 = "[INVoiceShortcutCenter getAllVoiceShortcutsWithCompletion:]";
       _os_log_error_impl(&dword_18E991000, v6, OS_LOG_TYPE_ERROR, "%s No VoiceShortcutClient; completing with nil", buf, 0xCu);
     }
 
     (*(v4 + 2))(v4, 0, 0);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __60__INVoiceShortcutCenter_getAllVoiceShortcutsWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
   if (v5)
   {
-    v20 = a1;
-    v21 = v6;
+    v19 = a1;
+    v20 = v6;
     v8 = objc_opt_new();
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
-    v22 = v5;
+    v21 = v5;
     v9 = v5;
-    v10 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v24;
+      v12 = *v23;
       do
       {
         v13 = 0;
         do
         {
-          if (*v24 != v12)
+          if (*v23 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v23 + 1) + 8 * v13);
+          v14 = *(*(&v22 + 1) + 8 * v13);
           v15 = [[INVoiceShortcut alloc] _initWithVCVoiceShortcut:v14];
           if (v15)
           {
@@ -227,9 +221,9 @@ void __60__INVoiceShortcutCenter_getAllVoiceShortcutsWithCompletion___block_invo
             if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315394;
-              v29 = "[INVoiceShortcutCenter getAllVoiceShortcutsWithCompletion:]_block_invoke";
-              v30 = 2114;
-              v31 = v14;
+              v28 = "[INVoiceShortcutCenter getAllVoiceShortcutsWithCompletion:]_block_invoke";
+              v29 = 2114;
+              v30 = v14;
               _os_log_error_impl(&dword_18E991000, v16, OS_LOG_TYPE_ERROR, "%s Failed to create an INVoiceShortcut from VCVoiceShortcut=%{public}@", buf, 0x16u);
             }
           }
@@ -238,15 +232,15 @@ void __60__INVoiceShortcutCenter_getAllVoiceShortcutsWithCompletion___block_invo
         }
 
         while (v11 != v13);
-        v11 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v11);
     }
 
-    (*(*(v20 + 32) + 16))();
-    v7 = v21;
-    v5 = v22;
+    (*(*(v19 + 32) + 16))();
+    v7 = v20;
+    v5 = v21;
   }
 
   else
@@ -255,9 +249,9 @@ void __60__INVoiceShortcutCenter_getAllVoiceShortcutsWithCompletion___block_invo
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v29 = "[INVoiceShortcutCenter getAllVoiceShortcutsWithCompletion:]_block_invoke";
-      v30 = 2114;
-      v31 = v7;
+      v28 = "[INVoiceShortcutCenter getAllVoiceShortcutsWithCompletion:]_block_invoke";
+      v29 = 2114;
+      v30 = v7;
       _os_log_error_impl(&dword_18E991000, v17, OS_LOG_TYPE_ERROR, "%s Error from -getVoiceShortcutsWithCompletion: %{public}@", buf, 0x16u);
     }
 
@@ -265,8 +259,6 @@ void __60__INVoiceShortcutCenter_getAllVoiceShortcutsWithCompletion___block_invo
     v8 = _INVoiceShortcutError(7001, @"Failed to get voice shortcuts", v7);
     (*(v18 + 16))(v18, 0, v8);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (INVoiceShortcutCenter)init
@@ -279,11 +271,11 @@ void __60__INVoiceShortcutCenter_getAllVoiceShortcutsWithCompletion___block_invo
 
 - (id)_initWithVoiceShortcutClient:(id)client
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   clientCopy = client;
-  v10.receiver = self;
-  v10.super_class = INVoiceShortcutCenter;
-  v6 = [(INVoiceShortcutCenter *)&v10 init];
+  v9.receiver = self;
+  v9.super_class = INVoiceShortcutCenter;
+  v6 = [(INVoiceShortcutCenter *)&v9 init];
   if (v6)
   {
     if (!clientCopy)
@@ -292,7 +284,7 @@ void __60__INVoiceShortcutCenter_getAllVoiceShortcutsWithCompletion___block_invo
       if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v12 = "[INVoiceShortcutCenter _initWithVoiceShortcutClient:]";
+        v11 = "[INVoiceShortcutCenter _initWithVoiceShortcutClient:]";
         _os_log_error_impl(&dword_18E991000, v7, OS_LOG_TYPE_ERROR, "%s No VoiceShortcutClient; initing without one", buf, 0xCu);
       }
     }
@@ -300,7 +292,6 @@ void __60__INVoiceShortcutCenter_getAllVoiceShortcutsWithCompletion___block_invo
     objc_storeStrong(&v6->_voiceShortcutClient, client);
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -323,12 +314,11 @@ void __60__INVoiceShortcutCenter_getAllVoiceShortcutsWithCompletion___block_invo
 
 uint64_t __37__INVoiceShortcutCenter_sharedCenter__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_alloc_init(objc_opt_class());
-  v3 = sharedCenter_sharedCenter;
-  sharedCenter_sharedCenter = v2;
+  v1 = objc_alloc_init(objc_opt_class());
+  v2 = sharedCenter_sharedCenter;
+  sharedCenter_sharedCenter = v1;
 
-  return MEMORY[0x1EEE66BB8](v2, v3);
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 + (void)initialize

@@ -47,26 +47,27 @@
 
 uint64_t __34__SystemProperties_sharedInstance__block_invoke(uint64_t a1)
 {
-  sharedInstance = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = sharedInstance;
+  sharedInstance = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 + (void)saveDeviceConfigType:(unint64_t)type forKey:(__CFString *)key
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v6 = otherLogHandle;
   if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 134217984;
+    v8 = 134217984;
     typeCopy = type;
-    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "Saving device config type: %lu", &v9, 0xCu);
+    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "Saving device config type: %lu", &v8, 0xCu);
   }
 
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:type];
   CFPreferencesSetValue(key, v7, @"com.apple.symptomsd", *MEMORY[0x277CBF040], *MEMORY[0x277CBF030]);
   CFPreferencesAppSynchronize(@"com.apple.symptomsd");
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (unint64_t)retrieveDeviceConfigTypeForKey:(__CFString *)key
@@ -225,10 +226,10 @@ unint64_t __51__SystemProperties_retrieveDeviceConfigTypeForKey___block_invoke(u
 
 - (SystemProperties)init
 {
-  v40 = *MEMORY[0x277D85DE8];
-  v37.receiver = self;
-  v37.super_class = SystemProperties;
-  v2 = [(SystemProperties *)&v37 init];
+  v39 = *MEMORY[0x277D85DE8];
+  v36.receiver = self;
+  v36.super_class = SystemProperties;
+  v2 = [(SystemProperties *)&v36 init];
   if (v2)
   {
     processInfo = [MEMORY[0x277CCAC38] processInfo];
@@ -367,7 +368,7 @@ unint64_t __51__SystemProperties_retrieveDeviceConfigTypeForKey___block_invoke(u
       if (os_log_type_enabled(configurationLogHandle, OS_LOG_TYPE_INFO))
       {
         *buf = 138477827;
-        v39 = v2;
+        v38 = v2;
         _os_log_impl(&dword_23255B000, v32, OS_LOG_TYPE_INFO, "System Properties: %{private}@", buf, 0xCu);
       }
     }
@@ -391,7 +392,6 @@ unint64_t __51__SystemProperties_retrieveDeviceConfigTypeForKey___block_invoke(u
     [SystemProperties setDeviceConfigTypeForSerialNumber:v34];
   }
 
-  v35 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -527,7 +527,7 @@ unint64_t __51__SystemProperties_retrieveDeviceConfigTypeForKey___block_invoke(u
     self->_internalBuildDisabledByOverride = override;
     buildVariant = self->_buildVariant;
     self->_buildVariant = 0;
-    MEMORY[0x2821F96F8]();
+    MEMORY[0x2821F96F8](self, buildVariant);
   }
 }
 
@@ -608,108 +608,108 @@ unint64_t __51__SystemProperties_retrieveDeviceConfigTypeForKey___block_invoke(u
 
 - (void)refreshDualSIMCapability
 {
-  v17 = *MEMORY[0x277D85DE8];
-  if ([(SystemProperties *)self basebandCapability])
+  v16 = *MEMORY[0x277D85DE8];
+  if (![(SystemProperties *)self basebandCapability])
   {
-    v3 = configurationLogHandle;
-    if (os_log_type_enabled(configurationLogHandle, OS_LOG_TYPE_INFO))
+    self->_dualSIMCapability = 1;
+    return;
+  }
+
+  v3 = configurationLogHandle;
+  if (os_log_type_enabled(configurationLogHandle, OS_LOG_TYPE_INFO))
+  {
+    dualSIMCapability = self->_dualSIMCapability;
+    v14 = 67109120;
+    v15 = dualSIMCapability;
+    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_INFO, "Refreshing knowledge of dual SIM capability from %d", &v14, 8u);
+  }
+
+  getDualSIMCapabilityFromCoreTelephony = [(SystemProperties *)self getDualSIMCapabilityFromCoreTelephony];
+  v6 = configurationLogHandle;
+  if (os_log_type_enabled(configurationLogHandle, OS_LOG_TYPE_DEBUG))
+  {
+    v14 = 67109120;
+    v15 = getDualSIMCapabilityFromCoreTelephony;
+    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEBUG, "Result of CTDualSimCapability lookup: %d", &v14, 8u);
+  }
+
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  if (getDualSIMCapabilityFromCoreTelephony <= 4)
+  {
+    selfCopy->_dualSIMCapability = dword_2328168B8[getDualSIMCapabilityFromCoreTelephony];
+  }
+
+  objc_sync_exit(selfCopy);
+
+  v8 = configurationLogHandle;
+  if (os_log_type_enabled(configurationLogHandle, OS_LOG_TYPE_DEBUG))
+  {
+    v9 = selfCopy->_dualSIMCapability;
+    v14 = 67109120;
+    v15 = v9;
+    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEBUG, "New dual SIM capability: %d", &v14, 8u);
+  }
+
+  v10 = selfCopy->_dualSIMCapability & 0xFFFFFFFE;
+  v11 = configurationLogHandle;
+  v12 = os_log_type_enabled(configurationLogHandle, OS_LOG_TYPE_DEFAULT);
+  if (v10 == 2)
+  {
+    if (!v12)
     {
-      dualSIMCapability = self->_dualSIMCapability;
-      v15 = 67109120;
-      v16 = dualSIMCapability;
-      _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_INFO, "Refreshing knowledge of dual SIM capability from %d", &v15, 8u);
+      return;
     }
 
-    getDualSIMCapabilityFromCoreTelephony = [(SystemProperties *)self getDualSIMCapabilityFromCoreTelephony];
-    v6 = configurationLogHandle;
-    if (os_log_type_enabled(configurationLogHandle, OS_LOG_TYPE_DEBUG))
-    {
-      v15 = 67109120;
-      v16 = getDualSIMCapabilityFromCoreTelephony;
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEBUG, "Result of CTDualSimCapability lookup: %d", &v15, 8u);
-    }
-
-    selfCopy = self;
-    objc_sync_enter(selfCopy);
-    if (getDualSIMCapabilityFromCoreTelephony <= 4)
-    {
-      selfCopy->_dualSIMCapability = dword_2328168B8[getDualSIMCapabilityFromCoreTelephony];
-    }
-
-    objc_sync_exit(selfCopy);
-
-    v8 = configurationLogHandle;
-    if (os_log_type_enabled(configurationLogHandle, OS_LOG_TYPE_DEBUG))
-    {
-      v9 = selfCopy->_dualSIMCapability;
-      v15 = 67109120;
-      v16 = v9;
-      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEBUG, "New dual SIM capability: %d", &v15, 8u);
-    }
-
-    v10 = selfCopy->_dualSIMCapability & 0xFFFFFFFE;
-    v11 = configurationLogHandle;
-    v12 = os_log_type_enabled(configurationLogHandle, OS_LOG_TYPE_DEFAULT);
-    if (v10 == 2)
-    {
-      if (v12)
-      {
-        LOWORD(v15) = 0;
-        v13 = "CoreTelephony reported this as a dual SIM capable device";
-LABEL_16:
-        _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, v13, &v15, 2u);
-      }
-    }
-
-    else if (v12)
-    {
-      LOWORD(v15) = 0;
-      v13 = "Not a dual SIM capable device, but will use CoreTelephonyClient";
-      goto LABEL_16;
-    }
+    LOWORD(v14) = 0;
+    v13 = "CoreTelephony reported this as a dual SIM capable device";
   }
 
   else
   {
-    self->_dualSIMCapability = 1;
+    if (!v12)
+    {
+      return;
+    }
+
+    LOWORD(v14) = 0;
+    v13 = "Not a dual SIM capable device, but will use CoreTelephonyClient";
   }
 
-  v14 = *MEMORY[0x277D85DE8];
+  _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, v13, &v14, 2u);
 }
 
 - (int)getDualSIMCapabilityFromCoreTelephony
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v2 = *MEMORY[0x277CBECE8];
-  v3 = _CTServerConnectionCreateWithIdentifier();
-  if (v3)
+  v12 = *MEMORY[0x277D85DE8];
+  v2 = _CTServerConnectionCreateWithIdentifier();
+  if (v2)
   {
-    v4 = v3;
-    v5 = _CTServerConnectionCopyDualSimCapability();
-    v6 = configurationLogHandle;
+    v3 = v2;
+    v4 = _CTServerConnectionCopyDualSimCapability();
+    v5 = configurationLogHandle;
     if (os_log_type_enabled(configurationLogHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109376;
-      v11 = v5;
-      v12 = 1024;
-      v13 = HIDWORD(v5);
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "_CTServerConnectionCopyDualSimCapability(%d, %d)", buf, 0xEu);
+      v9 = v4;
+      v10 = 1024;
+      v11 = HIDWORD(v4);
+      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_ERROR, "_CTServerConnectionCopyDualSimCapability(%d, %d)", buf, 0xEu);
     }
 
-    CFRelease(v4);
+    CFRelease(v3);
   }
 
   else
   {
-    v7 = configurationLogHandle;
+    v6 = configurationLogHandle;
     if (os_log_type_enabled(configurationLogHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_ERROR, "Unable to create connection to CTServer!", buf, 2u);
+      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "Unable to create connection to CTServer!", buf, 2u);
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return 0;
 }
 

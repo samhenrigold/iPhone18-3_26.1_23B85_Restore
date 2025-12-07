@@ -57,7 +57,7 @@
 
 - (BOOL)shouldBlockValueDecode
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   setting = [(HMAccessoryCollectionSettingItem *)self setting];
   keyPath = [setting keyPath];
   if (!keyPath)
@@ -68,11 +68,11 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v14 = 138543618;
-      v15 = v11;
-      v16 = 2112;
-      v17 = setting;
-      _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to block decode value due to no keypath for setting: %@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v11;
+      v15 = 2112;
+      v16 = setting;
+      _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to block decode value due to no keypath for setting: %@", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -92,13 +92,12 @@ LABEL_7:
   v7 = v6 ^ 1;
 LABEL_8:
 
-  v12 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (NSObject)value
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   if ([(HMAccessoryCollectionSettingItem *)self shouldBlockValueDecode])
   {
     v3 = 0;
@@ -125,11 +124,11 @@ LABEL_8:
       {
         +[_HMAccessoryCollectionSettingItemClassManager defaultItemValueClasses];
       }
-      v23 = ;
+      v22 = ;
 
       v11 = [objc_alloc(MEMORY[0x1E696ACD0]) initForReadingFromData:v7 error:0];
       [v11 setDecodingFailurePolicy:1];
-      v12 = [v11 decodeObjectOfClasses:v23 forKey:*MEMORY[0x1E696A508]];
+      v12 = [v11 decodeObjectOfClasses:v22 forKey:*MEMORY[0x1E696A508]];
       error = [v11 error];
 
       if (error)
@@ -142,9 +141,9 @@ LABEL_8:
           v17 = HMFGetLogIdentifier();
           error2 = [v11 error];
           *buf = 138543618;
-          v25 = v17;
-          v26 = 2112;
-          v27 = error2;
+          v24 = v17;
+          v25 = 2112;
+          v26 = error2;
           _os_log_impl(&dword_19BB39000, v16, OS_LOG_TYPE_ERROR, "%{public}@Failed to deserialize accessory collection setting item value with error: %@", buf, 0x16u);
         }
 
@@ -163,8 +162,6 @@ LABEL_8:
     v3 = value;
     os_unfair_lock_unlock(&self->_lock);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

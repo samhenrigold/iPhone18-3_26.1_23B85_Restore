@@ -3,6 +3,7 @@
 - (AAAudioSessionControl)initWithCoder:(id)coder;
 - (id)_ensureXPCStarted;
 - (id)description;
+- (void)_activate:(BOOL)_activate;
 - (void)_activateDirect:(id)direct;
 - (void)_activateXPC:(id)c reactivate:(BOOL)reactivate;
 - (void)_interrupted;
@@ -12,6 +13,7 @@
 - (void)encodeWithCoder:(id)coder;
 - (void)invalidate;
 - (void)setConversationDetectSignal:(int)signal;
+- (void)setMuteAction:(int)action auditToken:(id *)token;
 - (void)setMuteAction:(int)action auditToken:(id *)token bundleIdentifier:(id)identifier;
 @end
 
@@ -60,27 +62,31 @@
 
 - (id)description
 {
-  clientID = self->_clientID;
+  v10 = 0;
   conversationDetectSignal = self->_conversationDetectSignal;
-  if (conversationDetectSignal <= 0xB)
+  if (conversationDetectSignal > 0xB)
   {
-    v5 = (&off_1002B6A58)[conversationDetectSignal];
+    v4 = "?";
   }
 
-  v10 = self->_clientID;
-  NSAppendPrintF();
-  v6 = 0;
-  v7 = v6;
+  else
+  {
+    v4 = (&off_1002B6A58)[conversationDetectSignal];
+  }
+
+  NSAppendPrintF(&v10, "AAAudioSessionControl, CID 0x%X, cds %s", self->_clientID, v4);
+  v5 = v10;
+  v6 = v5;
   if (self->_direct)
   {
-    v11 = v6;
-    NSAppendPrintF_safe();
-    v8 = v11;
+    v9 = v5;
+    NSAppendPrintF_safe(&v9, ", direct");
+    v7 = v9;
 
-    v7 = v8;
+    v6 = v7;
   }
 
-  return v7;
+  return v6;
 }
 
 - (AAAudioSessionControl)init
@@ -122,6 +128,14 @@
   objc_sync_exit(selfCopy);
 }
 
+- (void)setMuteAction:(int)action auditToken:(id *)token
+{
+  v4 = *&token->var0[4];
+  v5[0] = *token->var0;
+  v5[1] = v4;
+  [(AAAudioSessionControl *)self setMuteAction:*&action auditToken:v5 bundleIdentifier:0];
+}
+
 - (void)setMuteAction:(int)action auditToken:(id *)token bundleIdentifier:(id)identifier
 {
   identifierCopy = identifier;
@@ -150,7 +164,7 @@
 
   else if (dword_1002F5E10 <= 90 && (dword_1002F5E10 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1002F5E10, "[AAAudioSessionControl setMuteAction:auditToken:bundleIdentifier:]", 90, "### setMuteAction failed: AAudioSessionControl not activated");
   }
 
   objc_sync_exit(selfCopy);
@@ -168,6 +182,65 @@
   v8 = completionCopy;
   v6 = completionCopy;
   dispatch_async(dispatchQueue, v7);
+}
+
+- (void)_activate:(BOOL)_activate
+{
+  _activateCopy = _activate;
+  if (dword_1002F5E10 <= 30 && (dword_1002F5E10 != -1 || _LogCategory_Initialize()))
+  {
+    sub_1001D1FB0();
+  }
+
+  if (self->_testListenerEndpoint)
+  {
+    v5 = 1;
+  }
+
+  else
+  {
+    v5 = qword_100300AE0 == 0;
+  }
+
+  v6 = !v5;
+  self->_direct = v6;
+  if (self->_invalidateCalled)
+  {
+    v10 = NSErrorF(NSOSStatusErrorDomain, 4294896148, "Activate after invalidate");
+    if (dword_1002F5E10 <= 90 && (dword_1002F5E10 != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF(&dword_1002F5E10, "[AAAudioSessionControl _activate:]", 90, "### Activate failed: %@, %@", self, v10);
+    }
+
+    v8 = objc_retainBlock(self->_activateCompletion);
+    activateCompletion = self->_activateCompletion;
+    self->_activateCompletion = 0;
+
+    if (v8)
+    {
+      v8[2](v8, v10);
+    }
+  }
+
+  else
+  {
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_10000CCCC;
+    v11[3] = &unk_1002B6970;
+    v11[4] = self;
+    v12 = _activateCopy;
+    v7 = objc_retainBlock(v11);
+    if (self->_direct)
+    {
+      [(AAAudioSessionControl *)self _activateDirect:v7];
+    }
+
+    else
+    {
+      [(AAAudioSessionControl *)self _activateXPC:v7 reactivate:_activateCopy];
+    }
+  }
 }
 
 - (void)_activateDirect:(id)direct
@@ -205,7 +278,8 @@
       goto LABEL_9;
     }
 
-    goto LABEL_16;
+    v9 = "Re-activate XPC";
+    goto LABEL_17;
   }
 
   if (dword_1002F5E10 > 30)
@@ -215,8 +289,9 @@
 
   if (dword_1002F5E10 != -1 || _LogCategory_Initialize())
   {
-LABEL_16:
-    sub_1001D20C0();
+    v9 = "Activate XPC";
+LABEL_17:
+    sub_1001D20C0(v9, v6, v7);
   }
 
 LABEL_9:
@@ -235,20 +310,20 @@ LABEL_12:
   else
   {
     xpcCnx = self->_xpcCnx;
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3221225472;
-    v13[2] = sub_10000D1D0;
-    v13[3] = &unk_1002B69E8;
-    v15 = reactivateCopy;
-    v9 = cCopy;
-    v14 = v9;
-    v10 = [(NSXPCConnection *)xpcCnx remoteObjectProxyWithErrorHandler:v13];
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = sub_10000D2A8;
-    v11[3] = &unk_1002B6A10;
-    v12 = v9;
-    [v10 audioSessionControlActivate:self completion:v11];
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_10000D1D0;
+    v16[3] = &unk_1002B69E8;
+    v18 = reactivateCopy;
+    v12 = cCopy;
+    v17 = v12;
+    v13 = [(NSXPCConnection *)xpcCnx remoteObjectProxyWithErrorHandler:v16];
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_10000D2A8;
+    v14[3] = &unk_1002B6A10;
+    v15 = v12;
+    [v13 audioSessionControlActivate:self completion:v14];
   }
 }
 
@@ -300,13 +375,16 @@ LABEL_12:
 - (void)_interrupted
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  if (dword_1002F5E10 <= 50 && (dword_1002F5E10 != -1 || _LogCategory_Initialize()))
+  if (dword_1002F5E10 <= 50)
   {
-    sub_1001D219C();
+    if (dword_1002F5E10 != -1 || (v3 = _LogCategory_Initialize(), v3))
+    {
+      sub_1001D219C(v3, v4, v5);
+    }
   }
 
-  v3 = BTErrorF();
-  [(AAAudioSessionControl *)self _reportError:v3];
+  v6 = BTErrorF(4294960596, "XPC interrupted");
+  [(AAAudioSessionControl *)self _reportError:v6];
 
   activateCompletion = self->_activateCompletion;
   self->_activateCompletion = 0;
@@ -319,9 +397,9 @@ LABEL_12:
   interruptionHandler = self->_interruptionHandler;
   if (interruptionHandler)
   {
-    v6 = *(interruptionHandler + 2);
+    v9 = *(interruptionHandler + 2);
 
-    v6();
+    v9();
   }
 }
 
@@ -340,36 +418,40 @@ LABEL_12:
 {
   if (!self->_invalidateDone)
   {
-    if (!self->_invalidateCalled && dword_1002F5E10 <= 50 && (dword_1002F5E10 != -1 || _LogCategory_Initialize()))
+    selfCopy = self;
+    if (!self->_invalidateCalled && dword_1002F5E10 <= 50)
     {
-      sub_1001D21D4();
+      if (dword_1002F5E10 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1001D21D4(self, a2, v2);
+      }
     }
 
-    if (!self->_direct && !self->_xpcCnx)
+    if (!selfCopy->_direct && !selfCopy->_xpcCnx)
     {
-      v8 = objc_retainBlock(self->_activateCompletion);
-      activateCompletion = self->_activateCompletion;
-      self->_activateCompletion = 0;
+      v9 = objc_retainBlock(selfCopy->_activateCompletion);
+      activateCompletion = selfCopy->_activateCompletion;
+      selfCopy->_activateCompletion = 0;
 
-      if (v8)
+      if (v9)
       {
-        v4 = BTErrorF();
-        v8[2](v8, v4);
+        v5 = BTErrorF(4294896148, "Unexpectedly invalidated");
+        v9[2](v9, v5);
       }
 
-      v5 = objc_retainBlock(self->_invalidationHandler);
-      invalidationHandler = self->_invalidationHandler;
-      self->_invalidationHandler = 0;
+      v6 = objc_retainBlock(selfCopy->_invalidationHandler);
+      invalidationHandler = selfCopy->_invalidationHandler;
+      selfCopy->_invalidationHandler = 0;
 
-      if (v5)
+      if (v6)
       {
-        v5[2](v5);
+        v6[2](v6);
       }
 
-      xpcCnx = self->_xpcCnx;
-      self->_xpcCnx = 0;
+      xpcCnx = selfCopy->_xpcCnx;
+      selfCopy->_xpcCnx = 0;
 
-      self->_invalidateDone = 1;
+      selfCopy->_invalidateDone = 1;
       if (dword_1002F5E10 <= 10 && (dword_1002F5E10 != -1 || _LogCategory_Initialize()))
       {
         sub_1001D21F0();
@@ -383,7 +465,7 @@ LABEL_12:
   errorCopy = error;
   if (dword_1002F5E10 <= 90 && (dword_1002F5E10 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001D2210();
+    sub_1001D2210(errorCopy);
   }
 
   v4 = objc_retainBlock(self->_activateCompletion);

@@ -23,8 +23,8 @@
 + (id)placeValuesFromBases:(id)bases
 {
   basesCopy = bases;
-  v4 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(basesCopy, "count")}];
-  v5 = [basesCopy count];
+  v4 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(basesCopy)];
+  v5 = objc_msgSend_count(basesCopy);
   if (v5 >= 1)
   {
     v6 = (v5 & 0x7FFFFFFF) + 1;
@@ -48,8 +48,8 @@
 + (id)convertHash:(unsigned int)hash usingPlaceValues:(id)values
 {
   valuesCopy = values;
-  v6 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(valuesCopy, "count")}];
-  v7 = [valuesCopy count];
+  v6 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(valuesCopy)];
+  v7 = objc_msgSend_count(valuesCopy);
   if (v7 >= 1)
   {
     v8 = (v7 & 0x7FFFFFFF) + 1;

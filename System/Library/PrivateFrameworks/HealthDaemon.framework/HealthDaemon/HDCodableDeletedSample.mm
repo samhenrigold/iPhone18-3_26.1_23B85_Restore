@@ -94,18 +94,30 @@
   v6 = fromCopy[1];
   if (sample)
   {
-    if (v6)
+    if (!v6)
     {
-      [(HDCodableSample *)sample mergeFrom:?];
+      goto LABEL_7;
     }
+
+    v7 = fromCopy;
+    sample = [(HDCodableSample *)sample mergeFrom:?];
   }
 
-  else if (v6)
+  else
   {
-    [(HDCodableDeletedSample *)self setSample:?];
+    if (!v6)
+    {
+      goto LABEL_7;
+    }
+
+    v7 = fromCopy;
+    sample = [(HDCodableDeletedSample *)self setSample:?];
   }
 
-  MEMORY[0x2821F96F8]();
+  fromCopy = v7;
+LABEL_7:
+
+  MEMORY[0x2821F96F8](sample, fromCopy);
 }
 
 @end

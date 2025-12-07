@@ -67,48 +67,48 @@
 {
   deviceCopy = device;
   queueCopy = queue;
-  v24.receiver = self;
-  v24.super_class = PUICALocalRenderer;
-  v11 = [(PUICALocalRenderer *)&v24 init];
+  v25.receiver = self;
+  v25.super_class = PUICALocalRenderer;
+  v11 = [(PUICALocalRenderer *)&v25 init];
   v12 = v11;
   if (v11)
   {
     objc_storeStrong(&v11->_device, device);
     objc_storeStrong(&v12->_commandQueue, queue);
-    v13 = PUILogRendering();
+    v14 = PUILogRendering(v13);
     logger = v12->_logger;
-    v12->_logger = v13;
+    v12->_logger = v14;
 
-    v15 = [[PUIViewportLayer alloc] initWithScale:1.0];
+    v16 = [[PUIViewportLayer alloc] initWithScale:1.0];
     viewportLayer = v12->_viewportLayer;
-    v12->_viewportLayer = v15;
+    v12->_viewportLayer = v16;
 
     v12->_encodingLock._os_unfair_lock_opaque = 0;
     identifier = v12->_identifier;
     v12->_identifier = @"PUICALocalRenderer";
 
     commandQueue = v12->_commandQueue;
-    v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.command-queue", v12->_identifier];
-    [(MTLCommandQueue *)commandQueue setLabel:v19];
+    v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.command-queue", v12->_identifier];
+    [(MTLCommandQueue *)commandQueue setLabel:v20];
 
     if (space)
     {
-      v20 = CGColorSpaceRetain(space);
+      v21 = CGColorSpaceRetain(space);
     }
 
     else
     {
-      v21 = MGGetBoolAnswer();
-      v22 = MEMORY[0x1E695F110];
-      if (!v21)
+      v22 = MGGetBoolAnswer();
+      v23 = MEMORY[0x1E695F110];
+      if (!v22)
       {
-        v22 = MEMORY[0x1E695F1C0];
+        v23 = MEMORY[0x1E695F1C0];
       }
 
-      v20 = CGColorSpaceCreateWithName(*v22);
+      v21 = CGColorSpaceCreateWithName(*v23);
     }
 
-    v12->_colorSpace = v20;
+    v12->_colorSpace = v21;
   }
 
   return v12;
@@ -134,7 +134,7 @@
 
   else
   {
-    v5 = PUILogRendering();
+    v5 = PUILogRendering(0);
   }
 
   logger = self->_logger;
@@ -323,92 +323,93 @@ void __52__PUICALocalRenderer_renderState_completionHandler___block_invoke_3(uin
 
 - (id)renderRequest:(id)request error:(id *)error
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   v7 = renderRequest_error__count++;
-  v8 = PUILogCommon();
+  v8 = PUILogCommon(requestCopy);
   v9 = os_signpost_id_generate(v8);
 
   Current = CFAbsoluteTimeGetCurrent();
-  v11 = PUILogCommon();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  v12 = PUILogCommon(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     *buf = 67109378;
     *&buf[4] = v7;
     *&buf[8] = 2082;
     *&buf[10] = "[PUICALocalRenderer renderRequest:error:]";
-    _os_log_impl(&dword_1A8C85000, v11, OS_LOG_TYPE_INFO, "(%d) start %{public}s", buf, 0x12u);
+    _os_log_impl(&dword_1A8C85000, v12, OS_LOG_TYPE_INFO, "(%d) start %{public}s", buf, 0x12u);
   }
 
-  v12 = PUILogCommon();
-  v13 = v12;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
+  v14 = PUILogCommon(v13);
+  v15 = v14;
+  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1A8C85000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v9, "sync render request", &unk_1A8D256D3, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1A8C85000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v9, "sync render request", &unk_1A8D256D3, buf, 2u);
   }
 
-  v14 = os_transaction_create();
+  v16 = os_transaction_create();
   *buf = *MEMORY[0x1E695F060];
-  v40 = 0;
-  v41 = 0;
+  v42 = 0;
+  v43 = 0;
   *&buf[16] = 0x3FF0000000000000;
-  v32 = 0;
-  v15 = [requestCopy configureState:buf error:&v32];
-  v16 = v32;
-  v17 = v16;
-  if ((v15 & 1) == 0)
+  v34 = 0;
+  v17 = [requestCopy configureState:buf error:&v34];
+  v18 = v34;
+  v19 = v18;
+  if ((v17 & 1) == 0)
   {
     if (error)
     {
-      v21 = v16;
-      v20 = 0;
-      *error = v17;
+      v18 = v18;
+      v22 = 0;
+      *error = v19;
       goto LABEL_13;
     }
 
 LABEL_12:
-    v20 = 0;
+    v22 = 0;
     goto LABEL_13;
   }
 
-  v28 = *buf;
-  v29 = *&buf[16];
-  v18 = v40;
-  v30 = v18;
-  v19 = v41;
-  v31 = v19;
+  v30 = *buf;
+  v31 = *&buf[16];
+  v20 = v42;
+  v32 = v20;
+  v21 = v43;
+  v33 = v21;
   if (!self)
   {
-    v22 = v19;
+    v23 = v21;
 
     goto LABEL_12;
   }
 
-  v20 = [(PUICALocalRenderer *)self renderState:&v28 error:error];
+  v18 = [(PUICALocalRenderer *)self renderState:&v30 error:error];
+  v22 = v18;
 LABEL_13:
-  v23 = PUILogCommon();
-  v24 = v23;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
+  v24 = PUILogCommon(v18);
+  v25 = v24;
+  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
   {
-    *v33 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1A8C85000, v24, OS_SIGNPOST_INTERVAL_END, v9, "sync render request", &unk_1A8D256D3, v33, 2u);
+    *v35 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1A8C85000, v25, OS_SIGNPOST_INTERVAL_END, v9, "sync render request", &unk_1A8D256D3, v35, 2u);
   }
 
-  v25 = PUILogCommon();
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+  v27 = PUILogCommon(v26);
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
   {
-    v26 = CFAbsoluteTimeGetCurrent();
-    *v33 = 67109634;
-    v34 = v7;
-    v35 = 2082;
-    v36 = "[PUICALocalRenderer renderRequest:error:]";
-    v37 = 2048;
-    v38 = v26 - Current;
-    _os_log_impl(&dword_1A8C85000, v25, OS_LOG_TYPE_INFO, "(%d) end %{public}s; completed in %.4f", v33, 0x1Cu);
+    v28 = CFAbsoluteTimeGetCurrent();
+    *v35 = 67109634;
+    v36 = v7;
+    v37 = 2082;
+    v38 = "[PUICALocalRenderer renderRequest:error:]";
+    v39 = 2048;
+    v40 = v28 - Current;
+    _os_log_impl(&dword_1A8C85000, v27, OS_LOG_TYPE_INFO, "(%d) end %{public}s; completed in %.4f", v35, 0x1Cu);
   }
 
-  return v20;
+  return v22;
 }
 
 - (void)renderRequest:(id)request completionHandler:(id)handler

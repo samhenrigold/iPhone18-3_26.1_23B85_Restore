@@ -43,11 +43,10 @@
 
 + (id)reachabilityForInternetConnection
 {
-  v5[2] = *MEMORY[0x1E69E9840];
-  v5[1] = 0;
-  v5[0] = 528;
-  v2 = [self reachabilityWithAddress:v5];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[2] = *MEMORY[0x1E69E9840];
+  v4[1] = 0;
+  v4[0] = 528;
+  v2 = [self reachabilityWithAddress:v4];
 
   return v2;
 }

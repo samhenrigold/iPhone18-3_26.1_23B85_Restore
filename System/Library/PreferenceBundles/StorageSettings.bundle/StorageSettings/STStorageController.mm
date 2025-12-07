@@ -28,7 +28,9 @@
 - (void)updateOtherDataSize;
 - (void)updateShowAllButton;
 - (void)updateTips:(id)tips;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)whackObsoletePrefs;
 @end
 
@@ -1101,6 +1103,35 @@ LABEL_115:
   {
     [v5 setNeedsUpdateConstraints];
   }
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = STStorageController;
+  [(STStorageController *)&v5 viewWillAppear:appear];
+  if ([(STStorageController *)self isMovingToParentViewController])
+  {
+    v4 = +[STStoragePluginManager sharedManager];
+    [v4 reloadAllTips];
+
+    [(STStorageController *)self startMonitor];
+  }
+
+  [(STStorageController *)self updateApps:0];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  if ([(STStorageController *)self isMovingFromParentViewController])
+  {
+    [(STStorageController *)self stopMonitor];
+  }
+
+  v5.receiver = self;
+  v5.super_class = STStorageController;
+  [(STStorageController *)&v5 viewDidDisappear:disappearCopy];
 }
 
 - (void)resumeApp:(id)app

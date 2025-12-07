@@ -39,7 +39,7 @@ id __38___UICalendarViewPlatformMetrics_init__block_invoke_8()
   return v0;
 }
 
-id __38___UICalendarViewPlatformMetrics_init__block_invoke_9()
+UIView *__38___UICalendarViewPlatformMetrics_init__block_invoke_9()
 {
   v0 = objc_opt_new();
   [v0 setUserInteractionEnabled:1];
@@ -78,7 +78,7 @@ id __38___UICalendarViewPlatformMetrics_init__block_invoke_10(uint64_t a1, void 
 
       else
       {
-        +[UIColor blackColor];
+        objc_msgSend_blackColor(UIColor);
       }
       v8 = ;
 

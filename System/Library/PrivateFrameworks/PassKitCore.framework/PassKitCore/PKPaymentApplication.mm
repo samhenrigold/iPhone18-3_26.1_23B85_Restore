@@ -541,8 +541,8 @@ LABEL_7:
   [(PKProtobufPaymentApplication *)v3 setCustomPrecisionInAppPINRequiredAmount:v12];
 
   inAppPINRequiredAmount3 = [(PKPaymentApplication *)self inAppPINRequiredAmount];
-  v14 = PKProtoSupportProtoDecimalNumberFromDecimalNumber(inAppPINRequiredAmount3);
-  [(PKProtobufPaymentApplication *)v3 setBalanceInAppPINRequiredAmount:v14];
+  v15 = PKProtoSupportProtoDecimalNumberFromDecimalNumber(inAppPINRequiredAmount3, v14);
+  [(PKProtobufPaymentApplication *)v3 setBalanceInAppPINRequiredAmount:v15];
 
   inAppPINRequiredCurrency = [(PKPaymentApplication *)self inAppPINRequiredCurrency];
   [(PKProtobufPaymentApplication *)v3 setInAppPINRequiredCurrency:inAppPINRequiredCurrency];

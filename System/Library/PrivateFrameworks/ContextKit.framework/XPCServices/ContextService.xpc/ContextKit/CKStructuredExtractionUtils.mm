@@ -2,6 +2,7 @@
 + (BOOL)_attemptMergeAddressResults:(id)results prevResult:(id)result prevResultMatch:(id)match;
 + (BOOL)_processDateMatch:(id)match matchString:(id)string contextResult:(id)result withConfig:(id)config extractionType:(unsigned __int8)type;
 + (id)_descriptionForDateComponents:(id)components hadDate:(BOOL)date hasTime:(BOOL)time;
++ (id)_resultForMatch:(id)match matchString:(id)string withConfig:(id)config extractionType:(unsigned __int8)type;
 + (id)ddResultsForUIElements:(id)elements usingDataDetector:(id)detector withConfig:(id)config;
 + (id)debugStringForStructuredResult:(id)result;
 + (id)liveTextResultsFromUIElements:(id)elements;
@@ -45,30 +46,30 @@
         v10 = 0;
       }
 
-      v57 = 0u;
-      v58 = 0u;
       v55 = 0u;
       v56 = 0u;
+      v53 = 0u;
+      v54 = 0u;
       obj = v16;
-      v50 = [obj countByEnumeratingWithState:&v55 objects:v59 count:16];
+      v50 = [obj countByEnumeratingWithState:&v53 objects:v57 count:16];
       if (!v50)
       {
         v17 = v44;
         goto LABEL_38;
       }
 
-      v49 = *v56;
+      v49 = *v54;
       v17 = v44;
       do
       {
         for (i = 0; i != v50; i = i + 1)
         {
-          if (*v56 != v49)
+          if (*v54 != v49)
           {
             objc_enumerationMutation(obj);
           }
 
-          v19 = *(*(&v55 + 1) + 8 * i);
+          v19 = *(*(&v53 + 1) + 8 * i);
           if ([v19 resultType] != 8 || v17 <= objc_msgSend(configCopy, "maxUIContentCount"))
           {
             range = [v19 range];
@@ -109,7 +110,7 @@
               configCopy = v42;
               if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
               {
-                sub_1002A701C(&v53, v54);
+                sub_1002A701C(v52, &v52[1]);
               }
 
 LABEL_32:
@@ -133,7 +134,7 @@ LABEL_33:
 LABEL_26:
               if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
               {
-                sub_1002A6FD8(&buf, v52);
+                sub_1002A6FD8(buf, &buf[1]);
               }
             }
 
@@ -169,7 +170,7 @@ LABEL_26:
           }
         }
 
-        v50 = [obj countByEnumeratingWithState:&v55 objects:v59 count:16];
+        v50 = [obj countByEnumeratingWithState:&v53 objects:v57 count:16];
       }
 
       while (v50);
@@ -191,6 +192,103 @@ LABEL_41:
   v36 = v41;
 
   return v41;
+}
+
++ (id)_resultForMatch:(id)match matchString:(id)string withConfig:(id)config extractionType:(unsigned __int8)type
+{
+  typeCopy = type;
+  matchCopy = match;
+  stringCopy = string;
+  configCopy = config;
+  structuredExtractionMinPrefix = [configCopy structuredExtractionMinPrefix];
+  v14 = [[LuceneContextResult alloc] initWithText:stringCopy];
+  resultType = [matchCopy resultType];
+  v16 = 0;
+  if (resultType > 31)
+  {
+    if (resultType == 2048)
+    {
+      phoneNumber = [matchCopy phoneNumber];
+      if (phoneNumber)
+      {
+        [(LuceneContextResult *)v14 setTitle:phoneNumber];
+      }
+
+      else
+      {
+        title = [(LuceneContextResult *)v14 title];
+        [(LuceneContextResult *)v14 setTitle:title];
+      }
+
+      phoneNumber2 = [matchCopy phoneNumber];
+      v28 = [NSString stringWithFormat:@"PhoneNum: %@", phoneNumber2];
+      [(LuceneContextResult *)v14 setCategory:v28];
+
+      v24 = &CKContextTagTypePhoneNumber;
+    }
+
+    else
+    {
+      if (resultType != 32)
+      {
+        goto LABEL_18;
+      }
+
+      v23 = [matchCopy URL];
+      [(LuceneContextResult *)v14 setUrl:v23];
+
+      v24 = &CKContextTagTypeURL;
+    }
+
+    v29 = [NSSet setWithObject:*v24];
+    [(LuceneContextResult *)v14 setTags:v29];
+
+LABEL_16:
+    [(LuceneContextResult *)v14 setMinPrefix:structuredExtractionMinPrefix];
+    goto LABEL_17;
+  }
+
+  if (resultType != 8)
+  {
+    if (resultType != 16)
+    {
+      goto LABEL_18;
+    }
+
+    components = [matchCopy components];
+    [(LuceneContextResult *)v14 setExtractedAddressComponents:components];
+
+    components2 = [matchCopy components];
+    v19 = [NSString stringWithFormat:@"Address: %@", components2];
+    [(LuceneContextResult *)v14 setCategory:v19];
+
+    v20 = [NSSet setWithObject:CKContextTagTypeAddress];
+    [(LuceneContextResult *)v14 setTags:v20];
+
+    [(LuceneContextResult *)v14 setMinPrefix:structuredExtractionMinPrefix];
+    extractedAddressComponents = [(LuceneContextResult *)v14 extractedAddressComponents];
+    v22 = [extractedAddressComponents objectForKeyedSubscript:NSTextCheckingStreetKey];
+
+    if (v22)
+    {
+      goto LABEL_17;
+    }
+
+    structuredExtractionMinPrefix = [configCopy structuredExtractionDemotedResultMinPrefix];
+    goto LABEL_16;
+  }
+
+  if (([self _processDateMatch:matchCopy matchString:stringCopy contextResult:v14 withConfig:configCopy extractionType:typeCopy] & 1) == 0)
+  {
+    v16 = 0;
+    goto LABEL_18;
+  }
+
+LABEL_17:
+  v16 = v14;
+LABEL_18:
+
+  return v16;
 }
 
 + (BOOL)_processDateMatch:(id)match matchString:(id)string contextResult:(id)result withConfig:(id)config extractionType:(unsigned __int8)type

@@ -363,7 +363,7 @@
   v11 = layout;
   if (layout)
   {
-    [layout transformInRoot];
+    objc_msgSend_transformInRoot(layout);
   }
 
   else
@@ -450,7 +450,7 @@ LABEL_20:
           memset(&transform, 0, sizeof(transform));
           if (shapeLayout2)
           {
-            [shapeLayout2 transformInRoot];
+            objc_msgSend_transformInRoot(shapeLayout2);
           }
 
           else
@@ -658,7 +658,7 @@ LABEL_76:
   v76 = geometry;
   if (geometry)
   {
-    [geometry transform];
+    objc_msgSend_transform(geometry);
   }
 
   else
@@ -825,7 +825,7 @@ LABEL_76:
     v56 = layout;
     if (layout)
     {
-      [layout transformInRoot];
+      objc_msgSend_transformInRoot(layout);
     }
 
     else
@@ -892,7 +892,7 @@ LABEL_76:
     v18 = pureGeometryInRoot;
     if (pureGeometryInRoot)
     {
-      [pureGeometryInRoot transform];
+      objc_msgSend_transform(pureGeometryInRoot);
     }
 
     else
@@ -1186,7 +1186,7 @@ LABEL_5:
   v19 = freehandDrawingLayout2;
   if (freehandDrawingLayout2)
   {
-    [freehandDrawingLayout2 pureTransformInRootWithoutMathResults];
+    objc_msgSend_pureTransformInRootWithoutMathResults(freehandDrawingLayout2);
   }
 
   else
@@ -1385,7 +1385,7 @@ LABEL_5:
     v23 = pureGeometryInRoot;
     if (pureGeometryInRoot)
     {
-      [pureGeometryInRoot transform];
+      objc_msgSend_transform(pureGeometryInRoot);
     }
 
     else
@@ -1512,7 +1512,7 @@ LABEL_19:
       v55 = pureGeometryInRoot;
       if (pureGeometryInRoot)
       {
-        [pureGeometryInRoot transform];
+        objc_msgSend_transform(pureGeometryInRoot);
       }
 
       else
@@ -1872,7 +1872,7 @@ LABEL_19:
         v32 = layout;
         if (layout)
         {
-          [layout transform];
+          objc_msgSend_transform(layout);
         }
 
         else
@@ -2336,11 +2336,11 @@ LABEL_5:
     v26 = 0u;
     if (activeTrifurcationContainer)
     {
-      [activeTrifurcationContainer transformForMiddleRenderable:0];
+      objc_msgSend_transformForMiddleRenderable_(activeTrifurcationContainer);
       v24 = 0u;
       v25 = 0u;
       v23 = 0u;
-      [activeTrifurcationContainer transformForMiddleRenderable:1];
+      objc_msgSend_transformForMiddleRenderable_(activeTrifurcationContainer);
     }
 
     else
@@ -4163,7 +4163,7 @@ LABEL_45:
   v4 = +[CRLBezierPath bezierPath];
   if (layout)
   {
-    [layout transformInRoot];
+    objc_msgSend_transformInRoot(layout);
   }
 
   else
@@ -4199,7 +4199,7 @@ LABEL_45:
 LABEL_9:
   if (layout)
   {
-    [layout transformInRoot];
+    objc_msgSend_transformInRoot(layout);
   }
 
   else
@@ -4618,7 +4618,7 @@ LABEL_20:
       v7 = geometryInRoot;
       if (geometryInRoot)
       {
-        [geometryInRoot transform];
+        objc_msgSend_transform(geometryInRoot);
       }
 
       else

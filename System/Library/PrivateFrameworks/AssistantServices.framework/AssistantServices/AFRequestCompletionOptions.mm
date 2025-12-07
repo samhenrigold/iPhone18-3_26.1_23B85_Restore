@@ -1,5 +1,6 @@
 @interface AFRequestCompletionOptions
 - (AFRequestCompletionOptions)initWithCoder:(id)coder;
+- (id)_initWithShowUIDuringListening:(BOOL)listening playAlertBeforeListening:(BOOL)beforeListening;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 @end
@@ -35,6 +36,21 @@
   }
 
   return v5;
+}
+
+- (id)_initWithShowUIDuringListening:(BOOL)listening playAlertBeforeListening:(BOOL)beforeListening
+{
+  beforeListeningCopy = beforeListening;
+  listeningCopy = listening;
+  v6 = [(AFRequestCompletionOptions *)self init];
+  if (v6)
+  {
+    v7 = [[AFTriggerlessListeningOptions alloc] _initWithShowUIDuringListening:listeningCopy playAlertBeforeListening:beforeListeningCopy];
+    triggerlessListeningOptions = v6->_triggerlessListeningOptions;
+    v6->_triggerlessListeningOptions = v7;
+  }
+
+  return v6;
 }
 
 @end

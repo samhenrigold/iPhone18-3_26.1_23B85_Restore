@@ -128,7 +128,6 @@ void __144__SUSUIAuthenticationAlertAction_initWithDescriptor_autoInstallForecas
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (SUSUIAuthenticationAlertAction)initWithRollbackDescriptor:(id)descriptor canDeferInstallation:(BOOL)installation completionQueue:(id)queue completionBlock:(id)block
@@ -238,7 +237,6 @@ void __114__SUSUIAuthenticationAlertAction_initWithRollbackDescriptor_canDeferIn
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (SUSUIAuthenticationAlertAction)initWithInfo:(id)info forBaseAction:(id)action

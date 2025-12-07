@@ -434,7 +434,7 @@ void __76__SBNotificationCarPlayDestination__postNotificationRequest_shouldAnnou
   delegate = [(SBNotificationCarPlayDestination *)self delegate];
   [delegate destination:self willPresentNotificationRequest:notificationRequest suppressAlerts:v11];
 
-  if ([(SBNotificationCarPlayDestination *)self _shouldAnnounceNotificationRequest:notificationRequest]&& ([(NSMutableArray *)self->_notificationRequestsForAnnounce containsObject:notificationRequest]& 1) == 0 && ([(NSMutableArray *)self->_notificationRequestsPendingAVSession containsObject:notificationRequest]& 1) == 0)
+  if ([(SBNotificationCarPlayDestination *)self _shouldAnnounceNotificationRequest:notificationRequest]&& (objc_msgSend_containsObject_(self->_notificationRequestsForAnnounce) & 1) == 0 && (objc_msgSend_containsObject_(self->_notificationRequestsPendingAVSession) & 1) == 0)
   {
     v13 = *MEMORY[0x277D77DB0];
     if (os_log_type_enabled(*MEMORY[0x277D77DB0], OS_LOG_TYPE_DEFAULT))
@@ -850,7 +850,7 @@ void __79__SBNotificationCarPlayDestination_didSelectBannerOfPresentableViewCont
   {
     selfCopy = self;
     objc_sync_enter(selfCopy);
-    if ([(NSHashTable *)selfCopy->_presentables containsObject:presentableCopy])
+    if (objc_msgSend_containsObject_(selfCopy->_presentables))
     {
       [(NSHashTable *)selfCopy->_presentables removeObject:presentableCopy];
     }
@@ -1937,7 +1937,7 @@ void __75__SBNotificationCarPlayDestination__requestAnnounceForNotificationReque
     }
   }
 
-  if ([(NSMutableArray *)self->_notificationRequestsPendingAVSession containsObject:v10])
+  if (objc_msgSend_containsObject_(self->_notificationRequestsPendingAVSession))
   {
     v31 = *v12;
     if (os_log_type_enabled(*v12, OS_LOG_TYPE_DEFAULT))
@@ -2051,7 +2051,7 @@ LABEL_7:
         notificationRequestsPendingAVSession = self->_notificationRequestsPendingAVSession;
       }
 
-      if (([(NSMutableArray *)notificationRequestsPendingAVSession containsObject:sessionCopy]& 1) == 0)
+      if ((objc_msgSend_containsObject_(notificationRequestsPendingAVSession) & 1) == 0)
       {
         [(NSMutableArray *)self->_notificationRequestsPendingAVSession addObject:sessionCopy];
       }
@@ -2402,7 +2402,7 @@ void __79__SBNotificationCarPlayDestination_didSelectBannerOfPresentableViewCont
   v3 = a2;
   v4 = [v2 requestIdentifier];
   OUTLINED_FUNCTION_0_14();
-  OUTLINED_FUNCTION_4_16(&dword_21ED4E000, v5, v6, "Error attempting to revoke presentable: requestID: %{public}@; error: %{public}@", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_4_16(&dword_21ED4E000, v5, v6, "Error attempting to revoke presentable: requestID: %{public}@; error: %{public}@", v7, v8, v9, v10);
 }
 
 - (void)didCancelBannerOfPresentableViewController:(void *)a1 reason:(void *)a2 .cold.1(void *a1, void *a2)
@@ -2410,7 +2410,7 @@ void __79__SBNotificationCarPlayDestination_didSelectBannerOfPresentableViewCont
   v3 = a1;
   v4 = [a2 requestIdentifier];
   OUTLINED_FUNCTION_0_14();
-  OUTLINED_FUNCTION_4_16(&dword_21ED4E000, v5, v6, "Error attempting to revoke presentable: requestID: %{public}@; error: %{public}@", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_4_16(&dword_21ED4E000, v5, v6, "Error attempting to revoke presentable: requestID: %{public}@; error: %{public}@", v7, v8, v9, v10);
 }
 
 - (void)_policyForApp:.cold.1()

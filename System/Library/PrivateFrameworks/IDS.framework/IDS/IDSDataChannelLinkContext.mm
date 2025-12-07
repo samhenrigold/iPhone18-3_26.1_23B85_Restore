@@ -18,7 +18,7 @@
     v3 = +[IDSLogging IDSDataChannels];
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      sub_195B2E9C8();
+      sub_195B2E9C8(self, v3);
     }
 
     goto LABEL_5;

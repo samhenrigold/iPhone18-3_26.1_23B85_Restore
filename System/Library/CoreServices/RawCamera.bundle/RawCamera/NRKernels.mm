@@ -7,10 +7,10 @@
 + (id)kernelWithName:(id)name
 {
   nameCopy = name;
-  v8 = objc_msgSend_sharedKernels(RAWKernels, v4, v5, v6, v7);
-  v11 = objc_msgSend_kernelWithName_group_(v8, v9, nameCopy, @"NR", v10);
+  v4 = +[RAWKernels sharedKernels];
+  v5 = [v4 kernelWithName:nameCopy group:@"NR"];
 
-  return v11;
+  return v5;
 }
 
 @end

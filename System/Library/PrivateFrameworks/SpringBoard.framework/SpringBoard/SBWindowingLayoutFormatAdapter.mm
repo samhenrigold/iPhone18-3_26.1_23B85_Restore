@@ -163,7 +163,7 @@
     v14 = 7;
   }
 
-  SBDisplayItemTileConfigurationMake(v14, v25, 1.79769313e308, 1.79769313e308);
+  SBDisplayItemTileConfigurationMake(v14, v26, 1.79769313e308, 1.79769313e308);
   v15 = [SBDisplayItemLayoutAttributes attributesByModifyingTileConfiguration:attributesCopy];
 
   attributesCopy = [SBDisplayItemLayoutAttributes attributesByModifyingSizingPolicy:v15];
@@ -179,7 +179,7 @@ LABEL_11:
     v22 = v21;
     [(SBSwitcherWindowingConfiguration *)v12 defaultWindowSize];
     [(SBSwitcherWindowingConfiguration *)v12 screenEdgePadding];
-    SBDisplayItemAttributedSizeInfer(v25, v20, v22, x, y, width, height);
+    SBDisplayItemAttributedSizeInfer(v26, v20, v22, x, y, width, height, v23);
     v18 = [SBDisplayItemLayoutAttributes attributesByModifyingAttributedSize:v17];
     goto LABEL_15;
   }
@@ -188,18 +188,18 @@ LABEL_11:
   {
     v17 = [SBDisplayItemLayoutAttributes attributesByModifyingSizingPolicy:attributesCopy];
 
-    SBDisplayItemAttributedSizeUnspecified(v25);
+    SBDisplayItemAttributedSizeUnspecified(v26);
     v18 = [SBDisplayItemLayoutAttributes attributesByModifyingAttributedUserSizeBeforeOverlapping:v17];
 LABEL_15:
-    v23 = v18;
+    v24 = v18;
     attributesCopy = v17;
     goto LABEL_17;
   }
 
-  v23 = [SBDisplayItemLayoutAttributes attributesByModifyingSizingPolicy:attributesCopy];
+  v24 = [SBDisplayItemLayoutAttributes attributesByModifyingSizingPolicy:attributesCopy];
 LABEL_17:
 
-  return v23;
+  return v24;
 }
 
 - (void)parse:(id)parse argumentType:(int64_t)type bundleIdentifiers:(id)identifiers error:(id *)error

@@ -198,7 +198,6 @@
 {
   v4 = os_transaction_create();
   _copyFeatures = [(OcvDriftEstimator *)self _copyFeatures];
-  logger = self->_logger;
   if (_copyFeatures)
   {
     if (os_log_type_enabled(self->_logger, OS_LOG_TYPE_DEBUG))
@@ -206,40 +205,40 @@
       sub_100031790();
     }
 
-    v20 = 0;
-    v7 = [[MLDictionaryFeatureProvider alloc] initWithDictionary:_copyFeatures error:&v20];
-    v8 = v20;
-    if (v7)
+    v19 = 0;
+    v6 = [[MLDictionaryFeatureProvider alloc] initWithDictionary:_copyFeatures error:&v19];
+    v7 = v19;
+    if (v6)
     {
-      v9 = [NSBundle bundleForClass:objc_opt_class()];
+      v8 = [NSBundle bundleForClass:objc_opt_class()];
       name = [(OcvDriftEstimator *)self name];
-      v11 = [v9 pathForResource:name ofType:@"mlmodelc"];
+      v10 = [v8 pathForResource:name ofType:@"mlmodelc"];
 
-      v12 = [NSURL fileURLWithPath:v11];
-      v13 = [MLModel modelWithContentsOfURL:v12 error:0];
+      v11 = [NSURL fileURLWithPath:v10];
+      v12 = [MLModel modelWithContentsOfURL:v11 error:0];
 
-      v19 = v8;
-      v14 = [v13 predictionFromFeatures:v7 error:&v19];
-      v15 = v19;
+      v18 = v7;
+      v13 = [v12 predictionFromFeatures:v6 error:&v18];
+      v14 = v18;
 
-      if (v15 && os_log_type_enabled(self->_logger, OS_LOG_TYPE_ERROR))
+      if (v14 && os_log_type_enabled(self->_logger, OS_LOG_TYPE_ERROR))
       {
         sub_100031804();
       }
 
-      v16 = [v14 featureValueForName:@"Prediction"];
-      v17 = self->_logger;
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+      v15 = [v13 featureValueForName:@"Prediction"];
+      logger = self->_logger;
+      if (os_log_type_enabled(logger, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v22 = v16;
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "OCV model ouput: %@", buf, 0xCu);
+        v21 = v15;
+        _os_log_impl(&_mh_execute_header, logger, OS_LOG_TYPE_INFO, "OCV model ouput: %@", buf, 0xCu);
       }
 
       if (self->_logToPPS)
       {
-        v18 = [(OcvDriftEstimator *)self getPayloadForPPSWithParams:0 andPredictionValue:v16];
-        [BIMetricRecorder sendToPPS:v18 forIdentifier:@"OCVDrift"];
+        v17 = [(OcvDriftEstimator *)self getPayloadForPPSWithParams:0 andPredictionValue:v15];
+        [BIMetricRecorder sendToPPS:v17 forIdentifier:@"OCVDrift"];
       }
     }
 
@@ -250,7 +249,7 @@
         sub_10002E8D0();
       }
 
-      v15 = v8;
+      v14 = v7;
     }
   }
 
@@ -261,7 +260,7 @@
       sub_100031874();
     }
 
-    v15 = 0;
+    v14 = 0;
   }
 }
 

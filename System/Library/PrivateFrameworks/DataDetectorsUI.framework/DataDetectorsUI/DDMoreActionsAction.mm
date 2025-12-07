@@ -10,7 +10,7 @@
 {
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    [DDMoreActionsAction alertActions];
+    [(DDMoreActionsAction *)self alertActions];
   }
 
   return 0;
@@ -51,14 +51,11 @@
 
 - (void)alertActions
 {
-  v8 = *MEMORY[0x277D85DE8];
   objc_opt_class();
   OUTLINED_FUNCTION_1_0();
-  v1 = v0;
+  v2 = v1;
   OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
 @end

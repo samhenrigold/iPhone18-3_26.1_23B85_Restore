@@ -60,7 +60,7 @@
   title = [(BKAVAudiobookChapter *)self title];
   author = [(BKAVAudiobookChapter *)self author];
   customTitle = [(BKAVAudiobookChapter *)self customTitle];
-  [(BKAVAudiobookChapter *)self timeRangeInAudiobook];
+  objc_msgSend_timeRangeInAudiobook(self);
   time = v12;
   Seconds = CMTimeGetSeconds(&time);
   [(BKAVAudiobookChapter *)self duration];

@@ -37,10 +37,10 @@
 
 - (CWFNetworkOfInterestManager)init
 {
-  v29 = *MEMORY[0x1E69E9840];
-  v22.receiver = self;
-  v22.super_class = CWFNetworkOfInterestManager;
-  v2 = [(CWFNetworkOfInterestManager *)&v22 init];
+  v28 = *MEMORY[0x1E69E9840];
+  v21.receiver = self;
+  v21.super_class = CWFNetworkOfInterestManager;
+  v2 = [(CWFNetworkOfInterestManager *)&v21 init];
   if (v2)
   {
     v3 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
@@ -84,13 +84,13 @@
 
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v23 = 136446722;
-        v24 = "[CWFNetworkOfInterestManager init]";
-        v25 = 2082;
-        v26 = "CWFNetworkOfInterestManager.m";
-        v27 = 1024;
-        v28 = 145;
-        _os_log_send_and_compose_impl();
+        v22 = 136446722;
+        v23 = "[CWFNetworkOfInterestManager init]";
+        v24 = 2082;
+        v25 = "CWFNetworkOfInterestManager.m";
+        v26 = 1024;
+        v27 = 145;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v13, 16, "[corewifi] %{public}s (%{public}s:%u) failed to initialize NWNetworkOfInterestManager", &v22, 28);
       }
     }
 
@@ -103,17 +103,16 @@
     handler[1] = 3221225472;
     handler[2] = sub_1E0D5EDA4;
     handler[3] = &unk_1E86E6010;
-    v21 = v2;
+    v20 = v2;
     dispatch_source_set_event_handler(v17, handler);
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
 - (void)activate
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   [(NWNetworkOfInterestManager *)self->_noiManager trackAllBuiltinNOIsForInterfaceType:1 options:0];
   [(CWFNetworkOfInterestManager *)self fetchHomeWiFiInfoFromHomeKit];
   v3 = +[CWFNetworkOfInterestManager testHomeNetworks];
@@ -135,7 +134,13 @@
 
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      _os_log_send_and_compose_impl();
+      v9 = 136446722;
+      v10 = "[CWFNetworkOfInterestManager activate]";
+      v11 = 2082;
+      v12 = "CWFNetworkOfInterestManager.m";
+      v13 = 1024;
+      v14 = 179;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v6, 0, "[corewifi] %{public}s (%{public}s:%u) testHomeNetworks activation", &v9, 28);
     }
 
     [(CWFNetworkOfInterestManager *)self _homeNetworkDeterminationDidChange];
@@ -146,8 +151,6 @@
   {
     dispatch_resume(homeKitFetchTimer);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)invalidate
@@ -197,7 +200,7 @@
 
 - (void)fetchHomeWiFiInfoFromHomeKit
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   date = [MEMORY[0x1E695DF00] date];
   if (_os_feature_enabled_impl())
   {
@@ -236,13 +239,13 @@
 
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
-        *v30 = 136446722;
-        *&v30[4] = "[CWFNetworkOfInterestManager fetchHomeWiFiInfoFromHomeKit]";
-        *&v30[12] = 2082;
-        *&v30[14] = "CWFNetworkOfInterestManager.m";
-        *&v30[22] = 1024;
-        LODWORD(v31) = 337;
-        _os_log_send_and_compose_impl();
+        *v29 = 136446722;
+        *&v29[4] = "[CWFNetworkOfInterestManager fetchHomeWiFiInfoFromHomeKit]";
+        *&v29[12] = 2082;
+        *&v29[14] = "CWFNetworkOfInterestManager.m";
+        *&v29[22] = 1024;
+        LODWORD(v30) = 337;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v7, 1, "[corewifi] %{public}s (%{public}s:%u) Still within throttle interval", v29, 28);
       }
 
 LABEL_24:
@@ -271,13 +274,13 @@ LABEL_24:
 
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
-        *v30 = 136446722;
-        *&v30[4] = "[CWFNetworkOfInterestManager fetchHomeWiFiInfoFromHomeKit]";
-        *&v30[12] = 2082;
-        *&v30[14] = "CWFNetworkOfInterestManager.m";
-        *&v30[22] = 1024;
-        LODWORD(v31) = 346;
-        _os_log_send_and_compose_impl();
+        *v29 = 136446722;
+        *&v29[4] = "[CWFNetworkOfInterestManager fetchHomeWiFiInfoFromHomeKit]";
+        *&v29[12] = 2082;
+        *&v29[14] = "CWFNetworkOfInterestManager.m";
+        *&v29[22] = 1024;
+        LODWORD(v30) = 346;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v7, 1, "[corewifi] %{public}s (%{public}s:%u) _homeManager is already activated and fetching", v29, 28);
       }
 
       goto LABEL_24;
@@ -296,13 +299,13 @@ LABEL_24:
 
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      *v30 = 136446722;
-      *&v30[4] = "[CWFNetworkOfInterestManager fetchHomeWiFiInfoFromHomeKit]";
-      *&v30[12] = 2082;
-      *&v30[14] = "CWFNetworkOfInterestManager.m";
-      *&v30[22] = 1024;
-      LODWORD(v31) = 350;
-      _os_log_send_and_compose_impl();
+      *v29 = 136446722;
+      *&v29[4] = "[CWFNetworkOfInterestManager fetchHomeWiFiInfoFromHomeKit]";
+      *&v29[12] = 2082;
+      *&v29[14] = "CWFNetworkOfInterestManager.m";
+      *&v29[22] = 1024;
+      LODWORD(v30) = 350;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v18, 16, "[corewifi] %{public}s (%{public}s:%u) _homeManager is activated but never fetches. Forcing home update", v29, 28);
     }
 
     [(CWFNetworkOfInterestManager *)self homeManagerDidUpdateHomes:self->_homeManager];
@@ -310,24 +313,24 @@ LABEL_24:
 
   else
   {
-    v26 = 0;
-    v27 = &v26;
-    v28 = 0x2050000000;
+    v25 = 0;
+    v26 = &v25;
+    v27 = 0x2050000000;
     v11 = qword_1ED7E3A90;
-    v29 = qword_1ED7E3A90;
+    v28 = qword_1ED7E3A90;
     if (!qword_1ED7E3A90)
     {
-      *v30 = MEMORY[0x1E69E9820];
-      *&v30[8] = 3221225472;
-      *&v30[16] = sub_1E0D61C20;
-      v31 = &unk_1E86E5600;
-      v32 = &v26;
-      sub_1E0D61C20(v30);
-      v11 = v27[3];
+      *v29 = MEMORY[0x1E69E9820];
+      *&v29[8] = 3221225472;
+      *&v29[16] = sub_1E0D61C20;
+      v30 = &unk_1E86E5600;
+      v31 = &v25;
+      sub_1E0D61C20(v29);
+      v11 = v26[3];
     }
 
     v12 = v11;
-    _Block_object_dispose(&v26, 8);
+    _Block_object_dispose(&v25, 8);
     v13 = objc_alloc_init(v11);
     homeManager = self->_homeManager;
     self->_homeManager = v13;
@@ -350,13 +353,13 @@ LABEL_24:
 
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        *v30 = 136446722;
-        *&v30[4] = "[CWFNetworkOfInterestManager fetchHomeWiFiInfoFromHomeKit]";
-        *&v30[12] = 2082;
-        *&v30[14] = "CWFNetworkOfInterestManager.m";
-        *&v30[22] = 1024;
-        LODWORD(v31) = 366;
-        _os_log_send_and_compose_impl();
+        *v29 = 136446722;
+        *&v29[4] = "[CWFNetworkOfInterestManager fetchHomeWiFiInfoFromHomeKit]";
+        *&v29[12] = 2082;
+        *&v29[14] = "CWFNetworkOfInterestManager.m";
+        *&v29[22] = 1024;
+        LODWORD(v30) = 366;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v17, 0, "[corewifi] %{public}s (%{public}s:%u) HMHomeManager created - waiting for home update", v29, 28, v25);
       }
     }
 
@@ -376,20 +379,18 @@ LABEL_24:
 
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        *v30 = 136446722;
-        *&v30[4] = "[CWFNetworkOfInterestManager fetchHomeWiFiInfoFromHomeKit]";
-        *&v30[12] = 2082;
-        *&v30[14] = "CWFNetworkOfInterestManager.m";
-        *&v30[22] = 1024;
-        LODWORD(v31) = 361;
-        _os_log_send_and_compose_impl();
+        *v29 = 136446722;
+        *&v29[4] = "[CWFNetworkOfInterestManager fetchHomeWiFiInfoFromHomeKit]";
+        *&v29[12] = 2082;
+        *&v29[14] = "CWFNetworkOfInterestManager.m";
+        *&v29[22] = 1024;
+        LODWORD(v30) = 361;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v17, 16, "[corewifi] %{public}s (%{public}s:%u) unable to create HMHomeManager", v29, 28, v25);
       }
     }
   }
 
 LABEL_43:
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (int64_t)homeTypeForNetworkName:(id)name

@@ -1,4 +1,4 @@
-uint64_t __usb_clientThreadSetup_block_invoke_2(uint64_t a1, uint64_t a2, char *a3, uint64_t a4, void *a5)
+uint64_t __usb_clientThreadSetup_block_invoke_2(uint64_t a1, uint64_t a2, char *a3, uint64_t a4, uint64_t *a5)
 {
   if (!a3)
   {
@@ -103,6 +103,7 @@ uint64_t usb_serverThreadMain(void *a1)
   type = OS_LOG_TYPE_DEFAULT;
   os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(0, 1, &v25, &type);
   v4 = v25;
+  v5 = type;
   if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
   {
     v6 = v4;
@@ -117,7 +118,7 @@ uint64_t usb_serverThreadMain(void *a1)
   {
     v26 = 136315138;
     v27 = "usb_serverThreadMain";
-    v7 = _os_log_send_and_compose_impl();
+    v7 = _os_log_send_and_compose_impl(v6, 0, v28, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v5, "<<< transportusb >>> %s: Called", &v26);
     LOBYTE(v4) = v25;
   }
 
@@ -126,12 +127,13 @@ uint64_t usb_serverThreadMain(void *a1)
     v7 = 0;
   }
 
-  fig_log_call_emit_and_clean_up_after_send_and_compose(0, 1u, 1, v7, v7 != v28, v4, 0, v5);
+  fig_log_call_emit_and_clean_up_after_send_and_compose(0, 1, 1, v7, v7 != v28, v4);
   v8 = CMBaseObjectGetDerivedStorage(a1);
   v25 = 0;
   type = OS_LOG_TYPE_DEFAULT;
   v9 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(0, 1, &v25, &type);
   v10 = v25;
+  v11 = type;
   if (os_log_type_enabled(v9, type))
   {
     v12 = v10;
@@ -146,7 +148,7 @@ uint64_t usb_serverThreadMain(void *a1)
   {
     v26 = 136315138;
     v27 = "usb_serverThreadSetup";
-    v13 = _os_log_send_and_compose_impl();
+    v13 = _os_log_send_and_compose_impl(v12, 0, v28, 128, &dword_196FA7000, v9, v11, "<<< transportusb >>> %s: Called", &v26);
     LOBYTE(v10) = v25;
   }
 
@@ -155,7 +157,7 @@ uint64_t usb_serverThreadMain(void *a1)
     v13 = 0;
   }
 
-  fig_log_call_emit_and_clean_up_after_send_and_compose(0, 1u, 1, v13, v13 != v28, v10, 0, v11);
+  fig_log_call_emit_and_clean_up_after_send_and_compose(0, 1, 1, v13, v13 != v28, v10);
   Current = CFRunLoopGetCurrent();
   *(v8 + 136) = Current;
   if (!Current)
@@ -259,6 +261,7 @@ LABEL_33:
     type = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(0, 1, &v28, &type);
     v9 = v28;
+    v10 = type;
     if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
     {
       v11 = v9;
@@ -273,7 +276,7 @@ LABEL_33:
     {
       v33 = 136315138;
       v34 = "usb_deviceSetup";
-      v12 = _os_log_send_and_compose_impl();
+      v12 = _os_log_send_and_compose_impl(v11, 0, v35, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v10, "<<< transportusb >>> %s: Called", &v33);
       LOBYTE(v9) = v28;
     }
 
@@ -282,7 +285,7 @@ LABEL_33:
       v12 = 0;
     }
 
-    fig_log_call_emit_and_clean_up_after_send_and_compose(0, 1u, 1, v12, v12 != v35, v9, 0, v10);
+    fig_log_call_emit_and_clean_up_after_send_and_compose(0, 1, 1, v12, v12 != v35, v9);
     if (!IOServiceAddInterestNotification(*(v7 + 256), v6, "IOGeneralInterest", usb_generalInterestNotification, a1, (v7 + 276)))
     {
       v13 = CFUUIDGetConstantUUIDWithBytes(0, 0x9Eu, 0x72u, 0x21u, 0x7Eu, 0x8Au, 0x60u, 0x11u, 0xDBu, 0xBFu, 0x57u, 0, 0xDu, 0x93u, 0x6Du, 6u, 0xD2u);
@@ -312,11 +315,13 @@ LABEL_33:
                   type = OS_LOG_TYPE_DEFAULT;
                   v20 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(0, 1, &v28, &type);
                   v21 = v28;
-                  if (os_log_type_enabled(v20, type) ? v21 : v21 & 0xFFFFFFFE)
+                  v22 = type;
+                  v23 = os_log_type_enabled(v20, type) ? v21 : v21 & 0xFFFFFFFE;
+                  if (v23)
                   {
                     v33 = 136315138;
                     v34 = "usb_deviceSetup";
-                    v24 = _os_log_send_and_compose_impl();
+                    v24 = _os_log_send_and_compose_impl(v23, 0, v35, 128, &dword_196FA7000, v20, v22, "<<< transportusb >>> %s: Committing usb device configuration", &v33);
                     LOBYTE(v21) = v28;
                   }
 
@@ -325,7 +330,7 @@ LABEL_33:
                     v24 = 0;
                   }
 
-                  fig_log_call_emit_and_clean_up_after_send_and_compose(0, 1u, 1, v24, v24 != v35, v21, 0, v22);
+                  fig_log_call_emit_and_clean_up_after_send_and_compose(0, 1, 1, v24, v24 != v35, v21);
                   if (!(*(*v30 + 136))(v30))
                   {
                     IOObjectRetain(v6);
@@ -386,12 +391,13 @@ void usb_deviceHandleInterfaceMessage(uint64_t a1, int a2, uint64_t a3, const vo
 
 void usb_deviceActivate(const void *a1)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   DerivedStorage = CMBaseObjectGetDerivedStorage(a1);
-  v22 = 0;
+  v19 = 0;
   type = OS_LOG_TYPE_DEFAULT;
-  os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(0, 1, &v22, &type);
-  v4 = v22;
+  os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(0, 1, &v19, &type);
+  v4 = v19;
+  v5 = type;
   if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
   {
     v6 = v4;
@@ -404,10 +410,10 @@ void usb_deviceActivate(const void *a1)
 
   if (v6)
   {
-    v23 = 136315138;
-    v24 = "usb_deviceActivate";
-    v7 = _os_log_send_and_compose_impl();
-    LOBYTE(v4) = v22;
+    v20 = 136315138;
+    v21 = "usb_deviceActivate";
+    v7 = _os_log_send_and_compose_impl(v6, 0, v22, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v5, "<<< transportusb >>> %s: Called", &v20);
+    LOBYTE(v4) = v19;
   }
 
   else
@@ -415,57 +421,53 @@ void usb_deviceActivate(const void *a1)
     v7 = 0;
   }
 
-  fig_log_call_emit_and_clean_up_after_send_and_compose(0, 1u, 1, v7, v7 != &v25, v4, 0, v5);
-  if (!(*(**(DerivedStorage + 296) + 200))(*(DerivedStorage + 296), *(DerivedStorage + 320), &v22 + 4))
+  fig_log_call_emit_and_clean_up_after_send_and_compose(0, 1, 1, v7, v7 != v22, v4);
+  if (!(*(**(DerivedStorage + 296) + 200))(*(DerivedStorage + 296), *(DerivedStorage + 320), &v19 + 4))
   {
-    *(DerivedStorage + 248) = SHIDWORD(v22);
+    *(DerivedStorage + 248) = SHIDWORD(v19);
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 0x40000000;
     aBlock[2] = __usb_deviceActivate_block_invoke;
     aBlock[3] = &__block_descriptor_tmp_57_0;
     aBlock[4] = DerivedStorage;
     *(DerivedStorage + 232) = _Block_copy(aBlock);
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 0x40000000;
-    v19[2] = __usb_deviceActivate_block_invoke_2;
-    v19[3] = &__block_descriptor_tmp_58;
-    v19[4] = DerivedStorage;
-    v8 = _Block_copy(v19);
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 0x40000000;
+    v16[2] = __usb_deviceActivate_block_invoke_2;
+    v16[3] = &__block_descriptor_tmp_58;
+    v16[4] = DerivedStorage;
+    v8 = _Block_copy(v16);
     v9 = 0;
     *(DerivedStorage + 240) = v8;
-    v10 = DerivedStorage + 328;
-    v11 = 1;
+    v10 = 1;
     while (1)
     {
-      v12 = v11;
-      v13 = (v10 + 24 * v9);
-      *v13 = a1;
-      if ((*(**(DerivedStorage + 296) + 208))(*(DerivedStorage + 296), 0x10000, v13 + 1))
+      v11 = v10;
+      v12 = (DerivedStorage + 328 + 24 * v9);
+      *v12 = a1;
+      if ((*(**(DerivedStorage + 296) + 208))(*(DerivedStorage + 296), 0x10000, v12 + 1))
       {
         break;
       }
 
       BytePtr = IOUSBDeviceDataGetBytePtr();
-      v11 = 0;
-      v13[2] = BytePtr;
+      v10 = 0;
+      v12[2] = BytePtr;
       v9 = 1;
-      if ((v12 & 1) == 0)
+      if ((v11 & 1) == 0)
       {
         if (!(*(**(DerivedStorage + 296) + 208))(*(DerivedStorage + 296), 0x10000, DerivedStorage + 384))
         {
-          v15 = IOUSBDeviceDataGetBytePtr();
-          v16 = 0;
-          *(DerivedStorage + 392) = v15;
+          *(DerivedStorage + 392) = IOUSBDeviceDataGetBytePtr();
           for (i = 1; ; i = 0)
           {
-            v18 = i;
-            if ((*(*(DerivedStorage + 232) + 16))(*(DerivedStorage + 232), v10 + 24 * v16))
+            v15 = i;
+            if ((*(*(DerivedStorage + 232) + 16))())
             {
               break;
             }
 
-            v16 = 1;
-            if ((v18 & 1) == 0)
+            if ((v15 & 1) == 0)
             {
               *(DerivedStorage + 305) = 1;
               usb_deviceSendStartupPing(a1);
@@ -484,12 +486,13 @@ void usb_deviceActivate(const void *a1)
 
 uint64_t usb_deviceTearDown(const void *a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   DerivedStorage = CMBaseObjectGetDerivedStorage(a1);
-  v13[0] = 0;
+  v13 = 0;
   type = OS_LOG_TYPE_DEFAULT;
-  os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(0, 1, v13, &type);
-  v4 = v13[0];
+  os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(0, 1, &v13, &type);
+  v4 = v13;
+  v5 = type;
   if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
   {
     v6 = v4;
@@ -502,10 +505,10 @@ uint64_t usb_deviceTearDown(const void *a1)
 
   if (v6)
   {
-    v13[1] = 136315138;
-    v14 = "usb_deviceTearDown";
-    v7 = _os_log_send_and_compose_impl();
-    LOBYTE(v4) = v13[0];
+    v14 = 136315138;
+    v15 = "usb_deviceTearDown";
+    v7 = _os_log_send_and_compose_impl(v6, 0, v16, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v5, "<<< transportusb >>> %s: Called", &v14);
+    LOBYTE(v4) = v13;
   }
 
   else
@@ -513,7 +516,7 @@ uint64_t usb_deviceTearDown(const void *a1)
     v7 = 0;
   }
 
-  fig_log_call_emit_and_clean_up_after_send_and_compose(0, 1u, 1, v7, v7 != &v15, v4, 0, v5);
+  fig_log_call_emit_and_clean_up_after_send_and_compose(0, 1, 1, v7, v7 != v16, v4);
   usb_deviceDeactivate(a1);
   v8 = *(DerivedStorage + 276);
   if (v8)
@@ -566,12 +569,13 @@ uint64_t usb_deviceTearDown(const void *a1)
 
 void usb_deviceDeactivate(const void *a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   DerivedStorage = CMBaseObjectGetDerivedStorage(a1);
-  v19[0] = 0;
+  v19 = 0;
   type = OS_LOG_TYPE_DEFAULT;
-  os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(0, 1, v19, &type);
-  v4 = v19[0];
+  os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(0, 1, &v19, &type);
+  v4 = v19;
+  v5 = type;
   if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
   {
     v6 = v4;
@@ -584,10 +588,10 @@ void usb_deviceDeactivate(const void *a1)
 
   if (v6)
   {
-    v19[1] = 136315138;
-    v20 = "usb_deviceDeactivate";
-    v7 = _os_log_send_and_compose_impl();
-    LOBYTE(v4) = v19[0];
+    v20 = 136315138;
+    v21 = "usb_deviceDeactivate";
+    v7 = _os_log_send_and_compose_impl(v6, 0, v22, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v5, "<<< transportusb >>> %s: Called", &v20);
+    LOBYTE(v4) = v19;
   }
 
   else
@@ -596,7 +600,7 @@ void usb_deviceDeactivate(const void *a1)
   }
 
   v8 = 1;
-  fig_log_call_emit_and_clean_up_after_send_and_compose(0, 1u, 1, v7, v7 != &v21, v4, 0, v5);
+  fig_log_call_emit_and_clean_up_after_send_and_compose(0, 1, 1, v7, v7 != v22, v4);
   usb_setDisconnected(a1);
   v9 = 0;
   do
@@ -840,7 +844,7 @@ uint64_t FigXPCConnectionSendSyncMessageWithNoTimeoutCreatingReply(uint64_t a1, 
 
 uint64_t FigXPCConnectionSendSyncMessageCreatingReply(uint64_t a1, void *a2, void *a3)
 {
-  v19 = 0;
+  v25 = 0;
   v6 = FigAtomicIncrement64(&FigXPCConnectionSendSyncMessageCreatingReply_sAbortActionID);
   if (!a1)
   {
@@ -864,10 +868,10 @@ uint64_t FigXPCConnectionSendSyncMessageCreatingReply(uint64_t a1, void *a2, voi
   {
     FigXPCConnectionSendSyncMessageCreatingReply_cold_2(__dst);
 LABEL_30:
-    v13 = *__dst;
+    v18 = *__dst;
     if (!a3)
     {
-      return v13;
+      return v18;
     }
 
     goto LABEL_22;
@@ -895,36 +899,36 @@ LABEL_30:
   }
 
   *__dst = v7;
-  v18 = a1;
+  v24 = a1;
   xpc_dictionary_set_int64(a2, ".AbortActionID", v7);
-  FigThreadRegisterAbortAction(figXPCConnection_forwardThreadAbortForSyncXPCMessage, __dst, &v19);
-  v12 = xpc_connection_send_message_with_reply_sync(*(a1 + 40), a2);
-  v13 = figXPCConnection_processServerReply(a1, v12);
-  if (v19)
+  FigThreadRegisterAbortAction(figXPCConnection_forwardThreadAbortForSyncXPCMessage, __dst, &v25, v12, v13, v14, v15, v16, v22);
+  v17 = xpc_connection_send_message_with_reply_sync(*(a1 + 40), a2);
+  v18 = figXPCConnection_processServerReply(a1, v17);
+  if (v25)
   {
-    FigThreadUnregisterAbortAction(v19);
+    FigThreadUnregisterAbortAction(v25);
   }
 
   if (a3)
   {
-    v14 = v13 == 0;
+    v19 = v18 == 0;
   }
 
   else
   {
-    v14 = 0;
+    v19 = 0;
   }
 
-  v15 = !v14;
-  if (v12 && v15)
+  v20 = !v19;
+  if (v17 && v20)
   {
-    xpc_release(v12);
+    xpc_release(v17);
     if (a3)
     {
 LABEL_22:
-      v12 = 0;
+      v17 = 0;
 LABEL_24:
-      *a3 = v12;
+      *a3 = v17;
     }
   }
 
@@ -933,7 +937,7 @@ LABEL_24:
     goto LABEL_24;
   }
 
-  return v13;
+  return v18;
 }
 
 uint64_t FigXPCConnectionSendAsyncMessage(uint64_t a1, xpc_object_t xdict)
@@ -1083,13 +1087,13 @@ uint64_t FigXPCConnectionSendAsyncMessageWithNoTimeoutWithReplyHandler(uint64_t 
   return FigXPCConnectionSendAsyncMessageWithReplyHandler(a1, xdict, a3);
 }
 
-size_t FigXPConnectionLookupAndRetainAssociatedObject(uint64_t a1, void *a2, void *a3)
+size_t FigXPConnectionLookupAndRetainAssociatedObject(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, CMBlockBufferRef *a9)
 {
   if (a1)
   {
-    v5 = FigCFWeakReferenceTableCopyValue(*(a1 + 32), a2);
-    *a3 = v5;
-    if (v5)
+    v11 = FigCFWeakReferenceTableCopyValue(*(a1 + 32), a2, a3, a4, a5, a6, a7, a8);
+    *a3 = v11;
+    if (v11)
     {
       return 0;
     }
@@ -1098,14 +1102,14 @@ size_t FigXPConnectionLookupAndRetainAssociatedObject(uint64_t a1, void *a2, voi
     {
       emitter = fig_log_get_emitter("com.apple.coremedia", "");
 
-      return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFC0E8uLL, "<< FigXPC >>", 0x693, v3, v8, v9);
+      return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFC0E8uLL, "<< FigXPC >>", 0x693, v9, v14, v15, a9);
     }
   }
 
   else
   {
-    FigXPConnectionLookupAndRetainAssociatedObject_cold_1(&v10);
-    return v10;
+    FigXPConnectionLookupAndRetainAssociatedObject_cold_1(&v16);
+    return v16;
   }
 }
 
@@ -1256,15 +1260,15 @@ uint64_t FigXPCRemoteClientSendAsyncMessageWithNoTimeoutWithReplyHandler(uint64_
   }
 }
 
-size_t FigXPCRemoteClientDisassociateObject(uint64_t a1, const void *a2)
+size_t FigXPCRemoteClientDisassociateObject(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, CMBlockBufferRef *a9)
 {
   if (a1)
   {
     if (a2)
     {
-      v5 = *(a1 + 24);
+      v12 = *(a1 + 24);
 
-      return FigXPCConnectionDisassociateObject(v5, a2);
+      return FigXPCConnectionDisassociateObject(v12, a2, a3, a4, a5, a6, a7, a8, a9);
     }
 
     else
@@ -1275,46 +1279,46 @@ size_t FigXPCRemoteClientDisassociateObject(uint64_t a1, const void *a2)
 
   else
   {
-    v7 = v2;
-    v8 = v3;
-    FigXPCRemoteClientDisassociateObject_cold_1(&v6);
-    return v6;
+    v14 = v9;
+    v15 = v10;
+    FigXPCRemoteClientDisassociateObject_cold_1(&v13);
+    return v13;
   }
 }
 
-size_t FigXPCRemoteClientAssociateObject(uint64_t a1, uint64_t a2, const void *a3)
+size_t FigXPCRemoteClientAssociateObject(uint64_t a1, uint64_t a2, CMBlockBufferRef *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, CMBlockBufferRef *a9)
 {
   if (a1)
   {
-    v5 = *(a1 + 24);
+    v11 = *(a1 + 24);
 
-    return FigXPCConnectionAssociateObject(v5, a2, a3);
+    return FigXPCConnectionAssociateObject(v11, a2, a3, a4, a5, a6, a7, a8, a9);
   }
 
   else
   {
-    v8 = v3;
-    v9 = v4;
-    FigXPCRemoteClientAssociateObject_cold_1(&v7);
-    return v7;
+    v14 = v9;
+    v15 = v10;
+    FigXPCRemoteClientAssociateObject_cold_1(&v13);
+    return v13;
   }
 }
 
-size_t FigXPCRemoteClientLookupAndRetainAssociatedObject(uint64_t a1, void *a2, void *a3)
+size_t FigXPCRemoteClientLookupAndRetainAssociatedObject(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, CMBlockBufferRef *a9)
 {
   if (a1)
   {
-    v5 = *(a1 + 24);
+    v11 = *(a1 + 24);
 
-    return FigXPConnectionLookupAndRetainAssociatedObject(v5, a2, a3);
+    return FigXPConnectionLookupAndRetainAssociatedObject(v11, a2, a3, a4, a5, a6, a7, a8, a9);
   }
 
   else
   {
-    v8 = v3;
-    v9 = v4;
-    FigXPCRemoteClientLookupAndRetainAssociatedObject_cold_1(&v7);
-    return v7;
+    v14 = v9;
+    v15 = v10;
+    FigXPCRemoteClientLookupAndRetainAssociatedObject_cold_1(&v13);
+    return v13;
   }
 }
 
@@ -1360,13 +1364,13 @@ uint64_t FigXPCRemoteClientCreate(uint64_t a1, unint64_t *a2, CFDictionaryRef th
 uint64_t FigXPCRemoteClientCreateWithConnectionCreatingBlockSync(uint64_t a1, unint64_t *a2, const void *a3, uint64_t a4, unint64_t **a5, uint64_t a6)
 {
   cf = 0;
-  v18 = 0;
-  v9 = FigXPCRemoteClientCreateWithConnectionCreatingBlockCommon(a1, a2, a3, &v18);
-  v13 = v18;
+  v19 = 0;
+  v9 = FigXPCRemoteClientCreateWithConnectionCreatingBlockCommon(a1, a2, a3, &v19);
+  v13 = v19;
   if (v9)
   {
     v14 = v9;
-    if (!v18)
+    if (!v19)
     {
       return v14;
     }
@@ -1374,7 +1378,7 @@ uint64_t FigXPCRemoteClientCreateWithConnectionCreatingBlockSync(uint64_t a1, un
     goto LABEL_9;
   }
 
-  v14 = figXPCCreateXPCConnectionInternalSync(v18, *(v18 + 2), a4, &cf, a6, v10, v11, v12);
+  v14 = figXPCCreateXPCConnectionInternalSync(v19, *(v19 + 2), a4, &cf, a6, v10, v11, v12);
   if (v14)
   {
     if (cf)
@@ -1389,7 +1393,7 @@ LABEL_9:
 
   v13[3] = cf;
   DefaultLocalCenter = CMNotificationCenterGetDefaultLocalCenter();
-  FigNotificationCenterAddWeakListener(DefaultLocalCenter, v13, figXPCRemoteClient_PrimaryConnectionNotificationCallback, 0, v13[3], 0, 0);
+  FigNotificationCenterAddWeakListener(DefaultLocalCenter, v13, figXPCRemoteClient_PrimaryConnectionNotificationCallback, 0, v13[3], 0, 0, v16, cf);
   *a5 = v13;
   return v14;
 }
@@ -1422,74 +1426,74 @@ uint64_t FigXPCRemoteClientCreateWithConnectionCreatingBlockAsync(uint64_t a1, u
   v13 = cf;
   if (v9)
   {
-    v19 = v9;
+    v20 = v9;
     if (!cf)
     {
-      return v19;
+      return v20;
     }
 
     goto LABEL_14;
   }
 
   v14 = *(cf + 2);
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 0x40000000;
-  v21[2] = __FigXPCRemoteClientCreateWithConnectionCreatingBlockAsync_block_invoke;
-  v21[3] = &unk_1E74A6240;
-  v21[4] = a6;
-  v21[5] = cf;
-  v24 = 0;
-  v15 = figXPCCreateXPCConnectionInternalCommon(cf, v14, a4, &v24, a5, v10, v11, v12);
-  v16 = v24;
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 0x40000000;
+  v22[2] = __FigXPCRemoteClientCreateWithConnectionCreatingBlockAsync_block_invoke;
+  v22[3] = &unk_1E74A6240;
+  v22[4] = a6;
+  v22[5] = cf;
+  v25 = 0;
+  v15 = figXPCCreateXPCConnectionInternalCommon(cf, v14, a4, &v25, a5, v10, v11, v12);
+  v17 = v25;
   if (v15)
   {
-    v19 = v15;
+    v20 = v15;
     goto LABEL_12;
   }
 
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 0x40000000;
-  v23[2] = __figXPCCreateXPCConnectionInternalAsync_block_invoke;
-  v23[3] = &unk_1E74A6268;
-  v23[4] = v21;
-  v23[5] = v24;
-  v26 = 0;
-  v17 = figXPCConnection_createPingMessage(&v26);
-  if (v17)
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 0x40000000;
+  v24[2] = __figXPCCreateXPCConnectionInternalAsync_block_invoke;
+  v24[3] = &unk_1E74A6268;
+  v24[4] = v22;
+  v24[5] = v25;
+  v27 = 0;
+  v18 = figXPCConnection_createPingMessage(&v27, v16);
+  if (v18)
   {
-    v19 = v17;
-    FigXPCRelease(v26);
+    v20 = v18;
+    FigXPCRelease(v27);
 LABEL_12:
-    if (v16)
+    if (v17)
     {
-      CFRelease(v16);
+      CFRelease(v17);
     }
 
 LABEL_14:
     CFRelease(v13);
-    return v19;
+    return v20;
   }
 
-  if (v16)
+  if (v17)
   {
-    CFRetain(v16);
+    CFRetain(v17);
   }
 
-  v18 = v26;
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 0x40000000;
-  v25[2] = __figXPCConnection_PingServerConnectionAsync_block_invoke;
-  v25[3] = &unk_1E74A63B0;
-  v25[4] = v23;
-  v25[5] = v16;
-  v19 = FigXPCConnectionSendAsyncMessageWithReplyHandler(v16, v26, v25);
-  FigXPCRelease(v18);
-  if (v19)
+  v19 = v27;
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 0x40000000;
+  v26[2] = __figXPCConnection_PingServerConnectionAsync_block_invoke;
+  v26[3] = &unk_1E74A63B0;
+  v26[4] = v24;
+  v26[5] = v17;
+  v20 = FigXPCConnectionSendAsyncMessageWithReplyHandler(v17, v27, v26);
+  FigXPCRelease(v19);
+  if (v20)
   {
     goto LABEL_12;
   }
 
-  return v19;
+  return v20;
 }
 
 uint64_t FigXPCRemoteClientCreateWithXPCService(uint64_t a1, unint64_t *a2, const void *a3, unint64_t **a4)
@@ -1679,59 +1683,59 @@ uint64_t FigXPCRemoteClientCreateSecondaryConnection(uint64_t a1, unsigned int a
 
 uint64_t figXPCCreateXPCConnectionInternalSync(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, int a6, int a7, int a8)
 {
-  v15 = 0;
-  v9 = figXPCCreateXPCConnectionInternalCommon(a1, a2, a3, &v15, a5, a6, a7, a8);
-  v10 = v15;
+  v16 = 0;
+  v9 = figXPCCreateXPCConnectionInternalCommon(a1, a2, a3, &v16, a5, a6, a7, a8);
+  v11 = v16;
   if (v9)
   {
-    v13 = v9;
+    v14 = v9;
   }
 
   else
   {
     xdict = 0;
-    v17 = 0;
-    v11 = figXPCConnection_createPingMessage(&v17);
-    v12 = v17;
-    if (v11)
+    v18 = 0;
+    v12 = figXPCConnection_createPingMessage(&v18, v10);
+    v13 = v18;
+    if (v12)
     {
-      v13 = v11;
+      v14 = v12;
     }
 
     else
     {
-      v13 = FigXPCConnectionSendSyncMessageCreatingReply(v10);
-      if (!v13)
+      v14 = FigXPCConnectionSendSyncMessageCreatingReply(v11, v18, &xdict);
+      if (!v14)
       {
-        v10[8] = xpc_dictionary_get_int64(xdict, ".Token");
+        v11[8] = xpc_dictionary_get_int64(xdict, ".Token");
       }
     }
 
-    FigXPCRelease(v12);
+    FigXPCRelease(v13);
     FigXPCRelease(xdict);
-    if (!v13)
+    if (!v14)
     {
-      *a4 = v10;
-      return v13;
+      *a4 = v11;
+      return v14;
     }
   }
 
-  if (v10)
+  if (v11)
   {
-    CFRelease(v10);
+    CFRelease(v11);
   }
 
-  return v13;
+  return v14;
 }
 
-BOOL FigXPCIsObjectIDLocallyServed(uint64_t a1, uint64_t a2)
+BOOL FigXPCIsObjectIDLocallyServed(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (a1)
   {
     return (a2 & 0xFFFFFF0000000000) == *(a1 + 8);
   }
 
-  FigXPCIsObjectIDLocallyServed_cold_1();
+  FigXPCIsObjectIDLocallyServed_cold_1(a1, a2, a3, a4, a5, a6, a7, a8, v8);
   return 0;
 }
 
@@ -1906,15 +1910,16 @@ LABEL_9:
   return result;
 }
 
-size_t FigXPCServerAssociateObjectWithConnectionWithFlags(_xpc_connection_s *a1, const void *a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t *a7)
+size_t FigXPCServerAssociateObjectWithConnectionWithFlags(_xpc_connection_s *a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferRef **a7)
 {
+  v11 = a3;
   context = xpc_connection_get_context(a1);
   v15 = FigCFWeakReferenceLoadAndRetain(context + 2);
   if (v15)
   {
     v16 = v15;
     FigSimpleMutexLock(v15[10]);
-    v17 = figXPC_RegisterServedObject(v16, a1, a2, a3, a4, a5, a6, a7);
+    v17 = figXPC_RegisterServedObject(v16, a1, a2, v11, a4, a5, a6, a7, v19);
     FigSimpleMutexUnlock(v16[10]);
     CFRelease(v16);
     return v17;
@@ -1922,12 +1927,12 @@ size_t FigXPCServerAssociateObjectWithConnectionWithFlags(_xpc_connection_s *a1,
 
   else
   {
-    FigXPCServerAssociateObjectWithConnectionWithFlags_cold_1(&v19);
-    return v19;
+    FigXPCServerAssociateObjectWithConnectionWithFlags_cold_1(&v20);
+    return v20;
   }
 }
 
-size_t FigXPCServerAssociateCopiedObjectWithConnection(_xpc_connection_s *a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t *a6)
+uint64_t FigXPCServerAssociateCopiedObjectWithConnection(_xpc_connection_s *a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5, CMBlockBufferRef **a6)
 {
   context = xpc_connection_get_context(a1);
   v13 = FigCFWeakReferenceLoadAndRetain(context + 2);
@@ -1935,56 +1940,56 @@ size_t FigXPCServerAssociateCopiedObjectWithConnection(_xpc_connection_s *a1, co
   {
     v14 = v13;
     FigSimpleMutexLock(v13[10]);
-    v15 = figXPC_RegisterCopiedObject(v14, a1, a2, a3, a4, a5, a6);
+    v16 = figXPC_RegisterCopiedObject(v14, a1, a2, a3, a4, a5, a6, v15, v18);
     FigSimpleMutexUnlock(v14[10]);
     CFRelease(v14);
-    return v15;
+    return v16;
   }
 
   else
   {
-    FigXPCServerAssociateCopiedObjectWithConnection_cold_1(&v17);
-    return v17;
+    FigXPCServerAssociateCopiedObjectWithConnection_cold_1(&v19);
+    return v19;
   }
 }
 
-size_t figXPC_RegisterCopiedObject(uint64_t a1, void *a2, const void *a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t *a7)
+uint64_t figXPC_RegisterCopiedObject(uint64_t a1, void *a2, const void *a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferRef **a7, uint64_t a8, CMBlockBufferRef *a9)
 {
   Count = CFArrayGetCount(*(a1 + 88));
-  v13 = 0;
-  v14 = 2;
+  v15 = 0;
+  v16 = 2;
   while (2)
   {
     if (Count >= 1)
     {
-      v15 = 0;
-      v16 = 0;
+      v17 = 0;
+      v18 = 0;
       do
       {
-        ValueAtIndex = CFArrayGetValueAtIndex(*(a1 + 88), v15);
+        ValueAtIndex = CFArrayGetValueAtIndex(*(a1 + 88), v17);
         if (ValueAtIndex[2] == a3 && ValueAtIndex[7] == a2)
         {
-          v18 = ValueAtIndex[3];
-          v13 = v18 & 0xFFFFFFFFFFFFFF00;
-          v19 = v14;
-          if (v14 == v18)
+          v20 = ValueAtIndex[3];
+          v15 = v20 & 0xFFFFFFFFFFFFFF00;
+          v21 = v16;
+          if (v16 == v20)
           {
-            ++v14;
-            if (((v19 + 1) & 0x100) != 0)
+            ++v16;
+            if (((v21 + 1) & 0x100) != 0)
             {
-              figXPC_RegisterCopiedObject_cold_1(&v23);
-              return v23;
+              figXPC_RegisterCopiedObject_cold_1(&v25);
+              return v25;
             }
 
-            v16 = 1;
+            v18 = 1;
           }
         }
 
-        ++v15;
+        ++v17;
       }
 
-      while (Count != v15);
-      if (v16)
+      while (Count != v17);
+      if (v18)
       {
         continue;
       }
@@ -1993,16 +1998,16 @@ size_t figXPC_RegisterCopiedObject(uint64_t a1, void *a2, const void *a3, uint64
     break;
   }
 
-  if (v13)
+  if (v15)
   {
-    result = figXPC_RegisterServedObjectWithID(a1, a2, a3, 0, a4, a5, a6, v13 | v14);
-    *a7 = v13 | v14;
+    result = figXPC_RegisterServedObjectWithID(a1, a2, a3, 0, a4, a5, a6, (v15 | v16));
+    *a7 = (v15 | v16);
   }
 
   else
   {
 
-    return figXPC_RegisterServedObject(a1, a2, a3, 0, a4, a5, a6, a7);
+    return figXPC_RegisterServedObject(a1, a2, a3, 0, a4, a5, a6, a7, a9);
   }
 
   return result;
@@ -2073,8 +2078,8 @@ size_t _figXPCServerLookupAndRetainAssociatedObject(_xpc_connection_s *a1, uint6
   v11 = FigCFWeakReferenceLoadAndRetain(context + 2);
   if (!v11)
   {
-    _figXPCServerLookupAndRetainAssociatedObject_cold_1(&v26);
-    return v26;
+    _figXPCServerLookupAndRetainAssociatedObject_cold_1(&v27);
+    return v27;
   }
 
   v12 = v11;
@@ -2148,7 +2153,7 @@ LABEL_6:
 
   FigSimpleMutexUnlock(v12[10]);
   emitter = fig_log_get_emitter("com.apple.coremedia", "");
-  v21 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, v17, "<< FigXPC >>", 0x1893, v5, v19, v20);
+  v21 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, v17, "<< FigXPC >>", 0x1893, v5, v19, v20, v26);
 LABEL_11:
   CFRelease(v12);
   return v21;
@@ -2171,80 +2176,80 @@ size_t FigXPCServerLookupAndRetainAssociatedObjectAndCFTypeRefcon(_xpc_connectio
   }
 }
 
-uint64_t FigXPCServerRetainNeighborObjectFromID(uint64_t *a1, void *a2, void *a3)
+uint64_t FigXPCServerRetainNeighborObjectFromID(uint64_t *a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (a1)
   {
     if (a3)
     {
-      v4 = FigCFWeakReferenceTableCopyValue(*a1, a2);
-      *a3 = v4;
-      if (v4)
+      v9 = FigCFWeakReferenceTableCopyValue(*a1, a2, a3, a4, a5, a6, a7, a8);
+      *a3 = v9;
+      if (v9)
       {
         return 0;
       }
 
       else
       {
-        FigXPCServerRetainNeighborObjectFromID_cold_1(&v6);
-        return v6;
+        FigXPCServerRetainNeighborObjectFromID_cold_1(&v11);
+        return v11;
       }
     }
 
     else
     {
-      FigXPCServerRetainNeighborObjectFromID_cold_2(&v7);
-      return v7;
+      FigXPCServerRetainNeighborObjectFromID_cold_2(&v12);
+      return v12;
     }
   }
 
   else
   {
-    FigXPCServerRetainNeighborObjectFromID_cold_3(&v8);
-    return v8;
+    FigXPCServerRetainNeighborObjectFromID_cold_3(&v13);
+    return v13;
   }
 }
 
-size_t FigXPCServerRetainNeighborObjectFromIDWithProcessID(uint64_t a1, void *a2, void *a3, void *a4)
+size_t FigXPCServerRetainNeighborObjectFromIDWithProcessID(uint64_t a1, void *a2, uint64_t a3, uint64_t *a4)
 {
   if (!a1)
   {
-    FigXPCServerRetainNeighborObjectFromIDWithProcessID_cold_3(&v13);
-    return v13;
+    FigXPCServerRetainNeighborObjectFromIDWithProcessID_cold_3(&v25);
+    return v25;
   }
 
   if (!a4)
   {
-    FigXPCServerRetainNeighborObjectFromIDWithProcessID_cold_2(&v13);
-    return v13;
+    FigXPCServerRetainNeighborObjectFromIDWithProcessID_cold_2(&v25);
+    return v25;
   }
 
   FigSimpleMutexLock(*(a1 + 112));
-  v13 = 0;
-  v8 = figXPC_CopyInfoForProcess(a1, a2, &v13);
-  if (!v8)
+  v25 = 0;
+  v13 = figXPC_CopyInfoForProcess(a1, a2, &v25, v8, v9, v10, v11, v12, v24);
+  if (!v13)
   {
-    v10 = v13;
-    v11 = FigCFWeakReferenceTableCopyValue(v13[6], a3);
-    CFRelease(v10);
+    v21 = v25;
+    v22 = FigCFWeakReferenceTableCopyValue(v25[6], a3, v14, v15, v16, v17, v18, v19);
+    CFRelease(v21);
     FigSimpleMutexUnlock(*(a1 + 112));
-    if (v11)
+    if (v22)
     {
-      v9 = 0;
-      *a4 = v11;
-      return v9;
+      v20 = 0;
+      *a4 = v22;
+      return v20;
     }
 
-    FigXPCServerRetainNeighborObjectFromIDWithProcessID_cold_1(&v13);
-    return v13;
+    FigXPCServerRetainNeighborObjectFromIDWithProcessID_cold_1(&v25);
+    return v25;
   }
 
-  v9 = v8;
+  v20 = v13;
   FigSimpleMutexUnlock(*(a1 + 112));
-  return v9;
+  return v20;
 }
 
-size_t FigXPCServerRetainNeighborObjectFromIDWithConnection(uint64_t a1, xpc_connection_t connection, void *a3, void *a4)
+size_t FigXPCServerRetainNeighborObjectFromIDWithConnection(uint64_t a1, xpc_connection_t connection, uint64_t a3, uint64_t *a4)
 {
   pid = xpc_connection_get_pid(connection);
 
@@ -2256,17 +2261,16 @@ size_t FigXPCServerDisassociateObjectWithNeighborClientPID(uint64_t a1, void *a2
   if (a1)
   {
     FigSimpleMutexLock(*(a1 + 112));
-    cf = 0;
-    v6 = figXPC_CopyInfoForProcess(a1, a2, &cf);
-    v7 = cf;
-    if (!v6)
+    v11 = figXPC_CopyInfoForProcess(a1, a2, &cf, v6, v7, v8, v9, v10, 0);
+    v12 = cf;
+    if (!v11)
     {
       figXPCServer_DisassociateObjectWithPerProcessInfo(cf, a3);
     }
 
-    if (v7)
+    if (v12)
     {
-      CFRelease(v7);
+      CFRelease(v12);
     }
 
     FigSimpleMutexUnlock(*(a1 + 112));
@@ -2274,11 +2278,11 @@ size_t FigXPCServerDisassociateObjectWithNeighborClientPID(uint64_t a1, void *a2
 
   else
   {
-    FigXPCServerDisassociateObjectWithNeighborClientPID_cold_1(&v10);
-    return v10;
+    FigXPCServerDisassociateObjectWithNeighborClientPID_cold_1(&v15);
+    return v15;
   }
 
-  return v6;
+  return v11;
 }
 
 size_t FigXPCServerDisassociateObjectWithNeighborClientConnection(uint64_t a1, xpc_connection_t connection, uint64_t a3)
@@ -2302,7 +2306,7 @@ size_t FigXPCServerConfirmNeighborProcessByPID(uint64_t a1, int a2)
     else
     {
       emitter = fig_log_get_emitter("com.apple.coremedia", "");
-      v6 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFC0E3uLL, "<< FigXPC >>", 0x19D0, v2, v8, v9);
+      v6 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFC0E3uLL, "<< FigXPC >>", 0x19D0, v2, v8, v9, v11);
     }
 
     FigSimpleMutexUnlock(*(a1 + 112));
@@ -2310,8 +2314,8 @@ size_t FigXPCServerConfirmNeighborProcessByPID(uint64_t a1, int a2)
 
   else
   {
-    FigXPCServerConfirmNeighborProcessByPID_cold_1(&v11);
-    return v11;
+    FigXPCServerConfirmNeighborProcessByPID_cold_1(&v12);
+    return v12;
   }
 
   return v6;
@@ -2365,7 +2369,7 @@ uint64_t FigXPCServerSetConnectionRefcon(_xpc_connection_s *a1, uint64_t a2, uin
   return v8;
 }
 
-uint64_t FigXPCServerSelfTerminateDueToError(uint64_t result, int a2)
+uint64_t FigXPCServerSelfTerminateDueToError(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -2383,64 +2387,64 @@ uint64_t FigXPCServerSelfTerminateDueToError(uint64_t result, int a2)
 uint64_t FigXPCServerGetConnectionRefcon(_xpc_connection_s *a1)
 {
   context = xpc_connection_get_context(a1);
-  if (context && (v2 = CFRetain(context)) != 0)
+  if (context && (context = CFRetain(context)) != 0)
   {
-    v3 = v2[22];
-    CFRelease(v2);
+    v9 = context[22];
+    CFRelease(context);
   }
 
   else
   {
-    FigXPCServerGetConnectionRefcon_cold_1();
+    FigXPCServerGetConnectionRefcon_cold_1(context, v2, v3, v4, v5, v6, v7, v8, v11);
     return 0;
   }
 
-  return v3;
+  return v9;
 }
 
 xpc_object_t FigXPCServerCopyPrimaryConnection(_xpc_connection_s *a1)
 {
   context = xpc_connection_get_context(a1);
-  if (context && (v2 = CFRetain(context)) != 0)
+  if (context && (context = CFRetain(context)) != 0)
   {
-    v3 = v2;
-    v4 = FigCFWeakReferenceLoadAndRetain(v2 + 2);
-    if (v4)
+    v9 = context;
+    v10 = FigCFWeakReferenceLoadAndRetain(context + 2);
+    if (v10)
     {
-      v5 = v4;
-      v6 = FigXPCRetain(v4[4]);
-      CFRelease(v3);
-      CFRelease(v5);
-      return v6;
+      v11 = v10;
+      v12 = FigXPCRetain(v10[4]);
+      CFRelease(v9);
+      CFRelease(v11);
+      return v12;
     }
 
-    CFRelease(v3);
+    CFRelease(v9);
   }
 
   else
   {
-    FigXPCServerCopyPrimaryConnection_cold_1();
+    FigXPCServerCopyPrimaryConnection_cold_1(context, v2, v3, v4, v5, v6, v7, v8, v14);
   }
 
   return 0;
 }
 
-size_t FigXPCServerStart(uint64_t a1, unint64_t *a2, int a3, uint64_t *a4)
+size_t FigXPCServerStart(uint64_t a1, unint64_t *a2, uint64_t a3, uint64_t *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v5[0] = MEMORY[0x1E69E9820];
-  v5[1] = 0x40000000;
-  v5[2] = __FigXPCServerStart_block_invoke;
-  v5[3] = &__block_descriptor_tmp_101;
-  v5[4] = a1;
-  return FigXPCServerStartWithListenerCreatingBlock(a1, a2, a3, a4, v5);
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 0x40000000;
+  v10[2] = __FigXPCServerStart_block_invoke;
+  v10[3] = &__block_descriptor_tmp_101;
+  v10[4] = a1;
+  return FigXPCServerStartWithListenerCreatingBlock(a1, a2, a3, a4, v10, a6, a7, a8, v9);
 }
 
-size_t FigXPCServerStartWithListenerCreatingBlock(uint64_t a1, unint64_t *a2, int a3, uint64_t *a4, uint64_t a5)
+size_t FigXPCServerStartWithListenerCreatingBlock(uint64_t a1, unint64_t *a2, int a3, uint64_t *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, CMBlockBufferRef *a9)
 {
-  LODWORD(v85) = 44;
-  HIDWORD(v84) = 0;
-  WORD1(v84) = 0;
-  BYTE1(v84) = 0;
+  LODWORD(v88) = 44;
+  HIDWORD(v87) = 0;
+  WORD1(v87) = 0;
+  BYTE1(v87) = 0;
   if (figXPC_ServerOneTimeInitialization_sInitFigXPCServerOnce != -1)
   {
     FigXPCServerStartWithListenerCreatingBlock_cold_1();
@@ -2449,120 +2453,119 @@ size_t FigXPCServerStartWithListenerCreatingBlock(uint64_t a1, unint64_t *a2, in
   *a4 = 0;
   if (!a2)
   {
-    FigXPCServerStartWithListenerCreatingBlock_cold_7(&v85 + 1);
-    return HIDWORD(v85);
+    FigXPCServerStartWithListenerCreatingBlock_cold_7(&v88 + 1);
+    return HIDWORD(v88);
   }
 
   if (*a2 - 1 < 3)
   {
     if (a2[1] || a2[2])
     {
-      v11 = malloc_type_calloc(1uLL, 0x90uLL, 0x10F00402F8FECFEuLL);
-      if (v11)
+      v15 = malloc_type_calloc(1uLL, 0x90uLL, 0x10F00402F8FECFEuLL);
+      if (v15)
       {
-        v12 = v11;
-        v13 = FigSimpleMutexCreate();
-        *(v12 + 112) = v13;
-        if (v13)
+        v16 = v15;
+        v17 = FigSimpleMutexCreate();
+        *(v16 + 112) = v17;
+        if (v17)
         {
-          v14 = *MEMORY[0x1E695E480];
+          v18 = *MEMORY[0x1E695E480];
           Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, 0, MEMORY[0x1E695E9E8]);
-          *(v12 + 104) = Mutable;
+          *(v16 + 104) = Mutable;
           if (Mutable)
           {
-            FigCFWeakReferenceTableCreate(v14, 1, v12);
-            FigCFDictionaryGetInt32IfPresent(a3, @"xpcServerOption_QueuePriority", &v85, v16, v17, v18, v19, v20, v70, handler, v80, v81, v82, v83, v84, v85, v86, v87);
-            FigCFDictionaryGetBooleanIfPresent(a3, @"xpcServerOption_SiloObjectIDs", &v84 + 7, v21, v22, v23, v24, v25, v71, handler, v80, v81, v82, v83, v84, v85, v86, v87);
-            FigCFDictionaryGetBooleanIfPresent(a3, @"xpcServerOption_ForwardClientSideAbortActions", &v84 + 6, v26, v27, v28, v29, v30, v72, handler, v80, v81, v82, v83, v84, v85, v86, v87);
-            FigCFDictionaryGetBooleanIfPresent(a3, @"xpcServerOption_StartInactive", &v84 + 5, v31, v32, v33, v34, v35, v73, handler, v80, v81, v82, v83, v84, v85, v86, v87);
-            FigCFDictionaryGetBooleanIfPresent(a3, @"xpcServerOption_SelfTerminateOnError", &v84 + 4, v36, v37, v38, v39, v40, v74, handler, v80, v81, v82, v83, v84, v85, v86, v87);
-            FigCFDictionaryGetBooleanIfPresent(a3, @"xpcServerOption_OptOutOfPurge", &v84 + 3, v41, v42, v43, v44, v45, v75, handler, v80, v81, v82, v83, v84, v85, v86, v87);
-            FigCFDictionaryGetBooleanIfPresent(a3, @"xpcServerOption_AllowSecondaryConnections", &v84 + 2, v46, v47, v48, v49, v50, v76, handler, v80, v81, v82, v83, v84, v85, v86, v87);
-            FigCFDictionaryGetBooleanIfPresent(a3, @"xpcServerOption_RequestTTRIfPossible", &v84 + 1, v51, v52, v53, v54, v55, v77, handler, v80, v81, v82, v83, v84, v85, v86, v87);
-            v56 = *a2;
-            *(v12 + 40) = *a2;
-            *(v12 + 48) = a2[1];
-            *(v12 + 56) = a2[2];
-            *(v12 + 64) = a2[3];
-            *(v12 + 72) = a2[4];
-            if (v56 >= 3)
+            FigCFWeakReferenceTableCreate(v18, 1, v16);
+            FigCFDictionaryGetInt32IfPresent(a3, @"xpcServerOption_QueuePriority", &v88, v20, v21, v22, v23, v24, v73, handler, v83, v84, v85, v86, v87, v88, v89, v90);
+            FigCFDictionaryGetBooleanIfPresent(a3, @"xpcServerOption_SiloObjectIDs", &v87 + 7, v25, v26, v27, v28, v29, v74, handler, v83, v84, v85, v86, v87, v88, v89, v90);
+            FigCFDictionaryGetBooleanIfPresent(a3, @"xpcServerOption_ForwardClientSideAbortActions", &v87 + 6, v30, v31, v32, v33, v34, v75, handler, v83, v84, v85, v86, v87, v88, v89, v90);
+            FigCFDictionaryGetBooleanIfPresent(a3, @"xpcServerOption_StartInactive", &v87 + 5, v35, v36, v37, v38, v39, v76, handler, v83, v84, v85, v86, v87, v88, v89, v90);
+            FigCFDictionaryGetBooleanIfPresent(a3, @"xpcServerOption_SelfTerminateOnError", &v87 + 4, v40, v41, v42, v43, v44, v77, handler, v83, v84, v85, v86, v87, v88, v89, v90);
+            FigCFDictionaryGetBooleanIfPresent(a3, @"xpcServerOption_OptOutOfPurge", &v87 + 3, v45, v46, v47, v48, v49, v78, handler, v83, v84, v85, v86, v87, v88, v89, v90);
+            FigCFDictionaryGetBooleanIfPresent(a3, @"xpcServerOption_AllowSecondaryConnections", &v87 + 2, v50, v51, v52, v53, v54, v79, handler, v83, v84, v85, v86, v87, v88, v89, v90);
+            FigCFDictionaryGetBooleanIfPresent(a3, @"xpcServerOption_RequestTTRIfPossible", &v87 + 1, v55, v56, v57, v58, v59, v80, handler, v83, v84, v85, v86, v87, v88, v89, v90);
+            v60 = *a2;
+            *(v16 + 40) = *a2;
+            *(v16 + 48) = a2[1];
+            *(v16 + 56) = a2[2];
+            *(v16 + 64) = a2[3];
+            *(v16 + 72) = a2[4];
+            if (v60 >= 3)
             {
-              *(v12 + 80) = a2[5];
+              *(v16 + 80) = a2[5];
             }
 
-            *(v12 + 88) = a1;
-            *(v12 + 24) = (*(a5 + 16))(a5, gCommonServerListenerQueue);
-            *(v12 + 120) = v85;
-            *(v12 + 124) = HIBYTE(v84) == 0;
-            *(v12 + 125) = BYTE6(v84);
-            *(v12 + 136) = BYTE4(v84);
-            *(v12 + 137) = BYTE3(v84);
-            *(v12 + 138) = BYTE2(v84);
-            *(v12 + 139) = BYTE1(v84);
-            v57 = FigDispatchQueueCreateWithPriority("com.apple.coremedia.terminateSecondaryConnectionsQueue", 0, 0);
-            *(v12 + 128) = v57;
-            if (v57)
+            *(v16 + 88) = a1;
+            *(v16 + 24) = (*(a5 + 16))(a5, gCommonServerListenerQueue);
+            *(v16 + 120) = v88;
+            *(v16 + 124) = HIBYTE(v87) == 0;
+            *(v16 + 125) = BYTE6(v87);
+            *(v16 + 136) = BYTE4(v87);
+            *(v16 + 137) = BYTE3(v87);
+            *(v16 + 138) = BYTE2(v87);
+            *(v16 + 139) = BYTE1(v87);
+            v61 = FigDispatchQueueCreateWithPriority("com.apple.coremedia.terminateSecondaryConnectionsQueue", 0, 0);
+            *(v16 + 128) = v61;
+            if (v61)
             {
-              figXPC_RegisterNewServer(v12);
-              FigCFDictionaryGetInt32IfPresent(a3, @"xpcServerOption_SelfTerminationTimeout", v12 + 96, v58, v59, v60, v61, v62, v78, handler, v80, v81, v82, v83, v84, v85, v86, v87);
-              if (!v63)
+              figXPC_RegisterNewServer(v16);
+              if (!FigCFDictionaryGetInt32IfPresent(a3, @"xpcServerOption_SelfTerminationTimeout", v16 + 96, v62, v63, v64, v65, v66, v81, handler, v83, v84, v85, v86, v87, v88, v89, v90))
               {
                 TimeoutNanoseconds = FigRPCServer_GetTimeoutNanoseconds();
-                *(v12 + 96) = TimeoutNanoseconds / 0x3B9ACA00;
+                *(v16 + 96) = TimeoutNanoseconds / 0x3B9ACA00;
                 if ((TimeoutNanoseconds / 0x3B9ACA00))
                 {
-                  *(v12 + 100) = 90;
+                  *(v16 + 100) = 90;
                 }
               }
 
-              v65 = *(v12 + 24);
+              v68 = *(v16 + 24);
               handler = MEMORY[0x1E69E9820];
-              v80 = 0x40000000;
-              v81 = __FigXPCServerStartWithListenerCreatingBlock_block_invoke;
-              v82 = &__block_descriptor_tmp_177;
-              v83 = v12;
-              xpc_connection_set_event_handler(v65, &handler);
-              *a4 = v12;
-              if (!BYTE5(v84))
+              v83 = 0x40000000;
+              v84 = __FigXPCServerStartWithListenerCreatingBlock_block_invoke;
+              v85 = &__block_descriptor_tmp_177;
+              v86 = v16;
+              xpc_connection_set_event_handler(v68, &handler);
+              *a4 = v16;
+              if (!BYTE5(v87))
               {
-                xpc_connection_activate(*(v12 + 24));
+                xpc_connection_activate(*(v16 + 24));
               }
 
               return 0;
             }
 
-            FigXPCServerStartWithListenerCreatingBlock_cold_2(&v85 + 1);
+            FigXPCServerStartWithListenerCreatingBlock_cold_2(&v88 + 1);
           }
 
           else
           {
-            FigXPCServerStartWithListenerCreatingBlock_cold_3(&v85 + 1);
+            FigXPCServerStartWithListenerCreatingBlock_cold_3(&v88 + 1);
           }
         }
 
         else
         {
-          FigXPCServerStartWithListenerCreatingBlock_cold_4(&v85 + 1);
+          FigXPCServerStartWithListenerCreatingBlock_cold_4(&v88 + 1);
         }
       }
 
       else
       {
-        FigXPCServerStartWithListenerCreatingBlock_cold_5(&v85 + 1);
+        FigXPCServerStartWithListenerCreatingBlock_cold_5(&v88 + 1);
       }
     }
 
     else
     {
-      FigXPCServerStartWithListenerCreatingBlock_cold_6(&v85 + 1);
+      FigXPCServerStartWithListenerCreatingBlock_cold_6(&v88 + 1);
     }
 
-    return HIDWORD(v85);
+    return HIDWORD(v88);
   }
 
   emitter = fig_log_get_emitter("com.apple.coremedia", "");
 
-  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFC0E9uLL, "<< FigXPC >>", 0x1A6A, v5, v68, v69);
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFC0E9uLL, "<< FigXPC >>", 0x1A6A, v9, v71, v72, a9);
 }
 
 uint64_t FigXPCServerCopyXPCEndpoint(uint64_t a1, void *a2)
@@ -2720,80 +2723,80 @@ void figXPC_RegisterNewServer(uint64_t a1)
 void figXPC_HandleNewClientConnection(uint64_t a1, xpc_connection_t connection)
 {
   cf = 0;
-  v15 = 0;
+  v33 = 0;
   pid = xpc_connection_get_pid(connection);
   if (pid <= 0)
   {
-    figXPC_HandleNewClientConnection_cold_1();
+    figXPC_HandleNewClientConnection_cold_1(pid, v5, v6, v7, v8, v9, v10, v11, v31[0]);
   }
 
   else
   {
-    v5 = pid;
-    v6 = &gHasProcessInitialized;
+    v12 = pid;
+    v13 = &gHasProcessInitialized;
     if (gHasProcessInitialized)
     {
-      v6 = &isFirstTime;
+      v13 = &isFirstTime;
     }
 
-    *v6 = 1;
-    v7 = *(a1 + 64);
-    if (v7 && !v7(connection))
+    *v13 = 1;
+    v14 = *(a1 + 64);
+    if (v14 && !v14(connection))
     {
       xpc_connection_cancel(connection);
       goto LABEL_7;
     }
 
-    if (!figXPC_CopyInfoForProcess(a1, v5, &v15))
+    if (!figXPC_CopyInfoForProcess(a1, v12, &v33, v7, v8, v9, v10, v11, v31[0]))
     {
-      FigServer_CopyProcessName(v5, &cf);
-      v8 = v15;
-      if (*(v15 + 32))
+      FigServer_CopyProcessName(v12, &cf, v15, v16, v17, v18, v19, v20);
+      v21 = v33;
+      if (*(v33 + 32))
       {
         xpc_connection_cancel(connection);
       }
 
       else
       {
-        v16 = 0;
-        *(v15 + 32) = connection;
+        v34 = 0;
+        *(v33 + 32) = connection;
         xpc_retain(connection);
-        xpc_connection_set_target_queue(connection, *(v8 + 24));
-        FigSimpleMutexLock(*(v8 + 80));
-        Count = CFArrayGetCount(*(v8 + 88));
+        xpc_connection_set_target_queue(connection, *(v21 + 24));
+        FigSimpleMutexLock(*(v21 + 80));
+        Count = CFArrayGetCount(*(v21 + 88));
         if (Count >= 1)
         {
-          v10 = Count;
-          for (i = 0; i != v10; ++i)
+          v23 = Count;
+          for (i = 0; i != v23; ++i)
           {
-            ValueAtIndex = CFArrayGetValueAtIndex(*(v8 + 88), i);
+            ValueAtIndex = CFArrayGetValueAtIndex(*(v21 + 88), i);
             ValueAtIndex[7] = xpc_retain(connection);
           }
         }
 
-        FigSimpleMutexUnlock(*(v8 + 80));
-        figXPC_CreateNewConnectionInfo(v8, *(v8 + 24), &v16);
-        xpc_connection_set_context(connection, v16);
+        FigSimpleMutexUnlock(*(v21 + 80));
+        figXPC_CreateNewConnectionInfo(v21, *(v21 + 24), &v34, v26, v27, v28, v29, v30);
+        xpc_connection_set_context(connection, v34);
         xpc_connection_set_finalizer_f(connection, figXPC_ConnectionInfoFinalizer);
-        v13[0] = MEMORY[0x1E69E9820];
-        v13[1] = 0x40000000;
-        v13[2] = __figXPC_HandleNewClientConnection_block_invoke;
-        v13[3] = &__block_descriptor_tmp_189;
-        v13[4] = a1;
-        v13[5] = v8;
-        v13[6] = connection;
-        xpc_connection_set_event_handler(connection, v13);
+        v31[0] = MEMORY[0x1E69E9820];
+        v31[1] = 0x40000000;
+        v31[2] = __figXPC_HandleNewClientConnection_block_invoke;
+        v31[3] = &__block_descriptor_tmp_189;
+        v31[4] = a1;
+        v31[5] = v21;
+        v31[6] = connection;
+        xpc_connection_set_event_handler(connection, v31);
         xpc_connection_resume(connection);
       }
 
       goto LABEL_17;
     }
 
-    v8 = v15;
-    if (v15)
+    v21 = v33;
+    if (v33)
     {
 LABEL_17:
-      CFRelease(v8);
+      CFRelease(v21);
     }
   }
 
@@ -2860,7 +2863,7 @@ size_t FigXPCRemoteClientCreateWithConnectionCreatingBlockCommon(uint64_t a1, un
   if (*a2 - 1 >= 4)
   {
     emitter = fig_log_get_emitter("com.apple.coremedia", "");
-    v35 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFC0E9uLL, "<< FigXPC >>", 0x488, v4, v33, v34);
+    v35 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFC0E9uLL, "<< FigXPC >>", 0x488, v4, v33, v34, v38);
     if (v35)
     {
       goto LABEL_29;
@@ -3053,14 +3056,14 @@ __CFString *figXPCClientConnectionInfo_CopyDebugDesc(void *a1)
 
 uint64_t figXPCCreateXPCConnectionInternalCommon(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5, int a6, int a7, int a8)
 {
-  v44 = 0;
-  v45 = 0;
   v43 = 0;
-  v42 = 0xFFFFFFFFLL;
+  v44 = 0;
+  v42 = 0;
+  v41 = 0xFFFFFFFFLL;
   v13 = *(a2 + 88);
   if (v13)
   {
-    FigCFDictionaryGetInt32IfPresent(v13, @"xpcRemoteClientOption_QueuePriority", &v42, a4, a5, a6, a7, a8, v34, v36, handler, v38, v39, v40, v41, v42, v43, v44);
+    FigCFDictionaryGetInt32IfPresent(v13, @"xpcRemoteClientOption_QueuePriority", &v41, a4, a5, a6, a7, a8, v33, v35, handler, v37, v38, v39, v40, v41, v42, v43);
   }
 
   v14 = *MEMORY[0x1E695E480];
@@ -3073,9 +3076,9 @@ uint64_t figXPCCreateXPCConnectionInternalCommon(uint64_t a1, uint64_t a2, uint6
   v16 = Instance;
   if (!a1)
   {
-    v33 = figXPCCreateXPCConnectionInternalCommon_cold_7(Instance, &v46);
-    v31 = v46;
-    if (v33)
+    v32 = figXPCCreateXPCConnectionInternalCommon_cold_7(Instance, &v45);
+    v30 = v45;
+    if (v32)
     {
       goto LABEL_22;
     }
@@ -3087,8 +3090,8 @@ LABEL_32:
 
   if (!Instance)
   {
-    figXPCCreateXPCConnectionInternalCommon_cold_6(&v46);
-    v31 = v46;
+    figXPCCreateXPCConnectionInternalCommon_cold_6(&v45);
+    v30 = v45;
     goto LABEL_22;
   }
 
@@ -3098,9 +3101,9 @@ LABEL_32:
   *(v16 + 24) = v17;
   if (!v17)
   {
-    figXPCCreateXPCConnectionInternalCommon_cold_5(&v46);
+    figXPCCreateXPCConnectionInternalCommon_cold_5(&v45);
 LABEL_31:
-    v31 = v46;
+    v30 = v45;
     goto LABEL_32;
   }
 
@@ -3108,40 +3111,40 @@ LABEL_31:
   *(v16 + 96) = v18;
   if (!v18)
   {
-    figXPCCreateXPCConnectionInternalCommon_cold_4(&v46);
+    figXPCCreateXPCConnectionInternalCommon_cold_4(&v45);
     goto LABEL_31;
   }
 
   v19 = FigCFWeakReferenceTableCreate(v14, 1, (v16 + 32));
   if (v19)
   {
-    v31 = v19;
+    v30 = v19;
     goto LABEL_32;
   }
 
   if ((a3 & 0x200000000) != 0)
   {
     *(v16 + 85) = 1;
-    asprintf(&v45, "%s.secondary.%p.notifications", *(a2 + 16), v16);
-    asprintf(&v44, "%s.secondary.%p.connection", *(a2 + 16), v16);
-    v36 = v16;
-    asprintf(&v43, "%s.secondary.%p.clientMessages");
+    asprintf(&v44, "%s.secondary.%p.notifications", *(a2 + 16), v16);
+    asprintf(&v43, "%s.secondary.%p.connection", *(a2 + 16), v16);
+    v35 = v16;
+    asprintf(&v42, "%s.secondary.%p.clientMessages");
   }
 
   else
   {
-    asprintf(&v45, "%s.notifications", *(a2 + 16));
-    asprintf(&v44, "%s.connections", *(a2 + 16));
-    asprintf(&v43, "%s.clientMessages");
+    asprintf(&v44, "%s.notifications", *(a2 + 16));
+    asprintf(&v43, "%s.connections", *(a2 + 16));
+    asprintf(&v42, "%s.clientMessages");
   }
 
-  *(v16 + 56) = figXPC_CreateSerialDispatchQueueWithPriority(v45, v42);
-  SerialDispatchQueueWithPriority = figXPC_CreateSerialDispatchQueueWithPriority(v44, v42);
+  *(v16 + 56) = figXPC_CreateSerialDispatchQueueWithPriority(v44, v41);
+  SerialDispatchQueueWithPriority = figXPC_CreateSerialDispatchQueueWithPriority(v43, v41);
   *(v16 + 48) = SerialDispatchQueueWithPriority;
   v21 = (*(a5 + 16))(a5, SerialDispatchQueueWithPriority);
   if (!v21)
   {
-    figXPCCreateXPCConnectionInternalCommon_cold_3(&v46);
+    figXPCCreateXPCConnectionInternalCommon_cold_3(&v45);
     goto LABEL_31;
   }
 
@@ -3151,38 +3154,37 @@ LABEL_31:
   v23 = *(v16 + 16);
   if (v23[6] || v23[3] >= 2uLL && v23[8])
   {
-    *(v16 + 72) = figXPC_CreateSerialDispatchQueueWithPriority(v43, v42);
+    *(v16 + 72) = figXPC_CreateSerialDispatchQueueWithPriority(v42, v41);
   }
 
   v24 = FigCFWeakReferenceHolderCreateWithReferencedObject(v16);
   if (!v24)
   {
-    figXPCCreateXPCConnectionInternalCommon_cold_2(&v46);
+    figXPCCreateXPCConnectionInternalCommon_cold_2(&v45);
     goto LABEL_31;
   }
 
   xpc_connection_set_context(v22, v24);
   xpc_connection_set_finalizer_f(v22, figXPC_ServerConnectionFinalizer);
   handler = MEMORY[0x1E69E9820];
-  v38 = 0x40000000;
-  v39 = __figXPCCreateXPCConnectionInternalCommon_block_invoke;
-  v40 = &__block_descriptor_tmp_134;
-  v41 = v22;
+  v37 = 0x40000000;
+  v38 = __figXPCCreateXPCConnectionInternalCommon_block_invoke;
+  v39 = &__block_descriptor_tmp_134;
+  v40 = v22;
   xpc_connection_set_event_handler(v22, &handler);
-  FigCFDictionaryGetInt32IfPresent(*(*(v16 + 16) + 88), @"xpcRemoteClientOption_UserID", &v42 + 4, v25, v26, v27, v28, v29, v35, v36, handler, v38, v39, v40, v41, v42, v43, v44);
-  if (v30)
+  if (FigCFDictionaryGetInt32IfPresent(*(*(v16 + 16) + 88), @"xpcRemoteClientOption_UserID", &v41 + 4, v25, v26, v27, v28, v29, v34, v35, handler, v37, v38, v39, v40, v41, v42, v43))
   {
     xpc_connection_set_target_uid();
   }
 
   xpc_connection_activate(*(v16 + 40));
-  v31 = 0;
+  v30 = 0;
   *a4 = v16;
 LABEL_22:
-  free(v45);
   free(v44);
   free(v43);
-  return v31;
+  free(v42);
+  return v30;
 }
 
 void __figXPCCreateXPCConnectionInternalAsync_block_invoke(uint64_t a1)
@@ -3196,9 +3198,9 @@ void __figXPCCreateXPCConnectionInternalAsync_block_invoke(uint64_t a1)
   }
 }
 
-NSObject *figXPC_CreateSerialDispatchQueueWithPriority(const char *a1, int a2)
+NSObject *figXPC_CreateSerialDispatchQueueWithPriority(const char *a1, uint64_t a2)
 {
-  if (a2 < 0)
+  if ((a2 & 0x80000000) != 0)
   {
     return FigDispatchQueueCreateStandardDispatchQueue(a1, 0, 0, QOS_CLASS_UNSPECIFIED);
   }
@@ -3209,7 +3211,7 @@ NSObject *figXPC_CreateSerialDispatchQueueWithPriority(const char *a1, int a2)
   }
 }
 
-void __figXPCCreateXPCConnectionInternalCommon_block_invoke(uint64_t a1, void *a2)
+void __figXPCCreateXPCConnectionInternalCommon_block_invoke(uint64_t a1, __CFDictionary *a2)
 {
   v2 = a2;
   v4 = MEMORY[0x19A8DA4F0](a2);
@@ -3222,13 +3224,13 @@ void __figXPCCreateXPCConnectionInternalCommon_block_invoke(uint64_t a1, void *a
     {
       if (v2 == MEMORY[0x1E69E9E20])
       {
-        v13 = xpc_connection_copy_invalidation_reason();
+        v19 = xpc_connection_copy_invalidation_reason();
         xpc_dictionary_get_string(MEMORY[0x1E69E9E20], *MEMORY[0x1E69E9E28]);
         *(v7 + 80) = 1;
-        free(v13);
+        free(v19);
       }
 
-      v60 = 0;
+      v91 = 0;
       *(v7 + 64) = 0;
       if (*(v7 + 86))
       {
@@ -3238,44 +3240,44 @@ void __figXPCCreateXPCConnectionInternalCommon_block_invoke(uint64_t a1, void *a
       *(v7 + 84) = 0;
       FigAtomicCompareAndSwap32(1, 0, (v7 + 92));
       FigSimpleMutexLock(*(*(v7 + 16) + 128));
-      v14 = *(v7 + 16);
-      v15 = *(v14 + 136);
-      if (v15)
+      v20 = *(v7 + 16);
+      v21 = *(v20 + 136);
+      if (v21)
       {
-        CFRelease(v15);
-        v14 = *(v7 + 16);
-        *(v14 + 136) = 0;
+        CFRelease(v21);
+        v20 = *(v7 + 16);
+        *(v20 + 136) = 0;
       }
 
-      v16 = *(v14 + 144);
-      if (v16)
+      v22 = *(v20 + 144);
+      if (v22)
       {
-        CFRelease(v16);
-        v14 = *(v7 + 16);
-        *(v14 + 144) = 0;
+        CFRelease(v22);
+        v20 = *(v7 + 16);
+        *(v20 + 144) = 0;
       }
 
-      FigSimpleMutexUnlock(*(v14 + 128));
-      FigCFWeakReferenceTableCopyValues(*(v7 + 32), &v60);
+      FigSimpleMutexUnlock(*(v20 + 128));
+      FigCFWeakReferenceTableCopyValues(*(v7 + 32), &v91);
       CFRetain(v7);
-      if (v60)
+      if (v91)
       {
-        CFRetain(v60);
-        v17 = v60;
+        CFRetain(v91);
+        v23 = v91;
       }
 
       else
       {
-        v17 = 0;
+        v23 = 0;
       }
 
-      v18 = gCommonRemoteClientCleanupQueue;
+      v24 = gCommonRemoteClientCleanupQueue;
       block = MEMORY[0x1E69E9820];
-      v51 = 0x40000000;
-      v52 = __figXPCConnection_HandleConnectionDemise_block_invoke;
-      v53 = &__block_descriptor_tmp_143;
-      v54 = v17;
-      v55 = v7;
+      v82 = 0x40000000;
+      v83 = __figXPCConnection_HandleConnectionDemise_block_invoke;
+      v84 = &__block_descriptor_tmp_143;
+      v85 = v23;
+      v86 = v7;
       goto LABEL_25;
     }
 
@@ -3289,87 +3291,87 @@ void __figXPCCreateXPCConnectionInternalCommon_block_invoke(uint64_t a1, void *a
     {
       if (uint64 == 779118369)
       {
-        v25 = *(v7 + 16);
-        if (*(v25 + 24) >= 3uLL && *(v25 + 72))
+        v38 = *(v7 + 16);
+        if (*(v38 + 24) >= 3uLL && *(v38 + 72))
         {
           CFRetain(v7);
           FigXPCRetain(v2);
-          v26 = *(v7 + 56);
+          v39 = *(v7 + 56);
           block = MEMORY[0x1E69E9820];
-          v51 = 0x40000000;
-          v52 = __figXPCConnection_CallObjectPurgedCallback_block_invoke;
-          v53 = &__block_descriptor_tmp_149;
-          v54 = v2;
-          v55 = v7;
-          dispatch_async(v26, &block);
+          v82 = 0x40000000;
+          v83 = __figXPCConnection_CallObjectPurgedCallback_block_invoke;
+          v84 = &__block_descriptor_tmp_149;
+          v85 = v2;
+          v86 = v7;
+          dispatch_async(v39, &block);
         }
 
         int64 = xpc_dictionary_get_int64(v2, ".PurgeIdentifier");
         Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-        FigCFDictionarySetInt64(Mutable, @"xpcConnectionNotificationServerStatePurgedPayloadKey_PurgeIdentifier", int64, v29, v30, v31, v32, v33);
+        FigCFDictionarySetInt64(Mutable, @"xpcConnectionNotificationServerStatePurgedPayloadKey_PurgeIdentifier", int64, v42, v43, v44, v45, v46);
         DefaultLocalCenter = CMNotificationCenterGetDefaultLocalCenter();
-        CMNotificationCenterPostNotification(DefaultLocalCenter, @"xpcConnectionNotification_ServerStatePurged", v7, Mutable);
+        CMNotificationCenterPostNotification(DefaultLocalCenter, @"xpcConnectionNotification_ServerStatePurged", v7, Mutable, 0, v48, v49, v50, v80);
         if (!Mutable)
         {
           goto LABEL_28;
         }
 
-        v19 = Mutable;
+        v25 = Mutable;
         goto LABEL_27;
       }
 
       if (uint64 == 778989428)
       {
-        v60 = 0;
-        FigXPCMessageCopyCFString(v2, ".NotificationName", &v60);
-        if (!v60)
+        v91 = 0;
+        FigXPCMessageCopyCFString(v2, ".NotificationName", &v91);
+        if (!v91)
         {
           goto LABEL_28;
         }
 
         v9 = xpc_dictionary_get_uint64(v2, ".objectID");
-        v10 = figXPCConnection_copyObjectForID(v7, v9);
-        if (v10)
+        v16 = figXPCConnection_copyObjectForID(v7, v9, v10, v11, v12, v13, v14, v15);
+        if (v16)
         {
-          v11 = v10;
-          if (v60)
+          v17 = v16;
+          if (v91)
           {
-            CFRetain(v60);
+            CFRetain(v91);
           }
 
           FigXPCRetain(v2);
           if (*(*(v7 + 16) + 40))
           {
-            v12 = *(*(v7 + 16) + 40);
+            v18 = *(*(v7 + 16) + 40);
           }
 
           else
           {
-            v12 = 0;
+            v18 = 0;
           }
 
-          v18 = *(v7 + 56);
+          v24 = *(v7 + 56);
           block = MEMORY[0x1E69E9820];
-          v51 = 0x40000000;
-          v52 = __figXPCConnection_HandleNotificationMessage_block_invoke;
-          v53 = &__block_descriptor_tmp_144;
-          v54 = v2;
-          v55 = v12;
-          v56 = v11;
-          v57 = v60;
+          v82 = 0x40000000;
+          v83 = __figXPCConnection_HandleNotificationMessage_block_invoke;
+          v84 = &__block_descriptor_tmp_144;
+          v85 = v2;
+          v86 = v18;
+          v87 = v17;
+          v88 = v91;
         }
 
         else
         {
-          v39 = *(v7 + 16);
-          if (!*(v39 + 104) || !*(v39 + 40))
+          v61 = *(v7 + 16);
+          if (!*(v61 + 104) || !*(v61 + 40))
           {
 LABEL_26:
-            v19 = v60;
-            if (v60)
+            v25 = v91;
+            if (v91)
             {
 LABEL_27:
-              CFRelease(v19);
+              CFRelease(v25);
             }
 
 LABEL_28:
@@ -3377,97 +3379,97 @@ LABEL_28:
             return;
           }
 
-          v40 = *(v39 + 40);
-          if (v60)
+          v62 = *(v61 + 40);
+          if (v91)
           {
-            CFRetain(v60);
+            CFRetain(v91);
           }
 
           FigXPCRetain(v2);
-          v18 = *(v7 + 56);
+          v24 = *(v7 + 56);
           block = MEMORY[0x1E69E9820];
-          v51 = 0x40000000;
-          v52 = __figXPCConnection_HandleNotificationMessage_block_invoke_2;
-          v53 = &__block_descriptor_tmp_145;
-          v54 = v2;
-          v55 = v40;
-          v56 = v60;
+          v82 = 0x40000000;
+          v83 = __figXPCConnection_HandleNotificationMessage_block_invoke_2;
+          v84 = &__block_descriptor_tmp_145;
+          v85 = v2;
+          v86 = v62;
+          v87 = v91;
         }
 
 LABEL_25:
-        dispatch_async(v18, &block);
+        dispatch_async(v24, &block);
         goto LABEL_26;
       }
 
 LABEL_48:
-      v35 = *(v7 + 16);
-      if (!v35[6] && (v35[3] < 2uLL || !v35[8]))
+      v51 = *(v7 + 16);
+      if (!v51[6] && (v51[3] < 2uLL || !v51[8]))
       {
         goto LABEL_28;
       }
 
-      v36 = xpc_dictionary_get_uint64(v2, ".objectID");
-      v37 = *(v7 + 16);
-      if (v37[6] && v36)
+      v52 = xpc_dictionary_get_uint64(v2, ".objectID");
+      v59 = *(v7 + 16);
+      if (v59[6] && v52)
       {
-        v41 = figXPCConnection_copyObjectForID(v7, v36);
-        if (!v41)
+        v63 = figXPCConnection_copyObjectForID(v7, v52, v53, v54, v55, v56, v57, v58);
+        if (!v63)
         {
           goto LABEL_28;
         }
 
-        v42 = v41;
+        v64 = v63;
         xpc_retain(v2);
-        v38 = *(v7 + 72);
+        v60 = *(v7 + 72);
         block = MEMORY[0x1E69E9820];
-        v51 = 0x40000000;
-        v52 = __figXPCConnection_CallClientMessageHandlers_block_invoke;
-        v53 = &__block_descriptor_tmp_153;
-        v54 = v7;
-        v55 = v42;
-        v56 = v2;
+        v82 = 0x40000000;
+        v83 = __figXPCConnection_CallClientMessageHandlers_block_invoke;
+        v84 = &__block_descriptor_tmp_153;
+        v85 = v7;
+        v86 = v64;
+        v87 = v2;
       }
 
       else
       {
-        if (v37[3] < 2uLL || !v37[8])
+        if (v59[3] < 2uLL || !v59[8])
         {
           goto LABEL_28;
         }
 
         xpc_retain(v2);
-        v38 = *(v7 + 72);
+        v60 = *(v7 + 72);
         block = MEMORY[0x1E69E9820];
-        v51 = 0x40000000;
-        v52 = __figXPCConnection_CallClientMessageHandlers_block_invoke_2;
-        v53 = &__block_descriptor_tmp_154;
-        v54 = v7;
-        v55 = v2;
+        v82 = 0x40000000;
+        v83 = __figXPCConnection_CallClientMessageHandlers_block_invoke_2;
+        v84 = &__block_descriptor_tmp_154;
+        v85 = v7;
+        v86 = v2;
       }
 
-      dispatch_async(v38, &block);
+      dispatch_async(v60, &block);
       goto LABEL_28;
     }
 
     if (uint64 == 778264932)
     {
-      v60 = 0;
+      v91 = 0;
       reply = xpc_dictionary_create_reply(v2);
       remote_connection = xpc_dictionary_get_remote_connection(v2);
-      v22 = FigCFWeakReferenceHolderCopyReferencedObject(*(v7 + 24));
-      v23 = v22;
-      if (v22)
+      v28 = FigCFWeakReferenceHolderCopyReferencedObject(*(v7 + 24));
+      v36 = v28;
+      if (v28)
       {
-        v24 = v22[2];
+        v37 = v28[2];
         block = MEMORY[0x1E69E9820];
-        v51 = 0x40000000;
-        v52 = __figXPCConnection_handleCreateAdminConnectionReplyMessageFromServer_block_invoke;
-        v53 = &__block_descriptor_tmp_146;
-        v54 = v2;
-        if (!figXPCCreateXPCConnectionInternalSync(v22, v24, 0x600000000, &v60, &block))
+        v82 = 0x40000000;
+        v83 = __figXPCConnection_handleCreateAdminConnectionReplyMessageFromServer_block_invoke;
+        v84 = &__block_descriptor_tmp_146;
+        v85 = v2;
+        if (!figXPCCreateXPCConnectionInternalSync(v28, v37, 0x600000000, &v91, &block))
         {
-          v23[4] = v60;
-          v60 = 0;
+          v36[4] = v91;
+          v91 = 0;
         }
 
         if (!remote_connection)
@@ -3478,18 +3480,18 @@ LABEL_48:
 
       else
       {
-        __figXPCCreateXPCConnectionInternalCommon_block_invoke_cold_3();
+        __figXPCCreateXPCConnectionInternalCommon_block_invoke_cold_3(0, v29, v30, v31, v32, v33, v34, v35, v80);
         if (!remote_connection)
         {
 LABEL_37:
-          if (v23)
+          if (v36)
           {
-            CFRelease(v23);
+            CFRelease(v36);
           }
 
-          if (v60)
+          if (v91)
           {
-            CFRelease(v60);
+            CFRelease(v91);
           }
 
           FigXPCRelease(reply);
@@ -3511,50 +3513,51 @@ LABEL_37:
     }
 
     block = 0;
-    v59 = 0;
-    v60 = 0;
+    v90 = 0;
+    v91 = 0;
     value = 0;
-    v43 = xpc_dictionary_create_reply(v2);
+    v65 = xpc_dictionary_create_reply(v2);
+    v73 = v65;
     if (*(*(v7 + 16) + 24) <= 3uLL)
     {
-      __figXPCCreateXPCConnectionInternalCommon_block_invoke_cold_2();
+      __figXPCCreateXPCConnectionInternalCommon_block_invoke_cold_2(v65, v66, v67, v68, v69, v70, v71, v72, v80);
     }
 
     else
     {
       if (!v2)
       {
-        __figXPCCreateXPCConnectionInternalCommon_block_invoke_cold_1();
+        __figXPCCreateXPCConnectionInternalCommon_block_invoke_cold_1(v65, v66, v67, v68, v69, v70, v71, v72, v80);
         goto LABEL_93;
       }
 
-      if (!FigXPCConnectionCopyMemoryOriginForConnectedProcess(v7, &v59))
+      if (!FigXPCConnectionCopyMemoryOriginForConnectedProcess(v7, &v90))
       {
-        if (!FigXPCConnectionCopyMemoryRecipientForConnectedProcess(v7, &v60))
+        if (!FigXPCConnectionCopyMemoryRecipientForConnectedProcess(v7, &v91))
         {
-          v44 = *MEMORY[0x1E695E480];
-          v45 = CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, @"%s.%d.eventlink", *(*(v7 + 16) + 16), *(v7 + 88));
-          v46 = CFDictionaryCreateMutable(v44, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-          CFDictionarySetValue(v46, @"FigMemoryPool_LoggingName", v45);
-          v47 = CMMemoryPoolCreate(v46);
-          if (v46)
+          v74 = *MEMORY[0x1E695E480];
+          v75 = CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, @"%s.%d.eventlink", *(*(v7 + 16) + 16), *(v7 + 88));
+          v76 = CFDictionaryCreateMutable(v74, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+          CFDictionarySetValue(v76, @"FigMemoryPool_LoggingName", v75);
+          v77 = CMMemoryPoolCreate(v76);
+          if (v76)
           {
-            CFRelease(v46);
+            CFRelease(v76);
           }
 
-          v48 = xpc_dictionary_get_int64(v2, "ServerEventLinkMachThreadPriority");
-          v49 = xpc_dictionary_get_uint64(v2, "ServerEventLinkFigThreadPriority");
-          v2 = v60;
-          if (!FigOSEventLinkServerCreate(v44, v49, v48, v45, 0, v47, v59, v60, &block) && !FigOSEventLinkServerSetAssociatedFigXPCServerXPCConnection(block, *(v7 + 40)) && !FigOSEventLinkServerCopyRemoteCreationInfoXPCObject(block, &value))
+          v78 = xpc_dictionary_get_int64(v2, "ServerEventLinkMachThreadPriority");
+          v79 = xpc_dictionary_get_uint64(v2, "ServerEventLinkFigThreadPriority");
+          v2 = v91;
+          if (!FigOSEventLinkServerCreate(v74, v79, v78, v75, 0, v77, v90, v91, &block) && !FigOSEventLinkServerSetAssociatedFigXPCServerXPCConnection(block, *(v7 + 40)) && !FigOSEventLinkServerCopyRemoteCreationInfoXPCObject(block, &value))
           {
-            xpc_dictionary_set_value(v43, "RemoteEventLinkCreationInfo", value);
+            xpc_dictionary_set_value(v73, "RemoteEventLinkCreationInfo", value);
             (*(*(v7 + 16) + 80))(block, 0);
           }
 
-          xpc_connection_send_message(*(v7 + 40), v43);
-          if (v47)
+          xpc_connection_send_message(*(v7 + 40), v73);
+          if (v77)
           {
-            CFRelease(v47);
+            CFRelease(v77);
           }
 
           if (v2)
@@ -3565,10 +3568,10 @@ LABEL_37:
           goto LABEL_81;
         }
 
-        v2 = v60;
+        v2 = v91;
 LABEL_93:
-        xpc_connection_send_message(*(v7 + 40), v43);
-        v45 = 0;
+        xpc_connection_send_message(*(v7 + 40), v73);
+        v75 = 0;
         if (v2)
         {
 LABEL_80:
@@ -3576,19 +3579,19 @@ LABEL_80:
         }
 
 LABEL_81:
-        if (v59)
+        if (v90)
         {
-          CFRelease(v59);
+          CFRelease(v90);
         }
 
-        if (v45)
+        if (v75)
         {
-          CFRelease(v45);
+          CFRelease(v75);
         }
 
         FigXPCRelease(value);
-        FigXPCRelease(v43);
-        v19 = block;
+        FigXPCRelease(v73);
+        v25 = block;
         if (!block)
         {
           goto LABEL_28;
@@ -3700,50 +3703,50 @@ __CFString *figXPCConnection_CopyDebugDesc(uint64_t a1)
   return Mutable;
 }
 
-size_t figXPCConnection_DeadConnectionObjectApplierFunction(uint64_t a1, uint64_t a2, uint64_t a3)
+size_t figXPCConnection_DeadConnectionObjectApplierFunction(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, CMBlockBufferRef *a9)
 {
-  v5 = *(a3 + 16);
-  v6 = *(v5 + 32);
-  if (v6)
+  v11 = *(a3 + 16);
+  v12 = *(v11 + 32);
+  if (v12)
   {
-    v6(a2);
-    v5 = *(a3 + 16);
+    v12(a2);
+    v11 = *(a3 + 16);
   }
 
-  v7 = *(a3 + 88);
-  v8 = *(v5 + 120);
+  v13 = *(a3 + 88);
+  v14 = *(v11 + 120);
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-  FigCFDictionarySetInt32(Mutable, @"PID", v7, v10, v11, v12, v13, v14);
-  FigCFDictionarySetInt64(Mutable, @"ServerCapabilities", v8, v15, v16, v17, v18, v19);
-  IsServerProcess = FigServer_IsServerProcess();
-  v21 = MEMORY[0x1E695E4D0];
+  FigCFDictionarySetInt32(Mutable, @"PID", v13, v16, v17, v18, v19, v20);
+  v26 = FigCFDictionarySetInt64(Mutable, @"ServerCapabilities", v14, v21, v22, v23, v24, v25);
+  IsServerProcess = FigServer_IsServerProcess(v26, v27);
+  v29 = MEMORY[0x1E695E4D0];
   if (!IsServerProcess)
   {
-    v21 = MEMORY[0x1E695E4C0];
+    v29 = MEMORY[0x1E695E4C0];
   }
 
-  FigCFDictionarySetValue(Mutable, @"IsIndirectConnection", *v21);
+  FigCFDictionarySetValue(Mutable, @"IsIndirectConnection", *v29);
   DefaultLocalCenter = CMNotificationCenterGetDefaultLocalCenter();
-  CMNotificationCenterPostNotification(DefaultLocalCenter, @"MediaServicesProcessDeath", a2, Mutable);
+  CMNotificationCenterPostNotification(DefaultLocalCenter, @"MediaServicesProcessDeath", a2, Mutable, 0, v31, v32, v33, v40);
   if (Mutable)
   {
     CFRelease(Mutable);
   }
 
-  v23 = CMNotificationCenterGetDefaultLocalCenter();
-  v24 = *(*(a3 + 16) + 96);
+  v34 = CMNotificationCenterGetDefaultLocalCenter();
+  v38 = *(*(a3 + 16) + 96);
 
-  return CMNotificationCenterPostNotification(v23, v24, a2, 0);
+  return CMNotificationCenterPostNotification(v34, v38, a2, 0, 0, v35, v36, v37, a9);
 }
 
-id figXPCConnection_copyObjectForID(uint64_t a1, void *a2)
+id figXPCConnection_copyObjectForID(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  result = FigCFWeakReferenceTableCopyValue(*(a1 + 32), a2);
+  result = FigCFWeakReferenceTableCopyValue(*(a1 + 32), a2, a3, a4, a5, a6, a7, a8);
   if (!result)
   {
-    v5 = *(*(a1 + 16) + 112);
+    v17 = *(*(a1 + 16) + 112);
 
-    return FigCFWeakReferenceTableCopyValue(v5, a2);
+    return FigCFWeakReferenceTableCopyValue(v17, a2, v11, v12, v13, v14, v15, v16);
   }
 
   return result;
@@ -3754,54 +3757,54 @@ xpc_connection_t __figXPCConnection_handleCreateAdminConnectionReplyMessageFromS
   value = xpc_dictionary_get_value(*(a1 + 32), ".SecondaryEndpoint");
   if (!value)
   {
-    v4 = 3308;
+    v11 = 3308;
 LABEL_8:
-    __figXPCConnection_handleCreateAdminConnectionReplyMessageFromServer_block_invoke_cold_1(v4);
+    __figXPCConnection_handleCreateAdminConnectionReplyMessageFromServer_block_invoke_cold_1(v11, v2, v3, v4, v5, v6, v7, v8, v12);
     return 0;
   }
 
-  v2 = value;
+  v9 = value;
   if (MEMORY[0x19A8DA4F0]() != MEMORY[0x1E69E9E90])
   {
-    v4 = 3309;
+    v11 = 3309;
     goto LABEL_8;
   }
 
-  result = xpc_connection_create_from_endpoint(v2);
+  result = xpc_connection_create_from_endpoint(v9);
   if (!result)
   {
-    v4 = 3313;
+    v11 = 3313;
     goto LABEL_8;
   }
 
   return result;
 }
 
-uint64_t figXPCConnection_createPingMessage(void *a1)
+uint64_t figXPCConnection_createPingMessage(void *a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   xdict = 0;
   memset(buffer, 0, sizeof(buffer));
-  IsServerProcess = FigServer_IsServerProcess();
-  v3 = FigXPCCreateBasicMessage(0x2E706E67u, 0, &xdict);
-  if (v3)
+  IsServerProcess = FigServer_IsServerProcess(a1, a2);
+  v4 = FigXPCCreateBasicMessage(0x2E706E67u, 0, &xdict);
+  if (v4)
   {
-    v6 = xdict;
+    v7 = xdict;
   }
 
   else
   {
-    v4 = getpid();
-    proc_name(v4, buffer, 0x80u);
-    v5 = xdict;
+    v5 = getpid();
+    proc_name(v5, buffer, 0x80u);
+    v6 = xdict;
     xpc_dictionary_set_string(xdict, ".ProcessName", buffer);
-    xpc_dictionary_set_BOOL(v5, ".IsDaemon", IsServerProcess);
-    v6 = 0;
-    *a1 = v5;
+    xpc_dictionary_set_BOOL(v6, ".IsDaemon", IsServerProcess);
+    v7 = 0;
+    *a1 = v6;
   }
 
-  FigXPCRelease(v6);
-  return v3;
+  FigXPCRelease(v7);
+  return v4;
 }
 
 double figXPCPerProcessInfo_Init(uint64_t a1)
@@ -3823,7 +3826,7 @@ double figXPCPerProcessInfo_Init(uint64_t a1)
 
 void figXPCPerProcessInfo_Finalize(uint64_t a1)
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 88);
   if (v2)
   {
@@ -3892,10 +3895,11 @@ void figXPCPerProcessInfo_Finalize(uint64_t a1)
 
         else
         {
-          v37[0] = 0;
+          v38 = 0;
           type = OS_LOG_TYPE_DEFAULT;
-          os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(0, 0, v37, &type);
-          v19 = v37[0];
+          os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(0, 0, &v38, &type);
+          v19 = v38;
+          v20 = type;
           if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
           {
             v21 = v19;
@@ -3910,16 +3914,17 @@ void figXPCPerProcessInfo_Finalize(uint64_t a1)
           {
             v22 = *(*(a1 + 56) + 88);
             v23 = *(a1 + 16);
-            v37[1] = 136315906;
-            v38 = "figXPCPerProcessInfo_DisposeSecondaryConnections";
-            v39 = 2048;
-            v40 = v17;
-            v41 = 2082;
-            v42 = v22;
-            v43 = 1024;
-            v44 = v23;
-            v24 = _os_log_send_and_compose_impl();
-            LOBYTE(v19) = v37[0];
+            v39 = 136315906;
+            v40 = "figXPCPerProcessInfo_DisposeSecondaryConnections";
+            v41 = 2048;
+            v42 = v17;
+            v43 = 2082;
+            v44 = v22;
+            v45 = 1024;
+            v46 = v23;
+            LODWORD(v36) = 38;
+            v24 = _os_log_send_and_compose_impl(v21, 0, v47, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v20, "<< FigXPC >> %s: Invalid secondary connection(%p) detected for server %{public}s clientPID %d", &v39, v36);
+            LOBYTE(v19) = v38;
           }
 
           else
@@ -3927,7 +3932,7 @@ void figXPCPerProcessInfo_Finalize(uint64_t a1)
             v24 = 0;
           }
 
-          fig_log_call_emit_and_clean_up_after_send_and_compose(0, 0, 1, v24, v24 != &v45, v19, 0, v20);
+          fig_log_call_emit_and_clean_up_after_send_and_compose(0, 0, 1, v24, v24 != v47, v19);
         }
 
         ++v14;
@@ -4069,7 +4074,7 @@ uint64_t figXPC_ForgetNotificationsForServedObject(uint64_t a1, CFTypeRef a2)
   return FigSimpleMutexUnlock(v12);
 }
 
-size_t figXPC_RegisterServedObjectWithID(uint64_t a1, void *a2, const void *a3, char a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+size_t figXPC_RegisterServedObjectWithID(uint64_t a1, void *a2, const void *a3, char a4, uint64_t a5, uint64_t a6, uint64_t a7, CMBlockBufferRef *a8)
 {
   if (figXPCServedObject_GetTypeID_sRegisterServedObjectTypeOnce != -1)
   {
@@ -4093,17 +4098,17 @@ size_t figXPC_RegisterServedObjectWithID(uint64_t a1, void *a2, const void *a3, 
       FigCFWeakReferenceStore((v17 + 64), a1);
       if (a4)
       {
-        v20 = 0;
+        v21 = 0;
       }
 
       else
       {
         DefaultLocalCenter = CMNotificationCenterGetDefaultLocalCenter();
-        FigNotificationCenterAddWeakListener(DefaultLocalCenter, v17, figXPCServedObject_NotificationCallback, 0, a3, 0, 0);
-        v20 = 1;
+        FigNotificationCenterAddWeakListener(DefaultLocalCenter, v17, figXPCServedObject_NotificationCallback, 0, a3, 0, 0, v20, v23);
+        v21 = 1;
       }
 
-      *(v17 + 72) = v20;
+      *(v17 + 72) = v21;
     }
 
     CFRelease(v17);
@@ -4111,8 +4116,8 @@ size_t figXPC_RegisterServedObjectWithID(uint64_t a1, void *a2, const void *a3, 
 
   else
   {
-    figXPC_RegisterServedObjectWithID_cold_2(&v22);
-    return v22;
+    figXPC_RegisterServedObjectWithID_cold_2(&v24);
+    return v24;
   }
 
   return v18;
@@ -4402,7 +4407,7 @@ void __FigXPCServerStartWithListenerCreatingBlock_block_invoke(uint64_t a1, _xpc
   }
 }
 
-void figXPC_CreateNewConnectionInfo(uint64_t a1, NSObject *a2, uint64_t *a3)
+void figXPC_CreateNewConnectionInfo(uint64_t a1, NSObject *a2, uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (a2)
   {
@@ -4414,47 +4419,47 @@ void figXPC_CreateNewConnectionInfo(uint64_t a1, NSObject *a2, uint64_t *a3)
     Instance = _CFRuntimeCreateInstance();
     if (Instance)
     {
-      v7 = Instance;
+      v19 = Instance;
       FigCFWeakReferenceStore((Instance + 16), a1);
-      *(v7 + 160) = *(a1 + 16);
-      *(v7 + 240) = a2;
+      *(v19 + 160) = *(a1 + 16);
+      *(v19 + 240) = a2;
       dispatch_retain(a2);
-      strncpy((v7 + 32), *(*(a1 + 56) + 88), 0x7FuLL);
-      *(v7 + 192) = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, qword_1ED4CDB30);
-      *(v7 + 200) = FigRemote_GetServerTimeoutToken();
-      v8 = *(a1 + 56);
-      v9 = *(v8 + 96);
-      if (v9)
+      strncpy((v19 + 32), *(*(a1 + 56) + 88), 0x7FuLL);
+      *(v19 + 192) = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, qword_1ED4CDB30);
+      *(v19 + 200) = FigRemote_GetServerTimeoutToken();
+      v20 = *(a1 + 56);
+      v21 = *(v20 + 96);
+      if (v21)
       {
-        *(v7 + 224) = 1000000000 * v9;
+        *(v19 + 224) = 1000000000 * v21;
       }
 
-      v10 = *(v8 + 100);
-      if (v10)
+      v22 = *(v20 + 100);
+      if (v22)
       {
-        *(v7 + 232) = 1000000000 * v10;
+        *(v19 + 232) = 1000000000 * v22;
       }
 
-      v11 = *(v7 + 192);
+      v23 = *(v19 + 192);
       handler[0] = MEMORY[0x1E69E9820];
       handler[1] = 0x40000000;
       handler[2] = __figXPC_CreateNewConnectionInfo_block_invoke;
       handler[3] = &__block_descriptor_tmp_190;
-      handler[4] = v7;
-      dispatch_source_set_event_handler(v11, handler);
-      dispatch_resume(*(v7 + 192));
-      *a3 = v7;
+      handler[4] = v19;
+      dispatch_source_set_event_handler(v23, handler);
+      dispatch_resume(*(v19 + 192));
+      *a3 = v19;
     }
 
     else
     {
-      figXPC_CreateNewConnectionInfo_cold_2();
+      figXPC_CreateNewConnectionInfo_cold_2(0, v12, v13, v14, v15, v16, v17, v18, v24);
     }
   }
 
   else
   {
-    figXPC_CreateNewConnectionInfo_cold_3();
+    figXPC_CreateNewConnectionInfo_cold_3(a1, 0, a3, a4, a5, a6, a7, a8, v24);
   }
 }
 
@@ -4629,12 +4634,12 @@ void figXPC_didHandleAbortableEventLinkMessage(uint64_t a1, const void *a2)
   os_unfair_lock_unlock((a1 + 176));
 }
 
-size_t OUTLINED_FUNCTION_10_17(uint64_t a1, ...)
+size_t OUTLINED_FUNCTION_10_17(uint64_t a1, CMBlockBufferRef *a2, ...)
 {
-  va_start(va, a1);
-  v7 = *(v5 + 32);
+  va_start(va, a2);
+  v8 = *(v6 + 32);
 
-  return figXPC_RegisterServedObject(v5, v7, v4, 0, v3, v2, v1, va);
+  return figXPC_RegisterServedObject(v6, v8, v5, 0, v4, v3, v2, va, a2);
 }
 
 uint64_t OUTLINED_FUNCTION_11_18(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
@@ -4652,12 +4657,12 @@ uint64_t OUTLINED_FUNCTION_13_15(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t
   return FigXPCCreateBasicMessage(0x2E736574u, a2, &a10);
 }
 
-size_t OUTLINED_FUNCTION_14_16(uint64_t a1, ...)
+uint64_t OUTLINED_FUNCTION_14_16(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, CMBlockBufferRef *a9, ...)
 {
-  va_start(va, a1);
-  v7 = *(v5 + 32);
+  va_start(va, a9);
+  v15 = *(v13 + 32);
 
-  return figXPC_RegisterCopiedObject(v5, v7, v4, v3, v2, v1, va);
+  return figXPC_RegisterCopiedObject(v13, v15, v12, v11, v10, v9, va, a8, a9);
 }
 
 void OUTLINED_FUNCTION_18_15()
@@ -5146,7 +5151,7 @@ uint64_t FigXPCMessageSetCFError(void *a1, const char *a2, __CFError *a3)
   return v6;
 }
 
-unint64_t FigXPCMessageCopyCFError(void *a1, const char *a2, const __CFDictionary **a3)
+size_t FigXPCMessageCopyCFError(void *a1, const char *a2, const __CFDictionary **a3)
 {
   cf = 0;
   if (a1)
@@ -5193,7 +5198,7 @@ unint64_t FigXPCMessageCopyCFError(void *a1, const char *a2, const __CFDictionar
   }
 
   emitter = fig_log_get_emitter("com.apple.coremedia", "");
-  v12 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFBC80uLL, "<<<< FigXPCUtilities >>>>", v16, v3, v18, v19);
+  v12 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFBC80uLL, "<<<< FigXPCUtilities >>>>", v16, v3, v18, v19, cf);
   if (a3)
   {
     *a3 = 0;
@@ -5248,7 +5253,7 @@ LABEL_15:
   if (v7 != CFDictionaryGetTypeID())
   {
     emitter = fig_log_get_emitter("com.apple.coremedia", "");
-    v5 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFBC7DuLL, "<<<< FigXPCUtilities >>>>", 0x29D, v3, v10, v11);
+    v5 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFBC7DuLL, "<<<< FigXPCUtilities >>>>", 0x29D, v3, v10, v11, cf);
     v6 = cf;
     goto LABEL_15;
   }
@@ -5364,7 +5369,7 @@ LABEL_15:
   if (v7 != CFStringGetTypeID())
   {
     emitter = fig_log_get_emitter("com.apple.coremedia", "");
-    v5 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFBC7DuLL, "<<<< FigXPCUtilities >>>>", 0x25B, v3, v10, v11);
+    v5 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFBC7DuLL, "<<<< FigXPCUtilities >>>>", 0x25B, v3, v10, v11, cf);
     v6 = cf;
     goto LABEL_15;
   }
@@ -5422,7 +5427,7 @@ LABEL_15:
   if (v7 != CFNumberGetTypeID())
   {
     emitter = fig_log_get_emitter("com.apple.coremedia", "");
-    v5 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFBC7DuLL, "<<<< FigXPCUtilities >>>>", 0x271, v3, v10, v11);
+    v5 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFBC7DuLL, "<<<< FigXPCUtilities >>>>", 0x271, v3, v10, v11, cf);
     v6 = cf;
     goto LABEL_15;
   }
@@ -5480,7 +5485,7 @@ LABEL_15:
   if (v7 != CFBooleanGetTypeID())
   {
     emitter = fig_log_get_emitter("com.apple.coremedia", "");
-    v5 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFBC7DuLL, "<<<< FigXPCUtilities >>>>", 0x287, v3, v10, v11);
+    v5 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFBC7DuLL, "<<<< FigXPCUtilities >>>>", 0x287, v3, v10, v11, cf);
     v6 = cf;
     goto LABEL_15;
   }
@@ -5538,7 +5543,7 @@ LABEL_15:
   if (v7 != CFArrayGetTypeID())
   {
     emitter = fig_log_get_emitter("com.apple.coremedia", "");
-    v5 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFBC7DuLL, "<<<< FigXPCUtilities >>>>", 0x2B3, v3, v10, v11);
+    v5 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFBC7DuLL, "<<<< FigXPCUtilities >>>>", 0x2B3, v3, v10, v11, cf);
     v6 = cf;
     goto LABEL_15;
   }
@@ -5636,7 +5641,7 @@ LABEL_15:
   if (v7 != CFDataGetTypeID())
   {
     emitter = fig_log_get_emitter("com.apple.coremedia", "");
-    v5 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFBC7DuLL, "<<<< FigXPCUtilities >>>>", 0x2EA, v3, v10, v11);
+    v5 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFBC7DuLL, "<<<< FigXPCUtilities >>>>", 0x2EA, v3, v10, v11, cf);
     v6 = cf;
     goto LABEL_15;
   }
@@ -5694,7 +5699,7 @@ LABEL_15:
   if (v7 != CFURLGetTypeID())
   {
     emitter = fig_log_get_emitter("com.apple.coremedia", "");
-    v5 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFBC7DuLL, "<<<< FigXPCUtilities >>>>", 0x300, v3, v10, v11);
+    v5 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFBC7DuLL, "<<<< FigXPCUtilities >>>>", 0x300, v3, v10, v11, cf);
     v6 = cf;
     goto LABEL_15;
   }
@@ -6081,7 +6086,7 @@ LABEL_7:
   return result;
 }
 
-void FigXPCMessageSetOSStatus(void *a1, const char *a2, int a3)
+void FigXPCMessageSetOSStatus(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (a1)
   {
@@ -6093,17 +6098,17 @@ void FigXPCMessageSetOSStatus(void *a1, const char *a2, int a3)
 
     else
     {
-      FigXPCMessageSetOSStatus_cold_1();
+      FigXPCMessageSetOSStatus_cold_1(a1, 0, a3, a4, a5, a6, a7, a8, vars0);
     }
   }
 
   else
   {
-    FigXPCMessageSetOSStatus_cold_2();
+    FigXPCMessageSetOSStatus_cold_2(0, a2, a3, a4, a5, a6, a7, a8, vars0);
   }
 }
 
-size_t FigXPCMessageGetOSStatus(void *a1, const char *a2)
+size_t FigXPCMessageGetOSStatus(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, CMBlockBufferRef *a9)
 {
   if (a1)
   {
@@ -6114,27 +6119,27 @@ size_t FigXPCMessageGetOSStatus(void *a1, const char *a2)
       {
         emitter = fig_log_get_emitter("com.apple.coremedia", "");
 
-        return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFBC7DuLL, "<<<< FigXPCUtilities >>>>", 0x427, v2, v5, v6);
+        return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFBC7DuLL, "<<<< FigXPCUtilities >>>>", 0x427, v9, v12, v13, a9);
       }
     }
 
     else
     {
-      FigXPCMessageGetOSStatus_cold_1(&v7);
-      return v7;
+      FigXPCMessageGetOSStatus_cold_1(&v14);
+      return v14;
     }
   }
 
   else
   {
-    FigXPCMessageGetOSStatus_cold_2(&v8);
-    return v8;
+    FigXPCMessageGetOSStatus_cold_2(&v15);
+    return v15;
   }
 
   return result;
 }
 
-void FigXPCMessageSetInt32(void *a1, const char *a2, int a3)
+void FigXPCMessageSetInt32(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (a1)
   {
@@ -6146,17 +6151,17 @@ void FigXPCMessageSetInt32(void *a1, const char *a2, int a3)
 
     else
     {
-      FigXPCMessageSetInt32_cold_1();
+      FigXPCMessageSetInt32_cold_1(a1, 0, a3, a4, a5, a6, a7, a8, vars0);
     }
   }
 
   else
   {
-    FigXPCMessageSetInt32_cold_2();
+    FigXPCMessageSetInt32_cold_2(0, a2, a3, a4, a5, a6, a7, a8, vars0);
   }
 }
 
-int64_t FigXPCMessageGetInt32(void *a1, const char *a2)
+int64_t FigXPCMessageGetInt32(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (a1)
   {
@@ -6169,24 +6174,24 @@ int64_t FigXPCMessageGetInt32(void *a1, const char *a2)
       }
 
       emitter = fig_log_get_emitter("com.apple.coremedia", "");
-      FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFBC7DuLL, "<<<< FigXPCUtilities >>>>", 0x444, v2, v5, v6);
+      FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFBC7DuLL, "<<<< FigXPCUtilities >>>>", 0x444, v8, v11, v12, v13);
     }
 
     else
     {
-      FigXPCMessageGetInt32_cold_1();
+      FigXPCMessageGetInt32_cold_1(a1, 0, a3, a4, a5, a6, a7, a8, v13);
     }
   }
 
   else
   {
-    FigXPCMessageGetInt32_cold_2();
+    FigXPCMessageGetInt32_cold_2(0, a2, a3, a4, a5, a6, a7, a8, v13);
   }
 
   return 0;
 }
 
-void FigXPCMessageSetUInt32(void *a1, const char *a2, uint64_t value)
+void FigXPCMessageSetUInt32(void *a1, const char *a2, uint64_t value, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (a1)
   {
@@ -6198,17 +6203,17 @@ void FigXPCMessageSetUInt32(void *a1, const char *a2, uint64_t value)
 
     else
     {
-      FigXPCMessageSetUInt32_cold_1();
+      FigXPCMessageSetUInt32_cold_1(a1, 0, value, a4, a5, a6, a7, a8, vars0);
     }
   }
 
   else
   {
-    FigXPCMessageSetUInt32_cold_2();
+    FigXPCMessageSetUInt32_cold_2(0, a2, value, a4, a5, a6, a7, a8, vars0);
   }
 }
 
-uint64_t FigXPCMessageGetUInt32(void *a1, const char *a2)
+uint64_t FigXPCMessageGetUInt32(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (a1)
   {
@@ -6221,34 +6226,34 @@ uint64_t FigXPCMessageGetUInt32(void *a1, const char *a2)
       }
 
       emitter = fig_log_get_emitter("com.apple.coremedia", "");
-      FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFBC7DuLL, "<<<< FigXPCUtilities >>>>", 0x461, v2, v5, v6);
+      FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFBC7DuLL, "<<<< FigXPCUtilities >>>>", 0x461, v8, v11, v12, v13);
     }
 
     else
     {
-      FigXPCMessageGetUInt32_cold_1();
+      FigXPCMessageGetUInt32_cold_1(a1, 0, a3, a4, a5, a6, a7, a8, v13);
     }
   }
 
   else
   {
-    FigXPCMessageGetUInt32_cold_2();
+    FigXPCMessageGetUInt32_cold_2(0, a2, a3, a4, a5, a6, a7, a8, v13);
   }
 
   return 0;
 }
 
-BOOL FigXPCMessageGetBoolean(void *a1, const char *a2)
+BOOL FigXPCMessageGetBoolean(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (!a1)
   {
-    FigXPCMessageGetBoolean_cold_2();
+    FigXPCMessageGetBoolean_cold_2(0, a2, a3, a4, a5, a6, a7, a8, vars0);
     return 0;
   }
 
   if (!a2)
   {
-    FigXPCMessageGetBoolean_cold_1();
+    FigXPCMessageGetBoolean_cold_1(a1, 0, a3, a4, a5, a6, a7, a8, vars0);
     return 0;
   }
 
@@ -6338,7 +6343,7 @@ LABEL_6:
 
 size_t FigXPCMessageCopyFormatDescription2(const __CFAllocator *a1, void *a2, char *a3, void *a4)
 {
-  v15 = 0;
+  v16 = 0;
   cf = 0;
   if (a2)
   {
@@ -6351,8 +6356,8 @@ size_t FigXPCMessageCopyFormatDescription2(const __CFAllocator *a1, void *a2, ch
         v9 = cf;
         if (!BlockBufferDataWithSize && cf)
         {
-          BlockBufferDataWithSize = FigRemote_CreateFormatDescriptionFromSerializedAtomDataBlockBuffer(a1, cf, 0, &v15);
-          v8 = v15;
+          BlockBufferDataWithSize = FigRemote_CreateFormatDescriptionFromSerializedAtomDataBlockBuffer(a1, cf, 0, &v16);
+          v8 = v16;
           v9 = cf;
         }
 
@@ -6365,8 +6370,8 @@ size_t FigXPCMessageCopyFormatDescription2(const __CFAllocator *a1, void *a2, ch
 
       else
       {
-        FigXPCMessageCopyFormatDescription2_cold_1(&v17);
-        return v17;
+        FigXPCMessageCopyFormatDescription2_cold_1(&v18);
+        return v18;
       }
 
       return BlockBufferDataWithSize;
@@ -6381,7 +6386,7 @@ size_t FigXPCMessageCopyFormatDescription2(const __CFAllocator *a1, void *a2, ch
   }
 
   emitter = fig_log_get_emitter("com.apple.coremedia", "");
-  BlockBufferDataWithSize = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFBC80uLL, "<<<< FigXPCUtilities >>>>", v11, v4, v13, v14);
+  BlockBufferDataWithSize = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFBC80uLL, "<<<< FigXPCUtilities >>>>", v11, v4, v13, v14, v15);
   if (a4)
   {
     *a4 = 0;
@@ -6390,30 +6395,30 @@ size_t FigXPCMessageCopyFormatDescription2(const __CFAllocator *a1, void *a2, ch
   return BlockBufferDataWithSize;
 }
 
-BOOL FigXPCConnectionHasEntitlement(uint64_t a1, uint64_t a2)
+BOOL FigXPCConnectionHasEntitlement(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (!a1)
   {
-    FigXPCConnectionHasEntitlement_cold_2();
+    FigXPCConnectionHasEntitlement_cold_2(0, a2, a3, a4, a5, a6, a7, a8, v12);
     return 0;
   }
 
   if (!a2)
   {
-    FigXPCConnectionHasEntitlement_cold_1();
+    FigXPCConnectionHasEntitlement_cold_1(a1, 0, a3, a4, a5, a6, a7, a8, v12);
     return 0;
   }
 
-  v2 = xpc_connection_copy_entitlement_value();
-  if (!v2)
+  v8 = xpc_connection_copy_entitlement_value();
+  if (!v8)
   {
     return 0;
   }
 
-  v3 = v2;
-  v4 = MEMORY[0x19A8DA4F0]() == MEMORY[0x1E69E9E58] && xpc_BOOL_get_value(v3);
-  xpc_release(v3);
-  return v4;
+  v9 = v8;
+  v10 = MEMORY[0x19A8DA4F0]() == MEMORY[0x1E69E9E58] && xpc_BOOL_get_value(v9);
+  xpc_release(v9);
+  return v10;
 }
 
 xpc_object_t FigXPCArrayGetCount(xpc_object_t xarray)
@@ -6495,10 +6500,10 @@ OpaqueCMBlockBuffer *FigXPCMessageAddDataBufferFromCMSampleBuffer(void *a1, CMSa
   return result;
 }
 
-size_t OUTLINED_FUNCTION_4_34(const char *a1, uint64_t *a2, uint64_t a3, const __CFAllocator *a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+size_t OUTLINED_FUNCTION_4_34(const char *a1, uint64_t *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8, CMBlockBufferRef *a9)
 {
 
-  return FigSignalErrorAtGM(a1, a2, 0xFFFFBC80uLL, a4, v8, a6, a7, a8);
+  return FigSignalErrorAtGM(a1, a2, 0xFFFFBC80uLL, a4, v9, a6, a7, a8, a9);
 }
 
 uint64_t OUTLINED_FUNCTION_7_25(OpaqueCMBlockBuffer *a1, uint64_t a2, uint64_t a3, uint64_t a4, char **a5)
@@ -6507,7 +6512,7 @@ uint64_t OUTLINED_FUNCTION_7_25(OpaqueCMBlockBuffer *a1, uint64_t a2, uint64_t a
   return CMBlockBufferGetDataPointer(a1, 0, 0, 0, a5);
 }
 
-uint64_t FigMetricEventTimelineGetClassID()
+uint64_t FigMetricEventTimelineGetClassID(uint64_t a1, uint64_t a2)
 {
   if (sRegisterFigMetricEventTimelineClassIDOnce != -1)
   {
@@ -6517,30 +6522,30 @@ uint64_t FigMetricEventTimelineGetClassID()
   return sFigMetricEventTimelineClassID;
 }
 
-size_t RegisterFigMetricEventTimelineType()
+size_t RegisterFigMetricEventTimelineType(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, CMBlockBufferRef *a9)
 {
   ClassID = CMBaseGetClassID();
 
-  return FigBaseClassRegisterClass(&sFigMetricEventTimelineClassDesc, ClassID, 1, &sFigMetricEventTimelineClassID, v1, v2, v3, v4);
+  return FigBaseClassRegisterClass(&sFigMetricEventTimelineClassDesc, ClassID, 1, &sFigMetricEventTimelineClassID, v10, v11, v12, v13, a9);
 }
 
-uint64_t FigMetricEventTimelineGetTypeID()
+uint64_t FigMetricEventTimelineGetTypeID(uint64_t a1, uint64_t a2)
 {
   if (sRegisterFigMetricEventTimelineClassIDOnce != -1)
   {
     FigMetricEventTimelineGetClassID_cold_1();
   }
 
-  v1 = sFigMetricEventTimelineClassID;
+  v3 = sFigMetricEventTimelineClassID;
 
-  return CMBaseClassGetCFTypeID(v1);
+  return CMBaseClassGetCFTypeID(v3);
 }
 
 size_t FigMetricEventTimelineCreate(uint64_t a1, uint64_t a2, uint64_t *a3, const void *a4, const void *a5, CFTypeRef *a6)
 {
-  v82 = *MEMORY[0x1E69E9840];
+  v83 = *MEMORY[0x1E69E9840];
   cf = 0;
-  ensureMetricEventTrace();
+  ensureMetricEventTrace(a1, a2);
   if (a6)
   {
     if (sRegisterFigMetricEventTimelineClassIDOnce != -1)
@@ -6548,7 +6553,7 @@ size_t FigMetricEventTimelineCreate(uint64_t a1, uint64_t a2, uint64_t *a3, cons
       FigMetricEventTimelineGetClassID_cold_1();
     }
 
-    v19 = CMDerivedObjectCreate(a1, &kigMetricEventTimeline_VTable, sFigMetricEventTimelineClassID, &cf, v15, v16, v17, v18);
+    v19 = CMDerivedObjectCreate(a1, kigMetricEventTimeline_VTable, sFigMetricEventTimelineClassID, &cf, v15, v16, v17, v18, v74);
     if (v19)
     {
       v72 = v19;
@@ -6643,10 +6648,11 @@ size_t FigMetricEventTimelineCreate(uint64_t a1, uint64_t a2, uint64_t *a3, cons
           {
             if (dword_1EAF1CF68)
             {
-              v75 = 0;
+              v76 = 0;
               type = OS_LOG_TYPE_DEFAULT;
-              os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF60, 1, &v75, &type);
-              v68 = v75;
+              os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF60, 1, &v76, &type);
+              v68 = v76;
+              v69 = type;
               if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
               {
                 v70 = v68;
@@ -6659,12 +6665,12 @@ size_t FigMetricEventTimelineCreate(uint64_t a1, uint64_t a2, uint64_t *a3, cons
 
               if (v70)
               {
-                v77 = 136315394;
-                v78 = "FigMetricEventTimelineCreate";
-                v79 = 2048;
-                v80 = cf;
-                v71 = _os_log_send_and_compose_impl();
-                LOBYTE(v68) = v75;
+                v78 = 136315394;
+                v79 = "FigMetricEventTimelineCreate";
+                v80 = 2048;
+                v81 = cf;
+                v71 = _os_log_send_and_compose_impl(v70, 0, v82, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v69, "metricevent %s: %p", &v78, 22);
+                LOBYTE(v68) = v76;
               }
 
               else
@@ -6672,7 +6678,7 @@ size_t FigMetricEventTimelineCreate(uint64_t a1, uint64_t a2, uint64_t *a3, cons
                 v71 = 0;
               }
 
-              fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF60, 1u, 1, v71, v71 != v81, v68, 0, v69);
+              fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF60, 1, 1, v71, v71 != v82, v68);
             }
 
             v72 = 0;
@@ -6680,33 +6686,33 @@ size_t FigMetricEventTimelineCreate(uint64_t a1, uint64_t a2, uint64_t *a3, cons
             return v72;
           }
 
-          FigMetricEventTimelineCreate_cold_2(v81, v60, v61, v62, v63, v64, v65, v66);
+          FigMetricEventTimelineCreate_cold_2(v82, v60, v61, v62, v63, v64, v65, v66);
         }
 
         else
         {
-          FigMetricEventTimelineCreate_cold_3(v81, v52, v53, v54, v55, v56, v57, v58);
+          FigMetricEventTimelineCreate_cold_3(v82, v52, v53, v54, v55, v56, v57, v58);
         }
       }
 
       else
       {
-        FigMetricEventTimelineCreate_cold_4(v81, v42, v43, v44, v45, v46, v47, v48);
+        FigMetricEventTimelineCreate_cold_4(v82, v42, v43, v44, v45, v46, v47, v48);
       }
     }
 
     else
     {
-      FigMetricEventTimelineCreate_cold_5(v81, v28, v29, v30, v31, v32, v33, v34);
+      FigMetricEventTimelineCreate_cold_5(v82, v28, v29, v30, v31, v32, v33, v34);
     }
   }
 
   else
   {
-    FigMetricEventTimelineCreate_cold_6(v81, v12, v13, v14, v15, v16, v17, v18);
+    FigMetricEventTimelineCreate_cold_6(v82, v12, v13, v14, v15, v16, v17, v18);
   }
 
-  v72 = v81[0];
+  v72 = v82[0];
 LABEL_42:
   if (cf)
   {
@@ -6958,7 +6964,7 @@ uint64_t met_publishEvent(const void *a1, const void *a2, const void *a3)
         memset(&v46, 0, sizeof(v46));
         v29 = *(*(CMBaseObjectGetVTable(a1) + 16) + 56);
         v30 = v29 ? v29(a1) : 0;
-        CMTimebaseGetTimeClampedAboveAnchorTime(v30, 0, v25, v26, v27, v28, &v46);
+        CMTimebaseGetTimeClampedAboveAnchorTime(&v46, v30, 0, v25, v26, v27, v28);
         v45 = v46;
         v31 = *(*(CMBaseObjectGetVTable(a3) + 16) + 64);
         if (v31)
@@ -7070,7 +7076,7 @@ size_t met_registerSubscriberDispatch(uint64_t a1)
 
     else
     {
-      result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CF60, 0xFFFFB405uLL, "metricevent", 0x98, v1, v8, v9);
+      result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CF60, 0xFFFFB405uLL, "metricevent", 0x98, v1, v8, v9, v13, *(&v13 + 1));
       if (result)
       {
         goto LABEL_12;
@@ -7274,29 +7280,29 @@ uint64_t FigEndpointXPCRemoteGetSource(uint64_t a1, void *a2)
   return result;
 }
 
-size_t FigEndpointXPCRemoteRetainCopiedEndpoint(const void *a1, void *a2)
+size_t FigEndpointXPCRemoteRetainCopiedEndpoint(CMBlockBufferRef *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, CMBlockBufferRef *a9)
 {
   if (qword_1ED4CDB50 != -1)
   {
     FigEndpointXPCRemoteRetainCopiedEndpoint_cold_1();
   }
 
-  return remoteXPCEndpoint_retainCopiedEndpointForSource(a1, 0, 0, 0, a2);
+  return remoteXPCEndpoint_retainCopiedEndpointForSource(a1, 0, 0, 0, a2, a6, a7, a8, a9);
 }
 
-void *FigEndpointXPCRemoteRetainCopiedEndpointFromArray(void *a1, size_t a2, void *a3, void *a4)
+void *FigEndpointXPCRemoteRetainCopiedEndpointFromArray(void *a1, size_t a2, CMBlockBufferRef **a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, CMBlockBufferRef *a9)
 {
   if (a4)
   {
     value = xpc_array_get_value(a1, a2);
 
-    return FigEndpointXPCRemoteRetainCopiedEndpointFromReply(value, a3, a4);
+    return FigEndpointXPCRemoteRetainCopiedEndpointFromReply(value, a3, a4, v12, v13, v14, v15, v16, a9);
   }
 
   else
   {
-    FigEndpointXPCRemoteRetainCopiedEndpointFromArray_cold_1(&v8);
-    return v8;
+    FigEndpointXPCRemoteRetainCopiedEndpointFromArray_cold_1(&v18);
+    return v18;
   }
 }
 
@@ -7315,8 +7321,8 @@ void *FigEndpointXPCRemoteRetainCopiedEndpointsFromArrayToCFArray(void *a1, __CF
         {
           value = 0;
           v7 = xpc_array_get_value(a1, v6);
-          v8 = FigEndpointXPCRemoteRetainCopiedEndpointFromReply(v7, 0, &value);
-          if (v8)
+          v13 = FigEndpointXPCRemoteRetainCopiedEndpointFromReply(v7, 0, &value, v8, v9, v10, v11, v12, value);
+          if (v13)
           {
             break;
           }
@@ -7333,7 +7339,7 @@ void *FigEndpointXPCRemoteRetainCopiedEndpointsFromArrayToCFArray(void *a1, __CF
           }
         }
 
-        v9 = v8;
+        v14 = v13;
         if (Mutable)
         {
           CFRelease(Mutable);
@@ -7343,25 +7349,25 @@ void *FigEndpointXPCRemoteRetainCopiedEndpointsFromArrayToCFArray(void *a1, __CF
       else
       {
 LABEL_9:
-        v9 = 0;
+        v14 = 0;
         *a2 = Mutable;
       }
     }
 
     else
     {
-      v9 = 0;
+      v14 = 0;
       *a2 = 0;
     }
   }
 
   else
   {
-    FigEndpointXPCRemoteRetainCopiedEndpointsFromArrayToCFArray_cold_1(&v12);
-    return v12;
+    FigEndpointXPCRemoteRetainCopiedEndpointsFromArrayToCFArray_cold_1(&v17);
+    return v17;
   }
 
-  return v9;
+  return v14;
 }
 
 uint64_t remoteXPCEndpointClient_NotificationFilter(uint64_t a1, const void *a2, uint64_t a3, const __CFDictionary *a4)
@@ -7541,7 +7547,7 @@ void *remoteXPCEndpointClient_runCallback(void *result, uint64_t a2, uint64_t a3
   if (result[2])
   {
     v12 = *result;
-    if (!*result || (ClassID = FigEndpointExtendedGetClassID(), !CMBaseObjectIsMemberOfClass(v12, ClassID)))
+    if (!*result || (ClassID = FigEndpointExtendedGetClassID(result, a2), !CMBaseObjectIsMemberOfClass(v12, ClassID)))
     {
       v12 = 0;
     }
@@ -7558,7 +7564,7 @@ void *remoteXPCEndpointClient_runCallback(void *result, uint64_t a2, uint64_t a3
   if (result[3])
   {
     v19 = *result;
-    if (!*result || (v20 = FigEndpointExtendedGetClassID(), !CMBaseObjectIsMemberOfClass(v19, v20)))
+    if (!*result || (v20 = FigEndpointExtendedGetClassID(result, a2), !CMBaseObjectIsMemberOfClass(v19, v20)))
     {
       v19 = 0;
     }
@@ -7766,23 +7772,24 @@ uint64_t __ensureActiveEndpointNotificationsRegistered_block_invoke()
   return notify_register_dispatch("com.apple.coremedia.active-endpoint-changed", &ensureActiveEndpointNotificationsRegistered_notifyToken, v0, &__block_literal_global_28);
 }
 
-size_t __ensureActiveEndpointNotificationsRegistered_block_invoke_2()
+size_t __ensureActiveEndpointNotificationsRegistered_block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, CMBlockBufferRef *a9)
 {
   DefaultLocalCenter = CMNotificationCenterGetDefaultLocalCenter();
 
-  return CMNotificationCenterPostNotification(DefaultLocalCenter, @"Endpoint_ActiveCarPlayEndpointChanged", @"Endpoint_ActiveCarPlayEndpointChanged", 0);
+  return CMNotificationCenterPostNotification(DefaultLocalCenter, @"Endpoint_ActiveCarPlayEndpointChanged", @"Endpoint_ActiveCarPlayEndpointChanged", 0, 0, v10, v11, v12, a9);
 }
 
 void __remoteXPCEndpoint_retainCarPlayDemuxEndpointForSource_block_invoke()
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   qword_1ED4CDB70 = FigSimpleMutexCreate();
   if (!qword_1ED4CDB70)
   {
-    v6[0] = 0;
+    v6 = 0;
     type = OS_LOG_TYPE_DEFAULT;
-    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(0, 0, v6, &type);
-    v1 = v6[0];
+    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(0, 0, &v6, &type);
+    v1 = v6;
+    v2 = type;
     if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
     {
       v3 = v1;
@@ -7795,10 +7802,10 @@ void __remoteXPCEndpoint_retainCarPlayDemuxEndpointForSource_block_invoke()
 
     if (v3)
     {
-      v6[1] = 136315138;
-      v7 = "remoteXPCEndpoint_retainCarPlayDemuxEndpointForSource_block_invoke";
-      v4 = _os_log_send_and_compose_impl();
-      LOBYTE(v1) = v6[0];
+      v7 = 136315138;
+      v8 = "remoteXPCEndpoint_retainCarPlayDemuxEndpointForSource_block_invoke";
+      v4 = _os_log_send_and_compose_impl(v3, 0, v9, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v2, "<< FigEndpointXPCRemote >> %s: Could not create mutex for protecting cached demux endpoint!", &v7);
+      LOBYTE(v1) = v6;
     }
 
     else
@@ -7806,7 +7813,7 @@ void __remoteXPCEndpoint_retainCarPlayDemuxEndpointForSource_block_invoke()
       v4 = 0;
     }
 
-    fig_log_call_emit_and_clean_up_after_send_and_compose(0, 0, 1, v4, v4 != &v8, v1, 0, v2);
+    fig_log_call_emit_and_clean_up_after_send_and_compose(0, 0, 1, v4, v4 != v9, v1);
   }
 }
 
@@ -7861,43 +7868,44 @@ uint64_t remoteXPCFigEndpoint_copyCachedProperty(uint64_t a1, const void *a2, vo
   return result;
 }
 
-uint64_t FigEndpointRemoteXPC_SendData(const void *a1, const void *a2, const void *a3, uint64_t a4, uint64_t a5)
+size_t FigEndpointRemoteXPC_SendData(const void *a1, const void *a2, const void *a3, uint64_t a4, uint64_t a5)
 {
-  FigEndpoint = FigEndpointExtendedGetFigEndpoint();
-  DerivedStorage = CMBaseObjectGetDerivedStorage(FigEndpoint);
-  v20 = 0;
-  *v19 = 0;
+  FigEndpointExtendedGetFigEndpoint();
+  v11 = v10;
+  DerivedStorage = CMBaseObjectGetDerivedStorage(v10);
+  v21 = 0;
+  *v20 = 0;
   if (!a2)
   {
-    v15 = 2145;
+    v16 = 2145;
 LABEL_10:
-    FigEndpointRemoteXPC_SendData_cold_1(v15, &v21);
-    v13 = v21;
+    FigEndpointRemoteXPC_SendData_cold_1(v16, &v22);
+    v14 = v22;
     goto LABEL_11;
   }
 
   if (!a3)
   {
-    v15 = 2146;
+    v16 = 2146;
     goto LABEL_10;
   }
 
-  ObjectID = FigEndpointXPCRemoteGetObjectID(FigEndpoint, &v20);
+  ObjectID = FigEndpointXPCRemoteGetObjectID(v11, &v21);
   if (!ObjectID)
   {
-    ObjectID = FigXPCCreateBasicMessage(0x64617461u, v20, v19);
+    ObjectID = FigXPCCreateBasicMessage(0x64617461u, v21, v20);
     if (!ObjectID)
     {
-      FigXPCMessageSetCFString(*v19, "CommChannelUUID", a2);
-      FigXPCMessageSetCFData(*v19, "Data", a3);
-      v13 = FigEndpointRemoteXPC_sendMessageSynchronouslyExpectingCompletionCallback(FigEndpoint, *v19, 0, 0, a4, a2, 0, 0, 0, a5);
+      FigXPCMessageSetCFString(*v20, "CommChannelUUID", a2);
+      FigXPCMessageSetCFData(*v20, "Data", a3);
+      v14 = FigEndpointRemoteXPC_sendMessageSynchronouslyExpectingCompletionCallback(v11, *v20, 0, 0, a4, a2, 0, 0, 0, a5);
       goto LABEL_6;
     }
   }
 
-  v13 = ObjectID;
+  v14 = ObjectID;
 LABEL_11:
-  if (a4 && v13)
+  if (a4 && v14)
   {
     if (a1)
     {
@@ -7909,25 +7917,25 @@ LABEL_11:
       CFRetain(a2);
     }
 
-    v16 = *(DerivedStorage + 24);
+    v17 = *(DerivedStorage + 24);
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 0x40000000;
     block[2] = __FigEndpointRemoteXPC_SendData_block_invoke;
     block[3] = &__block_descriptor_tmp_41_0;
     block[4] = a4;
     block[5] = a1;
-    v18 = v13;
+    v19 = v14;
     block[6] = a2;
     block[7] = a5;
-    dispatch_async(v16, block);
+    dispatch_async(v17, block);
   }
 
 LABEL_6:
-  FigXPCRelease(*v19);
-  return v13;
+  FigXPCRelease(*v20);
+  return v14;
 }
 
-uint64_t OUTLINED_FUNCTION_5_36(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+size_t OUTLINED_FUNCTION_5_36(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   a10 = 0;
   v11 = *(a1 + 8);
@@ -7935,7 +7943,7 @@ uint64_t OUTLINED_FUNCTION_5_36(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t 
   return remoteXPCFigEndpoint_getSharedXPCClient(v11, &a10);
 }
 
-void OUTLINED_FUNCTION_16_14(NSObject *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char block, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, int a18)
+void OUTLINED_FUNCTION_16_14(NSObject *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t block, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, int a18)
 {
   a15 = v18;
   a16 = v20;
@@ -7945,10 +7953,10 @@ void OUTLINED_FUNCTION_16_14(NSObject *a1, int a2, int a3, int a4, int a5, int a
   dispatch_async(a1, &block);
 }
 
-uint64_t OUTLINED_FUNCTION_17_13(uint64_t a1, uint64_t a2, uint64_t a3)
+void OUTLINED_FUNCTION_17_13()
 {
 
-  return FigXPCRemoteClientKillServerOnTimeout(a1, v3, a3, 0);
+  FigXPCRemoteClientKillServerOnTimeout();
 }
 
 uint64_t OUTLINED_FUNCTION_18_16(uint64_t a1)
@@ -7958,16 +7966,17 @@ uint64_t OUTLINED_FUNCTION_18_16(uint64_t a1)
   return CMBaseObjectGetDerivedStorage(a1);
 }
 
-void OUTLINED_FUNCTION_19_14(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void OUTLINED_FUNCTION_19_14(uint64_t a1, uint64_t a2, uint64_t a3, char *a4)
 {
 
-  fig_log_call_emit_and_clean_up_after_send_and_compose(0, 1u, 1, a4, a4 != v8, v9, 0, a8);
+  fig_log_call_emit_and_clean_up_after_send_and_compose(0, 1, 1, a4, a4 != v4, v5);
 }
 
-uint64_t OUTLINED_FUNCTION_20_13()
+uint64_t OUTLINED_FUNCTION_20_13(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, const char *a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
+  va_start(va, a18);
 
-  return _os_log_send_and_compose_impl();
+  return _os_log_send_and_compose_impl(v20, 0, va, 128, a5, v18, v19, a8);
 }
 
 uint64_t OUTLINED_FUNCTION_21_14(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, __int16 a14, char a15, char a16, int a17)
@@ -7978,14 +7987,14 @@ uint64_t OUTLINED_FUNCTION_21_14(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t
   return fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(0, 1, &a17, &a16);
 }
 
-uint64_t OUTLINED_FUNCTION_23_12(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, xpc_object_t a10, void *a11)
+uint64_t OUTLINED_FUNCTION_23_12(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11)
 {
   v12 = a11;
 
   return FigXPCRemoteClientSendSyncMessageCreatingReply(a9, v12, &a10);
 }
 
-uint64_t OUTLINED_FUNCTION_24_12(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+size_t OUTLINED_FUNCTION_24_12(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   a9 = 0;
   v10 = *(a1 + 8);
@@ -7999,10 +8008,10 @@ BOOL OUTLINED_FUNCTION_27_10(NSObject *a1, int a2, int a3, int a4, int a5, int a
   return os_log_type_enabled(a1, type);
 }
 
-uint64_t OUTLINED_FUNCTION_28_10(uint64_t a1, uint64_t a2, uint64_t a3)
+void OUTLINED_FUNCTION_28_10()
 {
 
-  return FigXPCRemoteClientKillServerOnTimeout(a1, v3, a3, 0);
+  FigXPCRemoteClientKillServerOnTimeout();
 }
 
 uint64_t OUTLINED_FUNCTION_29_8()
@@ -8011,7 +8020,7 @@ uint64_t OUTLINED_FUNCTION_29_8()
   return FigCFEqual(v0, v1);
 }
 
-uint64_t FigEndpointAudioSourceGetClassID()
+uint64_t FigEndpointAudioSourceGetClassID(uint64_t a1, uint64_t a2)
 {
   if (_MergedGlobals_68 != -1)
   {
@@ -8021,41 +8030,41 @@ uint64_t FigEndpointAudioSourceGetClassID()
   return qword_1ED4CDBB0;
 }
 
-size_t source_getClassID(void *a1)
+size_t source_getClassID(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, CMBlockBufferRef *a9)
 {
   ClassID = CMBaseGetClassID();
 
-  return FigBaseClassRegisterClass(&source_getClassID_sClassDesc, ClassID, 1, a1, v3, v4, v5, v6);
+  return FigBaseClassRegisterClass(&source_getClassID_sClassDesc, ClassID, 1, a1, v11, v12, v13, v14, a9);
 }
 
-uint64_t FigEndpointAudioSourceGetTypeID()
+uint64_t FigEndpointAudioSourceGetTypeID(uint64_t a1, uint64_t a2)
 {
   if (_MergedGlobals_68 != -1)
   {
     FigEndpointAudioSourceGetClassID_cold_1();
   }
 
-  v1 = qword_1ED4CDBB0;
+  v3 = qword_1ED4CDBB0;
 
-  return CMBaseClassGetCFTypeID(v1);
+  return CMBaseClassGetCFTypeID(v3);
 }
 
 size_t FigEndpointStartServerEx(const char *a1)
 {
-  v10[0] = 1;
-  v10[1] = HandleEndpointRemoteMessage;
-  v10[2] = HandleNoReplyEndpointMessage;
-  memset(&v10[3], 0, 24);
+  v14[0] = 1;
+  v14[1] = HandleEndpointRemoteMessage;
+  v14[2] = HandleNoReplyEndpointMessage;
+  memset(&v14[3], 0, 24);
   if (!a1)
   {
-    FigEndpointStartServerEx_cold_2(&v11);
-    return v11;
+    FigEndpointStartServerEx_cold_2(&v15);
+    return v15;
   }
 
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
   FigCFDictionarySetInt32(Mutable, @"xpcServerOption_SelfTerminationTimeout", 30, v3, v4, v5, v6, v7);
-  v8 = FigXPCServerStart(a1, v10, Mutable, &_MergedGlobals_69);
-  if (!v8)
+  v12 = FigXPCServerStart(a1, v14, Mutable, &_MergedGlobals_69, v8, v9, v10, v11);
+  if (!v12)
   {
     qword_1ED4CDBC0 = 2 * (strcmp(a1, "com.apple.airplay.endpoint.xpc") == 0);
     if (qword_1ED4CDBC8 != -1)
@@ -8063,7 +8072,7 @@ size_t FigEndpointStartServerEx(const char *a1)
       FigEndpointStartServerEx_cold_1();
       if (!Mutable)
       {
-        return v8;
+        return v12;
       }
 
       goto LABEL_5;
@@ -8076,25 +8085,25 @@ LABEL_5:
     CFRelease(Mutable);
   }
 
-  return v8;
+  return v12;
 }
 
-size_t FigEndpointStartServer()
+size_t FigEndpointStartServer(uint64_t a1, uint64_t a2)
 {
-  if (FigIsAirplaydEnabled())
+  if (FigIsAirplaydEnabled(a1, a2))
   {
-    v0 = "com.apple.mediaexperience.endpoint.xpc";
+    v2 = "com.apple.mediaexperience.endpoint.xpc";
   }
 
   else
   {
-    v0 = "com.apple.coremedia.endpoint.xpc";
+    v2 = "com.apple.coremedia.endpoint.xpc";
   }
 
-  return FigEndpointStartServerEx(v0);
+  return FigEndpointStartServerEx(v2);
 }
 
-const char *FigEndpointXPCServerNameForSource(uint64_t a1)
+const char *FigEndpointXPCServerNameForSource(uint64_t a1, uint64_t a2)
 {
   if (a1 == 2)
   {
@@ -8106,7 +8115,7 @@ const char *FigEndpointXPCServerNameForSource(uint64_t a1)
     return 0;
   }
 
-  if (FigIsAirplaydEnabled())
+  if (FigIsAirplaydEnabled(a1, a2))
   {
     return "com.apple.mediaexperience.endpoint.xpc";
   }
@@ -8137,50 +8146,50 @@ void FigEndpointServerSetActiveEndpoint(CFTypeRef cf)
 
 uint64_t FigXPCEndpointServerAssociateNeighborFigEndpointWithRegistration(uint64_t a1, CFTypeRef cf, uint64_t a3)
 {
-  if (cf && (v6 = CFGetTypeID(cf), v6 == FigEndpointGetTypeID()))
+  if (cf && (v6 = CFGetTypeID(cf), v6 == FigEndpointGetTypeID(v6, v7)))
   {
-    v7 = _MergedGlobals_69;
+    v8 = _MergedGlobals_69;
 
-    return FigXPCServerAssociateCopiedObjectWithNeighborProcess(v7, a1, cf, 0, 0, 0, a3);
+    return FigXPCServerAssociateCopiedObjectWithNeighborProcess(v8, a1, cf, 0, 0, 0, a3);
   }
 
   else
   {
-    FigXPCEndpointServerAssociateNeighborFigEndpointWithRegistration_cold_1(&v9);
-    return v9;
+    FigXPCEndpointServerAssociateNeighborFigEndpointWithRegistration_cold_1(&v10);
+    return v10;
   }
 }
 
-uint64_t FigXPCEndpointServerRetainEndpointForID(void *a1, CFTypeRef *a2)
+uint64_t FigXPCEndpointServerRetainEndpointForID(uint64_t a1, CFTypeRef *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v3 = FigXPCServerRetainNeighborObjectFromID(_MergedGlobals_69, a1, a2);
-  if (v3)
+  v9 = FigXPCServerRetainNeighborObjectFromID(_MergedGlobals_69, a1, a2, a4, a5, a6, a7, a8);
+  if (v9)
   {
-    v5 = v3;
+    v12 = v9;
   }
 
   else
   {
     if (*a2)
     {
-      v4 = CFGetTypeID(*a2);
-      if (v4 == FigEndpointGetTypeID())
+      v10 = CFGetTypeID(*a2);
+      if (v10 == FigEndpointGetTypeID(v10, v11))
       {
         return 0;
       }
     }
 
-    FigXPCEndpointServerRetainEndpointForID_cold_1(&v7);
-    v5 = v7;
+    FigXPCEndpointServerRetainEndpointForID_cold_1(&v14);
+    v12 = v14;
   }
 
-  if (a2 && v5 && *a2)
+  if (a2 && v12 && *a2)
   {
     CFRelease(*a2);
     *a2 = 0;
   }
 
-  return v5;
+  return v12;
 }
 
 size_t LookupEndpointByObjectIDForConnection(_xpc_connection_s *a1, uint64_t a2, CFTypeRef *a3, void *a4)
@@ -8189,7 +8198,7 @@ size_t LookupEndpointByObjectIDForConnection(_xpc_connection_s *a1, uint64_t a2,
   v5 = FigXPCServerLookupAndRetainAssociatedObject(a1, a2, &cf, a4);
   if (v5)
   {
-    v7 = v5;
+    v8 = v5;
   }
 
   else
@@ -8197,16 +8206,16 @@ size_t LookupEndpointByObjectIDForConnection(_xpc_connection_s *a1, uint64_t a2,
     if (cf)
     {
       v6 = CFGetTypeID(cf);
-      if (v6 == FigEndpointGetTypeID())
+      if (v6 == FigEndpointGetTypeID(v6, v7))
       {
-        v7 = 0;
+        v8 = 0;
         *a3 = cf;
-        return v7;
+        return v8;
       }
     }
 
-    LookupEndpointByObjectIDForConnection_cold_1(&v10);
-    v7 = v10;
+    LookupEndpointByObjectIDForConnection_cold_1(&v11);
+    v8 = v11;
   }
 
   if (cf)
@@ -8214,7 +8223,7 @@ size_t LookupEndpointByObjectIDForConnection(_xpc_connection_s *a1, uint64_t a2,
     CFRelease(cf);
   }
 
-  return v7;
+  return v8;
 }
 
 uint64_t HandleEndpointCreatePlaybackSessionMessage(uint64_t a1, uint64_t a2, void *a3)
@@ -8264,72 +8273,80 @@ LABEL_7:
 
 uint64_t HandleEndpointAcquireAndCopyResourceMessage(char *a1, uint64_t a2, void *a3, void *a4)
 {
-  v22 = 0;
+  v25 = 0;
   cf = 0;
   value = 0;
-  v21 = 0;
+  v24 = 0;
   v8 = FigXPCMessageCopyCFString(a3, "ResourceType", &cf);
   if (v8)
   {
     goto LABEL_26;
   }
 
-  v8 = FigXPCMessageCopyCFDictionary(a3, "ResourceOptions", &v22);
+  v8 = FigXPCMessageCopyCFDictionary(a3, "ResourceOptions", &v25);
   if (v8)
   {
     goto LABEL_26;
   }
 
-  if (!a1 || (ClassID = FigEndpointExtendedGetClassID(), v10 = a1, !CMBaseObjectIsMemberOfClass(a1, ClassID)))
+  if (!a1 || (ClassID = FigEndpointExtendedGetClassID(v8, v9), v11 = a1, !CMBaseObjectIsMemberOfClass(a1, ClassID)))
   {
-    v10 = 0;
+    v11 = 0;
   }
 
-  v12 = v22;
-  v11 = cf;
-  v13 = *(*(CMBaseObjectGetVTable(v10) + 24) + 128);
-  if (!v13)
+  v13 = v25;
+  v12 = cf;
+  VTable = CMBaseObjectGetVTable(v11);
+  v15 = *(VTable + 24);
+  v8 = VTable + 24;
+  v16 = *(v15 + 128);
+  if (!v16)
   {
-    v14 = 4294954514;
+    v17 = 4294954514;
     goto LABEL_12;
   }
 
-  v8 = v13(v10, v11, v12, &v21);
+  v8 = v16(v11, v12, v13, &v24);
   if (v8)
   {
 LABEL_26:
-    v14 = v8;
-  }
-
-  else if (FigCFEqual(cf, @"endpointStream"))
-  {
-    v14 = FigXPCEndpointStreamServerAssociateCopiedNeighborFigEndpointStream(a2, v21, &value);
-    if (!v14)
-    {
-      xpc_dictionary_set_uint64(a4, "ResourceID", value);
-      goto LABEL_18;
-    }
+    v17 = v8;
   }
 
   else
   {
-    v14 = 4294950570;
+    v8 = FigCFEqual(cf, @"endpointStream");
+    if (v8)
+    {
+      v8 = FigXPCEndpointStreamServerAssociateCopiedNeighborFigEndpointStream(a2, v24, &value);
+      v17 = v8;
+      if (!v8)
+      {
+        xpc_dictionary_set_uint64(a4, "ResourceID", value);
+        goto LABEL_18;
+      }
+    }
+
+    else
+    {
+      v17 = 4294950570;
+    }
   }
 
 LABEL_12:
-  if (v21)
+  if (v24)
   {
-    if (!a1 || (v15 = FigEndpointExtendedGetClassID(), !CMBaseObjectIsMemberOfClass(a1, v15)))
+    if (!a1 || (v18 = FigEndpointExtendedGetClassID(v8, v9), !CMBaseObjectIsMemberOfClass(a1, v18)))
     {
       a1 = 0;
     }
 
-    v16 = cf;
-    v17 = v21;
-    v18 = *(*(CMBaseObjectGetVTable(a1) + 24) + 136);
-    if (v18)
+    v19 = cf;
+    v20 = v24;
+    v21 = *(*(CMBaseObjectGetVTable(a1) + 24) + 136);
+    if (v21)
     {
-      v18(a1, v16, v17);
+      v21(a1, v19, v20);
     }
   }
 
@@ -8339,17 +8356,17 @@ LABEL_18:
     CFRelease(cf);
   }
 
-  if (v22)
+  if (v25)
   {
-    CFRelease(v22);
+    CFRelease(v25);
   }
 
-  if (v21)
+  if (v24)
   {
-    CFRelease(v21);
+    CFRelease(v24);
   }
 
-  return v14;
+  return v17;
 }
 
 uint64_t HandleEndpointDissociateMessage(uint64_t a1)
@@ -8363,7 +8380,7 @@ uint64_t HandleEndpointDissociateMessage(uint64_t a1)
   return v2(a1);
 }
 
-uint64_t HandleEndpointAddRemoveEndpointMessage(char *a1, int a2, _xpc_connection_s *a3, void *a4)
+uint64_t HandleEndpointAddRemoveEndpointMessage(char *a1, uint64_t a2, _xpc_connection_s *a3, void *a4)
 {
   v19 = 0;
   cf = 0;
@@ -8372,7 +8389,8 @@ uint64_t HandleEndpointAddRemoveEndpointMessage(char *a1, int a2, _xpc_connectio
     return 4294950576;
   }
 
-  ClassID = FigEndpointAggregateGetClassID();
+  v6 = a2;
+  ClassID = FigEndpointAggregateGetClassID(a1, a2);
   if (CMBaseObjectIsMemberOfClass(a1, ClassID))
   {
     v9 = FigXPCMessageCopyCFDictionary(a4, "AggregateOptions", &cf);
@@ -8402,7 +8420,7 @@ uint64_t HandleEndpointAddRemoveEndpointMessage(char *a1, int a2, _xpc_connectio
     }
 
     v15 = *(CMBaseObjectGetVTable(a1) + 32);
-    if (a2)
+    if (v6)
     {
       v16 = *(v15 + 8);
       if (v16)
@@ -8503,11 +8521,11 @@ __CFString *delegateCallbackParameters_CopyDebugDesc(uint64_t a1)
 void SendHandleAuthRequiredCallback(const void *a1, void *a2, uint64_t a3, uint64_t a4, const void *a5, void (*a6)(const void *, void, uint64_t, uint64_t), uint64_t a7)
 {
   xdict = 0;
-  if (!a4 || FigXPCCreateBasicMessage(0x72746463u, *(a4 + 16), &xdict) || a2 && FigEndpointXPCServerWriteNeighborEndpointToReply(*(a4 + 24), a2, xdict, 0))
+  if (!a4 || FigXPCCreateBasicMessage(0x72746463u, *(a4 + 16), &xdict) || a2 && FigEndpointXPCServerWriteNeighborEndpointToReply(*(a4 + 24), a2, xdict, 0, a5, v14, v15, v16, v18))
   {
     if (a6)
     {
-      a6(a1, 0, 4294950568, a7);
+      (a6)(a1, 0, 4294950568, a7, a5);
     }
   }
 
@@ -8522,7 +8540,7 @@ void SendHandleAuthRequiredCallback(const void *a1, void *a2, uint64_t a3, uint6
       CFRetain(a5);
     }
 
-    v14 = *(a4 + 24);
+    v17 = *(a4 + 24);
     handler[0] = MEMORY[0x1E69E9820];
     handler[1] = 0x40000000;
     handler[2] = __SendHandleAuthRequiredCallback_block_invoke;
@@ -8531,7 +8549,7 @@ void SendHandleAuthRequiredCallback(const void *a1, void *a2, uint64_t a3, uint6
     handler[5] = a1;
     handler[6] = a7;
     handler[7] = a5;
-    xpc_connection_send_message_with_reply(v14, xdict, 0, handler);
+    xpc_connection_send_message_with_reply(v17, xdict, 0, handler);
   }
 
   FigXPCRelease(xdict);
@@ -8583,20 +8601,20 @@ void *CreateCompletionCallbackParametersFromMessageAndConnection_1(void *a1, voi
 
   v5 = uint64;
   v6 = malloc_type_calloc(1uLL, 0x18uLL, 0x10200403ED2C137uLL);
-  v7 = v6;
+  v14 = v6;
   if (v6)
   {
     *v6 = v5;
     v6[1] = xpc_dictionary_get_uint64(a1, ".objectID");
-    v7[2] = FigXPCRetain(a2);
+    v14[2] = FigXPCRetain(a2);
   }
 
   else
   {
-    CreateCompletionCallbackParametersFromMessageAndConnection_cold_1_1();
+    CreateCompletionCallbackParametersFromMessageAndConnection_cold_1_1(0, v7, v8, v9, v10, v11, v12, v13, v16);
   }
 
-  return v7;
+  return v14;
 }
 
 void DisposeEndpointRefCon(uint64_t a1)
@@ -8692,7 +8710,7 @@ LABEL_8:
   }
 }
 
-uint64_t OUTLINED_FUNCTION_17_14(void *a1)
+uint64_t OUTLINED_FUNCTION_17_14(char *a1)
 {
 
   return CMBaseObjectIsMemberOfClass(v1, a1);
@@ -8704,7 +8722,7 @@ uint64_t OUTLINED_FUNCTION_22_12()
   return CMBaseObjectGetVTable(v0);
 }
 
-void OUTLINED_FUNCTION_27_11(NSObject *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char block, uint64_t a15, uint64_t a16, uint64_t a17, char *a18, char a19)
+void OUTLINED_FUNCTION_27_11(NSObject *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t block, uint64_t a15, uint64_t a16, uint64_t a17, char *a18, char a19)
 {
   a16 = v20;
   a17 = v19;
@@ -8713,11 +8731,11 @@ void OUTLINED_FUNCTION_27_11(NSObject *a1, int a2, int a3, int a4, int a5, int a
   dispatch_sync(a1, &block);
 }
 
-size_t RegisterFigNetworkHistoryObserverType()
+size_t RegisterFigNetworkHistoryObserverType(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, CMBlockBufferRef *a9)
 {
   ClassID = CMBaseGetClassID();
 
-  return FigBaseClassRegisterClass(&sFigNetworkHistoryObserverClassDesc, ClassID, 1, &sFigNetworkHistoryObserverClassID, v1, v2, v3, v4);
+  return FigBaseClassRegisterClass(&sFigNetworkHistoryObserverClassDesc, ClassID, 1, &sFigNetworkHistoryObserverClassID, v10, v11, v12, v13, a9);
 }
 
 uint64_t FigNetworkHistoryObserverGetCFTypeID()
@@ -8728,7 +8746,7 @@ uint64_t FigNetworkHistoryObserverGetCFTypeID()
   return CMBaseClassGetCFTypeID(v0);
 }
 
-size_t FigNetworkHistoryObserverCreate(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5, CFTypeRef *a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+size_t FigNetworkHistoryObserverCreate(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5, CFTypeRef *a6, size_t a7, CMBlockBufferFlags a8)
 {
   cf = 0;
   if (a6)
@@ -8740,7 +8758,7 @@ size_t FigNetworkHistoryObserverCreate(uint64_t a1, const void *a2, uint64_t a3,
         if (a4)
         {
           FigThreadRunOnce(&FigNetworkHistoryObserverGetClassID_sRegisterFigNetworkHistoryObserverTypeOnce, RegisterFigNetworkHistoryObserverType);
-          v25 = CMDerivedObjectCreate(a1, &kFigNetworkHistoryObserverVTable, sFigNetworkHistoryObserverClassID, &cf, v14, v15, v16, v17);
+          v25 = CMDerivedObjectCreate(a1, kFigNetworkHistoryObserverVTable, sFigNetworkHistoryObserverClassID, &cf, v14, v15, v16, v17, cf);
           if (cf)
           {
             DerivedStorage = CMBaseObjectGetDerivedStorage(cf);
@@ -8803,88 +8821,88 @@ size_t FigNetworkHistoryObserverCreate(uint64_t a1, const void *a2, uint64_t a3,
 
                             *(DerivedStorage + 96) = 0x10000000000000;
                             DefaultLocalCenter = CMNotificationCenterGetDefaultLocalCenter();
-                            FigNotificationCenterAddWeakListener(DefaultLocalCenter, cf, fnho_networkHistoryBecameActiveHandler, @"NetworkHistoryNotification_NetworkBecameActive", *(DerivedStorage + 56), 0, 0);
-                            v95 = CMNotificationCenterGetDefaultLocalCenter();
-                            FigNotificationCenterAddWeakListener(v95, cf, fnho_networkHistoryBecameInactiveHandler, @"NetworkHistoryNotification_NetworkBecameInactive", *(DerivedStorage + 56), 0, 0);
+                            FigNotificationCenterAddWeakListener(DefaultLocalCenter, cf, fnho_networkHistoryBecameActiveHandler, @"NetworkHistoryNotification_NetworkBecameActive", *(DerivedStorage + 56), 0, 0, v95, cf);
+                            v96 = CMNotificationCenterGetDefaultLocalCenter();
+                            FigNotificationCenterAddWeakListener(v96, cf, fnho_networkHistoryBecameInactiveHandler, @"NetworkHistoryNotification_NetworkBecameInactive", *(DerivedStorage + 56), 0, 0, v97, cf);
                             *a6 = cf;
                             return v25;
                           }
 
-                          FigNetworkHistoryObserverCreate_cold_1(&v98, v86, v87, v88, v89, v90, v91, v92);
+                          FigNetworkHistoryObserverCreate_cold_1(&v100, v86, v87, v88, v89, v90, v91, v92);
                         }
 
                         else
                         {
-                          FigNetworkHistoryObserverCreate_cold_2(&v98, v78, v79, v80, v81, v82, v83, v84);
+                          FigNetworkHistoryObserverCreate_cold_2(&v100, v78, v79, v80, v81, v82, v83, v84);
                         }
                       }
 
                       else
                       {
-                        FigNetworkHistoryObserverCreate_cold_3(&v98, v70, v71, v72, v73, v74, v75, v76);
+                        FigNetworkHistoryObserverCreate_cold_3(&v100, v70, v71, v72, v73, v74, v75, v76);
                       }
                     }
 
                     else
                     {
-                      FigNetworkHistoryObserverCreate_cold_4(&v98, v62, v63, v64, v65, v66, v67, v68);
+                      FigNetworkHistoryObserverCreate_cold_4(&v100, v62, v63, v64, v65, v66, v67, v68);
                     }
                   }
 
                   else
                   {
-                    FigNetworkHistoryObserverCreate_cold_5(&v98, v54, v55, v56, v57, v58, v59, v60);
+                    FigNetworkHistoryObserverCreate_cold_5(&v100, v54, v55, v56, v57, v58, v59, v60);
                   }
                 }
 
                 else
                 {
-                  FigNetworkHistoryObserverCreate_cold_6(&v98, v45, v46, v47, v48, v49, v50, v51);
+                  FigNetworkHistoryObserverCreate_cold_6(&v100, v45, v46, v47, v48, v49, v50, v51);
                 }
               }
 
               else
               {
-                FigNetworkHistoryObserverCreate_cold_7(&v98, v37, v38, v39, v40, v41, v42, v43);
+                FigNetworkHistoryObserverCreate_cold_7(&v100, v37, v38, v39, v40, v41, v42, v43);
               }
             }
 
             else
             {
-              FigNetworkHistoryObserverCreate_cold_8(&v98, v28, v29, v30, v31, v32, v33, v34);
+              FigNetworkHistoryObserverCreate_cold_8(&v100, v28, v29, v30, v31, v32, v33, v34);
             }
           }
 
           else
           {
-            FigNetworkHistoryObserverCreate_cold_9(&v98, v18, v19, v20, v21, v22, v23, v24);
+            FigNetworkHistoryObserverCreate_cold_9(&v100, v18, v19, v20, v21, v22, v23, v24);
           }
         }
 
         else
         {
-          FigNetworkHistoryObserverCreate_cold_10(&v98, a2, a3, 0, a5, a6, a7, a8);
+          FigNetworkHistoryObserverCreate_cold_10(&v100, a2, a3, 0, a5, a6, a7, a8);
         }
       }
 
       else
       {
-        FigNetworkHistoryObserverCreate_cold_11(&v98, 0, a3, a4, a5, a6, a7, a8);
+        FigNetworkHistoryObserverCreate_cold_11(&v100, 0, a3, a4, a5, a6, a7, a8);
       }
     }
 
     else
     {
-      FigNetworkHistoryObserverCreate_cold_12(&v98, a2, a3, a4, 0, a6, a7, a8);
+      FigNetworkHistoryObserverCreate_cold_12(&v100, a2, a3, a4, 0, a6, a7, a8);
     }
   }
 
   else
   {
-    FigNetworkHistoryObserverCreate_cold_13(&v98, a2, a3, a4, a5, 0, a7, a8);
+    FigNetworkHistoryObserverCreate_cold_13(&v100, a2, a3, a4, a5, 0, a7, a8);
   }
 
-  v25 = v98;
+  v25 = v100;
   if (cf)
   {
     CFRelease(cf);
@@ -8982,12 +9000,12 @@ BOOL FigNetworkHistoryObserverTestCondition(uint64_t a1, const void *a2)
 BOOL fnho_testCondition(uint64_t a1, uint64_t a2, void *a3)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage(a1);
-  v46 = 0;
-  v44 = 0u;
+  v47 = 0;
   v45 = 0u;
-  v42 = 0u;
+  v46 = 0u;
   v43 = 0u;
-  v41 = 0u;
+  v44 = 0u;
+  v42 = 0u;
   v7 = *(DerivedStorage + 64);
   v8 = *(DerivedStorage + 96);
   if (v8 <= 2.22507386e-308)
@@ -9002,28 +9020,28 @@ BOOL fnho_testCondition(uint64_t a1, uint64_t a2, void *a3)
 
   valuePtr = 0;
   v10 = *(a2 + 192);
-  v37 = *(a2 + 176);
-  v38 = v10;
+  v38 = *(a2 + 176);
+  v39 = v10;
   v11 = *(a2 + 224);
-  v39 = *(a2 + 208);
-  v40 = v11;
+  v40 = *(a2 + 208);
+  v41 = v11;
   v12 = *(a2 + 128);
-  v33 = *(a2 + 112);
-  v34 = v12;
+  v34 = *(a2 + 112);
+  v35 = v12;
   v13 = *(a2 + 160);
-  v35 = *(a2 + 144);
-  v36 = v13;
+  v36 = *(a2 + 144);
+  v37 = v13;
   v14 = *(a2 + 64);
-  v29 = *(a2 + 48);
-  v30 = v14;
+  v30 = *(a2 + 48);
+  v31 = v14;
   v15 = *(a2 + 96);
-  v31 = *(a2 + 80);
-  v32 = v15;
+  v32 = *(a2 + 80);
+  v33 = v15;
   v16 = *(a2 + 32);
-  v27 = *(a2 + 16);
-  v28 = v16;
+  v28 = *(a2 + 16);
+  v29 = v16;
   v17 = *(*(CMBaseObjectGetVTable(v7) + 16) + 8);
-  if (!v17 || (v47[10] = v37, v47[11] = v38, v47[12] = v39, v47[13] = v40, v47[6] = v33, v47[7] = v34, v47[8] = v35, v47[9] = v36, v47[2] = v29, v47[3] = v30, v47[4] = v31, v47[5] = v32, v47[0] = v27, v47[1] = v28, v17(v7, UpTimeNanoseconds, v47, &v41)) || (valuePtr = (*(&v42 + 1) * v41), (v18 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberSInt64Type, &valuePtr)) == 0))
+  if (!v17 || (v48[10] = v38, v48[11] = v39, v48[12] = v40, v48[13] = v41, v48[6] = v34, v48[7] = v35, v48[8] = v36, v48[9] = v37, v48[2] = v30, v48[3] = v31, v48[4] = v32, v48[5] = v33, v48[0] = v28, v48[1] = v29, v17(v7, UpTimeNanoseconds, v48, &v42)) || (valuePtr = (*(&v43 + 1) * v42), (v18 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberSInt64Type, &valuePtr)) == 0))
   {
     v23 = 0;
     if (!a3)
@@ -9042,9 +9060,9 @@ BOOL fnho_testCondition(uint64_t a1, uint64_t a2, void *a3)
   {
     if (v22 == 5)
     {
-      *&v47[0] = 0;
-      CFNumberGetValue(*a2, kCFNumberSInt64Type, v47);
-      v23 = valuePtr >= *&v47[0];
+      *&v48[0] = 0;
+      CFNumberGetValue(*a2, kCFNumberSInt64Type, v48);
+      v23 = valuePtr >= *&v48[0];
       if (!a3)
       {
         goto LABEL_18;
@@ -9053,7 +9071,7 @@ BOOL fnho_testCondition(uint64_t a1, uint64_t a2, void *a3)
 
     else
     {
-      FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CDC0, 0xFFFFC1A8uLL, "<<<< FigNetworkHistoryObserver >>>>", 0x119, v3, v19, v20);
+      FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CDC0, 0xFFFFC1A8uLL, "<<<< FigNetworkHistoryObserver >>>>", 0x119, v3, v19, v20, v26);
       v23 = 0;
       if (!a3)
       {
@@ -9064,9 +9082,9 @@ BOOL fnho_testCondition(uint64_t a1, uint64_t a2, void *a3)
     goto LABEL_16;
   }
 
-  *&v47[0] = 0;
-  CFNumberGetValue(*a2, kCFNumberSInt64Type, v47);
-  v23 = valuePtr <= *&v47[0];
+  *&v48[0] = 0;
+  CFNumberGetValue(*a2, kCFNumberSInt64Type, v48);
+  v23 = valuePtr <= *&v48[0];
   if (a3)
   {
 LABEL_16:
@@ -9099,7 +9117,7 @@ uint64_t FigNetworkHistoryObserverSetTimeForUnitTest(uint64_t a1, double a2)
   return FigSimpleMutexUnlock(v4);
 }
 
-uint64_t fnho_finalize(const void *a1)
+void fnho_finalize(const void *a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage(a1);
   DefaultLocalCenter = CMNotificationCenterGetDefaultLocalCenter();
@@ -9150,9 +9168,9 @@ uint64_t fnho_finalize(const void *a1)
   }
 
   FigSimpleMutexDestroy(*DerivedStorage);
-  v12 = CMNotificationCenterGetDefaultLocalCenter();
+  CMNotificationCenterGetDefaultLocalCenter();
 
-  return FigNotificationCenterCheckWeakListenersWereRemovedBeforeFinalization(v12, a1);
+  FigNotificationCenterCheckWeakListenersWereRemovedBeforeFinalization();
 }
 
 CFStringRef fnho_copyDebugDescription(uint64_t a1)
@@ -9193,7 +9211,7 @@ void fnho_dispatchObserverConditionFn(void *a1)
   free(a1);
 }
 
-uint64_t FigAudioRenderingPreferencesGetTypeID()
+uint64_t FigAudioRenderingPreferencesGetTypeID(uint64_t a1, uint64_t a2)
 {
   if (_MergedGlobals_70 != -1)
   {
@@ -9210,7 +9228,7 @@ uint64_t RegisterAudioRenderingPreferencesType(uint64_t *a1)
   return result;
 }
 
-uint64_t FigAudioRenderingPreferencesCreate(uint64_t a1, uint64_t a2, unint64_t a3, _DWORD *a4, void *a5)
+uint64_t FigAudioRenderingPreferencesCreate(uint64_t AudioChannelCountFromLayout, uint64_t a2, size_t a3, _DWORD *a4, void *a5)
 {
   if (!a5)
   {
@@ -9273,33 +9291,33 @@ uint64_t FigAudioRenderingPreferencesCreate(uint64_t a1, uint64_t a2, unint64_t 
   return result;
 }
 
-uint64_t FigAudioRenderingPreferencesGetMaximumChannelCountAndPreferredChannelLayout(uint64_t a1, void *a2, void *a3)
+uint64_t FigAudioRenderingPreferencesGetMaximumChannelCountAndPreferredChannelLayout(uint64_t a1, void *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (a1)
   {
-    v3 = *(a1 + 24);
+    v9 = *(a1 + 24);
     if (a2)
     {
-      *a2 = v3;
+      *a2 = v9;
     }
 
-    if (v3)
+    if (v9)
     {
-      v4 = a1 + 32;
+      v10 = a1 + 32;
     }
 
     else
     {
-      v4 = 0;
+      v10 = 0;
     }
 
-    *a3 = v4;
+    *a3 = v10;
     return *(a1 + 16);
   }
 
   else
   {
-    FigAudioRenderingPreferencesGetMaximumChannelCountAndPreferredChannelLayout_cold_1();
+    FigAudioRenderingPreferencesGetMaximumChannelCountAndPreferredChannelLayout_cold_1(a1, a2, a3, a4, a5, a6, a7, a8, v8);
     return 0;
   }
 }
@@ -9331,7 +9349,7 @@ CFStringRef audioRenderingPreferences_CopyDebugDesc(void *cf)
   return v4;
 }
 
-uint64_t FigMetricEventTimelineClientServerXPC_SerializeEvent(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+uint64_t FigMetricEventTimelineClientServerXPC_SerializeEvent(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
   if (a3)
   {
@@ -9378,7 +9396,7 @@ uint64_t FigMetricEventTimelineClientServerXPC_SerializeEvent(void *a1, uint64_t
   }
 }
 
-size_t FigMetricEventTimelineClientServerXPC_DeserializeAndCopyEvent(void *a1, CFTypeRef *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+size_t FigMetricEventTimelineClientServerXPC_DeserializeAndCopyEvent(void *a1, CFTypeRef *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
   cf = 0;
   if (!a2)
@@ -9427,35 +9445,35 @@ uint64_t FigNotificationCenterSupportInitOnce()
   return result;
 }
 
-uint64_t FigNotificationCenterAddListeners(__CFNotificationCenter *a1, const void *a2, uint64_t a3, uint64_t a4, void *a5)
+uint64_t FigNotificationCenterAddListeners(__CFNotificationCenter *a1, const void *a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6)
 {
   if (!a4)
   {
     return 0;
   }
 
-  v10 = 0;
-  v11 = (a3 + 8);
+  v11 = 0;
+  v12 = (a3 + 8);
   for (i = a3; ; i += 16)
   {
-    v13 = *(v11 - 1) ? *(v11 - 1) : 0;
-    v14 = CMNotificationCenterAddListener(a1, a2, v13, **v11, a5);
-    if (v14)
+    v14 = *(v12 - 1) ? *(v12 - 1) : 0;
+    v15 = CMNotificationCenterAddListener(a1, a2, v14, **v12, a5);
+    if (v15)
     {
       break;
     }
 
-    ++v10;
-    v11 += 2;
-    if (a4 == v10)
+    ++v11;
+    v12 += 2;
+    if (a4 == v11)
     {
       return 0;
     }
   }
 
-  v15 = v14;
-  FigNotificationCenterRemoveListeners(a1, a2, a3, v10, a5);
-  return v15;
+  v16 = v15;
+  FigNotificationCenterRemoveListeners(a1, a2, a3, v11, a5);
+  return v16;
 }
 
 uint64_t FigNotificationCenterRemoveListeners(__CFNotificationCenter *a1, const void *a2, uint64_t a3, uint64_t a4, void *object)
@@ -9538,7 +9556,7 @@ void figPowerLogOpenFramework()
   }
 }
 
-uint64_t FigCFWeakReferenceHolderGetTypeID()
+uint64_t FigCFWeakReferenceHolderGetTypeID(uint64_t a1, uint64_t a2)
 {
   if (qword_1ED4CDC10 != -1)
   {
@@ -9705,7 +9723,7 @@ uint64_t FigEndpointRPCCacheRemoveAllEndpoints(uint64_t a1)
   return 0;
 }
 
-size_t FigEndpointRPCCacheComputeCacheDeltas(uint64_t a1, _xpc_connection_s *a2, CFArrayRef theArray, void *a4, void *a5)
+size_t FigEndpointRPCCacheComputeCacheDeltas(uint64_t a1, _xpc_connection_s *a2, CFArrayRef theArray, CMBlockBufferRef *a4, void *a5)
 {
   MutableCopy = FigCFArrayCreateMutableCopy(*MEMORY[0x1E695E480], theArray);
   v9 = *(a1 + 8);
@@ -9807,7 +9825,7 @@ LABEL_24:
     else
     {
       emitter = fig_log_get_emitter("com.apple.coremedia", "");
-      appended = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFBCA8uLL, "<< FigEndpointCache >>", 0x9A, v27, v21, v22);
+      appended = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFBCA8uLL, "<< FigEndpointCache >>", 0x9A, v27, v21, v22, v25);
     }
 
     v23 = appended;

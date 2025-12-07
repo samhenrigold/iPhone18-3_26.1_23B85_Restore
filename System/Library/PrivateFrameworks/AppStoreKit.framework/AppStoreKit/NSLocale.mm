@@ -71,10 +71,10 @@ void __49__NSLocale_AMPICUExtensions__ICUNumberingSystems__block_invoke()
 void __52__NSLocale_AMPICUExtensions__ISOTerritoryGroupCodes__block_invoke()
 {
   v3 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-  fillMutableSetWithRegionType(v3);
-  fillMutableSetWithRegionType(v3);
-  fillMutableSetWithRegionType(v3);
-  fillMutableSetWithRegionType(v3);
+  fillMutableSetWithRegionType(v3, 2);
+  fillMutableSetWithRegionType(v3, 3);
+  fillMutableSetWithRegionType(v3, 4);
+  fillMutableSetWithRegionType(v3, 5);
   v0 = [v3 allObjects];
   v1 = [v0 sortedArrayUsingSelector:sel_localizedStandardCompare_];
   v2 = _territoryGroupCodes;

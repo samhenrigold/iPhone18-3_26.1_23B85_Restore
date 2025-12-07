@@ -11,9 +11,9 @@
     +[RMLog(configurationSingleApplicator) configurationSingleApplicator];
   }
 
-  v1 = configurationSingleApplicator_result;
+  v2 = configurationSingleApplicator_result;
 
-  return v1;
+  return v2;
 }
 
 @end

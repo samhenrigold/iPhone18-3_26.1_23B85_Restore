@@ -2606,7 +2606,7 @@ void std::allocator<IR::DelayLine<float>>::allocate_at_least[abi:ne200100](unint
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<IR::DelayLine<float>>,IR::DelayLine<float>*>(uint64_t result, uint64_t *a2, uint64_t a3)
+uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<IR::DelayLine<float>>,IR::DelayLine<float>*>(uint64_t result, uint64_t a2, uint64_t a3)
 {
   if (result != a2)
   {
@@ -2615,7 +2615,7 @@ uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<IR
     v5 = 0;
     do
     {
-      v6 = (v4 + v5);
+      v6 = v4 + v5;
       v7 = v3 + v5;
       *v7 = *(v4 + v5);
       *(v7 + 8) = *(v4 + v5 + 8);
@@ -2623,19 +2623,19 @@ uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<IR
       *(v3 + v5 + 16) = 0;
       *(v7 + 24) = 0;
       *(v7 + 32) = 0;
-      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v3 + v5 + 16, *(v4 + v5 + 16), *(v4 + v5 + 24), (*(v4 + v5 + 24) - *(v4 + v5 + 16)) >> 2);
+      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((v3 + v5 + 16), *(v4 + v5 + 16), *(v4 + v5 + 24), (*(v4 + v5 + 24) - *(v4 + v5 + 16)) >> 2);
       v8 = *(v4 + v5 + 40);
       *(v7 + 48) = 0;
       *(v7 + 40) = v8;
       *(v7 + 56) = 0;
       *(v7 + 64) = 0;
-      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v3 + v5 + 48, v6[6], v6[7], (v6[7] - v6[6]) >> 2);
+      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((v3 + v5 + 48), *(v6 + 48), *(v6 + 56), (*(v6 + 56) - *(v6 + 48)) >> 2);
       v9 = v3 + v5;
       v10 = v3 + v5;
       *(v10 + 72) = 0;
       *(v10 + 80) = 0;
       *(v3 + v5 + 88) = 0;
-      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v3 + v5 + 72, v6[9], v6[10], (v6[10] - v6[9]) >> 2);
+      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((v3 + v5 + 72), *(v6 + 72), *(v6 + 80), (*(v6 + 80) - *(v6 + 72)) >> 2);
       *(v9 + 96) = *(v4 + v5 + 96);
       *(v9 + 104) = *(v4 + v5 + 104);
       *(v9 + 112) = 0;
@@ -2643,43 +2643,43 @@ uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<IR
       *(v9 + 136) = 0;
       *(v9 + 144) = 0;
       *(v9 + 152) = 0;
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v3 + v5 + 136, v6[17], v6[18], (v6[18] - v6[17]) >> 2);
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v3 + v5 + 136, *(v6 + 136), *(v6 + 144), (*(v6 + 144) - *(v6 + 136)) >> 2);
       v11 = v3 + v5;
       v12 = v3 + v5;
       *(v12 + 160) = 0;
       *(v12 + 168) = 0;
       *(v3 + v5 + 176) = 0;
-      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v3 + v5 + 160, v6[20], v6[21], (v6[21] - v6[20]) >> 2);
+      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((v3 + v5 + 160), *(v6 + 160), *(v6 + 168), (*(v6 + 168) - *(v6 + 160)) >> 2);
       *(v11 + 184) = 0;
       *(v11 + 192) = 0;
-      v13 = v3 + v5 + 184;
-      *(v13 + 16) = 0;
-      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v13, v6[23], v6[24], (v6[24] - v6[23]) >> 2);
+      v13 = (v3 + v5 + 184);
+      v13[2] = 0;
+      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v13, *(v6 + 184), *(v6 + 192), (*(v6 + 192) - *(v6 + 184)) >> 2);
       v14 = (v3 + v5);
       v14[26] = 0;
       v14[27] = 0;
-      v15 = v3 + v5 + 208;
-      *(v15 + 16) = 0;
-      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v15, v6[26], v6[27], (v6[27] - v6[26]) >> 2);
+      v15 = (v3 + v5 + 208);
+      v15[2] = 0;
+      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v15, *(v6 + 208), *(v6 + 216), (*(v6 + 216) - *(v6 + 208)) >> 2);
       v14[29] = 0;
       v14[30] = 0;
       v14 += 29;
       v14[2] = 0;
-      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v14, v6[29], v6[30], (v6[30] - v6[29]) >> 2);
+      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v14, *(v6 + 232), *(v6 + 240), (*(v6 + 240) - *(v6 + 232)) >> 2);
       v16 = (a3 + v5);
       v16[32] = 0;
       v16[33] = 0;
       v16[34] = 0;
-      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a3 + v5 + 256, v6[32], v6[33], (v6[33] - v6[32]) >> 2);
+      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a3 + v5 + 256), *(v6 + 256), *(v6 + 264), (*(v6 + 264) - *(v6 + 256)) >> 2);
       v16[35] = 0;
       v16[36] = 0;
       v16[37] = 0;
-      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a3 + v5 + 280, v6[35], v6[36], (v6[36] - v6[35]) >> 2);
+      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a3 + v5 + 280), *(v6 + 280), *(v6 + 288), (*(v6 + 288) - *(v6 + 280)) >> 2);
       v17 = (a3 + v5);
       v17[38] = 0;
       v17[39] = 0;
       v17[40] = 0;
-      v18 = std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(a3 + v5 + 304, v6[38], v6[39], (v6[39] - v6[38]) >> 2);
+      v18 = std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>((a3 + v5 + 304), *(v6 + 304), *(v6 + 312), (*(v6 + 312) - *(v6 + 304)) >> 2);
       v3 = a3;
       if ((*(v7 + 4) - 5) <= 2)
       {
@@ -2690,7 +2690,7 @@ uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<IR
       v5 += 328;
     }
 
-    while (v6 + 41 != a2);
+    while (v6 + 328 != a2);
     do
     {
       result = IR::DelayLine<float>::~DelayLine(v4);
@@ -3846,17 +3846,29 @@ void CircularModelDOA::CircularModelDOA(CircularModelDOA *this, unsigned int a2,
 {
   *this = &unk_1F592C2B8;
   *(this + 2) = a2;
-  std::vector<float>::vector[abi:ne200100](this + 3, a2);
-  std::vector<float>::vector[abi:ne200100](this + 6, *(this + 2));
+  v15 = 0;
+  std::vector<float>::vector[abi:ne200100](this + 3, a2, &v15);
   v9 = *(this + 2);
-  *(this + 18) = v9;
+  v15 = 1065353216;
+  std::vector<float>::vector[abi:ne200100](this + 6, v9, &v15);
+  v10 = *(this + 2);
+  *(this + 18) = v10;
   *(this + 76) = xmmword_1DE09C4F0;
   *(this + 23) = 1016003125;
-  std::vector<float>::vector[abi:ne200100](this + 12, v9);
-  std::vector<float>::vector[abi:ne200100](this + 15, *(this + 2));
-  std::vector<float>::vector[abi:ne200100](this + 18, *(this + 2));
-  std::vector<float>::vector[abi:ne200100](this + 21, *(this + 2));
-  std::vector<float>::vector[abi:ne200100](this + 24, *(this + 2));
+  v15 = 1065353216;
+  std::vector<float>::vector[abi:ne200100](this + 12, v10, &v15);
+  v11 = *(this + 2);
+  v15 = 0;
+  std::vector<float>::vector[abi:ne200100](this + 15, v11, &v15);
+  v12 = *(this + 2);
+  v15 = 1065353216;
+  std::vector<float>::vector[abi:ne200100](this + 18, v12, &v15);
+  v13 = *(this + 2);
+  v15 = 0;
+  std::vector<float>::vector[abi:ne200100](this + 21, v13, &v15);
+  v14 = *(this + 2);
+  v15 = 0;
+  std::vector<float>::vector[abi:ne200100](this + 24, v14, &v15);
   CircularModelDOA::SetTargetDOA(this, a3, a4, a5);
 }
 

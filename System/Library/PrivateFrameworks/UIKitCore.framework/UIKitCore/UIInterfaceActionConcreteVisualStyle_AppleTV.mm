@@ -80,7 +80,7 @@
     {
       if ([stateCopy isHighlighted])
       {
-        +[UIColor blackColor];
+        objc_msgSend_blackColor(UIColor);
       }
 
       else

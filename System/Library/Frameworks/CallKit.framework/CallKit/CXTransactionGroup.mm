@@ -73,34 +73,34 @@
 
 - (BOOL)isComplete
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   transactions = [(CXTransactionGroup *)self transactions];
-  v3 = [transactions countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [transactions countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(transactions);
         }
 
-        if (![*(*(&v10 + 1) + 8 * i) isComplete])
+        if (![*(*(&v9 + 1) + 8 * i) isComplete])
         {
           v7 = 0;
           goto LABEL_11;
         }
       }
 
-      v4 = [transactions countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [transactions countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v4)
       {
         continue;
@@ -113,7 +113,6 @@
   v7 = 1;
 LABEL_11:
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -140,65 +139,64 @@ LABEL_11:
 
 - (NSArray)allActions
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   transactions = [(CXTransactionGroup *)self transactions];
-  v5 = [transactions countByEnumeratingWithState:&v22 objects:v27 count:16];
+  v5 = [transactions countByEnumeratingWithState:&v21 objects:v26 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v23;
+    v7 = *v22;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v23 != v7)
+        if (*v22 != v7)
         {
           objc_enumerationMutation(transactions);
         }
 
-        v9 = *(*(&v22 + 1) + 8 * i);
+        v9 = *(*(&v21 + 1) + 8 * i);
+        v17 = 0u;
         v18 = 0u;
         v19 = 0u;
         v20 = 0u;
-        v21 = 0u;
         actions = [v9 actions];
-        v11 = [actions countByEnumeratingWithState:&v18 objects:v26 count:16];
+        v11 = [actions countByEnumeratingWithState:&v17 objects:v25 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v19;
+          v13 = *v18;
           do
           {
             for (j = 0; j != v12; ++j)
             {
-              if (*v19 != v13)
+              if (*v18 != v13)
               {
                 objc_enumerationMutation(actions);
               }
 
-              [array addObject:*(*(&v18 + 1) + 8 * j)];
+              [array addObject:*(*(&v17 + 1) + 8 * j)];
             }
 
-            v12 = [actions countByEnumeratingWithState:&v18 objects:v26 count:16];
+            v12 = [actions countByEnumeratingWithState:&v17 objects:v25 count:16];
           }
 
           while (v12);
         }
       }
 
-      v6 = [transactions countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v6 = [transactions countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
     while (v6);
   }
 
   v15 = [array copy];
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -273,34 +271,34 @@ LABEL_11:
 
 - (BOOL)isServiceClientGroupComplete
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   serviceClientTransactions = [(CXTransactionGroup *)self serviceClientTransactions];
-  v3 = [serviceClientTransactions countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [serviceClientTransactions countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(serviceClientTransactions);
         }
 
-        if (![*(*(&v10 + 1) + 8 * i) isComplete])
+        if (![*(*(&v9 + 1) + 8 * i) isComplete])
         {
           v7 = 0;
           goto LABEL_11;
         }
       }
 
-      v4 = [serviceClientTransactions countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [serviceClientTransactions countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v4)
       {
         continue;
@@ -313,71 +311,69 @@ LABEL_11:
   v7 = 1;
 LABEL_11:
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (NSArray)serviceClientActions
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   serviceClientTransactions = [(CXTransactionGroup *)self serviceClientTransactions];
-  v5 = [serviceClientTransactions countByEnumeratingWithState:&v22 objects:v27 count:16];
+  v5 = [serviceClientTransactions countByEnumeratingWithState:&v21 objects:v26 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v23;
+    v7 = *v22;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v23 != v7)
+        if (*v22 != v7)
         {
           objc_enumerationMutation(serviceClientTransactions);
         }
 
-        v9 = *(*(&v22 + 1) + 8 * i);
+        v9 = *(*(&v21 + 1) + 8 * i);
+        v17 = 0u;
         v18 = 0u;
         v19 = 0u;
         v20 = 0u;
-        v21 = 0u;
         actions = [v9 actions];
-        v11 = [actions countByEnumeratingWithState:&v18 objects:v26 count:16];
+        v11 = [actions countByEnumeratingWithState:&v17 objects:v25 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v19;
+          v13 = *v18;
           do
           {
             for (j = 0; j != v12; ++j)
             {
-              if (*v19 != v13)
+              if (*v18 != v13)
               {
                 objc_enumerationMutation(actions);
               }
 
-              [array addObject:*(*(&v18 + 1) + 8 * j)];
+              [array addObject:*(*(&v17 + 1) + 8 * j)];
             }
 
-            v12 = [actions countByEnumeratingWithState:&v18 objects:v26 count:16];
+            v12 = [actions countByEnumeratingWithState:&v17 objects:v25 count:16];
           }
 
           while (v12);
         }
       }
 
-      v6 = [serviceClientTransactions countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v6 = [serviceClientTransactions countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
     while (v6);
   }
 
   v15 = [array copy];
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }

@@ -1,2263 +1,4 @@
-void static DefaultsManager.Notifications.setNotificationWeeklyReset(_:)()
-{
-  if (one-time initialization token for momentsUI != -1)
-  {
-    swift_once();
-  }
-
-  v0 = static DefaultsManager.momentsUI;
-  if (static DefaultsManager.momentsUI)
-  {
-    isa = Date._bridgeToObjectiveC()().super.isa;
-    v2 = MEMORY[0x21CE91FC0](0xD00000000000001BLL, 0x8000000216580A30);
-    [v0 setValue:isa forKey:v2];
-  }
-}
-
-uint64_t static DefaultsManager.Notifications.suggestionNotificationWeeklyCount.getter()
-{
-  if (one-time initialization token for momentsUI != -1)
-  {
-    swift_once();
-  }
-
-  v0 = static DefaultsManager.momentsUI;
-  if (!static DefaultsManager.momentsUI)
-  {
-    v6 = 0u;
-    v7 = 0u;
-LABEL_11:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
-    return 0;
-  }
-
-  v1 = MEMORY[0x21CE91FC0](0xD000000000000021, 0x8000000216580A50);
-  v2 = [v0 objectForKey_];
-
-  if (v2)
-  {
-    _bridgeAnyObjectToAny(_:)();
-    swift_unknownObjectRelease();
-  }
-
-  else
-  {
-    v4 = 0u;
-    v5 = 0u;
-  }
-
-  v6 = v4;
-  v7 = v5;
-  if (!*(&v5 + 1))
-  {
-    goto LABEL_11;
-  }
-
-  if (swift_dynamicCast())
-  {
-    return v4;
-  }
-
-  return 0;
-}
-
-uint64_t static DefaultsManager.Notifications.smartNotificationWeeklyCount.getter()
-{
-  v0 = specialized static DefaultsManager.MomentsUIDomain.intValueFor(_:)();
-  if (v1)
-  {
-    v2 = 0;
-  }
-
-  else
-  {
-    v2 = v0;
-  }
-
-  v3 = specialized static DefaultsManager.MomentsUIDomain.intValueFor(_:)();
-  if (v4)
-  {
-    v5 = 0;
-  }
-
-  else
-  {
-    v5 = v3;
-  }
-
-  result = v2 + v5;
-  if (__OFADD__(v2, v5))
-  {
-    __break(1u);
-  }
-
-  return result;
-}
-
-uint64_t static DefaultsManager.Notifications.genericNotificationWeeklyCount.getter()
-{
-  if (one-time initialization token for momentsUI != -1)
-  {
-    swift_once();
-  }
-
-  v0 = static DefaultsManager.momentsUI;
-  if (!static DefaultsManager.momentsUI)
-  {
-    v6 = 0u;
-    v7 = 0u;
-LABEL_11:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
-    return 0;
-  }
-
-  v1 = MEMORY[0x21CE91FC0](0xD00000000000001ELL, 0x8000000216580A80);
-  v2 = [v0 objectForKey_];
-
-  if (v2)
-  {
-    _bridgeAnyObjectToAny(_:)();
-    swift_unknownObjectRelease();
-  }
-
-  else
-  {
-    v4 = 0u;
-    v5 = 0u;
-  }
-
-  v6 = v4;
-  v7 = v5;
-  if (!*(&v5 + 1))
-  {
-    goto LABEL_11;
-  }
-
-  if (swift_dynamicCast())
-  {
-    return v4;
-  }
-
-  return 0;
-}
-
-void static DefaultsManager.Notifications.clearSuggestionNotificationWeeklyCount()()
-{
-  if (one-time initialization token for momentsUI != -1)
-  {
-    swift_once();
-  }
-
-  v0 = static DefaultsManager.momentsUI;
-  if (static DefaultsManager.momentsUI)
-  {
-    isa = Int._bridgeToObjectiveC()().super.super.isa;
-    v2 = MEMORY[0x21CE91FC0](0xD000000000000021, 0x8000000216580A50);
-    [v0 setValue:isa forKey:v2];
-  }
-}
-
-void static DefaultsManager.Notifications.clearGenericNotificationWeeklyCount()()
-{
-  if (one-time initialization token for momentsUI != -1)
-  {
-    swift_once();
-  }
-
-  v0 = static DefaultsManager.momentsUI;
-  if (static DefaultsManager.momentsUI)
-  {
-    isa = Int._bridgeToObjectiveC()().super.super.isa;
-    v2 = MEMORY[0x21CE91FC0](0xD00000000000001ELL, 0x8000000216580A80);
-    [v0 setValue:isa forKey:v2];
-  }
-}
-
-double static DefaultsManager.Notifications.goodnessScoreThreshold.getter()
-{
-  if (one-time initialization token for momentsUI != -1)
-  {
-    swift_once();
-  }
-
-  v0 = static DefaultsManager.momentsUI;
-  if (!static DefaultsManager.momentsUI)
-  {
-    v8 = 0u;
-    v9 = 0u;
-LABEL_11:
-    outlined destroy of UTType?(&v8, &_sypSgMd);
-    goto LABEL_12;
-  }
-
-  v1 = MEMORY[0x21CE91FC0](0xD000000000000016, 0x8000000216580AA0);
-  v2 = [v0 objectForKey_];
-
-  if (v2)
-  {
-    _bridgeAnyObjectToAny(_:)();
-    swift_unknownObjectRelease();
-  }
-
-  else
-  {
-    v6 = 0u;
-    v7 = 0u;
-  }
-
-  v8 = v6;
-  v9 = v7;
-  if (!*(&v7 + 1))
-  {
-    goto LABEL_11;
-  }
-
-  if (swift_dynamicCast())
-  {
-    return *&v6;
-  }
-
-LABEL_12:
-  v4 = COERCE_DOUBLE(specialized static DefaultsManager.getTrialDoubleValue(for:)(0xD000000000000026, 0x8000000216580AC0));
-  result = 0.1;
-  if ((v5 & 1) == 0)
-  {
-    return v4;
-  }
-
-  return result;
-}
-
-uint64_t static DefaultsManager.Notifications.notificationRetryCountThreshold.getter()
-{
-  if (one-time initialization token for momentsUI != -1)
-  {
-    swift_once();
-  }
-
-  v0 = static DefaultsManager.momentsUI;
-  if (!static DefaultsManager.momentsUI)
-  {
-    v6 = 0u;
-    v7 = 0u;
-LABEL_12:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
-    return 0;
-  }
-
-  v1 = MEMORY[0x21CE91FC0](0xD00000000000001FLL, 0x8000000216580AF0);
-  v2 = [v0 objectForKey_];
-
-  if (v2)
-  {
-    _bridgeAnyObjectToAny(_:)();
-    swift_unknownObjectRelease();
-  }
-
-  else
-  {
-    v4 = 0u;
-    v5 = 0u;
-  }
-
-  v6 = v4;
-  v7 = v5;
-  if (!*(&v5 + 1))
-  {
-    goto LABEL_12;
-  }
-
-  if (swift_dynamicCast())
-  {
-    return v4;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void static DefaultsManager.Notifications.resetRetryCount()()
-{
-  if (one-time initialization token for momentsUI != -1)
-  {
-    swift_once();
-  }
-
-  v0 = static DefaultsManager.momentsUI;
-  if (static DefaultsManager.momentsUI)
-  {
-    v1 = MEMORY[0x21CE91FC0](0xD000000000000016, 0x8000000216580B10);
-    [v0 setInteger:0 forKey:v1];
-  }
-}
-
-uint64_t static DefaultsManager.Notifications.lastNotificationServicingDate.getter@<X0>(uint64_t a1@<X8>)
-{
-  if (one-time initialization token for momentsUI != -1)
-  {
-    swift_once();
-  }
-
-  v2 = static DefaultsManager.momentsUI;
-  if (static DefaultsManager.momentsUI)
-  {
-    v3 = MEMORY[0x21CE91FC0](0xD00000000000001DLL, 0x8000000216580B30);
-    v4 = [v2 objectForKey_];
-
-    if (v4)
-    {
-      _bridgeAnyObjectToAny(_:)();
-      swift_unknownObjectRelease();
-    }
-
-    else
-    {
-      v9 = 0u;
-      v10 = 0u;
-    }
-
-    v11 = v9;
-    v12 = v10;
-    if (*(&v10 + 1))
-    {
-      v5 = type metadata accessor for Date();
-      v6 = swift_dynamicCast();
-      return (*(*(v5 - 8) + 56))(a1, v6 ^ 1u, 1, v5);
-    }
-  }
-
-  else
-  {
-    v11 = 0u;
-    v12 = 0u;
-  }
-
-  outlined destroy of UTType?(&v11, &_sypSgMd);
-  v8 = type metadata accessor for Date();
-  return (*(*(v8 - 8) + 56))(a1, 1, 1, v8);
-}
-
-uint64_t static DefaultsManager.Notifications.setNotificationServicingDate(_:)(uint64_t a1)
-{
-  v2 = type metadata accessor for Date();
-  v12[3] = v2;
-  boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v12);
-  (*(*(v2 - 8) + 16))(boxed_opaque_existential_1, a1, v2);
-  outlined init with copy of Any?(v12, &v8);
-  if (v9)
-  {
-    outlined init with take of Any(&v8, &v10);
-    if (one-time initialization token for momentsUI != -1)
-    {
-      swift_once();
-    }
-
-    v4 = static DefaultsManager.momentsUI;
-    if (static DefaultsManager.momentsUI)
-    {
-      __swift_project_boxed_opaque_existential_1(&v10, v11);
-      v5 = _bridgeAnythingToObjectiveC<A>(_:)();
-      v6 = MEMORY[0x21CE91FC0](0xD00000000000001DLL, 0x8000000216580B30);
-      [v4 setObject:v5 forKey:v6];
-      swift_unknownObjectRelease();
-    }
-
-    __swift_destroy_boxed_opaque_existential_1(&v10);
-  }
-
-  else
-  {
-    outlined destroy of UTType?(&v8, &_sypSgMd);
-  }
-
-  return outlined destroy of UTType?(v12, &_sypSgMd);
-}
-
-double static DefaultsManager.Notifications.minimumNotificationServicingInterval.getter()
-{
-  if (one-time initialization token for momentsUI != -1)
-  {
-    swift_once();
-  }
-
-  v0 = static DefaultsManager.momentsUI;
-  if (!static DefaultsManager.momentsUI)
-  {
-    v6 = 0u;
-    v7 = 0u;
-LABEL_11:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
-    return 3600.0;
-  }
-
-  v1 = MEMORY[0x21CE91FC0](0xD000000000000024, 0x8000000216580B50);
-  v2 = [v0 objectForKey_];
-
-  if (v2)
-  {
-    _bridgeAnyObjectToAny(_:)();
-    swift_unknownObjectRelease();
-  }
-
-  else
-  {
-    v4 = 0u;
-    v5 = 0u;
-  }
-
-  v6 = v4;
-  v7 = v5;
-  if (!*(&v5 + 1))
-  {
-    goto LABEL_11;
-  }
-
-  if (swift_dynamicCast())
-  {
-    return *&v4;
-  }
-
-  return 3600.0;
-}
-
-uint64_t static DefaultsManager.Notifications.notificationRetryDelayMinutes.getter()
-{
-  if (one-time initialization token for momentsUI != -1)
-  {
-    swift_once();
-  }
-
-  v0 = static DefaultsManager.momentsUI;
-  if (!static DefaultsManager.momentsUI)
-  {
-    v6 = 0u;
-    v7 = 0u;
-LABEL_12:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
-    return 0;
-  }
-
-  v1 = MEMORY[0x21CE91FC0](0xD00000000000001DLL, 0x8000000216580B80);
-  v2 = [v0 objectForKey_];
-
-  if (v2)
-  {
-    _bridgeAnyObjectToAny(_:)();
-    swift_unknownObjectRelease();
-  }
-
-  else
-  {
-    v4 = 0u;
-    v5 = 0u;
-  }
-
-  v6 = v4;
-  v7 = v5;
-  if (!*(&v5 + 1))
-  {
-    goto LABEL_12;
-  }
-
-  if (swift_dynamicCast())
-  {
-    return v4;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t static DefaultsManager.Notifications.notificationRealTimeCheckWindow.getter()
-{
-  if (one-time initialization token for momentsUI != -1)
-  {
-    swift_once();
-  }
-
-  v0 = static DefaultsManager.momentsUI;
-  if (!static DefaultsManager.momentsUI)
-  {
-    v6 = 0u;
-    v7 = 0u;
-LABEL_12:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
-    return 0;
-  }
-
-  v1 = MEMORY[0x21CE91FC0](0xD00000000000001FLL, 0x8000000216580BA0);
-  v2 = [v0 objectForKey_];
-
-  if (v2)
-  {
-    _bridgeAnyObjectToAny(_:)();
-    swift_unknownObjectRelease();
-  }
-
-  else
-  {
-    v4 = 0u;
-    v5 = 0u;
-  }
-
-  v6 = v4;
-  v7 = v5;
-  if (!*(&v5 + 1))
-  {
-    goto LABEL_12;
-  }
-
-  if (swift_dynamicCast())
-  {
-    return v4;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t static DefaultsManager.Notifications.notificationRealTimeCheckMotionWorkoutDurationThreshold.getter()
-{
-  if (one-time initialization token for momentsUI != -1)
-  {
-    swift_once();
-  }
-
-  v0 = static DefaultsManager.momentsUI;
-  if (!static DefaultsManager.momentsUI)
-  {
-    v6 = 0u;
-    v7 = 0u;
-LABEL_12:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
-    return 0;
-  }
-
-  v1 = MEMORY[0x21CE91FC0](0xD000000000000037, 0x8000000216580BC0);
-  v2 = [v0 objectForKey_];
-
-  if (v2)
-  {
-    _bridgeAnyObjectToAny(_:)();
-    swift_unknownObjectRelease();
-  }
-
-  else
-  {
-    v4 = 0u;
-    v5 = 0u;
-  }
-
-  v6 = v4;
-  v7 = v5;
-  if (!*(&v5 + 1))
-  {
-    goto LABEL_12;
-  }
-
-  if (swift_dynamicCast())
-  {
-    return v4;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t static DefaultsManager.Notifications.notificationRealTimeCheckMotionAutomotiveDurationThreshold.getter()
-{
-  if (one-time initialization token for momentsUI != -1)
-  {
-    swift_once();
-  }
-
-  v0 = static DefaultsManager.momentsUI;
-  if (!static DefaultsManager.momentsUI)
-  {
-    v6 = 0u;
-    v7 = 0u;
-LABEL_12:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
-    return 0;
-  }
-
-  v1 = MEMORY[0x21CE91FC0](0xD00000000000003ALL, 0x8000000216580C00);
-  v2 = [v0 objectForKey_];
-
-  if (v2)
-  {
-    _bridgeAnyObjectToAny(_:)();
-    swift_unknownObjectRelease();
-  }
-
-  else
-  {
-    v4 = 0u;
-    v5 = 0u;
-  }
-
-  v6 = v4;
-  v7 = v5;
-  if (!*(&v5 + 1))
-  {
-    goto LABEL_12;
-  }
-
-  if (swift_dynamicCast())
-  {
-    return v4;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t static DefaultsManager.Notifications.notificationRealTimeCheckTravelDistanceThreshold.getter()
-{
-  if (one-time initialization token for momentsUI != -1)
-  {
-    swift_once();
-  }
-
-  v0 = static DefaultsManager.momentsUI;
-  if (!static DefaultsManager.momentsUI)
-  {
-    v6 = 0u;
-    v7 = 0u;
-LABEL_12:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
-    return 0;
-  }
-
-  v1 = MEMORY[0x21CE91FC0](0xD000000000000030, 0x8000000216580C40);
-  v2 = [v0 objectForKey_];
-
-  if (v2)
-  {
-    _bridgeAnyObjectToAny(_:)();
-    swift_unknownObjectRelease();
-  }
-
-  else
-  {
-    v4 = 0u;
-    v5 = 0u;
-  }
-
-  v6 = v4;
-  v7 = v5;
-  if (!*(&v5 + 1))
-  {
-    goto LABEL_12;
-  }
-
-  if (swift_dynamicCast())
-  {
-    return v4;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t static DefaultsManager.Notifications.notificationRealTimeCheckIsUsingPrimaryJournalApp.getter()
-{
-  if (one-time initialization token for momentsUI != -1)
-  {
-    swift_once();
-  }
-
-  v0 = static DefaultsManager.momentsUI;
-  if (!static DefaultsManager.momentsUI)
-  {
-    v6 = 0u;
-    v7 = 0u;
-LABEL_12:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
-    return 2;
-  }
-
-  v1 = MEMORY[0x21CE91FC0](0xD000000000000031, 0x8000000216580C80);
-  v2 = [v0 objectForKey_];
-
-  if (v2)
-  {
-    _bridgeAnyObjectToAny(_:)();
-    swift_unknownObjectRelease();
-  }
-
-  else
-  {
-    v4 = 0u;
-    v5 = 0u;
-  }
-
-  v6 = v4;
-  v7 = v5;
-  if (!*(&v5 + 1))
-  {
-    goto LABEL_12;
-  }
-
-  if (swift_dynamicCast())
-  {
-    return v4;
-  }
-
-  else
-  {
-    return 2;
-  }
-}
-
-uint64_t static DefaultsManager.Notifications.notificationRealTimeCheckIsInWorkOutSessionBasedOnHealthKit.getter()
-{
-  if (one-time initialization token for momentsUI != -1)
-  {
-    swift_once();
-  }
-
-  v0 = static DefaultsManager.momentsUI;
-  if (!static DefaultsManager.momentsUI)
-  {
-    v6 = 0u;
-    v7 = 0u;
-LABEL_12:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
-    return 2;
-  }
-
-  v1 = MEMORY[0x21CE91FC0](0xD00000000000003BLL, 0x8000000216580CC0);
-  v2 = [v0 objectForKey_];
-
-  if (v2)
-  {
-    _bridgeAnyObjectToAny(_:)();
-    swift_unknownObjectRelease();
-  }
-
-  else
-  {
-    v4 = 0u;
-    v5 = 0u;
-  }
-
-  v6 = v4;
-  v7 = v5;
-  if (!*(&v5 + 1))
-  {
-    goto LABEL_12;
-  }
-
-  if (swift_dynamicCast())
-  {
-    return v4;
-  }
-
-  else
-  {
-    return 2;
-  }
-}
-
-uint64_t static DefaultsManager.Notifications.notificationRealTimeCheckIsInWorkOutSessionBasedOnMotion.getter()
-{
-  if (one-time initialization token for momentsUI != -1)
-  {
-    swift_once();
-  }
-
-  v0 = static DefaultsManager.momentsUI;
-  if (!static DefaultsManager.momentsUI)
-  {
-    v6 = 0u;
-    v7 = 0u;
-LABEL_12:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
-    return 2;
-  }
-
-  v1 = MEMORY[0x21CE91FC0](0xD000000000000038, 0x8000000216580D00);
-  v2 = [v0 objectForKey_];
-
-  if (v2)
-  {
-    _bridgeAnyObjectToAny(_:)();
-    swift_unknownObjectRelease();
-  }
-
-  else
-  {
-    v4 = 0u;
-    v5 = 0u;
-  }
-
-  v6 = v4;
-  v7 = v5;
-  if (!*(&v5 + 1))
-  {
-    goto LABEL_12;
-  }
-
-  if (swift_dynamicCast())
-  {
-    return v4;
-  }
-
-  else
-  {
-    return 2;
-  }
-}
-
-uint64_t static DefaultsManager.Notifications.notificationRealTimeCheckIsInAutomotiveSessionBasedOnMotion.getter()
-{
-  if (one-time initialization token for momentsUI != -1)
-  {
-    swift_once();
-  }
-
-  v0 = static DefaultsManager.momentsUI;
-  if (!static DefaultsManager.momentsUI)
-  {
-    v6 = 0u;
-    v7 = 0u;
-LABEL_12:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
-    return 2;
-  }
-
-  v1 = MEMORY[0x21CE91FC0](0xD00000000000003BLL, 0x8000000216580D40);
-  v2 = [v0 objectForKey_];
-
-  if (v2)
-  {
-    _bridgeAnyObjectToAny(_:)();
-    swift_unknownObjectRelease();
-  }
-
-  else
-  {
-    v4 = 0u;
-    v5 = 0u;
-  }
-
-  v6 = v4;
-  v7 = v5;
-  if (!*(&v5 + 1))
-  {
-    goto LABEL_12;
-  }
-
-  if (swift_dynamicCast())
-  {
-    return v4;
-  }
-
-  else
-  {
-    return 2;
-  }
-}
-
-uint64_t static DefaultsManager.Notifications.notificationRealTimeCheckNoVisit.getter()
-{
-  if (one-time initialization token for momentsUI != -1)
-  {
-    swift_once();
-  }
-
-  v0 = static DefaultsManager.momentsUI;
-  if (!static DefaultsManager.momentsUI)
-  {
-    v6 = 0u;
-    v7 = 0u;
-LABEL_12:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
-    return 2;
-  }
-
-  v1 = MEMORY[0x21CE91FC0](0xD000000000000020, 0x8000000216580D80);
-  v2 = [v0 objectForKey_];
-
-  if (v2)
-  {
-    _bridgeAnyObjectToAny(_:)();
-    swift_unknownObjectRelease();
-  }
-
-  else
-  {
-    v4 = 0u;
-    v5 = 0u;
-  }
-
-  v6 = v4;
-  v7 = v5;
-  if (!*(&v5 + 1))
-  {
-    goto LABEL_12;
-  }
-
-  if (swift_dynamicCast())
-  {
-    return v4;
-  }
-
-  else
-  {
-    return 2;
-  }
-}
-
-uint64_t static DefaultsManager.Notifications.notificationRealTimeCheckIsInVisit.getter()
-{
-  if (one-time initialization token for momentsUI != -1)
-  {
-    swift_once();
-  }
-
-  v0 = static DefaultsManager.momentsUI;
-  if (!static DefaultsManager.momentsUI)
-  {
-    v6 = 0u;
-    v7 = 0u;
-LABEL_12:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
-    return 2;
-  }
-
-  v1 = MEMORY[0x21CE91FC0](0xD000000000000022, 0x8000000216580DB0);
-  v2 = [v0 objectForKey_];
-
-  if (v2)
-  {
-    _bridgeAnyObjectToAny(_:)();
-    swift_unknownObjectRelease();
-  }
-
-  else
-  {
-    v4 = 0u;
-    v5 = 0u;
-  }
-
-  v6 = v4;
-  v7 = v5;
-  if (!*(&v5 + 1))
-  {
-    goto LABEL_12;
-  }
-
-  if (swift_dynamicCast())
-  {
-    return v4;
-  }
-
-  else
-  {
-    return 2;
-  }
-}
-
-uint64_t static DefaultsManager.Notifications.notificationRealTimeCheckIsAtHome.getter()
-{
-  if (one-time initialization token for momentsUI != -1)
-  {
-    swift_once();
-  }
-
-  v0 = static DefaultsManager.momentsUI;
-  if (!static DefaultsManager.momentsUI)
-  {
-    v6 = 0u;
-    v7 = 0u;
-LABEL_12:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
-    return 2;
-  }
-
-  v1 = MEMORY[0x21CE91FC0](0xD000000000000021, 0x8000000216580DE0);
-  v2 = [v0 objectForKey_];
-
-  if (v2)
-  {
-    _bridgeAnyObjectToAny(_:)();
-    swift_unknownObjectRelease();
-  }
-
-  else
-  {
-    v4 = 0u;
-    v5 = 0u;
-  }
-
-  v6 = v4;
-  v7 = v5;
-  if (!*(&v5 + 1))
-  {
-    goto LABEL_12;
-  }
-
-  if (swift_dynamicCast())
-  {
-    return v4;
-  }
-
-  else
-  {
-    return 2;
-  }
-}
-
-uint64_t static DefaultsManager.Notifications.notificationRealTimeCheckIsTravelling.getter()
-{
-  if (one-time initialization token for momentsUI != -1)
-  {
-    swift_once();
-  }
-
-  v0 = static DefaultsManager.momentsUI;
-  if (!static DefaultsManager.momentsUI)
-  {
-    v6 = 0u;
-    v7 = 0u;
-LABEL_12:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
-    return 2;
-  }
-
-  v1 = MEMORY[0x21CE91FC0](0xD000000000000025, 0x8000000216580E10);
-  v2 = [v0 objectForKey_];
-
-  if (v2)
-  {
-    _bridgeAnyObjectToAny(_:)();
-    swift_unknownObjectRelease();
-  }
-
-  else
-  {
-    v4 = 0u;
-    v5 = 0u;
-  }
-
-  v6 = v4;
-  v7 = v5;
-  if (!*(&v5 + 1))
-  {
-    goto LABEL_12;
-  }
-
-  if (swift_dynamicCast())
-  {
-    return v4;
-  }
-
-  else
-  {
-    return 2;
-  }
-}
-
-uint64_t static DefaultsManager.Notifications.notificationRealTimeCheckIsAtPlacesEligibleForJournaling.getter()
-{
-  if (one-time initialization token for momentsUI != -1)
-  {
-    swift_once();
-  }
-
-  v0 = static DefaultsManager.momentsUI;
-  if (!static DefaultsManager.momentsUI)
-  {
-    v6 = 0u;
-    v7 = 0u;
-LABEL_12:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
-    return 2;
-  }
-
-  v1 = MEMORY[0x21CE91FC0](0xD000000000000038, 0x8000000216580E40);
-  v2 = [v0 objectForKey_];
-
-  if (v2)
-  {
-    _bridgeAnyObjectToAny(_:)();
-    swift_unknownObjectRelease();
-  }
-
-  else
-  {
-    v4 = 0u;
-    v5 = 0u;
-  }
-
-  v6 = v4;
-  v7 = v5;
-  if (!*(&v5 + 1))
-  {
-    goto LABEL_12;
-  }
-
-  if (swift_dynamicCast())
-  {
-    return v4;
-  }
-
-  else
-  {
-    return 2;
-  }
-}
-
-uint64_t static DefaultsManager.Notifications.suggestionIDForNotification.getter()
-{
-  if (one-time initialization token for momentsUI != -1)
-  {
-    swift_once();
-  }
-
-  v0 = static DefaultsManager.momentsUI;
-  if (!static DefaultsManager.momentsUI)
-  {
-    v6 = 0u;
-    v7 = 0u;
-LABEL_12:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
-    return 0;
-  }
-
-  v1 = MEMORY[0x21CE91FC0](0xD00000000000001BLL, 0x8000000216580E80);
-  v2 = [v0 objectForKey_];
-
-  if (v2)
-  {
-    _bridgeAnyObjectToAny(_:)();
-    swift_unknownObjectRelease();
-  }
-
-  else
-  {
-    v4 = 0u;
-    v5 = 0u;
-  }
-
-  v6 = v4;
-  v7 = v5;
-  if (!*(&v5 + 1))
-  {
-    goto LABEL_12;
-  }
-
-  if (swift_dynamicCast())
-  {
-    return v4;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t static DefaultsManager.Cloud.disableSync.getter()
-{
-  if (one-time initialization token for momentsUI != -1)
-  {
-    swift_once();
-  }
-
-  v0 = static DefaultsManager.momentsUI;
-  if (!static DefaultsManager.momentsUI)
-  {
-    v6 = 0u;
-    v7 = 0u;
-LABEL_11:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
-    return 0;
-  }
-
-  v1 = MEMORY[0x21CE91FC0](0x53656C6261736944, 0xEB00000000636E79);
-  v2 = [v0 objectForKey_];
-
-  if (v2)
-  {
-    _bridgeAnyObjectToAny(_:)();
-    swift_unknownObjectRelease();
-  }
-
-  else
-  {
-    v4 = 0u;
-    v5 = 0u;
-  }
-
-  v6 = v4;
-  v7 = v5;
-  if (!*(&v5 + 1))
-  {
-    goto LABEL_11;
-  }
-
-  if (swift_dynamicCast())
-  {
-    return v4;
-  }
-
-  return 0;
-}
-
-uint64_t static DefaultsManager.Cloud.forceDevelopmentEnvironment.getter()
-{
-  if (one-time initialization token for momentsUI != -1)
-  {
-    swift_once();
-  }
-
-  v0 = static DefaultsManager.momentsUI;
-  if (!static DefaultsManager.momentsUI)
-  {
-    v6 = 0u;
-    v7 = 0u;
-LABEL_11:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
-    return 0;
-  }
-
-  v1 = MEMORY[0x21CE91FC0](0xD00000000000001BLL, 0x8000000216580EA0);
-  v2 = [v0 objectForKey_];
-
-  if (v2)
-  {
-    _bridgeAnyObjectToAny(_:)();
-    swift_unknownObjectRelease();
-  }
-
-  else
-  {
-    v4 = 0u;
-    v5 = 0u;
-  }
-
-  v6 = v4;
-  v7 = v5;
-  if (!*(&v5 + 1))
-  {
-    goto LABEL_11;
-  }
-
-  if (swift_dynamicCast())
-  {
-    return v4;
-  }
-
-  return 0;
-}
-
-double static DefaultsManager.Cloud.deviceTTL.getter()
-{
-  if (one-time initialization token for momentsUI != -1)
-  {
-    swift_once();
-  }
-
-  v0 = static DefaultsManager.momentsUI;
-  if (!static DefaultsManager.momentsUI)
-  {
-    v6 = 0u;
-    v7 = 0u;
-LABEL_11:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
-    return 2419200.0;
-  }
-
-  v1 = MEMORY[0x21CE91FC0](0xD00000000000001BLL, 0x8000000216580EC0);
-  v2 = [v0 objectForKey_];
-
-  if (v2)
-  {
-    _bridgeAnyObjectToAny(_:)();
-    swift_unknownObjectRelease();
-  }
-
-  else
-  {
-    v4 = 0u;
-    v5 = 0u;
-  }
-
-  v6 = v4;
-  v7 = v5;
-  if (!*(&v5 + 1))
-  {
-    goto LABEL_11;
-  }
-
-  if (swift_dynamicCast())
-  {
-    return *&v4;
-  }
-
-  return 2419200.0;
-}
-
-double static DefaultsManager.Cloud.deviceModificationUpdateInterval.getter()
-{
-  if (one-time initialization token for momentsUI != -1)
-  {
-    swift_once();
-  }
-
-  v0 = static DefaultsManager.momentsUI;
-  if (!static DefaultsManager.momentsUI)
-  {
-    v6 = 0u;
-    v7 = 0u;
-LABEL_11:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
-    return 3000.0;
-  }
-
-  v1 = MEMORY[0x21CE91FC0](0xD000000000000020, 0x8000000216580EE0);
-  v2 = [v0 objectForKey_];
-
-  if (v2)
-  {
-    _bridgeAnyObjectToAny(_:)();
-    swift_unknownObjectRelease();
-  }
-
-  else
-  {
-    v4 = 0u;
-    v5 = 0u;
-  }
-
-  v6 = v4;
-  v7 = v5;
-  if (!*(&v5 + 1))
-  {
-    goto LABEL_11;
-  }
-
-  if (swift_dynamicCast())
-  {
-    return *&v4;
-  }
-
-  return 3000.0;
-}
-
-uint64_t static DefaultsManager.Cloud.largeSuggestionThreshold.getter()
-{
-  if (one-time initialization token for momentsUI != -1)
-  {
-    swift_once();
-  }
-
-  v0 = static DefaultsManager.momentsUI;
-  if (!static DefaultsManager.momentsUI)
-  {
-    v6 = 0u;
-    v7 = 0u;
-LABEL_12:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
-    return 0;
-  }
-
-  v1 = MEMORY[0x21CE91FC0](0xD000000000000018, 0x8000000216580F10);
-  v2 = [v0 objectForKey_];
-
-  if (v2)
-  {
-    _bridgeAnyObjectToAny(_:)();
-    swift_unknownObjectRelease();
-  }
-
-  else
-  {
-    v4 = 0u;
-    v5 = 0u;
-  }
-
-  v6 = v4;
-  v7 = v5;
-  if (!*(&v5 + 1))
-  {
-    goto LABEL_12;
-  }
-
-  if (swift_dynamicCast())
-  {
-    return v4;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t static DefaultsManager.Cloud.largeSuggestionDropPolicy.getter()
-{
-  if (one-time initialization token for momentsUI != -1)
-  {
-    swift_once();
-  }
-
-  v0 = static DefaultsManager.momentsUI;
-  if (!static DefaultsManager.momentsUI)
-  {
-    v6 = 0u;
-    v7 = 0u;
-LABEL_12:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
-    return 0;
-  }
-
-  v1 = MEMORY[0x21CE91FC0](0xD000000000000019, 0x8000000216580F30);
-  v2 = [v0 objectForKey_];
-
-  if (v2)
-  {
-    _bridgeAnyObjectToAny(_:)();
-    swift_unknownObjectRelease();
-  }
-
-  else
-  {
-    v4 = 0u;
-    v5 = 0u;
-  }
-
-  v6 = v4;
-  v7 = v5;
-  if (!*(&v5 + 1))
-  {
-    goto LABEL_12;
-  }
-
-  if (swift_dynamicCast())
-  {
-    return v4;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t static DefaultsManager.Cloud.fetchRemoteSnapshotChunkSize.getter()
-{
-  if (one-time initialization token for momentsUI != -1)
-  {
-    swift_once();
-  }
-
-  v0 = static DefaultsManager.momentsUI;
-  if (!static DefaultsManager.momentsUI)
-  {
-    v6 = 0u;
-    v7 = 0u;
-LABEL_11:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
-    return 5;
-  }
-
-  v1 = MEMORY[0x21CE91FC0](0xD00000000000001CLL, 0x8000000216580F50);
-  v2 = [v0 objectForKey_];
-
-  if (v2)
-  {
-    _bridgeAnyObjectToAny(_:)();
-    swift_unknownObjectRelease();
-  }
-
-  else
-  {
-    v4 = 0u;
-    v5 = 0u;
-  }
-
-  v6 = v4;
-  v7 = v5;
-  if (!*(&v5 + 1))
-  {
-    goto LABEL_11;
-  }
-
-  if (swift_dynamicCast())
-  {
-    return v4;
-  }
-
-  return 5;
-}
-
-uint64_t static DefaultsManager.Cloud.fetchRemoteSuggestionChunkSize.getter()
-{
-  if (one-time initialization token for momentsUI != -1)
-  {
-    swift_once();
-  }
-
-  v0 = static DefaultsManager.momentsUI;
-  if (!static DefaultsManager.momentsUI)
-  {
-    v6 = 0u;
-    v7 = 0u;
-LABEL_11:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
-    return 100;
-  }
-
-  v1 = MEMORY[0x21CE91FC0](0xD00000000000001ELL, 0x8000000216580F70);
-  v2 = [v0 objectForKey_];
-
-  if (v2)
-  {
-    _bridgeAnyObjectToAny(_:)();
-    swift_unknownObjectRelease();
-  }
-
-  else
-  {
-    v4 = 0u;
-    v5 = 0u;
-  }
-
-  v6 = v4;
-  v7 = v5;
-  if (!*(&v5 + 1))
-  {
-    goto LABEL_11;
-  }
-
-  if (swift_dynamicCast())
-  {
-    return v4;
-  }
-
-  return 100;
-}
-
-uint64_t static DefaultsManager.Cloud.fetchRemoteAssetDataChunkSize.getter()
-{
-  if (one-time initialization token for momentsUI != -1)
-  {
-    swift_once();
-  }
-
-  v0 = static DefaultsManager.momentsUI;
-  if (!static DefaultsManager.momentsUI)
-  {
-    v6 = 0u;
-    v7 = 0u;
-LABEL_11:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
-    return 20;
-  }
-
-  v1 = MEMORY[0x21CE91FC0](0xD00000000000001DLL, 0x8000000216580F90);
-  v2 = [v0 objectForKey_];
-
-  if (v2)
-  {
-    _bridgeAnyObjectToAny(_:)();
-    swift_unknownObjectRelease();
-  }
-
-  else
-  {
-    v4 = 0u;
-    v5 = 0u;
-  }
-
-  v6 = v4;
-  v7 = v5;
-  if (!*(&v5 + 1))
-  {
-    goto LABEL_11;
-  }
-
-  if (swift_dynamicCast())
-  {
-    return v4;
-  }
-
-  return 20;
-}
-
-uint64_t static DefaultsManager.Cloud.concurrentAssetBatchSize.getter()
-{
-  if (one-time initialization token for momentsUI != -1)
-  {
-    swift_once();
-  }
-
-  v0 = static DefaultsManager.momentsUI;
-  if (!static DefaultsManager.momentsUI)
-  {
-    v6 = 0u;
-    v7 = 0u;
-LABEL_11:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
-    return 5;
-  }
-
-  v1 = MEMORY[0x21CE91FC0](0xD000000000000018, 0x8000000216580FB0);
-  v2 = [v0 objectForKey_];
-
-  if (v2)
-  {
-    _bridgeAnyObjectToAny(_:)();
-    swift_unknownObjectRelease();
-  }
-
-  else
-  {
-    v4 = 0u;
-    v5 = 0u;
-  }
-
-  v6 = v4;
-  v7 = v5;
-  if (!*(&v5 + 1))
-  {
-    goto LABEL_11;
-  }
-
-  if (swift_dynamicCast())
-  {
-    return v4;
-  }
-
-  return 5;
-}
-
-uint64_t static DefaultsManager.Cloud.abdicateOnZonePurge.getter()
-{
-  if (one-time initialization token for momentsUI != -1)
-  {
-    swift_once();
-  }
-
-  v0 = static DefaultsManager.momentsUI;
-  if (!static DefaultsManager.momentsUI)
-  {
-    v6 = 0u;
-    v7 = 0u;
-LABEL_11:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
-    return 1;
-  }
-
-  v1 = MEMORY[0x21CE91FC0](0xD000000000000013, 0x8000000216580FD0);
-  v2 = [v0 objectForKey_];
-
-  if (v2)
-  {
-    _bridgeAnyObjectToAny(_:)();
-    swift_unknownObjectRelease();
-  }
-
-  else
-  {
-    v4 = 0u;
-    v5 = 0u;
-  }
-
-  v6 = v4;
-  v7 = v5;
-  if (!*(&v5 + 1))
-  {
-    goto LABEL_11;
-  }
-
-  if (swift_dynamicCast())
-  {
-    return v4;
-  }
-
-  return 1;
-}
-
-double static DefaultsManager.Cloud.staleNominationWarningThreshold.getter()
-{
-  if (one-time initialization token for momentsUI != -1)
-  {
-    swift_once();
-  }
-
-  v0 = static DefaultsManager.momentsUI;
-  if (!static DefaultsManager.momentsUI)
-  {
-    v6 = 0u;
-    v7 = 0u;
-LABEL_11:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
-    return 7200.0;
-  }
-
-  v1 = MEMORY[0x21CE91FC0](0xD00000000000001FLL, 0x8000000216580FF0);
-  v2 = [v0 objectForKey_];
-
-  if (v2)
-  {
-    _bridgeAnyObjectToAny(_:)();
-    swift_unknownObjectRelease();
-  }
-
-  else
-  {
-    v4 = 0u;
-    v5 = 0u;
-  }
-
-  v6 = v4;
-  v7 = v5;
-  if (!*(&v5 + 1))
-  {
-    goto LABEL_11;
-  }
-
-  if (swift_dynamicCast())
-  {
-    return *&v4;
-  }
-
-  return 7200.0;
-}
-
-uint64_t static DefaultsManager.Cloud.freeSpaceThresholdSoft.getter()
-{
-  if (one-time initialization token for momentsUI != -1)
-  {
-    swift_once();
-  }
-
-  v0 = static DefaultsManager.momentsUI;
-  if (!static DefaultsManager.momentsUI)
-  {
-    v6 = 0u;
-    v7 = 0u;
-LABEL_11:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
-    return 0x40000000;
-  }
-
-  v1 = MEMORY[0x21CE91FC0](0xD000000000000016, 0x8000000216581010);
-  v2 = [v0 objectForKey_];
-
-  if (v2)
-  {
-    _bridgeAnyObjectToAny(_:)();
-    swift_unknownObjectRelease();
-  }
-
-  else
-  {
-    v4 = 0u;
-    v5 = 0u;
-  }
-
-  v6 = v4;
-  v7 = v5;
-  if (!*(&v5 + 1))
-  {
-    goto LABEL_11;
-  }
-
-  if (swift_dynamicCast())
-  {
-    return v4;
-  }
-
-  return 0x40000000;
-}
-
-uint64_t static DefaultsManager.Cloud.freeSpaceThresholdHard.getter()
-{
-  if (one-time initialization token for momentsUI != -1)
-  {
-    swift_once();
-  }
-
-  v0 = static DefaultsManager.momentsUI;
-  if (!static DefaultsManager.momentsUI)
-  {
-    v6 = 0u;
-    v7 = 0u;
-LABEL_11:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
-    return 0x40000000;
-  }
-
-  v1 = MEMORY[0x21CE91FC0](0xD000000000000016, 0x8000000216581030);
-  v2 = [v0 objectForKey_];
-
-  if (v2)
-  {
-    _bridgeAnyObjectToAny(_:)();
-    swift_unknownObjectRelease();
-  }
-
-  else
-  {
-    v4 = 0u;
-    v5 = 0u;
-  }
-
-  v6 = v4;
-  v7 = v5;
-  if (!*(&v5 + 1))
-  {
-    goto LABEL_11;
-  }
-
-  if (swift_dynamicCast())
-  {
-    return v4;
-  }
-
-  return 0x40000000;
-}
-
-double static DefaultsManager.Cloud.timeBetweenSpaceAlerts.getter()
-{
-  if (one-time initialization token for momentsUI != -1)
-  {
-    swift_once();
-  }
-
-  v0 = static DefaultsManager.momentsUI;
-  if (!static DefaultsManager.momentsUI)
-  {
-    v6 = 0u;
-    v7 = 0u;
-LABEL_11:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
-    return 86400.0;
-  }
-
-  v1 = MEMORY[0x21CE91FC0](0xD000000000000016, 0x8000000216581050);
-  v2 = [v0 objectForKey_];
-
-  if (v2)
-  {
-    _bridgeAnyObjectToAny(_:)();
-    swift_unknownObjectRelease();
-  }
-
-  else
-  {
-    v4 = 0u;
-    v5 = 0u;
-  }
-
-  v6 = v4;
-  v7 = v5;
-  if (!*(&v5 + 1))
-  {
-    goto LABEL_11;
-  }
-
-  if (swift_dynamicCast())
-  {
-    return *&v4;
-  }
-
-  return 86400.0;
-}
-
-uint64_t static DefaultsManager.Cloud.lastLowSpaceAlertDate.getter@<X0>(uint64_t a1@<X8>)
-{
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd);
-  MEMORY[0x28223BE20](v2 - 8);
-  v4 = &v9 - v3;
-  static DefaultsManager.MomentsUIDomain.dateValueFor(_:)(&v9 - v3);
-  v5 = type metadata accessor for Date();
-  v6 = *(v5 - 8);
-  v7 = *(v6 + 48);
-  if (v7(v4, 1, v5) != 1)
-  {
-    return (*(v6 + 32))(a1, v4, v5);
-  }
-
-  static Date.distantPast.getter();
-  result = (v7)(v4, 1, v5);
-  if (result != 1)
-  {
-    return outlined destroy of UTType?(v4, &_s10Foundation4DateVSgMd);
-  }
-
-  return result;
-}
-
-uint64_t key path getter for static DefaultsManager.Cloud.lastLowSpaceAlertDate : DefaultsManager.Cloud.Type@<X0>(uint64_t a1@<X8>)
-{
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd);
-  MEMORY[0x28223BE20](v2 - 8);
-  v4 = &v9 - v3;
-  static DefaultsManager.MomentsUIDomain.dateValueFor(_:)(&v9 - v3);
-  v5 = type metadata accessor for Date();
-  v6 = *(v5 - 8);
-  v7 = *(v6 + 48);
-  if (v7(v4, 1, v5) != 1)
-  {
-    return (*(v6 + 32))(a1, v4, v5);
-  }
-
-  static Date.distantPast.getter();
-  result = (v7)(v4, 1, v5);
-  if (result != 1)
-  {
-    return outlined destroy of UTType?(v4, &_s10Foundation4DateVSgMd);
-  }
-
-  return result;
-}
-
-uint64_t key path setter for static DefaultsManager.Cloud.lastLowSpaceAlertDate : DefaultsManager.Cloud.Type(uint64_t a1)
-{
-  v2 = type metadata accessor for Date();
-  v3 = *(v2 - 8);
-  MEMORY[0x28223BE20](v2);
-  v5 = &v10 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v3 + 16))(v5, a1, v2);
-  if (one-time initialization token for momentsUI != -1)
-  {
-    swift_once();
-  }
-
-  v6 = static DefaultsManager.momentsUI;
-  if (static DefaultsManager.momentsUI)
-  {
-    isa = Date._bridgeToObjectiveC()().super.isa;
-    v8 = MEMORY[0x21CE91FC0](0xD000000000000015, 0x8000000216581070);
-    [v6 setObject:isa forKey:v8];
-  }
-
-  return (*(v3 + 8))(v5, v2);
-}
-
-uint64_t static DefaultsManager.Cloud.lastLowSpaceAlertDate.setter(uint64_t a1)
-{
-  if (one-time initialization token for momentsUI != -1)
-  {
-    swift_once();
-  }
-
-  v2 = static DefaultsManager.momentsUI;
-  if (static DefaultsManager.momentsUI)
-  {
-    isa = Date._bridgeToObjectiveC()().super.isa;
-    v4 = MEMORY[0x21CE91FC0](0xD000000000000015, 0x8000000216581070);
-    [v2 setObject:isa forKey:v4];
-  }
-
-  v5 = type metadata accessor for Date();
-  v6 = *(*(v5 - 8) + 8);
-
-  return v6(a1, v5);
-}
-
-void (*static DefaultsManager.Cloud.lastLowSpaceAlertDate.modify(uint64_t *a1))(void **a1, char a2)
-{
-  v2 = MEMORY[0x277D84FD8];
-  if (MEMORY[0x277D84FD8])
-  {
-    v3 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v3 = malloc(0x28uLL);
-  }
-
-  v4 = v3;
-  *a1 = v3;
-  v5 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd) - 8) + 64);
-  if (v2)
-  {
-    v6 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v6 = malloc(v5);
-  }
-
-  v7 = v6;
-  *v4 = v6;
-  v8 = type metadata accessor for Date();
-  v4[1] = v8;
-  v9 = *(v8 - 8);
-  v10 = v9;
-  v4[2] = v9;
-  v11 = *(v9 + 64);
-  if (v2)
-  {
-    v4[3] = swift_coroFrameAlloc();
-    v12 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v4[3] = malloc(*(v9 + 64));
-    v12 = malloc(v11);
-  }
-
-  v13 = v12;
-  v4[4] = v12;
-  static DefaultsManager.MomentsUIDomain.dateValueFor(_:)(v7);
-  v14 = *(v10 + 48);
-  if (v14(v7, 1, v8) == 1)
-  {
-    static Date.distantPast.getter();
-    if (v14(v7, 1, v8) != 1)
-    {
-      outlined destroy of UTType?(v7, &_s10Foundation4DateVSgMd);
-    }
-  }
-
-  else
-  {
-    (*(v10 + 32))(v13, v7, v8);
-  }
-
-  return static DefaultsManager.Cloud.lastLowSpaceAlertDate.modify;
-}
-
-void static DefaultsManager.Cloud.lastLowSpaceAlertDate.modify(void **a1, char a2)
-{
-  v2 = *a1;
-  if (a2)
-  {
-    (*(v2[2] + 2))(v2[3], v2[4], v2[1]);
-    if (one-time initialization token for momentsUI != -1)
-    {
-      swift_once();
-    }
-
-    v3 = static DefaultsManager.momentsUI;
-    if (static DefaultsManager.momentsUI)
-    {
-      isa = Date._bridgeToObjectiveC()().super.isa;
-      v5 = MEMORY[0x21CE91FC0](0xD000000000000015, 0x8000000216581070);
-      [v3 setObject:isa forKey:v5];
-    }
-
-    v7 = v2[3];
-    v6 = v2[4];
-    v8 = v2[1];
-    v9 = *v2;
-    v10 = *(v2[2] + 1);
-    v10(v7, v8);
-    v10(v6, v8);
-  }
-
-  else
-  {
-    if (one-time initialization token for momentsUI != -1)
-    {
-      swift_once();
-    }
-
-    v11 = static DefaultsManager.momentsUI;
-    if (static DefaultsManager.momentsUI)
-    {
-      v12 = Date._bridgeToObjectiveC()().super.isa;
-      v13 = MEMORY[0x21CE91FC0](0xD000000000000015, 0x8000000216581070);
-      [v11 setObject:v12 forKey:v13];
-    }
-
-    v7 = v2[3];
-    v6 = v2[4];
-    v9 = *v2;
-    (*(v2[2] + 1))(v6, v2[1]);
-  }
-
-  free(v6);
-  free(v7);
-  free(v9);
-
-  free(v2);
-}
-
-uint64_t static DefaultsManager.Cloud.lastLowCloudSpaceAlertDate.getter@<X0>(uint64_t a1@<X8>)
-{
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd);
-  MEMORY[0x28223BE20](v2 - 8);
-  v4 = &v9 - v3;
-  static DefaultsManager.MomentsUIDomain.dateValueFor(_:)(&v9 - v3);
-  v5 = type metadata accessor for Date();
-  v6 = *(v5 - 8);
-  v7 = *(v6 + 48);
-  if (v7(v4, 1, v5) != 1)
-  {
-    return (*(v6 + 32))(a1, v4, v5);
-  }
-
-  static Date.distantPast.getter();
-  result = (v7)(v4, 1, v5);
-  if (result != 1)
-  {
-    return outlined destroy of UTType?(v4, &_s10Foundation4DateVSgMd);
-  }
-
-  return result;
-}
-
-uint64_t key path getter for static DefaultsManager.Cloud.lastLowCloudSpaceAlertDate : DefaultsManager.Cloud.Type@<X0>(uint64_t a1@<X8>)
-{
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd);
-  MEMORY[0x28223BE20](v2 - 8);
-  v4 = &v9 - v3;
-  static DefaultsManager.MomentsUIDomain.dateValueFor(_:)(&v9 - v3);
-  v5 = type metadata accessor for Date();
-  v6 = *(v5 - 8);
-  v7 = *(v6 + 48);
-  if (v7(v4, 1, v5) != 1)
-  {
-    return (*(v6 + 32))(a1, v4, v5);
-  }
-
-  static Date.distantPast.getter();
-  result = (v7)(v4, 1, v5);
-  if (result != 1)
-  {
-    return outlined destroy of UTType?(v4, &_s10Foundation4DateVSgMd);
-  }
-
-  return result;
-}
-
-uint64_t key path setter for static DefaultsManager.Cloud.lastLowCloudSpaceAlertDate : DefaultsManager.Cloud.Type(uint64_t a1)
-{
-  v2 = type metadata accessor for Date();
-  v3 = *(v2 - 8);
-  MEMORY[0x28223BE20](v2);
-  v5 = &v10 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v3 + 16))(v5, a1, v2);
-  if (one-time initialization token for momentsUI != -1)
-  {
-    swift_once();
-  }
-
-  v6 = static DefaultsManager.momentsUI;
-  if (static DefaultsManager.momentsUI)
-  {
-    isa = Date._bridgeToObjectiveC()().super.isa;
-    v8 = MEMORY[0x21CE91FC0](0xD00000000000001ALL, 0x8000000216581090);
-    [v6 setObject:isa forKey:v8];
-  }
-
-  return (*(v3 + 8))(v5, v2);
-}
-
-uint64_t static DefaultsManager.Cloud.lastLowCloudSpaceAlertDate.setter(uint64_t a1)
-{
-  if (one-time initialization token for momentsUI != -1)
-  {
-    swift_once();
-  }
-
-  v2 = static DefaultsManager.momentsUI;
-  if (static DefaultsManager.momentsUI)
-  {
-    isa = Date._bridgeToObjectiveC()().super.isa;
-    v4 = MEMORY[0x21CE91FC0](0xD00000000000001ALL, 0x8000000216581090);
-    [v2 setObject:isa forKey:v4];
-  }
-
-  v5 = type metadata accessor for Date();
-  v6 = *(*(v5 - 8) + 8);
-
-  return v6(a1, v5);
-}
-
-void (*static DefaultsManager.Cloud.lastLowCloudSpaceAlertDate.modify(uint64_t *a1))(void **a1, char a2)
-{
-  v2 = MEMORY[0x277D84FD8];
-  if (MEMORY[0x277D84FD8])
-  {
-    v3 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v3 = malloc(0x28uLL);
-  }
-
-  v4 = v3;
-  *a1 = v3;
-  v5 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd) - 8) + 64);
-  if (v2)
-  {
-    v6 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v6 = malloc(v5);
-  }
-
-  v7 = v6;
-  *v4 = v6;
-  v8 = type metadata accessor for Date();
-  v4[1] = v8;
-  v9 = *(v8 - 8);
-  v10 = v9;
-  v4[2] = v9;
-  v11 = *(v9 + 64);
-  if (v2)
-  {
-    v4[3] = swift_coroFrameAlloc();
-    v12 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v4[3] = malloc(*(v9 + 64));
-    v12 = malloc(v11);
-  }
-
-  v13 = v12;
-  v4[4] = v12;
-  static DefaultsManager.MomentsUIDomain.dateValueFor(_:)(v7);
-  v14 = *(v10 + 48);
-  if (v14(v7, 1, v8) == 1)
-  {
-    static Date.distantPast.getter();
-    if (v14(v7, 1, v8) != 1)
-    {
-      outlined destroy of UTType?(v7, &_s10Foundation4DateVSgMd);
-    }
-  }
-
-  else
-  {
-    (*(v10 + 32))(v13, v7, v8);
-  }
-
-  return static DefaultsManager.Cloud.lastLowCloudSpaceAlertDate.modify;
-}
-
-void static DefaultsManager.Cloud.lastLowCloudSpaceAlertDate.modify(void **a1, char a2)
+void static DefaultsManager.Cloud.lastLowCloudSpaceAlertDate.modify(void ***a1, char a2)
 {
   v2 = *a1;
   if (a2)
@@ -2326,7 +67,7 @@ double static DefaultsManager.Cloud.stalePrimaryWarningThreshold.getter()
     v6 = 0u;
     v7 = 0u;
 LABEL_11:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
+    outlined destroy of UTType?(&v6, &_sypSgMd, &_sypSgMR);
     return 604800.0;
   }
 
@@ -2373,7 +114,7 @@ double static DefaultsManager.Cloud.timeBetweenStalePrimaryAlerts.getter()
     v6 = 0u;
     v7 = 0u;
 LABEL_11:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
+    outlined destroy of UTType?(&v6, &_sypSgMd, &_sypSgMR);
     return 86400.0;
   }
 
@@ -2409,7 +150,7 @@ LABEL_11:
 
 uint64_t static DefaultsManager.Cloud.lastStalePrimaryAlertDate.getter@<X0>(uint64_t a1@<X8>)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   MEMORY[0x28223BE20](v2 - 8);
   v4 = &v9 - v3;
   static DefaultsManager.MomentsUIDomain.dateValueFor(_:)(&v9 - v3);
@@ -2425,7 +166,7 @@ uint64_t static DefaultsManager.Cloud.lastStalePrimaryAlertDate.getter@<X0>(uint
   result = (v7)(v4, 1, v5);
   if (result != 1)
   {
-    return outlined destroy of UTType?(v4, &_s10Foundation4DateVSgMd);
+    return outlined destroy of UTType?(v4, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   }
 
   return result;
@@ -2433,7 +174,7 @@ uint64_t static DefaultsManager.Cloud.lastStalePrimaryAlertDate.getter@<X0>(uint
 
 uint64_t key path getter for static DefaultsManager.Cloud.lastStalePrimaryAlertDate : DefaultsManager.Cloud.Type@<X0>(uint64_t a1@<X8>)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   MEMORY[0x28223BE20](v2 - 8);
   v4 = &v9 - v3;
   static DefaultsManager.MomentsUIDomain.dateValueFor(_:)(&v9 - v3);
@@ -2449,7 +190,7 @@ uint64_t key path getter for static DefaultsManager.Cloud.lastStalePrimaryAlertD
   result = (v7)(v4, 1, v5);
   if (result != 1)
   {
-    return outlined destroy of UTType?(v4, &_s10Foundation4DateVSgMd);
+    return outlined destroy of UTType?(v4, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   }
 
   return result;
@@ -2499,7 +240,7 @@ uint64_t static DefaultsManager.Cloud.lastStalePrimaryAlertDate.setter(uint64_t 
   return v6(a1, v5);
 }
 
-void (*static DefaultsManager.Cloud.lastStalePrimaryAlertDate.modify(uint64_t *a1))(void **a1, char a2)
+void (*static DefaultsManager.Cloud.lastStalePrimaryAlertDate.modify(uint64_t *a1))(void ***a1, char a2)
 {
   v2 = MEMORY[0x277D84FD8];
   if (MEMORY[0x277D84FD8])
@@ -2514,7 +255,7 @@ void (*static DefaultsManager.Cloud.lastStalePrimaryAlertDate.modify(uint64_t *a
 
   v4 = v3;
   *a1 = v3;
-  v5 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd) - 8) + 64);
+  v5 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR) - 8) + 64);
   if (v2)
   {
     v6 = swift_coroFrameAlloc();
@@ -2554,7 +295,7 @@ void (*static DefaultsManager.Cloud.lastStalePrimaryAlertDate.modify(uint64_t *a
     static Date.distantPast.getter();
     if (v14(v7, 1, v8) != 1)
     {
-      outlined destroy of UTType?(v7, &_s10Foundation4DateVSgMd);
+      outlined destroy of UTType?(v7, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
     }
   }
 
@@ -2566,7 +307,7 @@ void (*static DefaultsManager.Cloud.lastStalePrimaryAlertDate.modify(uint64_t *a
   return static DefaultsManager.Cloud.lastStalePrimaryAlertDate.modify;
 }
 
-void static DefaultsManager.Cloud.lastStalePrimaryAlertDate.modify(void **a1, char a2)
+void static DefaultsManager.Cloud.lastStalePrimaryAlertDate.modify(void ***a1, char a2)
 {
   v2 = *a1;
   if (a2)
@@ -2635,7 +376,7 @@ uint64_t static DefaultsManager.Cloud.forceCommonAssetWorkoutRouteBLOB.getter()
     v6 = 0u;
     v7 = 0u;
 LABEL_11:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
+    outlined destroy of UTType?(&v6, &_sypSgMd, &_sypSgMR);
     return 1;
   }
 
@@ -2710,7 +451,7 @@ uint64_t static DefaultsManager.Cloud.registrationDate.getter@<X0>(uint64_t a1@<
     v12 = 0u;
   }
 
-  outlined destroy of UTType?(&v11, &_sypSgMd);
+  outlined destroy of UTType?(&v11, &_sypSgMd, &_sypSgMR);
   v8 = type metadata accessor for Date();
   return (*(*(v8 - 8) + 56))(a1, 1, 1, v8);
 }
@@ -2772,7 +513,7 @@ uint64_t static DefaultsManager.Cloud.onboardingDate.getter@<X0>(uint64_t a1@<X8
     v12 = 0u;
   }
 
-  outlined destroy of UTType?(&v11, &_sypSgMd);
+  outlined destroy of UTType?(&v11, &_sypSgMd, &_sypSgMR);
   v8 = type metadata accessor for Date();
   return (*(*(v8 - 8) + 56))(a1, 1, 1, v8);
 }
@@ -2834,7 +575,7 @@ uint64_t static DefaultsManager.Cloud.lastInformedOfNewlyOnboardedDevices.getter
     v12 = 0u;
   }
 
-  outlined destroy of UTType?(&v11, &_sypSgMd);
+  outlined destroy of UTType?(&v11, &_sypSgMd, &_sypSgMR);
   v8 = type metadata accessor for Date();
   return (*(*(v8 - 8) + 56))(a1, 1, 1, v8);
 }
@@ -2896,7 +637,7 @@ uint64_t static DefaultsManager.Cloud.becamePrimaryDate.getter@<X0>(uint64_t a1@
     v12 = 0u;
   }
 
-  outlined destroy of UTType?(&v11, &_sypSgMd);
+  outlined destroy of UTType?(&v11, &_sypSgMd, &_sypSgMR);
   v8 = type metadata accessor for Date();
   return (*(*(v8 - 8) + 56))(a1, 1, 1, v8);
 }
@@ -2958,7 +699,7 @@ uint64_t static DefaultsManager.Cloud.declinedPrimaryDate.getter@<X0>(uint64_t a
     v12 = 0u;
   }
 
-  outlined destroy of UTType?(&v11, &_sypSgMd);
+  outlined destroy of UTType?(&v11, &_sypSgMd, &_sypSgMR);
   v8 = type metadata accessor for Date();
   return (*(*(v8 - 8) + 56))(a1, 1, 1, v8);
 }
@@ -2992,7 +733,7 @@ uint64_t static DefaultsManager.Cloud.disableBadRecordChangeInfiniteLoopFix.gett
     v6 = 0u;
     v7 = 0u;
 LABEL_11:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
+    outlined destroy of UTType?(&v6, &_sypSgMd, &_sypSgMR);
     return 0;
   }
 
@@ -3041,7 +782,7 @@ void static DefaultsManager.MomentsUIDomain.deleteObject(forKey:)()
   }
 }
 
-uint64_t static DefaultsManager.Cloud.capabilitiesMock.modify(uint64_t *a1, char a2, void (*a3)(uint64_t))
+void static DefaultsManager.Cloud.capabilitiesMock.modify(uint64_t *a1, char a2, void (*a3)(uint64_t))
 {
   if (a2)
   {
@@ -3051,9 +792,9 @@ uint64_t static DefaultsManager.Cloud.capabilitiesMock.modify(uint64_t *a1, char
 
   else
   {
-    v5 = *a1;
+    v4 = *a1;
 
-    return (a3)(v5);
+    a3(v4);
   }
 }
 
@@ -3070,7 +811,7 @@ uint64_t static DefaultsManager.Cloud.showFatalErrorPopups.getter()
     v6 = 0u;
     v7 = 0u;
 LABEL_11:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
+    outlined destroy of UTType?(&v6, &_sypSgMd, &_sypSgMR);
     return 1;
   }
 
@@ -3117,7 +858,7 @@ uint64_t static DefaultsManager.Cloud.showFatalErrorPopupsOverSheet.getter()
     v6 = 0u;
     v7 = 0u;
 LABEL_11:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
+    outlined destroy of UTType?(&v6, &_sypSgMd, &_sypSgMR);
     return 1;
   }
 
@@ -3164,7 +905,7 @@ uint64_t static DefaultsManager.Database.debugInflateWorkoutRoutes.getter()
     v6 = 0u;
     v7 = 0u;
 LABEL_11:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
+    outlined destroy of UTType?(&v6, &_sypSgMd, &_sypSgMR);
     return 0;
   }
 
@@ -3211,7 +952,7 @@ double static DefaultsManager.Database.classBAssertionDuration.getter()
     v6 = 0u;
     v7 = 0u;
 LABEL_11:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
+    outlined destroy of UTType?(&v6, &_sypSgMd, &_sypSgMR);
     return 86400.0;
   }
 
@@ -3351,12 +1092,14 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Default
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance DefaultsManager.Analytics.Keys()
+double protocol witness for Hashable.hash(into:) in conformance DefaultsManager.Analytics.Keys(uint64_t a1)
 {
   String.hash(into:)();
+
+  return result;
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance DefaultsManager.Analytics.Keys()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance DefaultsManager.Analytics.Keys(uint64_t a1)
 {
   Hasher.init(_seed:)();
   String.hash(into:)();
@@ -3364,27 +1107,26 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Def
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for RawRepresentable.init(rawValue:) in conformance DefaultsManager.Analytics.Keys@<X0>(Swift::String *a1@<X0>, char *a2@<X8>)
+void protocol witness for RawRepresentable.init(rawValue:) in conformance DefaultsManager.Analytics.Keys(Swift::String *a1@<X0>, char *a2@<X8>)
 {
   v3 = _findStringSwitchCase(cases:string:)(&outlined read-only object #0 of DefaultsManager.Analytics.Keys.init(rawValue:), *a1);
 
   if (v3 == 1)
   {
-    v5 = 1;
+    v4 = 1;
   }
 
   else
   {
-    v5 = 2;
+    v4 = 2;
   }
 
   if (!v3)
   {
-    v5 = 0;
+    v4 = 0;
   }
 
-  *a2 = v5;
-  return result;
+  *a2 = v4;
 }
 
 void protocol witness for RawRepresentable.rawValue.getter in conformance DefaultsManager.Analytics.Keys(unint64_t *a1@<X8>)
@@ -3454,7 +1196,7 @@ uint64_t static DefaultsManager.Analytics.lastDBSnapshotWeeklyAnalyticsSubmissio
     v12 = 0u;
   }
 
-  outlined destroy of UTType?(&v11, &_sypSgMd);
+  outlined destroy of UTType?(&v11, &_sypSgMd, &_sypSgMR);
   v8 = type metadata accessor for Date();
   return (*(*(v8 - 8) + 56))(a1, 1, 1, v8);
 }
@@ -3489,10 +1231,10 @@ uint64_t static DefaultsManager.Analytics.setLastDBSnapshotWeeklyAnalyticsSubmis
 
   else
   {
-    outlined destroy of UTType?(&v8, &_sypSgMd);
+    outlined destroy of UTType?(&v8, &_sypSgMd, &_sypSgMR);
   }
 
-  return outlined destroy of UTType?(v12, &_sypSgMd);
+  return outlined destroy of UTType?(v12, &_sypSgMd, &_sypSgMR);
 }
 
 uint64_t static DefaultsManager.Analytics.dbSnapshotWeeklyAnalyticsSubmissionBlackoutPeriodInSeconds.getter()
@@ -3509,7 +1251,7 @@ uint64_t static DefaultsManager.Analytics.dbSnapshotWeeklyAnalyticsSubmissionBla
     v8 = 0u;
 LABEL_11:
     v3 = 604800;
-    outlined destroy of UTType?(&v7, &_sypSgMd);
+    outlined destroy of UTType?(&v7, &_sypSgMd, &_sypSgMR);
     return v3;
   }
 
@@ -3574,10 +1316,10 @@ uint64_t static DefaultsManager.Analytics.setDBSnapshotWeeklyAnalyticsSubmission
 
   else
   {
-    outlined destroy of UTType?(&v5, &_sypSgMd);
+    outlined destroy of UTType?(&v5, &_sypSgMd, &_sypSgMR);
   }
 
-  return outlined destroy of UTType?(v9, &_sypSgMd);
+  return outlined destroy of UTType?(v9, &_sypSgMd, &_sypSgMR);
 }
 
 unint64_t protocol witness for RawRepresentable.init(rawValue:) in conformance DefaultsManager.SheetTransfer.TransferUIMode@<X0>(unint64_t *a1@<X0>, _BYTE *a2@<X8>)
@@ -4376,7 +2118,7 @@ uint64_t static DefaultsManager.Onboarding.privacyAlertDismissed.getter()
     v6 = 0u;
     v7 = 0u;
 LABEL_11:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
+    outlined destroy of UTType?(&v6, &_sypSgMd, &_sypSgMR);
     return 0;
   }
 
@@ -4447,7 +2189,7 @@ uint64_t static DefaultsManager.Onboarding.onboardedAppBundleID.getter()
     v6 = 0u;
     v7 = 0u;
 LABEL_12:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
+    outlined destroy of UTType?(&v6, &_sypSgMd, &_sypSgMR);
     return 0;
   }
 
@@ -4484,29 +2226,26 @@ LABEL_12:
   }
 }
 
-uint64_t specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:)(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+void specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:)(uint64_t **a1, uint64_t a2, uint64_t *a3, uint64_t a4)
 {
   v5 = v4;
   v6 = a3;
-  v126 = result;
-  v7 = *(a3 + 8);
+  v7 = a3[1];
   if (v7 < 1)
   {
     v11 = MEMORY[0x277D84F90];
 LABEL_198:
     v9 = v6;
-    v6 = *v126;
-    if (!*v126)
+    v6 = *a1;
+    if (!*a1)
     {
       goto LABEL_237;
     }
 
-    result = swift_isUniquelyReferenced_nonNull_native();
-    if ((result & 1) == 0)
+    if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
     {
 LABEL_231:
-      result = specialized _ArrayBuffer._consumeAndCreateNew()(v11);
-      v11 = result;
+      v11 = specialized _ArrayBuffer._consumeAndCreateNew()(v11);
     }
 
     v117 = v5;
@@ -4519,9 +2258,10 @@ LABEL_231:
         v5 = v118 - 1;
         v119 = *&v11[16 * v118];
         v120 = *&v11[16 * v118 + 24];
-        specialized _merge<A>(low:mid:high:buffer:by:)((*v9 + v119), (*v9 + *&v11[16 * v118 + 16]), *v9 + v120, v6);
+        specialized _merge<A>(low:mid:high:buffer:by:)((*v9 + v119), (*v9 + *&v11[16 * v118 + 16]), (*v9 + v120), v6);
         if (v117)
         {
+          goto LABEL_208;
         }
 
         if (v120 < v119)
@@ -4543,16 +2283,21 @@ LABEL_231:
         *v121 = v119;
         *(v121 + 1) = v120;
         v134 = v11;
-        result = specialized Array.remove(at:)(v118 - 1);
+        specialized Array.remove(at:)(v118 - 1);
         v11 = v134;
         v118 = *(v134 + 2);
         if (v118 <= 1)
         {
+          goto LABEL_208;
         }
       }
 
       goto LABEL_235;
     }
+
+LABEL_208:
+
+    return;
   }
 
   v8 = 0;
@@ -4572,8 +2317,7 @@ LABEL_231:
       v18 = v8[v15];
       v133 = v17;
       v132 = v18;
-      result = specialized static CloudDevice.Capability.< infix(_:_:)(&v133, &v132);
-      __dst = result;
+      __dst = specialized static CloudDevice.Capability.< infix(_:_:)(&v133, &v132);
       v124 = v8;
       v19 = (v8 + 2);
       if (v19 < v7)
@@ -4807,7 +2551,7 @@ LABEL_58:
       }
     }
 
-    v36 = *(v6 + 1);
+    v36 = v6[1];
     v8 = v13;
     if (v13 < v36)
     {
@@ -4827,7 +2571,7 @@ LABEL_58:
 
         if (v38 >= v36)
         {
-          v38 = *(v6 + 1);
+          v38 = v6[1];
         }
 
         if (v38 < v12)
@@ -4850,11 +2594,9 @@ LABEL_147:
       goto LABEL_226;
     }
 
-    result = swift_isUniquelyReferenced_nonNull_native();
-    if ((result & 1) == 0)
+    if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
     {
-      result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v11 + 2) + 1, 1, v11);
-      v11 = result;
+      v11 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v11 + 2) + 1, 1, v11);
     }
 
     v71 = *(v11 + 2);
@@ -4862,16 +2604,15 @@ LABEL_147:
     v9 = v71 + 1;
     if (v71 >= v70 >> 1)
     {
-      result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v70 > 1), v71 + 1, 1, v11);
-      v11 = result;
+      v11 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v70 > 1), v71 + 1, 1, v11);
     }
 
     *(v11 + 2) = v9;
     v72 = &v11[16 * v71];
     *(v72 + 4) = v12;
     *(v72 + 5) = v8;
-    __dstb = *v126;
-    if (!*v126)
+    __dstb = *a1;
+    if (!*a1)
     {
       goto LABEL_236;
     }
@@ -5021,9 +2762,10 @@ LABEL_229:
         v114 = v6;
         v115 = *&v11[16 * v111 + 32];
         v6 = *&v11[16 * v73 + 40];
-        specialized _merge<A>(low:mid:high:buffer:by:)((v112 + v115), (v112 + *&v11[16 * v73 + 32]), &v6[v112], __dstb);
+        specialized _merge<A>(low:mid:high:buffer:by:)((v112 + v115), (v112 + *&v11[16 * v73 + 32]), v6 + v112, __dstb);
         if (v5)
         {
+          goto LABEL_208;
         }
 
         if (v6 < v115)
@@ -5045,7 +2787,7 @@ LABEL_229:
         *(v116 + 4) = v115;
         *(v116 + 5) = v6;
         v134 = v11;
-        result = specialized Array.remove(at:)(v73);
+        specialized Array.remove(at:)(v73);
         v11 = v134;
         v9 = *(v134 + 2);
         v8 = v113;
@@ -5117,7 +2859,7 @@ LABEL_229:
     }
 
 LABEL_3:
-    v7 = *(v6 + 1);
+    v7 = v6[1];
     v9 = 0xEF656761726F7453;
     v10 = 0xEE0064656472616FLL;
     if (v8 >= v7)
@@ -5395,10 +3137,9 @@ LABEL_236:
   __break(1u);
 LABEL_237:
   __break(1u);
-  return result;
 }
 
-uint64_t specialized _merge<A>(low:mid:high:buffer:by:)(_BYTE *__src, _BYTE *a2, unint64_t a3, _BYTE *__dst)
+uint64_t specialized _merge<A>(low:mid:high:buffer:by:)(_BYTE *__src, _BYTE *a2, _BYTE *a3, _BYTE *__dst)
 {
   v4 = __dst;
   v5 = a3;
@@ -5406,7 +3147,7 @@ uint64_t specialized _merge<A>(low:mid:high:buffer:by:)(_BYTE *__src, _BYTE *a2,
   v7 = __src;
   v8 = a2 - __src;
   v9 = a3 - a2;
-  if (a2 - __src < (a3 - a2))
+  if (a2 - __src < a3 - a2)
   {
     if (__dst != __src || __dst >= a2)
     {
@@ -5877,7 +3618,7 @@ uint64_t specialized static DefaultsManager.MomentsUIDomain.doubleValueFor(_:)()
     v6 = 0u;
     v7 = 0u;
 LABEL_12:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
+    outlined destroy of UTType?(&v6, &_sypSgMd, &_sypSgMR);
     return 0;
   }
 
@@ -5927,7 +3668,7 @@ uint64_t specialized static DefaultsManager.MomentsUIDomain.BOOLeanValueFor(_:)(
     v6 = 0u;
     v7 = 0u;
 LABEL_12:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
+    outlined destroy of UTType?(&v6, &_sypSgMd, &_sypSgMR);
     return 2;
   }
 
@@ -5977,7 +3718,7 @@ uint64_t specialized static DefaultsManager.MomentsUIDomain.intValueFor(_:)()
     v6 = 0u;
     v7 = 0u;
 LABEL_12:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
+    outlined destroy of UTType?(&v6, &_sypSgMd, &_sypSgMR);
     return 0;
   }
 
@@ -6032,7 +3773,7 @@ char *specialized static DefaultsManager.Cloud.capabilitiesMock.getter()
     v36 = 0u;
     v37 = 0u;
 LABEL_23:
-    outlined destroy of UTType?(&v36, &_sypSgMd);
+    outlined destroy of UTType?(&v36, &_sypSgMd, &_sypSgMR);
     return 0;
   }
 
@@ -6092,7 +3833,7 @@ LABEL_23:
   v13 = v36;
   _bridgeAnyObjectToAny(_:)();
   swift_unknownObjectRelease();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
   if ((swift_dynamicCast() & 1) == 0)
   {
     outlined consume of Data?(v7, v9);
@@ -6173,7 +3914,7 @@ char *specialized static DefaultsManager.Cloud.capabilitiesBlock.getter()
     v36 = 0u;
     v37 = 0u;
 LABEL_23:
-    outlined destroy of UTType?(&v36, &_sypSgMd);
+    outlined destroy of UTType?(&v36, &_sypSgMd, &_sypSgMR);
     return 0;
   }
 
@@ -6233,7 +3974,7 @@ LABEL_23:
   v13 = v36;
   _bridgeAnyObjectToAny(_:)();
   swift_unknownObjectRelease();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
   if ((swift_dynamicCast() & 1) == 0)
   {
     outlined consume of Data?(v7, v9);
@@ -6314,7 +4055,7 @@ char *specialized static DefaultsManager.Cloud.capabilitiesForce.getter()
     v36 = 0u;
     v37 = 0u;
 LABEL_23:
-    outlined destroy of UTType?(&v36, &_sypSgMd);
+    outlined destroy of UTType?(&v36, &_sypSgMd, &_sypSgMR);
     return 0;
   }
 
@@ -6374,7 +4115,7 @@ LABEL_23:
   v13 = v36;
   _bridgeAnyObjectToAny(_:)();
   swift_unknownObjectRelease();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
   if ((swift_dynamicCast() & 1) == 0)
   {
     outlined consume of Data?(v7, v9);
@@ -6450,7 +4191,7 @@ uint64_t specialized static DefaultsManager.Cloud.enableIPadCloudKitWithoutOnboa
     v6 = 0u;
     v7 = 0u;
 LABEL_11:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
+    outlined destroy of UTType?(&v6, &_sypSgMd, &_sypSgMR);
     return 1;
   }
 
@@ -6521,7 +4262,7 @@ double specialized static DefaultsManager.Processing.assetRenderFreshnessToleran
     v6 = 0u;
     v7 = 0u;
 LABEL_11:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
+    outlined destroy of UTType?(&v6, &_sypSgMd, &_sypSgMR);
     return 86400.0;
   }
 
@@ -6568,7 +4309,7 @@ double specialized static DefaultsManager.Processing.assetSizeDifferenceToleranc
     v6 = 0u;
     v7 = 0u;
 LABEL_11:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
+    outlined destroy of UTType?(&v6, &_sypSgMd, &_sypSgMR);
     return 0.005;
   }
 
@@ -6615,7 +4356,7 @@ uint64_t specialized static DefaultsManager.MomentsUIDomain.arrayValueFor(_:)()
     v6 = 0u;
     v7 = 0u;
 LABEL_12:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
+    outlined destroy of UTType?(&v6, &_sypSgMd, &_sypSgMR);
     return 0;
   }
 
@@ -6641,7 +4382,7 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayyXlGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayyXlGMd, &_sSayyXlGMR);
   if (swift_dynamicCast())
   {
     return v4;
@@ -6666,7 +4407,7 @@ double specialized static DefaultsManager.Processing.assetRenderSingleTimeout.ge
     v6 = 0u;
     v7 = 0u;
 LABEL_11:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
+    outlined destroy of UTType?(&v6, &_sypSgMd, &_sypSgMR);
     return 15.0;
   }
 
@@ -6723,7 +4464,7 @@ uint64_t specialized static DefaultsManager.Notifications.lastNotificationClient
     v6 = 0u;
     v7 = 0u;
 LABEL_12:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
+    outlined destroy of UTType?(&v6, &_sypSgMd, &_sypSgMR);
     return 0;
   }
 
@@ -6773,7 +4514,7 @@ uint64_t specialized static DefaultsManager.Notifications.lastNotificationClient
     v6 = 0u;
     v7 = 0u;
 LABEL_12:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
+    outlined destroy of UTType?(&v6, &_sypSgMd, &_sypSgMR);
     return 0;
   }
 
@@ -6815,7 +4556,7 @@ uint64_t specialized static DefaultsManager.MomentsUIDomain.setObject(_:forKey:)
   outlined init with copy of Any?(a1, &v9);
   if (!v10)
   {
-    return outlined destroy of UTType?(&v9, &_sypSgMd);
+    return outlined destroy of UTType?(&v9, &_sypSgMd, &_sypSgMR);
   }
 
   outlined init with take of Any(&v9, &v11);
@@ -6850,7 +4591,7 @@ uint64_t specialized static DefaultsManager.Notifications.lastDeliveredNotificat
     v6 = 0u;
     v7 = 0u;
 LABEL_12:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
+    outlined destroy of UTType?(&v6, &_sypSgMd, &_sypSgMR);
     return 0;
   }
 
@@ -6900,7 +4641,7 @@ uint64_t specialized static DefaultsManager.Notifications.lastDeliveredGenericNo
     v6 = 0u;
     v7 = 0u;
 LABEL_12:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
+    outlined destroy of UTType?(&v6, &_sypSgMd, &_sypSgMR);
     return 0;
   }
 
@@ -6950,7 +4691,7 @@ uint64_t specialized static DefaultsManager.Notifications.weeklyResetDayThreshol
     v7 = 0u;
     v8 = 0u;
 LABEL_11:
-    outlined destroy of UTType?(&v7, &_sypSgMd);
+    outlined destroy of UTType?(&v7, &_sypSgMd, &_sypSgMR);
     goto LABEL_12;
   }
 
@@ -7004,7 +4745,7 @@ double specialized static DefaultsManager.Notifications.holdoffFireHours.getter(
     v8 = 0u;
     v9 = 0u;
 LABEL_11:
-    outlined destroy of UTType?(&v8, &_sypSgMd);
+    outlined destroy of UTType?(&v8, &_sypSgMd, &_sypSgMR);
     goto LABEL_12;
   }
 
@@ -7059,7 +4800,7 @@ uint64_t specialized static DefaultsManager.Notifications.smartNotificationWeekl
     v7 = 0u;
     v8 = 0u;
 LABEL_11:
-    outlined destroy of UTType?(&v7, &_sypSgMd);
+    outlined destroy of UTType?(&v7, &_sypSgMd, &_sypSgMR);
     goto LABEL_12;
   }
 
@@ -7113,7 +4854,7 @@ uint64_t specialized static DefaultsManager.Notifications.adaptiveGoodnessScoreS
     v7 = 0u;
     v8 = 0u;
 LABEL_11:
-    outlined destroy of UTType?(&v7, &_sypSgMd);
+    outlined destroy of UTType?(&v7, &_sypSgMd, &_sypSgMR);
     goto LABEL_12;
   }
 
@@ -7167,7 +4908,7 @@ double specialized static DefaultsManager.Notifications.lookbackFetchIntervalInD
     v8 = 0u;
     v9 = 0u;
 LABEL_11:
-    outlined destroy of UTType?(&v8, &_sypSgMd);
+    outlined destroy of UTType?(&v8, &_sypSgMd, &_sypSgMR);
     goto LABEL_12;
   }
 
@@ -7221,7 +4962,7 @@ void specialized static DefaultsManager.Notifications.incrementSuggestionNotific
   {
     v8 = 0u;
     v9 = 0u;
-    outlined destroy of UTType?(&v8, &_sypSgMd);
+    outlined destroy of UTType?(&v8, &_sypSgMd, &_sypSgMR);
     return;
   }
 
@@ -7253,7 +4994,7 @@ void specialized static DefaultsManager.Notifications.incrementSuggestionNotific
 
   else
   {
-    outlined destroy of UTType?(&v8, &_sypSgMd);
+    outlined destroy of UTType?(&v8, &_sypSgMd, &_sypSgMR);
   }
 
   v3 = 0;
@@ -7283,7 +5024,7 @@ void specialized static DefaultsManager.Notifications.incrementGenericNotificati
   {
     v8 = 0u;
     v9 = 0u;
-    outlined destroy of UTType?(&v8, &_sypSgMd);
+    outlined destroy of UTType?(&v8, &_sypSgMd, &_sypSgMR);
     return;
   }
 
@@ -7315,7 +5056,7 @@ void specialized static DefaultsManager.Notifications.incrementGenericNotificati
 
   else
   {
-    outlined destroy of UTType?(&v8, &_sypSgMd);
+    outlined destroy of UTType?(&v8, &_sypSgMd, &_sypSgMR);
   }
 
   v3 = 0;
@@ -7346,7 +5087,7 @@ uint64_t specialized static DefaultsManager.Notifications.genericNotificationWee
     v7 = 0u;
     v8 = 0u;
 LABEL_11:
-    outlined destroy of UTType?(&v7, &_sypSgMd);
+    outlined destroy of UTType?(&v7, &_sypSgMd, &_sypSgMR);
     goto LABEL_12;
   }
 
@@ -7400,7 +5141,7 @@ uint64_t specialized static DefaultsManager.Processing.draftBatchSaveCount.gette
     v6 = 0u;
     v7 = 0u;
 LABEL_11:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
+    outlined destroy of UTType?(&v6, &_sypSgMd, &_sypSgMR);
     return 5;
   }
 
@@ -7446,7 +5187,7 @@ void specialized static DefaultsManager.Notifications.incrementNotificationTCCDe
   {
     v8 = 0u;
     v9 = 0u;
-    outlined destroy of UTType?(&v8, &_sypSgMd);
+    outlined destroy of UTType?(&v8, &_sypSgMd, &_sypSgMR);
     return;
   }
 
@@ -7478,7 +5219,7 @@ void specialized static DefaultsManager.Notifications.incrementNotificationTCCDe
 
   else
   {
-    outlined destroy of UTType?(&v8, &_sypSgMd);
+    outlined destroy of UTType?(&v8, &_sypSgMd, &_sypSgMR);
   }
 
   v3 = 0;
@@ -7509,7 +5250,7 @@ double specialized static DefaultsManager.Processing.deferralMaximumThreshold.ge
     v8 = 0u;
     v9 = 0u;
 LABEL_11:
-    outlined destroy of UTType?(&v8, &_sypSgMd);
+    outlined destroy of UTType?(&v8, &_sypSgMd, &_sypSgMR);
     goto LABEL_12;
   }
 
@@ -7566,7 +5307,7 @@ uint64_t specialized static DefaultsManager.Notifications.notificationRetryCount
     v6 = 0u;
     v7 = 0u;
 LABEL_12:
-    outlined destroy of UTType?(&v6, &_sypSgMd);
+    outlined destroy of UTType?(&v6, &_sypSgMd, &_sypSgMR);
     return 0;
   }
 
@@ -7615,7 +5356,7 @@ void specialized static DefaultsManager.Notifications.incrementRetryCount()()
   {
     v8 = 0u;
     v9 = 0u;
-    outlined destroy of UTType?(&v8, &_sypSgMd);
+    outlined destroy of UTType?(&v8, &_sypSgMd, &_sypSgMR);
     return;
   }
 
@@ -7647,7 +5388,7 @@ void specialized static DefaultsManager.Notifications.incrementRetryCount()()
 
   else
   {
-    outlined destroy of UTType?(&v8, &_sypSgMd);
+    outlined destroy of UTType?(&v8, &_sypSgMd, &_sypSgMR);
   }
 
   v3 = 0;
@@ -7851,7 +5592,7 @@ LABEL_42:
     v38[1] = v32;
     specialized static DefaultsManager.MomentsUIDomain.setObject(_:forKey:)(v38, 0xD000000000000010, 0x8000000216581360);
     outlined consume of Data._Representation(a1, v29);
-    outlined destroy of UTType?(v38, &_sypSgMd);
+    outlined destroy of UTType?(v38, &_sypSgMd, &_sypSgMR);
     return;
   }
 
@@ -8061,7 +5802,7 @@ LABEL_42:
     v38[1] = v32;
     specialized static DefaultsManager.MomentsUIDomain.setObject(_:forKey:)(v38, 0xD000000000000011, 0x8000000216581340);
     outlined consume of Data._Representation(a1, v29);
-    outlined destroy of UTType?(v38, &_sypSgMd);
+    outlined destroy of UTType?(v38, &_sypSgMd, &_sypSgMR);
     return;
   }
 
@@ -8271,7 +6012,7 @@ LABEL_42:
     v38[1] = v32;
     specialized static DefaultsManager.MomentsUIDomain.setObject(_:forKey:)(v38, 0xD000000000000011, 0x8000000216581320);
     outlined consume of Data._Representation(a1, v29);
-    outlined destroy of UTType?(v38, &_sypSgMd);
+    outlined destroy of UTType?(v38, &_sypSgMd, &_sypSgMR);
     return;
   }
 
@@ -9287,19 +7028,19 @@ MomentsUI::DBSuggestion::SuggestionType DBSuggestion.type.getter@<W0>(_BYTE *a1@
 
 uint64_t DBSuggestion.modifiedDate.setter(uint64_t a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   MEMORY[0x28223BE20](v3 - 8);
   v5 = &v7[-v4];
-  outlined init with copy of DateInterval?(a1, &v7[-v4], &_s10Foundation4DateVSgMd);
+  outlined init with copy of DateInterval?(a1, &v7[-v4], &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   v10 = v1;
   swift_getKeyPath();
   v8 = v1;
   v9 = v5;
-  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion);
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
   ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
 
-  outlined destroy of UTType?(a1, &_s10Foundation4DateVSgMd);
-  return outlined destroy of UTType?(v5, &_s10Foundation4DateVSgMd);
+  outlined destroy of UTType?(a1, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  return outlined destroy of UTType?(v5, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
 }
 
 uint64_t key path setter for DBSuggestion.id : DBSuggestion(uint64_t a1, uint64_t a2)
@@ -9321,7 +7062,7 @@ uint64_t key path getter for DBSuggestion.assetsLoaded : DBSuggestion@<X0>(uint6
 uint64_t DBSuggestion.debugDescription.getter()
 {
   v1 = v0;
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   v3 = MEMORY[0x28223BE20](v2 - 8);
   v44 = &v39 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v3);
@@ -9343,7 +7084,7 @@ uint64_t DBSuggestion.debugDescription.getter()
   _StringGuts.grow(_:)(54);
   v16 = MEMORY[0x21CE92100](0x203A4449555509, 0xE700000000000000);
   (*(*v0 + 296))(v16);
-  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x277CC95F0]);
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x277CC95F0], MEMORY[0x277CC9628]);
   v17 = dispatch thunk of CustomStringConvertible.description.getter();
   MEMORY[0x21CE92100](v17);
 
@@ -9351,11 +7092,11 @@ uint64_t DBSuggestion.debugDescription.getter()
   MEMORY[0x21CE92100](0x3A656C746954090ALL, 0xE900000000000020);
   v45 = v0;
   swift_getKeyPath();
-  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion);
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
   swift_getKeyPath();
-  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion);
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
   lazy protocol witness table accessor for type String? and conformance <A> A?();
   PersistentModel.getValue<A>(forKey:)();
 
@@ -9426,7 +7167,7 @@ uint64_t DBSuggestion.debugDescription.getter()
     v30 = v26;
     if (v28 != 1)
     {
-      outlined destroy of UTType?(v27, &_s10Foundation4DateVSgMd);
+      outlined destroy of UTType?(v27, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
     }
   }
 
@@ -9438,7 +7179,7 @@ uint64_t DBSuggestion.debugDescription.getter()
     v30 = v31;
   }
 
-  v42 = lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578]);
+  v42 = lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578], MEMORY[0x277CC95B8]);
   v32 = dispatch thunk of CustomStringConvertible.description.getter();
   MEMORY[0x21CE92100](v32);
 
@@ -9453,7 +7194,7 @@ uint64_t DBSuggestion.debugDescription.getter()
     static Date.distantFuture.getter();
     if (v25(v35, 1, v29) != 1)
     {
-      outlined destroy of UTType?(v35, &_s10Foundation4DateVSgMd);
+      outlined destroy of UTType?(v35, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
     }
   }
 
@@ -9473,71 +7214,71 @@ uint64_t DBSuggestion.debugDescription.getter()
 uint64_t DBSuggestion.copyWithReuseAndNewMetadata(newReference:context:)(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   MEMORY[0x28223BE20](v6 - 8);
-  v8 = (&v219 - v7);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd);
+  v8 = (&v220 - v7);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   v10 = MEMORY[0x28223BE20](v9 - 8);
-  v234 = &v219 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v235 = &v220 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   v12 = MEMORY[0x28223BE20](v10);
-  v231 = &v219 - v13;
+  v232 = &v220 - v13;
   MEMORY[0x28223BE20](v12);
-  v230 = &v219 - v14;
+  v231 = &v220 - v14;
   v15 = type metadata accessor for Date();
-  v245 = *(v15 - 8);
+  v246 = *(v15 - 8);
   v16 = MEMORY[0x28223BE20](v15);
-  v244 = &v219 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v245 = &v220 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v16);
-  v243 = &v219 - v18;
-  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd);
+  v244 = &v220 - v18;
+  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   v20 = MEMORY[0x28223BE20](v19 - 8);
-  v233 = &v219 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v234 = &v220 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v20);
-  v23 = &v219 - v22;
+  v23 = &v220 - v22;
   v24 = type metadata accessor for UUID();
   v25 = *(v24 - 8);
   v26 = MEMORY[0x28223BE20](v24);
-  v232 = &v219 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v233 = &v220 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
   v28 = MEMORY[0x28223BE20](v26);
-  v241 = &v219 - v29;
+  v242 = &v220 - v29;
   v30 = MEMORY[0x28223BE20](v28);
-  v242 = &v219 - v31;
+  v243 = &v220 - v31;
   v32 = MEMORY[0x28223BE20](v30);
-  v34 = &v219 - v33;
+  v34 = &v220 - v33;
   v35 = MEMORY[0x28223BE20](v32);
-  v249 = &v219 - v36;
+  v250 = &v220 - v36;
   v37 = MEMORY[0x28223BE20](v35);
-  v252 = &v219 - v38;
+  v253 = &v220 - v38;
   v39 = MEMORY[0x28223BE20](v37);
-  v251 = &v219 - v40;
+  v252 = &v220 - v40;
   v41 = MEMORY[0x28223BE20](v39);
-  v43 = &v219 - v42;
+  v43 = &v220 - v42;
   (*(*a1 + 344))(v41);
   if ((*(v25 + 6))(v23, 1, v24) == 1)
   {
-    outlined destroy of UTType?(v23, &_s10Foundation4UUIDVSgMd);
+    outlined destroy of UTType?(v23, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
     return 0;
   }
 
   else
   {
-    v237 = v25;
+    v238 = v25;
     v45 = (*(v25 + 4))(v43, v23, v24);
     v46 = MEMORY[0x277D84F90];
-    v265 = MEMORY[0x277D84F90];
+    v266 = MEMORY[0x277D84F90];
     v47 = *(*a1 + 1112);
-    v224 = a1;
+    v225 = a1;
     v48 = v47(v45);
-    v225 = a2;
-    v236 = v15;
+    v226 = a2;
+    v237 = v15;
     v49 = v24;
-    v258 = v43;
-    v259 = v24;
-    v246 = v48;
-    v229 = v8;
+    v259 = v43;
+    v260 = v24;
+    v247 = v48;
+    v230 = v8;
     if (!v48)
     {
-      v254 = v46;
+      v255 = v46;
       goto LABEL_67;
     }
 
@@ -9545,14 +7286,14 @@ uint64_t DBSuggestion.copyWithReuseAndNewMetadata(newReference:context:)(uint64_
     if (v50)
     {
       v52 = v50;
-      v53 = v246 & 0xFFFFFFFFFFFFFF8;
-      v54 = v237;
-      if (v246 >> 62)
+      v53 = v247 & 0xFFFFFFFFFFFFFF8;
+      v54 = v238;
+      if (v247 >> 62)
       {
         goto LABEL_120;
       }
 
-      for (i = *((v246 & 0xFFFFFFFFFFFFFF8) + 0x10); i; i = __CocoaSet.count.getter())
+      for (i = *((v247 & 0xFFFFFFFFFFFFFF8) + 0x10); i; i = __CocoaSet.count.getter())
       {
         v56 = v52 & 0xFFFFFFFFFFFFFF8;
         if (v52 >> 62)
@@ -9566,23 +7307,23 @@ uint64_t DBSuggestion.copyWithReuseAndNewMetadata(newReference:context:)(uint64_
         }
 
         v57 = 0;
-        v250 = v246 & 0xC000000000000001;
-        v228 = (v246 + 32);
-        v255 = (v237 + 8);
-        v256 = (v237 + 16);
-        v254 = MEMORY[0x277D84F90];
+        v251 = v247 & 0xC000000000000001;
+        v229 = (v247 + 32);
+        v256 = (v238 + 8);
+        v257 = (v238 + 16);
+        v255 = MEMORY[0x277D84F90];
         *&v51 = 136315394;
-        v238 = v51;
+        v239 = v51;
         *&v51 = 134218754;
-        v223 = v51;
-        v253 = v52 & 0xFFFFFFFFFFFFFF8;
-        v248 = v53;
-        v247 = i;
+        v224 = v51;
+        v254 = v52 & 0xFFFFFFFFFFFFFF8;
+        v249 = v53;
+        v248 = i;
         while (1)
         {
-          if (v250)
+          if (v251)
           {
-            v68 = MEMORY[0x21CE93180](v57, v246);
+            v68 = MEMORY[0x21CE93180](v57, v247);
           }
 
           else
@@ -9592,10 +7333,10 @@ uint64_t DBSuggestion.copyWithReuseAndNewMetadata(newReference:context:)(uint64_
               goto LABEL_119;
             }
 
-            v68 = *&v228[8 * v57];
+            v68 = *&v229[8 * v57];
           }
 
-          v257 = (v57 + 1);
+          v258 = (v57 + 1);
           if (__OFADD__(v57, 1))
           {
             break;
@@ -9605,50 +7346,50 @@ uint64_t DBSuggestion.copyWithReuseAndNewMetadata(newReference:context:)(uint64_
           {
 LABEL_55:
 
-            MEMORY[0x21CE92260](v116);
-            if (*((v265 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v265 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+            MEMORY[0x21CE92260](v117);
+            if (*((v266 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v266 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
             {
               specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
             }
 
             specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
-            v254 = v265;
+            v255 = v266;
             if (one-time initialization token for processing != -1)
             {
               swift_once();
             }
 
-            v117 = type metadata accessor for Logger();
-            __swift_project_value_buffer(v117, static CommonLogger.processing);
-            v118 = v249;
-            (*v256)(v249, v43, v49);
+            v118 = type metadata accessor for Logger();
+            __swift_project_value_buffer(v118, static CommonLogger.processing);
+            v119 = v250;
+            (*v257)(v250, v43, v49);
 
-            v119 = Logger.logObject.getter();
-            v120 = static os_log_type_t.debug.getter();
+            v120 = Logger.logObject.getter();
+            v121 = static os_log_type_t.debug.getter();
 
-            if (os_log_type_enabled(v119, v120))
+            if (os_log_type_enabled(v120, v121))
             {
-              v58 = v118;
+              v58 = v119;
               v59 = swift_slowAlloc();
-              v240 = swift_slowAlloc();
-              v260 = v240;
-              *v59 = v238;
+              v241 = swift_slowAlloc();
+              v261 = v241;
+              *v59 = v239;
               v60 = UUID.uuidString.getter();
-              v62 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v60, v61, &v260);
+              v62 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v60, v61, &v261);
 
               *(v59 + 4) = v62;
               *(v59 + 12) = 2080;
               v63 = UUID.uuidString.getter();
               v65 = v64;
-              (*v255)(v58, v259);
-              v66 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v63, v65, &v260);
-              v49 = v259;
+              (*v256)(v58, v260);
+              v66 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v63, v65, &v261);
+              v49 = v260;
 
               *(v59 + 14) = v66;
-              _os_log_impl(&dword_21607C000, v119, v120, "[copyWithReuseAndNewMetadata] using new asset, id=%s for suggestionID=%s", v59, 0x16u);
-              v67 = v240;
+              _os_log_impl(&dword_21607C000, v120, v121, "[copyWithReuseAndNewMetadata] using new asset, id=%s for suggestionID=%s", v59, 0x16u);
+              v67 = v241;
               swift_arrayDestroy();
-              v43 = v258;
+              v43 = v259;
               MEMORY[0x21CE94770](v67, -1, -1);
               MEMORY[0x21CE94770](v59, -1, -1);
             }
@@ -9656,11 +7397,11 @@ LABEL_55:
             else
             {
 
-              (*v255)(v118, v49);
+              (*v256)(v119, v49);
             }
 
-            v53 = v248;
-            v56 = v253;
+            v53 = v249;
+            v56 = v254;
             goto LABEL_12;
           }
 
@@ -9700,162 +7441,163 @@ LABEL_117:
               }
             }
 
-            if (specialized static DBAsset.== infix(_:_:)(v68, v70))
+            specialized static DBAsset.== infix(_:_:)(v68, v70);
+            if (v71)
             {
-              v71 = (*v70 + 112);
-              v240 = *v71;
-              v239 = v71;
-              v72 = COERCE_DOUBLE(v240());
-              v74 = v73;
-              v254 = *(*v68 + 112);
-              v75 = COERCE_DOUBLE(v254());
-              if (v74)
+              v72 = (*v70 + 112);
+              v241 = *v72;
+              v240 = v72;
+              v73 = COERCE_DOUBLE(v241());
+              v75 = v74;
+              v255 = *(*v68 + 112);
+              v76 = COERCE_DOUBLE(v255());
+              if (v75)
               {
-                if (v76)
+                if (v77)
                 {
                   goto LABEL_44;
                 }
 
 LABEL_35:
-                v77 = (v254)(*&v75);
-                (*(*v70 + 120))(v77, v78 & 1);
+                v78 = (v255)(*&v76);
+                (*(*v70 + 120))(v78, v79 & 1);
                 if (one-time initialization token for processing != -1)
                 {
                   swift_once();
                 }
 
-                v79 = type metadata accessor for Logger();
-                __swift_project_value_buffer(v79, static CommonLogger.processing);
-                v80 = v259;
-                (*v256)(v251, v258, v259);
+                v80 = type metadata accessor for Logger();
+                __swift_project_value_buffer(v80, static CommonLogger.processing);
+                v81 = v260;
+                (*v257)(v252, v259, v260);
 
-                v81 = Logger.logObject.getter();
-                v82 = static os_log_type_t.debug.getter();
+                v82 = Logger.logObject.getter();
+                v83 = static os_log_type_t.debug.getter();
 
-                LODWORD(v235) = v82;
-                if (os_log_type_enabled(v81, v82))
+                LODWORD(v236) = v83;
+                if (os_log_type_enabled(v82, v83))
                 {
-                  v83 = swift_slowAlloc();
-                  v227 = swift_slowAlloc();
-                  v260 = v227;
-                  *v83 = v223;
-                  v226 = v81;
-                  v84 = COERCE_DOUBLE(v240());
-                  if (v85)
+                  v84 = swift_slowAlloc();
+                  v228 = swift_slowAlloc();
+                  v261 = v228;
+                  *v84 = v224;
+                  v227 = v82;
+                  v85 = COERCE_DOUBLE(v241());
+                  if (v86)
                   {
-                    v84 = -1.0;
+                    v85 = -1.0;
                   }
 
-                  *(v83 + 4) = v84;
-                  *(v83 + 12) = 2048;
-                  v86 = COERCE_DOUBLE(v254());
-                  if (v87)
+                  *(v84 + 4) = v85;
+                  *(v84 + 12) = 2048;
+                  v87 = COERCE_DOUBLE(v255());
+                  if (v88)
                   {
-                    v86 = -1.0;
+                    v87 = -1.0;
                   }
 
-                  *(v83 + 14) = v86;
-                  *(v83 + 22) = 2080;
-                  v88 = UUID.uuidString.getter();
-                  v90 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v88, v89, &v260);
-                  v91 = v251;
-                  v92 = v90;
+                  *(v84 + 14) = v87;
+                  *(v84 + 22) = 2080;
+                  v89 = UUID.uuidString.getter();
+                  v91 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v89, v90, &v261);
+                  v92 = v252;
+                  v93 = v91;
 
-                  *(v83 + 24) = v92;
-                  *(v83 + 32) = 2080;
-                  v93 = UUID.uuidString.getter();
-                  v95 = v94;
-                  (*v255)(v91, v259);
-                  v96 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v93, v95, &v260);
+                  *(v84 + 24) = v93;
+                  *(v84 + 32) = 2080;
+                  v94 = UUID.uuidString.getter();
+                  v96 = v95;
+                  (*v256)(v92, v260);
+                  v97 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v94, v96, &v261);
 
-                  *(v83 + 34) = v96;
-                  v97 = v226;
-                  _os_log_impl(&dword_21607C000, v226, v235, "[copyWithReuseAndNewMetadata] updating priorityScore, savedAsset=%f, referenceAsset=%f, savedId=%s for suggestionID=%s", v83, 0x2Au);
+                  *(v84 + 34) = v97;
                   v98 = v227;
+                  _os_log_impl(&dword_21607C000, v227, v236, "[copyWithReuseAndNewMetadata] updating priorityScore, savedAsset=%f, referenceAsset=%f, savedId=%s for suggestionID=%s", v84, 0x2Au);
+                  v99 = v228;
                   swift_arrayDestroy();
-                  MEMORY[0x21CE94770](v98, -1, -1);
-                  MEMORY[0x21CE94770](v83, -1, -1);
+                  MEMORY[0x21CE94770](v99, -1, -1);
+                  MEMORY[0x21CE94770](v84, -1, -1);
                 }
 
                 else
                 {
 
-                  (*v255)(v251, v80);
+                  (*v256)(v252, v81);
                 }
               }
 
-              else if ((v76 & 1) != 0 || v72 != v75)
+              else if ((v77 & 1) != 0 || v73 != v76)
               {
                 goto LABEL_35;
               }
 
 LABEL_44:
 
-              MEMORY[0x21CE92260](v99);
-              if (*((v265 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v265 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+              MEMORY[0x21CE92260](v100);
+              if (*((v266 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v266 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
               {
                 specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
               }
 
               specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
-              v254 = v265;
-              v49 = v259;
+              v255 = v266;
+              v49 = v260;
               if (one-time initialization token for processing != -1)
               {
                 swift_once();
               }
 
-              v100 = type metadata accessor for Logger();
-              __swift_project_value_buffer(v100, static CommonLogger.processing);
-              v101 = v252;
-              (*v256)(v252, v258, v49);
+              v101 = type metadata accessor for Logger();
+              __swift_project_value_buffer(v101, static CommonLogger.processing);
+              v102 = v253;
+              (*v257)(v253, v259, v49);
 
-              v102 = Logger.logObject.getter();
-              v103 = static os_log_type_t.debug.getter();
+              v103 = Logger.logObject.getter();
+              v104 = static os_log_type_t.debug.getter();
 
-              if (os_log_type_enabled(v102, v103))
+              if (os_log_type_enabled(v103, v104))
               {
-                v104 = swift_slowAlloc();
-                v240 = swift_slowAlloc();
-                v260 = v240;
-                *v104 = v238;
-                LODWORD(v239) = v103;
-                v105 = UUID.uuidString.getter();
-                v107 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v105, v106, &v260);
+                v105 = swift_slowAlloc();
+                v241 = swift_slowAlloc();
+                v261 = v241;
+                *v105 = v239;
+                LODWORD(v240) = v104;
+                v106 = UUID.uuidString.getter();
+                v108 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v106, v107, &v261);
 
-                *(v104 + 4) = v107;
-                *(v104 + 12) = 2080;
-                v108 = v252;
-                v109 = UUID.uuidString.getter();
-                v235 = v102;
-                v110 = v109;
-                v112 = v111;
-                (*v255)(v108, v259);
-                v113 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v110, v112, &v260);
-                v49 = v259;
+                *(v105 + 4) = v108;
+                *(v105 + 12) = 2080;
+                v109 = v253;
+                v110 = UUID.uuidString.getter();
+                v236 = v103;
+                v111 = v110;
+                v113 = v112;
+                (*v256)(v109, v260);
+                v114 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v111, v113, &v261);
+                v49 = v260;
 
-                *(v104 + 14) = v113;
-                v114 = v235;
-                _os_log_impl(&dword_21607C000, v235, v239, "[copyWithReuseAndNewMetadata] reusing asset id=%s for suggestionID=%s", v104, 0x16u);
-                v115 = v240;
+                *(v105 + 14) = v114;
+                v115 = v236;
+                _os_log_impl(&dword_21607C000, v236, v240, "[copyWithReuseAndNewMetadata] reusing asset id=%s for suggestionID=%s", v105, 0x16u);
+                v116 = v241;
                 swift_arrayDestroy();
-                MEMORY[0x21CE94770](v115, -1, -1);
-                MEMORY[0x21CE94770](v104, -1, -1);
+                MEMORY[0x21CE94770](v116, -1, -1);
+                MEMORY[0x21CE94770](v105, -1, -1);
               }
 
               else
               {
 
-                (*v255)(v101, v49);
+                (*v256)(v102, v49);
               }
 
               v69 = 1;
-              v56 = v253;
+              v56 = v254;
               if (v43 == v54)
               {
 
-                v43 = v258;
-                v53 = v248;
+                v43 = v259;
+                v53 = v249;
                 goto LABEL_12;
               }
 
@@ -9866,21 +7608,21 @@ LABEL_44:
           }
 
           while (v43 != v54);
-          v43 = v258;
+          v43 = v259;
           if ((v69 & 1) == 0)
           {
             goto LABEL_55;
           }
 
-          v53 = v248;
+          v53 = v249;
 LABEL_12:
-          v57 = v257;
-          if (v257 == v247)
+          v57 = v258;
+          if (v258 == v248)
           {
 
-            v15 = v236;
+            v15 = v237;
 LABEL_67:
-            v54 = v237;
+            v54 = v238;
             goto LABEL_68;
           }
         }
@@ -9893,196 +7635,196 @@ LABEL_120:
         ;
       }
 
-      v254 = MEMORY[0x277D84F90];
-      v15 = v236;
+      v255 = MEMORY[0x277D84F90];
+      v15 = v237;
       goto LABEL_68;
     }
 
-    v121 = v237;
+    v122 = v238;
     if (one-time initialization token for processing != -1)
     {
       swift_once();
     }
 
-    v122 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v122, static CommonLogger.processing);
-    v121[2](v34, v43, v24);
-    v123 = v121;
-    v124 = Logger.logObject.getter();
-    v125 = static os_log_type_t.debug.getter();
-    v126 = os_log_type_enabled(v124, v125);
-    v15 = v236;
-    if (v126)
+    v123 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v123, static CommonLogger.processing);
+    v122[2](v34, v43, v24);
+    v124 = v122;
+    v125 = Logger.logObject.getter();
+    v126 = static os_log_type_t.debug.getter();
+    v127 = os_log_type_enabled(v125, v126);
+    v15 = v237;
+    if (v127)
     {
-      v127 = swift_slowAlloc();
-      v257 = swift_slowAlloc();
-      v260 = v257;
-      *v127 = 136315138;
-      v128 = v123;
-      v129 = UUID.uuidString.getter();
-      v131 = v130;
-      (*(v128 + 8))(v34, v259);
-      v132 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v129, v131, &v260);
+      v128 = swift_slowAlloc();
+      v258 = swift_slowAlloc();
+      v261 = v258;
+      *v128 = 136315138;
+      v129 = v124;
+      v130 = UUID.uuidString.getter();
+      v132 = v131;
+      (*(v129 + 8))(v34, v260);
+      v133 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v130, v132, &v261);
 
-      *(v127 + 4) = v132;
-      _os_log_impl(&dword_21607C000, v124, v125, "[copyWithReuseAndNewMetadata] no assets to re-use, suggestionID=%s", v127, 0xCu);
-      v133 = v257;
-      __swift_destroy_boxed_opaque_existential_1(v257);
-      v49 = v259;
-      MEMORY[0x21CE94770](v133, -1, -1);
-      MEMORY[0x21CE94770](v127, -1, -1);
+      *(v128 + 4) = v133;
+      _os_log_impl(&dword_21607C000, v125, v126, "[copyWithReuseAndNewMetadata] no assets to re-use, suggestionID=%s", v128, 0xCu);
+      v134 = v258;
+      __swift_destroy_boxed_opaque_existential_1(v258);
+      v49 = v260;
+      MEMORY[0x21CE94770](v134, -1, -1);
+      MEMORY[0x21CE94770](v128, -1, -1);
 
-      v254 = v246;
+      v255 = v247;
       goto LABEL_67;
     }
 
-    (*(v123 + 8))(v34, v24);
-    v254 = v246;
-    v54 = v123;
+    (*(v124 + 8))(v34, v24);
+    v255 = v247;
+    v54 = v124;
 LABEL_68:
-    v134 = *(v54 + 16);
-    v135 = v134(v242, v43, v49);
-    v136 = v224;
-    v137 = (*(*v224 + 440))(v135);
-    v221 = v54 + 16;
-    v220 = v134;
-    if (v138)
+    v135 = *(v54 + 16);
+    v136 = v135(v243, v43, v49);
+    v137 = v225;
+    v138 = (*(*v225 + 440))(v136);
+    v222 = v54 + 16;
+    v221 = v135;
+    if (v139)
     {
-      (*(*v136 + 392))(&v260, v137);
+      (*(*v137 + 392))(&v261, v138);
     }
 
     else
     {
-      DBSuggestion.SuggestionType.init(rawValue:)(v137);
+      DBSuggestion.SuggestionType.init(rawValue:)(v138);
     }
 
-    v139 = v260;
-    if (v260 == 13)
+    v140 = v261;
+    if (v261 == 13)
     {
-      v139 = 0;
+      v140 = 0;
     }
 
-    v222 = v139;
-    v260 = v136;
+    v223 = v140;
+    v261 = v137;
     swift_getKeyPath();
-    v140 = lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion);
+    v141 = lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
     ObservationRegistrar.access<A, B>(_:keyPath:)();
 
     swift_getKeyPath();
-    v141 = lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion);
+    v142 = lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
     lazy protocol witness table accessor for type String? and conformance <A> A?();
     PersistentModel.getValue<A>(forKey:)();
 
-    v142 = v260;
-    if (!v261)
+    v143 = v261;
+    if (!v262)
     {
-      v142 = 0;
+      v143 = 0;
     }
 
-    *&v223 = v142;
-    if (v261)
+    *&v224 = v143;
+    if (v262)
     {
-      v143 = v261;
+      v144 = v262;
     }
 
     else
     {
-      v143 = 0xE000000000000000;
+      v144 = 0xE000000000000000;
     }
 
-    v228 = v143;
-    v260 = v136;
+    v229 = v144;
+    v261 = v137;
     swift_getKeyPath();
     ObservationRegistrar.access<A, B>(_:keyPath:)();
 
     swift_getKeyPath();
     PersistentModel.getValue<A>(forKey:)();
 
-    v144 = v260;
-    if (!v261)
+    v145 = v261;
+    if (!v262)
     {
-      v144 = 0;
+      v145 = 0;
     }
 
-    v226 = v144;
-    if (v261)
+    v227 = v145;
+    if (v262)
     {
-      v145 = v261;
+      v146 = v262;
     }
 
     else
     {
-      v145 = 0xE000000000000000;
+      v146 = 0xE000000000000000;
     }
 
-    v235 = v145;
-    v260 = v136;
+    v236 = v146;
+    v261 = v137;
     swift_getKeyPath();
-    v257 = v140;
+    v258 = v141;
     ObservationRegistrar.access<A, B>(_:keyPath:)();
 
     swift_getKeyPath();
     PersistentModel.getValue<A>(forKey:)();
 
-    v147 = v260;
-    if (!v261)
+    v148 = v261;
+    if (!v262)
     {
-      v147 = 0;
+      v148 = 0;
     }
 
-    v227 = v147;
-    if (v261)
+    v228 = v148;
+    if (v262)
     {
-      v148 = v261;
+      v149 = v262;
     }
 
     else
     {
-      v148 = 0xE000000000000000;
+      v149 = 0xE000000000000000;
     }
 
-    v149 = v230;
-    (*(*v136 + 728))(v146);
-    v150 = v245;
-    v151 = *(v245 + 48);
-    if (v151(v149, 1, v15) == 1)
+    v150 = v231;
+    (*(*v137 + 728))(v147);
+    v151 = v246;
+    v152 = *(v246 + 48);
+    if (v152(v150, 1, v15) == 1)
     {
       static Date.distantPast.getter();
-      v152 = v151(v149, 1, v15);
-      v153 = v231;
-      if (v152 != 1)
+      v153 = v152(v150, 1, v15);
+      v154 = v232;
+      if (v153 != 1)
       {
-        v152 = outlined destroy of UTType?(v149, &_s10Foundation4DateVSgMd);
+        v153 = outlined destroy of UTType?(v150, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
       }
     }
 
     else
     {
-      v152 = (*(v150 + 32))(v243, v149, v15);
-      v153 = v231;
+      v153 = (*(v151 + 32))(v244, v150, v15);
+      v154 = v232;
     }
 
-    (*(*v136 + 776))(v152);
-    v154 = v151(v153, 1, v15);
-    v155 = v229;
-    if (v154 == 1)
+    (*(*v137 + 776))(v153);
+    v155 = v152(v154, 1, v15);
+    v156 = v230;
+    if (v155 == 1)
     {
       static Date.distantFuture.getter();
-      v156 = v151(v153, 1, v15);
-      if (v156 != 1)
+      v157 = v152(v154, 1, v15);
+      if (v157 != 1)
       {
-        v156 = outlined destroy of UTType?(v153, &_s10Foundation4DateVSgMd);
+        v157 = outlined destroy of UTType?(v154, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
       }
     }
 
     else
     {
-      v156 = (*(v245 + 32))(v244, v153, v15);
+      v157 = (*(v246 + 32))(v245, v154, v15);
     }
 
-    v239 = (*(*v136 + 872))(v156);
-    LODWORD(v231) = v157;
-    v260 = v136;
+    v240 = (*(*v137 + 872))(v157);
+    LODWORD(v232) = v158;
+    v261 = v137;
     swift_getKeyPath();
     ObservationRegistrar.access<A, B>(_:keyPath:)();
 
@@ -10090,300 +7832,2026 @@ LABEL_68:
     lazy protocol witness table accessor for type Double? and conformance <A> A?();
     PersistentModel.getValue<A>(forKey:)();
 
-    v159 = v260;
-    LODWORD(v238) = v261;
-    v160 = (*(*v136 + 968))(v158);
-    v162 = v161;
-    v163 = DBSuggestion.visibilityCategory.getter(&v264);
-    v164 = v264;
-    v165 = (*(*v136 + 1064))(v163);
-    if (v166)
+    v160 = v261;
+    LODWORD(v239) = v262;
+    v161 = (*(*v137 + 968))(v159);
+    v163 = v162;
+    v164 = DBSuggestion.visibilityCategory.getter(&v265);
+    v165 = v265;
+    v166 = (*(*v137 + 1064))(v164);
+    if (v167)
     {
-      v167 = -1;
+      v168 = -1;
     }
 
     else
     {
-      v167 = v165;
+      v168 = v166;
     }
 
-    v168 = (*(*v136 + 488))();
-    v251 = v164;
-    v252 = v167;
-    v248 = v160;
-    LODWORD(v247) = v162;
-    v246 = v148;
-    v240 = v159;
-    if (v169)
+    v169 = (*(*v137 + 488))();
+    v252 = v165;
+    v253 = v168;
+    v249 = v161;
+    LODWORD(v248) = v163;
+    v247 = v149;
+    v241 = v160;
+    if (v170)
     {
-      v219 = 0;
+      v220 = 0;
     }
 
     else
     {
-      DBSuggestion.SuggestionSubType.init(rawValue:)(v168);
-      v170 = v260;
-      if (v260 == 65)
+      DBSuggestion.SuggestionSubType.init(rawValue:)(v169);
+      v171 = v261;
+      if (v261 == 65)
       {
-        v170 = 0;
+        v171 = 0;
       }
 
-      v219 = v170;
+      v220 = v171;
     }
 
-    v171 = v237;
-    v172 = type metadata accessor for URL();
-    v173 = (*(*(v172 - 8) + 56))(v155, 1, 1, v172);
-    LOBYTE(v249) = (*(*v136 + 1016))(v173) & 1;
-    LODWORD(v249) = v249;
+    v172 = v238;
+    v173 = type metadata accessor for URL();
+    v174 = (*(*(v173 - 8) + 56))(v156, 1, 1, v173);
+    LOBYTE(v250) = (*(*v137 + 1016))(v174) & 1;
+    LODWORD(v250) = v250;
     UUID.init()();
-    v174 = type metadata accessor for DBSuggestion();
+    v175 = type metadata accessor for DBSuggestion(0);
     v44 = swift_allocObject();
-    *(v44 + 72) = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9SwiftData15PersistentModelPAAE013createBackingB0QryAaBRd__lFZQOy9MomentsUI12DBSuggestionC_AGQo_Md);
-    v260 = v174;
-    v261 = v174;
-    v262 = v141;
-    v263 = v141;
+    *(v44 + 72) = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9SwiftData15PersistentModelPAAE013createBackingB0QryAaBRd__lFZQOy9MomentsUI12DBSuggestionC_AGQo_Md, &_s9SwiftData15PersistentModelPAAE013createBackingB0QryAaBRd__lFZQOy9MomentsUI12DBSuggestionC_AGQo_MR);
+    v261 = v175;
+    v262 = v175;
+    v263 = v142;
+    v264 = v142;
     *(v44 + 80) = swift_getOpaqueTypeConformance2();
     __swift_allocate_boxed_opaque_existential_1((v44 + 48));
-    v250 = v174;
+    v251 = v175;
     static PersistentModel.createBackingData<A>()();
-    v175 = v232;
+    v176 = v233;
     UUID.init()();
     __swift_project_boxed_opaque_existential_1((v44 + 48), *(v44 + 72));
     swift_getKeyPath();
-    lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x277CC95F0]);
-    v176 = v259;
+    lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x277CC95F0], MEMORY[0x277CC95F8]);
+    v177 = v260;
     dispatch thunk of BackingData.setValue<A>(forKey:to:)();
 
-    v177 = *(v171 + 1);
-    v253 = (v171 + 8);
-    v255 = v177;
-    v177(v175, v176);
+    v178 = *(v172 + 1);
+    v254 = (v172 + 8);
+    v256 = v178;
+    v178(v176, v177);
     *(v44 + 16) = 0x101010101010101;
     *(v44 + 24) = 0x101010101010101;
     __swift_project_boxed_opaque_existential_1((v44 + 48), *(v44 + 72));
     swift_getKeyPath();
-    v178 = MEMORY[0x277D84F90];
-    v260 = MEMORY[0x277D84F90];
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay9MomentsUI7DBAssetCGSgMd);
+    v179 = MEMORY[0x277D84F90];
+    v261 = MEMORY[0x277D84F90];
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay9MomentsUI7DBAssetCGSgMd, &_sSay9MomentsUI7DBAssetCGSgMR);
     lazy protocol witness table accessor for type [DBAsset]? and conformance <A> A?();
     dispatch thunk of BackingData.setValue<A>(forKey:to:)();
 
     *(v44 + 32) = 0;
     __swift_project_boxed_opaque_existential_1((v44 + 48), *(v44 + 72));
     swift_getKeyPath();
-    v260 = v178;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay9MomentsUI11DBAssetDataCGSgMd);
-    type metadata accessor for DBAssetData();
-    v230 = v141;
-    v179 = v171;
+    v261 = v179;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay9MomentsUI11DBAssetDataCGSgMd, &_sSay9MomentsUI11DBAssetDataCGSgMR);
+    type metadata accessor for DBAssetData(0);
+    v231 = v142;
+    v180 = v172;
     lazy protocol witness table accessor for type [DBAssetData]? and conformance <A> A?();
     dispatch thunk of BackingData.setValue<A, B>(forKey:to:)();
 
     *(v44 + 33) = 256;
     __swift_project_boxed_opaque_existential_1((v44 + 48), *(v44 + 72));
     swift_getKeyPath();
-    v260 = v178;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay9MomentsUI10DBSnapshotCGSgMd);
-    type metadata accessor for DBSnapshot();
+    v261 = v179;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay9MomentsUI10DBSnapshotCGSgMd, &_sSay9MomentsUI10DBSnapshotCGSgMR);
+    type metadata accessor for DBSnapshot(0);
     lazy protocol witness table accessor for type [DBSnapshot]? and conformance <A> A?();
     dispatch thunk of BackingData.setValue<A, B>(forKey:to:)();
 
     *(v44 + 35) = 0;
     *(v44 + 40) = 0;
-    v256 = OBJC_IVAR____TtC9MomentsUI12DBSuggestion___observationRegistrar;
+    v257 = OBJC_IVAR____TtC9MomentsUI12DBSuggestion___observationRegistrar;
     ObservationRegistrar.init()();
-    v180 = v259;
-    v181 = v220;
-    v220(v175, v241, v259);
-    v260 = v44;
+    v181 = v260;
+    v182 = v221;
+    v221(v176, v242, v260);
+    v261 = v44;
     KeyPath = swift_getKeyPath();
     MEMORY[0x28223BE20](KeyPath);
-    *(&v219 - 2) = v44;
-    *(&v219 - 1) = v175;
+    *(&v220 - 2) = v44;
+    *(&v220 - 1) = v176;
     ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
 
-    v183 = v180;
-    v255(v175, v180);
-    v184 = v233;
-    v181(v233, v242, v183);
-    (*(v179 + 7))(v184, 0, 1, v183);
-    v260 = v44;
-    v185 = swift_getKeyPath();
-    MEMORY[0x28223BE20](v185);
-    *(&v219 - 2) = v44;
-    *(&v219 - 1) = v184;
+    v184 = v181;
+    v256(v176, v181);
+    v185 = v234;
+    v182(v234, v243, v184);
+    (*(v180 + 7))(v185, 0, 1, v184);
+    v261 = v44;
+    v186 = swift_getKeyPath();
+    MEMORY[0x28223BE20](v186);
+    *(&v220 - 2) = v44;
+    *(&v220 - 1) = v185;
     ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
 
-    outlined destroy of UTType?(v184, &_s10Foundation4UUIDVSgMd);
-    v186 = v222 - 1;
-    v260 = v44;
-    v187 = swift_getKeyPath();
-    MEMORY[0x28223BE20](v187);
-    *(&v219 - 4) = v44;
-    *(&v219 - 3) = v186;
-    *(&v219 - 16) = 0;
+    outlined destroy of UTType?(v185, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+    v187 = v223 - 1;
+    v261 = v44;
+    v188 = swift_getKeyPath();
+    MEMORY[0x28223BE20](v188);
+    *(&v220 - 4) = v44;
+    *(&v220 - 3) = v187;
+    *(&v220 - 16) = 0;
     ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
 
-    v188 = qword_21659CD30[v219];
-    v260 = v44;
-    v189 = swift_getKeyPath();
-    MEMORY[0x28223BE20](v189);
-    *(&v219 - 4) = v44;
-    *(&v219 - 3) = v188;
-    *(&v219 - 16) = 0;
-    ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
-
-    v260 = v44;
+    v189 = qword_21659CD30[v220];
+    v261 = v44;
     v190 = swift_getKeyPath();
     MEMORY[0x28223BE20](v190);
-    v191 = v223;
-    *(&v219 - 4) = v44;
-    *(&v219 - 3) = v191;
-    *(&v219 - 2) = v228;
+    *(&v220 - 4) = v44;
+    *(&v220 - 3) = v189;
+    *(&v220 - 16) = 0;
     ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
 
-    v260 = v44;
-    v192 = swift_getKeyPath();
-    MEMORY[0x28223BE20](v192);
-    v193 = v226;
-    *(&v219 - 4) = v44;
-    *(&v219 - 3) = v193;
-    *(&v219 - 2) = v235;
+    v261 = v44;
+    v191 = swift_getKeyPath();
+    MEMORY[0x28223BE20](v191);
+    v192 = v224;
+    *(&v220 - 4) = v44;
+    *(&v220 - 3) = v192;
+    *(&v220 - 2) = v229;
     ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
 
-    v260 = v44;
-    v194 = swift_getKeyPath();
-    MEMORY[0x28223BE20](v194);
-    v195 = v227;
-    *(&v219 - 4) = v44;
-    *(&v219 - 3) = v195;
-    *(&v219 - 2) = v246;
+    v261 = v44;
+    v193 = swift_getKeyPath();
+    MEMORY[0x28223BE20](v193);
+    v194 = v227;
+    *(&v220 - 4) = v44;
+    *(&v220 - 3) = v194;
+    *(&v220 - 2) = v236;
     ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
 
-    v196 = v245;
-    v246 = *(v245 + 16);
-    v197 = v234;
-    v198 = v236;
-    (v246)(v234, v243, v236);
-    v237 = *(v196 + 56);
-    (v237)(v197, 0, 1, v198);
-    v260 = v44;
-    v199 = swift_getKeyPath();
-    MEMORY[0x28223BE20](v199);
-    *(&v219 - 2) = v44;
-    *(&v219 - 1) = v197;
+    v261 = v44;
+    v195 = swift_getKeyPath();
+    MEMORY[0x28223BE20](v195);
+    v196 = v228;
+    *(&v220 - 4) = v44;
+    *(&v220 - 3) = v196;
+    *(&v220 - 2) = v247;
     ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
 
-    outlined destroy of UTType?(v197, &_s10Foundation4DateVSgMd);
-    (v246)(v197, v244, v198);
-    (v237)(v197, 0, 1, v198);
-    v260 = v44;
+    v197 = v246;
+    v247 = *(v246 + 16);
+    v198 = v235;
+    v199 = v237;
+    (v247)(v235, v244, v237);
+    v238 = *(v197 + 56);
+    (v238)(v198, 0, 1, v199);
+    v261 = v44;
     v200 = swift_getKeyPath();
     MEMORY[0x28223BE20](v200);
-    *(&v219 - 2) = v44;
-    *(&v219 - 1) = v197;
+    *(&v220 - 2) = v44;
+    *(&v220 - 1) = v198;
     ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
 
-    outlined destroy of UTType?(v197, &_s10Foundation4DateVSgMd);
-    if (v231)
+    outlined destroy of UTType?(v198, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+    (v247)(v198, v245, v199);
+    (v238)(v198, 0, 1, v199);
+    v261 = v44;
+    v201 = swift_getKeyPath();
+    MEMORY[0x28223BE20](v201);
+    *(&v220 - 2) = v44;
+    *(&v220 - 1) = v198;
+    ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
+
+    outlined destroy of UTType?(v198, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+    if (v232)
     {
-      v201 = 0xBFF0000000000000;
+      v202 = 0xBFF0000000000000;
     }
 
     else
     {
-      v201 = v239;
+      v202 = v240;
     }
 
-    v260 = v44;
-    v202 = swift_getKeyPath();
-    MEMORY[0x28223BE20](v202);
-    *(&v219 - 4) = v44;
-    *(&v219 - 3) = v201;
-    *(&v219 - 16) = 0;
+    v261 = v44;
+    v203 = swift_getKeyPath();
+    MEMORY[0x28223BE20](v203);
+    *(&v220 - 4) = v44;
+    *(&v220 - 3) = v202;
+    *(&v220 - 16) = 0;
     ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
 
-    if (v238)
+    if (v239)
     {
-      v203 = 0xBFF0000000000000;
+      v204 = 0xBFF0000000000000;
     }
 
     else
     {
-      v203 = v240;
+      v204 = v241;
     }
 
-    v260 = v44;
-    v204 = swift_getKeyPath();
-    MEMORY[0x28223BE20](v204);
-    *(&v219 - 4) = v44;
-    *(&v219 - 3) = v203;
-    *(&v219 - 16) = 0;
+    v261 = v44;
+    v205 = swift_getKeyPath();
+    MEMORY[0x28223BE20](v205);
+    *(&v220 - 4) = v44;
+    *(&v220 - 3) = v204;
+    *(&v220 - 16) = 0;
     ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
 
-    if (v247)
+    if (v248)
     {
-      v205 = 0xBFF0000000000000;
+      v206 = 0xBFF0000000000000;
     }
 
     else
     {
-      v205 = v248;
+      v206 = v249;
     }
 
-    v260 = v44;
-    v206 = swift_getKeyPath();
-    MEMORY[0x28223BE20](v206);
-    *(&v219 - 4) = v44;
-    *(&v219 - 3) = v205;
-    *(&v219 - 16) = 0;
-    ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
-
-    v260 = v44;
+    v261 = v44;
     v207 = swift_getKeyPath();
     MEMORY[0x28223BE20](v207);
-    v208 = v251;
-    *(&v219 - 4) = v44;
-    *(&v219 - 3) = v208;
-    *(&v219 - 16) = 0;
+    *(&v220 - 4) = v44;
+    *(&v220 - 3) = v206;
+    *(&v220 - 16) = 0;
     ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
 
-    v260 = v44;
-    v209 = swift_getKeyPath();
-    MEMORY[0x28223BE20](v209);
-    *(&v219 - 2) = v44;
-    *(&v219 - 8) = v249;
+    v261 = v44;
+    v208 = swift_getKeyPath();
+    MEMORY[0x28223BE20](v208);
+    v209 = v252;
+    *(&v220 - 4) = v44;
+    *(&v220 - 3) = v209;
+    *(&v220 - 16) = 0;
     ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
 
-    v260 = v44;
+    v261 = v44;
     v210 = swift_getKeyPath();
     MEMORY[0x28223BE20](v210);
-    v211 = v252;
-    *(&v219 - 4) = v44;
-    *(&v219 - 3) = v211;
-    *(&v219 - 16) = 0;
+    *(&v220 - 2) = v44;
+    *(&v220 - 8) = v250;
     ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
 
-    v212 = v225;
+    v261 = v44;
+    v211 = swift_getKeyPath();
+    MEMORY[0x28223BE20](v211);
+    v212 = v253;
+    *(&v220 - 4) = v44;
+    *(&v220 - 3) = v212;
+    *(&v220 - 16) = 0;
+    ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
+
+    v213 = v226;
 
     dispatch thunk of ModelContext.insert<A>(_:)();
 
-    v213 = v229;
-    DBSuggestion.updateAssetDataReferences(assetData:assets:blobFolderURL:modelContext:)(0, v254, v229, v212);
+    v214 = v230;
+    DBSuggestion.updateAssetDataReferences(assetData:assets:blobFolderURL:modelContext:)(0, v255, v230, v213);
 
-    v214 = v259;
-    v215 = v255;
-    v255(v241, v259);
-    outlined destroy of UTType?(v213, &_s10Foundation3URLVSgMd);
-    v216 = *(v245 + 8);
-    v217 = v236;
-    v216(v244, v236);
-    v216(v243, v217);
-    v215(v242, v214);
-    v215(v258, v214);
+    v215 = v260;
+    v216 = v256;
+    v256(v242, v260);
+    outlined destroy of UTType?(v214, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+    v217 = *(v246 + 8);
+    v218 = v237;
+    v217(v245, v237);
+    v217(v244, v218);
+    v216(v243, v215);
+    v216(v259, v215);
   }
 
   return v44;
+}
+
+uint64_t DBSuggestion.startDate.getter@<X0>(uint64_t a1@<X8>)
+{
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  v4 = MEMORY[0x28223BE20](v3 - 8);
+  v6 = &v11 - v5;
+  (*(*v1 + 728))(v4);
+  v7 = type metadata accessor for Date();
+  v8 = *(v7 - 8);
+  v9 = *(v8 + 48);
+  if (v9(v6, 1, v7) != 1)
+  {
+    return (*(v8 + 32))(a1, v6, v7);
+  }
+
+  static Date.distantPast.getter();
+  result = (v9)(v6, 1, v7);
+  if (result != 1)
+  {
+    return outlined destroy of UTType?(v6, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  }
+
+  return result;
+}
+
+uint64_t key path setter for DBSuggestion._suggestionID : DBSuggestion(uint64_t a1, uint64_t a2)
+{
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  MEMORY[0x28223BE20](v4 - 8);
+  v6 = &v8 - v5;
+  outlined init with copy of DateInterval?(a1, &v8 - v5, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  return (*(**a2 + 352))(v6);
+}
+
+uint64_t key path setter for DBSuggestion._endDate : DBSuggestion(uint64_t a1, uint64_t a2)
+{
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  MEMORY[0x28223BE20](v4 - 8);
+  v6 = &v8 - v5;
+  outlined init with copy of DateInterval?(a1, &v8 - v5, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  return (*(**a2 + 784))(v6);
+}
+
+uint64_t key path getter for DBSuggestion._suggestionType : DBSuggestion@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  result = (*(**a1 + 440))();
+  *a2 = result;
+  *(a2 + 8) = v4 & 1;
+  return result;
+}
+
+uint64_t key path getter for DBSuggestion._suggestionSubType : DBSuggestion@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  result = (*(**a1 + 488))();
+  *a2 = result;
+  *(a2 + 8) = v4 & 1;
+  return result;
+}
+
+uint64_t key path getter for DBSuggestion._visibilityCategory : DBSuggestion@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  result = (*(**a1 + 536))();
+  *a2 = result;
+  *(a2 + 8) = v4 & 1;
+  return result;
+}
+
+uint64_t key path getter for PersistentModel.persistentModelID : DBAssetData()
+{
+  type metadata accessor for DBAssetData(0);
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBAssetData and conformance DBAssetData, type metadata accessor for DBAssetData, &protocol conformance descriptor for DBAssetData);
+  return PersistentModel.persistentModelID.getter();
+}
+
+uint64_t static DBSuggestion.Class.setter(char *a1, uint64_t a2, char a3)
+{
+  result = swift_beginAccess();
+  static DBSuggestion.Class = a1;
+  unk_27CA91660 = a2;
+  byte_27CA91668 = a3;
+  return result;
+}
+
+uint64_t DBSuggestion.Log.unsafeMutableAddressor()
+{
+  if (one-time initialization token for Log != -1)
+  {
+    swift_once();
+  }
+
+  v0 = type metadata accessor for Logger();
+
+  return __swift_project_value_buffer(v0, static DBSuggestion.Log);
+}
+
+uint64_t static DBSuggestion.Log.getter@<X0>(uint64_t a1@<X8>)
+{
+  if (one-time initialization token for Log != -1)
+  {
+    swift_once();
+  }
+
+  v2 = type metadata accessor for Logger();
+  v3 = __swift_project_value_buffer(v2, static DBSuggestion.Log);
+  swift_beginAccess();
+  return (*(*(v2 - 8) + 16))(a1, v3, v2);
+}
+
+uint64_t static DBSuggestion.Log.setter(uint64_t a1)
+{
+  if (one-time initialization token for Log != -1)
+  {
+    swift_once();
+  }
+
+  v2 = type metadata accessor for Logger();
+  v3 = __swift_project_value_buffer(v2, static DBSuggestion.Log);
+  swift_beginAccess();
+  v4 = *(v2 - 8);
+  (*(v4 + 24))(v3, a1, v2);
+  swift_endAccess();
+  return (*(v4 + 8))(a1, v2);
+}
+
+uint64_t (*static DBSuggestion.Log.modify(uint64_t a1))()
+{
+  if (one-time initialization token for Log != -1)
+  {
+    swift_once();
+  }
+
+  v1 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v1, static DBSuggestion.Log);
+  swift_beginAccess();
+  return MutableVideoViewModel.videoDurationSeconds.modify;
+}
+
+uint64_t protocol witness for static CloudLog.Log.getter in conformance DBSuggestion@<X0>(uint64_t a1@<X8>)
+{
+  if (one-time initialization token for Log != -1)
+  {
+    swift_once();
+  }
+
+  v2 = type metadata accessor for Logger();
+  v3 = __swift_project_value_buffer(v2, static DBSuggestion.Log);
+  swift_beginAccess();
+  return (*(*(v2 - 8) + 16))(a1, v3, v2);
+}
+
+MomentsUI::DBSuggestion::SuggestionType_optional __swiftcall DBSuggestion.SuggestionType.init(rawValue:)(Swift::Int rawValue)
+{
+  v2 = 13;
+  if ((rawValue + 1) < 0xD)
+  {
+    v2 = rawValue + 1;
+  }
+
+  *v1 = v2;
+  return rawValue;
+}
+
+uint64_t DBSuggestion.SuggestionType.init(from:)@<X0>(void *a1@<X0>, _BYTE *a2@<X8>)
+{
+  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
+  dispatch thunk of Decoder.singleValueContainer()();
+  if (v2)
+  {
+
+    v6 = 0;
+  }
+
+  else
+  {
+    __swift_project_boxed_opaque_existential_1(v9, v9[3]);
+    v5 = dispatch thunk of SingleValueDecodingContainer.decode(_:)();
+    DBSuggestion.SuggestionType.init(rawValue:)(v5);
+    if (v8 == 13)
+    {
+      v6 = 0;
+    }
+
+    else
+    {
+      v6 = v8;
+    }
+
+    __swift_destroy_boxed_opaque_existential_1(v9);
+  }
+
+  *a2 = v6;
+  return __swift_destroy_boxed_opaque_existential_1(a1);
+}
+
+Swift::Int protocol witness for Hashable.hashValue.getter in conformance DBSuggestion.SuggestionSubType()
+{
+  v1 = *v0;
+  Hasher.init(_seed:)();
+  MEMORY[0x21CE937C0](qword_21659CD30[v1]);
+  return Hasher._finalize()();
+}
+
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance DBSuggestion.SuggestionSubType(uint64_t a1)
+{
+  v2 = *v1;
+  Hasher.init(_seed:)();
+  MEMORY[0x21CE937C0](qword_21659CD30[v2]);
+  return Hasher._finalize()();
+}
+
+uint64_t DBSuggestion.SuggestionSubType.init(from:)@<X0>(void *a1@<X0>, _BYTE *a2@<X8>)
+{
+  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
+  dispatch thunk of Decoder.singleValueContainer()();
+  if (v2)
+  {
+
+    v6 = 0;
+  }
+
+  else
+  {
+    __swift_project_boxed_opaque_existential_1(v9, v9[3]);
+    v5 = dispatch thunk of SingleValueDecodingContainer.decode(_:)();
+    DBSuggestion.SuggestionSubType.init(rawValue:)(v5);
+    if (v8 == 65)
+    {
+      v6 = 0;
+    }
+
+    else
+    {
+      v6 = v8;
+    }
+
+    __swift_destroy_boxed_opaque_existential_1(v9);
+  }
+
+  *a2 = v6;
+  return __swift_destroy_boxed_opaque_existential_1(a1);
+}
+
+uint64_t DBSuggestion.VisibilityCategory.init(from:)@<X0>(void *a1@<X0>, _BYTE *a2@<X8>)
+{
+  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
+  dispatch thunk of Decoder.singleValueContainer()();
+  if (v2)
+  {
+
+    v6 = 0;
+  }
+
+  else
+  {
+    __swift_project_boxed_opaque_existential_1(v8, v8[3]);
+    v5 = dispatch thunk of SingleValueDecodingContainer.decode(_:)();
+    if (v5 >= 5)
+    {
+      v6 = 0;
+    }
+
+    else
+    {
+      v6 = v5;
+    }
+
+    __swift_destroy_boxed_opaque_existential_1(v8);
+  }
+
+  *a2 = v6;
+  return __swift_destroy_boxed_opaque_existential_1(a1);
+}
+
+double DBSuggestion.id.getter()
+{
+  swift_getKeyPath();
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  ObservationRegistrar.access<A, B>(_:keyPath:)();
+
+  swift_getKeyPath();
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x277CC95F0], MEMORY[0x277CC9618]);
+  PersistentModel.getValue<A>(forKey:)();
+
+  return result;
+}
+
+uint64_t DBSuggestion.id.setter(uint64_t a1)
+{
+  swift_getKeyPath();
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
+
+  v2 = type metadata accessor for UUID();
+  return (*(*(v2 - 8) + 8))(a1, v2);
+}
+
+double closure #1 in DBSuggestion.id.setter(uint64_t a1, uint64_t a2)
+{
+  swift_getKeyPath();
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x277CC95F0], MEMORY[0x277CC95F8]);
+  PersistentModel.setValue<A>(forKey:to:)();
+
+  return result;
+}
+
+void (*DBSuggestion.id.modify(uint64_t *a1))(uint64_t a1, char a2)
+{
+  v3 = MEMORY[0x277D84FD8];
+  if (MEMORY[0x277D84FD8])
+  {
+    v4 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v4 = malloc(0x50uLL);
+  }
+
+  v5 = v4;
+  *a1 = v4;
+  *(v4 + 24) = v1;
+  v6 = type metadata accessor for UUID();
+  v5[4] = v6;
+  v7 = *(v6 - 8);
+  v5[5] = v7;
+  v8 = *(v7 + 64);
+  if (v3)
+  {
+    v5[6] = swift_coroFrameAlloc();
+    v9 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v5[6] = malloc(*(v7 + 64));
+    v9 = malloc(v8);
+  }
+
+  v10 = OBJC_IVAR____TtC9MomentsUI12DBSuggestion___observationRegistrar;
+  v5[7] = v9;
+  v5[8] = v10;
+  *v5 = v1;
+  swift_getKeyPath();
+  v5[9] = lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  ObservationRegistrar.access<A, B>(_:keyPath:)();
+
+  swift_getKeyPath();
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x277CC95F0], MEMORY[0x277CC9618]);
+  PersistentModel.getValue<A>(forKey:)();
+
+  return DBSuggestion.id.modify;
+}
+
+void DBSuggestion.id.modify(uint64_t a1, char a2)
+{
+  v2 = *a1;
+  v3 = *(*a1 + 48);
+  v4 = *(*a1 + 56);
+  v5 = *(*a1 + 32);
+  v6 = *(*a1 + 40);
+  v7 = *(*a1 + 24);
+  if (a2)
+  {
+    (*(v6 + 16))(*(*a1 + 48), v4, v5);
+    v2[1] = v7;
+    KeyPath = swift_getKeyPath();
+    v11[0] = v11;
+    MEMORY[0x28223BE20](KeyPath);
+    ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
+
+    v9 = *(v6 + 8);
+    v9(v3, v5);
+    v9(v4, v5);
+  }
+
+  else
+  {
+    v2[2] = v7;
+    v10 = swift_getKeyPath();
+    v11[0] = v11;
+    MEMORY[0x28223BE20](v10);
+    ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
+
+    (*(v6 + 8))(v4, v5);
+  }
+
+  free(v4);
+  free(v3);
+  free(v2);
+}
+
+double closure #1 in DBSuggestion._modifiedDate.setter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void))
+{
+  swift_getKeyPath();
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  a4();
+  PersistentModel.setValue<A>(forKey:to:)();
+
+  return result;
+}
+
+void (*DBSuggestion._suggestionID.modify(uint64_t *a1))(uint64_t a1, char a2)
+{
+  v3 = MEMORY[0x277D84FD8];
+  if (MEMORY[0x277D84FD8])
+  {
+    v4 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v4 = malloc(0x40uLL);
+  }
+
+  v5 = v4;
+  *a1 = v4;
+  *(v4 + 24) = v1;
+  v6 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR) - 8) + 64);
+  if (v3)
+  {
+    v5[4] = swift_coroFrameAlloc();
+    v7 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v5[4] = malloc(v6);
+    v7 = malloc(v6);
+  }
+
+  v8 = OBJC_IVAR____TtC9MomentsUI12DBSuggestion___observationRegistrar;
+  v5[5] = v7;
+  v5[6] = v8;
+  *v5 = v1;
+  swift_getKeyPath();
+  v5[7] = lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  ObservationRegistrar.access<A, B>(_:keyPath:)();
+
+  swift_getKeyPath();
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  lazy protocol witness table accessor for type UUID? and conformance <A> A?();
+  PersistentModel.getValue<A>(forKey:)();
+
+  return DBSuggestion._suggestionID.modify;
+}
+
+void DBSuggestion._suggestionID.modify(uint64_t a1, char a2)
+{
+  v2 = *a1;
+  v3 = *(*a1 + 32);
+  v4 = *(*a1 + 40);
+  v5 = *(*a1 + 24);
+  if (a2)
+  {
+    outlined init with copy of DateInterval?(*(*a1 + 40), v3, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+    v2[1] = v5;
+    KeyPath = swift_getKeyPath();
+    MEMORY[0x28223BE20](KeyPath);
+    ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
+
+    outlined destroy of UTType?(v3, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  }
+
+  else
+  {
+    v2[2] = v5;
+    v7 = swift_getKeyPath();
+    MEMORY[0x28223BE20](v7);
+    ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
+  }
+
+  outlined destroy of UTType?(v4, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  free(v4);
+  free(v3);
+  free(v2);
+}
+
+void *key path getter for DBSuggestion._type : DBSuggestion@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+{
+  result = (*(**a1 + 392))(&v4);
+  *a2 = v4;
+  return result;
+}
+
+uint64_t key path setter for DBSuggestion._type : DBSuggestion(char *a1, uint64_t *a2)
+{
+  v2 = *a2;
+  v4 = *a1;
+  return (*(*v2 + 400))(&v4);
+}
+
+double DBSuggestion._type.getter()
+{
+  swift_getKeyPath();
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  ObservationRegistrar.access<A, B>(_:keyPath:)();
+
+  swift_getKeyPath();
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  lazy protocol witness table accessor for type DBSuggestion.SuggestionType? and conformance <A> A?();
+  PersistentModel.getValue<A>(forKey:)();
+
+  return result;
+}
+
+double DBSuggestion._type.setter(char *a1)
+{
+  swift_getKeyPath();
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
+
+  return result;
+}
+
+void (*DBSuggestion._type.modify(void *a1))(uint64_t a1)
+{
+  if (MEMORY[0x277D84FD8])
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x28uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  v5 = OBJC_IVAR____TtC9MomentsUI12DBSuggestion___observationRegistrar;
+  v3[1] = v1;
+  v3[2] = v5;
+  *v3 = v1;
+  swift_getKeyPath();
+  v4[3] = lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  ObservationRegistrar.access<A, B>(_:keyPath:)();
+
+  swift_getKeyPath();
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  lazy protocol witness table accessor for type DBSuggestion.SuggestionType? and conformance <A> A?();
+  PersistentModel.getValue<A>(forKey:)();
+
+  return DBSuggestion._type.modify;
+}
+
+void DBSuggestion._type.modify(uint64_t a1)
+{
+  v1 = *a1;
+  **a1 = *(*a1 + 8);
+  swift_getKeyPath();
+  ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
+
+  free(v1);
+}
+
+void (*DBSuggestion._suggestionType.modify(void *a1))(void **a1)
+{
+  if (MEMORY[0x277D84FD8])
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x38uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  v5 = OBJC_IVAR____TtC9MomentsUI12DBSuggestion___observationRegistrar;
+  v3[4] = v1;
+  v3[5] = v5;
+  v3[2] = v1;
+  v6 = v3 + 2;
+  swift_getKeyPath();
+  v4[6] = lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  ObservationRegistrar.access<A, B>(_:keyPath:)();
+
+  swift_getKeyPath();
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  lazy protocol witness table accessor for type Int? and conformance <A> A?();
+  PersistentModel.getValue<A>(forKey:)();
+
+  v7 = *(v4 + 24);
+  *v4 = *v6;
+  *(v4 + 8) = v7;
+  return DBSuggestion._suggestionType.modify;
+}
+
+void DBSuggestion._suggestionType.modify(void **a1)
+{
+  v1 = *a1;
+  *(*a1 + 2) = *(*a1 + 4);
+  swift_getKeyPath();
+  ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
+
+  free(v1);
+}
+
+uint64_t DBSuggestion._suggestionType.getter(uint64_t a1, uint64_t (*a2)(void))
+{
+  swift_getKeyPath();
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  ObservationRegistrar.access<A, B>(_:keyPath:)();
+
+  swift_getKeyPath();
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  a2();
+  PersistentModel.getValue<A>(forKey:)();
+
+  return v2;
+}
+
+double DBSuggestion._suggestionType.setter(uint64_t a1, char a2, uint64_t a3, uint64_t a4)
+{
+  swift_getKeyPath();
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
+
+  return result;
+}
+
+double closure #1 in DBSuggestion._suggestionType.setter(uint64_t a1, uint64_t a2, char a3, uint64_t a4, uint64_t (*a5)(uint64_t, uint64_t))
+{
+  swift_getKeyPath();
+  v6 = lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  a5(v6, v7);
+  PersistentModel.setValue<A>(forKey:to:)();
+
+  return result;
+}
+
+void (*DBSuggestion._suggestionSubType.modify(void *a1))(void **a1)
+{
+  if (MEMORY[0x277D84FD8])
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x38uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  v5 = OBJC_IVAR____TtC9MomentsUI12DBSuggestion___observationRegistrar;
+  v3[4] = v1;
+  v3[5] = v5;
+  v3[2] = v1;
+  v6 = v3 + 2;
+  swift_getKeyPath();
+  v4[6] = lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  ObservationRegistrar.access<A, B>(_:keyPath:)();
+
+  swift_getKeyPath();
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  lazy protocol witness table accessor for type Int? and conformance <A> A?();
+  PersistentModel.getValue<A>(forKey:)();
+
+  v7 = *(v4 + 24);
+  *v4 = *v6;
+  *(v4 + 8) = v7;
+  return DBSuggestion._suggestionSubType.modify;
+}
+
+void DBSuggestion._suggestionSubType.modify(void **a1)
+{
+  v1 = *a1;
+  *(*a1 + 2) = *(*a1 + 4);
+  swift_getKeyPath();
+  ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
+
+  free(v1);
+}
+
+void (*DBSuggestion._visibilityCategory.modify(void *a1))(void **a1)
+{
+  if (MEMORY[0x277D84FD8])
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x38uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  v5 = OBJC_IVAR____TtC9MomentsUI12DBSuggestion___observationRegistrar;
+  v3[4] = v1;
+  v3[5] = v5;
+  v3[2] = v1;
+  v6 = v3 + 2;
+  swift_getKeyPath();
+  v4[6] = lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  ObservationRegistrar.access<A, B>(_:keyPath:)();
+
+  swift_getKeyPath();
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  lazy protocol witness table accessor for type UInt? and conformance <A> A?();
+  PersistentModel.getValue<A>(forKey:)();
+
+  v7 = *(v4 + 24);
+  *v4 = *v6;
+  *(v4 + 8) = v7;
+  return DBSuggestion._visibilityCategory.modify;
+}
+
+void DBSuggestion._visibilityCategory.modify(void **a1)
+{
+  v1 = *a1;
+  *(*a1 + 2) = *(*a1 + 4);
+  swift_getKeyPath();
+  ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
+
+  free(v1);
+}
+
+double key path getter for DBSuggestion._title : DBSuggestion@<D0>(void *a1@<X0>, _OWORD *a3@<X8>)
+{
+  *&v5 = *a1;
+  swift_getKeyPath();
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  ObservationRegistrar.access<A, B>(_:keyPath:)();
+
+  swift_getKeyPath();
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  lazy protocol witness table accessor for type String? and conformance <A> A?();
+  PersistentModel.getValue<A>(forKey:)();
+
+  result = *&v5;
+  *a3 = v5;
+  return result;
+}
+
+double key path setter for DBSuggestion._title : DBSuggestion(uint64_t *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  swift_getKeyPath();
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
+
+  return result;
+}
+
+uint64_t DBSuggestion._title.getter(uint64_t a1)
+{
+  swift_getKeyPath();
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  ObservationRegistrar.access<A, B>(_:keyPath:)();
+
+  swift_getKeyPath();
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  lazy protocol witness table accessor for type String? and conformance <A> A?();
+  PersistentModel.getValue<A>(forKey:)();
+
+  return v1;
+}
+
+double closure #1 in DBSuggestion._title.setter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  swift_getKeyPath();
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  lazy protocol witness table accessor for type String? and conformance <A> A?();
+  PersistentModel.setValue<A>(forKey:to:)();
+
+  return result;
+}
+
+uint64_t key path setter for DBSuggestion._startDate : DBSuggestion(uint64_t a1, uint64_t a2)
+{
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  MEMORY[0x28223BE20](v4 - 8);
+  v6 = &v8 - v5;
+  outlined init with copy of DateInterval?(a1, &v8 - v5, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  return (*(**a2 + 736))(v6);
+}
+
+uint64_t DBSuggestion._suggestionID.setter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5)
+{
+  swift_getKeyPath();
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
+
+  return outlined destroy of UTType?(a1, a4, a5);
+}
+
+void (*DBSuggestion._startDate.modify(uint64_t *a1))(uint64_t a1, uint64_t a2)
+{
+  v3 = MEMORY[0x277D84FD8];
+  if (MEMORY[0x277D84FD8])
+  {
+    v4 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v4 = malloc(0x40uLL);
+  }
+
+  v5 = v4;
+  *a1 = v4;
+  *(v4 + 24) = v1;
+  v6 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR) - 8) + 64);
+  if (v3)
+  {
+    v5[4] = swift_coroFrameAlloc();
+    v7 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v5[4] = malloc(v6);
+    v7 = malloc(v6);
+  }
+
+  v8 = OBJC_IVAR____TtC9MomentsUI12DBSuggestion___observationRegistrar;
+  v5[5] = v7;
+  v5[6] = v8;
+  *v5 = v1;
+  swift_getKeyPath();
+  v5[7] = lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  ObservationRegistrar.access<A, B>(_:keyPath:)();
+
+  swift_getKeyPath();
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  lazy protocol witness table accessor for type Date? and conformance <A> A?();
+  PersistentModel.getValue<A>(forKey:)();
+
+  return DBSuggestion._startDate.modify;
+}
+
+void (*DBSuggestion._endDate.modify(uint64_t *a1))(uint64_t a1, uint64_t a2)
+{
+  v3 = MEMORY[0x277D84FD8];
+  if (MEMORY[0x277D84FD8])
+  {
+    v4 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v4 = malloc(0x40uLL);
+  }
+
+  v5 = v4;
+  *a1 = v4;
+  *(v4 + 24) = v1;
+  v6 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR) - 8) + 64);
+  if (v3)
+  {
+    v5[4] = swift_coroFrameAlloc();
+    v7 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v5[4] = malloc(v6);
+    v7 = malloc(v6);
+  }
+
+  v8 = OBJC_IVAR____TtC9MomentsUI12DBSuggestion___observationRegistrar;
+  v5[5] = v7;
+  v5[6] = v8;
+  *v5 = v1;
+  swift_getKeyPath();
+  v5[7] = lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  ObservationRegistrar.access<A, B>(_:keyPath:)();
+
+  swift_getKeyPath();
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  lazy protocol witness table accessor for type Date? and conformance <A> A?();
+  PersistentModel.getValue<A>(forKey:)();
+
+  return DBSuggestion._endDate.modify;
+}
+
+void DBSuggestion._startDate.modify(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v5 = *a1;
+  v6 = *(*a1 + 32);
+  v7 = *(*a1 + 40);
+  v8 = *(*a1 + 24);
+  if (a2)
+  {
+    outlined init with copy of DateInterval?(v5[5], v5[4], &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+    v5[1] = v8;
+    KeyPath = swift_getKeyPath();
+    MEMORY[0x28223BE20](KeyPath);
+    ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
+
+    outlined destroy of UTType?(v6, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  }
+
+  else
+  {
+    v5[2] = v8;
+    v10 = swift_getKeyPath();
+    MEMORY[0x28223BE20](v10);
+    ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
+  }
+
+  outlined destroy of UTType?(v7, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  free(v7);
+  free(v6);
+  free(v5);
+}
+
+double DBSuggestion.modifiedDate.getter(uint64_t a1, uint64_t (*a2)(void))
+{
+  swift_getKeyPath();
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  ObservationRegistrar.access<A, B>(_:keyPath:)();
+
+  swift_getKeyPath();
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  a2();
+  PersistentModel.getValue<A>(forKey:)();
+
+  return result;
+}
+
+uint64_t type metadata accessor for DBSuggestion(uint64_t a1)
+{
+  result = type metadata singleton initialization cache for DBSuggestion;
+  if (!type metadata singleton initialization cache for DBSuggestion)
+  {
+    return swift_getSingletonMetadata();
+  }
+
+  return result;
+}
+
+uint64_t key path getter for DBSuggestion._rankingScore : DBSuggestion@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  result = (*(**a1 + 872))();
+  *a2 = result;
+  *(a2 + 8) = v4 & 1;
+  return result;
+}
+
+void (*DBSuggestion._rankingScore.modify(void *a1))(void **a1)
+{
+  if (MEMORY[0x277D84FD8])
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x38uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  v5 = OBJC_IVAR____TtC9MomentsUI12DBSuggestion___observationRegistrar;
+  v3[4] = v1;
+  v3[5] = v5;
+  v3[2] = v1;
+  v6 = v3 + 2;
+  swift_getKeyPath();
+  v4[6] = lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  ObservationRegistrar.access<A, B>(_:keyPath:)();
+
+  swift_getKeyPath();
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  lazy protocol witness table accessor for type Double? and conformance <A> A?();
+  PersistentModel.getValue<A>(forKey:)();
+
+  v7 = *(v4 + 24);
+  *v4 = *v6;
+  *(v4 + 8) = v7;
+  return DBSuggestion._rankingScore.modify;
+}
+
+void DBSuggestion._rankingScore.modify(void **a1)
+{
+  v1 = *a1;
+  *(*a1 + 2) = *(*a1 + 4);
+  swift_getKeyPath();
+  ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
+
+  free(v1);
+}
+
+void key path getter for DBSuggestion._baseScore : DBSuggestion(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+{
+  v3 = *a1;
+  swift_getKeyPath();
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  ObservationRegistrar.access<A, B>(_:keyPath:)();
+
+  swift_getKeyPath();
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  lazy protocol witness table accessor for type Double? and conformance <A> A?();
+  PersistentModel.getValue<A>(forKey:)();
+
+  *a2 = v3;
+  *(a2 + 8) = v4;
+}
+
+double key path setter for DBSuggestion._baseScore : DBSuggestion(uint64_t *a1, uint64_t *a2)
+{
+  swift_getKeyPath();
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
+
+  return result;
+}
+
+uint64_t key path getter for DBSuggestion._goodnessScore : DBSuggestion@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  result = (*(**a1 + 968))();
+  *a2 = result;
+  *(a2 + 8) = v4 & 1;
+  return result;
+}
+
+void (*DBSuggestion._goodnessScore.modify(void *a1))(void **a1)
+{
+  if (MEMORY[0x277D84FD8])
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x38uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  v5 = OBJC_IVAR____TtC9MomentsUI12DBSuggestion___observationRegistrar;
+  v3[4] = v1;
+  v3[5] = v5;
+  v3[2] = v1;
+  v6 = v3 + 2;
+  swift_getKeyPath();
+  v4[6] = lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  ObservationRegistrar.access<A, B>(_:keyPath:)();
+
+  swift_getKeyPath();
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  lazy protocol witness table accessor for type Double? and conformance <A> A?();
+  PersistentModel.getValue<A>(forKey:)();
+
+  v7 = *(v4 + 24);
+  *v4 = *v6;
+  *(v4 + 8) = v7;
+  return DBSuggestion._goodnessScore.modify;
+}
+
+void DBSuggestion._goodnessScore.modify(void **a1)
+{
+  v1 = *a1;
+  *(*a1 + 2) = *(*a1 + 4);
+  swift_getKeyPath();
+  ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
+
+  free(v1);
+}
+
+uint64_t key path getter for DBSuggestion._isSensitive : DBSuggestion@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+{
+  result = (*(**a1 + 1016))();
+  *a2 = result;
+  return result;
+}
+
+double closure #1 in DBSuggestion._type.setter(uint64_t a1, char a2, uint64_t a3, uint64_t (*a4)(void))
+{
+  swift_getKeyPath();
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  a4();
+  PersistentModel.setValue<A>(forKey:to:)();
+
+  return result;
+}
+
+void (*DBSuggestion._isSensitive.modify(void *a1))(uint64_t a1)
+{
+  if (MEMORY[0x277D84FD8])
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x28uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  v5 = OBJC_IVAR____TtC9MomentsUI12DBSuggestion___observationRegistrar;
+  v3[1] = v1;
+  v3[2] = v5;
+  *v3 = v1;
+  swift_getKeyPath();
+  v4[3] = lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  ObservationRegistrar.access<A, B>(_:keyPath:)();
+
+  swift_getKeyPath();
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  lazy protocol witness table accessor for type Bool? and conformance <A> A?();
+  PersistentModel.getValue<A>(forKey:)();
+
+  *(v4 + 32) = *v4;
+  return DBSuggestion._isSensitive.modify;
+}
+
+void DBSuggestion._isSensitive.modify(uint64_t a1)
+{
+  v1 = *a1;
+  **a1 = *(*a1 + 8);
+  swift_getKeyPath();
+  ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
+
+  free(v1);
+}
+
+uint64_t key path getter for DBSuggestion._ordinalRankInRecommendedTab : DBSuggestion@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  result = (*(**a1 + 1064))();
+  *a2 = result;
+  *(a2 + 8) = v4 & 1;
+  return result;
+}
+
+void (*DBSuggestion._ordinalRankInRecommendedTab.modify(void *a1))(void **a1)
+{
+  if (MEMORY[0x277D84FD8])
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x38uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  v5 = OBJC_IVAR____TtC9MomentsUI12DBSuggestion___observationRegistrar;
+  v3[4] = v1;
+  v3[5] = v5;
+  v3[2] = v1;
+  v6 = v3 + 2;
+  swift_getKeyPath();
+  v4[6] = lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  ObservationRegistrar.access<A, B>(_:keyPath:)();
+
+  swift_getKeyPath();
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  lazy protocol witness table accessor for type Int64? and conformance <A> A?();
+  PersistentModel.getValue<A>(forKey:)();
+
+  v7 = *(v4 + 24);
+  *v4 = *v6;
+  *(v4 + 8) = v7;
+  return DBSuggestion._ordinalRankInRecommendedTab.modify;
+}
+
+void DBSuggestion._ordinalRankInRecommendedTab.modify(void **a1)
+{
+  v1 = *a1;
+  *(*a1 + 2) = *(*a1 + 4);
+  swift_getKeyPath();
+  ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
+
+  free(v1);
+}
+
+uint64_t key path getter for DBSuggestion.assets : DBSuggestion@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
+{
+  result = (*(**a1 + 1112))();
+  *a2 = result;
+  return result;
+}
+
+uint64_t key path setter for DBSuggestion.assets : DBSuggestion(void *a1, uint64_t a2)
+{
+  v2 = *(**a2 + 1120);
+
+  return v2(v3);
+}
+
+uint64_t DBSuggestion.assets.getter()
+{
+  swift_getKeyPath();
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  ObservationRegistrar.access<A, B>(_:keyPath:)();
+
+  swift_getKeyPath();
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  lazy protocol witness table accessor for type [DBAsset]? and conformance <A> A?();
+  PersistentModel.getValue<A>(forKey:)();
+
+  return v0;
+}
+
+double closure #1 in DBSuggestion.assets.setter(uint64_t a1, uint64_t a2)
+{
+  swift_getKeyPath();
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  lazy protocol witness table accessor for type [DBAsset]? and conformance <A> A?();
+  PersistentModel.setValue<A>(forKey:to:)();
+
+  return result;
+}
+
+void (*DBSuggestion.assets.modify(void *a1))(uint64_t a1, uint64_t a2)
+{
+  if (MEMORY[0x277D84FD8])
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x28uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  v5 = OBJC_IVAR____TtC9MomentsUI12DBSuggestion___observationRegistrar;
+  v3[2] = v1;
+  v3[3] = v5;
+  v3[1] = v1;
+  v6 = v3 + 1;
+  swift_getKeyPath();
+  v4[4] = lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  ObservationRegistrar.access<A, B>(_:keyPath:)();
+
+  swift_getKeyPath();
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  lazy protocol witness table accessor for type [DBAsset]? and conformance <A> A?();
+  PersistentModel.getValue<A>(forKey:)();
+
+  *v4 = *v6;
+  return DBSuggestion.assets.modify;
+}
+
+uint64_t key path getter for DBSuggestion._assetData : DBSuggestion@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
+{
+  result = (*(**a1 + 1160))();
+  *a2 = result;
+  return result;
+}
+
+uint64_t key path setter for DBSuggestion._assetData : DBSuggestion(void *a1, uint64_t a2)
+{
+  v2 = *(**a2 + 1168);
+
+  return v2(v3);
+}
+
+double DBSuggestion.assets.setter(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  swift_getKeyPath();
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
+
+  return result;
+}
+
+void (*DBSuggestion._assetData.modify(void *a1))(uint64_t a1, uint64_t a2)
+{
+  if (MEMORY[0x277D84FD8])
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x28uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  v5 = OBJC_IVAR____TtC9MomentsUI12DBSuggestion___observationRegistrar;
+  v3[2] = v1;
+  v3[3] = v5;
+  v3[1] = v1;
+  v6 = v3 + 1;
+  swift_getKeyPath();
+  v4[4] = lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  ObservationRegistrar.access<A, B>(_:keyPath:)();
+
+  swift_getKeyPath();
+  type metadata accessor for DBAssetData(0);
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  lazy protocol witness table accessor for type [DBAssetData]? and conformance <A> A?();
+  PersistentModel.getValue<A, B>(forKey:)();
+
+  *v4 = *v6;
+  return DBSuggestion._assetData.modify;
+}
+
+uint64_t DBSuggestion._isSensitive.getter(uint64_t a1)
+{
+  swift_getKeyPath();
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  ObservationRegistrar.access<A, B>(_:keyPath:)();
+
+  swift_getKeyPath();
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  lazy protocol witness table accessor for type Bool? and conformance <A> A?();
+  PersistentModel.getValue<A>(forKey:)();
+
+  return v2;
+}
+
+double DBSuggestion._isSensitive.setter(char a1, uint64_t a2, uint64_t a3)
+{
+  swift_getKeyPath();
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
+
+  return result;
+}
+
+void (*DBSuggestion.assetsLoaded.modify(void *a1))(uint64_t a1)
+{
+  if (MEMORY[0x277D84FD8])
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x28uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  v5 = OBJC_IVAR____TtC9MomentsUI12DBSuggestion___observationRegistrar;
+  v3[1] = v1;
+  v3[2] = v5;
+  *v3 = v1;
+  swift_getKeyPath();
+  v4[3] = lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  ObservationRegistrar.access<A, B>(_:keyPath:)();
+
+  swift_getKeyPath();
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+  lazy protocol witness table accessor for type Bool? and conformance <A> A?();
+  PersistentModel.getValue<A>(forKey:)();
+
+  *(v4 + 32) = *v4;
+  return DBSuggestion.assetsLoaded.modify;
+}
+
+void DBSuggestion.assetsLoaded.modify(uint64_t a1)
+{
+  v1 = *a1;
+  **a1 = *(*a1 + 8);
+  swift_getKeyPath();
+  ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
+
+  free(v1);
+}
+
+uint64_t DBSuggestion.refreshLoadedAssets(deep:context:)(char a1, uint64_t a2)
+{
+  v53 = type metadata accessor for PersistentIdentifier();
+  v5 = *(v53 - 8);
+  MEMORY[0x28223BE20](v53);
+  v7 = &v45 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation9PredicateVy9MomentsUI11DBAssetDataC_QPGSgMd, &_s10Foundation9PredicateVy9MomentsUI11DBAssetDataC_QPGSgMR);
+  MEMORY[0x28223BE20](v8 - 8);
+  v58 = &v45 - v9;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9SwiftData15FetchDescriptorVy9MomentsUI07DBAssetB0CGMd, &_s9SwiftData15FetchDescriptorVy9MomentsUI07DBAssetB0CGMR);
+  v11 = *(v10 - 8);
+  MEMORY[0x28223BE20](v10);
+  v13 = &v45 - v12;
+  v14 = type metadata accessor for UUID();
+  v15 = *(v14 - 8);
+  v16 = MEMORY[0x28223BE20](v14);
+  v59 = (&v45 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v18 = (*(*v2 + 440))(v16);
+  v60 = v2;
+  if (v19)
+  {
+    (*(*v2 + 392))(v64, v18);
+  }
+
+  else
+  {
+    DBSuggestion.SuggestionType.init(rawValue:)(v18);
+  }
+
+  if (v64[0] != 8)
+  {
+    v57 = v15;
+    if (a2)
+    {
+      v62 = v7;
+      v63 = a2;
+      v49 = v5;
+      v55 = v14;
+      v22 = v13;
+    }
+
+    else
+    {
+      type metadata accessor for DBSuggestion(0);
+      lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
+      result = PersistentModel.modelContext.getter();
+      if (!result)
+      {
+        return result;
+      }
+
+      v62 = v7;
+      v49 = v5;
+      v55 = v14;
+      v22 = v13;
+      dispatch thunk of ModelContext.container.getter();
+
+      type metadata accessor for ModelContext();
+      swift_allocObject();
+      v63 = ModelContext.init(_:)();
+    }
+
+    v23 = *(*v60 + 296);
+
+    v23(v24);
+    v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation9PredicateVy9MomentsUI11DBAssetDataC_QPGMd, &_s10Foundation9PredicateVy9MomentsUI11DBAssetDataC_QPGMR);
+    v26 = *(v25 - 8);
+    v27 = v58;
+    v56 = *(v26 + 56);
+    v28 = v26 + 56;
+    v56(v58, 1, 1, v25);
+    v29 = type metadata accessor for DBAssetData(0);
+    v30 = lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBAssetData and conformance DBAssetData, type metadata accessor for DBAssetData, &protocol conformance descriptor for DBAssetData);
+    v31 = v22;
+    FetchDescriptor.init(predicate:sortBy:)();
+    v32 = FetchDescriptor.includePendingChanges.setter();
+    v54 = v29;
+    if (a1)
+    {
+      v61 = &v45;
+      MEMORY[0x28223BE20](v32);
+      *(&v45 - 2) = v59;
+      *v64 = v29;
+      Predicate.init(_:)();
+      v56(v27, 0, 1, v25);
+      FetchDescriptor.predicate.setter();
+      v33 = dispatch thunk of ModelContext.fetchIdentifiers<A>(_:)();
+      v35 = v33;
+      v50 = v30;
+      v51 = v28;
+      v52 = v25;
+      v46 = v22;
+      v47 = v11;
+      v48 = v10;
+      v31 = *(v33 + 16);
+      if (v31)
+      {
+        v34 = 0;
+        v36 = v49;
+        v10 = (v49 + 16);
+        v11 = (v49 + 8);
+        v37 = v53;
+        while (v34 < v35[2])
+        {
+          v28 = v62;
+          v38 = v36[2](v62, v35 + ((*(v36 + 80) + 32) & ~*(v36 + 80)) + v36[9] * v34, v37);
+          v39 = MEMORY[0x21CE93DB0](v38);
+          closure #1 in closure #2 in DBSuggestion.refreshLoadedAssets(deep:context:)(v28, v63);
+          ++v34;
+          objc_autoreleasePoolPop(v39);
+          (*v11)(v28, v37);
+          if (v31 == v34)
+          {
+            goto LABEL_19;
+          }
+        }
+
+        __break(1u);
+        goto LABEL_28;
+      }
+
+LABEL_19:
+
+      v11 = v47;
+      v10 = v48;
+      v34 = v57;
+      v31 = v46;
+    }
+
+    else
+    {
+      v50 = v30;
+      v51 = v28;
+      v52 = v25;
+      v34 = v57;
+    }
+
+    MEMORY[0x28223BE20](v32);
+    v40 = v58;
+    v36 = v59;
+    *(&v45 - 2) = v59;
+    *v64 = v54;
+    Predicate.init(_:)();
+    v56(v40, 0, 1, v52);
+    FetchDescriptor.predicate.setter();
+    v41 = dispatch thunk of ModelContext.fetchCount<A>(_:)();
+    v35 = v60;
+    v28 = v41;
+    v42 = (*(*v60 + 1160))();
+    if (!v42)
+    {
+      v43 = 0;
+      v44 = v55;
+      goto LABEL_25;
+    }
+
+    if (!(v42 >> 62))
+    {
+      v43 = *((v42 & 0xFFFFFFFFFFFFFF8) + 0x10);
+LABEL_23:
+      v44 = v55;
+
+LABEL_25:
+      (*(*v35 + 1216))(v28 >= v43);
+
+      v11[1](v31, v10);
+      return (*(v34 + 8))(v36, v44);
+    }
+
+LABEL_28:
+    v43 = __CocoaSet.count.getter();
+    goto LABEL_23;
+  }
+
+  v20 = *(*v60 + 1216);
+
+  return v20(1);
+}
+
+uint64_t closure #4 in DBSuggestion.refreshLoadedAssets(deep:context:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
+{
+  v27 = a2;
+  v31 = a3;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation20PredicateExpressionsO5ValueVy_SbGMd, &_s10Foundation20PredicateExpressionsO5ValueVy_SbGMR);
+  v5 = *(v4 - 8);
+  v32 = v4;
+  v33 = v5;
+  MEMORY[0x28223BE20](v4);
+  v30 = &v26 - v6;
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation20PredicateExpressionsO8VariableVy_9MomentsUI11DBAssetDataCGMd, &_s10Foundation20PredicateExpressionsO8VariableVy_9MomentsUI11DBAssetDataCGMR);
+  v8 = *(v7 - 8);
+  MEMORY[0x28223BE20](v7);
+  v10 = &v26 - v9;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation20PredicateExpressionsO7KeyPathVy_AC8VariableVy_9MomentsUI11DBAssetDataCGSayAH12DBSuggestionCGSgGMd, &_s10Foundation20PredicateExpressionsO7KeyPathVy_AC8VariableVy_9MomentsUI11DBAssetDataCGSayAH12DBSuggestionCGSgGMR);
+  v12 = *(v11 - 8);
+  MEMORY[0x28223BE20](v11);
+  v14 = &v26 - v13;
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation20PredicateExpressionsO15OptionalFlatMapVy_AC7KeyPathVy_AC8VariableVy_9MomentsUI11DBAssetDataCGSayAJ12DBSuggestionCGSgGApC11ConjunctionVy_ATy_AC21SequenceContainsWhereVy_AIy_APGAC5EqualVy_AGy_AIy_AOGAA4UUIDVGAC5ValueVy_A0_GGGAYy_AGy_AMSbSgGAC10NilLiteralVy_SbGGGAYy_AGy_AmA0M0VSgGA10_y_A15_GGGSbGMd, &_s10Foundation20PredicateExpressionsO15OptionalFlatMapVy_AC7KeyPathVy_AC8VariableVy_9MomentsUI11DBAssetDataCGSayAJ12DBSuggestionCGSgGApC11ConjunctionVy_ATy_AC21SequenceContainsWhereVy_AIy_APGAC5EqualVy_AGy_AIy_AOGAA4UUIDVGAC5ValueVy_A0_GGGAYy_AGy_AMSbSgGAC10NilLiteralVy_SbGGGAYy_AGy_AmA0M0VSgGA10_y_A15_GGGSbGMR);
+  v16 = *(v15 - 8);
+  v28 = v15;
+  v29 = v16;
+  MEMORY[0x28223BE20](v15);
+  v18 = &v26 - v17;
+  v19 = *a1;
+  lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type PredicateExpressions.Variable<DBAssetData> and conformance PredicateExpressions.Variable<A>, &_s10Foundation20PredicateExpressionsO8VariableVy_9MomentsUI11DBAssetDataCGMd, &_s10Foundation20PredicateExpressionsO8VariableVy_9MomentsUI11DBAssetDataCGMR, MEMORY[0x277CC90F8]);
+  static PredicateExpressions.build_Arg<A>(_:)();
+  swift_getKeyPath();
+  static PredicateExpressions.build_KeyPath<A, B>(root:keyPath:)();
+
+  (*(v8 + 8))(v10, v7);
+  v34 = v27;
+  v35 = v19;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation20PredicateExpressionsO11ConjunctionVy_AEy_AC21SequenceContainsWhereVy_AC8VariableVy_Say9MomentsUI12DBSuggestionCGGAC5EqualVy_AC7KeyPathVy_AIy_ALGAA4UUIDVGAC5ValueVy_AUGGGAPy_ARy_AIy_AJ11DBAssetDataCGSbSgGAC10NilLiteralVy_SbGGGAPy_ARy_A2_AA0R0VSgGA6_y_A11_GGGMd, &_s10Foundation20PredicateExpressionsO11ConjunctionVy_AEy_AC21SequenceContainsWhereVy_AC8VariableVy_Say9MomentsUI12DBSuggestionCGGAC5EqualVy_AC7KeyPathVy_AIy_ALGAA4UUIDVGAC5ValueVy_AUGGGAPy_ARy_AIy_AJ11DBAssetDataCGSbSgGAC10NilLiteralVy_SbGGGAPy_ARy_A2_AA0R0VSgGA6_y_A11_GGGMR);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay9MomentsUI12DBSuggestionCGMd, &_sSay9MomentsUI12DBSuggestionCGMR);
+  lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type PredicateExpressions.KeyPath<PredicateExpressions.Variable<DBAssetData>, [DBSuggestion]?> and conformance PredicateExpressions.KeyPath<A, B>, &_s10Foundation20PredicateExpressionsO7KeyPathVy_AC8VariableVy_9MomentsUI11DBAssetDataCGSayAH12DBSuggestionCGSgGMd, &_s10Foundation20PredicateExpressionsO7KeyPathVy_AC8VariableVy_9MomentsUI11DBAssetDataCGSayAH12DBSuggestionCGSgGMR, MEMORY[0x277CC90C0]);
+  lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type PredicateExpressions.Conjunction<PredicateExpressions.Conjunction<PredicateExpressions.SequenceContainsWhere<PredicateExpressions.Variable<[DBSuggestion]>, PredicateExpressions.Equal<PredicateExpressions.KeyPath<PredicateExpressions.Variable<DBSuggestion>, UUID>, PredicateExpressions.Value<UUID>>>, PredicateExpressions.Equal<PredicateExpressions.KeyPath<PredicateExpressions.Variable<DBAssetData>, Bool?>, PredicateExpressions.NilLiteral<Bool>>>, PredicateExpressions.Equal<PredicateExpressions.KeyPath<PredicateExpressions.Variable<DBAssetData>, Data?>, PredicateExpressions.NilLiteral<Data>>> and conformance PredicateExpressions.Conjunction<A, B>, &_s10Foundation20PredicateExpressionsO11ConjunctionVy_AEy_AC21SequenceContainsWhereVy_AC8VariableVy_Say9MomentsUI12DBSuggestionCGGAC5EqualVy_AC7KeyPathVy_AIy_ALGAA4UUIDVGAC5ValueVy_AUGGGAPy_ARy_AIy_AJ11DBAssetDataCGSbSgGAC10NilLiteralVy_SbGGGAPy_ARy_A2_AA0R0VSgGA6_y_A11_GGGMd, &_s10Foundation20PredicateExpressionsO11ConjunctionVy_AEy_AC21SequenceContainsWhereVy_AC8VariableVy_Say9MomentsUI12DBSuggestionCGGAC5EqualVy_AC7KeyPathVy_AIy_ALGAA4UUIDVGAC5ValueVy_AUGGGAPy_ARy_AIy_AJ11DBAssetDataCGSbSgGAC10NilLiteralVy_SbGGGAPy_ARy_A2_AA0R0VSgGA6_y_A11_GGGMR, MEMORY[0x277CC8F18]);
+  static PredicateExpressions.build_flatMap<A, B, C, D>(_:_:)();
+  (*(v12 + 8))(v14, v11);
+  v36 = 0;
+  v20 = v30;
+  static PredicateExpressions.build_Arg<A>(_:)();
+  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation20PredicateExpressionsO11NilCoalesceVy_AC15OptionalFlatMapVy_AC7KeyPathVy_AC8VariableVy_9MomentsUI11DBAssetDataCGSayAL12DBSuggestionCGSgGArC11ConjunctionVy_AVy_AC21SequenceContainsWhereVy_AKy_ARGAC5EqualVy_AIy_AKy_AQGAA4UUIDVGAC5ValueVy_A2_GGGA_y_AIy_AOSbSgGAC0D7LiteralVy_SbGGGA_y_AIy_AoA0O0VSgGA12_y_A17_GGGSbGA5_y_SbGGMd, &_s10Foundation20PredicateExpressionsO11NilCoalesceVy_AC15OptionalFlatMapVy_AC7KeyPathVy_AC8VariableVy_9MomentsUI11DBAssetDataCGSayAL12DBSuggestionCGSgGArC11ConjunctionVy_AVy_AC21SequenceContainsWhereVy_AKy_ARGAC5EqualVy_AIy_AKy_AQGAA4UUIDVGAC5ValueVy_A2_GGGA_y_AIy_AOSbSgGAC0D7LiteralVy_SbGGGA_y_AIy_AoA0O0VSgGA12_y_A17_GGGSbGA5_y_SbGGMR);
+  v22 = v31;
+  v31[3] = v21;
+  v22[4] = lazy protocol witness table accessor for type PredicateExpressions.NilCoalesce<PredicateExpressions.OptionalFlatMap<PredicateExpressions.KeyPath<PredicateExpressions.Variable<DBAssetData>, [DBSuggestion]?>, [DBSuggestion], PredicateExpressions.Conjunction<PredicateExpressions.Conjunction<PredicateExpressions.SequenceContainsWhere<PredicateExpressions.Variable<[DBSuggestion]>, PredicateExpressions.Equal<PredicateExpressions.KeyPath<PredicateExpressions.Variable<DBSuggestion>, UUID>, PredicateExpressions.Value<UUID>>>, PredicateExpressions.Equal<PredicateExpressions.KeyPath<PredicateExpressions.Variable<DBAssetData>, Bool?>, PredicateExpressions.NilLiteral<Bool>>>, PredicateExpressions.Equal<PredicateExpressions.KeyPath<PredicateExpressions.Variable<DBAssetData>, Data?>, PredicateExpressions.NilLiteral<Data>>>, Bool>, PredicateExpressions.Value<Bool>> and conformance <> PredicateExpressions.NilCoalesce<A, B>();
+  __swift_allocate_boxed_opaque_existential_1(v22);
+  lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type PredicateExpressions.OptionalFlatMap<PredicateExpressions.KeyPath<PredicateExpressions.Variable<DBAssetData>, [DBSuggestion]?>, [DBSuggestion], PredicateExpressions.Conjunction<PredicateExpressions.Conjunction<PredicateExpressions.SequenceContainsWhere<PredicateExpressions.Variable<[DBSuggestion]>, PredicateExpressions.Equal<PredicateExpressions.KeyPath<PredicateExpressions.Variable<DBSuggestion>, UUID>, PredicateExpressions.Value<UUID>>>, PredicateExpressions.Equal<PredicateExpressions.KeyPath<PredicateExpressions.Variable<DBAssetData>, Bool?>, PredicateExpressions.NilLiteral<Bool>>>, PredicateExpressions.Equal<PredicateExpressions.KeyPath<PredicateExpressions.Variable<DBAssetData>, Data?>, PredicateExpressions.NilLiteral<Data>>>, Bool> and conformance PredicateExpressions.OptionalFlatMap<A, B, C, D>, &_s10Foundation20PredicateExpressionsO15OptionalFlatMapVy_AC7KeyPathVy_AC8VariableVy_9MomentsUI11DBAssetDataCGSayAJ12DBSuggestionCGSgGApC11ConjunctionVy_ATy_AC21SequenceContainsWhereVy_AIy_APGAC5EqualVy_AGy_AIy_AOGAA4UUIDVGAC5ValueVy_A0_GGGAYy_AGy_AMSbSgGAC10NilLiteralVy_SbGGGAYy_AGy_AmA0M0VSgGA10_y_A15_GGGSbGMd, &_s10Foundation20PredicateExpressionsO15OptionalFlatMapVy_AC7KeyPathVy_AC8VariableVy_9MomentsUI11DBAssetDataCGSayAJ12DBSuggestionCGSgGApC11ConjunctionVy_ATy_AC21SequenceContainsWhereVy_AIy_APGAC5EqualVy_AGy_AIy_AOGAA4UUIDVGAC5ValueVy_A0_GGGAYy_AGy_AMSbSgGAC10NilLiteralVy_SbGGGAYy_AGy_AmA0M0VSgGA10_y_A15_GGGSbGMR, MEMORY[0x277CC8F70]);
+  lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type PredicateExpressions.Value<Bool> and conformance PredicateExpressions.Value<A>, &_s10Foundation20PredicateExpressionsO5ValueVy_SbGMd, &_s10Foundation20PredicateExpressionsO5ValueVy_SbGMR, MEMORY[0x277CC9080]);
+  v23 = v28;
+  v24 = v32;
+  static PredicateExpressions.build_NilCoalesce<A, B>(lhs:rhs:)();
+  (*(v33 + 8))(v20, v24);
+  return (*(v29 + 8))(v18, v23);
+}
+
+uint64_t closure #1 in closure #4 in DBSuggestion.refreshLoadedAssets(deep:context:)@<X0>(uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+{
+  v82 = a4;
+  v83 = a3;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation20PredicateExpressionsO10NilLiteralVy_AA4DataVGMd, &_s10Foundation20PredicateExpressionsO10NilLiteralVy_AA4DataVGMR);
+  v6 = *(v5 - 8);
+  v80 = v5;
+  v81 = v6;
+  MEMORY[0x28223BE20](v5);
+  v75 = &v53 - v7;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation20PredicateExpressionsO7KeyPathVy_AC8VariableVy_9MomentsUI11DBAssetDataCGAA0J0VSgGMd, &_s10Foundation20PredicateExpressionsO7KeyPathVy_AC8VariableVy_9MomentsUI11DBAssetDataCGAA0J0VSgGMR);
+  v9 = *(v8 - 8);
+  v76 = v8;
+  v77 = v9;
+  MEMORY[0x28223BE20](v8);
+  v73 = &v53 - v10;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation20PredicateExpressionsO5EqualVy_AC7KeyPathVy_AC8VariableVy_9MomentsUI11DBAssetDataCGAA0K0VSgGAC10NilLiteralVy_AOGGMd, &_s10Foundation20PredicateExpressionsO5EqualVy_AC7KeyPathVy_AC8VariableVy_9MomentsUI11DBAssetDataCGAA0K0VSgGAC10NilLiteralVy_AOGGMR);
+  v12 = *(v11 - 8);
+  v78 = v11;
+  v79 = v12;
+  MEMORY[0x28223BE20](v11);
+  v74 = &v53 - v13;
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation20PredicateExpressionsO10NilLiteralVy_SbGMd, &_s10Foundation20PredicateExpressionsO10NilLiteralVy_SbGMR);
+  v15 = *(v14 - 8);
+  v69 = v14;
+  v70 = v15;
+  MEMORY[0x28223BE20](v14);
+  v64 = &v53 - v16;
+  v60 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation20PredicateExpressionsO8VariableVy_9MomentsUI11DBAssetDataCGMd, &_s10Foundation20PredicateExpressionsO8VariableVy_9MomentsUI11DBAssetDataCGMR);
+  v84 = *(v60 - 8);
+  MEMORY[0x28223BE20](v60);
+  v18 = &v53 - v17;
+  v65 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation20PredicateExpressionsO7KeyPathVy_AC8VariableVy_9MomentsUI11DBAssetDataCGSbSgGMd, &_s10Foundation20PredicateExpressionsO7KeyPathVy_AC8VariableVy_9MomentsUI11DBAssetDataCGSbSgGMR);
+  v66 = *(v65 - 8);
+  MEMORY[0x28223BE20](v65);
+  v59 = &v53 - v19;
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation20PredicateExpressionsO5EqualVy_AC7KeyPathVy_AC8VariableVy_9MomentsUI11DBAssetDataCGSbSgGAC10NilLiteralVy_SbGGMd, &_s10Foundation20PredicateExpressionsO5EqualVy_AC7KeyPathVy_AC8VariableVy_9MomentsUI11DBAssetDataCGSbSgGAC10NilLiteralVy_SbGGMR);
+  v21 = *(v20 - 8);
+  v67 = v20;
+  v68 = v21;
+  MEMORY[0x28223BE20](v20);
+  v61 = &v53 - v22;
+  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation20PredicateExpressionsO8VariableVy_Say9MomentsUI12DBSuggestionCGGMd, &_s10Foundation20PredicateExpressionsO8VariableVy_Say9MomentsUI12DBSuggestionCGGMR);
+  v24 = *(v23 - 8);
+  MEMORY[0x28223BE20](v23);
+  v26 = &v53 - v25;
+  v62 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation20PredicateExpressionsO21SequenceContainsWhereVy_AC8VariableVy_Say9MomentsUI12DBSuggestionCGGAC5EqualVy_AC7KeyPathVy_AGy_AJGAA4UUIDVGAC5ValueVy_ASGGGMd, &_s10Foundation20PredicateExpressionsO21SequenceContainsWhereVy_AC8VariableVy_Say9MomentsUI12DBSuggestionCGGAC5EqualVy_AC7KeyPathVy_AGy_AJGAA4UUIDVGAC5ValueVy_ASGGGMR);
+  v63 = *(v62 - 8);
+  MEMORY[0x28223BE20](v62);
+  v56 = &v53 - v27;
+  v28 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation20PredicateExpressionsO11ConjunctionVy_AC21SequenceContainsWhereVy_AC8VariableVy_Say9MomentsUI12DBSuggestionCGGAC5EqualVy_AC7KeyPathVy_AIy_ALGAA4UUIDVGAC5ValueVy_AUGGGAPy_ARy_AIy_AJ11DBAssetDataCGSbSgGAC10NilLiteralVy_SbGGGMd, &_s10Foundation20PredicateExpressionsO11ConjunctionVy_AC21SequenceContainsWhereVy_AC8VariableVy_Say9MomentsUI12DBSuggestionCGGAC5EqualVy_AC7KeyPathVy_AIy_ALGAA4UUIDVGAC5ValueVy_AUGGGAPy_ARy_AIy_AJ11DBAssetDataCGSbSgGAC10NilLiteralVy_SbGGGMR);
+  v29 = *(v28 - 8);
+  v71 = v28;
+  v72 = v29;
+  MEMORY[0x28223BE20](v28);
+  v58 = &v53 - v30;
+  v31 = MEMORY[0x277CC90F8];
+  lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type PredicateExpressions.Variable<[DBSuggestion]> and conformance PredicateExpressions.Variable<A>, &_s10Foundation20PredicateExpressionsO8VariableVy_Say9MomentsUI12DBSuggestionCGGMd, &_s10Foundation20PredicateExpressionsO8VariableVy_Say9MomentsUI12DBSuggestionCGGMR, MEMORY[0x277CC90F8]);
+  static PredicateExpressions.build_Arg<A>(_:)();
+  v85 = a2;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation20PredicateExpressionsO5EqualVy_AC7KeyPathVy_AC8VariableVy_9MomentsUI12DBSuggestionCGAA4UUIDVGAC5ValueVy_AOGGMd, &_s10Foundation20PredicateExpressionsO5EqualVy_AC7KeyPathVy_AC8VariableVy_9MomentsUI12DBSuggestionCGAA4UUIDVGAC5ValueVy_AOGGMR);
+  v57 = MEMORY[0x277CC9070];
+  lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type PredicateExpressions.Equal<PredicateExpressions.KeyPath<PredicateExpressions.Variable<DBSuggestion>, UUID>, PredicateExpressions.Value<UUID>> and conformance PredicateExpressions.Equal<A, B>, &_s10Foundation20PredicateExpressionsO5EqualVy_AC7KeyPathVy_AC8VariableVy_9MomentsUI12DBSuggestionCGAA4UUIDVGAC5ValueVy_AOGGMd, &_s10Foundation20PredicateExpressionsO5EqualVy_AC7KeyPathVy_AC8VariableVy_9MomentsUI12DBSuggestionCGAA4UUIDVGAC5ValueVy_AOGGMR, MEMORY[0x277CC9070]);
+  lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type [DBSuggestion] and conformance [A], &_sSay9MomentsUI12DBSuggestionCGMd, &_sSay9MomentsUI12DBSuggestionCGMR, MEMORY[0x277D83970]);
+  static PredicateExpressions.build_contains<A, B>(_:where:)();
+  (*(v24 + 8))(v26, v23);
+  lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type PredicateExpressions.Variable<DBAssetData> and conformance PredicateExpressions.Variable<A>, &_s10Foundation20PredicateExpressionsO8VariableVy_9MomentsUI11DBAssetDataCGMd, &_s10Foundation20PredicateExpressionsO8VariableVy_9MomentsUI11DBAssetDataCGMR, v31);
+  v32 = v60;
+  static PredicateExpressions.build_Arg<A>(_:)();
+  swift_getKeyPath();
+  v33 = v59;
+  static PredicateExpressions.build_KeyPath<A, B>(root:keyPath:)();
+
+  v34 = *(v84 + 8);
+  v84 += 8;
+  v55 = v34;
+  v34(v18, v32);
+  v35 = v64;
+  static PredicateExpressions.build_NilLiteral<A>()();
+  v54 = MEMORY[0x277CC90C0];
+  lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type PredicateExpressions.KeyPath<PredicateExpressions.Variable<DBAssetData>, Bool?> and conformance PredicateExpressions.KeyPath<A, B>, &_s10Foundation20PredicateExpressionsO7KeyPathVy_AC8VariableVy_9MomentsUI11DBAssetDataCGSbSgGMd, &_s10Foundation20PredicateExpressionsO7KeyPathVy_AC8VariableVy_9MomentsUI11DBAssetDataCGSbSgGMR, MEMORY[0x277CC90C0]);
+  v53 = MEMORY[0x277CC8EC0];
+  lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type PredicateExpressions.NilLiteral<Bool> and conformance PredicateExpressions.NilLiteral<A>, &_s10Foundation20PredicateExpressionsO10NilLiteralVy_SbGMd, &_s10Foundation20PredicateExpressionsO10NilLiteralVy_SbGMR, MEMORY[0x277CC8EC0]);
+  lazy protocol witness table accessor for type Bool? and conformance <A> A?();
+  v36 = v61;
+  v37 = v65;
+  v38 = v69;
+  static PredicateExpressions.build_Equal<A, B>(lhs:rhs:)();
+  (*(v70 + 8))(v35, v38);
+  (*(v66 + 8))(v33, v37);
+  lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type PredicateExpressions.SequenceContainsWhere<PredicateExpressions.Variable<[DBSuggestion]>, PredicateExpressions.Equal<PredicateExpressions.KeyPath<PredicateExpressions.Variable<DBSuggestion>, UUID>, PredicateExpressions.Value<UUID>>> and conformance PredicateExpressions.SequenceContainsWhere<A, B>, &_s10Foundation20PredicateExpressionsO21SequenceContainsWhereVy_AC8VariableVy_Say9MomentsUI12DBSuggestionCGGAC5EqualVy_AC7KeyPathVy_AGy_AJGAA4UUIDVGAC5ValueVy_ASGGGMd, &_s10Foundation20PredicateExpressionsO21SequenceContainsWhereVy_AC8VariableVy_Say9MomentsUI12DBSuggestionCGGAC5EqualVy_AC7KeyPathVy_AGy_AJGAA4UUIDVGAC5ValueVy_ASGGGMR, MEMORY[0x277CC9010]);
+  v39 = v57;
+  lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type PredicateExpressions.Equal<PredicateExpressions.KeyPath<PredicateExpressions.Variable<DBAssetData>, Bool?>, PredicateExpressions.NilLiteral<Bool>> and conformance PredicateExpressions.Equal<A, B>, &_s10Foundation20PredicateExpressionsO5EqualVy_AC7KeyPathVy_AC8VariableVy_9MomentsUI11DBAssetDataCGSbSgGAC10NilLiteralVy_SbGGMd, &_s10Foundation20PredicateExpressionsO5EqualVy_AC7KeyPathVy_AC8VariableVy_9MomentsUI11DBAssetDataCGSbSgGAC10NilLiteralVy_SbGGMR, v57);
+  v40 = v58;
+  v41 = v56;
+  v42 = v36;
+  v43 = v62;
+  v44 = v67;
+  static PredicateExpressions.build_Conjunction<A, B>(lhs:rhs:)();
+  (*(v68 + 8))(v42, v44);
+  (*(v63 + 8))(v41, v43);
+  static PredicateExpressions.build_Arg<A>(_:)();
+  swift_getKeyPath();
+  v45 = v73;
+  static PredicateExpressions.build_KeyPath<A, B>(root:keyPath:)();
+
+  v55(v18, v32);
+  v46 = v75;
+  static PredicateExpressions.build_NilLiteral<A>()();
+  lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type PredicateExpressions.KeyPath<PredicateExpressions.Variable<DBAssetData>, Data?> and conformance PredicateExpressions.KeyPath<A, B>, &_s10Foundation20PredicateExpressionsO7KeyPathVy_AC8VariableVy_9MomentsUI11DBAssetDataCGAA0J0VSgGMd, &_s10Foundation20PredicateExpressionsO7KeyPathVy_AC8VariableVy_9MomentsUI11DBAssetDataCGAA0J0VSgGMR, v54);
+  lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type PredicateExpressions.NilLiteral<Data> and conformance PredicateExpressions.NilLiteral<A>, &_s10Foundation20PredicateExpressionsO10NilLiteralVy_AA4DataVGMd, &_s10Foundation20PredicateExpressionsO10NilLiteralVy_AA4DataVGMR, v53);
+  lazy protocol witness table accessor for type Data? and conformance <A> A?();
+  v47 = v74;
+  v48 = v76;
+  v49 = v80;
+  static PredicateExpressions.build_Equal<A, B>(lhs:rhs:)();
+  (*(v81 + 8))(v46, v49);
+  (*(v77 + 8))(v45, v48);
+  lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type PredicateExpressions.Conjunction<PredicateExpressions.SequenceContainsWhere<PredicateExpressions.Variable<[DBSuggestion]>, PredicateExpressions.Equal<PredicateExpressions.KeyPath<PredicateExpressions.Variable<DBSuggestion>, UUID>, PredicateExpressions.Value<UUID>>>, PredicateExpressions.Equal<PredicateExpressions.KeyPath<PredicateExpressions.Variable<DBAssetData>, Bool?>, PredicateExpressions.NilLiteral<Bool>>> and conformance PredicateExpressions.Conjunction<A, B>, &_s10Foundation20PredicateExpressionsO11ConjunctionVy_AC21SequenceContainsWhereVy_AC8VariableVy_Say9MomentsUI12DBSuggestionCGGAC5EqualVy_AC7KeyPathVy_AIy_ALGAA4UUIDVGAC5ValueVy_AUGGGAPy_ARy_AIy_AJ11DBAssetDataCGSbSgGAC10NilLiteralVy_SbGGGMd, &_s10Foundation20PredicateExpressionsO11ConjunctionVy_AC21SequenceContainsWhereVy_AC8VariableVy_Say9MomentsUI12DBSuggestionCGGAC5EqualVy_AC7KeyPathVy_AIy_ALGAA4UUIDVGAC5ValueVy_AUGGGAPy_ARy_AIy_AJ11DBAssetDataCGSbSgGAC10NilLiteralVy_SbGGGMR, MEMORY[0x277CC8F18]);
+  lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type PredicateExpressions.Equal<PredicateExpressions.KeyPath<PredicateExpressions.Variable<DBAssetData>, Data?>, PredicateExpressions.NilLiteral<Data>> and conformance PredicateExpressions.Equal<A, B>, &_s10Foundation20PredicateExpressionsO5EqualVy_AC7KeyPathVy_AC8VariableVy_9MomentsUI11DBAssetDataCGAA0K0VSgGAC10NilLiteralVy_AOGGMd, &_s10Foundation20PredicateExpressionsO5EqualVy_AC7KeyPathVy_AC8VariableVy_9MomentsUI11DBAssetDataCGAA0K0VSgGAC10NilLiteralVy_AOGGMR, v39);
+  v50 = v71;
+  v51 = v78;
+  static PredicateExpressions.build_Conjunction<A, B>(lhs:rhs:)();
+  (*(v79 + 8))(v47, v51);
+  return (*(v72 + 8))(v40, v50);
 }

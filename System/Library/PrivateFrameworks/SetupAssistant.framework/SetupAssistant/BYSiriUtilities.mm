@@ -14,63 +14,63 @@
   sharedPreferences = [getVTPreferencesClass() sharedPreferences];
   voiceTriggerEnabled = [sharedPreferences voiceTriggerEnabled];
 
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x2050000000;
-  v6 = getAFPreferencesClass_softClass;
-  v25 = getAFPreferencesClass_softClass;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2050000000;
+  v7 = getAFPreferencesClass_softClass;
+  v26 = getAFPreferencesClass_softClass;
   if (!getAFPreferencesClass_softClass)
   {
-    v16 = MEMORY[0x1E69E9820];
-    v17 = 3221225472;
-    v18 = __getAFPreferencesClass_block_invoke;
-    v19 = &unk_1E7D02730;
-    v20 = &v22;
-    __getAFPreferencesClass_block_invoke(&v16);
-    v6 = *(v23 + 24);
+    v17 = MEMORY[0x1E69E9820];
+    v18 = 3221225472;
+    v19 = __getAFPreferencesClass_block_invoke;
+    v20 = &unk_1E7D02730;
+    v21 = &v23;
+    __getAFPreferencesClass_block_invoke(&v17, v6);
+    v7 = *(v24 + 24);
   }
 
-  v7 = v6;
-  _Block_object_dispose(&v22, 8);
-  sharedPreferences2 = [v6 sharedPreferences];
+  v8 = v7;
+  _Block_object_dispose(&v23, 8);
+  sharedPreferences2 = [v7 sharedPreferences];
   assistantIsEnabled = [sharedPreferences2 assistantIsEnabled];
 
   if ((voiceTriggerEnabled | assistantIsEnabled))
   {
-    v16 = 0;
-    v17 = &v16;
-    v18 = 0x3032000000;
-    v19 = __Block_byref_object_copy_;
-    v20 = __Block_byref_object_dispose_;
-    v27 = 0;
-    v28 = &v27;
-    v29 = 0x2050000000;
-    v10 = getAFSettingsConnectionClass_softClass;
-    v30 = getAFSettingsConnectionClass_softClass;
+    v17 = 0;
+    v18 = &v17;
+    v19 = 0x3032000000;
+    v20 = __Block_byref_object_copy_;
+    v21 = __Block_byref_object_dispose_;
+    v28 = 0;
+    v29 = &v28;
+    v30 = 0x2050000000;
+    v11 = getAFSettingsConnectionClass_softClass;
+    v31 = getAFSettingsConnectionClass_softClass;
     if (!getAFSettingsConnectionClass_softClass)
     {
-      v22 = MEMORY[0x1E69E9820];
-      v23 = 3221225472;
-      v24 = __getAFSettingsConnectionClass_block_invoke;
-      v25 = &unk_1E7D02730;
-      v26 = &v27;
-      __getAFSettingsConnectionClass_block_invoke(&v22);
-      v10 = v28[3];
+      v23 = MEMORY[0x1E69E9820];
+      v24 = 3221225472;
+      v25 = __getAFSettingsConnectionClass_block_invoke;
+      v26 = &unk_1E7D02730;
+      v27 = &v28;
+      __getAFSettingsConnectionClass_block_invoke(&v23);
+      v11 = v29[3];
     }
 
-    v11 = v10;
-    _Block_object_dispose(&v27, 8);
-    v21 = objc_alloc_init(v10);
-    v12 = *(v17 + 40);
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __57__BYSiriUtilities_requiresAcknowledgementForDataSharing___block_invoke;
-    v13[3] = &unk_1E7D02708;
-    v15 = &v16;
-    v14 = sharingCopy;
-    [v12 getSiriDataSharingOptInStatusWithCompletion:v13];
+    v12 = v11;
+    _Block_object_dispose(&v28, 8);
+    v22 = objc_alloc_init(v11);
+    v13 = *(v18 + 40);
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __57__BYSiriUtilities_requiresAcknowledgementForDataSharing___block_invoke;
+    v14[3] = &unk_1E7D02708;
+    v16 = &v17;
+    v15 = sharingCopy;
+    [v13 getSiriDataSharingOptInStatusWithCompletion:v14];
 
-    _Block_object_dispose(&v16, 8);
+    _Block_object_dispose(&v17, 8);
   }
 
   else if (sharingCopy)
@@ -88,17 +88,17 @@ void __57__BYSiriUtilities_requiresAcknowledgementForDataSharing___block_invoke(
 
   if (v5)
   {
-    v8 = _BYLoggingFacility();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _BYLoggingFacility(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __57__BYSiriUtilities_requiresAcknowledgementForDataSharing___block_invoke_cold_1(v5, v8);
+      __57__BYSiriUtilities_requiresAcknowledgementForDataSharing___block_invoke_cold_1(v5, v9);
     }
   }
 
-  v9 = *(a1 + 32);
-  if (v9)
+  v10 = *(a1 + 32);
+  if (v10)
   {
-    (*(v9 + 16))(v9, a3 == 0);
+    (*(v10 + 16))(v10, a3 == 0);
   }
 }
 
@@ -195,17 +195,16 @@ void __57__BYSiriUtilities_requiresAcknowledgementForDataSharing___block_invoke(
 
 void __57__BYSiriUtilities_requiresAcknowledgementForDataSharing___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B862F000, a2, OS_LOG_TYPE_ERROR, "Failed to get Siri data sharing opt-in status: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B862F000, a2, OS_LOG_TYPE_ERROR, "Failed to get Siri data sharing opt-in status: %{public}@", &v2, 0xCu);
 }
 
 + (uint64_t)deviceSupportsSystemAssistantExperience
 {
-  dlerror();
-  abort_report_np();
+  v0 = dlerror();
+  abort_report_np("%s", v0);
   return __getVTPreferencesClass_block_invoke_cold_1();
 }
 

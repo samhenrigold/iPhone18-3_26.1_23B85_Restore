@@ -418,7 +418,7 @@ LABEL_10:
   v9 = *&self->_state.thermalPressure;
   if (self->_inTransaction)
   {
-    (sub_1018E6390)(self, a2, state);
+    sub_1018E6390(self, a2, state);
   }
 
   self->_inTransaction = 1;

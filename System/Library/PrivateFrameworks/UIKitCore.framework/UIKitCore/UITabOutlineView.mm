@@ -203,7 +203,7 @@ void __41___UITabOutlineView__createViewHierarchy__block_invoke_9(uint64_t a1, v
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
-    if ([v5 isEqualToString:@"UICollectionElementKindSectionHeader"])
+    if (objc_msgSend_isEqualToString_(v5))
     {
       v7 = [WeakRetained _headerContentConfiguration];
 LABEL_6:
@@ -214,13 +214,13 @@ LABEL_7:
       goto LABEL_8;
     }
 
-    if ([v5 isEqualToString:@"UICollectionElementKindSectionFooter"])
+    if (objc_msgSend_isEqualToString_(v5))
     {
       v7 = [WeakRetained _footerContentConfiguration];
       goto LABEL_6;
     }
 
-    if ([v5 isEqualToString:@"UITabOutlineView.EditHeader"])
+    if (objc_msgSend_isEqualToString_(v5))
     {
       v8 = +[UIListContentConfiguration cellConfiguration];
       v9 = _UINSLocalizedStringWithDefaultValue(@"Drag to customize items in the sidebar or tab bar.", @"Drag to customize items in the sidebar or tab bar.");
@@ -252,7 +252,7 @@ id __41___UITabOutlineView__createViewHierarchy__block_invoke_10(uint64_t a1, vo
   v7 = a2;
   v8 = a3;
   v9 = a4;
-  if ([v8 isEqualToString:@"UICollectionElementKindSectionHeader"])
+  if (objc_msgSend_isEqualToString_(v8))
   {
     v10 = 32;
 LABEL_7:
@@ -260,13 +260,13 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  if ([v8 isEqualToString:@"UICollectionElementKindSectionFooter"])
+  if (objc_msgSend_isEqualToString_(v8))
   {
     v10 = 40;
     goto LABEL_7;
   }
 
-  if ([v8 isEqualToString:@"UITabOutlineView.EditHeader"])
+  if (objc_msgSend_isEqualToString_(v8))
   {
     v10 = 48;
     goto LABEL_7;
@@ -457,7 +457,7 @@ void __41___UITabOutlineView__createViewHierarchy__block_invoke_16(uint64_t a1, 
   }
 }
 
-void __40___UITabOutlineView__updateSidebarStyle__block_invoke(uint64_t a1, void (**a2)(id), void *a3)
+void __40___UITabOutlineView__updateSidebarStyle__block_invoke(uint64_t a1, uint64_t (**a2)(id), void *a3)
 {
   v12 = a3;
   v5 = a2 + 2;

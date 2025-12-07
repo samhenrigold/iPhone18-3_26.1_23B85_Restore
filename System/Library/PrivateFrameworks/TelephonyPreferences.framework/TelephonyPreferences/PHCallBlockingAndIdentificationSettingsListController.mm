@@ -13,7 +13,10 @@
 - (void)emitNavigationEvent;
 - (void)refreshView;
 - (void)reloadSpecifiers;
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated;
+- (void)setNavigationItemsForEditing:(BOOL)editing animated:(BOOL)animated;
 - (void)tableView:(id)view moveRowAtIndexPath:(id)path toIndexPath:(id)indexPath;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation PHCallBlockingAndIdentificationSettingsListController
@@ -63,6 +66,25 @@
   }
 
   return v4;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = PHCallBlockingAndIdentificationSettingsListController;
+  [(PHCallBlockingAndIdentificationSettingsListController *)&v7 viewWillAppear:appear];
+  specifier = [(PHCallBlockingAndIdentificationSettingsListController *)self specifier];
+  target = [specifier target];
+  objc_opt_class();
+  isKindOfClass = objc_opt_isKindOfClass();
+
+  if (isKindOfClass)
+  {
+    [(PHCallBlockingAndIdentificationSettingsListController *)self emitNavigationEvent];
+  }
+
+  [(PHBusinessCallingController *)self->_businessCallingController updateBusinessCallingState];
+  [(PHCallBlockingAndIdentificationSettingsListController *)self refreshView];
 }
 
 - (void)emitNavigationEvent
@@ -222,6 +244,23 @@ LABEL_7:
   return v4;
 }
 
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  editingCopy = editing;
+  v8.receiver = self;
+  v8.super_class = PHCallBlockingAndIdentificationSettingsListController;
+  [PHCallBlockingAndIdentificationSettingsListController setEditing:sel_setEditing_animated_ animated:?];
+  table = [(PHCallBlockingAndIdentificationSettingsListController *)self table];
+  [table setEditing:editingCopy animated:animatedCopy];
+
+  [(PHCallBlockingAndIdentificationSettingsListController *)self setNavigationItemsForEditing:editingCopy animated:animatedCopy];
+  if (!editingCopy)
+  {
+    [(PHCallBlockingAndIdentificationSettingsListController *)self refreshView];
+  }
+}
+
 - (void)reloadSpecifiers
 {
   v3.receiver = self;
@@ -244,11 +283,11 @@ LABEL_7:
 - (void)addCallDirectorySpecifierIfNecessary:(id)necessary
 {
   necessaryCopy = necessary;
-  v5 = TPSLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = TPSLog(necessaryCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    *v7 = 0;
-    _os_log_impl(&dword_21B8E9000, v5, OS_LOG_TYPE_DEFAULT, "Call Directory addCallDirectorySpecifierIfNecessary", v7, 2u);
+    *v8 = 0;
+    _os_log_impl(&dword_21B8E9000, v6, OS_LOG_TYPE_DEFAULT, "Call Directory addCallDirectorySpecifierIfNecessary", v8, 2u);
   }
 
   specifiers = [(PHCallDirectorySettingsController *)self->_callDirectorySettingsController specifiers];
@@ -261,11 +300,11 @@ LABEL_7:
 - (void)addLiveLookupSpecifierIfNecessary:(id)necessary
 {
   necessaryCopy = necessary;
-  v5 = TPSLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = TPSLog(necessaryCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    *v7 = 0;
-    _os_log_impl(&dword_21B8E9000, v5, OS_LOG_TYPE_DEFAULT, "live lookup addLiveLookupSpecifierIfNecessary", v7, 2u);
+    *v8 = 0;
+    _os_log_impl(&dword_21B8E9000, v6, OS_LOG_TYPE_DEFAULT, "live lookup addLiveLookupSpecifierIfNecessary", v8, 2u);
   }
 
   specifiers = [(PHLiveLookupSettingsController *)self->_liveLookupSettingsController specifiers];
@@ -301,6 +340,49 @@ LABEL_7:
 
     [(PHCallBlockingAndIdentificationSettingsListController *)self setNavigationItemsForEditing:isEditing animated:0];
   }
+}
+
+- (void)setNavigationItemsForEditing:(BOOL)editing animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  navigationItem = [(PHCallBlockingAndIdentificationSettingsListController *)self navigationItem];
+  v7 = navigationItem;
+  if (navigationItem)
+  {
+    v11 = navigationItem;
+    navigationItem = [(PHCallBlockingAndIdentificationSettingsListController *)self isViewLoaded];
+    v7 = v11;
+    if (navigationItem)
+    {
+      if ([(PHCallBlockingAndIdentificationSettingsListController *)self canEditExtensions])
+      {
+        editButtonItem = [(PHCallBlockingAndIdentificationSettingsListController *)self editButtonItem];
+      }
+
+      else
+      {
+        editButtonItem = 0;
+      }
+
+      leftBarButtonItem = [v11 leftBarButtonItem];
+
+      if (leftBarButtonItem)
+      {
+        [v11 setLeftBarButtonItem:0 animated:animatedCopy];
+      }
+
+      rightBarButtonItem = [v11 rightBarButtonItem];
+
+      if (rightBarButtonItem != editButtonItem)
+      {
+        [v11 setRightBarButtonItem:editButtonItem animated:animatedCopy];
+      }
+
+      v7 = v11;
+    }
+  }
+
+  MEMORY[0x2821F96F8](navigationItem, v7);
 }
 
 - (int64_t)businessCallIdentificationIndex

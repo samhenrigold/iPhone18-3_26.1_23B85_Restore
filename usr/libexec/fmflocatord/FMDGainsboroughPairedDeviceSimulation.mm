@@ -94,7 +94,7 @@ LABEL_6:
 
 - (id)pairedDeviceInfo
 {
-  v3 = sub_100002830();
+  v3 = sub_100002830(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -113,14 +113,15 @@ LABEL_6:
     v6 = *v21;
     do
     {
-      for (i = 0; i != v5; i = i + 1)
+      v7 = 0;
+      do
       {
         if (*v21 != v6)
         {
           objc_enumerationMutation(&off_1000631D8);
         }
 
-        v8 = *(*(&v20 + 1) + 8 * i);
+        v8 = *(*(&v20 + 1) + 8 * v7);
         v9 = [(FMDGainsboroughPairedDeviceSimulation *)self udid:v8];
         v10 = v9;
         if (v9 && [v9 length])
@@ -152,15 +153,19 @@ LABEL_6:
 
           [v19 addObject:v11];
         }
+
+        v7 = v7 + 1;
       }
 
-      v5 = [&off_1000631D8 countByEnumeratingWithState:&v20 objects:v26 count:16];
+      while (v5 != v7);
+      v4 = [&off_1000631D8 countByEnumeratingWithState:&v20 objects:v26 count:16];
+      v5 = v4;
     }
 
-    while (v5);
+    while (v4);
   }
 
-  v17 = sub_100002830();
+  v17 = sub_100002830(v4);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;

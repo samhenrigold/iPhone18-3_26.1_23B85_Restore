@@ -10,6 +10,7 @@
 - (void)_validateAccount:(id)account withFallbacks:(BOOL)fallbacks;
 - (void)_validateAccountWithoutFallbacks:(id)fallbacks;
 - (void)dealloc;
+- (void)validateAccount:(id)account useSSL:(BOOL)l;
 - (void)validateAccount:(id)account useSSL:(BOOL)l withCompletion:(id)completion;
 - (void)validateAccountWithoutFallbacks:(id)fallbacks;
 - (void)validateAccountWithoutFallbacks:(id)fallbacks withCompletion:(id)completion;
@@ -47,6 +48,16 @@
   v3.receiver = self;
   v3.super_class = MFAccountValidator;
   [(MFAccountValidator *)&v3 dealloc];
+}
+
+- (void)validateAccount:(id)account useSSL:(BOOL)l
+{
+  v4[0] = MEMORY[0x1E69E9820];
+  v4[1] = 3221225472;
+  v4[2] = __45__MFAccountValidator_validateAccount_useSSL___block_invoke;
+  v4[3] = &unk_1E7AA21B0;
+  v4[4] = self;
+  [(MFAccountValidator *)self validateAccount:account useSSL:l withCompletion:v4];
 }
 
 void __45__MFAccountValidator_validateAccount_useSSL___block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -137,15 +148,14 @@ void __54__MFAccountValidator_validateAccountWithoutFallbacks___block_invoke(uin
   accountValidationActivity = self->_accountValidationActivity;
   self->_accountValidationActivity = 0;
 
-  flags = self->_flags;
   (*(self->_completionBlock + 2))();
 }
 
 - (void)_validateAccount:(id)account
 {
-  v67[16] = *MEMORY[0x1E69E9840];
+  v66[16] = *MEMORY[0x1E69E9840];
   accountCopy = account;
-  v59 = +[MFActivityMonitor currentMonitor];
+  v58 = +[MFActivityMonitor currentMonitor];
   defaultConnectionSettings = [accountCopy defaultConnectionSettings];
   v4 = objc_opt_class();
   v5 = objc_opt_class();
@@ -155,7 +165,7 @@ void __54__MFAccountValidator_validateAccountWithoutFallbacks___block_invoke(uin
     self->_flags = (*&self->_flags & 0xFFFFFFFE | [v6 BOOLValue]);
   }
 
-  shouldCancel = [v59 shouldCancel];
+  shouldCancel = [v58 shouldCancel];
   flags = self->_flags;
   if (flags)
   {
@@ -169,17 +179,17 @@ void __54__MFAccountValidator_validateAccountWithoutFallbacks___block_invoke(uin
 
   if (v9)
   {
-    v57 = 0;
+    v56 = 0;
     goto LABEL_21;
   }
 
-  v61 = 0;
-  v10 = _openConnectionForAccount(accountCopy, 1, &v61);
-  v57 = v61;
+  v60 = 0;
+  v10 = _openConnectionForAccount(accountCopy, 1, &v60);
+  v56 = v60;
   v11 = 1;
   if (!v10)
   {
-    error = [v59 error];
+    error = [v58 error];
     if ([error code] == 1034)
     {
       v11 = 0;
@@ -187,7 +197,7 @@ void __54__MFAccountValidator_validateAccountWithoutFallbacks___block_invoke(uin
 
     else
     {
-      error2 = [v59 error];
+      error2 = [v58 error];
       v11 = [error2 code] != 1045;
     }
   }
@@ -217,27 +227,9 @@ void __54__MFAccountValidator_validateAccountWithoutFallbacks___block_invoke(uin
   if (!v10)
   {
 LABEL_21:
-    if (flags)
+    if ((flags & 1) != 0 || ([v58 shouldCancel] & 1) != 0 || (objc_msgSend(accountCopy, "applySettingsAsDefault:", defaultConnectionSettings), v59 = v56, _openConnectionForAccount(accountCopy, 0, &v59), v17 = objc_claimAutoreleasedReturnValue(), v18 = v59, v56, v16 = v17, v56 = v18, !v17))
     {
-      goto LABEL_27;
-    }
-
-    if ([v59 shouldCancel])
-    {
-      goto LABEL_27;
-    }
-
-    [accountCopy applySettingsAsDefault:defaultConnectionSettings];
-    v60 = v57;
-    v17 = _openConnectionForAccount(accountCopy, 0, &v60);
-    v18 = v60;
-
-    v16 = v17;
-    v57 = v18;
-    if (!v17)
-    {
-LABEL_27:
-      error3 = [v59 error];
+      error3 = [v58 error];
       userInfo = [error3 userInfo];
       v22 = [userInfo objectForKey:@"MFSSLErrorCertificateKey"];
       v23 = v22 == 0;
@@ -264,7 +256,7 @@ LABEL_27:
       v50 = [v47 stringWithFormat:v16, v48, hostname];
 
       v51 = [MFError errorWithDomain:@"MFMessageErrorDomain" code:1030 localizedDescription:v50];
-      [v59 setError:v51];
+      [v58 setError:v51];
 
       v19 = 0;
 LABEL_96:
@@ -277,7 +269,7 @@ LABEL_96:
 
   v16 = v10;
 LABEL_24:
-  [accountCopy applySettingsAsDefault:v57];
+  [accountCopy applySettingsAsDefault:v56];
   v19 = [MEMORY[0x1E699B208] authenticationSchemesForAccount:accountCopy connection:v16];
   if (([accountCopy requiresAuthentication] & 1) == 0 && (v4 != v5 || !objc_msgSend(accountCopy, "shouldUseAuthentication")))
   {
@@ -286,15 +278,15 @@ LABEL_93:
     goto LABEL_96;
   }
 
-  v55 = [MEMORY[0x1E699B208] schemeWithName:*MEMORY[0x1E699B1E8]];
+  v54 = [MEMORY[0x1E699B208] schemeWithName:*MEMORY[0x1E699B1E8]];
   if ([v19 count])
   {
-    v58 = [objc_alloc(MEMORY[0x1E695DF70]) initWithArray:v19];
+    v57 = [objc_alloc(MEMORY[0x1E695DF70]) initWithArray:v19];
   }
 
   else
   {
-    v58 = [objc_alloc(MEMORY[0x1E695DF70]) initWithObjects:{v55, 0}];
+    v57 = [objc_alloc(MEMORY[0x1E695DF70]) initWithObjects:{v54, 0}];
   }
 
   v24 = 0;
@@ -309,10 +301,10 @@ LABEL_93:
 
     if ([accountCopy usesSSL])
     {
-      if ([v58 indexOfObject:v55] != 0x7FFFFFFFFFFFFFFFLL)
+      if ([v57 indexOfObject:v54] != 0x7FFFFFFFFFFFFFFFLL)
       {
-        v27 = v55;
-        if (v55)
+        v27 = v54;
+        if (v54)
         {
           goto LABEL_58;
         }
@@ -320,26 +312,26 @@ LABEL_93:
     }
 
 LABEL_44:
-    v28 = v58;
+    v28 = v57;
+    v61 = 0u;
     v62 = 0u;
     v63 = 0u;
     v64 = 0u;
-    v65 = 0u;
     v29 = v28;
-    v30 = [v29 countByEnumeratingWithState:&v62 objects:v67 count:16];
+    v30 = [v29 countByEnumeratingWithState:&v61 objects:v66 count:16];
     if (v30)
     {
-      v31 = *v63;
+      v31 = *v62;
 LABEL_46:
       v32 = 0;
       while (1)
       {
-        if (*v63 != v31)
+        if (*v62 != v31)
         {
           objc_enumerationMutation(v29);
         }
 
-        v33 = *(*(&v62 + 1) + 8 * v32);
+        v33 = *(*(&v61 + 1) + 8 * v32);
         if ([v33 hasEncryption])
         {
           break;
@@ -347,7 +339,7 @@ LABEL_46:
 
         if (v30 == ++v32)
         {
-          v30 = [v29 countByEnumeratingWithState:&v62 objects:v67 count:16];
+          v30 = [v29 countByEnumeratingWithState:&v61 objects:v66 count:16];
           v19 = v26;
           if (v30)
           {
@@ -379,7 +371,7 @@ LABEL_55:
     {
       if ([accountCopy requiresAuthentication])
       {
-        v27 = v55;
+        v27 = v54;
 LABEL_58:
         firstObject = v27;
         goto LABEL_60;
@@ -389,7 +381,7 @@ LABEL_58:
     }
 
 LABEL_60:
-    [v59 setError:0];
+    [v58 setError:0];
     [accountCopy setPreferredAuthScheme:firstObject];
     if (v16)
     {
@@ -445,8 +437,8 @@ LABEL_62:
 
     if (firstObject)
     {
-      v66 = firstObject;
-      v37 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v66 count:1];
+      v65 = firstObject;
+      v37 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v65 count:1];
 
       LOBYTE(v25) = 1;
       v19 = v37;
@@ -462,7 +454,7 @@ LABEL_75:
     if ((*&self->_flags & 8) != 0)
     {
       v43 = [MFError errorWithDomain:@"MFMessageErrorDomain" code:1028 localizedDescription:0];
-      [v59 setError:v43];
+      [v58 setError:v43];
 LABEL_86:
 
       goto LABEL_87;
@@ -470,12 +462,12 @@ LABEL_86:
 
     if ((v25 & 1) == 0)
     {
-      error4 = [v59 error];
+      error4 = [v58 error];
       v39 = error4 == 0;
 
       if (!v39)
       {
-        error5 = [v59 error];
+        error5 = [v58 error];
         LODWORD(v25) = [accountCopy shouldEnableAfterError:error5];
 
         if (v25)
@@ -498,7 +490,7 @@ LABEL_86:
       v43 = [v44 stringWithFormat:v25, username];
 
       v46 = [MFError errorWithDomain:@"MFMessageErrorDomain" code:1032 localizedDescription:v43];
-      [v59 setError:v46];
+      [v58 setError:v46];
 
       LOBYTE(v25) = 0;
       goto LABEL_86;
@@ -506,7 +498,7 @@ LABEL_86:
 
     LOBYTE(v25) = 1;
 LABEL_87:
-    [v58 removeObject:firstObject];
+    [v57 removeObject:firstObject];
 LABEL_88:
     if ((v35 & 1) == 0)
     {
@@ -517,7 +509,7 @@ LABEL_88:
     ++v24;
   }
 
-  if ((v25 & 1) == 0 && [v58 count] && (objc_msgSend(v59, "shouldCancel") & 1) == 0)
+  if ((v25 & 1) == 0 && [v57 count] && (objc_msgSend(v58, "shouldCancel") & 1) == 0)
   {
     goto LABEL_44;
   }
@@ -528,14 +520,12 @@ LABEL_88:
   }
 
 LABEL_97:
-  v67[0] = 0;
-  v52 = [(MFAccountValidator *)self pep_getInvocation:v67];
+  v66[0] = 0;
+  v52 = [(MFAccountValidator *)self pep_getInvocation:v66];
   [v52 _backgroundValidateAccountFinished:accountCopy authSchemes:v19];
 
-  [v67[0] retainArguments];
-  [v67[0] performSelectorOnMainThread:sel_invoke withObject:0 waitUntilDone:1];
-
-  v53 = *MEMORY[0x1E69E9840];
+  [v66[0] retainArguments];
+  [v66[0] performSelectorOnMainThread:sel_invoke withObject:0 waitUntilDone:1];
 }
 
 - (void)_validateAccountWithoutFallbacks:(id)fallbacks

@@ -9,27 +9,27 @@
 
 - (BOOL)_accessibilityIsFacebookButton
 {
-  v17 = *MEMORY[0x29EDCA608];
+  v16 = *MEMORY[0x29EDCA608];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v2 = [(SLWeeAppButtonBackgroundViewAccessibility *)self safeValueForKey:@"subviews", 0];
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v12;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        accessibilityIdentifier = [*(*(&v12 + 1) + 8 * i) accessibilityIdentifier];
+        accessibilityIdentifier = [*(*(&v11 + 1) + 8 * i) accessibilityIdentifier];
         v8 = [accessibilityIdentifier isEqualToString:@"facebookglyph"];
 
         if (v8)
@@ -39,7 +39,7 @@
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v4)
       {
         continue;
@@ -52,7 +52,6 @@
   v9 = 0;
 LABEL_11:
 
-  v10 = *MEMORY[0x29EDCA608];
   return v9;
 }
 

@@ -53,21 +53,21 @@
 
 - (ATXProactiveSuggestionClientModel)initWithClientModelId:(id)id requestDelegate:(id)delegate blendingLayerServer:(id)server
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   idCopy = id;
   delegateCopy = delegate;
   serverCopy = server;
-  v11 = __atxlog_handle_blending();
+  v11 = __atxlog_handle_blending(serverCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v19 = idCopy;
+    v18 = idCopy;
     _os_log_impl(&dword_1DEFC4000, v11, OS_LOG_TYPE_DEFAULT, "Creating a ProactiveSuggestionClientModel object for clientModelId: %{public}@", buf, 0xCu);
   }
 
-  v17.receiver = self;
-  v17.super_class = ATXProactiveSuggestionClientModel;
-  v12 = [(ATXProactiveSuggestionClientModel *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = ATXProactiveSuggestionClientModel;
+  v12 = [(ATXProactiveSuggestionClientModel *)&v16 init];
   if (v12)
   {
     v13 = [idCopy copy];
@@ -78,7 +78,6 @@
     objc_storeStrong(&v12->_blendingLayerServer, server);
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -108,7 +107,7 @@
 
 void __67__ATXProactiveSuggestionClientModel_setupRemoteClientXPCConnection__block_invoke(uint64_t a1)
 {
-  v2 = __atxlog_handle_blending();
+  v2 = __atxlog_handle_blending(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __67__ATXProactiveSuggestionClientModel_setupRemoteClientXPCConnection__block_invoke_cold_1(a1, v2, v3, v4, v5, v6, v7, v8);
@@ -132,7 +131,7 @@ void __67__ATXProactiveSuggestionClientModel_setupRemoteClientXPCConnection__blo
 void __67__ATXProactiveSuggestionClientModel_remoteAsyncBlendingLayerServer__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_blending();
+  v3 = __atxlog_handle_blending(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __67__ATXProactiveSuggestionClientModel_remoteAsyncBlendingLayerServer__block_invoke_cold_1();
@@ -157,62 +156,61 @@ void __67__ATXProactiveSuggestionClientModel_remoteAsyncBlendingLayerServer__blo
 void __102__ATXProactiveSuggestionClientModel_transmitSuggestionsToReceiver_feedbackMetadata_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = __atxlog_handle_blending(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __102__ATXProactiveSuggestionClientModel_transmitSuggestionsToReceiver_feedbackMetadata_completionHandler___block_invoke_cold_1();
     }
 
-    v5 = *(*(a1 + 40) + 16);
+    v6 = *(*(a1 + 40) + 16);
   }
 
   else
   {
-    v5 = *(*(a1 + 40) + 16);
+    v6 = *(*(a1 + 40) + 16);
   }
 
-  v5();
+  v6();
 }
 
 - (void)updateSuggestions:(id)suggestions feedbackMetadata:(id)metadata completionHandler:(id)handler
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   suggestionsCopy = suggestions;
   handlerCopy = handler;
   metadataCopy = metadata;
-  v11 = __atxlog_handle_blending();
+  v11 = __atxlog_handle_blending(metadataCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     clientModelId = self->_clientModelId;
-    v18 = 138543618;
-    v19 = clientModelId;
-    v20 = 2048;
-    v21 = [suggestionsCopy count];
-    _os_log_impl(&dword_1DEFC4000, v11, OS_LOG_TYPE_DEFAULT, "Blending: (%{public}@) Updating suggestions. Client Model produced %lu new suggestions.", &v18, 0x16u);
+    v19 = 138543618;
+    v20 = clientModelId;
+    v21 = 2048;
+    v22 = [suggestionsCopy count];
+    _os_log_impl(&dword_1DEFC4000, v11, OS_LOG_TYPE_DEFAULT, "Blending: (%{public}@) Updating suggestions. Client Model produced %lu new suggestions.", &v19, 0x16u);
   }
 
-  v13 = __atxlog_handle_blending();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = __atxlog_handle_blending(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = self->_clientModelId;
-    v18 = 138543362;
-    v19 = v14;
-    _os_log_impl(&dword_1DEFC4000, v13, OS_LOG_TYPE_DEFAULT, "Blending: (%{public}@) Transmiting...", &v18, 0xCu);
+    v15 = self->_clientModelId;
+    v19 = 138543362;
+    v20 = v15;
+    _os_log_impl(&dword_1DEFC4000, v14, OS_LOG_TYPE_DEFAULT, "Blending: (%{public}@) Transmiting...", &v19, 0xCu);
   }
 
   [(ATXProactiveSuggestionClientModel *)self transmitSuggestionsToReceiver:suggestionsCopy feedbackMetadata:metadataCopy completionHandler:handlerCopy];
-  v15 = __atxlog_handle_blending();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v17 = __atxlog_handle_blending(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = self->_clientModelId;
-    v18 = 138543362;
-    v19 = v16;
-    _os_log_impl(&dword_1DEFC4000, v15, OS_LOG_TYPE_DEFAULT, "Blending: (%{public}@) Done transmitting.", &v18, 0xCu);
+    v18 = self->_clientModelId;
+    v19 = 138543362;
+    v20 = v18;
+    _os_log_impl(&dword_1DEFC4000, v17, OS_LOG_TYPE_DEFAULT, "Blending: (%{public}@) Done transmitting.", &v19, 0xCu);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)retrieveCurrentSuggestionsWithReply:(id)reply
@@ -234,12 +232,13 @@ void __73__ATXProactiveSuggestionClientModel_retrieveCurrentSuggestionsWithReply
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = __atxlog_handle_blending(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __73__ATXProactiveSuggestionClientModel_retrieveCurrentSuggestionsWithReply___block_invoke_cold_1(a1, v6, v7);
+      __73__ATXProactiveSuggestionClientModel_retrieveCurrentSuggestionsWithReply___block_invoke_cold_1(a1, v7, v8);
     }
   }
 
@@ -252,7 +251,7 @@ void __73__ATXProactiveSuggestionClientModel_retrieveCurrentSuggestionsWithReply
   switch(type)
   {
     case 0:
-      v4 = __atxlog_handle_blending();
+      v4 = __atxlog_handle_blending(@"atx_anchor_model");
       if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
       {
         +[ATXProactiveSuggestionClientModel clientModelIdFromClientModelType:];
@@ -405,7 +404,7 @@ void __73__ATXProactiveSuggestionClientModel_retrieveCurrentSuggestionsWithReply
       result = @"atx_action_predictions_watchappsettings";
       break;
     case 50:
-      v5 = __atxlog_handle_blending();
+      v5 = __atxlog_handle_blending(@"atx_anchor_model");
       if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
       {
         +[ATXProactiveSuggestionClientModel clientModelIdFromClientModelType:];
@@ -422,40 +421,39 @@ void __73__ATXProactiveSuggestionClientModel_retrieveCurrentSuggestionsWithReply
 
 + (id)clientModelIdsFromClientModelTypesArray:(id)array
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   arrayCopy = array;
   v4 = objc_opt_new();
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = arrayCopy;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = +[ATXProactiveSuggestionClientModel clientModelIdFromClientModelType:](ATXProactiveSuggestionClientModel, "clientModelIdFromClientModelType:", [*(*(&v14 + 1) + 8 * i) integerValue]);
+        v10 = +[ATXProactiveSuggestionClientModel clientModelIdFromClientModelType:](ATXProactiveSuggestionClientModel, "clientModelIdFromClientModelType:", [*(*(&v13 + 1) + 8 * i) integerValue]);
         [v4 addObject:v10];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
 
   v11 = [v4 copy];
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -483,18 +481,18 @@ void __73__ATXProactiveSuggestionClientModel_retrieveCurrentSuggestionsWithReply
   return integerValue;
 }
 
-void __70__ATXProactiveSuggestionClientModel_clientModelTypeFromClientModelId___block_invoke()
+void __70__ATXProactiveSuggestionClientModel_clientModelTypeFromClientModelId___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_new();
-  v1 = clientModelTypeFromClientModelId__clientModelMap;
-  clientModelTypeFromClientModelId__clientModelMap = v0;
+  v2 = objc_opt_new();
+  v3 = clientModelTypeFromClientModelId__clientModelMap;
+  clientModelTypeFromClientModelId__clientModelMap = v2;
 
   for (i = 1; i != 50; ++i)
   {
-    v3 = [MEMORY[0x1E696AD98] numberWithInteger:i];
-    v4 = clientModelTypeFromClientModelId__clientModelMap;
-    v5 = [ATXProactiveSuggestionClientModel clientModelIdFromClientModelType:i];
-    [v4 setObject:v3 forKeyedSubscript:v5];
+    v5 = [MEMORY[0x1E696AD98] numberWithInteger:i];
+    v6 = clientModelTypeFromClientModelId__clientModelMap;
+    v7 = [ATXProactiveSuggestionClientModel clientModelIdFromClientModelType:i];
+    [v6 setObject:v5 forKeyedSubscript:v7];
   }
 }
 
@@ -509,7 +507,7 @@ void __70__ATXProactiveSuggestionClientModel_clientModelTypeFromClientModelId___
 
     if (conversion == 50)
     {
-      v4 = __atxlog_handle_blending();
+      v4 = __atxlog_handle_blending(self);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
       {
         +[ATXProactiveSuggestionClientModel clientModelIdFromClientModelType:];
@@ -523,7 +521,7 @@ LABEL_11:
 
   if (!conversion)
   {
-    v4 = __atxlog_handle_blending();
+    v4 = __atxlog_handle_blending(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       +[ATXProactiveSuggestionClientModel clientModelIdFromClientModelType:];
@@ -543,7 +541,7 @@ LABEL_11:
     return qword_1DF03AB10[v3];
   }
 
-  v5 = __atxlog_handle_blending();
+  v5 = __atxlog_handle_blending(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
   {
     +[ATXProactiveSuggestionClientModel actionConversionTypeForClientModelType:];
@@ -556,7 +554,7 @@ LABEL_11:
 {
   v16 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
-  v6 = __atxlog_handle_blending();
+  v6 = __atxlog_handle_blending(connectionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     clientModelId = self->_clientModelId;
@@ -568,52 +566,52 @@ LABEL_11:
   if (self->_requestDelegate)
   {
     v8 = [connectionCopy valueForEntitlement:@"com.apple.proactive.ProactiveSuggestionClientModel.xpc"];
-    if (v8 && (objc_opt_respondsToSelector() & 1) != 0 && ([v8 BOOLValue] & 1) != 0)
+    v9 = v8;
+    if (v8 && (v8 = objc_opt_respondsToSelector(), (v8 & 1) != 0) && (v8 = [v9 BOOLValue], (v8 & 1) != 0))
     {
-      v9 = ATXProactiveSuggestionRealTimeProviderXPCInterface();
-      [connectionCopy setExportedInterface:v9];
+      v10 = ATXProactiveSuggestionRealTimeProviderXPCInterface();
+      [connectionCopy setExportedInterface:v10];
 
       [connectionCopy setExportedObject:self];
       [connectionCopy setInterruptionHandler:&__block_literal_global_190];
       [connectionCopy setInvalidationHandler:&__block_literal_global_193];
       [connectionCopy resume];
-      v10 = 1;
+      v11 = 1;
     }
 
     else
     {
-      v11 = __atxlog_handle_blending();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = __atxlog_handle_blending(v8);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         [ATXProactiveSuggestionClientModel listener:shouldAcceptNewConnection:];
       }
 
-      v10 = 0;
+      v11 = 0;
     }
   }
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-  return v10;
+  return v11;
 }
 
-void __72__ATXProactiveSuggestionClientModel_listener_shouldAcceptNewConnection___block_invoke()
+void __72__ATXProactiveSuggestionClientModel_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
 {
-  v0 = __atxlog_handle_blending();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v1 = __atxlog_handle_blending(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
     __72__ATXProactiveSuggestionClientModel_listener_shouldAcceptNewConnection___block_invoke_cold_1();
   }
 }
 
-void __72__ATXProactiveSuggestionClientModel_listener_shouldAcceptNewConnection___block_invoke_191()
+void __72__ATXProactiveSuggestionClientModel_listener_shouldAcceptNewConnection___block_invoke_191(uint64_t a1)
 {
-  v0 = __atxlog_handle_blending();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v1 = __atxlog_handle_blending(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
     __72__ATXProactiveSuggestionClientModel_listener_shouldAcceptNewConnection___block_invoke_191_cold_1();
   }
@@ -626,23 +624,22 @@ void __72__ATXProactiveSuggestionClientModel_listener_shouldAcceptNewConnection_
   replyCopy = reply;
   if ([(NSString *)self->_clientModelId isEqualToString:idCopy])
   {
-    requestDelegate = self->_requestDelegate;
     if (objc_opt_respondsToSelector())
     {
       [(ATXProactiveSuggestionRealTimeProviderDelegateProtocol *)self->_requestDelegate suggestionsForInteractionSuggestionRequest:requestCopy clientModelId:idCopy reply:replyCopy];
       goto LABEL_7;
     }
 
-    v11 = [(ATXProactiveSuggestionClientModel *)self emptyResponseForRequest:requestCopy];
+    v10 = [(ATXProactiveSuggestionClientModel *)self emptyResponseForRequest:requestCopy];
   }
 
   else
   {
-    v11 = [(ATXProactiveSuggestionClientModel *)self clientModelMismatchErrorResponseForRequest:requestCopy clientModelId:idCopy];
+    v10 = [(ATXProactiveSuggestionClientModel *)self clientModelMismatchErrorResponseForRequest:requestCopy clientModelId:idCopy];
   }
 
-  v12 = v11;
-  replyCopy[2](replyCopy, v11);
+  v11 = v10;
+  replyCopy[2](replyCopy, v10);
 
 LABEL_7:
 }
@@ -654,23 +651,22 @@ LABEL_7:
   replyCopy = reply;
   if ([(NSString *)self->_clientModelId isEqualToString:idCopy])
   {
-    requestDelegate = self->_requestDelegate;
     if (objc_opt_respondsToSelector())
     {
       [(ATXProactiveSuggestionRealTimeProviderDelegateProtocol *)self->_requestDelegate suggestionsForContextualActionSuggestionRequest:requestCopy clientModelId:idCopy reply:replyCopy];
       goto LABEL_7;
     }
 
-    v11 = [(ATXProactiveSuggestionClientModel *)self emptyResponseForRequest:requestCopy];
+    v10 = [(ATXProactiveSuggestionClientModel *)self emptyResponseForRequest:requestCopy];
   }
 
   else
   {
-    v11 = [(ATXProactiveSuggestionClientModel *)self clientModelMismatchErrorResponseForRequest:requestCopy clientModelId:idCopy];
+    v10 = [(ATXProactiveSuggestionClientModel *)self clientModelMismatchErrorResponseForRequest:requestCopy clientModelId:idCopy];
   }
 
-  v12 = v11;
-  replyCopy[2](replyCopy, v11);
+  v11 = v10;
+  replyCopy[2](replyCopy, v10);
 
 LABEL_7:
 }
@@ -682,23 +678,22 @@ LABEL_7:
   replyCopy = reply;
   if ([(NSString *)self->_clientModelId isEqualToString:idCopy])
   {
-    requestDelegate = self->_requestDelegate;
     if (objc_opt_respondsToSelector())
     {
       [(ATXProactiveSuggestionRealTimeProviderDelegateProtocol *)self->_requestDelegate suggestionsForIntentSuggestionRequest:requestCopy clientModelId:idCopy reply:replyCopy];
       goto LABEL_7;
     }
 
-    v11 = [(ATXProactiveSuggestionClientModel *)self emptyResponseForRequest:requestCopy];
+    v10 = [(ATXProactiveSuggestionClientModel *)self emptyResponseForRequest:requestCopy];
   }
 
   else
   {
-    v11 = [(ATXProactiveSuggestionClientModel *)self clientModelMismatchErrorResponseForRequest:requestCopy clientModelId:idCopy];
+    v10 = [(ATXProactiveSuggestionClientModel *)self clientModelMismatchErrorResponseForRequest:requestCopy clientModelId:idCopy];
   }
 
-  v12 = v11;
-  replyCopy[2](replyCopy, v11);
+  v11 = v10;
+  replyCopy[2](replyCopy, v10);
 
 LABEL_7:
 }
@@ -706,20 +701,18 @@ LABEL_7:
 - (void)pingWithCompletion:(id)completion
 {
   completionCopy = completion;
-  requestDelegate = self->_requestDelegate;
-  if (objc_opt_respondsToSelector() & 1) != 0 || (v5 = self->_requestDelegate, (objc_opt_respondsToSelector()))
+  if (objc_opt_respondsToSelector() & 1) != 0 || (objc_opt_respondsToSelector())
   {
-    v6 = completionCopy[2];
+    v3 = completionCopy[2];
   }
 
   else
   {
-    v7 = self->_requestDelegate;
     objc_opt_respondsToSelector();
-    v6 = completionCopy[2];
+    v3 = completionCopy[2];
   }
 
-  v6();
+  v3();
 }
 
 - (id)emptyResponseForRequest:(id)request
@@ -732,7 +725,7 @@ LABEL_7:
 
 - (id)clientModelMismatchErrorResponseForRequest:(id)request clientModelId:(id)id
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E696AEC0];
   clientModelId = self->_clientModelId;
   requestCopy = request;
@@ -741,13 +734,11 @@ LABEL_7:
   v10 = MEMORY[0x1E696ABC0];
   v11 = objc_opt_class();
   v12 = NSStringFromClass(v11);
-  v18 = *MEMORY[0x1E696A578];
-  v19[0] = clientModelId;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+  v17 = *MEMORY[0x1E696A578];
+  v18[0] = clientModelId;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
   v14 = [v10 errorWithDomain:v12 code:5 userInfo:v13];
   v15 = [(ATXSuggestionRequestResponse *)v9 initWithSuggestions:0 feedbackMetadata:0 originalRequest:requestCopy responseCode:3 error:v14];
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -761,14 +752,14 @@ LABEL_7:
 
 + (void)refreshBlendingLayerWithReason:(id)reason
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   reasonCopy = reason;
-  v4 = __atxlog_handle_blending();
+  v4 = __atxlog_handle_blending(reasonCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
-    v11 = reasonCopy;
-    _os_log_impl(&dword_1DEFC4000, v4, OS_LOG_TYPE_DEFAULT, "Sending refresh blending notification with reason: %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = reasonCopy;
+    _os_log_impl(&dword_1DEFC4000, v4, OS_LOG_TYPE_DEFAULT, "Sending refresh blending notification with reason: %@", &v9, 0xCu);
   }
 
   processInfo = [MEMORY[0x1E696AE30] processInfo];
@@ -785,58 +776,29 @@ LABEL_7:
   {
     notify_post([@"com.apple.duetexpertd.clientModelRefreshBlendingLayer" UTF8String]);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __67__ATXProactiveSuggestionClientModel_setupRemoteClientXPCConnection__block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*(a1 + 32));
-  OUTLINED_FUNCTION_0(&dword_1DEFC4000, a2, a3, "Blending: Connection to Proactive Suggestion Client Model server interrupted for clientModelId: %{public}@.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-void __67__ATXProactiveSuggestionClientModel_remoteAsyncBlendingLayerServer__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_0(&dword_1DEFC4000, v0, v1, "Blending: Error while communicating with Suggestion Receiver. Error: %{public}@.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __102__ATXProactiveSuggestionClientModel_transmitSuggestionsToReceiver_feedbackMetadata_completionHandler___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_0(&dword_1DEFC4000, v0, v1, "Blending: Error while sending the updated cache file to the Suggestion Receiver. Error: %{public}@.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = *(a1 + 32);
+  OUTLINED_FUNCTION_0(&dword_1DEFC4000, a2, a3, "Blending: Connection to Proactive Suggestion Client Model server interrupted for clientModelId: %{public}@.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __73__ATXProactiveSuggestionClientModel_retrieveCurrentSuggestionsWithReply___block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138543618;
-  *&v4[4] = *(*(a1 + 32) + 8);
-  *&v4[12] = 2114;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_4_2(&dword_1DEFC4000, a2, a3, "Blending: Error retrieving suggestions for %{public}@: %{public}@.", *v4, *&v4[8], *&v4[16], *MEMORY[0x1E69E9840]);
-  v3 = *MEMORY[0x1E69E9840];
+  *v3 = 138543618;
+  *&v3[4] = *(*(a1 + 32) + 8);
+  *&v3[12] = 2114;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_4_2(&dword_1DEFC4000, a2, a3, "Blending: Error retrieving suggestions for %{public}@: %{public}@.", *v3, *&v3[8], *&v3[16], *MEMORY[0x1E69E9840]);
 }
 
 + (void)actionConversionTypeForClientModelType:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_fault_impl(&dword_1DEFC4000, v0, OS_LOG_TYPE_FAULT, "Tried to get action conversion type for unsupported client model type: %ld", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
-}
-
-- (void)listener:shouldAcceptNewConnection:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4_2(&dword_1DEFC4000, v0, v1, "Blending: Rejecting connection %@ without entitlement %@");
   v2 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_0();
+  _os_log_fault_impl(&dword_1DEFC4000, v0, OS_LOG_TYPE_FAULT, "Tried to get action conversion type for unsupported client model type: %ld", v1, 0xCu);
 }
 
 @end

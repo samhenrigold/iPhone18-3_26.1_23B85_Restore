@@ -164,11 +164,11 @@ uint64_t __41__CNLSApplicationWorkspace_remoteAdapter__block_invoke()
   [activity _createUserActivityDataWithOptions:options completionHandler:v14];
 }
 
-void __85__CNLSApplicationWorkspace_openUserActivity_inApplication_options_completionHandler___block_invoke(uint64_t a1, void *a2)
+void __85__CNLSApplicationWorkspace_openUserActivity_inApplication_options_completionHandler___block_invoke(void *a1, void *a2)
 {
   v3 = a2;
   v4 = [objc_opt_class() inProcessLaunchServices];
-  [v4 openUserActivityData:v3 inApplication:*(a1 + 40) completionHandler:*(a1 + 48)];
+  [v4 openUserActivityData:v3 inApplication:a1[5] completionHandler:a1[6]];
 }
 
 - (void)openSensitiveURLInBackground:(id)background withOptions:(id)options completionHandler:(id)handler
@@ -192,10 +192,10 @@ void __85__CNLSApplicationWorkspace_openUserActivity_inApplication_options_compl
   [backgroundScheduler performBlock:v16];
 }
 
-void __87__CNLSApplicationWorkspace_openSensitiveURLInBackground_withOptions_completionHandler___block_invoke(void *a1)
+void __87__CNLSApplicationWorkspace_openSensitiveURLInBackground_withOptions_completionHandler___block_invoke(void *a1, uint64_t a2)
 {
-  v2 = [objc_opt_class() inProcessLaunchServices];
-  [v2 openSensitiveURLInBackground:a1[5] withOptions:a1[6] completionHandler:a1[7]];
+  v3 = [objc_opt_class() inProcessLaunchServices];
+  [v3 openSensitiveURLInBackground:a1[5] withOptions:a1[6] completionHandler:a1[7]];
 }
 
 - (id)applicationsAvailableForHandlingURLScheme:(id)scheme

@@ -186,7 +186,7 @@
 
 + (id)_attributedRatingTextForText:(id)text color:(id)color
 {
-  v16[3] = *MEMORY[0x277D85DE8];
+  v15[3] = *MEMORY[0x277D85DE8];
   textCopy = text;
   colorCopy = color;
   if ([textCopy length])
@@ -203,13 +203,13 @@
     [v9 setLineBreakMode:4];
     [v9 setAlignment:1];
     v10 = *MEMORY[0x277D740A8];
-    v15[0] = *MEMORY[0x277D740C0];
-    v15[1] = v10;
-    v16[0] = colorCopy;
-    v16[1] = v7;
-    v15[2] = *MEMORY[0x277D74118];
-    v16[2] = v9;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
+    v14[0] = *MEMORY[0x277D740C0];
+    v14[1] = v10;
+    v15[0] = colorCopy;
+    v15[1] = v7;
+    v14[2] = *MEMORY[0x277D74118];
+    v15[2] = v9;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
     v12 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:textCopy attributes:v11];
   }
 
@@ -217,8 +217,6 @@
   {
     v12 = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

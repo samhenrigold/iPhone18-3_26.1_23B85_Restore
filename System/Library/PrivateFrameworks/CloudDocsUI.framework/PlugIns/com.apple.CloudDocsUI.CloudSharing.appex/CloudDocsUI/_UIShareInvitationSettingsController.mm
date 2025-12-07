@@ -14,10 +14,13 @@
 - (void)auxiliaryAction:(id)action;
 - (void)copyLink:(id)link;
 - (void)setAllowInviters:(int64_t)inviters;
+- (void)setAllowOthersToInvite:(BOOL)invite;
 - (void)setDefaultPermission:(int64_t)permission;
+- (void)setHasACL:(BOOL)l;
 - (void)setPublicPermission:(int64_t)permission;
 - (void)setSettings:(id)settings;
 - (void)updateSections;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation _UIShareInvitationSettingsController
@@ -83,6 +86,14 @@
   }
 
   return v2;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = _UIShareInvitationSettingsController;
+  [(_UIShareInvitationSettingsController *)&v4 viewWillAppear:appear];
+  [(_UIShareInvitationSettingsController *)self updateSections];
 }
 
 - (void)updateSections
@@ -585,6 +596,17 @@ LABEL_47:
   return shareViewControllerCurrentParticipantsState;
 }
 
+- (void)setAllowOthersToInvite:(BOOL)invite
+{
+  inviteCopy = invite;
+  overviewControllerDelegate = [(_UIShareInvitationSettingsController *)self overviewControllerDelegate];
+  if ([overviewControllerDelegate shareViewControllerAllowOthersToInvite] != inviteCopy)
+  {
+    [overviewControllerDelegate shareViewControllerSetAllowOthersToInvite:inviteCopy];
+    [(_UIShareInvitationSettingsController *)self _sendSettingsControllerDidChange];
+  }
+}
+
 - (BOOL)allowOthersToInvite
 {
   WeakRetained = objc_loadWeakRetained(&self->_overviewControllerDelegate);
@@ -707,6 +729,46 @@ LABEL_12:
     [(BRShareSettings *)self->_settings setPublicPermission:permission];
 
     [(_UIShareInvitationSettingsController *)self _sendSettingsControllerDidChange];
+  }
+}
+
+- (void)setHasACL:(BOOL)l
+{
+  lCopy = l;
+  if ([(BRShareSettings *)self->_settings hasACL]!= l)
+  {
+    [(BRShareSettings *)self->_settings setHasACL:lCopy];
+    hasACL = [(BRShareSettings *)self->_settings hasACL];
+    settings = self->_settings;
+    if (hasACL)
+    {
+      [(BRShareSettings *)self->_settings setDefaultPermission:[(BRShareSettings *)settings publicPermission]];
+    }
+
+    else
+    {
+      defaultPermission = [(BRShareSettings *)settings defaultPermission];
+      v8 = self->_settings;
+      if (defaultPermission)
+      {
+        defaultPermission2 = [(BRShareSettings *)v8 defaultPermission];
+        v8 = self->_settings;
+      }
+
+      else
+      {
+        defaultPermission2 = 3;
+      }
+
+      [(BRShareSettings *)v8 setPublicPermission:defaultPermission2];
+    }
+
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_10000B720;
+    block[3] = &unk_10004C920;
+    block[4] = self;
+    dispatch_async(&_dispatch_main_q, block);
   }
 }
 

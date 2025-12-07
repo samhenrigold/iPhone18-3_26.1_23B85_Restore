@@ -3,6 +3,9 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)queueEndActionAsString:(int)string;
+- (id)repeatModeAsString:(int)string;
+- (id)shuffleModeAsString:(int)string;
 - (int)StringAsQueueEndAction:(id)action;
 - (int)StringAsRepeatMode:(id)mode;
 - (int)StringAsShuffleMode:(id)mode;
@@ -135,6 +138,21 @@
   *&self->_has = *&self->_has & 0xFF7F | v3;
 }
 
+- (id)repeatModeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1000494B8 + string);
+  }
+
+  return v4;
+}
+
 - (int)StringAsRepeatMode:(id)mode
 {
   modeCopy = mode;
@@ -192,6 +210,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFDFF | v3;
+}
+
+- (id)shuffleModeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1000494D8 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsShuffleMode:(id)mode
@@ -356,6 +389,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFFDF | v3;
+}
+
+- (id)queueEndActionAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1000494F8 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsQueueEndAction:(id)action
@@ -687,25 +735,24 @@ LABEL_43:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v24 = toCopy;
+  v8 = toCopy;
   if (self->_sourceID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v24;
+    toCopy = v8;
   }
 
   if (self->_mediaType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v24;
+    toCopy = v8;
   }
 
   has = self->_has;
   if ((has & 0x800) != 0)
   {
-    externalPlayerCommand = self->_externalPlayerCommand;
     PBDataWriterWriteBOOLField();
-    toCopy = v24;
+    toCopy = v8;
     has = self->_has;
     if ((has & 0x400) == 0)
     {
@@ -724,9 +771,8 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  skipInterval = self->_skipInterval;
   PBDataWriterWriteFloatField();
-  toCopy = v24;
+  toCopy = v8;
   has = self->_has;
   if ((has & 0x10) == 0)
   {
@@ -740,9 +786,8 @@ LABEL_8:
   }
 
 LABEL_45:
-  playbackRate = self->_playbackRate;
   PBDataWriterWriteFloatField();
-  toCopy = v24;
+  toCopy = v8;
   has = self->_has;
   if ((has & 0x40) == 0)
   {
@@ -756,9 +801,8 @@ LABEL_9:
   }
 
 LABEL_46:
-  rating = self->_rating;
   PBDataWriterWriteFloatField();
-  toCopy = v24;
+  toCopy = v8;
   has = self->_has;
   if ((has & 0x1000) == 0)
   {
@@ -772,9 +816,8 @@ LABEL_10:
   }
 
 LABEL_47:
-  negative = self->_negative;
   PBDataWriterWriteBOOLField();
-  toCopy = v24;
+  toCopy = v8;
   has = self->_has;
   if ((has & 1) == 0)
   {
@@ -788,9 +831,8 @@ LABEL_11:
   }
 
 LABEL_48:
-  playbackPosition = self->_playbackPosition;
   PBDataWriterWriteDoubleField();
-  toCopy = v24;
+  toCopy = v8;
   has = self->_has;
   if ((has & 0x80) == 0)
   {
@@ -804,9 +846,8 @@ LABEL_12:
   }
 
 LABEL_49:
-  repeatMode = self->_repeatMode;
   PBDataWriterWriteInt32Field();
-  toCopy = v24;
+  toCopy = v8;
   has = self->_has;
   if ((has & 0x200) == 0)
   {
@@ -820,9 +861,8 @@ LABEL_13:
   }
 
 LABEL_50:
-  shuffleMode = self->_shuffleMode;
   PBDataWriterWriteInt32Field();
-  toCopy = v24;
+  toCopy = v8;
   has = self->_has;
   if ((has & 4) == 0)
   {
@@ -836,98 +876,90 @@ LABEL_14:
   }
 
 LABEL_51:
-  trackID = self->_trackID;
   PBDataWriterWriteUint64Field();
-  toCopy = v24;
+  toCopy = v8;
   if ((*&self->_has & 2) != 0)
   {
 LABEL_15:
-    radioStationID = self->_radioStationID;
     PBDataWriterWriteInt64Field();
-    toCopy = v24;
+    toCopy = v8;
   }
 
 LABEL_16:
   if (self->_radioStationHash)
   {
     PBDataWriterWriteStringField();
-    toCopy = v24;
+    toCopy = v8;
   }
 
   if (self->_systemAppPlaybackQueueData)
   {
     PBDataWriterWriteDataField();
-    toCopy = v24;
+    toCopy = v8;
   }
 
   if (self->_destinationAppDisplayID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v24;
+    toCopy = v8;
   }
 
-  v7 = self->_has;
-  if ((v7 & 0x100) != 0)
+  v6 = self->_has;
+  if ((v6 & 0x100) != 0)
   {
-    sendOptions = self->_sendOptions;
     PBDataWriterWriteUint32Field();
-    toCopy = v24;
-    v7 = self->_has;
+    toCopy = v8;
+    v6 = self->_has;
   }
 
-  if ((v7 & 0x2000) != 0)
+  if ((v6 & 0x2000) != 0)
   {
-    requestDefermentToPlaybackQueuePosition = self->_requestDefermentToPlaybackQueuePosition;
     PBDataWriterWriteBOOLField();
-    toCopy = v24;
+    toCopy = v8;
   }
 
   if (self->_contextID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v24;
+    toCopy = v8;
   }
 
   if ((*&self->_has & 0x80000000) != 0)
   {
-    shouldOverrideManuallyCuratedQueue = self->_shouldOverrideManuallyCuratedQueue;
     PBDataWriterWriteBOOLField();
-    toCopy = v24;
+    toCopy = v8;
   }
 
   if (self->_stationURL)
   {
     PBDataWriterWriteStringField();
-    toCopy = v24;
+    toCopy = v8;
   }
 
-  v11 = self->_has;
-  if ((v11 & 0x4000) != 0)
+  v7 = self->_has;
+  if ((v7 & 0x4000) != 0)
   {
-    shouldBeginRadioPlayback = self->_shouldBeginRadioPlayback;
     PBDataWriterWriteBOOLField();
-    toCopy = v24;
-    v11 = self->_has;
+    toCopy = v8;
+    v7 = self->_has;
   }
 
-  if ((v11 & 8) != 0)
+  if ((v7 & 8) != 0)
   {
-    playbackQueueInsertionPosition = self->_playbackQueueInsertionPosition;
     PBDataWriterWriteInt32Field();
-    toCopy = v24;
+    toCopy = v8;
   }
 
   if (self->_contentItemID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v24;
+    toCopy = v8;
   }
 
   if ((*&self->_has & 0x20) != 0)
   {
-    queueEndAction = self->_queueEndAction;
     PBDataWriterWriteInt32Field();
-    toCopy = v24;
+    toCopy = v8;
   }
 }
 
@@ -1413,7 +1445,6 @@ LABEL_12:
       goto LABEL_116;
     }
 
-    v9 = *(equalCopy + 136);
     if (self->_externalPlayerCommand)
     {
       if ((equalCopy[68] & 1) == 0)
@@ -1479,7 +1510,6 @@ LABEL_12:
       goto LABEL_116;
     }
 
-    v10 = *(equalCopy + 137);
     if (self->_negative)
     {
       if ((*(equalCopy + 137) & 1) == 0)
@@ -1588,9 +1618,8 @@ LABEL_12:
     }
   }
 
-  v14 = self->_has;
-  v15 = equalCopy[72];
-  if ((v14 & 0x100) != 0)
+  v12 = self->_has;
+  if ((v12 & 0x100) != 0)
   {
     if ((equalCopy[72] & 0x100) == 0 || self->_sendOptions != *(equalCopy + 24))
     {
@@ -1610,7 +1639,6 @@ LABEL_12:
       goto LABEL_116;
     }
 
-    v20 = *(equalCopy + 138);
     if (self->_requestDefermentToPlaybackQueuePosition)
     {
       if ((equalCopy[69] & 1) == 0)
@@ -1638,18 +1666,17 @@ LABEL_12:
       goto LABEL_116;
     }
 
-    v14 = self->_has;
+    v12 = self->_has;
   }
 
-  v17 = equalCopy[72];
-  if (v14 < 0)
+  v14 = equalCopy[72];
+  if (v12 < 0)
   {
-    if ((v17 & 0x80000000) == 0)
+    if ((v14 & 0x80000000) == 0)
     {
       goto LABEL_116;
     }
 
-    v21 = *(equalCopy + 140);
     if (self->_shouldOverrideManuallyCuratedQueue)
     {
       if ((equalCopy[70] & 1) == 0)
@@ -1664,7 +1691,7 @@ LABEL_12:
     }
   }
 
-  else if (v17 < 0)
+  else if (v14 < 0)
   {
     goto LABEL_116;
   }
@@ -1677,18 +1704,17 @@ LABEL_12:
       goto LABEL_116;
     }
 
-    v14 = self->_has;
+    v12 = self->_has;
   }
 
-  v19 = equalCopy[72];
-  if ((v14 & 0x4000) != 0)
+  v16 = equalCopy[72];
+  if ((v12 & 0x4000) != 0)
   {
     if ((equalCopy[72] & 0x4000) == 0)
     {
       goto LABEL_116;
     }
 
-    v22 = *(equalCopy + 139);
     if (self->_shouldBeginRadioPlayback)
     {
       if ((*(equalCopy + 139) & 1) == 0)
@@ -1708,15 +1734,15 @@ LABEL_12:
     goto LABEL_116;
   }
 
-  if ((v14 & 8) != 0)
+  if ((v12 & 8) != 0)
   {
-    if ((v19 & 8) == 0 || self->_playbackQueueInsertionPosition != *(equalCopy + 16))
+    if ((v16 & 8) == 0 || self->_playbackQueueInsertionPosition != *(equalCopy + 16))
     {
       goto LABEL_116;
     }
   }
 
-  else if ((v19 & 8) != 0)
+  else if ((v16 & 8) != 0)
   {
     goto LABEL_116;
   }
@@ -1726,35 +1752,35 @@ LABEL_12:
   {
     if ([(NSString *)contentItemID isEqual:?])
     {
-      v14 = self->_has;
+      v12 = self->_has;
       goto LABEL_111;
     }
 
 LABEL_116:
-    v25 = 0;
+    v19 = 0;
     goto LABEL_117;
   }
 
 LABEL_111:
-  v24 = equalCopy[72];
-  if ((v14 & 0x20) != 0)
+  v18 = equalCopy[72];
+  if ((v12 & 0x20) != 0)
   {
-    if ((v24 & 0x20) == 0 || self->_queueEndAction != *(equalCopy + 18))
+    if ((v18 & 0x20) == 0 || self->_queueEndAction != *(equalCopy + 18))
     {
       goto LABEL_116;
     }
 
-    v25 = 1;
+    v19 = 1;
   }
 
   else
   {
-    v25 = (v24 & 0x20) == 0;
+    v19 = (v18 & 0x20) == 0;
   }
 
 LABEL_117:
 
-  return v25;
+  return v19;
 }
 
 - (unint64_t)hash

@@ -11,9 +11,9 @@
     +[NSUbiquitousKeyValueStore(WeatherCore) wc_sharedInstance];
   }
 
-  v1 = wc_sharedInstance_sSharedInstance;
+  v2 = wc_sharedInstance_sSharedInstance;
 
-  return v1;
+  return v2;
 }
 
 @end

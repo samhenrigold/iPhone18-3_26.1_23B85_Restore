@@ -209,17 +209,17 @@ LABEL_10:
 
         v23 = *v22;
         spec = [(PXCuratedLibraryOverlayButtonConfiguration *)selfCopy spec];
-        options = [spec options];
+        v25 = objc_msgSend_options(spec);
 
         v26 = MEMORY[0x1E69DDCF8];
-        if ((options & 4) == 0)
+        if ((v25 & 4) == 0)
         {
           v26 = MEMORY[0x1E69DDD78];
         }
 
         v27 = *v26;
         v28 = [MEMORY[0x1E69DB878] px_preferredFontForTextStyle:v27 maxContentSizeCategory:v23 withSymbolicTraits:32770];
-        if ((options & 4) != 0 || ([systemImageName isEqualToString:@"person.fill"] & 1) != 0 || objc_msgSend(systemImageName, "isEqualToString:", @"person.2.fill"))
+        if ((v25 & 4) != 0 || ([systemImageName isEqualToString:@"person.fill"] & 1) != 0 || objc_msgSend(systemImageName, "isEqualToString:", @"person.2.fill"))
         {
           v29 = 1;
         }

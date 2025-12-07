@@ -127,13 +127,11 @@ void sub_100002654(uint64_t a1)
     v4 = WeakRetained[24];
     WeakRetained[24] = v3;
 
-    v5 = *(a1 + 32);
     (*(*(a1 + 56) + 16))();
   }
 
   else
   {
-    v6 = *(a1 + 32);
     (*(*(a1 + 56) + 16))();
   }
 }
@@ -210,24 +208,22 @@ void sub_10000298C(uint64_t a1)
   WeakRetained = objc_loadWeakRetained((a1 + 64));
   if (WeakRetained)
   {
-    v9[0] = _NSConcreteStackBlock;
-    v9[1] = 3221225472;
-    v9[2] = sub_100002A90;
-    v9[3] = &unk_10000C4A0;
+    v7[0] = _NSConcreteStackBlock;
+    v7[1] = 3221225472;
+    v7[2] = sub_100002A90;
+    v7[3] = &unk_10000C4A0;
     v3 = *(a1 + 40);
-    v10 = *(a1 + 48);
-    v4 = [v3 pk_objectsPassingTest:v9];
+    v8 = *(a1 + 48);
+    v4 = [v3 pk_objectsPassingTest:v7];
     v5 = [v4 firstObject];
     v6 = WeakRetained[23];
     WeakRetained[23] = v5;
 
-    v7 = *(a1 + 32);
     (*(*(a1 + 56) + 16))();
   }
 
   else
   {
-    v8 = *(a1 + 32);
     (*(*(a1 + 56) + 16))();
   }
 }
@@ -304,13 +300,12 @@ void sub_100002C20(id *a1, void *a2)
 void sub_100002D10(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 56));
-  v4 = WeakRetained;
+  v3 = WeakRetained;
   if (WeakRetained)
   {
     objc_storeStrong(WeakRetained + 26, *(a1 + 40));
   }
 
-  v3 = *(a1 + 32);
   (*(*(a1 + 48) + 16))();
 }
 
@@ -400,7 +395,7 @@ void sub_10000300C(uint64_t a1, void *a2)
 void sub_10000315C(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 88));
-  v10 = WeakRetained;
+  v9 = WeakRetained;
   if (WeakRetained)
   {
     v3 = *(a1 + 40);
@@ -412,7 +407,6 @@ void sub_10000315C(uint64_t a1)
     *(v7 + 40) = v6;
   }
 
-  v9 = *(a1 + 32);
   (*(*(a1 + 72) + 16))();
 }
 
@@ -463,7 +457,7 @@ void sub_1000033A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void sub_1000033C4(uint64_t a1, void *a2)
 {
-  v7 = a2;
+  v6 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v5 = WeakRetained;
   if (WeakRetained)
@@ -473,7 +467,6 @@ void sub_1000033C4(uint64_t a1, void *a2)
 
   else
   {
-    v6 = *(a1 + 32);
     (*(*(a1 + 40) + 16))();
   }
 }

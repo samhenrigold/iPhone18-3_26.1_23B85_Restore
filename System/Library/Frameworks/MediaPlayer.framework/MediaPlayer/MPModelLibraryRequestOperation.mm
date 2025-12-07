@@ -319,7 +319,7 @@
             v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v175 count:1];
             if (v30)
             {
-              [v30 propertiesQueryForPropertySet:v29 scopedContainers:MEMORY[0x1E695E0F0] allowedItemIdentifiers:v32 view:_libraryView];
+              objc_msgSend_propertiesQueryForPropertySet_scopedContainers_allowedItemIdentifiers_view_(v30);
             }
 
             else
@@ -347,7 +347,7 @@
             v162 = 0;
             if (_libraryView)
             {
-              [_libraryView resultsForCoreQuery:&v163 error:&v162];
+              objc_msgSend_resultsForCoreQuery_error_(_libraryView);
               v34 = v162;
             }
 
@@ -430,7 +430,7 @@
     itemSortDescriptors = [(MPModelRequest *)self->_request itemSortDescriptors];
     if (v102)
     {
-      [v102 entityQueryForPropertySet:itemProperties sortDescriptors:itemSortDescriptors context:itemTranslationContext view:v44 deferLoadingRelationProperties:v101];
+      objc_msgSend_entityQueryForPropertySet_sortDescriptors_context_view_deferLoadingRelationProperties_(v102);
     }
 
     else
@@ -466,7 +466,7 @@
     v117 = 0;
     if (v44)
     {
-      [v44 resultsForCoreQuery:&v118 error:&v117];
+      objc_msgSend_resultsForCoreQuery_error_(v44);
       v64 = v117;
     }
 
@@ -495,7 +495,7 @@
         currentHandler4 = [MEMORY[0x1E696AAA8] currentHandler];
         [currentHandler4 handleFailureInMethod:a2 object:self file:@"MPModelLibraryRequestOperation.mm" lineNumber:630 description:@"item query did not produce error or result"];
 
-        v65 = v145;
+        v65 = 0;
       }
 
       v66 = v146;
@@ -507,10 +507,10 @@
       v67 = [MPModelLibraryDefaultSectionedCollectionDataSource alloc];
       request = self->_request;
       v115 = v65;
-      v116 = v66;
-      if (v66)
+      v116 = v146;
+      if (v146)
       {
-        atomic_fetch_add_explicit(&v66->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v146->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
       v69 = [(MPModelLibraryDefaultSectionedCollectionDataSource *)v67 initWithRequest:request itemQueryResults:&v115];
@@ -552,7 +552,7 @@
   sectionSortDescriptors = [(MPModelRequest *)self->_request sectionSortDescriptors];
   if (v41)
   {
-    [v41 entityQueryForPropertySet:obja sortDescriptors:sectionSortDescriptors context:sectionTranslationContext view:_libraryView];
+    objc_msgSend_entityQueryForPropertySet_sortDescriptors_context_view_(v41);
   }
 
   else
@@ -597,7 +597,7 @@ LABEL_68:
 LABEL_70:
   v56 = mlcore::PropertiesQuery::propertiesToFetch(v160);
   memset(buf, 0, sizeof(buf));
-  v57 = std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<mlcore::ModelPropertyBase **,mlcore::ModelPropertyBase **>(buf, *v56, v56[1], (v56[1] - *v56) >> 3);
+  v57 = std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<mlcore::ModelPropertyBase **,mlcore::ModelPropertyBase **>(buf, *v56, *(v56 + 8), (*(v56 + 8) - *v56) >> 3);
   IsLimited = mlcore::PlaylistPropertySmartIsLimited(v57);
   v59 = IsLimited;
   v60 = *&buf[8];
@@ -688,7 +688,7 @@ LABEL_117:
   v152 = 0;
   if (_libraryView)
   {
-    [_libraryView resultsForCoreQuery:&v153 error:&v152];
+    objc_msgSend_resultsForCoreQuery_error_(_libraryView);
     v77 = v152;
   }
 
@@ -726,7 +726,7 @@ LABEL_117:
     currentHandler6 = [MEMORY[0x1E696AAA8] currentHandler];
     [currentHandler6 handleFailureInMethod:a2 object:self->_request file:? lineNumber:? description:?];
 
-    v78 = v155;
+    v78 = 0;
   }
 
   v79 = v156;
@@ -984,263 +984,92 @@ void __95__MPModelLibraryRequestOperation__modifyRequestByAddingExplicitContentP
 LABEL_12:
 }
 
-void __52__MPModelLibraryRequestOperation__executeNewRequest__block_invoke(uint64_t a1)
+void __52__MPModelLibraryRequestOperation__executeNewRequest__block_invoke(uint64_t a1, unint64_t a2)
 {
-  v69 = *MEMORY[0x1E69E9840];
-  v2 = objc_autoreleasePoolPush();
+  v71 = *MEMORY[0x1E69E9840];
+  v3 = objc_autoreleasePoolPush();
   os_unfair_lock_lock((*(*(a1 + 88) + 8) + 48));
-  v3 = *(*(*(a1 + 96) + 8) + 40);
+  v4 = *(*(*(a1 + 96) + 8) + 40);
   os_unfair_lock_unlock((*(*(a1 + 88) + 8) + 48));
-  if (([*(a1 + 32) isCancelled] & 1) == 0 && !v3)
+  if (([*(a1 + 32) isCancelled] & 1) == 0 && !v4)
   {
     if (*(a1 + 144) == 1)
     {
-      v4 = mlcore::EntityQueryResult::entityAtIndex(*(a1 + 112));
-      IsLimited = mlcore::PlaylistPropertySmartIsLimited(v4);
-      v6 = mlcore::Entity::valueForProperty<int>(v67, IsLimited) == 0;
-      if (v68)
+      v5 = mlcore::EntityQueryResult::entityAtIndex(&v69, *(a1 + 112));
+      v6 = v69;
+      IsLimited = mlcore::PlaylistPropertySmartIsLimited(v5);
+      v8 = mlcore::Entity::valueForProperty<int>(v6, IsLimited) == 0;
+      if (v70)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v68);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v70);
       }
     }
 
     else
     {
-      v6 = 1;
+      v8 = 1;
     }
 
-    v40 = [*(a1 + 40) copy];
-    v66 = mlcore::EntityQueryResult::persistentIDAtIndex(*(a1 + 112));
-    v7 = [MPIdentifierSet alloc];
-    v8 = [*(*(a1 + 32) + 272) sectionKind];
-    v63[0] = MEMORY[0x1E69E9820];
-    v63[1] = 3221225472;
-    v63[2] = __52__MPModelLibraryRequestOperation__executeNewRequest__block_invoke_2;
-    v63[3] = &unk_1E767CDA0;
-    v64 = *(a1 + 48);
-    v65 = v66;
-    v42 = [(MPIdentifierSet *)v7 initWithSource:@"LibraryRequestOperation" modelKind:v8 block:v63];
+    v39 = [*(a1 + 40) copy];
+    v68 = mlcore::EntityQueryResult::persistentIDAtIndex(*(a1 + 112));
+    v9 = [MPIdentifierSet alloc];
+    v10 = [*(*(a1 + 32) + 272) sectionKind];
+    v65[0] = MEMORY[0x1E69E9820];
+    v65[1] = 3221225472;
+    v65[2] = __52__MPModelLibraryRequestOperation__executeNewRequest__block_invoke_2;
+    v65[3] = &unk_1E767CDA0;
+    v66 = *(a1 + 48);
+    v67 = v68;
+    v41 = [(MPIdentifierSet *)v9 initWithSource:@"LibraryRequestOperation" modelKind:v10 block:v65];
 
-    v9 = v40;
-    v39 = [objc_alloc(*(a1 + 128)) initWithIdentifiers:v42 block:&__block_literal_global_28958];
-    v10 = [*(a1 + 56) arrayByAddingObject:?];
-    [v40 setScopedContainers:v10];
+    v11 = v39;
+    v38 = [objc_alloc(*(a1 + 128)) initWithIdentifiers:v41 block:&__block_literal_global_28958];
+    v12 = [*(a1 + 56) arrayByAddingObject:?];
+    [v39 setScopedContainers:v12];
 
-    v43 = [*(a1 + 64) copy];
-    v41 = [*(*(a1 + 32) + 272) itemSortDescriptors];
-    v11 = *(a1 + 72);
-    v12 = [*(*(a1 + 32) + 272) itemProperties];
-    if (v11)
+    v42 = [*(a1 + 64) copy];
+    v40 = [*(*(a1 + 32) + 272) itemSortDescriptors];
+    v13 = *(a1 + 72);
+    v14 = [*(*(a1 + 32) + 272) itemProperties];
+    if (v13)
     {
-      [v11 entityQueryForPropertySet:v12 sortDescriptors:v41 context:v40 view:v43 deferLoadingRelationProperties:*(a1 + 145)];
+      objc_msgSend_entityQueryForPropertySet_sortDescriptors_context_view_deferLoadingRelationProperties_(v13);
     }
 
     else
     {
+      v63 = 0;
+      v64 = 0;
+    }
+
+    v15 = v63;
+    if (!v63)
+    {
+      v33 = [MEMORY[0x1E696AAA8] currentHandler];
+      [v33 handleFailureInMethod:*(a1 + 136) object:*(*(a1 + 32) + 272) file:? lineNumber:? description:?];
+
+      v15 = 0;
+    }
+
+    v59 = v15;
+    v60 = v64;
+    if (v64)
+    {
+      atomic_fetch_add_explicit(&v64->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    v58 = 0;
+    if (v42)
+    {
+      objc_msgSend_resultsForCoreQuery_error_(v42);
+      v16 = v58;
+    }
+
+    else
+    {
+      v16 = 0;
       v61 = 0;
       v62 = 0;
-    }
-
-    v13 = v61;
-    if (!v61)
-    {
-      v34 = [MEMORY[0x1E696AAA8] currentHandler];
-      [v34 handleFailureInMethod:*(a1 + 136) object:*(*(a1 + 32) + 272) file:? lineNumber:? description:?];
-
-      v13 = 0;
-    }
-
-    v57 = v13;
-    v58 = v62;
-    if (v62)
-    {
-      atomic_fetch_add_explicit(&v62->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    v56 = 0;
-    if (v43)
-    {
-      [v43 resultsForCoreQuery:&v57 error:&v56];
-      v14 = v56;
-    }
-
-    else
-    {
-      v14 = 0;
-      v59 = 0;
-      v60 = 0;
-    }
-
-    if (v58)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v58);
-    }
-
-    if (v14)
-    {
-      objc_storeStrong((*(*(a1 + 96) + 8) + 40), v14);
-    }
-
-    else
-    {
-      v15 = v59;
-      if (!v59)
-      {
-        v35 = [MEMORY[0x1E696AAA8] currentHandler];
-        [v35 handleFailureInMethod:*(a1 + 136) object:*(a1 + 32) file:@"MPModelLibraryRequestOperation.mm" lineNumber:521 description:@"item query did not produce error or result"];
-
-        v9 = v40;
-        v15 = v59;
-      }
-
-      v16 = v60;
-      if (v60)
-      {
-        atomic_fetch_add_explicit(&v60->__shared_owners_, 1uLL, memory_order_relaxed);
-      }
-
-      v38 = v16;
-      os_unfair_lock_lock((*(*(a1 + 88) + 8) + 48));
-      v17 = *(*(a1 + 104) + 8);
-      v67 = &v66;
-      v18 = std::__tree<std::__value_type<long long,std::shared_ptr<mlcore::EntityQueryResult>>,std::__map_value_compare<long long,std::__value_type<long long,std::shared_ptr<mlcore::EntityQueryResult>>,std::less<long long>,true>,std::allocator<std::__value_type<long long,std::shared_ptr<mlcore::EntityQueryResult>>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(v17 + 48, v66);
-      if (v38)
-      {
-        atomic_fetch_add_explicit(&v38->__shared_owners_, 1uLL, memory_order_relaxed);
-      }
-
-      v19 = v18[6];
-      v18[5] = v15;
-      v18[6] = v38;
-      if (v19)
-      {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v19);
-      }
-
-      os_unfair_lock_unlock((*(*(a1 + 88) + 8) + 48));
-      if (*(a1 + 146) == 1 && [*(*(a1 + 32) + 272) wantsDetailedKeepLocalRequestableResponse])
-      {
-        v20 = objc_alloc_init(MPModelLibraryResponseKeepLocalStatusConfiguration);
-        v21 = v61;
-        if (!v61 || !__dynamic_cast(v61, MEMORY[0x1E69B07D0], MEMORY[0x1E69B07E8], 0))
-        {
-          mlcore::Query::entityClass(v21);
-          v27 = mlcore::Query::predicate(&v67, v61);
-          mlcore::ItemPropertyIsStoreRedownloadable(v27);
-          std::allocate_shared[abi:ne200100]<mlcore::UnaryPredicate<int>,std::allocator<mlcore::UnaryPredicate<int>>,mlcore::ModelProperty<int> *&,mlcore::UnaryOperator,0>();
-        }
-
-        v22 = v62;
-        if (v62)
-        {
-          atomic_fetch_add_explicit(&v62->__shared_owners_, 1uLL, memory_order_relaxed);
-          std::__shared_weak_count::__release_shared[abi:ne200100](v22);
-        }
-
-        v23 = [*(a1 + 64) copy];
-        v50[0] = MEMORY[0x1E69E9820];
-        v50[1] = 3221225472;
-        v50[2] = __52__MPModelLibraryRequestOperation__executeNewRequest__block_invoke_5;
-        v50[3] = &unk_1E767A860;
-        v24 = *(a1 + 72);
-        v25 = *(a1 + 32);
-        v51 = v24;
-        v52 = v25;
-        v53 = v41;
-        v54 = v9;
-        v26 = v23;
-        v55 = v26;
-        [(MPModelLibraryResponseKeepLocalStatusConfiguration *)v20 setDownloadablePlaylistItemEntityQueryBlock:v50];
-
-        os_unfair_lock_lock((*(*(a1 + 88) + 8) + 48));
-        [*(a1 + 80) addObject:v20];
-        os_unfair_lock_unlock((*(*(a1 + 88) + 8) + 48));
-      }
-
-      if (!v6 && (*(a1 + 144) & 1) != 0)
-      {
-        [*(a1 + 40) setFilterText:0];
-        v37 = [*(a1 + 64) copy];
-        v28 = *(a1 + 72);
-        v29 = +[MPPropertySet emptyPropertySet];
-        v30 = [*(*(a1 + 32) + 272) itemSortDescriptors];
-        if (v28)
-        {
-          v31 = v28;
-          v9 = v40;
-          [v31 entityQueryForPropertySet:v29 sortDescriptors:v30 context:v40 view:v37];
-        }
-
-        else
-        {
-          v48 = 0;
-          v49 = 0;
-          v9 = v40;
-        }
-
-        v45 = v48;
-        v46 = v49;
-        if (v49)
-        {
-          atomic_fetch_add_explicit(&v49->__shared_owners_, 1uLL, memory_order_relaxed);
-        }
-
-        v44 = 0;
-        if (v37)
-        {
-          [v37 resultsForCoreQuery:&v45 error:&v44];
-          v32 = v44;
-        }
-
-        else
-        {
-          v32 = 0;
-          v47[0] = 0;
-          v47[1] = 0;
-        }
-
-        if (v46)
-        {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v46);
-        }
-
-        if (!v32)
-        {
-          v33 = v47[0];
-          if (!v47[0])
-          {
-            v36 = [MEMORY[0x1E696AAA8] currentHandler];
-            [v36 handleFailureInMethod:*(a1 + 136) object:*(*(a1 + 32) + 272) file:? lineNumber:? description:?];
-
-            v33 = v47[0];
-          }
-
-          if (v47[1])
-          {
-            atomic_fetch_add_explicit(v47[1] + 1, 1uLL, memory_order_relaxed);
-          }
-
-          mlcore::EntityQueryResult::propertyCaches(v33);
-          mlcore::EntityQueryResult::propertyCaches(v15);
-          operator new();
-        }
-
-        objc_storeStrong((*(*(a1 + 96) + 8) + 40), v32);
-        if (v47[1])
-        {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v47[1]);
-        }
-
-        if (v49)
-        {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v49);
-        }
-      }
-
-      if (v38)
-      {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v38);
-      }
     }
 
     if (v60)
@@ -1248,13 +1077,183 @@ void __52__MPModelLibraryRequestOperation__executeNewRequest__block_invoke(uint6
       std::__shared_weak_count::__release_shared[abi:ne200100](v60);
     }
 
+    if (v16)
+    {
+      objc_storeStrong((*(*(a1 + 96) + 8) + 40), v16);
+    }
+
+    else
+    {
+      v17 = v61;
+      if (!v61)
+      {
+        v34 = [MEMORY[0x1E696AAA8] currentHandler];
+        [v34 handleFailureInMethod:*(a1 + 136) object:*(a1 + 32) file:@"MPModelLibraryRequestOperation.mm" lineNumber:521 description:@"item query did not produce error or result"];
+
+        v11 = v39;
+        v17 = 0;
+      }
+
+      if (v62)
+      {
+        atomic_fetch_add_explicit(&v62->__shared_owners_, 1uLL, memory_order_relaxed);
+      }
+
+      v37 = v62;
+      os_unfair_lock_lock((*(*(a1 + 88) + 8) + 48));
+      v18 = *(*(a1 + 104) + 8);
+      v69 = &v68;
+      v19 = std::__tree<std::__value_type<long long,std::shared_ptr<mlcore::EntityQueryResult>>,std::__map_value_compare<long long,std::__value_type<long long,std::shared_ptr<mlcore::EntityQueryResult>>,std::less<long long>,true>,std::allocator<std::__value_type<long long,std::shared_ptr<mlcore::EntityQueryResult>>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>((v18 + 48), v68, &v69);
+      if (v62)
+      {
+        atomic_fetch_add_explicit(&v62->__shared_owners_, 1uLL, memory_order_relaxed);
+      }
+
+      v20 = v19[6];
+      v19[5] = v17;
+      v19[6] = v37;
+      if (v20)
+      {
+        std::__shared_weak_count::__release_shared[abi:ne200100](v20);
+      }
+
+      os_unfair_lock_unlock((*(*(a1 + 88) + 8) + 48));
+      if (*(a1 + 146) == 1 && [*(*(a1 + 32) + 272) wantsDetailedKeepLocalRequestableResponse])
+      {
+        v21 = objc_alloc_init(MPModelLibraryResponseKeepLocalStatusConfiguration);
+        if (!v63 || !__dynamic_cast(v63, MEMORY[0x1E69B07D0], MEMORY[0x1E69B07E8], 0))
+        {
+          v44 = mlcore::Query::entityClass(v63);
+          v26 = mlcore::Query::predicate(&v69, v63);
+          IsStoreRedownloadable = mlcore::ItemPropertyIsStoreRedownloadable(v26);
+          v43[0] = 0;
+          std::allocate_shared[abi:ne200100]<mlcore::UnaryPredicate<int>,std::allocator<mlcore::UnaryPredicate<int>>,mlcore::ModelProperty<int> *&,mlcore::UnaryOperator,0>(v49, &IsStoreRedownloadable, v43);
+        }
+
+        if (v64)
+        {
+          atomic_fetch_add_explicit(&v64->__shared_owners_, 1uLL, memory_order_relaxed);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v64);
+        }
+
+        v22 = [*(a1 + 64) copy];
+        v52[0] = MEMORY[0x1E69E9820];
+        v52[1] = 3221225472;
+        v52[2] = __52__MPModelLibraryRequestOperation__executeNewRequest__block_invoke_5;
+        v52[3] = &unk_1E767A860;
+        v23 = *(a1 + 72);
+        v24 = *(a1 + 32);
+        v53 = v23;
+        v54 = v24;
+        v55 = v40;
+        v56 = v11;
+        v25 = v22;
+        v57 = v25;
+        [(MPModelLibraryResponseKeepLocalStatusConfiguration *)v21 setDownloadablePlaylistItemEntityQueryBlock:v52];
+
+        os_unfair_lock_lock((*(*(a1 + 88) + 8) + 48));
+        [*(a1 + 80) addObject:v21];
+        os_unfair_lock_unlock((*(*(a1 + 88) + 8) + 48));
+      }
+
+      if (!v8 && (*(a1 + 144) & 1) != 0)
+      {
+        [*(a1 + 40) setFilterText:0];
+        v36 = [*(a1 + 64) copy];
+        v27 = *(a1 + 72);
+        v28 = +[MPPropertySet emptyPropertySet];
+        v29 = [*(*(a1 + 32) + 272) itemSortDescriptors];
+        if (v27)
+        {
+          v30 = v27;
+          v11 = v39;
+          objc_msgSend_entityQueryForPropertySet_sortDescriptors_context_view_(v30);
+        }
+
+        else
+        {
+          v50 = 0;
+          v51 = 0;
+          v11 = v39;
+        }
+
+        v47 = v50;
+        v48 = v51;
+        if (v51)
+        {
+          atomic_fetch_add_explicit(&v51->__shared_owners_, 1uLL, memory_order_relaxed);
+        }
+
+        v46 = 0;
+        if (v36)
+        {
+          objc_msgSend_resultsForCoreQuery_error_(v36);
+          v31 = v46;
+        }
+
+        else
+        {
+          v31 = 0;
+          v49[0] = 0;
+          v49[1] = 0;
+        }
+
+        if (v48)
+        {
+          std::__shared_weak_count::__release_shared[abi:ne200100](v48);
+        }
+
+        if (!v31)
+        {
+          v32 = v49[0];
+          if (!v49[0])
+          {
+            v35 = [MEMORY[0x1E696AAA8] currentHandler];
+            [v35 handleFailureInMethod:*(a1 + 136) object:*(*(a1 + 32) + 272) file:? lineNumber:? description:?];
+
+            v32 = 0;
+          }
+
+          if (v49[1])
+          {
+            atomic_fetch_add_explicit(v49[1] + 1, 1uLL, memory_order_relaxed);
+          }
+
+          mlcore::EntityQueryResult::propertyCaches(v32);
+          mlcore::EntityQueryResult::propertyCaches(v17);
+          operator new();
+        }
+
+        objc_storeStrong((*(*(a1 + 96) + 8) + 40), v31);
+        if (v49[1])
+        {
+          std::__shared_weak_count::__release_shared[abi:ne200100](v49[1]);
+        }
+
+        if (v51)
+        {
+          std::__shared_weak_count::__release_shared[abi:ne200100](v51);
+        }
+      }
+
+      if (v37)
+      {
+        std::__shared_weak_count::__release_shared[abi:ne200100](v37);
+      }
+    }
+
     if (v62)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v62);
     }
+
+    if (v64)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v64);
+    }
   }
 
-  objc_autoreleasePoolPop(v2);
+  objc_autoreleasePoolPop(v3);
 }
 
 void __52__MPModelLibraryRequestOperation__executeNewRequest__block_invoke_2(uint64_t a1, void *a2)
@@ -1272,24 +1271,26 @@ void __52__MPModelLibraryRequestOperation__executeNewRequest__block_invoke_2(uin
 
 void __52__MPModelLibraryRequestOperation__executeNewRequest__block_invoke_5(void *a1)
 {
-  v8[4] = *MEMORY[0x1E69E9840];
+  v12[4] = *MEMORY[0x1E69E9840];
   v2 = a1[4];
   v3 = [*(a1[5] + 272) itemProperties];
   if (v2)
   {
-    [v2 entityQueryForPropertySet:v3 sortDescriptors:a1[6] context:a1[7] view:a1[8]];
+    objc_msgSend_entityQueryForPropertySet_sortDescriptors_context_view_(v2);
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
+    v9 = 0;
   }
 
-  v4 = mlcore::Query::predicate(v8, v7);
+  v4 = mlcore::Query::predicate(v12, v8);
   v5 = mlcore::PlaylistItemPropertyItemPersistentID(v4);
   IsStoreRedownloadable = mlcore::ItemPropertyIsStoreRedownloadable(v5);
-  MPMediaLibraryGetProperty(v5, IsStoreRedownloadable);
-  std::allocate_shared[abi:ne200100]<mlcore::UnaryPredicate<int>,std::allocator<mlcore::UnaryPredicate<int>>,mlcore::ModelProperty<int> *&,mlcore::UnaryOperator,0>();
+  Property = MPMediaLibraryGetProperty(v5, IsStoreRedownloadable);
+  v10 = 0;
+  std::allocate_shared[abi:ne200100]<mlcore::UnaryPredicate<int>,std::allocator<mlcore::UnaryPredicate<int>>,mlcore::ModelProperty<int> *&,mlcore::UnaryOperator,0>(&v7, &Property, &v10);
 }
 
 - (id)_sectionProperties
@@ -1314,29 +1315,33 @@ void __52__MPModelLibraryRequestOperation__executeNewRequest__block_invoke_5(voi
 
 - (void)_insertPropertyCacheForEntityPID:(int64_t)d entityClass:(void *)class entityTranslator:(id)translator translationContext:(id)context propertyCachesVector:(const void *)vector
 {
-  v15[4] = *MEMORY[0x1E69E9840];
+  v18[4] = *MEMORY[0x1E69E9840];
+  dCopy = d;
   translatorCopy = translator;
-  contextCopy = context;
-  _libraryView = [(MPModelLibraryRequestOperation *)self _libraryView];
-  v13 = +[MPPropertySet emptyPropertySet];
+  context;
+  [(MPModelLibraryRequestOperation *)self _libraryView];
+  objc_claimAutoreleasedReturnValue();
+  v11 = +[MPPropertySet emptyPropertySet];
   if (translatorCopy)
   {
-    [translatorCopy entityQueryForPropertySet:v13 sortDescriptors:MEMORY[0x1E695E0F0] context:contextCopy view:_libraryView];
+    objc_msgSend_entityQueryForPropertySet_sortDescriptors_context_view_(translatorCopy);
   }
 
   else
   {
+    v13 = 0;
     v14 = 0;
   }
 
-  mlcore::Query::predicate(v15, v14);
-  (*(*class + 120))(class);
-  std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<long long>,std::allocator<mlcore::ComparisonPredicate<long long>>,mlcore::ModelProperty<long long> *&,mlcore::ComparisonOperator,long long const&,0>();
+  mlcore::Query::predicate(v18, v13);
+  v17 = (*(*class + 120))(class);
+  v16 = 0;
+  std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<long long>,std::allocator<mlcore::ComparisonPredicate<long long>>,mlcore::ModelProperty<long long> *&,mlcore::ComparisonOperator,long long const&,0>(v12, &v17, &v16, &dCopy);
 }
 
 void __136__MPModelLibraryRequestOperation__insertPropertyCacheForEntityPID_entityClass_entityTranslator_translationContext_propertyCachesVector___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v7 = *a2;
   v6 = *(a2 + 8);
@@ -1397,23 +1402,23 @@ void __136__MPModelLibraryRequestOperation__insertPropertyCacheForEntityPID_enti
     v28 = 1065353216;
     v29 = 0u;
     v30 = 0u;
-    memset(v32, 0, sizeof(v32));
+    memset(v32, 0, 32);
     v31 = 1065353216;
-    v33 = 1065353216;
+    v32[8] = 1.0;
     *buf = MEMORY[0x1E69B0818] + 16;
-    v34 = MEMORY[0x1E69B0818] + 56;
+    v33 = MEMORY[0x1E69B0818] + 56;
     v17 = *(a1 + 64);
     v20 = (*(**(a1 + 56) + 120))(*(a1 + 56));
     __p[0] = &v20;
-    std::__hash_table<std::__hash_value_type<mlcore::ModelProperty<long long> *,long long>,std::__unordered_map_hasher<mlcore::ModelProperty<long long> *,std::__hash_value_type<mlcore::ModelProperty<long long> *,long long>,std::hash<mlcore::ModelProperty<long long> *>,std::equal_to<mlcore::ModelProperty<long long> *>,true>,std::__unordered_map_equal<mlcore::ModelProperty<long long> *,std::__hash_value_type<mlcore::ModelProperty<long long> *,long long>,std::equal_to<mlcore::ModelProperty<long long> *>,std::hash<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__hash_value_type<mlcore::ModelProperty<long long> *,long long>>>::__emplace_unique_key_args<mlcore::ModelProperty<long long> *,std::piecewise_construct_t const&,std::tuple<mlcore::ModelProperty<long long> * const&>,std::tuple<>>(v32, v20)[3] = v17;
-    std::vector<mlcore::PropertyCache>::push_back[abi:ne200100](**(a1 + 48));
+    std::__hash_table<std::__hash_value_type<mlcore::ModelProperty<long long> *,long long>,std::__unordered_map_hasher<mlcore::ModelProperty<long long> *,std::__hash_value_type<mlcore::ModelProperty<long long> *,long long>,std::hash<mlcore::ModelProperty<long long> *>,std::equal_to<mlcore::ModelProperty<long long> *>,true>,std::__unordered_map_equal<mlcore::ModelProperty<long long> *,std::__hash_value_type<mlcore::ModelProperty<long long> *,long long>,std::equal_to<mlcore::ModelProperty<long long> *>,std::hash<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__hash_value_type<mlcore::ModelProperty<long long> *,long long>>>::__emplace_unique_key_args<mlcore::ModelProperty<long long> *,std::piecewise_construct_t const&,std::tuple<mlcore::ModelProperty<long long> * const&>,std::tuple<>>(v32, v20, __p)[3] = v17;
+    std::vector<mlcore::PropertyCache>::push_back[abi:ne200100](**(a1 + 48), buf);
   }
 
   else
   {
     mlcore::EntityQueryResult::propertyCaches(v7);
     mlcore::PropertyCache::PropertyCache();
-    std::vector<mlcore::PropertyCache>::push_back[abi:ne200100](**(a1 + 48));
+    std::vector<mlcore::PropertyCache>::push_back[abi:ne200100](**(a1 + 48), buf);
   }
 
   mlcore::PropertyCacheBase<long long,int,double,std::string,mediaplatform::Data>::~PropertyCacheBase(buf);
@@ -1426,7 +1431,7 @@ void __136__MPModelLibraryRequestOperation__insertPropertyCacheForEntityPID_enti
 
 - (void)_executeLegacyRequest
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   legacyMediaQuery = [(MPModelLibraryRequest *)self->_request legacyMediaQuery];
   request = [(MPModelLibraryRequestOperation *)self request];
   mediaLibrary = [request mediaLibrary];
@@ -1459,10 +1464,11 @@ void __136__MPModelLibraryRequestOperation__insertPropertyCacheForEntityPID_enti
   _libraryView = [(MPModelLibraryRequestOperation *)self _libraryView];
   if (_libraryView)
   {
-    [_libraryView mlCoreView];
+    objc_msgSend_mlCoreView(_libraryView);
   }
 
-  _itemProperties = [(MPModelLibraryRequestOperation *)self _itemProperties];
+  [(MPModelLibraryRequestOperation *)self _itemProperties];
+  objc_claimAutoreleasedReturnValue();
   sectionKind = [(MPModelRequest *)self->_request sectionKind];
   modelClass = [sectionKind modelClass];
 
@@ -1471,7 +1477,7 @@ void __136__MPModelLibraryRequestOperation__insertPropertyCacheForEntityPID_enti
 
   if (modelClass2 && ([MPMediaLibraryEntityTranslator translatorForMPModelClass:modelClass2], v15 = objc_claimAutoreleasedReturnValue(), v15, v15))
   {
-    [v15 MLCorePropertiesForPropertySet:_itemProperties deferLoadingRelationProperties:0];
+    objc_msgSend_MLCorePropertiesForPropertySet_deferLoadingRelationProperties_(v15);
   }
 
   else
@@ -1495,16 +1501,17 @@ void __136__MPModelLibraryRequestOperation__insertPropertyCacheForEntityPID_enti
 
   if (modelClass)
   {
-    v32 = objc_alloc_init(MPMediaLibraryEntityTranslationContext);
-    [(MPMediaLibraryEntityTranslationContext *)v32 setMediaLibrary:mediaLibrary];
+    v30 = objc_alloc_init(MPMediaLibraryEntityTranslationContext);
+    [(MPMediaLibraryEntityTranslationContext *)v30 setMediaLibrary:mediaLibrary];
     sectionKind2 = [(MPModelRequest *)self->_request sectionKind];
-    [(MPMediaLibraryEntityTranslationContext *)v32 setModelKind:sectionKind2];
+    [(MPMediaLibraryEntityTranslationContext *)v30 setModelKind:sectionKind2];
 
-    _sectionProperties = [(MPModelLibraryRequestOperation *)self _sectionProperties];
+    [(MPModelLibraryRequestOperation *)self _sectionProperties];
+    objc_claimAutoreleasedReturnValue();
     v19 = [MPMediaLibraryEntityTranslator translatorForMPModelClass:modelClass];
     if (v19)
     {
-      [v19 MLCorePropertiesForPropertySet:_sectionProperties];
+      objc_msgSend_MLCorePropertiesForPropertySet_(v19);
     }
 
     if ([legacyMediaQuery groupingType])
@@ -1545,12 +1552,12 @@ void __136__MPModelLibraryRequestOperation__insertPropertyCacheForEntityPID_enti
   {
     [legacyMediaQuery collections];
   }
-  v33 = ;
+  v31 = ;
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v21 = v33;
+    v21 = v31;
     resultSet = [v21 resultSet];
     [resultSet revision];
     sectionInfo = [v21 sectionInfo];
@@ -1584,173 +1591,173 @@ void __55__MPModelLibraryRequestOperation__executeLegacyRequest__block_invoke_3(
   [*(a1 + 32) _insertPropertyCacheForEntityPID:objc_msgSend(v4 entityClass:"longLongValue") entityTranslator:*(a1 + 56) translationContext:*(a1 + 40) propertyCachesVector:{*(a1 + 48), a1 + 64}];
 }
 
-void __55__MPModelLibraryRequestOperation__executeLegacyRequest__block_invoke_38(uint64_t a1, void *a2)
+void __55__MPModelLibraryRequestOperation__executeLegacyRequest__block_invoke_38(uint64_t a1, void *a2, uint64_t a3)
 {
-  v3 = a2;
-  v4 = [v3 range];
-  v6 = v5;
-  v7 = [v3 title];
-  std::string::basic_string[abi:ne200100]<0>(v34, [v7 UTF8String]);
+  v4 = a2;
+  v5 = [v4 range];
+  v7 = v6;
+  v8 = [v4 title];
+  std::string::basic_string[abi:ne200100]<0>(v35, [v8 UTF8String]);
 
-  v36 = v4;
-  v37 = v6;
+  v37 = v5;
+  v38 = v7;
   mlcore::Section::Section();
-  v8 = *(a1 + 32);
-  v10 = v8[1];
-  v9 = v8[2];
-  if (v10 >= v9)
+  v9 = *(a1 + 32);
+  v11 = v9[1];
+  v10 = v9[2];
+  if (v11 >= v10)
   {
-    v11 = 0xAAAAAAAAAAAAAAABLL * ((v10 - *v8) >> 4);
-    if (v11 + 1 > 0x555555555555555)
+    v12 = 0xAAAAAAAAAAAAAAABLL * ((v11 - *v9) >> 4);
+    if (v12 + 1 > 0x555555555555555)
     {
       std::vector<std::string>::__throw_length_error[abi:ne200100]();
     }
 
-    v12 = 0xAAAAAAAAAAAAAAABLL * ((v9 - *v8) >> 4);
-    v13 = 2 * v12;
-    if (2 * v12 <= v11 + 1)
+    v13 = 0xAAAAAAAAAAAAAAABLL * ((v10 - *v9) >> 4);
+    v14 = 2 * v13;
+    if (2 * v13 <= v12 + 1)
     {
-      v13 = v11 + 1;
+      v14 = v12 + 1;
     }
 
-    if (v12 >= 0x2AAAAAAAAAAAAAALL)
+    if (v13 >= 0x2AAAAAAAAAAAAAALL)
     {
-      v14 = 0x555555555555555;
+      v15 = 0x555555555555555;
     }
 
     else
     {
-      v14 = v13;
+      v15 = v14;
     }
 
-    v39 = *(a1 + 32);
-    if (v14)
+    v40 = *(a1 + 32);
+    if (v15)
     {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<mlcore::Section>>(v14);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<mlcore::Section>>(v15);
     }
 
-    v16 = 48 * v11;
-    v36 = 0;
-    v37 = v16;
-    v38 = v16;
-    if (SHIBYTE(v31) < 0)
+    v17 = 48 * v12;
+    v37 = 0;
+    v38 = v17;
+    v39 = v17;
+    if (SHIBYTE(v32) < 0)
     {
-      std::string::__init_copy_ctor_external(v16, __p[0], __p[1]);
-      v17 = v37;
+      std::string::__init_copy_ctor_external(v17, __p[0], __p[1]);
       v18 = v38;
+      v19 = v39;
     }
 
     else
     {
-      *(v16 + 16) = v31;
-      *v16 = *__p;
-      v17 = v16;
-      v18 = v16;
+      *(v17 + 16) = v32;
+      *v17 = *__p;
+      v18 = v17;
+      v19 = v17;
     }
 
-    *(v16 + 40) = v33;
-    *(v16 + 24) = v32;
-    *&v38 = v18 + 48;
-    v20 = *v8;
-    v19 = v8[1];
-    v40[0] = v8;
-    v40[1] = &v42;
-    v40[2] = &v43;
-    v41 = 0;
-    v21 = v17 + v20 - v19;
-    v42 = v21;
-    v43 = v21;
-    if (v20 == v19)
+    *(v17 + 40) = v34;
+    *(v17 + 24) = v33;
+    *&v39 = v19 + 48;
+    v21 = *v9;
+    v20 = v9[1];
+    v41[0] = v9;
+    v41[1] = &v43;
+    v41[2] = &v44;
+    v42 = 0;
+    v22 = v18 + v21 - v20;
+    v43 = v22;
+    v44 = v22;
+    if (v21 == v20)
     {
-      v41 = 1;
+      v42 = 1;
     }
 
     else
     {
-      v22 = v17 + v20 - v19;
-      v23 = v20;
+      v23 = v18 + v21 - v20;
+      v24 = v21;
       do
       {
-        if (*(v23 + 23) < 0)
+        if (*(v24 + 23) < 0)
         {
-          std::string::__init_copy_ctor_external(v22, *v23, *(v23 + 1));
-          v25 = v43;
+          std::string::__init_copy_ctor_external(v23, *v24, *(v24 + 1));
+          v26 = v44;
         }
 
         else
         {
-          v24 = *v23;
-          *(v22 + 16) = *(v23 + 2);
-          *v22 = v24;
-          v25 = v22;
+          v25 = *v24;
+          *(v23 + 16) = *(v24 + 2);
+          *v23 = v25;
+          v26 = v23;
         }
 
-        v26 = *(v23 + 24);
-        *(v22 + 40) = *(v23 + 10);
-        *(v22 + 24) = v26;
-        v23 += 3;
-        v22 = v25 + 48;
-        v43 = v25 + 48;
+        v27 = *(v24 + 24);
+        *(v23 + 40) = *(v24 + 10);
+        *(v23 + 24) = v27;
+        v24 += 3;
+        v23 = v26 + 48;
+        v44 = v26 + 48;
       }
 
-      while (v23 != v19);
-      v41 = 1;
+      while (v24 != v20);
+      v42 = 1;
       do
       {
-        if (v20[23] < 0)
+        if (v21[23] < 0)
         {
-          operator delete(*v20);
+          operator delete(*v21);
         }
 
-        v20 += 48;
+        v21 += 48;
       }
 
-      while (v20 != v19);
+      while (v21 != v20);
     }
 
-    std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<mlcore::Section>,mlcore::Section*>>::~__exception_guard_exceptions[abi:ne200100](v40);
-    v27 = *v8;
-    *v8 = v21;
-    v28 = v8[2];
-    v29 = v38;
-    v37 = v27;
-    *&v38 = v27;
-    *(v8 + 1) = v29;
-    *(&v38 + 1) = v28;
-    v36 = v27;
-    std::__split_buffer<mlcore::Section>::~__split_buffer(&v36);
-    v15 = v29;
+    std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<mlcore::Section>,mlcore::Section*>>::~__exception_guard_exceptions[abi:ne200100](v41);
+    v28 = *v9;
+    *v9 = v22;
+    v29 = v9[2];
+    v30 = v39;
+    v38 = v28;
+    *&v39 = v28;
+    *(v9 + 1) = v30;
+    *(&v39 + 1) = v29;
+    v37 = v28;
+    std::__split_buffer<mlcore::Section>::~__split_buffer(&v37);
+    v16 = v30;
   }
 
   else
   {
-    if (SHIBYTE(v31) < 0)
+    if (SHIBYTE(v32) < 0)
     {
-      std::string::__init_copy_ctor_external(v8[1], __p[0], __p[1]);
+      std::string::__init_copy_ctor_external(v9[1], __p[0], __p[1]);
     }
 
     else
     {
-      *(v10 + 16) = v31;
-      *v10 = *__p;
+      *(v11 + 16) = v32;
+      *v11 = *__p;
     }
 
-    *(v10 + 40) = v33;
-    *(v10 + 24) = v32;
-    v15 = v10 + 48;
-    v8[1] = v10 + 48;
+    *(v11 + 40) = v34;
+    *(v11 + 24) = v33;
+    v16 = v11 + 48;
+    v9[1] = v11 + 48;
   }
 
-  v8[1] = v15;
-  std::vector<std::string>::push_back[abi:ne200100](*(a1 + 48), v34);
-  if (SHIBYTE(v31) < 0)
+  v9[1] = v16;
+  std::vector<std::string>::push_back[abi:ne200100](*(a1 + 48), v35);
+  if (SHIBYTE(v32) < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (v35 < 0)
+  if (v36 < 0)
   {
-    operator delete(v34[0]);
+    operator delete(v35[0]);
   }
 }
 

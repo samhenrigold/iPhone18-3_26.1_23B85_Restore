@@ -51,33 +51,31 @@
 
 - (void)momentCapturedForStreamToken:(int64_t)token requesterID:(id)d reply:(id)reply
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   dCopy = d;
   replyCopy = reply;
-  v10 = TUDefaultLog();
+  v10 = TUDefaultLog(replyCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
     tokenCopy = token;
-    v21 = 2112;
-    v22 = dCopy;
+    v20 = 2112;
+    v21 = dCopy;
     _os_log_impl(&dword_1956FD000, v10, OS_LOG_TYPE_DEFAULT, "momentCapturedForStreamToken: %ld requesterID: %@", buf, 0x16u);
   }
 
   queue = [(TUUserNotificationProviderXPCClient *)self queue];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __86__TUUserNotificationProviderXPCClient_momentCapturedForStreamToken_requesterID_reply___block_invoke;
-  v15[3] = &unk_1E7425090;
-  v15[4] = self;
-  v16 = dCopy;
-  v17 = replyCopy;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __86__TUUserNotificationProviderXPCClient_momentCapturedForStreamToken_requesterID_reply___block_invoke;
+  v14[3] = &unk_1E7425090;
+  v14[4] = self;
+  v15 = dCopy;
+  v16 = replyCopy;
   tokenCopy2 = token;
   v12 = replyCopy;
   v13 = dCopy;
-  dispatch_async(queue, v15);
-
-  v14 = *MEMORY[0x1E69E9840];
+  dispatch_async(queue, v14);
 }
 
 void __86__TUUserNotificationProviderXPCClient_momentCapturedForStreamToken_requesterID_reply___block_invoke(uint64_t a1)
@@ -89,7 +87,7 @@ void __86__TUUserNotificationProviderXPCClient_momentCapturedForStreamToken_requ
 void __86__TUUserNotificationProviderXPCClient_momentCapturedForStreamToken_requesterID_reply___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __86__TUUserNotificationProviderXPCClient_momentCapturedForStreamToken_requesterID_reply___block_invoke_2_cold_1(v2, v3);
@@ -152,7 +150,7 @@ void __52__TUUserNotificationProviderXPCClient_xpcConnection__block_invoke(uint6
 
 void __52__TUUserNotificationProviderXPCClient_xpcConnection__block_invoke_2(uint64_t a1)
 {
-  v2 = TUDefaultLog();
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -177,13 +175,13 @@ void __52__TUUserNotificationProviderXPCClient_xpcConnection__block_invoke_7(uin
   }
 }
 
-void __52__TUUserNotificationProviderXPCClient_xpcConnection__block_invoke_2_8()
+void __52__TUUserNotificationProviderXPCClient_xpcConnection__block_invoke_2_8(uint64_t a1)
 {
-  v0 = TUDefaultLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = TUDefaultLog(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1956FD000, v0, OS_LOG_TYPE_DEFAULT, "user notification provider XPC connection interrupted (client side)", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_1956FD000, v1, OS_LOG_TYPE_DEFAULT, "user notification provider XPC connection interrupted (client side)", v2, 2u);
   }
 }
 
@@ -252,11 +250,10 @@ uint64_t __81__TUUserNotificationProviderXPCClient_userNotificationProviderServe
 
 void __86__TUUserNotificationProviderXPCClient_momentCapturedForStreamToken_requesterID_reply___block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1956FD000, a2, OS_LOG_TYPE_ERROR, "Error registering moments captured stream token: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1956FD000, a2, OS_LOG_TYPE_ERROR, "Error registering moments captured stream token: %@", &v2, 0xCu);
 }
 
 @end

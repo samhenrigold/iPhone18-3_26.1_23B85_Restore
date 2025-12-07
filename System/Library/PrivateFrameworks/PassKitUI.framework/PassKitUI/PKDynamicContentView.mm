@@ -46,9 +46,9 @@
 
 - (void)layoutSubviews
 {
-  v14.receiver = self;
-  v14.super_class = PKDynamicContentView;
-  [(PKDynamicContentView *)&v14 layoutSubviews];
+  v21.receiver = self;
+  v21.super_class = PKDynamicContentView;
+  [(PKDynamicContentView *)&v21 layoutSubviews];
   [(PKDynamicContentView *)self bounds];
   v4 = v3;
   v6 = v5;
@@ -59,7 +59,11 @@
 
   PKSizeAspectFit();
   imageView = self->_imageView;
-  PKSizeAlignedInRect();
+  v13.n128_f64[0] = v4;
+  v14.n128_f64[0] = v6;
+  v15.n128_f64[0] = v8;
+  v16.n128_f64[0] = v10;
+  PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v17, v18, v13, v14, v15, v16, v19);
   [(UIImageView *)imageView setFrame:?];
   emitterLayer = self->_emitterLayer;
   if (emitterLayer)

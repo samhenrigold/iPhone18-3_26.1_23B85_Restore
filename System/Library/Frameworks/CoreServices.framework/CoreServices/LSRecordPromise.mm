@@ -10,7 +10,7 @@
 
 - (LSRecordPromise)initWithRecord:(id)record error:(id *)error
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   if (!record)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
@@ -27,9 +27,9 @@
   {
     if (error)
     {
-      v13 = *MEMORY[0x1E696A278];
-      v14[0] = @"provided record was not attached";
-      v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+      v12 = *MEMORY[0x1E696A278];
+      v13[0] = @"provided record was not attached";
+      v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
       *error = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -50, v8, "[LSRecordPromise initWithRecord:error:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Record/LSRecord.mm", 801);
     }
 
@@ -37,7 +37,6 @@
   }
 
   os_unfair_recursive_lock_unlock();
-  v9 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -50,31 +49,32 @@
   v27 = 0;
   v28 = 0;
   v29 = 0;
-  if (_LSSetLocalDatabaseIfNewer(self->_db))
+  v6 = _LSSetLocalDatabaseIfNewer(self->_db);
+  if (v6)
   {
-    v6 = &v31;
+    v7 = &v31;
   }
 
   else
   {
-    v7 = _LSDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _LSDefaultLog(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_18162D000, v7, OS_LOG_TYPE_DEFAULT, "database in LSRecordPromise is out of date. Using current database.", buf, 2u);
+      _os_log_impl(&dword_18162D000, v8, OS_LOG_TYPE_DEFAULT, "database in LSRecordPromise is out of date. Using current database.", buf, 2u);
     }
 
-    v8 = +[_LSDServiceDomain defaultServiceDomain];
-    v6 = LaunchServices::Database::Context::_get(&v27, v8, 0);
+    v9 = +[_LSDServiceDomain defaultServiceDomain];
+    v7 = LaunchServices::Database::Context::_get(&v27, v9, 0);
 
-    if (!v6)
+    if (!v7)
     {
-      v18 = +[_LSDServiceDomain defaultServiceDomain];
-      v19 = LaunchServices::Database::Context::_get(&v27, v18, 0);
+      v19 = +[_LSDServiceDomain defaultServiceDomain];
+      v20 = LaunchServices::Database::Context::_get(&v27, v19, 0);
 
-      if (!v19)
+      if (!v20)
       {
-        v11 = v30;
+        v12 = v30;
         if (error)
         {
           goto LABEL_16;
@@ -83,42 +83,42 @@
         goto LABEL_18;
       }
 
-      v11 = 0;
+      v12 = 0;
 LABEL_15:
       if (error)
       {
 LABEL_16:
-        v20 = v11;
-        v13 = 0;
-        *error = v11;
+        v21 = v12;
+        v14 = 0;
+        *error = v12;
         goto LABEL_19;
       }
 
 LABEL_18:
-      v13 = 0;
+      v14 = 0;
       goto LABEL_19;
     }
   }
 
   pi = self->_pi;
   v25 = 0;
-  v10 = _LSCheckRecordPISizeAndVersionReturningPIInnerBytes(pi, &v25);
-  v11 = v25;
-  if (!v10)
+  v11 = _LSCheckRecordPISizeAndVersionReturningPIInnerBytes(pi, &v25);
+  v12 = v25;
+  if (!v11)
   {
     goto LABEL_15;
   }
 
-  SubclassForTable = LaunchServices::Record::findSubclassForTable(v6, *(v10 + 2));
+  SubclassForTable = LaunchServices::Record::findSubclassForTable(v7, *(v11 + 2));
   if (!SubclassForTable)
   {
     v32 = *MEMORY[0x1E696A278];
-    v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"bogus table %d", *(v10 + 2)];
-    v33[0] = v15;
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:&v32 count:1];
-    v17 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -10810, v16, "[LSRecordPromise fulfillReturningError:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Record/LSRecord.mm", 840);
+    v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"bogus table %d", *(v11 + 2)];
+    v33[0] = v16;
+    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:&v32 count:1];
+    v18 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -10810, v17, "[LSRecordPromise fulfillReturningError:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Record/LSRecord.mm", 840);
 
-    v11 = v17;
+    v12 = v18;
     if (!error)
     {
       goto LABEL_18;
@@ -127,12 +127,12 @@ LABEL_18:
     goto LABEL_16;
   }
 
-  v13 = [[SubclassForTable alloc] _initWithContext:v6 persistentIdentifier:self->_pi];
-  if (!v13)
+  v14 = [[SubclassForTable alloc] _initWithContext:v7 persistentIdentifier:self->_pi];
+  if (!v14)
   {
-    v14 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -10814, 0, "[LSRecordPromise fulfillReturningError:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Record/LSRecord.mm", 836);
+    v15 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -10814, 0, "[LSRecordPromise fulfillReturningError:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Record/LSRecord.mm", 836);
 
-    v11 = v14;
+    v12 = v15;
     if (!error)
     {
       goto LABEL_18;
@@ -147,24 +147,22 @@ LABEL_19:
     _LSContextDestroy(v27);
   }
 
-  v21 = v28;
+  v22 = v28;
   v27 = 0;
   v28 = 0;
 
   v29 = 0;
-  v22 = v30;
+  v23 = v30;
   v30 = 0;
 
-  v23 = *MEMORY[0x1E69E9840];
-
-  return v13;
+  return v14;
 }
 
 - (id)_initWithRecord:(id)record
 {
-  v17.receiver = self;
-  v17.super_class = LSRecordPromise;
-  v5 = [(LSRecordPromise *)&v17 init];
+  v15.receiver = self;
+  v15.super_class = LSRecordPromise;
+  v5 = [(LSRecordPromise *)&v15 init];
   if (v5)
   {
     recordCopy = record;
@@ -181,19 +179,17 @@ LABEL_19:
     {
       v10 = v7;
       [(_LSDatabase *)v8[2] store];
-      v11 = *(v10 + 14);
-      v12 = *(v10 + 6);
       CSStoreGetUnit();
-      v13 = v8[2];
+      v11 = v8[2];
     }
 
     else
     {
-      v13 = 0;
+      v11 = 0;
     }
 
     os_unfair_recursive_lock_unlock();
-    objc_storeStrong(&v5->_db, v13);
+    objc_storeStrong(&v5->_db, v11);
     persistentIdentifier = [v8 persistentIdentifier];
     pi = v5->_pi;
     v5->_pi = persistentIdentifier;
@@ -204,28 +200,25 @@ LABEL_19:
 
 - (void)encodeWithCoder:(id)coder
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   if (LaunchServices::Record::checkForExfiltrationRisk(coder, a2))
   {
-    v11 = *MEMORY[0x1E696A278];
-    v12[0] = @"This process may not encode instances of LSRecordPromise. This class is only for use by InstallCoordination.";
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v9 = *MEMORY[0x1E696A278];
+    v10[0] = @"This process may not encode instances of LSRecordPromise. This class is only for use by InstallCoordination.";
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
     v6 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -54, v5, "[LSRecordPromise encodeWithCoder:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Record/LSRecord.mm", 884);
     [coder failWithError:v6];
-
-    v7 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
     [coder encodeObject:-[_LSDatabase store](self->_db) forKey:@"store"];
-    v8 = _LSDatabaseGetNode(self->_db);
-    [coder encodeObject:v8 forKey:@"node"];
+    v7 = _LSDatabaseGetNode(self->_db);
+    [coder encodeObject:v7 forKey:@"node"];
 
     [coder encodeBool:(_LSDatabaseGetSessionKey(self->_db) >> 32) & 1 forKey:@"systemSession"];
     [coder encodeInt64:_LSDatabaseGetSessionKey(self->_db) forKey:@"userID"];
     pi = self->_pi;
-    v10 = *MEMORY[0x1E69E9840];
 
     [coder encodeObject:pi forKey:@"persistentIdentifier"];
   }

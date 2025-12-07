@@ -45,14 +45,10 @@
 
 - (void)writeTo:(id)to
 {
-  state = self->_state;
   toCopy = to;
   PBDataWriterWriteUint32Field();
-  size = self->_size;
   PBDataWriterWriteUint64Field();
-  key = self->_key;
   PBDataWriterWriteStringField();
-  accessDate = self->_accessDate;
   PBDataWriterWriteDoubleField();
 }
 

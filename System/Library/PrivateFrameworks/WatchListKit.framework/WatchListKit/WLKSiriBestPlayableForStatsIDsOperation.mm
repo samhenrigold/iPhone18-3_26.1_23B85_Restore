@@ -7,7 +7,7 @@
 
 - (WLKSiriBestPlayableForStatsIDsOperation)initWithStatsIDs:(id)ds caller:(id)caller
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   callerCopy = caller;
   v7 = MEMORY[0x277CBE660];
@@ -27,28 +27,27 @@
     [MEMORY[0x277CBEAD8] raise:*v7 format:@"The statsIDs parameter must not be an empty array."];
   }
 
-  v32 = 0u;
-  v33 = 0u;
   v30 = 0u;
   v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v8 = dsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v30 objects:v37 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v28 objects:v35 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v31;
+    v11 = *v29;
     v12 = *v7;
     do
     {
       v13 = 0;
       do
       {
-        if (*v31 != v11)
+        if (*v29 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v14 = *(*(&v30 + 1) + 8 * v13);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -59,38 +58,37 @@
       }
 
       while (v10 != v13);
-      v10 = [v8 countByEnumeratingWithState:&v30 objects:v37 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v28 objects:v35 count:16];
     }
 
     while (v10);
   }
 
-  v15 = MEMORY[0x277CCAC98];
-  v16 = NSStringFromSelector(sel_self);
-  v17 = [v15 sortDescriptorWithKey:v16 ascending:1];
+  v14 = MEMORY[0x277CCAC98];
+  v15 = NSStringFromSelector(sel_self);
+  v16 = [v14 sortDescriptorWithKey:v15 ascending:1];
 
-  v36 = v17;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:1];
-  v19 = [v8 sortedArrayUsingDescriptors:v18];
+  v34 = v16;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v34 count:1];
+  v18 = [v8 sortedArrayUsingDescriptors:v17];
 
-  v34 = @"ids";
-  v20 = [v19 componentsJoinedByString:{@", "}];
-  v35 = v20;
-  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
-  v22 = [WLKURLRequestProperties requestPropertiesWithEndpoint:@"siri/bestPlayableForStatsIds" queryParameters:v21 httpMethod:0 caller:callerCopy];
+  v32 = @"ids";
+  v19 = [v18 componentsJoinedByString:{@", "}];
+  v33 = v19;
+  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+  v21 = [WLKURLRequestProperties requestPropertiesWithEndpoint:@"siri/bestPlayableForStatsIds" queryParameters:v20 httpMethod:0 caller:callerCopy];
 
-  v29.receiver = self;
-  v29.super_class = WLKSiriBestPlayableForStatsIDsOperation;
-  v23 = [(WLKUTSNetworkRequestOperation *)&v29 initWithRequestProperties:v22];
-  if (v23)
+  v27.receiver = self;
+  v27.super_class = WLKSiriBestPlayableForStatsIDsOperation;
+  v22 = [(WLKUTSNetworkRequestOperation *)&v27 initWithRequestProperties:v21];
+  if (v22)
   {
-    v24 = [v8 copy];
-    statsIDs = v23->_statsIDs;
-    v23->_statsIDs = v24;
+    v23 = [v8 copy];
+    statsIDs = v22->_statsIDs;
+    v22->_statsIDs = v23;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
-  return v23;
+  return v22;
 }
 
 - (void)processResponse

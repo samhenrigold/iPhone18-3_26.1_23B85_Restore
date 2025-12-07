@@ -7,23 +7,21 @@
 
 + (id)clientPluginManagerWithFactoryInitializationBlock:(id)block
 {
-  v13[3] = *MEMORY[0x1E69E9840];
+  v12[3] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AEC0];
   blockCopy = block;
   v5 = CPSystemRootDirectory();
-  v13[0] = v5;
-  v13[1] = @"System";
-  v13[2] = @"/Library/Assistant/UIPlugins";
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:3];
+  v12[0] = v5;
+  v12[1] = @"System";
+  v12[2] = @"/Library/Assistant/UIPlugins";
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:3];
   v7 = [v3 pathWithComponents:v6];
 
-  v12[0] = @"SiriDomains";
-  v12[1] = @"SiriDisambiguationDomains";
-  v12[2] = @"SiriProviderDomains";
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:3];
+  v11[0] = @"SiriDomains";
+  v11[1] = @"SiriDisambiguationDomains";
+  v11[2] = @"SiriProviderDomains";
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:3];
   v9 = [(AFPluginManager *)AFClientPluginManager pluginManagerForPath:v7 domainKeys:v8 factoryInitializationBlock:blockCopy];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

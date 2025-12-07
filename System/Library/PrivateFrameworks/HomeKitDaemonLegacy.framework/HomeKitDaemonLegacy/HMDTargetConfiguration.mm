@@ -61,7 +61,7 @@
 
 - (HMDTargetConfiguration)initWithAccessory:(id)accessory buttonConfiguration:(id)configuration
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   configurationCopy = configuration;
   home = [accessoryCopy home];
@@ -100,20 +100,19 @@
       name2 = [accessoryCopy name];
       uuid4 = [accessoryCopy uuid];
       uUIDString = [uuid4 UUIDString];
-      v29 = 138543874;
-      v30 = v23;
-      v31 = 2112;
-      v32 = name2;
-      v33 = 2112;
-      v34 = uUIDString;
-      _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_INFO, "%{public}@Attempting to create a target with an accessory %@/%@ that is not configured with a home", &v29, 0x20u);
+      v28 = 138543874;
+      v29 = v23;
+      v30 = 2112;
+      v31 = name2;
+      v32 = 2112;
+      v33 = uUIDString;
+      _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_INFO, "%{public}@Attempting to create a target with an accessory %@/%@ that is not configured with a home", &v28, 0x20u);
     }
 
     objc_autoreleasePoolPop(v21);
     v20 = 0;
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
@@ -154,12 +153,12 @@
   if (v14)
   {
     objc_storeStrong(&v14->_identifier, identifier);
-    v16 = [nameCopy copy];
+    v16 = objc_msgSend_copy(nameCopy);
     name = v15->_name;
     v15->_name = v16;
 
     v15->_category = category;
-    v18 = [configurationCopy copy];
+    v18 = objc_msgSend_copy(configurationCopy);
     buttonConfiguration = v15->_buttonConfiguration;
     v15->_buttonConfiguration = v18;
   }

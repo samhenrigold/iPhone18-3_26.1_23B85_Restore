@@ -2,6 +2,7 @@
 - (BOOL)isEqual:(id)equal;
 - (CKAssetReference)initWithCoder:(id)coder;
 - (CKAssetReference)initWithExistingRecordID:(id)d databaseScope:(int64_t)scope fieldName:(id)name fileSignature:(id)signature;
+- (id)CKDescriptionPropertiesWithPublic:(BOOL)public private:(BOOL)private shouldExpand:(BOOL)expand;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -16,17 +17,8 @@
   v47 = 0;
   v13 = _CKCheckArgument("recordID", dCopy, 0, 0, 0, &v47);
   v14 = v47;
-  if ((v13 & 1) == 0)
+  if ((v13 & 1) == 0 || (v14, v46 = 0, v15 = _CKCheckArgument("fieldName", nameCopy, 0, 0, 0, &v46), v14 = v46, (v15 & 1) == 0) || (v14, v45 = 0, v16 = _CKCheckArgument("fileSignature", signatureCopy, 0, 0, 0, &v45), v14 = v45, (v16 & 1) == 0))
   {
-    goto LABEL_9;
-  }
-
-  v46 = 0;
-  v15 = _CKCheckArgument("fieldName", nameCopy, 0, 0, 0, &v46);
-  v14 = v46;
-  if ((v15 & 1) == 0 || (v14, v45 = 0, v16 = _CKCheckArgument("fileSignature", signatureCopy, 0, 0, 0, &v45), v14 = v45, (v16 & 1) == 0))
-  {
-LABEL_9:
     v33 = v14;
     v34 = [CKException alloc];
     v37 = objc_msgSend_code(v33, v35, v36);
@@ -82,22 +74,7 @@ LABEL_9:
       v11 = objc_msgSend_recordID(v5, v9, v10);
       isEqual = objc_msgSend_isEqual_(v8, v12, v11);
 
-      if (!isEqual)
-      {
-        goto LABEL_9;
-      }
-
-      v16 = objc_msgSend_databaseScope(self, v14, v15);
-      if (v16 != objc_msgSend_databaseScope(v5, v17, v18))
-      {
-        goto LABEL_9;
-      }
-
-      v21 = objc_msgSend_fieldName(self, v19, v20);
-      v24 = objc_msgSend_fieldName(v5, v22, v23);
-      v26 = objc_msgSend_isEqual_(v21, v25, v24);
-
-      if (v26)
+      if (isEqual && (v16 = objc_msgSend_databaseScope(self, v14, v15), v16 == objc_msgSend_databaseScope(v5, v17, v18)) && (objc_msgSend_fieldName(self, v19, v20), v21 = objc_claimAutoreleasedReturnValue(), objc_msgSend_fieldName(v5, v22, v23), v24 = objc_claimAutoreleasedReturnValue(), v26 = objc_msgSend_isEqual_(v21, v25, v24), v24, v21, v26))
       {
         v29 = objc_msgSend_fileSignature(self, v27, v28);
         v32 = objc_msgSend_fileSignature(v5, v30, v31);
@@ -106,7 +83,6 @@ LABEL_9:
 
       else
       {
-LABEL_9:
         v34 = 0;
       }
     }
@@ -180,6 +156,32 @@ LABEL_9:
   }
 
   return v5;
+}
+
+- (id)CKDescriptionPropertiesWithPublic:(BOOL)public private:(BOOL)private shouldExpand:(BOOL)expand
+{
+  privateCopy = private;
+  v9 = objc_msgSend_dictionaryWithCapacity_(MEMORY[0x1E695DF90], a2, 3, private, expand);
+  if (privateCopy)
+  {
+    v10 = objc_msgSend_recordID(self, v7, v8);
+    v13 = objc_msgSend_description(v10, v11, v12);
+    objc_msgSend_CKAddPropertySafelyForKey_value_(v9, v14, @"recordID", v13);
+
+    v15 = MEMORY[0x1E696AD98];
+    v18 = objc_msgSend_databaseScope(self, v16, v17);
+    v20 = objc_msgSend_numberWithInteger_(v15, v19, v18);
+    objc_msgSend_CKAddPropertySafelyForKey_value_(v9, v21, @"databaseScope", v20);
+
+    v24 = objc_msgSend_fieldName(self, v22, v23);
+    objc_msgSend_CKAddPropertySafelyForKey_value_(v9, v25, @"fieldName", v24);
+
+    v28 = objc_msgSend_fileSignature(self, v26, v27);
+    v31 = objc_msgSend_description(v28, v29, v30);
+    objc_msgSend_CKAddPropertySafelyForKey_value_(v9, v32, @"fileSignature", v31);
+  }
+
+  return v9;
 }
 
 @end

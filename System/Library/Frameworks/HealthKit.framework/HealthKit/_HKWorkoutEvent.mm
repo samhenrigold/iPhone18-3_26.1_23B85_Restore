@@ -142,11 +142,11 @@
 
 - (_HKWorkoutEvent)initWithCoder:(id)coder
 {
-  v24[5] = *MEMORY[0x1E69E9840];
+  v23[5] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v23.receiver = self;
-  v23.super_class = _HKWorkoutEvent;
-  v5 = [(_HKWorkoutEvent *)&v23 init];
+  v22.receiver = self;
+  v22.super_class = _HKWorkoutEvent;
+  v5 = [(_HKWorkoutEvent *)&v22 init];
   if (v5)
   {
     v5->_eventType = [coderCopy decodeIntegerForKey:@"eventType"];
@@ -170,12 +170,12 @@
     }
 
     v13 = MEMORY[0x1E695DFD8];
-    v24[0] = objc_opt_class();
-    v24[1] = objc_opt_class();
-    v24[2] = objc_opt_class();
-    v24[3] = objc_opt_class();
-    v24[4] = objc_opt_class();
-    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:5];
+    v23[0] = objc_opt_class();
+    v23[1] = objc_opt_class();
+    v23[2] = objc_opt_class();
+    v23[3] = objc_opt_class();
+    v23[4] = objc_opt_class();
+    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:5];
     v15 = [v13 setWithArray:v14];
 
     v16 = [coderCopy decodeObjectOfClasses:v15 forKey:@"metadata"];
@@ -188,7 +188,6 @@
     v5->_error = v19;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

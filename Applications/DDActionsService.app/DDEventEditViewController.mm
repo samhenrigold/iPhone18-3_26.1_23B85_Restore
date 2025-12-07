@@ -2,6 +2,7 @@
 - (void)dealloc;
 - (void)eventEditViewController:(id)controller didCompleteWithAction:(int64_t)action;
 - (void)prepareForAction:(id)action;
+- (void)setCancellable:(BOOL)cancellable;
 - (void)willTransitionToTraitCollection:(id)collection withTransitionCoordinator:(id)coordinator;
 @end
 
@@ -34,6 +35,13 @@
   v4 = v8;
   v5 = actionCopy;
   [v4 requestFullAccessToEventsWithCompletion:v6];
+}
+
+- (void)setCancellable:(BOOL)cancellable
+{
+  cancellableCopy = cancellable;
+  _remoteViewControllerProxy = [(DDEventEditViewController *)self _remoteViewControllerProxy];
+  [_remoteViewControllerProxy actionCanBeCancelledExternally:cancellableCopy];
 }
 
 - (void)eventEditViewController:(id)controller didCompleteWithAction:(int64_t)action

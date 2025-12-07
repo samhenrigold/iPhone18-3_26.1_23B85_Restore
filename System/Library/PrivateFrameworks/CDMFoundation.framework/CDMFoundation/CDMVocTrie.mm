@@ -42,25 +42,25 @@
 
 - (id)usoGraphForLabel:(id)label semantic:(id)semantic
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   labelCopy = label;
   semanticCopy = semantic;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = __Block_byref_object_copy__8551;
-  v19 = __Block_byref_object_dispose__8552;
-  v20 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = __Block_byref_object_copy__8551;
+  v18 = __Block_byref_object_dispose__8552;
+  v19 = 0;
   semanticCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@+%@", labelCopy, semanticCopy];
   vocUsoTrieReadOnly = self->vocUsoTrieReadOnly;
   if (vocUsoTrieReadOnly)
   {
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __40__CDMVocTrie_usoGraphForLabel_semantic___block_invoke;
-    v14[3] = &unk_1E862F8B0;
-    v14[4] = &v15;
-    [(OVMarisaTrie *)vocUsoTrieReadOnly lookupKey:semanticCopy resultBlock:v14];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __40__CDMVocTrie_usoGraphForLabel_semantic___block_invoke;
+    v13[3] = &unk_1E862F8B0;
+    v13[4] = &v14;
+    [(OVMarisaTrie *)vocUsoTrieReadOnly lookupKey:semanticCopy resultBlock:v13];
   }
 
   else
@@ -69,22 +69,21 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v22 = "[CDMVocTrie usoGraphForLabel:semantic:]";
+      v21 = "[CDMVocTrie usoGraphForLabel:semantic:]";
       _os_log_debug_impl(&dword_1DC287000, v10, OS_LOG_TYPE_DEBUG, "%s no uso trie loaded", buf, 0xCu);
     }
   }
 
-  v11 = v16[5];
+  v11 = v15[5];
 
-  _Block_object_dispose(&v15, 8);
-  v12 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v14, 8);
 
   return v11;
 }
 
 void __40__CDMVocTrie_usoGraphForLabel_semantic___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E69D1260];
   v4 = a2;
   v5 = [[v3 alloc] initWithData:v4];
@@ -99,17 +98,15 @@ void __40__CDMVocTrie_usoGraphForLabel_semantic___block_invoke(uint64_t a1, void
     v11 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      v15 = 136315138;
-      v16 = "[CDMVocTrie usoGraphForLabel:semantic:]_block_invoke";
-      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s uso graph can't be converted", &v15, 0xCu);
+      v14 = 136315138;
+      v15 = "[CDMVocTrie usoGraphForLabel:semantic:]_block_invoke";
+      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s uso graph can't be converted", &v14, 0xCu);
     }
 
     v12 = *(*(a1 + 32) + 8);
     v13 = *(v12 + 40);
     *(v12 + 40) = 0;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)entriesForText:(id)text
@@ -134,7 +131,7 @@ void __40__CDMVocTrie_usoGraphForLabel_semantic___block_invoke(uint64_t a1, void
 
 void __29__CDMVocTrie_entriesForText___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (a2)
   {
     *buf = 0;
@@ -143,14 +140,14 @@ void __29__CDMVocTrie_entriesForText___block_invoke(uint64_t a1, void *a2)
     v4 = *(a1 + 40);
     v5 = *(v4 + 16);
     v6 = *buf;
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __29__CDMVocTrie_entriesForText___block_invoke_20;
-    v10[3] = &unk_1E862F860;
-    v10[4] = v4;
-    v11 = v3;
-    v12 = *(a1 + 48);
-    [v5 reverseLookupKey:v6 dataLength:4 resultBlock:v10];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __29__CDMVocTrie_entriesForText___block_invoke_20;
+    v9[3] = &unk_1E862F860;
+    v9[4] = v4;
+    v10 = v3;
+    v11 = *(a1 + 48);
+    [v5 reverseLookupKey:v6 dataLength:4 resultBlock:v9];
   }
 
   else
@@ -160,14 +157,12 @@ void __29__CDMVocTrie_entriesForText___block_invoke(uint64_t a1, void *a2)
     {
       v8 = *(a1 + 32);
       *buf = 136315394;
-      v14 = "[CDMVocTrie entriesForText:]_block_invoke";
-      v15 = 2112;
-      v16 = v8;
+      v13 = "[CDMVocTrie entriesForText:]_block_invoke";
+      v14 = 2112;
+      v15 = v8;
       _os_log_impl(&dword_1DC287000, v7, OS_LOG_TYPE_INFO, "%s [WARN]: VOC trie look up returns nil data for text:%@", buf, 0x16u);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __29__CDMVocTrie_entriesForText___block_invoke_20(uint64_t a1, void *a2, void *a3)
@@ -196,11 +191,11 @@ void __29__CDMVocTrie_entriesForText___block_invoke_20(uint64_t a1, void *a2, vo
 
 - (CDMVocTrie)initWithTriePath:(id)path
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   pathCopy = path;
-  v35.receiver = self;
-  v35.super_class = CDMVocTrie;
-  v5 = [(CDMVocTrie *)&v35 init];
+  v34.receiver = self;
+  v34.super_class = CDMVocTrie;
+  v5 = [(CDMVocTrie *)&v34 init];
   if (v5)
   {
     if (!pathCopy)
@@ -214,9 +209,9 @@ void __29__CDMVocTrie_entriesForText___block_invoke_20(uint64_t a1, void *a2, vo
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v37 = "[CDMVocTrie initWithTriePath:]";
-      v38 = 2112;
-      v39 = v7;
+      v36 = "[CDMVocTrie initWithTriePath:]";
+      v37 = 2112;
+      v38 = v7;
       _os_log_debug_impl(&dword_1DC287000, v8, OS_LOG_TYPE_DEBUG, "%s Reading VOC trie from %@", buf, 0x16u);
     }
 
@@ -256,7 +251,7 @@ void __29__CDMVocTrie_entriesForText___block_invoke_20(uint64_t a1, void *a2, vo
       if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v37 = "[CDMVocTrie initWithTriePath:]";
+        v36 = "[CDMVocTrie initWithTriePath:]";
         _os_log_error_impl(&dword_1DC287000, v31, OS_LOG_TYPE_ERROR, "%s [ERR]: CDMVocTrie failing to init without required assets", buf, 0xCu);
       }
 
@@ -270,7 +265,7 @@ void __29__CDMVocTrie_entriesForText___block_invoke_20(uint64_t a1, void *a2, vo
       if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315138;
-        v37 = "[CDMVocTrie initWithTriePath:]";
+        v36 = "[CDMVocTrie initWithTriePath:]";
         v30 = "%s CDMVocTrie Using VOC 2.0 assets that contains USO";
 LABEL_22:
         _os_log_debug_impl(&dword_1DC287000, v29, OS_LOG_TYPE_DEBUG, v30, buf, 0xCu);
@@ -283,7 +278,7 @@ LABEL_22:
       if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315138;
-        v37 = "[CDMVocTrie initWithTriePath:]";
+        v36 = "[CDMVocTrie initWithTriePath:]";
         v30 = "%s CDMVocTrie Using VOC 1.0 assets that does not contain USO, still relying on CDMVocMapper";
         goto LABEL_22;
       }
@@ -298,7 +293,6 @@ LABEL_19:
   v32 = 0;
 LABEL_20:
 
-  v33 = *MEMORY[0x1E69E9840];
   return v32;
 }
 

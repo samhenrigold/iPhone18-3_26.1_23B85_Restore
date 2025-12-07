@@ -18,39 +18,39 @@
 
 - (id)specifiers
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v3 = *(&self->super.super.super.super.super.isa + *MEMORY[0x277D3FC48]);
   if (!v3)
   {
-    v30 = *MEMORY[0x277D3FC48];
+    v29 = *MEMORY[0x277D3FC48];
     v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v5 = CommunicationsSetupUIBundle();
     v6 = [v5 localizedStringForKey:self->_headerKey value:self->_headerKey table:@"Messages"];
 
-    v29 = v6;
+    v28 = v6;
     [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v6 target:self set:0 get:0 detail:0 cell:0 edit:0];
-    v28 = v32 = v4;
+    v27 = v31 = v4;
     [v4 addObject:?];
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
     v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
     obj = [(CKMultipleCTSubscriptionsController *)self ctSubscriptions];
-    v7 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+    v7 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v34;
+      v9 = *v33;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v34 != v9)
+          if (*v33 != v9)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v33 + 1) + 8 * i);
+          v11 = *(*(&v32 + 1) + 8 * i);
           v12 = MEMORY[0x277D1A8F8];
           phoneNumber = [v11 phoneNumber];
           labelID = [v11 labelID];
@@ -80,24 +80,22 @@
               [v18 setProperty:phoneNumber3 forKey:@"phoneNumber"];
             }
 
-            [v32 addObject:v18];
+            [v31 addObject:v18];
           }
         }
 
-        v8 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+        v8 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
       }
 
       while (v8);
     }
 
-    v24 = [MEMORY[0x277CBEA60] arrayWithArray:v32];
-    v25 = *(&self->super.super.super.super.super.isa + v30);
-    *(&self->super.super.super.super.super.isa + v30) = v24;
+    v24 = [MEMORY[0x277CBEA60] arrayWithArray:v31];
+    v25 = *(&self->super.super.super.super.super.isa + v29);
+    *(&self->super.super.super.super.super.isa + v29) = v24;
 
-    v3 = *(&self->super.super.super.super.super.isa + v30);
+    v3 = *(&self->super.super.super.super.super.isa + v29);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

@@ -12,7 +12,7 @@
   if (level != 255)
   {
     v8 = &levelCopy;
-    v5 = sub_2213008C8(&self->_uidCoordsPerRunLevel.__table_.__bucket_list_.__ptr_, &levelCopy);
+    v5 = sub_2213008C8(&self->_uidCoordsPerRunLevel.__table_.__bucket_list_.__ptr_, &levelCopy, &unk_2217E125D, &v8);
     column = coord->_column;
     *(v5 + 5) = coord->_row;
     *(v5 + 3) = column;

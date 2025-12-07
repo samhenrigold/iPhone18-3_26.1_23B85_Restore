@@ -24,8 +24,8 @@
   v11 = 1;
   v12 = 256;
   v13 = 0;
-  v2.var0 = [(OPTTSTextToSpeechVoice *)self addObjectToBuffer:&v5];
-  flatbuffers::FlatBufferBuilder::Finish(&v5, v2.var0, v3);
+  v2 = [(OPTTSTextToSpeechVoice *)self addObjectToBuffer:?];
+  flatbuffers::FlatBufferBuilder::Finish(&v5, v2, v3);
   operator new();
 }
 
@@ -126,140 +126,44 @@ flatbuffers::DetachedBuffer *__38__OPTTSTextToSpeechVoice_flatbuffData__block_in
 
 - (NSString)type
 {
-  root = self->_root;
-  v3 = *root->var0;
-  v4 = *root[-v3 + 14].var0;
-  if (*root[-v3 + 14].var0)
-  {
-    v3 = *root[v4].var0;
-    v5 = &root[v4 + v3];
-  }
+  v2 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:? length:? encoding:?];
 
-  else
-  {
-    v4 = 0;
-    v5 = 0;
-    v3 = v3;
-  }
-
-  v6 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:&v5[4] length:*root[v4 + v3].var0 encoding:4];
-
-  return v6;
+  return v2;
 }
 
 - (NSString)quality
 {
-  root = self->_root;
-  v3 = *root->var0;
-  v4 = *root[-v3 + 12].var0;
-  if (*root[-v3 + 12].var0)
-  {
-    v3 = *root[v4].var0;
-    v5 = &root[v4 + v3];
-  }
+  v2 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:? length:? encoding:?];
 
-  else
-  {
-    v4 = 0;
-    v5 = 0;
-    v3 = v3;
-  }
-
-  v6 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:&v5[4] length:*root[v4 + v3].var0 encoding:4];
-
-  return v6;
+  return v2;
 }
 
 - (NSString)version
 {
-  root = self->_root;
-  v3 = *root->var0;
-  v4 = *root[-v3 + 10].var0;
-  if (*root[-v3 + 10].var0)
-  {
-    v3 = *root[v4].var0;
-    v5 = &root[v4 + v3];
-  }
+  v2 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:? length:? encoding:?];
 
-  else
-  {
-    v4 = 0;
-    v5 = 0;
-    v3 = v3;
-  }
-
-  v6 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:&v5[4] length:*root[v4 + v3].var0 encoding:4];
-
-  return v6;
+  return v2;
 }
 
 - (NSString)name
 {
-  root = self->_root;
-  v3 = *root->var0;
-  v4 = *root[-v3 + 8].var0;
-  if (*root[-v3 + 8].var0)
-  {
-    v3 = *root[v4].var0;
-    v5 = &root[v4 + v3];
-  }
+  v2 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:? length:? encoding:?];
 
-  else
-  {
-    v4 = 0;
-    v5 = 0;
-    v3 = v3;
-  }
-
-  v6 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:&v5[4] length:*root[v4 + v3].var0 encoding:4];
-
-  return v6;
+  return v2;
 }
 
 - (NSString)gender
 {
-  root = self->_root;
-  v3 = *root->var0;
-  v4 = *root[-v3 + 6].var0;
-  if (*root[-v3 + 6].var0)
-  {
-    v3 = *root[v4].var0;
-    v5 = &root[v4 + v3];
-  }
+  v2 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:? length:? encoding:?];
 
-  else
-  {
-    v4 = 0;
-    v5 = 0;
-    v3 = v3;
-  }
-
-  v6 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:&v5[4] length:*root[v4 + v3].var0 encoding:4];
-
-  return v6;
+  return v2;
 }
 
 - (NSString)language
 {
-  root = self->_root;
-  v3 = *root->var0;
-  v4 = *root[-v3 + 4].var0;
-  if (*root[-v3 + 4].var0)
-  {
-    v3 = *root[v4].var0;
-    v5 = &root[v4 + v3];
-  }
+  v2 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:? length:? encoding:?];
 
-  else
-  {
-    v4 = 0;
-    v5 = 0;
-    v3 = v3;
-  }
-
-  v6 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:&v5[4] length:*root[v4 + v3].var0 encoding:4];
-
-  return v6;
+  return v2;
 }
 
 - (OPTTSTextToSpeechVoice)initWithFlatbuffData:(id)data root:(const TextToSpeechVoice *)root verify:(BOOL)verify
@@ -290,7 +194,7 @@ flatbuffers::DetachedBuffer *__38__OPTTSTextToSpeechVoice_flatbuffData__block_in
       bytes2 = [(NSData *)v10->_data bytes];
       v14 = [(NSData *)v10->_data length];
       root = v10->_root;
-      if (root < bytes2 || root > bytes2 + v14)
+      if (root < bytes2 || root > v14 + bytes2)
       {
         goto LABEL_16;
       }
@@ -332,35 +236,36 @@ LABEL_17:
 
 - (id)vs_voice
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277D799C8]);
   language = [(OPTTSTextToSpeechVoice *)self language];
-  v5 = [language stringByReplacingOccurrencesOfString:@"_" withString:@"-"];
-  v19[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
-  [v3 setLanguages:v6];
+  v5 = [language stringByReplacingOccurrencesOfString:? withString:?];
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:v18];
+  [v3 setLanguages:?];
 
   v7 = MEMORY[0x277D799C8];
   gender = [(OPTTSTextToSpeechVoice *)self gender];
-  [v3 setGender:{objc_msgSend(v7, "genderFromString:", gender)}];
+  [v7 genderFromString:?];
+  [v3 setGender:?];
 
   name = [(OPTTSTextToSpeechVoice *)self name];
-  [v3 setName:name];
+  [v3 setName:?];
 
   v10 = MEMORY[0x277CCABB0];
   version = [(OPTTSTextToSpeechVoice *)self version];
-  v12 = [v10 numberWithInteger:{objc_msgSend(version, "integerValue")}];
-  [v3 setContentVersion:v12];
+  [version integerValue];
+  v12 = [v10 numberWithInteger:?];
+  [v3 setContentVersion:?];
 
   v13 = MEMORY[0x277D799C8];
   quality = [(OPTTSTextToSpeechVoice *)self quality];
-  [v3 setFootprint:{objc_msgSend(v13, "footprintFromString:", quality)}];
+  [v13 footprintFromString:?];
+  [v3 setFootprint:?];
 
   v15 = MEMORY[0x277D799C8];
   type = [(OPTTSTextToSpeechVoice *)self type];
-  [v3 setType:{objc_msgSend(v15, "typeFromString:", type)}];
-
-  v17 = *MEMORY[0x277D85DE8];
+  [v15 typeFromString:?];
+  [v3 setType:?];
 
   return v3;
 }

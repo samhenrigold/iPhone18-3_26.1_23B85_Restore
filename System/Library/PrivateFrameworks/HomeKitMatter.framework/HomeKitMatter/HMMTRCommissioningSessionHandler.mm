@@ -21,14 +21,14 @@
 
 - (void)removeFabricFromDeviceBeingCommissionedWithController:(id)controller fabricIndex:(id)index completion:(id)completion
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   indexCopy = index;
   completionCopy = completion;
   nodeID = [(HMMTRCommissioningSessionHandler *)self nodeID];
-  v26 = 0;
-  v12 = [controllerCopy deviceBeingCommissionedWithNodeID:nodeID error:&v26];
-  v13 = v26;
+  v25 = 0;
+  v12 = [controllerCopy deviceBeingCommissionedWithNodeID:nodeID error:&v25];
+  v13 = v25;
 
   if (v12)
   {
@@ -38,14 +38,14 @@
 
     v17 = objc_alloc_init(MEMORY[0x277CD5470]);
     [v17 setFabricIndex:indexCopy];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __113__HMMTRCommissioningSessionHandler_removeFabricFromDeviceBeingCommissionedWithController_fabricIndex_completion___block_invoke;
-    v23[3] = &unk_2786ED910;
-    v23[4] = self;
-    v24 = indexCopy;
-    v25 = completionCopy;
-    [v16 removeFabricWithParams:v17 completion:v23];
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __113__HMMTRCommissioningSessionHandler_removeFabricFromDeviceBeingCommissionedWithController_fabricIndex_completion___block_invoke;
+    v22[3] = &unk_2786ED910;
+    v22[4] = self;
+    v23 = indexCopy;
+    v24 = completionCopy;
+    [v16 removeFabricWithParams:v17 completion:v22];
   }
 
   else
@@ -57,22 +57,20 @@
     {
       v21 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v28 = v21;
-      v29 = 2112;
-      v30 = v13;
+      v27 = v21;
+      v28 = 2112;
+      v29 = v13;
       _os_log_impl(&dword_22AEAE000, v20, OS_LOG_TYPE_ERROR, "%{public}@Device wasn't obtained to remove fabric: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v18);
     (*(completionCopy + 2))(completionCopy, v13);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __113__HMMTRCommissioningSessionHandler_removeFabricFromDeviceBeingCommissionedWithController_fabricIndex_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [v5 statusCode];
@@ -87,11 +85,11 @@ void __113__HMMTRCommissioningSessionHandler_removeFabricFromDeviceBeingCommissi
     {
       v12 = HMFGetLogIdentifier();
       v13 = *(a1 + 40);
-      v24 = 138543618;
-      v25 = v12;
-      v26 = 2112;
-      v27 = v13;
-      _os_log_impl(&dword_22AEAE000, v11, OS_LOG_TYPE_INFO, "%{public}@Successfully removed fabric index %@", &v24, 0x16u);
+      v23 = 138543618;
+      v24 = v12;
+      v25 = 2112;
+      v26 = v13;
+      _os_log_impl(&dword_22AEAE000, v11, OS_LOG_TYPE_INFO, "%{public}@Successfully removed fabric index %@", &v23, 0x16u);
     }
 
 LABEL_8:
@@ -111,13 +109,13 @@ LABEL_8:
     {
       v15 = HMFGetLogIdentifier();
       v16 = *(a1 + 40);
-      v24 = 138543874;
-      v25 = v15;
-      v26 = 2112;
-      v27 = v16;
-      v28 = 2112;
-      v29 = v6;
-      _os_log_impl(&dword_22AEAE000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to remove fabric index %@ with error %@", &v24, 0x20u);
+      v23 = 138543874;
+      v24 = v15;
+      v25 = 2112;
+      v26 = v16;
+      v27 = 2112;
+      v28 = v6;
+      _os_log_impl(&dword_22AEAE000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to remove fabric index %@ with error %@", &v23, 0x20u);
     }
 
     goto LABEL_8;
@@ -125,39 +123,38 @@ LABEL_8:
 
   if (v14)
   {
-    v18 = HMFGetLogIdentifier();
-    v19 = *(a1 + 40);
-    v20 = [v5 statusCode];
-    v21 = [v5 debugText];
-    v24 = 138544130;
-    v25 = v18;
-    v26 = 2112;
-    v27 = v19;
-    v28 = 2112;
-    v29 = v20;
-    v30 = 2112;
-    v31 = v21;
-    _os_log_impl(&dword_22AEAE000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to remove fabric index %@ with status code %@: %@", &v24, 0x2Au);
+    v17 = HMFGetLogIdentifier();
+    v18 = *(a1 + 40);
+    v19 = [v5 statusCode];
+    v20 = [v5 debugText];
+    v23 = 138544130;
+    v24 = v17;
+    v25 = 2112;
+    v26 = v18;
+    v27 = 2112;
+    v28 = v19;
+    v29 = 2112;
+    v30 = v20;
+    _os_log_impl(&dword_22AEAE000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to remove fabric index %@ with status code %@: %@", &v23, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v9);
-  v22 = *(a1 + 48);
-  v23 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:15];
-  (*(v22 + 16))(v22, v23);
+  v21 = *(a1 + 48);
+  v22 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:15];
+  (*(v21 + 16))(v21, v22);
 
 LABEL_9:
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)readFabricsFromDeviceBeingCommissionedWithController:(id)controller completion:(id)completion
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   completionCopy = completion;
   nodeID = [(HMMTRCommissioningSessionHandler *)self nodeID];
-  v20 = 0;
-  v9 = [controllerCopy deviceBeingCommissionedWithNodeID:nodeID error:&v20];
-  v10 = v20;
+  v19 = 0;
+  v9 = [controllerCopy deviceBeingCommissionedWithNodeID:nodeID error:&v19];
+  v10 = v19;
 
   if (v9)
   {
@@ -179,22 +176,20 @@ LABEL_9:
     {
       v18 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v22 = v18;
-      v23 = 2112;
-      v24 = v10;
+      v21 = v18;
+      v22 = 2112;
+      v23 = v10;
       _os_log_impl(&dword_22AEAE000, v17, OS_LOG_TYPE_ERROR, "%{public}@Device wasn't obtained to read fabrics: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v15);
     completionCopy[2](completionCopy, 0, v10);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)controller:(id)controller commissioningSessionEstablishmentDone:(id)done
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   doneCopy = done;
   v8 = objc_autoreleasePoolPush();
@@ -204,9 +199,9 @@ LABEL_9:
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v23 = v11;
-    v24 = 2112;
-    v25 = doneCopy;
+    v22 = v11;
+    v23 = 2112;
+    v24 = doneCopy;
     _os_log_impl(&dword_22AEAE000, v10, OS_LOG_TYPE_INFO, "%{public}@Established commissioning session with error %@", buf, 0x16u);
   }
 
@@ -227,45 +222,44 @@ LABEL_9:
 
     if (controllerParametersToRemove)
     {
-      v20[0] = MEMORY[0x277D85DD0];
-      v20[1] = 3221225472;
-      v20[2] = __85__HMMTRCommissioningSessionHandler_controller_commissioningSessionEstablishmentDone___block_invoke;
-      v20[3] = &unk_2786EEEC0;
-      v20[4] = selfCopy;
-      v21 = controllerCopy;
-      [(HMMTRCommissioningSessionHandler *)selfCopy readFabricsFromDeviceBeingCommissionedWithController:v21 completion:v20];
+      v19[0] = MEMORY[0x277D85DD0];
+      v19[1] = 3221225472;
+      v19[2] = __85__HMMTRCommissioningSessionHandler_controller_commissioningSessionEstablishmentDone___block_invoke;
+      v19[3] = &unk_2786EEEC0;
+      v19[4] = selfCopy;
+      v20 = controllerCopy;
+      [(HMMTRCommissioningSessionHandler *)selfCopy readFabricsFromDeviceBeingCommissionedWithController:v20 completion:v19];
 
       goto LABEL_9;
     }
 
-    v15 = objc_autoreleasePoolPush();
-    v16 = selfCopy;
-    v17 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v14 = objc_autoreleasePoolPush();
+    v15 = selfCopy;
+    v16 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v18 = HMFGetLogIdentifier();
+      v17 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v23 = v18;
-      _os_log_impl(&dword_22AEAE000, v17, OS_LOG_TYPE_ERROR, "%{public}@Unknown action to perform after establishing commissioning session", buf, 0xCu);
+      v22 = v17;
+      _os_log_impl(&dword_22AEAE000, v16, OS_LOG_TYPE_ERROR, "%{public}@Unknown action to perform after establishing commissioning session", buf, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v15);
-    completionHandler = [(HMMTRCommissioningSessionHandler *)v16 completionHandler];
-    [(HMMTRCommissioningSessionHandler *)v16 setCompletionHandler:0];
+    objc_autoreleasePoolPop(v14);
+    completionHandler = [(HMMTRCommissioningSessionHandler *)v15 completionHandler];
+    [(HMMTRCommissioningSessionHandler *)v15 setCompletionHandler:0];
     if (completionHandler)
     {
-      v19 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:3];
-      (completionHandler)[2](completionHandler, v19);
+      v18 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:3];
+      (completionHandler)[2](completionHandler, v18);
     }
   }
 
 LABEL_9:
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __85__HMMTRCommissioningSessionHandler_controller_commissioningSessionEstablishmentDone___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -275,23 +269,23 @@ void __85__HMMTRCommissioningSessionHandler_controller_commissioningSessionEstab
   {
     v10 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v48 = v10;
-    v49 = 2112;
-    v50 = v5;
-    v51 = 2112;
-    v52 = v6;
+    v47 = v10;
+    v48 = 2112;
+    v49 = v5;
+    v50 = 2112;
+    v51 = v6;
     _os_log_impl(&dword_22AEAE000, v9, OS_LOG_TYPE_DEBUG, "%{public}@Retrieved pairings %@, error: %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v7);
   if (v5)
   {
-    v46[0] = MEMORY[0x277D85DD0];
-    v46[1] = 3221225472;
-    v46[2] = __85__HMMTRCommissioningSessionHandler_controller_commissioningSessionEstablishmentDone___block_invoke_8;
-    v46[3] = &unk_2786ED8C8;
-    v46[4] = *(a1 + 32);
-    v11 = [v5 na_filter:v46];
+    v45[0] = MEMORY[0x277D85DD0];
+    v45[1] = 3221225472;
+    v45[2] = __85__HMMTRCommissioningSessionHandler_controller_commissioningSessionEstablishmentDone___block_invoke_8;
+    v45[3] = &unk_2786ED8C8;
+    v45[4] = *(a1 + 32);
+    v11 = [v5 na_filter:v45];
     v12 = [v11 na_map:&__block_literal_global_1252];
 
     if ([v12 count])
@@ -299,14 +293,14 @@ void __85__HMMTRCommissioningSessionHandler_controller_commissioningSessionEstab
       if ([v12 count] < 2)
       {
         v29 = [v12 objectAtIndexedSubscript:0];
-        v41 = MEMORY[0x277D85DD0];
-        v42 = 3221225472;
-        v43 = __85__HMMTRCommissioningSessionHandler_controller_commissioningSessionEstablishmentDone___block_invoke_11;
-        v44 = &unk_2786ED8C8;
+        v40 = MEMORY[0x277D85DD0];
+        v41 = 3221225472;
+        v42 = __85__HMMTRCommissioningSessionHandler_controller_commissioningSessionEstablishmentDone___block_invoke_11;
+        v43 = &unk_2786ED8C8;
         v17 = v29;
-        v45 = v17;
-        v30 = [v5 na_filter:&v41];
-        v31 = [v30 na_map:{&__block_literal_global_14, v41, v42, v43, v44}];
+        v44 = v17;
+        v30 = [v5 na_filter:&v40];
+        v31 = [v30 na_map:{&__block_literal_global_14, v40, v41, v42, v43}];
         v32 = [v31 firstObject];
 
         v33 = [*(a1 + 32) allPairedNodeIDs];
@@ -321,9 +315,9 @@ void __85__HMMTRCommissioningSessionHandler_controller_commissioningSessionEstab
           {
             v37 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v48 = v37;
-            v49 = 2112;
-            v50 = v32;
+            v47 = v37;
+            v48 = 2112;
+            v49 = v32;
             _os_log_impl(&dword_22AEAE000, v36, OS_LOG_TYPE_INFO, "%{public}@Accessory is in fact paired with node ID %@", buf, 0x16u);
           }
 
@@ -347,7 +341,7 @@ void __85__HMMTRCommissioningSessionHandler_controller_commissioningSessionEstab
           }
         }
 
-        v28 = v45;
+        v28 = v44;
         goto LABEL_27;
       }
 
@@ -358,9 +352,9 @@ void __85__HMMTRCommissioningSessionHandler_controller_commissioningSessionEstab
       {
         v16 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v48 = v16;
-        v49 = 2112;
-        v50 = v12;
+        v47 = v16;
+        v48 = 2112;
+        v49 = v12;
         _os_log_impl(&dword_22AEAE000, v15, OS_LOG_TYPE_ERROR, "%{public}@More than one match was found unexpectedly: %@", buf, 0x16u);
       }
 
@@ -385,7 +379,7 @@ void __85__HMMTRCommissioningSessionHandler_controller_commissioningSessionEstab
       {
         v27 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v48 = v27;
+        v47 = v27;
         _os_log_impl(&dword_22AEAE000, v26, OS_LOG_TYPE_ERROR, "%{public}@No match from fetched pairings", buf, 0xCu);
       }
 
@@ -416,9 +410,9 @@ LABEL_28:
   {
     v23 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v48 = v23;
-    v49 = 2112;
-    v50 = v6;
+    v47 = v23;
+    v48 = 2112;
+    v49 = v6;
     _os_log_impl(&dword_22AEAE000, v22, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch pairings from device with error: %@", buf, 0x16u);
   }
 
@@ -431,8 +425,6 @@ LABEL_28:
   }
 
 LABEL_29:
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __85__HMMTRCommissioningSessionHandler_controller_commissioningSessionEstablishmentDone___block_invoke_8(uint64_t a1, void *a2)
@@ -467,7 +459,7 @@ uint64_t __85__HMMTRCommissioningSessionHandler_controller_commissioningSessionE
 
 - (void)establishSessionToRemoveFabricWithDeviceController:(id)controller forControllerParameters:(id)parameters setupPayload:(id)payload nodeID:(id)d allPairedNodeIDs:(id)ds completion:(id)completion
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   parametersCopy = parameters;
   payloadCopy = payload;
@@ -483,7 +475,7 @@ uint64_t __85__HMMTRCommissioningSessionHandler_controller_commissioningSessionE
   {
     v23 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v38 = v23;
+    v37 = v23;
     _os_log_impl(&dword_22AEAE000, v22, OS_LOG_TYPE_INFO, "%{public}@Establishing commissioning session to remove fabric", buf, 0xCu);
   }
 
@@ -493,12 +485,12 @@ uint64_t __85__HMMTRCommissioningSessionHandler_controller_commissioningSessionE
 
   [(HMMTRCommissioningSessionHandler *)selfCopy setCompletionHandler:completionCopy];
   [(HMMTRCommissioningSessionHandler *)selfCopy setControllerParametersToRemove:parametersCopy];
-  v36 = 0;
-  [(HMMTRCommissioningSessionHandler *)selfCopy setUpCommissioningSessionWithDeviceController:controllerCopy payload:payloadCopy newNodeID:dCopy error:&v36];
-  v25 = v36;
+  v35 = 0;
+  [(HMMTRCommissioningSessionHandler *)selfCopy setUpCommissioningSessionWithDeviceController:controllerCopy payload:payloadCopy newNodeID:dCopy error:&v35];
+  v25 = v35;
   if (v25)
   {
-    v32 = parametersCopy;
+    v31 = parametersCopy;
     v26 = objc_autoreleasePoolPush();
     v27 = selfCopy;
     v28 = HMFGetOSLogHandle();
@@ -506,9 +498,9 @@ uint64_t __85__HMMTRCommissioningSessionHandler_controller_commissioningSessionE
     {
       v29 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v38 = v29;
-      v39 = 2112;
-      v40 = v25;
+      v37 = v29;
+      v38 = 2112;
+      v39 = v25;
       _os_log_impl(&dword_22AEAE000, v28, OS_LOG_TYPE_ERROR, "%{public}@Failed to set up commissioning session with error: %@", buf, 0x16u);
     }
 
@@ -521,14 +513,12 @@ uint64_t __85__HMMTRCommissioningSessionHandler_controller_commissioningSessionE
     block[1] = 3221225472;
     block[2] = __159__HMMTRCommissioningSessionHandler_establishSessionToRemoveFabricWithDeviceController_forControllerParameters_setupPayload_nodeID_allPairedNodeIDs_completion___block_invoke;
     block[3] = &unk_2786EF5A8;
-    v35 = completionCopy;
-    v34 = v25;
+    v34 = completionCopy;
+    v33 = v25;
     dispatch_async(clientQueue2, block);
 
-    parametersCopy = v32;
+    parametersCopy = v31;
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (HMMTRCommissioningSessionHandler)initWithClientQueue:(id)queue
@@ -560,10 +550,11 @@ uint64_t __85__HMMTRCommissioningSessionHandler_controller_commissioningSessionE
 
 uint64_t __47__HMMTRCommissioningSessionHandler_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  logCategory__hmf_once_v15_1268 = HMFCreateOSLogHandle();
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v15_1268;
+  logCategory__hmf_once_v15_1268 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

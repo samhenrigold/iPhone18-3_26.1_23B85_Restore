@@ -32,9 +32,9 @@
     +[NSLocale(AMPICUExtensions) ISOScriptCodes];
   }
 
-  v1 = _scriptCodes;
+  v2 = _scriptCodes;
 
-  return v1;
+  return v2;
 }
 
 + (id)ICUNumberingSystems
@@ -44,9 +44,9 @@
     +[NSLocale(AMPICUExtensions) ICUNumberingSystems];
   }
 
-  v1 = _numberingSystems;
+  v2 = _numberingSystems;
 
-  return v1;
+  return v2;
 }
 
 + (id)ISOTerritoryGroupCodes
@@ -56,9 +56,9 @@
     +[NSLocale(AMPICUExtensions) ISOTerritoryGroupCodes];
   }
 
-  v1 = _territoryGroupCodes;
+  v2 = _territoryGroupCodes;
 
-  return v1;
+  return v2;
 }
 
 + (id)ISO3CharacterTerritoryGroupCodes
@@ -522,11 +522,11 @@ LABEL_49:
 
       if (!v9)
       {
-        v11 = AMPICUFormattingLengthFallbacks();
-        v12 = [v11 objectForKeyedSubscript:v7];
+        v12 = AMPICUFormattingLengthFallbacks(v11);
+        v13 = [v12 objectForKeyedSubscript:v7];
 
-        v7 = v12;
-        if (!v12)
+        v7 = v13;
+        if (!v13)
         {
           v7 = AMPICUFormattingLengthStandard;
         }
@@ -559,11 +559,11 @@ LABEL_49:
 
       if (!v10)
       {
-        v12 = AMPICUFormattingLengthFallbacks();
-        v13 = [v12 objectForKeyedSubscript:v7];
+        v13 = AMPICUFormattingLengthFallbacks(v12);
+        v14 = [v13 objectForKeyedSubscript:v7];
 
-        v7 = v13;
-        if (!v13)
+        v7 = v14;
+        if (!v14)
         {
           v7 = AMPICUFormattingLengthStandard;
         }
@@ -593,11 +593,11 @@ LABEL_49:
 
       if (!v8)
       {
-        v10 = AMPICUFormattingLengthFallbacks();
-        v11 = [v10 objectForKeyedSubscript:v7];
+        v11 = AMPICUFormattingLengthFallbacks(v10);
+        v12 = [v11 objectForKeyedSubscript:v7];
 
-        v7 = v11;
-        if (!v11)
+        v7 = v12;
+        if (!v12)
         {
           v7 = AMPICUFormattingLengthStandard;
         }

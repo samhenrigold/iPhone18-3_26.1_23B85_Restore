@@ -222,7 +222,7 @@ LABEL_17:
     }
 
     v7 = +[PXImageModulationSettings sharedInstance];
-    [(PXImageLayerModulator *)self options];
+    objc_msgSend_options(self);
     if ((v20 - 1) >= 4)
     {
       if (v20)
@@ -373,7 +373,7 @@ LABEL_13:
   if (self->_needsUpdateFlags.filterInput)
   {
     self->_needsUpdateFlags.filterInput = 0;
-    [(PXImageLayerModulator *)self options];
+    objc_msgSend_options(self, a2, 0);
     [(PXImageLayerModulator *)self setFilterType:0];
     LODWORD(v3) = 0;
     [(PXImageLayerModulator *)self setHdrGain:v3];
@@ -826,7 +826,7 @@ LABEL_10:
 
 CGImageRef __49__PXImageLayerModulator__gainMapPlaceholderImage__block_invoke()
 {
-  result = PXImageCreateBlackPlaceholderImageWithSize();
+  result = PXImageCreateBlackPlaceholderImageWithSize(1.0, 1.0);
   _gainMapPlaceholderImage_placeholderImage = result;
   return result;
 }

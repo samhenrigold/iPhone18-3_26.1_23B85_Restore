@@ -93,29 +93,27 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   fRecordId = self->fRecordId;
   fStartDate = self->fStartDate;
-  *&v16 = fRecordId;
+  *&v15 = fRecordId;
   objc_msgSend_timeIntervalSinceReferenceDate(fStartDate, a2, zone);
-  *(&v16 + 1) = v7;
-  v17 = 0uLL;
-  v18 = *&self->fMeanMaxMets;
-  LODWORD(v19) = self->fHardwareType;
-  BYTE4(v19) = self->fBetaBlockerUse;
-  DWORD2(v19) = self->fAlgorithmVersion;
-  v20 = 0uLL;
-  objc_msgSend_getUUIDBytes_(self->fSessionId, v8, &v17);
+  *(&v15 + 1) = v7;
+  v16 = 0uLL;
+  v17 = *&self->fMeanMaxMets;
+  LODWORD(v18) = self->fHardwareType;
+  BYTE4(v18) = self->fBetaBlockerUse;
+  DWORD2(v18) = self->fAlgorithmVersion;
+  v19 = 0uLL;
+  objc_msgSend_getUUIDBytes_(self->fSessionId, v8, &v16);
   v9 = objc_opt_class();
   v11 = objc_msgSend_allocWithZone_(v9, v10, zone);
-  v15[2] = v18;
-  v15[3] = v19;
-  v15[4] = v20;
-  v15[0] = v16;
-  v15[1] = v17;
-  result = objc_msgSend_initWithSample_(v11, v12, v15);
-  v14 = *MEMORY[0x1E69E9840];
-  return result;
+  v14[2] = v17;
+  v14[3] = v18;
+  v14[4] = v19;
+  v14[0] = v15;
+  v14[1] = v16;
+  return objc_msgSend_initWithSample_(v11, v12, v14);
 }
 
 - (void)encodeWithCoder:(id)coder

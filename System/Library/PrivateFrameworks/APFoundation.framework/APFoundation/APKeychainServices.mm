@@ -27,11 +27,11 @@
 
 + (id)objectForKey:(id)key settings:(id)settings error:(id *)error
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   keyCopy = key;
-  v39 = 0;
-  v10 = objc_msgSend__readDataFromKeychain_settings_error_(self, v9, keyCopy, settings, &v39);
-  v11 = v39;
+  v38 = 0;
+  v10 = objc_msgSend__readDataFromKeychain_settings_error_(self, v9, keyCopy, settings, &v38);
+  v11 = v38;
   v12 = APLogForCategory(0x18uLL);
   v13 = v12;
   if (v10)
@@ -40,17 +40,17 @@
     {
       v14 = objc_opt_class();
       *buf = 138478083;
-      v41 = v14;
-      v42 = 2114;
-      v43 = keyCopy;
+      v40 = v14;
+      v41 = 2114;
+      v42 = keyCopy;
       v15 = v14;
       _os_log_impl(&dword_1BADC1000, v13, OS_LOG_TYPE_INFO, "[%{private}@]: Successfully read key: %{public}@", buf, 0x16u);
     }
 
     v19 = objc_msgSend_classes(APSupportedSecureEncodedClass, v16, v17, v18);
-    v38 = 0;
-    v21 = objc_msgSend_unarchivedObjectOfClasses_fromData_error_(MEMORY[0x1E696ACD0], v20, v19, v10, &v38);
-    v22 = v38;
+    v37 = 0;
+    v21 = objc_msgSend_unarchivedObjectOfClasses_fromData_error_(MEMORY[0x1E696ACD0], v20, v19, v10, &v37);
+    v22 = v37;
     v23 = v22;
     if (!v21 || v22)
     {
@@ -58,14 +58,14 @@
       if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         v29 = objc_opt_class();
-        v37 = v29;
+        v36 = v29;
         v33 = objc_msgSend_description(v23, v30, v31, v32);
         *buf = 138412802;
-        v41 = v29;
-        v42 = 2112;
-        v43 = v10;
-        v44 = 2112;
-        v45 = v33;
+        v40 = v29;
+        v41 = 2112;
+        v42 = v10;
+        v43 = 2112;
+        v44 = v33;
         _os_log_impl(&dword_1BADC1000, v28, OS_LOG_TYPE_ERROR, "[%@]: Error unarchiving data: %@. Error: %@", buf, 0x20u);
       }
 
@@ -94,9 +94,9 @@
     {
       v25 = objc_opt_class();
       *buf = 138478083;
-      v41 = v25;
-      v42 = 2114;
-      v43 = keyCopy;
+      v40 = v25;
+      v41 = 2114;
+      v42 = keyCopy;
       v26 = v25;
       _os_log_impl(&dword_1BADC1000, v13, OS_LOG_TYPE_ERROR, "[%{private}@]: Unable to find key: %{public}@", buf, 0x16u);
     }
@@ -114,8 +114,6 @@
     }
   }
 
-  v35 = *MEMORY[0x1E69E9840];
-
   return v24;
 }
 
@@ -129,15 +127,15 @@
 
 + (void)setObject:(id)object forKey:(id)key settings:(id)settings error:(id *)error
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   keyCopy = key;
   settingsCopy = settings;
   if (objectCopy)
   {
-    v27 = 0;
-    v14 = objc_msgSend_archivedDataWithRootObject_requiringSecureCoding_error_(MEMORY[0x1E696ACC8], v12, objectCopy, 1, &v27);
-    v15 = v27;
+    v26 = 0;
+    v14 = objc_msgSend_archivedDataWithRootObject_requiringSecureCoding_error_(MEMORY[0x1E696ACC8], v12, objectCopy, 1, &v26);
+    v15 = v26;
     v16 = v15;
     if (v15)
     {
@@ -154,13 +152,13 @@
         v20 = v19;
         v24 = objc_msgSend_description(v16, v21, v22, v23);
         *buf = 138478595;
-        v29 = v19;
-        v30 = 2114;
-        v31 = keyCopy;
-        v32 = 2113;
-        v33 = objectCopy;
-        v34 = 2114;
-        v35 = v24;
+        v28 = v19;
+        v29 = 2114;
+        v30 = keyCopy;
+        v31 = 2113;
+        v32 = objectCopy;
+        v33 = 2114;
+        v34 = v24;
         _os_log_impl(&dword_1BADC1000, selfCopy, OS_LOG_TYPE_ERROR, "[%{private}@]: Error archiving data for key: %{public}@ and value: %{private}@. Error: %{public}@", buf, 0x2Au);
       }
     }
@@ -178,8 +176,6 @@
   {
     objc_msgSend__removeObjectForKey_settings_error_(APKeychainServices, v12, keyCopy, settingsCopy, error);
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 + (void)setPropertyListObject:(id)object forKey:(id)key error:(id *)error
@@ -202,7 +198,7 @@
 
 + (id)objectForPropertyListKey:(id)key error:(id *)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   v8 = objc_msgSend__readDataFromKeychain_error_(self, v7, keyCopy, error);
   v9 = APLogForCategory(0x18uLL);
@@ -211,12 +207,12 @@
   {
     if (v10)
     {
-      v16 = 138478083;
-      v17 = objc_opt_class();
-      v18 = 2114;
-      v19 = keyCopy;
-      v11 = v17;
-      _os_log_impl(&dword_1BADC1000, v9, OS_LOG_TYPE_INFO, "[%{private}@]: Successfully read key: %{public}@", &v16, 0x16u);
+      v15 = 138478083;
+      v16 = objc_opt_class();
+      v17 = 2114;
+      v18 = keyCopy;
+      v11 = v16;
+      _os_log_impl(&dword_1BADC1000, v9, OS_LOG_TYPE_INFO, "[%{private}@]: Successfully read key: %{public}@", &v15, 0x16u);
     }
 
     v12 = v8;
@@ -226,16 +222,14 @@
   {
     if (v10)
     {
-      v16 = 138478083;
-      v17 = objc_opt_class();
-      v18 = 2114;
-      v19 = keyCopy;
-      v13 = v17;
-      _os_log_impl(&dword_1BADC1000, v9, OS_LOG_TYPE_INFO, "[%{private}@]: Unable to find key: %{public}@", &v16, 0x16u);
+      v15 = 138478083;
+      v16 = objc_opt_class();
+      v17 = 2114;
+      v18 = keyCopy;
+      v13 = v16;
+      _os_log_impl(&dword_1BADC1000, v9, OS_LOG_TYPE_INFO, "[%{private}@]: Unable to find key: %{public}@", &v15, 0x16u);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -251,7 +245,7 @@
 
 + (id)_readDataFromKeychain:(id)keychain settings:(id)settings error:(id *)error
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   keychainCopy = keychain;
   v8 = *MEMORY[0x1E695E4D0];
   v9 = *MEMORY[0x1E697B318];
@@ -280,7 +274,7 @@
     if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
       *buf = 138543362;
-      v52 = keychainCopy;
+      v51 = keychainCopy;
       _os_log_impl(&dword_1BADC1000, v22, OS_LOG_TYPE_INFO, "No previous keychain records found for key %{public}@.", buf, 0xCu);
     }
 
@@ -296,9 +290,9 @@
   if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
   {
     *buf = 134218242;
-    v52 = v12;
-    v53 = 2114;
-    v54 = keychainCopy;
+    v51 = v12;
+    v52 = 2114;
+    v53 = keychainCopy;
     _os_log_impl(&dword_1BADC1000, v22, OS_LOG_TYPE_ERROR, "Error %ld retrieving secure data for key %{public}@", buf, 0x16u);
   }
 
@@ -322,8 +316,6 @@ LABEL_12:
 
 LABEL_13:
 
-  v48 = *MEMORY[0x1E69E9840];
-
   return error;
 }
 
@@ -337,7 +329,7 @@ LABEL_13:
 
 + (void)_writeDataToKeychain:(id)keychain andData:(id)data settings:(id)settings error:(id *)error
 {
-  v112[1] = *MEMORY[0x1E69E9840];
+  v111[1] = *MEMORY[0x1E69E9840];
   keychainCopy = keychain;
   dataCopy = data;
   settingsCopy = settings;
@@ -359,9 +351,9 @@ LABEL_13:
         if (error)
         {
           v46 = MEMORY[0x1E696ABC0];
-          v103 = *MEMORY[0x1E696A578];
-          v104 = @"Error adding to keychain in write";
-          v47 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v25, &v104, &v103, 1);
+          v102 = *MEMORY[0x1E696A578];
+          v103 = @"Error adding to keychain in write";
+          v47 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v25, &v103, &v102, 1);
           *error = objc_msgSend_errorWithDomain_code_userInfo_(v46, v48, @"APPCControllerRequesterErrorDomain", v27, v47);
         }
 
@@ -369,9 +361,9 @@ LABEL_13:
         if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
         {
           *buf = 67109378;
-          *v106 = v27;
-          *&v106[4] = 2114;
-          *&v106[6] = keychainCopy;
+          *v105 = v27;
+          *&v105[4] = 2114;
+          *&v105[6] = keychainCopy;
           _os_log_impl(&dword_1BADC1000, v49, OS_LOG_TYPE_ERROR, "Error %d checking for existence of keychain item %{public}@", buf, 0x12u);
         }
 
@@ -392,8 +384,8 @@ LABEL_13:
       v28 = objc_msgSend_dictionaryWithDictionary_(MEMORY[0x1E695DF90], v25, settingsCopy, v26);
       objc_msgSend_removeObjectForKey_(v28, v29, *MEMORY[0x1E697AFF8], v30);
       objc_msgSend_setObject_forKeyedSubscript_(v28, v31, dataCopy, v22);
-      v102 = objc_msgSend_dictionaryWithDictionary_(MEMORY[0x1E695DF90], v32, settingsCopy, v33);
-      v34 = SecItemUpdate(v102, v28);
+      v101 = objc_msgSend_dictionaryWithDictionary_(MEMORY[0x1E695DF90], v32, settingsCopy, v33);
+      v34 = SecItemUpdate(v101, v28);
       if (v34)
       {
         v36 = v34;
@@ -402,28 +394,28 @@ LABEL_13:
           if (v20 != -25300 && v20)
           {
             v75 = MEMORY[0x1E696ABC0];
-            v100 = v20;
-            v111 = *MEMORY[0x1E696A578];
-            v101 = v111;
-            v112[0] = @"Error deleting keychain item";
-            v76 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v35, v112, &v111, 1);
-            v78 = objc_msgSend_errorWithDomain_code_userInfo_(v75, v77, @"APPCControllerRequesterErrorDomain", v100, v76);
+            v99 = v20;
+            v110 = *MEMORY[0x1E696A578];
+            v100 = v110;
+            v111[0] = @"Error deleting keychain item";
+            v76 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v35, v111, &v110, 1);
+            v78 = objc_msgSend_errorWithDomain_code_userInfo_(v75, v77, @"APPCControllerRequesterErrorDomain", v99, v76);
 
             v79 = *MEMORY[0x1E696AA08];
-            v109[0] = v101;
-            v109[1] = v79;
-            v110[0] = @"Error updating keychain in write";
-            v110[1] = v78;
-            v37 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v80, v110, v109, 2);
+            v108[0] = v100;
+            v108[1] = v79;
+            v109[0] = @"Error updating keychain in write";
+            v109[1] = v78;
+            v37 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v80, v109, v108, 2);
 
             objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x1E696ABC0], v81, @"APPCControllerRequesterErrorDomain", v36, v37);
           }
 
           else
           {
-            v107 = *MEMORY[0x1E696A578];
-            v108 = @"Error updating keychain in write";
-            v37 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v35, &v108, &v107, 1);
+            v106 = *MEMORY[0x1E696A578];
+            v107 = @"Error updating keychain in write";
+            v37 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v35, &v107, &v106, 1);
             objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x1E696ABC0], v38, @"APPCControllerRequesterErrorDomain", v36, v37);
           }
           *error = ;
@@ -433,9 +425,9 @@ LABEL_13:
         if (os_log_type_enabled(v82, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543618;
-          *v106 = keychainCopy;
-          *&v106[8] = 1024;
-          *&v106[10] = v36;
+          *v105 = keychainCopy;
+          *&v105[8] = 1024;
+          *&v105[10] = v36;
           _os_log_impl(&dword_1BADC1000, v82, OS_LOG_TYPE_ERROR, "Failed to update keychain item %{public}@. Error %d", buf, 0x12u);
         }
 
@@ -474,8 +466,6 @@ LABEL_13:
 
 LABEL_23:
   }
-
-  v99 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_removeObjectForKey:(id)key error:(id *)error
@@ -487,7 +477,7 @@ LABEL_23:
 
 + (void)_removeObjectForKey:(id)key settings:(id)settings error:(id *)error
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   v8 = *MEMORY[0x1E697ABD8];
   settingsCopy = settings;
@@ -499,17 +489,15 @@ LABEL_23:
     v13 = APLogForCategory(0x18uLL);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v16[0] = 67109378;
-      v16[1] = v12;
-      v17 = 2114;
-      v18 = keyCopy;
-      _os_log_impl(&dword_1BADC1000, v13, OS_LOG_TYPE_ERROR, "Error %d removing object from keychain item %{public}@", v16, 0x12u);
+      v15[0] = 67109378;
+      v15[1] = v12;
+      v16 = 2114;
+      v17 = keyCopy;
+      _os_log_impl(&dword_1BADC1000, v13, OS_LOG_TYPE_ERROR, "Error %d removing object from keychain item %{public}@", v15, 0x12u);
     }
 
     *error = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x1E696ABC0], v14, @"APPCControllerRequesterErrorDomain", v12, 0);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_keychainQuery:(id)query

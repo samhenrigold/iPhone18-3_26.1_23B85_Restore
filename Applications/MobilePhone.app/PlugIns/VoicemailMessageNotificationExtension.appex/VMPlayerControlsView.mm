@@ -37,7 +37,7 @@
 - (double)duration
 {
   timelineSlider = [(VMPlayerControlsView *)self timelineSlider];
-  [timelineSlider duration];
+  objc_msgSend_duration(timelineSlider);
   v4 = v3;
 
   return v4;
@@ -46,7 +46,7 @@
 - (void)setDuration:(double)duration
 {
   timelineSlider = [(VMPlayerControlsView *)self timelineSlider];
-  [timelineSlider duration];
+  objc_msgSend_duration(timelineSlider);
   v7 = v6;
 
   if (v7 != duration)

@@ -12,7 +12,7 @@
   servicesCopy = services;
   if (!typeCopy)
   {
-    v23 = sub_10007FAA0();
+    v23 = sub_10007FAA0(0);
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       v24 = sub_10007FAFC(0);
@@ -34,7 +34,7 @@ LABEL_11:
 
   if (!dCopy)
   {
-    v23 = sub_10007FAA0();
+    v23 = sub_10007FAA0(0);
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       v24 = sub_10007FAFC(0);

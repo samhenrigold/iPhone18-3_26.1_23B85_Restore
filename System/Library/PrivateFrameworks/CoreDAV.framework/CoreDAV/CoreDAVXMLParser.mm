@@ -12,12 +12,12 @@
 - (CoreDAVXMLParser)initWithData:(id)data
 {
   dataCopy = data;
-  initializeLibXMLParser();
-  v7.receiver = self;
-  v7.super_class = CoreDAVXMLParser;
-  v5 = [(NSXMLParser *)&v7 initWithData:dataCopy];
+  initializeLibXMLParser(dataCopy, v5);
+  v8.receiver = self;
+  v8.super_class = CoreDAVXMLParser;
+  v6 = [(NSXMLParser *)&v8 initWithData:dataCopy];
 
-  return v5;
+  return v6;
 }
 
 - (CoreDAVXMLParser)initWithRootElementNameSpace:(id)space name:(id)name parseClass:(Class)class baseURL:(id)l

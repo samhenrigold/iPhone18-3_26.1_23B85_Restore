@@ -47,11 +47,4 @@
   return result;
 }
 
-- (uint64_t)initWithTrackId:trackedCnt:andRoi:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
 @end

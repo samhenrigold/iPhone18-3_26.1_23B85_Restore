@@ -131,7 +131,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1C19DC498();
+  sub_1C19DC498(delegate);
 }
 
 - (APPrivacyMarker)privacyMarkerView
@@ -191,7 +191,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1C19DCB18();
+  sub_1C19DCB18(delegate);
 }
 
 - (APPCDiagnosticMetricsHelping)diagnosticMetricHelper

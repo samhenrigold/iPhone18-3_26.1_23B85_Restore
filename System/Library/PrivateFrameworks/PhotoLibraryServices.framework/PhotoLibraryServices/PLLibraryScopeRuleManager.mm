@@ -136,7 +136,7 @@ LABEL_11:
   v21 = v45;
   if (v20)
   {
-    if ([v20 count])
+    if (objc_msgSend_count(v20))
     {
       v22 = MEMORY[0x1E696AB28];
       _predicateToIncludeAssetsSuggestedByCamera = [(PLLibraryScopeRuleManager *)self _predicateToIncludeAssetsSuggestedByCamera];
@@ -257,7 +257,7 @@ id __122__PLLibraryScopeRuleManager__fetchAssetObjectIDsContainedInMomentsToProp
   blockCopy = block;
   _personUUIDsUsedInRules = [(PLLibraryScopeRuleManager *)self _personUUIDsUsedInRules];
   v11 = 1;
-  if ([_personUUIDsUsedInRules count])
+  if (objc_msgSend_count(_personUUIDsUsedInRules))
   {
     v26 = 0;
     v27 = &v26;
@@ -283,7 +283,7 @@ id __122__PLLibraryScopeRuleManager__fetchAssetObjectIDsContainedInMomentsToProp
     v20 = &v22;
     v21 = &v26;
     [v14 performBlockAndWait:v16];
-    if ([v27[5] count])
+    if (objc_msgSend_count(v27[5]))
     {
       v11 = [(PLLibraryScopeRuleManager *)self evaluateAssetObjectIDs:v27[5] simulate:simulateCopy withResultEnumerationBlock:blockCopy];
     }
@@ -317,7 +317,7 @@ void __87__PLLibraryScopeRuleManager_evaluateFaceObjectIDs_simulate_withResultEn
   v8 = v20;
   if (v7)
   {
-    if ([v7 count])
+    if (objc_msgSend_count(v7))
     {
       v9 = MEMORY[0x1E695D5E0];
       v10 = +[PLManagedAsset entityName];
@@ -371,7 +371,7 @@ void __87__PLLibraryScopeRuleManager_evaluateFaceObjectIDs_simulate_withResultEn
   dsCopy = ds;
   evaluateCopy = evaluate;
   blockCopy = block;
-  v13 = [dsCopy count];
+  v13 = objc_msgSend_count(dsCopy);
   if (v13)
   {
     v14 = v13;
@@ -460,10 +460,10 @@ void __121__PLLibraryScopeRuleManager_evaluateAssetObjectIDs_simulate_predicateT
         break;
       }
 
-      if ([v15 count])
+      if (objc_msgSend_count(v15))
       {
         v17 = [*(a1 + 48) _fetchAssetObjectIDsContainedInMomentsToPropagateForMomentIdByAssetId:v15 inManagedObjectContext:v95];
-        if ([v17 count])
+        if (objc_msgSend_count(v17))
         {
           v87 = v13;
           if (*(a1 + 64))
@@ -548,7 +548,7 @@ LABEL_21:
       v39 = [v95 executeFetchRequest:v32 error:&v110];
       v40 = v110;
 
-      if ([v39 count])
+      if (objc_msgSend_count(v39))
       {
         v41 = [*(a1 + 48) ruleEvaluator];
         v42 = [MEMORY[0x1E695DFD8] setWithArray:v39];
@@ -587,7 +587,7 @@ LABEL_21:
 
       v49 = v91;
 
-      if ([v45 count])
+      if (objc_msgSend_count(v45))
       {
         v92 = v32;
         v50 = v49;
@@ -666,7 +666,7 @@ LABEL_39:
   v60 = PLBackendSharingGetLog();
   if (os_log_type_enabled(v60, OS_LOG_TYPE_INFO))
   {
-    v61 = [v86 count];
+    v61 = objc_msgSend_count(v86);
     *buf = 134217984;
     v121 = v61;
     _os_log_impl(&dword_19BF1F000, v60, OS_LOG_TYPE_INFO, "\t%lu assets matched inclusive rule(s).\n", buf, 0xCu);
@@ -675,7 +675,7 @@ LABEL_39:
   v62 = PLBackendSharingGetLog();
   if (os_log_type_enabled(v62, OS_LOG_TYPE_INFO))
   {
-    v63 = [v84 count];
+    v63 = objc_msgSend_count(v84);
     *buf = 134217984;
     v121 = v63;
     _os_log_impl(&dword_19BF1F000, v62, OS_LOG_TYPE_INFO, "\t%lu assets matched exclusive rule(s).\n", buf, 0xCu);
@@ -684,13 +684,13 @@ LABEL_39:
   v64 = PLBackendSharingGetLog();
   if (os_log_type_enabled(v64, OS_LOG_TYPE_INFO))
   {
-    v65 = [v83 count];
+    v65 = objc_msgSend_count(v83);
     *buf = 134217984;
     v121 = v65;
     _os_log_impl(&dword_19BF1F000, v64, OS_LOG_TYPE_INFO, "\t%lu assets did not match any rule(s).\n", buf, 0xCu);
   }
 
-  v66 = [v86 count];
+  v66 = objc_msgSend_count(v86);
   if ((*(a1 + 88) & 1) == 0)
   {
     v67 = v66;
@@ -839,7 +839,7 @@ void __121__PLLibraryScopeRuleManager_evaluateAssetObjectIDs_simulate_predicateT
     rulesData = [scopeCopy rulesData];
     v8 = [PLLibraryScopeRule libraryScopeRulesForLibraryScopeRulesData:rulesData];
 
-    if ([v8 count])
+    if (objc_msgSend_count(v8))
     {
       v9 = objc_alloc_init(PLManagedAssetRuleInterpreter);
       [(PLLibraryScopeRuleManager *)v6 setInterpreter:v9];

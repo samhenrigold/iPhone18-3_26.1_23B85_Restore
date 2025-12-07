@@ -19,9 +19,9 @@
   if (v4 != self)
   {
     _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE18__assign_with_sizeB8ne200100IPS1_S6_EEvT_T0_l(v4->_anon_8, *self->_anon_8, *&self->_anon_8[8], (*&self->_anon_8[8] - *self->_anon_8) >> 4);
-    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE18__assign_with_sizeB8ne200100IPS1_S6_EEvT_T0_l(&v5->_anon_8[24], *&self->_anon_8[24], *&self->_anon_8[32], (*&self->_anon_8[32] - *&self->_anon_8[24]) >> 4);
-    std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(&v5->_anon_8[48], *&self->_anon_8[48], *&self->_anon_8[56], (*&self->_anon_8[56] - *&self->_anon_8[48]) >> 2);
-    _ZNSt3__16vectorIDv4_tNS_9allocatorIS1_EEE18__assign_with_sizeB8ne200100IPS1_S6_EEvT_T0_l(&v5->_anon_8[72], *&self->_anon_8[72], *&self->_anon_8[80], (*&self->_anon_8[80] - *&self->_anon_8[72]) >> 3);
+    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE18__assign_with_sizeB8ne200100IPS1_S6_EEvT_T0_l(v5 + 4, *&self->_anon_8[24], *&self->_anon_8[32], (*&self->_anon_8[32] - *&self->_anon_8[24]) >> 4);
+    std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(v5 + 7, *&self->_anon_8[48], *&self->_anon_8[56], (*&self->_anon_8[56] - *&self->_anon_8[48]) >> 2);
+    _ZNSt3__16vectorIDv4_tNS_9allocatorIS1_EEE18__assign_with_sizeB8ne200100IPS1_S6_EEvT_T0_l(v5 + 10, *&self->_anon_8[72], *&self->_anon_8[80], (*&self->_anon_8[80] - *&self->_anon_8[72]) >> 3);
   }
 
   return v5;
@@ -366,7 +366,7 @@
   v5 = [(OUPointCloud *)self count];
   if (resample && v5 > resample)
   {
-    utils::Resample(v5, resample, &__p);
+    utils::Resample(&__p, v5, resample);
     v6 = v15 - __p;
     if (((v15 - __p) >> 3) >= 1)
     {

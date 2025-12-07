@@ -10,22 +10,20 @@
 
 + (id)submitttedSpotlightReportsError:(id *)error
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   v5 = +[SPMLLogging submittedLogsURL];
-  v13[0] = *MEMORY[0x1E695EBE8];
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
-  v12 = 0;
-  v7 = [defaultManager contentsOfDirectoryAtURL:v5 includingPropertiesForKeys:v6 options:0 error:&v12];
-  v8 = v12;
+  v12[0] = *MEMORY[0x1E695EBE8];
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+  v11 = 0;
+  v7 = [defaultManager contentsOfDirectoryAtURL:v5 includingPropertiesForKeys:v6 options:0 error:&v11];
+  v8 = v11;
 
   if (error && v8)
   {
     v9 = v8;
     *error = v8;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

@@ -36,19 +36,19 @@
 
 void __61__CADSpotlightLogger__logWithFormat_args_prependErrorMarker___block_invoke()
 {
-  v11[4] = *MEMORY[0x277D85DE8];
-  v10[0] = *MEMORY[0x277D03998];
+  v10[4] = *MEMORY[0x277D85DE8];
+  v9[0] = *MEMORY[0x277D03998];
   v0 = DACustomLogDirectory();
   v1 = *MEMORY[0x277D039A8];
-  v11[0] = v0;
-  v11[1] = @"SpotlightLog";
+  v10[0] = v0;
+  v10[1] = @"SpotlightLog";
   v2 = *MEMORY[0x277D039B0];
-  v10[1] = v1;
-  v10[2] = v2;
-  v10[3] = *MEMORY[0x277D039A0];
-  v11[2] = &unk_2837C7150;
-  v11[3] = @"DALogLevel";
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:4];
+  v9[1] = v1;
+  v9[2] = v2;
+  v9[3] = *MEMORY[0x277D039A0];
+  v10[2] = &unk_2837C7150;
+  v10[3] = @"DALogLevel";
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:4];
   v4 = [MEMORY[0x277D03910] DAManagedDefaultForKey:@"DALogLevel"];
 
   if (!v4 && [MEMORY[0x277D03910] isAppleInternalInstall])
@@ -59,14 +59,13 @@ void __61__CADSpotlightLogger__logWithFormat_args_prependErrorMarker___block_inv
     v3 = v5;
   }
 
-  v9 = @"SpotlightLog";
-  MEMORY[0x22AA4CF10]([MEMORY[0x277CBEA60] arrayWithObjects:&v9 count:1], v3);
+  v8 = @"SpotlightLog";
+  MEMORY[0x22AA4CF10]([MEMORY[0x277CBEA60] arrayWithObjects:&v8 count:1], v3);
   v6 = objc_alloc_init(MEMORY[0x277CCAA68]);
   v7 = _logWithFormat_args_prependErrorMarker__dateFormatter;
   _logWithFormat_args_prependErrorMarker__dateFormatter = v6;
 
   [_logWithFormat_args_prependErrorMarker__dateFormatter setFormatOptions:4083];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __61__CADSpotlightLogger__logWithFormat_args_prependErrorMarker___block_invoke_19(uint64_t a1)

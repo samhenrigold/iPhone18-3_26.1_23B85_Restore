@@ -50,7 +50,7 @@ void __captureSession_IrisStillImageSinkBeginMomentCapture_block_invoke(uint64_t
   v6 = v5;
   if (v5)
   {
-    __captureSession_IrisStillImageSinkBeginMomentCapture_block_invoke_cold_3(v5, (DerivedStorage + 384), (DerivedStorage + 688));
+    __captureSession_IrisStillImageSinkBeginMomentCapture_block_invoke_cold_3(v5, DerivedStorage + 384, DerivedStorage + 688);
   }
 
   *(DerivedStorage + 376) = v6;
@@ -67,17 +67,7 @@ uint64_t __captureSession_IrisStillImageSinkBeginMomentCapture_block_invoke_cold
 {
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2_5();
-  return FigDebugAssert3();
-}
-
-void __captureSession_IrisStillImageSinkBeginMomentCapture_block_invoke_cold_3(uint64_t a1, os_unfair_lock_s *a2, void *a3)
-{
-  OUTLINED_FUNCTION_1_5();
-  FigDebugAssert3();
-  os_unfair_lock_lock(a2);
-  *a3 = 0;
-
-  os_unfair_lock_unlock(a2);
+  return FigDebugAssert3(v0);
 }
 
 @end

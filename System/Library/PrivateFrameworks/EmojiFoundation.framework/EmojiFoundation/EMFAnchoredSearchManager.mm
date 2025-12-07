@@ -142,12 +142,12 @@ LABEL_13:
   _Block_object_dispose(v18, 8);
 }
 
-void __105__EMFAnchoredSearchManager__enumerateAnchoredReplacementCandidatesForContextLeft_withOptions_usingBlock___block_invoke(id *a1)
+void __105__EMFAnchoredSearchManager__enumerateAnchoredReplacementCandidatesForContextLeft_withOptions_usingBlock___block_invoke(id *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v2 = [a1[4] localeData];
-  [v2 emojiLocaleDataRef];
-  v3 = a1[5];
-  v4 = a1[6];
+  v7 = [a1[4] localeData];
+  [v7 emojiLocaleDataRef];
+  v8 = a1[5];
+  v9 = a1[6];
   CEMEmojiLocaleDataEnumerateSearchResultsInStringWithBlock();
 }
 
@@ -207,12 +207,12 @@ void __105__EMFAnchoredSearchManager__enumerateAnchoredReplacementCandidatesForC
   _Block_object_dispose(v18, 8);
 }
 
-void __106__EMFAnchoredSearchManager__enumerateAnchoredReplacementCandidatesForContextRight_withOptions_usingBlock___block_invoke(id *a1)
+void __106__EMFAnchoredSearchManager__enumerateAnchoredReplacementCandidatesForContextRight_withOptions_usingBlock___block_invoke(id *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v2 = [a1[4] localeData];
-  [v2 emojiLocaleDataRef];
-  v3 = a1[5];
-  v4 = a1[6];
+  v7 = [a1[4] localeData];
+  [v7 emojiLocaleDataRef];
+  v8 = a1[5];
+  v9 = a1[6];
   CEMEmojiLocaleDataEnumerateSearchResultsInStringWithBlock();
 }
 

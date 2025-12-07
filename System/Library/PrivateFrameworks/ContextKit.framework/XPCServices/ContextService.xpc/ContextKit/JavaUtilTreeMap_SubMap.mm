@@ -51,7 +51,7 @@
 - (JavaUtilTreeMap_SubMap)initWithJavaUtilTreeMap:(id)map
 {
   JreStrongAssign(&self->this$0_, map);
-  JavaUtilAbstractMap_init(self, v4);
+  JavaUtilAbstractMap_init();
   return self;
 }
 

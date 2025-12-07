@@ -93,11 +93,11 @@ void __76__HMDAppleAccessoryPairingControllerDataSource_updatePairingAccessorySt
 
 - (HAPPairingIdentity)hh1ControllerIdentity
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   systemStore = [MEMORY[0x277CFEC78] systemStore];
-  v12 = 0;
-  v4 = [systemStore getOrCreateLocalPairingIdentity:&v12];
-  v5 = v12;
+  v11 = 0;
+  v4 = [systemStore getOrCreateLocalPairingIdentity:&v11];
+  v5 = v11;
 
   if (!v4)
   {
@@ -108,16 +108,14 @@ void __76__HMDAppleAccessoryPairingControllerDataSource_updatePairingAccessorySt
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v14 = v9;
-      v15 = 2112;
-      v16 = v5;
+      v13 = v9;
+      v14 = 2112;
+      v15 = v5;
       _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Unable to get controller identity for pairing controller: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

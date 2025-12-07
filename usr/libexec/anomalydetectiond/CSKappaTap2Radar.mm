@@ -358,7 +358,7 @@ LABEL_12:
   {
     sub_100357DF0(buf);
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/DataCollection/CSKappaTap2Radar.mm", 402, "[CSKappaTap2Radar radarWithResult:triggerUUID:ttrType:error:]");
     __break(1u);
   }
 

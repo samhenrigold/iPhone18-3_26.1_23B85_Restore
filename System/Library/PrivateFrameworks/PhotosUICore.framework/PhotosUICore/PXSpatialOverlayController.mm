@@ -20,28 +20,42 @@
 
 - (void)prepareOverlayViewForAssets:(id)assets
 {
-  sub_1A3DB58C8();
+  sub_1A3DB58C8(0, a2);
   v4 = sub_1A524CA34();
   selfCopy = self;
-  sub_1A4627C60(v4);
+  sub_1A4627C60(v4, v6);
 }
 
 - (void)addOverlayViewForAsset:(id)asset toView:(id)view animated:(BOOL)animated
 {
+  animatedCopy = animated;
   swift_unknownObjectRetain();
   viewCopy = view;
   selfCopy = self;
   sub_1A46281AC();
   assetCopy = asset;
-  OverlayViewController.addOverlay(for:to:animationDuration:animations:)(&assetCopy, viewCopy, 0);
+  v11 = 0.0;
+  if (animatedCopy)
+  {
+    v11 = 1.0;
+  }
+
+  OverlayViewController.addOverlay(for:to:animationDuration:animations:)(&assetCopy, viewCopy, 0, 0, v11);
 }
 
 - (void)removeOverlayViewFromView:(id)view animated:(BOOL)animated
 {
+  animatedCopy = animated;
   viewCopy = view;
   self;
   sub_1A46281AC();
-  OverlayViewController.removeOverlay(from:animationDuration:animations:)(viewCopy);
+  v7 = 0.0;
+  if (animatedCopy)
+  {
+    v7 = 1.0;
+  }
+
+  OverlayViewController.removeOverlay(from:animationDuration:animations:)(viewCopy, 0, 0, v7);
 }
 
 - (PXSpatialOverlayController)init

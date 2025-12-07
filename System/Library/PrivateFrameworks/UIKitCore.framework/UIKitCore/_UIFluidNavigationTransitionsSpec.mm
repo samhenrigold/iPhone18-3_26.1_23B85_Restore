@@ -16,9 +16,10 @@
 
 - (void)setDefaultValues
 {
-  v2.receiver = self;
-  v2.super_class = type metadata accessor for _UIFluidNavigationTransitionsSpec();
-  [(PTSettings *)&v2 setDefaultValues];
+  v3 = type metadata accessor for _UIFluidNavigationTransitionsSpec();
+  v5.receiver = self;
+  v5.super_class = v4;
+  [(PTSettings *)&v5 setDefaultValues];
 }
 
 + (id)settingsControllerModule
@@ -33,9 +34,10 @@
   v3 = OBJC_IVAR____TtC5UIKit33_UIFluidNavigationTransitionsSpec_parallaxSettings;
   type metadata accessor for _UIFluidParallaxTransitionSettings();
   *(&self->super.super.isa + v3) = [objc_allocWithZone(swift_getObjCClassFromMetadata()) init];
-  v5.receiver = self;
-  v5.super_class = type metadata accessor for _UIFluidNavigationTransitionsSpec();
-  return [(PTSettings *)&v5 initWithDefaultValues];
+  v4 = type metadata accessor for _UIFluidNavigationTransitionsSpec();
+  v7.receiver = self;
+  v7.super_class = v5;
+  return [(PTSettings *)&v7 initWithDefaultValues];
 }
 
 @end

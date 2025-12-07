@@ -9,18 +9,18 @@
   typeCopy = type;
   timeCopy = time;
   sourcesCopy = sources;
-  if ((typeCopy - 1) < 3 && (v24 = *(&off_1002AC478)[(typeCopy - 1)], (v25 = objc_opt_class()) != 0))
+  if ((typeCopy - 1) < 3 && (v24 = objc_opt_class()) != 0)
   {
-    LODWORD(v28) = duration;
-    v26 = [[v25 alloc] init:timeCopy predictionSources:sourcesCopy numPrevTimesUntilAnomaly:anomaly numPrevPredictions:predictions numPrevPredictionsCorrect:correct predictedTimeUntilAnomaly:untilAnomaly predictedDuration:confidenceAnomaly confidenceAnomaly:confidenceDuration confidenceDuration:timeUntilAnomaly confidenceTimeUntilAnomaly:v28 predictionTimestamp:timestamp];
+    LODWORD(v27) = duration;
+    v25 = [[v24 alloc] init:timeCopy predictionSources:sourcesCopy numPrevTimesUntilAnomaly:anomaly numPrevPredictions:predictions numPrevPredictionsCorrect:correct predictedTimeUntilAnomaly:untilAnomaly predictedDuration:confidenceAnomaly confidenceAnomaly:confidenceDuration confidenceDuration:timeUntilAnomaly confidenceTimeUntilAnomaly:v27 predictionTimestamp:timestamp];
   }
 
   else
   {
-    v26 = 0;
+    v25 = 0;
   }
 
-  return v26;
+  return v25;
 }
 
 @end

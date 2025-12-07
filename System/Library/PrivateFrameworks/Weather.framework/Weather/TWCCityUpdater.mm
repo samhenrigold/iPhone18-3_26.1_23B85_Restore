@@ -141,18 +141,18 @@ void __39__TWCCityUpdater_updateWeatherForCity___block_invoke_2(uint64_t a1)
 
 - (void)updateWeatherForCities:(id)cities withCompletionHandler:(id)handler
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   citiesCopy = cities;
   handlerCopy = handler;
   v8 = WALogForCategory(0);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v30 = "[TWCCityUpdater updateWeatherForCities:withCompletionHandler:]";
-    v31 = 2112;
+    v29 = "[TWCCityUpdater updateWeatherForCities:withCompletionHandler:]";
+    v30 = 2112;
     selfCopy = self;
-    v33 = 2112;
-    v34 = citiesCopy;
+    v32 = 2112;
+    v33 = citiesCopy;
     _os_log_impl(&dword_272ACF000, v8, OS_LOG_TYPE_DEFAULT, "%s self=%@, updating weather for cities: %@ in city updater", buf, 0x20u);
   }
 
@@ -160,40 +160,40 @@ void __39__TWCCityUpdater_updateWeatherForCity___block_invoke_2(uint64_t a1)
   if (handlerCopy || v9 > 1)
   {
     v11 = dispatch_group_create();
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __63__TWCCityUpdater_updateWeatherForCities_withCompletionHandler___block_invoke;
-    v27[3] = &unk_279E68840;
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __63__TWCCityUpdater_updateWeatherForCities_withCompletionHandler___block_invoke;
+    v26[3] = &unk_279E68840;
     v12 = v11;
-    v28 = v12;
-    [citiesCopy enumerateObjectsUsingBlock:v27];
+    v27 = v12;
+    [citiesCopy enumerateObjectsUsingBlock:v26];
     delegate = [(TWCCityUpdater *)self delegate];
     objc_initWeak(buf, delegate);
 
     v14 = objc_opt_new();
     forecastModelController = [(TWCCityUpdater *)self forecastModelController];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __63__TWCCityUpdater_updateWeatherForCities_withCompletionHandler___block_invoke_2;
-    v23[3] = &unk_279E68890;
-    objc_copyWeak(&v26, buf);
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __63__TWCCityUpdater_updateWeatherForCities_withCompletionHandler___block_invoke_2;
+    v22[3] = &unk_279E68890;
+    objc_copyWeak(&v25, buf);
     v16 = v14;
-    v24 = v16;
+    v23 = v16;
     firstObject = v12;
-    v25 = firstObject;
-    [forecastModelController fetchForecastForCities:citiesCopy completion:v23];
+    v24 = firstObject;
+    [forecastModelController fetchForecastForCities:citiesCopy completion:v22];
 
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __63__TWCCityUpdater_updateWeatherForCities_withCompletionHandler___block_invoke_6;
     block[3] = &unk_279E688B8;
-    v22 = handlerCopy;
-    v20 = v16;
-    v21 = citiesCopy;
+    v21 = handlerCopy;
+    v19 = v16;
+    v20 = citiesCopy;
     v17 = v16;
     dispatch_group_notify(firstObject, MEMORY[0x277D85CD0], block);
 
-    objc_destroyWeak(&v26);
+    objc_destroyWeak(&v25);
     objc_destroyWeak(buf);
   }
 
@@ -202,8 +202,6 @@ void __39__TWCCityUpdater_updateWeatherForCity___block_invoke_2(uint64_t a1)
     firstObject = [citiesCopy firstObject];
     [(TWCCityUpdater *)self updateWeatherForCity:firstObject];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __63__TWCCityUpdater_updateWeatherForCities_withCompletionHandler___block_invoke_2(id *a1, void *a2, void *a3, void *a4)
@@ -231,7 +229,7 @@ void __63__TWCCityUpdater_updateWeatherForCities_withCompletionHandler___block_i
 
 void __63__TWCCityUpdater_updateWeatherForCities_withCompletionHandler___block_invoke_3(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = (a1 + 32);
   v2 = *(a1 + 32);
   if (!v2)
@@ -241,11 +239,11 @@ void __63__TWCCityUpdater_updateWeatherForCities_withCompletionHandler___block_i
     {
       v5 = *(a1 + 40);
       v6 = *(a1 + 48);
-      v10 = 138412546;
-      v11 = v5;
-      v12 = 2112;
-      v13 = v6;
-      _os_log_impl(&dword_272ACF000, v4, OS_LOG_TYPE_DEFAULT, "Success updated city: %@, with forecast model: %@", &v10, 0x16u);
+      v9 = 138412546;
+      v10 = v5;
+      v11 = 2112;
+      v12 = v6;
+      _os_log_impl(&dword_272ACF000, v4, OS_LOG_TYPE_DEFAULT, "Success updated city: %@, with forecast model: %@", &v9, 0x16u);
     }
 
     [*(a1 + 40) updateCityForModel:*(a1 + 48)];
@@ -273,12 +271,11 @@ void __63__TWCCityUpdater_updateWeatherForCities_withCompletionHandler___block_i
   }
 
   dispatch_group_leave(*(a1 + 64));
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __63__TWCCityUpdater_updateWeatherForCities_withCompletionHandler___block_invoke_6(uint64_t a1)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   if (*(a1 + 48))
   {
     v2 = [*(a1 + 32) count];
@@ -292,9 +289,9 @@ void __63__TWCCityUpdater_updateWeatherForCities_withCompletionHandler___block_i
     {
       v5 = MEMORY[0x277CCA9B8];
       v6 = *(a1 + 32);
-      v10 = @"errors";
-      v11[0] = v6;
-      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+      v8 = @"errors";
+      v9[0] = v6;
+      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
       v4 = [v5 errorWithDomain:@"com.apple.weather.errorDomain" code:7 userInfo:v7];
     }
 
@@ -303,11 +300,8 @@ void __63__TWCCityUpdater_updateWeatherForCities_withCompletionHandler___block_i
       v4 = 0;
     }
 
-    v8 = *(a1 + 40);
     (*(*(a1 + 48) + 16))();
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (WeatherUpdaterDelegate)delegate
@@ -319,15 +313,14 @@ void __63__TWCCityUpdater_updateWeatherForCities_withCompletionHandler___block_i
 
 void __63__TWCCityUpdater_updateWeatherForCities_withCompletionHandler___block_invoke_3_cold_1(uint64_t *a1, uint64_t *a2, os_log_t log)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = *a1;
   v4 = *a2;
-  v6 = 138412546;
-  v7 = v3;
-  v8 = 2112;
-  v9 = v4;
-  _os_log_error_impl(&dword_272ACF000, log, OS_LOG_TYPE_ERROR, "Forecast retrieval error: %@ for city: %@", &v6, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412546;
+  v6 = v3;
+  v7 = 2112;
+  v8 = v4;
+  _os_log_error_impl(&dword_272ACF000, log, OS_LOG_TYPE_ERROR, "Forecast retrieval error: %@ for city: %@", &v5, 0x16u);
 }
 
 @end

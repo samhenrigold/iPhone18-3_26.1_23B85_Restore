@@ -84,7 +84,7 @@
 
 void __61__WDAppAccessListViewController__refreshAppAuthorizationData__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -95,47 +95,47 @@ void __61__WDAppAccessListViewController__refreshAppAuthorizationData__block_inv
     block[2] = __61__WDAppAccessListViewController__refreshAppAuthorizationData__block_invoke_2;
     block[3] = &unk_2796E6BD8;
     block[4] = *(a1 + 32);
-    v39 = v6;
+    v38 = v6;
     dispatch_async(MEMORY[0x277D85CD0], block);
 
     goto LABEL_24;
   }
 
+  v28 = [MEMORY[0x277CBEB18] array];
   v29 = [MEMORY[0x277CBEB18] array];
-  v30 = [MEMORY[0x277CBEB18] array];
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   v8 = [v5 allKeys];
-  v9 = [v8 countByEnumeratingWithState:&v34 objects:v40 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v33 objects:v39 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v35;
+    v11 = *v34;
     v12 = 1;
     while (1)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v35 != v11)
+        if (*v34 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v14 = *(*(&v34 + 1) + 8 * i);
+        v14 = *(*(&v33 + 1) + 8 * i);
         v15 = [v5 objectForKeyedSubscript:v14];
         v16 = [v15 integerValue];
 
         if (v16 == 2)
         {
-          v17 = v29;
+          v17 = v28;
           goto LABEL_12;
         }
 
         if (v16 == 1)
         {
-          v17 = v30;
+          v17 = v29;
 LABEL_12:
           [v17 addObject:v14];
           continue;
@@ -148,7 +148,7 @@ LABEL_12:
         v12 &= v20 ^ 1;
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v34 objects:v40 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v33 objects:v39 count:16];
       if (!v10)
       {
 
@@ -165,11 +165,11 @@ LABEL_12:
 LABEL_19:
   v21 = [*(*(a1 + 32) + 1080) sourceRevision];
   v22 = [v21 source];
-  if (([v30 containsObject:v22] & 1) == 0)
+  if (([v29 containsObject:v22] & 1) == 0)
   {
     v23 = [*(*(a1 + 32) + 1080) sourceRevision];
     v24 = [v23 source];
-    v25 = [v29 containsObject:v24];
+    v25 = [v28 containsObject:v24];
 
     if (v25)
     {
@@ -178,25 +178,23 @@ LABEL_19:
 
     v21 = [*(*(a1 + 32) + 1080) sourceRevision];
     v22 = [v21 source];
-    [v29 addObject:v22];
+    [v28 addObject:v22];
   }
 
 LABEL_23:
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = __61__WDAppAccessListViewController__refreshAppAuthorizationData__block_invoke_306;
-  v31[3] = &unk_2796E6C00;
-  v31[4] = *(a1 + 32);
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __61__WDAppAccessListViewController__refreshAppAuthorizationData__block_invoke_306;
+  v30[3] = &unk_2796E6C00;
+  v30[4] = *(a1 + 32);
+  v31 = v28;
   v32 = v29;
-  v33 = v30;
-  v26 = v30;
-  v27 = v29;
-  dispatch_async(MEMORY[0x277D85CD0], v31);
+  v26 = v29;
+  v27 = v28;
+  dispatch_async(MEMORY[0x277D85CD0], v30);
 
   v7 = 0;
 LABEL_24:
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __61__WDAppAccessListViewController__refreshAppAuthorizationData__block_invoke_2(uint64_t a1)
@@ -534,18 +532,16 @@ LABEL_13:
 
 - (void)resetAccess
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   authorizationStore = self->_authorizationStore;
-  v7[0] = self->_sample;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __44__WDAppAccessListViewController_resetAccess__block_invoke;
-  v6[3] = &unk_2796E6CC8;
-  v6[4] = self;
-  [(HKAuthorizationStore *)authorizationStore resetAuthorizationStatusesForObjects:v4 completion:v6];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v6[0] = self->_sample;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __44__WDAppAccessListViewController_resetAccess__block_invoke;
+  v5[3] = &unk_2796E6CC8;
+  v5[4] = self;
+  [(HKAuthorizationStore *)authorizationStore resetAuthorizationStatusesForObjects:v4 completion:v5];
 }
 
 void __44__WDAppAccessListViewController_resetAccess__block_invoke(uint64_t a1, int a2, void *a3)
@@ -562,7 +558,7 @@ void __44__WDAppAccessListViewController_resetAccess__block_invoke(uint64_t a1, 
     v6 = HKLogAuthorization();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __44__WDAppAccessListViewController_resetAccess__block_invoke_cold_1(a1);
+      __44__WDAppAccessListViewController_resetAccess__block_invoke_cold_1(a1, v5);
     }
   }
 }
@@ -608,22 +604,23 @@ void __44__WDAppAccessListViewController_resetAccess__block_invoke(uint64_t a1, 
 
 void __61__WDAppAccessListViewController__refreshAppAuthorizationData__block_invoke_2_cold_1(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) sample];
-  v10 = *(a1 + 40);
-  OUTLINED_FUNCTION_0(&dword_251E85000, v3, v4, "Failed to retrieve authorization records for sample: %@ with error: %@", v5, v6, v7, v8, 2u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  *v9 = 138412546;
+  *&v9[4] = v2;
+  *&v9[12] = 2112;
+  *&v9[14] = *(a1 + 40);
+  OUTLINED_FUNCTION_0(&dword_251E85000, v3, v4, "Failed to retrieve authorization records for sample: %@ with error: %@", v5, v6, v7, v8, *v9, *&v9[8], *&v9[16]);
 }
 
-void __44__WDAppAccessListViewController_resetAccess__block_invoke_cold_1(uint64_t a1)
+void __44__WDAppAccessListViewController_resetAccess__block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v1 = [*(a1 + 32) sample];
-  v2 = [v1 UUID];
-  OUTLINED_FUNCTION_0(&dword_251E85000, v3, v4, "Failed to reset authorization for sample: %@ with error: %@", v5, v6, v7, v8, 2u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v3 = [*(a1 + 32) sample];
+  v4 = [v3 UUID];
+  *v11 = 138412546;
+  *&v11[4] = v4;
+  *&v11[12] = 2112;
+  *&v11[14] = a2;
+  OUTLINED_FUNCTION_0(&dword_251E85000, v5, v6, "Failed to reset authorization for sample: %@ with error: %@", v7, v8, v9, v10, *v11, *&v11[8], *&v11[16]);
 }
 
 @end

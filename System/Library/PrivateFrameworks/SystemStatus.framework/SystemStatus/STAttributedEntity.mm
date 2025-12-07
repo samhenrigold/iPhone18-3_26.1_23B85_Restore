@@ -63,7 +63,7 @@
   if (executableIdentity)
   {
     v6 = executableIdentity;
-    [executableIdentity auditToken];
+    objc_msgSend_auditToken(executableIdentity);
     executableIdentity = v6;
   }
 

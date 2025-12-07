@@ -25,7 +25,7 @@
   }
 
   v11.receiver = self;
-  v11.super_class = type metadata accessor for AvatarEditorRemoteViewController();
+  v11.super_class = type metadata accessor for AvatarEditorRemoteViewController(0);
   v9 = [(RemoteBaseSceneHostingController *)&v11 initWithNibName:v7 bundle:bundle];
 
   return v9;
@@ -36,7 +36,7 @@
   *(&self->super.super.super._responderFlags + OBJC_IVAR____TtC10StickerKit32AvatarEditorRemoteViewController_delegate) = 0;
   swift_unknownObjectWeakInit();
   v8.receiver = self;
-  v8.super_class = type metadata accessor for AvatarEditorRemoteViewController();
+  v8.super_class = type metadata accessor for AvatarEditorRemoteViewController(0);
   coderCopy = coder;
   v6 = [(RemoteBaseSceneHostingController *)&v8 initWithCoder:coderCopy];
 

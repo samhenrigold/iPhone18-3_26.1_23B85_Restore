@@ -1,6 +1,6 @@
 id GetLocalizedString(uint64_t a1)
 {
-  v2 = GetBundle();
+  v2 = GetBundle(a1);
   v3 = v2;
   v4 = 0;
   if (a1 && v2)
@@ -12,16 +12,16 @@ id GetLocalizedString(uint64_t a1)
   return v4;
 }
 
-id GetBundle()
+id GetBundle(uint64_t a1)
 {
   if (GetBundle_onceToken != -1)
   {
     GetBundle_cold_1();
   }
 
-  v1 = GetBundle_bundle;
+  v2 = GetBundle_bundle;
 
-  return v1;
+  return v2;
 }
 
 double RoundFloatToPixels(double a1)
@@ -47,11 +47,11 @@ __CFString *escapedStringFromURL(void *a1)
   return v2;
 }
 
-void sub_273D4D790(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_273D4D790(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 96), 8);
+  _Block_object_dispose((v16 - 96), 8);
   _Unwind_Resume(a1);
 }
 

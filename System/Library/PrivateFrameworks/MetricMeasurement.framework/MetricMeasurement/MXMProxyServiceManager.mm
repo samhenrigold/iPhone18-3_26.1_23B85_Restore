@@ -67,15 +67,13 @@ void __38__MXMProxyServiceManager__proxyObject__block_invoke(uint64_t a1, void *
 {
   v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v3 = _MXMGetLog();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = _MXMGetLog(v2, v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v5 = 138412290;
     v6 = v2;
-    _os_log_impl(&dword_258DAA000, v3, OS_LOG_TYPE_ERROR, "Error occured with connection: %@. Nilling the manager.", &v5, 0xCu);
+    _os_log_impl(&dword_258DAA000, v4, OS_LOG_TYPE_ERROR, "Error occured with connection: %@. Nilling the manager.", &v5, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)wake
@@ -212,59 +210,59 @@ void __58__MXMProxyServiceManager__startPerformanceTrace_response___block_invoke
 
 - (void)_stopPerformanceTrace:(id)trace
 {
-  v50[1] = *MEMORY[0x277D85DE8];
+  v49[1] = *MEMORY[0x277D85DE8];
   traceCopy = trace;
-  v43 = 0;
-  v44 = &v43;
-  v45 = 0x3032000000;
-  v46 = __Block_byref_object_copy_;
-  v47 = __Block_byref_object_dispose_;
-  v48 = 0;
-  v37 = 0;
-  v38 = &v37;
-  v39 = 0x3032000000;
-  v40 = __Block_byref_object_copy_;
-  v41 = __Block_byref_object_dispose_;
   v42 = 0;
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x3032000000;
-  v34 = __Block_byref_object_copy_;
-  v35 = __Block_byref_object_dispose_;
+  v43 = &v42;
+  v44 = 0x3032000000;
+  v45 = __Block_byref_object_copy_;
+  v46 = __Block_byref_object_dispose_;
+  v47 = 0;
   v36 = 0;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x3032000000;
-  v28 = __Block_byref_object_copy_;
-  v29 = __Block_byref_object_dispose_;
+  v37 = &v36;
+  v38 = 0x3032000000;
+  v39 = __Block_byref_object_copy_;
+  v40 = __Block_byref_object_dispose_;
+  v41 = 0;
   v30 = 0;
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3032000000;
-  v22 = __Block_byref_object_copy_;
-  v23 = __Block_byref_object_dispose_;
+  v31 = &v30;
+  v32 = 0x3032000000;
+  v33 = __Block_byref_object_copy_;
+  v34 = __Block_byref_object_dispose_;
+  v35 = 0;
   v24 = 0;
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x3032000000;
-  v16 = __Block_byref_object_copy_;
-  v17 = __Block_byref_object_dispose_;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = __Block_byref_object_copy_;
+  v28 = __Block_byref_object_dispose_;
+  v29 = 0;
   v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy_;
+  v22 = __Block_byref_object_dispose_;
+  v23 = 0;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy_;
+  v16 = __Block_byref_object_dispose_;
+  v17 = 0;
   _proxyObject = [(MXMProxyServiceManager *)self _proxyObject];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __48__MXMProxyServiceManager__stopPerformanceTrace___block_invoke;
-  v12[3] = &unk_2798C94B0;
-  v12[4] = &v31;
-  v12[5] = &v25;
-  v12[6] = &v19;
-  v12[7] = &v13;
-  v12[8] = &v43;
-  v12[9] = &v37;
-  [_proxyObject _stopPerformanceTraceHelper:v12];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __48__MXMProxyServiceManager__stopPerformanceTrace___block_invoke;
+  v11[3] = &unk_2798C94B0;
+  v11[4] = &v30;
+  v11[5] = &v24;
+  v11[6] = &v18;
+  v11[7] = &v12;
+  v11[8] = &v42;
+  v11[9] = &v36;
+  [_proxyObject _stopPerformanceTraceHelper:v11];
 
-  v6 = v44[5];
-  if (v6 && (v7 = v38[5]) != 0)
+  v6 = v43[5];
+  if (v6 && (v7 = v37[5]) != 0)
   {
     v8 = 0;
   }
@@ -272,27 +270,25 @@ void __58__MXMProxyServiceManager__startPerformanceTrace_response___block_invoke
   else
   {
     v9 = MEMORY[0x277CCA9B8];
-    v49 = *MEMORY[0x277CCA450];
-    v50[0] = @"Unable to access performance trace file.";
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v50 forKeys:&v49 count:1];
+    v48 = *MEMORY[0x277CCA450];
+    v49[0] = @"Unable to access performance trace file.";
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:&v48 count:1];
     v8 = [v9 errorWithDomain:@"InstrumentErrorDomain" code:0 userInfo:v10];
 
-    v6 = v44[5];
-    v7 = v38[5];
+    v6 = v43[5];
+    v7 = v37[5];
   }
 
-  traceCopy[2](traceCopy, v6, v7, v8, v32[5], v26[5], v20[5], v14[5]);
+  traceCopy[2](traceCopy, v6, v7, v8, v31[5], v25[5], v19[5], v13[5]);
 
-  _Block_object_dispose(&v13, 8);
-  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v12, 8);
+  _Block_object_dispose(&v18, 8);
 
-  _Block_object_dispose(&v25, 8);
-  _Block_object_dispose(&v31, 8);
+  _Block_object_dispose(&v24, 8);
+  _Block_object_dispose(&v30, 8);
 
-  _Block_object_dispose(&v37, 8);
-  _Block_object_dispose(&v43, 8);
-
-  v11 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v36, 8);
+  _Block_object_dispose(&v42, 8);
 }
 
 void __48__MXMProxyServiceManager__stopPerformanceTrace___block_invoke(void *a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7)

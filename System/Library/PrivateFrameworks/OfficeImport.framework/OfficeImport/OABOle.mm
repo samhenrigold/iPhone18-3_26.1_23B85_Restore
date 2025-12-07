@@ -265,7 +265,7 @@ LABEL_11:
   }
 
   v12 = v11;
-  v19[0] = 0;
+  LODWORD(v19[0]) = 0;
   if (!-[OCBReader retainDecryptorWithErrorCode:](v12, "retainDecryptorWithErrorCode:", v19) || (-[OCDEncryptedReader decryptor](v12, "decryptor"), v13 = objc_claimAutoreleasedReturnValue(), v14 = [v13 isReadProtectedUsingDefaultPassphrase], v13, (v14 & 1) != 0))
   {
     read = [(EBReader *)v12 read];

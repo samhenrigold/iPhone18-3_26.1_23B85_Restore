@@ -63,35 +63,34 @@ void __49__FCIssueReadingHistory_loadLocalCachesFromStore__block_invoke(uint64_t
   v2 = [*(a1 + 32) localStore];
   [v2 addAllEntriesToDictionary:obj];
 
-  v3 = *(a1 + 32);
-  v4 = [objc_opt_class() internalLocalStoreKeys];
-  v5 = [v4 allObjects];
-  [obj removeObjectsForKeys:v5];
+  v3 = [objc_opt_class() internalLocalStoreKeys];
+  v4 = [v3 allObjects];
+  [obj removeObjectsForKeys:v4];
 
-  v6 = *(a1 + 32);
-  if (v6)
+  v5 = *(a1 + 32);
+  if (v5)
   {
-    objc_storeStrong((v6 + 88), obj);
+    objc_storeStrong((v5 + 88), obj);
   }
 }
 
 - (FCIssueReadingHistory)initWithContext:(id)context pushNotificationCenter:(id)center storeDirectory:(id)directory
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   centerCopy = center;
   directoryCopy = directory;
   if (!contextCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "context != nil"];
+    v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "context != nil"];
     *buf = 136315906;
-    v21 = "[FCIssueReadingHistory initWithContext:pushNotificationCenter:storeDirectory:]";
-    v22 = 2080;
-    v23 = "FCIssueReadingHistory.m";
-    v24 = 1024;
-    v25 = 49;
-    v26 = 2114;
-    v27 = v16;
+    v20 = "[FCIssueReadingHistory initWithContext:pushNotificationCenter:storeDirectory:]";
+    v21 = 2080;
+    v22 = "FCIssueReadingHistory.m";
+    v23 = 1024;
+    v24 = 49;
+    v25 = 2114;
+    v26 = v15;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (centerCopy)
@@ -107,36 +106,36 @@ void __49__FCIssueReadingHistory_loadLocalCachesFromStore__block_invoke(uint64_t
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "pushNotificationCenter != nil"];
+    v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "pushNotificationCenter != nil"];
     *buf = 136315906;
-    v21 = "[FCIssueReadingHistory initWithContext:pushNotificationCenter:storeDirectory:]";
-    v22 = 2080;
-    v23 = "FCIssueReadingHistory.m";
-    v24 = 1024;
-    v25 = 50;
-    v26 = 2114;
-    v27 = v17;
+    v20 = "[FCIssueReadingHistory initWithContext:pushNotificationCenter:storeDirectory:]";
+    v21 = 2080;
+    v22 = "FCIssueReadingHistory.m";
+    v23 = 1024;
+    v24 = 50;
+    v25 = 2114;
+    v26 = v16;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_6:
   if (!directoryCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "storeDirectory != nil"];
+    v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "storeDirectory != nil"];
     *buf = 136315906;
-    v21 = "[FCIssueReadingHistory initWithContext:pushNotificationCenter:storeDirectory:]";
-    v22 = 2080;
-    v23 = "FCIssueReadingHistory.m";
-    v24 = 1024;
-    v25 = 51;
-    v26 = 2114;
-    v27 = v18;
+    v20 = "[FCIssueReadingHistory initWithContext:pushNotificationCenter:storeDirectory:]";
+    v21 = 2080;
+    v22 = "FCIssueReadingHistory.m";
+    v23 = 1024;
+    v24 = 51;
+    v25 = 2114;
+    v26 = v17;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v19.receiver = self;
-  v19.super_class = FCIssueReadingHistory;
-  v11 = [(FCPrivateDataController *)&v19 initWithContext:contextCopy pushNotificationCenter:centerCopy storeDirectory:directoryCopy];
+  v18.receiver = self;
+  v18.super_class = FCIssueReadingHistory;
+  v11 = [(FCPrivateDataController *)&v18 initWithContext:contextCopy pushNotificationCenter:centerCopy storeDirectory:directoryCopy];
   if (v11)
   {
     v12 = objc_opt_new();
@@ -144,27 +143,26 @@ LABEL_6:
     v11->_itemsLock = v12;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 - (void)markIssueWithID:(id)d asVisitedWithBookmark:(id)bookmark
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   dCopy = d;
   bookmarkCopy = bookmark;
   [MEMORY[0x1E696AF00] isMainThread];
   if (!dCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "issueID != nil"];
+    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "issueID != nil"];
     *buf = 136315906;
-    v15 = "[FCIssueReadingHistory markIssueWithID:asVisitedWithBookmark:]";
-    v16 = 2080;
-    v17 = "FCIssueReadingHistory.m";
-    v18 = 1024;
-    v19 = 66;
-    v20 = 2114;
-    v21 = v10;
+    v14 = "[FCIssueReadingHistory markIssueWithID:asVisitedWithBookmark:]";
+    v15 = 2080;
+    v16 = "FCIssueReadingHistory.m";
+    v17 = 1024;
+    v18 = 66;
+    v19 = 2114;
+    v20 = v9;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (bookmarkCopy)
@@ -180,28 +178,26 @@ LABEL_6:
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "bookmark != nil"];
+    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "bookmark != nil"];
     *buf = 136315906;
-    v15 = "[FCIssueReadingHistory markIssueWithID:asVisitedWithBookmark:]";
-    v16 = 2080;
-    v17 = "FCIssueReadingHistory.m";
-    v18 = 1024;
-    v19 = 67;
-    v20 = 2114;
-    v21 = v11;
+    v14 = "[FCIssueReadingHistory markIssueWithID:asVisitedWithBookmark:]";
+    v15 = 2080;
+    v16 = "FCIssueReadingHistory.m";
+    v17 = 1024;
+    v18 = 67;
+    v19 = 2114;
+    v20 = v10;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_6:
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __63__FCIssueReadingHistory_markIssueWithID_asVisitedWithBookmark___block_invoke;
-  v12[3] = &unk_1E7C37010;
-  v13 = bookmarkCopy;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __63__FCIssueReadingHistory_markIssueWithID_asVisitedWithBookmark___block_invoke;
+  v11[3] = &unk_1E7C37010;
+  v12 = bookmarkCopy;
   v8 = bookmarkCopy;
-  [(FCIssueReadingHistory *)self _modifyHistoryForIssueID:dCopy withBlock:v12];
-
-  v9 = *MEMORY[0x1E69E9840];
+  [(FCIssueReadingHistory *)self _modifyHistoryForIssueID:dCopy withBlock:v11];
 }
 
 void __63__FCIssueReadingHistory_markIssueWithID_asVisitedWithBookmark___block_invoke(uint64_t a1, void *a2)
@@ -233,7 +229,7 @@ LABEL_6:
 
 - (void)_modifyHistoryForIssueID:(void *)d withBlock:
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v5 = a2;
   dCopy = d;
   if (!self)
@@ -244,15 +240,15 @@ LABEL_6:
   [MEMORY[0x1E696AF00] isMainThread];
   if (!v5 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "issueID != nil"];
+    v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "issueID != nil"];
     *buf = 136315906;
-    v22 = "[FCIssueReadingHistory _modifyHistoryForIssueID:withBlock:]";
-    v23 = 2080;
-    v24 = "FCIssueReadingHistory.m";
-    v25 = 1024;
-    v26 = 475;
-    v27 = 2114;
-    v28 = v16;
+    v21 = "[FCIssueReadingHistory _modifyHistoryForIssueID:withBlock:]";
+    v22 = 2080;
+    v23 = "FCIssueReadingHistory.m";
+    v24 = 1024;
+    v25 = 475;
+    v26 = 2114;
+    v27 = v15;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (!dCopy)
@@ -260,15 +256,15 @@ LABEL_6:
 LABEL_5:
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "block != nil"];
+        v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "block != nil"];
         *buf = 136315906;
-        v22 = "[FCIssueReadingHistory _modifyHistoryForIssueID:withBlock:]";
-        v23 = 2080;
-        v24 = "FCIssueReadingHistory.m";
-        v25 = 1024;
-        v26 = 476;
-        v27 = 2114;
-        v28 = v17;
+        v21 = "[FCIssueReadingHistory _modifyHistoryForIssueID:withBlock:]";
+        v22 = 2080;
+        v23 = "FCIssueReadingHistory.m";
+        v24 = 1024;
+        v25 = 476;
+        v26 = 2114;
+        v27 = v16;
         _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
       }
     }
@@ -292,71 +288,67 @@ LABEL_5:
   }
 
   dCopy[2](dCopy, v8);
-  v20 = v8;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v20 count:1];
+  v19 = v8;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v19 count:1];
   [(FCIssueReadingHistory *)self _addHistoryItems:v10];
 
   v11 = [FCModifyIssueHistoryCommand alloc];
-  v19 = v8;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v19 count:1];
+  v18 = v8;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v18 count:1];
   v13 = [(FCModifyIssueHistoryCommand *)v11 initWithIssueHistoryItems:v12 merge:0];
 
   [self addCommandToCommandQueue:v13];
-  v18 = v5;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v18 count:1];
+  v17 = v5;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v17 count:1];
   [(FCIssueReadingHistory *)self _didChangeForIssueIDs:v14];
 
 LABEL_10:
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)hasIssueWithIDBeenVisited:(id)visited
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   visitedCopy = visited;
   if (!visitedCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "issueID != nil"];
+    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "issueID != nil"];
     *buf = 136315906;
-    v11 = "[FCIssueReadingHistory hasIssueWithIDBeenVisited:]";
-    v12 = 2080;
-    v13 = "FCIssueReadingHistory.m";
-    v14 = 1024;
-    v15 = 86;
-    v16 = 2114;
-    v17 = v9;
+    v10 = "[FCIssueReadingHistory hasIssueWithIDBeenVisited:]";
+    v11 = 2080;
+    v12 = "FCIssueReadingHistory.m";
+    v13 = 1024;
+    v14 = 86;
+    v15 = 2114;
+    v16 = v8;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   v5 = [(FCIssueReadingHistory *)self bookmarkForLastVisitToIssueWithID:visitedCopy];
   v6 = v5 != 0;
 
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (void)markIssueAsBadgedWithID:(id)d
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   dCopy = d;
   [MEMORY[0x1E696AF00] isMainThread];
   if (!dCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "issueID != nil"];
+    v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "issueID != nil"];
     *buf = 136315906;
-    v8 = "[FCIssueReadingHistory markIssueAsBadgedWithID:]";
-    v9 = 2080;
-    v10 = "FCIssueReadingHistory.m";
-    v11 = 1024;
-    v12 = 93;
-    v13 = 2114;
-    v14 = v6;
+    v7 = "[FCIssueReadingHistory markIssueAsBadgedWithID:]";
+    v8 = 2080;
+    v9 = "FCIssueReadingHistory.m";
+    v10 = 1024;
+    v11 = 93;
+    v12 = 2114;
+    v13 = v5;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   [(FCIssueReadingHistory *)self _modifyHistoryForIssueID:dCopy withBlock:&__block_literal_global_0];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __49__FCIssueReadingHistory_markIssueAsBadgedWithID___block_invoke(uint64_t a1, void *a2)
@@ -369,19 +361,19 @@ void __49__FCIssueReadingHistory_markIssueAsBadgedWithID___block_invoke(uint64_t
 
 - (BOOL)hasIssueWithIDBeenBadged:(id)badged
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   badgedCopy = badged;
   if (!badgedCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "issueID != nil"];
+    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "issueID != nil"];
     *buf = 136315906;
-    v12 = "[FCIssueReadingHistory hasIssueWithIDBeenBadged:]";
-    v13 = 2080;
-    v14 = "FCIssueReadingHistory.m";
-    v15 = 1024;
-    v16 = 101;
-    v17 = 2114;
-    v18 = v10;
+    v11 = "[FCIssueReadingHistory hasIssueWithIDBeenBadged:]";
+    v12 = 2080;
+    v13 = "FCIssueReadingHistory.m";
+    v14 = 1024;
+    v15 = 101;
+    v16 = 2114;
+    v17 = v9;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -389,65 +381,64 @@ void __49__FCIssueReadingHistory_markIssueAsBadgedWithID___block_invoke(uint64_t
   lastBadgedDate = [v5 lastBadgedDate];
   v7 = lastBadgedDate != 0;
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (id)_historyItemForIssueID:(uint64_t)d
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (d)
   {
     if (!v3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "issueID != nil"];
+      v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "issueID != nil"];
       *buf = 136315906;
       *&buf[4] = "[FCIssueReadingHistory _historyItemForIssueID:]";
       *&buf[12] = 2080;
       *&buf[14] = "FCIssueReadingHistory.m";
       *&buf[22] = 1024;
-      LODWORD(v20) = 452;
-      WORD2(v20) = 2114;
-      *(&v20 + 6) = v11;
+      LODWORD(v19) = 452;
+      WORD2(v19) = 2114;
+      *(&v19 + 6) = v10;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
     }
 
     v5 = FCIssueHistoryItemIDFromIssueID(v4);
     if (!v5 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "identifier != nil"];
+      v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "identifier != nil"];
       *buf = 136315906;
       *&buf[4] = "[FCIssueReadingHistory _historyItemForID:]";
       *&buf[12] = 2080;
       *&buf[14] = "FCIssueReadingHistory.m";
       *&buf[22] = 1024;
-      LODWORD(v20) = 460;
-      WORD2(v20) = 2114;
-      *(&v20 + 6) = v12;
+      LODWORD(v19) = 460;
+      WORD2(v19) = 2114;
+      *(&v19 + 6) = v11;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
     }
 
-    v13 = 0;
-    v14 = &v13;
-    v15 = 0x3032000000;
-    v16 = __Block_byref_object_copy__0;
-    v17 = __Block_byref_object_dispose__0;
-    v18 = 0;
+    v12 = 0;
+    v13 = &v12;
+    v14 = 0x3032000000;
+    v15 = __Block_byref_object_copy__0;
+    v16 = __Block_byref_object_dispose__0;
+    v17 = 0;
     v6 = *(d + 96);
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = __43__FCIssueReadingHistory__historyItemForID___block_invoke;
-    *&v20 = &unk_1E7C37138;
-    v22 = &v13;
-    *(&v20 + 1) = d;
+    *&v19 = &unk_1E7C37138;
+    v21 = &v12;
+    *(&v19 + 1) = d;
     v7 = v5;
-    v21 = v7;
+    v20 = v7;
     [v6 performReadSync:buf];
 
-    v8 = v14[5];
-    _Block_object_dispose(&v13, 8);
+    v8 = v13[5];
+    _Block_object_dispose(&v12, 8);
   }
 
   else
@@ -455,33 +446,29 @@ void __49__FCIssueReadingHistory_markIssueAsBadgedWithID___block_invoke(uint64_t
     v8 = 0;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-
   return v8;
 }
 
 - (void)markIssueAsEngagedWithID:(id)d
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   dCopy = d;
   [MEMORY[0x1E696AF00] isMainThread];
   if (!dCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "issueID != nil"];
+    v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "issueID != nil"];
     *buf = 136315906;
-    v8 = "[FCIssueReadingHistory markIssueAsEngagedWithID:]";
-    v9 = 2080;
-    v10 = "FCIssueReadingHistory.m";
-    v11 = 1024;
-    v12 = 108;
-    v13 = 2114;
-    v14 = v6;
+    v7 = "[FCIssueReadingHistory markIssueAsEngagedWithID:]";
+    v8 = 2080;
+    v9 = "FCIssueReadingHistory.m";
+    v10 = 1024;
+    v11 = 108;
+    v12 = 2114;
+    v13 = v5;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   [(FCIssueReadingHistory *)self _modifyHistoryForIssueID:dCopy withBlock:&__block_literal_global_18];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __50__FCIssueReadingHistory_markIssueAsEngagedWithID___block_invoke(uint64_t a1, void *a2)
@@ -494,19 +481,19 @@ void __50__FCIssueReadingHistory_markIssueAsEngagedWithID___block_invoke(uint64_
 
 - (BOOL)hasIssueWithIDBeenEngaged:(id)engaged
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   engagedCopy = engaged;
   if (!engagedCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "issueID != nil"];
+    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "issueID != nil"];
     *buf = 136315906;
-    v12 = "[FCIssueReadingHistory hasIssueWithIDBeenEngaged:]";
-    v13 = 2080;
-    v14 = "FCIssueReadingHistory.m";
-    v15 = 1024;
-    v16 = 116;
-    v17 = 2114;
-    v18 = v10;
+    v11 = "[FCIssueReadingHistory hasIssueWithIDBeenEngaged:]";
+    v12 = 2080;
+    v13 = "FCIssueReadingHistory.m";
+    v14 = 1024;
+    v15 = 116;
+    v16 = 2114;
+    v17 = v9;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -514,32 +501,29 @@ void __50__FCIssueReadingHistory_markIssueAsEngagedWithID___block_invoke(uint64_
   lastEngagedDate = [v5 lastEngagedDate];
   v7 = lastEngagedDate != 0;
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (void)markIssueAsSeenWithID:(id)d
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   dCopy = d;
   [MEMORY[0x1E696AF00] isMainThread];
   if (!dCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "issueID != nil"];
+    v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "issueID != nil"];
     *buf = 136315906;
-    v8 = "[FCIssueReadingHistory markIssueAsSeenWithID:]";
-    v9 = 2080;
-    v10 = "FCIssueReadingHistory.m";
-    v11 = 1024;
-    v12 = 123;
-    v13 = 2114;
-    v14 = v6;
+    v7 = "[FCIssueReadingHistory markIssueAsSeenWithID:]";
+    v8 = 2080;
+    v9 = "FCIssueReadingHistory.m";
+    v10 = 1024;
+    v11 = 123;
+    v12 = 2114;
+    v13 = v5;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   [(FCIssueReadingHistory *)self _modifyHistoryForIssueID:dCopy withBlock:&__block_literal_global_20];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __47__FCIssueReadingHistory_markIssueAsSeenWithID___block_invoke(uint64_t a1, void *a2)
@@ -552,19 +536,19 @@ void __47__FCIssueReadingHistory_markIssueAsSeenWithID___block_invoke(uint64_t a
 
 - (BOOL)hasIssueWithIDBeenSeen:(id)seen
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   seenCopy = seen;
   if (!seenCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "issueID != nil"];
+    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "issueID != nil"];
     *buf = 136315906;
-    v12 = "[FCIssueReadingHistory hasIssueWithIDBeenSeen:]";
-    v13 = 2080;
-    v14 = "FCIssueReadingHistory.m";
-    v15 = 1024;
-    v16 = 131;
-    v17 = 2114;
-    v18 = v10;
+    v11 = "[FCIssueReadingHistory hasIssueWithIDBeenSeen:]";
+    v12 = 2080;
+    v13 = "FCIssueReadingHistory.m";
+    v14 = 1024;
+    v15 = 131;
+    v16 = 2114;
+    v17 = v9;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -572,32 +556,29 @@ void __47__FCIssueReadingHistory_markIssueAsSeenWithID___block_invoke(uint64_t a
   lastSeenDate = [v5 lastSeenDate];
   v7 = lastSeenDate != 0;
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (void)markIssueAsRemovedFromMyMagazinesWithID:(id)d
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   dCopy = d;
   [MEMORY[0x1E696AF00] isMainThread];
   if (!dCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "issueID != nil"];
+    v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "issueID != nil"];
     *buf = 136315906;
-    v8 = "[FCIssueReadingHistory markIssueAsRemovedFromMyMagazinesWithID:]";
-    v9 = 2080;
-    v10 = "FCIssueReadingHistory.m";
-    v11 = 1024;
-    v12 = 138;
-    v13 = 2114;
-    v14 = v6;
+    v7 = "[FCIssueReadingHistory markIssueAsRemovedFromMyMagazinesWithID:]";
+    v8 = 2080;
+    v9 = "FCIssueReadingHistory.m";
+    v10 = 1024;
+    v11 = 138;
+    v12 = 2114;
+    v13 = v5;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   [(FCIssueReadingHistory *)self _modifyHistoryForIssueID:dCopy withBlock:&__block_literal_global_22];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __65__FCIssueReadingHistory_markIssueAsRemovedFromMyMagazinesWithID___block_invoke(uint64_t a1, void *a2)
@@ -610,19 +591,19 @@ void __65__FCIssueReadingHistory_markIssueAsRemovedFromMyMagazinesWithID___block
 
 - (id)bookmarkForLastVisitToIssueWithID:(id)d
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (!dCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "issueID != nil"];
+    v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "issueID != nil"];
     *buf = 136315906;
-    v14 = "[FCIssueReadingHistory bookmarkForLastVisitToIssueWithID:]";
-    v15 = 2080;
-    v16 = "FCIssueReadingHistory.m";
-    v17 = 1024;
-    v18 = 147;
-    v19 = 2114;
-    v20 = v12;
+    v13 = "[FCIssueReadingHistory bookmarkForLastVisitToIssueWithID:]";
+    v14 = 2080;
+    v15 = "FCIssueReadingHistory.m";
+    v16 = 1024;
+    v17 = 147;
+    v18 = 2114;
+    v19 = v11;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -651,111 +632,102 @@ void __65__FCIssueReadingHistory_markIssueAsRemovedFromMyMagazinesWithID___block
   lastVisitedPageID = v8;
 
 LABEL_9:
-  v10 = *MEMORY[0x1E69E9840];
 
   return lastVisitedPageID;
 }
 
 - (id)lastVisitedDateForIssueWithID:(id)d
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (!dCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "issueID != nil"];
+    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "issueID != nil"];
     *buf = 136315906;
-    v11 = "[FCIssueReadingHistory lastVisitedDateForIssueWithID:]";
-    v12 = 2080;
-    v13 = "FCIssueReadingHistory.m";
-    v14 = 1024;
-    v15 = 168;
-    v16 = 2114;
-    v17 = v9;
+    v10 = "[FCIssueReadingHistory lastVisitedDateForIssueWithID:]";
+    v11 = 2080;
+    v12 = "FCIssueReadingHistory.m";
+    v13 = 1024;
+    v14 = 168;
+    v15 = 2114;
+    v16 = v8;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   v5 = [(FCIssueReadingHistory *)self _historyItemForIssueID:dCopy];
   lastVisitedDate = [v5 lastVisitedDate];
 
-  v7 = *MEMORY[0x1E69E9840];
-
   return lastVisitedDate;
 }
 
 - (id)lastEngagedDateForIssueWithID:(id)d
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (!dCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "issueID != nil"];
+    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "issueID != nil"];
     *buf = 136315906;
-    v11 = "[FCIssueReadingHistory lastEngagedDateForIssueWithID:]";
-    v12 = 2080;
-    v13 = "FCIssueReadingHistory.m";
-    v14 = 1024;
-    v15 = 176;
-    v16 = 2114;
-    v17 = v9;
+    v10 = "[FCIssueReadingHistory lastEngagedDateForIssueWithID:]";
+    v11 = 2080;
+    v12 = "FCIssueReadingHistory.m";
+    v13 = 1024;
+    v14 = 176;
+    v15 = 2114;
+    v16 = v8;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   v5 = [(FCIssueReadingHistory *)self _historyItemForIssueID:dCopy];
   lastEngagedDate = [v5 lastEngagedDate];
 
-  v7 = *MEMORY[0x1E69E9840];
-
   return lastEngagedDate;
 }
 
 - (id)lastSeenDateForIssueWithID:(id)d
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (!dCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "issueID != nil"];
+    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "issueID != nil"];
     *buf = 136315906;
-    v11 = "[FCIssueReadingHistory lastSeenDateForIssueWithID:]";
-    v12 = 2080;
-    v13 = "FCIssueReadingHistory.m";
-    v14 = 1024;
-    v15 = 184;
-    v16 = 2114;
-    v17 = v9;
+    v10 = "[FCIssueReadingHistory lastSeenDateForIssueWithID:]";
+    v11 = 2080;
+    v12 = "FCIssueReadingHistory.m";
+    v13 = 1024;
+    v14 = 184;
+    v15 = 2114;
+    v16 = v8;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   v5 = [(FCIssueReadingHistory *)self _historyItemForIssueID:dCopy];
   lastSeenDate = [v5 lastSeenDate];
 
-  v7 = *MEMORY[0x1E69E9840];
-
   return lastSeenDate;
 }
 
 - (id)lastRemovedFromMyMagazinesDateForIssueWithID:(id)d
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (!dCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "issueID != nil"];
+    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "issueID != nil"];
     *buf = 136315906;
-    v11 = "[FCIssueReadingHistory lastRemovedFromMyMagazinesDateForIssueWithID:]";
-    v12 = 2080;
-    v13 = "FCIssueReadingHistory.m";
-    v14 = 1024;
-    v15 = 192;
-    v16 = 2114;
-    v17 = v9;
+    v10 = "[FCIssueReadingHistory lastRemovedFromMyMagazinesDateForIssueWithID:]";
+    v11 = 2080;
+    v12 = "FCIssueReadingHistory.m";
+    v13 = 1024;
+    v14 = 192;
+    v15 = 2114;
+    v16 = v8;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   v5 = [(FCIssueReadingHistory *)self _historyItemForIssueID:dCopy];
   lastRemovedFromMyMagazinesDate = [v5 lastRemovedFromMyMagazinesDate];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return lastRemovedFromMyMagazinesDate;
 }
@@ -944,54 +916,50 @@ uint64_t __43__FCIssueReadingHistory_allEngagedIssueIDs__block_invoke_2(uint64_t
 
 - (void)addObserver:(id)observer
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   observerCopy = observer;
   [MEMORY[0x1E696AF00] isMainThread];
   if (!observerCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "observer != nil"];
+    v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "observer != nil"];
     *buf = 136315906;
-    v9 = "[FCIssueReadingHistory addObserver:]";
-    v10 = 2080;
-    v11 = "FCIssueReadingHistory.m";
-    v12 = 1024;
-    v13 = 272;
-    v14 = 2114;
-    v15 = v6;
+    v8 = "[FCIssueReadingHistory addObserver:]";
+    v9 = 2080;
+    v10 = "FCIssueReadingHistory.m";
+    v11 = 1024;
+    v12 = 272;
+    v13 = 2114;
+    v14 = v5;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v7.receiver = self;
-  v7.super_class = FCIssueReadingHistory;
-  [(FCPrivateDataController *)&v7 addObserver:observerCopy];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6.receiver = self;
+  v6.super_class = FCIssueReadingHistory;
+  [(FCPrivateDataController *)&v6 addObserver:observerCopy];
 }
 
 - (void)removeObserver:(id)observer
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   observerCopy = observer;
   [MEMORY[0x1E696AF00] isMainThread];
   if (!observerCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "observer != nil"];
+    v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "observer != nil"];
     *buf = 136315906;
-    v9 = "[FCIssueReadingHistory removeObserver:]";
-    v10 = 2080;
-    v11 = "FCIssueReadingHistory.m";
-    v12 = 1024;
-    v13 = 280;
-    v14 = 2114;
-    v15 = v6;
+    v8 = "[FCIssueReadingHistory removeObserver:]";
+    v9 = 2080;
+    v10 = "FCIssueReadingHistory.m";
+    v11 = 1024;
+    v12 = 280;
+    v13 = 2114;
+    v14 = v5;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v7.receiver = self;
-  v7.super_class = FCIssueReadingHistory;
-  [(FCPrivateDataController *)&v7 removeObserver:observerCopy];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6.receiver = self;
+  v6.super_class = FCIssueReadingHistory;
+  [(FCPrivateDataController *)&v6 removeObserver:observerCopy];
 }
 
 - (void)clearHistory
@@ -1063,34 +1031,34 @@ uint64_t __37__FCIssueReadingHistory_clearHistory__block_invoke_2(uint64_t a1)
 
 - (void)_didChangeForIssueIDs:(void *)ds
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (ds)
   {
     [MEMORY[0x1E696AF00] isMainThread];
+    v11 = 0u;
     v12 = 0u;
     v13 = 0u;
     v14 = 0u;
-    v15 = 0u;
     observers = [ds observers];
     v5 = [observers copy];
 
-    v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v13;
+      v8 = *v12;
       do
       {
         v9 = 0;
         do
         {
-          if (*v13 != v8)
+          if (*v12 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v12 + 1) + 8 * v9);
+          v10 = *(*(&v11 + 1) + 8 * v9);
           if (objc_opt_respondsToSelector())
           {
             [v10 issueReadingHistoryDidChange:ds forIssueIDs:v3];
@@ -1100,54 +1068,50 @@ uint64_t __37__FCIssueReadingHistory_clearHistory__block_invoke_2(uint64_t a1)
         }
 
         while (v7 != v9);
-        v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v7);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 + (id)backingRecordZoneIDs
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E695BA90]);
   v3 = [v2 initWithZoneName:@"IssueReadingHistory" ownerName:*MEMORY[0x1E695B728]];
-  v7[0] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[0] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
 
   return v4;
 }
 
 + (id)commandsToMergeLocalDataToCloud:(id)cloud privateDataDirectory:(id)directory
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   cloudCopy = cloud;
   array = [MEMORY[0x1E695DF70] array];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   allKeys = [cloudCopy allKeys];
-  v8 = [allKeys countByEnumeratingWithState:&v18 objects:v23 count:16];
+  v8 = [allKeys countByEnumeratingWithState:&v17 objects:v22 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v19;
+    v10 = *v18;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * i);
+        v12 = *(*(&v17 + 1) + 8 * i);
         if (([self isLocalStoreKeyInternal:v12] & 1) == 0)
         {
           v13 = [cloudCopy objectForKeyedSubscript:v12];
@@ -1155,17 +1119,15 @@ uint64_t __37__FCIssueReadingHistory_clearHistory__block_invoke_2(uint64_t a1)
         }
       }
 
-      v9 = [allKeys countByEnumeratingWithState:&v18 objects:v23 count:16];
+      v9 = [allKeys countByEnumeratingWithState:&v17 objects:v22 count:16];
     }
 
     while (v9);
   }
 
   v14 = [[FCModifyIssueHistoryCommand alloc] initWithIssueHistoryItems:array merge:1];
-  v22 = v14;
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v22 count:1];
-
-  v16 = *MEMORY[0x1E69E9840];
+  v21 = v14;
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v21 count:1];
 
   return v15;
 }
@@ -1223,36 +1185,34 @@ uint64_t __37__FCIssueReadingHistory_clearHistory__block_invoke_2(uint64_t a1)
 
 - (void)_addHistoryItems:(uint64_t)items
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (items)
   {
     [MEMORY[0x1E696AF00] isMainThread];
     if (!v3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "items != nil"];
+      v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "items != nil"];
       *buf = 136315906;
-      v11 = "[FCIssueReadingHistory _addHistoryItems:]";
-      v12 = 2080;
-      v13 = "FCIssueReadingHistory.m";
-      v14 = 1024;
-      v15 = 501;
-      v16 = 2114;
-      v17 = v6;
+      v10 = "[FCIssueReadingHistory _addHistoryItems:]";
+      v11 = 2080;
+      v12 = "FCIssueReadingHistory.m";
+      v13 = 1024;
+      v14 = 501;
+      v15 = 2114;
+      v16 = v5;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
     }
 
     v4 = *(items + 96);
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __42__FCIssueReadingHistory__addHistoryItems___block_invoke;
-    v7[3] = &unk_1E7C36C58;
-    v8 = v3;
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = __42__FCIssueReadingHistory__addHistoryItems___block_invoke;
+    v6[3] = &unk_1E7C36C58;
+    v7 = v3;
     itemsCopy = items;
-    [v4 performWriteSync:v7];
+    [v4 performWriteSync:v6];
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __73__FCIssueReadingHistory_handleSyncWithChangedRecords_deletedRecordNames___block_invoke_4(uint64_t a1)
@@ -1314,28 +1274,28 @@ void __43__FCIssueReadingHistory__historyItemForID___block_invoke(void *a1)
 
 void __42__FCIssueReadingHistory__addHistoryItems___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v15;
+    v5 = *v14;
     do
     {
       v6 = 0;
       do
       {
-        if (*v15 != v5)
+        if (*v14 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v14 + 1) + 8 * v6);
+        v7 = *(*(&v13 + 1) + 8 * v6);
         v8 = [v7 identifier];
         v9 = *(a1 + 40);
         if (v9)
@@ -1356,14 +1316,12 @@ void __42__FCIssueReadingHistory__addHistoryItems___block_invoke(uint64_t a1)
       }
 
       while (v4 != v6);
-      v12 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v12 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
       v4 = v12;
     }
 
     while (v12);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __41__FCIssueReadingHistory__allHistoryItems__block_invoke(uint64_t a1)

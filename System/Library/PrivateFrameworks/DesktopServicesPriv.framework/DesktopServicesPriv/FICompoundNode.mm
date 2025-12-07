@@ -2,11 +2,21 @@
 - (BOOL)isPopulated;
 - (BOOL)isValid;
 - (BOOL)markAsUsed:(id *)used;
+- (BOOL)propertyAsBool:(unsigned int)bool async:(BOOL)async options:(unsigned int)options error:(id *)error;
 - (BOOL)requiresFPOperations;
+- (BOOL)setProperty:(unsigned int)property asArray:(id)array async:(BOOL)async options:(unsigned int)options error:(id *)error;
+- (BOOL)setProperty:(unsigned int)property asBool:(BOOL)bool async:(BOOL)async options:(unsigned int)options error:(id *)error;
+- (BOOL)setProperty:(unsigned int)property asData:(id)data async:(BOOL)async options:(unsigned int)options error:(id *)error;
+- (BOOL)setProperty:(unsigned int)property asDate:(id)date async:(BOOL)async options:(unsigned int)options error:(id *)error;
+- (BOOL)setProperty:(unsigned int)property asDictionary:(id)dictionary async:(BOOL)async options:(unsigned int)options error:(id *)error;
+- (BOOL)setProperty:(unsigned int)property asNumber:(id)number async:(BOOL)async options:(unsigned int)options error:(id *)error;
+- (BOOL)setProperty:(unsigned int)property asObject:(id)object async:(BOOL)async options:(unsigned int)options error:(id *)error;
+- (BOOL)setProperty:(unsigned int)property asString:(id)string async:(BOOL)async options:(unsigned int)options error:(id *)error;
 - (FICompoundNode)initWithFINodes:(id)nodes;
 - (FICompoundNode)initWithNodes:(id)nodes;
 - (FICompoundNode)initWithNodes:(id)nodes subject:(id)subject;
 - (id).cxx_construct;
+- (id)copyFromAlias:(unsigned int)alias allowUI:(BOOL)i followAliasChain:(BOOL)chain;
 - (id)copyProgress;
 - (id)downloadProgress;
 - (id)enumeratorError;
@@ -15,15 +25,31 @@
 - (id)fileURL;
 - (id)fpDomain;
 - (id)fpItem;
+- (id)iteratorWithOptions:(unsigned int)options;
 - (id)longDescription;
 - (id)nodesWithSubject;
 - (id)parent;
+- (id)propertyAsArray:(unsigned int)array async:(BOOL)async options:(unsigned int)options error:(id *)error;
+- (id)propertyAsBoolean:(unsigned int)boolean async:(BOOL)async options:(unsigned int)options error:(id *)error;
+- (id)propertyAsData:(unsigned int)data async:(BOOL)async options:(unsigned int)options error:(id *)error;
+- (id)propertyAsDate:(unsigned int)date async:(BOOL)async options:(unsigned int)options error:(id *)error;
+- (id)propertyAsDictionary:(unsigned int)dictionary async:(BOOL)async options:(unsigned int)options error:(id *)error;
+- (id)propertyAsNSObject:(unsigned int)object async:(BOOL)async options:(unsigned int)options error:(id *)error;
+- (id)propertyAsNumber:(unsigned int)number async:(BOOL)async options:(unsigned int)options error:(id *)error;
+- (id)propertyAsString:(unsigned int)string async:(BOOL)async options:(unsigned int)options error:(id *)error;
 - (id)shortDescription;
 - (id)source;
 - (unint64_t)nodeIs:(unint64_t)is error:(id *)error;
+- (unsigned)nodePermissions:(unsigned int)permissions error:(id *)error;
+- (unsigned)volumeIs:(unsigned int)is error:(id *)error;
 - (void)dispatchEvent:(id)event forObserver:(id)observer;
 - (void)dispatchEvent:forObserver:;
 - (void)inlineProgressCancel;
+- (void)nodeRestartObservingWithOptions:(unsigned int)options;
+- (void)startObserving:(unsigned int)observing with:(OpaqueEventNotifier *)with;
+- (void)stopObserving:(unsigned int)observing with:(OpaqueEventNotifier *)with;
+- (void)synchronizeChildren:(unsigned int)children events:(void *)events;
+- (void)synchronizeWithOptions:(unsigned int)options async:(BOOL)async;
 @end
 
 @implementation FICompoundNode
@@ -244,7 +270,7 @@ LABEL_12:
 
 - (id)enumeratorError
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   subjectNode = [(FICompoundNode *)selfCopy subjectNode];
   v4 = subjectNode;
@@ -255,34 +281,34 @@ LABEL_12:
 
   else
   {
-    v17.receiver = selfCopy;
-    v17.super_class = FICompoundNode;
-    enumeratorError = [(FIDSNode *)&v17 enumeratorError];
+    v16.receiver = selfCopy;
+    v16.super_class = FICompoundNode;
+    enumeratorError = [(FIDSNode *)&v16 enumeratorError];
   }
 
   enumeratorError2 = enumeratorError;
 
   if (!enumeratorError2)
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     nodes = [(FICompoundNode *)selfCopy nodes];
-    v8 = [nodes countByEnumeratingWithState:&v13 objects:v18 count:16];
+    v8 = [nodes countByEnumeratingWithState:&v12 objects:v17 count:16];
     if (v8)
     {
-      v9 = *v14;
+      v9 = *v13;
 LABEL_7:
       v10 = 0;
       while (1)
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(nodes);
         }
 
-        enumeratorError2 = [*(*(&v13 + 1) + 8 * v10) enumeratorError];
+        enumeratorError2 = [*(*(&v12 + 1) + 8 * v10) enumeratorError];
         if (enumeratorError2)
         {
           break;
@@ -290,7 +316,7 @@ LABEL_7:
 
         if (v8 == ++v10)
         {
-          v8 = [nodes countByEnumeratingWithState:&v13 objects:v18 count:16];
+          v8 = [nodes countByEnumeratingWithState:&v12 objects:v17 count:16];
           if (v8)
           {
             goto LABEL_7;
@@ -307,8 +333,6 @@ LABEL_13:
       enumeratorError2 = 0;
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return enumeratorError2;
 }
@@ -518,6 +542,28 @@ LABEL_16:
   return subjectNode;
 }
 
+- (id)copyFromAlias:(unsigned int)alias allowUI:(BOOL)i followAliasChain:(BOOL)chain
+{
+  chainCopy = chain;
+  iCopy = i;
+  v7 = *&alias;
+  subjectNode = [(FICompoundNode *)self subjectNode];
+  if (subjectNode)
+  {
+    v10 = subjectNode;
+    v11 = [subjectNode copyFromAlias:v7 allowUI:iCopy followAliasChain:chainCopy];
+  }
+
+  else
+  {
+    v13.receiver = self;
+    v13.super_class = FICompoundNode;
+    return [(FINode *)&v13 copyFromAlias:v7 allowUI:iCopy followAliasChain:chainCopy];
+  }
+
+  return v11;
+}
+
 - (unint64_t)nodeIs:(unint64_t)is error:(id *)error
 {
   subjectNode = [(FICompoundNode *)self subjectNode];
@@ -537,6 +583,531 @@ LABEL_16:
   return v9;
 }
 
+- (unsigned)volumeIs:(unsigned int)is error:(id *)error
+{
+  v5 = *&is;
+  subjectNode = [(FICompoundNode *)self subjectNode];
+  if (subjectNode)
+  {
+    v8 = subjectNode;
+    v9 = [subjectNode volumeIs:v5 error:error];
+  }
+
+  else
+  {
+    v11.receiver = self;
+    v11.super_class = FICompoundNode;
+    return [(FIDSNode *)&v11 volumeIs:v5 error:error];
+  }
+
+  return v9;
+}
+
+- (unsigned)nodePermissions:(unsigned int)permissions error:(id *)error
+{
+  v5 = *&permissions;
+  subjectNode = [(FICompoundNode *)self subjectNode];
+  if (subjectNode)
+  {
+    v8 = subjectNode;
+    v9 = [subjectNode nodePermissions:v5 error:error];
+  }
+
+  else
+  {
+    v11.receiver = self;
+    v11.super_class = FICompoundNode;
+    return [(FIDSNode *)&v11 nodePermissions:v5 error:error];
+  }
+
+  return v9;
+}
+
+- (void)synchronizeWithOptions:(unsigned int)options async:(BOOL)async
+{
+  asyncCopy = async;
+  v5 = *&options;
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  nodesWithSubject = [(FICompoundNode *)self nodesWithSubject];
+  v7 = [nodesWithSubject countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v7)
+  {
+    v8 = *v11;
+    do
+    {
+      v9 = 0;
+      do
+      {
+        if (*v11 != v8)
+        {
+          objc_enumerationMutation(nodesWithSubject);
+        }
+
+        [*(*(&v10 + 1) + 8 * v9++) synchronizeWithOptions:v5 async:asyncCopy];
+      }
+
+      while (v7 != v9);
+      v7 = [nodesWithSubject countByEnumeratingWithState:&v10 objects:v14 count:16];
+    }
+
+    while (v7);
+  }
+}
+
+- (void)synchronizeChildren:(unsigned int)children events:(void *)events
+{
+  v5 = *&children;
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  nodesWithSubject = [(FICompoundNode *)self nodesWithSubject];
+  v7 = [nodesWithSubject countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v7)
+  {
+    v8 = *v11;
+    do
+    {
+      v9 = 0;
+      do
+      {
+        if (*v11 != v8)
+        {
+          objc_enumerationMutation(nodesWithSubject);
+        }
+
+        [*(*(&v10 + 1) + 8 * v9++) synchronizeChildren:v5 events:events];
+      }
+
+      while (v7 != v9);
+      v7 = [nodesWithSubject countByEnumeratingWithState:&v10 objects:v14 count:16];
+    }
+
+    while (v7);
+  }
+}
+
+- (void)nodeRestartObservingWithOptions:(unsigned int)options
+{
+  v3 = *&options;
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
+  v9 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  nodesWithSubject = [(FICompoundNode *)self nodesWithSubject];
+  v5 = [nodesWithSubject countByEnumeratingWithState:&v8 objects:v12 count:16];
+  if (v5)
+  {
+    v6 = *v9;
+    do
+    {
+      v7 = 0;
+      do
+      {
+        if (*v9 != v6)
+        {
+          objc_enumerationMutation(nodesWithSubject);
+        }
+
+        [*(*(&v8 + 1) + 8 * v7++) nodeRestartObservingWithOptions:v3];
+      }
+
+      while (v5 != v7);
+      v5 = [nodesWithSubject countByEnumeratingWithState:&v8 objects:v12 count:16];
+    }
+
+    while (v5);
+  }
+}
+
+- (id)propertyAsNumber:(unsigned int)number async:(BOOL)async options:(unsigned int)options error:(id *)error
+{
+  v7 = *&options;
+  asyncCopy = async;
+  v9 = *&number;
+  subjectNode = [(FICompoundNode *)self subjectNode];
+  if (subjectNode)
+  {
+    v12 = subjectNode;
+    v13 = [subjectNode propertyAsNumber:v9 async:asyncCopy options:v7 error:error];
+  }
+
+  else
+  {
+    v15.receiver = self;
+    v15.super_class = FICompoundNode;
+    v13 = [(FICustomNode *)&v15 propertyAsNumber:v9 async:asyncCopy options:v7 error:error];
+  }
+
+  return v13;
+}
+
+- (id)propertyAsDate:(unsigned int)date async:(BOOL)async options:(unsigned int)options error:(id *)error
+{
+  v7 = *&options;
+  asyncCopy = async;
+  v9 = *&date;
+  subjectNode = [(FICompoundNode *)self subjectNode];
+  if (subjectNode)
+  {
+    v12 = subjectNode;
+    v13 = [subjectNode propertyAsDate:v9 async:asyncCopy options:v7 error:error];
+  }
+
+  else
+  {
+    v15.receiver = self;
+    v15.super_class = FICompoundNode;
+    v13 = [(FIDSNode *)&v15 propertyAsDate:v9 async:asyncCopy options:v7 error:error];
+  }
+
+  return v13;
+}
+
+- (id)propertyAsString:(unsigned int)string async:(BOOL)async options:(unsigned int)options error:(id *)error
+{
+  v7 = *&options;
+  asyncCopy = async;
+  v9 = *&string;
+  subjectNode = [(FICompoundNode *)self subjectNode];
+  if (subjectNode)
+  {
+    v12 = subjectNode;
+    v13 = [subjectNode propertyAsString:v9 async:asyncCopy options:v7 error:error];
+  }
+
+  else
+  {
+    v15.receiver = self;
+    v15.super_class = FICompoundNode;
+    v13 = [(FIDSNode *)&v15 propertyAsString:v9 async:asyncCopy options:v7 error:error];
+  }
+
+  return v13;
+}
+
+- (id)propertyAsArray:(unsigned int)array async:(BOOL)async options:(unsigned int)options error:(id *)error
+{
+  v7 = *&options;
+  asyncCopy = async;
+  v9 = *&array;
+  subjectNode = [(FICompoundNode *)self subjectNode];
+  if (subjectNode)
+  {
+    v12 = subjectNode;
+    v13 = [subjectNode propertyAsArray:v9 async:asyncCopy options:v7 error:error];
+  }
+
+  else
+  {
+    v15.receiver = self;
+    v15.super_class = FICompoundNode;
+    v13 = [(FIDSNode *)&v15 propertyAsArray:v9 async:asyncCopy options:v7 error:error];
+  }
+
+  return v13;
+}
+
+- (id)propertyAsNSObject:(unsigned int)object async:(BOOL)async options:(unsigned int)options error:(id *)error
+{
+  v7 = *&options;
+  asyncCopy = async;
+  v9 = *&object;
+  subjectNode = [(FICompoundNode *)self subjectNode];
+  if (subjectNode)
+  {
+    v12 = subjectNode;
+    v13 = [subjectNode propertyAsNSObject:v9 async:asyncCopy options:v7 error:error];
+  }
+
+  else
+  {
+    v15.receiver = self;
+    v15.super_class = FICompoundNode;
+    v13 = [(FIDSNode *)&v15 propertyAsNSObject:v9 async:asyncCopy options:v7 error:error];
+  }
+
+  return v13;
+}
+
+- (id)propertyAsDictionary:(unsigned int)dictionary async:(BOOL)async options:(unsigned int)options error:(id *)error
+{
+  v7 = *&options;
+  asyncCopy = async;
+  v9 = *&dictionary;
+  subjectNode = [(FICompoundNode *)self subjectNode];
+  if (subjectNode)
+  {
+    v12 = subjectNode;
+    v13 = [subjectNode propertyAsDictionary:v9 async:asyncCopy options:v7 error:error];
+  }
+
+  else
+  {
+    v15.receiver = self;
+    v15.super_class = FICompoundNode;
+    v13 = [(FIDSNode *)&v15 propertyAsDictionary:v9 async:asyncCopy options:v7 error:error];
+  }
+
+  return v13;
+}
+
+- (BOOL)propertyAsBool:(unsigned int)bool async:(BOOL)async options:(unsigned int)options error:(id *)error
+{
+  v7 = *&options;
+  asyncCopy = async;
+  v9 = *&bool;
+  subjectNode = [(FICompoundNode *)self subjectNode];
+  if (subjectNode)
+  {
+    v12 = subjectNode;
+    v13 = [subjectNode propertyAsBool:v9 async:asyncCopy options:v7 error:error];
+  }
+
+  else
+  {
+    v15.receiver = self;
+    v15.super_class = FICompoundNode;
+    return [(FIDSNode *)&v15 propertyAsBool:v9 async:asyncCopy options:v7 error:error];
+  }
+
+  return v13;
+}
+
+- (id)propertyAsBoolean:(unsigned int)boolean async:(BOOL)async options:(unsigned int)options error:(id *)error
+{
+  v7 = *&options;
+  asyncCopy = async;
+  v9 = *&boolean;
+  subjectNode = [(FICompoundNode *)self subjectNode];
+  if (subjectNode)
+  {
+    v12 = subjectNode;
+    v13 = [subjectNode propertyAsBoolean:v9 async:asyncCopy options:v7 error:error];
+  }
+
+  else
+  {
+    v15.receiver = self;
+    v15.super_class = FICompoundNode;
+    v13 = [(FINode *)&v15 propertyAsBoolean:v9 async:asyncCopy options:v7 error:error];
+  }
+
+  return v13;
+}
+
+- (id)propertyAsData:(unsigned int)data async:(BOOL)async options:(unsigned int)options error:(id *)error
+{
+  v7 = *&options;
+  asyncCopy = async;
+  v9 = *&data;
+  subjectNode = [(FICompoundNode *)self subjectNode];
+  if (subjectNode)
+  {
+    v12 = subjectNode;
+    v13 = [subjectNode propertyAsData:v9 async:asyncCopy options:v7 error:error];
+  }
+
+  else
+  {
+    v15.receiver = self;
+    v15.super_class = FICompoundNode;
+    v13 = [(FIDSNode *)&v15 propertyAsData:v9 async:asyncCopy options:v7 error:error];
+  }
+
+  return v13;
+}
+
+- (BOOL)setProperty:(unsigned int)property asNumber:(id)number async:(BOOL)async options:(unsigned int)options error:(id *)error
+{
+  v8 = *&options;
+  asyncCopy = async;
+  v10 = *&property;
+  numberCopy = number;
+  subjectNode = [(FICompoundNode *)self subjectNode];
+  v14 = subjectNode;
+  if (subjectNode)
+  {
+    v15 = [subjectNode setProperty:v10 asNumber:numberCopy async:asyncCopy options:v8 error:error];
+  }
+
+  else
+  {
+    v17.receiver = self;
+    v17.super_class = FICompoundNode;
+    v15 = [(FIDSNode *)&v17 setProperty:v10 asNumber:numberCopy async:asyncCopy options:v8 error:error];
+  }
+
+  return v15;
+}
+
+- (BOOL)setProperty:(unsigned int)property asDate:(id)date async:(BOOL)async options:(unsigned int)options error:(id *)error
+{
+  v8 = *&options;
+  asyncCopy = async;
+  v10 = *&property;
+  dateCopy = date;
+  subjectNode = [(FICompoundNode *)self subjectNode];
+  v14 = subjectNode;
+  if (subjectNode)
+  {
+    v15 = [subjectNode setProperty:v10 asDate:dateCopy async:asyncCopy options:v8 error:error];
+  }
+
+  else
+  {
+    v17.receiver = self;
+    v17.super_class = FICompoundNode;
+    v15 = [(FIDSNode *)&v17 setProperty:v10 asDate:dateCopy async:asyncCopy options:v8 error:error];
+  }
+
+  return v15;
+}
+
+- (BOOL)setProperty:(unsigned int)property asString:(id)string async:(BOOL)async options:(unsigned int)options error:(id *)error
+{
+  v8 = *&options;
+  asyncCopy = async;
+  v10 = *&property;
+  stringCopy = string;
+  subjectNode = [(FICompoundNode *)self subjectNode];
+  v14 = subjectNode;
+  if (subjectNode)
+  {
+    v15 = [subjectNode setProperty:v10 asString:stringCopy async:asyncCopy options:v8 error:error];
+  }
+
+  else
+  {
+    v17.receiver = self;
+    v17.super_class = FICompoundNode;
+    v15 = [(FIDSNode *)&v17 setProperty:v10 asString:stringCopy async:asyncCopy options:v8 error:error];
+  }
+
+  return v15;
+}
+
+- (BOOL)setProperty:(unsigned int)property asArray:(id)array async:(BOOL)async options:(unsigned int)options error:(id *)error
+{
+  v8 = *&options;
+  asyncCopy = async;
+  v10 = *&property;
+  arrayCopy = array;
+  subjectNode = [(FICompoundNode *)self subjectNode];
+  v14 = subjectNode;
+  if (subjectNode)
+  {
+    v15 = [subjectNode setProperty:v10 asArray:arrayCopy async:asyncCopy options:v8 error:error];
+  }
+
+  else
+  {
+    v17.receiver = self;
+    v17.super_class = FICompoundNode;
+    v15 = [(FIDSNode *)&v17 setProperty:v10 asArray:arrayCopy async:asyncCopy options:v8 error:error];
+  }
+
+  return v15;
+}
+
+- (BOOL)setProperty:(unsigned int)property asDictionary:(id)dictionary async:(BOOL)async options:(unsigned int)options error:(id *)error
+{
+  v8 = *&options;
+  asyncCopy = async;
+  v10 = *&property;
+  dictionaryCopy = dictionary;
+  subjectNode = [(FICompoundNode *)self subjectNode];
+  v14 = subjectNode;
+  if (subjectNode)
+  {
+    v15 = [subjectNode setProperty:v10 asDictionary:dictionaryCopy async:asyncCopy options:v8 error:error];
+  }
+
+  else
+  {
+    v17.receiver = self;
+    v17.super_class = FICompoundNode;
+    v15 = [(FINode *)&v17 setProperty:v10 asDictionary:dictionaryCopy async:asyncCopy options:v8 error:error];
+  }
+
+  return v15;
+}
+
+- (BOOL)setProperty:(unsigned int)property asBool:(BOOL)bool async:(BOOL)async options:(unsigned int)options error:(id *)error
+{
+  v8 = *&options;
+  asyncCopy = async;
+  boolCopy = bool;
+  v11 = *&property;
+  subjectNode = [(FICompoundNode *)self subjectNode];
+  if (subjectNode)
+  {
+    v14 = subjectNode;
+    v15 = [subjectNode setProperty:v11 asBool:boolCopy async:asyncCopy options:v8 error:error];
+  }
+
+  else
+  {
+    v17.receiver = self;
+    v17.super_class = FICompoundNode;
+    return [(FIDSNode *)&v17 setProperty:v11 asBool:boolCopy async:asyncCopy options:v8 error:error];
+  }
+
+  return v15;
+}
+
+- (BOOL)setProperty:(unsigned int)property asData:(id)data async:(BOOL)async options:(unsigned int)options error:(id *)error
+{
+  v8 = *&options;
+  asyncCopy = async;
+  v10 = *&property;
+  dataCopy = data;
+  subjectNode = [(FICompoundNode *)self subjectNode];
+  v14 = subjectNode;
+  if (subjectNode)
+  {
+    v15 = [subjectNode setProperty:v10 asData:dataCopy async:asyncCopy options:v8 error:error];
+  }
+
+  else
+  {
+    v17.receiver = self;
+    v17.super_class = FICompoundNode;
+    v15 = [(FIDSNode *)&v17 setProperty:v10 asData:dataCopy async:asyncCopy options:v8 error:error];
+  }
+
+  return v15;
+}
+
+- (BOOL)setProperty:(unsigned int)property asObject:(id)object async:(BOOL)async options:(unsigned int)options error:(id *)error
+{
+  v8 = *&options;
+  asyncCopy = async;
+  v10 = *&property;
+  objectCopy = object;
+  subjectNode = [(FICompoundNode *)self subjectNode];
+  v14 = subjectNode;
+  if (subjectNode)
+  {
+    v15 = [subjectNode setProperty:v10 asObject:objectCopy async:asyncCopy options:v8 error:error];
+  }
+
+  else
+  {
+    v17.receiver = self;
+    v17.super_class = FICompoundNode;
+    v15 = [(FIDSNode *)&v17 setProperty:v10 asObject:objectCopy async:asyncCopy options:v8 error:error];
+  }
+
+  return v15;
+}
+
 - (BOOL)markAsUsed:(id *)used
 {
   subjectNode = [(FICompoundNode *)self subjectNode];
@@ -552,6 +1123,16 @@ LABEL_16:
     v9.super_class = FICompoundNode;
     return [(FIDSNode *)&v9 markAsUsed:used];
   }
+
+  return v7;
+}
+
+- (id)iteratorWithOptions:(unsigned int)options
+{
+  v3 = *&options;
+  v5 = [FICompoundNodeIterator alloc];
+  nodes = [(FICompoundNode *)self nodes];
+  v7 = [(FICompoundNodeIterator *)v5 initWithNodes:nodes options:v3];
 
   return v7;
 }
@@ -627,10 +1208,84 @@ LABEL_16:
   return theString;
 }
 
+- (void)startObserving:(unsigned int)observing with:(OpaqueEventNotifier *)with
+{
+  v5 = *&observing;
+  v7 = [(FIDSNode *)self isObservedForAll:1];
+  v15.receiver = self;
+  v15.super_class = FICompoundNode;
+  [(FIDSNode *)&v15 startObserving:v5 with:with];
+  if (!v7 && [(FIDSNode *)self isObservedForAll:1])
+  {
+    selfCopy = self;
+    objc_sync_enter(selfCopy);
+    nodesToObserve = [(FICompoundNode *)selfCopy nodesToObserve];
+    IDContainerIteratorAdaptor<NSArray<FINode *>>::NSForwardIterator<NSArray<FINode *>>::NSForwardIterator(v17, nodesToObserve);
+    IDContainerIteratorAdaptor<NSArray<FINode *>>::IDContainerIteratorAdaptor(v16, -1, nodesToObserve);
+    next = selfCopy->_nodesToComplete.__table_.__first_node_.__next_;
+    IDContainerIteratorAdaptor<NSArray<FINode *>>::NSForwardIterator<NSArray<FINode *>>::NSForwardIterator(&obj, v17);
+    IDContainerIteratorAdaptor<NSArray<FINode *>>::NSForwardIterator<NSArray<FINode *>>::NSForwardIterator(v18, v16);
+    while (obj != v18[0] || v26 != v18[16])
+    {
+      v11 = *(v21 + 8 * v25);
+      isPopulated = [v11 isPopulated];
+
+      if ((isPopulated & 1) == 0)
+      {
+        v28 = *(v21 + 8 * v25);
+        next = *std::__hash_table<FINode * {__strong},std::hash<FINode * {__strong}>,std::equal_to<FINode * {__strong}>,std::allocator<FINode * {__strong}>>::__emplace_unique_key_args<FINode * {__strong},FINode * {__strong}>(&selfCopy->_nodesToComplete.__table_.__bucket_list_.__ptr_, &v28, &v28);
+      }
+
+      v13 = v25;
+      if (v25 >= v24 - 1)
+      {
+        v14 = [obj countByEnumeratingWithState:&v20 objects:v23 count:4];
+        v13 = -1;
+        v24 = v14;
+        v25 = -1;
+      }
+
+      if (v23[4] != *v22)
+      {
+        objc_enumerationMutation(obj);
+        v13 = v25;
+      }
+
+      ++v26;
+      v25 = v13 + 1;
+    }
+
+    IDContainerIteratorAdaptor<NSArray<FINode *>>::NSForwardIterator<NSArray<FINode *>>::NSForwardIterator(v27, &obj);
+    v27[17] = &selfCopy->_nodesToComplete;
+    v27[18] = next;
+
+    objc_sync_exit(selfCopy);
+  }
+}
+
+- (void)stopObserving:(unsigned int)observing with:(OpaqueEventNotifier *)with
+{
+  v5 = *&observing;
+  v7 = [(FIDSNode *)self isObservedForAll:1];
+  v9.receiver = self;
+  v9.super_class = FICompoundNode;
+  [(FIDSNode *)&v9 stopObserving:v5 with:with];
+  if (v7)
+  {
+    if ([(FIDSNode *)self isObservedForNone:1])
+    {
+      selfCopy = self;
+      objc_sync_enter(selfCopy);
+      std::__hash_table<FINode * {__strong},std::hash<FINode * {__strong}>,std::equal_to<FINode * {__strong}>,std::allocator<FINode * {__strong}>>::clear(&selfCopy->_nodesToComplete);
+      objc_sync_exit(selfCopy);
+    }
+  }
+}
+
 - (void)dispatchEvent:(id)event forObserver:(id)observer
 {
   observerCopy = observer;
-  NodeEventFromNodeEventRef(event, &v27);
+  NodeEventFromNodeEventRef(&v27, event);
   selfCopy = self;
   v26 = v27;
   v7 = selfCopy;
@@ -791,26 +1446,26 @@ LABEL_32:
 
 - (void)dispatchEvent:forObserver:
 {
-  v1 = self + 1;
-  v2 = TNodeFromFINode(*self);
-  v3 = *(TNodeEventPtr::operator->(v1) + 64);
-  v8 = v3;
-  if (v3)
-  {
-    TDSNotifier::AddPtrReference(v3);
-  }
-
-  v4 = *v3;
-  v5 = *(v3 + 1);
-  v9 = v4;
+  v3 = self + 1;
+  v4 = TNodeFromFINode(*self);
+  v5 = *(TNodeEventPtr::operator->(v3) + 64);
   v10 = v5;
   if (v5)
   {
-    atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
+    TDSNotifier::AddPtrReference(v5);
   }
 
-  TNodePtr::TNodePtr(&v7, v2);
-  TNodePtr::TNodePtr(&v6, v2);
+  v6 = *v5;
+  v7 = *(v5 + 1);
+  v11 = v6;
+  v12 = v7;
+  if (v7)
+  {
+    atomic_fetch_add_explicit((v7 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  TNodePtr::TNodePtr(&v9, v4);
+  TNodePtr::TNodePtr(&v8, v4);
   TDSNotifier::Make();
 }
 

@@ -390,14 +390,14 @@ void __55__SBSALayoutModeLayoutProvider_preferencesFromContext___block_invoke_2(
   [v7 setBounds:{*(*(*(a1 + 56) + 8) + 32), *(*(*(a1 + 56) + 8) + 40), *(*(*(a1 + 56) + 8) + 48), *(*(*(a1 + 56) + 8) + 56)}];
   UIRectGetCenter();
   [v7 setCenter:?];
-  memset(&v51, 0, sizeof(v51));
+  memset(&v45, 0, sizeof(v45));
   [v7 contentScale];
-  SBSAAffineTransformFromContentScale(&v51, v8, v9);
+  SBSAAffineTransformFromContentScale(&v45, v8, v9);
   v10 = *(*(a1 + 56) + 8);
-  v49 = v51;
-  CGAffineTransformInvert(&v50, &v49);
-  v52 = CGRectApplyAffineTransform(v10[1], &v50);
-  [v7 setContentBounds:{v52.origin.x, v52.origin.y, v52.size.width, v52.size.height}];
+  v43 = v45;
+  CGAffineTransformInvert(&v44, &v43);
+  v46 = CGRectApplyAffineTransform(v10[1], &v44);
+  [v7 setContentBounds:{v46.origin.x, v46.origin.y, v46.size.width, v46.size.height}];
   UIRectGetCenter();
   [v7 setContentCenter:?];
   if (([*(a1 + 40) systemApertureLayoutCustomizingOptions] & 1) != 0 && objc_msgSend(*(a1 + 32), "supportedElementLayoutMode") == 2)
@@ -439,7 +439,7 @@ void __55__SBSALayoutModeLayoutProvider_preferencesFromContext___block_invoke_2(
       v15 = 0;
     }
 
-    memset(&v50, 0, 32);
+    memset(&v44, 0, 32);
     v16 = [objc_opt_class() settings];
     [v16 prominentPillScale];
     v18 = v17;
@@ -454,23 +454,23 @@ void __55__SBSALayoutModeLayoutProvider_preferencesFromContext___block_invoke_2(
     v30 = v29;
     v31 = [objc_opt_class() settings];
     [v31 prominentPillVerticalOffsetProportion];
-    SBSAScaledAndClippedFrameByScalingLeadingTrailingViews(&v50.a, *(a1 + 48), v20, v22, v24, v26, v28, v30, v18, v18, v32, v33, v34, v35, v36, v37, v38);
-    v39 = *(*(a1 + 64) + 8);
-    v39[4] = v40;
-    v39[5] = v41;
-    v39[6] = v42;
-    v39[7] = v43;
+    SBSAScaledAndClippedFrameByScalingLeadingTrailingViews(&v44.a, *(a1 + 48), v20, v22, v24, v26, v28, v30, v18, v18, v32);
+    v33 = *(*(a1 + 64) + 8);
+    v33[4] = v34;
+    v33[5] = v35;
+    v33[6] = v36;
+    v33[7] = v37;
 
     BSRectWithSize();
-    v44 = *(*(a1 + 56) + 8);
-    v44[4] = v45;
-    v44[5] = v46;
-    v44[6] = v47;
-    v44[7] = v48;
+    v38 = *(*(a1 + 56) + 8);
+    v38[4] = v39;
+    v38[5] = v40;
+    v38[6] = v41;
+    v38[7] = v42;
     [v15 setBounds:{*(*(*(a1 + 56) + 8) + 32), *(*(*(a1 + 56) + 8) + 40), *(*(*(a1 + 56) + 8) + 48), *(*(*(a1 + 56) + 8) + 56)}];
     UIRectGetCenter();
     [v15 setCenter:?];
-    [v15 setContentBounds:{v50.a, v50.b, v50.c, v50.d}];
+    [v15 setContentBounds:{v44.a, v44.b, v44.c, v44.d}];
     UIRectGetCenter();
     [v15 setContentCenter:?];
   }
@@ -587,7 +587,7 @@ void __55__SBSALayoutModeLayoutProvider_preferencesFromContext___block_invoke_3(
 
   if (v6)
   {
-    [v6 leadingViewTransform];
+    objc_msgSend_leadingViewTransform(v6);
   }
 
   else
@@ -599,7 +599,7 @@ void __55__SBSALayoutModeLayoutProvider_preferencesFromContext___block_invoke_3(
   [v6 setLeadingViewTransform:&v11];
   if (v6)
   {
-    [v6 trailingViewTransform];
+    objc_msgSend_trailingViewTransform(v6);
   }
 
   else
@@ -611,7 +611,7 @@ void __55__SBSALayoutModeLayoutProvider_preferencesFromContext___block_invoke_3(
   [v6 setTrailingViewTransform:&v11];
   if (v6)
   {
-    [v6 minimalViewTransform];
+    objc_msgSend_minimalViewTransform(v6);
   }
 
   else

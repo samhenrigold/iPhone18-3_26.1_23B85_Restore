@@ -1,9 +1,9 @@
 @interface SCNTransaction(AvatarKit_CEKWorkaround)
-+ (uint64_t)begin_CEKWorkaround;
-+ (uint64_t)commit_CEKWorkaround;
-+ (uint64_t)flush_CEKWorkaround;
-+ (uint64_t)setAnimationDuration_CEKWorkaround:()AvatarKit_CEKWorkaround;
 + (void)_implementCEKWorkaroundIfNeeded;
++ (void)begin_CEKWorkaround;
++ (void)commit_CEKWorkaround;
++ (void)flush_CEKWorkaround;
++ (void)setAnimationDuration_CEKWorkaround:()AvatarKit_CEKWorkaround;
 @end
 
 @implementation SCNTransaction(AvatarKit_CEKWorkaround)
@@ -16,7 +16,7 @@
   }
 }
 
-+ (uint64_t)begin_CEKWorkaround
++ (void)begin_CEKWorkaround
 {
   [self begin_CEKWorkaround];
   v1 = MEMORY[0x1E69DF378];
@@ -24,26 +24,26 @@
   return [v1 begin];
 }
 
-+ (uint64_t)commit_CEKWorkaround
++ (void)commit_CEKWorkaround
 {
   [MEMORY[0x1E69DF378] commit];
 
   return [self commit_CEKWorkaround];
 }
 
-+ (uint64_t)flush_CEKWorkaround
++ (void)flush_CEKWorkaround
 {
   [MEMORY[0x1E69DF378] flush];
 
   return [self flush_CEKWorkaround];
 }
 
-+ (uint64_t)setAnimationDuration_CEKWorkaround:()AvatarKit_CEKWorkaround
++ (void)setAnimationDuration_CEKWorkaround:()AvatarKit_CEKWorkaround
 {
   [self setAnimationDuration_CEKWorkaround:?];
-  v3 = MEMORY[0x1E69DF378];
+  v2 = MEMORY[0x1E69DF378];
 
-  return [v3 setDuration:a2];
+  return [v2 setDuration:?];
 }
 
 @end

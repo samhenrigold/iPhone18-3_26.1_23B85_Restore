@@ -1,10 +1,25 @@
 @interface BPSCountWindowState
+- (BPSCountWindowState)initWithCapacity:(unint64_t)capacity currentCount:(unint64_t)count identifier:(id)identifier aggregate:(id)aggregate completed:(BOOL)completed;
 - (BPSCountWindowState)initWithCoder:(id)coder;
 - (id)metadata;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation BPSCountWindowState
+
+- (BPSCountWindowState)initWithCapacity:(unint64_t)capacity currentCount:(unint64_t)count identifier:(id)identifier aggregate:(id)aggregate completed:(BOOL)completed
+{
+  v10.receiver = self;
+  v10.super_class = BPSCountWindowState;
+  result = [(BPSWindowState *)&v10 initWithIdentifier:identifier aggregate:aggregate completed:completed];
+  if (result)
+  {
+    result->_capacity = capacity;
+    result->_currentCount = count;
+  }
+
+  return result;
+}
 
 - (id)metadata
 {

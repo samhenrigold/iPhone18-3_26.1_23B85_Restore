@@ -56,35 +56,33 @@
 
 - (id)specifiers
 {
-  v13 = *MEMORY[0x277D85DE8];
-  totalUsageSpecifier = self->_totalUsageSpecifier;
+  v11 = *MEMORY[0x277D85DE8];
   if (self->_usageType)
   {
-    v10 = self->_totalUsageSpecifier;
-    v3 = MEMORY[0x277CBEA60];
-    v4 = &v10;
-    v5 = 1;
+    totalUsageSpecifier = self->_totalUsageSpecifier;
+    v2 = MEMORY[0x277CBEA60];
+    p_totalUsageSpecifier = &totalUsageSpecifier;
+    v4 = 1;
   }
 
   else
   {
     totalRoamingUsageSpecifier = self->_totalRoamingUsageSpecifier;
-    v11 = self->_totalUsageSpecifier;
-    v12 = totalRoamingUsageSpecifier;
-    v3 = MEMORY[0x277CBEA60];
-    v4 = &v11;
-    v5 = 2;
+    v9 = self->_totalUsageSpecifier;
+    v10 = totalRoamingUsageSpecifier;
+    v2 = MEMORY[0x277CBEA60];
+    p_totalUsageSpecifier = &v9;
+    v4 = 2;
   }
 
-  v7 = [v3 arrayWithObjects:v4 count:{v5, v10, v11, v12, v13}];
-  v8 = *MEMORY[0x277D85DE8];
+  v6 = [v2 arrayWithObjects:p_totalUsageSpecifier count:{v4, totalUsageSpecifier, v9, v10, v11}];
 
-  return v7;
+  return v6;
 }
 
 - (id)totalBytesUsed
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   billingPeriodSource = [(PSUITotalCellularUsageSubgroup *)self billingPeriodSource];
   v4 = billingPeriodSource;
   if (billingPeriodSource)
@@ -125,25 +123,23 @@ LABEL_8:
   getLogger = [(PSUITotalCellularUsageSubgroup *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 136315650;
-    v18 = "[PSUITotalCellularUsageSubgroup totalBytesUsed]";
-    v19 = 2112;
-    v20 = v7;
-    v21 = 2048;
-    v22 = v12;
-    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s returning %@ usage %f", &v17, 0x20u);
+    v16 = 136315650;
+    v17 = "[PSUITotalCellularUsageSubgroup totalBytesUsed]";
+    v18 = 2112;
+    v19 = v7;
+    v20 = 2048;
+    v21 = v12;
+    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s returning %@ usage %f", &v16, 0x20u);
   }
 
   v14 = [MEMORY[0x277CCABB0] numberWithDouble:v12];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
 
 - (id)totalRoamingBytesUsed
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   billingPeriodSource = [(PSUITotalCellularUsageSubgroup *)self billingPeriodSource];
   v4 = billingPeriodSource;
   if (billingPeriodSource)
@@ -171,18 +167,16 @@ LABEL_8:
   getLogger = [(PSUITotalCellularUsageSubgroup *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 136315650;
-    v16 = "[PSUITotalCellularUsageSubgroup totalRoamingBytesUsed]";
-    v17 = 2112;
-    v18 = v7;
-    v19 = 2048;
-    v20 = v10;
-    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s returning %@ roaming %f", &v15, 0x20u);
+    v14 = 136315650;
+    v15 = "[PSUITotalCellularUsageSubgroup totalRoamingBytesUsed]";
+    v16 = 2112;
+    v17 = v7;
+    v18 = 2048;
+    v19 = v10;
+    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s returning %@ roaming %f", &v14, 0x20u);
   }
 
   v12 = [MEMORY[0x277CCABB0] numberWithDouble:v10];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

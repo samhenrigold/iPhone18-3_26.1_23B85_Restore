@@ -21,7 +21,7 @@
     dispatch_once(&qword_2806D9078, block);
   }
 
-  objc_msgSend_setObject_forKeyedSubscript_(contextCopy, v4, v6, &unk_287F2B9B0, @"background");
+  [contextCopy setObject:&unk_287F2B9B0 forKeyedSubscript:@"background"];
 }
 
 + (id)sharedVM
@@ -38,72 +38,72 @@
 
 + (id)executeFunction:(id)function argument:(id)argument
 {
-  v40[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   argumentCopy = argument;
   v7 = MEMORY[0x277CD4640];
   functionCopy = function;
   v9 = [v7 alloc];
-  v12 = objc_msgSend_sharedVM(self, v10, v11);
-  v15 = objc_msgSend_initWithVirtualMachine_(v9, v13, v14, v12);
+  sharedVM = [self sharedVM];
+  v11 = [v9 initWithVirtualMachine:sharedVM];
 
-  v39[0] = MEMORY[0x277D85DD0];
-  v39[1] = 3221225472;
-  v39[2] = sub_26F1986B8;
-  v39[3] = &unk_279DC58A8;
-  v39[4] = self;
-  objc_msgSend_setExceptionHandler_(v15, v16, COERCE_DOUBLE(3221225472), v39);
-  v19 = objc_msgSend_globalObject(v15, v17, v18);
-  objc_msgSend_setObject_forKeyedSubscript_(v19, v20, v21, &unk_287F2B9F0, @"nslog");
-  v24 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v22, v23, @"var _tmlResult=%@ _tmlResult", functionCopy);;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = sub_26F1986B8;
+  v20[3] = &unk_279DC58A8;
+  v20[4] = self;
+  [v11 setExceptionHandler:v20];
+  globalObject = [v11 globalObject];
+  [globalObject setObject:&unk_287F2B9F0 forKeyedSubscript:@"nslog"];
+  functionCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"var _tmlResult=%@ _tmlResult", functionCopy];;
 
-  v27 = objc_msgSend_evaluateScript_(v15, v25, v26, v24);
+  v14 = [v11 evaluateScript:functionCopy];
 
-  v30 = argumentCopy;
+  null = argumentCopy;
   if (!argumentCopy)
   {
-    v30 = objc_msgSend_null(MEMORY[0x277CBEB68], v28, v29);
+    null = [MEMORY[0x277CBEB68] null];
   }
 
-  v40[0] = v30;
-  v31 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v28, v29, v40, 1);
-  v34 = objc_msgSend_callWithArguments_(v27, v32, v33, v31);
+  v21[0] = null;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
+  v17 = [v14 callWithArguments:v16];
 
   if (!argumentCopy)
   {
   }
 
-  v37 = objc_msgSend_convertJsValue_toType_(TMLJSEnvironment, v35, v36, v34, 16);
+  v18 = [TMLJSEnvironment convertJsValue:v17 toType:16];
 
-  return v37;
+  return v18;
 }
 
 + (void)handleException:(id)exception
 {
-  v44[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   exceptionCopy = exception;
-  v6 = objc_msgSend_objectForKeyedSubscript_(exceptionCopy, v4, v5, @"stack");
-  v9 = objc_msgSend_toString(v6, v7, v8);
-  v12 = objc_msgSend_componentsSeparatedByString_(v9, v10, v11, @"\n");
-  v15 = objc_msgSend_mutableCopy(v12, v13, v14);
+  v4 = [exceptionCopy objectForKeyedSubscript:@"stack"];
+  toString = [v4 toString];
+  v6 = [toString componentsSeparatedByString:@"\n"];
+  v7 = [v6 mutableCopy];
 
-  if (v15)
+  if (v7)
   {
-    v18 = objc_msgSend_firstObject(v15, v16, v17);
-    v19 = MEMORY[0x277CCACA8];
-    v22 = objc_msgSend_objectForKeyedSubscript_(exceptionCopy, v20, v21, @"line");
-    v25 = objc_msgSend_toString(v22, v23, v24);
-    v28 = objc_msgSend_stringWithFormat_(v19, v26, v27, @"%@:#%@", v18, v25);
-    objc_msgSend_replaceObjectAtIndex_withObject_(v15, v29, v30, 0, v28);
+    firstObject = [v7 firstObject];
+    v9 = MEMORY[0x277CCACA8];
+    v10 = [exceptionCopy objectForKeyedSubscript:@"line"];
+    toString2 = [v10 toString];
+    v12 = [v9 stringWithFormat:@"%@:#%@", firstObject, toString2];
+    [v7 replaceObjectAtIndex:0 withObject:v12];
   }
 
-  v31 = objc_alloc(MEMORY[0x277CBEAD8]);
-  v34 = objc_msgSend_toString(exceptionCopy, v32, v33);
-  v43 = @"stack";
-  v44[0] = v15;
-  v37 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v35, v36, v44, &v43, 1);
-  v40 = objc_msgSend_initWithName_reason_userInfo_(v31, v38, v39, @"TMLJSException", v34, v37);
+  v13 = objc_alloc(MEMORY[0x277CBEAD8]);
+  toString3 = [exceptionCopy toString];
+  v17 = @"stack";
+  v18[0] = v7;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+  v16 = [v13 initWithName:@"TMLJSException" reason:toString3 userInfo:v15];
 
-  objc_msgSend_raiseException_(TMLExceptionHandler, v41, v42, v40);
+  [TMLExceptionHandler raiseException:v16];
 }
 
 @end

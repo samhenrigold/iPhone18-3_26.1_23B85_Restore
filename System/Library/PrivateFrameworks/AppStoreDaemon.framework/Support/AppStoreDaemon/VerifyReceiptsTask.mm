@@ -45,14 +45,14 @@
 
   if (os_variant_has_internal_content())
   {
-    v7 = sub_1003D6554();
+    v7 = sub_1003D6554(AppDefaultsManager);
     if ([v7 count])
     {
     }
 
     else
     {
-      v8 = sub_1003D6518();
+      v8 = sub_1003D6518(AppDefaultsManager);
       v9 = [v8 count] == 0;
 
       if (v9)
@@ -61,11 +61,11 @@
       }
     }
 
-    v10 = sub_1003D6518();
+    v10 = sub_1003D6518(AppDefaultsManager);
     qaVerficationExpiredApps = self->_qaVerficationExpiredApps;
     self->_qaVerficationExpiredApps = v10;
 
-    v12 = sub_1003D6554();
+    v12 = sub_1003D6554(AppDefaultsManager);
     qaVerficationRevokedApps = self->_qaVerficationRevokedApps;
     self->_qaVerficationRevokedApps = v12;
 

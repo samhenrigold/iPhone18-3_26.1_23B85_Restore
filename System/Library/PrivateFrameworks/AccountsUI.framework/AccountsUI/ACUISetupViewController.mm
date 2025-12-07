@@ -134,34 +134,33 @@
 
   objc_storeStrong(&v33, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 + (void)showAlternateCreationControllerForAccountType:(id)type username:(id)username fromViewController:(id)controller specifier:(id)specifier completion:(id)completion
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   location[2] = self;
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, type);
-  v27 = 0;
-  objc_storeStrong(&v27, username);
   v26 = 0;
-  objc_storeStrong(&v26, controller);
+  objc_storeStrong(&v26, username);
   v25 = 0;
-  objc_storeStrong(&v25, specifier);
+  objc_storeStrong(&v25, controller);
   v24 = 0;
-  objc_storeStrong(&v24, completion);
-  v23 = _ACUILogSystem();
-  v22 = OS_LOG_TYPE_DEFAULT;
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+  objc_storeStrong(&v24, specifier);
+  v23 = 0;
+  objc_storeStrong(&v23, completion);
+  v22 = _ACUILogSystem();
+  v21 = OS_LOG_TYPE_DEFAULT;
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
-    __os_log_helper_16_2_3_8_32_4_0_8_66(v29, "+[ACUISetupViewController showAlternateCreationControllerForAccountType:username:fromViewController:specifier:completion:]", 107, location[0]);
-    _os_log_impl(&dword_23DC86000, v23, v22, "%s (%d) Showing Alternate Creation Controller for '%{public}@'", v29, 0x1Cu);
+    __os_log_helper_16_2_3_8_32_4_0_8_66(v28, "+[ACUISetupViewController showAlternateCreationControllerForAccountType:username:fromViewController:specifier:completion:]", 107, location[0]);
+    _os_log_impl(&dword_23DC86000, v22, v21, "%s (%d) Showing Alternate Creation Controller for '%{public}@'", v28, 0x1Cu);
   }
 
-  objc_storeStrong(&v23, 0);
-  userInfo = [v25 userInfo];
+  objc_storeStrong(&v22, 0);
+  userInfo = [v24 userInfo];
   dictionary = [userInfo mutableCopy];
   MEMORY[0x277D82BD8](userInfo);
   if (!dictionary)
@@ -171,36 +170,34 @@
   }
 
   objc_storeStrong(location, *MEMORY[0x277CB8C60]);
-  v10 = MEMORY[0x277D3FAD8];
-  name = [v25 name];
-  v20 = [v10 preferenceSpecifierNamed:name target:0 set:0 get:0 detail:objc_opt_class() cell:10 edit:0];
+  v9 = MEMORY[0x277D3FAD8];
+  name = [v24 name];
+  v19 = [v9 preferenceSpecifierNamed:name target:0 set:0 get:0 detail:objc_opt_class() cell:10 edit:0];
   MEMORY[0x277D82BD8](name);
   [dictionary setValue:@"YahooAccount" forKey:@"specifierAccount"];
-  if (v27)
+  if (v26)
   {
-    [dictionary setValue:v27 forKey:@"Username"];
+    [dictionary setValue:v26 forKey:@"Username"];
   }
 
-  [v20 setUserInfo:dictionary];
-  v19 = +[ACUIAccountViewProvidersManager sharedInstance];
-  v18 = [(ACUIAccountViewProvidersManager *)v19 viewControllerClassForCreatingAccountWithType:location[0]];
-  v8 = v20;
-  v9 = NSStringFromClass(v18);
-  v7 = *MEMORY[0x277D400B8];
-  [v8 setProperty:? forKey:?];
-  MEMORY[0x277D82BD8](v9);
-  v17 = [v26 controllerForSpecifier:v20];
-  [v26 showController:v17];
-  objc_storeStrong(&v17, 0);
+  [v19 setUserInfo:dictionary];
+  v18 = +[ACUIAccountViewProvidersManager sharedInstance];
+  v17 = [(ACUIAccountViewProvidersManager *)v18 viewControllerClassForCreatingAccountWithType:location[0]];
+  v7 = v19;
+  v8 = NSStringFromClass(v17);
+  [v7 setProperty:? forKey:?];
+  MEMORY[0x277D82BD8](v8);
+  v16 = [v25 controllerForSpecifier:v19];
+  [v25 showController:v16];
+  objc_storeStrong(&v16, 0);
+  objc_storeStrong(&v18, 0);
   objc_storeStrong(&v19, 0);
-  objc_storeStrong(&v20, 0);
   objc_storeStrong(&dictionary, 0);
+  objc_storeStrong(&v23, 0);
   objc_storeStrong(&v24, 0);
   objc_storeStrong(&v25, 0);
   objc_storeStrong(&v26, 0);
-  objc_storeStrong(&v27, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 + (void)showDataclassConfigurationControllerForAccount:(id)account name:(id)name fromViewController:(id)controller specifier:(id)specifier completion:(id)completion
@@ -244,8 +241,8 @@
 
 + (id)dataclassConfigurationControllerForAccount:(id)account name:(id)name specifier:(id)specifier completion:(id)completion
 {
-  v36 = *MEMORY[0x277D85DE8];
-  location[2] = self;
+  v37 = *MEMORY[0x277D85DE8];
+  selfCopy = self;
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, account);
@@ -267,8 +264,8 @@
   if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
   {
     username = [location[0] username];
-    __os_log_helper_16_2_4_8_32_4_0_8_64_8_64(v35, "+[ACUISetupViewController dataclassConfigurationControllerForAccount:name:specifier:completion:]", 165, username, v26);
-    _os_log_debug_impl(&dword_23DC86000, v25, v24, "%s (%d) Dataclass configuration VC class for account %@ identified as %@", v35, 0x26u);
+    __os_log_helper_16_2_4_8_32_4_0_8_64_8_64(v36, "+[ACUISetupViewController dataclassConfigurationControllerForAccount:name:specifier:completion:]", 165, username, v26);
+    _os_log_debug_impl(&dword_23DC86000, v25, v24, "%s (%d) Dataclass configuration VC class for account %@ identified as %@", v36, 0x26u);
     MEMORY[0x277D82BD8](username);
   }
 
@@ -300,7 +297,7 @@
     v21 = MEMORY[0x277D82BE0](v30);
     [v22 setConfigurationCompletion:&v16];
     [v22 setSpecifier:v23];
-    v34 = MEMORY[0x277D82BE0](v22);
+    v35 = MEMORY[0x277D82BE0](v22);
     objc_storeStrong(&v21, 0);
     objc_storeStrong(&v22, 0);
     objc_storeStrong(&v23, 0);
@@ -308,7 +305,7 @@
 
   else
   {
-    v34 = 0;
+    v35 = 0;
   }
 
   objc_storeStrong(&v27, 0);
@@ -317,8 +314,7 @@
   objc_storeStrong(&v31, 0);
   objc_storeStrong(&v32, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
-  v6 = v34;
+  v6 = v35;
 
   return v6;
 }
@@ -386,7 +382,6 @@ uint64_t __96__ACUISetupViewController_dataclassConfigurationControllerForAccoun
   objc_storeStrong(v15, v18);
   objc_storeStrong(v16, v18);
   objc_storeStrong(p_location, v18);
-  *MEMORY[0x277D85DE8];
   v7 = v14;
 
   return v7;

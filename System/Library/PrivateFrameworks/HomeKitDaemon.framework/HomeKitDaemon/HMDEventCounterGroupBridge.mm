@@ -22,7 +22,6 @@
 - (void)incrementEventCounterForEventName:(id)name withValue:(int64_t)value
 {
   sub_22A4DD5EC();
-  v5 = *(self + OBJC_IVAR___HMDEventCounterGroupBridge_bridgedGroup);
   selfCopy = self;
   sub_22A4DBE0C();
 
@@ -51,7 +50,6 @@
 - (void)resumeDurationCounter:(id)counter
 {
   sub_22A4DD5EC();
-  v4 = *(self + OBJC_IVAR___HMDEventCounterGroupBridge_bridgedGroup);
   selfCopy = self;
   sub_22A4DBDFC();
 }
@@ -59,7 +57,6 @@
 - (void)pauseDurationCounter:(id)counter
 {
   sub_22A4DD5EC();
-  v4 = *(self + OBJC_IVAR___HMDEventCounterGroupBridge_bridgedGroup);
   selfCopy = self;
   sub_22A4DBDEC();
 
@@ -74,7 +71,6 @@
 - (void)addValue:(int64_t)value toStatisticsName:(id)name
 {
   sub_22A4DD5EC();
-  v5 = *(self + OBJC_IVAR___HMDEventCounterGroupBridge_bridgedGroup);
   selfCopy = self;
   sub_22A4DBEBC();
 
@@ -90,36 +86,32 @@
 {
   v5 = sub_22A4DB74C();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v17 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = *(self + OBJC_IVAR___HMDEventCounterGroupBridge_dateQueryBlock);
-  v10 = *(self + OBJC_IVAR___HMDEventCounterGroupBridge_dateQueryBlock + 8);
+  v8 = &v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = *(self + OBJC_IVAR___HMDEventCounterGroupBridge_dateQueryBlock);
   nameCopy = name;
   selfCopy = self;
-  v11();
-  v14 = sub_22A4DB6AC();
-  (*(v6 + 8))(v9, v5);
-  v15 = [(HMDEventCounterGroupBridge *)selfCopy fetchEventCounterForEventName:nameCopy forDate:v14];
+  v9();
+  v12 = sub_22A4DB6AC();
+  (*(v6 + 8))(v8, v5);
+  v13 = [(HMDEventCounterGroupBridge *)selfCopy fetchEventCounterForEventName:nameCopy forDate:v12];
 
-  return v15;
+  return v13;
 }
 
 - (int64_t)fetchEventCounterForEventName:(id)name forDate:(id)date
 {
   v5 = sub_22A4DB74C();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_22A4DD5EC();
   sub_22A4DB70C();
-  v10 = *(self + OBJC_IVAR___HMDEventCounterGroupBridge_bridgedGroup);
   selfCopy = self;
-  v12 = sub_22A4DBEAC();
-  LOBYTE(self) = v13;
+  v10 = sub_22A4DBEAC();
+  LOBYTE(self) = v11;
 
-  (*(v6 + 8))(v9, v5);
+  (*(v6 + 8))(v8, v5);
 
   if (self)
   {
@@ -128,7 +120,7 @@
 
   else
   {
-    return v12;
+    return v10;
   }
 }
 
@@ -136,39 +128,35 @@
 {
   v5 = sub_22A4DB74C();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v18 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = *(self + OBJC_IVAR___HMDEventCounterGroupBridge_dateQueryBlock);
-  v10 = *(self + OBJC_IVAR___HMDEventCounterGroupBridge_dateQueryBlock + 8);
+  v8 = &v16 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = *(self + OBJC_IVAR___HMDEventCounterGroupBridge_dateQueryBlock);
   counterCopy = counter;
   selfCopy = self;
-  v11();
-  v14 = sub_22A4DB6AC();
-  (*(v6 + 8))(v9, v5);
-  [(HMDEventCounterGroupBridge *)selfCopy durationForCounter:counterCopy forDate:v14];
-  v16 = v15;
+  v9();
+  v12 = sub_22A4DB6AC();
+  (*(v6 + 8))(v8, v5);
+  [(HMDEventCounterGroupBridge *)selfCopy durationForCounter:counterCopy forDate:v12];
+  v14 = v13;
 
-  return v16;
+  return v14;
 }
 
 - (double)durationForCounter:(id)counter forDate:(id)date
 {
   v5 = sub_22A4DB74C();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_22A4DD5EC();
   sub_22A4DB70C();
-  v10 = *(self + OBJC_IVAR___HMDEventCounterGroupBridge_bridgedGroup);
   selfCopy = self;
-  v12 = COERCE_DOUBLE(sub_22A4DBEFC());
-  LOBYTE(self) = v13;
+  v10 = COERCE_DOUBLE(sub_22A4DBEFC());
+  LOBYTE(self) = v11;
 
-  (*(v6 + 8))(v9, v5);
+  (*(v6 + 8))(v8, v5);
 
-  result = v12;
+  result = v10;
   if (self)
   {
     return 0.0;
@@ -181,37 +169,33 @@
 {
   v4 = sub_22A4DB74C();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v21 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D881420, qword_22A583C08);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v21 - v11;
+  v7 = &v17 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D881420, qword_22A583C08);
+  MEMORY[0x28223BE20](v8 - 8);
+  v10 = &v17 - v9;
   sub_22A4DD5EC();
-  v13 = *(self + OBJC_IVAR___HMDEventCounterGroupBridge_bridgedGroup);
-  v15 = *(self + OBJC_IVAR___HMDEventCounterGroupBridge_dateQueryBlock);
-  v14 = *(self + OBJC_IVAR___HMDEventCounterGroupBridge_dateQueryBlock + 8);
+  v11 = *(self + OBJC_IVAR___HMDEventCounterGroupBridge_dateQueryBlock);
   selfCopy = self;
-  v15();
+  v11();
   sub_22A4DBE3C();
 
-  (*(v5 + 8))(v8, v4);
-  v17 = sub_22A4DC09C();
-  v18 = *(v17 - 8);
-  if ((*(v18 + 48))(v12, 1, v17) == 1)
+  (*(v5 + 8))(v7, v4);
+  v13 = sub_22A4DC09C();
+  v14 = *(v13 - 8);
+  if ((*(v14 + 48))(v10, 1, v13) == 1)
   {
 
-    sub_2297C6CF8(v12);
+    sub_2297C6CF8(v10);
     return 0;
   }
 
   else
   {
-    v20 = sub_22A4DC06C();
+    v16 = sub_22A4DC06C();
 
-    (*(v18 + 8))(v12, v17);
-    return v20;
+    (*(v14 + 8))(v10, v13);
+    return v16;
   }
 }
 
@@ -219,86 +203,78 @@
 {
   v3 = sub_22A4DB74C();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = &v15 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = *(self + OBJC_IVAR___HMDEventCounterGroupBridge_dateQueryBlock);
-  v8 = *(self + OBJC_IVAR___HMDEventCounterGroupBridge_dateQueryBlock + 8);
+  v6 = &v13 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = *(self + OBJC_IVAR___HMDEventCounterGroupBridge_dateQueryBlock);
   selfCopy = self;
-  v9();
-  v11 = sub_22A4DB6AC();
-  (*(v4 + 8))(v7, v3);
-  v12 = [(HMDEventCounterGroupBridge *)selfCopy eventCountersForDate:v11];
+  v7();
+  v9 = sub_22A4DB6AC();
+  (*(v4 + 8))(v6, v3);
+  v10 = [(HMDEventCounterGroupBridge *)selfCopy eventCountersForDate:v9];
 
   sub_229678A8C();
   sub_22A4DD49C();
 
-  v13 = sub_22A4DD47C();
+  v11 = sub_22A4DD47C();
 
-  return v13;
+  return v11;
 }
 
 - (id)eventCountersForDate:(id)date
 {
   v4 = sub_22A4DB74C();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v22 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v18 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_22A4DB70C();
-  v9 = OBJC_IVAR___HMDEventCounterGroupBridge_bridgedGroup;
-  v10 = *(self + OBJC_IVAR___HMDEventCounterGroupBridge_bridgedGroup);
   selfCopy = self;
-  v12 = sub_22A4DBEDC();
-  sub_2296F8234(v12);
+  v9 = sub_22A4DBEDC();
+  sub_2296F8234(v9);
+  v11 = v10;
+
+  v12 = sub_22A4DBF1C();
+  sub_2296F8418(v12);
   v14 = v13;
 
-  v15 = *(self + v9);
-  v16 = sub_22A4DBF1C();
-  sub_2296F8418(v16);
-  v18 = v17;
-
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v23 = v14;
-  sub_2297C6898(v18, sub_2297C6528, 0, isUniquelyReferenced_nonNull_native, &v23);
+  v19 = v11;
+  sub_2297C6898(v14, sub_2297C6528, 0, isUniquelyReferenced_nonNull_native, &v19);
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
   sub_229678A8C();
-  v20 = sub_22A4DD47C();
+  v16 = sub_22A4DD47C();
 
-  return v20;
+  return v16;
 }
 
 - (int64_t)summedEventCounters
 {
   v3 = sub_22A4DB74C();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = &v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = *(self + OBJC_IVAR___HMDEventCounterGroupBridge_dateQueryBlock);
-  v8 = *(self + OBJC_IVAR___HMDEventCounterGroupBridge_dateQueryBlock + 8);
+  v6 = &v12 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = *(self + OBJC_IVAR___HMDEventCounterGroupBridge_dateQueryBlock);
   selfCopy = self;
-  v9();
-  v11 = sub_22A4DB6AC();
-  (*(v4 + 8))(v7, v3);
-  v12 = [(HMDEventCounterGroupBridge *)selfCopy summedEventCountersForDate:v11];
+  v7();
+  v9 = sub_22A4DB6AC();
+  (*(v4 + 8))(v6, v3);
+  v10 = [(HMDEventCounterGroupBridge *)selfCopy summedEventCountersForDate:v9];
 
-  return v12;
+  return v10;
 }
 
 - (int64_t)summedEventCountersForDate:(id)date
 {
   v4 = sub_22A4DB74C();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_22A4DB70C();
   selfCopy = self;
-  v10 = sub_2297C6258();
+  sub_2297C6258(v7);
+  v10 = v9;
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
   return v10;
 }
 

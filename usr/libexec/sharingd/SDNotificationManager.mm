@@ -18,6 +18,7 @@
 - (void)_homePodHandoffUpdateIfNeeded:(id)needed info:(id)info;
 - (void)_invalidate;
 - (void)_riServerEnsureStarted:(BOOL)started completion:(id)completion;
+- (void)_riServerPostIfNeeded:(id)needed backgroundAction:(BOOL)action;
 - (void)_riServerRemove:(id)remove;
 - (void)_riServerRemoveAll;
 - (void)_riServerUpdate:(id)update info:(id)info;
@@ -108,7 +109,7 @@
     dispatch_assert_queue_V2(self->_dispatchQueue);
     if (dword_100972630 <= 10 && (dword_100972630 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_100972630, "[SDNotificationManager _homePodHandoffRemoveAll]", 10, "HHRemoveAll");
     }
 
     [(UNUserNotificationCenter *)self->_homePodNotifCenter removeAllDeliveredNotifications];
@@ -392,9 +393,12 @@
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (!self->_activated)
   {
-    if (dword_100972630 <= 30 && (dword_100972630 != -1 || _LogCategory_Initialize()))
+    if (dword_100972630 <= 30)
     {
-      sub_1001C683C();
+      if (dword_100972630 != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        sub_1001C683C(v3, v4, v5);
+      }
     }
 
     self->_activated = 1;
@@ -416,9 +420,12 @@
 
 - (void)_invalidate
 {
-  if (dword_100972630 <= 30 && (dword_100972630 != -1 || _LogCategory_Initialize()))
+  if (dword_100972630 <= 30)
   {
-    sub_1001C6858();
+    if (dword_100972630 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_1001C6858(self, a2, v2);
+    }
   }
 }
 
@@ -458,26 +465,29 @@ LABEL_2:
     goto LABEL_2;
   }
 
-  notify_post("com.apple.ContinuityKeyBoard.enabled");
-  if (dword_100972630 <= 30 && (dword_100972630 != -1 || _LogCategory_Initialize()))
+  v7 = notify_post("com.apple.ContinuityKeyBoard.enabled");
+  if (dword_100972630 <= 30)
   {
-    sub_1001C6874();
+    if (dword_100972630 != -1 || (v7 = _LogCategory_Initialize(), v7))
+    {
+      sub_1001C6874(v7, v8, v9);
+    }
   }
 
-  v7 = [objc_alloc(sub_1001BE4C0()) initWithBundleIdentifier:@"com.apple.Sharing.TVRemoteNotifications"];
+  v10 = [objc_alloc(sub_1001BE4C0()) initWithBundleIdentifier:@"com.apple.Sharing.TVRemoteNotifications"];
   tvNotifCenter = self->_tvNotifCenter;
-  self->_tvNotifCenter = v7;
+  self->_tvNotifCenter = v10;
 
   [(UNUserNotificationCenter *)self->_tvNotifCenter setDelegate:self];
   [(UNUserNotificationCenter *)self->_tvNotifCenter setWantsNotificationResponsesDelivered];
-  v9 = self->_tvNotifCenter;
-  v10[0] = _NSConcreteStackBlock;
-  v10[1] = 3221225472;
-  v10[2] = sub_1001BE5A0;
-  v10[3] = &unk_1008D3230;
-  v10[4] = self;
-  v11 = completionCopy;
-  [(UNUserNotificationCenter *)v9 getNotificationSettingsWithCompletionHandler:v10];
+  v12 = self->_tvNotifCenter;
+  v13[0] = _NSConcreteStackBlock;
+  v13[1] = 3221225472;
+  v13[2] = sub_1001BE5A0;
+  v13[3] = &unk_1008D3230;
+  v13[4] = self;
+  v14 = completionCopy;
+  [(UNUserNotificationCenter *)v12 getNotificationSettingsWithCompletionHandler:v13];
 
 LABEL_11:
 }
@@ -498,33 +508,40 @@ LABEL_2:
 
   if (started)
   {
-    CFPrefs_SetValue();
+    Int64 = CFPrefs_SetValue();
   }
 
-  else if (!CFPrefs_GetInt64())
+  else
   {
-    goto LABEL_2;
+    Int64 = CFPrefs_GetInt64();
+    if (!Int64)
+    {
+      goto LABEL_2;
+    }
   }
 
-  if (dword_100972630 <= 30 && (dword_100972630 != -1 || _LogCategory_Initialize()))
+  if (dword_100972630 <= 30)
   {
-    sub_1001C6908();
+    if (dword_100972630 != -1 || (Int64 = _LogCategory_Initialize(), Int64))
+    {
+      sub_1001C6908(Int64, v8, v9);
+    }
   }
 
-  v7 = [objc_alloc(sub_1001BE4C0()) initWithBundleIdentifier:@"com.apple.Sharing.WatchRemoteNotifications"];
+  v10 = [objc_alloc(sub_1001BE4C0()) initWithBundleIdentifier:@"com.apple.Sharing.WatchRemoteNotifications"];
   watchNotifCenter = self->_watchNotifCenter;
-  self->_watchNotifCenter = v7;
+  self->_watchNotifCenter = v10;
 
   [(UNUserNotificationCenter *)self->_watchNotifCenter setDelegate:self];
   [(UNUserNotificationCenter *)self->_watchNotifCenter setWantsNotificationResponsesDelivered];
-  v9 = self->_watchNotifCenter;
-  v10[0] = _NSConcreteStackBlock;
-  v10[1] = 3221225472;
-  v10[2] = sub_1001BE958;
-  v10[3] = &unk_1008D3230;
-  v10[4] = self;
-  v11 = completionCopy;
-  [(UNUserNotificationCenter *)v9 getNotificationSettingsWithCompletionHandler:v10];
+  v12 = self->_watchNotifCenter;
+  v13[0] = _NSConcreteStackBlock;
+  v13[1] = 3221225472;
+  v13[2] = sub_1001BE958;
+  v13[3] = &unk_1008D3230;
+  v13[4] = self;
+  v14 = completionCopy;
+  [(UNUserNotificationCenter *)v12 getNotificationSettingsWithCompletionHandler:v13];
 
 LABEL_11:
 }
@@ -537,28 +554,32 @@ LABEL_11:
     CFPrefs_SetValue();
 LABEL_4:
     v7 = dispatch_group_create();
+    v10 = v7;
     if (!self->_homePodNotifCenter)
     {
-      if (dword_100972630 <= 30 && (dword_100972630 != -1 || _LogCategory_Initialize()))
+      if (dword_100972630 <= 30)
       {
-        sub_1001C699C();
+        if (dword_100972630 != -1 || (v7 = _LogCategory_Initialize(), v7))
+        {
+          sub_1001C699C(v7, v8, v9);
+        }
       }
 
-      v8 = [objc_alloc(sub_1001BE4C0()) initWithBundleIdentifier:@"com.apple.Sharing.HomePodRemoteNotifications"];
+      v11 = [objc_alloc(sub_1001BE4C0()) initWithBundleIdentifier:@"com.apple.Sharing.HomePodRemoteNotifications"];
       homePodNotifCenter = self->_homePodNotifCenter;
-      self->_homePodNotifCenter = v8;
+      self->_homePodNotifCenter = v11;
 
       [(UNUserNotificationCenter *)self->_homePodNotifCenter setDelegate:self];
       [(UNUserNotificationCenter *)self->_homePodNotifCenter setWantsNotificationResponsesDelivered];
-      dispatch_group_enter(v7);
-      v10 = self->_homePodNotifCenter;
-      v19[0] = _NSConcreteStackBlock;
-      v19[1] = 3221225472;
-      v19[2] = sub_1001BEE6C;
-      v19[3] = &unk_1008D3280;
-      v19[4] = self;
-      v20 = v7;
-      [(UNUserNotificationCenter *)v10 getNotificationSettingsWithCompletionHandler:v19];
+      dispatch_group_enter(v10);
+      v13 = self->_homePodNotifCenter;
+      v22[0] = _NSConcreteStackBlock;
+      v22[1] = 3221225472;
+      v22[2] = sub_1001BEE6C;
+      v22[3] = &unk_1008D3280;
+      v22[4] = self;
+      v23 = v10;
+      [(UNUserNotificationCenter *)v13 getNotificationSettingsWithCompletionHandler:v22];
     }
 
     if (!self->_homePodMiniNotificationCenter)
@@ -568,21 +589,21 @@ LABEL_4:
         sub_1001C69B8();
       }
 
-      v11 = [objc_alloc(sub_1001BE4C0()) initWithBundleIdentifier:@"com.apple.Sharing.b7ce1794a1c8766816fc7b7500742862"];
+      v14 = [objc_alloc(sub_1001BE4C0()) initWithBundleIdentifier:@"com.apple.Sharing.b7ce1794a1c8766816fc7b7500742862"];
       homePodMiniNotificationCenter = self->_homePodMiniNotificationCenter;
-      self->_homePodMiniNotificationCenter = v11;
+      self->_homePodMiniNotificationCenter = v14;
 
       [(UNUserNotificationCenter *)self->_homePodMiniNotificationCenter setDelegate:self];
       [(UNUserNotificationCenter *)self->_homePodMiniNotificationCenter setWantsNotificationResponsesDelivered];
-      dispatch_group_enter(v7);
-      v13 = self->_homePodMiniNotificationCenter;
-      v17[0] = _NSConcreteStackBlock;
-      v17[1] = 3221225472;
-      v17[2] = sub_1001BF094;
-      v17[3] = &unk_1008D3280;
-      v17[4] = self;
-      v18 = v7;
-      [(UNUserNotificationCenter *)v13 getNotificationSettingsWithCompletionHandler:v17];
+      dispatch_group_enter(v10);
+      v16 = self->_homePodMiniNotificationCenter;
+      v20[0] = _NSConcreteStackBlock;
+      v20[1] = 3221225472;
+      v20[2] = sub_1001BF094;
+      v20[3] = &unk_1008D3280;
+      v20[4] = self;
+      v21 = v10;
+      [(UNUserNotificationCenter *)v16 getNotificationSettingsWithCompletionHandler:v20];
     }
 
     dispatchQueue = self->_dispatchQueue;
@@ -590,8 +611,8 @@ LABEL_4:
     block[1] = 3221225472;
     block[2] = sub_1001BF2BC;
     block[3] = &unk_1008D08E0;
-    v16 = completionCopy;
-    dispatch_group_notify(v7, dispatchQueue, block);
+    v19 = completionCopy;
+    dispatch_group_notify(v10, dispatchQueue, block);
 
     goto LABEL_15;
   }
@@ -612,7 +633,7 @@ LABEL_15:
 - (void)_visionUnlockiOSEnsureStarted:(BOOL)started completion:(id)completion
 {
   completionCopy = completion;
-  v6 = completionCopy;
+  v8 = completionCopy;
   if (self->_visionNotifCenter)
   {
     if (completionCopy)
@@ -623,46 +644,48 @@ LABEL_15:
 
   else
   {
-    if (dword_100972630 <= 30 && (dword_100972630 != -1 || _LogCategory_Initialize()))
+    if (dword_100972630 <= 30)
     {
-      sub_1001C6ADC();
+      if (dword_100972630 != -1 || (completionCopy = _LogCategory_Initialize(), completionCopy))
+      {
+        sub_1001C6ADC(completionCopy, v6, v7);
+      }
     }
 
-    v7 = [objc_alloc(sub_1001BE4C0()) initWithBundleIdentifier:@"com.apple.Sharing.VisionUnlockiOSNotifications"];
+    v9 = [objc_alloc(sub_1001BE4C0()) initWithBundleIdentifier:@"com.apple.Sharing.VisionUnlockiOSNotifications"];
     visionNotifCenter = self->_visionNotifCenter;
-    self->_visionNotifCenter = v7;
+    self->_visionNotifCenter = v9;
 
     [(UNUserNotificationCenter *)self->_visionNotifCenter setDelegate:self];
     [(UNUserNotificationCenter *)self->_visionNotifCenter setWantsNotificationResponsesDelivered];
-    v9 = self->_visionNotifCenter;
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = sub_1001BF400;
-    v10[3] = &unk_1008D3230;
-    v10[4] = self;
-    v11 = v6;
-    [(UNUserNotificationCenter *)v9 getNotificationSettingsWithCompletionHandler:v10];
+    v11 = self->_visionNotifCenter;
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_1001BF400;
+    v12[3] = &unk_1008D3230;
+    v12[4] = self;
+    v13 = v8;
+    [(UNUserNotificationCenter *)v11 getNotificationSettingsWithCompletionHandler:v12];
   }
 }
 
 - (void)_visionHandleResponse:(id)response completion:(id)completion
 {
   responseCopy = response;
-  v22 = _NSConcreteStackBlock;
-  v23 = 3221225472;
-  v24 = sub_1001BF9E0;
-  v25 = &unk_1008D08E0;
+  v21 = _NSConcreteStackBlock;
+  v22 = 3221225472;
+  v23 = sub_1001BF9E0;
+  v24 = &unk_1008D08E0;
   completionCopy = completion;
-  v26 = completionCopy;
-  v7 = objc_retainBlock(&v22);
+  v25 = completionCopy;
+  v7 = objc_retainBlock(&v21);
   if (dword_100972630 <= 30 && (dword_100972630 != -1 || _LogCategory_Initialize()))
   {
-    v21 = responseCopy;
-    LogPrintF();
+    LogPrintF(&dword_100972630, "[SDNotificationManager _visionHandleResponse:completion:]", 30, "Handle vision upsell response: %@\n", responseCopy, v21, v22, v23, v24);
   }
 
   actionIdentifier = [responseCopy actionIdentifier];
-  v9 = off_1009726A0();
+  v9 = off_1009726A0(actionIdentifier);
   v10 = actionIdentifier;
   v11 = v9;
   v12 = v11;
@@ -682,7 +705,7 @@ LABEL_15:
   }
 
   actionIdentifier2 = [responseCopy actionIdentifier];
-  v15 = off_1009726A8();
+  v15 = off_1009726A8(actionIdentifier2);
   v16 = actionIdentifier2;
   v17 = v15;
   v18 = v17;
@@ -705,7 +728,7 @@ LABEL_15:
 LABEL_15:
     if (dword_100972630 <= 30 && (dword_100972630 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_100972630, "[SDNotificationManager _visionHandleResponse:completion:]", 30, "Handling dismiss");
     }
 
     actionIdentifier3 = +[_TtC16DaemoniOSLibrary23SDAuthenticationManager shared];
@@ -718,7 +741,7 @@ LABEL_19:
   {
     if (dword_100972630 <= 30 && (dword_100972630 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_100972630, "[SDNotificationManager _visionHandleResponse:completion:]", 30, "Handling default");
     }
 
     actionIdentifier3 = +[_TtC16DaemoniOSLibrary23SDAuthenticationManager shared];
@@ -729,7 +752,7 @@ LABEL_19:
   if (dword_100972630 <= 90 && (dword_100972630 != -1 || _LogCategory_Initialize()))
   {
     actionIdentifier3 = [responseCopy actionIdentifier];
-    LogPrintF();
+    LogPrintF(&dword_100972630, "[SDNotificationManager _visionHandleResponse:completion:]", 90, "### Unrecognized action: %@\n", actionIdentifier3);
 LABEL_30:
   }
 
@@ -739,21 +762,20 @@ LABEL_30:
 - (void)_visionHandleFailureResponse:(id)response completion:(id)completion
 {
   responseCopy = response;
-  v20 = _NSConcreteStackBlock;
-  v21 = 3221225472;
-  v22 = sub_1001BFCDC;
-  v23 = &unk_1008D08E0;
+  v19 = _NSConcreteStackBlock;
+  v20 = 3221225472;
+  v21 = sub_1001BFCDC;
+  v22 = &unk_1008D08E0;
   completionCopy = completion;
-  v24 = completionCopy;
-  v7 = objc_retainBlock(&v20);
+  v23 = completionCopy;
+  v7 = objc_retainBlock(&v19);
   if (dword_100972630 <= 30 && (dword_100972630 != -1 || _LogCategory_Initialize()))
   {
-    v19 = responseCopy;
-    LogPrintF();
+    LogPrintF(&dword_100972630, "[SDNotificationManager _visionHandleFailureResponse:completion:]", 30, "Handle vision unlock failure response: %@\n", responseCopy, v19, v20, v21, v22);
   }
 
   actionIdentifier = [responseCopy actionIdentifier];
-  v9 = off_1009726A0();
+  v9 = off_1009726A0(actionIdentifier);
   v10 = actionIdentifier;
   v11 = v9;
   v12 = v11;
@@ -769,7 +791,7 @@ LABEL_30:
 LABEL_14:
       if (dword_100972630 <= 30 && (dword_100972630 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&dword_100972630, "[SDNotificationManager _visionHandleFailureResponse:completion:]", 30, "### Ignore Dimiss of Vision failure");
       }
 
       goto LABEL_19;
@@ -785,7 +807,7 @@ LABEL_14:
 
   if (dword_100972630 <= 30 && (dword_100972630 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_100972630, "[SDNotificationManager _visionHandleFailureResponse:completion:]", 30, "Handling default");
   }
 
   v14 = +[_TtC16DaemoniOSLibrary23SDAuthenticationManager shared];
@@ -977,7 +999,7 @@ LABEL_56:
     {
       if (dword_100972630 <= 30 && (dword_100972630 != -1 || _LogCategory_Initialize()))
       {
-        sub_1001C6CA8(type);
+        sub_1001C6CA8(type, dCopy);
       }
 
       v40[0] = _NSConcreteStackBlock;
@@ -1005,7 +1027,7 @@ LABEL_56:
 LABEL_37:
   if (dword_100972630 <= 60 && (dword_100972630 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001C6D64();
+    sub_1001C6D64(type);
   }
 
   v27 = 0;
@@ -1018,72 +1040,71 @@ LABEL_61:
   if (lCopy)
   {
     v4 = +[NSMutableDictionary dictionary];
-    v5 = off_1009726B8();
+    v5 = off_1009726B8(v4);
 
     if (v5)
     {
-      v6 = off_1009726B8();
-      [v4 setObject:kUTTypePNG forKey:v6];
+      v7 = off_1009726B8(v6);
+      [v4 setObject:kUTTypePNG forKey:v7];
     }
 
-    v7 = off_1009726C0();
+    v8 = off_1009726C0(v6);
 
-    if (v7)
+    if (v8)
     {
-      v8 = [NSNumber numberWithBool:1];
-      v9 = off_1009726C0();
-      [v4 setObject:v8 forKey:v9];
+      v9 = [NSNumber numberWithBool:1];
+      v10 = off_1009726C0(v9);
+      [v4 setObject:v9 forKey:v10];
     }
 
-    v16 = 0;
-    v17 = &v16;
-    v18 = 0x2050000000;
-    v10 = qword_10098A128;
-    v19 = qword_10098A128;
+    v17 = 0;
+    v18 = &v17;
+    v19 = 0x2050000000;
+    v11 = qword_10098A128;
+    v20 = qword_10098A128;
     if (!qword_10098A128)
     {
-      v15[0] = _NSConcreteStackBlock;
-      v15[1] = 3221225472;
-      v15[2] = sub_1001C54A0;
-      v15[3] = &unk_1008CDA20;
-      v15[4] = &v16;
-      sub_1001C54A0(v15);
-      v10 = v17[3];
+      v16[0] = _NSConcreteStackBlock;
+      v16[1] = 3221225472;
+      v16[2] = sub_1001C54A0;
+      v16[3] = &unk_1008CDA20;
+      v16[4] = &v17;
+      sub_1001C54A0(v16);
+      v11 = v18[3];
     }
 
-    v11 = v10;
-    _Block_object_dispose(&v16, 8);
-    v12 = [v4 copy];
-    v13 = [v10 attachmentWithIdentifier:&stru_1008EFBD0 URL:lCopy options:v12 error:0];
+    v12 = v11;
+    _Block_object_dispose(&v17, 8);
+    v13 = [v4 copy];
+    v14 = [v11 attachmentWithIdentifier:&stru_1008EFBD0 URL:lCopy options:v13 error:0];
 
-    if (!v13 && dword_100972630 <= 90 && (dword_100972630 != -1 || _LogCategory_Initialize()))
+    if (!v14 && dword_100972630 <= 90 && (dword_100972630 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001C6DE4();
+      sub_1001C6DE4(lCopy);
     }
   }
 
   else
   {
-    v13 = 0;
+    v14 = 0;
   }
 
-  return v13;
+  return v14;
 }
 
 - (void)_tvHandleResponse:(id)response completion:(id)completion
 {
   responseCopy = response;
-  v32[0] = _NSConcreteStackBlock;
-  v32[1] = 3221225472;
-  v32[2] = sub_1001C0C8C;
-  v32[3] = &unk_1008D08E0;
+  v31[0] = _NSConcreteStackBlock;
+  v31[1] = 3221225472;
+  v31[2] = sub_1001C0C8C;
+  v31[3] = &unk_1008D08E0;
   completionCopy = completion;
-  v33 = completionCopy;
-  v7 = objc_retainBlock(v32);
+  v32 = completionCopy;
+  v7 = objc_retainBlock(v31);
   if (dword_100972630 <= 30 && (dword_100972630 != -1 || _LogCategory_Initialize()))
   {
-    v30 = responseCopy;
-    LogPrintF();
+    LogPrintF(&dword_100972630, "[SDNotificationManager _tvHandleResponse:completion:]", 30, "Handle TV response: %@\n", responseCopy);
   }
 
   notification = [responseCopy notification];
@@ -1097,14 +1118,14 @@ LABEL_61:
     {
       if (dword_100972630 <= 90 && (dword_100972630 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&dword_100972630, "[SDNotificationManager _tvHandleResponse:completion:]", 90, "### No device ID?\n");
       }
 
       goto LABEL_50;
     }
 
     actionIdentifier = [responseCopy actionIdentifier];
-    v13 = off_1009726A0();
+    v13 = off_1009726A0(actionIdentifier);
     v14 = actionIdentifier;
     v15 = v13;
     v16 = v15;
@@ -1124,7 +1145,7 @@ LABEL_61:
     }
 
     actionIdentifier2 = [responseCopy actionIdentifier];
-    v19 = off_1009726A8();
+    v19 = off_1009726A8(actionIdentifier2);
     v20 = actionIdentifier2;
     v21 = v19;
     v22 = v21;
@@ -1149,7 +1170,7 @@ LABEL_61:
     {
       if (dword_100972630 <= 30 && (dword_100972630 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&dword_100972630, "[SDNotificationManager _tvHandleResponse:completion:]", 30, "Handling dismiss");
       }
 
       allKeys = [(NSMutableDictionary *)self->_autoFillRequests allKeys];
@@ -1172,7 +1193,7 @@ LABEL_61:
 
         else if (dword_100972630 <= 60 && (dword_100972630 != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&dword_100972630, "[SDNotificationManager _tvHandleResponse:completion:]", 60, "### Remove of unrecognized notification?\n");
         }
       }
 
@@ -1183,7 +1204,7 @@ LABEL_61:
     {
       if (dword_100972630 <= 30 && (dword_100972630 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&dword_100972630, "[SDNotificationManager _tvHandleResponse:completion:]", 30, "Handling default");
       }
 
       actionIdentifier3 = +[SDRemoteInteractionAgent sharedAgent];
@@ -1198,7 +1219,7 @@ LABEL_61:
       }
 
       actionIdentifier3 = [responseCopy actionIdentifier];
-      LogPrintF();
+      LogPrintF(&dword_100972630, "[SDNotificationManager _tvHandleResponse:completion:]", 90, "### Unrecognized action: %@\n", actionIdentifier3);
     }
 
 LABEL_49:
@@ -1209,7 +1230,7 @@ LABEL_50:
 
   if (dword_100972630 <= 90 && (dword_100972630 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_100972630, "[SDNotificationManager _tvHandleResponse:completion:]", 90, "### No notification ID?\n");
   }
 
 LABEL_51:
@@ -1260,9 +1281,12 @@ LABEL_51:
 - (void)_riServerRemoveAll
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  if (dword_100972630 <= 10 && (dword_100972630 != -1 || _LogCategory_Initialize()))
+  if (dword_100972630 <= 10)
   {
-    sub_1001C6E84();
+    if (dword_100972630 != -1 || (v3 = _LogCategory_Initialize(), v3))
+    {
+      sub_1001C6E84(v3, v4, v5);
+    }
   }
 
   [(UNUserNotificationCenter *)self->_tvNotifCenter removeAllDeliveredNotifications];
@@ -1335,9 +1359,12 @@ LABEL_51:
 
           if (v16)
           {
-            if (dword_100972630 <= 30 && (dword_100972630 != -1 || _LogCategory_Initialize()))
+            if (dword_100972630 <= 30)
             {
-              sub_1001C6F48();
+              if (dword_100972630 != -1 || (v17 = _LogCategory_Initialize(), v17))
+              {
+                sub_1001C6F48(v17, v18, v19);
+              }
             }
 
             documentTraits = [v16 documentTraits];
@@ -1359,8 +1386,8 @@ LABEL_12:
 
             else
             {
-              v21 = SFLocalizedStringForKey();
-              [v9 setBody:v21];
+              v24 = SFLocalizedStringForKey();
+              [v9 setBody:v24];
 
               if (title)
               {
@@ -1368,16 +1395,13 @@ LABEL_12:
               }
             }
 
-            v22 = SFLocalizedStringForKey();
-            [v9 setSubtitle:v22];
+            v25 = SFLocalizedStringForKey();
+            [v9 setSubtitle:v25];
 
 LABEL_15:
             if (dword_100972630 <= 30 && (dword_100972630 != -1 || _LogCategory_Initialize()))
             {
-              v28 = prompt;
-              v29 = title;
-              v27 = uUIDString;
-              LogPrintF();
+              LogPrintF(&dword_100972630, "[SDNotificationManager _riServerUpdate:rtiData:]", 30, "TV KBUpdate (RTI) %@, Prompt: '%@', Title: '%@'\n", uUIDString, prompt, title);
             }
 
             tvNotifCenter = self->_tvNotifCenter;
@@ -1386,7 +1410,7 @@ LABEL_15:
             v30[2] = sub_1001C18B0;
             v30[3] = &unk_1008CDF90;
             v30[4] = uUIDString;
-            [(UNUserNotificationCenter *)tvNotifCenter replaceContentForRequestWithIdentifier:uUIDString replacementContent:v9 completionHandler:v30, v27, v28, v29];
+            [(UNUserNotificationCenter *)tvNotifCenter replaceContentForRequestWithIdentifier:uUIDString replacementContent:v9 completionHandler:v30];
 LABEL_20:
 
             goto LABEL_21;
@@ -1416,20 +1440,20 @@ LABEL_20:
 
   if (dword_100972630 <= 60 && (dword_100972630 != -1 || _LogCategory_Initialize()))
   {
-    v24 = v13;
+    v27 = v13;
     v31 = NSLocalizedDescriptionKey;
-    v25 = [NSString stringWithUTF8String:DebugGetErrorString()];
-    v16 = v25;
-    v26 = @"?";
-    if (v25)
+    v28 = [NSString stringWithUTF8String:DebugGetErrorString()];
+    v16 = v28;
+    v29 = @"?";
+    if (v28)
     {
-      v26 = v25;
+      v29 = v28;
     }
 
-    v32 = v26;
+    v32 = v29;
     prompt = [NSDictionary dictionaryWithObjects:&v32 forKeys:&v31 count:1];
-    title = [NSError errorWithDomain:NSOSStatusErrorDomain code:v24 userInfo:prompt];
-    LogPrintF();
+    title = [NSError errorWithDomain:NSOSStatusErrorDomain code:v27 userInfo:prompt];
+    LogPrintF(&dword_100972630, "[SDNotificationManager _riServerUpdate:rtiData:]", 60, "### Error handling RTI data: %@\n", title);
     goto LABEL_20;
   }
 
@@ -1517,9 +1541,12 @@ LABEL_21:
 - (void)_watchKeyboardRemoveAll
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  if (dword_100972630 <= 10 && (dword_100972630 != -1 || _LogCategory_Initialize()))
+  if (dword_100972630 <= 10)
   {
-    sub_1001C7090();
+    if (dword_100972630 != -1 || (v3 = _LogCategory_Initialize(), v3))
+    {
+      sub_1001C7090(v3, v4, v5);
+    }
   }
 
   [(UNUserNotificationCenter *)self->_watchNotifCenter removeAllDeliveredNotifications];
@@ -1592,9 +1619,12 @@ LABEL_21:
 
           if (v16)
           {
-            if (dword_100972630 <= 30 && (dword_100972630 != -1 || _LogCategory_Initialize()))
+            if (dword_100972630 <= 30)
             {
-              sub_1001C7154();
+              if (dword_100972630 != -1 || (v17 = _LogCategory_Initialize(), v17))
+              {
+                sub_1001C7154(v17, v18, v19);
+              }
             }
 
             documentTraits = [v16 documentTraits];
@@ -1616,8 +1646,8 @@ LABEL_12:
 
             else
             {
-              v21 = SFLocalizedStringForKey();
-              [v9 setBody:v21];
+              v24 = SFLocalizedStringForKey();
+              [v9 setBody:v24];
 
               if (title)
               {
@@ -1625,16 +1655,13 @@ LABEL_12:
               }
             }
 
-            v22 = SFLocalizedStringForKey();
-            [v9 setSubtitle:v22];
+            v25 = SFLocalizedStringForKey();
+            [v9 setSubtitle:v25];
 
 LABEL_15:
             if (dword_100972630 <= 30 && (dword_100972630 != -1 || _LogCategory_Initialize()))
             {
-              v28 = prompt;
-              v29 = title;
-              v27 = uUIDString;
-              LogPrintF();
+              LogPrintF(&dword_100972630, "[SDNotificationManager _watchKeyboardUpdate:rtiData:]", 30, "Watch KBUpdate (RTI) %@, Prompt: '%@', Title: '%@'\n", uUIDString, prompt, title);
             }
 
             watchNotifCenter = self->_watchNotifCenter;
@@ -1643,7 +1670,7 @@ LABEL_15:
             v30[2] = sub_1001C2684;
             v30[3] = &unk_1008CDF90;
             v30[4] = uUIDString;
-            [(UNUserNotificationCenter *)watchNotifCenter replaceContentForRequestWithIdentifier:uUIDString replacementContent:v9 completionHandler:v30, v27, v28, v29];
+            [(UNUserNotificationCenter *)watchNotifCenter replaceContentForRequestWithIdentifier:uUIDString replacementContent:v9 completionHandler:v30];
 LABEL_20:
 
             goto LABEL_21;
@@ -1673,20 +1700,20 @@ LABEL_20:
 
   if (dword_100972630 <= 60 && (dword_100972630 != -1 || _LogCategory_Initialize()))
   {
-    v24 = v13;
+    v27 = v13;
     v31 = NSLocalizedDescriptionKey;
-    v25 = [NSString stringWithUTF8String:DebugGetErrorString()];
-    v16 = v25;
-    v26 = @"?";
-    if (v25)
+    v28 = [NSString stringWithUTF8String:DebugGetErrorString()];
+    v16 = v28;
+    v29 = @"?";
+    if (v28)
     {
-      v26 = v25;
+      v29 = v28;
     }
 
-    v32 = v26;
+    v32 = v29;
     prompt = [NSDictionary dictionaryWithObjects:&v32 forKeys:&v31 count:1];
-    title = [NSError errorWithDomain:NSOSStatusErrorDomain code:v24 userInfo:prompt];
-    LogPrintF();
+    title = [NSError errorWithDomain:NSOSStatusErrorDomain code:v27 userInfo:prompt];
+    LogPrintF(&dword_100972630, "[SDNotificationManager _watchKeyboardUpdate:rtiData:]", 60, "### Error handling RTI data: %@\n", title);
     goto LABEL_20;
   }
 
@@ -1707,7 +1734,7 @@ LABEL_21:
     goto LABEL_5;
   }
 
-  sub_1001C7218();
+  sub_1001C7218(responseCopy);
   if (completionCopy)
   {
 LABEL_5:
@@ -1918,7 +1945,7 @@ LABEL_30:
   {
     if (dword_100972630 <= 30 && (dword_100972630 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001C7318(reason);
+      sub_1001C7318(reason, removeCopy);
     }
 
     homePodNotifCenter = self->_homePodNotifCenter;
@@ -1989,7 +2016,7 @@ LABEL_30:
 
         if (dword_100972630 <= 30 && (dword_100972630 != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&dword_100972630, "[SDNotificationManager _homePodHandoffUpdateIfNeeded:info:]", 30, "HHUpdate %@, %@\n", neededCopy, v10);
         }
 
         v13[0] = _NSConcreteStackBlock;
@@ -2004,13 +2031,13 @@ LABEL_30:
 
       else if (dword_100972630 <= 90 && (dword_100972630 != -1 || _LogCategory_Initialize()))
       {
-        sub_1001C737C();
+        sub_1001C737C(infoCopy);
       }
     }
 
     else if (dword_100972630 <= 90 && (dword_100972630 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001C73BC();
+      sub_1001C73BC(neededCopy);
     }
   }
 }
@@ -2018,17 +2045,16 @@ LABEL_30:
 - (void)_homePodHandleResponse:(id)response completion:(id)completion
 {
   responseCopy = response;
-  v34[0] = _NSConcreteStackBlock;
-  v34[1] = 3221225472;
-  v34[2] = sub_1001C3984;
-  v34[3] = &unk_1008D08E0;
+  v36[0] = _NSConcreteStackBlock;
+  v36[1] = 3221225472;
+  v36[2] = sub_1001C3984;
+  v36[3] = &unk_1008D08E0;
   completionCopy = completion;
-  v35 = completionCopy;
-  v8 = objc_retainBlock(v34);
+  v37 = completionCopy;
+  v8 = objc_retainBlock(v36);
   if (dword_100972630 <= 30 && (dword_100972630 != -1 || _LogCategory_Initialize()))
   {
-    v32 = responseCopy;
-    LogPrintF();
+    LogPrintF(&dword_100972630, "[SDNotificationManager _homePodHandleResponse:completion:]", 30, "Handle HomePod response: %@\n", responseCopy);
   }
 
   notification = [responseCopy notification];
@@ -2039,118 +2065,81 @@ LABEL_30:
   {
     selfCopy = self;
     actionIdentifier = [responseCopy actionIdentifier];
+    v13 = actionIdentifier;
     if (!actionIdentifier)
     {
-      if (dword_100972630 > 90 || dword_100972630 == -1 && !_LogCategory_Initialize())
+      if (dword_100972630 <= 90 && (dword_100972630 != -1 || _LogCategory_Initialize()))
       {
-        goto LABEL_49;
+        LogPrintF(&dword_100972630, "[SDNotificationManager _homePodHandleResponse:completion:]", 90, "### No action identifier for notification response? %@", responseCopy);
       }
 
-      goto LABEL_15;
+      goto LABEL_49;
     }
 
-    v13 = off_1009726A0();
-    v14 = actionIdentifier;
+    v14 = off_1009726A0(actionIdentifier);
     v15 = v13;
-    v16 = v15;
-    if (v14 == v15)
+    v16 = v14;
+    v17 = v16;
+    if (v15 == v16)
     {
-      v17 = 1;
+      v18 = 1;
     }
 
-    else if (v15)
+    else if (v16)
     {
-      v17 = [v14 isEqual:v15];
-    }
-
-    else
-    {
-      v17 = 0;
-    }
-
-    v18 = off_1009726A8();
-    v19 = v14;
-    v20 = v18;
-    v21 = v20;
-    if (v19 == v20)
-    {
-      v22 = 1;
+      v18 = [v15 isEqual:v16];
     }
 
     else
     {
-      if (!v20)
+      v18 = 0;
+    }
+
+    v20 = off_1009726A8(v19);
+    v21 = v15;
+    v22 = v20;
+    v23 = v22;
+    if (v21 == v22)
+    {
+      v24 = 1;
+    }
+
+    else
+    {
+      if (!v22)
       {
 
-        if (v17)
+        if (v18)
         {
 LABEL_26:
-          LOBYTE(v23) = 1;
-LABEL_36:
-          v26 = off_1009726C8();
-          v27 = v19;
-          v28 = v26;
-          v29 = v28;
-          if (v27 == v28)
-          {
-            v30 = 1;
-          }
-
-          else if (v28)
-          {
-            v30 = [v27 isEqual:v28];
-          }
-
-          else
-          {
-            v30 = 0;
-          }
-
-          if (v23)
-          {
-            goto LABEL_42;
-          }
-
-          if (v30)
-          {
-            goto LABEL_44;
-          }
-
-          if (dword_100972630 > 60 || dword_100972630 == -1 && !_LogCategory_Initialize())
-          {
-            goto LABEL_49;
-          }
-
-LABEL_15:
-          LogPrintF();
-LABEL_49:
-
-          goto LABEL_50;
+          LOBYTE(v26) = 1;
+          goto LABEL_36;
         }
 
-        v22 = 0;
+        v24 = 0;
 LABEL_30:
-        v24 = v19;
-        v25 = v24;
-        if (v24 == @"TRANSFER")
+        v27 = v21;
+        v28 = v27;
+        if (v27 == @"TRANSFER")
         {
-          v23 = 1;
+          v26 = 1;
         }
 
         else
         {
-          v23 = [(__CFString *)v24 isEqual:@"TRANSFER"];
+          v26 = [(__CFString *)v27 isEqual:@"TRANSFER"];
         }
 
-        if (v22)
+        if (v24)
         {
-          if (v23)
+          if (v26)
           {
 LABEL_42:
-            v31 = +[SDProxHandoffAgent sharedAgent];
-            [v31 userDidTapNotification:identifier];
+            v34 = +[SDProxHandoffAgent sharedAgent];
+            [v34 userDidTapNotification:identifier];
 
-            goto LABEL_49;
+LABEL_49:
+            goto LABEL_50;
           }
 
 LABEL_44:
@@ -2158,15 +2147,50 @@ LABEL_44:
           goto LABEL_49;
         }
 
-        goto LABEL_36;
+LABEL_36:
+        v29 = off_1009726C8(v25);
+        v30 = v21;
+        v31 = v29;
+        v32 = v31;
+        if (v30 == v31)
+        {
+          v33 = 1;
+        }
+
+        else if (v31)
+        {
+          v33 = [v30 isEqual:v31];
+        }
+
+        else
+        {
+          v33 = 0;
+        }
+
+        if (v26)
+        {
+          goto LABEL_42;
+        }
+
+        if (!v33)
+        {
+          if (dword_100972630 <= 60 && (dword_100972630 != -1 || _LogCategory_Initialize()))
+          {
+            LogPrintF(&dword_100972630, "[SDNotificationManager _homePodHandleResponse:completion:]", 60, "Unrecognized action: %@\n", v30);
+          }
+
+          goto LABEL_49;
+        }
+
+        goto LABEL_44;
       }
 
-      v22 = [v19 isEqual:v20];
+      v24 = [v21 isEqual:v22];
     }
 
-    if (v17)
+    if (v18)
     {
-      if (v22)
+      if (v24)
       {
         goto LABEL_42;
       }
@@ -2179,7 +2203,7 @@ LABEL_44:
 
   if (dword_100972630 <= 90 && (dword_100972630 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_100972630, "[SDNotificationManager _homePodHandleResponse:completion:]", 90, "### No identifier for notification response? %@", responseCopy);
   }
 
 LABEL_50:
@@ -2447,12 +2471,12 @@ LABEL_37:
       {
         if (dword_100972630 != -1 || _LogCategory_Initialize())
         {
-          LogPrintF();
+          LogPrintF(&dword_100972630, "[SDNotificationManager userNotificationCenter:didReceiveNotificationResponse:withCompletionHandler:]", 60, "### Unrecognized notification center: %@ for response: %@\n", v34, responseCopy);
         }
 
         if (dword_100972630 <= 60 && (dword_100972630 != -1 || _LogCategory_Initialize()))
         {
-          sub_1001C74C4(&v45, &v46);
+          sub_1001C74C4(v45, v46);
         }
       }
 
@@ -2478,7 +2502,7 @@ LABEL_37:
   os_activity_scope_enter(v38, &state);
   if (dword_100972630 <= 40 && (dword_100972630 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_100972630, "[SDNotificationManager userNotificationCenter:didReceiveNotificationResponse:withCompletionHandler:]", 40, "Got notification VISION response");
   }
 
   notification = [responseCopy notification];
@@ -2506,62 +2530,63 @@ LABEL_12:
 {
   postCopy = post;
   v6 = postCopy;
+  v7 = postCopy;
   if (dword_100972630 <= 30)
   {
-    if (dword_100972630 != -1 || (v5 = _LogCategory_Initialize(), postCopy = v6, v5))
+    if (dword_100972630 != -1 || (postCopy = _LogCategory_Initialize(), v6 = v7, postCopy))
     {
-      sub_1001C75D0();
-      postCopy = v6;
+      sub_1001C75D0(postCopy, v6, v5);
+      v6 = v7;
     }
   }
 
   if (!self->_activated)
   {
     [(SDNotificationManager *)self _activate];
-    postCopy = v6;
+    v6 = v7;
   }
 
-  if ([postCopy isEqual:@"-af"])
+  if ([v6 isEqual:@"-af"])
   {
     [(SDNotificationManager *)self testAutofillPost];
   }
 
-  else if ([v6 isEqual:@"-afr"])
+  else if ([v7 isEqual:@"-afr"])
   {
     [(SDNotificationManager *)self testAutoFillRemove];
   }
 
-  else if ([v6 isEqual:@"-ho"])
+  else if ([v7 isEqual:@"-ho"])
   {
     [(SDNotificationManager *)self testHandoffPost];
   }
 
-  else if ([v6 isEqual:@"-kb"])
+  else if ([v7 isEqual:@"-kb"])
   {
     [(SDNotificationManager *)self testKeyboardPost];
   }
 
-  else if ([v6 isEqual:@"-kba"])
+  else if ([v7 isEqual:@"-kba"])
   {
     [(SDNotificationManager *)self testKeyboardPostAutoFill];
   }
 
-  else if ([v6 isEqual:@"-kbr"])
+  else if ([v7 isEqual:@"-kbr"])
   {
     [(SDNotificationManager *)self testKeyboardRemove];
   }
 
-  else if ([v6 isEqual:@"-kbu"])
+  else if ([v7 isEqual:@"-kbu"])
   {
     [(SDNotificationManager *)self testKeyboardUpdate];
   }
 
-  else if ([v6 isEqual:@"-wkb"])
+  else if ([v7 isEqual:@"-wkb"])
   {
     [(SDNotificationManager *)self testWatchKeyboard];
   }
 
-  else if ([v6 isEqual:@"-waf"])
+  else if ([v7 isEqual:@"-waf"])
   {
     [(SDNotificationManager *)self testWatchKeyboardAutoFill];
   }
@@ -2574,117 +2599,133 @@ LABEL_12:
 
 - (void)testPostBasic
 {
-  v5 = objc_alloc_init(sub_1001C0CA4());
-  [v5 setBody:@"This is a test user notification"];
-  [v5 setCategoryIdentifier:@"continuityRemoteCategory"];
-  [v5 setSubtitle:@"Example Subtitle"];
-  [v5 setTitle:@"Notification Title"];
-  if (dword_100972630 <= 30 && (dword_100972630 != -1 || _LogCategory_Initialize()))
+  v8 = objc_alloc_init(sub_1001C0CA4());
+  [v8 setBody:@"This is a test user notification"];
+  [v8 setCategoryIdentifier:@"continuityRemoteCategory"];
+  [v8 setSubtitle:@"Example Subtitle"];
+  v3 = [v8 setTitle:@"Notification Title"];
+  if (dword_100972630 <= 30)
   {
-    sub_1001C75EC();
+    if (dword_100972630 != -1 || (v3 = _LogCategory_Initialize(), v3))
+    {
+      sub_1001C75EC(v3, v4, v5);
+    }
   }
 
-  v3 = +[NSUUID UUID];
-  uUIDString = [v3 UUIDString];
-  [(SDNotificationManager *)self _addRequestWithID:uUIDString content:v5 type:5];
+  v6 = +[NSUUID UUID];
+  uUIDString = [v6 UUIDString];
+  [(SDNotificationManager *)self _addRequestWithID:uUIDString content:v8 type:5];
 }
 
 - (void)testAutofillPost
 {
-  v4 = objc_alloc_init(SFDevice);
+  v7 = objc_alloc_init(SFDevice);
   v3 = [[NSUUID alloc] initWithUUIDString:@"00000000-0000-0000-0000-000000000000"];
-  [v4 setIdentifier:v3];
+  [v7 setIdentifier:v3];
 
-  if (dword_100972630 <= 30 && (dword_100972630 != -1 || _LogCategory_Initialize()))
+  if (dword_100972630 <= 30)
   {
-    sub_1001C7608();
+    if (dword_100972630 != -1 || (v4 = _LogCategory_Initialize(), v4))
+    {
+      sub_1001C7608(v4, v5, v6);
+    }
   }
 
-  [(SDNotificationManager *)self tvAutoFillPostIfNeeded:v4];
+  [(SDNotificationManager *)self tvAutoFillPostIfNeeded:v7];
 }
 
 - (void)testAutoFillRemove
 {
-  v4 = objc_alloc_init(SFDevice);
+  v7 = objc_alloc_init(SFDevice);
   v3 = [[NSUUID alloc] initWithUUIDString:@"00000000-0000-0000-0000-000000000000"];
-  [v4 setIdentifier:v3];
+  [v7 setIdentifier:v3];
 
-  if (dword_100972630 <= 30 && (dword_100972630 != -1 || _LogCategory_Initialize()))
+  if (dword_100972630 <= 30)
   {
-    sub_1001C7624();
+    if (dword_100972630 != -1 || (v4 = _LogCategory_Initialize(), v4))
+    {
+      sub_1001C7624(v4, v5, v6);
+    }
   }
 
-  [(SDNotificationManager *)self tvAutoFillRemove:v4];
+  [(SDNotificationManager *)self tvAutoFillRemove:v7];
 }
 
 - (void)testHandoffPost
 {
-  v3 = SFDeviceClassCodeGet() - 1;
-  if (v3 <= 2)
+  SFDeviceClassCodeGet();
+  v10 = SFLocalizedStringForKey();
+  v3 = [NSString stringWithFormat:@"John Appleseed"];
+  v4 = objc_alloc_init(SFNotificationInfo);
+  [v4 setNotificationType:3];
+  [v4 setBody:v3];
+  v5 = SFHomePodDisplayNameForDeviceName();
+  [v4 setHeader:v5];
+
+  v6 = SFLocalizedStringForKey();
+  [v4 setTitle:v6];
+
+  if (dword_100972630 <= 30)
   {
-    v4 = off_1008D3460[v3];
+    if (dword_100972630 != -1 || (v7 = _LogCategory_Initialize(), v7))
+    {
+      sub_1001C7640(v7, v8, v9);
+    }
   }
 
-  v9 = SFLocalizedStringForKey();
-  v5 = [NSString stringWithFormat:@"John Appleseed"];
-  v6 = objc_alloc_init(SFNotificationInfo);
-  [v6 setNotificationType:3];
-  [v6 setBody:v5];
-  v7 = SFHomePodDisplayNameForDeviceName();
-  [v6 setHeader:v7];
-
-  v8 = SFLocalizedStringForKey();
-  [v6 setTitle:v8];
-
-  if (dword_100972630 <= 30 && (dword_100972630 != -1 || _LogCategory_Initialize()))
-  {
-    sub_1001C7640();
-  }
-
-  [(SDNotificationManager *)self homePodHandoffPostIfNeeded:@"00000000-0000-0000-0000-000000000000" info:v6];
+  [(SDNotificationManager *)self homePodHandoffPostIfNeeded:@"00000000-0000-0000-0000-000000000000" info:v4];
 }
 
 - (void)testKeyboardPost
 {
-  v4 = objc_alloc_init(SFDevice);
+  v7 = objc_alloc_init(SFDevice);
   v3 = [[NSUUID alloc] initWithUUIDString:@"00000000-0000-0000-0000-000000000000"];
-  [v4 setIdentifier:v3];
+  [v7 setIdentifier:v3];
 
-  if (dword_100972630 <= 30 && (dword_100972630 != -1 || _LogCategory_Initialize()))
+  if (dword_100972630 <= 30)
   {
-    sub_1001C765C();
+    if (dword_100972630 != -1 || (v4 = _LogCategory_Initialize(), v4))
+    {
+      sub_1001C765C(v4, v5, v6);
+    }
   }
 
-  [(SDNotificationManager *)self riServerPostIfNeeded:v4 backgroundAction:0];
+  [(SDNotificationManager *)self riServerPostIfNeeded:v7 backgroundAction:0];
 }
 
 - (void)testKeyboardPostAutoFill
 {
-  v4 = objc_alloc_init(SFDevice);
+  v7 = objc_alloc_init(SFDevice);
   v3 = [[NSUUID alloc] initWithUUIDString:@"00000000-0000-0000-0000-000000000000"];
-  [v4 setIdentifier:v3];
+  [v7 setIdentifier:v3];
 
-  [v4 setDeviceActionType:19];
-  if (dword_100972630 <= 30 && (dword_100972630 != -1 || _LogCategory_Initialize()))
+  v4 = [v7 setDeviceActionType:19];
+  if (dword_100972630 <= 30)
   {
-    sub_1001C7678();
+    if (dword_100972630 != -1 || (v4 = _LogCategory_Initialize(), v4))
+    {
+      sub_1001C7678(v4, v5, v6);
+    }
   }
 
-  [(SDNotificationManager *)self riServerPostIfNeeded:v4 backgroundAction:0];
+  [(SDNotificationManager *)self riServerPostIfNeeded:v7 backgroundAction:0];
 }
 
 - (void)testKeyboardRemove
 {
-  v4 = objc_alloc_init(SFDevice);
+  v7 = objc_alloc_init(SFDevice);
   v3 = [[NSUUID alloc] initWithUUIDString:@"00000000-0000-0000-0000-000000000000"];
-  [v4 setIdentifier:v3];
+  [v7 setIdentifier:v3];
 
-  if (dword_100972630 <= 30 && (dword_100972630 != -1 || _LogCategory_Initialize()))
+  if (dword_100972630 <= 30)
   {
-    sub_1001C7694();
+    if (dword_100972630 != -1 || (v4 = _LogCategory_Initialize(), v4))
+    {
+      sub_1001C7694(v4, v5, v6);
+    }
   }
 
-  [(SDNotificationManager *)self riServerRemove:v4];
+  [(SDNotificationManager *)self riServerRemove:v7];
 }
 
 - (void)testKeyboardUpdate
@@ -2701,31 +2742,37 @@ LABEL_12:
 
 - (void)testWatchKeyboard
 {
-  v4 = objc_alloc_init(SFDevice);
+  v7 = objc_alloc_init(SFDevice);
   v3 = [[NSUUID alloc] initWithUUIDString:@"00000000-0000-0000-0000-000000000000"];
-  [v4 setIdentifier:v3];
+  [v7 setIdentifier:v3];
 
-  if (dword_100972630 <= 30 && (dword_100972630 != -1 || _LogCategory_Initialize()))
+  if (dword_100972630 <= 30)
   {
-    sub_1001C76B0();
+    if (dword_100972630 != -1 || (v4 = _LogCategory_Initialize(), v4))
+    {
+      sub_1001C76B0(v4, v5, v6);
+    }
   }
 
-  [(SDNotificationManager *)self watchKeyboardPostIfNeeded:v4];
+  [(SDNotificationManager *)self watchKeyboardPostIfNeeded:v7];
 }
 
 - (void)testWatchKeyboardAutoFill
 {
-  v4 = objc_alloc_init(SFDevice);
+  v7 = objc_alloc_init(SFDevice);
   v3 = [[NSUUID alloc] initWithUUIDString:@"00000000-0000-0000-0000-000000000000"];
-  [v4 setIdentifier:v3];
+  [v7 setIdentifier:v3];
 
-  [v4 setDeviceActionType:19];
-  if (dword_100972630 <= 30 && (dword_100972630 != -1 || _LogCategory_Initialize()))
+  v4 = [v7 setDeviceActionType:19];
+  if (dword_100972630 <= 30)
   {
-    sub_1001C76CC();
+    if (dword_100972630 != -1 || (v4 = _LogCategory_Initialize(), v4))
+    {
+      sub_1001C76CC(v4, v5, v6);
+    }
   }
 
-  [(SDNotificationManager *)self watchKeyboardPostIfNeeded:v4];
+  [(SDNotificationManager *)self watchKeyboardPostIfNeeded:v7];
 }
 
 - (id)riServerContentForDevice:(id)device backgroundAction:(BOOL)action
@@ -2801,6 +2848,33 @@ LABEL_12:
   return v10;
 }
 
+- (void)_riServerPostIfNeeded:(id)needed backgroundAction:(BOOL)action
+{
+  actionCopy = action;
+  neededCopy = needed;
+  identifier = [neededCopy identifier];
+  uUIDString = [identifier UUIDString];
+
+  dispatch_assert_queue_V2(self->_dispatchQueue);
+  if (uUIDString)
+  {
+    v9 = [(SDNotificationManager *)self riServerContentForDevice:neededCopy backgroundAction:actionCopy];
+    if (v9)
+    {
+      sub_100021EF0();
+      v11[0] = v10;
+      v11[1] = 3221225472;
+      v11[2] = sub_1001C0F1C;
+      v11[3] = &unk_1008D32F8;
+      v12 = actionCopy;
+      v11[4] = uUIDString;
+      v11[5] = self;
+      v11[6] = v9;
+      [(SDNotificationManager *)self _riServerEnsureStarted:1 completion:v11];
+    }
+  }
+}
+
 - (void)_riServerRemove:(id)remove
 {
   identifier = [remove identifier];
@@ -2817,14 +2891,12 @@ LABEL_12:
       {
         if (dword_100972630 <= 30 && (dword_100972630 != -1 || _LogCategory_Initialize()))
         {
-          v10 = v3;
-          LogPrintF();
+          LogPrintF(&dword_100972630, "[SDNotificationManager _riServerRemove:]", 30, "TV KBRemove %@\n");
         }
 
-        tvNotifCenter = self->_tvNotifCenter;
-        v11 = v3;
-        v9 = [NSArray arrayWithObjects:&v11 count:1, v10];
-        sub_1001C5814(v9);
+        v9 = v3;
+        v8 = [NSArray arrayWithObjects:&v9 count:1];
+        sub_1001C5814(v8);
 
         [(NSMutableDictionary *)self->_tvKeyboardRequests removeObjectForKey:v3];
       }
@@ -2879,19 +2951,18 @@ LABEL_12:
       {
         prompt2 = [infoCopy prompt];
         [infoCopy title];
-        v29 = v28 = prompt2;
-        v27 = uUIDString;
-        LogPrintF();
+        v28 = v27 = prompt2;
+        v26 = uUIDString;
+        LogPrintF(&dword_100972630, "[SDNotificationManager _riServerUpdate:info:]", 30, "KBUpdate (legacy) %@, Prompt: '%@', Title: '%@'\n");
       }
 
-      tvNotifCenter = self->_tvNotifCenter;
       sub_100035DFC();
-      sub_1001C5868(v19, v20, v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, 3221225472, sub_1001C11FC, &unk_1008CDF90, v31);
+      sub_1001C5868(v18, v19, v20, v21, v22, v23, v24, v25, v26, v27, v28, v29, 3221225472, sub_1001C11FC, &unk_1008CDF90, v30);
     }
 
     else if (dword_100972630 <= 60 && (dword_100972630 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_100972630, "[SDNotificationManager _riServerUpdate:info:]", 60, "### KBUpdate: request %@ not found\n", identifier);
     }
   }
 }
@@ -2930,14 +3001,12 @@ LABEL_12:
       {
         if (dword_100972630 <= 30 && (dword_100972630 != -1 || _LogCategory_Initialize()))
         {
-          v10 = v3;
-          LogPrintF();
+          LogPrintF(&dword_100972630, "[SDNotificationManager _tvAutoFillRemove:]", 30, "AFRemove %@\n");
         }
 
-        tvNotifCenter = self->_tvNotifCenter;
-        v11 = v3;
-        v9 = [NSArray arrayWithObjects:&v11 count:1, v10];
-        sub_1001C5814(v9);
+        v9 = v3;
+        v8 = [NSArray arrayWithObjects:&v9 count:1];
+        sub_1001C5814(v8);
 
         [(NSMutableDictionary *)self->_autoFillRequests removeObjectForKey:v3];
       }
@@ -2952,7 +3021,7 @@ LABEL_12:
     dispatch_assert_queue_V2(self->_dispatchQueue);
     if (dword_100972630 <= 10 && (dword_100972630 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_100972630, "[SDNotificationManager _tvAutoFillRemoveAll]", 10, "AFRemoveAll");
     }
 
     [(UNUserNotificationCenter *)self->_tvNotifCenter removeAllDeliveredNotifications];
@@ -3072,14 +3141,12 @@ LABEL_12:
       {
         if (dword_100972630 <= 30 && (dword_100972630 != -1 || _LogCategory_Initialize()))
         {
-          v10 = v3;
-          LogPrintF();
+          LogPrintF(&dword_100972630, "[SDNotificationManager _watchKeyboardRemove:]", 30, "Watch KBRemove %@\n");
         }
 
-        watchNotifCenter = self->_watchNotifCenter;
-        v11 = v3;
-        v9 = [NSArray arrayWithObjects:&v11 count:1, v10];
-        sub_1001C5814(v9);
+        v9 = v3;
+        v8 = [NSArray arrayWithObjects:&v9 count:1];
+        sub_1001C5814(v8);
 
         [(NSMutableDictionary *)self->_watchKeyboardRequests removeObjectForKey:v3];
       }
@@ -3134,19 +3201,18 @@ LABEL_12:
       {
         prompt2 = [infoCopy prompt];
         [infoCopy title];
-        v29 = v28 = prompt2;
-        v27 = uUIDString;
-        LogPrintF();
+        v28 = v27 = prompt2;
+        v26 = uUIDString;
+        LogPrintF(&dword_100972630, "[SDNotificationManager _watchKeyboardUpdate:info:]", 30, "Watch KBUpdate (legacy) %@, Prompt: '%@', Title: '%@'\n");
       }
 
-      watchNotifCenter = self->_watchNotifCenter;
       sub_100035DFC();
-      sub_1001C5868(v19, v20, v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, 3221225472, sub_1001C20B4, &unk_1008CDF90, v31);
+      sub_1001C5868(v18, v19, v20, v21, v22, v23, v24, v25, v26, v27, v28, v29, 3221225472, sub_1001C20B4, &unk_1008CDF90, v30);
     }
 
     else if (dword_100972630 <= 60 && (dword_100972630 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_100972630, "[SDNotificationManager _watchKeyboardUpdate:info:]", 60, "### KBUpdate: request %@ not found\n", identifier);
     }
   }
 }

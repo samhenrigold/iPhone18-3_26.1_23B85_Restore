@@ -828,7 +828,7 @@ TSDGradient *__48__TSDGradient_mixedObjectWithFraction_ofObject___block_invoke(u
   }
 }
 
-uint64_t __36__TSDGradient_p_insertGradientStop___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__36__TSDGradient_p_insertGradientStop___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   [a2 fraction];
   v8 = v7;

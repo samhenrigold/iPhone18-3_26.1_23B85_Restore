@@ -22,7 +22,7 @@ uint64_t Connection.init(service:queue:errorHandler:)(uint64_t a1, uint64_t a2, 
     if (v10)
     {
       aBlock[0] = v10;
-      if ((swift_dynamicCast() & 1) == 0 || (v19 & 1) == 0)
+      if ((swift_dynamicCast() & 1) == 0 || (v17 & 1) == 0)
       {
 
         return v5;
@@ -34,7 +34,6 @@ uint64_t Connection.init(service:queue:errorHandler:)(uint64_t a1, uint64_t a2, 
   v11 = sub_23EE46D98();
   mach_service = xpc_connection_create_mach_service((v11 + 32), 0, 0);
 
-  v13 = *(v5 + 32);
   *(v5 + 32) = mach_service;
   swift_unknownObjectRetain();
   result = swift_unknownObjectRelease();
@@ -46,8 +45,8 @@ uint64_t Connection.init(service:queue:errorHandler:)(uint64_t a1, uint64_t a2, 
 
   xpc_connection_set_target_queue(mach_service, a3);
   result = swift_unknownObjectRelease();
-  v15 = *(v5 + 32);
-  if (!v15)
+  v14 = *(v5 + 32);
+  if (!v14)
   {
 LABEL_12:
     __break(1u);
@@ -60,20 +59,19 @@ LABEL_12:
   aBlock[1] = 1107296256;
   aBlock[2] = sub_23EE463E4;
   aBlock[3] = &block_descriptor;
-  v16 = _Block_copy(aBlock);
+  v15 = _Block_copy(aBlock);
 
   swift_unknownObjectRetain();
 
-  xpc_connection_set_event_handler(v15, v16);
-  _Block_release(v16);
+  xpc_connection_set_event_handler(v14, v15);
+  _Block_release(v15);
   result = swift_unknownObjectRelease();
-  v17 = *(v5 + 32);
-  if (v17)
+  v16 = *(v5 + 32);
+  if (v16)
   {
-    v18 = *(v5 + 32);
     swift_unknownObjectRetain();
 
-    xpc_connection_activate(v17);
+    xpc_connection_activate(v16);
     swift_unknownObjectRelease();
 
     return v5;
@@ -89,24 +87,23 @@ _xpc_connection_s *sub_23EE462E0(void *a1, void *a2)
   v4 = MEMORY[0x23EF25DB0]();
   if (v4 == sub_23EE46D38())
   {
-    v8 = sub_23EE46D58();
-    v9 = xpc_equal(a1, v8);
+    v7 = sub_23EE46D58();
+    v8 = xpc_equal(a1, v7);
     swift_unknownObjectRelease();
-    if (v9)
+    if (v8)
     {
-      v6 = a2[2];
-      v10 = a2[3];
-      v15 = 0;
+      v5 = a2[2];
+      v12 = 0;
 
-      v7 = &v15;
+      v6 = &v12;
     }
 
     else
     {
-      v11 = sub_23EE46D48();
-      v12 = xpc_equal(a1, v11);
+      v9 = sub_23EE46D48();
+      v10 = xpc_equal(a1, v9);
       result = swift_unknownObjectRelease();
-      if (!v12)
+      if (!v10)
       {
         return result;
       }
@@ -119,30 +116,27 @@ _xpc_connection_s *sub_23EE462E0(void *a1, void *a2)
       }
 
       xpc_connection_cancel(result);
-      v6 = a2[2];
-      v14 = a2[3];
-      v16 = 1;
+      v5 = a2[2];
+      v13 = 1;
 
-      v7 = &v16;
+      v6 = &v13;
     }
   }
 
   else
   {
-    v6 = a2[2];
-    v5 = a2[3];
-    v17 = 2;
+    v5 = a2[2];
+    v14 = 2;
 
-    v7 = &v17;
+    v6 = &v14;
   }
 
-  v6(v7);
+  v5(v6);
 }
 
-uint64_t sub_23EE463E4(uint64_t a1)
+uint64_t sub_23EE463E4(uint64_t a1, uint64_t a2)
 {
   v2 = *(a1 + 32);
-  v1 = *(a1 + 40);
 
   v3 = swift_unknownObjectRetain();
   v2(v3);
@@ -160,71 +154,70 @@ uint64_t block_copy_helper(uint64_t a1, uint64_t a2)
 _xpc_connection_s *Connection.service<A>(for:as:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v7 = *(sub_23EE46D78() - 8);
-  v8 = *(v7 + 64);
-  v9 = MEMORY[0x28223BE20]();
-  v11 = (v25 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v8 = MEMORY[0x28223BE20]();
+  v10 = (v24 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
   if ((*(v5 + 40) & 1) == 0)
   {
     sub_23EE46730();
     swift_allocError();
-    *v20 = 0;
+    *v19 = 0;
     return swift_willThrow();
   }
 
-  v25[1] = a5;
-  v26 = v9;
-  v12 = xpc_dictionary_create(0, 0, 0);
-  v13 = sub_23EE46D98();
-  xpc_dictionary_set_string(v12, "serviceName", (v13 + 32));
+  v24[1] = a5;
+  v25 = v8;
+  v11 = xpc_dictionary_create(0, 0, 0);
+  v12 = sub_23EE46D98();
+  xpc_dictionary_set_string(v11, "serviceName", (v12 + 32));
 
   result = *(v5 + 32);
   if (result)
   {
-    v15 = xpc_connection_send_message_with_reply_sync(result, v12);
-    v16 = sub_23EE46D48();
-    v17 = xpc_equal(v15, v16);
+    v14 = xpc_connection_send_message_with_reply_sync(result, v11);
+    v15 = sub_23EE46D48();
+    v16 = xpc_equal(v14, v15);
     swift_unknownObjectRelease();
-    if (v17)
+    if (v16)
     {
       sub_23EE46730();
       swift_allocError();
-      LOBYTE(v19) = 3;
+      LOBYTE(v18) = 3;
     }
 
     else
     {
-      v21 = sub_23EE46D58();
-      v22 = xpc_equal(v15, v21);
+      v20 = sub_23EE46D58();
+      v21 = xpc_equal(v14, v20);
       swift_unknownObjectRelease();
-      if (v22 || (v23 = xpc_dictionary_copy_mach_send(), v23 == -1))
+      if (v21 || (v22 = xpc_dictionary_copy_mach_send(), v22 == -1))
       {
         sub_23EE46730();
         swift_allocError();
-        LOBYTE(v19) = 2;
+        LOBYTE(v18) = 2;
       }
 
       else
       {
-        if (v23)
+        if (v22)
         {
-          *v11 = v23;
-          (*(v7 + 104))(v11, *MEMORY[0x277D714B0], v26);
+          *v10 = v22;
+          (*(v7 + 104))(v10, *MEMORY[0x277D714B0], v25);
           sub_23EE46D68();
           goto LABEL_13;
         }
 
-        int64 = xpc_dictionary_get_int64(v15, "error");
+        int64 = xpc_dictionary_get_int64(v14, "error");
         sub_23EE46730();
         swift_allocError();
-        v19 = 0x302010004uLL >> (8 * int64);
+        v18 = 0x302010004uLL >> (8 * int64);
         if (int64 >= 5)
         {
-          LOBYTE(v19) = 4;
+          LOBYTE(v18) = 4;
         }
       }
     }
 
-    *v18 = v19;
+    *v17 = v18;
     swift_willThrow();
 LABEL_13:
     swift_unknownObjectRelease();
@@ -249,18 +242,14 @@ unint64_t sub_23EE46730()
 
 uint64_t Connection.deinit()
 {
-  v1 = *(v0 + 24);
 
-  v2 = *(v0 + 32);
   swift_unknownObjectRelease();
   return v0;
 }
 
 uint64_t Connection.__deallocating_deinit()
 {
-  v1 = *(v0 + 24);
 
-  v2 = *(v0 + 32);
   swift_unknownObjectRelease();
 
   return MEMORY[0x2821FE8D8](v0, 41, 7);
@@ -286,11 +275,11 @@ uint64_t sub_23EE468CC()
   return sub_23EE46E08();
 }
 
-uint64_t sub_23EE4695C()
+uint64_t sub_23EE4695C(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   sub_23EE46DE8();
-  MEMORY[0x23EF25BA0](v1);
+  MEMORY[0x23EF25BA0](v2);
   return sub_23EE46E08();
 }
 

@@ -230,7 +230,7 @@ uint64_t __55__CoreDAVMoveWithFallbackTaskGroup__completedMoveTask___block_invok
 
 - (void)_completedPutTask:(id)task
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   error = [taskCopy error];
   v6 = +[CoreDAVLogging sharedLogging];
@@ -267,7 +267,7 @@ uint64_t __55__CoreDAVMoveWithFallbackTaskGroup__completedMoveTask___block_invok
       {
         responseHeaders = [taskCopy responseHeaders];
         *buf = 138412290;
-        v27 = responseHeaders;
+        v26 = responseHeaders;
         _os_log_impl(&dword_2452FB000, v12, OS_LOG_TYPE_INFO, "[move] PUT Responses are: %@", buf, 0xCu);
       }
     }
@@ -281,27 +281,25 @@ uint64_t __55__CoreDAVMoveWithFallbackTaskGroup__completedMoveTask___block_invok
     [(CoreDAVTask *)v16 setAccountInfoProvider:v17];
 
     objc_initWeak(buf, v16);
-    v20 = MEMORY[0x277D85DD0];
-    v21 = 3221225472;
-    v22 = __54__CoreDAVMoveWithFallbackTaskGroup__completedPutTask___block_invoke;
-    v23 = &unk_278E30F68;
-    objc_copyWeak(&v25, buf);
+    v19 = MEMORY[0x277D85DD0];
+    v20 = 3221225472;
+    v21 = __54__CoreDAVMoveWithFallbackTaskGroup__completedPutTask___block_invoke;
+    v22 = &unk_278E30F68;
+    objc_copyWeak(&v24, buf);
     selfCopy = self;
-    [(CoreDAVTask *)v16 setCompletionBlock:&v20];
-    [(NSMutableSet *)self->super._outstandingTasks addObject:v16, v20, v21, v22, v23];
+    [(CoreDAVTask *)v16 setCompletionBlock:&v19];
+    [(NSMutableSet *)self->super._outstandingTasks addObject:v16, v19, v20, v21, v22];
     taskManager = [(CoreDAVTaskGroup *)self taskManager];
     [taskManager submitQueuedCoreDAVTask:v16];
 
-    objc_destroyWeak(&v25);
+    objc_destroyWeak(&v24);
     objc_destroyWeak(buf);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __54__CoreDAVMoveWithFallbackTaskGroup__completedPutTask___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
@@ -315,9 +313,9 @@ void __54__CoreDAVMoveWithFallbackTaskGroup__completedPutTask___block_invoke(uin
       if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
         v7 = [WeakRetained error];
-        v11 = 138412290;
-        v12 = v7;
-        _os_log_impl(&dword_2452FB000, v6, OS_LOG_TYPE_INFO, "[move] DELETE completed with error: %@", &v11, 0xCu);
+        v10 = 138412290;
+        v11 = v7;
+        _os_log_impl(&dword_2452FB000, v6, OS_LOG_TYPE_INFO, "[move] DELETE completed with error: %@", &v10, 0xCu);
       }
     }
 
@@ -326,8 +324,6 @@ void __54__CoreDAVMoveWithFallbackTaskGroup__completedPutTask___block_invoke(uin
     v9 = [WeakRetained error];
     [v8 finishCoreDAVTaskGroupWithError:v9 delegateCallbackBlock:0];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

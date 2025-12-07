@@ -13,16 +13,16 @@ void __53___LTOnlineTranslationEngine_startServerTimeoutTimer__block_invoke(uint
     v4 = *(v2 + 10);
     *(v2 + 10) = v3;
 
-    v5 = _LTOSLogTranslationEngine();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v7 = _LTOSLogTranslationEngine(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_232E53000, v5, OS_LOG_TYPE_INFO, "startServerTimeoutTimer", v8, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_232E53000, v7, OS_LOG_TYPE_INFO, "startServerTimeoutTimer", v10, 2u);
     }
 
-    v6 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, *(v2 + 8));
-    v7 = *(v2 + 9);
-    *(v2 + 9) = v6;
+    v8 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, *(v2 + 8));
+    v9 = *(v2 + 9);
+    *(v2 + 9) = v8;
 
     [v2 updateServerTimeout];
     dispatch_resume(*(v2 + 9));
@@ -42,19 +42,19 @@ void __49___LTOnlineTranslationEngine_updateServerTimeout__block_invoke(uint64_t
       handler[1] = 3221225472;
       handler[2] = __49___LTOnlineTranslationEngine_updateServerTimeout__block_invoke_2;
       handler[3] = &unk_2789B72E0;
-      objc_copyWeak(&v10, (a1 + 32));
+      objc_copyWeak(&v12, (a1 + 32));
       dispatch_source_set_event_handler(v4, handler);
       v5 = _LTPreferencesBatchingMaxParagraphBufferTimeout();
-      v6 = _LTOSLogTranslationEngine();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      v8 = _LTOSLogTranslationEngine(v6, v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
-        __49___LTOnlineTranslationEngine_updateServerTimeout__block_invoke_cold_1(v6, v5);
+        __49___LTOnlineTranslationEngine_updateServerTimeout__block_invoke_cold_1(v8, v5);
       }
 
-      v7 = v3[9];
-      v8 = dispatch_time(0, (v5 * 1000000000.0));
-      dispatch_source_set_timer(v7, v8, 0xFFFFFFFFFFFFFFFFLL, 0);
-      objc_destroyWeak(&v10);
+      v9 = v3[9];
+      v10 = dispatch_time(0, (v5 * 1000000000.0));
+      dispatch_source_set_timer(v9, v10, 0xFFFFFFFFFFFFFFFFLL, 0);
+      objc_destroyWeak(&v12);
     }
   }
 }
@@ -123,65 +123,65 @@ void __59___LTOnlineTranslationEngine_speak_withContext_completion___block_invok
 
 void __59___LTOnlineTranslationEngine_speak_withContext_completion___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v5 = a2;
-  v6 = a3;
-  if (v6)
+  v7 = a3;
+  if (v7)
   {
     (*(*(a1 + 56) + 16))();
   }
 
   else
   {
-    v7 = _LTOSLogTranslationEngine();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = _LTOSLogTranslationEngine(0, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v8 = [v5 error_code];
-      v9 = [v5 error_str];
+      v9 = [v5 error_code];
+      v10 = [v5 error_str];
       *buf = 67109378;
-      *&buf[4] = v8;
+      *&buf[4] = v9;
       *&buf[8] = 2112;
-      *&buf[10] = v9;
-      _os_log_impl(&dword_232E53000, v7, OS_LOG_TYPE_INFO, "TTS response (%d): %@", buf, 0x12u);
+      *&buf[10] = v10;
+      _os_log_impl(&dword_232E53000, v8, OS_LOG_TYPE_INFO, "TTS response (%d): %@", buf, 0x12u);
     }
 
     if (_LTRemoteStatusIsSuccess([v5 error_code]))
     {
-      v25 = 0;
+      v27 = 0;
       memset(buf, 0, sizeof(buf));
-      v10 = [v5 decoder_description];
-      v11 = v10;
-      if (v10)
+      v11 = [v5 decoder_description];
+      v12 = v11;
+      if (v11)
       {
-        [v10 audioStreamBasicDescription];
+        objc_msgSend_audioStreamBasicDescription(v11);
       }
 
       else
       {
-        v25 = 0;
+        v27 = 0;
         memset(buf, 0, sizeof(buf));
       }
 
-      v16 = MEMORY[0x277CE1C50];
-      v17 = [v5 word_timing_info];
-      v18 = [v16 wordTimingInfoFromArray:v17 text:*(a1 + 32)];
+      v19 = MEMORY[0x277CE1C50];
+      v20 = [v5 word_timing_info];
+      v21 = [v19 wordTimingInfoFromArray:v20 text:*(a1 + 32)];
 
-      v19 = [_LTAudioData alloc];
-      v20 = [v5 audio];
-      v21 = [(_LTAudioData *)v19 initWithASBD:&v23 rawData:v20 wordTimingInfo:v18];
+      v22 = [_LTAudioData alloc];
+      v23 = [v5 audio];
+      v24 = [(_LTAudioData *)v22 initWithASBD:&v25 rawData:v23 wordTimingInfo:v21];
 
-      [*(a1 + 40) cacheAudioData:v21 forKey:*(a1 + 48)];
+      [*(a1 + 40) cacheAudioData:v24 forKey:*(a1 + 48)];
       (*(*(a1 + 56) + 16))();
     }
 
     else
     {
-      v12 = [v5 error_code];
-      v13 = [v5 error_str];
-      v14 = _LTErrorFromRemoteFailure(v12, v13);
+      v13 = [v5 error_code];
+      v14 = [v5 error_str];
+      v15 = _LTErrorFromRemoteFailure(v13, v14);
 
-      v15 = _LTOSLogTranslationEngine();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v18 = _LTOSLogTranslationEngine(v16, v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         __59___LTOnlineTranslationEngine_speak_withContext_completion___block_invoke_2_cold_1();
       }
@@ -189,8 +189,6 @@ void __59___LTOnlineTranslationEngine_speak_withContext_completion___block_invok
       (*(*(a1 + 56) + 16))();
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 FTMutableSpan *__107___LTOnlineTranslationEngine__createOrUpdateBatchTranslationRequestWithParagraph_index_context_completion___block_invoke(uint64_t a1, void *a2)
@@ -258,7 +256,7 @@ void __70___LTOnlineTranslationEngine_sendBatchTranslationRequestWithDelegate___
 
 uint64_t __70___LTOnlineTranslationEngine_sendBatchTranslationRequestWithDelegate___block_invoke_3(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = v2;
   v4 = *(a1 + 72);
@@ -266,18 +264,18 @@ uint64_t __70___LTOnlineTranslationEngine_sendBatchTranslationRequestWithDelegat
   {
     v5 = [*(a1 + 40) request_id];
     v6 = *(a1 + 48);
-    v10 = 138543618;
-    v11 = v5;
-    v12 = 2112;
-    v13 = v6;
-    _os_signpost_emit_with_name_impl(&dword_232E53000, v3, OS_SIGNPOST_INTERVAL_END, v4, "TranslateParagraph", "Online: Finished translating paragraph: %{public}@ error %@", &v10, 0x16u);
+    v11 = 138543618;
+    v12 = v5;
+    v13 = 2112;
+    v14 = v6;
+    _os_signpost_emit_with_name_impl(&dword_232E53000, v3, OS_SIGNPOST_INTERVAL_END, v4, "TranslateParagraph", "Online: Finished translating paragraph: %{public}@ error %@", &v11, 0x16u);
   }
 
-  [*(a1 + 56) responseReceived:*(a1 + 80)];
+  v7 = [*(a1 + 56) responseReceived:*(a1 + 80)];
   if (*(a1 + 48))
   {
-    v7 = _LTOSLogTranslationEngine();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = _LTOSLogTranslationEngine(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [*(a1 + 40) request_id];
       objc_claimAutoreleasedReturnValue();
@@ -286,9 +284,7 @@ uint64_t __70___LTOnlineTranslationEngine_sendBatchTranslationRequestWithDelegat
   }
 
   [*(a1 + 64) setCompletionHandlerCalled:1];
-  result = [*(a1 + 64) callCompletionHandlersWithError:*(a1 + 48)];
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 64) callCompletionHandlersWithError:*(a1 + 48)];
 }
 
 void __71___LTOnlineTranslationEngine_translateSentence_withContext_completion___block_invoke(uint64_t a1)
@@ -466,8 +462,8 @@ void __54___LTOnlineTranslationEngine_cancelSpeechTranslation___block_invoke(uin
 
     if (*(a1 + 40) == 1)
     {
-      v5 = _LTOSLogTranslationEngine();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v7 = _LTOSLogTranslationEngine(v5, v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         __54___LTOnlineTranslationEngine_cancelSpeechTranslation___block_invoke_cold_1();
       }
@@ -477,19 +473,10 @@ void __54___LTOnlineTranslationEngine_cancelSpeechTranslation___block_invoke(uin
 
 void __49___LTOnlineTranslationEngine_updateServerTimeout__block_invoke_cold_1(os_log_t log, double a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a2;
-  _os_log_debug_impl(&dword_232E53000, log, OS_LOG_TYPE_DEBUG, "updateServerTimeout %.2fs", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void __59___LTOnlineTranslationEngine_speak_withContext_completion___block_invoke_2_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a2;
+  _os_log_debug_impl(&dword_232E53000, log, OS_LOG_TYPE_DEBUG, "updateServerTimeout %.2fs", &v2, 0xCu);
 }
 
 void __70___LTOnlineTranslationEngine_sendBatchTranslationRequestWithDelegate___block_invoke_3_cold_1()

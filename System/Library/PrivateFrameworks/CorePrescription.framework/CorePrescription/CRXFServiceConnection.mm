@@ -33,7 +33,7 @@
 
 - (id)activate
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEBUG))
   {
@@ -49,7 +49,7 @@
   {
     if (v6)
     {
-      [(CRXFServiceConnection *)selfCopy activate];
+      [CRXFServiceConnection activate];
     }
   }
 
@@ -57,7 +57,7 @@
   {
     if (v6)
     {
-      [(CRXFServiceConnection *)selfCopy activate];
+      [CRXFServiceConnection activate];
     }
 
     v7 = [objc_alloc(MEMORY[0x277CCAE80]) initWithServiceName:selfCopy->_serviceName];
@@ -78,27 +78,25 @@
   v11 = selfCopy->_xpcConnection;
   objc_sync_exit(selfCopy);
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 - (void)invalidate
 {
-  OUTLINED_FUNCTION_4_1(self, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4_1(*MEMORY[0x277D85DE8]);
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_2_1(&dword_24732C000, v1, v2, "%s @%d: Invalidating connection to %{public}@", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_1(&dword_24732C000, v0, v1, "%s @%d: Invalidating connection to %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)forceInvalidate
 {
-  OUTLINED_FUNCTION_4_1(self, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4_1(*MEMORY[0x277D85DE8]);
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_2_1(&dword_24732C000, v1, v2, "%s @%d: Invalidating connection to %{public}@", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_1(&dword_24732C000, v0, v1, "%s @%d: Invalidating connection to %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (BOOL)isActivated

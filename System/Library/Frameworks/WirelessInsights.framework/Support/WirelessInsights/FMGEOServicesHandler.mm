@@ -8,7 +8,7 @@
 {
   reasonCopy = reason;
   blockCopy = block;
-  if ((atomic_load_explicit(&qword_1002D82D8, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1002D82D8, memory_order_acquire) & 1) == 0)
   {
     sub_1001FBEE4();
   }

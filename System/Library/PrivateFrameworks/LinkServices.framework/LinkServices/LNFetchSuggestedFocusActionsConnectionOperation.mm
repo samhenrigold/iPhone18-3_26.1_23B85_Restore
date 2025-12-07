@@ -31,31 +31,29 @@
 
 - (void)start
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v11.receiver = self;
-  v11.super_class = LNFetchSuggestedFocusActionsConnectionOperation;
-  [(LNConnectionOperation *)&v11 start];
+  v13 = *MEMORY[0x1E69E9840];
+  v10.receiver = self;
+  v10.super_class = LNFetchSuggestedFocusActionsConnectionOperation;
+  [(LNConnectionOperation *)&v10 start];
   v3 = getLNLogCategoryConnection();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     actionMetadata = [(LNFetchSuggestedFocusActionsConnectionOperation *)self actionMetadata];
     identifier = [actionMetadata identifier];
     *buf = 138412290;
-    v13 = identifier;
+    v12 = identifier;
     _os_log_impl(&dword_19763D000, v3, OS_LOG_TYPE_INFO, "Fetching suggested focus actions %@", buf, 0xCu);
   }
 
   connectionInterface = [(LNInterfaceConnectionOperation *)self connectionInterface];
   actionMetadata2 = [(LNFetchSuggestedFocusActionsConnectionOperation *)self actionMetadata];
   suggestionContext = [(LNFetchSuggestedFocusActionsConnectionOperation *)self suggestionContext];
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __56__LNFetchSuggestedFocusActionsConnectionOperation_start__block_invoke;
-  v10[3] = &unk_1E74B1F78;
-  v10[4] = self;
-  [connectionInterface fetchSuggestedFocusActionsForActionMetadata:actionMetadata2 suggestionContext:suggestionContext completionHandler:v10];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __56__LNFetchSuggestedFocusActionsConnectionOperation_start__block_invoke;
+  v9[3] = &unk_1E74B1F78;
+  v9[4] = self;
+  [connectionInterface fetchSuggestedFocusActionsForActionMetadata:actionMetadata2 suggestionContext:suggestionContext completionHandler:v9];
 }
 
 void __56__LNFetchSuggestedFocusActionsConnectionOperation_start__block_invoke(uint64_t a1, void *a2, void *a3)

@@ -38,43 +38,42 @@ void __53__ModeControlAccessibility__axAnnotateSelectedButton__block_invoke(uint
 
 - (void)_accessibilityLoadAccessibilityInformation
 {
-  v15 = *MEMORY[0x29EDCA608];
-  v13.receiver = self;
-  v13.super_class = ModeControlAccessibility;
-  [(ModeControlAccessibility *)&v13 _accessibilityLoadAccessibilityInformation];
+  v14 = *MEMORY[0x29EDCA608];
+  v12.receiver = self;
+  v12.super_class = ModeControlAccessibility;
+  [(ModeControlAccessibility *)&v12 _accessibilityLoadAccessibilityInformation];
   [(ModeControlAccessibility *)self setAccessibilityTraits:*MEMORY[0x29EDC7FE0]];
-  v11 = 0u;
-  v12 = 0u;
-  v9 = 0u;
   v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
   _axButtons = [(ModeControlAccessibility *)self _axButtons];
-  v4 = [_axButtons countByEnumeratingWithState:&v9 objects:v14 count:16];
+  v4 = [_axButtons countByEnumeratingWithState:&v8 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(_axButtons);
         }
 
-        [*(*(&v9 + 1) + 8 * v7++) _accessibilityDidMoveToTabBar];
+        [*(*(&v8 + 1) + 8 * v7++) _accessibilityDidMoveToTabBar];
       }
 
       while (v5 != v7);
-      v5 = [_axButtons countByEnumeratingWithState:&v9 objects:v14 count:16];
+      v5 = [_axButtons countByEnumeratingWithState:&v8 objects:v13 count:16];
     }
 
     while (v5);
   }
 
   [(ModeControlAccessibility *)self _axAnnotateSelectedButton];
-  v8 = *MEMORY[0x29EDCA608];
 }
 
 - (void)updateHighlightState

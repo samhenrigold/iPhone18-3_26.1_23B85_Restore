@@ -68,7 +68,7 @@
   selfCopy = self;
   sub_139890();
 
-  sub_11B940(&qword_22CC88);
+  sub_11B940(&qword_22CC88, &qword_193E80);
   v4.super.isa = sub_139A30().super.isa;
 
   return v4.super.isa;
@@ -76,7 +76,7 @@
 
 - (void)setPaginatableDocuments:(id)documents
 {
-  sub_11B940(&qword_22CC88);
+  sub_11B940(&qword_22CC88, &qword_193E80);
   sub_139A40();
   swift_getKeyPath();
   swift_getKeyPath();

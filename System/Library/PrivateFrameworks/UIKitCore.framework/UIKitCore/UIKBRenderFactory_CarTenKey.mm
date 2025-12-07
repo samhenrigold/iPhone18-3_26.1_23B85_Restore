@@ -6,13 +6,13 @@
 
 - (id)_traitsForKey:(id)key onKeyplane:(id)keyplane
 {
-  v97[1] = *MEMORY[0x1E69E9840];
+  v98[1] = *MEMORY[0x1E69E9840];
   keyCopy = key;
-  v96.receiver = self;
-  v96.super_class = UIKBRenderFactory_CarTenKey;
+  v97.receiver = self;
+  v97.super_class = UIKBRenderFactory_CarTenKey;
   keyplaneCopy = keyplane;
-  v8 = [(UIKBRenderFactory_Car *)&v96 _traitsForKey:keyCopy onKeyplane:keyplaneCopy];
-  v9 = [(UIKBRenderFactory_Car *)self lightKeycapsFontName:v96.receiver];
+  v8 = [(UIKBRenderFactory_Car *)&v97 _traitsForKey:keyCopy onKeyplane:keyplaneCopy];
+  v9 = [(UIKBRenderFactory_Car *)self lightKeycapsFontName:v97.receiver];
   symbolStyle = [v8 symbolStyle];
   [symbolStyle setFontName:v9];
 
@@ -29,8 +29,8 @@
       symbolStyle2 = [v8 symbolStyle];
       v17 = [symbolStyle2 copy];
 
-      v97[0] = v17;
-      v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v97 count:1];
+      v98[0] = v17;
+      v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v98 count:1];
       [v8 setSecondarySymbolStyles:v18];
 
       if ([keyCopy displayType] == 34)
@@ -141,9 +141,9 @@ LABEL_11:
 
 LABEL_18:
   [keyCopy frame];
-  MaxX = CGRectGetMaxX(v99);
+  MaxX = CGRectGetMaxX(v100);
   [keyplaneCopy frame];
-  if (MaxX >= CGRectGetMaxX(v100))
+  if (MaxX >= CGRectGetMaxX(v101))
   {
     v56 = 0.0;
   }
@@ -160,36 +160,37 @@ LABEL_18:
   v62 = v61;
   v64 = v63;
 
-  v102.origin.x = v58;
-  v102.origin.y = v60;
-  v102.size.width = v62;
-  v102.size.height = v64;
-  geometry = [v8 geometry];
-  [geometry paddedFrame];
-  v67 = v66 + 0.0;
-  v69 = v68 - v56;
-  v71 = v70 + 0.0;
-  v73 = v72 + -0.5;
-  geometry2 = [v8 geometry];
-  [geometry2 setFrame:{v67, v71, v69, v73}];
+  v103.origin.x = v58;
+  v103.origin.y = v60;
+  v103.size.width = v62;
+  v103.size.height = v64;
+  MaxY = CGRectGetMaxY(v103);
+  v66 = objc_msgSend_geometry(v8, MaxY);
+  [v66 paddedFrame];
+  v68 = v67 + 0.0;
+  v70 = v69 - v56;
+  v72 = v71 + 0.0;
+  v74 = v73 + -0.5;
+  v75 = objc_msgSend_geometry(v8);
+  [v75 setFrame:{v68, v72, v70, v74}];
 
-  geometry3 = [v8 geometry];
-  [geometry3 frame];
-  v77 = v76;
-  v79 = v78;
-  v81 = v80;
-  v83 = v82;
-  geometry4 = [v8 geometry];
-  [geometry4 setPaddedFrame:{v77, v79, v81, v83}];
+  v76 = objc_msgSend_geometry(v8);
+  [v76 frame];
+  v78 = v77;
+  v80 = v79;
+  v82 = v81;
+  v84 = v83;
+  v85 = objc_msgSend_geometry(v8);
+  [v85 setPaddedFrame:{v78, v80, v82, v84}];
 
-  geometry5 = [v8 geometry];
-  [geometry5 frame];
-  v87 = v86;
-  v89 = v88;
-  v91 = v90;
-  v93 = v92;
-  geometry6 = [v8 geometry];
-  [geometry6 setDisplayFrame:{v87, v89, v91, v93}];
+  v86 = objc_msgSend_geometry(v8);
+  [v86 frame];
+  v88 = v87;
+  v90 = v89;
+  v92 = v91;
+  v94 = v93;
+  v95 = objc_msgSend_geometry(v8);
+  [v95 setDisplayFrame:{v88, v90, v92, v94}];
 
   return v8;
 }

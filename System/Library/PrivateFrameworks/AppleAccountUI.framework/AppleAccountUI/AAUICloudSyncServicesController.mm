@@ -56,7 +56,7 @@
   v69 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   aa_primaryAppleAccount = [(ACAccountStore *)self->_accountStore aa_primaryAppleAccount];
-  v7 = _AAUILogSystem();
+  v7 = _AAUILogSystem(aa_primaryAppleAccount);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
   if (enabledCopy)
   {
@@ -356,7 +356,7 @@ uint64_t __83__AAUICloudSyncServicesController__presentMergeConfirmationForDatac
 {
   enabledCopy = enabled;
   v7 = *MEMORY[0x1E69E9840];
-  v4 = _AAUILogSystem();
+  v4 = _AAUILogSystem(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v6[0] = 67109120;
@@ -428,7 +428,7 @@ void __63__AAUICloudSyncServicesController_setBackupEnabled_completion___block_i
 {
   v42 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v5 = _AAUILogSystem();
+  v5 = _AAUILogSystem(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -542,16 +542,17 @@ void __63__AAUICloudSyncServicesController_setBackupEnabled_completion___block_i
 
 void __79__AAUICloudSyncServicesController_completeEnablingCloudServicesWithCompletion___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = a3;
+  v6 = v5;
   if ((a2 & 1) == 0)
   {
-    v6 = _AAUILogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _AAUILogSystem(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138412290;
-      v8 = v5;
-      _os_log_impl(&dword_1C5355000, v6, OS_LOG_TYPE_DEFAULT, "Failed to save iCloud account:%@", &v7, 0xCu);
+      v8 = 138412290;
+      v9 = v6;
+      _os_log_impl(&dword_1C5355000, v7, OS_LOG_TYPE_DEFAULT, "Failed to save iCloud account:%@", &v8, 0xCu);
     }
   }
 
@@ -560,16 +561,17 @@ void __79__AAUICloudSyncServicesController_completeEnablingCloudServicesWithComp
 
 void __79__AAUICloudSyncServicesController_completeEnablingCloudServicesWithCompletion___block_invoke_105(uint64_t a1, char a2, void *a3)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = a3;
+  v6 = v5;
   if ((a2 & 1) == 0)
   {
-    v6 = _AAUILogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _AAUILogSystem(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138412290;
-      v8 = v5;
-      _os_log_impl(&dword_1C5355000, v6, OS_LOG_TYPE_DEFAULT, "Failed to save iCloud account:%@", &v7, 0xCu);
+      v8 = 138412290;
+      v9 = v6;
+      _os_log_impl(&dword_1C5355000, v7, OS_LOG_TYPE_DEFAULT, "Failed to save iCloud account:%@", &v8, 0xCu);
     }
   }
 
@@ -586,42 +588,41 @@ void __79__AAUICloudSyncServicesController_completeEnablingCloudServicesWithComp
 
   if (v10)
   {
-    v11 = [objc_alloc(MEMORY[0x1E698B818]) initWithAccount:_account];
+    v12 = [objc_alloc(MEMORY[0x1E698B818]) initWithAccount:_account];
     verifier = self->_verifier;
-    self->_verifier = v11;
+    self->_verifier = v12;
 
-    [(AAAutoAccountVerifier *)self->_verifier sendVerificationEmail];
-    v13 = _AAUILogSystem();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = _AAUILogSystem([(AAAutoAccountVerifier *)self->_verifier sendVerificationEmail]);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1C5355000, v13, OS_LOG_TYPE_DEFAULT, "Verifying iCloud primary email", buf, 2u);
+      _os_log_impl(&dword_1C5355000, v14, OS_LOG_TYPE_DEFAULT, "Verifying iCloud primary email", buf, 2u);
     }
 
-    v14 = self->_verifier;
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __71__AAUICloudSyncServicesController_verifyAccountWithAppleID_completion___block_invoke;
-    v17[3] = &unk_1E820C960;
-    v18 = _account;
+    v15 = self->_verifier;
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __71__AAUICloudSyncServicesController_verifyAccountWithAppleID_completion___block_invoke;
+    v18[3] = &unk_1E820C960;
+    v19 = _account;
     selfCopy = self;
-    v20 = completionCopy;
-    [(AAAutoAccountVerifier *)v14 verifyWithHandler:v17];
+    v21 = completionCopy;
+    [(AAAutoAccountVerifier *)v15 verifyWithHandler:v18];
 
-    v15 = v18;
+    v16 = v19;
   }
 
   else
   {
-    v16 = _AAUILogSystem();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = _AAUILogSystem(v11);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1C5355000, v16, OS_LOG_TYPE_DEFAULT, "ERROR: Trying to verify the email for an iCloud we're not familiar with. That's bad.", buf, 2u);
+      _os_log_impl(&dword_1C5355000, v17, OS_LOG_TYPE_DEFAULT, "ERROR: Trying to verify the email for an iCloud we're not familiar with. That's bad.", buf, 2u);
     }
 
-    v15 = [MEMORY[0x1E696ABC0] aa_errorWithCode:111 userInfo:0];
-    (*(completionCopy + 2))(completionCopy, 0, v15);
+    v16 = [MEMORY[0x1E696ABC0] aa_errorWithCode:111 userInfo:0];
+    (*(completionCopy + 2))(completionCopy, 0, v16);
   }
 }
 
@@ -629,7 +630,7 @@ void __71__AAUICloudSyncServicesController_verifyAccountWithAppleID_completion__
 {
   v23 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = _AAUILogSystem();
+  v6 = _AAUILogSystem(v5);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
   if (a2)
   {
@@ -679,7 +680,7 @@ void __71__AAUICloudSyncServicesController_verifyAccountWithAppleID_completion__
   v5 = v4;
   if (*(a1 + 32))
   {
-    v6 = _AAUILogSystem();
+    v6 = _AAUILogSystem(v4);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
@@ -694,8 +695,7 @@ void __71__AAUICloudSyncServicesController_verifyAccountWithAppleID_completion__
     v7 = [*(a1 + 40) provisionedDataclasses];
     v8 = [v7 mutableCopy];
 
-    [v8 minusSet:*(a1 + 48)];
-    v9 = _AAUILogSystem();
+    v9 = _AAUILogSystem([v8 minusSet:*(a1 + 48)]);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
@@ -753,7 +753,7 @@ void __71__AAUICloudSyncServicesController_verifyAccountWithAppleID_completion__
 - (void)_validateMailAccount:(id)account
 {
   accountCopy = account;
-  v5 = _AAUILogSystem();
+  v5 = _AAUILogSystem(accountCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v8 = 0;
@@ -770,16 +770,17 @@ void __71__AAUICloudSyncServicesController_verifyAccountWithAppleID_completion__
 
 - (void)accountValidator:(id)validator finishedValidationOfAccount:(id)account usedSSL:(BOOL)l
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   validatorCopy = validator;
   accountCopy = account;
-  if ([validatorCopy accountIsValid])
+  accountIsValid = [validatorCopy accountIsValid];
+  if (accountIsValid)
   {
-    v9 = _AAUILogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = _AAUILogSystem(accountIsValid);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v21) = 0;
-      _os_log_impl(&dword_1C5355000, v9, OS_LOG_TYPE_DEFAULT, "Email account has been verified.", &v21, 2u);
+      LOWORD(v23) = 0;
+      _os_log_impl(&dword_1C5355000, v10, OS_LOG_TYPE_DEFAULT, "Email account has been verified.", &v23, 2u);
     }
 
     if (self->_isVerifyingExistingEmailAccount)
@@ -801,33 +802,33 @@ void __71__AAUICloudSyncServicesController_verifyAccountWithAppleID_completion__
   {
     error = [validatorCopy error];
     code = [error code];
-    v13 = MEMORY[0x1E696ABC0];
+    v14 = MEMORY[0x1E696ABC0];
     userInfo = [error userInfo];
     if (code == 1032)
     {
-      v15 = 111;
+      v16 = 111;
     }
 
     else
     {
-      v15 = 112;
+      v16 = 112;
     }
 
-    v16 = [v13 aa_errorWithCode:v15 userInfo:userInfo];
+    v17 = [v14 aa_errorWithCode:v16 userInfo:userInfo];
 
-    v17 = self->_handler;
-    if (v17)
+    v18 = self->_handler;
+    if (v18)
     {
-      v17[2](v17, 0, v16);
+      v18[2](v18, 0, v17);
     }
 
-    v18 = _AAUILogSystem();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v20 = _AAUILogSystem(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       localizedDescription = [error localizedDescription];
-      v21 = 138412290;
-      v22 = localizedDescription;
-      _os_log_impl(&dword_1C5355000, v18, OS_LOG_TYPE_DEFAULT, "Email account verification failed: %@", &v21, 0xCu);
+      v23 = 138412290;
+      v24 = localizedDescription;
+      _os_log_impl(&dword_1C5355000, v20, OS_LOG_TYPE_DEFAULT, "Email account verification failed: %@", &v23, 0xCu);
     }
   }
 
@@ -842,14 +843,14 @@ void __71__AAUICloudSyncServicesController_verifyAccountWithAppleID_completion__
   mailAccounts = [v4 mailAccounts];
   v7 = [mailAccounts arrayByAddingObject:accountCopy];
 
-  [MEMORY[0x1E69B16A8] setMailAccounts:v7];
+  v8 = [MEMORY[0x1E69B16A8] setMailAccounts:v7];
   if (self->_handler)
   {
-    v8 = _AAUILogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = _AAUILogSystem(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_1C5355000, v8, OS_LOG_TYPE_DEFAULT, "IMAP: Email account added", v9, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_1C5355000, v9, OS_LOG_TYPE_DEFAULT, "IMAP: Email account added", v10, 2u);
     }
 
     (*(self->_handler + 2))();

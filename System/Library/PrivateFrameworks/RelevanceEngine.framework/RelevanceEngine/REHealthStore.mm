@@ -13,7 +13,7 @@
   _init = [(RESingleton *)&v8 _init];
   if (_init)
   {
-    if (HealthKitLibraryCore_1())
+    if (HealthKitLibraryCore_1(0))
     {
       _createStore = [_init _createStore];
       v4 = _init[1];
@@ -30,21 +30,32 @@
 
 - (id)_createStore
 {
-  if ([(REHealthStore *)self _isClockHostApp]&& FitnessUILibraryCore())
+  if ([(REHealthStore *)self _isClockHostApp]&& FitnessUILibraryCore(0))
   {
-    if (!FitnessUILibraryCore())
+    v6 = 0;
+    v2 = FitnessUILibraryCore(&v6);
+    v3 = v6;
+    if (v2)
     {
-      v4 = abort_report_np();
-      free(v4);
+      if (!v6)
+      {
+LABEL_5:
+        fiui_sharedHealthStoreForCarousel = [getHKHealthStoreClass() fiui_sharedHealthStoreForCarousel];
+        goto LABEL_7;
+      }
     }
 
-    fiui_sharedHealthStoreForCarousel = [getHKHealthStoreClass() fiui_sharedHealthStoreForCarousel];
+    else
+    {
+      v3 = abort_report_np("%s", v6);
+    }
+
+    free(v3);
+    goto LABEL_5;
   }
 
-  else
-  {
-    fiui_sharedHealthStoreForCarousel = objc_alloc_init(getHKHealthStoreClass());
-  }
+  fiui_sharedHealthStoreForCarousel = objc_alloc_init(getHKHealthStoreClass());
+LABEL_7:
 
   return fiui_sharedHealthStoreForCarousel;
 }

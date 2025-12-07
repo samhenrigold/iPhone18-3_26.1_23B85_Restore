@@ -11,9 +11,9 @@
     +[NSBundle(MediaControls) mediaControlsBundle];
   }
 
-  v1 = mediaControlsBundle___mediaControlsBundle;
+  v2 = mediaControlsBundle___mediaControlsBundle;
 
-  return v1;
+  return v2;
 }
 
 @end

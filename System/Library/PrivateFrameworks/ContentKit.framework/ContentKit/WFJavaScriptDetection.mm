@@ -36,7 +36,7 @@
   return v7 & 1;
 }
 
-uint64_t __54__WFJavaScriptDetection_htmlStringContainsJavaScript___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__54__WFJavaScriptDetection_htmlStringContainsJavaScript___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   result = [*(a1 + 32) containsString:a2];
   if (result)

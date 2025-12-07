@@ -38,17 +38,15 @@
   return v10;
 }
 
-uint64_t __45__PGGraphEnabler_locationIsNearMyHomeOrWork___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void __45__PGGraphEnabler_locationIsNearMyHomeOrWork___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   [a2 coordinate];
-  result = CLLocationCoordinate2DGetDistanceFrom();
-  if (v6 < 100.0)
+  CLLocationCoordinate2DGetDistanceFrom();
+  if (v5 < 100.0)
   {
     *(*(*(a1 + 32) + 8) + 24) = 1;
     *a3 = 1;
   }
-
-  return result;
 }
 
 - (BOOL)locationIsFrequent:(id)frequent
@@ -80,19 +78,17 @@ uint64_t __45__PGGraphEnabler_locationIsNearMyHomeOrWork___block_invoke(uint64_t
   return v8;
 }
 
-uint64_t __37__PGGraphEnabler_locationIsFrequent___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void __37__PGGraphEnabler_locationIsFrequent___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   v5 = [a2 addressNode];
   [v5 coordinate];
 
-  result = CLLocationCoordinate2DGetDistanceFrom();
-  if (v7 <= 10000.0)
+  CLLocationCoordinate2DGetDistanceFrom();
+  if (v6 <= 10000.0)
   {
     *(*(*(a1 + 32) + 8) + 24) = 1;
     *a3 = 1;
   }
-
-  return result;
 }
 
 - (PGGraphEnabler)initWithGraph:(id)graph

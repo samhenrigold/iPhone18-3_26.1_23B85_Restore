@@ -32,14 +32,14 @@
     v7 = [v5 initWithServiceDescription:serviceDescription];
     [(SPAdvertisementCache *)self setSession:v7];
 
-    v8 = LogCategory_AdvertisementCache();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = LogCategory_AdvertisementCache(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       serviceDescription2 = [(SPAdvertisementCache *)self serviceDescription];
       machService = [serviceDescription2 machService];
       v16 = 138412290;
       v17 = machService;
-      _os_log_impl(&dword_2643BF000, v8, OS_LOG_TYPE_DEFAULT, "SPAdvertisementCache: Establishing XPC connection to %@", &v16, 0xCu);
+      _os_log_impl(&dword_2643BF000, v9, OS_LOG_TYPE_DEFAULT, "SPAdvertisementCache: Establishing XPC connection to %@", &v16, 0xCu);
     }
 
     session2 = [(SPAdvertisementCache *)self session];
@@ -48,8 +48,6 @@
 
   session3 = [(SPAdvertisementCache *)self session];
   proxy = [session3 proxy];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return proxy;
 }
@@ -89,20 +87,18 @@
 
 - (id)remoteInterface
 {
-  v8[6] = *MEMORY[0x277D85DE8];
+  v7[6] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_2875DBB40];
   v3 = MEMORY[0x277CBEB98];
-  v8[0] = objc_opt_class();
-  v8[1] = objc_opt_class();
-  v8[2] = objc_opt_class();
-  v8[3] = objc_opt_class();
-  v8[4] = objc_opt_class();
-  v8[5] = objc_opt_class();
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:6];
+  v7[0] = objc_opt_class();
+  v7[1] = objc_opt_class();
+  v7[2] = objc_opt_class();
+  v7[3] = objc_opt_class();
+  v7[4] = objc_opt_class();
+  v7[5] = objc_opt_class();
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:6];
   v5 = [v3 setWithArray:v4];
   [v2 setClasses:v5 forSelector:sel_advertisementsForSearchCriteria_completion_ argumentIndex:0 ofReply:1];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -110,12 +106,12 @@
 - (void)mockingEnabled:(BOOL)enabled
 {
   enabledCopy = enabled;
-  v15 = *MEMORY[0x277D85DE8];
-  v5 = LogCategory_AdvertisementCache();
+  v14 = *MEMORY[0x277D85DE8];
+  v5 = LogCategory_AdvertisementCache(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v14 = enabledCopy;
+    v13 = enabledCopy;
     _os_log_impl(&dword_2643BF000, v5, OS_LOG_TYPE_DEFAULT, "mockingEnabled: %i", buf, 8u);
   }
 
@@ -125,14 +121,13 @@
   activity_block[1] = 3221225472;
   activity_block[2] = __39__SPAdvertisementCache_mockingEnabled___block_invoke;
   activity_block[3] = &unk_279B57958;
-  v12 = enabledCopy;
+  v11 = enabledCopy;
   activity_block[4] = self;
-  v11 = v7;
+  v10 = v7;
   v8 = v7;
   _os_activity_initiate(&dword_2643BF000, "SPAdvertisementCache advertisementCacheSimulation:completion:", OS_ACTIVITY_FLAG_DEFAULT, activity_block);
 
   [v8 wait];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __39__SPAdvertisementCache_mockingEnabled___block_invoke(uint64_t a1)
@@ -168,12 +163,13 @@ void __39__SPAdvertisementCache_mockingEnabled___block_invoke_2(uint64_t a1)
 void __39__SPAdvertisementCache_mockingEnabled___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = LogCategory_AdvertisementCache();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = LogCategory_AdvertisementCache(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __39__SPAdvertisementCache_mockingEnabled___block_invoke_3_cold_1(v3, v4);
+      __39__SPAdvertisementCache_mockingEnabled___block_invoke_3_cold_1(v4, v5);
     }
   }
 
@@ -222,14 +218,14 @@ void __56__SPAdvertisementCache_markRecordsProcessed_completion___block_invoke_2
 
 - (void)saveAdvertisements:(id)advertisements completion:(id)completion
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   advertisementsCopy = advertisements;
   completionCopy = completion;
-  v8 = LogCategory_AdvertisementCache();
+  v8 = LogCategory_AdvertisementCache(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v16 = [advertisementsCopy count];
+    v15 = [advertisementsCopy count];
     _os_log_impl(&dword_2643BF000, v8, OS_LOG_TYPE_DEFAULT, "saveAdvertisements: %lu", buf, 0xCu);
   }
 
@@ -238,13 +234,11 @@ void __56__SPAdvertisementCache_markRecordsProcessed_completion___block_invoke_2
   activity_block[2] = __54__SPAdvertisementCache_saveAdvertisements_completion___block_invoke;
   activity_block[3] = &unk_279B57798;
   activity_block[4] = self;
-  v13 = advertisementsCopy;
-  v14 = completionCopy;
+  v12 = advertisementsCopy;
+  v13 = completionCopy;
   v9 = completionCopy;
   v10 = advertisementsCopy;
   _os_activity_initiate(&dword_2643BF000, "SPAdvertisementCache saveAdvertisements:completion:", OS_ACTIVITY_FLAG_DEFAULT, activity_block);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __54__SPAdvertisementCache_saveAdvertisements_completion___block_invoke(id *a1)
@@ -273,14 +267,14 @@ void __54__SPAdvertisementCache_saveAdvertisements_completion___block_invoke_2(u
 
 - (void)advertisementsForSearchCriteria:(id)criteria completion:(id)completion
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   criteriaCopy = criteria;
   completionCopy = completion;
-  v8 = LogCategory_AdvertisementCache();
+  v8 = LogCategory_AdvertisementCache(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v16 = criteriaCopy;
+    v15 = criteriaCopy;
     _os_log_impl(&dword_2643BF000, v8, OS_LOG_TYPE_DEFAULT, "advertisementsForSearchCriteria: %@", buf, 0xCu);
   }
 
@@ -289,13 +283,11 @@ void __54__SPAdvertisementCache_saveAdvertisements_completion___block_invoke_2(u
   activity_block[2] = __67__SPAdvertisementCache_advertisementsForSearchCriteria_completion___block_invoke;
   activity_block[3] = &unk_279B57798;
   activity_block[4] = self;
-  v13 = criteriaCopy;
-  v14 = completionCopy;
+  v12 = criteriaCopy;
+  v13 = completionCopy;
   v9 = completionCopy;
   v10 = criteriaCopy;
   _os_activity_initiate(&dword_2643BF000, "SPAdvertisementCache advertisementsForSearchCriteria:completion:", OS_ACTIVITY_FLAG_DEFAULT, activity_block);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __67__SPAdvertisementCache_advertisementsForSearchCriteria_completion___block_invoke(id *a1)
@@ -324,14 +316,14 @@ void __67__SPAdvertisementCache_advertisementsForSearchCriteria_completion___blo
 
 - (void)markAdvertisementsProcessed:(id)processed completion:(id)completion
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   processedCopy = processed;
   completionCopy = completion;
-  v8 = LogCategory_AdvertisementCache();
+  v8 = LogCategory_AdvertisementCache(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v17 = [processedCopy count];
+    v16 = [processedCopy count];
     _os_log_impl(&dword_2643BF000, v8, OS_LOG_TYPE_DEFAULT, "markAdvertisementsProcessed: %lu", buf, 0xCu);
   }
 
@@ -341,25 +333,23 @@ void __67__SPAdvertisementCache_advertisementsForSearchCriteria_completion___blo
   activity_block[2] = __63__SPAdvertisementCache_markAdvertisementsProcessed_completion___block_invoke_2;
   activity_block[3] = &unk_279B57798;
   activity_block[4] = self;
-  v14 = v9;
-  v15 = completionCopy;
+  v13 = v9;
+  v14 = completionCopy;
   v10 = completionCopy;
   v11 = v9;
   _os_activity_initiate(&dword_2643BF000, "SPAdvertisementCache markRecordsProcessed:completion:", OS_ACTIVITY_FLAG_DEFAULT, activity_block);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)saveBeaconPayloads:(id)payloads completion:(id)completion
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   payloadsCopy = payloads;
   completionCopy = completion;
-  v8 = LogCategory_AdvertisementCache();
+  v8 = LogCategory_AdvertisementCache(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v16 = [payloadsCopy count];
+    v15 = [payloadsCopy count];
     _os_log_impl(&dword_2643BF000, v8, OS_LOG_TYPE_DEFAULT, "saveBeaconPayload: %lu", buf, 0xCu);
   }
 
@@ -368,13 +358,11 @@ void __67__SPAdvertisementCache_advertisementsForSearchCriteria_completion___blo
   activity_block[2] = __54__SPAdvertisementCache_saveBeaconPayloads_completion___block_invoke;
   activity_block[3] = &unk_279B57798;
   activity_block[4] = self;
-  v13 = payloadsCopy;
-  v14 = completionCopy;
+  v12 = payloadsCopy;
+  v13 = completionCopy;
   v9 = completionCopy;
   v10 = payloadsCopy;
   _os_activity_initiate(&dword_2643BF000, "SPAdvertisementCache saveBeaconPayloads:completion:", OS_ACTIVITY_FLAG_DEFAULT, activity_block);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __54__SPAdvertisementCache_saveBeaconPayloads_completion___block_invoke(id *a1)
@@ -403,14 +391,14 @@ void __54__SPAdvertisementCache_saveBeaconPayloads_completion___block_invoke_2(u
 
 - (void)beaconPayloadsForSearchCriteria:(id)criteria completion:(id)completion
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   criteriaCopy = criteria;
   completionCopy = completion;
-  v8 = LogCategory_AdvertisementCache();
+  v8 = LogCategory_AdvertisementCache(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v16 = criteriaCopy;
+    v15 = criteriaCopy;
     _os_log_impl(&dword_2643BF000, v8, OS_LOG_TYPE_DEFAULT, "beaconPayloadsForSearchCriteria: %@", buf, 0xCu);
   }
 
@@ -419,13 +407,11 @@ void __54__SPAdvertisementCache_saveBeaconPayloads_completion___block_invoke_2(u
   activity_block[2] = __67__SPAdvertisementCache_beaconPayloadsForSearchCriteria_completion___block_invoke;
   activity_block[3] = &unk_279B57798;
   activity_block[4] = self;
-  v13 = criteriaCopy;
-  v14 = completionCopy;
+  v12 = criteriaCopy;
+  v13 = completionCopy;
   v9 = completionCopy;
   v10 = criteriaCopy;
   _os_activity_initiate(&dword_2643BF000, "SPAdvertisementCache beaconPayloadsForSearchCriteria:completion:", OS_ACTIVITY_FLAG_DEFAULT, activity_block);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __67__SPAdvertisementCache_beaconPayloadsForSearchCriteria_completion___block_invoke(id *a1)
@@ -454,14 +440,14 @@ void __67__SPAdvertisementCache_beaconPayloadsForSearchCriteria_completion___blo
 
 - (void)markBeaconPayloadsProcessed:(id)processed completion:(id)completion
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   processedCopy = processed;
   completionCopy = completion;
-  v8 = LogCategory_AdvertisementCache();
+  v8 = LogCategory_AdvertisementCache(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v16 = [processedCopy count];
+    v15 = [processedCopy count];
     _os_log_impl(&dword_2643BF000, v8, OS_LOG_TYPE_DEFAULT, "markBeaconPayloadsProcessed: %lu", buf, 0xCu);
   }
 
@@ -470,13 +456,11 @@ void __67__SPAdvertisementCache_beaconPayloadsForSearchCriteria_completion___blo
   activity_block[2] = __63__SPAdvertisementCache_markBeaconPayloadsProcessed_completion___block_invoke;
   activity_block[3] = &unk_279B57798;
   activity_block[4] = self;
-  v13 = processedCopy;
-  v14 = completionCopy;
+  v12 = processedCopy;
+  v13 = completionCopy;
   v9 = completionCopy;
   v10 = processedCopy;
   _os_activity_initiate(&dword_2643BF000, "SPAdvertisementCache markFilesProcessed:completion:", OS_ACTIVITY_FLAG_DEFAULT, activity_block);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __63__SPAdvertisementCache_markBeaconPayloadsProcessed_completion___block_invoke(id *a1)
@@ -564,11 +548,10 @@ void __49__SPAdvertisementCache_clearCacheWithCompletion___block_invoke(uint64_t
 
 void __39__SPAdvertisementCache_mockingEnabled___block_invoke_3_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2643BF000, a2, OS_LOG_TYPE_ERROR, "Failed to change mocking state: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2643BF000, a2, OS_LOG_TYPE_ERROR, "Failed to change mocking state: %@", &v2, 0xCu);
 }
 
 @end

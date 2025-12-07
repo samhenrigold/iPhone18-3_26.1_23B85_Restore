@@ -10,7 +10,7 @@
   v2 = lazy protocol witness table cache variable for type [Interval<UInt32, Any>] and conformance [A];
   if (!lazy protocol witness table cache variable for type [Interval<UInt32, Any>] and conformance [A])
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay19NightingaleTraining8IntervalVys6UInt32VypGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay19NightingaleTraining8IntervalVys6UInt32VypGGMd, &_sSay19NightingaleTraining8IntervalVys6UInt32VypGGMR);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &lazy protocol witness table cache variable for type [Interval<UInt32, Any>] and conformance [A]);
     return WitnessTable;
@@ -24,7 +24,7 @@
   v2 = lazy protocol witness table cache variable for type [Interval<UInt32, Pregnancy>] and conformance [A];
   if (!lazy protocol witness table cache variable for type [Interval<UInt32, Pregnancy>] and conformance [A])
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay19NightingaleTraining8IntervalVys6UInt32VAA9Pregnancy_pGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay19NightingaleTraining8IntervalVys6UInt32VAA9Pregnancy_pGGMd, &_sSay19NightingaleTraining8IntervalVys6UInt32VAA9Pregnancy_pGGMR);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &lazy protocol witness table cache variable for type [Interval<UInt32, Pregnancy>] and conformance [A]);
     return WitnessTable;

@@ -711,7 +711,6 @@ LABEL_24:
   has = self->_has;
   if ((*&has & 0x40000) != 0)
   {
-    itemPendingReconciliationIsLocked = self->_itemPendingReconciliationIsLocked;
     PBDataWriterWriteBOOLField();
     has = self->_has;
     if ((*&has & 0x80000) == 0)
@@ -731,7 +730,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  itemPendingReconciliationIsLockedInDB = self->_itemPendingReconciliationIsLockedInDB;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 2) == 0)
@@ -746,7 +744,6 @@ LABEL_4:
   }
 
 LABEL_29:
-  itemPendingReconciliationJobCode = self->_itemPendingReconciliationJobCode;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((*&has & 4) == 0)
@@ -761,7 +758,6 @@ LABEL_5:
   }
 
 LABEL_30:
-  itemPendingReconciliationJobSchedulingState = self->_itemPendingReconciliationJobSchedulingState;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((*&has & 1) == 0)
@@ -776,7 +772,6 @@ LABEL_6:
   }
 
 LABEL_31:
-  itemPendingReconciliationJobBlockingCode = self->_itemPendingReconciliationJobBlockingCode;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((*&has & 8) == 0)
@@ -791,7 +786,6 @@ LABEL_7:
   }
 
 LABEL_32:
-  itemPendingScanningDiskEnumerationStatus = self->_itemPendingScanningDiskEnumerationStatus;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((*&has & 0x100000) == 0)
@@ -806,7 +800,6 @@ LABEL_8:
   }
 
 LABEL_33:
-  itemPendingScanningDiskHasMultiplePagesEnumeration = self->_itemPendingScanningDiskHasMultiplePagesEnumeration;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x20) == 0)
@@ -821,7 +814,6 @@ LABEL_9:
   }
 
 LABEL_34:
-  itemPendingScanningDiskNumberOfChildrenPendingReconciliation = self->_itemPendingScanningDiskNumberOfChildrenPendingReconciliation;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((*&has & 0x10) == 0)
@@ -836,7 +828,6 @@ LABEL_10:
   }
 
 LABEL_35:
-  itemPendingScanningDiskNumberOfChildrenNotPendingReconciliation = self->_itemPendingScanningDiskNumberOfChildrenNotPendingReconciliation;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((*&has & 0x800) == 0)
@@ -851,7 +842,6 @@ LABEL_11:
   }
 
 LABEL_36:
-  itemPendingScanningDiskNumberOfChildrenPendingSyncUpDeletion = self->_itemPendingScanningDiskNumberOfChildrenPendingSyncUpDeletion;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((*&has & 0x100) == 0)
@@ -866,7 +856,6 @@ LABEL_12:
   }
 
 LABEL_37:
-  itemPendingScanningDiskNumberOfChildrenPendingSyncDownDeletion = self->_itemPendingScanningDiskNumberOfChildrenPendingSyncDownDeletion;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((*&has & 0x1000) == 0)
@@ -881,7 +870,6 @@ LABEL_13:
   }
 
 LABEL_38:
-  itemPendingScanningDiskNumberOfChildrenPendingSyncUpReparent = self->_itemPendingScanningDiskNumberOfChildrenPendingSyncUpReparent;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((*&has & 0x400) == 0)
@@ -896,7 +884,6 @@ LABEL_14:
   }
 
 LABEL_39:
-  itemPendingScanningDiskNumberOfChildrenPendingSyncUp = self->_itemPendingScanningDiskNumberOfChildrenPendingSyncUp;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((*&has & 0x200) == 0)
@@ -911,7 +898,6 @@ LABEL_15:
   }
 
 LABEL_40:
-  itemPendingScanningDiskNumberOfChildrenPendingSyncDownReparent = self->_itemPendingScanningDiskNumberOfChildrenPendingSyncDownReparent;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((*&has & 0x80) == 0)
@@ -926,7 +912,6 @@ LABEL_16:
   }
 
 LABEL_41:
-  itemPendingScanningDiskNumberOfChildrenPendingSyncDown = self->_itemPendingScanningDiskNumberOfChildrenPendingSyncDown;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((*&has & 0x40) == 0)
@@ -941,7 +926,6 @@ LABEL_17:
   }
 
 LABEL_42:
-  itemPendingScanningDiskNumberOfChildrenPendingRejection = self->_itemPendingScanningDiskNumberOfChildrenPendingRejection;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((*&has & 0x2000) == 0)
@@ -956,7 +940,6 @@ LABEL_18:
   }
 
 LABEL_43:
-  itemPendingScanningProviderEnumerationStatus = self->_itemPendingScanningProviderEnumerationStatus;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((*&has & 0x200000) == 0)
@@ -971,7 +954,6 @@ LABEL_19:
   }
 
 LABEL_44:
-  itemPendingScanningProviderHasMultiplePagesEnumeration = self->_itemPendingScanningProviderHasMultiplePagesEnumeration;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x4000) == 0)
@@ -986,7 +968,6 @@ LABEL_20:
   }
 
 LABEL_45:
-  itemPendingScanningProviderNumberOfChildren = self->_itemPendingScanningProviderNumberOfChildren;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((*&has & 0x10000) == 0)
@@ -1001,7 +982,6 @@ LABEL_21:
   }
 
 LABEL_46:
-  itemPendingScanningProviderNumberOfChildrenPendingCreation = self->_itemPendingScanningProviderNumberOfChildrenPendingCreation;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((*&has & 0x8000) == 0)
@@ -1016,12 +996,10 @@ LABEL_22:
   }
 
 LABEL_47:
-  itemPendingScanningProviderNumberOfChildrenFailingCreation = self->_itemPendingScanningProviderNumberOfChildrenFailingCreation;
   PBDataWriterWriteInt64Field();
   if ((*&self->_has & 0x20000) != 0)
   {
 LABEL_23:
-    itemPendingScanningProviderRemovalOfDatalessBitStatus = self->_itemPendingScanningProviderRemovalOfDatalessBitStatus;
     PBDataWriterWriteInt64Field();
   }
 
@@ -1692,7 +1670,6 @@ LABEL_23:
       goto LABEL_124;
     }
 
-    v7 = *(equalCopy + 152);
     if (self->_itemPendingReconciliationIsLocked)
     {
       if ((*(equalCopy + 152) & 1) == 0)
@@ -1719,7 +1696,6 @@ LABEL_23:
       goto LABEL_124;
     }
 
-    v8 = *(equalCopy + 153);
     if (self->_itemPendingReconciliationIsLockedInDB)
     {
       if ((*(equalCopy + 153) & 1) == 0)
@@ -1798,7 +1774,6 @@ LABEL_23:
       goto LABEL_124;
     }
 
-    v9 = *(equalCopy + 154);
     if (self->_itemPendingScanningDiskHasMultiplePagesEnumeration)
     {
       if ((*(equalCopy + 154) & 1) == 0)
@@ -1956,7 +1931,7 @@ LABEL_23:
     }
 
 LABEL_124:
-    v11 = 0;
+    v7 = 0;
     goto LABEL_125;
   }
 
@@ -1965,7 +1940,6 @@ LABEL_124:
     goto LABEL_124;
   }
 
-  v10 = *(equalCopy + 155);
   if (self->_itemPendingScanningProviderHasMultiplePagesEnumeration)
   {
     if ((*(equalCopy + 155) & 1) == 0)
@@ -2026,17 +2000,17 @@ LABEL_98:
       goto LABEL_124;
     }
 
-    v11 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v11 = (v6 & 0x20000) == 0;
+    v7 = (v6 & 0x20000) == 0;
   }
 
 LABEL_125:
 
-  return v11;
+  return v7;
 }
 
 - (unint64_t)hash

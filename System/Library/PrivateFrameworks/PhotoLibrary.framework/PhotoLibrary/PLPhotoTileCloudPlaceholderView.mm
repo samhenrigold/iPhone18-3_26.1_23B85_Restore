@@ -379,7 +379,7 @@ uint64_t __55__PLPhotoTileCloudPlaceholderView_showLoadingIndicator__block_invok
   return [v2 setAlpha:0.0];
 }
 
-uint64_t __55__PLPhotoTileCloudPlaceholderView_showLoadingIndicator__block_invoke_2(uint64_t a1)
+void *__55__PLPhotoTileCloudPlaceholderView_showLoadingIndicator__block_invoke_2(uint64_t a1)
 {
   result = [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
   *(*(a1 + 32) + 480) = v3;

@@ -6,13 +6,13 @@
 - (void)presentationControllerDidDismiss:(id)dismiss;
 - (void)previousHandler;
 - (void)viewDidLoad;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation ViewController
 
 - (void)homeHandler
 {
-  v2 = *(&self->super.super.super.isa + OBJC_IVAR____TtC28AccessibilitySharedUISupportP33_DEAF73D7C474C94E24616C25DC2EB0AC14ViewController_navigationModel);
   selfCopy = self;
   NavigationModel.goHome()();
 }
@@ -25,10 +25,9 @@
 
 - (void)previousHandler
 {
-  v2 = *(&self->super.super.super.isa + OBJC_IVAR____TtC28AccessibilitySharedUISupportP33_DEAF73D7C474C94E24616C25DC2EB0AC14ViewController_navigationModel);
-  v4 = 1;
+  v3 = 1;
   selfCopy = self;
-  sub_23DABB0B8(&v4);
+  sub_23DABB0B8(&v3);
 }
 
 - (void)presentationControllerDidDismiss:(id)dismiss
@@ -41,6 +40,16 @@
 {
   selfCopy = self;
   sub_23DAB7F80();
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  v5.receiver = self;
+  v5.super_class = type metadata accessor for ViewController();
+  v4 = v5.receiver;
+  [(ViewController *)&v5 viewWillDisappear:disappearCopy];
+  sub_23DAB6EF8();
 }
 
 - (BOOL)accessibilityPerformEscape

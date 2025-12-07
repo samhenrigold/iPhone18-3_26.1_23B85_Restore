@@ -1,12 +1,12 @@
 @interface STVoiceControlStatusDomainData
 - (BOOL)isEqual:(id)equal;
 - (STVoiceControlStatusDomainData)initWithCoder:(id)coder;
+- (_BYTE)initWithData:(_BYTE *)result;
 - (id)_descriptionBuilderWithMultilinePrefix:(uint64_t)prefix forDebug:;
 - (id)dataByApplyingDiff:(id)diff;
 - (id)debugDescriptionWithMultilinePrefix:(id)prefix;
 - (id)descriptionWithMultilinePrefix:(id)prefix;
 - (id)diffFromData:(id)data;
-- (id)initWithData:(id)result;
 - (id)mutableCopyWithZone:(_NSZone *)zone;
 - (id)succinctDescription;
 - (unint64_t)hash;
@@ -15,7 +15,7 @@
 
 @implementation STVoiceControlStatusDomainData
 
-- (id)initWithData:(id)result
+- (_BYTE)initWithData:(_BYTE *)result
 {
   if (result)
   {
@@ -29,7 +29,7 @@
     result = objc_msgSendSuper2(&v6, sel_init);
     if (result)
     {
-      *(result + 8) = isVoiceControlActive;
+      result[8] = isVoiceControlActive;
       *(result + 2) = listeningState;
     }
   }

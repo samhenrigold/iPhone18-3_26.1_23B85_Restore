@@ -1,4 +1,5 @@
 @interface CPLCloudKitTransportTask
++ (BOOL)allowsCellularForDownloadOperationOfResource:(id)resource isForeground:(BOOL)foreground isHighPriority:(BOOL)priority;
 + (NSDictionary)mappingForMoveSteps;
 + (NSDictionary)reverseMappingForMoveSteps;
 + (id)copiedRecordFromSourceRecord:(id)record sourceDatabaseScope:(int64_t)scope toRecordID:(id)d helper:(id)helper action:(id)action error:(id *)error;
@@ -70,6 +71,7 @@
 - (void)fetchRecordWithNames:(id)names fetchResources:(BOOL)resources inScope:(id)scope completionHandler:(id)handler;
 - (void)fetchRecordsFollowRemappingWithIDs:(id)ds wantsAllRecords:(BOOL)records type:(int64_t)type completionHandler:(id)handler;
 - (void)fetchRecordsWithIDs:(id)ds fetchResources:(BOOL)resources desiredKeys:(id)keys wantsAllRecords:(BOOL)records type:(int64_t)type perFoundRecordBlock:(id)block completionHandler:(id)handler;
+- (void)fetchRecordsWithIDs:(id)ds fetchResources:(BOOL)resources inScope:(id)scope completionHandler:(id)handler;
 - (void)fetchUnknownTargetsInMapping:(id)mapping completionHandler:(id)handler;
 - (void)fetchUserRecordIDFetchWithCompletionHandler:(id)handler;
 - (void)fetchZoneForScope:(id)scope completionHandler:(id)handler;
@@ -165,56 +167,56 @@
   [newOperationConfiguration setCPLDiscretionary:v6];
   [(CPLCloudKitTransportTask *)self timeoutIntervalForRequest];
   v14 = v13;
-  [defaultConfiguration timeoutIntervalForRequest];
-  if (v14 >= 0.0 && (v15 >= 0.0 ? (v16 = v14 < v15) : (v16 = 1), v16))
+  timeoutIntervalForRequest = [defaultConfiguration timeoutIntervalForRequest];
+  if (v14 >= 0.0 && (v16 >= 0.0 ? (v17 = v14 < v16) : (v17 = 1), v17))
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v17 = sub_100003810();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+      v18 = sub_100003810(timeoutIntervalForRequest);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
       {
-        v26 = 138412290;
+        v28 = 138412290;
         selfCopy2 = self;
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEBUG, "Overriding request timeout for %@", &v26, 0xCu);
+        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEBUG, "Overriding request timeout for %@", &v28, 0xCu);
       }
     }
 
-    v18 = newOperationConfiguration;
-    v19 = v14;
+    v19 = newOperationConfiguration;
+    v20 = v14;
   }
 
   else
   {
     [defaultConfiguration timeoutIntervalForRequest];
-    v18 = newOperationConfiguration;
+    v19 = newOperationConfiguration;
   }
 
-  [v18 setTimeoutIntervalForRequest:v19];
+  [v19 setTimeoutIntervalForRequest:v20];
   [(CPLCloudKitTransportTask *)self timeoutIntervalForResource];
-  v21 = v20;
-  [defaultConfiguration timeoutIntervalForResource];
-  if ((v6 & (v22 < 0.0)) != 0)
+  v22 = v21;
+  timeoutIntervalForResource = [defaultConfiguration timeoutIntervalForResource];
+  if ((v6 & (v24 < 0.0)) != 0)
   {
-    v22 = 86400.0;
+    v24 = 86400.0;
   }
 
-  if (v21 >= 0.0 && (v22 < 0.0 || v21 < v22))
+  if (v22 >= 0.0 && (v24 < 0.0 || v22 < v24))
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v24 = sub_100003810();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+      v26 = sub_100003810(timeoutIntervalForResource);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
       {
-        v26 = 138412290;
+        v28 = 138412290;
         selfCopy2 = self;
-        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEBUG, "Overriding resource timeout for %@", &v26, 0xCu);
+        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEBUG, "Overriding resource timeout for %@", &v28, 0xCu);
       }
     }
 
-    v22 = v21;
+    v24 = v22;
   }
 
-  [newOperationConfiguration setTimeoutIntervalForResource:v22];
+  [newOperationConfiguration setTimeoutIntervalForResource:v24];
   if (self->_sourceBundleIdentifier)
   {
     [newOperationConfiguration setApplicationBundleIdentifierOverride:?];
@@ -242,7 +244,7 @@
     v18 = v17;
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v19 = sub_1000035F0();
+      v19 = sub_1000035F0(v17);
       if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
       {
         cplFullDescription = [v73 cplFullDescription];
@@ -370,11 +372,11 @@ LABEL_20:
             if (!v51)
             {
 
-              v54 = 0;
-              v57 = v65;
+              v55 = 0;
+              v58 = v65;
               v23 = v49;
               v28 = v45;
-              v56 = v70;
+              v57 = v70;
               goto LABEL_34;
             }
 
@@ -398,38 +400,38 @@ LABEL_20:
     if (v18)
     {
       v74[0] = v63;
-      v54 = [v22 finalizedDestinationCKRecordFromProposedCKRecord:v18 error:v74];
+      v55 = [v22 finalizedDestinationCKRecordFromProposedCKRecord:v18 error:v74];
       v53 = v74[0];
-      v55 = v18;
+      v56 = v18;
       v48 = v63;
-      v56 = v55;
-      v57 = v65;
+      v57 = v56;
+      v58 = v65;
 LABEL_34:
 
-      v58 = v53;
+      v59 = v53;
     }
 
     else
     {
-      v54 = 0;
-      v57 = v65;
-      v58 = v63;
+      v55 = 0;
+      v58 = v65;
+      v59 = v63;
     }
 
     helperCopy = v66;
     dCopy = v67;
-    if (errorCopy && !v54)
+    if (errorCopy && !v55)
     {
-      v59 = v58;
-      *errorCopy = v58;
+      v54 = v59;
+      *errorCopy = v59;
     }
 
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v60 = sub_1000035F0();
+      v60 = sub_1000035F0(v54);
       if (os_log_type_enabled(v60, OS_LOG_TYPE_DEBUG))
       {
-        cplFullDescription2 = [v54 cplFullDescription];
+        cplFullDescription2 = [v55 cplFullDescription];
         *buf = 138412546;
         v92 = v68;
         v93 = 2112;
@@ -438,12 +440,12 @@ LABEL_34:
       }
     }
 
-    if ([v54 cpl_isEPPRecord])
+    if ([v55 cpl_isEPPRecord])
     {
-      [v54 cpl_markRecordAsEPP];
+      [v55 cpl_markRecordAsEPP];
     }
 
-    v38 = v54;
+    v38 = v55;
 
     actionCopy = v68;
   }
@@ -464,58 +466,58 @@ LABEL_34:
   helperCopy = helper;
   contextCopy = context;
   actionCopy = action;
-  v21 = CPLCKDatabaseScopeForCPLCloudKitOperationType(type);
-  v22 = [[NSMutableArray alloc] initWithCapacity:{objc_msgSend(recordsCopy, "count")}];
-  v23 = [[NSMutableDictionary alloc] initWithCapacity:{objc_msgSend(recordsCopy, "count")}];
-  v50 = 0;
-  v51 = &v50;
-  v52 = 0x3032000000;
-  v53 = sub_1000043C0;
-  v54 = sub_1000052C4;
-  v55 = 0;
-  v38[0] = _NSConcreteStackBlock;
-  v38[1] = 3221225472;
-  v38[2] = sub_1000385D4;
-  v38[3] = &unk_100273B00;
-  v24 = recordsCopy;
-  v39 = v24;
-  v25 = iDsCopy;
-  v48 = a2;
+  v22 = CPLCKDatabaseScopeForCPLCloudKitOperationType(type, v21);
+  v23 = [[NSMutableArray alloc] initWithCapacity:{objc_msgSend(recordsCopy, "count")}];
+  v24 = [[NSMutableDictionary alloc] initWithCapacity:{objc_msgSend(recordsCopy, "count")}];
+  v51 = 0;
+  v52 = &v51;
+  v53 = 0x3032000000;
+  v54 = sub_1000043C0;
+  v55 = sub_1000052C4;
+  v56 = 0;
+  v39[0] = _NSConcreteStackBlock;
+  v39[1] = 3221225472;
+  v39[2] = sub_1000385D4;
+  v39[3] = &unk_100273B00;
+  v25 = recordsCopy;
   v40 = v25;
+  v26 = iDsCopy;
+  v49 = a2;
+  v41 = v26;
   selfCopy = self;
-  v26 = helperCopy;
-  v42 = v26;
-  v27 = v23;
+  v27 = helperCopy;
   v43 = v27;
-  v49 = v21;
-  v28 = actionCopy;
+  v28 = v24;
   v44 = v28;
-  v29 = contextCopy;
+  v50 = v22;
+  v29 = actionCopy;
   v45 = v29;
-  v30 = v22;
+  v30 = contextCopy;
   v46 = v30;
-  v47 = &v50;
-  [dsCopy enumerateObjectsUsingBlock:v38];
-  v31 = v51[5];
-  if (v31)
+  v31 = v23;
+  v47 = v31;
+  v48 = &v51;
+  [dsCopy enumerateObjectsUsingBlock:v39];
+  v32 = v52[5];
+  if (v32)
   {
-    v32 = 0;
+    v33 = 0;
     if (error)
     {
-      *error = v31;
+      *error = v32;
     }
   }
 
   else
   {
-    v33 = v27;
-    *recordIDs = v27;
-    v32 = v30;
+    v34 = v28;
+    *recordIDs = v28;
+    v33 = v31;
   }
 
-  _Block_object_dispose(&v50, 8);
+  _Block_object_dispose(&v51, 8);
 
-  return v32;
+  return v33;
 }
 
 - (void)_uploadDestinationRecords:(id)records destinationType:(int64_t)type scopeProvider:(id)provider operationContext:(id)context uploadAction:(id)action completionHandler:(id)handler
@@ -525,71 +527,72 @@ LABEL_34:
   contextCopy = context;
   actionCopy = action;
   handlerCopy = handler;
-  v43 = 0;
-  v19 = [(CPLCloudKitTransportTask *)self shouldRunOperationsWithError:&v43];
-  v20 = v43;
+  v44 = 0;
+  v19 = [(CPLCloudKitTransportTask *)self shouldRunOperationsWithError:&v44];
+  v20 = v44;
+  v21 = v20;
   if (v19)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v21 = sub_1000035F0();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+      v22 = sub_1000035F0(v20);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v45 = recordsCopy;
-        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEBUG, "Will upload copied records: %@", buf, 0xCu);
+        v46 = recordsCopy;
+        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEBUG, "Will upload copied records: %@", buf, 0xCu);
       }
     }
 
-    v22 = [[CKModifyRecordsOperation alloc] initWithRecordsToSave:recordsCopy recordIDsToDelete:0];
+    v23 = [[CKModifyRecordsOperation alloc] initWithRecordsToSave:recordsCopy recordIDsToDelete:0];
     fetchCache = [(CPLCloudKitTransportTask *)self fetchCache];
-    v24 = fetchCache;
+    v25 = fetchCache;
     if (fetchCache)
     {
-      v41[0] = _NSConcreteStackBlock;
-      v41[1] = 3221225472;
-      v41[2] = sub_100038A8C;
-      v41[3] = &unk_100273B28;
-      v41[4] = self;
-      v33 = fetchCache;
-      v25 = recordsCopy;
-      v26 = v20;
-      v27 = actionCopy;
-      v28 = contextCopy;
-      v29 = providerCopy;
+      v42[0] = _NSConcreteStackBlock;
+      v42[1] = 3221225472;
+      v42[2] = sub_100038A8C;
+      v42[3] = &unk_100273B28;
+      v42[4] = self;
+      v34 = fetchCache;
+      v26 = recordsCopy;
+      v27 = v21;
+      v28 = actionCopy;
+      v29 = contextCopy;
+      v30 = providerCopy;
       typeCopy = type;
-      v31 = fetchCache;
-      v42 = v31;
-      [v22 setPerRecordSaveBlock:v41];
-      v39[0] = _NSConcreteStackBlock;
-      v39[1] = 3221225472;
-      v39[2] = sub_100038B48;
-      v39[3] = &unk_100273B50;
-      v39[4] = self;
-      v32 = v31;
+      v32 = fetchCache;
+      v43 = v32;
+      [v23 setPerRecordSaveBlock:v42];
+      v40[0] = _NSConcreteStackBlock;
+      v40[1] = 3221225472;
+      v40[2] = sub_100038B48;
+      v40[3] = &unk_100273B50;
+      v40[4] = self;
+      v33 = v32;
       type = typeCopy;
-      providerCopy = v29;
-      contextCopy = v28;
-      actionCopy = v27;
-      v20 = v26;
-      recordsCopy = v25;
-      v24 = v33;
-      v40 = v32;
-      [v22 setPerRecordDeleteBlock:v39];
+      providerCopy = v30;
+      contextCopy = v29;
+      actionCopy = v28;
+      v21 = v27;
+      recordsCopy = v26;
+      v25 = v34;
+      v41 = v33;
+      [v23 setPerRecordDeleteBlock:v40];
     }
 
-    v34[0] = _NSConcreteStackBlock;
-    v34[1] = 3221225472;
-    v34[2] = sub_100038C04;
-    v34[3] = &unk_100273BC8;
-    v34[4] = self;
-    v35 = recordsCopy;
-    v38 = handlerCopy;
-    v36 = providerCopy;
-    v37 = actionCopy;
-    [v22 setModifyRecordsCompletionBlock:v34];
-    [v22 setSavePolicy:2];
-    [(CPLCloudKitTransportTask *)self launchOperation:v22 type:type withContext:contextCopy];
+    v35[0] = _NSConcreteStackBlock;
+    v35[1] = 3221225472;
+    v35[2] = sub_100038C04;
+    v35[3] = &unk_100273BC8;
+    v35[4] = self;
+    v36 = recordsCopy;
+    v39 = handlerCopy;
+    v37 = providerCopy;
+    v38 = actionCopy;
+    [v23 setModifyRecordsCompletionBlock:v35];
+    [v23 setSavePolicy:2];
+    [(CPLCloudKitTransportTask *)self launchOperation:v23 type:type withContext:contextCopy];
   }
 
   else
@@ -608,50 +611,51 @@ LABEL_34:
   if ([dsCopy count])
   {
     v20 = [dsCopy count];
-    if (v20 == [iDsCopy count])
+    v21 = [iDsCopy count];
+    if (v20 == v21)
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v21 = sub_1000035F0();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+        v22 = sub_1000035F0(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          v38 = dsCopy;
-          v39 = 2112;
-          v40 = iDsCopy;
-          _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Will copy %@ to %@", buf, 0x16u);
+          v39 = dsCopy;
+          v40 = 2112;
+          v41 = iDsCopy;
+          _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Will copy %@ to %@", buf, 0x16u);
         }
       }
 
-      v25 = _NSConcreteStackBlock;
-      v26 = 3221225472;
-      v27 = sub_100039234;
-      v28 = &unk_100273BF0;
-      v33 = handlerCopy;
-      v22 = dsCopy;
-      v29 = v22;
-      v30 = iDsCopy;
+      v26 = _NSConcreteStackBlock;
+      v27 = 3221225472;
+      v28 = sub_100039234;
+      v29 = &unk_100273BF0;
+      v34 = handlerCopy;
+      v23 = dsCopy;
+      v30 = v23;
+      v31 = iDsCopy;
       selfCopy = self;
       typeCopy = type;
-      v32 = helperCopy;
-      v35 = a2;
+      v33 = helperCopy;
+      v36 = a2;
       destinationTypeCopy = destinationType;
-      v23 = objc_retainBlock(&v25);
+      v24 = objc_retainBlock(&v26);
       if (remappingCopy)
       {
-        [(CPLCloudKitTransportTask *)self fetchRecordsFollowRemappingWithIDs:v22 wantsAllRecords:1 type:type completionHandler:v23, v25, v26, v27, v28, v29, v30, selfCopy];
+        [(CPLCloudKitTransportTask *)self fetchRecordsFollowRemappingWithIDs:v23 wantsAllRecords:1 type:type completionHandler:v24, v26, v27, v28, v29, v30, v31, selfCopy];
       }
 
       else
       {
-        [(CPLCloudKitTransportTask *)self fetchRecordsWithIDs:v22 fetchResources:0 wantsAllRecords:1 type:type completionHandler:v23, v25, v26, v27, v28, v29, v30, selfCopy];
+        [(CPLCloudKitTransportTask *)self fetchRecordsWithIDs:v23 fetchResources:0 wantsAllRecords:1 type:type completionHandler:v24, v26, v27, v28, v29, v30, v31, selfCopy];
       }
     }
 
     else
     {
-      v24 = [CPLErrors incorrectParametersErrorForParameter:@"destinationRecordIDs"];
-      (*(handlerCopy + 2))(handlerCopy, 0, v24);
+      v25 = [CPLErrors incorrectParametersErrorForParameter:@"destinationRecordIDs"];
+      (*(handlerCopy + 2))(handlerCopy, 0, v25);
     }
   }
 
@@ -678,59 +682,60 @@ LABEL_34:
   helperCopy = helper;
   contextCopy = context;
   handlerCopy = handler;
-  v40 = 0;
-  v18 = [(CPLCloudKitTransportTask *)self shouldRunOperationsWithError:&v40];
-  v19 = v40;
+  v41 = 0;
+  v18 = [(CPLCloudKitTransportTask *)self shouldRunOperationsWithError:&v41];
+  v19 = v41;
+  v20 = v19;
   if (v18)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v20 = sub_1000035F0();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+      v21 = sub_1000035F0(v19);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v42 = changesCopy;
-        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEBUG, "Applying move changes: %@", buf, 0xCu);
+        v43 = changesCopy;
+        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEBUG, "Applying move changes: %@", buf, 0xCu);
       }
     }
 
-    v31 = helperCopy;
+    v32 = helperCopy;
     if (qword_1002C5040 != -1)
     {
       sub_10019837C();
     }
 
     controller = [(CPLCloudKitTransportTask *)self controller];
-    v22 = [controller databaseForOperationType:type relativeToOperationType:destinationType];
+    v23 = [controller databaseForOperationType:type relativeToOperationType:destinationType];
 
-    v23 = [CKMovePhotosOperation alloc];
+    v24 = [CKMovePhotosOperation alloc];
     changes = [changesCopy changes];
-    v25 = [v23 initWithMoveChanges:changes sourceDatabase:v22];
+    v26 = [v24 initWithMoveChanges:changes sourceDatabase:v23];
 
     fetchCache = [(CPLCloudKitTransportTask *)self fetchCache];
-    v36[0] = _NSConcreteStackBlock;
-    v36[1] = 3221225472;
-    v36[2] = sub_100197858;
-    v36[3] = &unk_100273C38;
+    v37[0] = _NSConcreteStackBlock;
+    v37[1] = 3221225472;
+    v37[2] = sub_100197858;
+    v37[3] = &unk_100273C38;
     destinationTypeCopy = destinationType;
-    v28 = changesCopy;
-    v37 = v28;
-    v38 = fetchCache;
+    v29 = changesCopy;
+    v38 = v29;
+    v39 = fetchCache;
     selfCopy = self;
-    v29 = fetchCache;
-    [v25 setPerRecordMoveBlock:v36];
-    v32[0] = _NSConcreteStackBlock;
-    v32[1] = 3221225472;
-    v32[2] = sub_100039978;
-    v32[3] = &unk_100273C88;
-    v32[4] = self;
-    v35 = handlerCopy;
-    v33 = v28;
-    v34 = v31;
-    [v25 setMovePhotosCompletionBlock:v32];
-    v30 = destinationTypeCopy;
-    helperCopy = v31;
-    [(CPLCloudKitTransportTask *)self launchOperation:v25 type:v30 withContext:contextCopy];
+    v30 = fetchCache;
+    [v26 setPerRecordMoveBlock:v37];
+    v33[0] = _NSConcreteStackBlock;
+    v33[1] = 3221225472;
+    v33[2] = sub_100039978;
+    v33[3] = &unk_100273C88;
+    v33[4] = self;
+    v36 = handlerCopy;
+    v34 = v29;
+    v35 = v32;
+    [v26 setMovePhotosCompletionBlock:v33];
+    v31 = destinationTypeCopy;
+    helperCopy = v32;
+    [(CPLCloudKitTransportTask *)self launchOperation:v26 type:v31 withContext:contextCopy];
   }
 
   else
@@ -746,68 +751,68 @@ LABEL_34:
   iDsCopy = iDs;
   helperCopy = helper;
   contextCopy = context;
-  v19 = CPLCKDatabaseScopeForCPLCloudKitOperationType(type);
-  v20 = -[CPLMoveChangesBatch initWithCapacity:]([CPLMoveChangesBatch alloc], "initWithCapacity:", [recordsCopy count]);
-  v21 = [[NSMutableDictionary alloc] initWithCapacity:{objc_msgSend(recordsCopy, "count")}];
-  v49 = 0;
-  v50 = &v49;
-  v51 = 0x3032000000;
-  v52 = sub_1000043C0;
-  v53 = sub_1000052C4;
-  v54 = 0;
+  v20 = CPLCKDatabaseScopeForCPLCloudKitOperationType(type, v19);
+  v21 = -[CPLMoveChangesBatch initWithCapacity:]([CPLMoveChangesBatch alloc], "initWithCapacity:", [recordsCopy count]);
+  v22 = [[NSMutableDictionary alloc] initWithCapacity:{objc_msgSend(recordsCopy, "count")}];
+  v50 = 0;
+  v51 = &v50;
+  v52 = 0x3032000000;
+  v53 = sub_1000043C0;
+  v54 = sub_1000052C4;
+  v55 = 0;
   if (qword_1002C5048)
   {
-    v22 = +[CPLCloudKitTransportTask mappingForMoveSteps];
+    v23 = +[CPLCloudKitTransportTask mappingForMoveSteps];
   }
 
   else
   {
-    v22 = 0;
+    v23 = 0;
   }
 
-  v37[0] = _NSConcreteStackBlock;
-  v37[1] = 3221225472;
-  v37[2] = sub_100197BE8;
-  v37[3] = &unk_100273B00;
-  v23 = recordsCopy;
-  v38 = v23;
-  v24 = iDsCopy;
-  v47 = a2;
+  v38[0] = _NSConcreteStackBlock;
+  v38[1] = 3221225472;
+  v38[2] = sub_100197BE8;
+  v38[3] = &unk_100273B00;
+  v24 = recordsCopy;
   v39 = v24;
+  v25 = iDsCopy;
+  v48 = a2;
+  v40 = v25;
   selfCopy = self;
-  v25 = helperCopy;
-  v41 = v25;
-  v26 = v21;
+  v26 = helperCopy;
   v42 = v26;
-  v48 = v19;
   v27 = v22;
   v43 = v27;
-  v28 = contextCopy;
+  v49 = v20;
+  v28 = v23;
   v44 = v28;
-  v29 = v20;
+  v29 = contextCopy;
   v45 = v29;
-  v46 = &v49;
-  [dsCopy enumerateObjectsUsingBlock:v37];
-  v30 = v50[5];
-  if (v30)
+  v30 = v21;
+  v46 = v30;
+  v47 = &v50;
+  [dsCopy enumerateObjectsUsingBlock:v38];
+  v31 = v51[5];
+  if (v31)
   {
-    v31 = 0;
+    v32 = 0;
     if (error)
     {
-      *error = v30;
+      *error = v31;
     }
   }
 
   else
   {
-    v32 = v26;
-    *recordIDs = v26;
-    v31 = v29;
+    v33 = v27;
+    *recordIDs = v27;
+    v32 = v30;
   }
 
-  _Block_object_dispose(&v49, 8);
+  _Block_object_dispose(&v50, 8);
 
-  return v31;
+  return v32;
 }
 
 - (void)moveRecordsWithIDs:(id)ds followRemapping:(BOOL)remapping sourceType:(int64_t)type destinationRecordIDs:(id)iDs destinationType:(int64_t)destinationType helper:(id)helper finalizeMoveChanges:(id)changes completionHandler:(id)self0
@@ -821,50 +826,51 @@ LABEL_34:
   if ([dsCopy count])
   {
     v21 = [dsCopy count];
-    if (v21 == [iDsCopy count])
+    v22 = [iDsCopy count];
+    if (v21 == v22)
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v22 = sub_1000035F0();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+        v23 = sub_1000035F0(v22);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          v39 = dsCopy;
-          v40 = 2112;
-          v41 = iDsCopy;
-          _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Will move %@ to %@", buf, 0x16u);
+          v40 = dsCopy;
+          v41 = 2112;
+          v42 = iDsCopy;
+          _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Will move %@ to %@", buf, 0x16u);
         }
       }
 
-      v26 = _NSConcreteStackBlock;
-      v27 = 3221225472;
-      v28 = sub_10003A138;
-      v29 = &unk_100273CF0;
-      v34 = handlerCopy;
-      v23 = dsCopy;
-      v30 = v23;
-      v31 = iDsCopy;
+      v27 = _NSConcreteStackBlock;
+      v28 = 3221225472;
+      v29 = sub_10003A138;
+      v30 = &unk_100273CF0;
+      v35 = handlerCopy;
+      v24 = dsCopy;
+      v31 = v24;
+      v32 = iDsCopy;
       selfCopy = self;
       typeCopy = type;
-      v33 = helperCopy;
-      v35 = changesCopy;
+      v34 = helperCopy;
+      v36 = changesCopy;
       destinationTypeCopy = destinationType;
-      v24 = objc_retainBlock(&v26);
+      v25 = objc_retainBlock(&v27);
       if (remappingCopy)
       {
-        [(CPLCloudKitTransportTask *)self fetchRecordsFollowRemappingWithIDs:v23 wantsAllRecords:0 type:type completionHandler:v24, v26, v27, v28, v29, v30, v31, selfCopy, v33, v34];
+        [(CPLCloudKitTransportTask *)self fetchRecordsFollowRemappingWithIDs:v24 wantsAllRecords:0 type:type completionHandler:v25, v27, v28, v29, v30, v31, v32, selfCopy, v34, v35];
       }
 
       else
       {
-        [(CPLCloudKitTransportTask *)self fetchRecordsWithIDs:v23 fetchResources:0 wantsAllRecords:0 type:type completionHandler:v24, v26, v27, v28, v29, v30, v31, selfCopy, v33, v34];
+        [(CPLCloudKitTransportTask *)self fetchRecordsWithIDs:v24 fetchResources:0 wantsAllRecords:0 type:type completionHandler:v25, v27, v28, v29, v30, v31, v32, selfCopy, v34, v35];
       }
     }
 
     else
     {
-      v25 = [CPLErrors incorrectParametersErrorForParameter:@"destinationRecordIDs"];
-      (*(handlerCopy + 2))(handlerCopy, 0, v25);
+      v26 = [CPLErrors incorrectParametersErrorForParameter:@"destinationRecordIDs"];
+      (*(handlerCopy + 2))(handlerCopy, 0, v26);
     }
   }
 
@@ -1227,7 +1233,7 @@ LABEL_6:
     }
   }
 
-  sub_1001A092C(v4, self, &v9);
+  sub_1001A092C(v4, &self->super.isa, v9);
 LABEL_20:
 }
 
@@ -1823,42 +1829,43 @@ LABEL_7:
 {
   finishCopy = finish;
   errorCopy = error;
-  if (([(NSMutableArray *)self->_currentOperations containsObject:finishCopy]& 1) == 0)
+  v9 = [(NSMutableArray *)self->_currentOperations containsObject:finishCopy];
+  if ((v9 & 1) == 0)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v24 = sub_100003810();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v25 = sub_100003810(v9);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
-        v25 = NSStringFromSelector(a2);
+        v26 = NSStringFromSelector(a2);
         cplOperationClassDescription = [finishCopy cplOperationClassDescription];
         *buf = 138412546;
-        selfCopy = v25;
-        v39 = 2112;
-        v40 = cplOperationClassDescription;
-        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "%@ for %@ called while it has not started yet", buf, 0x16u);
+        selfCopy = v26;
+        v40 = 2112;
+        v41 = cplOperationClassDescription;
+        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "%@ for %@ called while it has not started yet", buf, 0x16u);
       }
     }
 
-    v27 = +[NSAssertionHandler currentHandler];
-    v28 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/CloudKit/CPLCloudKitTransportTask.m"];
-    v29 = NSStringFromSelector(a2);
+    v28 = +[NSAssertionHandler currentHandler];
+    v29 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/CloudKit/CPLCloudKitTransportTask.m"];
+    v30 = NSStringFromSelector(a2);
     cplOperationClassDescription2 = [finishCopy cplOperationClassDescription];
-    [v27 handleFailureInMethod:a2 object:self file:v28 lineNumber:1070 description:{@"%@ for %@ called while it has not started yet", v29, cplOperationClassDescription2}];
+    [v28 handleFailureInMethod:a2 object:self file:v29 lineNumber:1070 description:{@"%@ for %@ called while it has not started yet", v30, cplOperationClassDescription2}];
 
     abort();
   }
 
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v9 = sub_100003810();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = sub_100003810(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412546;
       selfCopy = self;
-      v39 = 2112;
-      v40 = finishCopy;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEBUG, "%@ finished %@", buf, 0x16u);
+      v40 = 2112;
+      v41 = finishCopy;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEBUG, "%@ finished %@", buf, 0x16u);
     }
   }
 
@@ -1867,84 +1874,84 @@ LABEL_7:
   operationTracker = [(CPLCloudKitTaskController *)self->_controller operationTracker];
   [operationTracker operationDidFinish:finishCopy];
 
-  v31 = finishCopy;
+  v32 = finishCopy;
   [(NSMutableArray *)self->_currentOperations removeObject:finishCopy];
-  v34 = 0u;
   v35 = 0u;
-  v32 = 0u;
+  v36 = 0u;
   v33 = 0u;
-  v11 = self->_associatedMetrics;
-  v12 = [(NSMutableSet *)v11 countByEnumeratingWithState:&v32 objects:v36 count:16];
-  if (v12)
+  v34 = 0u;
+  v12 = self->_associatedMetrics;
+  v13 = [(NSMutableSet *)v12 countByEnumeratingWithState:&v33 objects:v37 count:16];
+  if (v13)
   {
-    v13 = v12;
-    v14 = 0;
-    v15 = *v33;
+    v14 = v13;
+    v15 = 0;
+    v16 = *v34;
     do
     {
-      for (i = 0; i != v13; i = i + 1)
+      for (i = 0; i != v14; i = i + 1)
       {
-        if (*v33 != v15)
+        if (*v34 != v16)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v32 + 1) + 8 * i);
-        if (([v17 submitted] & 1) == 0 && objc_msgSend(v17, "outstandingBeginCount"))
+        v18 = *(*(&v33 + 1) + 8 * i);
+        if (([v18 submitted] & 1) == 0 && objc_msgSend(v18, "outstandingBeginCount"))
         {
-          if (v14)
+          if (v15)
           {
-            [v14 addObject:v17];
+            [v15 addObject:v18];
           }
 
           else
           {
-            v14 = [[NSMutableSet alloc] initWithObjects:{v17, 0}];
+            v15 = [[NSMutableSet alloc] initWithObjects:{v18, 0}];
           }
         }
       }
 
-      v13 = [(NSMutableSet *)v11 countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v14 = [(NSMutableSet *)v12 countByEnumeratingWithState:&v33 objects:v37 count:16];
     }
 
-    while (v13);
+    while (v14);
   }
 
   else
   {
-    v14 = 0;
+    v15 = 0;
   }
 
-  objc_storeStrong(&self->_associatedMetrics, v14);
+  objc_storeStrong(&self->_associatedMetrics, v15);
   if (errorCopy)
   {
     acquireError = self->_acquireError;
-    v19 = v31;
+    v20 = v32;
     if (acquireError)
     {
-      v20 = acquireError;
+      v21 = acquireError;
 LABEL_23:
-      v21 = v20;
+      v22 = v21;
 
-      errorCopy = v21;
+      errorCopy = v22;
       goto LABEL_25;
     }
 
     activity = self->_activity;
     if (activity && [(CPLBackgroundActivity *)activity shouldDefer])
     {
-      v20 = +[CPLErrors sessionHasBeenDeferredError];
+      v21 = +[CPLErrors sessionHasBeenDeferredError];
       goto LABEL_23;
     }
   }
 
   else
   {
-    v19 = v31;
+    v20 = v32;
   }
 
 LABEL_25:
-  [(CPLBackgroundActivity *)self->_activity detachFromCKOperation:v19];
+  [(CPLBackgroundActivity *)self->_activity detachFromCKOperation:v20];
 
   return errorCopy;
 }
@@ -2034,6 +2041,16 @@ LABEL_25:
   {
     return @"non-disc";
   }
+}
+
++ (BOOL)allowsCellularForDownloadOperationOfResource:(id)resource isForeground:(BOOL)foreground isHighPriority:(BOOL)priority
+{
+  priorityCopy = priority;
+  foregroundCopy = foreground;
+  identity = [resource identity];
+  fileSize = [identity fileSize];
+
+  return [self allowsCellularForDownloadOperationOfSize:fileSize isForeground:foregroundCopy isHighPriority:priorityCopy];
 }
 
 - (void)getUserRecordIDFetchIfNecessaryWithCompletionHandler:(id)handler
@@ -2256,10 +2273,10 @@ LABEL_25:
   keysCopy = keys;
   blockCopy = block;
   handlerCopy = handler;
-  v52 = 0;
-  LOBYTE(block) = [(CPLCloudKitTransportTask *)self shouldRunOperationsWithError:&v52];
-  v12 = v52;
-  v32 = v12;
+  v53 = 0;
+  LOBYTE(block) = [(CPLCloudKitTransportTask *)self shouldRunOperationsWithError:&v53];
+  v12 = v53;
+  v33 = v12;
   if ((block & 1) == 0)
   {
     handlerCopy[2](handlerCopy, 0, &__NSArray0__struct, v12);
@@ -2288,26 +2305,26 @@ LABEL_25:
     if (fetchCache)
     {
       v18 = [[NSMutableArray alloc] initWithCapacity:{objc_msgSend(dsCopy, "count")}];
-      v50 = 0u;
       v51 = 0u;
-      v48 = 0u;
+      v52 = 0u;
       v49 = 0u;
+      v50 = 0u;
       v19 = dsCopy;
       v16 = 0;
-      v20 = [v19 countByEnumeratingWithState:&v48 objects:v54 count:16];
+      v20 = [v19 countByEnumeratingWithState:&v49 objects:v55 count:16];
       if (v20)
       {
-        v21 = *v49;
+        v21 = *v50;
         do
         {
           for (i = 0; i != v20; i = i + 1)
           {
-            if (*v49 != v21)
+            if (*v50 != v21)
             {
               objc_enumerationMutation(v19);
             }
 
-            v23 = *(*(&v48 + 1) + 8 * i);
+            v23 = *(*(&v49 + 1) + 8 * i);
             v24 = [(CPLCKRecordFetchCache *)fetchCache cachedRecordWithID:v23];
             if (v24)
             {
@@ -2325,7 +2342,7 @@ LABEL_25:
             }
           }
 
-          v20 = [v19 countByEnumeratingWithState:&v48 objects:v54 count:16];
+          v20 = [v19 countByEnumeratingWithState:&v49 objects:v55 count:16];
         }
 
         while (v20);
@@ -2363,49 +2380,49 @@ LABEL_23:
     }
 
     v25 = [[CKFetchRecordsOperation alloc] initWithRecordIDs:v17];
-    [v25 setShouldFetchAssetContent:resourcesCopy];
+    v26 = [v25 setShouldFetchAssetContent:resourcesCopy];
     if (keysCopy)
     {
-      [v25 setDesiredKeys:keysCopy];
+      v26 = [v25 setDesiredKeys:keysCopy];
     }
 
-    v47[0] = 0;
-    v47[1] = v47;
-    v47[2] = 0x2020000000;
-    v47[3] = 0;
+    v48[0] = 0;
+    v48[1] = v48;
+    v48[2] = 0x2020000000;
+    v48[3] = 0;
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v26 = sub_100003898();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+      v27 = sub_100003898(v26);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
       {
-        v27 = [dsCopy componentsJoinedByString:{@", "}];
-        sub_1001A454C(v25, v27, buf, v26);
+        v28 = [dsCopy componentsJoinedByString:{@", "}];
+        sub_1001A454C(v25, v28, buf, v27);
       }
     }
 
-    v43[0] = _NSConcreteStackBlock;
-    v43[1] = 3221225472;
-    v43[2] = sub_10006EF3C;
-    v43[3] = &unk_1002755A8;
-    v43[4] = self;
-    v46 = v47;
-    v44 = dsCopy;
-    v45 = blockCopy;
-    [v25 setPerRecordCompletionBlock:v43];
-    v37[0] = _NSConcreteStackBlock;
-    v37[1] = 3221225472;
-    v37[2] = sub_10006F088;
-    v37[3] = &unk_100275648;
-    v37[4] = self;
-    v38 = v17;
+    v44[0] = _NSConcreteStackBlock;
+    v44[1] = 3221225472;
+    v44[2] = sub_10006EF3C;
+    v44[3] = &unk_1002755A8;
+    v44[4] = self;
+    v47 = v48;
+    v45 = dsCopy;
+    v46 = blockCopy;
+    [v25 setPerRecordCompletionBlock:v44];
+    v38[0] = _NSConcreteStackBlock;
+    v38[1] = 3221225472;
+    v38[2] = sub_10006F088;
+    v38[3] = &unk_100275648;
+    v38[4] = self;
+    v39 = v17;
     recordsCopy = records;
-    v39 = fetchCache;
-    v40 = v16;
-    v41 = handlerCopy;
-    [v25 setFetchRecordsCompletionBlock:v37];
+    v40 = fetchCache;
+    v41 = v16;
+    v42 = handlerCopy;
+    [v25 setFetchRecordsCompletionBlock:v38];
     [(CPLCloudKitTransportTask *)self launchOperation:v25 type:type withContext:0];
 
-    _Block_object_dispose(v47, 8);
+    _Block_object_dispose(v48, 8);
   }
 
   else
@@ -2477,6 +2494,29 @@ LABEL_38:
   {
     v25 = [CPLErrors cplErrorWithCode:80 description:@"Missing required zone"];
     (v13)[2](v13, 0, 0, v25);
+  }
+}
+
+- (void)fetchRecordsWithIDs:(id)ds fetchResources:(BOOL)resources inScope:(id)scope completionHandler:(id)handler
+{
+  resourcesCopy = resources;
+  dsCopy = ds;
+  handlerCopy = handler;
+  if (scope)
+  {
+    v12 = CPLCloudKitOperationTypeForScope(scope);
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_10006F910;
+    v14[3] = &unk_100275698;
+    v15 = handlerCopy;
+    [(CPLCloudKitTransportTask *)self fetchRecordsWithIDs:dsCopy fetchResources:resourcesCopy wantsAllRecords:0 type:v12 completionHandler:v14];
+  }
+
+  else
+  {
+    v13 = [CPLErrors cplErrorWithCode:80 description:@"Missing required zone"];
+    (*(handlerCopy + 2))(handlerCopy, 0, 0, v13);
   }
 }
 
@@ -2649,32 +2689,33 @@ LABEL_15:
 
   dCopy = d;
   cpl_inExpunged = [recordCopy cpl_inExpunged];
-  v28 = 0;
+  v30 = 0;
   scopeIdentifier = [identifierCopy scopeIdentifier];
-  v13 = [recordCopy cpl_recordChangeMissingResourceProperties:&v28 scopeIdentifier:scopeIdentifier scopeProvider:self currentUserRecordID:dCopy];
+  v13 = [recordCopy cpl_recordChangeMissingResourceProperties:&v30 scopeIdentifier:scopeIdentifier scopeProvider:self currentUserRecordID:dCopy];
 
-  v14 = v28;
+  v14 = v30;
   if (cpl_inExpunged && v13)
   {
-    if (([v13 allResourcesAreAvailable]& 1) == 0)
+    allResourcesAreAvailable = [v13 allResourcesAreAvailable];
+    if ((allResourcesAreAvailable & 1) == 0)
     {
 
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v13 = sub_100003898();
+        v13 = sub_100003898(v16);
         if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
-          v15 = objc_opt_class();
+          v17 = objc_opt_class();
           *buf = 138412546;
-          v30 = v15;
-          v31 = 2112;
-          v32 = identifierCopy;
-          recordType = v15;
-          v17 = "Fetched <%@ %@> from server, it is expunged but is expired - discarding";
-          v18 = v13;
-          v19 = OS_LOG_TYPE_DEFAULT;
+          v32 = v17;
+          v33 = 2112;
+          v34 = identifierCopy;
+          recordType = v17;
+          v19 = "Fetched <%@ %@> from server, it is expunged but is expired - discarding";
+          v20 = v13;
+          v21 = OS_LOG_TYPE_DEFAULT;
 LABEL_24:
-          _os_log_impl(&_mh_execute_header, v18, v19, v17, buf, 0x16u);
+          _os_log_impl(&_mh_execute_header, v20, v21, v19, buf, 0x16u);
 
           goto LABEL_25;
         }
@@ -2693,21 +2734,21 @@ LABEL_10:
         goto LABEL_19;
       }
 
-      v20 = sub_100003898();
-      if (!os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v22 = sub_100003898(allResourcesAreAvailable);
+      if (!os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_18;
       }
 
-      v21 = objc_opt_class();
+      v23 = objc_opt_class();
       *buf = 138412546;
-      v30 = v21;
-      v31 = 2112;
-      v32 = identifierCopy;
-      v22 = v21;
-      v23 = "Fetched <%@ %@> from server, it is expunged but not expired on server - keeping";
-      v24 = v20;
-      v25 = OS_LOG_TYPE_DEFAULT;
+      v32 = v23;
+      v33 = 2112;
+      v34 = identifierCopy;
+      v24 = v23;
+      v25 = "Fetched <%@ %@> from server, it is expunged but not expired on server - keeping";
+      v26 = v22;
+      v27 = OS_LOG_TYPE_DEFAULT;
     }
 
     else
@@ -2717,8 +2758,8 @@ LABEL_10:
         goto LABEL_19;
       }
 
-      v20 = sub_100003898();
-      if (!os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+      v22 = sub_100003898(allResourcesAreAvailable);
+      if (!os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
       {
 LABEL_18:
 
@@ -2731,18 +2772,18 @@ LABEL_19:
         goto LABEL_25;
       }
 
-      v26 = objc_opt_class();
+      v28 = objc_opt_class();
       *buf = 138412546;
-      v30 = v26;
-      v31 = 2112;
-      v32 = identifierCopy;
-      v22 = v26;
-      v23 = "Fetched <%@ %@> from server";
-      v24 = v20;
-      v25 = OS_LOG_TYPE_DEBUG;
+      v32 = v28;
+      v33 = 2112;
+      v34 = identifierCopy;
+      v24 = v28;
+      v25 = "Fetched <%@ %@> from server";
+      v26 = v22;
+      v27 = OS_LOG_TYPE_DEBUG;
     }
 
-    _os_log_impl(&_mh_execute_header, v24, v25, v23, buf, 0x16u);
+    _os_log_impl(&_mh_execute_header, v26, v27, v25, buf, 0x16u);
 
     goto LABEL_18;
   }
@@ -2754,17 +2795,17 @@ LABEL_19:
 
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v13 = sub_100003898();
+    v13 = sub_100003898(allResourcesAreAvailable);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       recordType = [recordCopy recordType];
       *buf = 138412546;
-      v30 = recordType;
-      v31 = 2112;
-      v32 = identifierCopy;
-      v17 = "Fetched <%@ %@> from server but failed to decode it";
-      v18 = v13;
-      v19 = OS_LOG_TYPE_ERROR;
+      v32 = recordType;
+      v33 = 2112;
+      v34 = identifierCopy;
+      v19 = "Fetched <%@ %@> from server but failed to decode it";
+      v20 = v13;
+      v21 = OS_LOG_TYPE_ERROR;
       goto LABEL_24;
     }
 
@@ -3751,14 +3792,14 @@ LABEL_99:
           goto LABEL_31;
         }
 
-        v19 = sub_100003898();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+        v21 = sub_100003898(v18);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
-          v26 = 138543618;
-          v27 = v14;
-          v28 = 2114;
-          v29 = v17;
-          _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "%{public}@ has been remapped to %{public}@", &v26, 0x16u);
+          v28 = 138543618;
+          v29 = v14;
+          v30 = 2114;
+          v31 = v17;
+          _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "%{public}@ has been remapped to %{public}@", &v28, 0x16u);
         }
 
         goto LABEL_29;
@@ -3770,7 +3811,8 @@ LABEL_99:
       }
 
       [v16 addObject:dCopy];
-      if ([v16 containsObject:v17])
+      v19 = [v16 containsObject:v17];
+      if (v19)
       {
         break;
       }
@@ -3794,18 +3836,18 @@ LABEL_99:
       goto LABEL_31;
     }
 
-    v19 = sub_100003898();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v21 = sub_100003898(v19);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       allObjects = [v16 allObjects];
-      v24 = [allObjects componentsJoinedByString:{@", "}];
-      v26 = 138543874;
-      v27 = v14;
-      v28 = 2114;
-      v29 = v17;
+      v26 = [allObjects componentsJoinedByString:{@", "}];
+      v28 = 138543874;
+      v29 = v14;
       v30 = 2114;
-      v31 = v24;
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "%{public}@ has been remapped to %{public}@ in an infinite loop: %{public}@", &v26, 0x20u);
+      v31 = v17;
+      v32 = 2114;
+      v33 = v26;
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "%{public}@ has been remapped to %{public}@ in an infinite loop: %{public}@", &v28, 0x20u);
     }
 
     v13 = 0;
@@ -3819,20 +3861,21 @@ LABEL_99:
   }
 
 LABEL_13:
-  if ([v17 isEqual:v14])
+  v20 = [v17 isEqual:v14];
+  if (v20)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v19 = sub_100003898();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v21 = sub_100003898(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        v26 = 138543362;
-        v27 = v14;
-        v20 = "%{public}@ record not found on server";
-        v21 = v19;
-        v22 = 12;
+        v28 = 138543362;
+        v29 = v14;
+        v22 = "%{public}@ record not found on server";
+        v23 = v21;
+        v24 = 12;
 LABEL_27:
-        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, v20, &v26, v22);
+        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, v22, &v28, v24);
         goto LABEL_28;
       }
 
@@ -3851,16 +3894,16 @@ LABEL_30:
     goto LABEL_30;
   }
 
-  v19 = sub_100003898();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+  v21 = sub_100003898(v20);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
   {
-    v26 = 138543618;
-    v27 = v14;
-    v28 = 2114;
-    v29 = v17;
-    v20 = "%{public}@ record (remapped to %{public}@) not found on server";
-    v21 = v19;
-    v22 = 22;
+    v28 = 138543618;
+    v29 = v14;
+    v30 = 2114;
+    v31 = v17;
+    v22 = "%{public}@ record (remapped to %{public}@) not found on server";
+    v23 = v21;
+    v24 = 22;
     goto LABEL_27;
   }
 
@@ -4133,7 +4176,7 @@ LABEL_10:
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v4 = sub_100003810();
+    v4 = sub_100003810(self);
     if (sub_100021E38(v4))
     {
       v12 = 138412290;
@@ -4154,7 +4197,7 @@ LABEL_10:
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v4 = sub_100003810();
+    v4 = sub_100003810(self);
     if (sub_100021E38(v4))
     {
       v12 = 138412290;
@@ -4176,28 +4219,29 @@ LABEL_10:
   operationCopy = operation;
   contextCopy = context;
   identifiersCopy = identifiers;
+  v14 = identifiersCopy;
   if (byte_1002C5240 == 1 && (_CPLSilentLogging & 1) == 0)
   {
-    v14 = sub_100003810();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = sub_100003810(identifiersCopy);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       cplOperationClassDescription = [operationCopy cplOperationClassDescription];
-      v16 = cplOperationClassDescription;
+      v17 = cplOperationClassDescription;
       if ((type - 1) > 3)
       {
-        v17 = @"Container";
+        v18 = @"Container";
       }
 
       else
       {
-        v17 = off_100274FE8[type - 1];
+        v18 = off_100274FE8[type - 1];
       }
 
       *buf = 138543618;
       *&buf[4] = cplOperationClassDescription;
       *&buf[12] = 2112;
-      *&buf[14] = v17;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Launching %{public}@ with %@", buf, 0x16u);
+      *&buf[14] = v18;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Launching %{public}@ with %@", buf, 0x16u);
     }
   }
 
@@ -4206,8 +4250,8 @@ LABEL_10:
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v34 = sub_100003810();
-      if (sub_1000033C0(v34))
+      v37 = sub_100003810(v19);
+      if (sub_1000033C0(v37))
       {
         cplOperationClassDescription2 = [operationCopy cplOperationClassDescription];
         *buf = 138412546;
@@ -4218,10 +4262,10 @@ LABEL_10:
       }
     }
 
-    v36 = +[NSAssertionHandler currentHandler];
-    v37 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/CloudKit/CPLCloudKitTransportTask.m"];
+    v39 = +[NSAssertionHandler currentHandler];
+    v40 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/CloudKit/CPLCloudKitTransportTask.m"];
     cplOperationClassDescription3 = [operationCopy cplOperationClassDescription];
-    [v36 handleFailureInMethod:a2 object:self file:v37 lineNumber:671 description:{@"%@ tried to launch %@ while it's already finished", self, cplOperationClassDescription3}];
+    [v39 handleFailureInMethod:a2 object:self file:v40 lineNumber:671 description:{@"%@ tried to launch %@ while it's already finished", self, cplOperationClassDescription3}];
 
     abort();
   }
@@ -4229,34 +4273,35 @@ LABEL_10:
   [(CPLCloudKitTransportTask *)self setupConfigurationForOperation:operationCopy];
   if (![(NSMutableArray *)self->_currentOperations count])
   {
-    v18 = objc_alloc_init(NSMutableArray);
+    v20 = objc_alloc_init(NSMutableArray);
     lastOperationRequestUUIDs = self->_lastOperationRequestUUIDs;
-    self->_lastOperationRequestUUIDs = v18;
+    self->_lastOperationRequestUUIDs = v20;
   }
 
   [(NSMutableArray *)self->_currentOperations addObject:operationCopy];
   [operationCopy requestCompletedBlock];
-  v47[0] = _NSConcreteStackBlock;
-  v47[1] = 3221225472;
-  v47[2] = sub_10005C154;
-  v47[3] = &unk_100274C70;
-  v20 = v47[4] = self;
-  v48 = v20;
-  [operationCopy setRequestCompletedBlock:v47];
+  v50[0] = _NSConcreteStackBlock;
+  v50[1] = 3221225472;
+  v50[2] = sub_10005C154;
+  v50[3] = &unk_100274C70;
+  v22 = v50[4] = self;
+  v51 = v22;
+  [operationCopy setRequestCompletedBlock:v50];
   if ([(CPLCloudKitTaskController *)self->_controller isForeground]&& [(CPLCloudKitTransportTask *)self isBoostable]&& [(CPLCloudKitTaskController *)self->_controller canBoostOperations])
   {
     configuration = [operationCopy configuration];
-    if ([configuration cplDiscretionary])
+    cplDiscretionary = [configuration cplDiscretionary];
+    if (cplDiscretionary)
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v22 = sub_100003810();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+        v25 = sub_100003810(cplDiscretionary);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
         {
           cplOperationClassDescription4 = [operationCopy cplOperationClassDescription];
           *buf = 138412290;
           *&buf[4] = cplOperationClassDescription4;
-          _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Automatically boosting (background) %@ to non discretionary and requiring non-cellular", buf, 0xCu);
+          _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Automatically boosting (background) %@ to non discretionary and requiring non-cellular", buf, 0xCu);
         }
       }
 
@@ -4266,57 +4311,57 @@ LABEL_10:
   }
 
   operationTracker = [(CPLCloudKitTaskController *)self->_controller operationTracker];
-  [operationTracker operationWillStart:operationCopy forTask:self withContext:contextCopy bundleIdentifiers:identifiersCopy];
+  [operationTracker operationWillStart:operationCopy forTask:self withContext:contextCopy bundleIdentifiers:v14];
 
   if ([(NSMutableSet *)self->_associatedMetrics count])
   {
-    v45 = 0u;
+    v48 = 0u;
+    v49 = 0u;
     v46 = 0u;
-    v43 = 0u;
-    v44 = 0u;
-    v25 = self->_associatedMetrics;
-    v26 = [(NSMutableSet *)v25 countByEnumeratingWithState:&v43 objects:v53 count:16];
-    if (v26)
+    v47 = 0u;
+    v28 = self->_associatedMetrics;
+    v29 = [(NSMutableSet *)v28 countByEnumeratingWithState:&v46 objects:v56 count:16];
+    if (v29)
     {
-      v27 = *v44;
+      v30 = *v47;
       do
       {
-        for (i = 0; i != v26; i = i + 1)
+        for (i = 0; i != v29; i = i + 1)
         {
-          if (*v44 != v27)
+          if (*v47 != v30)
           {
-            objc_enumerationMutation(v25);
+            objc_enumerationMutation(v28);
           }
 
-          [*(*(&v43 + 1) + 8 * i) associateWithOperation:operationCopy];
+          [*(*(&v46 + 1) + 8 * i) associateWithOperation:operationCopy];
         }
 
-        v26 = [(NSMutableSet *)v25 countByEnumeratingWithState:&v43 objects:v53 count:16];
+        v29 = [(NSMutableSet *)v28 countByEnumeratingWithState:&v46 objects:v56 count:16];
       }
 
-      while (v26);
+      while (v29);
     }
 
-    v29 = [(NSMutableSet *)self->_associatedMetrics copy];
+    v32 = [(NSMutableSet *)self->_associatedMetrics copy];
     completionBlock = [operationCopy completionBlock];
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v50 = sub_100004440;
-    v51 = sub_100005304;
-    v31 = operationCopy;
-    v52 = v31;
-    v39[0] = _NSConcreteStackBlock;
-    v39[1] = 3221225472;
-    v39[2] = sub_10005C300;
-    v39[3] = &unk_100274748;
-    v39[4] = self;
-    v32 = v29;
-    v40 = v32;
-    v42 = buf;
-    v33 = completionBlock;
-    v41 = v33;
-    [v31 setCompletionBlock:v39];
+    v53 = sub_100004440;
+    v54 = sub_100005304;
+    v34 = operationCopy;
+    v55 = v34;
+    v42[0] = _NSConcreteStackBlock;
+    v42[1] = 3221225472;
+    v42[2] = sub_10005C300;
+    v42[3] = &unk_100274748;
+    v42[4] = self;
+    v35 = v32;
+    v43 = v35;
+    v45 = buf;
+    v36 = completionBlock;
+    v44 = v36;
+    [v34 setCompletionBlock:v42];
 
     _Block_object_dispose(buf, 8);
   }
@@ -4395,26 +4440,26 @@ LABEL_10:
   baseConfigurationForTask = [(CPLCloudKitTransportTask *)self baseConfigurationForTask];
   operationGroup = [(CPLCloudKitTransportTask *)self operationGroup];
   [operationCopy setGroup:operationGroup];
-  [operationCopy setConfiguration:baseConfigurationForTask];
+  v7 = [operationCopy setConfiguration:baseConfigurationForTask];
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v7 = sub_100003810();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = sub_100003810(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       defaultConfiguration = [operationGroup defaultConfiguration];
-      v9 = sub_10005E674(self, defaultConfiguration);
-      v10 = sub_10005E674(self, baseConfigurationForTask);
-      v11 = 138413314;
+      v10 = sub_10005E674(self, defaultConfiguration);
+      v11 = sub_10005E674(self, baseConfigurationForTask);
+      v12 = 138413314;
       selfCopy = self;
-      v13 = 2112;
-      v14 = operationCopy;
-      v15 = 2112;
-      v16 = operationGroup;
-      v17 = 2112;
-      v18 = v9;
-      v19 = 2112;
-      v20 = v10;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "Setting up task %@ (CKOperation %@) with group %@ (%@) and configuration %@", &v11, 0x34u);
+      v14 = 2112;
+      v15 = operationCopy;
+      v16 = 2112;
+      v17 = operationGroup;
+      v18 = 2112;
+      v19 = v10;
+      v20 = 2112;
+      v21 = v11;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "Setting up task %@ (CKOperation %@) with group %@ (%@) and configuration %@", &v12, 0x34u);
     }
   }
 }

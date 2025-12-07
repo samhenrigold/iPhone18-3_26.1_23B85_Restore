@@ -20,7 +20,7 @@
 
 - (id)parameterStateFromLinkValue:(id)value
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   value = [value value];
   if (!value)
   {
@@ -38,12 +38,12 @@ LABEL_12:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       valueType2 = [(WFLinkActionParameterDefinition *)self valueType];
-      v23 = 136315650;
-      v24 = "[WFLinkActionFileParameterDefinition parameterStateFromLinkValue:]";
-      v25 = 2114;
-      v26 = value;
-      v27 = 2114;
-      v28 = valueType2;
+      v22 = 136315650;
+      v23 = "[WFLinkActionFileParameterDefinition parameterStateFromLinkValue:]";
+      v24 = 2114;
+      v25 = value;
+      v26 = 2114;
+      v27 = valueType2;
     }
 
     goto LABEL_12;
@@ -105,7 +105,6 @@ LABEL_17:
 LABEL_18:
 
 LABEL_19:
-  v21 = *MEMORY[0x1E69E9840];
 
   return fileURL;
 }
@@ -223,30 +222,28 @@ LABEL_9:
 
 - (id)parameterDefinitionDictionary
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   supportedUTIs = [(WFLinkActionFileParameterDefinition *)self supportedUTIs];
   v4 = [supportedUTIs count];
 
   if (v4)
   {
-    v11.receiver = self;
-    v11.super_class = WFLinkActionFileParameterDefinition;
-    parameterDefinitionDictionary = [(WFLinkActionParameterDefinition *)&v11 parameterDefinitionDictionary];
-    v13 = @"FilePickerSupportedTypes";
+    v10.receiver = self;
+    v10.super_class = WFLinkActionFileParameterDefinition;
+    parameterDefinitionDictionary = [(WFLinkActionParameterDefinition *)&v10 parameterDefinitionDictionary];
+    v12 = @"FilePickerSupportedTypes";
     supportedUTIs2 = [(WFLinkActionFileParameterDefinition *)self supportedUTIs];
-    v14[0] = supportedUTIs2;
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v13[0] = supportedUTIs2;
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
     parameterDefinitionDictionary2 = [parameterDefinitionDictionary definitionByAddingEntriesInDictionary:v7];
   }
 
   else
   {
-    v12.receiver = self;
-    v12.super_class = WFLinkActionFileParameterDefinition;
-    parameterDefinitionDictionary2 = [(WFLinkActionParameterDefinition *)&v12 parameterDefinitionDictionary];
+    v11.receiver = self;
+    v11.super_class = WFLinkActionFileParameterDefinition;
+    parameterDefinitionDictionary2 = [(WFLinkActionParameterDefinition *)&v11 parameterDefinitionDictionary];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return parameterDefinitionDictionary2;
 }

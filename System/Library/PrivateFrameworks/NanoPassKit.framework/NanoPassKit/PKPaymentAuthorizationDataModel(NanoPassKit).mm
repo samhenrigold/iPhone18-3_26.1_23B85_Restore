@@ -9,8 +9,8 @@
 - (BOOL)npkIsSplitPeerPayment;
 - (BOOL)npkIsTopUp;
 - (uint64_t)npkIsNearbyPeerPayment;
-- (uint64_t)npkIsSplitPeerPaymentWithAnotherPaymentMethod;
-- (uint64_t)npkIsSplitPeerPaymentWithoutAnotherPaymentMethod;
+- (void)npkIsSplitPeerPaymentWithAnotherPaymentMethod;
+- (void)npkIsSplitPeerPaymentWithoutAnotherPaymentMethod;
 - (void)npkSetPassAndPaymentApplicationForAID:()NanoPassKit;
 @end
 
@@ -138,7 +138,7 @@
   return v6;
 }
 
-- (uint64_t)npkIsSplitPeerPaymentWithAnotherPaymentMethod
+- (void)npkIsSplitPeerPaymentWithAnotherPaymentMethod
 {
   result = [self npkIsSplitPeerPayment];
   if (result)
@@ -150,12 +150,12 @@
   return result;
 }
 
-- (uint64_t)npkIsSplitPeerPaymentWithoutAnotherPaymentMethod
+- (void)npkIsSplitPeerPaymentWithoutAnotherPaymentMethod
 {
   result = [self npkIsSplitPeerPayment];
   if (result)
   {
-    return [self _hasNonPeerPaymentAcceptedPasses] ^ 1;
+    return ([self _hasNonPeerPaymentAcceptedPasses] ^ 1);
   }
 
   return result;

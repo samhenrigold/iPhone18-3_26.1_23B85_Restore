@@ -17,9 +17,11 @@
 - (void)deleteRecordsForDevice:(id)device;
 - (void)disableSmartChargingForDevice:(id)device withHandler:(id)handler;
 - (void)enableSmartChargingForDevice:(id)device withHandler:(id)handler;
+- (void)engageUntil:(id)until forDevice:(id)device overrideAllSignals:(BOOL)signals;
 - (void)fakeConnectionForDevice:(id)device;
 - (void)fullChargeDeadlineForDevice:(id)device withHandler:(id)handler;
 - (void)isSmartChargingCurrentlyEnabledForDevice:(id)device withHandler:(id)handler;
+- (void)setFakeConnectionStatusTo:(BOOL)to;
 - (void)startMockingBluetoothForFakeDevice:(id)device;
 - (void)stopMockingBluetooth;
 - (void)temporarilyDisableSmartChargingForDevice:(id)device withHandler:(id)handler;
@@ -153,7 +155,7 @@ void __84__PowerUISmartChargeClientAudioAccessories_connectAndDisableOBCforDevic
 
 - (BOOL)setState:(unint64_t)state forDevice:(id)device withError:(id *)error
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
@@ -172,40 +174,39 @@ void __84__PowerUISmartChargeClientAudioAccessories_connectAndDisableOBCforDevic
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v27 = __Block_byref_object_copy__5;
-  v28 = __Block_byref_object_dispose__5;
-  v29 = 0;
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x2020000000;
-  v25 = 0;
+  v26 = __Block_byref_object_copy__5;
+  v27 = __Block_byref_object_dispose__5;
+  v28 = 0;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x2020000000;
+  v24 = 0;
   connection = self->_connection;
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __73__PowerUISmartChargeClientAudioAccessories_setState_forDevice_withError___block_invoke;
-  v21[3] = &unk_2782D4678;
-  v21[4] = buf;
-  v21[5] = &v22;
-  v15 = [(NSXPCConnection *)connection synchronousRemoteObjectProxyWithErrorHandler:v21];
-  v16 = self->_clientName;
   v20[0] = MEMORY[0x277D85DD0];
   v20[1] = 3221225472;
-  v20[2] = __73__PowerUISmartChargeClientAudioAccessories_setState_forDevice_withError___block_invoke_2;
-  v20[3] = &unk_2782D46A0;
+  v20[2] = __73__PowerUISmartChargeClientAudioAccessories_setState_forDevice_withError___block_invoke;
+  v20[3] = &unk_2782D4678;
   v20[4] = buf;
-  v20[5] = &v22;
-  [v15 client:v16 setState:state forDevice:deviceCopy withHandler:v20];
+  v20[5] = &v21;
+  v15 = [(NSXPCConnection *)connection synchronousRemoteObjectProxyWithErrorHandler:v20];
+  v16 = self->_clientName;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __73__PowerUISmartChargeClientAudioAccessories_setState_forDevice_withError___block_invoke_2;
+  v19[3] = &unk_2782D46A0;
+  v19[4] = buf;
+  v19[5] = &v21;
+  [v15 client:v16 setState:state forDevice:deviceCopy withHandler:v19];
 
   if (error)
   {
     *error = *(*&buf[8] + 40);
   }
 
-  v17 = *(v23 + 24);
-  _Block_object_dispose(&v22, 8);
+  v17 = *(v22 + 24);
+  _Block_object_dispose(&v21, 8);
   _Block_object_dispose(buf, 8);
 
-  v18 = *MEMORY[0x277D85DE8];
   return v17 & 1;
 }
 
@@ -308,22 +309,20 @@ void __95__PowerUISmartChargeClientAudioAccessories_isSmartChargingCurrentlyEnab
 
 - (void)temporarilyEnableChargingForDevice:(id)device withHandler:(id)handler
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   handlerCopy = handler;
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
     clientName = self->_clientName;
-    v12 = 138412290;
-    v13 = clientName;
-    _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Client '%@'requests temporarilyEnableChargingWithHandler.", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = clientName;
+    _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Client '%@'requests temporarilyEnableChargingWithHandler.", &v11, 0xCu);
   }
 
   remoteObjectProxy = [(NSXPCConnection *)self->_connection remoteObjectProxy];
   [remoteObjectProxy client:self->_clientName setState:2 forDevice:deviceCopy withHandler:handlerCopy];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)fullChargeDeadlineForDevice:(id)device withError:(id *)error
@@ -537,9 +536,30 @@ void __82__PowerUISmartChargeClientAudioAccessories_updateOBCDeadline_forDevice_
   [remoteObjectProxy updateOBCDeadline:deadlineCopy forDevice:deviceCopy withHandler:handlerCopy];
 }
 
+- (void)engageUntil:(id)until forDevice:(id)device overrideAllSignals:(BOOL)signals
+{
+  signalsCopy = signals;
+  connection = self->_connection;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __85__PowerUISmartChargeClientAudioAccessories_engageUntil_forDevice_overrideAllSignals___block_invoke;
+  v13[3] = &unk_2782D4510;
+  v13[4] = self;
+  v13[5] = a2;
+  deviceCopy = device;
+  untilCopy = until;
+  v11 = [(NSXPCConnection *)connection synchronousRemoteObjectProxyWithErrorHandler:v13];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __85__PowerUISmartChargeClientAudioAccessories_engageUntil_forDevice_overrideAllSignals___block_invoke_107;
+  v12[3] = &unk_2782D49C8;
+  v12[4] = self;
+  [v11 engageUntil:untilCopy forDevice:deviceCopy overrideAllSignals:signalsCopy withHandler:v12];
+}
+
 void __85__PowerUISmartChargeClientAudioAccessories_engageUntil_forDevice_overrideAllSignals___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(*(a1 + 32) + 24);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -547,14 +567,12 @@ void __85__PowerUISmartChargeClientAudioAccessories_engageUntil_forDevice_overri
     v5 = *(a1 + 40);
     v6 = v4;
     v7 = NSStringFromSelector(v5);
-    v9 = 138412546;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_21B766000, v6, OS_LOG_TYPE_DEFAULT, "%@ Error: %@", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_21B766000, v6, OS_LOG_TYPE_DEFAULT, "%@ Error: %@", &v8, 0x16u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __85__PowerUISmartChargeClientAudioAccessories_engageUntil_forDevice_overrideAllSignals___block_invoke_107(uint64_t a1, char a2, void *a3)
@@ -603,7 +621,7 @@ void __85__PowerUISmartChargeClientAudioAccessories_engageUntil_forDevice_overri
 
 void __63__PowerUISmartChargeClientAudioAccessories_getAvailableDevices__block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(*(a1 + 32) + 24);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -612,21 +630,19 @@ void __63__PowerUISmartChargeClientAudioAccessories_getAvailableDevices__block_i
     v6 = v4;
     v7 = [v5 clientName];
     v8 = NSStringFromSelector(*(a1 + 40));
-    v10 = 138412802;
-    v11 = v7;
-    v12 = 2112;
-    v13 = v8;
-    v14 = 2112;
-    v15 = v3;
-    _os_log_impl(&dword_21B766000, v6, OS_LOG_TYPE_DEFAULT, "Client '%@' received error (%@): %@", &v10, 0x20u);
+    v9 = 138412802;
+    v10 = v7;
+    v11 = 2112;
+    v12 = v8;
+    v13 = 2112;
+    v14 = v3;
+    _os_log_impl(&dword_21B766000, v6, OS_LOG_TYPE_DEFAULT, "Client '%@' received error (%@): %@", &v9, 0x20u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __63__PowerUISmartChargeClientAudioAccessories_getAvailableDevices__block_invoke_108(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(*(a1 + 32) + 24);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -634,16 +650,14 @@ void __63__PowerUISmartChargeClientAudioAccessories_getAvailableDevices__block_i
     v5 = MEMORY[0x277CCABB0];
     v6 = v4;
     v7 = [v5 numberWithUnsignedInteger:{objc_msgSend(v3, "count")}];
-    v11 = 138412290;
-    v12 = v7;
-    _os_log_impl(&dword_21B766000, v6, OS_LOG_TYPE_DEFAULT, "%@ devices about to be returned from client", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v7;
+    _os_log_impl(&dword_21B766000, v6, OS_LOG_TYPE_DEFAULT, "%@ devices about to be returned from client", &v10, 0xCu);
   }
 
   v8 = *(*(a1 + 40) + 8);
   v9 = *(v8 + 40);
   *(v8 + 40) = v3;
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getStatusForDevice:(id)device
@@ -678,7 +692,7 @@ void __63__PowerUISmartChargeClientAudioAccessories_getAvailableDevices__block_i
 
 void __63__PowerUISmartChargeClientAudioAccessories_getStatusForDevice___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(*(a1 + 32) + 24);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -687,16 +701,14 @@ void __63__PowerUISmartChargeClientAudioAccessories_getStatusForDevice___block_i
     v6 = v4;
     v7 = [v5 clientName];
     v8 = NSStringFromSelector(*(a1 + 40));
-    v10 = 138412802;
-    v11 = v7;
-    v12 = 2112;
-    v13 = v8;
-    v14 = 2112;
-    v15 = v3;
-    _os_log_impl(&dword_21B766000, v6, OS_LOG_TYPE_DEFAULT, "Client '%@' received error (%@): %@", &v10, 0x20u);
+    v9 = 138412802;
+    v10 = v7;
+    v11 = 2112;
+    v12 = v8;
+    v13 = 2112;
+    v14 = v3;
+    _os_log_impl(&dword_21B766000, v6, OS_LOG_TYPE_DEFAULT, "Client '%@' received error (%@): %@", &v9, 0x20u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)lastActionForDevice:(id)device
@@ -729,7 +741,7 @@ void __63__PowerUISmartChargeClientAudioAccessories_getStatusForDevice___block_i
 
 void __64__PowerUISmartChargeClientAudioAccessories_lastActionForDevice___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(*(a1 + 32) + 24);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -738,16 +750,14 @@ void __64__PowerUISmartChargeClientAudioAccessories_lastActionForDevice___block_
     v6 = v4;
     v7 = [v5 clientName];
     v8 = NSStringFromSelector(*(a1 + 40));
-    v10 = 138412802;
-    v11 = v7;
-    v12 = 2112;
-    v13 = v8;
-    v14 = 2112;
-    v15 = v3;
-    _os_log_impl(&dword_21B766000, v6, OS_LOG_TYPE_DEFAULT, "Client '%@' received error (%@): %@", &v10, 0x20u);
+    v9 = 138412802;
+    v10 = v7;
+    v11 = 2112;
+    v12 = v8;
+    v13 = 2112;
+    v14 = v3;
+    _os_log_impl(&dword_21B766000, v6, OS_LOG_TYPE_DEFAULT, "Client '%@' received error (%@): %@", &v9, 0x20u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearLastActionForDevice:(id)device
@@ -766,7 +776,7 @@ void __64__PowerUISmartChargeClientAudioAccessories_lastActionForDevice___block_
 
 void __69__PowerUISmartChargeClientAudioAccessories_clearLastActionForDevice___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(*(a1 + 32) + 24);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -775,16 +785,14 @@ void __69__PowerUISmartChargeClientAudioAccessories_clearLastActionForDevice___b
     v6 = v4;
     v7 = [v5 clientName];
     v8 = NSStringFromSelector(*(a1 + 40));
-    v10 = 138412802;
-    v11 = v7;
-    v12 = 2112;
-    v13 = v8;
-    v14 = 2112;
-    v15 = v3;
-    _os_log_impl(&dword_21B766000, v6, OS_LOG_TYPE_DEFAULT, "Client '%@' received error (%@): %@", &v10, 0x20u);
+    v9 = 138412802;
+    v10 = v7;
+    v11 = 2112;
+    v12 = v8;
+    v13 = 2112;
+    v14 = v3;
+    _os_log_impl(&dword_21B766000, v6, OS_LOG_TYPE_DEFAULT, "Client '%@' received error (%@): %@", &v9, 0x20u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startMockingBluetoothForFakeDevice:(id)device
@@ -803,7 +811,7 @@ void __69__PowerUISmartChargeClientAudioAccessories_clearLastActionForDevice___b
 
 void __79__PowerUISmartChargeClientAudioAccessories_startMockingBluetoothForFakeDevice___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(*(a1 + 32) + 24);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -812,16 +820,14 @@ void __79__PowerUISmartChargeClientAudioAccessories_startMockingBluetoothForFake
     v6 = v4;
     v7 = [v5 clientName];
     v8 = NSStringFromSelector(*(a1 + 40));
-    v10 = 138412802;
-    v11 = v7;
-    v12 = 2112;
-    v13 = v8;
-    v14 = 2112;
-    v15 = v3;
-    _os_log_impl(&dword_21B766000, v6, OS_LOG_TYPE_DEFAULT, "Client '%@' received error (%@): %@", &v10, 0x20u);
+    v9 = 138412802;
+    v10 = v7;
+    v11 = 2112;
+    v12 = v8;
+    v13 = 2112;
+    v14 = v3;
+    _os_log_impl(&dword_21B766000, v6, OS_LOG_TYPE_DEFAULT, "Client '%@' received error (%@): %@", &v9, 0x20u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopMockingBluetooth
@@ -839,7 +845,7 @@ void __79__PowerUISmartChargeClientAudioAccessories_startMockingBluetoothForFake
 
 void __64__PowerUISmartChargeClientAudioAccessories_stopMockingBluetooth__block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(*(a1 + 32) + 24);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -848,16 +854,14 @@ void __64__PowerUISmartChargeClientAudioAccessories_stopMockingBluetooth__block_
     v6 = v4;
     v7 = [v5 clientName];
     v8 = NSStringFromSelector(*(a1 + 40));
-    v10 = 138412802;
-    v11 = v7;
-    v12 = 2112;
-    v13 = v8;
-    v14 = 2112;
-    v15 = v3;
-    _os_log_impl(&dword_21B766000, v6, OS_LOG_TYPE_DEFAULT, "Client '%@' received error (%@): %@", &v10, 0x20u);
+    v9 = 138412802;
+    v10 = v7;
+    v11 = 2112;
+    v12 = v8;
+    v13 = 2112;
+    v14 = v3;
+    _os_log_impl(&dword_21B766000, v6, OS_LOG_TYPE_DEFAULT, "Client '%@' received error (%@): %@", &v9, 0x20u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteRecordsForDevice:(id)device
@@ -876,7 +880,7 @@ void __64__PowerUISmartChargeClientAudioAccessories_stopMockingBluetooth__block_
 
 void __67__PowerUISmartChargeClientAudioAccessories_deleteRecordsForDevice___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(*(a1 + 32) + 24);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -885,16 +889,14 @@ void __67__PowerUISmartChargeClientAudioAccessories_deleteRecordsForDevice___blo
     v6 = v4;
     v7 = [v5 clientName];
     v8 = NSStringFromSelector(*(a1 + 40));
-    v10 = 138412802;
-    v11 = v7;
-    v12 = 2112;
-    v13 = v8;
-    v14 = 2112;
-    v15 = v3;
-    _os_log_impl(&dword_21B766000, v6, OS_LOG_TYPE_DEFAULT, "Client '%@' received error (%@): %@", &v10, 0x20u);
+    v9 = 138412802;
+    v10 = v7;
+    v11 = 2112;
+    v12 = v8;
+    v13 = 2112;
+    v14 = v3;
+    _os_log_impl(&dword_21B766000, v6, OS_LOG_TYPE_DEFAULT, "Client '%@' received error (%@): %@", &v9, 0x20u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fakeConnectionForDevice:(id)device
@@ -913,7 +915,7 @@ void __67__PowerUISmartChargeClientAudioAccessories_deleteRecordsForDevice___blo
 
 void __68__PowerUISmartChargeClientAudioAccessories_fakeConnectionForDevice___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(*(a1 + 32) + 24);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -922,21 +924,33 @@ void __68__PowerUISmartChargeClientAudioAccessories_fakeConnectionForDevice___bl
     v6 = v4;
     v7 = [v5 clientName];
     v8 = NSStringFromSelector(*(a1 + 40));
-    v10 = 138412802;
-    v11 = v7;
-    v12 = 2112;
-    v13 = v8;
-    v14 = 2112;
-    v15 = v3;
-    _os_log_impl(&dword_21B766000, v6, OS_LOG_TYPE_DEFAULT, "Client '%@' received error (%@): %@", &v10, 0x20u);
+    v9 = 138412802;
+    v10 = v7;
+    v11 = 2112;
+    v12 = v8;
+    v13 = 2112;
+    v14 = v3;
+    _os_log_impl(&dword_21B766000, v6, OS_LOG_TYPE_DEFAULT, "Client '%@' received error (%@): %@", &v9, 0x20u);
   }
+}
 
-  v9 = *MEMORY[0x277D85DE8];
+- (void)setFakeConnectionStatusTo:(BOOL)to
+{
+  toCopy = to;
+  connection = self->_connection;
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __70__PowerUISmartChargeClientAudioAccessories_setFakeConnectionStatusTo___block_invoke;
+  v6[3] = &unk_2782D4510;
+  v6[4] = self;
+  v6[5] = a2;
+  v5 = [(NSXPCConnection *)connection synchronousRemoteObjectProxyWithErrorHandler:v6];
+  [v5 setFakeConnectionStatusTo:toCopy];
 }
 
 void __70__PowerUISmartChargeClientAudioAccessories_setFakeConnectionStatusTo___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(*(a1 + 32) + 24);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -945,16 +959,14 @@ void __70__PowerUISmartChargeClientAudioAccessories_setFakeConnectionStatusTo___
     v6 = v4;
     v7 = [v5 clientName];
     v8 = NSStringFromSelector(*(a1 + 40));
-    v10 = 138412802;
-    v11 = v7;
-    v12 = 2112;
-    v13 = v8;
-    v14 = 2112;
-    v15 = v3;
-    _os_log_impl(&dword_21B766000, v6, OS_LOG_TYPE_DEFAULT, "Client '%@' received error (%@): %@", &v10, 0x20u);
+    v9 = 138412802;
+    v10 = v7;
+    v11 = 2112;
+    v12 = v8;
+    v13 = 2112;
+    v14 = v3;
+    _os_log_impl(&dword_21B766000, v6, OS_LOG_TYPE_DEFAULT, "Client '%@' received error (%@): %@", &v9, 0x20u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)lastUsedLeewayWithError:(id *)error
@@ -1044,7 +1056,7 @@ void __68__PowerUISmartChargeClientAudioAccessories_lastUsedLeewayWithError___bl
 
 void __64__PowerUISmartChargeClientAudioAccessories_timeSeriesForDevice___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(*(a1 + 32) + 24);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -1053,40 +1065,32 @@ void __64__PowerUISmartChargeClientAudioAccessories_timeSeriesForDevice___block_
     v6 = v4;
     v7 = [v5 clientName];
     v8 = NSStringFromSelector(*(a1 + 40));
-    v10 = 138412802;
-    v11 = v7;
-    v12 = 2112;
-    v13 = v8;
-    v14 = 2112;
-    v15 = v3;
-    _os_log_impl(&dword_21B766000, v6, OS_LOG_TYPE_DEFAULT, "Client '%@' received error (%@): %@", &v10, 0x20u);
+    v9 = 138412802;
+    v10 = v7;
+    v11 = 2112;
+    v12 = v8;
+    v13 = 2112;
+    v14 = v3;
+    _os_log_impl(&dword_21B766000, v6, OS_LOG_TYPE_DEFAULT, "Client '%@' received error (%@): %@", &v9, 0x20u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __68__PowerUISmartChargeClientAudioAccessories_lastUsedLeewayWithError___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 40);
   v3 = a2;
   v4 = NSStringFromSelector(v2);
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_1_3(&dword_21B766000, v5, v6, "%@ Error: %@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_3(&dword_21B766000, v5, v6, "%@ Error: %@", v7, v8, v9, v10);
 }
 
 void __68__PowerUISmartChargeClientAudioAccessories_lastUsedLeewayWithError___block_invoke_114_cold_1(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 56);
   v3 = a2;
   v4 = NSStringFromSelector(v2);
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_1_3(&dword_21B766000, v5, v6, "%@ Error: %@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_3(&dword_21B766000, v5, v6, "%@ Error: %@", v7, v8, v9, v10);
 }
 
 @end

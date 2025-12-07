@@ -22,7 +22,7 @@
 
 - (void)refreshEditorialItemsWithItems:(id)items
 {
-  type metadata accessor for EditorialItem();
+  type metadata accessor for EditorialItem(0);
   v4 = sub_219BF5924();
   selfCopy = self;
   sub_21996D230(v4);

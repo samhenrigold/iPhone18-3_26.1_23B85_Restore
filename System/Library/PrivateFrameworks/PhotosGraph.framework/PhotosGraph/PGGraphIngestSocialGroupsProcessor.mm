@@ -11,7 +11,7 @@
 
 - (void)insertAggregateSocialGroupsIntoGraph:(id)graph progressBlock:(id)block
 {
-  v83[2] = *MEMORY[0x277D85DE8];
+  v82[2] = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   aBlock = block;
   loggingConnection = [(PGGraphBuilder *)self->_graphBuilder loggingConnection];
@@ -19,51 +19,51 @@
   v8 = loggingConnection;
   v9 = v8;
   spid = v7;
-  v50 = v7 - 1;
+  v49 = v7 - 1;
   if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
   {
     *buf = 0;
     _os_signpost_emit_with_name_impl(&dword_22F0FC000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v7, "SocialGroupAggregation", "", buf, 2u);
   }
 
-  v54 = v9;
+  v53 = v9;
 
   info = 0;
   mach_timebase_info(&info);
-  v47 = mach_absolute_time();
+  v46 = mach_absolute_time();
   v10 = _Block_copy(aBlock);
   *buf = 0;
-  v77 = buf;
-  v78 = 0x2020000000;
-  v79 = 0;
-  v72 = 0;
-  v73 = &v72;
-  v74 = 0x2020000000;
-  v75 = 0;
-  if (!v10 || (v11 = CFAbsoluteTimeGetCurrent(), v11 - v73[3] < 0.01) || (v73[3] = v11, v71 = 0, v10[2](v10, &v71, 0.0), v12 = v77[24] | v71, v77[24] = v12, (v12 & 1) == 0))
+  v76 = buf;
+  v77 = 0x2020000000;
+  v78 = 0;
+  v71 = 0;
+  v72 = &v71;
+  v73 = 0x2020000000;
+  v74 = 0;
+  if (!v10 || (v11 = CFAbsoluteTimeGetCurrent(), v11 - v72[3] < 0.01) || (v72[3] = v11, v70 = 0, v10[2](v10, &v70, 0.0), v12 = v76[24] | v70, v76[24] = v12, (v12 & 1) == 0))
   {
-    v56 = [(PGGraphNodeCollection *)PGGraphFrequentLocationNodeCollection nodesInGraph:graphCopy, v47];
-    v53 = [(PGGraphNodeCollection *)PGGraphSocialGroupNodeCollection nodesInGraph:graphCopy];
+    v55 = [(PGGraphNodeCollection *)PGGraphFrequentLocationNodeCollection nodesInGraph:graphCopy, v46];
+    v52 = [(PGGraphNodeCollection *)PGGraphSocialGroupNodeCollection nodesInGraph:graphCopy];
     v13 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v69[0] = MEMORY[0x277D85DD0];
-    v69[1] = 3221225472;
-    v69[2] = __89__PGGraphIngestSocialGroupsProcessor_insertAggregateSocialGroupsIntoGraph_progressBlock___block_invoke;
-    v69[3] = &unk_278887280;
+    v68[0] = MEMORY[0x277D85DD0];
+    v68[1] = 3221225472;
+    v68[2] = __89__PGGraphIngestSocialGroupsProcessor_insertAggregateSocialGroupsIntoGraph_progressBlock___block_invoke;
+    v68[3] = &unk_278887280;
     v14 = v13;
-    v70 = v14;
-    [v53 enumerateSocialGroupIdentifiersUsingBlock:v69];
+    v69 = v14;
+    [v52 enumerateSocialGroupIdentifiersUsingBlock:v68];
     v15 = objc_alloc(MEMORY[0x277D22C00]);
     v16 = +[PGGraphFrequentLocationNode momentOfFrequentLocation];
-    v83[0] = v16;
+    v82[0] = v16;
     v17 = +[PGGraphMomentNode socialGroupInMoment];
-    v83[1] = v17;
-    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v83 count:2];
-    v52 = [v15 initWithSteps:v18];
+    v82[1] = v17;
+    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v82 count:2];
+    v51 = [v15 initWithSteps:v18];
 
-    v19 = [MEMORY[0x277D22BF8] adjacencyWithSources:v56 relation:v52 targetsClass:objc_opt_class()];
+    v19 = [MEMORY[0x277D22BF8] adjacencyWithSources:v55 relation:v51 targetsClass:objc_opt_class()];
     v20 = MEMORY[0x277D22BF8];
     v21 = +[PGGraphFrequentLocationNode momentOfFrequentLocation];
-    v51 = [v20 adjacencyWithSources:v56 relation:v21 targetsClass:objc_opt_class()];
+    v50 = [v20 adjacencyWithSources:v55 relation:v21 targetsClass:objc_opt_class()];
 
     v22 = MEMORY[0x277D22BF8];
     targets = [v19 targets];
@@ -78,22 +78,22 @@
     if (v10)
     {
       Current = CFAbsoluteTimeGetCurrent();
-      if (Current - v73[3] >= 0.01)
+      if (Current - v72[3] >= 0.01)
       {
-        v73[3] = Current;
-        v71 = 0;
-        v10[2](v10, &v71, 0.2);
-        v31 = v77[24] | v71;
-        v77[24] = v31;
+        v72[3] = Current;
+        v70 = 0;
+        v10[2](v10, &v70, 0.2);
+        v31 = v76[24] | v70;
+        v76[24] = v31;
         if (v31)
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
-            *v81 = 67109378;
-            *v82 = 371;
-            *&v82[4] = 2080;
-            *&v82[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestSocialGroupsProcessor.m";
-            _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v81, 0x12u);
+            *v80 = 67109378;
+            *v81 = 371;
+            *&v81[4] = 2080;
+            *&v81[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestSocialGroupsProcessor.m";
+            _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v80, 0x12u);
           }
 
           goto LABEL_26;
@@ -102,26 +102,26 @@
     }
 
     v32 = objc_alloc_init(MEMORY[0x277D22C50]);
-    v58[0] = MEMORY[0x277D85DD0];
-    v58[1] = 3221225472;
-    v58[2] = __89__PGGraphIngestSocialGroupsProcessor_insertAggregateSocialGroupsIntoGraph_progressBlock___block_invoke_263;
-    v58[3] = &unk_2788829D0;
+    v57[0] = MEMORY[0x277D85DD0];
+    v57[1] = 3221225472;
+    v57[2] = __89__PGGraphIngestSocialGroupsProcessor_insertAggregateSocialGroupsIntoGraph_progressBlock___block_invoke_263;
+    v57[3] = &unk_2788829D0;
     v33 = v10;
-    v65 = v33;
-    v66 = &v72;
-    v67 = buf;
-    v68 = 0x3F847AE147AE147BLL;
-    v59 = v51;
-    v60 = v25;
-    v61 = v29;
+    v64 = v33;
+    v65 = &v71;
+    v66 = buf;
+    v67 = 0x3F847AE147AE147BLL;
+    v58 = v50;
+    v59 = v25;
+    v60 = v29;
     v34 = graphCopy;
-    v62 = v34;
-    v63 = v14;
+    v61 = v34;
+    v62 = v14;
     v35 = v32;
-    v64 = v35;
-    [v19 enumerateTargetsBySourceWithBlock:v58];
+    v63 = v35;
+    [v19 enumerateTargetsBySourceWithBlock:v57];
     [v34 executeGraphChangeRequest:v35];
-    if (v10 && (v36 = CFAbsoluteTimeGetCurrent(), v36 - v73[3] >= 0.01) && (v73[3] = v36, v71 = 0, v33[2](v33, &v71, 1.0), v37 = v77[24] | v71, v77[24] = v37, (v37 & 1) != 0))
+    if (v10 && (v36 = CFAbsoluteTimeGetCurrent(), v36 - v72[3] >= 0.01) && (v72[3] = v36, v70 = 0, v33[2](v33, &v70, 1.0), v37 = v76[24] | v70, v76[24] = v37, (v37 & 1) != 0))
     {
       if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
@@ -131,10 +131,10 @@ LABEL_26:
         goto LABEL_27;
       }
 
-      *v81 = 67109378;
-      *v82 = 442;
-      *&v82[4] = 2080;
-      *&v82[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestSocialGroupsProcessor.m";
+      *v80 = 67109378;
+      *v81 = 442;
+      *&v81[4] = 2080;
+      *&v81[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestSocialGroupsProcessor.m";
       v38 = MEMORY[0x277D86220];
       v39 = "Cancelled at line %d in file %s";
       v40 = 18;
@@ -145,12 +145,12 @@ LABEL_26:
       v41 = mach_absolute_time();
       numer = info.numer;
       denom = info.denom;
-      v44 = v54;
+      v44 = v53;
       v45 = v44;
-      if (v50 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v44))
+      if (v49 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v44))
       {
-        *v81 = 0;
-        _os_signpost_emit_with_name_impl(&dword_22F0FC000, v45, OS_SIGNPOST_INTERVAL_END, spid, "SocialGroupAggregation", "", v81, 2u);
+        *v80 = 0;
+        _os_signpost_emit_with_name_impl(&dword_22F0FC000, v45, OS_SIGNPOST_INTERVAL_END, spid, "SocialGroupAggregation", "", v80, 2u);
       }
 
       if (!os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
@@ -158,33 +158,31 @@ LABEL_26:
         goto LABEL_25;
       }
 
-      *v81 = 136315394;
-      *v82 = "SocialGroupAggregation";
-      *&v82[8] = 2048;
-      *&v82[10] = ((((v41 - v48) * numer) / denom) / 1000000.0);
+      *v80 = 136315394;
+      *v81 = "SocialGroupAggregation";
+      *&v81[8] = 2048;
+      *&v81[10] = ((((v41 - v47) * numer) / denom) / 1000000.0);
       v39 = "[Performance] %s: %f ms";
       v38 = v45;
       v40 = 22;
     }
 
-    _os_log_impl(&dword_22F0FC000, v38, OS_LOG_TYPE_INFO, v39, v81, v40);
+    _os_log_impl(&dword_22F0FC000, v38, OS_LOG_TYPE_INFO, v39, v80, v40);
     goto LABEL_25;
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    *v81 = 67109378;
-    *v82 = 353;
-    *&v82[4] = 2080;
-    *&v82[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestSocialGroupsProcessor.m";
-    _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v81, 0x12u);
+    *v80 = 67109378;
+    *v81 = 353;
+    *&v81[4] = 2080;
+    *&v81[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestSocialGroupsProcessor.m";
+    _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v80, 0x12u);
   }
 
 LABEL_27:
-  _Block_object_dispose(&v72, 8);
+  _Block_object_dispose(&v71, 8);
   _Block_object_dispose(buf, 8);
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 void __89__PGGraphIngestSocialGroupsProcessor_insertAggregateSocialGroupsIntoGraph_progressBlock___block_invoke(uint64_t a1)
@@ -196,127 +194,125 @@ void __89__PGGraphIngestSocialGroupsProcessor_insertAggregateSocialGroupsIntoGra
 
 void __89__PGGraphIngestSocialGroupsProcessor_insertAggregateSocialGroupsIntoGraph_progressBlock___block_invoke_263(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
-  v72 = *MEMORY[0x277D85DE8];
-  v39 = a2;
-  v38 = a3;
-  v41 = a1;
-  if (*(a1 + 80) && (Current = CFAbsoluteTimeGetCurrent(), v8 = *(*(a1 + 88) + 8), Current - *(v8 + 24) >= *(a1 + 104)) && (*(v8 + 24) = Current, LOBYTE(v67) = 0, (*(*(a1 + 80) + 16))(0.5), *(*(*(a1 + 96) + 8) + 24) = *(*(*(a1 + 96) + 8) + 24), *(*(*(a1 + 96) + 8) + 24) == 1))
+  v71 = *MEMORY[0x277D85DE8];
+  v38 = a2;
+  v37 = a3;
+  v40 = a1;
+  if (*(a1 + 80) && (Current = CFAbsoluteTimeGetCurrent(), v8 = *(*(a1 + 88) + 8), Current - *(v8 + 24) >= *(a1 + 104)) && (*(v8 + 24) = Current, LOBYTE(v66) = 0, (*(*(a1 + 80) + 16))(0.5), *(*(*(a1 + 96) + 8) + 24) = *(*(*(a1 + 96) + 8) + 24), *(*(*(a1 + 96) + 8) + 24) == 1))
   {
     *a4 = 1;
   }
 
   else
   {
-    v37 = [*(a1 + 32) targetsForSources:v39];
-    v9 = [*(a1 + 40) intersectingTargetsWith:v37];
+    v36 = [*(a1 + 32) targetsForSources:v38];
+    v9 = [*(a1 + 40) intersectingTargetsWith:v36];
     v10 = objc_alloc_init(MEMORY[0x277D22BD0]);
     v11 = objc_alloc_init(MEMORY[0x277D22BD0]);
     v12 = objc_alloc_init(MEMORY[0x277D22BD0]);
-    v67 = 0;
-    v68 = &v67;
-    v69 = 0x2020000000;
-    v70 = 0;
-    v63 = 0;
-    v64 = &v63;
-    v65 = 0x2020000000;
     v66 = 0;
-    v54[0] = MEMORY[0x277D85DD0];
-    v54[1] = 3221225472;
-    v54[2] = __89__PGGraphIngestSocialGroupsProcessor_insertAggregateSocialGroupsIntoGraph_progressBlock___block_invoke_2;
-    v54[3] = &unk_278882980;
-    v33 = v9;
-    v55 = v33;
-    v56 = *(v41 + 40);
-    v57 = *(v41 + 48);
+    v67 = &v66;
+    v68 = 0x2020000000;
+    v69 = 0;
+    v62 = 0;
+    v63 = &v62;
+    v64 = 0x2020000000;
+    v65 = 0;
+    v53[0] = MEMORY[0x277D85DD0];
+    v53[1] = 3221225472;
+    v53[2] = __89__PGGraphIngestSocialGroupsProcessor_insertAggregateSocialGroupsIntoGraph_progressBlock___block_invoke_2;
+    v53[3] = &unk_278882980;
+    v32 = v9;
+    v54 = v32;
+    v55 = *(v40 + 40);
+    v56 = *(v40 + 48);
     v13 = v10;
-    v58 = v13;
-    v34 = v11;
+    v57 = v13;
+    v33 = v11;
+    v58 = v33;
+    v34 = v12;
     v59 = v34;
-    v35 = v12;
-    v60 = v35;
-    v61 = &v67;
-    v62 = &v63;
-    [v38 enumerateImportancesUsingBlock:v54];
-    v36 = v13;
+    v60 = &v66;
+    v61 = &v62;
+    [v37 enumerateImportancesUsingBlock:v53];
+    v35 = v13;
     if ([v13 count] >= 3)
     {
-      v31 = [(MAElementCollection *)[PGGraphPersonNodeCollection alloc] initWithGraph:*(v41 + 56) elementIdentifiers:v13];
-      v32 = [(MAElementCollection *)v31 array];
+      v30 = [(MAElementCollection *)[PGGraphPersonNodeCollection alloc] initWithGraph:*(v40 + 56) elementIdentifiers:v13];
+      v31 = [(MAElementCollection *)v30 array];
       v14 = [PGGraphSocialGroupNode identifierForMemberNodes:?];
-      v15 = *(v41 + 64);
+      v15 = *(v40 + 64);
       v16 = [MEMORY[0x277CCABB0] numberWithInteger:v14];
       LOBYTE(v15) = [v15 containsObject:v16];
 
       if ((v15 & 1) == 0)
       {
-        v17 = *(v41 + 64);
+        v17 = *(v40 + 64);
         v18 = [MEMORY[0x277CCABB0] numberWithInteger:v14];
         [v17 addObject:v18];
 
-        v19 = [[PGGraphSocialGroupNode alloc] initWithSocialGroupIdentifier:v14 importance:v68[3] / v64[6]];
-        [*(v41 + 72) addNode:v19];
-        v20 = [(MAElementCollection *)[PGGraphSocialGroupNodeCollection alloc] initWithGraph:*(v41 + 56) elementIdentifiers:v35];
-        v52 = 0u;
-        v53 = 0u;
+        v19 = [[PGGraphSocialGroupNode alloc] initWithSocialGroupIdentifier:v14 importance:v67[3] / v63[6]];
+        [*(v40 + 72) addNode:v19];
+        v20 = [(MAElementCollection *)[PGGraphSocialGroupNodeCollection alloc] initWithGraph:*(v40 + 56) elementIdentifiers:v34];
         v51 = 0u;
+        v52 = 0u;
         v50 = 0u;
-        obj = v32;
-        v21 = [obj countByEnumeratingWithState:&v50 objects:v71 count:16];
+        v49 = 0u;
+        obj = v31;
+        v21 = [obj countByEnumeratingWithState:&v49 objects:v70 count:16];
         if (v21)
         {
-          v22 = *v51;
+          v22 = *v50;
           do
           {
             for (i = 0; i != v21; ++i)
             {
-              if (*v51 != v22)
+              if (*v50 != v22)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v24 = *(*(&v50 + 1) + 8 * i);
+              v24 = *(*(&v49 + 1) + 8 * i);
               v25 = [v24 collection];
               v26 = [(PGGraphEdgeCollection *)PGGraphBelongsToEdgeCollection edgesFromNodes:v25 toNodes:v20];
 
-              v46 = 0;
-              v47 = &v46;
-              v48 = 0x2020000000;
-              v49 = 0;
-              v45[0] = MEMORY[0x277D85DD0];
-              v45[1] = 3221225472;
-              v45[2] = __89__PGGraphIngestSocialGroupsProcessor_insertAggregateSocialGroupsIntoGraph_progressBlock___block_invoke_3;
-              v45[3] = &unk_2788829A8;
-              v45[4] = &v46;
-              [v26 enumerateEdgesUsingBlock:v45];
-              v27 = -[PGGraphBelongsToEdge initFromMemberNode:toSocialGroupNode:importance:]([PGGraphBelongsToEdge alloc], "initFromMemberNode:toSocialGroupNode:importance:", v24, v19, v47[3] / [v26 count]);
-              [*(v41 + 72) addEdge:v27];
+              v45 = 0;
+              v46 = &v45;
+              v47 = 0x2020000000;
+              v48 = 0;
+              v44[0] = MEMORY[0x277D85DD0];
+              v44[1] = 3221225472;
+              v44[2] = __89__PGGraphIngestSocialGroupsProcessor_insertAggregateSocialGroupsIntoGraph_progressBlock___block_invoke_3;
+              v44[3] = &unk_2788829A8;
+              v44[4] = &v45;
+              [v26 enumerateEdgesUsingBlock:v44];
+              v27 = -[PGGraphBelongsToEdge initFromMemberNode:toSocialGroupNode:importance:]([PGGraphBelongsToEdge alloc], "initFromMemberNode:toSocialGroupNode:importance:", v24, v19, v46[3] / [v26 count]);
+              [*(v40 + 72) addEdge:v27];
 
-              _Block_object_dispose(&v46, 8);
+              _Block_object_dispose(&v45, 8);
             }
 
-            v21 = [obj countByEnumeratingWithState:&v50 objects:v71 count:16];
+            v21 = [obj countByEnumeratingWithState:&v49 objects:v70 count:16];
           }
 
           while (v21);
         }
 
-        v28 = [(MAElementCollection *)[PGGraphMomentNodeCollection alloc] initWithGraph:*(v41 + 56) elementIdentifiers:v34];
-        v42[0] = MEMORY[0x277D85DD0];
-        v42[1] = 3221225472;
-        v42[2] = __89__PGGraphIngestSocialGroupsProcessor_insertAggregateSocialGroupsIntoGraph_progressBlock___block_invoke_4;
-        v42[3] = &unk_278888B78;
+        v28 = [(MAElementCollection *)[PGGraphMomentNodeCollection alloc] initWithGraph:*(v40 + 56) elementIdentifiers:v33];
+        v41[0] = MEMORY[0x277D85DD0];
+        v41[1] = 3221225472;
+        v41[2] = __89__PGGraphIngestSocialGroupsProcessor_insertAggregateSocialGroupsIntoGraph_progressBlock___block_invoke_4;
+        v41[3] = &unk_278888B78;
         v29 = v19;
-        v43 = v29;
-        v44 = *(v41 + 72);
-        [(MANodeCollection *)v28 enumerateNodesUsingBlock:v42];
+        v42 = v29;
+        v43 = *(v40 + 72);
+        [(MANodeCollection *)v28 enumerateNodesUsingBlock:v41];
       }
     }
 
-    _Block_object_dispose(&v63, 8);
-    _Block_object_dispose(&v67, 8);
+    _Block_object_dispose(&v62, 8);
+    _Block_object_dispose(&v66, 8);
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __89__PGGraphIngestSocialGroupsProcessor_insertAggregateSocialGroupsIntoGraph_progressBlock___block_invoke_2(uint64_t a1, uint64_t a2, double a3)
@@ -364,7 +360,7 @@ void __89__PGGraphIngestSocialGroupsProcessor_insertAggregateSocialGroupsIntoGra
 
 - (void)insertOwnerPetToRelevantSocialGroups:(id)groups progressBlock:(id)block
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   groupsCopy = groups;
   graphBuilder = self->_graphBuilder;
   blockCopy = block;
@@ -398,9 +394,9 @@ LABEL_7:
 
       if ([ownedPetNodes count])
       {
-        v49 = v10 - 1;
-        v46 = v17;
-        v47 = v13;
+        v48 = v10 - 1;
+        v45 = v17;
+        v46 = v13;
         v22 = objc_alloc_init(MEMORY[0x277D22C50]);
         if ([ownedPetNodes count])
         {
@@ -416,60 +412,60 @@ LABEL_7:
           else
           {
             [v22 addNode:v26];
-            v60[0] = MEMORY[0x277D85DD0];
-            v60[1] = 3221225472;
-            v60[2] = __89__PGGraphIngestSocialGroupsProcessor_insertOwnerPetToRelevantSocialGroups_progressBlock___block_invoke;
-            v60[3] = &unk_278882908;
+            v59[0] = MEMORY[0x277D85DD0];
+            v59[1] = 3221225472;
+            v59[2] = __89__PGGraphIngestSocialGroupsProcessor_insertOwnerPetToRelevantSocialGroups_progressBlock___block_invoke;
+            v59[3] = &unk_278882908;
             anyNode = v26;
-            v61 = anyNode;
-            v62 = v22;
-            [array enumerateObjectsUsingBlock:v60];
+            v60 = anyNode;
+            v61 = v22;
+            [array enumerateObjectsUsingBlock:v59];
 
-            v26 = v61;
+            v26 = v60;
           }
 
           momentNodes = [ownedPetNodes momentNodes];
-          v57[0] = MEMORY[0x277D85DD0];
-          v57[1] = 3221225472;
-          v57[2] = __89__PGGraphIngestSocialGroupsProcessor_insertOwnerPetToRelevantSocialGroups_progressBlock___block_invoke_2;
-          v57[3] = &unk_278888B78;
-          v58 = anyNode;
-          v59 = v22;
+          v56[0] = MEMORY[0x277D85DD0];
+          v56[1] = 3221225472;
+          v56[2] = __89__PGGraphIngestSocialGroupsProcessor_insertOwnerPetToRelevantSocialGroups_progressBlock___block_invoke_2;
+          v56[3] = &unk_278888B78;
+          v57 = anyNode;
+          v58 = v22;
           v30 = anyNode;
-          [momentNodes enumerateNodesUsingBlock:v57];
+          [momentNodes enumerateNodesUsingBlock:v56];
         }
 
         v31 = [(PGGraphNodeCollection *)PGGraphSocialGroupNodeCollection nodesInGraph:groupsCopy];
-        v50 = [PGGraphSocialGroupNodeCollection userVerifiedSocialGroupNodesInGraph:groupsCopy];
+        v49 = [PGGraphSocialGroupNodeCollection userVerifiedSocialGroupNodesInGraph:groupsCopy];
         [v31 collectionBySubtracting:?];
         v33 = v32 = v22;
         v34 = MEMORY[0x277D22BF8];
         v35 = +[PGGraphSocialGroupNode momentOfSocialGroup];
-        v51 = v31;
+        v50 = v31;
         v36 = [v34 adjacencyWithSources:v31 relation:v35 targetsClass:objc_opt_class()];
 
-        v52[0] = MEMORY[0x277D85DD0];
-        v52[1] = 3221225472;
-        v52[2] = __89__PGGraphIngestSocialGroupsProcessor_insertOwnerPetToRelevantSocialGroups_progressBlock___block_invoke_3;
-        v52[3] = &unk_278882958;
-        v53 = v36;
+        v51[0] = MEMORY[0x277D85DD0];
+        v51[1] = 3221225472;
+        v51[2] = __89__PGGraphIngestSocialGroupsProcessor_insertOwnerPetToRelevantSocialGroups_progressBlock___block_invoke_3;
+        v51[3] = &unk_278882958;
+        v52 = v36;
         ownedPetNodes = ownedPetNodes;
-        v54 = ownedPetNodes;
+        v53 = ownedPetNodes;
         v37 = groupsCopy;
-        v55 = v37;
+        v54 = v37;
         v38 = v32;
-        v56 = v38;
+        v55 = v38;
         v39 = v36;
-        [v33 enumerateImportancesUsingBlock:v52];
+        [v33 enumerateImportancesUsingBlock:v51];
         [v37 executeGraphChangeRequest:v38];
-        if (v14 && CFAbsoluteTimeGetCurrent() - v15 >= 0.01 && (v63 = 0, v14[2](v14, &v63, 1.0), v46 | v63))
+        if (v14 && CFAbsoluteTimeGetCurrent() - v15 >= 0.01 && (v62 = 0, v14[2](v14, &v62, 1.0), v45 | v62))
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
             *buf = 67109378;
-            *v66 = 346;
-            *&v66[4] = 2080;
-            *&v66[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestSocialGroupsProcessor.m";
+            *v65 = 346;
+            *&v65[4] = 2080;
+            *&v65[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestSocialGroupsProcessor.m";
             _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
           }
         }
@@ -481,7 +477,7 @@ LABEL_7:
           denom = info.denom;
           v43 = v12;
           v44 = v43;
-          if (v49 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v43))
+          if (v48 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v43))
           {
             *buf = 0;
             _os_signpost_emit_with_name_impl(&dword_22F0FC000, v44, OS_SIGNPOST_INTERVAL_END, spid, "SocialGroupPets", "", buf, 2u);
@@ -490,9 +486,9 @@ LABEL_7:
           if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
           {
             *buf = 136315394;
-            *v66 = "SocialGroupPets";
-            *&v66[8] = 2048;
-            *&v66[10] = ((((v40 - v47) * numer) / denom) / 1000000.0);
+            *v65 = "SocialGroupPets";
+            *&v65[8] = 2048;
+            *&v65[10] = ((((v40 - v46) * numer) / denom) / 1000000.0);
             _os_log_impl(&dword_22F0FC000, v44, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
           }
         }
@@ -514,10 +510,10 @@ LABEL_7:
     goto LABEL_33;
   }
 
-  v63 = 0;
-  v14[2](v14, &v63, 0.0);
-  v17 = v63;
-  if (v63 != 1)
+  v62 = 0;
+  v14[2](v14, &v62, 0.0);
+  v17 = v62;
+  if (v62 != 1)
   {
     v15 = Current;
     goto LABEL_7;
@@ -526,15 +522,13 @@ LABEL_7:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 67109378;
-    *v66 = 254;
-    *&v66[4] = 2080;
-    *&v66[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestSocialGroupsProcessor.m";
+    *v65 = 254;
+    *&v65[4] = 2080;
+    *&v65[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestSocialGroupsProcessor.m";
     _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
   }
 
 LABEL_33:
-
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 void __89__PGGraphIngestSocialGroupsProcessor_insertOwnerPetToRelevantSocialGroups_progressBlock___block_invoke(uint64_t a1, void *a2)
@@ -674,35 +668,35 @@ double __89__PGGraphIngestSocialGroupsProcessor_insertOwnerPetToRelevantSocialGr
 - (void)processSocialGroups:(BOOL)groups graph:(id)graph progressBlock:(id)block
 {
   groupsCopy = groups;
-  v79 = *MEMORY[0x277D85DE8];
+  v78 = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   blockCopy = block;
-  v68 = 0;
-  v69 = &v68;
-  v70 = 0x2020000000;
-  v71 = 0;
-  v64 = 0;
-  v65 = &v64;
-  v66 = 0x2020000000;
   v67 = 0;
-  v39 = _Block_copy(blockCopy);
-  if (v39)
+  v68 = &v67;
+  v69 = 0x2020000000;
+  v70 = 0;
+  v63 = 0;
+  v64 = &v63;
+  v65 = 0x2020000000;
+  v66 = 0;
+  v38 = _Block_copy(blockCopy);
+  if (v38)
   {
     Current = CFAbsoluteTimeGetCurrent();
-    if (Current - v65[3] >= 0.01)
+    if (Current - v64[3] >= 0.01)
     {
-      v65[3] = Current;
-      LOBYTE(v72) = 0;
-      v39[2](v39, &v72, 0.0);
-      v8 = *(v69 + 24) | v72;
-      *(v69 + 24) = v8;
+      v64[3] = Current;
+      LOBYTE(v71) = 0;
+      v38[2](v38, &v71, 0.0);
+      v8 = *(v68 + 24) | v71;
+      *(v68 + 24) = v8;
       if (v8)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
           buf = 0x8C04000202;
-          LOWORD(v77) = 2080;
-          *(&v77 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestSocialGroupsProcessor.m";
+          LOWORD(v76) = 2080;
+          *(&v76 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestSocialGroupsProcessor.m";
           _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", &buf, 0x12u);
         }
 
@@ -711,14 +705,14 @@ double __89__PGGraphIngestSocialGroupsProcessor_insertOwnerPetToRelevantSocialGr
     }
   }
 
-  v37 = [(PGGraphNodeCollection *)PGGraphSocialGroupNodeCollection nodesInGraph:graphCopy];
+  v36 = [(PGGraphNodeCollection *)PGGraphSocialGroupNodeCollection nodesInGraph:graphCopy];
   v9 = [PGGraphSocialGroupNodeCollection userVerifiedSocialGroupNodesInGraph:graphCopy];
-  v36 = [v37 collectionBySubtracting:v9];
-  v38 = v9;
+  v35 = [v36 collectionBySubtracting:v9];
+  v37 = v9;
   if (groupsCopy)
   {
     v10 = objc_alloc_init(MEMORY[0x277D22C50]);
-    [v10 removeNodes:v36];
+    [v10 removeNodes:v35];
     [graphCopy executeGraphChangeRequest:v10];
     v11 = 0;
     v12 = 0;
@@ -734,7 +728,7 @@ LABEL_10:
     elementIdentifiers = [v9 elementIdentifiers];
     [v12 unionWithIdentifierSet:elementIdentifiers];
 
-    v10 = [(PGGraphEdgeCollection *)PGGraphSocialGroupEdgeCollection edgesToNodes:v38];
+    v10 = [(PGGraphEdgeCollection *)PGGraphSocialGroupEdgeCollection edgesToNodes:v37];
     elementIdentifiers2 = [v10 elementIdentifiers];
     [v11 unionWithIdentifierSet:elementIdentifiers2];
 
@@ -745,40 +739,40 @@ LABEL_11:
   v15 = objc_alloc_init(MEMORY[0x277CBEB58]);
   v16 = objc_alloc_init(MEMORY[0x277D22C50]);
   buf = 0;
-  *&v77 = &buf;
-  *(&v77 + 1) = 0x2020000000;
-  v78 = 0;
-  v52[0] = MEMORY[0x277D85DD0];
-  v52[1] = 3221225472;
-  v52[2] = __78__PGGraphIngestSocialGroupsProcessor_processSocialGroups_graph_progressBlock___block_invoke;
-  v52[3] = &unk_2788828E0;
-  v17 = v39;
-  v58 = v17;
-  v59 = &v64;
+  *&v76 = &buf;
+  *(&v76 + 1) = 0x2020000000;
+  v77 = 0;
+  v51[0] = MEMORY[0x277D85DD0];
+  v51[1] = 3221225472;
+  v51[2] = __78__PGGraphIngestSocialGroupsProcessor_processSocialGroups_graph_progressBlock___block_invoke;
+  v51[3] = &unk_2788828E0;
+  v17 = v38;
+  v57 = v17;
+  v58 = &v63;
   p_buf = &buf;
-  v62 = 0x3F847AE147AE147BLL;
-  v60 = &v68;
-  v63 = groupsCopy;
+  v61 = 0x3F847AE147AE147BLL;
+  v59 = &v67;
+  v62 = groupsCopy;
   v18 = graphCopy;
-  v53 = v18;
+  v52 = v18;
   v19 = v12;
-  v54 = v19;
+  v53 = v19;
   v20 = v11;
-  v55 = v20;
-  v33 = v15;
-  v56 = v33;
+  v54 = v20;
+  v32 = v15;
+  v55 = v32;
   v21 = v16;
-  v57 = v21;
-  [v18 enumerateSocialGroupsWithBlock:v52 includeInvalidGroups:1];
-  if (*(v69 + 24) == 1)
+  v56 = v21;
+  [v18 enumerateSocialGroupsWithBlock:v51 includeInvalidGroups:1];
+  if (*(v68 + 24) == 1)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
-      v72 = 67109378;
-      v73 = 214;
-      v74 = 2080;
-      v75 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestSocialGroupsProcessor.m";
-      _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", &v72, 0x12u);
+      v71 = 67109378;
+      v72 = 214;
+      v73 = 2080;
+      v74 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestSocialGroupsProcessor.m";
+      _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", &v71, 0x12u);
     }
   }
 
@@ -786,7 +780,7 @@ LABEL_11:
   {
     if (!groupsCopy)
     {
-      v22 = v36;
+      v22 = v35;
       if ([v19 count])
       {
         v23 = [(MAElementCollection *)[PGGraphSocialGroupNodeCollection alloc] initWithGraph:v18 elementIdentifiers:v19];
@@ -815,44 +809,44 @@ LABEL_11:
       }
     }
 
-    [v18 executeGraphChangeRequest:{v21, v33}];
-    v47[0] = MEMORY[0x277D85DD0];
-    v47[1] = 3221225472;
-    v47[2] = __78__PGGraphIngestSocialGroupsProcessor_processSocialGroups_graph_progressBlock___block_invoke_247;
-    v47[3] = &unk_27888A188;
+    [v18 executeGraphChangeRequest:{v21, v32}];
+    v46[0] = MEMORY[0x277D85DD0];
+    v46[1] = 3221225472;
+    v46[2] = __78__PGGraphIngestSocialGroupsProcessor_processSocialGroups_graph_progressBlock___block_invoke_247;
+    v46[3] = &unk_27888A188;
     v28 = v17;
-    v48 = v28;
-    v49 = &v64;
-    v50 = &v68;
-    v51 = 0x3F847AE147AE147BLL;
-    [(PGGraphIngestSocialGroupsProcessor *)self insertOwnerPetToRelevantSocialGroups:v18 progressBlock:v47];
-    v42[0] = MEMORY[0x277D85DD0];
-    v42[1] = 3221225472;
-    v42[2] = __78__PGGraphIngestSocialGroupsProcessor_processSocialGroups_graph_progressBlock___block_invoke_2_248;
-    v42[3] = &unk_27888A188;
+    v47 = v28;
+    v48 = &v63;
+    v49 = &v67;
+    v50 = 0x3F847AE147AE147BLL;
+    [(PGGraphIngestSocialGroupsProcessor *)self insertOwnerPetToRelevantSocialGroups:v18 progressBlock:v46];
+    v41[0] = MEMORY[0x277D85DD0];
+    v41[1] = 3221225472;
+    v41[2] = __78__PGGraphIngestSocialGroupsProcessor_processSocialGroups_graph_progressBlock___block_invoke_2_248;
+    v41[3] = &unk_27888A188;
     v29 = v28;
-    v43 = v29;
-    v44 = &v64;
-    v45 = &v68;
-    v46 = 0x3F847AE147AE147BLL;
-    [(PGGraphIngestSocialGroupsProcessor *)self insertAggregateSocialGroupsIntoGraph:v18 progressBlock:v42];
-    if (v39)
+    v42 = v29;
+    v43 = &v63;
+    v44 = &v67;
+    v45 = 0x3F847AE147AE147BLL;
+    [(PGGraphIngestSocialGroupsProcessor *)self insertAggregateSocialGroupsIntoGraph:v18 progressBlock:v41];
+    if (v38)
     {
       v30 = CFAbsoluteTimeGetCurrent();
-      if (v30 - v65[3] >= 0.01)
+      if (v30 - v64[3] >= 0.01)
       {
-        v65[3] = v30;
-        v41 = 0;
-        v29[2](v29, &v41, 1.0);
-        v31 = *(v69 + 24) | v41;
-        *(v69 + 24) = v31;
+        v64[3] = v30;
+        v40 = 0;
+        v29[2](v29, &v40, 1.0);
+        v31 = *(v68 + 24) | v40;
+        *(v68 + 24) = v31;
         if ((v31 & 1) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
-          v72 = 67109378;
-          v73 = 248;
-          v74 = 2080;
-          v75 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestSocialGroupsProcessor.m";
-          _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", &v72, 0x12u);
+          v71 = 67109378;
+          v72 = 248;
+          v73 = 2080;
+          v74 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestSocialGroupsProcessor.m";
+          _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", &v71, 0x12u);
         }
       }
     }
@@ -860,17 +854,15 @@ LABEL_11:
 
   _Block_object_dispose(&buf, 8);
 LABEL_31:
-  _Block_object_dispose(&v64, 8);
-  _Block_object_dispose(&v68, 8);
-
-  v32 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v63, 8);
+  _Block_object_dispose(&v67, 8);
 }
 
 void __78__PGGraphIngestSocialGroupsProcessor_processSocialGroups_graph_progressBlock___block_invoke(uint64_t a1, void *a2, void *a3, void *a4, float a5)
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   v9 = a2;
-  v40 = a3;
+  v39 = a3;
   v10 = a4;
   if (*(a1 + 72))
   {
@@ -879,7 +871,7 @@ void __78__PGGraphIngestSocialGroupsProcessor_processSocialGroups_graph_progress
     if (Current - *(v12 + 24) >= *(a1 + 104))
     {
       *(v12 + 24) = Current;
-      v55 = 0;
+      v54 = 0;
       (*(*(a1 + 72) + 16))(0.5);
       *(*(*(a1 + 88) + 8) + 24) = *(*(*(a1 + 88) + 8) + 24);
       if (*(*(*(a1 + 88) + 8) + 24) == 1)
@@ -914,25 +906,25 @@ void __78__PGGraphIngestSocialGroupsProcessor_processSocialGroups_graph_progress
 
     v21 = [(MANodeCollection *)PGGraphMomentNodeCollection sourceNodesOfEdges:v18];
     v22 = MEMORY[0x277CCAC30];
-    v53[0] = MEMORY[0x277D85DD0];
-    v53[1] = 3221225472;
-    v53[2] = __78__PGGraphIngestSocialGroupsProcessor_processSocialGroups_graph_progressBlock___block_invoke_2;
-    v53[3] = &unk_278882868;
-    v54 = v21;
-    v39 = v21;
-    v23 = [v22 predicateWithBlock:v53];
+    v52[0] = MEMORY[0x277D85DD0];
+    v52[1] = 3221225472;
+    v52[2] = __78__PGGraphIngestSocialGroupsProcessor_processSocialGroups_graph_progressBlock___block_invoke_2;
+    v52[3] = &unk_278882868;
+    v53 = v21;
+    v38 = v21;
+    v23 = [v22 predicateWithBlock:v52];
     v24 = [v10 filteredArrayUsingPredicate:v23];
 
     v25 = [(MAElementCollection *)[PGGraphSocialGroupMemberNodeCollection alloc] initWithArray:v17 graph:*(a1 + 32)];
     v26 = [(PGGraphEdgeCollection *)PGGraphBelongsToEdgeCollection edgesFromNodes:v25 toNodes:v14];
-    v49[0] = MEMORY[0x277D85DD0];
-    v49[1] = 3221225472;
-    v49[2] = __78__PGGraphIngestSocialGroupsProcessor_processSocialGroups_graph_progressBlock___block_invoke_3;
-    v49[3] = &unk_278882890;
-    v50 = v17;
-    v51 = v40;
-    v52 = *(a1 + 32);
-    [v26 enumerateEdgesUsingBlock:v49];
+    v48[0] = MEMORY[0x277D85DD0];
+    v48[1] = 3221225472;
+    v48[2] = __78__PGGraphIngestSocialGroupsProcessor_processSocialGroups_graph_progressBlock___block_invoke_3;
+    v48[3] = &unk_278882890;
+    v49 = v17;
+    v50 = v39;
+    v51 = *(a1 + 32);
+    [v26 enumerateEdgesUsingBlock:v48];
 
     v9 = v17;
 LABEL_13:
@@ -953,54 +945,53 @@ LABEL_13:
     [v30 addObject:v31];
 
     v24 = v10;
-    v45[0] = MEMORY[0x277D85DD0];
-    v45[1] = 3221225472;
-    v45[2] = __78__PGGraphIngestSocialGroupsProcessor_processSocialGroups_graph_progressBlock___block_invoke_4;
-    v45[3] = &unk_2788828B8;
-    v46 = v40;
+    v44[0] = MEMORY[0x277D85DD0];
+    v44[1] = 3221225472;
+    v44[2] = __78__PGGraphIngestSocialGroupsProcessor_processSocialGroups_graph_progressBlock___block_invoke_4;
+    v44[3] = &unk_2788828B8;
+    v45 = v39;
     v15 = v29;
-    v47 = v15;
-    v48 = *(a1 + 64);
-    [v9 enumerateObjectsUsingBlock:v45];
+    v46 = v15;
+    v47 = *(a1 + 64);
+    [v9 enumerateObjectsUsingBlock:v44];
 
-    v16 = v46;
+    v16 = v45;
     goto LABEL_13;
   }
 
   v24 = 0;
   v15 = 0;
 LABEL_14:
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
   v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
   v32 = v24;
-  v33 = [v32 countByEnumeratingWithState:&v41 objects:v56 count:16];
+  v33 = [v32 countByEnumeratingWithState:&v40 objects:v55 count:16];
   if (v33)
   {
     v34 = v33;
-    v35 = *v42;
+    v35 = *v41;
     do
     {
       for (i = 0; i != v34; ++i)
       {
-        if (*v42 != v35)
+        if (*v41 != v35)
         {
           objc_enumerationMutation(v32);
         }
 
-        v37 = [[PGGraphSocialGroupEdge alloc] initFromMomentNode:*(*(&v41 + 1) + 8 * i) toSocialGroupNode:v15];
+        v37 = [[PGGraphSocialGroupEdge alloc] initFromMomentNode:*(*(&v40 + 1) + 8 * i) toSocialGroupNode:v15];
         [*(a1 + 64) addEdge:v37];
       }
 
-      v34 = [v32 countByEnumeratingWithState:&v41 objects:v56 count:16];
+      v34 = [v32 countByEnumeratingWithState:&v40 objects:v55 count:16];
     }
 
     while (v34);
   }
 
 LABEL_22:
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 void __78__PGGraphIngestSocialGroupsProcessor_processSocialGroups_graph_progressBlock___block_invoke_247(uint64_t a1, _BYTE *a2, double a3)
@@ -1073,7 +1064,7 @@ void __78__PGGraphIngestSocialGroupsProcessor_processSocialGroups_graph_progress
 
 - (void)runWithGraphUpdate:(id)update progressBlock:(id)block
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   graphBuilder = self->_graphBuilder;
   updateCopy = update;
@@ -1099,31 +1090,31 @@ void __78__PGGraphIngestSocialGroupsProcessor_processSocialGroups_graph_progress
   photoLibrary = [(PGGraphBuilder *)self->_graphBuilder photoLibrary];
   if (photoLibrary)
   {
-    v53 = v14;
-    v54 = v13;
+    v52 = v14;
+    v53 = v13;
     v18 = MEMORY[0x277D22C80];
-    v63[0] = MEMORY[0x277D85DD0];
-    v63[1] = 3221225472;
-    v63[2] = __71__PGGraphIngestSocialGroupsProcessor_runWithGraphUpdate_progressBlock___block_invoke;
-    v63[3] = &unk_27888A280;
-    v55 = blockCopy;
+    v62[0] = MEMORY[0x277D85DD0];
+    v62[1] = 3221225472;
+    v62[2] = __71__PGGraphIngestSocialGroupsProcessor_runWithGraphUpdate_progressBlock___block_invoke;
+    v62[3] = &unk_27888A280;
+    v54 = blockCopy;
     v19 = blockCopy;
-    v64 = v19;
-    [v18 progressReporterWithProgressBlock:v63];
-    v62 = 0;
-    v52 = v51 = photoLibrary;
+    v63 = v19;
+    [v18 progressReporterWithProgressBlock:v62];
+    v61 = 0;
+    v51 = v50 = photoLibrary;
     v20 = [PGSocialGroupsPromoter ingestUserVerifiedSocialGroupsFromPhotoLibrary:"ingestUserVerifiedSocialGroupsFromPhotoLibrary:intoGraph:progressReporter:error:" intoGraph:photoLibrary progressReporter:graph error:?];
     v21 = 0;
     v22 = +[PGLogging sharedLogging];
     loggingConnection2 = [v22 loggingConnection];
 
-    v56 = v20;
+    v55 = v20;
     if (v20)
     {
       if (os_log_type_enabled(loggingConnection2, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v67 = v20;
+        v66 = v20;
         _os_log_impl(&dword_22F0FC000, loggingConnection2, OS_LOG_TYPE_INFO, "[PGGraphIngestSocialGroupsProcessor] Ingested user-verified social groups from database into graph with UUIDs %@", buf, 0xCu);
       }
     }
@@ -1132,7 +1123,7 @@ void __78__PGGraphIngestSocialGroupsProcessor_processSocialGroups_graph_progress
     {
       localizedDescription = [v21 localizedDescription];
       *buf = 138412290;
-      v67 = localizedDescription;
+      v66 = localizedDescription;
       _os_log_error_impl(&dword_22F0FC000, loggingConnection2, OS_LOG_TYPE_ERROR, "[PGGraphIngestSocialGroupsProcessor] Error ingesting user-verified social groups from database into graph: %@", buf, 0xCu);
     }
 
@@ -1141,21 +1132,21 @@ void __78__PGGraphIngestSocialGroupsProcessor_processSocialGroups_graph_progress
     aBlock[2] = __71__PGGraphIngestSocialGroupsProcessor_runWithGraphUpdate_progressBlock___block_invoke_226;
     aBlock[3] = &unk_27888A280;
     v26 = v19;
-    v61 = v26;
-    v50 = _Block_copy(aBlock);
+    v60 = v26;
+    v49 = _Block_copy(aBlock);
     [(PGGraphIngestSocialGroupsProcessor *)self processSocialGroups:isResumingFullAnalysis graph:graph progressBlock:?];
     v27 = MEMORY[0x277D22C80];
-    v58[0] = MEMORY[0x277D85DD0];
-    v58[1] = 3221225472;
-    v58[2] = __71__PGGraphIngestSocialGroupsProcessor_runWithGraphUpdate_progressBlock___block_invoke_2;
-    v58[3] = &unk_27888A280;
-    v59 = v26;
-    v28 = [v27 progressReporterWithProgressBlock:v58];
+    v57[0] = MEMORY[0x277D85DD0];
+    v57[1] = 3221225472;
+    v57[2] = __71__PGGraphIngestSocialGroupsProcessor_runWithGraphUpdate_progressBlock___block_invoke_2;
+    v57[3] = &unk_27888A280;
+    v58 = v26;
+    v28 = [v27 progressReporterWithProgressBlock:v57];
     photoLibrary2 = [(PGGraphBuilder *)self->_graphBuilder photoLibrary];
-    v57 = v21;
-    v49 = v28;
-    v30 = +[PGSocialGroupsPromoter promoteSocialGroupsInGraph:photoLibrary:maxNumberOfElectedSocialGroups:progressReporter:persistGroups:error:](PGSocialGroupsPromoter, "promoteSocialGroupsInGraph:photoLibrary:maxNumberOfElectedSocialGroups:progressReporter:persistGroups:error:", graph, photoLibrary2, +[PGSocialGroupsElector defaultNumberOfElectedSocialGroups], v28, 1, &v57);
-    loggingConnection5 = v57;
+    v56 = v21;
+    v48 = v28;
+    v30 = +[PGSocialGroupsPromoter promoteSocialGroupsInGraph:photoLibrary:maxNumberOfElectedSocialGroups:progressReporter:persistGroups:error:](PGSocialGroupsPromoter, "promoteSocialGroupsInGraph:photoLibrary:maxNumberOfElectedSocialGroups:progressReporter:persistGroups:error:", graph, photoLibrary2, +[PGSocialGroupsElector defaultNumberOfElectedSocialGroups], v28, 1, &v56);
+    loggingConnection5 = v56;
 
     persistenceActions = self->_persistenceActions;
     self->_persistenceActions = v30;
@@ -1166,7 +1157,7 @@ void __78__PGGraphIngestSocialGroupsProcessor_processSocialGroups_graph_progress
     v35 = +[PGLogging sharedLogging];
     loggingConnection3 = [v35 loggingConnection];
 
-    photoLibrary = v51;
+    photoLibrary = v50;
     if (v34)
     {
       if (!os_log_type_enabled(loggingConnection3, OS_LOG_TYPE_INFO))
@@ -1180,7 +1171,7 @@ LABEL_17:
         {
           socialGroupsSkippedBecauseNoCommonAssetsCount = [(PGSocialGroupPersistenceActions *)self->_persistenceActions socialGroupsSkippedBecauseNoCommonAssetsCount];
           *buf = 134217984;
-          v67 = socialGroupsSkippedBecauseNoCommonAssetsCount;
+          v66 = socialGroupsSkippedBecauseNoCommonAssetsCount;
           _os_log_impl(&dword_22F0FC000, loggingConnection4, OS_LOG_TYPE_INFO, "[PGGraphIngestSocialGroupsProcessor] Skipped persisting %ld social groups in graph to database because they have no assets of all members", buf, 0xCu);
         }
 
@@ -1189,7 +1180,7 @@ LABEL_17:
         denom = info.denom;
         v44 = v12;
         v45 = v44;
-        if (v54 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v44))
+        if (v53 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v44))
         {
           *buf = 0;
           _os_signpost_emit_with_name_impl(&dword_22F0FC000, v45, OS_SIGNPOST_INTERVAL_END, spid, "PGGraphIngestSocialGroupsProcessor", "", buf, 2u);
@@ -1198,23 +1189,23 @@ LABEL_17:
         if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
         {
           *buf = 136315394;
-          v67 = "PGGraphIngestSocialGroupsProcessor";
-          v68 = 2048;
-          v69 = ((((v41 - v53) * numer) / denom) / 1000000.0);
+          v66 = "PGGraphIngestSocialGroupsProcessor";
+          v67 = 2048;
+          v68 = ((((v41 - v52) * numer) / denom) / 1000000.0);
           _os_log_impl(&dword_22F0FC000, v45, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
         }
 
-        blockCopy = v55;
+        blockCopy = v54;
         goto LABEL_25;
       }
 
       localizedDescription2 = [loggingConnection5 localizedDescription];
       *buf = 134218498;
-      v67 = newAutomaticSocialGroupsToCreateCount;
-      v68 = 2048;
-      v69 = v33;
-      v70 = 2112;
-      v71 = localizedDescription2;
+      v66 = newAutomaticSocialGroupsToCreateCount;
+      v67 = 2048;
+      v68 = v33;
+      v69 = 2112;
+      v70 = localizedDescription2;
       _os_log_impl(&dword_22F0FC000, loggingConnection3, OS_LOG_TYPE_INFO, "[PGGraphIngestSocialGroupsProcessor] Successfully promoted %ld new automatic social groups in graph to database and modified order of %ld automatic social groups: %@", buf, 0x20u);
     }
 
@@ -1227,11 +1218,11 @@ LABEL_17:
 
       localizedDescription2 = [loggingConnection5 localizedDescription];
       *buf = 134218498;
-      v67 = newAutomaticSocialGroupsToCreateCount;
-      v68 = 2048;
-      v69 = v33;
-      v70 = 2112;
-      v71 = localizedDescription2;
+      v66 = newAutomaticSocialGroupsToCreateCount;
+      v67 = 2048;
+      v68 = v33;
+      v69 = 2112;
+      v70 = localizedDescription2;
       _os_log_error_impl(&dword_22F0FC000, loggingConnection3, OS_LOG_TYPE_ERROR, "[PGGraphIngestSocialGroupsProcessor] Error promoting %ld new automatic social groups in graph to database and modifying order of %ld automatic social groups: %@", buf, 0x20u);
     }
 
@@ -1248,13 +1239,11 @@ LABEL_17:
   }
 
 LABEL_25:
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)shouldRunWithGraphUpdate:(id)update
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   if ([updateCopy isResumingFullAnalysis] & 1) != 0 || (objc_msgSend(updateCopy, "hasDeletedMomentNodes") & 1) != 0 || (objc_msgSend(updateCopy, "hasDeletedPersonNodes") & 1) != 0 || (v5 = objc_msgSend(updateCopy, "momentUpdateTypes"), (objc_msgSend(objc_opt_class(), "requiredMomentUpdateTypes") & v5) != 0) || (objc_msgSend(updateCopy, "hasSocialGroupsToInsert") & 1) != 0 || (objc_msgSend(updateCopy, "hasSocialGroupsToUpdate"))
   {
@@ -1267,57 +1256,57 @@ LABEL_25:
     {
       graph = [(PGGraphBuilder *)self->_graphBuilder graph];
       meNode = [graph meNode];
-      v11 = meNode != 0;
+      v10 = meNode != 0;
     }
 
     else
     {
-      v11 = 0;
+      v10 = 0;
     }
 
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     obj = [updateCopy insertedMomentNodes];
-    v12 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
-    if (v12)
+    v11 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+    if (v11)
     {
-      v13 = v12;
-      v14 = *v23;
+      v12 = v11;
+      v13 = *v22;
       while (2)
       {
-        for (i = 0; i != v13; ++i)
+        for (i = 0; i != v12; ++i)
         {
-          if (*v23 != v14)
+          if (*v22 != v13)
           {
             objc_enumerationMutation(obj);
           }
 
-          collection = [*(*(&v22 + 1) + 8 * i) collection];
-          if (v11)
+          collection = [*(*(&v21 + 1) + 8 * i) collection];
+          if (v10)
           {
             momentNodesWhereMeIsPresent = [(PGGraphBuilder *)self->_graphBuilder momentNodesWhereMeIsPresent];
-            v18 = [momentNodesWhereMeIsPresent intersectsCollection:collection];
+            v17 = [momentNodesWhereMeIsPresent intersectsCollection:collection];
           }
 
           else
           {
-            v18 = 1;
+            v17 = 1;
           }
 
           personNodes = [collection personNodes];
-          v20 = [personNodes count];
+          v19 = [personNodes count];
 
-          if (v20 && (v18 & 1) != 0)
+          if (v19 && (v17 & 1) != 0)
           {
             v6 = 1;
             goto LABEL_26;
           }
         }
 
-        v13 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
-        if (v13)
+        v12 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+        if (v12)
         {
           continue;
         }
@@ -1330,7 +1319,6 @@ LABEL_25:
 LABEL_26:
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

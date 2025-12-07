@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)eventAsString:(int)string;
 - (int)StringAsEvent:(id)event;
 - (int)event;
 - (unint64_t)hash;
@@ -42,6 +43,240 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)eventAsString:(int)string
+{
+  if (string <= 63)
+  {
+    v4 = @"START_2G_TO_2G";
+    switch(string)
+    {
+      case 0:
+        goto LABEL_132;
+      case 1:
+        v4 = @"SUCCESS_2G_TO_2G";
+
+        break;
+      case 2:
+        v4 = @"FAIL_2G_TO_2G";
+
+        break;
+      case 4:
+        v4 = @"START_2G_TO_3G";
+
+        break;
+      case 5:
+        v4 = @"SUCCESS_2G_TO_3G";
+
+        break;
+      case 6:
+        v4 = @"FAIL_2G_TO_3G";
+
+        break;
+      case 8:
+        v4 = @"START_2G_TO_LTE";
+
+        break;
+      case 9:
+        v4 = @"SUCCESS_2G_TO_LTE";
+
+        break;
+      case 10:
+        v4 = @"FAIL_2G_TO_LTE";
+
+        break;
+      case 32:
+        v4 = @"START_3G_TO_2G";
+
+        break;
+      case 33:
+        v4 = @"SUCCESS_3G_TO_2G";
+
+        break;
+      case 34:
+        v4 = @"FAIL_3G_TO_2G";
+
+        break;
+      case 36:
+        v4 = @"START_3G_TO_3G";
+
+        break;
+      case 37:
+        v4 = @"SUCCESS_3G_TO_3G";
+
+        break;
+      case 38:
+        v4 = @"FAIL_3G_TO_3G";
+
+        break;
+      case 40:
+        v4 = @"START_3G_TO_LTE";
+
+        break;
+      case 41:
+        v4 = @"SUCCESS_3G_TO_LTE";
+
+        break;
+      case 42:
+        v4 = @"FAIL_3G_TO_LTE";
+
+        break;
+      default:
+        goto LABEL_131;
+    }
+
+    return v4;
+  }
+
+  if (string > 75)
+  {
+    if (string <= 104)
+    {
+      if (string > 77)
+      {
+        if (string == 78)
+        {
+          v4 = @"FAIL_LTE_TO_NR";
+        }
+
+        else
+        {
+          if (string != 104)
+          {
+            goto LABEL_131;
+          }
+
+          v4 = @"START_NR_TO_LTE";
+        }
+      }
+
+      else if (string == 76)
+      {
+        v4 = @"START_LTE_TO_NR";
+      }
+
+      else
+      {
+        v4 = @"SUCCESS_LTE_TO_NR";
+      }
+    }
+
+    else if (string <= 107)
+    {
+      if (string == 105)
+      {
+        v4 = @"SUCCESS_NR_TO_LTE";
+      }
+
+      else
+      {
+        if (string != 106)
+        {
+          goto LABEL_131;
+        }
+
+        v4 = @"FAIL_NR_TO_LTE";
+      }
+    }
+
+    else
+    {
+      switch(string)
+      {
+        case 'l':
+          v4 = @"START_NR_TO_NR";
+
+          break;
+        case 'm':
+          v4 = @"SUCCESS_NR_TO_NR";
+
+          break;
+        case 'n':
+          v4 = @"FAIL_NR_TO_NR";
+
+          break;
+        default:
+          goto LABEL_131;
+      }
+    }
+  }
+
+  else if (string <= 68)
+  {
+    if (string > 65)
+    {
+      if (string == 66)
+      {
+        v4 = @"FAIL_LTE_TO_2G";
+      }
+
+      else
+      {
+        if (string != 68)
+        {
+          goto LABEL_131;
+        }
+
+        v4 = @"START_LTE_TO_3G";
+      }
+    }
+
+    else if (string == 64)
+    {
+      v4 = @"START_LTE_TO_2G";
+    }
+
+    else
+    {
+      v4 = @"SUCCESS_LTE_TO_2G";
+    }
+  }
+
+  else if (string <= 71)
+  {
+    if (string == 69)
+    {
+      v4 = @"SUCCESS_LTE_TO_3G";
+    }
+
+    else
+    {
+      if (string != 70)
+      {
+        goto LABEL_131;
+      }
+
+      v4 = @"FAIL_LTE_TO_3G";
+    }
+  }
+
+  else
+  {
+    switch(string)
+    {
+      case 'H':
+        v4 = @"START_LTE_TO_LTE";
+
+        break;
+      case 'I':
+        v4 = @"SUCCESS_LTE_TO_LTE";
+
+        break;
+      case 'J':
+        v4 = @"FAIL_LTE_TO_LTE";
+
+        return v4;
+      default:
+LABEL_131:
+        v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+LABEL_132:
+
+        return v4;
+    }
+  }
+
+  return v4;
 }
 
 - (int)StringAsEvent:(id)event
@@ -438,7 +673,6 @@ LABEL_70:
   }
 
   v9 = @"START_2G_TO_2G";
-  v10 = self->_event;
   switch(event)
   {
     case 0:
@@ -514,8 +748,8 @@ LABEL_4:
   }
 
 LABEL_72:
-  v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:self->_subsId];
-  [dictionary setObject:v11 forKey:@"subs_id"];
+  v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:self->_subsId];
+  [dictionary setObject:v10 forKey:@"subs_id"];
 
   if ((*&self->_has & 8) != 0)
   {
@@ -535,7 +769,6 @@ LABEL_6:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -555,7 +788,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  event = self->_event;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -570,12 +802,10 @@ LABEL_4:
   }
 
 LABEL_11:
-  subsId = self->_subsId;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 8) != 0)
   {
 LABEL_5:
-    isDataPreferred = self->_isDataPreferred;
     PBDataWriterWriteBOOLField();
   }
 

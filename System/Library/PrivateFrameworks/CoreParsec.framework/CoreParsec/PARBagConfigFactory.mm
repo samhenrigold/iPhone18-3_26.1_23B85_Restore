@@ -9,28 +9,27 @@
 {
   v8 = type metadata accessor for URL();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   __chkstk_darwin(v8);
-  v12 = &v19 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = &v18 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
   if (agent)
   {
-    v13 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    agent = v14;
+    v12 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    agent = v13;
   }
 
   else
   {
-    v13 = 0;
+    v12 = 0;
   }
 
   defaultsCopy = defaults;
   selfCopy = self;
-  v17 = sub_1001019D8(v12, v13, agent, defaults);
+  v16 = sub_1001019D8(v11, v12, agent, defaults);
 
-  (*(v9 + 8))(v12, v8);
+  (*(v9 + 8))(v11, v8);
 
-  return v17;
+  return v16;
 }
 
 - (id)loadWithData:(id)data userAgent:(id)agent userDefaults:(id)defaults

@@ -7,6 +7,7 @@
 - (void)sendConnectionHandoverStarted;
 - (void)sendCredentialSelect:(id)select callback:(id)callback;
 - (void)sendRawDataToAlternativeCarrier:(id)carrier callback:(id)callback;
+- (void)setRequestHandoverConfirmation:(BOOL)confirmation;
 - (void)startHandoffWithCompletion:(id)completion;
 @end
 
@@ -190,6 +191,18 @@ LABEL_8:
 
     callbackCopy[2](callbackCopy, WeakRetained);
   }
+}
+
+- (void)setRequestHandoverConfirmation:(BOOL)confirmation
+{
+  confirmationCopy = confirmation;
+  if (self)
+  {
+    self = objc_loadWeakRetained(&self->_delegate);
+  }
+
+  selfCopy = self;
+  [(STSXPClientNotification *)self setRequestHandoverConfirmation:confirmationCopy];
 }
 
 - (void)startHandoffWithCompletion:(id)completion

@@ -35,74 +35,74 @@
   v3 = +[NSFileManager defaultManager];
   v4 = [v3 fileExistsAtPath:v2 isDirectory:0];
 
-  v5 = 0;
+  v6 = 0;
   if (!v4)
   {
     goto LABEL_15;
   }
 
-  v6 = [NSURL fileURLWithPath:v2];
-  if (v6)
+  v7 = [NSURL fileURLWithPath:v2];
+  if (v7)
   {
-    v17 = 0;
-    v7 = [NSData dataWithContentsOfURL:v6 options:0 error:&v17];
-    v5 = v17;
-    if (v7)
+    v18 = 0;
+    v8 = [NSData dataWithContentsOfURL:v7 options:0 error:&v18];
+    v6 = v18;
+    if (v8)
     {
-      v8 = [_TtC5Books10BKLRUCache unarchiveFrom:v7];
-      if (v8)
+      v9 = [_TtC5Books10BKLRUCache unarchiveFrom:v8];
+      if (v9)
       {
-        v9 = v8;
+        v10 = v9;
       }
 
       else
       {
-        v10 = off_100ACD348;
-        v18 = NSLocalizedDescriptionKey;
-        v19 = @"Failed to unarchive cache";
-        v11 = [NSDictionary dictionaryWithObjects:&v19 forKeys:&v18 count:1];
-        v12 = [NSError errorWithDomain:v10 code:30 userInfo:v11];
+        v11 = off_100ACD348;
+        v19 = NSLocalizedDescriptionKey;
+        v20 = @"Failed to unarchive cache";
+        v12 = [NSDictionary dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+        v13 = [NSError errorWithDomain:v11 code:30 userInfo:v12];
 
-        v9 = 0;
-        v5 = v12;
+        v10 = 0;
+        v6 = v13;
       }
     }
 
     else
     {
-      v9 = 0;
+      v10 = 0;
     }
   }
 
   else
   {
-    v5 = [NSError errorWithDomain:off_100ACD348 code:20 userInfo:0];
-    v9 = 0;
+    v6 = [NSError errorWithDomain:off_100ACD348 code:20 userInfo:0];
+    v10 = 0;
   }
 
-  if (v5)
+  if (v6)
   {
-    v13 = sub_100026E38();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = sub_100026E38(v5);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_10078CD14();
     }
   }
 
-  if (!v9)
+  if (!v10)
   {
 LABEL_15:
-    v14 = sub_100026E38();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    v15 = sub_100026E38(v5);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
-      *v16 = 0;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "Creating new cache", v16, 2u);
+      *v17 = 0;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "Creating new cache", v17, 2u);
     }
 
-    v9 = [[_TtC5Books10BKLRUCache alloc] initWithCapacity:10];
+    v10 = [[_TtC5Books10BKLRUCache alloc] initWithCapacity:10];
   }
 
-  return v9;
+  return v10;
 }
 
 + (id)_cachePath
@@ -143,35 +143,35 @@ LABEL_15:
 
     if (!isInBackground)
     {
-      v12 = [BKRecentBookOpenTrackingEvent eventForStart:1];
-      [(BKRecentBookOpenResultTracker *)self _addEvent:v12 forAsset:assetCopy];
+      v13 = [BKRecentBookOpenTrackingEvent eventForStart:1];
+      [(BKRecentBookOpenResultTracker *)self _addEvent:v13 forAsset:assetCopy];
 
       goto LABEL_10;
     }
 
-    v7 = sub_100026E38();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = sub_100026E38(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v13 = 0;
-      v8 = "Ignoring asset open start in background";
-      v9 = &v13;
-      v10 = v7;
-      v11 = OS_LOG_TYPE_INFO;
+      v14 = 0;
+      v9 = "Ignoring asset open start in background";
+      v10 = &v14;
+      v11 = v8;
+      v12 = OS_LOG_TYPE_INFO;
 LABEL_7:
-      _os_log_impl(&_mh_execute_header, v10, v11, v8, v9, 2u);
+      _os_log_impl(&_mh_execute_header, v11, v12, v9, v10, 2u);
     }
   }
 
   else
   {
-    v7 = sub_100026E38();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100026E38(0);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v8 = "Asset has no ID.";
-      v9 = buf;
-      v10 = v7;
-      v11 = OS_LOG_TYPE_DEFAULT;
+      v9 = "Asset has no ID.";
+      v10 = buf;
+      v11 = v8;
+      v12 = OS_LOG_TYPE_DEFAULT;
       goto LABEL_7;
     }
   }
@@ -190,7 +190,7 @@ LABEL_10:
 
   else
   {
-    v6 = sub_100026E38();
+    v6 = sub_100026E38(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *v7 = 0;
@@ -210,11 +210,11 @@ LABEL_10:
     v8 = lastObject == 0;
     if (!lastObject)
     {
-      v19 = sub_100026E38();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v20 = sub_100026E38(0);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v22[0]) = 0;
-        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Asset has no recent open events.", v22, 2u);
+        LOWORD(v28[0]) = 0;
+        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Asset has no recent open events.", v28, 2u);
       }
 
       goto LABEL_20;
@@ -228,39 +228,39 @@ LABEL_10:
 
       if (v11 <= 300.0)
       {
-        v19 = sub_100026E38();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        v20 = sub_100026E38(v12);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
-          sub_10078CC94();
+          sub_10078CC94(v20, v21, v22);
         }
 
         goto LABEL_20;
       }
 
-      v12 = [v5 count];
-      v13 = 0;
-      v14 = (v12 - 1);
-      v15 = &v12[-((v12 - 1) & ((v12 - 1) >> 63))];
-      while (v14-- >= 1)
+      v13 = [v5 count];
+      v14 = 0;
+      v15 = (v13 - 1);
+      v16 = &v13[-((v13 - 1) & ((v13 - 1) >> 63))];
+      while (v15-- >= 1)
       {
-        v17 = [v5 objectAtIndexedSubscript:v14];
-        isStart = [v17 isStart];
+        v18 = [v5 objectAtIndexedSubscript:v15];
+        isStart = [v18 isStart];
 
-        ++v13;
+        ++v14;
         if ((isStart & 1) == 0)
         {
           goto LABEL_17;
         }
       }
 
-      v13 = v15;
+      v14 = v16;
 LABEL_17:
-      if (v13 >= 3)
+      if (v14 >= 3)
       {
-        v19 = sub_100026E38();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        v20 = sub_100026E38(v13);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
-          sub_10078CCD4();
+          sub_10078CCD4(v20, v23, v24);
         }
 
 LABEL_20:
@@ -274,22 +274,22 @@ LABEL_22:
     goto LABEL_22;
   }
 
-  v5 = sub_100026E38();
+  v5 = sub_100026E38(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v22[0]) = 0;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Asset has no ID.", v22, 2u);
+    LOWORD(v28[0]) = 0;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Asset has no ID.", v28, 2u);
   }
 
   v8 = 0;
 LABEL_23:
 
-  v20 = sub_100026E38();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  v26 = sub_100026E38(v25);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
   {
-    v22[0] = 67240192;
-    v22[1] = v8;
-    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Recommending auto-open? %{public}d", v22, 8u);
+    v28[0] = 67240192;
+    v28[1] = v8;
+    _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Recommending auto-open? %{public}d", v28, 8u);
   }
 
   return v8;
@@ -321,7 +321,7 @@ LABEL_23:
   if (v6)
   {
     v7 = v6;
-    v8 = sub_100026E38();
+    v8 = sub_100026E38(v6);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_10078CD84();
@@ -335,7 +335,7 @@ LABEL_7:
   if (([v5 writeToFile:v3 atomically:1] & 1) == 0)
   {
     v7 = [NSError errorWithDomain:off_100ACD348 code:30 userInfo:0];
-    v8 = sub_100026E38();
+    v8 = sub_100026E38(v7);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_10078CDF4();
@@ -354,14 +354,14 @@ LABEL_8:
   if ([v3 fileExistsAtPath:v2 isDirectory:0])
   {
     v4 = +[NSFileManager defaultManager];
-    v7 = 0;
-    [v4 removeItemAtPath:v2 error:&v7];
-    v5 = v7;
+    v8 = 0;
+    [v4 removeItemAtPath:v2 error:&v8];
+    v5 = v8;
 
     if (v5)
     {
-      v6 = sub_100026E38();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = sub_100026E38(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         sub_10078CE64();
       }

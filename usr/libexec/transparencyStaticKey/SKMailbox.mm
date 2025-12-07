@@ -32,6 +32,8 @@
 - (void)sendAnnounce;
 - (void)sendCommitA;
 - (void)sendConfirm;
+- (void)sendMessage:(unsigned __int16)message data:(id)data;
+- (void)sendMessage:(unsigned __int16)message data:(id)data targets:(id)targets sourceID:(id)d;
 - (void)sendSelected;
 - (void)sendSetupB;
 - (void)sendTearDown:(id)down idsHandle:(id)handle because:(id)because;
@@ -436,6 +438,32 @@ LABEL_14:
   v3 = qword_1000AEDA8;
 
   return v3;
+}
+
+- (void)sendMessage:(unsigned __int16)message data:(id)data
+{
+  messageCopy = message;
+  dataCopy = data;
+  destinationIDSID = [(SKMailbox *)self destinationIDSID];
+  if (!destinationIDSID)
+  {
+    peer = [(SKMailbox *)self peer];
+    destinationIDSID = [peer peer];
+  }
+
+  session = [(SKMailbox *)self session];
+  sourceIDS = [(SKMailbox *)self sourceIDS];
+  [session sendMessage:messageCopy data:dataCopy toID:destinationIDSID sourceID:sourceIDS];
+}
+
+- (void)sendMessage:(unsigned __int16)message data:(id)data targets:(id)targets sourceID:(id)d
+{
+  messageCopy = message;
+  dCopy = d;
+  targetsCopy = targets;
+  dataCopy = data;
+  session = [(SKMailbox *)self session];
+  [session sendMessage:messageCopy data:dataCopy toID:targetsCopy sourceID:dCopy];
 }
 
 - (void)recvAnnounce:(id)announce

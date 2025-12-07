@@ -37,7 +37,6 @@
   objc_storeStrong(&v5, 0);
   v4 = [selfCopy _internal_iconForDataclass:location[0]];
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -158,7 +157,6 @@
   objc_storeStrong(&v16, 0);
   objc_storeStrong(&v19, 0);
   objc_storeStrong(&v20, 0);
-  *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -243,7 +241,6 @@
   v4 = [v5 objectForKeyedSubscript:location[0]];
   objc_storeStrong(&v5, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -512,7 +509,6 @@
   objc_storeStrong(&v22, 0);
   objc_storeStrong(&v25, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v12;
 }

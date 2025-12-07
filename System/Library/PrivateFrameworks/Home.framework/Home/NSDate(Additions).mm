@@ -1,4 +1,6 @@
 @interface NSDate(Additions)
++ (char)hf_daysBetweenDates:()Additions endDate:;
++ (char)hf_minutesBetweenDates:()Additions endDate:;
 + (id)hf_dateByAddingComponents:()Additions toDate:times:;
 + (id)hf_dateByAddingDays:()Additions toDate:;
 + (id)hf_dateByAddingHours:()Additions toDate:;
@@ -12,8 +14,6 @@
 + (id)hf_dateBySubtractingComponents:()Additions fromDate:times:;
 + (id)hf_sharedCalendar;
 + (id)hf_sharedTimeZone;
-+ (uint64_t)hf_daysBetweenDates:()Additions endDate:;
-+ (uint64_t)hf_minutesBetweenDates:()Additions endDate:;
 - (BOOL)_uses24HourTimeForLocale;
 - (BOOL)hf_isFirstHourOfDay;
 - (BOOL)hf_isMidnight;
@@ -194,66 +194,66 @@
 {
   hf_sharedCalendar = [objc_opt_class() hf_sharedCalendar];
   hf_sharedTimeZone = [objc_opt_class() hf_sharedTimeZone];
-  v4 = [hf_sharedCalendar componentsInTimeZone:hf_sharedTimeZone fromDate:self];
+  v5 = [hf_sharedCalendar componentsInTimeZone:hf_sharedTimeZone fromDate:self];
 
-  [v4 setHour:0];
-  [v4 setMinute:0];
-  [v4 setSecond:0];
-  [v4 setNanosecond:0];
+  [v5 setHour:0];
+  [v5 setMinute:0];
+  [v5 setSecond:0];
+  [v5 setNanosecond:0];
   currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
-  v6 = [currentCalendar dateFromComponents:v4];
+  v7 = [currentCalendar dateFromComponents:v5];
 
-  return v6;
+  return v7;
 }
 
 - (id)hf_startOfNextDay
 {
   hf_sharedCalendar = [objc_opt_class() hf_sharedCalendar];
-  v3 = [hf_sharedCalendar nextDateAfterDate:self matchingHour:0 minute:0 second:0 options:2];
+  v4 = [hf_sharedCalendar nextDateAfterDate:self matchingHour:0 minute:0 second:0 options:2];
 
-  return v3;
+  return v4;
 }
 
 - (id)hf_startOfHour
 {
   hf_sharedCalendar = [objc_opt_class() hf_sharedCalendar];
   hf_sharedTimeZone = [objc_opt_class() hf_sharedTimeZone];
-  v4 = [hf_sharedCalendar componentsInTimeZone:hf_sharedTimeZone fromDate:self];
+  v5 = [hf_sharedCalendar componentsInTimeZone:hf_sharedTimeZone fromDate:self];
 
-  [v4 setMinute:0];
-  [v4 setSecond:0];
-  [v4 setNanosecond:0];
+  [v5 setMinute:0];
+  [v5 setSecond:0];
+  [v5 setNanosecond:0];
   currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
-  v6 = [currentCalendar dateFromComponents:v4];
+  v7 = [currentCalendar dateFromComponents:v5];
 
-  return v6;
+  return v7;
 }
 
 - (id)hf_startOfMinute
 {
   hf_sharedCalendar = [objc_opt_class() hf_sharedCalendar];
   hf_sharedTimeZone = [objc_opt_class() hf_sharedTimeZone];
-  v4 = [hf_sharedCalendar componentsInTimeZone:hf_sharedTimeZone fromDate:self];
+  v5 = [hf_sharedCalendar componentsInTimeZone:hf_sharedTimeZone fromDate:self];
 
-  [v4 setSecond:0];
-  [v4 setNanosecond:0];
+  [v5 setSecond:0];
+  [v5 setNanosecond:0];
   currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
-  v6 = [currentCalendar dateFromComponents:v4];
+  v7 = [currentCalendar dateFromComponents:v5];
 
-  return v6;
+  return v7;
 }
 
 - (id)hf_startOfSecond
 {
   hf_sharedCalendar = [objc_opt_class() hf_sharedCalendar];
   hf_sharedTimeZone = [objc_opt_class() hf_sharedTimeZone];
-  v4 = [hf_sharedCalendar componentsInTimeZone:hf_sharedTimeZone fromDate:self];
+  v5 = [hf_sharedCalendar componentsInTimeZone:hf_sharedTimeZone fromDate:self];
 
-  [v4 setNanosecond:0];
+  [v5 setNanosecond:0];
   currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
-  v6 = [currentCalendar dateFromComponents:v4];
+  v7 = [currentCalendar dateFromComponents:v5];
 
-  return v6;
+  return v7;
 }
 
 - (id)hf_startOfWeek
@@ -278,16 +278,16 @@
 {
   hf_sharedCalendar = [objc_opt_class() hf_sharedCalendar];
   hf_sharedTimeZone = [objc_opt_class() hf_sharedTimeZone];
-  v4 = [hf_sharedCalendar componentsInTimeZone:hf_sharedTimeZone fromDate:self];
+  v5 = [hf_sharedCalendar componentsInTimeZone:hf_sharedTimeZone fromDate:self];
 
-  [v4 setHour:23];
-  [v4 setMinute:59];
-  [v4 setSecond:59];
-  [v4 setNanosecond:0];
+  [v5 setHour:23];
+  [v5 setMinute:59];
+  [v5 setSecond:59];
+  [v5 setNanosecond:0];
   currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
-  v6 = [currentCalendar dateFromComponents:v4];
+  v7 = [currentCalendar dateFromComponents:v5];
 
-  return v6;
+  return v7;
 }
 
 - (id)hf_endOfWeek
@@ -310,42 +310,42 @@
 - (BOOL)hf_isFirstHourOfDay
 {
   hf_sharedCalendar = [objc_opt_class() hf_sharedCalendar];
-  v3 = [hf_sharedCalendar components:32 fromDate:self];
+  v4 = [hf_sharedCalendar components:32 fromDate:self];
 
-  v4 = [v3 hour] == 0;
-  return v4;
+  v5 = [v4 hour] == 0;
+  return v5;
 }
 
 - (BOOL)hf_isMidnight
 {
   hf_sharedCalendar = [objc_opt_class() hf_sharedCalendar];
-  v3 = [hf_sharedCalendar components:224 fromDate:self];
+  v4 = [hf_sharedCalendar components:224 fromDate:self];
 
-  v4 = ![v3 hour] && !objc_msgSend(v3, "minute") && objc_msgSend(v3, "second") == 0;
-  return v4;
+  v5 = ![v4 hour] && !objc_msgSend(v4, "minute") && objc_msgSend(v4, "second") == 0;
+  return v5;
 }
 
 - (uint64_t)hf_isSingularHour
 {
   hf_sharedCalendar = [objc_opt_class() hf_sharedCalendar];
-  v3 = [hf_sharedCalendar components:32 fromDate:self];
+  v4 = [hf_sharedCalendar components:32 fromDate:self];
 
-  if ([v3 hour] == 1)
+  if ([v4 hour] == 1)
   {
-    v4 = 1;
+    v5 = 1;
   }
 
-  else if ([v3 hour] == 13)
+  else if ([v4 hour] == 13)
   {
-    v4 = [self _uses24HourTimeForLocale] ^ 1;
+    v5 = [self _uses24HourTimeForLocale] ^ 1;
   }
 
   else
   {
-    v4 = 0;
+    v5 = 0;
   }
 
-  return v4;
+  return v5;
 }
 
 - (uint64_t)hf_isBetweenStartDate:()Additions endDate:
@@ -369,7 +369,7 @@
   return v11;
 }
 
-+ (uint64_t)hf_minutesBetweenDates:()Additions endDate:
++ (char)hf_minutesBetweenDates:()Additions endDate:
 {
   v5 = a4;
   v6 = a3;
@@ -384,7 +384,7 @@
   return v11;
 }
 
-+ (uint64_t)hf_daysBetweenDates:()Additions endDate:
++ (char)hf_daysBetweenDates:()Additions endDate:
 {
   v5 = a4;
   v6 = a3;

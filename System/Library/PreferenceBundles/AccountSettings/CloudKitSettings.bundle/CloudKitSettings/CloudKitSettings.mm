@@ -17,14 +17,14 @@ id sub_14D8(id a1, CKSettingsAppNameImage *a2)
   return v4;
 }
 
-id sub_16B8(void *a1, void *a2)
+id sub_16B8(void *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  v3 = a2;
-  v4 = a1;
-  v5 = [NSBundle bundleForClass:objc_opt_class()];
-  v6 = CKLocalizedStringFromTableInBundleVA();
+  v10 = a2;
+  v11 = a1;
+  v12 = [NSBundle bundleForClass:objc_opt_class()];
+  v13 = CKLocalizedStringFromTableInBundleVA();
 
-  return v6;
+  return v13;
 }
 
 void sub_312C(id a1)
@@ -99,11 +99,11 @@ void sub_6CC0(uint64_t a1, uint64_t a2, void *a3)
       v7 = v5;
       v8 = [v6 primaryAppNameImage];
       v9 = [v8 appDisplayName];
-      v16 = 138543618;
-      v17 = v9;
-      v18 = 2112;
-      v19 = v4;
-      _os_log_error_impl(&dword_0, v7, OS_LOG_TYPE_ERROR, "Error setting permission for app %{public}@: %@", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v9;
+      v17 = 2112;
+      v18 = v4;
+      _os_log_error_impl(&dword_0, v7, OS_LOG_TYPE_ERROR, "Error setting permission for app %{public}@: %@", &v15, 0x16u);
     }
   }
 
@@ -126,8 +126,7 @@ void sub_6CC0(uint64_t a1, uint64_t a2, void *a3)
   }
 
   dispatch_group_leave(*(a1 + 56));
-  v14 = *(a1 + 64);
-  v15 = objc_opt_self();
+  v14 = objc_opt_self();
 }
 
 void sub_6E40(uint64_t a1, char a2, void *a3)
@@ -643,9 +642,9 @@ void sub_9C88(id *a1)
 
     v6 = +[LSApplicationWorkspace defaultWorkspace];
     v7 = [a1[6] shareURL];
-    v19 = 0;
-    v8 = [v6 openSensitiveURL:v7 withOptions:0 error:&v19];
-    v9 = v19;
+    v17 = 0;
+    v8 = [v6 openSensitiveURL:v7 withOptions:0 error:&v17];
+    v9 = v17;
 
     if ((v8 & 1) == 0)
     {
@@ -658,7 +657,7 @@ void sub_9C88(id *a1)
       if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v21 = v9;
+        v19 = v9;
         _os_log_error_impl(&dword_0, v10, OS_LOG_TYPE_ERROR, "Failed open share URL: %@", buf, 0xCu);
       }
 
@@ -681,15 +680,13 @@ void sub_9C88(id *a1)
       v15 = a1[5];
       v14 = a1[6];
       v16 = [v14 sharedItem];
-      v17 = a1[4];
-      v18 = v16;
       [v14 _showInitiateFailureAlert:v15 shareTitle:? cell:?];
     }
 
     else
     {
-      v18 = [a1[6] navigationController];
-      [v18 dismissViewControllerAnimated:1 completion:0];
+      v16 = [a1[6] navigationController];
+      [v16 dismissViewControllerAnimated:1 completion:0];
     }
   }
 }
@@ -708,9 +705,9 @@ void sub_A258(uint64_t a1, uint64_t a2, void *a3)
   [WeakRetained setShareMetadata:v4];
 }
 
-void sub_A528(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_A528(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -724,12 +721,11 @@ uint64_t sub_A540(uint64_t result, uint64_t a2)
 
 void sub_A568(uint64_t a1, void *a2)
 {
-  v5 = a2;
-  if (v5)
+  v4 = a2;
+  if (v4)
   {
     objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
   }
 
-  v4 = *(*(*(a1 + 40) + 8) + 40);
   (*(*(a1 + 32) + 16))();
 }

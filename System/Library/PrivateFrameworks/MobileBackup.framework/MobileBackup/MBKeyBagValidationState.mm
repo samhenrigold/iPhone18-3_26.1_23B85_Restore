@@ -158,8 +158,8 @@
       {
         if (self->_lastValidationResult != 2 && !self->_requiresEncryptionKeyRepair && !self->_requiresDeviceRecordReferenceRepair)
         {
-          v14 = 0;
-          goto LABEL_17;
+          v13 = 0;
+          goto LABEL_16;
         }
 
         v10 = MBGetDefaultLog();
@@ -167,7 +167,7 @@
         {
           *buf = 0;
           _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "=keybag-validation= Should validate keybag refs - resuming from previous repair", buf, 2u);
-          goto LABEL_15;
+          _MBLog(@"Df", "=keybag-validation= Should validate keybag refs - resuming from previous repair");
         }
       }
 
@@ -179,13 +179,11 @@
           validKeyBagReferenceCount = self->_validKeyBagReferenceCount;
           lastSeenKeyBagReferenceCount = self->_lastSeenKeyBagReferenceCount;
           *buf = 134218240;
-          v18 = validKeyBagReferenceCount;
-          v19 = 2048;
-          v20 = lastSeenKeyBagReferenceCount;
+          v16 = validKeyBagReferenceCount;
+          v17 = 2048;
+          v18 = lastSeenKeyBagReferenceCount;
           _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "=keybag-validation= Should validate keybag refs - new refs detected since the last successful validation (%llu != %llu)", buf, 0x16u);
-          v13 = self->_validKeyBagReferenceCount;
-          v16 = self->_lastSeenKeyBagReferenceCount;
-          goto LABEL_15;
+          _MBLog(@"Df", "=keybag-validation= Should validate keybag refs - new refs detected since the last successful validation (%llu != %llu)");
         }
       }
     }
@@ -197,14 +195,13 @@
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412802;
-        v18 = v7;
+        v16 = v7;
+        v17 = 2048;
+        v18 = *&v9;
         v19 = 2048;
-        v20 = *&v9;
-        v21 = 2048;
         periodCopy = period;
         _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "=keybag-validation= Should validate keybag refs - last successful validation was on %@ (%.2f < %.2f)", buf, 0x20u);
-LABEL_15:
-        _MBLog();
+        _MBLog(@"Df", "=keybag-validation= Should validate keybag refs - last successful validation was on %@ (%.2f < %.2f)", v7, *&v9, *&period);
       }
     }
   }
@@ -216,14 +213,14 @@ LABEL_15:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "=keybag-validation= Should validate keybag refs - no previous validation detected", buf, 2u);
-      goto LABEL_15;
+      _MBLog(@"Df", "=keybag-validation= Should validate keybag refs - no previous validation detected");
     }
   }
 
-  v14 = 1;
-LABEL_17:
+  v13 = 1;
+LABEL_16:
 
-  return v14;
+  return v13;
 }
 
 - (BOOL)_writeStateToPlist:(id)plist error:(id *)error
@@ -264,7 +261,7 @@ LABEL_17:
     {
       *v12 = 0;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "=keybag-validation= Reset keybag validation state", v12, 2u);
-      _MBLog();
+      _MBLog(@"I ", "=keybag-validation= Reset keybag validation state");
     }
   }
 
@@ -302,7 +299,7 @@ LABEL_17:
       *buf = 134217984;
       successCopy = success;
       _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "=keybag-validation= Tracked keybag validation success (%llu)", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"I ", "=keybag-validation= Tracked keybag validation success (%llu)", success);
     }
   }
 
@@ -324,7 +321,7 @@ LABEL_17:
     {
       *v9 = 0;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "=keybag-validation= Tracked keybag validation failure", v9, 2u);
-      _MBLog();
+      _MBLog(@"I ", "=keybag-validation= Tracked keybag validation failure");
     }
   }
 
@@ -342,7 +339,7 @@ LABEL_17:
     {
       *v7 = 0;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "=keybag-validation= Tracked keybag reference repair", v7, 2u);
-      _MBLog();
+      _MBLog(@"I ", "=keybag-validation= Tracked keybag reference repair");
     }
   }
 
@@ -368,7 +365,7 @@ LABEL_17:
     {
       *v13 = 0;
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "=keybag-validation= Tracked snapshot commit", v13, 2u);
-      _MBLog();
+      _MBLog(@"I ", "=keybag-validation= Tracked snapshot commit");
     }
   }
 
@@ -428,7 +425,7 @@ LABEL_17:
           *buf = 138412290;
           v18 = v9;
           _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "=keybag-validation= Error loading deserializing keybag validation state: %@", buf, 0xCu);
-          _MBLog();
+          _MBLog(@"E ", "=keybag-validation= Error loading deserializing keybag validation state: %@", v9);
         }
 
         v10 = &__NSDictionary0__struct;
@@ -447,7 +444,7 @@ LABEL_17:
         *buf = 138412290;
         v18 = v7;
         _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "=keybag-validation= Error loading keybag validation state: %@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"E ", "=keybag-validation= Error loading keybag validation state: %@", v7);
       }
 
       v12 = [[MBKeyBagValidationState alloc] initWithDictionaryRepresentation:&__NSDictionary0__struct];

@@ -32,21 +32,21 @@ void __37__EMHMERecipientCreationResponse_log__block_invoke(uint64_t a1)
 
 - (EMHMERecipientCreationResponse)initWithHTTPResponse:(id)response data:(id)data
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   responseCopy = response;
   dataCopy = data;
-  v22.receiver = self;
-  v22.super_class = EMHMERecipientCreationResponse;
-  v8 = [(AAResponse *)&v22 initWithHTTPResponse:responseCopy data:dataCopy];
+  v21.receiver = self;
+  v21.super_class = EMHMERecipientCreationResponse;
+  v8 = [(AAResponse *)&v21 initWithHTTPResponse:responseCopy data:dataCopy];
   v9 = v8;
   if (v8)
   {
     v10 = *MEMORY[0x1E698BA00];
     if ([*(&v8->super.super.isa + v10) statusCode] == 200)
     {
-      v21 = 0;
-      v11 = [MEMORY[0x1E696ACB0] JSONObjectWithData:dataCopy options:0 error:&v21];
-      v12 = v21;
+      v20 = 0;
+      v11 = [MEMORY[0x1E696ACB0] JSONObjectWithData:dataCopy options:0 error:&v20];
+      v12 = v20;
       if (v12)
       {
         v13 = +[EMHMERecipientCreationRequest log];
@@ -85,7 +85,6 @@ void __37__EMHMERecipientCreationResponse_log__block_invoke(uint64_t a1)
     }
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -101,14 +100,13 @@ void __37__EMHMERecipientCreationResponse_log__block_invoke(uint64_t a1)
 
 - (void)initWithHTTPResponse:(os_log_t)log data:.cold.3(uint64_t *a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *a1;
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_debug_impl(&dword_1C6655000, log, OS_LOG_TYPE_DEBUG, "Received _replyToAddress:%@ from jsonData: %@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_debug_impl(&dword_1C6655000, log, OS_LOG_TYPE_DEBUG, "Received _replyToAddress:%@ from jsonData: %@", &v4, 0x16u);
 }
 
 @end

@@ -88,7 +88,7 @@
 
 - (IRHistoryEventsContainerDO)initWithCoder:(id)coder
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = objc_alloc(MEMORY[0x277CBEB98]);
   v6 = objc_opt_class();
@@ -121,9 +121,9 @@ LABEL_6:
   v11 = objc_opt_class();
   v12 = NSStringFromClass(v11);
   v13 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for IRHistoryEventsContainerDO key historyEvents (expected %@, decoded %@)", v10, v12, 0];
-  v20 = *MEMORY[0x277CCA450];
-  v21[0] = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+  v19 = *MEMORY[0x277CCA450];
+  v20[0] = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
   v15 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"IRHistoryEventsContainerDOOCNTErrorDomain" code:3 userInfo:v14];
   [coderCopy failWithError:v15];
 
@@ -131,7 +131,6 @@ LABEL_5:
   selfCopy = 0;
 LABEL_7:
 
-  v18 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

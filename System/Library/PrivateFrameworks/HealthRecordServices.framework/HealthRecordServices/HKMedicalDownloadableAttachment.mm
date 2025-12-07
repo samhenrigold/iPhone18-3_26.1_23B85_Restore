@@ -2853,14 +2853,9 @@ LABEL_156:
     [HKMedicalDownloadableAttachment copyForAccountWithIdentifier:a2 medicalRecordIdentifier:self clinicalRecordIdentifier:?];
   }
 
-  v12 = objc_alloc(objc_opt_class());
-  v13 = *&self->_status;
-  v14 = *&self->_sizeInBytes;
-  v15 = *&self->_creationDate;
-  v16 = *&self->_lastError;
-  v17 = [v12 initWithIdentifier:self->_identifier medicalRecordIdentifier:recordIdentifierCopy clinicalRecordIdentifier:clinicalRecordIdentifierCopy accountIdentifier:identifierCopy FHIRVersion:self->_FHIRVersion type:self->_type status:self->_status errorStatus:self->_errorStatus title:self->_title webURL:self->_webURL sizeInBytes:self->_sizeInBytes contentType:self->_contentType locale:self->_locale expectedHash:self->_expectedHash creationDate:self->_creationDate retryCount:self->_retryCount nextRetryDate:self->_nextRetryDate lastUpdatedDate:self->_lastUpdatedDate lastError:self->_lastError fileURL:self->_fileURL inlineData:self->_inlineData inlineDataChecksum:self->_inlineDataChecksum attachmentIdentifier:self->_attachmentIdentifier metadata:self->_metadata];
+  v12 = [objc_alloc(objc_opt_class()) initWithIdentifier:self->_identifier medicalRecordIdentifier:recordIdentifierCopy clinicalRecordIdentifier:clinicalRecordIdentifierCopy accountIdentifier:identifierCopy FHIRVersion:self->_FHIRVersion type:self->_type status:self->_status errorStatus:self->_errorStatus title:self->_title webURL:self->_webURL sizeInBytes:self->_sizeInBytes contentType:self->_contentType locale:self->_locale expectedHash:self->_expectedHash creationDate:self->_creationDate retryCount:self->_retryCount nextRetryDate:self->_nextRetryDate lastUpdatedDate:self->_lastUpdatedDate lastError:self->_lastError fileURL:self->_fileURL inlineData:self->_inlineData inlineDataChecksum:self->_inlineDataChecksum attachmentIdentifier:self->_attachmentIdentifier metadata:self->_metadata];
 
-  return v17;
+  return v12;
 }
 
 - (void)copyForAccountWithIdentifier:(uint64_t)a1 medicalRecordIdentifier:(uint64_t)a2 clinicalRecordIdentifier:.cold.1(uint64_t a1, uint64_t a2)

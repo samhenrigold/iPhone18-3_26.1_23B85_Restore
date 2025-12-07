@@ -117,9 +117,9 @@
 - (void)setColoringWithColorScheme:(id)scheme
 {
   schemeCopy = scheme;
-  primaryTextColor = [schemeCopy primaryTextColor];
+  v5 = objc_msgSend_primaryTextColor(schemeCopy);
   primaryTextColor = self->_primaryTextColor;
-  self->_primaryTextColor = primaryTextColor;
+  self->_primaryTextColor = v5;
 
   itemOfferNoticeLabel = [(SKUIItemCellLayout *)self itemOfferNoticeLabel];
   v8 = itemOfferNoticeLabel;
@@ -210,7 +210,7 @@
 {
   stringCopy = string;
   indexNumberString = [(SKUIItemBrowseCellLayout *)self indexNumberString];
-  if (indexNumberString != stringCopy && ([indexNumberString isEqualToString:stringCopy] & 1) == 0)
+  if (indexNumberString != stringCopy && (objc_msgSend_isEqualToString_(indexNumberString) & 1) == 0)
   {
     cellContentView = self->_cellContentView;
     if (stringCopy)
@@ -295,7 +295,7 @@
 {
   subtitleCopy = subtitle;
   subtitle = [(SKUIItemBrowseCellLayout *)self subtitle];
-  if (subtitle != subtitleCopy && ([subtitle isEqualToString:subtitleCopy] & 1) == 0)
+  if (subtitle != subtitleCopy && (objc_msgSend_isEqualToString_(subtitle) & 1) == 0)
   {
     cellContentView = self->_cellContentView;
     if (subtitleCopy)
@@ -349,7 +349,7 @@
 {
   titleCopy = title;
   title = [(SKUIItemBrowseCellLayout *)self title];
-  if (title != titleCopy && ([title isEqualToString:titleCopy] & 1) == 0)
+  if (title != titleCopy && (objc_msgSend_isEqualToString_(title) & 1) == 0)
   {
     cellContentView = self->_cellContentView;
     if (titleCopy)
@@ -883,6 +883,24 @@ uint64_t __51__SKUIItemBrowseCellLayout__decimalNumberFormatter__block_invoke()
   result.height = height;
   result.width = width;
   return result;
+}
+
+- (void)initWithCollectionViewCell:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIItemBrowseCellLayout initWithCollectionViewCell:]";
+}
+
+- (void)initWithParentView:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIItemBrowseCellLayout initWithParentView:]";
+}
+
+- (void)initWithTableViewCell:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIItemBrowseCellLayout initWithTableViewCell:]";
 }
 
 @end

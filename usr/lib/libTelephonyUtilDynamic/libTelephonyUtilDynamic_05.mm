@@ -1,918 +1,3 @@
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_bracket_expression<std::__wrap_iter<char const*>>(uint64_t a1, unsigned __int8 *a2, unsigned __int8 *a3)
-{
-  if (a2 != a3 && *a2 == 91)
-  {
-    if (a2 + 1 == a3)
-    {
-      goto LABEL_125;
-    }
-
-    v5 = (a2[1] == 94 ? a2 + 2 : a2 + 1);
-    started = std::basic_regex<char,std::regex_traits<char>>::__start_matching_list(a1, a2[1] == 94);
-    if (v5 == a3)
-    {
-      goto LABEL_125;
-    }
-
-    v7 = started;
-    if ((*(a1 + 24) & 0x1F0) != 0 && *v5 == 93)
-    {
-      std::__bracket_expression<char,std::regex_traits<char>>::__add_char[abi:ne200100](started, 93);
-      ++v5;
-    }
-
-    if (v5 == a3)
-    {
-      v8 = v5;
-LABEL_13:
-      if (v8 != a3)
-      {
-        if (*v8 == 45)
-        {
-          std::__bracket_expression<char,std::regex_traits<char>>::__add_char[abi:ne200100](v7, 45);
-          ++v8;
-        }
-
-        if (v8 != a3 && *v8 == 93)
-        {
-          return v8 + 1;
-        }
-      }
-
-LABEL_125:
-      std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)5>();
-    }
-
-    while (1)
-    {
-      v8 = v5;
-      v10 = v5;
-      if (v5 == a3)
-      {
-        goto LABEL_112;
-      }
-
-      v11 = *v5;
-      v10 = v5;
-      if (v11 == 93)
-      {
-        goto LABEL_112;
-      }
-
-      v12 = 0;
-      v13 = (v5 + 1);
-      v42[0] = 0;
-      v42[1] = 0;
-      v43 = 0;
-      v14 = 0;
-      v10 = v8;
-      if (v8 + 1 == a3 || v11 != 91)
-      {
-        goto LABEL_46;
-      }
-
-      v15 = *v13;
-      switch(v15)
-      {
-        case '.':
-          v10 = std::basic_regex<char,std::regex_traits<char>>::__parse_collating_symbol<std::__wrap_iter<char const*>>(a1, v8 + 2, a3, v42);
-          v14 = HIBYTE(v43);
-          v12 = v42[1];
-          goto LABEL_46;
-        case ':':
-          LOWORD(__src[0]) = 23866;
-          v20 = std::__search_impl[abi:ne200100]<std::__wrap_iter<char const*>,std::__wrap_iter<char const*>,char *,char *,std::__equal_to,std::__identity,std::__identity,0>(v8 + 2, a3, __src, __src + 2);
-          if (v20 == a3)
-          {
-LABEL_126:
-            std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)5>();
-          }
-
-          v17 = v20;
-          v21 = *(a1 + 24);
-          memset(__p, 170, sizeof(__p));
-          std::string::__init_with_size[abi:ne200100]<char *,char *>(__p, v8 + 2, v20, v20 - (v8 + 2));
-          v22 = HIBYTE(__p[2]);
-          if (SHIBYTE(__p[2]) >= 0)
-          {
-            v23 = __p;
-          }
-
-          else
-          {
-            v23 = __p[0];
-          }
-
-          if (SHIBYTE(__p[2]) < 0)
-          {
-            v22 = __p[1];
-          }
-
-          (*(**(a1 + 8) + 48))(*(a1 + 8), v23, &v22[v23]);
-          if (SHIBYTE(__p[2]) >= 0)
-          {
-            v24 = __p;
-          }
-
-          else
-          {
-            v24 = __p[0];
-          }
-
-          classname = std::__get_classname(v24, v21 & 1);
-          if (SHIBYTE(__p[2]) < 0)
-          {
-            operator delete(__p[0]);
-          }
-
-          if (!classname)
-          {
-            std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)2>();
-          }
-
-          v26 = 0;
-          *(v7 + 160) |= classname;
-          break;
-        case '=':
-          LOWORD(v40[0]) = 23869;
-          v16 = std::__search_impl[abi:ne200100]<std::__wrap_iter<char const*>,std::__wrap_iter<char const*>,char *,char *,std::__equal_to,std::__identity,std::__identity,0>(v8 + 2, a3, v40, v40 + 2);
-          if (v16 == a3)
-          {
-            goto LABEL_126;
-          }
-
-          v17 = v16;
-          memset(__p, 170, sizeof(__p));
-          std::regex_traits<char>::__lookup_collatename<std::__wrap_iter<char const*>>(__p, a1, v8 + 2, v16);
-          v18 = SHIBYTE(__p[2]);
-          if ((SHIBYTE(__p[2]) & 0x8000000000000000) != 0)
-          {
-            v18 = __p[1];
-            if (!__p[1])
-            {
-LABEL_127:
-              std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)1>();
-            }
-
-            memset(__src, 170, sizeof(__src));
-            v19 = __p[0];
-          }
-
-          else
-          {
-            if (!HIBYTE(__p[2]))
-            {
-              goto LABEL_127;
-            }
-
-            v19 = __p;
-            memset(__src, 170, sizeof(__src));
-          }
-
-          std::regex_traits<char>::__transform_primary<std::__wrap_iter<char *>>(__src, a1, v19, v18 + v19);
-          v30 = HIBYTE(__src[2]);
-          if (SHIBYTE(__src[2]) < 0)
-          {
-            v30 = __src[1];
-          }
-
-          if (v30)
-          {
-            std::vector<std::string>::push_back[abi:ne200100](v7 + 136, __src);
-          }
-
-          else
-          {
-            v31 = HIBYTE(__p[2]);
-            if (SHIBYTE(__p[2]) < 0)
-            {
-              v31 = __p[1];
-            }
-
-            if (v31 == 2)
-            {
-              if (SHIBYTE(__p[2]) >= 0)
-              {
-                v38 = __p;
-              }
-
-              else
-              {
-                v38 = __p[0];
-              }
-
-              std::__bracket_expression<char,std::regex_traits<char>>::__add_digraph[abi:ne200100](v7, *v38, *(v38 + 1));
-            }
-
-            else
-            {
-              if (v31 != 1)
-              {
-                std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)1>();
-              }
-
-              if (SHIBYTE(__p[2]) >= 0)
-              {
-                v32 = __p;
-              }
-
-              else
-              {
-                v32 = __p[0];
-              }
-
-              std::__bracket_expression<char,std::regex_traits<char>>::__add_char[abi:ne200100](v7, *v32);
-            }
-          }
-
-          if (SHIBYTE(__src[2]) < 0)
-          {
-            operator delete(__src[0]);
-          }
-
-          if (SHIBYTE(__p[2]) < 0)
-          {
-            operator delete(__p[0]);
-          }
-
-          v26 = 0;
-          break;
-        default:
-          v12 = 0;
-          v14 = 0;
-          v10 = v8;
-LABEL_46:
-          v5 = *(a1 + 24) & 0x1F0;
-          if (v14 >= 0)
-          {
-            v12 = v14;
-          }
-
-          if (!v12)
-          {
-            if ((*(a1 + 24) & 0x1B0 | 0x40) == 0x40)
-            {
-              v27 = *v10;
-              if (v27 == 92)
-              {
-                if ((*(a1 + 24) & 0x1F0) != 0)
-                {
-                  v28 = std::basic_regex<char,std::regex_traits<char>>::__parse_awk_escape<std::__wrap_iter<char const*>>(a1, v10 + 1, a3, v42);
-                }
-
-                else
-                {
-                  v28 = std::basic_regex<char,std::regex_traits<char>>::__parse_class_escape<std::__wrap_iter<char const*>>(a1, v10 + 1, a3, v42, v7);
-                }
-
-                v10 = v28;
-                goto LABEL_74;
-              }
-            }
-
-            else
-            {
-              LOBYTE(v27) = *v10;
-            }
-
-            if (v14 < 0)
-            {
-              v29 = v42[0];
-              v42[1] = 1;
-            }
-
-            else
-            {
-              HIBYTE(v43) = 1;
-              v29 = v42;
-            }
-
-            *v29 = v27;
-            *(v29 + 1) = 0;
-            ++v10;
-          }
-
-LABEL_74:
-          if (v10 != a3)
-          {
-            v33 = *v10;
-            if (v33 != 93)
-            {
-              v35 = v10 + 1;
-              if (v10 + 1 != a3 && v33 == 45)
-              {
-                v36 = *v35;
-                if (v36 != 93)
-                {
-                  memset(__p, 0, sizeof(__p));
-                  v10 += 2;
-                  if (v35 + 1 != a3 && v36 == 91 && *v10 == 46)
-                  {
-                    v37 = std::basic_regex<char,std::regex_traits<char>>::__parse_collating_symbol<std::__wrap_iter<char const*>>(a1, v35 + 2, a3, __p);
-                    goto LABEL_118;
-                  }
-
-                  if ((v5 | 0x40) == 0x40 && v36 == 92)
-                  {
-                    if (v5)
-                    {
-                      v37 = std::basic_regex<char,std::regex_traits<char>>::__parse_awk_escape<std::__wrap_iter<char const*>>(a1, v10, a3, __p);
-                    }
-
-                    else
-                    {
-                      v37 = std::basic_regex<char,std::regex_traits<char>>::__parse_class_escape<std::__wrap_iter<char const*>>(a1, v10, a3, __p, v7);
-                    }
-
-LABEL_118:
-                    v10 = v37;
-                  }
-
-                  else
-                  {
-                    HIBYTE(__p[2]) = 1;
-                    LOWORD(__p[0]) = v36;
-                  }
-
-                  *__src = *v42;
-                  v39 = v43;
-                  v42[1] = 0;
-                  v43 = 0;
-                  *v40 = *__p;
-                  v41 = __p[2];
-                  v42[0] = 0;
-                  __src[2] = v39;
-                  memset(__p, 0, sizeof(__p));
-                  std::__bracket_expression<char,std::regex_traits<char>>::__add_range[abi:ne200100](v7, __src, v40);
-                  if (SHIBYTE(v41) < 0)
-                  {
-                    operator delete(v40[0]);
-                  }
-
-                  if (SHIBYTE(__src[2]) < 0)
-                  {
-                    operator delete(__src[0]);
-                  }
-
-                  if (SHIBYTE(__p[2]) < 0)
-                  {
-                    operator delete(__p[0]);
-                  }
-
-LABEL_93:
-                  v26 = 1;
-                  goto LABEL_110;
-                }
-              }
-            }
-          }
-
-          if (SHIBYTE(v43) < 0)
-          {
-            if (!v42[1])
-            {
-              operator delete(v42[0]);
-LABEL_112:
-              v5 = v10;
-              goto LABEL_113;
-            }
-
-            if (v42[1] != 1)
-            {
-              v34 = v42[0];
-LABEL_92:
-              std::__bracket_expression<char,std::regex_traits<char>>::__add_digraph[abi:ne200100](v7, *v34, v34[1]);
-              goto LABEL_93;
-            }
-
-            v34 = v42[0];
-          }
-
-          else
-          {
-            if (!HIBYTE(v43))
-            {
-              goto LABEL_112;
-            }
-
-            v34 = v42;
-            if (HIBYTE(v43) != 1)
-            {
-              goto LABEL_92;
-            }
-          }
-
-          std::__bracket_expression<char,std::regex_traits<char>>::__add_char[abi:ne200100](v7, *v34);
-          goto LABEL_93;
-      }
-
-      v5 = (v17 + 2);
-      v10 = v8;
-LABEL_110:
-      if (SHIBYTE(v43) < 0)
-      {
-        operator delete(v42[0]);
-        if ((v26 & 1) == 0)
-        {
-          goto LABEL_113;
-        }
-
-        goto LABEL_112;
-      }
-
-      if (v26)
-      {
-        goto LABEL_112;
-      }
-
-LABEL_113:
-      if (v8 == v5)
-      {
-        goto LABEL_13;
-      }
-    }
-  }
-
-  return a2;
-}
-
-void sub_1A9127028(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, void *__p, uint64_t a28, int a29, __int16 a30, char a31, char a32)
-{
-  if (a32 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (a20 < 0)
-  {
-    operator delete(a15);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-char *std::basic_regex<char,std::regex_traits<char>>::__parse_character_escape<std::__wrap_iter<char const*>>(std::basic_regex<char> *a1, unsigned __int8 *a2, unsigned __int8 *a3, uint64_t *a4)
-{
-  v4 = a2;
-  if (a2 == a3)
-  {
-    return v4;
-  }
-
-  v5 = *a2;
-  if (v5 <= 0x71)
-  {
-    if (*a2 > 0x65u)
-    {
-      if (v5 == 102)
-      {
-        if (a4)
-        {
-          if (*(a4 + 23) < 0)
-          {
-            a4[1] = 1;
-            a4 = *a4;
-          }
-
-          else
-          {
-            *(a4 + 23) = 1;
-          }
-
-          v17 = 12;
-          goto LABEL_92;
-        }
-
-        v8 = 12;
-        goto LABEL_77;
-      }
-
-      if (v5 == 110)
-      {
-        if (a4)
-        {
-          if (*(a4 + 23) < 0)
-          {
-            a4[1] = 1;
-            a4 = *a4;
-          }
-
-          else
-          {
-            *(a4 + 23) = 1;
-          }
-
-          v17 = 10;
-          goto LABEL_92;
-        }
-
-        v8 = 10;
-        goto LABEL_77;
-      }
-    }
-
-    else
-    {
-      switch(v5)
-      {
-        case '0':
-          if (a4)
-          {
-            if (*(a4 + 23) < 0)
-            {
-              a4[1] = 1;
-              a4 = *a4;
-            }
-
-            else
-            {
-              *(a4 + 23) = 1;
-            }
-
-            *a4 = 0;
-            return ++v4;
-          }
-
-          v8 = 0;
-          goto LABEL_77;
-        case 'c':
-          v4 = a2 + 1;
-          if (a2 + 1 == a3)
-          {
-            goto LABEL_95;
-          }
-
-          if (*v4 < 65)
-          {
-            goto LABEL_95;
-          }
-
-          v7 = *v4;
-          if (v7 >= 0x5B && (v7 - 97) > 0x19u)
-          {
-            goto LABEL_95;
-          }
-
-          v8 = v7 & 0x1F;
-LABEL_74:
-          if (a4)
-          {
-            if (*(a4 + 23) < 0)
-            {
-              a4[1] = 1;
-              a4 = *a4;
-            }
-
-            else
-            {
-              *(a4 + 23) = 1;
-            }
-
-            *a4 = v8;
-            *(a4 + 1) = 0;
-            return ++v4;
-          }
-
-          goto LABEL_77;
-        case '_':
-          goto LABEL_95;
-      }
-    }
-
-    goto LABEL_72;
-  }
-
-  if (*a2 <= 0x74u)
-  {
-    if (v5 == 114)
-    {
-      if (a4)
-      {
-        if (*(a4 + 23) < 0)
-        {
-          a4[1] = 1;
-          a4 = *a4;
-        }
-
-        else
-        {
-          *(a4 + 23) = 1;
-        }
-
-        v17 = 13;
-        goto LABEL_92;
-      }
-
-      v8 = 13;
-      goto LABEL_77;
-    }
-
-    if (v5 == 116)
-    {
-      if (a4)
-      {
-        if (*(a4 + 23) < 0)
-        {
-          a4[1] = 1;
-          a4 = *a4;
-        }
-
-        else
-        {
-          *(a4 + 23) = 1;
-        }
-
-        v17 = 9;
-        goto LABEL_92;
-      }
-
-      v8 = 9;
-LABEL_77:
-      std::basic_regex<char,std::regex_traits<char>>::__push_char(a1, v8);
-      return ++v4;
-    }
-
-LABEL_72:
-    v8 = v5;
-    if ((v5 & 0x80000000) == 0 && (a1->__traits_.__ct_->__tab_[v5] & 0x500) != 0)
-    {
-      goto LABEL_95;
-    }
-
-    goto LABEL_74;
-  }
-
-  if (v5 != 117)
-  {
-    if (v5 != 118)
-    {
-      if (v5 == 120)
-      {
-        v6 = 0;
-        goto LABEL_45;
-      }
-
-      goto LABEL_72;
-    }
-
-    if (a4)
-    {
-      if (*(a4 + 23) < 0)
-      {
-        a4[1] = 1;
-        a4 = *a4;
-      }
-
-      else
-      {
-        *(a4 + 23) = 1;
-      }
-
-      v17 = 11;
-LABEL_92:
-      *a4 = v17;
-      return ++v4;
-    }
-
-    v8 = 11;
-    goto LABEL_77;
-  }
-
-  if (a2 + 1 == a3)
-  {
-    goto LABEL_95;
-  }
-
-  v9 = a2[1];
-  if ((v9 & 0xF8) != 0x30 && (v9 & 0xFE) != 0x38 && (v9 | 0x20u) - 97 >= 6)
-  {
-    goto LABEL_95;
-  }
-
-  v4 = a2 + 2;
-  if (a2 + 2 == a3)
-  {
-    goto LABEL_95;
-  }
-
-  v10 = *v4;
-  v11 = -48;
-  if ((v10 & 0xF8) != 0x30 && (v10 & 0xFE) != 0x38)
-  {
-    v10 |= 0x20u;
-    if ((v10 - 97) >= 6)
-    {
-      goto LABEL_95;
-    }
-
-    v11 = -87;
-  }
-
-  v6 = 16 * (v11 + v10);
-LABEL_45:
-  if (v4 + 1 == a3)
-  {
-    goto LABEL_95;
-  }
-
-  v12 = v4[1];
-  v13 = -48;
-  if ((v12 & 0xF8) != 0x30 && (v12 & 0xFE) != 0x38)
-  {
-    v12 |= 0x20u;
-    if ((v12 - 97) >= 6)
-    {
-      goto LABEL_95;
-    }
-
-    v13 = -87;
-  }
-
-  if (v4 + 2 == a3)
-  {
-    goto LABEL_95;
-  }
-
-  v14 = v4[2];
-  v15 = -48;
-  if ((v14 & 0xF8) == 0x30 || (v14 & 0xFE) == 0x38)
-  {
-    goto LABEL_55;
-  }
-
-  v14 |= 0x20u;
-  if ((v14 - 97) >= 6)
-  {
-LABEL_95:
-    std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)3>();
-  }
-
-  v15 = -87;
-LABEL_55:
-  v16 = v14 + 16 * (v6 + v13 + v12) + v15;
-  if (a4)
-  {
-    if (*(a4 + 23) < 0)
-    {
-      a4[1] = 1;
-      a4 = *a4;
-    }
-
-    else
-    {
-      *(a4 + 23) = 1;
-    }
-
-    *a4 = v16;
-    *(a4 + 1) = 0;
-  }
-
-  else
-  {
-    std::basic_regex<char,std::regex_traits<char>>::__push_char(a1, v16);
-  }
-
-  v4 += 3;
-  return v4;
-}
-
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_collating_symbol<std::__wrap_iter<char const*>>(uint64_t a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4)
-{
-  v15 = 23854;
-  v8 = std::__search_impl[abi:ne200100]<std::__wrap_iter<char const*>,std::__wrap_iter<char const*>,char *,char *,std::__equal_to,std::__identity,std::__identity,0>(a2, a3, &v15, &v16);
-  if (v8 == a3)
-  {
-    std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)5>();
-  }
-
-  v9 = v8;
-  std::regex_traits<char>::__lookup_collatename<std::__wrap_iter<char const*>>(&v13, a1, a2, v8);
-  if (*(a4 + 23) < 0)
-  {
-    operator delete(*a4);
-  }
-
-  *a4 = v13;
-  v10 = v14;
-  *(a4 + 16) = v14;
-  v11 = HIBYTE(v10);
-  if ((v11 & 0x80u) != 0)
-  {
-    v11 = *(a4 + 8);
-  }
-
-  if (v11 - 1 >= 2)
-  {
-    std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)1>();
-  }
-
-  return v9 + 2;
-}
-
-char *std::basic_regex<char,std::regex_traits<char>>::__parse_class_escape<std::__wrap_iter<char const*>>(std::basic_regex<char> *a1, unsigned __int8 *a2, unsigned __int8 *a3, uint64_t a4, uint64_t a5)
-{
-  if (a2 == a3)
-  {
-    std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)3>();
-  }
-
-  v6 = *a2;
-  if (v6 > 0x61)
-  {
-    if (*a2 > 0x72u)
-    {
-      if (v6 != 115)
-      {
-        if (v6 != 119)
-        {
-          return std::basic_regex<char,std::regex_traits<char>>::__parse_character_escape<std::__wrap_iter<char const*>>(a1, a2, a3, a4);
-        }
-
-        *(a5 + 160) |= 0x500u;
-        std::__bracket_expression<char,std::regex_traits<char>>::__add_char[abi:ne200100](a5, 95);
-        return (a2 + 1);
-      }
-
-      v8 = *(a5 + 160) | 0x4000;
-    }
-
-    else
-    {
-      if (v6 == 98)
-      {
-        if (*(a4 + 23) < 0)
-        {
-          *(a4 + 8) = 1;
-          a4 = *a4;
-        }
-
-        else
-        {
-          *(a4 + 23) = 1;
-        }
-
-        *a4 = 8;
-        return (a2 + 1);
-      }
-
-      if (v6 != 100)
-      {
-        return std::basic_regex<char,std::regex_traits<char>>::__parse_character_escape<std::__wrap_iter<char const*>>(a1, a2, a3, a4);
-      }
-
-      v8 = *(a5 + 160) | 0x400;
-    }
-
-    *(a5 + 160) = v8;
-    return (a2 + 1);
-  }
-
-  if (*a2 <= 0x52u)
-  {
-    if (!*a2)
-    {
-      if (*(a4 + 23) < 0)
-      {
-        *(a4 + 8) = 1;
-        a4 = *a4;
-      }
-
-      else
-      {
-        *(a4 + 23) = 1;
-      }
-
-      *a4 = 0;
-      return (a2 + 1);
-    }
-
-    if (v6 == 68)
-    {
-      v7 = *(a5 + 164) | 0x400;
-LABEL_22:
-      *(a5 + 164) = v7;
-      return (a2 + 1);
-    }
-
-    return std::basic_regex<char,std::regex_traits<char>>::__parse_character_escape<std::__wrap_iter<char const*>>(a1, a2, a3, a4);
-  }
-
-  if (v6 == 83)
-  {
-    v7 = *(a5 + 164) | 0x4000;
-    goto LABEL_22;
-  }
-
-  if (v6 != 87)
-  {
-    return std::basic_regex<char,std::regex_traits<char>>::__parse_character_escape<std::__wrap_iter<char const*>>(a1, a2, a3, a4);
-  }
-
-  *(a5 + 164) |= 0x500u;
-  std::__bracket_expression<char,std::regex_traits<char>>::__add_neg_char[abi:ne200100](a5);
-  return (a2 + 1);
-}
-
 unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_awk_escape<std::__wrap_iter<char const*>>(std::basic_regex<char> *a1, unsigned __int8 *a2, unsigned __int8 *a3, uint64_t *a4)
 {
   if (a2 == a3)
@@ -1199,7 +284,7 @@ unsigned __int8 *std::__search_impl[abi:ne200100]<std::__wrap_iter<char const*>,
       return a2;
     }
 
-    v5 = a2 - v4 + 1;
+    v5 = (a2 - v4 + 1);
     if (v5 == result)
     {
       return a2;
@@ -1465,7 +550,7 @@ LABEL_21:
     v18 = v3[1];
     if (v18 == 40)
     {
-      v19 = (v3 + 2);
+      v19 = v3 + 2;
     }
 
     else
@@ -1744,7 +829,7 @@ LABEL_16:
         std::basic_regex<char,std::regex_traits<char>>::__push_begin_marked_subexpression(this);
         v18 = this->__marked_count_;
         ++this->__open_count_;
-        v19 = std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<std::__wrap_iter<char const*>>(this, v8 + 1, a3);
+        v19 = std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<std::__wrap_iter<char const*>>(this, (v8 + 1), a3);
         if (v19 == a3 || (v8 = v19, *v19 != 41))
         {
           std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)6>();
@@ -1786,18 +871,88 @@ BOOL ctu::install_termination_handler()
   return v0 == 0;
 }
 
-void anonymous namespace::log_termination_info_then_continue_crashing(_anonymous_namespace_ *this)
+void anonymous namespace::log_termination_info_then_continue_crashing(_anonymous_namespace_ *this, unint64_t a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   atomic_load(&_MergedGlobals_5);
-  memset(v4, 170, 24);
-  ctu::backtrace_string(0, v4);
-  v3.__ptr_ = 0xAAAAAAAAAAAAAAAALL;
+  memset(v5, 170, 24);
+  ctu::backtrace_string(0, v5);
+  v4.__ptr_ = 0xAAAAAAAAAAAAAAAALL;
   std::current_exception();
-  std::exception_ptr::exception_ptr(&v2, &v3);
-  v1.__ptr_ = &v2;
-  std::rethrow_exception(v1);
+  std::exception_ptr::exception_ptr(&v3, &v4);
+  v2.__ptr_ = &v3;
+  std::rethrow_exception(v2);
   __break(1u);
+}
+
+void sub_1A91284EC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::exception_ptr a10, std::exception_ptr a11, void **__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, __int128 buf, int a23, __int16 a24, __int16 a25, void **a26)
+{
+  if (a2)
+  {
+    std::exception_ptr::~exception_ptr(&a10);
+    if (a2 == 4)
+    {
+      v28 = __cxa_begin_catch(a1);
+      if (os_log_type_enabled(qword_1EB3828F8, OS_LOG_TYPE_ERROR))
+      {
+        boost::current_exception_diagnostic_information();
+      }
+    }
+
+    else if (a2 == 3)
+    {
+      v29 = __cxa_begin_catch(a1);
+      if (os_log_type_enabled(qword_1EB3828F8, OS_LOG_TYPE_ERROR))
+      {
+        boost::current_exception_diagnostic_information();
+      }
+    }
+
+    else
+    {
+      v30 = __cxa_begin_catch(a1);
+      v31 = qword_1EB3828F8;
+      v32 = os_log_type_enabled(qword_1EB3828F8, OS_LOG_TYPE_ERROR);
+      if (a2 == 2)
+      {
+        if (v32)
+        {
+          v33 = [(_anonymous_namespace_ *)v30 userInfo];
+          p_p = &__p;
+          if (a17 < 0)
+          {
+            p_p = __p;
+          }
+
+          LODWORD(buf) = 138543874;
+          *(&buf + 4) = v33;
+          WORD6(buf) = 2114;
+          *(&buf + 14) = v30;
+          a25 = 2082;
+          a26 = p_p;
+          _os_log_error_impl(&dword_1A90E3000, v31, OS_LOG_TYPE_ERROR, "Uncaught ObjC exception! Diagnostics follow, then crashing!\n========== Diagnostic info:\nuserInfo = %{public}@\n%{public}@\n========== Backtrace:\n%{public}s\n", &buf, 0x20u);
+        }
+      }
+
+      else if (v32)
+      {
+        v35 = &__p;
+        if (a17 < 0)
+        {
+          v35 = __p;
+        }
+
+        LODWORD(buf) = 136446210;
+        *(&buf + 4) = v35;
+        _os_log_error_impl(&dword_1A90E3000, v31, OS_LOG_TYPE_ERROR, "Uncaught exception of unknown type (it's not C++ or ObjC)! Crashing! ========== Backtrace:\n%{public}s\n==========", &buf, 0xCu);
+      }
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x1A9128464);
+  }
+
+  _Unwind_Resume(a1);
 }
 
 void anonymous namespace::sGetLogger(_anonymous_namespace_ *this)
@@ -1962,17 +1117,17 @@ uint64_t boost::exception_detail::error_info_container_impl::diagnostic_informat
   return result;
 }
 
-void *boost::exception_detail::error_info_container_impl::get@<X0>(void *result@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
+uint64_t boost::exception_detail::error_info_container_impl::get@<X0>(uint64_t result@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
 {
-  v4 = result + 2;
-  v5 = result[2];
+  v4 = (result + 16);
+  v5 = *(result + 16);
   if (!v5)
   {
     goto LABEL_12;
   }
 
   v6 = *a2;
-  v7 = result + 2;
+  v7 = (result + 16);
   do
   {
     v8 = v5[4];
@@ -2229,7 +1384,7 @@ void *std::__tree<std::__value_type<boost::exception_detail::type_info_,boost::s
   return v4;
 }
 
-uint64_t *std::__tree<std::__value_type<boost::exception_detail::type_info_,boost::shared_ptr<boost::exception_detail::error_info_base>>,std::__map_value_compare<boost::exception_detail::type_info_,std::__value_type<boost::exception_detail::type_info_,boost::shared_ptr<boost::exception_detail::error_info_base>>,std::less<boost::exception_detail::type_info_>,true>,std::allocator<std::__value_type<boost::exception_detail::type_info_,boost::shared_ptr<boost::exception_detail::error_info_base>>>>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<std::__value_type<boost::exception_detail::type_info_,boost::shared_ptr<boost::exception_detail::error_info_base>>,std::__map_value_compare<boost::exception_detail::type_info_,std::__value_type<boost::exception_detail::type_info_,boost::shared_ptr<boost::exception_detail::error_info_base>>,std::less<boost::exception_detail::type_info_>,true>,std::allocator<std::__value_type<boost::exception_detail::type_info_,boost::shared_ptr<boost::exception_detail::error_info_base>>>>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -2272,12 +1427,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -2291,22 +1446,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -2340,13 +1495,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -2587,7 +1742,7 @@ void ctu::RequestRestResource::~RequestRestResource(ctu::RequestRestResource *th
 
 uint64_t ctu::RequestRestResource::handleMessage_Root_GET(ctu::RequestRestResource *this, ctu::RestResourceContext *a2)
 {
-  ctu::RequestRestResource::getResourceArray(this, &object);
+  ctu::RequestRestResource::getResourceArray(&object, this);
   v5 = object;
   if (object)
   {
@@ -2807,12 +1962,12 @@ BOOL ctu::RequestRestResource::handleRestMessage_POP(ctu::RequestRestResource *t
 
 uint64_t ctu::RequestRestResource::handleMessage_Resource_POP(uint64_t a1, void (***a2)(void **__return_ptr, void), uint64_t a3, const void *a4, const void *a5)
 {
-  v18[0] = a4;
-  v18[1] = a5;
-  ctu::llvm::StringRef::operator std::string(v18, &__p);
-  boost::container::dtl::flat_tree<boost::container::dtl::pair<std::string,std::unique_ptr<ctu::RestResourceBase>>,boost::container::dtl::select1st<std::string>,std::less<std::string>,boost::container::new_allocator<boost::container::dtl::pair<std::string,std::unique_ptr<ctu::RestResourceBase>>>>::find(&v22, (a1 + 8), &__p);
-  v7 = v22;
-  if (v21 < 0)
+  v14[0] = a4;
+  v14[1] = a5;
+  ctu::llvm::StringRef::operator std::string(v14, &__p);
+  boost::container::dtl::flat_tree<boost::container::dtl::pair<std::string,std::unique_ptr<ctu::RestResourceBase>>,boost::container::dtl::select1st<std::string>,std::less<std::string>,boost::container::new_allocator<boost::container::dtl::pair<std::string,std::unique_ptr<ctu::RestResourceBase>>>>::find(&v18, (a1 + 8), &__p);
+  v7 = v18;
+  if (v17 < 0)
   {
     operator delete(__p);
   }
@@ -2820,35 +1975,23 @@ uint64_t ctu::RequestRestResource::handleMessage_Resource_POP(uint64_t a1, void 
   if (v7 != *(a1 + 8) + 32 * *(a1 + 16))
   {
     v8 = *(v7 + 24);
-    v9 = *(v8 + 8);
-    if (v9)
-    {
-      v10 = *(v9 + 8);
-    }
-
     (**a2)(&__p, a2);
-    v11 = *(v8 + 8);
-    v12 = v20;
-    if (v20)
+    v9 = *(v8 + 8);
+    v10 = v16;
+    if (v16)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v20);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v16);
     }
 
-    if (v12 == v11)
+    if (v10 == v9)
     {
-      v13 = *(v7 + 24);
-      v14 = v13[1];
-      *v13 = 0;
-      v13[1] = 0;
-      if (v14)
+      v11 = *(v7 + 24);
+      v12 = v11[1];
+      *v11 = 0;
+      v11[1] = 0;
+      if (v12)
       {
-        std::__shared_weak_count::__release_weak(v14);
-      }
-
-      v15 = *(*(v7 + 24) + 8);
-      if (v15)
-      {
-        v16 = *(v15 + 8);
+        std::__shared_weak_count::__release_weak(v12);
       }
     }
   }
@@ -2927,20 +2070,20 @@ void sub_1A912A7BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ctu::RequestRestResource::getResourceArray(ctu::RequestRestResource *this@<X0>, xpc_object_t *a2@<X8>)
+void ctu::RequestRestResource::getResourceArray(xpc_object_t *__return_ptr a1@<X8>, ctu::RequestRestResource *this@<X0>)
 {
-  *a2 = 0xAAAAAAAAAAAAAAAALL;
+  *a1 = 0xAAAAAAAAAAAAAAAALL;
   v4 = xpc_array_create(0, 0);
   v5 = v4;
   if (v4)
   {
-    *a2 = v4;
+    *a1 = v4;
   }
 
   else
   {
     v5 = xpc_null_create();
-    *a2 = v5;
+    *a1 = v5;
     if (!v5)
     {
       v6 = xpc_null_create();
@@ -2957,7 +2100,7 @@ void ctu::RequestRestResource::getResourceArray(ctu::RequestRestResource *this@<
 
   v6 = xpc_null_create();
 LABEL_8:
-  *a2 = v6;
+  *a1 = v6;
 LABEL_9:
   xpc_release(v5);
   v7 = *(this + 2);
@@ -2995,7 +2138,7 @@ LABEL_9:
         v12 = xpc_null_create();
       }
 
-      xpc_array_append_value(*a2, v12);
+      xpc_array_append_value(*a1, v12);
       xpc_release(v12);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
@@ -3010,9 +2153,9 @@ LABEL_9:
   }
 }
 
-BOOL ctu::RequestRestResource::createIfNotPresent(void *a1, uint64_t a2, __int128 **a3)
+BOOL ctu::RequestRestResource::createIfNotPresent(void *a1, uint64_t a2, char **a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v3 = a1[1];
   v5 = a1[2];
   v4 = a1 + 1;
@@ -3023,32 +2166,32 @@ BOOL ctu::RequestRestResource::createIfNotPresent(void *a1, uint64_t a2, __int12
     v11 = operator new(0x10uLL);
     *v11 = 0;
     v11[1] = 0;
-    v23[0] = v11;
+    v22[0] = v11;
     *&v12 = 0xAAAAAAAAAAAAAAAALL;
     *(&v12 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    *v25 = v12;
-    *&v25[16] = v12;
+    *v24 = v12;
+    *&v24[16] = v12;
     if (*(a2 + 23) < 0)
     {
-      std::string::__init_copy_ctor_external(v25, *a2, *(a2 + 8));
+      std::string::__init_copy_ctor_external(v24, *a2, *(a2 + 8));
       v3 = a1[1];
       v5 = a1[2];
     }
 
     else
     {
-      *v25 = *a2;
-      *&v25[16] = *(a2 + 16);
+      *v24 = *a2;
+      *&v24[16] = *(a2 + 16);
     }
 
-    v23[0] = 0;
-    *&v25[24] = v11;
-    v23[1] = v25;
-    v23[2] = v4;
+    v22[0] = 0;
+    *&v24[24] = v11;
+    v22[1] = v24;
+    v22[2] = v4;
     v13 = &v3[2 * v5];
     while (v5)
     {
-      if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v3[2 * (v5 >> 1)], v25) & 0x80u) == 0)
+      if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v3[2 * (v5 >> 1)], v24) & 0x80u) == 0)
       {
         v5 >>= 1;
       }
@@ -3060,13 +2203,13 @@ BOOL ctu::RequestRestResource::createIfNotPresent(void *a1, uint64_t a2, __int12
       }
     }
 
-    if (v3 == v13 || (std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v25, v3) & 0x80) != 0)
+    if (v3 == v13 || (std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v24, v3) & 0x80) != 0)
     {
       v14 = a1[2];
       if (a1[3] == v14)
       {
-        boost::container::vector<boost::container::dtl::pair<std::string,std::unique_ptr<ctu::RequestRestResourceState>>,boost::container::new_allocator<boost::container::dtl::pair<std::string,std::unique_ptr<ctu::RequestRestResourceState>>>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_emplace_proxy<boost::container::new_allocator<boost::container::dtl::pair<std::string,std::unique_ptr<ctu::RequestRestResourceState>>>,boost::container::dtl::pair<std::string,std::unique_ptr<ctu::RequestRestResourceState>>*,boost::container::dtl::pair<std::string,std::unique_ptr<ctu::RequestRestResourceState>>>>(&v24, v4, v3, v25);
-        v3 = v24;
+        boost::container::vector<boost::container::dtl::pair<std::string,std::unique_ptr<ctu::RequestRestResourceState>>,boost::container::new_allocator<boost::container::dtl::pair<std::string,std::unique_ptr<ctu::RequestRestResourceState>>>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_emplace_proxy<boost::container::new_allocator<boost::container::dtl::pair<std::string,std::unique_ptr<ctu::RequestRestResourceState>>>,boost::container::dtl::pair<std::string,std::unique_ptr<ctu::RequestRestResourceState>>*,boost::container::dtl::pair<std::string,std::unique_ptr<ctu::RequestRestResourceState>>>>(&v23, v4, v3, v24);
+        v3 = v23;
       }
 
       else
@@ -3074,11 +2217,11 @@ BOOL ctu::RequestRestResource::createIfNotPresent(void *a1, uint64_t a2, __int12
         v15 = *v4 + 32 * v14;
         if (v15 == v3)
         {
-          v20 = *v25;
-          *(v15 + 16) = *&v25[16];
+          v20 = *v24;
+          *(v15 + 16) = *&v24[16];
           *v15 = v20;
-          memset(v25, 0, sizeof(v25));
-          *(v15 + 24) = *&v25[24];
+          memset(v24, 0, sizeof(v24));
+          *(v15 + 24) = *&v24[24];
           ++a1[2];
         }
 
@@ -3107,31 +2250,29 @@ BOOL ctu::RequestRestResource::createIfNotPresent(void *a1, uint64_t a2, __int12
             while (v19 != v3);
           }
 
-          boost::container::dtl::pair<std::string,std::unique_ptr<ctu::RequestRestResourceState>>::operator=(v3, v25);
+          boost::container::dtl::pair<std::string,std::unique_ptr<ctu::RequestRestResourceState>>::operator=(v3, v24);
         }
       }
     }
 
-    std::unique_ptr<ctu::RequestRestResourceState>::reset[abi:ne200100](&v25[24], 0);
-    if ((v25[23] & 0x80000000) != 0)
+    std::unique_ptr<ctu::RequestRestResourceState>::reset[abi:ne200100](&v24[24], 0);
+    if ((v24[23] & 0x80000000) != 0)
     {
-      operator delete(*v25);
+      operator delete(*v24);
     }
 
     *a3 = v3;
-    std::unique_ptr<ctu::RequestRestResourceState>::reset[abi:ne200100](v23, 0);
+    std::unique_ptr<ctu::RequestRestResourceState>::reset[abi:ne200100](v22, 0);
   }
 
-  result = v7 == v6;
-  v22 = *MEMORY[0x1E69E9840];
-  return result;
+  return v7 == v6;
 }
 
-void sub_1A912AC04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1A912AC04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, void *);
+  va_start(va1, a5);
+  va_start(va, a5);
+  v6 = va_arg(va1, void *);
   boost::container::dtl::value_destructor<boost::container::new_allocator<boost::container::dtl::pair<std::string,std::unique_ptr<ctu::RequestRestResourceState>>>,boost::container::dtl::pair<std::string,std::unique_ptr<ctu::RequestRestResourceState>>>::~value_destructor(va1);
   std::unique_ptr<ctu::RequestRestResourceState>::reset[abi:ne200100](va, 0);
   _Unwind_Resume(a1);
@@ -3226,7 +2367,7 @@ LABEL_27:
   v17 = operator new(32 * v11);
   v18 = v17;
   v19 = *a2;
-  v20 = *a2 + 32 * *(a2 + 1);
+  v20 = (*a2 + 32 * *(a2 + 1));
   v21 = v17;
   if (*a2 != a3)
   {
@@ -3235,33 +2376,33 @@ LABEL_27:
     do
     {
       v23 = *v22;
-      *(v21 + 2) = *(v22 + 2);
+      v21[2] = *(v22 + 16);
       *v21 = v23;
       *v22 = 0;
-      *(v22 + 1) = 0;
-      v24 = *(v22 + 3);
-      *(v22 + 2) = 0;
-      *(v22 + 3) = 0;
-      *(v21 + 3) = v24;
+      *(v22 + 8) = 0;
+      v24 = *(v22 + 24);
+      *(v22 + 16) = 0;
+      *(v22 + 24) = 0;
+      v21[3] = v24;
       v22 += 32;
-      v21 += 32;
+      v21 += 4;
     }
 
     while (v22 != a3);
   }
 
   v25 = *a4;
-  *(v21 + 2) = *(a4 + 2);
+  v21[2] = *(a4 + 2);
   *v21 = v25;
   *a4 = 0;
   *(a4 + 1) = 0;
   v26 = *(a4 + 3);
   *(a4 + 2) = 0;
   *(a4 + 3) = 0;
-  *(v21 + 3) = v26;
+  v21[3] = v26;
   if (v20 != a3)
   {
-    v27 = v21 + 56;
+    v27 = v21 + 7;
     v28 = a3;
     do
     {
@@ -3309,7 +2450,7 @@ LABEL_27:
   *a2 = v18;
   *(a2 + 1) = v33;
   *(a2 + 2) = v11;
-  *a1 = &v18[a3 - v16];
+  *a1 = a3 + v18 - v16;
 }
 
 uint64_t boost::container::dtl::pair<std::string,std::unique_ptr<ctu::RequestRestResourceState>>::operator=(uint64_t a1, __int128 *a2)
@@ -3424,258 +2565,257 @@ uint64_t mav_buffer_queue_enqueue_internal(uint64_t a1, dispatch_data_t *a2)
 {
   v4 = *a2;
   size = dispatch_data_get_size(*a2);
-  v6 = *(a1 + 8);
-  v7 = *(a1 + 16);
-  v8 = *(a1 + 8);
-  v9 = v7 - v8;
+  v6 = *(a1 + 16);
+  v7 = *(a1 + 8);
+  v8 = v6 - v7;
   *(a1 + 48) += size;
-  if (v7 == v8)
+  if (v6 == v7)
   {
-    v10 = 0;
+    v9 = 0;
   }
 
   else
   {
-    v10 = ((v7 - v8) << 6) - 1;
+    v9 = ((v6 - v7) << 6) - 1;
   }
 
-  v12 = *(a1 + 32);
-  v11 = *(a1 + 40);
-  v13 = v11 + v12;
-  if (v10 == v11 + v12)
+  v11 = *(a1 + 32);
+  v10 = *(a1 + 40);
+  v12 = v10 + v11;
+  if (v9 == v10 + v11)
   {
-    if (v12 < 0x200)
+    if (v11 < 0x200)
     {
-      v14 = *(a1 + 24);
-      v15 = *a1;
-      v16 = &v14[-*a1];
-      if (v9 >= v16)
+      v13 = *(a1 + 24);
+      v14 = *a1;
+      v15 = &v13[-*a1];
+      if (v8 >= v15)
       {
-        v19 = v16 >> 2;
-        if (v14 == v15)
+        v18 = v15 >> 2;
+        if (v13 == v14)
         {
-          v20 = 1;
+          v19 = 1;
         }
 
         else
         {
-          v20 = v19;
+          v19 = v18;
         }
 
-        v21 = std::__allocate_at_least[abi:ne200100]<std::allocator<std::__state<char> *>>(v20);
-        v23 = v22;
-        v24 = operator new(0x1000uLL);
-        v25 = &v21[v9];
-        v26 = &v21[8 * v23];
-        if (v9 == 8 * v23)
+        v20 = std::__allocate_at_least[abi:ne200100]<std::allocator<std::__state<char> *>>(v19);
+        v22 = v21;
+        v23 = operator new(0x1000uLL);
+        v24 = &v20[v8];
+        v25 = &v20[8 * v22];
+        if (v8 == 8 * v22)
         {
-          v27 = v7 - v8;
-          if (v9 < 1)
+          v26 = v6 - v7;
+          if (v8 < 1)
           {
-            v39 = v27 >> 2;
-            if (v7 == v8)
+            v38 = v26 >> 2;
+            if (v6 == v7)
             {
-              v40 = 1;
+              v39 = 1;
             }
 
             else
             {
-              v40 = v39;
+              v39 = v38;
             }
 
-            v41 = std::__allocate_at_least[abi:ne200100]<std::allocator<std::__state<char> *>>(v40);
-            v25 = &v41[8 * (v40 >> 2)];
-            v26 = &v41[8 * v42];
-            if (v21)
+            v40 = std::__allocate_at_least[abi:ne200100]<std::allocator<std::__state<char> *>>(v39);
+            v24 = &v40[8 * (v39 >> 2)];
+            v25 = &v40[8 * v41];
+            if (v20)
             {
-              operator delete(v21);
+              operator delete(v20);
             }
 
-            v21 = v41;
+            v20 = v40;
           }
 
           else
           {
-            v25 -= 8 * (((v27 >> 3) + 1 + (((v27 >> 3) + 1) >> 63)) >> 1);
+            v24 -= 8 * (((v26 >> 3) + 1 + (((v26 >> 3) + 1) >> 63)) >> 1);
           }
         }
 
-        *v25 = v24;
-        v43 = v25 + 8;
-        v44 = *(a1 + 16);
-        if (v44 == *(a1 + 8))
+        *v24 = v23;
+        v42 = v24 + 8;
+        v43 = *(a1 + 16);
+        if (v43 == *(a1 + 8))
         {
-          v56 = v25;
+          v55 = v24;
         }
 
         else
         {
           do
           {
-            if (v25 == v21)
+            if (v24 == v20)
             {
-              if (v43 >= v26)
+              if (v42 >= v25)
               {
-                if (v26 == v21)
+                if (v25 == v20)
                 {
-                  v48 = 1;
+                  v47 = 1;
                 }
 
                 else
                 {
-                  v48 = (v26 - v21) >> 2;
+                  v47 = (v25 - v20) >> 2;
                 }
 
-                v49 = std::__allocate_at_least[abi:ne200100]<std::allocator<std::__state<char> *>>(v48);
-                v51 = v49;
-                v45 = &v49[(2 * v48 + 6) & 0xFFFFFFFFFFFFFFF8];
-                v52 = v43 - v21;
-                v46 = v43 == v21;
-                v43 = v45;
-                if (!v46)
+                v48 = std::__allocate_at_least[abi:ne200100]<std::allocator<std::__state<char> *>>(v47);
+                v50 = v48;
+                v44 = &v48[(2 * v47 + 6) & 0xFFFFFFFFFFFFFFF8];
+                v51 = v42 - v20;
+                v45 = v42 == v20;
+                v42 = v44;
+                if (!v45)
                 {
-                  v43 = &v45[v52];
-                  v53 = v45;
+                  v42 = &v44[v51];
+                  v52 = v44;
                   do
                   {
-                    v54 = *v25;
-                    v25 += 8;
-                    *v53 = v54;
-                    v53 += 8;
-                    v52 -= 8;
+                    v53 = *v24;
+                    v24 += 8;
+                    *v52 = v53;
+                    v52 += 8;
+                    v51 -= 8;
                   }
 
-                  while (v52);
+                  while (v51);
                 }
 
-                v26 = &v49[8 * v50];
-                if (v21)
+                v25 = &v48[8 * v49];
+                if (v20)
                 {
-                  operator delete(v21);
+                  operator delete(v20);
                 }
 
-                v21 = v51;
+                v20 = v50;
               }
 
               else
               {
-                v45 = &v21[8 * ((((v26 - v43) >> 3) + 1 + ((((v26 - v43) >> 3) + 1) >> 63)) >> 1)];
-                v47 = v43 - v21;
-                v46 = v43 == v21;
-                v43 += 8 * ((((v26 - v43) >> 3) + 1 + ((((v26 - v43) >> 3) + 1) >> 63)) >> 1);
-                if (!v46)
+                v44 = &v20[8 * ((((v25 - v42) >> 3) + 1 + ((((v25 - v42) >> 3) + 1) >> 63)) >> 1)];
+                v46 = v42 - v20;
+                v45 = v42 == v20;
+                v42 += 8 * ((((v25 - v42) >> 3) + 1 + ((((v25 - v42) >> 3) + 1) >> 63)) >> 1);
+                if (!v45)
                 {
-                  memmove(v45, v25, v47);
+                  memmove(v44, v24, v46);
                 }
               }
             }
 
             else
             {
-              v45 = v25;
+              v44 = v24;
             }
 
-            v55 = *(v44 - 8);
-            v44 -= 8;
-            *(v45 - 1) = v55;
-            v56 = v45 - 8;
-            v25 = v56;
+            v54 = *(v43 - 8);
+            v43 -= 8;
+            *(v44 - 1) = v54;
+            v55 = v44 - 8;
+            v24 = v55;
           }
 
-          while (v44 != *(a1 + 8));
+          while (v43 != *(a1 + 8));
         }
 
-        v57 = *a1;
-        *a1 = v21;
-        *(a1 + 8) = v56;
-        *(a1 + 16) = v43;
-        *(a1 + 24) = v26;
-        if (v57)
+        v56 = *a1;
+        *a1 = v20;
+        *(a1 + 8) = v55;
+        *(a1 + 16) = v42;
+        *(a1 + 24) = v25;
+        if (v56)
         {
-          operator delete(v57);
+          operator delete(v56);
         }
 
         goto LABEL_53;
       }
 
-      v17 = operator new(0x1000uLL);
-      v18 = v17;
-      if (v14 != v7)
+      v16 = operator new(0x1000uLL);
+      v17 = v16;
+      if (v13 != v6)
       {
-        *v7 = v17;
+        *v6 = v16;
         *(a1 + 16) += 8;
         goto LABEL_53;
       }
 
-      if (v8 == v15)
+      if (v7 == v14)
       {
-        if (v7 == v8)
+        if (v6 == v7)
         {
-          v28 = 1;
+          v27 = 1;
         }
 
         else
         {
-          v28 = (v14 - v8) >> 2;
+          v27 = (v13 - v7) >> 2;
         }
 
-        v29 = 2 * v28;
-        v30 = std::__allocate_at_least[abi:ne200100]<std::allocator<std::__state<char> *>>(v28);
-        v8 = &v30[(v29 + 6) & 0xFFFFFFFFFFFFFFF8];
-        v32 = *(a1 + 8);
-        v33 = v8;
-        v34 = *(a1 + 16) - v32;
-        if (v34)
+        v28 = 2 * v27;
+        v29 = std::__allocate_at_least[abi:ne200100]<std::allocator<std::__state<char> *>>(v27);
+        v7 = &v29[(v28 + 6) & 0xFFFFFFFFFFFFFFF8];
+        v31 = *(a1 + 8);
+        v32 = v7;
+        v33 = *(a1 + 16) - v31;
+        if (v33)
         {
-          v33 = &v8[v34];
-          v35 = &v30[(v29 + 6) & 0xFFFFFFFFFFFFFFF8];
+          v32 = &v7[v33];
+          v34 = &v29[(v28 + 6) & 0xFFFFFFFFFFFFFFF8];
           do
           {
-            v36 = *v32++;
-            *v35 = v36;
-            v35 += 8;
-            v34 -= 8;
+            v35 = *v31++;
+            *v34 = v35;
+            v34 += 8;
+            v33 -= 8;
           }
 
-          while (v34);
+          while (v33);
         }
 
-        v37 = *a1;
-        *a1 = v30;
-        *(a1 + 8) = v8;
-        *(a1 + 16) = v33;
-        *(a1 + 24) = &v30[8 * v31];
-        if (v37)
+        v36 = *a1;
+        *a1 = v29;
+        *(a1 + 8) = v7;
+        *(a1 + 16) = v32;
+        *(a1 + 24) = &v29[8 * v30];
+        if (v36)
         {
-          operator delete(v37);
-          v8 = *(a1 + 8);
+          operator delete(v36);
+          v7 = *(a1 + 8);
         }
       }
 
-      *(v8 - 1) = v18;
-      v38 = *(a1 + 8);
-      *(a1 + 8) = v38 - 8;
-      v59 = *(v38 - 8);
-      *(a1 + 8) = v38;
+      *(v7 - 1) = v17;
+      v37 = *(a1 + 8);
+      *(a1 + 8) = v37 - 8;
+      v58 = *(v37 - 8);
+      *(a1 + 8) = v37;
     }
 
     else
     {
-      *(a1 + 32) = v12 - 512;
-      v59 = *v8;
-      *(a1 + 8) = v8 + 8;
+      *(a1 + 32) = v11 - 512;
+      v58 = *v7;
+      *(a1 + 8) = v7 + 8;
     }
 
-    std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_back<std::__state<char> *&>(a1, &v59);
+    std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_back<std::__state<char> *&>(a1, &v58);
 LABEL_53:
-    v8 = *(a1 + 8);
-    v11 = *(a1 + 40);
-    v13 = *(a1 + 32) + v11;
+    v7 = *(a1 + 8);
+    v10 = *(a1 + 40);
+    v12 = *(a1 + 32) + v10;
     v4 = *a2;
   }
 
-  *(*&v8[(v13 >> 6) & 0x3FFFFFFFFFFFFF8] + 8 * (v13 & 0x1FF)) = v4;
-  *(a1 + 40) = v11 + 1;
+  *(*&v7[(v12 >> 6) & 0x3FFFFFFFFFFFFF8] + 8 * (v12 & 0x1FF)) = v4;
+  *(a1 + 40) = v10 + 1;
   *a2 = 0;
   return 0;
 }
@@ -4122,24 +3262,6 @@ uint64_t ctu::PathView::tail(ctu::PathView *this)
   return result;
 }
 
-uint64_t ctu::PathView::head(ctu::PathView *this)
-{
-  if (*(this + 3))
-  {
-    result = *this;
-    v3 = *(this + 2) - *this - 1;
-    *(this + 1);
-  }
-
-  else
-  {
-    result = *this;
-    v4 = *(this + 1);
-  }
-
-  return result;
-}
-
 BOOL ctu::PathView::hasHead(ctu::PathView *this)
 {
   v1 = *(this + 2);
@@ -4258,7 +3380,7 @@ LABEL_29:
   return 1;
 }
 
-uint64_t xpc::dyn_cast_or_default@<X0>(xpc_object_t *a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+uint64_t xpc::dyn_cast_or_default@<X0>(xpc_object_t *a1@<X0>, const void **a2@<X1>, void *a3@<X8>)
 {
   if (MEMORY[0x1AC581B70](*a1) == MEMORY[0x1E69E9E70] && (bytes_ptr = xpc_data_get_bytes_ptr(*a1)) != 0)
   {
@@ -4289,7 +3411,7 @@ uint64_t xpc::dyn_cast_or_default@<X0>(xpc_object_t *a1@<X0>, uint64_t a2@<X1>, 
     a3[1] = 0;
     a3[2] = 0;
     v6 = *a2;
-    v7 = *(a2 + 8);
+    v7 = a2[1];
     v8 = v7 - *a2;
 
     return std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(a3, v6, v7, v8);
@@ -4298,7 +3420,7 @@ uint64_t xpc::dyn_cast_or_default@<X0>(xpc_object_t *a1@<X0>, uint64_t a2@<X1>, 
   return result;
 }
 
-void xpc::dyn_cast_or_default(xpc_object_t *a1@<X0>, void *a2@<X1>, uint64_t *a3@<X8>)
+void xpc::dyn_cast_or_default(xpc_object_t *a1@<X0>, void *a2@<X1>, uint64_t **a3@<X8>)
 {
   if (MEMORY[0x1AC581B70](*a1) == MEMORY[0x1E69E9E70])
   {
@@ -4317,7 +3439,7 @@ void xpc::dyn_cast_or_default(xpc_object_t *a1@<X0>, void *a2@<X1>, uint64_t *a3
       v8 = v12;
       *a3 = v11;
       a3[1] = v8;
-      v9 = a3 + 1;
+      v9 = (a3 + 1);
       v10 = v13;
       a3[2] = v13;
       if (v10)
@@ -4470,7 +3592,7 @@ uint64_t *std::__tree<unsigned char>::__emplace_hint_unique_key_args<unsigned ch
 {
   v5 = a2;
   v6 = result;
-  v7 = (result + 1);
+  v7 = result + 1;
   if (result + 1 != a2)
   {
     v8 = *(a2 + 25);
@@ -4550,7 +3672,7 @@ uint64_t *std::__tree<unsigned char>::__emplace_hint_unique_key_args<unsigned ch
           return result;
         }
 
-        v21 = v21[1];
+        v21 = *(v21 + 8);
         if (!v21)
         {
 LABEL_30:
@@ -4628,7 +3750,7 @@ LABEL_30:
           return result;
         }
 
-        v18 = v18[1];
+        v18 = *(v18 + 8);
         if (!v18)
         {
           goto LABEL_30;
@@ -4875,10 +3997,10 @@ void sub_1A912C814(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t ctu::xpc_to_cf@<X0>(void *a1@<X8>)
+uint64_t ctu::xpc_to_cf@<X0>(void *a2@<X8>)
 {
   result = _CFXPCCreateCFObjectFromXPCObject();
-  *a1 = result;
+  *a2 = result;
   return result;
 }
 
@@ -5093,7 +4215,7 @@ void sub_1A912CC9C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t ctu::TimerService::scheduleAfterImpl(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v20[4] = *MEMORY[0x1E69E9840];
+  v19[4] = *MEMORY[0x1E69E9840];
   global_queue = dispatch_get_global_queue(0, 0);
   v11 = global_queue;
   if (global_queue)
@@ -5105,19 +4227,19 @@ uint64_t ctu::TimerService::scheduleAfterImpl(uint64_t a1, uint64_t a2, uint64_t
   aBlock[1] = 1174405120;
   aBlock[2] = ___ZN3ctu12TimerService17scheduleAfterImplENSt3__112basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEENS1_5tupleIJNS_8TimeTypeENS1_6chrono8durationIxNS1_5ratioILl1ELl1000000EEEEEEEENS1_8functionIFvvEEE_block_invoke;
   aBlock[3] = &__block_descriptor_tmp_19;
-  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v20, a5);
+  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v19, a5);
   v12 = _Block_copy(aBlock);
   *__p = *a2;
-  v18 = *(a2 + 16);
+  v17 = *(a2 + 16);
   *(a2 + 8) = 0;
   *(a2 + 16) = 0;
   *a2 = 0;
-  v15 = v12;
+  v14 = v12;
   object = v11;
-  (*(*a1 + 8))(a1, __p, a3, a4, &object, &v15);
-  if (v15)
+  (*(*a1 + 8))(a1, __p, a3, a4, &object, &v14);
+  if (v14)
   {
-    _Block_release(v15);
+    _Block_release(v14);
   }
 
   if (object)
@@ -5125,14 +4247,12 @@ uint64_t ctu::TimerService::scheduleAfterImpl(uint64_t a1, uint64_t a2, uint64_t
     dispatch_release(object);
   }
 
-  if (SHIBYTE(v18) < 0)
+  if (SHIBYTE(v17) < 0)
   {
     operator delete(__p[0]);
   }
 
-  result = std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v20);
-  v14 = *MEMORY[0x1E69E9840];
-  return result;
+  return std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v19);
 }
 
 void sub_1A912CE50(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *aBlock, dispatch_object_t object, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16)
@@ -5160,7 +4280,7 @@ uint64_t ___ZN3ctu12TimerService17scheduleAfterImplENSt3__112basic_stringIcNS1_1
 
 uint64_t ctu::TimerService::createOneShotTimerImpl(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, intptr_t identifier, uint64_t a6)
 {
-  v22[4] = *MEMORY[0x1E69E9840];
+  v21[4] = *MEMORY[0x1E69E9840];
   global_queue = dispatch_get_global_queue(identifier, 0);
   v13 = global_queue;
   if (global_queue)
@@ -5172,19 +4292,19 @@ uint64_t ctu::TimerService::createOneShotTimerImpl(uint64_t a1, uint64_t a2, uin
   aBlock[1] = 1174405120;
   aBlock[2] = ___ZN3ctu12TimerService22createOneShotTimerImplENSt3__112basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEENS1_5tupleIJNS_8TimeTypeENS1_6chrono8durationIxNS1_5ratioILl1ELl1000000EEEEEEEE11qos_class_tNS1_8functionIFvvEEE_block_invoke;
   aBlock[3] = &__block_descriptor_tmp_3_1;
-  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v22, a6);
+  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v21, a6);
   v14 = _Block_copy(aBlock);
-  v20 = *(a2 + 16);
+  v19 = *(a2 + 16);
   *__p = *a2;
   *(a2 + 8) = 0;
   *(a2 + 16) = 0;
   *a2 = 0;
-  v17 = v14;
+  v16 = v14;
   object = v13;
-  (*(*a1 + 16))(a1, __p, a3, a4, identifier, &object, &v17);
-  if (v17)
+  (*(*a1 + 16))(a1, __p, a3, a4, identifier, &object, &v16);
+  if (v16)
   {
-    _Block_release(v17);
+    _Block_release(v16);
   }
 
   if (object)
@@ -5192,14 +4312,12 @@ uint64_t ctu::TimerService::createOneShotTimerImpl(uint64_t a1, uint64_t a2, uin
     dispatch_release(object);
   }
 
-  if (SHIBYTE(v20) < 0)
+  if (SHIBYTE(v19) < 0)
   {
     operator delete(__p[0]);
   }
 
-  result = std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v22);
-  v16 = *MEMORY[0x1E69E9840];
-  return result;
+  return std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v21);
 }
 
 void sub_1A912D0A4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *aBlock, dispatch_object_t object, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16)
@@ -5227,7 +4345,7 @@ uint64_t ___ZN3ctu12TimerService22createOneShotTimerImplENSt3__112basic_stringIc
 
 uint64_t ctu::TimerService::createPeriodicTimerImpl(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, intptr_t identifier, uint64_t a6)
 {
-  v22[4] = *MEMORY[0x1E69E9840];
+  v21[4] = *MEMORY[0x1E69E9840];
   global_queue = dispatch_get_global_queue(identifier, 0);
   v13 = global_queue;
   if (global_queue)
@@ -5239,19 +4357,19 @@ uint64_t ctu::TimerService::createPeriodicTimerImpl(uint64_t a1, uint64_t a2, ui
   aBlock[1] = 1174405120;
   aBlock[2] = ___ZN3ctu12TimerService23createPeriodicTimerImplENSt3__112basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEENS1_5tupleIJNS_8TimeTypeENS1_6chrono8durationIxNS1_5ratioILl1ELl1000000EEEEEEEE11qos_class_tNS1_8functionIFvvEEE_block_invoke;
   aBlock[3] = &__block_descriptor_tmp_6_0;
-  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v22, a6);
+  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v21, a6);
   v14 = _Block_copy(aBlock);
   *__p = *a2;
-  v20 = *(a2 + 16);
+  v19 = *(a2 + 16);
   *(a2 + 8) = 0;
   *(a2 + 16) = 0;
   *a2 = 0;
-  v17 = v14;
+  v16 = v14;
   object = v13;
-  (*(*a1 + 24))(a1, __p, a3, a4, identifier, &object, &v17);
-  if (v17)
+  (*(*a1 + 24))(a1, __p, a3, a4, identifier, &object, &v16);
+  if (v16)
   {
-    _Block_release(v17);
+    _Block_release(v16);
   }
 
   if (object)
@@ -5259,14 +4377,12 @@ uint64_t ctu::TimerService::createPeriodicTimerImpl(uint64_t a1, uint64_t a2, ui
     dispatch_release(object);
   }
 
-  if (SHIBYTE(v20) < 0)
+  if (SHIBYTE(v19) < 0)
   {
     operator delete(__p[0]);
   }
 
-  result = std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v22);
-  v16 = *MEMORY[0x1E69E9840];
-  return result;
+  return std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v21);
 }
 
 void sub_1A912D2E4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *aBlock, dispatch_object_t object, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16)
@@ -5350,18 +4466,18 @@ void sub_1A912D4B4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ctu::Gestalt::create_default_global(void *a1@<X8>)
+void ctu::Gestalt::create_default_global(uint64_t *__return_ptr a1@<X8>)
 {
-  v3 = operator new(0x20uLL);
-  v3[1] = 0;
-  v3[2] = 0;
-  *v3 = &unk_1F1CB50E8;
-  v3[3] = &unk_1F1CB7578;
+  v2 = operator new(0x20uLL);
+  v2[1] = 0;
+  v2[2] = 0;
+  *v2 = &unk_1F1CB50E8;
+  v2[3] = &unk_1F1CB7578;
   {
   }
 
-  *a1 = v3 + 3;
-  a1[1] = v3;
+  *a1 = (v2 + 3);
+  a1[1] = v2;
 }
 
 void std::__shared_ptr_emplace<anonymous namespace::GestaltIos>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
@@ -5404,85 +4520,85 @@ uint64_t anonymous namespace::GestaltIos::isInternalOrCarrierBuild(_anonymous_na
   return v3(this);
 }
 
-uint64_t **anonymous namespace::GestaltIos::getDeviceMaterial@<X0>(uint64_t a1@<X8>)
+uint64_t **anonymous namespace::GestaltIos::getDeviceMaterial@<X0>(uint64_t ***a1@<X8>)
 {
-  *(a1 + 8) = 0;
-  *(a1 + 16) = 0;
-  *a1 = a1 + 8;
-  v9 = 1;
-  *(std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(a1, 1u, &v9) + 8) = MGValueAs;
-  v9 = 1;
-  v4 = *(std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(a1, 1u, &v9) + 8);
-  v8 = 2;
-  *(std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(a1, 2u, &v8) + 8) = v4;
-  v9 = 3;
-  *(std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(a1, 3u, &v9) + 8) = v5;
-  v9 = 4;
-  result = std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(a1, 4u, &v9);
-  *(result + 8) = v6;
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = (a1 + 1);
+  v8 = 1;
+  *(std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(a1, 1u, &v8) + 8) = MGValueAs;
+  v8 = 1;
+  v3 = *(std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(a1, 1u, &v8) + 8);
+  v7 = 2;
+  *(std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(a1, 2u, &v7) + 8) = v3;
+  v8 = 3;
+  *(std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(a1, 3u, &v8) + 8) = v4;
+  v8 = 4;
+  result = std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(a1, 4u, &v8);
+  *(result + 8) = v5;
   return result;
 }
 
-const void **anonymous namespace::GestaltIos::getNVRAMVar@<X0>(void *a1@<X8>)
+const void **anonymous namespace::GestaltIos::getNVRAMVar@<X0>(uint64_t **a1@<X8>)
 {
   a1[1] = 0;
-  v3 = a1 + 1;
+  v2 = a1 + 1;
   a1[2] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   cf = 0;
   if (off_1EB382910)
   {
-    v4 = off_1EB382910(@"NVRAMDictionary", 0);
-    v5 = cf;
-    cf = v4;
-    v18 = v5;
-    ctu::SharedRef<void const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,void const>::~SharedRef(&v18);
+    v3 = off_1EB382910(@"NVRAMDictionary", 0);
+    v4 = cf;
+    cf = v3;
+    v17 = v4;
+    ctu::SharedRef<void const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,void const>::~SharedRef(&v17);
     if (cf)
     {
-      v6 = CFGetTypeID(cf);
-      if (v6 == CFDictionaryGetTypeID())
+      v5 = CFGetTypeID(cf);
+      if (v5 == CFDictionaryGetTypeID())
       {
+        v18 = 0;
         v19 = 0;
-        v20 = 0;
-        context[1] = &v19;
-        v18 = &v19;
-        context[0] = &v18;
+        context[1] = &v18;
+        v17 = &v18;
+        context[0] = &v17;
         CFDictionaryApplyFunction(cf, ctu::cf::_Applier_InsertMapDefault<std::string,std::string,std::insert_iterator<std::map<std::string,std::string>>>, context);
-        v8 = *a1;
-        v7 = a1[1];
-        v9 = v19;
-        *a1 = v18;
-        a1[1] = v9;
-        v18 = v8;
-        v19 = v7;
-        v10 = a1[2];
-        v11 = v20;
-        a1[2] = v20;
-        v20 = v10;
-        v12 = v9 + 2;
-        if (v11)
-        {
-          v13 = v12;
-        }
-
-        else
-        {
-          v13 = a1;
-        }
-
-        *v13 = v3;
+        v7 = *a1;
+        v6 = a1[1];
+        v8 = v18;
+        *a1 = v17;
+        a1[1] = v8;
+        v17 = v7;
+        v18 = v6;
+        v9 = a1[2];
+        v10 = v19;
+        a1[2] = v19;
+        v19 = v9;
+        v11 = (v8 + 2);
         if (v10)
         {
-          v14 = v7 + 2;
+          v12 = v11;
         }
 
         else
         {
-          v14 = &v18;
+          v12 = a1;
         }
 
-        *v14 = &v19;
-        std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v7);
+        *v12 = v2;
+        if (v9)
+        {
+          v13 = (v6 + 2);
+        }
+
+        else
+        {
+          v13 = &v17;
+        }
+
+        *v13 = &v18;
+        std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v6);
       }
     }
   }
@@ -5490,7 +4606,7 @@ const void **anonymous namespace::GestaltIos::getNVRAMVar@<X0>(void *a1@<X8>)
   return ctu::SharedRef<void const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,void const>::~SharedRef(&cf);
 }
 
-void sub_1A912DA0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, const void *a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13)
+void sub_1A912DA0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13)
 {
   std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(a13);
   ctu::SharedRef<void const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,void const>::~SharedRef(&a9);
@@ -5536,9 +4652,9 @@ LABEL_8:
 
 void *___ZN12_GLOBAL__N_130ensureMobileGestaltDylibLoadedEv_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
-  strcpy(v2, "/usr/lib/libMobileGestalt.dylib");
-  result = dlopen(v2, 1);
+  v2 = *MEMORY[0x1E69E9840];
+  strcpy(v1, "/usr/lib/libMobileGestalt.dylib");
+  result = dlopen(v1, 1);
   _MergedGlobals_6 = result;
   if (result)
   {
@@ -5546,7 +4662,6 @@ void *___ZN12_GLOBAL__N_130ensureMobileGestaltDylibLoadedEv_block_invoke()
     off_1EB382910 = result;
   }
 
-  v1 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -5572,7 +4687,7 @@ const void **anonymous namespace::GestaltIos::getMGValue<std::string>(std::strin
   return ctu::SharedRef<void const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,void const>::~SharedRef(&cf);
 }
 
-void sub_1A912DC24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, const void *a9)
+void sub_1A912DC24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   ctu::SharedRef<void const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,void const>::~SharedRef(&a9);
   if (*(v9 + 23) < 0)
@@ -5662,9 +4777,9 @@ LABEL_6:
   return v3;
 }
 
-uint64_t **std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(uint64_t **a1, unsigned int a2, _DWORD *a3)
+uint64_t **std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(uint64_t ***a1, unsigned int a2, _DWORD *a3)
 {
-  v6 = a1 + 1;
+  v6 = (a1 + 1);
   v5 = a1[1];
   if (v5)
   {
@@ -5703,7 +4818,7 @@ uint64_t **std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_v
 
   else
   {
-    v7 = a1 + 1;
+    v7 = (a1 + 1);
 LABEL_9:
     v9 = v7;
     v7 = operator new(0x28uLL);
@@ -5728,7 +4843,7 @@ LABEL_9:
   return v7;
 }
 
-void ctu::cf::_Applier_InsertMapDefault<std::string,std::string,std::insert_iterator<std::map<std::string,std::string>>>(__CFString *cf, __CFString *a2, uint64_t *a3)
+void ctu::cf::_Applier_InsertMapDefault<std::string,std::string,std::insert_iterator<std::map<std::string,std::string>>>(__CFString *cf, __CFString *a2, uint64_t ***a3)
 {
   *v28 = 0u;
   v29 = 0u;
@@ -5744,7 +4859,7 @@ void ctu::cf::_Applier_InsertMapDefault<std::string,std::string,std::insert_iter
   v6 = a3[1];
   v32 = 0xAAAAAAAAAAAAAAAALL;
   v33 = 0xAAAAAAAAAAAAAAAALL;
-  if ((v5 + 8) == v6 || (std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v24, v6 + 4) & 0x80) != 0)
+  if ((v5 + 8) == v6 || (std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v24, v6 + 32) & 0x80) != 0)
   {
     v8 = v6;
     if (*v5 == v6)
@@ -5777,7 +4892,7 @@ void ctu::cf::_Applier_InsertMapDefault<std::string,std::string,std::insert_iter
       while (v14);
     }
 
-    if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v8 + 4, &v24.__r_.__value_.__l.__data_) & 0x80) != 0)
+    if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v8 + 4, &v24) & 0x80) != 0)
     {
 LABEL_18:
       if (!*v6)
@@ -5828,14 +4943,14 @@ LABEL_24:
       }
 
       v33 = v8;
-      v7 = v8 + 1;
+      v7 = (v8 + 1);
       goto LABEL_20;
     }
   }
 
   else
   {
-    if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v6 + 4, &v24.__r_.__value_.__l.__data_) & 0x80) == 0)
+    if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v6 + 4, &v24) & 0x80) == 0)
     {
       v32 = v6;
       v33 = v6;
@@ -5843,7 +4958,7 @@ LABEL_24:
       goto LABEL_21;
     }
 
-    v7 = v6 + 1;
+    v7 = (v6 + 1);
     v10 = v6[1];
     if (v10)
     {
@@ -5862,7 +4977,7 @@ LABEL_24:
       v23 = v6;
       do
       {
-        v12 = v23[2];
+        v12 = *(v23 + 2);
         v14 = *v12 == v23;
         v23 = v12;
       }
@@ -5875,7 +4990,7 @@ LABEL_24:
       goto LABEL_50;
     }
 
-    if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v24, v12 + 4) & 0x80) != 0)
+    if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v24, v12 + 32) & 0x80) != 0)
     {
       v10 = *v7;
 LABEL_50:
@@ -5894,7 +5009,7 @@ LABEL_50:
     }
   }
 
-  v7 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(v5, &v33, &v24.__r_.__value_.__l.__data_);
+  v7 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(v5, &v33, &v24);
 LABEL_20:
   v6 = *v7;
 LABEL_21:
@@ -5954,11 +5069,12 @@ LABEL_39:
   }
 }
 
-void sub_1A912E178(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
+void sub_1A912E178(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
-  std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::string>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](v15 - 88);
+  va_start(va, a14);
+  std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::string>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](v14 - 88);
   std::pair<std::string,std::string>::~pair(&a9);
-  std::pair<std::string,std::string>::~pair(&a15);
+  std::pair<std::string,std::string>::~pair(va);
   _Unwind_Resume(a1);
 }
 
@@ -6018,7 +5134,7 @@ uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::str
   return a1;
 }
 
-void *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(uint64_t a1, void *a2, void **a3)
+char *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(uint64_t a1, char **a2, uint64_t ***a3)
 {
   v5 = (a1 + 8);
   v4 = *(a1 + 8);
@@ -6029,7 +5145,7 @@ void *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_co
       while (1)
       {
         v7 = v4;
-        if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a3, (v4 + 32)) & 0x80) == 0)
+        if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a3, v4 + 32) & 0x80) == 0)
         {
           break;
         }
@@ -6047,8 +5163,8 @@ void *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_co
         break;
       }
 
-      v5 = v7 + 1;
-      v4 = v7[1];
+      v5 = v7 + 8;
+      v4 = *(v7 + 1);
     }
 
     while (v4);
@@ -6076,15 +5192,15 @@ void std::__tree<std::__value_type<std::string,std::string>,std::__map_value_com
   }
 }
 
-void ctu::backtrace_string(ctu *this@<X0>, std::string *a2@<X8>)
+void ctu::backtrace_string(ctu *this@<X0>, std::string *x8_0@<X8>)
 {
   memset(__p, 170, sizeof(__p));
-  ctu::capture_backtrace(0x40, __p);
-  memset(&v4, 170, sizeof(v4));
-  ctu::symbolicate_frames(__p[0] + this, (((__p[1] - __p[0]) >> 3) - this), &v4);
-  ctu::join<std::__wrap_iter<std::string *>>(v4.__begin_, v4.__end_, "\n", 1uLL, a2);
-  v6 = &v4;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v6);
+  ctu::capture_backtrace(__p, 0x40);
+  memset(&v5, 170, sizeof(v5));
+  ctu::symbolicate_frames(&v5, __p[0] + this, (((__p[1] - __p[0]) >> 3) - this));
+  ctu::join<std::__wrap_iter<std::string *>>(v5.__begin_, v5.__end_, "\n", 1uLL, x8_0);
+  v7 = &v5;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v7);
   if (__p[0])
   {
     __p[1] = __p[0];
@@ -6105,15 +5221,15 @@ void sub_1A912E414(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void ctu::capture_backtrace(ctu *this@<X0>, void ***a2@<X8>)
+void ctu::capture_backtrace(void ***__return_ptr a1@<X8>, ctu *this@<X0>)
 {
   v2 = this;
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  std::vector<void *>::resize(a2, this);
-  v4 = backtrace(*a2, v2);
-  std::vector<void *>::resize(a2, v4);
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  std::vector<void *>::resize(a1, this);
+  v4 = backtrace(*a1, v2);
+  std::vector<void *>::resize(a1, v4);
 }
 
 void sub_1A912E498(_Unwind_Exception *exception_object)
@@ -6128,31 +5244,31 @@ void sub_1A912E498(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void ctu::symbolicate_frames(void *const *this@<X0>, void **a2@<X1>, std::vector<std::string> *a3@<X8>)
+void ctu::symbolicate_frames(std::vector<std::string> *__return_ptr a1@<X8>, void *const *this@<X0>, void **a3@<X1>)
 {
-  v3 = a2;
-  v5 = backtrace_symbols(this, a2);
-  a3->__end_ = 0;
-  a3->__end_cap_.__value_ = 0;
-  a3->__begin_ = 0;
-  std::vector<std::string>::reserve(a3, v3);
+  v3 = a3;
+  v5 = backtrace_symbols(this, a3);
+  a1->__end_ = 0;
+  a1->__end_cap_.__value_ = 0;
+  a1->__begin_ = 0;
+  std::vector<std::string>::reserve(a1, v3);
   if (v3)
   {
-    end = a3->__end_;
+    end = a1->__end_;
     v7 = v5;
     do
     {
-      if (end >= a3->__end_cap_.__value_)
+      if (end >= a1->__end_cap_.__value_)
       {
-        end = std::vector<std::string>::__emplace_back_slow_path<char *&>(a3, v7);
+        end = std::vector<std::string>::__emplace_back_slow_path<char *&>(a1, v7);
       }
 
       else
       {
-        std::allocator_traits<std::allocator<std::string>>::construct[abi:ne200100]<std::string,char *&,void,0>(a3, end++, v7);
+        std::allocator_traits<std::allocator<std::string>>::construct[abi:ne200100]<std::string,char *&,void,0>(a1, end++, v7);
       }
 
-      a3->__end_ = end;
+      a1->__end_ = end;
       ++v7;
       v3 = (v3 - 1);
     }
@@ -6167,13 +5283,13 @@ void ctu::symbolicate_frames(void *const *this@<X0>, void **a2@<X1>, std::vector
   }
 }
 
-void sub_1A912E590(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A912E590(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
-  if (v2)
+  if (v3)
   {
-    operator delete(v2);
+    operator delete(v3);
   }
 
   _Unwind_Resume(a1);
@@ -6209,20 +5325,20 @@ void std::vector<std::string>::reserve(std::vector<std::string> *this, std::vect
   }
 }
 
-void std::vector<void *>::resize(void *a1, unint64_t a2)
+void std::vector<void *>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<void *>::__append(a1, a2 - v2);
+    std::vector<void *>::__append(result, a2 - v2);
   }
 }
 
@@ -6398,8 +5514,7 @@ void std::vector<void *>::__append(uint64_t a1, unint64_t a2)
 
 std::string *ctu::join<std::__wrap_iter<std::string *>>@<X0>(std::string *__str@<X0>, std::string *a2@<X1>, const void *a3@<X2>, size_t a4@<X3>, std::string *a5@<X8>)
 {
-  a5->__r_.__value_.__r.__words[0] = 0;
-  a5->__r_.__value_.__l.__size_ = 0;
+  *&a5->__r_.__value_.__l.__data_ = 0uLL;
   a5->__r_.__value_.__r.__words[2] = 0;
   if (__str != a2)
   {
@@ -6704,7 +5819,7 @@ void sub_1A912EE08(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t ctu::TreeRestResource::handleMessage_DumpState(uint64_t a1, ctu::RestResourceContext *a2, uint64_t a3)
+uint64_t ctu::TreeRestResource::handleMessage_DumpState(uint64_t a1, ctu::RestResourceContext *a2, const void **a3)
 {
   (*(*a2 + 16))(object, a2);
   v7 = ctu::rest::asOperation(object, v6);
@@ -6733,30 +5848,30 @@ uint64_t ctu::TreeRestResource::handleMessage_DumpState(uint64_t a1, ctu::RestRe
         *(&v12 + 1) = 0xAAAAAAAAAAAAAAAALL;
         v18[0] = v12;
         v18[1] = v12;
-        if (*(a3 + 24))
+        if (a3[3])
         {
           v13 = *a3;
-          v14 = (*(a3 + 16) - *a3);
+          v14 = (a3[2] - *a3);
           v15 = v14 - 1;
           if (v14 > 1)
           {
-            v14 = *(a3 + 8);
+            v14 = a3[1];
             if (v15 < v14)
             {
               v14 = v15;
             }
           }
 
-          else if (v14 >= *(a3 + 8))
+          else if (v14 >= a3[1])
           {
-            v14 = *(a3 + 8);
+            v14 = a3[1];
           }
         }
 
         else
         {
           v13 = *a3;
-          v14 = *(a3 + 8);
+          v14 = a3[1];
         }
 
         v17[0] = v13;
@@ -6790,67 +5905,64 @@ uint64_t ctu::TreeRestResource::handleMessage_DumpState(uint64_t a1, ctu::RestRe
   return 1;
 }
 
-uint64_t ctu::TreeRestResource::installSubResource(uint64_t a1, void *a2, uint64_t a3)
+uint64_t ctu::TreeRestResource::installSubResource(char **a1, void *a2, uint64_t a3)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v3 = a2[2];
   v4 = a2[3];
-  v24[0] = v3;
-  v24[1] = v4;
+  v23[0] = v3;
+  v23[1] = v4;
   if (!v4)
   {
-    goto LABEL_8;
+    return 0;
   }
 
   v8 = &v4[v3];
   v9 = (*a2 + a2[1]);
   if (v9 == v8)
   {
-    v10 = (a1 + 8);
+    v10 = (a1 + 1);
   }
 
   else
   {
-    v10 = (a1 + 8);
+    v10 = (a1 + 1);
     if (v8 + 1 != v9)
     {
-      ctu::llvm::StringRef::operator std::string(v24, __p);
-      boost::container::dtl::flat_tree<boost::container::dtl::pair<std::string,std::shared_ptr<ctu::RestResourceBase>>,boost::container::dtl::select1st<std::string>,std::less<std::string>,boost::container::new_allocator<boost::container::dtl::pair<std::string,std::shared_ptr<ctu::RestResourceBase>>>>::find(v25, (a1 + 8), __p);
-      v11 = v25[0];
-      if ((v28[7] & 0x80000000) != 0)
+      ctu::llvm::StringRef::operator std::string(v23, __p);
+      boost::container::dtl::flat_tree<boost::container::dtl::pair<std::string,std::shared_ptr<ctu::RestResourceBase>>,boost::container::dtl::select1st<std::string>,std::less<std::string>,boost::container::new_allocator<boost::container::dtl::pair<std::string,std::shared_ptr<ctu::RestResourceBase>>>>::find(v24, a1 + 1, __p);
+      v11 = v24[0];
+      if ((v27[7] & 0x80000000) != 0)
       {
         operator delete(__p[0]);
       }
 
-      if (v11 != *(a1 + 8) + 40 * *(a1 + 16))
+      if (v11 != &a1[1][40 * a1[2]])
       {
         v12 = *(a2 + 1);
         *__p = *a2;
-        *v28 = v12;
+        *v27 = v12;
         ctu::PathView::advance(__p, 1);
-        result = (*(**(v11 + 24) + 24))(*(v11 + 24), __p, a3);
-        goto LABEL_28;
+        return (*(**(v11 + 24) + 24))(*(v11 + 24), __p, a3);
       }
 
-LABEL_8:
-      result = 0;
-      goto LABEL_28;
+      return 0;
     }
   }
 
-  *&v28[16] = 0xAAAAAAAAAAAAAAAALL;
+  *&v27[16] = 0xAAAAAAAAAAAAAAAALL;
   *&v14 = 0xAAAAAAAAAAAAAAAALL;
   *(&v14 + 1) = 0xAAAAAAAAAAAAAAAALL;
   *__p = v14;
-  *v28 = v14;
-  ctu::llvm::StringRef::operator std::string(v24, __p);
-  *&v28[8] = *a3;
+  *v27 = v14;
+  ctu::llvm::StringRef::operator std::string(v23, __p);
+  *&v27[8] = *a3;
   *a3 = 0;
   *(a3 + 8) = 0;
-  v25[0] = __p;
-  v25[1] = v10;
-  v15 = *(a1 + 8);
-  v16 = *(a1 + 16);
+  v24[0] = __p;
+  v24[1] = v10;
+  v15 = a1[1];
+  v16 = a1[2];
   v17 = (v15 + 40 * v16);
   while (v16)
   {
@@ -6868,10 +5980,10 @@ LABEL_8:
 
   if (v15 == v17 || (std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(__p, v15) & 0x80) != 0)
   {
-    v18 = *(a1 + 16);
-    if (*(a1 + 24) == v18)
+    v18 = a1[2];
+    if (a1[3] == v18)
     {
-      boost::container::vector<boost::container::dtl::pair<std::string,std::shared_ptr<ctu::RestResourceBase>>,boost::container::new_allocator<boost::container::dtl::pair<std::string,std::shared_ptr<ctu::RestResourceBase>>>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_emplace_proxy<boost::container::new_allocator<boost::container::dtl::pair<std::string,std::shared_ptr<ctu::RestResourceBase>>>,boost::container::dtl::pair<std::string,std::shared_ptr<ctu::RestResourceBase>>*,boost::container::dtl::pair<std::string,std::shared_ptr<ctu::RestResourceBase>>>>(&v26, v10, v15, __p);
+      boost::container::vector<boost::container::dtl::pair<std::string,std::shared_ptr<ctu::RestResourceBase>>,boost::container::new_allocator<boost::container::dtl::pair<std::string,std::shared_ptr<ctu::RestResourceBase>>>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_emplace_proxy<boost::container::new_allocator<boost::container::dtl::pair<std::string,std::shared_ptr<ctu::RestResourceBase>>>,boost::container::dtl::pair<std::string,std::shared_ptr<ctu::RestResourceBase>>*,boost::container::dtl::pair<std::string,std::shared_ptr<ctu::RestResourceBase>>>>(v25, v10, v15, __p);
     }
 
     else
@@ -6880,15 +5992,15 @@ LABEL_8:
       if (v19 == v15)
       {
         v22 = *__p;
-        *(v19 + 16) = *v28;
+        *(v19 + 16) = *v27;
         *v19 = v22;
         __p[1] = 0;
-        *v28 = 0;
+        *v27 = 0;
         __p[0] = 0;
-        *(v19 + 24) = *&v28[8];
-        *&v28[8] = 0;
-        *&v28[16] = 0;
-        ++*(a1 + 16);
+        *(v19 + 24) = *&v27[8];
+        *&v27[8] = 0;
+        *&v27[16] = 0;
+        ++a1[2];
       }
 
       else
@@ -6902,7 +6014,7 @@ LABEL_8:
         *(v19 - 24) = 0;
         *(v19 - 16) = 0;
         *(v19 - 8) = 0;
-        ++*(a1 + 16);
+        ++a1[2];
         if ((v19 - 40) != v15)
         {
           do
@@ -6920,30 +6032,27 @@ LABEL_8:
     }
   }
 
-  if (*&v28[16])
+  if (*&v27[16])
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](*&v28[16]);
+    std::__shared_weak_count::__release_shared[abi:ne200100](*&v27[16]);
   }
 
-  if ((v28[7] & 0x80000000) != 0)
+  if ((v27[7] & 0x80000000) != 0)
   {
     operator delete(__p[0]);
   }
 
-  result = 1;
-LABEL_28:
-  v23 = *MEMORY[0x1E69E9840];
-  return result;
+  return 1;
 }
 
-void sub_1A912F35C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1A912F35C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   boost::container::dtl::value_destructor<boost::container::new_allocator<boost::container::dtl::pair<std::string,std::shared_ptr<ctu::RestResourceBase>>>,boost::container::dtl::pair<std::string,std::shared_ptr<ctu::RestResourceBase>>>::~value_destructor(va);
   _Unwind_Resume(a1);
 }
 
-void ctu::TreeRestResource::~TreeRestResource(ctu::TreeRestResource *this)
+void ctu::TreeRestResource::~TreeRestResource(void **this)
 {
   *this = &unk_1F1CB7070;
   boost::container::vector<boost::container::dtl::pair<std::string,std::shared_ptr<ctu::RestResourceBase>>,boost::container::new_allocator<boost::container::dtl::pair<std::string,std::shared_ptr<ctu::RestResourceBase>>>,void>::~vector(this + 1);
@@ -6956,7 +6065,7 @@ void ctu::TreeRestResource::~TreeRestResource(ctu::TreeRestResource *this)
   operator delete(this);
 }
 
-void *boost::container::vector<boost::container::dtl::pair<std::string,std::shared_ptr<ctu::RestResourceBase>>,boost::container::new_allocator<boost::container::dtl::pair<std::string,std::shared_ptr<ctu::RestResourceBase>>>,void>::~vector(void *a1)
+void **boost::container::vector<boost::container::dtl::pair<std::string,std::shared_ptr<ctu::RestResourceBase>>,boost::container::new_allocator<boost::container::dtl::pair<std::string,std::shared_ptr<ctu::RestResourceBase>>>,void>::~vector(void **a1)
 {
   v2 = a1[1];
   if (v2)
@@ -7022,105 +6131,104 @@ void boost::container::vector<boost::container::dtl::pair<std::string,std::share
   }
 
   v10 = v5 <= v9 ? v9 : *(a2 + 1) + 1;
-  v11 = *(a2 + 1) - 0x333333333333332 < 0;
   if (v5 > 0x333333333333333)
   {
 LABEL_29:
     boost::container::throw_length_error("get_next_capacity, allocator's max size reached", a2);
   }
 
-  v16 = *a2;
-  v17 = operator new(40 * v10);
-  v18 = v17;
-  v19 = *a2;
-  v20 = *a2 + 40 * *(a2 + 1);
-  v21 = v17;
+  v15 = *a2;
+  v16 = operator new(40 * v10);
+  v17 = v16;
+  v18 = *a2;
+  v19 = (*a2 + 40 * *(a2 + 1));
+  v20 = v16;
   if (*a2 != a3)
   {
-    v22 = *a2;
-    v21 = v17;
+    v21 = *a2;
+    v20 = v16;
     do
     {
-      v23 = *v22;
-      *(v21 + 2) = *(v22 + 2);
-      *v21 = v23;
-      *(v22 + 1) = 0;
-      *(v22 + 2) = 0;
-      *v22 = 0;
-      *(v21 + 24) = *(v22 + 24);
-      *(v22 + 3) = 0;
-      *(v22 + 4) = 0;
-      v22 = (v22 + 40);
+      v22 = *v21;
+      *(v20 + 2) = *(v21 + 16);
+      *v20 = v22;
+      *(v21 + 8) = 0;
+      *(v21 + 16) = 0;
+      *v21 = 0;
+      *(v20 + 24) = *(v21 + 24);
+      *(v21 + 24) = 0;
+      *(v21 + 32) = 0;
       v21 += 40;
+      v20 += 40;
     }
 
-    while (v22 != a3);
+    while (v21 != a3);
   }
 
-  v24 = *a4;
-  *(v21 + 2) = *(a4 + 2);
-  *v21 = v24;
+  v23 = *a4;
+  *(v20 + 2) = *(a4 + 2);
+  *v20 = v23;
   *(a4 + 1) = 0;
   *(a4 + 2) = 0;
   *a4 = 0;
-  *(v21 + 24) = *(a4 + 24);
+  *(v20 + 24) = *(a4 + 24);
   *(a4 + 3) = 0;
   *(a4 + 4) = 0;
-  if (v20 != a3)
+  if (v19 != a3)
   {
-    v25 = v21 + 64;
-    v26 = a3;
+    v24 = v20 + 64;
+    v25 = a3;
     do
     {
-      v27 = *v26;
-      *(v25 - 1) = *(v26 + 2);
-      *(v25 - 24) = v27;
-      *(v26 + 1) = 0;
-      *(v26 + 2) = 0;
-      *v26 = 0;
-      *v25 = *(v26 + 24);
+      v26 = *v25;
+      *(v24 - 1) = *(v25 + 2);
+      *(v24 - 24) = v26;
+      *(v25 + 1) = 0;
+      *(v25 + 2) = 0;
+      *v25 = 0;
+      *v24 = *(v25 + 24);
+      v24 = (v24 + 40);
+      *(v25 + 3) = 0;
+      *(v25 + 4) = 0;
       v25 = (v25 + 40);
-      *(v26 + 3) = 0;
-      *(v26 + 4) = 0;
-      v26 = (v26 + 40);
     }
 
-    while (v26 != v20);
+    while (v25 != v19);
   }
 
-  if (v19)
+  if (v18)
   {
-    v28 = *(a2 + 1);
-    if (v28)
+    v27 = *(a2 + 1);
+    if (v27)
     {
-      v29 = (v19 + 32);
+      v28 = (v18 + 32);
       do
       {
-        if (*v29)
+        if (*v28)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](*v29);
+          std::__shared_weak_count::__release_shared[abi:ne200100](*v28);
         }
 
-        if (*(v29 - 9) < 0)
+        if (*(v28 - 9) < 0)
         {
-          operator delete(*(v29 - 4));
+          operator delete(*(v28 - 4));
         }
 
-        v29 += 5;
-        --v28;
+        v28 += 5;
+        --v27;
       }
 
-      while (v28);
+      while (v27);
     }
 
     operator delete(*a2);
   }
 
-  v30 = *(a2 + 1) + 1;
-  *a2 = v18;
-  *(a2 + 1) = v30;
+  v29 = *(a2 + 1) + 1;
+  *a2 = v17;
+  *(a2 + 1) = v29;
   *(a2 + 2) = v10;
-  *a1 = &v18[a3 - v16];
+  *a1 = a3 + v17 - v15;
 }
 
 uint64_t boost::container::dtl::pair<std::string,std::shared_ptr<ctu::RestResourceBase>>::operator=(uint64_t a1, __int128 *a2)
@@ -7175,58 +6283,58 @@ xpc_object_t *ctu::ReplyCallbackRestResourceContext::ReplyCallbackRestResourceCo
 
 uint64_t ctu::ReplyCallbackRestResourceContext::ReplyCallbackRestResourceContext(uint64_t a1, uint64_t a2, NSObject **a3, void *a4, uint64_t a5)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v11 = 0;
-  std::__function::__value_func<void ()(xpc::object)>::__value_func[abi:ne200100](v12, a5);
-  ctu::ReplyCallbackRestResourceContext::ReplyCallbackRestResourceContext(a1, &v11, a2, a3, a4, v12);
-  std::__function::__value_func<void ()(xpc::object)>::~__value_func[abi:ne200100](v12);
-  ctu::SharedRef<os_log_s,ctu::os::os_retain_functor,ctu::os::os_release_functor,os_log_s>::~SharedRef(&v11);
-  v9 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v10 = 0;
+  std::__function::__value_func<void ()(xpc::object)>::__value_func[abi:ne200100](v11, a5);
+  ctu::ReplyCallbackRestResourceContext::ReplyCallbackRestResourceContext(a1, &v10, a2, a3, a4, v11);
+  std::__function::__value_func<void ()(xpc::object)>::~__value_func[abi:ne200100](v11);
+  ctu::SharedRef<os_log_s,ctu::os::os_retain_functor,ctu::os::os_release_functor,os_log_s>::~SharedRef(&v10);
   return a1;
 }
 
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v11 = 0;
-  std::__function::__value_func<void ()(xpc::object)>::__value_func[abi:ne200100](v12, a5);
-  ctu::ReplyCallbackRestResourceContext::ReplyCallbackRestResourceContext(a1, &v11, a2, a3, a4, v12);
-  std::__function::__value_func<void ()(xpc::object)>::~__value_func[abi:ne200100](v12);
-  ctu::SharedRef<os_log_s,ctu::os::os_retain_functor,ctu::os::os_release_functor,os_log_s>::~SharedRef(&v11);
-  v9 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v10 = 0;
+  std::__function::__value_func<void ()(xpc::object)>::__value_func[abi:ne200100](v11, a5);
+  ctu::ReplyCallbackRestResourceContext::ReplyCallbackRestResourceContext(a1, &v10, a2, a3, a4, v11);
+  std::__function::__value_func<void ()(xpc::object)>::~__value_func[abi:ne200100](v11);
+  ctu::SharedRef<os_log_s,ctu::os::os_retain_functor,ctu::os::os_release_functor,os_log_s>::~SharedRef(&v10);
   return a1;
 }
 
-void sub_1A912F7F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, char a10)
+void sub_1A912F7F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, ...)
 {
-  std::__function::__value_func<void ()(xpc::object)>::~__value_func[abi:ne200100](&a10);
+  va_start(va, a9);
+  std::__function::__value_func<void ()(xpc::object)>::~__value_func[abi:ne200100](va);
   ctu::SharedRef<os_log_s,ctu::os::os_retain_functor,ctu::os::os_release_functor,os_log_s>::~SharedRef(&a9);
   _Unwind_Resume(a1);
 }
 
-void sub_1A912F8B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, char a10)
+void sub_1A912F8B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, ...)
 {
-  std::__function::__value_func<void ()(xpc::object)>::~__value_func[abi:ne200100](&a10);
+  va_start(va, a9);
+  std::__function::__value_func<void ()(xpc::object)>::~__value_func[abi:ne200100](va);
   ctu::SharedRef<os_log_s,ctu::os::os_retain_functor,ctu::os::os_release_functor,os_log_s>::~SharedRef(&a9);
   _Unwind_Resume(a1);
 }
 
 BOOL ctu::ReplyCallbackRestResourceContext::sendReplyWithValue(ctu::ReplyCallbackRestResourceContext *this, void **a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v2 = *(this + 8);
   if (v2)
   {
     v5 = *(this + 9);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v10 = *(this + 3);
-      v11 = (v10 + 8);
-      if (*(v10 + 31) < 0)
+      v9 = *(this + 3);
+      v10 = (v9 + 8);
+      if (*(v9 + 31) < 0)
       {
-        v11 = *v11;
+        v10 = *v10;
       }
 
-      xpc::object::to_string(a2, &__p);
+      xpc::object::to_string(&__p, a2);
       if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
         p_p = &__p;
@@ -7238,11 +6346,11 @@ BOOL ctu::ReplyCallbackRestResourceContext::sendReplyWithValue(ctu::ReplyCallbac
       }
 
       *buf = 136315650;
-      v16 = v11;
-      v17 = 2048;
-      v18 = v10;
-      v19 = 2080;
-      v20 = p_p;
+      v15 = v10;
+      v16 = 2048;
+      v17 = v9;
+      v18 = 2080;
+      v19 = p_p;
       _os_log_debug_impl(&dword_1A90E3000, v5, OS_LOG_TYPE_DEBUG, "[conn %s (%p)] Sending reply: %s", buf, 0x20u);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
@@ -7272,9 +6380,7 @@ BOOL ctu::ReplyCallbackRestResourceContext::sendReplyWithValue(ctu::ReplyCallbac
     xpc_release(object);
   }
 
-  result = v2 != 0;
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return v2 != 0;
 }
 
 uint64_t ctu::ReplyCallbackRestResourceContext::getAuthorResource@<X0>(uint64_t this@<X0>, void *a2@<X8>)
@@ -7765,15 +6871,15 @@ void ctu::base64::decode(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
   }
 }
 
-void sub_1A91306C4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A91306C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ctu::ns::AutoPool::~AutoPool(va);
-  v4 = *v2;
-  if (*v2)
+  v5 = *v3;
+  if (*v3)
   {
-    *(v2 + 8) = v4;
-    operator delete(v4);
+    *(v3 + 8) = v5;
+    operator delete(v5);
   }
 
   _Unwind_Resume(a1);
@@ -7783,42 +6889,42 @@ uint64_t ctu::DispatchTimerService::create@<X0>(std::__shared_weak_count_vtbl **
 {
   *a1 = 0xAAAAAAAAAAAAAAAALL;
   a1[1] = 0xAAAAAAAAAAAAAAAALL;
-  v3 = operator new(0x30uLL);
-  v3->~__shared_weak_count = &unk_1F1CB7378;
-  ctu::SharedLoggable<ctu::DispatchTimerService,ctu::OsLogLogger>::SharedLoggable<char const(&)[6]>(&v3->~__shared_weak_count_0, "DispatchTimerService", QOS_CLASS_UTILITY, "timer");
-  v4 = &unk_1F1CB6DA0;
-  v3->~__shared_weak_count = &unk_1F1CB6DA0;
-  *a1 = v3;
+  v2 = operator new(0x30uLL);
+  v2->~__shared_weak_count = &unk_1F1CB7378;
+  ctu::SharedLoggable<ctu::DispatchTimerService,ctu::OsLogLogger>::SharedLoggable<char const(&)[6]>(&v2->~__shared_weak_count_0, "DispatchTimerService", QOS_CLASS_UTILITY, "timer");
+  v3 = &unk_1F1CB6DA0;
+  v2->~__shared_weak_count = &unk_1F1CB6DA0;
+  *a1 = v2;
   a1[1] = 0xAAAAAAAAAAAAAAAALL;
-  v5 = operator new(0x20uLL);
-  v5->__vftable = &unk_1F1CB4CC0;
-  v5->__shared_owners_ = 0;
-  v5->__shared_weak_owners_ = 0;
-  v5[1].__vftable = v3;
-  a1[1] = v5;
-  on_zero_shared = v3->__on_zero_shared;
+  v4 = operator new(0x20uLL);
+  *v4 = &unk_1F1CB4CC0;
+  *(v4 + 1) = 0;
+  *(v4 + 2) = 0;
+  *(v4 + 3) = v2;
+  a1[1] = v4;
+  on_zero_shared = v2->__on_zero_shared;
   if (!on_zero_shared)
   {
-    atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
-    atomic_fetch_add_explicit(&v5->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-    v3->~__shared_weak_count_0 = v3;
-    v3->__on_zero_shared = v5;
+    atomic_fetch_add_explicit(v4 + 1, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(v4 + 2, 1uLL, memory_order_relaxed);
+    v2->~__shared_weak_count_0 = v2;
+    v2->__on_zero_shared = v4;
     goto LABEL_5;
   }
 
   if (on_zero_shared->__shared_owners_ == -1)
   {
-    atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
-    atomic_fetch_add_explicit(&v5->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-    v3->~__shared_weak_count_0 = v3;
-    v3->__on_zero_shared = v5;
+    atomic_fetch_add_explicit(v4 + 1, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(v4 + 2, 1uLL, memory_order_relaxed);
+    v2->~__shared_weak_count_0 = v2;
+    v2->__on_zero_shared = v4;
     std::__shared_weak_count::__release_weak(on_zero_shared);
 LABEL_5:
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
-    v4 = v3->~__shared_weak_count;
+    std::__shared_weak_count::__release_shared[abi:ne200100](v4);
+    v3 = v2->~__shared_weak_count;
   }
 
-  return (*(v4 + 7))(v3);
+  return v3[7](v2);
 }
 
 ctu::DispatchTimerService *ctu::DispatchTimerService::DispatchTimerService(ctu::DispatchTimerService *this)
@@ -7930,14 +7036,14 @@ void ___ZNK3ctu20DispatchTimerService19createDispatchTimerEP16dispatch_queue_sRK
   dispatch_source_cancel(v2);
 }
 
-void ctu::DispatchTimerService::createOneShotTimerImpl(uint64_t a1@<X2>, uint64_t a2@<X3>, int a3@<W4>, dispatch_queue_t *a4@<X5>, void **a5@<X6>, void *a6@<X8>)
+void ctu::DispatchTimerService::createOneShotTimerImpl(uint64_t a1@<X2>, uint64_t a2@<X3>, uint64_t a3@<X4>, dispatch_queue_t *a4@<X5>, void **a5@<X6>, void *a6@<X8>)
 {
   v6[0] = a1;
   v6[1] = a2;
   ctu::DispatchTimerService::createDispatchTimer(*a4, v6, 0xFFFFFFFFFFFFFFFFLL, a3, *a5, a6);
 }
 
-void ctu::DispatchTimerService::createPeriodicTimerImpl(uint64_t a1@<X2>, uint64_t a2@<X3>, int a3@<W4>, dispatch_queue_t *a4@<X5>, void **a5@<X6>, void *a6@<X8>)
+void ctu::DispatchTimerService::createPeriodicTimerImpl(uint64_t a1@<X2>, uint64_t a2@<X3>, uint64_t a3@<X4>, dispatch_queue_t *a4@<X5>, void **a5@<X6>, void *a6@<X8>)
 {
   v6[0] = a1;
   v6[1] = a2;
@@ -8029,16 +7135,16 @@ void sub_1A9130EDC(void *a1)
   __cxa_rethrow();
 }
 
-void ctu::Http::HttpSession_impl::Deleter::operator()(uint64_t a1)
+void ctu::Http::HttpSession_impl::Deleter::operator()(uint64_t result)
 {
-  if (a1)
+  if (result)
   {
     v1[0] = MEMORY[0x1E69E9820];
     v1[1] = 3221225472;
     v1[2] = ___ZN3ctu4Http16HttpSession_impl7DeleterclEPS1__block_invoke;
     v1[3] = &__block_descriptor_40_e5_v8__0l;
-    v1[4] = a1;
-    ctu::Http::HttpSession_impl::addOperation(a1, v1);
+    v1[4] = result;
+    ctu::Http::HttpSession_impl::addOperation(result, v1);
   }
 }
 
@@ -8055,9 +7161,9 @@ void ctu::Http::HttpSession_impl::addOperation(uint64_t a1, uint64_t a2)
   ctu::ns::AutoPool::~AutoPool(&v6);
 }
 
-void sub_1A9131038(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A9131038(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ctu::ns::AutoPool::~AutoPool(va);
   _Unwind_Resume(a1);
 }
@@ -8134,7 +7240,7 @@ void ctu::Http::HttpSession_impl::setBackgroundConfigurationWithUniqueIdentifier
 
 const void **ctu::Http::HttpSession_impl::setProxyServer(const void **result, uint64_t a2, unsigned int a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if (a3)
   {
     v4 = result;
@@ -8143,7 +7249,7 @@ const void **ctu::Http::HttpSession_impl::setProxyServer(const void **result, ui
       v5 = *(a2 + 8);
       if (!v5)
       {
-        goto LABEL_31;
+        return result;
       }
 
       std::string::__init_copy_ctor_external(&__p, *a2, v5);
@@ -8153,7 +7259,7 @@ const void **ctu::Http::HttpSession_impl::setProxyServer(const void **result, ui
     {
       if (!*(a2 + 23))
       {
-        goto LABEL_31;
+        return result;
       }
 
       __p = *a2;
@@ -8161,23 +7267,23 @@ const void **ctu::Http::HttpSession_impl::setProxyServer(const void **result, ui
 
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&v20, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&v19, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      v20 = __p;
+      v19 = __p;
     }
 
-    v18 = 0;
-    if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
+    v17 = 0;
+    if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&valuePtr, v20.__r_.__value_.__l.__data_, v20.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&valuePtr, v19.__r_.__value_.__l.__data_, v19.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      valuePtr = v20;
+      valuePtr = v19;
     }
 
     v6 = *MEMORY[0x1E695E480];
@@ -8204,10 +7310,10 @@ const void **ctu::Http::HttpSession_impl::setProxyServer(const void **result, ui
     v9 = CFStringCreateWithBytes(*MEMORY[0x1E695E480], p_valuePtr, size, 0x8000100u, 0);
     if (v9)
     {
-      v10 = v18;
-      v18 = v9;
-      v19 = v10;
-      ctu::SharedRef<__CFString const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFString const>::~SharedRef(&v19);
+      v10 = v17;
+      v17 = v9;
+      v18 = v10;
+      ctu::SharedRef<__CFString const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFString const>::~SharedRef(&v18);
     }
 
     if (SHIBYTE(valuePtr.__r_.__value_.__r.__words[2]) < 0)
@@ -8215,12 +7321,12 @@ const void **ctu::Http::HttpSession_impl::setProxyServer(const void **result, ui
       operator delete(valuePtr.__r_.__value_.__l.__data_);
     }
 
-    v17 = v18;
-    v18 = 0;
-    ctu::SharedRef<__CFString const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFString const>::~SharedRef(&v18);
-    if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
+    v16 = v17;
+    v17 = 0;
+    ctu::SharedRef<__CFString const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFString const>::~SharedRef(&v17);
+    if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v20.__r_.__value_.__l.__data_);
+      operator delete(v19.__r_.__value_.__l.__data_);
     }
 
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -8228,15 +7334,15 @@ const void **ctu::Http::HttpSession_impl::setProxyServer(const void **result, ui
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    v20.__r_.__value_.__r.__words[0] = 0;
+    v19.__r_.__value_.__r.__words[0] = 0;
     valuePtr.__r_.__value_.__r.__words[0] = a3;
     v11 = CFNumberCreate(v6, kCFNumberLongLongType, &valuePtr);
     if (v11)
     {
-      v20.__r_.__value_.__r.__words[0] = v11;
+      v19.__r_.__value_.__r.__words[0] = v11;
       valuePtr.__r_.__value_.__r.__words[0] = 0;
       ctu::SharedRef<__CFNumber const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFNumber const>::~SharedRef(&valuePtr.__r_.__value_.__l.__data_);
-      v12 = v20.__r_.__value_.__r.__words[0];
+      v12 = v19.__r_.__value_.__r.__words[0];
     }
 
     else
@@ -8244,28 +7350,26 @@ const void **ctu::Http::HttpSession_impl::setProxyServer(const void **result, ui
       v12 = 0;
     }
 
-    v19 = v12;
-    v20.__r_.__value_.__r.__words[0] = 0;
-    ctu::SharedRef<__CFNumber const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFNumber const>::~SharedRef(&v20.__r_.__value_.__l.__data_);
+    v18 = v12;
+    v19.__r_.__value_.__r.__words[0] = 0;
+    ctu::SharedRef<__CFNumber const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFNumber const>::~SharedRef(&v19.__r_.__value_.__l.__data_);
     v13 = *MEMORY[0x1E695AE68];
     valuePtr.__r_.__value_.__r.__words[0] = *MEMORY[0x1E695AE60];
     valuePtr.__r_.__value_.__l.__size_ = v13;
     v14 = *MEMORY[0x1E695AE58];
     valuePtr.__r_.__value_.__r.__words[2] = *MEMORY[0x1E695AE50];
-    v23 = v14;
-    v20.__r_.__value_.__r.__words[0] = v17;
-    v20.__r_.__value_.__l.__size_ = v12;
-    v20.__r_.__value_.__r.__words[2] = v17;
-    v21 = v12;
-    v18 = CFDictionaryCreate(v6, &valuePtr.__r_.__value_.__l.__data_, &v20.__r_.__value_.__l.__data_, 4, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-    ctu::SharedRef<__CFDictionary const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFDictionary const>::operator=(v4 + 4, &v18);
-    ctu::SharedRef<__CFDictionary const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFDictionary const>::~SharedRef(&v18);
-    ctu::SharedRef<__CFNumber const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFNumber const>::~SharedRef(&v19);
-    result = ctu::SharedRef<__CFString const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFString const>::~SharedRef(&v17);
+    v22 = v14;
+    v19.__r_.__value_.__r.__words[0] = v16;
+    v19.__r_.__value_.__l.__size_ = v12;
+    v19.__r_.__value_.__r.__words[2] = v16;
+    v20 = v12;
+    v17 = CFDictionaryCreate(v6, &valuePtr.__r_.__value_.__l.__data_, &v19.__r_.__value_.__l.__data_, 4, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+    ctu::SharedRef<__CFDictionary const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFDictionary const>::operator=(v4 + 4, &v17);
+    ctu::SharedRef<__CFDictionary const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFDictionary const>::~SharedRef(&v17);
+    ctu::SharedRef<__CFNumber const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFNumber const>::~SharedRef(&v18);
+    return ctu::SharedRef<__CFString const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFString const>::~SharedRef(&v16);
   }
 
-LABEL_31:
-  v15 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -8337,8 +7441,7 @@ void ctu::Http::HttpSession_impl::getBackgroundIdentifier(ctu::Http::HttpSession
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(this + 136);
-    a2->__r_.__value_.__r.__words[2] = *(this + 19);
+    *a2 = *(this + 136);
   }
 }
 
@@ -8347,10 +7450,10 @@ void ctu::Http::HttpRequest::create(int a1@<W0>, uint64_t a2@<X1>, uint64_t a3@<
   v10 = *a4;
   if (!*a4)
   {
-    ctu::Http::HttpSession_impl::createSession(&v21);
+    ctu::Http::HttpSession_impl::createSession(&v20);
     v11 = *(a4 + 8);
-    v12 = v21;
-    *a4 = v21;
+    v12 = v20;
+    *a4 = v20;
     if (v11)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v11);
@@ -8382,7 +7485,7 @@ void ctu::Http::HttpRequest::create(int a1@<W0>, uint64_t a2@<X1>, uint64_t a3@<
   *v14 = &unk_1F1CB62A8;
   v14[1] = &unk_1F1CB63F8;
   {
-    v15[4] = v18;
+    v15[4] = v17;
     v15[5] = v13;
     if (v13)
     {
@@ -8419,35 +7522,35 @@ void ctu::Http::HttpRequest::create(int a1@<W0>, uint64_t a2@<X1>, uint64_t a3@<
   v15[25] = 6;
   v15[26] = 0;
   *(v15 + 216) = 0;
-  v19 = operator new(0x20uLL);
-  v19->__vftable = &unk_1F1CB4C18;
-  v19->__shared_owners_ = 0;
-  v19->__shared_weak_owners_ = 0;
-  v19[1].__vftable = v15;
-  v20 = v15[3];
-  if (v20)
+  v18 = operator new(0x20uLL);
+  v18->__vftable = &unk_1F1CB4C18;
+  v18->__shared_owners_ = 0;
+  v18->__shared_weak_owners_ = 0;
+  v18[1].__vftable = v15;
+  v19 = v15[3];
+  if (v19)
   {
-    if (v20->__shared_owners_ != -1)
+    if (v19->__shared_owners_ != -1)
     {
       goto LABEL_22;
     }
 
-    atomic_fetch_add_explicit(&v19->__shared_owners_, 1uLL, memory_order_relaxed);
-    atomic_fetch_add_explicit(&v19->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v18->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v18->__shared_weak_owners_, 1uLL, memory_order_relaxed);
     v15[2] = v16;
-    v15[3] = v19;
-    std::__shared_weak_count::__release_weak(v20);
+    v15[3] = v18;
+    std::__shared_weak_count::__release_weak(v19);
   }
 
   else
   {
-    atomic_fetch_add_explicit(&v19->__shared_owners_, 1uLL, memory_order_relaxed);
-    atomic_fetch_add_explicit(&v19->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v18->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v18->__shared_weak_owners_, 1uLL, memory_order_relaxed);
     v15[2] = v16;
-    v15[3] = v19;
+    v15[3] = v18;
   }
 
-  std::__shared_weak_count::__release_shared[abi:ne200100](v19);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v18);
 LABEL_22:
   if (v13)
   {
@@ -8456,57 +7559,56 @@ LABEL_22:
   }
 
   *a5 = v15;
-  a5[1] = v19;
+  a5[1] = v18;
 }
 
 {
-  v9 = *a4;
   {
-    v13 = *(a4 + 8);
+    v11 = *(a4 + 8);
+    if (v11)
+    {
+      atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    (**v10)(v18);
+    v12 = v18[0];
+    v13 = v18[1];
+    if (v11)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v11);
+    }
+
+    v16 = v12;
+    v17 = v13;
     if (v13)
     {
+      v14 = 0;
       atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    (**v12)(v20);
-    v14 = v20[0];
-    v15 = v20[1];
-    if (v13)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v13);
-    }
-
-    v18 = v14;
-    v19 = v15;
-    if (v15)
-    {
-      v16 = 0;
-      atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
-      v17 = v15;
+      v15 = v13;
       goto LABEL_11;
     }
 
-    v17 = 0;
+    v15 = 0;
   }
 
   else
   {
+    v15 = 0;
+    v16 = 0;
     v17 = 0;
-    v18 = 0;
-    v19 = 0;
   }
 
-  v16 = 1;
+  v14 = 1;
 LABEL_11:
-  ctu::Http::HttpRequest::create(a1, a2, a3, &v18, a5);
-  if (v19)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v19);
-  }
-
-  if ((v16 & 1) == 0)
+  ctu::Http::HttpRequest::create(a1, a2, a3, &v16, a5);
+  if (v17)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v17);
+  }
+
+  if ((v14 & 1) == 0)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v15);
   }
 }
 
@@ -8599,17 +7701,18 @@ uint64_t ctu::Http::HttpSessionRequest::getHttpSession@<X0>(uint64_t this@<X0>, 
   return this;
 }
 
-void ctu::Http::asString(unsigned int a1@<W0>, void *a2@<X8>)
+void ctu::Http::asString(uint64_t a1@<X0>, void *a2@<X8>)
 {
+  v2 = a1;
   v5 = objc_autoreleasePoolPush();
-  v4 = [(__CFString *)ctu::Http::HTTPMethod(a1) cStringUsingEncoding:4];
+  v4 = [(__CFString *)ctu::Http::HTTPMethod(v2) cStringUsingEncoding:4];
   std::string::basic_string[abi:ne200100]<0>(a2, v4);
   ctu::ns::AutoPool::~AutoPool(&v5);
 }
 
-void sub_1A9131BF0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A9131BF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ctu::ns::AutoPool::~AutoPool(va);
   _Unwind_Resume(a1);
 }
@@ -9424,7 +8527,7 @@ LABEL_156:
   }
 }
 
-void sub_1A9132918(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *a18, __int16 a19, char a20, char a21, int a22, const void *a23, const void *a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30, const void *a31, std::locale a32, uint64_t a33, int a34, __int16 a35, char a36, char a37)
+void sub_1A9132918(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *a18, __int16 a19, char a20, char a21, int a22, const void *a23, const void *a27, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, const void *a36, std::locale a37, uint64_t a38, int a39, __int16 a40, char a41, char a42)
 {
   v40 = *(v38 - 128);
   if (v40)
@@ -9434,8 +8537,8 @@ void sub_1A9132918(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   }
 
   ctu::SharedRef<__CFDictionary,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFDictionary>::~SharedRef(&a23);
-  ctu::SharedRef<__CFURL const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFURL const>::~SharedRef(&a24);
-  ctu::SharedRef<__CFString const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFString const>::~SharedRef(&a31);
+  ctu::SharedRef<__CFURL const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFURL const>::~SharedRef(&a27);
+  ctu::SharedRef<__CFString const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFString const>::~SharedRef(&a36);
   ctu::ns::AutoPool::~AutoPool(&a18);
   if (v37)
   {
@@ -9773,9 +8876,9 @@ const void **ctu::Http::HttpSessionRequest::setProxySettings(uint64_t a1, const 
   return ctu::SharedRef<__CFDictionary const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFDictionary const>::~SharedRef(&v4);
 }
 
-void sub_1A91331B8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A91331B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ctu::SharedRef<__CFDictionary const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFDictionary const>::~SharedRef(va);
   _Unwind_Resume(a1);
 }
@@ -9833,4 +8936,891 @@ NSURLRequest *ctu::Http::HttpSessionRequest::handleWillSendRequest_sync(ctu::Htt
 
   *(this + 51) = v3 + 1;
   return v4;
+}
+
+void ctu::Http::HttpSessionRequest::registerCallbackQueue(ctu::Http::HttpSessionRequest *this, dispatch_object_t object)
+{
+  if (object)
+  {
+    dispatch_retain(object);
+  }
+
+  v4 = *(this + 19);
+  *(this + 19) = object;
+  if (v4)
+  {
+
+    dispatch_release(v4);
+  }
+}
+
+void ctu::Http::HttpSessionRequest::registerCompletionCodeblock(uint64_t a1, void *aBlock)
+{
+  if (aBlock)
+  {
+    v3 = _Block_copy(aBlock);
+  }
+
+  else
+  {
+    v3 = 0;
+  }
+
+  v4 = *(a1 + 160);
+  *(a1 + 160) = v3;
+  if (v4)
+  {
+    _Block_release(v4);
+  }
+}
+
+void ctu::Http::HttpSessionRequest::registerDataReceiveCodeblock(uint64_t a1, void *aBlock)
+{
+  if (aBlock)
+  {
+    v3 = _Block_copy(aBlock);
+  }
+
+  else
+  {
+    v3 = 0;
+  }
+
+  v4 = *(a1 + 168);
+  *(a1 + 168) = v3;
+  if (v4)
+  {
+    _Block_release(v4);
+  }
+}
+
+void ctu::Http::HttpSessionRequest::registerDataSendCodeblock(uint64_t a1, void *aBlock)
+{
+  if (aBlock)
+  {
+    v3 = _Block_copy(aBlock);
+  }
+
+  else
+  {
+    v3 = 0;
+  }
+
+  v4 = *(a1 + 176);
+  *(a1 + 176) = v3;
+  if (v4)
+  {
+    _Block_release(v4);
+  }
+}
+
+void *ctu::Http::HttpSessionRequest::setRequestBody(void *result, const void **a2)
+{
+  v2 = result + 9;
+  if (result + 9 != a2)
+  {
+    v3 = result;
+    v4 = *a2;
+    v5 = a2[1];
+    v6 = v5 - *a2;
+    v7 = result[11];
+    v8 = result[9];
+    if (v7 - v8 >= v6)
+    {
+      v13 = result[10];
+      v14 = v13 - v8;
+      if (v13 - v8 >= v6)
+      {
+        if (v5 != v4)
+        {
+          result = memmove(result[9], *a2, v6);
+        }
+
+        v12 = &v8[v6];
+      }
+
+      else
+      {
+        v15 = &v4[v14];
+        if (v13 != v8)
+        {
+          result = memmove(result[9], *a2, v14);
+          v13 = v3[10];
+        }
+
+        if (v5 != v15)
+        {
+          result = memmove(v13, v15, v5 - v15);
+        }
+
+        v12 = &v13[v5 - v15];
+      }
+    }
+
+    else
+    {
+      if (v8)
+      {
+        result[10] = v8;
+        operator delete(v8);
+        v7 = 0;
+        *v2 = 0;
+        v2[1] = 0;
+        v2[2] = 0;
+      }
+
+      if ((v6 & 0x8000000000000000) != 0)
+      {
+        std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
+      }
+
+      v9 = 2 * v7;
+      if (2 * v7 <= v6)
+      {
+        v9 = v6;
+      }
+
+      if (v7 >= 0x3FFFFFFFFFFFFFFFLL)
+      {
+        v10 = 0x7FFFFFFFFFFFFFFFLL;
+      }
+
+      else
+      {
+        v10 = v9;
+      }
+
+      result = std::vector<unsigned char>::__vallocate[abi:ne200100](v2, v10);
+      v11 = v3[10];
+      if (v5 != v4)
+      {
+        result = memmove(v3[10], v4, v6);
+      }
+
+      v12 = (v11 + v6);
+    }
+
+    v3[10] = v12;
+  }
+
+  return result;
+}
+
+const void **ctu::Http::HttpSessionRequest::setClientCert(ctu::Http::HttpSessionRequest *this, CFTypeRef cf)
+{
+  if (cf)
+  {
+    CFRetain(cf);
+  }
+
+  v4 = *(this + 12);
+  *(this + 12) = cf;
+  v6 = v4;
+  return ctu::SharedRef<__CFDictionary const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFDictionary const>::~SharedRef(&v6);
+}
+
+const void **ctu::Http::HttpSessionRequest::setServerPinnedCerts(ctu::Http::HttpSessionRequest *this, CFTypeRef cf)
+{
+  if (cf)
+  {
+    CFRetain(cf);
+  }
+
+  v4 = *(this + 13);
+  *(this + 13) = cf;
+  v6 = v4;
+  return ctu::SharedRef<__CFArray const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFArray const>::~SharedRef(&v6);
+}
+
+void ctu::Http::HttpSessionRequest::setValidateCertsCallback(uint64_t a1, void *aBlock)
+{
+  if (aBlock)
+  {
+    v3 = _Block_copy(aBlock);
+  }
+
+  else
+  {
+    v3 = 0;
+  }
+
+  v4 = *(a1 + 184);
+  *(a1 + 184) = v3;
+  if (v4)
+  {
+    _Block_release(v4);
+  }
+}
+
+uint64_t ctu::Http::HttpSessionRequest::executeValidateCertsCallback(ctu::Http::HttpSessionRequest *this, __SecTrust *a2)
+{
+  v2 = *(this + 23);
+  if (v2)
+  {
+    return (*(v2 + 16))(v2, a2);
+  }
+
+  else
+  {
+    return 1;
+  }
+}
+
+uint64_t non-virtual thunk toctu::Http::HttpSessionRequest::executeValidateCertsCallback(ctu::Http::HttpSessionRequest *this, __SecTrust *a2)
+{
+  v2 = *(this + 22);
+  if (v2)
+  {
+    return (*(v2 + 16))(v2, a2);
+  }
+
+  else
+  {
+    return 1;
+  }
+}
+
+const void **ctu::SharedRef<__CFDictionary const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFDictionary const>::~SharedRef(const void **a1)
+{
+  v2 = *a1;
+  if (v2)
+  {
+    CFRelease(v2);
+  }
+
+  return a1;
+}
+
+const void **ctu::SharedRef<__CFDictionary const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFDictionary const>::operator=(const void **a1, const void **a2)
+{
+  if (a1 != a2)
+  {
+    v5 = 0xAAAAAAAAAAAAAAAALL;
+    ctu::SharedRef<__CFDictionary const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFDictionary const>::SharedRef(&v5, a2);
+    v3 = *a1;
+    *a1 = v5;
+    v5 = v3;
+    ctu::SharedRef<__CFDictionary const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFDictionary const>::~SharedRef(&v5);
+  }
+
+  return a1;
+}
+
+const void **ctu::SharedRef<__CFDictionary const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFDictionary const>::SharedRef(const void **a1, const void **a2)
+{
+  v3 = *a2;
+  *a1 = *a2;
+  if (v3)
+  {
+    CFRetain(v3);
+  }
+
+  return a1;
+}
+
+const void **ctu::SharedRef<__CFNumber const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFNumber const>::~SharedRef(const void **a1)
+{
+  v2 = *a1;
+  if (v2)
+  {
+    CFRelease(v2);
+  }
+
+  return a1;
+}
+
+const void **ctu::SharedRef<__CFArray const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFArray const>::~SharedRef(const void **a1)
+{
+  v2 = *a1;
+  if (v2)
+  {
+    CFRelease(v2);
+  }
+
+  return a1;
+}
+
+const void **ctu::SharedRef<__CFDictionary,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFDictionary>::~SharedRef(const void **a1)
+{
+  v2 = *a1;
+  if (v2)
+  {
+    CFRelease(v2);
+  }
+
+  return a1;
+}
+
+const void **ctu::SharedRef<__CFURL const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFURL const>::~SharedRef(const void **a1)
+{
+  v2 = *a1;
+  if (v2)
+  {
+    CFRelease(v2);
+  }
+
+  return a1;
+}
+
+void *ctu::SharedRef<__CFArray const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFArray const>::SharedRef(void *a1, CFTypeRef cf)
+{
+  *a1 = cf;
+  if (cf)
+  {
+    CFRetain(cf);
+  }
+
+  return a1;
+}
+
+uint64_t *std::map<std::string,std::string,ctu::Http::case_insensitive_key_comparer,std::allocator<std::pair<std::string const,std::string>>>::map[abi:ne200100](uint64_t *a1, uint64_t a2)
+{
+  a1[2] = 0;
+  a1[1] = 0;
+  *a1 = (a1 + 1);
+  std::map<std::string,std::string,ctu::Http::case_insensitive_key_comparer,std::allocator<std::pair<std::string const,std::string>>>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,std::string>,std::__tree_node<std::__value_type<std::string,std::string>,void *> *,long>>>(a1, *a2, (a2 + 8));
+  return a1;
+}
+
+uint64_t *std::map<std::string,std::string,ctu::Http::case_insensitive_key_comparer,std::allocator<std::pair<std::string const,std::string>>>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,std::string>,std::__tree_node<std::__value_type<std::string,std::string>,void *> *,long>>>(uint64_t *result, __int128 *a2, __int128 *a3)
+{
+  if (a2 != a3)
+  {
+    v4 = a2;
+    v5 = result;
+    do
+    {
+      result = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,ctu::Http::case_insensitive_key_comparer,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::string> const&>(v5, (v5 + 8), (v4 + 2), v4 + 2);
+      v6 = *(v4 + 1);
+      if (v6)
+      {
+        do
+        {
+          v7 = v6;
+          v6 = *v6;
+        }
+
+        while (v6);
+      }
+
+      else
+      {
+        do
+        {
+          v7 = *(v4 + 2);
+          v8 = *v7 == v4;
+          v4 = v7;
+        }
+
+        while (!v8);
+      }
+
+      v4 = v7;
+    }
+
+    while (v7 != a3);
+  }
+
+  return result;
+}
+
+uint64_t *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,ctu::Http::case_insensitive_key_comparer,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::string> const&>(uint64_t ***a1, uint64_t **a2, uint64_t a3, __int128 *a4)
+{
+  v11 = 0xAAAAAAAAAAAAAAAALL;
+  v12 = 0xAAAAAAAAAAAAAAAALL;
+  v6 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,ctu::Http::case_insensitive_key_comparer,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1, a2, &v12, &v11, a3);
+  v7 = *v6;
+  if (!*v6)
+  {
+    v8 = v6;
+    memset(v10, 170, sizeof(v10));
+    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,ctu::Http::case_insensitive_key_comparer,true>,std::allocator<std::__value_type<std::string,std::string>>>::__construct_node<std::pair<std::string const,std::string> const&>(a1, v10, a4);
+    std::__tree<std::__value_type<boost::exception_detail::type_info_,boost::shared_ptr<boost::exception_detail::error_info_base>>,std::__map_value_compare<boost::exception_detail::type_info_,std::__value_type<boost::exception_detail::type_info_,boost::shared_ptr<boost::exception_detail::error_info_base>>,std::less<boost::exception_detail::type_info_>,true>,std::allocator<std::__value_type<boost::exception_detail::type_info_,boost::shared_ptr<boost::exception_detail::error_info_base>>>>::__insert_node_at(a1, v12, v8, v10[0]);
+    v7 = v10[0];
+    v10[0] = 0;
+    std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::string>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](v10);
+  }
+
+  return v7;
+}
+
+uint64_t *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,ctu::Http::case_insensitive_key_comparer,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(uint64_t ***a1, uint64_t **a2, uint64_t **a3, uint64_t **a4, uint64_t a5)
+{
+  v9 = (a1 + 1);
+  if (a1 + 1 == a2 || (*(a5 + 23) >= 0 ? (v11 = a5) : (v11 = *a5), *(a2 + 55) >= 0 ? (v12 = (a2 + 4)) : (v12 = a2[4]), strcasecmp(v11, v12) < 0))
+  {
+    v13 = *a2;
+    if (*a1 == a2)
+    {
+      v15 = a2;
+LABEL_29:
+      if (v13)
+      {
+        *a3 = v15;
+        return v15 + 1;
+      }
+
+      else
+      {
+        *a3 = a2;
+        return a2;
+      }
+    }
+
+    if (v13)
+    {
+      v14 = *a2;
+      do
+      {
+        v15 = v14;
+        v14 = *(v14 + 8);
+      }
+
+      while (v14);
+    }
+
+    else
+    {
+      v18 = a2;
+      do
+      {
+        v15 = v18[2];
+        v19 = *v15 == v18;
+        v18 = v15;
+      }
+
+      while (v19);
+    }
+
+    if (*(v15 + 55) >= 0)
+    {
+      v20 = (v15 + 4);
+    }
+
+    else
+    {
+      v20 = v15[4];
+    }
+
+    if (*(a5 + 23) >= 0)
+    {
+      v21 = a5;
+    }
+
+    else
+    {
+      v21 = *a5;
+    }
+
+    if (strcasecmp(v20, v21) < 0)
+    {
+      goto LABEL_29;
+    }
+  }
+
+  else
+  {
+    if ((strcasecmp(v12, v11) & 0x80000000) == 0)
+    {
+      *a3 = a2;
+      *a4 = a2;
+      return a4;
+    }
+
+    v16 = a2[1];
+    if (v16)
+    {
+      v17 = a2[1];
+      do
+      {
+        a4 = v17;
+        v17 = *v17;
+      }
+
+      while (v17);
+    }
+
+    else
+    {
+      v22 = a2;
+      do
+      {
+        a4 = v22[2];
+        v19 = *a4 == v22;
+        v22 = a4;
+      }
+
+      while (!v19);
+    }
+
+    if (a4 == v9 || (*(a4 + 55) >= 0 ? (v23 = (a4 + 4)) : (v23 = a4[4]), strcasecmp(v11, v23) < 0))
+    {
+      if (v16)
+      {
+        *a3 = a4;
+      }
+
+      else
+      {
+        *a3 = a2;
+        return (a2 + 1);
+      }
+
+      return a4;
+    }
+  }
+
+  return std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,ctu::Http::case_insensitive_key_comparer,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1, a3, a5);
+}
+
+std::string *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,ctu::Http::case_insensitive_key_comparer,true>,std::allocator<std::__value_type<std::string,std::string>>>::__construct_node<std::pair<std::string const,std::string> const&>@<X0>(uint64_t a1@<X0>, void *a2@<X8>, __int128 *a3@<X1>)
+{
+  v6 = operator new(0x50uLL);
+  *a2 = v6;
+  a2[1] = a1;
+  a2[2] = 0;
+  result = std::pair<std::string const,std::string>::pair[abi:ne200100]((v6 + 32), a3);
+  *(a2 + 16) = 1;
+  return result;
+}
+
+void *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,ctu::Http::case_insensitive_key_comparer,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(uint64_t a1, void *a2, uint64_t a3)
+{
+  v5 = (a1 + 8);
+  v4 = *(a1 + 8);
+  if (v4)
+  {
+    if (*(a3 + 23) >= 0)
+    {
+      v6 = a3;
+    }
+
+    else
+    {
+      v6 = *a3;
+    }
+
+    do
+    {
+      while (1)
+      {
+        v7 = v4;
+        v10 = v4[4];
+        v8 = v4 + 4;
+        v9 = v10;
+        v11 = (*(v8 + 23) >= 0 ? v8 : v9);
+        if ((strcasecmp(v6, v11) & 0x80000000) == 0)
+        {
+          break;
+        }
+
+        v4 = *v7;
+        v5 = v7;
+        if (!*v7)
+        {
+          goto LABEL_15;
+        }
+      }
+
+      if ((strcasecmp(v11, v6) & 0x80000000) == 0)
+      {
+        break;
+      }
+
+      v5 = v7 + 1;
+      v4 = v7[1];
+    }
+
+    while (v4);
+  }
+
+  else
+  {
+    v7 = (a1 + 8);
+  }
+
+LABEL_15:
+  *a2 = v7;
+  return v5;
+}
+
+std::string *std::pair<std::string const,std::string>::pair[abi:ne200100](std::string *this, __int128 *a2)
+{
+  if (*(a2 + 23) < 0)
+  {
+    std::string::__init_copy_ctor_external(this, *a2, *(a2 + 1));
+  }
+
+  else
+  {
+    v4 = *a2;
+    this->__r_.__value_.__r.__words[2] = *(a2 + 2);
+    *&this->__r_.__value_.__l.__data_ = v4;
+  }
+
+  if (*(a2 + 47) < 0)
+  {
+    std::string::__init_copy_ctor_external(this + 1, *(a2 + 3), *(a2 + 4));
+  }
+
+  else
+  {
+    v5 = *(a2 + 24);
+    this[1].__r_.__value_.__r.__words[2] = *(a2 + 5);
+    *&this[1].__r_.__value_.__l.__data_ = v5;
+  }
+
+  return this;
+}
+
+void sub_1A9133F44(_Unwind_Exception *exception_object)
+{
+  if (*(v1 + 23) < 0)
+  {
+    operator delete(*v1);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,ctu::Http::case_insensitive_key_comparer,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(uint64_t a1, void *a2)
+{
+  if (a2)
+  {
+    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,ctu::Http::case_insensitive_key_comparer,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(a1, *a2);
+    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,ctu::Http::case_insensitive_key_comparer,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(a1, a2[1]);
+    std::__destroy_at[abi:ne200100]<std::pair<std::string,std::string>,0>((a2 + 4));
+
+    operator delete(a2);
+  }
+}
+
+void std::__shared_ptr_pointer<ctu::Http::HttpSession_impl *,ctu::Http::HttpSession_impl::Deleter,std::allocator<ctu::Http::HttpSession_impl>>::~__shared_ptr_pointer(std::__shared_weak_count *a1)
+{
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  operator delete(v1);
+}
+
+uint64_t std::__shared_ptr_pointer<ctu::Http::HttpSession_impl *,ctu::Http::HttpSession_impl::Deleter,std::allocator<ctu::Http::HttpSession_impl>>::__get_deleter(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+void std::__shared_ptr_pointer<BOOL *,std::shared_ptr<BOOL>::__shared_ptr_default_delete<BOOL,BOOL>,std::allocator<BOOL>>::~__shared_ptr_pointer(std::__shared_weak_count *a1)
+{
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  operator delete(v1);
+}
+
+void std::__shared_ptr_pointer<BOOL *,std::shared_ptr<BOOL>::__shared_ptr_default_delete<BOOL,BOOL>,std::allocator<BOOL>>::__on_zero_shared(uint64_t a1)
+{
+  v1 = *(a1 + 24);
+  if (v1)
+  {
+    operator delete(v1);
+  }
+}
+
+uint64_t std::__shared_ptr_pointer<BOOL *,std::shared_ptr<BOOL>::__shared_ptr_default_delete<BOOL,BOOL>,std::allocator<BOOL>>::__get_deleter(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+void std::__shared_ptr_pointer<ctu::Http::HttpSessionRequest *,ctu::Http::HttpSessionRequest::Deleter,std::allocator<ctu::Http::HttpSessionRequest>>::~__shared_ptr_pointer(std::__shared_weak_count *a1)
+{
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  operator delete(v1);
+}
+
+uint64_t std::__shared_ptr_pointer<ctu::Http::HttpSessionRequest *,ctu::Http::HttpSessionRequest::Deleter,std::allocator<ctu::Http::HttpSessionRequest>>::__get_deleter(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+void std::__shared_ptr_pointer<ctu::Http::HttpResponseConcrete *,std::shared_ptr<ctu::Http::HttpResponseConcrete>::__shared_ptr_default_delete<ctu::Http::HttpResponseConcrete,ctu::Http::HttpResponseConcrete>,std::allocator<ctu::Http::HttpResponseConcrete>>::~__shared_ptr_pointer(std::__shared_weak_count *a1)
+{
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  operator delete(v1);
+}
+
+uint64_t std::__shared_ptr_pointer<ctu::Http::HttpResponseConcrete *,std::shared_ptr<ctu::Http::HttpResponseConcrete>::__shared_ptr_default_delete<ctu::Http::HttpResponseConcrete,ctu::Http::HttpResponseConcrete>,std::allocator<ctu::Http::HttpResponseConcrete>>::__on_zero_shared(uint64_t a1)
+{
+  result = *(a1 + 24);
+  if (result)
+  {
+    return (*(*result + 8))();
+  }
+
+  return result;
+}
+
+uint64_t std::__shared_ptr_pointer<ctu::Http::HttpResponseConcrete *,std::shared_ptr<ctu::Http::HttpResponseConcrete>::__shared_ptr_default_delete<ctu::Http::HttpResponseConcrete,ctu::Http::HttpResponseConcrete>,std::allocator<ctu::Http::HttpResponseConcrete>>::__get_deleter(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,ctu::Http::case_insensitive_key_comparer,true>,std::allocator<std::__value_type<std::string,std::string>>>::find<std::string>(uint64_t a1, uint64_t a2)
+{
+  v3 = a1 + 8;
+  v4 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,ctu::Http::case_insensitive_key_comparer,true>,std::allocator<std::__value_type<std::string,std::string>>>::__lower_bound<std::string>(a1, a2, *(a1 + 8), a1 + 8);
+  if (v3 == v4)
+  {
+    return v3;
+  }
+
+  v5 = v4;
+  v6 = *(a2 + 23) >= 0 ? a2 : *a2;
+  v7 = *(v5 + 55) >= 0 ? (v5 + 32) : *(v5 + 32);
+  if (strcasecmp(v6, v7) < 0)
+  {
+    return v3;
+  }
+
+  return v5;
+}
+
+uint64_t std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,ctu::Http::case_insensitive_key_comparer,true>,std::allocator<std::__value_type<std::string,std::string>>>::__lower_bound<std::string>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  if (a3)
+  {
+    v5 = a3;
+    if (*(a2 + 23) >= 0)
+    {
+      v6 = a2;
+    }
+
+    else
+    {
+      v6 = *a2;
+    }
+
+    do
+    {
+      if (*(v5 + 55) >= 0)
+      {
+        v7 = (v5 + 32);
+      }
+
+      else
+      {
+        v7 = *(v5 + 32);
+      }
+
+      v8 = strcasecmp(v7, v6);
+      if (v8 >= 0)
+      {
+        a4 = v5;
+      }
+
+      v5 = *(v5 + ((v8 >> 28) & 8));
+    }
+
+    while (v5);
+  }
+
+  return a4;
+}
+
+void boost::algorithm::detail::transform_range_copy<std::string,std::string,boost::algorithm::detail::to_upperF<char>>(std::string *a1, char *a2, std::locale *this)
+{
+  v3 = a2[23];
+  if (v3 >= 0)
+  {
+    v4 = a2;
+  }
+
+  else
+  {
+    v4 = *a2;
+  }
+
+  if (v3 >= 0)
+  {
+    v5 = a2[23];
+  }
+
+  else
+  {
+    v5 = *(a2 + 1);
+  }
+
+  *&a1->__r_.__value_.__r.__words[1] = 0uLL;
+  a1->__r_.__value_.__r.__words[0] = 0;
+  if (v5)
+  {
+    v8 = MEMORY[0x1E69E5318];
+    do
+    {
+      v9 = *v4;
+      v10 = std::locale::use_facet(this, v8);
+      v11 = (v10->__vftable[1].~facet)(v10, v9);
+      std::string::push_back(a1, v11);
+      ++v4;
+      --v5;
+    }
+
+    while (v5);
+  }
+}
+
+void sub_1A913438C(void *a1)
+{
+  __cxa_begin_catch(a1);
+  if (*(v1 + 23) < 0)
+  {
+    operator delete(*v1);
+  }
+
+  __cxa_rethrow();
+}
+
+void ctu::Http::HttpResponseConcrete::~HttpResponseConcrete(ctu::Http::HttpResponseConcrete *this)
+{
+  *this = &unk_1F1CB6240;
+  ctu::SharedRef<__CFError,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFError>::~SharedRef(this + 11);
+  ctu::SharedRef<__CFData const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFData const>::~SharedRef(this + 10);
+  if (*(this + 79) < 0)
+  {
+    operator delete(*(this + 7));
+  }
+
+  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,ctu::Http::case_insensitive_key_comparer,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(this + 16, *(this + 3));
+}
+
+{
+  ctu::Http::HttpResponseConcrete::~HttpResponseConcrete(this);
+
+  operator delete(v1);
 }

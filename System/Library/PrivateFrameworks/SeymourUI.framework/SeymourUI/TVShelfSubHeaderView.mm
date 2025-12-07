@@ -6,10 +6,10 @@
 
 - (void)applyLayoutAttributes:(id)attributes
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C7629C0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C7629C0, qword_20C1510D0);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v14 - v6;
-  v8 = type metadata accessor for TVShelfSubHeaderView();
+  v8 = type metadata accessor for TVShelfSubHeaderView(0);
   v15.receiver = self;
   v15.super_class = v8;
   attributesCopy = attributes;

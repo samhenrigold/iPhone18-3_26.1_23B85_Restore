@@ -3,6 +3,7 @@
 + (void)submitRTCPairingMetricWithMetricID:(id)d withCompletion:(id)completion;
 - (NRRTCPairingReporter)init;
 - (id)lastControllerPushed:(id)pushed;
+- (void)addToOrCapOffRTCPairingMetric:(unsigned int)metric;
 - (void)assembleAndSubmitPairingMetricWithMetricID:(id)d withCompletion:(id)completion;
 @end
 
@@ -47,6 +48,89 @@
   dCopy = d;
   v7 = +[NRRTCPairingReporter sharedInstance];
   [v7 assembleAndSubmitPairingMetricWithMetricID:dCopy withCompletion:completionCopy];
+}
+
+- (void)addToOrCapOffRTCPairingMetric:(unsigned int)metric
+{
+  v3 = *&metric;
+  if (BRStaleOrNoPairingMetric())
+  {
+    v5 = nr_pairing_reporter_log();
+    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+
+    if (!v6)
+    {
+      return;
+    }
+
+    v7 = nr_pairing_reporter_log();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Stale or no pairing metric in metric dir, will not attempt to submit anything to RTC", buf, 2u);
+    }
+
+    goto LABEL_7;
+  }
+
+  if (v3)
+  {
+    v8 = +[NRRTCPairingReporter sharedInstance];
+    [v8 setReportSubreason:v3];
+
+    v7 = +[NRRTCPairingReporter sharedInstance];
+    v28[0] = _NSConcreteStackBlock;
+    v28[1] = 3221225472;
+    v28[2] = sub_1000C13D0;
+    v28[3] = &unk_100179298;
+    v29 = v3;
+    [v7 assembleAndSubmitPairingMetricWithMetricID:0 withCompletion:v28];
+LABEL_7:
+
+    return;
+  }
+
+  v9 = nr_pairing_reporter_log();
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+
+  if (v10)
+  {
+    v11 = nr_pairing_reporter_log();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Not finished with pairing report, but will add success subreason", buf, 2u);
+    }
+  }
+
+  v30[0] = kPairingMetricsDir;
+  v12 = BRGetCurrentMetricIDFromMetricDir();
+  v30[1] = v12;
+  v30[2] = kPairingMetricNRPlistName;
+  v13 = [NSArray arrayWithObjects:v30 count:3];
+  v14 = [NSString pathWithComponents:v13];
+  v15 = [NSURL fileURLWithPath:v14];
+
+  objc_initWeak(&location, self);
+  *buf = 0;
+  v24 = buf;
+  v25 = 0x2020000000;
+  v26 = 0;
+  queue = self->_queue;
+  v18[0] = _NSConcreteStackBlock;
+  v18[1] = 3221225472;
+  v18[2] = sub_1000C14EC;
+  v18[3] = &unk_1001792C0;
+  objc_copyWeak(&v21, &location);
+  v22 = 0;
+  v19 = v15;
+  v20 = buf;
+  v17 = v15;
+  dispatch_async(queue, v18);
+
+  objc_destroyWeak(&v21);
+  _Block_object_dispose(buf, 8);
+  objc_destroyWeak(&location);
 }
 
 - (void)assembleAndSubmitPairingMetricWithMetricID:(id)d withCompletion:(id)completion

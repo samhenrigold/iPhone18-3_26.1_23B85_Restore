@@ -19,16 +19,15 @@
   v2 = qword_1ED6F5160;
   v3 = __swift_project_boxed_opaque_existential_1(&qword_1ED6F5148, qword_1ED6F5160);
   v4 = *(v2 - 8);
-  v5 = *(v4 + 64);
-  MEMORY[0x1EEE9AC00](v3, v3);
-  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v4 + 16))(v7);
-  v8 = *(v7 + 6);
-  v9 = *(v4 + 8);
+  MEMORY[0x1EEE9AC00](v3);
+  v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v4 + 16))(v6);
+  v7 = *(v6 + 6);
+  v8 = *(v4 + 8);
   swift_unknownObjectRetain();
-  v9(v7, v2);
+  v8(v6, v2);
 
-  return v8;
+  return v7;
 }
 
 - (APSubject)initWithArena:(id)arena

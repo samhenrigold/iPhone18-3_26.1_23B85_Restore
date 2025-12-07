@@ -104,20 +104,6 @@ OSMetaClass *_GLOBAL__sub_I_AppleSkywalkAVBLegacyEthernet_cpp()
   return result;
 }
 
-uint64_t *OUTLINED_FUNCTION_1()
-{
-  result = *(v0 + 304);
-  v2 = *result;
-  return result;
-}
-
-uint64_t *OUTLINED_FUNCTION_2()
-{
-  result = *(v0 + 304);
-  v2 = *result;
-  return result;
-}
-
 OSMetaClass *AppleSkywalkAVBEthernetInterface::MetaClass::MetaClass(OSMetaClass *this)
 {
   result = OSMetaClass::OSMetaClass(this, "AppleSkywalkAVBEthernetInterface", &IOSkywalkEthernetInterface::gMetaClass, 0x128u);

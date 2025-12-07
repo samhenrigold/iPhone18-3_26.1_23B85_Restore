@@ -1118,7 +1118,7 @@ LABEL_15:
 
   v67 = 0u;
   memset(buf, 0, sizeof(buf));
-  [(CAMTimelapseBackendController *)selfCopy _frameTransformForState:v50];
+  objc_msgSend__frameTransformForState_(selfCopy);
   startTime = [v50 startTime];
   startLocation = [v50 startLocation];
   preferHEVC = [v50 preferHEVC];

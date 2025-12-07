@@ -3,7 +3,7 @@
 
 @implementation AXSAutomaticSubtitlesShowWhenMuted
 
-uint64_t ___AXSAutomaticSubtitlesShowWhenMuted_block_invoke()
+void *___AXSAutomaticSubtitlesShowWhenMuted_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

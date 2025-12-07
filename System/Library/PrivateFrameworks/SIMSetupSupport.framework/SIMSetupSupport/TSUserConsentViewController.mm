@@ -14,6 +14,7 @@
 + (void)calculateTitleAndDetailsWithName:(id)name consentType:(unint64_t)type title:(id *)title details:(id *)details
 {
   nameCopy = name;
+  v10 = nameCopy;
   if (type <= 1)
   {
     if (type)
@@ -26,10 +27,10 @@
 
     else
     {
-      v20 = _TSLogDomain();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v21 = _TSLogDomain(nameCopy);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        [TSUserConsentViewController calculateTitleAndDetailsWithName:v20 consentType:? title:? details:?];
+        [TSUserConsentViewController calculateTitleAndDetailsWithName:v21 consentType:? title:? details:?];
       }
     }
 
@@ -38,47 +39,47 @@
 
   if (type == 2)
   {
-    v10 = MEMORY[0x277CCACA8];
-    v11 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v12 = [v11 localizedStringForKey:@"CONSENT_NEW_PROFILE_POLICY_TITLE" value:&stru_28753DF48 table:@"Localizable"];
-    *title = [v10 stringWithFormat:v12];
+    v11 = MEMORY[0x277CCACA8];
+    v12 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v13 = [v12 localizedStringForKey:@"CONSENT_NEW_PROFILE_POLICY_TITLE" value:&stru_28753DF48 table:@"Localizable"];
+    *title = [v11 stringWithFormat:v13];
 
-    v13 = MEMORY[0x277CCACA8];
-    v14 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    if (nameCopy)
+    v14 = MEMORY[0x277CCACA8];
+    v15 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    if (v10)
     {
-      v15 = @"CONSENT_NEW_PLAN_CANNOT_BE_DELETED_%@_%@";
+      v16 = @"CONSENT_NEW_PLAN_CANNOT_BE_DELETED_%@_%@";
 LABEL_13:
-      v19 = [v14 localizedStringForKey:v15 value:&stru_28753DF48 table:@"Localizable"];
-      [v13 stringWithFormat:v19, nameCopy, nameCopy];
+      v20 = [v15 localizedStringForKey:v16 value:&stru_28753DF48 table:@"Localizable"];
+      [v14 stringWithFormat:v20, v10, v10];
       *details = LABEL_23:;
 
       goto LABEL_24;
     }
 
-    v27 = @"CONSENT_NEW_PLAN_CANNOT_BE_DELETED_NO_NAME";
+    v28 = @"CONSENT_NEW_PLAN_CANNOT_BE_DELETED_NO_NAME";
 LABEL_22:
-    v19 = [v14 localizedStringForKey:v27 value:&stru_28753DF48 table:@"Localizable"];
-    [v13 stringWithFormat:v19, v28, v29];
+    v20 = [v15 localizedStringForKey:v28 value:&stru_28753DF48 table:@"Localizable"];
+    [v14 stringWithFormat:v20, v29, v30];
     goto LABEL_23;
   }
 
   if (type == 3)
   {
-    v16 = MEMORY[0x277CCACA8];
-    v17 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v18 = [v17 localizedStringForKey:@"CONSENT_NEW_PROFILE_POLICY_TITLE" value:&stru_28753DF48 table:@"Localizable"];
-    *title = [v16 stringWithFormat:v18];
+    v17 = MEMORY[0x277CCACA8];
+    v18 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v19 = [v18 localizedStringForKey:@"CONSENT_NEW_PROFILE_POLICY_TITLE" value:&stru_28753DF48 table:@"Localizable"];
+    *title = [v17 stringWithFormat:v19];
 
-    v13 = MEMORY[0x277CCACA8];
-    v14 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    if (nameCopy)
+    v14 = MEMORY[0x277CCACA8];
+    v15 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    if (v10)
     {
-      v15 = @"CONSENT_NEW_PLAN_CANNOT_BE_DISABLED_%@_%@";
+      v16 = @"CONSENT_NEW_PLAN_CANNOT_BE_DISABLED_%@_%@";
       goto LABEL_13;
     }
 
-    v27 = @"CONSENT_NEW_PLAN_CANNOT_BE_DISABLED_NO_NAME";
+    v28 = @"CONSENT_NEW_PLAN_CANNOT_BE_DISABLED_NO_NAME";
     goto LABEL_22;
   }
 
@@ -88,24 +89,24 @@ LABEL_22:
   }
 
 LABEL_17:
-  v21 = MEMORY[0x277CCACA8];
-  v22 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v23 = [v22 localizedStringForKey:@"GENERAL_USER_CONSENT_TITLE" value:&stru_28753DF48 table:@"Localizable"];
-  *title = [v21 stringWithFormat:v23];
+  v22 = MEMORY[0x277CCACA8];
+  v23 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v24 = [v23 localizedStringForKey:@"GENERAL_USER_CONSENT_TITLE" value:&stru_28753DF48 table:@"Localizable"];
+  *title = [v22 stringWithFormat:v24];
 
-  if (!nameCopy)
+  if (!v10)
   {
-    v14 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    *details = [v14 localizedStringForKey:@"GENERAL_USER_CONSENT_COMMON_DETAIL" value:&stru_28753DF48 table:@"Localizable"];
+    v15 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    *details = [v15 localizedStringForKey:@"GENERAL_USER_CONSENT_COMMON_DETAIL" value:&stru_28753DF48 table:@"Localizable"];
 LABEL_24:
 
     goto LABEL_25;
   }
 
-  v24 = MEMORY[0x277CCACA8];
-  v25 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v26 = [v25 localizedStringForKey:@"GENERAL_USER_CONSENT_COMMON_DETAIL_%@" value:&stru_28753DF48 table:@"Localizable"];
-  *details = [v24 stringWithFormat:v26, nameCopy];
+  v25 = MEMORY[0x277CCACA8];
+  v26 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v27 = [v26 localizedStringForKey:@"GENERAL_USER_CONSENT_COMMON_DETAIL_%@" value:&stru_28753DF48 table:@"Localizable"];
+  *details = [v25 stringWithFormat:v27, v10];
 
 LABEL_25:
 }
@@ -252,11 +253,10 @@ LABEL_11:
 
 + (void)calculateTitleAndDetailsWithName:(os_log_t)log consentType:title:details:.cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "+[TSUserConsentViewController calculateTitleAndDetailsWithName:consentType:title:details:]";
-  _os_log_error_impl(&dword_262AA8000, log, OS_LOG_TYPE_ERROR, "[E]No conent type, default to general consent @%s", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "+[TSUserConsentViewController calculateTitleAndDetailsWithName:consentType:title:details:]";
+  _os_log_error_impl(&dword_262AA8000, log, OS_LOG_TYPE_ERROR, "[E]No conent type, default to general consent @%s", &v1, 0xCu);
 }
 
 @end

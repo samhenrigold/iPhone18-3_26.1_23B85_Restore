@@ -7,51 +7,50 @@
 - (DDMatchCalendarEvent)initWithDDScannerResult:(id)result
 {
   resultCopy = result;
-  v27.receiver = self;
-  v27.super_class = DDMatchCalendarEvent;
-  v5 = [(DDMatch *)&v27 initWithDDScannerResult:resultCopy];
+  v25.receiver = self;
+  v25.super_class = DDMatchCalendarEvent;
+  v5 = [(DDMatch *)&v25 initWithDDScannerResult:resultCopy];
   if (v5)
   {
     [resultCopy coreResult];
-    v6 = *MEMORY[0x277D04190];
-    if ((DDResultHasType() & 1) != 0 || (v7 = *MEMORY[0x277D040A0], DDResultHasType()))
+    if ((DDResultHasType() & 1) != 0 || DDResultHasType())
     {
-      v26 = 0;
       v24 = 0;
-      v25 = 0;
       v22 = 0;
       v23 = 0;
-      v8 = [resultCopy extractStartDate:&v25 startTimezone:&v24 endDate:&v23 endTimezone:&v22 allDayRef:&v26 referenceDate:0 referenceTimezone:0];
-      v9 = v25;
-      v20 = v25;
-      v10 = v24;
-      v11 = v24;
-      v12 = v23;
-      v13 = v23;
-      v14 = v22;
-      v15 = v22;
-      if (v8)
+      v20 = 0;
+      v21 = 0;
+      v6 = [resultCopy extractStartDate:&v23 startTimezone:&v22 endDate:&v21 endTimezone:&v20 allDayRef:&v24 referenceDate:0 referenceTimezone:0];
+      v7 = v23;
+      v18 = v23;
+      v8 = v22;
+      v9 = v22;
+      v10 = v21;
+      v11 = v21;
+      v12 = v20;
+      v13 = v20;
+      if (v6)
       {
-        objc_storeStrong(&v5->_startDate, v9);
-        objc_storeStrong(&v5->_startTimeZone, v10);
-        objc_storeStrong(&v5->_endDate, v12);
-        objc_storeStrong(&v5->_endTimeZone, v14);
-        v5->_allDay = v26;
+        objc_storeStrong(&v5->_startDate, v7);
+        objc_storeStrong(&v5->_startTimeZone, v8);
+        objc_storeStrong(&v5->_endDate, v10);
+        objc_storeStrong(&v5->_endTimeZone, v12);
+        v5->_allDay = v24;
       }
     }
 
     else
     {
-      v26 = 0;
-      v21 = 0;
-      v16 = [resultCopy dateFromReferenceDate:0 referenceTimezone:0 timezoneRef:&v21 allDayRef:&v26];
-      v17 = v21;
-      v18 = v21;
-      if (v16)
+      v24 = 0;
+      v19 = 0;
+      v14 = [resultCopy dateFromReferenceDate:0 referenceTimezone:0 timezoneRef:&v19 allDayRef:&v24];
+      v15 = v19;
+      v16 = v19;
+      if (v14)
       {
-        objc_storeStrong(&v5->_startDate, v16);
-        objc_storeStrong(&v5->_startTimeZone, v17);
-        v5->_allDay = v26;
+        objc_storeStrong(&v5->_startDate, v14);
+        objc_storeStrong(&v5->_startTimeZone, v15);
+        v5->_allDay = v24;
       }
     }
   }

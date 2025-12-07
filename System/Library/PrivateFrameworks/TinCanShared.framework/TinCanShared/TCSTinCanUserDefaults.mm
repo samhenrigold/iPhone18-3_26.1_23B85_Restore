@@ -107,24 +107,25 @@ void __63__TCSTinCanUserDefaults_suggestionExpiryReasonAllowlistedValue__block_i
   }
 
   v7 = standardUserDefaults;
-  if (+[TCSBehavior isMobileKeyBagDisabledOrDeviceUnlockedSinceBoot])
+  v8 = +[TCSBehavior isMobileKeyBagDisabledOrDeviceUnlockedSinceBoot];
+  if (v8)
   {
     [v7 _tcsEnsureProtectionClass];
   }
 
   else
   {
-    _TCSInitializeLogging();
-    v8 = TCSLogDefault;
+    _TCSInitializeLogging(v8, v9);
+    v10 = TCSLogDefault;
     if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_DEFAULT))
     {
-      *v12 = 0;
-      _os_log_impl(&dword_26F110000, v8, OS_LOG_TYPE_DEFAULT, "TCSTinCanUserDefaults waiting for first-unlock.", v12, 2u);
+      *v14 = 0;
+      _os_log_impl(&dword_26F110000, v10, OS_LOG_TYPE_DEFAULT, "TCSTinCanUserDefaults waiting for first-unlock.", v14, 2u);
     }
 
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-    v10 = +[TCSBehavior sharedBehavior];
-    [defaultCenter addObserver:v7 selector:sel__tcsHandleDeviceFirstUnlock name:@"TCSFirstUnlockNotification" object:v10];
+    v12 = +[TCSBehavior sharedBehavior];
+    [defaultCenter addObserver:v7 selector:sel__tcsHandleDeviceFirstUnlock name:@"TCSFirstUnlockNotification" object:v12];
   }
 
   return v7;
@@ -132,68 +133,65 @@ void __63__TCSTinCanUserDefaults_suggestionExpiryReasonAllowlistedValue__block_i
 
 - (void)clearUserData
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[TCSTinCanUserDefaults clearUserData]";
-  _os_log_error_impl(&dword_26F110000, log, OS_LOG_TYPE_ERROR, "%s: attempt to clear user data before first device unlock.", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[TCSTinCanUserDefaults clearUserData]";
+  _os_log_error_impl(&dword_26F110000, log, OS_LOG_TYPE_ERROR, "%s: attempt to clear user data before first device unlock.", &v1, 0xCu);
 }
 
 void __38__TCSTinCanUserDefaults_clearUserData__block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB58];
   v3 = +[TCSTinCanUserDefaults allowListKey];
   v4 = [v2 setWithObjects:{@"Unavailable", v3, @"Suggestions", @"SuggestionsFirstGenerated", @"SuggestionsPreviouslyGenerated", @"ContactPhotoHashes", 0}];
 
-  _TCSInitializeLogging();
-  v5 = TCSLogDefault;
+  _TCSInitializeLogging(v5, v6);
+  v7 = TCSLogDefault;
   if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_26F110000, v5, OS_LOG_TYPE_DEFAULT, "Clearing Walkie-Talkie user data from defaults.", buf, 2u);
+    _os_log_impl(&dword_26F110000, v7, OS_LOG_TYPE_DEFAULT, "Clearing Walkie-Talkie user data from defaults.", buf, 2u);
   }
 
-  v16 = 0u;
   v17 = 0u;
-  v14 = 0u;
+  v18 = 0u;
   v15 = 0u;
-  v6 = v4;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v19 count:16];
-  if (v7)
+  v16 = 0u;
+  v8 = v4;
+  v9 = [v8 countByEnumeratingWithState:&v15 objects:v20 count:16];
+  if (v9)
   {
-    v8 = v7;
-    v9 = *v15;
+    v10 = v9;
+    v11 = *v16;
     do
     {
-      for (i = 0; i != v8; ++i)
+      for (i = 0; i != v10; ++i)
       {
-        if (*v15 != v9)
+        if (*v16 != v11)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v8);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * i);
-        if (([@"AppIsInstalled" isEqualToString:v11] & 1) == 0)
+        v13 = *(*(&v15 + 1) + 8 * i);
+        if (([@"AppIsInstalled" isEqualToString:v13] & 1) == 0)
         {
-          [*(a1 + 32) removeObjectForKey:v11];
+          [*(a1 + 32) removeObjectForKey:v13];
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v19 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v15 objects:v20 count:16];
     }
 
-    while (v8);
+    while (v10);
   }
 
   if (NPSHasCompletedInitialSync())
   {
-    [v6 removeObject:@"ContactPhotoHashes"];
-    v12 = objc_opt_new();
-    [v12 synchronizeUserDefaultsDomain:@"com.apple.tincan" keys:v6];
+    [v8 removeObject:@"ContactPhotoHashes"];
+    v14 = objc_opt_new();
+    [v14 synchronizeUserDefaultsDomain:@"com.apple.tincan" keys:v8];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 @end

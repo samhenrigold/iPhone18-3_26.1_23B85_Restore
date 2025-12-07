@@ -268,7 +268,7 @@
 
 - (void)didEndEditing:(id)editing
 {
-  if (CKIsRunningInMessagesNotificationExtension())
+  if (CKIsRunningInMessagesNotificationExtension(self))
   {
 
     [(CKMessageEntryTextView *)self checkForMentions];
@@ -1052,7 +1052,7 @@ LABEL_8:
   }
 }
 
-uint64_t __47__CKMessageEntryTextView_handleTapOrLongPress___block_invoke_278(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, BOOL *a5)
+void *__47__CKMessageEntryTextView_handleTapOrLongPress___block_invoke_278(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, BOOL *a5)
 {
   v7 = *(a1 + 32);
   v10[0] = MEMORY[0x1E69E9820];
@@ -1628,7 +1628,7 @@ void __72__CKMessageEntryTextView_updateFontIfNeededAndGetWasUsingBigEmojiStyle_
 
 - (void)_updateTextEffectsPickerEditMenuAction
 {
-  v18[6] = *MEMORY[0x1E69E9840];
+  v19[6] = *MEMORY[0x1E69E9840];
   expressiveTextEnabled = self->_expressiveTextEnabled;
   if (!expressiveTextEnabled || ([MEMORY[0x1E69A8070] sharedFeatureFlags], v4 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v4, "isSendingExpressiveTextEnabled"), v4, !v5))
   {
@@ -1637,50 +1637,51 @@ void __72__CKMessageEntryTextView_updateFontIfNeededAndGetWasUsingBigEmojiStyle_
   }
 
   v6 = *MEMORY[0x1E69A7CF8];
-  v18[0] = *MEMORY[0x1E69DB6D8];
-  v18[1] = v6;
+  v19[0] = *MEMORY[0x1E69DB6D8];
+  v19[1] = v6;
   v7 = *MEMORY[0x1E69A7D00];
-  v18[2] = *MEMORY[0x1E69A7CF0];
-  v18[3] = v7;
+  v19[2] = *MEMORY[0x1E69A7CF0];
+  v19[3] = v7;
   v8 = *MEMORY[0x1E69A7D08];
-  v18[4] = *MEMORY[0x1E69A7D18];
-  v18[5] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:6];
+  v19[4] = *MEMORY[0x1E69A7D18];
+  v19[5] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:6];
   [(CKMessageEntryTextView *)self _updatedAllowedTypingAttributesWithKeys:v9];
 
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
 LABEL_7:
-    v13 = 0;
+    v14 = 0;
     goto LABEL_8;
   }
 
   v10 = [MEMORY[0x1E69DCAB8] _systemImageNamed:@"character.motion"];
-  if ([MEMORY[0x1E69DCBB8] isInHardwareKeyboardMode])
+  isInHardwareKeyboardMode = [MEMORY[0x1E69DCBB8] isInHardwareKeyboardMode];
+  if (isInHardwareKeyboardMode)
   {
-    v11 = CKFrameworkBundle();
-    v12 = [v11 localizedStringForKey:@"TEXT_EFFECTS" value:&stru_1F04268F8 table:@"ChatKit"];
+    v12 = CKFrameworkBundle(isInHardwareKeyboardMode);
+    v13 = [v12 localizedStringForKey:@"TEXT_EFFECTS" value:&stru_1F04268F8 table:@"ChatKit"];
   }
 
   else
   {
-    v12 = &stru_1F04268F8;
+    v13 = &stru_1F04268F8;
   }
 
   objc_initWeak(&location, self);
-  v14 = MEMORY[0x1E69DC628];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __64__CKMessageEntryTextView__updateTextEffectsPickerEditMenuAction__block_invoke;
-  v15[3] = &unk_1E72EBCD8;
-  objc_copyWeak(&v16, &location);
-  v13 = [v14 actionWithTitle:v12 image:v10 identifier:0 handler:v15];
-  objc_destroyWeak(&v16);
+  v15 = MEMORY[0x1E69DC628];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __64__CKMessageEntryTextView__updateTextEffectsPickerEditMenuAction__block_invoke;
+  v16[3] = &unk_1E72EBCD8;
+  objc_copyWeak(&v17, &location);
+  v14 = [v15 actionWithTitle:v13 image:v10 identifier:0 handler:v16];
+  objc_destroyWeak(&v17);
   objc_destroyWeak(&location);
 
 LABEL_8:
   [(CKMessageEntryTextView *)self setAllowsTextAnimations:expressiveTextEnabled];
-  [(CKMessageEntryTextView *)self setShowTextEffectsPickerEditMenuAction:v13];
+  [(CKMessageEntryTextView *)self setShowTextEffectsPickerEditMenuAction:v14];
 }
 
 void __64__CKMessageEntryTextView__updateTextEffectsPickerEditMenuAction__block_invoke(uint64_t a1)
@@ -1864,12 +1865,13 @@ void __64__CKMessageEntryTextView__updateTextEffectsPickerEditMenuAction__block_
 
   if (showTextEffectsPickerEditMenuAction)
   {
-    if ([MEMORY[0x1E69DCBB8] isInHardwareKeyboardMode])
+    isInHardwareKeyboardMode = [MEMORY[0x1E69DCBB8] isInHardwareKeyboardMode];
+    if (isInHardwareKeyboardMode)
     {
-      showTextEffectsPickerEditMenuAction3 = CKFrameworkBundle();
-      v6 = [showTextEffectsPickerEditMenuAction3 localizedStringForKey:@"TEXT_EFFECTS" value:&stru_1F04268F8 table:@"ChatKit"];
+      showTextEffectsPickerEditMenuAction3 = CKFrameworkBundle(isInHardwareKeyboardMode);
+      v7 = [showTextEffectsPickerEditMenuAction3 localizedStringForKey:@"TEXT_EFFECTS" value:&stru_1F04268F8 table:@"ChatKit"];
       showTextEffectsPickerEditMenuAction2 = [(CKMessageEntryTextView *)self showTextEffectsPickerEditMenuAction];
-      [showTextEffectsPickerEditMenuAction2 setTitle:v6];
+      [showTextEffectsPickerEditMenuAction2 setTitle:v7];
     }
 
     else

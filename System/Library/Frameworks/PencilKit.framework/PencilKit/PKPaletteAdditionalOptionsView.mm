@@ -1270,7 +1270,7 @@ void __77__PKPaletteAdditionalOptionsView_moreOptionsViewControllerDidToggleAuto
   [(PKPaletteAdditionalOptionsView *)self setIsFingerDrawsOn:isFingerDrawsOn];
   [PKSettingsDaemon setPrefersPencilOnlyDrawing:v5 ^ 1u];
   v6 = +[PKStatisticsManager sharedStatisticsManager];
-  [PKStatisticsManager recordDrawWithFingerToggle:v6];
+  [(PKStatisticsManager *)v6 recordDrawWithFingerToggle:v5];
 }
 
 - (void)moreOptionsViewControllerDidSelectOpenPencilSettings:(id)settings

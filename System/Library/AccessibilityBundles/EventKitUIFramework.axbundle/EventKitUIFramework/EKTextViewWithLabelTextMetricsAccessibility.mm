@@ -40,41 +40,41 @@
 
 - (BOOL)accessibilityIsLocationLink
 {
-  v17 = *MEMORY[0x29EDCA608];
+  v16 = *MEMORY[0x29EDCA608];
   _axLocationItem = [(EKTextViewWithLabelTextMetricsAccessibility *)self _axLocationItem];
   v3 = _axLocationItem;
   if (_axLocationItem)
   {
     v4 = [_axLocationItem safeValueForKey:@"_locationTapRecognizer"];
+    v11 = 0u;
     v12 = 0u;
     v13 = 0u;
     v14 = 0u;
-    v15 = 0u;
     objc_opt_class();
     v5 = __UIAccessibilityCastAsClass();
     gestureRecognizers = [v5 gestureRecognizers];
 
-    v7 = [gestureRecognizers countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v7 = [gestureRecognizers countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v7)
     {
-      v8 = *v13;
+      v8 = *v12;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v13 != v8)
+          if (*v12 != v8)
           {
             objc_enumerationMutation(gestureRecognizers);
           }
 
-          if (v4 == *(*(&v12 + 1) + 8 * i))
+          if (v4 == *(*(&v11 + 1) + 8 * i))
           {
             LOBYTE(v7) = 1;
             goto LABEL_12;
           }
         }
 
-        v7 = [gestureRecognizers countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v7 = [gestureRecognizers countByEnumeratingWithState:&v11 objects:v15 count:16];
         if (v7)
         {
           continue;
@@ -92,7 +92,6 @@ LABEL_12:
     LOBYTE(v7) = 0;
   }
 
-  v10 = *MEMORY[0x29EDCA608];
   return v7;
 }
 

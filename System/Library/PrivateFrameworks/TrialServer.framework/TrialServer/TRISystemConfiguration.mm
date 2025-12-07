@@ -118,7 +118,7 @@ void __43__TRISystemConfiguration__sharedSystemInfo__block_invoke()
 
 - (int)populationType
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = +[TRICKServerEnvironmentReader currentPopulation];
   if (v3)
   {
@@ -126,28 +126,27 @@ void __43__TRISystemConfiguration__sharedSystemInfo__block_invoke()
     v5 = TRILogCategory_ClientFramework();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v8[0] = 67109120;
-      v8[1] = v4;
-      _os_log_impl(&dword_26F567000, v5, OS_LOG_TYPE_DEFAULT, "Using population override: %d", v8, 8u);
+      v7[0] = 67109120;
+      v7[1] = v4;
+      _os_log_impl(&dword_26F567000, v5, OS_LOG_TYPE_DEFAULT, "Using population override: %d", v7, 8u);
     }
   }
 
   else if ([(TRISystemConfiguration *)self isInternalBuild])
   {
-    v4 = 3;
+    return 3;
   }
 
   else if ([(TRISystemConfiguration *)self isBetaUserWithIsStale:0])
   {
-    v4 = 4;
+    return 4;
   }
 
   else
   {
-    v4 = 5;
+    return 5;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -253,10 +252,10 @@ void __42__TRISystemConfiguration_reloadSystemInfo__block_invoke(uint64_t a1, _B
   a2[8] = 0;
   v5 = a2;
   v3 = +[TRISystemInfo info];
-  v4 = v5[2];
-  v5[2] = v3;
+  v4 = *(v5 + 2);
+  *(v5 + 2) = v3;
 
-  objc_storeStrong((*(*(a1 + 32) + 8) + 40), v5[2]);
+  objc_storeStrong((*(*(a1 + 32) + 8) + 40), *(v5 + 2));
 }
 
 - (id)_trialVersion
@@ -326,23 +325,21 @@ void __42__TRISystemConfiguration_reloadSystemInfo__block_invoke(uint64_t a1, _B
 
 - (id)readDeviceIdentifierWithPath:(id)path
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v9 = 0;
-  v3 = [MEMORY[0x277CCACA8] stringWithContentsOfFile:path encoding:4 error:&v9];
-  v4 = v9;
+  v11 = *MEMORY[0x277D85DE8];
+  v8 = 0;
+  v3 = [MEMORY[0x277CCACA8] stringWithContentsOfFile:path encoding:4 error:&v8];
+  v4 = v8;
   if (!v3)
   {
     v5 = TRILogCategory_ClientFramework();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v8 = [v4 description];
+      v7 = [v4 description];
       *buf = 138412290;
-      v11 = v8;
+      v10 = v7;
       _os_log_error_impl(&dword_26F567000, v5, OS_LOG_TYPE_ERROR, "Persistent identifier file read error: %@", buf, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -362,10 +359,10 @@ void __42__TRISystemConfiguration_reloadSystemInfo__block_invoke(uint64_t a1, _B
 
 - (BOOL)deleteDeviceIdentifierWithPath:(id)path
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  if (![defaultManager fileExistsAtPath:pathCopy] || ((v14 = 0, v5 = objc_msgSend(defaultManager, "removeItemAtPath:error:", pathCopy, &v14), v6 = v14, v5) ? (v7 = v6 == 0) : (v7 = 0), v7))
+  if (![defaultManager fileExistsAtPath:pathCopy] || ((v13 = 0, v5 = objc_msgSend(defaultManager, "removeItemAtPath:error:", pathCopy, &v13), v6 = v13, v5) ? (v7 = v6 == 0) : (v7 = 0), v7))
   {
     v10 = 1;
   }
@@ -376,28 +373,27 @@ void __42__TRISystemConfiguration_reloadSystemInfo__block_invoke(uint64_t a1, _B
     v9 = TRILogCategory_ClientFramework();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v13 = [v8 description];
+      v12 = [v8 description];
       *buf = 138412290;
-      v16 = v13;
+      v15 = v12;
       _os_log_error_impl(&dword_26F567000, v9, OS_LOG_TYPE_ERROR, "Error deleting persistent identifier file: %@", buf, 0xCu);
     }
 
     v10 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (BOOL)setDeviceIdentifier:(id)identifier path:(id)path
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   pathCopy = path;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v21 = 0;
-  v9 = [defaultManager triCreateDirectoryForPath:pathCopy isDirectory:0 error:&v21];
-  v10 = v21;
+  v20 = 0;
+  v9 = [defaultManager triCreateDirectoryForPath:pathCopy isDirectory:0 error:&v20];
+  v10 = v20;
   if (v10)
   {
     selfCopy = v10;
@@ -406,7 +402,7 @@ void __42__TRISystemConfiguration_reloadSystemInfo__block_invoke(uint64_t a1, _B
     {
       v13 = [(TRISystemConfiguration *)selfCopy description];
       *buf = 138412290;
-      v23 = v13;
+      v22 = v13;
       v14 = "Error creating persistent identifier folder: %@";
 LABEL_10:
       _os_log_error_impl(&dword_26F567000, v12, OS_LOG_TYPE_ERROR, v14, buf, 0xCu);
@@ -415,9 +411,9 @@ LABEL_10:
 
   else
   {
-    v20 = 0;
-    [identifierCopy writeToFile:pathCopy atomically:1 encoding:4 error:&v20];
-    v15 = v20;
+    v19 = 0;
+    [identifierCopy writeToFile:pathCopy atomically:1 encoding:4 error:&v19];
+    v15 = v19;
     if (!v15)
     {
       selfCopy = self;
@@ -436,7 +432,7 @@ LABEL_10:
     {
       v13 = [(TRISystemConfiguration *)selfCopy description];
       *buf = 138412290;
-      v23 = v13;
+      v22 = v13;
       v14 = "Error writing persistent identifier: %@";
       goto LABEL_10;
     }
@@ -445,7 +441,6 @@ LABEL_10:
   v16 = 0;
 LABEL_7:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -947,7 +942,7 @@ uint64_t __45__TRISystemConfiguration_deviceHardwareModel__block_invoke(uint64_t
 
 - (id)activeDictationLocales
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D737A8] callerIsRunningFromSystemContext])
   {
     v2 = MEMORY[0x277CBEBF8];
@@ -961,7 +956,7 @@ uint64_t __45__TRISystemConfiguration_deviceHardwareModel__block_invoke(uint64_t
       v4 = [MEMORY[0x277CBEB58] set];
       v5 = CFPreferencesCopyAppValue(@"DictationLanguagesEnabled", @"com.apple.keyboard.preferences");
       objc_opt_class();
-      v24 = v5;
+      v23 = v5;
       if (objc_opt_isKindOfClass())
       {
         v6 = v5;
@@ -973,26 +968,26 @@ uint64_t __45__TRISystemConfiguration_deviceHardwareModel__block_invoke(uint64_t
       }
 
       v7 = v6;
+      v28 = 0u;
       v29 = 0u;
       v30 = 0u;
       v31 = 0u;
-      v32 = 0u;
       allKeys = [v7 allKeys];
-      v9 = [allKeys countByEnumeratingWithState:&v29 objects:v35 count:16];
+      v9 = [allKeys countByEnumeratingWithState:&v28 objects:v34 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v30;
+        v11 = *v29;
         do
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v30 != v11)
+            if (*v29 != v11)
             {
               objc_enumerationMutation(allKeys);
             }
 
-            v13 = *(*(&v29 + 1) + 8 * i);
+            v13 = *(*(&v28 + 1) + 8 * i);
             v14 = [v7 objectForKeyedSubscript:v13];
             bOOLValue = [v14 BOOLValue];
 
@@ -1002,37 +997,37 @@ uint64_t __45__TRISystemConfiguration_deviceHardwareModel__block_invoke(uint64_t
             }
           }
 
-          v10 = [allKeys countByEnumeratingWithState:&v29 objects:v35 count:16];
+          v10 = [allKeys countByEnumeratingWithState:&v28 objects:v34 count:16];
         }
 
         while (v10);
       }
 
       v2 = objc_opt_new();
+      v24 = 0u;
       v25 = 0u;
       v26 = 0u;
       v27 = 0u;
-      v28 = 0u;
       v16 = v4;
-      v17 = [v16 countByEnumeratingWithState:&v25 objects:v34 count:16];
+      v17 = [v16 countByEnumeratingWithState:&v24 objects:v33 count:16];
       if (v17)
       {
         v18 = v17;
-        v19 = *v26;
+        v19 = *v25;
         do
         {
           for (j = 0; j != v18; ++j)
           {
-            if (*v26 != v19)
+            if (*v25 != v19)
             {
               objc_enumerationMutation(v16);
             }
 
-            v21 = [MEMORY[0x277CBEAF8] canonicalLanguageIdentifierFromString:*(*(&v25 + 1) + 8 * j)];
+            v21 = [MEMORY[0x277CBEAF8] canonicalLanguageIdentifierFromString:*(*(&v24 + 1) + 8 * j)];
             [v2 addObject:v21];
           }
 
-          v18 = [v16 countByEnumeratingWithState:&v25 objects:v34 count:16];
+          v18 = [v16 countByEnumeratingWithState:&v24 objects:v33 count:16];
         }
 
         while (v18);
@@ -1052,20 +1047,18 @@ uint64_t __45__TRISystemConfiguration_deviceHardwareModel__block_invoke(uint64_t
     }
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-
   return v2;
 }
 
 + (void)updateSystemInfoUsingContext:(id)context
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v4 = TRILogCategory_Server();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v19) = 0;
-    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "Updating system info.", &v19, 2u);
+    LOWORD(v18) = 0;
+    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "Updating system info.", &v18, 2u);
   }
 
   v5 = objc_autoreleasePoolPush();
@@ -1088,8 +1081,8 @@ uint64_t __45__TRISystemConfiguration_deviceHardwareModel__block_invoke(uint64_t
     v13 = TRILogCategory_Server();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v19) = 0;
-      _os_log_impl(&dword_26F567000, v13, OS_LOG_TYPE_DEFAULT, "Update sysconfig", &v19, 2u);
+      LOWORD(v18) = 0;
+      _os_log_impl(&dword_26F567000, v13, OS_LOG_TYPE_DEFAULT, "Update sysconfig", &v18, 2u);
     }
 
     reloadSystemInfo = [(TRISystemConfiguration *)v8 reloadSystemInfo];
@@ -1100,9 +1093,9 @@ uint64_t __45__TRISystemConfiguration_deviceHardwareModel__block_invoke(uint64_t
     v15 = TRILogCategory_Server();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v19 = 138412290;
-      v20 = @"Failed to create system info";
-      _os_log_error_impl(&dword_26F567000, v15, OS_LOG_TYPE_ERROR, "%@", &v19, 0xCu);
+      v18 = 138412290;
+      v19 = @"Failed to create system info";
+      _os_log_error_impl(&dword_26F567000, v15, OS_LOG_TYPE_ERROR, "%@", &v18, 0xCu);
     }
 
     client2 = [contextCopy client];
@@ -1116,8 +1109,6 @@ uint64_t __45__TRISystemConfiguration_deviceHardwareModel__block_invoke(uint64_t
 
   objc_autoreleasePoolPop(v5);
   notify_post("com.apple.trial.covariates-updated");
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 @end

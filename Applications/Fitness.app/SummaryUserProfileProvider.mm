@@ -14,9 +14,10 @@
 
 - (void)wheelchairUseCharacteristicCache:(id)cache wheelchairUsageDidChange:(BOOL)change
 {
+  changeCopy = change;
   cacheCopy = cache;
   selfCopy = self;
-  sub_1001B3E24(change);
+  sub_1001B3E24(changeCopy);
 }
 
 @end

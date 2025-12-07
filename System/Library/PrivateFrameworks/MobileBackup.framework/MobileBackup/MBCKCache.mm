@@ -17,6 +17,8 @@
 - (id)_enumerateRestoreFilesForDomain:(id)domain state:(unint64_t)state negatingStateAndErrorState:(BOOL)errorState foundRestorable:(id)restorable range:(_NSRange)range;
 - (id)_executeSQL:(id)l;
 - (id)_fetchObjectOfClass:(Class)class error:(id *)error format:(id)format;
+- (id)_makePQLConnectionWithFlags:(int)flags error:(id *)error;
+- (id)_openPQLConnectionWithFlags:(int)flags error:(id *)error;
 - (id)_removePropertyForKey:(id)key;
 - (id)addDependentDomains:(id)domains forApp:(id)app;
 - (id)addFile:(id)file toManifest:(id)manifest;
@@ -81,6 +83,7 @@
 - (id)retainCountForSignature:(id)signature volumeType:(unint64_t)type error:(id *)error;
 - (id)setDomainRestoreAgent:(id)agent forDomain:(id)domain;
 - (id)setDomainRestoreState:(unint64_t)state forDomain:(id)domain;
+- (id)setDomainShouldRestoreToSafeHarbor:(BOOL)harbor forDomain:(id)domain;
 - (id)setFileEncryptionKey:(id)key forInodeNumber:(unint64_t)number volumeType:(unint64_t)type atPath:(id)path;
 - (id)setFileMissingEncryptionKeyForPath:(id)path;
 - (id)setFileStateToCompleted:(id)completed;
@@ -95,6 +98,7 @@
 - (id)summarizeFileChangesGroupByDomain:(id)domain;
 - (id)updateDecodedAssetPath:(id)path forSignature:(id)signature volumeType:(unint64_t)type;
 - (id)updateFile:(id)file;
+- (id)updateStashPath:(id)path forSignature:(id)signature volumeType:(unint64_t)type isDecrypted:(BOOL)decrypted;
 - (id)uploadedFileInPendingSnapshotWithDomainName:(id)name relativePath:(id)path error:(id *)error;
 - (int)countManifestPagesForManifestID:(id)d error:(id *)error;
 - (int)countManifestsForSnapshot:(id)snapshot error:(id *)error;
@@ -172,14 +176,14 @@
 {
   dispatch_assert_queue_V2(self->_sharedQueue);
   tracker = [(MBCKCache *)self tracker];
-  v37 = tracker;
+  v36 = tracker;
   if (!tracker)
   {
     __assert_rtn("[MBCKCache _openWithFlags:error:]", "MBCKCache.m", 374, "tracker");
   }
 
   path = [tracker path];
-  v39 = path;
+  v38 = path;
   if (!path)
   {
     __assert_rtn("[MBCKCache _openWithFlags:error:]", "MBCKCache.m", 376, "path");
@@ -195,20 +199,20 @@
   v9 = 1;
   v10 = PQLSqliteErrorDomain;
   *&v7 = 138412290;
-  v34 = v7;
+  v33 = v7;
   while (1)
   {
     v11 = v9;
 
     v12 = +[NSFileManager defaultManager];
-    v45[0] = NSFileOwnerAccountName;
-    v45[1] = NSFileGroupOwnerAccountName;
-    v46[0] = @"mobile";
-    v46[1] = @"mobile";
-    v13 = [NSDictionary dictionaryWithObjects:v46 forKeys:v45 count:2];
-    v42 = 0;
-    v14 = [v12 createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:v13 error:&v42];
-    v15 = v42;
+    v44[0] = NSFileOwnerAccountName;
+    v44[1] = NSFileGroupOwnerAccountName;
+    v45[0] = @"mobile";
+    v45[1] = @"mobile";
+    v13 = [NSDictionary dictionaryWithObjects:v45 forKeys:v44 count:2];
+    v41 = 0;
+    v14 = [v12 createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:v13 error:&v41];
+    v15 = v41;
 
     if ((v14 & 1) == 0)
     {
@@ -216,20 +220,20 @@
       if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        *v44 = v39;
-        *&v44[8] = 2112;
-        *&v44[10] = v15;
+        *v43 = v38;
+        *&v43[8] = 2112;
+        *&v43[10] = v15;
         _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "Failed to create the directory at %@: %@", buf, 0x16u);
-        _MBLog();
+        _MBLog(@"E ", "Failed to create the directory at %@: %@", v38, v15, v33);
       }
 
       v8 = v15;
-      goto LABEL_34;
+      goto LABEL_37;
     }
 
-    v41 = v15;
-    v16 = [(MBCKCache *)self _makePQLConnectionWithFlags:flags error:&v41];
-    v8 = v41;
+    v40 = v15;
+    v16 = [(MBCKCache *)self _makePQLConnectionWithFlags:flags error:&v40];
+    v8 = v40;
 
     if (v16 || flags & 1)
     {
@@ -243,15 +247,15 @@
 
       if (v19)
       {
-        v28 = MBGetDefaultLog();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+        v29 = MBGetDefaultLog();
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
           *buf = 67109378;
-          *v44 = 30;
-          *&v44[4] = 2114;
-          *&v44[6] = v8;
-          _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "Sleeping for %d seconds: %{public}@", buf, 0x12u);
-          _MBLog();
+          *v43 = 30;
+          *&v43[4] = 2114;
+          *&v43[6] = v8;
+          _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "Sleeping for %d seconds: %{public}@", buf, 0x12u);
+          _MBLog(@"E ", "Sleeping for %d seconds: %{public}@", 30, v8, v33);
         }
 
         sleep(0x1Eu);
@@ -263,22 +267,20 @@
     {
     }
 
-    v40 = 0;
-    v20 = [v37 _removeDatabaseAtPath:v39 error:{&v40, v32, v33, v34}];
-    v21 = v40;
+    v39 = 0;
+    v20 = [v36 _removeDatabaseAtPath:v38 error:&v39];
+    v21 = v39;
     if ((v20 & 1) == 0)
     {
       v22 = MBGetDefaultLog();
       if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        *v44 = v39;
-        *&v44[8] = 2112;
-        *&v44[10] = v21;
+        *v43 = v38;
+        *&v43[8] = 2112;
+        *&v43[10] = v21;
         _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "Failed to remove the db at %@: %@", buf, 0x16u);
-        v32 = v39;
-        v33 = v21;
-        _MBLog();
+        _MBLog(@"E ", "Failed to remove the db at %@: %@", v38, v21, v33);
       }
     }
 
@@ -290,22 +292,22 @@
     v9 = 0;
     if ((v11 & 1) == 0)
     {
-      goto LABEL_35;
+      goto LABEL_38;
     }
   }
 
   if (!v16)
   {
-LABEL_34:
+LABEL_37:
     if (!v8)
     {
       __assert_rtn("[MBCKCache _openWithFlags:error:]", "MBCKCache.m", 424, "localError");
     }
 
-LABEL_35:
+LABEL_38:
     if (error)
     {
-      v30 = v8;
+      v31 = v8;
       v16 = 0;
       *error = v8;
     }
@@ -315,7 +317,7 @@ LABEL_35:
       v16 = 0;
     }
 
-    goto LABEL_38;
+    goto LABEL_41;
   }
 
   atomic_store(1u, &self->_openCount);
@@ -339,14 +341,24 @@ LABEL_35:
     }
 
     *buf = 67109378;
-    *v44 = v27;
-    *&v44[4] = 2112;
-    *&v44[6] = v16;
+    *v43 = v27;
+    *&v43[4] = 2112;
+    *&v43[6] = v16;
+    if (flags)
+    {
+      v28 = 111;
+    }
+
+    else
+    {
+      v28 = 119;
+    }
+
     _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_INFO, "Opened r/%c PQL connection %@", buf, 0x12u);
-    _MBLog();
+    _MBLog(@"I ", "Opened r/%c PQL connection %@", v28, v16, v33);
   }
 
-LABEL_38:
+LABEL_41:
   return v16 != 0;
 }
 
@@ -361,7 +373,7 @@ LABEL_38:
       *buf = 134217984;
       selfCopy = self;
       _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Invalidating cache connection %p", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"I ", "Invalidating cache connection %p", self);
     }
 
     queue = self->_queue;
@@ -454,6 +466,454 @@ LABEL_38:
   v9 = completionCopy;
   v10 = errorCopy;
   dispatch_async(sharedQueue, block);
+}
+
+- (id)_openPQLConnectionWithFlags:(int)flags error:(id *)error
+{
+  if (!error)
+  {
+    __assert_rtn("[MBCKCache _openPQLConnectionWithFlags:error:]", "MBCKCache.m", 515, "error");
+  }
+
+  v5 = *&flags;
+  dispatch_assert_queue_V2(self->_sharedQueue);
+  tracker = [(MBCKCache *)self tracker];
+  if (!tracker)
+  {
+    __assert_rtn("[MBCKCache _openPQLConnectionWithFlags:error:]", "MBCKCache.m", 520, "tracker");
+  }
+
+  v8 = tracker;
+  path = [tracker path];
+  if (!path)
+  {
+    __assert_rtn("[MBCKCache _openPQLConnectionWithFlags:error:]", "MBCKCache.m", 522, "path");
+  }
+
+  v10 = path;
+  v11 = [NSURL fileURLWithPath:path];
+  if (!v11)
+  {
+    __assert_rtn("[MBCKCache _openPQLConnectionWithFlags:error:]", "MBCKCache.m", 524, "url");
+  }
+
+  v12 = v11;
+  objc_initWeak(&location, self);
+  v13 = objc_alloc_init(PQLConnection);
+  v14 = v5 & 1;
+  v30[0] = _NSConcreteStackBlock;
+  v30[1] = 3221225472;
+  v30[2] = sub_1000C119C;
+  v30[3] = &unk_1003BDC38;
+  objc_copyWeak(&v32, &location);
+  v15 = v10;
+  v31 = v15;
+  v33 = v5 & 1;
+  [v13 setSqliteErrorHandler:v30];
+  sqliteErrorHandler = [v13 sqliteErrorHandler];
+  [v13 setAutoRollbackHandler:sqliteErrorHandler];
+
+  v17 = [[NSString alloc] initWithFormat:@"cache-%p", self];
+  [v13 setLabel:v17];
+
+  v18 = +[MBBehaviorOptions sharedOptions];
+  [v13 setTraced:{objc_msgSend(v18, "sqlTrace")}];
+
+  [v13 setCrashIfUsedAfterClose:1];
+  [v13 setStatementCacheMaxCount:30];
+  v29 = 0;
+  LOBYTE(v18) = [v13 openAtURL:v12 withFlags:v5 error:&v29];
+  v19 = v29;
+  v20 = v19;
+  if ((v18 & 1) == 0)
+  {
+    if (!v19)
+    {
+      v21 = "localError";
+      v22 = 584;
+      goto LABEL_30;
+    }
+
+    if (!v14 || [v19 code] != 14 || (objc_msgSend(v20, "domain"), v23 = objc_claimAutoreleasedReturnValue(), v24 = objc_msgSend(v23, "isEqualToString:", PQLSqliteErrorDomain), v23, !v24))
+    {
+
+LABEL_20:
+      v27 = v20;
+      v13 = 0;
+      *error = v20;
+      goto LABEL_21;
+    }
+
+    v25 = [MBError errorWithCode:4 error:v20 format:@"Can't find the cache database"];
+
+    v20 = v25;
+LABEL_19:
+
+    if (v20)
+    {
+      goto LABEL_20;
+    }
+
+    v21 = "pdb || localError";
+    v22 = 599;
+LABEL_30:
+    __assert_rtn("[MBCKCache _openPQLConnectionWithFlags:error:]", "MBCKCache.m", v22, v21);
+  }
+
+  if (!v14 && ([v13 setupPragmas] & 1) == 0)
+  {
+    lastError = [v13 lastError];
+
+    v20 = lastError;
+    if (!lastError)
+    {
+      v20 = [MBError errorWithCode:1 format:@"setupPragmas failed"];
+    }
+
+    [v13 close:0];
+    goto LABEL_19;
+  }
+
+  if (!v13)
+  {
+    v21 = "pdb";
+    v22 = 595;
+    goto LABEL_30;
+  }
+
+LABEL_21:
+
+  objc_destroyWeak(&v32);
+  objc_destroyWeak(&location);
+
+  return v13;
+}
+
+- (id)_makePQLConnectionWithFlags:(int)flags error:(id *)error
+{
+  if (!error)
+  {
+    __assert_rtn("[MBCKCache _makePQLConnectionWithFlags:error:]", "MBCKCache.m", 606, "error");
+  }
+
+  v5 = *&flags;
+  dispatch_assert_queue_V2(self->_sharedQueue);
+  tracker = [(MBCKCache *)self tracker];
+  if (!tracker)
+  {
+    __assert_rtn("[MBCKCache _makePQLConnectionWithFlags:error:]", "MBCKCache.m", 610, "tracker");
+  }
+
+  v7 = [(MBCKCache *)self _openPQLConnectionWithFlags:v5 error:error];
+  serialQueue = v7;
+  if (!v7)
+  {
+    goto LABEL_27;
+  }
+
+  userVersion = [v7 userVersion];
+  unsignedIntValue = [userVersion unsignedIntValue];
+
+  if (unsignedIntValue > 0x12)
+  {
+    v24 = serialQueue;
+LABEL_22:
+    v25 = 0;
+    v26 = 2;
+    v27 = &dword_100000018;
+    v28 = MBError_ptr;
+    do
+    {
+      v29 = v25;
+      v25 = v26;
+      if (v26 <= v29)
+      {
+        currentHandler = [v28[70] currentHandler];
+        [currentHandler handleFailureInMethod:a2 object:self file:@"MBCKCache.m" lineNumber:694 description:@"Cache versions are not ordered correctly!"];
+
+        v28 = MBError_ptr;
+      }
+
+      v26 = *(&unk_1003BDC58 + v27);
+      v27 += 24;
+    }
+
+    while (v27 != 672);
+    if (unsignedIntValue >= 0x1C)
+    {
+LABEL_46:
+      v38 = +[MBBehaviorOptions sharedOptions];
+      [v38 sqlBatchTime];
+      v40 = v39;
+
+      v41 = +[MBBehaviorOptions sharedOptions];
+      sqlBatchCount = [v41 sqlBatchCount];
+
+      [v24 useBatchingWithDelay:sqlBatchCount changeCount:v40];
+      [v24 useSerialQueue];
+      serialQueue = [v24 serialQueue];
+      dispatch_queue_set_specific(serialQueue, self, self, 0);
+    }
+
+    else
+    {
+      if ((v5 & 1) == 0)
+      {
+        v30 = MBGetDefaultLog();
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 67109376;
+          *&buf[4] = unsignedIntValue;
+          *&buf[8] = 1024;
+          *&buf[10] = 28;
+          _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Migrating CK cache database from version %d to %d", buf, 0xEu);
+          _MBLog(@"Df", "Migrating CK cache database from version %d to %d", unsignedIntValue, 28);
+        }
+
+        v31 = 0;
+        v32 = 2;
+        v33 = &dword_1003BDC70;
+        while (1)
+        {
+          if (*(v33 - 2))
+          {
+            if (v32 > unsignedIntValue)
+            {
+              v34 = MBGetDefaultLog();
+              if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+              {
+                *buf = 67109376;
+                *&buf[4] = unsignedIntValue;
+                *&buf[8] = 1024;
+                *&buf[10] = v32;
+                _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "Migrating database from version %d to %d", buf, 0xEu);
+                _MBLog(@"Df", "Migrating database from version %d to %d", unsignedIntValue, v32);
+              }
+
+              *buf = 0;
+              *&buf[8] = buf;
+              *&buf[16] = 0x3032000000;
+              *&v69 = sub_1000BE7F8;
+              *(&v69 + 1) = sub_1000BE808;
+              v70 = 0;
+              v54[0] = _NSConcreteStackBlock;
+              v54[1] = 3221225472;
+              v54[2] = sub_1000C2A18;
+              v54[3] = &unk_1003BDF00;
+              v58 = v31;
+              v55 = tracker;
+              v59 = unsignedIntValue;
+              v60 = v32;
+              serialQueue = v24;
+              v56 = serialQueue;
+              v57 = buf;
+              if (([serialQueue performWithFlags:10 action:v54]& 1) == 0)
+              {
+                v46 = MBGetDefaultLog();
+                if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+                {
+                  v47 = *(*&buf[8] + 40);
+                  *v62 = 67109634;
+                  v63 = unsignedIntValue;
+                  v64 = 1024;
+                  v65 = v32;
+                  v66 = 2114;
+                  v67 = v47;
+                  _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_ERROR, "Migration from version %d to %d failed: %{public}@", v62, 0x18u);
+                  _MBLog(@"E ", "Migration from version %d to %d failed: %{public}@", unsignedIntValue, v32, *(*&buf[8] + 40));
+                }
+
+                [serialQueue close:0];
+                *error = *(*&buf[8] + 40);
+
+                lastError = v55;
+                goto LABEL_63;
+              }
+
+              if (*(v33 - 8) == 1)
+              {
+                if (([serialQueue execute:@"vacuum;"]& 1) == 0)
+                {
+                  lastError = [serialQueue lastError];
+                  v49 = MBGetDefaultLog();
+                  if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+                  {
+                    *v62 = 67109634;
+                    v63 = unsignedIntValue;
+                    v64 = 1024;
+                    v65 = v32;
+                    v66 = 2114;
+                    v67 = lastError;
+                    _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_ERROR, "Vacuum after migration from version %d to %d failed: %{public}@", v62, 0x18u);
+                    _MBLog(@"E ", "Vacuum after migration from version %d to %d failed: %{public}@", unsignedIntValue, v32, lastError);
+                  }
+
+                  [serialQueue close:0];
+                  v50 = lastError;
+                  *error = lastError;
+LABEL_63:
+
+                  _Block_object_dispose(buf, 8);
+                  goto LABEL_49;
+                }
+
+                v35 = MBGetDefaultLog();
+                if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+                {
+                  *v62 = 67109376;
+                  v63 = unsignedIntValue;
+                  v64 = 1024;
+                  v65 = v32;
+                  _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "Vacuumed after migrating database from version %d to %d", v62, 0xEu);
+                  _MBLog(@"Df", "Vacuumed after migrating database from version %d to %d", unsignedIntValue, v32);
+                }
+              }
+
+              [serialQueue setUserVersion:v32];
+              userVersion2 = [serialQueue userVersion];
+              unsignedIntValue = [userVersion2 unsignedIntValue];
+
+              _Block_object_dispose(buf, 8);
+            }
+          }
+
+          else if (v32 == unsignedIntValue)
+          {
+            v45 = MBGetDefaultLog();
+            if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+            {
+              *buf = 67109120;
+              *&buf[4] = v32;
+              _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "Found invalid database version %d", buf, 8u);
+              _MBLog(@"Df", "Found invalid database version %d", v32);
+            }
+
+            [v24 close:0];
+            v43 = [MBError errorWithCode:1 format:@"Found invalid database version %d", v32];
+            goto LABEL_48;
+          }
+
+          ++v31;
+          v37 = *v33;
+          v33 += 6;
+          v32 = v37;
+          if (v31 == 27)
+          {
+            goto LABEL_46;
+          }
+        }
+      }
+
+      [v24 close:0];
+      v43 = [MBError errorWithCode:1 format:@"Can't migrate RO database"];
+LABEL_48:
+      *error = v43;
+      serialQueue = v24;
+LABEL_49:
+      v24 = 0;
+    }
+
+    goto LABEL_50;
+  }
+
+  if ((v5 & 1) == 0)
+  {
+    v11 = [serialQueue url];
+    path = [v11 path];
+
+    if (!path)
+    {
+      __assert_rtn("[MBCKCache _makePQLConnectionWithFlags:error:]", "MBCKCache.m", 629, "path");
+    }
+
+    dbHandle = [serialQueue dbHandle];
+    if (!dbHandle)
+    {
+      __assert_rtn("[MBCKCache _makePQLConnectionWithFlags:error:]", "MBCKCache.m", 631, "dbHandle");
+    }
+
+    v14 = dbHandle;
+    *v62 = 61;
+    v15 = sqlite3_file_control(dbHandle, 0, 101, v62);
+    v16 = MBGetDefaultLog();
+    v17 = v16;
+    if (v15)
+    {
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      {
+        v18 = sqlite3_extended_errcode(v14);
+        v19 = sqlite3_errmsg(v14);
+        *buf = 138413058;
+        *&buf[4] = path;
+        *&buf[12] = 1024;
+        *&buf[14] = v15;
+        *&buf[18] = 1024;
+        *&buf[20] = v18;
+        LOWORD(v69) = 2080;
+        *(&v69 + 2) = v19;
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "Failed to truncate the database at %@: %d(%d): %s", buf, 0x22u);
+        v20 = sqlite3_extended_errcode(v14);
+        v21 = sqlite3_errmsg(v14);
+        _MBLog(@"E ", "Failed to truncate the database at %@: %d(%d): %s", path, v15, v20, v21);
+      }
+
+      [serialQueue close:0];
+      v61 = 0;
+      v22 = [tracker _removeDatabaseAtPath:path error:&v61];
+      serialQueue = v61;
+      if ((v22 & 1) == 0)
+      {
+        v23 = MBGetDefaultLog();
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 138412546;
+          *&buf[4] = path;
+          *&buf[12] = 2112;
+          *&buf[14] = serialQueue;
+          _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "Failed to remove the database at %@: %@", buf, 0x16u);
+          _MBLog(@"E ", "Failed to remove the database at %@: %@", path, serialQueue);
+        }
+      }
+    }
+
+    else
+    {
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138412802;
+        *&buf[4] = path;
+        *&buf[12] = 1024;
+        *&buf[14] = unsignedIntValue;
+        *&buf[18] = 1024;
+        *&buf[20] = 19;
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Truncated the database at %@, cacheVersion:%d, minCacheVersionForUpgrade:%d", buf, 0x18u);
+        _MBLog(@"Df", "Truncated the database at %@, cacheVersion:%d, minCacheVersionForUpgrade:%d", path, unsignedIntValue, 19);
+      }
+
+      [serialQueue close:0];
+    }
+
+    v24 = [(MBCKCache *)self _openPQLConnectionWithFlags:v5 error:error];
+
+    if (v24)
+    {
+      unsignedIntValue = 0;
+      goto LABEL_22;
+    }
+
+LABEL_27:
+    v24 = 0;
+    goto LABEL_51;
+  }
+
+  [serialQueue close:0];
+  [MBError errorWithCode:1 format:@"Can't upgrade RO database"];
+  *error = v24 = 0;
+LABEL_50:
+
+LABEL_51:
+
+  return v24;
 }
 
 - (BOOL)_isNotFoundError:(id)error
@@ -756,7 +1216,7 @@ LABEL_3:
       *buf = 138412290;
       v27 = v14;
       _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Failed to add device: %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "Failed to add device: %@", v14);
     }
 
     v17 = 0;
@@ -785,7 +1245,7 @@ LABEL_9:
       *buf = 138412290;
       v27 = v14;
       _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "Failed to set cached at date for account: %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "Failed to set cached at date for account: %@", v14);
     }
 
     if (error)
@@ -815,7 +1275,7 @@ LABEL_18:
       *buf = 138412290;
       v13 = deviceCopy;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Failed to add device: %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "Failed to add device: %@", deviceCopy);
     }
 
     if (error)
@@ -905,46 +1365,42 @@ LABEL_18:
     v8 = objc_opt_class();
     path2 = [(MBCKCache *)self path];
     *buf = 138544130;
-    v39 = v8;
-    v40 = 2114;
-    v41 = path2;
-    v42 = 2048;
-    v43 = fileSize;
-    v44 = 2048;
+    v35 = v8;
+    v36 = 2114;
+    v37 = path2;
+    v38 = 2048;
+    v39 = fileSize;
+    v40 = 2048;
     fileSystemFileNumber = [v5 fileSystemFileNumber];
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "%{public}@: %{public}@, size:%llu, inode:%llu", buf, 0x2Au);
 
     v10 = objc_opt_class();
     path3 = [(MBCKCache *)self path];
-    v29 = fileSize;
-    fileSystemFileNumber2 = [v5 fileSystemFileNumber];
-    v27 = v10;
-    v28 = path3;
-    _MBLog();
+    _MBLog(@"I ", "%{public}@: %{public}@, size:%llu, inode:%llu", v10, path3, fileSize, [v5 fileSystemFileNumber]);
   }
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
-  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v12 = MBSQLiteJournalSuffixes();
-  v32 = [v12 countByEnumeratingWithState:&v33 objects:v37 count:16];
-  if (v32)
+  v28 = [v12 countByEnumeratingWithState:&v29 objects:v33 count:16];
+  if (v28)
   {
-    v13 = *v34;
-    v31 = v3;
+    v13 = *v30;
+    v27 = v3;
     do
     {
-      for (i = 0; i != v32; i = i + 1)
+      for (i = 0; i != v28; i = i + 1)
       {
-        if (*v34 != v13)
+        if (*v30 != v13)
         {
           objc_enumerationMutation(v12);
         }
 
-        v15 = *(*(&v33 + 1) + 8 * i);
-        v16 = [(MBCKCache *)self path:v27];
-        v17 = [v16 stringByAppendingString:v15];
+        v15 = *(*(&v29 + 1) + 8 * i);
+        path4 = [(MBCKCache *)self path];
+        v17 = [path4 stringByAppendingString:v15];
 
         if ([v3 fileExistsAtPath:v17])
         {
@@ -956,24 +1412,20 @@ LABEL_18:
           {
             v21 = fileSize;
             v22 = objc_opt_class();
-            fileSystemFileNumber3 = [v18 fileSystemFileNumber];
-            *buf = 138544130;
-            v39 = v22;
-            v40 = 2114;
-            v41 = v17;
-            v42 = 2048;
-            v43 = fileSize2;
-            v44 = 2048;
-            fileSystemFileNumber = fileSystemFileNumber3;
-            _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "%{public}@: %{public}@, size:%llu, inode:%llu", buf, 0x2Au);
-            v24 = objc_opt_class();
-            v29 = fileSize2;
             fileSystemFileNumber2 = [v18 fileSystemFileNumber];
-            v27 = v24;
-            v28 = v17;
+            *buf = 138544130;
+            v35 = v22;
+            v36 = 2114;
+            v37 = v17;
+            v38 = 2048;
+            v39 = fileSize2;
+            v40 = 2048;
+            fileSystemFileNumber = fileSystemFileNumber2;
+            _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "%{public}@: %{public}@, size:%llu, inode:%llu", buf, 0x2Au);
+            v26 = objc_opt_class();
             fileSize = v21;
-            v3 = v31;
-            _MBLog();
+            v3 = v27;
+            _MBLog(@"I ", "%{public}@: %{public}@, size:%llu, inode:%llu", v26, v17, fileSize2, [v18 fileSystemFileNumber]);
           }
 
           fileSize = &fileSize[fileSize2];
@@ -981,15 +1433,15 @@ LABEL_18:
         }
       }
 
-      v32 = [v12 countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v28 = [v12 countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
-    while (v32);
+    while (v28);
   }
 
-  v25 = [NSNumber numberWithUnsignedLongLong:fileSize];
+  v24 = [NSNumber numberWithUnsignedLongLong:fileSize];
 
-  return v25;
+  return v24;
 }
 
 - (id)addPendingSnapshot:(id)snapshot
@@ -1273,30 +1725,30 @@ LABEL_18:
 {
   logCopy = log;
   manifestCopy = manifest;
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x2020000000;
-  v23 = 0;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x2020000000;
+  v22 = 0;
   if (logCopy)
   {
     v9 = MBGetDefaultLog();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v25 = manifestCopy;
+      v24 = manifestCopy;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "[Cache] Calculating checksum for %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "[Cache] Calculating checksum for %@", manifestCopy);
     }
   }
 
-  v18[0] = _NSConcreteStackBlock;
-  v18[1] = 3221225472;
-  v18[2] = sub_1000C58C0;
-  v18[3] = &unk_1003BDFF0;
-  v19 = logCopy;
-  v18[4] = self;
-  v18[5] = &v20;
-  manifestCopy = [(MBCKCache *)self _enumerateObjectsOfClass:objc_opt_class() callback:v18 format:@"SELECT fileID FROM Files WHERE manifestID = %@", manifestCopy];
+  v17[0] = _NSConcreteStackBlock;
+  v17[1] = 3221225472;
+  v17[2] = sub_1000C58C0;
+  v17[3] = &unk_1003BDFF0;
+  v18 = logCopy;
+  v17[4] = self;
+  v17[5] = &v19;
+  manifestCopy = [(MBCKCache *)self _enumerateObjectsOfClass:objc_opt_class() callback:v17 format:@"SELECT fileID FROM Files WHERE manifestID = %@", manifestCopy];
   v11 = manifestCopy;
   if (error)
   {
@@ -1309,20 +1761,19 @@ LABEL_18:
     v13 = MBGetDefaultLog();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v14 = v21[3];
+      v14 = v20[3];
       *buf = 134218242;
-      v25 = v14;
-      v26 = 2112;
-      v27 = manifestCopy;
+      v24 = v14;
+      v25 = 2112;
+      v26 = manifestCopy;
       _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "[Cache] %llx checksum for %@", buf, 0x16u);
-      v17 = v21[3];
-      _MBLog();
+      _MBLog(@"E ", "[Cache] %llx checksum for %@", v20[3], manifestCopy);
     }
   }
 
-  v15 = v21[3];
+  v15 = v20[3];
 
-  _Block_object_dispose(&v20, 8);
+  _Block_object_dispose(&v19, 8);
   return v15;
 }
 
@@ -2044,7 +2495,7 @@ LABEL_11:
     {
       *v5 = 0;
       _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_ERROR, "Failed to check if previous snapshot has skipped files", v5, 2u);
-      _MBLog();
+      _MBLog(@"E ", "Failed to check if previous snapshot has skipped files");
     }
 
     v3 = 0;
@@ -2076,7 +2527,7 @@ LABEL_11:
       v10 = 2112;
       v11 = v5;
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "Failed to track the missing encryption key for %@: %@", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"E ", "Failed to track the missing encryption key for %@: %@", pathCopy, v5);
     }
   }
 
@@ -2113,31 +2564,30 @@ LABEL_11:
     {
       *buf = 134218498;
       inodeCopy2 = inode;
-      v14 = 2048;
+      v13 = 2048;
       typeCopy2 = type;
-      v16 = 2112;
-      v17 = type;
+      v15 = 2112;
+      v16 = type;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "Failed to remove the cached encryption key (FoundEncryptionKeys) for inode %llu volumeType %lu: %@", buf, 0x20u);
-      v11 = type;
-      _MBLog();
+      _MBLog(@"E ", "Failed to remove the cached encryption key (FoundEncryptionKeys) for inode %llu volumeType %lu: %@", inode, type, type);
     }
   }
 
-  v9 = [(MBCKCache *)self _executeSQL:@"DELETE FROM EncryptionKeys WHERE inode = %llu AND volumeType = %lu", inode, type, v11];
+  type2 = [(MBCKCache *)self _executeSQL:@"DELETE FROM EncryptionKeys WHERE inode = %llu AND volumeType = %lu", inode, type];
 
-  if (v9)
+  if (type2)
   {
     v10 = MBGetDefaultLog();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218498;
       inodeCopy2 = inode;
-      v14 = 2048;
+      v13 = 2048;
       typeCopy2 = type;
-      v16 = 2112;
-      v17 = v9;
+      v15 = 2112;
+      v16 = type2;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Failed to remove the cached encryption key (EncryptionKeys) for inode %llu volumeType %lu: %@", buf, 0x20u);
-      _MBLog();
+      _MBLog(@"E ", "Failed to remove the cached encryption key (EncryptionKeys) for inode %llu volumeType %lu: %@", inode, type, type2);
     }
   }
 }
@@ -2195,7 +2645,7 @@ LABEL_11:
       LODWORD(buf) = 138412290;
       *(&buf + 4) = v5;
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "Failed to remove all the cached encryption keys: %@", &buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "Failed to remove all the cached encryption keys: %@", v5);
     }
 
     v7 = v5;
@@ -2208,14 +2658,15 @@ LABEL_11:
     v10 = MBGetDefaultLog();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
+      v11 = v9 - v4;
       LODWORD(buf) = 134217984;
-      *(&buf + 4) = v9 - v4;
+      *(&buf + 4) = v11;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Removed all cached encryption keys in %.3fs", &buf, 0xCu);
-      _MBLog();
+      _MBLog(@"Df", "Removed all cached encryption keys in %.3fs", v11);
     }
 
     +[NSDate timeIntervalSinceReferenceDate];
-    v12 = v11;
+    v13 = v12;
     *&buf = 0;
     *(&buf + 1) = &buf;
     v42 = 0x3032000000;
@@ -2243,46 +2694,44 @@ LABEL_11:
     v24[2] = sub_1000C9C38;
     v24[3] = &unk_1003BE130;
     v24[4] = self;
-    v13 = objc_retainBlock(v26);
-    v25 = v13;
-    [(MBCKCache *)self performInTransaction:v24];
-    v14 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-    if (v14 == 0.0 && (v14 = COERCE_DOUBLE(*(*(&buf + 1) + 40)), v14 == 0.0))
+    v14 = objc_retainBlock(v26);
+    v25 = v14;
+    v15 = [(MBCKCache *)self performInTransaction:v24];
+    if (v15 || (v15 = *(*(&buf + 1) + 40)) != 0)
     {
-      +[NSDate timeIntervalSinceReferenceDate];
-      v18 = v17;
-      v19 = MBGetDefaultLog();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v16 = MBGetDefaultLog();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        v20 = v32[3];
-        v21 = v28[3];
-        *v35 = 134218496;
-        v36 = v18 - v12;
-        v37 = 2048;
-        v38 = v20;
-        v39 = 2048;
-        v40 = v21;
-        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Rebuilt the cached encryption keys table in %.3fs (%llu keys, %llu bytes)", v35, 0x20u);
-        v22 = v32[3];
-        v23 = v28[3];
-        _MBLog();
+        *v35 = 138412290;
+        v36 = *&v15;
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "Failed to enumerate all the files from the Files table: %@", v35, 0xCu);
+        _MBLog(@"E ", "Failed to enumerate all the files from the Files table: %@", v15);
       }
 
-      v7 = 0;
+      v7 = v15;
     }
 
     else
     {
-      v15 = MBGetDefaultLog();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      +[NSDate timeIntervalSinceReferenceDate];
+      v19 = v18;
+      v20 = MBGetDefaultLog();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
-        *v35 = 138412290;
-        v36 = v14;
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Failed to enumerate all the files from the Files table: %@", v35, 0xCu);
-        _MBLog();
+        v21 = v19 - v13;
+        v22 = v32[3];
+        v23 = v28[3];
+        *v35 = 134218496;
+        v36 = v21;
+        v37 = 2048;
+        v38 = v22;
+        v39 = 2048;
+        v40 = v23;
+        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Rebuilt the cached encryption keys table in %.3fs (%llu keys, %llu bytes)", v35, 0x20u);
+        _MBLog(@"Df", "Rebuilt the cached encryption keys table in %.3fs (%llu keys, %llu bytes)", v21, v32[3], v28[3]);
       }
 
-      v7 = *&v14;
+      v7 = 0;
     }
 
     _Block_object_dispose(&v27, 8);
@@ -2451,6 +2900,25 @@ LABEL_8:
   return v14;
 }
 
+- (id)updateStashPath:(id)path forSignature:(id)signature volumeType:(unint64_t)type isDecrypted:(BOOL)decrypted
+{
+  decryptedCopy = decrypted;
+  pathCopy = path;
+  signatureCopy = signature;
+  if (_os_feature_enabled_impl())
+  {
+    v12 = [signatureCopy base64EncodedStringWithOptions:0];
+    type = [(MBCKCache *)self _executeSQL:@"UPDATE HardlinkCloneFiles SET stashPath = %@, stashedAssetIsDecrypted = %d WHERE signature = %@ AND volumeType = %lu", pathCopy, decryptedCopy, v12, type];
+  }
+
+  else
+  {
+    type = 0;
+  }
+
+  return type;
+}
+
 - (id)fileAssetMetadataForSignature:(id)signature volumeType:(unint64_t)type
 {
   signatureCopy = signature;
@@ -2460,63 +2928,62 @@ LABEL_8:
     goto LABEL_11;
   }
 
-  v37 = 0;
-  v38 = &v37;
-  v39 = 0x3032000000;
-  v40 = sub_1000BE7F8;
-  v41 = sub_1000BE808;
-  v42 = 0;
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x2020000000;
   v36 = 0;
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x3032000000;
-  v30 = sub_1000BE7F8;
-  v31 = sub_1000BE808;
+  v37 = &v36;
+  v38 = 0x3032000000;
+  v39 = sub_1000BE7F8;
+  v40 = sub_1000BE808;
+  v41 = 0;
   v32 = 0;
-  [signatureCopy base64EncodedStringWithOptions:0];
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = sub_1000BE7F8;
-  v25 = sub_1000BE808;
+  v33 = &v32;
+  v34 = 0x2020000000;
+  v35 = 0;
   v26 = 0;
-  v14[0] = _NSConcreteStackBlock;
-  v14[1] = 3221225472;
-  v14[2] = sub_1000CA8E8;
-  v14[3] = &unk_1003BE180;
-  v14[4] = self;
-  v7 = v16 = &v21;
-  v19 = &v27;
+  v27 = &v26;
+  v28 = 0x3032000000;
+  v29 = sub_1000BE7F8;
+  v30 = sub_1000BE808;
+  v31 = 0;
+  [signatureCopy base64EncodedStringWithOptions:0];
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = sub_1000BE7F8;
+  v24 = sub_1000BE808;
+  v25 = 0;
+  v13[0] = _NSConcreteStackBlock;
+  v13[1] = 3221225472;
+  v13[2] = sub_1000CA8E8;
+  v13[3] = &unk_1003BE180;
+  v13[4] = self;
+  v7 = v15 = &v20;
+  v18 = &v26;
   typeCopy = type;
-  v15 = v7;
-  v17 = &v37;
-  v18 = &v33;
-  [(MBCKCache *)self _perform:v14];
-  if (v22[5])
+  v14 = v7;
+  v16 = &v36;
+  v17 = &v32;
+  [(MBCKCache *)self _perform:v13];
+  if (v21[5])
   {
     v8 = MBGetDefaultLog();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v9 = v22[5];
+      v9 = v21[5];
       *buf = 138412546;
-      v44 = v7;
-      v45 = 2112;
-      v46 = v9;
+      v43 = v7;
+      v44 = 2112;
+      v45 = v9;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "Error fetching cached file metadata for %@: %@", buf, 0x16u);
-      v13 = v22[5];
-      _MBLog();
+      _MBLog(@"E ", "Error fetching cached file metadata for %@: %@", v7, v21[5]);
     }
   }
 
   else
   {
-    if (v38[5] || v28[5])
+    if (v37[5] || v27[5])
     {
       v11 = [MBCKFileAssetMetadata alloc];
-      v10 = [(MBCKFileAssetMetadata *)v11 initWithStashedAssetPath:v38[5] stashedAssetIsDecrypted:*(v34 + 24) decodedAssetPath:v28[5]];
+      v10 = [(MBCKFileAssetMetadata *)v11 initWithStashedAssetPath:v37[5] stashedAssetIsDecrypted:*(v33 + 24) decodedAssetPath:v27[5]];
       goto LABEL_10;
     }
 
@@ -2524,20 +2991,20 @@ LABEL_8:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v44 = v7;
+      v43 = v7;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "Found nil stashed and decoded asset path for %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"Db", "Found nil stashed and decoded asset path for %@", v7);
     }
   }
 
   v10 = 0;
 LABEL_10:
 
-  _Block_object_dispose(&v21, 8);
-  _Block_object_dispose(&v27, 8);
+  _Block_object_dispose(&v20, 8);
+  _Block_object_dispose(&v26, 8);
 
-  _Block_object_dispose(&v33, 8);
-  _Block_object_dispose(&v37, 8);
+  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v36, 8);
 
 LABEL_11:
 
@@ -2890,6 +3357,27 @@ LABEL_11:
   v11 = v10;
 
   return v11;
+}
+
+- (id)setDomainShouldRestoreToSafeHarbor:(BOOL)harbor forDomain:(id)domain
+{
+  harborCopy = harbor;
+  domainCopy = domain;
+  domainCopy = [(MBCKCache *)self _executeSQL:@"UPDATE RestoreDomains SET safeHarbor = %d WHERE domain = %@", harborCopy, domainCopy];
+  v8 = domainCopy;
+  if (domainCopy)
+  {
+    v9 = domainCopy;
+  }
+
+  else
+  {
+    v9 = [(MBCKCache *)self _executeSQL:@"INSERT OR IGNORE INTO RestoreDomains (safeHarbor, domain, state) VALUES (%d, %@, %lu)", harborCopy, domainCopy, 1];
+  }
+
+  v10 = v9;
+
+  return v10;
 }
 
 - (BOOL)domainShouldRestoreToSafeHarbor:(id)harbor error:(id *)error

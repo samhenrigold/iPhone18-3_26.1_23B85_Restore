@@ -215,9 +215,9 @@
         }
 
         v11 = v10;
-        v12 = [v11 isEqual:identifierCopy];
+        isEqual = objc_msgSend_isEqual_(v11);
 
-        if (v12)
+        if (isEqual)
         {
           v6 = v9;
           goto LABEL_15;
@@ -535,7 +535,7 @@ LABEL_21:
         v22 = v21;
         [(UIBackgroundConfiguration *)v20 _setStrokeColor:v22];
 
-        if (([(UICollectionViewUpdateItem *)v20 isNOOP]& 1) == 0)
+        if (![(UICollectionViewUpdateItem *)v20 isNOOP])
         {
           [v33 addObject:v20];
         }

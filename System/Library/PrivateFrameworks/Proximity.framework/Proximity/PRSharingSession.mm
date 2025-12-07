@@ -1,4 +1,5 @@
 @interface PRSharingSession
+- (BOOL)addRssiSample:(double)sample channel:(unsigned int)channel forPeer:(id)peer peerDeviceModel:(id)model withError:(id *)error;
 - (BOOL)trackNewBTPeer:(id)peer withDviceModel:(id)model error:(id *)error;
 - (PRSharingSession)init;
 - (PRSharingSession)initWithDelegate:(id)delegate delegateQueue:(id)queue;
@@ -28,15 +29,15 @@
 
 - (void)watchDogTimedOut
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   MachTimeSeconds = PRCommonGetMachTimeSeconds();
   MachContinuousTimeSeconds = PRCommonGetMachContinuousTimeSeconds();
   logger = self->_logger;
   if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 134217984;
-    v8 = MachTimeSeconds;
-    _os_log_impl(&dword_230EB5000, logger, OS_LOG_TYPE_DEFAULT, "Watchdog timed out %lf", &v7, 0xCu);
+    v6 = 134217984;
+    v7 = MachTimeSeconds;
+    _os_log_impl(&dword_230EB5000, logger, OS_LOG_TYPE_DEFAULT, "Watchdog timed out %lf", &v6, 0xCu);
   }
 
   [(PRSharingChoice *)self->_sharingChoiceEstimator heartbeatTimeout:1 currentMachContTime:MachTimeSeconds useUpdatedScores:MachContinuousTimeSeconds];
@@ -44,8 +45,6 @@
   {
     [(PRSharingSession *)self startWatchDogWithDuration:1000000000];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startWatchDogWithDuration:(int64_t)duration
@@ -177,9 +176,125 @@ void __51__PRSharingSession_initWithDelegate_delegateQueue___block_invoke_2(uint
   self->_scoresReported = 0;
 }
 
+- (BOOL)addRssiSample:(double)sample channel:(unsigned int)channel forPeer:(id)peer peerDeviceModel:(id)model withError:(id *)error
+{
+  v9 = *&channel;
+  v41 = *MEMORY[0x277D85DE8];
+  peerCopy = peer;
+  modelCopy = model;
+  v15 = modelCopy;
+  if (peerCopy)
+  {
+    if (modelCopy)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  else
+  {
+    currentHandler = [MEMORY[0x277CCA890] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"PRSharingSession.mm" lineNumber:133 description:{@"Invalid parameter not satisfying: %@", @"peerMacAddress"}];
+
+    if (v15)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
+  [currentHandler2 handleFailureInMethod:a2 object:self file:@"PRSharingSession.mm" lineNumber:134 description:{@"Invalid parameter not satisfying: %@", @"deviceModel"}];
+
+LABEL_3:
+  if ([peerCopy length] != 6)
+  {
+    currentHandler3 = [MEMORY[0x277CCA890] currentHandler];
+    [currentHandler3 handleFailureInMethod:a2 object:self file:@"PRSharingSession.mm" lineNumber:135 description:{@"Invalid parameter not satisfying: %@", @"[peerMacAddress length] == BT_MAC_LEN"}];
+  }
+
+  currentlyInitiating = [(PRSharingChoice *)self->_sharingChoiceEstimator currentlyInitiating];
+  if (currentlyInitiating)
+  {
+    v17 = self->_logger;
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138413058;
+      v34 = peerCopy;
+      v35 = 2080;
+      uTF8String = [v15 UTF8String];
+      v37 = 1024;
+      v38 = v9;
+      v39 = 2048;
+      sampleCopy = sample;
+      _os_log_impl(&dword_230EB5000, v17, OS_LOG_TYPE_DEFAULT, "new RSSI sample:\n MAC address: %@\n model: %s\n channel: %d\n rssi: %f", buf, 0x26u);
+    }
+
+    v18 = [(NSMutableDictionary *)self->_trackedBTPeers objectForKeyedSubscript:peerCopy];
+    v19 = v18 == 0;
+
+    if (v19)
+    {
+      if ([(PRSharingSession *)self trackNewBTPeer:peerCopy withDviceModel:v15 error:error])
+      {
+        goto LABEL_18;
+      }
+    }
+
+    else
+    {
+      v20 = [(NSMutableDictionary *)self->_trackedBTPeersDevice objectForKeyedSubscript:peerCopy];
+      v21 = [v15 isEqualToString:v20];
+
+      btProxEstimator = self->_btProxEstimator;
+      if (v21)
+      {
+        v23 = [PRSharingSessionHelper NSDataMacToUUID:peerCopy];
+        [(PRProximityEstimator *)btProxEstimator addRssiSample:v9 channel:v23 forPeer:error withError:sample];
+LABEL_19:
+
+        goto LABEL_20;
+      }
+
+      v25 = [PRSharingSessionHelper NSDataMacToUUID:peerCopy];
+      [(PRProximityEstimator *)btProxEstimator stopEstimatingProximityFor:v25 withError:error];
+
+      if ([(PRSharingSession *)self trackNewBTPeer:peerCopy withDviceModel:v15 error:error])
+      {
+LABEL_18:
+        v26 = self->_btProxEstimator;
+        v23 = [PRSharingSessionHelper NSDataMacToUUID:peerCopy];
+        [(PRProximityEstimator *)v26 addRssiSample:v9 channel:v23 forPeer:error withError:sample];
+        goto LABEL_19;
+      }
+    }
+  }
+
+  else
+  {
+    if (os_log_type_enabled(self->_logger, OS_LOG_TYPE_ERROR))
+    {
+      [PRSharingSession addRssiSample:channel:forPeer:peerDeviceModel:withError:];
+    }
+
+    if (error)
+    {
+      v24 = MEMORY[0x277CCA9B8];
+      v31 = *MEMORY[0x277CCA450];
+      v32 = @"Failed to initiate prior to adding sample";
+      v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+      *error = [v24 errorWithDomain:@"com.apple.Proximity.ErrorDomain" code:202 userInfo:v23];
+      goto LABEL_19;
+    }
+  }
+
+LABEL_20:
+
+  return currentlyInitiating;
+}
+
 - (BOOL)trackNewBTPeer:(id)peer withDviceModel:(id)model error:(id *)error
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   peerCopy = peer;
   modelCopy = model;
   v11 = modelCopy;
@@ -236,14 +351,13 @@ LABEL_3:
     if (error)
     {
       v15 = MEMORY[0x277CCA9B8];
-      v21 = *MEMORY[0x277CCA450];
-      v22[0] = @"Failed to start estimating proximity to peer";
-      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+      v20 = *MEMORY[0x277CCA450];
+      v21[0] = @"Failed to start estimating proximity to peer";
+      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
       *error = [v15 errorWithDomain:@"com.apple.Proximity.ErrorDomain" code:202 userInfo:v16];
     }
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -256,7 +370,7 @@ LABEL_3:
 
 - (void)logScores:(id)scores
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   scoresCopy = scores;
   if ([scoresCopy count])
   {
@@ -321,7 +435,7 @@ LABEL_3:
       if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v27 = string;
+        v26 = string;
         _os_log_impl(&dword_230EB5000, logger, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
       }
 
@@ -338,55 +452,54 @@ LABEL_3:
       _os_log_impl(&dword_230EB5000, v24, OS_LOG_TYPE_DEFAULT, "New scores: empty list", buf, 2u);
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)estimator:(id)estimator didEstimateProximity:(int64_t)proximity toPeer:(id)peer
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   peerCopy = peer;
   v8 = [PRSharingSessionHelper UUIDToNSDataMac:peerCopy len:6];
   v9 = [(NSMutableDictionary *)self->_trackedBTPeers objectForKeyedSubscript:v8];
 
   if (v9)
   {
+    v28 = 0.0;
     v29 = 0.0;
-    v30 = 0.0;
-    if (PRCommonGetAllTimes(0, &v30, &v29))
+    if (PRCommonGetAllTimes(0, &v29, &v28))
     {
       v10 = [MEMORY[0x277CCABB0] numberWithInteger:proximity];
       [(NSMutableDictionary *)self->_trackedBTPeers setObject:v10 forKeyedSubscript:v8];
 
       v11 = [PRSharingSessionHelper reverseNSData:v8];
-      [PRSharingSessionHelper UIntToHexString:[PRSharingSessionHelper NSDataToUInt64:v11] len:6];
-      v12 = v30;
-      v25 = buf;
-      *&v26 = v30;
-      WORD4(v26) = 0;
-      v27 = xmmword_230EED680;
-      v28[0] = 1;
-      *&v28[4] = [PRSharingSessionHelper ProxToCoarseRange:proximity];
-      *&v28[24] = 0;
-      v28[8] = 0;
-      *&v28[16] = 0;
+      [PRSharingSessionHelper NSDataToUInt64:v11];
+      objc_msgSend_UIntToHexString_len_(PRSharingSessionHelper);
+      v12 = v29;
+      v24 = buf;
+      *&v25 = v29;
+      WORD4(v25) = 0;
+      v26 = xmmword_230EED680;
+      v27[0] = 1;
+      *&v27[4] = [PRSharingSessionHelper ProxToCoarseRange:proximity];
+      *&v27[24] = 0;
+      v27[8] = 0;
+      *&v27[16] = 0;
       sharingChoiceEstimator = self->_sharingChoiceEstimator;
-      v14 = SHIBYTE(v25.__r_.__value_.__r.__words[2]);
-      if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
+      v14 = SHIBYTE(v24.__r_.__value_.__r.__words[2]);
+      if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
       {
-        std::string::__init_copy_ctor_external(&__p, v25.__r_.__value_.__l.__data_, v25.__r_.__value_.__l.__size_);
+        std::string::__init_copy_ctor_external(&__p, v24.__r_.__value_.__l.__data_, v24.__r_.__value_.__l.__size_);
       }
 
       else
       {
-        __p = v25;
+        __p = v24;
       }
 
+      v21 = v25;
       v22 = v26;
-      v23 = v27;
-      v24[0] = *v28;
-      *(v24 + 10) = *&v28[10];
-      [(PRSharingChoice *)sharingChoiceEstimator addBluetoothProximityEstimate:&__p currentMachContTime:v29];
+      v23[0] = *v27;
+      *(v23 + 10) = *&v27[10];
+      [(PRSharingChoice *)sharingChoiceEstimator addBluetoothProximityEstimate:&__p currentMachContTime:v28];
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
@@ -397,10 +510,10 @@ LABEL_3:
       {
         v17 = [PRSharingSessionHelper ProxToString:proximity];
         v18 = v17;
-        v19 = v25.__r_.__value_.__r.__words[0];
+        v19 = v24.__r_.__value_.__r.__words[0];
         if (v14 >= 0)
         {
-          v19 = &v25;
+          v19 = &v24;
         }
 
         LODWORD(buf.__r_.__value_.__l.__data_) = 138412802;
@@ -408,13 +521,13 @@ LABEL_3:
         WORD2(buf.__r_.__value_.__r.__words[1]) = 2080;
         *(&buf.__r_.__value_.__r.__words[1] + 6) = v19;
         HIWORD(buf.__r_.__value_.__r.__words[2]) = 2048;
-        v32 = v12;
+        v31 = v12;
         _os_log_impl(&dword_230EB5000, v16, OS_LOG_TYPE_DEFAULT, "PTS: BT Prox estimate of %@ for device %s at time %f", &buf, 0x20u);
       }
 
-      if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v25.__r_.__value_.__l.__data_);
+        operator delete(v24.__r_.__value_.__l.__data_);
       }
     }
 
@@ -432,8 +545,6 @@ LABEL_3:
       [PRSharingSession estimator:v8 didEstimateProximity:logger toPeer:?];
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)beacon:(id)beacon didOutputRangeResults:(id)results
@@ -648,11 +759,10 @@ void __45__PRSharingSession_onNewSharingChoiceScores___block_invoke(uint64_t a1)
 
 - (void)estimator:(uint64_t)a1 didEstimateProximity:(NSObject *)a2 toPeer:.cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_230EB5000, a2, OS_LOG_TYPE_ERROR, "PTS: Received Proximity estimation for a device we are not tracking: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_230EB5000, a2, OS_LOG_TYPE_ERROR, "PTS: Received Proximity estimation for a device we are not tracking: %@", &v2, 0xCu);
 }
 
 @end

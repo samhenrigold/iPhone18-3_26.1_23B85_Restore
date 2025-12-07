@@ -57,9 +57,11 @@
 
 uint64_t __30__TVMLUtilities_TVMLKitBundle__block_invoke()
 {
-  TVMLKitBundle_bundle = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.TVMLKit"];
+  v0 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.TVMLKit"];
+  v1 = TVMLKitBundle_bundle;
+  TVMLKitBundle_bundle = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)TVUIKitBundle
@@ -76,9 +78,11 @@ uint64_t __30__TVMLUtilities_TVMLKitBundle__block_invoke()
 
 uint64_t __30__TVMLUtilities_TVUIKitBundle__block_invoke()
 {
-  TVUIKitBundle_bundle = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.TVUIKit"];
+  v0 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.TVUIKit"];
+  v1 = TVUIKitBundle_bundle;
+  TVUIKitBundle_bundle = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)TVKitBundle
@@ -95,9 +99,11 @@ uint64_t __30__TVMLUtilities_TVUIKitBundle__block_invoke()
 
 uint64_t __28__TVMLUtilities_TVKitBundle__block_invoke()
 {
-  TVKitBundle_bundle = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.TVKit"];
+  v0 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.TVKit"];
+  v1 = TVKitBundle_bundle;
+  TVKitBundle_bundle = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (BOOL)mainBundleSupportsSFSymbols
@@ -519,7 +525,7 @@ LABEL_17:
   return v5;
 }
 
-uint64_t __53__TVMLUtilities_indexPathForFirstItemAttributeValue___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void *__53__TVMLUtilities_indexPathForFirstItemAttributeValue___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   result = [a2 integerValue];
   *(*(a1 + 32) + 8 * a3) = result;
@@ -587,7 +593,7 @@ __n128 __60__TVMLUtilities_rowSpacingMetricsForRowMetrics_forShowcase___block_in
   v5[4] = v8;
   v5[2] = v6[2];
   v10 = [*(a1 + 32) objectAtIndexedSubscript:?];
-  [v10 tv_rowMetricsValue];
+  objc_msgSend_tv_rowMetricsValue(v10);
   v11 = *(*(a1 + 56) + 8);
   v13 = v36;
   v12 = v37;

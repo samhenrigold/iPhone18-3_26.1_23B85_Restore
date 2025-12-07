@@ -128,20 +128,20 @@
 
 - (void)updateWidgetDocumentWithDocumentsMap:(id)map documentsDeliveryInfoMap:(id)infoMap deliveryInfoMap:(id)deliveryInfoMap preferHardwareWelcome:(BOOL)welcome completionHandler:(id)handler
 {
-  v71 = *MEMORY[0x1E69E9840];
+  v70 = *MEMORY[0x1E69E9840];
   mapCopy = map;
   infoMapCopy = infoMap;
   deliveryInfoMapCopy = deliveryInfoMap;
   handlerCopy = handler;
-  v47 = mapCopy;
-  v45 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(mapCopy, "count")}];
+  v46 = mapCopy;
   v44 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(mapCopy, "count")}];
+  v43 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(mapCopy, "count")}];
   standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
-  v63[0] = 0;
-  v63[1] = v63;
-  v63[2] = 0x3032000000;
-  v63[3] = __Block_byref_object_copy__1;
-  v63[4] = __Block_byref_object_dispose__1;
+  v62[0] = 0;
+  v62[1] = v62;
+  v62[2] = 0x3032000000;
+  v62[3] = __Block_byref_object_copy__1;
+  v62[4] = __Block_byref_object_dispose__1;
   v12 = [standardUserDefaults objectForKey:@"TPSWidgetShownTips"];
   v13 = MEMORY[0x1E695DF70];
   if (v12)
@@ -158,7 +158,7 @@
   v15 = +[TPSDefaultsManager widgetDocument];
   if (v15)
   {
-    v16 = [v47 objectForKeyedSubscript:v15];
+    v16 = [v46 objectForKeyedSubscript:v15];
     if ([v16 hasWidgetContent])
     {
       v17 = +[TPSLogger widget];
@@ -168,13 +168,13 @@
         widgetContent = [v16 widgetContent];
         titleContent = [widgetContent titleContent];
         *buf = 138412546;
-        v68 = identifier;
-        v69 = 2112;
-        v70 = titleContent;
+        v67 = identifier;
+        v68 = 2112;
+        v69 = titleContent;
         _os_log_debug_impl(&dword_1C00A7000, v17, OS_LOG_TYPE_DEBUG, "Found override widget content (%@). TitleContent: %@", buf, 0x16u);
       }
 
-      [v45 addObject:v16];
+      [v44 addObject:v16];
     }
 
     else
@@ -201,30 +201,30 @@
 
   else
   {
-    v58[0] = MEMORY[0x1E69E9820];
-    v58[1] = 3221225472;
-    v58[2] = __141__TPSWidgetController_updateWidgetDocumentWithDocumentsMap_documentsDeliveryInfoMap_deliveryInfoMap_preferHardwareWelcome_completionHandler___block_invoke;
-    v58[3] = &unk_1E81020A0;
-    v58[4] = self;
-    v61 = v63;
-    v59 = v44;
+    v57[0] = MEMORY[0x1E69E9820];
+    v57[1] = 3221225472;
+    v57[2] = __141__TPSWidgetController_updateWidgetDocumentWithDocumentsMap_documentsDeliveryInfoMap_deliveryInfoMap_preferHardwareWelcome_completionHandler___block_invoke;
+    v57[3] = &unk_1E81020A0;
+    v57[4] = self;
+    v60 = v62;
+    v58 = v43;
     welcomeCopy = welcome;
-    v60 = v45;
-    [v47 enumerateKeysAndObjectsUsingBlock:v58];
+    v59 = v44;
+    [v46 enumerateKeysAndObjectsUsingBlock:v57];
   }
 
   v19 = [objc_alloc(MEMORY[0x1E696AEB0]) initWithKey:@"widgetContent" ascending:0];
   v20 = MEMORY[0x1E695DF70];
-  v66 = v19;
-  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v66 count:1];
-  v22 = [v45 sortedArrayUsingDescriptors:v21];
+  v65 = v19;
+  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v65 count:1];
+  v22 = [v44 sortedArrayUsingDescriptors:v21];
   v23 = [v20 arrayWithArray:v22];
 
-  v65 = v19;
-  v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v65 count:1];
-  v43 = [v44 sortedArrayUsingDescriptors:v24];
+  v64 = v19;
+  v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v64 count:1];
+  v42 = [v43 sortedArrayUsingDescriptors:v24];
 
-  [v23 addObjectsFromArray:v43];
+  [v23 addObjectsFromArray:v42];
   v25 = [v23 count];
   if (v25)
   {
@@ -233,10 +233,10 @@
     aBlock[2] = __141__TPSWidgetController_updateWidgetDocumentWithDocumentsMap_documentsDeliveryInfoMap_deliveryInfoMap_preferHardwareWelcome_completionHandler___block_invoke_26;
     aBlock[3] = &unk_1E81020F0;
     v26 = v23;
-    v54 = v26;
+    v53 = v26;
     selfCopy = self;
-    v56 = infoMapCopy;
-    v57 = deliveryInfoMapCopy;
+    v55 = infoMapCopy;
+    v56 = deliveryInfoMapCopy;
     v27 = _Block_copy(aBlock);
     v28 = 0;
     while (v28 < [v26 count])
@@ -254,16 +254,16 @@
       v28 = v32 + 1;
       if (v30)
       {
-        v48[0] = MEMORY[0x1E69E9820];
-        v48[1] = 3221225472;
-        v48[2] = __141__TPSWidgetController_updateWidgetDocumentWithDocumentsMap_documentsDeliveryInfoMap_deliveryInfoMap_preferHardwareWelcome_completionHandler___block_invoke_3;
-        v48[3] = &unk_1E8102118;
-        v51 = handlerCopy;
-        v52 = v63;
+        v47[0] = MEMORY[0x1E69E9820];
+        v47[1] = 3221225472;
+        v47[2] = __141__TPSWidgetController_updateWidgetDocumentWithDocumentsMap_documentsDeliveryInfoMap_deliveryInfoMap_preferHardwareWelcome_completionHandler___block_invoke_3;
+        v47[3] = &unk_1E8102118;
+        v50 = handlerCopy;
+        v51 = v62;
         v33 = v30;
-        v49 = v33;
-        v50 = standardUserDefaults;
-        [(TPSWidgetController *)self updatePreferredWidget:v33 completionHandler:v48];
+        v48 = v33;
+        v49 = standardUserDefaults;
+        [(TPSWidgetController *)self updatePreferredWidget:v33 completionHandler:v47];
 
         goto LABEL_28;
       }
@@ -285,8 +285,7 @@ LABEL_28:
     (*(handlerCopy + 2))(handlerCopy, 0, 0, 0);
   }
 
-  _Block_object_dispose(v63, 8);
-  v35 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(v62, 8);
 }
 
 void __141__TPSWidgetController_updateWidgetDocumentWithDocumentsMap_documentsDeliveryInfoMap_deliveryInfoMap_preferHardwareWelcome_completionHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -466,7 +465,7 @@ void __63__TPSWidgetController_updatePreferredWidget_completionHandler___block_i
 
 void __63__TPSWidgetController_updatePreferredWidget_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   if (*(a1 + 32) && [TPSNetworkPathMonitor isNetworkError:?])
   {
     v2 = +[TPSLogger widget];
@@ -481,7 +480,7 @@ void __63__TPSWidgetController_updatePreferredWidget_completionHandler___block_i
       (*(v3 + 16))(v3, 0, 0, 0, *(a1 + 32));
     }
 
-    goto LABEL_27;
+    return;
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 72));
@@ -550,11 +549,11 @@ LABEL_22:
     v15 = [*(a1 + 40) identifier];
     v16 = [*(a1 + 40) widgetContent];
     v17 = [v16 titleContent];
-    v24 = 138412546;
-    v25 = v15;
-    v26 = 2112;
-    v27 = v17;
-    _os_log_impl(&dword_1C00A7000, v14, OS_LOG_TYPE_DEFAULT, "Reloading timeline with preferred document (%@). TitleContent: %@", &v24, 0x16u);
+    v23 = 138412546;
+    v24 = v15;
+    v25 = 2112;
+    v26 = v17;
+    _os_log_impl(&dword_1C00A7000, v14, OS_LOG_TYPE_DEFAULT, "Reloading timeline with preferred document (%@). TitleContent: %@", &v23, 0x16u);
   }
 
   v18 = objc_alloc(MEMORY[0x1E6994360]);
@@ -567,15 +566,12 @@ LABEL_22:
   {
     (*(v22 + 16))(v22, *(a1 + 40), *(a1 + 48), *(a1 + 56), 0);
   }
-
-LABEL_27:
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)widgetAssetsForDocument:(id)document preferCacheIfAvailable:(BOOL)available userInterfaceStyle:(int64_t)style completionHandler:(id)handler
 {
   availableCopy = available;
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   documentCopy = document;
   handlerCopy = handler;
   widgetContent = [documentCopy widgetContent];
@@ -604,15 +600,15 @@ LABEL_27:
   {
 LABEL_8:
     assetFileInfoManager2 = [documentCopy assetFileInfoManager];
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __107__TPSWidgetController_widgetAssetsForDocument_preferCacheIfAvailable_userInterfaceStyle_completionHandler___block_invoke;
-    v23[3] = &unk_1E8102190;
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __107__TPSWidgetController_widgetAssetsForDocument_preferCacheIfAvailable_userInterfaceStyle_completionHandler___block_invoke;
+    v22[3] = &unk_1E8102190;
     styleCopy = style;
-    v24 = handlerCopy;
-    [(TPSWidgetController *)self fetchAssetForAssets:assets language:language userInterfaceStyle:style assetFileInfoManager:assetFileInfoManager2 completionHandler:v23];
+    v23 = handlerCopy;
+    [(TPSWidgetController *)self fetchAssetForAssets:assets language:language userInterfaceStyle:style assetFileInfoManager:assetFileInfoManager2 completionHandler:v22];
 
-    v16 = v24;
+    v16 = v23;
     goto LABEL_9;
   }
 
@@ -621,40 +617,37 @@ LABEL_8:
   {
     *buf = 134218242;
     styleCopy2 = style;
-    v28 = 2112;
-    v29 = v16;
+    v27 = 2112;
+    v28 = v16;
     _os_log_impl(&dword_1C00A7000, v20, OS_LOG_TYPE_DEFAULT, "Asset with interface %ld found in cache %@", buf, 0x16u);
   }
 
   (*(handlerCopy + 2))(handlerCopy, v16, 0);
 LABEL_9:
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __107__TPSWidgetController_widgetAssetsForDocument_preferCacheIfAvailable_userInterfaceStyle_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = +[TPSLogger widget];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = *(a1 + 40);
-    v10 = 134218242;
-    v11 = v8;
-    v12 = 2112;
-    v13 = v5;
-    _os_log_impl(&dword_1C00A7000, v7, OS_LOG_TYPE_DEFAULT, "Asset with interface %ld fetched and stored at %@", &v10, 0x16u);
+    v9 = 134218242;
+    v10 = v8;
+    v11 = 2112;
+    v12 = v5;
+    _os_log_impl(&dword_1C00A7000, v7, OS_LOG_TYPE_DEFAULT, "Asset with interface %ld fetched and stored at %@", &v9, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchWidgetAssetsForDocument:(id)document preferCacheIfAvailable:(BOOL)available completionHandler:(id)handler
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   documentCopy = document;
   handlerCopy = handler;
   widgetContent = [documentCopy widgetContent];
@@ -662,18 +655,18 @@ void __107__TPSWidgetController_widgetAssetsForDocument_preferCacheIfAvailable_u
 
   if (assets)
   {
-    v50[0] = 0;
-    v50[1] = v50;
-    v50[2] = 0x3032000000;
-    v50[3] = __Block_byref_object_copy__1;
-    v50[4] = __Block_byref_object_dispose__1;
-    v51 = 0;
-    v48[0] = 0;
-    v48[1] = v48;
-    v48[2] = 0x3032000000;
-    v48[3] = __Block_byref_object_copy__1;
-    v48[4] = __Block_byref_object_dispose__1;
-    v49 = 0;
+    v49[0] = 0;
+    v49[1] = v49;
+    v49[2] = 0x3032000000;
+    v49[3] = __Block_byref_object_copy__1;
+    v49[4] = __Block_byref_object_dispose__1;
+    v50 = 0;
+    v47[0] = 0;
+    v47[1] = v47;
+    v47[2] = 0x3032000000;
+    v47[3] = __Block_byref_object_copy__1;
+    v47[4] = __Block_byref_object_dispose__1;
+    v48 = 0;
     v12 = +[TPSLogger widget];
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
@@ -683,41 +676,41 @@ void __107__TPSWidgetController_widgetAssetsForDocument_preferCacheIfAvailable_u
 
     objc_initWeak(&location, self);
     v14 = [TPSAsyncBlockOperation alloc];
-    v42[0] = MEMORY[0x1E69E9820];
-    v42[1] = 3221225472;
-    v42[2] = __93__TPSWidgetController_fetchWidgetAssetsForDocument_preferCacheIfAvailable_completionHandler___block_invoke;
-    v42[3] = &unk_1E81021E0;
-    objc_copyWeak(&v45, &location);
+    v41[0] = MEMORY[0x1E69E9820];
+    v41[1] = 3221225472;
+    v41[2] = __93__TPSWidgetController_fetchWidgetAssetsForDocument_preferCacheIfAvailable_completionHandler___block_invoke;
+    v41[3] = &unk_1E81021E0;
+    objc_copyWeak(&v44, &location);
     v15 = documentCopy;
     availableCopy = available;
-    v43 = v15;
-    v44 = v50;
-    v16 = [(TPSAsyncBlockOperation *)v14 initWithAsyncBlock:v42];
+    v42 = v15;
+    v43 = v49;
+    v16 = [(TPSAsyncBlockOperation *)v14 initWithAsyncBlock:v41];
     v17 = [TPSAsyncBlockOperation alloc];
-    v37[0] = MEMORY[0x1E69E9820];
-    v37[1] = 3221225472;
-    v37[2] = __93__TPSWidgetController_fetchWidgetAssetsForDocument_preferCacheIfAvailable_completionHandler___block_invoke_3;
-    v37[3] = &unk_1E81021E0;
-    objc_copyWeak(&v40, &location);
+    v36[0] = MEMORY[0x1E69E9820];
+    v36[1] = 3221225472;
+    v36[2] = __93__TPSWidgetController_fetchWidgetAssetsForDocument_preferCacheIfAvailable_completionHandler___block_invoke_3;
+    v36[3] = &unk_1E81021E0;
+    objc_copyWeak(&v39, &location);
     v18 = v15;
     availableCopy2 = available;
-    v38 = v18;
-    v39 = v48;
-    v19 = [(TPSAsyncBlockOperation *)v17 initWithAsyncBlock:v37];
+    v37 = v18;
+    v38 = v47;
+    v19 = [(TPSAsyncBlockOperation *)v17 initWithAsyncBlock:v36];
     v20 = MEMORY[0x1E696AAE0];
-    v28 = MEMORY[0x1E69E9820];
-    v29 = 3221225472;
-    v30 = __93__TPSWidgetController_fetchWidgetAssetsForDocument_preferCacheIfAvailable_completionHandler___block_invoke_5;
-    v31 = &unk_1E8102208;
+    v27 = MEMORY[0x1E69E9820];
+    v28 = 3221225472;
+    v29 = __93__TPSWidgetController_fetchWidgetAssetsForDocument_preferCacheIfAvailable_completionHandler___block_invoke_5;
+    v30 = &unk_1E8102208;
     v21 = v16;
-    v32 = v21;
+    v31 = v21;
     v22 = v19;
-    v33 = v22;
-    v34 = handlerCopy;
-    v35 = v50;
-    v36 = v48;
-    v23 = [v20 blockOperationWithBlock:&v28];
-    [v23 addDependency:{v21, v28, v29, v30, v31}];
+    v32 = v22;
+    v33 = handlerCopy;
+    v34 = v49;
+    v35 = v47;
+    v23 = [v20 blockOperationWithBlock:&v27];
+    [v23 addDependency:{v21, v27, v28, v29, v30}];
     [v23 addDependency:v22];
     v24 = objc_alloc_init(MEMORY[0x1E696ADC8]);
     [v24 setMaxConcurrentOperationCount:4];
@@ -727,12 +720,12 @@ void __107__TPSWidgetController_widgetAssetsForDocument_preferCacheIfAvailable_u
     [v24 addOperation:v23];
     [v24 setSuspended:0];
 
-    objc_destroyWeak(&v40);
-    objc_destroyWeak(&v45);
+    objc_destroyWeak(&v39);
+    objc_destroyWeak(&v44);
     objc_destroyWeak(&location);
-    _Block_object_dispose(v48, 8);
+    _Block_object_dispose(v47, 8);
 
-    _Block_object_dispose(v50, 8);
+    _Block_object_dispose(v49, 8);
   }
 
   else
@@ -746,8 +739,6 @@ void __107__TPSWidgetController_widgetAssetsForDocument_preferCacheIfAvailable_u
     v26 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.tips.TPSWidgetController" code:1 userInfo:0];
     (*(handlerCopy + 2))(handlerCopy, 0, 0, v26);
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 void __93__TPSWidgetController_fetchWidgetAssetsForDocument_preferCacheIfAvailable_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -814,21 +805,19 @@ void __93__TPSWidgetController_fetchWidgetAssetsForDocument_preferCacheIfAvailab
     v4 = [*(a1 + 40) error];
   }
 
-  v7 = v4;
+  v5 = v4;
 
-  v5 = *(*(*(a1 + 56) + 8) + 40);
-  v6 = *(*(*(a1 + 64) + 8) + 40);
   (*(*(a1 + 48) + 16))();
 }
 
 - (void)fetchAssetForAssets:(id)assets language:(id)language userInterfaceStyle:(int64_t)style assetFileInfoManager:(id)manager completionHandler:(id)handler
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   assetsCopy = assets;
   languageCopy = language;
   managerCopy = manager;
   handlerCopy = handler;
-  v29 = assetsCopy;
+  v28 = assetsCopy;
   v16 = [[TPSAssetsConfiguration alloc] initWithAssets:assetsCopy language:languageCopy userInterfaceStyle:style assetFileInfoManager:managerCopy];
   v17 = [(TPSAssetsConfiguration *)v16 cacheIdentifierForType:0];
   v18 = [TPSContentURLController assetPathFromAssetConfiguration:v16 type:0];
@@ -861,29 +850,28 @@ void __93__TPSWidgetController_fetchWidgetAssetsForDocument_preferCacheIfAvailab
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v36 = v18;
+      v35 = v18;
       _os_log_impl(&dword_1C00A7000, v22, OS_LOG_TYPE_DEFAULT, "widget asset path: %@", buf, 0xCu);
     }
 
     v24 = +[TPSAssetCacheController sharedInstance];
-    v30[0] = MEMORY[0x1E69E9820];
-    v30[1] = 3221225472;
-    v30[2] = __110__TPSWidgetController_fetchAssetForAssets_language_userInterfaceStyle_assetFileInfoManager_completionHandler___block_invoke;
-    v30[3] = &unk_1E8102230;
-    objc_copyWeak(&v33, &location);
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = __110__TPSWidgetController_fetchAssetForAssets_language_userInterfaceStyle_assetFileInfoManager_completionHandler___block_invoke;
+    v29[3] = &unk_1E8102230;
+    objc_copyWeak(&v32, &location);
     v25 = *MEMORY[0x1E696A9C0];
     v26 = v17;
-    v31 = v26;
-    v32 = handlerCopy;
+    v30 = v26;
+    v31 = handlerCopy;
     LODWORD(v27) = v25;
-    v21 = [v24 formattedDataForPath:v18 identifier:v26 attributionIdentifier:0 priority:v30 completionHandler:v27];
+    v21 = [v24 formattedDataForPath:v18 identifier:v26 attributionIdentifier:0 priority:v29 completionHandler:v27];
 
     [(TPSWidgetController *)self updateSessionMapValue:v21 forKey:v26];
-    objc_destroyWeak(&v33);
+    objc_destroyWeak(&v32);
   }
 
   objc_destroyWeak(&location);
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void __110__TPSWidgetController_fetchAssetForAssets_language_userInterfaceStyle_assetFileInfoManager_completionHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7)
@@ -957,14 +945,11 @@ void __110__TPSWidgetController_fetchAssetForAssets_language_userInterfaceStyle_
 
 - (void)attemptWidgetUpdateWith:(void *)a1 .cold.3(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v2 = [a1 identifier];
   v3 = [a1 widgetContent];
-  v10 = [v3 titleContent];
+  v9 = [v3 titleContent];
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchWidgetAssetsForDocument:(void *)a1 preferCacheIfAvailable:(uint8_t *)buf completionHandler:(os_log_t)log .cold.1(void *a1, uint8_t *buf, os_log_t log)
@@ -976,31 +961,24 @@ void __110__TPSWidgetController_fetchAssetForAssets_language_userInterfaceStyle_
 
 - (void)fetchWidgetAssetsForDocument:(void *)a1 preferCacheIfAvailable:completionHandler:.cold.2(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = [a1 identifier];
+  v6 = [a1 identifier];
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __110__TPSWidgetController_fetchAssetForAssets_language_userInterfaceStyle_assetFileInfoManager_completionHandler___block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = [a1 absoluteString];
+  v6 = [a1 absoluteString];
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __110__TPSWidgetController_fetchAssetForAssets_language_userInterfaceStyle_assetFileInfoManager_completionHandler___block_invoke_cold_2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1C00A7000, a2, OS_LOG_TYPE_DEBUG, "widget asset error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1C00A7000, a2, OS_LOG_TYPE_DEBUG, "widget asset error: %@", &v2, 0xCu);
 }
 
 @end

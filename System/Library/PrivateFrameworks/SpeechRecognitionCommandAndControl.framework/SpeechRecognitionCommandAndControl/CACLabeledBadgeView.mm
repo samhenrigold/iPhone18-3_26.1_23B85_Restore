@@ -375,7 +375,7 @@ LABEL_11:
   return v2;
 }
 
-uint64_t __34__CACLabeledBadgeView_imageBundle__block_invoke()
+uint64_t __34__CACLabeledBadgeView_imageBundle__block_invoke(uint64_t a1)
 {
   imageBundle_sImageBundle = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
 

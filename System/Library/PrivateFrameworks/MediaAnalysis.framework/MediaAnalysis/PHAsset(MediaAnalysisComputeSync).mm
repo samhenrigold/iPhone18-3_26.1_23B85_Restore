@@ -3,11 +3,11 @@
 - (id)mad_refetchAsset;
 - (uint64_t)mad_analysisStageAfterCompletingAnalysis:()MediaAnalysisComputeSync;
 - (uint64_t)mad_analysisStageAfterDroppingAnalysis:()MediaAnalysisComputeSync;
-- (uint64_t)mad_isEligibleForAnalysis:()MediaAnalysisComputeSync;
 - (uint64_t)mad_isEligibleForComputeSync;
 - (uint64_t)mad_isEligibleForComputeSyncDownloadWithAnalysisTask:()MediaAnalysisComputeSync;
 - (uint64_t)mad_isEligibleForComputeSyncIngestion;
 - (uint64_t)mad_needsProcessingForComputeSyncWithAnalysis:()MediaAnalysisComputeSync;
+- (void)mad_isEligibleForAnalysis:()MediaAnalysisComputeSync;
 @end
 
 @implementation PHAsset(MediaAnalysisComputeSync)
@@ -65,7 +65,7 @@
   return 0;
 }
 
-- (uint64_t)mad_isEligibleForAnalysis:()MediaAnalysisComputeSync
+- (void)mad_isEligibleForAnalysis:()MediaAnalysisComputeSync
 {
   v3 = a3;
   v12 = *MEMORY[0x1E69E9840];
@@ -77,7 +77,7 @@
       {
         if (a3 == 5)
         {
-          return ([self sourceType] & 1) != 0 || (objc_msgSend(self, "sourceType") & 4) != 0 || (objc_msgSend(self, "sourceType") & 0x20) != 0;
+          return (([self sourceType] & 1) != 0 || (objc_msgSend(self, "sourceType") & 4) != 0 || (objc_msgSend(self, "sourceType") & 0x20) != 0);
         }
 
         if (a3 == 10)
@@ -121,7 +121,7 @@ LABEL_36:
         if (([self sourceType] & 1) != 0 || (objc_msgSend(self, "sourceType") & 4) != 0 || (objc_msgSend(self, "sourceType") & 0x20) != 0)
         {
           isTrashed = [self isTrashed];
-          return isTrashed ^ 1u;
+          return (isTrashed ^ 1u);
         }
 
         return 0;
@@ -154,7 +154,7 @@ LABEL_36:
 
 LABEL_63:
       isTrashed = [self isTrashed];
-      return isTrashed ^ 1u;
+      return (isTrashed ^ 1u);
     }
 
 LABEL_14:
@@ -630,62 +630,62 @@ LABEL_25:
 
 - (id)mad_refetchAsset
 {
-  v28[6] = *MEMORY[0x1E69E9840];
+  v31[6] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(MEMORY[0x1E6978838]);
   photoLibrary = [self photoLibrary];
   [v2 setPhotoLibrary:photoLibrary];
 
   v4 = *MEMORY[0x1E6978CE8];
-  v28[0] = *MEMORY[0x1E6978CA0];
-  v28[1] = v4;
+  v31[0] = *MEMORY[0x1E6978CA0];
+  v31[1] = v4;
   v5 = *MEMORY[0x1E6978BF8];
-  v28[2] = *MEMORY[0x1E6978C40];
-  v28[3] = v5;
+  v31[2] = *MEMORY[0x1E6978C40];
+  v31[3] = v5;
   v6 = *MEMORY[0x1E6978C98];
-  v28[4] = *MEMORY[0x1E6978D20];
-  v28[5] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:6];
+  v31[4] = *MEMORY[0x1E6978D20];
+  v31[5] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:6];
   [v2 setFetchPropertySets:v7];
 
-  v8 = VCPSignPostLog();
-  v9 = os_signpost_id_generate(v8);
+  v9 = VCPSignPostLog(v8);
+  v10 = os_signpost_id_generate(v9);
 
-  v10 = VCPSignPostLog();
-  v11 = v10;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v12 = VCPSignPostLog(v11);
+  v13 = v12;
+  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
-    LOWORD(v23) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v9, "MADRefetchAsset", "", &v23, 2u);
+    LOWORD(v26) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v10, "MADRefetchAsset", "", &v26, 2u);
   }
 
-  v12 = MEMORY[0x1E6978628];
+  v14 = MEMORY[0x1E6978628];
   localIdentifier = [self localIdentifier];
-  v27 = localIdentifier;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v27 count:1];
-  v15 = [v12 fetchAssetsWithLocalIdentifiers:v14 options:v2];
+  v30 = localIdentifier;
+  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v30 count:1];
+  v17 = [v14 fetchAssetsWithLocalIdentifiers:v16 options:v2];
 
-  v16 = VCPSignPostLog();
-  v17 = v16;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
+  v19 = VCPSignPostLog(v18);
+  v20 = v19;
+  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
   {
-    LOWORD(v23) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v17, OS_SIGNPOST_INTERVAL_END, v9, "MADRefetchAsset", "", &v23, 2u);
+    LOWORD(v26) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v20, OS_SIGNPOST_INTERVAL_END, v10, "MADRefetchAsset", "", &v26, 2u);
   }
 
-  if ([v15 count])
+  if ([v17 count])
   {
-    if ([v15 count] >= 2 && MediaAnalysisLogLevel() >= 4 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+    if ([v17 count] >= 2 && MediaAnalysisLogLevel() >= 4 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
       localIdentifier2 = [self localIdentifier];
-      v19 = [v15 count];
-      v23 = 138412546;
-      v24 = localIdentifier2;
-      v25 = 1024;
-      v26 = v19;
-      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[%@] Re-fetched %d assets, using first one", &v23, 0x12u);
+      v22 = [v17 count];
+      v26 = 138412546;
+      v27 = localIdentifier2;
+      v28 = 1024;
+      v29 = v22;
+      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[%@] Re-fetched %d assets, using first one", &v26, 0x12u);
     }
 
-    v20 = [v15 objectAtIndexedSubscript:0];
+    v23 = [v17 objectAtIndexedSubscript:0];
   }
 
   else
@@ -693,15 +693,15 @@ LABEL_25:
     if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       localIdentifier3 = [self localIdentifier];
-      v23 = 138412290;
-      v24 = localIdentifier3;
-      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[%@] Failed to re-fetch asset to obtain updated properties", &v23, 0xCu);
+      v26 = 138412290;
+      v27 = localIdentifier3;
+      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[%@] Failed to re-fetch asset to obtain updated properties", &v26, 0xCu);
     }
 
-    v20 = 0;
+    v23 = 0;
   }
 
-  return v20;
+  return v23;
 }
 
 @end

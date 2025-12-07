@@ -146,7 +146,7 @@ LABEL_9:
 
 void __121__EDSQLQueryLogger_logQueryString_label_firstRowExecutionTimeInNanoseconds_totalExecutionTimeInNanoseconds_numberOfRows___block_invoke(uint64_t a1)
 {
-  v17[6] = *MEMORY[0x1E69E9840];
+  v16[6] = *MEMORY[0x1E69E9840];
   if (!*(a1 + 32))
   {
     v2 = +[EDSQLQueryLogger log];
@@ -169,9 +169,9 @@ void __121__EDSQLQueryLogger_logQueryString_label_firstRowExecutionTimeInNanosec
   [v3 setObject:v7 forKeyedSubscript:@"numberOfRows"];
 
   [v3 setObject:*(a1 + 32) forKeyedSubscript:@"transactionLabel"];
-  v17[0] = 0;
-  v8 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v3 options:0 error:v17];
-  v9 = v17[0];
+  v16[0] = 0;
+  v8 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v3 options:0 error:v16];
+  v9 = v16[0];
   if (!v8)
   {
     v10 = +[EDSQLQueryLogger log];
@@ -184,9 +184,9 @@ void __121__EDSQLQueryLogger_logQueryString_label_firstRowExecutionTimeInNanosec
   }
 
   v11 = [*(a1 + 48) rawQueryLogInputFileHandle];
-  v16 = 0;
-  v12 = [v11 writeData:v8 error:&v16];
-  v13 = v16;
+  v15 = 0;
+  v12 = [v11 writeData:v8 error:&v15];
+  v13 = v15;
 
   if ((v12 & 1) == 0)
   {
@@ -198,13 +198,11 @@ void __121__EDSQLQueryLogger_logQueryString_label_firstRowExecutionTimeInNanosec
       __121__EDSQLQueryLogger_logQueryString_label_firstRowExecutionTimeInNanoseconds_totalExecutionTimeInNanoseconds_numberOfRows___block_invoke_cold_3();
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_createQueryLogDirectoryPath
 {
-  v12[4] = *MEMORY[0x1E69E9840];
+  v11[4] = *MEMORY[0x1E69E9840];
   mailDataDirectory = [MEMORY[0x1E699AE20] mailDataDirectory];
   v3 = [MEMORY[0x1E695DFF8] fileURLWithPath:@"QueryPerformance" isDirectory:1 relativeToURL:mailDataDirectory];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
@@ -213,9 +211,9 @@ void __121__EDSQLQueryLogger_logQueryString_label_firstRowExecutionTimeInNanosec
 
   if ((v6 & 1) == 0)
   {
-    v12[0] = 0;
-    [defaultManager createDirectoryAtURL:v3 withIntermediateDirectories:1 attributes:0 error:v12];
-    v7 = v12[0];
+    v11[0] = 0;
+    [defaultManager createDirectoryAtURL:v3 withIntermediateDirectories:1 attributes:0 error:v11];
+    v7 = v11[0];
     if (v7)
     {
       v8 = +[EDSQLQueryLogger log];
@@ -229,8 +227,6 @@ void __121__EDSQLQueryLogger_logQueryString_label_firstRowExecutionTimeInNanosec
   }
 
   path2 = [v3 path];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return path2;
 }
@@ -284,12 +280,12 @@ void __121__EDSQLQueryLogger_logQueryString_label_firstRowExecutionTimeInNanosec
 
 - (void)_removeFile:(id)file
 {
-  v9[4] = *MEMORY[0x1E69E9840];
+  v8[4] = *MEMORY[0x1E69E9840];
   fileCopy = file;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v9[0] = 0;
-  v5 = [defaultManager removeItemAtPath:fileCopy error:v9];
-  v6 = v9[0];
+  v8[0] = 0;
+  v5 = [defaultManager removeItemAtPath:fileCopy error:v8];
+  v6 = v8[0];
 
   if ((v5 & 1) == 0)
   {
@@ -301,8 +297,6 @@ void __121__EDSQLQueryLogger_logQueryString_label_firstRowExecutionTimeInNanosec
       [EDSQLQueryLogger _removeFile:];
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)submitQueryLogData
@@ -321,18 +315,18 @@ void __121__EDSQLQueryLogger_logQueryString_label_firstRowExecutionTimeInNanosec
 
 void __38__EDSQLQueryLogger_submitQueryLogData__block_invoke(uint64_t a1)
 {
-  v68 = *MEMORY[0x1E69E9840];
-  v53 = [MEMORY[0x1E696AC08] defaultManager];
+  v67 = *MEMORY[0x1E69E9840];
+  v52 = [MEMORY[0x1E696AC08] defaultManager];
   v2 = [*(a1 + 32) queryLogFilePath];
-  v3 = [v53 fileExistsAtPath:v2];
+  v3 = [v52 fileExistsAtPath:v2];
 
   if (v3)
   {
     v4 = [*(a1 + 32) queryLogFilePath];
     v5 = [v4 stringByAppendingString:@"_processing"];
 
-    v52 = v5;
-    if ([v53 fileExistsAtPath:v5])
+    v51 = v5;
+    if ([v52 fileExistsAtPath:v5])
     {
       v6 = +[EDSQLQueryLogger log];
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
@@ -344,9 +338,9 @@ void __38__EDSQLQueryLogger_submitQueryLogData__block_invoke(uint64_t a1)
     }
 
     v7 = [*(a1 + 32) queryLogFilePath];
-    v61 = 0;
-    v8 = [v53 moveItemAtPath:v7 toPath:v5 error:&v61];
-    v50 = v61;
+    v60 = 0;
+    v8 = [v52 moveItemAtPath:v7 toPath:v5 error:&v60];
+    v49 = v60;
 
     if (v8)
     {
@@ -362,10 +356,10 @@ void __38__EDSQLQueryLogger_submitQueryLogData__block_invoke(uint64_t a1)
       v14 = [v12 fileHandleForWritingAtPath:v13];
       [*(a1 + 32) setRawQueryLogInputFileHandle:v14];
 
-      v60 = 0;
-      v51 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithContentsOfFile:v5 encoding:1 error:&v60];
-      v49 = v60;
-      if (v49)
+      v59 = 0;
+      v50 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithContentsOfFile:v5 encoding:1 error:&v59];
+      v48 = v59;
+      if (v48)
       {
         v15 = +[EDSQLQueryLogger log];
         if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
@@ -378,14 +372,14 @@ void __38__EDSQLQueryLogger_submitQueryLogData__block_invoke(uint64_t a1)
         goto LABEL_51;
       }
 
-      v15 = [MEMORY[0x1E696AE88] scannerWithString:v51];
+      v15 = [MEMORY[0x1E696AE88] scannerWithString:v50];
       v17 = 0;
       while (([v15 isAtEnd]& 1) == 0)
       {
         v18 = objc_autoreleasePoolPush();
-        v59 = v17;
-        [v15 scanUpToString:@"}{" intoString:&v59];
-        v19 = v59;
+        v58 = v17;
+        [v15 scanUpToString:@"}{" intoString:&v58];
+        v19 = v58;
 
         v20 = [v19 mutableCopy];
         if ([v20 length])
@@ -407,7 +401,7 @@ void __38__EDSQLQueryLogger_submitQueryLogData__block_invoke(uint64_t a1)
           }
 
           v25 = [v15 scanLocation];
-          if (v25 <= [v51 length] - 2)
+          if (v25 <= [v50 length] - 2)
           {
             [v15 setScanLocation:[v15 scanLocation]+ 1];
           }
@@ -420,7 +414,7 @@ void __38__EDSQLQueryLogger_submitQueryLogData__block_invoke(uint64_t a1)
           v26 = +[EDSQLQueryLogger log];
           if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
           {
-            __38__EDSQLQueryLogger_submitQueryLogData__block_invoke_cold_4(&v57, v58, v26);
+            __38__EDSQLQueryLogger_submitQueryLogData__block_invoke_cold_4(&v56, v57, v26);
           }
         }
 
@@ -429,7 +423,7 @@ void __38__EDSQLQueryLogger_submitQueryLogData__block_invoke(uint64_t a1)
       }
 
       [*(a1 + 32) _preprocessQueryInfo];
-      [*(a1 + 32) _removeFile:v52];
+      [*(a1 + 32) _removeFile:v51];
       v27 = [*(a1 + 32) queryStatisticsArray];
       v28 = v27 == 0;
 
@@ -446,9 +440,9 @@ void __38__EDSQLQueryLogger_submitQueryLogData__block_invoke(uint64_t a1)
 
       v29 = MEMORY[0x1E696ACB0];
       v30 = [*(a1 + 32) queryStatisticsArray];
-      v56 = 0;
-      v31 = [v29 dataWithJSONObject:v30 options:0 error:&v56];
-      v32 = v56;
+      v55 = 0;
+      v31 = [v29 dataWithJSONObject:v30 options:0 error:&v55];
+      v32 = v55;
 
       v33 = [*(a1 + 32) queryStatisticsArray];
       [v33 removeAllObjects];
@@ -466,9 +460,9 @@ void __38__EDSQLQueryLogger_submitQueryLogData__block_invoke(uint64_t a1)
         goto LABEL_49;
       }
 
-      v55 = 0;
-      v34 = [v31 compressedDataUsingAlgorithm:0 error:&v55];
-      v35 = v55;
+      v54 = 0;
+      v34 = [v31 compressedDataUsingAlgorithm:0 error:&v54];
+      v35 = v54;
 
       if (!v34)
       {
@@ -490,9 +484,9 @@ void __38__EDSQLQueryLogger_submitQueryLogData__block_invoke(uint64_t a1)
       [v36 _recreateFile:v37];
 
       v38 = [*(a1 + 32) queryCountLogFilePath];
-      v54 = 0;
-      LOBYTE(v37) = [v34 writeToFile:v38 options:1 error:&v54];
-      v39 = v54;
+      v53 = 0;
+      LOBYTE(v37) = [v34 writeToFile:v38 options:1 error:&v53];
+      v39 = v53;
 
       if (v37)
       {
@@ -547,21 +541,21 @@ LABEL_51:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       v46 = [*(a1 + 32) queryLogFilePath];
-      v47 = [v50 ef_publicDescription];
+      v47 = [v49 ef_publicDescription];
       *buf = 138412802;
-      v63 = v46;
-      v64 = 2112;
-      v65 = v5;
-      v66 = 2114;
-      v67 = v47;
+      v62 = v46;
+      v63 = 2112;
+      v64 = v5;
+      v65 = 2114;
+      v66 = v47;
       _os_log_error_impl(&dword_1C61EF000, v16, OS_LOG_TYPE_ERROR, "Failed to rename file from: %@ to %@ due to error: %{public}@", buf, 0x20u);
     }
   }
 
   else
   {
-    v52 = +[EDSQLQueryLogger log];
-    if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+    v51 = +[EDSQLQueryLogger log];
+    if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
     {
       [*(a1 + 32) queryLogFilePath];
       objc_claimAutoreleasedReturnValue();
@@ -570,13 +564,11 @@ LABEL_51:
   }
 
 LABEL_52:
-
-  v48 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_preprocessQueryInfo
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   queryLoggingScheduler = [(EDSQLQueryLogger *)self queryLoggingScheduler];
   [queryLoggingScheduler assertIsExecuting:1];
 
@@ -587,32 +579,32 @@ LABEL_52:
 
   if (isInternal)
   {
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
     v45 = 0u;
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
     v7 = _sortQueryCountDict;
-    v8 = [v7 countByEnumeratingWithState:&v44 objects:v49 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v43 objects:v48 count:16];
     if (v8)
     {
-      v9 = *v45;
+      v9 = *v44;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v45 != v9)
+          if (*v44 != v9)
           {
             objc_enumerationMutation(v7);
           }
 
-          v11 = *(*(&v44 + 1) + 8 * i);
+          v11 = *(*(&v43 + 1) + 8 * i);
           queryCountDict = [(EDSQLQueryLogger *)self queryCountDict];
           v13 = [queryCountDict objectForKeyedSubscript:v11];
 
           [(EDSQLQueryLogger *)self _writeQueryStatistics:v13];
         }
 
-        v8 = [v7 countByEnumeratingWithState:&v44 objects:v49 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v43 objects:v48 count:16];
       }
 
       while (v8);
@@ -642,23 +634,23 @@ LABEL_52:
       v16 = v14;
     }
 
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
     v41 = 0u;
+    v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
     v17 = _sortQueryCountDict;
-    v18 = [v17 countByEnumeratingWithState:&v40 objects:v48 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v39 objects:v47 count:16];
     if (v18)
     {
       v19 = 0;
-      v20 = *v41;
+      v20 = *v40;
       while (2)
       {
         v21 = 0;
         v22 = v19;
         v23 = v16 >= v19;
         v24 = v16 - v19;
-        v38 = v22 + v18;
+        v37 = v22 + v18;
         if (v23)
         {
           v25 = v24;
@@ -671,12 +663,12 @@ LABEL_52:
 
         do
         {
-          if (*v41 != v20)
+          if (*v40 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          v26 = *(*(&v40 + 1) + 8 * v21);
+          v26 = *(*(&v39 + 1) + 8 * v21);
           queryCountDict2 = [(EDSQLQueryLogger *)self queryCountDict];
           v28 = [queryCountDict2 objectForKeyedSubscript:v26];
 
@@ -692,8 +684,8 @@ LABEL_52:
         }
 
         while (v18 != v21);
-        v18 = [v17 countByEnumeratingWithState:&v40 objects:v48 count:16];
-        v19 = v38;
+        v18 = [v17 countByEnumeratingWithState:&v39 objects:v47 count:16];
+        v19 = v37;
         if (v18)
         {
           continue;
@@ -733,13 +725,11 @@ LABEL_28:
       [v7 removeObjectAtIndex:v31];
     }
   }
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_writeQueryStatistics:(id)statistics
 {
-  v24[2] = *MEMORY[0x1E69E9840];
+  v23[2] = *MEMORY[0x1E69E9840];
   statisticsCopy = statistics;
   queryLoggingScheduler = [(EDSQLQueryLogger *)self queryLoggingScheduler];
   [queryLoggingScheduler assertIsExecuting:1];
@@ -747,22 +737,22 @@ LABEL_28:
   v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(statisticsCopy, "queryCount")}];
   v7 = [MEMORY[0x1E699B858] bucketValueForQueryLogCount:v6 bucketValues:&unk_1F45E7018];
   v8 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(statisticsCopy, "firstRowMaxExecutionTime")}];
-  v24[0] = v8;
+  v23[0] = v8;
   v9 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(statisticsCopy, "firstRowMinExecutionTime")}];
-  v24[1] = v9;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:2];
+  v23[1] = v9;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:2];
 
   v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(statisticsCopy, "timePerRowMaxExecutionTime")}];
-  v23[0] = v11;
+  v22[0] = v11;
   v12 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(statisticsCopy, "timePerRowMinExecutionTime")}];
-  v23[1] = v12;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:2];
+  v22[1] = v12;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:2];
 
   v14 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(statisticsCopy, "totalMaxExecutionTime")}];
-  v22[0] = v14;
+  v21[0] = v14;
   v15 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(statisticsCopy, "totalMinExecutionTime")}];
-  v22[1] = v15;
-  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:2];
+  v21[1] = v15;
+  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:2];
 
   queryCountByTransactionLabel = [statisticsCopy queryCountByTransactionLabel];
   redactedQuery = [statisticsCopy redactedQuery];
@@ -770,8 +760,6 @@ LABEL_28:
 
   queryStatisticsArray = [(EDSQLQueryLogger *)self queryStatisticsArray];
   [queryStatisticsArray addObject:v19];
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_sortQueryCountDict
@@ -919,32 +907,32 @@ uint64_t __39__EDSQLQueryLogger__sortQueryCountDict__block_invoke(uint64_t a1, v
 
 - (id)_bucketTransactionLabels:(id)labels
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   labelsCopy = labels;
   queryLoggingScheduler = [(EDSQLQueryLogger *)self queryLoggingScheduler];
   [queryLoggingScheduler assertIsExecuting:1];
 
   v5 = [labelsCopy mutableCopy];
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   allKeys = [labelsCopy allKeys];
   obj = allKeys;
-  v7 = [allKeys countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [allKeys countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
-    v8 = *v19;
+    v8 = *v18;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * i);
+        v10 = *(*(&v17 + 1) + 8 * i);
         v11 = [labelsCopy objectForKey:v10];
         v12 = [MEMORY[0x1E699B858] bucketValueForQueryLogCount:v11 bucketValues:&unk_1F45E7030];
         v13 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v12];
@@ -952,13 +940,11 @@ uint64_t __39__EDSQLQueryLogger__sortQueryCountDict__block_invoke(uint64_t a1, v
       }
 
       allKeys = obj;
-      v7 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v7);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -1050,14 +1036,6 @@ void __38__EDSQLQueryLogger_submitQueryLogData__block_invoke_cold_1()
   OUTLINED_FUNCTION_7(&dword_1C61EF000, v3, v4, "Failed to find query log file at file path: %@", v5);
 }
 
-void __38__EDSQLQueryLogger_submitQueryLogData__block_invoke_cold_2()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_7_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
 void __38__EDSQLQueryLogger_submitQueryLogData__block_invoke_cold_3()
 {
   OUTLINED_FUNCTION_5();
@@ -1100,14 +1078,6 @@ void __38__EDSQLQueryLogger_submitQueryLogData__block_invoke_cold_8()
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_10(v1, v2, 5.8381e-34);
   OUTLINED_FUNCTION_7(&dword_1C61EF000, v3, v4, "Failed to convert query statistics array to NSData due to error: %{public}@", v5);
-}
-
-- (void)_createQueryCountDict:.cold.2()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_7_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

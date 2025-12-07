@@ -53,7 +53,7 @@
       goto LABEL_23;
     }
 
-    v20 = v14;
+    v21 = v14;
     goto LABEL_22;
   }
 
@@ -63,32 +63,32 @@
     v16 = [bk_UTF8Title substringFromIndex:{objc_msgSend(bk_effectiveTitle, "length")}];
     v17 = [v16 stringByTrimmingCharactersInSet:qword_47A08];
 
-    if ([v14 length] && objc_msgSend(v17, "length") && objc_msgSend(v14, "caseInsensitiveCompare:", v17))
+    if ([v14 length] && objc_msgSend(v17, "length") && (v18 = objc_msgSend(v14, "caseInsensitiveCompare:", v17)) != 0)
     {
-      v18 = BKAudiobooksBundle();
-      v19 = [v18 localizedStringForKey:@"%@ - %@" value:&stru_3D458 table:&stru_3D458];
-      v20 = [NSString stringWithFormat:v19, v14, v17];
+      v19 = BKAudiobooksBundle(v18);
+      v20 = [v19 localizedStringForKey:@"%@ - %@" value:&stru_3D458 table:&stru_3D458];
+      v21 = [NSString stringWithFormat:v20, v14, v17];
     }
 
     else
     {
       if ([v14 length])
       {
-        v21 = v14;
+        v22 = v14;
       }
 
       else
       {
         if (![v17 length])
         {
-          v20 = 0;
+          v21 = 0;
           goto LABEL_20;
         }
 
-        v21 = v17;
+        v22 = v17;
       }
 
-      v20 = v21;
+      v21 = v22;
     }
 
 LABEL_20:
@@ -96,11 +96,11 @@ LABEL_20:
     goto LABEL_21;
   }
 
-  v20 = 0;
+  v21 = 0;
 LABEL_21:
 
 LABEL_22:
-  if (v20)
+  if (v21)
   {
     goto LABEL_29;
   }
@@ -115,14 +115,14 @@ LABEL_23:
   else
   {
     title3 = [itemCopy title];
-    v25 = [title3 length];
+    v26 = [title3 length];
 
-    if (!v25)
+    if (!v26)
     {
-      v27 = BKAudiobooksBundle();
-      v28 = [v27 localizedStringForKey:@"%@ - Chapter %@" value:&stru_3D458 table:&stru_3D458];
-      v29 = [NSNumber numberWithUnsignedInteger:index + 1];
-      v20 = [NSString stringWithFormat:v28, bk_effectiveTitle, v29];
+      v29 = BKAudiobooksBundle(v27);
+      v30 = [v29 localizedStringForKey:@"%@ - Chapter %@" value:&stru_3D458 table:&stru_3D458];
+      v31 = [NSNumber numberWithUnsignedInteger:index + 1];
+      v21 = [NSString stringWithFormat:v30, bk_effectiveTitle, v31];
 
       goto LABEL_28;
     }
@@ -130,12 +130,12 @@ LABEL_23:
     title4 = [itemCopy title];
   }
 
-  v20 = title4;
+  v21 = title4;
 LABEL_28:
 
 LABEL_29:
 
-  return v20;
+  return v21;
 }
 
 - (BKMLAudiobookChapter)initWithMediaChapter:(id)chapter track:(id)track number:(unint64_t)number trackNumber:(unint64_t)trackNumber trackCount:(unint64_t)count
@@ -224,7 +224,7 @@ LABEL_29:
   title = [(BKMLAudiobookChapter *)self title];
   author = [(BKMLAudiobookChapter *)self author];
   customTitle = [(BKMLAudiobookChapter *)self customTitle];
-  [(BKMLAudiobookChapter *)self timeRangeInAudiobook];
+  objc_msgSend_timeRangeInAudiobook(self);
   time = v13;
   Seconds = CMTimeGetSeconds(&time);
   [(BKMLAudiobookChapter *)self duration];

@@ -117,30 +117,30 @@
 
 - (void)_addOnAdded:(id)added
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   addedCopy = added;
   pairCluster = [MEMORY[0x277CFD078] pairCluster];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = [(COService *)self _clustersForAddOn:addedCopy, 0];
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       v10 = 0;
       do
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * v10);
+        v11 = *(*(&v13 + 1) + 8 * v10);
         v12 = [MEMORY[0x277CBEB98] set];
         [(CORoleService *)self _updateSnapshots:v12 inCluster:v11];
 
@@ -153,52 +153,49 @@
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
 
   [addedCopy setDelegate:self];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addOnRemoved:(id)removed
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   removedCopy = removed;
   [removedCopy setDelegate:0];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v5 = [(COService *)self _clustersForAddOn:removedCopy, 0];
-  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [(CORoleService *)self _updateSnapshots:0 inCluster:*(*(&v11 + 1) + 8 * v9++)];
+        [(CORoleService *)self _updateSnapshots:0 inCluster:*(*(&v10 + 1) + 8 * v9++)];
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_applicableToCluster:(id)cluster
@@ -298,68 +295,66 @@
 
 void __36__CORoleService_addOn_stateChanged___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v2 = [*(a1 + 32) _clustersForAddOn:*(a1 + 40)];
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v22 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v21 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v12;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v12 + 1) + 8 * i);
+        v7 = *(*(&v11 + 1) + 8 * i);
         v8 = COCoreLogForCategory(4);
         if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
           v9 = *(a1 + 32);
           v10 = *(a1 + 48);
           *buf = 134218498;
-          v17 = v9;
-          v18 = 2112;
-          v19 = v7;
-          v20 = 2112;
-          v21 = v10;
+          v16 = v9;
+          v17 = 2112;
+          v18 = v7;
+          v19 = 2112;
+          v20 = v10;
           _os_log_impl(&dword_244378000, v8, OS_LOG_TYPE_DEFAULT, "%p Snapshot changed in Cluster(%@), now %@", buf, 0x20u);
         }
 
         [*(a1 + 32) _updateSnapshots:*(a1 + 48) inCluster:v7];
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v12 objects:v22 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v11 objects:v21 count:16];
     }
 
     while (v4);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateSnapshots:(id)snapshots inCluster:(id)cluster
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   snapshotsCopy = snapshots;
   clusterCopy = cluster;
   v8 = COCoreLogForCategory(4);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 134218498;
+    v13 = 134218498;
     selfCopy2 = self;
-    v16 = 2112;
-    v17 = clusterCopy;
-    v18 = 2112;
-    v19 = snapshotsCopy;
-    _os_log_impl(&dword_244378000, v8, OS_LOG_TYPE_DEFAULT, "%p will process snapshot update for Cluster(%@) to Snapshots(%@)", &v14, 0x20u);
+    v15 = 2112;
+    v16 = clusterCopy;
+    v17 = 2112;
+    v18 = snapshotsCopy;
+    _os_log_impl(&dword_244378000, v8, OS_LOG_TYPE_DEFAULT, "%p will process snapshot update for Cluster(%@) to Snapshots(%@)", &v13, 0x20u);
   }
 
   v9 = [(CORoleService *)self _snapshotsForCluster:clusterCopy];
@@ -376,11 +371,11 @@ void __36__CORoleService_addOn_stateChanged___block_invoke(uint64_t a1)
     v12 = COCoreLogForCategory(4);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 134218242;
+      v13 = 134218242;
       selfCopy2 = self;
-      v16 = 2112;
-      v17 = clusterCopy;
-      _os_log_impl(&dword_244378000, v12, OS_LOG_TYPE_DEFAULT, "%p removing snaphots for Cluster(%@)", &v14, 0x16u);
+      v15 = 2112;
+      v16 = clusterCopy;
+      _os_log_impl(&dword_244378000, v12, OS_LOG_TYPE_DEFAULT, "%p removing snaphots for Cluster(%@)", &v13, 0x16u);
     }
 
     [v11 removeObjectForKey:clusterCopy];
@@ -391,39 +386,37 @@ void __36__CORoleService_addOn_stateChanged___block_invoke(uint64_t a1)
   [(CORoleService *)self _notifySnapshotObserversSnapshotOfCluster:clusterCopy didChangeTo:snapshotsCopy];
   [(CORoleService *)self _identifyAndNotifyMemberChangesFromSnapshot:v9 inCluster:clusterCopy];
   [(CORoleService *)self _identifyAndNotifyRoleChangesFromSnapshot:v9 inCluster:clusterCopy];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_identifyAndNotifyRoleChangesFromSnapshot:(id)snapshot inCluster:(id)cluster
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   snapshotCopy = snapshot;
   clusterCopy = cluster;
   roleObservers = [(CORoleService *)self roleObservers];
   v9 = [roleObservers objectForKey:clusterCopy];
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v10 = v9;
-  v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v20;
+    v13 = *v19;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v20 != v13)
+        if (*v19 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v19 + 1) + 8 * i);
-        v16 = [(CORoleService *)self _roleOfMember:v15 inSnapshots:snapshotCopy, v19];
+        v15 = *(*(&v18 + 1) + 8 * i);
+        v16 = [(CORoleService *)self _roleOfMember:v15 inSnapshots:snapshotCopy, v18];
         v17 = [(CORoleService *)self _roleOfMember:v15 inCluster:clusterCopy];
         if (([v17 isEqual:v16] & 1) == 0)
         {
@@ -431,49 +424,47 @@ void __36__CORoleService_addOn_stateChanged___block_invoke(uint64_t a1)
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v12);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_identifyAndNotifyMemberChangesFromSnapshot:(id)snapshot inCluster:(id)cluster
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   snapshotCopy = snapshot;
   clusterCopy = cluster;
   memberObservers = [(CORoleService *)self memberObservers];
   v9 = [memberObservers objectForKey:clusterCopy];
 
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
   v50 = 0u;
+  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
   obj = v9;
-  v10 = [obj countByEnumeratingWithState:&v49 objects:v55 count:16];
+  v10 = [obj countByEnumeratingWithState:&v48 objects:v54 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v50;
+    v12 = *v49;
     selfCopy = self;
-    v35 = snapshotCopy;
-    v32 = *v50;
-    v33 = clusterCopy;
+    v34 = snapshotCopy;
+    v31 = *v49;
+    v32 = clusterCopy;
     do
     {
       v13 = 0;
-      v36 = v11;
+      v35 = v11;
       do
       {
-        if (*v50 != v12)
+        if (*v49 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v49 + 1) + 8 * v13);
+        v14 = *(*(&v48 + 1) + 8 * v13);
         v15 = [(CORoleService *)self _membersWithRole:v14 inSnapshots:snapshotCopy];
         v16 = [(CORoleService *)self _membersWithRole:v14 inCluster:clusterCopy];
         v17 = [v15 count];
@@ -482,60 +473,60 @@ void __36__CORoleService_addOn_stateChanged___block_invoke(uint64_t a1)
           goto LABEL_25;
         }
 
-        v40 = v14;
-        v47 = 0u;
-        v48 = 0u;
-        v45 = 0u;
+        v39 = v14;
         v46 = 0u;
+        v47 = 0u;
+        v44 = 0u;
+        v45 = 0u;
         v18 = v15;
-        v19 = [v18 countByEnumeratingWithState:&v45 objects:v54 count:16];
+        v19 = [v18 countByEnumeratingWithState:&v44 objects:v53 count:16];
         if (v19)
         {
           v20 = v19;
-          v38 = v13;
-          v39 = v15;
-          v21 = *v46;
+          v37 = v13;
+          v38 = v15;
+          v21 = *v45;
           while (1)
           {
             v22 = 0;
 LABEL_10:
-            if (*v46 != v21)
+            if (*v45 != v21)
             {
               objc_enumerationMutation(v18);
             }
 
             v23 = v18;
-            v24 = *(*(&v45 + 1) + 8 * v22);
+            v24 = *(*(&v44 + 1) + 8 * v22);
+            v40 = 0u;
             v41 = 0u;
             v42 = 0u;
             v43 = 0u;
-            v44 = 0u;
             v25 = v16;
-            v26 = [v25 countByEnumeratingWithState:&v41 objects:v53 count:16];
+            v26 = [v25 countByEnumeratingWithState:&v40 objects:v52 count:16];
             if (!v26)
             {
               break;
             }
 
             v27 = v26;
-            v28 = *v42;
+            v28 = *v41;
 LABEL_14:
             v29 = 0;
             while (1)
             {
-              if (*v42 != v28)
+              if (*v41 != v28)
               {
                 objc_enumerationMutation(v25);
               }
 
-              if ([v24 isSameDeviceAsMember:*(*(&v41 + 1) + 8 * v29)])
+              if ([v24 isSameDeviceAsMember:*(*(&v40 + 1) + 8 * v29)])
               {
                 break;
               }
 
               if (v27 == ++v29)
               {
-                v27 = [v25 countByEnumeratingWithState:&v41 objects:v53 count:16];
+                v27 = [v25 countByEnumeratingWithState:&v40 objects:v52 count:16];
                 if (v27)
                 {
                   goto LABEL_14;
@@ -552,17 +543,17 @@ LABEL_14:
               goto LABEL_10;
             }
 
-            v20 = [v23 countByEnumeratingWithState:&v45 objects:v54 count:16];
+            v20 = [v23 countByEnumeratingWithState:&v44 objects:v53 count:16];
             if (!v20)
             {
 
               self = selfCopy;
-              snapshotCopy = v35;
-              v12 = v32;
-              clusterCopy = v33;
-              v11 = v36;
-              v13 = v38;
-              v15 = v39;
+              snapshotCopy = v34;
+              v12 = v31;
+              clusterCopy = v32;
+              v11 = v35;
+              v13 = v37;
+              v15 = v38;
               goto LABEL_26;
             }
           }
@@ -570,13 +561,13 @@ LABEL_14:
 LABEL_24:
 
           self = selfCopy;
-          snapshotCopy = v35;
-          v12 = v32;
-          clusterCopy = v33;
-          v11 = v36;
-          v15 = v39;
-          v14 = v40;
-          v13 = v38;
+          snapshotCopy = v34;
+          v12 = v31;
+          clusterCopy = v32;
+          v11 = v35;
+          v15 = v38;
+          v14 = v39;
+          v13 = v37;
 LABEL_25:
           [(CORoleService *)self _notifyMemberObserversMembersWithRole:v14 inCluster:clusterCopy didChangeTo:v16];
           goto LABEL_26;
@@ -587,19 +578,17 @@ LABEL_26:
       }
 
       while (v13 != v11);
-      v30 = [obj countByEnumeratingWithState:&v49 objects:v55 count:16];
+      v30 = [obj countByEnumeratingWithState:&v48 objects:v54 count:16];
       v11 = v30;
     }
 
     while (v30);
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_roleOfMember:(id)member inCluster:(id)cluster
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   memberCopy = member;
   clusterCopy = cluster;
   v8 = [(CORoleService *)self _snapshotsForCluster:clusterCopy];
@@ -618,46 +607,44 @@ LABEL_26:
   v12 = COCoreLogForCategory(4);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    v15 = 134218754;
+    v14 = 134218754;
     selfCopy = self;
-    v17 = 2112;
-    v18 = memberCopy;
-    v19 = 2112;
-    v20 = clusterCopy;
-    v21 = 2112;
-    v22 = v9;
-    _os_log_debug_impl(&dword_244378000, v12, OS_LOG_TYPE_DEBUG, "%p Member(%@) in Cluster(%@) has Role(%@)", &v15, 0x2Au);
+    v16 = 2112;
+    v17 = memberCopy;
+    v18 = 2112;
+    v19 = clusterCopy;
+    v20 = 2112;
+    v21 = v9;
+    _os_log_debug_impl(&dword_244378000, v12, OS_LOG_TYPE_DEBUG, "%p Member(%@) in Cluster(%@) has Role(%@)", &v14, 0x2Au);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 - (id)_roleOfMember:(id)member inSnapshots:(id)snapshots
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   memberCopy = member;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   snapshotsCopy = snapshots;
-  v8 = [snapshotsCopy countByEnumeratingWithState:&v19 objects:v31 count:16];
+  v8 = [snapshotsCopy countByEnumeratingWithState:&v18 objects:v30 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v20;
+    v10 = *v19;
 LABEL_3:
     v11 = 0;
     while (1)
     {
-      if (*v20 != v10)
+      if (*v19 != v10)
       {
         objc_enumerationMutation(snapshotsCopy);
       }
 
-      v12 = *(*(&v19 + 1) + 8 * v11);
+      v12 = *(*(&v18 + 1) + 8 * v11);
       member = [v12 member];
       v14 = [member isSameDeviceAsMember:memberCopy];
 
@@ -668,7 +655,7 @@ LABEL_3:
 
       if (v9 == ++v11)
       {
-        v9 = [snapshotsCopy countByEnumeratingWithState:&v19 objects:v31 count:16];
+        v9 = [snapshotsCopy countByEnumeratingWithState:&v18 objects:v30 count:16];
         if (v9)
         {
           goto LABEL_3;
@@ -697,24 +684,23 @@ LABEL_9:
   {
     *buf = 134218754;
     selfCopy = self;
-    v25 = 2112;
-    v26 = role;
-    v27 = 2112;
-    v28 = memberCopy;
-    v29 = 2112;
-    v30 = snapshotsCopy;
+    v24 = 2112;
+    v25 = role;
+    v26 = 2112;
+    v27 = memberCopy;
+    v28 = 2112;
+    v29 = snapshotsCopy;
     _os_log_error_impl(&dword_244378000, v16, OS_LOG_TYPE_ERROR, "%p synthesized Role(%@) for Member(%@) missing from Snapshots(%@)", buf, 0x2Au);
   }
 
 LABEL_14:
-  v17 = *MEMORY[0x277D85DE8];
 
   return role;
 }
 
 - (id)_membersWithRole:(id)role inCluster:(id)cluster
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   roleCopy = role;
   clusterCopy = cluster;
   v8 = [(CORoleService *)self _snapshotsForCluster:clusterCopy];
@@ -722,48 +708,46 @@ LABEL_14:
   v10 = COCoreLogForCategory(4);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v13 = 134218754;
+    v12 = 134218754;
     selfCopy = self;
-    v15 = 2112;
-    v16 = roleCopy;
-    v17 = 2112;
-    v18 = v9;
-    v19 = 2112;
-    v20 = clusterCopy;
-    _os_log_debug_impl(&dword_244378000, v10, OS_LOG_TYPE_DEBUG, "%p Role(%@) is associated with Members(%@) in Cluster(%@)", &v13, 0x2Au);
+    v14 = 2112;
+    v15 = roleCopy;
+    v16 = 2112;
+    v17 = v9;
+    v18 = 2112;
+    v19 = clusterCopy;
+    _os_log_debug_impl(&dword_244378000, v10, OS_LOG_TYPE_DEBUG, "%p Role(%@) is associated with Members(%@) in Cluster(%@)", &v12, 0x2Au);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 - (id)_membersWithRole:(id)role inSnapshots:(id)snapshots
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   roleCopy = role;
   snapshotsCopy = snapshots;
   v7 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v8 = snapshotsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v19;
+    v11 = *v18;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v19 != v11)
+        if (*v18 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v18 + 1) + 8 * i);
+        v13 = *(*(&v17 + 1) + 8 * i);
         role = [v13 role];
         if ([role satisfiesRole:roleCopy])
         {
@@ -772,13 +756,11 @@ LABEL_14:
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v10);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -799,7 +781,7 @@ LABEL_14:
 
 - (void)_notifyRoleObserversRoleOfMember:(id)member inCluster:(id)cluster didChangeTo:(id)to
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   memberCopy = member;
   clusterCopy = cluster;
   toCopy = to;
@@ -807,41 +789,39 @@ LABEL_14:
   v12 = [roleObservers objectForKey:clusterCopy];
 
   v13 = [v12 objectForKey:memberCopy];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v14 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v20;
+    v16 = *v19;
     do
     {
       v17 = 0;
       do
       {
-        if (*v20 != v16)
+        if (*v19 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        [(CORoleService *)self _notifyRoleObserver:*(*(&v19 + 1) + 8 * v17++) roleOfMember:memberCopy inCluster:clusterCopy didChangeTo:toCopy];
+        [(CORoleService *)self _notifyRoleObserver:*(*(&v18 + 1) + 8 * v17++) roleOfMember:memberCopy inCluster:clusterCopy didChangeTo:toCopy];
       }
 
       while (v15 != v17);
-      v15 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v15);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notifyMemberObserversMembersWithRole:(id)role inCluster:(id)cluster didChangeTo:(id)to
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   roleCopy = role;
   clusterCopy = cluster;
   toCopy = to;
@@ -849,214 +829,207 @@ LABEL_14:
   v12 = [memberObservers objectForKey:clusterCopy];
 
   v13 = [v12 objectForKey:roleCopy];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v14 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v20;
+    v16 = *v19;
     do
     {
       v17 = 0;
       do
       {
-        if (*v20 != v16)
+        if (*v19 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        [(CORoleService *)self _notifyMemberObserver:*(*(&v19 + 1) + 8 * v17++) membersWithRole:roleCopy inCluster:clusterCopy didChangeTo:toCopy];
+        [(CORoleService *)self _notifyMemberObserver:*(*(&v18 + 1) + 8 * v17++) membersWithRole:roleCopy inCluster:clusterCopy didChangeTo:toCopy];
       }
 
       while (v15 != v17);
-      v15 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v15);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notifySnapshotObserversSnapshotOfCluster:(id)cluster didChangeTo:(id)to
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   clusterCopy = cluster;
   toCopy = to;
   snapshotObservers = [(CORoleService *)self snapshotObservers];
   v9 = [snapshotObservers objectForKey:clusterCopy];
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v10 = v9;
-  v11 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v17;
+    v13 = *v16;
     do
     {
       v14 = 0;
       do
       {
-        if (*v17 != v13)
+        if (*v16 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        [(CORoleService *)self _notifySnapshotObserver:*(*(&v16 + 1) + 8 * v14++) snapshotOfCluster:clusterCopy didChangeTo:toCopy, v16];
+        [(CORoleService *)self _notifySnapshotObserver:*(*(&v15 + 1) + 8 * v14++) snapshotOfCluster:clusterCopy didChangeTo:toCopy, v15];
       }
 
       while (v12 != v14);
-      v12 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v12);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notifyRoleObserver:(id)observer roleOfMember:(id)member inCluster:(id)cluster didChangeTo:(id)to
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
   memberCopy = member;
   clusterCopy = cluster;
   toCopy = to;
-  v18 = MEMORY[0x277D85DD0];
-  v19 = 3221225472;
-  v20 = __72__CORoleService__notifyRoleObserver_roleOfMember_inCluster_didChangeTo___block_invoke;
-  v21 = &unk_278E16A88;
+  v17 = MEMORY[0x277D85DD0];
+  v18 = 3221225472;
+  v19 = __72__CORoleService__notifyRoleObserver_roleOfMember_inCluster_didChangeTo___block_invoke;
+  v20 = &unk_278E16A88;
   selfCopy = self;
   v14 = observerCopy;
-  v23 = v14;
-  v15 = [(CORoleService *)self _remoteInterfaceForClient:v14 withErrorHandler:&v18];
+  v22 = v14;
+  v15 = [(CORoleService *)self _remoteInterfaceForClient:v14 withErrorHandler:&v17];
   v16 = COCoreLogForCategory(4);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134219010;
     selfCopy2 = self;
-    v26 = 2112;
-    v27 = v14;
-    v28 = 2112;
-    v29 = toCopy;
-    v30 = 2112;
-    v31 = memberCopy;
-    v32 = 2112;
-    v33 = clusterCopy;
+    v25 = 2112;
+    v26 = v14;
+    v27 = 2112;
+    v28 = toCopy;
+    v29 = 2112;
+    v30 = memberCopy;
+    v31 = 2112;
+    v32 = clusterCopy;
     _os_log_impl(&dword_244378000, v16, OS_LOG_TYPE_DEFAULT, "%p change notification to Client(%@) for Role(%@) of Member(%@) in Cluster(%@)", buf, 0x34u);
   }
 
-  [v15 roleOfMember:memberCopy inCluster:clusterCopy didChangeTo:{toCopy, v18, v19, v20, v21, selfCopy}];
-  v17 = *MEMORY[0x277D85DE8];
+  [v15 roleOfMember:memberCopy inCluster:clusterCopy didChangeTo:{toCopy, v17, v18, v19, v20, selfCopy}];
 }
 
 void __72__CORoleService__notifyRoleObserver_roleOfMember_inCluster_didChangeTo___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = COCoreLogForCategory(4);
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v2 = a2;
+  v3 = COCoreLogForCategory(4);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __72__CORoleService__notifyRoleObserver_roleOfMember_inCluster_didChangeTo___block_invoke_cold_1(a1);
+    __72__CORoleService__notifyRoleObserver_roleOfMember_inCluster_didChangeTo___block_invoke_cold_1();
   }
 }
 
 - (void)_notifyMemberObserver:(id)observer membersWithRole:(id)role inCluster:(id)cluster didChangeTo:(id)to
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
   roleCopy = role;
   clusterCopy = cluster;
   toCopy = to;
-  v18 = MEMORY[0x277D85DD0];
-  v19 = 3221225472;
-  v20 = __77__CORoleService__notifyMemberObserver_membersWithRole_inCluster_didChangeTo___block_invoke;
-  v21 = &unk_278E16A88;
+  v17 = MEMORY[0x277D85DD0];
+  v18 = 3221225472;
+  v19 = __77__CORoleService__notifyMemberObserver_membersWithRole_inCluster_didChangeTo___block_invoke;
+  v20 = &unk_278E16A88;
   selfCopy = self;
   v14 = observerCopy;
-  v23 = v14;
-  v15 = [(CORoleService *)self _remoteInterfaceForClient:v14 withErrorHandler:&v18];
+  v22 = v14;
+  v15 = [(CORoleService *)self _remoteInterfaceForClient:v14 withErrorHandler:&v17];
   v16 = COCoreLogForCategory(4);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134219010;
     selfCopy2 = self;
-    v26 = 2112;
-    v27 = v14;
-    v28 = 2112;
-    v29 = toCopy;
-    v30 = 2112;
-    v31 = roleCopy;
-    v32 = 2112;
-    v33 = clusterCopy;
+    v25 = 2112;
+    v26 = v14;
+    v27 = 2112;
+    v28 = toCopy;
+    v29 = 2112;
+    v30 = roleCopy;
+    v31 = 2112;
+    v32 = clusterCopy;
     _os_log_impl(&dword_244378000, v16, OS_LOG_TYPE_DEFAULT, "%p change notification to Client(%@) for Members(%@) with Role(%@) in Cluster(%@)", buf, 0x34u);
   }
 
-  [v15 membersWithRole:roleCopy inCluster:clusterCopy didChangeTo:{toCopy, v18, v19, v20, v21, selfCopy}];
-  v17 = *MEMORY[0x277D85DE8];
+  [v15 membersWithRole:roleCopy inCluster:clusterCopy didChangeTo:{toCopy, v17, v18, v19, v20, selfCopy}];
 }
 
 void __77__CORoleService__notifyMemberObserver_membersWithRole_inCluster_didChangeTo___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = COCoreLogForCategory(4);
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v2 = a2;
+  v3 = COCoreLogForCategory(4);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __77__CORoleService__notifyMemberObserver_membersWithRole_inCluster_didChangeTo___block_invoke_cold_1(a1);
+    __77__CORoleService__notifyMemberObserver_membersWithRole_inCluster_didChangeTo___block_invoke_cold_1();
   }
 }
 
 - (void)_notifySnapshotObserver:(id)observer snapshotOfCluster:(id)cluster didChangeTo:(id)to
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
   clusterCopy = cluster;
   toCopy = to;
-  v15 = MEMORY[0x277D85DD0];
-  v16 = 3221225472;
-  v17 = __71__CORoleService__notifySnapshotObserver_snapshotOfCluster_didChangeTo___block_invoke;
-  v18 = &unk_278E16A88;
+  v14 = MEMORY[0x277D85DD0];
+  v15 = 3221225472;
+  v16 = __71__CORoleService__notifySnapshotObserver_snapshotOfCluster_didChangeTo___block_invoke;
+  v17 = &unk_278E16A88;
   selfCopy = self;
   v11 = observerCopy;
-  v20 = v11;
-  v12 = [(CORoleService *)self _remoteInterfaceForClient:v11 withErrorHandler:&v15];
+  v19 = v11;
+  v12 = [(CORoleService *)self _remoteInterfaceForClient:v11 withErrorHandler:&v14];
   v13 = COCoreLogForCategory(4);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218754;
     selfCopy2 = self;
-    v23 = 2112;
-    v24 = v11;
-    v25 = 2112;
-    v26 = toCopy;
-    v27 = 2112;
-    v28 = clusterCopy;
+    v22 = 2112;
+    v23 = v11;
+    v24 = 2112;
+    v25 = toCopy;
+    v26 = 2112;
+    v27 = clusterCopy;
     _os_log_impl(&dword_244378000, v13, OS_LOG_TYPE_DEFAULT, "%p change notification to Client(%@) for Snapshots(%@) in Cluster(%@)", buf, 0x2Au);
   }
 
-  [v12 snapshotOfCluster:clusterCopy didChangeTo:{toCopy, v15, v16, v17, v18, selfCopy}];
-  v14 = *MEMORY[0x277D85DE8];
+  [v12 snapshotOfCluster:clusterCopy didChangeTo:{toCopy, v14, v15, v16, v17, selfCopy}];
 }
 
 void __71__CORoleService__notifySnapshotObserver_snapshotOfCluster_didChangeTo___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = COCoreLogForCategory(4);
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v2 = a2;
+  v3 = COCoreLogForCategory(4);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __71__CORoleService__notifySnapshotObserver_snapshotOfCluster_didChangeTo___block_invoke_cold_1(a1);
+    __71__CORoleService__notifySnapshotObserver_snapshotOfCluster_didChangeTo___block_invoke_cold_1();
   }
 }
 
 - (void)_addRoleObserverForClient:(id)client ofMember:(id)member inCluster:(id)cluster
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   memberCopy = member;
   clusterCopy = cluster;
@@ -1090,75 +1063,73 @@ void __71__CORoleService__notifySnapshotObserver_snapshotOfCluster_didChangeTo__
   v18 = COCoreLogForCategory(4);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
-    v20 = 134218754;
+    v19 = 134218754;
     selfCopy = self;
-    v22 = 2112;
-    v23 = clientCopy;
-    v24 = 2112;
-    v25 = memberCopy;
-    v26 = 2112;
-    v27 = clusterCopy;
-    _os_log_debug_impl(&dword_244378000, v18, OS_LOG_TYPE_DEBUG, "%p added client %@ role observer for %@ in %@", &v20, 0x2Au);
+    v21 = 2112;
+    v22 = clientCopy;
+    v23 = 2112;
+    v24 = memberCopy;
+    v25 = 2112;
+    v26 = clusterCopy;
+    _os_log_debug_impl(&dword_244378000, v18, OS_LOG_TYPE_DEBUG, "%p added client %@ role observer for %@ in %@", &v19, 0x2Au);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeRoleObserverForClient:(id)client ofMember:(id)member inCluster:(id)cluster
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   memberCopy = member;
   clusterCopy = cluster;
   selfCopy = self;
   roleObservers = [(CORoleService *)self roleObservers];
-  v23 = [roleObservers mutableCopy];
+  v22 = [roleObservers mutableCopy];
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   obj = roleObservers;
-  v25 = [obj countByEnumeratingWithState:&v35 objects:v48 count:16];
-  if (v25)
+  v24 = [obj countByEnumeratingWithState:&v34 objects:v47 count:16];
+  if (v24)
   {
-    v24 = *v36;
+    v23 = *v35;
     do
     {
-      for (i = 0; i != v25; ++i)
+      for (i = 0; i != v24; ++i)
       {
-        if (*v36 != v24)
+        if (*v35 != v23)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v35 + 1) + 8 * i);
-        if (!clusterCopy || [clusterCopy isEqual:*(*(&v35 + 1) + 8 * i)])
+        v12 = *(*(&v34 + 1) + 8 * i);
+        if (!clusterCopy || [clusterCopy isEqual:*(*(&v34 + 1) + 8 * i)])
         {
-          v27 = i;
+          v26 = i;
           v13 = [obj objectForKey:v12];
-          v29 = [v13 mutableCopy];
+          v28 = [v13 mutableCopy];
+          v30 = 0u;
           v31 = 0u;
           v32 = 0u;
           v33 = 0u;
-          v34 = 0u;
           v14 = v13;
-          v15 = [v14 countByEnumeratingWithState:&v31 objects:v47 count:16];
+          v15 = [v14 countByEnumeratingWithState:&v30 objects:v46 count:16];
           if (v15)
           {
             v16 = v15;
-            v17 = *v32;
+            v17 = *v31;
             do
             {
               v18 = 0;
               do
               {
-                if (*v32 != v17)
+                if (*v31 != v17)
                 {
                   objc_enumerationMutation(v14);
                 }
 
-                v19 = *(*(&v31 + 1) + 8 * v18);
-                if (!memberCopy || [memberCopy isSameDeviceAsMember:*(*(&v31 + 1) + 8 * v18)])
+                v19 = *(*(&v30 + 1) + 8 * v18);
+                if (!memberCopy || [memberCopy isSameDeviceAsMember:*(*(&v30 + 1) + 8 * v18)])
                 {
                   v20 = [v14 objectForKey:v19];
                   if ([v20 containsObject:clientCopy])
@@ -1167,13 +1138,13 @@ void __71__CORoleService__notifySnapshotObserver_snapshotOfCluster_didChangeTo__
                     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
                     {
                       *buf = 134218754;
-                      v40 = selfCopy;
-                      v41 = 2112;
-                      v42 = clientCopy;
-                      v43 = 2112;
-                      v44 = memberCopy;
-                      v45 = 2112;
-                      v46 = clusterCopy;
+                      v39 = selfCopy;
+                      v40 = 2112;
+                      v41 = clientCopy;
+                      v42 = 2112;
+                      v43 = memberCopy;
+                      v44 = 2112;
+                      v45 = clusterCopy;
                       _os_log_debug_impl(&dword_244378000, v21, OS_LOG_TYPE_DEBUG, "%p removed client %@ role observer for %@ in %@", buf, 0x2Au);
                     }
 
@@ -1181,7 +1152,7 @@ void __71__CORoleService__notifySnapshotObserver_snapshotOfCluster_didChangeTo__
                     [(COService *)selfCopy _releaseAssertionForCluster:v12];
                     if (![v20 count])
                     {
-                      [v29 removeObjectForKey:v19];
+                      [v28 removeObjectForKey:v19];
                     }
                   }
                 }
@@ -1190,39 +1161,38 @@ void __71__CORoleService__notifySnapshotObserver_snapshotOfCluster_didChangeTo__
               }
 
               while (v16 != v18);
-              v16 = [v14 countByEnumeratingWithState:&v31 objects:v47 count:16];
+              v16 = [v14 countByEnumeratingWithState:&v30 objects:v46 count:16];
             }
 
             while (v16);
           }
 
-          if ([v29 count])
+          if ([v28 count])
           {
-            [v23 setObject:v29 forKey:v12];
+            [v22 setObject:v28 forKey:v12];
           }
 
           else
           {
-            [v23 removeObjectForKey:v12];
+            [v22 removeObjectForKey:v12];
           }
 
-          i = v27;
+          i = v26;
         }
       }
 
-      v25 = [obj countByEnumeratingWithState:&v35 objects:v48 count:16];
+      v24 = [obj countByEnumeratingWithState:&v34 objects:v47 count:16];
     }
 
-    while (v25);
+    while (v24);
   }
 
-  [(CORoleService *)selfCopy setRoleObservers:v23];
-  v22 = *MEMORY[0x277D85DE8];
+  [(CORoleService *)selfCopy setRoleObservers:v22];
 }
 
 - (void)_addMemberObserverForClient:(id)client ofRole:(id)role inCluster:(id)cluster
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   roleCopy = role;
   clusterCopy = cluster;
@@ -1256,75 +1226,73 @@ void __71__CORoleService__notifySnapshotObserver_snapshotOfCluster_didChangeTo__
   v18 = COCoreLogForCategory(4);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
-    v20 = 134218754;
+    v19 = 134218754;
     selfCopy = self;
-    v22 = 2112;
-    v23 = clientCopy;
-    v24 = 2112;
-    v25 = roleCopy;
-    v26 = 2112;
-    v27 = clusterCopy;
-    _os_log_debug_impl(&dword_244378000, v18, OS_LOG_TYPE_DEBUG, "%p added client %@ member observer for %@ in %@", &v20, 0x2Au);
+    v21 = 2112;
+    v22 = clientCopy;
+    v23 = 2112;
+    v24 = roleCopy;
+    v25 = 2112;
+    v26 = clusterCopy;
+    _os_log_debug_impl(&dword_244378000, v18, OS_LOG_TYPE_DEBUG, "%p added client %@ member observer for %@ in %@", &v19, 0x2Au);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeMemberObserverForClient:(id)client ofRole:(id)role inCluster:(id)cluster
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   roleCopy = role;
   clusterCopy = cluster;
   selfCopy = self;
   memberObservers = [(CORoleService *)self memberObservers];
-  v23 = [memberObservers mutableCopy];
+  v22 = [memberObservers mutableCopy];
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   obj = memberObservers;
-  v25 = [obj countByEnumeratingWithState:&v35 objects:v48 count:16];
-  if (v25)
+  v24 = [obj countByEnumeratingWithState:&v34 objects:v47 count:16];
+  if (v24)
   {
-    v24 = *v36;
+    v23 = *v35;
     do
     {
-      for (i = 0; i != v25; ++i)
+      for (i = 0; i != v24; ++i)
       {
-        if (*v36 != v24)
+        if (*v35 != v23)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v35 + 1) + 8 * i);
-        if (!clusterCopy || [clusterCopy isEqual:*(*(&v35 + 1) + 8 * i)])
+        v12 = *(*(&v34 + 1) + 8 * i);
+        if (!clusterCopy || [clusterCopy isEqual:*(*(&v34 + 1) + 8 * i)])
         {
-          v27 = i;
+          v26 = i;
           v13 = [obj objectForKey:v12];
-          v29 = [v13 mutableCopy];
+          v28 = [v13 mutableCopy];
+          v30 = 0u;
           v31 = 0u;
           v32 = 0u;
           v33 = 0u;
-          v34 = 0u;
           v14 = v13;
-          v15 = [v14 countByEnumeratingWithState:&v31 objects:v47 count:16];
+          v15 = [v14 countByEnumeratingWithState:&v30 objects:v46 count:16];
           if (v15)
           {
             v16 = v15;
-            v17 = *v32;
+            v17 = *v31;
             do
             {
               v18 = 0;
               do
               {
-                if (*v32 != v17)
+                if (*v31 != v17)
                 {
                   objc_enumerationMutation(v14);
                 }
 
-                v19 = *(*(&v31 + 1) + 8 * v18);
-                if (!roleCopy || [roleCopy isEqual:*(*(&v31 + 1) + 8 * v18)])
+                v19 = *(*(&v30 + 1) + 8 * v18);
+                if (!roleCopy || [roleCopy isEqual:*(*(&v30 + 1) + 8 * v18)])
                 {
                   v20 = [v14 objectForKey:v19];
                   if ([v20 containsObject:clientCopy])
@@ -1333,13 +1301,13 @@ void __71__CORoleService__notifySnapshotObserver_snapshotOfCluster_didChangeTo__
                     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
                     {
                       *buf = 134218754;
-                      v40 = selfCopy;
-                      v41 = 2112;
-                      v42 = clientCopy;
-                      v43 = 2112;
-                      v44 = roleCopy;
-                      v45 = 2112;
-                      v46 = clusterCopy;
+                      v39 = selfCopy;
+                      v40 = 2112;
+                      v41 = clientCopy;
+                      v42 = 2112;
+                      v43 = roleCopy;
+                      v44 = 2112;
+                      v45 = clusterCopy;
                       _os_log_debug_impl(&dword_244378000, v21, OS_LOG_TYPE_DEBUG, "%p removed client %@ member observer for %@ in %@", buf, 0x2Au);
                     }
 
@@ -1347,7 +1315,7 @@ void __71__CORoleService__notifySnapshotObserver_snapshotOfCluster_didChangeTo__
                     [(COService *)selfCopy _releaseAssertionForCluster:v12];
                     if (![v20 count])
                     {
-                      [v29 removeObjectForKey:v19];
+                      [v28 removeObjectForKey:v19];
                     }
                   }
                 }
@@ -1356,39 +1324,38 @@ void __71__CORoleService__notifySnapshotObserver_snapshotOfCluster_didChangeTo__
               }
 
               while (v16 != v18);
-              v16 = [v14 countByEnumeratingWithState:&v31 objects:v47 count:16];
+              v16 = [v14 countByEnumeratingWithState:&v30 objects:v46 count:16];
             }
 
             while (v16);
           }
 
-          if ([v29 count])
+          if ([v28 count])
           {
-            [v23 setObject:v29 forKey:v12];
+            [v22 setObject:v28 forKey:v12];
           }
 
           else
           {
-            [v23 removeObjectForKey:v12];
+            [v22 removeObjectForKey:v12];
           }
 
-          i = v27;
+          i = v26;
         }
       }
 
-      v25 = [obj countByEnumeratingWithState:&v35 objects:v48 count:16];
+      v24 = [obj countByEnumeratingWithState:&v34 objects:v47 count:16];
     }
 
-    while (v25);
+    while (v24);
   }
 
-  [(CORoleService *)selfCopy setMemberObservers:v23];
-  v22 = *MEMORY[0x277D85DE8];
+  [(CORoleService *)selfCopy setMemberObservers:v22];
 }
 
 - (void)_addSnapshotObserverForClient:(id)client inCluster:(id)cluster
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   clusterCopy = cluster;
   [(COService *)self _takeAssertionForCluster:clusterCopy];
@@ -1409,62 +1376,60 @@ void __71__CORoleService__notifySnapshotObserver_snapshotOfCluster_didChangeTo__
   v12 = COCoreLogForCategory(4);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    v14 = 134218498;
+    v13 = 134218498;
     selfCopy = self;
-    v16 = 2112;
-    v17 = clientCopy;
-    v18 = 2112;
-    v19 = clusterCopy;
-    _os_log_debug_impl(&dword_244378000, v12, OS_LOG_TYPE_DEBUG, "%p added client %@ snapshot observer in %@", &v14, 0x20u);
+    v15 = 2112;
+    v16 = clientCopy;
+    v17 = 2112;
+    v18 = clusterCopy;
+    _os_log_debug_impl(&dword_244378000, v12, OS_LOG_TYPE_DEBUG, "%p added client %@ snapshot observer in %@", &v13, 0x20u);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeSnapshotObserverForClient:(id)client inCluster:(id)cluster
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   clusterCopy = cluster;
   snapshotObservers = [(CORoleService *)self snapshotObservers];
-  v20 = [snapshotObservers mutableCopy];
+  v19 = [snapshotObservers mutableCopy];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v9 = snapshotObservers;
-  v10 = [v9 countByEnumeratingWithState:&v21 objects:v31 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v20 objects:v30 count:16];
   if (v10)
   {
     v12 = v10;
-    v13 = *v22;
+    v13 = *v21;
     *&v11 = 134218498;
-    v19 = v11;
+    v18 = v11;
     do
     {
       v14 = 0;
       do
       {
-        if (*v22 != v13)
+        if (*v21 != v13)
         {
           objc_enumerationMutation(v9);
         }
 
-        v15 = *(*(&v21 + 1) + 8 * v14);
-        if (!clusterCopy || [clusterCopy isEqual:*(*(&v21 + 1) + 8 * v14)])
+        v15 = *(*(&v20 + 1) + 8 * v14);
+        if (!clusterCopy || [clusterCopy isEqual:*(*(&v20 + 1) + 8 * v14)])
         {
-          v16 = [v9 objectForKey:{v15, v19}];
+          v16 = [v9 objectForKey:{v15, v18}];
           if ([v16 containsObject:clientCopy])
           {
             v17 = COCoreLogForCategory(4);
             if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
             {
-              *buf = v19;
+              *buf = v18;
               selfCopy = self;
-              v27 = 2112;
-              v28 = clientCopy;
-              v29 = 2112;
-              v30 = clusterCopy;
+              v26 = 2112;
+              v27 = clientCopy;
+              v28 = 2112;
+              v29 = clusterCopy;
               _os_log_debug_impl(&dword_244378000, v17, OS_LOG_TYPE_DEBUG, "%p removed client %@ snapshot observer in %@", buf, 0x20u);
             }
 
@@ -1472,7 +1437,7 @@ void __71__CORoleService__notifySnapshotObserver_snapshotOfCluster_didChangeTo__
             [(COService *)self _releaseAssertionForCluster:v15];
             if (![v16 count])
             {
-              [v20 removeObjectForKey:v15];
+              [v19 removeObjectForKey:v15];
             }
           }
         }
@@ -1481,14 +1446,13 @@ void __71__CORoleService__notifySnapshotObserver_snapshotOfCluster_didChangeTo__
       }
 
       while (v12 != v14);
-      v12 = [v9 countByEnumeratingWithState:&v21 objects:v31 count:16];
+      v12 = [v9 countByEnumeratingWithState:&v20 objects:v30 count:16];
     }
 
     while (v12);
   }
 
-  [(CORoleService *)self setSnapshotObservers:v20];
-  v18 = *MEMORY[0x277D85DE8];
+  [(CORoleService *)self setSnapshotObservers:v19];
 }
 
 - (id)_remoteInterfaceForClient:(id)client withErrorHandler:(id)handler
@@ -1498,36 +1462,6 @@ void __71__CORoleService__notifySnapshotObserver_snapshotOfCluster_didChangeTo__
   v7 = [connection remoteObjectProxyWithErrorHandler:handlerCopy];
 
   return v7;
-}
-
-void __72__CORoleService__notifyRoleObserver_roleOfMember_inCluster_didChangeTo___block_invoke_cold_1(uint64_t a1)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_1_8(&dword_244378000, v3, v4, "%p -> %@ remote Role failed: %@");
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __77__CORoleService__notifyMemberObserver_membersWithRole_inCluster_didChangeTo___block_invoke_cold_1(uint64_t a1)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_1_8(&dword_244378000, v3, v4, "%p -> %@ remote Member failed: %@");
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __71__CORoleService__notifySnapshotObserver_snapshotOfCluster_didChangeTo___block_invoke_cold_1(uint64_t a1)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_1_8(&dword_244378000, v3, v4, "%p -> %@ remote snapshot failed: %@");
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

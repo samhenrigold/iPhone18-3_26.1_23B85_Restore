@@ -8,11 +8,15 @@ uint64_t ___APSRTPJitterBufferSimWritePacket_block_invoke(uint64_t result)
   if (gLogCategory_APSRTPJitterBufferSim <= 30)
   {
     v1 = result;
-    if (gLogCategory_APSRTPJitterBufferSim != -1 || (result = _LogCategory_Initialize(), result))
+    if (gLogCategory_APSRTPJitterBufferSim != -1)
     {
-      v2 = *(*(v1 + 32) + 240);
-      v3 = *(*(v1 + 40) + 4);
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_APSRTPJitterBufferSim, "void _APSRTPJitterBufferSimWritePacket(void *, APSRTPJitterBufferSimPacket *)_block_invoke", 30, "Skipping out of order packet; expected ts %u, received %u\n", *(*(v1 + 32) + 240), *(*(v1 + 40) + 4));
+    }
+
+    result = _LogCategory_Initialize();
+    if (result)
+    {
+      return LogPrintF(&gLogCategory_APSRTPJitterBufferSim, "void _APSRTPJitterBufferSimWritePacket(void *, APSRTPJitterBufferSimPacket *)_block_invoke", 30, "Skipping out of order packet; expected ts %u, received %u\n", *(*(v1 + 32) + 240), *(*(v1 + 40) + 4));
     }
   }
 
@@ -24,14 +28,15 @@ uint64_t ___APSRTPJitterBufferSimWritePacket_block_invoke_2(uint64_t result)
   if (gLogCategory_APSRTPJitterBufferSim <= 30)
   {
     v1 = result;
-    if (gLogCategory_APSRTPJitterBufferSim != -1 || (result = _LogCategory_Initialize(), result))
+    if (gLogCategory_APSRTPJitterBufferSim != -1)
     {
-      v2 = *(v1 + 32);
-      v5 = *(v1 + 44);
-      v6 = *(v1 + 48);
-      v3 = *(v2 + 16);
-      v4 = 1000 * *(v1 + 40) / *(v2 + 112);
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_APSRTPJitterBufferSim, "void _APSRTPJitterBufferSimWritePacket(void *, APSRTPJitterBufferSimPacket *)_block_invoke_2", 30, "'%@' Gap detected: %u samples (%u ms), expected %u, received %u\n", *(*(v1 + 32) + 16), *(v1 + 40), 1000 * *(v1 + 40) / *(*(v1 + 32) + 112), *(v1 + 44), *(v1 + 48));
+    }
+
+    result = _LogCategory_Initialize();
+    if (result)
+    {
+      return LogPrintF(&gLogCategory_APSRTPJitterBufferSim, "void _APSRTPJitterBufferSimWritePacket(void *, APSRTPJitterBufferSimPacket *)_block_invoke_2", 30, "'%@' Gap detected: %u samples (%u ms), expected %u, received %u\n", *(*(v1 + 32) + 16), *(v1 + 40), 1000 * *(v1 + 40) / *(*(v1 + 32) + 112), *(v1 + 44), *(v1 + 48));
     }
   }
 
@@ -43,13 +48,15 @@ uint64_t ___APSRTPJitterBufferSimWritePacket_block_invoke_3(uint64_t result)
   if (gLogCategory_APSRTPJitterBufferSim <= 30)
   {
     v1 = result;
-    if (gLogCategory_APSRTPJitterBufferSim != -1 || (result = _LogCategory_Initialize(), result))
+    if (gLogCategory_APSRTPJitterBufferSim != -1)
     {
-      v2 = *(v1 + 32);
-      v4 = *(v1 + 40);
-      v5 = *(v2 + 180);
-      v3 = *(v2 + 16);
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_APSRTPJitterBufferSim, "void _APSRTPJitterBufferSimWritePacket(void *, APSRTPJitterBufferSimPacket *)_block_invoke_3", 30, "'%@' Triggering discard excess with enqueued sample count: %u\n", *(*(v1 + 32) + 16), *(v1 + 40), *(*(v1 + 32) + 180));
+    }
+
+    result = _LogCategory_Initialize();
+    if (result)
+    {
+      return LogPrintF(&gLogCategory_APSRTPJitterBufferSim, "void _APSRTPJitterBufferSimWritePacket(void *, APSRTPJitterBufferSimPacket *)_block_invoke_3", 30, "'%@' Triggering discard excess with enqueued sample count: %u\n", *(*(v1 + 32) + 16), *(v1 + 40), *(*(v1 + 32) + 180));
     }
   }
 

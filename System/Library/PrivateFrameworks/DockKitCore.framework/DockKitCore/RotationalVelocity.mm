@@ -7,7 +7,7 @@
 - (_TtC11DockKitCore18RotationalVelocity)init
 {
   v3 = OBJC_IVAR____TtC11DockKitCore18RotationalVelocity_allocatedLock;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9670);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9670, &qword_22462CA20);
   v4 = swift_allocObject();
   *(v4 + 4) = 0;
   *(&self->super.isa + v3) = v4;

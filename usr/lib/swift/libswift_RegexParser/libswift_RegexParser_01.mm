@@ -1,4 +1,4 @@
-uint64_t static CaptureList.Builder.build(_:)@<X0>(uint64_t *a1@<X0>, char **a2@<X8>)
+uint64_t static CaptureList.Builder.build(_:)@<X0>(unint64_t *a1@<X0>, uint64_t *a2@<X8>)
 {
   v3 = *a1;
 
@@ -36,7 +36,7 @@ int64x2_t static Source.Location.fake.getter@<Q0>(int64x2_t *a1@<X8>)
   return result;
 }
 
-uint64_t AST.captureList.getter@<X0>(char **a1@<X8>)
+uint64_t AST.captureList.getter@<X0>(uint64_t *a1@<X8>)
 {
   v2 = *(v1 + 2);
   v3 = *(v1 + 24);
@@ -49,7 +49,6 @@ uint64_t AST.captureList.getter@<X0>(char **a1@<X8>)
 uint64_t CaptureList.Capture.description.getter()
 {
   v1 = *(v0 + 24);
-  v6 = *(v0 + 16);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXpMd, &_sypXpMR);
   v2 = String.init<A>(describing:)();
   v3._countAndFlagsBits = 63;
@@ -64,7 +63,6 @@ uint64_t CaptureList.Capture.description.getter()
 uint64_t protocol witness for CustomStringConvertible.description.getter in conformance CaptureList.Capture()
 {
   v1 = *(v0 + 24);
-  v6 = *(v0 + 16);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXpMd, &_sypXpMR);
   v2 = String.init<A>(describing:)();
   v3._countAndFlagsBits = 63;
@@ -82,13 +80,12 @@ uint64_t CaptureList.description.getter()
   v2 = *(*v0 + 16);
   if (v2)
   {
-    v18 = MEMORY[0x1E69E7CC0];
+    v17 = MEMORY[0x1E69E7CC0];
     specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v2, 0);
     v3 = (v1 + 56);
     do
     {
       v4 = *v3;
-      v17 = *(v3 - 1);
       __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXpMd, &_sypXpMR);
       v5 = String.init<A>(describing:)();
       v7 = v6;
@@ -98,16 +95,16 @@ uint64_t CaptureList.description.getter()
 
       MEMORY[0x1C68E0BF0](v9._countAndFlagsBits, v9._object);
 
-      v11 = *(v18 + 16);
-      v10 = *(v18 + 24);
+      v11 = *(v17 + 16);
+      v10 = *(v17 + 24);
       if (v11 >= v10 >> 1)
       {
         specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v10 > 1), v11 + 1, 1);
       }
 
       v3 += 7;
-      *(v18 + 16) = v11 + 1;
-      v12 = v18 + 16 * v11;
+      *(v17 + 16) = v11 + 1;
+      v12 = v17 + 16 * v11;
       *(v12 + 32) = v5;
       *(v12 + 40) = v7;
       --v2;
@@ -117,7 +114,7 @@ uint64_t CaptureList.description.getter()
   }
 
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type [String] and conformance [A](&lazy protocol witness table cache variable for type [String] and conformance [A]);
+  lazy protocol witness table accessor for type [String] and conformance [A](&lazy protocol witness table cache variable for type [String] and conformance [A], &unk_1F402B990, &cache variable for noncanonical specialized generic type metadata for [String], MEMORY[0x1E69E6310]);
   v13 = BidirectionalCollection<>.joined(separator:)();
   v15 = v14;
 
@@ -128,15 +125,15 @@ uint64_t CaptureList.description.getter()
   return 40;
 }
 
-uint64_t static CaptureStructure.== infix(_:_:)(uint64_t a1, uint64_t a2)
+uint64_t static CaptureStructure.== infix(_:_:)(uint64_t *a1, uint64_t *a2)
 {
   v3 = *a1;
-  v2 = *(a1 + 8);
-  v4 = *(a1 + 16);
+  v2 = a1[1];
+  v4 = a1[2];
   v5 = *(a1 + 24);
   v7 = *a2;
-  v6 = *(a2 + 8);
-  v8 = *(a2 + 16);
+  v6 = a2[1];
+  v8 = a2[2];
   v9 = *(a2 + 24);
   if (!*(a1 + 24))
   {
@@ -147,18 +144,9 @@ uint64_t static CaptureStructure.== infix(_:_:)(uint64_t a1, uint64_t a2)
 
     if (v2)
     {
-      if (!v6)
+      if (!v6 || (v3 != v7 || v2 != v6) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
       {
         goto LABEL_25;
-      }
-
-      if (v3 != v7 || v2 != v6)
-      {
-        v15 = *a1;
-        if ((_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
-        {
-          goto LABEL_25;
-        }
       }
     }
 
@@ -168,10 +156,10 @@ LABEL_25:
       outlined copy of CaptureStructure(v7, v6, v8, 0);
       outlined copy of CaptureStructure(v3, v2, v4, 0);
       outlined consume of CaptureStructure(v3, v2, v4, 0);
-      v18 = v7;
-      v19 = v6;
-      v20 = v8;
-      v21 = 0;
+      v17 = v7;
+      v18 = v6;
+      v19 = v8;
+      v20 = 0;
       goto LABEL_15;
     }
 
@@ -215,12 +203,12 @@ LABEL_25:
   {
     if (v9 == 2)
     {
-      v16 = *(v3 + 16);
-      v17 = *(v7 + 16);
-      outlined copy of CaptureStructure(*a2, *(a2 + 8), v8, 2);
+      v15 = *(v3 + 16);
+      v16 = *(v7 + 16);
+      outlined copy of CaptureStructure(*a2, a2[1], v8, 2);
       outlined copy of CaptureStructure(v3, v2, v4, 2);
 
-      v14 = _sSasSQRzlE2eeoiySbSayxG_ABtFZ12_RegexParser16CaptureStructureO_Tt1g5(v16, v17);
+      v14 = _sSasSQRzlE2eeoiySbSayxG_ABtFZ12_RegexParser16CaptureStructureO_Tt1g5(v15, v16);
 
       outlined consume of CaptureStructure(v3, v2, v4, 2);
       outlined consume of CaptureStructure(v7, v6, v8, 2);
@@ -233,15 +221,15 @@ LABEL_25:
   if (v9 != 1)
   {
 LABEL_14:
-    outlined copy of CaptureStructure(*a2, *(a2 + 8), v8, v9);
+    outlined copy of CaptureStructure(*a2, a2[1], v8, v9);
     outlined copy of CaptureStructure(v3, v2, v4, v5);
     outlined consume of CaptureStructure(v3, v2, v4, v5);
-    v18 = v7;
-    v19 = v6;
-    v20 = v8;
-    v21 = v9;
+    v17 = v7;
+    v18 = v6;
+    v19 = v8;
+    v20 = v9;
 LABEL_15:
-    outlined consume of CaptureStructure(v18, v19, v20, v21);
+    outlined consume of CaptureStructure(v17, v18, v19, v20);
 LABEL_16:
     v14 = 0;
     return v14 & 1;
@@ -251,15 +239,15 @@ LABEL_16:
   v11 = *(v3 + 32);
   v12 = *(v7 + 32);
   v13 = *(v7 + 40);
-  v26 = *(v3 + 16);
-  v27 = v11;
-  v28 = v10;
-  v23 = *(v7 + 16);
-  v24 = v12;
-  v25 = v13;
+  v25 = *(v3 + 16);
+  v26 = v11;
+  v27 = v10;
+  v22 = *(v7 + 16);
+  v23 = v12;
+  v24 = v13;
   outlined copy of CaptureStructure(v7, v6, v8, 1);
   outlined copy of CaptureStructure(v3, v2, v4, 1);
-  v14 = static CaptureStructure.== infix(_:_:)(&v26, &v23);
+  v14 = static CaptureStructure.== infix(_:_:)(&v25, &v22);
   outlined consume of CaptureStructure(v3, v2, v4, 1);
   outlined consume of CaptureStructure(v7, v6, v8, 1);
   return v14 & 1;
@@ -562,9 +550,9 @@ LABEL_40:
         goto LABEL_41;
       }
 
-      v45._countAndFlagsBits = 32;
-      v45._object = 0xE100000000000000;
-      countAndFlagsBits = String.init(repeating:count:)(v45, indentLevel * indentWidth)._countAndFlagsBits;
+      v44._countAndFlagsBits = 32;
+      v44._object = 0xE100000000000000;
+      countAndFlagsBits = String.init(repeating:count:)(v44, indentLevel * indentWidth)._countAndFlagsBits;
       MEMORY[0x1C68E0BF0](countAndFlagsBits);
 
       a1->startOfLine = 0;
@@ -614,22 +602,22 @@ LABEL_39:
     MEMORY[0x1C68E0BF0](0x6C616E6F6974704FLL, 0xEA00000000007B20);
     MEMORY[0x1C68E0BF0](10, 0xE100000000000000);
     a1->startOfLine = 1;
-    v26 = a1->indentLevel;
-    v27 = __OFADD__(v26, 1);
-    v28 = v26 + 1;
-    if (v27)
+    v25 = a1->indentLevel;
+    v26 = __OFADD__(v25, 1);
+    v27 = v25 + 1;
+    if (v26)
     {
       __break(1u);
       goto LABEL_36;
     }
 
-    a1->indentLevel = v28;
+    a1->indentLevel = v27;
     CaptureStructure._print(_:)(a1);
     outlined consume of CaptureStructure(v4, v5, v6, v7);
-    v29 = a1->indentLevel;
-    v27 = __OFSUB__(v29, 1);
-    v30 = v29 - 1;
-    if (v27)
+    v28 = a1->indentLevel;
+    v26 = __OFSUB__(v28, 1);
+    v29 = v28 - 1;
+    if (v26)
     {
 LABEL_37:
       __break(1u);
@@ -639,7 +627,7 @@ LABEL_38:
     }
 
     p_startOfLine = &a1->startOfLine;
-    a1->indentLevel = v30;
+    a1->indentLevel = v29;
     if (!a1->startOfLine)
     {
 LABEL_27:
@@ -650,15 +638,15 @@ LABEL_34:
       return;
     }
 
-    v32 = a1->indentWidth;
-    v33 = v30 * v32;
-    if ((v30 * v32) >> 64 == (v30 * v32) >> 63)
+    v31 = a1->indentWidth;
+    v32 = v29 * v31;
+    if ((v29 * v31) >> 64 == (v29 * v31) >> 63)
     {
 LABEL_26:
-      v41._countAndFlagsBits = 32;
-      v41._object = 0xE100000000000000;
-      v42 = String.init(repeating:count:)(v41, v33)._countAndFlagsBits;
-      MEMORY[0x1C68E0BF0](v42);
+      v40._countAndFlagsBits = 32;
+      v40._object = 0xE100000000000000;
+      v41 = String.init(repeating:count:)(v40, v32)._countAndFlagsBits;
+      MEMORY[0x1C68E0BF0](v41);
 
       *p_startOfLine = 0;
       goto LABEL_27;
@@ -686,64 +674,59 @@ LABEL_41:
     goto LABEL_42;
   }
 
-  v23 = *(v3 + 16);
-
-  v24._countAndFlagsBits = 32;
-  v24._object = 0xE100000000000000;
-  v25 = String.init(repeating:count:)(v24, v22)._countAndFlagsBits;
-  MEMORY[0x1C68E0BF0](v25);
+  v23._countAndFlagsBits = 32;
+  v23._object = 0xE100000000000000;
+  v24 = String.init(repeating:count:)(v23, v22)._countAndFlagsBits;
+  MEMORY[0x1C68E0BF0](v24);
 
   a1->startOfLine = 0;
 LABEL_19:
   MEMORY[0x1C68E0BF0](0x7B20656C707554, 0xE700000000000000);
   MEMORY[0x1C68E0BF0](10, 0xE100000000000000);
   a1->startOfLine = 1;
-  v34 = a1->indentLevel;
-  v27 = __OFADD__(v34, 1);
-  v35 = v34 + 1;
-  if (v27)
+  v33 = a1->indentLevel;
+  v26 = __OFADD__(v33, 1);
+  v34 = v33 + 1;
+  if (v26)
   {
 LABEL_36:
     __break(1u);
     goto LABEL_37;
   }
 
-  a1->indentLevel = v35;
-  v36 = *(v4 + 16);
-  if (v36)
+  a1->indentLevel = v34;
+  v35 = *(v4 + 16);
+  if (v35)
   {
-    v37 = (v4 + 56);
+    v36 = v4 + 56;
     do
     {
-      v47 = *(v37 - 24);
-      v48 = *(v37 - 1);
-      v49 = *v37;
       CaptureStructure._print(_:)(a1);
-      v37 += 32;
-      --v36;
+      v36 += 32;
+      --v35;
     }
 
-    while (v36);
+    while (v35);
   }
 
-  v38 = a1->indentLevel;
-  v27 = __OFSUB__(v38, 1);
-  v39 = v38 - 1;
-  if (v27)
+  v37 = a1->indentLevel;
+  v26 = __OFSUB__(v37, 1);
+  v38 = v37 - 1;
+  if (v26)
   {
     goto LABEL_38;
   }
 
   p_startOfLine = &a1->startOfLine;
-  a1->indentLevel = v39;
+  a1->indentLevel = v38;
   if (!a1->startOfLine)
   {
     goto LABEL_27;
   }
 
-  v40 = a1->indentWidth;
-  v33 = v39 * v40;
-  if ((v39 * v40) >> 64 == (v39 * v40) >> 63)
+  v39 = a1->indentWidth;
+  v32 = v38 * v39;
+  if ((v38 * v39) >> 64 == (v38 * v39) >> 63)
   {
     goto LABEL_26;
   }
@@ -875,32 +858,27 @@ LABEL_13:
 
 void CaptureList._captureStructure.getter(uint64_t a1@<X8>)
 {
-  v22 = *v1;
+  v21 = *v1;
   v3 = *(*v1 + 16);
   if (v3 == 1)
   {
-    v25 = *(v22 + 32);
-    v27 = *(v22 + 48);
-    v28 = *(v22 + 56);
-    v29 = *(v22 + 72);
-    v30 = *(v22 + 80);
     CaptureList.Capture._captureStructure.getter(a1);
   }
 
   else if (v3)
   {
-    v26 = MEMORY[0x1E69E7CC0];
+    v24 = MEMORY[0x1E69E7CC0];
     specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v3, 0);
     v5 = 0;
-    v21 = v3;
+    v20 = v3;
     while (v5 != v3)
     {
-      if (v5 >= *(v22 + 16))
+      if (v5 >= *(v21 + 16))
       {
         goto LABEL_22;
       }
 
-      v6 = (v22 + 32 + 56 * v5);
+      v6 = (v21 + 32 + 56 * v5);
       v7 = v6[3];
       if (v6[2] == MEMORY[0x1E69E67B0])
       {
@@ -917,70 +895,69 @@ void CaptureList._captureStructure.getter(uint64_t a1@<X8>)
         goto LABEL_23;
       }
 
-      v9 = *v6;
-      v10 = v6[1];
+      v9 = v6[1];
       if (v7)
       {
-        v11 = *v6;
-        v12 = swift_allocObject();
-        v13 = v12;
-        *(v12 + 16) = v11;
-        *(v12 + 24) = v10;
-        *(v12 + 32) = v8;
-        *(v12 + 40) = 0;
-        v14 = v7 - 1;
+        v10 = *v6;
+        v11 = swift_allocObject();
+        v12 = v11;
+        *(v11 + 16) = v10;
+        *(v11 + 24) = v9;
+        *(v11 + 32) = v8;
+        *(v11 + 40) = 0;
+        v13 = v7 - 1;
         if (v7 != 1)
         {
           do
           {
-            v12 = swift_allocObject();
-            *(v12 + 24) = 0;
-            *(v12 + 32) = 0;
-            *(v12 + 16) = v13;
-            *(v12 + 40) = 1;
-            v13 = v12;
-            --v14;
+            v11 = swift_allocObject();
+            *(v11 + 24) = 0;
+            *(v11 + 32) = 0;
+            *(v11 + 16) = v12;
+            *(v11 + 40) = 1;
+            v12 = v11;
+            --v13;
           }
 
-          while (v14);
+          while (v13);
         }
 
-        v24 = v12;
-        v15 = 0;
+        v23 = v11;
+        v14 = 0;
         v8 = 0;
-        v23 = 1;
+        v22 = 1;
       }
 
       else
       {
-        v24 = *v6;
-        v23 = 0;
-        v15 = v6[1];
+        v23 = *v6;
+        v22 = 0;
+        v14 = v6[1];
       }
 
-      v17 = *(v26 + 16);
-      v16 = *(v26 + 24);
+      v16 = *(v24 + 16);
+      v15 = *(v24 + 24);
 
-      if (v17 >= v16 >> 1)
+      if (v16 >= v15 >> 1)
       {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v16 > 1), v17 + 1, 1);
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v15 > 1), v16 + 1, 1);
       }
 
       ++v5;
-      *(v26 + 16) = v17 + 1;
-      v18 = v26 + 32 * v17;
-      *(v18 + 32) = v24;
-      *(v18 + 40) = v15;
-      *(v18 + 48) = v8;
-      *(v18 + 56) = v23;
-      v3 = v21;
-      if (v5 == v21)
+      *(v24 + 16) = v16 + 1;
+      v17 = v24 + 32 * v16;
+      *(v17 + 32) = v23;
+      *(v17 + 40) = v14;
+      *(v17 + 48) = v8;
+      *(v17 + 56) = v22;
+      v3 = v20;
+      if (v5 == v20)
       {
-        v19 = swift_allocObject();
-        *(v19 + 16) = v26;
+        v18 = swift_allocObject();
+        *(v18 + 16) = v24;
         *(a1 + 8) = 0;
         *(a1 + 16) = 0;
-        *a1 = v19;
+        *a1 = v18;
         *(a1 + 24) = 2;
         return;
       }
@@ -1074,399 +1051,7 @@ uint64_t _s12_RegexParser0B0V19withNormalizedForms33_3356729F9DCE7A8BB6139B53552
 {
   v6 = type metadata accessor for Unicode.Scalar.Properties();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  MEMORY[0x1EEE9AC00](v6, v9);
-  v11 = v36 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v37[4] = 0;
-  v37[5] = 0xE000000000000000;
-  v12 = HIBYTE(a2) & 0xF;
-  if ((a2 & 0x2000000000000000) == 0)
-  {
-    v12 = a1 & 0xFFFFFFFFFFFFLL;
-  }
-
-  v37[0] = a1;
-  v37[1] = a2;
-  v37[2] = 0;
-  v37[3] = v12;
-
-  v14 = String.Iterator.next()();
-  result = v14.value._countAndFlagsBits;
-  if (!v14.value._object)
-  {
-LABEL_31:
-
-    v23 = String.lowercased()();
-
-    closure #1 in static Parser.classifyGeneralCategory(_:)(v23._countAndFlagsBits, v23._object, v37);
-    if (LOBYTE(v37[0]) == 38)
-    {
-      v24._countAndFlagsBits = 29545;
-      v24._object = 0xE200000000000000;
-      if (String.hasPrefix(_:)(v24))
-      {
-        v25 = specialized Collection.dropFirst(_:)(2uLL, v23._countAndFlagsBits, v23._object);
-        v27 = v26;
-        v29 = v28;
-        v31 = v30;
-
-        v32 = MEMORY[0x1C68E0B20](v25, v27, v29, v31);
-        v34 = v33;
-
-        closure #1 in static Parser.classifyGeneralCategory(_:)(v32, v34, v37);
-
-        v35 = v37[0];
-        if (LOBYTE(v37[0]) != 38)
-        {
-          goto LABEL_38;
-        }
-      }
-
-      else
-      {
-      }
-
-      v35 = 38;
-    }
-
-    else
-    {
-
-      v35 = v37[0];
-    }
-
-LABEL_38:
-    *a3 = v35;
-    return result;
-  }
-
-  countAndFlagsBits = v14.value._countAndFlagsBits;
-  object = v14.value._object;
-  while ((object & 0x2000000000000000) != 0 ? HIBYTE(object) & 0xF : countAndFlagsBits & 0xFFFFFFFFFFFFLL)
-  {
-    if ((object & 0x1000000000000000) != 0)
-    {
-      _StringGuts.foreignErrorCorrectedScalar(startingAt:)();
-    }
-
-    else
-    {
-      if ((object & 0x2000000000000000) != 0)
-      {
-        v36[0] = countAndFlagsBits;
-        v36[1] = object & 0xFFFFFFFFFFFFFFLL;
-      }
-
-      else if ((countAndFlagsBits & 0x1000000000000000) == 0)
-      {
-        _StringObject.sharedUTF8.getter();
-      }
-
-      _decodeScalar(_:startingAt:)();
-    }
-
-    Unicode.Scalar.properties.getter();
-    v19 = Unicode.Scalar.Properties.isPatternWhitespace.getter();
-    (*(v7 + 8))(v11, v6);
-    if ((v19 & 1) == 0 && (countAndFlagsBits != 95 || object != 0xE100000000000000))
-    {
-      v20 = _stringCompareWithSmolCheck(_:_:expecting:)();
-      v22 = countAndFlagsBits == 45 && object == 0xE100000000000000;
-      if ((v20 & 1) == 0 && !v22 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
-      {
-        MEMORY[0x1C68E0BE0](countAndFlagsBits, object);
-      }
-    }
-
-    v17 = String.Iterator.next()();
-    result = v17.value._countAndFlagsBits;
-    countAndFlagsBits = v17.value._countAndFlagsBits;
-    object = v17.value._object;
-    if (!v17.value._object)
-    {
-      goto LABEL_31;
-    }
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t _s12_RegexParser0B0V19withNormalizedForms33_3356729F9DCE7A8BB6139B535527B12BLL_15requireInPrefix5matchxSgSS_SbAHSSXEtlFZs7UnicodeO11NumericTypeO_Tt3g505_s12_a20Parser0B0V19classifyq14Type33_3356729fghijk6BLLys7P21O0dE0OSgSSFZAJSSXEfU_Tf1nnnc_n@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, char *a3@<X8>)
-{
-  v60 = a3;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss7UnicodeO11NumericTypeOSgMd, &_ss7UnicodeO11NumericTypeOSgMR);
-  v6 = *(*(v5 - 8) + 64);
-  v8 = MEMORY[0x1EEE9AC00](v5 - 8, v7);
-  v58 = &v57 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v8, v10);
-  v12 = &v57 - v11;
-  v13 = type metadata accessor for Unicode.NumericType();
-  v14 = *(v13 - 8);
-  v15 = *(v14 + 64);
-  v17 = MEMORY[0x1EEE9AC00](v13, v16);
-  v57 = &v57 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v17, v19);
-  v59 = &v57 - v20;
-  v21 = type metadata accessor for Unicode.Scalar.Properties();
-  v22 = *(v21 - 8);
-  v23 = *(v22 + 64);
-  MEMORY[0x1EEE9AC00](v21, v24);
-  v26 = &v57 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v67 = 0;
-  v68 = 0xE000000000000000;
-  v27 = HIBYTE(a2) & 0xF;
-  if ((a2 & 0x2000000000000000) == 0)
-  {
-    v27 = a1 & 0xFFFFFFFFFFFFLL;
-  }
-
-  v63 = a1;
-  v64 = a2;
-  v65 = 0;
-  v66 = v27;
-
-  v29 = String.Iterator.next()();
-  result = v29.value._countAndFlagsBits;
-  if (!v29.value._object)
-  {
-LABEL_31:
-
-    v39 = String.lowercased()();
-
-    closure #1 in static Parser.classifyNumericType(_:)(v39._countAndFlagsBits, v39._object, v12);
-    v40 = *(v14 + 48);
-    if (v40(v12, 1, v13) == 1)
-    {
-      outlined destroy of _ASTParent?(v12, &_ss7UnicodeO11NumericTypeOSgMd, &_ss7UnicodeO11NumericTypeOSgMR);
-      v41._countAndFlagsBits = 29545;
-      v41._object = 0xE200000000000000;
-      if (!String.hasPrefix(_:)(v41))
-      {
-
-        goto LABEL_38;
-      }
-
-      v42 = specialized Collection.dropFirst(_:)(2uLL, v39._countAndFlagsBits, v39._object);
-      v44 = v43;
-      v46 = v45;
-      v48 = v47;
-
-      v49 = MEMORY[0x1C68E0B20](v42, v44, v46, v48);
-      v51 = v50;
-
-      v52 = v58;
-      closure #1 in static Parser.classifyNumericType(_:)(v49, v51, v58);
-
-      if (v40(v52, 1, v13) == 1)
-      {
-        outlined destroy of _ASTParent?(v52, &_ss7UnicodeO11NumericTypeOSgMd, &_ss7UnicodeO11NumericTypeOSgMR);
-LABEL_38:
-        v56 = 1;
-        v55 = v60;
-        return (*(v14 + 56))(v55, v56, 1, v13);
-      }
-
-      v53 = *(v14 + 32);
-      v54 = v57;
-      v53(v57, v52, v13);
-    }
-
-    else
-    {
-
-      v53 = *(v14 + 32);
-      v54 = v59;
-      v53(v59, v12, v13);
-    }
-
-    v55 = v60;
-    v53(v60, v54, v13);
-    v56 = 0;
-    return (*(v14 + 56))(v55, v56, 1, v13);
-  }
-
-  countAndFlagsBits = v29.value._countAndFlagsBits;
-  object = v29.value._object;
-  v32 = (v22 + 8);
-  while ((object & 0x2000000000000000) != 0 ? HIBYTE(object) & 0xF : countAndFlagsBits & 0xFFFFFFFFFFFFLL)
-  {
-    if ((object & 0x1000000000000000) != 0)
-    {
-      _StringGuts.foreignErrorCorrectedScalar(startingAt:)();
-    }
-
-    else
-    {
-      if ((object & 0x2000000000000000) != 0)
-      {
-        v61 = countAndFlagsBits;
-        v62 = object & 0xFFFFFFFFFFFFFFLL;
-      }
-
-      else if ((countAndFlagsBits & 0x1000000000000000) == 0)
-      {
-        _StringObject.sharedUTF8.getter();
-      }
-
-      _decodeScalar(_:startingAt:)();
-    }
-
-    Unicode.Scalar.properties.getter();
-    v35 = Unicode.Scalar.Properties.isPatternWhitespace.getter();
-    (*v32)(v26, v21);
-    if ((v35 & 1) == 0 && (countAndFlagsBits != 95 || object != 0xE100000000000000))
-    {
-      v36 = _stringCompareWithSmolCheck(_:_:expecting:)();
-      v38 = countAndFlagsBits == 45 && object == 0xE100000000000000;
-      if ((v36 & 1) == 0 && !v38 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
-      {
-        MEMORY[0x1C68E0BE0](countAndFlagsBits, object);
-      }
-    }
-
-    v33 = String.Iterator.next()();
-    result = v33.value._countAndFlagsBits;
-    countAndFlagsBits = v33.value._countAndFlagsBits;
-    object = v33.value._object;
-    if (!v33.value._object)
-    {
-      goto LABEL_31;
-    }
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t _s12_RegexParser0B0V19withNormalizedForms33_3356729F9DCE7A8BB6139B535527B12BLL_15requireInPrefix5matchxSgSS_SbAHSSXEtlFZs7UnicodeOAAE14BinaryPropertyO_Tt3g505_s12_a42Parser0B0V20classifyBoolProperty33_3356729fghijk6BLLys7p6OAAE06Q18E0OSgSSFZAJSSXEfU_Tf1nnnc_n@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, char *a3@<X8>)
-{
-  v6 = type metadata accessor for Unicode.Scalar.Properties();
-  v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  MEMORY[0x1EEE9AC00](v6, v9);
-  v11 = v36 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v37[4] = 0;
-  v37[5] = 0xE000000000000000;
-  v12 = HIBYTE(a2) & 0xF;
-  if ((a2 & 0x2000000000000000) == 0)
-  {
-    v12 = a1 & 0xFFFFFFFFFFFFLL;
-  }
-
-  v37[0] = a1;
-  v37[1] = a2;
-  v37[2] = 0;
-  v37[3] = v12;
-
-  v14 = String.Iterator.next()();
-  result = v14.value._countAndFlagsBits;
-  if (!v14.value._object)
-  {
-LABEL_31:
-
-    v23 = String.lowercased()();
-
-    closure #1 in static Parser.classifyBoolProperty(_:)(v23._countAndFlagsBits, v23._object, v37);
-    if (LOBYTE(v37[0]) == 67)
-    {
-      v24._countAndFlagsBits = 29545;
-      v24._object = 0xE200000000000000;
-      if (String.hasPrefix(_:)(v24))
-      {
-        v25 = specialized Collection.dropFirst(_:)(2uLL, v23._countAndFlagsBits, v23._object);
-        v27 = v26;
-        v29 = v28;
-        v31 = v30;
-
-        v32 = MEMORY[0x1C68E0B20](v25, v27, v29, v31);
-        v34 = v33;
-
-        closure #1 in static Parser.classifyBoolProperty(_:)(v32, v34, v37);
-
-        v35 = v37[0];
-        if (LOBYTE(v37[0]) != 67)
-        {
-          goto LABEL_38;
-        }
-      }
-
-      else
-      {
-      }
-
-      v35 = 67;
-    }
-
-    else
-    {
-
-      v35 = v37[0];
-    }
-
-LABEL_38:
-    *a3 = v35;
-    return result;
-  }
-
-  countAndFlagsBits = v14.value._countAndFlagsBits;
-  object = v14.value._object;
-  while ((object & 0x2000000000000000) != 0 ? HIBYTE(object) & 0xF : countAndFlagsBits & 0xFFFFFFFFFFFFLL)
-  {
-    if ((object & 0x1000000000000000) != 0)
-    {
-      _StringGuts.foreignErrorCorrectedScalar(startingAt:)();
-    }
-
-    else
-    {
-      if ((object & 0x2000000000000000) != 0)
-      {
-        v36[0] = countAndFlagsBits;
-        v36[1] = object & 0xFFFFFFFFFFFFFFLL;
-      }
-
-      else if ((countAndFlagsBits & 0x1000000000000000) == 0)
-      {
-        _StringObject.sharedUTF8.getter();
-      }
-
-      _decodeScalar(_:startingAt:)();
-    }
-
-    Unicode.Scalar.properties.getter();
-    v19 = Unicode.Scalar.Properties.isPatternWhitespace.getter();
-    (*(v7 + 8))(v11, v6);
-    if ((v19 & 1) == 0 && (countAndFlagsBits != 95 || object != 0xE100000000000000))
-    {
-      v20 = _stringCompareWithSmolCheck(_:_:expecting:)();
-      v22 = countAndFlagsBits == 45 && object == 0xE100000000000000;
-      if ((v20 & 1) == 0 && !v22 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
-      {
-        MEMORY[0x1C68E0BE0](countAndFlagsBits, object);
-      }
-    }
-
-    v17 = String.Iterator.next()();
-    result = v17.value._countAndFlagsBits;
-    countAndFlagsBits = v17.value._countAndFlagsBits;
-    object = v17.value._object;
-    if (!v17.value._object)
-    {
-      goto LABEL_31;
-    }
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t _s12_RegexParser0B0V19withNormalizedForms33_3356729F9DCE7A8BB6139B535527B12BLL_15requireInPrefix5matchxSgSS_SbAHSSXEtlFZSb_Tt3g505_s12_a56Parser0B0V34classifyCharacterPropertyBoolValue33_3356729fghijK21BLLySbSgSSFZAFSSXEfU_Tf1nnc_n(uint64_t a1, unint64_t a2)
-{
-  v4 = type metadata accessor for Unicode.Scalar.Properties();
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x1EEE9AC00](v4, v7);
+  MEMORY[0x1EEE9AC00](v6);
   v9 = v34 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v35[4] = 0;
   v35[5] = 0xE000000000000000;
@@ -1483,10 +1068,396 @@ uint64_t _s12_RegexParser0B0V19withNormalizedForms33_3356729F9DCE7A8BB6139B53552
 
   v12 = String.Iterator.next()();
   result = v12.value._countAndFlagsBits;
-  if (v12.value._object)
+  if (!v12.value._object)
   {
-    countAndFlagsBits = v12.value._countAndFlagsBits;
-    object = v12.value._object;
+LABEL_31:
+
+    v21 = String.lowercased()();
+
+    closure #1 in static Parser.classifyGeneralCategory(_:)(v21._countAndFlagsBits, v21._object, v35);
+    if (LOBYTE(v35[0]) == 38)
+    {
+      v22._countAndFlagsBits = 29545;
+      v22._object = 0xE200000000000000;
+      if (String.hasPrefix(_:)(v22))
+      {
+        v23 = specialized Collection.dropFirst(_:)(2uLL, v21._countAndFlagsBits, v21._object);
+        v25 = v24;
+        v27 = v26;
+        v29 = v28;
+
+        v30 = MEMORY[0x1C68E0B20](v23, v25, v27, v29);
+        v32 = v31;
+
+        closure #1 in static Parser.classifyGeneralCategory(_:)(v30, v32, v35);
+
+        v33 = v35[0];
+        if (LOBYTE(v35[0]) != 38)
+        {
+          goto LABEL_38;
+        }
+      }
+
+      else
+      {
+      }
+
+      v33 = 38;
+    }
+
+    else
+    {
+
+      v33 = v35[0];
+    }
+
+LABEL_38:
+    *a3 = v33;
+    return result;
+  }
+
+  countAndFlagsBits = v12.value._countAndFlagsBits;
+  object = v12.value._object;
+  while ((object & 0x2000000000000000) != 0 ? HIBYTE(object) & 0xF : countAndFlagsBits & 0xFFFFFFFFFFFFLL)
+  {
+    if ((object & 0x1000000000000000) != 0)
+    {
+      _StringGuts.foreignErrorCorrectedScalar(startingAt:)();
+    }
+
+    else
+    {
+      if ((object & 0x2000000000000000) != 0)
+      {
+        v34[0] = countAndFlagsBits;
+        v34[1] = object & 0xFFFFFFFFFFFFFFLL;
+      }
+
+      else if ((countAndFlagsBits & 0x1000000000000000) == 0)
+      {
+        _StringObject.sharedUTF8.getter();
+      }
+
+      _decodeScalar(_:startingAt:)();
+    }
+
+    Unicode.Scalar.properties.getter();
+    v17 = Unicode.Scalar.Properties.isPatternWhitespace.getter();
+    (*(v7 + 8))(v9, v6);
+    if ((v17 & 1) == 0 && (countAndFlagsBits != 95 || object != 0xE100000000000000))
+    {
+      v18 = _stringCompareWithSmolCheck(_:_:expecting:)();
+      v20 = countAndFlagsBits == 45 && object == 0xE100000000000000;
+      if ((v18 & 1) == 0 && !v20 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+      {
+        MEMORY[0x1C68E0BE0](countAndFlagsBits, object);
+      }
+    }
+
+    v15 = String.Iterator.next()();
+    result = v15.value._countAndFlagsBits;
+    countAndFlagsBits = v15.value._countAndFlagsBits;
+    object = v15.value._object;
+    if (!v15.value._object)
+    {
+      goto LABEL_31;
+    }
+  }
+
+  __break(1u);
+  return result;
+}
+
+uint64_t _s12_RegexParser0B0V19withNormalizedForms33_3356729F9DCE7A8BB6139B535527B12BLL_15requireInPrefix5matchxSgSS_SbAHSSXEtlFZs7UnicodeO11NumericTypeO_Tt3g505_s12_a20Parser0B0V19classifyq14Type33_3356729fghijk6BLLys7P21O0dE0OSgSSFZAJSSXEfU_Tf1nnnc_n@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, char *a3@<X8>)
+{
+  v52 = a3;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss7UnicodeO11NumericTypeOSgMd, &_ss7UnicodeO11NumericTypeOSgMR);
+  v6 = MEMORY[0x1EEE9AC00](v5 - 8);
+  v50 = &v49 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v6);
+  v9 = &v49 - v8;
+  v10 = type metadata accessor for Unicode.NumericType();
+  v11 = *(v10 - 8);
+  v12 = MEMORY[0x1EEE9AC00](v10);
+  v49 = &v49 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v12);
+  v51 = &v49 - v14;
+  v15 = type metadata accessor for Unicode.Scalar.Properties();
+  v16 = *(v15 - 8);
+  MEMORY[0x1EEE9AC00](v15);
+  v18 = &v49 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v59 = 0;
+  v60 = 0xE000000000000000;
+  v19 = HIBYTE(a2) & 0xF;
+  if ((a2 & 0x2000000000000000) == 0)
+  {
+    v19 = a1 & 0xFFFFFFFFFFFFLL;
+  }
+
+  v55 = a1;
+  v56 = a2;
+  v57 = 0;
+  v58 = v19;
+
+  v21 = String.Iterator.next()();
+  result = v21.value._countAndFlagsBits;
+  if (!v21.value._object)
+  {
+LABEL_31:
+
+    v31 = String.lowercased()();
+
+    closure #1 in static Parser.classifyNumericType(_:)(v31._countAndFlagsBits, v31._object, v9);
+    v32 = *(v11 + 48);
+    if (v32(v9, 1, v10) == 1)
+    {
+      outlined destroy of _ASTParent?(v9, &_ss7UnicodeO11NumericTypeOSgMd, &_ss7UnicodeO11NumericTypeOSgMR);
+      v33._countAndFlagsBits = 29545;
+      v33._object = 0xE200000000000000;
+      if (!String.hasPrefix(_:)(v33))
+      {
+
+        goto LABEL_38;
+      }
+
+      v34 = specialized Collection.dropFirst(_:)(2uLL, v31._countAndFlagsBits, v31._object);
+      v36 = v35;
+      v38 = v37;
+      v40 = v39;
+
+      v41 = MEMORY[0x1C68E0B20](v34, v36, v38, v40);
+      v43 = v42;
+
+      v44 = v50;
+      closure #1 in static Parser.classifyNumericType(_:)(v41, v43, v50);
+
+      if (v32(v44, 1, v10) == 1)
+      {
+        outlined destroy of _ASTParent?(v44, &_ss7UnicodeO11NumericTypeOSgMd, &_ss7UnicodeO11NumericTypeOSgMR);
+LABEL_38:
+        v48 = 1;
+        v47 = v52;
+        return (*(v11 + 56))(v47, v48, 1, v10);
+      }
+
+      v45 = *(v11 + 32);
+      v46 = v49;
+      v45(v49, v44, v10);
+    }
+
+    else
+    {
+
+      v45 = *(v11 + 32);
+      v46 = v51;
+      v45(v51, v9, v10);
+    }
+
+    v47 = v52;
+    v45(v52, v46, v10);
+    v48 = 0;
+    return (*(v11 + 56))(v47, v48, 1, v10);
+  }
+
+  countAndFlagsBits = v21.value._countAndFlagsBits;
+  object = v21.value._object;
+  v24 = (v16 + 8);
+  while ((object & 0x2000000000000000) != 0 ? HIBYTE(object) & 0xF : countAndFlagsBits & 0xFFFFFFFFFFFFLL)
+  {
+    if ((object & 0x1000000000000000) != 0)
+    {
+      _StringGuts.foreignErrorCorrectedScalar(startingAt:)();
+    }
+
+    else
+    {
+      if ((object & 0x2000000000000000) != 0)
+      {
+        v53 = countAndFlagsBits;
+        v54 = object & 0xFFFFFFFFFFFFFFLL;
+      }
+
+      else if ((countAndFlagsBits & 0x1000000000000000) == 0)
+      {
+        _StringObject.sharedUTF8.getter();
+      }
+
+      _decodeScalar(_:startingAt:)();
+    }
+
+    Unicode.Scalar.properties.getter();
+    v27 = Unicode.Scalar.Properties.isPatternWhitespace.getter();
+    (*v24)(v18, v15);
+    if ((v27 & 1) == 0 && (countAndFlagsBits != 95 || object != 0xE100000000000000))
+    {
+      v28 = _stringCompareWithSmolCheck(_:_:expecting:)();
+      v30 = countAndFlagsBits == 45 && object == 0xE100000000000000;
+      if ((v28 & 1) == 0 && !v30 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+      {
+        MEMORY[0x1C68E0BE0](countAndFlagsBits, object);
+      }
+    }
+
+    v25 = String.Iterator.next()();
+    result = v25.value._countAndFlagsBits;
+    countAndFlagsBits = v25.value._countAndFlagsBits;
+    object = v25.value._object;
+    if (!v25.value._object)
+    {
+      goto LABEL_31;
+    }
+  }
+
+  __break(1u);
+  return result;
+}
+
+uint64_t _s12_RegexParser0B0V19withNormalizedForms33_3356729F9DCE7A8BB6139B535527B12BLL_15requireInPrefix5matchxSgSS_SbAHSSXEtlFZs7UnicodeOAAE14BinaryPropertyO_Tt3g505_s12_a42Parser0B0V20classifyBoolProperty33_3356729fghijk6BLLys7p6OAAE06Q18E0OSgSSFZAJSSXEfU_Tf1nnnc_n@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, char *a3@<X8>)
+{
+  v6 = type metadata accessor for Unicode.Scalar.Properties();
+  v7 = *(v6 - 8);
+  MEMORY[0x1EEE9AC00](v6);
+  v9 = v34 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v35[4] = 0;
+  v35[5] = 0xE000000000000000;
+  v10 = HIBYTE(a2) & 0xF;
+  if ((a2 & 0x2000000000000000) == 0)
+  {
+    v10 = a1 & 0xFFFFFFFFFFFFLL;
+  }
+
+  v35[0] = a1;
+  v35[1] = a2;
+  v35[2] = 0;
+  v35[3] = v10;
+
+  v12 = String.Iterator.next()();
+  result = v12.value._countAndFlagsBits;
+  if (!v12.value._object)
+  {
+LABEL_31:
+
+    v21 = String.lowercased()();
+
+    closure #1 in static Parser.classifyBoolProperty(_:)(v21._countAndFlagsBits, v21._object, v35);
+    if (LOBYTE(v35[0]) == 67)
+    {
+      v22._countAndFlagsBits = 29545;
+      v22._object = 0xE200000000000000;
+      if (String.hasPrefix(_:)(v22))
+      {
+        v23 = specialized Collection.dropFirst(_:)(2uLL, v21._countAndFlagsBits, v21._object);
+        v25 = v24;
+        v27 = v26;
+        v29 = v28;
+
+        v30 = MEMORY[0x1C68E0B20](v23, v25, v27, v29);
+        v32 = v31;
+
+        closure #1 in static Parser.classifyBoolProperty(_:)(v30, v32, v35);
+
+        v33 = v35[0];
+        if (LOBYTE(v35[0]) != 67)
+        {
+          goto LABEL_38;
+        }
+      }
+
+      else
+      {
+      }
+
+      v33 = 67;
+    }
+
+    else
+    {
+
+      v33 = v35[0];
+    }
+
+LABEL_38:
+    *a3 = v33;
+    return result;
+  }
+
+  countAndFlagsBits = v12.value._countAndFlagsBits;
+  object = v12.value._object;
+  while ((object & 0x2000000000000000) != 0 ? HIBYTE(object) & 0xF : countAndFlagsBits & 0xFFFFFFFFFFFFLL)
+  {
+    if ((object & 0x1000000000000000) != 0)
+    {
+      _StringGuts.foreignErrorCorrectedScalar(startingAt:)();
+    }
+
+    else
+    {
+      if ((object & 0x2000000000000000) != 0)
+      {
+        v34[0] = countAndFlagsBits;
+        v34[1] = object & 0xFFFFFFFFFFFFFFLL;
+      }
+
+      else if ((countAndFlagsBits & 0x1000000000000000) == 0)
+      {
+        _StringObject.sharedUTF8.getter();
+      }
+
+      _decodeScalar(_:startingAt:)();
+    }
+
+    Unicode.Scalar.properties.getter();
+    v17 = Unicode.Scalar.Properties.isPatternWhitespace.getter();
+    (*(v7 + 8))(v9, v6);
+    if ((v17 & 1) == 0 && (countAndFlagsBits != 95 || object != 0xE100000000000000))
+    {
+      v18 = _stringCompareWithSmolCheck(_:_:expecting:)();
+      v20 = countAndFlagsBits == 45 && object == 0xE100000000000000;
+      if ((v18 & 1) == 0 && !v20 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+      {
+        MEMORY[0x1C68E0BE0](countAndFlagsBits, object);
+      }
+    }
+
+    v15 = String.Iterator.next()();
+    result = v15.value._countAndFlagsBits;
+    countAndFlagsBits = v15.value._countAndFlagsBits;
+    object = v15.value._object;
+    if (!v15.value._object)
+    {
+      goto LABEL_31;
+    }
+  }
+
+  __break(1u);
+  return result;
+}
+
+uint64_t _s12_RegexParser0B0V19withNormalizedForms33_3356729F9DCE7A8BB6139B535527B12BLL_15requireInPrefix5matchxSgSS_SbAHSSXEtlFZSb_Tt3g505_s12_a56Parser0B0V34classifyCharacterPropertyBoolValue33_3356729fghijK21BLLySbSgSSFZAFSSXEfU_Tf1nnc_n(uint64_t a1, unint64_t a2)
+{
+  v4 = type metadata accessor for Unicode.Scalar.Properties();
+  v5 = *(v4 - 8);
+  MEMORY[0x1EEE9AC00](v4);
+  v7 = v32 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v33[4] = 0;
+  v33[5] = 0xE000000000000000;
+  v8 = HIBYTE(a2) & 0xF;
+  if ((a2 & 0x2000000000000000) == 0)
+  {
+    v8 = a1 & 0xFFFFFFFFFFFFLL;
+  }
+
+  v33[0] = a1;
+  v33[1] = a2;
+  v33[2] = 0;
+  v33[3] = v8;
+
+  v10 = String.Iterator.next()();
+  result = v10.value._countAndFlagsBits;
+  if (v10.value._object)
+  {
+    countAndFlagsBits = v10.value._countAndFlagsBits;
+    object = v10.value._object;
     while ((object & 0x2000000000000000) != 0 ? HIBYTE(object) & 0xF : countAndFlagsBits & 0xFFFFFFFFFFFFLL)
     {
       if ((object & 0x1000000000000000) != 0)
@@ -1498,8 +1469,8 @@ uint64_t _s12_RegexParser0B0V19withNormalizedForms33_3356729F9DCE7A8BB6139B53552
       {
         if ((object & 0x2000000000000000) != 0)
         {
-          v34[0] = countAndFlagsBits;
-          v34[1] = object & 0xFFFFFFFFFFFFFFLL;
+          v32[0] = countAndFlagsBits;
+          v32[1] = object & 0xFFFFFFFFFFFFFFLL;
         }
 
         else if ((countAndFlagsBits & 0x1000000000000000) == 0)
@@ -1511,24 +1482,24 @@ uint64_t _s12_RegexParser0B0V19withNormalizedForms33_3356729F9DCE7A8BB6139B53552
       }
 
       Unicode.Scalar.properties.getter();
-      v17 = Unicode.Scalar.Properties.isPatternWhitespace.getter();
-      (*(v5 + 8))(v9, v4);
-      if ((v17 & 1) == 0 && (countAndFlagsBits != 95 || object != 0xE100000000000000))
+      v15 = Unicode.Scalar.Properties.isPatternWhitespace.getter();
+      (*(v5 + 8))(v7, v4);
+      if ((v15 & 1) == 0 && (countAndFlagsBits != 95 || object != 0xE100000000000000))
       {
-        v18 = _stringCompareWithSmolCheck(_:_:expecting:)();
-        v19 = countAndFlagsBits == 45 && object == 0xE100000000000000;
-        v20 = v19;
-        if ((v18 & 1) == 0 && !v20 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+        v16 = _stringCompareWithSmolCheck(_:_:expecting:)();
+        v17 = countAndFlagsBits == 45 && object == 0xE100000000000000;
+        v18 = v17;
+        if ((v16 & 1) == 0 && !v18 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
         {
           MEMORY[0x1C68E0BE0](countAndFlagsBits, object);
         }
       }
 
-      v15 = String.Iterator.next()();
-      result = v15.value._countAndFlagsBits;
-      countAndFlagsBits = v15.value._countAndFlagsBits;
-      object = v15.value._object;
-      if (!v15.value._object)
+      v13 = String.Iterator.next()();
+      result = v13.value._countAndFlagsBits;
+      countAndFlagsBits = v13.value._countAndFlagsBits;
+      object = v13.value._object;
+      if (!v13.value._object)
       {
         goto LABEL_31;
       }
@@ -1541,27 +1512,27 @@ uint64_t _s12_RegexParser0B0V19withNormalizedForms33_3356729F9DCE7A8BB6139B53552
   {
 LABEL_31:
 
-    v21 = String.lowercased()();
+    v19 = String.lowercased()();
 
-    closure #1 in static Parser.classifyCharacterPropertyBoolValue(_:)(v21._countAndFlagsBits, v21._object, v35);
-    v22 = LOBYTE(v35[0]);
-    if (LOBYTE(v35[0]) == 2)
+    closure #1 in static Parser.classifyCharacterPropertyBoolValue(_:)(v19._countAndFlagsBits, v19._object, v33);
+    v20 = LOBYTE(v33[0]);
+    if (LOBYTE(v33[0]) == 2)
     {
-      v23._countAndFlagsBits = 29545;
-      v23._object = 0xE200000000000000;
-      if (String.hasPrefix(_:)(v23))
+      v21._countAndFlagsBits = 29545;
+      v21._object = 0xE200000000000000;
+      if (String.hasPrefix(_:)(v21))
       {
-        v24 = specialized Collection.dropFirst(_:)(2uLL, v21._countAndFlagsBits, v21._object);
+        v22 = specialized Collection.dropFirst(_:)(2uLL, v19._countAndFlagsBits, v19._object);
+        v24 = v23;
         v26 = v25;
         v28 = v27;
-        v30 = v29;
 
-        v31 = MEMORY[0x1C68E0B20](v24, v26, v28, v30);
-        v33 = v32;
+        v29 = MEMORY[0x1C68E0B20](v22, v24, v26, v28);
+        v31 = v30;
 
-        closure #1 in static Parser.classifyCharacterPropertyBoolValue(_:)(v31, v33, v35);
+        closure #1 in static Parser.classifyCharacterPropertyBoolValue(_:)(v29, v31, v33);
 
-        return LOBYTE(v35[0]);
+        return LOBYTE(v33[0]);
       }
 
       else
@@ -1575,60 +1546,59 @@ LABEL_31:
     {
     }
 
-    return v22;
+    return v20;
   }
 
   return result;
 }
 
-uint64_t _s12_RegexParser0B0V19withNormalizedForms33_3356729F9DCE7A8BB6139B535527B12BLL_15requireInPrefix5matchxSgSS_SbAHSSXEtlFZs7UnicodeOAAE13POSIXPropertyO_Tt3g505_s12_a35Parser0B0V13classifyPOSIX33_3356729fghijk6BLLys7p6OAAE13Q16OSgSSFZAJSSXEfU_Tf1nnnc_n@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, char *a3@<X8>)
+uint64_t *_s12_RegexParser0B0V19withNormalizedForms33_3356729F9DCE7A8BB6139B535527B12BLL_15requireInPrefix5matchxSgSS_SbAHSSXEtlFZs7UnicodeOAAE13POSIXPropertyO_Tt3g505_s12_a35Parser0B0V13classifyPOSIX33_3356729fghijk6BLLys7p6OAAE13Q16OSgSSFZAJSSXEfU_Tf1nnnc_n@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, char *a3@<X8>)
 {
   v6 = type metadata accessor for Unicode.Scalar.Properties();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  MEMORY[0x1EEE9AC00](v6, v9);
-  v11 = v36 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v37[4] = 0;
-  v37[5] = 0xE000000000000000;
-  v12 = HIBYTE(a2) & 0xF;
+  MEMORY[0x1EEE9AC00](v6);
+  v9 = v34 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v35[4] = 0;
+  v35[5] = 0xE000000000000000;
+  v10 = HIBYTE(a2) & 0xF;
   if ((a2 & 0x2000000000000000) == 0)
   {
-    v12 = a1 & 0xFFFFFFFFFFFFLL;
+    v10 = a1 & 0xFFFFFFFFFFFFLL;
   }
 
-  v37[0] = a1;
-  v37[1] = a2;
-  v37[2] = 0;
-  v37[3] = v12;
+  v35[0] = a1;
+  v35[1] = a2;
+  v35[2] = 0;
+  v35[3] = v10;
 
-  v14 = String.Iterator.next()();
-  result = v14.value._countAndFlagsBits;
-  if (!v14.value._object)
+  v12 = String.Iterator.next()();
+  result = v12.value._countAndFlagsBits;
+  if (!v12.value._object)
   {
 LABEL_31:
 
-    v23 = String.lowercased()();
+    v21 = String.lowercased()();
 
-    Unicode.POSIXProperty.init(rawValue:)(v23, v37);
-    if (LOBYTE(v37[0]) == 6)
+    Unicode.POSIXProperty.init(rawValue:)(v35, v21);
+    if (LOBYTE(v35[0]) == 6)
     {
-      v24._countAndFlagsBits = 29545;
-      v24._object = 0xE200000000000000;
-      if (String.hasPrefix(_:)(v24))
+      v22._countAndFlagsBits = 29545;
+      v22._object = 0xE200000000000000;
+      if (String.hasPrefix(_:)(v22))
       {
-        v25 = specialized Collection.dropFirst(_:)(2uLL, v23._countAndFlagsBits, v23._object);
+        v23 = specialized Collection.dropFirst(_:)(2uLL, v21._countAndFlagsBits, v21._object);
+        v25 = v24;
         v27 = v26;
         v29 = v28;
-        v31 = v30;
 
-        v32 = MEMORY[0x1C68E0B20](v25, v27, v29, v31);
-        v34 = v33;
+        v30 = MEMORY[0x1C68E0B20](v23, v25, v27, v29);
+        v32 = v31;
 
-        v38._countAndFlagsBits = v32;
-        v38._object = v34;
-        result = Unicode.POSIXProperty.init(rawValue:)(v38, v37);
-        v35 = v37[0];
-        if (LOBYTE(v37[0]) != 6)
+        v36._countAndFlagsBits = v30;
+        v36._object = v32;
+        result = Unicode.POSIXProperty.init(rawValue:)(v35, v36);
+        v33 = v35[0];
+        if (LOBYTE(v35[0]) != 6)
         {
           goto LABEL_38;
         }
@@ -1638,22 +1608,22 @@ LABEL_31:
       {
       }
 
-      v35 = 6;
+      v33 = 6;
     }
 
     else
     {
 
-      v35 = v37[0];
+      v33 = v35[0];
     }
 
 LABEL_38:
-    *a3 = v35;
+    *a3 = v33;
     return result;
   }
 
-  countAndFlagsBits = v14.value._countAndFlagsBits;
-  object = v14.value._object;
+  countAndFlagsBits = v12.value._countAndFlagsBits;
+  object = v12.value._object;
   while ((object & 0x2000000000000000) != 0 ? HIBYTE(object) & 0xF : countAndFlagsBits & 0xFFFFFFFFFFFFLL)
   {
     if ((object & 0x1000000000000000) != 0)
@@ -1665,8 +1635,8 @@ LABEL_38:
     {
       if ((object & 0x2000000000000000) != 0)
       {
-        v36[0] = countAndFlagsBits;
-        v36[1] = object & 0xFFFFFFFFFFFFFFLL;
+        v34[0] = countAndFlagsBits;
+        v34[1] = object & 0xFFFFFFFFFFFFFFLL;
       }
 
       else if ((countAndFlagsBits & 0x1000000000000000) == 0)
@@ -1678,23 +1648,23 @@ LABEL_38:
     }
 
     Unicode.Scalar.properties.getter();
-    v19 = Unicode.Scalar.Properties.isPatternWhitespace.getter();
-    (*(v7 + 8))(v11, v6);
-    if ((v19 & 1) == 0 && (countAndFlagsBits != 95 || object != 0xE100000000000000))
+    v17 = Unicode.Scalar.Properties.isPatternWhitespace.getter();
+    (*(v7 + 8))(v9, v6);
+    if ((v17 & 1) == 0 && (countAndFlagsBits != 95 || object != 0xE100000000000000))
     {
-      v20 = _stringCompareWithSmolCheck(_:_:expecting:)();
-      v22 = countAndFlagsBits == 45 && object == 0xE100000000000000;
-      if ((v20 & 1) == 0 && !v22 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+      v18 = _stringCompareWithSmolCheck(_:_:expecting:)();
+      v20 = countAndFlagsBits == 45 && object == 0xE100000000000000;
+      if ((v18 & 1) == 0 && !v20 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
       {
         MEMORY[0x1C68E0BE0](countAndFlagsBits, object);
       }
     }
 
-    v17 = String.Iterator.next()();
-    result = v17.value._countAndFlagsBits;
-    countAndFlagsBits = v17.value._countAndFlagsBits;
-    object = v17.value._object;
-    if (!v17.value._object)
+    v15 = String.Iterator.next()();
+    result = v15.value._countAndFlagsBits;
+    countAndFlagsBits = v15.value._countAndFlagsBits;
+    object = v15.value._object;
+    if (!v15.value._object)
     {
       goto LABEL_31;
     }
@@ -1708,49 +1678,48 @@ uint64_t _s12_RegexParser0B0V19withNormalizedForms33_3356729F9DCE7A8BB6139B53552
 {
   v6 = type metadata accessor for Unicode.Scalar.Properties();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  MEMORY[0x1EEE9AC00](v6, v9);
-  v11 = v36 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v37[4] = 0;
-  v37[5] = 0xE000000000000000;
-  v12 = HIBYTE(a2) & 0xF;
+  MEMORY[0x1EEE9AC00](v6);
+  v9 = v34 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v35[4] = 0;
+  v35[5] = 0xE000000000000000;
+  v10 = HIBYTE(a2) & 0xF;
   if ((a2 & 0x2000000000000000) == 0)
   {
-    v12 = a1 & 0xFFFFFFFFFFFFLL;
+    v10 = a1 & 0xFFFFFFFFFFFFLL;
   }
 
-  v37[0] = a1;
-  v37[1] = a2;
-  v37[2] = 0;
-  v37[3] = v12;
+  v35[0] = a1;
+  v35[1] = a2;
+  v35[2] = 0;
+  v35[3] = v10;
 
-  v14 = String.Iterator.next()();
-  result = v14.value._countAndFlagsBits;
-  if (!v14.value._object)
+  v12 = String.Iterator.next()();
+  result = v12.value._countAndFlagsBits;
+  if (!v12.value._object)
   {
 LABEL_31:
 
-    v23 = String.lowercased()();
+    v21 = String.lowercased()();
 
-    closure #1 in static Parser.classifyScriptProperty(_:)(v23._countAndFlagsBits, v23._object, v37);
-    if (LOBYTE(v37[0]) == 172)
+    closure #1 in static Parser.classifyScriptProperty(_:)(v21._countAndFlagsBits, v21._object, v35);
+    if (LOBYTE(v35[0]) == 172)
     {
-      v24._countAndFlagsBits = 29545;
-      v24._object = 0xE200000000000000;
-      if (String.hasPrefix(_:)(v24))
+      v22._countAndFlagsBits = 29545;
+      v22._object = 0xE200000000000000;
+      if (String.hasPrefix(_:)(v22))
       {
-        v25 = specialized Collection.dropFirst(_:)(2uLL, v23._countAndFlagsBits, v23._object);
+        v23 = specialized Collection.dropFirst(_:)(2uLL, v21._countAndFlagsBits, v21._object);
+        v25 = v24;
         v27 = v26;
         v29 = v28;
-        v31 = v30;
 
-        v32 = MEMORY[0x1C68E0B20](v25, v27, v29, v31);
-        v34 = v33;
+        v30 = MEMORY[0x1C68E0B20](v23, v25, v27, v29);
+        v32 = v31;
 
-        closure #1 in static Parser.classifyScriptProperty(_:)(v32, v34, v37);
+        closure #1 in static Parser.classifyScriptProperty(_:)(v30, v32, v35);
 
-        v35 = v37[0];
-        if (LOBYTE(v37[0]) != 172)
+        v33 = v35[0];
+        if (LOBYTE(v35[0]) != 172)
         {
           goto LABEL_38;
         }
@@ -1760,22 +1729,22 @@ LABEL_31:
       {
       }
 
-      v35 = -84;
+      v33 = -84;
     }
 
     else
     {
 
-      v35 = v37[0];
+      v33 = v35[0];
     }
 
 LABEL_38:
-    *a3 = v35;
+    *a3 = v33;
     return result;
   }
 
-  countAndFlagsBits = v14.value._countAndFlagsBits;
-  object = v14.value._object;
+  countAndFlagsBits = v12.value._countAndFlagsBits;
+  object = v12.value._object;
   while ((object & 0x2000000000000000) != 0 ? HIBYTE(object) & 0xF : countAndFlagsBits & 0xFFFFFFFFFFFFLL)
   {
     if ((object & 0x1000000000000000) != 0)
@@ -1787,8 +1756,8 @@ LABEL_38:
     {
       if ((object & 0x2000000000000000) != 0)
       {
-        v36[0] = countAndFlagsBits;
-        v36[1] = object & 0xFFFFFFFFFFFFFFLL;
+        v34[0] = countAndFlagsBits;
+        v34[1] = object & 0xFFFFFFFFFFFFFFLL;
       }
 
       else if ((countAndFlagsBits & 0x1000000000000000) == 0)
@@ -1800,23 +1769,23 @@ LABEL_38:
     }
 
     Unicode.Scalar.properties.getter();
-    v19 = Unicode.Scalar.Properties.isPatternWhitespace.getter();
-    (*(v7 + 8))(v11, v6);
-    if ((v19 & 1) == 0 && (countAndFlagsBits != 95 || object != 0xE100000000000000))
+    v17 = Unicode.Scalar.Properties.isPatternWhitespace.getter();
+    (*(v7 + 8))(v9, v6);
+    if ((v17 & 1) == 0 && (countAndFlagsBits != 95 || object != 0xE100000000000000))
     {
-      v20 = _stringCompareWithSmolCheck(_:_:expecting:)();
-      v22 = countAndFlagsBits == 45 && object == 0xE100000000000000;
-      if ((v20 & 1) == 0 && !v22 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+      v18 = _stringCompareWithSmolCheck(_:_:expecting:)();
+      v20 = countAndFlagsBits == 45 && object == 0xE100000000000000;
+      if ((v18 & 1) == 0 && !v20 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
       {
         MEMORY[0x1C68E0BE0](countAndFlagsBits, object);
       }
     }
 
-    v17 = String.Iterator.next()();
-    result = v17.value._countAndFlagsBits;
-    countAndFlagsBits = v17.value._countAndFlagsBits;
-    object = v17.value._object;
-    if (!v17.value._object)
+    v15 = String.Iterator.next()();
+    result = v15.value._countAndFlagsBits;
+    countAndFlagsBits = v15.value._countAndFlagsBits;
+    object = v15.value._object;
+    if (!v15.value._object)
     {
       goto LABEL_31;
     }
@@ -1830,49 +1799,48 @@ uint64_t _s12_RegexParser0B0V19withNormalizedForms33_3356729F9DCE7A8BB6139B53552
 {
   v6 = type metadata accessor for Unicode.Scalar.Properties();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  MEMORY[0x1EEE9AC00](v6, v9);
-  v11 = v36 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v37[4] = 0;
-  v37[5] = 0xE000000000000000;
-  v12 = HIBYTE(a2) & 0xF;
+  MEMORY[0x1EEE9AC00](v6);
+  v9 = v34 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v35[4] = 0;
+  v35[5] = 0xE000000000000000;
+  v10 = HIBYTE(a2) & 0xF;
   if ((a2 & 0x2000000000000000) == 0)
   {
-    v12 = a1 & 0xFFFFFFFFFFFFLL;
+    v10 = a1 & 0xFFFFFFFFFFFFLL;
   }
 
-  v37[0] = a1;
-  v37[1] = a2;
-  v37[2] = 0;
-  v37[3] = v12;
+  v35[0] = a1;
+  v35[1] = a2;
+  v35[2] = 0;
+  v35[3] = v10;
 
-  v14 = String.Iterator.next()();
-  result = v14.value._countAndFlagsBits;
-  if (!v14.value._object)
+  v12 = String.Iterator.next()();
+  result = v12.value._countAndFlagsBits;
+  if (!v12.value._object)
   {
 LABEL_31:
 
-    v23 = String.lowercased()();
+    v21 = String.lowercased()();
 
-    closure #1 in static Parser.classifyBlockProperty(_:valueOnly:)(v23._countAndFlagsBits, v23._object, v37);
-    if (LOWORD(v37[0]) == 321)
+    closure #1 in static Parser.classifyBlockProperty(_:valueOnly:)(v21._countAndFlagsBits, v21._object, v35);
+    if (LOWORD(v35[0]) == 321)
     {
-      v24._countAndFlagsBits = 29545;
-      v24._object = 0xE200000000000000;
-      if (String.hasPrefix(_:)(v24))
+      v22._countAndFlagsBits = 29545;
+      v22._object = 0xE200000000000000;
+      if (String.hasPrefix(_:)(v22))
       {
-        v25 = specialized Collection.dropFirst(_:)(2uLL, v23._countAndFlagsBits, v23._object);
+        v23 = specialized Collection.dropFirst(_:)(2uLL, v21._countAndFlagsBits, v21._object);
+        v25 = v24;
         v27 = v26;
         v29 = v28;
-        v31 = v30;
 
-        v32 = MEMORY[0x1C68E0B20](v25, v27, v29, v31);
-        v34 = v33;
+        v30 = MEMORY[0x1C68E0B20](v23, v25, v27, v29);
+        v32 = v31;
 
-        closure #1 in static Parser.classifyBlockProperty(_:valueOnly:)(v32, v34, v37);
+        closure #1 in static Parser.classifyBlockProperty(_:valueOnly:)(v30, v32, v35);
 
-        v35 = v37[0];
-        if (LOWORD(v37[0]) != 321)
+        v33 = v35[0];
+        if (LOWORD(v35[0]) != 321)
         {
           goto LABEL_38;
         }
@@ -1882,22 +1850,22 @@ LABEL_31:
       {
       }
 
-      v35 = 321;
+      v33 = 321;
     }
 
     else
     {
 
-      v35 = v37[0];
+      v33 = v35[0];
     }
 
 LABEL_38:
-    *a3 = v35;
+    *a3 = v33;
     return result;
   }
 
-  countAndFlagsBits = v14.value._countAndFlagsBits;
-  object = v14.value._object;
+  countAndFlagsBits = v12.value._countAndFlagsBits;
+  object = v12.value._object;
   while ((object & 0x2000000000000000) != 0 ? HIBYTE(object) & 0xF : countAndFlagsBits & 0xFFFFFFFFFFFFLL)
   {
     if ((object & 0x1000000000000000) != 0)
@@ -1909,8 +1877,8 @@ LABEL_38:
     {
       if ((object & 0x2000000000000000) != 0)
       {
-        v36[0] = countAndFlagsBits;
-        v36[1] = object & 0xFFFFFFFFFFFFFFLL;
+        v34[0] = countAndFlagsBits;
+        v34[1] = object & 0xFFFFFFFFFFFFFFLL;
       }
 
       else if ((countAndFlagsBits & 0x1000000000000000) == 0)
@@ -1922,23 +1890,23 @@ LABEL_38:
     }
 
     Unicode.Scalar.properties.getter();
-    v19 = Unicode.Scalar.Properties.isPatternWhitespace.getter();
-    (*(v7 + 8))(v11, v6);
-    if ((v19 & 1) == 0 && (countAndFlagsBits != 95 || object != 0xE100000000000000))
+    v17 = Unicode.Scalar.Properties.isPatternWhitespace.getter();
+    (*(v7 + 8))(v9, v6);
+    if ((v17 & 1) == 0 && (countAndFlagsBits != 95 || object != 0xE100000000000000))
     {
-      v20 = _stringCompareWithSmolCheck(_:_:expecting:)();
-      v22 = countAndFlagsBits == 45 && object == 0xE100000000000000;
-      if ((v20 & 1) == 0 && !v22 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+      v18 = _stringCompareWithSmolCheck(_:_:expecting:)();
+      v20 = countAndFlagsBits == 45 && object == 0xE100000000000000;
+      if ((v18 & 1) == 0 && !v20 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
       {
         MEMORY[0x1C68E0BE0](countAndFlagsBits, object);
       }
     }
 
-    v17 = String.Iterator.next()();
-    result = v17.value._countAndFlagsBits;
-    countAndFlagsBits = v17.value._countAndFlagsBits;
-    object = v17.value._object;
-    if (!v17.value._object)
+    v15 = String.Iterator.next()();
+    result = v15.value._countAndFlagsBits;
+    countAndFlagsBits = v15.value._countAndFlagsBits;
+    object = v15.value._object;
+    if (!v15.value._object)
     {
       goto LABEL_31;
     }
@@ -1950,78 +1918,227 @@ LABEL_38:
 
 uint64_t _s12_RegexParser0B0V19withNormalizedForms33_3356729F9DCE7A8BB6139B535527B12BLL_15requireInPrefix5matchxSgSS_SbAHSSXEtlFZAA3ASTV4AtomV17CharacterPropertyV4KindO_Tt3g505_s12_a45Parser0B0V24classifySpecialPropValueyAA3ASTV4q3V17rs2V4T16OSgSSFZAMSSXEfU_Tf1nnnc_n@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v61 = a3;
+  v53 = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12_RegexParser3ASTV4AtomV17CharacterPropertyV4KindOSgMd, &_s12_RegexParser3ASTV4AtomV17CharacterPropertyV4KindOSgMR);
-  v6 = *(*(v5 - 8) + 64);
-  v8 = MEMORY[0x1EEE9AC00](v5 - 8, v7);
-  v59 = &v58 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v8, v10);
-  v12 = &v58 - v11;
-  v60 = type metadata accessor for AST.Atom.CharacterProperty.Kind(0);
-  v13 = *(v60 - 8);
-  v14 = *(v13 + 64);
-  v16 = MEMORY[0x1EEE9AC00](v60, v15);
-  v58 = &v58 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v16, v18);
-  v20 = &v58 - v19;
-  v21 = type metadata accessor for Unicode.Scalar.Properties();
-  v22 = *(v21 - 8);
-  v23 = *(v22 + 64);
-  MEMORY[0x1EEE9AC00](v21, v24);
+  v6 = MEMORY[0x1EEE9AC00](v5 - 8);
+  v51 = &v50 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v6);
+  v9 = &v50 - v8;
+  v52 = type metadata accessor for AST.Atom.CharacterProperty.Kind(0);
+  v10 = *(v52 - 8);
+  v11 = MEMORY[0x1EEE9AC00](v52);
+  v50 = &v50 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v11);
+  v14 = &v50 - v13;
+  v15 = type metadata accessor for Unicode.Scalar.Properties();
+  v16 = *(v15 - 8);
+  MEMORY[0x1EEE9AC00](v15);
+  v18 = &v50 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v60 = 0;
+  v61 = 0xE000000000000000;
+  v19 = HIBYTE(a2) & 0xF;
+  if ((a2 & 0x2000000000000000) == 0)
+  {
+    v19 = a1 & 0xFFFFFFFFFFFFLL;
+  }
+
+  v56 = a1;
+  v57 = a2;
+  v58 = 0;
+  v59 = v19;
+
+  v21 = String.Iterator.next()();
+  result = v21.value._countAndFlagsBits;
+  if (!v21.value._object)
+  {
+LABEL_31:
+
+    v31 = String.lowercased()();
+
+    closure #1 in static Parser.classifySpecialPropValue(_:)(v31._countAndFlagsBits, v31._object, v9);
+    v32 = *(v10 + 48);
+    v33 = v52;
+    if (v32(v9, 1, v52) == 1)
+    {
+      outlined destroy of _ASTParent?(v9, &_s12_RegexParser3ASTV4AtomV17CharacterPropertyV4KindOSgMd, &_s12_RegexParser3ASTV4AtomV17CharacterPropertyV4KindOSgMR);
+      v34._countAndFlagsBits = 29545;
+      v34._object = 0xE200000000000000;
+      if (!String.hasPrefix(_:)(v34))
+      {
+
+        goto LABEL_38;
+      }
+
+      v35 = specialized Collection.dropFirst(_:)(2uLL, v31._countAndFlagsBits, v31._object);
+      v37 = v36;
+      v39 = v38;
+      v41 = v40;
+
+      v42 = MEMORY[0x1C68E0B20](v35, v37, v39, v41);
+      v44 = v43;
+
+      v45 = v51;
+      closure #1 in static Parser.classifySpecialPropValue(_:)(v42, v44, v51);
+
+      if (v32(v45, 1, v33) == 1)
+      {
+        outlined destroy of _ASTParent?(v45, &_s12_RegexParser3ASTV4AtomV17CharacterPropertyV4KindOSgMd, &_s12_RegexParser3ASTV4AtomV17CharacterPropertyV4KindOSgMR);
+LABEL_38:
+        v48 = 1;
+        v47 = v53;
+        return (*(v10 + 56))(v47, v48, 1, v33);
+      }
+
+      v49 = v50;
+      outlined init with take of AST.Atom.Kind(v45, v50, type metadata accessor for AST.Atom.CharacterProperty.Kind);
+      v46 = v49;
+    }
+
+    else
+    {
+
+      outlined init with take of AST.Atom.Kind(v9, v14, type metadata accessor for AST.Atom.CharacterProperty.Kind);
+      v46 = v14;
+    }
+
+    v47 = v53;
+    outlined init with take of AST.Atom.Kind(v46, v53, type metadata accessor for AST.Atom.CharacterProperty.Kind);
+    v48 = 0;
+    return (*(v10 + 56))(v47, v48, 1, v33);
+  }
+
+  countAndFlagsBits = v21.value._countAndFlagsBits;
+  object = v21.value._object;
+  v24 = (v16 + 8);
+  while ((object & 0x2000000000000000) != 0 ? HIBYTE(object) & 0xF : countAndFlagsBits & 0xFFFFFFFFFFFFLL)
+  {
+    if ((object & 0x1000000000000000) != 0)
+    {
+      _StringGuts.foreignErrorCorrectedScalar(startingAt:)();
+    }
+
+    else
+    {
+      if ((object & 0x2000000000000000) != 0)
+      {
+        v54 = countAndFlagsBits;
+        v55 = object & 0xFFFFFFFFFFFFFFLL;
+      }
+
+      else if ((countAndFlagsBits & 0x1000000000000000) == 0)
+      {
+        _StringObject.sharedUTF8.getter();
+      }
+
+      _decodeScalar(_:startingAt:)();
+    }
+
+    Unicode.Scalar.properties.getter();
+    v27 = Unicode.Scalar.Properties.isPatternWhitespace.getter();
+    (*v24)(v18, v15);
+    if ((v27 & 1) == 0 && (countAndFlagsBits != 95 || object != 0xE100000000000000))
+    {
+      v28 = _stringCompareWithSmolCheck(_:_:expecting:)();
+      v30 = countAndFlagsBits == 45 && object == 0xE100000000000000;
+      if ((v28 & 1) == 0 && !v30 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+      {
+        MEMORY[0x1C68E0BE0](countAndFlagsBits, object);
+      }
+    }
+
+    v25 = String.Iterator.next()();
+    result = v25.value._countAndFlagsBits;
+    countAndFlagsBits = v25.value._countAndFlagsBits;
+    object = v25.value._object;
+    if (!v25.value._object)
+    {
+      goto LABEL_31;
+    }
+  }
+
+  __break(1u);
+  return result;
+}
+
+uint64_t _s12_RegexParser0B0V19withNormalizedForms33_3356729F9DCE7A8BB6139B535527B12BLL_15requireInPrefix5matchxSgSS_SbAHSSXEtlFZAA3ASTV4AtomV17CharacterPropertyV4KindO_Tt3g505_s12_a20Parser0B0V25classifyr26Property3key5valueAA3ASTV4q7V0dE0V4T41OAA6SourceV7LocatedVy_SSG_AStFANSgSSXEfU_SSAcA6SourceV7LocatedVy_SSGSSTf1nnnc_n@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>, uint64_t a10, unint64_t a11)
+{
+  v64 = a7;
+  v65 = a8;
+  v62 = a3;
+  v63 = a5;
+  v67 = a4;
+  v60 = a9;
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12_RegexParser3ASTV4AtomV17CharacterPropertyV4KindOSgMd, &_s12_RegexParser3ASTV4AtomV17CharacterPropertyV4KindOSgMR);
+  v15 = MEMORY[0x1EEE9AC00](v14 - 8);
+  v59 = (&v58 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x1EEE9AC00](v15);
+  v18 = (&v58 - v17);
+  v66 = type metadata accessor for AST.Atom.CharacterProperty.Kind(0);
+  v68 = *(v66 - 8);
+  v19 = MEMORY[0x1EEE9AC00](v66);
+  v58 = &v58 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v19);
+  v22 = &v58 - v21;
+  v23 = type metadata accessor for Unicode.Scalar.Properties();
+  v24 = *(v23 - 8);
+  MEMORY[0x1EEE9AC00](v23);
   v26 = &v58 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v68 = 0;
-  v69 = 0xE000000000000000;
+  v75 = 0;
+  v76 = 0xE000000000000000;
   v27 = HIBYTE(a2) & 0xF;
   if ((a2 & 0x2000000000000000) == 0)
   {
     v27 = a1 & 0xFFFFFFFFFFFFLL;
   }
 
-  v64 = a1;
-  v65 = a2;
-  v66 = 0;
-  v67 = v27;
+  v71 = a1;
+  v72 = a2;
+  v73 = 0;
+  v74 = v27;
 
   v29 = String.Iterator.next()();
   result = v29.value._countAndFlagsBits;
+  v61 = a6;
   if (!v29.value._object)
   {
 LABEL_31:
 
-    v39 = String.lowercased()();
+    v38 = String.lowercased()();
 
-    closure #1 in static Parser.classifySpecialPropValue(_:)(v39._countAndFlagsBits, v39._object, v12);
-    v40 = *(v13 + 48);
-    v41 = v60;
-    if (v40(v12, 1, v60) == 1)
+    closure #1 in Parser.classifyCharacterProperty(key:value:)(v38._countAndFlagsBits, v38._object, v62, v67, v63, v64, v65, a10, v18, a11);
+    v39 = *(v68 + 48);
+    v40 = v66;
+    if (v39(v18, 1, v66) == 1)
     {
-      outlined destroy of _ASTParent?(v12, &_s12_RegexParser3ASTV4AtomV17CharacterPropertyV4KindOSgMd, &_s12_RegexParser3ASTV4AtomV17CharacterPropertyV4KindOSgMR);
-      v42._countAndFlagsBits = 29545;
-      v42._object = 0xE200000000000000;
-      if (!String.hasPrefix(_:)(v42))
+      outlined destroy of _ASTParent?(v18, &_s12_RegexParser3ASTV4AtomV17CharacterPropertyV4KindOSgMd, &_s12_RegexParser3ASTV4AtomV17CharacterPropertyV4KindOSgMR);
+      v41._countAndFlagsBits = 29545;
+      v41._object = 0xE200000000000000;
+      if (!String.hasPrefix(_:)(v41))
       {
 
         goto LABEL_38;
       }
 
-      v43 = specialized Collection.dropFirst(_:)(2uLL, v39._countAndFlagsBits, v39._object);
-      v45 = v44;
-      v47 = v46;
-      v49 = v48;
+      v42 = specialized Collection.dropFirst(_:)(2uLL, v38._countAndFlagsBits, v38._object);
+      v44 = v43;
+      v46 = v45;
+      v48 = v47;
 
-      v50 = MEMORY[0x1C68E0B20](v43, v45, v47, v49);
+      v49 = v46;
+      v40 = v66;
+      v50 = MEMORY[0x1C68E0B20](v42, v44, v49, v48);
       v52 = v51;
 
       v53 = v59;
-      closure #1 in static Parser.classifySpecialPropValue(_:)(v50, v52, v59);
+      closure #1 in Parser.classifyCharacterProperty(key:value:)(v50, v52, v62, v67, v63, v64, v65, a10, v59, a11);
 
-      if (v40(v53, 1, v41) == 1)
+      if (v39(v53, 1, v40) == 1)
       {
         outlined destroy of _ASTParent?(v53, &_s12_RegexParser3ASTV4AtomV17CharacterPropertyV4KindOSgMd, &_s12_RegexParser3ASTV4AtomV17CharacterPropertyV4KindOSgMR);
 LABEL_38:
         v56 = 1;
-        v55 = v61;
-        return (*(v13 + 56))(v55, v56, 1, v41);
+        v55 = v60;
+        goto LABEL_39;
       }
 
       v57 = v58;
@@ -2032,19 +2149,19 @@ LABEL_38:
     else
     {
 
-      outlined init with take of AST.Atom.Kind(v12, v20, type metadata accessor for AST.Atom.CharacterProperty.Kind);
-      v54 = v20;
+      outlined init with take of AST.Atom.Kind(v18, v22, type metadata accessor for AST.Atom.CharacterProperty.Kind);
+      v54 = v22;
     }
 
-    v55 = v61;
-    outlined init with take of AST.Atom.Kind(v54, v61, type metadata accessor for AST.Atom.CharacterProperty.Kind);
+    v55 = v60;
+    outlined init with take of AST.Atom.Kind(v54, v60, type metadata accessor for AST.Atom.CharacterProperty.Kind);
     v56 = 0;
-    return (*(v13 + 56))(v55, v56, 1, v41);
+LABEL_39:
+    (*(v68 + 56))(v55, v56, 1, v40);
   }
 
   countAndFlagsBits = v29.value._countAndFlagsBits;
   object = v29.value._object;
-  v32 = (v22 + 8);
   while ((object & 0x2000000000000000) != 0 ? HIBYTE(object) & 0xF : countAndFlagsBits & 0xFFFFFFFFFFFFLL)
   {
     if ((object & 0x1000000000000000) != 0)
@@ -2056,8 +2173,8 @@ LABEL_38:
     {
       if ((object & 0x2000000000000000) != 0)
       {
-        v62 = countAndFlagsBits;
-        v63 = object & 0xFFFFFFFFFFFFFFLL;
+        v69 = countAndFlagsBits;
+        v70 = object & 0xFFFFFFFFFFFFFFLL;
       }
 
       else if ((countAndFlagsBits & 0x1000000000000000) == 0)
@@ -2069,178 +2186,23 @@ LABEL_38:
     }
 
     Unicode.Scalar.properties.getter();
-    v35 = Unicode.Scalar.Properties.isPatternWhitespace.getter();
-    (*v32)(v26, v21);
-    if ((v35 & 1) == 0 && (countAndFlagsBits != 95 || object != 0xE100000000000000))
+    v34 = Unicode.Scalar.Properties.isPatternWhitespace.getter();
+    (*(v24 + 8))(v26, v23);
+    if ((v34 & 1) == 0 && (countAndFlagsBits != 95 || object != 0xE100000000000000))
     {
-      v36 = _stringCompareWithSmolCheck(_:_:expecting:)();
-      v38 = countAndFlagsBits == 45 && object == 0xE100000000000000;
-      if ((v36 & 1) == 0 && !v38 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+      v35 = _stringCompareWithSmolCheck(_:_:expecting:)();
+      v37 = countAndFlagsBits == 45 && object == 0xE100000000000000;
+      if ((v35 & 1) == 0 && !v37 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
       {
         MEMORY[0x1C68E0BE0](countAndFlagsBits, object);
       }
     }
 
-    v33 = String.Iterator.next()();
-    result = v33.value._countAndFlagsBits;
-    countAndFlagsBits = v33.value._countAndFlagsBits;
-    object = v33.value._object;
-    if (!v33.value._object)
-    {
-      goto LABEL_31;
-    }
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t _s12_RegexParser0B0V19withNormalizedForms33_3356729F9DCE7A8BB6139B535527B12BLL_15requireInPrefix5matchxSgSS_SbAHSSXEtlFZAA3ASTV4AtomV17CharacterPropertyV4KindO_Tt3g505_s12_a20Parser0B0V25classifyr26Property3key5valueAA3ASTV4q7V0dE0V4T41OAA6SourceV7LocatedVy_SSG_AStFANSgSSXEfU_SSAcA6SourceV7LocatedVy_SSGSSTf1nnnc_n@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>, uint64_t a10, uint64_t a11)
-{
-  v72 = a7;
-  v73 = a8;
-  v70 = a3;
-  v71 = a5;
-  v75 = a4;
-  v68 = a9;
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12_RegexParser3ASTV4AtomV17CharacterPropertyV4KindOSgMd, &_s12_RegexParser3ASTV4AtomV17CharacterPropertyV4KindOSgMR);
-  v15 = *(*(v14 - 8) + 64);
-  v17 = MEMORY[0x1EEE9AC00](v14 - 8, v16);
-  v67 = &v66 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v17, v19);
-  v21 = &v66 - v20;
-  v74 = type metadata accessor for AST.Atom.CharacterProperty.Kind(0);
-  v76 = *(v74 - 8);
-  v22 = *(v76 + 64);
-  v24 = MEMORY[0x1EEE9AC00](v74, v23);
-  v66 = &v66 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v24, v26);
-  v28 = &v66 - v27;
-  v29 = type metadata accessor for Unicode.Scalar.Properties();
-  v30 = *(v29 - 8);
-  v31 = *(v30 + 64);
-  MEMORY[0x1EEE9AC00](v29, v32);
-  v34 = &v66 - ((v33 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v83 = 0;
-  v84 = 0xE000000000000000;
-  v35 = HIBYTE(a2) & 0xF;
-  if ((a2 & 0x2000000000000000) == 0)
-  {
-    v35 = a1 & 0xFFFFFFFFFFFFLL;
-  }
-
-  v79 = a1;
-  v80 = a2;
-  v81 = 0;
-  v82 = v35;
-
-  v37 = String.Iterator.next()();
-  result = v37.value._countAndFlagsBits;
-  v69 = a6;
-  if (!v37.value._object)
-  {
-LABEL_31:
-
-    v46 = String.lowercased()();
-
-    closure #1 in Parser.classifyCharacterProperty(key:value:)(v46._countAndFlagsBits, v46._object, v70, v75, v71, v72, v73, a10, v21, a11);
-    v47 = *(v76 + 48);
-    v48 = v74;
-    if (v47(v21, 1, v74) == 1)
-    {
-      outlined destroy of _ASTParent?(v21, &_s12_RegexParser3ASTV4AtomV17CharacterPropertyV4KindOSgMd, &_s12_RegexParser3ASTV4AtomV17CharacterPropertyV4KindOSgMR);
-      v49._countAndFlagsBits = 29545;
-      v49._object = 0xE200000000000000;
-      if (!String.hasPrefix(_:)(v49))
-      {
-
-        goto LABEL_38;
-      }
-
-      v50 = specialized Collection.dropFirst(_:)(2uLL, v46._countAndFlagsBits, v46._object);
-      v52 = v51;
-      v54 = v53;
-      v56 = v55;
-
-      v57 = v54;
-      v48 = v74;
-      v58 = MEMORY[0x1C68E0B20](v50, v52, v57, v56);
-      v60 = v59;
-
-      v61 = v67;
-      closure #1 in Parser.classifyCharacterProperty(key:value:)(v58, v60, v70, v75, v71, v72, v73, a10, v67, a11);
-
-      if (v47(v61, 1, v48) == 1)
-      {
-        outlined destroy of _ASTParent?(v61, &_s12_RegexParser3ASTV4AtomV17CharacterPropertyV4KindOSgMd, &_s12_RegexParser3ASTV4AtomV17CharacterPropertyV4KindOSgMR);
-LABEL_38:
-        v64 = 1;
-        v63 = v68;
-        goto LABEL_39;
-      }
-
-      v65 = v66;
-      outlined init with take of AST.Atom.Kind(v61, v66, type metadata accessor for AST.Atom.CharacterProperty.Kind);
-      v62 = v65;
-    }
-
-    else
-    {
-
-      outlined init with take of AST.Atom.Kind(v21, v28, type metadata accessor for AST.Atom.CharacterProperty.Kind);
-      v62 = v28;
-    }
-
-    v63 = v68;
-    outlined init with take of AST.Atom.Kind(v62, v68, type metadata accessor for AST.Atom.CharacterProperty.Kind);
-    v64 = 0;
-LABEL_39:
-    (*(v76 + 56))(v63, v64, 1, v48);
-  }
-
-  countAndFlagsBits = v37.value._countAndFlagsBits;
-  object = v37.value._object;
-  while ((object & 0x2000000000000000) != 0 ? HIBYTE(object) & 0xF : countAndFlagsBits & 0xFFFFFFFFFFFFLL)
-  {
-    if ((object & 0x1000000000000000) != 0)
-    {
-      _StringGuts.foreignErrorCorrectedScalar(startingAt:)();
-    }
-
-    else
-    {
-      if ((object & 0x2000000000000000) != 0)
-      {
-        v77 = countAndFlagsBits;
-        v78 = object & 0xFFFFFFFFFFFFFFLL;
-      }
-
-      else if ((countAndFlagsBits & 0x1000000000000000) == 0)
-      {
-        _StringObject.sharedUTF8.getter();
-      }
-
-      _decodeScalar(_:startingAt:)();
-    }
-
-    Unicode.Scalar.properties.getter();
-    v42 = Unicode.Scalar.Properties.isPatternWhitespace.getter();
-    (*(v30 + 8))(v34, v29);
-    if ((v42 & 1) == 0 && (countAndFlagsBits != 95 || object != 0xE100000000000000))
-    {
-      v43 = _stringCompareWithSmolCheck(_:_:expecting:)();
-      v45 = countAndFlagsBits == 45 && object == 0xE100000000000000;
-      if ((v43 & 1) == 0 && !v45 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
-      {
-        MEMORY[0x1C68E0BE0](countAndFlagsBits, object);
-      }
-    }
-
-    v40 = String.Iterator.next()();
-    result = v40.value._countAndFlagsBits;
-    countAndFlagsBits = v40.value._countAndFlagsBits;
-    object = v40.value._object;
-    if (!v40.value._object)
+    v32 = String.Iterator.next()();
+    result = v32.value._countAndFlagsBits;
+    countAndFlagsBits = v32.value._countAndFlagsBits;
+    object = v32.value._object;
+    if (!v32.value._object)
     {
       goto LABEL_31;
     }
@@ -2254,9 +2216,8 @@ unint64_t Character.isPatternWhitespace.getter(unint64_t a1, unint64_t a2)
 {
   v4 = type metadata accessor for Unicode.Scalar.Properties();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x1EEE9AC00](v4, v7);
-  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v4);
+  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   result = specialized Collection.first.getter(a1, a2);
   if ((result & 0x100000000) != 0)
   {
@@ -2266,9 +2227,9 @@ unint64_t Character.isPatternWhitespace.getter(unint64_t a1, unint64_t a2)
   else
   {
     Unicode.Scalar.properties.getter();
-    v11 = Unicode.Scalar.Properties.isPatternWhitespace.getter();
-    (*(v5 + 8))(v9, v4);
-    return v11 & 1;
+    v9 = Unicode.Scalar.Properties.isPatternWhitespace.getter();
+    (*(v5 + 8))(v7, v4);
+    return v9 & 1;
   }
 
   return result;
@@ -3452,7 +3413,7 @@ LABEL_7:
   return result;
 }
 
-uint64_t Unicode.POSIXProperty.init(rawValue:)@<X0>(Swift::String string@<0:X0, 8:X1>, char *a2@<X8>)
+uint64_t *Unicode.POSIXProperty.init(rawValue:)@<X0>(uint64_t *__return_ptr a1@<X8>, Swift::String string@<0:X0, 8:X1>)
 {
   object = string._object;
   v3._countAndFlagsBits = string._countAndFlagsBits;
@@ -3465,7 +3426,7 @@ uint64_t Unicode.POSIXProperty.init(rawValue:)@<X0>(Swift::String string@<0:X0, 
     v7 = v5;
   }
 
-  *a2 = v7;
+  *a1 = v7;
   return result;
 }
 
@@ -8864,125 +8825,121 @@ uint64_t Parser.classifyCharacterPropertyValueOnly(_:)@<X0>(uint64_t *a1@<X0>, u
 {
   v3 = v2;
   v6 = type metadata accessor for Unicode.Scalar.Properties();
-  v57 = *(v6 - 8);
-  v58 = v6;
-  v7 = *(v57 + 64);
-  MEMORY[0x1EEE9AC00](v6, v8);
-  v10 = &v54 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12_RegexParser3ASTV4AtomV17CharacterPropertyV4KindOSgMd, &_s12_RegexParser3ASTV4AtomV17CharacterPropertyV4KindOSgMR);
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v11 - 8, v13);
-  v15 = &v54 - v14;
-  v16 = type metadata accessor for AST.Atom.CharacterProperty.Kind(0);
-  v17 = *(v16 - 8);
-  v18 = *(v17 + 64);
-  MEMORY[0x1EEE9AC00](v16, v19);
-  v21 = &v54 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v23 = *a1;
-  v22 = a1[1];
-  v25 = a1[2];
-  v24 = a1[3];
-  if ((v22 & 0x2000000000000000) != 0)
+  v51 = *(v6 - 8);
+  v52 = v6;
+  MEMORY[0x1EEE9AC00](v6);
+  v8 = &v48 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12_RegexParser3ASTV4AtomV17CharacterPropertyV4KindOSgMd, &_s12_RegexParser3ASTV4AtomV17CharacterPropertyV4KindOSgMR);
+  MEMORY[0x1EEE9AC00](v9 - 8);
+  v11 = &v48 - v10;
+  v12 = type metadata accessor for AST.Atom.CharacterProperty.Kind(0);
+  v13 = *(v12 - 8);
+  MEMORY[0x1EEE9AC00](v12);
+  v15 = &v48 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v17 = *a1;
+  v16 = a1[1];
+  v19 = a1[2];
+  v18 = a1[3];
+  if ((v16 & 0x2000000000000000) != 0)
   {
-    v26 = HIBYTE(v22) & 0xF;
+    v20 = HIBYTE(v16) & 0xF;
   }
 
   else
   {
-    v26 = *a1 & 0xFFFFFFFFFFFFLL;
+    v20 = *a1 & 0xFFFFFFFFFFFFLL;
   }
 
-  if (!v26)
+  if (!v20)
   {
-    v63 = 8;
-    v64 = 0;
-    v65 = 0;
-    v66 = 0;
-    v67 = 36;
-    *&v61 = v25;
-    *(&v61 + 1) = v24;
-    Diagnostics.error(_:at:)(&v63, &v61);
+    v57 = 8uLL;
+    v58 = 0;
+    v59 = 0;
+    v60 = 36;
+    *&v55 = v19;
+    *(&v55 + 1) = v18;
+    Diagnostics.error(_:at:)(&v57, &v55);
     *a2 = 0;
     *(a2 + 8) = 0;
-    *(a2 + 16) = v23;
-    *(a2 + 24) = v22;
+    *(a2 + 16) = v17;
+    *(a2 + 24) = v16;
     swift_storeEnumTagMultiPayload();
   }
 
-  *&v54 = v25;
-  *(&v54 + 1) = v24;
-  v55 = v3;
-  _s12_RegexParser0B0V19withNormalizedForms33_3356729F9DCE7A8BB6139B535527B12BLL_15requireInPrefix5matchxSgSS_SbAHSSXEtlFZAA3ASTV4AtomV17CharacterPropertyV4KindO_Tt3g505_s12_a45Parser0B0V24classifySpecialPropValueyAA3ASTV4q3V17rs2V4T16OSgSSFZAMSSXEfU_Tf1nnnc_n(v23, v22, v15);
-  v27 = *(v17 + 48);
-  v56 = v16;
-  if (v27(v15, 1, v16) != 1)
+  *&v48 = v19;
+  *(&v48 + 1) = v18;
+  v49 = v3;
+  _s12_RegexParser0B0V19withNormalizedForms33_3356729F9DCE7A8BB6139B535527B12BLL_15requireInPrefix5matchxSgSS_SbAHSSXEtlFZAA3ASTV4AtomV17CharacterPropertyV4KindO_Tt3g505_s12_a45Parser0B0V24classifySpecialPropValueyAA3ASTV4q3V17rs2V4T16OSgSSFZAMSSXEfU_Tf1nnnc_n(v17, v16, v11);
+  v21 = *(v13 + 48);
+  v50 = v12;
+  if (v21(v11, 1, v12) != 1)
   {
-    outlined init with take of AST.Atom.Kind(v15, v21, type metadata accessor for AST.Atom.CharacterProperty.Kind);
-    return outlined init with take of AST.Atom.Kind(v21, a2, type metadata accessor for AST.Atom.CharacterProperty.Kind);
+    outlined init with take of AST.Atom.Kind(v11, v15, type metadata accessor for AST.Atom.CharacterProperty.Kind);
+    return outlined init with take of AST.Atom.Kind(v15, a2, type metadata accessor for AST.Atom.CharacterProperty.Kind);
   }
 
-  outlined destroy of _ASTParent?(v15, &_s12_RegexParser3ASTV4AtomV17CharacterPropertyV4KindOSgMd, &_s12_RegexParser3ASTV4AtomV17CharacterPropertyV4KindOSgMR);
-  _s12_RegexParser0B0V19withNormalizedForms33_3356729F9DCE7A8BB6139B535527B12BLL_15requireInPrefix5matchxSgSS_SbAHSSXEtlFZs7UnicodeOAAE14BinaryPropertyO_Tt3g505_s12_a42Parser0B0V20classifyBoolProperty33_3356729fghijk6BLLys7p6OAAE06Q18E0OSgSSFZAJSSXEfU_Tf1nnnc_n(v23, v22, &v63);
-  if (v63 != 67)
+  outlined destroy of _ASTParent?(v11, &_s12_RegexParser3ASTV4AtomV17CharacterPropertyV4KindOSgMd, &_s12_RegexParser3ASTV4AtomV17CharacterPropertyV4KindOSgMR);
+  _s12_RegexParser0B0V19withNormalizedForms33_3356729F9DCE7A8BB6139B535527B12BLL_15requireInPrefix5matchxSgSS_SbAHSSXEtlFZs7UnicodeOAAE14BinaryPropertyO_Tt3g505_s12_a42Parser0B0V20classifyBoolProperty33_3356729fghijk6BLLys7p6OAAE06Q18E0OSgSSFZAJSSXEfU_Tf1nnnc_n(v17, v16, &v57);
+  if (v57 != 67)
   {
-    *a2 = v63;
+    *a2 = v57;
     *(a2 + 1) = 1;
     return swift_storeEnumTagMultiPayload();
   }
 
-  _s12_RegexParser0B0V19withNormalizedForms33_3356729F9DCE7A8BB6139B535527B12BLL_15requireInPrefix5matchxSgSS_SbAHSSXEtlFZs7UnicodeOAAE23ExtendedGeneralCategoryO_Tt3g505_s12_a20Parser0B0V23classifyr18Category33_3356729fghijk6BLLys7P33OAAE08ExtendeddE0OSgSSFZAJSSXEfU_Tf1nnnc_n(v23, v22, &v63);
-  if (v63 != 38)
+  _s12_RegexParser0B0V19withNormalizedForms33_3356729F9DCE7A8BB6139B535527B12BLL_15requireInPrefix5matchxSgSS_SbAHSSXEtlFZs7UnicodeOAAE23ExtendedGeneralCategoryO_Tt3g505_s12_a20Parser0B0V23classifyr18Category33_3356729fghijk6BLLys7P33OAAE08ExtendeddE0OSgSSFZAJSSXEfU_Tf1nnnc_n(v17, v16, &v57);
+  if (v57 != 38)
   {
-    *a2 = v63;
+    *a2 = v57;
     return swift_storeEnumTagMultiPayload();
   }
 
-  _s12_RegexParser0B0V19withNormalizedForms33_3356729F9DCE7A8BB6139B535527B12BLL_15requireInPrefix5matchxSgSS_SbAHSSXEtlFZs7UnicodeOAAE6ScriptO_Tt3g505_s12_a20Parser0B0V22classifyq18Property33_3356729fghijk6BLLys7P23OAAE0D0OSgSSFZAJSSXEfU_Tf1nnnc_n(v23, v22, &v63);
-  if (v63 != 172)
+  _s12_RegexParser0B0V19withNormalizedForms33_3356729F9DCE7A8BB6139B535527B12BLL_15requireInPrefix5matchxSgSS_SbAHSSXEtlFZs7UnicodeOAAE6ScriptO_Tt3g505_s12_a20Parser0B0V22classifyq18Property33_3356729fghijk6BLLys7P23OAAE0D0OSgSSFZAJSSXEfU_Tf1nnnc_n(v17, v16, &v57);
+  if (v57 != 172)
   {
-    *a2 = v63;
+    *a2 = v57;
     return swift_storeEnumTagMultiPayload();
   }
 
-  _s12_RegexParser0B0V19withNormalizedForms33_3356729F9DCE7A8BB6139B535527B12BLL_15requireInPrefix5matchxSgSS_SbAHSSXEtlFZs7UnicodeOAAE13POSIXPropertyO_Tt3g505_s12_a35Parser0B0V13classifyPOSIX33_3356729fghijk6BLLys7p6OAAE13Q16OSgSSFZAJSSXEfU_Tf1nnnc_n(v23, v22, &v63);
-  if (v63 != 6)
+  _s12_RegexParser0B0V19withNormalizedForms33_3356729F9DCE7A8BB6139B535527B12BLL_15requireInPrefix5matchxSgSS_SbAHSSXEtlFZs7UnicodeOAAE13POSIXPropertyO_Tt3g505_s12_a35Parser0B0V13classifyPOSIX33_3356729fghijk6BLLys7p6OAAE13Q16OSgSSFZAJSSXEfU_Tf1nnnc_n(v17, v16, &v57);
+  if (v57 != 6)
   {
-    *a2 = v63;
+    *a2 = v57;
     return swift_storeEnumTagMultiPayload();
   }
 
-  *&v61 = 0;
-  *(&v61 + 1) = 0xE000000000000000;
-  v63 = v23;
-  v64 = v22;
-  v65 = 0;
-  v66 = v26;
+  *&v55 = 0;
+  *(&v55 + 1) = 0xE000000000000000;
+  *&v57 = v17;
+  *(&v57 + 1) = v16;
+  v58 = 0;
+  v59 = v20;
 
-  v29 = String.Iterator.next()();
-  result = v29.value._countAndFlagsBits;
-  if (!v29.value._object)
+  v23 = String.Iterator.next()();
+  result = v23.value._countAndFlagsBits;
+  if (!v23.value._object)
   {
 LABEL_46:
 
-    v40 = String.lowercased()();
+    v34 = String.lowercased()();
 
-    v41._countAndFlagsBits = 28265;
-    v41._object = 0xE200000000000000;
-    if (String.hasPrefix(_:)(v41))
+    v35._countAndFlagsBits = 28265;
+    v35._object = 0xE200000000000000;
+    if (String.hasPrefix(_:)(v35))
     {
-      v42 = specialized Collection.dropFirst(_:)(2uLL, v40._countAndFlagsBits, v40._object);
-      v44 = v43;
-      v46 = v45;
-      v48 = v47;
+      v36 = specialized Collection.dropFirst(_:)(2uLL, v34._countAndFlagsBits, v34._object);
+      v38 = v37;
+      v40 = v39;
+      v42 = v41;
 
-      v49 = MEMORY[0x1C68E0B20](v42, v44, v46, v48);
-      v51 = v50;
+      v43 = MEMORY[0x1C68E0B20](v36, v38, v40, v42);
+      v45 = v44;
 
-      closure #1 in static Parser.classifyBlockProperty(_:valueOnly:)(v49, v51, &v62);
+      closure #1 in static Parser.classifyBlockProperty(_:valueOnly:)(v43, v45, &v56);
 
-      if (v62 != 321)
+      if (v56 != 321)
       {
-        *a2 = v62;
+        *a2 = v56;
         return swift_storeEnumTagMultiPayload();
       }
     }
@@ -8991,49 +8948,48 @@ LABEL_46:
     {
     }
 
-    v52._countAndFlagsBits = v23;
-    v52._object = v22;
-    AST.Atom.CharacterProperty.PCRESpecialCategory.init(rawValue:)(v52);
-    if (v63 == 5)
+    v46._countAndFlagsBits = v17;
+    v46._object = v16;
+    AST.Atom.CharacterProperty.PCRESpecialCategory.init(rawValue:)(v46);
+    if (v57 == 5)
     {
 
-      v53._countAndFlagsBits = v23;
-      v53._object = v22;
-      AST.Atom.CharacterProperty.JavaSpecial.init(rawValue:)(v53);
-      if (v63 == 18)
+      v47._countAndFlagsBits = v17;
+      v47._object = v16;
+      AST.Atom.CharacterProperty.JavaSpecial.init(rawValue:)(v47);
+      if (v57 == 18)
       {
-        v63 = 0;
-        v64 = 0;
-        v65 = v23;
-        v66 = v22;
-        v67 = 18;
-        v61 = v54;
+        v57 = 0uLL;
+        v58 = v17;
+        v59 = v16;
+        v60 = 18;
+        v55 = v48;
 
-        Diagnostics.error(_:at:)(&v63, &v61);
+        Diagnostics.error(_:at:)(&v57, &v55);
         *a2 = 0;
         *(a2 + 8) = 0;
-        *(a2 + 16) = v23;
-        *(a2 + 24) = v22;
+        *(a2 + 16) = v17;
+        *(a2 + 24) = v16;
       }
 
       else
       {
-        *a2 = v63;
+        *a2 = v57;
       }
     }
 
     else
     {
-      *a2 = v63;
+      *a2 = v57;
     }
 
     return swift_storeEnumTagMultiPayload();
   }
 
-  countAndFlagsBits = v29.value._countAndFlagsBits;
-  object = v29.value._object;
-  v32 = v58;
-  v33 = (v57 + 8);
+  countAndFlagsBits = v23.value._countAndFlagsBits;
+  object = v23.value._object;
+  v26 = v52;
+  v27 = (v51 + 8);
   while ((object & 0x2000000000000000) != 0 ? HIBYTE(object) & 0xF : countAndFlagsBits & 0xFFFFFFFFFFFFLL)
   {
     if ((object & 0x1000000000000000) != 0)
@@ -9045,8 +9001,8 @@ LABEL_46:
     {
       if ((object & 0x2000000000000000) != 0)
       {
-        v59 = countAndFlagsBits;
-        v60 = object & 0xFFFFFFFFFFFFFFLL;
+        v53 = countAndFlagsBits;
+        v54 = object & 0xFFFFFFFFFFFFFFLL;
       }
 
       else if ((countAndFlagsBits & 0x1000000000000000) == 0)
@@ -9058,23 +9014,23 @@ LABEL_46:
     }
 
     Unicode.Scalar.properties.getter();
-    v36 = Unicode.Scalar.Properties.isPatternWhitespace.getter();
-    (*v33)(v10, v32);
-    if ((v36 & 1) == 0 && (countAndFlagsBits != 95 || object != 0xE100000000000000))
+    v30 = Unicode.Scalar.Properties.isPatternWhitespace.getter();
+    (*v27)(v8, v26);
+    if ((v30 & 1) == 0 && (countAndFlagsBits != 95 || object != 0xE100000000000000))
     {
-      v37 = _stringCompareWithSmolCheck(_:_:expecting:)();
-      v39 = countAndFlagsBits == 45 && object == 0xE100000000000000;
-      if ((v37 & 1) == 0 && !v39 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+      v31 = _stringCompareWithSmolCheck(_:_:expecting:)();
+      v33 = countAndFlagsBits == 45 && object == 0xE100000000000000;
+      if ((v31 & 1) == 0 && !v33 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
       {
         MEMORY[0x1C68E0BE0](countAndFlagsBits, object);
       }
     }
 
-    v34 = String.Iterator.next()();
-    result = v34.value._countAndFlagsBits;
-    countAndFlagsBits = v34.value._countAndFlagsBits;
-    object = v34.value._object;
-    if (!v34.value._object)
+    v28 = String.Iterator.next()();
+    result = v28.value._countAndFlagsBits;
+    countAndFlagsBits = v28.value._countAndFlagsBits;
+    object = v28.value._object;
+    if (!v28.value._object)
     {
       goto LABEL_46;
     }
@@ -9088,103 +9044,101 @@ uint64_t Parser.classifyCharacterProperty(key:value:)@<X0>(uint64_t *a1@<X0>, ui
 {
   v4 = v3;
   v8 = type metadata accessor for AST.Atom.CharacterProperty.Kind(0);
-  v49 = *(v8 - 8);
-  v9 = *(v49 + 64);
-  MEMORY[0x1EEE9AC00](v8, v10);
-  v47 = v42 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12_RegexParser3ASTV4AtomV17CharacterPropertyV4KindOSgMd, &_s12_RegexParser3ASTV4AtomV17CharacterPropertyV4KindOSgMR);
-  v13 = *(*(v12 - 8) + 64);
-  v15 = MEMORY[0x1EEE9AC00](v12 - 8, v14);
-  v17 = v42 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v15, v18);
-  v20 = v42 - v19;
-  v22 = *a1;
-  v21 = a1[1];
-  v24 = a1[2];
-  v23 = a1[3];
-  v25 = *a2;
-  v26 = a2[1];
-  v27 = HIBYTE(v21) & 0xF;
-  if ((v21 & 0x2000000000000000) == 0)
+  v44 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v42 = v37 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12_RegexParser3ASTV4AtomV17CharacterPropertyV4KindOSgMd, &_s12_RegexParser3ASTV4AtomV17CharacterPropertyV4KindOSgMR);
+  v11 = MEMORY[0x1EEE9AC00](v10 - 8);
+  v13 = v37 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v11);
+  v15 = v37 - v14;
+  v17 = *a1;
+  v16 = a1[1];
+  v19 = a1[2];
+  v18 = a1[3];
+  v20 = *a2;
+  v21 = a2[1];
+  v22 = HIBYTE(v16) & 0xF;
+  if ((v16 & 0x2000000000000000) == 0)
   {
-    v27 = v22 & 0xFFFFFFFFFFFFLL;
+    v22 = v17 & 0xFFFFFFFFFFFFLL;
   }
 
-  if (v27)
+  if (v22)
   {
-    v48 = v8;
-    v29 = a2[2];
-    v28 = a2[3];
-    v30 = HIBYTE(v26) & 0xF;
-    if ((v26 & 0x2000000000000000) == 0)
+    v43 = v8;
+    v24 = a2[2];
+    v23 = a2[3];
+    v25 = HIBYTE(v21) & 0xF;
+    if ((v21 & 0x2000000000000000) == 0)
     {
-      v30 = v25 & 0xFFFFFFFFFFFFLL;
+      v25 = v20 & 0xFFFFFFFFFFFFLL;
     }
 
-    if (v30)
+    if (v25)
     {
-      v45 = a2[2];
-      v46 = v28;
-      v43 = v24;
-      v44 = v23;
-      v31 = v25;
+      v40 = a2[2];
+      v41 = v23;
+      v38 = v19;
+      v39 = v18;
+      v26 = v20;
 
-      _s12_RegexParser0B0V19withNormalizedForms33_3356729F9DCE7A8BB6139B535527B12BLL_15requireInPrefix5matchxSgSS_SbAHSSXEtlFZs7UnicodeOAAE14BinaryPropertyO_Tt3g505_s12_a42Parser0B0V20classifyBoolProperty33_3356729fghijk6BLLys7p6OAAE06Q18E0OSgSSFZAJSSXEfU_Tf1nnnc_n(v22, v21, &v51);
-      v32 = v51;
-      if (v51 == 67 || (v33 = _s12_RegexParser0B0V19withNormalizedForms33_3356729F9DCE7A8BB6139B535527B12BLL_15requireInPrefix5matchxSgSS_SbAHSSXEtlFZSb_Tt3g505_s12_a56Parser0B0V34classifyCharacterPropertyBoolValue33_3356729fghijK21BLLySbSgSSFZAFSSXEfU_Tf1nnc_n(v31, v26), v33 == 2))
+      _s12_RegexParser0B0V19withNormalizedForms33_3356729F9DCE7A8BB6139B535527B12BLL_15requireInPrefix5matchxSgSS_SbAHSSXEtlFZs7UnicodeOAAE14BinaryPropertyO_Tt3g505_s12_a42Parser0B0V20classifyBoolProperty33_3356729fghijk6BLLys7p6OAAE06Q18E0OSgSSFZAJSSXEfU_Tf1nnnc_n(v17, v16, &v46);
+      v27 = v46;
+      if (v46 == 67 || (v28 = _s12_RegexParser0B0V19withNormalizedForms33_3356729F9DCE7A8BB6139B535527B12BLL_15requireInPrefix5matchxSgSS_SbAHSSXEtlFZSb_Tt3g505_s12_a56Parser0B0V34classifyCharacterPropertyBoolValue33_3356729fghijK21BLLySbSgSSFZAFSSXEfU_Tf1nnc_n(v26, v21), v28 == 2))
       {
         swift_bridgeObjectRetain_n();
 
-        v42[1] = v4;
-        v34 = v4;
-        v35 = v45;
-        v36 = v46;
-        _s12_RegexParser0B0V19withNormalizedForms33_3356729F9DCE7A8BB6139B535527B12BLL_15requireInPrefix5matchxSgSS_SbAHSSXEtlFZAA3ASTV4AtomV17CharacterPropertyV4KindO_Tt3g505_s12_a20Parser0B0V25classifyr26Property3key5valueAA3ASTV4q7V0dE0V4T41OAA6SourceV7LocatedVy_SSG_AStFANSgSSXEfU_SSAcA6SourceV7LocatedVy_SSGSSTf1nnnc_n(v22, v21, v31, v26, v34, v26, v45, v46, v20, v22, v21);
-        outlined init with take of Source.Located<AST.Atom.Kind>?(v20, v17, &_s12_RegexParser3ASTV4AtomV17CharacterPropertyV4KindOSgMd, &_s12_RegexParser3ASTV4AtomV17CharacterPropertyV4KindOSgMR);
-        if ((*(v49 + 48))(v17, 1, v48) == 1)
+        v37[1] = v4;
+        v29 = v4;
+        v30 = v40;
+        v31 = v41;
+        _s12_RegexParser0B0V19withNormalizedForms33_3356729F9DCE7A8BB6139B535527B12BLL_15requireInPrefix5matchxSgSS_SbAHSSXEtlFZAA3ASTV4AtomV17CharacterPropertyV4KindO_Tt3g505_s12_a20Parser0B0V25classifyr26Property3key5valueAA3ASTV4q7V0dE0V4T41OAA6SourceV7LocatedVy_SSG_AStFANSgSSXEfU_SSAcA6SourceV7LocatedVy_SSGSSTf1nnnc_n(v17, v16, v26, v21, v29, v21, v40, v41, v15, v17, v16);
+        outlined init with take of Source.Located<AST.Atom.Kind>?(v15, v13, &_s12_RegexParser3ASTV4AtomV17CharacterPropertyV4KindOSgMd, &_s12_RegexParser3ASTV4AtomV17CharacterPropertyV4KindOSgMR);
+        if ((*(v44 + 48))(v13, 1, v43) == 1)
         {
-          result = outlined destroy of _ASTParent?(v17, &_s12_RegexParser3ASTV4AtomV17CharacterPropertyV4KindOSgMd, &_s12_RegexParser3ASTV4AtomV17CharacterPropertyV4KindOSgMR);
-          if (v35 >> 14 >= v43 >> 14)
+          result = outlined destroy of _ASTParent?(v13, &_s12_RegexParser3ASTV4AtomV17CharacterPropertyV4KindOSgMd, &_s12_RegexParser3ASTV4AtomV17CharacterPropertyV4KindOSgMR);
+          if (v30 >> 14 >= v38 >> 14)
           {
-            v38 = v43;
+            v33 = v38;
           }
 
           else
           {
-            v38 = v35;
+            v33 = v30;
           }
 
-          if (v36 >> 14 >= v44 >> 14)
+          if (v31 >> 14 >= v39 >> 14)
           {
-            v39 = v36;
+            v34 = v31;
           }
 
           else
           {
-            v39 = v44;
+            v34 = v39;
           }
 
-          v51 = v22;
-          v52 = v21;
-          v53 = v31;
-          v54 = v26;
-          v55 = 18;
-          if (v39 >> 14 < v38 >> 14)
+          *&v46 = v17;
+          *(&v46 + 1) = v16;
+          v47 = v26;
+          v48 = v21;
+          v49 = 18;
+          if (v34 >> 14 < v33 >> 14)
           {
             __break(1u);
           }
 
           else
           {
-            *&v50 = v38;
-            *(&v50 + 1) = v39;
+            *&v45 = v33;
+            *(&v45 + 1) = v34;
 
-            Diagnostics.error(_:at:)(&v51, &v50);
+            Diagnostics.error(_:at:)(&v46, &v45);
 
-            *a3 = v22;
-            *(a3 + 8) = v21;
-            *(a3 + 16) = v31;
-            *(a3 + 24) = v26;
+            *a3 = v17;
+            *(a3 + 8) = v16;
+            *(a3 + 16) = v26;
+            *(a3 + 24) = v21;
             return swift_storeEnumTagMultiPayload();
           }
         }
@@ -9192,98 +9146,94 @@ uint64_t Parser.classifyCharacterProperty(key:value:)@<X0>(uint64_t *a1@<X0>, ui
         else
         {
 
-          v40 = v47;
-          outlined init with take of AST.Atom.Kind(v17, v47, type metadata accessor for AST.Atom.CharacterProperty.Kind);
-          return outlined init with take of AST.Atom.Kind(v40, a3, type metadata accessor for AST.Atom.CharacterProperty.Kind);
+          v35 = v42;
+          outlined init with take of AST.Atom.Kind(v13, v42, type metadata accessor for AST.Atom.CharacterProperty.Kind);
+          return outlined init with take of AST.Atom.Kind(v35, a3, type metadata accessor for AST.Atom.CharacterProperty.Kind);
         }
 
         return result;
       }
 
-      v41 = v33;
+      v36 = v28;
 
-      *a3 = v32;
-      *(a3 + 1) = v41 & 1;
+      *a3 = v27;
+      *(a3 + 1) = v36 & 1;
     }
 
     else
     {
-      v51 = 8;
-      v52 = 0;
-      v53 = 0;
-      v54 = 0;
-      v55 = 36;
-      *&v50 = v29;
-      *(&v50 + 1) = v28;
+      v46 = 8uLL;
+      v47 = 0;
+      v48 = 0;
+      v49 = 36;
+      *&v45 = v24;
+      *(&v45 + 1) = v23;
 
-      Diagnostics.error(_:at:)(&v51, &v50);
-      *a3 = v22;
-      *(a3 + 8) = v21;
-      *(a3 + 16) = v25;
-      *(a3 + 24) = v26;
+      Diagnostics.error(_:at:)(&v46, &v45);
+      *a3 = v17;
+      *(a3 + 8) = v16;
+      *(a3 + 16) = v20;
+      *(a3 + 24) = v21;
     }
   }
 
   else
   {
-    v51 = 8;
-    v52 = 0;
-    v53 = 0;
-    v54 = 0;
-    v55 = 36;
-    *&v50 = v24;
-    *(&v50 + 1) = v23;
+    v46 = 8uLL;
+    v47 = 0;
+    v48 = 0;
+    v49 = 36;
+    *&v45 = v19;
+    *(&v45 + 1) = v18;
 
-    Diagnostics.error(_:at:)(&v51, &v50);
-    *a3 = v22;
-    *(a3 + 8) = v21;
-    *(a3 + 16) = v25;
-    *(a3 + 24) = v26;
+    Diagnostics.error(_:at:)(&v46, &v45);
+    *a3 = v17;
+    *(a3 + 8) = v16;
+    *(a3 + 16) = v20;
+    *(a3 + 24) = v21;
   }
 
   return swift_storeEnumTagMultiPayload();
 }
 
-uint64_t closure #1 in Parser.classifyCharacterProperty(key:value:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, char *a9@<X8>, uint64_t a10)
+uint64_t closure #1 in Parser.classifyCharacterProperty(key:value:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t *a9@<X8>, unint64_t a10)
 {
-  v58 = a5;
-  v59 = a8;
-  *&v57 = a6;
-  *(&v57 + 1) = a7;
-  v60 = a10;
+  v54 = a5;
+  v55 = a8;
+  *&v53 = a6;
+  *(&v53 + 1) = a7;
+  v56 = a10;
   v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss7UnicodeO11NumericTypeOSgMd, &_ss7UnicodeO11NumericTypeOSgMR);
-  v16 = *(*(v15 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v15 - 8, v17);
-  v19 = &v56 - v18;
-  v20 = type metadata accessor for Unicode.NumericType();
-  v21 = *(v20 - 8);
-  v22 = *(v21 + 64);
-  MEMORY[0x1EEE9AC00](v20, v23);
-  v25 = &v56 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v15 - 8);
+  v17 = &v52 - v16;
+  v18 = type metadata accessor for Unicode.NumericType();
+  v19 = *(v18 - 8);
+  MEMORY[0x1EEE9AC00](v18);
+  v21 = &v52 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (a1 == 0x747069726373 && a2 == 0xE600000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0 || a1 == 25459 && a2 == 0xE200000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
   {
-    _s12_RegexParser0B0V19withNormalizedForms33_3356729F9DCE7A8BB6139B535527B12BLL_15requireInPrefix5matchxSgSS_SbAHSSXEtlFZs7UnicodeOAAE6ScriptO_Tt3g505_s12_a20Parser0B0V22classifyq18Property33_3356729fghijk6BLLys7P23OAAE0D0OSgSSFZAJSSXEfU_Tf1nnnc_n(a3, a4, &v62);
-    v26 = v62;
-    if (v62 == 172)
+    _s12_RegexParser0B0V19withNormalizedForms33_3356729F9DCE7A8BB6139B535527B12BLL_15requireInPrefix5matchxSgSS_SbAHSSXEtlFZs7UnicodeOAAE6ScriptO_Tt3g505_s12_a20Parser0B0V22classifyq18Property33_3356729fghijk6BLLys7P23OAAE0D0OSgSSFZAJSSXEfU_Tf1nnnc_n(a3, a4, &v58);
+    v22 = v58;
+    if (v58 == 172)
     {
 LABEL_8:
-      v62 = a3;
-      v63 = a4;
-      v64 = 0;
-      v65 = 0;
-      v27 = 19;
+      *&v58 = a3;
+      *(&v58 + 1) = a4;
+      v59 = 0;
+      v60 = 0;
+      v23 = 19;
 LABEL_9:
-      v66 = v27;
-      v61 = v57;
-      Diagnostics.error(_:at:)(&v62, &v61);
-      v28 = v60;
-      *a9 = v59;
-      *(a9 + 1) = v28;
-      *(a9 + 2) = a3;
-      *(a9 + 3) = a4;
-      v29 = type metadata accessor for AST.Atom.CharacterProperty.Kind(0);
+      v61 = v23;
+      v57 = v53;
+      Diagnostics.error(_:at:)(&v58, &v57);
+      v24 = v56;
+      *a9 = v55;
+      a9[1] = v24;
+      a9[2] = a3;
+      a9[3] = a4;
+      v25 = type metadata accessor for AST.Atom.CharacterProperty.Kind(0);
       swift_storeEnumTagMultiPayload();
-      (*(*(v29 - 8) + 56))(a9, 0, 1, v29);
+      (*(*(v25 - 8) + 56))(a9, 0, 1, v25);
 
 LABEL_10:
     }
@@ -9293,9 +9243,9 @@ LABEL_10:
 
   if (a1 == 0xD000000000000010 && 0x80000001C0C870B0 == a2 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0 || a1 == 7889779 && a2 == 0xE300000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
   {
-    _s12_RegexParser0B0V19withNormalizedForms33_3356729F9DCE7A8BB6139B535527B12BLL_15requireInPrefix5matchxSgSS_SbAHSSXEtlFZs7UnicodeOAAE6ScriptO_Tt3g505_s12_a20Parser0B0V22classifyq18Property33_3356729fghijk6BLLys7P23OAAE0D0OSgSSFZAJSSXEfU_Tf1nnnc_n(a3, a4, &v62);
-    v26 = v62;
-    if (v62 == 172)
+    _s12_RegexParser0B0V19withNormalizedForms33_3356729F9DCE7A8BB6139B535527B12BLL_15requireInPrefix5matchxSgSS_SbAHSSXEtlFZs7UnicodeOAAE6ScriptO_Tt3g505_s12_a20Parser0B0V22classifyq18Property33_3356729fghijk6BLLys7P23OAAE0D0OSgSSFZAJSSXEfU_Tf1nnnc_n(a3, a4, &v58);
+    v22 = v58;
+    if (v58 == 172)
     {
       goto LABEL_8;
     }
@@ -9305,103 +9255,103 @@ LABEL_10:
 
   if (a1 == 25447 && a2 == 0xE200000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0 || a1 == 0x636C6172656E6567 && a2 == 0xEF79726F67657461 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
   {
-    _s12_RegexParser0B0V19withNormalizedForms33_3356729F9DCE7A8BB6139B535527B12BLL_15requireInPrefix5matchxSgSS_SbAHSSXEtlFZs7UnicodeOAAE23ExtendedGeneralCategoryO_Tt3g505_s12_a20Parser0B0V23classifyr18Category33_3356729fghijk6BLLys7P33OAAE08ExtendeddE0OSgSSFZAJSSXEfU_Tf1nnnc_n(a3, a4, &v62);
-    v26 = v62;
-    if (v62 == 38)
+    _s12_RegexParser0B0V19withNormalizedForms33_3356729F9DCE7A8BB6139B535527B12BLL_15requireInPrefix5matchxSgSS_SbAHSSXEtlFZs7UnicodeOAAE23ExtendedGeneralCategoryO_Tt3g505_s12_a20Parser0B0V23classifyr18Category33_3356729fghijk6BLLys7P33OAAE08ExtendeddE0OSgSSFZAJSSXEfU_Tf1nnnc_n(a3, a4, &v58);
+    v22 = v58;
+    if (v58 == 38)
     {
-      v62 = a3;
-      v63 = a4;
-      v64 = 0;
-      v65 = 0;
-      v27 = 20;
+      *&v58 = a3;
+      *(&v58 + 1) = a4;
+      v59 = 0;
+      v60 = 0;
+      v23 = 20;
       goto LABEL_9;
     }
 
 LABEL_13:
-    *a9 = v26;
-    v31 = type metadata accessor for AST.Atom.CharacterProperty.Kind(0);
+    *a9 = v22;
+    v27 = type metadata accessor for AST.Atom.CharacterProperty.Kind(0);
     goto LABEL_14;
   }
 
   if (a1 == 6645601 && a2 == 0xE300000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
   {
-    v36 = specialized static Parser.parseAge(_:)();
-    if (v38)
+    v32 = specialized static Parser.parseAge(_:)(a3, a4);
+    if (v34)
     {
-      v62 = a3;
-      v63 = a4;
-      v64 = 0;
-      v65 = 0;
-      v27 = 22;
+      *&v58 = a3;
+      *(&v58 + 1) = a4;
+      v59 = 0;
+      v60 = 0;
+      v23 = 22;
       goto LABEL_9;
     }
 
-    *a9 = v36;
-    *(a9 + 1) = v37;
-    v31 = type metadata accessor for AST.Atom.CharacterProperty.Kind(0);
+    *a9 = v32;
+    a9[1] = v33;
+    v27 = type metadata accessor for AST.Atom.CharacterProperty.Kind(0);
     goto LABEL_14;
   }
 
-  if (a1 == 1701667182 && a2 == 0xE400000000000000 || ((v40 = _stringCompareWithSmolCheck(_:_:expecting:)(), a1 == 24942) ? (v41 = a2 == 0xE200000000000000) : (v41 = 0), !v41 ? (v42 = 0) : (v42 = 1), (v40 & 1) != 0 || (v42 & 1) != 0 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0))
+  if (a1 == 1701667182 && a2 == 0xE400000000000000 || ((v36 = _stringCompareWithSmolCheck(_:_:expecting:)(), a1 == 24942) ? (v37 = a2 == 0xE200000000000000) : (v37 = 0), !v37 ? (v38 = 0) : (v38 = 1), (v36 & 1) != 0 || (v38 & 1) != 0 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0))
   {
     *a9 = a3;
-    *(a9 + 1) = a4;
-    v39 = type metadata accessor for AST.Atom.CharacterProperty.Kind(0);
+    a9[1] = a4;
+    v35 = type metadata accessor for AST.Atom.CharacterProperty.Kind(0);
 LABEL_44:
     swift_storeEnumTagMultiPayload();
-    (*(*(v39 - 8) + 56))(a9, 0, 1, v39);
+    (*(*(v35 - 8) + 56))(a9, 0, 1, v35);
     goto LABEL_10;
   }
 
-  if (a1 == 0x76636972656D756ELL && a2 == 0xEC00000065756C61 || ((v44 = _stringCompareWithSmolCheck(_:_:expecting:)(), a1 == 30318) ? (v45 = a2 == 0xE200000000000000) : (v45 = 0), !v45 ? (v46 = 0) : (v46 = 1), (v44 & 1) != 0 || (v46 & 1) != 0 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0))
+  if (a1 == 0x76636972656D756ELL && a2 == 0xEC00000065756C61 || ((v40 = _stringCompareWithSmolCheck(_:_:expecting:)(), a1 == 30318) ? (v41 = a2 == 0xE200000000000000) : (v41 = 0), !v41 ? (v42 = 0) : (v42 = 1), (v40 & 1) != 0 || (v42 & 1) != 0 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0))
   {
-    v62 = 0;
-    if (!specialized String.withCString<A>(_:)(a3, a4))
+    *&v58 = 0;
+    if (!specialized String.withCString<A>(_:)(a3, a4, &v58))
     {
-      v62 = a3;
-      v63 = a4;
-      v64 = 0;
-      v65 = 0;
-      v47 = 23;
+      *&v58 = a3;
+      *(&v58 + 1) = a4;
+      v59 = 0;
+      v60 = 0;
+      v43 = 23;
       goto LABEL_73;
     }
 
-    *a9 = v62;
-    v43 = type metadata accessor for AST.Atom.CharacterProperty.Kind(0);
+    *a9 = v58;
+    v39 = type metadata accessor for AST.Atom.CharacterProperty.Kind(0);
 LABEL_58:
     swift_storeEnumTagMultiPayload();
-    return (*(*(v43 - 8) + 56))(a9, 0, 1, v43);
+    return (*(*(v39 - 8) + 56))(a9, 0, 1, v39);
   }
 
-  if (a1 == 0x74636972656D756ELL && a2 == 0xEB00000000657079 || ((v50 = _stringCompareWithSmolCheck(_:_:expecting:)(), a1 == 29806) ? (v51 = a2 == 0xE200000000000000) : (v51 = 0), !v51 ? (v52 = 0) : (v52 = 1), (v50 & 1) != 0 || (v52 & 1) != 0 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0))
+  if (a1 == 0x74636972656D756ELL && a2 == 0xEB00000000657079 || ((v46 = _stringCompareWithSmolCheck(_:_:expecting:)(), a1 == 29806) ? (v47 = a2 == 0xE200000000000000) : (v47 = 0), !v47 ? (v48 = 0) : (v48 = 1), (v46 & 1) != 0 || (v48 & 1) != 0 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0))
   {
-    _s12_RegexParser0B0V19withNormalizedForms33_3356729F9DCE7A8BB6139B535527B12BLL_15requireInPrefix5matchxSgSS_SbAHSSXEtlFZs7UnicodeO11NumericTypeO_Tt3g505_s12_a20Parser0B0V19classifyq14Type33_3356729fghijk6BLLys7P21O0dE0OSgSSFZAJSSXEfU_Tf1nnnc_n(a3, a4, v19);
-    if ((*(v21 + 48))(v19, 1, v20) == 1)
+    _s12_RegexParser0B0V19withNormalizedForms33_3356729F9DCE7A8BB6139B535527B12BLL_15requireInPrefix5matchxSgSS_SbAHSSXEtlFZs7UnicodeO11NumericTypeO_Tt3g505_s12_a20Parser0B0V19classifyq14Type33_3356729fghijk6BLLys7P21O0dE0OSgSSFZAJSSXEfU_Tf1nnnc_n(a3, a4, v17);
+    if ((*(v19 + 48))(v17, 1, v18) == 1)
     {
-      outlined destroy of _ASTParent?(v19, &_ss7UnicodeO11NumericTypeOSgMd, &_ss7UnicodeO11NumericTypeOSgMR);
-      v62 = a3;
-      v63 = a4;
-      v64 = 0;
-      v65 = 0;
-      v47 = 24;
+      outlined destroy of _ASTParent?(v17, &_ss7UnicodeO11NumericTypeOSgMd, &_ss7UnicodeO11NumericTypeOSgMR);
+      *&v58 = a3;
+      *(&v58 + 1) = a4;
+      v59 = 0;
+      v60 = 0;
+      v43 = 24;
 LABEL_73:
-      v66 = v47;
-      v61 = v57;
-      Diagnostics.error(_:at:)(&v62, &v61);
-      v48 = v60;
-      *a9 = v59;
-      *(a9 + 1) = v48;
-      *(a9 + 2) = a3;
-      *(a9 + 3) = a4;
-      v49 = type metadata accessor for AST.Atom.CharacterProperty.Kind(0);
+      v61 = v43;
+      v57 = v53;
+      Diagnostics.error(_:at:)(&v58, &v57);
+      v44 = v56;
+      *a9 = v55;
+      a9[1] = v44;
+      a9[2] = a3;
+      a9[3] = a4;
+      v45 = type metadata accessor for AST.Atom.CharacterProperty.Kind(0);
       swift_storeEnumTagMultiPayload();
-      (*(*(v49 - 8) + 56))(a9, 0, 1, v49);
+      (*(*(v45 - 8) + 56))(a9, 0, 1, v45);
     }
 
-    v53 = *(v21 + 32);
-    v53(v25, v19, v20);
-    v53(a9, v25, v20);
-    v43 = type metadata accessor for AST.Atom.CharacterProperty.Kind(0);
+    v49 = *(v19 + 32);
+    v49(v21, v17, v18);
+    v49(a9, v21, v18);
+    v39 = type metadata accessor for AST.Atom.CharacterProperty.Kind(0);
     goto LABEL_58;
   }
 
@@ -9409,9 +9359,9 @@ LABEL_73:
   {
     *a9 = 0;
 LABEL_90:
-    *(a9 + 1) = a3;
-    *(a9 + 2) = a4;
-    v39 = type metadata accessor for AST.Atom.CharacterProperty.Kind(0);
+    a9[1] = a3;
+    a9[2] = a4;
+    v35 = type metadata accessor for AST.Atom.CharacterProperty.Kind(0);
     goto LABEL_44;
   }
 
@@ -9430,57 +9380,57 @@ LABEL_90:
   if (a1 == 6513507 && a2 == 0xE300000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0 || a1 == 0xD000000000000017 && 0x80000001C0C87130 == a2 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
   {
 
-    v54 = _ss17FixedWidthIntegerPsEyxSgSScfCs5UInt8V_Tt1g5(a3, a4);
-    if ((v54 & 0x100) != 0 || v54 == 0xFF)
+    v50 = _ss17FixedWidthIntegerPsEyxSgSScfCs5UInt8V_Tt1g5(a3, a4);
+    if ((v50 & 0x100) != 0 || v50 == 0xFF)
     {
-      v62 = a3;
-      v63 = a4;
-      v64 = 0;
-      v65 = 0;
-      v27 = 25;
+      *&v58 = a3;
+      *(&v58 + 1) = a4;
+      v59 = 0;
+      v60 = 0;
+      v23 = 25;
       goto LABEL_9;
     }
 
     Unicode.CanonicalCombiningClass.init(rawValue:)();
-    v31 = type metadata accessor for AST.Atom.CharacterProperty.Kind(0);
+    v27 = type metadata accessor for AST.Atom.CharacterProperty.Kind(0);
   }
 
   else
   {
     if ((a1 != 7040098 || a2 != 0xE300000000000000) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 && (a1 != 0x6B636F6C62 || a2 != 0xE500000000000000) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
     {
-      v55 = type metadata accessor for AST.Atom.CharacterProperty.Kind(0);
-      v32 = *(*(v55 - 8) + 56);
-      v35 = v55;
-      v33 = a9;
-      v34 = 1;
+      v51 = type metadata accessor for AST.Atom.CharacterProperty.Kind(0);
+      v28 = *(*(v51 - 8) + 56);
+      v31 = v51;
+      v29 = a9;
+      v30 = 1;
       goto LABEL_15;
     }
 
-    _s12_RegexParser0B0V19withNormalizedForms33_3356729F9DCE7A8BB6139B535527B12BLL_15requireInPrefix5matchxSgSS_SbAHSSXEtlFZs7UnicodeOAAE5BlockO_Tt3g505_s12_a20Parser0B0V21classifyq18Property33_3356729fghijk16BLL_9valueOnlys7P27OAAE0D0OSgSS_SbtFZAKSSXEfU_Tf1nnnc_n(a3, a4, &v62);
-    if (v62 == 321)
+    _s12_RegexParser0B0V19withNormalizedForms33_3356729F9DCE7A8BB6139B535527B12BLL_15requireInPrefix5matchxSgSS_SbAHSSXEtlFZs7UnicodeOAAE5BlockO_Tt3g505_s12_a20Parser0B0V21classifyq18Property33_3356729fghijk16BLL_9valueOnlys7P27OAAE0D0OSgSS_SbtFZAKSSXEfU_Tf1nnnc_n(a3, a4, &v58);
+    if (v58 == 321)
     {
-      v62 = a3;
-      v63 = a4;
-      v64 = 0;
-      v65 = 0;
-      v27 = 21;
+      *&v58 = a3;
+      *(&v58 + 1) = a4;
+      v59 = 0;
+      v60 = 0;
+      v23 = 21;
       goto LABEL_9;
     }
 
-    *a9 = v62;
-    v31 = type metadata accessor for AST.Atom.CharacterProperty.Kind(0);
+    *a9 = v58;
+    v27 = type metadata accessor for AST.Atom.CharacterProperty.Kind(0);
   }
 
 LABEL_14:
   swift_storeEnumTagMultiPayload();
-  v32 = *(*(v31 - 8) + 56);
-  v33 = a9;
-  v34 = 0;
-  v35 = v31;
+  v28 = *(*(v27 - 8) + 56);
+  v29 = a9;
+  v30 = 0;
+  v31 = v27;
 LABEL_15:
 
-  return v32(v33, v34, 1, v35);
+  return v28(v29, v30, 1, v31);
 }
 
 uint64_t _ss17FixedWidthIntegerPsEyxSgSScfCs5UInt8V_Tt1g5(uint64_t a1, unint64_t a2)

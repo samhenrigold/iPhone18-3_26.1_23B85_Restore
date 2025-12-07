@@ -7,6 +7,7 @@
 + (id)deserializationStatsHandler;
 + (id)dictionaryWithData:(id)data error:(id *)error;
 + (id)dictionaryWithPath:(id)path error:(id *)error;
++ (id)fileBackedDataWithPropertyList:(id)list appendedToFd:(int)fd format:(unint64_t)format startOfs:(int64_t *)ofs error:(id *)error;
 + (id)fileBackedDataWithPropertyList:(id)list writtenToPath:(id)path format:(unint64_t)format error:(id *)error;
 + (id)lazyPlistWithPlist:(id)plist;
 + (id)propertyListWithData:(uint64_t)data needsValidation:(void *)validation error:;
@@ -65,7 +66,7 @@
 
 + (id)lazyPlistWithPlist:(id)plist
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   plistCopy = plist;
   if (!plistCopy)
   {
@@ -77,9 +78,9 @@
   v7 = NSTemporaryDirectory();
   v8 = [v7 stringByAppendingPathComponent:@"_PASLazyPlist-memoryopt.plplist-"];
 
-  v20 = 0;
-  v9 = [_PASFileUtils mkstempWithPrefix:v8 error:&v20];
-  v10 = v20;
+  v19 = 0;
+  v9 = [_PASFileUtils mkstempWithPrefix:v8 error:&v19];
+  v10 = v19;
   if (v9)
   {
     path = [v9 path];
@@ -115,7 +116,7 @@
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v22 = v10;
+      v21 = v10;
       _os_log_error_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "_PASLazyPlist: Unable to create tempfile for temporary _PASLazyPlist backing storage: %@", buf, 0xCu);
     }
 
@@ -123,14 +124,13 @@
   }
 
   objc_autoreleasePoolPop(v6);
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
 
 + (id)propertyListWithData:(uint64_t)data needsValidation:(void *)validation error:
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = objc_opt_self();
   if (!v6)
@@ -141,8 +141,8 @@
 
   v8 = objc_autoreleasePoolPush();
   v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"<NSData buffer %p>", objc_msgSend(v6, "bytes")];
-  v33 = 0;
-  if (([v7 isLazyPlistLikelyContainedInData:v6 format:&v33] & 1) == 0)
+  v32 = 0;
+  if (([v7 isLazyPlistLikelyContainedInData:v6 format:&v32] & 1) == 0)
   {
     v13 = v9;
     v14 = objc_opt_new();
@@ -157,7 +157,7 @@
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v35 = v17;
+      v34 = v17;
       v18 = MEMORY[0x1E69E9C10];
       goto LABEL_24;
     }
@@ -165,20 +165,20 @@
     goto LABEL_17;
   }
 
-  if (v33 != 2)
+  if (v32 != 2)
   {
-    if (v33 == 1)
+    if (v32 == 1)
     {
       v10 = [_PASLPReaderV1 alloc];
-      v32 = 0;
-      v11 = &v32;
-      v12 = &v32;
+      v31 = 0;
+      v11 = &v31;
+      v12 = &v31;
       goto LABEL_11;
     }
 
 LABEL_16:
     v24 = objc_alloc(MEMORY[0x1E696AEC0]);
-    v25 = [v24 initWithFormat:@"Unsupported format version %tu", v33];
+    v25 = [v24 initWithFormat:@"Unsupported format version %tu", v32];
     v17 = wrongVersionError(v25);
 
     if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -187,7 +187,7 @@ LABEL_16:
     }
 
     *buf = 138412290;
-    v35 = v17;
+    v34 = v17;
     v18 = MEMORY[0x1E69E9C10];
 LABEL_24:
     _os_log_error_impl(&dword_1A7F47000, v18, OS_LOG_TYPE_ERROR, "_PASLazyPlist: %@", buf, 0xCu);
@@ -201,9 +201,9 @@ LABEL_24:
   }
 
   v10 = [_PASLPReaderBinaryPlist alloc];
-  v31 = 0;
-  v11 = &v31;
-  v12 = &v31;
+  v30 = 0;
+  v11 = &v30;
+  v12 = &v30;
 LABEL_11:
   v20 = [(_PASLPReaderV1 *)v10 initWithData:v6 sourcedFromPath:v9 needsValidation:data error:v12];
   v21 = *v11;
@@ -220,11 +220,11 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  v30 = 0;
-  v22 = [(_PASLPReaderV1 *)v20 rootObjectWithErrMsg:&v30];
+  v29 = 0;
+  v22 = [(_PASLPReaderV1 *)v20 rootObjectWithErrMsg:&v29];
   if (!v22)
   {
-    v23 = corruptionError(v9, v30);
+    v23 = corruptionError(v9, v29);
 
     v17 = v23;
   }
@@ -237,14 +237,12 @@ LABEL_18:
     *validation = v17;
   }
 
-  v27 = *MEMORY[0x1E69E9840];
-
   return v22;
 }
 
 + (BOOL)isLazyPlistLikelyContainedInFileAtPath:(id)path format:(unint64_t *)format
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   if (!pathCopy)
   {
@@ -253,9 +251,9 @@ LABEL_18:
   }
 
   v8 = objc_autoreleasePoolPush();
-  v15 = 0;
-  v9 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:pathCopy options:1 error:&v15];
-  v10 = v15;
+  v14 = 0;
+  v9 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:pathCopy options:1 error:&v14];
+  v10 = v14;
   if (v9)
   {
     v11 = [self isLazyPlistLikelyContainedInData:v9 format:format];
@@ -266,9 +264,9 @@ LABEL_18:
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v17 = pathCopy;
-      v18 = 2112;
-      v19 = v10;
+      v16 = pathCopy;
+      v17 = 2112;
+      v18 = v10;
       _os_log_error_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "_PASLazyPlist: Unable to load file %@: %@", buf, 0x16u);
     }
 
@@ -276,7 +274,6 @@ LABEL_18:
   }
 
   objc_autoreleasePoolPop(v8);
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -319,6 +316,26 @@ LABEL_18:
   objc_autoreleasePoolPop(v8);
 
   return v12;
+}
+
++ (id)fileBackedDataWithPropertyList:(id)list appendedToFd:(int)fd format:(unint64_t)format startOfs:(int64_t *)ofs error:(id *)error
+{
+  v10 = *&fd;
+  listCopy = list;
+  if (format == 1)
+  {
+    error = [_PASLPWriterV1 fileBackedDataWithPropertyList:listCopy appendedToFd:v10 startOfs:ofs error:error];
+  }
+
+  else if (error)
+  {
+    format = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"version code %tu is unsupported", format];
+    *error = wrongVersionError(format);
+
+    error = 0;
+  }
+
+  return error;
 }
 
 + (id)fileBackedDataWithPropertyList:(id)list writtenToPath:(id)path format:(unint64_t)format error:(id *)error
@@ -380,46 +397,8 @@ LABEL_11:
     v13 = v23;
   }
 
-  if (!v13)
+  if (v13 && ((objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) ? ((objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) ? (DeepCopy = CFPropertyListCreateDeepCopy(0, listCopy, 0)) : ([listCopy _pas_unlazyDictionary], DeepCopy = objc_claimAutoreleasedReturnValue())) : (objc_msgSend(listCopy, "_pas_unlazyArray"), DeepCopy = objc_claimAutoreleasedReturnValue()), (v17 = DeepCopy) == 0 || (v22 = 0, objc_msgSend(MEMORY[0x1E696AE40], "dataWithPropertyList:format:options:error:", DeepCopy, 200, 0, &v22), v18 = objc_claimAutoreleasedReturnValue(), v19 = v22, v13, v11, v17, v11 = v18, (v13 = v19) != 0)))
   {
-    goto LABEL_21;
-  }
-
-  objc_opt_class();
-  if (objc_opt_isKindOfClass())
-  {
-    DeepCopy = [listCopy _pas_unlazyArray];
-  }
-
-  else
-  {
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      DeepCopy = [listCopy _pas_unlazyDictionary];
-    }
-
-    else
-    {
-      DeepCopy = CFPropertyListCreateDeepCopy(0, listCopy, 0);
-    }
-  }
-
-  v17 = DeepCopy;
-  if (!DeepCopy)
-  {
-    goto LABEL_19;
-  }
-
-  v22 = 0;
-  v18 = [MEMORY[0x1E696AE40] dataWithPropertyList:DeepCopy format:200 options:0 error:&v22];
-  v19 = v22;
-
-  v11 = v18;
-  v13 = v19;
-  if (v19)
-  {
-LABEL_19:
     if (error)
     {
       v20 = v13;
@@ -435,7 +414,6 @@ LABEL_19:
 
   else
   {
-LABEL_21:
     v11 = v11;
     v13 = 0;
     v9 = v11;
@@ -618,7 +596,7 @@ LABEL_7:
 {
   length = range.length;
   location = range.location;
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   if (!pathCopy)
   {
@@ -627,9 +605,9 @@ LABEL_7:
   }
 
   v11 = objc_autoreleasePoolPush();
-  v40 = 0;
-  v12 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithContentsOfFile:pathCopy options:1 error:&v40];
-  v13 = v40;
+  v39 = 0;
+  v12 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithContentsOfFile:pathCopy options:1 error:&v39];
+  v13 = v39;
   v14 = v13;
   if (!v12)
   {
@@ -652,7 +630,7 @@ LABEL_7:
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v42 = v15;
+      v41 = v15;
       _os_log_error_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "_PASLazyPlist: %@", buf, 0xCu);
     }
 
@@ -666,7 +644,7 @@ LABEL_7:
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v42 = v15;
+      v41 = v15;
       _os_log_error_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "_PASLazyPlist: %@", buf, 0xCu);
     }
 
@@ -677,8 +655,8 @@ LABEL_22:
 
   v17 = [v12 subdataWithRange:{location, length}];
 
-  v39 = 0;
-  if (([self isLazyPlistLikelyContainedInData:v17 format:&v39] & 1) == 0)
+  v38 = 0;
+  if (([self isLazyPlistLikelyContainedInData:v17 format:&v38] & 1) == 0)
   {
     v21 = pathCopy;
     v22 = objc_opt_new();
@@ -693,57 +671,57 @@ LABEL_22:
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v42 = v15;
+      v41 = v15;
       _os_log_error_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "_PASLazyPlist: %@", buf, 0xCu);
     }
 
     goto LABEL_22;
   }
 
-  if (v39 == 2)
+  if (v38 == 2)
   {
-    v29 = objc_opt_self();
-    if (![v29 isSubclassOfClass:objc_opt_class()])
+    v28 = objc_opt_self();
+    if (![v28 isSubclassOfClass:objc_opt_class()])
     {
       goto LABEL_35;
     }
 
     v18 = [_PASLPReaderBinaryPlist alloc];
-    v37 = v14;
-    v19 = &v37;
-    v20 = &v37;
+    v36 = v14;
+    v19 = &v36;
+    v20 = &v36;
   }
 
   else
   {
-    if (v39 != 1)
+    if (v38 != 1)
     {
       goto LABEL_35;
     }
 
     v18 = [_PASLPReaderV1 alloc];
-    v38 = v14;
-    v19 = &v38;
-    v20 = &v38;
+    v37 = v14;
+    v19 = &v37;
+    v20 = &v37;
   }
 
-  v30 = [(_PASLPReaderBinaryPlist *)v18 initWithData:v17 sourcedFromPath:pathCopy needsValidation:1 error:v20];
-  v31 = *v19;
+  v29 = [(_PASLPReaderBinaryPlist *)v18 initWithData:v17 sourcedFromPath:pathCopy needsValidation:1 error:v20];
+  v30 = *v19;
 
-  if (!v30)
+  if (!v29)
   {
-    v14 = v31;
+    v14 = v30;
 LABEL_35:
     if (!v14)
     {
-      v33 = objc_alloc(MEMORY[0x1E696AEC0]);
-      v34 = [v33 initWithFormat:@"Unsupported format version %tu", v39];
-      v14 = wrongVersionError(v34);
+      v32 = objc_alloc(MEMORY[0x1E696AEC0]);
+      v33 = [v32 initWithFormat:@"Unsupported format version %tu", v38];
+      v14 = wrongVersionError(v33);
 
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v42 = v14;
+        v41 = v14;
         _os_log_error_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "_PASLazyPlist: %@", buf, 0xCu);
       }
     }
@@ -752,16 +730,16 @@ LABEL_35:
     goto LABEL_39;
   }
 
-  v36 = 0;
-  v25 = [(_PASLPReaderBinaryPlist *)v30 rootObjectWithErrMsg:&v36];
+  v35 = 0;
+  v25 = [(_PASLPReaderBinaryPlist *)v29 rootObjectWithErrMsg:&v35];
   if (!v25)
   {
-    v32 = corruptionError(pathCopy, v36);
+    v31 = corruptionError(pathCopy, v35);
 
-    v31 = v32;
+    v30 = v31;
   }
 
-  v14 = v31;
+  v14 = v30;
 LABEL_39:
 
   v15 = v14;
@@ -773,14 +751,12 @@ LABEL_23:
     *error = v15;
   }
 
-  v27 = *MEMORY[0x1E69E9840];
-
   return v25;
 }
 
 + (id)propertyListWithPath:(id)path error:(id *)error
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   if (!pathCopy)
   {
@@ -789,9 +765,9 @@ LABEL_23:
   }
 
   v8 = objc_autoreleasePoolPush();
-  v36 = 0;
-  v9 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithContentsOfFile:pathCopy options:1 error:&v36];
-  v10 = v36;
+  v35 = 0;
+  v9 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithContentsOfFile:pathCopy options:1 error:&v35];
+  v10 = v35;
   v11 = v10;
   if (!v9)
   {
@@ -817,13 +793,13 @@ LABEL_23:
     }
 
     *buf = 138412290;
-    v38 = v20;
+    v37 = v20;
     v21 = MEMORY[0x1E69E9C10];
     goto LABEL_17;
   }
 
-  v35 = 0;
-  if (([self isLazyPlistLikelyContainedInData:v9 format:&v35] & 1) == 0)
+  v34 = 0;
+  if (([self isLazyPlistLikelyContainedInData:v9 format:&v34] & 1) == 0)
   {
     v16 = pathCopy;
     v17 = objc_opt_new();
@@ -843,21 +819,21 @@ LABEL_27:
     }
 
     *buf = 138412290;
-    v38 = v20;
+    v37 = v20;
     v21 = MEMORY[0x1E69E9C10];
 LABEL_17:
     _os_log_error_impl(&dword_1A7F47000, v21, OS_LOG_TYPE_ERROR, "_PASLazyPlist: %@", buf, 0xCu);
     goto LABEL_27;
   }
 
-  if (v35 != 2)
+  if (v34 != 2)
   {
-    if (v35 == 1)
+    if (v34 == 1)
     {
       v12 = [_PASLPReaderV1 alloc];
-      v34 = v11;
-      v13 = &v34;
-      v14 = &v34;
+      v33 = v11;
+      v13 = &v33;
+      v14 = &v33;
       goto LABEL_20;
     }
 
@@ -870,7 +846,7 @@ LABEL_25:
     }
 
     v26 = objc_alloc(MEMORY[0x1E696AEC0]);
-    v27 = [v26 initWithFormat:@"Unsupported format version %tu", v35];
+    v27 = [v26 initWithFormat:@"Unsupported format version %tu", v34];
     v20 = wrongVersionError(v27);
 
     if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -879,7 +855,7 @@ LABEL_25:
     }
 
     *buf = 138412290;
-    v38 = v20;
+    v37 = v20;
     v21 = MEMORY[0x1E69E9C10];
     goto LABEL_17;
   }
@@ -891,9 +867,9 @@ LABEL_25:
   }
 
   v12 = [_PASLPReaderBinaryPlist alloc];
-  v33 = v11;
-  v13 = &v33;
-  v14 = &v33;
+  v32 = v11;
+  v13 = &v32;
+  v14 = &v32;
 LABEL_20:
   v23 = [(_PASLPReaderV1 *)v12 initWithData:v9 sourcedFromPath:pathCopy needsValidation:1 error:v14];
   v20 = *v13;
@@ -903,11 +879,11 @@ LABEL_20:
     goto LABEL_25;
   }
 
-  v32 = 0;
-  v24 = [(_PASLPReaderV1 *)v23 rootObjectWithErrMsg:&v32];
+  v31 = 0;
+  v24 = [(_PASLPReaderV1 *)v23 rootObjectWithErrMsg:&v31];
   if (!v24)
   {
-    v25 = corruptionError(pathCopy, v32);
+    v25 = corruptionError(pathCopy, v31);
 
     v20 = v25;
   }
@@ -919,8 +895,6 @@ LABEL_28:
     v28 = v20;
     *error = v20;
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 
   return v24;
 }

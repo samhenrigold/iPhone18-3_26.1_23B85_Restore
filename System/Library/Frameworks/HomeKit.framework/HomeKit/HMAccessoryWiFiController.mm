@@ -10,7 +10,7 @@
 
 - (void)_queryCurrentWiFiNetworkWithCompletion:(id)completion
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v5 = self->_context;
   if (v5)
@@ -19,14 +19,14 @@
     v7 = [objc_alloc(MEMORY[0x1E69A2A00]) initWithTarget:self->_messageTargetUUID];
     v8 = [v6 messageWithName:@"HM.wiFiPicker.WifiNetworkStatusMessage" destination:v7 payload:0];
 
-    v15 = MEMORY[0x1E69E9820];
-    v16 = 3221225472;
-    v17 = __68__HMAccessoryWiFiController__queryCurrentWiFiNetworkWithCompletion___block_invoke;
-    v18 = &unk_1E754DE00;
+    v14 = MEMORY[0x1E69E9820];
+    v15 = 3221225472;
+    v16 = __68__HMAccessoryWiFiController__queryCurrentWiFiNetworkWithCompletion___block_invoke;
+    v17 = &unk_1E754DE00;
     selfCopy = self;
-    v20 = completionCopy;
-    [v8 setResponseHandler:&v15];
-    v9 = [(_HMContext *)v5 messageDispatcher:v15];
+    v19 = completionCopy;
+    [v8 setResponseHandler:&v14];
+    v9 = [(_HMContext *)v5 messageDispatcher:v14];
     [v9 sendMessage:v8];
   }
 
@@ -39,16 +39,14 @@
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v22 = v13;
-      v23 = 2080;
-      v24 = "[HMAccessoryWiFiController _queryCurrentWiFiNetworkWithCompletion:]";
+      v21 = v13;
+      v22 = 2080;
+      v23 = "[HMAccessoryWiFiController _queryCurrentWiFiNetworkWithCompletion:]";
       _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_ERROR, "%{public}@Nil context - %s", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __68__HMAccessoryWiFiController__queryCurrentWiFiNetworkWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -95,7 +93,7 @@ void __68__HMAccessoryWiFiController__queryCurrentWiFiNetworkWithCompletion___bl
 
 - (void)_associateToNetworkWithSSID:(id)d password:(id)password completion:(id)completion
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   dCopy = d;
   passwordCopy = password;
   completionCopy = completion;
@@ -104,21 +102,21 @@ void __68__HMAccessoryWiFiController__queryCurrentWiFiNetworkWithCompletion___bl
   {
     v12 = MEMORY[0x1E69A2A10];
     v13 = [objc_alloc(MEMORY[0x1E69A2A00]) initWithTarget:self->_messageTargetUUID];
-    v28[0] = @"ssid";
-    v28[1] = @"password";
-    v29[0] = dCopy;
-    v29[1] = passwordCopy;
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:2];
+    v27[0] = @"ssid";
+    v27[1] = @"password";
+    v28[0] = dCopy;
+    v28[1] = passwordCopy;
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:2];
     v15 = [v12 messageWithName:@"HM.wiFiPicker.JoinNetworkMessage" destination:v13 payload:v14];
 
-    v22 = MEMORY[0x1E69E9820];
-    v23 = 3221225472;
-    v24 = __77__HMAccessoryWiFiController__associateToNetworkWithSSID_password_completion___block_invoke;
-    v25 = &unk_1E754DE00;
+    v21 = MEMORY[0x1E69E9820];
+    v22 = 3221225472;
+    v23 = __77__HMAccessoryWiFiController__associateToNetworkWithSSID_password_completion___block_invoke;
+    v24 = &unk_1E754DE00;
     selfCopy = self;
-    v27 = completionCopy;
-    [v15 setResponseHandler:&v22];
-    v16 = [(_HMContext *)v11 messageDispatcher:v22];
+    v26 = completionCopy;
+    [v15 setResponseHandler:&v21];
+    v16 = [(_HMContext *)v11 messageDispatcher:v21];
     [v16 sendMessage:v15];
   }
 
@@ -131,16 +129,14 @@ void __68__HMAccessoryWiFiController__queryCurrentWiFiNetworkWithCompletion___bl
     {
       v20 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v31 = v20;
-      v32 = 2080;
-      v33 = "[HMAccessoryWiFiController _associateToNetworkWithSSID:password:completion:]";
+      v30 = v20;
+      v31 = 2080;
+      v32 = "[HMAccessoryWiFiController _associateToNetworkWithSSID:password:completion:]";
       _os_log_impl(&dword_19BB39000, v19, OS_LOG_TYPE_ERROR, "%{public}@Nil context - %s", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v17);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __77__HMAccessoryWiFiController__associateToNetworkWithSSID_password_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -187,7 +183,7 @@ void __77__HMAccessoryWiFiController__associateToNetworkWithSSID_password_comple
 
 - (void)_scanAvailableNetworksWithCompletion:(id)completion
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v5 = self->_context;
   if (v5)
@@ -196,14 +192,14 @@ void __77__HMAccessoryWiFiController__associateToNetworkWithSSID_password_comple
     v7 = [objc_alloc(MEMORY[0x1E69A2A00]) initWithTarget:self->_messageTargetUUID];
     v8 = [v6 messageWithName:@"HM.wiFiPicker.ScanNetworksMessage" destination:v7 payload:0];
 
-    v15 = MEMORY[0x1E69E9820];
-    v16 = 3221225472;
-    v17 = __66__HMAccessoryWiFiController__scanAvailableNetworksWithCompletion___block_invoke;
-    v18 = &unk_1E754DE00;
+    v14 = MEMORY[0x1E69E9820];
+    v15 = 3221225472;
+    v16 = __66__HMAccessoryWiFiController__scanAvailableNetworksWithCompletion___block_invoke;
+    v17 = &unk_1E754DE00;
     selfCopy = self;
-    v20 = completionCopy;
-    [v8 setResponseHandler:&v15];
-    v9 = [(_HMContext *)v5 messageDispatcher:v15];
+    v19 = completionCopy;
+    [v8 setResponseHandler:&v14];
+    v9 = [(_HMContext *)v5 messageDispatcher:v14];
     [v9 sendMessage:v8];
   }
 
@@ -216,21 +212,19 @@ void __77__HMAccessoryWiFiController__associateToNetworkWithSSID_password_comple
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v22 = v13;
-      v23 = 2080;
-      v24 = "[HMAccessoryWiFiController _scanAvailableNetworksWithCompletion:]";
+      v21 = v13;
+      v22 = 2080;
+      v23 = "[HMAccessoryWiFiController _scanAvailableNetworksWithCompletion:]";
       _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_ERROR, "%{public}@Nil context - %s", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __66__HMAccessoryWiFiController__scanAvailableNetworksWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -239,34 +233,34 @@ void __66__HMAccessoryWiFiController__scanAvailableNetworksWithCompletion___bloc
     v8 = [v6 hmf_dataForKey:@"networks"];
     if (v8)
     {
-      v29 = v5;
-      v37 = 0;
-      v9 = [MEMORY[0x1E696ACD0] unarchivedArrayOfObjectsOfClass:objc_opt_class() fromData:v8 error:&v37];
-      v10 = v37;
+      v28 = v5;
+      v36 = 0;
+      v9 = [MEMORY[0x1E696ACD0] unarchivedArrayOfObjectsOfClass:objc_opt_class() fromData:v8 error:&v36];
+      v10 = v36;
+      v32 = 0u;
       v33 = 0u;
       v34 = 0u;
       v35 = 0u;
-      v36 = 0u;
       v11 = v9;
-      v12 = [v11 countByEnumeratingWithState:&v33 objects:v43 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v32 objects:v42 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v34;
+        v14 = *v33;
         do
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v34 != v14)
+            if (*v33 != v14)
             {
               objc_enumerationMutation(v11);
             }
 
-            v16 = [*(*(&v33 + 1) + 8 * i) copy];
+            v16 = [*(*(&v32 + 1) + 8 * i) copy];
             [v7 addObject:v16];
           }
 
-          v13 = [v11 countByEnumeratingWithState:&v33 objects:v43 count:16];
+          v13 = [v11 countByEnumeratingWithState:&v32 objects:v42 count:16];
         }
 
         while (v13);
@@ -274,15 +268,15 @@ void __66__HMAccessoryWiFiController__scanAvailableNetworksWithCompletion___bloc
 
       v17 = [*(a1 + 32) context];
       v18 = [v17 delegateCaller];
-      v30[0] = MEMORY[0x1E69E9820];
-      v30[1] = 3221225472;
-      v30[2] = __66__HMAccessoryWiFiController__scanAvailableNetworksWithCompletion___block_invoke_2_26;
-      v30[3] = &unk_1E754E458;
-      v32 = *(a1 + 40);
-      v31 = v7;
-      [v18 invokeBlock:v30];
+      v29[0] = MEMORY[0x1E69E9820];
+      v29[1] = 3221225472;
+      v29[2] = __66__HMAccessoryWiFiController__scanAvailableNetworksWithCompletion___block_invoke_2_26;
+      v29[3] = &unk_1E754E458;
+      v31 = *(a1 + 40);
+      v30 = v7;
+      [v18 invokeBlock:v29];
 
-      v5 = v29;
+      v5 = v28;
     }
 
     else
@@ -296,9 +290,9 @@ void __66__HMAccessoryWiFiController__scanAvailableNetworksWithCompletion___bloc
         {
           v24 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v45 = v24;
-          v46 = 2112;
-          v47 = 0;
+          v44 = v24;
+          v45 = 2112;
+          v46 = 0;
           _os_log_impl(&dword_19BB39000, v23, OS_LOG_TYPE_ERROR, "%{public}@Encoded networks are nil: %@", buf, 0x16u);
         }
 
@@ -313,14 +307,14 @@ void __66__HMAccessoryWiFiController__scanAvailableNetworksWithCompletion___bloc
 
       v26 = [v25 context];
       v27 = [v26 delegateCaller];
-      v38[0] = MEMORY[0x1E69E9820];
-      v38[1] = 3221225472;
-      v38[2] = __66__HMAccessoryWiFiController__scanAvailableNetworksWithCompletion___block_invoke_22;
-      v38[3] = &unk_1E754E430;
-      v39 = *(a1 + 40);
-      [v27 invokeBlock:v38];
+      v37[0] = MEMORY[0x1E69E9820];
+      v37[1] = 3221225472;
+      v37[2] = __66__HMAccessoryWiFiController__scanAvailableNetworksWithCompletion___block_invoke_22;
+      v37[3] = &unk_1E754E430;
+      v38 = *(a1 + 40);
+      [v27 invokeBlock:v37];
 
-      v10 = v39;
+      v10 = v38;
     }
   }
 
@@ -328,18 +322,16 @@ void __66__HMAccessoryWiFiController__scanAvailableNetworksWithCompletion___bloc
   {
     v19 = [*(a1 + 32) context];
     v20 = [v19 delegateCaller];
-    v40[0] = MEMORY[0x1E69E9820];
-    v40[1] = 3221225472;
-    v40[2] = __66__HMAccessoryWiFiController__scanAvailableNetworksWithCompletion___block_invoke_2;
-    v40[3] = &unk_1E754E458;
-    v42 = *(a1 + 40);
-    v41 = v5;
-    [v20 invokeBlock:v40];
+    v39[0] = MEMORY[0x1E69E9820];
+    v39[1] = 3221225472;
+    v39[2] = __66__HMAccessoryWiFiController__scanAvailableNetworksWithCompletion___block_invoke_2;
+    v39[3] = &unk_1E754E458;
+    v41 = *(a1 + 40);
+    v40 = v5;
+    [v20 invokeBlock:v39];
 
-    v7 = v42;
+    v7 = v41;
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void __66__HMAccessoryWiFiController__scanAvailableNetworksWithCompletion___block_invoke_22(uint64_t a1)

@@ -5,6 +5,7 @@
 - (id)_setupDatabaseConnectionFromURL:(id)l error:(id *)error;
 - (void)cancelTreeConsistencyCheck;
 - (void)checkRecursiveChildItemCountFromURLWrapper:(id)wrapper qualityOfService:(int64_t)service reply:(id)reply;
+- (void)checkTreeConsistencyWithDatabaseURL:(id)l rootURLWrappers:(id)wrappers fileChecksumRatePerThousand:(unsigned int)thousand packageChecksumRatePerThousand:(unsigned int)perThousand maxEventsCount:(unsigned int)count forZoneRowIDs:(id)ds reply:(id)reply;
 - (void)pauseTreeConsistencyCheck;
 - (void)resumeTreeConsistencyCheckWithReply:(id)reply;
 @end
@@ -57,6 +58,71 @@
   v12 = v9;
   [(BRDiskCheckerCountDocumentsOperation *)v10 setCountFolderShareItemsCompletionBlock:&v13];
   [(NSOperationQueue *)self->_childCountQueue addOperation:v10, v13, v14, v15, v16];
+}
+
+- (void)checkTreeConsistencyWithDatabaseURL:(id)l rootURLWrappers:(id)wrappers fileChecksumRatePerThousand:(unsigned int)thousand packageChecksumRatePerThousand:(unsigned int)perThousand maxEventsCount:(unsigned int)count forZoneRowIDs:(id)ds reply:(id)reply
+{
+  v10 = *&count;
+  v11 = *&perThousand;
+  v12 = *&thousand;
+  lCopy = l;
+  wrappersCopy = wrappers;
+  dsCopy = ds;
+  replyCopy = reply;
+  v17 = [lCopy url];
+  LODWORD(ds) = [v17 startAccessingSecurityScopedResource];
+  v31 = 0;
+  v18 = [(BRDiskCheckerService *)self _setupDatabaseConnectionFromURL:v17 error:&v31];
+  v19 = v31;
+  if (ds)
+  {
+    [v17 stopAccessingSecurityScopedResource];
+  }
+
+  if (v18)
+  {
+    if ([(BRDiskCheckerService *)self _isActiveJobsInDB:v18 inZones:dsCopy])
+    {
+      v20 = brc_bread_crumbs();
+      v21 = brc_default_log();
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138412290;
+        v33 = v20;
+        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "[WARNING] Not checking telemetry because we have active jobs%@", buf, 0xCu);
+      }
+
+      v22 = +[NSError brc_errorItemChanged];
+      (*(replyCopy + 2))(replyCopy, 0, 0, v22);
+    }
+
+    else
+    {
+      v23 = [[BRDiskCheckerValidateTreeConsistencyOperation alloc] initWithDatabase:v18 rootURLWrappers:wrappersCopy fileChecksumRatePerThousand:v12 packageChecksumRatePerThousand:v11 maxEventCount:v10];
+      objc_initWeak(buf, v23);
+      v27[0] = _NSConcreteStackBlock;
+      v27[1] = 3221225472;
+      v27[2] = sub_100005574;
+      v27[3] = &unk_1000104D0;
+      objc_copyWeak(&v30, buf);
+      v29 = replyCopy;
+      v28 = v18;
+      [(BRDiskCheckerValidateTreeConsistencyOperation *)v23 setCheckTelemetryCompletionBlock:v27];
+      v24 = qword_100015698;
+      objc_sync_enter(v24);
+      [qword_100015698 addObject:v23];
+      objc_sync_exit(v24);
+
+      [(NSOperationQueue *)self->_treeCheckQueue addOperation:v23];
+      objc_destroyWeak(&v30);
+      objc_destroyWeak(buf);
+    }
+  }
+
+  else
+  {
+    (*(replyCopy + 2))(replyCopy, 0, 0, v19);
+  }
 }
 
 - (void)pauseTreeConsistencyCheck

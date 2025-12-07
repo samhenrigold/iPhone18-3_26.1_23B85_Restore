@@ -21,11 +21,11 @@
 
 - (RTTripClusterRouteEnumerationContext)initWithEnumerationOptions:(id)options offset:(unint64_t)offset
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
-  v17.receiver = self;
-  v17.super_class = RTTripClusterRouteEnumerationContext;
-  v7 = [(RTTripClusterRouteEnumerationContext *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = RTTripClusterRouteEnumerationContext;
+  v7 = [(RTTripClusterRouteEnumerationContext *)&v16 init];
   if (v7)
   {
     v8 = optionsCopy ? optionsCopy : objc_opt_new();
@@ -43,15 +43,14 @@
         clusterID = [(RTTripClusterRouteEnumerationOptions *)v7->_options clusterID];
         uUIDString = [clusterID UUIDString];
         *buf = 138412546;
-        v19 = v12;
-        v20 = 2112;
-        v21 = uUIDString;
+        v18 = v12;
+        v19 = 2112;
+        v20 = uUIDString;
         _os_log_impl(&dword_1BF1C4000, v10, OS_LOG_TYPE_INFO, "%@,Initialized context with options clusterID,%@", buf, 0x16u);
       }
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

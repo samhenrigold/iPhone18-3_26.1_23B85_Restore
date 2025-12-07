@@ -369,7 +369,7 @@ LABEL_15:
             v23 = v22;
           }
 
-          [(SBIdleTimerDescriptor *)disabledIdleTimerDescriptor setTotalInterval:v23, *v28, *&v28[16], v29];
+          [(SBIdleTimerDescriptor *)disabledIdleTimerDescriptor setTotalInterval:v23, *v28, *&v28[8], v29];
         }
 
         else
@@ -474,20 +474,20 @@ LABEL_43:
     v9 = v8;
     if (BSFloatLessThanOrEqualToFloat())
     {
-      [timeoutCopy setTotalInterval:v9];
-      v10 = @"MCFeatureAutoLockTime (%@) is lte MAX (%@)";
+      v10 = [timeoutCopy setTotalInterval:v9];
+      v11 = @"MCFeatureAutoLockTime (%@) is lte MAX (%@)";
     }
 
     else
     {
       [timeoutCopy setTotalInterval:1.79769313e308];
-      [timeoutCopy setWarnInterval:1.79769313e308];
-      v10 = @"MCFeatureAutoLockTime (%@) is gt MAX (%@)";
+      v10 = [timeoutCopy setWarnInterval:1.79769313e308];
+      v11 = @"MCFeatureAutoLockTime (%@) is gt MAX (%@)";
     }
 
-    currentDevice = SBIdleTimerIntervalToNSString(v9);
-    v13 = SBIdleTimerIntervalToNSString(3600.0);
-    [timeoutCopy addAuditReason:{v10, currentDevice, v13}];
+    currentDevice = SBIdleTimerIntervalToNSString(v10, v9);
+    v14 = SBIdleTimerIntervalToNSString(currentDevice, 3600.0);
+    [timeoutCopy addAuditReason:{v11, currentDevice, v14}];
 
 LABEL_19:
     goto LABEL_20;
@@ -495,52 +495,54 @@ LABEL_19:
 
   if (__sb__runningInSpringBoard())
   {
-    v11 = SBFEffectiveDeviceClass();
-    v12 = 60.0;
-    if (v11 == 2)
+    v12 = SBFEffectiveDeviceClass();
+    v13 = 60.0;
+    if (v12 == 2)
     {
-      v12 = 300.0;
+      v13 = 300.0;
     }
 
-    [timeoutCopy setTotalInterval:v12];
+    [timeoutCopy setTotalInterval:v13];
   }
 
   else
   {
     currentDevice = [MEMORY[0x277D75418] currentDevice];
     userInterfaceIdiom = [currentDevice userInterfaceIdiom];
-    v15 = 60.0;
+    v16 = 60.0;
     if (userInterfaceIdiom == 1)
     {
-      v15 = 300.0;
+      v16 = 300.0;
     }
 
-    [timeoutCopy setTotalInterval:v15];
+    [timeoutCopy setTotalInterval:v16];
   }
 
-  v16 = __sb__runningInSpringBoard();
-  v17 = v16;
-  if (v16)
+  v17 = __sb__runningInSpringBoard();
+  v18 = v17;
+  if (v17)
   {
-    v18 = SBFEffectiveDeviceClass() == 2;
+    userInterfaceIdiom2 = SBFEffectiveDeviceClass();
+    v20 = userInterfaceIdiom2 == 2;
   }
 
   else
   {
     currentDevice = [MEMORY[0x277D75418] currentDevice];
-    v18 = [currentDevice userInterfaceIdiom] == 1;
+    userInterfaceIdiom2 = [currentDevice userInterfaceIdiom];
+    v20 = userInterfaceIdiom2 == 1;
   }
 
-  v19 = 60.0;
-  if (v18)
+  v21 = 60.0;
+  if (v20)
   {
-    v19 = 300.0;
+    v21 = 300.0;
   }
 
-  v20 = SBIdleTimerIntervalToNSString(v19);
-  [timeoutCopy addAuditReason:{@"ERROR: MCFeatureAutoLockTime is <nil>; setting totalInterval to DEFAULT: %@", v20}];
+  v22 = SBIdleTimerIntervalToNSString(userInterfaceIdiom2, v21);
+  [timeoutCopy addAuditReason:{@"ERROR: MCFeatureAutoLockTime is <nil>; setting totalInterval to DEFAULT: %@", v22}];
 
-  if ((v17 & 1) == 0)
+  if ((v18 & 1) == 0)
   {
     goto LABEL_19;
   }
@@ -573,20 +575,20 @@ LABEL_20:
       {
         if (BSFloatLessThanOrEqualToFloat())
         {
-          [configurationCopy setTotalInterval:v14];
-          v17 = @"MinExpirationTimeoutFromService (%@) is lte MAX_TOTAL_INTERVAL (%@)";
+          v17 = [configurationCopy setTotalInterval:v14];
+          v18 = @"MinExpirationTimeoutFromService (%@) is lte MAX_TOTAL_INTERVAL (%@)";
         }
 
         else
         {
           [configurationCopy setTotalInterval:1.79769313e308];
-          [configurationCopy setWarnInterval:1.79769313e308];
-          v17 = @"MinExpirationTimeoutFromService (%@) is gt MAX_TOTAL_INTERVAL (%@)";
+          v17 = [configurationCopy setWarnInterval:1.79769313e308];
+          v18 = @"MinExpirationTimeoutFromService (%@) is gt MAX_TOTAL_INTERVAL (%@)";
         }
 
-        v18 = SBIdleTimerIntervalToNSString(v14);
-        v19 = SBIdleTimerIntervalToNSString(3600.0);
-        [configurationCopy addAuditReason:{v17, v18, v19}];
+        v19 = SBIdleTimerIntervalToNSString(v17, v14);
+        v20 = SBIdleTimerIntervalToNSString(v19, 3600.0);
+        [configurationCopy addAuditReason:{v18, v19, v20}];
 
         v10 = 1;
       }
@@ -594,19 +596,20 @@ LABEL_20:
       [configurationCopy totalInterval];
       if (maxExpirationTimeoutSettings)
       {
-        v21 = v20;
+        v22 = v21;
         if (BSFloatGreaterThanFloat())
         {
           [configurationCopy setTotalInterval:v16];
-          if ([configurationCopy timerMode] == 3)
+          timerMode = [configurationCopy timerMode];
+          if (timerMode == 3)
           {
-            [configurationCopy setWarnInterval:v21 * 0.666666667];
-            [configurationCopy setTimerMode:1];
+            [configurationCopy setWarnInterval:v22 * 0.666666667];
+            timerMode = [configurationCopy setTimerMode:1];
           }
 
-          v22 = SBIdleTimerIntervalToNSString(v14);
-          v23 = SBIdleTimerIntervalToNSString(3600.0);
-          [configurationCopy addAuditReason:{@"MaxExpirationTimeoutFromService", v22, v23}];
+          v24 = SBIdleTimerIntervalToNSString(timerMode, v14);
+          v25 = SBIdleTimerIntervalToNSString(v24, 3600.0);
+          [configurationCopy addAuditReason:{@"MaxExpirationTimeoutFromService", v24, v25}];
 
           v10 = 1;
         }
@@ -792,24 +795,25 @@ LABEL_20:
       [setupCopy setWarnInterval:v17];
     }
 
-    if ([setupCopy timerMode] != 3)
+    timerMode = [setupCopy timerMode];
+    if (timerMode != 3)
     {
-      [setupCopy setTimerMode:1];
+      timerMode = [setupCopy setTimerMode:1];
     }
 
-    v18 = SBIdleTimerIntervalToNSString(v5);
-    v19 = SBIdleTimerIntervalToNSString(v7);
-    [setupCopy addAuditReason:{@"totalInterval (%@) and/or warnInterval (%@) is not sane", v18, v19}];
+    v19 = SBIdleTimerIntervalToNSString(timerMode, v5);
+    v20 = SBIdleTimerIntervalToNSString(v19, v7);
+    [setupCopy addAuditReason:{@"totalInterval (%@) and/or warnInterval (%@) is not sane", v19, v20}];
 
-    v20 = 1;
+    v21 = 1;
   }
 
   else
   {
-    v20 = 0;
+    v21 = 0;
   }
 
-  return v20;
+  return v21;
 }
 
 - (BOOL)sanitizeTotalDuration:(id)duration
@@ -829,24 +833,24 @@ LABEL_20:
         v8 = 300.0;
       }
 
-      [durationCopy setTotalInterval:v8];
+      v9 = [durationCopy setTotalInterval:v8];
     }
 
     else
     {
       currentDevice = [MEMORY[0x277D75418] currentDevice];
       userInterfaceIdiom = [currentDevice userInterfaceIdiom];
-      v11 = 60.0;
+      v12 = 60.0;
       if (userInterfaceIdiom == 1)
       {
-        v11 = 300.0;
+        v12 = 300.0;
       }
 
-      [durationCopy setTotalInterval:v11];
+      [durationCopy setTotalInterval:v12];
     }
 
-    v12 = SBIdleTimerIntervalToNSString(v5);
-    [durationCopy addAuditReason:{@"totalInterval (%@) is float equals to 0", v12}];
+    v13 = SBIdleTimerIntervalToNSString(v9, v5);
+    [durationCopy addAuditReason:{@"totalInterval (%@) is float equals to 0", v13}];
   }
 
   return IsZero;
@@ -869,24 +873,24 @@ LABEL_20:
         v8 = 280.0;
       }
 
-      [intervalCopy setWarnInterval:v8];
+      v9 = [intervalCopy setWarnInterval:v8];
     }
 
     else
     {
       currentDevice = [MEMORY[0x277D75418] currentDevice];
       userInterfaceIdiom = [currentDevice userInterfaceIdiom];
-      v11 = 40.0;
+      v12 = 40.0;
       if (userInterfaceIdiom == 1)
       {
-        v11 = 280.0;
+        v12 = 280.0;
       }
 
-      [intervalCopy setWarnInterval:v11];
+      [intervalCopy setWarnInterval:v12];
     }
 
-    v12 = SBIdleTimerIntervalToNSString(v5);
-    [intervalCopy addAuditReason:{@"warnInterval (%@) is float equals to 0", v12}];
+    v13 = SBIdleTimerIntervalToNSString(v9, v5);
+    [intervalCopy addAuditReason:{@"warnInterval (%@) is float equals to 0", v13}];
   }
 
   return IsZero;
@@ -944,8 +948,7 @@ LABEL_20:
 
   else if (BSFloatLessThanOrEqualToFloat())
   {
-    [setupCopy setWarnInterval:1.79769313e308];
-    v13 = SBIdleTimerIntervalToNSString(v12);
+    v13 = SBIdleTimerIntervalToNSString([setupCopy setWarnInterval:1.79769313e308], v12);
     [setupCopy addAuditReason:{@"after setup, warnInterval was %@", v13}];
   }
 
@@ -996,8 +999,7 @@ LABEL_20:
       v8 = v6;
     }
 
-    [defaultsCopy setTotalInterval:v8];
-    v9 = SBIdleTimerIntervalToNSString(v6);
+    v9 = SBIdleTimerIntervalToNSString([defaultsCopy setTotalInterval:v8], v6);
     [defaultsCopy addAuditReason:{@"totalInterval (%@) is gte 0", v9}];
   }
 
@@ -1104,8 +1106,7 @@ LABEL_20:
   {
     if ([(SBIdleTimerDescriptorFactory *)self _isIdleDurationForever:v9])
     {
-      [timeoutsCopy setTotalInterval:1.79769313e308];
-      v11 = SBIdleTimerIntervalToNSString(v9);
+      v11 = SBIdleTimerIntervalToNSString([timeoutsCopy setTotalInterval:1.79769313e308], v9);
       [timeoutsCopy addAuditReason:{@"customIdleExpirationTimeout (%@) lt 0", v11}];
     }
 
@@ -1130,8 +1131,7 @@ LABEL_15:
     {
       if ([(SBIdleTimerDescriptorFactory *)self _isIdleDurationForever:v14])
       {
-        [timeoutsCopy setWarnInterval:1.79769313e308];
-        v15 = SBIdleTimerIntervalToNSString(v14);
+        v15 = SBIdleTimerIntervalToNSString([timeoutsCopy setWarnInterval:1.79769313e308], v14);
         [timeoutsCopy addAuditReason:{@"customIdleWarningTimeout (%@) lt 0", v15}];
       }
 
@@ -1190,20 +1190,20 @@ LABEL_16:
       v11 = v10;
     }
 
-    [mesaCopy setTotalInterval:v11];
-    v12 = SBIdleTimerIntervalToNSString(v10);
-    if (_AXSAttentionAwarenessFeaturesEnabled())
+    v12 = SBIdleTimerIntervalToNSString([mesaCopy setTotalInterval:v11], v10);
+    v13 = _AXSAttentionAwarenessFeaturesEnabled();
+    if (v13)
     {
-      v13 = 26.0;
+      v14 = 26.0;
     }
 
     else
     {
-      v13 = 30.0;
+      v14 = 30.0;
     }
 
-    v14 = SBIdleTimerIntervalToNSString(v13);
-    [mesaCopy addAuditReason:{@"sbIsActive and mesaEnabled are YES; calculating totalInterval as half (%@) or MIN_TOTAL_INTERVAL_HOMESCREEN_MESA (%@), whichever is greater", v12, v14}];
+    v15 = SBIdleTimerIntervalToNSString(v13, v14);
+    [mesaCopy addAuditReason:{@"sbIsActive and mesaEnabled are YES; calculating totalInterval as half (%@) or MIN_TOTAL_INTERVAL_HOMESCREEN_MESA (%@), whichever is greater", v12, v15}];
   }
 
   return v8;
@@ -1252,14 +1252,15 @@ LABEL_16:
 
     [modeCopy setTotalInterval:v11];
     [modeCopy setWarnInterval:v12];
-    if ([modeCopy timerMode] == 3)
+    timerMode = [modeCopy timerMode];
+    if (timerMode == 3)
     {
-      [modeCopy setTimerMode:1];
+      timerMode = [modeCopy setTimerMode:1];
     }
 
-    v14 = SBIdleTimerIntervalToNSString(30.0);
-    v15 = SBIdleTimerIntervalToNSString(10.0);
-    [modeCopy addAuditReason:{@"thermally blocked - applying max total interval: %@ and max warn interval: %@ thermal block limits", v14, v15}];
+    v15 = SBIdleTimerIntervalToNSString(timerMode, 30.0);
+    v16 = SBIdleTimerIntervalToNSString(v15, 10.0);
+    [modeCopy addAuditReason:{@"thermally blocked - applying max total interval: %@ and max warn interval: %@ thermal block limits", v15, v16}];
   }
 
   return isThermalBlocked;
@@ -1305,9 +1306,8 @@ LABEL_16:
     [modeCopy addAuditReason:@"isBatterySaverModeActive is YES"];
     if (BSFloatLessThanFloat())
     {
-      [modeCopy setWarnInterval:v11 * 0.666666667];
-      v16 = SBIdleTimerIntervalToNSString(v15);
-      v17 = SBIdleTimerIntervalToNSString(10.0);
+      v16 = SBIdleTimerIntervalToNSString([modeCopy setWarnInterval:v11 * 0.666666667], v15);
+      v17 = SBIdleTimerIntervalToNSString(v16, 10.0);
       [modeCopy addAuditReason:{@"isBatterySaverModeActive is YES and warnInterval (%@) lt MAX_WARNING_INTERVAL_DELTA_BATTERY_SAVER (%@)", v16, v17}];
     }
   }
@@ -1343,16 +1343,14 @@ LABEL_16:
     if (BSFloatLessThanOrEqualToFloat())
     {
       [intervalCopy setWarnInterval:?];
-      [intervalCopy setQuickUnwarnInterval:totalInterval * 0.666666667 + totalInterval * 0.666666667 * 0.1];
-      v5 = SBIdleTimerIntervalToNSString(totalInterval);
+      v5 = SBIdleTimerIntervalToNSString([intervalCopy setQuickUnwarnInterval:totalInterval * 0.666666667 + totalInterval * 0.666666667 * 0.1], totalInterval);
       [intervalCopy addAuditReason:{@"totalInterval (%@) lte 30; applying factor (%g) to calculate warnInterval", v5, 0x3FE5555555555555}];
     }
 
     else
     {
       [intervalCopy setWarnInterval:?];
-      [intervalCopy setQuickUnwarnInterval:totalInterval + -20.0 + 2.0];
-      v5 = SBIdleTimerIntervalToNSString(totalInterval);
+      v5 = SBIdleTimerIntervalToNSString([intervalCopy setQuickUnwarnInterval:totalInterval + -20.0 + 2.0], totalInterval);
       [intervalCopy addAuditReason:{@"totalInterval (%@) lte 30; subtracting delta (%g) to calculate warnInterval", v5, 0x4034000000000000}];
     }
   }

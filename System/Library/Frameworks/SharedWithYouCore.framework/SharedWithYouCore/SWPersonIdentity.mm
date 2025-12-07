@@ -33,15 +33,16 @@
   hashCopy = hash;
   keysCopy = keys;
   saltCopy = salt;
-  if ([hashCopy length] == 32)
+  v12 = [hashCopy length];
+  if (v12 == 32)
   {
-    v17.receiver = self;
-    v17.super_class = SWPersonIdentity;
-    v12 = [(SWPersonIdentity *)&v17 init];
-    p_isa = &v12->super.isa;
-    if (v12)
+    v18.receiver = self;
+    v18.super_class = SWPersonIdentity;
+    v13 = [(SWPersonIdentity *)&v18 init];
+    p_isa = &v13->super.isa;
+    if (v13)
     {
-      objc_storeStrong(&v12->_rootHash, hash);
+      objc_storeStrong(&v13->_rootHash, hash);
       objc_storeStrong(p_isa + 2, keys);
       objc_storeStrong(p_isa + 3, salt);
     }
@@ -52,11 +53,11 @@
 
   else
   {
-    v15 = SWFrameworkLogHandle();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = SWFrameworkLogHandle(v12);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1D2C1D000, v15, OS_LOG_TYPE_DEFAULT, "SWPersonIdentity's rootHash must be a SHA-256 digest. Return nil from [SWPersonIdentity initWithRootHash:publicKeys:]", buf, 2u);
+      _os_log_impl(&dword_1D2C1D000, v16, OS_LOG_TYPE_DEFAULT, "SWPersonIdentity's rootHash must be a SHA-256 digest. Return nil from [SWPersonIdentity initWithRootHash:publicKeys:]", buf, 2u);
     }
 
     selfCopy = 0;
@@ -240,11 +241,11 @@ LABEL_26:
 
 - (SWPersonIdentity)initWithCoder:(id)coder
 {
-  v23[2] = *MEMORY[0x1E69E9840];
+  v22[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v22.receiver = self;
-  v22.super_class = SWPersonIdentity;
-  v5 = [(SWPersonIdentity *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = SWPersonIdentity;
+  v5 = [(SWPersonIdentity *)&v21 init];
   if (v5)
   {
     v6 = objc_opt_class();
@@ -254,9 +255,9 @@ LABEL_26:
     v5->_rootHash = v8;
 
     v10 = MEMORY[0x1E695DFD8];
-    v23[0] = objc_opt_class();
-    v23[1] = objc_opt_class();
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:2];
+    v22[0] = objc_opt_class();
+    v22[1] = objc_opt_class();
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:2];
     v12 = [v10 setWithArray:v11];
     v13 = NSStringFromSelector(sel_publicKeys);
     v14 = [coderCopy decodeObjectOfClasses:v12 forKey:v13];
@@ -270,7 +271,6 @@ LABEL_26:
     v5->_trackingPreventionSalt = v18;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

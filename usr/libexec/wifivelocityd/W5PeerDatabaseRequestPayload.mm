@@ -40,9 +40,7 @@
     v53 = "[W5PeerDatabaseRequestPayload initWithRequest:]";
     v54 = 2112;
     v55 = requestCopy;
-    LODWORD(v46) = 22;
-    v45 = buf;
-    _os_log_send_and_compose_impl();
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v8, 0, "[wifivelocity] W5PeerDatabaseRequestPayload %s: W5PeerDatabaseRequestPayload dictionary %@", buf, 22);
   }
 
   v9 = [requestCopy objectForKey:@"version"];
@@ -78,7 +76,8 @@ LABEL_41:
           v53 = "[W5PeerDatabaseRequestPayload initWithRequest:]";
           v54 = 2048;
           v55 = v29;
-          _os_log_send_and_compose_impl();
+          LODWORD(v45) = 22;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v28, 0, "[wifivelocity] W5PeerDatabaseRequestPayload %s: Uncompressed fetchRequestData size is %zd", buf, v45);
         }
 
         v30 = objc_opt_class();
@@ -103,7 +102,7 @@ LABEL_41:
     }
   }
 
-  v10 = [requestCopy objectForKey:{@"fetchRequestNSData", v45, v46}];
+  v10 = [requestCopy objectForKey:@"fetchRequestNSData"];
   if (!v10)
   {
 LABEL_30:
@@ -112,7 +111,7 @@ LABEL_30:
     {
       *buf = 136315138;
       v53 = "[W5PeerDatabaseRequestPayload initWithRequest:]";
-      _os_log_send_and_compose_impl();
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, getPairOfBuffersFromPool, 0, "[wifivelocity] W5PeerDatabaseRequestPayload %s: FAILURE to find kW5PeerRequestDatabaseFetchRequestNSDataUncompressedKey or kW5PeerRequestDatabaseFetchRequestNSDataKey", buf);
     }
 
     v11 = 0;
@@ -145,7 +144,8 @@ LABEL_30:
         v55 = v17;
         v56 = 2048;
         v57 = v20;
-        _os_log_send_and_compose_impl();
+        LODWORD(v45) = 32;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v18, 0, "[wifivelocity] W5PeerDatabaseRequestPayload %s: compression_decode_buffer fetchRequestData to Size of %zd, from size %zd", buf, v45, v46);
       }
 
       [fetchRequest setLength:v17];
@@ -173,7 +173,8 @@ LABEL_30:
         v55 = 0;
         v56 = 2048;
         v57 = v33;
-        _os_log_send_and_compose_impl();
+        LODWORD(v45) = 32;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v18, 0, "[wifivelocity] W5PeerDatabaseRequestPayload %s: FAILURE: compression_decode_buffer fetchRequestData to Size of %zd, from size %zd", buf, v45, v46);
       }
 
       v24 = 0;
@@ -200,7 +201,8 @@ LABEL_24:
         v53 = "[W5PeerDatabaseRequestPayload initWithRequest:]";
         v54 = 2048;
         v55 = v38;
-        _os_log_send_and_compose_impl();
+        LODWORD(v45) = 22;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, getPairOfBuffersFromPool, 0, "[wifivelocity] W5PeerDatabaseRequestPayload %s: W5PeerDatabaseRequestPayload sizeof fetchRequest %ld bytes", buf, v45);
       }
 
       v39 = sub_10009A49C();
@@ -219,7 +221,8 @@ LABEL_24:
       v53 = "[W5PeerDatabaseRequestPayload initWithRequest:]";
       v54 = 2112;
       v55 = v24;
-      _os_log_send_and_compose_impl();
+      LODWORD(v45) = 22;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, getPairOfBuffersFromPool, 0, "[wifivelocity] W5PeerDatabaseRequestPayload %s: FAILURE to NSKeyedUnarchiver fetchRequestData error='%@'", buf, v45);
     }
 
     goto LABEL_34;
@@ -230,7 +233,7 @@ LABEL_24:
   {
     *buf = 136315138;
     v53 = "[W5PeerDatabaseRequestPayload initWithRequest:]";
-    _os_log_send_and_compose_impl();
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v44, 0, "[wifivelocity] W5PeerDatabaseRequestPayload %s: FAILURE: getPairOfBuffersFromPool returned less than 2 buffers", buf);
   }
 
 LABEL_33:
@@ -245,7 +248,8 @@ LABEL_35:
     v53 = "[W5PeerDatabaseRequestPayload initWithRequest:]";
     v54 = 2112;
     v55 = v24;
-    _os_log_send_and_compose_impl();
+    LODWORD(v45) = 22;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v41, 0, "[wifivelocity] W5PeerDatabaseRequestPayload %s: init error (error='%@'", buf, v45);
   }
 
   v39 = sub_10009A49C();
@@ -282,8 +286,8 @@ LABEL_40:
     if (os_log_type_enabled(getPairOfBuffersFromPool, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v40 = "[W5PeerDatabaseRequestPayload encode]";
-      _os_log_send_and_compose_impl();
+      v38 = "[W5PeerDatabaseRequestPayload encode]";
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, getPairOfBuffersFromPool, 0, "[wifivelocity] W5PeerDatabaseRequestPayload %s: FAILURE: bad version", buf);
     }
 
     v8 = 0;
@@ -295,9 +299,9 @@ LABEL_40:
   [v4 setObject:version forKey:@"version"];
 
   fetchRequest = [(W5PeerDatabaseRequestPayload *)self fetchRequest];
-  v38 = 0;
-  v8 = [NSKeyedArchiver archivedDataWithRootObject:fetchRequest requiringSecureCoding:1 error:&v38];
-  v9 = v38;
+  v36 = 0;
+  v8 = [NSKeyedArchiver archivedDataWithRootObject:fetchRequest requiringSecureCoding:1 error:&v36];
+  v9 = v36;
 
   if (!v8)
   {
@@ -305,10 +309,10 @@ LABEL_40:
     if (os_log_type_enabled(getPairOfBuffersFromPool, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v40 = "[W5PeerDatabaseRequestPayload encode]";
-      v41 = 2112;
-      v42 = v9;
-      _os_log_send_and_compose_impl();
+      v38 = "[W5PeerDatabaseRequestPayload encode]";
+      v39 = 2112;
+      v40 = v9;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, getPairOfBuffersFromPool, 0, "[wifivelocity] W5PeerDatabaseRequestPayload %s: FAILURE to NSKeyedArchiver fetchRequest with error='%@'", buf, 22);
     }
 
     v8 = 0;
@@ -334,14 +338,14 @@ LABEL_6:
         if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315138;
-          v40 = "[W5PeerDatabaseRequestPayload encode]";
-          _os_log_send_and_compose_impl();
+          v38 = "[W5PeerDatabaseRequestPayload encode]";
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v31, 0, "[wifivelocity] W5PeerDatabaseRequestPayload %s: FAILURE: getPairOfBuffersFromPool returned less than 2 buffers", buf);
         }
 
         goto LABEL_31;
       }
 
-      v37 = v9;
+      v35 = v9;
       v12 = v3;
       firstObject = [getPairOfBuffersFromPool firstObject];
       lastObject = [getPairOfBuffersFromPool lastObject];
@@ -355,14 +359,12 @@ LABEL_6:
         {
           v18 = [v8 length];
           *buf = 136315650;
-          v40 = "[W5PeerDatabaseRequestPayload encode]";
+          v38 = "[W5PeerDatabaseRequestPayload encode]";
+          v39 = 2048;
+          v40 = v15;
           v41 = 2048;
-          v42 = v15;
-          v43 = 2048;
-          v44 = v18;
-          LODWORD(v36) = 32;
-          v35 = buf;
-          _os_log_send_and_compose_impl();
+          v42 = v18;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v16, 0, "[wifivelocity] W5PeerDatabaseRequestPayload %s: compression_encode_buffer fetchRequestData to Size of %zd, original fetchRequestData.length %zd", buf, 32, v35);
         }
 
         v16 = +[NSData dataWithBytes:length:](NSData, "dataWithBytes:length:", [firstObject mutableBytes], v15);
@@ -375,16 +377,14 @@ LABEL_6:
         v22 = [firstObject length];
         v23 = [lastObject length];
         *buf = 136315906;
-        v40 = "[W5PeerDatabaseRequestPayload encode]";
+        v38 = "[W5PeerDatabaseRequestPayload encode]";
+        v39 = 2048;
+        v40 = v21;
         v41 = 2048;
-        v42 = v21;
+        v42 = v22;
         v43 = 2048;
-        v44 = v22;
-        v45 = 2048;
-        v46 = v23;
-        LODWORD(v36) = 42;
-        v35 = buf;
-        _os_log_send_and_compose_impl();
+        v44 = v23;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v16, 0, "[wifivelocity] W5PeerDatabaseRequestPayload %s: FAILURE: compression_encode_buffer to compress fetchRequestData %zd into size %zd with scratch size %zd", buf, 42, v35, v36);
       }
 
       v24 = +[W5BufferPool sharedW5BufferPool];
@@ -394,7 +394,7 @@ LABEL_6:
       [v25 returnBufferToPool:lastObject];
 
       v3 = v12;
-      v9 = v37;
+      v9 = v35;
       goto LABEL_19;
     }
 
@@ -403,19 +403,17 @@ LABEL_6:
     {
       v20 = [v8 length];
       *buf = 136315394;
-      v40 = "[W5PeerDatabaseRequestPayload encode]";
-      v41 = 2048;
-      v42 = v20;
-      LODWORD(v36) = 22;
-      v35 = buf;
-      _os_log_send_and_compose_impl();
+      v38 = "[W5PeerDatabaseRequestPayload encode]";
+      v39 = 2048;
+      v40 = v20;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v19, 0, "[wifivelocity] W5PeerDatabaseRequestPayload %s: Uncompressed fetchRequestData to size %zd", buf, 22);
     }
 
     [v4 setObject:v8 forKey:@"fetchRequestNSDataUncompressed"];
   }
 
 LABEL_19:
-  v26 = [v4 objectForKeyedSubscript:{@"fetchRequestNSData", v35, v36}];
+  v26 = [v4 objectForKeyedSubscript:@"fetchRequestNSData"];
   if (v26)
   {
 
@@ -442,8 +440,8 @@ LABEL_22:
   if (os_log_type_enabled(getPairOfBuffersFromPool, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v40 = "[W5PeerDatabaseRequestPayload encode]";
-    _os_log_send_and_compose_impl();
+    v38 = "[W5PeerDatabaseRequestPayload encode]";
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, getPairOfBuffersFromPool, 0, "[wifivelocity] W5PeerDatabaseRequestPayload %s: Failed to form kW5PeerRequestDatabaseFetchRequestNSDataKey or kW5PeerRequestDatabaseFetchRequestNSDataUncompressedKey", buf);
   }
 
 LABEL_31:

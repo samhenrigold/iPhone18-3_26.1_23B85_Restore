@@ -128,7 +128,7 @@ uint64_t __33___MKOverlayTileRequester_cancel__block_invoke(uint64_t a1)
   return [*(a1 + 32) _cleanup];
 }
 
-uint64_t __36___MKOverlayTileRequester_isRunning__block_invoke(uint64_t a1)
+void *__36___MKOverlayTileRequester_isRunning__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 72) count];
   if (result)

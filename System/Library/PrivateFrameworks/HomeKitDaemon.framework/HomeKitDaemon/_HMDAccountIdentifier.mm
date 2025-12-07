@@ -102,7 +102,7 @@
     v5 = [(_HMDAccountIdentifier *)&v10 init];
     if (v5)
     {
-      v6 = [identifierCopy copy];
+      v6 = objc_msgSend_copy(identifierCopy);
       identifier = v5->_identifier;
       v5->_identifier = v6;
     }

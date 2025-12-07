@@ -4,6 +4,7 @@
 - (void)handleEstablishIPC;
 - (void)handleEstablishIPCReplySent;
 - (void)handlePlugin:(id)plugin didAttachIPCWithEndpoint:(id)endpoint;
+- (void)handlePlugin:(id)plugin didStartWithPID:(int)d error:(id)error;
 - (void)handlePluginDidDetachIPC:(id)c;
 - (void)handlePluginDisposeComplete:(id)complete;
 - (void)handleStartMessage:(id)message;
@@ -209,6 +210,136 @@ LABEL_15:
   [(NESMVPNSessionState *)&v4 handlePlugin:plugin didAttachIPCWithEndpoint:endpoint];
 }
 
+- (void)handlePlugin:(id)plugin didStartWithPID:(int)d error:(id)error
+{
+  v6 = *&d;
+  pluginCopy = plugin;
+  v31.receiver = self;
+  v31.super_class = NESMVPNSessionStateIdleIPC;
+  [(NESMVPNSessionState *)&v31 handlePlugin:pluginCopy didStartWithPID:v6 error:error];
+  if (v6 < 1)
+  {
+    if (self)
+    {
+      Property = objc_getProperty(self, v9, 16, 1);
+    }
+
+    else
+    {
+      Property = 0;
+    }
+
+    if ([Property establishIPCPending])
+    {
+      v19 = ne_log_obj();
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      {
+        if (self)
+        {
+          v21 = objc_getProperty(self, v20, 16, 1);
+        }
+
+        else
+        {
+          v21 = 0;
+        }
+
+        v22 = objc_opt_class();
+        v23 = NSStringFromClass(v22);
+        *buf = 138412546;
+        v33 = v21;
+        v34 = 2112;
+        v35 = v23;
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "%@ in state %@: plugin failed to start, cannot attach IPC", buf, 0x16u);
+      }
+
+      if (self)
+      {
+        v25 = objc_getProperty(self, v24, 16, 1);
+      }
+
+      else
+      {
+        v25 = 0;
+      }
+
+      [v25 sendEstablishIPCReply];
+    }
+  }
+
+  else
+  {
+    if (self)
+    {
+      v10 = objc_getProperty(self, v9, 16, 1);
+    }
+
+    else
+    {
+      v10 = 0;
+    }
+
+    v11 = [v10 shouldSendIPCAttachForPlugin:pluginCopy];
+    v12 = ne_log_obj();
+    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+    if (v11)
+    {
+      if (v13)
+      {
+        if (self)
+        {
+          v15 = objc_getProperty(self, v14, 16, 1);
+        }
+
+        else
+        {
+          v15 = 0;
+        }
+
+        v16 = objc_opt_class();
+        v17 = NSStringFromClass(v16);
+        *buf = 138412546;
+        v33 = v15;
+        v34 = 2112;
+        v35 = v17;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%@ in state %@: attaching IPC", buf, 0x16u);
+      }
+
+      sub_10001A5E8(pluginCopy);
+    }
+
+    else
+    {
+      if (v13)
+      {
+        if (self)
+        {
+          v26 = objc_getProperty(self, v14, 16, 1);
+        }
+
+        else
+        {
+          v26 = 0;
+        }
+
+        v27 = objc_opt_class();
+        v28 = NSStringFromClass(v27);
+        *buf = 138412546;
+        v33 = v26;
+        v34 = 2112;
+        v35 = v28;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%@ in state %@: IPC is no longer needed, going back to idle", buf, 0x16u);
+      }
+
+      if (self)
+      {
+        v30 = objc_getProperty(self, v29, 48, 1);
+        sub_100079BCC(self, v30);
+      }
+    }
+  }
+}
+
 - (void)handleStop
 {
   v3 = ne_log_obj();
@@ -360,19 +491,8 @@ LABEL_15:
     self->_didAttachIPC = 0;
   }
 
-  if (![sessionCopy initializePlugins] || !objc_msgSend(sessionCopy, "prepareConfigurationForStart"))
+  if (![sessionCopy initializePlugins] || !objc_msgSend(sessionCopy, "prepareConfigurationForStart") || ((objc_msgSend(sessionCopy, "primaryTunnelPlugin"), v6 = objc_claimAutoreleasedReturnValue(), !self) ? (Property = 0) : (Property = objc_getProperty(self, v5, 16, 1)), objc_msgSend(Property, "configuration"), v8 = objc_claimAutoreleasedReturnValue(), v9 = sub_1000187A4(v6, v8), v8, v6, !v9))
   {
-    goto LABEL_8;
-  }
-
-  primaryTunnelPlugin = [sessionCopy primaryTunnelPlugin];
-  v7 = self ? objc_getProperty(self, v5, 16, 1) : 0;
-  configuration = [v7 configuration];
-  v9 = sub_1000187A4(primaryTunnelPlugin, configuration);
-
-  if (!v9)
-  {
-LABEL_8:
     [sessionCopy sendEstablishIPCReply];
   }
 }

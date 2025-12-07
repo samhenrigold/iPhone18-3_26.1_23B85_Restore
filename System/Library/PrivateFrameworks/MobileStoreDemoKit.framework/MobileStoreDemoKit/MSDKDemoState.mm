@@ -26,9 +26,11 @@
 
 uint64_t __31__MSDKDemoState_sharedInstance__block_invoke()
 {
-  sharedInstance_sharedInstance_1 = objc_alloc_init(MSDKDemoState);
+  v0 = objc_alloc_init(MSDKDemoState);
+  v1 = sharedInstance_sharedInstance_1;
+  sharedInstance_sharedInstance_1 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (MSDKDemoState)init
@@ -37,26 +39,26 @@ uint64_t __31__MSDKDemoState_sharedInstance__block_invoke()
   v10.receiver = self;
   v10.super_class = MSDKDemoState;
   v2 = [(MSDKDemoState *)&v10 init];
+  v3 = v2;
   if (v2)
   {
-    v3 = defaultLogHandle();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = defaultLogHandle(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       processInfo = [MEMORY[0x277CCAC38] processInfo];
       processName = [processInfo processName];
       *buf = 138543362;
       v12 = processName;
-      _os_log_impl(&dword_259B7D000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ started to use MobileStoreDemoKit/MSDKDemoState.", buf, 0xCu);
+      _os_log_impl(&dword_259B7D000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ started to use MobileStoreDemoKit/MSDKDemoState.", buf, 0xCu);
     }
 
-    v6 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    [(MSDKDemoState *)v2 setCache:v6];
+    v7 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    [(MSDKDemoState *)v3 setCache:v7];
 
-    v7 = v2;
+    v8 = v3;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
-  return v2;
+  return v3;
 }
 
 - (BOOL)_isSecureDemoModeEnabled:(id *)enabled
@@ -135,7 +137,8 @@ LABEL_10:
 
   objc_sync_exit(cache);
 
-  if (geteuid())
+  v11 = geteuid();
+  if (v11)
   {
     LODWORD(v10) = CFPreferencesGetAppBooleanValue(@"StoreDemoMode", @"com.apple.demo-settings", 0) != 0;
     if (!v4)
@@ -146,12 +149,12 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  v11 = defaultLogHandle();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = defaultLogHandle(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     v16 = 136315138;
     v17 = "[MSDKDemoState _isStoreDemoModeEnabled:]";
-    _os_log_impl(&dword_259B7D000, v11, OS_LOG_TYPE_DEFAULT, "%s - Caller is in root user session, making call to MobileGestalt", &v16, 0xCu);
+    _os_log_impl(&dword_259B7D000, v12, OS_LOG_TYPE_DEFAULT, "%s - Caller is in root user session, making call to MobileGestalt", &v16, 0xCu);
   }
 
   LODWORD(v10) = MGGetBoolAnswer();
@@ -173,7 +176,6 @@ LABEL_10:
 
 LABEL_12:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -195,7 +197,8 @@ LABEL_12:
   {
     objc_sync_exit(cache);
 
-    if (geteuid())
+    v11 = geteuid();
+    if (v11)
     {
       AppBooleanValue = CFPreferencesGetAppBooleanValue(@"PressDemoMode", @"com.apple.demo-settings", 0);
       bOOLValue = AppBooleanValue != 0;
@@ -204,8 +207,8 @@ LABEL_12:
         cache3 = [(MSDKDemoState *)self cache];
         objc_sync_enter(cache3);
         cache4 = [(MSDKDemoState *)self cache];
-        v14 = [MEMORY[0x277CCABB0] numberWithBool:1];
-        [cache4 setObject:v14 forKey:v4];
+        v15 = [MEMORY[0x277CCABB0] numberWithBool:1];
+        [cache4 setObject:v15 forKey:v4];
 
         objc_sync_exit(cache3);
         bOOLValue = 1;
@@ -214,10 +217,10 @@ LABEL_12:
 
     else
     {
-      v15 = defaultLogHandle();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v16 = defaultLogHandle(v11);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        [MSDKDemoState _isPressDemoModeEnabled:v15];
+        [MSDKDemoState _isPressDemoModeEnabled:v16];
       }
 
       bOOLValue = 0;
@@ -307,32 +310,32 @@ LABEL_12:
   if (!os_variant_has_internal_content() || (+[MSDTestPreferences sharedInstance](MSDTestPreferences, "sharedInstance"), v4 = objc_claimAutoreleasedReturnValue(), v5 = [v4 deviceActivationFlag], v4, v5 < 0))
   {
     v15 = 0;
-    v7 = MEMORY[0x259CB0290](&v15);
-    v8 = v15;
-    if (v8)
+    v8 = MEMORY[0x259CB0290](&v15);
+    v9 = v15;
+    if (v9)
     {
-      [(MSDKDemoState *)v8 _activationConfigurationFlags:buf];
+      [(MSDKDemoState *)v9 _activationConfigurationFlags:buf];
       LODWORD(v5) = 0;
-      v9 = v16;
-      v10 = *buf;
+      v10 = v16;
+      v11 = *buf;
     }
 
-    else if (v7)
+    else if (v8)
     {
-      v9 = [v7 objectForKeyedSubscript:@"DeviceConfigurationFlags"];
-      LODWORD(v5) = [v9 intValue];
-      v10 = 0;
+      v10 = [v8 objectForKeyedSubscript:@"DeviceConfigurationFlags"];
+      LODWORD(v5) = [v10 intValue];
+      v11 = 0;
     }
 
     else
     {
       v14 = 0;
       safeAssignError(&v14, 3727741187, @"Failed to retrieve activation record.");
-      v10 = v14;
-      v9 = defaultLogHandle();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = v14;
+      v10 = defaultLogHandle(v11);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        [MSDKDemoState _activationConfigurationFlags:v9];
+        [MSDKDemoState _activationConfigurationFlags:v10];
       }
 
       LODWORD(v5) = 0;
@@ -340,66 +343,61 @@ LABEL_12:
 
     if (flags)
     {
-      v11 = v10;
-      *flags = v10;
+      v12 = v11;
+      *flags = v11;
     }
   }
 
   else
   {
-    v6 = defaultLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = defaultLogHandle(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
       *&buf[4] = "[MSDKDemoState _activationConfigurationFlags:]";
       v18 = 2048;
       v19 = v5;
-      _os_log_impl(&dword_259B7D000, v6, OS_LOG_TYPE_DEFAULT, "%s - Using device activation flag: %ld for internal testing", buf, 0x16u);
+      _os_log_impl(&dword_259B7D000, v7, OS_LOG_TYPE_DEFAULT, "%s - Using device activation flag: %ld for internal testing", buf, 0x16u);
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (void)_isPressDemoModeEnabled:(os_log_t)log .cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[MSDKDemoState _isPressDemoModeEnabled:]";
-  _os_log_error_impl(&dword_259B7D000, log, OS_LOG_TYPE_ERROR, "%s - Caller is in root user session, erroring out!", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[MSDKDemoState _isPressDemoModeEnabled:]";
+  _os_log_error_impl(&dword_259B7D000, log, OS_LOG_TYPE_ERROR, "%s - Caller is in root user session, erroring out!", &v1, 0xCu);
 }
 
 - (void)_activationConfigurationFlags:(uint64_t *)a3 .cold.1(void *a1, uint64_t *a2, uint64_t *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v6 = defaultLogHandle();
+  v14 = *MEMORY[0x277D85DE8];
+  v6 = defaultLogHandle(a1);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v10 = [a1 localizedDescription];
-    v11 = 136315394;
-    v12 = "[MSDKDemoState _activationConfigurationFlags:]";
-    v13 = 2114;
-    v14 = v10;
-    _os_log_error_impl(&dword_259B7D000, v6, OS_LOG_TYPE_ERROR, "%s - Could not get activation record with error - %{public}@", &v11, 0x16u);
+    v9 = [a1 localizedDescription];
+    v10 = 136315394;
+    v11 = "[MSDKDemoState _activationConfigurationFlags:]";
+    v12 = 2114;
+    v13 = v9;
+    _os_log_error_impl(&dword_259B7D000, v6, OS_LOG_TYPE_ERROR, "%s - Could not get activation record with error - %{public}@", &v10, 0x16u);
   }
 
   v7 = MEMORY[0x277CCA9B8];
   v8 = [a1 localizedDescription];
   *a2 = v8;
   *a3 = [v7 errorDomainMSDWithCode:3727741187 message:@"Failed to retrieve activation record." reason:v8];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_activationConfigurationFlags:(os_log_t)log .cold.2(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[MSDKDemoState _activationConfigurationFlags:]";
-  _os_log_error_impl(&dword_259B7D000, log, OS_LOG_TYPE_ERROR, "%s - Activation record is NULL", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[MSDKDemoState _activationConfigurationFlags:]";
+  _os_log_error_impl(&dword_259B7D000, log, OS_LOG_TYPE_ERROR, "%s - Activation record is NULL", &v1, 0xCu);
 }
 
 @end

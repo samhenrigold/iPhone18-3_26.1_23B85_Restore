@@ -8,6 +8,8 @@
 - (void)fetchRemoteControlStatus:(id)status;
 - (void)handleRedialCommandWhileScreening:(id)screening;
 - (void)ping;
+- (void)shouldHostHandleMRCommand:(unsigned int)command completion:(id)completion;
+- (void)shouldHostHandleMRCommand:(unsigned int)command sourceIdentifier:(id)identifier completion:(id)completion;
 @end
 
 @implementation TUUIXPCClientConnection
@@ -86,17 +88,15 @@ void __63__TUUIXPCClientConnection_initWithListenerEndpoint_callCenter___block_i
 
 void __63__TUUIXPCClientConnection_initWithListenerEndpoint_callCenter___block_invoke_2(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v2 = TUDefaultLog();
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v5 = 138412290;
-    v6 = v3;
-    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "Connection invalidated for TUUIXPCClientConnection %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "Connection invalidated for TUUIXPCClientConnection %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __63__TUUIXPCClientConnection_initWithListenerEndpoint_callCenter___block_invoke_84(uint64_t a1)
@@ -117,20 +117,18 @@ void __63__TUUIXPCClientConnection_initWithListenerEndpoint_callCenter___block_i
 
 void __63__TUUIXPCClientConnection_initWithListenerEndpoint_callCenter___block_invoke_2_85(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v2 = TUDefaultLog();
+  v7 = *MEMORY[0x1E69E9840];
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "Connection interrupted for TUUIXPCClientConnection: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "Connection interrupted for TUUIXPCClientConnection: %@", &v5, 0xCu);
   }
 
   v4 = [*(a1 + 32) connection];
   [v4 invalidate];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -160,123 +158,164 @@ void __63__TUUIXPCClientConnection_initWithListenerEndpoint_callCenter___block_i
 
 void __31__TUUIXPCClientConnection_ping__block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Error while pinging host: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Error while pinging host: %@", &v4, 0xCu);
+  }
+}
+
+- (void)shouldHostHandleMRCommand:(unsigned int)command completion:(id)completion
+{
+  v4 = *&command;
+  v18 = *MEMORY[0x1E69E9840];
+  completionCopy = completion;
+  v7 = TUDefaultLog(completionCopy);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109120;
+    v17 = v4;
+    _os_log_impl(&dword_1956FD000, v7, OS_LOG_TYPE_DEFAULT, "shouldHostHandleMRCommand: %u", buf, 8u);
   }
 
-  v4 = *MEMORY[0x1E69E9840];
+  v10 = MEMORY[0x1E69E9820];
+  v11 = 3221225472;
+  v12 = __64__TUUIXPCClientConnection_shouldHostHandleMRCommand_completion___block_invoke;
+  v13 = &unk_1E7425800;
+  v15 = v4;
+  v14 = completionCopy;
+  v8 = completionCopy;
+  v9 = [(TUUIXPCClientConnection *)self hostWithErrorHandler:&v10];
+  [v9 shouldHostHandleMRCommand:v4 completion:{v8, v10, v11, v12, v13}];
 }
 
 void __64__TUUIXPCClientConnection_shouldHostHandleMRCommand_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 40);
-    v7[0] = 67109378;
-    v7[1] = v5;
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Error while asking host to handle media remote command: %u error: %@", v7, 0x12u);
+    v6[0] = 67109378;
+    v6[1] = v5;
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Error while asking host to handle media remote command: %u error: %@", v6, 0x12u);
   }
 
   (*(*(a1 + 32) + 16))();
-  v6 = *MEMORY[0x1E69E9840];
+}
+
+- (void)shouldHostHandleMRCommand:(unsigned int)command sourceIdentifier:(id)identifier completion:(id)completion
+{
+  v6 = *&command;
+  v23 = *MEMORY[0x1E69E9840];
+  identifierCopy = identifier;
+  completionCopy = completion;
+  v10 = TUDefaultLog(completionCopy);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109378;
+    v20 = v6;
+    v21 = 2112;
+    v22 = identifierCopy;
+    _os_log_impl(&dword_1956FD000, v10, OS_LOG_TYPE_DEFAULT, "shouldHostHandleMRCommand1: %u sourceIdentifier: %@", buf, 0x12u);
+  }
+
+  v13 = MEMORY[0x1E69E9820];
+  v14 = 3221225472;
+  v15 = __81__TUUIXPCClientConnection_shouldHostHandleMRCommand_sourceIdentifier_completion___block_invoke;
+  v16 = &unk_1E7425800;
+  v18 = v6;
+  v17 = completionCopy;
+  v11 = completionCopy;
+  v12 = [(TUUIXPCClientConnection *)self hostWithErrorHandler:&v13];
+  [v12 shouldHostHandleMRCommand:v6 sourceIdentifier:identifierCopy completion:{v11, v13, v14, v15, v16}];
 }
 
 void __81__TUUIXPCClientConnection_shouldHostHandleMRCommand_sourceIdentifier_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 40);
-    v7[0] = 67109378;
-    v7[1] = v5;
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Error while asking host to handle media remote command: %u error: %@", v7, 0x12u);
+    v6[0] = 67109378;
+    v6[1] = v5;
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Error while asking host to handle media remote command: %u error: %@", v6, 0x12u);
   }
 
   (*(*(a1 + 32) + 16))();
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleRedialCommandWhileScreening:(id)screening
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   screeningCopy = screening;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(screeningCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v12 = screeningCopy;
+    v11 = screeningCopy;
     _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "handleRedialCommandWhileScreening: %@", buf, 0xCu);
   }
 
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __61__TUUIXPCClientConnection_handleRedialCommandWhileScreening___block_invoke;
-  v9[3] = &unk_1E7425828;
-  v10 = screeningCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __61__TUUIXPCClientConnection_handleRedialCommandWhileScreening___block_invoke;
+  v8[3] = &unk_1E7425828;
+  v9 = screeningCopy;
   v6 = screeningCopy;
-  v7 = [(TUUIXPCClientConnection *)self hostWithErrorHandler:v9];
+  v7 = [(TUUIXPCClientConnection *)self hostWithErrorHandler:v8];
   [v7 handleRedialCommandWhileScreening:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __61__TUUIXPCClientConnection_handleRedialCommandWhileScreening___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v7 = 138412546;
-    v8 = v5;
-    v9 = 2112;
-    v10 = v3;
-    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Error while asking host to handle redial request: %@ error: %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = v5;
+    v8 = 2112;
+    v9 = v3;
+    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Error while asking host to handle redial request: %@ error: %@", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchInCallUIState:(id)state
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   stateCopy = state;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(stateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v13 = "[TUUIXPCClientConnection fetchInCallUIState:]";
+    v12 = "[TUUIXPCClientConnection fetchInCallUIState:]";
     _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "%s: ", buf, 0xCu);
   }
 
   callCenter = [(TUUIXPCClientConnection *)self callCenter];
   queue = [callCenter queue];
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __46__TUUIXPCClientConnection_fetchInCallUIState___block_invoke;
-  v10[3] = &unk_1E7424E20;
-  v10[4] = self;
-  v11 = stateCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __46__TUUIXPCClientConnection_fetchInCallUIState___block_invoke;
+  v9[3] = &unk_1E7424E20;
+  v9[4] = self;
+  v10 = stateCopy;
   v8 = stateCopy;
-  dispatch_async(queue, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  dispatch_async(queue, v9);
 }
 
 void __46__TUUIXPCClientConnection_fetchInCallUIState___block_invoke(uint64_t a1)
@@ -287,78 +326,73 @@ void __46__TUUIXPCClientConnection_fetchInCallUIState___block_invoke(uint64_t a1
 
   if (v4)
   {
-    v8 = [*(a1 + 32) hostWithErrorHandler:&__block_literal_global_94];
-    [v8 fetchInCallUIState:*(a1 + 40)];
+    v9 = [*(a1 + 32) hostWithErrorHandler:&__block_literal_global_94];
+    [v9 fetchInCallUIState:*(a1 + 40)];
   }
 
   else
   {
-    v5 = TUDefaultLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = TUDefaultLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "No calls on the system so early returning since ICS shouldn't show any UI", buf, 2u);
+      _os_log_impl(&dword_1956FD000, v6, OS_LOG_TYPE_DEFAULT, "No calls on the system so early returning since ICS shouldn't show any UI", buf, 2u);
     }
 
-    v6 = *(a1 + 40);
-    v7 = [[TUUIContext alloc] initWithState:0];
-    (*(v6 + 16))(v6, v7, 0);
+    v7 = *(a1 + 40);
+    v8 = [[TUUIContext alloc] initWithState:0];
+    (*(v7 + 16))(v7, v8, 0);
   }
 }
 
 void __46__TUUIXPCClientConnection_fetchInCallUIState___block_invoke_92(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Error while asking host for UI state: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Error while asking host for UI state: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchRemoteControlStatus:(id)status
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   statusCopy = status;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(statusCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v12 = "[TUUIXPCClientConnection fetchRemoteControlStatus:]";
+    v11 = "[TUUIXPCClientConnection fetchRemoteControlStatus:]";
     _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "%s: ", buf, 0xCu);
   }
 
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __52__TUUIXPCClientConnection_fetchRemoteControlStatus___block_invoke;
-  v9[3] = &unk_1E7424A10;
-  v10 = statusCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __52__TUUIXPCClientConnection_fetchRemoteControlStatus___block_invoke;
+  v8[3] = &unk_1E7424A10;
+  v9 = statusCopy;
   v6 = statusCopy;
-  v7 = [(TUUIXPCClientConnection *)self hostWithErrorHandler:v9];
+  v7 = [(TUUIXPCClientConnection *)self hostWithErrorHandler:v8];
   [v7 fetchRemoteControlStatus:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __52__TUUIXPCClientConnection_fetchRemoteControlStatus___block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Error while asking host for UI state, InCallService isn't running: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Error while asking host for UI state, InCallService isn't running: %@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (TUCallCenter)callCenter

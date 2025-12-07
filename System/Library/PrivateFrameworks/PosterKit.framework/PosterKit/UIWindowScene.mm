@@ -45,10 +45,10 @@ LABEL_7:
   v20 = *(MEMORY[0x1E695F050] + 24);
   if ([a1[5] adaptiveTimeMode] == 4 && v9)
   {
-    v13 = (a1 + 8);
-    v15 = (a1 + 9);
-    v14 = (a1 + 10);
-    v16 = (a1 + 11);
+    v13 = a1 + 8;
+    v15 = a1 + 9;
+    v14 = a1 + 10;
+    v16 = a1 + 11;
     goto LABEL_7;
   }
 

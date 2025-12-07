@@ -76,30 +76,31 @@ void __74__ATXActivitySuggestionsFeedbackProcessor_processFeedbackWithXPCActivit
   v2 = [*(a1 + 32) _activitySuggestionsFeedbackBookmark];
   v3 = [*(*(a1 + 32) + 8) publisherFromStartTime:0.0];
   v4 = [v2 bookmark];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __74__ATXActivitySuggestionsFeedbackProcessor_processFeedbackWithXPCActivity___block_invoke_2;
-  v13[3] = &unk_278596E58;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __74__ATXActivitySuggestionsFeedbackProcessor_processFeedbackWithXPCActivity___block_invoke_2;
+  v14[3] = &unk_278596E58;
   v5 = v2;
-  v14 = v5;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __74__ATXActivitySuggestionsFeedbackProcessor_processFeedbackWithXPCActivity___block_invoke_3;
-  v11[3] = &unk_27859B4F0;
+  v15 = v5;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __74__ATXActivitySuggestionsFeedbackProcessor_processFeedbackWithXPCActivity___block_invoke_3;
+  v12[3] = &unk_27859B4F0;
   v6 = *(a1 + 40);
-  v11[4] = *(a1 + 32);
-  v12 = v6;
-  v7 = [v3 drivableSinkWithBookmark:v4 completion:v13 shouldContinue:v11];
+  v12[4] = *(a1 + 32);
+  v13 = v6;
+  v7 = [v3 drivableSinkWithBookmark:v4 completion:v14 shouldContinue:v12];
 
-  v10 = 0;
-  [v5 saveBookmarkWithError:&v10];
-  v8 = v10;
+  v11 = 0;
+  [v5 saveBookmarkWithError:&v11];
+  v8 = v11;
+  v9 = v8;
   if (v8)
   {
-    v9 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = __atxlog_handle_modes(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      __74__ATXActivitySuggestionsFeedbackProcessor_processFeedbackWithXPCActivity___block_invoke_cold_1(v8, v9);
+      __74__ATXActivitySuggestionsFeedbackProcessor_processFeedbackWithXPCActivity___block_invoke_cold_1(v9, v10);
     }
   }
 }
@@ -107,37 +108,38 @@ void __74__ATXActivitySuggestionsFeedbackProcessor_processFeedbackWithXPCActivit
 uint64_t __74__ATXActivitySuggestionsFeedbackProcessor_processFeedbackWithXPCActivity___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = [a2 eventBody];
+  v4 = v3;
   if (v3)
   {
-    v4 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v5 = __atxlog_handle_modes(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      __74__ATXActivitySuggestionsFeedbackProcessor_processFeedbackWithXPCActivity___block_invoke_3_cold_1(v3, v4);
+      __74__ATXActivitySuggestionsFeedbackProcessor_processFeedbackWithXPCActivity___block_invoke_3_cold_1(v4, v5);
     }
 
-    v5 = [v3 activity];
-    if ([v5 activityType] == 4 && !objc_msgSend(v3, "eventType"))
+    v6 = [v4 activity];
+    if ([v6 activityType] == 4 && !objc_msgSend(v4, "eventType"))
     {
-      v8 = [v3 suggestionType];
+      v9 = [v4 suggestionType];
 
-      if (v8)
+      if (v9)
       {
         goto LABEL_7;
       }
 
-      v9 = objc_alloc(MEMORY[0x277CBEBD0]);
-      v5 = [v9 initWithSuiteName:*MEMORY[0x277CEBD00]];
-      v10 = [v3 eventDate];
-      [v5 setObject:v10 forKey:@"dateDrivingSetupSuggestionLastShown"];
+      v10 = objc_alloc(MEMORY[0x277CBEBD0]);
+      v6 = [v10 initWithSuiteName:*MEMORY[0x277CEBD00]];
+      v11 = [v4 eventDate];
+      [v6 setObject:v11 forKey:@"dateDrivingSetupSuggestionLastShown"];
     }
 
 LABEL_7:
-    [*(*(a1 + 32) + 16) updateFeedbackHistogramWithEvent:v3];
+    [*(*(a1 + 32) + 16) updateFeedbackHistogramWithEvent:v4];
   }
 
-  v6 = [*(a1 + 40) didDefer];
+  v7 = [*(a1 + 40) didDefer];
 
-  return v6 ^ 1u;
+  return v7 ^ 1u;
 }
 
 - (id)_activitySuggestionsFeedbackBookmark
@@ -157,22 +159,20 @@ LABEL_7:
 
 void __74__ATXActivitySuggestionsFeedbackProcessor_processFeedbackWithXPCActivity___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXActivitySuggestionsFeedbackProcessor: Unable to save activity suggestion bookmark, error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXActivitySuggestionsFeedbackProcessor: Unable to save activity suggestion bookmark, error: %@", &v2, 0xCu);
 }
 
 void __74__ATXActivitySuggestionsFeedbackProcessor_processFeedbackWithXPCActivity___block_invoke_3_cold_1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "[ATXActivitySuggestionsFeedbackProcessor processFeedbackWithXPCActivity:]_block_invoke_3";
-  v5 = 2112;
-  v6 = a1;
-  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "%s: Processing feedback eventBody: %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "[ATXActivitySuggestionsFeedbackProcessor processFeedbackWithXPCActivity:]_block_invoke_3";
+  v4 = 2112;
+  v5 = a1;
+  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "%s: Processing feedback eventBody: %@", &v2, 0x16u);
 }
 
 @end

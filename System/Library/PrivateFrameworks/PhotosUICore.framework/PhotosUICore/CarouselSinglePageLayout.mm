@@ -16,7 +16,7 @@
 - (void)displayScaleDidChange
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for CarouselSinglePageLayout();
+  v4.super_class = type metadata accessor for CarouselSinglePageLayout(self, a2);
   v2 = v4.receiver;
   displayScaleDidChange = [(CarouselSinglePageLayout *)&v4 displayScaleDidChange];
   (*((*MEMORY[0x1E69E7D40] & *v2) + 0xD0))(displayScaleDidChange);
@@ -28,10 +28,10 @@
   if (v2)
   {
     selfCopy = self;
-    [v2 updateIfNeeded];
-    v4.receiver = selfCopy;
-    v4.super_class = type metadata accessor for CarouselSinglePageLayout();
-    [(CarouselSinglePageLayout *)&v4 updateIfNeeded];
+    updateIfNeeded = [v2 updateIfNeeded];
+    v6.receiver = selfCopy;
+    v6.super_class = type metadata accessor for CarouselSinglePageLayout(updateIfNeeded, v5);
+    [(CarouselSinglePageLayout *)&v6 updateIfNeeded];
   }
 
   else
@@ -43,7 +43,7 @@
 - (void)entityManagerDidChange
 {
   selfCopy = self;
-  sub_1A404C528();
+  sub_1A404C528(selfCopy, v2);
 }
 
 @end

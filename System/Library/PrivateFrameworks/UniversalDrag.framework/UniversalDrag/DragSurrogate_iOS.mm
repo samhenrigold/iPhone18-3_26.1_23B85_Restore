@@ -12,7 +12,7 @@
 {
   beginCopy = begin;
   selfCopy = self;
-  sub_27068C850();
+  sub_27068C850(selfCopy);
 }
 
 - (void)dragRelaySession:(id)session didEndDragWithDrop:(BOOL)drop
@@ -26,14 +26,14 @@
 {
   failCopy = fail;
   selfCopy = self;
-  sub_27068CE40();
+  sub_27068CE40(selfCopy);
 }
 
 - (void)dragRelaySessionDidEndDataTransfer:(id)transfer
 {
   transferCopy = transfer;
   selfCopy = self;
-  sub_27068D04C();
+  sub_27068D04C(selfCopy);
 }
 
 - (void)dragRelaySession:(id)session didUpdateDragPresentation:(id)presentation

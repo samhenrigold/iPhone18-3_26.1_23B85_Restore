@@ -185,15 +185,15 @@
   {
     context = [(_UIViewControllerKeyboardAnimationStyle *)self context];
     context2 = [equalCopy context];
-    v7 = [context isEqual:context2];
+    isEqual = objc_msgSend_isEqual_(context);
   }
 
   else
   {
-    v7 = 0;
+    isEqual = 0;
   }
 
-  return v7;
+  return isEqual;
 }
 
 - (id)controllerForStartPlacement:(id)placement endPlacement:(id)endPlacement

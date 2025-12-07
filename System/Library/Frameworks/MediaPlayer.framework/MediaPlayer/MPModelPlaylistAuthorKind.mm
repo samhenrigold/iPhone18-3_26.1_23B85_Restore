@@ -63,10 +63,10 @@ LABEL_5:
 
 - (shared_ptr<mlcore::Predicate>)predicateWithBaseProperty:(void *)property
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v7 = 0;
+  v12[8] = *MEMORY[0x1E69E9840];
   v8 = 0;
   v9 = 0;
+  v10 = 0;
   Property = mlcore::PlaylistAuthorPropertyRole(self);
   if (property)
   {
@@ -74,10 +74,10 @@ LABEL_5:
   }
 
   v6 = 1;
-  *&v5 = Property;
-  v10 = 0;
-  LODWORD(v11) = 1;
-  std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<int>,std::allocator<mlcore::ComparisonPredicate<int>>,mlcore::ModelProperty<int> *&,mlcore::ComparisonOperator &,int const&,mlcore::ComparisonOptions &,0>();
+  v5[0] = Property;
+  v11 = 0;
+  LODWORD(v12[0]) = 1;
+  std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<int>,std::allocator<mlcore::ComparisonPredicate<int>>,mlcore::ModelProperty<int> *&,mlcore::ComparisonOperator &,int const&,mlcore::ComparisonOptions &,0>(&v7, v5, v12, &v6, &v11);
 }
 
 @end

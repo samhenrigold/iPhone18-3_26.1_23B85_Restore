@@ -3,6 +3,7 @@
 + (BOOL)requirement:(__ACMRequirement *)requirement hasState:(unsigned int)state andType:(unsigned int)type;
 + (BOOL)resetRatchet:(id *)ratchet;
 + (char)acmPolicyForPolicy:(int64_t)policy;
++ (id)BOOLEnvironmentVariable:(unsigned int)variable;
 + (id)catacombUUID:(id)d;
 + (id)createUPPControlForTeamID:(id)d;
 + (id)decodeData:(id)data seed:(id)seed externalizedContext:(id)context error:(id *)error;
@@ -15,13 +16,16 @@
 - (BOOL)_verifyRequirement:(__ACMRequirement *)requirement satisfiedForType:(unsigned int)type present:(BOOL *)present flags:(unsigned int *)flags;
 - (BOOL)addCredential:(unsigned int)credential scope:(unsigned int)scope error:(id *)error;
 - (BOOL)addCredential:(unsigned int)credential scope:(unsigned int)scope property:(unsigned int)property data:(id)data error:(id *)error;
+- (BOOL)hasDataWithType:(unsigned int)type error:(id *)error;
 - (BOOL)isCredentialOfTypeSet:(unsigned int)set error:(id *)error;
 - (BOOL)performContextBlock:(id)block error:(id *)error;
+- (BOOL)performCredentialBlock:(id)block credentialType:(unsigned int)type error:(id *)error;
 - (BOOL)removeCredentialsOfType:(unsigned int)type error:(id *)error;
 - (BOOL)replacePassphraseCredentialWithPurpose:(unsigned int)purpose passphrase:(id)passphrase scope:(unsigned int)scope error:(id *)error;
 - (BOOL)setData:(id)data type:(unsigned int)type encoded:(BOOL)encoded error:(id *)error;
 - (BOOL)setData:(id)data type:(unsigned int)type error:(id *)error;
 - (BOOL)setSecretForPasscodeStash:(id)stash error:(id *)error;
+- (BOOL)setVariable:(unsigned int)variable value:(id)value error:(id *)error;
 - (BOOL)verifyRequirementOfType:(unsigned int)type policy:(char *)policy mustBePresent:(BOOL)present parameters:(id)parameters flags:(unsigned int *)flags error:(id *)error;
 - (LACACMHelper)init;
 - (LACACMHelper)initWithACMContext:(__ACMHandle *)context;
@@ -101,17 +105,17 @@ LABEL_6:
 
 - (LACACMHelper)init
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v12 = 0;
-  v3 = ACMContextCreate(&v12);
+  v14 = *MEMORY[0x1E69E9840];
+  v11 = 0;
+  v3 = ACMContextCreate(&v11);
   if (v3)
   {
     v4 = v3;
-    v5 = LACLogACM();
+    v5 = LACLogACM(v3);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v14 = v4;
+      v13 = v4;
       _os_log_impl(&dword_1B0233000, v5, OS_LOG_TYPE_DEFAULT, "Unable to create ACM context with status: %d", buf, 8u);
     }
 
@@ -120,13 +124,13 @@ LABEL_6:
 
   else
   {
-    v11.receiver = self;
-    v11.super_class = LACACMHelper;
-    v7 = [(LACACMHelper *)&v11 init];
+    v10.receiver = self;
+    v10.super_class = LACACMHelper;
+    v7 = [(LACACMHelper *)&v10 init];
     if (v7)
     {
-      v8 = v12;
-      v7->_acmContext = v12;
+      v8 = v11;
+      v7->_acmContext = v11;
       v7->_ownership = 2;
       v7->_acmTrackingNumber = ACMContextGetTrackingNumber(v8);
     }
@@ -135,7 +139,6 @@ LABEL_6:
     selfCopy = self;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -167,34 +170,33 @@ uint64_t __35__LACACMHelper_externalizedContext__block_invoke(uint64_t a1, uint6
   v6 = *(v5 + 40);
   *(v5 + 40) = v4;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v4, v6);
 }
 
 - (BOOL)setData:(id)data type:(unsigned int)type error:(id *)error
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   dataCopy = data;
-  v9 = LACLogACM();
+  v9 = LACLogACM(dataCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109376;
     typeCopy = type;
-    v23 = 1024;
+    v22 = 1024;
     acmTrackingNumber = [(LACACMHelper *)self acmTrackingNumber];
     _os_log_impl(&dword_1B0233000, v9, OS_LOG_TYPE_DEFAULT, "Setting data of type %d on ACMContext %u", buf, 0xEu);
   }
 
-  v15 = MEMORY[0x1E69E9820];
-  v16 = 3221225472;
-  v17 = __35__LACACMHelper_setData_type_error___block_invoke;
-  v18 = &unk_1E7A97338;
+  v14 = MEMORY[0x1E69E9820];
+  v15 = 3221225472;
+  v16 = __35__LACACMHelper_setData_type_error___block_invoke;
+  v17 = &unk_1E7A97338;
   typeCopy2 = type;
-  v19 = dataCopy;
+  v18 = dataCopy;
   v10 = dataCopy;
-  v11 = _Block_copy(&v15);
-  v12 = [(LACACMHelper *)self performContextBlock:v11 error:error, v15, v16, v17, v18];
+  v11 = _Block_copy(&v14);
+  v12 = [(LACACMHelper *)self performContextBlock:v11 error:error, v14, v15, v16, v17];
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -228,6 +230,53 @@ BOOL __35__LACACMHelper_setData_type_error___block_invoke(uint64_t a1, uint64_t 
   }
 
   return v5 == 0;
+}
+
+- (BOOL)setVariable:(unsigned int)variable value:(id)value error:(id *)error
+{
+  v6 = *&variable;
+  v17 = *MEMORY[0x1E69E9840];
+  valueCopy = value;
+  v8 = LACLogACM(valueCopy);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109120;
+    *&buf[4] = v6;
+    _os_log_impl(&dword_1B0233000, v8, OS_LOG_TYPE_DEFAULT, "Setting ACM envrionment variable: %d", buf, 8u);
+  }
+
+  *buf = 0;
+  v16 = 0;
+  bag_uuid = aks_get_bag_uuid();
+  if (bag_uuid)
+  {
+    if (!error)
+    {
+LABEL_10:
+      v11 = 0;
+      goto LABEL_11;
+    }
+
+    [MEMORY[0x1E696AEC0] stringWithFormat:@"Unable to get keybag UUID with code: %d", bag_uuid, v14];
+    v12 = LABEL_9:;
+    *error = [LACError errorWithCode:-1000 debugDescription:v12];
+
+    goto LABEL_10;
+  }
+
+  [valueCopy bytes];
+  [valueCopy length];
+  v10 = ACMSetEnvironmentVariableWithAccessPolicy(v6);
+  v11 = v10 == 0;
+  if (error && v10)
+  {
+    [MEMORY[0x1E696AEC0] stringWithFormat:@"Unable to set variable: %d with status: %d", v6, v10];
+    goto LABEL_9;
+  }
+
+LABEL_11:
+
+  return v11;
 }
 
 - (id)exchangeControlData:(id)data error:(id *)error
@@ -279,7 +328,7 @@ uint64_t __42__LACACMHelper_exchangeControlData_error___block_invoke(uint64_t re
     v6 = *(v5 + 40);
     *(v5 + 40) = v4;
 
-    return MEMORY[0x1EEE66BB8]();
+    return MEMORY[0x1EEE66BB8](v4, v6);
   }
 
   return result;
@@ -359,7 +408,7 @@ uint64_t __35__LACACMHelper_dataWithType_error___block_invoke_2(uint64_t result,
     v6 = *(v5 + 40);
     *(v5 + 40) = v4;
 
-    return MEMORY[0x1EEE66BB8]();
+    return MEMORY[0x1EEE66BB8](v4, v6);
   }
 
   return result;
@@ -454,20 +503,28 @@ uint64_t __43__LACACMHelper_dataWithType_encoded_error___block_invoke_2(uint64_t
     v6 = *(v5 + 40);
     *(v5 + 40) = v4;
 
-    return MEMORY[0x1EEE66BB8]();
+    return MEMORY[0x1EEE66BB8](v4, v6);
   }
 
   return result;
 }
 
+- (BOOL)hasDataWithType:(unsigned int)type error:(id *)error
+{
+  v4 = [(LACACMHelper *)self dataWithType:*&type error:error];
+  v5 = [v4 length] != 0;
+
+  return v5;
+}
+
 + (id)encodeData:(id)data seed:(id)seed externalizedContext:(id)context error:(id *)error
 {
-  v25[1] = *MEMORY[0x1E69E9840];
+  v24[1] = *MEMORY[0x1E69E9840];
   dataCopy = data;
   seedCopy = seed;
   contextCopy = context;
-  v25[0] = 0;
-  v12 = ACMEncryptDataEx(2, [contextCopy bytes], objc_msgSend(contextCopy, "length"), objc_msgSend(seedCopy, "bytes"), objc_msgSend(seedCopy, "length"), objc_msgSend(dataCopy, "bytes"), objc_msgSend(dataCopy, "length"), 0, v25);
+  v24[0] = 0;
+  v12 = ACMEncryptDataEx(2, [contextCopy bytes], objc_msgSend(contextCopy, "length"), objc_msgSend(seedCopy, "bytes"), objc_msgSend(seedCopy, "length"), objc_msgSend(dataCopy, "bytes"), objc_msgSend(dataCopy, "length"), 0, v24);
   if (v12)
   {
     if (error)
@@ -499,7 +556,7 @@ uint64_t __43__LACACMHelper_dataWithType_encoded_error___block_invoke_2(uint64_t
 
   else
   {
-    if (!v25[0])
+    if (!v24[0])
     {
       v17 = [LACSecureData alloc];
       v18 = objc_alloc_init(MEMORY[0x1E695DEF0]);
@@ -508,13 +565,13 @@ uint64_t __43__LACACMHelper_dataWithType_encoded_error___block_invoke_2(uint64_t
       goto LABEL_22;
     }
 
-    v24[1] = v24;
-    v14 = v24 - ((v25[0] + 15) & 0xFFFFFFFFFFFFFFF0);
-    bzero(v14, v25[0]);
-    v15 = ACMEncryptDataEx(2, [contextCopy bytes], objc_msgSend(contextCopy, "length"), objc_msgSend(seedCopy, "bytes"), objc_msgSend(seedCopy, "length"), objc_msgSend(dataCopy, "bytes"), objc_msgSend(dataCopy, "length"), v14, v25);
+    v23[1] = v23;
+    v14 = v23 - ((v24[0] + 15) & 0xFFFFFFFFFFFFFFF0);
+    bzero(v14, v24[0]);
+    v15 = ACMEncryptDataEx(2, [contextCopy bytes], objc_msgSend(contextCopy, "length"), objc_msgSend(seedCopy, "bytes"), objc_msgSend(seedCopy, "length"), objc_msgSend(dataCopy, "bytes"), objc_msgSend(dataCopy, "length"), v14, v24);
     if (!v15)
     {
-      v19 = [LACSecureData secureDataWithBytes:v14 length:v25[0]];
+      v19 = [LACSecureData secureDataWithBytes:v14 length:v24[0]];
       goto LABEL_22;
     }
 
@@ -547,19 +604,17 @@ uint64_t __43__LACACMHelper_dataWithType_encoded_error___block_invoke_2(uint64_t
 
 LABEL_22:
 
-  v22 = *MEMORY[0x1E69E9840];
-
   return v19;
 }
 
 + (id)decodeData:(id)data seed:(id)seed externalizedContext:(id)context error:(id *)error
 {
-  v25[1] = *MEMORY[0x1E69E9840];
+  v24[1] = *MEMORY[0x1E69E9840];
   dataCopy = data;
   seedCopy = seed;
   contextCopy = context;
-  v25[0] = 0;
-  v12 = ACMDecryptDataEx(2, [contextCopy bytes], objc_msgSend(contextCopy, "length"), objc_msgSend(seedCopy, "bytes"), objc_msgSend(seedCopy, "length"), objc_msgSend(dataCopy, "bytes"), objc_msgSend(dataCopy, "length"), 0, v25);
+  v24[0] = 0;
+  v12 = ACMDecryptDataEx(2, [contextCopy bytes], objc_msgSend(contextCopy, "length"), objc_msgSend(seedCopy, "bytes"), objc_msgSend(seedCopy, "length"), objc_msgSend(dataCopy, "bytes"), objc_msgSend(dataCopy, "length"), 0, v24);
   if (v12)
   {
     if (error)
@@ -591,7 +646,7 @@ LABEL_22:
 
   else
   {
-    if (!v25[0])
+    if (!v24[0])
     {
       v17 = [LACSecureData alloc];
       v18 = objc_alloc_init(MEMORY[0x1E695DEF0]);
@@ -600,13 +655,13 @@ LABEL_22:
       goto LABEL_22;
     }
 
-    v24[1] = v24;
-    v14 = v24 - ((v25[0] + 15) & 0xFFFFFFFFFFFFFFF0);
-    bzero(v14, v25[0]);
-    v15 = ACMDecryptDataEx(2, [contextCopy bytes], objc_msgSend(contextCopy, "length"), objc_msgSend(seedCopy, "bytes"), objc_msgSend(seedCopy, "length"), objc_msgSend(dataCopy, "bytes"), objc_msgSend(dataCopy, "length"), v14, v25);
+    v23[1] = v23;
+    v14 = v23 - ((v24[0] + 15) & 0xFFFFFFFFFFFFFFF0);
+    bzero(v14, v24[0]);
+    v15 = ACMDecryptDataEx(2, [contextCopy bytes], objc_msgSend(contextCopy, "length"), objc_msgSend(seedCopy, "bytes"), objc_msgSend(seedCopy, "length"), objc_msgSend(dataCopy, "bytes"), objc_msgSend(dataCopy, "length"), v14, v24);
     if (!v15)
     {
-      v19 = [LACSecureData secureDataWithBytes:v14 length:v25[0]];
+      v19 = [LACSecureData secureDataWithBytes:v14 length:v24[0]];
       goto LABEL_22;
     }
 
@@ -638,8 +693,6 @@ LABEL_22:
   }
 
 LABEL_22:
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v19;
 }
@@ -762,7 +815,7 @@ void __41__LACACMHelper_ageForDataWithType_error___block_invoke_2(uint64_t a1, v
 
   else
   {
-    v3 = LACLogACM();
+    v3 = LACLogACM(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __41__LACACMHelper_ageForDataWithType_error___block_invoke_2_cold_1();
@@ -779,7 +832,7 @@ void __41__LACACMHelper_ageForDataWithType_error___block_invoke_40(uint64_t a1, 
 
   else
   {
-    v3 = LACLogACM();
+    v3 = LACLogACM(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __41__LACACMHelper_ageForDataWithType_error___block_invoke_40_cold_1();
@@ -789,25 +842,24 @@ void __41__LACACMHelper_ageForDataWithType_error___block_invoke_40(uint64_t a1, 
 
 + (id)createUPPControlForTeamID:(id)d
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v8 = 0u;
-  memset(v15, 0, 28);
-  v14 = 0u;
+  v15 = *MEMORY[0x1E69E9840];
+  v7 = 0u;
+  memset(v14, 0, 28);
   v13 = 0u;
   v12 = 0u;
   v11 = 0u;
   v10 = 0u;
   v9 = 0u;
-  v7 = 2;
-  *(&v8 + 4) = 0x100000005;
+  v8 = 0u;
+  v6 = 2;
+  *(&v7 + 4) = 0x100000005;
   dCopy = d;
-  v15[7] = [dCopy lengthOfBytesUsingEncoding:4];
+  v14[7] = [dCopy lengthOfBytesUsingEncoding:4];
   [dCopy UTF8String];
   [dCopy lengthOfBytesUsingEncoding:4];
 
   __memcpy_chk();
-  v4 = [MEMORY[0x1E695DEF0] dataWithBytes:&v7 length:148];
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = [MEMORY[0x1E695DEF0] dataWithBytes:&v6 length:148];
 
   return v4;
 }
@@ -842,6 +894,41 @@ LABEL_4:
   v10 = v9 == 0;
 
   return v10;
+}
+
+- (BOOL)performCredentialBlock:(id)block credentialType:(unsigned int)type error:(id *)error
+{
+  v6 = *&type;
+  blockCopy = block;
+  v14 = 0;
+  v8 = ACMCredentialCreate(v6, &v14);
+  if (!v8 && v14)
+  {
+    v13 = 0;
+    blockCopy[2](blockCopy, v14, &v13);
+    v9 = v13;
+    ACMCredentialDelete(v14);
+    if (!error)
+    {
+      goto LABEL_7;
+    }
+
+    goto LABEL_6;
+  }
+
+  v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to create ACM credential: %d", v8];
+  v9 = [LACError errorWithCode:-1000 debugDescription:v10];
+
+  if (error)
+  {
+LABEL_6:
+    v11 = v9;
+    *error = v9;
+  }
+
+LABEL_7:
+
+  return v9 == 0;
 }
 
 - (id)performDataContextBlock:(id)block error:(id *)error
@@ -947,7 +1034,7 @@ uint64_t __40__LACACMHelper_ratchetStatusWithConfig___block_invoke(uint64_t a1, 
   v6 = *(v5 + 40);
   *(v5 + 40) = v4;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v4, v6);
 }
 
 + (int64_t)_errorCodeFromACMStatus:(int)status
@@ -1011,30 +1098,29 @@ uint64_t __40__LACACMHelper_ratchetStatusWithConfig___block_invoke(uint64_t a1, 
 
 - (BOOL)addCredential:(unsigned int)credential scope:(unsigned int)scope error:(id *)error
 {
-  v23 = *MEMORY[0x1E69E9840];
-  v9 = LACLogACM();
+  v22 = *MEMORY[0x1E69E9840];
+  v9 = LACLogACM(self);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109632;
     credentialCopy = credential;
-    v19 = 1024;
+    v18 = 1024;
     scopeCopy = scope;
-    v21 = 1024;
+    v20 = 1024;
     acmTrackingNumber = [(LACACMHelper *)self acmTrackingNumber];
     _os_log_impl(&dword_1B0233000, v9, OS_LOG_TYPE_DEFAULT, "Adding ACM credential %d for scope %d on ACMContext %u", buf, 0x14u);
   }
 
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __42__LACACMHelper_addCredential_scope_error___block_invoke;
-  v14[3] = &unk_1E7A97408;
-  v14[4] = self;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __42__LACACMHelper_addCredential_scope_error___block_invoke;
+  v13[3] = &unk_1E7A97408;
+  v13[4] = self;
   scopeCopy2 = scope;
   credentialCopy2 = credential;
-  v10 = _Block_copy(v14);
+  v10 = _Block_copy(v13);
   v11 = [(LACACMHelper *)self performContextBlock:v10 error:error];
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -1054,34 +1140,33 @@ uint64_t __42__LACACMHelper_addCredential_scope_error___block_invoke(uint64_t a1
 
 - (BOOL)addCredential:(unsigned int)credential scope:(unsigned int)scope property:(unsigned int)property data:(id)data error:(id *)error
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   dataCopy = data;
-  v13 = LACLogACM();
+  v13 = LACLogACM(dataCopy);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109632;
     credentialCopy = credential;
-    v30 = 1024;
+    v29 = 1024;
     scopeCopy = scope;
-    v32 = 1024;
+    v31 = 1024;
     acmTrackingNumber = [(LACACMHelper *)self acmTrackingNumber];
     _os_log_impl(&dword_1B0233000, v13, OS_LOG_TYPE_DEFAULT, "Adding ACM credential %d for scope %d on ACMContext %u", buf, 0x14u);
   }
 
-  v19 = MEMORY[0x1E69E9820];
-  v20 = 3221225472;
-  v21 = __56__LACACMHelper_addCredential_scope_property_data_error___block_invoke;
-  v22 = &unk_1E7A97458;
+  v18 = MEMORY[0x1E69E9820];
+  v19 = 3221225472;
+  v20 = __56__LACACMHelper_addCredential_scope_property_data_error___block_invoke;
+  v21 = &unk_1E7A97458;
   propertyCopy = property;
   scopeCopy2 = scope;
-  v23 = dataCopy;
+  v22 = dataCopy;
   selfCopy = self;
   credentialCopy2 = credential;
   v14 = dataCopy;
-  v15 = _Block_copy(&v19);
-  v16 = [(LACACMHelper *)self performContextBlock:v15 error:error, v19, v20, v21, v22];
+  v15 = _Block_copy(&v18);
+  v16 = [(LACACMHelper *)self performContextBlock:v15 error:error, v18, v19, v20, v21];
 
-  v17 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
@@ -1103,14 +1188,14 @@ uint64_t __56__LACACMHelper_addCredential_scope_property_data_error___block_invo
 
 - (BOOL)replacePassphraseCredentialWithPurpose:(unsigned int)purpose passphrase:(id)passphrase scope:(unsigned int)scope error:(id *)error
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   passphraseCopy = passphrase;
-  v11 = LACLogACM();
+  v11 = LACLogACM(passphraseCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109376;
     purposeCopy = purpose;
-    v24 = 1024;
+    v23 = 1024;
     acmTrackingNumber = [(LACACMHelper *)self acmTrackingNumber];
     _os_log_impl(&dword_1B0233000, v11, OS_LOG_TYPE_DEFAULT, "Replacing ACM passphrase credential with purpose %d on ACMContext %u", buf, 0xEu);
   }
@@ -1121,13 +1206,12 @@ uint64_t __56__LACACMHelper_addCredential_scope_property_data_error___block_invo
   aBlock[3] = &unk_1E7A97480;
   purposeCopy2 = purpose;
   scopeCopy = scope;
-  v18 = passphraseCopy;
+  v17 = passphraseCopy;
   selfCopy = self;
   v12 = passphraseCopy;
   v13 = _Block_copy(aBlock);
   v14 = [(LACACMHelper *)self performContextBlock:v13 error:error];
 
-  v15 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -1149,13 +1233,13 @@ uint64_t __78__LACACMHelper_replacePassphraseCredentialWithPurpose_passphrase_sc
 
 - (BOOL)removeCredentialsOfType:(unsigned int)type error:(id *)error
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v7 = LACLogACM();
+  v17 = *MEMORY[0x1E69E9840];
+  v7 = LACLogACM(self);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109376;
     typeCopy = type;
-    v16 = 1024;
+    v15 = 1024;
     acmTrackingNumber = [(LACACMHelper *)self acmTrackingNumber];
     _os_log_impl(&dword_1B0233000, v7, OS_LOG_TYPE_DEFAULT, "Removing ACM credential %d on ACMContext %u", buf, 0xEu);
   }
@@ -1168,7 +1252,6 @@ uint64_t __78__LACACMHelper_replacePassphraseCredentialWithPurpose_passphrase_sc
   v8 = _Block_copy(aBlock);
   v9 = [(LACACMHelper *)self performContextBlock:v8 error:error];
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -1206,13 +1289,13 @@ BOOL __46__LACACMHelper_removeCredentialsOfType_error___block_invoke(uint64_t a1
 
 - (BOOL)isCredentialOfTypeSet:(unsigned int)set error:(id *)error
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v7 = LACLogACM();
+  v17 = *MEMORY[0x1E69E9840];
+  v7 = LACLogACM(self);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109376;
     setCopy = set;
-    v16 = 1024;
+    v15 = 1024;
     acmTrackingNumber = [(LACACMHelper *)self acmTrackingNumber];
     _os_log_impl(&dword_1B0233000, v7, OS_LOG_TYPE_DEFAULT, "Checking ACM credential %d on ACMContext %u", buf, 0xEu);
   }
@@ -1225,7 +1308,6 @@ BOOL __46__LACACMHelper_removeCredentialsOfType_error___block_invoke(uint64_t a1
   v8 = _Block_copy(aBlock);
   v9 = [(LACACMHelper *)self performContextBlock:v8 error:error];
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -1265,7 +1347,7 @@ BOOL __44__LACACMHelper_isCredentialOfTypeSet_error___block_invoke(uint64_t a1, 
 {
   v45 = *MEMORY[0x1E69E9840];
   parametersCopy = parameters;
-  v14 = LACLogACM();
+  v14 = LACLogACM(parametersCopy);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
     *buf = 67109890;
@@ -1296,28 +1378,29 @@ BOOL __44__LACACMHelper_isCredentialOfTypeSet_error___block_invoke(uint64_t a1, 
   flagsCopy = flags;
   v16 = _Block_copy(aBlock);
   v17 = [(LACACMHelper *)self performContextBlock:v16 error:error];
-  v18 = LACLogACM();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v18 = v17;
+  v19 = LACLogACM(v17);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
-    if (v17)
+    if (v18)
     {
-      v19 = "satisfied";
+      v20 = "satisfied";
     }
 
     else
     {
-      v19 = *(v34 + 24) ? "not satisfied" : "not present";
+      v20 = *(v34 + 24) ? "not satisfied" : "not present";
     }
 
     acmTrackingNumber2 = [(LACACMHelper *)self acmTrackingNumber];
     if (flags)
     {
-      v21 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*flags];
+      v22 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*flags];
     }
 
     else
     {
-      v21 = 0;
+      v22 = 0;
     }
 
     *buf = 136316162;
@@ -1325,30 +1408,29 @@ BOOL __44__LACACMHelper_isCredentialOfTypeSet_error___block_invoke(uint64_t a1, 
     *&v38[8] = 1024;
     *&v38[10] = type;
     v39 = 2080;
-    v40 = v19;
+    v40 = v20;
     v41 = 1024;
     acmTrackingNumber = acmTrackingNumber2;
     v43 = 2114;
-    v44 = v21;
-    _os_log_impl(&dword_1B0233000, v18, OS_LOG_TYPE_DEFAULT, "Verified using ACM policy %s that requirement %d is %s on ACMContext %u, flags: %{public}@", buf, 0x2Cu);
+    v44 = v22;
+    _os_log_impl(&dword_1B0233000, v19, OS_LOG_TYPE_DEFAULT, "Verified using ACM policy %s that requirement %d is %s on ACMContext %u, flags: %{public}@", buf, 0x2Cu);
     if (flags)
     {
     }
   }
 
-  if (v17)
+  if (v18)
   {
-    v22 = 1;
+    v23 = 1;
   }
 
   else
   {
-    v22 = (*(v34 + 24) | present) ^ 1;
+    v23 = (*(v34 + 24) | present) ^ 1;
   }
 
   _Block_object_dispose(&v33, 8);
-  v23 = *MEMORY[0x1E69E9840];
-  return v22 & 1;
+  return v23 & 1;
 }
 
 uint64_t __84__LACACMHelper_verifyRequirementOfType_policy_mustBePresent_parameters_flags_error___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -1406,14 +1488,15 @@ uint64_t __84__LACACMHelper_verifyRequirementOfType_policy_mustBePresent_paramet
   return v16;
 }
 
-void __84__LACACMHelper_verifyRequirementOfType_policy_mustBePresent_parameters_flags_error___block_invoke_2(uint64_t a1, int a2, int a3, uint64_t a4)
+void __84__LACACMHelper_verifyRequirementOfType_policy_mustBePresent_parameters_flags_error___block_invoke_2(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 {
   if (a2)
   {
-    v5 = LACLogACM();
+    v4 = a2;
+    v5 = LACLogACM(a1);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __84__LACACMHelper_verifyRequirementOfType_policy_mustBePresent_parameters_flags_error___block_invoke_2_cold_1(a2, v5);
+      __84__LACACMHelper_verifyRequirementOfType_policy_mustBePresent_parameters_flags_error___block_invoke_2_cold_1(v4, v5);
     }
   }
 
@@ -1435,12 +1518,12 @@ void __84__LACACMHelper_verifyRequirementOfType_policy_mustBePresent_parameters_
   {
     if (flags)
     {
-      v20 = MEMORY[0x1E69E9820];
-      v21 = 3221225472;
-      v22 = __66__LACACMHelper__verifyRequirement_satisfiedForType_present_flags___block_invoke;
-      v23 = &__block_descriptor_40_e13_v24__0r_v8Q16l;
-      flagsCopy = flags;
-      ACMRequirementGetProperty();
+      v20[0] = MEMORY[0x1E69E9820];
+      v20[1] = 3221225472;
+      v20[2] = __66__LACACMHelper__verifyRequirement_satisfiedForType_present_flags___block_invoke;
+      v20[3] = &__block_descriptor_40_e13_v24__0r_v8Q16l;
+      v20[4] = flags;
+      ACMRequirementGetProperty(requirement, 100, v20);
     }
 
     if (present)
@@ -1488,7 +1571,7 @@ void __66__LACACMHelper__verifyRequirement_satisfiedForType_present_flags___bloc
 
   else
   {
-    v3 = LACLogACM();
+    v3 = LACLogACM(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __66__LACACMHelper__verifyRequirement_satisfiedForType_present_flags___block_invoke_cold_1();
@@ -1496,13 +1579,13 @@ void __66__LACACMHelper__verifyRequirement_satisfiedForType_present_flags___bloc
   }
 }
 
-uint64_t __66__LACACMHelper__verifyRequirement_satisfiedForType_present_flags___block_invoke_89(uint64_t result, uint64_t a2)
+id *__66__LACACMHelper__verifyRequirement_satisfiedForType_present_flags___block_invoke_89(id *result, uint64_t a2)
 {
-  if ((*(*(*(result + 40) + 8) + 24) & 1) == 0)
+  if ((*(*(result[5] + 1) + 24) & 1) == 0)
   {
     v2 = result;
-    result = [*(result + 32) _verifyRequirement:a2 satisfiedForType:*(v2 + 64) present:*(v2 + 48) flags:*(v2 + 56)];
-    *(*(*(v2 + 40) + 8) + 24) = result;
+    result = [result[4] _verifyRequirement:a2 satisfiedForType:*(v2 + 16) present:v2[6] flags:v2[7]];
+    *(*(v2[5] + 1) + 24) = result;
   }
 
   return result;
@@ -1546,8 +1629,9 @@ uint64_t __66__LACACMHelper__verifyRequirement_satisfiedForType_present_flags___
   [(LACACMHelper *)self performContextVerificationWithParameters:parametersCopy block:v24 completion:requirementCopy];
 }
 
-void __109__LACACMHelper_verifyAclConstraint_operation_preflight_parameters_maxGlobalCredentialAge_processRequirement___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, int a4, void *a5)
+void __109__LACACMHelper_verifyAclConstraint_operation_preflight_parameters_maxGlobalCredentialAge_processRequirement___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
+  v5 = a4;
   v9 = a5;
   v10 = *(a1 + 32);
   v11 = *(a1 + 40);
@@ -1563,15 +1647,15 @@ void __109__LACACMHelper_verifyAclConstraint_operation_preflight_parameters_maxG
   v21 = v11;
   v25 = v13;
   v22 = a3;
-  v23 = a4;
+  v23 = v5;
   v24 = v14;
   v18 = v9;
   v19 = a2;
   v15 = v9;
-  ACMContextVerifyAclConstraintForOperation(a2, v10, v11, v16, v12, v13, a3, a4, v14, v17);
+  ACMContextVerifyAclConstraintForOperation(a2, v10, v11, v16, v12, v13, a3, v5, v14, v17);
 }
 
-rsize_t __109__LACACMHelper_verifyAclConstraint_operation_preflight_parameters_maxGlobalCredentialAge_processRequirement___block_invoke_2(uint64_t a1, int a2)
+uint64_t __109__LACACMHelper_verifyAclConstraint_operation_preflight_parameters_maxGlobalCredentialAge_processRequirement___block_invoke_2(uint64_t a1, int a2)
 {
   if (a2 == -3 && +[LACMobileGestalt isDaytona])
   {
@@ -1597,7 +1681,7 @@ rsize_t __109__LACACMHelper_verifyAclConstraint_operation_preflight_parameters_m
 
 + (BOOL)resetRatchet:(id *)ratchet
 {
-  v4 = LACLogACM();
+  v4 = LACLogACM(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1638,30 +1722,29 @@ rsize_t __109__LACACMHelper_verifyAclConstraint_operation_preflight_parameters_m
 
 - (BOOL)setData:(id)data type:(unsigned int)type encoded:(BOOL)encoded error:(id *)error
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   dataCopy = data;
-  v11 = LACLogACM();
+  v11 = LACLogACM(dataCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109376;
     typeCopy = type;
-    v26 = 1024;
+    v25 = 1024;
     acmTrackingNumber = [(LACACMHelper *)self acmTrackingNumber];
     _os_log_impl(&dword_1B0233000, v11, OS_LOG_TYPE_DEFAULT, "Setting data of type %d on ACMContext %u", buf, 0xEu);
   }
 
-  v17 = MEMORY[0x1E69E9820];
-  v18 = 3221225472;
-  v19 = __43__LACACMHelper_setData_type_encoded_error___block_invoke;
-  v20 = &unk_1E7A975C8;
+  v16 = MEMORY[0x1E69E9820];
+  v17 = 3221225472;
+  v18 = __43__LACACMHelper_setData_type_encoded_error___block_invoke;
+  v19 = &unk_1E7A975C8;
   encodedCopy = encoded;
-  v21 = dataCopy;
+  v20 = dataCopy;
   typeCopy2 = type;
   v12 = dataCopy;
-  v13 = _Block_copy(&v17);
-  v14 = [(LACACMHelper *)self performContextBlock:v13 error:error, v17, v18, v19, v20];
+  v13 = _Block_copy(&v16);
+  v14 = [(LACACMHelper *)self performContextBlock:v13 error:error, v16, v17, v18, v19];
 
-  v15 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -1713,9 +1796,9 @@ BOOL __43__LACACMHelper_setData_type_encoded_error___block_invoke(uint64_t a1, u
 
 - (BOOL)setSecretForPasscodeStash:(id)stash error:(id *)error
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   stashCopy = stash;
-  v7 = LACLogACM();
+  v7 = LACLogACM(stashCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
@@ -1727,23 +1810,22 @@ BOOL __43__LACACMHelper_setData_type_encoded_error___block_invoke(uint64_t a1, u
   aBlock[1] = 3221225472;
   aBlock[2] = __48__LACACMHelper_setSecretForPasscodeStash_error___block_invoke;
   aBlock[3] = &unk_1E7A975F0;
-  v14 = stashCopy;
+  v13 = stashCopy;
   v8 = stashCopy;
   v9 = _Block_copy(aBlock);
   v10 = [(LACACMHelper *)self performContextBlock:v9 error:error];
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 BOOL __48__LACACMHelper_setSecretForPasscodeStash_error___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
+  v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v15 = 0;
-  v12 = 4;
-  DWORD1(v13) = 1;
+  v14 = 0;
+  v11 = 4;
+  DWORD1(v12) = 1;
   if ([*(a1 + 32) length] <= 0x20)
   {
     [*(a1 + 32) bytes];
@@ -1751,7 +1833,7 @@ BOOL __48__LACACMHelper_setSecretForPasscodeStash_error___block_invoke(uint64_t 
     __memcpy_chk();
   }
 
-  v6 = ACMSEPControlEx(a2, 0, 0, &v12, 44, 0);
+  v6 = ACMSEPControlEx(a2, 0, 0, &v11, 44, 0);
   v7 = v6;
   if (a3 && v6)
   {
@@ -1778,9 +1860,7 @@ BOOL __48__LACACMHelper_setSecretForPasscodeStash_error___block_invoke(uint64_t 
     }
   }
 
-  result = v7 == 0;
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  return v7 == 0;
 }
 
 + (char)acmPolicyForPolicy:(int64_t)policy
@@ -1798,7 +1878,7 @@ BOOL __48__LACACMHelper_setSecretForPasscodeStash_error___block_invoke(uint64_t 
         return "DeviceOwnerAuthenticationWithWatch";
       default:
 LABEL_12:
-        v5 = LACLogACM();
+        v5 = LACLogACM(self);
         if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
         {
           [(LACACMHelper *)policyCopy acmPolicyForPolicy:v5];
@@ -1889,15 +1969,20 @@ LABEL_12:
 
 + (id)requirement:(__ACMRequirement *)requirement uint32Property:(unsigned int)property
 {
-  v6 = 0;
-  v7 = &v6;
-  v8 = 0x3032000000;
-  v9 = __Block_byref_object_copy__7;
-  v10 = __Block_byref_object_dispose__7;
-  v11 = 0;
-  ACMRequirementGetProperty();
-  v4 = v7[5];
-  _Block_object_dispose(&v6, 8);
+  v7 = 0;
+  v8 = &v7;
+  v9 = 0x3032000000;
+  v10 = __Block_byref_object_copy__7;
+  v11 = __Block_byref_object_dispose__7;
+  v12 = 0;
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = __43__LACACMHelper_requirement_uint32Property___block_invoke;
+  v6[3] = &unk_1E7A958D0;
+  v6[4] = &v7;
+  ACMRequirementGetProperty(requirement, *&property, v6);
+  v4 = v8[5];
+  _Block_object_dispose(&v7, 8);
 
   return v4;
 }
@@ -1912,7 +1997,7 @@ uint64_t __43__LACACMHelper_requirement_uint32Property___block_invoke(uint64_t r
     v7 = *(v6 + 40);
     *(v6 + 40) = v5;
 
-    return MEMORY[0x1EEE66BB8]();
+    return MEMORY[0x1EEE66BB8](v5, v7);
   }
 
   return result;
@@ -1970,15 +2055,20 @@ BOOL __44__LACACMHelper_requirement_hasFlag_andType___block_invoke(uint64_t a1, 
 
 + (id)requirement:(__ACMRequirement *)requirement dataProperty:(unsigned int)property
 {
-  v6 = 0;
-  v7 = &v6;
-  v8 = 0x3032000000;
-  v9 = __Block_byref_object_copy__7;
-  v10 = __Block_byref_object_dispose__7;
-  v11 = 0;
-  ACMRequirementGetProperty();
-  v4 = v7[5];
-  _Block_object_dispose(&v6, 8);
+  v7 = 0;
+  v8 = &v7;
+  v9 = 0x3032000000;
+  v10 = __Block_byref_object_copy__7;
+  v11 = __Block_byref_object_dispose__7;
+  v12 = 0;
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = __41__LACACMHelper_requirement_dataProperty___block_invoke;
+  v6[3] = &unk_1E7A958D0;
+  v6[4] = &v7;
+  ACMRequirementGetProperty(requirement, *&property, v6);
+  v4 = v8[5];
+  _Block_object_dispose(&v7, 8);
 
   return v4;
 }
@@ -1993,10 +2083,30 @@ uint64_t __41__LACACMHelper_requirement_dataProperty___block_invoke(uint64_t res
     v6 = *(v5 + 40);
     *(v5 + 40) = v4;
 
-    return MEMORY[0x1EEE66BB8]();
+    return MEMORY[0x1EEE66BB8](v4, v6);
   }
 
   return result;
+}
+
++ (id)BOOLEnvironmentVariable:(unsigned int)variable
+{
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x3032000000;
+  v9 = __Block_byref_object_copy__7;
+  v10 = __Block_byref_object_dispose__7;
+  v11 = 0;
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3221225472;
+  v5[2] = __40__LACACMHelper_BOOLEnvironmentVariable___block_invoke;
+  v5[3] = &unk_1E7A958D0;
+  v5[4] = &v6;
+  ACMGetEnvironmentVariable(*&variable, v5);
+  v3 = v7[5];
+  _Block_object_dispose(&v6, 8);
+
+  return v3;
 }
 
 uint64_t __40__LACACMHelper_BOOLEnvironmentVariable___block_invoke(uint64_t result, _BYTE *a2, uint64_t a3)
@@ -2009,7 +2119,7 @@ uint64_t __40__LACACMHelper_BOOLEnvironmentVariable___block_invoke(uint64_t resu
     v7 = *(v6 + 40);
     *(v6 + 40) = v5;
 
-    return MEMORY[0x1EEE66BB8]();
+    return MEMORY[0x1EEE66BB8](v5, v7);
   }
 
   return result;
@@ -2041,39 +2151,37 @@ uint64_t __40__LACACMHelper_BOOLEnvironmentVariable___block_invoke(uint64_t resu
 
 void __29__LACACMHelper_catacombUUID___block_invoke(uint64_t a1, uint64_t a2, unint64_t a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (a2 && a3 <= 0xBE0)
   {
-    v5 = v12;
+    i = v11;
     __memcpy_chk();
-    if (a3 - 152 > 0x97 || v13 != -1)
+    if (a3 - 152 <= 0x97 && v12 == -1)
     {
-      v9 = [*(a1 + 32) unsignedIntValue];
-      if (a3 < 0x98)
-      {
-        goto LABEL_10;
-      }
+LABEL_5:
+      v6 = [MEMORY[0x1E695DEF0] dataWithBytes:i + 20 length:16];
+      v7 = *(*(a1 + 40) + 8);
+      v8 = *(v7 + 40);
+      *(v7 + 40) = v6;
 
-      v10 = a3 / 0x98u;
-      v5 = v12;
-      while (*(v5 + 4) != v9)
-      {
-        v5 += 152;
-        if (!--v10)
-        {
-          goto LABEL_10;
-        }
-      }
+      return;
     }
 
-    v6 = [MEMORY[0x1E695DEF0] dataWithBytes:v5 + 20 length:16];
-    v7 = *(*(a1 + 40) + 8);
-    v8 = *(v7 + 40);
-    *(v7 + 40) = v6;
-  }
+    v9 = [*(a1 + 32) unsignedIntValue];
+    if (a3 >= 0x98)
+    {
+      v10 = a3 / 0x98u;
+      for (i = v11; *(i + 4) != v9; i += 152)
+      {
+        if (!--v10)
+        {
+          return;
+        }
+      }
 
-LABEL_10:
-  v11 = *MEMORY[0x1E69E9840];
+      goto LABEL_5;
+    }
+  }
 }
 
 + (BOOL)requirement:(__ACMRequirement *)requirement hasState:(unsigned int)state andType:(unsigned int)type
@@ -2118,64 +2226,50 @@ BOOL __45__LACACMHelper_requirement_hasState_andType___block_invoke(uint64_t a1,
 
 + (void)notifyBiometricMatchOperationStartAttempted
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v7 = 0;
-  v6 = 0x400000001;
-  v2 = ACMSEPControl(&v6, 12, 0);
-  v3 = LACLogACM();
-  v4 = 16 * (v2 != 0);
-  if (os_log_type_enabled(v3, v4))
+  v11 = *MEMORY[0x1E69E9840];
+  v8 = 0;
+  v7 = 0x400000001;
+  v2 = ACMSEPControl(&v7, 12, 0);
+  v3 = v2;
+  v4 = v2 != 0;
+  v5 = LACLogACM(v2);
+  v6 = 16 * v4;
+  if (os_log_type_enabled(v5, v6))
   {
     *buf = 67109120;
-    v9 = v2;
-    _os_log_impl(&dword_1B0233000, v3, v4, "Biometric attempt notification finished with status (%d)", buf, 8u);
+    v10 = v3;
+    _os_log_impl(&dword_1B0233000, v5, v6, "Biometric attempt notification finished with status (%d)", buf, 8u);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __41__LACACMHelper_ageForDataWithType_error___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_4();
   OUTLINED_FUNCTION_0_6();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __41__LACACMHelper_ageForDataWithType_error___block_invoke_40_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_4();
   OUTLINED_FUNCTION_0_6();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __84__LACACMHelper_verifyRequirementOfType_policy_mustBePresent_parameters_flags_error___block_invoke_2_cold_1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_1B0233000, a2, OS_LOG_TYPE_ERROR, "Policy verification failed: %d", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-void __66__LACACMHelper__verifyRequirement_satisfiedForType_present_flags___block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_1B0233000, a2, OS_LOG_TYPE_ERROR, "Policy verification failed: %d", v2, 8u);
 }
 
 + (void)acmPolicyForPolicy:(int)a1 .cold.1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_1B0233000, a2, OS_LOG_TYPE_ERROR, "No known ACM policy for LA policy %d", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_1B0233000, a2, OS_LOG_TYPE_ERROR, "No known ACM policy for LA policy %d", v2, 8u);
 }
 
 @end

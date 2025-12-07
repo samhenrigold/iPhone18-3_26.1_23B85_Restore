@@ -34,7 +34,7 @@
       goto LABEL_7;
     }
 
-    v11 = ARCreateNonFixedPriorityDispatchQueue("com.apple.arkit.environmentTexturing.cubeMap");
+    v11 = ARCreateNonFixedPriorityDispatchQueue("com.apple.arkit.environmentTexturing.cubeMap", 25, 0);
     cubemapQueue = v2->_cubemapQueue;
     v2->_cubemapQueue = v11;
   }
@@ -91,7 +91,7 @@ void __174__ARCubemapGenerator_cubemapWithTransform_extent_lastHistogram_fromMes
   v4 = *(*(a1 + 232) + 24);
   if (v4)
   {
-    [v4 colorHistogramForCubemap:v3];
+    objc_msgSend_colorHistogramForCubemap_(v4);
     if (*__dst >= 0.083333)
     {
       goto LABEL_15;
@@ -269,7 +269,7 @@ void __174__ARCubemapGenerator_cubemapWithTransform_extent_lastHistogram_fromMes
   v46 = *(*(a1 + 232) + 24);
   if (v46)
   {
-    [v46 colorHistogramForCubemap:v3];
+    objc_msgSend_colorHistogramForCubemap_(v46);
   }
 
   else

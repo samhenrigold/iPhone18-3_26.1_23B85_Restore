@@ -11,6 +11,7 @@
 - (void)setupView;
 - (void)setupWithInputs:(id)inputs responder:(id)responder;
 - (void)teardown;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -51,7 +52,7 @@
     _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Register physical button events", buf, 2u);
   }
 
-  if (!sub_100002B80())
+  if (!sub_100002B80(0))
   {
     v13 = handleForCategory();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
@@ -159,6 +160,20 @@
   {
     *buf = 136315138;
     v6 = "[RepairResultViewController viewDidLoad]";
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
+  }
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = RepairResultViewController;
+  [(RepairResultViewController *)&v4 viewDidAppear:appear];
+  v3 = handleForCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315138;
+    v6 = "[RepairResultViewController viewDidAppear:]";
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 }
@@ -474,48 +489,36 @@ LABEL_19:
   testIdentifier = [inputs testIdentifier];
   v5 = [testIdentifier isEqual:&off_1000087D0];
 
-  if (v5)
+  result = 1;
+  if (!v5 || (-[RepairResultViewController inputs](self, "inputs"), v6 = objc_claimAutoreleasedReturnValue(), [v6 testStatusCode], v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "isEqual:", &off_1000087E8), v7, v6, (v8 & 1) == 0))
   {
     inputs2 = [(RepairResultViewController *)self inputs];
-    testStatusCode = [inputs2 testStatusCode];
-    v8 = [testStatusCode isEqual:&off_1000087E8];
+    testIdentifier2 = [inputs2 testIdentifier];
+    v11 = [testIdentifier2 isEqual:&off_100008800];
 
-    if (v8)
+    if (!v11 || (-[RepairResultViewController inputs](self, "inputs"), v12 = objc_claimAutoreleasedReturnValue(), [v12 testStatusCode], v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "isEqual:", &off_100008818), v13, v12, (v14 & 1) == 0))
     {
-      return 1;
+      inputs3 = [(RepairResultViewController *)self inputs];
+      testIdentifier3 = [inputs3 testIdentifier];
+      v17 = [testIdentifier3 isEqual:&off_100008830];
+
+      if (!v17)
+      {
+        return 0;
+      }
+
+      inputs4 = [(RepairResultViewController *)self inputs];
+      testStatusCode = [inputs4 testStatusCode];
+      v20 = [testStatusCode isEqual:&off_1000087E8];
+
+      if ((v20 & 1) == 0)
+      {
+        return 0;
+      }
     }
   }
 
-  inputs3 = [(RepairResultViewController *)self inputs];
-  testIdentifier2 = [inputs3 testIdentifier];
-  v11 = [testIdentifier2 isEqual:&off_100008800];
-
-  if (v11)
-  {
-    inputs4 = [(RepairResultViewController *)self inputs];
-    testStatusCode2 = [inputs4 testStatusCode];
-    v14 = [testStatusCode2 isEqual:&off_100008818];
-
-    if (v14)
-    {
-      return 1;
-    }
-  }
-
-  inputs5 = [(RepairResultViewController *)self inputs];
-  testIdentifier3 = [inputs5 testIdentifier];
-  v17 = [testIdentifier3 isEqual:&off_100008830];
-
-  if (!v17)
-  {
-    return 0;
-  }
-
-  inputs6 = [(RepairResultViewController *)self inputs];
-  testStatusCode3 = [inputs6 testStatusCode];
-  v20 = [testStatusCode3 isEqual:&off_1000087E8];
-
-  return (v20 & 1) != 0;
+  return result;
 }
 
 - (BOOL)isLostMode

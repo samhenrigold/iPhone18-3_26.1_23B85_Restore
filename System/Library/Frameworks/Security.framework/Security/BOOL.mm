@@ -18,16 +18,15 @@ BOOL __info_array_to_BOOL_error_request_block_invoke(uint64_t a1, void *a2, uint
 BOOL __keybag_and_BOOL_to_BOOL_error_request_block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = *(a1 + 32);
-  v5 = _CFXPCCreateXPCObjectFromCFObject();
-  if (v5)
+  v4 = _CFXPCCreateXPCObjectFromCFObject();
+  if (v4)
   {
-    xpc_dictionary_set_value(v3, "keybag", v5);
+    xpc_dictionary_set_value(v3, "keybag", v4);
   }
 
   xpc_dictionary_set_BOOL(v3, "includeV0", *(a1 + 40));
 
-  return v5 != 0;
+  return v4 != 0;
 }
 
 BOOL __recovery_and_BOOL_to_BOOL_error_request_block_invoke(uint64_t a1, void *a2)
@@ -119,18 +118,17 @@ uint64_t __label_and_password_and_dsid_to_BOOL_error_request_block_invoke(uint64
 BOOL __cfdata_and_int_error_request_returns_BOOL_block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = *(a1 + 32);
-  v5 = _CFXPCCreateXPCObjectFromCFObject();
-  if (v5)
+  v4 = _CFXPCCreateXPCObjectFromCFObject();
+  if (v4)
   {
-    xpc_dictionary_set_value(v3, "data", v5);
+    xpc_dictionary_set_value(v3, "data", v4);
     xpc_dictionary_set_uint64(v3, "version", *(a1 + 40));
   }
 
-  return v5 != 0;
+  return v4 != 0;
 }
 
-BOOL __peer_info_to_BOOL_error_request_block_invoke(uint64_t a1, void *a2, CFTypeRef *a3)
+BOOL __peer_info_to_BOOL_error_request_block_invoke(uint64_t a1, void *a2, CFErrorRef *a3)
 {
   v5 = a2;
   v12 = SOSPeerInfoCopyEncodedData(*(a1 + 32), v6, a3, v7, v8, v9, v10, v11);

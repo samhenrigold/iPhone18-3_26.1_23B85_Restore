@@ -177,19 +177,8 @@ LABEL_9:
   v10 = v17;
 LABEL_13:
   highValue2 = [(HKInspectableValueInRange *)self highValue];
-  if (!highValue2)
+  if (!highValue2 || (v19 = highValue2, -[HKInspectableValueInRange highValue](self, "highValue"), v20 = objc_claimAutoreleasedReturnValue(), +[HKInspectableValue inspectableValueWithNull](HKInspectableValue, "inspectableValueWithNull"), v21 = objc_claimAutoreleasedReturnValue(), v22 = [v20 isEqual:v21], v21, v20, v19, (v22 & 1) != 0))
   {
-    goto LABEL_15;
-  }
-
-  v19 = highValue2;
-  highValue3 = [(HKInspectableValueInRange *)self highValue];
-  v21 = +[HKInspectableValue inspectableValueWithNull];
-  v22 = [highValue3 isEqual:v21];
-
-  if (v22)
-  {
-LABEL_15:
     v23 = 0;
     v14 = 0;
     v24 = lowValue2 != 0;

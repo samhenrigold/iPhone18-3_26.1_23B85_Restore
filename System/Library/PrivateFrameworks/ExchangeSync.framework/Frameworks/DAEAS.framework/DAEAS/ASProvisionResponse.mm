@@ -122,7 +122,7 @@
     policyType = self->_policyType;
     self->_policyType = v4;
 
-    MEMORY[0x2821F96F8]();
+    MEMORY[0x2821F96F8](v4, policyType);
   }
 }
 
@@ -151,45 +151,34 @@
 - (id)asParseRules
 {
   policyType = self->_policyType;
-  if (policyType == @"MS-EAS-Provisioning-WBXML")
+  if (policyType == @"MS-EAS-Provisioning-WBXML" || policyType == @"MS-WAP-Provisioning-XML")
   {
-    v4 = off_278FC7088;
+    v4 = MEMORY[0x277CBEAC0];
+    v5 = [[ASParseRule alloc] initWithMinimumNumber:0 maximumNumber:1209 codePage:14 token:7 objectClass:objc_opt_class() setterMethod:sel_addItem_ dataclass:0 callbackDict:0 streamCallbackDict:0 subclassRuleSet:0];
+    v6 = [MEMORY[0x277CCABB0] numberWithInt:3591];
+    v3 = [v4 dictionaryWithObjectsAndKeys:{v5, v6, 0}];
   }
 
   else
   {
-    if (policyType != @"MS-WAP-Provisioning-XML")
-    {
-      v3 = 0;
-      goto LABEL_7;
-    }
-
-    v4 = off_278FC7080;
+    v3 = 0;
   }
 
-  v5 = MEMORY[0x277CBEAC0];
-  v6 = [ASParseRule alloc];
-  v7 = *v4;
-  v8 = [(ASParseRule *)v6 initWithMinimumNumber:0 maximumNumber:1209 codePage:14 token:7 objectClass:objc_opt_class() setterMethod:sel_addItem_ dataclass:0 callbackDict:0 streamCallbackDict:0 subclassRuleSet:0];
-  v9 = [MEMORY[0x277CCABB0] numberWithInt:3591];
-  v3 = [v5 dictionaryWithObjectsAndKeys:{v8, v9, 0}];
+  v17 = v3;
+  v19 = MEMORY[0x277CBEAC0];
+  v18 = [[ASParseRule alloc] initWithMinimumNumber:0 maximumNumber:1 codePage:14 token:6 objectClass:objc_opt_class() setterMethod:sel__setPolicies_ dataclass:0 callbackDict:0 streamCallbackDict:0 subclassRuleSet:v3];
+  v7 = [MEMORY[0x277CCABB0] numberWithInt:3590];
+  v8 = [[ASParseRule alloc] initWithMinimumNumber:0 maximumNumber:1 codePage:14 token:11 objectClass:objc_opt_class() setterMethod:sel__setStatus_ dataclass:0 callbackDict:0 streamCallbackDict:0 subclassRuleSet:0];
+  v9 = [MEMORY[0x277CCABB0] numberWithInt:3595];
+  v10 = [[ASParseRule alloc] initWithMinimumNumber:0 maximumNumber:1 codePage:14 token:12 objectClass:objc_opt_class() setterMethod:sel__setRemoteWipe_ dataclass:0 callbackDict:0 streamCallbackDict:0 subclassRuleSet:0];
+  v11 = [MEMORY[0x277CCABB0] numberWithInt:3596];
+  v12 = [[ASParseRule alloc] initWithMinimumNumber:0 maximumNumber:1 codePage:14 token:59 objectClass:objc_opt_class() setterMethod:sel__setAccountOnlyRemoteWipe_ dataclass:0 callbackDict:0 streamCallbackDict:0 subclassRuleSet:0];
+  v13 = [MEMORY[0x277CCABB0] numberWithInt:3643];
+  v14 = [[ASParseRule alloc] initWithMinimumNumber:0 maximumNumber:1 codePage:18 token:22 objectClass:objc_opt_class() setterMethod:sel_ignoreThisContent_ dataclass:0 callbackDict:0 streamCallbackDict:0 subclassRuleSet:0];
+  v15 = [MEMORY[0x277CCABB0] numberWithInt:4630];
+  v20 = [v19 dictionaryWithObjectsAndKeys:{v18, v7, v8, v9, v10, v11, v12, v13, v14, v15, 0}];
 
-LABEL_7:
-  v20 = v3;
-  v22 = MEMORY[0x277CBEAC0];
-  v21 = [[ASParseRule alloc] initWithMinimumNumber:0 maximumNumber:1 codePage:14 token:6 objectClass:objc_opt_class() setterMethod:sel__setPolicies_ dataclass:0 callbackDict:0 streamCallbackDict:0 subclassRuleSet:v3];
-  v10 = [MEMORY[0x277CCABB0] numberWithInt:3590];
-  v11 = [[ASParseRule alloc] initWithMinimumNumber:0 maximumNumber:1 codePage:14 token:11 objectClass:objc_opt_class() setterMethod:sel__setStatus_ dataclass:0 callbackDict:0 streamCallbackDict:0 subclassRuleSet:0];
-  v12 = [MEMORY[0x277CCABB0] numberWithInt:3595];
-  v13 = [[ASParseRule alloc] initWithMinimumNumber:0 maximumNumber:1 codePage:14 token:12 objectClass:objc_opt_class() setterMethod:sel__setRemoteWipe_ dataclass:0 callbackDict:0 streamCallbackDict:0 subclassRuleSet:0];
-  v14 = [MEMORY[0x277CCABB0] numberWithInt:3596];
-  v15 = [[ASParseRule alloc] initWithMinimumNumber:0 maximumNumber:1 codePage:14 token:59 objectClass:objc_opt_class() setterMethod:sel__setAccountOnlyRemoteWipe_ dataclass:0 callbackDict:0 streamCallbackDict:0 subclassRuleSet:0];
-  v16 = [MEMORY[0x277CCABB0] numberWithInt:3643];
-  v17 = [[ASParseRule alloc] initWithMinimumNumber:0 maximumNumber:1 codePage:18 token:22 objectClass:objc_opt_class() setterMethod:sel_ignoreThisContent_ dataclass:0 callbackDict:0 streamCallbackDict:0 subclassRuleSet:0];
-  v18 = [MEMORY[0x277CCABB0] numberWithInt:4630];
-  v23 = [v22 dictionaryWithObjectsAndKeys:{v21, v10, v11, v12, v13, v14, v15, v16, v17, v18, 0}];
-
-  return v23;
+  return v20;
 }
 
 - (id)description

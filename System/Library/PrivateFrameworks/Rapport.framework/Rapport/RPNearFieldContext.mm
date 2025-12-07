@@ -151,38 +151,13 @@ LABEL_33:
 {
   coderCopy = coder;
   v5 = [(RPNearFieldContext *)self init];
-  if (!v5)
-  {
-    goto LABEL_5;
-  }
-
-  v6 = coderCopy;
-  objc_opt_class();
-  NSDecodeObjectIfPresent();
-
-  objc_opt_class();
-  NSDecodeNSArrayOfClassIfPresent();
-  v7 = v6;
-  objc_opt_class();
-  NSDecodeObjectIfPresent();
-
-  v8 = v7;
-  objc_opt_class();
-  NSDecodeObjectIfPresent();
-
-  if (!v5->_pkData)
-  {
-    goto LABEL_5;
-  }
-
-  if (v5->_bonjourListenerUUID)
+  if (v5 && (v6 = coderCopy, objc_opt_class(), NSDecodeObjectIfPresent(), v6, objc_opt_class(), NSDecodeNSArrayOfClassIfPresent(), v7 = v6, objc_opt_class(), NSDecodeObjectIfPresent(), v7, v8 = v7, objc_opt_class(), NSDecodeObjectIfPresent(), v8, v5->_pkData) && v5->_bonjourListenerUUID)
   {
     v9 = v5;
   }
 
   else
   {
-LABEL_5:
     v9 = 0;
   }
 

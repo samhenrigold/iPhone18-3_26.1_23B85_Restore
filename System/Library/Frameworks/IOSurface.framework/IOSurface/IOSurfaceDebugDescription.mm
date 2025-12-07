@@ -6,20 +6,18 @@
 
 + (id)surfaceDescriptions
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   outputStruct = 0;
   input = 1;
-  v20 = -3;
+  v19 = -3;
   v2 = _ioSurfaceConnect();
-  if (IOConnectCallMethod(v2, 0x1Eu, &input, 1u, 0, 0, 0, 0, &outputStruct, &v20))
+  if (IOConnectCallMethod(v2, 0x1Eu, &input, 1u, 0, 0, 0, 0, &outputStruct, &v19))
   {
-LABEL_2:
-    result = 0;
-    goto LABEL_16;
+    return 0;
   }
 
   errorString = 0;
-  v4 = IOCFUnserializeBinary(outputStruct, v20, 0, 0, &errorString);
+  v4 = IOCFUnserializeBinary(outputStruct, v19, 0, 0, &errorString);
   if (!v4)
   {
     if (errorString)
@@ -33,12 +31,12 @@ LABEL_2:
       NSLog(&cfstr_FailedToUnseri_0.isa);
     }
 
-    mach_vm_deallocate(*MEMORY[0x1E69E9A60], outputStruct, v20);
-    goto LABEL_2;
+    mach_vm_deallocate(*MEMORY[0x1E69E9A60], outputStruct, v19);
+    return 0;
   }
 
   v5 = v4;
-  mach_vm_deallocate(*MEMORY[0x1E69E9A60], outputStruct, v20);
+  mach_vm_deallocate(*MEMORY[0x1E69E9A60], outputStruct, v19);
   v6 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v7 = [v5 objectForKey:@"Kernel Surfaces"];
   if (v7)
@@ -48,25 +46,25 @@ LABEL_2:
   }
 
   v9 = [v5 objectForKey:@"User Clients"];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
-  v10 = [v9 countByEnumeratingWithState:&v24 objects:v23 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v23 objects:v22 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v25;
+    v12 = *v24;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v25 != v12)
+        if (*v24 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v24 + 1) + 8 * i);
+        v14 = *(*(&v23 + 1) + 8 * i);
         v15 = [v14 objectForKey:@"pid"];
         if (v15)
         {
@@ -76,16 +74,13 @@ LABEL_2:
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v24 objects:v23 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v23 objects:v22 count:16];
     }
 
     while (v11);
   }
 
-  result = v6;
-LABEL_16:
-  v18 = *MEMORY[0x1E69E9840];
-  return result;
+  return v6;
 }
 
 @end

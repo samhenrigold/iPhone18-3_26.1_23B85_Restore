@@ -103,14 +103,10 @@
 
 - (void)writeTo:(id)to
 {
-  uuid = self->_uuid;
   toCopy = to;
   PBDataWriterWriteStringField();
-  zoneName = self->_zoneName;
   PBDataWriterWriteStringField();
-  keyclass = self->_keyclass;
   PBDataWriterWriteStringField();
-  key = self->_key;
   PBDataWriterWriteDataField();
 }
 

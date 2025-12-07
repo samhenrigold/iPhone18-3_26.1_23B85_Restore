@@ -106,14 +106,15 @@
 - (void)updateWithPlatformInformation:(id)information
 {
   informationCopy = information;
+  v5 = informationCopy;
   if (informationCopy)
   {
     v29 = informationCopy;
-    v5 = [informationCopy objectForKeyedSubscript:*MEMORY[0x1E69C09E0]];
-    v6 = v29;
-    if (!v5 || (v7 = self->_vendor, v5, v6 = v29, !v7))
+    v6 = [informationCopy objectForKeyedSubscript:*MEMORY[0x1E69C09E0]];
+    v5 = v29;
+    if (!v6 || (v7 = self->_vendor, v6, v5 = v29, !v7))
     {
-      v8 = [v6 objectForKeyedSubscript:*MEMORY[0x1E69C0A18]];
+      v8 = [v5 objectForKeyedSubscript:*MEMORY[0x1E69C0A18]];
       v9 = v8;
       v10 = MEMORY[0x1E69C0A20];
       if (!v8 || ([v8 isEqualToString:*MEMORY[0x1E69C0A20]] & 1) == 0 && (objc_msgSend(v9, "isEqualToString:", *MEMORY[0x1E69C0A28]) & 1) == 0)
@@ -173,6 +174,7 @@ LABEL_17:
           transport = self->_transport;
           self->_transport = v27;
 
+          v5 = v29;
           goto LABEL_18;
         }
 
@@ -188,7 +190,7 @@ LABEL_17:
 
 LABEL_18:
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](informationCopy, v5);
 }
 
 - (PHPTPAnalyticsData)init

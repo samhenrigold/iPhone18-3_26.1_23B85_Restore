@@ -23,11 +23,12 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v4 = [objc_opt_class() allocWithZone:zone];
+  v5 = objc_opt_class();
+  v8 = objc_msgSend_allocWithZone_(v5, v6, zone, v7);
   trueHeading = self->fHeading.trueHeading;
   timestamp = self->fHeading.timestamp;
 
-  return [v4 initWithClientVehicleHeading:{trueHeading, timestamp}];
+  return objc_msgSend_initWithClientVehicleHeading_(v8, v9, v10, v11, trueHeading, timestamp);
 }
 
 @end

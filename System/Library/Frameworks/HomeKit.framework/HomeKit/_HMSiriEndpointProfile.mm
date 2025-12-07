@@ -58,48 +58,46 @@
 
 - (NSArray)attributeDescriptions
 {
-  v34[9] = *MEMORY[0x1E69E9840];
+  v33[9] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E69A29C8]);
   accessory = [(_HMAccessoryProfile *)self accessory];
   uniqueIdentifier = [accessory uniqueIdentifier];
-  v31 = [v3 initWithName:@"accessoryUniqueIdentifier" value:uniqueIdentifier];
-  v34[0] = v31;
+  v30 = [v3 initWithName:@"accessoryUniqueIdentifier" value:uniqueIdentifier];
+  v33[0] = v30;
   v4 = objc_alloc(MEMORY[0x1E69A29C8]);
-  v30 = HMSiriEndpointProfileSessionStateTypeToString([(_HMSiriEndpointProfile *)self sessionState]);
-  v29 = [v4 initWithName:@"sessionState" value:v30];
-  v34[1] = v29;
+  v29 = HMSiriEndpointProfileSessionStateTypeToString([(_HMSiriEndpointProfile *)self sessionState]);
+  v28 = [v4 initWithName:@"sessionState" value:v29];
+  v33[1] = v28;
   v5 = objc_alloc(MEMORY[0x1E69A29C8]);
   sessionHubIdentifier = [(_HMSiriEndpointProfile *)self sessionHubIdentifier];
-  v27 = [v5 initWithName:@"sessionHubIdentifier" value:sessionHubIdentifier];
-  v34[2] = v27;
+  v26 = [v5 initWithName:@"sessionHubIdentifier" value:sessionHubIdentifier];
+  v33[2] = v26;
   v6 = objc_alloc(MEMORY[0x1E69A29C8]);
   siriEndpointVersion = [(_HMSiriEndpointProfile *)self siriEndpointVersion];
-  v25 = [v6 initWithName:@"siriEndpointVersion" value:siriEndpointVersion];
-  v34[3] = v25;
+  v24 = [v6 initWithName:@"siriEndpointVersion" value:siriEndpointVersion];
+  v33[3] = v24;
   v7 = objc_alloc(MEMORY[0x1E69A29C8]);
-  v24 = HMSiriEndpointProfileCapabilityToString([(_HMSiriEndpointProfile *)self capability]);
-  v8 = [v7 initWithName:@"capability" value:v24];
-  v34[4] = v8;
+  v23 = HMSiriEndpointProfileCapabilityToString([(_HMSiriEndpointProfile *)self capability]);
+  v8 = [v7 initWithName:@"capability" value:v23];
+  v33[4] = v8;
   v9 = objc_alloc(MEMORY[0x1E69A29C8]);
   siriEngineVersion = [(_HMSiriEndpointProfile *)self siriEngineVersion];
   v11 = [v9 initWithName:@"siriEngineVersion" value:siriEngineVersion];
-  v34[5] = v11;
+  v33[5] = v11;
   v12 = objc_alloc(MEMORY[0x1E69A29C8]);
   activeIdentifier = [(_HMSiriEndpointProfile *)self activeIdentifier];
   v14 = [v12 initWithName:@"activeIdentifier" value:activeIdentifier];
-  v34[6] = v14;
+  v33[6] = v14;
   v15 = objc_alloc(MEMORY[0x1E69A29C8]);
   [(_HMSiriEndpointProfile *)self manuallyDisabled];
   v16 = HMFBooleanToString();
   v17 = [v15 initWithName:@"manuallyDisabled" value:v16];
-  v34[7] = v17;
+  v33[7] = v17;
   v18 = objc_alloc(MEMORY[0x1E69A29C8]);
   v19 = HMSiriEndpointProfileMultifunctionButtonTypeToString([(_HMSiriEndpointProfile *)self multifunctionButton]);
   v20 = [v18 initWithName:@"multifunctionButton" value:v19];
-  v34[8] = v20;
-  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:9];
-
-  v22 = *MEMORY[0x1E69E9840];
+  v33[8] = v20;
+  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:9];
 
   return v21;
 }
@@ -113,7 +111,7 @@
 
 - (BOOL)mergeFromNewObject:(id)object
 {
-  v84 = *MEMORY[0x1E69E9840];
+  v83 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -143,18 +141,18 @@
       if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         HMFGetLogIdentifier();
-        v15 = v60 = delegate;
+        v15 = v59 = delegate;
         v16 = HMSiriEndpointProfileSessionStateTypeToString([v6 sessionState]);
         v17 = HMSiriEndpointProfileSessionStateTypeToString([(_HMSiriEndpointProfile *)selfCopy sessionState]);
         *buf = 138543874;
-        v79 = v15;
-        v80 = 2112;
-        v81 = v16;
-        v82 = 2112;
-        v83 = v17;
+        v78 = v15;
+        v79 = 2112;
+        v80 = v16;
+        v81 = 2112;
+        v82 = v17;
         _os_log_impl(&dword_19BB39000, v14, OS_LOG_TYPE_INFO, "%{public}@Updating session state during merge to session state: %@ from session state: %@", buf, 0x20u);
 
-        delegate = v60;
+        delegate = v59;
       }
 
       objc_autoreleasePoolPop(v12);
@@ -182,13 +180,13 @@
       {
         context2 = [(_HMAccessoryProfile *)self context];
         queue2 = [context2 queue];
-        v75[0] = MEMORY[0x1E69E9820];
-        v75[1] = 3221225472;
-        v75[2] = __45___HMSiriEndpointProfile_mergeFromNewObject___block_invoke_2;
-        v75[3] = &unk_1E754E5C0;
-        v75[4] = self;
-        v76 = delegate;
-        dispatch_async(queue2, v75);
+        v74[0] = MEMORY[0x1E69E9820];
+        v74[1] = 3221225472;
+        v74[2] = __45___HMSiriEndpointProfile_mergeFromNewObject___block_invoke_2;
+        v74[3] = &unk_1E754E5C0;
+        v74[4] = self;
+        v75 = delegate;
+        dispatch_async(queue2, v74);
       }
 
       v11 = 1;
@@ -215,26 +213,26 @@
       {
         context3 = [(_HMAccessoryProfile *)self context];
         queue3 = [context3 queue];
-        v73[0] = MEMORY[0x1E69E9820];
-        v73[1] = 3221225472;
-        v73[2] = __45___HMSiriEndpointProfile_mergeFromNewObject___block_invoke_41;
-        v73[3] = &unk_1E754E5C0;
-        v73[4] = self;
-        v74 = delegate;
-        dispatch_async(queue3, v73);
+        v72[0] = MEMORY[0x1E69E9820];
+        v72[1] = 3221225472;
+        v72[2] = __45___HMSiriEndpointProfile_mergeFromNewObject___block_invoke_41;
+        v72[3] = &unk_1E754E5C0;
+        v72[4] = self;
+        v73 = delegate;
+        dispatch_async(queue3, v72);
       }
 
       if (([(_HMSiriEndpointProfile *)self capability]^ capability2) & 2) != 0 && (objc_opt_respondsToSelector())
       {
         context4 = [(_HMAccessoryProfile *)self context];
         queue4 = [context4 queue];
-        v71[0] = MEMORY[0x1E69E9820];
-        v71[1] = 3221225472;
-        v71[2] = __45___HMSiriEndpointProfile_mergeFromNewObject___block_invoke_43;
-        v71[3] = &unk_1E754E5C0;
-        v71[4] = self;
-        v72 = delegate;
-        dispatch_async(queue4, v71);
+        v70[0] = MEMORY[0x1E69E9820];
+        v70[1] = 3221225472;
+        v70[2] = __45___HMSiriEndpointProfile_mergeFromNewObject___block_invoke_43;
+        v70[3] = &unk_1E754E5C0;
+        v70[4] = self;
+        v71 = delegate;
+        dispatch_async(queue4, v70);
       }
 
       v11 = 1;
@@ -253,13 +251,13 @@
       {
         context5 = [(_HMAccessoryProfile *)self context];
         queue5 = [context5 queue];
-        v69[0] = MEMORY[0x1E69E9820];
-        v69[1] = 3221225472;
-        v69[2] = __45___HMSiriEndpointProfile_mergeFromNewObject___block_invoke_45;
-        v69[3] = &unk_1E754E5C0;
-        v69[4] = self;
-        v70 = delegate;
-        dispatch_async(queue5, v69);
+        v68[0] = MEMORY[0x1E69E9820];
+        v68[1] = 3221225472;
+        v68[2] = __45___HMSiriEndpointProfile_mergeFromNewObject___block_invoke_45;
+        v68[3] = &unk_1E754E5C0;
+        v68[4] = self;
+        v69 = delegate;
+        dispatch_async(queue5, v68);
       }
 
       v11 = 1;
@@ -272,13 +270,13 @@
     {
       context6 = [(_HMAccessoryProfile *)self context];
       queue6 = [context6 queue];
-      v67[0] = MEMORY[0x1E69E9820];
-      v67[1] = 3221225472;
-      v67[2] = __45___HMSiriEndpointProfile_mergeFromNewObject___block_invoke_47;
-      v67[3] = &unk_1E754E5C0;
-      v67[4] = self;
-      v68 = delegate;
-      dispatch_async(queue6, v67);
+      v66[0] = MEMORY[0x1E69E9820];
+      v66[1] = 3221225472;
+      v66[2] = __45___HMSiriEndpointProfile_mergeFromNewObject___block_invoke_47;
+      v66[3] = &unk_1E754E5C0;
+      v66[4] = self;
+      v67 = delegate;
+      dispatch_async(queue6, v66);
     }
 
     activeIdentifier = [v6 activeIdentifier];
@@ -294,13 +292,13 @@
       {
         context7 = [(_HMAccessoryProfile *)self context];
         queue7 = [context7 queue];
-        v65[0] = MEMORY[0x1E69E9820];
-        v65[1] = 3221225472;
-        v65[2] = __45___HMSiriEndpointProfile_mergeFromNewObject___block_invoke_49;
-        v65[3] = &unk_1E754E5C0;
-        v65[4] = self;
-        v66 = delegate;
-        dispatch_async(queue7, v65);
+        v64[0] = MEMORY[0x1E69E9820];
+        v64[1] = 3221225472;
+        v64[2] = __45___HMSiriEndpointProfile_mergeFromNewObject___block_invoke_49;
+        v64[3] = &unk_1E754E5C0;
+        v64[4] = self;
+        v65 = delegate;
+        dispatch_async(queue7, v64);
       }
 
       v11 = 1;
@@ -314,13 +312,13 @@
       {
         context8 = [(_HMAccessoryProfile *)self context];
         queue8 = [context8 queue];
-        v63[0] = MEMORY[0x1E69E9820];
-        v63[1] = 3221225472;
-        v63[2] = __45___HMSiriEndpointProfile_mergeFromNewObject___block_invoke_51;
-        v63[3] = &unk_1E754E5C0;
-        v63[4] = self;
-        v64 = delegate;
-        dispatch_async(queue8, v63);
+        v62[0] = MEMORY[0x1E69E9820];
+        v62[1] = 3221225472;
+        v62[2] = __45___HMSiriEndpointProfile_mergeFromNewObject___block_invoke_51;
+        v62[3] = &unk_1E754E5C0;
+        v62[4] = self;
+        v63 = delegate;
+        dispatch_async(queue8, v62);
       }
 
       v11 = 1;
@@ -334,13 +332,13 @@
       {
         context9 = [(_HMAccessoryProfile *)self context];
         queue9 = [context9 queue];
-        v61[0] = MEMORY[0x1E69E9820];
-        v61[1] = 3221225472;
-        v61[2] = __45___HMSiriEndpointProfile_mergeFromNewObject___block_invoke_53;
-        v61[3] = &unk_1E754E5C0;
-        v61[4] = self;
-        v62 = delegate;
-        dispatch_async(queue9, v61);
+        v60[0] = MEMORY[0x1E69E9820];
+        v60[1] = 3221225472;
+        v60[2] = __45___HMSiriEndpointProfile_mergeFromNewObject___block_invoke_53;
+        v60[3] = &unk_1E754E5C0;
+        v60[4] = self;
+        v61 = delegate;
+        dispatch_async(queue9, v60);
       }
 
       v11 = 1;
@@ -352,7 +350,6 @@
     v11 = 0;
   }
 
-  v58 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -391,15 +388,15 @@
 
 - (_HMSiriEndpointProfile)initWithCoder:(id)coder
 {
-  v31[2] = *MEMORY[0x1E69E9840];
+  v30[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v30.receiver = self;
-  v30.super_class = _HMSiriEndpointProfile;
-  v5 = [(_HMAccessoryProfile *)&v30 initWithCoder:coderCopy];
+  v29.receiver = self;
+  v29.super_class = _HMSiriEndpointProfile;
+  v5 = [(_HMAccessoryProfile *)&v29 initWithCoder:coderCopy];
   if (v5)
   {
-    v29 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"session-state"];
-    v5->_sessionState = [v29 integerValue];
+    v28 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"session-state"];
+    v5->_sessionState = [v28 integerValue];
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"session-hub-id"];
     if (v6)
     {
@@ -460,9 +457,9 @@
     }
 
     v21 = MEMORY[0x1E695DFD8];
-    v31[0] = objc_opt_class();
-    v31[1] = objc_opt_class();
-    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:2];
+    v30[0] = objc_opt_class();
+    v30[1] = objc_opt_class();
+    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:2];
     v23 = [v21 setWithArray:v22];
     v24 = [coderCopy decodeObjectOfClasses:v23 forKey:@"assistants"];
 
@@ -471,7 +468,6 @@
     v5->_assistants = v25;
   }
 
-  v27 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -486,7 +482,7 @@
 
 - (void)setNotifications:(BOOL)notifications options:(unint64_t)options completionHandler:(id)handler
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   context = [(_HMAccessoryProfile *)self context];
   v10 = context;
@@ -494,8 +490,8 @@
   {
     if (!handlerCopy)
     {
-      v17 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"You must provide a completion handler" userInfo:0];
-      objc_exception_throw(v17);
+      v16 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"You must provide a completion handler" userInfo:0];
+      objc_exception_throw(v16);
     }
 
     queue = [context queue];
@@ -506,8 +502,8 @@
     notificationsCopy = notifications;
     optionsCopy = options;
     block[4] = self;
-    v20 = handlerCopy;
-    v19 = v10;
+    v19 = handlerCopy;
+    v18 = v10;
     dispatch_async(queue, block);
   }
 
@@ -520,31 +516,29 @@
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v24 = v15;
+      v23 = v15;
       _os_log_impl(&dword_19BB39000, v14, OS_LOG_TYPE_ERROR, "%{public}@Nil context", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v12);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleUpdateProfileState:(id)state
 {
-  v111 = *MEMORY[0x1E69E9840];
+  v110 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   context = [(_HMAccessoryProfile *)self context];
   pendingRequests = [context pendingRequests];
 
   identifier = [stateCopy identifier];
-  v76 = pendingRequests;
-  v75 = [pendingRequests removeCompletionBlockForIdentifier:identifier];
+  v75 = pendingRequests;
+  v74 = [pendingRequests removeCompletionBlockForIdentifier:identifier];
 
   delegate = [(_HMSiriEndpointProfile *)self delegate];
   v9 = [stateCopy numberForKey:@"session-state"];
   sessionState = [(_HMSiriEndpointProfile *)self sessionState];
-  v77 = v9;
+  v76 = v9;
   if (v9)
   {
     v11 = sessionState;
@@ -560,15 +554,15 @@
         HMSiriEndpointProfileSessionStateTypeToString([v9 integerValue]);
         v18 = v17 = delegate;
         *buf = 138543874;
-        v106 = v15;
-        v107 = 2112;
-        v108 = v16;
-        v109 = 2112;
-        v110 = v18;
+        v105 = v15;
+        v106 = 2112;
+        v107 = v16;
+        v108 = 2112;
+        v109 = v18;
         _os_log_impl(&dword_19BB39000, v14, OS_LOG_TYPE_INFO, "%{public}@Updating session state due to message from session state: %@ to sessionState: %@", buf, 0x20u);
 
         delegate = v17;
-        v9 = v77;
+        v9 = v76;
       }
 
       objc_autoreleasePoolPop(v12);
@@ -588,13 +582,13 @@
     {
       context2 = [(_HMAccessoryProfile *)self context];
       delegateCaller = [context2 delegateCaller];
-      v101[0] = MEMORY[0x1E69E9820];
-      v101[1] = 3221225472;
-      v101[2] = __52___HMSiriEndpointProfile__handleUpdateProfileState___block_invoke;
-      v101[3] = &unk_1E754E5C0;
-      v102 = delegate;
+      v100[0] = MEMORY[0x1E69E9820];
+      v100[1] = 3221225472;
+      v100[2] = __52___HMSiriEndpointProfile__handleUpdateProfileState___block_invoke;
+      v100[3] = &unk_1E754E5C0;
+      v101 = delegate;
       selfCopy2 = self;
-      [delegateCaller invokeBlock:v101];
+      [delegateCaller invokeBlock:v100];
     }
   }
 
@@ -623,13 +617,13 @@
       {
         context3 = [(_HMAccessoryProfile *)self context];
         delegateCaller2 = [context3 delegateCaller];
-        v98[0] = MEMORY[0x1E69E9820];
-        v98[1] = 3221225472;
-        v98[2] = __52___HMSiriEndpointProfile__handleUpdateProfileState___block_invoke_2;
-        v98[3] = &unk_1E754E5C0;
-        v99 = delegate;
+        v97[0] = MEMORY[0x1E69E9820];
+        v97[1] = 3221225472;
+        v97[2] = __52___HMSiriEndpointProfile__handleUpdateProfileState___block_invoke_2;
+        v97[3] = &unk_1E754E5C0;
+        v98 = delegate;
         selfCopy3 = self;
-        [delegateCaller2 invokeBlock:v98];
+        [delegateCaller2 invokeBlock:v97];
       }
     }
   }
@@ -647,31 +641,31 @@
       {
         context4 = [(_HMAccessoryProfile *)self context];
         delegateCaller3 = [context4 delegateCaller];
-        v95[0] = MEMORY[0x1E69E9820];
-        v95[1] = 3221225472;
-        v95[2] = __52___HMSiriEndpointProfile__handleUpdateProfileState___block_invoke_3;
-        v95[3] = &unk_1E754E5C0;
-        v96 = delegate;
+        v94[0] = MEMORY[0x1E69E9820];
+        v94[1] = 3221225472;
+        v94[2] = __52___HMSiriEndpointProfile__handleUpdateProfileState___block_invoke_3;
+        v94[3] = &unk_1E754E5C0;
+        v95 = delegate;
         selfCopy4 = self;
-        [delegateCaller3 invokeBlock:v95];
+        [delegateCaller3 invokeBlock:v94];
       }
 
       if (([(_HMSiriEndpointProfile *)self capability]^ capability) & 2) != 0 && (objc_opt_respondsToSelector())
       {
         context5 = [(_HMAccessoryProfile *)self context];
         delegateCaller4 = [context5 delegateCaller];
-        v92[0] = MEMORY[0x1E69E9820];
-        v92[1] = 3221225472;
-        v92[2] = __52___HMSiriEndpointProfile__handleUpdateProfileState___block_invoke_4;
-        v92[3] = &unk_1E754E5C0;
-        v93 = delegate;
+        v91[0] = MEMORY[0x1E69E9820];
+        v91[1] = 3221225472;
+        v91[2] = __52___HMSiriEndpointProfile__handleUpdateProfileState___block_invoke_4;
+        v91[3] = &unk_1E754E5C0;
+        v92 = delegate;
         selfCopy5 = self;
-        [delegateCaller4 invokeBlock:v92];
+        [delegateCaller4 invokeBlock:v91];
       }
     }
   }
 
-  v74 = v19;
+  v73 = v19;
   v40 = [stateCopy numberForKey:@"active-identifier"];
   if (v40)
   {
@@ -685,18 +679,18 @@
       {
         context6 = [(_HMAccessoryProfile *)self context];
         delegateCaller5 = [context6 delegateCaller];
-        v89[0] = MEMORY[0x1E69E9820];
-        v89[1] = 3221225472;
-        v89[2] = __52___HMSiriEndpointProfile__handleUpdateProfileState___block_invoke_5;
-        v89[3] = &unk_1E754E5C0;
-        v90 = delegate;
+        v88[0] = MEMORY[0x1E69E9820];
+        v88[1] = 3221225472;
+        v88[2] = __52___HMSiriEndpointProfile__handleUpdateProfileState___block_invoke_5;
+        v88[3] = &unk_1E754E5C0;
+        v89 = delegate;
         selfCopy6 = self;
-        [delegateCaller5 invokeBlock:v89];
+        [delegateCaller5 invokeBlock:v88];
       }
     }
   }
 
-  v73 = v24;
+  v72 = v24;
   v45 = [stateCopy numberForKey:@"manually-disabled"];
   v46 = v45;
   if (v45)
@@ -709,19 +703,19 @@
       {
         context7 = [(_HMAccessoryProfile *)self context];
         delegateCaller6 = [context7 delegateCaller];
-        v86[0] = MEMORY[0x1E69E9820];
-        v86[1] = 3221225472;
-        v86[2] = __52___HMSiriEndpointProfile__handleUpdateProfileState___block_invoke_6;
-        v86[3] = &unk_1E754E5C0;
-        v87 = delegate;
+        v85[0] = MEMORY[0x1E69E9820];
+        v85[1] = 3221225472;
+        v85[2] = __52___HMSiriEndpointProfile__handleUpdateProfileState___block_invoke_6;
+        v85[3] = &unk_1E754E5C0;
+        v86 = delegate;
         selfCopy7 = self;
-        [delegateCaller6 invokeBlock:v86];
+        [delegateCaller6 invokeBlock:v85];
       }
     }
   }
 
-  v71 = v33;
-  v72 = v27;
+  v70 = v33;
+  v71 = v27;
   v50 = [stateCopy numberForKey:{@"multifunction-button", v40}];
   v51 = v50;
   if (v50)
@@ -734,28 +728,28 @@
       {
         context8 = [(_HMAccessoryProfile *)self context];
         delegateCaller7 = [context8 delegateCaller];
-        v83[0] = MEMORY[0x1E69E9820];
-        v83[1] = 3221225472;
-        v83[2] = __52___HMSiriEndpointProfile__handleUpdateProfileState___block_invoke_7;
-        v83[3] = &unk_1E754E5C0;
-        v84 = delegate;
+        v82[0] = MEMORY[0x1E69E9820];
+        v82[1] = 3221225472;
+        v82[2] = __52___HMSiriEndpointProfile__handleUpdateProfileState___block_invoke_7;
+        v82[3] = &unk_1E754E5C0;
+        v83 = delegate;
         selfCopy8 = self;
-        [delegateCaller7 invokeBlock:v83];
+        [delegateCaller7 invokeBlock:v82];
       }
     }
   }
 
-  v78 = delegate;
+  v77 = delegate;
   v55 = [stateCopy dataForKey:@"assistants"];
   v56 = MEMORY[0x1E696ACD0];
   v57 = MEMORY[0x1E695DFD8];
-  v104[0] = objc_opt_class();
-  v104[1] = objc_opt_class();
-  v58 = [MEMORY[0x1E695DEC8] arrayWithObjects:v104 count:2];
+  v103[0] = objc_opt_class();
+  v103[1] = objc_opt_class();
+  v58 = [MEMORY[0x1E695DEC8] arrayWithObjects:v103 count:2];
   v59 = [v57 setWithArray:v58];
-  v82 = 0;
-  v60 = [v56 unarchivedObjectOfClasses:v59 fromData:v55 error:&v82];
-  v61 = v82;
+  v81 = 0;
+  v60 = [v56 unarchivedObjectOfClasses:v59 fromData:v55 error:&v81];
+  v61 = v81;
 
   v62 = v60;
   objc_opt_class();
@@ -775,28 +769,26 @@
   {
     context9 = [(_HMAccessoryProfile *)self context];
     delegateCaller8 = [context9 delegateCaller];
-    v79[0] = MEMORY[0x1E69E9820];
-    v79[1] = 3221225472;
-    v79[2] = __52___HMSiriEndpointProfile__handleUpdateProfileState___block_invoke_8;
-    v79[3] = &unk_1E754E5C0;
-    v80 = v78;
+    v78[0] = MEMORY[0x1E69E9820];
+    v78[1] = 3221225472;
+    v78[2] = __52___HMSiriEndpointProfile__handleUpdateProfileState___block_invoke_8;
+    v78[3] = &unk_1E754E5C0;
+    v79 = v77;
     selfCopy9 = self;
-    [delegateCaller8 invokeBlock:v79];
+    [delegateCaller8 invokeBlock:v78];
   }
 
-  if (v75)
+  if (v74)
   {
     context10 = [(_HMAccessoryProfile *)self context];
     delegateCaller9 = [context10 delegateCaller];
-    [delegateCaller9 callCompletion:v75 error:0];
+    [delegateCaller9 callCompletion:v74 error:0];
   }
-
-  v69 = *MEMORY[0x1E69E9840];
 }
 
 - (void)refreshStateWithCompletionHandler:(id)handler
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   context = [(_HMAccessoryProfile *)self context];
   v6 = context;
@@ -804,8 +796,8 @@
   {
     if (!handlerCopy)
     {
-      v13 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"You must provide a completion handler" userInfo:0];
-      objc_exception_throw(v13);
+      v12 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"You must provide a completion handler" userInfo:0];
+      objc_exception_throw(v12);
     }
 
     queue = [context queue];
@@ -814,8 +806,8 @@
     block[2] = __60___HMSiriEndpointProfile_refreshStateWithCompletionHandler___block_invoke;
     block[3] = &unk_1E754E0F8;
     block[4] = self;
-    v16 = handlerCopy;
-    v15 = v6;
+    v15 = handlerCopy;
+    v14 = v6;
     dispatch_async(queue, block);
   }
 
@@ -828,14 +820,12 @@
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v18 = v11;
+      v17 = v11;
       _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@Nil context", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v8);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setAssistants:(id)assistants
@@ -1000,7 +990,7 @@
 
 - (void)notifyClientDidUpdateSessionState
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   context = [(_HMAccessoryProfile *)self context];
   delegateCaller = [context delegateCaller];
   if (delegateCaller)
@@ -1013,22 +1003,22 @@
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v19 = v9;
-      v20 = 2112;
-      v21 = delegate;
+      v18 = v9;
+      v19 = 2112;
+      v20 = delegate;
       _os_log_impl(&dword_19BB39000, v8, OS_LOG_TYPE_INFO, "%{public}@Notifying client of did update session state using delegate: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
     if (objc_opt_respondsToSelector())
     {
-      v15[0] = MEMORY[0x1E69E9820];
-      v15[1] = 3221225472;
-      v15[2] = __59___HMSiriEndpointProfile_notifyClientDidUpdateSessionState__block_invoke;
-      v15[3] = &unk_1E754E5C0;
-      v16 = delegate;
-      v17 = selfCopy;
-      [delegateCaller invokeBlock:v15];
+      v14[0] = MEMORY[0x1E69E9820];
+      v14[1] = 3221225472;
+      v14[2] = __59___HMSiriEndpointProfile_notifyClientDidUpdateSessionState__block_invoke;
+      v14[3] = &unk_1E754E5C0;
+      v15 = delegate;
+      v16 = selfCopy;
+      [delegateCaller invokeBlock:v14];
     }
   }
 
@@ -1041,21 +1031,19 @@
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v19 = v13;
-      v20 = 2112;
-      v21 = context;
+      v18 = v13;
+      v19 = 2112;
+      v20 = context;
       _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to notify client of updated session state due to no delgate caller from context: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deleteSiriHistoryWithCompletionHandler:(id)handler
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   messenger = [(_HMSiriEndpointProfile *)self messenger];
   if (messenger)
@@ -1074,22 +1062,20 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v11;
-      _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to delete siri history due to no messenger", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v11;
+      _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to delete siri history due to no messenger", &v13, 0xCu);
     }
 
     objc_autoreleasePoolPop(v8);
     v12 = [MEMORY[0x1E696ABC0] hmfErrorWithCode:4];
     handlerCopy[2](handlerCopy, v12);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)applyOnboardingSelections:(id)selections completionHandler:(id)handler
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   selectionsCopy = selections;
   handlerCopy = handler;
   messenger = [(_HMSiriEndpointProfile *)self messenger];
@@ -1109,17 +1095,15 @@
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v14 = HMFGetLogIdentifier();
-      v17 = 138543362;
-      v18 = v14;
-      _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to apply onboarding selections due to no messenger", &v17, 0xCu);
+      v16 = 138543362;
+      v17 = v14;
+      _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to apply onboarding selections due to no messenger", &v16, 0xCu);
     }
 
     objc_autoreleasePoolPop(v11);
     v15 = [MEMORY[0x1E696ABC0] hmfErrorWithCode:4];
     handlerCopy[2](handlerCopy, v15, 1);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_registerNotificationHandlers
@@ -1131,7 +1115,7 @@
 
 - (void)__configureWithContext:(id)context accessory:(id)accessory
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   accessoryCopy = accessory;
   v8 = objc_autoreleasePoolPush();
@@ -1141,23 +1125,21 @@
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v17 = v11;
-    v18 = 2112;
-    v19 = selfCopy;
-    v20 = 2112;
-    v21 = contextCopy;
+    v16 = v11;
+    v17 = 2112;
+    v18 = selfCopy;
+    v19 = 2112;
+    v20 = contextCopy;
     _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_DEBUG, "%{public}@Configuring siri endpoint profile: %@ with context: %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v8);
-  v15.receiver = selfCopy;
-  v15.super_class = _HMSiriEndpointProfile;
-  [(_HMAccessoryProfile *)&v15 __configureWithContext:contextCopy accessory:accessoryCopy];
+  v14.receiver = selfCopy;
+  v14.super_class = _HMSiriEndpointProfile;
+  [(_HMAccessoryProfile *)&v14 __configureWithContext:contextCopy accessory:accessoryCopy];
   home = [(_HMAccessoryProfile *)selfCopy home];
   createSiriEndpointProfilesMessenger = [home createSiriEndpointProfilesMessenger];
   [(_HMSiriEndpointProfile *)selfCopy setMessenger:createSiriEndpointProfilesMessenger];
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 + (id)logCategory

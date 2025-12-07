@@ -97,7 +97,7 @@
 
 void __40__CXCallControllerHost_addOrUpdateCall___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) callUUIDToCallMap];
   v3 = [v2 count];
 
@@ -124,26 +124,26 @@ void __40__CXCallControllerHost_addOrUpdateCall___block_invoke(uint64_t a1)
     [v11 setObject:v10 forKeyedSubscript:v12];
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v13 = [*(a1 + 32) connections];
-  v14 = [v13 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v22;
+    v16 = *v21;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v22 != v16)
+        if (*v21 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v21 + 1) + 8 * i);
+        v18 = *(*(&v20 + 1) + 8 * i);
         v19 = [*(a1 + 32) _sanitizedCallFromCall:*(a1 + 40) forCallControllerHostConnection:v18];
         if (v19)
         {
@@ -151,13 +151,11 @@ void __40__CXCallControllerHost_addOrUpdateCall___block_invoke(uint64_t a1)
         }
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v15);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeCall:(id)call
@@ -176,7 +174,7 @@ void __40__CXCallControllerHost_addOrUpdateCall___block_invoke(uint64_t a1)
 
 void __35__CXCallControllerHost_removeCall___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) callUUIDToCallMap];
   v3 = [v2 count];
 
@@ -185,26 +183,26 @@ void __35__CXCallControllerHost_removeCall___block_invoke(uint64_t a1)
     notify_set_state(*(*(a1 + 32) + 8), 0);
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v4 = [*(a1 + 32) connections];
-  v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * i);
+        v9 = *(*(&v15 + 1) + 8 * i);
         v10 = [*(a1 + 32) _sanitizedCallFromCall:*(a1 + 40) forCallControllerHostConnection:v9];
         if (v10)
         {
@@ -212,7 +210,7 @@ void __35__CXCallControllerHost_removeCall___block_invoke(uint64_t a1)
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
@@ -225,8 +223,6 @@ void __35__CXCallControllerHost_removeCall___block_invoke(uint64_t a1)
   v13 = [*(a1 + 32) callUUIDToPublicCallUUIDMap];
   v14 = [*(a1 + 40) UUID];
   [v13 removeObjectForKey:v14];
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_performDelegateCallback:(id)callback
@@ -306,7 +302,7 @@ LABEL_10:
 
 - (id)_callsForCallControllerHostConnection:(id)connection
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   queue = [(CXCallControllerHost *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -315,51 +311,50 @@ LABEL_10:
   callUUIDToCallMap = [(CXCallControllerHost *)self callUUIDToCallMap];
   v8 = [v6 arrayWithCapacity:{objc_msgSend(callUUIDToCallMap, "count")}];
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   callUUIDToCallMap2 = [(CXCallControllerHost *)self callUUIDToCallMap];
   allValues = [callUUIDToCallMap2 allValues];
 
-  v11 = [allValues countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v11 = [allValues countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v20;
+    v13 = *v19;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v20 != v13)
+        if (*v19 != v13)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v15 = [(CXCallControllerHost *)self _sanitizedCallFromCall:*(*(&v19 + 1) + 8 * i) forCallControllerHostConnection:connectionCopy];
+        v15 = [(CXCallControllerHost *)self _sanitizedCallFromCall:*(*(&v18 + 1) + 8 * i) forCallControllerHostConnection:connectionCopy];
         if (v15)
         {
           [v8 addObject:v15];
         }
       }
 
-      v12 = [allValues countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v12 = [allValues countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v12);
   }
 
   v16 = [v8 copy];
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
-  v6 = CXDefaultLog();
+  v6 = CXDefaultLog(connectionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -368,63 +363,64 @@ LABEL_10:
   }
 
   *buf = 0u;
-  v21 = 0u;
+  v22 = 0u;
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
-  if (ba_is_process_extension())
+  is_process_extension = ba_is_process_extension();
+  if (is_process_extension)
   {
-    v7 = CXDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = CXDefaultLog(is_process_extension);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v18 = 138412290;
-      v19 = connectionCopy;
-      v8 = "Process is a background asset extension; rejecting connection %@";
+      *v19 = 138412290;
+      v20 = connectionCopy;
+      v9 = "Process is a background asset extension; rejecting connection %@";
 LABEL_11:
-      _os_log_impl(&dword_1B47F3000, v7, OS_LOG_TYPE_DEFAULT, v8, v18, 0xCu);
+      _os_log_impl(&dword_1B47F3000, v8, OS_LOG_TYPE_DEFAULT, v9, v19, 0xCu);
     }
   }
 
   else
   {
-    if (![connectionCopy cx_isProcessOnDemandInstallCapable])
+    cx_isProcessOnDemandInstallCapable = [connectionCopy cx_isProcessOnDemandInstallCapable];
+    if (!cx_isProcessOnDemandInstallCapable)
     {
-      v10 = [CXCallControllerHostConnection alloc];
+      v12 = [CXCallControllerHostConnection alloc];
       queue = [(CXCallControllerHost *)self queue];
-      v12 = [(CXCallControllerHostConnection *)v10 initWithConnection:connectionCopy serialQueue:queue];
+      v14 = [(CXCallControllerHostConnection *)v12 initWithConnection:connectionCopy serialQueue:queue];
 
-      [(CXCallControllerHostConnection *)v12 setDelegate:self];
+      [(CXCallControllerHostConnection *)v14 setDelegate:self];
       queue2 = [(CXCallControllerHost *)self queue];
-      v16[0] = MEMORY[0x1E69E9820];
-      v16[1] = 3221225472;
-      v16[2] = __59__CXCallControllerHost_listener_shouldAcceptNewConnection___block_invoke;
-      v16[3] = &unk_1E7C06BE0;
-      v16[4] = self;
-      v17 = v12;
-      v7 = v12;
-      dispatch_async(queue2, v16);
+      v17[0] = MEMORY[0x1E69E9820];
+      v17[1] = 3221225472;
+      v17[2] = __59__CXCallControllerHost_listener_shouldAcceptNewConnection___block_invoke;
+      v17[3] = &unk_1E7C06BE0;
+      v17[4] = self;
+      v18 = v14;
+      v8 = v14;
+      dispatch_async(queue2, v17);
 
-      v9 = 1;
+      v11 = 1;
       goto LABEL_14;
     }
 
-    v7 = CXDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = CXDefaultLog(cx_isProcessOnDemandInstallCapable);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v18 = 138412290;
-      v19 = connectionCopy;
-      v8 = "Process is an App Clip extension; rejecting connection %@";
+      *v19 = 138412290;
+      v20 = connectionCopy;
+      v9 = "Process is an App Clip extension; rejecting connection %@";
       goto LABEL_11;
     }
   }
 
-  v9 = 0;
+  v11 = 0;
 LABEL_14:
 
-  v14 = *MEMORY[0x1E69E9840];
-  return v9;
+  return v11;
 }
 
 void __59__CXCallControllerHost_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
@@ -451,18 +447,16 @@ void __59__CXCallControllerHost_listener_shouldAcceptNewConnection___block_invok
   queue = [(CXCallControllerHost *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v9 = CXDefaultLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = CXDefaultLog(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v12 = 138412290;
     v13 = connectionCopy;
-    _os_log_impl(&dword_1B47F3000, v9, OS_LOG_TYPE_DEFAULT, "callControllerHostConnection: %@", &v12, 0xCu);
+    _os_log_impl(&dword_1B47F3000, v10, OS_LOG_TYPE_DEFAULT, "callControllerHostConnection: %@", &v12, 0xCu);
   }
 
-  v10 = [(CXCallControllerHost *)self _callsForCallControllerHostConnection:connectionCopy];
-  callsCopy[2](callsCopy, v10);
-
-  v11 = *MEMORY[0x1E69E9840];
+  v11 = [(CXCallControllerHost *)self _callsForCallControllerHostConnection:connectionCopy];
+  callsCopy[2](callsCopy, v11);
 }
 
 - (void)callControllerHostConnection:(id)connection requestTransaction:(id)transaction completion:(id)completion
@@ -474,14 +468,14 @@ void __59__CXCallControllerHost_listener_shouldAcceptNewConnection___block_invok
   queue = [(CXCallControllerHost *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v12 = CXDefaultLog();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = CXDefaultLog(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
     v39 = connectionCopy;
     v40 = 2112;
     v41 = transactionCopy;
-    _os_log_impl(&dword_1B47F3000, v12, OS_LOG_TYPE_DEFAULT, "callControllerHostConnection: %@ transaction: %@", buf, 0x16u);
+    _os_log_impl(&dword_1B47F3000, v13, OS_LOG_TYPE_DEFAULT, "callControllerHostConnection: %@ transaction: %@", buf, 0x16u);
   }
 
   v35 = 0u;
@@ -489,85 +483,89 @@ void __59__CXCallControllerHost_listener_shouldAcceptNewConnection___block_invok
   v33 = 0u;
   v34 = 0u;
   actions = [transactionCopy actions];
-  v14 = [actions countByEnumeratingWithState:&v33 objects:v37 count:16];
-  if (!v14)
+  v15 = [actions countByEnumeratingWithState:&v33 objects:v37 count:16];
+  if (!v15)
   {
 
     goto LABEL_18;
   }
 
-  v15 = v14;
+  v16 = v15;
   v28 = completionCopy;
-  v16 = 0;
   v17 = 0;
-  v18 = *v34;
+  v18 = 0;
+  v19 = *v34;
   do
   {
-    for (i = 0; i != v15; ++i)
+    for (i = 0; i != v16; ++i)
     {
-      if (*v34 != v18)
+      if (*v34 != v19)
       {
         objc_enumerationMutation(actions);
       }
 
-      v20 = *(*(&v33 + 1) + 8 * i);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v17 = 1;
+        v18 = 1;
       }
 
       else
       {
         objc_opt_class();
-        v16 |= objc_opt_isKindOfClass();
+        v17 |= objc_opt_isKindOfClass();
       }
     }
 
-    v15 = [actions countByEnumeratingWithState:&v33 objects:v37 count:16];
+    v16 = [actions countByEnumeratingWithState:&v33 objects:v37 count:16];
   }
 
-  while (v15);
+  while (v16);
 
-  if (v17 & v16)
+  if (v18 & v17)
   {
-    v21 = CXDefaultLog();
+    v22 = CXDefaultLog(isChannelTransactionRequestPermitted);
     completionCopy = v28;
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      [CXCallControllerHost callControllerHostConnection:connectionCopy requestTransaction:v21 completion:?];
+      [CXCallControllerHost callControllerHostConnection:connectionCopy requestTransaction:v22 completion:?];
     }
 
-    v22 = MEMORY[0x1E696ABC0];
-    v23 = 6;
+    v23 = MEMORY[0x1E696ABC0];
+    v24 = 6;
 LABEL_21:
-    v25 = [v22 cx_requestTransactionErrorWithCode:v23];
-    (*(completionCopy + 2))(completionCopy, v25);
+    v26 = [v23 cx_requestTransactionErrorWithCode:v24];
+    (*(completionCopy + 2))(completionCopy, v26);
 
     goto LABEL_22;
   }
 
   completionCopy = v28;
-  if ((v17 & 1) == 0)
+  if ((v18 & 1) == 0)
   {
-    if ((v16 & 1) != 0 && [connectionCopy isChannelTransactionRequestPermitted])
+    if (v17)
     {
-      goto LABEL_28;
+      isChannelTransactionRequestPermitted = [connectionCopy isChannelTransactionRequestPermitted];
+      if (isChannelTransactionRequestPermitted)
+      {
+        goto LABEL_28;
+      }
     }
 
 LABEL_18:
-    v24 = CXDefaultLog();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v25 = CXDefaultLog(isChannelTransactionRequestPermitted);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      [CXCallControllerHost callControllerHostConnection:connectionCopy requestTransaction:v24 completion:?];
+      [CXCallControllerHost callControllerHostConnection:connectionCopy requestTransaction:v25 completion:?];
     }
 
-    v22 = MEMORY[0x1E696ABC0];
-    v23 = 1;
+    v23 = MEMORY[0x1E696ABC0];
+    v24 = 1;
     goto LABEL_21;
   }
 
-  if (([connectionCopy isCallTransactionRequestPermitted] & 1) == 0)
+  isChannelTransactionRequestPermitted = [connectionCopy isCallTransactionRequestPermitted];
+  if ((isChannelTransactionRequestPermitted & 1) == 0)
   {
     goto LABEL_18;
   }
@@ -592,7 +590,6 @@ LABEL_28:
   [(CXCallControllerHost *)self _performDelegateCallback:v29];
 
 LABEL_22:
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __83__CXCallControllerHost_callControllerHostConnection_requestTransaction_completion___block_invoke(uint64_t a1)
@@ -612,20 +609,18 @@ void __83__CXCallControllerHost_callControllerHostConnection_requestTransaction_
 
 - (void)callControllerHostConnection:(uint64_t)a1 requestTransaction:(NSObject *)a2 completion:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B47F3000, a2, OS_LOG_TYPE_ERROR, "Transaction contains call and channel actions; rejecting request by connection %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B47F3000, a2, OS_LOG_TYPE_ERROR, "Transaction contains call and channel actions; rejecting request by connection %@", &v2, 0xCu);
 }
 
 - (void)callControllerHostConnection:(uint64_t)a1 requestTransaction:(NSObject *)a2 completion:.cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B47F3000, a2, OS_LOG_TYPE_ERROR, "Connection is not permitted to issue transaction requests: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B47F3000, a2, OS_LOG_TYPE_ERROR, "Connection is not permitted to issue transaction requests: %@", &v2, 0xCu);
 }
 
 @end

@@ -23,7 +23,7 @@
 
 - (id)suggestionCategorySubtitleForItems:(id)items
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EBA7CBD0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EBA7CBD0, &unk_1B81FD110);
   v4 = sub_1B81F90C8();
   selfCopy = self;
   v6 = sub_1B81B9090(v4);
@@ -70,7 +70,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1B81B960C();
+  sub_1B81B960C(delegate);
 }
 
 - (id)suggestionCategory

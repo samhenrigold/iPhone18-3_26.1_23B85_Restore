@@ -30,8 +30,8 @@
         v8 = self->_data;
         self->_data = 0;
 
-        v9 = _ISDefaultLog();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+        v10 = _ISDefaultLog(v9);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
         {
           [(ISStoreIndex *)self data];
         }
@@ -39,10 +39,10 @@
     }
   }
 
-  v10 = self->_data;
+  v11 = self->_data;
   os_unfair_lock_unlock([(ISStoreIndex *)self dataLock]);
 
-  return v10;
+  return v11;
 }
 
 - (ISStoreIndex)initWithStoreFileURL:(id)l
@@ -163,21 +163,20 @@ uint64_t __44__ISStoreIndex_enumerateValuesForUUID_bock___block_invoke(uint64_t 
 
 void __27__ISStoreIndex_description__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = objc_autoreleasePoolPush();
   memset(out, 0, 37);
   uuid_unparse(a2, out);
-  memset(v9, 0, 37);
-  uuid_unparse((a2 + 60), v9);
   memset(v8, 0, 37);
-  uuid_unparse((a2 + 76), v8);
+  uuid_unparse((a2 + 60), v8);
   memset(v7, 0, 37);
-  uuid_unparse((a2 + 100), v7);
+  uuid_unparse((a2 + 76), v7);
   memset(v6, 0, 37);
-  uuid_unparse((a2 + 44), v6);
-  [*(a1 + 32) appendFormat:@"Item [%u]\n\tUUID: %s\n\tSize: %upt @%ux\n\tValid from: %upt to %upt\n\tBitmap filename: %s.isdata\n\tValidation Token:- DB UUID: %s seq: %llu RSC UUID: %s\n\tDescriptor UUID: %s\n-------------------------------------------------\n", (*(*(*(a1 + 40) + 8) + 24))++, out, *(a2 + 32), *(a2 + 40), *(a2 + 16), *(a2 + 24), v9, v8, *(a2 + 92), v7, v6];
+  uuid_unparse((a2 + 100), v6);
+  memset(v5, 0, 37);
+  uuid_unparse((a2 + 44), v5);
+  [*(a1 + 32) appendFormat:@"Item [%u]\n\tUUID: %s\n\tSize: %upt @%ux\n\tValid from: %upt to %upt\n\tBitmap filename: %s.isdata\n\tValidation Token:- DB UUID: %s seq: %llu RSC UUID: %s\n\tDescriptor UUID: %s\n-------------------------------------------------\n", (*(*(*(a1 + 40) + 8) + 24))++, out, *(a2 + 32), *(a2 + 40), *(a2 + 16), *(a2 + 24), v8, v7, *(a2 + 92), v6, v5];
   objc_autoreleasePoolPop(v4);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)validate
@@ -204,7 +203,7 @@ void __27__ISStoreIndex_description__block_invoke(uint64_t a1, uint64_t a2)
 
 uint64_t __24__ISStoreIndex_validate__block_invoke(uint64_t a1, void *a2, unint64_t a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v4 = a2;
   v5 = [v4 _ISStoreIndex_nodeForRef:a3];
   if (!v5)
@@ -251,34 +250,31 @@ LABEL_6:
 
 LABEL_8:
   v12 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:v6 + 8];
-  v13 = _ISDefaultLog();
+  v13 = _ISDefaultLog(v12);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
   {
-    v16 = 138412802;
-    v17 = v12;
-    v18 = 1024;
-    v19 = v8;
-    v20 = 1024;
-    v21 = v9;
-    _os_log_fault_impl(&dword_1A77B8000, v13, OS_LOG_TYPE_FAULT, "Cyclic node detected: %@ (offset: %u, size: %u) ", &v16, 0x18u);
+    v15 = 138412802;
+    v16 = v12;
+    v17 = 1024;
+    v18 = v8;
+    v19 = 1024;
+    v20 = v9;
+    _os_log_fault_impl(&dword_1A77B8000, v13, OS_LOG_TYPE_FAULT, "Cyclic node detected: %@ (offset: %u, size: %u) ", &v15, 0x18u);
   }
 
   v11 = 0;
 LABEL_11:
 
-  v14 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
-uint64_t __24__ISStoreIndex_validate__block_invoke_7(void *a1, uint64_t *a2, _BYTE *a3)
+uint64_t __24__ISStoreIndex_validate__block_invoke_7(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
-  v5 = a1[4];
-  v6 = *a2;
-  result = (*(a1[5] + 16))();
+  result = (*(*(a1 + 40) + 16))();
   if ((result & 1) == 0)
   {
     *a3 = 1;
-    *(*(a1[6] + 8) + 24) = 0;
+    *(*(*(a1 + 48) + 8) + 24) = 0;
   }
 
   return result;
@@ -286,13 +282,11 @@ uint64_t __24__ISStoreIndex_validate__block_invoke_7(void *a1, uint64_t *a2, _BY
 
 - (void)data
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   indexFileURL = [self indexFileURL];
-  v5 = 138412290;
-  v6 = indexFileURL;
-  _os_log_debug_impl(&dword_1A77B8000, a2, OS_LOG_TYPE_DEBUG, "Store index at URL: %@ is not valid.", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412290;
+  v5 = indexFileURL;
+  _os_log_debug_impl(&dword_1A77B8000, a2, OS_LOG_TYPE_DEBUG, "Store index at URL: %@ is not valid.", &v4, 0xCu);
 }
 
 @end

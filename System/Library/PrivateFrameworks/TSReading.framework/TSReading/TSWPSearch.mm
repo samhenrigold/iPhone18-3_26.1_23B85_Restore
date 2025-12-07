@@ -77,21 +77,18 @@ LABEL_3:
   return v15;
 }
 
-uint64_t __60__TSWPSearch_initWithString_options_hitBlock_storage_range___block_invoke(uint64_t a1, uint64_t a2, NSUInteger a3, NSUInteger a4)
+void __60__TSWPSearch_initWithString_options_hitBlock_storage_range___block_invoke(uint64_t a1, uint64_t a2, NSUInteger a3, NSUInteger a4)
 {
   objc_opt_class();
-  result = TSUDynamicCast();
-  if (result)
+  if (TSUDynamicCast())
   {
-    v8 = *(a1 + 32);
-    v11.location = a3;
-    v11.length = a4;
-    v9 = NSIntersectionRange(*(a1 + 40), v11);
+    v7 = *(a1 + 32);
+    v10.location = a3;
+    v10.length = a4;
+    v8 = NSIntersectionRange(*(a1 + 40), v10);
 
-    return [v8 addRange:{v9.location, v9.length}];
+    [v7 addRange:{v8.location, v8.length}];
   }
-
-  return result;
 }
 
 - (void)dealloc

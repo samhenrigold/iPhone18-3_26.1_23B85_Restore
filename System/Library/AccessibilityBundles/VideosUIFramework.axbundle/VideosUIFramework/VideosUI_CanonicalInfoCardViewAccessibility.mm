@@ -19,47 +19,46 @@
 
 - (void)_accessibilityLoadAccessibilityInformation
 {
-  v22 = *MEMORY[0x29EDCA608];
-  v20.receiver = self;
-  v20.super_class = VideosUI_CanonicalInfoCardViewAccessibility;
-  [(VideosUI_CanonicalInfoCardViewAccessibility *)&v20 _accessibilityLoadAccessibilityInformation];
+  v21 = *MEMORY[0x29EDCA608];
+  v19.receiver = self;
+  v19.super_class = VideosUI_CanonicalInfoCardViewAccessibility;
+  [(VideosUI_CanonicalInfoCardViewAccessibility *)&v19 _accessibilityLoadAccessibilityInformation];
   v3 = [(VideosUI_CanonicalInfoCardViewAccessibility *)self safeSwiftValueForKey:@"tableView"];
   string = [MEMORY[0x29EDBA050] string];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v14 = v3;
+  v13 = v3;
   obj = [v3 safeSwiftArrayForKey:@"itemViews"];
-  v5 = [obj countByEnumeratingWithState:&v16 objects:v21 count:16];
+  v5 = [obj countByEnumeratingWithState:&v15 objects:v20 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * i);
+        v9 = *(*(&v15 + 1) + 8 * i);
         v10 = [v9 safeSwiftValueForKey:@"headerLabel"];
         v11 = [v9 safeSwiftValueForKey:@"textLabel"];
         v12 = __UIAXStringForVariables();
         [string appendFormat:@"%@\n", v12, @"__AXStringForVariablesSentinel"];
       }
 
-      v6 = [obj countByEnumeratingWithState:&v16 objects:v21 count:16];
+      v6 = [obj countByEnumeratingWithState:&v15 objects:v20 count:16];
     }
 
     while (v6);
   }
 
-  [v14 setAccessibilityLabel:string];
-  v13 = *MEMORY[0x29EDCA608];
+  [v13 setAccessibilityLabel:string];
 }
 
 - (id)accessibilityLabel

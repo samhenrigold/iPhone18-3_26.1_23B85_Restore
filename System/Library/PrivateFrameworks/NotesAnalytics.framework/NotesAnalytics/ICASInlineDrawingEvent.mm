@@ -15,46 +15,44 @@
 
 - (NSDictionary)eventProperties
 {
-  v18[12] = *MEMORY[0x277D85DE8];
-  v17[0] = @"noteData";
-  v16 = [objc_alloc(MEMORY[0x277CEAF08]) initWithDataType:objc_opt_class() requirement:0];
-  v18[0] = v16;
-  v17[1] = @"noteAccessData";
+  v17[12] = *MEMORY[0x277D85DE8];
+  v16[0] = @"noteData";
   v15 = [objc_alloc(MEMORY[0x277CEAF08]) initWithDataType:objc_opt_class() requirement:0];
-  v18[1] = v15;
-  v17[2] = @"accountData";
+  v17[0] = v15;
+  v16[1] = @"noteAccessData";
   v14 = [objc_alloc(MEMORY[0x277CEAF08]) initWithDataType:objc_opt_class() requirement:0];
-  v18[2] = v14;
-  v17[3] = @"drawingData";
+  v17[1] = v14;
+  v16[2] = @"accountData";
+  v13 = [objc_alloc(MEMORY[0x277CEAF08]) initWithDataType:objc_opt_class() requirement:0];
+  v17[2] = v13;
+  v16[3] = @"drawingData";
   v2 = [objc_alloc(MEMORY[0x277CEAF08]) initWithDataType:objc_opt_class() requirement:0];
-  v18[3] = v2;
-  v17[4] = @"startDrawingStrokeData";
+  v17[3] = v2;
+  v16[4] = @"startDrawingStrokeData";
   v3 = [objc_alloc(MEMORY[0x277CEAF08]) initWithDataType:objc_opt_class() requirement:0];
-  v18[4] = v3;
-  v17[5] = @"endDrawingStrokeData";
+  v17[4] = v3;
+  v16[5] = @"endDrawingStrokeData";
   v4 = [objc_alloc(MEMORY[0x277CEAF08]) initWithDataType:objc_opt_class() requirement:1];
-  v18[5] = v4;
-  v17[6] = @"orientationData";
+  v17[5] = v4;
+  v16[6] = @"orientationData";
   v5 = [objc_alloc(MEMORY[0x277CEAF08]) initWithDataType:objc_opt_class() requirement:0];
-  v18[6] = v5;
-  v17[7] = @"privateUserData";
+  v17[6] = v5;
+  v16[7] = @"privateUserData";
   v6 = [objc_alloc(MEMORY[0x277CEAF08]) initWithDataType:objc_opt_class() requirement:0];
-  v18[7] = v6;
-  v17[8] = @"privateEventData";
+  v17[7] = v6;
+  v16[8] = @"privateEventData";
   v7 = [objc_alloc(MEMORY[0x277CEAF08]) initWithDataType:objc_opt_class() requirement:0];
-  v18[8] = v7;
-  v17[9] = @"contextPathData";
+  v17[8] = v7;
+  v16[9] = @"contextPathData";
   v8 = [objc_alloc(MEMORY[0x277CEAF08]) initWithDataType:objc_opt_class() requirement:1];
-  v18[9] = v8;
-  v17[10] = @"noteContentData";
+  v17[9] = v8;
+  v16[10] = @"noteContentData";
   v9 = [objc_alloc(MEMORY[0x277CEAF08]) initWithDataType:objc_opt_class() requirement:0];
-  v18[10] = v9;
-  v17[11] = @"eventData";
+  v17[10] = v9;
+  v16[11] = @"eventData";
   v10 = [objc_alloc(MEMORY[0x277CEAF08]) initWithDataType:objc_opt_class() requirement:0];
-  v18[11] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:12];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v17[11] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:12];
 
   return v11;
 }

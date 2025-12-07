@@ -96,7 +96,7 @@
 
 void __27__BMSyncService_connection__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = WeakRetained;
   if (WeakRetained)
@@ -113,15 +113,13 @@ void __27__BMSyncService_connection__block_invoke(uint64_t a1)
         v6 = v4;
       }
 
-      v8 = 136446210;
-      v9 = v6;
-      _os_log_impl(&dword_241B04000, v5, OS_LOG_TYPE_INFO, "BMSyncService: connection invalidated with reason %{public}s", &v8, 0xCu);
+      v7 = 136446210;
+      v8 = v6;
+      _os_log_impl(&dword_241B04000, v5, OS_LOG_TYPE_INFO, "BMSyncService: connection invalidated with reason %{public}s", &v7, 0xCu);
     }
 
     free(v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __27__BMSyncService_connection__block_invoke_30()
@@ -742,19 +740,17 @@ void __46__BMSyncService_triggerCloudKitSyncWithError___block_invoke_2(uint64_t 
 
 void __39__BMSyncService_rapportSyncWithErrors___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v10 = a2;
+  v10 = *MEMORY[0x277D85DE8];
+  v9 = a2;
   v3 = MEMORY[0x277CBEA60];
   v4 = a2;
-  v5 = [v3 arrayWithObjects:&v10 count:1];
+  v5 = [v3 arrayWithObjects:&v9 count:1];
   v6 = *(*(a1 + 32) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v5;
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   [WeakRetained invalidate];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __39__BMSyncService_rapportSyncWithErrors___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -831,19 +827,17 @@ void __39__BMSyncService_rapportSyncWithErrors___block_invoke_2(uint64_t a1, voi
 
 void __46__BMSyncService_cascadeRapportSyncWithErrors___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v10 = a2;
+  v10 = *MEMORY[0x277D85DE8];
+  v9 = a2;
   v3 = MEMORY[0x277CBEA60];
   v4 = a2;
-  v5 = [v3 arrayWithObjects:&v10 count:1];
+  v5 = [v3 arrayWithObjects:&v9 count:1];
   v6 = *(*(a1 + 32) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v5;
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   [WeakRetained invalidate];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __46__BMSyncService_cascadeRapportSyncWithErrors___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -920,19 +914,17 @@ void __46__BMSyncService_cascadeRapportSyncWithErrors___block_invoke_2(uint64_t 
 
 void __40__BMSyncService_cloudKitSyncWithErrors___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v10 = a2;
+  v10 = *MEMORY[0x277D85DE8];
+  v9 = a2;
   v3 = MEMORY[0x277CBEA60];
   v4 = a2;
-  v5 = [v3 arrayWithObjects:&v10 count:1];
+  v5 = [v3 arrayWithObjects:&v9 count:1];
   v6 = *(*(a1 + 32) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v5;
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   [WeakRetained invalidate];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __40__BMSyncService_cloudKitSyncWithErrors___block_invoke_2(uint64_t a1, void *a2, void *a3)

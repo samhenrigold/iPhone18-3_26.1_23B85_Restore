@@ -3294,7 +3294,7 @@ LABEL_10:
   if (!element || (element = element->super.super._internal, (element[1].super.super.super._private & 8) != 0))
   {
     MEMORY[0x1CCA63A40](&v14, pseudoElement);
-    WebCore::LocalDOMWindow::getMatchedCSSRules(v9, element, &v14);
+    WebCore::LocalDOMWindow::getMatchedCSSRules(&v15, v9, element, &v14);
     v10 = kit(v15);
     v11 = v15;
     v15 = 0;

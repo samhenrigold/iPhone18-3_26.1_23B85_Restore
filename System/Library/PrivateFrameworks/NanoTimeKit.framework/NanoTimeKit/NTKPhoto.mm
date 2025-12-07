@@ -575,7 +575,7 @@ LABEL_9:
 
 - (id)analysisForAlignment:(unint64_t)alignment deviceSizeClass:(unint64_t)class
 {
-  v5 = _NTKPhotoAnalysisIndex(alignment);
+  v5 = _NTKPhotoAnalysisIndex(alignment, class);
   if (v5 > 0xB)
   {
     v6 = 0;
@@ -592,10 +592,10 @@ LABEL_9:
 - (void)setAnalysis:(id)analysis alignment:(unint64_t)alignment deviceSizeClass:(unint64_t)class
 {
   analysisCopy = analysis;
-  v8 = _NTKPhotoAnalysisIndex(alignment);
-  if (v8 <= 0xB)
+  v9 = _NTKPhotoAnalysisIndex(alignment, class);
+  if (v9 <= 0xB)
   {
-    objc_storeStrong(&self->_analyses[v8], analysis);
+    objc_storeStrong(&self->_analyses[v9], analysis);
   }
 }
 

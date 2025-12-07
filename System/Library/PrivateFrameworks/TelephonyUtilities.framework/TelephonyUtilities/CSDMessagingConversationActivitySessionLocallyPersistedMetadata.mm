@@ -38,7 +38,6 @@
 {
   if (*&self->_has)
   {
-    locallyInitiated = self->_locallyInitiated;
     PBDataWriterWriteBOOLField();
   }
 }

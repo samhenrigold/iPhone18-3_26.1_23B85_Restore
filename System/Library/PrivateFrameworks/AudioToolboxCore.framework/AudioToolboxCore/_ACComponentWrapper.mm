@@ -18,25 +18,24 @@
 {
   coderCopy = coder;
   v4 = [coderCopy decodeIntForKey:@"implType"];
-  [coderCopy decodeIntForKey:@"priority"];
-  v31[0] = [coderCopy decodeInt32ForKey:@"type"];
-  v31[1] = [coderCopy decodeInt32ForKey:@"subType"];
-  v31[2] = [coderCopy decodeInt32ForKey:@"manufacturer"];
-  v32 = [coderCopy decodeInt32ForKey:@"flags"];
-  v33 = 0;
-  v5 = [coderCopy decodeInt32ForKey:@"version"];
-  v6 = 0x1E696A000uLL;
+  v5 = [coderCopy decodeIntForKey:@"priority"];
+  v29[0] = [coderCopy decodeInt32ForKey:@"type"];
+  v29[1] = [coderCopy decodeInt32ForKey:@"subType"];
+  v29[2] = [coderCopy decodeInt32ForKey:@"manufacturer"];
+  v30 = [coderCopy decodeInt32ForKey:@"flags"];
+  v31 = 0;
+  v6 = [coderCopy decodeInt32ForKey:@"version"];
   {
-    v18 = MEMORY[0x1E695DFD8];
-    v19 = objc_opt_class();
-    [_ACComponentWrapper initWithCoder:]::arrayOfString = [v18 setWithObjects:{v19, objc_opt_class(), 0}];
+    v15 = MEMORY[0x1E695DFD8];
+    v16 = objc_opt_class();
+    [_ACComponentWrapper initWithCoder:]::arrayOfString = [v15 setWithObjects:{v16, objc_opt_class(), 0}];
   }
 
   v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"name"];
-  applesauce::CF::StringRef::from_ns(&v30, v7);
+  applesauce::CF::StringRef::from_ns(&v28, v7);
 
   v8 = [coderCopy decodeObjectOfClasses:-[_ACComponentWrapper initWithCoder:]::arrayOfString forKey:@"tags"];
-  applesauce::CF::ArrayRef::from_ns(&v29, v8);
+  applesauce::CF::ArrayRef::from_ns(&v27, v8);
 
   [coderCopy decodeIntForKey:@"wasValidated"];
   [coderCopy decodeIntForKey:@"validationResult"];
@@ -48,38 +47,35 @@
       v10 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"factoryFunctionName"];
       applesauce::CF::StringRef::from_ns(&cf, v10);
 
-      v23 = 0;
-      AudioComponentRegistrationInfo::AudioComponentRegistrationInfo(v24, v31, v32, &v30, v5, &cf, &v23, &v29);
-      APComponent_NSExtension::create_shared(&v23, v24, v9, 0);
+      v21 = 0;
+      AudioComponentRegistrationInfo::AudioComponentRegistrationInfo(v22, v29, v30, &v28, v6, &cf, &v21, &v27);
+      APComponent_NSExtension::create_shared(&v21, v22, v9, 0);
     }
 
     __assert_rtn("[_ACComponentWrapper initWithCoder:]", "AudioComponentVector.mm", 287, "0");
   }
 
   {
-    v20 = MEMORY[0x1E695DFD8];
-    v21 = objc_opt_class();
-    [_ACComponentWrapper initWithCoder:]::arrayOfNumber = [v20 setWithObjects:{v21, objc_opt_class(), 0}];
-    v6 = 0x1E696A000;
+    v17 = MEMORY[0x1E695DFD8];
+    v18 = objc_opt_class();
+    [_ACComponentWrapper initWithCoder:]::arrayOfNumber = [v17 setWithObjects:{v18, objc_opt_class(), 0}];
   }
 
-  v11 = *(v6 + 3776);
-  v12 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"bundlePath"];
-  applesauce::CF::StringRef::from_ns(&cf, v12);
+  v11 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"bundlePath"];
+  applesauce::CF::StringRef::from_ns(&cf, v11);
 
-  v13 = [coderCopy decodeObjectOfClasses:-[_ACComponentWrapper initWithCoder:]::arrayOfNumber forKey:@"archs"];
-  applesauce::CF::ArrayRef::from_ns(&v27, v13);
+  v12 = [coderCopy decodeObjectOfClasses:-[_ACComponentWrapper initWithCoder:]::arrayOfNumber forKey:@"archs"];
+  applesauce::CF::ArrayRef::from_ns(&v25, v12);
 
-  v14 = *(v6 + 3776);
-  v15 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"factoryFunctionName"];
-  applesauce::CF::StringRef::from_ns(&v26, v15);
+  v13 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"factoryFunctionName"];
+  applesauce::CF::StringRef::from_ns(&v24, v13);
 
-  v16 = *(v6 + 3776);
-  v17 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"className"];
-  applesauce::CF::StringRef::from_ns(&v25, v17);
+  v14 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"className"];
+  applesauce::CF::StringRef::from_ns(&v23, v14);
 
-  AudioComponentRegistrationInfo::AudioComponentRegistrationInfo(v24, v31, v32, &v30, v5, &v26, &v25, &v29);
-  APComponent_FromBundle_Loadable::create_shared();
+  AudioComponentRegistrationInfo::AudioComponentRegistrationInfo(v22, v29, v30, &v28, v6, &v24, &v23, &v27);
+  v20 = 0;
+  APComponent_FromBundle_Loadable::create_shared(&v21, v5, &cf, &v20, &v25, v22);
 }
 
 - (void)encodeWithCoder:(id)coder

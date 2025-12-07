@@ -64,8 +64,8 @@
                     objc_enumerationMutation(v14);
                   }
 
-                  entity = [*(*(&v34 + 1) + 8 * j) entity];
-                  v20 = [entity isKindOfEntity:v9];
+                  v19 = objc_msgSend_entity(*(*(&v34 + 1) + 8 * j));
+                  v20 = [v19 isKindOfEntity:v9];
 
                   v10 += v20;
                 }
@@ -237,7 +237,7 @@ uint64_t __58__PLSharedManagedObjectContext__hasChangesForCloudShared___block_in
         }
 
         v8 = *(a1 + 32);
-        v9 = [*(*(&v13 + 1) + 8 * v7) entity];
+        v9 = objc_msgSend_entity(*(*(&v13 + 1) + 8 * v7), v13);
         v10 = [v9 name];
         LOBYTE(v8) = [v8 containsObject:v10];
 

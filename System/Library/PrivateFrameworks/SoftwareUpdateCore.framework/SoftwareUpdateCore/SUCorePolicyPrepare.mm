@@ -1,6 +1,7 @@
 @interface SUCorePolicyPrepare
 - (BOOL)isEqual:(id)equal;
 - (SUCorePolicyPrepare)initWithCoder:(id)coder;
+- (SUCorePolicyPrepare)initWithSkipPhaseSet:(BOOL)set;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)summary;
@@ -9,6 +10,21 @@
 @end
 
 @implementation SUCorePolicyPrepare
+
+- (SUCorePolicyPrepare)initWithSkipPhaseSet:(BOOL)set
+{
+  setCopy = set;
+  v7.receiver = self;
+  v7.super_class = SUCorePolicyPrepare;
+  v4 = [(SUCorePolicyPrepare *)&v7 init];
+  v5 = v4;
+  if (v4)
+  {
+    [(SUCorePolicyPrepare *)v4 backToDefaultsWithSkipPhaseSet:setCopy];
+  }
+
+  return v5;
+}
 
 - (void)backToDefaultsWithSkipPhaseSet:(BOOL)set
 {

@@ -20,22 +20,22 @@
 
 + (id)contentDictionaryForDictionary:(id)dictionary fromMatchingClientConditions:(id)conditions
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   conditionsCopy = conditions;
   if ([conditionsCopy count])
   {
     v7 = [dictionaryCopy TPSSafeArrayForKey:@"conditions"];
-    v17 = MEMORY[0x1E69E9820];
-    v18 = 3221225472;
-    v19 = __75__TPSDocument_contentDictionaryForDictionary_fromMatchingClientConditions___block_invoke;
-    v20 = &unk_1E8101FA0;
-    v21 = conditionsCopy;
-    v8 = [v7 na_firstObjectPassingTest:&v17];
+    v16 = MEMORY[0x1E69E9820];
+    v17 = 3221225472;
+    v18 = __75__TPSDocument_contentDictionaryForDictionary_fromMatchingClientConditions___block_invoke;
+    v19 = &unk_1E8101FA0;
+    v20 = conditionsCopy;
+    v8 = [v7 na_firstObjectPassingTest:&v16];
     v9 = v8;
     if (v8)
     {
-      v10 = [v8 TPSSafeStringForKey:{@"ruleId", v17, v18, v19, v20}];
+      v10 = [v8 TPSSafeStringForKey:{@"ruleId", v16, v17, v18, v19}];
       v11 = [v9 TPSSafeDictionaryForKey:@"content"];
       v12 = v11;
       if (v10)
@@ -55,9 +55,9 @@
 
       else
       {
-        v22 = v10;
-        v23[0] = v11;
-        v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+        v21 = v10;
+        v22[0] = v11;
+        v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
       }
     }
 
@@ -71,8 +71,6 @@
   {
     v14 = 0;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -120,29 +118,29 @@ uint64_t __75__TPSDocument_contentDictionaryForDictionary_fromMatchingClientCond
 
 + (void)getValuesFromOpenURLSchemeQueryItems:(id)items tipIdentifier:(id *)identifier collectionIdentifier:(id *)collectionIdentifier referrer:(id *)referrer
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   obj = items;
-  v8 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v8 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v25;
+    v10 = *v24;
     do
     {
       v11 = 0;
       do
       {
-        if (*v25 != v10)
+        if (*v24 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v24 + 1) + 8 * v11);
-        if (!identifier || ([*(*(&v24 + 1) + 8 * v11) name], v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "isEqualToString:", @"tip"), v13, referrerCopy2 = identifier, (v14 & 1) == 0))
+        v12 = *(*(&v23 + 1) + 8 * v11);
+        if (!identifier || ([*(*(&v23 + 1) + 8 * v11) name], v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "isEqualToString:", @"tip"), v13, referrerCopy2 = identifier, (v14 & 1) == 0))
         {
           if (!collectionIdentifier || ([v12 name], v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v16, "isEqualToString:", @"collection"), v16, referrerCopy2 = collectionIdentifier, (v17 & 1) == 0))
           {
@@ -178,13 +176,11 @@ LABEL_15:
       }
 
       while (v9 != v11);
-      v9 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v9 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v9);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (TPSDocument)initWithDictionary:(id)dictionary metadata:(id)metadata identifierKey:(id)key
@@ -603,16 +599,16 @@ LABEL_6:
   return v5;
 }
 
-id __26__TPSDocument_na_identity__block_invoke()
+id __26__TPSDocument_na_identity__block_invoke(uint64_t a1)
 {
   if (TPSDocumentURLSchemeParameterLaunchSourceKey_block_invoke_na_once_token_0 != -1)
   {
     __26__TPSDocument_na_identity__block_invoke_cold_1();
   }
 
-  v1 = TPSDocumentURLSchemeParameterLaunchSourceKey_block_invoke_na_once_object_0;
+  v2 = TPSDocumentURLSchemeParameterLaunchSourceKey_block_invoke_na_once_object_0;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __26__TPSDocument_na_identity__block_invoke_2()

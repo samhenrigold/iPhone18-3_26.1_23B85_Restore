@@ -2,6 +2,7 @@
 - (RTCReportingAVCLegacySupport)init;
 - (void)dealloc;
 - (void)invokeAWDAdaptorForPayload:(id)payload category:(unsigned __int16)category type:(unsigned __int16)type;
+- (void)sendPowerLogEventForClient:(id)client serviceName:(id)name payload:(id)payload category:(unsigned __int16)category type:(unsigned __int16)type eventNumber:(unint64_t)number;
 @end
 
 @implementation RTCReportingAVCLegacySupport
@@ -47,21 +48,20 @@
 - (void)invokeAWDAdaptorForPayload:(id)payload category:(unsigned __int16)category type:(unsigned __int16)type
 {
   v9 = NSSelectorFromString(&cfstr_Sendmessagewit.isa);
-  awdAdaptor = self->_awdAdaptor;
   if (objc_opt_respondsToSelector())
   {
     payloadCopy = payload;
     dispatchQ = self->_dispatchQ;
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __73__RTCReportingAVCLegacySupport_invokeAWDAdaptorForPayload_category_type___block_invoke;
-    v13[3] = &unk_2784F1368;
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __73__RTCReportingAVCLegacySupport_invokeAWDAdaptorForPayload_category_type___block_invoke;
+    v12[3] = &unk_2784F1368;
     categoryCopy = category;
     typeCopy = type;
-    v13[4] = payload;
-    v13[5] = self;
-    v13[6] = v9;
-    dispatch_async(dispatchQ, v13);
+    v12[4] = payload;
+    v12[5] = self;
+    v12[6] = v9;
+    dispatch_async(dispatchQ, v12);
   }
 }
 
@@ -80,7 +80,57 @@ void __73__RTCReportingAVCLegacySupport_invokeAWDAdaptorForPayload_category_type
   [v3 invoke];
   if (os_log_type_enabled(*(*(a1 + 40) + 16), OS_LOG_TYPE_DEBUG))
   {
-    __73__RTCReportingAVCLegacySupport_invokeAWDAdaptorForPayload_category_type___block_invoke_cold_1(&v5, &v4);
+    __73__RTCReportingAVCLegacySupport_invokeAWDAdaptorForPayload_category_type___block_invoke_cold_1();
+  }
+}
+
+- (void)sendPowerLogEventForClient:(id)client serviceName:(id)name payload:(id)payload category:(unsigned __int16)category type:(unsigned __int16)type eventNumber:(unint64_t)number
+{
+  if (MEMORY[0x2822275F0])
+  {
+    categoryCopy = category;
+    if ([client isEqualToString:@"AVCVideoConference"])
+    {
+      if ([name isEqualToString:@"FaceTime"])
+      {
+        v15 = &unk_2837228F8;
+      }
+
+      else
+      {
+        v15 = MEMORY[0x277CBEBF8];
+      }
+    }
+
+    else if ([client isEqualToString:@"multiwayconference"] && ((objc_msgSend(name, "isEqualToString:", @"session") & 1) != 0 || objc_msgSend(name, "isEqualToString:", @"twoway")))
+    {
+      v15 = &unk_283722910;
+    }
+
+    else
+    {
+      v15 = MEMORY[0x277CBEBF8];
+    }
+
+    v16 = [v15 containsObject:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithUnsignedShort:", categoryCopy)}];
+    if (categoryCopy && v16)
+    {
+      if ([payload count])
+      {
+        payloadCopy = payload;
+        dispatchQ = self->_dispatchQ;
+        v19[0] = MEMORY[0x277D85DD0];
+        v19[1] = 3221225472;
+        v19[2] = __105__RTCReportingAVCLegacySupport_sendPowerLogEventForClient_serviceName_payload_category_type_eventNumber___block_invoke;
+        v19[3] = &unk_2784F1368;
+        v19[4] = payload;
+        v19[5] = self;
+        v20 = categoryCopy;
+        typeCopy = type;
+        v19[6] = number;
+        dispatch_async(dispatchQ, v19);
+      }
+    }
   }
 }
 
@@ -113,37 +163,25 @@ void __105__RTCReportingAVCLegacySupport_sendPowerLogEventForClient_serviceName_
   }
 }
 
-void __73__RTCReportingAVCLegacySupport_invokeAWDAdaptorForPayload_category_type___block_invoke_cold_1(unsigned __int16 *a1, unsigned __int16 *a2)
+void __73__RTCReportingAVCLegacySupport_invokeAWDAdaptorForPayload_category_type___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
-  v3 = *a2;
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  _os_log_debug_impl(&dword_223C26000, v4, OS_LOG_TYPE_DEBUG, "dispatched message %hu/%hu to AWDAdaptor", v6, 0xEu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __105__RTCReportingAVCLegacySupport_sendPowerLogEventForClient_serviceName_payload_category_type_eventNumber___block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_223C26000, v0, OS_LOG_TYPE_DEBUG, "dispatched message %hu/%hu to AWDAdaptor", v1, 0xEu);
 }
 
 void __105__RTCReportingAVCLegacySupport_sendPowerLogEventForClient_serviceName_payload_category_type_eventNumber___block_invoke_cold_2(unsigned __int16 *a1, uint64_t *a2, os_log_t log)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = *a1;
   v4 = *a2;
-  v6 = 136315650;
-  v7 = "[RTCReportingAVCLegacySupport sendPowerLogEventForClient:serviceName:payload:category:type:eventNumber:]_block_invoke";
-  v8 = 1024;
-  v9 = v3;
-  v10 = 2048;
-  v11 = v4;
-  _os_log_debug_impl(&dword_223C26000, log, OS_LOG_TYPE_DEBUG, "%s: sendMessage %hu:%llu", &v6, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 136315650;
+  v6 = "[RTCReportingAVCLegacySupport sendPowerLogEventForClient:serviceName:payload:category:type:eventNumber:]_block_invoke";
+  v7 = 1024;
+  v8 = v3;
+  v9 = 2048;
+  v10 = v4;
+  _os_log_debug_impl(&dword_223C26000, log, OS_LOG_TYPE_DEBUG, "%s: sendMessage %hu:%llu", &v5, 0x1Cu);
 }
 
 @end

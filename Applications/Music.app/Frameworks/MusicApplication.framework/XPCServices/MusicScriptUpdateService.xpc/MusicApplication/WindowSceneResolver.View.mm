@@ -21,7 +21,7 @@
   v5 = v7.receiver;
   [(WindowSceneResolver.View *)&v7 willMoveToWindow:windowCopy];
   windowScene = [windowCopy windowScene];
-  sub_100003ABC(&qword_10060BBD8);
+  sub_100003ABC(&qword_10060BBD8, &qword_1004DE300);
   sub_1004BA5A4();
 }
 

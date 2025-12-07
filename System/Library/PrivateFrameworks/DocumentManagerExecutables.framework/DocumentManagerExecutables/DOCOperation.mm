@@ -18,9 +18,10 @@
 - (BOOL)isFinished
 {
   selfCopy = self;
-  v3 = DOCOperation.isFinished.getter();
+  DOCOperation.isFinished.getter();
+  v4 = v3;
 
-  return v3 & 1;
+  return v4 & 1;
 }
 
 - (void)setFinished:(BOOL)finished
@@ -32,9 +33,10 @@
 - (BOOL)isExecuting
 {
   selfCopy = self;
-  v3 = DOCOperation.isExecuting.getter();
+  DOCOperation.isExecuting.getter();
+  v4 = v3;
 
-  return v3 & 1;
+  return v4 & 1;
 }
 
 - (void)setExecuting:(BOOL)executing

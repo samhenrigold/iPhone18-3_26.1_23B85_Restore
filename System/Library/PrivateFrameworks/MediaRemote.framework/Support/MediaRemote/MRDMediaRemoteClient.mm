@@ -58,7 +58,7 @@
 
 - (NSData)auditToken
 {
-  [(MRDMediaRemoteClient *)self realToken];
+  objc_msgSend_realToken(self, a2);
   v2 = [NSData dataWithBytes:&v4 length:32];
 
   return v2;
@@ -270,17 +270,8 @@
   [val[21] setInvalidationHandler:v79];
   v28 = xpc_copy_entitlement_for_token();
 
-  if (v28)
+  if (v28 || ([val bundleIdentifier], v29 = objc_claimAutoreleasedReturnValue(), v30 = objc_msgSend(v29, "isEqualToString:", @"com.apple.AssistantServices"), v29, (v30 & 1) != 0) || (objc_msgSend(val, "bundleIdentifier"), v31 = objc_claimAutoreleasedReturnValue(), v32 = objc_msgSend(v31, "isEqualToString:", @"com.apple.lskdd"), v31, v32))
   {
-    goto LABEL_7;
-  }
-
-  bundleIdentifier = [val bundleIdentifier];
-  v30 = [bundleIdentifier isEqualToString:@"com.apple.AssistantServices"];
-
-  if ((v30 & 1) != 0 || ([val bundleIdentifier], v31 = objc_claimAutoreleasedReturnValue(), v32 = objc_msgSend(v31, "isEqualToString:", @"com.apple.lskdd"), v31, v32))
-  {
-LABEL_7:
     val[10] = (val[10] | 2);
   }
 
@@ -513,76 +504,73 @@ LABEL_58:
   euid = [(MRDMediaRemoteClient *)self euid];
   entitlements = self->_entitlements;
   connection = self->_connection;
-  connectionMonitor = self->_connectionMonitor;
-  v10 = MRCreateIndentedDebugDescriptionFromObject();
-  v11 = [NSMutableString stringWithFormat:@"<%@ %p {\n    bundle identifier = %@\n    pid = %ld\n    euid = %ld\n    entitlements=%ld\n    xpc connection = %@\n    connection monitor = %@\n", v3, self, bundleIdentifier, v5, euid, entitlements, connection, v10];
+  v9 = MRCreateIndentedDebugDescriptionFromObject();
+  v10 = [NSMutableString stringWithFormat:@"<%@ %p {\n    bundle identifier = %@\n    pid = %ld\n    euid = %ld\n    entitlements=%ld\n    xpc connection = %@\n    connection monitor = %@\n", v3, self, bundleIdentifier, v5, euid, entitlements, connection, v9];
 
   if (self->_currentTaskAssertion)
   {
-    [v11 appendFormat:@"    current task assertion = %@\n", self->_currentTaskAssertion];
+    [v10 appendFormat:@"    current task assertion = %@\n", self->_currentTaskAssertion];
   }
 
   if ([(NSMutableArray *)self->_assertions count])
   {
-    assertions = self->_assertions;
-    v13 = MRCreateIndentedDebugDescriptionFromArray();
-    [v11 appendFormat:@"    assertions = %@\n", v13];
+    v11 = MRCreateIndentedDebugDescriptionFromArray();
+    [v10 appendFormat:@"    assertions = %@\n", v11];
   }
 
   if (self->_routeDiscoveryMode)
   {
-    v14 = MRMediaRemoteCopyRouteDiscoveryModeDescription();
-    [v11 appendFormat:@"    route discovery mode = %@\n", v14];
+    v12 = MRMediaRemoteCopyRouteDiscoveryModeDescription();
+    [v10 appendFormat:@"    route discovery mode = %@\n", v12];
   }
 
   if ([(NSArray *)self->_applicationPickedRoutes count])
   {
-    [v11 appendFormat:@"    application picked routes = %@\n", self->_applicationPickedRoutes];
+    [v10 appendFormat:@"    application picked routes = %@\n", self->_applicationPickedRoutes];
   }
 
   if (self->_hardwareRemoteBehavior)
   {
-    v15 = MRMediaRemoteCopyHardwareRemoteBehaviorDescription();
-    [v11 appendFormat:@"    hardware remote behavior = %@\n", v15];
+    v13 = MRMediaRemoteCopyHardwareRemoteBehaviorDescription();
+    [v10 appendFormat:@"    hardware remote behavior = %@\n", v13];
   }
 
   if (self->_hasRequestedLegacyNowPlayingInfo)
   {
-    [v11 appendFormat:@"    has requested legacy nowPlayingInfo = %s\n", "YES"];
+    [v10 appendFormat:@"    has requested legacy nowPlayingInfo = %s\n", "YES"];
   }
 
   if (self->_hasRequestedSupportedCommands)
   {
-    [v11 appendFormat:@"    has requested supported commands = %s\n", "YES"];
+    [v10 appendFormat:@"    has requested supported commands = %s\n", "YES"];
   }
 
   if (self->_declaringAirplayActive)
   {
-    [v11 appendFormat:@"    declaringAirplayActive = YES\n"];
+    [v10 appendFormat:@"    declaringAirplayActive = YES\n"];
   }
 
   if (self->_nowPlayingAirPlaySession)
   {
-    [v11 appendFormat:@"    nowPlayingAirPlaySession = %@\n", self->_nowPlayingAirPlaySession];
+    [v10 appendFormat:@"    nowPlayingAirPlaySession = %@\n", self->_nowPlayingAirPlaySession];
   }
 
   if ([(NSMutableArray *)self->_subscribedWakingPlayerPaths count])
   {
-    subscribedWakingPlayerPaths = self->_subscribedWakingPlayerPaths;
-    v17 = MRCreateIndentedDebugDescriptionFromArray();
-    [v11 appendFormat:@"    subscribedWakingPlayerPaths = %@\n", v17];
+    v14 = MRCreateIndentedDebugDescriptionFromArray();
+    [v10 appendFormat:@"    subscribedWakingPlayerPaths = %@\n", v14];
   }
 
   if (self->_playbackQueueRequests)
   {
-    v18 = MRCreateIndentedDebugDescriptionFromObject();
-    [v11 appendFormat:@"    playbackQueueRequests = %@\n", v18];
+    v15 = MRCreateIndentedDebugDescriptionFromObject();
+    [v10 appendFormat:@"    playbackQueueRequests = %@\n", v15];
   }
 
-  [v11 appendString:@"}\n"];
-  [v11 appendFormat:@"}>"];
+  [v10 appendString:@"}\n"];
+  [v10 appendFormat:@"}>"];
 
-  return v11;
+  return v10;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -1081,27 +1069,11 @@ LABEL_12:
   origin = [playerPath origin];
   isLocal = [origin isLocal];
 
-  if (isLocal)
+  if (isLocal || ([playerPath origin], v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v12, "isLocallyHosted"), v12, v13) && (objc_msgSend(client, "bundleIdentifier"), v14 = objc_claimAutoreleasedReturnValue(), -[MRDMediaRemoteClient bundleIdentifier](self, "bundleIdentifier"), v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v14, "isEqual:", v15), v15, v14, v16))
   {
-    goto LABEL_36;
-  }
-
-  origin2 = [playerPath origin];
-  isLocallyHosted = [origin2 isLocallyHosted];
-
-  if (isLocallyHosted)
-  {
-    bundleIdentifier = [client bundleIdentifier];
-    bundleIdentifier2 = [(MRDMediaRemoteClient *)self bundleIdentifier];
-    v16 = [bundleIdentifier isEqual:bundleIdentifier2];
-
-    if (v16)
+    if (![client processIdentifier])
     {
-LABEL_36:
-      if (![client processIdentifier])
-      {
-        [client setProcessIdentifier:{-[MRDMediaRemoteClient pid](self, "pid")}];
-      }
+      [client setProcessIdentifier:{-[MRDMediaRemoteClient pid](self, "pid")}];
     }
   }
 
@@ -1201,8 +1173,8 @@ LABEL_36:
     }
   }
 
-  origin3 = [playerPath origin];
-  if ([origin3 isLocallyHosted])
+  origin2 = [playerPath origin];
+  if ([origin2 isLocallyHosted])
   {
     shouldImplicitlyLaunchApplication = [v21 shouldImplicitlyLaunchApplication];
 
@@ -1211,21 +1183,21 @@ LABEL_36:
       goto LABEL_23;
     }
 
-    bundleIdentifier3 = [(MRDMediaRemoteClient *)self bundleIdentifier];
-    v35 = sub_10019FC4C(bundleIdentifier3);
+    bundleIdentifier = [(MRDMediaRemoteClient *)self bundleIdentifier];
+    v35 = sub_10019FC4C(bundleIdentifier);
 
     if (!v35)
     {
       goto LABEL_23;
     }
 
-    origin3 = _MRLogForCategory();
-    if (os_log_type_enabled(origin3, OS_LOG_TYPE_DEFAULT))
+    origin2 = _MRLogForCategory();
+    if (os_log_type_enabled(origin2, OS_LOG_TYPE_DEFAULT))
     {
       commandID3 = [v21 commandID];
       *buf = 138543362;
       v95 = commandID3;
-      _os_log_impl(&_mh_execute_header, origin3, OS_LOG_TYPE_DEFAULT, "Set AVSystemController_AllowAppToInitiatePlaybackTemporarilyAttribute for command %{public}@", buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, origin2, OS_LOG_TYPE_DEFAULT, "Set AVSystemController_AllowAppToInitiatePlaybackTemporarilyAttribute for command %{public}@", buf, 0xCu);
     }
   }
 
@@ -1248,13 +1220,13 @@ LABEL_23:
 
   v43 = [MRDTaskAssertion alloc];
   v44 = [(MRDMediaRemoteClient *)self pid];
-  bundleIdentifier4 = [(MRDMediaRemoteClient *)self bundleIdentifier];
+  bundleIdentifier2 = [(MRDMediaRemoteClient *)self bundleIdentifier];
   v72[0] = _NSConcreteStackBlock;
   v72[1] = 3221225472;
   v72[2] = sub_100181354;
   v72[3] = &unk_1004C0110;
   objc_copyWeak(&v73, buf);
-  v46 = [(MRDTaskAssertion *)v43 initWithType:1 pid:v44 bundleID:bundleIdentifier4 name:v42 invalidationHandler:v72];
+  v46 = [(MRDTaskAssertion *)v43 initWithType:1 pid:v44 bundleID:bundleIdentifier2 name:v42 invalidationHandler:v72];
 
   v47 = [(MRDMediaRemoteClient *)self isEntitledFor:0x4000];
   v48 = 10.0;

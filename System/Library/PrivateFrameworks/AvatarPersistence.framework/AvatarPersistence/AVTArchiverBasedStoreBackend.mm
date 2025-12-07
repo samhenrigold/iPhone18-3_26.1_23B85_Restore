@@ -160,55 +160,54 @@ LABEL_17:
 
 - (id)avatarsWithIdentifiers:(id)identifiers error:(id *)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
-  v20 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(identifiersCopy, "count")}];
   v19 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(identifiersCopy, "count")}];
+  v18 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(identifiersCopy, "count")}];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   obj = identifiersCopy;
-  v6 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v6 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v23;
+    v8 = *v22;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v23 != v8)
+        if (*v22 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v22 + 1) + 8 * i);
+        v10 = *(*(&v21 + 1) + 8 * i);
         sortedAvatars = [(AVTArchiverBasedStoreBackend *)self sortedAvatars];
         v12 = [AVTAvatarRecord matchingIdentifierTest:v10];
         v13 = [sortedAvatars indexOfObjectPassingTest:v12];
 
         if (v13 == 0x7FFFFFFFFFFFFFFFLL)
         {
-          [v19 addObject:v10];
+          [v18 addObject:v10];
         }
 
         else
         {
           sortedAvatars2 = [(AVTArchiverBasedStoreBackend *)self sortedAvatars];
           v15 = [sortedAvatars2 objectAtIndexedSubscript:v13];
-          [v20 addObject:v15];
+          [v19 addObject:v15];
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v7 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v7);
   }
 
-  v16 = [v20 copy];
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = [v19 copy];
 
   return v16;
 }
@@ -244,34 +243,34 @@ BOOL __66__AVTArchiverBasedStoreBackend_avatarsExcludingIdentifiers_error___bloc
 
 - (BOOL)saveAvatars:(id)avatars error:(id *)error
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   avatarsCopy = avatars;
-  v7 = [avatarsCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [avatarsCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(avatarsCopy);
         }
 
-        if (![(AVTArchiverBasedStoreBackend *)self saveAvatar:*(*(&v14 + 1) + 8 * i) error:error, v14])
+        if (![(AVTArchiverBasedStoreBackend *)self saveAvatar:*(*(&v13 + 1) + 8 * i) error:error, v13])
         {
           v11 = 0;
           goto LABEL_11;
         }
       }
 
-      v8 = [avatarsCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [avatarsCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v8)
       {
         continue;
@@ -284,7 +283,6 @@ BOOL __66__AVTArchiverBasedStoreBackend_avatarsExcludingIdentifiers_error___bloc
   v11 = 1;
 LABEL_11:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -609,41 +607,40 @@ void __76__AVTArchiverBasedStoreBackend_rootByRemovingAvatarWithIdentifier_fromR
 
 + (id)classifyRecordsByIdentifiers:(id)identifiers
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   v4 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(identifiersCopy, "count")}];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = identifiersCopy;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         identifier = [v10 identifier];
         [v4 setObject:v10 forKeyedSubscript:identifier];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
 
   v12 = [v4 copy];
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

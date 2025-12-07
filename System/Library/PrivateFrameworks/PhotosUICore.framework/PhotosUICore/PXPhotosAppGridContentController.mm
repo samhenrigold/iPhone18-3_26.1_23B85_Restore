@@ -127,11 +127,11 @@ LABEL_14:
     fetchSelectedObjects = [selectionSnapshot fetchSelectedObjects];
     [fetchSelectedObjects mutableCopy];
 
-    layout = [contentController layout];
+    v14 = objc_msgSend_layout(contentController);
     [contentController gridView];
     objc_claimAutoreleasedReturnValue();
-    [layout visibleRect];
-    [layout safeAreaInsets];
+    [v14 visibleRect];
+    [v14 safeAreaInsets];
     PXEdgeInsetsInsetRect();
   }
 
@@ -231,11 +231,11 @@ void __62__PXPhotosAppGridContentController_appIntentsEnumerateAssets___block_in
     fetchSelectedObjects = [selectionSnapshot fetchSelectedObjects];
     [fetchSelectedObjects mutableCopy];
 
-    layout = [contentController layout];
+    v14 = objc_msgSend_layout(contentController);
     [contentController gridView];
     objc_claimAutoreleasedReturnValue();
-    [layout visibleRect];
-    [layout safeAreaInsets];
+    [v14 visibleRect];
+    [v14 safeAreaInsets];
     PXEdgeInsetsInsetRect();
   }
 
@@ -376,9 +376,9 @@ void __72__PXPhotosAppGridContentController_appIntentsEnumerateAssetCollections_
   v9 = *(MEMORY[0x1E695F050] + 24);
   forCopy = for;
   contentController = [(PXPhotosAppGridContentController *)self contentController];
-  layout = [contentController layout];
+  v12 = objc_msgSend_layout(contentController);
 
-  v13 = [layout spriteIndexForSpriteReference:forCopy];
+  v13 = [v12 spriteIndexForSpriteReference:forCopy];
   if (v13 != -1)
   {
     v31 = *off_1E7722008;
@@ -405,8 +405,8 @@ void __72__PXPhotosAppGridContentController_appIntentsEnumerateAssetCollections_
     v29 = *(off_1E7722040 + 4);
     v28[0] = v20;
     v28[1] = v21;
-    [layout copyLayoutForSpritesInRange:v13 | 0x100000000 entities:&v31 geometries:v30 styles:v32 infos:v28];
-    [layout minPlayableSizeForSpriteAtIndex:v13];
+    [v12 copyLayoutForSpritesInRange:v13 | 0x100000000 entities:&v31 geometries:v30 styles:v32 infos:v28];
+    [v12 minPlayableSizeForSpriteAtIndex:v13];
     size->width = v22;
     size->height = v23;
     PXRectWithCenterAndSize();
@@ -426,8 +426,8 @@ void __72__PXPhotosAppGridContentController_appIntentsEnumerateAssetCollections_
 - (UIEdgeInsets)safeAreaInsetsFor:(id)for
 {
   contentController = [(PXPhotosAppGridContentController *)self contentController];
-  layout = [contentController layout];
-  [layout safeAreaInsets];
+  v4 = objc_msgSend_layout(contentController);
+  [v4 safeAreaInsets];
   v6 = v5;
   v8 = v7;
   v10 = v9;
@@ -447,8 +447,8 @@ void __72__PXPhotosAppGridContentController_appIntentsEnumerateAssetCollections_
 - (CGRect)visibleRectFor:(id)for
 {
   contentController = [(PXPhotosAppGridContentController *)self contentController];
-  layout = [contentController layout];
-  [layout visibleRect];
+  v4 = objc_msgSend_layout(contentController);
+  [v4 visibleRect];
   v6 = v5;
   v8 = v7;
   v10 = v9;
@@ -832,10 +832,10 @@ LABEL_21:
 
   if (!v7)
   {
-    layout = [contentController layout];
+    v8 = objc_msgSend_layout(contentController);
     v9 = [PXPhotosGridFooterPresentation alloc];
     viewModel = [contentController viewModel];
-    v11 = [(PXPhotosGridFooterPresentation *)v9 initWithViewModel:viewModel gridView:v5 layout:layout];
+    v11 = [(PXPhotosGridFooterPresentation *)v9 initWithViewModel:viewModel gridView:v5 layout:v8];
     v12 = self->_footerPresentation;
     self->_footerPresentation = v11;
 

@@ -90,19 +90,19 @@ uint64_t sub_277585548(uint64_t a1, CVPixelBufferRef pixelBuffer, uint64_t a3)
   return 0;
 }
 
-void sub_2775856E0(uint64_t a1)
+void sub_2775856E0(void *result)
 {
-  v2 = a1 + 36864;
-  if (*(a1 + 24))
+  v2 = result + 4608;
+  if (result[3])
   {
-    sub_2775858B8();
+    sub_2775858B8(result);
   }
 
-  while (*(v2 + 232))
+  while (v2[29])
   {
     v3[0] = 0;
     v3[1] = 0;
-    sub_277585FCC(a1, v3);
+    sub_277585FCC(result, v3);
   }
 }
 
@@ -280,7 +280,7 @@ LABEL_5:
   }
 }
 
-void sub_277586318(uint64_t *a1)
+void sub_277586318(_DWORD *a1)
 {
   v10 = *MEMORY[0x277D85DE8];
   v1 = *a1;
@@ -506,12 +506,12 @@ LABEL_42:
   return sub_277584EB0(&cf);
 }
 
-void sub_277586A90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_277586A90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va1, a8);
-  va_start(va, a8);
-  v9 = va_arg(va1, const void *);
-  v11 = va_arg(va1, void);
+  va_start(va1, a15);
+  va_start(va, a15);
+  v16 = va_arg(va1, const void *);
+  v18 = va_arg(va1, void);
   sub_2775885F0(va1);
   sub_277584EB0(va);
   _Unwind_Resume(a1);
@@ -1145,17 +1145,17 @@ LABEL_142:
   return v48;
 }
 
-void sub_277587B28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_277587B28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va3, a14);
-  va_start(va2, a14);
-  va_start(va1, a14);
-  va_start(va, a14);
-  v15 = va_arg(va1, const void *);
+  va_start(va3, a21);
+  va_start(va2, a21);
+  va_start(va1, a21);
+  va_start(va, a21);
+  v22 = va_arg(va1, const void *);
   va_copy(va2, va1);
-  v17 = va_arg(va2, const void *);
+  v24 = va_arg(va2, const void *);
   va_copy(va3, va2);
-  v19 = va_arg(va3, const void *);
+  v26 = va_arg(va3, const void *);
   sub_277587C5C(va3);
   sub_277587C28(va);
   sub_277587C28(va1);
@@ -1232,11 +1232,11 @@ const void **sub_277587C90()
   return sub_277587C28(&Mutable);
 }
 
-void sub_277587D8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_277587D8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, const void *);
+  va_start(va1, a5);
+  va_start(va, a5);
+  v6 = va_arg(va1, const void *);
   sub_277587C28(va);
   sub_277587C28(va1);
   _Unwind_Resume(a1);
@@ -1307,11 +1307,11 @@ uint64_t sub_277587F0C(uint64_t *a1, uint64_t a2)
   return v6;
 }
 
-void sub_277588428(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_277588428(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_277587E6C(va);
-  std::mutex::unlock((v4 + v5));
+  std::mutex::unlock((v7 + v8));
   _Unwind_Resume(a1);
 }
 
@@ -1358,9 +1358,9 @@ const void **sub_277588464()
   return sub_2775885F0(&v5);
 }
 
-void sub_2775885DC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2775885DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_2775885F0(va);
   _Unwind_Resume(a1);
 }
@@ -1653,9 +1653,9 @@ uint64_t sub_277588AC0(uint64_t a1, char a2)
   }
 }
 
-void sub_2775891C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2775891C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_2775891F8(va);
   _Unwind_Resume(a1);
 }
@@ -2047,7 +2047,7 @@ std::logic_error *sub_277589B08(std::logic_error *a1)
   return result;
 }
 
-uint64_t sub_277589B44(int *a1, uint64_t a2, CVPixelBufferRef pixelBuffer, uint64_t a4)
+char *sub_277589B44(int *a1, uint64_t a2, CVPixelBufferRef pixelBuffer, uint64_t a4)
 {
   v8 = *(a2 + 8);
   v9 = *(a2 + 56);
@@ -2120,7 +2120,7 @@ uint64_t sub_277589B44(int *a1, uint64_t a2, CVPixelBufferRef pixelBuffer, uint6
     v92 = 2 * (BytesPerRowOfPlane >> 1);
     v72 = v119 >> 1 << 6;
     v73 = BytesPerRowOfPlane >> 1 << 6;
-    v69 = result + 2 * (v13 >> 1) * (SHIDWORD(a4) >> v86) + 4 * (a4 >> v97);
+    v69 = &result[4 * (a4 >> v97) + 2 * (v13 >> 1) * (SHIDWORD(a4) >> v86)];
     v71 = *(a2 + 16);
     v75 = v71;
     v87 = v119 >> 1;
@@ -2332,7 +2332,7 @@ uint64_t sub_277589B44(int *a1, uint64_t a2, CVPixelBufferRef pixelBuffer, uint6
               v112 = 0;
               v13 = v42 * v78;
               v88 = v71 + ((v77 * v87) << 6) + (v42 << 6);
-              v89 = v69 + 2 * v85 * v77 * v70 + 4 * v42 * v78;
+              v89 = &v69[4 * v42 * v78 + 2 * v85 * v77 * v70];
               v99 = ((v94 + v97) >> v97);
               v107 = *(*(v93 + 490) + 4 * *(v93 + 493) * v77 + 4 * v42);
               do
@@ -2477,7 +2477,7 @@ uint64_t sub_277589B44(int *a1, uint64_t a2, CVPixelBufferRef pixelBuffer, uint6
   return result;
 }
 
-uint64_t sub_27758A390(int *a1, uint64_t a2, CVPixelBufferRef pixelBuffer, uint64_t a4)
+char *sub_27758A390(int *a1, uint64_t a2, CVPixelBufferRef pixelBuffer, uint64_t a4)
 {
   v8 = *(a2 + 8);
   v9 = *(a2 + 56);
@@ -2550,7 +2550,7 @@ uint64_t sub_27758A390(int *a1, uint64_t a2, CVPixelBufferRef pixelBuffer, uint6
     v92 = 2 * (BytesPerRowOfPlane >> 1);
     v72 = v119 >> 1 << 6;
     v73 = BytesPerRowOfPlane >> 1 << 6;
-    v69 = result + 2 * (v13 >> 1) * (SHIDWORD(a4) >> v86) + 4 * (a4 >> v97);
+    v69 = &result[4 * (a4 >> v97) + 2 * (v13 >> 1) * (SHIDWORD(a4) >> v86)];
     v71 = *(a2 + 16);
     v75 = v71;
     v87 = v119 >> 1;
@@ -2762,7 +2762,7 @@ uint64_t sub_27758A390(int *a1, uint64_t a2, CVPixelBufferRef pixelBuffer, uint6
               v112 = 0;
               v13 = v42 * v78;
               v88 = v71 + ((v77 * v87) << 6) + (v42 << 6);
-              v89 = v69 + 2 * v85 * v77 * v70 + 4 * v42 * v78;
+              v89 = &v69[4 * v42 * v78 + 2 * v85 * v77 * v70];
               v99 = ((v94 + v97) >> v97);
               v107 = *(*(v93 + 490) + 4 * *(v93 + 493) * v77 + 4 * v42);
               do
@@ -3530,7 +3530,7 @@ uint64_t sub_27758B374(int **a1, int a2, unint64_t a3, int a4, int a5, int a6, i
   return v20;
 }
 
-uint64_t sub_27758B62C(uint64_t result, uint64_t a2, int a3, int a4, int a5)
+uint64_t sub_27758B62C(uint64_t result, uint64_t a2, unsigned int a3, int a4, int a5)
 {
   if (a4 >= 1)
   {
@@ -5507,7 +5507,7 @@ unint64_t sub_27758D2D8(unint64_t result, uint64_t a2, _OWORD *a3)
   return result;
 }
 
-uint64_t sub_27758DA24(uint64_t result, uint64_t a2, uint64_t a3)
+unint64_t sub_27758DA24(unint64_t result, uint64_t a2, uint64_t a3)
 {
   v4 = *(result + 39);
   v5 = *(result + 4);
@@ -5923,7 +5923,7 @@ unsigned __int8 *sub_27758E074(unsigned __int8 *result, uint64_t a2, _OWORD *a3)
     v34 = a2 + 498;
     v35 = (a2 + 24442);
     v36 = a2 + 12470;
-    v37 = a3 - 48;
+    v37 = (a3 - 48);
     v38 = 4;
     v39 = 3;
     v40 = a2;
@@ -6085,10 +6085,10 @@ unsigned __int8 *sub_27758E074(unsigned __int8 *result, uint64_t a2, _OWORD *a3)
       ++v39;
       v38 = (v38 + 1);
       v34 = v148 + 164;
-      v35 = (v35 + 164);
+      v35 += 164;
       v36 += 164;
       v40 = v146 + 164;
-      v37 = v147 + 8;
+      v37 = v147 + 128;
       v26 = v145;
     }
 
@@ -6991,12 +6991,12 @@ uint64_t sub_27758EF34(uint64_t a1, uint64_t a2, uint64_t a3)
   return result;
 }
 
-int16x8_t *sub_27758F5DC(int16x8_t *result, uint64_t a2, int16x8_t *a3, double a4, int16x4_t a5, int16x4_t a6)
+unint64_t sub_27758F5DC(unint64_t result, uint64_t a2, int16x8_t *a3, double a4, int16x4_t a5, int16x4_t a6)
 {
-  v6 = result[2].u8[7];
-  v7 = result->u32[1];
+  v6 = *(result + 39);
+  v7 = *(result + 4);
   v8 = (v6 | v7 & 2) == 0;
-  v9 = result[3].u8[12];
+  v9 = *(result + 60);
   v10 = (v9 | v7 & 2) == 0;
   v11 = v7 >> 13;
   v12 = ((v7 >> 8) & 3) - v11;
@@ -7011,18 +7011,18 @@ int16x8_t *sub_27758F5DC(int16x8_t *result, uint64_t a2, int16x8_t *a3, double a
     v14 = 82;
   }
 
-  v15 = result->u16[4];
+  v15 = *(result + 8);
   v16 = v15 ^ 0xB524;
   v17 = v15 ^ 0x49D8;
   v18 = -(128 << v11);
   v19 = (256 << v11) + ~(128 << v11);
-  if (result->i8[10])
+  if (*(result + 10))
   {
     v20 = 0;
     LODWORD(v21) = 0;
     v22 = vdupq_n_s32(-6 - (v7 >> 6));
-    a5.i32[0] = result[8].i8[2];
-    a6.i32[0] = result[6].i8[9];
+    a5.i32[0] = *(result + 130);
+    a6.i32[0] = *(result + 105);
     v23 = 1 << (v12 + 3);
     if (v12 == -4)
     {
@@ -7118,7 +7118,7 @@ int16x8_t *sub_27758F5DC(int16x8_t *result, uint64_t a2, int16x8_t *a3, double a
     }
 
     v44 = vdupq_n_s16(v18);
-    result = a3 + 512;
+    result = &a3[512];
     v45 = a2 + 23944;
     v46 = a2 + 11972;
     v47 = 10;
@@ -7188,7 +7188,7 @@ int16x8_t *sub_27758F5DC(int16x8_t *result, uint64_t a2, int16x8_t *a3, double a
       while (v53 < 0x38);
       ++v38;
       ++v47;
-      result += 8;
+      result += 128;
       v40 = (v40 + 164);
       v41 = (v41 + 164);
     }
@@ -7452,7 +7452,7 @@ const void **sub_27758FF24(const void **a1)
   return a1;
 }
 
-id sub_277590BFC(uint64_t a1, size_t planeIndex)
+id sub_277590BFC(CVPixelBufferRef **a1, size_t planeIndex)
 {
   v2 = planeIndex;
   v13[1] = *MEMORY[0x277D85DE8];
@@ -7464,7 +7464,7 @@ id sub_277590BFC(uint64_t a1, size_t planeIndex)
   v13[0] = &unk_2886648C0;
   v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
   image = 0;
-  if (CVMetalTextureCacheCreateTextureFromImage(0, *(**(a1 + 8) + 8 * (v2 != 0) + 88), **a1, v8, v7, WidthOfPlane, HeightOfPlane, v4, &image))
+  if (CVMetalTextureCacheCreateTextureFromImage(0, *(*a1[1] + (v2 != 0) + 11), **a1, v8, v7, WidthOfPlane, HeightOfPlane, v4, &image))
   {
     v9 = 0;
   }
@@ -7479,9 +7479,9 @@ id sub_277590BFC(uint64_t a1, size_t planeIndex)
   return v9;
 }
 
-void sub_277590D64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_277590D64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_277584EB0(va);
 
   _Unwind_Resume(a1);
@@ -7553,17 +7553,17 @@ uint64_t sub_277590D84(__CVBuffer *a1, int a2)
   }
 }
 
-void sub_277591454(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_277591454(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_277584EB0(va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_277591610(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_277591610(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_277584EB0(va);
 
   _Unwind_Resume(a1);
@@ -7721,7 +7721,7 @@ uint64_t sub_277592808()
   return 0;
 }
 
-uint64_t sub_27759283C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, __CVBuffer *a6, uint64_t a7, uint64_t a8, _DWORD *a9)
+uint64_t sub_27759283C(uint64_t a1, uint64_t a2, opaqueCMSampleBuffer *a3, uint64_t a4, int a5, __CVBuffer *a6, uint64_t a7, int a8, _DWORD *a9)
 {
   v17 = *MEMORY[0x277D85DE8];
   VTVideoDecoderGetCMBaseObject();
@@ -7769,28 +7769,28 @@ uint64_t sub_27759283C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a
   return 0;
 }
 
-void sub_277592BEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_277592BEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
-  MEMORY[0x277CADDA0](v4, v5);
+  va_start(va, a7);
+  MEMORY[0x277CADDA0](v7, v8, a3, a4);
   sub_27758950C(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_277592C44(uint64_t a1, uint64_t a2)
+uint64_t sub_277592C44(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   VTVideoDecoderGetCMBaseObject();
-  v3 = *CMBaseObjectGetDerivedStorage();
-  if (!v3)
+  v4 = *CMBaseObjectGetDerivedStorage();
+  if (!v4)
   {
     return 4294954393;
   }
 
-  *(v3 + 8) = a2;
-  v5 = FigFormatDescriptionRetain();
-  sub_277588A7C((v3 + 16), &v5);
-  sub_277585884(&v5);
-  return sub_277588624(v3);
+  *(v4 + 8) = a2;
+  v6 = FigFormatDescriptionRetain();
+  sub_277588A7C((v4 + 16), &v6);
+  sub_277585884(&v6);
+  return sub_277588624(v4);
 }
 
 uint64_t sub_277592CBC()
@@ -7888,7 +7888,7 @@ uint64_t sub_277592DC8(uint64_t a1, void *a2)
   return result;
 }
 
-uint64_t sub_277592EDC(uint64_t a1, uint64_t a2, uint64_t a3, int a4, _DWORD *a5)
+uint64_t sub_277592EDC(uint64_t a1, uint64_t a2, opaqueCMSampleBuffer *a3, int a4, _DWORD *a5)
 {
   v13 = *MEMORY[0x277D85DE8];
   VTVideoDecoderGetCMBaseObject();
@@ -7930,28 +7930,28 @@ uint64_t sub_277592EDC(uint64_t a1, uint64_t a2, uint64_t a3, int a4, _DWORD *a5
   return 0;
 }
 
-void sub_277593220(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_277593220(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
-  MEMORY[0x277CADDA0](v4, v5);
+  va_start(va, a7);
+  MEMORY[0x277CADDA0](v7, v8, a3, a4);
   sub_27758950C(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_277593264(uint64_t a1, uint64_t a2)
+uint64_t sub_277593264(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   VTVideoDecoderGetCMBaseObject();
-  v3 = *CMBaseObjectGetDerivedStorage();
-  if (!v3)
+  v4 = *CMBaseObjectGetDerivedStorage();
+  if (!v4)
   {
     return 4294954393;
   }
 
-  *v3 = a2;
-  v5 = FigFormatDescriptionRetain();
-  sub_277588A7C((v3 + 16), &v5);
-  sub_277585884(&v5);
-  return sub_277588624(v3);
+  *v4 = a2;
+  v6 = FigFormatDescriptionRetain();
+  sub_277588A7C((v4 + 16), &v6);
+  sub_277585884(&v6);
+  return sub_277588624(v4);
 }
 
 uint64_t sub_2775932E0(uint64_t a1, const void *a2, const void *a3)
@@ -8109,84 +8109,84 @@ __CFString *sub_2775936D0(uint64_t a1)
   return Mutable;
 }
 
-uint64_t sub_27759372C()
+uint64_t sub_27759372C(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v1 = DerivedStorage;
-  v2 = *DerivedStorage;
+  v2 = DerivedStorage;
+  v3 = *DerivedStorage;
   if (*DerivedStorage)
   {
     sub_2775856E0(*DerivedStorage);
-    v3 = (v2 + 36760);
-    if (*(v2 + 24))
+    v4 = (v3 + 36760);
+    if (*(v3 + 24))
     {
-      sub_2775EBAC8((v2 + 24), 1);
+      sub_2775EBAC8((v3 + 24), 1);
     }
 
-    v4 = *(v2 + 37056);
-    if (v4)
-    {
-      dispatch_group_wait(v4, 0xFFFFFFFFFFFFFFFFLL);
-      dispatch_release(*(v2 + 37056));
-    }
-
-    v5 = *(v2 + 37048);
+    v5 = *(v3 + 37056);
     if (v5)
     {
-      dispatch_release(v5);
+      dispatch_group_wait(v5, 0xFFFFFFFFFFFFFFFFLL);
+      dispatch_release(*(v3 + 37056));
     }
 
-    v6 = *(v2 + 37112);
+    v6 = *(v3 + 37048);
     if (v6)
     {
-      sub_2775857B0(v6);
+      dispatch_release(v6);
     }
 
-    if (*(v2 + 37096))
+    v7 = *(v3 + 37112);
+    if (v7)
     {
-      v7 = *(v2 + 37088);
-      v8 = *(*(v2 + 37080) + 8);
-      v9 = *v7;
-      *(v9 + 8) = v8;
-      *v8 = v9;
-      *(v2 + 37096) = 0;
-      if (v7 != (v2 + 37080))
+      sub_2775857B0(v7);
+    }
+
+    if (*(v3 + 37096))
+    {
+      v8 = *(v3 + 37088);
+      v9 = *(*(v3 + 37080) + 8);
+      v10 = *v8;
+      *(v10 + 8) = v9;
+      *v9 = v10;
+      *(v3 + 37096) = 0;
+      if (v8 != (v3 + 37080))
       {
         do
         {
-          v10 = v7[1];
-          operator delete(v7);
-          v7 = v10;
+          v11 = v8[1];
+          operator delete(v8);
+          v8 = v11;
         }
 
-        while (v10 != (v2 + 37080));
+        while (v11 != (v3 + 37080));
       }
     }
 
     for (i = 0; i != -16; i -= 8)
     {
-      v12 = *(v2 + 37032 + i);
-      if (v12)
+      v13 = *(v3 + 37032 + i);
+      if (v13)
       {
-        CFRelease(v12);
+        CFRelease(v13);
       }
     }
 
-    std::mutex::~mutex((v2 + 36936));
-    v13 = *v3;
-    if (*v3)
+    std::mutex::~mutex((v3 + 36936));
+    v14 = *v4;
+    if (*v4)
     {
-      *(v2 + 36768) = v13;
-      operator delete(v13);
+      *(v3 + 36768) = v14;
+      operator delete(v14);
     }
 
-    sub_27758581C((v2 + 64));
-    sub_277585850((v2 + 56));
-    sub_277585884((v2 + 16));
-    MEMORY[0x277CADDA0](v2, 0x10E0C4090BA85D9);
+    sub_27758581C((v3 + 64));
+    sub_277585850((v3 + 56));
+    sub_277585884((v3 + 16));
+    MEMORY[0x277CADDA0](v3, 0x10E0C4090BA85D9);
   }
 
-  *v1 = 0;
+  *v2 = 0;
   return 0;
 }
 
@@ -8218,9 +8218,9 @@ const void **sub_2775938E4()
   return sub_2775885F0(&v3);
 }
 
-void sub_2775939C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2775939C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_2775885F0(va);
   _Unwind_Resume(a1);
 }
@@ -8266,7 +8266,7 @@ char *sub_2775939E0(char *result, uint64_t a2, _DWORD *a3, _BYTE *a4, uint64_t a
   return result;
 }
 
-char *sub_277593AB8(char *result, int a2, unsigned int a3, unsigned int a4, uint64_t a5, uint64_t a6, int a7)
+char *sub_277593AB8(char *result, int a2, signed int a3, signed int a4, uint64_t a5, uint64_t a6, unsigned int a7)
 {
   v7 = -2 * a6;
   v8 = -3 * a6;

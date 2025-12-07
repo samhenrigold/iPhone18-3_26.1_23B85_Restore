@@ -63,9 +63,7 @@
 
 - (void)clearResources
 {
-  dictionary = [MEMORY[0x1E695DF90] dictionary];
-  resourceByName = self->_resourceByName;
-  self->_resourceByName = dictionary;
+  self->_resourceByName = [MEMORY[0x1E695DF90] dictionary];
 
   MEMORY[0x1EEE66BB8]();
 }

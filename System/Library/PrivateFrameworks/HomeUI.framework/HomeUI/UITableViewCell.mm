@@ -12,20 +12,20 @@ void __74__UITableViewCell_HUCheckmarkAdditions__hu_emptyCheckmarkPlaceholderIma
   _MergedGlobals_1_4 = v1;
 }
 
-IMP __59__UITableViewCell_HUAdditions__hu_setForcedSeparatorStyle___block_invoke()
+IMP __59__UITableViewCell_HUAdditions__hu_setForcedSeparatorStyle___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  InstanceMethod = class_getInstanceMethod(v0, sel_setSeparatorStyle_);
+  v2 = objc_opt_class();
+  InstanceMethod = class_getInstanceMethod(v2, sel_setSeparatorStyle_);
   off_2811221E8 = method_getImplementation(InstanceMethod);
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __59__UITableViewCell_HUAdditions__hu_setForcedSeparatorStyle___block_invoke_2;
   aBlock[3] = &__block_descriptor_40_e11_v24__0_8q16l;
   aBlock[4] = sel_setSeparatorStyle_;
-  v2 = _Block_copy(aBlock);
-  v3 = imp_implementationWithBlock(v2);
+  v4 = _Block_copy(aBlock);
+  v5 = imp_implementationWithBlock(v4);
 
-  return method_setImplementation(InstanceMethod, v3);
+  return method_setImplementation(InstanceMethod, v5);
 }
 
 void __59__UITableViewCell_HUAdditions__hu_setForcedSeparatorStyle___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)

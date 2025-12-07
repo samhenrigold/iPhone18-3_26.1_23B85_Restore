@@ -19,7 +19,7 @@
   clientCopy = client;
   selfCopy = self;
   errorCopy = error;
-  sub_100034CFC();
+  sub_100034CFC(error);
 }
 
 - (void)clientDidConnect:

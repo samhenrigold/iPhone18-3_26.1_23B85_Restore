@@ -34,7 +34,7 @@ void __41__AXBLiveSpeechManager_initializeMonitor__block_invoke()
 - (void)setLiveSpeechEnabled:(BOOL)enabled
 {
   enabledCopy = enabled;
-  v17 = *MEMORY[0x29EDCA608];
+  v16 = *MEMORY[0x29EDCA608];
   v5 = _os_feature_enabled_impl();
   v6 = LiveSpeechLogCommon();
   v7 = v6;
@@ -53,21 +53,21 @@ void __41__AXBLiveSpeechManager_initializeMonitor__block_invoke()
   {
     v8 = [MEMORY[0x29EDBA070] numberWithBool:self->_wasEverEnabled];
     *buf = 134218242;
-    v14 = enabledCopy;
-    v15 = 2112;
-    v16 = v8;
+    v13 = enabledCopy;
+    v14 = 2112;
+    v15 = v8;
     _os_log_impl(&dword_29BBBD000, v7, OS_LOG_TYPE_DEFAULT, "LiveSpeech monitor asked to enable LiveSpeech: %ld (was ever enabled: %@)", buf, 0x16u);
   }
 
   if (enabledCopy)
   {
-    v12 = 0;
-    [getLiveSpeechServicesObjcClass() startLiveSpeechAndReturnError:&v12];
-    v7 = v12;
+    v11 = 0;
+    [getLiveSpeechServicesObjcClass() startLiveSpeechAndReturnError:&v11];
+    v7 = v11;
     self->_wasEverEnabled = 1;
     if (!v7)
     {
-      goto LABEL_15;
+      return;
     }
 
     goto LABEL_11;
@@ -75,9 +75,9 @@ void __41__AXBLiveSpeechManager_initializeMonitor__block_invoke()
 
   if (self->_wasEverEnabled)
   {
-    v11 = 0;
-    [getLiveSpeechServicesObjcClass() stopLiveSpeechAndReturnError:&v11];
-    v7 = v11;
+    v10 = 0;
+    [getLiveSpeechServicesObjcClass() stopLiveSpeechAndReturnError:&v10];
+    v7 = v10;
     self->_wasEverEnabled = 0;
     if (v7)
     {
@@ -91,9 +91,6 @@ LABEL_11:
 LABEL_14:
     }
   }
-
-LABEL_15:
-  v10 = *MEMORY[0x29EDCA608];
 }
 
 - (void)updateSettings
@@ -106,11 +103,10 @@ LABEL_15:
 
 - (void)setLiveSpeechEnabled:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x29EDCA608];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_29BBBD000, a2, OS_LOG_TYPE_ERROR, "Error toggling LiveSpeech: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x29EDCA608];
+  v4 = *MEMORY[0x29EDCA608];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_29BBBD000, a2, OS_LOG_TYPE_ERROR, "Error toggling LiveSpeech: %@", &v2, 0xCu);
 }
 
 @end

@@ -1,5 +1,6 @@
 @interface CKDUpdateDeviceCapabilitiesOperation
 + (id)nameForState:(unint64_t)state;
+- (BOOL)isOperationType:(int)type;
 - (BOOL)makeStateTransition;
 - (id)activityCreate;
 - (id)errorForResult:(id)result fallbackDescription:(id)description;
@@ -78,6 +79,34 @@
   return v2;
 }
 
+- (BOOL)isOperationType:(int)type
+{
+  switch(type)
+  {
+    case 410:
+      v5 = objc_msgSend_shareUsages(self, a2, *&type);
+      goto LABEL_7;
+    case 409:
+      v5 = objc_msgSend_zoneUsages(self, a2, *&type);
+LABEL_7:
+      v8 = v5;
+      v4 = objc_msgSend_count(v5, v6, v7) != 0;
+
+      return v4;
+    case 407:
+      v3 = objc_msgSend_supportedCapabilities(self, a2, *&type);
+      v4 = v3 != 0;
+
+      break;
+    default:
+      v10.receiver = self;
+      v10.super_class = CKDUpdateDeviceCapabilitiesOperation;
+      return [(CKDOperation *)&v10 isOperationType:?];
+  }
+
+  return v4;
+}
+
 - (id)operationGroupID
 {
   v3 = objc_msgSend_operationInfo(self, a2, v2);
@@ -107,7 +136,7 @@
 
 - (void)main
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if (*MEMORY[0x277CBC880] != -1)
   {
     dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
@@ -116,26 +145,25 @@
   v3 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
   {
-    v6 = v3;
-    v7 = objc_opt_class();
-    v8 = NSStringFromClass(v7);
-    v10 = objc_msgSend_CKDescriptionPropertiesWithPublic_private_shouldExpand_(self, v9, 1, 0, 0);
-    v13 = objc_msgSend_CKPropertiesStyleString(v10, v11, v12);
-    v15 = objc_msgSend_CKDescriptionPropertiesWithPublic_private_shouldExpand_(self, v14, 0, 1, 0);
-    v18 = objc_msgSend_CKPropertiesStyleString(v15, v16, v17);
-    v19 = 138544130;
-    v20 = v8;
-    v21 = 2048;
+    v5 = v3;
+    v6 = objc_opt_class();
+    v7 = NSStringFromClass(v6);
+    v9 = objc_msgSend_CKDescriptionPropertiesWithPublic_private_shouldExpand_(self, v8, 1, 0, 0);
+    v12 = objc_msgSend_CKPropertiesStyleString(v9, v10, v11);
+    v14 = objc_msgSend_CKDescriptionPropertiesWithPublic_private_shouldExpand_(self, v13, 0, 1, 0);
+    v17 = objc_msgSend_CKPropertiesStyleString(v14, v15, v16);
+    v18 = 138544130;
+    v19 = v7;
+    v20 = 2048;
     selfCopy = self;
-    v23 = 2114;
-    v24 = v13;
-    v25 = 2112;
-    v26 = v18;
-    _os_log_debug_impl(&dword_22506F000, v6, OS_LOG_TYPE_DEBUG, "Starting  <%{public}@: %p; %{public}@, %@>", &v19, 0x2Au);
+    v22 = 2114;
+    v23 = v12;
+    v24 = 2112;
+    v25 = v17;
+    _os_log_debug_impl(&dword_22506F000, v5, OS_LOG_TYPE_DEBUG, "Starting  <%{public}@: %p; %{public}@, %@>", &v18, 0x2Au);
   }
 
   objc_msgSend_makeStateTransition_(self, v4, 0);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)makeStateTransition
@@ -343,7 +371,7 @@ LABEL_10:
 
 - (void)handleRequestCompleted:(id)completed
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   v6 = objc_msgSend_error(completed, a2, completed);
   if (*MEMORY[0x277CBC810] == 1)
   {
@@ -379,11 +407,11 @@ LABEL_24:
         v57 = objc_msgSend_container(self, v55, v56);
         v60 = objc_msgSend_containerID(v57, v58, v59);
         *buf = 138412802;
-        v63 = v54;
-        v64 = 2112;
-        v65 = v60;
-        v66 = 2112;
-        v67 = v6;
+        v62 = v54;
+        v63 = 2112;
+        v64 = v60;
+        v65 = 2112;
+        v66 = v6;
         _os_log_impl(&dword_22506F000, v51, OS_LOG_TYPE_INFO, "Warn: Failed to send %@ to the server for container ID %@: %@", buf, 0x20u);
       }
 
@@ -416,7 +444,7 @@ LABEL_28:
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v63 = v6;
+      v62 = v6;
       _os_log_impl(&dword_22506F000, v46, OS_LOG_TYPE_INFO, "Signing identity missing: %@", buf, 0xCu);
     }
 
@@ -445,9 +473,9 @@ LABEL_28:
       v32 = objc_msgSend_container(self, v30, v31);
       v35 = objc_msgSend_containerID(v32, v33, v34);
       *buf = 138412546;
-      v63 = v29;
-      v64 = 2112;
-      v65 = v35;
+      v62 = v29;
+      v63 = 2112;
+      v64 = v35;
       _os_log_impl(&dword_22506F000, v26, OS_LOG_TYPE_INFO, "Successfully sent %@ to the server for container ID %@", buf, 0x16u);
     }
 
@@ -467,26 +495,24 @@ LABEL_28:
         v41 = objc_msgSend_supportedCapabilities(self, v39, v40);
         v44 = objc_msgSend_lastSentCapabilities(self, v42, v43);
         *buf = 138412546;
-        v63 = v41;
-        v64 = 2112;
-        v65 = v44;
+        v62 = v41;
+        v63 = 2112;
+        v64 = v44;
         _os_log_debug_impl(&dword_22506F000, v38, OS_LOG_TYPE_DEBUG, "\n\tSent: %@\n\tPrevious: %@\n", buf, 0x16u);
       }
     }
   }
 
 LABEL_29:
-
-  v61 = *MEMORY[0x277D85DE8];
 }
 
 - (void)synchronizeSigningIdentities
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   if (!objc_msgSend_needsSynchronizeSigningIdentities(self, a2, v2) || objc_msgSend_didSynchronizeSigningIdentities(self, v5, v6))
   {
-    v26 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v5, v6);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v26, v27, a2, self, @"CKDUpdateDeviceCapabilitiesOperation.m", 311, @"User key sync for signing identities should not have been triggered");
+    v25 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v5, v6);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v25, v26, a2, self, @"CKDUpdateDeviceCapabilitiesOperation.m", 311, @"User key sync for signing identities should not have been triggered");
   }
 
   v7 = objc_msgSend_topmostParentOperation(self, v5, v6);
@@ -501,7 +527,7 @@ LABEL_29:
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
-    v32 = v10;
+    v31 = v10;
     _os_log_impl(&dword_22506F000, v11, OS_LOG_TYPE_INFO, "Will attempt user key sync to update signing identities for operation %{public}@.", buf, 0xCu);
   }
 
@@ -512,19 +538,17 @@ LABEL_29:
   objc_msgSend_noteOperationWillWaitOnPCS(self, v15, v16);
   v19 = objc_msgSend_container(self, v17, v18);
   v22 = objc_msgSend_pcsManager(v19, v20, v21);
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = sub_22525F27C;
-  v28[3] = &unk_27854ABF0;
-  objc_copyWeak(&v30, buf);
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = sub_22525F27C;
+  v27[3] = &unk_27854ABF0;
+  objc_copyWeak(&v29, buf);
   v23 = v10;
-  v29 = v23;
-  objc_msgSend_synchronizeUserKeyRegistryForSigningIdentitiesForRequestorOperationID_shouldThrottle_completionHandler_(v22, v24, v23, 1, v28);
+  v28 = v23;
+  objc_msgSend_synchronizeUserKeyRegistryForSigningIdentitiesForRequestorOperationID_shouldThrottle_completionHandler_(v22, v24, v23, 1, v27);
 
-  objc_destroyWeak(&v30);
+  objc_destroyWeak(&v29);
   objc_destroyWeak(buf);
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invokeCompletionHandlers

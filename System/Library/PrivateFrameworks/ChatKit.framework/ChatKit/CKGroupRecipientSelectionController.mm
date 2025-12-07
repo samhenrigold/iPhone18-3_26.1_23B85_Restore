@@ -95,7 +95,7 @@ id __60__CKGroupRecipientSelectionController_initWithConversation___block_invoke
   [view setBackgroundColor:v5];
 
   toField = [(CKRecipientSelectionController *)self toField];
-  v7 = CKFrameworkBundle();
+  v7 = CKFrameworkBundle(toField);
   v8 = [v7 localizedStringForKey:@"ADD" value:&stru_1F04268F8 table:@"ChatKit"];
   [toField setLabel:v8];
 }
@@ -220,15 +220,15 @@ void __65__CKGroupRecipientSelectionController_viewDidAppearDeferredSetup__block
 
 - (void)recipientAvailabilitiesDidUpdate
 {
-  v22 = *MEMORY[0x1E69E9840];
-  v20.receiver = self;
-  v20.super_class = CKGroupRecipientSelectionController;
-  [(CKRecipientSelectionController *)&v20 recipientAvailabilitiesDidUpdate];
-  v3 = CKGroupRecipientSelectionLogHandle();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  v23 = *MEMORY[0x1E69E9840];
+  v21.receiver = self;
+  v21.super_class = CKGroupRecipientSelectionController;
+  recipientAvailabilitiesDidUpdate = [(CKRecipientSelectionController *)&v21 recipientAvailabilitiesDidUpdate];
+  v4 = CKGroupRecipientSelectionLogHandle(recipientAvailabilitiesDidUpdate);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_19020E000, v3, OS_LOG_TYPE_INFO, "Recipient availabilities updated.", buf, 2u);
+    _os_log_impl(&dword_19020E000, v4, OS_LOG_TYPE_INFO, "Recipient availabilities updated.", buf, 2u);
   }
 
   if ([(CKGroupRecipientSelectionController *)self isBeingPresentedInMacDetailsView])
@@ -239,47 +239,47 @@ void __65__CKGroupRecipientSelectionController_viewDidAppearDeferredSetup__block
   else
   {
     [(CKGroupRecipientSelectionController *)self _updateNavigationButton];
-    v17 = 0u;
     v18 = 0u;
-    v15 = 0u;
+    v19 = 0u;
     v16 = 0u;
+    v17 = 0u;
     toField = [(CKRecipientSelectionController *)self toField];
     recipients = [toField recipients];
 
-    v6 = [recipients countByEnumeratingWithState:&v15 objects:v21 count:16];
-    if (v6)
+    v7 = [recipients countByEnumeratingWithState:&v16 objects:v22 count:16];
+    if (v7)
     {
-      v7 = v6;
-      v8 = *v16;
+      v8 = v7;
+      v9 = *v17;
       do
       {
-        v9 = 0;
+        v10 = 0;
         do
         {
-          if (*v16 != v8)
+          if (*v17 != v9)
           {
             objc_enumerationMutation(recipients);
           }
 
-          v10 = *(*(&v15 + 1) + 8 * v9);
+          v11 = *(*(&v16 + 1) + 8 * v10);
           expandedRecipientAvailabilities = [(CKRecipientSelectionController *)self expandedRecipientAvailabilities];
-          iDSCanonicalAddress = [v10 IDSCanonicalAddress];
-          v13 = [expandedRecipientAvailabilities hasResultsForRecipient:iDSCanonicalAddress];
+          iDSCanonicalAddress = [v11 IDSCanonicalAddress];
+          v14 = [expandedRecipientAvailabilities hasResultsForRecipient:iDSCanonicalAddress];
 
-          if (v13)
+          if (v14)
           {
             toField2 = [(CKRecipientSelectionController *)self toField];
-            [toField2 invalidateAtomPresentationOptionsForRecipient:v10];
+            [toField2 invalidateAtomPresentationOptionsForRecipient:v11];
           }
 
-          ++v9;
+          ++v10;
         }
 
-        while (v7 != v9);
-        v7 = [recipients countByEnumeratingWithState:&v15 objects:v21 count:16];
+        while (v8 != v10);
+        v8 = [recipients countByEnumeratingWithState:&v16 objects:v22 count:16];
       }
 
-      while (v7);
+      while (v8);
     }
   }
 }
@@ -653,7 +653,7 @@ void __70__CKGroupRecipientSelectionController_handlesForScreenTimePolicyCheck__
   conversationCopy = conversation;
   completionCopy = completion;
   controllerCopy = controller;
-  v11 = CKGroupRecipientSelectionLogHandle();
+  v11 = CKGroupRecipientSelectionLogHandle(controllerCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -668,41 +668,41 @@ void __70__CKGroupRecipientSelectionController_handlesForScreenTimePolicyCheck__
   recipientStrings = [conversationCopy recipientStrings];
   v17 = [v15 arrayWithArray:recipientStrings];
 
-  v18 = CKGroupRecipientSelectionLogHandle();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+  v19 = CKGroupRecipientSelectionLogHandle(v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_19020E000, v18, OS_LOG_TYPE_INFO, "===== Current conversation recipients =====", buf, 2u);
+    _os_log_impl(&dword_19020E000, v19, OS_LOG_TYPE_INFO, "===== Current conversation recipients =====", buf, 2u);
   }
 
   [v17 enumerateObjectsUsingBlock:&__block_literal_global_122_0];
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = __97__CKGroupRecipientSelectionController_handleDoneActionForConversation_viewController_completion___block_invoke_123;
-  v30[3] = &unk_1E72EC398;
-  v31 = v17;
-  v32 = array;
-  v19 = array;
-  v20 = v17;
-  [recipients enumerateObjectsUsingBlock:v30];
-  v21 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v24 = MEMORY[0x1E69E9820];
-  v25 = 3221225472;
-  v26 = __97__CKGroupRecipientSelectionController_handleDoneActionForConversation_viewController_completion___block_invoke_125;
-  v27 = &unk_1E72F3B28;
-  v28 = conversationCopy;
-  v29 = v21;
-  v22 = v21;
-  v23 = conversationCopy;
-  [v19 enumerateObjectsUsingBlock:&v24];
-  [(CKGroupRecipientSelectionController *)self handleAddingHandles:v22 conversation:v23 viewController:controllerCopy allRecipientAddresses:v20 completion:completionCopy, v24, v25, v26, v27];
+  v31[0] = MEMORY[0x1E69E9820];
+  v31[1] = 3221225472;
+  v31[2] = __97__CKGroupRecipientSelectionController_handleDoneActionForConversation_viewController_completion___block_invoke_123;
+  v31[3] = &unk_1E72EC398;
+  v32 = v17;
+  v33 = array;
+  v20 = array;
+  v21 = v17;
+  [recipients enumerateObjectsUsingBlock:v31];
+  v22 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v25 = MEMORY[0x1E69E9820];
+  v26 = 3221225472;
+  v27 = __97__CKGroupRecipientSelectionController_handleDoneActionForConversation_viewController_completion___block_invoke_125;
+  v28 = &unk_1E72F3B28;
+  v29 = conversationCopy;
+  v30 = v22;
+  v23 = v22;
+  v24 = conversationCopy;
+  [v20 enumerateObjectsUsingBlock:&v25];
+  [(CKGroupRecipientSelectionController *)self handleAddingHandles:v23 conversation:v24 viewController:controllerCopy allRecipientAddresses:v21 completion:completionCopy, v25, v26, v27, v28];
 }
 
 void __97__CKGroupRecipientSelectionController_handleDoneActionForConversation_viewController_completion___block_invoke(uint64_t a1, void *a2)
 {
   v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = CKGroupRecipientSelectionLogHandle();
+  v3 = CKGroupRecipientSelectionLogHandle(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = 138412290;
@@ -722,8 +722,7 @@ void __97__CKGroupRecipientSelectionController_handleDoneActionForConversation_v
     if (v5)
     {
       [*(a1 + 32) addObject:v5];
-      [*(a1 + 40) addObject:v5];
-      v6 = CKGroupRecipientSelectionLogHandle();
+      v6 = CKGroupRecipientSelectionLogHandle([*(a1 + 40) addObject:v5]);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
         v8 = 138412290;
@@ -736,7 +735,7 @@ LABEL_9:
 
     else
     {
-      v6 = CKGroupRecipientSelectionLogHandle();
+      v6 = CKGroupRecipientSelectionLogHandle(0);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
         v8 = 138412290;
@@ -750,8 +749,7 @@ LABEL_9:
   }
 
   [*(a1 + 32) addObject:v4];
-  [*(a1 + 40) addObject:v4];
-  v5 = CKGroupRecipientSelectionLogHandle();
+  v5 = CKGroupRecipientSelectionLogHandle([*(a1 + 40) addObject:v4]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v8 = 138412290;
@@ -775,16 +773,16 @@ void __97__CKGroupRecipientSelectionController_handleDoneActionForConversation_v
 
 - (id)_orderedMutableGroupServices
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E69A5CA0] servicesWithCapabilityName:*MEMORY[0x1E69A79C0]];
   v3 = [v2 sortedArrayUsingComparator:&__block_literal_global_128_0];
 
-  v4 = CKGroupRecipientSelectionLogHandle();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v5 = CKGroupRecipientSelectionLogHandle(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_19020E000, v4, OS_LOG_TYPE_INFO, "Ranked service names for details view add resolution: %@", &v6, 0xCu);
+    v7 = 138412290;
+    v8 = v3;
+    _os_log_impl(&dword_19020E000, v5, OS_LOG_TYPE_INFO, "Ranked service names for details view add resolution: %@", &v7, 0xCu);
   }
 
   return v3;
@@ -811,72 +809,72 @@ uint64_t __67__CKGroupRecipientSelectionController__orderedMutableGroupServices_
 
 - (void)handleAddingHandles:(id)handles conversation:(id)conversation viewController:(id)controller allRecipientAddresses:(id)addresses completion:(id)completion
 {
-  v71 = *MEMORY[0x1E69E9840];
+  v75 = *MEMORY[0x1E69E9840];
   handlesCopy = handles;
   conversationCopy = conversation;
   controllerCopy = controller;
   addressesCopy = addresses;
   completionCopy = completion;
   _orderedMutableGroupServices = [(CKGroupRecipientSelectionController *)self _orderedMutableGroupServices];
-  v13 = CKGroupRecipientSelectionLogHandle();
+  v13 = CKGroupRecipientSelectionLogHandle(_orderedMutableGroupServices);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     chat = [conversationCopy chat];
     guid = [chat guid];
     *buf = 138412546;
-    v68 = handlesCopy;
-    v69 = 2112;
-    v70 = guid;
+    v72 = handlesCopy;
+    v73 = 2112;
+    v74 = guid;
     _os_log_impl(&dword_19020E000, v13, OS_LOG_TYPE_INFO, "Trying to add recipients %@ to chat with guid %@", buf, 0x16u);
   }
 
-  v64 = 0;
-  v60 = 0u;
-  v61 = 0u;
-  v62 = 0u;
-  v63 = 0u;
+  v68 = 0;
+  v64 = 0u;
+  v65 = 0u;
+  v66 = 0u;
+  v67 = 0u;
   obj = handlesCopy;
-  v16 = [obj countByEnumeratingWithState:&v60 objects:v66 count:16];
+  v16 = [obj countByEnumeratingWithState:&v64 objects:v70 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v61;
+    v18 = *v65;
     while (2)
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v61 != v18)
+        if (*v65 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
-        v20 = *(*(&v60 + 1) + 8 * i);
+        v20 = *(*(&v64 + 1) + 8 * i);
         expandedRecipientAvailabilities = [(CKRecipientSelectionController *)self expandedRecipientAvailabilities];
         v22 = [v20 ID];
         iDSFormattedDestinationID = [v22 IDSFormattedDestinationID];
         sendingService = [conversationCopy sendingService];
         name = [sendingService name];
-        v26 = [expandedRecipientAvailabilities reachabilityForRecipient:iDSFormattedDestinationID service:name isFinal:&v64];
+        v26 = [expandedRecipientAvailabilities reachabilityForRecipient:iDSFormattedDestinationID service:name isFinal:&v68];
 
-        if ((v64 & 1) == 0)
+        if ((v68 & 1) == 0)
         {
-          v40 = CKGroupRecipientSelectionLogHandle();
-          if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
+          v43 = CKGroupRecipientSelectionLogHandle(v27);
+          if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v68 = v20;
-            _os_log_impl(&dword_19020E000, v40, OS_LOG_TYPE_INFO, "Requested reachability for %@ was not final, bailing early. Waiting for final response.", buf, 0xCu);
+            v72 = v20;
+            _os_log_impl(&dword_19020E000, v43, OS_LOG_TYPE_INFO, "Requested reachability for %@ was not final, bailing early. Waiting for final response.", buf, 0xCu);
           }
 
-          v41 = obj;
-          v38 = addressesCopy;
-          v37 = controllerCopy;
-          v39 = completionCopy;
+          v44 = obj;
+          v41 = addressesCopy;
+          v40 = controllerCopy;
+          v42 = completionCopy;
           goto LABEL_30;
         }
       }
 
-      v17 = [obj countByEnumeratingWithState:&v60 objects:v66 count:16];
+      v17 = [obj countByEnumeratingWithState:&v64 objects:v70 count:16];
       if (v17)
       {
         continue;
@@ -891,71 +889,72 @@ uint64_t __67__CKGroupRecipientSelectionController__orderedMutableGroupServices_
 
   if (!supportsMutatingGroupMembers)
   {
-    v29 = CKGroupRecipientSelectionLogHandle();
-    v38 = addressesCopy;
-    v37 = controllerCopy;
-    v39 = completionCopy;
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+    v31 = CKGroupRecipientSelectionLogHandle(v30);
+    v41 = addressesCopy;
+    v40 = controllerCopy;
+    v42 = completionCopy;
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_19020E000, v29, OS_LOG_TYPE_INFO, "Group does not support mutation, not adding handles.", buf, 2u);
+      _os_log_impl(&dword_19020E000, v31, OS_LOG_TYPE_INFO, "Group does not support mutation, not adding handles.", buf, 2u);
     }
 
 LABEL_28:
 
 LABEL_29:
-    v41 = obj;
-    (v39)[2](v39, 1, obj, v38, self);
+    v44 = obj;
+    (v42)[2](v42, 1, obj, v41, self);
     goto LABEL_30;
   }
 
-  v58 = 0u;
-  v59 = 0u;
-  v56 = 0u;
-  v57 = 0u;
-  v29 = _orderedMutableGroupServices;
-  v30 = [v29 countByEnumeratingWithState:&v56 objects:v65 count:16];
-  if (!v30)
+  v62 = 0u;
+  v63 = 0u;
+  v60 = 0u;
+  v61 = 0u;
+  v31 = _orderedMutableGroupServices;
+  v32 = [v31 countByEnumeratingWithState:&v60 objects:v69 count:16];
+  if (!v32)
   {
 LABEL_22:
-    v38 = addressesCopy;
-    v37 = controllerCopy;
-    v39 = completionCopy;
+    v41 = addressesCopy;
+    v40 = controllerCopy;
+    v42 = completionCopy;
     goto LABEL_28;
   }
 
-  v31 = v30;
-  v32 = *v57;
+  v33 = v32;
+  v34 = *v61;
 LABEL_14:
-  v33 = 0;
+  v35 = 0;
   while (1)
   {
-    if (*v57 != v32)
+    if (*v61 != v34)
     {
-      objc_enumerationMutation(v29);
+      objc_enumerationMutation(v31);
     }
 
-    v34 = *(*(&v56 + 1) + 8 * v33);
-    v35 = [(CKGroupRecipientSelectionController *)self hasInvalidRecipientsForService:v34];
-    v36 = CKGroupRecipientSelectionLogHandle();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+    v36 = *(*(&v60 + 1) + 8 * v35);
+    v37 = [(CKGroupRecipientSelectionController *)self hasInvalidRecipientsForService:v36];
+    v38 = v37;
+    v39 = CKGroupRecipientSelectionLogHandle(v37);
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v68 = v34;
-      v69 = 1024;
-      LODWORD(v70) = v35;
-      _os_log_impl(&dword_19020E000, v36, OS_LOG_TYPE_INFO, "hasInvalidRecipientsForService: %@, %d", buf, 0x12u);
+      v72 = v36;
+      v73 = 1024;
+      LODWORD(v74) = v38;
+      _os_log_impl(&dword_19020E000, v39, OS_LOG_TYPE_INFO, "hasInvalidRecipientsForService: %@, %d", buf, 0x12u);
     }
 
-    if (!v35)
+    if (!v38)
     {
       break;
     }
 
-    if (v31 == ++v33)
+    if (v33 == ++v35)
     {
-      v31 = [v29 countByEnumeratingWithState:&v56 objects:v65 count:16];
-      if (v31)
+      v33 = [v31 countByEnumeratingWithState:&v60 objects:v69 count:16];
+      if (v33)
       {
         goto LABEL_14;
       }
@@ -964,35 +963,35 @@ LABEL_14:
     }
   }
 
-  v42 = v34;
+  v45 = v36;
 
-  v38 = addressesCopy;
-  v37 = controllerCopy;
-  v39 = completionCopy;
-  if (!v42)
+  v41 = addressesCopy;
+  v40 = controllerCopy;
+  v42 = completionCopy;
+  if (!v45)
   {
     goto LABEL_29;
   }
 
   conversation2 = [(CKRecipientSelectionController *)self conversation];
-  v41 = obj;
+  v44 = obj;
   [conversation2 addRecipientHandles:obj];
 
   conversation3 = [(CKRecipientSelectionController *)self conversation];
   sendingService2 = [conversation3 sendingService];
 
-  if (v42 != sendingService2)
+  if (v45 != sendingService2)
   {
-    v46 = CKGroupRecipientSelectionLogHandle();
-    if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
+    v50 = CKGroupRecipientSelectionLogHandle(v49);
+    if (os_log_type_enabled(v50, OS_LOG_TYPE_INFO))
     {
       conversation4 = [(CKRecipientSelectionController *)self conversation];
       sendingService3 = [conversation4 sendingService];
       *buf = 138412546;
-      v68 = sendingService3;
-      v69 = 2112;
-      v70 = v42;
-      _os_log_impl(&dword_19020E000, v46, OS_LOG_TYPE_INFO, "Current service %@, new participant(s) supported service %@. Refreshing service for sending...", buf, 0x16u);
+      v72 = sendingService3;
+      v73 = 2112;
+      v74 = v45;
+      _os_log_impl(&dword_19020E000, v50, OS_LOG_TYPE_INFO, "Current service %@, new participant(s) supported service %@. Refreshing service for sending...", buf, 0x16u);
     }
 
     conversation5 = [(CKRecipientSelectionController *)self conversation];

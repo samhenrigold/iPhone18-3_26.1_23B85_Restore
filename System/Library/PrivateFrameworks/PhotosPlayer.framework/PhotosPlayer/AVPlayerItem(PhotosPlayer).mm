@@ -8,28 +8,28 @@
 
 - (void)is_setAudioTracksEnabled:()PhotosPlayer
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   tracks = [self tracks];
-  v5 = [tracks countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [tracks countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     v8 = *MEMORY[0x277CE5E48];
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(tracks);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         assetTrack = [v10 assetTrack];
         mediaType = [assetTrack mediaType];
         v13 = [mediaType isEqualToString:v8];
@@ -50,49 +50,45 @@
         }
       }
 
-      v6 = [tracks countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [tracks countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)is_enableColorMatching
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
+  v6 = 0u;
   v7 = 0u;
   v8 = 0u;
   v9 = 0u;
-  v10 = 0u;
   tracks = [self tracks];
-  v2 = [tracks countByEnumeratingWithState:&v7 objects:v11 count:16];
+  v2 = [tracks countByEnumeratingWithState:&v6 objects:v10 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v8;
+    v4 = *v7;
     do
     {
       v5 = 0;
       do
       {
-        if (*v8 != v4)
+        if (*v7 != v4)
         {
           objc_enumerationMutation(tracks);
         }
 
-        [*(*(&v7 + 1) + 8 * v5++) setDisableColorMatching:0];
+        [*(*(&v6 + 1) + 8 * v5++) setDisableColorMatching:0];
       }
 
       while (v3 != v5);
-      v3 = [tracks countByEnumeratingWithState:&v7 objects:v11 count:16];
+      v3 = [tracks countByEnumeratingWithState:&v6 objects:v10 count:16];
     }
 
     while (v3);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)is_isHighFramerate

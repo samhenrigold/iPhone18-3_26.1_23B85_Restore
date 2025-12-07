@@ -38,12 +38,12 @@ uint64_t __56__PGPIPRemoteObjectSceneController_sharedSceneWorkspace__block_invo
 
 - (PGPIPRemoteObjectSceneController)initWithRemoteObject:(id)object requestedSceneIdentifier:(id)identifier affectsAppLifeCycle:(BOOL)cycle
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   identifierCopy = identifier;
-  v39.receiver = self;
-  v39.super_class = PGPIPRemoteObjectSceneController;
-  v9 = [(PGPIPRemoteObjectSceneController *)&v39 init];
+  v40.receiver = self;
+  v40.super_class = PGPIPRemoteObjectSceneController;
+  v9 = [(PGPIPRemoteObjectSceneController *)&v40 init];
   v10 = v9;
   if (v9)
   {
@@ -65,48 +65,48 @@ uint64_t __56__PGPIPRemoteObjectSceneController_sharedSceneWorkspace__block_invo
       v17 = MEMORY[0x1E69C75E0];
       pictureInPictureApplication = [objectCopy pictureInPictureApplication];
       v19 = [v17 identifierWithPid:{objc_msgSend(pictureInPictureApplication, "processIdentifier")}];
-      v38 = 0;
-      v20 = [v16 handleForIdentifier:v19 error:&v38];
-      scene = v38;
+      v39 = 0;
+      v20 = [v16 handleForIdentifier:v19 error:&v39];
+      scene = v39;
 
       if (v20)
       {
         identity = [v20 identity];
-        v22 = [MEMORY[0x1E699FBD8] identityForProcessIdentity:identity];
-        v35[0] = MEMORY[0x1E69E9820];
-        v35[1] = 3221225472;
-        v35[2] = __102__PGPIPRemoteObjectSceneController_initWithRemoteObject_requestedSceneIdentifier_affectsAppLifeCycle___block_invoke;
-        v35[3] = &unk_1E7F33468;
-        v36 = v22;
-        v37 = identifierCopy;
-        v31 = v22;
-        v23 = [sharedSceneWorkspace createScene:v35];
-        v24 = v10->_scene;
-        v10->_scene = v23;
+        v23 = [MEMORY[0x1E699FBD8] identityForProcessIdentity:identity];
+        v36[0] = MEMORY[0x1E69E9820];
+        v36[1] = 3221225472;
+        v36[2] = __102__PGPIPRemoteObjectSceneController_initWithRemoteObject_requestedSceneIdentifier_affectsAppLifeCycle___block_invoke;
+        v36[3] = &unk_1E7F33468;
+        v37 = v23;
+        v38 = identifierCopy;
+        v32 = v23;
+        v24 = [sharedSceneWorkspace createScene:v36];
+        v25 = v10->_scene;
+        v10->_scene = v24;
 
         sourceSceneSettingsInterfaceOrientation = [objectCopy sourceSceneSettingsInterfaceOrientation];
         sourceSceneSettingsDisplayConfiguration = [objectCopy sourceSceneSettingsDisplayConfiguration];
-        v27 = v10->_scene;
-        v32[0] = MEMORY[0x1E69E9820];
-        v32[1] = 3221225472;
-        v32[2] = __102__PGPIPRemoteObjectSceneController_initWithRemoteObject_requestedSceneIdentifier_affectsAppLifeCycle___block_invoke_2;
-        v32[3] = &unk_1E7F334B8;
-        v33 = sourceSceneSettingsDisplayConfiguration;
-        v34 = sourceSceneSettingsInterfaceOrientation;
-        v28 = sourceSceneSettingsDisplayConfiguration;
-        [(FBScene *)v27 configureParameters:v32];
+        v28 = v10->_scene;
+        v33[0] = MEMORY[0x1E69E9820];
+        v33[1] = 3221225472;
+        v33[2] = __102__PGPIPRemoteObjectSceneController_initWithRemoteObject_requestedSceneIdentifier_affectsAppLifeCycle___block_invoke_2;
+        v33[3] = &unk_1E7F334B8;
+        v34 = sourceSceneSettingsDisplayConfiguration;
+        v35 = sourceSceneSettingsInterfaceOrientation;
+        v29 = sourceSceneSettingsDisplayConfiguration;
+        [(FBScene *)v28 configureParameters:v33];
       }
 
       else
       {
-        identity = PGLogCommon();
+        identity = PGLogCommon(v21);
         if (os_log_type_enabled(identity, OS_LOG_TYPE_ERROR))
         {
-          v30 = _PGLogMethodProem(v10, 1);
+          v31 = _PGLogMethodProem(v10, 1);
           *buf = 138412546;
-          v41 = v30;
-          v42 = 2112;
-          v43 = scene;
+          v42 = v31;
+          v43 = 2112;
+          v44 = scene;
           _os_log_error_impl(&dword_1BB282000, identity, OS_LOG_TYPE_ERROR, "%@ not able to create scene, RBSProcessHandle look up failed with error: %@", buf, 0x16u);
         }
       }

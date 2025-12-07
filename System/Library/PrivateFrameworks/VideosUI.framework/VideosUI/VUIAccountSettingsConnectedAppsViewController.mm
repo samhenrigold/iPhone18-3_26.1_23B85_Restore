@@ -74,7 +74,7 @@
   v4 = *(&self->super.super.super.super.super.isa + v3);
   if (!v4)
   {
-    v5 = VUIDefaultLogObject();
+    v5 = VUIDefaultLogObject(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -82,25 +82,26 @@
     }
 
     v6 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v7 = v6;
     if (!self->_appGroup)
     {
-      v7 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = VUIDefaultLogObject(v6);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        *v12 = 0;
-        _os_log_impl(&dword_1E323F000, v7, OS_LOG_TYPE_DEFAULT, "VUIAccountSettingsConnectedApps - specifiers - existing app group is nil, adding new appGroupSpecifier", v12, 2u);
+        *v13 = 0;
+        _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_DEFAULT, "VUIAccountSettingsConnectedApps - specifiers - existing app group is nil, adding new appGroupSpecifier", v13, 2u);
       }
 
       _appGroupSpecifier = [(VUIAccountSettingsConnectedAppsViewController *)self _appGroupSpecifier];
       appGroup = self->_appGroup;
       self->_appGroup = _appGroupSpecifier;
 
-      [v6 addObject:self->_appGroup];
+      [v7 addObject:self->_appGroup];
       [(VUIAccountSettingsConnectedAppsViewController *)self _loadAppGroup];
     }
 
-    v10 = *(&self->super.super.super.super.super.isa + v3);
-    *(&self->super.super.super.super.super.isa + v3) = v6;
+    v11 = *(&self->super.super.super.super.super.isa + v3);
+    *(&self->super.super.super.super.super.isa + v3) = v7;
 
     v4 = *(&self->super.super.super.super.super.isa + v3);
   }
@@ -199,7 +200,7 @@ void __66__VUIAccountSettingsConnectedAppsViewController__fetchAllChannels__bloc
   v8 = v7;
   if (!v6 || v7)
   {
-    v9 = VUIDefaultLogObject();
+    v9 = VUIDefaultLogObject(v7);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = [v8 localizedDescription];
@@ -248,27 +249,27 @@ void __66__VUIAccountSettingsConnectedAppsViewController__fetchAllChannels__bloc
 
 void __62__VUIAccountSettingsConnectedAppsViewController__loadAppGroup__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v8 = VUIDefaultLogObject();
+  v8 = VUIDefaultLogObject(WeakRetained);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v22 = v5;
+    v24 = v5;
     _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_DEFAULT, "VUIAccountSettingsConnectedApps - loadAppGroup - loaded group for apps: %@", buf, 0xCu);
   }
 
   if (WeakRetained)
   {
-    v9 = [v5 count];
-    if (v6 || !v9)
+    v10 = [v5 count];
+    if (v6 || !v10)
     {
-      v16 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v18 = VUIDefaultLogObject(v10);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        __62__VUIAccountSettingsConnectedAppsViewController__loadAppGroup__block_invoke_cold_1(v6, v16);
+        __62__VUIAccountSettingsConnectedAppsViewController__loadAppGroup__block_invoke_cold_1(v6, v18);
       }
 
       [WeakRetained removeSpecifier:WeakRetained[182]];
@@ -276,51 +277,52 @@ void __62__VUIAccountSettingsConnectedAppsViewController__loadAppGroup__block_in
 
     else
     {
-      if ([WeakRetained[183] count])
+      v11 = [WeakRetained[183] count];
+      if (v11)
       {
-        v10 = VUIDefaultLogObject();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        v12 = VUIDefaultLogObject(v11);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
-          v11 = [WeakRetained[183] count];
+          v13 = [WeakRetained[183] count];
           *buf = 67109120;
-          LODWORD(v22) = v11 != 0;
-          _os_log_impl(&dword_1E323F000, v10, OS_LOG_TYPE_DEFAULT, "VUIAccountSettingsConnectedApps - loadAppGroup - app specifier count is above 0: %d", buf, 8u);
+          LODWORD(v24) = v13 != 0;
+          _os_log_impl(&dword_1E323F000, v12, OS_LOG_TYPE_DEFAULT, "VUIAccountSettingsConnectedApps - loadAppGroup - app specifier count is above 0: %d", buf, 8u);
         }
 
         [WeakRetained removeContiguousSpecifiers:WeakRetained[183] animated:0];
       }
 
       objc_initWeak(buf, WeakRetained);
-      v12 = dispatch_get_global_queue(2, 0);
+      v14 = dispatch_get_global_queue(2, 0);
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __62__VUIAccountSettingsConnectedAppsViewController__loadAppGroup__block_invoke_54;
       block[3] = &unk_1E872D9B8;
-      objc_copyWeak(&v20, buf);
-      v13 = v5;
-      v14 = *(a1 + 32);
-      v18 = v13;
-      v19 = v14;
-      dispatch_async(v12, block);
+      objc_copyWeak(&v22, buf);
+      v15 = v5;
+      v16 = *(a1 + 32);
+      v20 = v15;
+      v21 = v16;
+      dispatch_async(v14, block);
 
-      objc_destroyWeak(&v20);
+      objc_destroyWeak(&v22);
       objc_destroyWeak(buf);
     }
   }
 
   else
   {
-    v15 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v17 = VUIDefaultLogObject(v9);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      __62__VUIAccountSettingsConnectedAppsViewController__loadAppGroup__block_invoke_cold_2(v15);
+      __62__VUIAccountSettingsConnectedAppsViewController__loadAppGroup__block_invoke_cold_2(v17);
     }
   }
 }
 
 void __62__VUIAccountSettingsConnectedAppsViewController__loadAppGroup__block_invoke_54(id *a1)
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   if (_os_feature_enabled_impl())
   {
     WeakRetained = objc_loadWeakRetained(a1 + 6);
@@ -332,28 +334,28 @@ void __62__VUIAccountSettingsConnectedAppsViewController__loadAppGroup__block_in
     WeakRetained = [MEMORY[0x1E69E1500] sharedInstance];
     [WeakRetained channelsByID];
   }
-  v23 = ;
+  v24 = ;
 
-  v22 = [MEMORY[0x1E695DF70] array];
-  v34 = 0u;
+  v23 = [MEMORY[0x1E695DF70] array];
   v35 = 0u;
-  v32 = 0u;
+  v36 = 0u;
   v33 = 0u;
+  v34 = 0u;
   obj = a1[4];
-  v24 = [obj countByEnumeratingWithState:&v32 objects:v40 count:16];
-  if (v24)
+  v25 = [obj countByEnumeratingWithState:&v33 objects:v41 count:16];
+  if (v25)
   {
-    v21 = *v33;
+    v22 = *v34;
     do
     {
-      for (i = 0; i != v24; ++i)
+      for (i = 0; i != v25; ++i)
       {
-        if (*v33 != v21)
+        if (*v34 != v22)
         {
           objc_enumerationMutation(obj);
         }
 
-        v4 = *(*(&v32 + 1) + 8 * i);
+        v4 = *(*(&v33 + 1) + 8 * i);
         v5 = MEMORY[0x1E69C5748];
         v6 = [v4 displayName];
         v7 = [v5 preferenceSpecifierNamed:v6 target:a1[5] set:sel__toggleSpecifier_sender_ get:sel__accessStatusForSpecifier_ detail:objc_opt_class() cell:6 edit:0];
@@ -366,64 +368,64 @@ void __62__VUIAccountSettingsConnectedAppsViewController__loadAppGroup__block_in
         v10 = v9;
         v12 = v11;
         v13 = [v4 channelID];
-        v14 = [v23 objectForKey:v13];
+        v14 = [v24 objectForKey:v13];
 
-        objc_initWeak(&location, v7);
-        v15 = VUIDefaultLogObject();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        inited = objc_initWeak(&location, v7);
+        v16 = VUIDefaultLogObject(inited);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
-          v16 = [v4 channelID];
-          v42.width = v10;
-          v42.height = v12;
-          v17 = NSStringFromCGSize(v42);
+          v17 = [v4 channelID];
+          v43.width = v10;
+          v43.height = v12;
+          v18 = NSStringFromCGSize(v43);
           *buf = 138412546;
-          v37 = v16;
-          v38 = 2112;
-          v39 = v17;
-          _os_log_impl(&dword_1E323F000, v15, OS_LOG_TYPE_DEFAULT, "VUIAccountSettingsConnectedApps - loadAppGroup - begin fetching icon for channelID: %@ of size: %@", buf, 0x16u);
+          v38 = v17;
+          v39 = 2112;
+          v40 = v18;
+          _os_log_impl(&dword_1E323F000, v16, OS_LOG_TYPE_DEFAULT, "VUIAccountSettingsConnectedApps - loadAppGroup - begin fetching icon for channelID: %@ of size: %@", buf, 0x16u);
         }
 
         aBlock[0] = MEMORY[0x1E69E9820];
         aBlock[1] = 3221225472;
         aBlock[2] = __62__VUIAccountSettingsConnectedAppsViewController__loadAppGroup__block_invoke_63;
         aBlock[3] = &unk_1E8735E20;
-        objc_copyWeak(&v29, &location);
+        objc_copyWeak(&v30, &location);
         aBlock[4] = v4;
-        objc_copyWeak(&v30, a1 + 6);
-        v18 = _Block_copy(aBlock);
+        objc_copyWeak(&v31, a1 + 6);
+        v19 = _Block_copy(aBlock);
         if (_os_feature_enabled_impl())
         {
-          [VUIAppIconImageService fetchIconForVUIInstallable:v14 size:v18 completion:v10, v12];
+          [VUIAppIconImageService fetchIconForVUIInstallable:v14 size:v19 completion:v10, v12];
         }
 
         else
         {
-          [VUIAppIconImageService fetchIconForInstallable:v14 size:v18 completion:v10, v12];
+          [VUIAppIconImageService fetchIconForInstallable:v14 size:v19 completion:v10, v12];
         }
 
-        [v22 addObject:v7];
+        [v23 addObject:v7];
 
+        objc_destroyWeak(&v31);
         objc_destroyWeak(&v30);
-        objc_destroyWeak(&v29);
         objc_destroyWeak(&location);
       }
 
-      v24 = [obj countByEnumeratingWithState:&v32 objects:v40 count:16];
+      v25 = [obj countByEnumeratingWithState:&v33 objects:v41 count:16];
     }
 
-    while (v24);
+    while (v25);
   }
 
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __62__VUIAccountSettingsConnectedAppsViewController__loadAppGroup__block_invoke_69;
   block[3] = &unk_1E872F038;
-  objc_copyWeak(&v27, a1 + 6);
-  v26 = v22;
-  v19 = v22;
+  objc_copyWeak(&v28, a1 + 6);
+  v27 = v23;
+  v20 = v23;
   dispatch_async(MEMORY[0x1E69E96A0], block);
 
-  objc_destroyWeak(&v27);
+  objc_destroyWeak(&v28);
 }
 
 void __62__VUIAccountSettingsConnectedAppsViewController__loadAppGroup__block_invoke_63(id *a1, void *a2)
@@ -443,7 +445,7 @@ void __62__VUIAccountSettingsConnectedAppsViewController__loadAppGroup__block_in
   }
 
   v7 = !v6;
-  v8 = VUIDefaultLogObject();
+  v8 = VUIDefaultLogObject(WeakRetained);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = [a1[4] channelID];
@@ -479,42 +481,44 @@ void __62__VUIAccountSettingsConnectedAppsViewController__loadAppGroup__block_in
 
 void __62__VUIAccountSettingsConnectedAppsViewController__loadAppGroup__block_invoke_65(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
+  v3 = WeakRetained;
   if (WeakRetained)
   {
-    v3 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = VUIDefaultLogObject(WeakRetained);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = [*(a1 + 32) identifier];
-      v5 = [*(a1 + 40) channelID];
-      v6 = 138412546;
-      v7 = v4;
-      v8 = 2112;
-      v9 = v5;
-      _os_log_impl(&dword_1E323F000, v3, OS_LOG_TYPE_DEFAULT, "VUIAccountSettingsConnectedApps - loadAppGroup - set and reload specifier id: %@ for channel: %@", &v6, 0x16u);
+      v5 = [*(a1 + 32) identifier];
+      v6 = [*(a1 + 40) channelID];
+      v7 = 138412546;
+      v8 = v5;
+      v9 = 2112;
+      v10 = v6;
+      _os_log_impl(&dword_1E323F000, v4, OS_LOG_TYPE_DEFAULT, "VUIAccountSettingsConnectedApps - loadAppGroup - set and reload specifier id: %@ for channel: %@", &v7, 0x16u);
     }
 
     [*(a1 + 32) setProperty:*(a1 + 48) forKey:*MEMORY[0x1E69C5920]];
-    [WeakRetained reloadSpecifier:*(a1 + 32)];
+    [v3 reloadSpecifier:*(a1 + 32)];
   }
 }
 
 void __62__VUIAccountSettingsConnectedAppsViewController__loadAppGroup__block_invoke_69(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v3 = WeakRetained;
   if (WeakRetained)
   {
-    v3 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = VUIDefaultLogObject(WeakRetained);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v4 = 0;
-      _os_log_impl(&dword_1E323F000, v3, OS_LOG_TYPE_DEFAULT, "VUIAccountSettingsConnectedApps - loadAppGroup - stopping app spinner and setting app specifiers", v4, 2u);
+      v5[0] = 0;
+      _os_log_impl(&dword_1E323F000, v4, OS_LOG_TYPE_DEFAULT, "VUIAccountSettingsConnectedApps - loadAppGroup - stopping app spinner and setting app specifiers", v5, 2u);
     }
 
-    [WeakRetained _stopAppSpinner];
-    objc_storeStrong(WeakRetained + 183, *(a1 + 32));
-    [WeakRetained insertContiguousSpecifiers:*(a1 + 32) afterSpecifier:WeakRetained[182] animated:0];
+    [v3 _stopAppSpinner];
+    objc_storeStrong(v3 + 183, *(a1 + 32));
+    [v3 insertContiguousSpecifiers:*(a1 + 32) afterSpecifier:v3[182] animated:0];
   }
 }
 
@@ -708,7 +712,7 @@ void __73__VUIAccountSettingsConnectedAppsViewController__toggleSpecifier_sender
   v8 = v7;
   if (!v6 || v7)
   {
-    v9 = VUIDefaultLogObject();
+    v9 = VUIDefaultLogObject(v7);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = [v8 localizedDescription];
@@ -825,7 +829,7 @@ void __72__VUIAccountSettingsConnectedAppsViewController__showVppaExpiredPrompt_
 void __72__VUIAccountSettingsConnectedAppsViewController__showVppaExpiredPrompt___block_invoke_2(uint64_t a1, uint64_t a2, int a3)
 {
   v9 = *MEMORY[0x1E69E9840];
-  v4 = VUIDefaultLogObject();
+  v4 = VUIDefaultLogObject(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = VUIBoolLogString();
@@ -844,18 +848,18 @@ void __72__VUIAccountSettingsConnectedAppsViewController__showVppaExpiredPrompt_
 - (void)_completeChannelEnablement:(BOOL)enablement channelID:(id)d externalID:(id)iD
 {
   enablementCopy = enablement;
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   dCopy = d;
   iDCopy = iD;
-  [(VUIConnectedAppOperationCoordinator *)self->_inflightOperationCoordinator clearOperationForID:dCopy];
+  v10 = [(VUIConnectedAppOperationCoordinator *)self->_inflightOperationCoordinator clearOperationForID:dCopy];
   if (enablementCopy)
   {
-    v10 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = VUIDefaultLogObject(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138412290;
-      v14 = dCopy;
-      _os_log_impl(&dword_1E323F000, v10, OS_LOG_TYPE_DEFAULT, "VUIAccountSettingsConnectedApps - promptToEnableChannel - Successfully enabled channel %@", &v13, 0xCu);
+      v14 = 138412290;
+      v15 = dCopy;
+      _os_log_impl(&dword_1E323F000, v11, OS_LOG_TYPE_DEFAULT, "VUIAccountSettingsConnectedApps - promptToEnableChannel - Successfully enabled channel %@", &v14, 0xCu);
     }
 
     mEMORY[0x1E69E15D0] = +[VUIVPPAManager sharedInstance];
@@ -865,11 +869,11 @@ void __72__VUIAccountSettingsConnectedAppsViewController__showVppaExpiredPrompt_
   else
   {
     mEMORY[0x1E69E15D0] = [MEMORY[0x1E69E15D0] sharedSettings];
-    v12 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = VUIDefaultLogObject(mEMORY[0x1E69E15D0]);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v13) = 0;
-      _os_log_impl(&dword_1E323F000, v12, OS_LOG_TYPE_DEFAULT, "VUIAccountSettingsConnectedApps - promptToEnableChannel - Failed to sync opt-in to cloud, reverting", &v13, 2u);
+      LOWORD(v14) = 0;
+      _os_log_impl(&dword_1E323F000, v13, OS_LOG_TYPE_DEFAULT, "VUIAccountSettingsConnectedApps - promptToEnableChannel - Failed to sync opt-in to cloud, reverting", &v14, 2u);
     }
 
     [mEMORY[0x1E69E15D0] setStatus:2 forChannelID:dCopy externalID:iDCopy];
@@ -967,7 +971,7 @@ void __87__VUIAccountSettingsConnectedAppsViewController__promptToEnableChannel_
   v3 = [MEMORY[0x1E69E15D0] sharedSettings];
   [v3 setStatus:1 forChannelID:*(a1 + 32) externalID:*(a1 + 40)];
   v4 = [v3 settingsForChannelID:*(a1 + 32) externalID:*(a1 + 40)];
-  v5 = VUIDefaultLogObject();
+  v5 = VUIDefaultLogObject(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(a1 + 32);
@@ -1052,8 +1056,7 @@ void __87__VUIAccountSettingsConnectedAppsViewController__promptToEnableChannel_
   dCopy = d;
   iDCopy = iD;
   errorCopy = error;
-  [(VUIConnectedAppOperationCoordinator *)self->_inflightOperationCoordinator clearOperationForID:dCopy];
-  v13 = VUIDefaultLogObject();
+  v13 = VUIDefaultLogObject([(VUIConnectedAppOperationCoordinator *)self->_inflightOperationCoordinator clearOperationForID:dCopy]);
   v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
   if (disablementCopy)
   {
@@ -1198,7 +1201,7 @@ void __88__VUIAccountSettingsConnectedAppsViewController__promptToDisableChannel
   v5 = [MEMORY[0x1E69E15D0] sharedSettings];
   [v5 setStatus:2 forChannelID:*(a1 + 32) externalID:*(a1 + 40)];
   v6 = [v5 settingsForChannelID:*(a1 + 32) externalID:*(a1 + 40)];
-  v7 = VUIDefaultLogObject();
+  v7 = VUIDefaultLogObject(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = @"NO";
@@ -1336,53 +1339,54 @@ void __88__VUIAccountSettingsConnectedAppsViewController__promptToDisableChannel
 
 - (BOOL)_runPrePromptContinuationCheck:(id)check sender:(id)sender
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   checkCopy = check;
   senderCopy = sender;
   identifier = [senderCopy identifier];
   v9 = [(VUIConnectedAppOperationCoordinator *)self->_inflightOperationCoordinator isReloadingForID:identifier];
-  v10 = v9 | [(VUIConnectedAppOperationCoordinator *)self->_inflightOperationCoordinator isCurrentlyPrompting];
-  if (v10)
+  isCurrentlyPrompting = [(VUIConnectedAppOperationCoordinator *)self->_inflightOperationCoordinator isCurrentlyPrompting];
+  v11 = v9 | isCurrentlyPrompting;
+  if ((v9 | isCurrentlyPrompting))
   {
-    v11 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = VUIDefaultLogObject(isCurrentlyPrompting);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = @"prompting";
-      v16 = 138412802;
-      v17 = checkCopy;
-      v18 = 2112;
+      v13 = @"prompting";
+      v17 = 138412802;
+      v18 = checkCopy;
+      v19 = 2112;
       if (v9)
       {
-        v12 = @"reloading";
+        v13 = @"reloading";
       }
 
-      v19 = identifier;
-      v20 = 2112;
-      v21 = v12;
-      _os_log_impl(&dword_1E323F000, v11, OS_LOG_TYPE_DEFAULT, "VUIAccountSettingsConnectedApps - Received toggleSpecifier of value:%@ for specifierID: %@ while %@. Clearing operation for this channel", &v16, 0x20u);
+      v20 = identifier;
+      v21 = 2112;
+      v22 = v13;
+      _os_log_impl(&dword_1E323F000, v12, OS_LOG_TYPE_DEFAULT, "VUIAccountSettingsConnectedApps - Received toggleSpecifier of value:%@ for specifierID: %@ while %@. Clearing operation for this channel", &v17, 0x20u);
     }
 
     [(VUIConnectedAppOperationCoordinator *)self->_inflightOperationCoordinator clearOperationForID:identifier];
-    [(VUIAccountSettingsConnectedAppsViewController *)self reloadSpecifier:senderCopy animated:1];
+    isCurrentlyPrompting = [(VUIAccountSettingsConnectedAppsViewController *)self reloadSpecifier:senderCopy animated:1];
   }
 
-  if (checkCopy && [checkCopy intValue] < 2)
+  if (checkCopy && (isCurrentlyPrompting = [checkCopy intValue], isCurrentlyPrompting < 2))
   {
-    v14 = v10 ^ 1;
+    v15 = v11 ^ 1;
   }
 
   else
   {
-    v13 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = VUIDefaultLogObject(isCurrentlyPrompting);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      [(VUIAccountSettingsConnectedAppsViewController *)checkCopy _runPrePromptContinuationCheck:identifier sender:v13];
+      [(VUIAccountSettingsConnectedAppsViewController *)checkCopy _runPrePromptContinuationCheck:identifier sender:v14];
     }
 
-    v14 = 0;
+    v15 = 0;
   }
 
-  return v14 & 1;
+  return v15 & 1;
 }
 
 - (void)_reloadSpecifierValueAfterCancelation:(id)cancelation
@@ -1474,30 +1478,31 @@ void __87__VUIAccountSettingsConnectedAppsViewController__reloadSpecifierValueAf
 void __82__VUIAccountSettingsConnectedAppsViewController_fetchConnectedAppsWithCompletion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
+  v5 = v4;
   if (v4)
   {
-    v5 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = VUIDefaultLogObject(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __82__VUIAccountSettingsConnectedAppsViewController_fetchConnectedAppsWithCompletion___block_invoke_cold_1(v4, v5);
+      __82__VUIAccountSettingsConnectedAppsViewController_fetchConnectedAppsWithCompletion___block_invoke_cold_1(v5, v6);
     }
 
-    v6 = *(a1 + 32);
-    v7 = objc_alloc_init(MEMORY[0x1E695DEC8]);
-    (*(v6 + 16))(v6, v7, v4);
+    v7 = *(a1 + 32);
+    v8 = objc_alloc_init(MEMORY[0x1E695DEC8]);
+    (*(v7 + 16))(v7, v8, v5);
   }
 
   else
   {
-    v8 = [MEMORY[0x1E69E15D0] sharedSettings];
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __82__VUIAccountSettingsConnectedAppsViewController_fetchConnectedAppsWithCompletion___block_invoke_146;
-    v9[3] = &unk_1E872D7B8;
-    v10 = v8;
-    v11 = *(a1 + 32);
-    v7 = v8;
-    [v7 _updateDisplayNamesForUI:v9];
+    v9 = [MEMORY[0x1E69E15D0] sharedSettings];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __82__VUIAccountSettingsConnectedAppsViewController_fetchConnectedAppsWithCompletion___block_invoke_146;
+    v10[3] = &unk_1E872D7B8;
+    v11 = v9;
+    v12 = *(a1 + 32);
+    v8 = v9;
+    [v8 _updateDisplayNamesForUI:v10];
   }
 }
 
@@ -1517,7 +1522,7 @@ void __82__VUIAccountSettingsConnectedAppsViewController_fetchConnectedAppsWithC
 {
   v10 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) _watchListAppsFiltered];
-  v3 = VUIDefaultLogObject();
+  v3 = VUIDefaultLogObject(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = [v2 count];

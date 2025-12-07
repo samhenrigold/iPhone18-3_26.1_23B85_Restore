@@ -121,7 +121,7 @@
 - (void)presentFromViewController:(id)controller modal:(BOOL)modal
 {
   modalCopy = modal;
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   objc_storeWeak(&self->_originatingViewController, controllerCopy);
   remoteUIController = [(AAUIGenericTermsRemoteUI *)self remoteUIController];
@@ -131,28 +131,28 @@
   objc_storeWeak(&self->_parentNavController, navigationController);
 
   self->_isModal = modalCopy;
-  v9 = _AAUILogSystem();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = _AAUILogSystem(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     if (modalCopy)
     {
-      v10 = @"YES";
+      v11 = @"YES";
     }
 
     else
     {
-      v10 = @"NO";
+      v11 = @"NO";
     }
 
     WeakRetained = objc_loadWeakRetained(&self->_parentNavController);
     viewControllers = [WeakRetained viewControllers];
-    v13 = 138412802;
-    v14 = v10;
-    v15 = 2112;
-    v16 = controllerCopy;
-    v17 = 2112;
-    v18 = viewControllers;
-    _os_log_impl(&dword_1C5355000, v9, OS_LOG_TYPE_DEFAULT, "Terms: Attempting to show terms UI modally: %@ on parent: %@ with children: %@", &v13, 0x20u);
+    v14 = 138412802;
+    v15 = v11;
+    v16 = 2112;
+    v17 = controllerCopy;
+    v18 = 2112;
+    v19 = viewControllers;
+    _os_log_impl(&dword_1C5355000, v10, OS_LOG_TYPE_DEFAULT, "Terms: Attempting to show terms UI modally: %@ on parent: %@ with children: %@", &v14, 0x20u);
   }
 
   [(AAUIGenericTermsRemoteUI *)self _loadRequestPreferringPassword:1];
@@ -162,7 +162,7 @@
 {
   v15 = *MEMORY[0x1E69E9840];
   modelCopy = model;
-  v8 = _AAUILogSystem();
+  v8 = _AAUILogSystem(modelCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = [MEMORY[0x1E69C7010] signalWithType:*signal];
@@ -175,7 +175,7 @@
   {
     [(AAUIGenericTermsRemoteUI *)self _cleanUpAndDismissWithSuccess:0 agreeURL:0 serverInfo:0];
     clientInfo = [modelCopy clientInfo];
-    v11 = _AAUILogSystem();
+    v11 = _AAUILogSystem(clientInfo);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       [AAUIGenericTermsRemoteUI remoteUIController:didReceiveObjectModel:actionSignal:];
@@ -287,13 +287,13 @@ LABEL_11:
 
 void __50__AAUIGenericTermsRemoteUI__setupActionForButtons__block_invoke(uint64_t a1, void *a2)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
     v5 = [v3 clientInfo];
-    v6 = _AAUILogSystem();
+    v6 = _AAUILogSystem(v5);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       __50__AAUIGenericTermsRemoteUI__setupActionForButtons__block_invoke_cold_1();
@@ -314,46 +314,46 @@ void __50__AAUIGenericTermsRemoteUI__setupActionForButtons__block_invoke(uint64_
 
     if (v9 && v10 && v11)
     {
-      v29 = v10;
-      v17 = _AAUILogSystem();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v30 = v10;
+      v18 = _AAUILogSystem(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1C5355000, v17, OS_LOG_TYPE_DEFAULT, "Attempting to show alert view", buf, 2u);
+        _os_log_impl(&dword_1C5355000, v18, OS_LOG_TYPE_DEFAULT, "Attempting to show alert view", buf, 2u);
       }
 
-      v18 = MEMORY[0x1E69DC650];
-      v30[0] = MEMORY[0x1E69E9820];
-      v30[1] = 3221225472;
-      v30[2] = __50__AAUIGenericTermsRemoteUI__setupActionForButtons__block_invoke_84;
-      v30[3] = &unk_1E820D058;
-      v19 = WeakRetained;
-      v31 = v19;
-      v32 = v7;
-      v33 = v16;
-      v28 = v9;
-      v20 = [v18 alertWithTitle:v8 message:v9 cancelButtonTitle:v11 defaultButtonTitle:v29 actionHandler:v30];
-      v21 = _AAUILogSystem();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v19 = MEMORY[0x1E69DC650];
+      v31[0] = MEMORY[0x1E69E9820];
+      v31[1] = 3221225472;
+      v31[2] = __50__AAUIGenericTermsRemoteUI__setupActionForButtons__block_invoke_84;
+      v31[3] = &unk_1E820D058;
+      v20 = WeakRetained;
+      v32 = v20;
+      v33 = v7;
+      v34 = v16;
+      v29 = v9;
+      v21 = [v19 alertWithTitle:v8 message:v9 cancelButtonTitle:v11 defaultButtonTitle:v30 actionHandler:v31];
+      v22 = _AAUILogSystem(v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
-        [v19 remoteUIController];
-        v22 = v27 = v7;
-        [v22 currentPresentationContext];
-        v23 = v26 = v8;
+        [v20 remoteUIController];
+        v23 = v28 = v7;
+        [v23 currentPresentationContext];
+        v24 = v27 = v8;
         *buf = 138412290;
-        v35 = v23;
-        _os_log_impl(&dword_1C5355000, v21, OS_LOG_TYPE_DEFAULT, "Attempting to present terms and conditions alert on current presentation context %@", buf, 0xCu);
+        v36 = v24;
+        _os_log_impl(&dword_1C5355000, v22, OS_LOG_TYPE_DEFAULT, "Attempting to present terms and conditions alert on current presentation context %@", buf, 0xCu);
 
-        v8 = v26;
-        v7 = v27;
+        v8 = v27;
+        v7 = v28;
       }
 
-      v24 = [v19 remoteUIController];
-      v25 = [v24 currentPresentationContext];
-      [v25 presentViewController:v20 animated:1 completion:0];
+      v25 = [v20 remoteUIController];
+      v26 = [v25 currentPresentationContext];
+      [v26 presentViewController:v21 animated:1 completion:0];
 
-      v9 = v28;
-      v10 = v29;
+      v9 = v29;
+      v10 = v30;
     }
 
     else
@@ -364,7 +364,7 @@ void __50__AAUIGenericTermsRemoteUI__setupActionForButtons__block_invoke(uint64_
 
   else
   {
-    v5 = _AAUILogSystem();
+    v5 = _AAUILogSystem(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __50__AAUIGenericTermsRemoteUI__setupActionForButtons__block_invoke_cold_2();
@@ -372,11 +372,11 @@ void __50__AAUIGenericTermsRemoteUI__setupActionForButtons__block_invoke(uint64_
   }
 }
 
-uint64_t __50__AAUIGenericTermsRemoteUI__setupActionForButtons__block_invoke_84(uint64_t result, char a2)
+id *__50__AAUIGenericTermsRemoteUI__setupActionForButtons__block_invoke_84(id *result, char a2)
 {
   if ((a2 & 1) == 0)
   {
-    return [*(result + 32) _cleanUpAndDismissWithSuccess:1 agreeURL:*(result + 40) serverInfo:*(result + 48)];
+    return [result[4] _cleanUpAndDismissWithSuccess:1 agreeURL:result[5] serverInfo:result[6]];
   }
 
   return result;
@@ -391,7 +391,7 @@ void __50__AAUIGenericTermsRemoteUI__setupActionForButtons__block_invoke_90(uint
   {
     [WeakRetained _cleanUpAndDismissWithSuccess:1 agreeURL:0 serverInfo:0];
     v6 = [v3 clientInfo];
-    v7 = _AAUILogSystem();
+    v7 = _AAUILogSystem(v6);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       __50__AAUIGenericTermsRemoteUI__setupActionForButtons__block_invoke_90_cold_1();
@@ -403,7 +403,7 @@ void __50__AAUIGenericTermsRemoteUI__setupActionForButtons__block_invoke_90(uint
 
   else
   {
-    v6 = _AAUILogSystem();
+    v6 = _AAUILogSystem(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __50__AAUIGenericTermsRemoteUI__setupActionForButtons__block_invoke_cold_2();
@@ -422,21 +422,21 @@ void __50__AAUIGenericTermsRemoteUI__setupActionForButtons__block_invoke_94(uint
     v7 = [v3 serverInfo];
     v8 = [v7 objectForKeyedSubscript:@"serverInfoKey"];
 
-    v9 = _AAUILogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = _AAUILogSystem(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       __50__AAUIGenericTermsRemoteUI__setupActionForButtons__block_invoke_94_cold_1();
     }
 
     [WeakRetained _disagreeToTermsWithURLString:v6 serverInfo:v8];
     [WeakRetained _cleanUpAndDismissWithSuccess:0 agreeURL:0 serverInfo:0];
-    v10 = [v5 objectForKeyedSubscript:@"agreeUrl"];
-    [WeakRetained _reportTermsUserAction:@"Decline" agreeUrl:v10];
+    v11 = [v5 objectForKeyedSubscript:@"agreeUrl"];
+    [WeakRetained _reportTermsUserAction:@"Decline" agreeUrl:v11];
   }
 
   else
   {
-    v5 = _AAUILogSystem();
+    v5 = _AAUILogSystem(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __50__AAUIGenericTermsRemoteUI__setupActionForButtons__block_invoke_cold_2();
@@ -481,25 +481,27 @@ void __50__AAUIGenericTermsRemoteUI__setupActionForButtons__block_invoke_94(uint
   [remoteUIController loadRequest:v11 completion:v13];
 }
 
-void __59__AAUIGenericTermsRemoteUI__loadRequestPreferringPassword___block_invoke(uint64_t a1, char a2, void *a3)
+void __59__AAUIGenericTermsRemoteUI__loadRequestPreferringPassword___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
+  v3 = a2;
   v5 = a3;
-  if (v5 || (a2 & 1) == 0)
+  v6 = v5;
+  if (v5 || (v3 & 1) == 0)
   {
-    v6 = _AAUILogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _AAUILogSystem(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __59__AAUIGenericTermsRemoteUI__loadRequestPreferringPassword___block_invoke_cold_1();
     }
 
-    v7 = [*(a1 + 32) _isUnauthorizedError:v5];
-    v8 = *(a1 + 32);
-    if (v7 && v8[49] == 1)
+    v8 = [*(a1 + 32) _isUnauthorizedError:v6];
+    v9 = *(a1 + 32);
+    if (v8 && v9[49] == 1)
     {
-      if (v8[50] == 1)
+      if (v9[50] == 1)
       {
-        v9 = _AAUILogSystem();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        v10 = _AAUILogSystem(v9);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
           __59__AAUIGenericTermsRemoteUI__loadRequestPreferringPassword___block_invoke_cold_3();
         }
@@ -509,36 +511,36 @@ void __59__AAUIGenericTermsRemoteUI__loadRequestPreferringPassword___block_invok
 
       else
       {
-        v8[50] = 1;
-        v14 = _AAUILogSystem();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        v9[50] = 1;
+        v16 = _AAUILogSystem(v9);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
           __59__AAUIGenericTermsRemoteUI__loadRequestPreferringPassword___block_invoke_cold_2();
         }
 
-        v15 = *(a1 + 32);
-        v20[0] = MEMORY[0x1E69E9820];
-        v20[1] = 3221225472;
-        v20[2] = __59__AAUIGenericTermsRemoteUI__loadRequestPreferringPassword___block_invoke_97;
-        v20[3] = &unk_1E820C140;
-        v20[4] = v15;
-        [v15 _renewCredentialsWithCompletion:v20];
+        v17 = *(a1 + 32);
+        v22[0] = MEMORY[0x1E69E9820];
+        v22[1] = 3221225472;
+        v22[2] = __59__AAUIGenericTermsRemoteUI__loadRequestPreferringPassword___block_invoke_97;
+        v22[3] = &unk_1E820C140;
+        v22[4] = v17;
+        [v17 _renewCredentialsWithCompletion:v22];
       }
     }
 
     else
     {
-      v10 = [v8 delegate];
-      v11 = objc_opt_respondsToSelector();
+      v11 = [v9 delegate];
+      v12 = objc_opt_respondsToSelector();
 
-      v12 = _AAUILogSystem();
-      v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
-      if (v11)
+      v14 = _AAUILogSystem(v13);
+      v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+      if (v12)
       {
-        if (v13)
+        if (v15)
         {
           *buf = 0;
-          _os_log_impl(&dword_1C5355000, v12, OS_LOG_TYPE_DEFAULT, "Notifying delegate of connection error", buf, 2u);
+          _os_log_impl(&dword_1C5355000, v14, OS_LOG_TYPE_DEFAULT, "Notifying delegate of connection error", buf, 2u);
         }
 
         block[0] = MEMORY[0x1E69E9820];
@@ -546,24 +548,24 @@ void __59__AAUIGenericTermsRemoteUI__loadRequestPreferringPassword___block_invok
         block[2] = __59__AAUIGenericTermsRemoteUI__loadRequestPreferringPassword___block_invoke_100;
         block[3] = &unk_1E820BEB8;
         block[4] = *(a1 + 32);
-        v18 = v5;
+        v20 = v6;
         dispatch_async(MEMORY[0x1E69E96A0], block);
       }
 
       else
       {
-        if (v13)
+        if (v15)
         {
           *buf = 0;
-          _os_log_impl(&dword_1C5355000, v12, OS_LOG_TYPE_DEFAULT, "Presenting failure alert to user", buf, 2u);
+          _os_log_impl(&dword_1C5355000, v14, OS_LOG_TYPE_DEFAULT, "Presenting failure alert to user", buf, 2u);
         }
 
-        v16[0] = MEMORY[0x1E69E9820];
-        v16[1] = 3221225472;
-        v16[2] = __59__AAUIGenericTermsRemoteUI__loadRequestPreferringPassword___block_invoke_102;
-        v16[3] = &unk_1E820B8F0;
-        v16[4] = *(a1 + 32);
-        dispatch_async(MEMORY[0x1E69E96A0], v16);
+        v18[0] = MEMORY[0x1E69E9820];
+        v18[1] = 3221225472;
+        v18[2] = __59__AAUIGenericTermsRemoteUI__loadRequestPreferringPassword___block_invoke_102;
+        v18[3] = &unk_1E820B8F0;
+        v18[4] = *(a1 + 32);
+        dispatch_async(MEMORY[0x1E69E96A0], v18);
       }
     }
   }
@@ -571,7 +573,7 @@ void __59__AAUIGenericTermsRemoteUI__loadRequestPreferringPassword___block_invok
 
 uint64_t __59__AAUIGenericTermsRemoteUI__loadRequestPreferringPassword___block_invoke_97(uint64_t a1, uint64_t a2)
 {
-  v4 = _AAUILogSystem();
+  v4 = _AAUILogSystem(a1);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
   if (a2)
   {
@@ -610,7 +612,7 @@ uint64_t __59__AAUIGenericTermsRemoteUI__loadRequestPreferringPassword___block_i
 
     if (parentViewControllerPresentsErrorAlert)
     {
-      remoteUIController = _AAUILogSystem();
+      remoteUIController = _AAUILogSystem(v6);
       if (os_log_type_enabled(remoteUIController, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
@@ -626,11 +628,11 @@ uint64_t __59__AAUIGenericTermsRemoteUI__loadRequestPreferringPassword___block_i
   {
   }
 
-  v8 = _AAUILogSystem();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = _AAUILogSystem(v6);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    *v10 = 0;
-    _os_log_impl(&dword_1C5355000, v8, OS_LOG_TYPE_DEFAULT, "Presenting alert on remoteUIController currentPresentationContext", v10, 2u);
+    *v11 = 0;
+    _os_log_impl(&dword_1C5355000, v9, OS_LOG_TYPE_DEFAULT, "Presenting alert on remoteUIController currentPresentationContext", v11, 2u);
   }
 
   remoteUIController = [(AAUIGenericTermsRemoteUI *)self remoteUIController];
@@ -657,8 +659,8 @@ LABEL_10:
 
   if (self->_slaVersion)
   {
-    v16 = _AAUILogSystem();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    v17 = _AAUILogSystem(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
       [AAUIGenericTermsRemoteUI _agreeToTermsWithURLString:serverInfo:preferPassword:completion:];
     }
@@ -666,39 +668,40 @@ LABEL_10:
     [v14 setSlaVersion:self->_slaVersion];
   }
 
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __92__AAUIGenericTermsRemoteUI__agreeToTermsWithURLString_serverInfo_preferPassword_completion___block_invoke;
-  v18[3] = &unk_1E820D0D0;
-  v18[4] = self;
-  v19 = completionCopy;
-  v17 = completionCopy;
-  [v14 performRequestWithHandler:v18];
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __92__AAUIGenericTermsRemoteUI__agreeToTermsWithURLString_serverInfo_preferPassword_completion___block_invoke;
+  v19[3] = &unk_1E820D0D0;
+  v19[4] = self;
+  v20 = completionCopy;
+  v18 = completionCopy;
+  [v14 performRequestWithHandler:v19];
 }
 
 void __92__AAUIGenericTermsRemoteUI__agreeToTermsWithURLString_serverInfo_preferPassword_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
   v6 = a3;
   v7 = a4;
-  v8 = _AAUILogSystem();
+  v8 = _AAUILogSystem(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     __92__AAUIGenericTermsRemoteUI__agreeToTermsWithURLString_serverInfo_preferPassword_completion___block_invoke_cold_1();
   }
 
-  if (([v6 statusCode] - 200) > 0x63)
+  v9 = [v6 statusCode];
+  if ((v9 - 200) > 0x63)
   {
-    v16 = _AAUILogSystem();
-    v17 = os_log_type_enabled(v16, OS_LOG_TYPE_ERROR);
+    v17 = _AAUILogSystem(v9);
+    v18 = os_log_type_enabled(v17, OS_LOG_TYPE_ERROR);
     if (v7)
     {
-      if (v17)
+      if (v18)
       {
         __92__AAUIGenericTermsRemoteUI__agreeToTermsWithURLString_serverInfo_preferPassword_completion___block_invoke_cold_2();
       }
     }
 
-    else if (v17)
+    else if (v18)
     {
       __92__AAUIGenericTermsRemoteUI__agreeToTermsWithURLString_serverInfo_preferPassword_completion___block_invoke_cold_3();
     }
@@ -708,22 +711,22 @@ void __92__AAUIGenericTermsRemoteUI__agreeToTermsWithURLString_serverInfo_prefer
 
   else
   {
-    v9 = _AAUILogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = _AAUILogSystem(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      *v18 = 0;
-      _os_log_impl(&dword_1C5355000, v9, OS_LOG_TYPE_DEFAULT, "Successfully agreed to iCloud terms!", v18, 2u);
+      *v19 = 0;
+      _os_log_impl(&dword_1C5355000, v10, OS_LOG_TYPE_DEFAULT, "Successfully agreed to iCloud terms!", v19, 2u);
     }
 
-    v10 = *(a1 + 32);
-    v11 = v6;
-    v12 = [v11 acceptedTermsInfo];
-    [v10 _sendAcceptedTermsInfo:v12];
+    v11 = *(a1 + 32);
+    v12 = v6;
+    v13 = [v12 acceptedTermsInfo];
+    [v11 _sendAcceptedTermsInfo:v13];
 
-    v13 = *(a1 + 40);
-    v14 = [v11 responseDictionary];
-    v15 = [v14 objectForKeyedSubscript:@"serverInfo"];
-    (*(v13 + 16))(v13, 1, v15);
+    v14 = *(a1 + 40);
+    v15 = [v12 responseDictionary];
+    v16 = [v15 objectForKeyedSubscript:@"serverInfo"];
+    (*(v14 + 16))(v14, 1, v16);
   }
 }
 
@@ -745,10 +748,11 @@ void __69__AAUIGenericTermsRemoteUI__disagreeToTermsWithURLString_serverInfo___b
 {
   v5 = a3;
   v6 = a4;
+  v7 = v6;
   if (v6)
   {
-    v7 = _AAUILogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _AAUILogSystem(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __69__AAUIGenericTermsRemoteUI__disagreeToTermsWithURLString_serverInfo___block_invoke_cold_1();
     }
@@ -756,21 +760,21 @@ void __69__AAUIGenericTermsRemoteUI__disagreeToTermsWithURLString_serverInfo___b
 
   else
   {
-    v8 = [v5 statusCode];
-    v9 = _AAUILogSystem();
-    v7 = v9;
-    if (v8 == 200)
+    v9 = [v5 statusCode];
+    v10 = _AAUILogSystem(v9);
+    v8 = v10;
+    if (v9 == 200)
     {
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        *v10 = 0;
-        _os_log_impl(&dword_1C5355000, v7, OS_LOG_TYPE_DEFAULT, "Marked terms as disagreed in iCloud", v10, 2u);
+        *v11 = 0;
+        _os_log_impl(&dword_1C5355000, v8, OS_LOG_TYPE_DEFAULT, "Marked terms as disagreed in iCloud", v11, 2u);
       }
     }
 
-    else if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      __69__AAUIGenericTermsRemoteUI__disagreeToTermsWithURLString_serverInfo___block_invoke_cold_2(v5, v7);
+      __69__AAUIGenericTermsRemoteUI__disagreeToTermsWithURLString_serverInfo___block_invoke_cold_2(v5, v8);
     }
   }
 }
@@ -811,7 +815,7 @@ void __69__AAUIGenericTermsRemoteUI__disagreeToTermsWithURLString_serverInfo___b
   v14 = v13;
   if (lCopy && successCopy)
   {
-    v15 = _AAUILogSystem();
+    v15 = _AAUILogSystem(v13);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -859,7 +863,7 @@ void __78__AAUIGenericTermsRemoteUI__cleanUpAndDismissWithSuccess_agreeURL_serve
 
 void __78__AAUIGenericTermsRemoteUI__cleanUpAndDismissWithSuccess_agreeURL_serverInfo___block_invoke_2(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __78__AAUIGenericTermsRemoteUI__cleanUpAndDismissWithSuccess_agreeURL_serverInfo___block_invoke_3;
@@ -868,37 +872,38 @@ void __78__AAUIGenericTermsRemoteUI__cleanUpAndDismissWithSuccess_agreeURL_serve
   v2 = _Block_copy(aBlock);
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
-  v4 = _AAUILogSystem();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
-  if (isKindOfClass)
+  v4 = isKindOfClass;
+  v5 = _AAUILogSystem(isKindOfClass);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+  if (v4)
   {
-    if (v5)
+    if (v6)
     {
-      v6 = *(a1 + 40);
+      v7 = *(a1 + 40);
       *buf = 138412290;
-      v15 = v6;
-      _os_log_impl(&dword_1C5355000, v4, OS_LOG_TYPE_DEFAULT, "Dismissing presented RUINavigationController %@...", buf, 0xCu);
+      v16 = v7;
+      _os_log_impl(&dword_1C5355000, v5, OS_LOG_TYPE_DEFAULT, "Dismissing presented RUINavigationController %@...", buf, 0xCu);
     }
 
-    v7 = *(a1 + 40);
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __78__AAUIGenericTermsRemoteUI__cleanUpAndDismissWithSuccess_agreeURL_serverInfo___block_invoke_117;
-    v9[3] = &unk_1E820D140;
-    v11 = v2;
-    v12 = *(a1 + 56);
-    v10 = *(a1 + 48);
-    [v7 dismissViewControllerAnimated:1 completion:v9];
+    v8 = *(a1 + 40);
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __78__AAUIGenericTermsRemoteUI__cleanUpAndDismissWithSuccess_agreeURL_serverInfo___block_invoke_117;
+    v10[3] = &unk_1E820D140;
+    v12 = v2;
+    v13 = *(a1 + 56);
+    v11 = *(a1 + 48);
+    [v8 dismissViewControllerAnimated:1 completion:v10];
   }
 
   else
   {
-    if (v5)
+    if (v6)
     {
-      v8 = *(a1 + 40);
+      v9 = *(a1 + 40);
       *buf = 138412290;
-      v15 = v8;
-      _os_log_impl(&dword_1C5355000, v4, OS_LOG_TYPE_DEFAULT, "Terms error alert is not being presented %@. Skipping dismiss", buf, 0xCu);
+      v16 = v9;
+      _os_log_impl(&dword_1C5355000, v5, OS_LOG_TYPE_DEFAULT, "Terms error alert is not being presented %@. Skipping dismiss", buf, 0xCu);
     }
 
     (*(v2 + 2))(v2, *(a1 + 56), *(a1 + 48));
@@ -925,13 +930,13 @@ void __78__AAUIGenericTermsRemoteUI__cleanUpAndDismissWithSuccess_agreeURL_serve
   }
 }
 
-uint64_t __78__AAUIGenericTermsRemoteUI__cleanUpAndDismissWithSuccess_agreeURL_serverInfo___block_invoke_117(uint64_t a1)
+uint64_t __78__AAUIGenericTermsRemoteUI__cleanUpAndDismissWithSuccess_agreeURL_serverInfo___block_invoke_117(uint64_t a1, uint64_t a2)
 {
-  v2 = _AAUILogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = _AAUILogSystem(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_1C5355000, v2, OS_LOG_TYPE_DEFAULT, "Dismissed presented RUINavigationController", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1C5355000, v3, OS_LOG_TYPE_DEFAULT, "Dismissed presented RUINavigationController", v5, 2u);
   }
 
   return (*(*(a1 + 40) + 16))();
@@ -950,7 +955,7 @@ void __78__AAUIGenericTermsRemoteUI__cleanUpAndDismissWithSuccess_agreeURL_serve
   else
   {
     v7 = a3;
-    v8 = _AAUILogSystem();
+    v8 = _AAUILogSystem(v7);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -1016,7 +1021,7 @@ void __78__AAUIGenericTermsRemoteUI__cleanUpAndDismissWithSuccess_agreeURL_serve
 
 - (void)_addHeadersToRequest:(id)request
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   [requestCopy aa_addClientInfoHeaders];
   [requestCopy aa_addAuthTokenOrBasicAuthHeaderWithAccount:self->_account preferUsingPassword:self->_isPreferringPassword];
@@ -1025,21 +1030,21 @@ void __78__AAUIGenericTermsRemoteUI__cleanUpAndDismissWithSuccess_agreeURL_serve
   if (additionalHeaders)
   {
     additionalHeaders2 = [(AAUIGenericTermsRemoteUI *)self additionalHeaders];
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __49__AAUIGenericTermsRemoteUI__addHeadersToRequest___block_invoke;
-    v9[3] = &unk_1E820D1B8;
-    v10 = requestCopy;
-    [additionalHeaders2 enumerateKeysAndObjectsUsingBlock:v9];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __49__AAUIGenericTermsRemoteUI__addHeadersToRequest___block_invoke;
+    v10[3] = &unk_1E820D1B8;
+    v11 = requestCopy;
+    [additionalHeaders2 enumerateKeysAndObjectsUsingBlock:v10];
   }
 
-  v7 = _AAUILogSystem();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = _AAUILogSystem(v6);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     allHTTPHeaderFields = [requestCopy allHTTPHeaderFields];
     *buf = 138412290;
-    v12 = allHTTPHeaderFields;
-    _os_log_impl(&dword_1C5355000, v7, OS_LOG_TYPE_DEFAULT, "Terms Secondary Request Headers: %@", buf, 0xCu);
+    v13 = allHTTPHeaderFields;
+    _os_log_impl(&dword_1C5355000, v8, OS_LOG_TYPE_DEFAULT, "Terms Secondary Request Headers: %@", buf, 0xCu);
   }
 }
 

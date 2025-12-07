@@ -555,62 +555,63 @@ void __69__PKPaymentSetupFooterView__layoutSubviewsInBounds_isTemplateLayout___b
 
 - (id)createPrimaryButton
 {
-  if (_UISolariumFeatureFlagEnabled())
+  v3 = _UISolariumFeatureFlagEnabled();
+  if (v3)
   {
     pkui_tintedGlassButtonConfiguration = [MEMORY[0x1E69DC738] pkui_tintedGlassButtonConfiguration];
     [pkui_tintedGlassButtonConfiguration setButtonSize:3];
-    v4 = PKLocalizedPaymentString(&cfstr_Continue.isa);
-    [pkui_tintedGlassButtonConfiguration setTitle:v4];
+    v5 = PKLocalizedPaymentString(&cfstr_Continue.isa);
+    [pkui_tintedGlassButtonConfiguration setTitle:v5];
 
     [pkui_tintedGlassButtonConfiguration setTitleAlignment:2];
     [pkui_tintedGlassButtonConfiguration contentInsets];
-    v6 = v5;
+    v7 = v6;
     [pkui_tintedGlassButtonConfiguration contentInsets];
-    [pkui_tintedGlassButtonConfiguration setContentInsets:{v6, 0.0}];
-    v7 = [PKOBKPrimaryButton buttonWithConfiguration:pkui_tintedGlassButtonConfiguration primaryAction:0];
-    [v7 setConfiguration:pkui_tintedGlassButtonConfiguration];
-    v8 = PKFontForDefaultDesign(*MEMORY[0x1E69DDCF8], *MEMORY[0x1E69DDC38], *MEMORY[0x1E69DB980]);
-    [v7 pkui_updateTitleTextAttributesWithFont:v8];
+    [pkui_tintedGlassButtonConfiguration setContentInsets:{v7, 0.0}];
+    v8 = [PKOBKPrimaryButton buttonWithConfiguration:pkui_tintedGlassButtonConfiguration primaryAction:0];
+    [v8 setConfiguration:pkui_tintedGlassButtonConfiguration];
+    v9 = PKFontForDefaultDesign(*MEMORY[0x1E69DDCF8], *MEMORY[0x1E69DDC38], *MEMORY[0x1E69DB980]);
+    [v8 pkui_updateTitleTextAttributesWithFont:v9];
   }
 
   else
   {
     if (self->_useAdjacentLayout)
     {
-      PKCreateLargeSolidPillButton();
+      PKCreateLargeSolidPillButton(v3);
     }
 
     else
     {
       PKCreateLargeSolidButton();
     }
-    v7 = ;
-    v9 = PKLocalizedPaymentString(&cfstr_Continue.isa);
-    [v7 setTitle:v9 forState:0];
+    v8 = ;
+    v10 = PKLocalizedPaymentString(&cfstr_Continue.isa);
+    [v8 setTitle:v10 forState:0];
 
-    [v7 setContentEdgeInsets:{0.0, 24.0, 0.0, 24.0}];
-    pkui_tintedGlassButtonConfiguration = [v7 titleLabel];
+    [v8 setContentEdgeInsets:{0.0, 24.0, 0.0, 24.0}];
+    pkui_tintedGlassButtonConfiguration = [v8 titleLabel];
     [pkui_tintedGlassButtonConfiguration setNumberOfLines:0];
     [pkui_tintedGlassButtonConfiguration setTextAlignment:1];
-    v8 = PKFontForDefaultDesign(*MEMORY[0x1E69DDD40], *MEMORY[0x1E69DDC38]);
-    [pkui_tintedGlassButtonConfiguration setFont:v8];
+    v9 = PKFontForDefaultDesign(*MEMORY[0x1E69DDD40], *MEMORY[0x1E69DDC38]);
+    [pkui_tintedGlassButtonConfiguration setFont:v9];
   }
 
-  [v7 setExclusiveTouch:1];
+  [v8 setExclusiveTouch:1];
   if (self->_primaryButtonTintColor)
   {
-    [v7 setTintColor:?];
+    [v8 setTintColor:?];
   }
 
   else
   {
     tintColor = [MEMORY[0x1E69DC888] tintColor];
-    [v7 setTintColor:tintColor];
+    [v8 setTintColor:tintColor];
   }
 
-  [v7 setAccessibilityIdentifier:*MEMORY[0x1E69B9AE0]];
+  [v8 setAccessibilityIdentifier:*MEMORY[0x1E69B9AE0]];
 
-  return v7;
+  return v8;
 }
 
 - (id)createAlternateActionButtonWithTitle:(id)title

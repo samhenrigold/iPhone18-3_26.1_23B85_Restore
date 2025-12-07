@@ -10,7 +10,7 @@
 
 - (NSArray)affectedStores
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   result = self->_affectedStores;
   if (byte_1ED4BEEC4 == 1)
   {
@@ -18,26 +18,26 @@
     if (result)
     {
       v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v14 = 0u;
       v15 = 0u;
       v16 = 0u;
       v17 = 0u;
-      v18 = 0u;
       affectedStores = self->_affectedStores;
-      v6 = [(NSArray *)affectedStores countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [(NSArray *)affectedStores countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v6)
       {
         v7 = v6;
-        v8 = *v16;
+        v8 = *v15;
         do
         {
           for (i = 0; i != v7; ++i)
           {
-            if (*v16 != v8)
+            if (*v15 != v8)
             {
               objc_enumerationMutation(affectedStores);
             }
 
-            v10 = *(*(&v15 + 1) + 8 * i);
+            v10 = *(*(&v14 + 1) + 8 * i);
             if (v10)
             {
               WeakRetained = objc_loadWeakRetained((v10 + 8));
@@ -49,7 +49,7 @@
             }
           }
 
-          v7 = [(NSArray *)affectedStores countByEnumeratingWithState:&v15 objects:v19 count:16];
+          v7 = [(NSArray *)affectedStores countByEnumeratingWithState:&v14 objects:v18 count:16];
         }
 
         while (v7);
@@ -59,17 +59,16 @@
 
       if ([(NSArray *)v13 count])
       {
-        result = v13;
+        return v13;
       }
 
       else
       {
-        result = 0;
+        return 0;
       }
     }
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -94,26 +93,24 @@
 
 - (NSPersistentStoreRequestType)requestType
 {
-  objc_opt_class();
-  NSRequestConcreteImplementation();
+  v4 = objc_opt_class();
+  NSRequestConcreteImplementation(self, a2, v4, v5, v6, v7, v8, v9);
   return 0;
 }
 
 - (void)setAffectedStores:(NSArray *)affectedStores
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   v5 = self->_affectedStores;
   if (byte_1ED4BEEC4 == 1)
   {
-    if (v5 != affectedStores)
+    if (v5 == affectedStores)
     {
+      return;
+    }
 
-      if (![(NSArray *)affectedStores count])
-      {
-        self->_affectedStores = 0;
-        goto LABEL_39;
-      }
-
+    if ([(NSArray *)affectedStores count])
+    {
       v6 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:affectedStores];
       v7 = [v6 count];
       v8 = v7;
@@ -137,7 +134,7 @@
         v10 = v9;
       }
 
-      v11 = v23 - ((8 * v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v11 = v22 - ((8 * v10 + 15) & 0xFFFFFFFFFFFFFFF0);
       if (v7 >= 0x201)
       {
         v11 = NSAllocateScannedUncollectable();
@@ -146,13 +143,13 @@
 
       else
       {
-        bzero(v23 - ((8 * v10 + 15) & 0xFFFFFFFFFFFFFFF0), 8 * v9);
+        bzero(v22 - ((8 * v10 + 15) & 0xFFFFFFFFFFFFFFF0), 8 * v9);
         [v6 getObjects:v11];
         if (!v8)
         {
           self->_affectedStores = 0;
 
-          goto LABEL_39;
+          return;
         }
       }
 
@@ -186,6 +183,11 @@
       {
         NSZoneFree(0, v11);
       }
+    }
+
+    else
+    {
+      self->_affectedStores = 0;
     }
   }
 
@@ -222,7 +224,7 @@
         v16 = v15;
       }
 
-      v17 = v23 - ((8 * v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v17 = v22 - ((8 * v16 + 15) & 0xFFFFFFFFFFFFFFF0);
       if (v13 > 0x200)
       {
         v17 = NSAllocateScannedUncollectable();
@@ -230,7 +232,7 @@
 
       else
       {
-        bzero(v23 - ((8 * v16 + 15) & 0xFFFFFFFFFFFFFFF0), 8 * v15);
+        bzero(v22 - ((8 * v16 + 15) & 0xFFFFFFFFFFFFFFF0), 8 * v15);
       }
 
       [v12 getObjects:v17];
@@ -242,9 +244,6 @@
       }
     }
   }
-
-LABEL_39:
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 @end

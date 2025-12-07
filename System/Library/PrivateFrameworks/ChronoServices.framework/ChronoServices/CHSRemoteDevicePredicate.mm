@@ -70,15 +70,14 @@
 {
   v3 = sub_195FA0548();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_195FA0538();
   swift_getObjCClassMetadata();
-  v8 = static CHSRemoteDevicePredicate.relationshipIdentifier(_:)();
-  (*(v4 + 8))(v7, v3);
+  v7 = static CHSRemoteDevicePredicate.relationshipIdentifier(_:)();
+  (*(v4 + 8))(v6, v3);
 
-  return v8;
+  return v7;
 }
 
 + (CHSRemoteDevicePredicate)allPredicate

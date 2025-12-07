@@ -13,21 +13,19 @@
 
 - (id)initFromResourceDepot:(id)depot name:(id)name
 {
-  v6 = sub_10007E158();
-  v8 = v7;
+  v5 = sub_10007E158();
+  v7 = v6;
   oneSourceDelegate = [swift_unknownObjectRetain() oneSourceDelegate];
   result = [depot oneNetworkRequester];
   if (result)
   {
-    v11 = result;
-    v12 = objc_allocWithZone(type metadata accessor for MapsSuggestionsCurrentLocationSource());
-    v13 = sub_10004B5C4(oneSourceDelegate, v11, v6, v8);
+    v10 = result;
+    v11 = objc_allocWithZone(type metadata accessor for MapsSuggestionsCurrentLocationSource(0));
+    v12 = sub_10004B5C4(oneSourceDelegate, v10, v5, v7);
     swift_unknownObjectRelease();
     swift_getObjectType();
-    v14 = *((swift_isaMask & *self->MapsSuggestionsBaseSource_opaque) + 0x30);
-    v15 = *((swift_isaMask & *self->MapsSuggestionsBaseSource_opaque) + 0x34);
     swift_deallocPartialClassInstance();
-    return v13;
+    return v12;
   }
 
   else
@@ -79,14 +77,13 @@
 
   selfCopy = self;
   MapsSuggestionsCurrentLocationSource.updateSuggestionEntries(handler:)(v7, v6);
-  sub_100052650(v7);
+  sub_100052650(v7, v6);
 
   return 0.0;
 }
 
 + (BOOL)isEnabled
 {
-  v2 = GEOConfigMapsSuggestionsVisitedPlacesEnabled[1];
   BOOL = GEOConfigGetBOOL();
   if (BOOL)
   {

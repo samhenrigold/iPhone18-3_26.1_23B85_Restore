@@ -38,28 +38,28 @@
 
 - (id)loadWorldFromURL:(id)l options:(id)options statusHandler:(id)handler error:(id *)error
 {
-  v11 = sub_1AF0D5194();
+  v11 = sub_1AF0D5194(self, a2);
   v12 = os_signpost_id_generate(v11);
-  v13 = sub_1AF0D5194();
+  v14 = sub_1AF0D5194(v12, v13);
   if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v15 = v13;
-    if (os_signpost_enabled(v13))
+    v16 = v14;
+    if (os_signpost_enabled(v14))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1AF0CE000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v12, "LoadWorld", &unk_1AFF70A1D, buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1AF0CE000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v12, "LoadWorld", &unk_1AFF70A1D, buf, 2u);
     }
   }
 
-  URL_options_statusHandler_error = objc_msgSend__loadURL_options_statusHandler_error_(self, v14, l, options, handler, error);
-  v17 = sub_1AF0D5194();
+  URL_options_statusHandler_error = objc_msgSend__loadURL_options_statusHandler_error_(self, v15, l, options, handler, error);
+  v19 = sub_1AF0D5194(URL_options_statusHandler_error, v18);
   if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v18 = v17;
-    if (os_signpost_enabled(v17))
+    v20 = v19;
+    if (os_signpost_enabled(v19))
     {
-      *v20 = 0;
-      _os_signpost_emit_with_name_impl(&dword_1AF0CE000, v18, OS_SIGNPOST_INTERVAL_END, v12, "LoadWorld", &unk_1AFF70A1D, v20, 2u);
+      *v22 = 0;
+      _os_signpost_emit_with_name_impl(&dword_1AF0CE000, v20, OS_SIGNPOST_INTERVAL_END, v12, "LoadWorld", &unk_1AFF70A1D, v22, 2u);
     }
   }
 
@@ -70,88 +70,89 @@
 {
   if (options)
   {
-    v11 = objc_msgSend_mutableCopy(options, a2, l, options);
+    v11 = objc_msgSend_mutableCopy(options, a2, l);
   }
 
   else
   {
-    v11 = objc_msgSend_dictionary(MEMORY[0x1E695DF90], a2, l, 0);
+    v11 = objc_msgSend_dictionary(MEMORY[0x1E695DF90], a2, l);
   }
 
-  v15 = v11;
-  v16 = objc_msgSend_pathExtension(l, v12, v13, v14);
-  v20 = objc_msgSend_lowercaseString(v16, v17, v18, v19);
-  if ((objc_msgSend_isEqualToString_(v20, v21, @"vfxproj", v22) & 1) != 0 || objc_msgSend_isEqualToString_(v20, v23, @"vfx", v25))
+  v14 = v11;
+  v15 = objc_msgSend_pathExtension(l, v12, v13);
+  v18 = objc_msgSend_lowercaseString(v15, v16, v17);
+  if ((objc_msgSend_isEqualToString_(v18, v19, @"vfxproj") & 1) != 0 || objc_msgSend_isEqualToString_(v18, v20, @"vfx"))
   {
-    objc_msgSend_begin(VFXTransaction, v23, v24, v25);
-    v28 = objc_msgSend_URLByAppendingPathComponent_(l, v26, @"world.plist", v27);
-    WorldDescriptionAt_options_compressed_statusHandler_error = objc_msgSend_loadWorldDescriptionAt_options_compressed_statusHandler_error_(self, v29, v28, v15, 0, handler, error);
+    objc_msgSend_begin(VFXTransaction, v20, v21);
+    v23 = objc_msgSend_URLByAppendingPathComponent_(l, v22, @"world.plist");
+    WorldDescriptionAt_options_compressed_statusHandler_error = objc_msgSend_loadWorldDescriptionAt_options_compressed_statusHandler_error_(self, v24, v23, v14, 0, handler, error);
     if (!WorldDescriptionAt_options_compressed_statusHandler_error)
     {
-      v34 = sub_1AF0D5194();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+      v28 = sub_1AF0D5194(0, v25);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1AF0CE000, v34, OS_LOG_TYPE_DEFAULT, "Warning: loading VFX1 file format", buf, 2u);
+        _os_log_impl(&dword_1AF0CE000, v28, OS_LOG_TYPE_DEFAULT, "Warning: loading VFX1 file format", buf, 2u);
       }
     }
 
-    v35 = objc_msgSend_dictionary(MEMORY[0x1E695DF90], v30, v31, v32);
-    v38 = objc_msgSend_objectForKeyedSubscript_(options, v36, @"VFXWorldLoaderDisableVFXCoreSupport", v37);
-    v45 = objc_msgSend_BOOLValue(v38, v39, v40, v41);
-    if ((v45 & 1) == 0 && (objc_msgSend_loadCoreEntityManagerFromURL_options_infoOut_error_(WorldDescriptionAt_options_compressed_statusHandler_error, v42, l, v15, v35, error) & 1) == 0)
+    v29 = objc_msgSend_dictionary(MEMORY[0x1E695DF90], v25, v26);
+    v31 = objc_msgSend_objectForKeyedSubscript_(options, v30, @"VFXWorldLoaderDisableVFXCoreSupport");
+    v36 = objc_msgSend_BOOLValue(v31, v32, v33);
+    if ((v36 & 1) == 0 && (objc_msgSend_loadCoreEntityManagerFromURL_options_infoOut_error_(WorldDescriptionAt_options_compressed_statusHandler_error, v34, l, v14, v29, error) & 1) == 0)
     {
       goto LABEL_22;
     }
 
-    v46 = objc_msgSend_defaultRenderGraph(WorldDescriptionAt_options_compressed_statusHandler_error, v42, v43, v44);
-    v49 = objc_msgSend_objectForKeyedSubscript_(v35, v47, @"serializationContext", v48);
-    objc_msgSend_finishLoadingWithSerializationContext_(v46, v50, v49, v51);
-    v55 = objc_msgSend_assets(WorldDescriptionAt_options_compressed_statusHandler_error, v52, v53, v54);
-    v59 = objc_msgSend_rootNode(v55, v56, v57, v58);
-    v106[0] = MEMORY[0x1E69E9820];
-    v106[1] = 3221225472;
-    v106[2] = sub_1AF34F4C4;
-    v106[3] = &unk_1E7A7F3C0;
-    v106[4] = v35;
-    objc_msgSend_enumerateHierarchyUsingBlock_(v59, v60, v106, v61);
-    if (v45)
+    v37 = objc_msgSend_defaultRenderGraph(WorldDescriptionAt_options_compressed_statusHandler_error, v34, v35);
+    v39 = objc_msgSend_objectForKeyedSubscript_(v29, v38, @"serializationContext");
+    objc_msgSend_finishLoadingWithSerializationContext_(v37, v40, v39);
+    v43 = objc_msgSend_assets(WorldDescriptionAt_options_compressed_statusHandler_error, v41, v42);
+    v46 = objc_msgSend_rootNode(v43, v44, v45);
+    v80[0] = MEMORY[0x1E69E9820];
+    v80[1] = 3221225472;
+    v80[2] = sub_1AF34F4C4;
+    v80[3] = &unk_1E7A7F3C0;
+    v80[4] = v29;
+    objc_msgSend_enumerateHierarchyUsingBlock_(v46, v47, v80);
+    if (v36)
     {
-      objc_msgSend_commit(VFXTransaction, v62, v63, v64);
+      objc_msgSend_commit(VFXTransaction, v48, v49);
 LABEL_13:
-      v67 = objc_msgSend_objectForKeyedSubscript_(v35, v65, @"version", v66);
-      self->_version = objc_msgSend_intValue(v67, v68, v69, v70);
-      self->_documentUUID = objc_msgSend_objectForKeyedSubscript_(v35, v71, @"documentUUID", v72);
-      self->_warnings = objc_msgSend_objectForKeyedSubscript_(v35, v73, @"warnings", v74);
-      v77 = objc_msgSend_objectForKeyedSubscript_(v35, v75, @"precompiled", v76);
-      self->_precompiled = objc_msgSend_BOOLValue(v77, v78, v79, v80);
+      v51 = objc_msgSend_objectForKeyedSubscript_(v29, v50, @"version");
+      self->_version = objc_msgSend_intValue(v51, v52, v53);
+      self->_documentUUID = objc_msgSend_objectForKeyedSubscript_(v29, v54, @"documentUUID");
+      self->_warnings = objc_msgSend_objectForKeyedSubscript_(v29, v55, @"warnings");
+      v57 = objc_msgSend_objectForKeyedSubscript_(v29, v56, @"precompiled");
+      v60 = objc_msgSend_BOOLValue(v57, v58, v59);
+      self->_precompiled = v60;
       if (!error || !*error)
       {
         return WorldDescriptionAt_options_compressed_statusHandler_error;
       }
 
-      v81 = sub_1AF0D5194();
-      if (os_log_type_enabled(v81, OS_LOG_TYPE_ERROR))
+      v62 = sub_1AF0D5194(v60, v61);
+      if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
       {
-        sub_1AFDFA20C(error, v81);
+        sub_1AFDFA20C(error, v62);
       }
 
       return 0;
     }
 
-    objc_msgSend_resolveVFXCoreAndTagReferences(WorldDescriptionAt_options_compressed_statusHandler_error, v62, v63, v64);
-    if (objc_msgSend_migrateCoreEntityManagerWithInfo_error_(WorldDescriptionAt_options_compressed_statusHandler_error, v82, v35, error))
+    objc_msgSend_resolveVFXCoreAndTagReferences(WorldDescriptionAt_options_compressed_statusHandler_error, v48, v49);
+    if (objc_msgSend_migrateCoreEntityManagerWithInfo_error_(WorldDescriptionAt_options_compressed_statusHandler_error, v63, v29, error))
     {
-      objc_msgSend_replicateToRuntimeAndStartReplicationWithOptions_(WorldDescriptionAt_options_compressed_statusHandler_error, v42, options, v44);
-      v85 = objc_msgSend_objectForKeyedSubscript_(options, v83, @"VFXWorldLoaderCompileGraphsCallback", v84);
-      if (v85)
+      objc_msgSend_replicateToRuntimeAndStartReplicationWithOptions_(WorldDescriptionAt_options_compressed_statusHandler_error, v34, options);
+      v65 = objc_msgSend_objectForKeyedSubscript_(options, v64, @"VFXWorldLoaderCompileGraphsCallback");
+      if (v65)
       {
-        (*(v85 + 16))(v85, WorldDescriptionAt_options_compressed_statusHandler_error);
+        (*(v65 + 16))(v65, WorldDescriptionAt_options_compressed_statusHandler_error);
       }
 
-      v87 = objc_msgSend_initializeCoreEntityManagerWithInfo_error_(WorldDescriptionAt_options_compressed_statusHandler_error, v86, v35, error);
-      objc_msgSend_commit(VFXTransaction, v88, v89, v90);
-      if (v87)
+      v67 = objc_msgSend_initializeCoreEntityManagerWithInfo_error_(WorldDescriptionAt_options_compressed_statusHandler_error, v66, v29, error);
+      objc_msgSend_commit(VFXTransaction, v68, v69);
+      if (v67)
       {
         goto LABEL_13;
       }
@@ -160,79 +161,79 @@ LABEL_13:
     else
     {
 LABEL_22:
-      objc_msgSend_commit(VFXTransaction, v42, v43, v44);
+      objc_msgSend_commit(VFXTransaction, v34, v35);
     }
 
     return 0;
   }
 
-  v91 = objc_msgSend_valueForKey_(options, v23, @"kSceneSourceFormat", v25);
-  if (objc_msgSend_isEqualToString_(v20, v92, @"vfx-world", v93))
+  v70 = objc_msgSend_valueForKey_(options, v20, @"kSceneSourceFormat");
+  if (objc_msgSend_isEqualToString_(v18, v71, @"vfx-world"))
   {
     isEqualToString = 1;
   }
 
   else
   {
-    isEqualToString = objc_msgSend_isEqualToString_(v91, v94, @"vfx-world", v95);
+    isEqualToString = objc_msgSend_isEqualToString_(v70, v72, @"vfx-world");
   }
 
-  if (objc_msgSend_isEqualToString_(v20, v94, @"vfxz-world", v95))
+  if (objc_msgSend_isEqualToString_(v18, v72, @"vfxz-world"))
   {
-    LOBYTE(v99) = 1;
+    LOBYTE(v75) = 1;
   }
 
   else
   {
-    v99 = objc_msgSend_isEqualToString_(v91, v97, @"vfxz-world", v98);
-    if (((isEqualToString | v99) & 1) == 0)
+    v75 = objc_msgSend_isEqualToString_(v70, v74, @"vfxz-world");
+    if (((isEqualToString | v75) & 1) == 0)
     {
-      if (!objc_msgSend_isEqualToString_(v20, v97, @"plist", v100))
+      if (!objc_msgSend_isEqualToString_(v18, v74, @"plist"))
       {
         goto LABEL_35;
       }
 
-      LOBYTE(v99) = 0;
+      LOBYTE(v75) = 0;
     }
   }
 
-  v101 = objc_msgSend_loadWorldDescriptionAt_options_compressed_statusHandler_error_(self, v97, l, options, v99 & 1, handler, error);
-  if (v101)
+  v76 = objc_msgSend_loadWorldDescriptionAt_options_compressed_statusHandler_error_(self, v74, l, options, v75 & 1, handler, error);
+  if (v76)
   {
-    WorldDescriptionAt_options_compressed_statusHandler_error = v101;
-    objc_msgSend_resolveVFXCoreAndTagReferences(v101, v102, v103, v104);
+    WorldDescriptionAt_options_compressed_statusHandler_error = v76;
+    objc_msgSend_resolveVFXCoreAndTagReferences(v76, v77, v78);
     return WorldDescriptionAt_options_compressed_statusHandler_error;
   }
 
 LABEL_35:
 
-  return MEMORY[0x1EEE66B58](self, sel_loadNonNativeFormatAt_options_statusHandler_error_, l, options);
+  return MEMORY[0x1EEE66B58](self, sel_loadNonNativeFormatAt_options_statusHandler_error_, l);
 }
 
 - (id)loadWorldFromData:(id)data options:(id)options statusHandler:(id)handler error:(id *)error
 {
-  v11 = sub_1AF0D5194();
+  v11 = sub_1AF0D5194(self, a2);
   v12 = os_signpost_id_generate(v11);
-  v13 = sub_1AF0D5194();
+  v14 = sub_1AF0D5194(v12, v13);
   if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v15 = v13;
-    if (os_signpost_enabled(v13))
+    v16 = v14;
+    if (os_signpost_enabled(v14))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1AF0CE000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v12, "LoadWorld", &unk_1AFF70A1D, buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1AF0CE000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v12, "LoadWorld", &unk_1AFF70A1D, buf, 2u);
     }
   }
 
-  WorldDescriptionFromData_options_compressed_sourceURL_statusHandler_error = objc_msgSend_loadWorldDescriptionFromData_options_compressed_sourceURL_statusHandler_error_(self, v14, data, options, 0, 0, handler, error);
-  v17 = sub_1AF0D5194();
+  WorldDescriptionFromData_options_compressed_sourceURL_statusHandler_error = objc_msgSend_loadWorldDescriptionFromData_options_compressed_sourceURL_statusHandler_error_(self, v15, data, options, 0, 0, handler, error);
+  v19 = sub_1AF0D5194(WorldDescriptionFromData_options_compressed_sourceURL_statusHandler_error, v18);
   if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v18 = v17;
-    if (os_signpost_enabled(v17))
+    v20 = v19;
+    if (os_signpost_enabled(v19))
     {
-      *v20 = 0;
-      _os_signpost_emit_with_name_impl(&dword_1AF0CE000, v18, OS_SIGNPOST_INTERVAL_END, v12, "LoadWorld", &unk_1AFF70A1D, v20, 2u);
+      *v22 = 0;
+      _os_signpost_emit_with_name_impl(&dword_1AF0CE000, v20, OS_SIGNPOST_INTERVAL_END, v12, "LoadWorld", &unk_1AFF70A1D, v22, 2u);
     }
   }
 
@@ -241,18 +242,18 @@ LABEL_35:
 
 - (id)loadNonNativeFormatAt:(id)at options:(id)options statusHandler:(id)handler error:(id *)error
 {
-  v10 = [VFXWorld alloc];
-  v13 = objc_msgSend_initWithOptions_(v10, v11, options, v12);
-  v14 = MEMORY[0x1E6974B48];
-  v18 = objc_msgSend_pathExtension(at, v15, v16, v17);
-  LODWORD(v14) = objc_msgSend_canImportFileExtension_(v14, v19, v18, v20);
-  objc_msgSend_begin(VFXTransaction, v21, v22, v23);
-  objc_msgSend_setImmediateMode_(VFXTransaction, v24, 1, v25);
-  if (v14)
+  v9 = [VFXWorld alloc];
+  v11 = objc_msgSend_initWithOptions_(v9, v10, options);
+  v12 = MEMORY[0x1E6974B48];
+  v15 = objc_msgSend_pathExtension(at, v13, v14);
+  LODWORD(v12) = objc_msgSend_canImportFileExtension_(v12, v16, v15);
+  objc_msgSend_begin(VFXTransaction, v17, v18);
+  objc_msgSend_setImmediateMode_(VFXTransaction, v19, 1);
+  if (v12)
   {
-    v27 = sub_1AF2ED7AC(v13, at, options, handler);
-    objc_msgSend_commit(VFXTransaction, v28, v29, v30);
-    if (v27)
+    v21 = sub_1AF2ED7AC(v11, at, options);
+    objc_msgSend_commit(VFXTransaction, v22, v23);
+    if (v21)
     {
       goto LABEL_12;
     }
@@ -260,35 +261,35 @@ LABEL_35:
 
   else
   {
-    v41 = 0;
-    objc_msgSend_loadSCN_options_error_(v13, v26, at, options, &v41);
-    if (!v41)
+    v33 = 0;
+    v24 = objc_msgSend_loadSCN_options_error_(v11, v20, at, options, &v33);
+    if (!v33)
     {
-      objc_msgSend_commit(VFXTransaction, v31, v32, v33);
+      objc_msgSend_commit(VFXTransaction, v25, v26);
 LABEL_12:
-      sub_1AF1D7C54(v13, options, 0, -1);
-      v38 = v13;
+      sub_1AF1D7C54(v11, options, 0, -1);
+      v30 = v11;
       goto LABEL_13;
     }
 
     if (error)
     {
-      *error = v41;
+      *error = v33;
     }
 
-    v34 = sub_1AF0D5194();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+    v27 = sub_1AF0D5194(v24, v25);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
-      sub_1AFDFA288(at, &v41, v34);
+      sub_1AFDFA288(at, &v33, v27);
     }
 
-    objc_msgSend_commit(VFXTransaction, v35, v36, v37);
+    objc_msgSend_commit(VFXTransaction, v28, v29);
   }
 
-  v38 = 0;
+  v30 = 0;
 LABEL_13:
-  v39 = v13;
-  return v38;
+  v31 = v11;
+  return v30;
 }
 
 - (id)loadWorldDescriptionAt:(id)at options:(id)options compressed:(BOOL)compressed statusHandler:(id)handler error:(id *)error
@@ -326,7 +327,7 @@ LABEL_13:
 - (id)loadWorldDescriptionFromData:(id)data options:(id)options compressed:(BOOL)compressed sourceURL:(id)l statusHandler:(id)handler error:(id *)error
 {
   compressedCopy = compressed;
-  v53[2] = *MEMORY[0x1E69E9840];
+  v45[2] = *MEMORY[0x1E69E9840];
   if (!l)
   {
     v13 = 1;
@@ -336,7 +337,7 @@ LABEL_13:
     }
 
 LABEL_5:
-    result = objc_msgSend_vfx_uncompressedDataUsingCompressionAlgorithm_(data, a2, 517, options);
+    result = objc_msgSend_vfx_uncompressedDataUsingCompressionAlgorithm_(data, a2, 517);
     data = result;
     if (!result)
     {
@@ -355,65 +356,65 @@ LABEL_5:
 LABEL_6:
   v15 = [VFXKeyedUnarchiver alloc];
   v17 = objc_msgSend_initForReadingWithData_secure_(v15, v16, data, v13);
-  v20 = v17;
+  v19 = v17;
   if (!v17)
   {
     return 0;
   }
 
-  objc_msgSend_setDelegate_(v17, v18, self, v19);
+  objc_msgSend_setDelegate_(v17, v18, self);
   context = objc_autoreleasePoolPush();
   if (l)
   {
-    v23 = sub_1AF1D649C(options, l);
-    objc_msgSend_setContext_(v20, v24, v23, v25);
-    objc_msgSend_setDocumentURL_(v20, v26, l, v27);
-    v52 = v23;
-    objc_msgSend_setObject_forKeyedSubscript_(v23, v28, l, @"url");
+    v21 = sub_1AF1D649C(options, l);
+    objc_msgSend_setContext_(v19, v22, v21);
+    objc_msgSend_setDocumentURL_(v19, v23, l);
+    v44 = v21;
+    objc_msgSend_setObject_forKeyedSubscript_(v21, v24, l, @"url");
   }
 
   else
   {
-    v52 = 0;
+    v44 = 0;
   }
 
-  v29 = objc_msgSend_valueForKey_(VFXTransaction, v21, @"VFXWorldLoadingContextKey", v22);
-  objc_msgSend_setValue_forKey_(VFXTransaction, v30, v52, @"VFXWorldLoadingContextKey");
-  v31 = MEMORY[0x1E695DFD8];
-  v53[0] = objc_opt_class();
-  v53[1] = objc_opt_class();
-  v33 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v32, v53, 2);
-  v36 = objc_msgSend_setWithArray_(v31, v34, v33, v35);
-  v38 = objc_msgSend_decodeObjectOfClasses_forKey_(v20, v37, v36, @"root");
+  v25 = objc_msgSend_valueForKey_(VFXTransaction, v20, @"VFXWorldLoadingContextKey");
+  objc_msgSend_setValue_forKey_(VFXTransaction, v26, v44, @"VFXWorldLoadingContextKey");
+  v27 = MEMORY[0x1E695DFD8];
+  v45[0] = objc_opt_class();
+  v45[1] = objc_opt_class();
+  v29 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v28, v45, 2);
+  v31 = objc_msgSend_setWithArray_(v27, v30, v29);
+  v33 = objc_msgSend_decodeObjectOfClasses_forKey_(v19, v32, v31, @"root");
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v39 = objc_alloc_init(VFXWorld);
-    v43 = objc_msgSend_rootNode(v39, v40, v41, v42);
-    objc_msgSend_addChildNode_(v43, v44, v38, v45);
+    v34 = objc_alloc_init(VFXWorld);
+    v37 = objc_msgSend_rootNode(v34, v35, v36);
+    objc_msgSend_addChildNode_(v37, v38, v33);
   }
 
   else
   {
-    v39 = v38;
-    v47 = v38;
+    v34 = v33;
+    v40 = v33;
   }
 
-  if (v39)
+  if (v34)
   {
-    sub_1AF1D7C54(v39, options, 0, -1);
+    sub_1AF1D7C54(v34, options, 0, -1);
   }
 
-  objc_msgSend_setValue_forKey_(VFXTransaction, v46, v29, @"VFXWorldLoadingContextKey");
+  objc_msgSend_setValue_forKey_(VFXTransaction, v39, v25, @"VFXWorldLoadingContextKey");
 
-  objc_msgSend_finishDecoding(v20, v48, v49, v50);
-  if (v52)
+  objc_msgSend_finishDecoding(v19, v41, v42);
+  if (v44)
   {
-    CFRelease(v52);
+    CFRelease(v44);
   }
 
   objc_autoreleasePoolPop(context);
-  return v39;
+  return v34;
 }
 
 - (NSUUID)documentUUID
@@ -430,76 +431,76 @@ LABEL_6:
 
 - (Class)unarchiver:(id)unarchiver cannotDecodeObjectOfClassName:(id)name originalClasses:(id)classes
 {
-  v43 = *MEMORY[0x1E69E9840];
-  v7 = sub_1AF36FBF4();
+  v41 = *MEMORY[0x1E69E9840];
+  v7 = sub_1AF36FBF4(self, a2);
+  v35 = 0u;
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
-  v40 = 0u;
-  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(classes, v8, &v37, v42, 16);
+  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(classes, v8, &v35, v40, 16);
   if (!v9)
   {
     return 0;
   }
 
-  v12 = v9;
-  v13 = *v38;
+  v11 = v9;
+  v12 = *v36;
   while (2)
   {
-    for (i = 0; i != v12; ++i)
+    for (i = 0; i != v11; ++i)
     {
-      if (*v38 != v13)
+      if (*v36 != v12)
       {
         objc_enumerationMutation(classes);
       }
 
-      v15 = objc_msgSend_classNamed_(v7, v10, *(*(&v37 + 1) + 8 * i), v11);
-      if (v15)
+      v14 = objc_msgSend_classNamed_(v7, v10, *(*(&v35 + 1) + 8 * i));
+      if (v14)
       {
-        v17 = v15;
-        if (!objc_msgSend_requiresSecureCoding(unarchiver, v10, v16, v11))
+        v16 = v14;
+        if (!objc_msgSend_requiresSecureCoding(unarchiver, v10, v15))
         {
-          return v17;
+          return v16;
         }
 
-        v35 = 0u;
-        v36 = 0u;
         v33 = 0u;
         v34 = 0u;
-        v21 = objc_msgSend_allowedClasses(unarchiver, v18, v19, v20);
-        v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v22, &v33, v41, 16);
-        if (v23)
+        v31 = 0u;
+        v32 = 0u;
+        v19 = objc_msgSend_allowedClasses(unarchiver, v17, v18);
+        v21 = objc_msgSend_countByEnumeratingWithState_objects_count_(v19, v20, &v31, v39, 16);
+        if (v21)
         {
-          v24 = v23;
-          v25 = *v34;
-          v32 = v12;
+          v22 = v21;
+          v23 = *v32;
+          v30 = v11;
 LABEL_10:
           unarchiverCopy = unarchiver;
           classesCopy = classes;
-          v28 = v7;
-          v29 = v13;
-          v30 = 0;
+          v26 = v7;
+          v27 = v12;
+          v28 = 0;
           while (1)
           {
-            if (*v34 != v25)
+            if (*v32 != v23)
             {
-              objc_enumerationMutation(v21);
+              objc_enumerationMutation(v19);
             }
 
-            if (objc_msgSend_isSubclassOfClass_(v17, v10, *(*(&v33 + 1) + 8 * v30), v11))
+            if (objc_msgSend_isSubclassOfClass_(v16, v10, *(*(&v31 + 1) + 8 * v28)))
             {
-              return v17;
+              return v16;
             }
 
-            if (v24 == ++v30)
+            if (v22 == ++v28)
             {
-              v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v10, &v33, v41, 16);
-              v13 = v29;
-              v7 = v28;
+              v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(v19, v10, &v31, v39, 16);
+              v12 = v27;
+              v7 = v26;
               classes = classesCopy;
               unarchiver = unarchiverCopy;
-              v12 = v32;
-              if (v24)
+              v11 = v30;
+              if (v22)
               {
                 goto LABEL_10;
               }
@@ -511,23 +512,23 @@ LABEL_10:
       }
     }
 
-    v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(classes, v10, &v37, v42, 16);
-    v17 = 0;
-    if (v12)
+    v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(classes, v10, &v35, v40, 16);
+    v16 = 0;
+    if (v11)
     {
       continue;
     }
 
-    return v17;
+    return v16;
   }
 }
 
 + (void)transferWorld:(id)world to:(id)to
 {
   objc_msgSend__mergeWorld_parentNode_parentAssetNode_remapEntities_(to, a2, world, 0, 0, 0);
-  v10 = objc_msgSend_identifier(world, v6, v7, v8);
+  v9 = objc_msgSend_identifier(world, v6, v7);
 
-  objc_msgSend_setIdentifier_(to, v9, v10, v11);
+  objc_msgSend_setIdentifier_(to, v8, v9);
 }
 
 @end

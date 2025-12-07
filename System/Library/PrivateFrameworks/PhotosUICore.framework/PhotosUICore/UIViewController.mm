@@ -77,7 +77,7 @@ double __117__UIViewController_PhotosUICore__px_adjustAdditionalSafeAreaInsetsTo
   return v4;
 }
 
-uint64_t __90__UIViewController_PXImageModulationManager_Private__px_effectiveImageModulationIntensity__block_invoke_3()
+void *__90__UIViewController_PXImageModulationManager_Private__px_effectiveImageModulationIntensity__block_invoke_3()
 {
   result = [MEMORY[0x1E69DD258] instancesRespondToSelector:sel_px_effectiveImageModulationIntensityWithProposedValue_];
   px_effectiveImageModulationIntensity_hookExists = result;
